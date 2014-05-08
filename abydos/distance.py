@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+from __future__ import division
 import numpy
 import sys
 import abydos.util
@@ -132,11 +133,12 @@ def hamming(s, t, allow_different_lengths=False):
     dist += sum(c1 != c2 for c1, c2 in zip(s, t))
     return dist
 
-def sorensen(s, t):
+def sorensen(s, t, q=2):
     """Return the Sørensen–Dice coefficient of two string arguments.
 
     Arguments:
     s, t -- two strings to be compared
+    q -- the length of each q-gram
 
     Description:
     The coefficient is calculated according to the formula:
@@ -145,5 +147,22 @@ def sorensen(s, t):
     """
     if s == t:
         return 1.0
-    q_s, q_t, q_common = abydos.util.qgram_counts(s, t)
-    return 2.0*q_common/(2*q_common+q_s+q_t)
+    q_s, q_t, q_common = abydos.util.qgram_counts(s, t, q)
+    return 2 * q_common / (q_s + q_t)
+
+def jaccard(s, t, q=2):
+    """Return the Jaccard similarity coefficient of two string arguments.
+
+    Arguments:
+    s, t -- two strings to be compared
+
+    Description:
+    The coefficient is calcaulated according to the formula:
+    coefficient = intersection of q-gram sets / union of q-gram sets
+    """
+    if s == t:
+        return 1.0
+    elif len(s) == 0 and len(t) == 0:
+        return 1.0
+    q_s, q_t, q_common = abydos.util.qgram_counts(s, t, q)
+    return q_common / (q_s + q_t - q_common)
