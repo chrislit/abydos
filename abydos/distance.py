@@ -4,7 +4,8 @@ from __future__ import unicode_literals
 from __future__ import division
 import numpy
 import sys
-import abydos.util
+import math
+from .util import _qgram_counts
 
 def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
     """Return the Levenshtein distance between two string arguments
@@ -110,7 +111,6 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
 
         return d[len(s)-1, len(t)-1]
 
-    
 
 def hamming(s, t, allow_different_lengths=False):
     """Return the hamming distance between two string arguments.
@@ -133,7 +133,46 @@ def hamming(s, t, allow_different_lengths=False):
     dist += sum(c1 != c2 for c1, c2 in zip(s, t))
     return dist
 
-def sorensen(s, t, q=2):
+
+def tversky_index(s, t, q=2, alpha=1, beta=1, bias=None):
+    """Return the Tversky index of two string arguments.
+
+    Arguments:
+    s, t -- two strings to be compared
+    q -- the length of each q-gram
+    alpha, beta -- two Tversky index parameters as indicated in the description below
+
+    The Tversky index is defined as:
+    For two sets X and Y:
+    S(X,Y) = |X∩Y| / (|X∩Y| + α|X-Y| + β|Y-X|)
+
+    α = β = 1 is equivalent to the Jaccard & Tanimoto similarity coefficients
+    α = β = 0.5 is equivalent to the Sorensen-Dice similarity coefficient
+
+    Unequal α and β will tend to emphasize one or the other set's contributions (α>β emphasizes the contributions of X over Y; α<β emphasizes the contributions of Y over X.
+    α and β > 1 emphsize unique contributions over the intersection.
+    α and β < 1 emphsize the intersection over unique contributions.
+
+    The symmetric variant is defined in Jiminez, Sergio, Claudio Becerra, and Alexander Gelbukh. 2013. SOFTCARDINALITY-CORE: Improving Text Overlap with Distributional Measures for Semantic Textual Similarity. This is activated by specifying a bias parameter. http://aclweb.org/anthology/S/S13/S13-1028.pdf
+    """
+    if alpha < 0 or beta < 0:
+        raise ValueError('Unsupported weight assignment; but alpha and beta must be greater than or equal to 0.')
+        
+    if s == t:
+        return 1.0
+    elif len(s) == 0 and len(t) == 0:
+        return 1.0
+    q_s, q_t, q_intersection = _qgram_counts(s, t, q)
+    if bias is None:
+        return q_intersection / (q_intersection + alpha * (q_s - q_intersection) + beta * (q_t - q_intersection))
+    else:
+        a = min(q_s - q_intersection, q_t - q_intersection)
+        b = max(q_s - q_intersection, q_t - q_intersection)
+        c = q_intersection + bias
+        return c / (beta * (alpha * a + (1 - alpha) * beta) + c)
+
+
+def sorensen_coeff(s, t, q=2):
     """Return the Sørensen–Dice coefficient of two string arguments.
 
     Arguments:
@@ -141,28 +180,75 @@ def sorensen(s, t, q=2):
     q -- the length of each q-gram
 
     Description:
-    The coefficient is calculated according to the formula:
-    coefficient = 2*(common q-grams in s & t)/((q-grams in s)+(q-grams in t))
-    This measure is irrespective of q-gram alignment/ordering.
+    For two sets X and Y, the Sørensen–Dice coefficient is
+    S(X,Y) = 2 * |X∩Y| / (|X| + |Y|)
+    This is identical to the Tanimoto similarity coefficient
+    and the Tversky index for α = β = 1
     """
-    if s == t:
-        return 1.0
-    q_s, q_t, q_common = abydos.util.qgram_counts(s, t, q)
-    return 2 * q_common / (q_s + q_t)
+    return tversky_coeff(s, t, q, 0.5, 0.5)
 
-def jaccard(s, t, q=2):
+def sorensen(s, t, q=2):
+    """Return the Sørensen–Dice distance of two string arguments.
+
+    Arguments:
+    s, t -- two strings to be compared
+    q -- the length of each q-gram
+
+    Description:
+    Sørensen–Dice distance is 1 - the Sørensen–Dice coefficient
+    """
+    return 1 - sorensen_coeff(s, t, q)
+
+def jaccard_coeff(s, t, q=2):
     """Return the Jaccard similarity coefficient of two string arguments.
 
     Arguments:
     s, t -- two strings to be compared
+    q -- the length of each q-gram
 
     Description:
-    The coefficient is calcaulated according to the formula:
-    coefficient = intersection of q-gram sets / union of q-gram sets
+    For two sets X and Y, the Jaccard similarity coefficient is
+    S(X,Y) = |X∩Y| / |X∪Y|
+    This is identical to the Tanimoto similarity coefficient
+    and the Tversky index for α = β = 1
     """
-    if s == t:
-        return 1.0
-    elif len(s) == 0 and len(t) == 0:
-        return 1.0
-    q_s, q_t, q_common = abydos.util.qgram_counts(s, t, q)
-    return q_common / (q_s + q_t - q_common)
+    return tversky_coeff(s, t, q, 1, 1)
+
+def jaccard(s, t, q=2):
+    """Return the Jaccard distance of two string arguments.
+
+    Arguments:
+    s, t -- two strings to be compared
+    q -- the length of each q-gram
+
+    Description:
+    Jaccard distance is 1 - the Jaccard coefficient
+    """
+    return 1 - jaccard_coeff(s, t, q)
+
+def tanimoto_coeff(s, t, q=2):
+    """Return the Tanimoto similarity of two string arguments.
+
+    Arguments:
+    s, t -- two strings to be compared
+    q -- the length of each q-gram
+
+    Description:
+    For two sets X and Y, the Tanimoto similarity coefficient is
+    S(X,Y) = |X∩Y| / |X∪Y|
+    This is identical to the Jaccard similarity coefficient
+    and the Tversky index for α = β = 1
+    """
+    return jaccard_coeff(s, t, q)
+
+def tanimoto(s, t, q=2):
+    """Return the Tanimoto distance of two string arguments:
+
+    Arguments:
+    s, t -- two strings to be compared
+    q -- the length of each q-gram
+
+    Description:
+    Tanimoto distance is -log2(Tanimoto coefficient)
+    """
+    return math.log(jaccard_coeff(s, t, q), 2)
