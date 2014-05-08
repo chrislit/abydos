@@ -5,14 +5,18 @@ from string import maketrans
 import re
 
 def russell_index(word):
-    """
-    Given a string 'word', returns its Int value according to Robert C.
+    """Given a string 'word', returns its Int value according to Robert C.
     Russell's Index algorithm, as described in US Patent 1,261,167 (1917)
     """
     word = word.lower()
     word = word.replace('gh', '')  # discard gh (rule 3)
     while word[len(word)-1] in 'sz':
         word = word[:len(word)-2] # discard /[sz]$/ (rule 3)
+
+    """
+    abcdefghijklmnopqrstuvwxyz
+    12341230103567123834120313
+    """
 
     sdx = ''
     for char in word:
@@ -30,30 +34,27 @@ def russell_index(word):
             sdx += '6'
         elif char is 'n': # rule 7: "dento or lingua-nasal"
             sdx += '7'
-        elif char is 'r': # rule 8: 'dental-fricative"
+        elif char is 'r': # rule 8: "dental-fricative"
             sdx += '8'
 
     sdx = delete_consecutive_repeats(sdx)
     return int(sdx)
 
 def russell_index_num_to_alpha(num):
-    """
-    Given the numeric form of a Russell Index value, returns its
+    """Given the numeric form of a Russell Index value, returns its
     alphabetic form, as described in US Patent 1,261,167 (1917)
     """
     num = str(num)
     return num.translate(maketrans('12345678', 'abcdlmnr'), '09')
 
 def russell_index_alpha(word):
-    """
-    Given a string 'word', returns its alphabetic value according to Robert C.
+    """Given a string 'word', returns its alphabetic value according to Robert C.
     Russell's Index algorithm, as described in US Patent 1,261,167 (1917)
     """
     return russell_index_num_to_alpha(russell_index(word))
 
 def knuth_soundex(word):
-    """
-    As descibed in Knuth(1998:394)
+    """As descibed in Knuth(1998:394)
     """
     sdx = ''
     word = word.lower()
@@ -91,8 +92,7 @@ def knuth_soundex(word):
 
 
 def creativyst_soundex(word):
-    """
-    Incorporates enhancements from http://creativyst.com/Doc/Articles/SoundEx1/SoundEx1.htm#Enhancements
+    """Incorporates enhancements from http://creativyst.com/Doc/Articles/SoundEx1/SoundEx1.htm#Enhancements
     """
     word = word.lower()
     word = word.replace('dg', 'g')
@@ -111,8 +111,7 @@ def creativyst_soundex(word):
 
 
 def koelner_phonetik(word):
-    """
-    Given a string 'word', returns its Int value according to the
+    """Given a string 'word', returns its Int value according to the
     Kölner Phonetik
     """
 
@@ -186,16 +185,14 @@ def koelner_phonetik(word):
     return int(sdx)
 
 def koelner_phonetik_num_to_alpha(num):
-    """
-    Given the numeric form of a Kölner Phonetik value, returns an
+    """Given the numeric form of a Kölner Phonetik value, returns an
     alphabetic form
     """
     num = str(num)
     return num.translate(maketrans('012345678', 'aptfklnrs'))
 
 def KoelnerPhonetikAlpha(word):
-    """
-    Given a string 'word', returns an alphabetic value representing
+    """Given a string 'word', returns an alphabetic value representing
     its Kölner Phonetik value
     """
     return koelner_phonetik_num_to_alpha(koelner_phonetik(word))
