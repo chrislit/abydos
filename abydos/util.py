@@ -4,7 +4,8 @@ from __future__ import unicode_literals
 import unicodedata
 
 def qgrams(s, q=2):
-    """Given a string s, return a list of all q-grams in that string for a specified value q (defaults to 2).
+    """Given a string s, return a list of all q-grams in that
+    string for a specified value q (defaults to 2).
     
     A q-gram is here defined as all sequences of q characters.
     """
@@ -33,6 +34,7 @@ def qgram_counts(s,t, q=2):
     return (s_count, t_count, s_count-len(q_s))
 
 def decompose(s):
-    """Given a string s, return the string decomposed according to Unicode NFD normalization.
+    """Given a string s, return the string decomposed according to
+    Unicode NFD normalization.
     """
     return unicodedata.normalize('NFD', s)
