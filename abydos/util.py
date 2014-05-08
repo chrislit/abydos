@@ -13,7 +13,7 @@ def qgrams(s, q=2):
         return []
     return [s[i:i+q] for i in range(len(s)-(q-1))]
 
-def qgram_counts(s, t, q=2):
+def _qgram_counts(s, t, q=2):
     """Given strings s and t, return a tuple of:
       the number of q-grams in s
       the number of q-grams in t
@@ -33,7 +33,7 @@ def qgram_counts(s, t, q=2):
             q_t.remove(qg)
     return (s_count, t_count, s_count-len(q_s))
 
-def decompose(s):
+def _decompose(s):
     """Given a string s, return the string decomposed according to
     Unicode NFD normalization.
     """
