@@ -185,7 +185,7 @@ def sorensen_coeff(s, t, q=2):
     This is identical to the Tanimoto similarity coefficient
     and the Tversky index for α = β = 1
     """
-    return tversky_coeff(s, t, q, 0.5, 0.5)
+    return tversky_index(s, t, q, 0.5, 0.5)
 
 def sorensen(s, t, q=2):
     """Return the Sørensen–Dice distance of two string arguments.
@@ -212,7 +212,7 @@ def jaccard_coeff(s, t, q=2):
     This is identical to the Tanimoto similarity coefficient
     and the Tversky index for α = β = 1
     """
-    return tversky_coeff(s, t, q, 1, 1)
+    return tversky_index(s, t, q, 1, 1)
 
 def jaccard(s, t, q=2):
     """Return the Jaccard distance of two string arguments.
