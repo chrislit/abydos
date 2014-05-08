@@ -5,7 +5,7 @@ import numpy
 import sys
 import abydos.util
 
-def levenshtein_distance(s, t, mode='lev', cost=(1,1,1,1)):
+def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
     """Return the Levenshtein distance between two string arguments
 
     Arguments:
@@ -111,7 +111,7 @@ def levenshtein_distance(s, t, mode='lev', cost=(1,1,1,1)):
 
     
 
-def hamming_distance(s, t, allow_different_lengths=False):
+def hamming(s, t, allow_different_lengths=False):
     """Return the hamming distance between two string arguments.
 
     Arguments:
@@ -125,17 +125,14 @@ def hamming_distance(s, t, allow_different_lengths=False):
       with obligatoriliy non-matching characters.
     """
     if not allow_different_lengths and len(s) != len(t):
-        raise ValueError("Undefined for sequences of unequal length; set allow_different_lengths to True for Hamming distance between strings of unequal lengths.")
-        
+        raise ValueError("Undefined for sequences of unequal length; set allow_different_lengths to True for Hamming distance between strings of unequal lengths.")        
     dist = 0
     if allow_different_lengths:
-        dist = abs(len(s)-len(t))
-
-    for i in range(min(len(s), len(t))):
-        dist += 1 if s[i] != t[i] else 0
+        dist += abs(len(s)-len(t))
+    dist += sum(c1 != c2 for c1, c2 in zip(s, t))
     return dist
 
-def sorensen_coefficient(s, t):
+def sorensen(s, t):
     """Return the Sørensen–Dice coefficient of two string arguments.
 
     Arguments:
@@ -148,8 +145,5 @@ def sorensen_coefficient(s, t):
     """
     if s == t:
         return 1.0
-    
     q_s, q_t, q_common = abydos.util.qgram_counts(s, t)
-
     return 2.0*q_common/(2*q_common+q_s+q_t)
-
