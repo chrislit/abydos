@@ -268,6 +268,7 @@ def jaro(s, t, mode='jaro'):
               'jaro' -- the basic Jaro algorithm
               'winkler' -- the Jaro-Winkler algorithm
               'strcmp95' -- the algorithm as implemented in strcmp95.c
+              'strcmp95b' -- the algorithm as implemented in strcmp95.c
 
     Description:
     This is a Python translation of the c code for strcmp95:
@@ -280,20 +281,11 @@ def jaro(s, t, mode='jaro'):
     def _INRANGE(c):
         return ord(c)>0 and ord(c)<91
 
-    ying = s
-    yang = t
-
-    lenDiff = len(s) - len(t)
-    if lenDiff:
-        if lenDiff > 0:
-            yang += ' '*lenDiff
-        else:
-            ying += ' '*lenDiff
-
-    y_length = len(ying)
+    ying = s.strip()
+    yang = t.strip()
 
     first_pass = True
-    adjwt = numpy.zeros((91,91), dtype=numpy.int)
+    adjwt = numpy.zeros((91,91), dtype=numpy.uint8)
     sp = (
         ('A','E'), ('A','I'), ('A','O'), ('A','U'), ('B','V'), ('E','I'),
         ('E','O'), ('E','U'), ('I','O'), ('I','U'), ('O','U'), ('I','Y'),
@@ -302,12 +294,6 @@ def jaro(s, t, mode='jaro'):
         ('Q','O'), ('P','R'), ('I','J'), ('2','Z'), ('5','S'), ('8','B'),
         ('1','I'), ('1','L'), ('0','O'), ('0','Q'), ('C','K'), ('G','J')
     )
-
-    ying_hold, yang_hold, ying_flag, yang_flag = '', '', '', ''
-    weight = 0.0, 0.0
-    minv, search_range, lowlim, ying_length = 0, 0, 0, 0
-    hilim, N_trans, Num_com, yang_length = 0, 0, 0, 0
-    yl1, yi_st, N_simi = 0, 0, 0
 
     """
     Initialize the adjwt array on the first call to the function only.
@@ -318,141 +304,145 @@ def jaro(s, t, mode='jaro'):
     if (first_pass):
         first_pass = False
         for i in xrange(36):
-            adjwt[sp[i][0],sp[i][1]] = 3
-            adjwt[sp[i][1],sp[i][0]] = 3
+            adjwt[ord(sp[i][0]),ord(sp[i][1])] = 3
+            adjwt[ord(sp[i][1]),ord(sp[i][0])] = 3
 
     """
     Identify the strings to be compared by stripping off all leading and
     trailing spaces.
     """
-    k = y_length - 1
+    ying_length = len(ying)
+    yang_length = len(yang)
 
-    for(j = 0; ((ying[j]==' ') && (j < k)); j++);
-    for(i = k; ((ying[i]==' ') && (i > 0)); i--);
-    ying_length = i + 1 - j;
-    yi_st = j;
+    """
+    If either string is blank - return - added in Version 2
+    """
+    if ying_length == 0 or yang_length == 0:
+        return 0.0
 
-    for(j = 0; ((yang[j]==' ') && (j < k)); j++);
-    for(i = k; ((yang[i]==' ') && (i > 0)); i--);
-    yang_length = i + 1 - j;
+    ying_hold = ying
+    yang_hold = yang
 
-    """ If either string is blank - return - added in Version 2                    """
-    if(ying_length <= 0 || yang_length <= 0) return(0.0);
+    if ying_length > yang_length:
+        search_range = ying_length
+        minv = yang_length
+    else:
+        search_range = yang_length
+        minv = ying_length
 
-    ying_hold = (char*) malloc(sizeof(char) * (ying_length + 1));
-    yang_hold = (char*) malloc(sizeof(char) * (yang_length + 1));
+    """
+    Blank out the flags
+    """
+    ying_flag = ' '*search_range
+    yang_flag = ' '*search_range
+    search_range = int(search_range/2) - 1
+    if search_range < 0:
+        search_range = 0
 
-    strncpy(ying_hold,&ying[yi_st],ying_length);
-    strncpy(yang_hold,&yang[j],yang_length);
+    """
+    Convert all lower case characters to upper case.
+    """
+    if mode == 'upper':
+        ying_hold = ying_hold.upper()
+        yang_hold = yang_hold.upper()
 
-    if (ying_length > yang_length) {
-        search_range = ying_length;
-        minv = yang_length;
-    }
-    else {
-        search_range = yang_length;
-        minv = ying_length;
-    }
+    """
+    Looking only within the search range, count and flag the matched pairs.
+    """
+    Num_com = 0
+    yl1 = yang_length - 1
+    for i in xrange(ying_length):
+        lowlim = (i - search_range) if (i >= search_range) else 0
+        hilim = (i + search_range) if ((i + search_range) <= yl1) else yl1
+        for j in xrange(lowlim, hilim+1):
+            if ((yang_flag[j] != '1') and (yang_hold[j] == ying_hold[i])):
+                yang_flag = yang_flag[:i-1] + '1' + yang_flag[i:]
+                ying_flag = ying_flag[:i-1] + '1' + ying_flag[i:]
+                Num_com += 1
+                break
 
-    """ If either string is blank - return                                         """
-    """ if (!minv) return(0.0);                   removed in version 2             """
+    """
+    If no characters in common - return
+    """
+    if Num_com == 0:
+        return 0.0
 
-    """ Blank out the flags							      """
-    ying_flag = (char*) malloc(sizeof(char) * search_range);
-    yang_flag = (char*) malloc(sizeof(char) * search_range);
+    """
+    Count the number of transpositions
+    """
+    k = N_trans = 0
+    for i in xrange(ying_length):
+        if ying_flag[i] == '1':
+            for j in xrange(k, yang_length):
+                if (yang_flag[j] == '1'):
+                    k = j + 1
+                    break
+            if (ying_hold[i] != yang_hold[j]):
+                print ying_hold[i],yang_hold[j]
+                N_trans += 1
+    N_trans = N_trans // 2
 
-    memset(ying_flag, ' ', search_range);
-    memset(yang_flag, ' ', search_range);
-    search_range = (search_range/2) - 1;
-    if (search_range < 0) search_range = 0;   """ added in version 2               """
+    """
+    adjust for similarities in nonmatched characters
+    """
+    N_simi = 0
+    if (minv > Num_com):
+        for i in xrange(ying_length):
+            if (ying_flag[i] == ' ' and _INRANGE(ying_hold[i])): 
+                for j in xrange(yang_length):
+                    if (yang_flag[j] == ' ' and _INRANGE(yang_hold[j])):
+                        if (adjwt[ord(ying_hold[i]),ord(yang_hold[j])] > 0):
+                            N_simi += adjwt[ord(ying_hold[i]),ord(yang_hold[j])]
+                            yang_flag = yang_flag[:j-1] + '2' + yang_flag[j:]
+                            break
+    Num_sim = N_simi/10.0 + Num_com
 
-    """ Convert all lower case characters to upper case.                           """
-    if (!ind_c[1]) {
-        for (i = 0; i < ying_length; i++) if (islower(ying_hold[i])) ying_hold[i] -= 32;
-        for (j = 0; j < yang_length; j++) if (islower(yang_hold[j])) yang_hold[j] -= 32;
-    }
+    """
+    Main weight computation.
+    """
+    weight = Num_sim / ying_length + Num_sim / yang_length + (Num_com - N_trans) / Num_com
+    weight = weight / 3.0
 
-    """ Looking only within the search range, count and flag the matched pairs.    """
-    Num_com = 0;
-    yl1 = yang_length - 1;
-    for (i = 0; i < ying_length; i++) {
-        lowlim = (i >= search_range) ? i - search_range : 0;
-        hilim = ((i + search_range) <= yl1) ? (i + search_range) : yl1;
-        for (j = lowlim; j <= hilim; j++)  {
-            if ((yang_flag[j] != '1') && (yang_hold[j] == ying_hold[i])) {
-                yang_flag[j] = '1';
-                ying_flag[i] = '1';
-                Num_com++;
-                break;
-            }
-        }
-    }
+    print Num_sim, ying_length, yang_length, Num_com, N_trans, weight
 
-    """ If no characters in common - return                                        """
-    if (!Num_com) {
-        free(ying_hold);
-        free(yang_hold);
-        free(ying_flag);
-        free(yang_flag);
-        return(0.0);
-    }
+    """
+    Continue to boost the weight if the strings are similar
+    """
+    if (weight > 0.7):
 
-    """ Count the number of transpositions                                         """
-    k = N_trans = 0;
-    for (i = 0; i < ying_length; i++) {
-        if (ying_flag[i] == '1') {
-            for (j = k; j < yang_length; j++) {
-                if (yang_flag[j] == '1') {
-                    k = j + 1;
-                    break;
-                }
-            }
-            if (ying_hold[i] != yang_hold[j]) N_trans++;
-        }
-    }
-    N_trans = N_trans / 2;
+        """
+        Adjust for having up to the first 4 characters in common
+        """
+        j = 4 if (minv >= 4) else minv
+        i = 0
+        while ((i<j) and (ying_hold[i]==yang_hold[i]) and (_NOTNUM(ying_hold[i]))):
+             i += 1
+        if i:
+            weight += i * 0.1 * (1.0 - weight)
 
-    """ adjust for similarities in nonmatched characters                           """
-    N_simi = 0;
-    if (minv > Num_com) {
-        for (i = 0; i < ying_length; i++) {
-            if (ying_flag[i] == ' ' && INRANGE(ying_hold[i])) {
-                for (j = 0; j < yang_length; j++) {
-                    if (yang_flag[j] == ' ' && INRANGE(yang_hold[j])) {
-                        if (adjwt[ying_hold[i]][yang_hold[j]] > 0) {
-                            N_simi += adjwt[ying_hold[i]][yang_hold[j]];
-                            yang_flag[j] = '2';
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    Num_sim = ((double) N_simi)/10.0 + Num_com;
+        """
+        Optionally adjust for long strings.
+        """
+        """
+        After agreeing beginning chars, at least two more must agree and
+        the agreeing characters must be > .5 of remaining characters.
+        """
+        if ((False and long_string_adjustment) and (minv>4) and (Num_com>i+1) and (2*Num_com>=minv+i)):
+            if (_NOTNUM(ying_hold[0])):
+                weight += (1.0-weight) * ((Num_com-i-1) / (ying_length+yang_length-i*2+2))
 
-    """ Main weight computation.						      """
-    weight= Num_sim / ((double) ying_length) + Num_sim / ((double) yang_length)
-            + ((double) (Num_com - N_trans)) / ((double) Num_com);
-    weight = weight / 3.0;
+    return weight
 
-    """ Continue to boost the weight if the strings are similar                    """
-    if (weight > 0.7) {
 
-        """ Adjust for having up to the first 4 characters in common                 """
-        j = (minv >= 4) ? 4 : minv;
-        for (i=0; ((i<j)&&(ying_hold[i]==yang_hold[i])&&(NOTNUM(ying_hold[i]))); i++);
-        if (i) weight += i * 0.1 * (1.0 - weight);
+"""
 
-        """ Optionally adjust for long strings.                                      """
-        """ After agreeing beginning chars, at least two more must agree and
-             the agreeing characters must be > .5 of remaining characters.          """
-        if ((!ind_c[0]) && (minv>4) && (Num_com>i+1) && (2*Num_com>=minv+i))
-            if (NOTNUM(ying_hold[0]))
-                weight += (double) (1.0-weight) *
-                          ((double) (Num_com-i-1) / ((double) (ying_length+yang_length-i*2+2)));
-    }
 
-    return(weight);
+import abydos.distance as ad
+ad.jaro('DIXON', 'DICKSONX')
 
-    return 0
+
+
+
+
+
+"""
