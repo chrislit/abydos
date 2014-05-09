@@ -258,3 +258,35 @@ def tanimoto(s, t, q=2):
     Tanimoto distance is -log2(Tanimoto coefficient)
     """
     return math.log(jaccard_coeff(s, t, q), 2)
+
+def jaro(s, t, mode='jaro'):
+    """Return the Jaro distance between two string arguments.
+
+    Arguments:
+    s, t -- two strings to be compared
+    mode -- specifies which algorithm to employ:
+              'jaro' -- the basic Jaro algorithm
+              'winkler' -- the Jaro-Winkler algorithm
+              'strcmp95' -- the algorithm as implemented in strcmp95.c
+
+    Description:
+    This is a Python translation of the c code for strcmp95:
+    http://web.archive.org/web/20110629121242/http://www.census.gov/geo/msb/stand/strcmp.c
+    The above file is a US Goverment publication and, accordingly,
+    in the public domain.
+    """
+    ying = s
+    yang = t
+
+    lenDiff = len(s) - len(t)
+    if lenDiff:
+        if lenDiff > 0:
+            yang += ' '*lenDiff
+        else:
+            ying += ' '*lenDiff
+    
+    y_length = len(ying)
+
+
+
+    return 0
