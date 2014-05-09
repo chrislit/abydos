@@ -4,6 +4,7 @@ from itertools import groupby
 from string import maketrans
 import re
 
+
 def russell_index(word):
     """Given a string 'word', returns its Int value according to Robert C.
     Russell's Index algorithm, as described in US Patent 1,261,167 (1917)
@@ -40,6 +41,7 @@ def russell_index(word):
     sdx = delete_consecutive_repeats(sdx)
     return int(sdx)
 
+
 def russell_index_num_to_alpha(num):
     """Given the numeric form of a Russell Index value, returns its
     alphabetic form, as described in US Patent 1,261,167 (1917)
@@ -47,11 +49,13 @@ def russell_index_num_to_alpha(num):
     num = str(num)
     return num.translate(maketrans('12345678', 'abcdlmnr'), '09')
 
+
 def russell_index_alpha(word):
     """Given a string 'word', returns its alphabetic value according to Robert C.
     Russell's Index algorithm, as described in US Patent 1,261,167 (1917)
     """
     return russell_index_num_to_alpha(russell_index(word))
+
 
 def knuth_soundex(word):
     """As descibed in Knuth(1998:394)
@@ -114,7 +118,6 @@ def koelner_phonetik(word):
     """Given a string 'word', returns its Int value according to the
     Kölner Phonetik
     """
-
     def before(word, i, letters):
         if i > 0 and word[i-1] in letters:
             return True
@@ -179,10 +182,11 @@ def koelner_phonetik(word):
             sdx += '8'
 
     sdx = delete_consecutive_repeats(sdx)
-    
+
     sdx = sdx.replace('0', '')
 
     return int(sdx)
+
 
 def koelner_phonetik_num_to_alpha(num):
     """Given the numeric form of a Kölner Phonetik value, returns an
@@ -191,11 +195,13 @@ def koelner_phonetik_num_to_alpha(num):
     num = str(num)
     return num.translate(maketrans('012345678', 'aptfklnrs'))
 
+
 def KoelnerPhonetikAlpha(word):
     """Given a string 'word', returns an alphabetic value representing
     its Kölner Phonetik value
     """
     return koelner_phonetik_num_to_alpha(koelner_phonetik(word))
+
 
 def delete_consecutive_repeats(word):
     return ''.join(char for char, _ in groupby(word))

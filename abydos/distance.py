@@ -7,6 +7,7 @@ import sys
 import math
 from .util import _qgram_counts
 
+
 def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
     """Return the Levenshtein distance between two string arguments
 
@@ -187,6 +188,7 @@ def sorensen_coeff(s, t, q=2):
     """
     return tversky_index(s, t, q, 0.5, 0.5)
 
+
 def sorensen(s, t, q=2):
     """Return the Sørensen–Dice distance of two string arguments.
 
@@ -198,6 +200,7 @@ def sorensen(s, t, q=2):
     Sørensen–Dice distance is 1 - the Sørensen–Dice coefficient
     """
     return 1 - sorensen_coeff(s, t, q)
+
 
 def jaccard_coeff(s, t, q=2):
     """Return the Jaccard similarity coefficient of two string arguments.
@@ -214,6 +217,7 @@ def jaccard_coeff(s, t, q=2):
     """
     return tversky_index(s, t, q, 1, 1)
 
+
 def jaccard(s, t, q=2):
     """Return the Jaccard distance of two string arguments.
 
@@ -225,6 +229,7 @@ def jaccard(s, t, q=2):
     Jaccard distance is 1 - the Jaccard coefficient
     """
     return 1 - jaccard_coeff(s, t, q)
+
 
 def tanimoto_coeff(s, t, q=2):
     """Return the Tanimoto similarity of two string arguments.
@@ -240,6 +245,7 @@ def tanimoto_coeff(s, t, q=2):
     and the Tversky index for α = β = 1
     """
     return jaccard_coeff(s, t, q)
+
 
 def tanimoto(s, t, q=2):
     """Return the Tanimoto distance of two string arguments:

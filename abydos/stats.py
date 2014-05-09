@@ -22,50 +22,60 @@ class ConfusionTable:
             self.fp = fp
             self.fn = fn
 
+
     def __str__(self):
         """Return a human-readable version of the confusion table
         """
         return 'tp:' + str(self.tp) + ' tn:' + str(self.tn) + ' fp:' + str(self.fp) + ' fn:' + str(self.fn)
+
 
     def tuple(self):
         """Return the confusion table as a 4-tuple (tp, tn, fp, fn)
         """
         return (self.tp, self.tn, self.fp, self.fn)
 
+
     def dict(self):
         """Return the confusion table as a dict
         """
         return {'tp':self.tp, 'tn':self.tn, 'fp':self.fp, 'fn':self.fn}
+
 
     def correct_pop(self):
         """Return the correct population of the confusion table
         """
         return self.tp + self.tn
 
+
     def error_pop(self):
         """Return the correct population of the confusion table
         """
         return self.fp + self.fn
+
 
     def test_pos_pop(self):
         """Return the correct population of the confusion table
         """
         return self.tp + self.fp
 
+
     def test_neg_pop(self):
         """Return the correct population of the confusion table
         """
         return self.tn + self.fn
+
 
     def cond_pos_pop(self):
         """Return the correct population of the confusion table
         """
         return self.tp + self.fn
 
+
     def cond_neg_pop(self):
         """Return the correct population of the confusion table
         """
         return self.fp + self.tn
+
 
     def population(self):
         """Return the population (N) of the confusion table
@@ -81,6 +91,7 @@ class ConfusionTable:
 	"""
         return self.tp / (self.tp + self.fp)
 
+
     def recall(self):
         """Return the recall of the confusion table
 
@@ -90,6 +101,7 @@ class ConfusionTable:
         """
         return self.tp / (self.tp + self.fn)
 
+
     def specificity(self):
         """Return the specificity of the confusion table
 
@@ -97,6 +109,7 @@ class ConfusionTable:
         AKA true negative rate (TNR)
         """
         return self.tn / (self.tn + self.fp)
+
 
     def npv(self):
         """Return the negative predictive value (NPV) of the
@@ -106,6 +119,7 @@ class ConfusionTable:
         """
         return self.tn / (self.tn + self.fn)
 
+
     def fallout(self):
         """Return the fall-out of the confusion table
 
@@ -113,6 +127,7 @@ class ConfusionTable:
         AKA false positive rate (FPR)
         """
         return self.fp / (self.fp / self.tn)
+
 
     def fallout(self):
         """Return the fall-out of the confusion table
@@ -131,12 +146,14 @@ class ConfusionTable:
         """
         return self.fp / (self.fp + self.tp)
 
+
     def accuracy(self):
         """Return the accuracy of the confusion table
 
         Accuracy is defined as (tp + tn) / population
         """
         return (self.tp + self.tn) / self.population()
+
 
     def balanced_accuracy(self):
         """Return the balanced accuracy of the confusion table
@@ -146,6 +163,7 @@ class ConfusionTable:
         """
         return 0.5 * (self.recall() + self.specificity())
 
+
     def informedness(self):
         """Return the informedness of the confusion table
 
@@ -154,12 +172,14 @@ class ConfusionTable:
         """
         return self.recall() + self.specificity() - 1
 
+
     def markedness(self):
         """Return the markedness of the confusion table
 
         Markedness is defined as precision + npv -1
         """
         return self.precision() + self.npv() - 1
+
 
     def pr_mean(self):
         """Return the arithmetic mean of precision & recall of the
@@ -170,6 +190,7 @@ class ConfusionTable:
         """
         return (self.precision() + self.recall()) / 2
 
+
     def pr_gmean(self):
         """Return the geometric mean of precision & recall of the confusion table
 
@@ -177,6 +198,7 @@ class ConfusionTable:
         √(precision * recall)
         """
         return math.sqrt(self.precision() * self.recall())
+
 
     def pr_hmean(self):
         """Return the harmonic mean of precision & recall of the
@@ -189,6 +211,7 @@ class ConfusionTable:
         r = self.recall()
         return 2 * p * r / (p + r)
 
+
     def pr_qmean(self):
         """Return the quadratic mean of precision & recall of the
         confusion table
@@ -198,10 +221,11 @@ class ConfusionTable:
         """
         return math.sqrt((self.precision()**2 + self.recall()**2) / 2)
 
+
     def pr_lmean(self):
         """Return the logarithmic mean of precision & recall of
         the confusion table
-        
+
         The logarithmic mean is:
         0 if either precision or recall is 0,
         the precision if they are equal,
@@ -216,6 +240,7 @@ class ConfusionTable:
         else:
             return (p - r) / (math.log(p) - math.log(r))
 
+
     def pr_cmean(self):
         """Return the contraharmonic mean of precision & recall
         of the confusion table
@@ -226,6 +251,7 @@ class ConfusionTable:
         p = self.precision()
         r = self.recall()
         return (p**2 + r**2)/(p + r)
+
 
     def pr_imean(self):
         """Return the identric mean of precision & recall of the
@@ -239,6 +265,7 @@ class ConfusionTable:
         r = self.recall()
         return (1/math.e) * (p**p/r**r)**(1/(p-r))
 
+
     def pr_pmean(self, m=2):
         """Return the power mean of precision & recall of the
         confusion table
@@ -247,6 +274,7 @@ class ConfusionTable:
         (0.5 * (precision^m + recall^m))^(1/m)
         """
         return (0.5 * (self.precision()**m + self.recall()**m))**(1/m)
+
 
     def fbeta_score(self, beta=1):
         """Return the F_{β} score of the confusion table
@@ -266,12 +294,14 @@ class ConfusionTable:
         r = self.recall()
         return (1 + beta**2) * p * r / ((beta**2 * p) + r)
 
+
     def f2_score(self):
         """Return the F_{2} score of the confusion table,
         which emphasizes recall over precision in comparison
         to the F_{1} score
         """
         return self.fbeta_score(2)
+
 
     def fhalf_score(self):
         """Return the F_{0.5} score of the confusion table,
@@ -280,11 +310,13 @@ class ConfusionTable:
         """
         return self.fbeta_score(0.5)
 
+
     def e_score(self, beta=1):
         """Return the E-score (Van Rijsbergen's effectiveness
         measure)
         """
         return 1-fbeta_score(beta)
+
 
     def f1_score(self):
         """Return the F_{1} score of the confusion table
@@ -294,6 +326,7 @@ class ConfusionTable:
         """
         return self.pr_hmean()
 
+
     def f_measure(self):
         """Return the F-measure of the confusion table
 
@@ -302,6 +335,7 @@ class ConfusionTable:
         """
         return self.pr_hmean()
 
+
     def g_measure(self):
         """Return the G-measure of the confusion table
 
@@ -309,6 +343,7 @@ class ConfusionTable:
         √(precision * recall)
         """
         return self.pr_gmean()
+
 
     def mcc(self):
         """Return the Matthews correlation coefficient of the
@@ -319,6 +354,7 @@ class ConfusionTable:
         sqrt((tp + fp)(tp + fn)(tn + fp)(tn + fn))
         """
         return ((self.tp * self.tn) - (self.fp * self.fn)) / sqrt((self.tp + self.fp) * (self.tp + self.fn) * (self.tn + self.fp) * (self.tn + self.fn))
+
 
     def significance(self):
         """Return the significance of the confusion table
