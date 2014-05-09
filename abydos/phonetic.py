@@ -118,12 +118,12 @@ def koelner_phonetik(word):
     """Given a string 'word', returns its Int value according to the
     Kölner Phonetik
     """
-    def before(word, i, letters):
+    def _before(word, i, letters):
         if i > 0 and word[i-1] in letters:
             return True
         return False
 
-    def after(word, i, letters):
+    def _after(word, i, letters):
         if i+1 < len(word) and word[i+1] in letters:
             return True
         return False
@@ -142,12 +142,12 @@ def koelner_phonetik(word):
         elif word[i] in 'b':
             sdx += '1'
         elif word[i] in 'p':
-            if before(word, i, 'h'):
+            if _before(word, i, 'h'):
                 sdx += '3'
             else:
                 sdx += '1'
         elif word[i] in 'dt':
-            if before(word, i, 'csz'):
+            if _before(word, i, 'csz'):
                 sdx += '8'
             else:
                 sdx += '2'
@@ -156,19 +156,19 @@ def koelner_phonetik(word):
         elif word[i] in 'gkq':
             sdx += '4'
         elif word[i] in 'c':
-            if after(word, i, 'sz'):
+            if _after(word, i, 'sz'):
                 sdx += '8'
             elif i == 0:
-                if after(word, i, 'ahkloqrux'):
+                if _after(word, i, 'ahkloqrux'):
                     sdx += '4'
                 else:
                     sdx += '8'
-            elif before(word, i, 'ahkoqux'):
+            elif _before(word, i, 'ahkoqux'):
                 sdx += '4'
             else:
                 sdx += '8'
         elif word[i] in 'x':
-            if after(word, i, 'ckq'):
+            if _after(word, i, 'ckq'):
                 sdx += '8'
             else:
                 sdx += '48'
