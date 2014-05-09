@@ -32,9 +32,9 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
         return len(t) * ins_cost
     if len(t) == 0:
         return len(s) * del_cost
-    
+
     if 'dam' not in mode:
-        d = numpy.zeros((len(s)+1)*(len(t)+1), dtype=numpy.int).reshape((len(s)+1, len(t)+1))
+        d = numpy.zeros((len(s)+1,len(t)+1), dtype=numpy.int)
         for i in xrange(len(s)+1):
             d[i,0] = i
         for j in xrange(len(t)+1):
@@ -65,10 +65,10 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
             raise ValueError('Unsupported cost assignment; the cost of two transpositions must not be less than the cost of an insert plus a delete.')
 
         d = numpy.zeros((len(s))*(len(t)), dtype=numpy.int).reshape((len(s), len(t)))
-        
+
         if s[0] != t[0]:
             d[0,0] = min(sub_cost, ins_cost + del_cost)
-        
+
         s_index_by_character = {}
         s_index_by_character[s[0]] = 0
         for i in xrange(1, len(s)):
@@ -98,7 +98,7 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
 
                 if candidate_swap_index != -1 and j_swap != -1:
                     i_swap = candidate_swap_index
-                    
+
                     if i_swap == 0 and j_swap == 0:
                         pre_swap_cost = 0
                     else:
@@ -127,7 +127,7 @@ def hamming(s, t, allow_different_lengths=False):
       with obligatoriliy non-matching characters.
     """
     if not allow_different_lengths and len(s) != len(t):
-        raise ValueError("Undefined for sequences of unequal length; set allow_different_lengths to True for Hamming distance between strings of unequal lengths.")        
+        raise ValueError("Undefined for sequences of unequal length; set allow_different_lengths to True for Hamming distance between strings of unequal lengths.")
     dist = 0
     if allow_different_lengths:
         dist += abs(len(s)-len(t))
@@ -158,7 +158,7 @@ def tversky_index(s, t, q=2, alpha=1, beta=1, bias=None):
     """
     if alpha < 0 or beta < 0:
         raise ValueError('Unsupported weight assignment; but alpha and beta must be greater than or equal to 0.')
-        
+
     if s == t:
         return 1.0
     elif len(s) == 0 and len(t) == 0:
@@ -275,6 +275,11 @@ def jaro(s, t, mode='jaro'):
     The above file is a US Goverment publication and, accordingly,
     in the public domain.
     """
+    def _NOTNUM(c):
+        return c.isdigit()
+    def _INRANGE(c):
+        return ord(c)>0 and ord(c)<91
+
     ying = s
     yang = t
 
@@ -284,9 +289,170 @@ def jaro(s, t, mode='jaro'):
             yang += ' '*lenDiff
         else:
             ying += ' '*lenDiff
-    
+
     y_length = len(ying)
 
+    first_pass = True
+    adjwt = numpy.zeros((91,91), dtype=numpy.int)
+    sp = (
+        ('A','E'), ('A','I'), ('A','O'), ('A','U'), ('B','V'), ('E','I'),
+        ('E','O'), ('E','U'), ('I','O'), ('I','U'), ('O','U'), ('I','Y'),
+        ('E','Y'), ('C','G'), ('E','F'), ('W','U'), ('W','V'), ('X','K'),
+        ('S','Z'), ('X','S'), ('Q','C'), ('U','V'), ('M','N'), ('L','I'),
+        ('Q','O'), ('P','R'), ('I','J'), ('2','Z'), ('5','S'), ('8','B'),
+        ('1','I'), ('1','L'), ('0','O'), ('0','Q'), ('C','K'), ('G','J')
+    )
 
+    ying_hold, yang_hold, ying_flag, yang_flag = '', '', '', ''
+    weight = 0.0, 0.0
+    minv, search_range, lowlim, ying_length = 0, 0, 0, 0
+    hilim, N_trans, Num_com, yang_length = 0, 0, 0, 0
+    yl1, yi_st, N_simi = 0, 0, 0
+
+    """
+    Initialize the adjwt array on the first call to the function only.
+    The adjwt array is used to give partial credit for characters that
+    may be errors due to known phonetic or character recognition errors.
+    A typical example is to match the letter "O" with the number "0"
+    """
+    if (first_pass):
+        first_pass = False
+        for i in xrange(36):
+            adjwt[sp[i][0],sp[i][1]] = 3
+            adjwt[sp[i][1],sp[i][0]] = 3
+
+    """
+    Identify the strings to be compared by stripping off all leading and
+    trailing spaces.
+    """
+    k = y_length - 1
+
+    for(j = 0; ((ying[j]==' ') && (j < k)); j++);
+    for(i = k; ((ying[i]==' ') && (i > 0)); i--);
+    ying_length = i + 1 - j;
+    yi_st = j;
+
+    for(j = 0; ((yang[j]==' ') && (j < k)); j++);
+    for(i = k; ((yang[i]==' ') && (i > 0)); i--);
+    yang_length = i + 1 - j;
+
+    """ If either string is blank - return - added in Version 2                    """
+    if(ying_length <= 0 || yang_length <= 0) return(0.0);
+
+    ying_hold = (char*) malloc(sizeof(char) * (ying_length + 1));
+    yang_hold = (char*) malloc(sizeof(char) * (yang_length + 1));
+
+    strncpy(ying_hold,&ying[yi_st],ying_length);
+    strncpy(yang_hold,&yang[j],yang_length);
+
+    if (ying_length > yang_length) {
+        search_range = ying_length;
+        minv = yang_length;
+    }
+    else {
+        search_range = yang_length;
+        minv = ying_length;
+    }
+
+    """ If either string is blank - return                                         """
+    """ if (!minv) return(0.0);                   removed in version 2             """
+
+    """ Blank out the flags							      """
+    ying_flag = (char*) malloc(sizeof(char) * search_range);
+    yang_flag = (char*) malloc(sizeof(char) * search_range);
+
+    memset(ying_flag, ' ', search_range);
+    memset(yang_flag, ' ', search_range);
+    search_range = (search_range/2) - 1;
+    if (search_range < 0) search_range = 0;   """ added in version 2               """
+
+    """ Convert all lower case characters to upper case.                           """
+    if (!ind_c[1]) {
+        for (i = 0; i < ying_length; i++) if (islower(ying_hold[i])) ying_hold[i] -= 32;
+        for (j = 0; j < yang_length; j++) if (islower(yang_hold[j])) yang_hold[j] -= 32;
+    }
+
+    """ Looking only within the search range, count and flag the matched pairs.    """
+    Num_com = 0;
+    yl1 = yang_length - 1;
+    for (i = 0; i < ying_length; i++) {
+        lowlim = (i >= search_range) ? i - search_range : 0;
+        hilim = ((i + search_range) <= yl1) ? (i + search_range) : yl1;
+        for (j = lowlim; j <= hilim; j++)  {
+            if ((yang_flag[j] != '1') && (yang_hold[j] == ying_hold[i])) {
+                yang_flag[j] = '1';
+                ying_flag[i] = '1';
+                Num_com++;
+                break;
+            }
+        }
+    }
+
+    """ If no characters in common - return                                        """
+    if (!Num_com) {
+        free(ying_hold);
+        free(yang_hold);
+        free(ying_flag);
+        free(yang_flag);
+        return(0.0);
+    }
+
+    """ Count the number of transpositions                                         """
+    k = N_trans = 0;
+    for (i = 0; i < ying_length; i++) {
+        if (ying_flag[i] == '1') {
+            for (j = k; j < yang_length; j++) {
+                if (yang_flag[j] == '1') {
+                    k = j + 1;
+                    break;
+                }
+            }
+            if (ying_hold[i] != yang_hold[j]) N_trans++;
+        }
+    }
+    N_trans = N_trans / 2;
+
+    """ adjust for similarities in nonmatched characters                           """
+    N_simi = 0;
+    if (minv > Num_com) {
+        for (i = 0; i < ying_length; i++) {
+            if (ying_flag[i] == ' ' && INRANGE(ying_hold[i])) {
+                for (j = 0; j < yang_length; j++) {
+                    if (yang_flag[j] == ' ' && INRANGE(yang_hold[j])) {
+                        if (adjwt[ying_hold[i]][yang_hold[j]] > 0) {
+                            N_simi += adjwt[ying_hold[i]][yang_hold[j]];
+                            yang_flag[j] = '2';
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    Num_sim = ((double) N_simi)/10.0 + Num_com;
+
+    """ Main weight computation.						      """
+    weight= Num_sim / ((double) ying_length) + Num_sim / ((double) yang_length)
+            + ((double) (Num_com - N_trans)) / ((double) Num_com);
+    weight = weight / 3.0;
+
+    """ Continue to boost the weight if the strings are similar                    """
+    if (weight > 0.7) {
+
+        """ Adjust for having up to the first 4 characters in common                 """
+        j = (minv >= 4) ? 4 : minv;
+        for (i=0; ((i<j)&&(ying_hold[i]==yang_hold[i])&&(NOTNUM(ying_hold[i]))); i++);
+        if (i) weight += i * 0.1 * (1.0 - weight);
+
+        """ Optionally adjust for long strings.                                      """
+        """ After agreeing beginning chars, at least two more must agree and
+             the agreeing characters must be > .5 of remaining characters.          """
+        if ((!ind_c[0]) && (minv>4) && (Num_com>i+1) && (2*Num_com>=minv+i))
+            if (NOTNUM(ying_hold[0]))
+                weight += (double) (1.0-weight) *
+                          ((double) (Num_com-i-1) / ((double) (ying_length+yang_length-i*2+2)));
+    }
+
+    return(weight);
 
     return 0
