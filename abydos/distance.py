@@ -5,6 +5,7 @@ from __future__ import division
 import numpy
 import sys
 import math
+from collections import defaultdict
 from .util import _qgram_counts
 
 
@@ -282,7 +283,8 @@ def jaro(s, t, mode='jaro', long_strings=False):
     ying = s.strip()
     yang = t.strip()
 
-    adjwt = numpy.zeros((91,91), dtype=numpy.uint8)
+    adjwt = defaultdict(int)
+    #adjwt = numpy.zeros((91,91), dtype=numpy.uint8)
     sp = (
         ('A','E'), ('A','I'), ('A','O'), ('A','U'), ('B','V'), ('E','I'),
         ('E','O'), ('E','U'), ('I','O'), ('I','U'), ('O','U'), ('I','Y'),
@@ -298,9 +300,13 @@ def jaro(s, t, mode='jaro', long_strings=False):
     may be errors due to known phonetic or character recognition errors.
     A typical example is to match the letter "O" with the number "0"
     """
-    for i in xrange(36):
-        adjwt[ord(sp[i][0]),ord(sp[i][1])] = 3
-        adjwt[ord(sp[i][1]),ord(sp[i][0])] = 3
+    #for i in xrange(36):
+    #    adjwt[ord(sp[i][0]),ord(sp[i][1])] = 3
+    #    adjwt[ord(sp[i][1]),ord(sp[i][0])] = 3
+    for i in sp:
+        x,y = i
+        adjwt[(x,y)]=3
+        adjwt[(y,x)]=3
 
     """
     If either string is blank - return - added in Version 2
@@ -379,8 +385,8 @@ def jaro(s, t, mode='jaro', long_strings=False):
             if (ying_flag[i] == ' ' and _INRANGE(ying_hold[i])): 
                 for j in xrange(len(yang)):
                     if (yang_flag[j] == ' ' and _INRANGE(yang_hold[j])):
-                        if (adjwt[ord(ying_hold[i]),ord(yang_hold[j])] > 0):
-                            N_simi += adjwt[ord(ying_hold[i]),ord(yang_hold[j])]
+                        if (ying_hold[i],yang_hold[j]) in adjwt:
+                            N_simi += adjwt[(ying_hold[i],yang_hold[j])]
                             yang_flag = yang_flag[:j-1] + '2' + yang_flag[j:]
                             break
     Num_sim = N_simi/10.0 + Num_com
