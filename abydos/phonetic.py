@@ -208,6 +208,21 @@ def nysiis(word):
 
 
 def mra(word):
+    """Return the personal numeric identifier (PNI) for a word, derived by
+        the Western Airlines Surname Match Rating Algorithm
+
+    Arguments:
+    word -- the word to apply the match rating approach to
+
+    Description:
+    A description of the algorithm can be found on page 18 of
+    https://archive.org/details/accessingindivid00moor
+    """
+    word = word.upper()
+    word = word[0]+filter(lambda c: c not in 'AEIOU', word[1:])
+    word = _delete_consecutive_repeats(word)
+    if len(word)>6:
+        word = word[:3]+word[-3:]
     return word
 
 

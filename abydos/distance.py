@@ -7,6 +7,7 @@ import sys
 import math
 from collections import defaultdict
 from .util import _qgram_counts, qgrams
+from .phonetic import mra
 
 
 def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
@@ -586,3 +587,50 @@ def lcs(s, t):
             x -= 1
             y -= 1
     return result
+
+
+def mra_compare(s, t):
+    """Return the Western Airlines Surname Match Rating Algorithm comparison
+    rating between to strings
+
+    Arguments:
+    s, t -- two strings to be compared
+
+    Description:
+    A description of the algorithm can be found on page 18 of
+    https://archive.org/details/accessingindivid00moor
+    """
+    s = list(mra(s))
+    t = list(mra(t))
+
+    if abs(len(s)-len(t)) > 2:
+        return False
+
+    length_sum = len(s) + len(t)
+    if length_sum < 5:
+        min_rating = 5
+    elif length_sum < 8:
+        min_rating = 4
+    elif length_sum < 12:
+        min_rating = 3
+    else:
+        min_rating = 2
+
+    for n in xrange(2):
+        new_s = []
+        new_t = []
+        minlen=min(len(s),len(t))
+        for i in xrange(minlen):
+            if s[i] != t[i]:
+                new_s.append(s[i])
+                new_t.append(t[i])
+        s=new_s+s[minlen:]
+        t=new_t+t[minlen:]
+        s.reverse()
+        t.reverse()
+
+    similarity = 6 - max(len(s),len(t))
+
+    if similarity >= min_rating:
+        return similarity
+    return 0
