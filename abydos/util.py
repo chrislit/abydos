@@ -15,6 +15,26 @@ def qgrams(s, q=2):
     return [s[i:i+q] for i in range(len(s)-(q-1))]
 
 
+def _qgram_lists(s, t, q=2):
+    """Given strings s and t, return a tuple of:
+      the q-grams in s
+      the q-grams in t
+      the q-grams in common
+    An optional argument q (defaults to 2) specifies the length of
+    each q-gram.
+    """
+    q_s = qgrams(s, q)
+    q_t = qgrams(t, q)
+    q_common = []
+
+    for qg in q_s:
+        if qg in q_t:
+            q_s.remove(qg)
+            q_t.remove(qg)
+            q_common.append(qg)
+    return (qgrams(s, q), qgrams(t, q), q_common)
+
+
 def _qgram_counts(s, t, q=2):
     """Given strings s and t, return a tuple of:
       the number of q-grams in s
@@ -23,17 +43,7 @@ def _qgram_counts(s, t, q=2):
     An optional argument q (defaults to 2) specifies the length of
     each q-gram.
     """
-    q_s = qgrams(s, q)
-    q_t = qgrams(t, q)
-
-    s_count = len(q_s)
-    t_count = len(q_t)
-
-    for qg in q_s:
-        if qg in q_t:
-            q_s.remove(qg)
-            q_t.remove(qg)
-    return (s_count, t_count, s_count-len(q_s))
+    return tuple([len(elt) for elt in _qgram_lists(s, t, q)])
 
 
 def _decompose(s):

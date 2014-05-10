@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 from __future__ import division
-from math import sqrt
+import math
 
 class ConfusionTable:
     tp, fn, fp, fn = 0, 0, 0, 0
@@ -127,15 +127,6 @@ class ConfusionTable:
         AKA false positive rate (FPR)
         """
         return self.fp / (self.fp / self.tn)
-
-
-    def fallout(self):
-        """Return the fall-out of the confusion table
-
-        Fall-out is defined as fp / (fp+tn)
-        AKA false positive rate (FPR)
-        """
-        return self.fp / (self.fp + self.tn)
 
 
     def fdr(self):
@@ -315,7 +306,7 @@ class ConfusionTable:
         """Return the E-score (Van Rijsbergen's effectiveness
         measure)
         """
-        return 1-fbeta_score(beta)
+        return 1-self.fbeta_score(beta)
 
 
     def f1_score(self):
@@ -353,7 +344,7 @@ class ConfusionTable:
         ((tp * tn) - (fp * fn)) /
         sqrt((tp + fp)(tp + fn)(tn + fp)(tn + fn))
         """
-        return ((self.tp * self.tn) - (self.fp * self.fn)) / sqrt((self.tp + self.fp) * (self.tp + self.fn) * (self.tn + self.fp) * (self.tn + self.fn))
+        return ((self.tp * self.tn) - (self.fp * self.fn)) / math.sqrt((self.tp + self.fp) * (self.tp + self.fn) * (self.tn + self.fp) * (self.tn + self.fn))
 
 
     def significance(self):

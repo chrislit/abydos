@@ -170,7 +170,7 @@ def tversky_index(s, t, q=2, alpha=1, beta=1, bias=None):
         a = min(q_s - q_intersection, q_t - q_intersection)
         b = max(q_s - q_intersection, q_t - q_intersection)
         c = q_intersection + bias
-        return c / (beta * (alpha * a + (1 - alpha) * beta) + c)
+        return c / (beta * (alpha * a + (1 - alpha) * b) + c)
 
 
 def sorensen_coeff(s, t, q=2):
@@ -259,7 +259,7 @@ def tanimoto(s, t, q=2):
     """
     return math.log(jaccard_coeff(s, t, q), 2)
 
-def jaro(s, t, mode='jaro'):
+def jaro(s, t, mode='jaro', long_strings=False):
     """Return the Jaro distance between two string arguments.
 
     Arguments:
@@ -416,7 +416,7 @@ def jaro(s, t, mode='jaro'):
         j = 4 if (minv >= 4) else minv
         i = 0
         while ((i<j) and (ying_hold[i]==yang_hold[i]) and (_NOTNUM(ying_hold[i]))):
-             i += 1
+            i += 1
         if i:
             weight += i * 0.1 * (1.0 - weight)
 
@@ -427,7 +427,7 @@ def jaro(s, t, mode='jaro'):
         After agreeing beginning chars, at least two more must agree and
         the agreeing characters must be > .5 of remaining characters.
         """
-        if ((False and long_string_adjustment) and (minv>4) and (Num_com>i+1) and (2*Num_com>=minv+i)):
+        if ((long_strings) and (minv>4) and (Num_com>i+1) and (2*Num_com>=minv+i)):
             if (_NOTNUM(ying_hold[0])):
                 weight += (1.0-weight) * ((Num_com-i-1) / (ying_length+yang_length-i*2+2))
 
