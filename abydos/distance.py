@@ -316,10 +316,6 @@ def strcmp95(s, t, long_strings=False):
         adjwt[(x,y)]=3
         adjwt[(y,x)]=3
 
-
-    ying_hold = ying
-    yang_hold = yang
-
     if len(ying) > len(yang):
         search_range = len(ying)
         minv = len(yang)
@@ -345,7 +341,7 @@ def strcmp95(s, t, long_strings=False):
         lowlim = (i - search_range) if (i >= search_range) else 0
         hilim = (i + search_range) if ((i + search_range) <= yl1) else yl1
         for j in xrange(lowlim, hilim+1):
-            if (yang_flag[j] == 0) and (yang_hold[j] == ying_hold[i]):
+            if (yang_flag[j] == 0) and (yang[j] == ying[i]):
                 yang_flag[j] = 1
                 ying_flag[i] = 1
                 Num_com += 1
@@ -367,7 +363,7 @@ def strcmp95(s, t, long_strings=False):
                 if yang_flag[j] != 0:
                     k = j + 1
                     break
-            if ying_hold[i] != yang_hold[j]:
+            if ying[i] != yang[j]:
                 N_trans += 1
     N_trans = N_trans // 2
 
@@ -377,11 +373,11 @@ def strcmp95(s, t, long_strings=False):
     N_simi = 0
     if (minv > Num_com):
         for i in xrange(len(ying)):
-            if ying_flag[i] == 0 and _INRANGE(ying_hold[i]):
+            if ying_flag[i] == 0 and _INRANGE(ying[i]):
                 for j in xrange(len(yang)):
-                    if yang_flag[j] == 0 and _INRANGE(yang_hold[j]):
-                        if (ying_hold[i],yang_hold[j]) in adjwt:
-                            N_simi += adjwt[(ying_hold[i],yang_hold[j])]
+                    if yang_flag[j] == 0 and _INRANGE(yang[j]):
+                        if (ying[i],yang[j]) in adjwt:
+                            N_simi += adjwt[(ying[i],yang[j])]
                             yang_flag[j] = 2
                             break
     Num_sim = N_simi/10.0 + Num_com
@@ -402,7 +398,7 @@ def strcmp95(s, t, long_strings=False):
         """
         j = 4 if (minv >= 4) else minv
         i = 0
-        while ((i<j) and (ying_hold[i]==yang_hold[i]) and (not ying_hold[i].isdigit())):
+        while ((i<j) and (ying[i]==yang[i]) and (not ying[i].isdigit())):
             i += 1
         if i:
             weight += i * 0.1 * (1.0 - weight)
@@ -415,7 +411,7 @@ def strcmp95(s, t, long_strings=False):
         the agreeing characters must be > .5 of remaining characters.
         """
         if ((long_strings) and (minv>4) and (Num_com>i+1) and (2*Num_com>=minv+i)):
-            if (not ying_hold[0].isdigit()):
+            if (not ying[0].isdigit()):
                 weight += (1.0-weight) * ((Num_com-i-1) / (len(ying)+len(yang)-i*2+2))
 
     return weight
@@ -464,9 +460,6 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=
     if len(ying) == 0 or len(yang) == 0:
         return 0.0
 
-    ying_hold = ying
-    yang_hold = yang
-
     if len(ying) > len(yang):
         search_range = len(ying)
         minv = len(yang)
@@ -492,7 +485,7 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=
         lowlim = (i - search_range) if (i >= search_range) else 0
         hilim = (i + search_range) if ((i + search_range) <= yl1) else yl1
         for j in xrange(lowlim, hilim+1):
-            if (yang_flag[j] == 0) and (yang_hold[j] == ying_hold[i]):
+            if (yang_flag[j] == 0) and (yang[j] == ying[i]):
                 yang_flag[j] = 1
                 ying_flag[i] = 1
                 Num_com += 1
@@ -514,7 +507,7 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=
                 if yang_flag[j] != 0:
                     k = j + 1
                     break
-            if ying_hold[i] != yang_hold[j]:
+            if ying[i] != yang[j]:
                 N_trans += 1
     N_trans = N_trans // 2
 
@@ -535,7 +528,7 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=
         """
         j = 4 if (minv >= 4) else minv
         i = 0
-        while ((i<j) and (ying_hold[i]==yang_hold[i]) and (not ying_hold[i].isdigit())):
+        while ((i<j) and (ying[i]==yang[i]) and (not ying[i].isdigit())):
             i += 1
         if i:
             weight += i * scaling_factor * (1.0 - weight)
@@ -548,7 +541,7 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=
         the agreeing characters must be > .5 of remaining characters.
         """
         if ((long_strings) and (minv>4) and (Num_com>i+1) and (2*Num_com>=minv+i)):
-            if (not ying_hold[0].isdigit()):
+            if (not ying[0].isdigit()):
                 weight += (1.0-weight) * ((Num_com-i-1) / (len(ying)+len(yang)-i*2+2))
 
     return weight
