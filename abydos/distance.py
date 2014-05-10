@@ -276,15 +276,12 @@ def jaro(s, t, mode='jaro', long_strings=False):
     The above file is a US Goverment publication and, accordingly,
     in the public domain.
     """
-    def _NOTNUM(c):
-        return c.isdigit()
     def _INRANGE(c):
         return ord(c)>0 and ord(c)<91
 
     ying = s.strip()
     yang = t.strip()
 
-    first_pass = True
     adjwt = numpy.zeros((91,91), dtype=numpy.uint8)
     sp = (
         ('A','E'), ('A','I'), ('A','O'), ('A','U'), ('B','V'), ('E','I'),
@@ -301,34 +298,25 @@ def jaro(s, t, mode='jaro', long_strings=False):
     may be errors due to known phonetic or character recognition errors.
     A typical example is to match the letter "O" with the number "0"
     """
-    if (first_pass):
-        first_pass = False
-        for i in xrange(36):
-            adjwt[ord(sp[i][0]),ord(sp[i][1])] = 3
-            adjwt[ord(sp[i][1]),ord(sp[i][0])] = 3
-
-    """
-    Identify the strings to be compared by stripping off all leading and
-    trailing spaces.
-    """
-    ying_length = len(ying)
-    yang_length = len(yang)
+    for i in xrange(36):
+        adjwt[ord(sp[i][0]),ord(sp[i][1])] = 3
+        adjwt[ord(sp[i][1]),ord(sp[i][0])] = 3
 
     """
     If either string is blank - return - added in Version 2
     """
-    if ying_length == 0 or yang_length == 0:
+    if len(ying) == 0 or len(yang) == 0:
         return 0.0
 
     ying_hold = ying
     yang_hold = yang
 
-    if ying_length > yang_length:
-        search_range = ying_length
-        minv = yang_length
+    if len(ying) > len(yang):
+        search_range = len(ying)
+        minv = len(yang)
     else:
-        search_range = yang_length
-        minv = ying_length
+        search_range = len(yang)
+        minv = len(ying)
 
     """
     Blank out the flags
@@ -350,8 +338,8 @@ def jaro(s, t, mode='jaro', long_strings=False):
     Looking only within the search range, count and flag the matched pairs.
     """
     Num_com = 0
-    yl1 = yang_length - 1
-    for i in xrange(ying_length):
+    yl1 = len(yang) - 1
+    for i in xrange(len(ying)):
         lowlim = (i - search_range) if (i >= search_range) else 0
         hilim = (i + search_range) if ((i + search_range) <= yl1) else yl1
         for j in xrange(lowlim, hilim+1):
@@ -371,9 +359,9 @@ def jaro(s, t, mode='jaro', long_strings=False):
     Count the number of transpositions
     """
     k = N_trans = 0
-    for i in xrange(ying_length):
+    for i in xrange(len(ying)):
         if ying_flag[i] == '1':
-            for j in xrange(k, yang_length):
+            for j in xrange(k, len(yang)):
                 if (yang_flag[j] == '1'):
                     k = j + 1
                     break
@@ -387,9 +375,9 @@ def jaro(s, t, mode='jaro', long_strings=False):
     """
     N_simi = 0
     if (minv > Num_com):
-        for i in xrange(ying_length):
+        for i in xrange(len(ying)):
             if (ying_flag[i] == ' ' and _INRANGE(ying_hold[i])): 
-                for j in xrange(yang_length):
+                for j in xrange(len(yang)):
                     if (yang_flag[j] == ' ' and _INRANGE(yang_hold[j])):
                         if (adjwt[ord(ying_hold[i]),ord(yang_hold[j])] > 0):
                             N_simi += adjwt[ord(ying_hold[i]),ord(yang_hold[j])]
@@ -400,10 +388,10 @@ def jaro(s, t, mode='jaro', long_strings=False):
     """
     Main weight computation.
     """
-    weight = Num_sim / ying_length + Num_sim / yang_length + (Num_com - N_trans) / Num_com
+    weight = Num_sim / len(ying) + Num_sim / len(yang) + (Num_com - N_trans) / Num_com
     weight = weight / 3.0
 
-    print Num_sim, ying_length, yang_length, Num_com, N_trans, weight
+    print Num_sim, len(ying), len(yang), Num_com, N_trans, weight
 
     """
     Continue to boost the weight if the strings are similar
@@ -415,7 +403,7 @@ def jaro(s, t, mode='jaro', long_strings=False):
         """
         j = 4 if (minv >= 4) else minv
         i = 0
-        while ((i<j) and (ying_hold[i]==yang_hold[i]) and (_NOTNUM(ying_hold[i]))):
+        while ((i<j) and (ying_hold[i]==yang_hold[i]) and (not ying_hold[i].isdigit())):
             i += 1
         if i:
             weight += i * 0.1 * (1.0 - weight)
@@ -428,8 +416,8 @@ def jaro(s, t, mode='jaro', long_strings=False):
         the agreeing characters must be > .5 of remaining characters.
         """
         if ((long_strings) and (minv>4) and (Num_com>i+1) and (2*Num_com>=minv+i)):
-            if (_NOTNUM(ying_hold[0])):
-                weight += (1.0-weight) * ((Num_com-i-1) / (ying_length+yang_length-i*2+2))
+            if (not ying_hold[0].isdigit()):
+                weight += (1.0-weight) * ((Num_com-i-1) / (len(ying)+len(yang)-i*2+2))
 
     return weight
 
