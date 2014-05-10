@@ -207,7 +207,23 @@ def _delete_consecutive_repeats(word):
     return ''.join(char for char, _ in groupby(word))
 
 
-"""def phonemicizeGraphemes(word):
+def nysiis(word):
+    return word
+
+
+def metaphone(word):
+    return word
+
+
+def double_metaphone(word):
+    return word
+
+
+def caverphone(word, version=2):
+    return word
+
+
+"""def phonemicize_graphemes(word):
     phones = word
     #phones = phones.replace(
 """
