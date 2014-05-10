@@ -6,7 +6,7 @@ import numpy
 import sys
 import math
 from collections import defaultdict
-from .util import _qgram_counts
+from .util import _qgram_counts, qgrams
 
 
 def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
@@ -158,7 +158,7 @@ def tversky_index(s, t, q=2, alpha=1, beta=1, bias=None):
     The symmetric variant is defined in Jiminez, Sergio, Claudio Becerra, and Alexander Gelbukh. 2013. SOFTCARDINALITY-CORE: Improving Text Overlap with Distributional Measures for Semantic Textual Similarity. This is activated by specifying a bias parameter. http://aclweb.org/anthology/S/S13/S13-1028.pdf
     """
     if alpha < 0 or beta < 0:
-        raise ValueError('Unsupported weight assignment; but alpha and beta must be greater than or equal to 0.')
+        raise ValueError('Unsupported weight assignment; alpha and beta must be greater than or equal to 0.')
 
     if s == t:
         return 1.0
@@ -260,6 +260,7 @@ def tanimoto(s, t, q=2):
     """
     return math.log(jaccard_coeff(s, t, q), 2)
 
+
 def strcmp95(s, t, long_strings=False):
     """Return the strcmp95 distance between two string arguments.
 
@@ -272,9 +273,9 @@ def strcmp95(s, t, long_strings=False):
         social security numbers."
 
     Description:
-    This is a Python translation of the c code for strcmp95:
+    This is a Python translation of the C code for strcmp95:
     http://web.archive.org/web/20110629121242/http://www.census.gov/geo/msb/stand/strcmp.c
-    The above file is a US Goverment publication and, accordingly,
+    The above file is a US Government publication and, accordingly,
     in the public domain.
 
     This is based on the Jaro-Winkler distance, but also attempts to correct
@@ -287,6 +288,12 @@ def strcmp95(s, t, long_strings=False):
 
     ying = s.strip().upper()
     yang = t.strip().upper()
+
+    """
+    If either string is blank - return - added in Version 2
+    """
+    if len(ying) == 0 or len(yang) == 0:
+        return 0.0
 
     adjwt = defaultdict(int)
     sp = (
@@ -309,11 +316,6 @@ def strcmp95(s, t, long_strings=False):
         adjwt[(x,y)]=3
         adjwt[(y,x)]=3
 
-    """
-    If either string is blank - return - added in Version 2
-    """
-    if len(ying) == 0 or len(yang) == 0:
-        return 0.0
 
     ying_hold = ying
     yang_hold = yang
@@ -329,7 +331,7 @@ def strcmp95(s, t, long_strings=False):
     Blank out the flags
     """
     ying_flag = [0 for i in xrange(search_range)]
-    yang_flag = [0 for i in xrange(search_range)]
+    yang_flag = [0 for j in xrange(search_range)]
     search_range = search_range//2 - 1
     if search_range < 0:
         search_range = 0
@@ -404,6 +406,139 @@ def strcmp95(s, t, long_strings=False):
             i += 1
         if i:
             weight += i * 0.1 * (1.0 - weight)
+
+        """
+        Optionally adjust for long strings.
+        """
+        """
+        After agreeing beginning chars, at least two more must agree and
+        the agreeing characters must be > .5 of remaining characters.
+        """
+        if ((long_strings) and (minv>4) and (Num_com>i+1) and (2*Num_com>=minv+i)):
+            if (not ying_hold[0].isdigit()):
+                weight += (1.0-weight) * ((Num_com-i-1) / (len(ying)+len(yang)-i*2+2))
+
+    return weight
+
+
+def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=0.7, scaling_factor=0.1):
+    """Return the Jaro(-Winkler) distance between two string arguments.
+
+    Arguments:
+    s, t -- two strings to be compared
+    q -- the length of each q-gram (defaults to 1: character-wise matching) 
+    mode -- indicates which variant of this distance metric to compute:
+        'winkler' -- computes the Jaro-Winkler distance (default)
+            which increases the score for matches near the start of the word
+        'jaro' -- computes the Jaro distance
+
+    The following arguments apply only when mode is 'winkler':
+    long_strings -- set to True to "Increase the probability of a match when
+        the number of matched characters is large.  This option allows for a
+        little more tolerance when the strings are large.  It is not an
+        appropriate test when comparing fixed length fields such as phone and
+        social security numbers."
+    boost_threshold -- a value between 0 and 1, below which the Winkler boost
+        is not applied (defaults to 0.7)
+    scaling_factor -- a value between 0 and 0.25, indicating by how much to
+        boost scores for matching prefixes (defaults to 0.1)
+
+    Description:
+    This is a Python based on the C code for strcmp95:
+    http://web.archive.org/web/20110629121242/http://www.census.gov/geo/msb/stand/strcmp.c
+    The above file is a US Government publication and, accordingly, 
+    in the public domain.
+    """
+    if mode == 'winkler':
+        if boost_threshold > 1 or boost_threshold<0:
+            raise ValueError('Unsupported boost_threshold assignment; boost_threshold must be between 0 and 1.')
+        if scaling_factor > 0.25 or boost_threshold<0:
+            raise ValueError('Unsupported scaling_factor assignment; scaling_factor must be between 0 and 0.25.')
+        
+    ying = qgrams(s.strip(), q)
+    yang = qgrams(t.strip(), q)
+
+    """
+    If either string is blank - return - added in Version 2
+    """
+    if len(ying) == 0 or len(yang) == 0:
+        return 0.0
+
+    ying_hold = ying
+    yang_hold = yang
+
+    if len(ying) > len(yang):
+        search_range = len(ying)
+        minv = len(yang)
+    else:
+        search_range = len(yang)
+        minv = len(ying)
+
+    """
+    Zero out the flags
+    """
+    ying_flag = [0 for i in xrange(search_range)]
+    yang_flag = [0 for j in xrange(search_range)]
+    search_range = search_range//2 - 1
+    if search_range < 0:
+        search_range = 0
+
+    """
+    Looking only within the search range, count and flag the matched pairs.
+    """
+    Num_com = 0
+    yl1 = len(yang) - 1
+    for i in xrange(len(ying)):
+        lowlim = (i - search_range) if (i >= search_range) else 0
+        hilim = (i + search_range) if ((i + search_range) <= yl1) else yl1
+        for j in xrange(lowlim, hilim+1):
+            if (yang_flag[j] == 0) and (yang_hold[j] == ying_hold[i]):
+                yang_flag[j] = 1
+                ying_flag[i] = 1
+                Num_com += 1
+                break
+
+    """
+    If no characters in common - return
+    """
+    if Num_com == 0:
+        return 0.0
+
+    """
+    Count the number of transpositions
+    """
+    k = N_trans = 0
+    for i in xrange(len(ying)):
+        if ying_flag[i] != 0:
+            for j in xrange(k, len(yang)):
+                if yang_flag[j] != 0:
+                    k = j + 1
+                    break
+            if ying_hold[i] != yang_hold[j]:
+                N_trans += 1
+    N_trans = N_trans // 2
+
+    """
+    Main weight computation.
+    """
+    weight = Num_com / len(ying) + Num_com / len(yang) + (Num_com - N_trans) / Num_com
+    weight = weight / 3.0
+    print Num_com, len(ying), len(yang), N_trans, weight
+
+    """
+    Continue to boost the weight if the strings are similar
+    """
+    if (mode == 'winkler' and weight > boost_threshold):
+
+        """
+        Adjust for having up to the first 4 characters in common
+        """
+        j = 4 if (minv >= 4) else minv
+        i = 0
+        while ((i<j) and (ying_hold[i]==yang_hold[i]) and (not ying_hold[i].isdigit())):
+            i += 1
+        if i:
+            weight += i * scaling_factor * (1.0 - weight)
 
         """
         Optionally adjust for long strings.
