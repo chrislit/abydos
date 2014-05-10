@@ -38,7 +38,7 @@ def russell_index(word):
         elif char is 'r': # rule 8: "dental-fricative"
             sdx += '8'
 
-    sdx = delete_consecutive_repeats(sdx)
+    sdx = _delete_consecutive_repeats(sdx)
     return int(sdx)
 
 
@@ -85,7 +85,7 @@ def knuth_soundex(word):
             sdx += char
 
     sdx = sdx.replace('9', '') # rule 1
-    sdx = delete_consecutive_repeats(sdx) # rule 3
+    sdx = _delete_consecutive_repeats(sdx) # rule 3
 
     sdx = word[0] + sdx[1:]
     sdx = sdx.replace('0', '') # rule 1
@@ -181,7 +181,7 @@ def koelner_phonetik(word):
         elif word[i] in 'sz':
             sdx += '8'
 
-    sdx = delete_consecutive_repeats(sdx)
+    sdx = _delete_consecutive_repeats(sdx)
 
     sdx = sdx.replace('0', '')
 
@@ -196,14 +196,14 @@ def koelner_phonetik_num_to_alpha(num):
     return num.translate(maketrans('012345678', 'aptfklnrs'))
 
 
-def KoelnerPhonetikAlpha(word):
+def koelner_phonetik_alpha(word):
     """Given a string 'word', returns an alphabetic value representing
     its Kölner Phonetik value
     """
     return koelner_phonetik_num_to_alpha(koelner_phonetik(word))
 
 
-def delete_consecutive_repeats(word):
+def _delete_consecutive_repeats(word):
     return ''.join(char for char, _ in groupby(word))
 
 
