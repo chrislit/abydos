@@ -451,27 +451,30 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=
         if scaling_factor > 0.25 or boost_threshold<0:
             raise ValueError('Unsupported scaling_factor assignment; scaling_factor must be between 0 and 0.25.')
 
-    ying = qgrams(s.strip(), q)
-    yang = qgrams(t.strip(), q)
+    s = qgrams(s.strip(), q)
+    t = qgrams(t.strip(), q)
+
+    lens = len(s)
+    lent = len(t)
 
     """
     If either string is blank - return - added in Version 2
     """
-    if len(ying) == 0 or len(yang) == 0:
+    if lens == 0 or lent == 0:
         return 0.0
 
-    if len(ying) > len(yang):
-        search_range = len(ying)
-        minv = len(yang)
+    if lens > lent:
+        search_range = lens
+        minv = lent
     else:
-        search_range = len(yang)
-        minv = len(ying)
+        search_range = lent
+        minv = lens
 
     """
     Zero out the flags
     """
-    ying_flag = [0 for i in xrange(search_range)]
-    yang_flag = [0 for j in xrange(search_range)]
+    s_flag = [0 for i in xrange(search_range)]
+    t_flag = [0 for j in xrange(search_range)]
     search_range = search_range//2 - 1
     if search_range < 0:
         search_range = 0
@@ -480,14 +483,14 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=
     Looking only within the search range, count and flag the matched pairs.
     """
     Num_com = 0
-    yl1 = len(yang) - 1
-    for i in xrange(len(ying)):
+    yl1 = lent - 1
+    for i in xrange(lens):
         lowlim = (i - search_range) if (i >= search_range) else 0
         hilim = (i + search_range) if ((i + search_range) <= yl1) else yl1
         for j in xrange(lowlim, hilim+1):
-            if (yang_flag[j] == 0) and (yang[j] == ying[i]):
-                yang_flag[j] = 1
-                ying_flag[i] = 1
+            if (t_flag[j] == 0) and (t[j] == s[i]):
+                t_flag[j] = 1
+                s_flag[i] = 1
                 Num_com += 1
                 break
 
@@ -501,22 +504,22 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=
     Count the number of transpositions
     """
     k = N_trans = 0
-    for i in xrange(len(ying)):
-        if ying_flag[i] != 0:
-            for j in xrange(k, len(yang)):
-                if yang_flag[j] != 0:
+    for i in xrange(lens):
+        if s_flag[i] != 0:
+            for j in xrange(k, lent):
+                if t_flag[j] != 0:
                     k = j + 1
                     break
-            if ying[i] != yang[j]:
+            if s[i] != t[j]:
                 N_trans += 1
     N_trans = N_trans // 2
 
     """
     Main weight computation.
     """
-    weight = Num_com / len(ying) + Num_com / len(yang) + (Num_com - N_trans) / Num_com
+    weight = Num_com / lens + Num_com / lent + (Num_com - N_trans) / Num_com
     weight = weight / 3.0
-    print Num_com, len(ying), len(yang), N_trans, weight
+    print Num_com, lens, lent, N_trans, weight
 
     """
     Continue to boost the weight if the strings are similar
@@ -528,7 +531,7 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=
         """
         j = 4 if (minv >= 4) else minv
         i = 0
-        while ((i<j) and (ying[i]==yang[i]) and (not ying[i].isdigit())):
+        while ((i<j) and (s[i]==t[i]) and (not s[i].isdigit())):
             i += 1
         if i:
             weight += i * scaling_factor * (1.0 - weight)
@@ -541,7 +544,7 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=
         the agreeing characters must be > .5 of remaining characters.
         """
         if ((long_strings) and (minv>4) and (Num_com>i+1) and (2*Num_com>=minv+i)):
-            if (not ying[0].isdigit()):
-                weight += (1.0-weight) * ((Num_com-i-1) / (len(ying)+len(yang)-i*2+2))
+            if (not s[0].isdigit()):
+                weight += (1.0-weight) * ((Num_com-i-1) / (lens+lent-i*2+2))
 
     return weight
