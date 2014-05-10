@@ -547,3 +547,42 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=
             weight += (1.0-weight) * ((Num_com-i-1) / (lens+lent-i*2+2))
 
     return weight
+
+
+def lcs(s, t):
+    """Returns the longest common substring (LCS) of two strings
+
+    Arguments:
+    s, t -- two strings to be compared
+
+    Based on the dynamic programming algorithm from
+    http://rosettacode.org/wiki/Longest_common_subsequence#Dynamic_Programming_6
+    This is licensed GFDL 1.2
+
+    Modifications include:
+        conversion to a numpy array in place of a list of lists
+    """
+    lengths = numpy.zeros((len(s)+1,len(t)+1), dtype=numpy.int)
+
+    # row 0 and column 0 are initialized to 0 already
+    for i, x in enumerate(s):
+        for j, y in enumerate(t):
+            if x == y:
+                lengths[i+1,j+1] = lengths[i,j] + 1
+            else:
+                lengths[i+1,j+1] = max(lengths[i+1,j], lengths[i,j+1])
+
+    # read the substring out from the matrix
+    result = ""
+    x, y = len(s), len(t)
+    while x != 0 and y != 0:
+        if lengths[x,y] == lengths[x-1,y]:
+            x -= 1
+        elif lengths[x,y] == lengths[x,y-1]:
+            y -= 1
+        else:
+            assert s[x-1] == t[y-1]
+            result = s[x-1] + result
+            x -= 1
+            y -= 1
+    return result
