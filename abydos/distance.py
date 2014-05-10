@@ -446,7 +446,7 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=
     Description:
     This is a Python based on the C code for strcmp95:
     http://web.archive.org/web/20110629121242/http://www.census.gov/geo/msb/stand/strcmp.c
-    The above file is a US Government publication and, accordingly, 
+    The above file is a US Government publication and, accordingly,
     in the public domain.
     """
     if mode == 'winkler':
@@ -454,7 +454,7 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=
             raise ValueError('Unsupported boost_threshold assignment; boost_threshold must be between 0 and 1.')
         if scaling_factor > 0.25 or boost_threshold<0:
             raise ValueError('Unsupported scaling_factor assignment; scaling_factor must be between 0 and 0.25.')
-        
+
     ying = qgrams(s.strip(), q)
     yang = qgrams(t.strip(), q)
 
