@@ -261,7 +261,7 @@ def tanimoto(s, t, q=2):
     return math.log(jaccard_coeff(s, t, q), 2)
 
 def strcmp95(s, t, long_strings=False):
-    """Return the Jaro distance between two string arguments.
+    """Return the strcmp95 distance between two string arguments.
 
     Arguments:
     s, t -- two strings to be compared
@@ -276,6 +276,11 @@ def strcmp95(s, t, long_strings=False):
     http://web.archive.org/web/20110629121242/http://www.census.gov/geo/msb/stand/strcmp.c
     The above file is a US Goverment publication and, accordingly,
     in the public domain.
+
+    This is based on the Jaro-Winkler distance, but also attempts to correct
+    for some common typos and frequently confused characters. It is also
+    limited to uppercase ASCII characters, so it is appropriate to American
+    names, but not much else.
     """
     def _INRANGE(c):
         return ord(c)>0 and ord(c)<91
