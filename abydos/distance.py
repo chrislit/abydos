@@ -260,16 +260,16 @@ def tanimoto(s, t, q=2):
     """
     return math.log(jaccard_coeff(s, t, q), 2)
 
-def jaro(s, t, mode='jaro', long_strings=False):
+def strcmp95(s, t, long_strings=False):
     """Return the Jaro distance between two string arguments.
 
     Arguments:
     s, t -- two strings to be compared
-    mode -- specifies which algorithm to employ:
-              'jaro' -- the basic Jaro algorithm
-              'winkler' -- the Jaro-Winkler algorithm
-              'strcmp95' -- the algorithm as implemented in strcmp95.c
-              'strcmp95b' -- the algorithm as implemented in strcmp95.c
+    long_strings -- set to True to "Increase the probability of a match when
+        the number of matched characters is large.  This option allows for a
+        little more tolerance when the strings are large.  It is not an
+        appropriate test when comparing fixed length fields such as phone and
+        social security numbers."
 
     Description:
     This is a Python translation of the c code for strcmp95:
@@ -280,11 +280,10 @@ def jaro(s, t, mode='jaro', long_strings=False):
     def _INRANGE(c):
         return ord(c)>0 and ord(c)<91
 
-    ying = s.strip()
-    yang = t.strip()
+    ying = s.strip().upper()
+    yang = t.strip().upper()
 
     adjwt = defaultdict(int)
-    #adjwt = numpy.zeros((91,91), dtype=numpy.uint8)
     sp = (
         ('A','E'), ('A','I'), ('A','O'), ('A','U'), ('B','V'), ('E','I'),
         ('E','O'), ('E','U'), ('I','O'), ('I','U'), ('O','U'), ('I','Y'),
@@ -300,9 +299,6 @@ def jaro(s, t, mode='jaro', long_strings=False):
     may be errors due to known phonetic or character recognition errors.
     A typical example is to match the letter "O" with the number "0"
     """
-    #for i in xrange(36):
-    #    adjwt[ord(sp[i][0]),ord(sp[i][1])] = 3
-    #    adjwt[ord(sp[i][1]),ord(sp[i][0])] = 3
     for i in sp:
         x,y = i
         adjwt[(x,y)]=3
@@ -327,18 +323,11 @@ def jaro(s, t, mode='jaro', long_strings=False):
     """
     Blank out the flags
     """
-    ying_flag = ' '*search_range
-    yang_flag = ' '*search_range
-    search_range = int(search_range/2) - 1
+    ying_flag = [0 for i in xrange(search_range)]
+    yang_flag = [0 for i in xrange(search_range)]
+    search_range = search_range//2 - 1
     if search_range < 0:
         search_range = 0
-
-    """
-    Convert all lower case characters to upper case.
-    """
-    if mode == 'upper':
-        ying_hold = ying_hold.upper()
-        yang_hold = yang_hold.upper()
 
     """
     Looking only within the search range, count and flag the matched pairs.
@@ -349,9 +338,9 @@ def jaro(s, t, mode='jaro', long_strings=False):
         lowlim = (i - search_range) if (i >= search_range) else 0
         hilim = (i + search_range) if ((i + search_range) <= yl1) else yl1
         for j in xrange(lowlim, hilim+1):
-            if ((yang_flag[j] != '1') and (yang_hold[j] == ying_hold[i])):
-                yang_flag = yang_flag[:i-1] + '1' + yang_flag[i:]
-                ying_flag = ying_flag[:i-1] + '1' + ying_flag[i:]
+            if (yang_flag[j] == 0) and (yang_hold[j] == ying_hold[i]):
+                yang_flag[j] = 1
+                ying_flag[i] = 1
                 Num_com += 1
                 break
 
@@ -366,28 +355,27 @@ def jaro(s, t, mode='jaro', long_strings=False):
     """
     k = N_trans = 0
     for i in xrange(len(ying)):
-        if ying_flag[i] == '1':
+        if ying_flag[i] != 0:
             for j in xrange(k, len(yang)):
-                if (yang_flag[j] == '1'):
+                if yang_flag[j] != 0:
                     k = j + 1
                     break
-            if (ying_hold[i] != yang_hold[j]):
-                print ying_hold[i],yang_hold[j]
+            if ying_hold[i] != yang_hold[j]:
                 N_trans += 1
     N_trans = N_trans // 2
 
     """
-    adjust for similarities in nonmatched characters
+    Adjust for similarities in nonmatched characters
     """
     N_simi = 0
     if (minv > Num_com):
         for i in xrange(len(ying)):
-            if (ying_flag[i] == ' ' and _INRANGE(ying_hold[i])): 
+            if ying_flag[i] == 0 and _INRANGE(ying_hold[i]):
                 for j in xrange(len(yang)):
-                    if (yang_flag[j] == ' ' and _INRANGE(yang_hold[j])):
+                    if yang_flag[j] == 0 and _INRANGE(yang_hold[j]):
                         if (ying_hold[i],yang_hold[j]) in adjwt:
                             N_simi += adjwt[(ying_hold[i],yang_hold[j])]
-                            yang_flag = yang_flag[:j-1] + '2' + yang_flag[j:]
+                            yang_flag[j] = 2
                             break
     Num_sim = N_simi/10.0 + Num_com
 
@@ -396,8 +384,6 @@ def jaro(s, t, mode='jaro', long_strings=False):
     """
     weight = Num_sim / len(ying) + Num_sim / len(yang) + (Num_com - N_trans) / Num_com
     weight = weight / 3.0
-
-    print Num_sim, len(ying), len(yang), Num_com, N_trans, weight
 
     """
     Continue to boost the weight if the strings are similar
@@ -426,17 +412,3 @@ def jaro(s, t, mode='jaro', long_strings=False):
                 weight += (1.0-weight) * ((Num_com-i-1) / (len(ying)+len(yang)-i*2+2))
 
     return weight
-
-
-"""
-
-
-import abydos.distance as ad
-ad.jaro('DIXON', 'DICKSONX')
-
-
-
-
-
-
-"""
