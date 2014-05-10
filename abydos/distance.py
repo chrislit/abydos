@@ -515,14 +515,14 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=
     N_trans = N_trans // 2
 
     """
-    Main weight computation.
+    Main weight computation for Jaro distance
     """
     weight = Num_com / lens + Num_com / lent + (Num_com - N_trans) / Num_com
     weight = weight / 3.0
-    print Num_com, lens, lent, N_trans, weight
 
     """
     Continue to boost the weight if the strings are similar
+    This is the Winkler portion of Jaro-Winkler distance
     """
     if (mode == 'winkler' and weight > boost_threshold):
 
@@ -531,7 +531,7 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=
         """
         j = 4 if (minv >= 4) else minv
         i = 0
-        while ((i<j) and (s[i]==t[i]) and (not s[i].isdigit())):
+        while ((i<j) and (s[i]==t[i])):
             i += 1
         if i:
             weight += i * scaling_factor * (1.0 - weight)
@@ -544,7 +544,6 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=
         the agreeing characters must be > .5 of remaining characters.
         """
         if ((long_strings) and (minv>4) and (Num_com>i+1) and (2*Num_com>=minv+i)):
-            if (not s[0].isdigit()):
-                weight += (1.0-weight) * ((Num_com-i-1) / (lens+lent-i*2+2))
+            weight += (1.0-weight) * ((Num_com-i-1) / (lens+lent-i*2+2))
 
     return weight
