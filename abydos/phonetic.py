@@ -311,6 +311,19 @@ def double_metaphone(word):
 
 
 def caverphone(word, version=2):
+    """Return the Caverphone encoding of a word
+
+    Arguments:
+    word -- the word to apply the match rating approach to
+    version -- the version of Caverphone to employ for encoding
+                (defaults to 2)
+
+    Description:
+    A description of version 1 of the algorithm can be found at:
+    http://caversham.otago.ac.nz/files/working/ctp060902.pdf
+    A description of version 2 of the algorithm can be found at:
+    http://caversham.otago.ac.nz/files/working/ctp150804.pdf
+    """
     word = word.lower()
     word = filter(lambda c: c in 'abcdefghijklmnopqrstuvwxyz', word)
 
