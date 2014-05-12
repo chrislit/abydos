@@ -203,8 +203,84 @@ def koelner_phonetik_alpha(word):
     return koelner_phonetik_num_to_alpha(koelner_phonetik(word))
 
 
-def nysiis(word):
-    return word
+def nysiis(word, length=6):
+    """Return the New York State Identification and Intelligence System
+        (NYSIIS) coding of a string
+
+    Arguments:
+    word -- the word to apply the match rating approach to
+    length -- the maximum length (default 6) of the code to return
+
+    Description:
+    A description of the algorithm can be found at
+    https://en.wikipedia.org/wiki/New_York_State_Identification_and_Intelligence_System
+    """
+    vowels = 'AEIOU'
+
+    word = filter(lambda i: i.isalpha(), word.upper())
+
+    if word.startswith('MAC'):
+        word = 'MCC'+word[3:]
+    if word.startswith('KN'):
+        word = 'NN'+word[2:]
+    if word.startswith('K'):
+        word = 'C'+word[1:]
+    if word.startswith('PH') or word.startswith('PF'):
+        word = 'FF'+word[2:]
+    if word.startswith('SCH'):
+        word = 'SSS'+word[3:]
+
+    if word.endswith('EE') or word.endswith('IE'):
+        word = word[:-2]+'Y'
+    if word.endswith('DT') or word.endswith('RT') or word.endswith('RD') or word.endswith('NT') or word.endswith('ND'):
+        word = word[:-2]+'D'
+
+    key = word[0]
+
+    skip = 0
+    for i in xrange(1,len(word)):
+        if i >= len(word):
+            continue
+        elif skip:
+            skip -= 1
+            continue
+        elif word[i:i+2] == 'EV':
+            word = word[:i] + 'AF' + word[i+2:]
+            skip = 1
+        elif word[i] in vowels:
+            word = word[:i] + 'A' + word[i+1:]
+        elif word[i] == 'Q':
+            word = word[:i] + 'G' + word[i+1:]
+        elif word[i] == 'Z':
+            word = word[:i] + 'S' + word[i+1:]
+        elif word[i] == 'M':
+            word = word[:i] + 'N' + word[i+1:]
+        elif word[i:i+2] == 'KN':
+            word = word[:i] + 'N' + word[i+2:]
+        elif word[i] == 'K':
+            word = word[:i] + 'C' + word[i+1:]
+        elif word[i:i+3] == 'SCH':
+            word = word[:i] + 'SSS' + word[i+3:]
+            skip = 2
+        elif word[i:i+2] == 'PH':
+            word = word[:i] + 'FF' + word[i+2:]
+            skip = 1
+        elif word[i] == 'H' and (word[i-1] not in vowels or word[i+1:i+2] not in vowels):
+            word = word[:i] + word[i-1] + word[i+1:]
+        elif word[i] == 'W' and word[i-1] in vowels:
+            word = word[:i] + word[i-1] + word[i+1:]
+
+        if word[i] != key[-1]:
+            key += word[i]
+
+    if key[-1] == 'S':
+        key = key[:-1]
+    if key[-2:] == 'AY':
+        key = key[:-2] + 'Y'
+    if key[-1:] == 'A':
+        key = key[:-1]
+
+    return key[:length]
 
 
 def mra(word):
