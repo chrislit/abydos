@@ -338,7 +338,7 @@ def metaphone(word, length=float('inf')):
     for n in xrange(len(ename)):
         if len(metaph) >= length:
             break
-        if ename[n] != 'C' and n > 0 and ename[n-1] == ename[n]:
+        if ename[n] != 'G' and n > 0 and ename[n-1] == ename[n]:
             new = False
         else:
             new = True
@@ -356,10 +356,10 @@ def metaphone(word, length=float('inf')):
                         metaph += 'X'
                     elif ename[n+1:n+2] in _frontv:
                         metaph += 'S'
-                    elif n > 0 and ename[n-1:n+2] == 'SCH':
+                    elif n > 1 and ename[n-1:n+2] == 'SCH':
                         metaph += 'K'
                     elif ename[n+1:n+2] == 'H':
-                        if n == 0 and n+1 < l and ename[n+2] not in _vowels:
+                        if n == 0 and n+1 < l and ename[n+2:n+3] not in _vowels:
                             metaph += 'K'
                         else:
                             metaph += 'X'
@@ -367,33 +367,25 @@ def metaphone(word, length=float('inf')):
                         metaph += 'K'
 
             elif ename[n] == 'D':
-                if n+1 < l and ename[n+1] == 'G' and ename[n+2] in _frontv:
+                if ename[n+1:n+2] == 'G' and ename[n+2:n+3] in _frontv:
                     metaph += 'J'
                 else:
                     metaph += 'T'
 
             elif ename[n] == 'G':
-                if n < l and ename[n+1] == 'H' and ename[n+2] not in _vowels:
-                    silent = True
-                else:
-                    silent = False
-                if n > 0 and ((n+1) == l or (ename[n+1:n+4] == 'NED' and (n+3) == l)):
-                    silent = True
-                else:
-                    silent = False
-                if n > 0 and (n+1) <= l and ename[n-1] == 'D' and ename[n+1] in _frontv:
-                    silent = True
-                else:
-                    silent = False
-                if n > 0 and ename[n-1] == 'G':
-                    hard = True
-                else:
-                    hard = False
-                if not silent:
-                    if n < l and ename[n+1] in _frontv and not hard:
+                if ename[n+1:n+2] == 'H' and (n+1 < l and ename[n+2] not in _vowels):
+                    pass
+                elif n > 0 and (n+1 == l or (ename[n+1:n+4] == 'NED' and n+3 == l)):
+                    pass
+                elif n-1 > 0 and n+1 < l and ename[n-1] == 'D' and ename[n+1] in _frontv:
+                    pass
+                elif ename[n+1:n+2] in _frontv:
+                    if n == 0 or ename[n-1] != 'G':
                         metaph += 'J'
                     else:
                         metaph += 'K'
+                else:
+                    metaph += 'K'
 
             elif ename[n] == 'H':
                 if not (n == l or (n > 0 and ename[n-1] in _varson)):
