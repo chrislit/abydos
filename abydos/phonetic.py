@@ -314,17 +314,20 @@ def metaphone(word, length=float('inf')):
     Description:
     Based on Lawrence Philips' BASIC code from 1990:
     http://aspell.net/metaphone/metaphone.basic
+    This incorporates some corrections to the above code, particularly
+    some of those suggested by Michael Kuhn in:
+    http://aspell.net/metaphone/metaphone-kuhn.txt
     """
-    _vowels = 'AEIOU'
-    _frontv = 'EIY'
-    _varson = 'CSPTG'
+    _vowels = list('AEIOU')
+    _frontv = list('EIY')
+    _varson = list('CSPTG')
 
     # As in variable sound--those modified by adding an "h"
     ename = filter(lambda i: i.isalnum(), word.upper())
 
     # Delete nonalphanumeric characters and make all caps
     if ename == '':
-        return
+        return ''
     if ename[0:2] in ['PN', 'AE', 'KN', 'GN', 'WR']:
         ename = ename[1:]
     elif ename[0] == 'X':
@@ -334,114 +337,111 @@ def metaphone(word, length=float('inf')):
 
     # Convert to metaph
     l = len(ename)-1
-    metaph = ''; new = True
+    metaph = ''
     for n in xrange(len(ename)):
         if len(metaph) >= length:
             break
-        if ename[n] != 'G' and n > 0 and ename[n-1] == ename[n]:
-            new = False
-        else:
-            new = True
-        if new:
-            if ename[n] in _vowels and n == 0:
-                metaph = ename[n]
+        if ename[n] not in 'GT' and n > 0 and ename[n-1] == ename[n]:
+            continue
+        
+        if ename[n] in _vowels and n == 0:
+            metaph = ename[n]
 
-            elif ename[n] == 'B':
-                if n != l or ename[n-1] != 'M':
-                    metaph += ename[n]
-
-            elif ename[n] == 'C':
-                if not (n > 0 and ename[n-1] == 'S' and ename[n+1:n+2] in _frontv):
-                    if ename[n+1:n+3] == 'IA':
-                        metaph += 'X'
-                    elif ename[n+1:n+2] in _frontv:
-                        metaph += 'S'
-                    elif n > 0 and ename[n-1:n+2] == 'SCH':
-                        metaph += 'K'
-                    elif ename[n+1:n+2] == 'H':
-                        if n == 0 and n+1 < l and ename[n+2:n+3] not in _vowels:
-                            metaph += 'K'
-                        else:
-                            metaph += 'X'
-                    else:
-                        metaph += 'K'
-
-            elif ename[n] == 'D':
-                if ename[n+1:n+2] == 'G' and ename[n+2:n+3] in _frontv:
-                    metaph += 'J'
-                else:
-                    metaph += 'T'
-
-            elif ename[n] == 'G':
-                if ename[n+1:n+2] == 'H' and (n+1 < l and ename[n+2] not in _vowels):
-                    pass
-                elif n > 0 and (n+1 == l or (ename[n+1:n+4] == 'NED' and n+3 == l)):
-                    pass
-                elif n-1 > 0 and n+1 < l and ename[n-1] == 'D' and ename[n+1] in _frontv:
-                    pass
-                elif ename[n+1:n+2] in _frontv:
-                    if n == 0 or ename[n-1] != 'G':
-                        metaph += 'J'
-                    else:
-                        metaph += 'K'
-                else:
-                    metaph += 'K'
-
-            elif ename[n] == 'H':
-                if n > 0 and ename[n-1] in _vowels and ename[n+1:n+2] not in _vowels:
-                    pass
-                elif n > 0 and ename[n-1] in _varson:
-                    pass
-                else:
-                    metaph += 'H'
-
-            elif ename[n] in 'FJLMNR':
+        elif ename[n] == 'B':
+            if n != l or ename[n-1] != 'M':
                 metaph += ename[n]
 
-            elif ename[n] == 'K':
-                if n > 0 and ename[n-1] == 'C':
-                    pass
+        elif ename[n] == 'C':
+            if not (n > 0 and ename[n-1] == 'S' and ename[n+1:n+2] in _frontv):
+                if ename[n+1:n+3] == 'IA':
+                    metaph += 'X'
+                elif ename[n+1:n+2] in _frontv:
+                    metaph += 'S'
+                elif n > 0 and ename[n-1:n+2] == 'SCH':
+                    metaph += 'K'
+                elif ename[n+1:n+2] == 'H':
+                    if n == 0 and n+1 < l and ename[n+2:n+3] not in _vowels:
+                        metaph += 'K'
+                    else:
+                        metaph += 'X'
                 else:
                     metaph += 'K'
 
-            elif ename[n] == 'P':
-                if ename[n+1:n+2] == 'H':
-                    metaph += 'F'
-                else:
-                    metaph += 'P'
+        elif ename[n] == 'D':
+            if ename[n+1:n+2] == 'G' and ename[n+2:n+3] in _frontv:
+                metaph += 'J'
+            else:
+                metaph += 'T'
 
-            elif ename[n] == 'Q':
+        elif ename[n] == 'G':
+            if ename[n+1:n+2] == 'H' and (n+1 < l and ename[n+2] not in _vowels):
+                continue
+            elif n > 0 and (n+1 == l or (ename[n+1:n+4] == 'NED' and n+3 == l)):
+                continue
+            elif n-1 > 0 and n+1 < l and ename[n-1] == 'D' and ename[n+1] in _frontv:
+                continue
+            elif ename[n+1:n+2] in _frontv:
+                if n == 0 or ename[n-1] != 'G':
+                    metaph += 'J'
+                else:
+                    metaph += 'K'
+            else:
                 metaph += 'K'
 
-            elif ename[n] == 'S':
-                if n > 0 and n+1 < l and ename[n+1] == 'I' and ename[n+2] in 'OA':
-                    metaph += 'X'
-                elif n < l and ename[n+1] == 'H':
-                    metaph += 'X'
-                else:
-                    metaph += 'S'
+        elif ename[n] == 'H':
+            if n > 0 and ename[n-1] in _vowels and ename[n+1:n+2] not in _vowels:
+                continue
+            elif n > 0 and ename[n-1] in _varson:
+                continue
+            else:
+                metaph += 'H'
 
-            elif ename[n] == 'T':
-                if n > 0 and n+1 < l and ename[n+1] == 'I' and ename[n+2] in 'OA':
-                    metaph += 'X'
-                elif n < l and ename[n+1] == 'H':
-                    if not (n>0 and ename[n-1] == 'T'):
-                        metaph += '0'
-                elif ename[n+1:n+3] != 'CH':
-                    metaph += 'T'
+        elif ename[n] in 'FJLMNR':
+            metaph += ename[n]
 
-            elif ename[n] == 'V':
+        elif ename[n] == 'K':
+            if n > 0 and ename[n-1] == 'C':
+                continue
+            else:
+                metaph += 'K'
+
+        elif ename[n] == 'P':
+            if ename[n+1:n+2] == 'H':
                 metaph += 'F'
+            else:
+                metaph += 'P'
 
-            elif ename[n] in 'WY':
-                if n < l and ename[n+1] in _vowels:
-                    metaph += ename[n]
+        elif ename[n] == 'Q':
+            metaph += 'K'
 
-            elif ename[n] == 'X':
-                metaph += 'KS'
-
-            elif ename[n] == 'Z':
+        elif ename[n] == 'S':
+            if n > 0 and n+2 < l and ename[n+1] == 'I' and ename[n+2] in 'OA':
+                metaph += 'X'
+            elif ename[n+1:n+2] == 'H':
+                metaph += 'X'
+            else:
                 metaph += 'S'
+
+        elif ename[n] == 'T':
+            if n > 0 and n+2 < l and ename[n+1] == 'I' and ename[n+2] in 'OA':
+                metaph += 'X'
+            elif ename[n+1:n+2] == 'H':
+                metaph += '0'
+            elif ename[n+1:n+3] != 'CH':
+                metaph += 'T'
+
+        elif ename[n] == 'V':
+            metaph += 'F'
+
+        elif ename[n] in 'WY':
+            if ename[n+1:n+2] in _vowels:
+                metaph += ename[n]
+
+        elif ename[n] == 'X':
+            metaph += 'KS'
+
+        elif ename[n] == 'Z':
+            metaph += 'S'
 
     return metaph
 
@@ -572,3 +572,13 @@ def caverphone(word, version=2):
 
 def _delete_consecutive_repeats(word):
     return ''.join(char for char, _ in groupby(word))
+
+
+"""def test():
+    words = ['ANASTHA','DAVIS-CARTER','ESCARMANT','MCCALL','MCCROREY',
+             'MERSEAL','PIEURISSAINT','ROTMAN','SCHEVEL','SCHROM',
+             'SEAL','SPARR','STARLEPER','THRASH']
+    
+    for w in words:
+        print w + '\t\t' + metaphone(w)
+"""
