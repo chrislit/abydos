@@ -447,6 +447,33 @@ def metaphone(word, length=float('inf')):
 
 
 def double_metaphone(word):
+    def _slavo_germanic(w):
+        if 'w' in w or 'k' in w or 'cz' in w or 'witz' in w:
+            return True
+        return False
+
+    def _metaph_add(p, s=''):
+        primary += p
+        secondary += s if s else p
+
+    def _is_vowel(at):
+        if at < 0 or at >= len(word):
+            return False
+        return word[at] in list('AEIOUY')
+
+    primary = ''
+    secondary = ''
+    current = 0
+    length = len(word)
+    if length < 0:
+        return ''
+    last = length - 1
+    
+    word = filter(lambda i: True, word.upper())
+    
+    #pad the original string so that we can index beyond the edge of the world
+    word += '     '
+    
     return word
 
 
