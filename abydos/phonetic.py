@@ -352,15 +352,15 @@ def metaphone(word, length=float('inf')):
                     metaph += symb
 
             elif symb == 'C':
-                if not (n > 0 and ename[n-1] == 'S' and n < l and ename[n+1] in _frontv):
-                    if n+1 < l and ename[n+1] == 'I' and ename[n+2] == 'A':
+                if not (n > 0 and ename[n-1] == 'S' and ename[n+1:n+2] in _frontv):
+                    if ename[n+1:n+3] == 'IA':
                         metaph += 'X'
-                    elif n < l and ename[n+1] in _frontv:
+                    elif ename[n+1:n+2] in _frontv:
                         metaph += 'S'
-                    elif n > 1 and n < l and ename[n+1] == 'H' and ename[n-1] == 'S':
+                    elif n > 0 and ename[n-1:n+2] == 'SCH':
                         metaph += 'K'
-                    elif n < l and ename[n+1] == 'H':
-                        if n == 1 and n+1 < l and ename[n+2] not in _vowels:
+                    elif ename[n+1:n+2] == 'H':
+                        if n == 0 and n+1 < l and ename[n+2] not in _vowels:
                             metaph += 'K'
                         else:
                             metaph += 'X'
