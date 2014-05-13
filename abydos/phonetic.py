@@ -325,12 +325,11 @@ def metaphone(word, length=float('inf')):
     # Delete nonalphanumeric characters and make all caps
     if ename == '':
         return
-    two = ename[0:2]
-    if two in ['PN', 'AE', 'KN', 'GN', 'WR']:
+    if ename[0:2] in ['PN', 'AE', 'KN', 'GN', 'WR']:
         ename = ename[1:]
-    if ename[0] == 'X':
+    elif ename[0] == 'X':
         ename = 'S' + ename[1:]
-    if two == 'wh':
+    elif ename[0:2] == 'wh':
         ename = 'W' + ename[2:]
 
     # Convert to metaph
@@ -349,23 +348,19 @@ def metaphone(word, length=float('inf')):
                 metaph = symb
 
             elif symb == 'B':
-                if n == l and ename[n-1]  == 'M':
-                    silent = True
-                else:
-                    silent = False
-                if not silent:
+                if n != l or ename[n-1] != 'M':
                     metaph += symb
 
             elif symb == 'C':
-                if not (n > 0 and ename[n-1] == 'S' and (n+1) <= l and ename[n+1] in _frontv):
-                    if (n+2) <= l and ename[n+1] == 'I' and ename[n+2] == 'A':
+                if not (n > 0 and ename[n-1] == 'S' and n < l and ename[n+1] in _frontv):
+                    if n+1 < l and ename[n+1] == 'I' and ename[n+2] == 'A':
                         metaph += 'X'
                     elif n < l and ename[n+1] in _frontv:
                         metaph += 'S'
                     elif n > 1 and n < l and ename[n+1] == 'H' and ename[n-1] == 'S':
                         metaph += 'K'
                     elif n < l and ename[n+1] == 'H':
-                        if n == 1 and (n+2) <= l and ename[n+2] not in _vowels:
+                        if n == 1 and n+1 < l and ename[n+2] not in _vowels:
                             metaph += 'K'
                         else:
                             metaph += 'X'
@@ -373,7 +368,7 @@ def metaphone(word, length=float('inf')):
                         metaph += 'K'
 
             elif symb == 'D':
-                if (n+2) <= l and ename[n+1] == 'G' and ename[n+2] in _frontv:
+                if n+1 < l and ename[n+1] == 'G' and ename[n+2] in _frontv:
                     metaph += 'J'
                 else:
                     metaph += 'T'
@@ -425,7 +420,7 @@ def metaphone(word, length=float('inf')):
                 metaph += 'K'
 
             elif symb == 'S':
-                if n > 0 and (n+2) <= l and ename[n+1] == 'I' and ename[n+2] in 'OA':
+                if n > 0 and n+1 < l and ename[n+1] == 'I' and ename[n+2] in 'OA':
                     metaph += 'X'
                 elif n < l and ename[n+1] == 'H':
                     metaph += 'X'
@@ -433,7 +428,7 @@ def metaphone(word, length=float('inf')):
                     metaph += 'S'
 
             elif symb == 'T':
-                if n > 0 and (n+2) <= l and ename[n+1] == 'I' and ename[n+2] in 'OA':
+                if n > 0 and n+1 < l and ename[n+1] == 'I' and ename[n+2] in 'OA':
                     metaph += 'X'
                 elif n < l and ename[n+1] == 'H':
                     if not (n>0 and ename[n-1] == 'T'):
