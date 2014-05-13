@@ -334,7 +334,7 @@ def metaphone(word, length=float('inf')):
 
     # Convert to metaph
     l = len(ename)-1
-    metaph = ''; new = True; hard = False
+    metaph = ''; new = True
     for n in xrange(len(ename)):
         if len(metaph) >= length:
             break
@@ -356,7 +356,7 @@ def metaphone(word, length=float('inf')):
                         metaph += 'X'
                     elif ename[n+1:n+2] in _frontv:
                         metaph += 'S'
-                    elif n > 1 and ename[n-1:n+2] == 'SCH':
+                    elif n > 0 and ename[n-1:n+2] == 'SCH':
                         metaph += 'K'
                     elif ename[n+1:n+2] == 'H':
                         if n == 0 and n+1 < l and ename[n+2:n+3] not in _vowels:
@@ -388,21 +388,24 @@ def metaphone(word, length=float('inf')):
                     metaph += 'K'
 
             elif ename[n] == 'H':
-                if not (n == l or (n > 0 and ename[n-1] in _varson)):
-                    if ename[n+1] in _vowels:
-                        metaph += 'H'
+                if n > 0 and ename[n-1] in _vowels and ename[n+1:n+2] not in _vowels:
+                    pass
+                elif n > 0 and ename[n-1] in _varson:
+                    pass
+                else:
+                    metaph += 'H'
 
             elif ename[n] in 'FJLMNR':
                 metaph += ename[n]
 
             elif ename[n] == 'K':
-                if n > 0 and ename[n-1] != 'C':
+                if n > 0 and ename[n-1] == 'C':
+                    pass
+                else:
                     metaph += 'K'
-                elif n == 0:
-                    metaph = 'K'
 
             elif ename[n] == 'P':
-                if n < l and ename[n+1] == 'H':
+                if ename[n+1:n+2] == 'H':
                     metaph += 'F'
                 else:
                     metaph += 'P'
