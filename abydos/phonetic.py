@@ -215,7 +215,7 @@ def nysiis(word, length=6):
     A description of the algorithm can be found at
     https://en.wikipedia.org/wiki/New_York_State_Identification_and_Intelligence_System
     """
-    vowels = 'AEIOU'
+    _vowels = 'AEIOU'
 
     word = filter(lambda i: i.isalpha(), word.upper())
 
@@ -247,7 +247,7 @@ def nysiis(word, length=6):
         elif word[i:i+2] == 'EV':
             word = word[:i] + 'AF' + word[i+2:]
             skip = 1
-        elif word[i] in vowels:
+        elif word[i] in _vowels:
             word = word[:i] + 'A' + word[i+1:]
         elif word[i] == 'Q':
             word = word[:i] + 'G' + word[i+1:]
@@ -265,9 +265,9 @@ def nysiis(word, length=6):
         elif word[i:i+2] == 'PH':
             word = word[:i] + 'FF' + word[i+2:]
             skip = 1
-        elif word[i] == 'H' and (word[i-1] not in vowels or word[i+1:i+2] not in vowels):
+        elif word[i] == 'H' and (word[i-1] not in _vowels or word[i+1:i+2] not in _vowels):
             word = word[:i] + word[i-1] + word[i+1:]
-        elif word[i] == 'W' and word[i-1] in vowels:
+        elif word[i] == 'W' and word[i-1] in _vowels:
             word = word[:i] + word[i-1] + word[i+1:]
 
         if word[i] != key[-1]:
@@ -302,8 +302,159 @@ def mra(word):
     return word
 
 
-def metaphone(word):
-    return word
+def metaphone(word, length=float('inf')):
+    """Return the Metaphone encoding of a word
+
+    Arguments:
+    word -- the word to apply the Metaphone algorithm to
+    length -- the maximum length of the returned Metaphone code
+        (defaults to unlimited, but in Philips' original implementation
+        this was 4)
+
+    Description:
+    Based on Lawrence Philips' BASIC code from 1990:
+    http://aspell.net/metaphone/metaphone.basic
+    """
+    _vowels = 'AEIOU'
+    _frontv = 'EIY'
+    _varson = 'CSPTG'
+
+    # As in variable sound--those modified by adding an "h"
+    ename = filter(lambda i: i.isalnum(), word.upper())
+
+    # Delete nonalphanumeric characters and make all caps
+    if ename == '':
+        return
+    two = ename[0:2]
+    if two in ['PN', 'AE', 'KN', 'GN', 'WR']:
+        ename = ename[1:]
+    if ename[0] == 'X':
+        ename = 'S' + ename[1:]
+    if two == 'wh':
+        ename = 'W' + ename[2:]
+
+    # Convert to metaph
+    l = len(ename)-1
+    metaph = ''; new = True; hard = False
+    for n in xrange(len(ename)):
+        if len(metaph) >= length:
+            break
+        symb = ename[n]
+        if symb != 'C' and n > 0 and ename[n-1] == symb:
+            new = False
+        else:
+            new = True
+        if new:
+            if symb in _vowels and n == 0:
+                metaph = symb
+
+            elif symb == 'B':
+                if n == l and ename[n-1]  == 'M':
+                    silent = True
+                else:
+                    silent = False
+                if not silent:
+                    metaph += symb
+
+            elif symb == 'C':
+                if not (n > 0 and ename[n-1] == 'S' and (n+1) <= l and ename[n+1] in _frontv):
+                    if (n+2) <= l and ename[n+1] == 'I' and ename[n+2] == 'A':
+                        metaph += 'X'
+                    elif n < l and ename[n+1] in _frontv:
+                        metaph += 'S'
+                    elif n > 1 and n < l and ename[n+1] == 'H' and ename[n-1] == 'S':
+                        metaph += 'K'
+                    elif n < l and ename[n+1] == 'H':
+                        if n == 1 and (n+2) <= l and ename[n+2] not in _vowels:
+                            metaph += 'K'
+                        else:
+                            metaph += 'X'
+                    else:
+                        metaph += 'K'
+
+            elif symb == 'D':
+                if (n+2) <= l and ename[n+1] == 'G' and ename[n+2] in _frontv:
+                    metaph += 'J'
+                else:
+                    metaph += 'T'
+
+            elif symb == 'G':
+                if n < l and ename[n+1] == 'H' and ename[n+2] not in _vowels:
+                    silent = True
+                else:
+                    silent = False
+                if n > 0 and ((n+1) == l or (ename[n+1:n+4] == 'NED' and (n+3) == l)):
+                    silent = True
+                else:
+                    silent = False
+                if n > 0 and (n+1) <= l and ename[n-1] == 'D' and ename[n+1] in _frontv:
+                    silent = True
+                else:
+                    silent = False
+                if n > 0 and ename[n-1] == 'G':
+                    hard = True
+                else:
+                    hard = False
+                if not silent:
+                    if n < l and ename[n+1] in _frontv and not hard:
+                        metaph += 'J'
+                    else:
+                        metaph += 'K'
+
+            elif symb == 'H':
+                if not (n == l or (n > 0 and ename[n-1] in _varson)):
+                    if ename[n+1] in _vowels:
+                        metaph += 'H'
+
+            elif symb in 'FJLMNR':
+                metaph += symb
+
+            elif symb == 'K':
+                if n > 0 and ename[n-1] != 'C':
+                    metaph += 'K'
+                elif n == 0:
+                    metaph = 'K'
+
+            elif symb == 'P':
+                if n < l and ename[n+1] == 'H':
+                    metaph += 'F'
+                else:
+                    metaph += 'P'
+
+            elif symb == 'Q':
+                metaph += 'K'
+
+            elif symb == 'S':
+                if n > 0 and (n+2) <= l and ename[n+1] == 'I' and ename[n+2] in 'OA':
+                    metaph += 'X'
+                elif n < l and ename[n+1] == 'H':
+                    metaph += 'X'
+                else:
+                    metaph += 'S'
+
+            elif symb == 'T':
+                if n > 0 and (n+2) <= l and ename[n+1] == 'I' and ename[n+2] in 'OA':
+                    metaph += 'X'
+                elif n < l and ename[n+1] == 'H':
+                    if not (n>0 and ename[n-1] == 'T'):
+                        metaph += '0'
+                elif ename[n+1:n+3] != 'CH':
+                    metaph += 'T'
+
+            elif symb == 'V':
+                metaph += 'F'
+
+            elif symb in 'WY':
+                if n < l and ename[n+1] in _vowels:
+                    metaph += symb
+
+            elif symb == 'X':
+                metaph += 'KS'
+
+            elif symb == 'Z':
+                metaph += 'S'
+
+    return metaph
 
 
 def double_metaphone(word):
@@ -314,7 +465,7 @@ def caverphone(word, version=2):
     """Return the Caverphone encoding of a word
 
     Arguments:
-    word -- the word to apply the match rating approach to
+    word -- the word to apply the Caverphone algorithm to
     version -- the version of Caverphone to employ for encoding
                 (defaults to 2)
 
