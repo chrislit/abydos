@@ -616,7 +616,7 @@ def mra_compare(s, t):
     else:
         min_rating = 2
 
-    for n in xrange(2):
+    for _ in xrange(2):
         new_s = []
         new_t = []
         minlen=min(len(s),len(t))
