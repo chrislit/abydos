@@ -35,7 +35,23 @@ class soundex_test_cases(unittest.TestCase):
         self.assertEquals(russell_index_alpha('Myer'), 'MAR')
         self.assertEquals(russell_index_alpha('Mack'), 'MAC')
         self.assertEquals(russell_index_alpha('Knack'), 'CNAC')
-
+        
+    def knuth_soundex(self):
+        self.assertEquals(knuth_soundex('Euler'), 'E460')
+        self.assertEquals(knuth_soundex('Gauss'), 'G200')
+        self.assertEquals(knuth_soundex('Hilbert'), 'H416')
+        self.assertEquals(knuth_soundex('Knuth'), 'K530')
+        self.assertEquals(knuth_soundex('Lloyd'), 'L300')
+        self.assertEquals(knuth_soundex('Lukasieicz'), 'L222')
+        self.assertEquals(knuth_soundex('Ellery'), 'E460')
+        self.assertEquals(knuth_soundex('Ghosh'), 'G200')
+        self.assertEquals(knuth_soundex('Heilbronn'), 'H416')
+        self.assertEquals(knuth_soundex('Kant'), 'K530')
+        self.assertEquals(knuth_soundex('Ladd'), 'L300')
+        self.assertEquals(knuth_soundex('Lissajous'), 'L222')
+        self.assertNotEquals(knuth_soundex('Rogers'), knuth_soundex('Rodgers'))
+        self.assertNotEquals(knuth_soundex('Sinclair'), knuth_soundex('St. Clair'))
+        self.assertNotEquals(knuth_soundex('Tchebysheff'), knuth_soundex('Chebyshev'))        
 
 
 class double_metaphone_test_case(unittest.TestCase):
