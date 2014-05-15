@@ -473,7 +473,7 @@ def double_metaphone(word, maxlength=float('inf')):
         newp = primary
         news = secondary
         if p:
-            newp += p;
+            newp += p
         if s:
             if s != ' ':
                 news += s
@@ -512,7 +512,7 @@ def double_metaphone(word, maxlength=float('inf')):
 
     # Skip these when at start of word
     if word[0:2] in ['GN', 'KN', 'PN', 'WR', 'PS']:
-        current += 1;
+        current += 1
 
     # Initial 'X' is pronounced 'Z' e.g. 'Xavier'
     if _get_at(0) == 'X':
@@ -652,7 +652,7 @@ def double_metaphone(word, maxlength=float('inf')):
 
             # else
             else:
-                (primary, secondary) = _metaph_add("K");
+                (primary, secondary) = _metaph_add("K")
 
                 # name sent in 'mac caffrey', 'mac gregor
                 if _string_at((current + 1), 2, [" C", " Q", " G"]):
@@ -692,7 +692,7 @@ def double_metaphone(word, maxlength=float('inf')):
             if _get_at(current + 1) == 'F':
                 current += 2
             else:
-                current += 1;
+                current += 1
             (primary, secondary) = _metaph_add("F")
             continue
 
@@ -948,7 +948,7 @@ def double_metaphone(word, maxlength=float('inf')):
             elif (((current == 0)
                    and _string_at((current + 1), 1, ["M", "N", "L", "W"]))
                   or _string_at((current + 1), 1, ["Z"])):
-                (primary, secondary) = _metaph_add("S", "X");
+                (primary, secondary) = _metaph_add("S", "X")
                 if _string_at((current + 1), 1, ["Z"]):
                     current += 2
                 else:
@@ -1090,9 +1090,9 @@ def double_metaphone(word, maxlength=float('inf')):
                 continue
             elif (_string_at((current + 1), 2, ["ZO", "ZI", "ZA"])
                   or (_slavo_germanic() and ((current > 0) and _get_at(current - 1) != 'T'))):
-                (primary, secondary) = _metaph_add("S", "TS");
+                (primary, secondary) = _metaph_add("S", "TS")
             else:
-                (primary, secondary) = _metaph_add("S");
+                (primary, secondary) = _metaph_add("S")
 
             if _get_at(current + 1) == 'Z':
                 current += 2
