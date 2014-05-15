@@ -464,8 +464,7 @@ def double_metaphone(word, maxlength=float('inf')):
     secondary = ''
 
     def _slavo_germanic():
-        if ('w' in word or 'k' in word or
-            'cz' in word or 'witz' in word):
+        if ('W' in word or 'K' in word or 'CZ' in word):
             return True
         return False
 
