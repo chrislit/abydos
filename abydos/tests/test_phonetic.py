@@ -4,6 +4,40 @@ from __future__ import unicode_literals
 import unittest
 from abydos.phonetic import *
 
+class soundex_test_cases(unittest.TestCase):
+    def russel_index_test(self):
+        self.assertEquals(russell_index('Hoppa'), 12)
+        self.assertEquals(russell_index('Hopley'), 125)
+        self.assertEquals(russell_index('Highfield'), 1254)
+        self.assertEquals(russell_index('Wright'), 814)
+        self.assertEquals(russell_index('Carter'), 31848)
+        self.assertEquals(russell_index('Hopf'), 12)
+        self.assertEquals(russell_index('Hay'), 1)
+        self.assertEquals(russell_index('Haas'), 1)
+        self.assertEquals(russell_index('Meyers'), 618)
+        self.assertEquals(russell_index('Myers'), 618)
+        self.assertEquals(russell_index('Meyer'), 618)
+        self.assertEquals(russell_index('Myer'), 618)
+        self.assertEquals(russell_index('Mack'), 613)
+        self.assertEquals(russell_index('Knack'), 3713)
+        self.assertEquals(russell_index_num_to_alpha('0123456789'), 'ABCDLMNR')
+        self.assertEquals(russell_index_alpha('Hoppa'), 'AB')
+        self.assertEquals(russell_index_alpha('Hopley'), 'ABL')
+        self.assertEquals(russell_index_alpha('Highfield'), 'ABLD')
+        self.assertEquals(russell_index_alpha('Wright'), 'RAD')
+        self.assertEquals(russell_index_alpha('Carter'), 'CARDR')
+        self.assertEquals(russell_index_alpha('Hopf'), 'AB')
+        self.assertEquals(russell_index_alpha('Hay'), 'A')
+        self.assertEquals(russell_index_alpha('Haas'), 'A')
+        self.assertEquals(russell_index_alpha('Meyers'), 'MAR')
+        self.assertEquals(russell_index_alpha('Myers'), 'MAR')
+        self.assertEquals(russell_index_alpha('Meyer'), 'MAR')
+        self.assertEquals(russell_index_alpha('Myer'), 'MAR')
+        self.assertEquals(russell_index_alpha('Mack'), 'MAC')
+        self.assertEquals(russell_index_alpha('Knack'), 'CNAC')
+
+
+
 class double_metaphone_test_case(unittest.TestCase):
     """These test cases are copied from two sources:
     https://github.com/oubiwann/metaphone/blob/master/metaphone/tests/test_metaphone.py

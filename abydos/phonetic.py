@@ -13,7 +13,7 @@ def russell_index(word):
     word = word.upper()
     word = word.replace('GH', '')  # discard gh (rule 3)
     while word[len(word)-1] in 'SZ':
-        word = word[:len(word)-2] # discard /[sz]$/ (rule 3)
+        word = word[:-1] # discard /[sz]$/ (rule 3)
 
     """
     abcdefghijklmnopqrstuvwxyz
@@ -30,13 +30,13 @@ def russell_index(word):
             sdx += '3'
         elif char in 'DT': # rule 4: "dental-mutes"
             sdx += '4'
-        elif char is 'L': # rule 5: "palatal fricative"
+        elif char == 'L': # rule 5: "palatal fricative"
             sdx += '5'
-        elif char is 'M': # rule 6: "labio-nasal"
+        elif char == 'M': # rule 6: "labio-nasal"
             sdx += '6'
-        elif char is 'N': # rule 7: "dento or lingua-nasal"
+        elif char == 'N': # rule 7: "dento or lingua-nasal"
             sdx += '7'
-        elif char is 'R': # rule 8: "dental-fricative"
+        elif char == 'R': # rule 8: "dental-fricative"
             sdx += '8'
 
     sdx = _delete_consecutive_repeats(sdx)
@@ -47,8 +47,8 @@ def russell_index_num_to_alpha(num):
     """Given the numeric form of a Russell Index value, returns its
     alphabetic form, as described in US Patent 1,261,167 (1917)
     """
-    num = str(num)
-    return num.translate(maketrans('12345678', 'ABCDLMNR'), '09')
+    num = filter(lambda c: c not in '09', str(num))
+    return num.translate(maketrans('12345678', 'ABCDLMNR'))
 
 
 def russell_index_alpha(word):
