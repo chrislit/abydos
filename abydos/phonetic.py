@@ -70,18 +70,16 @@ def knuth_soundex(word):
             sdx += '2'
         elif char in 'DT': # rule 2c
             sdx += '3'
-        elif char is 'L': # rule 2d
+        elif char == 'L': # rule 2d
             sdx += '4'
         elif char in 'MN': # rule 2e
             sdx += '5'
-        elif char is 'R': # rule 2f
+        elif char == 'R': # rule 2f
             sdx += '6'
-
         elif char in 'AEIOUY': # rule 1
             sdx += '0'
         elif char in 'HW': # rule 1
             sdx += '9'
-
         else:
             sdx += char
 

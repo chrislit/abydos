@@ -35,8 +35,8 @@ class soundex_test_cases(unittest.TestCase):
         self.assertEquals(russell_index_alpha('Myer'), 'MAR')
         self.assertEquals(russell_index_alpha('Mack'), 'MAC')
         self.assertEquals(russell_index_alpha('Knack'), 'CNAC')
-        
-    def knuth_soundex(self):
+
+    def knuth_soundex_test(self):
         self.assertEquals(knuth_soundex('Euler'), 'E460')
         self.assertEquals(knuth_soundex('Gauss'), 'G200')
         self.assertEquals(knuth_soundex('Hilbert'), 'H416')
@@ -49,6 +49,8 @@ class soundex_test_cases(unittest.TestCase):
         self.assertEquals(knuth_soundex('Kant'), 'K530')
         self.assertEquals(knuth_soundex('Ladd'), 'L300')
         self.assertEquals(knuth_soundex('Lissajous'), 'L222')
+        self.assertEquals(knuth_soundex('Rogers'), 'R262')
+        self.assertEquals(knuth_soundex('Rodgers'), 'R326')
         self.assertNotEquals(knuth_soundex('Rogers'), knuth_soundex('Rodgers'))
         self.assertNotEquals(knuth_soundex('Sinclair'), knuth_soundex('St. Clair'))
         self.assertNotEquals(knuth_soundex('Tchebysheff'), knuth_soundex('Chebyshev'))        
