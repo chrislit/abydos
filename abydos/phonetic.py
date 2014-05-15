@@ -470,22 +470,32 @@ def double_metaphone(word, maxlength=float('inf')):
         return False
 
     def _metaph_add(p, s=''):
-        return (primary + p, secondary + (s if s else p))
+        newp = primary
+        news = secondary
+        if p:
+            newp += p;
+        if s:
+            if s != ' ':
+                news += s
+        else:
+            if p and (p != ' '):
+                news += p
+        return (newp, news)
 
     def _is_vowel(pos):
-        if pos < 0 or pos >= len(word):
+        if pos < 0:
             return False
         return word[pos] in list('AEIOUY')
 
     def _get_at(pos):
-        if not(pos < 0 or pos > length):
+        if not (pos < 0):
             return word[pos]
 
-    def _string_at(pos, length, substrings):
-        if pos < 0 or pos+length > length:
+    def _string_at(pos, slen, substrings):
+        if pos < 0:
             return False
         for s in substrings:
-            if word[pos:pos+length+1] == s:
+            if word[pos:pos+slen] == s:
                 return True
         return False
 
@@ -575,13 +585,11 @@ def double_metaphone(word, maxlength=float('inf')):
                     continue
 
                 # Germanic, Greek, or otherwise 'ch' for 'kh' sound
-                elif ((_string_at(0, 4, ["VAN ", "VON "]) or
-                       _string_at(0, 3, ["SCH"]))
-                      #  'architect but not 'arch', 'orchestra', 'orchid'
+                elif ((_string_at(0, 4, ["VAN ", "VON "]) or _string_at(0, 3, ["SCH"]))
+                      # 'architect but not 'arch', 'orchestra', 'orchid'
                       or _string_at((current - 2), 6, ["ORCHES", "ARCHIT", "ORCHID"])
                       or _string_at((current + 2), 1, ["T", "S"])
-                      or ((_string_at((current - 1), 1, ["A", "O", "U", "E"])
-                           or (current == 0))
+                      or ((_string_at((current - 1), 1, ["A", "O", "U", "E"]) or (current == 0))
                           # e.g., 'wachtler', 'wechsler', but not 'tichner'
                           and _string_at((current + 2), 1, ["L", "R", "N", "M", "B", "H", "F", "V", "W", " "]))):
                     (primary, secondary) = _metaph_add("K")
@@ -878,7 +886,7 @@ def double_metaphone(word, maxlength=float('inf')):
                 current += 2
             else:
                 current += 1
-                (primary, secondary) = _metaph_add("P")
+            (primary, secondary) = _metaph_add("P")
             continue
 
         elif _get_at(current) == 'Q':
@@ -1095,12 +1103,13 @@ def double_metaphone(word, maxlength=float('inf')):
         else:
             current += 1
 
+    if maxlength < float('inf'):
+        primary = primary[:maxlength]
+        secondary = secondary[:maxlength]
     if primary == secondary:
         secondary = ''
-    if maxlength == float('inf'):
-        return (primary, secondary)
-    else:
-        return (primary[:maxlength], secondary[:maxlength])
+
+    return (primary, secondary)
 
 
 def caverphone(word, version=2):
