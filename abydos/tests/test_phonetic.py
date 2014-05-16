@@ -92,7 +92,7 @@ class soundex_test_cases(unittest.TestCase):
         self.assertEquals(soundex('AsWcroft', var='special'), 'A226')
         self.assertEquals(soundex('Rupert', var='special'), 'R163')
         self.assertEquals(soundex('Rubin', var='special'), 'R150')
-                
+
     def test_dm_soundex(self):
         # D-M tests
         #self.assertEquals(soundex('Augsburg', var='dm'), '054795')
