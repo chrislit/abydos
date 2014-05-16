@@ -6,9 +6,7 @@ from string import maketrans
 import re
 import unicodedata
 
-
-
-_russell_translation_table = dict(zip([ord(c) for c in
+_russell_translation_table = dict(zip([ord(_) for _ in
                                        u'ABCDEFGIKLMNOPQRSTUVXYZ'],
                                       u'12341231356712383412313'))
 def russell_index(word):
@@ -42,7 +40,7 @@ def russell_index(word):
     return int(sdx)
 
 
-_russell_num_translation_table = dict(zip([ord(c) for c in u'12345678'],
+_russell_num_translation_table = dict(zip([ord(_) for _ in u'12345678'],
                                           u'ABCDLMNR'))
 
 def russell_index_num_to_alpha(num):
@@ -72,7 +70,7 @@ def russell_index_alpha(word):
     return russell_index_num_to_alpha(russell_index(word))
 
 
-_soundex_translation_table = dict(zip([ord(c) for c in
+_soundex_translation_table = dict(zip([ord(_) for _ in
                                        u'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
                                       u'01230129022455012623019202'))
 
@@ -1262,13 +1260,3 @@ def caverphone(word, version=2):
 
 def _delete_consecutive_repeats(word):
     return ''.join(char for char, _ in groupby(word))
-
-
-"""def test():
-    words = ['ANASTHA','DAVIS-CARTER','ESCARMANT','MCCALL','MCCROREY',
-             'MERSEAL','PIEURISSAINT','ROTMAN','SCHEVEL','SCHROM',
-             'SEAL','SPARR','STARLEPER','THRASH']
-
-    for w in words:
-        print w + '\t\t' + ' '.join(double_metaphone(w))
-"""
