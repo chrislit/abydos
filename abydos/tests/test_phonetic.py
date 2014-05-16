@@ -95,9 +95,8 @@ class soundex_test_cases(unittest.TestCase):
 
     def test_dm_soundex(self):
         # D-M tests
-        #self.assertEquals(soundex('Augsburg', var='dm'), '054795')
-        #self.assertEquals(dm_soundex('Augsburg'), '054795')
-        pass
+        self.assertEquals(soundex('Augsburg', var='dm'), tuple(['054795']))
+        self.assertEquals(dm_soundex('Augsburg'), tuple(['054795']))
 
 
 class double_metaphone_test_case(unittest.TestCase):
