@@ -145,15 +145,9 @@ class double_metaphone_test_case(unittest.TestCase):
         self.assertEquals(double_metaphone('Thumbail'), ('0MPL', 'TMPL'))
 
     def test_homophones(self):
-        self.assertEqual(
-            double_metaphone(u"tolled"),
-            double_metaphone(u"told"))
-        self.assertEqual(
-            double_metaphone(u"katherine"),
-            double_metaphone(u"catherine"))
-        self.assertEqual(
-            double_metaphone(u"brian"),
-            double_metaphone(u"bryan"))
+        self.assertEqual(double_metaphone(u"tolled"), double_metaphone(u"told"))
+        self.assertEqual(double_metaphone(u"katherine"), double_metaphone(u"catherine"))
+        self.assertEqual(double_metaphone(u"brian"), double_metaphone(u"bryan"))
 
     def test_similar_names(self):
         self.assertEquals(double_metaphone("Bartoš"), ('PRT', ''))
