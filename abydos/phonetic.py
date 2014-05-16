@@ -94,6 +94,9 @@ def soundex(word, maxlength=4, var='American', reverse=False):
     if var == 'dm':
         return dm_soundex(word, maxlength, reverse)
 
+    # Require a maxlength of at least 4
+    maxlength = max(4, maxlength)
+
     # uppercase, normalize, decompose, and filter non-A-Z
     word = unicodedata.normalize('NFKD', unicode(word.upper()))
     word = filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word)
@@ -122,7 +125,7 @@ def soundex(word, maxlength=4, var='American', reverse=False):
     return sdx[:maxlength]
 
 
-def dm_soundex(word, maxlength, reverse):
+def dm_soundex(word, maxlength=6, reverse=False):
     """Return the Daitch-Mokotoff Soundex value of a word
 
     Arguments:
@@ -131,6 +134,9 @@ def dm_soundex(word, maxlength, reverse):
     reverse -- reverse the word before computing the selected Soundex
         (defaults to False); This results in "Reverse Soundex"
     """
+    # Require a maxlength of at least 6
+    maxlength = max(6, maxlength)
+
     # uppercase, normalize, decompose, and filter non-A-Z
     word = unicodedata.normalize('NFKD', unicode(word.upper()))
     word = filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word)
@@ -243,6 +249,9 @@ def nysiis(word, maxlength=6):
     A description of the algorithm can be found at
     https://en.wikipedia.org/wiki/New_York_State_Identification_and_Intelligence_System
     """
+    # Require a maxlength of at least 6
+    maxlength = max(6, maxlength)
+
     _vowels = 'AEIOU'
 
     word = filter(lambda i: i.isalpha(), word.upper())
@@ -349,6 +358,9 @@ def metaphone(word, maxlength=float('inf')):
     _vowels = list('AEIOU')
     _frontv = list('EIY')
     _varson = list('CSPTG')
+
+    # Require a maxlength of at least 4
+    maxlength = max(4, maxlength)
 
     # As in variable sound--those modified by adding an "h"
     ename = filter(lambda i: i.isalnum(), word.upper())
@@ -487,6 +499,9 @@ def double_metaphone(word, maxlength=float('inf')):
     Based on Lawrence Philips' (Visual) C++ code from 1999:
     http://aspell.net/metaphone/dmetaph.cpp
     """
+    # Require a maxlength of at least 4
+    maxlength = max(4, maxlength)
+
     primary = ''
     secondary = ''
 
