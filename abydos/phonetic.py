@@ -67,7 +67,7 @@ def russell_index_alpha(word):
 
 
 def knuth_soundex(word):
-    """As descibed in Knuth(1998:394)
+    """As described in Knuth(1998:394)
     """
     sdx = ''
     word = word.upper()
