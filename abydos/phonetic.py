@@ -285,7 +285,7 @@ def koelner_phonetik(word):
 
     # Nothing to convert, return base case
     if not word:
-        return sdx    
+        return sdx
 
     for i in range(len(word)):
         if word[i] in 'AEIJYOU':

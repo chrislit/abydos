@@ -116,7 +116,7 @@ class soundex_test_cases(unittest.TestCase):
     def test_dm_soundex(self):
         # D-M tests
         self.assertEquals(soundex('', var='dm'), set(['000000']))
-        self.assertEquals(dm_soundex(''), set(['000000']))        
+        self.assertEquals(dm_soundex(''), set(['000000']))
 
         # http://www.avotaynu.com/soundex.htm
         self.assertEquals(soundex('Augsburg', var='dm'), set(['054795']))
