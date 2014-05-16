@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-import unicodedata
-
 
 def qgrams(s, q=2):
     """Given a string s, return a list of all q-grams in that
@@ -44,10 +42,3 @@ def _qgram_counts(s, t, q=2):
     each q-gram.
     """
     return tuple([len(elt) for elt in _qgram_lists(s, t, q)])
-
-
-def _decompose(s):
-    """Given a string s, return the string decomposed according to
-    Unicode NFD normalization.
-    """
-    return unicodedata.normalize('NFD', s)
