@@ -8,15 +8,21 @@ import unicodedata
 
 
 def russell_index(word):
-    """Given a string 'word', returns its int value according to Robert C.
-    Russell's Index algorithm, as described in US Patent 1,261,167 (1917)
+    """Return the Russell Index of a word as an int
+
+    Arguments:
+    word -- the word to translate to a Russell Index value
+
+    Description:
+    This follows Robert C. Russell's Index algorithm, as described in
+    US Patent 1,261,167 (1917)
     """
     word = unicodedata.normalize('NFKD', unicode(word.upper()))
     word = word.replace('GH', '')  # discard gh (rule 3)
     while word[len(word)-1] in 'SZ':
         word = word[:-1] # discard /[sz]$/ (rule 3)
 
-    # translate according to Russell's mapping        
+    # translate according to Russell's mapping
     word = filter(lambda c: c in 'ABCDEFGIKLMNOPQRSTUVXYZ', word)
     sdx = word.translate(dict(zip([ord(c) for c in u'ABCDEFGIKLMNOPQRSTUVXYZ'],
                                   u'12341231356712383412313')))
@@ -34,16 +40,28 @@ def russell_index(word):
 
 
 def russell_index_num_to_alpha(num):
-    """Given the numeric form of a Russell Index value, returns its
-    alphabetic form, as described in US Patent 1,261,167 (1917)
+    """Return the Russell Index alphabetic string of a Index number
+
+    Arguments:
+    num -- an integer representing a Russell Index
+
+    Description:
+    This follows Robert C. Russell's Index algorithm, as described in
+    US Patent 1,261,167 (1917)
     """
-    num = filter(lambda c: c not in '09', unicode(num))
+    num = filter(lambda c: c in '12345678', unicode(num))
     return num.translate(dict(zip([ord(c) for c in u'12345678'], u'ABCDLMNR')))
 
 
 def russell_index_alpha(word):
-    """Given a string 'word', returns its alphabetic value according to Robert C.
-    Russell's Index algorithm, as described in US Patent 1,261,167 (1917)
+    """Return the Russell Index of a word as an alphabetic string
+
+    Arguments:
+    word -- the word to translate to a Russell Index value
+
+    Description:
+    This follows Robert C. Russell's Index algorithm, as described in
+    US Patent 1,261,167 (1917)
     """
     return russell_index_num_to_alpha(russell_index(word))
 
