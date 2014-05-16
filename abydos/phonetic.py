@@ -245,15 +245,21 @@ def dm_soundex(word, maxlength=6, reverse=False):
 
 
 def koelner_phonetik(word):
-    """Given a string 'word', returns its Int value according to the
-    Kölner Phonetik
+    """Return the Kölner Phonetik code for a word
+
+    Arguments:
+    word -- the word to translate to a Kölner Phonetik code
+
+    Description:
+    Based on the algorithm described at
+    https://de.wikipedia.org/wiki/Kölner_Phonetik
     """
-    def _before(word, i, letters):
+    def _after(word, i, letters):
         if i > 0 and word[i-1] in letters:
             return True
         return False
 
-    def _after(word, i, letters):
+    def _before(word, i, letters):
         if i+1 < len(word) and word[i+1] in letters:
             return True
         return False
@@ -291,7 +297,7 @@ def koelner_phonetik(word):
             if _after(word, i, 'SZ'):
                 sdx += '8'
             elif i == 0:
-                if _after(word, i, 'AHKLOQRUX'):
+                if _before(word, i, 'AHKLOQRUX'):
                     sdx += '4'
                 else:
                     sdx += '8'
@@ -315,9 +321,9 @@ def koelner_phonetik(word):
 
     sdx = _delete_consecutive_repeats(sdx)
 
-    sdx = sdx.replace('0', '')
+    sdx = sdx[0] + sdx[1:].replace('0', '')
 
-    return int(sdx)
+    return sdx
 
 
 def koelner_phonetik_num_to_alpha(num):

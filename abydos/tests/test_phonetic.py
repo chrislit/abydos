@@ -3,7 +3,9 @@
 from __future__ import unicode_literals
 import unittest
 from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
-    russell_index_alpha, soundex, dm_soundex, double_metaphone
+    russell_index_alpha, soundex, dm_soundex, koelner_phonetik, \
+    koelner_phonetik_num_to_alpha, koelner_phonetik_alpha, nysiis, mra, \
+    metaphone, double_metaphone, caverphone
 
 class soundex_test_cases(unittest.TestCase):
     def test_russel_index(self):
@@ -211,6 +213,29 @@ class soundex_test_cases(unittest.TestCase):
         self.assertEquals(soundex('Schwartsenegger', var='dm'),
                           set(['479465']))
         self.assertEquals(dm_soundex('Schwartsenegger'), set(['479465']))
+
+
+class koelner_phonetik_test_cases(unittest.TestCase):
+    def test_koelner_phonetik(self):
+        # https://de.wikipedia.org/wiki/K%C3%B6lner_Phonetik
+        self.assertEquals(koelner_phonetik('Müller-Lüdenscheidt'), '65752682')
+        self.assertEquals(koelner_phonetik('Wikipedia'), '3412')
+        self.assertEquals(koelner_phonetik('Breschnew'), '17863')
+
+        # http://search.cpan.org/~maros/Text-Phonetic/lib/Text/Phonetic/Koeln.pm
+        self.assertEquals(koelner_phonetik('Müller'), '657')
+        self.assertEquals(koelner_phonetik('schmidt'), '862')
+        self.assertEquals(koelner_phonetik('schneider'), '8627')
+        self.assertEquals(koelner_phonetik('fischer'), '387')
+        self.assertEquals(koelner_phonetik('weber'), '317')
+        self.assertEquals(koelner_phonetik('meyer'), '67')
+        self.assertEquals(koelner_phonetik('wagner'), '3467')
+        self.assertEquals(koelner_phonetik('schulz'), '858')
+        self.assertEquals(koelner_phonetik('becker'), '147')
+        self.assertEquals(koelner_phonetik('hoffmann'), '0366')
+        self.assertEquals(koelner_phonetik('schäfer'), '837')
+        self.assertEquals(koelner_phonetik('cater'), '427')
+        self.assertEquals(koelner_phonetik('axel'), '0485')
 
 
 class metaphone_test_cases(unittest.TestCase):
