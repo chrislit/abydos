@@ -7,6 +7,10 @@ import re
 import unicodedata
 
 
+
+_russell_translation_table = dict(zip([ord(c) for c in
+                                       u'ABCDEFGIKLMNOPQRSTUVXYZ'],
+                                      u'12341231356712383412313'))
 def russell_index(word):
     """Return the Russell Index of a word as an int
 
@@ -24,8 +28,7 @@ def russell_index(word):
 
     # translate according to Russell's mapping
     word = filter(lambda c: c in 'ABCDEFGIKLMNOPQRSTUVXYZ', word)
-    sdx = word.translate(dict(zip([ord(c) for c in u'ABCDEFGIKLMNOPQRSTUVXYZ'],
-                                  u'12341231356712383412313')))
+    sdx = word.translate(_russell_translation_table)
 
     # remove any 1s after the first occurrence
     one = sdx.find('1')+1
@@ -38,6 +41,8 @@ def russell_index(word):
     # return as an int
     return int(sdx)
 
+_russell_num_translation_table = dict(zip([ord(c) for c in u'12345678'],
+                                          u'ABCDLMNR'))
 
 def russell_index_num_to_alpha(num):
     """Return the Russell Index alphabetic string of a Index number
@@ -50,7 +55,7 @@ def russell_index_num_to_alpha(num):
     US Patent 1,261,167 (1917)
     """
     num = filter(lambda c: c in '12345678', unicode(num))
-    return num.translate(dict(zip([ord(c) for c in u'12345678'], u'ABCDLMNR')))
+    return num.translate(_russell_num_translation_table)
 
 
 def russell_index_alpha(word):
