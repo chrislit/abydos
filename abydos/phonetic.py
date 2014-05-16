@@ -21,8 +21,7 @@ def russell_index(word):
     """
     word = unicodedata.normalize('NFKD', unicode(word.upper()))
     word = word.replace('GH', '')  # discard gh (rule 3)
-    while word[len(word)-1] in 'SZ':
-        word = word[:-1] # discard /[sz]$/ (rule 3)
+    word = word.rstrip('SZ') # discard /[sz]$/ (rule 3)
 
     # translate according to Russell's mapping
     word = filter(lambda c: c in 'ABCDEFGIKLMNOPQRSTUVXYZ', word)
@@ -37,7 +36,7 @@ def russell_index(word):
     sdx = _delete_consecutive_repeats(sdx)
 
     # return as an int
-    return int(sdx)
+    return int(sdx) if sdx else None
 
 
 _russell_num_translation_table = dict(zip([ord(_) for _ in u'12345678'],
@@ -54,7 +53,8 @@ def russell_index_num_to_alpha(num):
     US Patent 1,261,167 (1917)
     """
     num = filter(lambda c: c in '12345678', unicode(num))
-    return num.translate(_russell_num_translation_table)
+    if num:
+        return num.translate(_russell_num_translation_table)
 
 
 def russell_index_alpha(word):
@@ -67,7 +67,8 @@ def russell_index_alpha(word):
     This follows Robert C. Russell's Index algorithm, as described in
     US Patent 1,261,167 (1917)
     """
-    return russell_index_num_to_alpha(russell_index(word))
+    if word:
+        return russell_index_num_to_alpha(russell_index(word))
 
 
 _soundex_translation_table = dict(zip([ord(_) for _ in
@@ -100,7 +101,11 @@ def soundex(word, maxlength=4, var='American', reverse=False):
     # uppercase, normalize, decompose, and filter non-A-Z
     word = unicodedata.normalize('NFKD', unicode(word.upper()))
     word = filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word)
-    
+
+    # Nothing to convert, return base case
+    if not word:
+        return '0'*maxlength
+
     # Reverse word if computing Reverse Soundex
     if reverse:
         word = word[::-1]
@@ -205,6 +210,10 @@ def dm_soundex(word, maxlength=6, reverse=False):
     word = unicodedata.normalize('NFKD', unicode(word.upper()))
     word = filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word)
 
+    # Nothing to convert, return base case
+    if not word:
+        return set(['0'*maxlength])
+
     # Reverse word if computing Reverse Soundex
     if reverse:
         word = word[::-1]
@@ -267,12 +276,16 @@ def koelner_phonetik(word):
     sdx = ''
 
     word = word.replace('ß', 'SS')
-    word = word.upper()
+    word = unicodedata.normalize('NFKD', unicode(word.upper()))
 
     word = word.replace('Ä', 'AE')
     word = word.replace('Ö', 'OE')
     word = word.replace('Ü', 'UE')
+    word = filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word)
 
+    # Nothing to convert, return base case
+    if not word:
+        return sdx    
 
     for i in range(len(word)):
         if word[i] in 'AEIJYOU':
@@ -326,12 +339,15 @@ def koelner_phonetik(word):
     return sdx
 
 
+_koelner_num_translation_table = dict(zip([ord(_) for _ in u'012345678'],
+                                          u'APTFKLNRS'))
+
 def koelner_phonetik_num_to_alpha(num):
     """Given the numeric form of a Kölner Phonetik value, returns an
     alphabetic form
     """
-    num = str(num)
-    return num.translate(maketrans('012345678', 'APTFKLNRS'))
+    num = filter(lambda c: c in '012345678', unicode(num))
+    return num.translate(_koelner_num_translation_table)
 
 
 def koelner_phonetik_alpha(word):

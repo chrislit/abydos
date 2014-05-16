@@ -9,6 +9,7 @@ from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
 
 class soundex_test_cases(unittest.TestCase):
     def test_russel_index(self):
+        self.assertEquals(russell_index(''), None)
         self.assertEquals(russell_index('Hoppa'), 12)
         self.assertEquals(russell_index('Hopley'), 125)
         self.assertEquals(russell_index('Highfield'), 1254)
@@ -25,9 +26,13 @@ class soundex_test_cases(unittest.TestCase):
         self.assertEquals(russell_index('Knack'), 3713)
 
     def test_russel_index_num_to_alpha(self):
+        self.assertEquals(russell_index_num_to_alpha(0), None)
+        self.assertEquals(russell_index_num_to_alpha(''), None)
+        self.assertEquals(russell_index_num_to_alpha(123456789), 'ABCDLMNR')
         self.assertEquals(russell_index_num_to_alpha('0123456789'), 'ABCDLMNR')
 
     def test_russel_index_alpha(self):
+        self.assertEquals(russell_index_alpha(''), None)
         self.assertEquals(russell_index_alpha('Hoppa'), 'AB')
         self.assertEquals(russell_index_alpha('Hopley'), 'ABL')
         self.assertEquals(russell_index_alpha('Highfield'), 'ABLD')
@@ -43,7 +48,9 @@ class soundex_test_cases(unittest.TestCase):
         self.assertEquals(russell_index_alpha('Mack'), 'MAC')
         self.assertEquals(russell_index_alpha('Knack'), 'CNAC')
 
-    def test_soundext(self):
+    def test_soundex(self):
+        self.assertEquals(soundex(''), '0000')
+
         # https://archive.org/stream/accessingindivid00moor#page/14/mode/2up
         self.assertEquals(soundex('Euler'), 'E460')
         self.assertEquals(soundex('Gauss'), 'G200')
@@ -108,6 +115,9 @@ class soundex_test_cases(unittest.TestCase):
 
     def test_dm_soundex(self):
         # D-M tests
+        self.assertEquals(soundex('', var='dm'), set(['000000']))
+        self.assertEquals(dm_soundex(''), set(['000000']))        
+
         # http://www.avotaynu.com/soundex.htm
         self.assertEquals(soundex('Augsburg', var='dm'), set(['054795']))
         self.assertEquals(dm_soundex('Augsburg'), set(['054795']))
@@ -217,6 +227,8 @@ class soundex_test_cases(unittest.TestCase):
 
 class koelner_phonetik_test_cases(unittest.TestCase):
     def test_koelner_phonetik(self):
+        self.assertEquals(koelner_phonetik(''), '')
+
         # https://de.wikipedia.org/wiki/K%C3%B6lner_Phonetik
         self.assertEquals(koelner_phonetik('Müller-Lüdenscheidt'), '65752682')
         self.assertEquals(koelner_phonetik('Wikipedia'), '3412')
@@ -236,6 +248,28 @@ class koelner_phonetik_test_cases(unittest.TestCase):
         self.assertEquals(koelner_phonetik('schäfer'), '837')
         self.assertEquals(koelner_phonetik('cater'), '427')
         self.assertEquals(koelner_phonetik('axel'), '0485')
+
+    def test_koelner_phonetic_num_to_alpha(self):
+        self.assertEquals(koelner_phonetik_num_to_alpha('0123456789'),
+                          'APTFKLNRS')
+
+    def test_koelner_phonetik_alpha(self):
+        self.assertEquals(koelner_phonetik_alpha('Müller-Lüdenscheidt'), 'NLRLTNST')
+        self.assertEquals(koelner_phonetik_alpha('Wikipedia'), 'FKPT')
+        self.assertEquals(koelner_phonetik_alpha('Breschnew'), 'PRSNF')
+        self.assertEquals(koelner_phonetik_alpha('Müller'), 'NLR')
+        self.assertEquals(koelner_phonetik_alpha('schmidt'), 'SNT')
+        self.assertEquals(koelner_phonetik_alpha('schneider'), 'SNTR')
+        self.assertEquals(koelner_phonetik_alpha('fischer'), 'FSR')
+        self.assertEquals(koelner_phonetik_alpha('weber'), 'FPR')
+        self.assertEquals(koelner_phonetik_alpha('meyer'), 'NR')
+        self.assertEquals(koelner_phonetik_alpha('wagner'), 'FKNR')
+        self.assertEquals(koelner_phonetik_alpha('schulz'), 'SLS')
+        self.assertEquals(koelner_phonetik_alpha('becker'), 'PKR')
+        self.assertEquals(koelner_phonetik_alpha('hoffmann'), 'AFNN')
+        self.assertEquals(koelner_phonetik_alpha('schäfer'), 'SFR')
+        self.assertEquals(koelner_phonetik_alpha('cater'), 'KTR')
+        self.assertEquals(koelner_phonetik_alpha('axel'), 'AKSL')
 
 
 class metaphone_test_cases(unittest.TestCase):
