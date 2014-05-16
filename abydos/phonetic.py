@@ -94,25 +94,6 @@ def knuth_soundex(word):
     return sdx[:4]
 
 
-def creativyst_soundex(word):
-    """Incorporates enhancements from http://creativyst.com/Doc/Articles/SoundEx1/SoundEx1.htm#Enhancements
-    """
-    word = word.upper()
-    word = word.replace('DG', 'G')
-    word = re.sub(r'(.)GN', r'\1N', word)
-    word = word.replace('GN', 'N')
-    word = word.replace('KN', 'N')
-    word = word.replace('PH', 'F')
-    word = re.sub('MP([SZT])', 'M\1', word)
-    word = word.replace('^PS', 'S')
-    word = word.replace('^PF', 'F')
-    word = word.replace('MB', 'M')
-    word = word.replace('TCH', 'CH')
-    word = re.sub('^[AI]([AEIO])', 'E', word)
-
-    return knuth_soundex(word)
-
-
 def koelner_phonetik(word):
     """Given a string 'word', returns its Int value according to the
     Kölner Phonetik
