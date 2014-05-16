@@ -2,7 +2,8 @@
 
 from __future__ import unicode_literals
 import unittest
-from abydos.phonetic import *
+from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
+    russell_index_alpha, soundex, dm_soundex, double_metaphone
 
 class soundex_test_cases(unittest.TestCase):
     def test_russel_index(self):
@@ -212,7 +213,7 @@ class soundex_test_cases(unittest.TestCase):
         self.assertEquals(dm_soundex('Schwartsenegger'), set(['479465']))
 
 
-class double_metaphone_test_case(unittest.TestCase):
+class metaphone_test_cases(unittest.TestCase):
     """These test cases are copied from two sources:
     https://github.com/oubiwann/metaphone/blob/master/metaphone/tests/test_metaphone.py
     and
