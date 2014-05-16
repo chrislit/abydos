@@ -129,40 +129,40 @@ _dms_table = {'STCH': (2, 4, 4), 'DRZ': (4, 4, 4), 'ZH': (4, 4, 4),
               'DZS': (4, 4, 4), 'SCHTCH': (2, 4, 4), 'SHTSH': (2, 4, 4),
               'SZCZ': (2, 4, 4), 'TZS': (4, 4, 4), 'SZCS': (2, 4, 4),
               'STSH': (2, 4, 4), 'SHCH': (2, 4, 4), 'D': (3, 3, 3),
-              'H': (5, 5, -1), 'TTSCH': (4, 4, 4), 'THS': (4, 4, 4),
+              'H': (5, 5, '_'), 'TTSCH': (4, 4, 4), 'THS': (4, 4, 4),
               'L': (8, 8, 8), 'P': (7, 7, 7), 'CHS': (5, 54, 54),
-              'T': (3, 3, 3), 'X': (5, 54, 54), 'OJ': (0, 1, -1),
-              'OI': (0, 1, -1), 'SCHTSH': (2, 4, 4), 'OY': (0, 1, -1),
-              'Y': (1, -1, -1), 'TSH': (4, 4, 4), 'ZDZ': (2, 4, 4),
+              'T': (3, 3, 3), 'X': (5, 54, 54), 'OJ': (0, 1, '_'),
+              'OI': (0, 1, '_'), 'SCHTSH': (2, 4, 4), 'OY': (0, 1, '_'),
+              'Y': (1, '_', '_'), 'TSH': (4, 4, 4), 'ZDZ': (2, 4, 4),
               'TSZ': (4, 4, 4), 'SHT': (2, 43, 43), 'SCHTSCH': (2, 4, 4),
               'TTSZ': (4, 4, 4), 'TTZ': (4, 4, 4), 'SCH': (4, 4, 4),
-              'TTS': (4, 4, 4), 'SZD': (2, 43, 43), 'AI': (0, 1, -1),
+              'TTS': (4, 4, 4), 'SZD': (2, 43, 43), 'AI': (0, 1, '_'),
               'PF': (7, 7, 7), 'TCH': (4, 4, 4), 'PH': (7, 7, 7),
               'TTCH': (4, 4, 4), 'SZT': (2, 43, 43), 'ZDZH': (2, 4, 4),
-              'EI': (0, 1, -1), 'G': (5, 5, 5), 'EJ': (0, 1, -1),
-              'ZD': (2, 43, 43), 'IU': (1, -1, -1), 'K': (5, 5, 5),
-              'O': (0, -1, -1), 'SHTCH': (2, 4, 4), 'S': (4, 4, 4),
+              'EI': (0, 1, '_'), 'G': (5, 5, 5), 'EJ': (0, 1, '_'),
+              'ZD': (2, 43, 43), 'IU': (1, '_', '_'), 'K': (5, 5, 5),
+              'O': (0, '_', '_'), 'SHTCH': (2, 4, 4), 'S': (4, 4, 4),
               'TRZ': (4, 4, 4), 'SHD': (2, 43, 43), 'DSH': (4, 4, 4),
-              'CSZ': (4, 4, 4), 'EU': (1, 1, -1), 'TRS': (4, 4, 4),
-              'ZS': (4, 4, 4), 'STRZ': (2, 4, 4), 'UY': (0, 1, -1),
-              'STRS': (2, 4, 4), 'CZS': (4, 4, 4), 'MN': (66, 66, 66),
-              'UI': (0, 1, -1), 'UJ': (0, 1, -1), 'UE': (0, -1, -1),
-              'EY': (0, 1, -1), 'W': (7, 7, 7), 'IA': (1, -1, -1), 'FB': (7, 7, 7),
-              'STSCH': (2, 4, 4), 'SCHT': (2, 43, 43), 'NM': (66, 66, 66),
+              'CSZ': (4, 4, 4), 'EU': (1, 1, '_'), 'TRS': (4, 4, 4),
+              'ZS': (4, 4, 4), 'STRZ': (2, 4, 4), 'UY': (0, 1, '_'),
+              'STRS': (2, 4, 4), 'CZS': (4, 4, 4), 'MN': ('6_6', '6_6', '6_6'),
+              'UI': (0, 1, '_'), 'UJ': (0, 1, '_'), 'UE': (0, '_', '_'),
+              'EY': (0, 1, '_'), 'W': (7, 7, 7), 'IA': (1, '_', '_'), 'FB': (7, 7, 7),
+              'STSCH': (2, 4, 4), 'SCHT': (2, 43, 43), 'NM': ('6_6', '6_6', '6_6'),
               'SCHD': (2, 43, 43), 'B': (7, 7, 7), 'DSZ': (4, 4, 4),
               'F': (7, 7, 7), 'N': (6, 6, 6), 'CZ': (4, 4, 4), 'R': (9, 9, 9),
-              'U': (0, -1, -1), 'V': (7, 7, 7), 'CS': (4, 4, 4), 'Z': (4, 4, 4),
+              'U': (0, '_', '_'), 'V': (7, 7, 7), 'CS': (4, 4, 4), 'Z': (4, 4, 4),
               'SZ': (4, 4, 4), 'TSCH': (4, 4, 4), 'KH': (5, 5, 5),
               'ST': (2, 43, 43), 'KS': (5, 54, 54), 'SH': (4, 4, 4),
               'SC': (2, 4, 4), 'SD': (2, 43, 43), 'DZ': (4, 4, 4),
               'ZHD': (2, 43, 43), 'DT': (3, 3, 3), 'ZSH': (4, 4, 4),
               'DS': (4, 4, 4), 'TZ': (4, 4, 4), 'TS': (4, 4, 4),
-              'TH': (3, 3, 3), 'TC': (4, 4, 4), 'A': (0, -1, -1), 'E': (0, -1, -1),
-              'I': (0, -1, -1), 'AJ': (0, 1, -1), 'M': (6, 6, 6), 'Q': (5, 5, 5),
-              'AU': (0, 7, -1), 'IO': (1, -1, -1), 'AY': (0, 1, -1),
-              'IE': (1, -1, -1), 'ZSCH': (4, 4, 4),
+              'TH': (3, 3, 3), 'TC': (4, 4, 4), 'A': (0, '_', '_'), 'E': (0, '_', '_'),
+              'I': (0, '_', '_'), 'AJ': (0, 1, '_'), 'M': (6, 6, 6), 'Q': (5, 5, 5),
+              'AU': (0, 7, '_'), 'IO': (1, '_', '_'), 'AY': (0, 1, '_'),
+              'IE': (1, '_', '_'), 'ZSCH': (4, 4, 4),
               'CH':((5,4),(5,4),(5,4)), 'CK':((5,45),(5,45),(5,45)),
-              'C':((5,4),(5,4),(5,4)), 'J':((1,4),(-1,4),(-1,4)),
+              'C':((5,4),(5,4),(5,4)), 'J':((1,4),('_',4),('_',4)),
               'RZ':((94,4),(94,4),(94,4)), 'RS':((94,4),(94,4),(94,4))}
 
 _dms_order = {'A':('AI', 'AJ', 'AU', 'AY', 'A'), 'B':('B'),
@@ -185,7 +185,7 @@ _dms_order = {'A':('AI', 'AJ', 'AU', 'AY', 'A'), 'B':('B'),
                   'ZS', 'Z')}
 
 def dm_soundex(word, maxlength=6, reverse=False):
-    """Return the Daitch-Mokotoff Soundex values of a word as a tuple
+    """Return the Daitch-Mokotoff Soundex values of a word as a set
         A collection is necessary since there can be multiple values for a
         single word.
 
@@ -195,7 +195,7 @@ def dm_soundex(word, maxlength=6, reverse=False):
     reverse -- reverse the word before computing the selected Soundex
         (defaults to False); This results in "Reverse Soundex"
     """
-    _vowels = 'aeijouy'
+    _vowels = 'AEIJOUY'
     dm = [''] # initialize empty code list
 
     # Require a maxlength of at least 6
@@ -227,26 +227,21 @@ def dm_soundex(word, maxlength=6, reverse=False):
                 else:
                     dm_val = dm_val[2]
 
-                # Trim tuples with -1 values down to ints
+                # Build the code strings
                 if isinstance(dm_val, tuple):
-                    if dm_val[0] == -1:
-                        dm_val = dm_val[1]
-                    elif dm_val[1] == -1:
-                        dm_val = dm_val[0]
-
-                # If our only remaining value is a -1,
-                # no insertion should be made
-                if dm_val != -1:
-                    if isinstance(dm_val, tuple):
-                        dm = [w + unicode(dm_val[0]) for w in dm] \
-                            + [w + unicode(dm_val[1]) for w in dm]
-                    else:
-                        dm = [w + unicode(dm_val) for w in dm]
+                    dm = [_ + unicode(dm_val[0]) for _ in dm] \
+                            + [_ + unicode(dm_val[1]) for _ in dm]
+                else:
+                    dm = [_ + unicode(dm_val) for _ in dm]
                 pos += len(ss)
                 break
 
+    # Filter out double letters and _ placeholders
+    dm = [filter(lambda c: c != '_', _delete_consecutive_repeats(_)) for _ in dm]
+
+    # Trim codes and return set
     dm = [(_ + ('0'*maxlength))[:maxlength] for _ in dm]
-    return tuple(dm)
+    return set(dm)
 
 
 def koelner_phonetik(word):

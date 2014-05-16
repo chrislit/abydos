@@ -75,6 +75,16 @@ class soundex_test_cases(unittest.TestCase):
         self.assertEquals(soundex('Rubin'), 'R150')
         self.assertEquals(soundex('Tymczak'), 'T522')
 
+        # https://en.wikipedia.org/wiki/Daitch%E2%80%93Mokotoff_Soundex
+        self.assertEquals(soundex('Peters'), 'P362')
+        self.assertEquals(soundex('Peterson'), 'P362')
+        self.assertEquals(soundex('Moskowitz'), 'M232')
+        self.assertEquals(soundex('Moskovitz'), 'M213')
+        self.assertEquals(soundex('Auerbach'), 'A612')
+        self.assertEquals(soundex('Uhrbach'), 'U612')
+        self.assertEquals(soundex('Jackson'), 'J250')
+        self.assertEquals(soundex('Jackson-Jackson'), 'J252')
+
         # maxlength tests
         self.assertEquals(soundex('Lincoln', 10), 'L524500000')
         self.assertEquals(soundex('Lincoln', 5), 'L5245')
@@ -95,8 +105,111 @@ class soundex_test_cases(unittest.TestCase):
 
     def test_dm_soundex(self):
         # D-M tests
-        self.assertEquals(soundex('Augsburg', var='dm'), tuple(['054795']))
-        self.assertEquals(dm_soundex('Augsburg'), tuple(['054795']))
+        # http://www.avotaynu.com/soundex.htm
+        self.assertEquals(soundex('Augsburg', var='dm'), set(['054795']))
+        self.assertEquals(dm_soundex('Augsburg'), set(['054795']))
+        self.assertEquals(soundex('Breuer', var='dm'), set(['791900']))
+        self.assertEquals(dm_soundex('Breuer'), set(['791900']))
+        self.assertEquals(soundex('Halberstadt', var='dm'),
+                          set(['587943', '587433']))
+        self.assertEquals(dm_soundex('Halberstadt'), set(['587943', '587433']))
+        self.assertEquals(soundex('Mannheim', var='dm'), set(['665600']))
+        self.assertEquals(dm_soundex('Mannheim'), set(['665600']))
+        self.assertEquals(soundex('Chernowitz', var='dm'),
+                          set(['496740', '596740']))
+        self.assertEquals(dm_soundex('Chernowitz'), set(['496740', '596740']))
+        self.assertEquals(soundex('Cherkassy', var='dm'),
+                          set(['495400', '595400']))
+        self.assertEquals(dm_soundex('Cherkassy'), set(['495400', '595400']))
+        self.assertEquals(soundex('Kleinman', var='dm'), set(['586660']))
+        self.assertEquals(dm_soundex('Kleinman'), set(['586660']))
+        self.assertEquals(soundex('Berlin', var='dm'), set(['798600']))
+        self.assertEquals(dm_soundex('Berlin'), set(['798600']))
+
+        self.assertEquals(soundex('Ceniow', var='dm'),
+                          set(['467000', '567000']))
+        self.assertEquals(dm_soundex('Ceniow'), set(['467000', '567000']))
+        self.assertEquals(soundex('Tsenyuv', var='dm'), set(['467000']))
+        self.assertEquals(dm_soundex('Tsenyuv'), set(['467000']))
+        self.assertEquals(soundex('Holubica', var='dm'),
+                          set(['587400', '587500']))
+        self.assertEquals(dm_soundex('Holubica'), set(['587400', '587500']))
+        self.assertEquals(soundex('Golubitsa', var='dm'), set(['587400']))
+        self.assertEquals(dm_soundex('Golubitsa'), set(['587400']))
+        self.assertEquals(soundex('Przemysl', var='dm'),
+                          set(['746480', '794648']))
+        self.assertEquals(dm_soundex('Przemysl'), set(['746480', '794648']))
+        self.assertEquals(soundex('Pshemeshil', var='dm'), set(['746480']))
+        self.assertEquals(dm_soundex('Pshemeshil'), set(['746480']))
+        self.assertEquals(soundex('Rosochowaciec', var='dm'),
+                          set(['944744', '945744', '944755', '944754', '944745',
+                               '945745', '945754', '945755']))
+        self.assertEquals(dm_soundex('Rosochowaciec'),
+                          set(['944744', '945744', '944755', '944754', '944745',
+                               '945745', '945754', '945755']))
+        self.assertEquals(soundex('Rosokhovatsets', var='dm'), set(['945744']))
+        self.assertEquals(dm_soundex('Rosokhovatsets'), set(['945744']))
+
+        # https://en.wikipedia.org/wiki/Daitch%E2%80%93Mokotoff_Soundex
+        self.assertEquals(soundex('Peters', var='dm'),
+                          set(['739400', '734000']))
+        self.assertEquals(dm_soundex('Peters'), set(['739400', '734000']))
+        self.assertEquals(soundex('Peterson', var='dm'),
+                          set(['739460', '734600']))
+        self.assertEquals(dm_soundex('Peterson'), set(['739460', '734600']))
+        self.assertEquals(soundex('Moskowitz', var='dm'), set(['645740']))
+        self.assertEquals(dm_soundex('Moskowitz'), set(['645740']))
+        self.assertEquals(soundex('Moskovitz', var='dm'), set(['645740']))
+        self.assertEquals(dm_soundex('Moskovitz'), set(['645740']))
+        self.assertEquals(soundex('Auerbach', var='dm'),
+                          set(['097500', '097400']))
+        self.assertEquals(dm_soundex('Auerbach'), set(['097500', '097400']))
+        self.assertEquals(soundex('Uhrbach', var='dm'),
+                          set(['097500', '097400']))
+        self.assertEquals(dm_soundex('Uhrbach'), set(['097500', '097400']))
+        self.assertEquals(soundex('Jackson', var='dm'),
+                          set(['154600', '454600', '145460', '445460']))
+        self.assertEquals(dm_soundex('Jackson'),
+                          set(['154600', '454600', '145460', '445460']))
+        self.assertEquals(soundex('Jackson-Jackson', var='dm'),
+                          set(['154654', '454654', '145465', '445465', '154645',
+                               '454645', '145464', '445464', '154644',
+                               '454644']))
+        self.assertEquals(dm_soundex('Jackson-Jackson'),
+                          set(['154654', '454654', '145465', '445465', '154645',
+                               '454645', '145464', '445464', '154644',
+                               '454644']))
+
+        # http://www.jewishgen.org/infofiles/soundex.html
+        self.assertEquals(soundex('OHRBACH', var='dm'),
+                          set(['097500', '097400']))
+        self.assertEquals(dm_soundex('OHRBACH'), set(['097500', '097400']))
+        self.assertEquals(soundex('LIPSHITZ', var='dm'), set(['874400']))
+        self.assertEquals(dm_soundex('LIPSHITZ'), set(['874400']))
+        self.assertEquals(soundex('LIPPSZYC', var='dm'),
+                          set(['874400', '874500']))
+        self.assertEquals(dm_soundex('LIPPSZYC'), set(['874400', '874500']))
+        self.assertEquals(soundex('LEWINSKY', var='dm'), set(['876450']))
+        self.assertEquals(dm_soundex('LEWINSKY'), set(['876450']))
+        self.assertEquals(soundex('LEVINSKI', var='dm'), set(['876450']))
+        self.assertEquals(dm_soundex('LEVINSKI'), set(['876450']))
+        self.assertEquals(soundex('SZLAMAWICZ', var='dm'), set(['486740']))
+        self.assertEquals(dm_soundex('SZLAMAWICZ'), set(['486740']))
+        self.assertEquals(soundex('SHLAMOVITZ', var='dm'), set(['486740']))
+        self.assertEquals(dm_soundex('SHLAMOVITZ'), set(['486740']))
+
+        # http://community.actian.com/wiki/OME_soundex_dm()
+        self.assertEquals(soundex('Schwarzenegger', var='dm'),
+                          set(['479465', '474659']))
+        self.assertEquals(dm_soundex('Schwarzenegger'),
+                          set(['479465', '474659']))
+        self.assertEquals(soundex('Shwarzenegger', var='dm'),
+                          set(['479465', '474659']))
+        self.assertEquals(dm_soundex('Shwarzenegger'),
+                          set(['479465', '474659']))
+        self.assertEquals(soundex('Schwartsenegger', var='dm'),
+                          set(['479465']))
+        self.assertEquals(dm_soundex('Schwartsenegger'), set(['479465']))
 
 
 class double_metaphone_test_case(unittest.TestCase):
