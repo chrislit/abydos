@@ -41,6 +41,7 @@ def russell_index(word):
     # return as an int
     return int(sdx)
 
+
 _russell_num_translation_table = dict(zip([ord(c) for c in u'12345678'],
                                           u'ABCDLMNR'))
 
@@ -71,40 +72,44 @@ def russell_index_alpha(word):
     return russell_index_num_to_alpha(russell_index(word))
 
 
-def knuth_soundex(word):
-    """As described in Knuth(1998:394)
-    """
-    sdx = ''
-    word = word.upper()
-    for char in word:
-        if char in 'BFPV': # rule 2a
-            sdx += '1'
-        elif char in 'CGJKQSXZ': # rule 2b
-            sdx += '2'
-        elif char in 'DT': # rule 2c
-            sdx += '3'
-        elif char == 'L': # rule 2d
-            sdx += '4'
-        elif char in 'MN': # rule 2e
-            sdx += '5'
-        elif char == 'R': # rule 2f
-            sdx += '6'
-        elif char in 'AEIOUY': # rule 1
-            sdx += '0'
-        elif char in 'HW': # rule 1
-            sdx += '9'
-        else:
-            sdx += char
+_soundex_translation_table = dict(zip([ord(c) for c in
+                                       u'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
+                                      u'01230129022455012623019202'))
+def soundex(word, maxlength=4, var='American'):
+    """Return the Soundex value of a word
 
-    sdx = sdx.replace('9', '') # rule 1
+    Arguments:
+    word -- the word to translate to Soundex
+    maxlength -- the length of the code returned (defaults to 4)
+    var -- the variant of the algorithm to employ (defaults to 'American'):
+        'American' follows the American Soundex algorithm, as described at
+        http://www.archives.gov/publications/general-info-leaflets/55-census.html
+        and in Knuth(1998:394)
+        'special' follows the rules from the 1880-1910 US Census, in which
+        h & w are not treated as 
+    """
+    # uppercase, normalize, decompose, and filter non-A-Z
+    word = unicodedata.normalize('NFKD', unicode(word.upper()))
+    word = filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word)
+    
+    # apply the Soundex algorithm
+    sdx = word.translate(_soundex_translation_table)
+
+    if var == 'special':
+        sdx = sdx.replace('9', '0') # special rule for 1880-1910 census
+    else:
+        sdx = sdx.replace('9', '') # rule 1
     sdx = _delete_consecutive_repeats(sdx) # rule 3
 
-    sdx = word[0] + sdx[1:]
+    if word[0] in 'HW':
+        sdx = word[0] + sdx
+    else:
+        sdx = word[0] + sdx[1:]
     sdx = sdx.replace('0', '') # rule 1
 
-    sdx += '000' # rule 4
+    sdx += ('0'*maxlength) # rule 4
 
-    return sdx[:4]
+    return sdx[:maxlength]
 
 
 def koelner_phonetik(word):
