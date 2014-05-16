@@ -5,7 +5,7 @@ import unittest
 from abydos.phonetic import *
 
 class soundex_test_cases(unittest.TestCase):
-    def russel_index_test(self):
+    def test_russel_index(self):
         self.assertEquals(russell_index('Hoppa'), 12)
         self.assertEquals(russell_index('Hopley'), 125)
         self.assertEquals(russell_index('Highfield'), 1254)
@@ -20,7 +20,11 @@ class soundex_test_cases(unittest.TestCase):
         self.assertEquals(russell_index('Myer'), 618)
         self.assertEquals(russell_index('Mack'), 613)
         self.assertEquals(russell_index('Knack'), 3713)
+
+    def test_russel_index_num_to_alpha(self):
         self.assertEquals(russell_index_num_to_alpha('0123456789'), 'ABCDLMNR')
+
+    def test_russel_index_alpha(self):
         self.assertEquals(russell_index_alpha('Hoppa'), 'AB')
         self.assertEquals(russell_index_alpha('Hopley'), 'ABL')
         self.assertEquals(russell_index_alpha('Highfield'), 'ABLD')
@@ -36,7 +40,7 @@ class soundex_test_cases(unittest.TestCase):
         self.assertEquals(russell_index_alpha('Mack'), 'MAC')
         self.assertEquals(russell_index_alpha('Knack'), 'CNAC')
 
-    def soundex_test(self):
+    def test_soundext(self):
         # https://archive.org/stream/accessingindivid00moor#page/14/mode/2up
         self.assertEquals(soundex('Euler'), 'E460')
         self.assertEquals(soundex('Gauss'), 'G200')
@@ -64,13 +68,36 @@ class soundex_test_cases(unittest.TestCase):
         self.assertEquals(soundex('Pfister'), 'P236')
         self.assertEquals(soundex('Ashcroft'), 'A261')
         self.assertEquals(soundex('Asicroft'), 'A226')
-        self.assertEquals(soundex('Ashcroft', var='special'), 'A226')
         
         # https://en.wikipedia.org/wiki/Soundex
         self.assertEquals(soundex('Robert'), 'R163')
         self.assertEquals(soundex('Rupert'), 'R163')
         self.assertEquals(soundex('Rubin'), 'R150')
         self.assertEquals(soundex('Tymczak'), 'T522')
+
+        # maxlength tests
+        self.assertEquals(soundex('Lincoln', 10), 'L524500000')
+        self.assertEquals(soundex('Lincoln', 5), 'L5245')
+        self.assertEquals(soundex('Christopher', 6), 'C62316')
+
+        # reverse tests
+        self.assertEquals(soundex('Rubin', reverse=True), 'N160')
+        self.assertEquals(soundex('Llyod', reverse=True), 'D400')
+        self.assertEquals(soundex('Lincoln', reverse=True), 'N425')
+        self.assertEquals(soundex('Knuth', reverse=True), 'H352')
+
+    def test_soundex_special(self):
+        self.assertEquals(soundex('Ashcroft', var='special'), 'A226')
+        self.assertEquals(soundex('Asicroft', var='special'), 'A226')
+        self.assertEquals(soundex('AsWcroft', var='special'), 'A226')
+        self.assertEquals(soundex('Rupert', var='special'), 'R163')
+        self.assertEquals(soundex('Rubin', var='special'), 'R150')
+                
+    def test_dm_soundex(self):
+        # D-M tests
+        #self.assertEquals(soundex('Augsburg', var='dm'), '054795')
+        #self.assertEquals(dm_soundex('Augsburg'), '054795')
+        pass
 
 
 class double_metaphone_test_case(unittest.TestCase):

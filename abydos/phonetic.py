@@ -75,7 +75,8 @@ def russell_index_alpha(word):
 _soundex_translation_table = dict(zip([ord(c) for c in
                                        u'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
                                       u'01230129022455012623019202'))
-def soundex(word, maxlength=4, var='American'):
+
+def soundex(word, maxlength=4, var='American', reverse=False):
     """Return the Soundex value of a word
 
     Arguments:
@@ -86,12 +87,23 @@ def soundex(word, maxlength=4, var='American'):
         http://www.archives.gov/publications/general-info-leaflets/55-census.html
         and in Knuth(1998:394)
         'special' follows the rules from the 1880-1910 US Census, in which
-        h & w are not treated as 
+        h & w are not treated as blocking consonants but as vowels
+        'dm' computes the Daitch-Mokotoff Soundex
+    reverse -- reverse the word before computing the selected Soundex
+        (defaults to False); This results in "Reverse Soundex"
     """
+    # Call the D-M Soundex function itself if requested
+    if var == 'dm':
+        return dm_soundex(word, maxlength, reverse)
+
     # uppercase, normalize, decompose, and filter non-A-Z
     word = unicodedata.normalize('NFKD', unicode(word.upper()))
     word = filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word)
     
+    # Reverse word if computing Reverse Soundex
+    if reverse:
+        word = word[::-1]
+
     # apply the Soundex algorithm
     sdx = word.translate(_soundex_translation_table)
 
@@ -110,6 +122,24 @@ def soundex(word, maxlength=4, var='American'):
     sdx += ('0'*maxlength) # rule 4
 
     return sdx[:maxlength]
+
+
+def dm_soundex(word, maxlength, reverse):
+    """Return the Daitch-Mokotoff Soundex value of a word
+
+    Arguments:
+    word -- the word to translate to D-M Soundex
+    maxlength -- the length of the code returned (defaults to 4)
+    reverse -- reverse the word before computing the selected Soundex
+        (defaults to False); This results in "Reverse Soundex"
+    """
+    # uppercase, normalize, decompose, and filter non-A-Z
+    word = unicodedata.normalize('NFKD', unicode(word.upper()))
+    word = filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word)
+
+    # Reverse word if computing Reverse Soundex
+    if reverse:
+        word = word[::-1]
 
 
 def koelner_phonetik(word):
