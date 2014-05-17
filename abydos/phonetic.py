@@ -587,7 +587,8 @@ def metaphone(word, maxlength=float('inf')):
             elif ename[n+1:n+2] == 'H':
                 metaph += '0'
             elif ename[n+1:n+3] != 'CH':
-                metaph += 'T'
+                if ename[n-1:n] != 'T':
+                    metaph += 'T'
 
         elif ename[n] == 'V':
             metaph += 'F'
