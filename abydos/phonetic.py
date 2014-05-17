@@ -535,7 +535,7 @@ def metaphone(word, maxlength=float('inf')):
                 metaph += 'T'
 
         elif ename[n] == 'G':
-            if ename[n+1:n+2] == 'H' and (n+1 < l and ename[n+2] not in _vowels):
+            if ename[n+1:n+2] == 'H' and not (n+1 == l or ename[n+2:n+3] not in _vowels):
                 continue
             elif n > 0 and ((n+1 == l and ename[n+1] == 'N') or
                             (n+3 == l and ename[n+1:n+4] == 'NED')):
