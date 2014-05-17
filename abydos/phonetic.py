@@ -2,7 +2,6 @@
 
 from __future__ import unicode_literals
 from itertools import groupby
-from string import maketrans
 import re
 import unicodedata
 
