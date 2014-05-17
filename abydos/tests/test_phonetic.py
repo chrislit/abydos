@@ -4538,9942 +4538,4976 @@ class caverphone_test_cases(unittest.TestCase):
 
     def test_caverphone2_php_testset(self):
         # https://raw.githubusercontent.com/kiphughes/caverphone/master/unit_tests.php
-        self.assertEquals(caverphone('aaron'), 'ARN1111111')
-        self.assertEquals(caverphone('abby'), 'APA1111111')
-        self.assertEquals(caverphone('abdo'), 'APTA111111')
-        self.assertEquals(caverphone('abel'), 'APA1111111')
-        self.assertEquals(caverphone('abigail'), 'APKA111111')
-        self.assertEquals(caverphone('abina'), 'APNA111111')
-        self.assertEquals(caverphone('abool'), 'APA1111111')
-        self.assertEquals(caverphone('abraham'), 'APRM111111')
-        self.assertEquals(caverphone('absalom'), 'APSLM11111')
-        self.assertEquals(caverphone('ada'), 'ATA1111111')
-        self.assertEquals(caverphone('adalbert'), 'ATPT111111')
-        self.assertEquals(caverphone('adaline'), 'ATLN111111')
-        self.assertEquals(caverphone('adam'), 'ATM1111111')
-        self.assertEquals(caverphone('adela'), 'ATLA111111')
-        self.assertEquals(caverphone('adelaide'), 'ATLT111111')
-        self.assertEquals(caverphone('adeleen'), 'ATLN111111')
-        self.assertEquals(caverphone('adelene'), 'ATLN111111')
-        self.assertEquals(caverphone('adelina'), 'ATLNA11111')
-        self.assertEquals(caverphone('adeline'), 'ATLN111111')
-        self.assertEquals(caverphone('adolarious'), 'ATLRS11111')
-        self.assertEquals(caverphone('adolph'), 'ATF1111111')
-        self.assertEquals(caverphone('adolphe'), 'ATF1111111')
-        self.assertEquals(caverphone('adolphus'), 'ATFS111111')
-        self.assertEquals(caverphone('adonia'), 'ATNA111111')
-        self.assertEquals(caverphone('adrian'), 'ATRN111111')
-        self.assertEquals(caverphone('aeneas'), 'ANS1111111')
-        self.assertEquals(caverphone('afred'), 'AFRT111111')
-        self.assertEquals(caverphone('agatha'), 'AKTA111111')
-        self.assertEquals(caverphone('aggie'), 'AKA1111111')
-        self.assertEquals(caverphone('agnes'), 'AKNS111111')
-        self.assertEquals(caverphone('agness'), 'AKNS111111')
-        self.assertEquals(caverphone('ah'), 'A111111111')
-        self.assertEquals(caverphone('ahira'), 'ARA1111111')
-        self.assertEquals(caverphone('aida'), 'ATA1111111')
-        self.assertEquals(caverphone('aidan'), 'ATN1111111')
-        self.assertEquals(caverphone('aileen'), 'ALN1111111')
-        self.assertEquals(caverphone('ailsa'), 'ASA1111111')
-        self.assertEquals(caverphone('aimee'), 'AMA1111111')
-        self.assertEquals(caverphone('aimie'), 'AMA1111111')
-        self.assertEquals(caverphone('aird'), 'AT11111111')
-        self.assertEquals(caverphone('airini'), 'ARNA111111')
-        self.assertEquals(caverphone('alak'), 'ALK1111111')
-        self.assertEquals(caverphone('alan'), 'ALN1111111')
-        self.assertEquals(caverphone('alasdair'), 'ALSTA11111')
-        self.assertEquals(caverphone('alastair'), 'ALSTA11111')
-        self.assertEquals(caverphone('alban'), 'APN1111111')
-        self.assertEquals(caverphone('albany'), 'APNA111111')
-        self.assertEquals(caverphone('albert'), 'APT1111111')
-        self.assertEquals(caverphone('alberta'), 'APTA111111')
-        self.assertEquals(caverphone('alberthina'), 'APTNA11111')
-        self.assertEquals(caverphone('albertina'), 'APTNA11111')
-        self.assertEquals(caverphone('albertus'), 'APTS111111')
-        self.assertEquals(caverphone('albina'), 'APNA111111')
-        self.assertEquals(caverphone('aldolf'), 'ATF1111111')
-        self.assertEquals(caverphone('aldwyn'), 'ATWN111111')
-        self.assertEquals(caverphone('aleatha'), 'ALTA111111')
-        self.assertEquals(caverphone('alec'), 'ALK1111111')
-        self.assertEquals(caverphone('alex'), 'ALK1111111')
-        self.assertEquals(caverphone('alexander'), 'ALKNTA1111')
-        self.assertEquals(caverphone('alexanderina'), 'ALKNTRNA11')
-        self.assertEquals(caverphone('alexandra'), 'ALKNTRA111')
-        self.assertEquals(caverphone('alexandrena'), 'ALKNTRNA11')
-        self.assertEquals(caverphone('alexandrew'), 'ALKNTRA111')
-        self.assertEquals(caverphone('alexandria'), 'ALKNTRA111')
-        self.assertEquals(caverphone('alexandrina'), 'ALKNTRNA11')
-        self.assertEquals(caverphone('alexina'), 'ALKNA11111')
-        self.assertEquals(caverphone('alexius'), 'ALKS111111')
-        self.assertEquals(caverphone('alf'), 'AF11111111')
-        self.assertEquals(caverphone('alfred'), 'AFRT111111')
-        self.assertEquals(caverphone('alfreda'), 'AFRTA11111')
-        self.assertEquals(caverphone('alfrerd'), 'AFRT111111')
-        self.assertEquals(caverphone('algernon'), 'AKNN111111')
-        self.assertEquals(caverphone('algier'), 'AKA1111111')
-        self.assertEquals(caverphone('alice'), 'ALK1111111')
-        self.assertEquals(caverphone('alicia'), 'ALSA111111')
-        self.assertEquals(caverphone('alick'), 'ALK1111111')
-        self.assertEquals(caverphone('aline'), 'ALN1111111')
-        self.assertEquals(caverphone('alinie'), 'ALNA111111')
-        self.assertEquals(caverphone('alison'), 'ALSN111111')
-        self.assertEquals(caverphone('alister'), 'ALSTA11111')
-        self.assertEquals(caverphone('alixe'), 'ALK1111111')
-        self.assertEquals(caverphone('allan'), 'ALN1111111')
-        self.assertEquals(caverphone('allen'), 'ALN1111111')
-        self.assertEquals(caverphone('allison'), 'ALSN111111')
-        self.assertEquals(caverphone('allon'), 'ALN1111111')
-        self.assertEquals(caverphone('alma'), 'AMA1111111')
-        self.assertEquals(caverphone('alnie'), 'ANA1111111')
-        self.assertEquals(caverphone('aloysius'), 'ALSS111111')
-        self.assertEquals(caverphone('alpheus'), 'AFS1111111')
-        self.assertEquals(caverphone('alphonso'), 'AFNSA11111')
-        self.assertEquals(caverphone('alphonsos'), 'AFNSS11111')
-        self.assertEquals(caverphone('alphonsus'), 'AFNSS11111')
-        self.assertEquals(caverphone('alston'), 'ASTN111111')
-        self.assertEquals(caverphone('althea'), 'ATA1111111')
-        self.assertEquals(caverphone('alva'), 'AFA1111111')
-        self.assertEquals(caverphone('alvan'), 'AFN1111111')
-        self.assertEquals(caverphone('alvia'), 'AFA1111111')
-        self.assertEquals(caverphone('alvida'), 'AFTA111111')
-        self.assertEquals(caverphone('alvin'), 'AFN1111111')
-        self.assertEquals(caverphone('alvina'), 'AFNA111111')
-        self.assertEquals(caverphone('alvirie'), 'AFRA111111')
-        self.assertEquals(caverphone('alwin'), 'AWN1111111')
-        self.assertEquals(caverphone('alwyn'), 'AWN1111111')
-        self.assertEquals(caverphone('alys'), 'ALS1111111')
-        self.assertEquals(caverphone('amanda'), 'AMNTA11111')
-        self.assertEquals(caverphone('ambrose'), 'AMPRS11111')
-        self.assertEquals(caverphone('amelia'), 'AMLA111111')
-        self.assertEquals(caverphone('amida'), 'AMTA111111')
-        self.assertEquals(caverphone('amie'), 'AMA1111111')
-        self.assertEquals(caverphone('amos'), 'AMS1111111')
-        self.assertEquals(caverphone('amy'), 'AMA1111111')
-        self.assertEquals(caverphone('anabella'), 'ANPLA11111')
-        self.assertEquals(caverphone('anastasia'), 'ANSTSA1111')
-        self.assertEquals(caverphone('andarena'), 'ANTRNA1111')
-        self.assertEquals(caverphone('andereanie'), 'ANTRNA1111')
-        self.assertEquals(caverphone('anderena'), 'ANTRNA1111')
-        self.assertEquals(caverphone('anderina'), 'ANTRNA1111')
-        self.assertEquals(caverphone('anders'), 'ANTS111111')
-        self.assertEquals(caverphone('anderson'), 'ANTSN11111')
-        self.assertEquals(caverphone('andes'), 'ANTS111111')
-        self.assertEquals(caverphone('andis'), 'ANTS111111')
-        self.assertEquals(caverphone('andrea'), 'ANTRA11111')
-        self.assertEquals(caverphone('andreas'), 'ANTRS11111')
-        self.assertEquals(caverphone('andreen'), 'ANTRN11111')
-        self.assertEquals(caverphone('andrena'), 'ANTRNA1111')
-        self.assertEquals(caverphone('andrew'), 'ANTRA11111')
-        self.assertEquals(caverphone('andrewetta'), 'ANTRWTA111')
-        self.assertEquals(caverphone('andrewina'), 'ANTRWNA111')
-        self.assertEquals(caverphone('andriana'), 'ANTRNA1111')
-        self.assertEquals(caverphone('andrina'), 'ANTRNA1111')
-        self.assertEquals(caverphone('angela'), 'ANKLA11111')
-        self.assertEquals(caverphone('angelina'), 'ANKLNA1111')
-        self.assertEquals(caverphone('anges'), 'ANKS111111')
-        self.assertEquals(caverphone('angnetta'), 'ANKNTA1111')
-        self.assertEquals(caverphone('angus'), 'ANKS111111')
-        self.assertEquals(caverphone('angustus'), 'ANKSTS1111')
-        self.assertEquals(caverphone('angy'), 'ANKA111111')
-        self.assertEquals(caverphone('anita'), 'ANTA111111')
-        self.assertEquals(caverphone('anmore'), 'ANMA111111')
-        self.assertEquals(caverphone('ann'), 'AN11111111')
-        self.assertEquals(caverphone('anna'), 'ANA1111111')
-        self.assertEquals(caverphone('annabel'), 'ANPA111111')
-        self.assertEquals(caverphone('annabell'), 'ANPA111111')
-        self.assertEquals(caverphone('annabella'), 'ANPLA11111')
-        self.assertEquals(caverphone('annastasia'), 'ANSTSA1111')
-        self.assertEquals(caverphone('anne'), 'AN11111111')
-        self.assertEquals(caverphone('anners'), 'ANS1111111')
-        self.assertEquals(caverphone('annetta'), 'ANTA111111')
-        self.assertEquals(caverphone('annette'), 'ANT1111111')
-        self.assertEquals(caverphone('annettta'), 'ANTA111111')
-        self.assertEquals(caverphone('annie'), 'ANA1111111')
-        self.assertEquals(caverphone('annis'), 'ANS1111111')
-        self.assertEquals(caverphone('anorah'), 'ANRA111111')
-        self.assertEquals(caverphone('ansley'), 'ANSLA11111')
-        self.assertEquals(caverphone('antcliffe'), 'ANTKLF1111')
-        self.assertEquals(caverphone('anthony'), 'ANTNA11111')
-        self.assertEquals(caverphone('antiss'), 'ANTS111111')
-        self.assertEquals(caverphone('anton'), 'ANTN111111')
-        self.assertEquals(caverphone('antonica'), 'ANTNKA1111')
-        self.assertEquals(caverphone('antonie'), 'ANTNA11111')
-        self.assertEquals(caverphone('antonio'), 'ANTNA11111')
-        self.assertEquals(caverphone('antony'), 'ANTNA11111')
-        self.assertEquals(caverphone('aquila'), 'AKLA111111')
-        self.assertEquals(caverphone('ara'), 'ARA1111111')
-        self.assertEquals(caverphone('arabella'), 'ARPLA11111')
-        self.assertEquals(caverphone('archibald'), 'AKPT111111')
-        self.assertEquals(caverphone('archie'), 'AKA1111111')
-        self.assertEquals(caverphone('archina'), 'AKNA111111')
-        self.assertEquals(caverphone('archur'), 'AKA1111111')
-        self.assertEquals(caverphone('areta'), 'ARTA111111')
-        self.assertEquals(caverphone('argles'), 'AKLS111111')
-        self.assertEquals(caverphone('argyle'), 'AKA1111111')
-        self.assertEquals(caverphone('aria'), 'ARA1111111')
-        self.assertEquals(caverphone('ariana'), 'ARNA111111')
-        self.assertEquals(caverphone('ariti'), 'ARTA111111')
-        self.assertEquals(caverphone('arlene'), 'ALN1111111')
-        self.assertEquals(caverphone('arnold'), 'ANT1111111')
-        self.assertEquals(caverphone('aroha'), 'ARA1111111')
-        self.assertEquals(caverphone('arowie'), 'ARWA111111')
-        self.assertEquals(caverphone('arthur'), 'ATA1111111')
-        self.assertEquals(caverphone('asenath'), 'ASNT111111')
-        self.assertEquals(caverphone('ashburn'), 'ASPN111111')
-        self.assertEquals(caverphone('asher'), 'ASA1111111')
-        self.assertEquals(caverphone('ashley'), 'ASLA111111')
-        self.assertEquals(caverphone('ashton'), 'ASTN111111')
-        self.assertEquals(caverphone('atalanta'), 'ATLNTA1111')
-        self.assertEquals(caverphone('athel'), 'ATA1111111')
-        self.assertEquals(caverphone('athol'), 'ATA1111111')
-        self.assertEquals(caverphone('atkinson'), 'ATKNSN1111')
-        self.assertEquals(caverphone('aubrer'), 'APRA111111')
-        self.assertEquals(caverphone('aubrey'), 'APRA111111')
-        self.assertEquals(caverphone('audrew'), 'ATRA111111')
-        self.assertEquals(caverphone('audrey'), 'ATRA111111')
-        self.assertEquals(caverphone('audrina'), 'ATRNA11111')
-        self.assertEquals(caverphone('aufrere'), 'AFRA111111')
-        self.assertEquals(caverphone('augus'), 'AKS1111111')
-        self.assertEquals(caverphone('august'), 'AKST111111')
-        self.assertEquals(caverphone('augusta'), 'AKSTA11111')
-        self.assertEquals(caverphone('augustine'), 'AKSTN11111')
-        self.assertEquals(caverphone('augustus'), 'AKSTS11111')
-        self.assertEquals(caverphone('aurora'), 'ARRA111111')
-        self.assertEquals(caverphone('austen'), 'ASTN111111')
-        self.assertEquals(caverphone('austin'), 'ASTN111111')
-        self.assertEquals(caverphone('ava'), 'AFA1111111')
-        self.assertEquals(caverphone('avery'), 'AFRA111111')
-        self.assertEquals(caverphone('avice'), 'AFK1111111')
-        self.assertEquals(caverphone('avis'), 'AFS1111111')
-        self.assertEquals(caverphone('avondale'), 'AFNTA11111')
-        self.assertEquals(caverphone('awdry'), 'ATRA111111')
-        self.assertEquals(caverphone('axel'), 'AKA1111111')
-        self.assertEquals(caverphone('azel'), 'ASA1111111')
-        self.assertEquals(caverphone('azella'), 'ASLA111111')
-        self.assertEquals(caverphone('baden'), 'PTN1111111')
-        self.assertEquals(caverphone('bailey'), 'PLA1111111')
-        self.assertEquals(caverphone('balfour'), 'PFA1111111')
-        self.assertEquals(caverphone('barbara'), 'PPRA111111')
-        self.assertEquals(caverphone('barnett'), 'PNT1111111')
-        self.assertEquals(caverphone('barry'), 'PRA1111111')
-        self.assertEquals(caverphone('bartholomew'), 'PTLMA11111')
-        self.assertEquals(caverphone('bartlet'), 'PTLT111111')
-        self.assertEquals(caverphone('bartlett'), 'PTLT111111')
-        self.assertEquals(caverphone('basil'), 'PSA1111111')
-        self.assertEquals(caverphone('beaton'), 'PTN1111111')
-        self.assertEquals(caverphone('beatrice'), 'PTRK111111')
-        self.assertEquals(caverphone('beatrix'), 'PTRK111111')
-        self.assertEquals(caverphone('bedelia'), 'PTLA111111')
-        self.assertEquals(caverphone('belina'), 'PLNA111111')
-        self.assertEquals(caverphone('belinda'), 'PLNTA11111')
-        self.assertEquals(caverphone('bella'), 'PLA1111111')
-        self.assertEquals(caverphone('ben'), 'PN11111111')
-        self.assertEquals(caverphone('benetta'), 'PNTA111111')
-        self.assertEquals(caverphone('benita'), 'PNTA111111')
-        self.assertEquals(caverphone('benjamin'), 'PNMN111111')
-        self.assertEquals(caverphone('bennet'), 'PNT1111111')
-        self.assertEquals(caverphone('benson'), 'PNSN111111')
-        self.assertEquals(caverphone('bernadette'), 'PNTT111111')
-        self.assertEquals(caverphone('bernard'), 'PNT1111111')
-        self.assertEquals(caverphone('bernhard'), 'PNT1111111')
-        self.assertEquals(caverphone('bernhardt'), 'PNT1111111')
-        self.assertEquals(caverphone('bernice'), 'PNK1111111')
-        self.assertEquals(caverphone('berrie'), 'PRA1111111')
-        self.assertEquals(caverphone('bert'), 'PT11111111')
-        self.assertEquals(caverphone('berta'), 'PTA1111111')
-        self.assertEquals(caverphone('bertetta'), 'PTTA111111')
-        self.assertEquals(caverphone('bertha'), 'PTA1111111')
-        self.assertEquals(caverphone('berthia'), 'PTA1111111')
-        self.assertEquals(caverphone('bertie'), 'PTA1111111')
-        self.assertEquals(caverphone('bertina'), 'PTNA111111')
-        self.assertEquals(caverphone('bertram'), 'PTRM111111')
-        self.assertEquals(caverphone('bertrand'), 'PTRNT11111')
-        self.assertEquals(caverphone('berty'), 'PTA1111111')
-        self.assertEquals(caverphone('bertzow'), 'PTSA111111')
-        self.assertEquals(caverphone('beryl'), 'PRA1111111')
-        self.assertEquals(caverphone('bessie'), 'PSA1111111')
-        self.assertEquals(caverphone('bessy'), 'PSA1111111')
-        self.assertEquals(caverphone('beter'), 'PTA1111111')
-        self.assertEquals(caverphone('beth'), 'PT11111111')
-        self.assertEquals(caverphone('bethea'), 'PTA1111111')
-        self.assertEquals(caverphone('bethia'), 'PTA1111111')
-        self.assertEquals(caverphone('betsey'), 'PTSA111111')
-        self.assertEquals(caverphone('betsy'), 'PTSA111111')
-        self.assertEquals(caverphone('bettie'), 'PTA1111111')
-        self.assertEquals(caverphone('bettina'), 'PTNA111111')
-        self.assertEquals(caverphone('betty'), 'PTA1111111')
-        self.assertEquals(caverphone('beulah'), 'PLA1111111')
-        self.assertEquals(caverphone('billy'), 'PLA1111111')
-        self.assertEquals(caverphone('bina'), 'PNA1111111')
-        self.assertEquals(caverphone('binah'), 'PNA1111111')
-        self.assertEquals(caverphone('birdie'), 'PTA1111111')
-        self.assertEquals(caverphone('blair'), 'PLA1111111')
-        self.assertEquals(caverphone('blanch'), 'PLNK111111')
-        self.assertEquals(caverphone('blanche'), 'PLNK111111')
-        self.assertEquals(caverphone('blenard'), 'PLNT111111')
-        self.assertEquals(caverphone('bodil'), 'PTA1111111')
-        self.assertEquals(caverphone('bollettie'), 'PLTA111111')
-        self.assertEquals(caverphone('bordix'), 'PTK1111111')
-        self.assertEquals(caverphone('bowman'), 'PMN1111111')
-        self.assertEquals(caverphone('boyd'), 'PT11111111')
-        self.assertEquals(caverphone('brazil'), 'PRSA111111')
-        self.assertEquals(caverphone('breatne'), 'PRTN111111')
-        self.assertEquals(caverphone('breezetta'), 'PRSTA11111')
-        self.assertEquals(caverphone('brenda'), 'PRNTA11111')
-        self.assertEquals(caverphone('brian'), 'PRN1111111')
-        self.assertEquals(caverphone('bridget'), 'PRKT111111')
-        self.assertEquals(caverphone('bridie'), 'PRTA111111')
-        self.assertEquals(caverphone('brigid'), 'PRKT111111')
-        self.assertEquals(caverphone('browne'), 'PRN1111111')
-        self.assertEquals(caverphone('bruce'), 'PRK1111111')
-        self.assertEquals(caverphone('bryan'), 'PRN1111111')
-        self.assertEquals(caverphone('bryda'), 'PRTA111111')
-        self.assertEquals(caverphone('buchanan'), 'PKNN111111')
-        self.assertEquals(caverphone('bulimba'), 'PLMPA11111')
-        self.assertEquals(caverphone('burma'), 'PMA1111111')
-        self.assertEquals(caverphone('burt'), 'PT11111111')
-        self.assertEquals(caverphone('burton'), 'PTN1111111')
-        self.assertEquals(caverphone('bussorah'), 'PSRA111111')
-        self.assertEquals(caverphone('byrel'), 'PRA1111111')
-        self.assertEquals(caverphone('byrl'), 'PA11111111')
-        self.assertEquals(caverphone('camelia'), 'KMLA111111')
-        self.assertEquals(caverphone('camellia'), 'KMLA111111')
-        self.assertEquals(caverphone('campbell'), 'KMPA111111')
-        self.assertEquals(caverphone('carden'), 'KTN1111111')
-        self.assertEquals(caverphone('caren'), 'KRN1111111')
-        self.assertEquals(caverphone('carew'), 'KRA1111111')
-        self.assertEquals(caverphone('carita'), 'KRTA111111')
-        self.assertEquals(caverphone('carl'), 'KA11111111')
-        self.assertEquals(caverphone('carlile'), 'KLA1111111')
-        self.assertEquals(caverphone('carlin'), 'KLN1111111')
-        self.assertEquals(caverphone('carlton'), 'KTN1111111')
-        self.assertEquals(caverphone('carmen'), 'KMN1111111')
-        self.assertEquals(caverphone('carmichael'), 'KMKA111111')
-        self.assertEquals(caverphone('carnegie'), 'KNKA111111')
-        self.assertEquals(caverphone('carole'), 'KRA1111111')
-        self.assertEquals(caverphone('carolina'), 'KRLNA11111')
-        self.assertEquals(caverphone('caroline'), 'KRLN111111')
-        self.assertEquals(caverphone('carona'), 'KRNA111111')
-        self.assertEquals(caverphone('carra'), 'KRA1111111')
-        self.assertEquals(caverphone('carrie'), 'KRA1111111')
-        self.assertEquals(caverphone('carrington'), 'KRNKTN1111')
-        self.assertEquals(caverphone('cassandra'), 'KSNTRA1111')
-        self.assertEquals(caverphone('cassie'), 'KSA1111111')
-        self.assertEquals(caverphone('catharine'), 'KTRN111111')
-        self.assertEquals(caverphone('cathelus'), 'KTLS111111')
-        self.assertEquals(caverphone('catherina'), 'KTRNA11111')
-        self.assertEquals(caverphone('catherine'), 'KTRN111111')
-        self.assertEquals(caverphone('cathilus'), 'KTLS111111')
-        self.assertEquals(caverphone('cathleen'), 'KTLN111111')
-        self.assertEquals(caverphone('cathrien'), 'KTRN111111')
-        self.assertEquals(caverphone('cathrine'), 'KTRN111111')
-        self.assertEquals(caverphone('catrina'), 'KTRNA11111')
-        self.assertEquals(caverphone('cecelia'), 'SSLA111111')
-        self.assertEquals(caverphone('cecil'), 'SSA1111111')
-        self.assertEquals(caverphone('cecile'), 'SSA1111111')
-        self.assertEquals(caverphone('cecilia'), 'SSLA111111')
-        self.assertEquals(caverphone('cecily'), 'SSLA111111')
-        self.assertEquals(caverphone('cedric'), 'STRK111111')
-        self.assertEquals(caverphone('cedrie'), 'STRA111111')
-        self.assertEquals(caverphone('celestine'), 'SLSTN11111')
-        self.assertEquals(caverphone('celia'), 'SLA1111111')
-        self.assertEquals(caverphone('cessford'), 'SSFT111111')
-        self.assertEquals(caverphone('chalmers'), 'KMS1111111')
-        self.assertEquals(caverphone('chapman'), 'KPMN111111')
-        self.assertEquals(caverphone('charia'), 'KRA1111111')
-        self.assertEquals(caverphone('charitable'), 'KRTPA11111')
-        self.assertEquals(caverphone('charles'), 'KLS1111111')
-        self.assertEquals(caverphone('charlesclarence'), 'KLSKLRNK11')
-        self.assertEquals(caverphone('charleswilliam'), 'KLSWLM1111')
-        self.assertEquals(caverphone('charley'), 'KLA1111111')
-        self.assertEquals(caverphone('charlie'), 'KLA1111111')
-        self.assertEquals(caverphone('charlott'), 'KLT1111111')
-        self.assertEquals(caverphone('charlotte'), 'KLT1111111')
-        self.assertEquals(caverphone('chas'), 'KS11111111')
-        self.assertEquals(caverphone('chatles'), 'KTLS111111')
-        self.assertEquals(caverphone('chester'), 'KSTA111111')
-        self.assertEquals(caverphone('chistopher'), 'KSTFA11111')
-        self.assertEquals(caverphone('chrarles'), 'KRLS111111')
-        self.assertEquals(caverphone('chrest'), 'KRST111111')
-        self.assertEquals(caverphone('chrissie'), 'KRSA111111')
-        self.assertEquals(caverphone('chrissy'), 'KRSA111111')
-        self.assertEquals(caverphone('christabel'), 'KRSTPA1111')
-        self.assertEquals(caverphone('christabella'), 'KRSTPLA111')
-        self.assertEquals(caverphone('christen'), 'KRSTN11111')
-        self.assertEquals(caverphone('christena'), 'KRSTNA1111')
-        self.assertEquals(caverphone('christian'), 'KRSN111111')
-        self.assertEquals(caverphone('christiana'), 'KRSNA11111')
-        self.assertEquals(caverphone('christie'), 'KRSTA11111')
-        self.assertEquals(caverphone('christina'), 'KRSTNA1111')
-        self.assertEquals(caverphone('christine'), 'KRSTN11111')
-        self.assertEquals(caverphone('christinn'), 'KRSTN11111')
-        self.assertEquals(caverphone('christobel'), 'KRSTPA1111')
-        self.assertEquals(caverphone('christopher'), 'KRSTFA1111')
-        self.assertEquals(caverphone('cicely'), 'SSLA111111')
-        self.assertEquals(caverphone('cicil'), 'SSA1111111')
-        self.assertEquals(caverphone('cissie'), 'SSA1111111')
-        self.assertEquals(caverphone('cissy'), 'SSA1111111')
-        self.assertEquals(caverphone('claire'), 'KLA1111111')
-        self.assertEquals(caverphone('clalence'), 'KLLNK11111')
-        self.assertEquals(caverphone('clance'), 'KLNK111111')
-        self.assertEquals(caverphone('clara'), 'KLRA111111')
-        self.assertEquals(caverphone('clarance'), 'KLRNK11111')
-        self.assertEquals(caverphone('clare'), 'KLA1111111')
-        self.assertEquals(caverphone('clarels'), 'KLRS111111')
-        self.assertEquals(caverphone('clarence'), 'KLRNK11111')
-        self.assertEquals(caverphone('clarenda'), 'KLRNTA1111')
-        self.assertEquals(caverphone('clarenee'), 'KLRNA11111')
-        self.assertEquals(caverphone('claretta'), 'KLRTA11111')
-        self.assertEquals(caverphone('claribel'), 'KLRPA11111')
-        self.assertEquals(caverphone('clarice'), 'KLRK111111')
-        self.assertEquals(caverphone('clarinda'), 'KLRNTA1111')
-        self.assertEquals(caverphone('clarissa'), 'KLRSA11111')
-        self.assertEquals(caverphone('claritta'), 'KLRTA11111')
-        self.assertEquals(caverphone('clarkson'), 'KLKSN11111')
-        self.assertEquals(caverphone('clarles'), 'KLLS111111')
-        self.assertEquals(caverphone('claud'), 'KLT1111111')
-        self.assertEquals(caverphone('claude'), 'KLT1111111')
-        self.assertEquals(caverphone('claudia'), 'KLTA111111')
-        self.assertEquals(caverphone('clement'), 'KLMNT11111')
-        self.assertEquals(caverphone('clementina'), 'KLMNTNA111')
-        self.assertEquals(caverphone('clementine'), 'KLMNTN1111')
-        self.assertEquals(caverphone('clemont'), 'KLMNT11111')
-        self.assertEquals(caverphone('clifford'), 'KLFT111111')
-        self.assertEquals(caverphone('cliford'), 'KLFT111111')
-        self.assertEquals(caverphone('clifton'), 'KLFTN11111')
-        self.assertEquals(caverphone('clina'), 'KLNA111111')
-        self.assertEquals(caverphone('clive'), 'KLF1111111')
-        self.assertEquals(caverphone('cllarles'), 'KLLS111111')
-        self.assertEquals(caverphone('clrarles'), 'KRLS111111')
-        self.assertEquals(caverphone('clunnie'), 'KLNA111111')
-        self.assertEquals(caverphone('clyde'), 'KLT1111111')
-        self.assertEquals(caverphone('clym'), 'KLM1111111')
-        self.assertEquals(caverphone('cochrane'), 'KKRN111111')
-        self.assertEquals(caverphone('coila'), 'KLA1111111')
-        self.assertEquals(caverphone('coleman'), 'KLMN111111')
-        self.assertEquals(caverphone('colena'), 'KLNA111111')
-        self.assertEquals(caverphone('colin'), 'KLN1111111')
-        self.assertEquals(caverphone('colina'), 'KLNA111111')
-        self.assertEquals(caverphone('colville'), 'KFA1111111')
-        self.assertEquals(caverphone('comrie'), 'KMRA111111')
-        self.assertEquals(caverphone('connie'), 'KNA1111111')
-        self.assertEquals(caverphone('conrad'), 'KNRT111111')
-        self.assertEquals(caverphone('conroy'), 'KNRA111111')
-        self.assertEquals(caverphone('constance'), 'KNSTNK1111')
-        self.assertEquals(caverphone('conway'), 'KNWA111111')
-        self.assertEquals(caverphone('conwy'), 'KNWA111111')
-        self.assertEquals(caverphone('cora'), 'KRA1111111')
-        self.assertEquals(caverphone('coral'), 'KRA1111111')
-        self.assertEquals(caverphone('coralie'), 'KRLA111111')
-        self.assertEquals(caverphone('coraline'), 'KRLN111111')
-        self.assertEquals(caverphone('corbett'), 'KPT1111111')
-        self.assertEquals(caverphone('cordelia'), 'KTLA111111')
-        self.assertEquals(caverphone('cordon'), 'KTN1111111')
-        self.assertEquals(caverphone('corinna'), 'KRNA111111')
-        self.assertEquals(caverphone('cornelia'), 'KNLA111111')
-        self.assertEquals(caverphone('cornelius'), 'KNLS111111')
-        self.assertEquals(caverphone('corona'), 'KRNA111111')
-        self.assertEquals(caverphone('correll'), 'KRA1111111')
-        self.assertEquals(caverphone('corrie'), 'KRA1111111')
-        self.assertEquals(caverphone('coverly'), 'KFLA111111')
-        self.assertEquals(caverphone('cowan'), 'KWN1111111')
-        self.assertEquals(caverphone('crace'), 'KRK1111111')
-        self.assertEquals(caverphone('craigie'), 'KRKA111111')
-        self.assertEquals(caverphone('cranley'), 'KRNLA11111')
-        self.assertEquals(caverphone('crawford'), 'KRFT111111')
-        self.assertEquals(caverphone('cresser'), 'KRSA111111')
-        self.assertEquals(caverphone('crissie'), 'KRSA111111')
-        self.assertEquals(caverphone('crissy'), 'KRSA111111')
-        self.assertEquals(caverphone('croydon'), 'KRTN111111')
-        self.assertEquals(caverphone('cumming'), 'KMNK111111')
-        self.assertEquals(caverphone('curle'), 'KA11111111')
-        self.assertEquals(caverphone('cusack'), 'KSK1111111')
-        self.assertEquals(caverphone('cushla'), 'KSLA111111')
-        self.assertEquals(caverphone('cuthbert'), 'KTPT111111')
-        self.assertEquals(caverphone('cvrus'), 'KFRS111111')
-        self.assertEquals(caverphone('cynthia'), 'SNTA111111')
-        self.assertEquals(caverphone('cyprian'), 'SPRN111111')
-        self.assertEquals(caverphone('cyri1'), 'SRA1111111')
-        self.assertEquals(caverphone('cyril'), 'SRA1111111')
-        self.assertEquals(caverphone('d\'arcy'), 'TSA1111111')
-        self.assertEquals(caverphone('dagald'), 'TKT1111111')
-        self.assertEquals(caverphone('dagmar'), 'TKMA111111')
-        self.assertEquals(caverphone('daisy'), 'TSA1111111')
-        self.assertEquals(caverphone('dalia'), 'TLA1111111')
-        self.assertEquals(caverphone('dallas'), 'TLS1111111')
-        self.assertEquals(caverphone('dan'), 'TN11111111')
-        self.assertEquals(caverphone('dand'), 'TNT1111111')
-        self.assertEquals(caverphone('dane'), 'TN11111111')
-        self.assertEquals(caverphone('danes'), 'TNS1111111')
-        self.assertEquals(caverphone('daniel'), 'TNA1111111')
-        self.assertEquals(caverphone('daphne'), 'TFN1111111')
-        self.assertEquals(caverphone('darcey'), 'TSA1111111')
-        self.assertEquals(caverphone('darcy'), 'TSA1111111')
-        self.assertEquals(caverphone('dardanella'), 'TTNLA11111')
-        self.assertEquals(caverphone('darwent'), 'TWNT111111')
-        self.assertEquals(caverphone('dave'), 'TF11111111')
-        self.assertEquals(caverphone('davey'), 'TFA1111111')
-        self.assertEquals(caverphone('davicl'), 'TFKA111111')
-        self.assertEquals(caverphone('david'), 'TFT1111111')
-        self.assertEquals(caverphone('davida'), 'TFTA111111')
-        self.assertEquals(caverphone('davidena'), 'TFTNA11111')
-        self.assertEquals(caverphone('davina'), 'TFNA111111')
-        self.assertEquals(caverphone('davis'), 'TFS1111111')
-        self.assertEquals(caverphone('davitl'), 'TFTA111111')
-        self.assertEquals(caverphone('dawson'), 'TSN1111111')
-        self.assertEquals(caverphone('deab'), 'TP11111111')
-        self.assertEquals(caverphone('deane'), 'TN11111111')
-        self.assertEquals(caverphone('deborah'), 'TPRA111111')
-        self.assertEquals(caverphone('decima'), 'TSMA111111')
-        self.assertEquals(caverphone('decimus'), 'TSMS111111')
-        self.assertEquals(caverphone('deia'), 'TA11111111')
-        self.assertEquals(caverphone('delcia'), 'TSA1111111')
-        self.assertEquals(caverphone('delcie'), 'TSA1111111')
-        self.assertEquals(caverphone('delia'), 'TLA1111111')
-        self.assertEquals(caverphone('delice'), 'TLK1111111')
-        self.assertEquals(caverphone('delilah'), 'TLLA111111')
-        self.assertEquals(caverphone('della'), 'TLA1111111')
-        self.assertEquals(caverphone('delsie'), 'TSA1111111')
-        self.assertEquals(caverphone('denis'), 'TNS1111111')
-        self.assertEquals(caverphone('denise'), 'TNS1111111')
-        self.assertEquals(caverphone('dennis'), 'TNS1111111')
-        self.assertEquals(caverphone('denzil'), 'TNSA111111')
-        self.assertEquals(caverphone('derice'), 'TRK1111111')
-        self.assertEquals(caverphone('derry'), 'TRA1111111')
-        self.assertEquals(caverphone('desmond'), 'TSMNT11111')
-        self.assertEquals(caverphone('devina'), 'TFNA111111')
-        self.assertEquals(caverphone('diana'), 'TNA1111111')
-        self.assertEquals(caverphone('dibb'), 'TP11111111')
-        self.assertEquals(caverphone('dick'), 'TK11111111')
-        self.assertEquals(caverphone('digby'), 'TKPA111111')
-        self.assertEquals(caverphone('dina'), 'TNA1111111')
-        self.assertEquals(caverphone('dinah'), 'TNA1111111')
-        self.assertEquals(caverphone('dnniel'), 'TNA1111111')
-        self.assertEquals(caverphone('docy'), 'TSA1111111')
-        self.assertEquals(caverphone('dod'), 'TT11111111')
-        self.assertEquals(caverphone('dolce'), 'TK11111111')
-        self.assertEquals(caverphone('dolina'), 'TLNA111111')
-        self.assertEquals(caverphone('dollena'), 'TLNA111111')
-        self.assertEquals(caverphone('dolly'), 'TLA1111111')
-        self.assertEquals(caverphone('dolores'), 'TLRS111111')
-        self.assertEquals(caverphone('dominic'), 'TMNK111111')
-        self.assertEquals(caverphone('dominick'), 'TMNK111111')
-        self.assertEquals(caverphone('domonic'), 'TMNK111111')
-        self.assertEquals(caverphone('don'), 'TN11111111')
-        self.assertEquals(caverphone('donah'), 'TNA1111111')
-        self.assertEquals(caverphone('donald'), 'TNT1111111')
-        self.assertEquals(caverphone('donaldina'), 'TNTNA11111')
-        self.assertEquals(caverphone('donalena'), 'TNLNA11111')
-        self.assertEquals(caverphone('donella'), 'TNLA111111')
-        self.assertEquals(caverphone('dora'), 'TRA1111111')
-        self.assertEquals(caverphone('dorathea'), 'TRTA111111')
-        self.assertEquals(caverphone('dorcas'), 'TKS1111111')
-        self.assertEquals(caverphone('doreen'), 'TRN1111111')
-        self.assertEquals(caverphone('dorice'), 'TRK1111111')
-        self.assertEquals(caverphone('doris'), 'TRS1111111')
-        self.assertEquals(caverphone('dorles'), 'TLS1111111')
-        self.assertEquals(caverphone('dorothea'), 'TRTA111111')
-        self.assertEquals(caverphone('dorothy'), 'TRTA111111')
-        self.assertEquals(caverphone('dorree'), 'TRA1111111')
-        self.assertEquals(caverphone('dorris'), 'TRS1111111')
-        self.assertEquals(caverphone('douald'), 'TT11111111')
-        self.assertEquals(caverphone('dougal'), 'TKA1111111')
-        self.assertEquals(caverphone('dougald'), 'TKT1111111')
-        self.assertEquals(caverphone('douglas'), 'TKLS111111')
-        self.assertEquals(caverphone('dryden'), 'TRTN111111')
-        self.assertEquals(caverphone('dsmond'), 'TSMNT11111')
-        self.assertEquals(caverphone('dudley'), 'TTLA111111')
-        self.assertEquals(caverphone('dugald'), 'TKT1111111')
-        self.assertEquals(caverphone('dugall'), 'TKA1111111')
-        self.assertEquals(caverphone('dulcie'), 'TSA1111111')
-        self.assertEquals(caverphone('duncan'), 'TNKN111111')
-        self.assertEquals(caverphone('dunncan'), 'TNKN111111')
-        self.assertEquals(caverphone('dunstan'), 'TNSTN11111')
-        self.assertEquals(caverphone('e'), '1111111111')
-        self.assertEquals(caverphone('eaber'), 'APA1111111')
-        self.assertEquals(caverphone('eadly'), 'ATLA111111')
-        self.assertEquals(caverphone('earl'), 'AA11111111')
-        self.assertEquals(caverphone('earle'), 'AA11111111')
-        self.assertEquals(caverphone('earnest'), 'ANST111111')
-        self.assertEquals(caverphone('earold'), 'ART1111111')
-        self.assertEquals(caverphone('earry'), 'ARA1111111')
-        self.assertEquals(caverphone('eary'), 'ARA1111111')
-        self.assertEquals(caverphone('easther'), 'ASTA111111')
-        self.assertEquals(caverphone('ebb'), 'AP11111111')
-        self.assertEquals(caverphone('ebbie'), 'APA1111111')
-        self.assertEquals(caverphone('ebdom'), 'APTM111111')
-        self.assertEquals(caverphone('ebdon'), 'APTN111111')
-        self.assertEquals(caverphone('eben'), 'APN1111111')
-        self.assertEquals(caverphone('ebenezer'), 'APNSA11111')
-        self.assertEquals(caverphone('eccles'), 'AKLS111111')
-        self.assertEquals(caverphone('eda'), 'ATA1111111')
-        self.assertEquals(caverphone('eden'), 'ATN1111111')
-        self.assertEquals(caverphone('edgal'), 'AKA1111111')
-        self.assertEquals(caverphone('edgar'), 'AKA1111111')
-        self.assertEquals(caverphone('edifer'), 'ATFA111111')
-        self.assertEquals(caverphone('edifu'), 'ATFA111111')
-        self.assertEquals(caverphone('edith'), 'ATT1111111')
-        self.assertEquals(caverphone('edla'), 'ATLA111111')
-        self.assertEquals(caverphone('edmond'), 'ATMNT11111')
-        self.assertEquals(caverphone('edmund'), 'ATMNT11111')
-        self.assertEquals(caverphone('edna'), 'ATNA111111')
-        self.assertEquals(caverphone('edolph'), 'ATF1111111')
-        self.assertEquals(caverphone('edric'), 'ATRK111111')
-        self.assertEquals(caverphone('edvina'), 'ATFNA11111')
-        self.assertEquals(caverphone('edvward'), 'ATFWT11111')
-        self.assertEquals(caverphone('edwald'), 'ATWT111111')
-        self.assertEquals(caverphone('edwarcl'), 'ATWKA11111')
-        self.assertEquals(caverphone('edward'), 'ATWT111111')
-        self.assertEquals(caverphone('edwardd'), 'ATWT111111')
-        self.assertEquals(caverphone('edwardi'), 'ATWTA11111')
-        self.assertEquals(caverphone('edwardl'), 'ATWTA11111')
-        self.assertEquals(caverphone('edwards'), 'ATWTS11111')
-        self.assertEquals(caverphone('edwin'), 'ATWN111111')
-        self.assertEquals(caverphone('edwina'), 'ATWNA11111')
-        self.assertEquals(caverphone('edyth'), 'ATT1111111')
-        self.assertEquals(caverphone('edythe'), 'ATT1111111')
-        self.assertEquals(caverphone('eenry'), 'ANRA111111')
-        self.assertEquals(caverphone('eerbert'), 'APT1111111')
-        self.assertEquals(caverphone('effie'), 'AFA1111111')
-        self.assertEquals(caverphone('effield'), 'AFT1111111')
-        self.assertEquals(caverphone('efiza'), 'AFSA111111')
-        self.assertEquals(caverphone('eflie'), 'AFLA111111')
-        self.assertEquals(caverphone('egbert'), 'AKPT111111')
-        self.assertEquals(caverphone('eglentine'), 'AKLNTN1111')
-        self.assertEquals(caverphone('ehler'), 'ALA1111111')
-        self.assertEquals(caverphone('eila'), 'ALA1111111')
-        self.assertEquals(caverphone('eileen'), 'ALN1111111')
-        self.assertEquals(caverphone('eileena'), 'ALNA111111')
-        self.assertEquals(caverphone('eilene'), 'ALN1111111')
-        self.assertEquals(caverphone('eilzabeth'), 'ASPT111111')
-        self.assertEquals(caverphone('eion'), 'AN11111111')
-        self.assertEquals(caverphone('eirene'), 'ARN1111111')
-        self.assertEquals(caverphone('elaine'), 'ALN1111111')
-        self.assertEquals(caverphone('eldorado'), 'ATRTA11111')
-        self.assertEquals(caverphone('eldrid'), 'ATRT111111')
-        self.assertEquals(caverphone('eleana'), 'ALNA111111')
-        self.assertEquals(caverphone('eleanor'), 'ALNA111111')
-        self.assertEquals(caverphone('eleanora'), 'ALNRA11111')
-        self.assertEquals(caverphone('eleanore'), 'ALNA111111')
-        self.assertEquals(caverphone('eleazar'), 'ALSA111111')
-        self.assertEquals(caverphone('elena'), 'ALNA111111')
-        self.assertEquals(caverphone('elenor'), 'ALNA111111')
-        self.assertEquals(caverphone('elenora'), 'ALNRA11111')
-        self.assertEquals(caverphone('eleonora'), 'ALNRA11111')
-        self.assertEquals(caverphone('eleonore'), 'ALNA111111')
-        self.assertEquals(caverphone('elephalet'), 'ALFLT11111')
-        self.assertEquals(caverphone('elezeard'), 'ALST111111')
-        self.assertEquals(caverphone('elfreda'), 'AFRTA11111')
-        self.assertEquals(caverphone('elfrida'), 'AFRTA11111')
-        self.assertEquals(caverphone('eli'), 'ALA1111111')
-        self.assertEquals(caverphone('elias'), 'ALS1111111')
-        self.assertEquals(caverphone('eliezer'), 'ALSA111111')
-        self.assertEquals(caverphone('elijah'), 'ALA1111111')
-        self.assertEquals(caverphone('elinor'), 'ALNA111111')
-        self.assertEquals(caverphone('eliot'), 'ALT1111111')
-        self.assertEquals(caverphone('eliphalet'), 'ALFLT11111')
-        self.assertEquals(caverphone('elisabeth'), 'ALSPT11111')
-        self.assertEquals(caverphone('elise'), 'ALS1111111')
-        self.assertEquals(caverphone('elisha'), 'ALSA111111')
-        self.assertEquals(caverphone('elishe'), 'ALS1111111')
-        self.assertEquals(caverphone('elison'), 'ALSN111111')
-        self.assertEquals(caverphone('eliza'), 'ALSA111111')
-        self.assertEquals(caverphone('elizabel'), 'ALSPA11111')
-        self.assertEquals(caverphone('elizabeth'), 'ALSPT11111')
-        self.assertEquals(caverphone('elizie'), 'ALSA111111')
-        self.assertEquals(caverphone('ella'), 'ALA1111111')
-        self.assertEquals(caverphone('ellaline'), 'ALLN111111')
-        self.assertEquals(caverphone('ellanor'), 'ALNA111111')
-        self.assertEquals(caverphone('elleana'), 'ALNA111111')
-        self.assertEquals(caverphone('elleanor'), 'ALNA111111')
-        self.assertEquals(caverphone('ellen'), 'ALN1111111')
-        self.assertEquals(caverphone('ellenor'), 'ALNA111111')
-        self.assertEquals(caverphone('ellenora'), 'ALNRA11111')
-        self.assertEquals(caverphone('elleston'), 'ALSTN11111')
-        self.assertEquals(caverphone('ellie'), 'ALA1111111')
-        self.assertEquals(caverphone('ellien'), 'ALN1111111')
-        self.assertEquals(caverphone('ellinor'), 'ALNA111111')
-        self.assertEquals(caverphone('elliott'), 'ALT1111111')
-        self.assertEquals(caverphone('ellis'), 'ALS1111111')
-        self.assertEquals(caverphone('ellison'), 'ALSN111111')
-        self.assertEquals(caverphone('elliston'), 'ALSTN11111')
-        self.assertEquals(caverphone('ellsmere'), 'ASMA111111')
-        self.assertEquals(caverphone('elma'), 'AMA1111111')
-        self.assertEquals(caverphone('elmira'), 'AMRA111111')
-        self.assertEquals(caverphone('elsa'), 'ASA1111111')
-        self.assertEquals(caverphone('elsie'), 'ASA1111111')
-        self.assertEquals(caverphone('elsinore'), 'ASNA111111')
-        self.assertEquals(caverphone('elspeth'), 'ASPT111111')
-        self.assertEquals(caverphone('eluburt'), 'ALPT111111')
-        self.assertEquals(caverphone('elva'), 'AFA1111111')
-        self.assertEquals(caverphone('elvena'), 'AFNA111111')
-        self.assertEquals(caverphone('elvene'), 'AFN1111111')
-        self.assertEquals(caverphone('elvia'), 'AFA1111111')
-        self.assertEquals(caverphone('elvie'), 'AFA1111111')
-        self.assertEquals(caverphone('elvina'), 'AFNA111111')
-        self.assertEquals(caverphone('elvira'), 'AFRA111111')
-        self.assertEquals(caverphone('emanuel'), 'AMNA111111')
-        self.assertEquals(caverphone('emela'), 'AMLA111111')
-        self.assertEquals(caverphone('emelia'), 'AMLA111111')
-        self.assertEquals(caverphone('emelie'), 'AMLA111111')
-        self.assertEquals(caverphone('emeline'), 'AMLN111111')
-        self.assertEquals(caverphone('emely'), 'AMLA111111')
-        self.assertEquals(caverphone('emest'), 'AMST111111')
-        self.assertEquals(caverphone('emil'), 'AMA1111111')
-        self.assertEquals(caverphone('emile'), 'AMA1111111')
-        self.assertEquals(caverphone('emiley'), 'AMLA111111')
-        self.assertEquals(caverphone('emilie'), 'AMLA111111')
-        self.assertEquals(caverphone('emilina'), 'AMLNA11111')
-        self.assertEquals(caverphone('emiline'), 'AMLN111111')
-        self.assertEquals(caverphone('emilio'), 'AMLA111111')
-        self.assertEquals(caverphone('emily'), 'AMLA111111')
-        self.assertEquals(caverphone('emma'), 'AMA1111111')
-        self.assertEquals(caverphone('emmanuel'), 'AMNA111111')
-        self.assertEquals(caverphone('emmeline'), 'AMLN111111')
-        self.assertEquals(caverphone('emmie'), 'AMA1111111')
-        self.assertEquals(caverphone('emmy'), 'AMA1111111')
-        self.assertEquals(caverphone('ena'), 'ANA1111111')
-        self.assertEquals(caverphone('eneas'), 'ANS1111111')
-        self.assertEquals(caverphone('english'), 'ANKLS11111')
-        self.assertEquals(caverphone('engo'), 'ANKA111111')
-        self.assertEquals(caverphone('enid'), 'ANT1111111')
-        self.assertEquals(caverphone('enny'), 'ANA1111111')
-        self.assertEquals(caverphone('enoch'), 'ANK1111111')
-        self.assertEquals(caverphone('ephraim'), 'AFRM111111')
-        self.assertEquals(caverphone('ephrain'), 'AFRN111111')
-        self.assertEquals(caverphone('ephriam'), 'AFRM111111')
-        self.assertEquals(caverphone('erana'), 'ARNA111111')
-        self.assertEquals(caverphone('erancis'), 'ARNSS11111')
-        self.assertEquals(caverphone('erasmus'), 'ARSMS11111')
-        self.assertEquals(caverphone('erederick'), 'ARTRK11111')
-        self.assertEquals(caverphone('erek'), 'ARK1111111')
-        self.assertEquals(caverphone('erenest'), 'ARNST11111')
-        self.assertEquals(caverphone('eric'), 'ARK1111111')
-        self.assertEquals(caverphone('erich'), 'ARK1111111')
-        self.assertEquals(caverphone('erie'), 'ARA1111111')
-        self.assertEquals(caverphone('erik'), 'ARK1111111')
-        self.assertEquals(caverphone('erin'), 'ARN1111111')
-        self.assertEquals(caverphone('erle'), 'AA11111111')
-        self.assertEquals(caverphone('ermina'), 'AMNA111111')
-        self.assertEquals(caverphone('ern'), 'AN11111111')
-        self.assertEquals(caverphone('ernelst'), 'ANST111111')
-        self.assertEquals(caverphone('ernest'), 'ANST111111')
-        self.assertEquals(caverphone('ernestina'), 'ANSTNA1111')
-        self.assertEquals(caverphone('ernestine'), 'ANSTN11111')
-        self.assertEquals(caverphone('ernestreetfrancis'), 'ANSTRTFRNS')
-        self.assertEquals(caverphone('ernett'), 'ANT1111111')
-        self.assertEquals(caverphone('ernie'), 'ANA1111111')
-        self.assertEquals(caverphone('ernma'), 'ANMA111111')
-        self.assertEquals(caverphone('ernst'), 'ANST111111')
-        self.assertEquals(caverphone('errol'), 'ARA1111111')
-        self.assertEquals(caverphone('erwin'), 'AWN1111111')
-        self.assertEquals(caverphone('esdaile'), 'ASTA111111')
-        self.assertEquals(caverphone('esdale'), 'ASTA111111')
-        self.assertEquals(caverphone('esher'), 'ASA1111111')
-        self.assertEquals(caverphone('esma'), 'ASMA111111')
-        self.assertEquals(caverphone('esme'), 'ASM1111111')
-        self.assertEquals(caverphone('esmond'), 'ASMNT11111')
-        self.assertEquals(caverphone('essie'), 'ASA1111111')
-        self.assertEquals(caverphone('estella'), 'ASTLA11111')
-        self.assertEquals(caverphone('estelle'), 'ASTA111111')
-        self.assertEquals(caverphone('ester'), 'ASTA111111')
-        self.assertEquals(caverphone('esther'), 'ASTA111111')
-        self.assertEquals(caverphone('ethel'), 'ATA1111111')
-        self.assertEquals(caverphone('ethelbert'), 'ATPT111111')
-        self.assertEquals(caverphone('ethelinda'), 'ATLNTA1111')
-        self.assertEquals(caverphone('ethelwin'), 'ATWN111111')
-        self.assertEquals(caverphone('ethelwyn'), 'ATWN111111')
-        self.assertEquals(caverphone('ethie'), 'ATA1111111')
-        self.assertEquals(caverphone('etta'), 'ATA1111111')
-        self.assertEquals(caverphone('ettie'), 'ATA1111111')
-        self.assertEquals(caverphone('ettrick'), 'ATRK111111')
-        self.assertEquals(caverphone('etty'), 'ATA1111111')
-        self.assertEquals(caverphone('eubert'), 'APT1111111')
-        self.assertEquals(caverphone('eugene'), 'AKN1111111')
-        self.assertEquals(caverphone('eugenie'), 'AKNA111111')
-        self.assertEquals(caverphone('eugh'), 'AA11111111')
-        self.assertEquals(caverphone('eulla'), 'ALA1111111')
-        self.assertEquals(caverphone('eunice'), 'ANK1111111')
-        self.assertEquals(caverphone('euphemia'), 'AFMA111111')
-        self.assertEquals(caverphone('eurice'), 'ARK1111111')
-        self.assertEquals(caverphone('eustace'), 'ASTK111111')
-        self.assertEquals(caverphone('eva'), 'AFA1111111')
-        self.assertEquals(caverphone('evaline'), 'AFLN111111')
-        self.assertEquals(caverphone('evalyn'), 'AFLN111111')
-        self.assertEquals(caverphone('evan'), 'AFN1111111')
-        self.assertEquals(caverphone('evander'), 'AFNTA11111')
-        self.assertEquals(caverphone('evandrina'), 'AFNTRNA111')
-        self.assertEquals(caverphone('evanelina'), 'AFNLNA1111')
-        self.assertEquals(caverphone('evangaline'), 'AFNKLN1111')
-        self.assertEquals(caverphone('evangelina'), 'AFNKLNA111')
-        self.assertEquals(caverphone('evangeline'), 'AFNKLN1111')
-        self.assertEquals(caverphone('evans'), 'AFNS111111')
-        self.assertEquals(caverphone('evarard'), 'AFRT111111')
-        self.assertEquals(caverphone('eve'), 'AF11111111')
-        self.assertEquals(caverphone('eveleen'), 'AFLN111111')
-        self.assertEquals(caverphone('evelina'), 'AFLNA11111')
-        self.assertEquals(caverphone('eveline'), 'AFLN111111')
-        self.assertEquals(caverphone('evelyn'), 'AFLN111111')
-        self.assertEquals(caverphone('evelyne'), 'AFLN111111')
-        self.assertEquals(caverphone('everard'), 'AFRT111111')
-        self.assertEquals(caverphone('eveyleen'), 'AFLN111111')
-        self.assertEquals(caverphone('evin'), 'AFN1111111')
-        self.assertEquals(caverphone('evinda'), 'AFNTA11111')
-        self.assertEquals(caverphone('ewan'), 'AWN1111111')
-        self.assertEquals(caverphone('eward'), 'AWT1111111')
-        self.assertEquals(caverphone('ewart'), 'AWT1111111')
-        self.assertEquals(caverphone('ewen'), 'AWN1111111')
-        self.assertEquals(caverphone('ezekiel'), 'ASKA111111')
-        self.assertEquals(caverphone('ezra'), 'ASRA111111')
-        self.assertEquals(caverphone('faa'), 'FA11111111')
-        self.assertEquals(caverphone('fabian'), 'FPN1111111')
-        self.assertEquals(caverphone('fairey'), 'FRA1111111')
-        self.assertEquals(caverphone('faith'), 'FT11111111')
-        self.assertEquals(caverphone('fancis'), 'FNSS111111')
-        self.assertEquals(caverphone('fannie'), 'FNA1111111')
-        self.assertEquals(caverphone('fanny'), 'FNA1111111')
-        self.assertEquals(caverphone('farnham'), 'FNM1111111')
-        self.assertEquals(caverphone('farquhar'), 'FKA1111111')
-        self.assertEquals(caverphone('fashoda'), 'FSTA111111')
-        self.assertEquals(caverphone('fay'), 'FA11111111')
-        self.assertEquals(caverphone('felicha'), 'FLKA111111')
-        self.assertEquals(caverphone('felicia'), 'FLSA111111')
-        self.assertEquals(caverphone('felix'), 'FLK1111111')
-        self.assertEquals(caverphone('fenwick'), 'FNWK111111')
-        self.assertEquals(caverphone('ferdeanand'), 'FTNNT11111')
-        self.assertEquals(caverphone('ferdinand'), 'FTNNT11111')
-        self.assertEquals(caverphone('ferdinnnd'), 'FTNT111111')
-        self.assertEquals(caverphone('fergus'), 'FKS1111111')
-        self.assertEquals(caverphone('fergusson'), 'FKSN111111')
-        self.assertEquals(caverphone('ferme'), 'FM11111111')
-        self.assertEquals(caverphone('ferne'), 'FN11111111')
-        self.assertEquals(caverphone('fides'), 'FTS1111111')
-        self.assertEquals(caverphone('findlay'), 'FNTLA11111')
-        self.assertEquals(caverphone('finlay'), 'FNLA111111')
-        self.assertEquals(caverphone('finley'), 'FNLA111111')
-        self.assertEquals(caverphone('fitzclarence'), 'FTSKLRNK11')
-        self.assertEquals(caverphone('fitzelarence'), 'FTSLRNK111')
-        self.assertEquals(caverphone('fitzgerald'), 'FTSKRT1111')
-        self.assertEquals(caverphone('fitzroy'), 'FTSRA11111')
-        self.assertEquals(caverphone('flank'), 'FLNK111111')
-        self.assertEquals(caverphone('fleming'), 'FLMNK11111')
-        self.assertEquals(caverphone('fletcher'), 'FLKA111111')
-        self.assertEquals(caverphone('flora'), 'FLRA111111')
-        self.assertEquals(caverphone('florabelle'), 'FLRPA11111')
-        self.assertEquals(caverphone('florann'), 'FLRN111111')
-        self.assertEquals(caverphone('florencc'), 'FLRNK11111')
-        self.assertEquals(caverphone('florence'), 'FLRNK11111')
-        self.assertEquals(caverphone('florice'), 'FLRK111111')
-        self.assertEquals(caverphone('floris'), 'FLRS111111')
-        self.assertEquals(caverphone('florisse'), 'FLRS111111')
-        self.assertEquals(caverphone('florita'), 'FLRTA11111')
-        self.assertEquals(caverphone('florrie'), 'FLRA111111')
-        self.assertEquals(caverphone('flossie'), 'FLSA111111')
-        self.assertEquals(caverphone('forbes'), 'FPS1111111')
-        self.assertEquals(caverphone('fordham'), 'FTM1111111')
-        self.assertEquals(caverphone('forrest'), 'FRST111111')
-        self.assertEquals(caverphone('forrester'), 'FRSTA11111')
-        self.assertEquals(caverphone('forrestina'), 'FRSTNA1111')
-        self.assertEquals(caverphone('forsyth'), 'FST1111111')
-        self.assertEquals(caverphone('fosbery'), 'FSPRA11111')
-        self.assertEquals(caverphone('fracis'), 'FRSS111111')
-        self.assertEquals(caverphone('fraicis'), 'FRSS111111')
-        self.assertEquals(caverphone('france'), 'FRNK111111')
-        self.assertEquals(caverphone('frances'), 'FRNSS11111')
-        self.assertEquals(caverphone('franchise'), 'FRNKS11111')
-        self.assertEquals(caverphone('francie'), 'FRNSA11111')
-        self.assertEquals(caverphone('francis'), 'FRNSS11111')
-        self.assertEquals(caverphone('francisca'), 'FRNSSKA111')
-        self.assertEquals(caverphone('francois'), 'FRNKS11111')
-        self.assertEquals(caverphone('francusess'), 'FRNKSS1111')
-        self.assertEquals(caverphone('frank'), 'FRNK111111')
-        self.assertEquals(caverphone('franklin'), 'FRNKLN1111')
-        self.assertEquals(caverphone('franklyn'), 'FRNKLN1111')
-        self.assertEquals(caverphone('franz'), 'FRNS111111')
-        self.assertEquals(caverphone('frarnk'), 'FRNK111111')
-        self.assertEquals(caverphone('fraser'), 'FRSA111111')
-        self.assertEquals(caverphone('frcderick'), 'FKTRK11111')
-        self.assertEquals(caverphone('fred'), 'FRT1111111')
-        self.assertEquals(caverphone('freda'), 'FRTA111111')
-        self.assertEquals(caverphone('fredeick'), 'FRTK111111')
-        self.assertEquals(caverphone('fredelick'), 'FRTLK11111')
-        self.assertEquals(caverphone('fredercik'), 'FRTSK11111')
-        self.assertEquals(caverphone('frederic'), 'FRTRK11111')
-        self.assertEquals(caverphone('frederica'), 'FRTRKA1111')
-        self.assertEquals(caverphone('frederich'), 'FRTRK11111')
-        self.assertEquals(caverphone('frederick'), 'FRTRK11111')
-        self.assertEquals(caverphone('fredericka'), 'FRTRKA1111')
-        self.assertEquals(caverphone('fredericld'), 'FRTRKT1111')
-        self.assertEquals(caverphone('frederidck'), 'FRTRTK1111')
-        self.assertEquals(caverphone('frederiek'), 'FRTRK11111')
-        self.assertEquals(caverphone('frederik'), 'FRTRK11111')
-        self.assertEquals(caverphone('frederlck'), 'FRTK111111')
-        self.assertEquals(caverphone('fredierick'), 'FRTRK11111')
-        self.assertEquals(caverphone('fredk'), 'FRTK111111')
-        self.assertEquals(caverphone('fredric'), 'FRTRK11111')
-        self.assertEquals(caverphone('fredrica'), 'FRTRKA1111')
-        self.assertEquals(caverphone('fredrich'), 'FRTRK11111')
-        self.assertEquals(caverphone('fredrick'), 'FRTRK11111')
-        self.assertEquals(caverphone('fredrik'), 'FRTRK11111')
-        self.assertEquals(caverphone('freid'), 'FRT1111111')
-        self.assertEquals(caverphone('fric'), 'FRK1111111')
-        self.assertEquals(caverphone('friderick'), 'FRTRK11111')
-        self.assertEquals(caverphone('fullenia'), 'FLNA111111')
-        self.assertEquals(caverphone('fulton'), 'FTN1111111')
-        self.assertEquals(caverphone('gabriel'), 'KPRA111111')
-        self.assertEquals(caverphone('gabrielle'), 'KPRA111111')
-        self.assertEquals(caverphone('gallacher'), 'KLKA111111')
-        self.assertEquals(caverphone('gamet'), 'KMT1111111')
-        self.assertEquals(caverphone('gara'), 'KRA1111111')
-        self.assertEquals(caverphone('gardiner'), 'KTNA111111')
-        self.assertEquals(caverphone('garibaldi'), 'KRPTA11111')
-        self.assertEquals(caverphone('garnet'), 'KNT1111111')
-        self.assertEquals(caverphone('garrett'), 'KRT1111111')
-        self.assertEquals(caverphone('garry'), 'KRA1111111')
-        self.assertEquals(caverphone('garth'), 'KT11111111')
-        self.assertEquals(caverphone('gary'), 'KRA1111111')
-        self.assertEquals(caverphone('gavin'), 'KFN1111111')
-        self.assertEquals(caverphone('gaynor'), 'KNA1111111')
-        self.assertEquals(caverphone('gcorge'), 'KK11111111')
-        self.assertEquals(caverphone('gebrge'), 'KPK1111111')
-        self.assertEquals(caverphone('gecrge'), 'KKK1111111')
-        self.assertEquals(caverphone('geeorge'), 'KK11111111')
-        self.assertEquals(caverphone('genrie'), 'KNRA111111')
-        self.assertEquals(caverphone('geo'), 'KA11111111')
-        self.assertEquals(caverphone('geoffrev'), 'KFRF111111')
-        self.assertEquals(caverphone('geoffrey'), 'KFRA111111')
-        self.assertEquals(caverphone('geoffry'), 'KFRA111111')
-        self.assertEquals(caverphone('geonge'), 'KNK1111111')
-        self.assertEquals(caverphone('george'), 'KK11111111')
-        self.assertEquals(caverphone('georgei'), 'KKA1111111')
-        self.assertEquals(caverphone('georgel'), 'KKA1111111')
-        self.assertEquals(caverphone('georger'), 'KKA1111111')
-        self.assertEquals(caverphone('georgia'), 'KKA1111111')
-        self.assertEquals(caverphone('georgina'), 'KKNA111111')
-        self.assertEquals(caverphone('georgo'), 'KKA1111111')
-        self.assertEquals(caverphone('georgte'), 'KKT1111111')
-        self.assertEquals(caverphone('geortre'), 'KTA1111111')
-        self.assertEquals(caverphone('gerald'), 'KRT1111111')
-        self.assertEquals(caverphone('geraldine'), 'KRTN111111')
-        self.assertEquals(caverphone('gerard'), 'KRT1111111')
-        self.assertEquals(caverphone('gerge'), 'KK11111111')
-        self.assertEquals(caverphone('gershon'), 'KSN1111111')
-        self.assertEquals(caverphone('gertie'), 'KTA1111111')
-        self.assertEquals(caverphone('gertrude'), 'KTRT111111')
-        self.assertEquals(caverphone('gessenox'), 'KSNK111111')
-        self.assertEquals(caverphone('geytha'), 'KTA1111111')
-        self.assertEquals(caverphone('geziena'), 'KSNA111111')
-        self.assertEquals(caverphone('gharles'), 'LS11111111')
-        self.assertEquals(caverphone('gibson'), 'KPSN111111')
-        self.assertEquals(caverphone('gideon'), 'KTN1111111')
-        self.assertEquals(caverphone('giener'), 'KNA1111111')
-        self.assertEquals(caverphone('gieorge'), 'KK11111111')
-        self.assertEquals(caverphone('gilbert'), 'KPT1111111')
-        self.assertEquals(caverphone('gilberta'), 'KPTA111111')
-        self.assertEquals(caverphone('gilhert'), 'KT11111111')
-        self.assertEquals(caverphone('girdwood'), 'KTWT111111')
-        self.assertEquals(caverphone('gisella'), 'KSLA111111')
-        self.assertEquals(caverphone('gladstone'), 'KLTSTN1111')
-        self.assertEquals(caverphone('gladwys'), 'KLTWS11111')
-        self.assertEquals(caverphone('gladys'), 'KLTS111111')
-        self.assertEquals(caverphone('glen'), 'KLN1111111')
-        self.assertEquals(caverphone('gleorga'), 'KLKA111111')
-        self.assertEquals(caverphone('gleorge'), 'KLK1111111')
-        self.assertEquals(caverphone('gleorgina'), 'KLKNA11111')
-        self.assertEquals(caverphone('gleurge'), 'KLK1111111')
-        self.assertEquals(caverphone('glladys'), 'KLTS111111')
-        self.assertEquals(caverphone('glordon'), 'KLTN111111')
-        self.assertEquals(caverphone('glover'), 'KLFA111111')
-        self.assertEquals(caverphone('glrace'), 'KRK1111111')
-        self.assertEquals(caverphone('godfrey'), 'KTFRA11111')
-        self.assertEquals(caverphone('godwin'), 'KTWN111111')
-        self.assertEquals(caverphone('golda'), 'KTA1111111')
-        self.assertEquals(caverphone('gonzaga'), 'KNSKA11111')
-        self.assertEquals(caverphone('goorge'), 'KK11111111')
-        self.assertEquals(caverphone('gordon'), 'KTN1111111')
-        self.assertEquals(caverphone('gorge'), 'KK11111111')
-        self.assertEquals(caverphone('gottfred'), 'KTFRT11111')
-        self.assertEquals(caverphone('govan'), 'KFN1111111')
-        self.assertEquals(caverphone('gowan'), 'KWN1111111')
-        self.assertEquals(caverphone('grace'), 'KRK1111111')
-        self.assertEquals(caverphone('gracie'), 'KRSA111111')
-        self.assertEquals(caverphone('graham'), 'KRM1111111')
-        self.assertEquals(caverphone('grahame'), 'KRM1111111')
-        self.assertEquals(caverphone('grainger'), 'KRNKA11111')
-        self.assertEquals(caverphone('grange'), 'KRNK111111')
-        self.assertEquals(caverphone('grant'), 'KRNT111111')
-        self.assertEquals(caverphone('grattan'), 'KRTN111111')
-        self.assertEquals(caverphone('gratton'), 'KRTN111111')
-        self.assertEquals(caverphone('gray'), 'KRA1111111')
-        self.assertEquals(caverphone('grayce'), 'KRK1111111')
-        self.assertEquals(caverphone('greer'), 'KRA1111111')
-        self.assertEquals(caverphone('greshon'), 'KRSN111111')
-        self.assertEquals(caverphone('greta'), 'KRTA111111')
-        self.assertEquals(caverphone('gretchen'), 'KRKN111111')
-        self.assertEquals(caverphone('gretta'), 'KRTA111111')
-        self.assertEquals(caverphone('griffith'), 'KRFT111111')
-        self.assertEquals(caverphone('griffiths'), 'KRFTS11111')
-        self.assertEquals(caverphone('griselda'), 'KRSTA11111')
-        self.assertEquals(caverphone('grosvenor'), 'KRSFNA1111')
-        self.assertEquals(caverphone('grover'), 'KRFA111111')
-        self.assertEquals(caverphone('gteorge'), 'KTK1111111')
-        self.assertEquals(caverphone('guinevere'), 'KNFA111111')
-        self.assertEquals(caverphone('gustav'), 'KSTF111111')
-        self.assertEquals(caverphone('gustava'), 'KSTFA11111')
-        self.assertEquals(caverphone('gustave'), 'KSTF111111')
-        self.assertEquals(caverphone('guthrie'), 'KTRA111111')
-        self.assertEquals(caverphone('guy'), 'KA11111111')
-        self.assertEquals(caverphone('gwen'), 'KWN1111111')
-        self.assertEquals(caverphone('gwenath'), 'KWNT111111')
-        self.assertEquals(caverphone('gwenda'), 'KWNTA11111')
-        self.assertEquals(caverphone('gwendaline'), 'KWNTLN1111')
-        self.assertEquals(caverphone('gwendelyne'), 'KWNTLN1111')
-        self.assertEquals(caverphone('gwendolen'), 'KWNTLN1111')
-        self.assertEquals(caverphone('gwendolene'), 'KWNTLN1111')
-        self.assertEquals(caverphone('gwendolin'), 'KWNTLN1111')
-        self.assertEquals(caverphone('gwendoline'), 'KWNTLN1111')
-        self.assertEquals(caverphone('gwendolyn'), 'KWNTLN1111')
-        self.assertEquals(caverphone('gweneth'), 'KWNT111111')
-        self.assertEquals(caverphone('gwenifer'), 'KWNFA11111')
-        self.assertEquals(caverphone('gwenoth'), 'KWNT111111')
-        self.assertEquals(caverphone('gwenyth'), 'KWNT111111')
-        self.assertEquals(caverphone('gwladys'), 'KLTS111111')
-        self.assertEquals(caverphone('gwyndoline'), 'KWNTLN1111')
-        self.assertEquals(caverphone('gwynneth'), 'KWNT111111')
-        self.assertEquals(caverphone('gytha'), 'KTA1111111')
-        self.assertEquals(caverphone('gythar'), 'KTA1111111')
-        self.assertEquals(caverphone('ha'), 'AA11111111')
-        self.assertEquals(caverphone('haas'), 'AS11111111')
-        self.assertEquals(caverphone('hadley'), 'ATLA111111')
-        self.assertEquals(caverphone('haidee'), 'ATA1111111')
-        self.assertEquals(caverphone('hamilton'), 'AMTN111111')
-        self.assertEquals(caverphone('hamish'), 'AMS1111111')
-        self.assertEquals(caverphone('hamlin'), 'AMLN111111')
-        self.assertEquals(caverphone('hammond'), 'AMNT111111')
-        self.assertEquals(caverphone('hampton'), 'AMPTN11111')
-        self.assertEquals(caverphone('hanley'), 'ANLA111111')
-        self.assertEquals(caverphone('hanna'), 'ANA1111111')
-        self.assertEquals(caverphone('hannah'), 'ANA1111111')
-        self.assertEquals(caverphone('hannora'), 'ANRA111111')
-        self.assertEquals(caverphone('hanora'), 'ANRA111111')
-        self.assertEquals(caverphone('hanorah'), 'ANRA111111')
-        self.assertEquals(caverphone('hanoura'), 'ANRA111111')
-        self.assertEquals(caverphone('hans'), 'ANS1111111')
-        self.assertEquals(caverphone('hansen'), 'ANSN111111')
-        self.assertEquals(caverphone('hanson'), 'ANSN111111')
-        self.assertEquals(caverphone('harace'), 'ARK1111111')
-        self.assertEquals(caverphone('harah'), 'ARA1111111')
-        self.assertEquals(caverphone('harbert'), 'APT1111111')
-        self.assertEquals(caverphone('harion'), 'ARN1111111')
-        self.assertEquals(caverphone('harlold'), 'ALT1111111')
-        self.assertEquals(caverphone('harly'), 'ALA1111111')
-        self.assertEquals(caverphone('harman'), 'AMN1111111')
-        self.assertEquals(caverphone('harold'), 'ART1111111')
-        self.assertEquals(caverphone('harper'), 'APA1111111')
-        self.assertEquals(caverphone('harriet'), 'ART1111111')
-        self.assertEquals(caverphone('harriett'), 'ART1111111')
-        self.assertEquals(caverphone('harrietta'), 'ARTA111111')
-        self.assertEquals(caverphone('harriette'), 'ART1111111')
-        self.assertEquals(caverphone('harriot'), 'ART1111111')
-        self.assertEquals(caverphone('harriott'), 'ART1111111')
-        self.assertEquals(caverphone('harrv'), 'AF11111111')
-        self.assertEquals(caverphone('harry'), 'ARA1111111')
-        self.assertEquals(caverphone('hartha'), 'ATA1111111')
-        self.assertEquals(caverphone('hartley'), 'ATLA111111')
-        self.assertEquals(caverphone('harvey'), 'AFA1111111')
-        self.assertEquals(caverphone('hastings'), 'ASTNKS1111')
-        self.assertEquals(caverphone('hatold'), 'ATT1111111')
-        self.assertEquals(caverphone('havilah'), 'AFLA111111')
-        self.assertEquals(caverphone('havilland'), 'AFLNT11111')
-        self.assertEquals(caverphone('hayden'), 'ATN1111111')
-        self.assertEquals(caverphone('haydn'), 'ATN1111111')
-        self.assertEquals(caverphone('hazel'), 'ASA1111111')
-        self.assertEquals(caverphone('headley'), 'ATLA111111')
-        self.assertEquals(caverphone('hearstell'), 'ASTA111111')
-        self.assertEquals(caverphone('heather'), 'ATA1111111')
-        self.assertEquals(caverphone('hebert'), 'APT1111111')
-        self.assertEquals(caverphone('hector'), 'AKTA111111')
-        self.assertEquals(caverphone('hectorina'), 'AKTRNA1111')
-        self.assertEquals(caverphone('hedley'), 'ATLA111111')
-        self.assertEquals(caverphone('hedwig'), 'ATWK111111')
-        self.assertEquals(caverphone('heena'), 'ANA1111111')
-        self.assertEquals(caverphone('heinrich'), 'ANRK111111')
-        self.assertEquals(caverphone('helan'), 'ALN1111111')
-        self.assertEquals(caverphone('helell'), 'ALA1111111')
-        self.assertEquals(caverphone('helen'), 'ALN1111111')
-        self.assertEquals(caverphone('helena'), 'ALNA111111')
-        self.assertEquals(caverphone('helene'), 'ALN1111111')
-        self.assertEquals(caverphone('helier'), 'ALA1111111')
-        self.assertEquals(caverphone('hella'), 'ALA1111111')
-        self.assertEquals(caverphone('hellen'), 'ALN1111111')
-        self.assertEquals(caverphone('hellurietta'), 'ALRTA11111')
-        self.assertEquals(caverphone('hemi'), 'AMA1111111')
-        self.assertEquals(caverphone('hemingway'), 'AMNKWA1111')
-        self.assertEquals(caverphone('hemmingway'), 'AMNKWA1111')
-        self.assertEquals(caverphone('hendry'), 'ANTRA11111')
-        self.assertEquals(caverphone('henery'), 'ANRA111111')
-        self.assertEquals(caverphone('henn'), 'AN11111111')
-        self.assertEquals(caverphone('hennerrietta'), 'ANRTA11111')
-        self.assertEquals(caverphone('henness'), 'ANS1111111')
-        self.assertEquals(caverphone('henrick'), 'ANRK111111')
-        self.assertEquals(caverphone('henricus'), 'ANRKS11111')
-        self.assertEquals(caverphone('henrietta'), 'ANRTA11111')
-        self.assertEquals(caverphone('henriette'), 'ANRT111111')
-        self.assertEquals(caverphone('henrv'), 'ANF1111111')
-        self.assertEquals(caverphone('henry'), 'ANRA111111')
-        self.assertEquals(caverphone('henton'), 'ANTN111111')
-        self.assertEquals(caverphone('henty'), 'ANTA111111')
-        self.assertEquals(caverphone('hephzibah'), 'AFSPA11111')
-        self.assertEquals(caverphone('hera'), 'ARA1111111')
-        self.assertEquals(caverphone('herbert'), 'APT1111111')
-        self.assertEquals(caverphone('herbrt'), 'APT1111111')
-        self.assertEquals(caverphone('hercules'), 'AKLS111111')
-        self.assertEquals(caverphone('herman'), 'AMN1111111')
-        self.assertEquals(caverphone('hermione'), 'AMN1111111')
-        self.assertEquals(caverphone('herry'), 'ARA1111111')
-        self.assertEquals(caverphone('hersee'), 'ASA1111111')
-        self.assertEquals(caverphone('hessie'), 'ASA1111111')
-        self.assertEquals(caverphone('hester'), 'ASTA111111')
-        self.assertEquals(caverphone('hettie'), 'ATA1111111')
-        self.assertEquals(caverphone('hetty'), 'ATA1111111')
-        self.assertEquals(caverphone('heury'), 'ARA1111111')
-        self.assertEquals(caverphone('hezio'), 'ASA1111111')
-        self.assertEquals(caverphone('hilary'), 'ALRA111111')
-        self.assertEquals(caverphone('hilda'), 'ATA1111111')
-        self.assertEquals(caverphone('hildegarde'), 'ATKT111111')
-        self.assertEquals(caverphone('hillary'), 'ALRA111111')
-        self.assertEquals(caverphone('hilma'), 'AMA1111111')
-        self.assertEquals(caverphone('hilton'), 'ATN1111111')
-        self.assertEquals(caverphone('hinemoa'), 'ANMA111111')
-        self.assertEquals(caverphone('hinimoa'), 'ANMA111111')
-        self.assertEquals(caverphone('hira'), 'ARA1111111')
-        self.assertEquals(caverphone('hiram'), 'ARM1111111')
-        self.assertEquals(caverphone('hobart'), 'APT1111111')
-        self.assertEquals(caverphone('hobert'), 'APT1111111')
-        self.assertEquals(caverphone('holly'), 'ALA1111111')
-        self.assertEquals(caverphone('honor'), 'ANA1111111')
-        self.assertEquals(caverphone('honora'), 'ANRA111111')
-        self.assertEquals(caverphone('honoria'), 'ANRA111111')
-        self.assertEquals(caverphone('honriotte'), 'ANRT111111')
-        self.assertEquals(caverphone('hope'), 'AP11111111')
-        self.assertEquals(caverphone('horace'), 'ARK1111111')
-        self.assertEquals(caverphone('horatia'), 'ARSA111111')
-        self.assertEquals(caverphone('horatio'), 'ARSA111111')
-        self.assertEquals(caverphone('horatius'), 'ARTS111111')
-        self.assertEquals(caverphone('hortense'), 'ATNS111111')
-        self.assertEquals(caverphone('hosdell'), 'ASTA111111')
-        self.assertEquals(caverphone('howard'), 'AWT1111111')
-        self.assertEquals(caverphone('howitt'), 'AWT1111111')
-        self.assertEquals(caverphone('hua'), 'AA11111111')
-        self.assertEquals(caverphone('hubert'), 'APT1111111')
-        self.assertEquals(caverphone('hugh'), 'AA11111111')
-        self.assertEquals(caverphone('hughina'), 'AKNA111111')
-        self.assertEquals(caverphone('huh'), 'AA11111111')
-        self.assertEquals(caverphone('huia'), 'AA11111111')
-        self.assertEquals(caverphone('hume'), 'AM11111111')
-        self.assertEquals(caverphone('humphrey'), 'AMFRA11111')
-        self.assertEquals(caverphone('hunry'), 'ANRA111111')
-        self.assertEquals(caverphone('huntley'), 'ANTLA11111')
-        self.assertEquals(caverphone('huron'), 'ARN1111111')
-        self.assertEquals(caverphone('hy'), 'AA11111111')
-        self.assertEquals(caverphone('hyacinth'), 'ASNT111111')
-        self.assertEquals(caverphone('hylton'), 'ATN1111111')
-        self.assertEquals(caverphone('hyman'), 'AMN1111111')
-        self.assertEquals(caverphone('ian'), 'AN11111111')
-        self.assertEquals(caverphone('ianthe'), 'ANT1111111')
-        self.assertEquals(caverphone('iary'), 'ARA1111111')
-        self.assertEquals(caverphone('ida'), 'ATA1111111')
-        self.assertEquals(caverphone('idean'), 'ATN1111111')
-        self.assertEquals(caverphone('idelia'), 'ATLA111111')
-        self.assertEquals(caverphone('ieslie'), 'ASLA111111')
-        self.assertEquals(caverphone('iirederick'), 'ARTRK11111')
-        self.assertEquals(caverphone('ilar'), 'ALA1111111')
-        self.assertEquals(caverphone('ilena'), 'ALNA111111')
-        self.assertEquals(caverphone('ilma'), 'AMA1111111')
-        self.assertEquals(caverphone('ima'), 'AMA1111111')
-        self.assertEquals(caverphone('imelda'), 'AMTA111111')
-        self.assertEquals(caverphone('immaculate'), 'AMKLT11111')
-        self.assertEquals(caverphone('ina'), 'ANA1111111')
-        self.assertEquals(caverphone('ineawa'), 'ANWA111111')
-        self.assertEquals(caverphone('inez'), 'ANS1111111')
-        self.assertEquals(caverphone('ingo'), 'ANKA111111')
-        self.assertEquals(caverphone('ion'), 'AN11111111')
-        self.assertEquals(caverphone('iona'), 'ANA1111111')
-        self.assertEquals(caverphone('ira'), 'ARA1111111')
-        self.assertEquals(caverphone('irene'), 'ARN1111111')
-        self.assertEquals(caverphone('irine'), 'ARN1111111')
-        self.assertEquals(caverphone('iris'), 'ARS1111111')
-        self.assertEquals(caverphone('irma'), 'AMA1111111')
-        self.assertEquals(caverphone('irvine'), 'AFN1111111')
-        self.assertEquals(caverphone('irving'), 'AFNK111111')
-        self.assertEquals(caverphone('irwin'), 'AWN1111111')
-        self.assertEquals(caverphone('isa'), 'ASA1111111')
-        self.assertEquals(caverphone('isaac'), 'ASK1111111')
-        self.assertEquals(caverphone('isabel'), 'ASPA111111')
-        self.assertEquals(caverphone('isabela'), 'ASPLA11111')
-        self.assertEquals(caverphone('isabell'), 'ASPA111111')
-        self.assertEquals(caverphone('isabella'), 'ASPLA11111')
-        self.assertEquals(caverphone('isabelle'), 'ASPA111111')
-        self.assertEquals(caverphone('isadore'), 'ASTA111111')
-        self.assertEquals(caverphone('isaiah'), 'ASA1111111')
-        self.assertEquals(caverphone('isalella'), 'ASLLA11111')
-        self.assertEquals(caverphone('isbella'), 'ASPLA11111')
-        self.assertEquals(caverphone('ishmael'), 'ASMA111111')
-        self.assertEquals(caverphone('isibelle'), 'ASPA111111')
-        self.assertEquals(caverphone('isita'), 'ASTA111111')
-        self.assertEquals(caverphone('isla'), 'ASLA111111')
-        self.assertEquals(caverphone('islay'), 'ASLA111111')
-        self.assertEquals(caverphone('ismay'), 'ASMA111111')
-        self.assertEquals(caverphone('ismene'), 'ASMN111111')
-        self.assertEquals(caverphone('isobel'), 'ASPA111111')
-        self.assertEquals(caverphone('isobella'), 'ASPLA11111')
-        self.assertEquals(caverphone('isola'), 'ASLA111111')
-        self.assertEquals(caverphone('iton'), 'ATN1111111')
-        self.assertEquals(caverphone('iva'), 'AFA1111111')
-        self.assertEquals(caverphone('ivan'), 'AFN1111111')
-        self.assertEquals(caverphone('ivie'), 'AFA1111111')
-        self.assertEquals(caverphone('ivine'), 'AFN1111111')
-        self.assertEquals(caverphone('ivo'), 'AFA1111111')
-        self.assertEquals(caverphone('ivon'), 'AFN1111111')
-        self.assertEquals(caverphone('ivor'), 'AFA1111111')
-        self.assertEquals(caverphone('ivy'), 'AFA1111111')
-        self.assertEquals(caverphone('iza'), 'ASA1111111')
-        self.assertEquals(caverphone('j'), 'A111111111')
-        self.assertEquals(caverphone('ja1es'), 'YS11111111')
-        self.assertEquals(caverphone('jabez'), 'YPS1111111')
-        self.assertEquals(caverphone('jack'), 'YK11111111')
-        self.assertEquals(caverphone('jacob'), 'YKP1111111')
-        self.assertEquals(caverphone('jacobina'), 'YKPNA11111')
-        self.assertEquals(caverphone('jacues'), 'YKS1111111')
-        self.assertEquals(caverphone('jaimes'), 'YMS1111111')
-        self.assertEquals(caverphone('jake'), 'YK11111111')
-        self.assertEquals(caverphone('jam'), 'YM11111111')
-        self.assertEquals(caverphone('jamcs'), 'YMKS111111')
-        self.assertEquals(caverphone('jame'), 'YM11111111')
-        self.assertEquals(caverphone('jamee'), 'YMA1111111')
-        self.assertEquals(caverphone('james'), 'YMS1111111')
-        self.assertEquals(caverphone('jamesalbany'), 'YMSPNA1111')
-        self.assertEquals(caverphone('jamesina'), 'YMSNA11111')
-        self.assertEquals(caverphone('jamesines'), 'YMSNS11111')
-        self.assertEquals(caverphone('jamies'), 'YMS1111111')
-        self.assertEquals(caverphone('jamos'), 'YMS1111111')
-        self.assertEquals(caverphone('janbe'), 'YNP1111111')
-        self.assertEquals(caverphone('jane'), 'YN11111111')
-        self.assertEquals(caverphone('janes'), 'YNS1111111')
-        self.assertEquals(caverphone('janet'), 'YNT1111111')
-        self.assertEquals(caverphone('janetta'), 'YNTA111111')
-        self.assertEquals(caverphone('janette'), 'YNT1111111')
-        self.assertEquals(caverphone('janie'), 'YNA1111111')
-        self.assertEquals(caverphone('janies'), 'YNS1111111')
-        self.assertEquals(caverphone('janthe'), 'YNT1111111')
-        self.assertEquals(caverphone('jardine'), 'YTN1111111')
-        self.assertEquals(caverphone('jarlies'), 'YLS1111111')
-        self.assertEquals(caverphone('jarmes'), 'YMS1111111')
-        self.assertEquals(caverphone('jarnes'), 'YNS1111111')
-        self.assertEquals(caverphone('jarrtes'), 'YTS1111111')
-        self.assertEquals(caverphone('jas'), 'YS11111111')
-        self.assertEquals(caverphone('jason'), 'YSN1111111')
-        self.assertEquals(caverphone('jaspeh'), 'YSPA111111')
-        self.assertEquals(caverphone('jasper'), 'YSPA111111')
-        self.assertEquals(caverphone('jean'), 'YN11111111')
-        self.assertEquals(caverphone('jeane'), 'YN11111111')
-        self.assertEquals(caverphone('jeanet'), 'YNT1111111')
-        self.assertEquals(caverphone('jeanetta'), 'YNTA111111')
-        self.assertEquals(caverphone('jeanette'), 'YNT1111111')
-        self.assertEquals(caverphone('jeanie'), 'YNA1111111')
-        self.assertEquals(caverphone('jeanne'), 'YN11111111')
-        self.assertEquals(caverphone('jeannetta'), 'YNTA111111')
-        self.assertEquals(caverphone('jeannette'), 'YNT1111111')
-        self.assertEquals(caverphone('jeannie'), 'YNA1111111')
-        self.assertEquals(caverphone('jeesie'), 'YSA1111111')
-        self.assertEquals(caverphone('jeffery'), 'YFRA111111')
-        self.assertEquals(caverphone('jeffrey'), 'YFRA111111')
-        self.assertEquals(caverphone('jemima'), 'YMMA111111')
-        self.assertEquals(caverphone('jemina'), 'YMNA111111')
-        self.assertEquals(caverphone('jen'), 'YN11111111')
-        self.assertEquals(caverphone('jenetta'), 'YNTA111111')
-        self.assertEquals(caverphone('jenette'), 'YNT1111111')
-        self.assertEquals(caverphone('jenn'), 'YN11111111')
-        self.assertEquals(caverphone('jennet'), 'YNT1111111')
-        self.assertEquals(caverphone('jennie'), 'YNA1111111')
-        self.assertEquals(caverphone('jenny'), 'YNA1111111')
-        self.assertEquals(caverphone('jens'), 'YNS1111111')
-        self.assertEquals(caverphone('jeoffrey'), 'YFRA111111')
-        self.assertEquals(caverphone('jephthah'), 'YFTA111111')
-        self.assertEquals(caverphone('jeremiah'), 'YRMA111111')
-        self.assertEquals(caverphone('jervis'), 'YFS1111111')
-        self.assertEquals(caverphone('jeseie'), 'YSA1111111')
-        self.assertEquals(caverphone('jesoph'), 'YSF1111111')
-        self.assertEquals(caverphone('jess'), 'YS11111111')
-        self.assertEquals(caverphone('jessa'), 'YSA1111111')
-        self.assertEquals(caverphone('jesse'), 'YS11111111')
-        self.assertEquals(caverphone('jessica'), 'YSKA111111')
-        self.assertEquals(caverphone('jessie'), 'YSA1111111')
-        self.assertEquals(caverphone('jessy'), 'YSA1111111')
-        self.assertEquals(caverphone('jethro'), 'YTRA111111')
-        self.assertEquals(caverphone('jewel'), 'YWA1111111')
-        self.assertEquals(caverphone('jillian'), 'YLN1111111')
-        self.assertEquals(caverphone('jim'), 'YM11111111')
-        self.assertEquals(caverphone('jinnie'), 'YNA1111111')
-        self.assertEquals(caverphone('joan'), 'YN11111111')
-        self.assertEquals(caverphone('joann'), 'YN11111111')
-        self.assertEquals(caverphone('joanna'), 'YNA1111111')
-        self.assertEquals(caverphone('joannie'), 'YNA1111111')
-        self.assertEquals(caverphone('job'), 'YP11111111')
-        self.assertEquals(caverphone('jocelyn'), 'YSLN111111')
-        self.assertEquals(caverphone('joe'), 'YA11111111')
-        self.assertEquals(caverphone('joffre'), 'YFA1111111')
-        self.assertEquals(caverphone('johan'), 'YN11111111')
-        self.assertEquals(caverphone('johann'), 'YN11111111')
-        self.assertEquals(caverphone('johanna'), 'YNA1111111')
-        self.assertEquals(caverphone('johannah'), 'YNA1111111')
-        self.assertEquals(caverphone('johannes'), 'YNS1111111')
-        self.assertEquals(caverphone('johh'), 'YA11111111')
-        self.assertEquals(caverphone('john'), 'YN11111111')
-        self.assertEquals(caverphone('johnann'), 'YNN1111111')
-        self.assertEquals(caverphone('johnanna'), 'YNNA111111')
-        self.assertEquals(caverphone('johnina'), 'YNNA111111')
-        self.assertEquals(caverphone('johnpatrick'), 'YNPTRK1111')
-        self.assertEquals(caverphone('johnson'), 'YNSN111111')
-        self.assertEquals(caverphone('johnthomas'), 'YNTMS11111')
-        self.assertEquals(caverphone('johnwilliam'), 'YNWLM11111')
-        self.assertEquals(caverphone('johr'), 'YA11111111')
-        self.assertEquals(caverphone('johrl'), 'YA11111111')
-        self.assertEquals(caverphone('johu'), 'YA11111111')
-        self.assertEquals(caverphone('joiln'), 'YN11111111')
-        self.assertEquals(caverphone('jollanna'), 'YLNA111111')
-        self.assertEquals(caverphone('jolm'), 'YM11111111')
-        self.assertEquals(caverphone('joln'), 'YN11111111')
-        self.assertEquals(caverphone('jon'), 'YN11111111')
-        self.assertEquals(caverphone('jonah'), 'YNA1111111')
-        self.assertEquals(caverphone('jonas'), 'YNS1111111')
-        self.assertEquals(caverphone('jonathan'), 'YNTN111111')
-        self.assertEquals(caverphone('jones'), 'YNS1111111')
-        self.assertEquals(caverphone('jonl'), 'YNA1111111')
-        self.assertEquals(caverphone('jonn'), 'YN11111111')
-        self.assertEquals(caverphone('jorgen'), 'YKN1111111')
-        self.assertEquals(caverphone('josep'), 'YSP1111111')
-        self.assertEquals(caverphone('joseph'), 'YSF1111111')
-        self.assertEquals(caverphone('josephgeorge'), 'YSFKK11111')
-        self.assertEquals(caverphone('josephia'), 'YSFA111111')
-        self.assertEquals(caverphone('josephine'), 'YSFN111111')
-        self.assertEquals(caverphone('josh'), 'YS11111111')
-        self.assertEquals(caverphone('joshua'), 'YSA1111111')
-        self.assertEquals(caverphone('josiah'), 'YSA1111111')
-        self.assertEquals(caverphone('josie'), 'YSA1111111')
-        self.assertEquals(caverphone('josieph'), 'YSF1111111')
-        self.assertEquals(caverphone('josoph'), 'YSF1111111')
-        self.assertEquals(caverphone('jospeh'), 'YSPA111111')
-        self.assertEquals(caverphone('joy'), 'YA11111111')
-        self.assertEquals(caverphone('joyce'), 'YK11111111')
-        self.assertEquals(caverphone('juanita'), 'YNTA111111')
-        self.assertEquals(caverphone('jules'), 'YLS1111111')
-        self.assertEquals(caverphone('julia'), 'YLA1111111')
-        self.assertEquals(caverphone('julian'), 'YLN1111111')
-        self.assertEquals(caverphone('juliana'), 'YLNA111111')
-        self.assertEquals(caverphone('juliann'), 'YLN1111111')
-        self.assertEquals(caverphone('julianna'), 'YLNA111111')
-        self.assertEquals(caverphone('julie'), 'YLA1111111')
-        self.assertEquals(caverphone('julius'), 'YLS1111111')
-        self.assertEquals(caverphone('june'), 'YN11111111')
-        self.assertEquals(caverphone('justin'), 'YSTN111111')
-        self.assertEquals(caverphone('justina'), 'YSTNA11111')
-        self.assertEquals(caverphone('kaiserin'), 'KSRN111111')
-        self.assertEquals(caverphone('karen'), 'KRN1111111')
-        self.assertEquals(caverphone('karl'), 'KA11111111')
-        self.assertEquals(caverphone('kate'), 'KT11111111')
-        self.assertEquals(caverphone('katern'), 'KTN1111111')
-        self.assertEquals(caverphone('kath'), 'KT11111111')
-        self.assertEquals(caverphone('katharine'), 'KTRN111111')
-        self.assertEquals(caverphone('katherine'), 'KTRN111111')
-        self.assertEquals(caverphone('kathleen'), 'KTLN111111')
-        self.assertEquals(caverphone('katie'), 'KTA1111111')
-        self.assertEquals(caverphone('katrine'), 'KTRN111111')
-        self.assertEquals(caverphone('kay'), 'KA11111111')
-        self.assertEquals(caverphone('keith'), 'KT11111111')
-        self.assertEquals(caverphone('keitha'), 'KTA1111111')
-        self.assertEquals(caverphone('kelburne'), 'KPN1111111')
-        self.assertEquals(caverphone('kendal'), 'KNTA111111')
-        self.assertEquals(caverphone('kennedy'), 'KNTA111111')
-        self.assertEquals(caverphone('kenneth'), 'KNT1111111')
-        self.assertEquals(caverphone('kenny'), 'KNA1111111')
-        self.assertEquals(caverphone('keren'), 'KRN1111111')
-        self.assertEquals(caverphone('keriah'), 'KRA1111111')
-        self.assertEquals(caverphone('kessel'), 'KSA1111111')
-        self.assertEquals(caverphone('keturah'), 'KTRA111111')
-        self.assertEquals(caverphone('kezia'), 'KSA1111111')
-        self.assertEquals(caverphone('keziah'), 'KSA1111111')
-        self.assertEquals(caverphone('king'), 'KNK1111111')
-        self.assertEquals(caverphone('kingsley'), 'KNKSLA1111')
-        self.assertEquals(caverphone('kinnear'), 'KNA1111111')
-        self.assertEquals(caverphone('kittie'), 'KTA1111111')
-        self.assertEquals(caverphone('kitty'), 'KTA1111111')
-        self.assertEquals(caverphone('koa'), 'KA11111111')
-        self.assertEquals(caverphone('koren'), 'KRN1111111')
-        self.assertEquals(caverphone('kuff'), 'KF11111111')
-        self.assertEquals(caverphone('kum'), 'KM11111111')
-        self.assertEquals(caverphone('kurt'), 'KT11111111')
-        self.assertEquals(caverphone('kyra'), 'KRA1111111')
-        self.assertEquals(caverphone('l'), 'A111111111')
-        self.assertEquals(caverphone('lachlan'), 'LKLN111111')
-        self.assertEquals(caverphone('ladislas'), 'LTSLS11111')
-        self.assertEquals(caverphone('lallah'), 'LLA1111111')
-        self.assertEquals(caverphone('lamsel'), 'LMSA111111')
-        self.assertEquals(caverphone('lan'), 'LN11111111')
-        self.assertEquals(caverphone('lance'), 'LNK1111111')
-        self.assertEquals(caverphone('lancelot'), 'LNSLT11111')
-        self.assertEquals(caverphone('langford'), 'LNKFT11111')
-        self.assertEquals(caverphone('langley'), 'LNKLA11111')
-        self.assertEquals(caverphone('langlow'), 'LNKLA11111')
-        self.assertEquals(caverphone('lansley'), 'LNSLA11111')
-        self.assertEquals(caverphone('lars'), 'LS11111111')
-        self.assertEquals(caverphone('lauchlan'), 'LKLN111111')
-        self.assertEquals(caverphone('lauder'), 'LTA1111111')
-        self.assertEquals(caverphone('launa'), 'LNA1111111')
-        self.assertEquals(caverphone('launcelot'), 'LNSLT11111')
-        self.assertEquals(caverphone('laura'), 'LRA1111111')
-        self.assertEquals(caverphone('laurel'), 'LRA1111111')
-        self.assertEquals(caverphone('laurena'), 'LRNA111111')
-        self.assertEquals(caverphone('laurence'), 'LRNK111111')
-        self.assertEquals(caverphone('laurencia'), 'LRNSA11111')
-        self.assertEquals(caverphone('laurentine'), 'LRNTN11111')
-        self.assertEquals(caverphone('lauri'), 'LRA1111111')
-        self.assertEquals(caverphone('laurie'), 'LRA1111111')
-        self.assertEquals(caverphone('laurinda'), 'LRNTA11111')
-        self.assertEquals(caverphone('lauris'), 'LRS1111111')
-        self.assertEquals(caverphone('laveana'), 'LFNA111111')
-        self.assertEquals(caverphone('lavender'), 'LFNTA11111')
-        self.assertEquals(caverphone('lavina'), 'LFNA111111')
-        self.assertEquals(caverphone('lavinia'), 'LFNA111111')
-        self.assertEquals(caverphone('lavinla'), 'LFNLA11111')
-        self.assertEquals(caverphone('lawford'), 'LFT1111111')
-        self.assertEquals(caverphone('lawrance'), 'LRNK111111')
-        self.assertEquals(caverphone('lawrence'), 'LRNK111111')
-        self.assertEquals(caverphone('lawson'), 'LSN1111111')
-        self.assertEquals(caverphone('leah'), 'LA11111111')
-        self.assertEquals(caverphone('ledestian'), 'LTSN111111')
-        self.assertEquals(caverphone('lee'), 'LA11111111')
-        self.assertEquals(caverphone('leicester'), 'LSSTA11111')
-        self.assertEquals(caverphone('leila'), 'LLA1111111')
-        self.assertEquals(caverphone('leith'), 'LT11111111')
-        self.assertEquals(caverphone('lelia'), 'LLA1111111')
-        self.assertEquals(caverphone('lella'), 'LLA1111111')
-        self.assertEquals(caverphone('lena'), 'LNA1111111')
-        self.assertEquals(caverphone('lenard'), 'LNT1111111')
-        self.assertEquals(caverphone('lennie'), 'LNA1111111')
-        self.assertEquals(caverphone('lennox'), 'LNK1111111')
-        self.assertEquals(caverphone('lenora'), 'LNRA111111')
-        self.assertEquals(caverphone('lenton'), 'LNTN111111')
-        self.assertEquals(caverphone('leo'), 'LA11111111')
-        self.assertEquals(caverphone('leocadia'), 'LKTA111111')
-        self.assertEquals(caverphone('leon'), 'LN11111111')
-        self.assertEquals(caverphone('leona'), 'LNA1111111')
-        self.assertEquals(caverphone('leonard'), 'LNT1111111')
-        self.assertEquals(caverphone('leonia'), 'LNA1111111')
-        self.assertEquals(caverphone('leonie'), 'LNA1111111')
-        self.assertEquals(caverphone('leonora'), 'LNRA111111')
-        self.assertEquals(caverphone('leontine'), 'LNTN111111')
-        self.assertEquals(caverphone('leopold'), 'LPT1111111')
-        self.assertEquals(caverphone('lerleine'), 'LLN1111111')
-        self.assertEquals(caverphone('lesla'), 'LSLA111111')
-        self.assertEquals(caverphone('lesle'), 'LSA1111111')
-        self.assertEquals(caverphone('lesley'), 'LSLA111111')
-        self.assertEquals(caverphone('leslie'), 'LSLA111111')
-        self.assertEquals(caverphone('leslle'), 'LSA1111111')
-        self.assertEquals(caverphone('lesney'), 'LSNA111111')
-        self.assertEquals(caverphone('lester'), 'LSTA111111')
-        self.assertEquals(caverphone('leta'), 'LTA1111111')
-        self.assertEquals(caverphone('letiris'), 'LTRS111111')
-        self.assertEquals(caverphone('letita'), 'LTTA111111')
-        self.assertEquals(caverphone('letitia'), 'LTSA111111')
-        self.assertEquals(caverphone('lettia'), 'LTSA111111')
-        self.assertEquals(caverphone('lettice'), 'LTK1111111')
-        self.assertEquals(caverphone('lettie'), 'LTA1111111')
-        self.assertEquals(caverphone('letty'), 'LTA1111111')
-        self.assertEquals(caverphone('levenia'), 'LFNA111111')
-        self.assertEquals(caverphone('levina'), 'LFNA111111')
-        self.assertEquals(caverphone('levinia'), 'LFNA111111')
-        self.assertEquals(caverphone('levy'), 'LFA1111111')
-        self.assertEquals(caverphone('lewellyn'), 'LWLN111111')
-        self.assertEquals(caverphone('lewis'), 'LWS1111111')
-        self.assertEquals(caverphone('leyson'), 'LSN1111111')
-        self.assertEquals(caverphone('lezlie'), 'LSLA111111')
-        self.assertEquals(caverphone('lil'), 'LA11111111')
-        self.assertEquals(caverphone('lila'), 'LLA1111111')
-        self.assertEquals(caverphone('lilas'), 'LLS1111111')
-        self.assertEquals(caverphone('lileth'), 'LLT1111111')
-        self.assertEquals(caverphone('lilia'), 'LLA1111111')
-        self.assertEquals(caverphone('liliam'), 'LLM1111111')
-        self.assertEquals(caverphone('lilian'), 'LLN1111111')
-        self.assertEquals(caverphone('lilias'), 'LLS1111111')
-        self.assertEquals(caverphone('lilla'), 'LLA1111111')
-        self.assertEquals(caverphone('lillan'), 'LLN1111111')
-        self.assertEquals(caverphone('lillas'), 'LLS1111111')
-        self.assertEquals(caverphone('lilley'), 'LLA1111111')
-        self.assertEquals(caverphone('lillia'), 'LLA1111111')
-        self.assertEquals(caverphone('lillian'), 'LLN1111111')
-        self.assertEquals(caverphone('lillias'), 'LLS1111111')
-        self.assertEquals(caverphone('lillie'), 'LLA1111111')
-        self.assertEquals(caverphone('lillingstone'), 'LLNKSTN111')
-        self.assertEquals(caverphone('lillis'), 'LLS1111111')
-        self.assertEquals(caverphone('lilly'), 'LLA1111111')
-        self.assertEquals(caverphone('lilv'), 'LF11111111')
-        self.assertEquals(caverphone('lily'), 'LLA1111111')
-        self.assertEquals(caverphone('lina'), 'LNA1111111')
-        self.assertEquals(caverphone('lincoln'), 'LNKN111111')
-        self.assertEquals(caverphone('linda'), 'LNTA111111')
-        self.assertEquals(caverphone('lindo'), 'LNTA111111')
-        self.assertEquals(caverphone('lindsay'), 'LNTSA11111')
-        self.assertEquals(caverphone('linford'), 'LNFT111111')
-        self.assertEquals(caverphone('linnet'), 'LNT1111111')
-        self.assertEquals(caverphone('lionel'), 'LNA1111111')
-        self.assertEquals(caverphone('lionella'), 'LNLA111111')
-        self.assertEquals(caverphone('lionelle'), 'LNA1111111')
-        self.assertEquals(caverphone('lisette'), 'LST1111111')
-        self.assertEquals(caverphone('lizzie'), 'LSA1111111')
-        self.assertEquals(caverphone('llewellyn'), 'LWLN111111')
-        self.assertEquals(caverphone('llewelyn'), 'LWLN111111')
-        self.assertEquals(caverphone('lloyd'), 'LT11111111')
-        self.assertEquals(caverphone('lna'), 'NA11111111')
-        self.assertEquals(caverphone('loftus'), 'LFTS111111')
-        self.assertEquals(caverphone('lois'), 'LS11111111')
-        self.assertEquals(caverphone('loma'), 'LMA1111111')
-        self.assertEquals(caverphone('lona'), 'LNA1111111')
-        self.assertEquals(caverphone('long'), 'LNK1111111')
-        self.assertEquals(caverphone('lora'), 'LRA1111111')
-        self.assertEquals(caverphone('loreen'), 'LRN1111111')
-        self.assertEquals(caverphone('loris'), 'LRS1111111')
-        self.assertEquals(caverphone('lorna'), 'LNA1111111')
-        self.assertEquals(caverphone('lorraine'), 'LRN1111111')
-        self.assertEquals(caverphone('lot'), 'LT11111111')
-        self.assertEquals(caverphone('lott'), 'LT11111111')
-        self.assertEquals(caverphone('lottia'), 'LTSA111111')
-        self.assertEquals(caverphone('lottie'), 'LTA1111111')
-        self.assertEquals(caverphone('lotty'), 'LTA1111111')
-        self.assertEquals(caverphone('louia'), 'LA11111111')
-        self.assertEquals(caverphone('louie'), 'LA11111111')
-        self.assertEquals(caverphone('louis'), 'LS11111111')
-        self.assertEquals(caverphone('louisa'), 'LSA1111111')
-        self.assertEquals(caverphone('louise'), 'LS11111111')
-        self.assertEquals(caverphone('lrene'), 'RN11111111')
-        self.assertEquals(caverphone('lsaac'), 'SK11111111')
-        self.assertEquals(caverphone('lsabel'), 'SPA1111111')
-        self.assertEquals(caverphone('lsabella'), 'SPLA111111')
-        self.assertEquals(caverphone('luanna'), 'LNA1111111')
-        self.assertEquals(caverphone('lucerne'), 'LSN1111111')
-        self.assertEquals(caverphone('lucey'), 'LSA1111111')
-        self.assertEquals(caverphone('lucie'), 'LSA1111111')
-        self.assertEquals(caverphone('lucilla'), 'LSLA111111')
-        self.assertEquals(caverphone('lucille'), 'LSA1111111')
-        self.assertEquals(caverphone('lucina'), 'LSNA111111')
-        self.assertEquals(caverphone('lucius'), 'LSS1111111')
-        self.assertEquals(caverphone('lucretia'), 'LKRSA11111')
-        self.assertEquals(caverphone('lucy'), 'LSA1111111')
-        self.assertEquals(caverphone('ludwig'), 'LTWK111111')
-        self.assertEquals(caverphone('luella'), 'LLA1111111')
-        self.assertEquals(caverphone('luke'), 'LK11111111')
-        self.assertEquals(caverphone('lulu'), 'LLA1111111')
-        self.assertEquals(caverphone('lurline'), 'LLN1111111')
-        self.assertEquals(caverphone('lva'), 'FA11111111')
-        self.assertEquals(caverphone('lvy'), 'FA11111111')
-        self.assertEquals(caverphone('lyda'), 'LTA1111111')
-        self.assertEquals(caverphone('lydia'), 'LTA1111111')
-        self.assertEquals(caverphone('lyell'), 'LA11111111')
-        self.assertEquals(caverphone('lygia'), 'LKA1111111')
-        self.assertEquals(caverphone('lyla'), 'LLA1111111')
-        self.assertEquals(caverphone('lylah'), 'LLA1111111')
-        self.assertEquals(caverphone('lyle'), 'LA11111111')
-        self.assertEquals(caverphone('lylie'), 'LLA1111111')
-        self.assertEquals(caverphone('lylo'), 'LLA1111111')
-        self.assertEquals(caverphone('lynass'), 'LNS1111111')
-        self.assertEquals(caverphone('lynda'), 'LNTA111111')
-        self.assertEquals(caverphone('lynden'), 'LNTN111111')
-        self.assertEquals(caverphone('lyndon'), 'LNTN111111')
-        self.assertEquals(caverphone('lyndsay'), 'LNTSA11111')
-        self.assertEquals(caverphone('lyndsey'), 'LNTSA11111')
-        self.assertEquals(caverphone('mabel'), 'MPA1111111')
-        self.assertEquals(caverphone('mabelle'), 'MPA1111111')
-        self.assertEquals(caverphone('mable'), 'MPA1111111')
-        self.assertEquals(caverphone('machell'), 'MKA1111111')
-        self.assertEquals(caverphone('madalene'), 'MTLN111111')
-        self.assertEquals(caverphone('madaline'), 'MTLN111111')
-        self.assertEquals(caverphone('maddie'), 'MTA1111111')
-        self.assertEquals(caverphone('madeleine'), 'MTLN111111')
-        self.assertEquals(caverphone('madeline'), 'MTLN111111')
-        self.assertEquals(caverphone('madge'), 'MK11111111')
-        self.assertEquals(caverphone('madglene'), 'MKLN111111')
-        self.assertEquals(caverphone('mae'), 'MA11111111')
-        self.assertEquals(caverphone('magdalen'), 'MKTLN11111')
-        self.assertEquals(caverphone('magdalena'), 'MKTLNA1111')
-        self.assertEquals(caverphone('magdalene'), 'MKTLN11111')
-        self.assertEquals(caverphone('magdaline'), 'MKTLN11111')
-        self.assertEquals(caverphone('magdeline'), 'MKTLN11111')
-        self.assertEquals(caverphone('maggie'), 'MKA1111111')
-        self.assertEquals(caverphone('magnus'), 'MKNS111111')
-        self.assertEquals(caverphone('magnustina'), 'MKNSTNA111')
-        self.assertEquals(caverphone('mahala'), 'MLA1111111')
-        self.assertEquals(caverphone('mai'), 'MA11111111')
-        self.assertEquals(caverphone('maida'), 'MTA1111111')
-        self.assertEquals(caverphone('maie'), 'MA11111111')
-        self.assertEquals(caverphone('maine'), 'MN11111111')
-        self.assertEquals(caverphone('maira'), 'MRA1111111')
-        self.assertEquals(caverphone('maisie'), 'MSA1111111')
-        self.assertEquals(caverphone('maitland'), 'MTLNT11111')
-        self.assertEquals(caverphone('majorie'), 'MRA1111111')
-        self.assertEquals(caverphone('majory'), 'MRA1111111')
-        self.assertEquals(caverphone('malachi'), 'MLKA111111')
-        self.assertEquals(caverphone('malcolm'), 'MKM1111111')
-        self.assertEquals(caverphone('maltravers'), 'MTRFS11111')
-        self.assertEquals(caverphone('malvena'), 'MFNA111111')
-        self.assertEquals(caverphone('mamie'), 'MMA1111111')
-        self.assertEquals(caverphone('mana'), 'MNA1111111')
-        self.assertEquals(caverphone('manes'), 'MNS1111111')
-        self.assertEquals(caverphone('manie'), 'MNA1111111')
-        self.assertEquals(caverphone('mann'), 'MN11111111')
-        self.assertEquals(caverphone('mano'), 'MNA1111111')
-        self.assertEquals(caverphone('mansfield'), 'MNSFT11111')
-        self.assertEquals(caverphone('marah'), 'MRA1111111')
-        self.assertEquals(caverphone('marama'), 'MRMA111111')
-        self.assertEquals(caverphone('maraval'), 'MRFA111111')
-        self.assertEquals(caverphone('marcella'), 'MSLA111111')
-        self.assertEquals(caverphone('marcelle'), 'MSA1111111')
-        self.assertEquals(caverphone('marcia'), 'MSA1111111')
-        self.assertEquals(caverphone('marcus'), 'MKS1111111')
-        self.assertEquals(caverphone('maree'), 'MRA1111111')
-        self.assertEquals(caverphone('maretta'), 'MRTA111111')
-        self.assertEquals(caverphone('margaret'), 'MKRT111111')
-        self.assertEquals(caverphone('margareta'), 'MKRTA11111')
-        self.assertEquals(caverphone('margarete'), 'MKRT111111')
-        self.assertEquals(caverphone('margarett'), 'MKRT111111')
-        self.assertEquals(caverphone('margaretta'), 'MKRTA11111')
-        self.assertEquals(caverphone('margarita'), 'MKRTA11111')
-        self.assertEquals(caverphone('margarretta'), 'MKRTA11111')
-        self.assertEquals(caverphone('margerett'), 'MKRT111111')
-        self.assertEquals(caverphone('margerie'), 'MKRA111111')
-        self.assertEquals(caverphone('margerite'), 'MKRT111111')
-        self.assertEquals(caverphone('margery'), 'MKRA111111')
-        self.assertEquals(caverphone('margeurite'), 'MKRT111111')
-        self.assertEquals(caverphone('margharita'), 'MRTA111111')
-        self.assertEquals(caverphone('margherita'), 'MRTA111111')
-        self.assertEquals(caverphone('margie'), 'MKA1111111')
-        self.assertEquals(caverphone('margorie'), 'MKRA111111')
-        self.assertEquals(caverphone('margory'), 'MKRA111111')
-        self.assertEquals(caverphone('margretta'), 'MKRTA11111')
-        self.assertEquals(caverphone('marguereta'), 'MKRTA11111')
-        self.assertEquals(caverphone('margueretta'), 'MKRTA11111')
-        self.assertEquals(caverphone('marguerita'), 'MKRTA11111')
-        self.assertEquals(caverphone('marguerite'), 'MKRT111111')
-        self.assertEquals(caverphone('margurerite'), 'MKRRT11111')
-        self.assertEquals(caverphone('maria'), 'MRA1111111')
-        self.assertEquals(caverphone('mariam'), 'MRM1111111')
-        self.assertEquals(caverphone('marian'), 'MRN1111111')
-        self.assertEquals(caverphone('marianne'), 'MRN1111111')
-        self.assertEquals(caverphone('maribel'), 'MRPA111111')
-        self.assertEquals(caverphone('marica'), 'MRKA111111')
-        self.assertEquals(caverphone('marie'), 'MRA1111111')
-        self.assertEquals(caverphone('marieta'), 'MRTA111111')
-        self.assertEquals(caverphone('marina'), 'MRNA111111')
-        self.assertEquals(caverphone('marion'), 'MRN1111111')
-        self.assertEquals(caverphone('marita'), 'MRTA111111')
-        self.assertEquals(caverphone('marius'), 'MRS1111111')
-        self.assertEquals(caverphone('marjorie'), 'MRRA111111')
-        self.assertEquals(caverphone('marjorio'), 'MRRA111111')
-        self.assertEquals(caverphone('marjory'), 'MRRA111111')
-        self.assertEquals(caverphone('mark'), 'MK11111111')
-        self.assertEquals(caverphone('marmaduke'), 'MMTK111111')
-        self.assertEquals(caverphone('marrian'), 'MRN1111111')
-        self.assertEquals(caverphone('marsella'), 'MSLA111111')
-        self.assertEquals(caverphone('marshall'), 'MSA1111111')
-        self.assertEquals(caverphone('martha'), 'MTA1111111')
-        self.assertEquals(caverphone('martin'), 'MTN1111111')
-        self.assertEquals(caverphone('marton'), 'MTN1111111')
-        self.assertEquals(caverphone('mary'), 'MRA1111111')
-        self.assertEquals(caverphone('masie'), 'MSA1111111')
-        self.assertEquals(caverphone('mata'), 'MTA1111111')
-        self.assertEquals(caverphone('mataura'), 'MTRA111111')
-        self.assertEquals(caverphone('mathea'), 'MTA1111111')
-        self.assertEquals(caverphone('mathew'), 'MTA1111111')
-        self.assertEquals(caverphone('mathias'), 'MTS1111111')
-        self.assertEquals(caverphone('mathina'), 'MTNA111111')
-        self.assertEquals(caverphone('matilda'), 'MTTA111111')
-        self.assertEquals(caverphone('matthew'), 'MTA1111111')
-        self.assertEquals(caverphone('mattie'), 'MTA1111111')
-        self.assertEquals(caverphone('maud'), 'MT11111111')
-        self.assertEquals(caverphone('mauda'), 'MTA1111111')
-        self.assertEquals(caverphone('maude'), 'MT11111111')
-        self.assertEquals(caverphone('maudie'), 'MTA1111111')
-        self.assertEquals(caverphone('maurce'), 'MK11111111')
-        self.assertEquals(caverphone('maureen'), 'MRN1111111')
-        self.assertEquals(caverphone('maurice'), 'MRK1111111')
-        self.assertEquals(caverphone('mavis'), 'MFS1111111')
-        self.assertEquals(caverphone('mavora'), 'MFRA111111')
-        self.assertEquals(caverphone('max'), 'MK11111111')
-        self.assertEquals(caverphone('maxime'), 'MKM1111111')
-        self.assertEquals(caverphone('maxwell'), 'MKWA111111')
-        self.assertEquals(caverphone('may'), 'MA11111111')
-        self.assertEquals(caverphone('mayda'), 'MTA1111111')
-        self.assertEquals(caverphone('maye'), 'MA11111111')
-        self.assertEquals(caverphone('maynard'), 'MNT1111111')
-        self.assertEquals(caverphone('maythal'), 'MTA1111111')
-        self.assertEquals(caverphone('mayvee'), 'MFA1111111')
-        self.assertEquals(caverphone('mcewan'), 'MSWN111111')
-        self.assertEquals(caverphone('mcewen'), 'MSWN111111')
-        self.assertEquals(caverphone('mchardy'), 'MKTA111111')
-        self.assertEquals(caverphone('meda'), 'MTA1111111')
-        self.assertEquals(caverphone('melanie'), 'MLNA111111')
-        self.assertEquals(caverphone('melba'), 'MPA1111111')
-        self.assertEquals(caverphone('melen'), 'MLN1111111')
-        self.assertEquals(caverphone('melia'), 'MLA1111111')
-        self.assertEquals(caverphone('melton'), 'MTN1111111')
-        self.assertEquals(caverphone('melva'), 'MFA1111111')
-        self.assertEquals(caverphone('melville'), 'MFA1111111')
-        self.assertEquals(caverphone('melvyn'), 'MFN1111111')
-        self.assertEquals(caverphone('mena'), 'MNA1111111')
-        self.assertEquals(caverphone('menia'), 'MNA1111111')
-        self.assertEquals(caverphone('menry'), 'MNRA111111')
-        self.assertEquals(caverphone('menzie'), 'MNSA111111')
-        self.assertEquals(caverphone('menzies'), 'MNSS111111')
-        self.assertEquals(caverphone('mera'), 'MRA1111111')
-        self.assertEquals(caverphone('mercedes'), 'MSTS111111')
-        self.assertEquals(caverphone('mercia'), 'MSA1111111')
-        self.assertEquals(caverphone('mercy'), 'MSA1111111')
-        self.assertEquals(caverphone('meredith'), 'MRTT111111')
-        self.assertEquals(caverphone('merian'), 'MRN1111111')
-        self.assertEquals(caverphone('merle'), 'MA11111111')
-        self.assertEquals(caverphone('merlin'), 'MLN1111111')
-        self.assertEquals(caverphone('merrial'), 'MRA1111111')
-        self.assertEquals(caverphone('merrin'), 'MRN1111111')
-        self.assertEquals(caverphone('merton'), 'MTN1111111')
-        self.assertEquals(caverphone('mervyn'), 'MFN1111111')
-        self.assertEquals(caverphone('meryl'), 'MRA1111111')
-        self.assertEquals(caverphone('meryle'), 'MRA1111111')
-        self.assertEquals(caverphone('meta'), 'MTA1111111')
-        self.assertEquals(caverphone('metta'), 'MTA1111111')
-        self.assertEquals(caverphone('meynard'), 'MNT1111111')
-        self.assertEquals(caverphone('miah'), 'MA11111111')
-        self.assertEquals(caverphone('michael'), 'MKA1111111')
-        self.assertEquals(caverphone('michale'), 'MKA1111111')
-        self.assertEquals(caverphone('miehael'), 'MA11111111')
-        self.assertEquals(caverphone('mignon'), 'MKNN111111')
-        self.assertEquals(caverphone('mildred'), 'MTRT111111')
-        self.assertEquals(caverphone('milena'), 'MLNA111111')
-        self.assertEquals(caverphone('miles'), 'MLS1111111')
-        self.assertEquals(caverphone('millar'), 'MLA1111111')
-        self.assertEquals(caverphone('millen'), 'MLN1111111')
-        self.assertEquals(caverphone('millicent'), 'MLSNT11111')
-        self.assertEquals(caverphone('millie'), 'MLA1111111')
-        self.assertEquals(caverphone('millis'), 'MLS1111111')
-        self.assertEquals(caverphone('milly'), 'MLA1111111')
-        self.assertEquals(caverphone('milo'), 'MLA1111111')
-        self.assertEquals(caverphone('milton'), 'MTN1111111')
-        self.assertEquals(caverphone('mima'), 'MMA1111111')
-        self.assertEquals(caverphone('mimie'), 'MMA1111111')
-        self.assertEquals(caverphone('mina'), 'MNA1111111')
-        self.assertEquals(caverphone('minan'), 'MNN1111111')
-        self.assertEquals(caverphone('minna'), 'MNA1111111')
-        self.assertEquals(caverphone('minnie'), 'MNA1111111')
-        self.assertEquals(caverphone('mira'), 'MRA1111111')
-        self.assertEquals(caverphone('miranda'), 'MRNTA11111')
-        self.assertEquals(caverphone('miriam'), 'MRM1111111')
-        self.assertEquals(caverphone('mirian'), 'MRN1111111')
-        self.assertEquals(caverphone('miriel'), 'MRA1111111')
-        self.assertEquals(caverphone('mirnie'), 'MNA1111111')
-        self.assertEquals(caverphone('miro'), 'MRA1111111')
-        self.assertEquals(caverphone('mister'), 'MSTA111111')
-        self.assertEquals(caverphone('mitchell'), 'MKA1111111')
-        self.assertEquals(caverphone('moana'), 'MNA1111111')
-        self.assertEquals(caverphone('moira'), 'MRA1111111')
-        self.assertEquals(caverphone('mollie'), 'MLA1111111')
-        self.assertEquals(caverphone('molly'), 'MLA1111111')
-        self.assertEquals(caverphone('mona'), 'MNA1111111')
-        self.assertEquals(caverphone('monatague'), 'MNTKA11111')
-        self.assertEquals(caverphone('moncrieff'), 'MNKRF11111')
-        self.assertEquals(caverphone('monica'), 'MNKA111111')
-        self.assertEquals(caverphone('montague'), 'MNTKA11111')
-        self.assertEquals(caverphone('monteith'), 'MNTT111111')
-        self.assertEquals(caverphone('mony'), 'MNA1111111')
-        self.assertEquals(caverphone('morgan'), 'MKN1111111')
-        self.assertEquals(caverphone('morie'), 'MRA1111111')
-        self.assertEquals(caverphone('moris'), 'MRS1111111')
-        self.assertEquals(caverphone('morison'), 'MRSN111111')
-        self.assertEquals(caverphone('morris'), 'MRS1111111')
-        self.assertEquals(caverphone('morrison'), 'MRSN111111')
-        self.assertEquals(caverphone('mortimer'), 'MTMA111111')
-        self.assertEquals(caverphone('morton'), 'MTN1111111')
-        self.assertEquals(caverphone('moses'), 'MSS1111111')
-        self.assertEquals(caverphone('moura'), 'MRA1111111')
-        self.assertEquals(caverphone('moyra'), 'MRA1111111')
-        self.assertEquals(caverphone('mrytle'), 'MRTA111111')
-        self.assertEquals(caverphone('muareen'), 'MRN1111111')
-        self.assertEquals(caverphone('mugh'), 'MA11111111')
-        self.assertEquals(caverphone('mungo'), 'MNKA111111')
-        self.assertEquals(caverphone('munro'), 'MNRA111111')
-        self.assertEquals(caverphone('mura'), 'MRA1111111')
-        self.assertEquals(caverphone('murdo'), 'MTA1111111')
-        self.assertEquals(caverphone('murdoch'), 'MTK1111111')
-        self.assertEquals(caverphone('murial'), 'MRA1111111')
-        self.assertEquals(caverphone('muriel'), 'MRA1111111')
-        self.assertEquals(caverphone('murray'), 'MRA1111111')
-        self.assertEquals(caverphone('murtha'), 'MTA1111111')
-        self.assertEquals(caverphone('myles'), 'MLS1111111')
-        self.assertEquals(caverphone('mynot'), 'MNT1111111')
-        self.assertEquals(caverphone('myra'), 'MRA1111111')
-        self.assertEquals(caverphone('myrtle'), 'MTA1111111')
-        self.assertEquals(caverphone('myttle'), 'MTA1111111')
-        self.assertEquals(caverphone('naamah'), 'NMA1111111')
-        self.assertEquals(caverphone('nance'), 'NNK1111111')
-        self.assertEquals(caverphone('nancie'), 'NNSA111111')
-        self.assertEquals(caverphone('nancy'), 'NNSA111111')
-        self.assertEquals(caverphone('nancybell'), 'NNSPA11111')
-        self.assertEquals(caverphone('naney'), 'NNA1111111')
-        self.assertEquals(caverphone('nano'), 'NNA1111111')
-        self.assertEquals(caverphone('nansbell'), 'NNSPA11111')
-        self.assertEquals(caverphone('naomi'), 'NMA1111111')
-        self.assertEquals(caverphone('nardor'), 'NTA1111111')
-        self.assertEquals(caverphone('narman'), 'NMN1111111')
-        self.assertEquals(caverphone('narotamdas'), 'NRTMTS1111')
-        self.assertEquals(caverphone('natalie'), 'NTLA111111')
-        self.assertEquals(caverphone('nathan'), 'NTN1111111')
-        self.assertEquals(caverphone('nathaniel'), 'NTNA111111')
-        self.assertEquals(caverphone('naylor'), 'NLA1111111')
-        self.assertEquals(caverphone('neah'), 'NA11111111')
-        self.assertEquals(caverphone('neil'), 'NA11111111')
-        self.assertEquals(caverphone('neilina'), 'NLNA111111')
-        self.assertEquals(caverphone('neill'), 'NA11111111')
-        self.assertEquals(caverphone('nell'), 'NA11111111')
-        self.assertEquals(caverphone('nella'), 'NLA1111111')
-        self.assertEquals(caverphone('nelletta'), 'NLTA111111')
-        self.assertEquals(caverphone('nellia'), 'NLA1111111')
-        self.assertEquals(caverphone('nellic'), 'NLK1111111')
-        self.assertEquals(caverphone('nellie'), 'NLA1111111')
-        self.assertEquals(caverphone('nellin'), 'NLN1111111')
-        self.assertEquals(caverphone('nelly'), 'NLA1111111')
-        self.assertEquals(caverphone('nelson'), 'NSN1111111')
-        self.assertEquals(caverphone('nenetta'), 'NNTA111111')
-        self.assertEquals(caverphone('nera'), 'NRA1111111')
-        self.assertEquals(caverphone('nesbit'), 'NSPT111111')
-        self.assertEquals(caverphone('nessie'), 'NSA1111111')
-        self.assertEquals(caverphone('nesta'), 'NSTA111111')
-        self.assertEquals(caverphone('nestor'), 'NSTA111111')
-        self.assertEquals(caverphone('netherton'), 'NTTN111111')
-        self.assertEquals(caverphone('netta'), 'NTA1111111')
-        self.assertEquals(caverphone('netterwille'), 'NTWA111111')
-        self.assertEquals(caverphone('nettie'), 'NTA1111111')
-        self.assertEquals(caverphone('neville'), 'NFA1111111')
-        self.assertEquals(caverphone('newman'), 'NMN1111111')
-        self.assertEquals(caverphone('ngaere'), 'NKA1111111')
-        self.assertEquals(caverphone('ngahuir'), 'NKA1111111')
-        self.assertEquals(caverphone('ngaira'), 'NKRA111111')
-        self.assertEquals(caverphone('ngaire'), 'NKA1111111')
-        self.assertEquals(caverphone('ngaria'), 'NKRA111111')
-        self.assertEquals(caverphone('ngarita'), 'NKRTA11111')
-        self.assertEquals(caverphone('ngyra'), 'NKRA111111')
-        self.assertEquals(caverphone('ngyre'), 'NKA1111111')
-        self.assertEquals(caverphone('niary'), 'NRA1111111')
-        self.assertEquals(caverphone('nicalena'), 'NKLNA11111')
-        self.assertEquals(caverphone('nichol'), 'NKA1111111')
-        self.assertEquals(caverphone('nichola'), 'NKLA111111')
-        self.assertEquals(caverphone('nicholas'), 'NKLS111111')
-        self.assertEquals(caverphone('nicol'), 'NKA1111111')
-        self.assertEquals(caverphone('nicolena'), 'NKLNA11111')
-        self.assertEquals(caverphone('nicolina'), 'NKLNA11111')
-        self.assertEquals(caverphone('niel'), 'NA11111111')
-        self.assertEquals(caverphone('niels'), 'NS11111111')
-        self.assertEquals(caverphone('nigel'), 'NKA1111111')
-        self.assertEquals(caverphone('nils'), 'NS11111111')
-        self.assertEquals(caverphone('nina'), 'NNA1111111')
-        self.assertEquals(caverphone('ninetta'), 'NNTA111111')
-        self.assertEquals(caverphone('nita'), 'NTA1111111')
-        self.assertEquals(caverphone('no'), 'NA11111111')
-        self.assertEquals(caverphone('noel'), 'NA11111111')
-        self.assertEquals(caverphone('noeleen'), 'NLN1111111')
-        self.assertEquals(caverphone('noeline'), 'NLN1111111')
-        self.assertEquals(caverphone('noell'), 'NA11111111')
-        self.assertEquals(caverphone('noelle'), 'NA11111111')
-        self.assertEquals(caverphone('noilina'), 'NLNA111111')
-        self.assertEquals(caverphone('nola'), 'NLA1111111')
-        self.assertEquals(caverphone('nona'), 'NNA1111111')
-        self.assertEquals(caverphone('noney'), 'NNA1111111')
-        self.assertEquals(caverphone('noni'), 'NNA1111111')
-        self.assertEquals(caverphone('nonie'), 'NNA1111111')
-        self.assertEquals(caverphone('nora'), 'NRA1111111')
-        self.assertEquals(caverphone('norah'), 'NRA1111111')
-        self.assertEquals(caverphone('noreen'), 'NRN1111111')
-        self.assertEquals(caverphone('norine'), 'NRN1111111')
-        self.assertEquals(caverphone('norma'), 'NMA1111111')
-        self.assertEquals(caverphone('norman'), 'NMN1111111')
-        self.assertEquals(caverphone('normena'), 'NMNA111111')
-        self.assertEquals(caverphone('normina'), 'NMNA111111')
-        self.assertEquals(caverphone('norris'), 'NRS1111111')
-        self.assertEquals(caverphone('north'), 'NT11111111')
-        self.assertEquals(caverphone('noslie'), 'NSLA111111')
-        self.assertEquals(caverphone('nova'), 'NFA1111111')
-        self.assertEquals(caverphone('nozlie'), 'NSLA111111')
-        self.assertEquals(caverphone('nyra'), 'NRA1111111')
-        self.assertEquals(caverphone('oban'), 'APN1111111')
-        self.assertEquals(caverphone('octavia'), 'AKTFA11111')
-        self.assertEquals(caverphone('octavius'), 'AKTFS11111')
-        self.assertEquals(caverphone('odin'), 'ATN1111111')
-        self.assertEquals(caverphone('ogier'), 'AKA1111111')
-        self.assertEquals(caverphone('ola'), 'ALA1111111')
-        self.assertEquals(caverphone('olaf'), 'ALF1111111')
-        self.assertEquals(caverphone('olai'), 'ALA1111111')
-        self.assertEquals(caverphone('ole'), 'AA11111111')
-        self.assertEquals(caverphone('olef'), 'ALF1111111')
-        self.assertEquals(caverphone('olga'), 'AKA1111111')
-        self.assertEquals(caverphone('oliphant'), 'ALFNT11111')
-        self.assertEquals(caverphone('olive'), 'ALF1111111')
-        self.assertEquals(caverphone('olivel'), 'ALFA111111')
-        self.assertEquals(caverphone('oliver'), 'ALFA111111')
-        self.assertEquals(caverphone('olivera'), 'ALFRA11111')
-        self.assertEquals(caverphone('oliverpaul'), 'ALFPA11111')
-        self.assertEquals(caverphone('olivia'), 'ALFA111111')
-        self.assertEquals(caverphone('olivo'), 'ALFA111111')
-        self.assertEquals(caverphone('olliffe'), 'ALF1111111')
-        self.assertEquals(caverphone('olof'), 'ALF1111111')
-        self.assertEquals(caverphone('oloff'), 'ALF1111111')
-        self.assertEquals(caverphone('olvia'), 'AFA1111111')
-        self.assertEquals(caverphone('olwyn'), 'AWN1111111')
-        self.assertEquals(caverphone('onawe'), 'ANA1111111')
-        self.assertEquals(caverphone('onie'), 'ANA1111111')
-        self.assertEquals(caverphone('oonah'), 'ANA1111111')
-        self.assertEquals(caverphone('ophir'), 'AFA1111111')
-        self.assertEquals(caverphone('ora'), 'ARA1111111')
-        self.assertEquals(caverphone('oral'), 'ARA1111111')
-        self.assertEquals(caverphone('oriel'), 'ARA1111111')
-        self.assertEquals(caverphone('orlando'), 'ALNTA11111')
-        self.assertEquals(caverphone('orma'), 'AMA1111111')
-        self.assertEquals(caverphone('ormandy'), 'AMNTA11111')
-        self.assertEquals(caverphone('orme'), 'AM11111111')
-        self.assertEquals(caverphone('ormond'), 'AMNT111111')
-        self.assertEquals(caverphone('orpah'), 'APA1111111')
-        self.assertEquals(caverphone('orpheus'), 'AFS1111111')
-        self.assertEquals(caverphone('orthus'), 'ATS1111111')
-        self.assertEquals(caverphone('orton'), 'ATN1111111')
-        self.assertEquals(caverphone('orvis'), 'AFS1111111')
-        self.assertEquals(caverphone('osald'), 'AST1111111')
-        self.assertEquals(caverphone('osborn'), 'ASPN111111')
-        self.assertEquals(caverphone('osborne'), 'ASPN111111')
-        self.assertEquals(caverphone('oscar'), 'ASKA111111')
-        self.assertEquals(caverphone('oslin'), 'ASLN111111')
-        self.assertEquals(caverphone('oswald'), 'ASWT111111')
-        self.assertEquals(caverphone('othelia'), 'ATLA111111')
-        self.assertEquals(caverphone('otilia'), 'ATLA111111')
-        self.assertEquals(caverphone('otto'), 'ATA1111111')
-        self.assertEquals(caverphone('ough'), 'AA11111111')
-        self.assertEquals(caverphone('ouston'), 'ASTN111111')
-        self.assertEquals(caverphone('overton'), 'AFTN111111')
-        self.assertEquals(caverphone('owen'), 'AWN1111111')
-        self.assertEquals(caverphone('ozmond'), 'ASMNT11111')
-        self.assertEquals(caverphone('pamela'), 'PMLA111111')
-        self.assertEquals(caverphone('pansy'), 'PNSA111111')
-        self.assertEquals(caverphone('par'), 'PA11111111')
-        self.assertEquals(caverphone('paris'), 'PRS1111111')
-        self.assertEquals(caverphone('parke'), 'PK11111111')
-        self.assertEquals(caverphone('parry'), 'PRA1111111')
-        self.assertEquals(caverphone('paterson'), 'PTSN111111')
-        self.assertEquals(caverphone('patience'), 'PTNK111111')
-        self.assertEquals(caverphone('patrck'), 'PTK1111111')
-        self.assertEquals(caverphone('patricia'), 'PTRSA11111')
-        self.assertEquals(caverphone('patrick'), 'PTRK111111')
-        self.assertEquals(caverphone('patton'), 'PTN1111111')
-        self.assertEquals(caverphone('paul'), 'PA11111111')
-        self.assertEquals(caverphone('paulina'), 'PLNA111111')
-        self.assertEquals(caverphone('pauline'), 'PLN1111111')
-        self.assertEquals(caverphone('pearl'), 'PA11111111')
-        self.assertEquals(caverphone('pearlie'), 'PLA1111111')
-        self.assertEquals(caverphone('peggie'), 'PKA1111111')
-        self.assertEquals(caverphone('peggotty'), 'PKTA111111')
-        self.assertEquals(caverphone('peggy'), 'PKA1111111')
-        self.assertEquals(caverphone('penelope'), 'PNLP111111')
-        self.assertEquals(caverphone('penrose'), 'PNRS111111')
-        self.assertEquals(caverphone('percival'), 'PSFA111111')
-        self.assertEquals(caverphone('percy'), 'PSA1111111')
-        self.assertEquals(caverphone('percystreetclair'), 'PSSTRTKLA1')
-        self.assertEquals(caverphone('pereival'), 'PRFA111111')
-        self.assertEquals(caverphone('perey'), 'PRA1111111')
-        self.assertEquals(caverphone('pertha'), 'PTA1111111')
-        self.assertEquals(caverphone('pete'), 'PT11111111')
-        self.assertEquals(caverphone('peter'), 'PTA1111111')
-        self.assertEquals(caverphone('phbe'), 'FP11111111')
-        self.assertEquals(caverphone('phebe'), 'FP11111111')
-        self.assertEquals(caverphone('phedora'), 'FTRA111111')
-        self.assertEquals(caverphone('pheodora'), 'FTRA111111')
-        self.assertEquals(caverphone('philip'), 'FLP1111111')
-        self.assertEquals(caverphone('philippa'), 'FLPA111111')
-        self.assertEquals(caverphone('phillip'), 'FLP1111111')
-        self.assertEquals(caverphone('phillipa'), 'FLPA111111')
-        self.assertEquals(caverphone('phillis'), 'FLS1111111')
-        self.assertEquals(caverphone('philomena'), 'FLMNA11111')
-        self.assertEquals(caverphone('phoebe'), 'FP11111111')
-        self.assertEquals(caverphone('phoenix'), 'FNK1111111')
-        self.assertEquals(caverphone('phylis'), 'FLS1111111')
-        self.assertEquals(caverphone('phyliss'), 'FLS1111111')
-        self.assertEquals(caverphone('phyllis'), 'FLS1111111')
-        self.assertEquals(caverphone('pierce'), 'PK11111111')
-        self.assertEquals(caverphone('pleasance'), 'PLSNK11111')
-        self.assertEquals(caverphone('pleasant'), 'PLSNT11111')
-        self.assertEquals(caverphone('polly'), 'PLA1111111')
-        self.assertEquals(caverphone('poppy'), 'PPA1111111')
-        self.assertEquals(caverphone('pretoria'), 'PRTRA11111')
-        self.assertEquals(caverphone('prisca'), 'PRSKA11111')
-        self.assertEquals(caverphone('priscilla'), 'PRSLA11111')
-        self.assertEquals(caverphone('prothesia'), 'PRTSA11111')
-        self.assertEquals(caverphone('prudence'), 'PRTNK11111')
-        self.assertEquals(caverphone('prudentchia'), 'PRTNKA1111')
-        self.assertEquals(caverphone('pryna'), 'PRNA111111')
-        self.assertEquals(caverphone('queen'), 'KN11111111')
-        self.assertEquals(caverphone('queenie'), 'KNA1111111')
-        self.assertEquals(caverphone('quinton'), 'KNTN111111')
-        self.assertEquals(caverphone('rachael'), 'RKA1111111')
-        self.assertEquals(caverphone('rachal'), 'RKA1111111')
-        self.assertEquals(caverphone('rachall'), 'RKA1111111')
-        self.assertEquals(caverphone('rachel'), 'RKA1111111')
-        self.assertEquals(caverphone('radium'), 'RTM1111111')
-        self.assertEquals(caverphone('rae'), 'RA11111111')
-        self.assertEquals(caverphone('raeburn'), 'RPN1111111')
-        self.assertEquals(caverphone('raiph'), 'RF11111111')
-        self.assertEquals(caverphone('ralph'), 'RF11111111')
-        self.assertEquals(caverphone('randall'), 'RNTA111111')
-        self.assertEquals(caverphone('randell'), 'RNTA111111')
-        self.assertEquals(caverphone('randolph'), 'RNTF111111')
-        self.assertEquals(caverphone('rani'), 'RNA1111111')
-        self.assertEquals(caverphone('raphael'), 'RFA1111111')
-        self.assertEquals(caverphone('rasmas'), 'RSMS111111')
-        self.assertEquals(caverphone('rawena'), 'RWNA111111')
-        self.assertEquals(caverphone('ray'), 'RA11111111')
-        self.assertEquals(caverphone('rayena'), 'RNA1111111')
-        self.assertEquals(caverphone('raymie'), 'RMA1111111')
-        self.assertEquals(caverphone('raymond'), 'RMNT111111')
-        self.assertEquals(caverphone('raymonde'), 'RMNT111111')
-        self.assertEquals(caverphone('raymund'), 'RMNT111111')
-        self.assertEquals(caverphone('rayna'), 'RNA1111111')
-        self.assertEquals(caverphone('rea'), 'RA11111111')
-        self.assertEquals(caverphone('rebbecca'), 'RPKA111111')
-        self.assertEquals(caverphone('rebecca'), 'RPKA111111')
-        self.assertEquals(caverphone('rebeckah'), 'RPKA111111')
-        self.assertEquals(caverphone('rebekah'), 'RPKA111111')
-        self.assertEquals(caverphone('redmond'), 'RTMNT11111')
-        self.assertEquals(caverphone('redvers'), 'RTFS111111')
-        self.assertEquals(caverphone('reece'), 'RK11111111')
-        self.assertEquals(caverphone('regina'), 'RKNA111111')
-        self.assertEquals(caverphone('reginald'), 'RKNT111111')
-        self.assertEquals(caverphone('reita'), 'RTA1111111')
-        self.assertEquals(caverphone('rema'), 'RMA1111111')
-        self.assertEquals(caverphone('rena'), 'RNA1111111')
-        self.assertEquals(caverphone('rene'), 'RN11111111')
-        self.assertEquals(caverphone('renee'), 'RNA1111111')
-        self.assertEquals(caverphone('renna'), 'RNA1111111')
-        self.assertEquals(caverphone('rero'), 'RRA1111111')
-        self.assertEquals(caverphone('reta'), 'RTA1111111')
-        self.assertEquals(caverphone('retta'), 'RTA1111111')
-        self.assertEquals(caverphone('reuben'), 'RPN1111111')
-        self.assertEquals(caverphone('revina'), 'RFNA111111')
-        self.assertEquals(caverphone('rewa'), 'RWA1111111')
-        self.assertEquals(caverphone('rewi'), 'RWA1111111')
-        self.assertEquals(caverphone('rex'), 'RK11111111')
-        self.assertEquals(caverphone('rexiter'), 'RKTA111111')
-        self.assertEquals(caverphone('reyna'), 'RNA1111111')
-        self.assertEquals(caverphone('reynolds'), 'RNTS111111')
-        self.assertEquals(caverphone('rhoda'), 'TA11111111')
-        self.assertEquals(caverphone('rhoderick'), 'TRK1111111')
-        self.assertEquals(caverphone('rhoma'), 'MA11111111')
-        self.assertEquals(caverphone('rhona'), 'NA11111111')
-        self.assertEquals(caverphone('rica'), 'RKA1111111')
-        self.assertEquals(caverphone('richald'), 'RKT1111111')
-        self.assertEquals(caverphone('richard'), 'RKT1111111')
-        self.assertEquals(caverphone('richena'), 'RKNA111111')
-        self.assertEquals(caverphone('richmond'), 'RKMNT11111')
-        self.assertEquals(caverphone('ricka'), 'RKA1111111')
-        self.assertEquals(caverphone('ridley'), 'RTLA111111')
-        self.assertEquals(caverphone('rieka'), 'RKA1111111')
-        self.assertEquals(caverphone('rieta'), 'RTA1111111')
-        self.assertEquals(caverphone('riha'), 'RA11111111')
-        self.assertEquals(caverphone('rima'), 'RMA1111111')
-        self.assertEquals(caverphone('rina'), 'RNA1111111')
-        self.assertEquals(caverphone('riparata'), 'RPRTA11111')
-        self.assertEquals(caverphone('rita'), 'RTA1111111')
-        self.assertEquals(caverphone('ritchie'), 'RKA1111111')
-        self.assertEquals(caverphone('roa'), 'RA11111111')
-        self.assertEquals(caverphone('roanna'), 'RNA1111111')
-        self.assertEquals(caverphone('robena'), 'RPNA111111')
-        self.assertEquals(caverphone('robert'), 'RPT1111111')
-        self.assertEquals(caverphone('roberta'), 'RPTA111111')
-        self.assertEquals(caverphone('robertina'), 'RPTNA11111')
-        self.assertEquals(caverphone('roberton'), 'RPTN111111')
-        self.assertEquals(caverphone('roberts'), 'RPTS111111')
-        self.assertEquals(caverphone('robertson'), 'RPTSN11111')
-        self.assertEquals(caverphone('robin'), 'RPN1111111')
-        self.assertEquals(caverphone('robina'), 'RPNA111111')
-        self.assertEquals(caverphone('robins'), 'RPNS111111')
-        self.assertEquals(caverphone('robinson'), 'RPNSN11111')
-        self.assertEquals(caverphone('roderick'), 'RTRK111111')
-        self.assertEquals(caverphone('rodger'), 'RKA1111111')
-        self.assertEquals(caverphone('rodney'), 'RTNA111111')
-        self.assertEquals(caverphone('rodrick'), 'RTRK111111')
-        self.assertEquals(caverphone('roger'), 'RKA1111111')
-        self.assertEquals(caverphone('roland'), 'RLNT111111')
-        self.assertEquals(caverphone('roma'), 'RMA1111111')
-        self.assertEquals(caverphone('rona'), 'RNA1111111')
-        self.assertEquals(caverphone('ronald'), 'RNT1111111')
-        self.assertEquals(caverphone('ronstad'), 'RNSTT11111')
-        self.assertEquals(caverphone('rosa'), 'RSA1111111')
-        self.assertEquals(caverphone('rosabell'), 'RSPA111111')
-        self.assertEquals(caverphone('rosabella'), 'RSPLA11111')
-        self.assertEquals(caverphone('rosaland'), 'RSLNT11111')
-        self.assertEquals(caverphone('rosaleene'), 'RSLN111111')
-        self.assertEquals(caverphone('rosalie'), 'RSLA111111')
-        self.assertEquals(caverphone('rosalind'), 'RSLNT11111')
-        self.assertEquals(caverphone('rosaline'), 'RSLN111111')
-        self.assertEquals(caverphone('rosalla'), 'RSLA111111')
-        self.assertEquals(caverphone('rosamond'), 'RSMNT11111')
-        self.assertEquals(caverphone('rosamund'), 'RSMNT11111')
-        self.assertEquals(caverphone('rosana'), 'RSNA111111')
-        self.assertEquals(caverphone('rosanah'), 'RSNA111111')
-        self.assertEquals(caverphone('rosanna'), 'RSNA111111')
-        self.assertEquals(caverphone('rosannah'), 'RSNA111111')
-        self.assertEquals(caverphone('rosanne'), 'RSN1111111')
-        self.assertEquals(caverphone('roscena'), 'RSNA111111')
-        self.assertEquals(caverphone('rose'), 'RS11111111')
-        self.assertEquals(caverphone('roseana'), 'RSNA111111')
-        self.assertEquals(caverphone('roseanna'), 'RSNA111111')
-        self.assertEquals(caverphone('roseina'), 'RSNA111111')
-        self.assertEquals(caverphone('rosella'), 'RSLA111111')
-        self.assertEquals(caverphone('rosemay'), 'RSMA111111')
-        self.assertEquals(caverphone('rosemond'), 'RSMNT11111')
-        self.assertEquals(caverphone('rosena'), 'RSNA111111')
-        self.assertEquals(caverphone('rosetta'), 'RSTA111111')
-        self.assertEquals(caverphone('rosie'), 'RSA1111111')
-        self.assertEquals(caverphone('rosiena'), 'RSNA111111')
-        self.assertEquals(caverphone('rosina'), 'RSNA111111')
-        self.assertEquals(caverphone('rosins'), 'RSNS111111')
-        self.assertEquals(caverphone('ross'), 'RS11111111')
-        self.assertEquals(caverphone('roustad'), 'RSTT111111')
-        self.assertEquals(caverphone('rowena'), 'RWNA111111')
-        self.assertEquals(caverphone('rowland'), 'RLNT111111')
-        self.assertEquals(caverphone('roy'), 'RA11111111')
-        self.assertEquals(caverphone('rozel'), 'RSA1111111')
-        self.assertEquals(caverphone('rua'), 'RA11111111')
-        self.assertEquals(caverphone('ruahine'), 'RN11111111')
-        self.assertEquals(caverphone('ruben'), 'RPN1111111')
-        self.assertEquals(caverphone('rubena'), 'RPNA111111')
-        self.assertEquals(caverphone('rubenia'), 'RPNA111111')
-        self.assertEquals(caverphone('rubina'), 'RPNA111111')
-        self.assertEquals(caverphone('rubins'), 'RPNS111111')
-        self.assertEquals(caverphone('rubv'), 'RPF1111111')
-        self.assertEquals(caverphone('ruby'), 'RPA1111111')
-        self.assertEquals(caverphone('rubye'), 'RPA1111111')
-        self.assertEquals(caverphone('rudolf'), 'RTF1111111')
-        self.assertEquals(caverphone('rudolph'), 'RTF1111111')
-        self.assertEquals(caverphone('rufus'), 'RFS1111111')
-        self.assertEquals(caverphone('rugby'), 'RKPA111111')
-        self.assertEquals(caverphone('rui'), 'RA11111111')
-        self.assertEquals(caverphone('ruia'), 'RA11111111')
-        self.assertEquals(caverphone('runa'), 'RNA1111111')
-        self.assertEquals(caverphone('ruper'), 'RPA1111111')
-        self.assertEquals(caverphone('rupert'), 'RPT1111111')
-        self.assertEquals(caverphone('ruruhira'), 'RRRA111111')
-        self.assertEquals(caverphone('russell'), 'RSA1111111')
-        self.assertEquals(caverphone('ruth'), 'RT11111111')
-        self.assertEquals(caverphone('rutherford'), 'RTFT111111')
-        self.assertEquals(caverphone('saah'), 'SA11111111')
-        self.assertEquals(caverphone('saba'), 'SPA1111111')
-        self.assertEquals(caverphone('sabina'), 'SPNA111111')
-        self.assertEquals(caverphone('sadie'), 'STA1111111')
-        self.assertEquals(caverphone('saidie'), 'STA1111111')
-        self.assertEquals(caverphone('sam'), 'SM11111111')
-        self.assertEquals(caverphone('sampson'), 'SMPSN11111')
-        self.assertEquals(caverphone('samson'), 'SMSN111111')
-        self.assertEquals(caverphone('samuel'), 'SMA1111111')
-        self.assertEquals(caverphone('samuelena'), 'SMLNA11111')
-        self.assertEquals(caverphone('sanuel'), 'SNA1111111')
-        self.assertEquals(caverphone('sara'), 'SRA1111111')
-        self.assertEquals(caverphone('sarah'), 'SRA1111111')
-        self.assertEquals(caverphone('saverio'), 'SFRA111111')
-        self.assertEquals(caverphone('saxon'), 'SKN1111111')
-        self.assertEquals(caverphone('scott'), 'SKT1111111')
-        self.assertEquals(caverphone('scoular'), 'SKLA111111')
-        self.assertEquals(caverphone('seaward'), 'SWT1111111')
-        self.assertEquals(caverphone('sedden'), 'STN1111111')
-        self.assertEquals(caverphone('seddon'), 'STN1111111')
-        self.assertEquals(caverphone('selah'), 'SLA1111111')
-        self.assertEquals(caverphone('selem'), 'SLM1111111')
-        self.assertEquals(caverphone('selena'), 'SLNA111111')
-        self.assertEquals(caverphone('selina'), 'SLNA111111')
-        self.assertEquals(caverphone('selinda'), 'SLNTA11111')
-        self.assertEquals(caverphone('selma'), 'SMA1111111')
-        self.assertEquals(caverphone('selwyn'), 'SWN1111111')
-        self.assertEquals(caverphone('septimus'), 'SPTMS11111')
-        self.assertEquals(caverphone('serafina'), 'SRFNA11111')
-        self.assertEquals(caverphone('sergia'), 'SKA1111111')
-        self.assertEquals(caverphone('seth'), 'ST11111111')
-        self.assertEquals(caverphone('sharland'), 'SLNT111111')
-        self.assertEquals(caverphone('sheddan'), 'STN1111111')
-        self.assertEquals(caverphone('sheila'), 'SLA1111111')
-        self.assertEquals(caverphone('shelia'), 'SLA1111111')
-        self.assertEquals(caverphone('shiela'), 'SLA1111111')
-        self.assertEquals(caverphone('shirley'), 'SLA1111111')
-        self.assertEquals(caverphone('shona'), 'SNA1111111')
-        self.assertEquals(caverphone('siah'), 'SA11111111')
-        self.assertEquals(caverphone('sibyl'), 'SPA1111111')
-        self.assertEquals(caverphone('sidey'), 'STA1111111')
-        self.assertEquals(caverphone('sidney'), 'STNA111111')
-        self.assertEquals(caverphone('sidona'), 'STNA111111')
-        self.assertEquals(caverphone('signa'), 'SKNA111111')
-        self.assertEquals(caverphone('signe'), 'SKN1111111')
-        self.assertEquals(caverphone('sigrid'), 'SKRT111111')
-        self.assertEquals(caverphone('silas'), 'SLS1111111')
-        self.assertEquals(caverphone('silena'), 'SLNA111111')
-        self.assertEquals(caverphone('silva'), 'SFA1111111')
-        self.assertEquals(caverphone('simeon'), 'SMN1111111')
-        self.assertEquals(caverphone('simon'), 'SMN1111111')
-        self.assertEquals(caverphone('simpson'), 'SMPSN11111')
-        self.assertEquals(caverphone('sina'), 'SNA1111111')
-        self.assertEquals(caverphone('sinclair'), 'SNKLA11111')
-        self.assertEquals(caverphone('singleton'), 'SNKLTN1111')
-        self.assertEquals(caverphone('sissy'), 'SSA1111111')
-        self.assertEquals(caverphone('solomon'), 'SLMN111111')
-        self.assertEquals(caverphone('somerled'), 'SMLT111111')
-        self.assertEquals(caverphone('sophia'), 'SFA1111111')
-        self.assertEquals(caverphone('sophie'), 'SFA1111111')
-        self.assertEquals(caverphone('sophrania'), 'SFRNA11111')
-        self.assertEquals(caverphone('sophrona'), 'SFRNA11111')
-        self.assertEquals(caverphone('sophronia'), 'SFRNA11111')
-        self.assertEquals(caverphone('sophy'), 'SFA1111111')
-        self.assertEquals(caverphone('spence'), 'SPNK111111')
-        self.assertEquals(caverphone('spencer'), 'SPNSA11111')
-        self.assertEquals(caverphone('spenseley'), 'SPNSLA1111')
-        self.assertEquals(caverphone('spensley'), 'SPNSLA1111')
-        self.assertEquals(caverphone('squire'), 'SKA1111111')
-        self.assertEquals(caverphone('st'), 'ST11111111')
-        self.assertEquals(caverphone('stafford'), 'STFT111111')
-        self.assertEquals(caverphone('stanhope'), 'STNP111111')
-        self.assertEquals(caverphone('stanislaus'), 'STNSLS1111')
-        self.assertEquals(caverphone('stanislaw'), 'STNSLA1111')
-        self.assertEquals(caverphone('stanislaws'), 'STNSLS1111')
-        self.assertEquals(caverphone('stanley'), 'STNLA11111')
-        self.assertEquals(caverphone('stanton'), 'STNTN11111')
-        self.assertEquals(caverphone('stasia'), 'STSA111111')
-        self.assertEquals(caverphone('statney'), 'STTNA11111')
-        self.assertEquals(caverphone('stella'), 'STLA111111')
-        self.assertEquals(caverphone('stephanie'), 'STFNA11111')
-        self.assertEquals(caverphone('stephen'), 'STFN111111')
-        self.assertEquals(caverphone('steven'), 'STFN111111')
-        self.assertEquals(caverphone('steward'), 'STWT111111')
-        self.assertEquals(caverphone('stewart'), 'STWT111111')
-        self.assertEquals(caverphone('stewarty'), 'STWTA11111')
-        self.assertEquals(caverphone('stisie'), 'STSA111111')
-        self.assertEquals(caverphone('stratford'), 'STRTFT1111')
-        self.assertEquals(caverphone('strelna'), 'STRNA11111')
-        self.assertEquals(caverphone('strop'), 'STRP111111')
-        self.assertEquals(caverphone('struan'), 'STRN111111')
-        self.assertEquals(caverphone('stuart'), 'STT1111111')
-        self.assertEquals(caverphone('sturz'), 'STS1111111')
-        self.assertEquals(caverphone('surrey'), 'SRA1111111')
-        self.assertEquals(caverphone('susan'), 'SSN1111111')
-        self.assertEquals(caverphone('susanah'), 'SSNA111111')
-        self.assertEquals(caverphone('susanna'), 'SSNA111111')
-        self.assertEquals(caverphone('susannah'), 'SSNA111111')
-        self.assertEquals(caverphone('susanne'), 'SSN1111111')
-        self.assertEquals(caverphone('susie'), 'SSA1111111')
-        self.assertEquals(caverphone('susy'), 'SSA1111111')
-        self.assertEquals(caverphone('sybella'), 'SPLA111111')
-        self.assertEquals(caverphone('sybil'), 'SPA1111111')
-        self.assertEquals(caverphone('sydnev'), 'STNF111111')
-        self.assertEquals(caverphone('sydney'), 'STNA111111')
-        self.assertEquals(caverphone('sylva'), 'SFA1111111')
-        self.assertEquals(caverphone('sylvia'), 'SFA1111111')
-        self.assertEquals(caverphone('sylvie'), 'SFA1111111')
-        self.assertEquals(caverphone('syril'), 'SRA1111111')
-        self.assertEquals(caverphone('tabitha'), 'TPTA111111')
-        self.assertEquals(caverphone('talbert'), 'TPT1111111')
-        self.assertEquals(caverphone('tamar'), 'TMA1111111')
-        self.assertEquals(caverphone('tasma'), 'TSMA111111')
-        self.assertEquals(caverphone('tasman'), 'TSMN111111')
-        self.assertEquals(caverphone('tate'), 'TT11111111')
-        self.assertEquals(caverphone('taylor'), 'TLA1111111')
-        self.assertEquals(caverphone('teariki'), 'TRKA111111')
-        self.assertEquals(caverphone('temperence'), 'TMPRNK1111')
-        self.assertEquals(caverphone('terence'), 'TRNK111111')
-        self.assertEquals(caverphone('teresa'), 'TRSA111111')
-        self.assertEquals(caverphone('teresae'), 'TRSA111111')
-        self.assertEquals(caverphone('ternce'), 'TNK1111111')
-        self.assertEquals(caverphone('tesse'), 'TS11111111')
-        self.assertEquals(caverphone('tessie'), 'TSA1111111')
-        self.assertEquals(caverphone('thaddeus'), 'TTS1111111')
-        self.assertEquals(caverphone('thea'), 'TA11111111')
-        self.assertEquals(caverphone('theima'), 'TMA1111111')
-        self.assertEquals(caverphone('thelma'), 'TMA1111111')
-        self.assertEquals(caverphone('theodocia'), 'TTSA111111')
-        self.assertEquals(caverphone('theodora'), 'TTRA111111')
-        self.assertEquals(caverphone('theodore'), 'TTA1111111')
-        self.assertEquals(caverphone('theodosia'), 'TTSA111111')
-        self.assertEquals(caverphone('theophilus'), 'TFLS111111')
-        self.assertEquals(caverphone('theresa'), 'TRSA111111')
-        self.assertEquals(caverphone('therese'), 'TRS1111111')
-        self.assertEquals(caverphone('thirza'), 'TSA1111111')
-        self.assertEquals(caverphone('tholmas'), 'TMS1111111')
-        self.assertEquals(caverphone('thomas'), 'TMS1111111')
-        self.assertEquals(caverphone('thomasena'), 'TMSNA11111')
-        self.assertEquals(caverphone('thomasina'), 'TMSNA11111')
-        self.assertEquals(caverphone('thompson'), 'TMPSN11111')
-        self.assertEquals(caverphone('thomson'), 'TMSN111111')
-        self.assertEquals(caverphone('thora'), 'TRA1111111')
-        self.assertEquals(caverphone('thorburn'), 'TPN1111111')
-        self.assertEquals(caverphone('thorita'), 'TRTA111111')
-        self.assertEquals(caverphone('thornton'), 'TNTN111111')
-        self.assertEquals(caverphone('thriza'), 'TRSA111111')
-        self.assertEquals(caverphone('thursa'), 'TSA1111111')
-        self.assertEquals(caverphone('thurstan'), 'TSTN111111')
-        self.assertEquals(caverphone('thurston'), 'TSTN111111')
-        self.assertEquals(caverphone('thurza'), 'TSA1111111')
-        self.assertEquals(caverphone('thyrza'), 'TSA1111111')
-        self.assertEquals(caverphone('thyza'), 'TSA1111111')
-        self.assertEquals(caverphone('tillie'), 'TLA1111111')
-        self.assertEquals(caverphone('timothy'), 'TMTA111111')
-        self.assertEquals(caverphone('tiney'), 'TNA1111111')
-        self.assertEquals(caverphone('tini'), 'TNA1111111')
-        self.assertEquals(caverphone('tiny'), 'TNA1111111')
-        self.assertEquals(caverphone('tizzie'), 'TSA1111111')
-        self.assertEquals(caverphone('tom'), 'TM11111111')
-        self.assertEquals(caverphone('touncy'), 'TNSA111111')
-        self.assertEquals(caverphone('tousseint'), 'TSNT111111')
-        self.assertEquals(caverphone('treacy'), 'TRSA111111')
-        self.assertEquals(caverphone('tremella'), 'TRMLA11111')
-        self.assertEquals(caverphone('trena'), 'TRNA111111')
-        self.assertEquals(caverphone('trene'), 'TRN1111111')
-        self.assertEquals(caverphone('trentham'), 'TRNTM11111')
-        self.assertEquals(caverphone('tresa'), 'TRSA111111')
-        self.assertEquals(caverphone('trevor'), 'TRFA111111')
-        self.assertEquals(caverphone('trilby'), 'TRPA111111')
-        self.assertEquals(caverphone('trixie'), 'TRKA111111')
-        self.assertEquals(caverphone('tryphena'), 'TRFNA11111')
-        self.assertEquals(caverphone('tui'), 'TA11111111')
-        self.assertEquals(caverphone('ulick'), 'ALK1111111')
-        self.assertEquals(caverphone('ulrica'), 'ARKA111111')
-        self.assertEquals(caverphone('ulricka'), 'ARKA111111')
-        self.assertEquals(caverphone('una'), 'ANA1111111')
-        self.assertEquals(caverphone('ural'), 'ARA1111111')
-        self.assertEquals(caverphone('uresilla'), 'ARSLA11111')
-        self.assertEquals(caverphone('ureta'), 'ARTA111111')
-        self.assertEquals(caverphone('ursula'), 'ASLA111111')
-        self.assertEquals(caverphone('uta'), 'ATA1111111')
-        self.assertEquals(caverphone('valarie'), 'FLRA111111')
-        self.assertEquals(caverphone('valda'), 'FTA1111111')
-        self.assertEquals(caverphone('valdemar'), 'FTMA111111')
-        self.assertEquals(caverphone('valencia'), 'FLNSA11111')
-        self.assertEquals(caverphone('valentine'), 'FLNTN11111')
-        self.assertEquals(caverphone('valerie'), 'FLRA111111')
-        self.assertEquals(caverphone('vallance'), 'FLNK111111')
-        self.assertEquals(caverphone('valma'), 'FMA1111111')
-        self.assertEquals(caverphone('van'), 'FN11111111')
-        self.assertEquals(caverphone('vanda'), 'FNTA111111')
-        self.assertEquals(caverphone('vanessa'), 'FNSA111111')
-        self.assertEquals(caverphone('vara'), 'FRA1111111')
-        self.assertEquals(caverphone('varey'), 'FRA1111111')
-        self.assertEquals(caverphone('vashti'), 'FSTA111111')
-        self.assertEquals(caverphone('vaughan'), 'FKN1111111')
-        self.assertEquals(caverphone('veda'), 'FTA1111111')
-        self.assertEquals(caverphone('veida'), 'FTA1111111')
-        self.assertEquals(caverphone('vendella'), 'FNTLA11111')
-        self.assertEquals(caverphone('venessa'), 'FNSA111111')
-        self.assertEquals(caverphone('venus'), 'FNS1111111')
-        self.assertEquals(caverphone('vera'), 'FRA1111111')
-        self.assertEquals(caverphone('verdon'), 'FTN1111111')
-        self.assertEquals(caverphone('verdun'), 'FTN1111111')
-        self.assertEquals(caverphone('vere'), 'FA11111111')
-        self.assertEquals(caverphone('verena'), 'FRNA111111')
-        self.assertEquals(caverphone('verion'), 'FRN1111111')
-        self.assertEquals(caverphone('verna'), 'FNA1111111')
-        self.assertEquals(caverphone('verner'), 'FNA1111111')
-        self.assertEquals(caverphone('vernon'), 'FNN1111111')
-        self.assertEquals(caverphone('verona'), 'FRNA111111')
-        self.assertEquals(caverphone('veronica'), 'FRNKA11111')
-        self.assertEquals(caverphone('vesper'), 'FSPA111111')
-        self.assertEquals(caverphone('vickers'), 'FKS1111111')
-        self.assertEquals(caverphone('victor'), 'FKTA111111')
-        self.assertEquals(caverphone('victoria'), 'FKTRA11111')
-        self.assertEquals(caverphone('vida'), 'FTA1111111')
-        self.assertEquals(caverphone('vietoria'), 'FTRA111111')
-        self.assertEquals(caverphone('vilera'), 'FLRA111111')
-        self.assertEquals(caverphone('vilhelm'), 'FM11111111')
-        self.assertEquals(caverphone('villa'), 'FLA1111111')
-        self.assertEquals(caverphone('vina'), 'FNA1111111')
-        self.assertEquals(caverphone('vincent'), 'FNSNT11111')
-        self.assertEquals(caverphone('vioiet'), 'FT11111111')
-        self.assertEquals(caverphone('viola'), 'FLA1111111')
-        self.assertEquals(caverphone('violet'), 'FLT1111111')
-        self.assertEquals(caverphone('violetta'), 'FLTA111111')
-        self.assertEquals(caverphone('violette'), 'FLT1111111')
-        self.assertEquals(caverphone('virgil'), 'FKA1111111')
-        self.assertEquals(caverphone('virginia'), 'FKNA111111')
-        self.assertEquals(caverphone('viva'), 'FFA1111111')
-        self.assertEquals(caverphone('vivian'), 'FFN1111111')
-        self.assertEquals(caverphone('vivien'), 'FFN1111111')
-        self.assertEquals(caverphone('vivienne'), 'FFN1111111')
-        self.assertEquals(caverphone('vona'), 'FNA1111111')
-        self.assertEquals(caverphone('walker'), 'WKA1111111')
-        self.assertEquals(caverphone('wallace'), 'WLK1111111')
-        self.assertEquals(caverphone('wallis'), 'WLS1111111')
-        self.assertEquals(caverphone('walter'), 'WTA1111111')
-        self.assertEquals(caverphone('walton'), 'WTN1111111')
-        self.assertEquals(caverphone('waltor'), 'WTA1111111')
-        self.assertEquals(caverphone('wance'), 'WNK1111111')
-        self.assertEquals(caverphone('ward'), 'WT11111111')
-        self.assertEquals(caverphone('warren'), 'WRN1111111')
-        self.assertEquals(caverphone('warrington'), 'WRNKTN1111')
-        self.assertEquals(caverphone('water'), 'WTA1111111')
-        self.assertEquals(caverphone('watson'), 'WTSN111111')
-        self.assertEquals(caverphone('wee'), 'WA11111111')
-        self.assertEquals(caverphone('welby'), 'WPA1111111')
-        self.assertEquals(caverphone('wesby'), 'WSPA111111')
-        self.assertEquals(caverphone('wesley'), 'WSLA111111')
-        self.assertEquals(caverphone('west'), 'WST1111111')
-        self.assertEquals(caverphone('wharten'), 'WTN1111111')
-        self.assertEquals(caverphone('wharton'), 'WTN1111111')
-        self.assertEquals(caverphone('whenua'), 'WNA1111111')
-        self.assertEquals(caverphone('whyndham'), 'WNTM111111')
-        self.assertEquals(caverphone('wicko'), 'WKA1111111')
-        self.assertEquals(caverphone('wilbert'), 'WPT1111111')
-        self.assertEquals(caverphone('wilbur'), 'WPA1111111')
-        self.assertEquals(caverphone('wilfred'), 'WFRT111111')
-        self.assertEquals(caverphone('wilfrid'), 'WFRT111111')
-        self.assertEquals(caverphone('wilhelm'), 'WM11111111')
-        self.assertEquals(caverphone('wilhelmena'), 'WMNA111111')
-        self.assertEquals(caverphone('wilhelmina'), 'WMNA111111')
-        self.assertEquals(caverphone('wilhemenia'), 'WMNA111111')
-        self.assertEquals(caverphone('wilhemina'), 'WMNA111111')
-        self.assertEquals(caverphone('wilheminia'), 'WMNA111111')
-        self.assertEquals(caverphone('wilkinson'), 'WKNSN11111')
-        self.assertEquals(caverphone('will'), 'WA11111111')
-        self.assertEquals(caverphone('willamina'), 'WLMNA11111')
-        self.assertEquals(caverphone('willen'), 'WLN1111111')
-        self.assertEquals(caverphone('william'), 'WLM1111111')
-        self.assertEquals(caverphone('williamina'), 'WLMNA11111')
-        self.assertEquals(caverphone('williammina'), 'WLMNA11111')
-        self.assertEquals(caverphone('williams'), 'WLMS111111')
-        self.assertEquals(caverphone('williamson'), 'WLMSN11111')
-        self.assertEquals(caverphone('willie'), 'WLA1111111')
-        self.assertEquals(caverphone('willis'), 'WLS1111111')
-        self.assertEquals(caverphone('willitn'), 'WLTN111111')
-        self.assertEquals(caverphone('wilma'), 'WMA1111111')
-        self.assertEquals(caverphone('wilmot'), 'WMT1111111')
-        self.assertEquals(caverphone('wilson'), 'WSN1111111')
-        self.assertEquals(caverphone('windsor'), 'WNTSA11111')
-        self.assertEquals(caverphone('winfred'), 'WNFRT11111')
-        self.assertEquals(caverphone('winifred'), 'WNFRT11111')
-        self.assertEquals(caverphone('winnie'), 'WNA1111111')
-        self.assertEquals(caverphone('winniefred'), 'WNFRT11111')
-        self.assertEquals(caverphone('winnifred'), 'WNFRT11111')
-        self.assertEquals(caverphone('winnifrid'), 'WNFRT11111')
-        self.assertEquals(caverphone('winston'), 'WNSTN11111')
-        self.assertEquals(caverphone('wong'), 'WNK1111111')
-        self.assertEquals(caverphone('wright'), 'RT11111111')
-        self.assertEquals(caverphone('wynie'), 'WNA1111111')
-        self.assertEquals(caverphone('yetti'), 'YTA1111111')
-        self.assertEquals(caverphone('ysabel'), 'ASPA111111')
-        self.assertEquals(caverphone('yvetta'), 'AFTA111111')
-        self.assertEquals(caverphone('yvonne'), 'AFN1111111')
-        self.assertEquals(caverphone('zealandia'), 'SLNTA11111')
-        self.assertEquals(caverphone('zeby'), 'SPA1111111')
-        self.assertEquals(caverphone('zela'), 'SLA1111111')
-        self.assertEquals(caverphone('zella'), 'SLA1111111')
-        self.assertEquals(caverphone('zelma'), 'SMA1111111')
-        self.assertEquals(caverphone('zetta'), 'STA1111111')
-        self.assertEquals(caverphone('zillah'), 'SLA1111111')
-        self.assertEquals(caverphone('zita'), 'STA1111111')
-        self.assertEquals(caverphone('zoe'), 'SA11111111')
-        self.assertEquals(caverphone('zohra'), 'SRA1111111')
-        self.assertEquals(caverphone('zola'), 'SLA1111111')
-        self.assertEquals(caverphone('zona'), 'SNA1111111')
-        self.assertEquals(caverphone('aaskow'), 'ASKA111111')
-        self.assertEquals(caverphone('aaysford'), 'ASFT111111')
-        self.assertEquals(caverphone('abbott'), 'APT1111111')
-        self.assertEquals(caverphone('abel'), 'APA1111111')
-        self.assertEquals(caverphone('abelsted'), 'APSTT11111')
-        self.assertEquals(caverphone('abercrombie'), 'APKRMPA111')
-        self.assertEquals(caverphone('abernathy'), 'APNTA11111')
-        self.assertEquals(caverphone('abernethie'), 'APNTA11111')
-        self.assertEquals(caverphone('abernethy'), 'APNTA11111')
-        self.assertEquals(caverphone('abley'), 'APLA111111')
-        self.assertEquals(caverphone('abraham'), 'APRM111111')
-        self.assertEquals(caverphone('abrams'), 'APRMS11111')
-        self.assertEquals(caverphone('aburn'), 'APN1111111')
-        self.assertEquals(caverphone('acheson'), 'AKSN111111')
-        self.assertEquals(caverphone('adair'), 'ATA1111111')
-        self.assertEquals(caverphone('adam'), 'ATM1111111')
-        self.assertEquals(caverphone('adams'), 'ATMS111111')
-        self.assertEquals(caverphone('adamson'), 'ATMSN11111')
-        self.assertEquals(caverphone('adcock'), 'ATKK111111')
-        self.assertEquals(caverphone('addison'), 'ATSN111111')
-        self.assertEquals(caverphone('aderman'), 'ATMN111111')
-        self.assertEquals(caverphone('adess'), 'ATS1111111')
-        self.assertEquals(caverphone('adie'), 'ATA1111111')
-        self.assertEquals(caverphone('adkins'), 'ATKNS11111')
-        self.assertEquals(caverphone('affleck'), 'AFLK111111')
-        self.assertEquals(caverphone('agent'), 'AKNT111111')
-        self.assertEquals(caverphone('agnew'), 'AKNA111111')
-        self.assertEquals(caverphone('ahern'), 'AN11111111')
-        self.assertEquals(caverphone('ahlbrandt'), 'APRNT11111')
-        self.assertEquals(caverphone('ahlfeld'), 'AFT1111111')
-        self.assertEquals(caverphone('aicheson'), 'AKSN111111')
-        self.assertEquals(caverphone('aidridge'), 'ATRK111111')
-        self.assertEquals(caverphone('aiken'), 'AKN1111111')
-        self.assertEquals(caverphone('ailen'), 'ALN1111111')
-        self.assertEquals(caverphone('aimers'), 'AMS1111111')
-        self.assertEquals(caverphone('aimes'), 'AMS1111111')
-        self.assertEquals(caverphone('ainge'), 'ANK1111111')
-        self.assertEquals(caverphone('ainger'), 'ANKA111111')
-        self.assertEquals(caverphone('air'), 'AA11111111')
-        self.assertEquals(caverphone('airey'), 'ARA1111111')
-        self.assertEquals(caverphone('airley'), 'ALA1111111')
-        self.assertEquals(caverphone('aitcheson'), 'AKSN111111')
-        self.assertEquals(caverphone('aitchison'), 'AKSN111111')
-        self.assertEquals(caverphone('aithenhead'), 'ATNT111111')
-        self.assertEquals(caverphone('aitken'), 'ATKN111111')
-        self.assertEquals(caverphone('aitkenhead'), 'ATKNT11111')
-        self.assertEquals(caverphone('aitkens'), 'ATKNS11111')
-        self.assertEquals(caverphone('aitkinson'), 'ATKNSN1111')
-        self.assertEquals(caverphone('alberti'), 'APTA111111')
-        self.assertEquals(caverphone('alcock'), 'AKK1111111')
-        self.assertEquals(caverphone('alden'), 'ATN1111111')
-        self.assertEquals(caverphone('alder'), 'ATA1111111')
-        self.assertEquals(caverphone('alderdice'), 'ATTK111111')
-        self.assertEquals(caverphone('alderson'), 'ATSN111111')
-        self.assertEquals(caverphone('alderton'), 'ATTN111111')
-        self.assertEquals(caverphone('aldous'), 'ATS1111111')
-        self.assertEquals(caverphone('aldred'), 'ATRT111111')
-        self.assertEquals(caverphone('aldridge'), 'ATRK111111')
-        self.assertEquals(caverphone('alen'), 'ALN1111111')
-        self.assertEquals(caverphone('alert'), 'ALT1111111')
-        self.assertEquals(caverphone('alexander'), 'ALKNTA1111')
-        self.assertEquals(caverphone('alfrey'), 'AFRA111111')
-        self.assertEquals(caverphone('algar'), 'AKA1111111')
-        self.assertEquals(caverphone('algeo'), 'AKA1111111')
-        self.assertEquals(caverphone('algie'), 'AKA1111111')
-        self.assertEquals(caverphone('alison'), 'ALSN111111')
-        self.assertEquals(caverphone('allan'), 'ALN1111111')
-        self.assertEquals(caverphone('alldred'), 'ATRT111111')
-        self.assertEquals(caverphone('allen'), 'ALN1111111')
-        self.assertEquals(caverphone('alley'), 'ALA1111111')
-        self.assertEquals(caverphone('allis'), 'ALS1111111')
-        self.assertEquals(caverphone('allison'), 'ALSN111111')
-        self.assertEquals(caverphone('allman'), 'AMN1111111')
-        self.assertEquals(caverphone('allom'), 'ALM1111111')
-        self.assertEquals(caverphone('alloo'), 'ALA1111111')
-        self.assertEquals(caverphone('allott'), 'ALT1111111')
-        self.assertEquals(caverphone('allpress'), 'APRS111111')
-        self.assertEquals(caverphone('allum'), 'ALM1111111')
-        self.assertEquals(caverphone('allwood'), 'AWT1111111')
-        self.assertEquals(caverphone('allworden'), 'AWTN111111')
-        self.assertEquals(caverphone('almers'), 'AMS1111111')
-        self.assertEquals(caverphone('almond'), 'AMNT111111')
-        self.assertEquals(caverphone('almquist'), 'AMKST11111')
-        self.assertEquals(caverphone('alpine'), 'APN1111111')
-        self.assertEquals(caverphone('alston'), 'ASTN111111')
-        self.assertEquals(caverphone('amalfitano'), 'AMFTNA1111')
-        self.assertEquals(caverphone('amalric'), 'AMRK111111')
-        self.assertEquals(caverphone('ambridge'), 'AMPRK11111')
-        self.assertEquals(caverphone('amer'), 'AMA1111111')
-        self.assertEquals(caverphone('amos'), 'AMS1111111')
-        self.assertEquals(caverphone('amouri'), 'AMRA111111')
-        self.assertEquals(caverphone('amtman'), 'AMTMN11111')
-        self.assertEquals(caverphone('amunie'), 'AMNA111111')
-        self.assertEquals(caverphone('ancell'), 'ANSA111111')
-        self.assertEquals(caverphone('anchor'), 'ANKA111111')
-        self.assertEquals(caverphone('andersen'), 'ANTSN11111')
-        self.assertEquals(caverphone('andersoll'), 'ANTSA11111')
-        self.assertEquals(caverphone('anderson'), 'ANTSN11111')
-        self.assertEquals(caverphone('anderton'), 'ANTTN11111')
-        self.assertEquals(caverphone('andorson'), 'ANTSN11111')
-        self.assertEquals(caverphone('andreassend'), 'ANTRSNT111')
-        self.assertEquals(caverphone('andrew'), 'ANTRA11111')
-        self.assertEquals(caverphone('andrewe'), 'ANTRA11111')
-        self.assertEquals(caverphone('andrewes'), 'ANTRWS1111')
-        self.assertEquals(caverphone('andrews'), 'ANTRS11111')
-        self.assertEquals(caverphone('angeli'), 'ANKLA11111')
-        self.assertEquals(caverphone('angell'), 'ANKA111111')
-        self.assertEquals(caverphone('angus'), 'ANKS111111')
-        self.assertEquals(caverphone('annan'), 'ANN1111111')
-        self.assertEquals(caverphone('annand'), 'ANNT111111')
-        self.assertEquals(caverphone('annett'), 'ANT1111111')
-        self.assertEquals(caverphone('anning'), 'ANNK111111')
-        self.assertEquals(caverphone('annison'), 'ANSN111111')
-        self.assertEquals(caverphone('annson'), 'ANSN111111')
-        self.assertEquals(caverphone('anscombe'), 'ANSKM11111')
-        self.assertEquals(caverphone('ansdell'), 'ANSTA11111')
-        self.assertEquals(caverphone('ansell'), 'ANSA111111')
-        self.assertEquals(caverphone('anstruther'), 'ANSTRTA111')
-        self.assertEquals(caverphone('anthony'), 'ANTNA11111')
-        self.assertEquals(caverphone('apes'), 'APS1111111')
-        self.assertEquals(caverphone('appleby'), 'APLPA11111')
-        self.assertEquals(caverphone('applegart'), 'APLKT11111')
-        self.assertEquals(caverphone('applegarth'), 'APLKT11111')
-        self.assertEquals(caverphone('applegate'), 'APLKT11111')
-        self.assertEquals(caverphone('applelby'), 'APLPA11111')
-        self.assertEquals(caverphone('apstein'), 'APSTN11111')
-        self.assertEquals(caverphone('arbuckle'), 'APKA111111')
-        self.assertEquals(caverphone('archbold'), 'AKPT111111')
-        self.assertEquals(caverphone('archer'), 'AKA1111111')
-        self.assertEquals(caverphone('archibald'), 'AKPT111111')
-        self.assertEquals(caverphone('archie'), 'AKA1111111')
-        self.assertEquals(caverphone('argue'), 'AKA1111111')
-        self.assertEquals(caverphone('arkel'), 'AKA1111111')
-        self.assertEquals(caverphone('arkins'), 'AKNS111111')
-        self.assertEquals(caverphone('arkle'), 'AKA1111111')
-        self.assertEquals(caverphone('arlidge'), 'ALK1111111')
-        self.assertEquals(caverphone('armatrong'), 'AMTRNK1111')
-        self.assertEquals(caverphone('armishaw'), 'AMSA111111')
-        self.assertEquals(caverphone('armit'), 'AMT1111111')
-        self.assertEquals(caverphone('armitage'), 'AMTK111111')
-        self.assertEquals(caverphone('armour'), 'AMA1111111')
-        self.assertEquals(caverphone('armroyd'), 'AMRT111111')
-        self.assertEquals(caverphone('armstead'), 'AMSTT11111')
-        self.assertEquals(caverphone('armstrong'), 'AMSTRNK111')
-        self.assertEquals(caverphone('arnal'), 'ANA1111111')
-        self.assertEquals(caverphone('arneil'), 'ANA1111111')
-        self.assertEquals(caverphone('arnel'), 'ANA1111111')
-        self.assertEquals(caverphone('arnett'), 'ANT1111111')
-        self.assertEquals(caverphone('arnold'), 'ANT1111111')
-        self.assertEquals(caverphone('arnot'), 'ANT1111111')
-        self.assertEquals(caverphone('arnott'), 'ANT1111111')
-        self.assertEquals(caverphone('arnstrong'), 'ANSTRNK111')
-        self.assertEquals(caverphone('arroll'), 'ARA1111111')
-        self.assertEquals(caverphone('arrow'), 'ARA1111111')
-        self.assertEquals(caverphone('arthur'), 'ATA1111111')
-        self.assertEquals(caverphone('artlett'), 'ATLT111111')
-        self.assertEquals(caverphone('arundale'), 'ARNTA11111')
-        self.assertEquals(caverphone('arundel'), 'ARNTA11111')
-        self.assertEquals(caverphone('ash'), 'AS11111111')
-        self.assertEquals(caverphone('ashbey'), 'ASPA111111')
-        self.assertEquals(caverphone('ashbury'), 'ASPRA11111')
-        self.assertEquals(caverphone('ashby'), 'ASPA111111')
-        self.assertEquals(caverphone('ashcroft'), 'ASKRFT1111')
-        self.assertEquals(caverphone('ashenden'), 'ASNTN11111')
-        self.assertEquals(caverphone('asher'), 'ASA1111111')
-        self.assertEquals(caverphone('ashford'), 'ASFT111111')
-        self.assertEquals(caverphone('ashley'), 'ASLA111111')
-        self.assertEquals(caverphone('ashman'), 'ASMN111111')
-        self.assertEquals(caverphone('ashmore'), 'ASMA111111')
-        self.assertEquals(caverphone('ashron'), 'ASRN111111')
-        self.assertEquals(caverphone('ashton'), 'ASTN111111')
-        self.assertEquals(caverphone('ashwell'), 'ASWA111111')
-        self.assertEquals(caverphone('ashworth'), 'ASWT111111')
-        self.assertEquals(caverphone('askor'), 'ASKA111111')
-        self.assertEquals(caverphone('aslin'), 'ASLN111111')
-        self.assertEquals(caverphone('asquith'), 'ASKT111111')
-        self.assertEquals(caverphone('aston'), 'ASTN111111')
-        self.assertEquals(caverphone('astor'), 'ASTA111111')
-        self.assertEquals(caverphone('atchison'), 'AKSN111111')
-        self.assertEquals(caverphone('atherfold'), 'ATFT111111')
-        self.assertEquals(caverphone('athfield'), 'ATFT111111')
-        self.assertEquals(caverphone('athldeld'), 'ATTT111111')
-        self.assertEquals(caverphone('atkin'), 'ATKN111111')
-        self.assertEquals(caverphone('atkins'), 'ATKNS11111')
-        self.assertEquals(caverphone('atkinson'), 'ATKNSN1111')
-        self.assertEquals(caverphone('atmore'), 'ATMA111111')
-        self.assertEquals(caverphone('atto'), 'ATA1111111')
-        self.assertEquals(caverphone('attwell'), 'ATWA111111')
-        self.assertEquals(caverphone('atwill'), 'ATWA111111')
-        self.assertEquals(caverphone('audeison'), 'ATSN111111')
-        self.assertEquals(caverphone('augus'), 'AKS1111111')
-        self.assertEquals(caverphone('auld'), 'AT11111111')
-        self.assertEquals(caverphone('austad'), 'ASTT111111')
-        self.assertEquals(caverphone('austen'), 'ASTN111111')
-        self.assertEquals(caverphone('austin'), 'ASTN111111')
-        self.assertEquals(caverphone('austing'), 'ASTNK11111')
-        self.assertEquals(caverphone('auty'), 'ATA1111111')
-        self.assertEquals(caverphone('averill'), 'AFRA111111')
-        self.assertEquals(caverphone('avery'), 'AFRA111111')
-        self.assertEquals(caverphone('awdry'), 'ATRA111111')
-        self.assertEquals(caverphone('ayers'), 'AS11111111')
-        self.assertEquals(caverphone('aylwin'), 'AWN1111111')
-        self.assertEquals(caverphone('ayres'), 'ARS1111111')
-        self.assertEquals(caverphone('ayrey'), 'ARA1111111')
-        self.assertEquals(caverphone('ayshford'), 'ASFT111111')
-        self.assertEquals(caverphone('ayson'), 'ASN1111111')
-        self.assertEquals(caverphone('ayto'), 'ATA1111111')
-        self.assertEquals(caverphone('azzariti'), 'ASRTA11111')
-        self.assertEquals(caverphone('baber'), 'PPA1111111')
-        self.assertEquals(caverphone('bachop'), 'PKP1111111')
-        self.assertEquals(caverphone('back'), 'PK11111111')
-        self.assertEquals(caverphone('backholm'), 'PKM1111111')
-        self.assertEquals(caverphone('bacon'), 'PKN1111111')
-        self.assertEquals(caverphone('badcock'), 'PTKK111111')
-        self.assertEquals(caverphone('badham'), 'PTM1111111')
-        self.assertEquals(caverphone('badman'), 'PTMN111111')
-        self.assertEquals(caverphone('baeyertz'), 'PTS1111111')
-        self.assertEquals(caverphone('bagley'), 'PKLA111111')
-        self.assertEquals(caverphone('bagnell'), 'PKNA111111')
-        self.assertEquals(caverphone('bagrie'), 'PKRA111111')
-        self.assertEquals(caverphone('bail'), 'PA11111111')
-        self.assertEquals(caverphone('baildon'), 'PTN1111111')
-        self.assertEquals(caverphone('bailer'), 'PLA1111111')
-        self.assertEquals(caverphone('bailes'), 'PLS1111111')
-        self.assertEquals(caverphone('bailey'), 'PLA1111111')
-        self.assertEquals(caverphone('baillie'), 'PLA1111111')
-        self.assertEquals(caverphone('bailoni'), 'PLNA111111')
-        self.assertEquals(caverphone('bain'), 'PN11111111')
-        self.assertEquals(caverphone('baines'), 'PNS1111111')
-        self.assertEquals(caverphone('baird'), 'PT11111111')
-        self.assertEquals(caverphone('baker'), 'PKA1111111')
-        self.assertEquals(caverphone('balchin'), 'PKN1111111')
-        self.assertEquals(caverphone('balding'), 'PTNK111111')
-        self.assertEquals(caverphone('baldock'), 'PTK1111111')
-        self.assertEquals(caverphone('baldwin'), 'PTWN111111')
-        self.assertEquals(caverphone('baley'), 'PLA1111111')
-        self.assertEquals(caverphone('baliantyne'), 'PLNTN11111')
-        self.assertEquals(caverphone('ball'), 'PA11111111')
-        self.assertEquals(caverphone('ballantyne'), 'PLNTN11111')
-        self.assertEquals(caverphone('ballard'), 'PLT1111111')
-        self.assertEquals(caverphone('ballentyne'), 'PLNTN11111')
-        self.assertEquals(caverphone('ballintyne'), 'PLNTN11111')
-        self.assertEquals(caverphone('balloch'), 'PLK1111111')
-        self.assertEquals(caverphone('balneaves'), 'PNFS111111')
-        self.assertEquals(caverphone('bamber'), 'PMPA111111')
-        self.assertEquals(caverphone('bambery'), 'PMPRA11111')
-        self.assertEquals(caverphone('bambury'), 'PMPRA11111')
-        self.assertEquals(caverphone('bamfield'), 'PMFT111111')
-        self.assertEquals(caverphone('bamford'), 'PMFT111111')
-        self.assertEquals(caverphone('bamwell'), 'PMWA111111')
-        self.assertEquals(caverphone('bandeen'), 'PNTN111111')
-        self.assertEquals(caverphone('banfield'), 'PNFT111111')
-        self.assertEquals(caverphone('banks'), 'PNKS111111')
-        self.assertEquals(caverphone('bankshaw'), 'PNKSA11111')
-        self.assertEquals(caverphone('banlow'), 'PNLA111111')
-        self.assertEquals(caverphone('bannantyne'), 'PNNTN11111')
-        self.assertEquals(caverphone('bannatyne'), 'PNTN111111')
-        self.assertEquals(caverphone('bannerman'), 'PNMN111111')
-        self.assertEquals(caverphone('banwell'), 'PNWA111111')
-        self.assertEquals(caverphone('baoumgren'), 'PMKRN11111')
-        self.assertEquals(caverphone('barbara'), 'PPRA111111')
-        self.assertEquals(caverphone('barbeau'), 'PPA1111111')
-        self.assertEquals(caverphone('barber'), 'PPA1111111')
-        self.assertEquals(caverphone('barbour'), 'PPA1111111')
-        self.assertEquals(caverphone('barclay'), 'PKLA111111')
-        self.assertEquals(caverphone('bardsiey'), 'PTSA111111')
-        self.assertEquals(caverphone('bardsley'), 'PTSLA11111')
-        self.assertEquals(caverphone('bardwell'), 'PTWA111111')
-        self.assertEquals(caverphone('bare'), 'PA11111111')
-        self.assertEquals(caverphone('barfield'), 'PFT1111111')
-        self.assertEquals(caverphone('barham'), 'PM11111111')
-        self.assertEquals(caverphone('barker'), 'PKA1111111')
-        self.assertEquals(caverphone('barkla'), 'PKLA111111')
-        self.assertEquals(caverphone('barkman'), 'PKMN111111')
-        self.assertEquals(caverphone('barling'), 'PLNK111111')
-        self.assertEquals(caverphone('barlow'), 'PLA1111111')
-        self.assertEquals(caverphone('barlthrop'), 'PTRP111111')
-        self.assertEquals(caverphone('barltrop'), 'PTRP111111')
-        self.assertEquals(caverphone('barnard'), 'PNT1111111')
-        self.assertEquals(caverphone('barnes'), 'PNS1111111')
-        self.assertEquals(caverphone('barnett'), 'PNT1111111')
-        self.assertEquals(caverphone('barney'), 'PNA1111111')
-        self.assertEquals(caverphone('barnfield'), 'PNFT111111')
-        self.assertEquals(caverphone('barnford'), 'PNFT111111')
-        self.assertEquals(caverphone('barns'), 'PNS1111111')
-        self.assertEquals(caverphone('baron'), 'PRN1111111')
-        self.assertEquals(caverphone('barr'), 'PA11111111')
-        self.assertEquals(caverphone('barrass'), 'PRS1111111')
-        self.assertEquals(caverphone('barratt'), 'PRT1111111')
-        self.assertEquals(caverphone('barrell'), 'PRA1111111')
-        self.assertEquals(caverphone('barret'), 'PRT1111111')
-        self.assertEquals(caverphone('barrett'), 'PRT1111111')
-        self.assertEquals(caverphone('barrie'), 'PRA1111111')
-        self.assertEquals(caverphone('barrington'), 'PRNKTN1111')
-        self.assertEquals(caverphone('barritt'), 'PRT1111111')
-        self.assertEquals(caverphone('barron'), 'PRN1111111')
-        self.assertEquals(caverphone('barrow'), 'PRA1111111')
-        self.assertEquals(caverphone('barrowclou'), 'PRKLA11111')
-        self.assertEquals(caverphone('barrowclough'), 'PRKLA11111')
-        self.assertEquals(caverphone('barrowman'), 'PRMN111111')
-        self.assertEquals(caverphone('barry'), 'PRA1111111')
-        self.assertEquals(caverphone('barsdell'), 'PSTA111111')
-        self.assertEquals(caverphone('barth'), 'PT11111111')
-        self.assertEquals(caverphone('bartholome'), 'PTLM111111')
-        self.assertEquals(caverphone('bartholomew'), 'PTLMA11111')
-        self.assertEquals(caverphone('bartlett'), 'PTLT111111')
-        self.assertEquals(caverphone('bartley'), 'PTLA111111')
-        self.assertEquals(caverphone('barton-bro'), 'PTNPRA1111')
-        self.assertEquals(caverphone('barton-browne'), 'PTNPRN1111')
-        self.assertEquals(caverphone('barton'), 'PTN1111111')
-        self.assertEquals(caverphone('bartram'), 'PTRM111111')
-        self.assertEquals(caverphone('barwell'), 'PWA1111111')
-        self.assertEquals(caverphone('barwick'), 'PWK1111111')
-        self.assertEquals(caverphone('basan'), 'PSN1111111')
-        self.assertEquals(caverphone('baskett'), 'PSKT111111')
-        self.assertEquals(caverphone('bassett'), 'PST1111111')
-        self.assertEquals(caverphone('bastings'), 'PSTNKS1111')
-        self.assertEquals(caverphone('batcheior'), 'PKA1111111')
-        self.assertEquals(caverphone('batchelor'), 'PKLA111111')
-        self.assertEquals(caverphone('bate'), 'PT11111111')
-        self.assertEquals(caverphone('bateman'), 'PTMN111111')
-        self.assertEquals(caverphone('bates'), 'PTS1111111')
-        self.assertEquals(caverphone('bath'), 'PT11111111')
-        self.assertEquals(caverphone('batham'), 'PTM1111111')
-        self.assertEquals(caverphone('bathgate'), 'PTKT111111')
-        self.assertEquals(caverphone('bats'), 'PTS1111111')
-        self.assertEquals(caverphone('batt'), 'PT11111111')
-        self.assertEquals(caverphone('battersby'), 'PTSPA11111')
-        self.assertEquals(caverphone('batty'), 'PTA1111111')
-        self.assertEquals(caverphone('battye'), 'PTA1111111')
-        self.assertEquals(caverphone('bauchop'), 'PKP1111111')
-        self.assertEquals(caverphone('baughen'), 'PKN1111111')
-        self.assertEquals(caverphone('bauld'), 'PT11111111')
-        self.assertEquals(caverphone('baverstock'), 'PFSTK11111')
-        self.assertEquals(caverphone('bawden'), 'PTN1111111')
-        self.assertEquals(caverphone('baxter'), 'PKTA111111')
-        self.assertEquals(caverphone('baylee'), 'PLA1111111')
-        self.assertEquals(caverphone('bayley'), 'PLA1111111')
-        self.assertEquals(caverphone('baylis'), 'PLS1111111')
-        self.assertEquals(caverphone('bayliss'), 'PLS1111111')
-        self.assertEquals(caverphone('bayly'), 'PLA1111111')
-        self.assertEquals(caverphone('bayne'), 'PN11111111')
-        self.assertEquals(caverphone('bazley'), 'PSLA111111')
-        self.assertEquals(caverphone('beach'), 'PK11111111')
-        self.assertEquals(caverphone('beadle'), 'PTA1111111')
-        self.assertEquals(caverphone('beagle'), 'PKA1111111')
-        self.assertEquals(caverphone('beal'), 'PA11111111')
-        self.assertEquals(caverphone('beale'), 'PA11111111')
-        self.assertEquals(caverphone('bean'), 'PN11111111')
-        self.assertEquals(caverphone('bear'), 'PA11111111')
-        self.assertEquals(caverphone('beardsley'), 'PTSLA11111')
-        self.assertEquals(caverphone('beardsmore'), 'PTSMA11111')
-        self.assertEquals(caverphone('beasley'), 'PSLA111111')
-        self.assertEquals(caverphone('beath'), 'PT11111111')
-        self.assertEquals(caverphone('beaton'), 'PTN1111111')
-        self.assertEquals(caverphone('beatson'), 'PTSN111111')
-        self.assertEquals(caverphone('beattie'), 'PTA1111111')
-        self.assertEquals(caverphone('beatty'), 'PTA1111111')
-        self.assertEquals(caverphone('beauchamp'), 'PKMP111111')
-        self.assertEquals(caverphone('beaufort'), 'PFT1111111')
-        self.assertEquals(caverphone('beaumont'), 'PMNT111111')
-        self.assertEquals(caverphone('beautort'), 'PTT1111111')
-        self.assertEquals(caverphone('beavars'), 'PFS1111111')
-        self.assertEquals(caverphone('beaven'), 'PFN1111111')
-        self.assertEquals(caverphone('beaver'), 'PFA1111111')
-        self.assertEquals(caverphone('beavers'), 'PFS1111111')
-        self.assertEquals(caverphone('beazley'), 'PSLA111111')
-        self.assertEquals(caverphone('beck'), 'PK11111111')
-        self.assertEquals(caverphone('beckersta'), 'PKSTA11111')
-        self.assertEquals(caverphone('beckerstoff'), 'PKSTF11111')
-        self.assertEquals(caverphone('beckett'), 'PKT1111111')
-        self.assertEquals(caverphone('beckingham'), 'PKNM111111')
-        self.assertEquals(caverphone('beckingsale'), 'PKNKSA1111')
-        self.assertEquals(caverphone('bedford'), 'PTFT111111')
-        self.assertEquals(caverphone('bee'), 'PA11111111')
-        self.assertEquals(caverphone('beeby'), 'PPA1111111')
-        self.assertEquals(caverphone('beecher'), 'PKA1111111')
-        self.assertEquals(caverphone('beecot'), 'PKT1111111')
-        self.assertEquals(caverphone('beecroft'), 'PKRFT11111')
-        self.assertEquals(caverphone('beedie'), 'PTA1111111')
-        self.assertEquals(caverphone('beekman'), 'PKMN111111')
-        self.assertEquals(caverphone('beel'), 'PA11111111')
-        self.assertEquals(caverphone('been'), 'PN11111111')
-        self.assertEquals(caverphone('beer'), 'PA11111111')
-        self.assertEquals(caverphone('beeson'), 'PSN1111111')
-        self.assertEquals(caverphone('begbie'), 'PKPA111111')
-        self.assertEquals(caverphone('begg'), 'PK11111111')
-        self.assertEquals(caverphone('beigbson'), 'PKPSN11111')
-        self.assertEquals(caverphone('beighton'), 'PTN1111111')
-        self.assertEquals(caverphone('beil'), 'PA11111111')
-        self.assertEquals(caverphone('beilby'), 'PPA1111111')
-        self.assertEquals(caverphone('beirne'), 'PN11111111')
-        self.assertEquals(caverphone('beissel'), 'PSA1111111')
-        self.assertEquals(caverphone('belcher'), 'PKA1111111')
-        self.assertEquals(caverphone('belford'), 'PFT1111111')
-        self.assertEquals(caverphone('bell'), 'PA11111111')
-        self.assertEquals(caverphone('bellamy'), 'PLMA111111')
-        self.assertEquals(caverphone('bellaney'), 'PLNA111111')
-        self.assertEquals(caverphone('bellet'), 'PLT1111111')
-        self.assertEquals(caverphone('bellett'), 'PLT1111111')
-        self.assertEquals(caverphone('bellve'), 'PF11111111')
-        self.assertEquals(caverphone('belotti'), 'PLTA111111')
-        self.assertEquals(caverphone('belsey'), 'PSA1111111')
-        self.assertEquals(caverphone('belstead'), 'PSTT111111')
-        self.assertEquals(caverphone('belve'), 'PF11111111')
-        self.assertEquals(caverphone('belworthy'), 'PWTA111111')
-        self.assertEquals(caverphone('bendall'), 'PNTA111111')
-        self.assertEquals(caverphone('benfell'), 'PNFA111111')
-        self.assertEquals(caverphone('benfield'), 'PNFT111111')
-        self.assertEquals(caverphone('benham'), 'PNM1111111')
-        self.assertEquals(caverphone('benjamin'), 'PNMN111111')
-        self.assertEquals(caverphone('benn'), 'PN11111111')
-        self.assertEquals(caverphone('bennell'), 'PNA1111111')
-        self.assertEquals(caverphone('bennet'), 'PNT1111111')
-        self.assertEquals(caverphone('bennett'), 'PNT1111111')
-        self.assertEquals(caverphone('bennetto'), 'PNTA111111')
-        self.assertEquals(caverphone('bennetts'), 'PNTS111111')
-        self.assertEquals(caverphone('bennie'), 'PNA1111111')
-        self.assertEquals(caverphone('bennison'), 'PNSN111111')
-        self.assertEquals(caverphone('benson'), 'PNSN111111')
-        self.assertEquals(caverphone('benston'), 'PNSTN11111')
-        self.assertEquals(caverphone('benth'), 'PNT1111111')
-        self.assertEquals(caverphone('bentley'), 'PNTLA11111')
-        self.assertEquals(caverphone('benton'), 'PNTN111111')
-        self.assertEquals(caverphone('benzie'), 'PNSA111111')
-        self.assertEquals(caverphone('ber'), 'PA11111111')
-        self.assertEquals(caverphone('berg'), 'PK11111111')
-        self.assertEquals(caverphone('bergin'), 'PKN1111111')
-        self.assertEquals(caverphone('berkeley'), 'PKLA111111')
-        self.assertEquals(caverphone('berkinshaw'), 'PKNSA11111')
-        self.assertEquals(caverphone('berland'), 'PLNT111111')
-        self.assertEquals(caverphone('berman'), 'PMN1111111')
-        self.assertEquals(caverphone('bern'), 'PN11111111')
-        self.assertEquals(caverphone('bernard'), 'PNT1111111')
-        self.assertEquals(caverphone('bernet'), 'PNT1111111')
-        self.assertEquals(caverphone('berney'), 'PNA1111111')
-        self.assertEquals(caverphone('bernie'), 'PNA1111111')
-        self.assertEquals(caverphone('bernstein'), 'PNSTN11111')
-        self.assertEquals(caverphone('berrett'), 'PRT1111111')
-        self.assertEquals(caverphone('berry'), 'PRA1111111')
-        self.assertEquals(caverphone('berryman'), 'PRMN111111')
-        self.assertEquals(caverphone('berryrnan'), 'PRNN111111')
-        self.assertEquals(caverphone('bertenshaw'), 'PTNSA11111')
-        self.assertEquals(caverphone('berti'), 'PTA1111111')
-        self.assertEquals(caverphone('berwick'), 'PWK1111111')
-        self.assertEquals(caverphone('besley'), 'PSLA111111')
-        self.assertEquals(caverphone('best'), 'PST1111111')
-        self.assertEquals(caverphone('bestic'), 'PSTK111111')
-        self.assertEquals(caverphone('bethune'), 'PTN1111111')
-        self.assertEquals(caverphone('bettle'), 'PTA1111111')
-        self.assertEquals(caverphone('bettridge'), 'PTRK111111')
-        self.assertEquals(caverphone('betts'), 'PTS1111111')
-        self.assertEquals(caverphone('betty'), 'PTA1111111')
-        self.assertEquals(caverphone('beuth'), 'PT11111111')
-        self.assertEquals(caverphone('bevan'), 'PFN1111111')
-        self.assertEquals(caverphone('bevars'), 'PFS1111111')
-        self.assertEquals(caverphone('beven'), 'PFN1111111')
-        self.assertEquals(caverphone('beveridge'), 'PFRK111111')
-        self.assertEquals(caverphone('bevin'), 'PFN1111111')
-        self.assertEquals(caverphone('bevis'), 'PFS1111111')
-        self.assertEquals(caverphone('bewley'), 'PLA1111111')
-        self.assertEquals(caverphone('bews'), 'PS11111111')
-        self.assertEquals(caverphone('bewsher'), 'PSA1111111')
-        self.assertEquals(caverphone('beyer'), 'PA11111111')
-        self.assertEquals(caverphone('bezar'), 'PSA1111111')
-        self.assertEquals(caverphone('bezett'), 'PST1111111')
-        self.assertEquals(caverphone('bggs'), 'PKS1111111')
-        self.assertEquals(caverphone('biack'), 'PK11111111')
-        self.assertEquals(caverphone('bichan'), 'PKN1111111')
-        self.assertEquals(caverphone('bichard'), 'PKT1111111')
-        self.assertEquals(caverphone('bickerdike'), 'PKTK111111')
-        self.assertEquals(caverphone('bicknell'), 'PKNA111111')
-        self.assertEquals(caverphone('bidgood'), 'PKT1111111')
-        self.assertEquals(caverphone('bierstorf'), 'PSTF111111')
-        self.assertEquals(caverphone('biggar'), 'PKA1111111')
-        self.assertEquals(caverphone('biggins'), 'PKNS111111')
-        self.assertEquals(caverphone('biggs'), 'PKS1111111')
-        self.assertEquals(caverphone('billingham'), 'PLNM111111')
-        self.assertEquals(caverphone('billington'), 'PLNKTN1111')
-        self.assertEquals(caverphone('bills'), 'PS11111111')
-        self.assertEquals(caverphone('bilson'), 'PSN1111111')
-        self.assertEquals(caverphone('bingham'), 'PNM1111111')
-        self.assertEquals(caverphone('binney'), 'PNA1111111')
-        self.assertEquals(caverphone('binnie'), 'PNA1111111')
-        self.assertEquals(caverphone('binsted'), 'PNSTT11111')
-        self.assertEquals(caverphone('bioss'), 'PS11111111')
-        self.assertEquals(caverphone('birch'), 'PK11111111')
-        self.assertEquals(caverphone('birchall'), 'PKA1111111')
-        self.assertEquals(caverphone('birchwood'), 'PKWT111111')
-        self.assertEquals(caverphone('bird'), 'PT11111111')
-        self.assertEquals(caverphone('birkenshaw'), 'PKNSA11111')
-        self.assertEquals(caverphone('birkett'), 'PKT1111111')
-        self.assertEquals(caverphone('birkner'), 'PKNA111111')
-        self.assertEquals(caverphone('birnie'), 'PNA1111111')
-        self.assertEquals(caverphone('birrell'), 'PRA1111111')
-        self.assertEquals(caverphone('birse'), 'PS11111111')
-        self.assertEquals(caverphone('birss'), 'PS11111111')
-        self.assertEquals(caverphone('birt'), 'PT11111111')
-        self.assertEquals(caverphone('birtles'), 'PTLS111111')
-        self.assertEquals(caverphone('bishop'), 'PSP1111111')
-        self.assertEquals(caverphone('bisset'), 'PST1111111')
-        self.assertEquals(caverphone('bissett'), 'PST1111111')
-        self.assertEquals(caverphone('bissland'), 'PSLNT11111')
-        self.assertEquals(caverphone('black'), 'PLK1111111')
-        self.assertEquals(caverphone('blackbrn'), 'PLKPN11111')
-        self.assertEquals(caverphone('blackburn'), 'PLKPN11111')
-        self.assertEquals(caverphone('blacke'), 'PLK1111111')
-        self.assertEquals(caverphone('blackford'), 'PLKFT11111')
-        self.assertEquals(caverphone('blackie'), 'PLKA111111')
-        self.assertEquals(caverphone('blackledge'), 'PLKLK11111')
-        self.assertEquals(caverphone('blackley'), 'PLKLA11111')
-        self.assertEquals(caverphone('blacklock'), 'PLKLK11111')
-        self.assertEquals(caverphone('blacklow'), 'PLKLA11111')
-        self.assertEquals(caverphone('blackmore'), 'PLKMA11111')
-        self.assertEquals(caverphone('blackock'), 'PLKK111111')
-        self.assertEquals(caverphone('blackwell'), 'PLKWA11111')
-        self.assertEquals(caverphone('blackwood'), 'PLKWT11111')
-        self.assertEquals(caverphone('blagdon'), 'PLKTN11111')
-        self.assertEquals(caverphone('blaikie'), 'PLKA111111')
-        self.assertEquals(caverphone('blair'), 'PLA1111111')
-        self.assertEquals(caverphone('blake'), 'PLK1111111')
-        self.assertEquals(caverphone('blakeley'), 'PLKLA11111')
-        self.assertEquals(caverphone('blakely'), 'PLKLA11111')
-        self.assertEquals(caverphone('blanc'), 'PLNK111111')
-        self.assertEquals(caverphone('blanch'), 'PLNK111111')
-        self.assertEquals(caverphone('blanchard'), 'PLNKT11111')
-        self.assertEquals(caverphone('blanchfield'), 'PLNKFT1111')
-        self.assertEquals(caverphone('bland'), 'PLNT111111')
-        self.assertEquals(caverphone('blandford'), 'PLNTFT1111')
-        self.assertEquals(caverphone('blaney'), 'PLNA111111')
-        self.assertEquals(caverphone('blayden'), 'PLTN111111')
-        self.assertEquals(caverphone('bleach'), 'PLK1111111')
-        self.assertEquals(caverphone('blease'), 'PLS1111111')
-        self.assertEquals(caverphone('blee'), 'PLA1111111')
-        self.assertEquals(caverphone('blell'), 'PLA1111111')
-        self.assertEquals(caverphone('blick'), 'PLK1111111')
-        self.assertEquals(caverphone('blincoe'), 'PLNKA11111')
-        self.assertEquals(caverphone('blines'), 'PLNS111111')
-        self.assertEquals(caverphone('blomfield'), 'PLMFT11111')
-        self.assertEquals(caverphone('bloomfield'), 'PLMFT11111')
-        self.assertEquals(caverphone('bloss'), 'PLS1111111')
-        self.assertEquals(caverphone('blott'), 'PLT1111111')
-        self.assertEquals(caverphone('bloxham'), 'PLKM111111')
-        self.assertEquals(caverphone('bloy'), 'PLA1111111')
-        self.assertEquals(caverphone('blue'), 'PLA1111111')
-        self.assertEquals(caverphone('bluett'), 'PLT1111111')
-        self.assertEquals(caverphone('blunt'), 'PLNT111111')
-        self.assertEquals(caverphone('blyth'), 'PLT1111111')
-        self.assertEquals(caverphone('blythe'), 'PLT1111111')
-        self.assertEquals(caverphone('bnker'), 'PNKA111111')
-        self.assertEquals(caverphone('boag'), 'PK11111111')
-        self.assertEquals(caverphone('boardman'), 'PTMN111111')
-        self.assertEquals(caverphone('boatwood'), 'PTWT111111')
-        self.assertEquals(caverphone('boaz'), 'PS11111111')
-        self.assertEquals(caverphone('bobbett'), 'PPT1111111')
-        self.assertEquals(caverphone('boberg'), 'PPK1111111')
-        self.assertEquals(caverphone('bobsien'), 'PPSN111111')
-        self.assertEquals(caverphone('boddy'), 'PTA1111111')
-        self.assertEquals(caverphone('boddye'), 'PTA1111111')
-        self.assertEquals(caverphone('bode'), 'PT11111111')
-        self.assertEquals(caverphone('bodkin'), 'PTKN111111')
-        self.assertEquals(caverphone('boecking'), 'PKNK111111')
-        self.assertEquals(caverphone('boelke'), 'PK11111111')
-        self.assertEquals(caverphone('bogue'), 'PKA1111111')
-        self.assertEquals(caverphone('bohm'), 'PM11111111')
-        self.assertEquals(caverphone('bohrsman'), 'PSMN111111')
-        self.assertEquals(caverphone('boland'), 'PLNT111111')
-        self.assertEquals(caverphone('bollard'), 'PLT1111111')
-        self.assertEquals(caverphone('bollett'), 'PLT1111111')
-        self.assertEquals(caverphone('bolsand'), 'PSNT111111')
-        self.assertEquals(caverphone('bolstad'), 'PSTT111111')
-        self.assertEquals(caverphone('bolt'), 'PT11111111')
-        self.assertEquals(caverphone('bolting'), 'PTNK111111')
-        self.assertEquals(caverphone('bolton'), 'PTN1111111')
-        self.assertEquals(caverphone('bolwell'), 'PWA1111111')
-        self.assertEquals(caverphone('bolwill'), 'PWA1111111')
-        self.assertEquals(caverphone('bonar'), 'PNA1111111')
-        self.assertEquals(caverphone('bonasich'), 'PNSK111111')
-        self.assertEquals(caverphone('bond'), 'PNT1111111')
-        self.assertEquals(caverphone('bone'), 'PN11111111')
-        self.assertEquals(caverphone('boner'), 'PNA1111111')
-        self.assertEquals(caverphone('bonetti'), 'PNTA111111')
-        self.assertEquals(caverphone('bongard'), 'PNKT111111')
-        self.assertEquals(caverphone('bonham'), 'PNM1111111')
-        self.assertEquals(caverphone('boniface'), 'PNFK111111')
-        self.assertEquals(caverphone('bonifant'), 'PNFNT11111')
-        self.assertEquals(caverphone('bonney'), 'PNA1111111')
-        self.assertEquals(caverphone('bonnie'), 'PNA1111111')
-        self.assertEquals(caverphone('bonnin'), 'PNN1111111')
-        self.assertEquals(caverphone('booker'), 'PKA1111111')
-        self.assertEquals(caverphone('bool'), 'PA11111111')
-        self.assertEquals(caverphone('booley'), 'PLA1111111')
-        self.assertEquals(caverphone('boot'), 'PT11111111')
-        self.assertEquals(caverphone('booten'), 'PTN1111111')
-        self.assertEquals(caverphone('booth'), 'PT11111111')
-        self.assertEquals(caverphone('boothroyd'), 'PTRT111111')
-        self.assertEquals(caverphone('bootten'), 'PTN1111111')
-        self.assertEquals(caverphone('boraman'), 'PRMN111111')
-        self.assertEquals(caverphone('boreham'), 'PRM1111111')
-        self.assertEquals(caverphone('borjeson'), 'PRSN111111')
-        self.assertEquals(caverphone('borland'), 'PLNT111111')
-        self.assertEquals(caverphone('borley'), 'PLA1111111')
-        self.assertEquals(caverphone('borne'), 'PN11111111')
-        self.assertEquals(caverphone('borrie'), 'PRA1111111')
-        self.assertEquals(caverphone('borthwick'), 'PTWK111111')
-        self.assertEquals(caverphone('borton'), 'PTN1111111')
-        self.assertEquals(caverphone('borwick'), 'PWK1111111')
-        self.assertEquals(caverphone('boswell'), 'PSWA111111')
-        self.assertEquals(caverphone('bosworth'), 'PSWT111111')
-        self.assertEquals(caverphone('bott'), 'PT11111111')
-        self.assertEquals(caverphone('botting'), 'PTNK111111')
-        self.assertEquals(caverphone('boucher'), 'PKA1111111')
-        self.assertEquals(caverphone('bouchor'), 'PKA1111111')
-        self.assertEquals(caverphone('boud'), 'PT11111111')
-        self.assertEquals(caverphone('boulnois'), 'PNS1111111')
-        self.assertEquals(caverphone('boult'), 'PT11111111')
-        self.assertEquals(caverphone('boulter'), 'PTA1111111')
-        self.assertEquals(caverphone('boulton'), 'PTN1111111')
-        self.assertEquals(caverphone('bouquet'), 'PKT1111111')
-        self.assertEquals(caverphone('bourke'), 'PK11111111')
-        self.assertEquals(caverphone('bourne'), 'PN11111111')
-        self.assertEquals(caverphone('boutcher'), 'PKA1111111')
-        self.assertEquals(caverphone('bouterey'), 'PTRA111111')
-        self.assertEquals(caverphone('bowdell'), 'PTA1111111')
-        self.assertEquals(caverphone('bowden'), 'PTN1111111')
-        self.assertEquals(caverphone('bowdler'), 'PTLA111111')
-        self.assertEquals(caverphone('bowen'), 'PWN1111111')
-        self.assertEquals(caverphone('bower'), 'PWA1111111')
-        self.assertEquals(caverphone('bowers'), 'PWS1111111')
-        self.assertEquals(caverphone('bowie'), 'PWA1111111')
-        self.assertEquals(caverphone('bowker'), 'PKA1111111')
-        self.assertEquals(caverphone('bowkett'), 'PKT1111111')
-        self.assertEquals(caverphone('bowler'), 'PLA1111111')
-        self.assertEquals(caverphone('bowles'), 'PLS1111111')
-        self.assertEquals(caverphone('bowling'), 'PLNK111111')
-        self.assertEquals(caverphone('bowls'), 'PS11111111')
-        self.assertEquals(caverphone('bowman'), 'PMN1111111')
-        self.assertEquals(caverphone('bowmar'), 'PMA1111111')
-        self.assertEquals(caverphone('bowser'), 'PSA1111111')
-        self.assertEquals(caverphone('boxall'), 'PKA1111111')
-        self.assertEquals(caverphone('boyall'), 'PA11111111')
-        self.assertEquals(caverphone('boyd'), 'PT11111111')
-        self.assertEquals(caverphone('boyer'), 'PA11111111')
-        self.assertEquals(caverphone('boyes'), 'PS11111111')
-        self.assertEquals(caverphone('boyison'), 'PSN1111111')
-        self.assertEquals(caverphone('boyland'), 'PLNT111111')
-        self.assertEquals(caverphone('boyle'), 'PA11111111')
-        self.assertEquals(caverphone('boylen'), 'PLN1111111')
-        self.assertEquals(caverphone('boyles'), 'PLS1111111')
-        self.assertEquals(caverphone('boys'), 'PS11111111')
-        self.assertEquals(caverphone('brabant'), 'PRPNT11111')
-        self.assertEquals(caverphone('brabyn'), 'PRPN111111')
-        self.assertEquals(caverphone('bracegirdle'), 'PRSKTA1111')
-        self.assertEquals(caverphone('brackenridge'), 'PRKNRK1111')
-        self.assertEquals(caverphone('brackley'), 'PRKLA11111')
-        self.assertEquals(caverphone('bracks'), 'PRKS111111')
-        self.assertEquals(caverphone('braden'), 'PRTN111111')
-        self.assertEquals(caverphone('bradford'), 'PRTFT11111')
-        self.assertEquals(caverphone('brading'), 'PRTNK11111')
-        self.assertEquals(caverphone('bradley'), 'PRTLA11111')
-        self.assertEquals(caverphone('bradshaw'), 'PRTSA11111')
-        self.assertEquals(caverphone('brady'), 'PRTA111111')
-        self.assertEquals(caverphone('bragg'), 'PRK1111111')
-        self.assertEquals(caverphone('braham'), 'PRM1111111')
-        self.assertEquals(caverphone('braid'), 'PRT1111111')
-        self.assertEquals(caverphone('braidwood'), 'PRTWT11111')
-        self.assertEquals(caverphone('brail'), 'PRA1111111')
-        self.assertEquals(caverphone('braimbridge'), 'PRMPRK1111')
-        self.assertEquals(caverphone('brain'), 'PRN1111111')
-        self.assertEquals(caverphone('braithiwaite'), 'PRTWT11111')
-        self.assertEquals(caverphone('braithwaite'), 'PRTWT11111')
-        self.assertEquals(caverphone('bramley'), 'PRMLA11111')
-        self.assertEquals(caverphone('bramwell'), 'PRMWA11111')
-        self.assertEquals(caverphone('brand'), 'PRNT111111')
-        self.assertEquals(caverphone('brander'), 'PRNTA11111')
-        self.assertEquals(caverphone('brandon'), 'PRNTN11111')
-        self.assertEquals(caverphone('brands'), 'PRNTS11111')
-        self.assertEquals(caverphone('brandt'), 'PRNT111111')
-        self.assertEquals(caverphone('bransgrove'), 'PRNSKRF111')
-        self.assertEquals(caverphone('branson'), 'PRNSN11111')
-        self.assertEquals(caverphone('brass'), 'PRS1111111')
-        self.assertEquals(caverphone('bratby'), 'PRTPA11111')
-        self.assertEquals(caverphone('brathwaite'), 'PRTWT11111')
-        self.assertEquals(caverphone('bray'), 'PRA1111111')
-        self.assertEquals(caverphone('breach'), 'PRK1111111')
-        self.assertEquals(caverphone('brebner'), 'PRPNA11111')
-        self.assertEquals(caverphone('bree'), 'PRA1111111')
-        self.assertEquals(caverphone('breen'), 'PRN1111111')
-        self.assertEquals(caverphone('breese'), 'PRS1111111')
-        self.assertEquals(caverphone('breeze'), 'PRS1111111')
-        self.assertEquals(caverphone('bregmen'), 'PRKMN11111')
-        self.assertEquals(caverphone('brehaut'), 'PRT1111111')
-        self.assertEquals(caverphone('bremford'), 'PRMFT11111')
-        self.assertEquals(caverphone('bremmer'), 'PRMA111111')
-        self.assertEquals(caverphone('bremner'), 'PRMNA11111')
-        self.assertEquals(caverphone('brennan'), 'PRNN111111')
-        self.assertEquals(caverphone('brenssell'), 'PRNSA11111')
-        self.assertEquals(caverphone('brent'), 'PRNT111111')
-        self.assertEquals(caverphone('bresanello'), 'PRSNLA1111')
-        self.assertEquals(caverphone('bresnahan'), 'PRSNN11111')
-        self.assertEquals(caverphone('bretherton'), 'PRTTN11111')
-        self.assertEquals(caverphone('brett'), 'PRT1111111')
-        self.assertEquals(caverphone('brettell'), 'PRTA111111')
-        self.assertEquals(caverphone('brew'), 'PRA1111111')
-        self.assertEquals(caverphone('brewer'), 'PRWA111111')
-        self.assertEquals(caverphone('brewster'), 'PRSTA11111')
-        self.assertEquals(caverphone('brian'), 'PRN1111111')
-        self.assertEquals(caverphone('briant'), 'PRNT111111')
-        self.assertEquals(caverphone('briasco'), 'PRSKA11111')
-        self.assertEquals(caverphone('brice'), 'PRK1111111')
-        self.assertEquals(caverphone('brickell'), 'PRKA111111')
-        self.assertEquals(caverphone('brickland'), 'PRKLNT1111')
-        self.assertEquals(caverphone('briden'), 'PRTN111111')
-        self.assertEquals(caverphone('bridge'), 'PRK1111111')
-        self.assertEquals(caverphone('bridgeman'), 'PRKMN11111')
-        self.assertEquals(caverphone('bridger'), 'PRKA111111')
-        self.assertEquals(caverphone('bridges'), 'PRKS111111')
-        self.assertEquals(caverphone('bridget'), 'PRKT111111')
-        self.assertEquals(caverphone('bridgman'), 'PRKMN11111')
-        self.assertEquals(caverphone('brien'), 'PRN1111111')
-        self.assertEquals(caverphone('brierley'), 'PRLA111111')
-        self.assertEquals(caverphone('briggs'), 'PRKS111111')
-        self.assertEquals(caverphone('bright'), 'PRT1111111')
-        self.assertEquals(caverphone('brighting'), 'PRTNK11111')
-        self.assertEquals(caverphone('brightling'), 'PRTLNK1111')
-        self.assertEquals(caverphone('brightmore'), 'PRTMA11111')
-        self.assertEquals(caverphone('brightwell'), 'PRTWA11111')
-        self.assertEquals(caverphone('briley'), 'PRLA111111')
-        self.assertEquals(caverphone('brill'), 'PRA1111111')
-        self.assertEquals(caverphone('bringans'), 'PRNKNS1111')
-        self.assertEquals(caverphone('bringarts'), 'PRNKTS1111')
-        self.assertEquals(caverphone('brinkworth'), 'PRNKWT1111')
-        self.assertEquals(caverphone('brinn'), 'PRN1111111')
-        self.assertEquals(caverphone('brinsdon'), 'PRNSTN1111')
-        self.assertEquals(caverphone('brinsley'), 'PRNSLA1111')
-        self.assertEquals(caverphone('brisbane'), 'PRSPN11111')
-        self.assertEquals(caverphone('briscoe'), 'PRSKA11111')
-        self.assertEquals(caverphone('brisley'), 'PRSLA11111')
-        self.assertEquals(caverphone('briston'), 'PRSTN11111')
-        self.assertEquals(caverphone('bristow'), 'PRSTA11111')
-        self.assertEquals(caverphone('briton'), 'PRTN111111')
-        self.assertEquals(caverphone('britten'), 'PRTN111111')
-        self.assertEquals(caverphone('brittenden'), 'PRTNTN1111')
-        self.assertEquals(caverphone('britton'), 'PRTN111111')
-        self.assertEquals(caverphone('brixton'), 'PRKTN11111')
-        self.assertEquals(caverphone('broad'), 'PRT1111111')
-        self.assertEquals(caverphone('broadbent'), 'PRTPNT1111')
-        self.assertEquals(caverphone('broadfoot'), 'PRTFT11111')
-        self.assertEquals(caverphone('broadhead'), 'PRTT111111')
-        self.assertEquals(caverphone('broadley'), 'PRTLA11111')
-        self.assertEquals(caverphone('brock'), 'PRK1111111')
-        self.assertEquals(caverphone('brocket'), 'PRKT111111')
-        self.assertEquals(caverphone('brockie'), 'PRKA111111')
-        self.assertEquals(caverphone('brocklebank'), 'PRKLPNK111')
-        self.assertEquals(caverphone('brocklehurst'), 'PRKLST1111')
-        self.assertEquals(caverphone('broderick'), 'PRTRK11111')
-        self.assertEquals(caverphone('brodie'), 'PRTA111111')
-        self.assertEquals(caverphone('brodrick'), 'PRTRK11111')
-        self.assertEquals(caverphone('broenaham'), 'PRNM111111')
-        self.assertEquals(caverphone('bromley'), 'PRMLA11111')
-        self.assertEquals(caverphone('brook'), 'PRK1111111')
-        self.assertEquals(caverphone('brooke'), 'PRK1111111')
-        self.assertEquals(caverphone('brooker'), 'PRKA111111')
-        self.assertEquals(caverphone('brookes'), 'PRKS111111')
-        self.assertEquals(caverphone('brooket'), 'PRKT111111')
-        self.assertEquals(caverphone('brooklehurst'), 'PRKLST1111')
-        self.assertEquals(caverphone('brooks'), 'PRKS111111')
-        self.assertEquals(caverphone('brool'), 'PRA1111111')
-        self.assertEquals(caverphone('broolcs'), 'PRKS111111')
-        self.assertEquals(caverphone('broom'), 'PRM1111111')
-        self.assertEquals(caverphone('broome'), 'PRM1111111')
-        self.assertEquals(caverphone('broomfield'), 'PRMFT11111')
-        self.assertEquals(caverphone('broomhall'), 'PRMA111111')
-        self.assertEquals(caverphone('brosnahan'), 'PRSNN11111')
-        self.assertEquals(caverphone('brosnan'), 'PRSNN11111')
-        self.assertEquals(caverphone('brotherhoo'), 'PRTA111111')
-        self.assertEquals(caverphone('brotherhood'), 'PRTT111111')
-        self.assertEquals(caverphone('brotherston'), 'PRTSTN1111')
-        self.assertEquals(caverphone('brotherton'), 'PRTTN11111')
-        self.assertEquals(caverphone('brough'), 'PRA1111111')
-        self.assertEquals(caverphone('broughton'), 'PRTN111111')
-        self.assertEquals(caverphone('browett'), 'PRWT111111')
-        self.assertEquals(caverphone('brown-durie'), 'PRNTRA1111')
-        self.assertEquals(caverphone('brown-rennie'), 'PRNRNA1111')
-        self.assertEquals(caverphone('brown'), 'PRN1111111')
-        self.assertEquals(caverphone('browne'), 'PRN1111111')
-        self.assertEquals(caverphone('brownell'), 'PRNA111111')
-        self.assertEquals(caverphone('brownie'), 'PRNA111111')
-        self.assertEquals(caverphone('browning'), 'PRNNK11111')
-        self.assertEquals(caverphone('brownlie'), 'PRNLA11111')
-        self.assertEquals(caverphone('bruce'), 'PRK1111111')
-        self.assertEquals(caverphone('bruco'), 'PRKA111111')
-        self.assertEquals(caverphone('brugh'), 'PRA1111111')
-        self.assertEquals(caverphone('bruhns'), 'PRNS111111')
-        self.assertEquals(caverphone('brundell'), 'PRNTA11111')
-        self.assertEquals(caverphone('bruno'), 'PRNA111111')
-        self.assertEquals(caverphone('brunton'), 'PRNTN11111')
-        self.assertEquals(caverphone('bruten'), 'PRTN111111')
-        self.assertEquals(caverphone('bruton'), 'PRTN111111')
-        self.assertEquals(caverphone('bryan'), 'PRN1111111')
-        self.assertEquals(caverphone('bryant'), 'PRNT111111')
-        self.assertEquals(caverphone('bryce'), 'PRK1111111')
-        self.assertEquals(caverphone('bryden'), 'PRTN111111')
-        self.assertEquals(caverphone('brydone'), 'PRTN111111')
-        self.assertEquals(caverphone('bryson'), 'PRSN111111')
-        self.assertEquals(caverphone('btrns'), 'PTNS111111')
-        self.assertEquals(caverphone('buchan'), 'PKN1111111')
-        self.assertEquals(caverphone('buchanan'), 'PKNN111111')
-        self.assertEquals(caverphone('buck'), 'PK11111111')
-        self.assertEquals(caverphone('buckingham'), 'PKNM111111')
-        self.assertEquals(caverphone('buckland'), 'PKLNT11111')
-        self.assertEquals(caverphone('buckley'), 'PKLA111111')
-        self.assertEquals(caverphone('buddicom'), 'PTKM111111')
-        self.assertEquals(caverphone('buddicomb'), 'PTKM111111')
-        self.assertEquals(caverphone('buddicombe'), 'PTKM111111')
-        self.assertEquals(caverphone('buddle'), 'PTA1111111')
-        self.assertEquals(caverphone('budge'), 'PK11111111')
-        self.assertEquals(caverphone('bugby'), 'PKPA111111')
-        self.assertEquals(caverphone('bugden'), 'PKTN111111')
-        self.assertEquals(caverphone('buist'), 'PST1111111')
-        self.assertEquals(caverphone('bulfin'), 'PFN1111111')
-        self.assertEquals(caverphone('bulger'), 'PKA1111111')
-        self.assertEquals(caverphone('bull'), 'PA11111111')
-        self.assertEquals(caverphone('bullars'), 'PLS1111111')
-        self.assertEquals(caverphone('bullen'), 'PLN1111111')
-        self.assertEquals(caverphone('bullett'), 'PLT1111111')
-        self.assertEquals(caverphone('bullock'), 'PLK1111111')
-        self.assertEquals(caverphone('bullot'), 'PLT1111111')
-        self.assertEquals(caverphone('bullough'), 'PLA1111111')
-        self.assertEquals(caverphone('bulmer'), 'PMA1111111')
-        self.assertEquals(caverphone('bum'), 'PM11111111')
-        self.assertEquals(caverphone('bums'), 'PMS1111111')
-        self.assertEquals(caverphone('bunce'), 'PNK1111111')
-        self.assertEquals(caverphone('bundo'), 'PNTA111111')
-        self.assertEquals(caverphone('bungard'), 'PNKT111111')
-        self.assertEquals(caverphone('bungardt'), 'PNKT111111')
-        self.assertEquals(caverphone('bunting'), 'PNTNK11111')
-        self.assertEquals(caverphone('burbery'), 'PPRA111111')
-        self.assertEquals(caverphone('burbury'), 'PPRA111111')
-        self.assertEquals(caverphone('burcoll'), 'PKA1111111')
-        self.assertEquals(caverphone('burdekin'), 'PTKN111111')
-        self.assertEquals(caverphone('burden'), 'PTN1111111')
-        self.assertEquals(caverphone('burdett'), 'PTT1111111')
-        self.assertEquals(caverphone('burdon'), 'PTN1111111')
-        self.assertEquals(caverphone('burford'), 'PFT1111111')
-        self.assertEquals(caverphone('burger'), 'PKA1111111')
-        self.assertEquals(caverphone('burgess'), 'PKS1111111')
-        self.assertEquals(caverphone('burk'), 'PK11111111')
-        self.assertEquals(caverphone('burke'), 'PK11111111')
-        self.assertEquals(caverphone('burkinshaw'), 'PKNSA11111')
-        self.assertEquals(caverphone('burley'), 'PLA1111111')
-        self.assertEquals(caverphone('burlinson'), 'PLNSN11111')
-        self.assertEquals(caverphone('burn'), 'PN11111111')
-        self.assertEquals(caverphone('burnard'), 'PNT1111111')
-        self.assertEquals(caverphone('burnes'), 'PNS1111111')
-        self.assertEquals(caverphone('burnett'), 'PNT1111111')
-        self.assertEquals(caverphone('burns'), 'PNS1111111')
-        self.assertEquals(caverphone('burnside'), 'PNST111111')
-        self.assertEquals(caverphone('burrell'), 'PRA1111111')
-        self.assertEquals(caverphone('burridge'), 'PRK1111111')
-        self.assertEquals(caverphone('burrow'), 'PRA1111111')
-        self.assertEquals(caverphone('burrowes'), 'PRWS111111')
-        self.assertEquals(caverphone('burrows'), 'PRS1111111')
-        self.assertEquals(caverphone('burson'), 'PSN1111111')
-        self.assertEquals(caverphone('burt'), 'PT11111111')
-        self.assertEquals(caverphone('burton'), 'PTN1111111')
-        self.assertEquals(caverphone('busbridge'), 'PSPRK11111')
-        self.assertEquals(caverphone('busby'), 'PSPA111111')
-        self.assertEquals(caverphone('bush'), 'PS11111111')
-        self.assertEquals(caverphone('bushell'), 'PSA1111111')
-        self.assertEquals(caverphone('buss'), 'PS11111111')
-        self.assertEquals(caverphone('busst'), 'PST1111111')
-        self.assertEquals(caverphone('bustin'), 'PSTN111111')
-        self.assertEquals(caverphone('butchart'), 'PKT1111111')
-        self.assertEquals(caverphone('butcher'), 'PKA1111111')
-        self.assertEquals(caverphone('butel'), 'PTA1111111')
-        self.assertEquals(caverphone('butler'), 'PTLA111111')
-        self.assertEquals(caverphone('butlin'), 'PTLN111111')
-        self.assertEquals(caverphone('butt'), 'PT11111111')
-        self.assertEquals(caverphone('butterfield'), 'PTFT111111')
-        self.assertEquals(caverphone('buttermore'), 'PTMA111111')
-        self.assertEquals(caverphone('butterworth'), 'PTWT111111')
-        self.assertEquals(caverphone('buttimore'), 'PTMA111111')
-        self.assertEquals(caverphone('button'), 'PTN1111111')
-        self.assertEquals(caverphone('butts'), 'PTS1111111')
-        self.assertEquals(caverphone('buxton'), 'PKTN111111')
-        self.assertEquals(caverphone('buzzard'), 'PST1111111')
-        self.assertEquals(caverphone('bvrne'), 'PFN1111111')
-        self.assertEquals(caverphone('byfield'), 'PFT1111111')
-        self.assertEquals(caverphone('byford'), 'PFT1111111')
-        self.assertEquals(caverphone('byrne'), 'PN11111111')
-        self.assertEquals(caverphone('byrnes'), 'PNS1111111')
-        self.assertEquals(caverphone('byrno'), 'PNA1111111')
-        self.assertEquals(caverphone('cabena'), 'KPNA111111')
-        self.assertEquals(caverphone('cabral'), 'KPRA111111')
-        self.assertEquals(caverphone('caddie'), 'KTA1111111')
-        self.assertEquals(caverphone('cadigan'), 'KTKN111111')
-        self.assertEquals(caverphone('cadogan'), 'KTKN111111')
-        self.assertEquals(caverphone('caerwood'), 'KWT1111111')
-        self.assertEquals(caverphone('caffin'), 'KFN1111111')
-        self.assertEquals(caverphone('cagney'), 'KKNA111111')
-        self.assertEquals(caverphone('cahill'), 'KA11111111')
-        self.assertEquals(caverphone('caidwell'), 'KTWA111111')
-        self.assertEquals(caverphone('caigou'), 'KKA1111111')
-        self.assertEquals(caverphone('cain'), 'KN11111111')
-        self.assertEquals(caverphone('caird'), 'KT11111111')
-        self.assertEquals(caverphone('cairney'), 'KNA1111111')
-        self.assertEquals(caverphone('cairns'), 'KNS1111111')
-        self.assertEquals(caverphone('caithness'), 'KTNS111111')
-        self.assertEquals(caverphone('calcott'), 'KKT1111111')
-        self.assertEquals(caverphone('calcutt'), 'KKT1111111')
-        self.assertEquals(caverphone('calder'), 'KTA1111111')
-        self.assertEquals(caverphone('calderwood'), 'KTWT111111')
-        self.assertEquals(caverphone('caldow'), 'KTA1111111')
-        self.assertEquals(caverphone('caldweil'), 'KTWA111111')
-        self.assertEquals(caverphone('caldwell'), 'KTWA111111')
-        self.assertEquals(caverphone('calex'), 'KLK1111111')
-        self.assertEquals(caverphone('caley'), 'KLA1111111')
-        self.assertEquals(caverphone('callaghan'), 'KLKN111111')
-        self.assertEquals(caverphone('callam'), 'KLM1111111')
-        self.assertEquals(caverphone('callan'), 'KLN1111111')
-        self.assertEquals(caverphone('callanan'), 'KLNN111111')
-        self.assertEquals(caverphone('calland'), 'KLNT111111')
-        self.assertEquals(caverphone('callander'), 'KLNTA11111')
-        self.assertEquals(caverphone('callaster'), 'KLSTA11111')
-        self.assertEquals(caverphone('callaway'), 'KLWA111111')
-        self.assertEquals(caverphone('callender'), 'KLNTA11111')
-        self.assertEquals(caverphone('calley'), 'KLA1111111')
-        self.assertEquals(caverphone('callighan'), 'KLKN111111')
-        self.assertEquals(caverphone('callinder'), 'KLNTA11111')
-        self.assertEquals(caverphone('callis'), 'KLS1111111')
-        self.assertEquals(caverphone('callister'), 'KLSTA11111')
-        self.assertEquals(caverphone('callon'), 'KLN1111111')
-        self.assertEquals(caverphone('calverley'), 'KFLA111111')
-        self.assertEquals(caverphone('calvert'), 'KFT1111111')
-        self.assertEquals(caverphone('calvey'), 'KFA1111111')
-        self.assertEquals(caverphone('cameron'), 'KMRN111111')
-        self.assertEquals(caverphone('cammock'), 'KMK1111111')
-        self.assertEquals(caverphone('campbell'), 'KMPA111111')
-        self.assertEquals(caverphone('campion'), 'KMPN111111')
-        self.assertEquals(caverphone('camplell'), 'KMPLA11111')
-        self.assertEquals(caverphone('can1eron'), 'KNRN111111')
-        self.assertEquals(caverphone('canavan'), 'KNFN111111')
-        self.assertEquals(caverphone('canning'), 'KNNK111111')
-        self.assertEquals(caverphone('cannon'), 'KNN1111111')
-        self.assertEquals(caverphone('cannons'), 'KNNS111111')
-        self.assertEquals(caverphone('canpbell'), 'KNPA111111')
-        self.assertEquals(caverphone('canter'), 'KNTA111111')
-        self.assertEquals(caverphone('cantrell'), 'KNTRA11111')
-        self.assertEquals(caverphone('cantwell'), 'KNTWA11111')
-        self.assertEquals(caverphone('canty'), 'KNTA111111')
-        self.assertEquals(caverphone('capitaneas'), 'KPTNS11111')
-        self.assertEquals(caverphone('caple'), 'KPA1111111')
-        self.assertEquals(caverphone('capstick'), 'KPSTK11111')
-        self.assertEquals(caverphone('caraclus'), 'KRKLS11111')
-        self.assertEquals(caverphone('caradus'), 'KRTS111111')
-        self.assertEquals(caverphone('caravan'), 'KRFN111111')
-        self.assertEquals(caverphone('carber'), 'KPA1111111')
-        self.assertEquals(caverphone('carberry'), 'KPRA111111')
-        self.assertEquals(caverphone('cardale'), 'KTA1111111')
-        self.assertEquals(caverphone('carden'), 'KTN1111111')
-        self.assertEquals(caverphone('carder'), 'KTA1111111')
-        self.assertEquals(caverphone('cardno'), 'KTNA111111')
-        self.assertEquals(caverphone('care'), 'KA11111111')
-        self.assertEquals(caverphone('carey'), 'KRA1111111')
-        self.assertEquals(caverphone('cargill'), 'KKA1111111')
-        self.assertEquals(caverphone('carlene'), 'KLN1111111')
-        self.assertEquals(caverphone('carley'), 'KLA1111111')
-        self.assertEquals(caverphone('carlin'), 'KLN1111111')
-        self.assertEquals(caverphone('carline'), 'KLN1111111')
-        self.assertEquals(caverphone('carlson'), 'KSN1111111')
-        self.assertEquals(caverphone('carlyle'), 'KLA1111111')
-        self.assertEquals(caverphone('carmalt'), 'KMT1111111')
-        self.assertEquals(caverphone('carman'), 'KMN1111111')
-        self.assertEquals(caverphone('carmichael'), 'KMKA111111')
-        self.assertEquals(caverphone('carmody'), 'KMTA111111')
-        self.assertEquals(caverphone('carnahan'), 'KNN1111111')
-        self.assertEquals(caverphone('carnegie'), 'KNKA111111')
-        self.assertEquals(caverphone('carney'), 'KNA1111111')
-        self.assertEquals(caverphone('carnie'), 'KNA1111111')
-        self.assertEquals(caverphone('carolin'), 'KRLN111111')
-        self.assertEquals(caverphone('carpenter'), 'KPNTA11111')
-        self.assertEquals(caverphone('carr'), 'KA11111111')
-        self.assertEquals(caverphone('carrick'), 'KRK1111111')
-        self.assertEquals(caverphone('carrigan'), 'KRKN111111')
-        self.assertEquals(caverphone('carrington'), 'KRNKTN1111')
-        self.assertEquals(caverphone('carrodus'), 'KRTS111111')
-        self.assertEquals(caverphone('carroll'), 'KRA1111111')
-        self.assertEquals(caverphone('carruther'), 'KRTA111111')
-        self.assertEquals(caverphone('carruthers'), 'KRTS111111')
-        self.assertEquals(caverphone('carrutlers'), 'KRTLS11111')
-        self.assertEquals(caverphone('carside'), 'KST1111111')
-        self.assertEquals(caverphone('carslaw'), 'KSLA111111')
-        self.assertEquals(caverphone('carson'), 'KSN1111111')
-        self.assertEquals(caverphone('carswe11'), 'KSA1111111')
-        self.assertEquals(caverphone('carswell'), 'KSWA111111')
-        self.assertEquals(caverphone('carter'), 'KTA1111111')
-        self.assertEquals(caverphone('carton'), 'KTN1111111')
-        self.assertEquals(caverphone('cartwright'), 'KTRT111111')
-        self.assertEquals(caverphone('caruthers'), 'KRTS111111')
-        self.assertEquals(caverphone('carvalho'), 'KFA1111111')
-        self.assertEquals(caverphone('carvell'), 'KFA1111111')
-        self.assertEquals(caverphone('carver'), 'KFA1111111')
-        self.assertEquals(caverphone('carvosso'), 'KFSA111111')
-        self.assertEquals(caverphone('case'), 'KS11111111')
-        self.assertEquals(caverphone('caselberg'), 'KSPK111111')
-        self.assertEquals(caverphone('caser'), 'KSA1111111')
-        self.assertEquals(caverphone('casey'), 'KSA1111111')
-        self.assertEquals(caverphone('cash'), 'KS11111111')
-        self.assertEquals(caverphone('cashman'), 'KSMN111111')
-        self.assertEquals(caverphone('caskie'), 'KSKA111111')
-        self.assertEquals(caverphone('cass'), 'KS11111111')
-        self.assertEquals(caverphone('cassells'), 'KSS1111111')
-        self.assertEquals(caverphone('cassels'), 'KSS1111111')
-        self.assertEquals(caverphone('casserley'), 'KSLA111111')
-        self.assertEquals(caverphone('casserly'), 'KSLA111111')
-        self.assertEquals(caverphone('cassidv'), 'KSTF111111')
-        self.assertEquals(caverphone('cassidy'), 'KSTA111111')
-        self.assertEquals(caverphone('cassitly'), 'KSTLA11111')
-        self.assertEquals(caverphone('casson'), 'KSN1111111')
-        self.assertEquals(caverphone('castelli'), 'KSTLA11111')
-        self.assertEquals(caverphone('caster'), 'KSTA111111')
-        self.assertEquals(caverphone('castle'), 'KSTA111111')
-        self.assertEquals(caverphone('castlehow'), 'KSTLA11111')
-        self.assertEquals(caverphone('catchpole'), 'KKPA111111')
-        self.assertEquals(caverphone('cate'), 'KT11111111')
-        self.assertEquals(caverphone('cater'), 'KTA1111111')
-        self.assertEquals(caverphone('cathro'), 'KTRA111111')
-        self.assertEquals(caverphone('catto'), 'KTA1111111')
-        self.assertEquals(caverphone('caughey'), 'KKA1111111')
-        self.assertEquals(caverphone('caulcutt'), 'KKT1111111')
-        self.assertEquals(caverphone('caulton'), 'KTN1111111')
-        self.assertEquals(caverphone('caunter'), 'KNTA111111')
-        self.assertEquals(caverphone('cavanagh'), 'KFNA111111')
-        self.assertEquals(caverphone('cave'), 'KF11111111')
-        self.assertEquals(caverphone('cavell'), 'KFA1111111')
-        self.assertEquals(caverphone('cawley'), 'KLA1111111')
-        self.assertEquals(caverphone('cawston'), 'KSTN111111')
-        self.assertEquals(caverphone('cawthorn'), 'KTN1111111')
-        self.assertEquals(caverphone('cayford'), 'KFT1111111')
-        self.assertEquals(caverphone('caygill'), 'KKA1111111')
-        self.assertEquals(caverphone('cayzer'), 'KSA1111111')
-        self.assertEquals(caverphone('cessford'), 'SSFT111111')
-        self.assertEquals(caverphone('chadwick'), 'KTWK111111')
-        self.assertEquals(caverphone('challis'), 'KLS1111111')
-        self.assertEquals(caverphone('chalmer'), 'KMA1111111')
-        self.assertEquals(caverphone('chalmers'), 'KMS1111111')
-        self.assertEquals(caverphone('chamberlain'), 'KMPLN11111')
-        self.assertEquals(caverphone('chambers'), 'KMPS111111')
-        self.assertEquals(caverphone('chammen'), 'KMN1111111')
-        self.assertEquals(caverphone('champion'), 'KMPN111111')
-        self.assertEquals(caverphone('chanbers'), 'KNPS111111')
-        self.assertEquals(caverphone('chander'), 'KNTA111111')
-        self.assertEquals(caverphone('chandler'), 'KNTLA11111')
-        self.assertEquals(caverphone('chaney'), 'KNA1111111')
-        self.assertEquals(caverphone('chanldler'), 'KNTLA11111')
-        self.assertEquals(caverphone('channon'), 'KNN1111111')
-        self.assertEquals(caverphone('chantrill'), 'KNTRA11111')
-        self.assertEquals(caverphone('chaplain'), 'KPLN111111')
-        self.assertEquals(caverphone('chaplin'), 'KPLN111111')
-        self.assertEquals(caverphone('chapman'), 'KPMN111111')
-        self.assertEquals(caverphone('chappell'), 'KPA1111111')
-        self.assertEquals(caverphone('charker'), 'KKA1111111')
-        self.assertEquals(caverphone('charles'), 'KLS1111111')
-        self.assertEquals(caverphone('charleston'), 'KLSTN11111')
-        self.assertEquals(caverphone('charlsworth'), 'KSWT111111')
-        self.assertEquals(caverphone('charlton'), 'KTN1111111')
-        self.assertEquals(caverphone('charnley'), 'KNLA111111')
-        self.assertEquals(caverphone('charters'), 'KTS1111111')
-        self.assertEquals(caverphone('chase'), 'KS11111111')
-        self.assertEquals(caverphone('chaston'), 'KSTN111111')
-        self.assertEquals(caverphone('chatterton'), 'KTTN111111')
-        self.assertEquals(caverphone('chave'), 'KF11111111')
-        self.assertEquals(caverphone('chayman'), 'KMN1111111')
-        self.assertEquals(caverphone('cheeseman'), 'KSMN111111')
-        self.assertEquals(caverphone('cheesman'), 'KSMN111111')
-        self.assertEquals(caverphone('chennells'), 'KNS1111111')
-        self.assertEquals(caverphone('cherrie'), 'KRA1111111')
-        self.assertEquals(caverphone('cherrv'), 'KF11111111')
-        self.assertEquals(caverphone('cherry'), 'KRA1111111')
-        self.assertEquals(caverphone('cheshire'), 'KSA1111111')
-        self.assertEquals(caverphone('chesney'), 'KSNA111111')
-        self.assertEquals(caverphone('chesterman'), 'KSTMN11111')
-        self.assertEquals(caverphone('chetham'), 'KTM1111111')
-        self.assertEquals(caverphone('chettiebur'), 'KTPA111111')
-        self.assertEquals(caverphone('chettleburgh'), 'KTLPA11111')
-        self.assertEquals(caverphone('chetwil'), 'KTWA111111')
-        self.assertEquals(caverphone('chetwin'), 'KTWN111111')
-        self.assertEquals(caverphone('cheyne'), 'KN11111111')
-        self.assertEquals(caverphone('chickley'), 'KKLA111111')
-        self.assertEquals(caverphone('chilcott'), 'KKT1111111')
-        self.assertEquals(caverphone('child'), 'KT11111111')
-        self.assertEquals(caverphone('childs'), 'KTS1111111')
-        self.assertEquals(caverphone('chiles'), 'KLS1111111')
-        self.assertEquals(caverphone('chimside'), 'KMST111111')
-        self.assertEquals(caverphone('chin shin'), 'KNSN111111')
-        self.assertEquals(caverphone('chin shing'), 'KNSNK11111')
-        self.assertEquals(caverphone('chin'), 'KN11111111')
-        self.assertEquals(caverphone('ching'), 'KNK1111111')
-        self.assertEquals(caverphone('chirnside'), 'KNST111111')
-        self.assertEquals(caverphone('chisholm'), 'KSM1111111')
-        self.assertEquals(caverphone('chiswell'), 'KSWA111111')
-        self.assertEquals(caverphone('chits'), 'KTS1111111')
-        self.assertEquals(caverphone('chittock'), 'KTK1111111')
-        self.assertEquals(caverphone('chitty'), 'KTA1111111')
-        self.assertEquals(caverphone('chivers'), 'KFS1111111')
-        self.assertEquals(caverphone('cholmondeley'), 'KMNTLA1111')
-        self.assertEquals(caverphone('choo quee'), 'KKA1111111')
-        self.assertEquals(caverphone('chooquee'), 'KKA1111111')
-        self.assertEquals(caverphone('choules'), 'KLS1111111')
-        self.assertEquals(caverphone('chrisp'), 'KRSP111111')
-        self.assertEquals(caverphone('christens'), 'KRSTNS1111')
-        self.assertEquals(caverphone('christensen'), 'KRSTNSN111')
-        self.assertEquals(caverphone('christenson'), 'KRSTNSN111')
-        self.assertEquals(caverphone('christeson'), 'KRSTSN1111')
-        self.assertEquals(caverphone('christian'), 'KRSN111111')
-        self.assertEquals(caverphone('christie'), 'KRSTA11111')
-        self.assertEquals(caverphone('christophe'), 'KRSTF11111')
-        self.assertEquals(caverphone('christopher'), 'KRSTFA1111')
-        self.assertEquals(caverphone('chronican'), 'KRNKN11111')
-        self.assertEquals(caverphone('chronichan'), 'KRNKN11111')
-        self.assertEquals(caverphone('chrystall'), 'KRSTA11111')
-        self.assertEquals(caverphone('chudley'), 'KTLA111111')
-        self.assertEquals(caverphone('church'), 'KK11111111')
-        self.assertEquals(caverphone('churchill'), 'KKA1111111')
-        self.assertEquals(caverphone('churley'), 'KLA1111111')
-        self.assertEquals(caverphone('ciark'), 'SK11111111')
-        self.assertEquals(caverphone('ciarke'), 'SK11111111')
-        self.assertEquals(caverphone('cieveland'), 'SFLNT11111')
-        self.assertEquals(caverphone('ciiff'), 'SF11111111')
-        self.assertEquals(caverphone('ciose'), 'SS11111111')
-        self.assertEquals(caverphone('citfield'), 'STFT111111')
-        self.assertEquals(caverphone('clack'), 'KLK1111111')
-        self.assertEquals(caverphone('clancy'), 'KLNSA11111')
-        self.assertEquals(caverphone('clapman'), 'KLPMN11111')
-        self.assertEquals(caverphone('clapp'), 'KLP1111111')
-        self.assertEquals(caverphone('clapperton'), 'KLPTN11111')
-        self.assertEquals(caverphone('clapshaw'), 'KLPSA11111')
-        self.assertEquals(caverphone('clare'), 'KLA1111111')
-        self.assertEquals(caverphone('claridge'), 'KLRK111111')
-        self.assertEquals(caverphone('clark'), 'KLK1111111')
-        self.assertEquals(caverphone('clarke'), 'KLK1111111')
-        self.assertEquals(caverphone('clarkson'), 'KLKSN11111')
-        self.assertEquals(caverphone('clarson'), 'KLSN111111')
-        self.assertEquals(caverphone('clatworthy'), 'KLTWTA1111')
-        self.assertEquals(caverphone('claughly'), 'KLLA111111')
-        self.assertEquals(caverphone('clay'), 'KLA1111111')
-        self.assertEquals(caverphone('clayden'), 'KLTN111111')
-        self.assertEquals(caverphone('clayforth'), 'KLFT111111')
-        self.assertEquals(caverphone('clayton'), 'KLTN111111')
-        self.assertEquals(caverphone('clearwater'), 'KLWTA11111')
-        self.assertEquals(caverphone('cleary'), 'KLRA111111')
-        self.assertEquals(caverphone('cleaver'), 'KLFA111111')
-        self.assertEquals(caverphone('cleavin'), 'KLFN111111')
-        self.assertEquals(caverphone('cleeland'), 'KLLNT11111')
-        self.assertEquals(caverphone('clegg'), 'KLK1111111')
-        self.assertEquals(caverphone('cleghorn'), 'KLKN111111')
-        self.assertEquals(caverphone('cleland'), 'KLLNT11111')
-        self.assertEquals(caverphone('clelland'), 'KLLNT11111')
-        self.assertEquals(caverphone('clemenger'), 'KLMNKA1111')
-        self.assertEquals(caverphone('clemens'), 'KLMNS11111')
-        self.assertEquals(caverphone('clement'), 'KLMNT11111')
-        self.assertEquals(caverphone('clements'), 'KLMNTS1111')
-        self.assertEquals(caverphone('clementson'), 'KLMNTSN111')
-        self.assertEquals(caverphone('clemmey'), 'KLMA111111')
-        self.assertEquals(caverphone('clent'), 'KLNT111111')
-        self.assertEquals(caverphone('clery'), 'KLRA111111')
-        self.assertEquals(caverphone('cleveland'), 'KLFLNT1111')
-        self.assertEquals(caverphone('clevelandt'), 'KLFLNT1111')
-        self.assertEquals(caverphone('cleverley'), 'KLFLA11111')
-        self.assertEquals(caverphone('cliff'), 'KLF1111111')
-        self.assertEquals(caverphone('clifford'), 'KLFT111111')
-        self.assertEquals(caverphone('clifton'), 'KLFTN11111')
-        self.assertEquals(caverphone('clinch'), 'KLNK111111')
-        self.assertEquals(caverphone('clinkard'), 'KLNKT11111')
-        self.assertEquals(caverphone('clint'), 'KLNT111111')
-        self.assertEquals(caverphone('clisby'), 'KLSPA11111')
-        self.assertEquals(caverphone('clitheroe'), 'KLTRA11111')
-        self.assertEquals(caverphone('clode'), 'KLT1111111')
-        self.assertEquals(caverphone('cloharty'), 'KLTA111111')
-        self.assertEquals(caverphone('close'), 'KLS1111111')
-        self.assertEquals(caverphone('clothier'), 'KLTA111111')
-        self.assertEquals(caverphone('clough'), 'KLA1111111')
-        self.assertEquals(caverphone('cloughly'), 'KLLA111111')
-        self.assertEquals(caverphone('clow'), 'KLA1111111')
-        self.assertEquals(caverphone('clugston'), 'KLKSTN1111')
-        self.assertEquals(caverphone('clulee'), 'KLLA111111')
-        self.assertEquals(caverphone('clune'), 'KLN1111111')
-        self.assertEquals(caverphone('clutterbuck'), 'KLTPK11111')
-        self.assertEquals(caverphone('clydesdale'), 'KLTSTA1111')
-        self.assertEquals(caverphone('clyma'), 'KLMA111111')
-        self.assertEquals(caverphone('clymer'), 'KLMA111111')
-        self.assertEquals(caverphone('coates'), 'KTS1111111')
-        self.assertEquals(caverphone('coats'), 'KTS1111111')
-        self.assertEquals(caverphone('coatsworth'), 'KTSWT11111')
-        self.assertEquals(caverphone('cobb'), 'KP11111111')
-        self.assertEquals(caverphone('coburn'), 'KPN1111111')
-        self.assertEquals(caverphone('cochrane'), 'KKRN111111')
-        self.assertEquals(caverphone('cock'), 'KK11111111')
-        self.assertEquals(caverphone('cockburn'), 'KKPN111111')
-        self.assertEquals(caverphone('cockerell'), 'KKRA111111')
-        self.assertEquals(caverphone('cockerill'), 'KKRA111111')
-        self.assertEquals(caverphone('cocking'), 'KKNK111111')
-        self.assertEquals(caverphone('cockroft'), 'KKRFT11111')
-        self.assertEquals(caverphone('cody'), 'KTA1111111')
-        self.assertEquals(caverphone('coffey'), 'KFA1111111')
-        self.assertEquals(caverphone('cogan'), 'KKN1111111')
-        self.assertEquals(caverphone('cogger'), 'KKA1111111')
-        self.assertEquals(caverphone('coghill'), 'KKA1111111')
-        self.assertEquals(caverphone('coghlan'), 'KLN1111111')
-        self.assertEquals(caverphone('cohen'), 'KN11111111')
-        self.assertEquals(caverphone('coker'), 'KKA1111111')
-        self.assertEquals(caverphone('colbert'), 'KPT1111111')
-        self.assertEquals(caverphone('cole'), 'KA11111111')
-        self.assertEquals(caverphone('coleman'), 'KLMN111111')
-        self.assertEquals(caverphone('coley'), 'KLA1111111')
-        self.assertEquals(caverphone('colgan'), 'KKN1111111')
-        self.assertEquals(caverphone('coller'), 'KLA1111111')
-        self.assertEquals(caverphone('collet'), 'KLT1111111')
-        self.assertEquals(caverphone('collett'), 'KLT1111111')
-        self.assertEquals(caverphone('collie'), 'KLA1111111')
-        self.assertEquals(caverphone('collier'), 'KLA1111111')
-        self.assertEquals(caverphone('collin'), 'KLN1111111')
-        self.assertEquals(caverphone('colling'), 'KLNK111111')
-        self.assertEquals(caverphone('collingwood'), 'KLNKWT1111')
-        self.assertEquals(caverphone('collins'), 'KLNS111111')
-        self.assertEquals(caverphone('collinson'), 'KLNSN11111')
-        self.assertEquals(caverphone('collis'), 'KLS1111111')
-        self.assertEquals(caverphone('colman'), 'KMN1111111')
-        self.assertEquals(caverphone('colombus'), 'KLMPS11111')
-        self.assertEquals(caverphone('colquhoun'), 'KKN1111111')
-        self.assertEquals(caverphone('colrmack'), 'KMK1111111')
-        self.assertEquals(caverphone('colson'), 'KSN1111111')
-        self.assertEquals(caverphone('colston'), 'KSTN111111')
-        self.assertEquals(caverphone('colton'), 'KTN1111111')
-        self.assertEquals(caverphone('columb'), 'KLM1111111')
-        self.assertEquals(caverphone('colville'), 'KFA1111111')
-        self.assertEquals(caverphone('colvin'), 'KFN1111111')
-        self.assertEquals(caverphone('colyer'), 'KLA1111111')
-        self.assertEquals(caverphone('comber'), 'KMPA111111')
-        self.assertEquals(caverphone('combie'), 'KMPA111111')
-        self.assertEquals(caverphone('combs'), 'KMPS111111')
-        self.assertEquals(caverphone('comer'), 'KMA1111111')
-        self.assertEquals(caverphone('cometti'), 'KMTA111111')
-        self.assertEquals(caverphone('comissiong'), 'KMSNK11111')
-        self.assertEquals(caverphone('common'), 'KMN1111111')
-        self.assertEquals(caverphone('comrie'), 'KMRA111111')
-        self.assertEquals(caverphone('comyn'), 'KMN1111111')
-        self.assertEquals(caverphone('concher'), 'KNKA111111')
-        self.assertEquals(caverphone('conder'), 'KNTA111111')
-        self.assertEquals(caverphone('condliffe'), 'KNTLF11111')
-        self.assertEquals(caverphone('condon'), 'KNTN111111')
-        self.assertEquals(caverphone('cone'), 'KN11111111')
-        self.assertEquals(caverphone('coneys'), 'KNS1111111')
-        self.assertEquals(caverphone('congalton'), 'KNKTN11111')
-        self.assertEquals(caverphone('conheady'), 'KNTA111111')
-        self.assertEquals(caverphone('conley'), 'KNLA111111')
-        self.assertEquals(caverphone('conn'), 'KN11111111')
-        self.assertEquals(caverphone('connally'), 'KNLA111111')
-        self.assertEquals(caverphone('connel]y'), 'KNLA111111')
-        self.assertEquals(caverphone('connell'), 'KNA1111111')
-        self.assertEquals(caverphone('connelly'), 'KNLA111111')
-        self.assertEquals(caverphone('connely'), 'KNLA111111')
-        self.assertEquals(caverphone('conner'), 'KNA1111111')
-        self.assertEquals(caverphone('conniff'), 'KNF1111111')
-        self.assertEquals(caverphone('connolly'), 'KNLA111111')
-        self.assertEquals(caverphone('connor'), 'KNA1111111')
-        self.assertEquals(caverphone('connors'), 'KNS1111111')
-        self.assertEquals(caverphone('conolly'), 'KNLA111111')
-        self.assertEquals(caverphone('conradi'), 'KNRTA11111')
-        self.assertEquals(caverphone('conroy'), 'KNRA111111')
-        self.assertEquals(caverphone('consins'), 'KNSNS11111')
-        self.assertEquals(caverphone('constable'), 'KNSTPA1111')
-        self.assertEquals(caverphone('conway'), 'KNWA111111')
-        self.assertEquals(caverphone('cook'), 'KK11111111')
-        self.assertEquals(caverphone('cooke'), 'KK11111111')
-        self.assertEquals(caverphone('coolay'), 'KLA1111111')
-        self.assertEquals(caverphone('coombes'), 'KMPS111111')
-        self.assertEquals(caverphone('coombs'), 'KMPS111111')
-        self.assertEquals(caverphone('coomer'), 'KMA1111111')
-        self.assertEquals(caverphone('cooney'), 'KNA1111111')
-        self.assertEquals(caverphone('coop'), 'KP11111111')
-        self.assertEquals(caverphone('cooper'), 'KPA1111111')
-        self.assertEquals(caverphone('coorobs'), 'KRPS111111')
-        self.assertEquals(caverphone('coory'), 'KRA1111111')
-        self.assertEquals(caverphone('cop]ey'), 'KPA1111111')
-        self.assertEquals(caverphone('cope'), 'KP11111111')
-        self.assertEquals(caverphone('copland'), 'KPLNT11111')
-        self.assertEquals(caverphone('copley'), 'KPLA111111')
-        self.assertEquals(caverphone('coppell'), 'KPA1111111')
-        self.assertEquals(caverphone('coppin'), 'KPN1111111')
-        self.assertEquals(caverphone('corbett'), 'KPT1111111')
-        self.assertEquals(caverphone('corcoran'), 'KKRN111111')
-        self.assertEquals(caverphone('corder'), 'KTA1111111')
-        self.assertEquals(caverphone('cordue'), 'KTA1111111')
-        self.assertEquals(caverphone('coreoran'), 'KRRN111111')
-        self.assertEquals(caverphone('corfield'), 'KFT1111111')
-        self.assertEquals(caverphone('corke'), 'KK11111111')
-        self.assertEquals(caverphone('corkin'), 'KKN1111111')
-        self.assertEquals(caverphone('corkran'), 'KKRN111111')
-        self.assertEquals(caverphone('corlett'), 'KLT1111111')
-        self.assertEquals(caverphone('corley'), 'KLA1111111')
-        self.assertEquals(caverphone('corliss'), 'KLS1111111')
-        self.assertEquals(caverphone('cormack'), 'KMK1111111')
-        self.assertEquals(caverphone('cornack'), 'KNK1111111')
-        self.assertEquals(caverphone('cornaga'), 'KNKA111111')
-        self.assertEquals(caverphone('cornelius'), 'KNLS111111')
-        self.assertEquals(caverphone('cornell'), 'KNA1111111')
-        self.assertEquals(caverphone('corner'), 'KNA1111111')
-        self.assertEquals(caverphone('cornish'), 'KNS1111111')
-        self.assertEquals(caverphone('cornwall'), 'KNWA111111')
-        self.assertEquals(caverphone('cornwell'), 'KNWA111111')
-        self.assertEquals(caverphone('corr'), 'KA11111111')
-        self.assertEquals(caverphone('corrigall'), 'KRKA111111')
-        self.assertEquals(caverphone('corrigan'), 'KRKN111111')
-        self.assertEquals(caverphone('corsar'), 'KSA1111111')
-        self.assertEquals(caverphone('corsion'), 'KSN1111111')
-        self.assertEquals(caverphone('corston'), 'KSTN111111')
-        self.assertEquals(caverphone('cortisson'), 'KTSN111111')
-        self.assertEquals(caverphone('cortissos'), 'KTSS111111')
-        self.assertEquals(caverphone('cosegrove'), 'KSKRF11111')
-        self.assertEquals(caverphone('cosgriff'), 'KSKRF11111')
-        self.assertEquals(caverphone('cosgrove'), 'KSKRF11111')
-        self.assertEquals(caverphone('cossens'), 'KSNS111111')
-        self.assertEquals(caverphone('cossum'), 'KSM1111111')
-        self.assertEquals(caverphone('costall'), 'KSTA111111')
-        self.assertEquals(caverphone('costello'), 'KSTLA11111')
-        self.assertEquals(caverphone('coster'), 'KSTA111111')
-        self.assertEquals(caverphone('costigan'), 'KSTKN11111')
-        self.assertEquals(caverphone('costley'), 'KSTLA11111')
-        self.assertEquals(caverphone('cother'), 'KTA1111111')
-        self.assertEquals(caverphone('cotston'), 'KTSTN11111')
-        self.assertEquals(caverphone('cottam'), 'KTM1111111')
-        self.assertEquals(caverphone('cotter'), 'KTA1111111')
-        self.assertEquals(caverphone('cotterill'), 'KTRA111111')
-        self.assertEquals(caverphone('cottghlan'), 'KTLN111111')
-        self.assertEquals(caverphone('cottle'), 'KTA1111111')
-        self.assertEquals(caverphone('cotton'), 'KTN1111111')
-        self.assertEquals(caverphone('cottrell'), 'KTRA111111')
-        self.assertEquals(caverphone('couch'), 'KK11111111')
-        self.assertEquals(caverphone('couchman'), 'KKMN111111')
-        self.assertEquals(caverphone('coughlan'), 'KFLN111111')
-        self.assertEquals(caverphone('coughtrey'), 'KFTRA11111')
-        self.assertEquals(caverphone('couling'), 'KLNK111111')
-        self.assertEquals(caverphone('coull'), 'KA11111111')
-        self.assertEquals(caverphone('coulson'), 'KSN1111111')
-        self.assertEquals(caverphone('coulston'), 'KSTN111111')
-        self.assertEquals(caverphone('coulter'), 'KTA1111111')
-        self.assertEquals(caverphone('counar'), 'KNA1111111')
-        self.assertEquals(caverphone('counihan'), 'KNN1111111')
-        self.assertEquals(caverphone('coupar'), 'KPA1111111')
-        self.assertEquals(caverphone('couper'), 'KPA1111111')
-        self.assertEquals(caverphone('coupland'), 'KPLNT11111')
-        self.assertEquals(caverphone('course'), 'KS11111111')
-        self.assertEquals(caverphone('court'), 'KT11111111')
-        self.assertEquals(caverphone('courtayne'), 'KTN1111111')
-        self.assertEquals(caverphone('courter'), 'KTA1111111')
-        self.assertEquals(caverphone('courtis'), 'KTS1111111')
-        self.assertEquals(caverphone('courtney'), 'KTNA111111')
-        self.assertEquals(caverphone('cousins'), 'KSNS111111')
-        self.assertEquals(caverphone('couston'), 'KSTN111111')
-        self.assertEquals(caverphone('coutts'), 'KTS1111111')
-        self.assertEquals(caverphone('coventry'), 'KFNTRA1111')
-        self.assertEquals(caverphone('cowan'), 'KWN1111111')
-        self.assertEquals(caverphone('coward'), 'KWT1111111')
-        self.assertEquals(caverphone('cowen'), 'KWN1111111')
-        self.assertEquals(caverphone('cowey'), 'KWA1111111')
-        self.assertEquals(caverphone('cowie'), 'KWA1111111')
-        self.assertEquals(caverphone('cowle'), 'KA11111111')
-        self.assertEquals(caverphone('cowles'), 'KLS1111111')
-        self.assertEquals(caverphone('cowper'), 'KPA1111111')
-        self.assertEquals(caverphone('cox'), 'KK11111111')
-        self.assertEquals(caverphone('coxhead'), 'KKT1111111')
-        self.assertEquals(caverphone('coxhend'), 'KKNT111111')
-        self.assertEquals(caverphone('coxon'), 'KKN1111111')
-        self.assertEquals(caverphone('coy'), 'KA11111111')
-        self.assertEquals(caverphone('crabb'), 'KRP1111111')
-        self.assertEquals(caverphone('crabbe'), 'KRP1111111')
-        self.assertEquals(caverphone('cragg'), 'KRK1111111')
-        self.assertEquals(caverphone('craib'), 'KRP1111111')
-        self.assertEquals(caverphone('craies'), 'KRS1111111')
-        self.assertEquals(caverphone('craig'), 'KRK1111111')
-        self.assertEquals(caverphone('craige'), 'KRK1111111')
-        self.assertEquals(caverphone('craigie'), 'KRKA111111')
-        self.assertEquals(caverphone('craik'), 'KRK1111111')
-        self.assertEquals(caverphone('crammond'), 'KRMNT11111')
-        self.assertEquals(caverphone('cramond'), 'KRMNT11111')
-        self.assertEquals(caverphone('crampton'), 'KRMPTN1111')
-        self.assertEquals(caverphone('cran'), 'KRN1111111')
-        self.assertEquals(caverphone('crandle'), 'KRNTA11111')
-        self.assertEquals(caverphone('crane'), 'KRN1111111')
-        self.assertEquals(caverphone('cranefield'), 'KRNFT11111')
-        self.assertEquals(caverphone('cranford'), 'KRNFT11111')
-        self.assertEquals(caverphone('cranley'), 'KRNLA11111')
-        self.assertEquals(caverphone('crannitch'), 'KRNK111111')
-        self.assertEquals(caverphone('cranshaw'), 'KRNSA11111')
-        self.assertEquals(caverphone('cranston'), 'KRNSTN1111')
-        self.assertEquals(caverphone('craven-carden'), 'KRFNKTN111')
-        self.assertEquals(caverphone('craven'), 'KRFN111111')
-        self.assertEquals(caverphone('crawford'), 'KRFT111111')
-        self.assertEquals(caverphone('crawfurd'), 'KRFT111111')
-        self.assertEquals(caverphone('crawley'), 'KRLA111111')
-        self.assertEquals(caverphone('crawshaw'), 'KRSA111111')
-        self.assertEquals(caverphone('creagh'), 'KRA1111111')
-        self.assertEquals(caverphone('credgington'), 'KRKNKTN111')
-        self.assertEquals(caverphone('creed'), 'KRT1111111')
-        self.assertEquals(caverphone('creeser'), 'KRSA111111')
-        self.assertEquals(caverphone('creevey'), 'KRFA111111')
-        self.assertEquals(caverphone('creighton'), 'KRTN111111')
-        self.assertEquals(caverphone('cremmens'), 'KRMNS11111')
-        self.assertEquals(caverphone('crerar'), 'KRRA111111')
-        self.assertEquals(caverphone('cress'), 'KRS1111111')
-        self.assertEquals(caverphone('crews'), 'KRS1111111')
-        self.assertEquals(caverphone('crichton'), 'KRKTN11111')
-        self.assertEquals(caverphone('crighton'), 'KRTN111111')
-        self.assertEquals(caverphone('crilly'), 'KRLA111111')
-        self.assertEquals(caverphone('crimp'), 'KRMP111111')
-        self.assertEquals(caverphone('cripps'), 'KRPS111111')
-        self.assertEquals(caverphone('crisp'), 'KRSP111111')
-        self.assertEquals(caverphone('critchfie'), 'KRKFA11111')
-        self.assertEquals(caverphone('critchfiel'), 'KRKFA11111')
-        self.assertEquals(caverphone('critchfield'), 'KRKFT11111')
-        self.assertEquals(caverphone('critchley'), 'KRKLA11111')
-        self.assertEquals(caverphone('croad'), 'KRT1111111')
-        self.assertEquals(caverphone('croal'), 'KRA1111111')
-        self.assertEquals(caverphone('crocome'), 'KRKM111111')
-        self.assertEquals(caverphone('croft'), 'KRFT111111')
-        self.assertEquals(caverphone('croker'), 'KRKA111111')
-        self.assertEquals(caverphone('crolly'), 'KRLA111111')
-        self.assertEquals(caverphone('cromarty'), 'KRMTA11111')
-        self.assertEquals(caverphone('crombie'), 'KRMPA11111')
-        self.assertEquals(caverphone('crome'), 'KRM1111111')
-        self.assertEquals(caverphone('crompton'), 'KRMPTN1111')
-        self.assertEquals(caverphone('crone'), 'KRN1111111')
-        self.assertEquals(caverphone('cronhie'), 'KRNA111111')
-        self.assertEquals(caverphone('cronin'), 'KRNN111111')
-        self.assertEquals(caverphone('crooke'), 'KRK1111111')
-        self.assertEquals(caverphone('crookes'), 'KRKS111111')
-        self.assertEquals(caverphone('crooks'), 'KRKS111111')
-        self.assertEquals(caverphone('crookshanks'), 'KRKSNKS111')
-        self.assertEquals(caverphone('croot'), 'KRT1111111')
-        self.assertEquals(caverphone('cropley'), 'KRPLA11111')
-        self.assertEquals(caverphone('cropp'), 'KRP1111111')
-        self.assertEquals(caverphone('crosado'), 'KRSTA11111')
-        self.assertEquals(caverphone('crosbie'), 'KRSPA11111')
-        self.assertEquals(caverphone('crosby'), 'KRSPA11111')
-        self.assertEquals(caverphone('crosland'), 'KRSLNT1111')
-        self.assertEquals(caverphone('cross'), 'KRS1111111')
-        self.assertEquals(caverphone('crossan-moffat'), 'KRSNMFT111')
-        self.assertEquals(caverphone('crossan'), 'KRSN111111')
-        self.assertEquals(caverphone('crossens'), 'KRSNS11111')
-        self.assertEquals(caverphone('crossian'), 'KRSN111111')
-        self.assertEquals(caverphone('crossley'), 'KRSLA11111')
-        self.assertEquals(caverphone('crosswell'), 'KRSWA11111')
-        self.assertEquals(caverphone('crossweller'), 'KRSWLA1111')
-        self.assertEquals(caverphone('crostie'), 'KRSTA11111')
-        self.assertEquals(caverphone('croswell'), 'KRSWA11111')
-        self.assertEquals(caverphone('crouch'), 'KRK1111111')
-        self.assertEquals(caverphone('crow'), 'KRA1111111')
-        self.assertEquals(caverphone('crowan'), 'KRWN111111')
-        self.assertEquals(caverphone('crowder'), 'KRTA111111')
-        self.assertEquals(caverphone('crowe'), 'KRA1111111')
-        self.assertEquals(caverphone('crowhurst'), 'KRWST11111')
-        self.assertEquals(caverphone('crowley'), 'KRLA111111')
-        self.assertEquals(caverphone('crowther'), 'KRTA111111')
-        self.assertEquals(caverphone('croxford'), 'KRKFT11111')
-        self.assertEquals(caverphone('croy'), 'KRA1111111')
-        self.assertEquals(caverphone('crozier'), 'KRSA111111')
-        self.assertEquals(caverphone('cruickshank'), 'KRKSNK1111')
-        self.assertEquals(caverphone('cruikshank'), 'KRKSNK1111')
-        self.assertEquals(caverphone('crum'), 'KRM1111111')
-        self.assertEquals(caverphone('crump'), 'KRMP111111')
-        self.assertEquals(caverphone('cruse'), 'KRS1111111')
-        self.assertEquals(caverphone('crust'), 'KRST111111')
-        self.assertEquals(caverphone('cubbins'), 'KPNS111111')
-        self.assertEquals(caverphone('cuddihy'), 'KTA1111111')
-        self.assertEquals(caverphone('cuff'), 'KF11111111')
-        self.assertEquals(caverphone('culbert'), 'KPT1111111')
-        self.assertEquals(caverphone('culhane'), 'KN11111111')
-        self.assertEquals(caverphone('cull'), 'KA11111111')
-        self.assertEquals(caverphone('cullen'), 'KLN1111111')
-        self.assertEquals(caverphone('culling'), 'KLNK111111')
-        self.assertEquals(caverphone('cullinger'), 'KLNKA11111')
-        self.assertEquals(caverphone('culsey'), 'KSA1111111')
-        self.assertEquals(caverphone('cumberbeac'), 'KMPPK11111')
-        self.assertEquals(caverphone('cumberbeach'), 'KMPPK11111')
-        self.assertEquals(caverphone('cuming'), 'KMNK111111')
-        self.assertEquals(caverphone('cumins'), 'KMNS111111')
-        self.assertEquals(caverphone('cumming'), 'KMNK111111')
-        self.assertEquals(caverphone('cummings'), 'KMNKS11111')
-        self.assertEquals(caverphone('cummins'), 'KMNS111111')
-        self.assertEquals(caverphone('cummock'), 'KMK1111111')
-        self.assertEquals(caverphone('cundall'), 'KNTA111111')
-        self.assertEquals(caverphone('cunhingham'), 'KNNM111111')
-        self.assertEquals(caverphone('cunliffe'), 'KNLF111111')
-        self.assertEquals(caverphone('cunming'), 'KNMNK11111')
-        self.assertEquals(caverphone('cunningham'), 'KNNM111111')
-        self.assertEquals(caverphone('cunninghame'), 'KNNM111111')
-        self.assertEquals(caverphone('cupid'), 'KPT1111111')
-        self.assertEquals(caverphone('cupples'), 'KPLS111111')
-        self.assertEquals(caverphone('curey'), 'KRA1111111')
-        self.assertEquals(caverphone('curfie'), 'KFA1111111')
-        self.assertEquals(caverphone('curie'), 'KRA1111111')
-        self.assertEquals(caverphone('curle'), 'KA11111111')
-        self.assertEquals(caverphone('curline'), 'KLN1111111')
-        self.assertEquals(caverphone('curran'), 'KRN1111111')
-        self.assertEquals(caverphone('curren'), 'KRN1111111')
-        self.assertEquals(caverphone('currie'), 'KRA1111111')
-        self.assertEquals(caverphone('curry'), 'KRA1111111')
-        self.assertEquals(caverphone('cursey'), 'KSA1111111')
-        self.assertEquals(caverphone('curtayne'), 'KTN1111111')
-        self.assertEquals(caverphone('curties'), 'KTS1111111')
-        self.assertEquals(caverphone('curtin'), 'KTN1111111')
-        self.assertEquals(caverphone('curtis'), 'KTS1111111')
-        self.assertEquals(caverphone('curye'), 'KRA1111111')
-        self.assertEquals(caverphone('curzon-sig'), 'KSNSK11111')
-        self.assertEquals(caverphone('curzon-siggers'), 'KSNSKS1111')
-        self.assertEquals(caverphone('cusach'), 'KSK1111111')
-        self.assertEquals(caverphone('cusack'), 'KSK1111111')
-        self.assertEquals(caverphone('cushen'), 'KSN1111111')
-        self.assertEquals(caverphone('cushman'), 'KSMN111111')
-        self.assertEquals(caverphone('cushnan'), 'KSNN111111')
-        self.assertEquals(caverphone('cushnie'), 'KSNA111111')
-        self.assertEquals(caverphone('cutbush'), 'KTPS111111')
-        self.assertEquals(caverphone('cuthbertson'), 'KTPTSN1111')
-        self.assertEquals(caverphone('cuthterts'), 'KTTTS11111')
-        self.assertEquals(caverphone('cutler'), 'KTLA111111')
-        self.assertEquals(caverphone('cutriss'), 'KTRS111111')
-        self.assertEquals(caverphone('cuttance'), 'KTNK111111')
-        self.assertEquals(caverphone('cutten'), 'KTN1111111')
-        self.assertEquals(caverphone('cutter'), 'KTA1111111')
-        self.assertEquals(caverphone('cuttle'), 'KTA1111111')
-        self.assertEquals(caverphone('cuttriss'), 'KTRS111111')
-        self.assertEquals(caverphone('cutts'), 'KTS1111111')
-        self.assertEquals(caverphone('cuzens'), 'KSNS111111')
-        self.assertEquals(caverphone('cvitanovich'), 'KFTNFK1111')
-        self.assertEquals(caverphone('d\'auvergne'), 'TFKN111111')
-        self.assertEquals(caverphone('dabinett'), 'TPNT111111')
-        self.assertEquals(caverphone('dacker'), 'TKA1111111')
-        self.assertEquals(caverphone('dagg'), 'TK11111111')
-        self.assertEquals(caverphone('dagger'), 'TKA1111111')
-        self.assertEquals(caverphone('dagleish'), 'TKLS111111')
-        self.assertEquals(caverphone('daglish'), 'TKLS111111')
-        self.assertEquals(caverphone('dagnall'), 'TKNA111111')
-        self.assertEquals(caverphone('dagnell'), 'TKNA111111')
-        self.assertEquals(caverphone('dahren'), 'TRN1111111')
-        self.assertEquals(caverphone('dakers'), 'TKS1111111')
-        self.assertEquals(caverphone('dale'), 'TA11111111')
-        self.assertEquals(caverphone('dales'), 'TLS1111111')
-        self.assertEquals(caverphone('dalgar'), 'TKA1111111')
-        self.assertEquals(caverphone('dalgarno'), 'TKNA111111')
-        self.assertEquals(caverphone('dalgeish'), 'TKS1111111')
-        self.assertEquals(caverphone('dalgleish'), 'TKLS111111')
-        self.assertEquals(caverphone('dalgliesh'), 'TKLS111111')
-        self.assertEquals(caverphone('dall'), 'TA11111111')
-        self.assertEquals(caverphone('dallard'), 'TLT1111111')
-        self.assertEquals(caverphone('dallas'), 'TLS1111111')
-        self.assertEquals(caverphone('dallaston'), 'TLSTN11111')
-        self.assertEquals(caverphone('dallen'), 'TLN1111111')
-        self.assertEquals(caverphone('dalley'), 'TLA1111111')
-        self.assertEquals(caverphone('dalrymple'), 'TRMPA11111')
-        self.assertEquals(caverphone('dalton'), 'TTN1111111')
-        self.assertEquals(caverphone('daly'), 'TLA1111111')
-        self.assertEquals(caverphone('dalzell'), 'TSA1111111')
-        self.assertEquals(caverphone('dalziel'), 'TSA1111111')
-        self.assertEquals(caverphone('dandie'), 'TNTA111111')
-        self.assertEquals(caverphone('daniel'), 'TNA1111111')
-        self.assertEquals(caverphone('daniell'), 'TNA1111111')
-        self.assertEquals(caverphone('daniels'), 'TNS1111111')
-        self.assertEquals(caverphone('dann'), 'TN11111111')
-        self.assertEquals(caverphone('danner'), 'TNA1111111')
-        self.assertEquals(caverphone('danskin'), 'TNSKN11111')
-        self.assertEquals(caverphone('darcy'), 'TSA1111111')
-        self.assertEquals(caverphone('dark'), 'TK11111111')
-        self.assertEquals(caverphone('darley'), 'TLA1111111')
-        self.assertEquals(caverphone('darling'), 'TLNK111111')
-        self.assertEquals(caverphone('darlison'), 'TLSN111111')
-        self.assertEquals(caverphone('darracott'), 'TRKT111111')
-        self.assertEquals(caverphone('darragh'), 'TRA1111111')
-        self.assertEquals(caverphone('darroch'), 'TRK1111111')
-        self.assertEquals(caverphone('dash'), 'TS11111111')
-        self.assertEquals(caverphone('dashper'), 'TSPA111111')
-        self.assertEquals(caverphone('dashwood'), 'TSWT111111')
-        self.assertEquals(caverphone('dasler'), 'TSLA111111')
-        self.assertEquals(caverphone('daubney'), 'TPNA111111')
-        self.assertEquals(caverphone('daunt'), 'TNT1111111')
-        self.assertEquals(caverphone('davany'), 'TFNA111111')
-        self.assertEquals(caverphone('daveis'), 'TFS1111111')
-        self.assertEquals(caverphone('davenport'), 'TFNPT11111')
-        self.assertEquals(caverphone('davey'), 'TFA1111111')
-        self.assertEquals(caverphone('david'), 'TFT1111111')
-        self.assertEquals(caverphone('davidson'), 'TFTSN11111')
-        self.assertEquals(caverphone('davie'), 'TFA1111111')
-        self.assertEquals(caverphone('davies'), 'TFS1111111')
-        self.assertEquals(caverphone('davis'), 'TFS1111111')
-        self.assertEquals(caverphone('davison'), 'TFSN111111')
-        self.assertEquals(caverphone('davy'), 'TFA1111111')
-        self.assertEquals(caverphone('davys'), 'TFS1111111')
-        self.assertEquals(caverphone('dawe'), 'TA11111111')
-        self.assertEquals(caverphone('dawes'), 'TWS1111111')
-        self.assertEquals(caverphone('dawkins'), 'TKNS111111')
-        self.assertEquals(caverphone('dawsett'), 'TST1111111')
-        self.assertEquals(caverphone('dawson'), 'TSN1111111')
-        self.assertEquals(caverphone('day'), 'TA11111111')
-        self.assertEquals(caverphone('daysh'), 'TS11111111')
-        self.assertEquals(caverphone('de bazin'), 'TPSN111111')
-        self.assertEquals(caverphone('de berry'), 'TPRA111111')
-        self.assertEquals(caverphone('de boyett'), 'TPT1111111')
-        self.assertEquals(caverphone('de carle'), 'TKA1111111')
-        self.assertEquals(caverphone('de castro'), 'TKSTRA1111')
-        self.assertEquals(caverphone('de clifford'), 'TKLFT11111')
-        self.assertEquals(caverphone('de clive lowe'), 'TKLFLA1111')
-        self.assertEquals(caverphone('de colmar'), 'TKMA111111')
-        self.assertEquals(caverphone('de courcey'), 'TKSA111111')
-        self.assertEquals(caverphone('de courcy'), 'TKSA111111')
-        self.assertEquals(caverphone('de lacey'), 'TLSA111111')
-        self.assertEquals(caverphone('de largey'), 'TLKA111111')
-        self.assertEquals(caverphone('de lautour'), 'TLTA111111')
-        self.assertEquals(caverphone('de malmanche'), 'TMMNK11111')
-        self.assertEquals(caverphone('de ment'), 'TMNT111111')
-        self.assertEquals(caverphone('de silva'), 'TSFA111111')
-        self.assertEquals(caverphone('de spong'), 'TSPNK11111')
-        self.assertEquals(caverphone('de st croix'), 'TSTKRK1111')
-        self.assertEquals(caverphone('de st. croix'), 'TSTKRK1111')
-        self.assertEquals(caverphone('de vere'), 'TFA1111111')
-        self.assertEquals(caverphone('de-clive-low'), 'TKLFLA1111')
-        self.assertEquals(caverphone('deaker'), 'TKA1111111')
-        self.assertEquals(caverphone('deamy'), 'TMA1111111')
-        self.assertEquals(caverphone('dean'), 'TN11111111')
-        self.assertEquals(caverphone('deane'), 'TN11111111')
-        self.assertEquals(caverphone('deans'), 'TNS1111111')
-        self.assertEquals(caverphone('dear'), 'TA11111111')
-        self.assertEquals(caverphone('dease'), 'TS11111111')
-        self.assertEquals(caverphone('debenham'), 'TPNM111111')
-        self.assertEquals(caverphone('deberry'), 'TPRA111111')
-        self.assertEquals(caverphone('decourcy'), 'TKSA111111')
-        self.assertEquals(caverphone('dee'), 'TA11111111')
-        self.assertEquals(caverphone('deegan'), 'TKN1111111')
-        self.assertEquals(caverphone('deehan'), 'TN11111111')
-        self.assertEquals(caverphone('deem'), 'TM11111111')
-        self.assertEquals(caverphone('deikle'), 'TKA1111111')
-        self.assertEquals(caverphone('deiley'), 'TLA1111111')
-        self.assertEquals(caverphone('deisher'), 'TSA1111111')
-        self.assertEquals(caverphone('delahunty'), 'TLNTA11111')
-        self.assertEquals(caverphone('delaney'), 'TLNA111111')
-        self.assertEquals(caverphone('delany'), 'TLNA111111')
-        self.assertEquals(caverphone('delargey'), 'TLKA111111')
-        self.assertEquals(caverphone('delargy'), 'TLKA111111')
-        self.assertEquals(caverphone('delbridge'), 'TPRK111111')
-        self.assertEquals(caverphone('dell'), 'TA11111111')
-        self.assertEquals(caverphone('dely'), 'TLA1111111')
-        self.assertEquals(caverphone('dement'), 'TMNT111111')
-        self.assertEquals(caverphone('demontalk'), 'TMNTK11111')
-        self.assertEquals(caverphone('demouth'), 'TMT1111111')
-        self.assertEquals(caverphone('dempsey'), 'TMPSA11111')
-        self.assertEquals(caverphone('dempster'), 'TMPSTA1111')
-        self.assertEquals(caverphone('dench'), 'TNK1111111')
-        self.assertEquals(caverphone('dencker'), 'TNKA111111')
-        self.assertEquals(caverphone('denfold'), 'TNFT111111')
-        self.assertEquals(caverphone('denfolrd'), 'TNFT111111')
-        self.assertEquals(caverphone('denford'), 'TNFT111111')
-        self.assertEquals(caverphone('denham'), 'TNM1111111')
-        self.assertEquals(caverphone('denhehy'), 'TNA1111111')
-        self.assertEquals(caverphone('denholm'), 'TNM1111111')
-        self.assertEquals(caverphone('denholme'), 'TNM1111111')
-        self.assertEquals(caverphone('denne'), 'TN11111111')
-        self.assertEquals(caverphone('dennehy'), 'TNA1111111')
-        self.assertEquals(caverphone('dennis'), 'TNS1111111')
-        self.assertEquals(caverphone('dennison'), 'TNSN111111')
-        self.assertEquals(caverphone('denniston'), 'TNSTN11111')
-        self.assertEquals(caverphone('denny'), 'TNA1111111')
-        self.assertEquals(caverphone('densem'), 'TNSM111111')
-        self.assertEquals(caverphone('dent'), 'TNT1111111')
-        self.assertEquals(caverphone('dentith'), 'TNTT111111')
-        self.assertEquals(caverphone('denton'), 'TNTN111111')
-        self.assertEquals(caverphone('depellett'), 'TPLT111111')
-        self.assertEquals(caverphone('dephoff'), 'TFF1111111')
-        self.assertEquals(caverphone('derbie'), 'TPA1111111')
-        self.assertEquals(caverphone('derbyshire'), 'TPSA111111')
-        self.assertEquals(caverphone('dermer'), 'TMA1111111')
-        self.assertEquals(caverphone('dernehy'), 'TNA1111111')
-        self.assertEquals(caverphone('derrick'), 'TRK1111111')
-        self.assertEquals(caverphone('derry'), 'TRA1111111')
-        self.assertEquals(caverphone('desmond'), 'TSMNT11111')
-        self.assertEquals(caverphone('desmoulins'), 'TSMLNS1111')
-        self.assertEquals(caverphone('dessarthe'), 'TST1111111')
-        self.assertEquals(caverphone('dester'), 'TSTA111111')
-        self.assertEquals(caverphone('deuchrass'), 'TKRS111111')
-        self.assertEquals(caverphone('devaney'), 'TFNA111111')
-        self.assertEquals(caverphone('devany'), 'TFNA111111')
-        self.assertEquals(caverphone('devenie'), 'TFNA111111')
-        self.assertEquals(caverphone('devenney'), 'TFNA111111')
-        self.assertEquals(caverphone('dever'), 'TFA1111111')
-        self.assertEquals(caverphone('devereux'), 'TFRK111111')
-        self.assertEquals(caverphone('devery'), 'TFRA111111')
-        self.assertEquals(caverphone('devine'), 'TFN1111111')
-        self.assertEquals(caverphone('devlill'), 'TFLA111111')
-        self.assertEquals(caverphone('devlin'), 'TFLN111111')
-        self.assertEquals(caverphone('dew'), 'TA11111111')
-        self.assertEquals(caverphone('dewar'), 'TWA1111111')
-        self.assertEquals(caverphone('dexter'), 'TKTA111111')
-        self.assertEquals(caverphone('dey'), 'TA11111111')
-        self.assertEquals(caverphone('diack'), 'TK11111111')
-        self.assertEquals(caverphone('diamond'), 'TMNT111111')
-        self.assertEquals(caverphone('dick'), 'TK11111111')
-        self.assertEquals(caverphone('dickens'), 'TKNS111111')
-        self.assertEquals(caverphone('dickeon'), 'TKN1111111')
-        self.assertEquals(caverphone('dicker'), 'TKA1111111')
-        self.assertEquals(caverphone('dickey'), 'TKA1111111')
-        self.assertEquals(caverphone('dickie'), 'TKA1111111')
-        self.assertEquals(caverphone('dickinson'), 'TKNSN11111')
-        self.assertEquals(caverphone('dickison'), 'TKSN111111')
-        self.assertEquals(caverphone('dicksan'), 'TKSN111111')
-        self.assertEquals(caverphone('dickson'), 'TKSN111111')
-        self.assertEquals(caverphone('didham'), 'TTM1111111')
-        self.assertEquals(caverphone('didsbury'), 'TTSPRA1111')
-        self.assertEquals(caverphone('diefenbach'), 'TFNPK11111')
-        self.assertEquals(caverphone('diehl'), 'TA11111111')
-        self.assertEquals(caverphone('digby-smith'), 'TKPSMT1111')
-        self.assertEquals(caverphone('dillan'), 'TLN1111111')
-        self.assertEquals(caverphone('dillon-kin'), 'TLNKN11111')
-        self.assertEquals(caverphone('dillon'), 'TLN1111111')
-        self.assertEquals(caverphone('dimond'), 'TMNT111111')
-        self.assertEquals(caverphone('dineen'), 'TNN1111111')
-        self.assertEquals(caverphone('dingle'), 'TNKA111111')
-        self.assertEquals(caverphone('dingwall'), 'TNKWA11111')
-        self.assertEquals(caverphone('dinning'), 'TNNK111111')
-        self.assertEquals(caverphone('dinsell'), 'TNSA111111')
-        self.assertEquals(caverphone('dippie'), 'TPA1111111')
-        self.assertEquals(caverphone('direen'), 'TRN1111111')
-        self.assertEquals(caverphone('diston'), 'TSTN111111')
-        self.assertEquals(caverphone('diver'), 'TFA1111111')
-        self.assertEquals(caverphone('divers'), 'TFS1111111')
-        self.assertEquals(caverphone('divett'), 'TFT1111111')
-        self.assertEquals(caverphone('dix'), 'TK11111111')
-        self.assertEquals(caverphone('dixon'), 'TKN1111111')
-        self.assertEquals(caverphone('dixs'), 'TKS1111111')
-        self.assertEquals(caverphone('doak'), 'TK11111111')
-        self.assertEquals(caverphone('doake'), 'TK11111111')
-        self.assertEquals(caverphone('dobbie'), 'TPA1111111')
-        self.assertEquals(caverphone('dobbin'), 'TPN1111111')
-        self.assertEquals(caverphone('dobble'), 'TPA1111111')
-        self.assertEquals(caverphone('dobbs'), 'TPS1111111')
-        self.assertEquals(caverphone('dobe'), 'TP11111111')
-        self.assertEquals(caverphone('dobie'), 'TPA1111111')
-        self.assertEquals(caverphone('dobson'), 'TPSN111111')
-        self.assertEquals(caverphone('docherty'), 'TKTA111111')
-        self.assertEquals(caverphone('dockworth'), 'TKWT111111')
-        self.assertEquals(caverphone('dodd'), 'TT11111111')
-        self.assertEquals(caverphone('doddridge'), 'TTRK111111')
-        self.assertEquals(caverphone('dodds'), 'TTS1111111')
-        self.assertEquals(caverphone('dods'), 'TTS1111111')
-        self.assertEquals(caverphone('doggart'), 'TKT1111111')
-        self.assertEquals(caverphone('doherty'), 'TTA1111111')
-        self.assertEquals(caverphone('dohig'), 'TK11111111')
-        self.assertEquals(caverphone('doig'), 'TK11111111')
-        self.assertEquals(caverphone('dolan'), 'TLN1111111')
-        self.assertEquals(caverphone('dolman'), 'TMN1111111')
-        self.assertEquals(caverphone('dolphin'), 'TFN1111111')
-        self.assertEquals(caverphone('domigan'), 'TMKN111111')
-        self.assertEquals(caverphone('dommett'), 'TMT1111111')
-        self.assertEquals(caverphone('don'), 'TN11111111')
-        self.assertEquals(caverphone('donald'), 'TNT1111111')
-        self.assertEquals(caverphone('donaldson'), 'TNTSN11111')
-        self.assertEquals(caverphone('done'), 'TN11111111')
-        self.assertEquals(caverphone('donellan'), 'TNLN111111')
-        self.assertEquals(caverphone('donglas'), 'TNKLS11111')
-        self.assertEquals(caverphone('donlan'), 'TNLN111111')
-        self.assertEquals(caverphone('donn'), 'TN11111111')
-        self.assertEquals(caverphone('donnald'), 'TNT1111111')
-        self.assertEquals(caverphone('donne'), 'TN11111111')
-        self.assertEquals(caverphone('donneily'), 'TNLA111111')
-        self.assertEquals(caverphone('donnelly'), 'TNLA111111')
-        self.assertEquals(caverphone('donoghue'), 'TNKA111111')
-        self.assertEquals(caverphone('donovan'), 'TNFN111111')
-        self.assertEquals(caverphone('doocey'), 'TSA1111111')
-        self.assertEquals(caverphone('doody'), 'TTA1111111')
-        self.assertEquals(caverphone('dooley'), 'TLA1111111')
-        self.assertEquals(caverphone('doorley'), 'TLA1111111')
-        self.assertEquals(caverphone('doran'), 'TRN1111111')
-        self.assertEquals(caverphone('dore'), 'TA11111111')
-        self.assertEquals(caverphone('doreman'), 'TRMN111111')
-        self.assertEquals(caverphone('dorman'), 'TMN1111111')
-        self.assertEquals(caverphone('dormer'), 'TMA1111111')
-        self.assertEquals(caverphone('dorney'), 'TNA1111111')
-        self.assertEquals(caverphone('dorreen'), 'TRN1111111')
-        self.assertEquals(caverphone('dorrian'), 'TRN1111111')
-        self.assertEquals(caverphone('dorsey'), 'TSA1111111')
-        self.assertEquals(caverphone('dorward'), 'TWT1111111')
-        self.assertEquals(caverphone('dossett'), 'TST1111111')
-        self.assertEquals(caverphone('double'), 'TPA1111111')
-        self.assertEquals(caverphone('doudle'), 'TTA1111111')
-        self.assertEquals(caverphone('dougal'), 'TKA1111111')
-        self.assertEquals(caverphone('dougali'), 'TKLA111111')
-        self.assertEquals(caverphone('dougall'), 'TKA1111111')
-        self.assertEquals(caverphone('dougan'), 'TKN1111111')
-        self.assertEquals(caverphone('dougherty'), 'TKTA111111')
-        self.assertEquals(caverphone('doughty'), 'TTA1111111')
-        self.assertEquals(caverphone('douglans'), 'TKLNS11111')
-        self.assertEquals(caverphone('douglas'), 'TKLS111111')
-        self.assertEquals(caverphone('douglass'), 'TKLS111111')
-        self.assertEquals(caverphone('douherty'), 'TTA1111111')
-        self.assertEquals(caverphone('doulass'), 'TLS1111111')
-        self.assertEquals(caverphone('douli'), 'TLA1111111')
-        self.assertEquals(caverphone('doull'), 'TA11111111')
-        self.assertEquals(caverphone('dov'), 'TF11111111')
-        self.assertEquals(caverphone('dove'), 'TF11111111')
-        self.assertEquals(caverphone('dow'), 'TA11111111')
-        self.assertEquals(caverphone('dowdall'), 'TTA1111111')
-        self.assertEquals(caverphone('dowden'), 'TTN1111111')
-        self.assertEquals(caverphone('dowell'), 'TWA1111111')
-        self.assertEquals(caverphone('dowey'), 'TWA1111111')
-        self.assertEquals(caverphone('dowie'), 'TWA1111111')
-        self.assertEquals(caverphone('dowland'), 'TLNT111111')
-        self.assertEquals(caverphone('dowling'), 'TLNK111111')
-        self.assertEquals(caverphone('down'), 'TN11111111')
-        self.assertEquals(caverphone('downer'), 'TNA1111111')
-        self.assertEquals(caverphone('downes'), 'TNS1111111')
-        self.assertEquals(caverphone('downey'), 'TNA1111111')
-        self.assertEquals(caverphone('downie'), 'TNA1111111')
-        self.assertEquals(caverphone('downs'), 'TNS1111111')
-        self.assertEquals(caverphone('doyle'), 'TA11111111')
-        self.assertEquals(caverphone('drain'), 'TRN1111111')
-        self.assertEquals(caverphone('drake'), 'TRK1111111')
-        self.assertEquals(caverphone('drane'), 'TRN1111111')
-        self.assertEquals(caverphone('draper'), 'TRPA111111')
-        self.assertEquals(caverphone('dray'), 'TRA1111111')
-        self.assertEquals(caverphone('drayton'), 'TRTN111111')
-        self.assertEquals(caverphone('dreaver'), 'TRFA111111')
-        self.assertEquals(caverphone('dreavor'), 'TRFA111111')
-        self.assertEquals(caverphone('drees'), 'TRS1111111')
-        self.assertEquals(caverphone('drench'), 'TRNK111111')
-        self.assertEquals(caverphone('drennan'), 'TRNN111111')
-        self.assertEquals(caverphone('drew-daniels'), 'TRTNS11111')
-        self.assertEquals(caverphone('drew'), 'TRA1111111')
-        self.assertEquals(caverphone('dripps'), 'TRPS111111')
-        self.assertEquals(caverphone('driscole'), 'TRSKA11111')
-        self.assertEquals(caverphone('driscoll-shaw'), 'TRSKSA1111')
-        self.assertEquals(caverphone('driscoll'), 'TRSKA11111')
-        self.assertEquals(caverphone('driver'), 'TRFA111111')
-        self.assertEquals(caverphone('droaver'), 'TRFA111111')
-        self.assertEquals(caverphone('droscher'), 'TRSKA11111')
-        self.assertEquals(caverphone('drosier'), 'TRSA111111')
-        self.assertEquals(caverphone('drumm'), 'TRM1111111')
-        self.assertEquals(caverphone('drummond'), 'TRMNT11111')
-        self.assertEquals(caverphone('drury'), 'TRRA111111')
-        self.assertEquals(caverphone('dry'), 'TRA1111111')
-        self.assertEquals(caverphone('dryden'), 'TRTN111111')
-        self.assertEquals(caverphone('drysdale'), 'TRSTA11111')
-        self.assertEquals(caverphone('duckett'), 'TKT1111111')
-        self.assertEquals(caverphone('duckmanton'), 'TKMNTN1111')
-        self.assertEquals(caverphone('duckworth'), 'TKWT111111')
-        self.assertEquals(caverphone('dudding'), 'TTNK111111')
-        self.assertEquals(caverphone('duder'), 'TTA1111111')
-        self.assertEquals(caverphone('dudley'), 'TTLA111111')
-        self.assertEquals(caverphone('dudson'), 'TTSN111111')
-        self.assertEquals(caverphone('duell'), 'TA11111111')
-        self.assertEquals(caverphone('duerden'), 'TTN1111111')
-        self.assertEquals(caverphone('duff'), 'TF11111111')
-        self.assertEquals(caverphone('duffy'), 'TFA1111111')
-        self.assertEquals(caverphone('dugdale'), 'TKTA111111')
-        self.assertEquals(caverphone('duggan'), 'TKN1111111')
-        self.assertEquals(caverphone('dugleby'), 'TKLPA11111')
-        self.assertEquals(caverphone('duguid'), 'TKT1111111')
-        self.assertEquals(caverphone('duhig'), 'TK11111111')
-        self.assertEquals(caverphone('duig'), 'TK11111111')
-        self.assertEquals(caverphone('duigan'), 'TKN1111111')
-        self.assertEquals(caverphone('duignan'), 'TKNN111111')
-        self.assertEquals(caverphone('duke'), 'TK11111111')
-        self.assertEquals(caverphone('dull'), 'TA11111111')
-        self.assertEquals(caverphone('dulward'), 'TWT1111111')
-        self.assertEquals(caverphone('dumas'), 'TMS1111111')
-        self.assertEquals(caverphone('dumble'), 'TMPA111111')
-        self.assertEquals(caverphone('dumsday'), 'TMSTA11111')
-        self.assertEquals(caverphone('dun'), 'TN11111111')
-        self.assertEquals(caverphone('dunbar'), 'TNPA111111')
-        self.assertEquals(caverphone('duncall'), 'TNKA111111')
-        self.assertEquals(caverphone('duncan'), 'TNKN111111')
-        self.assertEquals(caverphone('dundas'), 'TNTS111111')
-        self.assertEquals(caverphone('dunean'), 'TNN1111111')
-        self.assertEquals(caverphone('dunford'), 'TNFT111111')
-        self.assertEquals(caverphone('dungan'), 'TNKN111111')
-        self.assertEquals(caverphone('dungey'), 'TNKA111111')
-        self.assertEquals(caverphone('dunham'), 'TNM1111111')
-        self.assertEquals(caverphone('dunhar'), 'TNA1111111')
-        self.assertEquals(caverphone('dunipace'), 'TNPK111111')
-        self.assertEquals(caverphone('dunkerton'), 'TNKTN11111')
-        self.assertEquals(caverphone('dunkin'), 'TNKN111111')
-        self.assertEquals(caverphone('dunkley'), 'TNKLA11111')
-        self.assertEquals(caverphone('dunlop'), 'TNLP111111')
-        self.assertEquals(caverphone('dunn'), 'TN11111111')
-        self.assertEquals(caverphone('dunnage'), 'TNK1111111')
-        self.assertEquals(caverphone('dunne'), 'TN11111111')
-        self.assertEquals(caverphone('dunnet'), 'TNT1111111')
-        self.assertEquals(caverphone('dunnig'), 'TNK1111111')
-        self.assertEquals(caverphone('dunning'), 'TNNK111111')
-        self.assertEquals(caverphone('dunring'), 'TNRNK11111')
-        self.assertEquals(caverphone('dunshea'), 'TNSA111111')
-        self.assertEquals(caverphone('dunsmuir'), 'TNSMA11111')
-        self.assertEquals(caverphone('dunstan'), 'TNSTN11111')
-        self.assertEquals(caverphone('dunster'), 'TNSTA11111')
-        self.assertEquals(caverphone('durand'), 'TRNT111111')
-        self.assertEquals(caverphone('durie'), 'TRA1111111')
-        self.assertEquals(caverphone('durning'), 'TNNK111111')
-        self.assertEquals(caverphone('duro'), 'TRA1111111')
-        self.assertEquals(caverphone('durrand'), 'TRNT111111')
-        self.assertEquals(caverphone('durrant'), 'TRNT111111')
-        self.assertEquals(caverphone('durreen'), 'TRN1111111')
-        self.assertEquals(caverphone('durry'), 'TRA1111111')
-        self.assertEquals(caverphone('duthie'), 'TTA1111111')
-        self.assertEquals(caverphone('dutton'), 'TTN1111111')
-        self.assertEquals(caverphone('dwan'), 'TWN1111111')
-        self.assertEquals(caverphone('dwight'), 'TWT1111111')
-        self.assertEquals(caverphone('dwyer'), 'TWA1111111')
-        self.assertEquals(caverphone('dyas'), 'TS11111111')
-        self.assertEquals(caverphone('dyer'), 'TA11111111')
-        self.assertEquals(caverphone('dyke'), 'TK11111111')
-        self.assertEquals(caverphone('dykes'), 'TKS1111111')
-        self.assertEquals(caverphone('dykins'), 'TKNS111111')
-        self.assertEquals(caverphone('dysart'), 'TST1111111')
-        self.assertEquals(caverphone('dysaski'), 'TSSKA11111')
-        self.assertEquals(caverphone('dyson'), 'TSN1111111')
-        self.assertEquals(caverphone('eade'), 'AT11111111')
-        self.assertEquals(caverphone('eades'), 'ATS1111111')
-        self.assertEquals(caverphone('eadie'), 'ATA1111111')
-        self.assertEquals(caverphone('eady'), 'ATA1111111')
-        self.assertEquals(caverphone('eagan'), 'AKN1111111')
-        self.assertEquals(caverphone('eagar'), 'AKA1111111')
-        self.assertEquals(caverphone('eager'), 'AKA1111111')
-        self.assertEquals(caverphone('eagle'), 'AKA1111111')
-        self.assertEquals(caverphone('eagles'), 'AKLS111111')
-        self.assertEquals(caverphone('eagleton'), 'AKLTN11111')
-        self.assertEquals(caverphone('eamilton'), 'AMTN111111')
-        self.assertEquals(caverphone('eardley'), 'ATLA111111')
-        self.assertEquals(caverphone('eardly'), 'ATLA111111')
-        self.assertEquals(caverphone('earl'), 'AA11111111')
-        self.assertEquals(caverphone('earland'), 'ALNT111111')
-        self.assertEquals(caverphone('earley'), 'ALA1111111')
-        self.assertEquals(caverphone('early'), 'ALA1111111')
-        self.assertEquals(caverphone('earnshaw'), 'ANSA111111')
-        self.assertEquals(caverphone('earp'), 'AP11111111')
-        self.assertEquals(caverphone('eason'), 'ASN1111111')
-        self.assertEquals(caverphone('easson'), 'ASN1111111')
-        self.assertEquals(caverphone('east'), 'AST1111111')
-        self.assertEquals(caverphone('easther'), 'ASTA111111')
-        self.assertEquals(caverphone('easton'), 'ASTN111111')
-        self.assertEquals(caverphone('eastwood'), 'ASTWT11111')
-        self.assertEquals(caverphone('eaton'), 'ATN1111111')
-        self.assertEquals(caverphone('eayes'), 'AS11111111')
-        self.assertEquals(caverphone('ebzery'), 'APSRA11111')
-        self.assertEquals(caverphone('eccles'), 'AKLS111111')
-        self.assertEquals(caverphone('eckhoff'), 'AKF1111111')
-        self.assertEquals(caverphone('eckhold'), 'AKT1111111')
-        self.assertEquals(caverphone('ecsex'), 'AKSK111111')
-        self.assertEquals(caverphone('eddington'), 'ATNKTN1111')
-        self.assertEquals(caverphone('ede-clendinnen'), 'ATKLNTNN11')
-        self.assertEquals(caverphone('ede'), 'AT11111111')
-        self.assertEquals(caverphone('eden'), 'ATN1111111')
-        self.assertEquals(caverphone('edgar'), 'AKA1111111')
-        self.assertEquals(caverphone('edgares'), 'AKRS111111')
-        self.assertEquals(caverphone('edge'), 'AK11111111')
-        self.assertEquals(caverphone('edginton'), 'AKNTN11111')
-        self.assertEquals(caverphone('edie'), 'ATA1111111')
-        self.assertEquals(caverphone('ediin'), 'ATN1111111')
-        self.assertEquals(caverphone('edin'), 'ATN1111111')
-        self.assertEquals(caverphone('edinger'), 'ATNKA11111')
-        self.assertEquals(caverphone('edington'), 'ATNKTN1111')
-        self.assertEquals(caverphone('edis'), 'ATS1111111')
-        self.assertEquals(caverphone('edkins'), 'ATKNS11111')
-        self.assertEquals(caverphone('edlin'), 'ATLN111111')
-        self.assertEquals(caverphone('edmenson'), 'ATMNSN1111')
-        self.assertEquals(caverphone('edmond'), 'ATMNT11111')
-        self.assertEquals(caverphone('edmonds'), 'ATMNTS1111')
-        self.assertEquals(caverphone('edridge'), 'ATRK111111')
-        self.assertEquals(caverphone('edsall'), 'ATSA111111')
-        self.assertEquals(caverphone('edson'), 'ATSN111111')
-        self.assertEquals(caverphone('edward'), 'ATWT111111')
-        self.assertEquals(caverphone('edwards'), 'ATWTS11111')
-        self.assertEquals(caverphone('edwardson'), 'ATWTSN1111')
-        self.assertEquals(caverphone('egan'), 'AKN1111111')
-        self.assertEquals(caverphone('egerton'), 'AKTN111111')
-        self.assertEquals(caverphone('eggelton'), 'AKTN111111')
-        self.assertEquals(caverphone('eggers'), 'AKS1111111')
-        self.assertEquals(caverphone('egglestone'), 'AKLSTN1111')
-        self.assertEquals(caverphone('eggleton'), 'AKLTN11111')
-        self.assertEquals(caverphone('eilis'), 'ALS1111111')
-        self.assertEquals(caverphone('elbra'), 'APRA111111')
-        self.assertEquals(caverphone('elder'), 'ATA1111111')
-        self.assertEquals(caverphone('elders'), 'ATS1111111')
-        self.assertEquals(caverphone('elding'), 'ATNK111111')
-        self.assertEquals(caverphone('eldridge'), 'ATRK111111')
-        self.assertEquals(caverphone('elias'), 'ALS1111111')
-        self.assertEquals(caverphone('eliot'), 'ALT1111111')
-        self.assertEquals(caverphone('eliott'), 'ALT1111111')
-        self.assertEquals(caverphone('ellacombe'), 'ALKM111111')
-        self.assertEquals(caverphone('ellens'), 'ALNS111111')
-        self.assertEquals(caverphone('ellery'), 'ALRA111111')
-        self.assertEquals(caverphone('elliffe'), 'ALF1111111')
-        self.assertEquals(caverphone('elliis'), 'ALS1111111')
-        self.assertEquals(caverphone('ellingwood'), 'ALNKWT1111')
-        self.assertEquals(caverphone('elliobt'), 'ALPT111111')
-        self.assertEquals(caverphone('elliot'), 'ALT1111111')
-        self.assertEquals(caverphone('elliott'), 'ALT1111111')
-        self.assertEquals(caverphone('elliotte'), 'ALT1111111')
-        self.assertEquals(caverphone('ellis'), 'ALS1111111')
-        self.assertEquals(caverphone('ellison'), 'ALSN111111')
-        self.assertEquals(caverphone('ellisson'), 'ALSN111111')
-        self.assertEquals(caverphone('ells'), 'AS11111111')
-        self.assertEquals(caverphone('elms'), 'AMS1111111')
-        self.assertEquals(caverphone('elmsly'), 'AMSLA11111')
-        self.assertEquals(caverphone('elphick'), 'AFK1111111')
-        self.assertEquals(caverphone('elphinstone'), 'AFNSTN1111')
-        self.assertEquals(caverphone('elsey'), 'ASA1111111')
-        self.assertEquals(caverphone('elsom'), 'ASM1111111')
-        self.assertEquals(caverphone('elston'), 'ASTN111111')
-        self.assertEquals(caverphone('elstow'), 'ASTA111111')
-        self.assertEquals(caverphone('elton'), 'ATN1111111')
-        self.assertEquals(caverphone('elvidge'), 'AFK1111111')
-        self.assertEquals(caverphone('emerson'), 'AMSN111111')
-        self.assertEquals(caverphone('emery'), 'AMRA111111')
-        self.assertEquals(caverphone('emlis'), 'AMLS111111')
-        self.assertEquals(caverphone('emmerson'), 'AMSN111111')
-        self.assertEquals(caverphone('emond'), 'AMNT111111')
-        self.assertEquals(caverphone('empey'), 'AMPA111111')
-        self.assertEquals(caverphone('emslie'), 'AMSLA11111')
-        self.assertEquals(caverphone('endicott davies'), 'ANTKTFS111')
-        self.assertEquals(caverphone('endicott-davies'), 'ANTKTFS111')
-        self.assertEquals(caverphone('endicottdavies'), 'ANTKTFS111')
-        self.assertEquals(caverphone('engelbert'), 'ANKPT11111')
-        self.assertEquals(caverphone('england'), 'ANKLNT1111')
-        self.assertEquals(caverphone('englefield'), 'ANKLFT1111')
-        self.assertEquals(caverphone('english'), 'ANKLS11111')
-        self.assertEquals(caverphone('engstrom'), 'ANKSTRM111')
-        self.assertEquals(caverphone('enright'), 'ANRT111111')
-        self.assertEquals(caverphone('ensor'), 'ANSA111111')
-        self.assertEquals(caverphone('enticote'), 'ANTKT11111')
-        self.assertEquals(caverphone('eorne'), 'AN11111111')
-        self.assertEquals(caverphone('erenstrom'), 'ARNSTRM111')
-        self.assertEquals(caverphone('erickson'), 'ARKSN11111')
-        self.assertEquals(caverphone('ericson'), 'ARKSN11111')
-        self.assertEquals(caverphone('erlandson'), 'ALNTSN1111')
-        self.assertEquals(caverphone('erlidge'), 'ALK1111111')
-        self.assertEquals(caverphone('erridge'), 'ARK1111111')
-        self.assertEquals(caverphone('errington'), 'ARNKTN1111')
-        self.assertEquals(caverphone('erskine'), 'ASKN111111')
-        self.assertEquals(caverphone('erwin'), 'AWN1111111')
-        self.assertEquals(caverphone('escott'), 'ASKT111111')
-        self.assertEquals(caverphone('eskdale'), 'ASKTA11111')
-        self.assertEquals(caverphone('esperson'), 'ASPSN11111')
-        self.assertEquals(caverphone('espie'), 'ASPA111111')
-        self.assertEquals(caverphone('esplin'), 'ASPLN11111')
-        self.assertEquals(caverphone('esquilant'), 'ASKLNT1111')
-        self.assertEquals(caverphone('essex'), 'ASK1111111')
-        self.assertEquals(caverphone('esson'), 'ASN1111111')
-        self.assertEquals(caverphone('essson'), 'ASN1111111')
-        self.assertEquals(caverphone('esther'), 'ASTA111111')
-        self.assertEquals(caverphone('etheridge'), 'ATRK111111')
-        self.assertEquals(caverphone('eunson'), 'ANSN111111')
-        self.assertEquals(caverphone('eustace'), 'ASTK111111')
-        self.assertEquals(caverphone('eva'), 'AFA1111111')
-        self.assertEquals(caverphone('evan'), 'AFN1111111')
-        self.assertEquals(caverphone('evana'), 'AFNA111111')
-        self.assertEquals(caverphone('evans'), 'AFNS111111')
-        self.assertEquals(caverphone('evatt'), 'AFT1111111')
-        self.assertEquals(caverphone('evavs'), 'AFFS111111')
-        self.assertEquals(caverphone('everest'), 'AFRST11111')
-        self.assertEquals(caverphone('everett'), 'AFRT111111')
-        self.assertEquals(caverphone('everitt'), 'AFRT111111')
-        self.assertEquals(caverphone('everleigh'), 'AFLA111111')
-        self.assertEquals(caverphone('everson'), 'AFSN111111')
-        self.assertEquals(caverphone('every'), 'AFRA111111')
-        self.assertEquals(caverphone('ewan'), 'AWN1111111')
-        self.assertEquals(caverphone('ewart'), 'AWT1111111')
-        self.assertEquals(caverphone('ewens'), 'AWNS111111')
-        self.assertEquals(caverphone('ewing'), 'AWNK111111')
-        self.assertEquals(caverphone('ewington-bell'), 'AWNKTNPA11')
-        self.assertEquals(caverphone('exler'), 'AKLA111111')
-        self.assertEquals(caverphone('eyles'), 'ALS1111111')
-        self.assertEquals(caverphone('eyre'), 'AA11111111')
-        self.assertEquals(caverphone('facer'), 'FSA1111111')
-        self.assertEquals(caverphone('facey'), 'FSA1111111')
-        self.assertEquals(caverphone('fache'), 'FK11111111')
-        self.assertEquals(caverphone('fackender'), 'FKNTA11111')
-        self.assertEquals(caverphone('facoory'), 'FKRA111111')
-        self.assertEquals(caverphone('fagan'), 'FKN1111111')
-        self.assertEquals(caverphone('fahey'), 'FA11111111')
-        self.assertEquals(caverphone('fahy'), 'FA11111111')
-        self.assertEquals(caverphone('faid'), 'FT11111111')
-        self.assertEquals(caverphone('faigan'), 'FKN1111111')
-        self.assertEquals(caverphone('fail'), 'FA11111111')
-        self.assertEquals(caverphone('fair'), 'FA11111111')
-        self.assertEquals(caverphone('fairbairn'), 'FPN1111111')
-        self.assertEquals(caverphone('fairburn'), 'FPN1111111')
-        self.assertEquals(caverphone('faircloth'), 'FKLT111111')
-        self.assertEquals(caverphone('fairhall'), 'FA11111111')
-        self.assertEquals(caverphone('fairhurst'), 'FST1111111')
-        self.assertEquals(caverphone('fairley'), 'FLA1111111')
-        self.assertEquals(caverphone('fairlie'), 'FLA1111111')
-        self.assertEquals(caverphone('fairmaid'), 'FMT1111111')
-        self.assertEquals(caverphone('fairweather'), 'FWTA111111')
-        self.assertEquals(caverphone('faith'), 'FT11111111')
-        self.assertEquals(caverphone('faithful'), 'FTFA111111')
-        self.assertEquals(caverphone('faithfull'), 'FTFA111111')
-        self.assertEquals(caverphone('falck'), 'FK11111111')
-        self.assertEquals(caverphone('falcon'), 'FKN1111111')
-        self.assertEquals(caverphone('falconar'), 'FKNA111111')
-        self.assertEquals(caverphone('falconer'), 'FKNA111111')
-        self.assertEquals(caverphone('falgar'), 'FKA1111111')
-        self.assertEquals(caverphone('falkinar'), 'FKNA111111')
-        self.assertEquals(caverphone('falkner'), 'FKNA111111')
-        self.assertEquals(caverphone('fall'), 'FA11111111')
-        self.assertEquals(caverphone('fallon'), 'FLN1111111')
-        self.assertEquals(caverphone('fallowfield'), 'FLFT111111')
-        self.assertEquals(caverphone('familton'), 'FMTN111111')
-        self.assertEquals(caverphone('fancourt'), 'FNKT111111')
-        self.assertEquals(caverphone('fanner'), 'FNA1111111')
-        self.assertEquals(caverphone('fanning'), 'FNNK111111')
-        self.assertEquals(caverphone('fannon'), 'FNN1111111')
-        self.assertEquals(caverphone('fantham'), 'FNTM111111')
-        self.assertEquals(caverphone('fargie'), 'FKA1111111')
-        self.assertEquals(caverphone('faris'), 'FRS1111111')
-        self.assertEquals(caverphone('farland'), 'FLNT111111')
-        self.assertEquals(caverphone('farmer'), 'FMA1111111')
-        self.assertEquals(caverphone('farminger'), 'FMNKA11111')
-        self.assertEquals(caverphone('farquhar'), 'FKA1111111')
-        self.assertEquals(caverphone('farquharon'), 'FKRN111111')
-        self.assertEquals(caverphone('farquhars'), 'FKS1111111')
-        self.assertEquals(caverphone('farquharson'), 'FKSN111111')
-        self.assertEquals(caverphone('farr'), 'FA11111111')
-        self.assertEquals(caverphone('farra'), 'FRA1111111')
-        self.assertEquals(caverphone('farrant'), 'FRNT111111')
-        self.assertEquals(caverphone('farrell'), 'FRA1111111')
-        self.assertEquals(caverphone('farrelly'), 'FRLA111111')
-        self.assertEquals(caverphone('farrington'), 'FRNKTN1111')
-        self.assertEquals(caverphone('farrow'), 'FRA1111111')
-        self.assertEquals(caverphone('farry'), 'FRA1111111')
-        self.assertEquals(caverphone('fastier'), 'FSTA111111')
-        self.assertEquals(caverphone('faul'), 'FA11111111')
-        self.assertEquals(caverphone('faulder'), 'FTA1111111')
-        self.assertEquals(caverphone('faulds'), 'FTS1111111')
-        self.assertEquals(caverphone('faulkner'), 'FKNA111111')
-        self.assertEquals(caverphone('faulks'), 'FKS1111111')
-        self.assertEquals(caverphone('faull'), 'FA11111111')
-        self.assertEquals(caverphone('favel'), 'FFA1111111')
-        self.assertEquals(caverphone('favell'), 'FFA1111111')
-        self.assertEquals(caverphone('fawcett'), 'FST1111111')
-        self.assertEquals(caverphone('fay'), 'FA11111111')
-        self.assertEquals(caverphone('fazakerley'), 'FSKLA11111')
-        self.assertEquals(caverphone('fearn'), 'FN11111111')
-        self.assertEquals(caverphone('feast'), 'FST1111111')
-        self.assertEquals(caverphone('feathersto'), 'FTSTA11111')
-        self.assertEquals(caverphone('featherstone'), 'FTSTN11111')
-        self.assertEquals(caverphone('feely'), 'FLA1111111')
-        self.assertEquals(caverphone('feeney'), 'FNA1111111')
-        self.assertEquals(caverphone('feichley'), 'FKLA111111')
-        self.assertEquals(caverphone('feil'), 'FA11111111')
-        self.assertEquals(caverphone('fell'), 'FA11111111')
-        self.assertEquals(caverphone('felmingha'), 'FMNA111111')
-        self.assertEquals(caverphone('felmingham'), 'FMNM111111')
-        self.assertEquals(caverphone('feltham'), 'FTM1111111')
-        self.assertEquals(caverphone('felton'), 'FTN1111111')
-        self.assertEquals(caverphone('fenby'), 'FNPA111111')
-        self.assertEquals(caverphone('fendall'), 'FNTA111111')
-        self.assertEquals(caverphone('fenelon'), 'FNLN111111')
-        self.assertEquals(caverphone('fennessey'), 'FNSA111111')
-        self.assertEquals(caverphone('fennessy'), 'FNSA111111')
-        self.assertEquals(caverphone('fenton'), 'FNTN111111')
-        self.assertEquals(caverphone('fenwick'), 'FNWK111111')
-        self.assertEquals(caverphone('ferdinand'), 'FTNNT11111')
-        self.assertEquals(caverphone('ferens'), 'FRNS111111')
-        self.assertEquals(caverphone('fergus'), 'FKS1111111')
-        self.assertEquals(caverphone('ferguson'), 'FKSN111111')
-        self.assertEquals(caverphone('fergusson'), 'FKSN111111')
-        self.assertEquals(caverphone('fern'), 'FN11111111')
-        self.assertEquals(caverphone('fernie'), 'FNA1111111')
-        self.assertEquals(caverphone('feron'), 'FRN1111111')
-        self.assertEquals(caverphone('ferrier'), 'FRA1111111')
-        self.assertEquals(caverphone('ferris'), 'FRS1111111')
-        self.assertEquals(caverphone('ferry'), 'FRA1111111')
-        self.assertEquals(caverphone('fewtrell'), 'FTRA111111')
-        self.assertEquals(caverphone('ffrost'), 'FRST111111')
-        self.assertEquals(caverphone('fibbes'), 'FPS1111111')
-        self.assertEquals(caverphone('fiddes'), 'FTS1111111')
-        self.assertEquals(caverphone('fiddis'), 'FTS1111111')
-        self.assertEquals(caverphone('field'), 'FT11111111')
-        self.assertEquals(caverphone('fielden'), 'FTN1111111')
-        self.assertEquals(caverphone('fielder'), 'FTA1111111')
-        self.assertEquals(caverphone('fielding'), 'FTNK111111')
-        self.assertEquals(caverphone('fieldwick'), 'FTWK111111')
-        self.assertEquals(caverphone('fifield'), 'FFT1111111')
-        self.assertEquals(caverphone('figgins'), 'FKNS111111')
-        self.assertEquals(caverphone('filewood'), 'FLWT111111')
-        self.assertEquals(caverphone('fillingham'), 'FLNM111111')
-        self.assertEquals(caverphone('finch'), 'FNK1111111')
-        self.assertEquals(caverphone('findlater'), 'FNTLTA1111')
-        self.assertEquals(caverphone('findlav'), 'FNTLF11111')
-        self.assertEquals(caverphone('findlay'), 'FNTLA11111')
-        self.assertEquals(caverphone('findley'), 'FNTLA11111')
-        self.assertEquals(caverphone('findon'), 'FNTN111111')
-        self.assertEquals(caverphone('finlavson'), 'FNLFSN1111')
-        self.assertEquals(caverphone('finlay'), 'FNLA111111')
-        self.assertEquals(caverphone('finlayson'), 'FNLSN11111')
-        self.assertEquals(caverphone('finley'), 'FNLA111111')
-        self.assertEquals(caverphone('finlin'), 'FNLN111111')
-        self.assertEquals(caverphone('finn'), 'FN11111111')
-        self.assertEquals(caverphone('finnegan'), 'FNKN111111')
-        self.assertEquals(caverphone('finnerty'), 'FNTA111111')
-        self.assertEquals(caverphone('finnie'), 'FNA1111111')
-        self.assertEquals(caverphone('firkin'), 'FKN1111111')
-        self.assertEquals(caverphone('firth'), 'FT11111111')
-        self.assertEquals(caverphone('fish'), 'FS11111111')
-        self.assertEquals(caverphone('fisher'), 'FSA1111111')
-        self.assertEquals(caverphone('fisken'), 'FSKN111111')
-        self.assertEquals(caverphone('fisse'), 'FS11111111')
-        self.assertEquals(caverphone('fitspatrick'), 'FTSPTRK111')
-        self.assertEquals(caverphone('fitt'), 'FT11111111')
-        self.assertEquals(caverphone('fitz patrick'), 'FTSPTRK111')
-        self.assertEquals(caverphone('fitz-patrick'), 'FTSPTRK111')
-        self.assertEquals(caverphone('fitzell'), 'FTSA111111')
-        self.assertEquals(caverphone('fitzer'), 'FTSA111111')
-        self.assertEquals(caverphone('fitzgeral'), 'FTSKRA1111')
-        self.assertEquals(caverphone('fitzgerald'), 'FTSKRT1111')
-        self.assertEquals(caverphone('fitzgibbons'), 'FTSKPNS111')
-        self.assertEquals(caverphone('fitzpatric'), 'FTSPTRK111')
-        self.assertEquals(caverphone('fitzpatrick'), 'FTSPTRK111')
-        self.assertEquals(caverphone('fiynn'), 'FN11111111')
-        self.assertEquals(caverphone('flaherty'), 'FLTA111111')
-        self.assertEquals(caverphone('flahive'), 'FLF1111111')
-        self.assertEquals(caverphone('flanagan'), 'FLNKN11111')
-        self.assertEquals(caverphone('flanigan'), 'FLNKN11111')
-        self.assertEquals(caverphone('flannagan'), 'FLNKN11111')
-        self.assertEquals(caverphone('flannery'), 'FLNRA11111')
-        self.assertEquals(caverphone('flanning'), 'FLNNK11111')
-        self.assertEquals(caverphone('flawn'), 'FLN1111111')
-        self.assertEquals(caverphone('flaws'), 'FLS1111111')
-        self.assertEquals(caverphone('fleck'), 'FLK1111111')
-        self.assertEquals(caverphone('fleet'), 'FLT1111111')
-        self.assertEquals(caverphone('fleming'), 'FLMNK11111')
-        self.assertEquals(caverphone('flening'), 'FLNNK11111')
-        self.assertEquals(caverphone('fletcher'), 'FLKA111111')
-        self.assertEquals(caverphone('fleteher'), 'FLTA111111')
-        self.assertEquals(caverphone('flethcher'), 'FLTKA11111')
-        self.assertEquals(caverphone('flett'), 'FLT1111111')
-        self.assertEquals(caverphone('fleury'), 'FLRA111111')
-        self.assertEquals(caverphone('flinders'), 'FLNTS11111')
-        self.assertEquals(caverphone('flint'), 'FLNT111111')
-        self.assertEquals(caverphone('flockton'), 'FLKTN11111')
-        self.assertEquals(caverphone('flood'), 'FLT1111111')
-        self.assertEquals(caverphone('floyd'), 'FLT1111111')
-        self.assertEquals(caverphone('flugge'), 'FLK1111111')
-        self.assertEquals(caverphone('flynn'), 'FLN1111111')
-        self.assertEquals(caverphone('foate'), 'FT11111111')
-        self.assertEquals(caverphone('fogarty'), 'FKTA111111')
-        self.assertEquals(caverphone('fogo'), 'FKA1111111')
-        self.assertEquals(caverphone('foley'), 'FLA1111111')
-        self.assertEquals(caverphone('folwell'), 'FWA1111111')
-        self.assertEquals(caverphone('foord'), 'FT11111111')
-        self.assertEquals(caverphone('foote'), 'FT11111111')
-        self.assertEquals(caverphone('forbes'), 'FPS1111111')
-        self.assertEquals(caverphone('force'), 'FK11111111')
-        self.assertEquals(caverphone('ford'), 'FT11111111')
-        self.assertEquals(caverphone('forde'), 'FT11111111')
-        self.assertEquals(caverphone('fordham'), 'FTM1111111')
-        self.assertEquals(caverphone('fordyce'), 'FTK1111111')
-        self.assertEquals(caverphone('foreman'), 'FRMN111111')
-        self.assertEquals(caverphone('forest'), 'FRST111111')
-        self.assertEquals(caverphone('forgeson'), 'FKSN111111')
-        self.assertEquals(caverphone('forgie'), 'FKA1111111')
-        self.assertEquals(caverphone('forman'), 'FMN1111111')
-        self.assertEquals(caverphone('forno'), 'FNA1111111')
-        self.assertEquals(caverphone('forrest'), 'FRST111111')
-        self.assertEquals(caverphone('forrester'), 'FRSTA11111')
-        self.assertEquals(caverphone('forreter'), 'FRTA111111')
-        self.assertEquals(caverphone('forscutt'), 'FSKT111111')
-        self.assertEquals(caverphone('forster'), 'FSTA111111')
-        self.assertEquals(caverphone('forsyth'), 'FST1111111')
-        self.assertEquals(caverphone('fort'), 'FT11111111')
-        self.assertEquals(caverphone('fortune'), 'FTN1111111')
-        self.assertEquals(caverphone('foster'), 'FSTA111111')
-        self.assertEquals(caverphone('fothergill'), 'FTKA111111')
-        self.assertEquals(caverphone('fotheringh'), 'FTRN111111')
-        self.assertEquals(caverphone('fotheringham'), 'FTRNM11111')
-        self.assertEquals(caverphone('fotheringharn'), 'FTRNN11111')
-        self.assertEquals(caverphone('fougere'), 'FKA1111111')
-        self.assertEquals(caverphone('foulkes'), 'FKS1111111')
-        self.assertEquals(caverphone('fountain'), 'FNTN111111')
-        self.assertEquals(caverphone('fow'), 'FA11111111')
-        self.assertEquals(caverphone('fowell'), 'FWA1111111')
-        self.assertEquals(caverphone('foweraker'), 'FWRKA11111')
-        self.assertEquals(caverphone('fowler'), 'FLA1111111')
-        self.assertEquals(caverphone('fox'), 'FK11111111')
-        self.assertEquals(caverphone('fox.'), 'FK11111111')
-        self.assertEquals(caverphone('foxton'), 'FKTN111111')
-        self.assertEquals(caverphone('fraer'), 'FRA1111111')
-        self.assertEquals(caverphone('frago'), 'FRKA111111')
-        self.assertEquals(caverphone('fraher'), 'FRA1111111')
-        self.assertEquals(caverphone('frame'), 'FRM1111111')
-        self.assertEquals(caverphone('france'), 'FRNK111111')
-        self.assertEquals(caverphone('francer'), 'FRNSA11111')
-        self.assertEquals(caverphone('francis'), 'FRNSS11111')
-        self.assertEquals(caverphone('frank'), 'FRNK111111')
-        self.assertEquals(caverphone('frankham'), 'FRNKM11111')
-        self.assertEquals(caverphone('franklin'), 'FRNKLN1111')
-        self.assertEquals(caverphone('frankpitt'), 'FRNKPT1111')
-        self.assertEquals(caverphone('frapwell'), 'FRPWA11111')
-        self.assertEquals(caverphone('frascr'), 'FRSKA11111')
-        self.assertEquals(caverphone('frasel'), 'FRSA111111')
-        self.assertEquals(caverphone('fraser'), 'FRSA111111')
-        self.assertEquals(caverphone('frasor'), 'FRSA111111')
-        self.assertEquals(caverphone('frazer'), 'FRSA111111')
-        self.assertEquals(caverphone('frederic'), 'FRTRK11111')
-        self.assertEquals(caverphone('fredric'), 'FRTRK11111')
-        self.assertEquals(caverphone('freed'), 'FRT1111111')
-        self.assertEquals(caverphone('freedman'), 'FRTMN11111')
-        self.assertEquals(caverphone('freeman'), 'FRMN111111')
-        self.assertEquals(caverphone('freernan'), 'FRNN111111')
-        self.assertEquals(caverphone('french'), 'FRNK111111')
-        self.assertEquals(caverphone('fretwell'), 'FRTWA11111')
-        self.assertEquals(caverphone('frew'), 'FRA1111111')
-        self.assertEquals(caverphone('frewen'), 'FRWN111111')
-        self.assertEquals(caverphone('fricker'), 'FRKA111111')
-        self.assertEquals(caverphone('friedlander'), 'FRTLNTA111')
-        self.assertEquals(caverphone('friedlich'), 'FRTLK11111')
-        self.assertEquals(caverphone('friend'), 'FRNT111111')
-        self.assertEquals(caverphone('frier'), 'FRA1111111')
-        self.assertEquals(caverphone('frith'), 'FRT1111111')
-        self.assertEquals(caverphone('froggatt'), 'FRKT111111')
-        self.assertEquals(caverphone('frood'), 'FRT1111111')
-        self.assertEquals(caverphone('frost'), 'FRST111111')
-        self.assertEquals(caverphone('froude'), 'FRT1111111')
-        self.assertEquals(caverphone('fruhstuch'), 'FRSTK11111')
-        self.assertEquals(caverphone('fruhstuck'), 'FRSTK11111')
-        self.assertEquals(caverphone('fruish'), 'FRS1111111')
-        self.assertEquals(caverphone('fry'), 'FRA1111111')
-        self.assertEquals(caverphone('frye'), 'FRA1111111')
-        self.assertEquals(caverphone('fryer'), 'FRA1111111')
-        self.assertEquals(caverphone('ftzpatrck'), 'FTSPTK1111')
-        self.assertEquals(caverphone('fuell'), 'FA11111111')
-        self.assertEquals(caverphone('fulcher'), 'FKA1111111')
-        self.assertEquals(caverphone('fuldseth'), 'FTST111111')
-        self.assertEquals(caverphone('fullam'), 'FLM1111111')
-        self.assertEquals(caverphone('fullarton'), 'FLTN111111')
-        self.assertEquals(caverphone('fuller'), 'FLA1111111')
-        self.assertEquals(caverphone('fullerton'), 'FLTN111111')
-        self.assertEquals(caverphone('fulton'), 'FTN1111111')
-        self.assertEquals(caverphone('furminger'), 'FMNKA11111')
-        self.assertEquals(caverphone('furness'), 'FNS1111111')
-        self.assertEquals(caverphone('fursdon'), 'FSTN111111')
-        self.assertEquals(caverphone('fussell'), 'FSA1111111')
-        self.assertEquals(caverphone('fyfe'), 'FF11111111')
-        self.assertEquals(caverphone('fyffe'), 'FF11111111')
-        self.assertEquals(caverphone('fynmore'), 'FNMA111111')
-        self.assertEquals(caverphone('gabites'), 'KPTS111111')
-        self.assertEquals(caverphone('gable'), 'KPA1111111')
-        self.assertEquals(caverphone('gadd'), 'KT11111111')
-        self.assertEquals(caverphone('gaffaney'), 'KFNA111111')
-        self.assertEquals(caverphone('gaffeney'), 'KFNA111111')
-        self.assertEquals(caverphone('gaffey'), 'KFA1111111')
-        self.assertEquals(caverphone('gaffney'), 'KFNA111111')
-        self.assertEquals(caverphone('gaiger'), 'KKA1111111')
-        self.assertEquals(caverphone('gailichan'), 'KLKN111111')
-        self.assertEquals(caverphone('gain'), 'KN11111111')
-        self.assertEquals(caverphone('gairdner'), 'KTNA111111')
-        self.assertEquals(caverphone('galagher'), 'KLKA111111')
-        self.assertEquals(caverphone('galbraith'), 'KPRT111111')
-        self.assertEquals(caverphone('gale'), 'KA11111111')
-        self.assertEquals(caverphone('gall'), 'KA11111111')
-        self.assertEquals(caverphone('gallacher'), 'KLKA111111')
-        self.assertEquals(caverphone('gallagher'), 'KLKA111111')
-        self.assertEquals(caverphone('gallaher'), 'KLA1111111')
-        self.assertEquals(caverphone('gallan'), 'KLN1111111')
-        self.assertEquals(caverphone('galland'), 'KLNT111111')
-        self.assertEquals(caverphone('gallanders'), 'KLNTS11111')
-        self.assertEquals(caverphone('gallant'), 'KLNT111111')
-        self.assertEquals(caverphone('gallaway'), 'KLWA111111')
-        self.assertEquals(caverphone('gallbraith'), 'KPRT111111')
-        self.assertEquals(caverphone('gallichan'), 'KLKN111111')
-        self.assertEquals(caverphone('gallie'), 'KLA1111111')
-        self.assertEquals(caverphone('galliven'), 'KLFN111111')
-        self.assertEquals(caverphone('gallngher'), 'KNA1111111')
-        self.assertEquals(caverphone('galloway'), 'KLWA111111')
-        self.assertEquals(caverphone('gallschef'), 'KSKF111111')
-        self.assertEquals(caverphone('galt'), 'KT11111111')
-        self.assertEquals(caverphone('galvin'), 'KFN1111111')
-        self.assertEquals(caverphone('galway'), 'KWA1111111')
-        self.assertEquals(caverphone('gambell'), 'KMPA111111')
-        self.assertEquals(caverphone('gamble'), 'KMPA111111')
-        self.assertEquals(caverphone('ganderton'), 'KNTTN11111')
-        self.assertEquals(caverphone('gantley'), 'KNTLA11111')
-        self.assertEquals(caverphone('garbutt'), 'KPT1111111')
-        self.assertEquals(caverphone('garcho'), 'KKA1111111')
-        self.assertEquals(caverphone('garchow'), 'KKA1111111')
-        self.assertEquals(caverphone('gard\'ner'), 'KTNA111111')
-        self.assertEquals(caverphone('garden'), 'KTN1111111')
-        self.assertEquals(caverphone('gardham'), 'KTM1111111')
-        self.assertEquals(caverphone('gardiner'), 'KTNA111111')
-        self.assertEquals(caverphone('gardner'), 'KTNA111111')
-        self.assertEquals(caverphone('gardyne'), 'KTN1111111')
-        self.assertEquals(caverphone('gare'), 'KA11111111')
-        self.assertEquals(caverphone('garforth'), 'KFT1111111')
-        self.assertEquals(caverphone('garham'), 'KM11111111')
-        self.assertEquals(caverphone('garland'), 'KLNT111111')
-        self.assertEquals(caverphone('garlyutt'), 'KLT1111111')
-        self.assertEquals(caverphone('garnctt'), 'KNKT111111')
-        self.assertEquals(caverphone('garner'), 'KNA1111111')
-        self.assertEquals(caverphone('garnett'), 'KNT1111111')
-        self.assertEquals(caverphone('garohow'), 'KRA1111111')
-        self.assertEquals(caverphone('garr'), 'KA11111111')
-        self.assertEquals(caverphone('garret'), 'KRT1111111')
-        self.assertEquals(caverphone('garrett'), 'KRT1111111')
-        self.assertEquals(caverphone('garrich'), 'KRK1111111')
-        self.assertEquals(caverphone('garrick'), 'KRK1111111')
-        self.assertEquals(caverphone('garrigan'), 'KRKN111111')
-        self.assertEquals(caverphone('garron'), 'KRN1111111')
-        self.assertEquals(caverphone('garrow'), 'KRA1111111')
-        self.assertEquals(caverphone('garside'), 'KST1111111')
-        self.assertEquals(caverphone('garstang'), 'KSTNK11111')
-        self.assertEquals(caverphone('garty'), 'KTA1111111')
-        self.assertEquals(caverphone('garvey'), 'KFA1111111')
-        self.assertEquals(caverphone('gascoigne'), 'KSKKN11111')
-        self.assertEquals(caverphone('gasey'), 'KSA1111111')
-        self.assertEquals(caverphone('gaspar'), 'KSPA111111')
-        self.assertEquals(caverphone('gaston'), 'KSTN111111')
-        self.assertEquals(caverphone('gatehouse'), 'KTS1111111')
-        self.assertEquals(caverphone('gatfield'), 'KTFT111111')
-        self.assertEquals(caverphone('gatside'), 'KTST111111')
-        self.assertEquals(caverphone('gatton'), 'KTN1111111')
-        self.assertEquals(caverphone('gaudin'), 'KTN1111111')
-        self.assertEquals(caverphone('gaul'), 'KA11111111')
-        self.assertEquals(caverphone('gauld'), 'KT11111111')
-        self.assertEquals(caverphone('gault'), 'KT11111111')
-        self.assertEquals(caverphone('gavan'), 'KFN1111111')
-        self.assertEquals(caverphone('gavegan'), 'KFKN111111')
-        self.assertEquals(caverphone('gavigan'), 'KFKN111111')
-        self.assertEquals(caverphone('gavin'), 'KFN1111111')
-        self.assertEquals(caverphone('gaw'), 'KA11111111')
-        self.assertEquals(caverphone('gawn'), 'KN11111111')
-        self.assertEquals(caverphone('gawne'), 'KN11111111')
-        self.assertEquals(caverphone('gay'), 'KA11111111')
-        self.assertEquals(caverphone('gaylor'), 'KLA1111111')
-        self.assertEquals(caverphone('gaytan'), 'KTN1111111')
-        self.assertEquals(caverphone('geaney'), 'KNA1111111')
-        self.assertEquals(caverphone('gear'), 'KA11111111')
-        self.assertEquals(caverphone('gearing'), 'KRNK111111')
-        self.assertEquals(caverphone('geary'), 'KRA1111111')
-        self.assertEquals(caverphone('geddes'), 'KTS1111111')
-        self.assertEquals(caverphone('geddis'), 'KTS1111111')
-        self.assertEquals(caverphone('gedney'), 'KTNA111111')
-        self.assertEquals(caverphone('gee'), 'KA11111111')
-        self.assertEquals(caverphone('geen'), 'KN11111111')
-        self.assertEquals(caverphone('geering'), 'KRNK111111')
-        self.assertEquals(caverphone('geeson'), 'KSN1111111')
-        self.assertEquals(caverphone('geeves'), 'KFS1111111')
-        self.assertEquals(caverphone('geiger'), 'KKA1111111')
-        self.assertEquals(caverphone('geleatly'), 'KLTLA11111')
-        self.assertEquals(caverphone('gellatly'), 'KLTLA11111')
-        self.assertEquals(caverphone('gemmell'), 'KMA1111111')
-        self.assertEquals(caverphone('gene'), 'KN11111111')
-        self.assertEquals(caverphone('genge'), 'KNK1111111')
-        self.assertEquals(caverphone('gensik'), 'KNSK111111')
-        self.assertEquals(caverphone('gent'), 'KNT1111111')
-        self.assertEquals(caverphone('gentleman'), 'KNTLMN1111')
-        self.assertEquals(caverphone('geoffrey'), 'KFRA111111')
-        self.assertEquals(caverphone('george'), 'KK11111111')
-        self.assertEquals(caverphone('georgeison'), 'KKSN111111')
-        self.assertEquals(caverphone('georgeson'), 'KKSN111111')
-        self.assertEquals(caverphone('gerard'), 'KRT1111111')
-        self.assertEquals(caverphone('gerken'), 'KKN1111111')
-        self.assertEquals(caverphone('gerrard'), 'KRT1111111')
-        self.assertEquals(caverphone('gerrie'), 'KRA1111111')
-        self.assertEquals(caverphone('gether'), 'KTA1111111')
-        self.assertEquals(caverphone('getken'), 'KTKN111111')
-        self.assertEquals(caverphone('gevin'), 'KFN1111111')
-        self.assertEquals(caverphone('gey'), 'KA11111111')
-        self.assertEquals(caverphone('ghadwick'), 'TWK1111111')
-        self.assertEquals(caverphone('gibb'), 'KP11111111')
-        self.assertEquals(caverphone('gibbons'), 'KPNS111111')
-        self.assertEquals(caverphone('gibbs'), 'KPS1111111')
-        self.assertEquals(caverphone('gibson'), 'KPSN111111')
-        self.assertEquals(caverphone('gifford'), 'KFT1111111')
-        self.assertEquals(caverphone('giford-browne'), 'KFTPRN1111')
-        self.assertEquals(caverphone('gil1'), 'KA11111111')
-        self.assertEquals(caverphone('gilan'), 'KLN1111111')
-        self.assertEquals(caverphone('gilbert'), 'KPT1111111')
-        self.assertEquals(caverphone('gilbride'), 'KPRT111111')
-        self.assertEquals(caverphone('gilchrist'), 'KKRST11111')
-        self.assertEquals(caverphone('gilder'), 'KTA1111111')
-        self.assertEquals(caverphone('giles'), 'KLS1111111')
-        self.assertEquals(caverphone('gilfedder'), 'KFTA111111')
-        self.assertEquals(caverphone('gilfillan'), 'KFLN111111')
-        self.assertEquals(caverphone('gilkison'), 'KKSN111111')
-        self.assertEquals(caverphone('gilks'), 'KKS1111111')
-        self.assertEquals(caverphone('gill'), 'KA11111111')
-        self.assertEquals(caverphone('gillam'), 'KLM1111111')
-        self.assertEquals(caverphone('gillan'), 'KLN1111111')
-        self.assertEquals(caverphone('gillanders'), 'KLNTS11111')
-        self.assertEquals(caverphone('gillard'), 'KLT1111111')
-        self.assertEquals(caverphone('gillender'), 'KLNTA11111')
-        self.assertEquals(caverphone('giller'), 'KLA1111111')
-        self.assertEquals(caverphone('gillers'), 'KLS1111111')
-        self.assertEquals(caverphone('gillespie'), 'KLSPA11111')
-        self.assertEquals(caverphone('gillett'), 'KLT1111111')
-        self.assertEquals(caverphone('gilliand'), 'KLNT111111')
-        self.assertEquals(caverphone('gillick'), 'KLK1111111')
-        self.assertEquals(caverphone('gillies'), 'KLS1111111')
-        self.assertEquals(caverphone('gilligan'), 'KLKN111111')
-        self.assertEquals(caverphone('gillions'), 'KLNS111111')
-        self.assertEquals(caverphone('gillispie'), 'KLSPA11111')
-        self.assertEquals(caverphone('gillon'), 'KLN1111111')
-        self.assertEquals(caverphone('gillooly'), 'KLLA111111')
-        self.assertEquals(caverphone('gilmolr'), 'KMLA111111')
-        self.assertEquals(caverphone('gilmore'), 'KMA1111111')
-        self.assertEquals(caverphone('gilmour'), 'KMA1111111')
-        self.assertEquals(caverphone('girdler'), 'KTLA111111')
-        self.assertEquals(caverphone('girdwood'), 'KTWT111111')
-        self.assertEquals(caverphone('girvan'), 'KFN1111111')
-        self.assertEquals(caverphone('gittos'), 'KTS1111111')
-        self.assertEquals(caverphone('gjersen'), 'KSN1111111')
-        self.assertEquals(caverphone('gladding'), 'KLTNK11111')
-        self.assertEquals(caverphone('gladstone'), 'KLTSTN1111')
-        self.assertEquals(caverphone('gladwin'), 'KLTWN11111')
-        self.assertEquals(caverphone('gladwish'), 'KLTWS11111')
-        self.assertEquals(caverphone('gladwith'), 'KLTWT11111')
-        self.assertEquals(caverphone('glaister'), 'KLSTA11111')
-        self.assertEquals(caverphone('glanvill'), 'KLNFA11111')
-        self.assertEquals(caverphone('glasgow'), 'KLSKA11111')
-        self.assertEquals(caverphone('glass'), 'KLS1111111')
-        self.assertEquals(caverphone('glasse'), 'KLS1111111')
-        self.assertEquals(caverphone('glassett'), 'KLST111111')
-        self.assertEquals(caverphone('glasson'), 'KLSN111111')
-        self.assertEquals(caverphone('glau'), 'KLA1111111')
-        self.assertEquals(caverphone('glault'), 'KLT1111111')
-        self.assertEquals(caverphone('gledinning'), 'KLTNNK1111')
-        self.assertEquals(caverphone('glen'), 'KLN1111111')
-        self.assertEquals(caverphone('glendining'), 'KLNTNNK111')
-        self.assertEquals(caverphone('glendinnin'), 'KLNTNN1111')
-        self.assertEquals(caverphone('glendinning'), 'KLNTNNK111')
-        self.assertEquals(caverphone('glengarry'), 'KLNKRA1111')
-        self.assertEquals(caverphone('glenn'), 'KLN1111111')
-        self.assertEquals(caverphone('glennie'), 'KLNA111111')
-        self.assertEquals(caverphone('glennon'), 'KLNN111111')
-        self.assertEquals(caverphone('glerrie'), 'KLRA111111')
-        self.assertEquals(caverphone('glibb'), 'KLP1111111')
-        self.assertEquals(caverphone('gliddon'), 'KLTN111111')
-        self.assertEquals(caverphone('glisby'), 'KLSPA11111')
-        self.assertEquals(caverphone('gllespte'), 'KLSPT11111')
-        self.assertEquals(caverphone('gloag'), 'KLK1111111')
-        self.assertEquals(caverphone('glossop'), 'KLSP111111')
-        self.assertEquals(caverphone('glover'), 'KLFA111111')
-        self.assertEquals(caverphone('glozier'), 'KLSA111111')
-        self.assertEquals(caverphone('glroves'), 'KRFS111111')
-        self.assertEquals(caverphone('glubbins'), 'KLPNS11111')
-        self.assertEquals(caverphone('glue'), 'KLA1111111')
-        self.assertEquals(caverphone('glynn'), 'KLN1111111')
-        self.assertEquals(caverphone('goatham'), 'KTM1111111')
-        self.assertEquals(caverphone('gobbitt'), 'KPT1111111')
-        self.assertEquals(caverphone('goble'), 'KPA1111111')
-        self.assertEquals(caverphone('godber'), 'KTPA111111')
-        self.assertEquals(caverphone('godby'), 'KTPA111111')
-        self.assertEquals(caverphone('goddard'), 'KTT1111111')
-        self.assertEquals(caverphone('godden'), 'KTN1111111')
-        self.assertEquals(caverphone('godfred'), 'KTFRT11111')
-        self.assertEquals(caverphone('godfrey'), 'KTFRA11111')
-        self.assertEquals(caverphone('goding'), 'KTNK111111')
-        self.assertEquals(caverphone('godirey'), 'KTRA111111')
-        self.assertEquals(caverphone('godso'), 'KTSA111111')
-        self.assertEquals(caverphone('godward'), 'KTWT111111')
-        self.assertEquals(caverphone('godwin'), 'KTWN111111')
-        self.assertEquals(caverphone('golden'), 'KTN1111111')
-        self.assertEquals(caverphone('goldie'), 'KTA1111111')
-        self.assertEquals(caverphone('golding'), 'KTNK111111')
-        self.assertEquals(caverphone('goldsmid'), 'KTSMT11111')
-        self.assertEquals(caverphone('goldsmith'), 'KTSMT11111')
-        self.assertEquals(caverphone('goldstein'), 'KTSTN11111')
-        self.assertEquals(caverphone('golightly'), 'KLTLA11111')
-        self.assertEquals(caverphone('gollan'), 'KLN1111111')
-        self.assertEquals(caverphone('gollar'), 'KLA1111111')
-        self.assertEquals(caverphone('gomersall'), 'KMSA111111')
-        self.assertEquals(caverphone('gomm'), 'KM11111111')
-        self.assertEquals(caverphone('gong'), 'KNK1111111')
-        self.assertEquals(caverphone('goninon'), 'KNNN111111')
-        self.assertEquals(caverphone('gooch'), 'KK11111111')
-        self.assertEquals(caverphone('good'), 'KT11111111')
-        self.assertEquals(caverphone('goodall'), 'KTA1111111')
-        self.assertEquals(caverphone('goode'), 'KT11111111')
-        self.assertEquals(caverphone('goodeve'), 'KTF1111111')
-        self.assertEquals(caverphone('goodey'), 'KTA1111111')
-        self.assertEquals(caverphone('goodfellow'), 'KTFLA11111')
-        self.assertEquals(caverphone('goodhall'), 'KTA1111111')
-        self.assertEquals(caverphone('goodison'), 'KTSN111111')
-        self.assertEquals(caverphone('goodlet'), 'KTLT111111')
-        self.assertEquals(caverphone('goodlot'), 'KTLT111111')
-        self.assertEquals(caverphone('goodman'), 'KTMN111111')
-        self.assertEquals(caverphone('goodmanson'), 'KTMNSN1111')
-        self.assertEquals(caverphone('goodridge'), 'KTRK111111')
-        self.assertEquals(caverphone('goodsir'), 'KTSA111111')
-        self.assertEquals(caverphone('goodwin'), 'KTWN111111')
-        self.assertEquals(caverphone('goodyer'), 'KTA1111111')
-        self.assertEquals(caverphone('gooseman'), 'KSMN111111')
-        self.assertEquals(caverphone('gordin'), 'KTN1111111')
-        self.assertEquals(caverphone('gordon'), 'KTN1111111')
-        self.assertEquals(caverphone('gore-johnston'), 'KRNSTN1111')
-        self.assertEquals(caverphone('gore'), 'KA11111111')
-        self.assertEquals(caverphone('gorge'), 'KK11111111')
-        self.assertEquals(caverphone('gorgeson'), 'KKSN111111')
-        self.assertEquals(caverphone('gorham'), 'KM11111111')
-        self.assertEquals(caverphone('gormack'), 'KMK1111111')
-        self.assertEquals(caverphone('gorman'), 'KMN1111111')
-        self.assertEquals(caverphone('gormly'), 'KMLA111111')
-        self.assertEquals(caverphone('gorton'), 'KTN1111111')
-        self.assertEquals(caverphone('gosham'), 'KSM1111111')
-        self.assertEquals(caverphone('gosling'), 'KSLNK11111')
-        self.assertEquals(caverphone('gosney'), 'KSNA111111')
-        self.assertEquals(caverphone('goudie'), 'KTA1111111')
-        self.assertEquals(caverphone('gough'), 'KA11111111')
-        self.assertEquals(caverphone('gould'), 'KT11111111')
-        self.assertEquals(caverphone('goulston'), 'KSTN111111')
-        self.assertEquals(caverphone('goulstone'), 'KSTN111111')
-        self.assertEquals(caverphone('gourlay'), 'KLA1111111')
-        self.assertEquals(caverphone('gourley'), 'KLA1111111')
-        self.assertEquals(caverphone('gourlie'), 'KLA1111111')
-        self.assertEquals(caverphone('govan'), 'KFN1111111')
-        self.assertEquals(caverphone('gover'), 'KFA1111111')
-        self.assertEquals(caverphone('gow'), 'KA11111111')
-        self.assertEquals(caverphone('gowans'), 'KWNS111111')
-        self.assertEquals(caverphone('gowdy'), 'KTA1111111')
-        self.assertEquals(caverphone('gowie'), 'KWA1111111')
-        self.assertEquals(caverphone('goy'), 'KA11111111')
-        self.assertEquals(caverphone('goyen'), 'KN11111111')
-        self.assertEquals(caverphone('grace'), 'KRK1111111')
-        self.assertEquals(caverphone('gracie'), 'KRSA111111')
-        self.assertEquals(caverphone('grady'), 'KRTA111111')
-        self.assertEquals(caverphone('graf'), 'KRF1111111')
-        self.assertEquals(caverphone('graham'), 'KRM1111111')
-        self.assertEquals(caverphone('grahame'), 'KRM1111111')
-        self.assertEquals(caverphone('grahan'), 'KRN1111111')
-        self.assertEquals(caverphone('grahm'), 'KRM1111111')
-        self.assertEquals(caverphone('graig'), 'KRK1111111')
-        self.assertEquals(caverphone('grainger'), 'KRNKA11111')
-        self.assertEquals(caverphone('grainm'), 'KRNM111111')
-        self.assertEquals(caverphone('grallam'), 'KRLM111111')
-        self.assertEquals(caverphone('grame'), 'KRM1111111')
-        self.assertEquals(caverphone('grammer'), 'KRMA111111')
-        self.assertEquals(caverphone('grandison'), 'KRNTSN1111')
-        self.assertEquals(caverphone('grant'), 'KRNT111111')
-        self.assertEquals(caverphone('grantham'), 'KRNTM11111')
-        self.assertEquals(caverphone('grass'), 'KRS1111111')
-        self.assertEquals(caverphone('gratton'), 'KRTN111111')
-        self.assertEquals(caverphone('gratwick'), 'KRTWK11111')
-        self.assertEquals(caverphone('grave'), 'KRF1111111')
-        self.assertEquals(caverphone('graves'), 'KRFS111111')
-        self.assertEquals(caverphone('grawford'), 'KRFT111111')
-        self.assertEquals(caverphone('gray'), 'KRA1111111')
-        self.assertEquals(caverphone('graye'), 'KRA1111111')
-        self.assertEquals(caverphone('grealish'), 'KRLS111111')
-        self.assertEquals(caverphone('greaney'), 'KRNA111111')
-        self.assertEquals(caverphone('greatrex'), 'KRTRK11111')
-        self.assertEquals(caverphone('greaves'), 'KRFS111111')
-        self.assertEquals(caverphone('green'), 'KRN1111111')
-        self.assertEquals(caverphone('greenall'), 'KRNA111111')
-        self.assertEquals(caverphone('greene'), 'KRN1111111')
-        self.assertEquals(caverphone('greenfield'), 'KRNFT11111')
-        self.assertEquals(caverphone('greenhalgh'), 'KRNA111111')
-        self.assertEquals(caverphone('greenhough'), 'KRNA111111')
-        self.assertEquals(caverphone('greenish'), 'KRNS111111')
-        self.assertEquals(caverphone('greenland'), 'KRNLNT1111')
-        self.assertEquals(caverphone('greenslade'), 'KRNSLT1111')
-        self.assertEquals(caverphone('greensmith'), 'KRNSMT1111')
-        self.assertEquals(caverphone('greenway'), 'KRNWA11111')
-        self.assertEquals(caverphone('greenwood-wilson'), 'KRNWTWSN11')
-        self.assertEquals(caverphone('greenwood'), 'KRNWT11111')
-        self.assertEquals(caverphone('greenyer'), 'KRNA111111')
-        self.assertEquals(caverphone('greer'), 'KRA1111111')
-        self.assertEquals(caverphone('greeves'), 'KRFS111111')
-        self.assertEquals(caverphone('gregan'), 'KRKN111111')
-        self.assertEquals(caverphone('gregg'), 'KRK1111111')
-        self.assertEquals(caverphone('gregory'), 'KRKRA11111')
-        self.assertEquals(caverphone('greig'), 'KRK1111111')
-        self.assertEquals(caverphone('greigory'), 'KRKRA11111')
-        self.assertEquals(caverphone('grenfell'), 'KRNFA11111')
-        self.assertEquals(caverphone('gresham'), 'KRSM111111')
-        self.assertEquals(caverphone('greves'), 'KRFS111111')
-        self.assertEquals(caverphone('grey'), 'KRA1111111')
-        self.assertEquals(caverphone('gribben'), 'KRPN111111')
-        self.assertEquals(caverphone('grice'), 'KRK1111111')
-        self.assertEquals(caverphone('gridgeman'), 'KRKMN11111')
-        self.assertEquals(caverphone('grierson'), 'KRSN111111')
-        self.assertEquals(caverphone('grieve'), 'KRF1111111')
-        self.assertEquals(caverphone('griffen'), 'KRFN111111')
-        self.assertEquals(caverphone('griffin'), 'KRFN111111')
-        self.assertEquals(caverphone('griffith'), 'KRFT111111')
-        self.assertEquals(caverphone('griffiths'), 'KRFTS11111')
-        self.assertEquals(caverphone('griffths'), 'KRFTS11111')
-        self.assertEquals(caverphone('griflin'), 'KRFLN11111')
-        self.assertEquals(caverphone('grig'), 'KRK1111111')
-        self.assertEquals(caverphone('grigg'), 'KRK1111111')
-        self.assertEquals(caverphone('grigsby'), 'KRKSPA1111')
-        self.assertEquals(caverphone('grimaldi'), 'KRMTA11111')
-        self.assertEquals(caverphone('grimman'), 'KRMN111111')
-        self.assertEquals(caverphone('grimmest'), 'KRMST11111')
-        self.assertEquals(caverphone('grimmett'), 'KRMT111111')
-        self.assertEquals(caverphone('grimsdale'), 'KRMSTA1111')
-        self.assertEquals(caverphone('grimsey'), 'KRMSA11111')
-        self.assertEquals(caverphone('grimshaw'), 'KRMSA11111')
-        self.assertEquals(caverphone('grimwood'), 'KRMWT11111')
-        self.assertEquals(caverphone('grin'), 'KRN1111111')
-        self.assertEquals(caverphone('grindlay'), 'KRNTLA1111')
-        self.assertEquals(caverphone('grindley'), 'KRNTLA1111')
-        self.assertEquals(caverphone('grinyer'), 'KRNA111111')
-        self.assertEquals(caverphone('grocott'), 'KRKT111111')
-        self.assertEquals(caverphone('grogan'), 'KRKN111111')
-        self.assertEquals(caverphone('groom'), 'KRM1111111')
-        self.assertEquals(caverphone('grose'), 'KRS1111111')
-        self.assertEquals(caverphone('grosse'), 'KRS1111111')
-        self.assertEquals(caverphone('grounds'), 'KRNTS11111')
-        self.assertEquals(caverphone('grover'), 'KRFA111111')
-        self.assertEquals(caverphone('groves'), 'KRFS111111')
-        self.assertEquals(caverphone('growden'), 'KRTN111111')
-        self.assertEquals(caverphone('grubb'), 'KRP1111111')
-        self.assertEquals(caverphone('grubh'), 'KRP1111111')
-        self.assertEquals(caverphone('gruitt'), 'KRT1111111')
-        self.assertEquals(caverphone('grundy'), 'KRNTA11111')
-        self.assertEquals(caverphone('gruszning'), 'KRSNNK1111')
-        self.assertEquals(caverphone('grut'), 'KRT1111111')
-        self.assertEquals(caverphone('gubbins'), 'KPNS111111')
-        self.assertEquals(caverphone('guest'), 'KST1111111')
-        self.assertEquals(caverphone('guffie'), 'KFA1111111')
-        self.assertEquals(caverphone('guild'), 'KT11111111')
-        self.assertEquals(caverphone('guildford'), 'KTFT111111')
-        self.assertEquals(caverphone('guilen'), 'KLN1111111')
-        self.assertEquals(caverphone('guilford'), 'KFT1111111')
-        self.assertEquals(caverphone('guillmot'), 'KMT1111111')
-        self.assertEquals(caverphone('guinan'), 'KNN1111111')
-        self.assertEquals(caverphone('guinness'), 'KNS1111111')
-        self.assertEquals(caverphone('gulbins'), 'KPNS111111')
-        self.assertEquals(caverphone('gullan'), 'KLN1111111')
-        self.assertEquals(caverphone('gulland'), 'KLNT111111')
-        self.assertEquals(caverphone('gullen'), 'KLN1111111')
-        self.assertEquals(caverphone('gum'), 'KM11111111')
-        self.assertEquals(caverphone('gummer'), 'KMA1111111')
-        self.assertEquals(caverphone('gumpatzes'), 'KMPTSS1111')
-        self.assertEquals(caverphone('gunion'), 'KNN1111111')
-        self.assertEquals(caverphone('gunn'), 'KN11111111')
-        self.assertEquals(caverphone('gunner'), 'KNA1111111')
-        self.assertEquals(caverphone('gunning'), 'KNNK111111')
-        self.assertEquals(caverphone('gunton'), 'KNTN111111')
-        self.assertEquals(caverphone('gurming'), 'KMNK111111')
-        self.assertEquals(caverphone('gurr'), 'KA11111111')
-        self.assertEquals(caverphone('gustafson'), 'KSTFSN1111')
-        self.assertEquals(caverphone('guthrie'), 'KTRA111111')
-        self.assertEquals(caverphone('gutschlag'), 'KTSKLK1111')
-        self.assertEquals(caverphone('gutsell'), 'KTSA111111')
-        self.assertEquals(caverphone('guy'), 'KA11111111')
-        self.assertEquals(caverphone('guyton'), 'KTN1111111')
-        self.assertEquals(caverphone('gve'), 'KF11111111')
-        self.assertEquals(caverphone('gwilliams'), 'KWLMS11111')
-        self.assertEquals(caverphone('gwyn'), 'KWN1111111')
-        self.assertEquals(caverphone('gwynne'), 'KWN1111111')
-        self.assertEquals(caverphone('gye'), 'KA11111111')
-        self.assertEquals(caverphone('haake'), 'AK11111111')
-        self.assertEquals(caverphone('haberfield'), 'APFT111111')
-        self.assertEquals(caverphone('habershon'), 'APSN111111')
-        self.assertEquals(caverphone('hack'), 'AK11111111')
-        self.assertEquals(caverphone('hackett'), 'AKT1111111')
-        self.assertEquals(caverphone('haddon'), 'ATN1111111')
-        self.assertEquals(caverphone('haddrell'), 'ATRA111111')
-        self.assertEquals(caverphone('hade'), 'AT11111111')
-        self.assertEquals(caverphone('hadfield'), 'ATFT111111')
-        self.assertEquals(caverphone('hadlee'), 'ATLA111111')
-        self.assertEquals(caverphone('hadlow'), 'ATLA111111')
-        self.assertEquals(caverphone('haffenden'), 'AFNTN11111')
-        self.assertEquals(caverphone('hagan'), 'AKN1111111')
-        self.assertEquals(caverphone('hagarty'), 'AKTA111111')
-        self.assertEquals(caverphone('hagen'), 'AKN1111111')
-        self.assertEquals(caverphone('haggart'), 'AKT1111111')
-        self.assertEquals(caverphone('haggett'), 'AKT1111111')
-        self.assertEquals(caverphone('haggitt'), 'AKT1111111')
-        self.assertEquals(caverphone('hague'), 'AKA1111111')
-        self.assertEquals(caverphone('haig'), 'AK11111111')
-        self.assertEquals(caverphone('haigh'), 'AA11111111')
-        self.assertEquals(caverphone('hailes'), 'ALS1111111')
-        self.assertEquals(caverphone('hailton'), 'ATN1111111')
-        self.assertEquals(caverphone('haines'), 'ANS1111111')
-        self.assertEquals(caverphone('hair'), 'AA11111111')
-        self.assertEquals(caverphone('hakely'), 'AKLA111111')
-        self.assertEquals(caverphone('hal'), 'AA11111111')
-        self.assertEquals(caverphone('halberg'), 'APK1111111')
-        self.assertEquals(caverphone('halcrow'), 'AKRA111111')
-        self.assertEquals(caverphone('haldane'), 'ATN1111111')
-        self.assertEquals(caverphone('hale'), 'AA11111111')
-        self.assertEquals(caverphone('hales'), 'ALS1111111')
-        self.assertEquals(caverphone('halfka'), 'AFKA111111')
-        self.assertEquals(caverphone('halford'), 'AFT1111111')
-        self.assertEquals(caverphone('halies'), 'ALS1111111')
-        self.assertEquals(caverphone('halket'), 'AKT1111111')
-        self.assertEquals(caverphone('halkett'), 'AKT1111111')
-        self.assertEquals(caverphone('hall'), 'AA11111111')
-        self.assertEquals(caverphone('hallam'), 'ALM1111111')
-        self.assertEquals(caverphone('hallas'), 'ALS1111111')
-        self.assertEquals(caverphone('hallet'), 'ALT1111111')
-        self.assertEquals(caverphone('hallett'), 'ALT1111111')
-        self.assertEquals(caverphone('halley'), 'ALA1111111')
-        self.assertEquals(caverphone('halliday'), 'ALTA111111')
-        self.assertEquals(caverphone('halligan'), 'ALKN111111')
-        self.assertEquals(caverphone('hallinan'), 'ALNN111111')
-        self.assertEquals(caverphone('hallsen'), 'ASN1111111')
-        self.assertEquals(caverphone('hally'), 'ALA1111111')
-        self.assertEquals(caverphone('halpin'), 'APN1111111')
-        self.assertEquals(caverphone('halsinger'), 'ASNKA11111')
-        self.assertEquals(caverphone('haly'), 'ALA1111111')
-        self.assertEquals(caverphone('ham'), 'AM11111111')
-        self.assertEquals(caverphone('hamann'), 'AMN1111111')
-        self.assertEquals(caverphone('hambleton'), 'AMPLTN1111')
-        self.assertEquals(caverphone('hamblett'), 'AMPLT11111')
-        self.assertEquals(caverphone('hamblin'), 'AMPLN11111')
-        self.assertEquals(caverphone('hambly'), 'AMPLA11111')
-        self.assertEquals(caverphone('hamer'), 'AMA1111111')
-        self.assertEquals(caverphone('hames'), 'AMS1111111')
-        self.assertEquals(caverphone('hamiiton'), 'AMTN111111')
-        self.assertEquals(caverphone('hamill'), 'AMA1111111')
-        self.assertEquals(caverphone('hamilton'), 'AMTN111111')
-        self.assertEquals(caverphone('hamlyn'), 'AMLN111111')
-        self.assertEquals(caverphone('hammer'), 'AMA1111111')
-        self.assertEquals(caverphone('hammerly'), 'AMLA111111')
-        self.assertEquals(caverphone('hammill'), 'AMA1111111')
-        self.assertEquals(caverphone('hammond'), 'AMNT111111')
-        self.assertEquals(caverphone('hamon'), 'AMN1111111')
-        self.assertEquals(caverphone('hanan'), 'ANN1111111')
-        self.assertEquals(caverphone('hananeia'), 'ANNA111111')
-        self.assertEquals(caverphone('hancock'), 'ANKK111111')
-        self.assertEquals(caverphone('hancox'), 'ANKK111111')
-        self.assertEquals(caverphone('hand'), 'ANT1111111')
-        self.assertEquals(caverphone('handforth'), 'ANTFT11111')
-        self.assertEquals(caverphone('handisides'), 'ANTSTS1111')
-        self.assertEquals(caverphone('handley'), 'ANTLA11111')
-        self.assertEquals(caverphone('hands'), 'ANTS111111')
-        self.assertEquals(caverphone('handscomb'), 'ANTSKM1111')
-        self.assertEquals(caverphone('handyside'), 'ANTST11111')
-        self.assertEquals(caverphone('hanenina'), 'ANNNA11111')
-        self.assertEquals(caverphone('hanger'), 'ANKA111111')
-        self.assertEquals(caverphone('hanham'), 'ANM1111111')
-        self.assertEquals(caverphone('hankey'), 'ANKA111111')
-        self.assertEquals(caverphone('hankins'), 'ANKNS11111')
-        self.assertEquals(caverphone('hanley'), 'ANLA111111')
-        self.assertEquals(caverphone('hanlin'), 'ANLN111111')
-        self.assertEquals(caverphone('hanlon'), 'ANLN111111')
-        self.assertEquals(caverphone('hanly'), 'ANLA111111')
-        self.assertEquals(caverphone('hanna'), 'ANA1111111')
-        self.assertEquals(caverphone('hannagan'), 'ANKN111111')
-        self.assertEquals(caverphone('hannah'), 'ANA1111111')
-        self.assertEquals(caverphone('hannan'), 'ANN1111111')
-        self.assertEquals(caverphone('hannigan'), 'ANKN111111')
-        self.assertEquals(caverphone('hanning'), 'ANNK111111')
-        self.assertEquals(caverphone('hannon'), 'ANN1111111')
-        self.assertEquals(caverphone('hanon'), 'ANN1111111')
-        self.assertEquals(caverphone('hanrahan'), 'ANRN111111')
-        self.assertEquals(caverphone('hansbury'), 'ANSPRA1111')
-        self.assertEquals(caverphone('hansen'), 'ANSN111111')
-        self.assertEquals(caverphone('hansford'), 'ANSFT11111')
-        self.assertEquals(caverphone('hansforrl'), 'ANSFA11111')
-        self.assertEquals(caverphone('hanson'), 'ANSN111111')
-        self.assertEquals(caverphone('hansson'), 'ANSN111111')
-        self.assertEquals(caverphone('hanton'), 'ANTN111111')
-        self.assertEquals(caverphone('hanvey'), 'ANFA111111')
-        self.assertEquals(caverphone('haran'), 'ARN1111111')
-        self.assertEquals(caverphone('harborne'), 'APN1111111')
-        self.assertEquals(caverphone('harborow'), 'APRA111111')
-        self.assertEquals(caverphone('harbott'), 'APT1111111')
-        self.assertEquals(caverphone('harbrow'), 'APRA111111')
-        self.assertEquals(caverphone('hardcastle'), 'ATKSTA1111')
-        self.assertEquals(caverphone('harden'), 'ATN1111111')
-        self.assertEquals(caverphone('hardey'), 'ATA1111111')
-        self.assertEquals(caverphone('hardie'), 'ATA1111111')
-        self.assertEquals(caverphone('harding'), 'ATNK111111')
-        self.assertEquals(caverphone('hardman'), 'ATMN111111')
-        self.assertEquals(caverphone('hardoy'), 'ATA1111111')
-        self.assertEquals(caverphone('hards'), 'ATS1111111')
-        self.assertEquals(caverphone('hardwick'), 'ATWK111111')
-        self.assertEquals(caverphone('hardy'), 'ATA1111111')
-        self.assertEquals(caverphone('hare'), 'AA11111111')
-        self.assertEquals(caverphone('harford'), 'AFT1111111')
-        self.assertEquals(caverphone('hargood'), 'AKT1111111')
-        self.assertEquals(caverphone('hargrave'), 'AKRF111111')
-        self.assertEquals(caverphone('hargraves'), 'AKRFS11111')
-        self.assertEquals(caverphone('hargreave'), 'AKRF111111')
-        self.assertEquals(caverphone('hargreaves'), 'AKRFS11111')
-        self.assertEquals(caverphone('harker'), 'AKA1111111')
-        self.assertEquals(caverphone('harkess'), 'AKS1111111')
-        self.assertEquals(caverphone('harkness'), 'AKNS111111')
-        self.assertEquals(caverphone('harl'), 'AA11111111')
-        self.assertEquals(caverphone('harland'), 'ALNT111111')
-        self.assertEquals(caverphone('harle'), 'AA11111111')
-        self.assertEquals(caverphone('harley'), 'ALA1111111')
-        self.assertEquals(caverphone('harliwich'), 'ALWK111111')
-        self.assertEquals(caverphone('harlow'), 'ALA1111111')
-        self.assertEquals(caverphone('harman'), 'AMN1111111')
-        self.assertEquals(caverphone('harneiss'), 'ANS1111111')
-        self.assertEquals(caverphone('harness'), 'ANS1111111')
-        self.assertEquals(caverphone('harney'), 'ANA1111111')
-        self.assertEquals(caverphone('harold'), 'ART1111111')
-        self.assertEquals(caverphone('harper'), 'APA1111111')
-        self.assertEquals(caverphone('harrah'), 'ARA1111111')
-        self.assertEquals(caverphone('harrap'), 'ARP1111111')
-        self.assertEquals(caverphone('harraway'), 'ARWA111111')
-        self.assertEquals(caverphone('harre'), 'AA11111111')
-        self.assertEquals(caverphone('harrhy'), 'AA11111111')
-        self.assertEquals(caverphone('harridge'), 'ARK1111111')
-        self.assertEquals(caverphone('harries'), 'ARS1111111')
-        self.assertEquals(caverphone('harrington'), 'ARNKTN1111')
-        self.assertEquals(caverphone('harris'), 'ARS1111111')
-        self.assertEquals(caverphone('harrison'), 'ARSN111111')
-        self.assertEquals(caverphone('harrisorl'), 'ARSA111111')
-        self.assertEquals(caverphone('harrod'), 'ART1111111')
-        self.assertEquals(caverphone('harrold'), 'ART1111111')
-        self.assertEquals(caverphone('harrop'), 'ARP1111111')
-        self.assertEquals(caverphone('harrould'), 'ART1111111')
-        self.assertEquals(caverphone('harrow'), 'ARA1111111')
-        self.assertEquals(caverphone('harry'), 'ARA1111111')
-        self.assertEquals(caverphone('hart'), 'AT11111111')
-        self.assertEquals(caverphone('hartaway'), 'ATWA111111')
-        self.assertEquals(caverphone('hartle'), 'ATA1111111')
-        self.assertEquals(caverphone('hartley'), 'ATLA111111')
-        self.assertEquals(caverphone('hartman'), 'ATMN111111')
-        self.assertEquals(caverphone('hartmann'), 'ATMN111111')
-        self.assertEquals(caverphone('hartstonge'), 'ATSTNK1111')
-        self.assertEquals(caverphone('harty'), 'ATA1111111')
-        self.assertEquals(caverphone('harvey'), 'AFA1111111')
-        self.assertEquals(caverphone('harvie'), 'AFA1111111')
-        self.assertEquals(caverphone('harwood'), 'AWT1111111')
-        self.assertEquals(caverphone('haselden'), 'ASTN111111')
-        self.assertEquals(caverphone('haskell'), 'ASKA111111')
-        self.assertEquals(caverphone('haskins'), 'ASKNS11111')
-        self.assertEquals(caverphone('haskoll'), 'ASKA111111')
-        self.assertEquals(caverphone('haslett'), 'ASLT111111')
-        self.assertEquals(caverphone('hason'), 'ASN1111111')
-        self.assertEquals(caverphone('hassall'), 'ASA1111111')
-        self.assertEquals(caverphone('hassan'), 'ASN1111111')
-        self.assertEquals(caverphone('hast'), 'AST1111111')
-        self.assertEquals(caverphone('hastie'), 'ASTA111111')
-        self.assertEquals(caverphone('hastings'), 'ASTNKS1111')
-        self.assertEquals(caverphone('hastngs'), 'ASTNKS1111')
-        self.assertEquals(caverphone('hatcher'), 'AKA1111111')
-        self.assertEquals(caverphone('hately'), 'ATLA111111')
-        self.assertEquals(caverphone('hathaway'), 'ATWA111111')
-        self.assertEquals(caverphone('hatt'), 'AT11111111')
-        self.assertEquals(caverphone('hatten'), 'ATN1111111')
-        self.assertEquals(caverphone('hatton'), 'ATN1111111')
-        self.assertEquals(caverphone('haub'), 'AP11111111')
-        self.assertEquals(caverphone('haugh'), 'AA11111111')
-        self.assertEquals(caverphone('haughton'), 'ATN1111111')
-        self.assertEquals(caverphone('haurahan'), 'ARN1111111')
-        self.assertEquals(caverphone('haush'), 'AS11111111')
-        self.assertEquals(caverphone('havard'), 'AFT1111111')
-        self.assertEquals(caverphone('havelock'), 'AFLK111111')
-        self.assertEquals(caverphone('havill'), 'AFA1111111')
-        self.assertEquals(caverphone('havward'), 'AFWT111111')
-        self.assertEquals(caverphone('hawes'), 'AWS1111111')
-        self.assertEquals(caverphone('hawke'), 'AK11111111')
-        self.assertEquals(caverphone('hawken'), 'AKN1111111')
-        self.assertEquals(caverphone('hawker'), 'AKA1111111')
-        self.assertEquals(caverphone('hawkes'), 'AKS1111111')
-        self.assertEquals(caverphone('hawkhead'), 'AKT1111111')
-        self.assertEquals(caverphone('hawkine'), 'AKN1111111')
-        self.assertEquals(caverphone('hawkins'), 'AKNS111111')
-        self.assertEquals(caverphone('hawkley'), 'AKLA111111')
-        self.assertEquals(caverphone('hawley'), 'ALA1111111')
-        self.assertEquals(caverphone('haworth'), 'AWT1111111')
-        self.assertEquals(caverphone('hawthorn'), 'ATN1111111')
-        self.assertEquals(caverphone('haxlett'), 'AKLT111111')
-        self.assertEquals(caverphone('hay'), 'AA11111111')
-        self.assertEquals(caverphone('haybittle'), 'APTA111111')
-        self.assertEquals(caverphone('hayden'), 'ATN1111111')
-        self.assertEquals(caverphone('haydock'), 'ATK1111111')
-        self.assertEquals(caverphone('haydon'), 'ATN1111111')
-        self.assertEquals(caverphone('haye'), 'AA11111111')
-        self.assertEquals(caverphone('hayes'), 'AS11111111')
-        self.assertEquals(caverphone('hayman'), 'AMN1111111')
-        self.assertEquals(caverphone('haymes'), 'AMS1111111')
-        self.assertEquals(caverphone('hayne'), 'AN11111111')
-        self.assertEquals(caverphone('haynes'), 'ANS1111111')
-        self.assertEquals(caverphone('hayr'), 'AA11111111')
-        self.assertEquals(caverphone('hayward'), 'AWT1111111')
-        self.assertEquals(caverphone('hazard'), 'AST1111111')
-        self.assertEquals(caverphone('hazelwood'), 'ASWT111111')
-        self.assertEquals(caverphone('hazlett'), 'ASLT111111')
-        self.assertEquals(caverphone('head'), 'AT11111111')
-        self.assertEquals(caverphone('heads'), 'ATS1111111')
-        self.assertEquals(caverphone('heal'), 'AA11111111')
-        self.assertEquals(caverphone('heald'), 'AT11111111')
-        self.assertEquals(caverphone('healer'), 'ALA1111111')
-        self.assertEquals(caverphone('healey'), 'ALA1111111')
-        self.assertEquals(caverphone('healy'), 'ALA1111111')
-        self.assertEquals(caverphone('heaney'), 'ANA1111111')
-        self.assertEquals(caverphone('heaps'), 'APS1111111')
-        self.assertEquals(caverphone('heard'), 'AT11111111')
-        self.assertEquals(caverphone('hearile'), 'ARA1111111')
-        self.assertEquals(caverphone('hearne'), 'AN11111111')
-        self.assertEquals(caverphone('hearty'), 'ATA1111111')
-        self.assertEquals(caverphone('heasley'), 'ASLA111111')
-        self.assertEquals(caverphone('heasman'), 'ASMN111111')
-        self.assertEquals(caverphone('heath'), 'AT11111111')
-        self.assertEquals(caverphone('heathcote'), 'ATKT111111')
-        self.assertEquals(caverphone('heather'), 'ATA1111111')
-        self.assertEquals(caverphone('heathman'), 'ATMN111111')
-        self.assertEquals(caverphone('heatley'), 'ATLA111111')
-        self.assertEquals(caverphone('heaton'), 'ATN1111111')
-        self.assertEquals(caverphone('heaven'), 'AFN1111111')
-        self.assertEquals(caverphone('heaxlewood'), 'AKLWT11111')
-        self.assertEquals(caverphone('heazelwood'), 'ASWT111111')
-        self.assertEquals(caverphone('heazlewood'), 'ASLWT11111')
-        self.assertEquals(caverphone('hebbard'), 'APT1111111')
-        self.assertEquals(caverphone('hebditch'), 'APTK111111')
-        self.assertEquals(caverphone('hector'), 'AKTA111111')
-        self.assertEquals(caverphone('hedges'), 'AKS1111111')
-        self.assertEquals(caverphone('hedgman'), 'AKMN111111')
-        self.assertEquals(caverphone('hedlges'), 'ATKS111111')
-        self.assertEquals(caverphone('hedrick'), 'ATRK111111')
-        self.assertEquals(caverphone('heenan'), 'ANN1111111')
-        self.assertEquals(caverphone('heffernan'), 'AFNN111111')
-        self.assertEquals(caverphone('heft'), 'AFT1111111')
-        self.assertEquals(caverphone('hegarty'), 'AKTA111111')
-        self.assertEquals(caverphone('heggerty'), 'AKTA111111')
-        self.assertEquals(caverphone('heggie'), 'AKA1111111')
-        self.assertEquals(caverphone('heileson'), 'ALSN111111')
-        self.assertEquals(caverphone('helder'), 'ATA1111111')
-        self.assertEquals(caverphone('helean'), 'ALN1111111')
-        self.assertEquals(caverphone('helier'), 'ALA1111111')
-        self.assertEquals(caverphone('hellawell'), 'ALWA111111')
-        self.assertEquals(caverphone('heller'), 'ALA1111111')
-        self.assertEquals(caverphone('helleyer'), 'ALA1111111')
-        self.assertEquals(caverphone('hellier'), 'ALA1111111')
-        self.assertEquals(caverphone('hellriegel'), 'ARKA111111')
-        self.assertEquals(caverphone('hellyer'), 'ALA1111111')
-        self.assertEquals(caverphone('helm'), 'AM11111111')
-        self.assertEquals(caverphone('helmore'), 'AMA1111111')
-        self.assertEquals(caverphone('helms'), 'AMS1111111')
-        self.assertEquals(caverphone('helson'), 'ASN1111111')
-        self.assertEquals(caverphone('hely'), 'ALA1111111')
-        self.assertEquals(caverphone('hemingway'), 'AMNKWA1111')
-        self.assertEquals(caverphone('hemsley'), 'AMSLA11111')
-        self.assertEquals(caverphone('henaghan'), 'ANKN111111')
-        self.assertEquals(caverphone('hende'), 'ANT1111111')
-        self.assertEquals(caverphone('hendebourck'), 'ANTPK11111')
-        self.assertEquals(caverphone('henden'), 'ANTN111111')
-        self.assertEquals(caverphone('henderson'), 'ANTSN11111')
-        self.assertEquals(caverphone('hendetson'), 'ANTTSN1111')
-        self.assertEquals(caverphone('hendley'), 'ANTLA11111')
-        self.assertEquals(caverphone('hendren'), 'ANTRN11111')
-        self.assertEquals(caverphone('hendrick'), 'ANTRK11111')
-        self.assertEquals(caverphone('hendry'), 'ANTRA11111')
-        self.assertEquals(caverphone('hendy'), 'ANTA111111')
-        self.assertEquals(caverphone('heneghan'), 'ANKN111111')
-        self.assertEquals(caverphone('henery'), 'ANRA111111')
-        self.assertEquals(caverphone('heney'), 'ANA1111111')
-        self.assertEquals(caverphone('henke'), 'ANK1111111')
-        self.assertEquals(caverphone('henks'), 'ANKS111111')
-        self.assertEquals(caverphone('henley'), 'ANLA111111')
-        self.assertEquals(caverphone('hennessey'), 'ANSA111111')
-        self.assertEquals(caverphone('hennessy'), 'ANSA111111')
-        self.assertEquals(caverphone('hennig'), 'ANK1111111')
-        self.assertEquals(caverphone('henning'), 'ANNK111111')
-        self.assertEquals(caverphone('henry'), 'ANRA111111')
-        self.assertEquals(caverphone('hensleigh'), 'ANSLA11111')
-        self.assertEquals(caverphone('hensley'), 'ANSLA11111')
-        self.assertEquals(caverphone('henton'), 'ANTN111111')
-        self.assertEquals(caverphone('henty'), 'ANTA111111')
-        self.assertEquals(caverphone('henwood'), 'ANWT111111')
-        self.assertEquals(caverphone('hepburn'), 'APN1111111')
-        self.assertEquals(caverphone('heppelthwa'), 'APTWA11111')
-        self.assertEquals(caverphone('heppelthwaite'), 'APTWT11111')
-        self.assertEquals(caverphone('herbert'), 'APT1111111')
-        self.assertEquals(caverphone('herbison'), 'APSN111111')
-        self.assertEquals(caverphone('herd'), 'AT11111111')
-        self.assertEquals(caverphone('herman'), 'AMN1111111')
-        self.assertEquals(caverphone('hern'), 'AN11111111')
-        self.assertEquals(caverphone('heron'), 'ARN1111111')
-        self.assertEquals(caverphone('herrich'), 'ARK1111111')
-        self.assertEquals(caverphone('herrick'), 'ARK1111111')
-        self.assertEquals(caverphone('herring'), 'ARNK111111')
-        self.assertEquals(caverphone('herriot'), 'ART1111111')
-        self.assertEquals(caverphone('hertz'), 'ATS1111111')
-        self.assertEquals(caverphone('hervey'), 'AFA1111111')
-        self.assertEquals(caverphone('heselwood'), 'ASWT111111')
-        self.assertEquals(caverphone('hesford'), 'ASFT111111')
-        self.assertEquals(caverphone('heslington'), 'ASLNKTN111')
-        self.assertEquals(caverphone('heslip'), 'ASLP111111')
-        self.assertEquals(caverphone('heslop'), 'ASLP111111')
-        self.assertEquals(caverphone('hessell'), 'ASA1111111')
-        self.assertEquals(caverphone('hessey'), 'ASA1111111')
-        self.assertEquals(caverphone('hessian'), 'ASN1111111')
-        self.assertEquals(caverphone('hestinger'), 'ASTNKA1111')
-        self.assertEquals(caverphone('hethering'), 'ATRNK11111')
-        self.assertEquals(caverphone('hetherington'), 'ATRNKTN111')
-        self.assertEquals(caverphone('hett'), 'AT11111111')
-        self.assertEquals(caverphone('heward'), 'AWT1111111')
-        self.assertEquals(caverphone('hewat'), 'AWT1111111')
-        self.assertEquals(caverphone('hewett'), 'AWT1111111')
-        self.assertEquals(caverphone('hewitson'), 'AWTSN11111')
-        self.assertEquals(caverphone('hewitt'), 'AWT1111111')
-        self.assertEquals(caverphone('hewlett'), 'ALT1111111')
-        self.assertEquals(caverphone('hewton'), 'ATN1111111')
-        self.assertEquals(caverphone('hey'), 'AA11111111')
-        self.assertEquals(caverphone('heydon'), 'ATN1111111')
-        self.assertEquals(caverphone('heyward'), 'AWT1111111')
-        self.assertEquals(caverphone('hickey'), 'AKA1111111')
-        self.assertEquals(caverphone('hickinbot'), 'AKNPT11111')
-        self.assertEquals(caverphone('hickinbotham'), 'AKNPTM1111')
-        self.assertEquals(caverphone('hickman'), 'AKMN111111')
-        self.assertEquals(caverphone('hicks'), 'AKS1111111')
-        self.assertEquals(caverphone('hickson'), 'AKSN111111')
-        self.assertEquals(caverphone('hiddle'), 'ATA1111111')
-        self.assertEquals(caverphone('higgie'), 'AKA1111111')
-        self.assertEquals(caverphone('higgins'), 'AKNS111111')
-        self.assertEquals(caverphone('higginson'), 'AKNSN11111')
-        self.assertEquals(caverphone('higgs'), 'AKS1111111')
-        self.assertEquals(caverphone('higham'), 'AKM1111111')
-        self.assertEquals(caverphone('highet'), 'AKT1111111')
-        self.assertEquals(caverphone('highley'), 'ALA1111111')
-        self.assertEquals(caverphone('highs'), 'AS11111111')
-        self.assertEquals(caverphone('higman'), 'AKMN111111')
-        self.assertEquals(caverphone('hiil'), 'AA11111111')
-        self.assertEquals(caverphone('hill'), 'AA11111111')
-        self.assertEquals(caverphone('hillary'), 'ALRA111111')
-        self.assertEquals(caverphone('hilliar'), 'ALA1111111')
-        self.assertEquals(caverphone('hilliard'), 'ALT1111111')
-        self.assertEquals(caverphone('hillier'), 'ALA1111111')
-        self.assertEquals(caverphone('hilliker'), 'ALKA111111')
-        self.assertEquals(caverphone('hillis'), 'ALS1111111')
-        self.assertEquals(caverphone('hilllker'), 'AKA1111111')
-        self.assertEquals(caverphone('hilslop'), 'ASLP111111')
-        self.assertEquals(caverphone('hilton'), 'ATN1111111')
-        self.assertEquals(caverphone('himburg'), 'AMPK111111')
-        self.assertEquals(caverphone('himmel'), 'AMA1111111')
-        self.assertEquals(caverphone('hinchcliff'), 'ANKKLF1111')
-        self.assertEquals(caverphone('hinchcliffe'), 'ANKKLF1111')
-        self.assertEquals(caverphone('hincheliff'), 'ANKLF11111')
-        self.assertEquals(caverphone('hincks'), 'ANKS111111')
-        self.assertEquals(caverphone('hind'), 'ANT1111111')
-        self.assertEquals(caverphone('hinde'), 'ANT1111111')
-        self.assertEquals(caverphone('hindes'), 'ANTS111111')
-        self.assertEquals(caverphone('hindle'), 'ANTA111111')
-        self.assertEquals(caverphone('hindmarsh'), 'ANTMS11111')
-        self.assertEquals(caverphone('hinds'), 'ANTS111111')
-        self.assertEquals(caverphone('hines'), 'ANS1111111')
-        self.assertEquals(caverphone('hinex'), 'ANK1111111')
-        self.assertEquals(caverphone('hingley'), 'ANKLA11111')
-        self.assertEquals(caverphone('hinkley'), 'ANKLA11111')
-        self.assertEquals(caverphone('hinton'), 'ANTN111111')
-        self.assertEquals(caverphone('hiorns'), 'ANS1111111')
-        self.assertEquals(caverphone('hirt'), 'AT11111111')
-        self.assertEquals(caverphone('hiscock'), 'ASKK111111')
-        self.assertEquals(caverphone('hiscoke'), 'ASKK111111')
-        self.assertEquals(caverphone('hisgrove'), 'ASKRF11111')
-        self.assertEquals(caverphone('hislol'), 'ASLA111111')
-        self.assertEquals(caverphone('hislop'), 'ASLP111111')
-        self.assertEquals(caverphone('hisshion'), 'ASN1111111')
-        self.assertEquals(caverphone('hitchcock'), 'AKKK111111')
-        self.assertEquals(caverphone('hitchcox'), 'AKKK111111')
-        self.assertEquals(caverphone('hitchell'), 'AKA1111111')
-        self.assertEquals(caverphone('hitchon'), 'AKN1111111')
-        self.assertEquals(caverphone('hits'), 'ATS1111111')
-        self.assertEquals(caverphone('hitt'), 'AT11111111')
-        self.assertEquals(caverphone('hoad'), 'AT11111111')
-        self.assertEquals(caverphone('hoar'), 'AA11111111')
-        self.assertEquals(caverphone('hoare'), 'AA11111111')
-        self.assertEquals(caverphone('hoatten'), 'ATN1111111')
-        self.assertEquals(caverphone('hobbs'), 'APS1111111')
-        self.assertEquals(caverphone('hobby'), 'APA1111111')
-        self.assertEquals(caverphone('hobcraft'), 'APKRFT1111')
-        self.assertEquals(caverphone('hobcroft'), 'APKRFT1111')
-        self.assertEquals(caverphone('hobday'), 'APTA111111')
-        self.assertEquals(caverphone('hobsoil'), 'APSA111111')
-        self.assertEquals(caverphone('hobson'), 'APSN111111')
-        self.assertEquals(caverphone('hocking'), 'AKNK111111')
-        self.assertEquals(caverphone('hodgaon'), 'AKN1111111')
-        self.assertEquals(caverphone('hodge'), 'AK11111111')
-        self.assertEquals(caverphone('hodges'), 'AKS1111111')
-        self.assertEquals(caverphone('hodgetts'), 'AKTS111111')
-        self.assertEquals(caverphone('hodgins'), 'AKNS111111')
-        self.assertEquals(caverphone('hodgkins'), 'AKNS111111')
-        self.assertEquals(caverphone('hodgkinson'), 'AKNSN11111')
-        self.assertEquals(caverphone('hodgsin'), 'AKSN111111')
-        self.assertEquals(caverphone('hodgson'), 'AKSN111111')
-        self.assertEquals(caverphone('hodkins'), 'ATKNS11111')
-        self.assertEquals(caverphone('hodson'), 'ATSN111111')
-        self.assertEquals(caverphone('hoeking'), 'AKNK111111')
-        self.assertEquals(caverphone('hoff'), 'AF11111111')
-        self.assertEquals(caverphone('hoffman'), 'AFMN111111')
-        self.assertEquals(caverphone('hoffmann'), 'AFMN111111')
-        self.assertEquals(caverphone('hoffmeister'), 'AFMSTA1111')
-        self.assertEquals(caverphone('hofland'), 'AFLNT11111')
-        self.assertEquals(caverphone('hog'), 'AK11111111')
-        self.assertEquals(caverphone('hogan'), 'AKN1111111')
-        self.assertEquals(caverphone('hogarth'), 'AKT1111111')
-        self.assertEquals(caverphone('hogg'), 'AK11111111')
-        self.assertEquals(caverphone('hogue'), 'AKA1111111')
-        self.assertEquals(caverphone('hoirns'), 'ANS1111111')
-        self.assertEquals(caverphone('holander'), 'ALNTA11111')
-        self.assertEquals(caverphone('holben'), 'APN1111111')
-        self.assertEquals(caverphone('holdaway'), 'ATWA111111')
-        self.assertEquals(caverphone('holden'), 'ATN1111111')
-        self.assertEquals(caverphone('holder'), 'ATA1111111')
-        self.assertEquals(caverphone('holderness'), 'ATNS111111')
-        self.assertEquals(caverphone('holdgate'), 'AKT1111111')
-        self.assertEquals(caverphone('holdsworth'), 'ATSWT11111')
-        self.assertEquals(caverphone('holgate'), 'AKT1111111')
-        self.assertEquals(caverphone('holiand'), 'ALNT111111')
-        self.assertEquals(caverphone('hollamby'), 'ALMPA11111')
-        self.assertEquals(caverphone('holland'), 'ALNT111111')
-        self.assertEquals(caverphone('hollander'), 'ALNTA11111')
-        self.assertEquals(caverphone('hollands'), 'ALNTS11111')
-        self.assertEquals(caverphone('hollebon'), 'ALPN111111')
-        self.assertEquals(caverphone('holley'), 'ALA1111111')
-        self.assertEquals(caverphone('hollick'), 'ALK1111111')
-        self.assertEquals(caverphone('hollingshead'), 'ALNKST1111')
-        self.assertEquals(caverphone('hollingworth'), 'ALNKWT1111')
-        self.assertEquals(caverphone('hollner'), 'ANA1111111')
-        self.assertEquals(caverphone('hollow'), 'ALA1111111')
-        self.assertEquals(caverphone('holloway'), 'ALWA111111')
-        self.assertEquals(caverphone('hollows'), 'ALS1111111')
-        self.assertEquals(caverphone('holman'), 'AMN1111111')
-        self.assertEquals(caverphone('holmes-libbis'), 'AMSLPS1111')
-        self.assertEquals(caverphone('holmes'), 'AMS1111111')
-        self.assertEquals(caverphone('holmess'), 'AMS1111111')
-        self.assertEquals(caverphone('holroyd'), 'ART1111111')
-        self.assertEquals(caverphone('holst'), 'AST1111111')
-        self.assertEquals(caverphone('holsted'), 'ASTT111111')
-        self.assertEquals(caverphone('holsten'), 'ASTN111111')
-        self.assertEquals(caverphone('holt'), 'AT11111111')
-        self.assertEquals(caverphone('homan'), 'AMN1111111')
-        self.assertEquals(caverphone('home'), 'AM11111111')
-        self.assertEquals(caverphone('homer'), 'AMA1111111')
-        self.assertEquals(caverphone('homfray'), 'AMFRA11111')
-        self.assertEquals(caverphone('honer'), 'ANA1111111')
-        self.assertEquals(caverphone('honeybone'), 'ANPN111111')
-        self.assertEquals(caverphone('honeywood'), 'ANWT111111')
-        self.assertEquals(caverphone('honner'), 'ANA1111111')
-        self.assertEquals(caverphone('hoochoo'), 'AKA1111111')
-        self.assertEquals(caverphone('hood'), 'AT11111111')
-        self.assertEquals(caverphone('hoogee'), 'AKA1111111')
-        self.assertEquals(caverphone('hook'), 'AK11111111')
-        self.assertEquals(caverphone('hooker'), 'AKA1111111')
-        self.assertEquals(caverphone('hoole'), 'AA11111111')
-        self.assertEquals(caverphone('hooley'), 'ALA1111111')
-        self.assertEquals(caverphone('hooper'), 'APA1111111')
-        self.assertEquals(caverphone('hopcraft'), 'APKRFT1111')
-        self.assertEquals(caverphone('hope'), 'AP11111111')
-        self.assertEquals(caverphone('hopewell'), 'APWA111111')
-        self.assertEquals(caverphone('hopgood'), 'APKT111111')
-        self.assertEquals(caverphone('hopkins'), 'APKNS11111')
-        self.assertEquals(caverphone('hopkinson'), 'APKNSN1111')
-        self.assertEquals(caverphone('hopkirk'), 'APKK111111')
-        self.assertEquals(caverphone('hopper'), 'APA1111111')
-        self.assertEquals(caverphone('hopwood'), 'APWT111111')
-        self.assertEquals(caverphone('horan'), 'ARN1111111')
-        self.assertEquals(caverphone('hordern'), 'ATN1111111')
-        self.assertEquals(caverphone('hore'), 'AA11111111')
-        self.assertEquals(caverphone('hormann'), 'AMN1111111')
-        self.assertEquals(caverphone('horn'), 'AN11111111')
-        self.assertEquals(caverphone('hornal'), 'ANA1111111')
-        self.assertEquals(caverphone('hornby'), 'ANPA111111')
-        self.assertEquals(caverphone('horncastle'), 'ANKSTA1111')
-        self.assertEquals(caverphone('horncy'), 'ANSA111111')
-        self.assertEquals(caverphone('horne'), 'AN11111111')
-        self.assertEquals(caverphone('hornell'), 'ANA1111111')
-        self.assertEquals(caverphone('horner'), 'ANA1111111')
-        self.assertEquals(caverphone('horniblow'), 'ANPLA11111')
-        self.assertEquals(caverphone('hornsby'), 'ANSPA11111')
-        self.assertEquals(caverphone('horris'), 'ARS1111111')
-        self.assertEquals(caverphone('horrobin'), 'ARPN111111')
-        self.assertEquals(caverphone('horsburg'), 'ASPK111111')
-        self.assertEquals(caverphone('horsburgh'), 'ASPA111111')
-        self.assertEquals(caverphone('horsecroft'), 'ASKRFT1111')
-        self.assertEquals(caverphone('horsham'), 'ASM1111111')
-        self.assertEquals(caverphone('horsman'), 'ASMN111111')
-        self.assertEquals(caverphone('hortle'), 'ATA1111111')
-        self.assertEquals(caverphone('horton'), 'ATN1111111')
-        self.assertEquals(caverphone('horwood'), 'AWT1111111')
-        self.assertEquals(caverphone('hosee'), 'ASA1111111')
-        self.assertEquals(caverphone('hoseit'), 'AST1111111')
-        self.assertEquals(caverphone('hosie'), 'ASA1111111')
-        self.assertEquals(caverphone('hoskin'), 'ASKN111111')
-        self.assertEquals(caverphone('hosking'), 'ASKNK11111')
-        self.assertEquals(caverphone('hoskins'), 'ASKNS11111')
-        self.assertEquals(caverphone('hossack'), 'ASK1111111')
-        self.assertEquals(caverphone('hotop'), 'ATP1111111')
-        self.assertEquals(caverphone('hotton'), 'ATN1111111')
-        self.assertEquals(caverphone('houghton'), 'ATN1111111')
-        self.assertEquals(caverphone('houlahan'), 'ALN1111111')
-        self.assertEquals(caverphone('hould'), 'AT11111111')
-        self.assertEquals(caverphone('houliston'), 'ALSTN11111')
-        self.assertEquals(caverphone('houlston'), 'ASTN111111')
-        self.assertEquals(caverphone('houston'), 'ASTN111111')
-        self.assertEquals(caverphone('how'), 'AA11111111')
-        self.assertEquals(caverphone('howard'), 'AWT1111111')
-        self.assertEquals(caverphone('howarth'), 'AWT1111111')
-        self.assertEquals(caverphone('howat'), 'AWT1111111')
-        self.assertEquals(caverphone('howatson'), 'AWTSN11111')
-        self.assertEquals(caverphone('howden'), 'ATN1111111')
-        self.assertEquals(caverphone('howe'), 'AA11111111')
-        self.assertEquals(caverphone('howejohns'), 'AWNS111111')
-        self.assertEquals(caverphone('howell'), 'AWA1111111')
-        self.assertEquals(caverphone('howes'), 'AWS1111111')
-        self.assertEquals(caverphone('howie'), 'AWA1111111')
-        self.assertEquals(caverphone('howison'), 'AWSN111111')
-        self.assertEquals(caverphone('howlett'), 'ALT1111111')
-        self.assertEquals(caverphone('howley'), 'ALA1111111')
-        self.assertEquals(caverphone('howman'), 'AMN1111111')
-        self.assertEquals(caverphone('howorth'), 'AWT1111111')
-        self.assertEquals(caverphone('howrth'), 'AT11111111')
-        self.assertEquals(caverphone('hows'), 'AS11111111')
-        self.assertEquals(caverphone('hoy'), 'AA11111111')
-        self.assertEquals(caverphone('hoyne'), 'AN11111111')
-        self.assertEquals(caverphone('huband'), 'APNT111111')
-        self.assertEquals(caverphone('hubbard'), 'APT1111111')
-        self.assertEquals(caverphone('hubble'), 'APA1111111')
-        self.assertEquals(caverphone('hucker'), 'AKA1111111')
-        self.assertEquals(caverphone('hucklebridge'), 'AKLPRK1111')
-        self.assertEquals(caverphone('hudd'), 'AT11111111')
-        self.assertEquals(caverphone('huddleston'), 'ATLSTN1111')
-        self.assertEquals(caverphone('huddlestone'), 'ATLSTN1111')
-        self.assertEquals(caverphone('hudson'), 'ATSN111111')
-        self.assertEquals(caverphone('hugget'), 'AKT1111111')
-        self.assertEquals(caverphone('huggett'), 'AKT1111111')
-        self.assertEquals(caverphone('huggins'), 'AKNS111111')
-        self.assertEquals(caverphone('hughan'), 'AKN1111111')
-        self.assertEquals(caverphone('hughes'), 'AKS1111111')
-        self.assertEquals(caverphone('hughson'), 'ASN1111111')
-        self.assertEquals(caverphone('hulands'), 'ALNTS11111')
-        self.assertEquals(caverphone('hulme'), 'AM11111111')
-        self.assertEquals(caverphone('hume'), 'AM11111111')
-        self.assertEquals(caverphone('humphrey'), 'AMFRA11111')
-        self.assertEquals(caverphone('humphreys'), 'AMFRS11111')
-        self.assertEquals(caverphone('humphries'), 'AMFRS11111')
-        self.assertEquals(caverphone('hungerford'), 'ANKFT11111')
-        self.assertEquals(caverphone('hunker'), 'ANKA111111')
-        self.assertEquals(caverphone('hunrter'), 'ANTA111111')
-        self.assertEquals(caverphone('hunt'), 'ANT1111111')
-        self.assertEquals(caverphone('hunter'), 'ANTA111111')
-        self.assertEquals(caverphone('huntley'), 'ANTLA11111')
-        self.assertEquals(caverphone('hurd'), 'AT11111111')
-        self.assertEquals(caverphone('hurdley'), 'ATLA111111')
-        self.assertEquals(caverphone('hurley'), 'ALA1111111')
-        self.assertEquals(caverphone('hurlson'), 'ASN1111111')
-        self.assertEquals(caverphone('hurndell'), 'ANTA111111')
-        self.assertEquals(caverphone('hurrell'), 'ARA1111111')
-        self.assertEquals(caverphone('hurring'), 'ARNK111111')
-        self.assertEquals(caverphone('hurst'), 'AST1111111')
-        self.assertEquals(caverphone('hurt'), 'AT11111111')
-        self.assertEquals(caverphone('husband'), 'ASPNT11111')
-        self.assertEquals(caverphone('hussey'), 'ASA1111111')
-        self.assertEquals(caverphone('huston'), 'ASTN111111')
-        self.assertEquals(caverphone('hutcheon'), 'AKN1111111')
-        self.assertEquals(caverphone('hutcheson'), 'AKSN111111')
-        self.assertEquals(caverphone('hutchings'), 'AKNKS11111')
-        self.assertEquals(caverphone('hutchins'), 'AKNS111111')
-        self.assertEquals(caverphone('hutchinson'), 'AKNSN11111')
-        self.assertEquals(caverphone('hutchison'), 'AKSN111111')
-        self.assertEquals(caverphone('huts'), 'ATS1111111')
-        self.assertEquals(caverphone('hutt'), 'AT11111111')
-        self.assertEquals(caverphone('hutton'), 'ATN1111111')
-        self.assertEquals(caverphone('huxtable'), 'AKTPA11111')
-        self.assertEquals(caverphone('hvslop'), 'AFSLP11111')
-        self.assertEquals(caverphone('hyde harris'), 'ATRS111111')
-        self.assertEquals(caverphone('hyde-harris'), 'ATRS111111')
-        self.assertEquals(caverphone('hyde'), 'AT11111111')
-        self.assertEquals(caverphone('hyder'), 'ATA1111111')
-        self.assertEquals(caverphone('hydes'), 'ATS1111111')
-        self.assertEquals(caverphone('hyland'), 'ALNT111111')
-        self.assertEquals(caverphone('hylnen'), 'ANN1111111')
-        self.assertEquals(caverphone('hymen'), 'AMN1111111')
-        self.assertEquals(caverphone('hyndman'), 'ANTMN11111')
-        self.assertEquals(caverphone('hynes'), 'ANS1111111')
-        self.assertEquals(caverphone('hynet'), 'ANT1111111')
-        self.assertEquals(caverphone('hypes'), 'APS1111111')
-        self.assertEquals(caverphone('hyslop'), 'ASLP111111')
-        self.assertEquals(caverphone('iaing'), 'ANK1111111')
-        self.assertEquals(caverphone('ibbetson'), 'APTSN11111')
-        self.assertEquals(caverphone('ibbotson'), 'APTSN11111')
-        self.assertEquals(caverphone('idiens'), 'ATNS111111')
-        self.assertEquals(caverphone('idour'), 'ATA1111111')
-        self.assertEquals(caverphone('iggo'), 'AKA1111111')
-        self.assertEquals(caverphone('iles'), 'ALS1111111')
-        self.assertEquals(caverphone('illes'), 'ALS1111111')
-        self.assertEquals(caverphone('illingworth'), 'ALNKWT1111')
-        self.assertEquals(caverphone('imrie'), 'AMRA111111')
-        self.assertEquals(caverphone('ince'), 'ANK1111111')
-        self.assertEquals(caverphone('incrocci'), 'ANKRKSA111')
-        self.assertEquals(caverphone('inder'), 'ANTA111111')
-        self.assertEquals(caverphone('ingle'), 'ANKA111111')
-        self.assertEquals(caverphone('ingles'), 'ANKLS11111')
-        self.assertEquals(caverphone('inglis'), 'ANKLS11111')
-        self.assertEquals(caverphone('ingram'), 'ANKRM11111')
-        self.assertEquals(caverphone('ings'), 'ANKS111111')
-        self.assertEquals(caverphone('ingstolle'), 'ANKSTA1111')
-        self.assertEquals(caverphone('ingstone'), 'ANKSTN1111')
-        self.assertEquals(caverphone('innes'), 'ANS1111111')
-        self.assertEquals(caverphone('innis'), 'ANS1111111')
-        self.assertEquals(caverphone('inram'), 'ANRM111111')
-        self.assertEquals(caverphone('instone'), 'ANSTN11111')
-        self.assertEquals(caverphone('inward'), 'ANWT111111')
-        self.assertEquals(caverphone('inwood'), 'ANWT111111')
-        self.assertEquals(caverphone('iones'), 'ANS1111111')
-        self.assertEquals(caverphone('ireland'), 'ARLNT11111')
-        self.assertEquals(caverphone('ironside'), 'ARNST11111')
-        self.assertEquals(caverphone('irvine'), 'AFN1111111')
-        self.assertEquals(caverphone('irving'), 'AFNK111111')
-        self.assertEquals(caverphone('irwin'), 'AWN1111111')
-        self.assertEquals(caverphone('isaac'), 'ASK1111111')
-        self.assertEquals(caverphone('isaacs'), 'ASKS111111')
-        self.assertEquals(caverphone('isaae'), 'ASA1111111')
-        self.assertEquals(caverphone('isbister'), 'ASPSTA1111')
-        self.assertEquals(caverphone('isdale'), 'ASTA111111')
-        self.assertEquals(caverphone('isitt'), 'AST1111111')
-        self.assertEquals(caverphone('islip'), 'ASLP111111')
-        self.assertEquals(caverphone('israel'), 'ASRA111111')
-        self.assertEquals(caverphone('isteed'), 'ASTT111111')
-        self.assertEquals(caverphone('ives'), 'AFS1111111')
-        self.assertEquals(caverphone('ivimev'), 'AFMF111111')
-        self.assertEquals(caverphone('ivimey'), 'AFMA111111')
-        self.assertEquals(caverphone('ivory'), 'AFRA111111')
-        self.assertEquals(caverphone('jaap'), 'YP11111111')
-        self.assertEquals(caverphone('jack'), 'YK11111111')
-        self.assertEquals(caverphone('jackison'), 'YKSN111111')
-        self.assertEquals(caverphone('jacksoh'), 'YKSA111111')
-        self.assertEquals(caverphone('jackson'), 'YKSN111111')
-        self.assertEquals(caverphone('jackways'), 'YKWS111111')
-        self.assertEquals(caverphone('jacl'), 'YKA1111111')
-        self.assertEquals(caverphone('jacob'), 'YKP1111111')
-        self.assertEquals(caverphone('jacobs'), 'YKPS111111')
-        self.assertEquals(caverphone('jacobsen'), 'YKPSN11111')
-        self.assertEquals(caverphone('jacobson'), 'YKPSN11111')
-        self.assertEquals(caverphone('jacques'), 'YKS1111111')
-        self.assertEquals(caverphone('jager'), 'YKA1111111')
-        self.assertEquals(caverphone('jago'), 'YKA1111111')
-        self.assertEquals(caverphone('jaicobs'), 'YKPS111111')
-        self.assertEquals(caverphone('james'), 'YMS1111111')
-        self.assertEquals(caverphone('jameson'), 'YMSN111111')
-        self.assertEquals(caverphone('jamieson'), 'YMSN111111')
-        self.assertEquals(caverphone('jamison'), 'YMSN111111')
-        self.assertEquals(caverphone('jane'), 'YN11111111')
-        self.assertEquals(caverphone('janowsky'), 'YNSKA11111')
-        self.assertEquals(caverphone('jansen'), 'YNSN111111')
-        self.assertEquals(caverphone('janson'), 'YNSN111111')
-        self.assertEquals(caverphone('jaokson'), 'YKSN111111')
-        self.assertEquals(caverphone('japp'), 'YP11111111')
-        self.assertEquals(caverphone('jaquiery'), 'YKRA111111')
-        self.assertEquals(caverphone('jarden'), 'YTN1111111')
-        self.assertEquals(caverphone('jardine'), 'YTN1111111')
-        self.assertEquals(caverphone('jarman'), 'YMN1111111')
-        self.assertEquals(caverphone('jarnes'), 'YNS1111111')
-        self.assertEquals(caverphone('jarves'), 'YFS1111111')
-        self.assertEquals(caverphone('jarvie'), 'YFA1111111')
-        self.assertEquals(caverphone('jarvis'), 'YFS1111111')
-        self.assertEquals(caverphone('jeannings'), 'YNNKS11111')
-        self.assertEquals(caverphone('jeavons'), 'YFNS111111')
-        self.assertEquals(caverphone('jefcoate'), 'YFKT111111')
-        self.assertEquals(caverphone('jefferson'), 'YFSN111111')
-        self.assertEquals(caverphone('jeffery'), 'YFRA111111')
-        self.assertEquals(caverphone('jeffrey'), 'YFRA111111')
-        self.assertEquals(caverphone('jeffreys'), 'YFRS111111')
-        self.assertEquals(caverphone('jeffries'), 'YFRS111111')
-        self.assertEquals(caverphone('jeffs'), 'YFS1111111')
-        self.assertEquals(caverphone('jefierson'), 'YFSN111111')
-        self.assertEquals(caverphone('jefterson'), 'YFTSN11111')
-        self.assertEquals(caverphone('jelley'), 'YLA1111111')
-        self.assertEquals(caverphone('jells'), 'YS11111111')
-        self.assertEquals(caverphone('jelly'), 'YLA1111111')
-        self.assertEquals(caverphone('jenkin'), 'YNKN111111')
-        self.assertEquals(caverphone('jenkins'), 'YNKNS11111')
-        self.assertEquals(caverphone('jenks'), 'YNKS111111')
-        self.assertEquals(caverphone('jenner'), 'YNA1111111')
-        self.assertEquals(caverphone('jennings'), 'YNNKS11111')
-        self.assertEquals(caverphone('jensen'), 'YNSN111111')
-        self.assertEquals(caverphone('jenson'), 'YNSN111111')
-        self.assertEquals(caverphone('jenvey'), 'YNFA111111')
-        self.assertEquals(caverphone('jephson'), 'YFSN111111')
-        self.assertEquals(caverphone('jepson'), 'YPSN111111')
-        self.assertEquals(caverphone('jerkins'), 'YKNS111111')
-        self.assertEquals(caverphone('jesse'), 'YS11111111')
-        self.assertEquals(caverphone('jessep'), 'YSP1111111')
-        self.assertEquals(caverphone('jewett'), 'YWT1111111')
-        self.assertEquals(caverphone('jewiss'), 'YWS1111111')
-        self.assertEquals(caverphone('jlardey'), 'ALTA111111')
-        self.assertEquals(caverphone('jobberns'), 'YPNS111111')
-        self.assertEquals(caverphone('jober'), 'YPA1111111')
-        self.assertEquals(caverphone('joblin'), 'YPLN111111')
-        self.assertEquals(caverphone('joe'), 'YA11111111')
-        self.assertEquals(caverphone('joel'), 'YA11111111')
-        self.assertEquals(caverphone('johansen'), 'YNSN111111')
-        self.assertEquals(caverphone('johansson'), 'YNSN111111')
-        self.assertEquals(caverphone('johhston'), 'YSTN111111')
-        self.assertEquals(caverphone('john'), 'YN11111111')
-        self.assertEquals(caverphone('johns'), 'YNS1111111')
-        self.assertEquals(caverphone('johnsen'), 'YNSN111111')
-        self.assertEquals(caverphone('johnson'), 'YNSN111111')
-        self.assertEquals(caverphone('johnston'), 'YNSTN11111')
-        self.assertEquals(caverphone('johnstone'), 'YNSTN11111')
-        self.assertEquals(caverphone('jolly'), 'YLA1111111')
-        self.assertEquals(caverphone('jolmson'), 'YMSN111111')
-        self.assertEquals(caverphone('joncs'), 'YNKS111111')
-        self.assertEquals(caverphone('jondon'), 'YNTN111111')
-        self.assertEquals(caverphone('jones-neilson'), 'YNSNSN1111')
-        self.assertEquals(caverphone('jones'), 'YNS1111111')
-        self.assertEquals(caverphone('jopp'), 'YP11111111')
-        self.assertEquals(caverphone('jopsen'), 'YPSN111111')
-        self.assertEquals(caverphone('jopson'), 'YPSN111111')
-        self.assertEquals(caverphone('jordan'), 'YTN1111111')
-        self.assertEquals(caverphone('jory'), 'YRA1111111')
-        self.assertEquals(caverphone('joseph'), 'YSF1111111')
-        self.assertEquals(caverphone('josephson'), 'YSFSN11111')
-        self.assertEquals(caverphone('josland'), 'YSLNT11111')
-        self.assertEquals(caverphone('joslin'), 'YSLN111111')
-        self.assertEquals(caverphone('joss'), 'YS11111111')
-        self.assertEquals(caverphone('joues'), 'YS11111111')
-        self.assertEquals(caverphone('joughin'), 'YKN1111111')
-        self.assertEquals(caverphone('jovce'), 'YFK1111111')
-        self.assertEquals(caverphone('jowey'), 'YWA1111111')
-        self.assertEquals(caverphone('jowitt'), 'YWT1111111')
-        self.assertEquals(caverphone('jowsey'), 'YSA1111111')
-        self.assertEquals(caverphone('jowsy'), 'YSA1111111')
-        self.assertEquals(caverphone('joyce'), 'YK11111111')
-        self.assertEquals(caverphone('joyee'), 'YA11111111')
-        self.assertEquals(caverphone('joyner'), 'YNA1111111')
-        self.assertEquals(caverphone('joynt'), 'YNT1111111')
-        self.assertEquals(caverphone('judd'), 'YT11111111')
-        self.assertEquals(caverphone('judson'), 'YTSN111111')
-        self.assertEquals(caverphone('jukes'), 'YKS1111111')
-        self.assertEquals(caverphone('julian'), 'YLN1111111')
-        self.assertEquals(caverphone('julie'), 'YLA1111111')
-        self.assertEquals(caverphone('julin'), 'YLN1111111')
-        self.assertEquals(caverphone('julius'), 'YLS1111111')
-        self.assertEquals(caverphone('jull'), 'YA11111111')
-        self.assertEquals(caverphone('junge'), 'YNK1111111')
-        self.assertEquals(caverphone('jurdine'), 'YTN1111111')
-        self.assertEquals(caverphone('juries'), 'YRS1111111')
-        self.assertEquals(caverphone('jury'), 'YRA1111111')
-        self.assertEquals(caverphone('justice'), 'YSTK111111')
-        self.assertEquals(caverphone('justin'), 'YSTN111111')
-        self.assertEquals(caverphone('kahlenberg'), 'KLNPK11111')
-        self.assertEquals(caverphone('kain'), 'KN11111111')
-        self.assertEquals(caverphone('kaler'), 'KLA1111111')
-        self.assertEquals(caverphone('kane'), 'KN11111111')
-        self.assertEquals(caverphone('kania'), 'KNA1111111')
-        self.assertEquals(caverphone('kannervischer'), 'KNFSKA1111')
-        self.assertEquals(caverphone('kannewischer'), 'KNWSKA1111')
-        self.assertEquals(caverphone('karney'), 'KNA1111111')
-        self.assertEquals(caverphone('kavanagh'), 'KFNA111111')
-        self.assertEquals(caverphone('kay'), 'KA11111111')
-        self.assertEquals(caverphone('kaye'), 'KA11111111')
-        self.assertEquals(caverphone('keach'), 'KK11111111')
-        self.assertEquals(caverphone('kean'), 'KN11111111')
-        self.assertEquals(caverphone('keane'), 'KN11111111')
-        self.assertEquals(caverphone('kearney'), 'KNA1111111')
-        self.assertEquals(caverphone('kearns'), 'KNS1111111')
-        self.assertEquals(caverphone('kearsley'), 'KSLA111111')
-        self.assertEquals(caverphone('keast'), 'KST1111111')
-        self.assertEquals(caverphone('keates'), 'KTS1111111')
-        self.assertEquals(caverphone('keating'), 'KTNK111111')
-        self.assertEquals(caverphone('kebblewhite'), 'KPLWT11111')
-        self.assertEquals(caverphone('kedzlie'), 'KTSLA11111')
-        self.assertEquals(caverphone('kee'), 'KA11111111')
-        self.assertEquals(caverphone('kee]ey'), 'KA11111111')
-        self.assertEquals(caverphone('keeler'), 'KLA1111111')
-        self.assertEquals(caverphone('keeley'), 'KLA1111111')
-        self.assertEquals(caverphone('keeling'), 'KLNK111111')
-        self.assertEquals(caverphone('keen'), 'KN11111111')
-        self.assertEquals(caverphone('keenall'), 'KNA1111111')
-        self.assertEquals(caverphone('keenan oli'), 'KNNLA11111')
-        self.assertEquals(caverphone('keenan'), 'KNN1111111')
-        self.assertEquals(caverphone('keene'), 'KN11111111')
-        self.assertEquals(caverphone('keennelly'), 'KNLA111111')
-        self.assertEquals(caverphone('keeshan'), 'KSN1111111')
-        self.assertEquals(caverphone('kehoe'), 'KA11111111')
-        self.assertEquals(caverphone('keillor'), 'KLA1111111')
-        self.assertEquals(caverphone('keinan'), 'KNN1111111')
-        self.assertEquals(caverphone('keir'), 'KA11111111')
-        self.assertEquals(caverphone('keirnan'), 'KNN1111111')
-        self.assertEquals(caverphone('keith'), 'KT11111111')
-        self.assertEquals(caverphone('keliher'), 'KLA1111111')
-        self.assertEquals(caverphone('kellahan'), 'KLN1111111')
-        self.assertEquals(caverphone('kellan'), 'KLN1111111')
-        self.assertEquals(caverphone('kellas'), 'KLS1111111')
-        self.assertEquals(caverphone('kellehan'), 'KLN1111111')
-        self.assertEquals(caverphone('keller'), 'KLA1111111')
-        self.assertEquals(caverphone('kelley'), 'KLA1111111')
-        self.assertEquals(caverphone('kelliher'), 'KLA1111111')
-        self.assertEquals(caverphone('kelly'), 'KLA1111111')
-        self.assertEquals(caverphone('kemohan'), 'KMN1111111')
-        self.assertEquals(caverphone('kemp'), 'KMP1111111')
-        self.assertEquals(caverphone('kempson'), 'KMPSN11111')
-        self.assertEquals(caverphone('kempthorne'), 'KMPTN11111')
-        self.assertEquals(caverphone('kempton'), 'KMPTN11111')
-        self.assertEquals(caverphone('kemshed'), 'KMST111111')
-        self.assertEquals(caverphone('kemsley'), 'KMSLA11111')
-        self.assertEquals(caverphone('kendall'), 'KNTA111111')
-        self.assertEquals(caverphone('kendell'), 'KNTA111111')
-        self.assertEquals(caverphone('kendrick'), 'KNTRK11111')
-        self.assertEquals(caverphone('kenllard'), 'KNLT111111')
-        self.assertEquals(caverphone('kenn'), 'KN11111111')
-        self.assertEquals(caverphone('kenna'), 'KNA1111111')
-        self.assertEquals(caverphone('kennard'), 'KNT1111111')
-        self.assertEquals(caverphone('kenneally'), 'KNLA111111')
-        self.assertEquals(caverphone('kennealy'), 'KNLA111111')
-        self.assertEquals(caverphone('kennedy'), 'KNTA111111')
-        self.assertEquals(caverphone('kennelly'), 'KNLA111111')
-        self.assertEquals(caverphone('kennerly'), 'KNLA111111')
-        self.assertEquals(caverphone('kenney'), 'KNA1111111')
-        self.assertEquals(caverphone('kenny'), 'KNA1111111')
-        self.assertEquals(caverphone('kenshole'), 'KNSA111111')
-        self.assertEquals(caverphone('kensington'), 'KNSNKTN111')
-        self.assertEquals(caverphone('kensler'), 'KNSLA11111')
-        self.assertEquals(caverphone('kent'), 'KNT1111111')
-        self.assertEquals(caverphone('kenward'), 'KNWT111111')
-        self.assertEquals(caverphone('kenyon'), 'KNN1111111')
-        self.assertEquals(caverphone('keogh'), 'KA11111111')
-        self.assertEquals(caverphone('keohane'), 'KN11111111')
-        self.assertEquals(caverphone('keown'), 'KN11111111')
-        self.assertEquals(caverphone('ker'), 'KA11111111')
-        self.assertEquals(caverphone('kernick'), 'KNK1111111')
-        self.assertEquals(caverphone('kernohan'), 'KNN1111111')
-        self.assertEquals(caverphone('kerr'), 'KA11111111')
-        self.assertEquals(caverphone('kerrigan'), 'KRKN111111')
-        self.assertEquals(caverphone('kerse'), 'KS11111111')
-        self.assertEquals(caverphone('kershaw'), 'KSA1111111')
-        self.assertEquals(caverphone('kesteven'), 'KSTFN11111')
-        self.assertEquals(caverphone('kett'), 'KT11111111')
-        self.assertEquals(caverphone('kettle'), 'KTA1111111')
-        self.assertEquals(caverphone('kewish'), 'KWS1111111')
-        self.assertEquals(caverphone('key'), 'KA11111111')
-        self.assertEquals(caverphone('keyes'), 'KS11111111')
-        self.assertEquals(caverphone('keys'), 'KS11111111')
-        self.assertEquals(caverphone('kibblewhite'), 'KPLWT11111')
-        self.assertEquals(caverphone('kidd'), 'KT11111111')
-        self.assertEquals(caverphone('kidston'), 'KTSTN11111')
-        self.assertEquals(caverphone('kiee'), 'KA11111111')
-        self.assertEquals(caverphone('kiely'), 'KLA1111111')
-        self.assertEquals(caverphone('kienan'), 'KNN1111111')
-        self.assertEquals(caverphone('kieran'), 'KRN1111111')
-        self.assertEquals(caverphone('kiernan'), 'KNN1111111')
-        self.assertEquals(caverphone('kilchin'), 'KKN1111111')
-        self.assertEquals(caverphone('kilgariff'), 'KKRF111111')
-        self.assertEquals(caverphone('kilgarrif'), 'KKRF111111')
-        self.assertEquals(caverphone('kilgour'), 'KKA1111111')
-        self.assertEquals(caverphone('kilkeary'), 'KKRA111111')
-        self.assertEquals(caverphone('killilea'), 'KLLA111111')
-        self.assertEquals(caverphone('killin'), 'KLN1111111')
-        self.assertEquals(caverphone('kilner'), 'KNA1111111')
-        self.assertEquals(caverphone('kilpatrick'), 'KPTRK11111')
-        self.assertEquals(caverphone('kilroy'), 'KRA1111111')
-        self.assertEquals(caverphone('kimber'), 'KMPA111111')
-        self.assertEquals(caverphone('kincaid'), 'KNKT111111')
-        self.assertEquals(caverphone('kinch'), 'KNK1111111')
-        self.assertEquals(caverphone('kindley'), 'KNTLA11111')
-        self.assertEquals(caverphone('king'), 'KNK1111111')
-        self.assertEquals(caverphone('kingford'), 'KNKFT11111')
-        self.assertEquals(caverphone('kingsford'), 'KNKSFT1111')
-        self.assertEquals(caverphone('kingsland'), 'KNKSLNT111')
-        self.assertEquals(caverphone('kingston'), 'KNKSTN1111')
-        self.assertEquals(caverphone('kininmonth'), 'KNNMNT1111')
-        self.assertEquals(caverphone('kinloch'), 'KNLK111111')
-        self.assertEquals(caverphone('kinlock'), 'KNLK111111')
-        self.assertEquals(caverphone('kinmont'), 'KNMNT11111')
-        self.assertEquals(caverphone('kinnaird'), 'KNT1111111')
-        self.assertEquals(caverphone('kinnear'), 'KNA1111111')
-        self.assertEquals(caverphone('kinney'), 'KNA1111111')
-        self.assertEquals(caverphone('kippenberg'), 'KPNPK11111')
-        self.assertEquals(caverphone('kippenberger'), 'KPNPKA1111')
-        self.assertEquals(caverphone('kirby'), 'KPA1111111')
-        self.assertEquals(caverphone('kirk'), 'KK11111111')
-        self.assertEquals(caverphone('kirkaldie'), 'KKTA111111')
-        self.assertEquals(caverphone('kirkby'), 'KKPA111111')
-        self.assertEquals(caverphone('kirkcaldie'), 'KKTA111111')
-        self.assertEquals(caverphone('kirkcaldy'), 'KKTA111111')
-        self.assertEquals(caverphone('kirke'), 'KK11111111')
-        self.assertEquals(caverphone('kirkham'), 'KKM1111111')
-        self.assertEquals(caverphone('kirkland'), 'KKLNT11111')
-        self.assertEquals(caverphone('kirkly'), 'KKLA111111')
-        self.assertEquals(caverphone('kirkness'), 'KKNS111111')
-        self.assertEquals(caverphone('kirkpatrick'), 'KKPTRK1111')
-        self.assertEquals(caverphone('kirkwood'), 'KKWT111111')
-        self.assertEquals(caverphone('kirnan'), 'KNN1111111')
-        self.assertEquals(caverphone('kirton'), 'KTN1111111')
-        self.assertEquals(caverphone('kirwan'), 'KWN1111111')
-        self.assertEquals(caverphone('kitchen'), 'KKN1111111')
-        self.assertEquals(caverphone('kitchin'), 'KKN1111111')
-        self.assertEquals(caverphone('kitching'), 'KKNK111111')
-        self.assertEquals(caverphone('kite'), 'KT11111111')
-        self.assertEquals(caverphone('kitt'), 'KT11111111')
-        self.assertEquals(caverphone('kitterick'), 'KTRK111111')
-        self.assertEquals(caverphone('kitto'), 'KTA1111111')
-        self.assertEquals(caverphone('klahn'), 'KLN1111111')
-        self.assertEquals(caverphone('klee'), 'KLA1111111')
-        self.assertEquals(caverphone('kleeber'), 'KLPA111111')
-        self.assertEquals(caverphone('klimeck'), 'KLMK111111')
-        self.assertEquals(caverphone('knewstubb'), 'KNSTP11111')
-        self.assertEquals(caverphone('knigbt'), 'KNKPT11111')
-        self.assertEquals(caverphone('knight'), 'KNT1111111')
-        self.assertEquals(caverphone('knights'), 'KNTS111111')
-        self.assertEquals(caverphone('knipe'), 'KNP1111111')
-        self.assertEquals(caverphone('knopp'), 'KNP1111111')
-        self.assertEquals(caverphone('knowles'), 'KNLS111111')
-        self.assertEquals(caverphone('knox'), 'KNK1111111')
-        self.assertEquals(caverphone('knudsen'), 'KNTSN11111')
-        self.assertEquals(caverphone('knudson'), 'KNTSN11111')
-        self.assertEquals(caverphone('kofoed'), 'KFT1111111')
-        self.assertEquals(caverphone('kollberg'), 'KPK1111111')
-        self.assertEquals(caverphone('koller'), 'KLA1111111')
-        self.assertEquals(caverphone('korner'), 'KNA1111111')
-        self.assertEquals(caverphone('kraus'), 'KRS1111111')
-        self.assertEquals(caverphone('krause'), 'KRS1111111')
-        self.assertEquals(caverphone('kreft'), 'KRFT111111')
-        self.assertEquals(caverphone('kroon'), 'KRN1111111')
-        self.assertEquals(caverphone('kropp'), 'KRP1111111')
-        self.assertEquals(caverphone('krox'), 'KRK1111111')
-        self.assertEquals(caverphone('kruskoff'), 'KRSKF11111')
-        self.assertEquals(caverphone('kruskopf'), 'KRSKPF1111')
-        self.assertEquals(caverphone('kummert'), 'KMT1111111')
-        self.assertEquals(caverphone('ky]e'), 'KA11111111')
-        self.assertEquals(caverphone('kydd'), 'KT11111111')
-        self.assertEquals(caverphone('kyle'), 'KA11111111')
-        self.assertEquals(caverphone('kyle\''), 'KA11111111')
-        self.assertEquals(caverphone('l\'estrange'), 'LSTRNK1111')
-        self.assertEquals(caverphone('la roche'), 'LRK1111111')
-        self.assertEquals(caverphone('labes'), 'LPS1111111')
-        self.assertEquals(caverphone('lacey'), 'LSA1111111')
-        self.assertEquals(caverphone('lack'), 'LK11111111')
-        self.assertEquals(caverphone('ladd'), 'LT11111111')
-        self.assertEquals(caverphone('laery'), 'LRA1111111')
-        self.assertEquals(caverphone('laffey'), 'LFA1111111')
-        self.assertEquals(caverphone('lafranchie'), 'LFRNKA1111')
-        self.assertEquals(caverphone('lagan'), 'LKN1111111')
-        self.assertEquals(caverphone('lahman'), 'LMN1111111')
-        self.assertEquals(caverphone('lahood'), 'LT11111111')
-        self.assertEquals(caverphone('laidlaw'), 'LTLA111111')
-        self.assertEquals(caverphone('lain'), 'LN11111111')
-        self.assertEquals(caverphone('laine'), 'LN11111111')
-        self.assertEquals(caverphone('laing'), 'LNK1111111')
-        self.assertEquals(caverphone('laird'), 'LT11111111')
-        self.assertEquals(caverphone('lake'), 'LK11111111')
-        self.assertEquals(caverphone('lakeman'), 'LKMN111111')
-        self.assertEquals(caverphone('lale'), 'LA11111111')
-        self.assertEquals(caverphone('laley'), 'LLA1111111')
-        self.assertEquals(caverphone('laloli'), 'LLLA111111')
-        self.assertEquals(caverphone('lamb'), 'LM11111111')
-        self.assertEquals(caverphone('lambert'), 'LMPT111111')
-        self.assertEquals(caverphone('lambeth'), 'LMPT111111')
-        self.assertEquals(caverphone('lambie'), 'LMPA111111')
-        self.assertEquals(caverphone('lamborn'), 'LMPN111111')
-        self.assertEquals(caverphone('lambton'), 'LMPTN11111')
-        self.assertEquals(caverphone('lamham'), 'LMM1111111')
-        self.assertEquals(caverphone('lamont'), 'LMNT111111')
-        self.assertEquals(caverphone('lampard'), 'LMPT111111')
-        self.assertEquals(caverphone('lampen'), 'LMPN111111')
-        self.assertEquals(caverphone('lancaster'), 'LNKSTA1111')
-        self.assertEquals(caverphone('landerson'), 'LNTSN11111')
-        self.assertEquals(caverphone('landrebe'), 'LNTRP11111')
-        self.assertEquals(caverphone('landreth'), 'LNTRT11111')
-        self.assertEquals(caverphone('landriken'), 'LNTRKN1111')
-        self.assertEquals(caverphone('lane'), 'LN11111111')
-        self.assertEquals(caverphone('laney'), 'LNA1111111')
-        self.assertEquals(caverphone('lang'), 'LNK1111111')
-        self.assertEquals(caverphone('langdon'), 'LNKTN11111')
-        self.assertEquals(caverphone('langevad'), 'LNKFT11111')
-        self.assertEquals(caverphone('langford'), 'LNKFT11111')
-        self.assertEquals(caverphone('langham'), 'LNM1111111')
-        self.assertEquals(caverphone('langlands'), 'LNKLNTS111')
-        self.assertEquals(caverphone('langley'), 'LNKLA11111')
-        self.assertEquals(caverphone('langmuir'), 'LNKMA11111')
-        self.assertEquals(caverphone('langston'), 'LNKSTN1111')
-        self.assertEquals(caverphone('lanham'), 'LNM1111111')
-        self.assertEquals(caverphone('lanini'), 'LNNA111111')
-        self.assertEquals(caverphone('lappan'), 'LPN1111111')
-        self.assertEquals(caverphone('lapsley'), 'LPSLA11111')
-        self.assertEquals(caverphone('lardner'), 'LTNA111111')
-        self.assertEquals(caverphone('larkin'), 'LKN1111111')
-        self.assertEquals(caverphone('larking'), 'LKNK111111')
-        self.assertEquals(caverphone('larkins'), 'LKNS111111')
-        self.assertEquals(caverphone('larldng'), 'LTNK111111')
-        self.assertEquals(caverphone('larner'), 'LNA1111111')
-        self.assertEquals(caverphone('laroche'), 'LRK1111111')
-        self.assertEquals(caverphone('larsen'), 'LSN1111111')
-        self.assertEquals(caverphone('larson'), 'LSN1111111')
-        self.assertEquals(caverphone('larty'), 'LTA1111111')
-        self.assertEquals(caverphone('lascelles'), 'LSLS111111')
-        self.assertEquals(caverphone('latham'), 'LTM1111111')
-        self.assertEquals(caverphone('latimer'), 'LTMA111111')
-        self.assertEquals(caverphone('latta'), 'LTA1111111')
-        self.assertEquals(caverphone('latter'), 'LTA1111111')
-        self.assertEquals(caverphone('lattimer'), 'LTMA111111')
-        self.assertEquals(caverphone('lattimore'), 'LTMA111111')
-        self.assertEquals(caverphone('lauchlan'), 'LKLN111111')
-        self.assertEquals(caverphone('laug'), 'LK11111111')
-        self.assertEquals(caverphone('laughland'), 'LLNT111111')
-        self.assertEquals(caverphone('laughlin'), 'LLN1111111')
-        self.assertEquals(caverphone('lauren'), 'LRN1111111')
-        self.assertEquals(caverphone('laurenson'), 'LRNSN11111')
-        self.assertEquals(caverphone('laurie'), 'LRA1111111')
-        self.assertEquals(caverphone('lavender'), 'LFNTA11111')
-        self.assertEquals(caverphone('laverty'), 'LFTA111111')
-        self.assertEquals(caverphone('lavery'), 'LFRA111111')
-        self.assertEquals(caverphone('law'), 'LA11111111')
-        self.assertEquals(caverphone('lawence'), 'LWNK111111')
-        self.assertEquals(caverphone('lawer'), 'LWA1111111')
-        self.assertEquals(caverphone('lawfield'), 'LFT1111111')
-        self.assertEquals(caverphone('lawless'), 'LLS1111111')
-        self.assertEquals(caverphone('lawliss'), 'LLS1111111')
-        self.assertEquals(caverphone('lawlor'), 'LLA1111111')
-        self.assertEquals(caverphone('lawloss'), 'LLS1111111')
-        self.assertEquals(caverphone('lawrence'), 'LRNK111111')
-        self.assertEquals(caverphone('lawrenson'), 'LRNSN11111')
-        self.assertEquals(caverphone('lawrie'), 'LRA1111111')
-        self.assertEquals(caverphone('lawry'), 'LRA1111111')
-        self.assertEquals(caverphone('laws'), 'LS11111111')
-        self.assertEquals(caverphone('lawson'), 'LSN1111111')
-        self.assertEquals(caverphone('lawton'), 'LTN1111111')
-        self.assertEquals(caverphone('lax'), 'LK11111111')
-        self.assertEquals(caverphone('layburn'), 'LPN1111111')
-        self.assertEquals(caverphone('laycock'), 'LKK1111111')
-        self.assertEquals(caverphone('laytham'), 'LTM1111111')
-        self.assertEquals(caverphone('layton'), 'LTN1111111')
-        self.assertEquals(caverphone('lazarus'), 'LSRS111111')
-        self.assertEquals(caverphone('lbbetson'), 'PTSN111111')
-        self.assertEquals(caverphone('le brun'), 'LPRN111111')
-        self.assertEquals(caverphone('le couteur'), 'LKTA111111')
-        self.assertEquals(caverphone('le fevre'), 'LFFA111111')
-        self.assertEquals(caverphone('le gal'), 'LKA1111111')
-        self.assertEquals(caverphone('le page'), 'LPK1111111')
-        self.assertEquals(caverphone('le sueur'), 'LSA1111111')
-        self.assertEquals(caverphone('le vavasour'), 'LFFSA11111')
-        self.assertEquals(caverphone('lea'), 'LA11111111')
-        self.assertEquals(caverphone('leach'), 'LK11111111')
-        self.assertEquals(caverphone('leadbetter'), 'LTPTA11111')
-        self.assertEquals(caverphone('leahy'), 'LA11111111')
-        self.assertEquals(caverphone('lealy'), 'LLA1111111')
-        self.assertEquals(caverphone('lean'), 'LN11111111')
-        self.assertEquals(caverphone('leaper'), 'LPA1111111')
-        self.assertEquals(caverphone('lear'), 'LA11111111')
-        self.assertEquals(caverphone('learmond'), 'LMNT111111')
-        self.assertEquals(caverphone('leary'), 'LRA1111111')
-        self.assertEquals(caverphone('leask'), 'LSK1111111')
-        self.assertEquals(caverphone('leatham'), 'LTM1111111')
-        self.assertEquals(caverphone('leathem'), 'LTM1111111')
-        self.assertEquals(caverphone('leather'), 'LTA1111111')
-        self.assertEquals(caverphone('leatherland'), 'LTLNT11111')
-        self.assertEquals(caverphone('leathley'), 'LTLA111111')
-        self.assertEquals(caverphone('leckie'), 'LKA1111111')
-        self.assertEquals(caverphone('leclie'), 'LKLA111111')
-        self.assertEquals(caverphone('lecouteur'), 'LKTA111111')
-        self.assertEquals(caverphone('leddicott'), 'LTKT111111')
-        self.assertEquals(caverphone('ledgerwood'), 'LKWT111111')
-        self.assertEquals(caverphone('ledlie'), 'LTLA111111')
-        self.assertEquals(caverphone('lee'), 'LA11111111')
-        self.assertEquals(caverphone('leece'), 'LK11111111')
-        self.assertEquals(caverphone('leech'), 'LK11111111')
-        self.assertEquals(caverphone('leedale'), 'LTA1111111')
-        self.assertEquals(caverphone('leeden'), 'LTN1111111')
-        self.assertEquals(caverphone('leemin'), 'LMN1111111')
-        self.assertEquals(caverphone('leeming'), 'LMNK111111')
-        self.assertEquals(caverphone('leery'), 'LRA1111111')
-        self.assertEquals(caverphone('lees'), 'LS11111111')
-        self.assertEquals(caverphone('leete'), 'LT11111111')
-        self.assertEquals(caverphone('lefevre'), 'LFFA111111')
-        self.assertEquals(caverphone('legal'), 'LKA1111111')
-        self.assertEquals(caverphone('legall'), 'LKA1111111')
-        self.assertEquals(caverphone('legat'), 'LKT1111111')
-        self.assertEquals(caverphone('legg'), 'LK11111111')
-        self.assertEquals(caverphone('legge'), 'LK11111111')
-        self.assertEquals(caverphone('leggett'), 'LKT1111111')
-        self.assertEquals(caverphone('leggott'), 'LKT1111111')
-        self.assertEquals(caverphone('lehmann'), 'LMN1111111')
-        self.assertEquals(caverphone('leigh'), 'LA11111111')
-        self.assertEquals(caverphone('leighton'), 'LTN1111111')
-        self.assertEquals(caverphone('leihy'), 'LA11111111')
-        self.assertEquals(caverphone('leishman'), 'LSMN111111')
-        self.assertEquals(caverphone('leitch'), 'LK11111111')
-        self.assertEquals(caverphone('leith'), 'LT11111111')
-        self.assertEquals(caverphone('lelliott'), 'LLT1111111')
-        self.assertEquals(caverphone('lemin'), 'LMN1111111')
-        self.assertEquals(caverphone('lemon'), 'LMN1111111')
-        self.assertEquals(caverphone('lendrum'), 'LNTRM11111')
-        self.assertEquals(caverphone('leng'), 'LNK1111111')
-        self.assertEquals(caverphone('lenihan'), 'LNN1111111')
-        self.assertEquals(caverphone('lennan'), 'LNN1111111')
-        self.assertEquals(caverphone('lennard'), 'LNT1111111')
-        self.assertEquals(caverphone('lennon'), 'LNN1111111')
-        self.assertEquals(caverphone('lennox'), 'LNK1111111')
-        self.assertEquals(caverphone('lenz'), 'LNS1111111')
-        self.assertEquals(caverphone('leo'), 'LA11111111')
-        self.assertEquals(caverphone('leonard'), 'LNT1111111')
-        self.assertEquals(caverphone('leper'), 'LPA1111111')
-        self.assertEquals(caverphone('lepine'), 'LPN1111111')
-        self.assertEquals(caverphone('lepper'), 'LPA1111111')
-        self.assertEquals(caverphone('leppingvell'), 'LPNKFA1111')
-        self.assertEquals(caverphone('leppingwell'), 'LPNKWA1111')
-        self.assertEquals(caverphone('lerrigo'), 'LRKA111111')
-        self.assertEquals(caverphone('leslie'), 'LSLA111111')
-        self.assertEquals(caverphone('lester'), 'LSTA111111')
-        self.assertEquals(caverphone('lesueur'), 'LSA1111111')
-        self.assertEquals(caverphone('lethaby'), 'LTPA111111')
-        self.assertEquals(caverphone('lethbridge'), 'LTPRK11111')
-        self.assertEquals(caverphone('lethridge'), 'LTRK111111')
-        self.assertEquals(caverphone('letts'), 'LTS1111111')
-        self.assertEquals(caverphone('leung chung'), 'LNKNK11111')
-        self.assertEquals(caverphone('levi'), 'LFA1111111')
-        self.assertEquals(caverphone('levido'), 'LFTA111111')
-        self.assertEquals(caverphone('levinsohn'), 'LFNSN11111')
-        self.assertEquals(caverphone('levy'), 'LFA1111111')
-        self.assertEquals(caverphone('lewies'), 'LWS1111111')
-        self.assertEquals(caverphone('lewis'), 'LWS1111111')
-        self.assertEquals(caverphone('lewisham'), 'LWSM111111')
-        self.assertEquals(caverphone('leyden'), 'LTN1111111')
-        self.assertEquals(caverphone('leydon'), 'LTN1111111')
-        self.assertEquals(caverphone('leyland'), 'LLNT111111')
-        self.assertEquals(caverphone('leys'), 'LS11111111')
-        self.assertEquals(caverphone('lichtenstein'), 'LKTNSTN111')
-        self.assertEquals(caverphone('lickie'), 'LKA1111111')
-        self.assertEquals(caverphone('liddell'), 'LTA1111111')
-        self.assertEquals(caverphone('liddicoat'), 'LTKT111111')
-        self.assertEquals(caverphone('liddle'), 'LTA1111111')
-        self.assertEquals(caverphone('lidston'), 'LTSTN11111')
-        self.assertEquals(caverphone('lied'), 'LT11111111')
-        self.assertEquals(caverphone('liggins'), 'LKNS111111')
-        self.assertEquals(caverphone('lightbourne'), 'LTPN111111')
-        self.assertEquals(caverphone('lightfoot'), 'LTFT111111')
-        self.assertEquals(caverphone('lilburn'), 'LPN1111111')
-        self.assertEquals(caverphone('lilburne'), 'LPN1111111')
-        self.assertEquals(caverphone('lilley'), 'LLA1111111')
-        self.assertEquals(caverphone('lillie'), 'LLA1111111')
-        self.assertEquals(caverphone('lilly'), 'LLA1111111')
-        self.assertEquals(caverphone('lincoln'), 'LNKN111111')
-        self.assertEquals(caverphone('lind'), 'LNT1111111')
-        self.assertEquals(caverphone('lindley'), 'LNTLA11111')
-        self.assertEquals(caverphone('lindon'), 'LNTN111111')
-        self.assertEquals(caverphone('lindsay'), 'LNTSA11111')
-        self.assertEquals(caverphone('lineham'), 'LNM1111111')
-        self.assertEquals(caverphone('ling'), 'LNK1111111')
-        self.assertEquals(caverphone('linklater'), 'LNKLTA1111')
-        self.assertEquals(caverphone('linkston'), 'LNKSTN1111')
-        self.assertEquals(caverphone('linnane'), 'LNN1111111')
-        self.assertEquals(caverphone('linney'), 'LNA1111111')
-        self.assertEquals(caverphone('linsdell'), 'LNSTA11111')
-        self.assertEquals(caverphone('lintern'), 'LNTN111111')
-        self.assertEquals(caverphone('linton'), 'LNTN111111')
-        self.assertEquals(caverphone('lipman'), 'LPMN111111')
-        self.assertEquals(caverphone('lippert'), 'LPT1111111')
-        self.assertEquals(caverphone('lischner'), 'LSKNA11111')
-        self.assertEquals(caverphone('lisle'), 'LSA1111111')
-        self.assertEquals(caverphone('list'), 'LST1111111')
-        self.assertEquals(caverphone('lister'), 'LSTA111111')
-        self.assertEquals(caverphone('liston'), 'LSTN111111')
-        self.assertEquals(caverphone('listor'), 'LSTA111111')
-        self.assertEquals(caverphone('litolff'), 'LTF1111111')
-        self.assertEquals(caverphone('littie'), 'LTA1111111')
-        self.assertEquals(caverphone('little'), 'LTA1111111')
-        self.assertEquals(caverphone('littlejohn'), 'LTLN111111')
-        self.assertEquals(caverphone('littlewood'), 'LTLWT11111')
-        self.assertEquals(caverphone('livingston'), 'LFNKSTN111')
-        self.assertEquals(caverphone('livingstone'), 'LFNKSTN111')
-        self.assertEquals(caverphone('llles'), 'LS11111111')
-        self.assertEquals(caverphone('lloyd'), 'LT11111111')
-        self.assertEquals(caverphone('lngram'), 'NKRM111111')
-        self.assertEquals(caverphone('lnwood'), 'NWT1111111')
-        self.assertEquals(caverphone('loader'), 'LTA1111111')
-        self.assertEquals(caverphone('loades'), 'LTS1111111')
-        self.assertEquals(caverphone('loan'), 'LN11111111')
-        self.assertEquals(caverphone('loasby'), 'LSPA111111')
-        self.assertEquals(caverphone('lobb'), 'LP11111111')
-        self.assertEquals(caverphone('loche'), 'LK11111111')
-        self.assertEquals(caverphone('lochhead'), 'LKT1111111')
-        self.assertEquals(caverphone('lochore'), 'LKA1111111')
-        self.assertEquals(caverphone('lock'), 'LK11111111')
-        self.assertEquals(caverphone('lockerbie'), 'LKPA111111')
-        self.assertEquals(caverphone('lockett'), 'LKT1111111')
-        self.assertEquals(caverphone('lockhart'), 'LKT1111111')
-        self.assertEquals(caverphone('lockhead'), 'LKT1111111')
-        self.assertEquals(caverphone('lockie'), 'LKA1111111')
-        self.assertEquals(caverphone('lockstone'), 'LKSTN11111')
-        self.assertEquals(caverphone('lockwood'), 'LKWT111111')
-        self.assertEquals(caverphone('lockyer'), 'LKA1111111')
-        self.assertEquals(caverphone('lodge'), 'LK11111111')
-        self.assertEquals(caverphone('loeffler'), 'LFLA111111')
-        self.assertEquals(caverphone('logan'), 'LKN1111111')
-        self.assertEquals(caverphone('logg'), 'LK11111111')
-        self.assertEquals(caverphone('loggie'), 'LKA1111111')
-        self.assertEquals(caverphone('logic'), 'LKK1111111')
-        self.assertEquals(caverphone('logie'), 'LKA1111111')
-        self.assertEquals(caverphone('logue'), 'LKA1111111')
-        self.assertEquals(caverphone('lohrey'), 'LRA1111111')
-        self.assertEquals(caverphone('loke'), 'LK11111111')
-        self.assertEquals(caverphone('lomas'), 'LMS1111111')
-        self.assertEquals(caverphone('lombardi'), 'LMPTA11111')
-        self.assertEquals(caverphone('loney'), 'LNA1111111')
-        self.assertEquals(caverphone('long'), 'LNK1111111')
-        self.assertEquals(caverphone('longhurst'), 'LNST111111')
-        self.assertEquals(caverphone('longley'), 'LNKLA11111')
-        self.assertEquals(caverphone('longman'), 'LNKMN11111')
-        self.assertEquals(caverphone('longmore'), 'LNKMA11111')
-        self.assertEquals(caverphone('longstaff'), 'LNKSTF1111')
-        self.assertEquals(caverphone('longworth'), 'LNKWT11111')
-        self.assertEquals(caverphone('lonie'), 'LNA1111111')
-        self.assertEquals(caverphone('lonsdale'), 'LNSTA11111')
-        self.assertEquals(caverphone('loraine'), 'LRN1111111')
-        self.assertEquals(caverphone('lord'), 'LT11111111')
-        self.assertEquals(caverphone('lorenz'), 'LRNS111111')
-        self.assertEquals(caverphone('lorimer'), 'LRMA111111')
-        self.assertEquals(caverphone('loring'), 'LRNK111111')
-        self.assertEquals(caverphone('lory'), 'LRA1111111')
-        self.assertEquals(caverphone('lothian'), 'LTN1111111')
-        self.assertEquals(caverphone('louden'), 'LTN1111111')
-        self.assertEquals(caverphone('louder'), 'LTA1111111')
-        self.assertEquals(caverphone('loudon'), 'LTN1111111')
-        self.assertEquals(caverphone('lough'), 'LA11111111')
-        self.assertEquals(caverphone('loughill'), 'LKA1111111')
-        self.assertEquals(caverphone('loughlin'), 'LLN1111111')
-        self.assertEquals(caverphone('loughnan'), 'LNN1111111')
-        self.assertEquals(caverphone('loughran'), 'LRN1111111')
-        self.assertEquals(caverphone('loughrey'), 'LRA1111111')
-        self.assertEquals(caverphone('louis'), 'LS11111111')
-        self.assertEquals(caverphone('lousley'), 'LSLA111111')
-        self.assertEquals(caverphone('lovatt'), 'LFT1111111')
-        self.assertEquals(caverphone('love'), 'LF11111111')
-        self.assertEquals(caverphone('loveless'), 'LFLS111111')
-        self.assertEquals(caverphone('lovell'), 'LFA1111111')
-        self.assertEquals(caverphone('lovelock'), 'LFLK111111')
-        self.assertEquals(caverphone('low'), 'LA11111111')
-        self.assertEquals(caverphone('lowden'), 'LTN1111111')
-        self.assertEquals(caverphone('lowe'), 'LA11111111')
-        self.assertEquals(caverphone('lowen'), 'LWN1111111')
-        self.assertEquals(caverphone('lower'), 'LWA1111111')
-        self.assertEquals(caverphone('lowery'), 'LWRA111111')
-        self.assertEquals(caverphone('lowes'), 'LWS1111111')
-        self.assertEquals(caverphone('lowie'), 'LWA1111111')
-        self.assertEquals(caverphone('lowrey'), 'LRA1111111')
-        self.assertEquals(caverphone('lowry'), 'LRA1111111')
-        self.assertEquals(caverphone('loyd'), 'LT11111111')
-        self.assertEquals(caverphone('loydall'), 'LTA1111111')
-        self.assertEquals(caverphone('lrvine'), 'FN11111111')
-        self.assertEquals(caverphone('lsaacs'), 'SKS1111111')
-        self.assertEquals(caverphone('lucas'), 'LKS1111111')
-        self.assertEquals(caverphone('luckhurst'), 'LKST111111')
-        self.assertEquals(caverphone('ludlow'), 'LTLA111111')
-        self.assertEquals(caverphone('luff'), 'LF11111111')
-        self.assertEquals(caverphone('luke'), 'LK11111111')
-        self.assertEquals(caverphone('lukey'), 'LKA1111111')
-        self.assertEquals(caverphone('lumb'), 'LM11111111')
-        self.assertEquals(caverphone('lumsden'), 'LMSTN11111')
-        self.assertEquals(caverphone('lunam'), 'LNM1111111')
-        self.assertEquals(caverphone('lunan'), 'LNN1111111')
-        self.assertEquals(caverphone('lunardi'), 'LNTA111111')
-        self.assertEquals(caverphone('lund'), 'LNT1111111')
-        self.assertEquals(caverphone('lundberg'), 'LNTPK11111')
-        self.assertEquals(caverphone('lundon'), 'LNTN111111')
-        self.assertEquals(caverphone('lundquist'), 'LNTKST1111')
-        self.assertEquals(caverphone('lungley'), 'LNKLA11111')
-        self.assertEquals(caverphone('lunham'), 'LNM1111111')
-        self.assertEquals(caverphone('lunn'), 'LN11111111')
-        self.assertEquals(caverphone('lunnam'), 'LNM1111111')
-        self.assertEquals(caverphone('luscombe'), 'LSKM111111')
-        self.assertEquals(caverphone('lusher'), 'LSA1111111')
-        self.assertEquals(caverphone('lusk'), 'LSK1111111')
-        self.assertEquals(caverphone('luskie'), 'LSKA111111')
-        self.assertEquals(caverphone('luslie'), 'LSLA111111')
-        self.assertEquals(caverphone('lust'), 'LST1111111')
-        self.assertEquals(caverphone('lvingstone'), 'FNKSTN1111')
-        self.assertEquals(caverphone('lyall'), 'LA11111111')
-        self.assertEquals(caverphone('lyddy'), 'LTA1111111')
-        self.assertEquals(caverphone('lyders'), 'LTS1111111')
-        self.assertEquals(caverphone('lydiate'), 'LTT1111111')
-        self.assertEquals(caverphone('lye'), 'LA11111111')
-        self.assertEquals(caverphone('lyeaght'), 'LT11111111')
-        self.assertEquals(caverphone('lyle'), 'LA11111111')
-        self.assertEquals(caverphone('lymburn'), 'LMPN111111')
-        self.assertEquals(caverphone('lynch'), 'LNK1111111')
-        self.assertEquals(caverphone('lyndburst'), 'LNTPST1111')
-        self.assertEquals(caverphone('lyndhurst'), 'LNTST11111')
-        self.assertEquals(caverphone('lyng'), 'LNK1111111')
-        self.assertEquals(caverphone('lynn'), 'LN11111111')
-        self.assertEquals(caverphone('lynskey'), 'LNSKA11111')
-        self.assertEquals(caverphone('lyon'), 'LN11111111')
-        self.assertEquals(caverphone('lyons'), 'LNS1111111')
-        self.assertEquals(caverphone('lysaght'), 'LST1111111')
-        self.assertEquals(caverphone('lythgoe'), 'LTKA111111')
-        self.assertEquals(caverphone('lytle'), 'LTA1111111')
-        self.assertEquals(caverphone('lyttle'), 'LTA1111111')
-        self.assertEquals(caverphone('m orris'), 'MRS1111111')
-        self.assertEquals(caverphone('mabon'), 'MPN1111111')
-        self.assertEquals(caverphone('macale'), 'MKA1111111')
-        self.assertEquals(caverphone('macallan'), 'MKLN111111')
-        self.assertEquals(caverphone('macallum'), 'MKLM111111')
-        self.assertEquals(caverphone('macan'), 'MKN1111111')
-        self.assertEquals(caverphone('macandrew'), 'MKNTRA1111')
-        self.assertEquals(caverphone('macarthur'), 'MKTA111111')
-        self.assertEquals(caverphone('macartney'), 'MKTNA11111')
-        self.assertEquals(caverphone('macaskill'), 'MKSKA11111')
-        self.assertEquals(caverphone('macassey'), 'MKSA111111')
-        self.assertEquals(caverphone('macaulay'), 'MKLA111111')
-        self.assertEquals(caverphone('macauley'), 'MKLA111111')
-        self.assertEquals(caverphone('macavoy'), 'MKFA111111')
-        self.assertEquals(caverphone('macbeath'), 'MKPT111111')
-        self.assertEquals(caverphone('macbeth'), 'MKPT111111')
-        self.assertEquals(caverphone('macbryde'), 'MKPRT11111')
-        self.assertEquals(caverphone('maccallum'), 'MKLM111111')
-        self.assertEquals(caverphone('maccartie'), 'MKTA111111')
-        self.assertEquals(caverphone('maccoll'), 'MKA1111111')
-        self.assertEquals(caverphone('macdonald'), 'MKTNT11111')
-        self.assertEquals(caverphone('macdonall'), 'MKTNA11111')
-        self.assertEquals(caverphone('macdonell'), 'MKTNA11111')
-        self.assertEquals(caverphone('macdonnell'), 'MKTNA11111')
-        self.assertEquals(caverphone('macdougall'), 'MKTKA11111')
-        self.assertEquals(caverphone('macduff'), 'MKTF111111')
-        self.assertEquals(caverphone('mace'), 'MK11111111')
-        self.assertEquals(caverphone('maceewan'), 'MSWN111111')
-        self.assertEquals(caverphone('macer'), 'MSA1111111')
-        self.assertEquals(caverphone('macewan'), 'MSWN111111')
-        self.assertEquals(caverphone('macey'), 'MSA1111111')
-        self.assertEquals(caverphone('macfarlane'), 'MKFLN11111')
-        self.assertEquals(caverphone('macfie'), 'MKFA111111')
-        self.assertEquals(caverphone('macghie'), 'MKA1111111')
-        self.assertEquals(caverphone('macgibbon'), 'MKPN111111')
-        self.assertEquals(caverphone('macgregor'), 'MKRKA11111')
-        self.assertEquals(caverphone('macguire'), 'MKA1111111')
-        self.assertEquals(caverphone('machell'), 'MKA1111111')
-        self.assertEquals(caverphone('machin'), 'MKN1111111')
-        self.assertEquals(caverphone('machridge'), 'MKRK111111')
-        self.assertEquals(caverphone('maciean'), 'MSN1111111')
-        self.assertEquals(caverphone('macildowie'), 'MSTWA11111')
-        self.assertEquals(caverphone('macinnes'), 'MSNS111111')
-        self.assertEquals(caverphone('macintosh'), 'MSNTS11111')
-        self.assertEquals(caverphone('macintyre'), 'MSNTA11111')
-        self.assertEquals(caverphone('macivor'), 'MSFA111111')
-        self.assertEquals(caverphone('mack'), 'MK11111111')
-        self.assertEquals(caverphone('mackay'), 'MKA1111111')
-        self.assertEquals(caverphone('mackean'), 'MKN1111111')
-        self.assertEquals(caverphone('mackechnic'), 'MKKNK11111')
-        self.assertEquals(caverphone('mackechnie'), 'MKKNA11111')
-        self.assertEquals(caverphone('mackellar'), 'MKLA111111')
-        self.assertEquals(caverphone('mackenzie'), 'MKNSA11111')
-        self.assertEquals(caverphone('mackersey'), 'MKSA111111')
-        self.assertEquals(caverphone('mackersy'), 'MKSA111111')
-        self.assertEquals(caverphone('mackey'), 'MKA1111111')
-        self.assertEquals(caverphone('mackie'), 'MKA1111111')
-        self.assertEquals(caverphone('mackinnon'), 'MKNN111111')
-        self.assertEquals(caverphone('mackintosh'), 'MKNTS11111')
-        self.assertEquals(caverphone('mackisack'), 'MKSK111111')
-        self.assertEquals(caverphone('mackney'), 'MKNA111111')
-        self.assertEquals(caverphone('macknight'), 'MKNT111111')
-        self.assertEquals(caverphone('mackrell'), 'MKRA111111')
-        self.assertEquals(caverphone('mackridge'), 'MKRK111111')
-        self.assertEquals(caverphone('mackway jones'), 'MKWNS11111')
-        self.assertEquals(caverphone('mackway-jones'), 'MKWNS11111')
-        self.assertEquals(caverphone('mackwayjones'), 'MKWNS11111')
-        self.assertEquals(caverphone('macky'), 'MKA1111111')
-        self.assertEquals(caverphone('maclachlan'), 'MKLKLN1111')
-        self.assertEquals(caverphone('maclaren'), 'MKLRN11111')
-        self.assertEquals(caverphone('maclatchy'), 'MKLKA11111')
-        self.assertEquals(caverphone('maclean'), 'MKLN111111')
-        self.assertEquals(caverphone('maclellan'), 'MKLLN11111')
-        self.assertEquals(caverphone('maclennan'), 'MKLNN11111')
-        self.assertEquals(caverphone('macleod'), 'MKLT111111')
-        self.assertEquals(caverphone('maclonald'), 'MKLNT11111')
-        self.assertEquals(caverphone('macmanus'), 'MKMNS11111')
-        self.assertEquals(caverphone('macmaster'), 'MKMSTA1111')
-        self.assertEquals(caverphone('macmillan'), 'MKMLN11111')
-        self.assertEquals(caverphone('macnee'), 'MKNA111111')
-        self.assertEquals(caverphone('macnicol'), 'MKNKA11111')
-        self.assertEquals(caverphone('macniven'), 'MKNFN11111')
-        self.assertEquals(caverphone('macomish'), 'MKMS111111')
-        self.assertEquals(caverphone('macpherson'), 'MKFSN11111')
-        self.assertEquals(caverphone('macquaid'), 'MKT1111111')
-        self.assertEquals(caverphone('macrae'), 'MKRA111111')
-        self.assertEquals(caverphone('macswain'), 'MKSWN11111')
-        self.assertEquals(caverphone('macwilliam'), 'MKWLM11111')
-        self.assertEquals(caverphone('madarlane'), 'MTLN111111')
-        self.assertEquals(caverphone('madden'), 'MTN1111111')
-        self.assertEquals(caverphone('maddern'), 'MTN1111111')
-        self.assertEquals(caverphone('maddigan'), 'MTKN111111')
-        self.assertEquals(caverphone('maddox'), 'MTK1111111')
-        self.assertEquals(caverphone('maddren'), 'MTRN111111')
-        self.assertEquals(caverphone('madell'), 'MTA1111111')
-        self.assertEquals(caverphone('maden'), 'MTN1111111')
-        self.assertEquals(caverphone('madigan'), 'MTKN111111')
-        self.assertEquals(caverphone('maffan'), 'MFN1111111')
-        self.assertEquals(caverphone('magee'), 'MKA1111111')
-        self.assertEquals(caverphone('magner'), 'MKNA111111')
-        self.assertEquals(caverphone('magnus'), 'MKNS111111')
-        self.assertEquals(caverphone('magorian'), 'MKRN111111')
-        self.assertEquals(caverphone('maguire'), 'MKA1111111')
-        self.assertEquals(caverphone('mahalm'), 'MM11111111')
-        self.assertEquals(caverphone('mahan'), 'MN11111111')
-        self.assertEquals(caverphone('maharey'), 'MRA1111111')
-        self.assertEquals(caverphone('maher'), 'MA11111111')
-        self.assertEquals(caverphone('mahon'), 'MN11111111')
-        self.assertEquals(caverphone('mahoney'), 'MNA1111111')
-        self.assertEquals(caverphone('mahony'), 'MNA1111111')
-        self.assertEquals(caverphone('maicolm'), 'MKM1111111')
-        self.assertEquals(caverphone('maills'), 'MS11111111')
-        self.assertEquals(caverphone('maim'), 'MM11111111')
-        self.assertEquals(caverphone('main'), 'MN11111111')
-        self.assertEquals(caverphone('maine'), 'MN11111111')
-        self.assertEquals(caverphone('maines'), 'MNS1111111')
-        self.assertEquals(caverphone('mainland'), 'MNLNT11111')
-        self.assertEquals(caverphone('mains'), 'MNS1111111')
-        self.assertEquals(caverphone('mair'), 'MA11111111')
-        self.assertEquals(caverphone('maitland'), 'MTLNT11111')
-        self.assertEquals(caverphone('major'), 'MA11111111')
-        self.assertEquals(caverphone('maker'), 'MKA1111111')
-        self.assertEquals(caverphone('malcolm'), 'MKM1111111')
-        self.assertEquals(caverphone('malcolmson'), 'MKMSN11111')
-        self.assertEquals(caverphone('malden'), 'MTN1111111')
-        self.assertEquals(caverphone('maleod'), 'MLT1111111')
-        self.assertEquals(caverphone('maler'), 'MLA1111111')
-        self.assertEquals(caverphone('maley'), 'MLA1111111')
-        self.assertEquals(caverphone('malladew'), 'MLTA111111')
-        self.assertEquals(caverphone('mallett'), 'MLT1111111')
-        self.assertEquals(caverphone('malley'), 'MLA1111111')
-        self.assertEquals(caverphone('malloch'), 'MLK1111111')
-        self.assertEquals(caverphone('malone'), 'MLN1111111')
-        self.assertEquals(caverphone('maloney'), 'MLNA111111')
-        self.assertEquals(caverphone('malthus'), 'MTS1111111')
-        self.assertEquals(caverphone('manallack'), 'MNLK111111')
-        self.assertEquals(caverphone('manaton'), 'MNTN111111')
-        self.assertEquals(caverphone('mander'), 'MNTA111111')
-        self.assertEquals(caverphone('manderson'), 'MNTSN11111')
-        self.assertEquals(caverphone('mangan'), 'MNKN111111')
-        self.assertEquals(caverphone('mangin'), 'MNKN111111')
-        self.assertEquals(caverphone('manion'), 'MNN1111111')
-        self.assertEquals(caverphone('manley'), 'MNLA111111')
-        self.assertEquals(caverphone('manlove'), 'MNLF111111')
-        self.assertEquals(caverphone('mann'), 'MN11111111')
-        self.assertEquals(caverphone('mannin'), 'MNN1111111')
-        self.assertEquals(caverphone('manning'), 'MNNK111111')
-        self.assertEquals(caverphone('mannix'), 'MNK1111111')
-        self.assertEquals(caverphone('mansell'), 'MNSA111111')
-        self.assertEquals(caverphone('mansfield'), 'MNSFT11111')
-        self.assertEquals(caverphone('manson'), 'MNSN111111')
-        self.assertEquals(caverphone('mantell'), 'MNTA111111')
-        self.assertEquals(caverphone('maples'), 'MPLS111111')
-        self.assertEquals(caverphone('marchant'), 'MKNT111111')
-        self.assertEquals(caverphone('marcussen'), 'MKSN111111')
-        self.assertEquals(caverphone('mardon'), 'MTN1111111')
-        self.assertEquals(caverphone('marechal'), 'MRKA111111')
-        self.assertEquals(caverphone('marett'), 'MRT1111111')
-        self.assertEquals(caverphone('marette'), 'MRT1111111')
-        self.assertEquals(caverphone('maris'), 'MRS1111111')
-        self.assertEquals(caverphone('mark'), 'MK11111111')
-        self.assertEquals(caverphone('markby'), 'MKPA111111')
-        self.assertEquals(caverphone('markham'), 'MKM1111111')
-        self.assertEquals(caverphone('markland'), 'MKLNT11111')
-        self.assertEquals(caverphone('marks'), 'MKS1111111')
-        self.assertEquals(caverphone('marlovv'), 'MLF1111111')
-        self.assertEquals(caverphone('marlow'), 'MLA1111111')
-        self.assertEquals(caverphone('marple'), 'MPA1111111')
-        self.assertEquals(caverphone('marr'), 'MA11111111')
-        self.assertEquals(caverphone('marrah'), 'MRA1111111')
-        self.assertEquals(caverphone('marrett'), 'MRT1111111')
-        self.assertEquals(caverphone('marrette'), 'MRT1111111')
-        self.assertEquals(caverphone('marriage'), 'MRK1111111')
-        self.assertEquals(caverphone('marriner'), 'MRNA111111')
-        self.assertEquals(caverphone('marriott'), 'MRT1111111')
-        self.assertEquals(caverphone('marris'), 'MRS1111111')
-        self.assertEquals(caverphone('marrison'), 'MRSN111111')
-        self.assertEquals(caverphone('marryatt'), 'MRT1111111')
-        self.assertEquals(caverphone('marsden'), 'MSTN111111')
-        self.assertEquals(caverphone('marsh'), 'MS11111111')
-        self.assertEquals(caverphone('marshall'), 'MSA1111111')
-        self.assertEquals(caverphone('marsllall'), 'MSLA111111')
-        self.assertEquals(caverphone('marson'), 'MSN1111111')
-        self.assertEquals(caverphone('marston'), 'MSTN111111')
-        self.assertEquals(caverphone('martin'), 'MTN1111111')
-        self.assertEquals(caverphone('marwick'), 'MWK1111111')
-        self.assertEquals(caverphone('marychurch'), 'MRKK111111')
-        self.assertEquals(caverphone('mashers'), 'MSS1111111')
-        self.assertEquals(caverphone('maskell'), 'MSKA111111')
-        self.assertEquals(caverphone('maskill'), 'MSKA111111')
-        self.assertEquals(caverphone('maskrey'), 'MSKRA11111')
-        self.assertEquals(caverphone('maslen'), 'MSLN111111')
-        self.assertEquals(caverphone('maslin'), 'MSLN111111')
-        self.assertEquals(caverphone('mason'), 'MSN1111111')
-        self.assertEquals(caverphone('massetti'), 'MSTA111111')
-        self.assertEquals(caverphone('massey'), 'MSA1111111')
-        self.assertEquals(caverphone('masson'), 'MSN1111111')
-        self.assertEquals(caverphone('masters'), 'MSTS111111')
-        self.assertEquals(caverphone('masterton'), 'MSTTN11111')
-        self.assertEquals(caverphone('mather'), 'MTA1111111')
-        self.assertEquals(caverphone('mathers'), 'MTS1111111')
-        self.assertEquals(caverphone('matheson'), 'MTSN111111')
-        self.assertEquals(caverphone('mathews'), 'MTS1111111')
-        self.assertEquals(caverphone('mathewson'), 'MTSN111111')
-        self.assertEquals(caverphone('mathias'), 'MTS1111111')
-        self.assertEquals(caverphone('mathie'), 'MTA1111111')
-        self.assertEquals(caverphone('mathieson'), 'MTSN111111')
-        self.assertEquals(caverphone('mathison'), 'MTSN111111')
-        self.assertEquals(caverphone('matier'), 'MTA1111111')
-        self.assertEquals(caverphone('matlewson'), 'MTLSN11111')
-        self.assertEquals(caverphone('matravers'), 'MTRFS11111')
-        self.assertEquals(caverphone('matron'), 'MTRN111111')
-        self.assertEquals(caverphone('matthews'), 'MTS1111111')
-        self.assertEquals(caverphone('matthewson'), 'MTSN111111')
-        self.assertEquals(caverphone('mattingle'), 'MTNKA11111')
-        self.assertEquals(caverphone('mattingley'), 'MTNKLA1111')
-        self.assertEquals(caverphone('mattinglv'), 'MTNKF11111')
-        self.assertEquals(caverphone('mattingly'), 'MTNKLA1111')
-        self.assertEquals(caverphone('mattllews'), 'MTLS111111')
-        self.assertEquals(caverphone('mattson'), 'MTSN111111')
-        self.assertEquals(caverphone('matuschka'), 'MTSKKA1111')
-        self.assertEquals(caverphone('maubon'), 'MPN1111111')
-        self.assertEquals(caverphone('maude'), 'MT11111111')
-        self.assertEquals(caverphone('mauger'), 'MKA1111111')
-        self.assertEquals(caverphone('maunder'), 'MNTA111111')
-        self.assertEquals(caverphone('maurie'), 'MRA1111111')
-        self.assertEquals(caverphone('mavbee'), 'MFPA111111')
-        self.assertEquals(caverphone('maving'), 'MFNK111111')
-        self.assertEquals(caverphone('maw'), 'MA11111111')
-        self.assertEquals(caverphone('mawer'), 'MWA1111111')
-        self.assertEquals(caverphone('mawhinney'), 'MWNA111111')
-        self.assertEquals(caverphone('mawson'), 'MSN1111111')
-        self.assertEquals(caverphone('maxton'), 'MKTN111111')
-        self.assertEquals(caverphone('maxwell'), 'MKWA111111')
-        self.assertEquals(caverphone('may'), 'MA11111111')
-        self.assertEquals(caverphone('mayall'), 'MA11111111')
-        self.assertEquals(caverphone('maybee'), 'MPA1111111')
-        self.assertEquals(caverphone('mayer'), 'MA11111111')
-        self.assertEquals(caverphone('mayers'), 'MS11111111')
-        self.assertEquals(caverphone('mayfield'), 'MFT1111111')
-        self.assertEquals(caverphone('mayhew'), 'MA11111111')
-        self.assertEquals(caverphone('mayn'), 'MN11111111')
-        self.assertEquals(caverphone('maynard'), 'MNT1111111')
-        self.assertEquals(caverphone('mayne'), 'MN11111111')
-        self.assertEquals(caverphone('mayo'), 'MA11111111')
-        self.assertEquals(caverphone('mays'), 'MS11111111')
-        self.assertEquals(caverphone('mayston'), 'MSTN111111')
-        self.assertEquals(caverphone('mayze'), 'MS11111111')
-        self.assertEquals(caverphone('mazey'), 'MSA1111111')
-        self.assertEquals(caverphone('mcadam'), 'MKTM111111')
-        self.assertEquals(caverphone('mcade'), 'MKT1111111')
-        self.assertEquals(caverphone('mcadie'), 'MKTA111111')
-        self.assertEquals(caverphone('mcalister'), 'MKLSTA1111')
-        self.assertEquals(caverphone('mcallan'), 'MKLN111111')
-        self.assertEquals(caverphone('mcallen'), 'MKLN111111')
-        self.assertEquals(caverphone('mcalliste'), 'MKLST11111')
-        self.assertEquals(caverphone('mcallister'), 'MKLSTA1111')
-        self.assertEquals(caverphone('mcalpine'), 'MKPN111111')
-        self.assertEquals(caverphone('mcanally'), 'MKNLA11111')
-        self.assertEquals(caverphone('mcansh'), 'MKNS111111')
-        self.assertEquals(caverphone('mcanulty'), 'MKNTA11111')
-        self.assertEquals(caverphone('mcara'), 'MKRA111111')
-        self.assertEquals(caverphone('mcarley'), 'MKLA111111')
-        self.assertEquals(caverphone('mcarthur'), 'MKTA111111')
-        self.assertEquals(caverphone('mcartney'), 'MKTNA11111')
-        self.assertEquals(caverphone('mcatamney'), 'MKTMNA1111')
-        self.assertEquals(caverphone('mcateer'), 'MKTA111111')
-        self.assertEquals(caverphone('mcaulay'), 'MKLA111111')
-        self.assertEquals(caverphone('mcauley'), 'MKLA111111')
-        self.assertEquals(caverphone('mcauliff'), 'MKLF111111')
-        self.assertEquals(caverphone('mcauliffe'), 'MKLF111111')
-        self.assertEquals(caverphone('mcauslin'), 'MKSLN11111')
-        self.assertEquals(caverphone('mcbain'), 'MKPN111111')
-        self.assertEquals(caverphone('mcbeath'), 'MKPT111111')
-        self.assertEquals(caverphone('mcbetah'), 'MKPTA11111')
-        self.assertEquals(caverphone('mcbeth'), 'MKPT111111')
-        self.assertEquals(caverphone('mcbey'), 'MKPA111111')
-        self.assertEquals(caverphone('mcbricle'), 'MKPRKA1111')
-        self.assertEquals(caverphone('mcbride'), 'MKPRT11111')
-        self.assertEquals(caverphone('mcbryde'), 'MKPRT11111')
-        self.assertEquals(caverphone('mccabe'), 'MKP1111111')
-        self.assertEquals(caverphone('mccafferty'), 'MKFTA11111')
-        self.assertEquals(caverphone('mccaffry'), 'MKFRA11111')
-        self.assertEquals(caverphone('mccaig'), 'MKK1111111')
-        self.assertEquals(caverphone('mccall'), 'MKA1111111')
-        self.assertEquals(caverphone('mccallion'), 'MKLN111111')
-        self.assertEquals(caverphone('mccallum'), 'MKLM111111')
-        self.assertEquals(caverphone('mccalman'), 'MKMN111111')
-        self.assertEquals(caverphone('mccambie'), 'MKMPA11111')
-        self.assertEquals(caverphone('mccammon'), 'MKMN111111')
-        self.assertEquals(caverphone('mccann'), 'MKN1111111')
-        self.assertEquals(caverphone('mccardell'), 'MKTA111111')
-        self.assertEquals(caverphone('mccarrigan'), 'MKRKN11111')
-        self.assertEquals(caverphone('mccarten'), 'MKTN111111')
-        self.assertEquals(caverphone('mccarter'), 'MKTA111111')
-        self.assertEquals(caverphone('mccarthy'), 'MKTA111111')
-        self.assertEquals(caverphone('mccartney'), 'MKTNA11111')
-        self.assertEquals(caverphone('mccarty'), 'MKTA111111')
-        self.assertEquals(caverphone('mccash'), 'MKS1111111')
-        self.assertEquals(caverphone('mccaskill'), 'MKSKA11111')
-        self.assertEquals(caverphone('mccaughan'), 'MKKN111111')
-        self.assertEquals(caverphone('mccaul'), 'MKA1111111')
-        self.assertEquals(caverphone('mccauley'), 'MKLA111111')
-        self.assertEquals(caverphone('mccauseland'), 'MKSLNT1111')
-        self.assertEquals(caverphone('mccausland'), 'MKSLNT1111')
-        self.assertEquals(caverphone('mccaw'), 'MKA1111111')
-        self.assertEquals(caverphone('mccawe'), 'MKA1111111')
-        self.assertEquals(caverphone('mccay'), 'MKA1111111')
-        self.assertEquals(caverphone('mcchesney'), 'MKSNA11111')
-        self.assertEquals(caverphone('mccielland'), 'MKSLNT1111')
-        self.assertEquals(caverphone('mcciue'), 'MKSA111111')
-        self.assertEquals(caverphone('mcclatchv'), 'MKLKF11111')
-        self.assertEquals(caverphone('mcclatchy'), 'MKLKA11111')
-        self.assertEquals(caverphone('mcclean'), 'MKLN111111')
-        self.assertEquals(caverphone('mccleery'), 'MKLRA11111')
-        self.assertEquals(caverphone('mcclelland'), 'MKLLNT1111')
-        self.assertEquals(caverphone('mcclenaghan'), 'MKLNKN1111')
-        self.assertEquals(caverphone('mcclintock'), 'MKLNTK1111')
-        self.assertEquals(caverphone('mcclue'), 'MKLA111111')
-        self.assertEquals(caverphone('mccluggage'), 'MKLKK11111')
-        self.assertEquals(caverphone('mcclure'), 'MKLA111111')
-        self.assertEquals(caverphone('mccluskey'), 'MKLSKA1111')
-        self.assertEquals(caverphone('mcclusky'), 'MKLSKA1111')
-        self.assertEquals(caverphone('mcclymont'), 'MKLMNT1111')
-        self.assertEquals(caverphone('mccoll'), 'MKA1111111')
-        self.assertEquals(caverphone('mccolloch'), 'MKLK111111')
-        self.assertEquals(caverphone('mccolluch'), 'MKLK111111')
-        self.assertEquals(caverphone('mccombe'), 'MKM1111111')
-        self.assertEquals(caverphone('mccombie'), 'MKMPA11111')
-        self.assertEquals(caverphone('mcconechy'), 'MKNKA11111')
-        self.assertEquals(caverphone('mcconnachie'), 'MKNKA11111')
-        self.assertEquals(caverphone('mcconnel'), 'MKNA111111')
-        self.assertEquals(caverphone('mcconnell'), 'MKNA111111')
-        self.assertEquals(caverphone('mcconnichie'), 'MKNKA11111')
-        self.assertEquals(caverphone('mcconnochi'), 'MKNKA11111')
-        self.assertEquals(caverphone('mcconnochie'), 'MKNKA11111')
-        self.assertEquals(caverphone('mcconnohie'), 'MKNA111111')
-        self.assertEquals(caverphone('mccord'), 'MKT1111111')
-        self.assertEquals(caverphone('mccorie'), 'MKRA111111')
-        self.assertEquals(caverphone('mccorkinda'), 'MKKNTA1111')
-        self.assertEquals(caverphone('mccorkindale'), 'MKKNTA1111')
-        self.assertEquals(caverphone('mccorkingdale'), 'MKKNKTA111')
-        self.assertEquals(caverphone('mccormack'), 'MKMK111111')
-        self.assertEquals(caverphone('mccormacl'), 'MKMKA11111')
-        self.assertEquals(caverphone('mccormick'), 'MKMK111111')
-        self.assertEquals(caverphone('mccort'), 'MKT1111111')
-        self.assertEquals(caverphone('mccowan'), 'MKWN111111')
-        self.assertEquals(caverphone('mccoy'), 'MKA1111111')
-        self.assertEquals(caverphone('mccracken'), 'MKRKN11111')
-        self.assertEquals(caverphone('mccreadie'), 'MKRTA11111')
-        self.assertEquals(caverphone('mccreath'), 'MKRT111111')
-        self.assertEquals(caverphone('mccrindle'), 'MKRNTA1111')
-        self.assertEquals(caverphone('mccrone'), 'MKRN111111')
-        self.assertEquals(caverphone('mccrorie'), 'MKRRA11111')
-        self.assertEquals(caverphone('mccrory'), 'MKRRA11111')
-        self.assertEquals(caverphone('mccrossan'), 'MKRSN11111')
-        self.assertEquals(caverphone('mccrossin'), 'MKRSN11111')
-        self.assertEquals(caverphone('mccubbin'), 'MKPN111111')
-        self.assertEquals(caverphone('mcculloch'), 'MKLK111111')
-        self.assertEquals(caverphone('mccullock'), 'MKLK111111')
-        self.assertEquals(caverphone('mccullough'), 'MKLA111111')
-        self.assertEquals(caverphone('mccune'), 'MKN1111111')
-        self.assertEquals(caverphone('mccunn'), 'MKN1111111')
-        self.assertEquals(caverphone('mccurdie'), 'MKTA111111')
-        self.assertEquals(caverphone('mccurdy'), 'MKTA111111')
-        self.assertEquals(caverphone('mccurrach'), 'MKRK111111')
-        self.assertEquals(caverphone('mccurrie'), 'MKRA111111')
-        self.assertEquals(caverphone('mccusker'), 'MKSKA11111')
-        self.assertEquals(caverphone('mccuskey'), 'MKSKA11111')
-        self.assertEquals(caverphone('mccutcheon'), 'MKKN111111')
-        self.assertEquals(caverphone('mcdermid'), 'MKTMT11111')
-        self.assertEquals(caverphone('mcdermitt'), 'MKTMT11111')
-        self.assertEquals(caverphone('mcdermott'), 'MKTMT11111')
-        self.assertEquals(caverphone('mcdevitt'), 'MKTFT11111')
-        self.assertEquals(caverphone('mcdiarmid'), 'MKTMT11111')
-        self.assertEquals(caverphone('mcdonald'), 'MKTNT11111')
-        self.assertEquals(caverphone('mcdonall'), 'MKTNA11111')
-        self.assertEquals(caverphone('mcdonell'), 'MKTNA11111')
-        self.assertEquals(caverphone('mcdonnell'), 'MKTNA11111')
-        self.assertEquals(caverphone('mcdouall'), 'MKTA111111')
-        self.assertEquals(caverphone('mcdougall'), 'MKTKA11111')
-        self.assertEquals(caverphone('mcdowall'), 'MKTWA11111')
-        self.assertEquals(caverphone('mcdowell'), 'MKTWA11111')
-        self.assertEquals(caverphone('mcduff'), 'MKTF111111')
-        self.assertEquals(caverphone('mceachern'), 'MSKN111111')
-        self.assertEquals(caverphone('mceachran'), 'MSKRN11111')
-        self.assertEquals(caverphone('mceay'), 'MSA1111111')
-        self.assertEquals(caverphone('mcelhenny'), 'MSNA111111')
-        self.assertEquals(caverphone('mcelivee'), 'MSLFA11111')
-        self.assertEquals(caverphone('mcelroy'), 'MSRA111111')
-        self.assertEquals(caverphone('mceneany'), 'MSNNA11111')
-        self.assertEquals(caverphone('mcentee'), 'MSNTA11111')
-        self.assertEquals(caverphone('mcevoy'), 'MSFA111111')
-        self.assertEquals(caverphone('mcewan'), 'MSWN111111')
-        self.assertEquals(caverphone('mcewen'), 'MSWN111111')
-        self.assertEquals(caverphone('mcfadden'), 'MKFTN11111')
-        self.assertEquals(caverphone('mcfadgen'), 'MKFKN11111')
-        self.assertEquals(caverphone('mcfadyen'), 'MKFTN11111')
-        self.assertEquals(caverphone('mcfadzen'), 'MKFTSN1111')
-        self.assertEquals(caverphone('mcfarlane'), 'MKFLN11111')
-        self.assertEquals(caverphone('mcfaull'), 'MKFA111111')
-        self.assertEquals(caverphone('mcfeeters'), 'MKFTS11111')
-        self.assertEquals(caverphone('mcfelin'), 'MKFLN11111')
-        self.assertEquals(caverphone('mcfetridge'), 'MKFTRK1111')
-        self.assertEquals(caverphone('mcfie'), 'MKFA111111')
-        self.assertEquals(caverphone('mcgahan'), 'MKN1111111')
-        self.assertEquals(caverphone('mcgarrigle'), 'MKRKA11111')
-        self.assertEquals(caverphone('mcgarry'), 'MKRA111111')
-        self.assertEquals(caverphone('mcgavick'), 'MKFK111111')
-        self.assertEquals(caverphone('mcgavin'), 'MKFN111111')
-        self.assertEquals(caverphone('mcgaw'), 'MKA1111111')
-        self.assertEquals(caverphone('mcgee'), 'MKA1111111')
-        self.assertEquals(caverphone('mcgeorge'), 'MKK1111111')
-        self.assertEquals(caverphone('mcgetrick'), 'MKTRK11111')
-        self.assertEquals(caverphone('mcgettigan'), 'MKTKN11111')
-        self.assertEquals(caverphone('mcghee'), 'MKA1111111')
-        self.assertEquals(caverphone('mcghie'), 'MKA1111111')
-        self.assertEquals(caverphone('mcgill brown'), 'MKPRN11111')
-        self.assertEquals(caverphone('mcgill-bro'), 'MKPRA11111')
-        self.assertEquals(caverphone('mcgill-brown'), 'MKPRN11111')
-        self.assertEquals(caverphone('mcgill'), 'MKA1111111')
-        self.assertEquals(caverphone('mcgillivary'), 'MKLFRA1111')
-        self.assertEquals(caverphone('mcgilvary'), 'MKFRA11111')
-        self.assertEquals(caverphone('mcgilvray'), 'MKFRA11111')
-        self.assertEquals(caverphone('mcgimpsey'), 'MKMPSA1111')
-        self.assertEquals(caverphone('mcginness'), 'MKNS111111')
-        self.assertEquals(caverphone('mcginty'), 'MKNTA11111')
-        self.assertEquals(caverphone('mcgirr'), 'MKA1111111')
-        self.assertEquals(caverphone('mcgirt'), 'MKT1111111')
-        self.assertEquals(caverphone('mcglashan'), 'MKLSN11111')
-        self.assertEquals(caverphone('mcgllie'), 'MKLA111111')
-        self.assertEquals(caverphone('mcgoldrick'), 'MKTRK11111')
-        self.assertEquals(caverphone('mcgolligal'), 'MKLKA11111')
-        self.assertEquals(caverphone('mcgonigal'), 'MKNKA11111')
-        self.assertEquals(caverphone('mcgoogan'), 'MKKN111111')
-        self.assertEquals(caverphone('mcgoun'), 'MKN1111111')
-        self.assertEquals(caverphone('mcgoverne'), 'MKFN111111')
-        self.assertEquals(caverphone('mcgowan'), 'MKWN111111')
-        self.assertEquals(caverphone('mcgradie'), 'MKRTA11111')
-        self.assertEquals(caverphone('mcgrath'), 'MKRT111111')
-        self.assertEquals(caverphone('mcgregor'), 'MKRKA11111')
-        self.assertEquals(caverphone('mcgriffiths'), 'MKRFTS1111')
-        self.assertEquals(caverphone('mcguckin'), 'MKKN111111')
-        self.assertEquals(caverphone('mcguffie'), 'MKFA111111')
-        self.assertEquals(caverphone('mcguigan'), 'MKKN111111')
-        self.assertEquals(caverphone('mcguire'), 'MKA1111111')
-        self.assertEquals(caverphone('mchardy'), 'MKTA111111')
-        self.assertEquals(caverphone('mcharry'), 'MKRA111111')
-        self.assertEquals(caverphone('mchealy'), 'MKLA111111')
-        self.assertEquals(caverphone('mchenry'), 'MKNRA11111')
-        self.assertEquals(caverphone('mchoull'), 'MKA1111111')
-        self.assertEquals(caverphone('mchugh'), 'MKA1111111')
-        self.assertEquals(caverphone('mchutchcson'), 'MKKKSN1111')
-        self.assertEquals(caverphone('mchutcheson'), 'MKKSN11111')
-        self.assertEquals(caverphone('mchutchon'), 'MKKN111111')
-        self.assertEquals(caverphone('mciachlan'), 'MSKLN11111')
-        self.assertEquals(caverphone('mciaren'), 'MSRN111111')
-        self.assertEquals(caverphone('mciean'), 'MSN1111111')
-        self.assertEquals(caverphone('mcielland'), 'MSLNT11111')
-        self.assertEquals(caverphone('mcieod'), 'MST1111111')
-        self.assertEquals(caverphone('mciintyre'), 'MSNTA11111')
-        self.assertEquals(caverphone('mcilroy'), 'MSRA111111')
-        self.assertEquals(caverphone('mcindoe'), 'MSNTA11111')
-        self.assertEquals(caverphone('mcinerney'), 'MSNNA11111')
-        self.assertEquals(caverphone('mcinnes'), 'MSNS111111')
-        self.assertEquals(caverphone('mcintosh'), 'MSNTS11111')
-        self.assertEquals(caverphone('mcintosn'), 'MSNTSN1111')
-        self.assertEquals(caverphone('mcintyre'), 'MSNTA11111')
-        self.assertEquals(caverphone('mcisaac'), 'MSSK111111')
-        self.assertEquals(caverphone('mciver'), 'MSFA111111')
-        self.assertEquals(caverphone('mcivor'), 'MSFA111111')
-        self.assertEquals(caverphone('mckague'), 'MKKA111111')
-        self.assertEquals(caverphone('mckane'), 'MKN1111111')
-        self.assertEquals(caverphone('mckay'), 'MKA1111111')
-        self.assertEquals(caverphone('mckaye'), 'MKA1111111')
-        self.assertEquals(caverphone('mckean'), 'MKN1111111')
-        self.assertEquals(caverphone('mckeand'), 'MKNT111111')
-        self.assertEquals(caverphone('mckeay'), 'MKA1111111')
-        self.assertEquals(caverphone('mckechie'), 'MKKA111111')
-        self.assertEquals(caverphone('mckechnie'), 'MKKNA11111')
-        self.assertEquals(caverphone('mckecknie'), 'MKKNA11111')
-        self.assertEquals(caverphone('mckee'), 'MKA1111111')
-        self.assertEquals(caverphone('mckeefry'), 'MKFRA11111')
-        self.assertEquals(caverphone('mckeeiry'), 'MKRA111111')
-        self.assertEquals(caverphone('mckeeman'), 'MKMN111111')
-        self.assertEquals(caverphone('mckeen'), 'MKN1111111')
-        self.assertEquals(caverphone('mckeenan'), 'MKNN111111')
-        self.assertEquals(caverphone('mckeich'), 'MKK1111111')
-        self.assertEquals(caverphone('mckellar'), 'MKLA111111')
-        self.assertEquals(caverphone('mckelvey'), 'MKFA111111')
-        self.assertEquals(caverphone('mckelvie'), 'MKFA111111')
-        self.assertEquals(caverphone('mckendry'), 'MKNTRA1111')
-        self.assertEquals(caverphone('mckenna'), 'MKNA111111')
-        self.assertEquals(caverphone('mckenney'), 'MKNA111111')
-        self.assertEquals(caverphone('mckenzie'), 'MKNSA11111')
-        self.assertEquals(caverphone('mckeown'), 'MKN1111111')
-        self.assertEquals(caverphone('mckernan'), 'MKNN111111')
-        self.assertEquals(caverphone('mckerras'), 'MKRS111111')
-        self.assertEquals(caverphone('mckerrow'), 'MKRA111111')
-        self.assertEquals(caverphone('mckessar'), 'MKSA111111')
-        self.assertEquals(caverphone('mcketterick'), 'MKTRK11111')
-        self.assertEquals(caverphone('mckewell'), 'MKWA111111')
-        self.assertEquals(caverphone('mckewen'), 'MKWN111111')
-        self.assertEquals(caverphone('mckey'), 'MKA1111111')
-        self.assertEquals(caverphone('mckibbin'), 'MKPN111111')
-        self.assertEquals(caverphone('mckie'), 'MKA1111111')
-        self.assertEquals(caverphone('mckillop'), 'MKLP111111')
-        self.assertEquals(caverphone('mckinlay'), 'MKNLA11111')
-        self.assertEquals(caverphone('mckinley'), 'MKNLA11111')
-        self.assertEquals(caverphone('mckinnel'), 'MKNA111111')
-        self.assertEquals(caverphone('mckinney'), 'MKNA111111')
-        self.assertEquals(caverphone('mckinnie'), 'MKNA111111')
-        self.assertEquals(caverphone('mckinnon'), 'MKNN111111')
-        self.assertEquals(caverphone('mckirdy'), 'MKTA111111')
-        self.assertEquals(caverphone('mckissock'), 'MKSK111111')
-        self.assertEquals(caverphone('mckitterick'), 'MKTRK11111')
-        self.assertEquals(caverphone('mcknight'), 'MKNT111111')
-        self.assertEquals(caverphone('mckone'), 'MKN1111111')
-        self.assertEquals(caverphone('mclachlan'), 'MKLKLN1111')
-        self.assertEquals(caverphone('mclanachan'), 'MKLNKN1111')
-        self.assertEquals(caverphone('mclaren'), 'MKLRN11111')
-        self.assertEquals(caverphone('mclatchie'), 'MKLKA11111')
-        self.assertEquals(caverphone('mclauchan'), 'MKLKN11111')
-        self.assertEquals(caverphone('mclauchlan'), 'MKLKLN1111')
-        self.assertEquals(caverphone('mclauchlin'), 'MKLKLN1111')
-        self.assertEquals(caverphone('mclaughlan'), 'MKLLN11111')
-        self.assertEquals(caverphone('mclaughlin'), 'MKLLN11111')
-        self.assertEquals(caverphone('mclav'), 'MKLF111111')
-        self.assertEquals(caverphone('mclay'), 'MKLA111111')
-        self.assertEquals(caverphone('mclcan'), 'MKKN111111')
-        self.assertEquals(caverphone('mclean'), 'MKLN111111')
-        self.assertEquals(caverphone('mclear'), 'MKLA111111')
-        self.assertEquals(caverphone('mcleary'), 'MKLRA11111')
-        self.assertEquals(caverphone('mcleavey'), 'MKLFA11111')
-        self.assertEquals(caverphone('mcleay'), 'MKLA111111')
-        self.assertEquals(caverphone('mcledd'), 'MKLT111111')
-        self.assertEquals(caverphone('mcledowne'), 'MKLTN11111')
-        self.assertEquals(caverphone('mcledowney'), 'MKLTNA1111')
-        self.assertEquals(caverphone('mcleely'), 'MKLLA11111')
-        self.assertEquals(caverphone('mclellan'), 'MKLLN11111')
-        self.assertEquals(caverphone('mclelland'), 'MKLLNT1111')
-        self.assertEquals(caverphone('mclenaghin'), 'MKLNKN1111')
-        self.assertEquals(caverphone('mclennan'), 'MKLNN11111')
-        self.assertEquals(caverphone('mcleod'), 'MKLT111111')
-        self.assertEquals(caverphone('mclevie'), 'MKLFA11111')
-        self.assertEquals(caverphone('mclintock'), 'MKLNTK1111')
-        self.assertEquals(caverphone('mcliskey'), 'MKLSKA1111')
-        self.assertEquals(caverphone('mcllroy'), 'MKRA111111')
-        self.assertEquals(caverphone('mclndoe'), 'MKNTA11111')
-        self.assertEquals(caverphone('mclnnes'), 'MKNS111111')
-        self.assertEquals(caverphone('mclntosh'), 'MKNTS11111')
-        self.assertEquals(caverphone('mclntvre'), 'MKNTFA1111')
-        self.assertEquals(caverphone('mclntyre'), 'MKNTA11111')
-        self.assertEquals(caverphone('mcloud'), 'MKLT111111')
-        self.assertEquals(caverphone('mcloughlin'), 'MKLLN11111')
-        self.assertEquals(caverphone('mclure'), 'MKLA111111')
-        self.assertEquals(caverphone('mcluskey'), 'MKLSKA1111')
-        self.assertEquals(caverphone('mclusky'), 'MKLSKA1111')
-        self.assertEquals(caverphone('mclver'), 'MKFA111111')
-        self.assertEquals(caverphone('mclvor'), 'MKFA111111')
-        self.assertEquals(caverphone('mcmahon'), 'MKMN111111')
-        self.assertEquals(caverphone('mcmann'), 'MKMN111111')
-        self.assertEquals(caverphone('mcmannes'), 'MKMNS11111')
-        self.assertEquals(caverphone('mcmanus'), 'MKMNS11111')
-        self.assertEquals(caverphone('mcmaster'), 'MKMSTA1111')
-        self.assertEquals(caverphone('mcmath'), 'MKMT111111')
-        self.assertEquals(caverphone('mcmeeking'), 'MKMKNK1111')
-        self.assertEquals(caverphone('mcmillan'), 'MKMLN11111')
-        self.assertEquals(caverphone('mcmillen'), 'MKMLN11111')
-        self.assertEquals(caverphone('mcminn'), 'MKMN111111')
-        self.assertEquals(caverphone('mcmorran'), 'MKMRN11111')
-        self.assertEquals(caverphone('mcmulen'), 'MKMLN11111')
-        self.assertEquals(caverphone('mcmullan'), 'MKMLN11111')
-        self.assertEquals(caverphone('mcmullen'), 'MKMLN11111')
-        self.assertEquals(caverphone('mcmurray'), 'MKMRA11111')
-        self.assertEquals(caverphone('mcmurtrie'), 'MKMTRA1111')
-        self.assertEquals(caverphone('mcnab'), 'MKNP111111')
-        self.assertEquals(caverphone('mcnair'), 'MKNA111111')
-        self.assertEquals(caverphone('mcnally'), 'MKNLA11111')
-        self.assertEquals(caverphone('mcnalty'), 'MKNTA11111')
-        self.assertEquals(caverphone('mcnama'), 'MKNMA11111')
-        self.assertEquals(caverphone('mcnamara'), 'MKNMRA1111')
-        self.assertEquals(caverphone('mcnamee'), 'MKNMA11111')
-        self.assertEquals(caverphone('mcnarey'), 'MKNRA11111')
-        self.assertEquals(caverphone('mcnarry'), 'MKNRA11111')
-        self.assertEquals(caverphone('mcnatty'), 'MKNTA11111')
-        self.assertEquals(caverphone('mcnaught'), 'MKNT111111')
-        self.assertEquals(caverphone('mcnaughton'), 'MKNTN11111')
-        self.assertEquals(caverphone('mcnauglton'), 'MKNKTN1111')
-        self.assertEquals(caverphone('mcnee'), 'MKNA111111')
-        self.assertEquals(caverphone('mcneil'), 'MKNA111111')
-        self.assertEquals(caverphone('mcneill'), 'MKNA111111')
-        self.assertEquals(caverphone('mcneish'), 'MKNS111111')
-        self.assertEquals(caverphone('mcnicol'), 'MKNKA11111')
-        self.assertEquals(caverphone('mcnicoll'), 'MKNKA11111')
-        self.assertEquals(caverphone('mcnie'), 'MKNA111111')
-        self.assertEquals(caverphone('mcniel'), 'MKNA111111')
-        self.assertEquals(caverphone('mcnish'), 'MKNS111111')
-        self.assertEquals(caverphone('mcnoe'), 'MKNA111111')
-        self.assertEquals(caverphone('mcnulty'), 'MKNTA11111')
-        self.assertEquals(caverphone('mcnultz'), 'MKNTS11111')
-        self.assertEquals(caverphone('mconie'), 'MKNA111111')
-        self.assertEquals(caverphone('mcouarrie'), 'MKRA111111')
-        self.assertEquals(caverphone('mcoueen'), 'MKN1111111')
-        self.assertEquals(caverphone('mcowan'), 'MKWN111111')
-        self.assertEquals(caverphone('mcpate'), 'MKPT111111')
-        self.assertEquals(caverphone('mcpeak'), 'MKPK111111')
-        self.assertEquals(caverphone('mcphail'), 'MKFA111111')
-        self.assertEquals(caverphone('mcpheat'), 'MKFT111111')
-        self.assertEquals(caverphone('mcphee'), 'MKFA111111')
-        self.assertEquals(caverphone('mcphersoll'), 'MKFSA11111')
-        self.assertEquals(caverphone('mcpherson'), 'MKFSN11111')
-        self.assertEquals(caverphone('mcquaid'), 'MKT1111111')
-        self.assertEquals(caverphone('mcquarrie'), 'MKRA111111')
-        self.assertEquals(caverphone('mcqueen'), 'MKN1111111')
-        self.assertEquals(caverphone('mcquilty'), 'MKTA111111')
-        self.assertEquals(caverphone('mcrae'), 'MKRA111111')
-        self.assertEquals(caverphone('mcritchie'), 'MKRKA11111')
-        self.assertEquals(caverphone('mcrobie'), 'MKRPA11111')
-        self.assertEquals(caverphone('mcrohie'), 'MKRA111111')
-        self.assertEquals(caverphone('mcshain'), 'MKSN111111')
-        self.assertEquals(caverphone('mcshaw'), 'MKSA111111')
-        self.assertEquals(caverphone('mcskimming'), 'MKSKMNK111')
-        self.assertEquals(caverphone('mcsoriley'), 'MKSRLA1111')
-        self.assertEquals(caverphone('mcsorlay'), 'MKSLA11111')
-        self.assertEquals(caverphone('mcsourley'), 'MKSLA11111')
-        self.assertEquals(caverphone('mcstay'), 'MKSTA11111')
-        self.assertEquals(caverphone('mcswan'), 'MKSWN11111')
-        self.assertEquals(caverphone('mcsweeney'), 'MKSWNA1111')
-        self.assertEquals(caverphone('mcsweeny'), 'MKSWNA1111')
-        self.assertEquals(caverphone('mctaggart'), 'MKTKT11111')
-        self.assertEquals(caverphone('mctagget'), 'MKTKT11111')
-        self.assertEquals(caverphone('mctaggett'), 'MKTKT11111')
-        self.assertEquals(caverphone('mctague'), 'MKTKA11111')
-        self.assertEquals(caverphone('mctainsh'), 'MKTNS11111')
-        self.assertEquals(caverphone('mctamney'), 'MKTMNA1111')
-        self.assertEquals(caverphone('mctavish'), 'MKTFS11111')
-        self.assertEquals(caverphone('mcternan'), 'MKTNN11111')
-        self.assertEquals(caverphone('mctigue'), 'MKTKA11111')
-        self.assertEquals(caverphone('mcveigh'), 'MKFA111111')
-        self.assertEquals(caverphone('mcvey'), 'MKFA111111')
-        self.assertEquals(caverphone('mcvicar'), 'MKFKA11111')
-        self.assertEquals(caverphone('mcvickar'), 'MKFKA11111')
-        self.assertEquals(caverphone('mcvicker'), 'MKFKA11111')
-        self.assertEquals(caverphone('mcvie'), 'MKFA111111')
-        self.assertEquals(caverphone('mcwatt'), 'MKWT111111')
-        self.assertEquals(caverphone('mcwen'), 'MKWN111111')
-        self.assertEquals(caverphone('mcwilliam'), 'MKWLM11111')
-        self.assertEquals(caverphone('mcwillian'), 'MKWLN11111')
-        self.assertEquals(caverphone('mead'), 'MT11111111')
-        self.assertEquals(caverphone('meade'), 'MT11111111')
-        self.assertEquals(caverphone('meadowcroft'), 'MTKRFT1111')
-        self.assertEquals(caverphone('meadows'), 'MTS1111111')
-        self.assertEquals(caverphone('mearns'), 'MNS1111111')
-        self.assertEquals(caverphone('mears'), 'MS11111111')
-        self.assertEquals(caverphone('mechaelis'), 'MKLS111111')
-        self.assertEquals(caverphone('mechen'), 'MKN1111111')
-        self.assertEquals(caverphone('mecracken'), 'MKRKN11111')
-        self.assertEquals(caverphone('medder'), 'MTA1111111')
-        self.assertEquals(caverphone('meder'), 'MTA1111111')
-        self.assertEquals(caverphone('medhurst'), 'MTST111111')
-        self.assertEquals(caverphone('medley'), 'MTLA111111')
-        self.assertEquals(caverphone('medlicott'), 'MTLKT11111')
-        self.assertEquals(caverphone('medlin'), 'MTLN111111')
-        self.assertEquals(caverphone('mee'), 'MA11111111')
-        self.assertEquals(caverphone('meehan'), 'MN11111111')
-        self.assertEquals(caverphone('meek'), 'MK11111111')
-        self.assertEquals(caverphone('meekin'), 'MKN1111111')
-        self.assertEquals(caverphone('meekison'), 'MKSN111111')
-        self.assertEquals(caverphone('meeks'), 'MKS1111111')
-        self.assertEquals(caverphone('meenan'), 'MNN1111111')
-        self.assertEquals(caverphone('meevoy'), 'MFA1111111')
-        self.assertEquals(caverphone('mefarlane'), 'MFLN111111')
-        self.assertEquals(caverphone('meffan'), 'MFN1111111')
-        self.assertEquals(caverphone('mefie'), 'MFA1111111')
-        self.assertEquals(caverphone('mehalski'), 'MSKA111111')
-        self.assertEquals(caverphone('meighan'), 'MKN1111111')
-        self.assertEquals(caverphone('meikle'), 'MKA1111111')
-        self.assertEquals(caverphone('meiklejohn'), 'MKLN111111')
-        self.assertEquals(caverphone('meiklejolm'), 'MKLM111111')
-        self.assertEquals(caverphone('meikljohn'), 'MKLN111111')
-        self.assertEquals(caverphone('meinung'), 'MNNK111111')
-        self.assertEquals(caverphone('meivor'), 'MFA1111111')
-        self.assertEquals(caverphone('mekee'), 'MKA1111111')
-        self.assertEquals(caverphone('mekenzie'), 'MKNSA11111')
-        self.assertEquals(caverphone('meldrum'), 'MTRM111111')
-        self.assertEquals(caverphone('melean'), 'MLN1111111')
-        self.assertEquals(caverphone('melhop'), 'MP11111111')
-        self.assertEquals(caverphone('melitus'), 'MLTS111111')
-        self.assertEquals(caverphone('melladew'), 'MLTA111111')
-        self.assertEquals(caverphone('mellars'), 'MLS1111111')
-        self.assertEquals(caverphone('mellett'), 'MLT1111111')
-        self.assertEquals(caverphone('mellon'), 'MLN1111111')
-        self.assertEquals(caverphone('mellor'), 'MLA1111111')
-        self.assertEquals(caverphone('melrose'), 'MRS1111111')
-        self.assertEquals(caverphone('melser'), 'MSA1111111')
-        self.assertEquals(caverphone('melton'), 'MTN1111111')
-        self.assertEquals(caverphone('melville'), 'MFA1111111')
-        self.assertEquals(caverphone('melvin'), 'MFN1111111')
-        self.assertEquals(caverphone('melvlle'), 'MFA1111111')
-        self.assertEquals(caverphone('mendelsohn'), 'MNTSN11111')
-        self.assertEquals(caverphone('mendoza'), 'MNTSA11111')
-        self.assertEquals(caverphone('menhinick'), 'MNNK111111')
-        self.assertEquals(caverphone('menlove'), 'MNLF111111')
-        self.assertEquals(caverphone('menton'), 'MNTN111111')
-        self.assertEquals(caverphone('menzies'), 'MNSS111111')
-        self.assertEquals(caverphone('mercer'), 'MSA1111111')
-        self.assertEquals(caverphone('merchant'), 'MKNT111111')
-        self.assertEquals(caverphone('mercier'), 'MSA1111111')
-        self.assertEquals(caverphone('meredith'), 'MRTT111111')
-        self.assertEquals(caverphone('merrie'), 'MRA1111111')
-        self.assertEquals(caverphone('merry'), 'MRA1111111')
-        self.assertEquals(caverphone('mervyn'), 'MFN1111111')
-        self.assertEquals(caverphone('messenger'), 'MSNKA11111')
-        self.assertEquals(caverphone('messent'), 'MSNT111111')
-        self.assertEquals(caverphone('messer'), 'MSA1111111')
-        self.assertEquals(caverphone('meston'), 'MSTN111111')
-        self.assertEquals(caverphone('met'), 'MT11111111')
-        self.assertEquals(caverphone('metcalf'), 'MTKF111111')
-        self.assertEquals(caverphone('metcalfe'), 'MTKF111111')
-        self.assertEquals(caverphone('methers'), 'MTS1111111')
-        self.assertEquals(caverphone('methven'), 'MTFN111111')
-        self.assertEquals(caverphone('metson'), 'MTSN111111')
-        self.assertEquals(caverphone('metz'), 'MTS1111111')
-        self.assertEquals(caverphone('mew'), 'MA11111111')
-        self.assertEquals(caverphone('mewhinney'), 'MWNA111111')
-        self.assertEquals(caverphone('meyer'), 'MA11111111')
-        self.assertEquals(caverphone('michael'), 'MKA1111111')
-        self.assertEquals(caverphone('michaelis'), 'MKLS111111')
-        self.assertEquals(caverphone('michelle'), 'MKA1111111')
-        self.assertEquals(caverphone('michie'), 'MKA1111111')
-        self.assertEquals(caverphone('middendorf'), 'MTNTF11111')
-        self.assertEquals(caverphone('middlebrook'), 'MTLPRK1111')
-        self.assertEquals(caverphone('middleditch'), 'MTLTK11111')
-        self.assertEquals(caverphone('middlemass'), 'MTLMS11111')
-        self.assertEquals(caverphone('middlemiss'), 'MTLMS11111')
-        self.assertEquals(caverphone('middleton'), 'MTLTN11111')
-        self.assertEquals(caverphone('midgley'), 'MKLA111111')
-        self.assertEquals(caverphone('miils'), 'MS11111111')
-        self.assertEquals(caverphone('mil1er'), 'MLA1111111')
-        self.assertEquals(caverphone('milbum'), 'MPM1111111')
-        self.assertEquals(caverphone('milburn'), 'MPN1111111')
-        self.assertEquals(caverphone('milburne'), 'MPN1111111')
-        self.assertEquals(caverphone('mildenhall'), 'MTNA111111')
-        self.assertEquals(caverphone('miles'), 'MLS1111111')
-        self.assertEquals(caverphone('milgrove'), 'MKRF111111')
-        self.assertEquals(caverphone('milis'), 'MLS1111111')
-        self.assertEquals(caverphone('mill'), 'MA11111111')
-        self.assertEquals(caverphone('millar'), 'MLA1111111')
-        self.assertEquals(caverphone('millard'), 'MLT1111111')
-        self.assertEquals(caverphone('millca'), 'MKA1111111')
-        self.assertEquals(caverphone('millea'), 'MLA1111111')
-        self.assertEquals(caverphone('millen'), 'MLN1111111')
-        self.assertEquals(caverphone('miller'), 'MLA1111111')
-        self.assertEquals(caverphone('millet'), 'MLT1111111')
-        self.assertEquals(caverphone('millian'), 'MLN1111111')
-        self.assertEquals(caverphone('millie'), 'MLA1111111')
-        self.assertEquals(caverphone('milligan'), 'MLKN111111')
-        self.assertEquals(caverphone('milliken'), 'MLKN111111')
-        self.assertEquals(caverphone('millin'), 'MLN1111111')
-        self.assertEquals(caverphone('milliner'), 'MLNA111111')
-        self.assertEquals(caverphone('millington'), 'MLNKTN1111')
-        self.assertEquals(caverphone('millow'), 'MLA1111111')
-        self.assertEquals(caverphone('mills'), 'MS11111111')
-        self.assertEquals(caverphone('milne'), 'MN11111111')
-        self.assertEquals(caverphone('milner'), 'MNA1111111')
-        self.assertEquals(caverphone('milnes'), 'MNS1111111')
-        self.assertEquals(caverphone('milsom'), 'MSM1111111')
-        self.assertEquals(caverphone('milton'), 'MTN1111111')
-        self.assertEquals(caverphone('milward'), 'MWT1111111')
-        self.assertEquals(caverphone('mindo'), 'MNTA111111')
-        self.assertEquals(caverphone('mine'), 'MN11111111')
-        self.assertEquals(caverphone('minehan'), 'MNN1111111')
-        self.assertEquals(caverphone('miners'), 'MNS1111111')
-        self.assertEquals(caverphone('minihan'), 'MNN1111111')
-        self.assertEquals(caverphone('minn'), 'MN11111111')
-        self.assertEquals(caverphone('minton'), 'MNTN111111')
-        self.assertEquals(caverphone('mirams'), 'MRMS111111')
-        self.assertEquals(caverphone('miscall'), 'MSKA111111')
-        self.assertEquals(caverphone('miskel'), 'MSKA111111')
-        self.assertEquals(caverphone('missen'), 'MSN1111111')
-        self.assertEquals(caverphone('mitchall'), 'MKA1111111')
-        self.assertEquals(caverphone('mitchel'), 'MKA1111111')
-        self.assertEquals(caverphone('mitchell'), 'MKA1111111')
-        self.assertEquals(caverphone('mitehell'), 'MTA1111111')
-        self.assertEquals(caverphone('mitson'), 'MTSN111111')
-        self.assertEquals(caverphone('mitten'), 'MTN1111111')
-        self.assertEquals(caverphone('mlburn'), 'MPN1111111')
-        self.assertEquals(caverphone('mlls'), 'MS11111111')
-        self.assertEquals(caverphone('mnlloy'), 'MNLA111111')
-        self.assertEquals(caverphone('moar'), 'MA11111111')
-        self.assertEquals(caverphone('moara'), 'MRA1111111')
-        self.assertEquals(caverphone('mobbs'), 'MPS1111111')
-        self.assertEquals(caverphone('mockford'), 'MKFT111111')
-        self.assertEquals(caverphone('mockler'), 'MKLA111111')
-        self.assertEquals(caverphone('modonald'), 'MTNT111111')
-        self.assertEquals(caverphone('moen'), 'MN11111111')
-        self.assertEquals(caverphone('moffat'), 'MFT1111111')
-        self.assertEquals(caverphone('moffatt'), 'MFT1111111')
-        self.assertEquals(caverphone('moffett'), 'MFT1111111')
-        self.assertEquals(caverphone('moffitt'), 'MFT1111111')
-        self.assertEquals(caverphone('mogie'), 'MKA1111111')
-        self.assertEquals(caverphone('moher'), 'MA11111111')
-        self.assertEquals(caverphone('moir'), 'MA11111111')
-        self.assertEquals(caverphone('moirison'), 'MRSN111111')
-        self.assertEquals(caverphone('mokenzie'), 'MKNSA11111')
-        self.assertEquals(caverphone('moles'), 'MLS1111111')
-        self.assertEquals(caverphone('moller'), 'MLA1111111')
-        self.assertEquals(caverphone('mollison'), 'MLSN111111')
-        self.assertEquals(caverphone('molloy'), 'MLA1111111')
-        self.assertEquals(caverphone('moloney'), 'MLNA111111')
-        self.assertEquals(caverphone('molonoy'), 'MLNA111111')
-        self.assertEquals(caverphone('mona'), 'MNA1111111')
-        self.assertEquals(caverphone('monaghan'), 'MNKN111111')
-        self.assertEquals(caverphone('monagon'), 'MNKN111111')
-        self.assertEquals(caverphone('monahan'), 'MNN1111111')
-        self.assertEquals(caverphone('monckton'), 'MNKTN11111')
-        self.assertEquals(caverphone('moncrieff'), 'MNKRF11111')
-        self.assertEquals(caverphone('moncrieft'), 'MNKRFT1111')
-        self.assertEquals(caverphone('moncur'), 'MNKA111111')
-        self.assertEquals(caverphone('mong'), 'MNK1111111')
-        self.assertEquals(caverphone('monihan'), 'MNN1111111')
-        self.assertEquals(caverphone('monk'), 'MNK1111111')
-        self.assertEquals(caverphone('monkman'), 'MNKMN11111')
-        self.assertEquals(caverphone('monro'), 'MNRA111111')
-        self.assertEquals(caverphone('monson'), 'MNSN111111')
-        self.assertEquals(caverphone('montague'), 'MNTKA11111')
-        self.assertEquals(caverphone('monteath'), 'MNTT111111')
-        self.assertEquals(caverphone('monteith'), 'MNTT111111')
-        self.assertEquals(caverphone('montgomery'), 'MNTKMRA111')
-        self.assertEquals(caverphone('montgomor'), 'MNTKMA1111')
-        self.assertEquals(caverphone('montgoner'), 'MNTKNA1111')
-        self.assertEquals(caverphone('moodie'), 'MTA1111111')
-        self.assertEquals(caverphone('moody'), 'MTA1111111')
-        self.assertEquals(caverphone('moon'), 'MN11111111')
-        self.assertEquals(caverphone('mooney'), 'MNA1111111')
-        self.assertEquals(caverphone('moor'), 'MA11111111')
-        self.assertEquals(caverphone('moore-wrig'), 'MRRK111111')
-        self.assertEquals(caverphone('moore-wright'), 'MRRT111111')
-        self.assertEquals(caverphone('moore'), 'MA11111111')
-        self.assertEquals(caverphone('moorehead'), 'MRT1111111')
-        self.assertEquals(caverphone('moores'), 'MRS1111111')
-        self.assertEquals(caverphone('moorhonse'), 'MNS1111111')
-        self.assertEquals(caverphone('moorhouse'), 'MS11111111')
-        self.assertEquals(caverphone('mora'), 'MRA1111111')
-        self.assertEquals(caverphone('moran'), 'MRN1111111')
-        self.assertEquals(caverphone('more'), 'MA11111111')
-        self.assertEquals(caverphone('moreland'), 'MRLNT11111')
-        self.assertEquals(caverphone('morell'), 'MRA1111111')
-        self.assertEquals(caverphone('moreton'), 'MRTN111111')
-        self.assertEquals(caverphone('morgan roberts'), 'MKNRPTS111')
-        self.assertEquals(caverphone('morgan-roberts'), 'MKNRPTS111')
-        self.assertEquals(caverphone('morgan'), 'MKN1111111')
-        self.assertEquals(caverphone('morgon'), 'MKN1111111')
-        self.assertEquals(caverphone('moriarty'), 'MRTA111111')
-        self.assertEquals(caverphone('morice'), 'MRK1111111')
-        self.assertEquals(caverphone('moriee'), 'MRA1111111')
-        self.assertEquals(caverphone('morison'), 'MRSN111111')
-        self.assertEquals(caverphone('moritzson'), 'MRTSN11111')
-        self.assertEquals(caverphone('morkane'), 'MKN1111111')
-        self.assertEquals(caverphone('morland'), 'MLNT111111')
-        self.assertEquals(caverphone('morley'), 'MLA1111111')
-        self.assertEquals(caverphone('moro'), 'MRA1111111')
-        self.assertEquals(caverphone('moroney'), 'MRNA111111')
-        self.assertEquals(caverphone('morpeth'), 'MPT1111111')
-        self.assertEquals(caverphone('morrall'), 'MRA1111111')
-        self.assertEquals(caverphone('morrell'), 'MRA1111111')
-        self.assertEquals(caverphone('morris'), 'MRS1111111')
-        self.assertEquals(caverphone('morrisey'), 'MRSA111111')
-        self.assertEquals(caverphone('morrison'), 'MRSN111111')
-        self.assertEquals(caverphone('morriss'), 'MRS1111111')
-        self.assertEquals(caverphone('morrissey'), 'MRSA111111')
-        self.assertEquals(caverphone('morrow'), 'MRA1111111')
-        self.assertEquals(caverphone('mortimer'), 'MTMA111111')
-        self.assertEquals(caverphone('morton'), 'MTN1111111')
-        self.assertEquals(caverphone('morwood'), 'MWT1111111')
-        self.assertEquals(caverphone('moseley'), 'MSLA111111')
-        self.assertEquals(caverphone('moses'), 'MSS1111111')
-        self.assertEquals(caverphone('mosley'), 'MSLA111111')
-        self.assertEquals(caverphone('moss'), 'MS11111111')
-        self.assertEquals(caverphone('mothes'), 'MTS1111111')
-        self.assertEquals(caverphone('motion'), 'MSN1111111')
-        self.assertEquals(caverphone('mouat'), 'MT11111111')
-        self.assertEquals(caverphone('moulin'), 'MLN1111111')
-        self.assertEquals(caverphone('mount'), 'MNT1111111')
-        self.assertEquals(caverphone('mountford'), 'MNTFT11111')
-        self.assertEquals(caverphone('mountney'), 'MNTNA11111')
-        self.assertEquals(caverphone('mouritsen'), 'MRTSN11111')
-        self.assertEquals(caverphone('mowat'), 'MWT1111111')
-        self.assertEquals(caverphone('mowatt'), 'MWT1111111')
-        self.assertEquals(caverphone('mowbray'), 'MPRA111111')
-        self.assertEquals(caverphone('mower'), 'MWA1111111')
-        self.assertEquals(caverphone('mowhray'), 'MRA1111111')
-        self.assertEquals(caverphone('moyal'), 'MA11111111')
-        self.assertEquals(caverphone('moyle'), 'MA11111111')
-        self.assertEquals(caverphone('moynihan'), 'MNN1111111')
-        self.assertEquals(caverphone('mudge'), 'MK11111111')
-        self.assertEquals(caverphone('mueller'), 'MLA1111111')
-        self.assertEquals(caverphone('muiorhead'), 'MT11111111')
-        self.assertEquals(caverphone('muir'), 'MA11111111')
-        self.assertEquals(caverphone('muirbead'), 'MPT1111111')
-        self.assertEquals(caverphone('muirhead'), 'MT11111111')
-        self.assertEquals(caverphone('muithead'), 'MTT1111111')
-        self.assertEquals(caverphone('mulcahy'), 'MKA1111111')
-        self.assertEquals(caverphone('mulch'), 'MK11111111')
-        self.assertEquals(caverphone('muldowney'), 'MTNA111111')
-        self.assertEquals(caverphone('mulgrew'), 'MKRA111111')
-        self.assertEquals(caverphone('mulhern'), 'MN11111111')
-        self.assertEquals(caverphone('mulhollan'), 'MLN1111111')
-        self.assertEquals(caverphone('mulholland'), 'MLNT111111')
-        self.assertEquals(caverphone('mullally'), 'MLLA111111')
-        self.assertEquals(caverphone('mullaly'), 'MLLA111111')
-        self.assertEquals(caverphone('mullan'), 'MLN1111111')
-        self.assertEquals(caverphone('mullay'), 'MLA1111111')
-        self.assertEquals(caverphone('mullen'), 'MLN1111111')
-        self.assertEquals(caverphone('mullholland'), 'MLNT111111')
-        self.assertEquals(caverphone('mulligan'), 'MLKN111111')
-        self.assertEquals(caverphone('mullin'), 'MLN1111111')
-        self.assertEquals(caverphone('mulling'), 'MLNK111111')
-        self.assertEquals(caverphone('mullins'), 'MLNS111111')
-        self.assertEquals(caverphone('mulloy'), 'MLA1111111')
-        self.assertEquals(caverphone('mulqueen'), 'MKN1111111')
-        self.assertEquals(caverphone('mulquin'), 'MKN1111111')
-        self.assertEquals(caverphone('mulrine'), 'MRN1111111')
-        self.assertEquals(caverphone('mulrooney'), 'MRNA111111')
-        self.assertEquals(caverphone('mulvihill'), 'MFA1111111')
-        self.assertEquals(caverphone('mumford'), 'MMFT111111')
-        self.assertEquals(caverphone('muncaster'), 'MNKSTA1111')
-        self.assertEquals(caverphone('munday'), 'MNTA111111')
-        self.assertEquals(caverphone('munden'), 'MNTN111111')
-        self.assertEquals(caverphone('mundie'), 'MNTA111111')
-        self.assertEquals(caverphone('mundy'), 'MNTA111111')
-        self.assertEquals(caverphone('munford'), 'MNFT111111')
-        self.assertEquals(caverphone('munibe'), 'MNP1111111')
-        self.assertEquals(caverphone('munn'), 'MN11111111')
-        self.assertEquals(caverphone('munrly'), 'MNLA111111')
-        self.assertEquals(caverphone('munro'), 'MNRA111111')
-        self.assertEquals(caverphone('munton'), 'MNTN111111')
-        self.assertEquals(caverphone('muntz'), 'MNTS111111')
-        self.assertEquals(caverphone('muray'), 'MRA1111111')
-        self.assertEquals(caverphone('murch'), 'MK11111111')
-        self.assertEquals(caverphone('murchison'), 'MKSN111111')
-        self.assertEquals(caverphone('murchland'), 'MKLNT11111')
-        self.assertEquals(caverphone('murcott'), 'MKT1111111')
-        self.assertEquals(caverphone('murdie'), 'MTA1111111')
-        self.assertEquals(caverphone('murdoch'), 'MTK1111111')
-        self.assertEquals(caverphone('murdock'), 'MTK1111111')
-        self.assertEquals(caverphone('murdoeh'), 'MTA1111111')
-        self.assertEquals(caverphone('murfitt'), 'MFT1111111')
-        self.assertEquals(caverphone('murie'), 'MRA1111111')
-        self.assertEquals(caverphone('murison'), 'MRSN111111')
-        self.assertEquals(caverphone('murly'), 'MLA1111111')
-        self.assertEquals(caverphone('murphy'), 'MFA1111111')
-        self.assertEquals(caverphone('murray'), 'MRA1111111')
-        self.assertEquals(caverphone('murrow'), 'MRA1111111')
-        self.assertEquals(caverphone('murtagh'), 'MTA1111111')
-        self.assertEquals(caverphone('mussen'), 'MSN1111111')
-        self.assertEquals(caverphone('mustard'), 'MSTT111111')
-        self.assertEquals(caverphone('mutch'), 'MK11111111')
-        self.assertEquals(caverphone('mutimer'), 'MTMA111111')
-        self.assertEquals(caverphone('mutter'), 'MTA1111111')
-        self.assertEquals(caverphone('mvers'), 'MFS1111111')
-        self.assertEquals(caverphone('myers'), 'MS11111111')
-        self.assertEquals(caverphone('myfert'), 'MFT1111111')
-        self.assertEquals(caverphone('myles'), 'MLS1111111')
-        self.assertEquals(caverphone('naesmith'), 'NSMT111111')
-        self.assertEquals(caverphone('nairn'), 'NN11111111')
-        self.assertEquals(caverphone('naismith'), 'NSMT111111')
-        self.assertEquals(caverphone('nalder'), 'NTA1111111')
-        self.assertEquals(caverphone('nancarrow'), 'NNKRA11111')
-        self.assertEquals(caverphone('nankivell'), 'NNKFA11111')
-        self.assertEquals(caverphone('nanney'), 'NNA1111111')
-        self.assertEquals(caverphone('nantes'), 'NNTS111111')
-        self.assertEquals(caverphone('naphtali'), 'NFTLA11111')
-        self.assertEquals(caverphone('napier'), 'NPA1111111')
-        self.assertEquals(caverphone('napoleon'), 'NPLN111111')
-        self.assertEquals(caverphone('napper'), 'NPA1111111')
-        self.assertEquals(caverphone('narracott'), 'NRKT111111')
-        self.assertEquals(caverphone('nash'), 'NS11111111')
-        self.assertEquals(caverphone('nasham'), 'NSM1111111')
-        self.assertEquals(caverphone('nathan'), 'NTN1111111')
-        self.assertEquals(caverphone('natta'), 'NTA1111111')
-        self.assertEquals(caverphone('natusch'), 'NTSK111111')
-        self.assertEquals(caverphone('naughton'), 'NTN1111111')
-        self.assertEquals(caverphone('naumann'), 'NMN1111111')
-        self.assertEquals(caverphone('naylon'), 'NLN1111111')
-        self.assertEquals(caverphone('naylor'), 'NLA1111111')
-        self.assertEquals(caverphone('neal'), 'NA11111111')
-        self.assertEquals(caverphone('neale'), 'NA11111111')
-        self.assertEquals(caverphone('neame'), 'NM11111111')
-        self.assertEquals(caverphone('neason'), 'NSN1111111')
-        self.assertEquals(caverphone('neave'), 'NF11111111')
-        self.assertEquals(caverphone('needham'), 'NTM1111111')
-        self.assertEquals(caverphone('nees'), 'NS11111111')
-        self.assertEquals(caverphone('neeve'), 'NF11111111')
-        self.assertEquals(caverphone('nehoff'), 'NF11111111')
-        self.assertEquals(caverphone('neil'), 'NA11111111')
-        self.assertEquals(caverphone('neilands'), 'NLNTS11111')
-        self.assertEquals(caverphone('neill'), 'NA11111111')
-        self.assertEquals(caverphone('neilson'), 'NSN1111111')
-        self.assertEquals(caverphone('neiper'), 'NPA1111111')
-        self.assertEquals(caverphone('neiss'), 'NS11111111')
-        self.assertEquals(caverphone('neitch'), 'NK11111111')
-        self.assertEquals(caverphone('nelilson'), 'NLSN111111')
-        self.assertEquals(caverphone('nellson'), 'NSN1111111')
-        self.assertEquals(caverphone('nelon'), 'NLN1111111')
-        self.assertEquals(caverphone('nelsion'), 'NSN1111111')
-        self.assertEquals(caverphone('nelslon'), 'NSLN111111')
-        self.assertEquals(caverphone('nelson-thyberg'), 'NSNTPK1111')
-        self.assertEquals(caverphone('nelson'), 'NSN1111111')
-        self.assertEquals(caverphone('nesbett'), 'NSPT111111')
-        self.assertEquals(caverphone('nesbit'), 'NSPT111111')
-        self.assertEquals(caverphone('nesbitt'), 'NSPT111111')
-        self.assertEquals(caverphone('ness'), 'NS11111111')
-        self.assertEquals(caverphone('nester'), 'NSTA111111')
-        self.assertEquals(caverphone('neumann'), 'NMN1111111')
-        self.assertEquals(caverphone('nevill'), 'NFA1111111')
-        self.assertEquals(caverphone('neville'), 'NFA1111111')
-        self.assertEquals(caverphone('nevin'), 'NFN1111111')
-        self.assertEquals(caverphone('nevison'), 'NFSN111111')
-        self.assertEquals(caverphone('new'), 'NA11111111')
-        self.assertEquals(caverphone('newall'), 'NWA1111111')
-        self.assertEquals(caverphone('newands'), 'NWNTS11111')
-        self.assertEquals(caverphone('newbold'), 'NPT1111111')
-        self.assertEquals(caverphone('newbound'), 'NPNT111111')
-        self.assertEquals(caverphone('newbury'), 'NPRA111111')
-        self.assertEquals(caverphone('newell'), 'NWA1111111')
-        self.assertEquals(caverphone('newey'), 'NWA1111111')
-        self.assertEquals(caverphone('newland'), 'NLNT111111')
-        self.assertEquals(caverphone('newlands'), 'NLNTS11111')
-        self.assertEquals(caverphone('newman'), 'NMN1111111')
-        self.assertEquals(caverphone('newmark'), 'NMK1111111')
-        self.assertEquals(caverphone('newmarsh'), 'NMS1111111')
-        self.assertEquals(caverphone('newsham-west'), 'NSMWST1111')
-        self.assertEquals(caverphone('newsome'), 'NSM1111111')
-        self.assertEquals(caverphone('newson'), 'NSN1111111')
-        self.assertEquals(caverphone('newton'), 'NTN1111111')
-        self.assertEquals(caverphone('neylan'), 'NLN1111111')
-        self.assertEquals(caverphone('neylon'), 'NLN1111111')
-        self.assertEquals(caverphone('niall'), 'NA11111111')
-        self.assertEquals(caverphone('nichol'), 'NKA1111111')
-        self.assertEquals(caverphone('nicholas'), 'NKLS111111')
-        self.assertEquals(caverphone('nicholis'), 'NKLS111111')
-        self.assertEquals(caverphone('nicholl'), 'NKA1111111')
-        self.assertEquals(caverphone('nicholls'), 'NKS1111111')
-        self.assertEquals(caverphone('nichols'), 'NKS1111111')
-        self.assertEquals(caverphone('nicholson'), 'NKSN111111')
-        self.assertEquals(caverphone('nickels'), 'NKS1111111')
-        self.assertEquals(caverphone('nickoll'), 'NKA1111111')
-        self.assertEquals(caverphone('nicol'), 'NKA1111111')
-        self.assertEquals(caverphone('nicoll'), 'NKA1111111')
-        self.assertEquals(caverphone('nicolson'), 'NKSN111111')
-        self.assertEquals(caverphone('nielson'), 'NSN1111111')
-        self.assertEquals(caverphone('nieper'), 'NPA1111111')
-        self.assertEquals(caverphone('nightingale'), 'NTNKA11111')
-        self.assertEquals(caverphone('nikander'), 'NKNTA11111')
-        self.assertEquals(caverphone('nikel'), 'NKA1111111')
-        self.assertEquals(caverphone('niles'), 'NLS1111111')
-        self.assertEquals(caverphone('nilson'), 'NSN1111111')
-        self.assertEquals(caverphone('nilsson'), 'NSN1111111')
-        self.assertEquals(caverphone('nimmo'), 'NMA1111111')
-        self.assertEquals(caverphone('nina'), 'NNA1111111')
-        self.assertEquals(caverphone('nind'), 'NNT1111111')
-        self.assertEquals(caverphone('ninian'), 'NNN1111111')
-        self.assertEquals(caverphone('nisbet'), 'NSPT111111')
-        self.assertEquals(caverphone('nisbitt'), 'NSPT111111')
-        self.assertEquals(caverphone('nissen'), 'NSN1111111')
-        self.assertEquals(caverphone('niven'), 'NFN1111111')
-        self.assertEquals(caverphone('nixon'), 'NKN1111111')
-        self.assertEquals(caverphone('nixson'), 'NKSN111111')
-        self.assertEquals(caverphone('noble'), 'NPA1111111')
-        self.assertEquals(caverphone('nohar'), 'NA11111111')
-        self.assertEquals(caverphone('nolan'), 'NLN1111111')
-        self.assertEquals(caverphone('noonal'), 'NNA1111111')
-        self.assertEquals(caverphone('noonan'), 'NNN1111111')
-        self.assertEquals(caverphone('noone'), 'NN11111111')
-        self.assertEquals(caverphone('norden'), 'NTN1111111')
-        self.assertEquals(caverphone('norman'), 'NMN1111111')
-        self.assertEquals(caverphone('norris'), 'NRS1111111')
-        self.assertEquals(caverphone('norrish'), 'NRS1111111')
-        self.assertEquals(caverphone('north'), 'NT11111111')
-        self.assertEquals(caverphone('northcoat'), 'NTKT111111')
-        self.assertEquals(caverphone('northey'), 'NTA1111111')
-        self.assertEquals(caverphone('norton taylor'), 'NTNTLA1111')
-        self.assertEquals(caverphone('norton-taylor'), 'NTNTLA1111')
-        self.assertEquals(caverphone('norton'), 'NTN1111111')
-        self.assertEquals(caverphone('norwood'), 'NWT1111111')
-        self.assertEquals(caverphone('noseda'), 'NSTA111111')
-        self.assertEquals(caverphone('noster'), 'NSTA111111')
-        self.assertEquals(caverphone('notlen'), 'NTLN111111')
-        self.assertEquals(caverphone('notman'), 'NTMN111111')
-        self.assertEquals(caverphone('nottage'), 'NTK1111111')
-        self.assertEquals(caverphone('nowland'), 'NLNT111111')
-        self.assertEquals(caverphone('nowlands'), 'NLNTS11111')
-        self.assertEquals(caverphone('noy'), 'NA11111111')
-        self.assertEquals(caverphone('ntowland'), 'NTLNT11111')
-        self.assertEquals(caverphone('nugent'), 'NKNT111111')
-        self.assertEquals(caverphone('nunn'), 'NN11111111')
-        self.assertEquals(caverphone('nunns'), 'NNS1111111')
-        self.assertEquals(caverphone('nuttall'), 'NTA1111111')
-        self.assertEquals(caverphone('nutting'), 'NTNK111111')
-        self.assertEquals(caverphone('nxon'), 'NKN1111111')
-        self.assertEquals(caverphone('nyhon'), 'NN11111111')
-        self.assertEquals(caverphone('o \'neil'), 'ANA1111111')
-        self.assertEquals(caverphone('o sullivan'), 'ASLFN11111')
-        self.assertEquals(caverphone('o\' kane'), 'AKN1111111')
-        self.assertEquals(caverphone('o\'\'connor'), 'AKNA111111')
-        self.assertEquals(caverphone('o\'beirne'), 'APN1111111')
-        self.assertEquals(caverphone('o\'berg'), 'APK1111111')
-        self.assertEquals(caverphone('o\'brian'), 'APRN111111')
-        self.assertEquals(caverphone('o\'briean'), 'APRN111111')
-        self.assertEquals(caverphone('o\'brien'), 'APRN111111')
-        self.assertEquals(caverphone('o\'calaghan'), 'AKLKN11111')
-        self.assertEquals(caverphone('o\'callagh'), 'AKLA111111')
-        self.assertEquals(caverphone('o\'callaghan'), 'AKLKN11111')
-        self.assertEquals(caverphone('o\'connell'), 'AKNA111111')
-        self.assertEquals(caverphone('o\'connor'), 'AKNA111111')
-        self.assertEquals(caverphone('o\'corrnan'), 'AKNN111111')
-        self.assertEquals(caverphone('o\'dea'), 'ATA1111111')
-        self.assertEquals(caverphone('o\'docherty'), 'ATKTA11111')
-        self.assertEquals(caverphone('o\'donnell'), 'ATNA111111')
-        self.assertEquals(caverphone('o\'donohue'), 'ATNA111111')
-        self.assertEquals(caverphone('o\'dowd'), 'ATT1111111')
-        self.assertEquals(caverphone('o\'driscoll'), 'ATRSKA1111')
-        self.assertEquals(caverphone('o\'dwyer'), 'ATWA111111')
-        self.assertEquals(caverphone('o\'farrell'), 'AFRA111111')
-        self.assertEquals(caverphone('o\'fee'), 'AFA1111111')
-        self.assertEquals(caverphone('o\'gorman'), 'AKMN111111')
-        self.assertEquals(caverphone('o\'grady'), 'AKRTA11111')
-        self.assertEquals(caverphone('o\'hallora'), 'ALRA111111')
-        self.assertEquals(caverphone('o\'halloran'), 'ALRN111111')
-        self.assertEquals(caverphone('o\'hara'), 'ARA1111111')
-        self.assertEquals(caverphone('o\'hare'), 'AA11111111')
-        self.assertEquals(caverphone('o\'kane'), 'AKN1111111')
-        self.assertEquals(caverphone('o\'kean'), 'AKN1111111')
-        self.assertEquals(caverphone('o\'keefe'), 'AKF1111111')
-        self.assertEquals(caverphone('o\'keeffe'), 'AKF1111111')
-        self.assertEquals(caverphone('o\'leary'), 'ALRA111111')
-        self.assertEquals(caverphone('o\'loughlin'), 'ALLN111111')
-        self.assertEquals(caverphone('o\'mahoney'), 'AMNA111111')
-        self.assertEquals(caverphone('o\'malley'), 'AMLA111111')
-        self.assertEquals(caverphone('o\'meara'), 'AMRA111111')
-        self.assertEquals(caverphone('o\'neil'), 'ANA1111111')
-        self.assertEquals(caverphone('o\'neill'), 'ANA1111111')
-        self.assertEquals(caverphone('o\'rawe'), 'ARA1111111')
-        self.assertEquals(caverphone('o\'regan'), 'ARKN111111')
-        self.assertEquals(caverphone('o\'reilly'), 'ARLA111111')
-        self.assertEquals(caverphone('o\'rogan'), 'ARKN111111')
-        self.assertEquals(caverphone('o\'rourke'), 'ARK1111111')
-        self.assertEquals(caverphone('o\'shannessy'), 'ASNSA11111')
-        self.assertEquals(caverphone('o\'shaughnessy'), 'ASNSA11111')
-        self.assertEquals(caverphone('o\'shea'), 'ASA1111111')
-        self.assertEquals(caverphone('o\'sullivan'), 'ASLFN11111')
-        self.assertEquals(caverphone('o\'toole'), 'ATA1111111')
-        self.assertEquals(caverphone('o1sen'), 'ASN1111111')
-        self.assertEquals(caverphone('oag'), 'AK11111111')
-        self.assertEquals(caverphone('oakden'), 'AKTN111111')
-        self.assertEquals(caverphone('oakes'), 'AKS1111111')
-        self.assertEquals(caverphone('oare'), 'AA11111111')
-        self.assertEquals(caverphone('oaten'), 'ATN1111111')
-        self.assertEquals(caverphone('oates'), 'ATS1111111')
-        self.assertEquals(caverphone('oben'), 'APN1111111')
-        self.assertEquals(caverphone('ockwell'), 'AKWA111111')
-        self.assertEquals(caverphone('ocwell'), 'AKWA111111')
-        self.assertEquals(caverphone('oddie'), 'ATA1111111')
-        self.assertEquals(caverphone('odham'), 'ATM1111111')
-        self.assertEquals(caverphone('oenond'), 'ANNT111111')
-        self.assertEquals(caverphone('oettli'), 'ATLA111111')
-        self.assertEquals(caverphone('offen'), 'AFN1111111')
-        self.assertEquals(caverphone('officer'), 'AFSA111111')
-        self.assertEquals(caverphone('ofllen'), 'AFLN111111')
-        self.assertEquals(caverphone('often'), 'AFTN111111')
-        self.assertEquals(caverphone('ogborne'), 'AKPN111111')
-        self.assertEquals(caverphone('ogden'), 'AKTN111111')
-        self.assertEquals(caverphone('ogg'), 'AK11111111')
-        self.assertEquals(caverphone('ogilvie'), 'AKFA111111')
-        self.assertEquals(caverphone('ogivie'), 'AKFA111111')
-        self.assertEquals(caverphone('ogston'), 'AKSTN11111')
-        self.assertEquals(caverphone('old'), 'AT11111111')
-        self.assertEquals(caverphone('oldenburg'), 'ATNPK11111')
-        self.assertEquals(caverphone('oldham'), 'ATM1111111')
-        self.assertEquals(caverphone('oldman'), 'ATMN111111')
-        self.assertEquals(caverphone('olds'), 'ATS1111111')
-        self.assertEquals(caverphone('oley'), 'ALA1111111')
-        self.assertEquals(caverphone('oliphant'), 'ALFNT11111')
-        self.assertEquals(caverphone('olive'), 'ALF1111111')
-        self.assertEquals(caverphone('oliver'), 'ALFA111111')
-        self.assertEquals(caverphone('ollerensh'), 'ALRNS11111')
-        self.assertEquals(caverphone('ollerenshaw'), 'ALRNSA1111')
-        self.assertEquals(caverphone('olliffe'), 'ALF1111111')
-        self.assertEquals(caverphone('olliver'), 'ALFA111111')
-        self.assertEquals(caverphone('olsen'), 'ASN1111111')
-        self.assertEquals(caverphone('olsien'), 'ASN1111111')
-        self.assertEquals(caverphone('olson'), 'ASN1111111')
-        self.assertEquals(caverphone('olvie'), 'AFA1111111')
-        self.assertEquals(caverphone('omand'), 'AMNT111111')
-        self.assertEquals(caverphone('ombler'), 'AMPLA11111')
-        self.assertEquals(caverphone('orange'), 'ARNK111111')
-        self.assertEquals(caverphone('orbell'), 'APA1111111')
-        self.assertEquals(caverphone('orchard'), 'AKT1111111')
-        self.assertEquals(caverphone('orchiston'), 'AKSTN11111')
-        self.assertEquals(caverphone('organ'), 'AKN1111111')
-        self.assertEquals(caverphone('orlowski'), 'ALSKA11111')
-        self.assertEquals(caverphone('orlowsli'), 'ALSLA11111')
-        self.assertEquals(caverphone('orm'), 'AM11111111')
-        self.assertEquals(caverphone('ormand'), 'AMNT111111')
-        self.assertEquals(caverphone('ormond'), 'AMNT111111')
-        self.assertEquals(caverphone('ormrod'), 'AMRT111111')
-        self.assertEquals(caverphone('ormston'), 'AMSTN11111')
-        self.assertEquals(caverphone('orpwood'), 'APWT111111')
-        self.assertEquals(caverphone('orr'), 'AA11111111')
-        self.assertEquals(caverphone('orton'), 'ATN1111111')
-        self.assertEquals(caverphone('ory'), 'ARA1111111')
-        self.assertEquals(caverphone('osborn'), 'ASPN111111')
-        self.assertEquals(caverphone('osborne'), 'ASPN111111')
-        self.assertEquals(caverphone('osmand'), 'ASMNT11111')
-        self.assertEquals(caverphone('osmond'), 'ASMNT11111')
-        self.assertEquals(caverphone('oson'), 'ASN1111111')
-        self.assertEquals(caverphone('ostarasch'), 'ASTRSK1111')
-        self.assertEquals(caverphone('osten'), 'ASTN111111')
-        self.assertEquals(caverphone('oswald'), 'ASWT111111')
-        self.assertEquals(caverphone('oswin'), 'ASWN111111')
-        self.assertEquals(caverphone('otten'), 'ATN1111111')
-        self.assertEquals(caverphone('otto'), 'ATA1111111')
-        self.assertEquals(caverphone('ottrey'), 'ATRA111111')
-        self.assertEquals(caverphone('otway'), 'ATWA111111')
-        self.assertEquals(caverphone('oudaille'), 'ATA1111111')
-        self.assertEquals(caverphone('ouinn'), 'AN11111111')
-        self.assertEquals(caverphone('outram'), 'ATRM111111')
-        self.assertEquals(caverphone('ovenden'), 'AFNTN11111')
-        self.assertEquals(caverphone('overell'), 'AFRA111111')
-        self.assertEquals(caverphone('overton'), 'AFTN111111')
-        self.assertEquals(caverphone('overtop'), 'AFTP111111')
-        self.assertEquals(caverphone('owen'), 'AWN1111111')
-        self.assertEquals(caverphone('owens'), 'AWNS111111')
-        self.assertEquals(caverphone('owles'), 'ALS1111111')
-        self.assertEquals(caverphone('oxford'), 'AKFT111111')
-        self.assertEquals(caverphone('oxiey'), 'AKA1111111')
-        self.assertEquals(caverphone('ozanne'), 'ASN1111111')
-        self.assertEquals(caverphone('paap'), 'PP11111111')
-        self.assertEquals(caverphone('paape'), 'PP11111111')
-        self.assertEquals(caverphone('paaris'), 'PRS1111111')
-        self.assertEquals(caverphone('pacey'), 'PSA1111111')
-        self.assertEquals(caverphone('packer'), 'PKA1111111')
-        self.assertEquals(caverphone('packfr'), 'PKFA111111')
-        self.assertEquals(caverphone('packman'), 'PKMN111111')
-        self.assertEquals(caverphone('padget'), 'PKT1111111')
-        self.assertEquals(caverphone('padgett'), 'PKT1111111')
-        self.assertEquals(caverphone('paganini'), 'PKNNA11111')
-        self.assertEquals(caverphone('page'), 'PK11111111')
-        self.assertEquals(caverphone('pagel'), 'PKA1111111')
-        self.assertEquals(caverphone('paget'), 'PKT1111111')
-        self.assertEquals(caverphone('paimer'), 'PMA1111111')
-        self.assertEquals(caverphone('painc'), 'PNK1111111')
-        self.assertEquals(caverphone('paine'), 'PN11111111')
-        self.assertEquals(caverphone('painter'), 'PNTA111111')
-        self.assertEquals(caverphone('painton'), 'PNTN111111')
-        self.assertEquals(caverphone('paisley'), 'PSLA111111')
-        self.assertEquals(caverphone('palatchie'), 'PLKA111111')
-        self.assertEquals(caverphone('palenski'), 'PLNSKA1111')
-        self.assertEquals(caverphone('palleson'), 'PLSN111111')
-        self.assertEquals(caverphone('pallister'), 'PLSTA11111')
-        self.assertEquals(caverphone('palmer'), 'PMA1111111')
-        self.assertEquals(caverphone('palser'), 'PSA1111111')
-        self.assertEquals(caverphone('pank'), 'PNK1111111')
-        self.assertEquals(caverphone('panting'), 'PNTNK11111')
-        self.assertEquals(caverphone('panton'), 'PNTN111111')
-        self.assertEquals(caverphone('paranthoiene'), 'PRNTN11111')
-        self.assertEquals(caverphone('parata'), 'PRTA111111')
-        self.assertEquals(caverphone('parcell'), 'PSA1111111')
-        self.assertEquals(caverphone('parcells'), 'PSS1111111')
-        self.assertEquals(caverphone('pargiter'), 'PKTA111111')
-        self.assertEquals(caverphone('paris'), 'PRS1111111')
-        self.assertEquals(caverphone('parish'), 'PRS1111111')
-        self.assertEquals(caverphone('park'), 'PK11111111')
-        self.assertEquals(caverphone('parke'), 'PK11111111')
-        self.assertEquals(caverphone('parker'), 'PKA1111111')
-        self.assertEquals(caverphone('parkes'), 'PKS1111111')
-        self.assertEquals(caverphone('parkhill'), 'PKA1111111')
-        self.assertEquals(caverphone('parkin'), 'PKN1111111')
-        self.assertEquals(caverphone('parkinson'), 'PKNSN11111')
-        self.assertEquals(caverphone('parler'), 'PLA1111111')
-        self.assertEquals(caverphone('parlett'), 'PLT1111111')
-        self.assertEquals(caverphone('parnell'), 'PNA1111111')
-        self.assertEquals(caverphone('parr'), 'PA11111111')
-        self.assertEquals(caverphone('parrish'), 'PRS1111111')
-        self.assertEquals(caverphone('parry'), 'PRA1111111')
-        self.assertEquals(caverphone('parslow'), 'PSLA111111')
-        self.assertEquals(caverphone('parsond'), 'PSNT111111')
-        self.assertEquals(caverphone('parsons'), 'PSNS111111')
-        self.assertEquals(caverphone('parsonson'), 'PSNSN11111')
-        self.assertEquals(caverphone('partel'), 'PTA1111111')
-        self.assertEquals(caverphone('partridge'), 'PTRK111111')
-        self.assertEquals(caverphone('pasco'), 'PSKA111111')
-        self.assertEquals(caverphone('pascoe'), 'PSKA111111')
-        self.assertEquals(caverphone('paskell'), 'PSKA111111')
-        self.assertEquals(caverphone('passmore'), 'PSMA111111')
-        self.assertEquals(caverphone('pastor'), 'PSTA111111')
-        self.assertEquals(caverphone('pastorell'), 'PSTRA11111')
-        self.assertEquals(caverphone('pastorelli'), 'PSTRLA1111')
-        self.assertEquals(caverphone('patay'), 'PTA1111111')
-        self.assertEquals(caverphone('patch'), 'PK11111111')
-        self.assertEquals(caverphone('patchett'), 'PKT1111111')
-        self.assertEquals(caverphone('patcrson'), 'PTKSN11111')
-        self.assertEquals(caverphone('pate'), 'PT11111111')
-        self.assertEquals(caverphone('paterson'), 'PTSN111111')
-        self.assertEquals(caverphone('patey'), 'PTA1111111')
-        self.assertEquals(caverphone('paton'), 'PTN1111111')
-        self.assertEquals(caverphone('patorson'), 'PTSN111111')
-        self.assertEquals(caverphone('patrick'), 'PTRK111111')
-        self.assertEquals(caverphone('pattenden'), 'PTNTN11111')
-        self.assertEquals(caverphone('patterson'), 'PTSN111111')
-        self.assertEquals(caverphone('pattillo'), 'PTLA111111')
-        self.assertEquals(caverphone('pattinson'), 'PTNSN11111')
-        self.assertEquals(caverphone('pattison'), 'PTSN111111')
-        self.assertEquals(caverphone('patton'), 'PTN1111111')
-        self.assertEquals(caverphone('pattorson'), 'PTSN111111')
-        self.assertEquals(caverphone('pattrick'), 'PTRK111111')
-        self.assertEquals(caverphone('paul'), 'PA11111111')
-        self.assertEquals(caverphone('pauley'), 'PLA1111111')
-        self.assertEquals(caverphone('paulin'), 'PLN1111111')
-        self.assertEquals(caverphone('paull'), 'PA11111111')
-        self.assertEquals(caverphone('paviour-smith'), 'PFSMT11111')
-        self.assertEquals(caverphone('pavioursmith'), 'PFSMT11111')
-        self.assertEquals(caverphone('pavitt'), 'PFT1111111')
-        self.assertEquals(caverphone('pavletich'), 'PFLTK11111')
-        self.assertEquals(caverphone('paxton'), 'PKTN111111')
-        self.assertEquals(caverphone('pay'), 'PA11111111')
-        self.assertEquals(caverphone('payne'), 'PN11111111')
-        self.assertEquals(caverphone('paynter'), 'PNTA111111')
-        self.assertEquals(caverphone('payton'), 'PTN1111111')
-        self.assertEquals(caverphone('pcrteous'), 'PKTS111111')
-        self.assertEquals(caverphone('peace'), 'PK11111111')
-        self.assertEquals(caverphone('peach'), 'PK11111111')
-        self.assertEquals(caverphone('peacock'), 'PKK1111111')
-        self.assertEquals(caverphone('peake'), 'PK11111111')
-        self.assertEquals(caverphone('pearce'), 'PK11111111')
-        self.assertEquals(caverphone('pearless'), 'PLS1111111')
-        self.assertEquals(caverphone('pearn'), 'PN11111111')
-        self.assertEquals(caverphone('pears'), 'PS11111111')
-        self.assertEquals(caverphone('pearse'), 'PS11111111')
-        self.assertEquals(caverphone('pearson'), 'PSN1111111')
-        self.assertEquals(caverphone('peart'), 'PT11111111')
-        self.assertEquals(caverphone('peat'), 'PT11111111')
-        self.assertEquals(caverphone('peate'), 'PT11111111')
-        self.assertEquals(caverphone('peates'), 'PTS1111111')
-        self.assertEquals(caverphone('peattie'), 'PTA1111111')
-        self.assertEquals(caverphone('peck'), 'PK11111111')
-        self.assertEquals(caverphone('pedder'), 'PTA1111111')
-        self.assertEquals(caverphone('peddie'), 'PTA1111111')
-        self.assertEquals(caverphone('peden'), 'PTN1111111')
-        self.assertEquals(caverphone('pedlar'), 'PTLA111111')
-        self.assertEquals(caverphone('pedlow'), 'PTLA111111')
-        self.assertEquals(caverphone('pedofsky'), 'PTFSKA1111')
-        self.assertEquals(caverphone('peebles'), 'PPLS111111')
-        self.assertEquals(caverphone('peel'), 'PA11111111')
-        self.assertEquals(caverphone('pegg'), 'PK11111111')
-        self.assertEquals(caverphone('peggie'), 'PKA1111111')
-        self.assertEquals(caverphone('pelatchie'), 'PLKA111111')
-        self.assertEquals(caverphone('pell'), 'PA11111111')
-        self.assertEquals(caverphone('pellett'), 'PLT1111111')
-        self.assertEquals(caverphone('pellowe'), 'PLA1111111')
-        self.assertEquals(caverphone('pelvin'), 'PFN1111111')
-        self.assertEquals(caverphone('pemberton'), 'PMPTN11111')
-        self.assertEquals(caverphone('penfold'), 'PNFT111111')
-        self.assertEquals(caverphone('penhey'), 'PNA1111111')
-        self.assertEquals(caverphone('penman'), 'PNMN111111')
-        self.assertEquals(caverphone('pennell'), 'PNA1111111')
-        self.assertEquals(caverphone('pennington'), 'PNNKTN1111')
-        self.assertEquals(caverphone('penno'), 'PNA1111111')
-        self.assertEquals(caverphone('penny'), 'PNA1111111')
-        self.assertEquals(caverphone('pennychuick'), 'PNKK111111')
-        self.assertEquals(caverphone('pennycuick'), 'PNKK111111')
-        self.assertEquals(caverphone('penpiatt'), 'PNPT111111')
-        self.assertEquals(caverphone('penrose'), 'PNRS111111')
-        self.assertEquals(caverphone('penson'), 'PNSN111111')
-        self.assertEquals(caverphone('pentecost'), 'PNTKST1111')
-        self.assertEquals(caverphone('penty'), 'PNTA111111')
-        self.assertEquals(caverphone('peoples'), 'PPLS111111')
-        self.assertEquals(caverphone('pepper'), 'PPA1111111')
-        self.assertEquals(caverphone('pepperell'), 'PPRA111111')
-        self.assertEquals(caverphone('pepperill'), 'PPRA111111')
-        self.assertEquals(caverphone('peppiatt'), 'PPT1111111')
-        self.assertEquals(caverphone('peppler'), 'PPLA111111')
-        self.assertEquals(caverphone('percy'), 'PSA1111111')
-        self.assertEquals(caverphone('pereira'), 'PRRA111111')
-        self.assertEquals(caverphone('perera'), 'PRRA111111')
-        self.assertEquals(caverphone('perfin'), 'PFN1111111')
-        self.assertEquals(caverphone('perguson'), 'PKSN111111')
-        self.assertEquals(caverphone('perkins'), 'PKNS111111')
-        self.assertEquals(caverphone('perks'), 'PKS1111111')
-        self.assertEquals(caverphone('pernisky'), 'PNSKA11111')
-        self.assertEquals(caverphone('perrers'), 'PRS1111111')
-        self.assertEquals(caverphone('perriam'), 'PRM1111111')
-        self.assertEquals(caverphone('perriman'), 'PRMN111111')
-        self.assertEquals(caverphone('perrin'), 'PRN1111111')
-        self.assertEquals(caverphone('perriton'), 'PRTN111111')
-        self.assertEquals(caverphone('perry'), 'PRA1111111')
-        self.assertEquals(caverphone('peson'), 'PSN1111111')
-        self.assertEquals(caverphone('peters'), 'PTS1111111')
-        self.assertEquals(caverphone('petersen'), 'PTSN111111')
-        self.assertEquals(caverphone('peterson'), 'PTSN111111')
-        self.assertEquals(caverphone('petherick'), 'PTRK111111')
-        self.assertEquals(caverphone('petre'), 'PTA1111111')
-        self.assertEquals(caverphone('petrie'), 'PTRA111111')
-        self.assertEquals(caverphone('petterson'), 'PTSN111111')
-        self.assertEquals(caverphone('pettet'), 'PTT1111111')
-        self.assertEquals(caverphone('pettigrew'), 'PTKRA11111')
-        self.assertEquals(caverphone('pettit'), 'PTT1111111')
-        self.assertEquals(caverphone('pettitt'), 'PTT1111111')
-        self.assertEquals(caverphone('pfeifer'), 'PFFA111111')
-        self.assertEquals(caverphone('phair'), 'FA11111111')
-        self.assertEquals(caverphone('phaup'), 'FP11111111')
-        self.assertEquals(caverphone('phelan'), 'FLN1111111')
-        self.assertEquals(caverphone('philip'), 'FLP1111111')
-        self.assertEquals(caverphone('philips'), 'FLPS111111')
-        self.assertEquals(caverphone('phillipps'), 'FLPS111111')
-        self.assertEquals(caverphone('phillips'), 'FLPS111111')
-        self.assertEquals(caverphone('philp'), 'FP11111111')
-        self.assertEquals(caverphone('philpott'), 'FPT1111111')
-        self.assertEquals(caverphone('phimester'), 'FMSTA11111')
-        self.assertEquals(caverphone('phimister'), 'FMSTA11111')
-        self.assertEquals(caverphone('picard'), 'PKT1111111')
-        self.assertEquals(caverphone('pice'), 'PK11111111')
-        self.assertEquals(caverphone('pickard'), 'PKT1111111')
-        self.assertEquals(caverphone('picken'), 'PKN1111111')
-        self.assertEquals(caverphone('pickering'), 'PKRNK11111')
-        self.assertEquals(caverphone('picket'), 'PKT1111111')
-        self.assertEquals(caverphone('pickett'), 'PKT1111111')
-        self.assertEquals(caverphone('pickford'), 'PKFT111111')
-        self.assertEquals(caverphone('pickles'), 'PKLS111111')
-        self.assertEquals(caverphone('picklis'), 'PKLS111111')
-        self.assertEquals(caverphone('pickup'), 'PKP1111111')
-        self.assertEquals(caverphone('pickworth'), 'PKWT111111')
-        self.assertEquals(caverphone('picton'), 'PKTN111111')
-        self.assertEquals(caverphone('piddingto'), 'PTNKTA1111')
-        self.assertEquals(caverphone('piddington'), 'PTNKTN1111')
-        self.assertEquals(caverphone('pidduck'), 'PTK1111111')
-        self.assertEquals(caverphone('pierard'), 'PRT1111111')
-        self.assertEquals(caverphone('pierce'), 'PK11111111')
-        self.assertEquals(caverphone('piercy'), 'PSA1111111')
-        self.assertEquals(caverphone('pigott'), 'PKT1111111')
-        self.assertEquals(caverphone('pike'), 'PK11111111')
-        self.assertEquals(caverphone('pilbrow'), 'PPRA111111')
-        self.assertEquals(caverphone('pile'), 'PA11111111')
-        self.assertEquals(caverphone('pilet'), 'PLT1111111')
-        self.assertEquals(caverphone('pilkington'), 'PKNKTN1111')
-        self.assertEquals(caverphone('pilling'), 'PLNK111111')
-        self.assertEquals(caverphone('pimley'), 'PMLA111111')
-        self.assertEquals(caverphone('pinder'), 'PNTA111111')
-        self.assertEquals(caverphone('pine'), 'PN11111111')
-        self.assertEquals(caverphone('pinfold'), 'PNFT111111')
-        self.assertEquals(caverphone('pink'), 'PNK1111111')
-        self.assertEquals(caverphone('pinkerton'), 'PNKTN11111')
-        self.assertEquals(caverphone('pinkham'), 'PNKM111111')
-        self.assertEquals(caverphone('pinkney'), 'PNKNA11111')
-        self.assertEquals(caverphone('pinnington'), 'PNNKTN1111')
-        self.assertEquals(caverphone('piper'), 'PPA1111111')
-        self.assertEquals(caverphone('pirie'), 'PRA1111111')
-        self.assertEquals(caverphone('pirrett'), 'PRT1111111')
-        self.assertEquals(caverphone('pistor'), 'PSTA111111')
-        self.assertEquals(caverphone('pitcher'), 'PKA1111111')
-        self.assertEquals(caverphone('pitfield'), 'PTFT111111')
-        self.assertEquals(caverphone('pithie'), 'PTA1111111')
-        self.assertEquals(caverphone('pitkethley'), 'PTKTLA1111')
-        self.assertEquals(caverphone('pittaway'), 'PTWA111111')
-        self.assertEquals(caverphone('pitts'), 'PTS1111111')
-        self.assertEquals(caverphone('pizey'), 'PSA1111111')
-        self.assertEquals(caverphone('plaice'), 'PLK1111111')
-        self.assertEquals(caverphone('plank'), 'PLNK111111')
-        self.assertEquals(caverphone('plato'), 'PLTA111111')
-        self.assertEquals(caverphone('plaw'), 'PLA1111111')
-        self.assertEquals(caverphone('playter'), 'PLTA111111')
-        self.assertEquals(caverphone('pleace'), 'PLK1111111')
-        self.assertEquals(caverphone('pledger'), 'PLKA111111')
-        self.assertEquals(caverphone('plew'), 'PLA1111111')
-        self.assertEquals(caverphone('plimmer'), 'PLMA111111')
-        self.assertEquals(caverphone('pluck'), 'PLK1111111')
-        self.assertEquals(caverphone('plumb'), 'PLM1111111')
-        self.assertEquals(caverphone('plumley'), 'PLMLA11111')
-        self.assertEquals(caverphone('plumridge'), 'PLMRK11111')
-        self.assertEquals(caverphone('plunket'), 'PLNKT11111')
-        self.assertEquals(caverphone('plunkett'), 'PLNKT11111')
-        self.assertEquals(caverphone('poat'), 'PT11111111')
-        self.assertEquals(caverphone('pocklingto'), 'PKLNKTA111')
-        self.assertEquals(caverphone('pocklington'), 'PKLNKTN111')
-        self.assertEquals(caverphone('pockson'), 'PKSN111111')
-        self.assertEquals(caverphone('poff'), 'PF11111111')
-        self.assertEquals(caverphone('poilock'), 'PLK1111111')
-        self.assertEquals(caverphone('pointon'), 'PNTN111111')
-        self.assertEquals(caverphone('poland'), 'PLNT111111')
-        self.assertEquals(caverphone('polglase'), 'PKLS111111')
-        self.assertEquals(caverphone('polkinghorn'), 'PKNN111111')
-        self.assertEquals(caverphone('polkinghorne'), 'PKNN111111')
-        self.assertEquals(caverphone('pollard'), 'PLT1111111')
-        self.assertEquals(caverphone('pollett'), 'PLT1111111')
-        self.assertEquals(caverphone('pollock'), 'PLK1111111')
-        self.assertEquals(caverphone('polloek'), 'PLK1111111')
-        self.assertEquals(caverphone('pollon'), 'PLN1111111')
-        self.assertEquals(caverphone('polson'), 'PSN1111111')
-        self.assertEquals(caverphone('polwarth'), 'PWT1111111')
-        self.assertEquals(caverphone('polworth'), 'PWT1111111')
-        self.assertEquals(caverphone('pomeroy'), 'PMRA111111')
-        self.assertEquals(caverphone('pomies'), 'PMS1111111')
-        self.assertEquals(caverphone('ponsford'), 'PNSFT11111')
-        self.assertEquals(caverphone('pont'), 'PNT1111111')
-        self.assertEquals(caverphone('ponton'), 'PNTN111111')
-        self.assertEquals(caverphone('pontor'), 'PNTA111111')
-        self.assertEquals(caverphone('pool'), 'PA11111111')
-        self.assertEquals(caverphone('poole'), 'PA11111111')
-        self.assertEquals(caverphone('pope'), 'PP11111111')
-        self.assertEquals(caverphone('popham'), 'PFM1111111')
-        self.assertEquals(caverphone('poppelwell'), 'PPWA111111')
-        self.assertEquals(caverphone('popperell'), 'PPRA111111')
-        self.assertEquals(caverphone('popple'), 'PPA1111111')
-        self.assertEquals(caverphone('poppleton'), 'PPLTN11111')
-        self.assertEquals(caverphone('porrott'), 'PRT1111111')
-        self.assertEquals(caverphone('port'), 'PT11111111')
-        self.assertEquals(caverphone('port.eous'), 'PTS1111111')
-        self.assertEquals(caverphone('porteous'), 'PTS1111111')
-        self.assertEquals(caverphone('porter'), 'PTA1111111')
-        self.assertEquals(caverphone('porthous'), 'PTS1111111')
-        self.assertEquals(caverphone('porthouse'), 'PTS1111111')
-        self.assertEquals(caverphone('portwine'), 'PTWN111111')
-        self.assertEquals(caverphone('potter'), 'PTA1111111')
-        self.assertEquals(caverphone('potts'), 'PTS1111111')
-        self.assertEquals(caverphone('poulsen'), 'PSN1111111')
-        self.assertEquals(caverphone('poulson'), 'PSN1111111')
-        self.assertEquals(caverphone('poulter'), 'PTA1111111')
-        self.assertEquals(caverphone('pound'), 'PNT1111111')
-        self.assertEquals(caverphone('poupart'), 'PPT1111111')
-        self.assertEquals(caverphone('povey'), 'PFA1111111')
-        self.assertEquals(caverphone('powe'), 'PA11111111')
-        self.assertEquals(caverphone('powell'), 'PWA1111111')
-        self.assertEquals(caverphone('power'), 'PWA1111111')
-        self.assertEquals(caverphone('powley'), 'PLA1111111')
-        self.assertEquals(caverphone('poyntz'), 'PNTS111111')
-        self.assertEquals(caverphone('prain'), 'PRN1111111')
-        self.assertEquals(caverphone('pratchel'), 'PRKA111111')
-        self.assertEquals(caverphone('pratt'), 'PRT1111111')
-        self.assertEquals(caverphone('prattey'), 'PRTA111111')
-        self.assertEquals(caverphone('prattley'), 'PRTLA11111')
-        self.assertEquals(caverphone('pratzall'), 'PRTSA11111')
-        self.assertEquals(caverphone('pratzel'), 'PRTSA11111')
-        self.assertEquals(caverphone('pre'), 'PA11111111')
-        self.assertEquals(caverphone('prebble'), 'PRPA111111')
-        self.assertEquals(caverphone('preddy'), 'PRTA111111')
-        self.assertEquals(caverphone('preece'), 'PRK1111111')
-        self.assertEquals(caverphone('preen'), 'PRN1111111')
-        self.assertEquals(caverphone('prendergast'), 'PRNTKST111')
-        self.assertEquals(caverphone('prenderville'), 'PRNTFA1111')
-        self.assertEquals(caverphone('prentice'), 'PRNTK11111')
-        self.assertEquals(caverphone('presbury'), 'PRSPRA1111')
-        self.assertEquals(caverphone('prescott'), 'PRSKT11111')
-        self.assertEquals(caverphone('preston'), 'PRSTN11111')
-        self.assertEquals(caverphone('pretty'), 'PRTA111111')
-        self.assertEquals(caverphone('price'), 'PRK1111111')
-        self.assertEquals(caverphone('prichard'), 'PRKT111111')
-        self.assertEquals(caverphone('prictor'), 'PRKTA11111')
-        self.assertEquals(caverphone('pridham'), 'PRTM111111')
-        self.assertEquals(caverphone('priee'), 'PRA1111111')
-        self.assertEquals(caverphone('priest'), 'PRST111111')
-        self.assertEquals(caverphone('priestly'), 'PRSTLA1111')
-        self.assertEquals(caverphone('prince'), 'PRNK111111')
-        self.assertEquals(caverphone('pringle'), 'PRNKA11111')
-        self.assertEquals(caverphone('pringle:'), 'PRNKA11111')
-        self.assertEquals(caverphone('printz'), 'PRNTS11111')
-        self.assertEquals(caverphone('prior'), 'PRA1111111')
-        self.assertEquals(caverphone('priston'), 'PRSTN11111')
-        self.assertEquals(caverphone('pritchard'), 'PRKT111111')
-        self.assertEquals(caverphone('pritchett'), 'PRKT111111')
-        self.assertEquals(caverphone('procter'), 'PRKTA11111')
-        self.assertEquals(caverphone('proctor'), 'PRKTA11111')
-        self.assertEquals(caverphone('pronse'), 'PRNS111111')
-        self.assertEquals(caverphone('propsting'), 'PRPSTNK111')
-        self.assertEquals(caverphone('prosser'), 'PRSA111111')
-        self.assertEquals(caverphone('proud'), 'PRT1111111')
-        self.assertEquals(caverphone('proudfoot'), 'PRTFT11111')
-        self.assertEquals(caverphone('prouse'), 'PRS1111111')
-        self.assertEquals(caverphone('prout'), 'PRT1111111')
-        self.assertEquals(caverphone('provan'), 'PRFN111111')
-        self.assertEquals(caverphone('proven'), 'PRFN111111')
-        self.assertEquals(caverphone('provo'), 'PRFA111111')
-        self.assertEquals(caverphone('prowse'), 'PRS1111111')
-        self.assertEquals(caverphone('prvde'), 'PFT1111111')
-        self.assertEquals(caverphone('pryde'), 'PRT1111111')
-        self.assertEquals(caverphone('pryor'), 'PRA1111111')
-        self.assertEquals(caverphone('pucchegud'), 'PKKT111111')
-        self.assertEquals(caverphone('puddy'), 'PTA1111111')
-        self.assertEquals(caverphone('pullar'), 'PLA1111111')
-        self.assertEquals(caverphone('puller'), 'PLA1111111')
-        self.assertEquals(caverphone('pullyn'), 'PLN1111111')
-        self.assertEquals(caverphone('punch'), 'PNK1111111')
-        self.assertEquals(caverphone('purcell'), 'PSA1111111')
-        self.assertEquals(caverphone('purches'), 'PKS1111111')
-        self.assertEquals(caverphone('purdie'), 'PTA1111111')
-        self.assertEquals(caverphone('purnell'), 'PNA1111111')
-        self.assertEquals(caverphone('purtill'), 'PTA1111111')
-        self.assertEquals(caverphone('purton'), 'PTN1111111')
-        self.assertEquals(caverphone('purves'), 'PFS1111111')
-        self.assertEquals(caverphone('purvis'), 'PFS1111111')
-        self.assertEquals(caverphone('pybus'), 'PPS1111111')
-        self.assertEquals(caverphone('pye'), 'PA11111111')
-        self.assertEquals(caverphone('pyke'), 'PK11111111')
-        self.assertEquals(caverphone('pyle'), 'PA11111111')
-        self.assertEquals(caverphone('pym'), 'PM11111111')
-        self.assertEquals(caverphone('pyn'), 'PN11111111')
-        self.assertEquals(caverphone('pyne'), 'PN11111111')
-        self.assertEquals(caverphone('pynor'), 'PNA1111111')
-        self.assertEquals(caverphone('pyott'), 'PT11111111')
-        self.assertEquals(caverphone('pyper'), 'PPA1111111')
-        self.assertEquals(caverphone('pyrke'), 'PK11111111')
-        self.assertEquals(caverphone('pyster'), 'PSTA111111')
-        self.assertEquals(caverphone('pywell'), 'PWA1111111')
-        self.assertEquals(caverphone('q uinn'), 'KN11111111')
-        self.assertEquals(caverphone('qtto'), 'KTA1111111')
-        self.assertEquals(caverphone('quaid'), 'KT11111111')
-        self.assertEquals(caverphone('quaife'), 'KF11111111')
-        self.assertEquals(caverphone('quaile'), 'KA11111111')
-        self.assertEquals(caverphone('quam'), 'KM11111111')
-        self.assertEquals(caverphone('quan'), 'KN11111111')
-        self.assertEquals(caverphone('quarterma'), 'KTMA111111')
-        self.assertEquals(caverphone('quartermain'), 'KTMN111111')
-        self.assertEquals(caverphone('quartermaln'), 'KTMN111111')
-        self.assertEquals(caverphone('quarterman'), 'KTMN111111')
-        self.assertEquals(caverphone('quelch'), 'KK11111111')
-        self.assertEquals(caverphone('quennell'), 'KNA1111111')
-        self.assertEquals(caverphone('queree'), 'KRA1111111')
-        self.assertEquals(caverphone('quest'), 'KST1111111')
-        self.assertEquals(caverphone('quested'), 'KSTT111111')
-        self.assertEquals(caverphone('quickenden'), 'KKNTN11111')
-        self.assertEquals(caverphone('quickfall'), 'KKFA111111')
-        self.assertEquals(caverphone('quigg'), 'KK11111111')
-        self.assertEquals(caverphone('quigley'), 'KKLA111111')
-        self.assertEquals(caverphone('quill'), 'KA11111111')
-        self.assertEquals(caverphone('quin'), 'KN11111111')
-        self.assertEquals(caverphone('quine'), 'KN11111111')
-        self.assertEquals(caverphone('quinlan'), 'KNLN111111')
-        self.assertEquals(caverphone('quinn'), 'KN11111111')
-        self.assertEquals(caverphone('quinton'), 'KNTN111111')
-        self.assertEquals(caverphone('quirk'), 'KK11111111')
-        self.assertEquals(caverphone('quirke'), 'KK11111111')
-        self.assertEquals(caverphone('qvam'), 'KFM1111111')
-        self.assertEquals(caverphone('rabbidge'), 'RPK1111111')
-        self.assertEquals(caverphone('rabbitt'), 'RPT1111111')
-        self.assertEquals(caverphone('rac1kley'), 'RKLA111111')
-        self.assertEquals(caverphone('race'), 'RK11111111')
-        self.assertEquals(caverphone('rackham'), 'RKM1111111')
-        self.assertEquals(caverphone('rackley'), 'RKLA111111')
-        self.assertEquals(caverphone('radd'), 'RT11111111')
-        self.assertEquals(caverphone('radford'), 'RTFT111111')
-        self.assertEquals(caverphone('rae'), 'RA11111111')
-        self.assertEquals(caverphone('raffills'), 'RFS1111111')
-        self.assertEquals(caverphone('raglan'), 'RKLN111111')
-        self.assertEquals(caverphone('raillsford'), 'RSFT111111')
-        self.assertEquals(caverphone('railton'), 'RTN1111111')
-        self.assertEquals(caverphone('rainbow'), 'RNPA111111')
-        self.assertEquals(caverphone('raine'), 'RN11111111')
-        self.assertEquals(caverphone('raines'), 'RNS1111111')
-        self.assertEquals(caverphone('rainham'), 'RNM1111111')
-        self.assertEquals(caverphone('rains'), 'RNS1111111')
-        self.assertEquals(caverphone('rainsay'), 'RNSA111111')
-        self.assertEquals(caverphone('rainsford'), 'RNSFT11111')
-        self.assertEquals(caverphone('rainton'), 'RNTN111111')
-        self.assertEquals(caverphone('raitt'), 'RT11111111')
-        self.assertEquals(caverphone('raler'), 'RLA1111111')
-        self.assertEquals(caverphone('rallinshaw'), 'RLNSA11111')
-        self.assertEquals(caverphone('ralor'), 'RLA1111111')
-        self.assertEquals(caverphone('ralph'), 'RF11111111')
-        self.assertEquals(caverphone('ralston'), 'RSTN111111')
-        self.assertEquals(caverphone('ralusay'), 'RLSA111111')
-        self.assertEquals(caverphone('ramage'), 'RMK1111111')
-        self.assertEquals(caverphone('rambaum'), 'RMPM111111')
-        self.assertEquals(caverphone('rampton'), 'RMPTN11111')
-        self.assertEquals(caverphone('ramsay'), 'RMSA111111')
-        self.assertEquals(caverphone('ramsbottom-isherwood'), 'RMSPTMSWT1')
-        self.assertEquals(caverphone('ramsden'), 'RMSTN11111')
-        self.assertEquals(caverphone('ramsey'), 'RMSA111111')
-        self.assertEquals(caverphone('randal'), 'RNTA111111')
-        self.assertEquals(caverphone('randall'), 'RNTA111111')
-        self.assertEquals(caverphone('randell'), 'RNTA111111')
-        self.assertEquals(caverphone('randle'), 'RNTA111111')
-        self.assertEquals(caverphone('ranger'), 'RNKA111111')
-        self.assertEquals(caverphone('rankin'), 'RNKN111111')
-        self.assertEquals(caverphone('ransay'), 'RNSA111111')
-        self.assertEquals(caverphone('ransom'), 'RNSM111111')
-        self.assertEquals(caverphone('raper'), 'RPA1111111')
-        self.assertEquals(caverphone('rappe'), 'RP11111111')
-        self.assertEquals(caverphone('rapsom'), 'RPSM111111')
-        self.assertEquals(caverphone('rapson'), 'RPSN111111')
-        self.assertEquals(caverphone('rasmussen'), 'RSMSN11111')
-        self.assertEquals(caverphone('rasrnussen'), 'RSNSN11111')
-        self.assertEquals(caverphone('rattigan'), 'RTKN111111')
-        self.assertEquals(caverphone('rattley'), 'RTLA111111')
-        self.assertEquals(caverphone('rattray'), 'RTRA111111')
-        self.assertEquals(caverphone('raven'), 'RFN1111111')
-        self.assertEquals(caverphone('ravenscroft'), 'RFNSKRFT11')
-        self.assertEquals(caverphone('ravenswood'), 'RFNSWT1111')
-        self.assertEquals(caverphone('ravenvood'), 'RFNFT11111')
-        self.assertEquals(caverphone('ravenwood'), 'RFNWT11111')
-        self.assertEquals(caverphone('rawcliffe'), 'RKLF111111')
-        self.assertEquals(caverphone('rawe'), 'RA11111111')
-        self.assertEquals(caverphone('rawei'), 'RWA1111111')
-        self.assertEquals(caverphone('rawlence'), 'RLNK111111')
-        self.assertEquals(caverphone('rawley'), 'RLA1111111')
-        self.assertEquals(caverphone('rawlings'), 'RLNKS11111')
-        self.assertEquals(caverphone('rawlins'), 'RLNS111111')
-        self.assertEquals(caverphone('rawlinson'), 'RLNSN11111')
-        self.assertEquals(caverphone('rawnsley'), 'RNSLA11111')
-        self.assertEquals(caverphone('rawon'), 'RWN1111111')
-        self.assertEquals(caverphone('rawson'), 'RSN1111111')
-        self.assertEquals(caverphone('rawstron'), 'RSTRN11111')
-        self.assertEquals(caverphone('ray'), 'RA11111111')
-        self.assertEquals(caverphone('raymond'), 'RMNT111111')
-        self.assertEquals(caverphone('rayner'), 'RNA1111111')
-        self.assertEquals(caverphone('rayson'), 'RSN1111111')
-        self.assertEquals(caverphone('rea'), 'RA11111111')
-        self.assertEquals(caverphone('read'), 'RT11111111')
-        self.assertEquals(caverphone('reader'), 'RTA1111111')
-        self.assertEquals(caverphone('readman'), 'RTMN111111')
-        self.assertEquals(caverphone('ready'), 'RTA1111111')
-        self.assertEquals(caverphone('real'), 'RA11111111')
-        self.assertEquals(caverphone('reardon'), 'RTN1111111')
-        self.assertEquals(caverphone('reay'), 'RA11111111')
-        self.assertEquals(caverphone('reddell'), 'RTA1111111')
-        self.assertEquals(caverphone('redder'), 'RTA1111111')
-        self.assertEquals(caverphone('reddie'), 'RTA1111111')
-        self.assertEquals(caverphone('redding'), 'RTNK111111')
-        self.assertEquals(caverphone('reddington'), 'RTNKTN1111')
-        self.assertEquals(caverphone('redfearn'), 'RTFN111111')
-        self.assertEquals(caverphone('redidingto'), 'RTTNKTA111')
-        self.assertEquals(caverphone('redman'), 'RTMN111111')
-        self.assertEquals(caverphone('redmayne'), 'RTMN111111')
-        self.assertEquals(caverphone('redmond'), 'RTMNT11111')
-        self.assertEquals(caverphone('redwood'), 'RTWT111111')
-        self.assertEquals(caverphone('reece'), 'RK11111111')
-        self.assertEquals(caverphone('reed'), 'RT11111111')
-        self.assertEquals(caverphone('reeder'), 'RTA1111111')
-        self.assertEquals(caverphone('reekie'), 'RKA1111111')
-        self.assertEquals(caverphone('rees'), 'RS11111111')
-        self.assertEquals(caverphone('reeve'), 'RF11111111')
-        self.assertEquals(caverphone('reeves'), 'RFS1111111')
-        self.assertEquals(caverphone('reggett'), 'RKT1111111')
-        self.assertEquals(caverphone('reggiardo'), 'RKTA111111')
-        self.assertEquals(caverphone('regnault'), 'RKNT111111')
-        self.assertEquals(caverphone('reid'), 'RT11111111')
-        self.assertEquals(caverphone('reidboult'), 'RTPT111111')
-        self.assertEquals(caverphone('reider'), 'RTA1111111')
-        self.assertEquals(caverphone('reidle'), 'RTA1111111')
-        self.assertEquals(caverphone('reidy'), 'RTA1111111')
-        self.assertEquals(caverphone('reilly'), 'RLA1111111')
-        self.assertEquals(caverphone('reimer'), 'RMA1111111')
-        self.assertEquals(caverphone('rein'), 'RN11111111')
-        self.assertEquals(caverphone('reiss'), 'RS11111111')
-        self.assertEquals(caverphone('rekowski'), 'RKSKA11111')
-        self.assertEquals(caverphone('remie'), 'RMA1111111')
-        self.assertEquals(caverphone('remlie'), 'RMLA111111')
-        self.assertEquals(caverphone('rendall'), 'RNTA111111')
-        self.assertEquals(caverphone('rendel'), 'RNTA111111')
-        self.assertEquals(caverphone('render'), 'RNTA111111')
-        self.assertEquals(caverphone('rendle'), 'RNTA111111')
-        self.assertEquals(caverphone('renfree'), 'RNFRA11111')
-        self.assertEquals(caverphone('renfrew'), 'RNFRA11111')
-        self.assertEquals(caverphone('renney'), 'RNA1111111')
-        self.assertEquals(caverphone('rennie'), 'RNA1111111')
-        self.assertEquals(caverphone('rennolds'), 'RNTS111111')
-        self.assertEquals(caverphone('renton'), 'RNTN111111')
-        self.assertEquals(caverphone('rentoul'), 'RNTA111111')
-        self.assertEquals(caverphone('renwick'), 'RNWK111111')
-        self.assertEquals(caverphone('reny'), 'RNA1111111')
-        self.assertEquals(caverphone('restieaux'), 'RSTK111111')
-        self.assertEquals(caverphone('rex'), 'RK11111111')
-        self.assertEquals(caverphone('reynell'), 'RNA1111111')
-        self.assertEquals(caverphone('reynolds'), 'RNTS111111')
-        self.assertEquals(caverphone('rhind'), 'NT11111111')
-        self.assertEquals(caverphone('rhodes'), 'TS11111111')
-        self.assertEquals(caverphone('rhynd'), 'NT11111111')
-        self.assertEquals(caverphone('riach'), 'RK11111111')
-        self.assertEquals(caverphone('rice'), 'RK11111111')
-        self.assertEquals(caverphone('rich'), 'RK11111111')
-        self.assertEquals(caverphone('richard'), 'RKT1111111')
-        self.assertEquals(caverphone('richardd'), 'RKT1111111')
-        self.assertEquals(caverphone('richards'), 'RKTS111111')
-        self.assertEquals(caverphone('richardso'), 'RKTSA11111')
-        self.assertEquals(caverphone('richardson'), 'RKTSN11111')
-        self.assertEquals(caverphone('richdale'), 'RKTA111111')
-        self.assertEquals(caverphone('riches'), 'RKS1111111')
-        self.assertEquals(caverphone('richmond'), 'RKMNT11111')
-        self.assertEquals(caverphone('rickard'), 'RKT1111111')
-        self.assertEquals(caverphone('ridd'), 'RT11111111')
-        self.assertEquals(caverphone('riddell'), 'RTA1111111')
-        self.assertEquals(caverphone('riddick'), 'RTK1111111')
-        self.assertEquals(caverphone('ridding'), 'RTNK111111')
-        self.assertEquals(caverphone('riddle'), 'RTA1111111')
-        self.assertEquals(caverphone('riddoch'), 'RTK1111111')
-        self.assertEquals(caverphone('riddock'), 'RTK1111111')
-        self.assertEquals(caverphone('rideout'), 'RTT1111111')
-        self.assertEquals(caverphone('ridgeon'), 'RKN1111111')
-        self.assertEquals(caverphone('ridgewell'), 'RKWA111111')
-        self.assertEquals(caverphone('ridgwell'), 'RKWA111111')
-        self.assertEquals(caverphone('ridland'), 'RTLNT11111')
-        self.assertEquals(caverphone('ridler'), 'RTLA111111')
-        self.assertEquals(caverphone('ridley'), 'RTLA111111')
-        self.assertEquals(caverphone('riederer'), 'RTRA111111')
-        self.assertEquals(caverphone('riedle'), 'RTA1111111')
-        self.assertEquals(caverphone('riely'), 'RLA1111111')
-        self.assertEquals(caverphone('rigby'), 'RKPA111111')
-        self.assertEquals(caverphone('rigger'), 'RKA1111111')
-        self.assertEquals(caverphone('riggs'), 'RKS1111111')
-        self.assertEquals(caverphone('riley'), 'RLA1111111')
-        self.assertEquals(caverphone('rillstone'), 'RSTN111111')
-        self.assertEquals(caverphone('rilly'), 'RLA1111111')
-        self.assertEquals(caverphone('rimeiman'), 'RMMN111111')
-        self.assertEquals(caverphone('rimmer'), 'RMA1111111')
-        self.assertEquals(caverphone('rimmington'), 'RMNKTN1111')
-        self.assertEquals(caverphone('ringer'), 'RNKA111111')
-        self.assertEquals(caverphone('ringrose'), 'RNKRS11111')
-        self.assertEquals(caverphone('riorden'), 'RTN1111111')
-        self.assertEquals(caverphone('ripley'), 'RPLA111111')
-        self.assertEquals(caverphone('ripp'), 'RP11111111')
-        self.assertEquals(caverphone('rippin'), 'RPN1111111')
-        self.assertEquals(caverphone('risk'), 'RSK1111111')
-        self.assertEquals(caverphone('rissman'), 'RSMN111111')
-        self.assertEquals(caverphone('ritcbie'), 'RTKPA11111')
-        self.assertEquals(caverphone('ritchie'), 'RKA1111111')
-        self.assertEquals(caverphone('ritchle'), 'RKA1111111')
-        self.assertEquals(caverphone('rittenberg'), 'RTNPK11111')
-        self.assertEquals(caverphone('rive'), 'RF11111111')
-        self.assertEquals(caverphone('rivers'), 'RFS1111111')
-        self.assertEquals(caverphone('rivett'), 'RFT1111111')
-        self.assertEquals(caverphone('rix'), 'RK11111111')
-        self.assertEquals(caverphone('rixon'), 'RKN1111111')
-        self.assertEquals(caverphone('roach'), 'RK11111111')
-        self.assertEquals(caverphone('roache'), 'RK11111111')
-        self.assertEquals(caverphone('roan'), 'RN11111111')
-        self.assertEquals(caverphone('robb'), 'RP11111111')
-        self.assertEquals(caverphone('robbs'), 'RPS1111111')
-        self.assertEquals(caverphone('roberston'), 'RPSTN11111')
-        self.assertEquals(caverphone('robert'), 'RPT1111111')
-        self.assertEquals(caverphone('roberts'), 'RPTS111111')
-        self.assertEquals(caverphone('robertsan'), 'RPTSN11111')
-        self.assertEquals(caverphone('robertshaw'), 'RPTSA11111')
-        self.assertEquals(caverphone('robertsn'), 'RPTSN11111')
-        self.assertEquals(caverphone('robertson'), 'RPTSN11111')
-        self.assertEquals(caverphone('robetrson'), 'RPTSN11111')
-        self.assertEquals(caverphone('robilliard'), 'RPLT111111')
-        self.assertEquals(caverphone('robins'), 'RPNS111111')
-        self.assertEquals(caverphone('robinson'), 'RPNSN11111')
-        self.assertEquals(caverphone('robjohns'), 'RPNS111111')
-        self.assertEquals(caverphone('robortson'), 'RPTSN11111')
-        self.assertEquals(caverphone('robson'), 'RPSN111111')
-        self.assertEquals(caverphone('rocard'), 'RKT1111111')
-        self.assertEquals(caverphone('roche'), 'RK11111111')
-        self.assertEquals(caverphone('rockliff'), 'RKLF111111')
-        self.assertEquals(caverphone('rodden'), 'RTN1111111')
-        self.assertEquals(caverphone('roddick'), 'RTK1111111')
-        self.assertEquals(caverphone('roderique'), 'RTRKA11111')
-        self.assertEquals(caverphone('rodger'), 'RKA1111111')
-        self.assertEquals(caverphone('rodgers'), 'RKS1111111')
-        self.assertEquals(caverphone('rodgerson'), 'RKSN111111')
-        self.assertEquals(caverphone('rodgrer'), 'RKRA111111')
-        self.assertEquals(caverphone('rodman'), 'RTMN111111')
-        self.assertEquals(caverphone('roe'), 'RA11111111')
-        self.assertEquals(caverphone('roebuck'), 'RPK1111111')
-        self.assertEquals(caverphone('rogan'), 'RKN1111111')
-        self.assertEquals(caverphone('rogen'), 'RKN1111111')
-        self.assertEquals(caverphone('roger'), 'RKA1111111')
-        self.assertEquals(caverphone('rogers'), 'RKS1111111')
-        self.assertEquals(caverphone('rogersion'), 'RKSN111111')
-        self.assertEquals(caverphone('rogerson'), 'RKSN111111')
-        self.assertEquals(caverphone('roggers'), 'RKS1111111')
-        self.assertEquals(caverphone('rohan'), 'RN11111111')
-        self.assertEquals(caverphone('rohertson'), 'RTSN111111')
-        self.assertEquals(caverphone('roland'), 'RLNT111111')
-        self.assertEquals(caverphone('rolfe'), 'RF11111111')
-        self.assertEquals(caverphone('rolinson'), 'RLNSN11111')
-        self.assertEquals(caverphone('rolland'), 'RLNT111111')
-        self.assertEquals(caverphone('rollins'), 'RLNS111111')
-        self.assertEquals(caverphone('rollinson'), 'RLNSN11111')
-        self.assertEquals(caverphone('rollo'), 'RLA1111111')
-        self.assertEquals(caverphone('rolson'), 'RSN1111111')
-        self.assertEquals(caverphone('rolton'), 'RTN1111111')
-        self.assertEquals(caverphone('romeril'), 'RMRA111111')
-        self.assertEquals(caverphone('ronald'), 'RNT1111111')
-        self.assertEquals(caverphone('ronaldson'), 'RNTSN11111')
-        self.assertEquals(caverphone('rooney'), 'RNA1111111')
-        self.assertEquals(caverphone('rorley'), 'RLA1111111')
-        self.assertEquals(caverphone('rosavear'), 'RSFA111111')
-        self.assertEquals(caverphone('roscow'), 'RSKA111111')
-        self.assertEquals(caverphone('rose'), 'RS11111111')
-        self.assertEquals(caverphone('rosenbroc'), 'RSNPRK1111')
-        self.assertEquals(caverphone('rosenbrock'), 'RSNPRK1111')
-        self.assertEquals(caverphone('rosenbrook'), 'RSNPRK1111')
-        self.assertEquals(caverphone('rosenlrock'), 'RSNRK11111')
-        self.assertEquals(caverphone('rosetta'), 'RSTA111111')
-        self.assertEquals(caverphone('rosevear'), 'RSFA111111')
-        self.assertEquals(caverphone('roseveare'), 'RSFA111111')
-        self.assertEquals(caverphone('rosewarne'), 'RSWN111111')
-        self.assertEquals(caverphone('rosie'), 'RSA1111111')
-        self.assertEquals(caverphone('roskilley'), 'RSKLA11111')
-        self.assertEquals(caverphone('ross'), 'RS11111111')
-        self.assertEquals(caverphone('rossbotham'), 'RSPTM11111')
-        self.assertEquals(caverphone('rosser'), 'RSA1111111')
-        self.assertEquals(caverphone('rossiter'), 'RSTA111111')
-        self.assertEquals(caverphone('rosson'), 'RSN1111111')
-        self.assertEquals(caverphone('rothwell'), 'RTWA111111')
-        self.assertEquals(caverphone('rotting'), 'RTNK111111')
-        self.assertEquals(caverphone('rough'), 'RF11111111')
-        self.assertEquals(caverphone('roughan'), 'RFN1111111')
-        self.assertEquals(caverphone('roulston'), 'RSTN111111')
-        self.assertEquals(caverphone('round'), 'RNT1111111')
-        self.assertEquals(caverphone('rourke'), 'RK11111111')
-        self.assertEquals(caverphone('rousc'), 'RSK1111111')
-        self.assertEquals(caverphone('rouse'), 'RS11111111')
-        self.assertEquals(caverphone('rout'), 'RT11111111')
-        self.assertEquals(caverphone('routledge'), 'RTLK111111')
-        self.assertEquals(caverphone('routlege'), 'RTLK111111')
-        self.assertEquals(caverphone('rowan'), 'RWN1111111')
-        self.assertEquals(caverphone('rowden'), 'RTN1111111')
-        self.assertEquals(caverphone('rowe'), 'RA11111111')
-        self.assertEquals(caverphone('rowell'), 'RWA1111111')
-        self.assertEquals(caverphone('rowland'), 'RLNT111111')
-        self.assertEquals(caverphone('rowlands'), 'RLNTS11111')
-        self.assertEquals(caverphone('rowlatt'), 'RLT1111111')
-        self.assertEquals(caverphone('rowley'), 'RLA1111111')
-        self.assertEquals(caverphone('rowse'), 'RS11111111')
-        self.assertEquals(caverphone('roxburgh'), 'RKPA111111')
-        self.assertEquals(caverphone('roy'), 'RA11111111')
-        self.assertEquals(caverphone('royal'), 'RA11111111')
-        self.assertEquals(caverphone('roydhouse'), 'RTS1111111')
-        self.assertEquals(caverphone('rubinson'), 'RPNSN11111')
-        self.assertEquals(caverphone('ruck'), 'RK11111111')
-        self.assertEquals(caverphone('rudd'), 'RT11111111')
-        self.assertEquals(caverphone('ruddiman'), 'RTMN111111')
-        self.assertEquals(caverphone('ruddle'), 'RTA1111111')
-        self.assertEquals(caverphone('ruddy'), 'RTA1111111')
-        self.assertEquals(caverphone('rudhall'), 'RTA1111111')
-        self.assertEquals(caverphone('rudkin'), 'RTKN111111')
-        self.assertEquals(caverphone('rudland'), 'RTLNT11111')
-        self.assertEquals(caverphone('ruff'), 'RF11111111')
-        self.assertEquals(caverphone('ruffell'), 'RFA1111111')
-        self.assertEquals(caverphone('ruhen'), 'RN11111111')
-        self.assertEquals(caverphone('rule'), 'RA11111111')
-        self.assertEquals(caverphone('rumble'), 'RMPA111111')
-        self.assertEquals(caverphone('rumley'), 'RMLA111111')
-        self.assertEquals(caverphone('rump'), 'RMP1111111')
-        self.assertEquals(caverphone('rumsey'), 'RMSA111111')
-        self.assertEquals(caverphone('runcie'), 'RNSA111111')
-        self.assertEquals(caverphone('runciman'), 'RNSMN11111')
-        self.assertEquals(caverphone('rundle'), 'RNTA111111')
-        self.assertEquals(caverphone('rusbatch'), 'RSPK111111')
-        self.assertEquals(caverphone('rush-munro'), 'RSMNRA1111')
-        self.assertEquals(caverphone('rush'), 'RS11111111')
-        self.assertEquals(caverphone('rushton'), 'RSTN111111')
-        self.assertEquals(caverphone('rushworth'), 'RSWT111111')
-        self.assertEquals(caverphone('russell'), 'RSA1111111')
-        self.assertEquals(caverphone('rust'), 'RST1111111')
-        self.assertEquals(caverphone('ruston'), 'RSTN111111')
-        self.assertEquals(caverphone('ruth'), 'RT11111111')
-        self.assertEquals(caverphone('rutherfor'), 'RTFA111111')
-        self.assertEquals(caverphone('rutherforcl'), 'RTFKA11111')
-        self.assertEquals(caverphone('rutherford'), 'RTFT111111')
-        self.assertEquals(caverphone('ruthsatz'), 'RTSTS11111')
-        self.assertEquals(caverphone('ruthven'), 'RTFN111111')
-        self.assertEquals(caverphone('rutland'), 'RTLNT11111')
-        self.assertEquals(caverphone('rutledge'), 'RTLK111111')
-        self.assertEquals(caverphone('rutter'), 'RTA1111111')
-        self.assertEquals(caverphone('ruttledge'), 'RTLK111111')
-        self.assertEquals(caverphone('ryall'), 'RA11111111')
-        self.assertEquals(caverphone('ryan'), 'RN11111111')
-        self.assertEquals(caverphone('ryburn'), 'RPN1111111')
-        self.assertEquals(caverphone('ryder'), 'RTA1111111')
-        self.assertEquals(caverphone('rylance'), 'RLNK111111')
-        self.assertEquals(caverphone('rylatt'), 'RLT1111111')
-        self.assertEquals(caverphone('sabiston'), 'SPSTN11111')
-        self.assertEquals(caverphone('sachtler'), 'SKTLA11111')
-        self.assertEquals(caverphone('sadd'), 'ST11111111')
-        self.assertEquals(caverphone('sadler'), 'STLA111111')
-        self.assertEquals(caverphone('safey'), 'SFA1111111')
-        self.assertEquals(caverphone('sagar'), 'SKA1111111')
-        self.assertEquals(caverphone('sage'), 'SK11111111')
-        self.assertEquals(caverphone('saggers'), 'SKS1111111')
-        self.assertEquals(caverphone('saimond'), 'SMNT111111')
-        self.assertEquals(caverphone('sainsbury'), 'SNSPRA1111')
-        self.assertEquals(caverphone('salinger'), 'SLNKA11111')
-        self.assertEquals(caverphone('salisbury'), 'SLSPRA1111')
-        self.assertEquals(caverphone('sallderson'), 'STSN111111')
-        self.assertEquals(caverphone('salmon'), 'SMN1111111')
-        self.assertEquals(caverphone('salmond'), 'SMNT111111')
-        self.assertEquals(caverphone('salt'), 'ST11111111')
-        self.assertEquals(caverphone('salter'), 'STA1111111')
-        self.assertEquals(caverphone('sampson'), 'SMPSN11111')
-        self.assertEquals(caverphone('samson'), 'SMSN111111')
-        self.assertEquals(caverphone('samuda'), 'SMTA111111')
-        self.assertEquals(caverphone('samuel'), 'SMA1111111')
-        self.assertEquals(caverphone('samuels'), 'SMS1111111')
-        self.assertEquals(caverphone('sanaway'), 'SNWA111111')
-        self.assertEquals(caverphone('sand'), 'SNT1111111')
-        self.assertEquals(caverphone('sanders'), 'SNTS111111')
-        self.assertEquals(caverphone('sanderson'), 'SNTSN11111')
-        self.assertEquals(caverphone('sandes'), 'SNTS111111')
-        self.assertEquals(caverphone('sandey'), 'SNTA111111')
-        self.assertEquals(caverphone('sandilands'), 'SNTLNTS111')
-        self.assertEquals(caverphone('sandland'), 'SNTLNT1111')
-        self.assertEquals(caverphone('sandle'), 'SNTA111111')
-        self.assertEquals(caverphone('sando'), 'SNTA111111')
-        self.assertEquals(caverphone('sandom'), 'SNTM111111')
-        self.assertEquals(caverphone('sandrey'), 'SNTRA11111')
-        self.assertEquals(caverphone('sandry'), 'SNTRA11111')
-        self.assertEquals(caverphone('sands'), 'SNTS111111')
-        self.assertEquals(caverphone('sandys'), 'SNTS111111')
-        self.assertEquals(caverphone('sangster'), 'SNKSTA1111')
-        self.assertEquals(caverphone('sansom'), 'SNSM111111')
-        self.assertEquals(caverphone('sanson'), 'SNSN111111')
-        self.assertEquals(caverphone('sapsford'), 'SPSFT11111')
-        self.assertEquals(caverphone('sapwell'), 'SPWA111111')
-        self.assertEquals(caverphone('sargeant'), 'SKNT111111')
-        self.assertEquals(caverphone('sarginson'), 'SKNSN11111')
-        self.assertEquals(caverphone('sarkies'), 'SKS1111111')
-        self.assertEquals(caverphone('satterthwaite'), 'STTWT11111')
-        self.assertEquals(caverphone('saul'), 'SA11111111')
-        self.assertEquals(caverphone('saunders'), 'SNTS111111')
-        self.assertEquals(caverphone('saunderson'), 'SNTSN11111')
-        self.assertEquals(caverphone('savage'), 'SFK1111111')
-        self.assertEquals(caverphone('savigny'), 'SFKNA11111')
-        self.assertEquals(caverphone('savory'), 'SFRA111111')
-        self.assertEquals(caverphone('sawers'), 'SWS1111111')
-        self.assertEquals(caverphone('sawyer'), 'SWA1111111')
-        self.assertEquals(caverphone('saxby'), 'SKPA111111')
-        self.assertEquals(caverphone('saxon'), 'SKN1111111')
-        self.assertEquals(caverphone('saxton'), 'SKTN111111')
-        self.assertEquals(caverphone('say'), 'SA11111111')
-        self.assertEquals(caverphone('sayer'), 'SA11111111')
-        self.assertEquals(caverphone('sayers'), 'SS11111111')
-        self.assertEquals(caverphone('scager'), 'SKKA111111')
-        self.assertEquals(caverphone('scaife'), 'SKF1111111')
-        self.assertEquals(caverphone('scales'), 'SKLS111111')
-        self.assertEquals(caverphone('scammell'), 'SKMA111111')
-        self.assertEquals(caverphone('scandrett'), 'SKNTRT1111')
-        self.assertEquals(caverphone('scanlan'), 'SKNLN11111')
-        self.assertEquals(caverphone('scanlon'), 'SKNLN11111')
-        self.assertEquals(caverphone('scannell'), 'SKNA111111')
-        self.assertEquals(caverphone('scarfe'), 'SKF1111111')
-        self.assertEquals(caverphone('schapansk'), 'SKPNSK1111')
-        self.assertEquals(caverphone('schapanski'), 'SKPNSKA111')
-        self.assertEquals(caverphone('schaper'), 'SKPA111111')
-        self.assertEquals(caverphone('schaumann'), 'SKMN111111')
-        self.assertEquals(caverphone('scherek'), 'SKRK111111')
-        self.assertEquals(caverphone('schlaadt'), 'SKLT111111')
-        self.assertEquals(caverphone('schluter'), 'SKLTA11111')
-        self.assertEquals(caverphone('schmaltz'), 'SKMTS11111')
-        self.assertEquals(caverphone('schmeltz'), 'SKMTS11111')
-        self.assertEquals(caverphone('schmelz'), 'SKMS111111')
-        self.assertEquals(caverphone('schmetz'), 'SKMTS11111')
-        self.assertEquals(caverphone('schmidt'), 'SKMT111111')
-        self.assertEquals(caverphone('schofield'), 'SKFT111111')
-        self.assertEquals(caverphone('scholes'), 'SKLS111111')
-        self.assertEquals(caverphone('schollar'), 'SKLA111111')
-        self.assertEquals(caverphone('scholtz'), 'SKTS111111')
-        self.assertEquals(caverphone('schrick'), 'SKRK111111')
-        self.assertEquals(caverphone('schroeder'), 'SKRTA11111')
-        self.assertEquals(caverphone('schruffer'), 'SKRFA11111')
-        self.assertEquals(caverphone('schulenbe'), 'SKLNP11111')
-        self.assertEquals(caverphone('schulenberg'), 'SKLNPK1111')
-        self.assertEquals(caverphone('schulenbur'), 'SKLNPA1111')
-        self.assertEquals(caverphone('schulenburg'), 'SKLNPK1111')
-        self.assertEquals(caverphone('schultz'), 'SKTS111111')
-        self.assertEquals(caverphone('schultze'), 'SKTS111111')
-        self.assertEquals(caverphone('schwartfeger'), 'SKWTFKA111')
-        self.assertEquals(caverphone('scobie'), 'SKPA111111')
-        self.assertEquals(caverphone('scoble'), 'SKPA111111')
-        self.assertEquals(caverphone('scoffeld'), 'SKFT111111')
-        self.assertEquals(caverphone('scofieid'), 'SKFT111111')
-        self.assertEquals(caverphone('scofield'), 'SKFT111111')
-        self.assertEquals(caverphone('scohle'), 'SKA1111111')
-        self.assertEquals(caverphone('scoles'), 'SKLS111111')
-        self.assertEquals(caverphone('scollay'), 'SKLA111111')
-        self.assertEquals(caverphone('scolon'), 'SKLN111111')
-        self.assertEquals(caverphone('scoones'), 'SKNS111111')
-        self.assertEquals(caverphone('scores'), 'SKRS111111')
-        self.assertEquals(caverphone('scorgie'), 'SKKA111111')
-        self.assertEquals(caverphone('scott'), 'SKT1111111')
-        self.assertEquals(caverphone('scoular'), 'SKLA111111')
-        self.assertEquals(caverphone('scouler'), 'SKLA111111')
-        self.assertEquals(caverphone('scoullar'), 'SKLA111111')
-        self.assertEquals(caverphone('scrivener'), 'SKRFNA1111')
-        self.assertEquals(caverphone('scrymgeour'), 'SKRMKA1111')
-        self.assertEquals(caverphone('scudamore'), 'SKTMA11111')
-        self.assertEquals(caverphone('scully'), 'SKLA111111')
-        self.assertEquals(caverphone('sculpher'), 'SKFA111111')
-        self.assertEquals(caverphone('scurr'), 'SKA1111111')
-        self.assertEquals(caverphone('seager'), 'SKA1111111')
-        self.assertEquals(caverphone('seal'), 'SA11111111')
-        self.assertEquals(caverphone('seales'), 'SLS1111111')
-        self.assertEquals(caverphone('seaman'), 'SMN1111111')
-        self.assertEquals(caverphone('seamer'), 'SMA1111111')
-        self.assertEquals(caverphone('searchfield'), 'SKFT111111')
-        self.assertEquals(caverphone('searchileld'), 'SKLT111111')
-        self.assertEquals(caverphone('searl'), 'SA11111111')
-        self.assertEquals(caverphone('searle'), 'SA11111111')
-        self.assertEquals(caverphone('season'), 'SSN1111111')
-        self.assertEquals(caverphone('seath'), 'ST11111111')
-        self.assertEquals(caverphone('seaton'), 'STN1111111')
-        self.assertEquals(caverphone('seatree'), 'STRA111111')
-        self.assertEquals(caverphone('sedal'), 'STA1111111')
-        self.assertEquals(caverphone('seddon'), 'STN1111111')
-        self.assertEquals(caverphone('seed'), 'ST11111111')
-        self.assertEquals(caverphone('seehof'), 'SF11111111')
-        self.assertEquals(caverphone('seelen'), 'SLN1111111')
-        self.assertEquals(caverphone('seguin'), 'SKN1111111')
-        self.assertEquals(caverphone('seherek'), 'SRK1111111')
-        self.assertEquals(caverphone('seidelin'), 'STLN111111')
-        self.assertEquals(caverphone('seigle'), 'SKA1111111')
-        self.assertEquals(caverphone('selby'), 'SPA1111111')
-        self.assertEquals(caverphone('self'), 'SF11111111')
-        self.assertEquals(caverphone('selige'), 'SLK1111111')
-        self.assertEquals(caverphone('sell'), 'SA11111111')
-        self.assertEquals(caverphone('sellar'), 'SLA1111111')
-        self.assertEquals(caverphone('sellars'), 'SLS1111111')
-        self.assertEquals(caverphone('seller'), 'SLA1111111')
-        self.assertEquals(caverphone('semple'), 'SMPA111111')
-        self.assertEquals(caverphone('senior'), 'SNA1111111')
-        self.assertEquals(caverphone('seott'), 'ST11111111')
-        self.assertEquals(caverphone('seque'), 'SKA1111111')
-        self.assertEquals(caverphone('service'), 'SFK1111111')
-        self.assertEquals(caverphone('setter'), 'STA1111111')
-        self.assertEquals(caverphone('sevenson'), 'SFNSN11111')
-        self.assertEquals(caverphone('sew hoy'), 'SWA1111111')
-        self.assertEquals(caverphone('sewart'), 'SWT1111111')
-        self.assertEquals(caverphone('sewell'), 'SWA1111111')
-        self.assertEquals(caverphone('sewhoy'), 'SWA1111111')
-        self.assertEquals(caverphone('sexton'), 'SKTN111111')
-        self.assertEquals(caverphone('seymour'), 'SMA1111111')
-        self.assertEquals(caverphone('shackell'), 'SKA1111111')
-        self.assertEquals(caverphone('shackleton'), 'SKLTN11111')
-        self.assertEquals(caverphone('shacklock'), 'SKLK111111')
-        self.assertEquals(caverphone('shadbolt'), 'STPT111111')
-        self.assertEquals(caverphone('shallcrass'), 'SKRS111111')
-        self.assertEquals(caverphone('shallish'), 'SLS1111111')
-        self.assertEquals(caverphone('shalpe'), 'SP11111111')
-        self.assertEquals(caverphone('shanahan'), 'SNN1111111')
-        self.assertEquals(caverphone('shand'), 'SNT1111111')
-        self.assertEquals(caverphone('shankland'), 'SNKLNT1111')
-        self.assertEquals(caverphone('shanks'), 'SNKS111111')
-        self.assertEquals(caverphone('shann'), 'SN11111111')
-        self.assertEquals(caverphone('shannahan'), 'SNN1111111')
-        self.assertEquals(caverphone('shannon'), 'SNN1111111')
-        self.assertEquals(caverphone('shardlow'), 'STLA111111')
-        self.assertEquals(caverphone('sharkey'), 'SKA1111111')
-        self.assertEquals(caverphone('sharkie'), 'SKA1111111')
-        self.assertEquals(caverphone('sharp'), 'SP11111111')
-        self.assertEquals(caverphone('sharpe'), 'SP11111111')
-        self.assertEquals(caverphone('shaw'), 'SA11111111')
-        self.assertEquals(caverphone('shea-lawlo'), 'SLLA111111')
-        self.assertEquals(caverphone('shea-lawlor'), 'SLLA111111')
-        self.assertEquals(caverphone('shea'), 'SA11111111')
-        self.assertEquals(caverphone('shearer'), 'SRA1111111')
-        self.assertEquals(caverphone('shearing'), 'SRNK111111')
-        self.assertEquals(caverphone('shears'), 'SS11111111')
-        self.assertEquals(caverphone('shearsby'), 'SSPA111111')
-        self.assertEquals(caverphone('sheath'), 'ST11111111')
-        self.assertEquals(caverphone('sheddan'), 'STN1111111')
-        self.assertEquals(caverphone('sheed'), 'ST11111111')
-        self.assertEquals(caverphone('sheehan'), 'SN11111111')
-        self.assertEquals(caverphone('sheehy'), 'SA11111111')
-        self.assertEquals(caverphone('sheen'), 'SN11111111')
-        self.assertEquals(caverphone('sheenan'), 'SNN1111111')
-        self.assertEquals(caverphone('sheldrake'), 'STRK111111')
-        self.assertEquals(caverphone('shelton'), 'STN1111111')
-        self.assertEquals(caverphone('shelverton'), 'SFTN111111')
-        self.assertEquals(caverphone('shene'), 'SN11111111')
-        self.assertEquals(caverphone('shenken'), 'SNKN111111')
-        self.assertEquals(caverphone('shennan'), 'SNN1111111')
-        self.assertEquals(caverphone('shephard'), 'SFT1111111')
-        self.assertEquals(caverphone('shepherd'), 'SFT1111111')
-        self.assertEquals(caverphone('shepparcl'), 'SPKA111111')
-        self.assertEquals(caverphone('sheppard'), 'SPT1111111')
-        self.assertEquals(caverphone('shepperd'), 'SPT1111111')
-        self.assertEquals(caverphone('shepphard'), 'SPFT111111')
-        self.assertEquals(caverphone('sherburd'), 'SPT1111111')
-        self.assertEquals(caverphone('sherer'), 'SRA1111111')
-        self.assertEquals(caverphone('sheridan'), 'SRTN111111')
-        self.assertEquals(caverphone('sheridian'), 'SRTN111111')
-        self.assertEquals(caverphone('sheriff'), 'SRF1111111')
-        self.assertEquals(caverphone('sherlaw'), 'SLA1111111')
-        self.assertEquals(caverphone('sherlock'), 'SLK1111111')
-        self.assertEquals(caverphone('sherriff'), 'SRF1111111')
-        self.assertEquals(caverphone('sherwill'), 'SWA1111111')
-        self.assertEquals(caverphone('sherwood'), 'SWT1111111')
-        self.assertEquals(caverphone('shieffelbien'), 'SFPN111111')
-        self.assertEquals(caverphone('shiel'), 'SA11111111')
-        self.assertEquals(caverphone('shields'), 'STS1111111')
-        self.assertEquals(caverphone('shiels'), 'SS11111111')
-        self.assertEquals(caverphone('shier'), 'SA11111111')
-        self.assertEquals(caverphone('shierlaw'), 'SLA1111111')
-        self.assertEquals(caverphone('shiffington'), 'SFNKTN1111')
-        self.assertEquals(caverphone('shilcock'), 'SKK1111111')
-        self.assertEquals(caverphone('shillum'), 'SLM1111111')
-        self.assertEquals(caverphone('shilton'), 'STN1111111')
-        self.assertEquals(caverphone('shine'), 'SN11111111')
-        self.assertEquals(caverphone('shing'), 'SNK1111111')
-        self.assertEquals(caverphone('shipman'), 'SPMN111111')
-        self.assertEquals(caverphone('shirer'), 'SRA1111111')
-        self.assertEquals(caverphone('shires'), 'SRS1111111')
-        self.assertEquals(caverphone('shirley'), 'SLA1111111')
-        self.assertEquals(caverphone('shirreffs'), 'SRFS111111')
-        self.assertEquals(caverphone('shore'), 'SA11111111')
-        self.assertEquals(caverphone('shorney'), 'SNA1111111')
-        self.assertEquals(caverphone('short'), 'ST11111111')
-        self.assertEquals(caverphone('shortt'), 'ST11111111')
-        self.assertEquals(caverphone('shrimpton'), 'SRMPTN1111')
-        self.assertEquals(caverphone('shrubsole'), 'SRPSA11111')
-        self.assertEquals(caverphone('shuffill'), 'SFA1111111')
-        self.assertEquals(caverphone('shugar'), 'SKA1111111')
-        self.assertEquals(caverphone('shutt'), 'ST11111111')
-        self.assertEquals(caverphone('sibbald'), 'SPT1111111')
-        self.assertEquals(caverphone('sibley'), 'SPLA111111')
-        self.assertEquals(caverphone('sickels'), 'SKS1111111')
-        self.assertEquals(caverphone('sidell'), 'STA1111111')
-        self.assertEquals(caverphone('sidey'), 'STA1111111')
-        self.assertEquals(caverphone('sidon'), 'STN1111111')
-        self.assertEquals(caverphone('sidoy'), 'STA1111111')
-        self.assertEquals(caverphone('sievwright'), 'SFRT111111')
-        self.assertEquals(caverphone('silk'), 'SK11111111')
-        self.assertEquals(caverphone('silken'), 'SKN1111111')
-        self.assertEquals(caverphone('silsby'), 'SSPA111111')
-        self.assertEquals(caverphone('silva'), 'SFA1111111')
-        self.assertEquals(caverphone('silver'), 'SFA1111111')
-        self.assertEquals(caverphone('silverstone'), 'SFSTN11111')
-        self.assertEquals(caverphone('silvertsen'), 'SFTSN11111')
-        self.assertEquals(caverphone('silvester'), 'SFSTA11111')
-        self.assertEquals(caverphone('silvi'), 'SFA1111111')
-        self.assertEquals(caverphone('sim'), 'SM11111111')
-        self.assertEquals(caverphone('sime'), 'SM11111111')
-        self.assertEquals(caverphone('simeon'), 'SMN1111111')
-        self.assertEquals(caverphone('simes'), 'SMS1111111')
-        self.assertEquals(caverphone('simkin'), 'SMKN111111')
-        self.assertEquals(caverphone('simm'), 'SM11111111')
-        self.assertEquals(caverphone('simmonds'), 'SMNTS11111')
-        self.assertEquals(caverphone('simmons'), 'SMNS111111')
-        self.assertEquals(caverphone('simms'), 'SMS1111111')
-        self.assertEquals(caverphone('simnons'), 'SMNNS11111')
-        self.assertEquals(caverphone('simon'), 'SMN1111111')
-        self.assertEquals(caverphone('simons'), 'SMNS111111')
-        self.assertEquals(caverphone('simonsen'), 'SMNSN11111')
-        self.assertEquals(caverphone('simpkins'), 'SMPKNS1111')
-        self.assertEquals(caverphone('simpson'), 'SMPSN11111')
-        self.assertEquals(caverphone('sims'), 'SMS1111111')
-        self.assertEquals(caverphone('simson'), 'SMSN111111')
-        self.assertEquals(caverphone('sinclair'), 'SNKLA11111')
-        self.assertEquals(caverphone('sinclait'), 'SNKLT11111')
-        self.assertEquals(caverphone('sinclar'), 'SNKLA11111')
-        self.assertEquals(caverphone('sincock'), 'SNKK111111')
-        self.assertEquals(caverphone('sincok'), 'SNKK111111')
-        self.assertEquals(caverphone('sing'), 'SNK1111111')
-        self.assertEquals(caverphone('singleton'), 'SNKLTN1111')
-        self.assertEquals(caverphone('sings'), 'SNKS111111')
-        self.assertEquals(caverphone('sinith'), 'SNT1111111')
-        self.assertEquals(caverphone('sinnamon'), 'SNMN111111')
-        self.assertEquals(caverphone('sinton'), 'SNTN111111')
-        self.assertEquals(caverphone('sirnmonds'), 'SNMNTS1111')
-        self.assertEquals(caverphone('sise'), 'SS11111111')
-        self.assertEquals(caverphone('sitley'), 'STLA111111')
-        self.assertEquals(caverphone('sitopson'), 'STPSN11111')
-        self.assertEquals(caverphone('sivell'), 'SFA1111111')
-        self.assertEquals(caverphone('sivertsen'), 'SFTSN11111')
-        self.assertEquals(caverphone('sivewright'), 'SFRT111111')
-        self.assertEquals(caverphone('sixton'), 'SKTN111111')
-        self.assertEquals(caverphone('sizen'), 'SSN1111111')
-        self.assertEquals(caverphone('sizer'), 'SSA1111111')
-        self.assertEquals(caverphone('skeane'), 'SKN1111111')
-        self.assertEquals(caverphone('skeels'), 'SKS1111111')
-        self.assertEquals(caverphone('skeen'), 'SKN1111111')
-        self.assertEquals(caverphone('skeene'), 'SKN1111111')
-        self.assertEquals(caverphone('skeet'), 'SKT1111111')
-        self.assertEquals(caverphone('skelton'), 'SKTN111111')
-        self.assertEquals(caverphone('skene'), 'SKN1111111')
-        self.assertEquals(caverphone('skeoch'), 'SKK1111111')
-        self.assertEquals(caverphone('skerrett'), 'SKRT111111')
-        self.assertEquals(caverphone('skiffington'), 'SKFNKTN111')
-        self.assertEquals(caverphone('skilton'), 'SKTN111111')
-        self.assertEquals(caverphone('skimer'), 'SKMA111111')
-        self.assertEquals(caverphone('skinner'), 'SKNA111111')
-        self.assertEquals(caverphone('skipworth'), 'SKPWT11111')
-        self.assertEquals(caverphone('skirving'), 'SKFNK11111')
-        self.assertEquals(caverphone('skow'), 'SKA1111111')
-        self.assertEquals(caverphone('skrimpton'), 'SKRMPTN111')
-        self.assertEquals(caverphone('skuse'), 'SKS1111111')
-        self.assertEquals(caverphone('slack'), 'SLK1111111')
-        self.assertEquals(caverphone('slade'), 'SLT1111111')
-        self.assertEquals(caverphone('slater'), 'SLTA111111')
-        self.assertEquals(caverphone('slatter'), 'SLTA111111')
-        self.assertEquals(caverphone('slattery'), 'SLTRA11111')
-        self.assertEquals(caverphone('slaughter'), 'SLTA111111')
-        self.assertEquals(caverphone('slee'), 'SLA1111111')
-        self.assertEquals(caverphone('sleeman'), 'SLMN111111')
-        self.assertEquals(caverphone('slemint'), 'SLMNT11111')
-        self.assertEquals(caverphone('slent'), 'SLNT111111')
-        self.assertEquals(caverphone('slight'), 'SLT1111111')
-        self.assertEquals(caverphone('sligo'), 'SLKA111111')
-        self.assertEquals(caverphone('slinner'), 'SLNA111111')
-        self.assertEquals(caverphone('sloan'), 'SLN1111111')
-        self.assertEquals(caverphone('sloper'), 'SLPA111111')
-        self.assertEquals(caverphone('slovley'), 'SLFLA11111')
-        self.assertEquals(caverphone('slowey'), 'SLWA111111')
-        self.assertEquals(caverphone('slowley'), 'SLLA111111')
-        self.assertEquals(caverphone('slowly'), 'SLLA111111')
-        self.assertEquals(caverphone('slyfield'), 'SLFT111111')
-        self.assertEquals(caverphone('smail'), 'SMA1111111')
-        self.assertEquals(caverphone('smaill'), 'SMA1111111')
-        self.assertEquals(caverphone('smales'), 'SMLS111111')
-        self.assertEquals(caverphone('small'), 'SMA1111111')
-        self.assertEquals(caverphone('smalley'), 'SMLA111111')
-        self.assertEquals(caverphone('smallman'), 'SMMN111111')
-        self.assertEquals(caverphone('smart'), 'SMT1111111')
-        self.assertEquals(caverphone('smea]'), 'SMA1111111')
-        self.assertEquals(caverphone('smeal'), 'SMA1111111')
-        self.assertEquals(caverphone('smear'), 'SMA1111111')
-        self.assertEquals(caverphone('smeaton'), 'SMTN111111')
-        self.assertEquals(caverphone('smedley'), 'SMTLA11111')
-        self.assertEquals(caverphone('smellie'), 'SMLA111111')
-        self.assertEquals(caverphone('smethurst'), 'SMTST11111')
-        self.assertEquals(caverphone('smiley'), 'SMLA111111')
-        self.assertEquals(caverphone('smitb'), 'SMTP111111')
-        self.assertEquals(caverphone('smith-palmer'), 'SMTPMA1111')
-        self.assertEquals(caverphone('smith'), 'SMT1111111')
-        self.assertEquals(caverphone('smither'), 'SMTA111111')
-        self.assertEquals(caverphone('smithpalmer'), 'SMTPMA1111')
-        self.assertEquals(caverphone('smithson'), 'SMTSN11111')
-        self.assertEquals(caverphone('smitl'), 'SMTA111111')
-        self.assertEquals(caverphone('smolenski'), 'SMLNSKA111')
-        self.assertEquals(caverphone('smyth'), 'SMT1111111')
-        self.assertEquals(caverphone('smythe'), 'SMT1111111')
-        self.assertEquals(caverphone('sneade'), 'SNT1111111')
-        self.assertEquals(caverphone('sneddon'), 'SNTN111111')
-        self.assertEquals(caverphone('snell'), 'SNA1111111')
-        self.assertEquals(caverphone('snelleksz'), 'SNLKS11111')
-        self.assertEquals(caverphone('snook'), 'SNK1111111')
-        self.assertEquals(caverphone('snow'), 'SNA1111111')
-        self.assertEquals(caverphone('snowball'), 'SNPA111111')
-        self.assertEquals(caverphone('snowden'), 'SNTN111111')
-        self.assertEquals(caverphone('snowdon'), 'SNTN111111')
-        self.assertEquals(caverphone('soden'), 'STN1111111')
-        self.assertEquals(caverphone('solomon'), 'SLMN111111')
-        self.assertEquals(caverphone('somerviile'), 'SMFA111111')
-        self.assertEquals(caverphone('somervill'), 'SMFA111111')
-        self.assertEquals(caverphone('somerville'), 'SMFA111111')
-        self.assertEquals(caverphone('somes'), 'SMS1111111')
-        self.assertEquals(caverphone('sommerfield'), 'SMFT111111')
-        self.assertEquals(caverphone('sommerville'), 'SMFA111111')
-        self.assertEquals(caverphone('sonntag'), 'SNTK111111')
-        self.assertEquals(caverphone('sontag'), 'SNTK111111')
-        self.assertEquals(caverphone('soper'), 'SPA1111111')
-        self.assertEquals(caverphone('sorenson'), 'SRNSN11111')
-        self.assertEquals(caverphone('soulsby'), 'SSPA111111')
-        self.assertEquals(caverphone('soundy'), 'SNTA111111')
-        self.assertEquals(caverphone('souness'), 'SNS1111111')
-        self.assertEquals(caverphone('sourdon'), 'STN1111111')
-        self.assertEquals(caverphone('souter'), 'STA1111111')
-        self.assertEquals(caverphone('south'), 'ST11111111')
-        self.assertEquals(caverphone('southall'), 'STA1111111')
-        self.assertEquals(caverphone('southam'), 'STM1111111')
-        self.assertEquals(caverphone('southberg'), 'STPK111111')
-        self.assertEquals(caverphone('southern'), 'STN1111111')
-        self.assertEquals(caverphone('southey'), 'STA1111111')
-        self.assertEquals(caverphone('southorn'), 'STN1111111')
-        self.assertEquals(caverphone('soutter'), 'STA1111111')
-        self.assertEquals(caverphone('spain'), 'SPN1111111')
-        self.assertEquals(caverphone('spalding'), 'SPTNK11111')
-        self.assertEquals(caverphone('spargo'), 'SPKA111111')
-        self.assertEquals(caverphone('sparks'), 'SPKS111111')
-        self.assertEquals(caverphone('sparnon'), 'SPNN111111')
-        self.assertEquals(caverphone('sparrow'), 'SPRA111111')
-        self.assertEquals(caverphone('spatz'), 'SPTS111111')
-        self.assertEquals(caverphone('spaul'), 'SPA1111111')
-        self.assertEquals(caverphone('spavin'), 'SPFN111111')
-        self.assertEquals(caverphone('spear'), 'SPA1111111')
-        self.assertEquals(caverphone('spedding'), 'SPTNK11111')
-        self.assertEquals(caverphone('speden'), 'SPTN111111')
-        self.assertEquals(caverphone('speid'), 'SPT1111111')
-        self.assertEquals(caverphone('speight'), 'SPT1111111')
-        self.assertEquals(caverphone('speir'), 'SPA1111111')
-        self.assertEquals(caverphone('speirs'), 'SPS1111111')
-        self.assertEquals(caverphone('spell'), 'SPA1111111')
-        self.assertEquals(caverphone('spellman'), 'SPMN111111')
-        self.assertEquals(caverphone('spence'), 'SPNK111111')
-        self.assertEquals(caverphone('spencer'), 'SPNSA11111')
-        self.assertEquals(caverphone('spiers'), 'SPS1111111')
-        self.assertEquals(caverphone('spillane'), 'SPLN111111')
-        self.assertEquals(caverphone('spinks'), 'SPNKS11111')
-        self.assertEquals(caverphone('spinner'), 'SPNA111111')
-        self.assertEquals(caverphone('spiro'), 'SPRA111111')
-        self.assertEquals(caverphone('spong'), 'SPNK111111')
-        self.assertEquals(caverphone('spooner'), 'SPNA111111')
-        self.assertEquals(caverphone('spowart'), 'SPWT111111')
-        self.assertEquals(caverphone('spragg'), 'SPRK111111')
-        self.assertEquals(caverphone('spraggon'), 'SPRKN11111')
-        self.assertEquals(caverphone('sprague'), 'SPRKA11111')
-        self.assertEquals(caverphone('spratt'), 'SPRT111111')
-        self.assertEquals(caverphone('spray'), 'SPRA111111')
-        self.assertEquals(caverphone('spring'), 'SPRNK11111')
-        self.assertEquals(caverphone('springhall'), 'SPRNA11111')
-        self.assertEquals(caverphone('sproat'), 'SPRT111111')
-        self.assertEquals(caverphone('sprott'), 'SPRT111111')
-        self.assertEquals(caverphone('sproule'), 'SPRA111111')
-        self.assertEquals(caverphone('sproull'), 'SPRA111111')
-        self.assertEquals(caverphone('spurden'), 'SPTN111111')
-        self.assertEquals(caverphone('sputter'), 'SPTA111111')
-        self.assertEquals(caverphone('squiness'), 'SKNS111111')
-        self.assertEquals(caverphone('squire'), 'SKA1111111')
-        self.assertEquals(caverphone('squires'), 'SKRS111111')
-        self.assertEquals(caverphone('st george'), 'STKK111111')
-        self.assertEquals(caverphone('stabb'), 'STP1111111')
-        self.assertEquals(caverphone('stables'), 'STPLS11111')
-        self.assertEquals(caverphone('stackhouse'), 'STKS111111')
-        self.assertEquals(caverphone('stade'), 'STT1111111')
-        self.assertEquals(caverphone('stafford'), 'STFT111111')
-        self.assertEquals(caverphone('stagpoole'), 'STKPA11111')
-        self.assertEquals(caverphone('staines'), 'STNS111111')
-        self.assertEquals(caverphone('stainton'), 'STNTN11111')
-        self.assertEquals(caverphone('staite'), 'STT1111111')
-        self.assertEquals(caverphone('stakey'), 'STKA111111')
-        self.assertEquals(caverphone('stalker'), 'STKA111111')
-        self.assertEquals(caverphone('stallard'), 'STLT111111')
-        self.assertEquals(caverphone('stammers'), 'STMS111111')
-        self.assertEquals(caverphone('stamper'), 'STMPA11111')
-        self.assertEquals(caverphone('stanafield'), 'STNFT11111')
-        self.assertEquals(caverphone('stanaway'), 'STNWA11111')
-        self.assertEquals(caverphone('stanbrook'), 'STNPRK1111')
-        self.assertEquals(caverphone('standen'), 'STNTN11111')
-        self.assertEquals(caverphone('standfield'), 'STNTFT1111')
-        self.assertEquals(caverphone('standring'), 'STNTRNK111')
-        self.assertEquals(caverphone('stanford'), 'STNFT11111')
-        self.assertEquals(caverphone('staniford'), 'STNFT11111')
-        self.assertEquals(caverphone('stanley'), 'STNLA11111')
-        self.assertEquals(caverphone('stannens'), 'STNNS11111')
-        self.assertEquals(caverphone('stanners'), 'STNS111111')
-        self.assertEquals(caverphone('stanton'), 'STNTN11111')
-        self.assertEquals(caverphone('staples'), 'STPLS11111')
-        self.assertEquals(caverphone('stapleton'), 'STPLTN1111')
-        self.assertEquals(caverphone('starham'), 'STM1111111')
-        self.assertEquals(caverphone('stark'), 'STK1111111')
-        self.assertEquals(caverphone('starkey'), 'STKA111111')
-        self.assertEquals(caverphone('starr'), 'STA1111111')
-        self.assertEquals(caverphone('statham'), 'STTM111111')
-        self.assertEquals(caverphone('staunton'), 'STNTN11111')
-        self.assertEquals(caverphone('stead'), 'STT1111111')
-        self.assertEquals(caverphone('steadman'), 'STTMN11111')
-        self.assertEquals(caverphone('stedman'), 'STTMN11111')
-        self.assertEquals(caverphone('stedward'), 'STTWT11111')
-        self.assertEquals(caverphone('steedman'), 'STTMN11111')
-        self.assertEquals(caverphone('steeds'), 'STTS111111')
-        self.assertEquals(caverphone('steel'), 'STA1111111')
-        self.assertEquals(caverphone('steele'), 'STA1111111')
-        self.assertEquals(caverphone('steen'), 'STN1111111')
-        self.assertEquals(caverphone('steensoll'), 'STNSA11111')
-        self.assertEquals(caverphone('steenson'), 'STNSN11111')
-        self.assertEquals(caverphone('steffens'), 'STFNS11111')
-        self.assertEquals(caverphone('steinman'), 'STNMN11111')
-        self.assertEquals(caverphone('stella'), 'STLA111111')
-        self.assertEquals(caverphone('stem'), 'STM1111111')
-        self.assertEquals(caverphone('stempa'), 'STMPA11111')
-        self.assertEquals(caverphone('stenhouse'), 'STNS111111')
-        self.assertEquals(caverphone('stennouse'), 'STNS111111')
-        self.assertEquals(caverphone('stent'), 'STNT111111')
-        self.assertEquals(caverphone('stentiford'), 'STNTFT1111')
-        self.assertEquals(caverphone('stepbenson'), 'STPNSN1111')
-        self.assertEquals(caverphone('stephen'), 'STFN111111')
-        self.assertEquals(caverphone('stephens'), 'STFNS11111')
-        self.assertEquals(caverphone('stephenso'), 'STFNSA1111')
-        self.assertEquals(caverphone('stephenson'), 'STFNSN1111')
-        self.assertEquals(caverphone('sterart'), 'STRT111111')
-        self.assertEquals(caverphone('sterling'), 'STLNK11111')
-        self.assertEquals(caverphone('stesvart'), 'STSFT11111')
-        self.assertEquals(caverphone('stevart'), 'STFT111111')
-        self.assertEquals(caverphone('steven'), 'STFN111111')
-        self.assertEquals(caverphone('stevens'), 'STFNS11111')
-        self.assertEquals(caverphone('stevenson'), 'STFNSN1111')
-        self.assertEquals(caverphone('steward'), 'STWT111111')
-        self.assertEquals(caverphone('stewart'), 'STWT111111')
-        self.assertEquals(caverphone('stgeorge'), 'STKK111111')
-        self.assertEquals(caverphone('stichann'), 'STKN111111')
-        self.assertEquals(caverphone('stichmann'), 'STKMN11111')
-        self.assertEquals(caverphone('stickman'), 'STKMN11111')
-        self.assertEquals(caverphone('stiglish'), 'STKLS11111')
-        self.assertEquals(caverphone('stiles'), 'STLS111111')
-        self.assertEquals(caverphone('still'), 'STA1111111')
-        self.assertEquals(caverphone('stinso'), 'STNSA11111')
-        self.assertEquals(caverphone('stinson'), 'STNSN11111')
-        self.assertEquals(caverphone('stirling'), 'STLNK11111')
-        self.assertEquals(caverphone('stiven'), 'STFN111111')
-        self.assertEquals(caverphone('stobie'), 'STPA111111')
-        self.assertEquals(caverphone('stock'), 'STK1111111')
-        self.assertEquals(caverphone('stockdale'), 'STKTA11111')
-        self.assertEquals(caverphone('stocker'), 'STKA111111')
-        self.assertEquals(caverphone('stoddart'), 'STTT111111')
-        self.assertEquals(caverphone('stohr'), 'STA1111111')
-        self.assertEquals(caverphone('stoke'), 'STK1111111')
-        self.assertEquals(caverphone('stokes'), 'STKS111111')
-        self.assertEquals(caverphone('stone'), 'STN1111111')
-        self.assertEquals(caverphone('stonebrid'), 'STNPRT1111')
-        self.assertEquals(caverphone('stonebridge'), 'STNPRK1111')
-        self.assertEquals(caverphone('stoneham'), 'STNM111111')
-        self.assertEquals(caverphone('stook'), 'STK1111111')
-        self.assertEquals(caverphone('storer'), 'STRA111111')
-        self.assertEquals(caverphone('storey'), 'STRA111111')
-        self.assertEquals(caverphone('storie'), 'STRA111111')
-        self.assertEquals(caverphone('storm'), 'STM1111111')
-        self.assertEquals(caverphone('storrie'), 'STRA111111')
-        self.assertEquals(caverphone('storry'), 'STRA111111')
-        self.assertEquals(caverphone('stort'), 'STT1111111')
-        self.assertEquals(caverphone('story'), 'STRA111111')
-        self.assertEquals(caverphone('stothart'), 'STTT111111')
-        self.assertEquals(caverphone('stott'), 'STT1111111')
-        self.assertEquals(caverphone('stout'), 'STT1111111')
-        self.assertEquals(caverphone('stowell'), 'STWA111111')
-        self.assertEquals(caverphone('stozepanski'), 'STSPNSKA11')
-        self.assertEquals(caverphone('strachan'), 'STRKN11111')
-        self.assertEquals(caverphone('strack'), 'STRK111111')
-        self.assertEquals(caverphone('strafford'), 'STRFT11111')
-        self.assertEquals(caverphone('strain'), 'STRN111111')
-        self.assertEquals(caverphone('strang'), 'STRNK11111')
-        self.assertEquals(caverphone('strange'), 'STRNK11111')
-        self.assertEquals(caverphone('stratford'), 'STRTFT1111')
-        self.assertEquals(caverphone('strathern'), 'STRTN11111')
-        self.assertEquals(caverphone('stratton'), 'STRTN11111')
-        self.assertEquals(caverphone('straw'), 'STRA111111')
-        self.assertEquals(caverphone('strawbridge'), 'STRPRK1111')
-        self.assertEquals(caverphone('street'), 'STRT111111')
-        self.assertEquals(caverphone('strickett'), 'STRKT11111')
-        self.assertEquals(caverphone('stright'), 'STRT111111')
-        self.assertEquals(caverphone('stringer'), 'STRNKA1111')
-        self.assertEquals(caverphone('stronach'), 'STRNK11111')
-        self.assertEquals(caverphone('strong'), 'STRNK11111')
-        self.assertEquals(caverphone('stroud'), 'STRT111111')
-        self.assertEquals(caverphone('strouts'), 'STRTS11111')
-        self.assertEquals(caverphone('struckett'), 'STRKT11111')
-        self.assertEquals(caverphone('struthers'), 'STRTS11111')
-        self.assertEquals(caverphone('stuart-miller'), 'STTMLA1111')
-        self.assertEquals(caverphone('stuart'), 'STT1111111')
-        self.assertEquals(caverphone('stubbs'), 'STPS111111')
-        self.assertEquals(caverphone('stubley'), 'STPLA11111')
-        self.assertEquals(caverphone('stuckey'), 'STKA111111')
-        self.assertEquals(caverphone('stumbles'), 'STMPLS1111')
-        self.assertEquals(caverphone('sturgeon'), 'STKN111111')
-        self.assertEquals(caverphone('sturtevan'), 'STTFN11111')
-        self.assertEquals(caverphone('styche'), 'STK1111111')
-        self.assertEquals(caverphone('styles'), 'STLS111111')
-        self.assertEquals(caverphone('sudden'), 'STN1111111')
-        self.assertEquals(caverphone('suddens'), 'STNS111111')
-        self.assertEquals(caverphone('sugden'), 'SKTN111111')
-        self.assertEquals(caverphone('suilivan'), 'SLFN111111')
-        self.assertEquals(caverphone('sullivan'), 'SLFN111111')
-        self.assertEquals(caverphone('sullivar'), 'SLFA111111')
-        self.assertEquals(caverphone('summerell'), 'SMRA111111')
-        self.assertEquals(caverphone('summerfield'), 'SMFT111111')
-        self.assertEquals(caverphone('summers'), 'SMS1111111')
-        self.assertEquals(caverphone('sumner'), 'SMNA111111')
-        self.assertEquals(caverphone('sunderland'), 'SNTLNT1111')
-        self.assertEquals(caverphone('sutcliffe'), 'STKLF11111')
-        self.assertEquals(caverphone('suter'), 'STA1111111')
-        self.assertEquals(caverphone('suters'), 'STS1111111')
-        self.assertEquals(caverphone('sutherlan'), 'STLN111111')
-        self.assertEquals(caverphone('sutherland'), 'STLNT11111')
-        self.assertEquals(caverphone('sutherlard'), 'STLT111111')
-        self.assertEquals(caverphone('sutton'), 'STN1111111')
-        self.assertEquals(caverphone('swale'), 'SWA1111111')
-        self.assertEquals(caverphone('swan'), 'SWN1111111')
-        self.assertEquals(caverphone('swanerton'), 'SWNTN11111')
-        self.assertEquals(caverphone('swanger'), 'SWNKA11111')
-        self.assertEquals(caverphone('swann'), 'SWN1111111')
-        self.assertEquals(caverphone('swanson'), 'SWNSN11111')
-        self.assertEquals(caverphone('swanston'), 'SWNSTN1111')
-        self.assertEquals(caverphone('swanwick'), 'SWNWK11111')
-        self.assertEquals(caverphone('sweeney'), 'SWNA111111')
-        self.assertEquals(caverphone('sweetman'), 'SWTMN11111')
-        self.assertEquals(caverphone('sweetnam'), 'SWTNM11111')
-        self.assertEquals(caverphone('swell'), 'SWA1111111')
-        self.assertEquals(caverphone('swete'), 'SWT1111111')
-        self.assertEquals(caverphone('swift'), 'SWFT111111')
-        self.assertEquals(caverphone('swinburne'), 'SWNPN11111')
-        self.assertEquals(caverphone('swindley'), 'SWNTLA1111')
-        self.assertEquals(caverphone('swinley'), 'SWNLA11111')
-        self.assertEquals(caverphone('swinney'), 'SWNA111111')
-        self.assertEquals(caverphone('swinton'), 'SWNTN11111')
-        self.assertEquals(caverphone('switalla'), 'SWTLA11111')
-        self.assertEquals(caverphone('switalli'), 'SWTLA11111')
-        self.assertEquals(caverphone('switzer'), 'SWTSA11111')
-        self.assertEquals(caverphone('syder'), 'STA1111111')
-        self.assertEquals(caverphone('sydney'), 'STNA111111')
-        self.assertEquals(caverphone('sykes'), 'SKS1111111')
-        self.assertEquals(caverphone('syme'), 'SM11111111')
-        self.assertEquals(caverphone('symes'), 'SMS1111111')
-        self.assertEquals(caverphone('symington'), 'SMNKTN1111')
-        self.assertEquals(caverphone('symon'), 'SMN1111111')
-        self.assertEquals(caverphone('symonds'), 'SMNTS11111')
-        self.assertEquals(caverphone('syndercombe'), 'SNTKM11111')
-        self.assertEquals(caverphone('sythes'), 'STS1111111')
-        self.assertEquals(caverphone('tabor'), 'TPA1111111')
-        self.assertEquals(caverphone('tackson'), 'TKSN111111')
-        self.assertEquals(caverphone('taggart'), 'TKT1111111')
-        self.assertEquals(caverphone('taine'), 'TN11111111')
-        self.assertEquals(caverphone('tait'), 'TT11111111')
-        self.assertEquals(caverphone('talbot'), 'TPT1111111')
-        self.assertEquals(caverphone('talboys'), 'TPS1111111')
-        self.assertEquals(caverphone('tall'), 'TA11111111')
-        self.assertEquals(caverphone('tallant'), 'TLNT111111')
-        self.assertEquals(caverphone('tamblyn'), 'TMPLN11111')
-        self.assertEquals(caverphone('tanner'), 'TNA1111111')
-        self.assertEquals(caverphone('tansey'), 'TNSA111111')
-        self.assertEquals(caverphone('tansleiy'), 'TNSLA11111')
-        self.assertEquals(caverphone('tansley'), 'TNSLA11111')
-        self.assertEquals(caverphone('tapley'), 'TPLA111111')
-        self.assertEquals(caverphone('taplin'), 'TPLN111111')
-        self.assertEquals(caverphone('tapper'), 'TPA1111111')
-        self.assertEquals(caverphone('tapson'), 'TPSN111111')
-        self.assertEquals(caverphone('tarbutt'), 'TPT1111111')
-        self.assertEquals(caverphone('tarleton'), 'TLTN111111')
-        self.assertEquals(caverphone('tarlton'), 'TTN1111111')
-        self.assertEquals(caverphone('tarrant'), 'TRNT111111')
-        self.assertEquals(caverphone('tartakover'), 'TTKFA11111')
-        self.assertEquals(caverphone('tarves'), 'TFS1111111')
-        self.assertEquals(caverphone('tasker'), 'TSKA111111')
-        self.assertEquals(caverphone('tate'), 'TT11111111')
-        self.assertEquals(caverphone('tattersal'), 'TTSA111111')
-        self.assertEquals(caverphone('tattersall'), 'TTSA111111')
-        self.assertEquals(caverphone('tattersfield'), 'TTSFT11111')
-        self.assertEquals(caverphone('taunt'), 'TNT1111111')
-        self.assertEquals(caverphone('tavendale'), 'TFNTA11111')
-        self.assertEquals(caverphone('taverner'), 'TFNA111111')
-        self.assertEquals(caverphone('tavlor'), 'TFLA111111')
-        self.assertEquals(caverphone('tayior'), 'TA11111111')
-        self.assertEquals(caverphone('tayler'), 'TLA1111111')
-        self.assertEquals(caverphone('tayles'), 'TLS1111111')
-        self.assertEquals(caverphone('taylor'), 'TLA1111111')
-        self.assertEquals(caverphone('teague'), 'TKA1111111')
-        self.assertEquals(caverphone('teale'), 'TA11111111')
-        self.assertEquals(caverphone('tearle'), 'TA11111111')
-        self.assertEquals(caverphone('teasdale'), 'TSTA111111')
-        self.assertEquals(caverphone('tebbett'), 'TPT1111111')
-        self.assertEquals(caverphone('teer'), 'TA11111111')
-        self.assertEquals(caverphone('teesdale'), 'TSTA111111')
-        self.assertEquals(caverphone('tegg'), 'TK11111111')
-        self.assertEquals(caverphone('telfer'), 'TFA1111111')
-        self.assertEquals(caverphone('telford'), 'TFT1111111')
-        self.assertEquals(caverphone('teller'), 'TLA1111111')
-        self.assertEquals(caverphone('tempero'), 'TMPRA11111')
-        self.assertEquals(caverphone('temperton'), 'TMPTN11111')
-        self.assertEquals(caverphone('templcton'), 'TMPKTN1111')
-        self.assertEquals(caverphone('temple'), 'TMPA111111')
-        self.assertEquals(caverphone('templeton'), 'TMPLTN1111')
-        self.assertEquals(caverphone('tenbeth'), 'TNPT111111')
-        self.assertEquals(caverphone('tennant'), 'TNNT111111')
-        self.assertEquals(caverphone('tennent'), 'TNNT111111')
-        self.assertEquals(caverphone('tennet'), 'TNT1111111')
-        self.assertEquals(caverphone('tepene'), 'TPN1111111')
-        self.assertEquals(caverphone('terry'), 'TRA1111111')
-        self.assertEquals(caverphone('teschner'), 'TSKNA11111')
-        self.assertEquals(caverphone('teviotdale'), 'TFTA111111')
-        self.assertEquals(caverphone('thackwel'), 'TKWA111111')
-        self.assertEquals(caverphone('thiele'), 'TA11111111')
-        self.assertEquals(caverphone('thin'), 'TN11111111')
-        self.assertEquals(caverphone('thinn'), 'TN11111111')
-        self.assertEquals(caverphone('third'), 'TT11111111')
-        self.assertEquals(caverphone('thom'), 'TM11111111')
-        self.assertEquals(caverphone('thomas'), 'TMS1111111')
-        self.assertEquals(caverphone('thomason'), 'TMSN111111')
-        self.assertEquals(caverphone('thomlinson'), 'TMLNSN1111')
-        self.assertEquals(caverphone('thompson'), 'TMPSN11111')
-        self.assertEquals(caverphone('thomson'), 'TMSN111111')
-        self.assertEquals(caverphone('thonas'), 'TNS1111111')
-        self.assertEquals(caverphone('thora'), 'TRA1111111')
-        self.assertEquals(caverphone('thorapson'), 'TRPSN11111')
-        self.assertEquals(caverphone('thorburn'), 'TPN1111111')
-        self.assertEquals(caverphone('thorley'), 'TLA1111111')
-        self.assertEquals(caverphone('thorn'), 'TN11111111')
-        self.assertEquals(caverphone('thornburg'), 'TNPK111111')
-        self.assertEquals(caverphone('thornburgh'), 'TNPA111111')
-        self.assertEquals(caverphone('thornhill'), 'TNA1111111')
-        self.assertEquals(caverphone('thornicroft'), 'TNKRFT1111')
-        self.assertEquals(caverphone('thornley'), 'TNLA111111')
-        self.assertEquals(caverphone('thornton'), 'TNTN111111')
-        self.assertEquals(caverphone('thorp'), 'TP11111111')
-        self.assertEquals(caverphone('thotnpson'), 'TTNPSN1111')
-        self.assertEquals(caverphone('thow'), 'TA11111111')
-        self.assertEquals(caverphone('throp'), 'TRP1111111')
-        self.assertEquals(caverphone('thurlow'), 'TLA1111111')
-        self.assertEquals(caverphone('thurston'), 'TSTN111111')
-        self.assertEquals(caverphone('thwaites'), 'TWTS111111')
-        self.assertEquals(caverphone('tibbles'), 'TPLS111111')
-        self.assertEquals(caverphone('tibbs'), 'TPS1111111')
-        self.assertEquals(caverphone('tidey'), 'TTA1111111')
-        self.assertEquals(caverphone('tierney'), 'TNA1111111')
-        self.assertEquals(caverphone('tighe umbers'), 'TKMPS11111')
-        self.assertEquals(caverphone('tighe-umbers'), 'TKMPS11111')
-        self.assertEquals(caverphone('tighe'), 'TA11111111')
-        self.assertEquals(caverphone('tigheumbers'), 'TKMPS11111')
-        self.assertEquals(caverphone('tilburn'), 'TPN1111111')
-        self.assertEquals(caverphone('tilbury'), 'TPRA111111')
-        self.assertEquals(caverphone('tilley'), 'TLA1111111')
-        self.assertEquals(caverphone('tilleyshor'), 'TLSA111111')
-        self.assertEquals(caverphone('tilleyshort'), 'TLST111111')
-        self.assertEquals(caverphone('tillie'), 'TLA1111111')
-        self.assertEquals(caverphone('tillyshort'), 'TLST111111')
-        self.assertEquals(caverphone('tilson'), 'TSN1111111')
-        self.assertEquals(caverphone('tiltman'), 'TTMN111111')
-        self.assertEquals(caverphone('tily'), 'TLA1111111')
-        self.assertEquals(caverphone('timlin'), 'TMLN111111')
-        self.assertEquals(caverphone('timmings'), 'TMNKS11111')
-        self.assertEquals(caverphone('timmins'), 'TMNS111111')
-        self.assertEquals(caverphone('timms'), 'TMS1111111')
-        self.assertEquals(caverphone('tims'), 'TMS1111111')
-        self.assertEquals(caverphone('tinnock'), 'TNK1111111')
-        self.assertEquals(caverphone('tinson'), 'TNSN111111')
-        self.assertEquals(caverphone('tipa'), 'TPA1111111')
-        self.assertEquals(caverphone('tippet'), 'TPT1111111')
-        self.assertEquals(caverphone('tippett'), 'TPT1111111')
-        self.assertEquals(caverphone('tisdall'), 'TSTA111111')
-        self.assertEquals(caverphone('titchener'), 'TKNA111111')
-        self.assertEquals(caverphone('titchner'), 'TKNA111111')
-        self.assertEquals(caverphone('titclhener'), 'TTKNA11111')
-        self.assertEquals(caverphone('tither'), 'TTA1111111')
-        self.assertEquals(caverphone('titohener'), 'TTNA111111')
-        self.assertEquals(caverphone('tiverner'), 'TFNA111111')
-        self.assertEquals(caverphone('tizard'), 'TST1111111')
-        self.assertEquals(caverphone('tlimlin'), 'TLMLN11111')
-        self.assertEquals(caverphone('tlomson'), 'TLMSN11111')
-        self.assertEquals(caverphone('tnlley'), 'TNLA111111')
-        self.assertEquals(caverphone('toal'), 'TA11111111')
-        self.assertEquals(caverphone('toase'), 'TS11111111')
-        self.assertEquals(caverphone('tobin'), 'TPN1111111')
-        self.assertEquals(caverphone('tod'), 'TT11111111')
-        self.assertEquals(caverphone('toda'), 'TTA1111111')
-        self.assertEquals(caverphone('todd'), 'TT11111111')
-        self.assertEquals(caverphone('tofield'), 'TFT1111111')
-        self.assertEquals(caverphone('tohill'), 'TA11111111')
-        self.assertEquals(caverphone('tointon'), 'TNTN111111')
-        self.assertEquals(caverphone('tolley'), 'TLA1111111')
-        self.assertEquals(caverphone('tolmie'), 'TMA1111111')
-        self.assertEquals(caverphone('tombs'), 'TMPS111111')
-        self.assertEquals(caverphone('tomkins'), 'TMKNS11111')
-        self.assertEquals(caverphone('tomkinson'), 'TMKNSN1111')
-        self.assertEquals(caverphone('tomlinson'), 'TMLNSN1111')
-        self.assertEquals(caverphone('tompkins'), 'TMPKNS1111')
-        self.assertEquals(caverphone('toms'), 'TMS1111111')
-        self.assertEquals(caverphone('tonar'), 'TNA1111111')
-        self.assertEquals(caverphone('toner'), 'TNA1111111')
-        self.assertEquals(caverphone('tones'), 'TNS1111111')
-        self.assertEquals(caverphone('toneycliffe'), 'TNKLF11111')
-        self.assertEquals(caverphone('tonkin'), 'TNKN111111')
-        self.assertEquals(caverphone('tonkinson'), 'TNKNSN1111')
-        self.assertEquals(caverphone('tonner'), 'TNA1111111')
-        self.assertEquals(caverphone('tonnor'), 'TNA1111111')
-        self.assertEquals(caverphone('toohey'), 'TA11111111')
-        self.assertEquals(caverphone('toohill'), 'TA11111111')
-        self.assertEquals(caverphone('toohoy'), 'TA11111111')
-        self.assertEquals(caverphone('tooman'), 'TMN1111111')
-        self.assertEquals(caverphone('toomer'), 'TMA1111111')
-        self.assertEquals(caverphone('toomey'), 'TMA1111111')
-        self.assertEquals(caverphone('tooner'), 'TNA1111111')
-        self.assertEquals(caverphone('tootell'), 'TTA1111111')
-        self.assertEquals(caverphone('topp'), 'TP11111111')
-        self.assertEquals(caverphone('torpey'), 'TPA1111111')
-        self.assertEquals(caverphone('torrance'), 'TRNK111111')
-        self.assertEquals(caverphone('torrie'), 'TRA1111111')
-        self.assertEquals(caverphone('tosh'), 'TS11111111')
-        self.assertEquals(caverphone('toshack'), 'TSK1111111')
-        self.assertEquals(caverphone('tosswill'), 'TSWA111111')
-        self.assertEquals(caverphone('tough'), 'TF11111111')
-        self.assertEquals(caverphone('tourell'), 'TRA1111111')
-        self.assertEquals(caverphone('tout'), 'TT11111111')
-        self.assertEquals(caverphone('towart'), 'TWT1111111')
-        self.assertEquals(caverphone('towle'), 'TA11111111')
-        self.assertEquals(caverphone('towler'), 'TLA1111111')
-        self.assertEquals(caverphone('town'), 'TN11111111')
-        self.assertEquals(caverphone('towniey'), 'TNA1111111')
-        self.assertEquals(caverphone('townley'), 'TNLA111111')
-        self.assertEquals(caverphone('townrow'), 'TNRA111111')
-        self.assertEquals(caverphone('townsend'), 'TNSNT11111')
-        self.assertEquals(caverphone('townshend'), 'TNSNT11111')
-        self.assertEquals(caverphone('towsey'), 'TSA1111111')
-        self.assertEquals(caverphone('towson'), 'TSN1111111')
-        self.assertEquals(caverphone('toy'), 'TA11111111')
-        self.assertEquals(caverphone('toye'), 'TA11111111')
-        self.assertEquals(caverphone('tracey'), 'TRSA111111')
-        self.assertEquals(caverphone('tracy'), 'TRSA111111')
-        self.assertEquals(caverphone('traherne'), 'TRN1111111')
-        self.assertEquals(caverphone('trail'), 'TRA1111111')
-        self.assertEquals(caverphone('traill'), 'TRA1111111')
-        self.assertEquals(caverphone('trainor'), 'TRNA111111')
-        self.assertEquals(caverphone('tranter'), 'TRNTA11111')
-        self.assertEquals(caverphone('trapski'), 'TRPSKA1111')
-        self.assertEquals(caverphone('travena'), 'TRFNA11111')
-        self.assertEquals(caverphone('traves'), 'TRFS111111')
-        self.assertEquals(caverphone('travis'), 'TRFS111111')
-        self.assertEquals(caverphone('traynor'), 'TRNA111111')
-        self.assertEquals(caverphone('treacy'), 'TRSA111111')
-        self.assertEquals(caverphone('treadwell'), 'TRTWA11111')
-        self.assertEquals(caverphone('trebilcock'), 'TRPKK11111')
-        self.assertEquals(caverphone('tree'), 'TRA1111111')
-        self.assertEquals(caverphone('treeweek'), 'TRWK111111')
-        self.assertEquals(caverphone('tregea'), 'TRKA111111')
-        self.assertEquals(caverphone('tregear'), 'TRKA111111')
-        self.assertEquals(caverphone('tregilgus'), 'TRKKS11111')
-        self.assertEquals(caverphone('tregoning'), 'TRKNNK1111')
-        self.assertEquals(caverphone('tregonning'), 'TRKNNK1111')
-        self.assertEquals(caverphone('treleaven'), 'TRLFN11111')
-        self.assertEquals(caverphone('treloar'), 'TRLA111111')
-        self.assertEquals(caverphone('tremaine'), 'TRMN111111')
-        self.assertEquals(caverphone('trench'), 'TRNK111111')
-        self.assertEquals(caverphone('trencll'), 'TRNKA11111')
-        self.assertEquals(caverphone('trengrove'), 'TRNKRF1111')
-        self.assertEquals(caverphone('trenwith'), 'TRNWT11111')
-        self.assertEquals(caverphone('trerise'), 'TRRS111111')
-        self.assertEquals(caverphone('tressider'), 'TRSTA11111')
-        self.assertEquals(caverphone('tressler'), 'TRSLA11111')
-        self.assertEquals(caverphone('trestrail'), 'TRSTRA1111')
-        self.assertEquals(caverphone('tretheway'), 'TRTWA11111')
-        self.assertEquals(caverphone('trevarthan'), 'TRFTN11111')
-        self.assertEquals(caverphone('trevathan'), 'TRFTN11111')
-        self.assertEquals(caverphone('trevena'), 'TRFNA11111')
-        self.assertEquals(caverphone('trevenna'), 'TRFNA11111')
-        self.assertEquals(caverphone('treves'), 'TRFS111111')
-        self.assertEquals(caverphone('treweek'), 'TRWK111111')
-        self.assertEquals(caverphone('trewera'), 'TRWRA11111')
-        self.assertEquals(caverphone('trewern'), 'TRWN111111')
-        self.assertEquals(caverphone('trewhellar'), 'TRWLA11111')
-        self.assertEquals(caverphone('trewick'), 'TRWK111111')
-        self.assertEquals(caverphone('trezise'), 'TRSS111111')
-        self.assertEquals(caverphone('triggs'), 'TRKS111111')
-        self.assertEquals(caverphone('trim'), 'TRM1111111')
-        self.assertEquals(caverphone('trimble'), 'TRMPA11111')
-        self.assertEquals(caverphone('trimnell'), 'TRMNA11111')
-        self.assertEquals(caverphone('trinder'), 'TRNTA11111')
-        self.assertEquals(caverphone('tripp'), 'TRP1111111')
-        self.assertEquals(caverphone('trnbull'), 'TNPA111111')
-        self.assertEquals(caverphone('troadic'), 'TRTK111111')
-        self.assertEquals(caverphone('troomer'), 'TRMA111111')
-        self.assertEquals(caverphone('troon'), 'TRN1111111')
-        self.assertEquals(caverphone('trotman'), 'TRTMN11111')
-        self.assertEquals(caverphone('trott'), 'TRT1111111')
-        self.assertEquals(caverphone('trotter'), 'TRTA111111')
-        self.assertEquals(caverphone('trounce'), 'TRNK111111')
-        self.assertEquals(caverphone('troup'), 'TRP1111111')
-        self.assertEquals(caverphone('trow'), 'TRA1111111')
-        self.assertEquals(caverphone('trower'), 'TRWA111111')
-        self.assertEquals(caverphone('truesdale'), 'TRSTA11111')
-        self.assertEquals(caverphone('truscott'), 'TRSKT11111')
-        self.assertEquals(caverphone('try'), 'TRA1111111')
-        self.assertEquals(caverphone('trythall'), 'TRTA111111')
-        self.assertEquals(caverphone('tubman'), 'TPMN111111')
-        self.assertEquals(caverphone('tubmar'), 'TPMA111111')
-        self.assertEquals(caverphone('tuck'), 'TK11111111')
-        self.assertEquals(caverphone('tucker'), 'TKA1111111')
-        self.assertEquals(caverphone('tuckey'), 'TKA1111111')
-        self.assertEquals(caverphone('tudor'), 'TTA1111111')
-        self.assertEquals(caverphone('tuite'), 'TT11111111')
-        self.assertEquals(caverphone('tull'), 'TA11111111')
-        self.assertEquals(caverphone('tulley'), 'TLA1111111')
-        self.assertEquals(caverphone('tulloch'), 'TLK1111111')
-        self.assertEquals(caverphone('tully'), 'TLA1111111')
-        self.assertEquals(caverphone('tunam'), 'TNM1111111')
-        self.assertEquals(caverphone('tunnell'), 'TNA1111111')
-        self.assertEquals(caverphone('tunnicliffe'), 'TNKLF11111')
-        self.assertEquals(caverphone('tunzelman'), 'TNSMN11111')
-        self.assertEquals(caverphone('tuohy'), 'TA11111111')
-        self.assertEquals(caverphone('turley'), 'TLA1111111')
-        self.assertEquals(caverphone('turlington'), 'TLNKTN1111')
-        self.assertEquals(caverphone('turllbull'), 'TPA1111111')
-        self.assertEquals(caverphone('turnbull'), 'TNPA111111')
-        self.assertEquals(caverphone('turner'), 'TNA1111111')
-        self.assertEquals(caverphone('turpin'), 'TPN1111111')
-        self.assertEquals(caverphone('turton'), 'TTN1111111')
-        self.assertEquals(caverphone('turvey'), 'TFA1111111')
-        self.assertEquals(caverphone('tustain'), 'TSTN111111')
-        self.assertEquals(caverphone('tutty'), 'TTA1111111')
-        self.assertEquals(caverphone('tuxford'), 'TKFT111111')
-        self.assertEquals(caverphone('tvlee'), 'TFLA111111')
-        self.assertEquals(caverphone('twaddell'), 'TWTA111111')
-        self.assertEquals(caverphone('twaddle'), 'TWTA111111')
-        self.assertEquals(caverphone('tweed'), 'TWT1111111')
-        self.assertEquals(caverphone('tweedale'), 'TWTA111111')
-        self.assertEquals(caverphone('tweedie'), 'TWTA111111')
-        self.assertEquals(caverphone('tweedle'), 'TWTA111111')
-        self.assertEquals(caverphone('tweedy'), 'TWTA111111')
-        self.assertEquals(caverphone('twelftree'), 'TWFTRA1111')
-        self.assertEquals(caverphone('twemlow'), 'TWMLA11111')
-        self.assertEquals(caverphone('twhigg'), 'TWK1111111')
-        self.assertEquals(caverphone('twining'), 'TWNNK11111')
-        self.assertEquals(caverphone('twist'), 'TWST111111')
-        self.assertEquals(caverphone('twose'), 'TWS1111111')
-        self.assertEquals(caverphone('tye'), 'TA11111111')
-        self.assertEquals(caverphone('tylee'), 'TLA1111111')
-        self.assertEquals(caverphone('tyler'), 'TLA1111111')
-        self.assertEquals(caverphone('tynan'), 'TNN1111111')
-        self.assertEquals(caverphone('tyre'), 'TA11111111')
-        self.assertEquals(caverphone('tyree'), 'TRA1111111')
-        self.assertEquals(caverphone('tyrie'), 'TRA1111111')
-        self.assertEquals(caverphone('tyrrell-baxter'), 'TRPKTA1111')
-        self.assertEquals(caverphone('tyrrell'), 'TRA1111111')
-        self.assertEquals(caverphone('tysoll'), 'TSA1111111')
-        self.assertEquals(caverphone('tyson'), 'TSN1111111')
-        self.assertEquals(caverphone('udy'), 'ATA1111111')
-        self.assertEquals(caverphone('ufton'), 'AFTN111111')
-        self.assertEquals(caverphone('umbers'), 'AMPS111111')
-        self.assertEquals(caverphone('underwood'), 'ANTWT11111')
-        self.assertEquals(caverphone('unwin'), 'ANWN111111')
-        self.assertEquals(caverphone('uphill'), 'AFA1111111')
-        self.assertEquals(caverphone('upson'), 'APSN111111')
-        self.assertEquals(caverphone('ure'), 'AA11111111')
-        self.assertEquals(caverphone('uren'), 'ARN1111111')
-        self.assertEquals(caverphone('urquhart'), 'AKT1111111')
-        self.assertEquals(caverphone('usher'), 'ASA1111111')
-        self.assertEquals(caverphone('usherwood'), 'ASWT111111')
-        self.assertEquals(caverphone('ussher'), 'ASA1111111')
-        self.assertEquals(caverphone('ussherwood'), 'ASWT111111')
-        self.assertEquals(caverphone('utteridge'), 'ATRK111111')
-        self.assertEquals(caverphone('uttley'), 'ATLA111111')
-        self.assertEquals(caverphone('vaidya'), 'FTA1111111')
-        self.assertEquals(caverphone('vaile'), 'FA11111111')
-        self.assertEquals(caverphone('valentine'), 'FLNTN11111')
-        self.assertEquals(caverphone('valli'), 'FLA1111111')
-        self.assertEquals(caverphone('valpy'), 'FPA1111111')
-        self.assertEquals(caverphone('vance'), 'FNK1111111')
-        self.assertEquals(caverphone('vanes'), 'FNS1111111')
-        self.assertEquals(caverphone('vann'), 'FN11111111')
-        self.assertEquals(caverphone('varcoe'), 'FKA1111111')
-        self.assertEquals(caverphone('varian'), 'FRN1111111')
-        self.assertEquals(caverphone('varney'), 'FNA1111111')
-        self.assertEquals(caverphone('vartha'), 'FTA1111111')
-        self.assertEquals(caverphone('vaughan'), 'FKN1111111')
-        self.assertEquals(caverphone('veal'), 'FA11111111')
-        self.assertEquals(caverphone('vedder'), 'FTA1111111')
-        self.assertEquals(caverphone('veint'), 'FNT1111111')
-        self.assertEquals(caverphone('veitch'), 'FK11111111')
-        self.assertEquals(caverphone('ven our'), 'FNA1111111')
-        self.assertEquals(caverphone('venn'), 'FN11111111')
-        self.assertEquals(caverphone('venning'), 'FNNK111111')
-        self.assertEquals(caverphone('venour'), 'FNA1111111')
-        self.assertEquals(caverphone('vercoe'), 'FKA1111111')
-        self.assertEquals(caverphone('vere'), 'FA11111111')
-        self.assertEquals(caverphone('verey'), 'FRA1111111')
-        self.assertEquals(caverphone('verity'), 'FRTA111111')
-        self.assertEquals(caverphone('verngreen'), 'FNKRN11111')
-        self.assertEquals(caverphone('vernon'), 'FNN1111111')
-        self.assertEquals(caverphone('vette'), 'FT11111111')
-        self.assertEquals(caverphone('vezey'), 'FSA1111111')
-        self.assertEquals(caverphone('vial'), 'FA11111111')
-        self.assertEquals(caverphone('vickers'), 'FKS1111111')
-        self.assertEquals(caverphone('vickery'), 'FKRA111111')
-        self.assertEquals(caverphone('vik'), 'FK11111111')
-        self.assertEquals(caverphone('vile'), 'FA11111111')
-        self.assertEquals(caverphone('vince'), 'FNK1111111')
-        self.assertEquals(caverphone('vincent'), 'FNSNT11111')
-        self.assertEquals(caverphone('vine'), 'FN11111111')
-        self.assertEquals(caverphone('viney'), 'FNA1111111')
-        self.assertEquals(caverphone('vintiner'), 'FNTNA11111')
-        self.assertEquals(caverphone('vintinner'), 'FNTNA11111')
-        self.assertEquals(caverphone('vintinuer'), 'FNTNA11111')
-        self.assertEquals(caverphone('virtue'), 'FTA1111111')
-        self.assertEquals(caverphone('vitharson'), 'FTSN111111')
-        self.assertEquals(caverphone('vivian'), 'FFN1111111')
-        self.assertEquals(caverphone('vlietstra'), 'FLTSTRA111')
-        self.assertEquals(caverphone('voight'), 'FT11111111')
-        self.assertEquals(caverphone('voigt'), 'FKT1111111')
-        self.assertEquals(caverphone('voiler'), 'FLA1111111')
-        self.assertEquals(caverphone('voisey'), 'FSA1111111')
-        self.assertEquals(caverphone('voller'), 'FLA1111111')
-        self.assertEquals(caverphone('vosper'), 'FSPA111111')
-        self.assertEquals(caverphone('voyce'), 'FK11111111')
-        self.assertEquals(caverphone('voysey'), 'FSA1111111')
-        self.assertEquals(caverphone('vyner'), 'FNA1111111')
-        self.assertEquals(caverphone('waby'), 'WPA1111111')
-        self.assertEquals(caverphone('wacher'), 'WKA1111111')
-        self.assertEquals(caverphone('wackeldin'), 'WKTN111111')
-        self.assertEquals(caverphone('wackeldine'), 'WKTN111111')
-        self.assertEquals(caverphone('wackier'), 'WKA1111111')
-        self.assertEquals(caverphone('wackilden'), 'WKTN111111')
-        self.assertEquals(caverphone('wackildene'), 'WKTN111111')
-        self.assertEquals(caverphone('waddel'), 'WTA1111111')
-        self.assertEquals(caverphone('waddell'), 'WTA1111111')
-        self.assertEquals(caverphone('waddle'), 'WTA1111111')
-        self.assertEquals(caverphone('wade'), 'WT11111111')
-        self.assertEquals(caverphone('wadie'), 'WTA1111111')
-        self.assertEquals(caverphone('wadsworth'), 'WTSWT11111')
-        self.assertEquals(caverphone('waghorn'), 'WKN1111111')
-        self.assertEquals(caverphone('waghorne'), 'WKN1111111')
-        self.assertEquals(caverphone('waghornee'), 'WKNA111111')
-        self.assertEquals(caverphone('wagner'), 'WKNA111111')
-        self.assertEquals(caverphone('wah'), 'WA11111111')
-        self.assertEquals(caverphone('wahren'), 'WRN1111111')
-        self.assertEquals(caverphone('wahrlich'), 'WLK1111111')
-        self.assertEquals(caverphone('waide'), 'WT11111111')
-        self.assertEquals(caverphone('waigth'), 'WKT1111111')
-        self.assertEquals(caverphone('wain'), 'WN11111111')
-        self.assertEquals(caverphone('wainhouse'), 'WNS1111111')
-        self.assertEquals(caverphone('waite'), 'WT11111111')
-        self.assertEquals(caverphone('wakefield'), 'WKFT111111')
-        self.assertEquals(caverphone('wakelin'), 'WKLN111111')
-        self.assertEquals(caverphone('wakeling'), 'WKLNK11111')
-        self.assertEquals(caverphone('walden'), 'WTN1111111')
-        self.assertEquals(caverphone('waldie'), 'WTA1111111')
-        self.assertEquals(caverphone('waldren'), 'WTRN111111')
-        self.assertEquals(caverphone('waldron'), 'WTRN111111')
-        self.assertEquals(caverphone('wales'), 'WLS1111111')
-        self.assertEquals(caverphone('wali'), 'WLA1111111')
-        self.assertEquals(caverphone('walkem'), 'WKM1111111')
-        self.assertEquals(caverphone('walker'), 'WKA1111111')
-        self.assertEquals(caverphone('walkern'), 'WKN1111111')
-        self.assertEquals(caverphone('walkinshaw'), 'WKNSA11111')
-        self.assertEquals(caverphone('walks'), 'WKS1111111')
-        self.assertEquals(caverphone('wall'), 'WA11111111')
-        self.assertEquals(caverphone('wallace'), 'WLK1111111')
-        self.assertEquals(caverphone('wallen'), 'WLN1111111')
-        self.assertEquals(caverphone('waller'), 'WLA1111111')
-        self.assertEquals(caverphone('wallin'), 'WLN1111111')
-        self.assertEquals(caverphone('walling-jones'), 'WLNKNS1111')
-        self.assertEquals(caverphone('wallinger'), 'WLNKA11111')
-        self.assertEquals(caverphone('wallis'), 'WLS1111111')
-        self.assertEquals(caverphone('walls'), 'WS11111111')
-        self.assertEquals(caverphone('walmeley'), 'WMLA111111')
-        self.assertEquals(caverphone('walmsey'), 'WMSA111111')
-        self.assertEquals(caverphone('walmsley'), 'WMSLA11111')
-        self.assertEquals(caverphone('walmslsey'), 'WMSSA11111')
-        self.assertEquals(caverphone('walquest'), 'WKST111111')
-        self.assertEquals(caverphone('walquist'), 'WKST111111')
-        self.assertEquals(caverphone('walscott'), 'WSKT111111')
-        self.assertEquals(caverphone('walsh'), 'WS11111111')
-        self.assertEquals(caverphone('walter'), 'WTA1111111')
-        self.assertEquals(caverphone('walters'), 'WTS1111111')
-        self.assertEquals(caverphone('walton'), 'WTN1111111')
-        self.assertEquals(caverphone('ward'), 'WT11111111')
-        self.assertEquals(caverphone('warden'), 'WTN1111111')
-        self.assertEquals(caverphone('wardrop'), 'WTRP111111')
-        self.assertEquals(caverphone('wards'), 'WTS1111111')
-        self.assertEquals(caverphone('ware'), 'WA11111111')
-        self.assertEquals(caverphone('wares'), 'WRS1111111')
-        self.assertEquals(caverphone('wark'), 'WK11111111')
-        self.assertEquals(caverphone('warne'), 'WN11111111')
-        self.assertEquals(caverphone('warner'), 'WNA1111111')
-        self.assertEquals(caverphone('warnock'), 'WNK1111111')
-        self.assertEquals(caverphone('warreil'), 'WRA1111111')
-        self.assertEquals(caverphone('warrell'), 'WRA1111111')
-        self.assertEquals(caverphone('warren'), 'WRN1111111')
-        self.assertEquals(caverphone('warrington'), 'WRNKTN1111')
-        self.assertEquals(caverphone('warwick'), 'WWK1111111')
-        self.assertEquals(caverphone('warwood'), 'WWT1111111')
-        self.assertEquals(caverphone('washer'), 'WSA1111111')
-        self.assertEquals(caverphone('wason'), 'WSN1111111')
-        self.assertEquals(caverphone('wassell'), 'WSA1111111')
-        self.assertEquals(caverphone('waterfield'), 'WTFT111111')
-        self.assertEquals(caverphone('waterhous'), 'WTS1111111')
-        self.assertEquals(caverphone('waters'), 'WTS1111111')
-        self.assertEquals(caverphone('waterson'), 'WTSN111111')
-        self.assertEquals(caverphone('waterston'), 'WTSTN11111')
-        self.assertEquals(caverphone('wates'), 'WTS1111111')
-        self.assertEquals(caverphone('watkins'), 'WTKNS11111')
-        self.assertEquals(caverphone('watler'), 'WTLA111111')
-        self.assertEquals(caverphone('watling'), 'WTLNK11111')
-        self.assertEquals(caverphone('watmough'), 'WTMA111111')
-        self.assertEquals(caverphone('watsan'), 'WTSN111111')
-        self.assertEquals(caverphone('watsol1'), 'WTSA111111')
-        self.assertEquals(caverphone('watson'), 'WTSN111111')
-        self.assertEquals(caverphone('watt'), 'WT11111111')
-        self.assertEquals(caverphone('watters'), 'WTS1111111')
-        self.assertEquals(caverphone('watterson'), 'WTSN111111')
-        self.assertEquals(caverphone('watts'), 'WTS1111111')
-        self.assertEquals(caverphone('wattson'), 'WTSN111111')
-        self.assertEquals(caverphone('waugh'), 'WA11111111')
-        self.assertEquals(caverphone('way'), 'WA11111111')
-        self.assertEquals(caverphone('wcatherston'), 'KTSTN11111')
-        self.assertEquals(caverphone('weaherburn'), 'WPN1111111')
-        self.assertEquals(caverphone('wealherston'), 'WSTN111111')
-        self.assertEquals(caverphone('weatherall'), 'WTRA111111')
-        self.assertEquals(caverphone('weatherbur'), 'WTPA111111')
-        self.assertEquals(caverphone('weatherburn'), 'WTPN111111')
-        self.assertEquals(caverphone('weatherell'), 'WTRA111111')
-        self.assertEquals(caverphone('weatheret'), 'WTRT111111')
-        self.assertEquals(caverphone('weatherst'), 'WTST111111')
-        self.assertEquals(caverphone('weathersto'), 'WTSTA11111')
-        self.assertEquals(caverphone('weatherston'), 'WTSTN11111')
-        self.assertEquals(caverphone('weatherstone'), 'WTSTN11111')
-        self.assertEquals(caverphone('weaver'), 'WFA1111111')
-        self.assertEquals(caverphone('weavers'), 'WFS1111111')
-        self.assertEquals(caverphone('webb'), 'WP11111111')
-        self.assertEquals(caverphone('webber'), 'WPA1111111')
-        self.assertEquals(caverphone('webh'), 'WP11111111')
-        self.assertEquals(caverphone('webling'), 'WPLNK11111')
-        self.assertEquals(caverphone('webster'), 'WPSTA11111')
-        self.assertEquals(caverphone('weddell'), 'WTA1111111')
-        self.assertEquals(caverphone('wedderspo'), 'WTSPA11111')
-        self.assertEquals(caverphone('wedderspoo'), 'WTSPA11111')
-        self.assertEquals(caverphone('wedderspoon'), 'WTSPN11111')
-        self.assertEquals(caverphone('wedgwood'), 'WKWT111111')
-        self.assertEquals(caverphone('wedlake'), 'WTLK111111')
-        self.assertEquals(caverphone('wedlock'), 'WTLK111111')
-        self.assertEquals(caverphone('weedon'), 'WTN1111111')
-        self.assertEquals(caverphone('weight'), 'WT11111111')
-        self.assertEquals(caverphone('weightman'), 'WTMN111111')
-        self.assertEquals(caverphone('weir'), 'WA11111111')
-        self.assertEquals(caverphone('welbourn'), 'WPN1111111')
-        self.assertEquals(caverphone('welch'), 'WK11111111')
-        self.assertEquals(caverphone('weldon'), 'WTN1111111')
-        self.assertEquals(caverphone('welham'), 'WM11111111')
-        self.assertEquals(caverphone('wellard'), 'WLT1111111')
-        self.assertEquals(caverphone('wellbourn'), 'WPN1111111')
-        self.assertEquals(caverphone('wellbrock'), 'WPRK111111')
-        self.assertEquals(caverphone('wellburn'), 'WPN1111111')
-        self.assertEquals(caverphone('weller'), 'WLA1111111')
-        self.assertEquals(caverphone('wellesley'), 'WLSLA11111')
-        self.assertEquals(caverphone('wellington'), 'WLNKTN1111')
-        self.assertEquals(caverphone('wellman'), 'WMN1111111')
-        self.assertEquals(caverphone('wells'), 'WS11111111')
-        self.assertEquals(caverphone('wellsted'), 'WSTT111111')
-        self.assertEquals(caverphone('welnoski'), 'WNSKA11111')
-        self.assertEquals(caverphone('welply'), 'WPLA111111')
-        self.assertEquals(caverphone('welsford'), 'WSFT111111')
-        self.assertEquals(caverphone('welsh'), 'WS11111111')
-        self.assertEquals(caverphone('welstead'), 'WSTT111111')
-        self.assertEquals(caverphone('wenborn'), 'WNPN111111')
-        self.assertEquals(caverphone('wendelken'), 'WNTKN11111')
-        self.assertEquals(caverphone('wenlock'), 'WNLK111111')
-        self.assertEquals(caverphone('wenthersto'), 'WNTSTA1111')
-        self.assertEquals(caverphone('wentworth'), 'WNTWT11111')
-        self.assertEquals(caverphone('werner'), 'WNA1111111')
-        self.assertEquals(caverphone('wesney'), 'WSNA111111')
-        self.assertEquals(caverphone('wessman'), 'WSMN111111')
-        self.assertEquals(caverphone('west'), 'WST1111111')
-        self.assertEquals(caverphone('westake'), 'WSTK111111')
-        self.assertEquals(caverphone('westbrook'), 'WSTPRK1111')
-        self.assertEquals(caverphone('westcott'), 'WSTKT11111')
-        self.assertEquals(caverphone('western'), 'WSTN111111')
-        self.assertEquals(caverphone('westfield'), 'WSTFT11111')
-        self.assertEquals(caverphone('westfold'), 'WSTFT11111')
-        self.assertEquals(caverphone('westlake'), 'WSTLK11111')
-        self.assertEquals(caverphone('westland'), 'WSTLNT1111')
-        self.assertEquals(caverphone('weston'), 'WSTN111111')
-        self.assertEquals(caverphone('westwood'), 'WSTWT11111')
-        self.assertEquals(caverphone('wetherilt'), 'WTRT111111')
-        self.assertEquals(caverphone('wethersto'), 'WTSTA11111')
-        self.assertEquals(caverphone('wetherstone'), 'WTSTN11111')
-        self.assertEquals(caverphone('wethey'), 'WTA1111111')
-        self.assertEquals(caverphone('wetney'), 'WTNA111111')
-        self.assertEquals(caverphone('weyland'), 'WLNT111111')
-        self.assertEquals(caverphone('weymouth'), 'WMT1111111')
-        self.assertEquals(caverphone('whaley'), 'WLA1111111')
-        self.assertEquals(caverphone('wharin'), 'WRN1111111')
-        self.assertEquals(caverphone('wheatley'), 'WTLA111111')
-        self.assertEquals(caverphone('wheeier'), 'WA11111111')
-        self.assertEquals(caverphone('wheelan'), 'WLN1111111')
-        self.assertEquals(caverphone('wheelel'), 'WLA1111111')
-        self.assertEquals(caverphone('wheeler'), 'WLA1111111')
-        self.assertEquals(caverphone('wheeley'), 'WLA1111111')
-        self.assertEquals(caverphone('wheelwright'), 'WRT1111111')
-        self.assertEquals(caverphone('whelan'), 'WLN1111111')
-        self.assertEquals(caverphone('whetter'), 'WTA1111111')
-        self.assertEquals(caverphone('whibe'), 'WP11111111')
-        self.assertEquals(caverphone('whileley'), 'WLLA111111')
-        self.assertEquals(caverphone('whineray'), 'WNRA111111')
-        self.assertEquals(caverphone('whinray'), 'WNRA111111')
-        self.assertEquals(caverphone('whipp'), 'WP11111111')
-        self.assertEquals(caverphone('whiston'), 'WSTN111111')
-        self.assertEquals(caverphone('whitaker'), 'WTKA111111')
-        self.assertEquals(caverphone('whitburn'), 'WTPN111111')
-        self.assertEquals(caverphone('whitcombe'), 'WTKM111111')
-        self.assertEquals(caverphone('white-pars'), 'WTPS111111')
-        self.assertEquals(caverphone('white-parsons'), 'WTPSNS1111')
-        self.assertEquals(caverphone('white'), 'WT11111111')
-        self.assertEquals(caverphone('whitefield'), 'WTFT111111')
-        self.assertEquals(caverphone('whitehead'), 'WTT1111111')
-        self.assertEquals(caverphone('whitehorl'), 'WTA1111111')
-        self.assertEquals(caverphone('whitehorn'), 'WTN1111111')
-        self.assertEquals(caverphone('whiteley'), 'WTLA111111')
-        self.assertEquals(caverphone('whiteside'), 'WTST111111')
-        self.assertEquals(caverphone('whitfield'), 'WTFT111111')
-        self.assertEquals(caverphone('whiting'), 'WTNK111111')
-        self.assertEquals(caverphone('whitley'), 'WTLA111111')
-        self.assertEquals(caverphone('whitlow'), 'WTLA111111')
-        self.assertEquals(caverphone('whitney'), 'WTNA111111')
-        self.assertEquals(caverphone('whito'), 'WTA1111111')
-        self.assertEquals(caverphone('whitson'), 'WTSN111111')
-        self.assertEquals(caverphone('whittaker'), 'WTKA111111')
-        self.assertEquals(caverphone('whittall'), 'WTA1111111')
-        self.assertEquals(caverphone('whittet'), 'WTT1111111')
-        self.assertEquals(caverphone('whitticase'), 'WTKS111111')
-        self.assertEquals(caverphone('whittington'), 'WTNKTN1111')
-        self.assertEquals(caverphone('whittleston'), 'WTLSTN1111')
-        self.assertEquals(caverphone('whittlestone'), 'WTLSTN1111')
-        self.assertEquals(caverphone('whitton'), 'WTN1111111')
-        self.assertEquals(caverphone('whitty'), 'WTA1111111')
-        self.assertEquals(caverphone('whvte'), 'FT11111111')
-        self.assertEquals(caverphone('whyman'), 'WMN1111111')
-        self.assertEquals(caverphone('whyte'), 'WT11111111')
-        self.assertEquals(caverphone('wiberg'), 'WPK1111111')
-        self.assertEquals(caverphone('wicks'), 'WKS1111111')
-        self.assertEquals(caverphone('wicksteed'), 'WKSTT11111')
-        self.assertEquals(caverphone('widdowson'), 'WTSN111111')
-        self.assertEquals(caverphone('wide'), 'WT11111111')
-        self.assertEquals(caverphone('widhart'), 'WTT1111111')
-        self.assertEquals(caverphone('wigg'), 'WK11111111')
-        self.assertEquals(caverphone('wiggins'), 'WKNS111111')
-        self.assertEquals(caverphone('wight'), 'WT11111111')
-        self.assertEquals(caverphone('wightman'), 'WTMN111111')
-        self.assertEquals(caverphone('wiikinson'), 'WKNSN11111')
-        self.assertEquals(caverphone('wikland'), 'WKLNT11111')
-        self.assertEquals(caverphone('wilberfoss'), 'WPFS111111')
-        self.assertEquals(caverphone('wilby'), 'WPA1111111')
-        self.assertEquals(caverphone('wilcox'), 'WKK1111111')
-        self.assertEquals(caverphone('wilde'), 'WT11111111')
-        self.assertEquals(caverphone('wilden'), 'WTN1111111')
-        self.assertEquals(caverphone('wilder'), 'WTA1111111')
-        self.assertEquals(caverphone('wildey'), 'WTA1111111')
-        self.assertEquals(caverphone('wildgoose'), 'WKS1111111')
-        self.assertEquals(caverphone('wildie'), 'WTA1111111')
-        self.assertEquals(caverphone('wilding'), 'WTNK111111')
-        self.assertEquals(caverphone('wildoy'), 'WTA1111111')
-        self.assertEquals(caverphone('wiles'), 'WLS1111111')
-        self.assertEquals(caverphone('wiley'), 'WLA1111111')
-        self.assertEquals(caverphone('wilhelmsen'), 'WMSN111111')
-        self.assertEquals(caverphone('wilhelmson'), 'WMSN111111')
-        self.assertEquals(caverphone('wilkeison'), 'WKSN111111')
-        self.assertEquals(caverphone('wilkerson'), 'WKSN111111')
-        self.assertEquals(caverphone('wilkie'), 'WKA1111111')
-        self.assertEquals(caverphone('wilkin'), 'WKN1111111')
-        self.assertEquals(caverphone('wilkinon'), 'WKNN111111')
-        self.assertEquals(caverphone('wilkins'), 'WKNS111111')
-        self.assertEquals(caverphone('wilkinson'), 'WKNSN11111')
-        self.assertEquals(caverphone('will'), 'WA11111111')
-        self.assertEquals(caverphone('willcocks'), 'WKKS111111')
-        self.assertEquals(caverphone('willers'), 'WLS1111111')
-        self.assertEquals(caverphone('willett'), 'WLT1111111')
-        self.assertEquals(caverphone('william'), 'WLM1111111')
-        self.assertEquals(caverphone('williame'), 'WLM1111111')
-        self.assertEquals(caverphone('williams'), 'WLMS111111')
-        self.assertEquals(caverphone('williamso'), 'WLMSA11111')
-        self.assertEquals(caverphone('williamson'), 'WLMSN11111')
-        self.assertEquals(caverphone('willianson'), 'WLNSN11111')
-        self.assertEquals(caverphone('williarns'), 'WLNS111111')
-        self.assertEquals(caverphone('williden'), 'WLTN111111')
-        self.assertEquals(caverphone('willis'), 'WLS1111111')
-        self.assertEquals(caverphone('willocks'), 'WLKS111111')
-        self.assertEquals(caverphone('willon'), 'WLN1111111')
-        self.assertEquals(caverphone('willox'), 'WLK1111111')
-        self.assertEquals(caverphone('wills'), 'WS11111111')
-        self.assertEquals(caverphone('willson'), 'WSN1111111')
-        self.assertEquals(caverphone('wilmot'), 'WMT1111111')
-        self.assertEquals(caverphone('wiloy'), 'WLA1111111')
-        self.assertEquals(caverphone('wilson-brown'), 'WSNPRN1111')
-        self.assertEquals(caverphone('wilson-pyne'), 'WSNPN11111')
-        self.assertEquals(caverphone('wilson'), 'WSN1111111')
-        self.assertEquals(caverphone('wilton'), 'WTN1111111')
-        self.assertEquals(caverphone('wimpellny'), 'WMPNA11111')
-        self.assertEquals(caverphone('wimpenny'), 'WMPNA11111')
-        self.assertEquals(caverphone('winchester'), 'WNKSTA1111')
-        self.assertEquals(caverphone('winchestor'), 'WNKSTA1111')
-        self.assertEquals(caverphone('windelburn'), 'WNTPN11111')
-        self.assertEquals(caverphone('windeler'), 'WNTLA11111')
-        self.assertEquals(caverphone('winder'), 'WNTA111111')
-        self.assertEquals(caverphone('winders'), 'WNTS111111')
-        self.assertEquals(caverphone('windsor'), 'WNTSA11111')
-        self.assertEquals(caverphone('windus'), 'WNTS111111')
-        self.assertEquals(caverphone('wine'), 'WN11111111')
-        self.assertEquals(caverphone('winefield'), 'WNFT111111')
-        self.assertEquals(caverphone('winepress'), 'WNPRS11111')
-        self.assertEquals(caverphone('wing'), 'WNK1111111')
-        self.assertEquals(caverphone('wingfield'), 'WNKFT11111')
-        self.assertEquals(caverphone('wingham'), 'WNM1111111')
-        self.assertEquals(caverphone('winkfield'), 'WNKFT11111')
-        self.assertEquals(caverphone('winn'), 'WN11111111')
-        self.assertEquals(caverphone('winslade'), 'WNSLT11111')
-        self.assertEquals(caverphone('winter'), 'WNTA111111')
-        self.assertEquals(caverphone('winterr'), 'WNTA111111')
-        self.assertEquals(caverphone('winton'), 'WNTN111111')
-        self.assertEquals(caverphone('wintrup'), 'WNTRP11111')
-        self.assertEquals(caverphone('wise'), 'WS11111111')
-        self.assertEquals(caverphone('wisely'), 'WSLA111111')
-        self.assertEquals(caverphone('wiseman'), 'WSMN111111')
-        self.assertEquals(caverphone('wishart'), 'WST1111111')
-        self.assertEquals(caverphone('wisnesky'), 'WSNSKA1111')
-        self.assertEquals(caverphone('witchall'), 'WKA1111111')
-        self.assertEquals(caverphone('witchalls'), 'WKS1111111')
-        self.assertEquals(caverphone('withecomb'), 'WTKM111111')
-        self.assertEquals(caverphone('withecombe'), 'WTKM111111')
-        self.assertEquals(caverphone('witheford'), 'WTFT111111')
-        self.assertEquals(caverphone('withell'), 'WTA1111111')
-        self.assertEquals(caverphone('withelmsen'), 'WTMSN11111')
-        self.assertEquals(caverphone('witherford'), 'WTFT111111')
-        self.assertEquals(caverphone('withers'), 'WTS1111111')
-        self.assertEquals(caverphone('withey'), 'WTA1111111')
-        self.assertEquals(caverphone('withington'), 'WTNKTN1111')
-        self.assertEquals(caverphone('withnell'), 'WTNA111111')
-        self.assertEquals(caverphone('withy'), 'WTA1111111')
-        self.assertEquals(caverphone('witley'), 'WTLA111111')
-        self.assertEquals(caverphone('witt'), 'WT11111111')
-        self.assertEquals(caverphone('wix'), 'WK11111111')
-        self.assertEquals(caverphone('wkitty'), 'KTA1111111')
-        self.assertEquals(caverphone('wlight'), 'LT11111111')
-        self.assertEquals(caverphone('wlitticase'), 'LTKS111111')
-        self.assertEquals(caverphone('woadhead'), 'WTT1111111')
-        self.assertEquals(caverphone('wohlers'), 'WLS1111111')
-        self.assertEquals(caverphone('wohlmann'), 'WMN1111111')
-        self.assertEquals(caverphone('wolf'), 'WF11111111')
-        self.assertEquals(caverphone('wolfe'), 'WF11111111')
-        self.assertEquals(caverphone('wolfenden'), 'WFNTN11111')
-        self.assertEquals(caverphone('wolfinden'), 'WFNTN11111')
-        self.assertEquals(caverphone('wolgast'), 'WKST111111')
-        self.assertEquals(caverphone('wolstenhol'), 'WSTNA11111')
-        self.assertEquals(caverphone('wolstenholme'), 'WSTNM11111')
-        self.assertEquals(caverphone('wood'), 'WT11111111')
-        self.assertEquals(caverphone('woodberry'), 'WTPRA11111')
-        self.assertEquals(caverphone('woodbury'), 'WTPRA11111')
-        self.assertEquals(caverphone('woodfield'), 'WTFT111111')
-        self.assertEquals(caverphone('woodford'), 'WTFT111111')
-        self.assertEquals(caverphone('woodger'), 'WKA1111111')
-        self.assertEquals(caverphone('woodham'), 'WTM1111111')
-        self.assertEquals(caverphone('woodhead'), 'WTT1111111')
-        self.assertEquals(caverphone('woodhill'), 'WTA1111111')
-        self.assertEquals(caverphone('woodhouse'), 'WTS1111111')
-        self.assertEquals(caverphone('woodifiel'), 'WTFA111111')
-        self.assertEquals(caverphone('woodifield'), 'WTFT111111')
-        self.assertEquals(caverphone('wooding'), 'WTNK111111')
-        self.assertEquals(caverphone('woodley'), 'WTLA111111')
-        self.assertEquals(caverphone('woodrow'), 'WTRA111111')
-        self.assertEquals(caverphone('woods'), 'WTS1111111')
-        self.assertEquals(caverphone('woodside'), 'WTST111111')
-        self.assertEquals(caverphone('woodward'), 'WTWT111111')
-        self.assertEquals(caverphone('wooldridge'), 'WTRK111111')
-        self.assertEquals(caverphone('woolf'), 'WF11111111')
-        self.assertEquals(caverphone('woolland'), 'WLNT111111')
-        self.assertEquals(caverphone('woolley'), 'WLA1111111')
-        self.assertEquals(caverphone('woolliams'), 'WLMS111111')
-        self.assertEquals(caverphone('woolnough'), 'WNA1111111')
-        self.assertEquals(caverphone('wooster'), 'WSTA111111')
-        self.assertEquals(caverphone('wooton'), 'WTN1111111')
-        self.assertEquals(caverphone('wootten'), 'WTN1111111')
-        self.assertEquals(caverphone('wootton'), 'WTN1111111')
-        self.assertEquals(caverphone('worger'), 'WKA1111111')
-        self.assertEquals(caverphone('work'), 'WK11111111')
-        self.assertEquals(caverphone('workman'), 'WKMN111111')
-        self.assertEquals(caverphone('workn1an'), 'WKNN111111')
-        self.assertEquals(caverphone('worrall'), 'WRA1111111')
-        self.assertEquals(caverphone('worsdell'), 'WSTA111111')
-        self.assertEquals(caverphone('worth'), 'WT11111111')
-        self.assertEquals(caverphone('worthingt'), 'WTNKT11111')
-        self.assertEquals(caverphone('worthingto'), 'WTNKTA1111')
-        self.assertEquals(caverphone('worthington'), 'WTNKTN1111')
-        self.assertEquals(caverphone('wortley'), 'WTLA111111')
-        self.assertEquals(caverphone('wotherspoon'), 'WTSPN11111')
-        self.assertEquals(caverphone('wragge'), 'RK11111111')
-        self.assertEquals(caverphone('wraggo'), 'RKA1111111')
-        self.assertEquals(caverphone('wraight'), 'RT11111111')
-        self.assertEquals(caverphone('wrathall'), 'RTA1111111')
-        self.assertEquals(caverphone('wrather'), 'RTA1111111')
-        self.assertEquals(caverphone('wray'), 'RA11111111')
-        self.assertEquals(caverphone('wreathall'), 'RTA1111111')
-        self.assertEquals(caverphone('wregglesworth'), 'RKLSWT1111')
-        self.assertEquals(caverphone('wren'), 'RN11111111')
-        self.assertEquals(caverphone('wrenn'), 'RN11111111')
-        self.assertEquals(caverphone('wrght'), 'T111111111')
-        self.assertEquals(caverphone('wrigglesworth'), 'RKLSWT1111')
-        self.assertEquals(caverphone('wright'), 'RT11111111')
-        self.assertEquals(caverphone('wrightson'), 'RTSN111111')
-        self.assertEquals(caverphone('wrignt'), 'RKNT111111')
-        self.assertEquals(caverphone('wroblenski'), 'RPLNSKA111')
-        self.assertEquals(caverphone('wward'), 'WT11111111')
-        self.assertEquals(caverphone('wyatt'), 'WT11111111')
-        self.assertEquals(caverphone('wyber'), 'WPA1111111')
-        self.assertEquals(caverphone('wyborn'), 'WPN1111111')
-        self.assertEquals(caverphone('wycherley'), 'WKLA111111')
-        self.assertEquals(caverphone('wyinks'), 'WNKS111111')
-        self.assertEquals(caverphone('wylie'), 'WLA1111111')
-        self.assertEquals(caverphone('wyllie'), 'WLA1111111')
-        self.assertEquals(caverphone('wyman'), 'WMN1111111')
-        self.assertEquals(caverphone('wyness'), 'WNS1111111')
-        self.assertEquals(caverphone('wynks'), 'WNKS111111')
-        self.assertEquals(caverphone('wynn'), 'WN11111111')
-        self.assertEquals(caverphone('wynne'), 'WN11111111')
-        self.assertEquals(caverphone('wyse'), 'WS11111111')
-        self.assertEquals(caverphone('yamm'), 'YM11111111')
-        self.assertEquals(caverphone('yardley'), 'YTLA111111')
-        self.assertEquals(caverphone('yarlett'), 'YLT1111111')
-        self.assertEquals(caverphone('yates'), 'YTS1111111')
-        self.assertEquals(caverphone('yelds'), 'YTS1111111')
-        self.assertEquals(caverphone('yelland'), 'YLNT111111')
-        self.assertEquals(caverphone('yemm'), 'YM11111111')
-        self.assertEquals(caverphone('yeoman'), 'YMN1111111')
-        self.assertEquals(caverphone('yerex'), 'YRK1111111')
-        self.assertEquals(caverphone('yet'), 'YT11111111')
-        self.assertEquals(caverphone('yip'), 'YP11111111')
-        self.assertEquals(caverphone('york'), 'YK11111111')
-        self.assertEquals(caverphone('yorstan'), 'YSTN111111')
-        self.assertEquals(caverphone('yorston'), 'YSTN111111')
-        self.assertEquals(caverphone('youds'), 'YTS1111111')
-        self.assertEquals(caverphone('young kwong'), 'YNKWNK1111')
-        self.assertEquals(caverphone('young'), 'YNK1111111')
-        self.assertEquals(caverphone('youngman'), 'YNKMN11111')
-        self.assertEquals(caverphone('youngson'), 'YNKSN11111')
-        self.assertEquals(caverphone('yuill'), 'YA11111111')
-        self.assertEquals(caverphone('zelland'), 'SLNT111111')
-        self.assertEquals(caverphone('zeller'), 'SLA1111111')
-        self.assertEquals(caverphone('zimmerman'), 'SMMN111111')
-        self.assertEquals(caverphone('zouch'), 'SK11111111')
-        self.assertEquals(caverphone('zwimpfer'), 'SWMPFA1111')
+        testset = (('aaron', 'ARN1111111'), ('abby', 'APA1111111'),
+                ('abdo', 'APTA111111'), ('abel', 'APA1111111'),
+                ('abigail', 'APKA111111'), ('abina', 'APNA111111'),
+                ('abool', 'APA1111111'), ('abraham', 'APRM111111'),
+                ('absalom', 'APSLM11111'), ('ada', 'ATA1111111'),
+                ('adalbert', 'ATPT111111'), ('adaline', 'ATLN111111'),
+                ('adam', 'ATM1111111'), ('adela', 'ATLA111111'),
+                ('adelaide', 'ATLT111111'), ('adeleen', 'ATLN111111'),
+                ('adelene', 'ATLN111111'), ('adelina', 'ATLNA11111'),
+                ('adeline', 'ATLN111111'), ('adolarious', 'ATLRS11111'),
+                ('adolph', 'ATF1111111'), ('adolphe', 'ATF1111111'),
+                ('adolphus', 'ATFS111111'), ('adonia', 'ATNA111111'),
+                ('adrian', 'ATRN111111'), ('aeneas', 'ANS1111111'),
+                ('afred', 'AFRT111111'), ('agatha', 'AKTA111111'),
+                ('aggie', 'AKA1111111'), ('agnes', 'AKNS111111'),
+                ('agness', 'AKNS111111'), ('ah', 'A111111111'),
+                ('ahira', 'ARA1111111'), ('aida', 'ATA1111111'),
+                ('aidan', 'ATN1111111'), ('aileen', 'ALN1111111'),
+                ('ailsa', 'ASA1111111'), ('aimee', 'AMA1111111'),
+                ('aimie', 'AMA1111111'), ('aird', 'AT11111111'),
+                ('airini', 'ARNA111111'), ('alak', 'ALK1111111'),
+                ('alan', 'ALN1111111'), ('alasdair', 'ALSTA11111'),
+                ('alastair', 'ALSTA11111'), ('alban', 'APN1111111'),
+                ('albany', 'APNA111111'), ('albert', 'APT1111111'),
+                ('alberta', 'APTA111111'), ('alberthina', 'APTNA11111'),
+                ('albertina', 'APTNA11111'), ('albertus', 'APTS111111'),
+                ('albina', 'APNA111111'), ('aldolf', 'ATF1111111'),
+                ('aldwyn', 'ATWN111111'), ('aleatha', 'ALTA111111'),
+                ('alec', 'ALK1111111'), ('alex', 'ALK1111111'),
+                ('alexander', 'ALKNTA1111'), ('alexanderina', 'ALKNTRNA11'),
+                ('alexandra', 'ALKNTRA111'), ('alexandrena', 'ALKNTRNA11'),
+                ('alexandrew', 'ALKNTRA111'), ('alexandria', 'ALKNTRA111'),
+                ('alexandrina', 'ALKNTRNA11'), ('alexina', 'ALKNA11111'),
+                ('alexius', 'ALKS111111'), ('alf', 'AF11111111'),
+                ('alfred', 'AFRT111111'), ('alfreda', 'AFRTA11111'),
+                ('alfrerd', 'AFRT111111'), ('algernon', 'AKNN111111'),
+                ('algier', 'AKA1111111'), ('alice', 'ALK1111111'),
+                ('alicia', 'ALSA111111'), ('alick', 'ALK1111111'),
+                ('aline', 'ALN1111111'), ('alinie', 'ALNA111111'),
+                ('alison', 'ALSN111111'), ('alister', 'ALSTA11111'),
+                ('alixe', 'ALK1111111'), ('allan', 'ALN1111111'),
+                ('allen', 'ALN1111111'), ('allison', 'ALSN111111'),
+                ('allon', 'ALN1111111'), ('alma', 'AMA1111111'),
+                ('alnie', 'ANA1111111'), ('aloysius', 'ALSS111111'),
+                ('alpheus', 'AFS1111111'), ('alphonso', 'AFNSA11111'),
+                ('alphonsos', 'AFNSS11111'), ('alphonsus', 'AFNSS11111'),
+                ('alston', 'ASTN111111'), ('althea', 'ATA1111111'),
+                ('alva', 'AFA1111111'), ('alvan', 'AFN1111111'),
+                ('alvia', 'AFA1111111'), ('alvida', 'AFTA111111'),
+                ('alvin', 'AFN1111111'), ('alvina', 'AFNA111111'),
+                ('alvirie', 'AFRA111111'), ('alwin', 'AWN1111111'),
+                ('alwyn', 'AWN1111111'), ('alys', 'ALS1111111'),
+                ('amanda', 'AMNTA11111'), ('ambrose', 'AMPRS11111'),
+                ('amelia', 'AMLA111111'), ('amida', 'AMTA111111'),
+                ('amie', 'AMA1111111'), ('amos', 'AMS1111111'),
+                ('amy', 'AMA1111111'), ('anabella', 'ANPLA11111'),
+                ('anastasia', 'ANSTSA1111'), ('andarena', 'ANTRNA1111'),
+                ('andereanie', 'ANTRNA1111'), ('anderena', 'ANTRNA1111'),
+                ('anderina', 'ANTRNA1111'), ('anders', 'ANTS111111'),
+                ('anderson', 'ANTSN11111'), ('andes', 'ANTS111111'),
+                ('andis', 'ANTS111111'), ('andrea', 'ANTRA11111'),
+                ('andreas', 'ANTRS11111'), ('andreen', 'ANTRN11111'),
+                ('andrena', 'ANTRNA1111'), ('andrew', 'ANTRA11111'),
+                ('andrewetta', 'ANTRWTA111'), ('andrewina', 'ANTRWNA111'),
+                ('andriana', 'ANTRNA1111'), ('andrina', 'ANTRNA1111'),
+                ('angela', 'ANKLA11111'), ('angelina', 'ANKLNA1111'),
+                ('anges', 'ANKS111111'), ('angnetta', 'ANKNTA1111'),
+                ('angus', 'ANKS111111'), ('angustus', 'ANKSTS1111'),
+                ('angy', 'ANKA111111'), ('anita', 'ANTA111111'),
+                ('anmore', 'ANMA111111'), ('ann', 'AN11111111'),
+                ('anna', 'ANA1111111'), ('annabel', 'ANPA111111'),
+                ('annabell', 'ANPA111111'), ('annabella', 'ANPLA11111'),
+                ('annastasia', 'ANSTSA1111'), ('anne', 'AN11111111'),
+                ('anners', 'ANS1111111'), ('annetta', 'ANTA111111'),
+                ('annette', 'ANT1111111'), ('annettta', 'ANTA111111'),
+                ('annie', 'ANA1111111'), ('annis', 'ANS1111111'),
+                ('anorah', 'ANRA111111'), ('ansley', 'ANSLA11111'),
+                ('antcliffe', 'ANTKLF1111'), ('anthony', 'ANTNA11111'),
+                ('antiss', 'ANTS111111'), ('anton', 'ANTN111111'),
+                ('antonica', 'ANTNKA1111'), ('antonie', 'ANTNA11111'),
+                ('antonio', 'ANTNA11111'), ('antony', 'ANTNA11111'),
+                ('aquila', 'AKLA111111'), ('ara', 'ARA1111111'),
+                ('arabella', 'ARPLA11111'), ('archibald', 'AKPT111111'),
+                ('archie', 'AKA1111111'), ('archina', 'AKNA111111'),
+                ('archur', 'AKA1111111'), ('areta', 'ARTA111111'),
+                ('argles', 'AKLS111111'), ('argyle', 'AKA1111111'),
+                ('aria', 'ARA1111111'), ('ariana', 'ARNA111111'),
+                ('ariti', 'ARTA111111'), ('arlene', 'ALN1111111'),
+                ('arnold', 'ANT1111111'), ('aroha', 'ARA1111111'),
+                ('arowie', 'ARWA111111'), ('arthur', 'ATA1111111'),
+                ('asenath', 'ASNT111111'), ('ashburn', 'ASPN111111'),
+                ('asher', 'ASA1111111'), ('ashley', 'ASLA111111'),
+                ('ashton', 'ASTN111111'), ('atalanta', 'ATLNTA1111'),
+                ('athel', 'ATA1111111'), ('athol', 'ATA1111111'),
+                ('atkinson', 'ATKNSN1111'), ('aubrer', 'APRA111111'),
+                ('aubrey', 'APRA111111'), ('audrew', 'ATRA111111'),
+                ('audrey', 'ATRA111111'), ('audrina', 'ATRNA11111'),
+                ('aufrere', 'AFRA111111'), ('augus', 'AKS1111111'),
+                ('august', 'AKST111111'), ('augusta', 'AKSTA11111'),
+                ('augustine', 'AKSTN11111'), ('augustus', 'AKSTS11111'),
+                ('aurora', 'ARRA111111'), ('austen', 'ASTN111111'),
+                ('austin', 'ASTN111111'), ('ava', 'AFA1111111'),
+                ('avery', 'AFRA111111'), ('avice', 'AFK1111111'),
+                ('avis', 'AFS1111111'), ('avondale', 'AFNTA11111'),
+                ('awdry', 'ATRA111111'), ('axel', 'AKA1111111'),
+                ('azel', 'ASA1111111'), ('azella', 'ASLA111111'),
+                ('baden', 'PTN1111111'), ('bailey', 'PLA1111111'),
+                ('balfour', 'PFA1111111'), ('barbara', 'PPRA111111'),
+                ('barnett', 'PNT1111111'), ('barry', 'PRA1111111'),
+                ('bartholomew', 'PTLMA11111'), ('bartlet', 'PTLT111111'),
+                ('bartlett', 'PTLT111111'), ('basil', 'PSA1111111'),
+                ('beaton', 'PTN1111111'), ('beatrice', 'PTRK111111'),
+                ('beatrix', 'PTRK111111'), ('bedelia', 'PTLA111111'),
+                ('belina', 'PLNA111111'), ('belinda', 'PLNTA11111'),
+                ('bella', 'PLA1111111'), ('ben', 'PN11111111'),
+                ('benetta', 'PNTA111111'), ('benita', 'PNTA111111'),
+                ('benjamin', 'PNMN111111'), ('bennet', 'PNT1111111'),
+                ('benson', 'PNSN111111'), ('bernadette', 'PNTT111111'),
+                ('bernard', 'PNT1111111'), ('bernhard', 'PNT1111111'),
+                ('bernhardt', 'PNT1111111'), ('bernice', 'PNK1111111'),
+                ('berrie', 'PRA1111111'), ('bert', 'PT11111111'),
+                ('berta', 'PTA1111111'), ('bertetta', 'PTTA111111'),
+                ('bertha', 'PTA1111111'), ('berthia', 'PTA1111111'),
+                ('bertie', 'PTA1111111'), ('bertina', 'PTNA111111'),
+                ('bertram', 'PTRM111111'), ('bertrand', 'PTRNT11111'),
+                ('berty', 'PTA1111111'), ('bertzow', 'PTSA111111'),
+                ('beryl', 'PRA1111111'), ('bessie', 'PSA1111111'),
+                ('bessy', 'PSA1111111'), ('beter', 'PTA1111111'),
+                ('beth', 'PT11111111'), ('bethea', 'PTA1111111'),
+                ('bethia', 'PTA1111111'), ('betsey', 'PTSA111111'),
+                ('betsy', 'PTSA111111'), ('bettie', 'PTA1111111'),
+                ('bettina', 'PTNA111111'), ('betty', 'PTA1111111'),
+                ('beulah', 'PLA1111111'), ('billy', 'PLA1111111'),
+                ('bina', 'PNA1111111'), ('binah', 'PNA1111111'),
+                ('birdie', 'PTA1111111'), ('blair', 'PLA1111111'),
+                ('blanch', 'PLNK111111'), ('blanche', 'PLNK111111'),
+                ('blenard', 'PLNT111111'), ('bodil', 'PTA1111111'),
+                ('bollettie', 'PLTA111111'), ('bordix', 'PTK1111111'),
+                ('bowman', 'PMN1111111'), ('boyd', 'PT11111111'),
+                ('brazil', 'PRSA111111'), ('breatne', 'PRTN111111'),
+                ('breezetta', 'PRSTA11111'), ('brenda', 'PRNTA11111'),
+                ('brian', 'PRN1111111'), ('bridget', 'PRKT111111'),
+                ('bridie', 'PRTA111111'), ('brigid', 'PRKT111111'),
+                ('browne', 'PRN1111111'), ('bruce', 'PRK1111111'),
+                ('bryan', 'PRN1111111'), ('bryda', 'PRTA111111'),
+                ('buchanan', 'PKNN111111'), ('bulimba', 'PLMPA11111'),
+                ('burma', 'PMA1111111'), ('burt', 'PT11111111'),
+                ('burton', 'PTN1111111'), ('bussorah', 'PSRA111111'),
+                ('byrel', 'PRA1111111'), ('byrl', 'PA11111111'),
+                ('camelia', 'KMLA111111'), ('camellia', 'KMLA111111'),
+                ('campbell', 'KMPA111111'), ('carden', 'KTN1111111'),
+                ('caren', 'KRN1111111'), ('carew', 'KRA1111111'),
+                ('carita', 'KRTA111111'), ('carl', 'KA11111111'),
+                ('carlile', 'KLA1111111'), ('carlin', 'KLN1111111'),
+                ('carlton', 'KTN1111111'), ('carmen', 'KMN1111111'),
+                ('carmichael', 'KMKA111111'), ('carnegie', 'KNKA111111'),
+                ('carole', 'KRA1111111'), ('carolina', 'KRLNA11111'),
+                ('caroline', 'KRLN111111'), ('carona', 'KRNA111111'),
+                ('carra', 'KRA1111111'), ('carrie', 'KRA1111111'),
+                ('carrington', 'KRNKTN1111'), ('cassandra', 'KSNTRA1111'),
+                ('cassie', 'KSA1111111'), ('catharine', 'KTRN111111'),
+                ('cathelus', 'KTLS111111'), ('catherina', 'KTRNA11111'),
+                ('catherine', 'KTRN111111'), ('cathilus', 'KTLS111111'),
+                ('cathleen', 'KTLN111111'), ('cathrien', 'KTRN111111'),
+                ('cathrine', 'KTRN111111'), ('catrina', 'KTRNA11111'),
+                ('cecelia', 'SSLA111111'), ('cecil', 'SSA1111111'),
+                ('cecile', 'SSA1111111'), ('cecilia', 'SSLA111111'),
+                ('cecily', 'SSLA111111'), ('cedric', 'STRK111111'),
+                ('cedrie', 'STRA111111'), ('celestine', 'SLSTN11111'),
+                ('celia', 'SLA1111111'), ('cessford', 'SSFT111111'),
+                ('chalmers', 'KMS1111111'), ('chapman', 'KPMN111111'),
+                ('charia', 'KRA1111111'), ('charitable', 'KRTPA11111'),
+                ('charles', 'KLS1111111'), ('charlesclarence', 'KLSKLRNK11'),
+                ('charleswilliam', 'KLSWLM1111'), ('charley', 'KLA1111111'),
+                ('charlie', 'KLA1111111'), ('charlott', 'KLT1111111'),
+                ('charlotte', 'KLT1111111'), ('chas', 'KS11111111'),
+                ('chatles', 'KTLS111111'), ('chester', 'KSTA111111'),
+                ('chistopher', 'KSTFA11111'), ('chrarles', 'KRLS111111'),
+                ('chrest', 'KRST111111'), ('chrissie', 'KRSA111111'),
+                ('chrissy', 'KRSA111111'), ('christabel', 'KRSTPA1111'),
+                ('christabella', 'KRSTPLA111'), ('christen', 'KRSTN11111'),
+                ('christena', 'KRSTNA1111'), ('christian', 'KRSN111111'),
+                ('christiana', 'KRSNA11111'), ('christie', 'KRSTA11111'),
+                ('christina', 'KRSTNA1111'), ('christine', 'KRSTN11111'),
+                ('christinn', 'KRSTN11111'), ('christobel', 'KRSTPA1111'),
+                ('christopher', 'KRSTFA1111'), ('cicely', 'SSLA111111'),
+                ('cicil', 'SSA1111111'), ('cissie', 'SSA1111111'),
+                ('cissy', 'SSA1111111'), ('claire', 'KLA1111111'),
+                ('clalence', 'KLLNK11111'), ('clance', 'KLNK111111'),
+                ('clara', 'KLRA111111'), ('clarance', 'KLRNK11111'),
+                ('clare', 'KLA1111111'), ('clarels', 'KLRS111111'),
+                ('clarence', 'KLRNK11111'), ('clarenda', 'KLRNTA1111'),
+                ('clarenee', 'KLRNA11111'), ('claretta', 'KLRTA11111'),
+                ('claribel', 'KLRPA11111'), ('clarice', 'KLRK111111'),
+                ('clarinda', 'KLRNTA1111'), ('clarissa', 'KLRSA11111'),
+                ('claritta', 'KLRTA11111'), ('clarkson', 'KLKSN11111'),
+                ('clarles', 'KLLS111111'), ('claud', 'KLT1111111'),
+                ('claude', 'KLT1111111'), ('claudia', 'KLTA111111'),
+                ('clement', 'KLMNT11111'), ('clementina', 'KLMNTNA111'),
+                ('clementine', 'KLMNTN1111'), ('clemont', 'KLMNT11111'),
+                ('clifford', 'KLFT111111'), ('cliford', 'KLFT111111'),
+                ('clifton', 'KLFTN11111'), ('clina', 'KLNA111111'),
+                ('clive', 'KLF1111111'), ('cllarles', 'KLLS111111'),
+                ('clrarles', 'KRLS111111'), ('clunnie', 'KLNA111111'),
+                ('clyde', 'KLT1111111'), ('clym', 'KLM1111111'),
+                ('cochrane', 'KKRN111111'), ('coila', 'KLA1111111'),
+                ('coleman', 'KLMN111111'), ('colena', 'KLNA111111'),
+                ('colin', 'KLN1111111'), ('colina', 'KLNA111111'),
+                ('colville', 'KFA1111111'), ('comrie', 'KMRA111111'),
+                ('connie', 'KNA1111111'), ('conrad', 'KNRT111111'),
+                ('conroy', 'KNRA111111'), ('constance', 'KNSTNK1111'),
+                ('conway', 'KNWA111111'), ('conwy', 'KNWA111111'),
+                ('cora', 'KRA1111111'), ('coral', 'KRA1111111'),
+                ('coralie', 'KRLA111111'), ('coraline', 'KRLN111111'),
+                ('corbett', 'KPT1111111'), ('cordelia', 'KTLA111111'),
+                ('cordon', 'KTN1111111'), ('corinna', 'KRNA111111'),
+                ('cornelia', 'KNLA111111'), ('cornelius', 'KNLS111111'),
+                ('corona', 'KRNA111111'), ('correll', 'KRA1111111'),
+                ('corrie', 'KRA1111111'), ('coverly', 'KFLA111111'),
+                ('cowan', 'KWN1111111'), ('crace', 'KRK1111111'),
+                ('craigie', 'KRKA111111'), ('cranley', 'KRNLA11111'),
+                ('crawford', 'KRFT111111'), ('cresser', 'KRSA111111'),
+                ('crissie', 'KRSA111111'), ('crissy', 'KRSA111111'),
+                ('croydon', 'KRTN111111'), ('cumming', 'KMNK111111'),
+                ('curle', 'KA11111111'), ('cusack', 'KSK1111111'),
+                ('cushla', 'KSLA111111'), ('cuthbert', 'KTPT111111'),
+                ('cvrus', 'KFRS111111'), ('cynthia', 'SNTA111111'),
+                ('cyprian', 'SPRN111111'), ('cyri1', 'SRA1111111'),
+                ('cyril', 'SRA1111111'), ('d\'arcy', 'TSA1111111'),
+                ('dagald', 'TKT1111111'), ('dagmar', 'TKMA111111'),
+                ('daisy', 'TSA1111111'), ('dalia', 'TLA1111111'),
+                ('dallas', 'TLS1111111'), ('dan', 'TN11111111'),
+                ('dand', 'TNT1111111'), ('dane', 'TN11111111'),
+                ('danes', 'TNS1111111'), ('daniel', 'TNA1111111'),
+                ('daphne', 'TFN1111111'), ('darcey', 'TSA1111111'),
+                ('darcy', 'TSA1111111'), ('dardanella', 'TTNLA11111'),
+                ('darwent', 'TWNT111111'), ('dave', 'TF11111111'),
+                ('davey', 'TFA1111111'), ('davicl', 'TFKA111111'),
+                ('david', 'TFT1111111'), ('davida', 'TFTA111111'),
+                ('davidena', 'TFTNA11111'), ('davina', 'TFNA111111'),
+                ('davis', 'TFS1111111'), ('davitl', 'TFTA111111'),
+                ('dawson', 'TSN1111111'), ('deab', 'TP11111111'),
+                ('deane', 'TN11111111'), ('deborah', 'TPRA111111'),
+                ('decima', 'TSMA111111'), ('decimus', 'TSMS111111'),
+                ('deia', 'TA11111111'), ('delcia', 'TSA1111111'),
+                ('delcie', 'TSA1111111'), ('delia', 'TLA1111111'),
+                ('delice', 'TLK1111111'), ('delilah', 'TLLA111111'),
+                ('della', 'TLA1111111'), ('delsie', 'TSA1111111'),
+                ('denis', 'TNS1111111'), ('denise', 'TNS1111111'),
+                ('dennis', 'TNS1111111'), ('denzil', 'TNSA111111'),
+                ('derice', 'TRK1111111'), ('derry', 'TRA1111111'),
+                ('desmond', 'TSMNT11111'), ('devina', 'TFNA111111'),
+                ('diana', 'TNA1111111'), ('dibb', 'TP11111111'),
+                ('dick', 'TK11111111'), ('digby', 'TKPA111111'),
+                ('dina', 'TNA1111111'), ('dinah', 'TNA1111111'),
+                ('dnniel', 'TNA1111111'), ('docy', 'TSA1111111'),
+                ('dod', 'TT11111111'), ('dolce', 'TK11111111'),
+                ('dolina', 'TLNA111111'), ('dollena', 'TLNA111111'),
+                ('dolly', 'TLA1111111'), ('dolores', 'TLRS111111'),
+                ('dominic', 'TMNK111111'), ('dominick', 'TMNK111111'),
+                ('domonic', 'TMNK111111'), ('don', 'TN11111111'),
+                ('donah', 'TNA1111111'), ('donald', 'TNT1111111'),
+                ('donaldina', 'TNTNA11111'), ('donalena', 'TNLNA11111'),
+                ('donella', 'TNLA111111'), ('dora', 'TRA1111111'),
+                ('dorathea', 'TRTA111111'), ('dorcas', 'TKS1111111'),
+                ('doreen', 'TRN1111111'), ('dorice', 'TRK1111111'),
+                ('doris', 'TRS1111111'), ('dorles', 'TLS1111111'),
+                ('dorothea', 'TRTA111111'), ('dorothy', 'TRTA111111'),
+                ('dorree', 'TRA1111111'), ('dorris', 'TRS1111111'),
+                ('douald', 'TT11111111'), ('dougal', 'TKA1111111'),
+                ('dougald', 'TKT1111111'), ('douglas', 'TKLS111111'),
+                ('dryden', 'TRTN111111'), ('dsmond', 'TSMNT11111'),
+                ('dudley', 'TTLA111111'), ('dugald', 'TKT1111111'),
+                ('dugall', 'TKA1111111'), ('dulcie', 'TSA1111111'),
+                ('duncan', 'TNKN111111'), ('dunncan', 'TNKN111111'),
+                ('dunstan', 'TNSTN11111'), ('e', '1111111111'),
+                ('eaber', 'APA1111111'), ('eadly', 'ATLA111111'),
+                ('earl', 'AA11111111'), ('earle', 'AA11111111'),
+                ('earnest', 'ANST111111'), ('earold', 'ART1111111'),
+                ('earry', 'ARA1111111'), ('eary', 'ARA1111111'),
+                ('easther', 'ASTA111111'), ('ebb', 'AP11111111'),
+                ('ebbie', 'APA1111111'), ('ebdom', 'APTM111111'),
+                ('ebdon', 'APTN111111'), ('eben', 'APN1111111'),
+                ('ebenezer', 'APNSA11111'), ('eccles', 'AKLS111111'),
+                ('eda', 'ATA1111111'), ('eden', 'ATN1111111'),
+                ('edgal', 'AKA1111111'), ('edgar', 'AKA1111111'),
+                ('edifer', 'ATFA111111'), ('edifu', 'ATFA111111'),
+                ('edith', 'ATT1111111'), ('edla', 'ATLA111111'),
+                ('edmond', 'ATMNT11111'), ('edmund', 'ATMNT11111'),
+                ('edna', 'ATNA111111'), ('edolph', 'ATF1111111'),
+                ('edric', 'ATRK111111'), ('edvina', 'ATFNA11111'),
+                ('edvward', 'ATFWT11111'), ('edwald', 'ATWT111111'),
+                ('edwarcl', 'ATWKA11111'), ('edward', 'ATWT111111'),
+                ('edwardd', 'ATWT111111'), ('edwardi', 'ATWTA11111'),
+                ('edwardl', 'ATWTA11111'), ('edwards', 'ATWTS11111'),
+                ('edwin', 'ATWN111111'), ('edwina', 'ATWNA11111'),
+                ('edyth', 'ATT1111111'), ('edythe', 'ATT1111111'),
+                ('eenry', 'ANRA111111'), ('eerbert', 'APT1111111'),
+                ('effie', 'AFA1111111'), ('effield', 'AFT1111111'),
+                ('efiza', 'AFSA111111'), ('eflie', 'AFLA111111'),
+                ('egbert', 'AKPT111111'), ('eglentine', 'AKLNTN1111'),
+                ('ehler', 'ALA1111111'), ('eila', 'ALA1111111'),
+                ('eileen', 'ALN1111111'), ('eileena', 'ALNA111111'),
+                ('eilene', 'ALN1111111'), ('eilzabeth', 'ASPT111111'),
+                ('eion', 'AN11111111'), ('eirene', 'ARN1111111'),
+                ('elaine', 'ALN1111111'), ('eldorado', 'ATRTA11111'),
+                ('eldrid', 'ATRT111111'), ('eleana', 'ALNA111111'),
+                ('eleanor', 'ALNA111111'), ('eleanora', 'ALNRA11111'),
+                ('eleanore', 'ALNA111111'), ('eleazar', 'ALSA111111'),
+                ('elena', 'ALNA111111'), ('elenor', 'ALNA111111'),
+                ('elenora', 'ALNRA11111'), ('eleonora', 'ALNRA11111'),
+                ('eleonore', 'ALNA111111'), ('elephalet', 'ALFLT11111'),
+                ('elezeard', 'ALST111111'), ('elfreda', 'AFRTA11111'),
+                ('elfrida', 'AFRTA11111'), ('eli', 'ALA1111111'),
+                ('elias', 'ALS1111111'), ('eliezer', 'ALSA111111'),
+                ('elijah', 'ALA1111111'), ('elinor', 'ALNA111111'),
+                ('eliot', 'ALT1111111'), ('eliphalet', 'ALFLT11111'),
+                ('elisabeth', 'ALSPT11111'), ('elise', 'ALS1111111'),
+                ('elisha', 'ALSA111111'), ('elishe', 'ALS1111111'),
+                ('elison', 'ALSN111111'), ('eliza', 'ALSA111111'),
+                ('elizabel', 'ALSPA11111'), ('elizabeth', 'ALSPT11111'),
+                ('elizie', 'ALSA111111'), ('ella', 'ALA1111111'),
+                ('ellaline', 'ALLN111111'), ('ellanor', 'ALNA111111'),
+                ('elleana', 'ALNA111111'), ('elleanor', 'ALNA111111'),
+                ('ellen', 'ALN1111111'), ('ellenor', 'ALNA111111'),
+                ('ellenora', 'ALNRA11111'), ('elleston', 'ALSTN11111'),
+                ('ellie', 'ALA1111111'), ('ellien', 'ALN1111111'),
+                ('ellinor', 'ALNA111111'), ('elliott', 'ALT1111111'),
+                ('ellis', 'ALS1111111'), ('ellison', 'ALSN111111'),
+                ('elliston', 'ALSTN11111'), ('ellsmere', 'ASMA111111'),
+                ('elma', 'AMA1111111'), ('elmira', 'AMRA111111'),
+                ('elsa', 'ASA1111111'), ('elsie', 'ASA1111111'),
+                ('elsinore', 'ASNA111111'), ('elspeth', 'ASPT111111'),
+                ('eluburt', 'ALPT111111'), ('elva', 'AFA1111111'),
+                ('elvena', 'AFNA111111'), ('elvene', 'AFN1111111'),
+                ('elvia', 'AFA1111111'), ('elvie', 'AFA1111111'),
+                ('elvina', 'AFNA111111'), ('elvira', 'AFRA111111'),
+                ('emanuel', 'AMNA111111'), ('emela', 'AMLA111111'),
+                ('emelia', 'AMLA111111'), ('emelie', 'AMLA111111'),
+                ('emeline', 'AMLN111111'), ('emely', 'AMLA111111'),
+                ('emest', 'AMST111111'), ('emil', 'AMA1111111'),
+                ('emile', 'AMA1111111'), ('emiley', 'AMLA111111'),
+                ('emilie', 'AMLA111111'), ('emilina', 'AMLNA11111'),
+                ('emiline', 'AMLN111111'), ('emilio', 'AMLA111111'),
+                ('emily', 'AMLA111111'), ('emma', 'AMA1111111'),
+                ('emmanuel', 'AMNA111111'), ('emmeline', 'AMLN111111'),
+                ('emmie', 'AMA1111111'), ('emmy', 'AMA1111111'),
+                ('ena', 'ANA1111111'), ('eneas', 'ANS1111111'),
+                ('english', 'ANKLS11111'), ('engo', 'ANKA111111'),
+                ('enid', 'ANT1111111'), ('enny', 'ANA1111111'),
+                ('enoch', 'ANK1111111'), ('ephraim', 'AFRM111111'),
+                ('ephrain', 'AFRN111111'), ('ephriam', 'AFRM111111'),
+                ('erana', 'ARNA111111'), ('erancis', 'ARNSS11111'),
+                ('erasmus', 'ARSMS11111'), ('erederick', 'ARTRK11111'),
+                ('erek', 'ARK1111111'), ('erenest', 'ARNST11111'),
+                ('eric', 'ARK1111111'), ('erich', 'ARK1111111'),
+                ('erie', 'ARA1111111'), ('erik', 'ARK1111111'),
+                ('erin', 'ARN1111111'), ('erle', 'AA11111111'),
+                ('ermina', 'AMNA111111'), ('ern', 'AN11111111'),
+                ('ernelst', 'ANST111111'), ('ernest', 'ANST111111'),
+                ('ernestina', 'ANSTNA1111'), ('ernestine', 'ANSTN11111'),
+                ('ernestreetfrancis', 'ANSTRTFRNS'), ('ernett', 'ANT1111111'),
+                ('ernie', 'ANA1111111'), ('ernma', 'ANMA111111'),
+                ('ernst', 'ANST111111'), ('errol', 'ARA1111111'),
+                ('erwin', 'AWN1111111'), ('esdaile', 'ASTA111111'),
+                ('esdale', 'ASTA111111'), ('esher', 'ASA1111111'),
+                ('esma', 'ASMA111111'), ('esme', 'ASM1111111'),
+                ('esmond', 'ASMNT11111'), ('essie', 'ASA1111111'),
+                ('estella', 'ASTLA11111'), ('estelle', 'ASTA111111'),
+                ('ester', 'ASTA111111'), ('esther', 'ASTA111111'),
+                ('ethel', 'ATA1111111'), ('ethelbert', 'ATPT111111'),
+                ('ethelinda', 'ATLNTA1111'), ('ethelwin', 'ATWN111111'),
+                ('ethelwyn', 'ATWN111111'), ('ethie', 'ATA1111111'),
+                ('etta', 'ATA1111111'), ('ettie', 'ATA1111111'),
+                ('ettrick', 'ATRK111111'), ('etty', 'ATA1111111'),
+                ('eubert', 'APT1111111'), ('eugene', 'AKN1111111'),
+                ('eugenie', 'AKNA111111'), ('eugh', 'AA11111111'),
+                ('eulla', 'ALA1111111'), ('eunice', 'ANK1111111'),
+                ('euphemia', 'AFMA111111'), ('eurice', 'ARK1111111'),
+                ('eustace', 'ASTK111111'), ('eva', 'AFA1111111'),
+                ('evaline', 'AFLN111111'), ('evalyn', 'AFLN111111'),
+                ('evan', 'AFN1111111'), ('evander', 'AFNTA11111'),
+                ('evandrina', 'AFNTRNA111'), ('evanelina', 'AFNLNA1111'),
+                ('evangaline', 'AFNKLN1111'), ('evangelina', 'AFNKLNA111'),
+                ('evangeline', 'AFNKLN1111'), ('evans', 'AFNS111111'),
+                ('evarard', 'AFRT111111'), ('eve', 'AF11111111'),
+                ('eveleen', 'AFLN111111'), ('evelina', 'AFLNA11111'),
+                ('eveline', 'AFLN111111'), ('evelyn', 'AFLN111111'),
+                ('evelyne', 'AFLN111111'), ('everard', 'AFRT111111'),
+                ('eveyleen', 'AFLN111111'), ('evin', 'AFN1111111'),
+                ('evinda', 'AFNTA11111'), ('ewan', 'AWN1111111'),
+                ('eward', 'AWT1111111'), ('ewart', 'AWT1111111'),
+                ('ewen', 'AWN1111111'), ('ezekiel', 'ASKA111111'),
+                ('ezra', 'ASRA111111'), ('faa', 'FA11111111'),
+                ('fabian', 'FPN1111111'), ('fairey', 'FRA1111111'),
+                ('faith', 'FT11111111'), ('fancis', 'FNSS111111'),
+                ('fannie', 'FNA1111111'), ('fanny', 'FNA1111111'),
+                ('farnham', 'FNM1111111'), ('farquhar', 'FKA1111111'),
+                ('fashoda', 'FSTA111111'), ('fay', 'FA11111111'),
+                ('felicha', 'FLKA111111'), ('felicia', 'FLSA111111'),
+                ('felix', 'FLK1111111'), ('fenwick', 'FNWK111111'),
+                ('ferdeanand', 'FTNNT11111'), ('ferdinand', 'FTNNT11111'),
+                ('ferdinnnd', 'FTNT111111'), ('fergus', 'FKS1111111'),
+                ('fergusson', 'FKSN111111'), ('ferme', 'FM11111111'),
+                ('ferne', 'FN11111111'), ('fides', 'FTS1111111'),
+                ('findlay', 'FNTLA11111'), ('finlay', 'FNLA111111'),
+                ('finley', 'FNLA111111'), ('fitzclarence', 'FTSKLRNK11'),
+                ('fitzelarence', 'FTSLRNK111'), ('fitzgerald', 'FTSKRT1111'),
+                ('fitzroy', 'FTSRA11111'), ('flank', 'FLNK111111'),
+                ('fleming', 'FLMNK11111'), ('fletcher', 'FLKA111111'),
+                ('flora', 'FLRA111111'), ('florabelle', 'FLRPA11111'),
+                ('florann', 'FLRN111111'), ('florencc', 'FLRNK11111'),
+                ('florence', 'FLRNK11111'), ('florice', 'FLRK111111'),
+                ('floris', 'FLRS111111'), ('florisse', 'FLRS111111'),
+                ('florita', 'FLRTA11111'), ('florrie', 'FLRA111111'),
+                ('flossie', 'FLSA111111'), ('forbes', 'FPS1111111'),
+                ('fordham', 'FTM1111111'), ('forrest', 'FRST111111'),
+                ('forrester', 'FRSTA11111'), ('forrestina', 'FRSTNA1111'),
+                ('forsyth', 'FST1111111'), ('fosbery', 'FSPRA11111'),
+                ('fracis', 'FRSS111111'), ('fraicis', 'FRSS111111'),
+                ('france', 'FRNK111111'), ('frances', 'FRNSS11111'),
+                ('franchise', 'FRNKS11111'), ('francie', 'FRNSA11111'),
+                ('francis', 'FRNSS11111'), ('francisca', 'FRNSSKA111'),
+                ('francois', 'FRNKS11111'), ('francusess', 'FRNKSS1111'),
+                ('frank', 'FRNK111111'), ('franklin', 'FRNKLN1111'),
+                ('franklyn', 'FRNKLN1111'), ('franz', 'FRNS111111'),
+                ('frarnk', 'FRNK111111'), ('fraser', 'FRSA111111'),
+                ('frcderick', 'FKTRK11111'), ('fred', 'FRT1111111'),
+                ('freda', 'FRTA111111'), ('fredeick', 'FRTK111111'),
+                ('fredelick', 'FRTLK11111'), ('fredercik', 'FRTSK11111'),
+                ('frederic', 'FRTRK11111'), ('frederica', 'FRTRKA1111'),
+                ('frederich', 'FRTRK11111'), ('frederick', 'FRTRK11111'),
+                ('fredericka', 'FRTRKA1111'), ('fredericld', 'FRTRKT1111'),
+                ('frederidck', 'FRTRTK1111'), ('frederiek', 'FRTRK11111'),
+                ('frederik', 'FRTRK11111'), ('frederlck', 'FRTK111111'),
+                ('fredierick', 'FRTRK11111'), ('fredk', 'FRTK111111'),
+                ('fredric', 'FRTRK11111'), ('fredrica', 'FRTRKA1111'),
+                ('fredrich', 'FRTRK11111'), ('fredrick', 'FRTRK11111'),
+                ('fredrik', 'FRTRK11111'), ('freid', 'FRT1111111'),
+                ('fric', 'FRK1111111'), ('friderick', 'FRTRK11111'),
+                ('fullenia', 'FLNA111111'), ('fulton', 'FTN1111111'),
+                ('gabriel', 'KPRA111111'), ('gabrielle', 'KPRA111111'),
+                ('gallacher', 'KLKA111111'), ('gamet', 'KMT1111111'),
+                ('gara', 'KRA1111111'), ('gardiner', 'KTNA111111'),
+                ('garibaldi', 'KRPTA11111'), ('garnet', 'KNT1111111'),
+                ('garrett', 'KRT1111111'), ('garry', 'KRA1111111'),
+                ('garth', 'KT11111111'), ('gary', 'KRA1111111'),
+                ('gavin', 'KFN1111111'), ('gaynor', 'KNA1111111'),
+                ('gcorge', 'KK11111111'), ('gebrge', 'KPK1111111'),
+                ('gecrge', 'KKK1111111'), ('geeorge', 'KK11111111'),
+                ('genrie', 'KNRA111111'), ('geo', 'KA11111111'),
+                ('geoffrev', 'KFRF111111'), ('geoffrey', 'KFRA111111'),
+                ('geoffry', 'KFRA111111'), ('geonge', 'KNK1111111'),
+                ('george', 'KK11111111'), ('georgei', 'KKA1111111'),
+                ('georgel', 'KKA1111111'), ('georger', 'KKA1111111'),
+                ('georgia', 'KKA1111111'), ('georgina', 'KKNA111111'),
+                ('georgo', 'KKA1111111'), ('georgte', 'KKT1111111'),
+                ('geortre', 'KTA1111111'), ('gerald', 'KRT1111111'),
+                ('geraldine', 'KRTN111111'), ('gerard', 'KRT1111111'),
+                ('gerge', 'KK11111111'), ('gershon', 'KSN1111111'),
+                ('gertie', 'KTA1111111'), ('gertrude', 'KTRT111111'),
+                ('gessenox', 'KSNK111111'), ('geytha', 'KTA1111111'),
+                ('geziena', 'KSNA111111'), ('gharles', 'LS11111111'),
+                ('gibson', 'KPSN111111'), ('gideon', 'KTN1111111'),
+                ('giener', 'KNA1111111'), ('gieorge', 'KK11111111'),
+                ('gilbert', 'KPT1111111'), ('gilberta', 'KPTA111111'),
+                ('gilhert', 'KT11111111'), ('girdwood', 'KTWT111111'),
+                ('gisella', 'KSLA111111'), ('gladstone', 'KLTSTN1111'),
+                ('gladwys', 'KLTWS11111'), ('gladys', 'KLTS111111'),
+                ('glen', 'KLN1111111'), ('gleorga', 'KLKA111111'),
+                ('gleorge', 'KLK1111111'), ('gleorgina', 'KLKNA11111'),
+                ('gleurge', 'KLK1111111'), ('glladys', 'KLTS111111'),
+                ('glordon', 'KLTN111111'), ('glover', 'KLFA111111'),
+                ('glrace', 'KRK1111111'), ('godfrey', 'KTFRA11111'),
+                ('godwin', 'KTWN111111'), ('golda', 'KTA1111111'),
+                ('gonzaga', 'KNSKA11111'), ('goorge', 'KK11111111'),
+                ('gordon', 'KTN1111111'), ('gorge', 'KK11111111'),
+                ('gottfred', 'KTFRT11111'), ('govan', 'KFN1111111'),
+                ('gowan', 'KWN1111111'), ('grace', 'KRK1111111'),
+                ('gracie', 'KRSA111111'), ('graham', 'KRM1111111'),
+                ('grahame', 'KRM1111111'), ('grainger', 'KRNKA11111'),
+                ('grange', 'KRNK111111'), ('grant', 'KRNT111111'),
+                ('grattan', 'KRTN111111'), ('gratton', 'KRTN111111'),
+                ('gray', 'KRA1111111'), ('grayce', 'KRK1111111'),
+                ('greer', 'KRA1111111'), ('greshon', 'KRSN111111'),
+                ('greta', 'KRTA111111'), ('gretchen', 'KRKN111111'),
+                ('gretta', 'KRTA111111'), ('griffith', 'KRFT111111'),
+                ('griffiths', 'KRFTS11111'), ('griselda', 'KRSTA11111'),
+                ('grosvenor', 'KRSFNA1111'), ('grover', 'KRFA111111'),
+                ('gteorge', 'KTK1111111'), ('guinevere', 'KNFA111111'),
+                ('gustav', 'KSTF111111'), ('gustava', 'KSTFA11111'),
+                ('gustave', 'KSTF111111'), ('guthrie', 'KTRA111111'),
+                ('guy', 'KA11111111'), ('gwen', 'KWN1111111'),
+                ('gwenath', 'KWNT111111'), ('gwenda', 'KWNTA11111'),
+                ('gwendaline', 'KWNTLN1111'), ('gwendelyne', 'KWNTLN1111'),
+                ('gwendolen', 'KWNTLN1111'), ('gwendolene', 'KWNTLN1111'),
+                ('gwendolin', 'KWNTLN1111'), ('gwendoline', 'KWNTLN1111'),
+                ('gwendolyn', 'KWNTLN1111'), ('gweneth', 'KWNT111111'),
+                ('gwenifer', 'KWNFA11111'), ('gwenoth', 'KWNT111111'),
+                ('gwenyth', 'KWNT111111'), ('gwladys', 'KLTS111111'),
+                ('gwyndoline', 'KWNTLN1111'), ('gwynneth', 'KWNT111111'),
+                ('gytha', 'KTA1111111'), ('gythar', 'KTA1111111'),
+                ('ha', 'AA11111111'), ('haas', 'AS11111111'),
+                ('hadley', 'ATLA111111'), ('haidee', 'ATA1111111'),
+                ('hamilton', 'AMTN111111'), ('hamish', 'AMS1111111'),
+                ('hamlin', 'AMLN111111'), ('hammond', 'AMNT111111'),
+                ('hampton', 'AMPTN11111'), ('hanley', 'ANLA111111'),
+                ('hanna', 'ANA1111111'), ('hannah', 'ANA1111111'),
+                ('hannora', 'ANRA111111'), ('hanora', 'ANRA111111'),
+                ('hanorah', 'ANRA111111'), ('hanoura', 'ANRA111111'),
+                ('hans', 'ANS1111111'), ('hansen', 'ANSN111111'),
+                ('hanson', 'ANSN111111'), ('harace', 'ARK1111111'),
+                ('harah', 'ARA1111111'), ('harbert', 'APT1111111'),
+                ('harion', 'ARN1111111'), ('harlold', 'ALT1111111'),
+                ('harly', 'ALA1111111'), ('harman', 'AMN1111111'),
+                ('harold', 'ART1111111'), ('harper', 'APA1111111'),
+                ('harriet', 'ART1111111'), ('harriett', 'ART1111111'),
+                ('harrietta', 'ARTA111111'), ('harriette', 'ART1111111'),
+                ('harriot', 'ART1111111'), ('harriott', 'ART1111111'),
+                ('harrv', 'AF11111111'), ('harry', 'ARA1111111'),
+                ('hartha', 'ATA1111111'), ('hartley', 'ATLA111111'),
+                ('harvey', 'AFA1111111'), ('hastings', 'ASTNKS1111'),
+                ('hatold', 'ATT1111111'), ('havilah', 'AFLA111111'),
+                ('havilland', 'AFLNT11111'), ('hayden', 'ATN1111111'),
+                ('haydn', 'ATN1111111'), ('hazel', 'ASA1111111'),
+                ('headley', 'ATLA111111'), ('hearstell', 'ASTA111111'),
+                ('heather', 'ATA1111111'), ('hebert', 'APT1111111'),
+                ('hector', 'AKTA111111'), ('hectorina', 'AKTRNA1111'),
+                ('hedley', 'ATLA111111'), ('hedwig', 'ATWK111111'),
+                ('heena', 'ANA1111111'), ('heinrich', 'ANRK111111'),
+                ('helan', 'ALN1111111'), ('helell', 'ALA1111111'),
+                ('helen', 'ALN1111111'), ('helena', 'ALNA111111'),
+                ('helene', 'ALN1111111'), ('helier', 'ALA1111111'),
+                ('hella', 'ALA1111111'), ('hellen', 'ALN1111111'),
+                ('hellurietta', 'ALRTA11111'), ('hemi', 'AMA1111111'),
+                ('hemingway', 'AMNKWA1111'), ('hemmingway', 'AMNKWA1111'),
+                ('hendry', 'ANTRA11111'), ('henery', 'ANRA111111'),
+                ('henn', 'AN11111111'), ('hennerrietta', 'ANRTA11111'),
+                ('henness', 'ANS1111111'), ('henrick', 'ANRK111111'),
+                ('henricus', 'ANRKS11111'), ('henrietta', 'ANRTA11111'),
+                ('henriette', 'ANRT111111'), ('henrv', 'ANF1111111'),
+                ('henry', 'ANRA111111'), ('henton', 'ANTN111111'),
+                ('henty', 'ANTA111111'), ('hephzibah', 'AFSPA11111'),
+                ('hera', 'ARA1111111'), ('herbert', 'APT1111111'),
+                ('herbrt', 'APT1111111'), ('hercules', 'AKLS111111'),
+                ('herman', 'AMN1111111'), ('hermione', 'AMN1111111'),
+                ('herry', 'ARA1111111'), ('hersee', 'ASA1111111'),
+                ('hessie', 'ASA1111111'), ('hester', 'ASTA111111'),
+                ('hettie', 'ATA1111111'), ('hetty', 'ATA1111111'),
+                ('heury', 'ARA1111111'), ('hezio', 'ASA1111111'),
+                ('hilary', 'ALRA111111'), ('hilda', 'ATA1111111'),
+                ('hildegarde', 'ATKT111111'), ('hillary', 'ALRA111111'),
+                ('hilma', 'AMA1111111'), ('hilton', 'ATN1111111'),
+                ('hinemoa', 'ANMA111111'), ('hinimoa', 'ANMA111111'),
+                ('hira', 'ARA1111111'), ('hiram', 'ARM1111111'),
+                ('hobart', 'APT1111111'), ('hobert', 'APT1111111'),
+                ('holly', 'ALA1111111'), ('honor', 'ANA1111111'),
+                ('honora', 'ANRA111111'), ('honoria', 'ANRA111111'),
+                ('honriotte', 'ANRT111111'), ('hope', 'AP11111111'),
+                ('horace', 'ARK1111111'), ('horatia', 'ARSA111111'),
+                ('horatio', 'ARSA111111'), ('horatius', 'ARTS111111'),
+                ('hortense', 'ATNS111111'), ('hosdell', 'ASTA111111'),
+                ('howard', 'AWT1111111'), ('howitt', 'AWT1111111'),
+                ('hua', 'AA11111111'), ('hubert', 'APT1111111'),
+                ('hugh', 'AA11111111'), ('hughina', 'AKNA111111'),
+                ('huh', 'AA11111111'), ('huia', 'AA11111111'),
+                ('hume', 'AM11111111'), ('humphrey', 'AMFRA11111'),
+                ('hunry', 'ANRA111111'), ('huntley', 'ANTLA11111'),
+                ('huron', 'ARN1111111'), ('hy', 'AA11111111'),
+                ('hyacinth', 'ASNT111111'), ('hylton', 'ATN1111111'),
+                ('hyman', 'AMN1111111'), ('ian', 'AN11111111'),
+                ('ianthe', 'ANT1111111'), ('iary', 'ARA1111111'),
+                ('ida', 'ATA1111111'), ('idean', 'ATN1111111'),
+                ('idelia', 'ATLA111111'), ('ieslie', 'ASLA111111'),
+                ('iirederick', 'ARTRK11111'), ('ilar', 'ALA1111111'),
+                ('ilena', 'ALNA111111'), ('ilma', 'AMA1111111'),
+                ('ima', 'AMA1111111'), ('imelda', 'AMTA111111'),
+                ('immaculate', 'AMKLT11111'), ('ina', 'ANA1111111'),
+                ('ineawa', 'ANWA111111'), ('inez', 'ANS1111111'),
+                ('ingo', 'ANKA111111'), ('ion', 'AN11111111'),
+                ('iona', 'ANA1111111'), ('ira', 'ARA1111111'),
+                ('irene', 'ARN1111111'), ('irine', 'ARN1111111'),
+                ('iris', 'ARS1111111'), ('irma', 'AMA1111111'),
+                ('irvine', 'AFN1111111'), ('irving', 'AFNK111111'),
+                ('irwin', 'AWN1111111'), ('isa', 'ASA1111111'),
+                ('isaac', 'ASK1111111'), ('isabel', 'ASPA111111'),
+                ('isabela', 'ASPLA11111'), ('isabell', 'ASPA111111'),
+                ('isabella', 'ASPLA11111'), ('isabelle', 'ASPA111111'),
+                ('isadore', 'ASTA111111'), ('isaiah', 'ASA1111111'),
+                ('isalella', 'ASLLA11111'), ('isbella', 'ASPLA11111'),
+                ('ishmael', 'ASMA111111'), ('isibelle', 'ASPA111111'),
+                ('isita', 'ASTA111111'), ('isla', 'ASLA111111'),
+                ('islay', 'ASLA111111'), ('ismay', 'ASMA111111'),
+                ('ismene', 'ASMN111111'), ('isobel', 'ASPA111111'),
+                ('isobella', 'ASPLA11111'), ('isola', 'ASLA111111'),
+                ('iton', 'ATN1111111'), ('iva', 'AFA1111111'),
+                ('ivan', 'AFN1111111'), ('ivie', 'AFA1111111'),
+                ('ivine', 'AFN1111111'), ('ivo', 'AFA1111111'),
+                ('ivon', 'AFN1111111'), ('ivor', 'AFA1111111'),
+                ('ivy', 'AFA1111111'), ('iza', 'ASA1111111'),
+                ('j', 'A111111111'), ('ja1es', 'YS11111111'),
+                ('jabez', 'YPS1111111'), ('jack', 'YK11111111'),
+                ('jacob', 'YKP1111111'), ('jacobina', 'YKPNA11111'),
+                ('jacues', 'YKS1111111'), ('jaimes', 'YMS1111111'),
+                ('jake', 'YK11111111'), ('jam', 'YM11111111'),
+                ('jamcs', 'YMKS111111'), ('jame', 'YM11111111'),
+                ('jamee', 'YMA1111111'), ('james', 'YMS1111111'),
+                ('jamesalbany', 'YMSPNA1111'), ('jamesina', 'YMSNA11111'),
+                ('jamesines', 'YMSNS11111'), ('jamies', 'YMS1111111'),
+                ('jamos', 'YMS1111111'), ('janbe', 'YNP1111111'),
+                ('jane', 'YN11111111'), ('janes', 'YNS1111111'),
+                ('janet', 'YNT1111111'), ('janetta', 'YNTA111111'),
+                ('janette', 'YNT1111111'), ('janie', 'YNA1111111'),
+                ('janies', 'YNS1111111'), ('janthe', 'YNT1111111'),
+                ('jardine', 'YTN1111111'), ('jarlies', 'YLS1111111'),
+                ('jarmes', 'YMS1111111'), ('jarnes', 'YNS1111111'),
+                ('jarrtes', 'YTS1111111'), ('jas', 'YS11111111'),
+                ('jason', 'YSN1111111'), ('jaspeh', 'YSPA111111'),
+                ('jasper', 'YSPA111111'), ('jean', 'YN11111111'),
+                ('jeane', 'YN11111111'), ('jeanet', 'YNT1111111'),
+                ('jeanetta', 'YNTA111111'), ('jeanette', 'YNT1111111'),
+                ('jeanie', 'YNA1111111'), ('jeanne', 'YN11111111'),
+                ('jeannetta', 'YNTA111111'), ('jeannette', 'YNT1111111'),
+                ('jeannie', 'YNA1111111'), ('jeesie', 'YSA1111111'),
+                ('jeffery', 'YFRA111111'), ('jeffrey', 'YFRA111111'),
+                ('jemima', 'YMMA111111'), ('jemina', 'YMNA111111'),
+                ('jen', 'YN11111111'), ('jenetta', 'YNTA111111'),
+                ('jenette', 'YNT1111111'), ('jenn', 'YN11111111'),
+                ('jennet', 'YNT1111111'), ('jennie', 'YNA1111111'),
+                ('jenny', 'YNA1111111'), ('jens', 'YNS1111111'),
+                ('jeoffrey', 'YFRA111111'), ('jephthah', 'YFTA111111'),
+                ('jeremiah', 'YRMA111111'), ('jervis', 'YFS1111111'),
+                ('jeseie', 'YSA1111111'), ('jesoph', 'YSF1111111'),
+                ('jess', 'YS11111111'), ('jessa', 'YSA1111111'),
+                ('jesse', 'YS11111111'), ('jessica', 'YSKA111111'),
+                ('jessie', 'YSA1111111'), ('jessy', 'YSA1111111'),
+                ('jethro', 'YTRA111111'), ('jewel', 'YWA1111111'),
+                ('jillian', 'YLN1111111'), ('jim', 'YM11111111'),
+                ('jinnie', 'YNA1111111'), ('joan', 'YN11111111'),
+                ('joann', 'YN11111111'), ('joanna', 'YNA1111111'),
+                ('joannie', 'YNA1111111'), ('job', 'YP11111111'),
+                ('jocelyn', 'YSLN111111'), ('joe', 'YA11111111'),
+                ('joffre', 'YFA1111111'), ('johan', 'YN11111111'),
+                ('johann', 'YN11111111'), ('johanna', 'YNA1111111'),
+                ('johannah', 'YNA1111111'), ('johannes', 'YNS1111111'),
+                ('johh', 'YA11111111'), ('john', 'YN11111111'),
+                ('johnann', 'YNN1111111'), ('johnanna', 'YNNA111111'),
+                ('johnina', 'YNNA111111'), ('johnpatrick', 'YNPTRK1111'),
+                ('johnson', 'YNSN111111'), ('johnthomas', 'YNTMS11111'),
+                ('johnwilliam', 'YNWLM11111'), ('johr', 'YA11111111'),
+                ('johrl', 'YA11111111'), ('johu', 'YA11111111'),
+                ('joiln', 'YN11111111'), ('jollanna', 'YLNA111111'),
+                ('jolm', 'YM11111111'), ('joln', 'YN11111111'),
+                ('jon', 'YN11111111'), ('jonah', 'YNA1111111'),
+                ('jonas', 'YNS1111111'), ('jonathan', 'YNTN111111'),
+                ('jones', 'YNS1111111'), ('jonl', 'YNA1111111'),
+                ('jonn', 'YN11111111'), ('jorgen', 'YKN1111111'),
+                ('josep', 'YSP1111111'), ('joseph', 'YSF1111111'),
+                ('josephgeorge', 'YSFKK11111'), ('josephia', 'YSFA111111'),
+                ('josephine', 'YSFN111111'), ('josh', 'YS11111111'),
+                ('joshua', 'YSA1111111'), ('josiah', 'YSA1111111'),
+                ('josie', 'YSA1111111'), ('josieph', 'YSF1111111'),
+                ('josoph', 'YSF1111111'), ('jospeh', 'YSPA111111'),
+                ('joy', 'YA11111111'), ('joyce', 'YK11111111'),
+                ('juanita', 'YNTA111111'), ('jules', 'YLS1111111'),
+                ('julia', 'YLA1111111'), ('julian', 'YLN1111111'),
+                ('juliana', 'YLNA111111'), ('juliann', 'YLN1111111'),
+                ('julianna', 'YLNA111111'), ('julie', 'YLA1111111'),
+                ('julius', 'YLS1111111'), ('june', 'YN11111111'),
+                ('justin', 'YSTN111111'), ('justina', 'YSTNA11111'),
+                ('kaiserin', 'KSRN111111'), ('karen', 'KRN1111111'),
+                ('karl', 'KA11111111'), ('kate', 'KT11111111'),
+                ('katern', 'KTN1111111'), ('kath', 'KT11111111'),
+                ('katharine', 'KTRN111111'), ('katherine', 'KTRN111111'),
+                ('kathleen', 'KTLN111111'), ('katie', 'KTA1111111'),
+                ('katrine', 'KTRN111111'), ('kay', 'KA11111111'),
+                ('keith', 'KT11111111'), ('keitha', 'KTA1111111'),
+                ('kelburne', 'KPN1111111'), ('kendal', 'KNTA111111'),
+                ('kennedy', 'KNTA111111'), ('kenneth', 'KNT1111111'),
+                ('kenny', 'KNA1111111'), ('keren', 'KRN1111111'),
+                ('keriah', 'KRA1111111'), ('kessel', 'KSA1111111'),
+                ('keturah', 'KTRA111111'), ('kezia', 'KSA1111111'),
+                ('keziah', 'KSA1111111'), ('king', 'KNK1111111'),
+                ('kingsley', 'KNKSLA1111'), ('kinnear', 'KNA1111111'),
+                ('kittie', 'KTA1111111'), ('kitty', 'KTA1111111'),
+                ('koa', 'KA11111111'), ('koren', 'KRN1111111'),
+                ('kuff', 'KF11111111'), ('kum', 'KM11111111'),
+                ('kurt', 'KT11111111'), ('kyra', 'KRA1111111'),
+                ('l', 'A111111111'), ('lachlan', 'LKLN111111'),
+                ('ladislas', 'LTSLS11111'), ('lallah', 'LLA1111111'),
+                ('lamsel', 'LMSA111111'), ('lan', 'LN11111111'),
+                ('lance', 'LNK1111111'), ('lancelot', 'LNSLT11111'),
+                ('langford', 'LNKFT11111'), ('langley', 'LNKLA11111'),
+                ('langlow', 'LNKLA11111'), ('lansley', 'LNSLA11111'),
+                ('lars', 'LS11111111'), ('lauchlan', 'LKLN111111'),
+                ('lauder', 'LTA1111111'), ('launa', 'LNA1111111'),
+                ('launcelot', 'LNSLT11111'), ('laura', 'LRA1111111'),
+                ('laurel', 'LRA1111111'), ('laurena', 'LRNA111111'),
+                ('laurence', 'LRNK111111'), ('laurencia', 'LRNSA11111'),
+                ('laurentine', 'LRNTN11111'), ('lauri', 'LRA1111111'),
+                ('laurie', 'LRA1111111'), ('laurinda', 'LRNTA11111'),
+                ('lauris', 'LRS1111111'), ('laveana', 'LFNA111111'),
+                ('lavender', 'LFNTA11111'), ('lavina', 'LFNA111111'),
+                ('lavinia', 'LFNA111111'), ('lavinla', 'LFNLA11111'),
+                ('lawford', 'LFT1111111'), ('lawrance', 'LRNK111111'),
+                ('lawrence', 'LRNK111111'), ('lawson', 'LSN1111111'),
+                ('leah', 'LA11111111'), ('ledestian', 'LTSN111111'),
+                ('lee', 'LA11111111'), ('leicester', 'LSSTA11111'),
+                ('leila', 'LLA1111111'), ('leith', 'LT11111111'),
+                ('lelia', 'LLA1111111'), ('lella', 'LLA1111111'),
+                ('lena', 'LNA1111111'), ('lenard', 'LNT1111111'),
+                ('lennie', 'LNA1111111'), ('lennox', 'LNK1111111'),
+                ('lenora', 'LNRA111111'), ('lenton', 'LNTN111111'),
+                ('leo', 'LA11111111'), ('leocadia', 'LKTA111111'),
+                ('leon', 'LN11111111'), ('leona', 'LNA1111111'),
+                ('leonard', 'LNT1111111'), ('leonia', 'LNA1111111'),
+                ('leonie', 'LNA1111111'), ('leonora', 'LNRA111111'),
+                ('leontine', 'LNTN111111'), ('leopold', 'LPT1111111'),
+                ('lerleine', 'LLN1111111'), ('lesla', 'LSLA111111'),
+                ('lesle', 'LSA1111111'), ('lesley', 'LSLA111111'),
+                ('leslie', 'LSLA111111'), ('leslle', 'LSA1111111'),
+                ('lesney', 'LSNA111111'), ('lester', 'LSTA111111'),
+                ('leta', 'LTA1111111'), ('letiris', 'LTRS111111'),
+                ('letita', 'LTTA111111'), ('letitia', 'LTSA111111'),
+                ('lettia', 'LTSA111111'), ('lettice', 'LTK1111111'),
+                ('lettie', 'LTA1111111'), ('letty', 'LTA1111111'),
+                ('levenia', 'LFNA111111'), ('levina', 'LFNA111111'),
+                ('levinia', 'LFNA111111'), ('levy', 'LFA1111111'),
+                ('lewellyn', 'LWLN111111'), ('lewis', 'LWS1111111'),
+                ('leyson', 'LSN1111111'), ('lezlie', 'LSLA111111'),
+                ('lil', 'LA11111111'), ('lila', 'LLA1111111'),
+                ('lilas', 'LLS1111111'), ('lileth', 'LLT1111111'),
+                ('lilia', 'LLA1111111'), ('liliam', 'LLM1111111'),
+                ('lilian', 'LLN1111111'), ('lilias', 'LLS1111111'),
+                ('lilla', 'LLA1111111'), ('lillan', 'LLN1111111'),
+                ('lillas', 'LLS1111111'), ('lilley', 'LLA1111111'),
+                ('lillia', 'LLA1111111'), ('lillian', 'LLN1111111'),
+                ('lillias', 'LLS1111111'), ('lillie', 'LLA1111111'),
+                ('lillingstone', 'LLNKSTN111'), ('lillis', 'LLS1111111'),
+                ('lilly', 'LLA1111111'), ('lilv', 'LF11111111'),
+                ('lily', 'LLA1111111'), ('lina', 'LNA1111111'),
+                ('lincoln', 'LNKN111111'), ('linda', 'LNTA111111'),
+                ('lindo', 'LNTA111111'), ('lindsay', 'LNTSA11111'),
+                ('linford', 'LNFT111111'), ('linnet', 'LNT1111111'),
+                ('lionel', 'LNA1111111'), ('lionella', 'LNLA111111'),
+                ('lionelle', 'LNA1111111'), ('lisette', 'LST1111111'),
+                ('lizzie', 'LSA1111111'), ('llewellyn', 'LWLN111111'),
+                ('llewelyn', 'LWLN111111'), ('lloyd', 'LT11111111'),
+                ('lna', 'NA11111111'), ('loftus', 'LFTS111111'),
+                ('lois', 'LS11111111'), ('loma', 'LMA1111111'),
+                ('lona', 'LNA1111111'), ('long', 'LNK1111111'),
+                ('lora', 'LRA1111111'), ('loreen', 'LRN1111111'),
+                ('loris', 'LRS1111111'), ('lorna', 'LNA1111111'),
+                ('lorraine', 'LRN1111111'), ('lot', 'LT11111111'),
+                ('lott', 'LT11111111'), ('lottia', 'LTSA111111'),
+                ('lottie', 'LTA1111111'), ('lotty', 'LTA1111111'),
+                ('louia', 'LA11111111'), ('louie', 'LA11111111'),
+                ('louis', 'LS11111111'), ('louisa', 'LSA1111111'),
+                ('louise', 'LS11111111'), ('lrene', 'RN11111111'),
+                ('lsaac', 'SK11111111'), ('lsabel', 'SPA1111111'),
+                ('lsabella', 'SPLA111111'), ('luanna', 'LNA1111111'),
+                ('lucerne', 'LSN1111111'), ('lucey', 'LSA1111111'),
+                ('lucie', 'LSA1111111'), ('lucilla', 'LSLA111111'),
+                ('lucille', 'LSA1111111'), ('lucina', 'LSNA111111'),
+                ('lucius', 'LSS1111111'), ('lucretia', 'LKRSA11111'),
+                ('lucy', 'LSA1111111'), ('ludwig', 'LTWK111111'),
+                ('luella', 'LLA1111111'), ('luke', 'LK11111111'),
+                ('lulu', 'LLA1111111'), ('lurline', 'LLN1111111'),
+                ('lva', 'FA11111111'), ('lvy', 'FA11111111'),
+                ('lyda', 'LTA1111111'), ('lydia', 'LTA1111111'),
+                ('lyell', 'LA11111111'), ('lygia', 'LKA1111111'),
+                ('lyla', 'LLA1111111'), ('lylah', 'LLA1111111'),
+                ('lyle', 'LA11111111'), ('lylie', 'LLA1111111'),
+                ('lylo', 'LLA1111111'), ('lynass', 'LNS1111111'),
+                ('lynda', 'LNTA111111'), ('lynden', 'LNTN111111'),
+                ('lyndon', 'LNTN111111'), ('lyndsay', 'LNTSA11111'),
+                ('lyndsey', 'LNTSA11111'), ('mabel', 'MPA1111111'),
+                ('mabelle', 'MPA1111111'), ('mable', 'MPA1111111'),
+                ('machell', 'MKA1111111'), ('madalene', 'MTLN111111'),
+                ('madaline', 'MTLN111111'), ('maddie', 'MTA1111111'),
+                ('madeleine', 'MTLN111111'), ('madeline', 'MTLN111111'),
+                ('madge', 'MK11111111'), ('madglene', 'MKLN111111'),
+                ('mae', 'MA11111111'), ('magdalen', 'MKTLN11111'),
+                ('magdalena', 'MKTLNA1111'), ('magdalene', 'MKTLN11111'),
+                ('magdaline', 'MKTLN11111'), ('magdeline', 'MKTLN11111'),
+                ('maggie', 'MKA1111111'), ('magnus', 'MKNS111111'),
+                ('magnustina', 'MKNSTNA111'), ('mahala', 'MLA1111111'),
+                ('mai', 'MA11111111'), ('maida', 'MTA1111111'),
+                ('maie', 'MA11111111'), ('maine', 'MN11111111'),
+                ('maira', 'MRA1111111'), ('maisie', 'MSA1111111'),
+                ('maitland', 'MTLNT11111'), ('majorie', 'MRA1111111'),
+                ('majory', 'MRA1111111'), ('malachi', 'MLKA111111'),
+                ('malcolm', 'MKM1111111'), ('maltravers', 'MTRFS11111'),
+                ('malvena', 'MFNA111111'), ('mamie', 'MMA1111111'),
+                ('mana', 'MNA1111111'), ('manes', 'MNS1111111'),
+                ('manie', 'MNA1111111'), ('mann', 'MN11111111'),
+                ('mano', 'MNA1111111'), ('mansfield', 'MNSFT11111'),
+                ('marah', 'MRA1111111'), ('marama', 'MRMA111111'),
+                ('maraval', 'MRFA111111'), ('marcella', 'MSLA111111'),
+                ('marcelle', 'MSA1111111'), ('marcia', 'MSA1111111'),
+                ('marcus', 'MKS1111111'), ('maree', 'MRA1111111'),
+                ('maretta', 'MRTA111111'), ('margaret', 'MKRT111111'),
+                ('margareta', 'MKRTA11111'), ('margarete', 'MKRT111111'),
+                ('margarett', 'MKRT111111'), ('margaretta', 'MKRTA11111'),
+                ('margarita', 'MKRTA11111'), ('margarretta', 'MKRTA11111'),
+                ('margerett', 'MKRT111111'), ('margerie', 'MKRA111111'),
+                ('margerite', 'MKRT111111'), ('margery', 'MKRA111111'),
+                ('margeurite', 'MKRT111111'), ('margharita', 'MRTA111111'),
+                ('margherita', 'MRTA111111'), ('margie', 'MKA1111111'),
+                ('margorie', 'MKRA111111'), ('margory', 'MKRA111111'),
+                ('margretta', 'MKRTA11111'), ('marguereta', 'MKRTA11111'),
+                ('margueretta', 'MKRTA11111'), ('marguerita', 'MKRTA11111'),
+                ('marguerite', 'MKRT111111'), ('margurerite', 'MKRRT11111'),
+                ('maria', 'MRA1111111'), ('mariam', 'MRM1111111'),
+                ('marian', 'MRN1111111'), ('marianne', 'MRN1111111'),
+                ('maribel', 'MRPA111111'), ('marica', 'MRKA111111'),
+                ('marie', 'MRA1111111'), ('marieta', 'MRTA111111'),
+                ('marina', 'MRNA111111'), ('marion', 'MRN1111111'),
+                ('marita', 'MRTA111111'), ('marius', 'MRS1111111'),
+                ('marjorie', 'MRRA111111'), ('marjorio', 'MRRA111111'),
+                ('marjory', 'MRRA111111'), ('mark', 'MK11111111'),
+                ('marmaduke', 'MMTK111111'), ('marrian', 'MRN1111111'),
+                ('marsella', 'MSLA111111'), ('marshall', 'MSA1111111'),
+                ('martha', 'MTA1111111'), ('martin', 'MTN1111111'),
+                ('marton', 'MTN1111111'), ('mary', 'MRA1111111'),
+                ('masie', 'MSA1111111'), ('mata', 'MTA1111111'),
+                ('mataura', 'MTRA111111'), ('mathea', 'MTA1111111'),
+                ('mathew', 'MTA1111111'), ('mathias', 'MTS1111111'),
+                ('mathina', 'MTNA111111'), ('matilda', 'MTTA111111'),
+                ('matthew', 'MTA1111111'), ('mattie', 'MTA1111111'),
+                ('maud', 'MT11111111'), ('mauda', 'MTA1111111'),
+                ('maude', 'MT11111111'), ('maudie', 'MTA1111111'),
+                ('maurce', 'MK11111111'), ('maureen', 'MRN1111111'),
+                ('maurice', 'MRK1111111'), ('mavis', 'MFS1111111'),
+                ('mavora', 'MFRA111111'), ('max', 'MK11111111'),
+                ('maxime', 'MKM1111111'), ('maxwell', 'MKWA111111'),
+                ('may', 'MA11111111'), ('mayda', 'MTA1111111'),
+                ('maye', 'MA11111111'), ('maynard', 'MNT1111111'),
+                ('maythal', 'MTA1111111'), ('mayvee', 'MFA1111111'),
+                ('mcewan', 'MSWN111111'), ('mcewen', 'MSWN111111'),
+                ('mchardy', 'MKTA111111'), ('meda', 'MTA1111111'),
+                ('melanie', 'MLNA111111'), ('melba', 'MPA1111111'),
+                ('melen', 'MLN1111111'), ('melia', 'MLA1111111'),
+                ('melton', 'MTN1111111'), ('melva', 'MFA1111111'),
+                ('melville', 'MFA1111111'), ('melvyn', 'MFN1111111'),
+                ('mena', 'MNA1111111'), ('menia', 'MNA1111111'),
+                ('menry', 'MNRA111111'), ('menzie', 'MNSA111111'),
+                ('menzies', 'MNSS111111'), ('mera', 'MRA1111111'),
+                ('mercedes', 'MSTS111111'), ('mercia', 'MSA1111111'),
+                ('mercy', 'MSA1111111'), ('meredith', 'MRTT111111'),
+                ('merian', 'MRN1111111'), ('merle', 'MA11111111'),
+                ('merlin', 'MLN1111111'), ('merrial', 'MRA1111111'),
+                ('merrin', 'MRN1111111'), ('merton', 'MTN1111111'),
+                ('mervyn', 'MFN1111111'), ('meryl', 'MRA1111111'),
+                ('meryle', 'MRA1111111'), ('meta', 'MTA1111111'),
+                ('metta', 'MTA1111111'), ('meynard', 'MNT1111111'),
+                ('miah', 'MA11111111'), ('michael', 'MKA1111111'),
+                ('michale', 'MKA1111111'), ('miehael', 'MA11111111'),
+                ('mignon', 'MKNN111111'), ('mildred', 'MTRT111111'),
+                ('milena', 'MLNA111111'), ('miles', 'MLS1111111'),
+                ('millar', 'MLA1111111'), ('millen', 'MLN1111111'),
+                ('millicent', 'MLSNT11111'), ('millie', 'MLA1111111'),
+                ('millis', 'MLS1111111'), ('milly', 'MLA1111111'),
+                ('milo', 'MLA1111111'), ('milton', 'MTN1111111'),
+                ('mima', 'MMA1111111'), ('mimie', 'MMA1111111'),
+                ('mina', 'MNA1111111'), ('minan', 'MNN1111111'),
+                ('minna', 'MNA1111111'), ('minnie', 'MNA1111111'),
+                ('mira', 'MRA1111111'), ('miranda', 'MRNTA11111'),
+                ('miriam', 'MRM1111111'), ('mirian', 'MRN1111111'),
+                ('miriel', 'MRA1111111'), ('mirnie', 'MNA1111111'),
+                ('miro', 'MRA1111111'), ('mister', 'MSTA111111'),
+                ('mitchell', 'MKA1111111'), ('moana', 'MNA1111111'),
+                ('moira', 'MRA1111111'), ('mollie', 'MLA1111111'),
+                ('molly', 'MLA1111111'), ('mona', 'MNA1111111'),
+                ('monatague', 'MNTKA11111'), ('moncrieff', 'MNKRF11111'),
+                ('monica', 'MNKA111111'), ('montague', 'MNTKA11111'),
+                ('monteith', 'MNTT111111'), ('mony', 'MNA1111111'),
+                ('morgan', 'MKN1111111'), ('morie', 'MRA1111111'),
+                ('moris', 'MRS1111111'), ('morison', 'MRSN111111'),
+                ('morris', 'MRS1111111'), ('morrison', 'MRSN111111'),
+                ('mortimer', 'MTMA111111'), ('morton', 'MTN1111111'),
+                ('moses', 'MSS1111111'), ('moura', 'MRA1111111'),
+                ('moyra', 'MRA1111111'), ('mrytle', 'MRTA111111'),
+                ('muareen', 'MRN1111111'), ('mugh', 'MA11111111'),
+                ('mungo', 'MNKA111111'), ('munro', 'MNRA111111'),
+                ('mura', 'MRA1111111'), ('murdo', 'MTA1111111'),
+                ('murdoch', 'MTK1111111'), ('murial', 'MRA1111111'),
+                ('muriel', 'MRA1111111'), ('murray', 'MRA1111111'),
+                ('murtha', 'MTA1111111'), ('myles', 'MLS1111111'),
+                ('mynot', 'MNT1111111'), ('myra', 'MRA1111111'),
+                ('myrtle', 'MTA1111111'), ('myttle', 'MTA1111111'),
+                ('naamah', 'NMA1111111'), ('nance', 'NNK1111111'),
+                ('nancie', 'NNSA111111'), ('nancy', 'NNSA111111'),
+                ('nancybell', 'NNSPA11111'), ('naney', 'NNA1111111'),
+                ('nano', 'NNA1111111'), ('nansbell', 'NNSPA11111'),
+                ('naomi', 'NMA1111111'), ('nardor', 'NTA1111111'),
+                ('narman', 'NMN1111111'), ('narotamdas', 'NRTMTS1111'),
+                ('natalie', 'NTLA111111'), ('nathan', 'NTN1111111'),
+                ('nathaniel', 'NTNA111111'), ('naylor', 'NLA1111111'),
+                ('neah', 'NA11111111'), ('neil', 'NA11111111'),
+                ('neilina', 'NLNA111111'), ('neill', 'NA11111111'),
+                ('nell', 'NA11111111'), ('nella', 'NLA1111111'),
+                ('nelletta', 'NLTA111111'), ('nellia', 'NLA1111111'),
+                ('nellic', 'NLK1111111'), ('nellie', 'NLA1111111'),
+                ('nellin', 'NLN1111111'), ('nelly', 'NLA1111111'),
+                ('nelson', 'NSN1111111'), ('nenetta', 'NNTA111111'),
+                ('nera', 'NRA1111111'), ('nesbit', 'NSPT111111'),
+                ('nessie', 'NSA1111111'), ('nesta', 'NSTA111111'),
+                ('nestor', 'NSTA111111'), ('netherton', 'NTTN111111'),
+                ('netta', 'NTA1111111'), ('netterwille', 'NTWA111111'),
+                ('nettie', 'NTA1111111'), ('neville', 'NFA1111111'),
+                ('newman', 'NMN1111111'), ('ngaere', 'NKA1111111'),
+                ('ngahuir', 'NKA1111111'), ('ngaira', 'NKRA111111'),
+                ('ngaire', 'NKA1111111'), ('ngaria', 'NKRA111111'),
+                ('ngarita', 'NKRTA11111'), ('ngyra', 'NKRA111111'),
+                ('ngyre', 'NKA1111111'), ('niary', 'NRA1111111'),
+                ('nicalena', 'NKLNA11111'), ('nichol', 'NKA1111111'),
+                ('nichola', 'NKLA111111'), ('nicholas', 'NKLS111111'),
+                ('nicol', 'NKA1111111'), ('nicolena', 'NKLNA11111'),
+                ('nicolina', 'NKLNA11111'), ('niel', 'NA11111111'),
+                ('niels', 'NS11111111'), ('nigel', 'NKA1111111'),
+                ('nils', 'NS11111111'), ('nina', 'NNA1111111'),
+                ('ninetta', 'NNTA111111'), ('nita', 'NTA1111111'),
+                ('no', 'NA11111111'), ('noel', 'NA11111111'),
+                ('noeleen', 'NLN1111111'), ('noeline', 'NLN1111111'),
+                ('noell', 'NA11111111'), ('noelle', 'NA11111111'),
+                ('noilina', 'NLNA111111'), ('nola', 'NLA1111111'),
+                ('nona', 'NNA1111111'), ('noney', 'NNA1111111'),
+                ('noni', 'NNA1111111'), ('nonie', 'NNA1111111'),
+                ('nora', 'NRA1111111'), ('norah', 'NRA1111111'),
+                ('noreen', 'NRN1111111'), ('norine', 'NRN1111111'),
+                ('norma', 'NMA1111111'), ('norman', 'NMN1111111'),
+                ('normena', 'NMNA111111'), ('normina', 'NMNA111111'),
+                ('norris', 'NRS1111111'), ('north', 'NT11111111'),
+                ('noslie', 'NSLA111111'), ('nova', 'NFA1111111'),
+                ('nozlie', 'NSLA111111'), ('nyra', 'NRA1111111'),
+                ('oban', 'APN1111111'), ('octavia', 'AKTFA11111'),
+                ('octavius', 'AKTFS11111'), ('odin', 'ATN1111111'),
+                ('ogier', 'AKA1111111'), ('ola', 'ALA1111111'),
+                ('olaf', 'ALF1111111'), ('olai', 'ALA1111111'),
+                ('ole', 'AA11111111'), ('olef', 'ALF1111111'),
+                ('olga', 'AKA1111111'), ('oliphant', 'ALFNT11111'),
+                ('olive', 'ALF1111111'), ('olivel', 'ALFA111111'),
+                ('oliver', 'ALFA111111'), ('olivera', 'ALFRA11111'),
+                ('oliverpaul', 'ALFPA11111'), ('olivia', 'ALFA111111'),
+                ('olivo', 'ALFA111111'), ('olliffe', 'ALF1111111'),
+                ('olof', 'ALF1111111'), ('oloff', 'ALF1111111'),
+                ('olvia', 'AFA1111111'), ('olwyn', 'AWN1111111'),
+                ('onawe', 'ANA1111111'), ('onie', 'ANA1111111'),
+                ('oonah', 'ANA1111111'), ('ophir', 'AFA1111111'),
+                ('ora', 'ARA1111111'), ('oral', 'ARA1111111'),
+                ('oriel', 'ARA1111111'), ('orlando', 'ALNTA11111'),
+                ('orma', 'AMA1111111'), ('ormandy', 'AMNTA11111'),
+                ('orme', 'AM11111111'), ('ormond', 'AMNT111111'),
+                ('orpah', 'APA1111111'), ('orpheus', 'AFS1111111'),
+                ('orthus', 'ATS1111111'), ('orton', 'ATN1111111'),
+                ('orvis', 'AFS1111111'), ('osald', 'AST1111111'),
+                ('osborn', 'ASPN111111'), ('osborne', 'ASPN111111'),
+                ('oscar', 'ASKA111111'), ('oslin', 'ASLN111111'),
+                ('oswald', 'ASWT111111'), ('othelia', 'ATLA111111'),
+                ('otilia', 'ATLA111111'), ('otto', 'ATA1111111'),
+                ('ough', 'AA11111111'), ('ouston', 'ASTN111111'),
+                ('overton', 'AFTN111111'), ('owen', 'AWN1111111'),
+                ('ozmond', 'ASMNT11111'), ('pamela', 'PMLA111111'),
+                ('pansy', 'PNSA111111'), ('par', 'PA11111111'),
+                ('paris', 'PRS1111111'), ('parke', 'PK11111111'),
+                ('parry', 'PRA1111111'), ('paterson', 'PTSN111111'),
+                ('patience', 'PTNK111111'), ('patrck', 'PTK1111111'),
+                ('patricia', 'PTRSA11111'), ('patrick', 'PTRK111111'),
+                ('patton', 'PTN1111111'), ('paul', 'PA11111111'),
+                ('paulina', 'PLNA111111'), ('pauline', 'PLN1111111'),
+                ('pearl', 'PA11111111'), ('pearlie', 'PLA1111111'),
+                ('peggie', 'PKA1111111'), ('peggotty', 'PKTA111111'),
+                ('peggy', 'PKA1111111'), ('penelope', 'PNLP111111'),
+                ('penrose', 'PNRS111111'), ('percival', 'PSFA111111'),
+                ('percy', 'PSA1111111'), ('percystreetclair', 'PSSTRTKLA1'),
+                ('pereival', 'PRFA111111'), ('perey', 'PRA1111111'),
+                ('pertha', 'PTA1111111'), ('pete', 'PT11111111'),
+                ('peter', 'PTA1111111'), ('phbe', 'FP11111111'),
+                ('phebe', 'FP11111111'), ('phedora', 'FTRA111111'),
+                ('pheodora', 'FTRA111111'), ('philip', 'FLP1111111'),
+                ('philippa', 'FLPA111111'), ('phillip', 'FLP1111111'),
+                ('phillipa', 'FLPA111111'), ('phillis', 'FLS1111111'),
+                ('philomena', 'FLMNA11111'), ('phoebe', 'FP11111111'),
+                ('phoenix', 'FNK1111111'), ('phylis', 'FLS1111111'),
+                ('phyliss', 'FLS1111111'), ('phyllis', 'FLS1111111'),
+                ('pierce', 'PK11111111'), ('pleasance', 'PLSNK11111'),
+                ('pleasant', 'PLSNT11111'), ('polly', 'PLA1111111'),
+                ('poppy', 'PPA1111111'), ('pretoria', 'PRTRA11111'),
+                ('prisca', 'PRSKA11111'), ('priscilla', 'PRSLA11111'),
+                ('prothesia', 'PRTSA11111'), ('prudence', 'PRTNK11111'),
+                ('prudentchia', 'PRTNKA1111'), ('pryna', 'PRNA111111'),
+                ('queen', 'KN11111111'), ('queenie', 'KNA1111111'),
+                ('quinton', 'KNTN111111'), ('rachael', 'RKA1111111'),
+                ('rachal', 'RKA1111111'), ('rachall', 'RKA1111111'),
+                ('rachel', 'RKA1111111'), ('radium', 'RTM1111111'),
+                ('rae', 'RA11111111'), ('raeburn', 'RPN1111111'),
+                ('raiph', 'RF11111111'), ('ralph', 'RF11111111'),
+                ('randall', 'RNTA111111'), ('randell', 'RNTA111111'),
+                ('randolph', 'RNTF111111'), ('rani', 'RNA1111111'),
+                ('raphael', 'RFA1111111'), ('rasmas', 'RSMS111111'),
+                ('rawena', 'RWNA111111'), ('ray', 'RA11111111'),
+                ('rayena', 'RNA1111111'), ('raymie', 'RMA1111111'),
+                ('raymond', 'RMNT111111'), ('raymonde', 'RMNT111111'),
+                ('raymund', 'RMNT111111'), ('rayna', 'RNA1111111'),
+                ('rea', 'RA11111111'), ('rebbecca', 'RPKA111111'),
+                ('rebecca', 'RPKA111111'), ('rebeckah', 'RPKA111111'),
+                ('rebekah', 'RPKA111111'), ('redmond', 'RTMNT11111'),
+                ('redvers', 'RTFS111111'), ('reece', 'RK11111111'),
+                ('regina', 'RKNA111111'), ('reginald', 'RKNT111111'),
+                ('reita', 'RTA1111111'), ('rema', 'RMA1111111'),
+                ('rena', 'RNA1111111'), ('rene', 'RN11111111'),
+                ('renee', 'RNA1111111'), ('renna', 'RNA1111111'),
+                ('rero', 'RRA1111111'), ('reta', 'RTA1111111'),
+                ('retta', 'RTA1111111'), ('reuben', 'RPN1111111'),
+                ('revina', 'RFNA111111'), ('rewa', 'RWA1111111'),
+                ('rewi', 'RWA1111111'), ('rex', 'RK11111111'),
+                ('rexiter', 'RKTA111111'), ('reyna', 'RNA1111111'),
+                ('reynolds', 'RNTS111111'), ('rhoda', 'TA11111111'),
+                ('rhoderick', 'TRK1111111'), ('rhoma', 'MA11111111'),
+                ('rhona', 'NA11111111'), ('rica', 'RKA1111111'),
+                ('richald', 'RKT1111111'), ('richard', 'RKT1111111'),
+                ('richena', 'RKNA111111'), ('richmond', 'RKMNT11111'),
+                ('ricka', 'RKA1111111'), ('ridley', 'RTLA111111'),
+                ('rieka', 'RKA1111111'), ('rieta', 'RTA1111111'),
+                ('riha', 'RA11111111'), ('rima', 'RMA1111111'),
+                ('rina', 'RNA1111111'), ('riparata', 'RPRTA11111'),
+                ('rita', 'RTA1111111'), ('ritchie', 'RKA1111111'),
+                ('roa', 'RA11111111'), ('roanna', 'RNA1111111'),
+                ('robena', 'RPNA111111'), ('robert', 'RPT1111111'),
+                ('roberta', 'RPTA111111'), ('robertina', 'RPTNA11111'),
+                ('roberton', 'RPTN111111'), ('roberts', 'RPTS111111'),
+                ('robertson', 'RPTSN11111'), ('robin', 'RPN1111111'),
+                ('robina', 'RPNA111111'), ('robins', 'RPNS111111'),
+                ('robinson', 'RPNSN11111'), ('roderick', 'RTRK111111'),
+                ('rodger', 'RKA1111111'), ('rodney', 'RTNA111111'),
+                ('rodrick', 'RTRK111111'), ('roger', 'RKA1111111'),
+                ('roland', 'RLNT111111'), ('roma', 'RMA1111111'),
+                ('rona', 'RNA1111111'), ('ronald', 'RNT1111111'),
+                ('ronstad', 'RNSTT11111'), ('rosa', 'RSA1111111'),
+                ('rosabell', 'RSPA111111'), ('rosabella', 'RSPLA11111'),
+                ('rosaland', 'RSLNT11111'), ('rosaleene', 'RSLN111111'),
+                ('rosalie', 'RSLA111111'), ('rosalind', 'RSLNT11111'),
+                ('rosaline', 'RSLN111111'), ('rosalla', 'RSLA111111'),
+                ('rosamond', 'RSMNT11111'), ('rosamund', 'RSMNT11111'),
+                ('rosana', 'RSNA111111'), ('rosanah', 'RSNA111111'),
+                ('rosanna', 'RSNA111111'), ('rosannah', 'RSNA111111'),
+                ('rosanne', 'RSN1111111'), ('roscena', 'RSNA111111'),
+                ('rose', 'RS11111111'), ('roseana', 'RSNA111111'),
+                ('roseanna', 'RSNA111111'), ('roseina', 'RSNA111111'),
+                ('rosella', 'RSLA111111'), ('rosemay', 'RSMA111111'),
+                ('rosemond', 'RSMNT11111'), ('rosena', 'RSNA111111'),
+                ('rosetta', 'RSTA111111'), ('rosie', 'RSA1111111'),
+                ('rosiena', 'RSNA111111'), ('rosina', 'RSNA111111'),
+                ('rosins', 'RSNS111111'), ('ross', 'RS11111111'),
+                ('roustad', 'RSTT111111'), ('rowena', 'RWNA111111'),
+                ('rowland', 'RLNT111111'), ('roy', 'RA11111111'),
+                ('rozel', 'RSA1111111'), ('rua', 'RA11111111'),
+                ('ruahine', 'RN11111111'), ('ruben', 'RPN1111111'),
+                ('rubena', 'RPNA111111'), ('rubenia', 'RPNA111111'),
+                ('rubina', 'RPNA111111'), ('rubins', 'RPNS111111'),
+                ('rubv', 'RPF1111111'), ('ruby', 'RPA1111111'),
+                ('rubye', 'RPA1111111'), ('rudolf', 'RTF1111111'),
+                ('rudolph', 'RTF1111111'), ('rufus', 'RFS1111111'),
+                ('rugby', 'RKPA111111'), ('rui', 'RA11111111'),
+                ('ruia', 'RA11111111'), ('runa', 'RNA1111111'),
+                ('ruper', 'RPA1111111'), ('rupert', 'RPT1111111'),
+                ('ruruhira', 'RRRA111111'), ('russell', 'RSA1111111'),
+                ('ruth', 'RT11111111'), ('rutherford', 'RTFT111111'),
+                ('saah', 'SA11111111'), ('saba', 'SPA1111111'),
+                ('sabina', 'SPNA111111'), ('sadie', 'STA1111111'),
+                ('saidie', 'STA1111111'), ('sam', 'SM11111111'),
+                ('sampson', 'SMPSN11111'), ('samson', 'SMSN111111'),
+                ('samuel', 'SMA1111111'), ('samuelena', 'SMLNA11111'),
+                ('sanuel', 'SNA1111111'), ('sara', 'SRA1111111'),
+                ('sarah', 'SRA1111111'), ('saverio', 'SFRA111111'),
+                ('saxon', 'SKN1111111'), ('scott', 'SKT1111111'),
+                ('scoular', 'SKLA111111'), ('seaward', 'SWT1111111'),
+                ('sedden', 'STN1111111'), ('seddon', 'STN1111111'),
+                ('selah', 'SLA1111111'), ('selem', 'SLM1111111'),
+                ('selena', 'SLNA111111'), ('selina', 'SLNA111111'),
+                ('selinda', 'SLNTA11111'), ('selma', 'SMA1111111'),
+                ('selwyn', 'SWN1111111'), ('septimus', 'SPTMS11111'),
+                ('serafina', 'SRFNA11111'), ('sergia', 'SKA1111111'),
+                ('seth', 'ST11111111'), ('sharland', 'SLNT111111'),
+                ('sheddan', 'STN1111111'), ('sheila', 'SLA1111111'),
+                ('shelia', 'SLA1111111'), ('shiela', 'SLA1111111'),
+                ('shirley', 'SLA1111111'), ('shona', 'SNA1111111'),
+                ('siah', 'SA11111111'), ('sibyl', 'SPA1111111'),
+                ('sidey', 'STA1111111'), ('sidney', 'STNA111111'),
+                ('sidona', 'STNA111111'), ('signa', 'SKNA111111'),
+                ('signe', 'SKN1111111'), ('sigrid', 'SKRT111111'),
+                ('silas', 'SLS1111111'), ('silena', 'SLNA111111'),
+                ('silva', 'SFA1111111'), ('simeon', 'SMN1111111'),
+                ('simon', 'SMN1111111'), ('simpson', 'SMPSN11111'),
+                ('sina', 'SNA1111111'), ('sinclair', 'SNKLA11111'),
+                ('singleton', 'SNKLTN1111'), ('sissy', 'SSA1111111'),
+                ('solomon', 'SLMN111111'), ('somerled', 'SMLT111111'),
+                ('sophia', 'SFA1111111'), ('sophie', 'SFA1111111'),
+                ('sophrania', 'SFRNA11111'), ('sophrona', 'SFRNA11111'),
+                ('sophronia', 'SFRNA11111'), ('sophy', 'SFA1111111'),
+                ('spence', 'SPNK111111'), ('spencer', 'SPNSA11111'),
+                ('spenseley', 'SPNSLA1111'), ('spensley', 'SPNSLA1111'),
+                ('squire', 'SKA1111111'), ('st', 'ST11111111'),
+                ('stafford', 'STFT111111'), ('stanhope', 'STNP111111'),
+                ('stanislaus', 'STNSLS1111'), ('stanislaw', 'STNSLA1111'),
+                ('stanislaws', 'STNSLS1111'), ('stanley', 'STNLA11111'),
+                ('stanton', 'STNTN11111'), ('stasia', 'STSA111111'),
+                ('statney', 'STTNA11111'), ('stella', 'STLA111111'),
+                ('stephanie', 'STFNA11111'), ('stephen', 'STFN111111'),
+                ('steven', 'STFN111111'), ('steward', 'STWT111111'),
+                ('stewart', 'STWT111111'), ('stewarty', 'STWTA11111'),
+                ('stisie', 'STSA111111'), ('stratford', 'STRTFT1111'),
+                ('strelna', 'STRNA11111'), ('strop', 'STRP111111'),
+                ('struan', 'STRN111111'), ('stuart', 'STT1111111'),
+                ('sturz', 'STS1111111'), ('surrey', 'SRA1111111'),
+                ('susan', 'SSN1111111'), ('susanah', 'SSNA111111'),
+                ('susanna', 'SSNA111111'), ('susannah', 'SSNA111111'),
+                ('susanne', 'SSN1111111'), ('susie', 'SSA1111111'),
+                ('susy', 'SSA1111111'), ('sybella', 'SPLA111111'),
+                ('sybil', 'SPA1111111'), ('sydnev', 'STNF111111'),
+                ('sydney', 'STNA111111'), ('sylva', 'SFA1111111'),
+                ('sylvia', 'SFA1111111'), ('sylvie', 'SFA1111111'),
+                ('syril', 'SRA1111111'), ('tabitha', 'TPTA111111'),
+                ('talbert', 'TPT1111111'), ('tamar', 'TMA1111111'),
+                ('tasma', 'TSMA111111'), ('tasman', 'TSMN111111'),
+                ('tate', 'TT11111111'), ('taylor', 'TLA1111111'),
+                ('teariki', 'TRKA111111'), ('temperence', 'TMPRNK1111'),
+                ('terence', 'TRNK111111'), ('teresa', 'TRSA111111'),
+                ('teresae', 'TRSA111111'), ('ternce', 'TNK1111111'),
+                ('tesse', 'TS11111111'), ('tessie', 'TSA1111111'),
+                ('thaddeus', 'TTS1111111'), ('thea', 'TA11111111'),
+                ('theima', 'TMA1111111'), ('thelma', 'TMA1111111'),
+                ('theodocia', 'TTSA111111'), ('theodora', 'TTRA111111'),
+                ('theodore', 'TTA1111111'), ('theodosia', 'TTSA111111'),
+                ('theophilus', 'TFLS111111'), ('theresa', 'TRSA111111'),
+                ('therese', 'TRS1111111'), ('thirza', 'TSA1111111'),
+                ('tholmas', 'TMS1111111'), ('thomas', 'TMS1111111'),
+                ('thomasena', 'TMSNA11111'), ('thomasina', 'TMSNA11111'),
+                ('thompson', 'TMPSN11111'), ('thomson', 'TMSN111111'),
+                ('thora', 'TRA1111111'), ('thorburn', 'TPN1111111'),
+                ('thorita', 'TRTA111111'), ('thornton', 'TNTN111111'),
+                ('thriza', 'TRSA111111'), ('thursa', 'TSA1111111'),
+                ('thurstan', 'TSTN111111'), ('thurston', 'TSTN111111'),
+                ('thurza', 'TSA1111111'), ('thyrza', 'TSA1111111'),
+                ('thyza', 'TSA1111111'), ('tillie', 'TLA1111111'),
+                ('timothy', 'TMTA111111'), ('tiney', 'TNA1111111'),
+                ('tini', 'TNA1111111'), ('tiny', 'TNA1111111'),
+                ('tizzie', 'TSA1111111'), ('tom', 'TM11111111'),
+                ('touncy', 'TNSA111111'), ('tousseint', 'TSNT111111'),
+                ('treacy', 'TRSA111111'), ('tremella', 'TRMLA11111'),
+                ('trena', 'TRNA111111'), ('trene', 'TRN1111111'),
+                ('trentham', 'TRNTM11111'), ('tresa', 'TRSA111111'),
+                ('trevor', 'TRFA111111'), ('trilby', 'TRPA111111'),
+                ('trixie', 'TRKA111111'), ('tryphena', 'TRFNA11111'),
+                ('tui', 'TA11111111'), ('ulick', 'ALK1111111'),
+                ('ulrica', 'ARKA111111'), ('ulricka', 'ARKA111111'),
+                ('una', 'ANA1111111'), ('ural', 'ARA1111111'),
+                ('uresilla', 'ARSLA11111'), ('ureta', 'ARTA111111'),
+                ('ursula', 'ASLA111111'), ('uta', 'ATA1111111'),
+                ('valarie', 'FLRA111111'), ('valda', 'FTA1111111'),
+                ('valdemar', 'FTMA111111'), ('valencia', 'FLNSA11111'),
+                ('valentine', 'FLNTN11111'), ('valerie', 'FLRA111111'),
+                ('vallance', 'FLNK111111'), ('valma', 'FMA1111111'),
+                ('van', 'FN11111111'), ('vanda', 'FNTA111111'),
+                ('vanessa', 'FNSA111111'), ('vara', 'FRA1111111'),
+                ('varey', 'FRA1111111'), ('vashti', 'FSTA111111'),
+                ('vaughan', 'FKN1111111'), ('veda', 'FTA1111111'),
+                ('veida', 'FTA1111111'), ('vendella', 'FNTLA11111'),
+                ('venessa', 'FNSA111111'), ('venus', 'FNS1111111'),
+                ('vera', 'FRA1111111'), ('verdon', 'FTN1111111'),
+                ('verdun', 'FTN1111111'), ('vere', 'FA11111111'),
+                ('verena', 'FRNA111111'), ('verion', 'FRN1111111'),
+                ('verna', 'FNA1111111'), ('verner', 'FNA1111111'),
+                ('vernon', 'FNN1111111'), ('verona', 'FRNA111111'),
+                ('veronica', 'FRNKA11111'), ('vesper', 'FSPA111111'),
+                ('vickers', 'FKS1111111'), ('victor', 'FKTA111111'),
+                ('victoria', 'FKTRA11111'), ('vida', 'FTA1111111'),
+                ('vietoria', 'FTRA111111'), ('vilera', 'FLRA111111'),
+                ('vilhelm', 'FM11111111'), ('villa', 'FLA1111111'),
+                ('vina', 'FNA1111111'), ('vincent', 'FNSNT11111'),
+                ('vioiet', 'FT11111111'), ('viola', 'FLA1111111'),
+                ('violet', 'FLT1111111'), ('violetta', 'FLTA111111'),
+                ('violette', 'FLT1111111'), ('virgil', 'FKA1111111'),
+                ('virginia', 'FKNA111111'), ('viva', 'FFA1111111'),
+                ('vivian', 'FFN1111111'), ('vivien', 'FFN1111111'),
+                ('vivienne', 'FFN1111111'), ('vona', 'FNA1111111'),
+                ('walker', 'WKA1111111'), ('wallace', 'WLK1111111'),
+                ('wallis', 'WLS1111111'), ('walter', 'WTA1111111'),
+                ('walton', 'WTN1111111'), ('waltor', 'WTA1111111'),
+                ('wance', 'WNK1111111'), ('ward', 'WT11111111'),
+                ('warren', 'WRN1111111'), ('warrington', 'WRNKTN1111'),
+                ('water', 'WTA1111111'), ('watson', 'WTSN111111'),
+                ('wee', 'WA11111111'), ('welby', 'WPA1111111'),
+                ('wesby', 'WSPA111111'), ('wesley', 'WSLA111111'),
+                ('west', 'WST1111111'), ('wharten', 'WTN1111111'),
+                ('wharton', 'WTN1111111'), ('whenua', 'WNA1111111'),
+                ('whyndham', 'WNTM111111'), ('wicko', 'WKA1111111'),
+                ('wilbert', 'WPT1111111'), ('wilbur', 'WPA1111111'),
+                ('wilfred', 'WFRT111111'), ('wilfrid', 'WFRT111111'),
+                ('wilhelm', 'WM11111111'), ('wilhelmena', 'WMNA111111'),
+                ('wilhelmina', 'WMNA111111'), ('wilhemenia', 'WMNA111111'),
+                ('wilhemina', 'WMNA111111'), ('wilheminia', 'WMNA111111'),
+                ('wilkinson', 'WKNSN11111'), ('will', 'WA11111111'),
+                ('willamina', 'WLMNA11111'), ('willen', 'WLN1111111'),
+                ('william', 'WLM1111111'), ('williamina', 'WLMNA11111'),
+                ('williammina', 'WLMNA11111'), ('williams', 'WLMS111111'),
+                ('williamson', 'WLMSN11111'), ('willie', 'WLA1111111'),
+                ('willis', 'WLS1111111'), ('willitn', 'WLTN111111'),
+                ('wilma', 'WMA1111111'), ('wilmot', 'WMT1111111'),
+                ('wilson', 'WSN1111111'), ('windsor', 'WNTSA11111'),
+                ('winfred', 'WNFRT11111'), ('winifred', 'WNFRT11111'),
+                ('winnie', 'WNA1111111'), ('winniefred', 'WNFRT11111'),
+                ('winnifred', 'WNFRT11111'), ('winnifrid', 'WNFRT11111'),
+                ('winston', 'WNSTN11111'), ('wong', 'WNK1111111'),
+                ('wright', 'RT11111111'), ('wynie', 'WNA1111111'),
+                ('yetti', 'YTA1111111'), ('ysabel', 'ASPA111111'),
+                ('yvetta', 'AFTA111111'), ('yvonne', 'AFN1111111'),
+                ('zealandia', 'SLNTA11111'), ('zeby', 'SPA1111111'),
+                ('zela', 'SLA1111111'), ('zella', 'SLA1111111'),
+                ('zelma', 'SMA1111111'), ('zetta', 'STA1111111'),
+                ('zillah', 'SLA1111111'), ('zita', 'STA1111111'),
+                ('zoe', 'SA11111111'), ('zohra', 'SRA1111111'),
+                ('zola', 'SLA1111111'), ('zona', 'SNA1111111'),
+                ('aaskow', 'ASKA111111'), ('aaysford', 'ASFT111111'),
+                ('abbott', 'APT1111111'), ('abel', 'APA1111111'),
+                ('abelsted', 'APSTT11111'), ('abercrombie', 'APKRMPA111'),
+                ('abernathy', 'APNTA11111'), ('abernethie', 'APNTA11111'),
+                ('abernethy', 'APNTA11111'), ('abley', 'APLA111111'),
+                ('abraham', 'APRM111111'), ('abrams', 'APRMS11111'),
+                ('aburn', 'APN1111111'), ('acheson', 'AKSN111111'),
+                ('adair', 'ATA1111111'), ('adam', 'ATM1111111'),
+                ('adams', 'ATMS111111'), ('adamson', 'ATMSN11111'),
+                ('adcock', 'ATKK111111'), ('addison', 'ATSN111111'),
+                ('aderman', 'ATMN111111'), ('adess', 'ATS1111111'),
+                ('adie', 'ATA1111111'), ('adkins', 'ATKNS11111'),
+                ('affleck', 'AFLK111111'), ('agent', 'AKNT111111'),
+                ('agnew', 'AKNA111111'), ('ahern', 'AN11111111'),
+                ('ahlbrandt', 'APRNT11111'), ('ahlfeld', 'AFT1111111'),
+                ('aicheson', 'AKSN111111'), ('aidridge', 'ATRK111111'),
+                ('aiken', 'AKN1111111'), ('ailen', 'ALN1111111'),
+                ('aimers', 'AMS1111111'), ('aimes', 'AMS1111111'),
+                ('ainge', 'ANK1111111'), ('ainger', 'ANKA111111'),
+                ('air', 'AA11111111'), ('airey', 'ARA1111111'),
+                ('airley', 'ALA1111111'), ('aitcheson', 'AKSN111111'),
+                ('aitchison', 'AKSN111111'), ('aithenhead', 'ATNT111111'),
+                ('aitken', 'ATKN111111'), ('aitkenhead', 'ATKNT11111'),
+                ('aitkens', 'ATKNS11111'), ('aitkinson', 'ATKNSN1111'),
+                ('alberti', 'APTA111111'), ('alcock', 'AKK1111111'),
+                ('alden', 'ATN1111111'), ('alder', 'ATA1111111'),
+                ('alderdice', 'ATTK111111'), ('alderson', 'ATSN111111'),
+                ('alderton', 'ATTN111111'), ('aldous', 'ATS1111111'),
+                ('aldred', 'ATRT111111'), ('aldridge', 'ATRK111111'),
+                ('alen', 'ALN1111111'), ('alert', 'ALT1111111'),
+                ('alexander', 'ALKNTA1111'), ('alfrey', 'AFRA111111'),
+                ('algar', 'AKA1111111'), ('algeo', 'AKA1111111'),
+                ('algie', 'AKA1111111'), ('alison', 'ALSN111111'),
+                ('allan', 'ALN1111111'), ('alldred', 'ATRT111111'),
+                ('allen', 'ALN1111111'), ('alley', 'ALA1111111'),
+                ('allis', 'ALS1111111'), ('allison', 'ALSN111111'),
+                ('allman', 'AMN1111111'), ('allom', 'ALM1111111'),
+                ('alloo', 'ALA1111111'), ('allott', 'ALT1111111'),
+                ('allpress', 'APRS111111'), ('allum', 'ALM1111111'),
+                ('allwood', 'AWT1111111'), ('allworden', 'AWTN111111'),
+                ('almers', 'AMS1111111'), ('almond', 'AMNT111111'),
+                ('almquist', 'AMKST11111'), ('alpine', 'APN1111111'),
+                ('alston', 'ASTN111111'), ('amalfitano', 'AMFTNA1111'),
+                ('amalric', 'AMRK111111'), ('ambridge', 'AMPRK11111'),
+                ('amer', 'AMA1111111'), ('amos', 'AMS1111111'),
+                ('amouri', 'AMRA111111'), ('amtman', 'AMTMN11111'),
+                ('amunie', 'AMNA111111'), ('ancell', 'ANSA111111'),
+                ('anchor', 'ANKA111111'), ('andersen', 'ANTSN11111'),
+                ('andersoll', 'ANTSA11111'), ('anderson', 'ANTSN11111'),
+                ('anderton', 'ANTTN11111'), ('andorson', 'ANTSN11111'),
+                ('andreassend', 'ANTRSNT111'), ('andrew', 'ANTRA11111'),
+                ('andrewe', 'ANTRA11111'), ('andrewes', 'ANTRWS1111'),
+                ('andrews', 'ANTRS11111'), ('angeli', 'ANKLA11111'),
+                ('angell', 'ANKA111111'), ('angus', 'ANKS111111'),
+                ('annan', 'ANN1111111'), ('annand', 'ANNT111111'),
+                ('annett', 'ANT1111111'), ('anning', 'ANNK111111'),
+                ('annison', 'ANSN111111'), ('annson', 'ANSN111111'),
+                ('anscombe', 'ANSKM11111'), ('ansdell', 'ANSTA11111'),
+                ('ansell', 'ANSA111111'), ('anstruther', 'ANSTRTA111'),
+                ('anthony', 'ANTNA11111'), ('apes', 'APS1111111'),
+                ('appleby', 'APLPA11111'), ('applegart', 'APLKT11111'),
+                ('applegarth', 'APLKT11111'), ('applegate', 'APLKT11111'),
+                ('applelby', 'APLPA11111'), ('apstein', 'APSTN11111'),
+                ('arbuckle', 'APKA111111'), ('archbold', 'AKPT111111'),
+                ('archer', 'AKA1111111'), ('archibald', 'AKPT111111'),
+                ('archie', 'AKA1111111'), ('argue', 'AKA1111111'),
+                ('arkel', 'AKA1111111'), ('arkins', 'AKNS111111'),
+                ('arkle', 'AKA1111111'), ('arlidge', 'ALK1111111'),
+                ('armatrong', 'AMTRNK1111'), ('armishaw', 'AMSA111111'),
+                ('armit', 'AMT1111111'), ('armitage', 'AMTK111111'),
+                ('armour', 'AMA1111111'), ('armroyd', 'AMRT111111'),
+                ('armstead', 'AMSTT11111'), ('armstrong', 'AMSTRNK111'),
+                ('arnal', 'ANA1111111'), ('arneil', 'ANA1111111'),
+                ('arnel', 'ANA1111111'), ('arnett', 'ANT1111111'),
+                ('arnold', 'ANT1111111'), ('arnot', 'ANT1111111'),
+                ('arnott', 'ANT1111111'), ('arnstrong', 'ANSTRNK111'),
+                ('arroll', 'ARA1111111'), ('arrow', 'ARA1111111'),
+                ('arthur', 'ATA1111111'), ('artlett', 'ATLT111111'),
+                ('arundale', 'ARNTA11111'), ('arundel', 'ARNTA11111'),
+                ('ash', 'AS11111111'), ('ashbey', 'ASPA111111'),
+                ('ashbury', 'ASPRA11111'), ('ashby', 'ASPA111111'),
+                ('ashcroft', 'ASKRFT1111'), ('ashenden', 'ASNTN11111'),
+                ('asher', 'ASA1111111'), ('ashford', 'ASFT111111'),
+                ('ashley', 'ASLA111111'), ('ashman', 'ASMN111111'),
+                ('ashmore', 'ASMA111111'), ('ashron', 'ASRN111111'),
+                ('ashton', 'ASTN111111'), ('ashwell', 'ASWA111111'),
+                ('ashworth', 'ASWT111111'), ('askor', 'ASKA111111'),
+                ('aslin', 'ASLN111111'), ('asquith', 'ASKT111111'),
+                ('aston', 'ASTN111111'), ('astor', 'ASTA111111'),
+                ('atchison', 'AKSN111111'), ('atherfold', 'ATFT111111'),
+                ('athfield', 'ATFT111111'), ('athldeld', 'ATTT111111'),
+                ('atkin', 'ATKN111111'), ('atkins', 'ATKNS11111'),
+                ('atkinson', 'ATKNSN1111'), ('atmore', 'ATMA111111'),
+                ('atto', 'ATA1111111'), ('attwell', 'ATWA111111'),
+                ('atwill', 'ATWA111111'), ('audeison', 'ATSN111111'),
+                ('augus', 'AKS1111111'), ('auld', 'AT11111111'),
+                ('austad', 'ASTT111111'), ('austen', 'ASTN111111'),
+                ('austin', 'ASTN111111'), ('austing', 'ASTNK11111'),
+                ('auty', 'ATA1111111'), ('averill', 'AFRA111111'),
+                ('avery', 'AFRA111111'), ('awdry', 'ATRA111111'),
+                ('ayers', 'AS11111111'), ('aylwin', 'AWN1111111'),
+                ('ayres', 'ARS1111111'), ('ayrey', 'ARA1111111'),
+                ('ayshford', 'ASFT111111'), ('ayson', 'ASN1111111'),
+                ('ayto', 'ATA1111111'), ('azzariti', 'ASRTA11111'),
+                ('baber', 'PPA1111111'), ('bachop', 'PKP1111111'),
+                ('back', 'PK11111111'), ('backholm', 'PKM1111111'),
+                ('bacon', 'PKN1111111'), ('badcock', 'PTKK111111'),
+                ('badham', 'PTM1111111'), ('badman', 'PTMN111111'),
+                ('baeyertz', 'PTS1111111'), ('bagley', 'PKLA111111'),
+                ('bagnell', 'PKNA111111'), ('bagrie', 'PKRA111111'),
+                ('bail', 'PA11111111'), ('baildon', 'PTN1111111'),
+                ('bailer', 'PLA1111111'), ('bailes', 'PLS1111111'),
+                ('bailey', 'PLA1111111'), ('baillie', 'PLA1111111'),
+                ('bailoni', 'PLNA111111'), ('bain', 'PN11111111'),
+                ('baines', 'PNS1111111'), ('baird', 'PT11111111'),
+                ('baker', 'PKA1111111'), ('balchin', 'PKN1111111'),
+                ('balding', 'PTNK111111'), ('baldock', 'PTK1111111'),
+                ('baldwin', 'PTWN111111'), ('baley', 'PLA1111111'),
+                ('baliantyne', 'PLNTN11111'), ('ball', 'PA11111111'),
+                ('ballantyne', 'PLNTN11111'), ('ballard', 'PLT1111111'),
+                ('ballentyne', 'PLNTN11111'), ('ballintyne', 'PLNTN11111'),
+                ('balloch', 'PLK1111111'), ('balneaves', 'PNFS111111'),
+                ('bamber', 'PMPA111111'), ('bambery', 'PMPRA11111'),
+                ('bambury', 'PMPRA11111'), ('bamfield', 'PMFT111111'),
+                ('bamford', 'PMFT111111'), ('bamwell', 'PMWA111111'),
+                ('bandeen', 'PNTN111111'), ('banfield', 'PNFT111111'),
+                ('banks', 'PNKS111111'), ('bankshaw', 'PNKSA11111'),
+                ('banlow', 'PNLA111111'), ('bannantyne', 'PNNTN11111'),
+                ('bannatyne', 'PNTN111111'), ('bannerman', 'PNMN111111'),
+                ('banwell', 'PNWA111111'), ('baoumgren', 'PMKRN11111'),
+                ('barbara', 'PPRA111111'), ('barbeau', 'PPA1111111'),
+                ('barber', 'PPA1111111'), ('barbour', 'PPA1111111'),
+                ('barclay', 'PKLA111111'), ('bardsiey', 'PTSA111111'),
+                ('bardsley', 'PTSLA11111'), ('bardwell', 'PTWA111111'),
+                ('bare', 'PA11111111'), ('barfield', 'PFT1111111'),
+                ('barham', 'PM11111111'), ('barker', 'PKA1111111'),
+                ('barkla', 'PKLA111111'), ('barkman', 'PKMN111111'),
+                ('barling', 'PLNK111111'), ('barlow', 'PLA1111111'),
+                ('barlthrop', 'PTRP111111'), ('barltrop', 'PTRP111111'),
+                ('barnard', 'PNT1111111'), ('barnes', 'PNS1111111'),
+                ('barnett', 'PNT1111111'), ('barney', 'PNA1111111'),
+                ('barnfield', 'PNFT111111'), ('barnford', 'PNFT111111'),
+                ('barns', 'PNS1111111'), ('baron', 'PRN1111111'),
+                ('barr', 'PA11111111'), ('barrass', 'PRS1111111'),
+                ('barratt', 'PRT1111111'), ('barrell', 'PRA1111111'),
+                ('barret', 'PRT1111111'), ('barrett', 'PRT1111111'),
+                ('barrie', 'PRA1111111'), ('barrington', 'PRNKTN1111'),
+                ('barritt', 'PRT1111111'), ('barron', 'PRN1111111'),
+                ('barrow', 'PRA1111111'), ('barrowclou', 'PRKLA11111'),
+                ('barrowclough', 'PRKLA11111'), ('barrowman', 'PRMN111111'),
+                ('barry', 'PRA1111111'), ('barsdell', 'PSTA111111'),
+                ('barth', 'PT11111111'), ('bartholome', 'PTLM111111'),
+                ('bartholomew', 'PTLMA11111'), ('bartlett', 'PTLT111111'),
+                ('bartley', 'PTLA111111'), ('barton-bro', 'PTNPRA1111'),
+                ('barton-browne', 'PTNPRN1111'), ('barton', 'PTN1111111'),
+                ('bartram', 'PTRM111111'), ('barwell', 'PWA1111111'),
+                ('barwick', 'PWK1111111'), ('basan', 'PSN1111111'),
+                ('baskett', 'PSKT111111'), ('bassett', 'PST1111111'),
+                ('bastings', 'PSTNKS1111'), ('batcheior', 'PKA1111111'),
+                ('batchelor', 'PKLA111111'), ('bate', 'PT11111111'),
+                ('bateman', 'PTMN111111'), ('bates', 'PTS1111111'),
+                ('bath', 'PT11111111'), ('batham', 'PTM1111111'),
+                ('bathgate', 'PTKT111111'), ('bats', 'PTS1111111'),
+                ('batt', 'PT11111111'), ('battersby', 'PTSPA11111'),
+                ('batty', 'PTA1111111'), ('battye', 'PTA1111111'),
+                ('bauchop', 'PKP1111111'), ('baughen', 'PKN1111111'),
+                ('bauld', 'PT11111111'), ('baverstock', 'PFSTK11111'),
+                ('bawden', 'PTN1111111'), ('baxter', 'PKTA111111'),
+                ('baylee', 'PLA1111111'), ('bayley', 'PLA1111111'),
+                ('baylis', 'PLS1111111'), ('bayliss', 'PLS1111111'),
+                ('bayly', 'PLA1111111'), ('bayne', 'PN11111111'),
+                ('bazley', 'PSLA111111'), ('beach', 'PK11111111'),
+                ('beadle', 'PTA1111111'), ('beagle', 'PKA1111111'),
+                ('beal', 'PA11111111'), ('beale', 'PA11111111'),
+                ('bean', 'PN11111111'), ('bear', 'PA11111111'),
+                ('beardsley', 'PTSLA11111'), ('beardsmore', 'PTSMA11111'),
+                ('beasley', 'PSLA111111'), ('beath', 'PT11111111'),
+                ('beaton', 'PTN1111111'), ('beatson', 'PTSN111111'),
+                ('beattie', 'PTA1111111'), ('beatty', 'PTA1111111'),
+                ('beauchamp', 'PKMP111111'), ('beaufort', 'PFT1111111'),
+                ('beaumont', 'PMNT111111'), ('beautort', 'PTT1111111'),
+                ('beavars', 'PFS1111111'), ('beaven', 'PFN1111111'),
+                ('beaver', 'PFA1111111'), ('beavers', 'PFS1111111'),
+                ('beazley', 'PSLA111111'), ('beck', 'PK11111111'),
+                ('beckersta', 'PKSTA11111'), ('beckerstoff', 'PKSTF11111'),
+                ('beckett', 'PKT1111111'), ('beckingham', 'PKNM111111'),
+                ('beckingsale', 'PKNKSA1111'), ('bedford', 'PTFT111111'),
+                ('bee', 'PA11111111'), ('beeby', 'PPA1111111'),
+                ('beecher', 'PKA1111111'), ('beecot', 'PKT1111111'),
+                ('beecroft', 'PKRFT11111'), ('beedie', 'PTA1111111'),
+                ('beekman', 'PKMN111111'), ('beel', 'PA11111111'),
+                ('been', 'PN11111111'), ('beer', 'PA11111111'),
+                ('beeson', 'PSN1111111'), ('begbie', 'PKPA111111'),
+                ('begg', 'PK11111111'), ('beigbson', 'PKPSN11111'),
+                ('beighton', 'PTN1111111'), ('beil', 'PA11111111'),
+                ('beilby', 'PPA1111111'), ('beirne', 'PN11111111'),
+                ('beissel', 'PSA1111111'), ('belcher', 'PKA1111111'),
+                ('belford', 'PFT1111111'), ('bell', 'PA11111111'),
+                ('bellamy', 'PLMA111111'), ('bellaney', 'PLNA111111'),
+                ('bellet', 'PLT1111111'), ('bellett', 'PLT1111111'),
+                ('bellve', 'PF11111111'), ('belotti', 'PLTA111111'),
+                ('belsey', 'PSA1111111'), ('belstead', 'PSTT111111'),
+                ('belve', 'PF11111111'), ('belworthy', 'PWTA111111'),
+                ('bendall', 'PNTA111111'), ('benfell', 'PNFA111111'),
+                ('benfield', 'PNFT111111'), ('benham', 'PNM1111111'),
+                ('benjamin', 'PNMN111111'), ('benn', 'PN11111111'),
+                ('bennell', 'PNA1111111'), ('bennet', 'PNT1111111'),
+                ('bennett', 'PNT1111111'), ('bennetto', 'PNTA111111'),
+                ('bennetts', 'PNTS111111'), ('bennie', 'PNA1111111'),
+                ('bennison', 'PNSN111111'), ('benson', 'PNSN111111'),
+                ('benston', 'PNSTN11111'), ('benth', 'PNT1111111'),
+                ('bentley', 'PNTLA11111'), ('benton', 'PNTN111111'),
+                ('benzie', 'PNSA111111'), ('ber', 'PA11111111'),
+                ('berg', 'PK11111111'), ('bergin', 'PKN1111111'),
+                ('berkeley', 'PKLA111111'), ('berkinshaw', 'PKNSA11111'),
+                ('berland', 'PLNT111111'), ('berman', 'PMN1111111'),
+                ('bern', 'PN11111111'), ('bernard', 'PNT1111111'),
+                ('bernet', 'PNT1111111'), ('berney', 'PNA1111111'),
+                ('bernie', 'PNA1111111'), ('bernstein', 'PNSTN11111'),
+                ('berrett', 'PRT1111111'), ('berry', 'PRA1111111'),
+                ('berryman', 'PRMN111111'), ('berryrnan', 'PRNN111111'),
+                ('bertenshaw', 'PTNSA11111'), ('berti', 'PTA1111111'),
+                ('berwick', 'PWK1111111'), ('besley', 'PSLA111111'),
+                ('best', 'PST1111111'), ('bestic', 'PSTK111111'),
+                ('bethune', 'PTN1111111'), ('bettle', 'PTA1111111'),
+                ('bettridge', 'PTRK111111'), ('betts', 'PTS1111111'),
+                ('betty', 'PTA1111111'), ('beuth', 'PT11111111'),
+                ('bevan', 'PFN1111111'), ('bevars', 'PFS1111111'),
+                ('beven', 'PFN1111111'), ('beveridge', 'PFRK111111'),
+                ('bevin', 'PFN1111111'), ('bevis', 'PFS1111111'),
+                ('bewley', 'PLA1111111'), ('bews', 'PS11111111'),
+                ('bewsher', 'PSA1111111'), ('beyer', 'PA11111111'),
+                ('bezar', 'PSA1111111'), ('bezett', 'PST1111111'),
+                ('bggs', 'PKS1111111'), ('biack', 'PK11111111'),
+                ('bichan', 'PKN1111111'), ('bichard', 'PKT1111111'),
+                ('bickerdike', 'PKTK111111'), ('bicknell', 'PKNA111111'),
+                ('bidgood', 'PKT1111111'), ('bierstorf', 'PSTF111111'),
+                ('biggar', 'PKA1111111'), ('biggins', 'PKNS111111'),
+                ('biggs', 'PKS1111111'), ('billingham', 'PLNM111111'),
+                ('billington', 'PLNKTN1111'), ('bills', 'PS11111111'),
+                ('bilson', 'PSN1111111'), ('bingham', 'PNM1111111'),
+                ('binney', 'PNA1111111'), ('binnie', 'PNA1111111'),
+                ('binsted', 'PNSTT11111'), ('bioss', 'PS11111111'),
+                ('birch', 'PK11111111'), ('birchall', 'PKA1111111'),
+                ('birchwood', 'PKWT111111'), ('bird', 'PT11111111'),
+                ('birkenshaw', 'PKNSA11111'), ('birkett', 'PKT1111111'),
+                ('birkner', 'PKNA111111'), ('birnie', 'PNA1111111'),
+                ('birrell', 'PRA1111111'), ('birse', 'PS11111111'),
+                ('birss', 'PS11111111'), ('birt', 'PT11111111'),
+                ('birtles', 'PTLS111111'), ('bishop', 'PSP1111111'),
+                ('bisset', 'PST1111111'), ('bissett', 'PST1111111'),
+                ('bissland', 'PSLNT11111'), ('black', 'PLK1111111'),
+                ('blackbrn', 'PLKPN11111'), ('blackburn', 'PLKPN11111'),
+                ('blacke', 'PLK1111111'), ('blackford', 'PLKFT11111'),
+                ('blackie', 'PLKA111111'), ('blackledge', 'PLKLK11111'),
+                ('blackley', 'PLKLA11111'), ('blacklock', 'PLKLK11111'),
+                ('blacklow', 'PLKLA11111'), ('blackmore', 'PLKMA11111'),
+                ('blackock', 'PLKK111111'), ('blackwell', 'PLKWA11111'),
+                ('blackwood', 'PLKWT11111'), ('blagdon', 'PLKTN11111'),
+                ('blaikie', 'PLKA111111'), ('blair', 'PLA1111111'),
+                ('blake', 'PLK1111111'), ('blakeley', 'PLKLA11111'),
+                ('blakely', 'PLKLA11111'), ('blanc', 'PLNK111111'),
+                ('blanch', 'PLNK111111'), ('blanchard', 'PLNKT11111'),
+                ('blanchfield', 'PLNKFT1111'), ('bland', 'PLNT111111'),
+                ('blandford', 'PLNTFT1111'), ('blaney', 'PLNA111111'),
+                ('blayden', 'PLTN111111'), ('bleach', 'PLK1111111'),
+                ('blease', 'PLS1111111'), ('blee', 'PLA1111111'),
+                ('blell', 'PLA1111111'), ('blick', 'PLK1111111'),
+                ('blincoe', 'PLNKA11111'), ('blines', 'PLNS111111'),
+                ('blomfield', 'PLMFT11111'), ('bloomfield', 'PLMFT11111'),
+                ('bloss', 'PLS1111111'), ('blott', 'PLT1111111'),
+                ('bloxham', 'PLKM111111'), ('bloy', 'PLA1111111'),
+                ('blue', 'PLA1111111'), ('bluett', 'PLT1111111'),
+                ('blunt', 'PLNT111111'), ('blyth', 'PLT1111111'),
+                ('blythe', 'PLT1111111'), ('bnker', 'PNKA111111'),
+                ('boag', 'PK11111111'), ('boardman', 'PTMN111111'),
+                ('boatwood', 'PTWT111111'), ('boaz', 'PS11111111'),
+                ('bobbett', 'PPT1111111'), ('boberg', 'PPK1111111'),
+                ('bobsien', 'PPSN111111'), ('boddy', 'PTA1111111'),
+                ('boddye', 'PTA1111111'), ('bode', 'PT11111111'),
+                ('bodkin', 'PTKN111111'), ('boecking', 'PKNK111111'),
+                ('boelke', 'PK11111111'), ('bogue', 'PKA1111111'),
+                ('bohm', 'PM11111111'), ('bohrsman', 'PSMN111111'),
+                ('boland', 'PLNT111111'), ('bollard', 'PLT1111111'),
+                ('bollett', 'PLT1111111'), ('bolsand', 'PSNT111111'),
+                ('bolstad', 'PSTT111111'), ('bolt', 'PT11111111'),
+                ('bolting', 'PTNK111111'), ('bolton', 'PTN1111111'),
+                ('bolwell', 'PWA1111111'), ('bolwill', 'PWA1111111'),
+                ('bonar', 'PNA1111111'), ('bonasich', 'PNSK111111'),
+                ('bond', 'PNT1111111'), ('bone', 'PN11111111'),
+                ('boner', 'PNA1111111'), ('bonetti', 'PNTA111111'),
+                ('bongard', 'PNKT111111'), ('bonham', 'PNM1111111'),
+                ('boniface', 'PNFK111111'), ('bonifant', 'PNFNT11111'),
+                ('bonney', 'PNA1111111'), ('bonnie', 'PNA1111111'),
+                ('bonnin', 'PNN1111111'), ('booker', 'PKA1111111'),
+                ('bool', 'PA11111111'), ('booley', 'PLA1111111'),
+                ('boot', 'PT11111111'), ('booten', 'PTN1111111'),
+                ('booth', 'PT11111111'), ('boothroyd', 'PTRT111111'),
+                ('bootten', 'PTN1111111'), ('boraman', 'PRMN111111'),
+                ('boreham', 'PRM1111111'), ('borjeson', 'PRSN111111'),
+                ('borland', 'PLNT111111'), ('borley', 'PLA1111111'),
+                ('borne', 'PN11111111'), ('borrie', 'PRA1111111'),
+                ('borthwick', 'PTWK111111'), ('borton', 'PTN1111111'),
+                ('borwick', 'PWK1111111'), ('boswell', 'PSWA111111'),
+                ('bosworth', 'PSWT111111'), ('bott', 'PT11111111'),
+                ('botting', 'PTNK111111'), ('boucher', 'PKA1111111'),
+                ('bouchor', 'PKA1111111'), ('boud', 'PT11111111'),
+                ('boulnois', 'PNS1111111'), ('boult', 'PT11111111'),
+                ('boulter', 'PTA1111111'), ('boulton', 'PTN1111111'),
+                ('bouquet', 'PKT1111111'), ('bourke', 'PK11111111'),
+                ('bourne', 'PN11111111'), ('boutcher', 'PKA1111111'),
+                ('bouterey', 'PTRA111111'), ('bowdell', 'PTA1111111'),
+                ('bowden', 'PTN1111111'), ('bowdler', 'PTLA111111'),
+                ('bowen', 'PWN1111111'), ('bower', 'PWA1111111'),
+                ('bowers', 'PWS1111111'), ('bowie', 'PWA1111111'),
+                ('bowker', 'PKA1111111'), ('bowkett', 'PKT1111111'),
+                ('bowler', 'PLA1111111'), ('bowles', 'PLS1111111'),
+                ('bowling', 'PLNK111111'), ('bowls', 'PS11111111'),
+                ('bowman', 'PMN1111111'), ('bowmar', 'PMA1111111'),
+                ('bowser', 'PSA1111111'), ('boxall', 'PKA1111111'),
+                ('boyall', 'PA11111111'), ('boyd', 'PT11111111'),
+                ('boyer', 'PA11111111'), ('boyes', 'PS11111111'),
+                ('boyison', 'PSN1111111'), ('boyland', 'PLNT111111'),
+                ('boyle', 'PA11111111'), ('boylen', 'PLN1111111'),
+                ('boyles', 'PLS1111111'), ('boys', 'PS11111111'),
+                ('brabant', 'PRPNT11111'), ('brabyn', 'PRPN111111'),
+                ('bracegirdle', 'PRSKTA1111'), ('brackenridge', 'PRKNRK1111'),
+                ('brackley', 'PRKLA11111'), ('bracks', 'PRKS111111'),
+                ('braden', 'PRTN111111'), ('bradford', 'PRTFT11111'),
+                ('brading', 'PRTNK11111'), ('bradley', 'PRTLA11111'),
+                ('bradshaw', 'PRTSA11111'), ('brady', 'PRTA111111'),
+                ('bragg', 'PRK1111111'), ('braham', 'PRM1111111'),
+                ('braid', 'PRT1111111'), ('braidwood', 'PRTWT11111'),
+                ('brail', 'PRA1111111'), ('braimbridge', 'PRMPRK1111'),
+                ('brain', 'PRN1111111'), ('braithiwaite', 'PRTWT11111'),
+                ('braithwaite', 'PRTWT11111'), ('bramley', 'PRMLA11111'),
+                ('bramwell', 'PRMWA11111'), ('brand', 'PRNT111111'),
+                ('brander', 'PRNTA11111'), ('brandon', 'PRNTN11111'),
+                ('brands', 'PRNTS11111'), ('brandt', 'PRNT111111'),
+                ('bransgrove', 'PRNSKRF111'), ('branson', 'PRNSN11111'),
+                ('brass', 'PRS1111111'), ('bratby', 'PRTPA11111'),
+                ('brathwaite', 'PRTWT11111'), ('bray', 'PRA1111111'),
+                ('breach', 'PRK1111111'), ('brebner', 'PRPNA11111'),
+                ('bree', 'PRA1111111'), ('breen', 'PRN1111111'),
+                ('breese', 'PRS1111111'), ('breeze', 'PRS1111111'),
+                ('bregmen', 'PRKMN11111'), ('brehaut', 'PRT1111111'),
+                ('bremford', 'PRMFT11111'), ('bremmer', 'PRMA111111'),
+                ('bremner', 'PRMNA11111'), ('brennan', 'PRNN111111'),
+                ('brenssell', 'PRNSA11111'), ('brent', 'PRNT111111'),
+                ('bresanello', 'PRSNLA1111'), ('bresnahan', 'PRSNN11111'),
+                ('bretherton', 'PRTTN11111'), ('brett', 'PRT1111111'),
+                ('brettell', 'PRTA111111'), ('brew', 'PRA1111111'),
+                ('brewer', 'PRWA111111'), ('brewster', 'PRSTA11111'),
+                ('brian', 'PRN1111111'), ('briant', 'PRNT111111'),
+                ('briasco', 'PRSKA11111'), ('brice', 'PRK1111111'),
+                ('brickell', 'PRKA111111'), ('brickland', 'PRKLNT1111'),
+                ('briden', 'PRTN111111'), ('bridge', 'PRK1111111'),
+                ('bridgeman', 'PRKMN11111'), ('bridger', 'PRKA111111'),
+                ('bridges', 'PRKS111111'), ('bridget', 'PRKT111111'),
+                ('bridgman', 'PRKMN11111'), ('brien', 'PRN1111111'),
+                ('brierley', 'PRLA111111'), ('briggs', 'PRKS111111'),
+                ('bright', 'PRT1111111'), ('brighting', 'PRTNK11111'),
+                ('brightling', 'PRTLNK1111'), ('brightmore', 'PRTMA11111'),
+                ('brightwell', 'PRTWA11111'), ('briley', 'PRLA111111'),
+                ('brill', 'PRA1111111'), ('bringans', 'PRNKNS1111'),
+                ('bringarts', 'PRNKTS1111'), ('brinkworth', 'PRNKWT1111'),
+                ('brinn', 'PRN1111111'), ('brinsdon', 'PRNSTN1111'),
+                ('brinsley', 'PRNSLA1111'), ('brisbane', 'PRSPN11111'),
+                ('briscoe', 'PRSKA11111'), ('brisley', 'PRSLA11111'),
+                ('briston', 'PRSTN11111'), ('bristow', 'PRSTA11111'),
+                ('briton', 'PRTN111111'), ('britten', 'PRTN111111'),
+                ('brittenden', 'PRTNTN1111'), ('britton', 'PRTN111111'),
+                ('brixton', 'PRKTN11111'), ('broad', 'PRT1111111'),
+                ('broadbent', 'PRTPNT1111'), ('broadfoot', 'PRTFT11111'),
+                ('broadhead', 'PRTT111111'), ('broadley', 'PRTLA11111'),
+                ('brock', 'PRK1111111'), ('brocket', 'PRKT111111'),
+                ('brockie', 'PRKA111111'), ('brocklebank', 'PRKLPNK111'),
+                ('brocklehurst', 'PRKLST1111'), ('broderick', 'PRTRK11111'),
+                ('brodie', 'PRTA111111'), ('brodrick', 'PRTRK11111'),
+                ('broenaham', 'PRNM111111'), ('bromley', 'PRMLA11111'),
+                ('brook', 'PRK1111111'), ('brooke', 'PRK1111111'),
+                ('brooker', 'PRKA111111'), ('brookes', 'PRKS111111'),
+                ('brooket', 'PRKT111111'), ('brooklehurst', 'PRKLST1111'),
+                ('brooks', 'PRKS111111'), ('brool', 'PRA1111111'),
+                ('broolcs', 'PRKS111111'), ('broom', 'PRM1111111'),
+                ('broome', 'PRM1111111'), ('broomfield', 'PRMFT11111'),
+                ('broomhall', 'PRMA111111'), ('brosnahan', 'PRSNN11111'),
+                ('brosnan', 'PRSNN11111'), ('brotherhoo', 'PRTA111111'),
+                ('brotherhood', 'PRTT111111'), ('brotherston', 'PRTSTN1111'),
+                ('brotherton', 'PRTTN11111'), ('brough', 'PRA1111111'),
+                ('broughton', 'PRTN111111'), ('browett', 'PRWT111111'),
+                ('brown-durie', 'PRNTRA1111'), ('brown-rennie', 'PRNRNA1111'),
+                ('brown', 'PRN1111111'), ('browne', 'PRN1111111'),
+                ('brownell', 'PRNA111111'), ('brownie', 'PRNA111111'),
+                ('browning', 'PRNNK11111'), ('brownlie', 'PRNLA11111'),
+                ('bruce', 'PRK1111111'), ('bruco', 'PRKA111111'),
+                ('brugh', 'PRA1111111'), ('bruhns', 'PRNS111111'),
+                ('brundell', 'PRNTA11111'), ('bruno', 'PRNA111111'),
+                ('brunton', 'PRNTN11111'), ('bruten', 'PRTN111111'),
+                ('bruton', 'PRTN111111'), ('bryan', 'PRN1111111'),
+                ('bryant', 'PRNT111111'), ('bryce', 'PRK1111111'),
+                ('bryden', 'PRTN111111'), ('brydone', 'PRTN111111'),
+                ('bryson', 'PRSN111111'), ('btrns', 'PTNS111111'),
+                ('buchan', 'PKN1111111'), ('buchanan', 'PKNN111111'),
+                ('buck', 'PK11111111'), ('buckingham', 'PKNM111111'),
+                ('buckland', 'PKLNT11111'), ('buckley', 'PKLA111111'),
+                ('buddicom', 'PTKM111111'), ('buddicomb', 'PTKM111111'),
+                ('buddicombe', 'PTKM111111'), ('buddle', 'PTA1111111'),
+                ('budge', 'PK11111111'), ('bugby', 'PKPA111111'),
+                ('bugden', 'PKTN111111'), ('buist', 'PST1111111'),
+                ('bulfin', 'PFN1111111'), ('bulger', 'PKA1111111'),
+                ('bull', 'PA11111111'), ('bullars', 'PLS1111111'),
+                ('bullen', 'PLN1111111'), ('bullett', 'PLT1111111'),
+                ('bullock', 'PLK1111111'), ('bullot', 'PLT1111111'),
+                ('bullough', 'PLA1111111'), ('bulmer', 'PMA1111111'),
+                ('bum', 'PM11111111'), ('bums', 'PMS1111111'),
+                ('bunce', 'PNK1111111'), ('bundo', 'PNTA111111'),
+                ('bungard', 'PNKT111111'), ('bungardt', 'PNKT111111'),
+                ('bunting', 'PNTNK11111'), ('burbery', 'PPRA111111'),
+                ('burbury', 'PPRA111111'), ('burcoll', 'PKA1111111'),
+                ('burdekin', 'PTKN111111'), ('burden', 'PTN1111111'),
+                ('burdett', 'PTT1111111'), ('burdon', 'PTN1111111'),
+                ('burford', 'PFT1111111'), ('burger', 'PKA1111111'),
+                ('burgess', 'PKS1111111'), ('burk', 'PK11111111'),
+                ('burke', 'PK11111111'), ('burkinshaw', 'PKNSA11111'),
+                ('burley', 'PLA1111111'), ('burlinson', 'PLNSN11111'),
+                ('burn', 'PN11111111'), ('burnard', 'PNT1111111'),
+                ('burnes', 'PNS1111111'), ('burnett', 'PNT1111111'),
+                ('burns', 'PNS1111111'), ('burnside', 'PNST111111'),
+                ('burrell', 'PRA1111111'), ('burridge', 'PRK1111111'),
+                ('burrow', 'PRA1111111'), ('burrowes', 'PRWS111111'),
+                ('burrows', 'PRS1111111'), ('burson', 'PSN1111111'),
+                ('burt', 'PT11111111'), ('burton', 'PTN1111111'),
+                ('busbridge', 'PSPRK11111'), ('busby', 'PSPA111111'),
+                ('bush', 'PS11111111'), ('bushell', 'PSA1111111'),
+                ('buss', 'PS11111111'), ('busst', 'PST1111111'),
+                ('bustin', 'PSTN111111'), ('butchart', 'PKT1111111'),
+                ('butcher', 'PKA1111111'), ('butel', 'PTA1111111'),
+                ('butler', 'PTLA111111'), ('butlin', 'PTLN111111'),
+                ('butt', 'PT11111111'), ('butterfield', 'PTFT111111'),
+                ('buttermore', 'PTMA111111'), ('butterworth', 'PTWT111111'),
+                ('buttimore', 'PTMA111111'), ('button', 'PTN1111111'),
+                ('butts', 'PTS1111111'), ('buxton', 'PKTN111111'),
+                ('buzzard', 'PST1111111'), ('bvrne', 'PFN1111111'),
+                ('byfield', 'PFT1111111'), ('byford', 'PFT1111111'),
+                ('byrne', 'PN11111111'), ('byrnes', 'PNS1111111'),
+                ('byrno', 'PNA1111111'), ('cabena', 'KPNA111111'),
+                ('cabral', 'KPRA111111'), ('caddie', 'KTA1111111'),
+                ('cadigan', 'KTKN111111'), ('cadogan', 'KTKN111111'),
+                ('caerwood', 'KWT1111111'), ('caffin', 'KFN1111111'),
+                ('cagney', 'KKNA111111'), ('cahill', 'KA11111111'),
+                ('caidwell', 'KTWA111111'), ('caigou', 'KKA1111111'),
+                ('cain', 'KN11111111'), ('caird', 'KT11111111'),
+                ('cairney', 'KNA1111111'), ('cairns', 'KNS1111111'),
+                ('caithness', 'KTNS111111'), ('calcott', 'KKT1111111'),
+                ('calcutt', 'KKT1111111'), ('calder', 'KTA1111111'),
+                ('calderwood', 'KTWT111111'), ('caldow', 'KTA1111111'),
+                ('caldweil', 'KTWA111111'), ('caldwell', 'KTWA111111'),
+                ('calex', 'KLK1111111'), ('caley', 'KLA1111111'),
+                ('callaghan', 'KLKN111111'), ('callam', 'KLM1111111'),
+                ('callan', 'KLN1111111'), ('callanan', 'KLNN111111'),
+                ('calland', 'KLNT111111'), ('callander', 'KLNTA11111'),
+                ('callaster', 'KLSTA11111'), ('callaway', 'KLWA111111'),
+                ('callender', 'KLNTA11111'), ('calley', 'KLA1111111'),
+                ('callighan', 'KLKN111111'), ('callinder', 'KLNTA11111'),
+                ('callis', 'KLS1111111'), ('callister', 'KLSTA11111'),
+                ('callon', 'KLN1111111'), ('calverley', 'KFLA111111'),
+                ('calvert', 'KFT1111111'), ('calvey', 'KFA1111111'),
+                ('cameron', 'KMRN111111'), ('cammock', 'KMK1111111'),
+                ('campbell', 'KMPA111111'), ('campion', 'KMPN111111'),
+                ('camplell', 'KMPLA11111'), ('can1eron', 'KNRN111111'),
+                ('canavan', 'KNFN111111'), ('canning', 'KNNK111111'),
+                ('cannon', 'KNN1111111'), ('cannons', 'KNNS111111'),
+                ('canpbell', 'KNPA111111'), ('canter', 'KNTA111111'),
+                ('cantrell', 'KNTRA11111'), ('cantwell', 'KNTWA11111'),
+                ('canty', 'KNTA111111'), ('capitaneas', 'KPTNS11111'),
+                ('caple', 'KPA1111111'), ('capstick', 'KPSTK11111'),
+                ('caraclus', 'KRKLS11111'), ('caradus', 'KRTS111111'),
+                ('caravan', 'KRFN111111'), ('carber', 'KPA1111111'),
+                ('carberry', 'KPRA111111'), ('cardale', 'KTA1111111'),
+                ('carden', 'KTN1111111'), ('carder', 'KTA1111111'),
+                ('cardno', 'KTNA111111'), ('care', 'KA11111111'),
+                ('carey', 'KRA1111111'), ('cargill', 'KKA1111111'),
+                ('carlene', 'KLN1111111'), ('carley', 'KLA1111111'),
+                ('carlin', 'KLN1111111'), ('carline', 'KLN1111111'),
+                ('carlson', 'KSN1111111'), ('carlyle', 'KLA1111111'),
+                ('carmalt', 'KMT1111111'), ('carman', 'KMN1111111'),
+                ('carmichael', 'KMKA111111'), ('carmody', 'KMTA111111'),
+                ('carnahan', 'KNN1111111'), ('carnegie', 'KNKA111111'),
+                ('carney', 'KNA1111111'), ('carnie', 'KNA1111111'),
+                ('carolin', 'KRLN111111'), ('carpenter', 'KPNTA11111'),
+                ('carr', 'KA11111111'), ('carrick', 'KRK1111111'),
+                ('carrigan', 'KRKN111111'), ('carrington', 'KRNKTN1111'),
+                ('carrodus', 'KRTS111111'), ('carroll', 'KRA1111111'),
+                ('carruther', 'KRTA111111'), ('carruthers', 'KRTS111111'),
+                ('carrutlers', 'KRTLS11111'), ('carside', 'KST1111111'),
+                ('carslaw', 'KSLA111111'), ('carson', 'KSN1111111'),
+                ('carswe11', 'KSA1111111'), ('carswell', 'KSWA111111'),
+                ('carter', 'KTA1111111'), ('carton', 'KTN1111111'),
+                ('cartwright', 'KTRT111111'), ('caruthers', 'KRTS111111'),
+                ('carvalho', 'KFA1111111'), ('carvell', 'KFA1111111'),
+                ('carver', 'KFA1111111'), ('carvosso', 'KFSA111111'),
+                ('case', 'KS11111111'), ('caselberg', 'KSPK111111'),
+                ('caser', 'KSA1111111'), ('casey', 'KSA1111111'),
+                ('cash', 'KS11111111'), ('cashman', 'KSMN111111'),
+                ('caskie', 'KSKA111111'), ('cass', 'KS11111111'),
+                ('cassells', 'KSS1111111'), ('cassels', 'KSS1111111'),
+                ('casserley', 'KSLA111111'), ('casserly', 'KSLA111111'),
+                ('cassidv', 'KSTF111111'), ('cassidy', 'KSTA111111'),
+                ('cassitly', 'KSTLA11111'), ('casson', 'KSN1111111'),
+                ('castelli', 'KSTLA11111'), ('caster', 'KSTA111111'),
+                ('castle', 'KSTA111111'), ('castlehow', 'KSTLA11111'),
+                ('catchpole', 'KKPA111111'), ('cate', 'KT11111111'),
+                ('cater', 'KTA1111111'), ('cathro', 'KTRA111111'),
+                ('catto', 'KTA1111111'), ('caughey', 'KKA1111111'),
+                ('caulcutt', 'KKT1111111'), ('caulton', 'KTN1111111'),
+                ('caunter', 'KNTA111111'), ('cavanagh', 'KFNA111111'),
+                ('cave', 'KF11111111'), ('cavell', 'KFA1111111'),
+                ('cawley', 'KLA1111111'), ('cawston', 'KSTN111111'),
+                ('cawthorn', 'KTN1111111'), ('cayford', 'KFT1111111'),
+                ('caygill', 'KKA1111111'), ('cayzer', 'KSA1111111'),
+                ('cessford', 'SSFT111111'), ('chadwick', 'KTWK111111'),
+                ('challis', 'KLS1111111'), ('chalmer', 'KMA1111111'),
+                ('chalmers', 'KMS1111111'), ('chamberlain', 'KMPLN11111'),
+                ('chambers', 'KMPS111111'), ('chammen', 'KMN1111111'),
+                ('champion', 'KMPN111111'), ('chanbers', 'KNPS111111'),
+                ('chander', 'KNTA111111'), ('chandler', 'KNTLA11111'),
+                ('chaney', 'KNA1111111'), ('chanldler', 'KNTLA11111'),
+                ('channon', 'KNN1111111'), ('chantrill', 'KNTRA11111'),
+                ('chaplain', 'KPLN111111'), ('chaplin', 'KPLN111111'),
+                ('chapman', 'KPMN111111'), ('chappell', 'KPA1111111'),
+                ('charker', 'KKA1111111'), ('charles', 'KLS1111111'),
+                ('charleston', 'KLSTN11111'), ('charlsworth', 'KSWT111111'),
+                ('charlton', 'KTN1111111'), ('charnley', 'KNLA111111'),
+                ('charters', 'KTS1111111'), ('chase', 'KS11111111'),
+                ('chaston', 'KSTN111111'), ('chatterton', 'KTTN111111'),
+                ('chave', 'KF11111111'), ('chayman', 'KMN1111111'),
+                ('cheeseman', 'KSMN111111'), ('cheesman', 'KSMN111111'),
+                ('chennells', 'KNS1111111'), ('cherrie', 'KRA1111111'),
+                ('cherrv', 'KF11111111'), ('cherry', 'KRA1111111'),
+                ('cheshire', 'KSA1111111'), ('chesney', 'KSNA111111'),
+                ('chesterman', 'KSTMN11111'), ('chetham', 'KTM1111111'),
+                ('chettiebur', 'KTPA111111'), ('chettleburgh', 'KTLPA11111'),
+                ('chetwil', 'KTWA111111'), ('chetwin', 'KTWN111111'),
+                ('cheyne', 'KN11111111'), ('chickley', 'KKLA111111'),
+                ('chilcott', 'KKT1111111'), ('child', 'KT11111111'),
+                ('childs', 'KTS1111111'), ('chiles', 'KLS1111111'),
+                ('chimside', 'KMST111111'), ('chin shin', 'KNSN111111'),
+                ('chin shing', 'KNSNK11111'), ('chin', 'KN11111111'),
+                ('ching', 'KNK1111111'), ('chirnside', 'KNST111111'),
+                ('chisholm', 'KSM1111111'), ('chiswell', 'KSWA111111'),
+                ('chits', 'KTS1111111'), ('chittock', 'KTK1111111'),
+                ('chitty', 'KTA1111111'), ('chivers', 'KFS1111111'),
+                ('cholmondeley', 'KMNTLA1111'), ('choo quee', 'KKA1111111'),
+                ('chooquee', 'KKA1111111'), ('choules', 'KLS1111111'),
+                ('chrisp', 'KRSP111111'), ('christens', 'KRSTNS1111'),
+                ('christensen', 'KRSTNSN111'), ('christenson', 'KRSTNSN111'),
+                ('christeson', 'KRSTSN1111'), ('christian', 'KRSN111111'),
+                ('christie', 'KRSTA11111'), ('christophe', 'KRSTF11111'),
+                ('christopher', 'KRSTFA1111'), ('chronican', 'KRNKN11111'),
+                ('chronichan', 'KRNKN11111'), ('chrystall', 'KRSTA11111'),
+                ('chudley', 'KTLA111111'), ('church', 'KK11111111'),
+                ('churchill', 'KKA1111111'), ('churley', 'KLA1111111'),
+                ('ciark', 'SK11111111'), ('ciarke', 'SK11111111'),
+                ('cieveland', 'SFLNT11111'), ('ciiff', 'SF11111111'),
+                ('ciose', 'SS11111111'), ('citfield', 'STFT111111'),
+                ('clack', 'KLK1111111'), ('clancy', 'KLNSA11111'),
+                ('clapman', 'KLPMN11111'), ('clapp', 'KLP1111111'),
+                ('clapperton', 'KLPTN11111'), ('clapshaw', 'KLPSA11111'),
+                ('clare', 'KLA1111111'), ('claridge', 'KLRK111111'),
+                ('clark', 'KLK1111111'), ('clarke', 'KLK1111111'),
+                ('clarkson', 'KLKSN11111'), ('clarson', 'KLSN111111'),
+                ('clatworthy', 'KLTWTA1111'), ('claughly', 'KLLA111111'),
+                ('clay', 'KLA1111111'), ('clayden', 'KLTN111111'),
+                ('clayforth', 'KLFT111111'), ('clayton', 'KLTN111111'),
+                ('clearwater', 'KLWTA11111'), ('cleary', 'KLRA111111'),
+                ('cleaver', 'KLFA111111'), ('cleavin', 'KLFN111111'),
+                ('cleeland', 'KLLNT11111'), ('clegg', 'KLK1111111'),
+                ('cleghorn', 'KLKN111111'), ('cleland', 'KLLNT11111'),
+                ('clelland', 'KLLNT11111'), ('clemenger', 'KLMNKA1111'),
+                ('clemens', 'KLMNS11111'), ('clement', 'KLMNT11111'),
+                ('clements', 'KLMNTS1111'), ('clementson', 'KLMNTSN111'),
+                ('clemmey', 'KLMA111111'), ('clent', 'KLNT111111'),
+                ('clery', 'KLRA111111'), ('cleveland', 'KLFLNT1111'),
+                ('clevelandt', 'KLFLNT1111'), ('cleverley', 'KLFLA11111'),
+                ('cliff', 'KLF1111111'), ('clifford', 'KLFT111111'),
+                ('clifton', 'KLFTN11111'), ('clinch', 'KLNK111111'),
+                ('clinkard', 'KLNKT11111'), ('clint', 'KLNT111111'),
+                ('clisby', 'KLSPA11111'), ('clitheroe', 'KLTRA11111'),
+                ('clode', 'KLT1111111'), ('cloharty', 'KLTA111111'),
+                ('close', 'KLS1111111'), ('clothier', 'KLTA111111'),
+                ('clough', 'KLA1111111'), ('cloughly', 'KLLA111111'),
+                ('clow', 'KLA1111111'), ('clugston', 'KLKSTN1111'),
+                ('clulee', 'KLLA111111'), ('clune', 'KLN1111111'),
+                ('clutterbuck', 'KLTPK11111'), ('clydesdale', 'KLTSTA1111'),
+                ('clyma', 'KLMA111111'), ('clymer', 'KLMA111111'),
+                ('coates', 'KTS1111111'), ('coats', 'KTS1111111'),
+                ('coatsworth', 'KTSWT11111'), ('cobb', 'KP11111111'),
+                ('coburn', 'KPN1111111'), ('cochrane', 'KKRN111111'),
+                ('cock', 'KK11111111'), ('cockburn', 'KKPN111111'),
+                ('cockerell', 'KKRA111111'), ('cockerill', 'KKRA111111'),
+                ('cocking', 'KKNK111111'), ('cockroft', 'KKRFT11111'),
+                ('cody', 'KTA1111111'), ('coffey', 'KFA1111111'),
+                ('cogan', 'KKN1111111'), ('cogger', 'KKA1111111'),
+                ('coghill', 'KKA1111111'), ('coghlan', 'KLN1111111'),
+                ('cohen', 'KN11111111'), ('coker', 'KKA1111111'),
+                ('colbert', 'KPT1111111'), ('cole', 'KA11111111'),
+                ('coleman', 'KLMN111111'), ('coley', 'KLA1111111'),
+                ('colgan', 'KKN1111111'), ('coller', 'KLA1111111'),
+                ('collet', 'KLT1111111'), ('collett', 'KLT1111111'),
+                ('collie', 'KLA1111111'), ('collier', 'KLA1111111'),
+                ('collin', 'KLN1111111'), ('colling', 'KLNK111111'),
+                ('collingwood', 'KLNKWT1111'), ('collins', 'KLNS111111'),
+                ('collinson', 'KLNSN11111'), ('collis', 'KLS1111111'),
+                ('colman', 'KMN1111111'), ('colombus', 'KLMPS11111'),
+                ('colquhoun', 'KKN1111111'), ('colrmack', 'KMK1111111'),
+                ('colson', 'KSN1111111'), ('colston', 'KSTN111111'),
+                ('colton', 'KTN1111111'), ('columb', 'KLM1111111'),
+                ('colville', 'KFA1111111'), ('colvin', 'KFN1111111'),
+                ('colyer', 'KLA1111111'), ('comber', 'KMPA111111'),
+                ('combie', 'KMPA111111'), ('combs', 'KMPS111111'),
+                ('comer', 'KMA1111111'), ('cometti', 'KMTA111111'),
+                ('comissiong', 'KMSNK11111'), ('common', 'KMN1111111'),
+                ('comrie', 'KMRA111111'), ('comyn', 'KMN1111111'),
+                ('concher', 'KNKA111111'), ('conder', 'KNTA111111'),
+                ('condliffe', 'KNTLF11111'), ('condon', 'KNTN111111'),
+                ('cone', 'KN11111111'), ('coneys', 'KNS1111111'),
+                ('congalton', 'KNKTN11111'), ('conheady', 'KNTA111111'),
+                ('conley', 'KNLA111111'), ('conn', 'KN11111111'),
+                ('connally', 'KNLA111111'), ('connel]y', 'KNLA111111'),
+                ('connell', 'KNA1111111'), ('connelly', 'KNLA111111'),
+                ('connely', 'KNLA111111'), ('conner', 'KNA1111111'),
+                ('conniff', 'KNF1111111'), ('connolly', 'KNLA111111'),
+                ('connor', 'KNA1111111'), ('connors', 'KNS1111111'),
+                ('conolly', 'KNLA111111'), ('conradi', 'KNRTA11111'),
+                ('conroy', 'KNRA111111'), ('consins', 'KNSNS11111'),
+                ('constable', 'KNSTPA1111'), ('conway', 'KNWA111111'),
+                ('cook', 'KK11111111'), ('cooke', 'KK11111111'),
+                ('coolay', 'KLA1111111'), ('coombes', 'KMPS111111'),
+                ('coombs', 'KMPS111111'), ('coomer', 'KMA1111111'),
+                ('cooney', 'KNA1111111'), ('coop', 'KP11111111'),
+                ('cooper', 'KPA1111111'), ('coorobs', 'KRPS111111'),
+                ('coory', 'KRA1111111'), ('cop]ey', 'KPA1111111'),
+                ('cope', 'KP11111111'), ('copland', 'KPLNT11111'),
+                ('copley', 'KPLA111111'), ('coppell', 'KPA1111111'),
+                ('coppin', 'KPN1111111'), ('corbett', 'KPT1111111'),
+                ('corcoran', 'KKRN111111'), ('corder', 'KTA1111111'),
+                ('cordue', 'KTA1111111'), ('coreoran', 'KRRN111111'),
+                ('corfield', 'KFT1111111'), ('corke', 'KK11111111'),
+                ('corkin', 'KKN1111111'), ('corkran', 'KKRN111111'),
+                ('corlett', 'KLT1111111'), ('corley', 'KLA1111111'),
+                ('corliss', 'KLS1111111'), ('cormack', 'KMK1111111'),
+                ('cornack', 'KNK1111111'), ('cornaga', 'KNKA111111'),
+                ('cornelius', 'KNLS111111'), ('cornell', 'KNA1111111'),
+                ('corner', 'KNA1111111'), ('cornish', 'KNS1111111'),
+                ('cornwall', 'KNWA111111'), ('cornwell', 'KNWA111111'),
+                ('corr', 'KA11111111'), ('corrigall', 'KRKA111111'),
+                ('corrigan', 'KRKN111111'), ('corsar', 'KSA1111111'),
+                ('corsion', 'KSN1111111'), ('corston', 'KSTN111111'),
+                ('cortisson', 'KTSN111111'), ('cortissos', 'KTSS111111'),
+                ('cosegrove', 'KSKRF11111'), ('cosgriff', 'KSKRF11111'),
+                ('cosgrove', 'KSKRF11111'), ('cossens', 'KSNS111111'),
+                ('cossum', 'KSM1111111'), ('costall', 'KSTA111111'),
+                ('costello', 'KSTLA11111'), ('coster', 'KSTA111111'),
+                ('costigan', 'KSTKN11111'), ('costley', 'KSTLA11111'),
+                ('cother', 'KTA1111111'), ('cotston', 'KTSTN11111'),
+                ('cottam', 'KTM1111111'), ('cotter', 'KTA1111111'),
+                ('cotterill', 'KTRA111111'), ('cottghlan', 'KTLN111111'),
+                ('cottle', 'KTA1111111'), ('cotton', 'KTN1111111'),
+                ('cottrell', 'KTRA111111'), ('couch', 'KK11111111'),
+                ('couchman', 'KKMN111111'), ('coughlan', 'KFLN111111'),
+                ('coughtrey', 'KFTRA11111'), ('couling', 'KLNK111111'),
+                ('coull', 'KA11111111'), ('coulson', 'KSN1111111'),
+                ('coulston', 'KSTN111111'), ('coulter', 'KTA1111111'),
+                ('counar', 'KNA1111111'), ('counihan', 'KNN1111111'),
+                ('coupar', 'KPA1111111'), ('couper', 'KPA1111111'),
+                ('coupland', 'KPLNT11111'), ('course', 'KS11111111'),
+                ('court', 'KT11111111'), ('courtayne', 'KTN1111111'),
+                ('courter', 'KTA1111111'), ('courtis', 'KTS1111111'),
+                ('courtney', 'KTNA111111'), ('cousins', 'KSNS111111'),
+                ('couston', 'KSTN111111'), ('coutts', 'KTS1111111'),
+                ('coventry', 'KFNTRA1111'), ('cowan', 'KWN1111111'),
+                ('coward', 'KWT1111111'), ('cowen', 'KWN1111111'),
+                ('cowey', 'KWA1111111'), ('cowie', 'KWA1111111'),
+                ('cowle', 'KA11111111'), ('cowles', 'KLS1111111'),
+                ('cowper', 'KPA1111111'), ('cox', 'KK11111111'),
+                ('coxhead', 'KKT1111111'), ('coxhend', 'KKNT111111'),
+                ('coxon', 'KKN1111111'), ('coy', 'KA11111111'),
+                ('crabb', 'KRP1111111'), ('crabbe', 'KRP1111111'),
+                ('cragg', 'KRK1111111'), ('craib', 'KRP1111111'),
+                ('craies', 'KRS1111111'), ('craig', 'KRK1111111'),
+                ('craige', 'KRK1111111'), ('craigie', 'KRKA111111'),
+                ('craik', 'KRK1111111'), ('crammond', 'KRMNT11111'),
+                ('cramond', 'KRMNT11111'), ('crampton', 'KRMPTN1111'),
+                ('cran', 'KRN1111111'), ('crandle', 'KRNTA11111'),
+                ('crane', 'KRN1111111'), ('cranefield', 'KRNFT11111'),
+                ('cranford', 'KRNFT11111'), ('cranley', 'KRNLA11111'),
+                ('crannitch', 'KRNK111111'), ('cranshaw', 'KRNSA11111'),
+                ('cranston', 'KRNSTN1111'), ('craven-carden', 'KRFNKTN111'),
+                ('craven', 'KRFN111111'), ('crawford', 'KRFT111111'),
+                ('crawfurd', 'KRFT111111'), ('crawley', 'KRLA111111'),
+                ('crawshaw', 'KRSA111111'), ('creagh', 'KRA1111111'),
+                ('credgington', 'KRKNKTN111'), ('creed', 'KRT1111111'),
+                ('creeser', 'KRSA111111'), ('creevey', 'KRFA111111'),
+                ('creighton', 'KRTN111111'), ('cremmens', 'KRMNS11111'),
+                ('crerar', 'KRRA111111'), ('cress', 'KRS1111111'),
+                ('crews', 'KRS1111111'), ('crichton', 'KRKTN11111'),
+                ('crighton', 'KRTN111111'), ('crilly', 'KRLA111111'),
+                ('crimp', 'KRMP111111'), ('cripps', 'KRPS111111'),
+                ('crisp', 'KRSP111111'), ('critchfie', 'KRKFA11111'),
+                ('critchfiel', 'KRKFA11111'), ('critchfield', 'KRKFT11111'),
+                ('critchley', 'KRKLA11111'), ('croad', 'KRT1111111'),
+                ('croal', 'KRA1111111'), ('crocome', 'KRKM111111'),
+                ('croft', 'KRFT111111'), ('croker', 'KRKA111111'),
+                ('crolly', 'KRLA111111'), ('cromarty', 'KRMTA11111'),
+                ('crombie', 'KRMPA11111'), ('crome', 'KRM1111111'),
+                ('crompton', 'KRMPTN1111'), ('crone', 'KRN1111111'),
+                ('cronhie', 'KRNA111111'), ('cronin', 'KRNN111111'),
+                ('crooke', 'KRK1111111'), ('crookes', 'KRKS111111'),
+                ('crooks', 'KRKS111111'), ('crookshanks', 'KRKSNKS111'),
+                ('croot', 'KRT1111111'), ('cropley', 'KRPLA11111'),
+                ('cropp', 'KRP1111111'), ('crosado', 'KRSTA11111'),
+                ('crosbie', 'KRSPA11111'), ('crosby', 'KRSPA11111'),
+                ('crosland', 'KRSLNT1111'), ('cross', 'KRS1111111'),
+                ('crossan-moffat', 'KRSNMFT111'), ('crossan', 'KRSN111111'),
+                ('crossens', 'KRSNS11111'), ('crossian', 'KRSN111111'),
+                ('crossley', 'KRSLA11111'), ('crosswell', 'KRSWA11111'),
+                ('crossweller', 'KRSWLA1111'), ('crostie', 'KRSTA11111'),
+                ('croswell', 'KRSWA11111'), ('crouch', 'KRK1111111'),
+                ('crow', 'KRA1111111'), ('crowan', 'KRWN111111'),
+                ('crowder', 'KRTA111111'), ('crowe', 'KRA1111111'),
+                ('crowhurst', 'KRWST11111'), ('crowley', 'KRLA111111'),
+                ('crowther', 'KRTA111111'), ('croxford', 'KRKFT11111'),
+                ('croy', 'KRA1111111'), ('crozier', 'KRSA111111'),
+                ('cruickshank', 'KRKSNK1111'), ('cruikshank', 'KRKSNK1111'),
+                ('crum', 'KRM1111111'), ('crump', 'KRMP111111'),
+                ('cruse', 'KRS1111111'), ('crust', 'KRST111111'),
+                ('cubbins', 'KPNS111111'), ('cuddihy', 'KTA1111111'),
+                ('cuff', 'KF11111111'), ('culbert', 'KPT1111111'),
+                ('culhane', 'KN11111111'), ('cull', 'KA11111111'),
+                ('cullen', 'KLN1111111'), ('culling', 'KLNK111111'),
+                ('cullinger', 'KLNKA11111'), ('culsey', 'KSA1111111'),
+                ('cumberbeac', 'KMPPK11111'), ('cumberbeach', 'KMPPK11111'),
+                ('cuming', 'KMNK111111'), ('cumins', 'KMNS111111'),
+                ('cumming', 'KMNK111111'), ('cummings', 'KMNKS11111'),
+                ('cummins', 'KMNS111111'), ('cummock', 'KMK1111111'),
+                ('cundall', 'KNTA111111'), ('cunhingham', 'KNNM111111'),
+                ('cunliffe', 'KNLF111111'), ('cunming', 'KNMNK11111'),
+                ('cunningham', 'KNNM111111'), ('cunninghame', 'KNNM111111'),
+                ('cupid', 'KPT1111111'), ('cupples', 'KPLS111111'),
+                ('curey', 'KRA1111111'), ('curfie', 'KFA1111111'),
+                ('curie', 'KRA1111111'), ('curle', 'KA11111111'),
+                ('curline', 'KLN1111111'), ('curran', 'KRN1111111'),
+                ('curren', 'KRN1111111'), ('currie', 'KRA1111111'),
+                ('curry', 'KRA1111111'), ('cursey', 'KSA1111111'),
+                ('curtayne', 'KTN1111111'), ('curties', 'KTS1111111'),
+                ('curtin', 'KTN1111111'), ('curtis', 'KTS1111111'),
+                ('curye', 'KRA1111111'), ('curzon-sig', 'KSNSK11111'),
+                ('curzon-siggers', 'KSNSKS1111'), ('cusach', 'KSK1111111'),
+                ('cusack', 'KSK1111111'), ('cushen', 'KSN1111111'),
+                ('cushman', 'KSMN111111'), ('cushnan', 'KSNN111111'),
+                ('cushnie', 'KSNA111111'), ('cutbush', 'KTPS111111'),
+                ('cuthbertson', 'KTPTSN1111'), ('cuthterts', 'KTTTS11111'),
+                ('cutler', 'KTLA111111'), ('cutriss', 'KTRS111111'),
+                ('cuttance', 'KTNK111111'), ('cutten', 'KTN1111111'),
+                ('cutter', 'KTA1111111'), ('cuttle', 'KTA1111111'),
+                ('cuttriss', 'KTRS111111'), ('cutts', 'KTS1111111'),
+                ('cuzens', 'KSNS111111'), ('cvitanovich', 'KFTNFK1111'),
+                ('d\'auvergne', 'TFKN111111'), ('dabinett', 'TPNT111111'),
+                ('dacker', 'TKA1111111'), ('dagg', 'TK11111111'),
+                ('dagger', 'TKA1111111'), ('dagleish', 'TKLS111111'),
+                ('daglish', 'TKLS111111'), ('dagnall', 'TKNA111111'),
+                ('dagnell', 'TKNA111111'), ('dahren', 'TRN1111111'),
+                ('dakers', 'TKS1111111'), ('dale', 'TA11111111'),
+                ('dales', 'TLS1111111'), ('dalgar', 'TKA1111111'),
+                ('dalgarno', 'TKNA111111'), ('dalgeish', 'TKS1111111'),
+                ('dalgleish', 'TKLS111111'), ('dalgliesh', 'TKLS111111'),
+                ('dall', 'TA11111111'), ('dallard', 'TLT1111111'),
+                ('dallas', 'TLS1111111'), ('dallaston', 'TLSTN11111'),
+                ('dallen', 'TLN1111111'), ('dalley', 'TLA1111111'),
+                ('dalrymple', 'TRMPA11111'), ('dalton', 'TTN1111111'),
+                ('daly', 'TLA1111111'), ('dalzell', 'TSA1111111'),
+                ('dalziel', 'TSA1111111'), ('dandie', 'TNTA111111'),
+                ('daniel', 'TNA1111111'), ('daniell', 'TNA1111111'),
+                ('daniels', 'TNS1111111'), ('dann', 'TN11111111'),
+                ('danner', 'TNA1111111'), ('danskin', 'TNSKN11111'),
+                ('darcy', 'TSA1111111'), ('dark', 'TK11111111'),
+                ('darley', 'TLA1111111'), ('darling', 'TLNK111111'),
+                ('darlison', 'TLSN111111'), ('darracott', 'TRKT111111'),
+                ('darragh', 'TRA1111111'), ('darroch', 'TRK1111111'),
+                ('dash', 'TS11111111'), ('dashper', 'TSPA111111'),
+                ('dashwood', 'TSWT111111'), ('dasler', 'TSLA111111'),
+                ('daubney', 'TPNA111111'), ('daunt', 'TNT1111111'),
+                ('davany', 'TFNA111111'), ('daveis', 'TFS1111111'),
+                ('davenport', 'TFNPT11111'), ('davey', 'TFA1111111'),
+                ('david', 'TFT1111111'), ('davidson', 'TFTSN11111'),
+                ('davie', 'TFA1111111'), ('davies', 'TFS1111111'),
+                ('davis', 'TFS1111111'), ('davison', 'TFSN111111'),
+                ('davy', 'TFA1111111'), ('davys', 'TFS1111111'),
+                ('dawe', 'TA11111111'), ('dawes', 'TWS1111111'),
+                ('dawkins', 'TKNS111111'), ('dawsett', 'TST1111111'),
+                ('dawson', 'TSN1111111'), ('day', 'TA11111111'),
+                ('daysh', 'TS11111111'), ('de bazin', 'TPSN111111'),
+                ('de berry', 'TPRA111111'), ('de boyett', 'TPT1111111'),
+                ('de carle', 'TKA1111111'), ('de castro', 'TKSTRA1111'),
+                ('de clifford', 'TKLFT11111'), ('de clive lowe', 'TKLFLA1111'),
+                ('de colmar', 'TKMA111111'), ('de courcey', 'TKSA111111'),
+                ('de courcy', 'TKSA111111'), ('de lacey', 'TLSA111111'),
+                ('de largey', 'TLKA111111'), ('de lautour', 'TLTA111111'),
+                ('de malmanche', 'TMMNK11111'), ('de ment', 'TMNT111111'),
+                ('de silva', 'TSFA111111'), ('de spong', 'TSPNK11111'),
+                ('de st croix', 'TSTKRK1111'), ('de st. croix', 'TSTKRK1111'),
+                ('de vere', 'TFA1111111'), ('de-clive-low', 'TKLFLA1111'),
+                ('deaker', 'TKA1111111'), ('deamy', 'TMA1111111'),
+                ('dean', 'TN11111111'), ('deane', 'TN11111111'),
+                ('deans', 'TNS1111111'), ('dear', 'TA11111111'),
+                ('dease', 'TS11111111'), ('debenham', 'TPNM111111'),
+                ('deberry', 'TPRA111111'), ('decourcy', 'TKSA111111'),
+                ('dee', 'TA11111111'), ('deegan', 'TKN1111111'),
+                ('deehan', 'TN11111111'), ('deem', 'TM11111111'),
+                ('deikle', 'TKA1111111'), ('deiley', 'TLA1111111'),
+                ('deisher', 'TSA1111111'), ('delahunty', 'TLNTA11111'),
+                ('delaney', 'TLNA111111'), ('delany', 'TLNA111111'),
+                ('delargey', 'TLKA111111'), ('delargy', 'TLKA111111'),
+                ('delbridge', 'TPRK111111'), ('dell', 'TA11111111'),
+                ('dely', 'TLA1111111'), ('dement', 'TMNT111111'),
+                ('demontalk', 'TMNTK11111'), ('demouth', 'TMT1111111'),
+                ('dempsey', 'TMPSA11111'), ('dempster', 'TMPSTA1111'),
+                ('dench', 'TNK1111111'), ('dencker', 'TNKA111111'),
+                ('denfold', 'TNFT111111'), ('denfolrd', 'TNFT111111'),
+                ('denford', 'TNFT111111'), ('denham', 'TNM1111111'),
+                ('denhehy', 'TNA1111111'), ('denholm', 'TNM1111111'),
+                ('denholme', 'TNM1111111'), ('denne', 'TN11111111'),
+                ('dennehy', 'TNA1111111'), ('dennis', 'TNS1111111'),
+                ('dennison', 'TNSN111111'), ('denniston', 'TNSTN11111'),
+                ('denny', 'TNA1111111'), ('densem', 'TNSM111111'),
+                ('dent', 'TNT1111111'), ('dentith', 'TNTT111111'),
+                ('denton', 'TNTN111111'), ('depellett', 'TPLT111111'),
+                ('dephoff', 'TFF1111111'), ('derbie', 'TPA1111111'),
+                ('derbyshire', 'TPSA111111'), ('dermer', 'TMA1111111'),
+                ('dernehy', 'TNA1111111'), ('derrick', 'TRK1111111'),
+                ('derry', 'TRA1111111'), ('desmond', 'TSMNT11111'),
+                ('desmoulins', 'TSMLNS1111'), ('dessarthe', 'TST1111111'),
+                ('dester', 'TSTA111111'), ('deuchrass', 'TKRS111111'),
+                ('devaney', 'TFNA111111'), ('devany', 'TFNA111111'),
+                ('devenie', 'TFNA111111'), ('devenney', 'TFNA111111'),
+                ('dever', 'TFA1111111'), ('devereux', 'TFRK111111'),
+                ('devery', 'TFRA111111'), ('devine', 'TFN1111111'),
+                ('devlill', 'TFLA111111'), ('devlin', 'TFLN111111'),
+                ('dew', 'TA11111111'), ('dewar', 'TWA1111111'),
+                ('dexter', 'TKTA111111'), ('dey', 'TA11111111'),
+                ('diack', 'TK11111111'), ('diamond', 'TMNT111111'),
+                ('dick', 'TK11111111'), ('dickens', 'TKNS111111'),
+                ('dickeon', 'TKN1111111'), ('dicker', 'TKA1111111'),
+                ('dickey', 'TKA1111111'), ('dickie', 'TKA1111111'),
+                ('dickinson', 'TKNSN11111'), ('dickison', 'TKSN111111'),
+                ('dicksan', 'TKSN111111'), ('dickson', 'TKSN111111'),
+                ('didham', 'TTM1111111'), ('didsbury', 'TTSPRA1111'),
+                ('diefenbach', 'TFNPK11111'), ('diehl', 'TA11111111'),
+                ('digby-smith', 'TKPSMT1111'), ('dillan', 'TLN1111111'),
+                ('dillon-kin', 'TLNKN11111'), ('dillon', 'TLN1111111'),
+                ('dimond', 'TMNT111111'), ('dineen', 'TNN1111111'),
+                ('dingle', 'TNKA111111'), ('dingwall', 'TNKWA11111'),
+                ('dinning', 'TNNK111111'), ('dinsell', 'TNSA111111'),
+                ('dippie', 'TPA1111111'), ('direen', 'TRN1111111'),
+                ('diston', 'TSTN111111'), ('diver', 'TFA1111111'),
+                ('divers', 'TFS1111111'), ('divett', 'TFT1111111'),
+                ('dix', 'TK11111111'), ('dixon', 'TKN1111111'),
+                ('dixs', 'TKS1111111'), ('doak', 'TK11111111'),
+                ('doake', 'TK11111111'), ('dobbie', 'TPA1111111'),
+                ('dobbin', 'TPN1111111'), ('dobble', 'TPA1111111'),
+                ('dobbs', 'TPS1111111'), ('dobe', 'TP11111111'),
+                ('dobie', 'TPA1111111'), ('dobson', 'TPSN111111'),
+                ('docherty', 'TKTA111111'), ('dockworth', 'TKWT111111'),
+                ('dodd', 'TT11111111'), ('doddridge', 'TTRK111111'),
+                ('dodds', 'TTS1111111'), ('dods', 'TTS1111111'),
+                ('doggart', 'TKT1111111'), ('doherty', 'TTA1111111'),
+                ('dohig', 'TK11111111'), ('doig', 'TK11111111'),
+                ('dolan', 'TLN1111111'), ('dolman', 'TMN1111111'),
+                ('dolphin', 'TFN1111111'), ('domigan', 'TMKN111111'),
+                ('dommett', 'TMT1111111'), ('don', 'TN11111111'),
+                ('donald', 'TNT1111111'), ('donaldson', 'TNTSN11111'),
+                ('done', 'TN11111111'), ('donellan', 'TNLN111111'),
+                ('donglas', 'TNKLS11111'), ('donlan', 'TNLN111111'),
+                ('donn', 'TN11111111'), ('donnald', 'TNT1111111'),
+                ('donne', 'TN11111111'), ('donneily', 'TNLA111111'),
+                ('donnelly', 'TNLA111111'), ('donoghue', 'TNKA111111'),
+                ('donovan', 'TNFN111111'), ('doocey', 'TSA1111111'),
+                ('doody', 'TTA1111111'), ('dooley', 'TLA1111111'),
+                ('doorley', 'TLA1111111'), ('doran', 'TRN1111111'),
+                ('dore', 'TA11111111'), ('doreman', 'TRMN111111'),
+                ('dorman', 'TMN1111111'), ('dormer', 'TMA1111111'),
+                ('dorney', 'TNA1111111'), ('dorreen', 'TRN1111111'),
+                ('dorrian', 'TRN1111111'), ('dorsey', 'TSA1111111'),
+                ('dorward', 'TWT1111111'), ('dossett', 'TST1111111'),
+                ('double', 'TPA1111111'), ('doudle', 'TTA1111111'),
+                ('dougal', 'TKA1111111'), ('dougali', 'TKLA111111'),
+                ('dougall', 'TKA1111111'), ('dougan', 'TKN1111111'),
+                ('dougherty', 'TKTA111111'), ('doughty', 'TTA1111111'),
+                ('douglans', 'TKLNS11111'), ('douglas', 'TKLS111111'),
+                ('douglass', 'TKLS111111'), ('douherty', 'TTA1111111'),
+                ('doulass', 'TLS1111111'), ('douli', 'TLA1111111'),
+                ('doull', 'TA11111111'), ('dov', 'TF11111111'),
+                ('dove', 'TF11111111'), ('dow', 'TA11111111'),
+                ('dowdall', 'TTA1111111'), ('dowden', 'TTN1111111'),
+                ('dowell', 'TWA1111111'), ('dowey', 'TWA1111111'),
+                ('dowie', 'TWA1111111'), ('dowland', 'TLNT111111'),
+                ('dowling', 'TLNK111111'), ('down', 'TN11111111'),
+                ('downer', 'TNA1111111'), ('downes', 'TNS1111111'),
+                ('downey', 'TNA1111111'), ('downie', 'TNA1111111'),
+                ('downs', 'TNS1111111'), ('doyle', 'TA11111111'),
+                ('drain', 'TRN1111111'), ('drake', 'TRK1111111'),
+                ('drane', 'TRN1111111'), ('draper', 'TRPA111111'),
+                ('dray', 'TRA1111111'), ('drayton', 'TRTN111111'),
+                ('dreaver', 'TRFA111111'), ('dreavor', 'TRFA111111'),
+                ('drees', 'TRS1111111'), ('drench', 'TRNK111111'),
+                ('drennan', 'TRNN111111'), ('drew-daniels', 'TRTNS11111'),
+                ('drew', 'TRA1111111'), ('dripps', 'TRPS111111'),
+                ('driscole', 'TRSKA11111'), ('driscoll-shaw', 'TRSKSA1111'),
+                ('driscoll', 'TRSKA11111'), ('driver', 'TRFA111111'),
+                ('droaver', 'TRFA111111'), ('droscher', 'TRSKA11111'),
+                ('drosier', 'TRSA111111'), ('drumm', 'TRM1111111'),
+                ('drummond', 'TRMNT11111'), ('drury', 'TRRA111111'),
+                ('dry', 'TRA1111111'), ('dryden', 'TRTN111111'),
+                ('drysdale', 'TRSTA11111'), ('duckett', 'TKT1111111'),
+                ('duckmanton', 'TKMNTN1111'), ('duckworth', 'TKWT111111'),
+                ('dudding', 'TTNK111111'), ('duder', 'TTA1111111'),
+                ('dudley', 'TTLA111111'), ('dudson', 'TTSN111111'),
+                ('duell', 'TA11111111'), ('duerden', 'TTN1111111'),
+                ('duff', 'TF11111111'), ('duffy', 'TFA1111111'),
+                ('dugdale', 'TKTA111111'), ('duggan', 'TKN1111111'),
+                ('dugleby', 'TKLPA11111'), ('duguid', 'TKT1111111'),
+                ('duhig', 'TK11111111'), ('duig', 'TK11111111'),
+                ('duigan', 'TKN1111111'), ('duignan', 'TKNN111111'),
+                ('duke', 'TK11111111'), ('dull', 'TA11111111'),
+                ('dulward', 'TWT1111111'), ('dumas', 'TMS1111111'),
+                ('dumble', 'TMPA111111'), ('dumsday', 'TMSTA11111'),
+                ('dun', 'TN11111111'), ('dunbar', 'TNPA111111'),
+                ('duncall', 'TNKA111111'), ('duncan', 'TNKN111111'),
+                ('dundas', 'TNTS111111'), ('dunean', 'TNN1111111'),
+                ('dunford', 'TNFT111111'), ('dungan', 'TNKN111111'),
+                ('dungey', 'TNKA111111'), ('dunham', 'TNM1111111'),
+                ('dunhar', 'TNA1111111'), ('dunipace', 'TNPK111111'),
+                ('dunkerton', 'TNKTN11111'), ('dunkin', 'TNKN111111'),
+                ('dunkley', 'TNKLA11111'), ('dunlop', 'TNLP111111'),
+                ('dunn', 'TN11111111'), ('dunnage', 'TNK1111111'),
+                ('dunne', 'TN11111111'), ('dunnet', 'TNT1111111'),
+                ('dunnig', 'TNK1111111'), ('dunning', 'TNNK111111'),
+                ('dunring', 'TNRNK11111'), ('dunshea', 'TNSA111111'),
+                ('dunsmuir', 'TNSMA11111'), ('dunstan', 'TNSTN11111'),
+                ('dunster', 'TNSTA11111'), ('durand', 'TRNT111111'),
+                ('durie', 'TRA1111111'), ('durning', 'TNNK111111'),
+                ('duro', 'TRA1111111'), ('durrand', 'TRNT111111'),
+                ('durrant', 'TRNT111111'), ('durreen', 'TRN1111111'),
+                ('durry', 'TRA1111111'), ('duthie', 'TTA1111111'),
+                ('dutton', 'TTN1111111'), ('dwan', 'TWN1111111'),
+                ('dwight', 'TWT1111111'), ('dwyer', 'TWA1111111'),
+                ('dyas', 'TS11111111'), ('dyer', 'TA11111111'),
+                ('dyke', 'TK11111111'), ('dykes', 'TKS1111111'),
+                ('dykins', 'TKNS111111'), ('dysart', 'TST1111111'),
+                ('dysaski', 'TSSKA11111'), ('dyson', 'TSN1111111'),
+                ('eade', 'AT11111111'), ('eades', 'ATS1111111'),
+                ('eadie', 'ATA1111111'), ('eady', 'ATA1111111'),
+                ('eagan', 'AKN1111111'), ('eagar', 'AKA1111111'),
+                ('eager', 'AKA1111111'), ('eagle', 'AKA1111111'),
+                ('eagles', 'AKLS111111'), ('eagleton', 'AKLTN11111'),
+                ('eamilton', 'AMTN111111'), ('eardley', 'ATLA111111'),
+                ('eardly', 'ATLA111111'), ('earl', 'AA11111111'),
+                ('earland', 'ALNT111111'), ('earley', 'ALA1111111'),
+                ('early', 'ALA1111111'), ('earnshaw', 'ANSA111111'),
+                ('earp', 'AP11111111'), ('eason', 'ASN1111111'),
+                ('easson', 'ASN1111111'), ('east', 'AST1111111'),
+                ('easther', 'ASTA111111'), ('easton', 'ASTN111111'),
+                ('eastwood', 'ASTWT11111'), ('eaton', 'ATN1111111'),
+                ('eayes', 'AS11111111'), ('ebzery', 'APSRA11111'),
+                ('eccles', 'AKLS111111'), ('eckhoff', 'AKF1111111'),
+                ('eckhold', 'AKT1111111'), ('ecsex', 'AKSK111111'),
+                ('eddington', 'ATNKTN1111'), ('ede-clendinnen', 'ATKLNTNN11'),
+                ('ede', 'AT11111111'), ('eden', 'ATN1111111'),
+                ('edgar', 'AKA1111111'), ('edgares', 'AKRS111111'),
+                ('edge', 'AK11111111'), ('edginton', 'AKNTN11111'),
+                ('edie', 'ATA1111111'), ('ediin', 'ATN1111111'),
+                ('edin', 'ATN1111111'), ('edinger', 'ATNKA11111'),
+                ('edington', 'ATNKTN1111'), ('edis', 'ATS1111111'),
+                ('edkins', 'ATKNS11111'), ('edlin', 'ATLN111111'),
+                ('edmenson', 'ATMNSN1111'), ('edmond', 'ATMNT11111'),
+                ('edmonds', 'ATMNTS1111'), ('edridge', 'ATRK111111'),
+                ('edsall', 'ATSA111111'), ('edson', 'ATSN111111'),
+                ('edward', 'ATWT111111'), ('edwards', 'ATWTS11111'),
+                ('edwardson', 'ATWTSN1111'), ('egan', 'AKN1111111'),
+                ('egerton', 'AKTN111111'), ('eggelton', 'AKTN111111'),
+                ('eggers', 'AKS1111111'), ('egglestone', 'AKLSTN1111'),
+                ('eggleton', 'AKLTN11111'), ('eilis', 'ALS1111111'),
+                ('elbra', 'APRA111111'), ('elder', 'ATA1111111'),
+                ('elders', 'ATS1111111'), ('elding', 'ATNK111111'),
+                ('eldridge', 'ATRK111111'), ('elias', 'ALS1111111'),
+                ('eliot', 'ALT1111111'), ('eliott', 'ALT1111111'),
+                ('ellacombe', 'ALKM111111'), ('ellens', 'ALNS111111'),
+                ('ellery', 'ALRA111111'), ('elliffe', 'ALF1111111'),
+                ('elliis', 'ALS1111111'), ('ellingwood', 'ALNKWT1111'),
+                ('elliobt', 'ALPT111111'), ('elliot', 'ALT1111111'),
+                ('elliott', 'ALT1111111'), ('elliotte', 'ALT1111111'),
+                ('ellis', 'ALS1111111'), ('ellison', 'ALSN111111'),
+                ('ellisson', 'ALSN111111'), ('ells', 'AS11111111'),
+                ('elms', 'AMS1111111'), ('elmsly', 'AMSLA11111'),
+                ('elphick', 'AFK1111111'), ('elphinstone', 'AFNSTN1111'),
+                ('elsey', 'ASA1111111'), ('elsom', 'ASM1111111'),
+                ('elston', 'ASTN111111'), ('elstow', 'ASTA111111'),
+                ('elton', 'ATN1111111'), ('elvidge', 'AFK1111111'),
+                ('emerson', 'AMSN111111'), ('emery', 'AMRA111111'),
+                ('emlis', 'AMLS111111'), ('emmerson', 'AMSN111111'),
+                ('emond', 'AMNT111111'), ('empey', 'AMPA111111'),
+                ('emslie', 'AMSLA11111'), ('endicott davies', 'ANTKTFS111'),
+                ('endicott-davies', 'ANTKTFS111'), ('endicottdavies', 'ANTKTFS111'),
+                ('engelbert', 'ANKPT11111'), ('england', 'ANKLNT1111'),
+                ('englefield', 'ANKLFT1111'), ('english', 'ANKLS11111'),
+                ('engstrom', 'ANKSTRM111'), ('enright', 'ANRT111111'),
+                ('ensor', 'ANSA111111'), ('enticote', 'ANTKT11111'),
+                ('eorne', 'AN11111111'), ('erenstrom', 'ARNSTRM111'),
+                ('erickson', 'ARKSN11111'), ('ericson', 'ARKSN11111'),
+                ('erlandson', 'ALNTSN1111'), ('erlidge', 'ALK1111111'),
+                ('erridge', 'ARK1111111'), ('errington', 'ARNKTN1111'),
+                ('erskine', 'ASKN111111'), ('erwin', 'AWN1111111'),
+                ('escott', 'ASKT111111'), ('eskdale', 'ASKTA11111'),
+                ('esperson', 'ASPSN11111'), ('espie', 'ASPA111111'),
+                ('esplin', 'ASPLN11111'), ('esquilant', 'ASKLNT1111'),
+                ('essex', 'ASK1111111'), ('esson', 'ASN1111111'),
+                ('essson', 'ASN1111111'), ('esther', 'ASTA111111'),
+                ('etheridge', 'ATRK111111'), ('eunson', 'ANSN111111'),
+                ('eustace', 'ASTK111111'), ('eva', 'AFA1111111'),
+                ('evan', 'AFN1111111'), ('evana', 'AFNA111111'),
+                ('evans', 'AFNS111111'), ('evatt', 'AFT1111111'),
+                ('evavs', 'AFFS111111'), ('everest', 'AFRST11111'),
+                ('everett', 'AFRT111111'), ('everitt', 'AFRT111111'),
+                ('everleigh', 'AFLA111111'), ('everson', 'AFSN111111'),
+                ('every', 'AFRA111111'), ('ewan', 'AWN1111111'),
+                ('ewart', 'AWT1111111'), ('ewens', 'AWNS111111'),
+                ('ewing', 'AWNK111111'), ('ewington-bell', 'AWNKTNPA11'),
+                ('exler', 'AKLA111111'), ('eyles', 'ALS1111111'),
+                ('eyre', 'AA11111111'), ('facer', 'FSA1111111'),
+                ('facey', 'FSA1111111'), ('fache', 'FK11111111'),
+                ('fackender', 'FKNTA11111'), ('facoory', 'FKRA111111'),
+                ('fagan', 'FKN1111111'), ('fahey', 'FA11111111'),
+                ('fahy', 'FA11111111'), ('faid', 'FT11111111'),
+                ('faigan', 'FKN1111111'), ('fail', 'FA11111111'),
+                ('fair', 'FA11111111'), ('fairbairn', 'FPN1111111'),
+                ('fairburn', 'FPN1111111'), ('faircloth', 'FKLT111111'),
+                ('fairhall', 'FA11111111'), ('fairhurst', 'FST1111111'),
+                ('fairley', 'FLA1111111'), ('fairlie', 'FLA1111111'),
+                ('fairmaid', 'FMT1111111'), ('fairweather', 'FWTA111111'),
+                ('faith', 'FT11111111'), ('faithful', 'FTFA111111'),
+                ('faithfull', 'FTFA111111'), ('falck', 'FK11111111'),
+                ('falcon', 'FKN1111111'), ('falconar', 'FKNA111111'),
+                ('falconer', 'FKNA111111'), ('falgar', 'FKA1111111'),
+                ('falkinar', 'FKNA111111'), ('falkner', 'FKNA111111'),
+                ('fall', 'FA11111111'), ('fallon', 'FLN1111111'),
+                ('fallowfield', 'FLFT111111'), ('familton', 'FMTN111111'),
+                ('fancourt', 'FNKT111111'), ('fanner', 'FNA1111111'),
+                ('fanning', 'FNNK111111'), ('fannon', 'FNN1111111'),
+                ('fantham', 'FNTM111111'), ('fargie', 'FKA1111111'),
+                ('faris', 'FRS1111111'), ('farland', 'FLNT111111'),
+                ('farmer', 'FMA1111111'), ('farminger', 'FMNKA11111'),
+                ('farquhar', 'FKA1111111'), ('farquharon', 'FKRN111111'),
+                ('farquhars', 'FKS1111111'), ('farquharson', 'FKSN111111'),
+                ('farr', 'FA11111111'), ('farra', 'FRA1111111'),
+                ('farrant', 'FRNT111111'), ('farrell', 'FRA1111111'),
+                ('farrelly', 'FRLA111111'), ('farrington', 'FRNKTN1111'),
+                ('farrow', 'FRA1111111'), ('farry', 'FRA1111111'),
+                ('fastier', 'FSTA111111'), ('faul', 'FA11111111'),
+                ('faulder', 'FTA1111111'), ('faulds', 'FTS1111111'),
+                ('faulkner', 'FKNA111111'), ('faulks', 'FKS1111111'),
+                ('faull', 'FA11111111'), ('favel', 'FFA1111111'),
+                ('favell', 'FFA1111111'), ('fawcett', 'FST1111111'),
+                ('fay', 'FA11111111'), ('fazakerley', 'FSKLA11111'),
+                ('fearn', 'FN11111111'), ('feast', 'FST1111111'),
+                ('feathersto', 'FTSTA11111'), ('featherstone', 'FTSTN11111'),
+                ('feely', 'FLA1111111'), ('feeney', 'FNA1111111'),
+                ('feichley', 'FKLA111111'), ('feil', 'FA11111111'),
+                ('fell', 'FA11111111'), ('felmingha', 'FMNA111111'),
+                ('felmingham', 'FMNM111111'), ('feltham', 'FTM1111111'),
+                ('felton', 'FTN1111111'), ('fenby', 'FNPA111111'),
+                ('fendall', 'FNTA111111'), ('fenelon', 'FNLN111111'),
+                ('fennessey', 'FNSA111111'), ('fennessy', 'FNSA111111'),
+                ('fenton', 'FNTN111111'), ('fenwick', 'FNWK111111'),
+                ('ferdinand', 'FTNNT11111'), ('ferens', 'FRNS111111'),
+                ('fergus', 'FKS1111111'), ('ferguson', 'FKSN111111'),
+                ('fergusson', 'FKSN111111'), ('fern', 'FN11111111'),
+                ('fernie', 'FNA1111111'), ('feron', 'FRN1111111'),
+                ('ferrier', 'FRA1111111'), ('ferris', 'FRS1111111'),
+                ('ferry', 'FRA1111111'), ('fewtrell', 'FTRA111111'),
+                ('ffrost', 'FRST111111'), ('fibbes', 'FPS1111111'),
+                ('fiddes', 'FTS1111111'), ('fiddis', 'FTS1111111'),
+                ('field', 'FT11111111'), ('fielden', 'FTN1111111'),
+                ('fielder', 'FTA1111111'), ('fielding', 'FTNK111111'),
+                ('fieldwick', 'FTWK111111'), ('fifield', 'FFT1111111'),
+                ('figgins', 'FKNS111111'), ('filewood', 'FLWT111111'),
+                ('fillingham', 'FLNM111111'), ('finch', 'FNK1111111'),
+                ('findlater', 'FNTLTA1111'), ('findlav', 'FNTLF11111'),
+                ('findlay', 'FNTLA11111'), ('findley', 'FNTLA11111'),
+                ('findon', 'FNTN111111'), ('finlavson', 'FNLFSN1111'),
+                ('finlay', 'FNLA111111'), ('finlayson', 'FNLSN11111'),
+                ('finley', 'FNLA111111'), ('finlin', 'FNLN111111'),
+                ('finn', 'FN11111111'), ('finnegan', 'FNKN111111'),
+                ('finnerty', 'FNTA111111'), ('finnie', 'FNA1111111'),
+                ('firkin', 'FKN1111111'), ('firth', 'FT11111111'),
+                ('fish', 'FS11111111'), ('fisher', 'FSA1111111'),
+                ('fisken', 'FSKN111111'), ('fisse', 'FS11111111'),
+                ('fitspatrick', 'FTSPTRK111'), ('fitt', 'FT11111111'),
+                ('fitz patrick', 'FTSPTRK111'), ('fitz-patrick', 'FTSPTRK111'),
+                ('fitzell', 'FTSA111111'), ('fitzer', 'FTSA111111'),
+                ('fitzgeral', 'FTSKRA1111'), ('fitzgerald', 'FTSKRT1111'),
+                ('fitzgibbons', 'FTSKPNS111'), ('fitzpatric', 'FTSPTRK111'),
+                ('fitzpatrick', 'FTSPTRK111'), ('fiynn', 'FN11111111'),
+                ('flaherty', 'FLTA111111'), ('flahive', 'FLF1111111'),
+                ('flanagan', 'FLNKN11111'), ('flanigan', 'FLNKN11111'),
+                ('flannagan', 'FLNKN11111'), ('flannery', 'FLNRA11111'),
+                ('flanning', 'FLNNK11111'), ('flawn', 'FLN1111111'),
+                ('flaws', 'FLS1111111'), ('fleck', 'FLK1111111'),
+                ('fleet', 'FLT1111111'), ('fleming', 'FLMNK11111'),
+                ('flening', 'FLNNK11111'), ('fletcher', 'FLKA111111'),
+                ('fleteher', 'FLTA111111'), ('flethcher', 'FLTKA11111'),
+                ('flett', 'FLT1111111'), ('fleury', 'FLRA111111'),
+                ('flinders', 'FLNTS11111'), ('flint', 'FLNT111111'),
+                ('flockton', 'FLKTN11111'), ('flood', 'FLT1111111'),
+                ('floyd', 'FLT1111111'), ('flugge', 'FLK1111111'),
+                ('flynn', 'FLN1111111'), ('foate', 'FT11111111'),
+                ('fogarty', 'FKTA111111'), ('fogo', 'FKA1111111'),
+                ('foley', 'FLA1111111'), ('folwell', 'FWA1111111'),
+                ('foord', 'FT11111111'), ('foote', 'FT11111111'),
+                ('forbes', 'FPS1111111'), ('force', 'FK11111111'),
+                ('ford', 'FT11111111'), ('forde', 'FT11111111'),
+                ('fordham', 'FTM1111111'), ('fordyce', 'FTK1111111'),
+                ('foreman', 'FRMN111111'), ('forest', 'FRST111111'),
+                ('forgeson', 'FKSN111111'), ('forgie', 'FKA1111111'),
+                ('forman', 'FMN1111111'), ('forno', 'FNA1111111'),
+                ('forrest', 'FRST111111'), ('forrester', 'FRSTA11111'),
+                ('forreter', 'FRTA111111'), ('forscutt', 'FSKT111111'),
+                ('forster', 'FSTA111111'), ('forsyth', 'FST1111111'),
+                ('fort', 'FT11111111'), ('fortune', 'FTN1111111'),
+                ('foster', 'FSTA111111'), ('fothergill', 'FTKA111111'),
+                ('fotheringh', 'FTRN111111'), ('fotheringham', 'FTRNM11111'),
+                ('fotheringharn', 'FTRNN11111'), ('fougere', 'FKA1111111'),
+                ('foulkes', 'FKS1111111'), ('fountain', 'FNTN111111'),
+                ('fow', 'FA11111111'), ('fowell', 'FWA1111111'),
+                ('foweraker', 'FWRKA11111'), ('fowler', 'FLA1111111'),
+                ('fox', 'FK11111111'), ('fox.', 'FK11111111'),
+                ('foxton', 'FKTN111111'), ('fraer', 'FRA1111111'),
+                ('frago', 'FRKA111111'), ('fraher', 'FRA1111111'),
+                ('frame', 'FRM1111111'), ('france', 'FRNK111111'),
+                ('francer', 'FRNSA11111'), ('francis', 'FRNSS11111'),
+                ('frank', 'FRNK111111'), ('frankham', 'FRNKM11111'),
+                ('franklin', 'FRNKLN1111'), ('frankpitt', 'FRNKPT1111'),
+                ('frapwell', 'FRPWA11111'), ('frascr', 'FRSKA11111'),
+                ('frasel', 'FRSA111111'), ('fraser', 'FRSA111111'),
+                ('frasor', 'FRSA111111'), ('frazer', 'FRSA111111'),
+                ('frederic', 'FRTRK11111'), ('fredric', 'FRTRK11111'),
+                ('freed', 'FRT1111111'), ('freedman', 'FRTMN11111'),
+                ('freeman', 'FRMN111111'), ('freernan', 'FRNN111111'),
+                ('french', 'FRNK111111'), ('fretwell', 'FRTWA11111'),
+                ('frew', 'FRA1111111'), ('frewen', 'FRWN111111'),
+                ('fricker', 'FRKA111111'), ('friedlander', 'FRTLNTA111'),
+                ('friedlich', 'FRTLK11111'), ('friend', 'FRNT111111'),
+                ('frier', 'FRA1111111'), ('frith', 'FRT1111111'),
+                ('froggatt', 'FRKT111111'), ('frood', 'FRT1111111'),
+                ('frost', 'FRST111111'), ('froude', 'FRT1111111'),
+                ('fruhstuch', 'FRSTK11111'), ('fruhstuck', 'FRSTK11111'),
+                ('fruish', 'FRS1111111'), ('fry', 'FRA1111111'),
+                ('frye', 'FRA1111111'), ('fryer', 'FRA1111111'),
+                ('ftzpatrck', 'FTSPTK1111'), ('fuell', 'FA11111111'),
+                ('fulcher', 'FKA1111111'), ('fuldseth', 'FTST111111'),
+                ('fullam', 'FLM1111111'), ('fullarton', 'FLTN111111'),
+                ('fuller', 'FLA1111111'), ('fullerton', 'FLTN111111'),
+                ('fulton', 'FTN1111111'), ('furminger', 'FMNKA11111'),
+                ('furness', 'FNS1111111'), ('fursdon', 'FSTN111111'),
+                ('fussell', 'FSA1111111'), ('fyfe', 'FF11111111'),
+                ('fyffe', 'FF11111111'), ('fynmore', 'FNMA111111'),
+                ('gabites', 'KPTS111111'), ('gable', 'KPA1111111'),
+                ('gadd', 'KT11111111'), ('gaffaney', 'KFNA111111'),
+                ('gaffeney', 'KFNA111111'), ('gaffey', 'KFA1111111'),
+                ('gaffney', 'KFNA111111'), ('gaiger', 'KKA1111111'),
+                ('gailichan', 'KLKN111111'), ('gain', 'KN11111111'),
+                ('gairdner', 'KTNA111111'), ('galagher', 'KLKA111111'),
+                ('galbraith', 'KPRT111111'), ('gale', 'KA11111111'),
+                ('gall', 'KA11111111'), ('gallacher', 'KLKA111111'),
+                ('gallagher', 'KLKA111111'), ('gallaher', 'KLA1111111'),
+                ('gallan', 'KLN1111111'), ('galland', 'KLNT111111'),
+                ('gallanders', 'KLNTS11111'), ('gallant', 'KLNT111111'),
+                ('gallaway', 'KLWA111111'), ('gallbraith', 'KPRT111111'),
+                ('gallichan', 'KLKN111111'), ('gallie', 'KLA1111111'),
+                ('galliven', 'KLFN111111'), ('gallngher', 'KNA1111111'),
+                ('galloway', 'KLWA111111'), ('gallschef', 'KSKF111111'),
+                ('galt', 'KT11111111'), ('galvin', 'KFN1111111'),
+                ('galway', 'KWA1111111'), ('gambell', 'KMPA111111'),
+                ('gamble', 'KMPA111111'), ('ganderton', 'KNTTN11111'),
+                ('gantley', 'KNTLA11111'), ('garbutt', 'KPT1111111'),
+                ('garcho', 'KKA1111111'), ('garchow', 'KKA1111111'),
+                ('gard\'ner', 'KTNA111111'), ('garden', 'KTN1111111'),
+                ('gardham', 'KTM1111111'), ('gardiner', 'KTNA111111'),
+                ('gardner', 'KTNA111111'), ('gardyne', 'KTN1111111'),
+                ('gare', 'KA11111111'), ('garforth', 'KFT1111111'),
+                ('garham', 'KM11111111'), ('garland', 'KLNT111111'),
+                ('garlyutt', 'KLT1111111'), ('garnctt', 'KNKT111111'),
+                ('garner', 'KNA1111111'), ('garnett', 'KNT1111111'),
+                ('garohow', 'KRA1111111'), ('garr', 'KA11111111'),
+                ('garret', 'KRT1111111'), ('garrett', 'KRT1111111'),
+                ('garrich', 'KRK1111111'), ('garrick', 'KRK1111111'),
+                ('garrigan', 'KRKN111111'), ('garron', 'KRN1111111'),
+                ('garrow', 'KRA1111111'), ('garside', 'KST1111111'),
+                ('garstang', 'KSTNK11111'), ('garty', 'KTA1111111'),
+                ('garvey', 'KFA1111111'), ('gascoigne', 'KSKKN11111'),
+                ('gasey', 'KSA1111111'), ('gaspar', 'KSPA111111'),
+                ('gaston', 'KSTN111111'), ('gatehouse', 'KTS1111111'),
+                ('gatfield', 'KTFT111111'), ('gatside', 'KTST111111'),
+                ('gatton', 'KTN1111111'), ('gaudin', 'KTN1111111'),
+                ('gaul', 'KA11111111'), ('gauld', 'KT11111111'),
+                ('gault', 'KT11111111'), ('gavan', 'KFN1111111'),
+                ('gavegan', 'KFKN111111'), ('gavigan', 'KFKN111111'),
+                ('gavin', 'KFN1111111'), ('gaw', 'KA11111111'),
+                ('gawn', 'KN11111111'), ('gawne', 'KN11111111'),
+                ('gay', 'KA11111111'), ('gaylor', 'KLA1111111'),
+                ('gaytan', 'KTN1111111'), ('geaney', 'KNA1111111'),
+                ('gear', 'KA11111111'), ('gearing', 'KRNK111111'),
+                ('geary', 'KRA1111111'), ('geddes', 'KTS1111111'),
+                ('geddis', 'KTS1111111'), ('gedney', 'KTNA111111'),
+                ('gee', 'KA11111111'), ('geen', 'KN11111111'),
+                ('geering', 'KRNK111111'), ('geeson', 'KSN1111111'),
+                ('geeves', 'KFS1111111'), ('geiger', 'KKA1111111'),
+                ('geleatly', 'KLTLA11111'), ('gellatly', 'KLTLA11111'),
+                ('gemmell', 'KMA1111111'), ('gene', 'KN11111111'),
+                ('genge', 'KNK1111111'), ('gensik', 'KNSK111111'),
+                ('gent', 'KNT1111111'), ('gentleman', 'KNTLMN1111'),
+                ('geoffrey', 'KFRA111111'), ('george', 'KK11111111'),
+                ('georgeison', 'KKSN111111'), ('georgeson', 'KKSN111111'),
+                ('gerard', 'KRT1111111'), ('gerken', 'KKN1111111'),
+                ('gerrard', 'KRT1111111'), ('gerrie', 'KRA1111111'),
+                ('gether', 'KTA1111111'), ('getken', 'KTKN111111'),
+                ('gevin', 'KFN1111111'), ('gey', 'KA11111111'),
+                ('ghadwick', 'TWK1111111'), ('gibb', 'KP11111111'),
+                ('gibbons', 'KPNS111111'), ('gibbs', 'KPS1111111'),
+                ('gibson', 'KPSN111111'), ('gifford', 'KFT1111111'),
+                ('giford-browne', 'KFTPRN1111'), ('gil1', 'KA11111111'),
+                ('gilan', 'KLN1111111'), ('gilbert', 'KPT1111111'),
+                ('gilbride', 'KPRT111111'), ('gilchrist', 'KKRST11111'),
+                ('gilder', 'KTA1111111'), ('giles', 'KLS1111111'),
+                ('gilfedder', 'KFTA111111'), ('gilfillan', 'KFLN111111'),
+                ('gilkison', 'KKSN111111'), ('gilks', 'KKS1111111'),
+                ('gill', 'KA11111111'), ('gillam', 'KLM1111111'),
+                ('gillan', 'KLN1111111'), ('gillanders', 'KLNTS11111'),
+                ('gillard', 'KLT1111111'), ('gillender', 'KLNTA11111'),
+                ('giller', 'KLA1111111'), ('gillers', 'KLS1111111'),
+                ('gillespie', 'KLSPA11111'), ('gillett', 'KLT1111111'),
+                ('gilliand', 'KLNT111111'), ('gillick', 'KLK1111111'),
+                ('gillies', 'KLS1111111'), ('gilligan', 'KLKN111111'),
+                ('gillions', 'KLNS111111'), ('gillispie', 'KLSPA11111'),
+                ('gillon', 'KLN1111111'), ('gillooly', 'KLLA111111'),
+                ('gilmolr', 'KMLA111111'), ('gilmore', 'KMA1111111'),
+                ('gilmour', 'KMA1111111'), ('girdler', 'KTLA111111'),
+                ('girdwood', 'KTWT111111'), ('girvan', 'KFN1111111'),
+                ('gittos', 'KTS1111111'), ('gjersen', 'KSN1111111'),
+                ('gladding', 'KLTNK11111'), ('gladstone', 'KLTSTN1111'),
+                ('gladwin', 'KLTWN11111'), ('gladwish', 'KLTWS11111'),
+                ('gladwith', 'KLTWT11111'), ('glaister', 'KLSTA11111'),
+                ('glanvill', 'KLNFA11111'), ('glasgow', 'KLSKA11111'),
+                ('glass', 'KLS1111111'), ('glasse', 'KLS1111111'),
+                ('glassett', 'KLST111111'), ('glasson', 'KLSN111111'),
+                ('glau', 'KLA1111111'), ('glault', 'KLT1111111'),
+                ('gledinning', 'KLTNNK1111'), ('glen', 'KLN1111111'),
+                ('glendining', 'KLNTNNK111'), ('glendinnin', 'KLNTNN1111'),
+                ('glendinning', 'KLNTNNK111'), ('glengarry', 'KLNKRA1111'),
+                ('glenn', 'KLN1111111'), ('glennie', 'KLNA111111'),
+                ('glennon', 'KLNN111111'), ('glerrie', 'KLRA111111'),
+                ('glibb', 'KLP1111111'), ('gliddon', 'KLTN111111'),
+                ('glisby', 'KLSPA11111'), ('gllespte', 'KLSPT11111'),
+                ('gloag', 'KLK1111111'), ('glossop', 'KLSP111111'),
+                ('glover', 'KLFA111111'), ('glozier', 'KLSA111111'),
+                ('glroves', 'KRFS111111'), ('glubbins', 'KLPNS11111'),
+                ('glue', 'KLA1111111'), ('glynn', 'KLN1111111'),
+                ('goatham', 'KTM1111111'), ('gobbitt', 'KPT1111111'),
+                ('goble', 'KPA1111111'), ('godber', 'KTPA111111'),
+                ('godby', 'KTPA111111'), ('goddard', 'KTT1111111'),
+                ('godden', 'KTN1111111'), ('godfred', 'KTFRT11111'),
+                ('godfrey', 'KTFRA11111'), ('goding', 'KTNK111111'),
+                ('godirey', 'KTRA111111'), ('godso', 'KTSA111111'),
+                ('godward', 'KTWT111111'), ('godwin', 'KTWN111111'),
+                ('golden', 'KTN1111111'), ('goldie', 'KTA1111111'),
+                ('golding', 'KTNK111111'), ('goldsmid', 'KTSMT11111'),
+                ('goldsmith', 'KTSMT11111'), ('goldstein', 'KTSTN11111'),
+                ('golightly', 'KLTLA11111'), ('gollan', 'KLN1111111'),
+                ('gollar', 'KLA1111111'), ('gomersall', 'KMSA111111'),
+                ('gomm', 'KM11111111'), ('gong', 'KNK1111111'),
+                ('goninon', 'KNNN111111'), ('gooch', 'KK11111111'),
+                ('good', 'KT11111111'), ('goodall', 'KTA1111111'),
+                ('goode', 'KT11111111'), ('goodeve', 'KTF1111111'),
+                ('goodey', 'KTA1111111'), ('goodfellow', 'KTFLA11111'),
+                ('goodhall', 'KTA1111111'), ('goodison', 'KTSN111111'),
+                ('goodlet', 'KTLT111111'), ('goodlot', 'KTLT111111'),
+                ('goodman', 'KTMN111111'), ('goodmanson', 'KTMNSN1111'),
+                ('goodridge', 'KTRK111111'), ('goodsir', 'KTSA111111'),
+                ('goodwin', 'KTWN111111'), ('goodyer', 'KTA1111111'),
+                ('gooseman', 'KSMN111111'), ('gordin', 'KTN1111111'),
+                ('gordon', 'KTN1111111'), ('gore-johnston', 'KRNSTN1111'),
+                ('gore', 'KA11111111'), ('gorge', 'KK11111111'),
+                ('gorgeson', 'KKSN111111'), ('gorham', 'KM11111111'),
+                ('gormack', 'KMK1111111'), ('gorman', 'KMN1111111'),
+                ('gormly', 'KMLA111111'), ('gorton', 'KTN1111111'),
+                ('gosham', 'KSM1111111'), ('gosling', 'KSLNK11111'),
+                ('gosney', 'KSNA111111'), ('goudie', 'KTA1111111'),
+                ('gough', 'KA11111111'), ('gould', 'KT11111111'),
+                ('goulston', 'KSTN111111'), ('goulstone', 'KSTN111111'),
+                ('gourlay', 'KLA1111111'), ('gourley', 'KLA1111111'),
+                ('gourlie', 'KLA1111111'), ('govan', 'KFN1111111'),
+                ('gover', 'KFA1111111'), ('gow', 'KA11111111'),
+                ('gowans', 'KWNS111111'), ('gowdy', 'KTA1111111'),
+                ('gowie', 'KWA1111111'), ('goy', 'KA11111111'),
+                ('goyen', 'KN11111111'), ('grace', 'KRK1111111'),
+                ('gracie', 'KRSA111111'), ('grady', 'KRTA111111'),
+                ('graf', 'KRF1111111'), ('graham', 'KRM1111111'),
+                ('grahame', 'KRM1111111'), ('grahan', 'KRN1111111'),
+                ('grahm', 'KRM1111111'), ('graig', 'KRK1111111'),
+                ('grainger', 'KRNKA11111'), ('grainm', 'KRNM111111'),
+                ('grallam', 'KRLM111111'), ('grame', 'KRM1111111'),
+                ('grammer', 'KRMA111111'), ('grandison', 'KRNTSN1111'),
+                ('grant', 'KRNT111111'), ('grantham', 'KRNTM11111'),
+                ('grass', 'KRS1111111'), ('gratton', 'KRTN111111'),
+                ('gratwick', 'KRTWK11111'), ('grave', 'KRF1111111'),
+                ('graves', 'KRFS111111'), ('grawford', 'KRFT111111'),
+                ('gray', 'KRA1111111'), ('graye', 'KRA1111111'),
+                ('grealish', 'KRLS111111'), ('greaney', 'KRNA111111'),
+                ('greatrex', 'KRTRK11111'), ('greaves', 'KRFS111111'),
+                ('green', 'KRN1111111'), ('greenall', 'KRNA111111'),
+                ('greene', 'KRN1111111'), ('greenfield', 'KRNFT11111'),
+                ('greenhalgh', 'KRNA111111'), ('greenhough', 'KRNA111111'),
+                ('greenish', 'KRNS111111'), ('greenland', 'KRNLNT1111'),
+                ('greenslade', 'KRNSLT1111'), ('greensmith', 'KRNSMT1111'),
+                ('greenway', 'KRNWA11111'), ('greenwood-wilson', 'KRNWTWSN11'),
+                ('greenwood', 'KRNWT11111'), ('greenyer', 'KRNA111111'),
+                ('greer', 'KRA1111111'), ('greeves', 'KRFS111111'),
+                ('gregan', 'KRKN111111'), ('gregg', 'KRK1111111'),
+                ('gregory', 'KRKRA11111'), ('greig', 'KRK1111111'),
+                ('greigory', 'KRKRA11111'), ('grenfell', 'KRNFA11111'),
+                ('gresham', 'KRSM111111'), ('greves', 'KRFS111111'),
+                ('grey', 'KRA1111111'), ('gribben', 'KRPN111111'),
+                ('grice', 'KRK1111111'), ('gridgeman', 'KRKMN11111'),
+                ('grierson', 'KRSN111111'), ('grieve', 'KRF1111111'),
+                ('griffen', 'KRFN111111'), ('griffin', 'KRFN111111'),
+                ('griffith', 'KRFT111111'), ('griffiths', 'KRFTS11111'),
+                ('griffths', 'KRFTS11111'), ('griflin', 'KRFLN11111'),
+                ('grig', 'KRK1111111'), ('grigg', 'KRK1111111'),
+                ('grigsby', 'KRKSPA1111'), ('grimaldi', 'KRMTA11111'),
+                ('grimman', 'KRMN111111'), ('grimmest', 'KRMST11111'),
+                ('grimmett', 'KRMT111111'), ('grimsdale', 'KRMSTA1111'),
+                ('grimsey', 'KRMSA11111'), ('grimshaw', 'KRMSA11111'),
+                ('grimwood', 'KRMWT11111'), ('grin', 'KRN1111111'),
+                ('grindlay', 'KRNTLA1111'), ('grindley', 'KRNTLA1111'),
+                ('grinyer', 'KRNA111111'), ('grocott', 'KRKT111111'),
+                ('grogan', 'KRKN111111'), ('groom', 'KRM1111111'),
+                ('grose', 'KRS1111111'), ('grosse', 'KRS1111111'),
+                ('grounds', 'KRNTS11111'), ('grover', 'KRFA111111'),
+                ('groves', 'KRFS111111'), ('growden', 'KRTN111111'),
+                ('grubb', 'KRP1111111'), ('grubh', 'KRP1111111'),
+                ('gruitt', 'KRT1111111'), ('grundy', 'KRNTA11111'),
+                ('gruszning', 'KRSNNK1111'), ('grut', 'KRT1111111'),
+                ('gubbins', 'KPNS111111'), ('guest', 'KST1111111'),
+                ('guffie', 'KFA1111111'), ('guild', 'KT11111111'),
+                ('guildford', 'KTFT111111'), ('guilen', 'KLN1111111'),
+                ('guilford', 'KFT1111111'), ('guillmot', 'KMT1111111'),
+                ('guinan', 'KNN1111111'), ('guinness', 'KNS1111111'),
+                ('gulbins', 'KPNS111111'), ('gullan', 'KLN1111111'),
+                ('gulland', 'KLNT111111'), ('gullen', 'KLN1111111'),
+                ('gum', 'KM11111111'), ('gummer', 'KMA1111111'),
+                ('gumpatzes', 'KMPTSS1111'), ('gunion', 'KNN1111111'),
+                ('gunn', 'KN11111111'), ('gunner', 'KNA1111111'),
+                ('gunning', 'KNNK111111'), ('gunton', 'KNTN111111'),
+                ('gurming', 'KMNK111111'), ('gurr', 'KA11111111'),
+                ('gustafson', 'KSTFSN1111'), ('guthrie', 'KTRA111111'),
+                ('gutschlag', 'KTSKLK1111'), ('gutsell', 'KTSA111111'),
+                ('guy', 'KA11111111'), ('guyton', 'KTN1111111'),
+                ('gve', 'KF11111111'), ('gwilliams', 'KWLMS11111'),
+                ('gwyn', 'KWN1111111'), ('gwynne', 'KWN1111111'),
+                ('gye', 'KA11111111'), ('haake', 'AK11111111'),
+                ('haberfield', 'APFT111111'), ('habershon', 'APSN111111'),
+                ('hack', 'AK11111111'), ('hackett', 'AKT1111111'),
+                ('haddon', 'ATN1111111'), ('haddrell', 'ATRA111111'),
+                ('hade', 'AT11111111'), ('hadfield', 'ATFT111111'),
+                ('hadlee', 'ATLA111111'), ('hadlow', 'ATLA111111'),
+                ('haffenden', 'AFNTN11111'), ('hagan', 'AKN1111111'),
+                ('hagarty', 'AKTA111111'), ('hagen', 'AKN1111111'),
+                ('haggart', 'AKT1111111'), ('haggett', 'AKT1111111'),
+                ('haggitt', 'AKT1111111'), ('hague', 'AKA1111111'),
+                ('haig', 'AK11111111'), ('haigh', 'AA11111111'),
+                ('hailes', 'ALS1111111'), ('hailton', 'ATN1111111'),
+                ('haines', 'ANS1111111'), ('hair', 'AA11111111'),
+                ('hakely', 'AKLA111111'), ('hal', 'AA11111111'),
+                ('halberg', 'APK1111111'), ('halcrow', 'AKRA111111'),
+                ('haldane', 'ATN1111111'), ('hale', 'AA11111111'),
+                ('hales', 'ALS1111111'), ('halfka', 'AFKA111111'),
+                ('halford', 'AFT1111111'), ('halies', 'ALS1111111'),
+                ('halket', 'AKT1111111'), ('halkett', 'AKT1111111'),
+                ('hall', 'AA11111111'), ('hallam', 'ALM1111111'),
+                ('hallas', 'ALS1111111'), ('hallet', 'ALT1111111'),
+                ('hallett', 'ALT1111111'), ('halley', 'ALA1111111'),
+                ('halliday', 'ALTA111111'), ('halligan', 'ALKN111111'),
+                ('hallinan', 'ALNN111111'), ('hallsen', 'ASN1111111'),
+                ('hally', 'ALA1111111'), ('halpin', 'APN1111111'),
+                ('halsinger', 'ASNKA11111'), ('haly', 'ALA1111111'),
+                ('ham', 'AM11111111'), ('hamann', 'AMN1111111'),
+                ('hambleton', 'AMPLTN1111'), ('hamblett', 'AMPLT11111'),
+                ('hamblin', 'AMPLN11111'), ('hambly', 'AMPLA11111'),
+                ('hamer', 'AMA1111111'), ('hames', 'AMS1111111'),
+                ('hamiiton', 'AMTN111111'), ('hamill', 'AMA1111111'),
+                ('hamilton', 'AMTN111111'), ('hamlyn', 'AMLN111111'),
+                ('hammer', 'AMA1111111'), ('hammerly', 'AMLA111111'),
+                ('hammill', 'AMA1111111'), ('hammond', 'AMNT111111'),
+                ('hamon', 'AMN1111111'), ('hanan', 'ANN1111111'),
+                ('hananeia', 'ANNA111111'), ('hancock', 'ANKK111111'),
+                ('hancox', 'ANKK111111'), ('hand', 'ANT1111111'),
+                ('handforth', 'ANTFT11111'), ('handisides', 'ANTSTS1111'),
+                ('handley', 'ANTLA11111'), ('hands', 'ANTS111111'),
+                ('handscomb', 'ANTSKM1111'), ('handyside', 'ANTST11111'),
+                ('hanenina', 'ANNNA11111'), ('hanger', 'ANKA111111'),
+                ('hanham', 'ANM1111111'), ('hankey', 'ANKA111111'),
+                ('hankins', 'ANKNS11111'), ('hanley', 'ANLA111111'),
+                ('hanlin', 'ANLN111111'), ('hanlon', 'ANLN111111'),
+                ('hanly', 'ANLA111111'), ('hanna', 'ANA1111111'),
+                ('hannagan', 'ANKN111111'), ('hannah', 'ANA1111111'),
+                ('hannan', 'ANN1111111'), ('hannigan', 'ANKN111111'),
+                ('hanning', 'ANNK111111'), ('hannon', 'ANN1111111'),
+                ('hanon', 'ANN1111111'), ('hanrahan', 'ANRN111111'),
+                ('hansbury', 'ANSPRA1111'), ('hansen', 'ANSN111111'),
+                ('hansford', 'ANSFT11111'), ('hansforrl', 'ANSFA11111'),
+                ('hanson', 'ANSN111111'), ('hansson', 'ANSN111111'),
+                ('hanton', 'ANTN111111'), ('hanvey', 'ANFA111111'),
+                ('haran', 'ARN1111111'), ('harborne', 'APN1111111'),
+                ('harborow', 'APRA111111'), ('harbott', 'APT1111111'),
+                ('harbrow', 'APRA111111'), ('hardcastle', 'ATKSTA1111'),
+                ('harden', 'ATN1111111'), ('hardey', 'ATA1111111'),
+                ('hardie', 'ATA1111111'), ('harding', 'ATNK111111'),
+                ('hardman', 'ATMN111111'), ('hardoy', 'ATA1111111'),
+                ('hards', 'ATS1111111'), ('hardwick', 'ATWK111111'),
+                ('hardy', 'ATA1111111'), ('hare', 'AA11111111'),
+                ('harford', 'AFT1111111'), ('hargood', 'AKT1111111'),
+                ('hargrave', 'AKRF111111'), ('hargraves', 'AKRFS11111'),
+                ('hargreave', 'AKRF111111'), ('hargreaves', 'AKRFS11111'),
+                ('harker', 'AKA1111111'), ('harkess', 'AKS1111111'),
+                ('harkness', 'AKNS111111'), ('harl', 'AA11111111'),
+                ('harland', 'ALNT111111'), ('harle', 'AA11111111'),
+                ('harley', 'ALA1111111'), ('harliwich', 'ALWK111111'),
+                ('harlow', 'ALA1111111'), ('harman', 'AMN1111111'),
+                ('harneiss', 'ANS1111111'), ('harness', 'ANS1111111'),
+                ('harney', 'ANA1111111'), ('harold', 'ART1111111'),
+                ('harper', 'APA1111111'), ('harrah', 'ARA1111111'),
+                ('harrap', 'ARP1111111'), ('harraway', 'ARWA111111'),
+                ('harre', 'AA11111111'), ('harrhy', 'AA11111111'),
+                ('harridge', 'ARK1111111'), ('harries', 'ARS1111111'),
+                ('harrington', 'ARNKTN1111'), ('harris', 'ARS1111111'),
+                ('harrison', 'ARSN111111'), ('harrisorl', 'ARSA111111'),
+                ('harrod', 'ART1111111'), ('harrold', 'ART1111111'),
+                ('harrop', 'ARP1111111'), ('harrould', 'ART1111111'),
+                ('harrow', 'ARA1111111'), ('harry', 'ARA1111111'),
+                ('hart', 'AT11111111'), ('hartaway', 'ATWA111111'),
+                ('hartle', 'ATA1111111'), ('hartley', 'ATLA111111'),
+                ('hartman', 'ATMN111111'), ('hartmann', 'ATMN111111'),
+                ('hartstonge', 'ATSTNK1111'), ('harty', 'ATA1111111'),
+                ('harvey', 'AFA1111111'), ('harvie', 'AFA1111111'),
+                ('harwood', 'AWT1111111'), ('haselden', 'ASTN111111'),
+                ('haskell', 'ASKA111111'), ('haskins', 'ASKNS11111'),
+                ('haskoll', 'ASKA111111'), ('haslett', 'ASLT111111'),
+                ('hason', 'ASN1111111'), ('hassall', 'ASA1111111'),
+                ('hassan', 'ASN1111111'), ('hast', 'AST1111111'),
+                ('hastie', 'ASTA111111'), ('hastings', 'ASTNKS1111'),
+                ('hastngs', 'ASTNKS1111'), ('hatcher', 'AKA1111111'),
+                ('hately', 'ATLA111111'), ('hathaway', 'ATWA111111'),
+                ('hatt', 'AT11111111'), ('hatten', 'ATN1111111'),
+                ('hatton', 'ATN1111111'), ('haub', 'AP11111111'),
+                ('haugh', 'AA11111111'), ('haughton', 'ATN1111111'),
+                ('haurahan', 'ARN1111111'), ('haush', 'AS11111111'),
+                ('havard', 'AFT1111111'), ('havelock', 'AFLK111111'),
+                ('havill', 'AFA1111111'), ('havward', 'AFWT111111'),
+                ('hawes', 'AWS1111111'), ('hawke', 'AK11111111'),
+                ('hawken', 'AKN1111111'), ('hawker', 'AKA1111111'),
+                ('hawkes', 'AKS1111111'), ('hawkhead', 'AKT1111111'),
+                ('hawkine', 'AKN1111111'), ('hawkins', 'AKNS111111'),
+                ('hawkley', 'AKLA111111'), ('hawley', 'ALA1111111'),
+                ('haworth', 'AWT1111111'), ('hawthorn', 'ATN1111111'),
+                ('haxlett', 'AKLT111111'), ('hay', 'AA11111111'),
+                ('haybittle', 'APTA111111'), ('hayden', 'ATN1111111'),
+                ('haydock', 'ATK1111111'), ('haydon', 'ATN1111111'),
+                ('haye', 'AA11111111'), ('hayes', 'AS11111111'),
+                ('hayman', 'AMN1111111'), ('haymes', 'AMS1111111'),
+                ('hayne', 'AN11111111'), ('haynes', 'ANS1111111'),
+                ('hayr', 'AA11111111'), ('hayward', 'AWT1111111'),
+                ('hazard', 'AST1111111'), ('hazelwood', 'ASWT111111'),
+                ('hazlett', 'ASLT111111'), ('head', 'AT11111111'),
+                ('heads', 'ATS1111111'), ('heal', 'AA11111111'),
+                ('heald', 'AT11111111'), ('healer', 'ALA1111111'),
+                ('healey', 'ALA1111111'), ('healy', 'ALA1111111'),
+                ('heaney', 'ANA1111111'), ('heaps', 'APS1111111'),
+                ('heard', 'AT11111111'), ('hearile', 'ARA1111111'),
+                ('hearne', 'AN11111111'), ('hearty', 'ATA1111111'),
+                ('heasley', 'ASLA111111'), ('heasman', 'ASMN111111'),
+                ('heath', 'AT11111111'), ('heathcote', 'ATKT111111'),
+                ('heather', 'ATA1111111'), ('heathman', 'ATMN111111'),
+                ('heatley', 'ATLA111111'), ('heaton', 'ATN1111111'),
+                ('heaven', 'AFN1111111'), ('heaxlewood', 'AKLWT11111'),
+                ('heazelwood', 'ASWT111111'), ('heazlewood', 'ASLWT11111'),
+                ('hebbard', 'APT1111111'), ('hebditch', 'APTK111111'),
+                ('hector', 'AKTA111111'), ('hedges', 'AKS1111111'),
+                ('hedgman', 'AKMN111111'), ('hedlges', 'ATKS111111'),
+                ('hedrick', 'ATRK111111'), ('heenan', 'ANN1111111'),
+                ('heffernan', 'AFNN111111'), ('heft', 'AFT1111111'),
+                ('hegarty', 'AKTA111111'), ('heggerty', 'AKTA111111'),
+                ('heggie', 'AKA1111111'), ('heileson', 'ALSN111111'),
+                ('helder', 'ATA1111111'), ('helean', 'ALN1111111'),
+                ('helier', 'ALA1111111'), ('hellawell', 'ALWA111111'),
+                ('heller', 'ALA1111111'), ('helleyer', 'ALA1111111'),
+                ('hellier', 'ALA1111111'), ('hellriegel', 'ARKA111111'),
+                ('hellyer', 'ALA1111111'), ('helm', 'AM11111111'),
+                ('helmore', 'AMA1111111'), ('helms', 'AMS1111111'),
+                ('helson', 'ASN1111111'), ('hely', 'ALA1111111'),
+                ('hemingway', 'AMNKWA1111'), ('hemsley', 'AMSLA11111'),
+                ('henaghan', 'ANKN111111'), ('hende', 'ANT1111111'),
+                ('hendebourck', 'ANTPK11111'), ('henden', 'ANTN111111'),
+                ('henderson', 'ANTSN11111'), ('hendetson', 'ANTTSN1111'),
+                ('hendley', 'ANTLA11111'), ('hendren', 'ANTRN11111'),
+                ('hendrick', 'ANTRK11111'), ('hendry', 'ANTRA11111'),
+                ('hendy', 'ANTA111111'), ('heneghan', 'ANKN111111'),
+                ('henery', 'ANRA111111'), ('heney', 'ANA1111111'),
+                ('henke', 'ANK1111111'), ('henks', 'ANKS111111'),
+                ('henley', 'ANLA111111'), ('hennessey', 'ANSA111111'),
+                ('hennessy', 'ANSA111111'), ('hennig', 'ANK1111111'),
+                ('henning', 'ANNK111111'), ('henry', 'ANRA111111'),
+                ('hensleigh', 'ANSLA11111'), ('hensley', 'ANSLA11111'),
+                ('henton', 'ANTN111111'), ('henty', 'ANTA111111'),
+                ('henwood', 'ANWT111111'), ('hepburn', 'APN1111111'),
+                ('heppelthwa', 'APTWA11111'), ('heppelthwaite', 'APTWT11111'),
+                ('herbert', 'APT1111111'), ('herbison', 'APSN111111'),
+                ('herd', 'AT11111111'), ('herman', 'AMN1111111'),
+                ('hern', 'AN11111111'), ('heron', 'ARN1111111'),
+                ('herrich', 'ARK1111111'), ('herrick', 'ARK1111111'),
+                ('herring', 'ARNK111111'), ('herriot', 'ART1111111'),
+                ('hertz', 'ATS1111111'), ('hervey', 'AFA1111111'),
+                ('heselwood', 'ASWT111111'), ('hesford', 'ASFT111111'),
+                ('heslington', 'ASLNKTN111'), ('heslip', 'ASLP111111'),
+                ('heslop', 'ASLP111111'), ('hessell', 'ASA1111111'),
+                ('hessey', 'ASA1111111'), ('hessian', 'ASN1111111'),
+                ('hestinger', 'ASTNKA1111'), ('hethering', 'ATRNK11111'),
+                ('hetherington', 'ATRNKTN111'), ('hett', 'AT11111111'),
+                ('heward', 'AWT1111111'), ('hewat', 'AWT1111111'),
+                ('hewett', 'AWT1111111'), ('hewitson', 'AWTSN11111'),
+                ('hewitt', 'AWT1111111'), ('hewlett', 'ALT1111111'),
+                ('hewton', 'ATN1111111'), ('hey', 'AA11111111'),
+                ('heydon', 'ATN1111111'), ('heyward', 'AWT1111111'),
+                ('hickey', 'AKA1111111'), ('hickinbot', 'AKNPT11111'),
+                ('hickinbotham', 'AKNPTM1111'), ('hickman', 'AKMN111111'),
+                ('hicks', 'AKS1111111'), ('hickson', 'AKSN111111'),
+                ('hiddle', 'ATA1111111'), ('higgie', 'AKA1111111'),
+                ('higgins', 'AKNS111111'), ('higginson', 'AKNSN11111'),
+                ('higgs', 'AKS1111111'), ('higham', 'AKM1111111'),
+                ('highet', 'AKT1111111'), ('highley', 'ALA1111111'),
+                ('highs', 'AS11111111'), ('higman', 'AKMN111111'),
+                ('hiil', 'AA11111111'), ('hill', 'AA11111111'),
+                ('hillary', 'ALRA111111'), ('hilliar', 'ALA1111111'),
+                ('hilliard', 'ALT1111111'), ('hillier', 'ALA1111111'),
+                ('hilliker', 'ALKA111111'), ('hillis', 'ALS1111111'),
+                ('hilllker', 'AKA1111111'), ('hilslop', 'ASLP111111'),
+                ('hilton', 'ATN1111111'), ('himburg', 'AMPK111111'),
+                ('himmel', 'AMA1111111'), ('hinchcliff', 'ANKKLF1111'),
+                ('hinchcliffe', 'ANKKLF1111'), ('hincheliff', 'ANKLF11111'),
+                ('hincks', 'ANKS111111'), ('hind', 'ANT1111111'),
+                ('hinde', 'ANT1111111'), ('hindes', 'ANTS111111'),
+                ('hindle', 'ANTA111111'), ('hindmarsh', 'ANTMS11111'),
+                ('hinds', 'ANTS111111'), ('hines', 'ANS1111111'),
+                ('hinex', 'ANK1111111'), ('hingley', 'ANKLA11111'),
+                ('hinkley', 'ANKLA11111'), ('hinton', 'ANTN111111'),
+                ('hiorns', 'ANS1111111'), ('hirt', 'AT11111111'),
+                ('hiscock', 'ASKK111111'), ('hiscoke', 'ASKK111111'),
+                ('hisgrove', 'ASKRF11111'), ('hislol', 'ASLA111111'),
+                ('hislop', 'ASLP111111'), ('hisshion', 'ASN1111111'),
+                ('hitchcock', 'AKKK111111'), ('hitchcox', 'AKKK111111'),
+                ('hitchell', 'AKA1111111'), ('hitchon', 'AKN1111111'),
+                ('hits', 'ATS1111111'), ('hitt', 'AT11111111'),
+                ('hoad', 'AT11111111'), ('hoar', 'AA11111111'),
+                ('hoare', 'AA11111111'), ('hoatten', 'ATN1111111'),
+                ('hobbs', 'APS1111111'), ('hobby', 'APA1111111'),
+                ('hobcraft', 'APKRFT1111'), ('hobcroft', 'APKRFT1111'),
+                ('hobday', 'APTA111111'), ('hobsoil', 'APSA111111'),
+                ('hobson', 'APSN111111'), ('hocking', 'AKNK111111'),
+                ('hodgaon', 'AKN1111111'), ('hodge', 'AK11111111'),
+                ('hodges', 'AKS1111111'), ('hodgetts', 'AKTS111111'),
+                ('hodgins', 'AKNS111111'), ('hodgkins', 'AKNS111111'),
+                ('hodgkinson', 'AKNSN11111'), ('hodgsin', 'AKSN111111'),
+                ('hodgson', 'AKSN111111'), ('hodkins', 'ATKNS11111'),
+                ('hodson', 'ATSN111111'), ('hoeking', 'AKNK111111'),
+                ('hoff', 'AF11111111'), ('hoffman', 'AFMN111111'),
+                ('hoffmann', 'AFMN111111'), ('hoffmeister', 'AFMSTA1111'),
+                ('hofland', 'AFLNT11111'), ('hog', 'AK11111111'),
+                ('hogan', 'AKN1111111'), ('hogarth', 'AKT1111111'),
+                ('hogg', 'AK11111111'), ('hogue', 'AKA1111111'),
+                ('hoirns', 'ANS1111111'), ('holander', 'ALNTA11111'),
+                ('holben', 'APN1111111'), ('holdaway', 'ATWA111111'),
+                ('holden', 'ATN1111111'), ('holder', 'ATA1111111'),
+                ('holderness', 'ATNS111111'), ('holdgate', 'AKT1111111'),
+                ('holdsworth', 'ATSWT11111'), ('holgate', 'AKT1111111'),
+                ('holiand', 'ALNT111111'), ('hollamby', 'ALMPA11111'),
+                ('holland', 'ALNT111111'), ('hollander', 'ALNTA11111'),
+                ('hollands', 'ALNTS11111'), ('hollebon', 'ALPN111111'),
+                ('holley', 'ALA1111111'), ('hollick', 'ALK1111111'),
+                ('hollingshead', 'ALNKST1111'), ('hollingworth', 'ALNKWT1111'),
+                ('hollner', 'ANA1111111'), ('hollow', 'ALA1111111'),
+                ('holloway', 'ALWA111111'), ('hollows', 'ALS1111111'),
+                ('holman', 'AMN1111111'), ('holmes-libbis', 'AMSLPS1111'),
+                ('holmes', 'AMS1111111'), ('holmess', 'AMS1111111'),
+                ('holroyd', 'ART1111111'), ('holst', 'AST1111111'),
+                ('holsted', 'ASTT111111'), ('holsten', 'ASTN111111'),
+                ('holt', 'AT11111111'), ('homan', 'AMN1111111'),
+                ('home', 'AM11111111'), ('homer', 'AMA1111111'),
+                ('homfray', 'AMFRA11111'), ('honer', 'ANA1111111'),
+                ('honeybone', 'ANPN111111'), ('honeywood', 'ANWT111111'),
+                ('honner', 'ANA1111111'), ('hoochoo', 'AKA1111111'),
+                ('hood', 'AT11111111'), ('hoogee', 'AKA1111111'),
+                ('hook', 'AK11111111'), ('hooker', 'AKA1111111'),
+                ('hoole', 'AA11111111'), ('hooley', 'ALA1111111'),
+                ('hooper', 'APA1111111'), ('hopcraft', 'APKRFT1111'),
+                ('hope', 'AP11111111'), ('hopewell', 'APWA111111'),
+                ('hopgood', 'APKT111111'), ('hopkins', 'APKNS11111'),
+                ('hopkinson', 'APKNSN1111'), ('hopkirk', 'APKK111111'),
+                ('hopper', 'APA1111111'), ('hopwood', 'APWT111111'),
+                ('horan', 'ARN1111111'), ('hordern', 'ATN1111111'),
+                ('hore', 'AA11111111'), ('hormann', 'AMN1111111'),
+                ('horn', 'AN11111111'), ('hornal', 'ANA1111111'),
+                ('hornby', 'ANPA111111'), ('horncastle', 'ANKSTA1111'),
+                ('horncy', 'ANSA111111'), ('horne', 'AN11111111'),
+                ('hornell', 'ANA1111111'), ('horner', 'ANA1111111'),
+                ('horniblow', 'ANPLA11111'), ('hornsby', 'ANSPA11111'),
+                ('horris', 'ARS1111111'), ('horrobin', 'ARPN111111'),
+                ('horsburg', 'ASPK111111'), ('horsburgh', 'ASPA111111'),
+                ('horsecroft', 'ASKRFT1111'), ('horsham', 'ASM1111111'),
+                ('horsman', 'ASMN111111'), ('hortle', 'ATA1111111'),
+                ('horton', 'ATN1111111'), ('horwood', 'AWT1111111'),
+                ('hosee', 'ASA1111111'), ('hoseit', 'AST1111111'),
+                ('hosie', 'ASA1111111'), ('hoskin', 'ASKN111111'),
+                ('hosking', 'ASKNK11111'), ('hoskins', 'ASKNS11111'),
+                ('hossack', 'ASK1111111'), ('hotop', 'ATP1111111'),
+                ('hotton', 'ATN1111111'), ('houghton', 'ATN1111111'),
+                ('houlahan', 'ALN1111111'), ('hould', 'AT11111111'),
+                ('houliston', 'ALSTN11111'), ('houlston', 'ASTN111111'),
+                ('houston', 'ASTN111111'), ('how', 'AA11111111'),
+                ('howard', 'AWT1111111'), ('howarth', 'AWT1111111'),
+                ('howat', 'AWT1111111'), ('howatson', 'AWTSN11111'),
+                ('howden', 'ATN1111111'), ('howe', 'AA11111111'),
+                ('howejohns', 'AWNS111111'), ('howell', 'AWA1111111'),
+                ('howes', 'AWS1111111'), ('howie', 'AWA1111111'),
+                ('howison', 'AWSN111111'), ('howlett', 'ALT1111111'),
+                ('howley', 'ALA1111111'), ('howman', 'AMN1111111'),
+                ('howorth', 'AWT1111111'), ('howrth', 'AT11111111'),
+                ('hows', 'AS11111111'), ('hoy', 'AA11111111'),
+                ('hoyne', 'AN11111111'), ('huband', 'APNT111111'),
+                ('hubbard', 'APT1111111'), ('hubble', 'APA1111111'),
+                ('hucker', 'AKA1111111'), ('hucklebridge', 'AKLPRK1111'),
+                ('hudd', 'AT11111111'), ('huddleston', 'ATLSTN1111'),
+                ('huddlestone', 'ATLSTN1111'), ('hudson', 'ATSN111111'),
+                ('hugget', 'AKT1111111'), ('huggett', 'AKT1111111'),
+                ('huggins', 'AKNS111111'), ('hughan', 'AKN1111111'),
+                ('hughes', 'AKS1111111'), ('hughson', 'ASN1111111'),
+                ('hulands', 'ALNTS11111'), ('hulme', 'AM11111111'),
+                ('hume', 'AM11111111'), ('humphrey', 'AMFRA11111'),
+                ('humphreys', 'AMFRS11111'), ('humphries', 'AMFRS11111'),
+                ('hungerford', 'ANKFT11111'), ('hunker', 'ANKA111111'),
+                ('hunrter', 'ANTA111111'), ('hunt', 'ANT1111111'),
+                ('hunter', 'ANTA111111'), ('huntley', 'ANTLA11111'),
+                ('hurd', 'AT11111111'), ('hurdley', 'ATLA111111'),
+                ('hurley', 'ALA1111111'), ('hurlson', 'ASN1111111'),
+                ('hurndell', 'ANTA111111'), ('hurrell', 'ARA1111111'),
+                ('hurring', 'ARNK111111'), ('hurst', 'AST1111111'),
+                ('hurt', 'AT11111111'), ('husband', 'ASPNT11111'),
+                ('hussey', 'ASA1111111'), ('huston', 'ASTN111111'),
+                ('hutcheon', 'AKN1111111'), ('hutcheson', 'AKSN111111'),
+                ('hutchings', 'AKNKS11111'), ('hutchins', 'AKNS111111'),
+                ('hutchinson', 'AKNSN11111'), ('hutchison', 'AKSN111111'),
+                ('huts', 'ATS1111111'), ('hutt', 'AT11111111'),
+                ('hutton', 'ATN1111111'), ('huxtable', 'AKTPA11111'),
+                ('hvslop', 'AFSLP11111'), ('hyde harris', 'ATRS111111'),
+                ('hyde-harris', 'ATRS111111'), ('hyde', 'AT11111111'),
+                ('hyder', 'ATA1111111'), ('hydes', 'ATS1111111'),
+                ('hyland', 'ALNT111111'), ('hylnen', 'ANN1111111'),
+                ('hymen', 'AMN1111111'), ('hyndman', 'ANTMN11111'),
+                ('hynes', 'ANS1111111'), ('hynet', 'ANT1111111'),
+                ('hypes', 'APS1111111'), ('hyslop', 'ASLP111111'),
+                ('iaing', 'ANK1111111'), ('ibbetson', 'APTSN11111'),
+                ('ibbotson', 'APTSN11111'), ('idiens', 'ATNS111111'),
+                ('idour', 'ATA1111111'), ('iggo', 'AKA1111111'),
+                ('iles', 'ALS1111111'), ('illes', 'ALS1111111'),
+                ('illingworth', 'ALNKWT1111'), ('imrie', 'AMRA111111'),
+                ('ince', 'ANK1111111'), ('incrocci', 'ANKRKSA111'),
+                ('inder', 'ANTA111111'), ('ingle', 'ANKA111111'),
+                ('ingles', 'ANKLS11111'), ('inglis', 'ANKLS11111'),
+                ('ingram', 'ANKRM11111'), ('ings', 'ANKS111111'),
+                ('ingstolle', 'ANKSTA1111'), ('ingstone', 'ANKSTN1111'),
+                ('innes', 'ANS1111111'), ('innis', 'ANS1111111'),
+                ('inram', 'ANRM111111'), ('instone', 'ANSTN11111'),
+                ('inward', 'ANWT111111'), ('inwood', 'ANWT111111'),
+                ('iones', 'ANS1111111'), ('ireland', 'ARLNT11111'),
+                ('ironside', 'ARNST11111'), ('irvine', 'AFN1111111'),
+                ('irving', 'AFNK111111'), ('irwin', 'AWN1111111'),
+                ('isaac', 'ASK1111111'), ('isaacs', 'ASKS111111'),
+                ('isaae', 'ASA1111111'), ('isbister', 'ASPSTA1111'),
+                ('isdale', 'ASTA111111'), ('isitt', 'AST1111111'),
+                ('islip', 'ASLP111111'), ('israel', 'ASRA111111'),
+                ('isteed', 'ASTT111111'), ('ives', 'AFS1111111'),
+                ('ivimev', 'AFMF111111'), ('ivimey', 'AFMA111111'),
+                ('ivory', 'AFRA111111'), ('jaap', 'YP11111111'),
+                ('jack', 'YK11111111'), ('jackison', 'YKSN111111'),
+                ('jacksoh', 'YKSA111111'), ('jackson', 'YKSN111111'),
+                ('jackways', 'YKWS111111'), ('jacl', 'YKA1111111'),
+                ('jacob', 'YKP1111111'), ('jacobs', 'YKPS111111'),
+                ('jacobsen', 'YKPSN11111'), ('jacobson', 'YKPSN11111'),
+                ('jacques', 'YKS1111111'), ('jager', 'YKA1111111'),
+                ('jago', 'YKA1111111'), ('jaicobs', 'YKPS111111'),
+                ('james', 'YMS1111111'), ('jameson', 'YMSN111111'),
+                ('jamieson', 'YMSN111111'), ('jamison', 'YMSN111111'),
+                ('jane', 'YN11111111'), ('janowsky', 'YNSKA11111'),
+                ('jansen', 'YNSN111111'), ('janson', 'YNSN111111'),
+                ('jaokson', 'YKSN111111'), ('japp', 'YP11111111'),
+                ('jaquiery', 'YKRA111111'), ('jarden', 'YTN1111111'),
+                ('jardine', 'YTN1111111'), ('jarman', 'YMN1111111'),
+                ('jarnes', 'YNS1111111'), ('jarves', 'YFS1111111'),
+                ('jarvie', 'YFA1111111'), ('jarvis', 'YFS1111111'),
+                ('jeannings', 'YNNKS11111'), ('jeavons', 'YFNS111111'),
+                ('jefcoate', 'YFKT111111'), ('jefferson', 'YFSN111111'),
+                ('jeffery', 'YFRA111111'), ('jeffrey', 'YFRA111111'),
+                ('jeffreys', 'YFRS111111'), ('jeffries', 'YFRS111111'),
+                ('jeffs', 'YFS1111111'), ('jefierson', 'YFSN111111'),
+                ('jefterson', 'YFTSN11111'), ('jelley', 'YLA1111111'),
+                ('jells', 'YS11111111'), ('jelly', 'YLA1111111'),
+                ('jenkin', 'YNKN111111'), ('jenkins', 'YNKNS11111'),
+                ('jenks', 'YNKS111111'), ('jenner', 'YNA1111111'),
+                ('jennings', 'YNNKS11111'), ('jensen', 'YNSN111111'),
+                ('jenson', 'YNSN111111'), ('jenvey', 'YNFA111111'),
+                ('jephson', 'YFSN111111'), ('jepson', 'YPSN111111'),
+                ('jerkins', 'YKNS111111'), ('jesse', 'YS11111111'),
+                ('jessep', 'YSP1111111'), ('jewett', 'YWT1111111'),
+                ('jewiss', 'YWS1111111'), ('jlardey', 'ALTA111111'),
+                ('jobberns', 'YPNS111111'), ('jober', 'YPA1111111'),
+                ('joblin', 'YPLN111111'), ('joe', 'YA11111111'),
+                ('joel', 'YA11111111'), ('johansen', 'YNSN111111'),
+                ('johansson', 'YNSN111111'), ('johhston', 'YSTN111111'),
+                ('john', 'YN11111111'), ('johns', 'YNS1111111'),
+                ('johnsen', 'YNSN111111'), ('johnson', 'YNSN111111'),
+                ('johnston', 'YNSTN11111'), ('johnstone', 'YNSTN11111'),
+                ('jolly', 'YLA1111111'), ('jolmson', 'YMSN111111'),
+                ('joncs', 'YNKS111111'), ('jondon', 'YNTN111111'),
+                ('jones-neilson', 'YNSNSN1111'), ('jones', 'YNS1111111'),
+                ('jopp', 'YP11111111'), ('jopsen', 'YPSN111111'),
+                ('jopson', 'YPSN111111'), ('jordan', 'YTN1111111'),
+                ('jory', 'YRA1111111'), ('joseph', 'YSF1111111'),
+                ('josephson', 'YSFSN11111'), ('josland', 'YSLNT11111'),
+                ('joslin', 'YSLN111111'), ('joss', 'YS11111111'),
+                ('joues', 'YS11111111'), ('joughin', 'YKN1111111'),
+                ('jovce', 'YFK1111111'), ('jowey', 'YWA1111111'),
+                ('jowitt', 'YWT1111111'), ('jowsey', 'YSA1111111'),
+                ('jowsy', 'YSA1111111'), ('joyce', 'YK11111111'),
+                ('joyee', 'YA11111111'), ('joyner', 'YNA1111111'),
+                ('joynt', 'YNT1111111'), ('judd', 'YT11111111'),
+                ('judson', 'YTSN111111'), ('jukes', 'YKS1111111'),
+                ('julian', 'YLN1111111'), ('julie', 'YLA1111111'),
+                ('julin', 'YLN1111111'), ('julius', 'YLS1111111'),
+                ('jull', 'YA11111111'), ('junge', 'YNK1111111'),
+                ('jurdine', 'YTN1111111'), ('juries', 'YRS1111111'),
+                ('jury', 'YRA1111111'), ('justice', 'YSTK111111'),
+                ('justin', 'YSTN111111'), ('kahlenberg', 'KLNPK11111'),
+                ('kain', 'KN11111111'), ('kaler', 'KLA1111111'),
+                ('kane', 'KN11111111'), ('kania', 'KNA1111111'),
+                ('kannervischer', 'KNFSKA1111'), ('kannewischer', 'KNWSKA1111'),
+                ('karney', 'KNA1111111'), ('kavanagh', 'KFNA111111'),
+                ('kay', 'KA11111111'), ('kaye', 'KA11111111'),
+                ('keach', 'KK11111111'), ('kean', 'KN11111111'),
+                ('keane', 'KN11111111'), ('kearney', 'KNA1111111'),
+                ('kearns', 'KNS1111111'), ('kearsley', 'KSLA111111'),
+                ('keast', 'KST1111111'), ('keates', 'KTS1111111'),
+                ('keating', 'KTNK111111'), ('kebblewhite', 'KPLWT11111'),
+                ('kedzlie', 'KTSLA11111'), ('kee', 'KA11111111'),
+                ('kee]ey', 'KA11111111'), ('keeler', 'KLA1111111'),
+                ('keeley', 'KLA1111111'), ('keeling', 'KLNK111111'),
+                ('keen', 'KN11111111'), ('keenall', 'KNA1111111'),
+                ('keenan oli', 'KNNLA11111'), ('keenan', 'KNN1111111'),
+                ('keene', 'KN11111111'), ('keennelly', 'KNLA111111'),
+                ('keeshan', 'KSN1111111'), ('kehoe', 'KA11111111'),
+                ('keillor', 'KLA1111111'), ('keinan', 'KNN1111111'),
+                ('keir', 'KA11111111'), ('keirnan', 'KNN1111111'),
+                ('keith', 'KT11111111'), ('keliher', 'KLA1111111'),
+                ('kellahan', 'KLN1111111'), ('kellan', 'KLN1111111'),
+                ('kellas', 'KLS1111111'), ('kellehan', 'KLN1111111'),
+                ('keller', 'KLA1111111'), ('kelley', 'KLA1111111'),
+                ('kelliher', 'KLA1111111'), ('kelly', 'KLA1111111'),
+                ('kemohan', 'KMN1111111'), ('kemp', 'KMP1111111'),
+                ('kempson', 'KMPSN11111'), ('kempthorne', 'KMPTN11111'),
+                ('kempton', 'KMPTN11111'), ('kemshed', 'KMST111111'),
+                ('kemsley', 'KMSLA11111'), ('kendall', 'KNTA111111'),
+                ('kendell', 'KNTA111111'), ('kendrick', 'KNTRK11111'),
+                ('kenllard', 'KNLT111111'), ('kenn', 'KN11111111'),
+                ('kenna', 'KNA1111111'), ('kennard', 'KNT1111111'),
+                ('kenneally', 'KNLA111111'), ('kennealy', 'KNLA111111'),
+                ('kennedy', 'KNTA111111'), ('kennelly', 'KNLA111111'),
+                ('kennerly', 'KNLA111111'), ('kenney', 'KNA1111111'),
+                ('kenny', 'KNA1111111'), ('kenshole', 'KNSA111111'),
+                ('kensington', 'KNSNKTN111'), ('kensler', 'KNSLA11111'),
+                ('kent', 'KNT1111111'), ('kenward', 'KNWT111111'),
+                ('kenyon', 'KNN1111111'), ('keogh', 'KA11111111'),
+                ('keohane', 'KN11111111'), ('keown', 'KN11111111'),
+                ('ker', 'KA11111111'), ('kernick', 'KNK1111111'),
+                ('kernohan', 'KNN1111111'), ('kerr', 'KA11111111'),
+                ('kerrigan', 'KRKN111111'), ('kerse', 'KS11111111'),
+                ('kershaw', 'KSA1111111'), ('kesteven', 'KSTFN11111'),
+                ('kett', 'KT11111111'), ('kettle', 'KTA1111111'),
+                ('kewish', 'KWS1111111'), ('key', 'KA11111111'),
+                ('keyes', 'KS11111111'), ('keys', 'KS11111111'),
+                ('kibblewhite', 'KPLWT11111'), ('kidd', 'KT11111111'),
+                ('kidston', 'KTSTN11111'), ('kiee', 'KA11111111'),
+                ('kiely', 'KLA1111111'), ('kienan', 'KNN1111111'),
+                ('kieran', 'KRN1111111'), ('kiernan', 'KNN1111111'),
+                ('kilchin', 'KKN1111111'), ('kilgariff', 'KKRF111111'),
+                ('kilgarrif', 'KKRF111111'), ('kilgour', 'KKA1111111'),
+                ('kilkeary', 'KKRA111111'), ('killilea', 'KLLA111111'),
+                ('killin', 'KLN1111111'), ('kilner', 'KNA1111111'),
+                ('kilpatrick', 'KPTRK11111'), ('kilroy', 'KRA1111111'),
+                ('kimber', 'KMPA111111'), ('kincaid', 'KNKT111111'),
+                ('kinch', 'KNK1111111'), ('kindley', 'KNTLA11111'),
+                ('king', 'KNK1111111'), ('kingford', 'KNKFT11111'),
+                ('kingsford', 'KNKSFT1111'), ('kingsland', 'KNKSLNT111'),
+                ('kingston', 'KNKSTN1111'), ('kininmonth', 'KNNMNT1111'),
+                ('kinloch', 'KNLK111111'), ('kinlock', 'KNLK111111'),
+                ('kinmont', 'KNMNT11111'), ('kinnaird', 'KNT1111111'),
+                ('kinnear', 'KNA1111111'), ('kinney', 'KNA1111111'),
+                ('kippenberg', 'KPNPK11111'), ('kippenberger', 'KPNPKA1111'),
+                ('kirby', 'KPA1111111'), ('kirk', 'KK11111111'),
+                ('kirkaldie', 'KKTA111111'), ('kirkby', 'KKPA111111'),
+                ('kirkcaldie', 'KKTA111111'), ('kirkcaldy', 'KKTA111111'),
+                ('kirke', 'KK11111111'), ('kirkham', 'KKM1111111'),
+                ('kirkland', 'KKLNT11111'), ('kirkly', 'KKLA111111'),
+                ('kirkness', 'KKNS111111'), ('kirkpatrick', 'KKPTRK1111'),
+                ('kirkwood', 'KKWT111111'), ('kirnan', 'KNN1111111'),
+                ('kirton', 'KTN1111111'), ('kirwan', 'KWN1111111'),
+                ('kitchen', 'KKN1111111'), ('kitchin', 'KKN1111111'),
+                ('kitching', 'KKNK111111'), ('kite', 'KT11111111'),
+                ('kitt', 'KT11111111'), ('kitterick', 'KTRK111111'),
+                ('kitto', 'KTA1111111'), ('klahn', 'KLN1111111'),
+                ('klee', 'KLA1111111'), ('kleeber', 'KLPA111111'),
+                ('klimeck', 'KLMK111111'), ('knewstubb', 'KNSTP11111'),
+                ('knigbt', 'KNKPT11111'), ('knight', 'KNT1111111'),
+                ('knights', 'KNTS111111'), ('knipe', 'KNP1111111'),
+                ('knopp', 'KNP1111111'), ('knowles', 'KNLS111111'),
+                ('knox', 'KNK1111111'), ('knudsen', 'KNTSN11111'),
+                ('knudson', 'KNTSN11111'), ('kofoed', 'KFT1111111'),
+                ('kollberg', 'KPK1111111'), ('koller', 'KLA1111111'),
+                ('korner', 'KNA1111111'), ('kraus', 'KRS1111111'),
+                ('krause', 'KRS1111111'), ('kreft', 'KRFT111111'),
+                ('kroon', 'KRN1111111'), ('kropp', 'KRP1111111'),
+                ('krox', 'KRK1111111'), ('kruskoff', 'KRSKF11111'),
+                ('kruskopf', 'KRSKPF1111'), ('kummert', 'KMT1111111'),
+                ('ky]e', 'KA11111111'), ('kydd', 'KT11111111'),
+                ('kyle', 'KA11111111'), ('kyle\'', 'KA11111111'),
+                ('l\'estrange', 'LSTRNK1111'), ('la roche', 'LRK1111111'),
+                ('labes', 'LPS1111111'), ('lacey', 'LSA1111111'),
+                ('lack', 'LK11111111'), ('ladd', 'LT11111111'),
+                ('laery', 'LRA1111111'), ('laffey', 'LFA1111111'),
+                ('lafranchie', 'LFRNKA1111'), ('lagan', 'LKN1111111'),
+                ('lahman', 'LMN1111111'), ('lahood', 'LT11111111'),
+                ('laidlaw', 'LTLA111111'), ('lain', 'LN11111111'),
+                ('laine', 'LN11111111'), ('laing', 'LNK1111111'),
+                ('laird', 'LT11111111'), ('lake', 'LK11111111'),
+                ('lakeman', 'LKMN111111'), ('lale', 'LA11111111'),
+                ('laley', 'LLA1111111'), ('laloli', 'LLLA111111'),
+                ('lamb', 'LM11111111'), ('lambert', 'LMPT111111'),
+                ('lambeth', 'LMPT111111'), ('lambie', 'LMPA111111'),
+                ('lamborn', 'LMPN111111'), ('lambton', 'LMPTN11111'),
+                ('lamham', 'LMM1111111'), ('lamont', 'LMNT111111'),
+                ('lampard', 'LMPT111111'), ('lampen', 'LMPN111111'),
+                ('lancaster', 'LNKSTA1111'), ('landerson', 'LNTSN11111'),
+                ('landrebe', 'LNTRP11111'), ('landreth', 'LNTRT11111'),
+                ('landriken', 'LNTRKN1111'), ('lane', 'LN11111111'),
+                ('laney', 'LNA1111111'), ('lang', 'LNK1111111'),
+                ('langdon', 'LNKTN11111'), ('langevad', 'LNKFT11111'),
+                ('langford', 'LNKFT11111'), ('langham', 'LNM1111111'),
+                ('langlands', 'LNKLNTS111'), ('langley', 'LNKLA11111'),
+                ('langmuir', 'LNKMA11111'), ('langston', 'LNKSTN1111'),
+                ('lanham', 'LNM1111111'), ('lanini', 'LNNA111111'),
+                ('lappan', 'LPN1111111'), ('lapsley', 'LPSLA11111'),
+                ('lardner', 'LTNA111111'), ('larkin', 'LKN1111111'),
+                ('larking', 'LKNK111111'), ('larkins', 'LKNS111111'),
+                ('larldng', 'LTNK111111'), ('larner', 'LNA1111111'),
+                ('laroche', 'LRK1111111'), ('larsen', 'LSN1111111'),
+                ('larson', 'LSN1111111'), ('larty', 'LTA1111111'),
+                ('lascelles', 'LSLS111111'), ('latham', 'LTM1111111'),
+                ('latimer', 'LTMA111111'), ('latta', 'LTA1111111'),
+                ('latter', 'LTA1111111'), ('lattimer', 'LTMA111111'),
+                ('lattimore', 'LTMA111111'), ('lauchlan', 'LKLN111111'),
+                ('laug', 'LK11111111'), ('laughland', 'LLNT111111'),
+                ('laughlin', 'LLN1111111'), ('lauren', 'LRN1111111'),
+                ('laurenson', 'LRNSN11111'), ('laurie', 'LRA1111111'),
+                ('lavender', 'LFNTA11111'), ('laverty', 'LFTA111111'),
+                ('lavery', 'LFRA111111'), ('law', 'LA11111111'),
+                ('lawence', 'LWNK111111'), ('lawer', 'LWA1111111'),
+                ('lawfield', 'LFT1111111'), ('lawless', 'LLS1111111'),
+                ('lawliss', 'LLS1111111'), ('lawlor', 'LLA1111111'),
+                ('lawloss', 'LLS1111111'), ('lawrence', 'LRNK111111'),
+                ('lawrenson', 'LRNSN11111'), ('lawrie', 'LRA1111111'),
+                ('lawry', 'LRA1111111'), ('laws', 'LS11111111'),
+                ('lawson', 'LSN1111111'), ('lawton', 'LTN1111111'),
+                ('lax', 'LK11111111'), ('layburn', 'LPN1111111'),
+                ('laycock', 'LKK1111111'), ('laytham', 'LTM1111111'),
+                ('layton', 'LTN1111111'), ('lazarus', 'LSRS111111'),
+                ('lbbetson', 'PTSN111111'), ('le brun', 'LPRN111111'),
+                ('le couteur', 'LKTA111111'), ('le fevre', 'LFFA111111'),
+                ('le gal', 'LKA1111111'), ('le page', 'LPK1111111'),
+                ('le sueur', 'LSA1111111'), ('le vavasour', 'LFFSA11111'),
+                ('lea', 'LA11111111'), ('leach', 'LK11111111'),
+                ('leadbetter', 'LTPTA11111'), ('leahy', 'LA11111111'),
+                ('lealy', 'LLA1111111'), ('lean', 'LN11111111'),
+                ('leaper', 'LPA1111111'), ('lear', 'LA11111111'),
+                ('learmond', 'LMNT111111'), ('leary', 'LRA1111111'),
+                ('leask', 'LSK1111111'), ('leatham', 'LTM1111111'),
+                ('leathem', 'LTM1111111'), ('leather', 'LTA1111111'),
+                ('leatherland', 'LTLNT11111'), ('leathley', 'LTLA111111'),
+                ('leckie', 'LKA1111111'), ('leclie', 'LKLA111111'),
+                ('lecouteur', 'LKTA111111'), ('leddicott', 'LTKT111111'),
+                ('ledgerwood', 'LKWT111111'), ('ledlie', 'LTLA111111'),
+                ('lee', 'LA11111111'), ('leece', 'LK11111111'),
+                ('leech', 'LK11111111'), ('leedale', 'LTA1111111'),
+                ('leeden', 'LTN1111111'), ('leemin', 'LMN1111111'),
+                ('leeming', 'LMNK111111'), ('leery', 'LRA1111111'),
+                ('lees', 'LS11111111'), ('leete', 'LT11111111'),
+                ('lefevre', 'LFFA111111'), ('legal', 'LKA1111111'),
+                ('legall', 'LKA1111111'), ('legat', 'LKT1111111'),
+                ('legg', 'LK11111111'), ('legge', 'LK11111111'),
+                ('leggett', 'LKT1111111'), ('leggott', 'LKT1111111'),
+                ('lehmann', 'LMN1111111'), ('leigh', 'LA11111111'),
+                ('leighton', 'LTN1111111'), ('leihy', 'LA11111111'),
+                ('leishman', 'LSMN111111'), ('leitch', 'LK11111111'),
+                ('leith', 'LT11111111'), ('lelliott', 'LLT1111111'),
+                ('lemin', 'LMN1111111'), ('lemon', 'LMN1111111'),
+                ('lendrum', 'LNTRM11111'), ('leng', 'LNK1111111'),
+                ('lenihan', 'LNN1111111'), ('lennan', 'LNN1111111'),
+                ('lennard', 'LNT1111111'), ('lennon', 'LNN1111111'),
+                ('lennox', 'LNK1111111'), ('lenz', 'LNS1111111'),
+                ('leo', 'LA11111111'), ('leonard', 'LNT1111111'),
+                ('leper', 'LPA1111111'), ('lepine', 'LPN1111111'),
+                ('lepper', 'LPA1111111'), ('leppingvell', 'LPNKFA1111'),
+                ('leppingwell', 'LPNKWA1111'), ('lerrigo', 'LRKA111111'),
+                ('leslie', 'LSLA111111'), ('lester', 'LSTA111111'),
+                ('lesueur', 'LSA1111111'), ('lethaby', 'LTPA111111'),
+                ('lethbridge', 'LTPRK11111'), ('lethridge', 'LTRK111111'),
+                ('letts', 'LTS1111111'), ('leung chung', 'LNKNK11111'),
+                ('levi', 'LFA1111111'), ('levido', 'LFTA111111'),
+                ('levinsohn', 'LFNSN11111'), ('levy', 'LFA1111111'),
+                ('lewies', 'LWS1111111'), ('lewis', 'LWS1111111'),
+                ('lewisham', 'LWSM111111'), ('leyden', 'LTN1111111'),
+                ('leydon', 'LTN1111111'), ('leyland', 'LLNT111111'),
+                ('leys', 'LS11111111'), ('lichtenstein', 'LKTNSTN111'),
+                ('lickie', 'LKA1111111'), ('liddell', 'LTA1111111'),
+                ('liddicoat', 'LTKT111111'), ('liddle', 'LTA1111111'),
+                ('lidston', 'LTSTN11111'), ('lied', 'LT11111111'),
+                ('liggins', 'LKNS111111'), ('lightbourne', 'LTPN111111'),
+                ('lightfoot', 'LTFT111111'), ('lilburn', 'LPN1111111'),
+                ('lilburne', 'LPN1111111'), ('lilley', 'LLA1111111'),
+                ('lillie', 'LLA1111111'), ('lilly', 'LLA1111111'),
+                ('lincoln', 'LNKN111111'), ('lind', 'LNT1111111'),
+                ('lindley', 'LNTLA11111'), ('lindon', 'LNTN111111'),
+                ('lindsay', 'LNTSA11111'), ('lineham', 'LNM1111111'),
+                ('ling', 'LNK1111111'), ('linklater', 'LNKLTA1111'),
+                ('linkston', 'LNKSTN1111'), ('linnane', 'LNN1111111'),
+                ('linney', 'LNA1111111'), ('linsdell', 'LNSTA11111'),
+                ('lintern', 'LNTN111111'), ('linton', 'LNTN111111'),
+                ('lipman', 'LPMN111111'), ('lippert', 'LPT1111111'),
+                ('lischner', 'LSKNA11111'), ('lisle', 'LSA1111111'),
+                ('list', 'LST1111111'), ('lister', 'LSTA111111'),
+                ('liston', 'LSTN111111'), ('listor', 'LSTA111111'),
+                ('litolff', 'LTF1111111'), ('littie', 'LTA1111111'),
+                ('little', 'LTA1111111'), ('littlejohn', 'LTLN111111'),
+                ('littlewood', 'LTLWT11111'), ('livingston', 'LFNKSTN111'),
+                ('livingstone', 'LFNKSTN111'), ('llles', 'LS11111111'),
+                ('lloyd', 'LT11111111'), ('lngram', 'NKRM111111'),
+                ('lnwood', 'NWT1111111'), ('loader', 'LTA1111111'),
+                ('loades', 'LTS1111111'), ('loan', 'LN11111111'),
+                ('loasby', 'LSPA111111'), ('lobb', 'LP11111111'),
+                ('loche', 'LK11111111'), ('lochhead', 'LKT1111111'),
+                ('lochore', 'LKA1111111'), ('lock', 'LK11111111'),
+                ('lockerbie', 'LKPA111111'), ('lockett', 'LKT1111111'),
+                ('lockhart', 'LKT1111111'), ('lockhead', 'LKT1111111'),
+                ('lockie', 'LKA1111111'), ('lockstone', 'LKSTN11111'),
+                ('lockwood', 'LKWT111111'), ('lockyer', 'LKA1111111'),
+                ('lodge', 'LK11111111'), ('loeffler', 'LFLA111111'),
+                ('logan', 'LKN1111111'), ('logg', 'LK11111111'),
+                ('loggie', 'LKA1111111'), ('logic', 'LKK1111111'),
+                ('logie', 'LKA1111111'), ('logue', 'LKA1111111'),
+                ('lohrey', 'LRA1111111'), ('loke', 'LK11111111'),
+                ('lomas', 'LMS1111111'), ('lombardi', 'LMPTA11111'),
+                ('loney', 'LNA1111111'), ('long', 'LNK1111111'),
+                ('longhurst', 'LNST111111'), ('longley', 'LNKLA11111'),
+                ('longman', 'LNKMN11111'), ('longmore', 'LNKMA11111'),
+                ('longstaff', 'LNKSTF1111'), ('longworth', 'LNKWT11111'),
+                ('lonie', 'LNA1111111'), ('lonsdale', 'LNSTA11111'),
+                ('loraine', 'LRN1111111'), ('lord', 'LT11111111'),
+                ('lorenz', 'LRNS111111'), ('lorimer', 'LRMA111111'),
+                ('loring', 'LRNK111111'), ('lory', 'LRA1111111'),
+                ('lothian', 'LTN1111111'), ('louden', 'LTN1111111'),
+                ('louder', 'LTA1111111'), ('loudon', 'LTN1111111'),
+                ('lough', 'LA11111111'), ('loughill', 'LKA1111111'),
+                ('loughlin', 'LLN1111111'), ('loughnan', 'LNN1111111'),
+                ('loughran', 'LRN1111111'), ('loughrey', 'LRA1111111'),
+                ('louis', 'LS11111111'), ('lousley', 'LSLA111111'),
+                ('lovatt', 'LFT1111111'), ('love', 'LF11111111'),
+                ('loveless', 'LFLS111111'), ('lovell', 'LFA1111111'),
+                ('lovelock', 'LFLK111111'), ('low', 'LA11111111'),
+                ('lowden', 'LTN1111111'), ('lowe', 'LA11111111'),
+                ('lowen', 'LWN1111111'), ('lower', 'LWA1111111'),
+                ('lowery', 'LWRA111111'), ('lowes', 'LWS1111111'),
+                ('lowie', 'LWA1111111'), ('lowrey', 'LRA1111111'),
+                ('lowry', 'LRA1111111'), ('loyd', 'LT11111111'),
+                ('loydall', 'LTA1111111'), ('lrvine', 'FN11111111'),
+                ('lsaacs', 'SKS1111111'), ('lucas', 'LKS1111111'),
+                ('luckhurst', 'LKST111111'), ('ludlow', 'LTLA111111'),
+                ('luff', 'LF11111111'), ('luke', 'LK11111111'),
+                ('lukey', 'LKA1111111'), ('lumb', 'LM11111111'),
+                ('lumsden', 'LMSTN11111'), ('lunam', 'LNM1111111'),
+                ('lunan', 'LNN1111111'), ('lunardi', 'LNTA111111'),
+                ('lund', 'LNT1111111'), ('lundberg', 'LNTPK11111'),
+                ('lundon', 'LNTN111111'), ('lundquist', 'LNTKST1111'),
+                ('lungley', 'LNKLA11111'), ('lunham', 'LNM1111111'),
+                ('lunn', 'LN11111111'), ('lunnam', 'LNM1111111'),
+                ('luscombe', 'LSKM111111'), ('lusher', 'LSA1111111'),
+                ('lusk', 'LSK1111111'), ('luskie', 'LSKA111111'),
+                ('luslie', 'LSLA111111'), ('lust', 'LST1111111'),
+                ('lvingstone', 'FNKSTN1111'), ('lyall', 'LA11111111'),
+                ('lyddy', 'LTA1111111'), ('lyders', 'LTS1111111'),
+                ('lydiate', 'LTT1111111'), ('lye', 'LA11111111'),
+                ('lyeaght', 'LT11111111'), ('lyle', 'LA11111111'),
+                ('lymburn', 'LMPN111111'), ('lynch', 'LNK1111111'),
+                ('lyndburst', 'LNTPST1111'), ('lyndhurst', 'LNTST11111'),
+                ('lyng', 'LNK1111111'), ('lynn', 'LN11111111'),
+                ('lynskey', 'LNSKA11111'), ('lyon', 'LN11111111'),
+                ('lyons', 'LNS1111111'), ('lysaght', 'LST1111111'),
+                ('lythgoe', 'LTKA111111'), ('lytle', 'LTA1111111'),
+                ('lyttle', 'LTA1111111'), ('m orris', 'MRS1111111'),
+                ('mabon', 'MPN1111111'), ('macale', 'MKA1111111'),
+                ('macallan', 'MKLN111111'), ('macallum', 'MKLM111111'),
+                ('macan', 'MKN1111111'), ('macandrew', 'MKNTRA1111'),
+                ('macarthur', 'MKTA111111'), ('macartney', 'MKTNA11111'),
+                ('macaskill', 'MKSKA11111'), ('macassey', 'MKSA111111'),
+                ('macaulay', 'MKLA111111'), ('macauley', 'MKLA111111'),
+                ('macavoy', 'MKFA111111'), ('macbeath', 'MKPT111111'),
+                ('macbeth', 'MKPT111111'), ('macbryde', 'MKPRT11111'),
+                ('maccallum', 'MKLM111111'), ('maccartie', 'MKTA111111'),
+                ('maccoll', 'MKA1111111'), ('macdonald', 'MKTNT11111'),
+                ('macdonall', 'MKTNA11111'), ('macdonell', 'MKTNA11111'),
+                ('macdonnell', 'MKTNA11111'), ('macdougall', 'MKTKA11111'),
+                ('macduff', 'MKTF111111'), ('mace', 'MK11111111'),
+                ('maceewan', 'MSWN111111'), ('macer', 'MSA1111111'),
+                ('macewan', 'MSWN111111'), ('macey', 'MSA1111111'),
+                ('macfarlane', 'MKFLN11111'), ('macfie', 'MKFA111111'),
+                ('macghie', 'MKA1111111'), ('macgibbon', 'MKPN111111'),
+                ('macgregor', 'MKRKA11111'), ('macguire', 'MKA1111111'),
+                ('machell', 'MKA1111111'), ('machin', 'MKN1111111'),
+                ('machridge', 'MKRK111111'), ('maciean', 'MSN1111111'),
+                ('macildowie', 'MSTWA11111'), ('macinnes', 'MSNS111111'),
+                ('macintosh', 'MSNTS11111'), ('macintyre', 'MSNTA11111'),
+                ('macivor', 'MSFA111111'), ('mack', 'MK11111111'),
+                ('mackay', 'MKA1111111'), ('mackean', 'MKN1111111'),
+                ('mackechnic', 'MKKNK11111'), ('mackechnie', 'MKKNA11111'),
+                ('mackellar', 'MKLA111111'), ('mackenzie', 'MKNSA11111'),
+                ('mackersey', 'MKSA111111'), ('mackersy', 'MKSA111111'),
+                ('mackey', 'MKA1111111'), ('mackie', 'MKA1111111'),
+                ('mackinnon', 'MKNN111111'), ('mackintosh', 'MKNTS11111'),
+                ('mackisack', 'MKSK111111'), ('mackney', 'MKNA111111'),
+                ('macknight', 'MKNT111111'), ('mackrell', 'MKRA111111'),
+                ('mackridge', 'MKRK111111'), ('mackway jones', 'MKWNS11111'),
+                ('mackway-jones', 'MKWNS11111'), ('mackwayjones', 'MKWNS11111'),
+                ('macky', 'MKA1111111'), ('maclachlan', 'MKLKLN1111'),
+                ('maclaren', 'MKLRN11111'), ('maclatchy', 'MKLKA11111'),
+                ('maclean', 'MKLN111111'), ('maclellan', 'MKLLN11111'),
+                ('maclennan', 'MKLNN11111'), ('macleod', 'MKLT111111'),
+                ('maclonald', 'MKLNT11111'), ('macmanus', 'MKMNS11111'),
+                ('macmaster', 'MKMSTA1111'), ('macmillan', 'MKMLN11111'),
+                ('macnee', 'MKNA111111'), ('macnicol', 'MKNKA11111'),
+                ('macniven', 'MKNFN11111'), ('macomish', 'MKMS111111'),
+                ('macpherson', 'MKFSN11111'), ('macquaid', 'MKT1111111'),
+                ('macrae', 'MKRA111111'), ('macswain', 'MKSWN11111'),
+                ('macwilliam', 'MKWLM11111'), ('madarlane', 'MTLN111111'),
+                ('madden', 'MTN1111111'), ('maddern', 'MTN1111111'),
+                ('maddigan', 'MTKN111111'), ('maddox', 'MTK1111111'),
+                ('maddren', 'MTRN111111'), ('madell', 'MTA1111111'),
+                ('maden', 'MTN1111111'), ('madigan', 'MTKN111111'),
+                ('maffan', 'MFN1111111'), ('magee', 'MKA1111111'),
+                ('magner', 'MKNA111111'), ('magnus', 'MKNS111111'),
+                ('magorian', 'MKRN111111'), ('maguire', 'MKA1111111'),
+                ('mahalm', 'MM11111111'), ('mahan', 'MN11111111'),
+                ('maharey', 'MRA1111111'), ('maher', 'MA11111111'),
+                ('mahon', 'MN11111111'), ('mahoney', 'MNA1111111'),
+                ('mahony', 'MNA1111111'), ('maicolm', 'MKM1111111'),
+                ('maills', 'MS11111111'), ('maim', 'MM11111111'),
+                ('main', 'MN11111111'), ('maine', 'MN11111111'),
+                ('maines', 'MNS1111111'), ('mainland', 'MNLNT11111'),
+                ('mains', 'MNS1111111'), ('mair', 'MA11111111'),
+                ('maitland', 'MTLNT11111'), ('major', 'MA11111111'),
+                ('maker', 'MKA1111111'), ('malcolm', 'MKM1111111'),
+                ('malcolmson', 'MKMSN11111'), ('malden', 'MTN1111111'),
+                ('maleod', 'MLT1111111'), ('maler', 'MLA1111111'),
+                ('maley', 'MLA1111111'), ('malladew', 'MLTA111111'),
+                ('mallett', 'MLT1111111'), ('malley', 'MLA1111111'),
+                ('malloch', 'MLK1111111'), ('malone', 'MLN1111111'),
+                ('maloney', 'MLNA111111'), ('malthus', 'MTS1111111'),
+                ('manallack', 'MNLK111111'), ('manaton', 'MNTN111111'),
+                ('mander', 'MNTA111111'), ('manderson', 'MNTSN11111'),
+                ('mangan', 'MNKN111111'), ('mangin', 'MNKN111111'),
+                ('manion', 'MNN1111111'), ('manley', 'MNLA111111'),
+                ('manlove', 'MNLF111111'), ('mann', 'MN11111111'),
+                ('mannin', 'MNN1111111'), ('manning', 'MNNK111111'),
+                ('mannix', 'MNK1111111'), ('mansell', 'MNSA111111'),
+                ('mansfield', 'MNSFT11111'), ('manson', 'MNSN111111'),
+                ('mantell', 'MNTA111111'), ('maples', 'MPLS111111'),
+                ('marchant', 'MKNT111111'), ('marcussen', 'MKSN111111'),
+                ('mardon', 'MTN1111111'), ('marechal', 'MRKA111111'),
+                ('marett', 'MRT1111111'), ('marette', 'MRT1111111'),
+                ('maris', 'MRS1111111'), ('mark', 'MK11111111'),
+                ('markby', 'MKPA111111'), ('markham', 'MKM1111111'),
+                ('markland', 'MKLNT11111'), ('marks', 'MKS1111111'),
+                ('marlovv', 'MLF1111111'), ('marlow', 'MLA1111111'),
+                ('marple', 'MPA1111111'), ('marr', 'MA11111111'),
+                ('marrah', 'MRA1111111'), ('marrett', 'MRT1111111'),
+                ('marrette', 'MRT1111111'), ('marriage', 'MRK1111111'),
+                ('marriner', 'MRNA111111'), ('marriott', 'MRT1111111'),
+                ('marris', 'MRS1111111'), ('marrison', 'MRSN111111'),
+                ('marryatt', 'MRT1111111'), ('marsden', 'MSTN111111'),
+                ('marsh', 'MS11111111'), ('marshall', 'MSA1111111'),
+                ('marsllall', 'MSLA111111'), ('marson', 'MSN1111111'),
+                ('marston', 'MSTN111111'), ('martin', 'MTN1111111'),
+                ('marwick', 'MWK1111111'), ('marychurch', 'MRKK111111'),
+                ('mashers', 'MSS1111111'), ('maskell', 'MSKA111111'),
+                ('maskill', 'MSKA111111'), ('maskrey', 'MSKRA11111'),
+                ('maslen', 'MSLN111111'), ('maslin', 'MSLN111111'),
+                ('mason', 'MSN1111111'), ('massetti', 'MSTA111111'),
+                ('massey', 'MSA1111111'), ('masson', 'MSN1111111'),
+                ('masters', 'MSTS111111'), ('masterton', 'MSTTN11111'),
+                ('mather', 'MTA1111111'), ('mathers', 'MTS1111111'),
+                ('matheson', 'MTSN111111'), ('mathews', 'MTS1111111'),
+                ('mathewson', 'MTSN111111'), ('mathias', 'MTS1111111'),
+                ('mathie', 'MTA1111111'), ('mathieson', 'MTSN111111'),
+                ('mathison', 'MTSN111111'), ('matier', 'MTA1111111'),
+                ('matlewson', 'MTLSN11111'), ('matravers', 'MTRFS11111'),
+                ('matron', 'MTRN111111'), ('matthews', 'MTS1111111'),
+                ('matthewson', 'MTSN111111'), ('mattingle', 'MTNKA11111'),
+                ('mattingley', 'MTNKLA1111'), ('mattinglv', 'MTNKF11111'),
+                ('mattingly', 'MTNKLA1111'), ('mattllews', 'MTLS111111'),
+                ('mattson', 'MTSN111111'), ('matuschka', 'MTSKKA1111'),
+                ('maubon', 'MPN1111111'), ('maude', 'MT11111111'),
+                ('mauger', 'MKA1111111'), ('maunder', 'MNTA111111'),
+                ('maurie', 'MRA1111111'), ('mavbee', 'MFPA111111'),
+                ('maving', 'MFNK111111'), ('maw', 'MA11111111'),
+                ('mawer', 'MWA1111111'), ('mawhinney', 'MWNA111111'),
+                ('mawson', 'MSN1111111'), ('maxton', 'MKTN111111'),
+                ('maxwell', 'MKWA111111'), ('may', 'MA11111111'),
+                ('mayall', 'MA11111111'), ('maybee', 'MPA1111111'),
+                ('mayer', 'MA11111111'), ('mayers', 'MS11111111'),
+                ('mayfield', 'MFT1111111'), ('mayhew', 'MA11111111'),
+                ('mayn', 'MN11111111'), ('maynard', 'MNT1111111'),
+                ('mayne', 'MN11111111'), ('mayo', 'MA11111111'),
+                ('mays', 'MS11111111'), ('mayston', 'MSTN111111'),
+                ('mayze', 'MS11111111'), ('mazey', 'MSA1111111'),
+                ('mcadam', 'MKTM111111'), ('mcade', 'MKT1111111'),
+                ('mcadie', 'MKTA111111'), ('mcalister', 'MKLSTA1111'),
+                ('mcallan', 'MKLN111111'), ('mcallen', 'MKLN111111'),
+                ('mcalliste', 'MKLST11111'), ('mcallister', 'MKLSTA1111'),
+                ('mcalpine', 'MKPN111111'), ('mcanally', 'MKNLA11111'),
+                ('mcansh', 'MKNS111111'), ('mcanulty', 'MKNTA11111'),
+                ('mcara', 'MKRA111111'), ('mcarley', 'MKLA111111'),
+                ('mcarthur', 'MKTA111111'), ('mcartney', 'MKTNA11111'),
+                ('mcatamney', 'MKTMNA1111'), ('mcateer', 'MKTA111111'),
+                ('mcaulay', 'MKLA111111'), ('mcauley', 'MKLA111111'),
+                ('mcauliff', 'MKLF111111'), ('mcauliffe', 'MKLF111111'),
+                ('mcauslin', 'MKSLN11111'), ('mcbain', 'MKPN111111'),
+                ('mcbeath', 'MKPT111111'), ('mcbetah', 'MKPTA11111'),
+                ('mcbeth', 'MKPT111111'), ('mcbey', 'MKPA111111'),
+                ('mcbricle', 'MKPRKA1111'), ('mcbride', 'MKPRT11111'),
+                ('mcbryde', 'MKPRT11111'), ('mccabe', 'MKP1111111'),
+                ('mccafferty', 'MKFTA11111'), ('mccaffry', 'MKFRA11111'),
+                ('mccaig', 'MKK1111111'), ('mccall', 'MKA1111111'),
+                ('mccallion', 'MKLN111111'), ('mccallum', 'MKLM111111'),
+                ('mccalman', 'MKMN111111'), ('mccambie', 'MKMPA11111'),
+                ('mccammon', 'MKMN111111'), ('mccann', 'MKN1111111'),
+                ('mccardell', 'MKTA111111'), ('mccarrigan', 'MKRKN11111'),
+                ('mccarten', 'MKTN111111'), ('mccarter', 'MKTA111111'),
+                ('mccarthy', 'MKTA111111'), ('mccartney', 'MKTNA11111'),
+                ('mccarty', 'MKTA111111'), ('mccash', 'MKS1111111'),
+                ('mccaskill', 'MKSKA11111'), ('mccaughan', 'MKKN111111'),
+                ('mccaul', 'MKA1111111'), ('mccauley', 'MKLA111111'),
+                ('mccauseland', 'MKSLNT1111'), ('mccausland', 'MKSLNT1111'),
+                ('mccaw', 'MKA1111111'), ('mccawe', 'MKA1111111'),
+                ('mccay', 'MKA1111111'), ('mcchesney', 'MKSNA11111'),
+                ('mccielland', 'MKSLNT1111'), ('mcciue', 'MKSA111111'),
+                ('mcclatchv', 'MKLKF11111'), ('mcclatchy', 'MKLKA11111'),
+                ('mcclean', 'MKLN111111'), ('mccleery', 'MKLRA11111'),
+                ('mcclelland', 'MKLLNT1111'), ('mcclenaghan', 'MKLNKN1111'),
+                ('mcclintock', 'MKLNTK1111'), ('mcclue', 'MKLA111111'),
+                ('mccluggage', 'MKLKK11111'), ('mcclure', 'MKLA111111'),
+                ('mccluskey', 'MKLSKA1111'), ('mcclusky', 'MKLSKA1111'),
+                ('mcclymont', 'MKLMNT1111'), ('mccoll', 'MKA1111111'),
+                ('mccolloch', 'MKLK111111'), ('mccolluch', 'MKLK111111'),
+                ('mccombe', 'MKM1111111'), ('mccombie', 'MKMPA11111'),
+                ('mcconechy', 'MKNKA11111'), ('mcconnachie', 'MKNKA11111'),
+                ('mcconnel', 'MKNA111111'), ('mcconnell', 'MKNA111111'),
+                ('mcconnichie', 'MKNKA11111'), ('mcconnochi', 'MKNKA11111'),
+                ('mcconnochie', 'MKNKA11111'), ('mcconnohie', 'MKNA111111'),
+                ('mccord', 'MKT1111111'), ('mccorie', 'MKRA111111'),
+                ('mccorkinda', 'MKKNTA1111'), ('mccorkindale', 'MKKNTA1111'),
+                ('mccorkingdale', 'MKKNKTA111'), ('mccormack', 'MKMK111111'),
+                ('mccormacl', 'MKMKA11111'), ('mccormick', 'MKMK111111'),
+                ('mccort', 'MKT1111111'), ('mccowan', 'MKWN111111'),
+                ('mccoy', 'MKA1111111'), ('mccracken', 'MKRKN11111'),
+                ('mccreadie', 'MKRTA11111'), ('mccreath', 'MKRT111111'),
+                ('mccrindle', 'MKRNTA1111'), ('mccrone', 'MKRN111111'),
+                ('mccrorie', 'MKRRA11111'), ('mccrory', 'MKRRA11111'),
+                ('mccrossan', 'MKRSN11111'), ('mccrossin', 'MKRSN11111'),
+                ('mccubbin', 'MKPN111111'), ('mcculloch', 'MKLK111111'),
+                ('mccullock', 'MKLK111111'), ('mccullough', 'MKLA111111'),
+                ('mccune', 'MKN1111111'), ('mccunn', 'MKN1111111'),
+                ('mccurdie', 'MKTA111111'), ('mccurdy', 'MKTA111111'),
+                ('mccurrach', 'MKRK111111'), ('mccurrie', 'MKRA111111'),
+                ('mccusker', 'MKSKA11111'), ('mccuskey', 'MKSKA11111'),
+                ('mccutcheon', 'MKKN111111'), ('mcdermid', 'MKTMT11111'),
+                ('mcdermitt', 'MKTMT11111'), ('mcdermott', 'MKTMT11111'),
+                ('mcdevitt', 'MKTFT11111'), ('mcdiarmid', 'MKTMT11111'),
+                ('mcdonald', 'MKTNT11111'), ('mcdonall', 'MKTNA11111'),
+                ('mcdonell', 'MKTNA11111'), ('mcdonnell', 'MKTNA11111'),
+                ('mcdouall', 'MKTA111111'), ('mcdougall', 'MKTKA11111'),
+                ('mcdowall', 'MKTWA11111'), ('mcdowell', 'MKTWA11111'),
+                ('mcduff', 'MKTF111111'), ('mceachern', 'MSKN111111'),
+                ('mceachran', 'MSKRN11111'), ('mceay', 'MSA1111111'),
+                ('mcelhenny', 'MSNA111111'), ('mcelivee', 'MSLFA11111'),
+                ('mcelroy', 'MSRA111111'), ('mceneany', 'MSNNA11111'),
+                ('mcentee', 'MSNTA11111'), ('mcevoy', 'MSFA111111'),
+                ('mcewan', 'MSWN111111'), ('mcewen', 'MSWN111111'),
+                ('mcfadden', 'MKFTN11111'), ('mcfadgen', 'MKFKN11111'),
+                ('mcfadyen', 'MKFTN11111'), ('mcfadzen', 'MKFTSN1111'),
+                ('mcfarlane', 'MKFLN11111'), ('mcfaull', 'MKFA111111'),
+                ('mcfeeters', 'MKFTS11111'), ('mcfelin', 'MKFLN11111'),
+                ('mcfetridge', 'MKFTRK1111'), ('mcfie', 'MKFA111111'),
+                ('mcgahan', 'MKN1111111'), ('mcgarrigle', 'MKRKA11111'),
+                ('mcgarry', 'MKRA111111'), ('mcgavick', 'MKFK111111'),
+                ('mcgavin', 'MKFN111111'), ('mcgaw', 'MKA1111111'),
+                ('mcgee', 'MKA1111111'), ('mcgeorge', 'MKK1111111'),
+                ('mcgetrick', 'MKTRK11111'), ('mcgettigan', 'MKTKN11111'),
+                ('mcghee', 'MKA1111111'), ('mcghie', 'MKA1111111'),
+                ('mcgill brown', 'MKPRN11111'), ('mcgill-bro', 'MKPRA11111'),
+                ('mcgill-brown', 'MKPRN11111'), ('mcgill', 'MKA1111111'),
+                ('mcgillivary', 'MKLFRA1111'), ('mcgilvary', 'MKFRA11111'),
+                ('mcgilvray', 'MKFRA11111'), ('mcgimpsey', 'MKMPSA1111'),
+                ('mcginness', 'MKNS111111'), ('mcginty', 'MKNTA11111'),
+                ('mcgirr', 'MKA1111111'), ('mcgirt', 'MKT1111111'),
+                ('mcglashan', 'MKLSN11111'), ('mcgllie', 'MKLA111111'),
+                ('mcgoldrick', 'MKTRK11111'), ('mcgolligal', 'MKLKA11111'),
+                ('mcgonigal', 'MKNKA11111'), ('mcgoogan', 'MKKN111111'),
+                ('mcgoun', 'MKN1111111'), ('mcgoverne', 'MKFN111111'),
+                ('mcgowan', 'MKWN111111'), ('mcgradie', 'MKRTA11111'),
+                ('mcgrath', 'MKRT111111'), ('mcgregor', 'MKRKA11111'),
+                ('mcgriffiths', 'MKRFTS1111'), ('mcguckin', 'MKKN111111'),
+                ('mcguffie', 'MKFA111111'), ('mcguigan', 'MKKN111111'),
+                ('mcguire', 'MKA1111111'), ('mchardy', 'MKTA111111'),
+                ('mcharry', 'MKRA111111'), ('mchealy', 'MKLA111111'),
+                ('mchenry', 'MKNRA11111'), ('mchoull', 'MKA1111111'),
+                ('mchugh', 'MKA1111111'), ('mchutchcson', 'MKKKSN1111'),
+                ('mchutcheson', 'MKKSN11111'), ('mchutchon', 'MKKN111111'),
+                ('mciachlan', 'MSKLN11111'), ('mciaren', 'MSRN111111'),
+                ('mciean', 'MSN1111111'), ('mcielland', 'MSLNT11111'),
+                ('mcieod', 'MST1111111'), ('mciintyre', 'MSNTA11111'),
+                ('mcilroy', 'MSRA111111'), ('mcindoe', 'MSNTA11111'),
+                ('mcinerney', 'MSNNA11111'), ('mcinnes', 'MSNS111111'),
+                ('mcintosh', 'MSNTS11111'), ('mcintosn', 'MSNTSN1111'),
+                ('mcintyre', 'MSNTA11111'), ('mcisaac', 'MSSK111111'),
+                ('mciver', 'MSFA111111'), ('mcivor', 'MSFA111111'),
+                ('mckague', 'MKKA111111'), ('mckane', 'MKN1111111'),
+                ('mckay', 'MKA1111111'), ('mckaye', 'MKA1111111'),
+                ('mckean', 'MKN1111111'), ('mckeand', 'MKNT111111'),
+                ('mckeay', 'MKA1111111'), ('mckechie', 'MKKA111111'),
+                ('mckechnie', 'MKKNA11111'), ('mckecknie', 'MKKNA11111'),
+                ('mckee', 'MKA1111111'), ('mckeefry', 'MKFRA11111'),
+                ('mckeeiry', 'MKRA111111'), ('mckeeman', 'MKMN111111'),
+                ('mckeen', 'MKN1111111'), ('mckeenan', 'MKNN111111'),
+                ('mckeich', 'MKK1111111'), ('mckellar', 'MKLA111111'),
+                ('mckelvey', 'MKFA111111'), ('mckelvie', 'MKFA111111'),
+                ('mckendry', 'MKNTRA1111'), ('mckenna', 'MKNA111111'),
+                ('mckenney', 'MKNA111111'), ('mckenzie', 'MKNSA11111'),
+                ('mckeown', 'MKN1111111'), ('mckernan', 'MKNN111111'),
+                ('mckerras', 'MKRS111111'), ('mckerrow', 'MKRA111111'),
+                ('mckessar', 'MKSA111111'), ('mcketterick', 'MKTRK11111'),
+                ('mckewell', 'MKWA111111'), ('mckewen', 'MKWN111111'),
+                ('mckey', 'MKA1111111'), ('mckibbin', 'MKPN111111'),
+                ('mckie', 'MKA1111111'), ('mckillop', 'MKLP111111'),
+                ('mckinlay', 'MKNLA11111'), ('mckinley', 'MKNLA11111'),
+                ('mckinnel', 'MKNA111111'), ('mckinney', 'MKNA111111'),
+                ('mckinnie', 'MKNA111111'), ('mckinnon', 'MKNN111111'),
+                ('mckirdy', 'MKTA111111'), ('mckissock', 'MKSK111111'),
+                ('mckitterick', 'MKTRK11111'), ('mcknight', 'MKNT111111'),
+                ('mckone', 'MKN1111111'), ('mclachlan', 'MKLKLN1111'),
+                ('mclanachan', 'MKLNKN1111'), ('mclaren', 'MKLRN11111'),
+                ('mclatchie', 'MKLKA11111'), ('mclauchan', 'MKLKN11111'),
+                ('mclauchlan', 'MKLKLN1111'), ('mclauchlin', 'MKLKLN1111'),
+                ('mclaughlan', 'MKLLN11111'), ('mclaughlin', 'MKLLN11111'),
+                ('mclav', 'MKLF111111'), ('mclay', 'MKLA111111'),
+                ('mclcan', 'MKKN111111'), ('mclean', 'MKLN111111'),
+                ('mclear', 'MKLA111111'), ('mcleary', 'MKLRA11111'),
+                ('mcleavey', 'MKLFA11111'), ('mcleay', 'MKLA111111'),
+                ('mcledd', 'MKLT111111'), ('mcledowne', 'MKLTN11111'),
+                ('mcledowney', 'MKLTNA1111'), ('mcleely', 'MKLLA11111'),
+                ('mclellan', 'MKLLN11111'), ('mclelland', 'MKLLNT1111'),
+                ('mclenaghin', 'MKLNKN1111'), ('mclennan', 'MKLNN11111'),
+                ('mcleod', 'MKLT111111'), ('mclevie', 'MKLFA11111'),
+                ('mclintock', 'MKLNTK1111'), ('mcliskey', 'MKLSKA1111'),
+                ('mcllroy', 'MKRA111111'), ('mclndoe', 'MKNTA11111'),
+                ('mclnnes', 'MKNS111111'), ('mclntosh', 'MKNTS11111'),
+                ('mclntvre', 'MKNTFA1111'), ('mclntyre', 'MKNTA11111'),
+                ('mcloud', 'MKLT111111'), ('mcloughlin', 'MKLLN11111'),
+                ('mclure', 'MKLA111111'), ('mcluskey', 'MKLSKA1111'),
+                ('mclusky', 'MKLSKA1111'), ('mclver', 'MKFA111111'),
+                ('mclvor', 'MKFA111111'), ('mcmahon', 'MKMN111111'),
+                ('mcmann', 'MKMN111111'), ('mcmannes', 'MKMNS11111'),
+                ('mcmanus', 'MKMNS11111'), ('mcmaster', 'MKMSTA1111'),
+                ('mcmath', 'MKMT111111'), ('mcmeeking', 'MKMKNK1111'),
+                ('mcmillan', 'MKMLN11111'), ('mcmillen', 'MKMLN11111'),
+                ('mcminn', 'MKMN111111'), ('mcmorran', 'MKMRN11111'),
+                ('mcmulen', 'MKMLN11111'), ('mcmullan', 'MKMLN11111'),
+                ('mcmullen', 'MKMLN11111'), ('mcmurray', 'MKMRA11111'),
+                ('mcmurtrie', 'MKMTRA1111'), ('mcnab', 'MKNP111111'),
+                ('mcnair', 'MKNA111111'), ('mcnally', 'MKNLA11111'),
+                ('mcnalty', 'MKNTA11111'), ('mcnama', 'MKNMA11111'),
+                ('mcnamara', 'MKNMRA1111'), ('mcnamee', 'MKNMA11111'),
+                ('mcnarey', 'MKNRA11111'), ('mcnarry', 'MKNRA11111'),
+                ('mcnatty', 'MKNTA11111'), ('mcnaught', 'MKNT111111'),
+                ('mcnaughton', 'MKNTN11111'), ('mcnauglton', 'MKNKTN1111'),
+                ('mcnee', 'MKNA111111'), ('mcneil', 'MKNA111111'),
+                ('mcneill', 'MKNA111111'), ('mcneish', 'MKNS111111'),
+                ('mcnicol', 'MKNKA11111'), ('mcnicoll', 'MKNKA11111'),
+                ('mcnie', 'MKNA111111'), ('mcniel', 'MKNA111111'),
+                ('mcnish', 'MKNS111111'), ('mcnoe', 'MKNA111111'),
+                ('mcnulty', 'MKNTA11111'), ('mcnultz', 'MKNTS11111'),
+                ('mconie', 'MKNA111111'), ('mcouarrie', 'MKRA111111'),
+                ('mcoueen', 'MKN1111111'), ('mcowan', 'MKWN111111'),
+                ('mcpate', 'MKPT111111'), ('mcpeak', 'MKPK111111'),
+                ('mcphail', 'MKFA111111'), ('mcpheat', 'MKFT111111'),
+                ('mcphee', 'MKFA111111'), ('mcphersoll', 'MKFSA11111'),
+                ('mcpherson', 'MKFSN11111'), ('mcquaid', 'MKT1111111'),
+                ('mcquarrie', 'MKRA111111'), ('mcqueen', 'MKN1111111'),
+                ('mcquilty', 'MKTA111111'), ('mcrae', 'MKRA111111'),
+                ('mcritchie', 'MKRKA11111'), ('mcrobie', 'MKRPA11111'),
+                ('mcrohie', 'MKRA111111'), ('mcshain', 'MKSN111111'),
+                ('mcshaw', 'MKSA111111'), ('mcskimming', 'MKSKMNK111'),
+                ('mcsoriley', 'MKSRLA1111'), ('mcsorlay', 'MKSLA11111'),
+                ('mcsourley', 'MKSLA11111'), ('mcstay', 'MKSTA11111'),
+                ('mcswan', 'MKSWN11111'), ('mcsweeney', 'MKSWNA1111'),
+                ('mcsweeny', 'MKSWNA1111'), ('mctaggart', 'MKTKT11111'),
+                ('mctagget', 'MKTKT11111'), ('mctaggett', 'MKTKT11111'),
+                ('mctague', 'MKTKA11111'), ('mctainsh', 'MKTNS11111'),
+                ('mctamney', 'MKTMNA1111'), ('mctavish', 'MKTFS11111'),
+                ('mcternan', 'MKTNN11111'), ('mctigue', 'MKTKA11111'),
+                ('mcveigh', 'MKFA111111'), ('mcvey', 'MKFA111111'),
+                ('mcvicar', 'MKFKA11111'), ('mcvickar', 'MKFKA11111'),
+                ('mcvicker', 'MKFKA11111'), ('mcvie', 'MKFA111111'),
+                ('mcwatt', 'MKWT111111'), ('mcwen', 'MKWN111111'),
+                ('mcwilliam', 'MKWLM11111'), ('mcwillian', 'MKWLN11111'),
+                ('mead', 'MT11111111'), ('meade', 'MT11111111'),
+                ('meadowcroft', 'MTKRFT1111'), ('meadows', 'MTS1111111'),
+                ('mearns', 'MNS1111111'), ('mears', 'MS11111111'),
+                ('mechaelis', 'MKLS111111'), ('mechen', 'MKN1111111'),
+                ('mecracken', 'MKRKN11111'), ('medder', 'MTA1111111'),
+                ('meder', 'MTA1111111'), ('medhurst', 'MTST111111'),
+                ('medley', 'MTLA111111'), ('medlicott', 'MTLKT11111'),
+                ('medlin', 'MTLN111111'), ('mee', 'MA11111111'),
+                ('meehan', 'MN11111111'), ('meek', 'MK11111111'),
+                ('meekin', 'MKN1111111'), ('meekison', 'MKSN111111'),
+                ('meeks', 'MKS1111111'), ('meenan', 'MNN1111111'),
+                ('meevoy', 'MFA1111111'), ('mefarlane', 'MFLN111111'),
+                ('meffan', 'MFN1111111'), ('mefie', 'MFA1111111'),
+                ('mehalski', 'MSKA111111'), ('meighan', 'MKN1111111'),
+                ('meikle', 'MKA1111111'), ('meiklejohn', 'MKLN111111'),
+                ('meiklejolm', 'MKLM111111'), ('meikljohn', 'MKLN111111'),
+                ('meinung', 'MNNK111111'), ('meivor', 'MFA1111111'),
+                ('mekee', 'MKA1111111'), ('mekenzie', 'MKNSA11111'),
+                ('meldrum', 'MTRM111111'), ('melean', 'MLN1111111'),
+                ('melhop', 'MP11111111'), ('melitus', 'MLTS111111'),
+                ('melladew', 'MLTA111111'), ('mellars', 'MLS1111111'),
+                ('mellett', 'MLT1111111'), ('mellon', 'MLN1111111'),
+                ('mellor', 'MLA1111111'), ('melrose', 'MRS1111111'),
+                ('melser', 'MSA1111111'), ('melton', 'MTN1111111'),
+                ('melville', 'MFA1111111'), ('melvin', 'MFN1111111'),
+                ('melvlle', 'MFA1111111'), ('mendelsohn', 'MNTSN11111'),
+                ('mendoza', 'MNTSA11111'), ('menhinick', 'MNNK111111'),
+                ('menlove', 'MNLF111111'), ('menton', 'MNTN111111'),
+                ('menzies', 'MNSS111111'), ('mercer', 'MSA1111111'),
+                ('merchant', 'MKNT111111'), ('mercier', 'MSA1111111'),
+                ('meredith', 'MRTT111111'), ('merrie', 'MRA1111111'),
+                ('merry', 'MRA1111111'), ('mervyn', 'MFN1111111'),
+                ('messenger', 'MSNKA11111'), ('messent', 'MSNT111111'),
+                ('messer', 'MSA1111111'), ('meston', 'MSTN111111'),
+                ('met', 'MT11111111'), ('metcalf', 'MTKF111111'),
+                ('metcalfe', 'MTKF111111'), ('methers', 'MTS1111111'),
+                ('methven', 'MTFN111111'), ('metson', 'MTSN111111'),
+                ('metz', 'MTS1111111'), ('mew', 'MA11111111'),
+                ('mewhinney', 'MWNA111111'), ('meyer', 'MA11111111'),
+                ('michael', 'MKA1111111'), ('michaelis', 'MKLS111111'),
+                ('michelle', 'MKA1111111'), ('michie', 'MKA1111111'),
+                ('middendorf', 'MTNTF11111'), ('middlebrook', 'MTLPRK1111'),
+                ('middleditch', 'MTLTK11111'), ('middlemass', 'MTLMS11111'),
+                ('middlemiss', 'MTLMS11111'), ('middleton', 'MTLTN11111'),
+                ('midgley', 'MKLA111111'), ('miils', 'MS11111111'),
+                ('mil1er', 'MLA1111111'), ('milbum', 'MPM1111111'),
+                ('milburn', 'MPN1111111'), ('milburne', 'MPN1111111'),
+                ('mildenhall', 'MTNA111111'), ('miles', 'MLS1111111'),
+                ('milgrove', 'MKRF111111'), ('milis', 'MLS1111111'),
+                ('mill', 'MA11111111'), ('millar', 'MLA1111111'),
+                ('millard', 'MLT1111111'), ('millca', 'MKA1111111'),
+                ('millea', 'MLA1111111'), ('millen', 'MLN1111111'),
+                ('miller', 'MLA1111111'), ('millet', 'MLT1111111'),
+                ('millian', 'MLN1111111'), ('millie', 'MLA1111111'),
+                ('milligan', 'MLKN111111'), ('milliken', 'MLKN111111'),
+                ('millin', 'MLN1111111'), ('milliner', 'MLNA111111'),
+                ('millington', 'MLNKTN1111'), ('millow', 'MLA1111111'),
+                ('mills', 'MS11111111'), ('milne', 'MN11111111'),
+                ('milner', 'MNA1111111'), ('milnes', 'MNS1111111'),
+                ('milsom', 'MSM1111111'), ('milton', 'MTN1111111'),
+                ('milward', 'MWT1111111'), ('mindo', 'MNTA111111'),
+                ('mine', 'MN11111111'), ('minehan', 'MNN1111111'),
+                ('miners', 'MNS1111111'), ('minihan', 'MNN1111111'),
+                ('minn', 'MN11111111'), ('minton', 'MNTN111111'),
+                ('mirams', 'MRMS111111'), ('miscall', 'MSKA111111'),
+                ('miskel', 'MSKA111111'), ('missen', 'MSN1111111'),
+                ('mitchall', 'MKA1111111'), ('mitchel', 'MKA1111111'),
+                ('mitchell', 'MKA1111111'), ('mitehell', 'MTA1111111'),
+                ('mitson', 'MTSN111111'), ('mitten', 'MTN1111111'),
+                ('mlburn', 'MPN1111111'), ('mlls', 'MS11111111'),
+                ('mnlloy', 'MNLA111111'), ('moar', 'MA11111111'),
+                ('moara', 'MRA1111111'), ('mobbs', 'MPS1111111'),
+                ('mockford', 'MKFT111111'), ('mockler', 'MKLA111111'),
+                ('modonald', 'MTNT111111'), ('moen', 'MN11111111'),
+                ('moffat', 'MFT1111111'), ('moffatt', 'MFT1111111'),
+                ('moffett', 'MFT1111111'), ('moffitt', 'MFT1111111'),
+                ('mogie', 'MKA1111111'), ('moher', 'MA11111111'),
+                ('moir', 'MA11111111'), ('moirison', 'MRSN111111'),
+                ('mokenzie', 'MKNSA11111'), ('moles', 'MLS1111111'),
+                ('moller', 'MLA1111111'), ('mollison', 'MLSN111111'),
+                ('molloy', 'MLA1111111'), ('moloney', 'MLNA111111'),
+                ('molonoy', 'MLNA111111'), ('mona', 'MNA1111111'),
+                ('monaghan', 'MNKN111111'), ('monagon', 'MNKN111111'),
+                ('monahan', 'MNN1111111'), ('monckton', 'MNKTN11111'),
+                ('moncrieff', 'MNKRF11111'), ('moncrieft', 'MNKRFT1111'),
+                ('moncur', 'MNKA111111'), ('mong', 'MNK1111111'),
+                ('monihan', 'MNN1111111'), ('monk', 'MNK1111111'),
+                ('monkman', 'MNKMN11111'), ('monro', 'MNRA111111'),
+                ('monson', 'MNSN111111'), ('montague', 'MNTKA11111'),
+                ('monteath', 'MNTT111111'), ('monteith', 'MNTT111111'),
+                ('montgomery', 'MNTKMRA111'), ('montgomor', 'MNTKMA1111'),
+                ('montgoner', 'MNTKNA1111'), ('moodie', 'MTA1111111'),
+                ('moody', 'MTA1111111'), ('moon', 'MN11111111'),
+                ('mooney', 'MNA1111111'), ('moor', 'MA11111111'),
+                ('moore-wrig', 'MRRK111111'), ('moore-wright', 'MRRT111111'),
+                ('moore', 'MA11111111'), ('moorehead', 'MRT1111111'),
+                ('moores', 'MRS1111111'), ('moorhonse', 'MNS1111111'),
+                ('moorhouse', 'MS11111111'), ('mora', 'MRA1111111'),
+                ('moran', 'MRN1111111'), ('more', 'MA11111111'),
+                ('moreland', 'MRLNT11111'), ('morell', 'MRA1111111'),
+                ('moreton', 'MRTN111111'), ('morgan roberts', 'MKNRPTS111'),
+                ('morgan-roberts', 'MKNRPTS111'), ('morgan', 'MKN1111111'),
+                ('morgon', 'MKN1111111'), ('moriarty', 'MRTA111111'),
+                ('morice', 'MRK1111111'), ('moriee', 'MRA1111111'),
+                ('morison', 'MRSN111111'), ('moritzson', 'MRTSN11111'),
+                ('morkane', 'MKN1111111'), ('morland', 'MLNT111111'),
+                ('morley', 'MLA1111111'), ('moro', 'MRA1111111'),
+                ('moroney', 'MRNA111111'), ('morpeth', 'MPT1111111'),
+                ('morrall', 'MRA1111111'), ('morrell', 'MRA1111111'),
+                ('morris', 'MRS1111111'), ('morrisey', 'MRSA111111'),
+                ('morrison', 'MRSN111111'), ('morriss', 'MRS1111111'),
+                ('morrissey', 'MRSA111111'), ('morrow', 'MRA1111111'),
+                ('mortimer', 'MTMA111111'), ('morton', 'MTN1111111'),
+                ('morwood', 'MWT1111111'), ('moseley', 'MSLA111111'),
+                ('moses', 'MSS1111111'), ('mosley', 'MSLA111111'),
+                ('moss', 'MS11111111'), ('mothes', 'MTS1111111'),
+                ('motion', 'MSN1111111'), ('mouat', 'MT11111111'),
+                ('moulin', 'MLN1111111'), ('mount', 'MNT1111111'),
+                ('mountford', 'MNTFT11111'), ('mountney', 'MNTNA11111'),
+                ('mouritsen', 'MRTSN11111'), ('mowat', 'MWT1111111'),
+                ('mowatt', 'MWT1111111'), ('mowbray', 'MPRA111111'),
+                ('mower', 'MWA1111111'), ('mowhray', 'MRA1111111'),
+                ('moyal', 'MA11111111'), ('moyle', 'MA11111111'),
+                ('moynihan', 'MNN1111111'), ('mudge', 'MK11111111'),
+                ('mueller', 'MLA1111111'), ('muiorhead', 'MT11111111'),
+                ('muir', 'MA11111111'), ('muirbead', 'MPT1111111'),
+                ('muirhead', 'MT11111111'), ('muithead', 'MTT1111111'),
+                ('mulcahy', 'MKA1111111'), ('mulch', 'MK11111111'),
+                ('muldowney', 'MTNA111111'), ('mulgrew', 'MKRA111111'),
+                ('mulhern', 'MN11111111'), ('mulhollan', 'MLN1111111'),
+                ('mulholland', 'MLNT111111'), ('mullally', 'MLLA111111'),
+                ('mullaly', 'MLLA111111'), ('mullan', 'MLN1111111'),
+                ('mullay', 'MLA1111111'), ('mullen', 'MLN1111111'),
+                ('mullholland', 'MLNT111111'), ('mulligan', 'MLKN111111'),
+                ('mullin', 'MLN1111111'), ('mulling', 'MLNK111111'),
+                ('mullins', 'MLNS111111'), ('mulloy', 'MLA1111111'),
+                ('mulqueen', 'MKN1111111'), ('mulquin', 'MKN1111111'),
+                ('mulrine', 'MRN1111111'), ('mulrooney', 'MRNA111111'),
+                ('mulvihill', 'MFA1111111'), ('mumford', 'MMFT111111'),
+                ('muncaster', 'MNKSTA1111'), ('munday', 'MNTA111111'),
+                ('munden', 'MNTN111111'), ('mundie', 'MNTA111111'),
+                ('mundy', 'MNTA111111'), ('munford', 'MNFT111111'),
+                ('munibe', 'MNP1111111'), ('munn', 'MN11111111'),
+                ('munrly', 'MNLA111111'), ('munro', 'MNRA111111'),
+                ('munton', 'MNTN111111'), ('muntz', 'MNTS111111'),
+                ('muray', 'MRA1111111'), ('murch', 'MK11111111'),
+                ('murchison', 'MKSN111111'), ('murchland', 'MKLNT11111'),
+                ('murcott', 'MKT1111111'), ('murdie', 'MTA1111111'),
+                ('murdoch', 'MTK1111111'), ('murdock', 'MTK1111111'),
+                ('murdoeh', 'MTA1111111'), ('murfitt', 'MFT1111111'),
+                ('murie', 'MRA1111111'), ('murison', 'MRSN111111'),
+                ('murly', 'MLA1111111'), ('murphy', 'MFA1111111'),
+                ('murray', 'MRA1111111'), ('murrow', 'MRA1111111'),
+                ('murtagh', 'MTA1111111'), ('mussen', 'MSN1111111'),
+                ('mustard', 'MSTT111111'), ('mutch', 'MK11111111'),
+                ('mutimer', 'MTMA111111'), ('mutter', 'MTA1111111'),
+                ('mvers', 'MFS1111111'), ('myers', 'MS11111111'),
+                ('myfert', 'MFT1111111'), ('myles', 'MLS1111111'),
+                ('naesmith', 'NSMT111111'), ('nairn', 'NN11111111'),
+                ('naismith', 'NSMT111111'), ('nalder', 'NTA1111111'),
+                ('nancarrow', 'NNKRA11111'), ('nankivell', 'NNKFA11111'),
+                ('nanney', 'NNA1111111'), ('nantes', 'NNTS111111'),
+                ('naphtali', 'NFTLA11111'), ('napier', 'NPA1111111'),
+                ('napoleon', 'NPLN111111'), ('napper', 'NPA1111111'),
+                ('narracott', 'NRKT111111'), ('nash', 'NS11111111'),
+                ('nasham', 'NSM1111111'), ('nathan', 'NTN1111111'),
+                ('natta', 'NTA1111111'), ('natusch', 'NTSK111111'),
+                ('naughton', 'NTN1111111'), ('naumann', 'NMN1111111'),
+                ('naylon', 'NLN1111111'), ('naylor', 'NLA1111111'),
+                ('neal', 'NA11111111'), ('neale', 'NA11111111'),
+                ('neame', 'NM11111111'), ('neason', 'NSN1111111'),
+                ('neave', 'NF11111111'), ('needham', 'NTM1111111'),
+                ('nees', 'NS11111111'), ('neeve', 'NF11111111'),
+                ('nehoff', 'NF11111111'), ('neil', 'NA11111111'),
+                ('neilands', 'NLNTS11111'), ('neill', 'NA11111111'),
+                ('neilson', 'NSN1111111'), ('neiper', 'NPA1111111'),
+                ('neiss', 'NS11111111'), ('neitch', 'NK11111111'),
+                ('nelilson', 'NLSN111111'), ('nellson', 'NSN1111111'),
+                ('nelon', 'NLN1111111'), ('nelsion', 'NSN1111111'),
+                ('nelslon', 'NSLN111111'), ('nelson-thyberg', 'NSNTPK1111'),
+                ('nelson', 'NSN1111111'), ('nesbett', 'NSPT111111'),
+                ('nesbit', 'NSPT111111'), ('nesbitt', 'NSPT111111'),
+                ('ness', 'NS11111111'), ('nester', 'NSTA111111'),
+                ('neumann', 'NMN1111111'), ('nevill', 'NFA1111111'),
+                ('neville', 'NFA1111111'), ('nevin', 'NFN1111111'),
+                ('nevison', 'NFSN111111'), ('new', 'NA11111111'),
+                ('newall', 'NWA1111111'), ('newands', 'NWNTS11111'),
+                ('newbold', 'NPT1111111'), ('newbound', 'NPNT111111'),
+                ('newbury', 'NPRA111111'), ('newell', 'NWA1111111'),
+                ('newey', 'NWA1111111'), ('newland', 'NLNT111111'),
+                ('newlands', 'NLNTS11111'), ('newman', 'NMN1111111'),
+                ('newmark', 'NMK1111111'), ('newmarsh', 'NMS1111111'),
+                ('newsham-west', 'NSMWST1111'), ('newsome', 'NSM1111111'),
+                ('newson', 'NSN1111111'), ('newton', 'NTN1111111'),
+                ('neylan', 'NLN1111111'), ('neylon', 'NLN1111111'),
+                ('niall', 'NA11111111'), ('nichol', 'NKA1111111'),
+                ('nicholas', 'NKLS111111'), ('nicholis', 'NKLS111111'),
+                ('nicholl', 'NKA1111111'), ('nicholls', 'NKS1111111'),
+                ('nichols', 'NKS1111111'), ('nicholson', 'NKSN111111'),
+                ('nickels', 'NKS1111111'), ('nickoll', 'NKA1111111'),
+                ('nicol', 'NKA1111111'), ('nicoll', 'NKA1111111'),
+                ('nicolson', 'NKSN111111'), ('nielson', 'NSN1111111'),
+                ('nieper', 'NPA1111111'), ('nightingale', 'NTNKA11111'),
+                ('nikander', 'NKNTA11111'), ('nikel', 'NKA1111111'),
+                ('niles', 'NLS1111111'), ('nilson', 'NSN1111111'),
+                ('nilsson', 'NSN1111111'), ('nimmo', 'NMA1111111'),
+                ('nina', 'NNA1111111'), ('nind', 'NNT1111111'),
+                ('ninian', 'NNN1111111'), ('nisbet', 'NSPT111111'),
+                ('nisbitt', 'NSPT111111'), ('nissen', 'NSN1111111'),
+                ('niven', 'NFN1111111'), ('nixon', 'NKN1111111'),
+                ('nixson', 'NKSN111111'), ('noble', 'NPA1111111'),
+                ('nohar', 'NA11111111'), ('nolan', 'NLN1111111'),
+                ('noonal', 'NNA1111111'), ('noonan', 'NNN1111111'),
+                ('noone', 'NN11111111'), ('norden', 'NTN1111111'),
+                ('norman', 'NMN1111111'), ('norris', 'NRS1111111'),
+                ('norrish', 'NRS1111111'), ('north', 'NT11111111'),
+                ('northcoat', 'NTKT111111'), ('northey', 'NTA1111111'),
+                ('norton taylor', 'NTNTLA1111'), ('norton-taylor', 'NTNTLA1111'),
+                ('norton', 'NTN1111111'), ('norwood', 'NWT1111111'),
+                ('noseda', 'NSTA111111'), ('noster', 'NSTA111111'),
+                ('notlen', 'NTLN111111'), ('notman', 'NTMN111111'),
+                ('nottage', 'NTK1111111'), ('nowland', 'NLNT111111'),
+                ('nowlands', 'NLNTS11111'), ('noy', 'NA11111111'),
+                ('ntowland', 'NTLNT11111'), ('nugent', 'NKNT111111'),
+                ('nunn', 'NN11111111'), ('nunns', 'NNS1111111'),
+                ('nuttall', 'NTA1111111'), ('nutting', 'NTNK111111'),
+                ('nxon', 'NKN1111111'), ('nyhon', 'NN11111111'),
+                ('o \'neil', 'ANA1111111'), ('o sullivan', 'ASLFN11111'),
+                ('o\' kane', 'AKN1111111'), ('o\'\'connor', 'AKNA111111'),
+                ('o\'beirne', 'APN1111111'), ('o\'berg', 'APK1111111'),
+                ('o\'brian', 'APRN111111'), ('o\'briean', 'APRN111111'),
+                ('o\'brien', 'APRN111111'), ('o\'calaghan', 'AKLKN11111'),
+                ('o\'callagh', 'AKLA111111'), ('o\'callaghan', 'AKLKN11111'),
+                ('o\'connell', 'AKNA111111'), ('o\'connor', 'AKNA111111'),
+                ('o\'corrnan', 'AKNN111111'), ('o\'dea', 'ATA1111111'),
+                ('o\'docherty', 'ATKTA11111'), ('o\'donnell', 'ATNA111111'),
+                ('o\'donohue', 'ATNA111111'), ('o\'dowd', 'ATT1111111'),
+                ('o\'driscoll', 'ATRSKA1111'), ('o\'dwyer', 'ATWA111111'),
+                ('o\'farrell', 'AFRA111111'), ('o\'fee', 'AFA1111111'),
+                ('o\'gorman', 'AKMN111111'), ('o\'grady', 'AKRTA11111'),
+                ('o\'hallora', 'ALRA111111'), ('o\'halloran', 'ALRN111111'),
+                ('o\'hara', 'ARA1111111'), ('o\'hare', 'AA11111111'),
+                ('o\'kane', 'AKN1111111'), ('o\'kean', 'AKN1111111'),
+                ('o\'keefe', 'AKF1111111'), ('o\'keeffe', 'AKF1111111'),
+                ('o\'leary', 'ALRA111111'), ('o\'loughlin', 'ALLN111111'),
+                ('o\'mahoney', 'AMNA111111'), ('o\'malley', 'AMLA111111'),
+                ('o\'meara', 'AMRA111111'), ('o\'neil', 'ANA1111111'),
+                ('o\'neill', 'ANA1111111'), ('o\'rawe', 'ARA1111111'),
+                ('o\'regan', 'ARKN111111'), ('o\'reilly', 'ARLA111111'),
+                ('o\'rogan', 'ARKN111111'), ('o\'rourke', 'ARK1111111'),
+                ('o\'shannessy', 'ASNSA11111'), ('o\'shaughnessy', 'ASNSA11111'),
+                ('o\'shea', 'ASA1111111'), ('o\'sullivan', 'ASLFN11111'),
+                ('o\'toole', 'ATA1111111'), ('o1sen', 'ASN1111111'),
+                ('oag', 'AK11111111'), ('oakden', 'AKTN111111'),
+                ('oakes', 'AKS1111111'), ('oare', 'AA11111111'),
+                ('oaten', 'ATN1111111'), ('oates', 'ATS1111111'),
+                ('oben', 'APN1111111'), ('ockwell', 'AKWA111111'),
+                ('ocwell', 'AKWA111111'), ('oddie', 'ATA1111111'),
+                ('odham', 'ATM1111111'), ('oenond', 'ANNT111111'),
+                ('oettli', 'ATLA111111'), ('offen', 'AFN1111111'),
+                ('officer', 'AFSA111111'), ('ofllen', 'AFLN111111'),
+                ('often', 'AFTN111111'), ('ogborne', 'AKPN111111'),
+                ('ogden', 'AKTN111111'), ('ogg', 'AK11111111'),
+                ('ogilvie', 'AKFA111111'), ('ogivie', 'AKFA111111'),
+                ('ogston', 'AKSTN11111'), ('old', 'AT11111111'),
+                ('oldenburg', 'ATNPK11111'), ('oldham', 'ATM1111111'),
+                ('oldman', 'ATMN111111'), ('olds', 'ATS1111111'),
+                ('oley', 'ALA1111111'), ('oliphant', 'ALFNT11111'),
+                ('olive', 'ALF1111111'), ('oliver', 'ALFA111111'),
+                ('ollerensh', 'ALRNS11111'), ('ollerenshaw', 'ALRNSA1111'),
+                ('olliffe', 'ALF1111111'), ('olliver', 'ALFA111111'),
+                ('olsen', 'ASN1111111'), ('olsien', 'ASN1111111'),
+                ('olson', 'ASN1111111'), ('olvie', 'AFA1111111'),
+                ('omand', 'AMNT111111'), ('ombler', 'AMPLA11111'),
+                ('orange', 'ARNK111111'), ('orbell', 'APA1111111'),
+                ('orchard', 'AKT1111111'), ('orchiston', 'AKSTN11111'),
+                ('organ', 'AKN1111111'), ('orlowski', 'ALSKA11111'),
+                ('orlowsli', 'ALSLA11111'), ('orm', 'AM11111111'),
+                ('ormand', 'AMNT111111'), ('ormond', 'AMNT111111'),
+                ('ormrod', 'AMRT111111'), ('ormston', 'AMSTN11111'),
+                ('orpwood', 'APWT111111'), ('orr', 'AA11111111'),
+                ('orton', 'ATN1111111'), ('ory', 'ARA1111111'),
+                ('osborn', 'ASPN111111'), ('osborne', 'ASPN111111'),
+                ('osmand', 'ASMNT11111'), ('osmond', 'ASMNT11111'),
+                ('oson', 'ASN1111111'), ('ostarasch', 'ASTRSK1111'),
+                ('osten', 'ASTN111111'), ('oswald', 'ASWT111111'),
+                ('oswin', 'ASWN111111'), ('otten', 'ATN1111111'),
+                ('otto', 'ATA1111111'), ('ottrey', 'ATRA111111'),
+                ('otway', 'ATWA111111'), ('oudaille', 'ATA1111111'),
+                ('ouinn', 'AN11111111'), ('outram', 'ATRM111111'),
+                ('ovenden', 'AFNTN11111'), ('overell', 'AFRA111111'),
+                ('overton', 'AFTN111111'), ('overtop', 'AFTP111111'),
+                ('owen', 'AWN1111111'), ('owens', 'AWNS111111'),
+                ('owles', 'ALS1111111'), ('oxford', 'AKFT111111'),
+                ('oxiey', 'AKA1111111'), ('ozanne', 'ASN1111111'),
+                ('paap', 'PP11111111'), ('paape', 'PP11111111'),
+                ('paaris', 'PRS1111111'), ('pacey', 'PSA1111111'),
+                ('packer', 'PKA1111111'), ('packfr', 'PKFA111111'),
+                ('packman', 'PKMN111111'), ('padget', 'PKT1111111'),
+                ('padgett', 'PKT1111111'), ('paganini', 'PKNNA11111'),
+                ('page', 'PK11111111'), ('pagel', 'PKA1111111'),
+                ('paget', 'PKT1111111'), ('paimer', 'PMA1111111'),
+                ('painc', 'PNK1111111'), ('paine', 'PN11111111'),
+                ('painter', 'PNTA111111'), ('painton', 'PNTN111111'),
+                ('paisley', 'PSLA111111'), ('palatchie', 'PLKA111111'),
+                ('palenski', 'PLNSKA1111'), ('palleson', 'PLSN111111'),
+                ('pallister', 'PLSTA11111'), ('palmer', 'PMA1111111'),
+                ('palser', 'PSA1111111'), ('pank', 'PNK1111111'),
+                ('panting', 'PNTNK11111'), ('panton', 'PNTN111111'),
+                ('paranthoiene', 'PRNTN11111'), ('parata', 'PRTA111111'),
+                ('parcell', 'PSA1111111'), ('parcells', 'PSS1111111'),
+                ('pargiter', 'PKTA111111'), ('paris', 'PRS1111111'),
+                ('parish', 'PRS1111111'), ('park', 'PK11111111'),
+                ('parke', 'PK11111111'), ('parker', 'PKA1111111'),
+                ('parkes', 'PKS1111111'), ('parkhill', 'PKA1111111'),
+                ('parkin', 'PKN1111111'), ('parkinson', 'PKNSN11111'),
+                ('parler', 'PLA1111111'), ('parlett', 'PLT1111111'),
+                ('parnell', 'PNA1111111'), ('parr', 'PA11111111'),
+                ('parrish', 'PRS1111111'), ('parry', 'PRA1111111'),
+                ('parslow', 'PSLA111111'), ('parsond', 'PSNT111111'),
+                ('parsons', 'PSNS111111'), ('parsonson', 'PSNSN11111'),
+                ('partel', 'PTA1111111'), ('partridge', 'PTRK111111'),
+                ('pasco', 'PSKA111111'), ('pascoe', 'PSKA111111'),
+                ('paskell', 'PSKA111111'), ('passmore', 'PSMA111111'),
+                ('pastor', 'PSTA111111'), ('pastorell', 'PSTRA11111'),
+                ('pastorelli', 'PSTRLA1111'), ('patay', 'PTA1111111'),
+                ('patch', 'PK11111111'), ('patchett', 'PKT1111111'),
+                ('patcrson', 'PTKSN11111'), ('pate', 'PT11111111'),
+                ('paterson', 'PTSN111111'), ('patey', 'PTA1111111'),
+                ('paton', 'PTN1111111'), ('patorson', 'PTSN111111'),
+                ('patrick', 'PTRK111111'), ('pattenden', 'PTNTN11111'),
+                ('patterson', 'PTSN111111'), ('pattillo', 'PTLA111111'),
+                ('pattinson', 'PTNSN11111'), ('pattison', 'PTSN111111'),
+                ('patton', 'PTN1111111'), ('pattorson', 'PTSN111111'),
+                ('pattrick', 'PTRK111111'), ('paul', 'PA11111111'),
+                ('pauley', 'PLA1111111'), ('paulin', 'PLN1111111'),
+                ('paull', 'PA11111111'), ('paviour-smith', 'PFSMT11111'),
+                ('pavioursmith', 'PFSMT11111'), ('pavitt', 'PFT1111111'),
+                ('pavletich', 'PFLTK11111'), ('paxton', 'PKTN111111'),
+                ('pay', 'PA11111111'), ('payne', 'PN11111111'),
+                ('paynter', 'PNTA111111'), ('payton', 'PTN1111111'),
+                ('pcrteous', 'PKTS111111'), ('peace', 'PK11111111'),
+                ('peach', 'PK11111111'), ('peacock', 'PKK1111111'),
+                ('peake', 'PK11111111'), ('pearce', 'PK11111111'),
+                ('pearless', 'PLS1111111'), ('pearn', 'PN11111111'),
+                ('pears', 'PS11111111'), ('pearse', 'PS11111111'),
+                ('pearson', 'PSN1111111'), ('peart', 'PT11111111'),
+                ('peat', 'PT11111111'), ('peate', 'PT11111111'),
+                ('peates', 'PTS1111111'), ('peattie', 'PTA1111111'),
+                ('peck', 'PK11111111'), ('pedder', 'PTA1111111'),
+                ('peddie', 'PTA1111111'), ('peden', 'PTN1111111'),
+                ('pedlar', 'PTLA111111'), ('pedlow', 'PTLA111111'),
+                ('pedofsky', 'PTFSKA1111'), ('peebles', 'PPLS111111'),
+                ('peel', 'PA11111111'), ('pegg', 'PK11111111'),
+                ('peggie', 'PKA1111111'), ('pelatchie', 'PLKA111111'),
+                ('pell', 'PA11111111'), ('pellett', 'PLT1111111'),
+                ('pellowe', 'PLA1111111'), ('pelvin', 'PFN1111111'),
+                ('pemberton', 'PMPTN11111'), ('penfold', 'PNFT111111'),
+                ('penhey', 'PNA1111111'), ('penman', 'PNMN111111'),
+                ('pennell', 'PNA1111111'), ('pennington', 'PNNKTN1111'),
+                ('penno', 'PNA1111111'), ('penny', 'PNA1111111'),
+                ('pennychuick', 'PNKK111111'), ('pennycuick', 'PNKK111111'),
+                ('penpiatt', 'PNPT111111'), ('penrose', 'PNRS111111'),
+                ('penson', 'PNSN111111'), ('pentecost', 'PNTKST1111'),
+                ('penty', 'PNTA111111'), ('peoples', 'PPLS111111'),
+                ('pepper', 'PPA1111111'), ('pepperell', 'PPRA111111'),
+                ('pepperill', 'PPRA111111'), ('peppiatt', 'PPT1111111'),
+                ('peppler', 'PPLA111111'), ('percy', 'PSA1111111'),
+                ('pereira', 'PRRA111111'), ('perera', 'PRRA111111'),
+                ('perfin', 'PFN1111111'), ('perguson', 'PKSN111111'),
+                ('perkins', 'PKNS111111'), ('perks', 'PKS1111111'),
+                ('pernisky', 'PNSKA11111'), ('perrers', 'PRS1111111'),
+                ('perriam', 'PRM1111111'), ('perriman', 'PRMN111111'),
+                ('perrin', 'PRN1111111'), ('perriton', 'PRTN111111'),
+                ('perry', 'PRA1111111'), ('peson', 'PSN1111111'),
+                ('peters', 'PTS1111111'), ('petersen', 'PTSN111111'),
+                ('peterson', 'PTSN111111'), ('petherick', 'PTRK111111'),
+                ('petre', 'PTA1111111'), ('petrie', 'PTRA111111'),
+                ('petterson', 'PTSN111111'), ('pettet', 'PTT1111111'),
+                ('pettigrew', 'PTKRA11111'), ('pettit', 'PTT1111111'),
+                ('pettitt', 'PTT1111111'), ('pfeifer', 'PFFA111111'),
+                ('phair', 'FA11111111'), ('phaup', 'FP11111111'),
+                ('phelan', 'FLN1111111'), ('philip', 'FLP1111111'),
+                ('philips', 'FLPS111111'), ('phillipps', 'FLPS111111'),
+                ('phillips', 'FLPS111111'), ('philp', 'FP11111111'),
+                ('philpott', 'FPT1111111'), ('phimester', 'FMSTA11111'),
+                ('phimister', 'FMSTA11111'), ('picard', 'PKT1111111'),
+                ('pice', 'PK11111111'), ('pickard', 'PKT1111111'),
+                ('picken', 'PKN1111111'), ('pickering', 'PKRNK11111'),
+                ('picket', 'PKT1111111'), ('pickett', 'PKT1111111'),
+                ('pickford', 'PKFT111111'), ('pickles', 'PKLS111111'),
+                ('picklis', 'PKLS111111'), ('pickup', 'PKP1111111'),
+                ('pickworth', 'PKWT111111'), ('picton', 'PKTN111111'),
+                ('piddingto', 'PTNKTA1111'), ('piddington', 'PTNKTN1111'),
+                ('pidduck', 'PTK1111111'), ('pierard', 'PRT1111111'),
+                ('pierce', 'PK11111111'), ('piercy', 'PSA1111111'),
+                ('pigott', 'PKT1111111'), ('pike', 'PK11111111'),
+                ('pilbrow', 'PPRA111111'), ('pile', 'PA11111111'),
+                ('pilet', 'PLT1111111'), ('pilkington', 'PKNKTN1111'),
+                ('pilling', 'PLNK111111'), ('pimley', 'PMLA111111'),
+                ('pinder', 'PNTA111111'), ('pine', 'PN11111111'),
+                ('pinfold', 'PNFT111111'), ('pink', 'PNK1111111'),
+                ('pinkerton', 'PNKTN11111'), ('pinkham', 'PNKM111111'),
+                ('pinkney', 'PNKNA11111'), ('pinnington', 'PNNKTN1111'),
+                ('piper', 'PPA1111111'), ('pirie', 'PRA1111111'),
+                ('pirrett', 'PRT1111111'), ('pistor', 'PSTA111111'),
+                ('pitcher', 'PKA1111111'), ('pitfield', 'PTFT111111'),
+                ('pithie', 'PTA1111111'), ('pitkethley', 'PTKTLA1111'),
+                ('pittaway', 'PTWA111111'), ('pitts', 'PTS1111111'),
+                ('pizey', 'PSA1111111'), ('plaice', 'PLK1111111'),
+                ('plank', 'PLNK111111'), ('plato', 'PLTA111111'),
+                ('plaw', 'PLA1111111'), ('playter', 'PLTA111111'),
+                ('pleace', 'PLK1111111'), ('pledger', 'PLKA111111'),
+                ('plew', 'PLA1111111'), ('plimmer', 'PLMA111111'),
+                ('pluck', 'PLK1111111'), ('plumb', 'PLM1111111'),
+                ('plumley', 'PLMLA11111'), ('plumridge', 'PLMRK11111'),
+                ('plunket', 'PLNKT11111'), ('plunkett', 'PLNKT11111'),
+                ('poat', 'PT11111111'), ('pocklingto', 'PKLNKTA111'),
+                ('pocklington', 'PKLNKTN111'), ('pockson', 'PKSN111111'),
+                ('poff', 'PF11111111'), ('poilock', 'PLK1111111'),
+                ('pointon', 'PNTN111111'), ('poland', 'PLNT111111'),
+                ('polglase', 'PKLS111111'), ('polkinghorn', 'PKNN111111'),
+                ('polkinghorne', 'PKNN111111'), ('pollard', 'PLT1111111'),
+                ('pollett', 'PLT1111111'), ('pollock', 'PLK1111111'),
+                ('polloek', 'PLK1111111'), ('pollon', 'PLN1111111'),
+                ('polson', 'PSN1111111'), ('polwarth', 'PWT1111111'),
+                ('polworth', 'PWT1111111'), ('pomeroy', 'PMRA111111'),
+                ('pomies', 'PMS1111111'), ('ponsford', 'PNSFT11111'),
+                ('pont', 'PNT1111111'), ('ponton', 'PNTN111111'),
+                ('pontor', 'PNTA111111'), ('pool', 'PA11111111'),
+                ('poole', 'PA11111111'), ('pope', 'PP11111111'),
+                ('popham', 'PFM1111111'), ('poppelwell', 'PPWA111111'),
+                ('popperell', 'PPRA111111'), ('popple', 'PPA1111111'),
+                ('poppleton', 'PPLTN11111'), ('porrott', 'PRT1111111'),
+                ('port', 'PT11111111'), ('port.eous', 'PTS1111111'),
+                ('porteous', 'PTS1111111'), ('porter', 'PTA1111111'),
+                ('porthous', 'PTS1111111'), ('porthouse', 'PTS1111111'),
+                ('portwine', 'PTWN111111'), ('potter', 'PTA1111111'),
+                ('potts', 'PTS1111111'), ('poulsen', 'PSN1111111'),
+                ('poulson', 'PSN1111111'), ('poulter', 'PTA1111111'),
+                ('pound', 'PNT1111111'), ('poupart', 'PPT1111111'),
+                ('povey', 'PFA1111111'), ('powe', 'PA11111111'),
+                ('powell', 'PWA1111111'), ('power', 'PWA1111111'),
+                ('powley', 'PLA1111111'), ('poyntz', 'PNTS111111'),
+                ('prain', 'PRN1111111'), ('pratchel', 'PRKA111111'),
+                ('pratt', 'PRT1111111'), ('prattey', 'PRTA111111'),
+                ('prattley', 'PRTLA11111'), ('pratzall', 'PRTSA11111'),
+                ('pratzel', 'PRTSA11111'), ('pre', 'PA11111111'),
+                ('prebble', 'PRPA111111'), ('preddy', 'PRTA111111'),
+                ('preece', 'PRK1111111'), ('preen', 'PRN1111111'),
+                ('prendergast', 'PRNTKST111'), ('prenderville', 'PRNTFA1111'),
+                ('prentice', 'PRNTK11111'), ('presbury', 'PRSPRA1111'),
+                ('prescott', 'PRSKT11111'), ('preston', 'PRSTN11111'),
+                ('pretty', 'PRTA111111'), ('price', 'PRK1111111'),
+                ('prichard', 'PRKT111111'), ('prictor', 'PRKTA11111'),
+                ('pridham', 'PRTM111111'), ('priee', 'PRA1111111'),
+                ('priest', 'PRST111111'), ('priestly', 'PRSTLA1111'),
+                ('prince', 'PRNK111111'), ('pringle', 'PRNKA11111'),
+                ('pringle:', 'PRNKA11111'), ('printz', 'PRNTS11111'),
+                ('prior', 'PRA1111111'), ('priston', 'PRSTN11111'),
+                ('pritchard', 'PRKT111111'), ('pritchett', 'PRKT111111'),
+                ('procter', 'PRKTA11111'), ('proctor', 'PRKTA11111'),
+                ('pronse', 'PRNS111111'), ('propsting', 'PRPSTNK111'),
+                ('prosser', 'PRSA111111'), ('proud', 'PRT1111111'),
+                ('proudfoot', 'PRTFT11111'), ('prouse', 'PRS1111111'),
+                ('prout', 'PRT1111111'), ('provan', 'PRFN111111'),
+                ('proven', 'PRFN111111'), ('provo', 'PRFA111111'),
+                ('prowse', 'PRS1111111'), ('prvde', 'PFT1111111'),
+                ('pryde', 'PRT1111111'), ('pryor', 'PRA1111111'),
+                ('pucchegud', 'PKKT111111'), ('puddy', 'PTA1111111'),
+                ('pullar', 'PLA1111111'), ('puller', 'PLA1111111'),
+                ('pullyn', 'PLN1111111'), ('punch', 'PNK1111111'),
+                ('purcell', 'PSA1111111'), ('purches', 'PKS1111111'),
+                ('purdie', 'PTA1111111'), ('purnell', 'PNA1111111'),
+                ('purtill', 'PTA1111111'), ('purton', 'PTN1111111'),
+                ('purves', 'PFS1111111'), ('purvis', 'PFS1111111'),
+                ('pybus', 'PPS1111111'), ('pye', 'PA11111111'),
+                ('pyke', 'PK11111111'), ('pyle', 'PA11111111'),
+                ('pym', 'PM11111111'), ('pyn', 'PN11111111'),
+                ('pyne', 'PN11111111'), ('pynor', 'PNA1111111'),
+                ('pyott', 'PT11111111'), ('pyper', 'PPA1111111'),
+                ('pyrke', 'PK11111111'), ('pyster', 'PSTA111111'),
+                ('pywell', 'PWA1111111'), ('q uinn', 'KN11111111'),
+                ('qtto', 'KTA1111111'), ('quaid', 'KT11111111'),
+                ('quaife', 'KF11111111'), ('quaile', 'KA11111111'),
+                ('quam', 'KM11111111'), ('quan', 'KN11111111'),
+                ('quarterma', 'KTMA111111'), ('quartermain', 'KTMN111111'),
+                ('quartermaln', 'KTMN111111'), ('quarterman', 'KTMN111111'),
+                ('quelch', 'KK11111111'), ('quennell', 'KNA1111111'),
+                ('queree', 'KRA1111111'), ('quest', 'KST1111111'),
+                ('quested', 'KSTT111111'), ('quickenden', 'KKNTN11111'),
+                ('quickfall', 'KKFA111111'), ('quigg', 'KK11111111'),
+                ('quigley', 'KKLA111111'), ('quill', 'KA11111111'),
+                ('quin', 'KN11111111'), ('quine', 'KN11111111'),
+                ('quinlan', 'KNLN111111'), ('quinn', 'KN11111111'),
+                ('quinton', 'KNTN111111'), ('quirk', 'KK11111111'),
+                ('quirke', 'KK11111111'), ('qvam', 'KFM1111111'),
+                ('rabbidge', 'RPK1111111'), ('rabbitt', 'RPT1111111'),
+                ('rac1kley', 'RKLA111111'), ('race', 'RK11111111'),
+                ('rackham', 'RKM1111111'), ('rackley', 'RKLA111111'),
+                ('radd', 'RT11111111'), ('radford', 'RTFT111111'),
+                ('rae', 'RA11111111'), ('raffills', 'RFS1111111'),
+                ('raglan', 'RKLN111111'), ('raillsford', 'RSFT111111'),
+                ('railton', 'RTN1111111'), ('rainbow', 'RNPA111111'),
+                ('raine', 'RN11111111'), ('raines', 'RNS1111111'),
+                ('rainham', 'RNM1111111'), ('rains', 'RNS1111111'),
+                ('rainsay', 'RNSA111111'), ('rainsford', 'RNSFT11111'),
+                ('rainton', 'RNTN111111'), ('raitt', 'RT11111111'),
+                ('raler', 'RLA1111111'), ('rallinshaw', 'RLNSA11111'),
+                ('ralor', 'RLA1111111'), ('ralph', 'RF11111111'),
+                ('ralston', 'RSTN111111'), ('ralusay', 'RLSA111111'),
+                ('ramage', 'RMK1111111'), ('rambaum', 'RMPM111111'),
+                ('rampton', 'RMPTN11111'), ('ramsay', 'RMSA111111'),
+                ('ramsbottom-isherwood', 'RMSPTMSWT1'), ('ramsden', 'RMSTN11111'),
+                ('ramsey', 'RMSA111111'), ('randal', 'RNTA111111'),
+                ('randall', 'RNTA111111'), ('randell', 'RNTA111111'),
+                ('randle', 'RNTA111111'), ('ranger', 'RNKA111111'),
+                ('rankin', 'RNKN111111'), ('ransay', 'RNSA111111'),
+                ('ransom', 'RNSM111111'), ('raper', 'RPA1111111'),
+                ('rappe', 'RP11111111'), ('rapsom', 'RPSM111111'),
+                ('rapson', 'RPSN111111'), ('rasmussen', 'RSMSN11111'),
+                ('rasrnussen', 'RSNSN11111'), ('rattigan', 'RTKN111111'),
+                ('rattley', 'RTLA111111'), ('rattray', 'RTRA111111'),
+                ('raven', 'RFN1111111'), ('ravenscroft', 'RFNSKRFT11'),
+                ('ravenswood', 'RFNSWT1111'), ('ravenvood', 'RFNFT11111'),
+                ('ravenwood', 'RFNWT11111'), ('rawcliffe', 'RKLF111111'),
+                ('rawe', 'RA11111111'), ('rawei', 'RWA1111111'),
+                ('rawlence', 'RLNK111111'), ('rawley', 'RLA1111111'),
+                ('rawlings', 'RLNKS11111'), ('rawlins', 'RLNS111111'),
+                ('rawlinson', 'RLNSN11111'), ('rawnsley', 'RNSLA11111'),
+                ('rawon', 'RWN1111111'), ('rawson', 'RSN1111111'),
+                ('rawstron', 'RSTRN11111'), ('ray', 'RA11111111'),
+                ('raymond', 'RMNT111111'), ('rayner', 'RNA1111111'),
+                ('rayson', 'RSN1111111'), ('rea', 'RA11111111'),
+                ('read', 'RT11111111'), ('reader', 'RTA1111111'),
+                ('readman', 'RTMN111111'), ('ready', 'RTA1111111'),
+                ('real', 'RA11111111'), ('reardon', 'RTN1111111'),
+                ('reay', 'RA11111111'), ('reddell', 'RTA1111111'),
+                ('redder', 'RTA1111111'), ('reddie', 'RTA1111111'),
+                ('redding', 'RTNK111111'), ('reddington', 'RTNKTN1111'),
+                ('redfearn', 'RTFN111111'), ('redidingto', 'RTTNKTA111'),
+                ('redman', 'RTMN111111'), ('redmayne', 'RTMN111111'),
+                ('redmond', 'RTMNT11111'), ('redwood', 'RTWT111111'),
+                ('reece', 'RK11111111'), ('reed', 'RT11111111'),
+                ('reeder', 'RTA1111111'), ('reekie', 'RKA1111111'),
+                ('rees', 'RS11111111'), ('reeve', 'RF11111111'),
+                ('reeves', 'RFS1111111'), ('reggett', 'RKT1111111'),
+                ('reggiardo', 'RKTA111111'), ('regnault', 'RKNT111111'),
+                ('reid', 'RT11111111'), ('reidboult', 'RTPT111111'),
+                ('reider', 'RTA1111111'), ('reidle', 'RTA1111111'),
+                ('reidy', 'RTA1111111'), ('reilly', 'RLA1111111'),
+                ('reimer', 'RMA1111111'), ('rein', 'RN11111111'),
+                ('reiss', 'RS11111111'), ('rekowski', 'RKSKA11111'),
+                ('remie', 'RMA1111111'), ('remlie', 'RMLA111111'),
+                ('rendall', 'RNTA111111'), ('rendel', 'RNTA111111'),
+                ('render', 'RNTA111111'), ('rendle', 'RNTA111111'),
+                ('renfree', 'RNFRA11111'), ('renfrew', 'RNFRA11111'),
+                ('renney', 'RNA1111111'), ('rennie', 'RNA1111111'),
+                ('rennolds', 'RNTS111111'), ('renton', 'RNTN111111'),
+                ('rentoul', 'RNTA111111'), ('renwick', 'RNWK111111'),
+                ('reny', 'RNA1111111'), ('restieaux', 'RSTK111111'),
+                ('rex', 'RK11111111'), ('reynell', 'RNA1111111'),
+                ('reynolds', 'RNTS111111'), ('rhind', 'NT11111111'),
+                ('rhodes', 'TS11111111'), ('rhynd', 'NT11111111'),
+                ('riach', 'RK11111111'), ('rice', 'RK11111111'),
+                ('rich', 'RK11111111'), ('richard', 'RKT1111111'),
+                ('richardd', 'RKT1111111'), ('richards', 'RKTS111111'),
+                ('richardso', 'RKTSA11111'), ('richardson', 'RKTSN11111'),
+                ('richdale', 'RKTA111111'), ('riches', 'RKS1111111'),
+                ('richmond', 'RKMNT11111'), ('rickard', 'RKT1111111'),
+                ('ridd', 'RT11111111'), ('riddell', 'RTA1111111'),
+                ('riddick', 'RTK1111111'), ('ridding', 'RTNK111111'),
+                ('riddle', 'RTA1111111'), ('riddoch', 'RTK1111111'),
+                ('riddock', 'RTK1111111'), ('rideout', 'RTT1111111'),
+                ('ridgeon', 'RKN1111111'), ('ridgewell', 'RKWA111111'),
+                ('ridgwell', 'RKWA111111'), ('ridland', 'RTLNT11111'),
+                ('ridler', 'RTLA111111'), ('ridley', 'RTLA111111'),
+                ('riederer', 'RTRA111111'), ('riedle', 'RTA1111111'),
+                ('riely', 'RLA1111111'), ('rigby', 'RKPA111111'),
+                ('rigger', 'RKA1111111'), ('riggs', 'RKS1111111'),
+                ('riley', 'RLA1111111'), ('rillstone', 'RSTN111111'),
+                ('rilly', 'RLA1111111'), ('rimeiman', 'RMMN111111'),
+                ('rimmer', 'RMA1111111'), ('rimmington', 'RMNKTN1111'),
+                ('ringer', 'RNKA111111'), ('ringrose', 'RNKRS11111'),
+                ('riorden', 'RTN1111111'), ('ripley', 'RPLA111111'),
+                ('ripp', 'RP11111111'), ('rippin', 'RPN1111111'),
+                ('risk', 'RSK1111111'), ('rissman', 'RSMN111111'),
+                ('ritcbie', 'RTKPA11111'), ('ritchie', 'RKA1111111'),
+                ('ritchle', 'RKA1111111'), ('rittenberg', 'RTNPK11111'),
+                ('rive', 'RF11111111'), ('rivers', 'RFS1111111'),
+                ('rivett', 'RFT1111111'), ('rix', 'RK11111111'),
+                ('rixon', 'RKN1111111'), ('roach', 'RK11111111'),
+                ('roache', 'RK11111111'), ('roan', 'RN11111111'),
+                ('robb', 'RP11111111'), ('robbs', 'RPS1111111'),
+                ('roberston', 'RPSTN11111'), ('robert', 'RPT1111111'),
+                ('roberts', 'RPTS111111'), ('robertsan', 'RPTSN11111'),
+                ('robertshaw', 'RPTSA11111'), ('robertsn', 'RPTSN11111'),
+                ('robertson', 'RPTSN11111'), ('robetrson', 'RPTSN11111'),
+                ('robilliard', 'RPLT111111'), ('robins', 'RPNS111111'),
+                ('robinson', 'RPNSN11111'), ('robjohns', 'RPNS111111'),
+                ('robortson', 'RPTSN11111'), ('robson', 'RPSN111111'),
+                ('rocard', 'RKT1111111'), ('roche', 'RK11111111'),
+                ('rockliff', 'RKLF111111'), ('rodden', 'RTN1111111'),
+                ('roddick', 'RTK1111111'), ('roderique', 'RTRKA11111'),
+                ('rodger', 'RKA1111111'), ('rodgers', 'RKS1111111'),
+                ('rodgerson', 'RKSN111111'), ('rodgrer', 'RKRA111111'),
+                ('rodman', 'RTMN111111'), ('roe', 'RA11111111'),
+                ('roebuck', 'RPK1111111'), ('rogan', 'RKN1111111'),
+                ('rogen', 'RKN1111111'), ('roger', 'RKA1111111'),
+                ('rogers', 'RKS1111111'), ('rogersion', 'RKSN111111'),
+                ('rogerson', 'RKSN111111'), ('roggers', 'RKS1111111'),
+                ('rohan', 'RN11111111'), ('rohertson', 'RTSN111111'),
+                ('roland', 'RLNT111111'), ('rolfe', 'RF11111111'),
+                ('rolinson', 'RLNSN11111'), ('rolland', 'RLNT111111'),
+                ('rollins', 'RLNS111111'), ('rollinson', 'RLNSN11111'),
+                ('rollo', 'RLA1111111'), ('rolson', 'RSN1111111'),
+                ('rolton', 'RTN1111111'), ('romeril', 'RMRA111111'),
+                ('ronald', 'RNT1111111'), ('ronaldson', 'RNTSN11111'),
+                ('rooney', 'RNA1111111'), ('rorley', 'RLA1111111'),
+                ('rosavear', 'RSFA111111'), ('roscow', 'RSKA111111'),
+                ('rose', 'RS11111111'), ('rosenbroc', 'RSNPRK1111'),
+                ('rosenbrock', 'RSNPRK1111'), ('rosenbrook', 'RSNPRK1111'),
+                ('rosenlrock', 'RSNRK11111'), ('rosetta', 'RSTA111111'),
+                ('rosevear', 'RSFA111111'), ('roseveare', 'RSFA111111'),
+                ('rosewarne', 'RSWN111111'), ('rosie', 'RSA1111111'),
+                ('roskilley', 'RSKLA11111'), ('ross', 'RS11111111'),
+                ('rossbotham', 'RSPTM11111'), ('rosser', 'RSA1111111'),
+                ('rossiter', 'RSTA111111'), ('rosson', 'RSN1111111'),
+                ('rothwell', 'RTWA111111'), ('rotting', 'RTNK111111'),
+                ('rough', 'RF11111111'), ('roughan', 'RFN1111111'),
+                ('roulston', 'RSTN111111'), ('round', 'RNT1111111'),
+                ('rourke', 'RK11111111'), ('rousc', 'RSK1111111'),
+                ('rouse', 'RS11111111'), ('rout', 'RT11111111'),
+                ('routledge', 'RTLK111111'), ('routlege', 'RTLK111111'),
+                ('rowan', 'RWN1111111'), ('rowden', 'RTN1111111'),
+                ('rowe', 'RA11111111'), ('rowell', 'RWA1111111'),
+                ('rowland', 'RLNT111111'), ('rowlands', 'RLNTS11111'),
+                ('rowlatt', 'RLT1111111'), ('rowley', 'RLA1111111'),
+                ('rowse', 'RS11111111'), ('roxburgh', 'RKPA111111'),
+                ('roy', 'RA11111111'), ('royal', 'RA11111111'),
+                ('roydhouse', 'RTS1111111'), ('rubinson', 'RPNSN11111'),
+                ('ruck', 'RK11111111'), ('rudd', 'RT11111111'),
+                ('ruddiman', 'RTMN111111'), ('ruddle', 'RTA1111111'),
+                ('ruddy', 'RTA1111111'), ('rudhall', 'RTA1111111'),
+                ('rudkin', 'RTKN111111'), ('rudland', 'RTLNT11111'),
+                ('ruff', 'RF11111111'), ('ruffell', 'RFA1111111'),
+                ('ruhen', 'RN11111111'), ('rule', 'RA11111111'),
+                ('rumble', 'RMPA111111'), ('rumley', 'RMLA111111'),
+                ('rump', 'RMP1111111'), ('rumsey', 'RMSA111111'),
+                ('runcie', 'RNSA111111'), ('runciman', 'RNSMN11111'),
+                ('rundle', 'RNTA111111'), ('rusbatch', 'RSPK111111'),
+                ('rush-munro', 'RSMNRA1111'), ('rush', 'RS11111111'),
+                ('rushton', 'RSTN111111'), ('rushworth', 'RSWT111111'),
+                ('russell', 'RSA1111111'), ('rust', 'RST1111111'),
+                ('ruston', 'RSTN111111'), ('ruth', 'RT11111111'),
+                ('rutherfor', 'RTFA111111'), ('rutherforcl', 'RTFKA11111'),
+                ('rutherford', 'RTFT111111'), ('ruthsatz', 'RTSTS11111'),
+                ('ruthven', 'RTFN111111'), ('rutland', 'RTLNT11111'),
+                ('rutledge', 'RTLK111111'), ('rutter', 'RTA1111111'),
+                ('ruttledge', 'RTLK111111'), ('ryall', 'RA11111111'),
+                ('ryan', 'RN11111111'), ('ryburn', 'RPN1111111'),
+                ('ryder', 'RTA1111111'), ('rylance', 'RLNK111111'),
+                ('rylatt', 'RLT1111111'), ('sabiston', 'SPSTN11111'),
+                ('sachtler', 'SKTLA11111'), ('sadd', 'ST11111111'),
+                ('sadler', 'STLA111111'), ('safey', 'SFA1111111'),
+                ('sagar', 'SKA1111111'), ('sage', 'SK11111111'),
+                ('saggers', 'SKS1111111'), ('saimond', 'SMNT111111'),
+                ('sainsbury', 'SNSPRA1111'), ('salinger', 'SLNKA11111'),
+                ('salisbury', 'SLSPRA1111'), ('sallderson', 'STSN111111'),
+                ('salmon', 'SMN1111111'), ('salmond', 'SMNT111111'),
+                ('salt', 'ST11111111'), ('salter', 'STA1111111'),
+                ('sampson', 'SMPSN11111'), ('samson', 'SMSN111111'),
+                ('samuda', 'SMTA111111'), ('samuel', 'SMA1111111'),
+                ('samuels', 'SMS1111111'), ('sanaway', 'SNWA111111'),
+                ('sand', 'SNT1111111'), ('sanders', 'SNTS111111'),
+                ('sanderson', 'SNTSN11111'), ('sandes', 'SNTS111111'),
+                ('sandey', 'SNTA111111'), ('sandilands', 'SNTLNTS111'),
+                ('sandland', 'SNTLNT1111'), ('sandle', 'SNTA111111'),
+                ('sando', 'SNTA111111'), ('sandom', 'SNTM111111'),
+                ('sandrey', 'SNTRA11111'), ('sandry', 'SNTRA11111'),
+                ('sands', 'SNTS111111'), ('sandys', 'SNTS111111'),
+                ('sangster', 'SNKSTA1111'), ('sansom', 'SNSM111111'),
+                ('sanson', 'SNSN111111'), ('sapsford', 'SPSFT11111'),
+                ('sapwell', 'SPWA111111'), ('sargeant', 'SKNT111111'),
+                ('sarginson', 'SKNSN11111'), ('sarkies', 'SKS1111111'),
+                ('satterthwaite', 'STTWT11111'), ('saul', 'SA11111111'),
+                ('saunders', 'SNTS111111'), ('saunderson', 'SNTSN11111'),
+                ('savage', 'SFK1111111'), ('savigny', 'SFKNA11111'),
+                ('savory', 'SFRA111111'), ('sawers', 'SWS1111111'),
+                ('sawyer', 'SWA1111111'), ('saxby', 'SKPA111111'),
+                ('saxon', 'SKN1111111'), ('saxton', 'SKTN111111'),
+                ('say', 'SA11111111'), ('sayer', 'SA11111111'),
+                ('sayers', 'SS11111111'), ('scager', 'SKKA111111'),
+                ('scaife', 'SKF1111111'), ('scales', 'SKLS111111'),
+                ('scammell', 'SKMA111111'), ('scandrett', 'SKNTRT1111'),
+                ('scanlan', 'SKNLN11111'), ('scanlon', 'SKNLN11111'),
+                ('scannell', 'SKNA111111'), ('scarfe', 'SKF1111111'),
+                ('schapansk', 'SKPNSK1111'), ('schapanski', 'SKPNSKA111'),
+                ('schaper', 'SKPA111111'), ('schaumann', 'SKMN111111'),
+                ('scherek', 'SKRK111111'), ('schlaadt', 'SKLT111111'),
+                ('schluter', 'SKLTA11111'), ('schmaltz', 'SKMTS11111'),
+                ('schmeltz', 'SKMTS11111'), ('schmelz', 'SKMS111111'),
+                ('schmetz', 'SKMTS11111'), ('schmidt', 'SKMT111111'),
+                ('schofield', 'SKFT111111'), ('scholes', 'SKLS111111'),
+                ('schollar', 'SKLA111111'), ('scholtz', 'SKTS111111'),
+                ('schrick', 'SKRK111111'), ('schroeder', 'SKRTA11111'),
+                ('schruffer', 'SKRFA11111'), ('schulenbe', 'SKLNP11111'),
+                ('schulenberg', 'SKLNPK1111'), ('schulenbur', 'SKLNPA1111'),
+                ('schulenburg', 'SKLNPK1111'), ('schultz', 'SKTS111111'),
+                ('schultze', 'SKTS111111'), ('schwartfeger', 'SKWTFKA111'),
+                ('scobie', 'SKPA111111'), ('scoble', 'SKPA111111'),
+                ('scoffeld', 'SKFT111111'), ('scofieid', 'SKFT111111'),
+                ('scofield', 'SKFT111111'), ('scohle', 'SKA1111111'),
+                ('scoles', 'SKLS111111'), ('scollay', 'SKLA111111'),
+                ('scolon', 'SKLN111111'), ('scoones', 'SKNS111111'),
+                ('scores', 'SKRS111111'), ('scorgie', 'SKKA111111'),
+                ('scott', 'SKT1111111'), ('scoular', 'SKLA111111'),
+                ('scouler', 'SKLA111111'), ('scoullar', 'SKLA111111'),
+                ('scrivener', 'SKRFNA1111'), ('scrymgeour', 'SKRMKA1111'),
+                ('scudamore', 'SKTMA11111'), ('scully', 'SKLA111111'),
+                ('sculpher', 'SKFA111111'), ('scurr', 'SKA1111111'),
+                ('seager', 'SKA1111111'), ('seal', 'SA11111111'),
+                ('seales', 'SLS1111111'), ('seaman', 'SMN1111111'),
+                ('seamer', 'SMA1111111'), ('searchfield', 'SKFT111111'),
+                ('searchileld', 'SKLT111111'), ('searl', 'SA11111111'),
+                ('searle', 'SA11111111'), ('season', 'SSN1111111'),
+                ('seath', 'ST11111111'), ('seaton', 'STN1111111'),
+                ('seatree', 'STRA111111'), ('sedal', 'STA1111111'),
+                ('seddon', 'STN1111111'), ('seed', 'ST11111111'),
+                ('seehof', 'SF11111111'), ('seelen', 'SLN1111111'),
+                ('seguin', 'SKN1111111'), ('seherek', 'SRK1111111'),
+                ('seidelin', 'STLN111111'), ('seigle', 'SKA1111111'),
+                ('selby', 'SPA1111111'), ('self', 'SF11111111'),
+                ('selige', 'SLK1111111'), ('sell', 'SA11111111'),
+                ('sellar', 'SLA1111111'), ('sellars', 'SLS1111111'),
+                ('seller', 'SLA1111111'), ('semple', 'SMPA111111'),
+                ('senior', 'SNA1111111'), ('seott', 'ST11111111'),
+                ('seque', 'SKA1111111'), ('service', 'SFK1111111'),
+                ('setter', 'STA1111111'), ('sevenson', 'SFNSN11111'),
+                ('sew hoy', 'SWA1111111'), ('sewart', 'SWT1111111'),
+                ('sewell', 'SWA1111111'), ('sewhoy', 'SWA1111111'),
+                ('sexton', 'SKTN111111'), ('seymour', 'SMA1111111'),
+                ('shackell', 'SKA1111111'), ('shackleton', 'SKLTN11111'),
+                ('shacklock', 'SKLK111111'), ('shadbolt', 'STPT111111'),
+                ('shallcrass', 'SKRS111111'), ('shallish', 'SLS1111111'),
+                ('shalpe', 'SP11111111'), ('shanahan', 'SNN1111111'),
+                ('shand', 'SNT1111111'), ('shankland', 'SNKLNT1111'),
+                ('shanks', 'SNKS111111'), ('shann', 'SN11111111'),
+                ('shannahan', 'SNN1111111'), ('shannon', 'SNN1111111'),
+                ('shardlow', 'STLA111111'), ('sharkey', 'SKA1111111'),
+                ('sharkie', 'SKA1111111'), ('sharp', 'SP11111111'),
+                ('sharpe', 'SP11111111'), ('shaw', 'SA11111111'),
+                ('shea-lawlo', 'SLLA111111'), ('shea-lawlor', 'SLLA111111'),
+                ('shea', 'SA11111111'), ('shearer', 'SRA1111111'),
+                ('shearing', 'SRNK111111'), ('shears', 'SS11111111'),
+                ('shearsby', 'SSPA111111'), ('sheath', 'ST11111111'),
+                ('sheddan', 'STN1111111'), ('sheed', 'ST11111111'),
+                ('sheehan', 'SN11111111'), ('sheehy', 'SA11111111'),
+                ('sheen', 'SN11111111'), ('sheenan', 'SNN1111111'),
+                ('sheldrake', 'STRK111111'), ('shelton', 'STN1111111'),
+                ('shelverton', 'SFTN111111'), ('shene', 'SN11111111'),
+                ('shenken', 'SNKN111111'), ('shennan', 'SNN1111111'),
+                ('shephard', 'SFT1111111'), ('shepherd', 'SFT1111111'),
+                ('shepparcl', 'SPKA111111'), ('sheppard', 'SPT1111111'),
+                ('shepperd', 'SPT1111111'), ('shepphard', 'SPFT111111'),
+                ('sherburd', 'SPT1111111'), ('sherer', 'SRA1111111'),
+                ('sheridan', 'SRTN111111'), ('sheridian', 'SRTN111111'),
+                ('sheriff', 'SRF1111111'), ('sherlaw', 'SLA1111111'),
+                ('sherlock', 'SLK1111111'), ('sherriff', 'SRF1111111'),
+                ('sherwill', 'SWA1111111'), ('sherwood', 'SWT1111111'),
+                ('shieffelbien', 'SFPN111111'), ('shiel', 'SA11111111'),
+                ('shields', 'STS1111111'), ('shiels', 'SS11111111'),
+                ('shier', 'SA11111111'), ('shierlaw', 'SLA1111111'),
+                ('shiffington', 'SFNKTN1111'), ('shilcock', 'SKK1111111'),
+                ('shillum', 'SLM1111111'), ('shilton', 'STN1111111'),
+                ('shine', 'SN11111111'), ('shing', 'SNK1111111'),
+                ('shipman', 'SPMN111111'), ('shirer', 'SRA1111111'),
+                ('shires', 'SRS1111111'), ('shirley', 'SLA1111111'),
+                ('shirreffs', 'SRFS111111'), ('shore', 'SA11111111'),
+                ('shorney', 'SNA1111111'), ('short', 'ST11111111'),
+                ('shortt', 'ST11111111'), ('shrimpton', 'SRMPTN1111'),
+                ('shrubsole', 'SRPSA11111'), ('shuffill', 'SFA1111111'),
+                ('shugar', 'SKA1111111'), ('shutt', 'ST11111111'),
+                ('sibbald', 'SPT1111111'), ('sibley', 'SPLA111111'),
+                ('sickels', 'SKS1111111'), ('sidell', 'STA1111111'),
+                ('sidey', 'STA1111111'), ('sidon', 'STN1111111'),
+                ('sidoy', 'STA1111111'), ('sievwright', 'SFRT111111'),
+                ('silk', 'SK11111111'), ('silken', 'SKN1111111'),
+                ('silsby', 'SSPA111111'), ('silva', 'SFA1111111'),
+                ('silver', 'SFA1111111'), ('silverstone', 'SFSTN11111'),
+                ('silvertsen', 'SFTSN11111'), ('silvester', 'SFSTA11111'),
+                ('silvi', 'SFA1111111'), ('sim', 'SM11111111'),
+                ('sime', 'SM11111111'), ('simeon', 'SMN1111111'),
+                ('simes', 'SMS1111111'), ('simkin', 'SMKN111111'),
+                ('simm', 'SM11111111'), ('simmonds', 'SMNTS11111'),
+                ('simmons', 'SMNS111111'), ('simms', 'SMS1111111'),
+                ('simnons', 'SMNNS11111'), ('simon', 'SMN1111111'),
+                ('simons', 'SMNS111111'), ('simonsen', 'SMNSN11111'),
+                ('simpkins', 'SMPKNS1111'), ('simpson', 'SMPSN11111'),
+                ('sims', 'SMS1111111'), ('simson', 'SMSN111111'),
+                ('sinclair', 'SNKLA11111'), ('sinclait', 'SNKLT11111'),
+                ('sinclar', 'SNKLA11111'), ('sincock', 'SNKK111111'),
+                ('sincok', 'SNKK111111'), ('sing', 'SNK1111111'),
+                ('singleton', 'SNKLTN1111'), ('sings', 'SNKS111111'),
+                ('sinith', 'SNT1111111'), ('sinnamon', 'SNMN111111'),
+                ('sinton', 'SNTN111111'), ('sirnmonds', 'SNMNTS1111'),
+                ('sise', 'SS11111111'), ('sitley', 'STLA111111'),
+                ('sitopson', 'STPSN11111'), ('sivell', 'SFA1111111'),
+                ('sivertsen', 'SFTSN11111'), ('sivewright', 'SFRT111111'),
+                ('sixton', 'SKTN111111'), ('sizen', 'SSN1111111'),
+                ('sizer', 'SSA1111111'), ('skeane', 'SKN1111111'),
+                ('skeels', 'SKS1111111'), ('skeen', 'SKN1111111'),
+                ('skeene', 'SKN1111111'), ('skeet', 'SKT1111111'),
+                ('skelton', 'SKTN111111'), ('skene', 'SKN1111111'),
+                ('skeoch', 'SKK1111111'), ('skerrett', 'SKRT111111'),
+                ('skiffington', 'SKFNKTN111'), ('skilton', 'SKTN111111'),
+                ('skimer', 'SKMA111111'), ('skinner', 'SKNA111111'),
+                ('skipworth', 'SKPWT11111'), ('skirving', 'SKFNK11111'),
+                ('skow', 'SKA1111111'), ('skrimpton', 'SKRMPTN111'),
+                ('skuse', 'SKS1111111'), ('slack', 'SLK1111111'),
+                ('slade', 'SLT1111111'), ('slater', 'SLTA111111'),
+                ('slatter', 'SLTA111111'), ('slattery', 'SLTRA11111'),
+                ('slaughter', 'SLTA111111'), ('slee', 'SLA1111111'),
+                ('sleeman', 'SLMN111111'), ('slemint', 'SLMNT11111'),
+                ('slent', 'SLNT111111'), ('slight', 'SLT1111111'),
+                ('sligo', 'SLKA111111'), ('slinner', 'SLNA111111'),
+                ('sloan', 'SLN1111111'), ('sloper', 'SLPA111111'),
+                ('slovley', 'SLFLA11111'), ('slowey', 'SLWA111111'),
+                ('slowley', 'SLLA111111'), ('slowly', 'SLLA111111'),
+                ('slyfield', 'SLFT111111'), ('smail', 'SMA1111111'),
+                ('smaill', 'SMA1111111'), ('smales', 'SMLS111111'),
+                ('small', 'SMA1111111'), ('smalley', 'SMLA111111'),
+                ('smallman', 'SMMN111111'), ('smart', 'SMT1111111'),
+                ('smea]', 'SMA1111111'), ('smeal', 'SMA1111111'),
+                ('smear', 'SMA1111111'), ('smeaton', 'SMTN111111'),
+                ('smedley', 'SMTLA11111'), ('smellie', 'SMLA111111'),
+                ('smethurst', 'SMTST11111'), ('smiley', 'SMLA111111'),
+                ('smitb', 'SMTP111111'), ('smith-palmer', 'SMTPMA1111'),
+                ('smith', 'SMT1111111'), ('smither', 'SMTA111111'),
+                ('smithpalmer', 'SMTPMA1111'), ('smithson', 'SMTSN11111'),
+                ('smitl', 'SMTA111111'), ('smolenski', 'SMLNSKA111'),
+                ('smyth', 'SMT1111111'), ('smythe', 'SMT1111111'),
+                ('sneade', 'SNT1111111'), ('sneddon', 'SNTN111111'),
+                ('snell', 'SNA1111111'), ('snelleksz', 'SNLKS11111'),
+                ('snook', 'SNK1111111'), ('snow', 'SNA1111111'),
+                ('snowball', 'SNPA111111'), ('snowden', 'SNTN111111'),
+                ('snowdon', 'SNTN111111'), ('soden', 'STN1111111'),
+                ('solomon', 'SLMN111111'), ('somerviile', 'SMFA111111'),
+                ('somervill', 'SMFA111111'), ('somerville', 'SMFA111111'),
+                ('somes', 'SMS1111111'), ('sommerfield', 'SMFT111111'),
+                ('sommerville', 'SMFA111111'), ('sonntag', 'SNTK111111'),
+                ('sontag', 'SNTK111111'), ('soper', 'SPA1111111'),
+                ('sorenson', 'SRNSN11111'), ('soulsby', 'SSPA111111'),
+                ('soundy', 'SNTA111111'), ('souness', 'SNS1111111'),
+                ('sourdon', 'STN1111111'), ('souter', 'STA1111111'),
+                ('south', 'ST11111111'), ('southall', 'STA1111111'),
+                ('southam', 'STM1111111'), ('southberg', 'STPK111111'),
+                ('southern', 'STN1111111'), ('southey', 'STA1111111'),
+                ('southorn', 'STN1111111'), ('soutter', 'STA1111111'),
+                ('spain', 'SPN1111111'), ('spalding', 'SPTNK11111'),
+                ('spargo', 'SPKA111111'), ('sparks', 'SPKS111111'),
+                ('sparnon', 'SPNN111111'), ('sparrow', 'SPRA111111'),
+                ('spatz', 'SPTS111111'), ('spaul', 'SPA1111111'),
+                ('spavin', 'SPFN111111'), ('spear', 'SPA1111111'),
+                ('spedding', 'SPTNK11111'), ('speden', 'SPTN111111'),
+                ('speid', 'SPT1111111'), ('speight', 'SPT1111111'),
+                ('speir', 'SPA1111111'), ('speirs', 'SPS1111111'),
+                ('spell', 'SPA1111111'), ('spellman', 'SPMN111111'),
+                ('spence', 'SPNK111111'), ('spencer', 'SPNSA11111'),
+                ('spiers', 'SPS1111111'), ('spillane', 'SPLN111111'),
+                ('spinks', 'SPNKS11111'), ('spinner', 'SPNA111111'),
+                ('spiro', 'SPRA111111'), ('spong', 'SPNK111111'),
+                ('spooner', 'SPNA111111'), ('spowart', 'SPWT111111'),
+                ('spragg', 'SPRK111111'), ('spraggon', 'SPRKN11111'),
+                ('sprague', 'SPRKA11111'), ('spratt', 'SPRT111111'),
+                ('spray', 'SPRA111111'), ('spring', 'SPRNK11111'),
+                ('springhall', 'SPRNA11111'), ('sproat', 'SPRT111111'),
+                ('sprott', 'SPRT111111'), ('sproule', 'SPRA111111'),
+                ('sproull', 'SPRA111111'), ('spurden', 'SPTN111111'),
+                ('sputter', 'SPTA111111'), ('squiness', 'SKNS111111'),
+                ('squire', 'SKA1111111'), ('squires', 'SKRS111111'),
+                ('st george', 'STKK111111'), ('stabb', 'STP1111111'),
+                ('stables', 'STPLS11111'), ('stackhouse', 'STKS111111'),
+                ('stade', 'STT1111111'), ('stafford', 'STFT111111'),
+                ('stagpoole', 'STKPA11111'), ('staines', 'STNS111111'),
+                ('stainton', 'STNTN11111'), ('staite', 'STT1111111'),
+                ('stakey', 'STKA111111'), ('stalker', 'STKA111111'),
+                ('stallard', 'STLT111111'), ('stammers', 'STMS111111'),
+                ('stamper', 'STMPA11111'), ('stanafield', 'STNFT11111'),
+                ('stanaway', 'STNWA11111'), ('stanbrook', 'STNPRK1111'),
+                ('standen', 'STNTN11111'), ('standfield', 'STNTFT1111'),
+                ('standring', 'STNTRNK111'), ('stanford', 'STNFT11111'),
+                ('staniford', 'STNFT11111'), ('stanley', 'STNLA11111'),
+                ('stannens', 'STNNS11111'), ('stanners', 'STNS111111'),
+                ('stanton', 'STNTN11111'), ('staples', 'STPLS11111'),
+                ('stapleton', 'STPLTN1111'), ('starham', 'STM1111111'),
+                ('stark', 'STK1111111'), ('starkey', 'STKA111111'),
+                ('starr', 'STA1111111'), ('statham', 'STTM111111'),
+                ('staunton', 'STNTN11111'), ('stead', 'STT1111111'),
+                ('steadman', 'STTMN11111'), ('stedman', 'STTMN11111'),
+                ('stedward', 'STTWT11111'), ('steedman', 'STTMN11111'),
+                ('steeds', 'STTS111111'), ('steel', 'STA1111111'),
+                ('steele', 'STA1111111'), ('steen', 'STN1111111'),
+                ('steensoll', 'STNSA11111'), ('steenson', 'STNSN11111'),
+                ('steffens', 'STFNS11111'), ('steinman', 'STNMN11111'),
+                ('stella', 'STLA111111'), ('stem', 'STM1111111'),
+                ('stempa', 'STMPA11111'), ('stenhouse', 'STNS111111'),
+                ('stennouse', 'STNS111111'), ('stent', 'STNT111111'),
+                ('stentiford', 'STNTFT1111'), ('stepbenson', 'STPNSN1111'),
+                ('stephen', 'STFN111111'), ('stephens', 'STFNS11111'),
+                ('stephenso', 'STFNSA1111'), ('stephenson', 'STFNSN1111'),
+                ('sterart', 'STRT111111'), ('sterling', 'STLNK11111'),
+                ('stesvart', 'STSFT11111'), ('stevart', 'STFT111111'),
+                ('steven', 'STFN111111'), ('stevens', 'STFNS11111'),
+                ('stevenson', 'STFNSN1111'), ('steward', 'STWT111111'),
+                ('stewart', 'STWT111111'), ('stgeorge', 'STKK111111'),
+                ('stichann', 'STKN111111'), ('stichmann', 'STKMN11111'),
+                ('stickman', 'STKMN11111'), ('stiglish', 'STKLS11111'),
+                ('stiles', 'STLS111111'), ('still', 'STA1111111'),
+                ('stinso', 'STNSA11111'), ('stinson', 'STNSN11111'),
+                ('stirling', 'STLNK11111'), ('stiven', 'STFN111111'),
+                ('stobie', 'STPA111111'), ('stock', 'STK1111111'),
+                ('stockdale', 'STKTA11111'), ('stocker', 'STKA111111'),
+                ('stoddart', 'STTT111111'), ('stohr', 'STA1111111'),
+                ('stoke', 'STK1111111'), ('stokes', 'STKS111111'),
+                ('stone', 'STN1111111'), ('stonebrid', 'STNPRT1111'),
+                ('stonebridge', 'STNPRK1111'), ('stoneham', 'STNM111111'),
+                ('stook', 'STK1111111'), ('storer', 'STRA111111'),
+                ('storey', 'STRA111111'), ('storie', 'STRA111111'),
+                ('storm', 'STM1111111'), ('storrie', 'STRA111111'),
+                ('storry', 'STRA111111'), ('stort', 'STT1111111'),
+                ('story', 'STRA111111'), ('stothart', 'STTT111111'),
+                ('stott', 'STT1111111'), ('stout', 'STT1111111'),
+                ('stowell', 'STWA111111'), ('stozepanski', 'STSPNSKA11'),
+                ('strachan', 'STRKN11111'), ('strack', 'STRK111111'),
+                ('strafford', 'STRFT11111'), ('strain', 'STRN111111'),
+                ('strang', 'STRNK11111'), ('strange', 'STRNK11111'),
+                ('stratford', 'STRTFT1111'), ('strathern', 'STRTN11111'),
+                ('stratton', 'STRTN11111'), ('straw', 'STRA111111'),
+                ('strawbridge', 'STRPRK1111'), ('street', 'STRT111111'),
+                ('strickett', 'STRKT11111'), ('stright', 'STRT111111'),
+                ('stringer', 'STRNKA1111'), ('stronach', 'STRNK11111'),
+                ('strong', 'STRNK11111'), ('stroud', 'STRT111111'),
+                ('strouts', 'STRTS11111'), ('struckett', 'STRKT11111'),
+                ('struthers', 'STRTS11111'), ('stuart-miller', 'STTMLA1111'),
+                ('stuart', 'STT1111111'), ('stubbs', 'STPS111111'),
+                ('stubley', 'STPLA11111'), ('stuckey', 'STKA111111'),
+                ('stumbles', 'STMPLS1111'), ('sturgeon', 'STKN111111'),
+                ('sturtevan', 'STTFN11111'), ('styche', 'STK1111111'),
+                ('styles', 'STLS111111'), ('sudden', 'STN1111111'),
+                ('suddens', 'STNS111111'), ('sugden', 'SKTN111111'),
+                ('suilivan', 'SLFN111111'), ('sullivan', 'SLFN111111'),
+                ('sullivar', 'SLFA111111'), ('summerell', 'SMRA111111'),
+                ('summerfield', 'SMFT111111'), ('summers', 'SMS1111111'),
+                ('sumner', 'SMNA111111'), ('sunderland', 'SNTLNT1111'),
+                ('sutcliffe', 'STKLF11111'), ('suter', 'STA1111111'),
+                ('suters', 'STS1111111'), ('sutherlan', 'STLN111111'),
+                ('sutherland', 'STLNT11111'), ('sutherlard', 'STLT111111'),
+                ('sutton', 'STN1111111'), ('swale', 'SWA1111111'),
+                ('swan', 'SWN1111111'), ('swanerton', 'SWNTN11111'),
+                ('swanger', 'SWNKA11111'), ('swann', 'SWN1111111'),
+                ('swanson', 'SWNSN11111'), ('swanston', 'SWNSTN1111'),
+                ('swanwick', 'SWNWK11111'), ('sweeney', 'SWNA111111'),
+                ('sweetman', 'SWTMN11111'), ('sweetnam', 'SWTNM11111'),
+                ('swell', 'SWA1111111'), ('swete', 'SWT1111111'),
+                ('swift', 'SWFT111111'), ('swinburne', 'SWNPN11111'),
+                ('swindley', 'SWNTLA1111'), ('swinley', 'SWNLA11111'),
+                ('swinney', 'SWNA111111'), ('swinton', 'SWNTN11111'),
+                ('switalla', 'SWTLA11111'), ('switalli', 'SWTLA11111'),
+                ('switzer', 'SWTSA11111'), ('syder', 'STA1111111'),
+                ('sydney', 'STNA111111'), ('sykes', 'SKS1111111'),
+                ('syme', 'SM11111111'), ('symes', 'SMS1111111'),
+                ('symington', 'SMNKTN1111'), ('symon', 'SMN1111111'),
+                ('symonds', 'SMNTS11111'), ('syndercombe', 'SNTKM11111'),
+                ('sythes', 'STS1111111'), ('tabor', 'TPA1111111'),
+                ('tackson', 'TKSN111111'), ('taggart', 'TKT1111111'),
+                ('taine', 'TN11111111'), ('tait', 'TT11111111'),
+                ('talbot', 'TPT1111111'), ('talboys', 'TPS1111111'),
+                ('tall', 'TA11111111'), ('tallant', 'TLNT111111'),
+                ('tamblyn', 'TMPLN11111'), ('tanner', 'TNA1111111'),
+                ('tansey', 'TNSA111111'), ('tansleiy', 'TNSLA11111'),
+                ('tansley', 'TNSLA11111'), ('tapley', 'TPLA111111'),
+                ('taplin', 'TPLN111111'), ('tapper', 'TPA1111111'),
+                ('tapson', 'TPSN111111'), ('tarbutt', 'TPT1111111'),
+                ('tarleton', 'TLTN111111'), ('tarlton', 'TTN1111111'),
+                ('tarrant', 'TRNT111111'), ('tartakover', 'TTKFA11111'),
+                ('tarves', 'TFS1111111'), ('tasker', 'TSKA111111'),
+                ('tate', 'TT11111111'), ('tattersal', 'TTSA111111'),
+                ('tattersall', 'TTSA111111'), ('tattersfield', 'TTSFT11111'),
+                ('taunt', 'TNT1111111'), ('tavendale', 'TFNTA11111'),
+                ('taverner', 'TFNA111111'), ('tavlor', 'TFLA111111'),
+                ('tayior', 'TA11111111'), ('tayler', 'TLA1111111'),
+                ('tayles', 'TLS1111111'), ('taylor', 'TLA1111111'),
+                ('teague', 'TKA1111111'), ('teale', 'TA11111111'),
+                ('tearle', 'TA11111111'), ('teasdale', 'TSTA111111'),
+                ('tebbett', 'TPT1111111'), ('teer', 'TA11111111'),
+                ('teesdale', 'TSTA111111'), ('tegg', 'TK11111111'),
+                ('telfer', 'TFA1111111'), ('telford', 'TFT1111111'),
+                ('teller', 'TLA1111111'), ('tempero', 'TMPRA11111'),
+                ('temperton', 'TMPTN11111'), ('templcton', 'TMPKTN1111'),
+                ('temple', 'TMPA111111'), ('templeton', 'TMPLTN1111'),
+                ('tenbeth', 'TNPT111111'), ('tennant', 'TNNT111111'),
+                ('tennent', 'TNNT111111'), ('tennet', 'TNT1111111'),
+                ('tepene', 'TPN1111111'), ('terry', 'TRA1111111'),
+                ('teschner', 'TSKNA11111'), ('teviotdale', 'TFTA111111'),
+                ('thackwel', 'TKWA111111'), ('thiele', 'TA11111111'),
+                ('thin', 'TN11111111'), ('thinn', 'TN11111111'),
+                ('third', 'TT11111111'), ('thom', 'TM11111111'),
+                ('thomas', 'TMS1111111'), ('thomason', 'TMSN111111'),
+                ('thomlinson', 'TMLNSN1111'), ('thompson', 'TMPSN11111'),
+                ('thomson', 'TMSN111111'), ('thonas', 'TNS1111111'),
+                ('thora', 'TRA1111111'), ('thorapson', 'TRPSN11111'),
+                ('thorburn', 'TPN1111111'), ('thorley', 'TLA1111111'),
+                ('thorn', 'TN11111111'), ('thornburg', 'TNPK111111'),
+                ('thornburgh', 'TNPA111111'), ('thornhill', 'TNA1111111'),
+                ('thornicroft', 'TNKRFT1111'), ('thornley', 'TNLA111111'),
+                ('thornton', 'TNTN111111'), ('thorp', 'TP11111111'),
+                ('thotnpson', 'TTNPSN1111'), ('thow', 'TA11111111'),
+                ('throp', 'TRP1111111'), ('thurlow', 'TLA1111111'),
+                ('thurston', 'TSTN111111'), ('thwaites', 'TWTS111111'),
+                ('tibbles', 'TPLS111111'), ('tibbs', 'TPS1111111'),
+                ('tidey', 'TTA1111111'), ('tierney', 'TNA1111111'),
+                ('tighe umbers', 'TKMPS11111'), ('tighe-umbers', 'TKMPS11111'),
+                ('tighe', 'TA11111111'), ('tigheumbers', 'TKMPS11111'),
+                ('tilburn', 'TPN1111111'), ('tilbury', 'TPRA111111'),
+                ('tilley', 'TLA1111111'), ('tilleyshor', 'TLSA111111'),
+                ('tilleyshort', 'TLST111111'), ('tillie', 'TLA1111111'),
+                ('tillyshort', 'TLST111111'), ('tilson', 'TSN1111111'),
+                ('tiltman', 'TTMN111111'), ('tily', 'TLA1111111'),
+                ('timlin', 'TMLN111111'), ('timmings', 'TMNKS11111'),
+                ('timmins', 'TMNS111111'), ('timms', 'TMS1111111'),
+                ('tims', 'TMS1111111'), ('tinnock', 'TNK1111111'),
+                ('tinson', 'TNSN111111'), ('tipa', 'TPA1111111'),
+                ('tippet', 'TPT1111111'), ('tippett', 'TPT1111111'),
+                ('tisdall', 'TSTA111111'), ('titchener', 'TKNA111111'),
+                ('titchner', 'TKNA111111'), ('titclhener', 'TTKNA11111'),
+                ('tither', 'TTA1111111'), ('titohener', 'TTNA111111'),
+                ('tiverner', 'TFNA111111'), ('tizard', 'TST1111111'),
+                ('tlimlin', 'TLMLN11111'), ('tlomson', 'TLMSN11111'),
+                ('tnlley', 'TNLA111111'), ('toal', 'TA11111111'),
+                ('toase', 'TS11111111'), ('tobin', 'TPN1111111'),
+                ('tod', 'TT11111111'), ('toda', 'TTA1111111'),
+                ('todd', 'TT11111111'), ('tofield', 'TFT1111111'),
+                ('tohill', 'TA11111111'), ('tointon', 'TNTN111111'),
+                ('tolley', 'TLA1111111'), ('tolmie', 'TMA1111111'),
+                ('tombs', 'TMPS111111'), ('tomkins', 'TMKNS11111'),
+                ('tomkinson', 'TMKNSN1111'), ('tomlinson', 'TMLNSN1111'),
+                ('tompkins', 'TMPKNS1111'), ('toms', 'TMS1111111'),
+                ('tonar', 'TNA1111111'), ('toner', 'TNA1111111'),
+                ('tones', 'TNS1111111'), ('toneycliffe', 'TNKLF11111'),
+                ('tonkin', 'TNKN111111'), ('tonkinson', 'TNKNSN1111'),
+                ('tonner', 'TNA1111111'), ('tonnor', 'TNA1111111'),
+                ('toohey', 'TA11111111'), ('toohill', 'TA11111111'),
+                ('toohoy', 'TA11111111'), ('tooman', 'TMN1111111'),
+                ('toomer', 'TMA1111111'), ('toomey', 'TMA1111111'),
+                ('tooner', 'TNA1111111'), ('tootell', 'TTA1111111'),
+                ('topp', 'TP11111111'), ('torpey', 'TPA1111111'),
+                ('torrance', 'TRNK111111'), ('torrie', 'TRA1111111'),
+                ('tosh', 'TS11111111'), ('toshack', 'TSK1111111'),
+                ('tosswill', 'TSWA111111'), ('tough', 'TF11111111'),
+                ('tourell', 'TRA1111111'), ('tout', 'TT11111111'),
+                ('towart', 'TWT1111111'), ('towle', 'TA11111111'),
+                ('towler', 'TLA1111111'), ('town', 'TN11111111'),
+                ('towniey', 'TNA1111111'), ('townley', 'TNLA111111'),
+                ('townrow', 'TNRA111111'), ('townsend', 'TNSNT11111'),
+                ('townshend', 'TNSNT11111'), ('towsey', 'TSA1111111'),
+                ('towson', 'TSN1111111'), ('toy', 'TA11111111'),
+                ('toye', 'TA11111111'), ('tracey', 'TRSA111111'),
+                ('tracy', 'TRSA111111'), ('traherne', 'TRN1111111'),
+                ('trail', 'TRA1111111'), ('traill', 'TRA1111111'),
+                ('trainor', 'TRNA111111'), ('tranter', 'TRNTA11111'),
+                ('trapski', 'TRPSKA1111'), ('travena', 'TRFNA11111'),
+                ('traves', 'TRFS111111'), ('travis', 'TRFS111111'),
+                ('traynor', 'TRNA111111'), ('treacy', 'TRSA111111'),
+                ('treadwell', 'TRTWA11111'), ('trebilcock', 'TRPKK11111'),
+                ('tree', 'TRA1111111'), ('treeweek', 'TRWK111111'),
+                ('tregea', 'TRKA111111'), ('tregear', 'TRKA111111'),
+                ('tregilgus', 'TRKKS11111'), ('tregoning', 'TRKNNK1111'),
+                ('tregonning', 'TRKNNK1111'), ('treleaven', 'TRLFN11111'),
+                ('treloar', 'TRLA111111'), ('tremaine', 'TRMN111111'),
+                ('trench', 'TRNK111111'), ('trencll', 'TRNKA11111'),
+                ('trengrove', 'TRNKRF1111'), ('trenwith', 'TRNWT11111'),
+                ('trerise', 'TRRS111111'), ('tressider', 'TRSTA11111'),
+                ('tressler', 'TRSLA11111'), ('trestrail', 'TRSTRA1111'),
+                ('tretheway', 'TRTWA11111'), ('trevarthan', 'TRFTN11111'),
+                ('trevathan', 'TRFTN11111'), ('trevena', 'TRFNA11111'),
+                ('trevenna', 'TRFNA11111'), ('treves', 'TRFS111111'),
+                ('treweek', 'TRWK111111'), ('trewera', 'TRWRA11111'),
+                ('trewern', 'TRWN111111'), ('trewhellar', 'TRWLA11111'),
+                ('trewick', 'TRWK111111'), ('trezise', 'TRSS111111'),
+                ('triggs', 'TRKS111111'), ('trim', 'TRM1111111'),
+                ('trimble', 'TRMPA11111'), ('trimnell', 'TRMNA11111'),
+                ('trinder', 'TRNTA11111'), ('tripp', 'TRP1111111'),
+                ('trnbull', 'TNPA111111'), ('troadic', 'TRTK111111'),
+                ('troomer', 'TRMA111111'), ('troon', 'TRN1111111'),
+                ('trotman', 'TRTMN11111'), ('trott', 'TRT1111111'),
+                ('trotter', 'TRTA111111'), ('trounce', 'TRNK111111'),
+                ('troup', 'TRP1111111'), ('trow', 'TRA1111111'),
+                ('trower', 'TRWA111111'), ('truesdale', 'TRSTA11111'),
+                ('truscott', 'TRSKT11111'), ('try', 'TRA1111111'),
+                ('trythall', 'TRTA111111'), ('tubman', 'TPMN111111'),
+                ('tubmar', 'TPMA111111'), ('tuck', 'TK11111111'),
+                ('tucker', 'TKA1111111'), ('tuckey', 'TKA1111111'),
+                ('tudor', 'TTA1111111'), ('tuite', 'TT11111111'),
+                ('tull', 'TA11111111'), ('tulley', 'TLA1111111'),
+                ('tulloch', 'TLK1111111'), ('tully', 'TLA1111111'),
+                ('tunam', 'TNM1111111'), ('tunnell', 'TNA1111111'),
+                ('tunnicliffe', 'TNKLF11111'), ('tunzelman', 'TNSMN11111'),
+                ('tuohy', 'TA11111111'), ('turley', 'TLA1111111'),
+                ('turlington', 'TLNKTN1111'), ('turllbull', 'TPA1111111'),
+                ('turnbull', 'TNPA111111'), ('turner', 'TNA1111111'),
+                ('turpin', 'TPN1111111'), ('turton', 'TTN1111111'),
+                ('turvey', 'TFA1111111'), ('tustain', 'TSTN111111'),
+                ('tutty', 'TTA1111111'), ('tuxford', 'TKFT111111'),
+                ('tvlee', 'TFLA111111'), ('twaddell', 'TWTA111111'),
+                ('twaddle', 'TWTA111111'), ('tweed', 'TWT1111111'),
+                ('tweedale', 'TWTA111111'), ('tweedie', 'TWTA111111'),
+                ('tweedle', 'TWTA111111'), ('tweedy', 'TWTA111111'),
+                ('twelftree', 'TWFTRA1111'), ('twemlow', 'TWMLA11111'),
+                ('twhigg', 'TWK1111111'), ('twining', 'TWNNK11111'),
+                ('twist', 'TWST111111'), ('twose', 'TWS1111111'),
+                ('tye', 'TA11111111'), ('tylee', 'TLA1111111'),
+                ('tyler', 'TLA1111111'), ('tynan', 'TNN1111111'),
+                ('tyre', 'TA11111111'), ('tyree', 'TRA1111111'),
+                ('tyrie', 'TRA1111111'), ('tyrrell-baxter', 'TRPKTA1111'),
+                ('tyrrell', 'TRA1111111'), ('tysoll', 'TSA1111111'),
+                ('tyson', 'TSN1111111'), ('udy', 'ATA1111111'),
+                ('ufton', 'AFTN111111'), ('umbers', 'AMPS111111'),
+                ('underwood', 'ANTWT11111'), ('unwin', 'ANWN111111'),
+                ('uphill', 'AFA1111111'), ('upson', 'APSN111111'),
+                ('ure', 'AA11111111'), ('uren', 'ARN1111111'),
+                ('urquhart', 'AKT1111111'), ('usher', 'ASA1111111'),
+                ('usherwood', 'ASWT111111'), ('ussher', 'ASA1111111'),
+                ('ussherwood', 'ASWT111111'), ('utteridge', 'ATRK111111'),
+                ('uttley', 'ATLA111111'), ('vaidya', 'FTA1111111'),
+                ('vaile', 'FA11111111'), ('valentine', 'FLNTN11111'),
+                ('valli', 'FLA1111111'), ('valpy', 'FPA1111111'),
+                ('vance', 'FNK1111111'), ('vanes', 'FNS1111111'),
+                ('vann', 'FN11111111'), ('varcoe', 'FKA1111111'),
+                ('varian', 'FRN1111111'), ('varney', 'FNA1111111'),
+                ('vartha', 'FTA1111111'), ('vaughan', 'FKN1111111'),
+                ('veal', 'FA11111111'), ('vedder', 'FTA1111111'),
+                ('veint', 'FNT1111111'), ('veitch', 'FK11111111'),
+                ('ven our', 'FNA1111111'), ('venn', 'FN11111111'),
+                ('venning', 'FNNK111111'), ('venour', 'FNA1111111'),
+                ('vercoe', 'FKA1111111'), ('vere', 'FA11111111'),
+                ('verey', 'FRA1111111'), ('verity', 'FRTA111111'),
+                ('verngreen', 'FNKRN11111'), ('vernon', 'FNN1111111'),
+                ('vette', 'FT11111111'), ('vezey', 'FSA1111111'),
+                ('vial', 'FA11111111'), ('vickers', 'FKS1111111'),
+                ('vickery', 'FKRA111111'), ('vik', 'FK11111111'),
+                ('vile', 'FA11111111'), ('vince', 'FNK1111111'),
+                ('vincent', 'FNSNT11111'), ('vine', 'FN11111111'),
+                ('viney', 'FNA1111111'), ('vintiner', 'FNTNA11111'),
+                ('vintinner', 'FNTNA11111'), ('vintinuer', 'FNTNA11111'),
+                ('virtue', 'FTA1111111'), ('vitharson', 'FTSN111111'),
+                ('vivian', 'FFN1111111'), ('vlietstra', 'FLTSTRA111'),
+                ('voight', 'FT11111111'), ('voigt', 'FKT1111111'),
+                ('voiler', 'FLA1111111'), ('voisey', 'FSA1111111'),
+                ('voller', 'FLA1111111'), ('vosper', 'FSPA111111'),
+                ('voyce', 'FK11111111'), ('voysey', 'FSA1111111'),
+                ('vyner', 'FNA1111111'), ('waby', 'WPA1111111'),
+                ('wacher', 'WKA1111111'), ('wackeldin', 'WKTN111111'),
+                ('wackeldine', 'WKTN111111'), ('wackier', 'WKA1111111'),
+                ('wackilden', 'WKTN111111'), ('wackildene', 'WKTN111111'),
+                ('waddel', 'WTA1111111'), ('waddell', 'WTA1111111'),
+                ('waddle', 'WTA1111111'), ('wade', 'WT11111111'),
+                ('wadie', 'WTA1111111'), ('wadsworth', 'WTSWT11111'),
+                ('waghorn', 'WKN1111111'), ('waghorne', 'WKN1111111'),
+                ('waghornee', 'WKNA111111'), ('wagner', 'WKNA111111'),
+                ('wah', 'WA11111111'), ('wahren', 'WRN1111111'),
+                ('wahrlich', 'WLK1111111'), ('waide', 'WT11111111'),
+                ('waigth', 'WKT1111111'), ('wain', 'WN11111111'),
+                ('wainhouse', 'WNS1111111'), ('waite', 'WT11111111'),
+                ('wakefield', 'WKFT111111'), ('wakelin', 'WKLN111111'),
+                ('wakeling', 'WKLNK11111'), ('walden', 'WTN1111111'),
+                ('waldie', 'WTA1111111'), ('waldren', 'WTRN111111'),
+                ('waldron', 'WTRN111111'), ('wales', 'WLS1111111'),
+                ('wali', 'WLA1111111'), ('walkem', 'WKM1111111'),
+                ('walker', 'WKA1111111'), ('walkern', 'WKN1111111'),
+                ('walkinshaw', 'WKNSA11111'), ('walks', 'WKS1111111'),
+                ('wall', 'WA11111111'), ('wallace', 'WLK1111111'),
+                ('wallen', 'WLN1111111'), ('waller', 'WLA1111111'),
+                ('wallin', 'WLN1111111'), ('walling-jones', 'WLNKNS1111'),
+                ('wallinger', 'WLNKA11111'), ('wallis', 'WLS1111111'),
+                ('walls', 'WS11111111'), ('walmeley', 'WMLA111111'),
+                ('walmsey', 'WMSA111111'), ('walmsley', 'WMSLA11111'),
+                ('walmslsey', 'WMSSA11111'), ('walquest', 'WKST111111'),
+                ('walquist', 'WKST111111'), ('walscott', 'WSKT111111'),
+                ('walsh', 'WS11111111'), ('walter', 'WTA1111111'),
+                ('walters', 'WTS1111111'), ('walton', 'WTN1111111'),
+                ('ward', 'WT11111111'), ('warden', 'WTN1111111'),
+                ('wardrop', 'WTRP111111'), ('wards', 'WTS1111111'),
+                ('ware', 'WA11111111'), ('wares', 'WRS1111111'),
+                ('wark', 'WK11111111'), ('warne', 'WN11111111'),
+                ('warner', 'WNA1111111'), ('warnock', 'WNK1111111'),
+                ('warreil', 'WRA1111111'), ('warrell', 'WRA1111111'),
+                ('warren', 'WRN1111111'), ('warrington', 'WRNKTN1111'),
+                ('warwick', 'WWK1111111'), ('warwood', 'WWT1111111'),
+                ('washer', 'WSA1111111'), ('wason', 'WSN1111111'),
+                ('wassell', 'WSA1111111'), ('waterfield', 'WTFT111111'),
+                ('waterhous', 'WTS1111111'), ('waters', 'WTS1111111'),
+                ('waterson', 'WTSN111111'), ('waterston', 'WTSTN11111'),
+                ('wates', 'WTS1111111'), ('watkins', 'WTKNS11111'),
+                ('watler', 'WTLA111111'), ('watling', 'WTLNK11111'),
+                ('watmough', 'WTMA111111'), ('watsan', 'WTSN111111'),
+                ('watsol1', 'WTSA111111'), ('watson', 'WTSN111111'),
+                ('watt', 'WT11111111'), ('watters', 'WTS1111111'),
+                ('watterson', 'WTSN111111'), ('watts', 'WTS1111111'),
+                ('wattson', 'WTSN111111'), ('waugh', 'WA11111111'),
+                ('way', 'WA11111111'), ('wcatherston', 'KTSTN11111'),
+                ('weaherburn', 'WPN1111111'), ('wealherston', 'WSTN111111'),
+                ('weatherall', 'WTRA111111'), ('weatherbur', 'WTPA111111'),
+                ('weatherburn', 'WTPN111111'), ('weatherell', 'WTRA111111'),
+                ('weatheret', 'WTRT111111'), ('weatherst', 'WTST111111'),
+                ('weathersto', 'WTSTA11111'), ('weatherston', 'WTSTN11111'),
+                ('weatherstone', 'WTSTN11111'), ('weaver', 'WFA1111111'),
+                ('weavers', 'WFS1111111'), ('webb', 'WP11111111'),
+                ('webber', 'WPA1111111'), ('webh', 'WP11111111'),
+                ('webling', 'WPLNK11111'), ('webster', 'WPSTA11111'),
+                ('weddell', 'WTA1111111'), ('wedderspo', 'WTSPA11111'),
+                ('wedderspoo', 'WTSPA11111'), ('wedderspoon', 'WTSPN11111'),
+                ('wedgwood', 'WKWT111111'), ('wedlake', 'WTLK111111'),
+                ('wedlock', 'WTLK111111'), ('weedon', 'WTN1111111'),
+                ('weight', 'WT11111111'), ('weightman', 'WTMN111111'),
+                ('weir', 'WA11111111'), ('welbourn', 'WPN1111111'),
+                ('welch', 'WK11111111'), ('weldon', 'WTN1111111'),
+                ('welham', 'WM11111111'), ('wellard', 'WLT1111111'),
+                ('wellbourn', 'WPN1111111'), ('wellbrock', 'WPRK111111'),
+                ('wellburn', 'WPN1111111'), ('weller', 'WLA1111111'),
+                ('wellesley', 'WLSLA11111'), ('wellington', 'WLNKTN1111'),
+                ('wellman', 'WMN1111111'), ('wells', 'WS11111111'),
+                ('wellsted', 'WSTT111111'), ('welnoski', 'WNSKA11111'),
+                ('welply', 'WPLA111111'), ('welsford', 'WSFT111111'),
+                ('welsh', 'WS11111111'), ('welstead', 'WSTT111111'),
+                ('wenborn', 'WNPN111111'), ('wendelken', 'WNTKN11111'),
+                ('wenlock', 'WNLK111111'), ('wenthersto', 'WNTSTA1111'),
+                ('wentworth', 'WNTWT11111'), ('werner', 'WNA1111111'),
+                ('wesney', 'WSNA111111'), ('wessman', 'WSMN111111'),
+                ('west', 'WST1111111'), ('westake', 'WSTK111111'),
+                ('westbrook', 'WSTPRK1111'), ('westcott', 'WSTKT11111'),
+                ('western', 'WSTN111111'), ('westfield', 'WSTFT11111'),
+                ('westfold', 'WSTFT11111'), ('westlake', 'WSTLK11111'),
+                ('westland', 'WSTLNT1111'), ('weston', 'WSTN111111'),
+                ('westwood', 'WSTWT11111'), ('wetherilt', 'WTRT111111'),
+                ('wethersto', 'WTSTA11111'), ('wetherstone', 'WTSTN11111'),
+                ('wethey', 'WTA1111111'), ('wetney', 'WTNA111111'),
+                ('weyland', 'WLNT111111'), ('weymouth', 'WMT1111111'),
+                ('whaley', 'WLA1111111'), ('wharin', 'WRN1111111'),
+                ('wheatley', 'WTLA111111'), ('wheeier', 'WA11111111'),
+                ('wheelan', 'WLN1111111'), ('wheelel', 'WLA1111111'),
+                ('wheeler', 'WLA1111111'), ('wheeley', 'WLA1111111'),
+                ('wheelwright', 'WRT1111111'), ('whelan', 'WLN1111111'),
+                ('whetter', 'WTA1111111'), ('whibe', 'WP11111111'),
+                ('whileley', 'WLLA111111'), ('whineray', 'WNRA111111'),
+                ('whinray', 'WNRA111111'), ('whipp', 'WP11111111'),
+                ('whiston', 'WSTN111111'), ('whitaker', 'WTKA111111'),
+                ('whitburn', 'WTPN111111'), ('whitcombe', 'WTKM111111'),
+                ('white-pars', 'WTPS111111'), ('white-parsons', 'WTPSNS1111'),
+                ('white', 'WT11111111'), ('whitefield', 'WTFT111111'),
+                ('whitehead', 'WTT1111111'), ('whitehorl', 'WTA1111111'),
+                ('whitehorn', 'WTN1111111'), ('whiteley', 'WTLA111111'),
+                ('whiteside', 'WTST111111'), ('whitfield', 'WTFT111111'),
+                ('whiting', 'WTNK111111'), ('whitley', 'WTLA111111'),
+                ('whitlow', 'WTLA111111'), ('whitney', 'WTNA111111'),
+                ('whito', 'WTA1111111'), ('whitson', 'WTSN111111'),
+                ('whittaker', 'WTKA111111'), ('whittall', 'WTA1111111'),
+                ('whittet', 'WTT1111111'), ('whitticase', 'WTKS111111'),
+                ('whittington', 'WTNKTN1111'), ('whittleston', 'WTLSTN1111'),
+                ('whittlestone', 'WTLSTN1111'), ('whitton', 'WTN1111111'),
+                ('whitty', 'WTA1111111'), ('whvte', 'FT11111111'),
+                ('whyman', 'WMN1111111'), ('whyte', 'WT11111111'),
+                ('wiberg', 'WPK1111111'), ('wicks', 'WKS1111111'),
+                ('wicksteed', 'WKSTT11111'), ('widdowson', 'WTSN111111'),
+                ('wide', 'WT11111111'), ('widhart', 'WTT1111111'),
+                ('wigg', 'WK11111111'), ('wiggins', 'WKNS111111'),
+                ('wight', 'WT11111111'), ('wightman', 'WTMN111111'),
+                ('wiikinson', 'WKNSN11111'), ('wikland', 'WKLNT11111'),
+                ('wilberfoss', 'WPFS111111'), ('wilby', 'WPA1111111'),
+                ('wilcox', 'WKK1111111'), ('wilde', 'WT11111111'),
+                ('wilden', 'WTN1111111'), ('wilder', 'WTA1111111'),
+                ('wildey', 'WTA1111111'), ('wildgoose', 'WKS1111111'),
+                ('wildie', 'WTA1111111'), ('wilding', 'WTNK111111'),
+                ('wildoy', 'WTA1111111'), ('wiles', 'WLS1111111'),
+                ('wiley', 'WLA1111111'), ('wilhelmsen', 'WMSN111111'),
+                ('wilhelmson', 'WMSN111111'), ('wilkeison', 'WKSN111111'),
+                ('wilkerson', 'WKSN111111'), ('wilkie', 'WKA1111111'),
+                ('wilkin', 'WKN1111111'), ('wilkinon', 'WKNN111111'),
+                ('wilkins', 'WKNS111111'), ('wilkinson', 'WKNSN11111'),
+                ('will', 'WA11111111'), ('willcocks', 'WKKS111111'),
+                ('willers', 'WLS1111111'), ('willett', 'WLT1111111'),
+                ('william', 'WLM1111111'), ('williame', 'WLM1111111'),
+                ('williams', 'WLMS111111'), ('williamso', 'WLMSA11111'),
+                ('williamson', 'WLMSN11111'), ('willianson', 'WLNSN11111'),
+                ('williarns', 'WLNS111111'), ('williden', 'WLTN111111'),
+                ('willis', 'WLS1111111'), ('willocks', 'WLKS111111'),
+                ('willon', 'WLN1111111'), ('willox', 'WLK1111111'),
+                ('wills', 'WS11111111'), ('willson', 'WSN1111111'),
+                ('wilmot', 'WMT1111111'), ('wiloy', 'WLA1111111'),
+                ('wilson-brown', 'WSNPRN1111'), ('wilson-pyne', 'WSNPN11111'),
+                ('wilson', 'WSN1111111'), ('wilton', 'WTN1111111'),
+                ('wimpellny', 'WMPNA11111'), ('wimpenny', 'WMPNA11111'),
+                ('winchester', 'WNKSTA1111'), ('winchestor', 'WNKSTA1111'),
+                ('windelburn', 'WNTPN11111'), ('windeler', 'WNTLA11111'),
+                ('winder', 'WNTA111111'), ('winders', 'WNTS111111'),
+                ('windsor', 'WNTSA11111'), ('windus', 'WNTS111111'),
+                ('wine', 'WN11111111'), ('winefield', 'WNFT111111'),
+                ('winepress', 'WNPRS11111'), ('wing', 'WNK1111111'),
+                ('wingfield', 'WNKFT11111'), ('wingham', 'WNM1111111'),
+                ('winkfield', 'WNKFT11111'), ('winn', 'WN11111111'),
+                ('winslade', 'WNSLT11111'), ('winter', 'WNTA111111'),
+                ('winterr', 'WNTA111111'), ('winton', 'WNTN111111'),
+                ('wintrup', 'WNTRP11111'), ('wise', 'WS11111111'),
+                ('wisely', 'WSLA111111'), ('wiseman', 'WSMN111111'),
+                ('wishart', 'WST1111111'), ('wisnesky', 'WSNSKA1111'),
+                ('witchall', 'WKA1111111'), ('witchalls', 'WKS1111111'),
+                ('withecomb', 'WTKM111111'), ('withecombe', 'WTKM111111'),
+                ('witheford', 'WTFT111111'), ('withell', 'WTA1111111'),
+                ('withelmsen', 'WTMSN11111'), ('witherford', 'WTFT111111'),
+                ('withers', 'WTS1111111'), ('withey', 'WTA1111111'),
+                ('withington', 'WTNKTN1111'), ('withnell', 'WTNA111111'),
+                ('withy', 'WTA1111111'), ('witley', 'WTLA111111'),
+                ('witt', 'WT11111111'), ('wix', 'WK11111111'),
+                ('wkitty', 'KTA1111111'), ('wlight', 'LT11111111'),
+                ('wlitticase', 'LTKS111111'), ('woadhead', 'WTT1111111'),
+                ('wohlers', 'WLS1111111'), ('wohlmann', 'WMN1111111'),
+                ('wolf', 'WF11111111'), ('wolfe', 'WF11111111'),
+                ('wolfenden', 'WFNTN11111'), ('wolfinden', 'WFNTN11111'),
+                ('wolgast', 'WKST111111'), ('wolstenhol', 'WSTNA11111'),
+                ('wolstenholme', 'WSTNM11111'), ('wood', 'WT11111111'),
+                ('woodberry', 'WTPRA11111'), ('woodbury', 'WTPRA11111'),
+                ('woodfield', 'WTFT111111'), ('woodford', 'WTFT111111'),
+                ('woodger', 'WKA1111111'), ('woodham', 'WTM1111111'),
+                ('woodhead', 'WTT1111111'), ('woodhill', 'WTA1111111'),
+                ('woodhouse', 'WTS1111111'), ('woodifiel', 'WTFA111111'),
+                ('woodifield', 'WTFT111111'), ('wooding', 'WTNK111111'),
+                ('woodley', 'WTLA111111'), ('woodrow', 'WTRA111111'),
+                ('woods', 'WTS1111111'), ('woodside', 'WTST111111'),
+                ('woodward', 'WTWT111111'), ('wooldridge', 'WTRK111111'),
+                ('woolf', 'WF11111111'), ('woolland', 'WLNT111111'),
+                ('woolley', 'WLA1111111'), ('woolliams', 'WLMS111111'),
+                ('woolnough', 'WNA1111111'), ('wooster', 'WSTA111111'),
+                ('wooton', 'WTN1111111'), ('wootten', 'WTN1111111'),
+                ('wootton', 'WTN1111111'), ('worger', 'WKA1111111'),
+                ('work', 'WK11111111'), ('workman', 'WKMN111111'),
+                ('workn1an', 'WKNN111111'), ('worrall', 'WRA1111111'),
+                ('worsdell', 'WSTA111111'), ('worth', 'WT11111111'),
+                ('worthingt', 'WTNKT11111'), ('worthingto', 'WTNKTA1111'),
+                ('worthington', 'WTNKTN1111'), ('wortley', 'WTLA111111'),
+                ('wotherspoon', 'WTSPN11111'), ('wragge', 'RK11111111'),
+                ('wraggo', 'RKA1111111'), ('wraight', 'RT11111111'),
+                ('wrathall', 'RTA1111111'), ('wrather', 'RTA1111111'),
+                ('wray', 'RA11111111'), ('wreathall', 'RTA1111111'),
+                ('wregglesworth', 'RKLSWT1111'), ('wren', 'RN11111111'),
+                ('wrenn', 'RN11111111'), ('wrght', 'T111111111'),
+                ('wrigglesworth', 'RKLSWT1111'), ('wright', 'RT11111111'),
+                ('wrightson', 'RTSN111111'), ('wrignt', 'RKNT111111'),
+                ('wroblenski', 'RPLNSKA111'), ('wward', 'WT11111111'),
+                ('wyatt', 'WT11111111'), ('wyber', 'WPA1111111'),
+                ('wyborn', 'WPN1111111'), ('wycherley', 'WKLA111111'),
+                ('wyinks', 'WNKS111111'), ('wylie', 'WLA1111111'),
+                ('wyllie', 'WLA1111111'), ('wyman', 'WMN1111111'),
+                ('wyness', 'WNS1111111'), ('wynks', 'WNKS111111'),
+                ('wynn', 'WN11111111'), ('wynne', 'WN11111111'),
+                ('wyse', 'WS11111111'), ('yamm', 'YM11111111'),
+                ('yardley', 'YTLA111111'), ('yarlett', 'YLT1111111'),
+                ('yates', 'YTS1111111'), ('yelds', 'YTS1111111'),
+                ('yelland', 'YLNT111111'), ('yemm', 'YM11111111'),
+                ('yeoman', 'YMN1111111'), ('yerex', 'YRK1111111'),
+                ('yet', 'YT11111111'), ('yip', 'YP11111111'),
+                ('york', 'YK11111111'), ('yorstan', 'YSTN111111'),
+                ('yorston', 'YSTN111111'), ('youds', 'YTS1111111'),
+                ('young kwong', 'YNKWNK1111'), ('young', 'YNK1111111'),
+                ('youngman', 'YNKMN11111'), ('youngson', 'YNKSN11111'),
+                ('yuill', 'YA11111111'), ('zelland', 'SLNT111111'),
+                ('zeller', 'SLA1111111'), ('zimmerman', 'SMMN111111'),
+                ('zouch', 'SK11111111'), ('zwimpfer', 'SWMPFA1111'))
+        for w, c in testset:
+            self.assertEquals(caverphone(w), c)
 
     def test_caverphone2_caversham_testset(self):
         # caversham.otago.ac.nz/files/variantNames.csv
