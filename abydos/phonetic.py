@@ -199,7 +199,7 @@ def dm_soundex(word, maxlength=6, reverse=False):
     reverse -- reverse the word before computing the selected Soundex
         (defaults to False); This results in "Reverse Soundex"
     """
-    _vowels = 'AEIJOUY'
+    _vowels = list('AEIJOUY')
     dm = [''] # initialize empty code list
 
     # Require a maxlength of at least 6
@@ -272,6 +272,8 @@ def koelner_phonetik(word):
             return True
         return False
 
+    _vowels = list('AEIJYOU')
+
     sdx = ''
 
     word = word.replace('ß', 'SS')
@@ -287,7 +289,7 @@ def koelner_phonetik(word):
         return sdx
 
     for i in range(len(word)):
-        if word[i] in 'AEIJYOU':
+        if word[i] in _vowels:
             sdx += '0'
         elif word[i] in 'B':
             sdx += '1'
@@ -371,7 +373,7 @@ def nysiis(word, maxlength=6):
     # Require a maxlength of at least 6
     maxlength = max(6, maxlength)
 
-    _vowels = 'AEIOU'
+    _vowels = list('AEIOU')
 
     word = filter(lambda i: i.isalpha(), word.upper())
 
@@ -451,7 +453,7 @@ def mra(word):
     https://archive.org/details/accessingindivid00moor
     """
     word = word.upper()
-    word = word[0]+filter(lambda c: c not in 'AEIOU', word[1:])
+    word = word[0]+filter(lambda c: c not in list('AEIOU'), word[1:])
     word = _delete_consecutive_repeats(word)
     if len(word)>6:
         word = word[:3]+word[-3:]
@@ -1287,6 +1289,8 @@ def caverphone(word, version=2):
     A description of version 2 of the algorithm can be found at:
     http://caversham.otago.ac.nz/files/working/ctp150804.pdf
     """
+    _vowels = list('aeiou')
+    
     word = word.lower()
     word = filter(lambda c: c in 'abcdefghijklmnopqrstuvwxyz', word)
 
@@ -1325,7 +1329,7 @@ def caverphone(word, version=2):
         word = word.replace('b', 'p')
         word = word.replace('sh', 's2')
         word = word.replace('z', 's')
-        if word[0] in 'aeiou':
+        if word[0] in _vowels:
             word = 'A'+word[1:]
         word = word.replace('a', '3')
         word = word.replace('e', '3')
