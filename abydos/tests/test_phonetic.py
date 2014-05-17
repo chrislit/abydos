@@ -4481,9 +4481,9 @@ class caverphone_test_cases(unittest.TestCase):
         self.assertEquals(caverphone('Mcclifferty'), 'MKLFTA1111')
         self.assertEquals(caverphone('Mclafferty'), 'MKLFTA1111')
         self.assertEquals(caverphone('Mclaverty'), 'MKLFTA1111')
-        self.assertEquals(caverphone('Slocomb'), 'SLKMP11111')
-        self.assertEquals(caverphone('Slocombe'), 'SLKMP11111')
-        self.assertEquals(caverphone('Slocumb'), 'SLKMP11111')
+        self.assertEquals(caverphone('Slocomb'), 'SLKM111111')
+        self.assertEquals(caverphone('Slocombe'), 'SLKM111111')
+        self.assertEquals(caverphone('Slocumb'), 'SLKM111111')
         self.assertEquals(caverphone('Whitlam'), 'WTLM111111')
 
         # http://caversham.otago.ac.nz/files/working/ctp150804.pdf
