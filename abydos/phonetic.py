@@ -1289,97 +1289,101 @@ def caverphone(word, version=2):
     word = word.lower()
     word = filter(lambda c: c in 'abcdefghijklmnopqrstuvwxyz', word)
 
+    # the main replacemet algorithm
     if version!=1 and word.endswith('e'):
         word = word[:-1]
-    if word.startswith('cough'):
-        word = 'cou2f'+word[5:]
-    if word.startswith('rough'):
-        word = 'rou2f'+word[5:]
-    if word.startswith('tough'):
-        word = 'tou2f'+word[5:]
-    if word.startswith('enough'):
-        word = 'enou2f'+word[6:]
-    if version!=1 and word.startswith('trough'):
-        word = 'trou2f'+word[6:]
-    if word.startswith('gn'):
-        word = '2n'+word[2:]
-    if word.endswith('mb'):
-        word = word[:-1]+'2'
-    word = word.replace('cq', '2q')
-    word = word.replace('ci', 'si')
-    word = word.replace('ce', 'se')
-    word = word.replace('cy', 'sy')
-    word = word.replace('tch', '2ch')
-    word = word.replace('c', 'k')
-    word = word.replace('q', 'k')
-    word = word.replace('x', 'k')
-    word = word.replace('v', 'f')
-    word = word.replace('dg', '2g')
-    word = word.replace('tio', 'sio')
-    word = word.replace('tia', 'sia')
-    word = word.replace('d', 't')
-    word = word.replace('ph', 'fh')
-    word = word.replace('b', 'p')
-    word = word.replace('sh', 's2')
-    word = word.replace('z', 's')
-    if word[0] in 'aeiou':
-        word = 'A'+word[1:]
-    word = word.replace('a', '3')
-    word = word.replace('e', '3')
-    word = word.replace('i', '3')
-    word = word.replace('o', '3')
-    word = word.replace('u', '3')
-    if version!=1:
-        word = word.replace('j', 'y')
-        if word.startswith('y3'):
-            word = 'Y3'+word[2:]
-        if word.startswith('y'):
+    if word:
+        if word.startswith('cough'):
+            word = 'cou2f'+word[5:]
+        if word.startswith('rough'):
+            word = 'rou2f'+word[5:]
+        if word.startswith('tough'):
+            word = 'tou2f'+word[5:]
+        if word.startswith('enough'):
+            word = 'enou2f'+word[6:]
+        if version!=1 and word.startswith('trough'):
+            word = 'trou2f'+word[6:]
+        if word.startswith('gn'):
+            word = '2n'+word[2:]
+        if word.endswith('mb'):
+            word = word[:-1]+'2'
+        word = word.replace('cq', '2q')
+        word = word.replace('ci', 'si')
+        word = word.replace('ce', 'se')
+        word = word.replace('cy', 'sy')
+        word = word.replace('tch', '2ch')
+        word = word.replace('c', 'k')
+        word = word.replace('q', 'k')
+        word = word.replace('x', 'k')
+        word = word.replace('v', 'f')
+        word = word.replace('dg', '2g')
+        word = word.replace('tio', 'sio')
+        word = word.replace('tia', 'sia')
+        word = word.replace('d', 't')
+        word = word.replace('ph', 'fh')
+        word = word.replace('b', 'p')
+        word = word.replace('sh', 's2')
+        word = word.replace('z', 's')
+        if word[0] in 'aeiou':
             word = 'A'+word[1:]
-        word = word.replace('y', '3')
-    word = word.replace('3gh3', '3kh3')
-    word = word.replace('gh', '22')
-    word = word.replace('g', 'k')
-    word = re.sub(r's+', r'S', word)
-    word = re.sub(r't+', r'T', word)
-    word = re.sub(r'p+', r'P', word)
-    word = re.sub(r'k+', r'K', word)
-    word = re.sub(r'f+', r'F', word)
-    word = re.sub(r'm+', r'M', word)
-    word = re.sub(r'n+', r'N', word)
-    word = word.replace('w3', 'W3')
-    if version==1:
-        word = word.replace('wy', 'Wy')
-    word = word.replace('wh3', 'Wh3')
-    if version==1:
-        word = word.replace('why', 'Why')
-    if version!=1 and word.endswith('w'):
-        word = word[:-1]+'3'
-    word = word.replace('w', '2')
-    if word.startswith('h'):
-        word = 'A'+word[1:]
-    word = word.replace('h', '2')
-    word = word.replace('r3', 'R3')
-    if version==1:
-        word = word.replace('ry', 'Ry')
-    if version!=1 and word.endswith('r'):
-        word = word[:-1]+'3'
-    word = word.replace('r', '2')
-    word = word.replace('l3', 'L3')
-    if version==1:
-        word = word.replace('ly', 'Ly')
-    if version!=1 and word.endswith('l'):
-        word = word[:-1]+'3'
-    word = word.replace('l', '2')
-    if version==1:
-        word = word.replace('j', 'y')
-        word = word.replace('y3', 'Y3')
-        word = word.replace('y', '2')
-    word = word.replace('2', '')
-    if version!=1 and word.endswith('3'):
-        word = word[:-1]+'A'
-    word = word.replace('3', '')
+        word = word.replace('a', '3')
+        word = word.replace('e', '3')
+        word = word.replace('i', '3')
+        word = word.replace('o', '3')
+        word = word.replace('u', '3')
+        if version!=1:
+            word = word.replace('j', 'y')
+            if word.startswith('y3'):
+                word = 'Y3'+word[2:]
+            if word.startswith('y'):
+                word = 'A'+word[1:]
+            word = word.replace('y', '3')
+        word = word.replace('3gh3', '3kh3')
+        word = word.replace('gh', '22')
+        word = word.replace('g', 'k')
+        word = re.sub(r's+', r'S', word)
+        word = re.sub(r't+', r'T', word)
+        word = re.sub(r'p+', r'P', word)
+        word = re.sub(r'k+', r'K', word)
+        word = re.sub(r'f+', r'F', word)
+        word = re.sub(r'm+', r'M', word)
+        word = re.sub(r'n+', r'N', word)
+        word = word.replace('w3', 'W3')
+        if version==1:
+            word = word.replace('wy', 'Wy')
+        word = word.replace('wh3', 'Wh3')
+        if version==1:
+            word = word.replace('why', 'Why')
+        if version!=1 and word.endswith('w'):
+            word = word[:-1]+'3'
+        word = word.replace('w', '2')
+        if word.startswith('h'):
+            word = 'A'+word[1:]
+        word = word.replace('h', '2')
+        word = word.replace('r3', 'R3')
+        if version==1:
+            word = word.replace('ry', 'Ry')
+        if version!=1 and word.endswith('r'):
+            word = word[:-1]+'3'
+        word = word.replace('r', '2')
+        word = word.replace('l3', 'L3')
+        if version==1:
+            word = word.replace('ly', 'Ly')
+        if version!=1 and word.endswith('l'):
+            word = word[:-1]+'3'
+        word = word.replace('l', '2')
+        if version==1:
+            word = word.replace('j', 'y')
+            word = word.replace('y3', 'Y3')
+            word = word.replace('y', '2')
+        word = word.replace('2', '')
+        if version!=1 and word.endswith('3'):
+            word = word[:-1]+'A'
+        word = word.replace('3', '')
+
+    # pad with 1s, then extract the necessary length of code     
     word = word+'1'*10
-    if version!=1:
+    if version != 1:
         word = word[:10]
     else:
         word = word[:6]
