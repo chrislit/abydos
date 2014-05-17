@@ -7,7 +7,7 @@ from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     koelner_phonetik_num_to_alpha, koelner_phonetik_alpha, nysiis, mra, \
     metaphone, double_metaphone, caverphone
 
-class soundex_test_cases(unittest.TestCase):
+class russell_index_test_cases(unittest.TestCase):
     def test_russel_index(self):
         self.assertEquals(russell_index(''), None)
         self.assertEquals(russell_index('Hoppa'), 12)
@@ -48,6 +48,8 @@ class soundex_test_cases(unittest.TestCase):
         self.assertEquals(russell_index_alpha('Mack'), 'MAC')
         self.assertEquals(russell_index_alpha('Knack'), 'CNAC')
 
+
+class soundex_test_cases(unittest.TestCase):
     def test_soundex(self):
         self.assertEquals(soundex(''), '0000')
 
@@ -272,6 +274,16 @@ class koelner_phonetik_test_cases(unittest.TestCase):
         self.assertEquals(koelner_phonetik_alpha('axel'), 'AKSL')
 
 
+class nysiis_test_cases(unittest.TestCase):
+    def test_nysiis(self):
+        pass
+
+
+class mra_test_cases(unittest.TestCase):
+    def test_mra(self):
+        pass
+
+
 class metaphone_test_cases(unittest.TestCase):
     """These test cases are copied from two sources:
     https://github.com/oubiwann/metaphone/blob/master/metaphone/tests/test_metaphone.py
@@ -319,13 +331,13 @@ class metaphone_test_cases(unittest.TestCase):
     of Double Metaphone that is Copyright 2001, Stephen Woodbridge and
     identified as 'freely distributable'
     """
-    def test_single_result(self):
+    def test_double_metaphone_single_result(self):
         self.assertEquals(double_metaphone(u"aubrey"), ('APR', ''))
 
-    def test_double_result(self):
+    def test_double_metaphone_double_result(self):
         self.assertEquals(double_metaphone(u"richard"), ('RXRT', 'RKRT'))
 
-    def test_general_word_list(self):
+    def test_double_metaphone_general_word_list(self):
         self.assertEquals(double_metaphone('Jose'), ('HS', ''))
         self.assertEquals(double_metaphone('cambrillo'), ('KMPRL', 'KMPR'))
         self.assertEquals(double_metaphone('otto'), ('AT', ''))
@@ -360,12 +372,12 @@ class metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('Arnow'), ('ARN', 'ARNF'))
         self.assertEquals(double_metaphone('Thumbail'), ('0MPL', 'TMPL'))
 
-    def test_homophones(self):
+    def test_double_metaphone_homophones(self):
         self.assertEqual(double_metaphone(u"tolled"), double_metaphone(u"told"))
         self.assertEqual(double_metaphone(u"katherine"), double_metaphone(u"catherine"))
         self.assertEqual(double_metaphone(u"brian"), double_metaphone(u"bryan"))
 
-    def test_similar_names(self):
+    def test_double_metaphone_similar_names(self):
         self.assertEquals(double_metaphone("Bartoš"), ('PRT', ''))
         self.assertEquals(double_metaphone(u"Bartosz"), ('PRTS', 'PRTX'))
         self.assertEquals(double_metaphone(u"Bartosch"), ('PRTX', ''))
@@ -373,20 +385,20 @@ class metaphone_test_cases(unittest.TestCase):
         self.assertEquals(list(set(double_metaphone(u"Jablonski")).intersection(double_metaphone(u"Yablonsky"))), ['APLNSK'])
         self.assertEquals(list(set(double_metaphone(u"Smith")).intersection(double_metaphone(u"Schmidt"))), ['XMT'])
 
-    def test_non_english_unicode(self):
+    def test_double_metaphone_non_english_unicode(self):
         self.assertEquals(double_metaphone("andestādītu"), ('ANTSTTT', ''))
 
-    def test_c_cedilla(self):
+    def test_double_metaphone_c_cedilla(self):
         self.assertEquals(double_metaphone("français"), ('FRNS', 'FRNSS'))
         self.assertEquals(double_metaphone("garçon"), ('KRSN', ''))
         self.assertEquals(double_metaphone("leçon"), ('LSN', ''))
 
-    def test_various_german(self):
+    def test_double_metaphone_german(self):
         self.assertEquals(double_metaphone("ach"), ("AK", ""))
         self.assertEquals(double_metaphone("bacher"), ("PKR", ""))
         self.assertEquals(double_metaphone("macher"), ("MKR", ""))
 
-    def test_various_italian(self):
+    def test_double_metaphone_italian(self):
         self.assertEquals(double_metaphone("bacci"), ("PX", ""))
         self.assertEquals(double_metaphone("bertucci"), ("PRTX", ""))
         self.assertEquals(double_metaphone("bellocchio"), ("PLX", ""))
@@ -396,29 +408,29 @@ class metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone("tagliaro"), ("TKLR", "TLR"))
         self.assertEquals(double_metaphone("biaggi"), ("PJ", "PK"))
 
-    def test_various_spanish(self):
+    def test_double_metaphone_spanish(self):
         self.assertEquals(double_metaphone("bajador"), ("PJTR", "PHTR"))
         self.assertEquals(double_metaphone("cabrillo"), ("KPRL", "KPR"))
         self.assertEquals(double_metaphone("gallegos"), ("KLKS", "KKS"))
         self.assertEquals(double_metaphone("San Jacinto"), ("SNHSNT", ""))
 
-    def test_various_french(self):
+    def test_double_metaphone_french(self):
         self.assertEquals(double_metaphone("rogier"), ("RJ", "RJR"))
         self.assertEquals(double_metaphone("breaux"), ("PR", ""))
 
-    def test_various_slavic(self):
+    def test_double_metaphone_slavic(self):
         self.assertEquals(double_metaphone("Wewski"), ("ASK", "FFSK"))
 
-    def test_various_chinese(self):
+    def test_double_metaphone_chinese(self):
         self.assertEquals(double_metaphone("zhao"), ("J", ""))
 
-    def test_dutch_origin(self):
+    def test_double_metaphone_dutch_origin(self):
         self.assertEquals(double_metaphone("school"), ("SKL", ""))
         self.assertEquals(double_metaphone("schooner"), ("SKNR", ""))
         self.assertEquals(double_metaphone("schermerhorn"), ("XRMRRN", "SKRMRRN"))
         self.assertEquals(double_metaphone("schenker"), ("XNKR", "SKNKR"))
 
-    def test_ch_words(self):
+    def test_double_metaphone_ch_words(self):
         self.assertEquals(double_metaphone("Charac"), ("KRK", ""))
         self.assertEquals(double_metaphone("Charis"), ("KRS", ""))
         self.assertEquals(double_metaphone("chord"), ("KRT", ""))
@@ -430,23 +442,23 @@ class metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone("architect"), ("ARKTKT", ""))
         self.assertEquals(double_metaphone("orchid"), ("ARKT", ""))
 
-    def test_cc_words(self):
+    def test_double_metaphone_cc_words(self):
         self.assertEquals(double_metaphone("accident"), ("AKSTNT", ""))
         self.assertEquals(double_metaphone("accede"), ("AKST", ""))
         self.assertEquals(double_metaphone("succeed"), ("SKST", ""))
 
-    def test_mc_words(self):
+    def test_double_metaphone_mc_words(self):
         self.assertEquals(double_metaphone("mac caffrey"), ("MKFR", ""))
         self.assertEquals(double_metaphone("mac gregor"), ("MKRKR", ""))
         self.assertEquals(double_metaphone("mc crae"), ("MKR", ""))
         self.assertEquals(double_metaphone("mcclain"), ("MKLN", ""))
 
-    def test_gh_words(self):
+    def test_double_metaphone_gh_words(self):
         self.assertEquals(double_metaphone("laugh"), ("LF", ""))
         self.assertEquals(double_metaphone("cough"), ("KF", ""))
         self.assertEquals(double_metaphone("rough"), ("RF", ""))
 
-    def test_g3_words(self):
+    def test_double_metaphone_g3_words(self):
         self.assertEquals(double_metaphone("gya"), ("K", "J"))
         self.assertEquals(double_metaphone("ges"), ("KS", "JS"))
         self.assertEquals(double_metaphone("gep"), ("KP", "JP"))
@@ -463,15 +475,15 @@ class metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone("manager"), ("MNKR", "MNJR"))
         self.assertEquals(double_metaphone("dowager"), ("TKR", "TJR"))
 
-    def test_pb_words(self):
+    def test_double_metaphone_pb_words(self):
         self.assertEquals(double_metaphone("Campbell"), ("KMPL", ""))
         self.assertEquals(double_metaphone("raspberry"), ("RSPR", ""))
 
-    def test_th_words(self):
+    def test_double_metaphone_th_words(self):
         self.assertEquals(double_metaphone("Thomas"), ("TMS", ""))
         self.assertEquals(double_metaphone("Thames"), ("TMS", ""))
 
-    def test_surnames(self):
+    def test_double_metaphone_surnames(self):
         self.assertEquals(double_metaphone(''), ('', ''))
         self.assertEquals(double_metaphone('ALLERTON'), ('ALRTN', ''))
         self.assertEquals(double_metaphone('Acton'), ('AKTN', ''))
@@ -1691,7 +1703,7 @@ class metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('weikersheim'), ('AKRSM', 'FKRSM'))
         self.assertEquals(double_metaphone('zhao'), ('J', ''))
 
-    def test_surnames4(self):
+    def test_double_metaphone_surnames4(self):
         self.assertEquals(double_metaphone('', 4), ('', ''))
         self.assertEquals(double_metaphone('ALLERTON', 4), ('ALRT', ''))
         self.assertEquals(double_metaphone('Acton', 4), ('AKTN', ''))
