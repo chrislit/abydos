@@ -5,7 +5,7 @@ import unittest
 from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     russell_index_alpha, soundex, dm_soundex, koelner_phonetik, \
     koelner_phonetik_num_to_alpha, koelner_phonetik_alpha, nysiis, mra, \
-    metaphone, double_metaphone, caverphone
+    metaphone, double_metaphone, caverphone, alpha_sis
 
 class russell_index_test_cases(unittest.TestCase):
     def test_russel_index(self):
@@ -10248,6 +10248,21 @@ class caverphone_test_cases(unittest.TestCase):
         self.assertEquals(caverphone('David', version=1), 'TFT111')
         self.assertEquals(caverphone('Whittle', version=1), 'WTL111')
 
+class alpha_sis_test_cases(unittest.TestCase):
+    def test_alpha_sis(self):
+        self.assertEquals(alpha_sis('')[0], '00000000000000')
+
+        self.assertEquals(alpha_sis('Rodgers')[0], '04740000000000')
+        self.assertEquals(alpha_sis('Rogers')[0], '04740000000000')
+        self.assertEquals(alpha_sis('Kant')[0], '07210000000000')
+        self.assertEquals(alpha_sis('Knuth')[0], '02100000000000')
+        self.assertEquals(alpha_sis('Harper')[0], '24940000000000')
+        self.assertEquals(alpha_sis('Collier')[0], '07540000000000')
+        self.assertEquals(alpha_sis('Schultz')[0], '06500000000000')
+        self.assertEquals(alpha_sis('Livingston')[0], '05827012000000')
+        
+        self.assertEquals(alpha_sis('Colllier')[0], '07554000000000')
+        self.assertEquals(alpha_sis('Colalalier')[0], '07555400000000')
 
 if __name__ == '__main__':
     unittest.main()

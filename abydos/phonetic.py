@@ -1398,6 +1398,92 @@ def caverphone(word, version=2):
 
     return word
 
+_alpha_sis_initials = {'GF':'08', 'GM':'03', 'GN':'02', 'KN':'02', 'PF':'08',
+                       'PN':'02', 'PS':'00', 'WR':'04', 'A':'1', 'E':'1',
+                       'H':'2', 'I':'1', 'J':'3', 'O':'1', 'U':'1', 'W':'4',
+                       'Y':'5'}
+_alpha_sis_initials_order = ('GF', 'GM', 'GN', 'KN', 'PF', 'PN', 'PS', 'WR',
+                             'A', 'E', 'H', 'I', 'J', 'O', 'U', 'W', 'Y')
+
+_alpha_sis_basic = {'SCH':'6', 'CZ':('70','6','0'), 'CH':('6','70','0'),
+                    'CK':('7','6'), 'DS':('0','10'), 'DZ':('0','10'),
+                    'TS':('0','10'), 'TZ':('0','10'),'CI':'0', 'CY':'0',
+                    'CE':'0', 'SH':'6', 'DG':'7', 'PH':'8', 'C':('7','6'),
+                    'K':('7','6'), 'Z':'0', 'S':'0', 'D':'1', 'T':'1', 'N':'2',
+                    'M':'3', 'R':'4', 'L':'5', 'J':'6', 'G':'7', 'Q':'7',
+                    'X':'7', 'F':'8', 'V':'8', 'B':'9', 'P':'9'}
+_alpha_sis_basic_order = ('SCH', 'CZ', 'CH', 'CK', 'DS', 'DZ', 'TS', 'TZ',
+                          'CI', 'CY', 'CE', 'SH', 'DG', 'PH', 'C', 'K', 'Z',
+                          'S', 'D', 'T', 'N', 'M', 'R', 'L', 'J', 'C', 'G', 'K',
+                          'Q', 'X', 'F', 'V', 'B', 'P')
+
+def alpha_sis(word, maxlength=14):
+    """Return the IBM Alpha Search Inquiry System key of a word as a tuple
+        A collection is necessary since there can be multiple values for a
+        single word. But the collection must be ordered since the first value
+        is the primary coding.
+
+    Arguments:
+    word -- the word to apply the Alpha SIS algorithm to
+    maxlength -- the length of the code returned (defaults to 14)
+
+    Description:
+    Based on the algorithm described in "Accessing individual records from
+    personal data files using non-unique identifiers" / Gwendolyn B. Moore, 
+    et al.; prepared for the Institute for Computer Sciences and Technology,
+    National Bureau of Standards, Washington, D.C (1977):
+    https://archive.org/stream/accessingindivid00moor#page/15/mode/1up
+    """
+    alpha = ['']
+    pos = 0
+    word = unicodedata.normalize('NFKD', unicode(word.upper()))
+    word = filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word)
+
+    # Do special processing for initial substrings
+    for k in _alpha_sis_initials_order:
+        if word.startswith(k):
+            alpha[0] += _alpha_sis_initials[k]
+            pos += len(k)
+            break
+    
+    # Add a '0' if alpha is still empty
+    if len(alpha[0]) == 0:
+        alpha[0] += '0'
+
+    # Whether or not any special initial codes were encoded, iterate
+    # through the length of the word in the main encoding loop
+    while pos < len(word):
+        origpos = pos
+        for k in _alpha_sis_basic_order:
+            if word[pos:].startswith(k):
+                if isinstance(_alpha_sis_basic[k], tuple):
+                    newalpha = []
+                    for i in xrange(len(_alpha_sis_basic[k])):
+                        newalpha += [_ + _alpha_sis_basic[k][i] for _ in alpha]
+                    alpha = newalpha
+                else:
+                    alpha = [_ + _alpha_sis_basic[k] for _ in alpha]
+                pos += len(k)
+                break
+        if pos == origpos:
+            alpha = [_ + '_' for _ in alpha]
+            pos += 1
+
+    # Trim doublets and placeholders
+    for i in xrange(len(alpha)):
+        pos = 1
+        while pos < len(alpha[i]):
+            if alpha[i][pos] == alpha[i][pos-1]:
+                alpha[i] = alpha[i][:pos]+alpha[i][pos+1:]
+                pos += 3
+            else:
+                pos += 1
+    alpha = [_.replace('_', '') for _ in alpha]
+                
+    # Trim codes and return tuple
+    alpha = [(_ + ('0'*maxlength))[:maxlength] for _ in alpha]    
+    return tuple(alpha)
+
 
 """def phonemicize_graphemes(word):
     phones = word
