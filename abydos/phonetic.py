@@ -1290,7 +1290,7 @@ def caverphone(word, version=2):
     http://caversham.otago.ac.nz/files/working/ctp150804.pdf
     """
     _vowels = list('aeiou')
-    
+
     word = word.lower()
     word = filter(lambda c: c in 'abcdefghijklmnopqrstuvwxyz', word)
 
