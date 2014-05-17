@@ -537,9 +537,12 @@ def metaphone(word, maxlength=float('inf')):
         elif ename[n] == 'G':
             if ename[n+1:n+2] == 'H' and (n+1 < l and ename[n+2] not in _vowels):
                 continue
-            elif n > 0 and (n+1 == l or (ename[n+1:n+4] == 'NED' and n+3 == l)):
+            elif n > 0 and ((n+1 == l and ename[n+1] == 'N') or
+                            (n+3 == l and ename[n+1:n+4] == 'NED')):
                 continue
-            elif n-1 > 0 and n+1 < l and ename[n-1] == 'D' and ename[n+1] in _frontv:
+            elif n-1 > 0 and n+1 <= l and ename[n-1] == 'D' and ename[n+1] in _frontv:
+                continue
+            elif ename[n+1:n+2] == 'G':
                 continue
             elif ename[n+1:n+2] in _frontv:
                 if n == 0 or ename[n-1] != 'G':
