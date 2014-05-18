@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 
 import abydos.phonetic
+import unicodedata
 
 def fingerprint(phrase):
-    pass
+    phrase = unicodedata.normalize('NFKD', unicode(phrase.strip().lower()))
+    phrase = filter(lambda c: (c.isalnum() or c.isspace()), phrase)
+    phrase = " ".join(sorted(list(set(phrase.split()))))
+    return phrase
 
 def qgram_fingerprint(phrase, q=2):
     pass
