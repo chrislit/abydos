@@ -8,7 +8,7 @@ from abydos.clustering import fingerprint, qgram_fingerprint, \
 testset = ('À noite, vovô Kowalsky vê o ímã cair no pé do pingüim queixoso e vovó põe açúcar no chá de tâmaras do jabuti feliz.',)
 anssetw = ('a acucar cair cha de do e feliz ima jabuti kowalsky no noite o pe pinguim poe queixoso tamaras ve vovo',)
 anssetq2 = ('abacadaialamanarasbucachcudedoeaedeieleoetevfeguhaifiminiritixizjakokylilsmamqngnoocoeoiojokoposovowpepipoqurarnsdsksotatetiucueuiutvevowaxoyv',)
-anssetq1 = ('abcdefghijklmnopqrstuvwxyz')
+anssetq1 = ('abcdefghijklmnopqrstuvwxyz',)
 
 class fingerprint_test_cases(unittest.TestCase):
     def test_fingerprint(self):
