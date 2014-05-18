@@ -10261,7 +10261,11 @@ class alpha_sis_test_cases(unittest.TestCase):
         self.assertEquals(alpha_sis('Schultz')[0], '06500000000000')
         self.assertEquals(alpha_sis('Livingston')[0], '05827012000000')
         
+        # tests of repeated letters
         self.assertEquals(alpha_sis('Colllier')[0], '07554000000000')
+        self.assertEquals(alpha_sis('Collllier')[0], '07554000000000')
+        self.assertEquals(alpha_sis('Colllllier')[0], '07555400000000')
+        self.assertEquals(alpha_sis('Collllllier')[0], '07555400000000')
         self.assertEquals(alpha_sis('Colalalier')[0], '07555400000000')
 
 if __name__ == '__main__':

@@ -1475,9 +1475,7 @@ def alpha_sis(word, maxlength=14):
         while pos < len(alpha[i]):
             if alpha[i][pos] == alpha[i][pos-1]:
                 alpha[i] = alpha[i][:pos]+alpha[i][pos+1:]
-                pos += 3
-            else:
-                pos += 1
+            pos += 1
     alpha = [_.replace('_', '') for _ in alpha]
                 
     # Trim codes and return tuple
