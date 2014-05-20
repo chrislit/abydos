@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+from __future__ import division
 import unittest
 from abydos.distance import levenshtein, levenshtein_normalized, hamming, \
     tversky_index, sorensen_coeff, sorensen, jaccard_coeff, jaccard, \
@@ -89,6 +90,9 @@ class levenshtein_test_cases(unittest.TestCase):
         self.assertEquals(levenshtein_normalized('', 'a'), 1)
         self.assertEquals(levenshtein_normalized('', 'ab'), 1)
         self.assertEquals(levenshtein_normalized('a', 'c'), 1)
+        self.assertEquals(levenshtein_normalized('abc', 'ac'), 1/3)
+        self.assertEquals(levenshtein_normalized('abbc', 'ac'), 1/2)
+        self.assertEquals(levenshtein_normalized('abbc', 'abc'), 1/4)
 
 
 class hamming_test_cases(unittest.TestCase):
