@@ -86,9 +86,9 @@ class ConfusionTable:
     def precision(self):
         """Return the precision of the confusion table
 
-	Precision is defined as tp / (tp+fp)
-	AKA positive predictive value (PPV)
-	"""
+	    Precision is defined as tp / (tp+fp)
+	    AKA positive predictive value (PPV)
+	    """
         return self.tp / (self.tp + self.fp)
 
 
