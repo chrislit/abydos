@@ -38,9 +38,9 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
     if 'dam' not in mode:
         d = numpy.zeros((len(s)+1,len(t)+1), dtype=numpy.int)
         for i in xrange(len(s)+1):
-            d[i,0] = i
+            d[i,0] = i * del_cost
         for j in xrange(len(t)+1):
-            d[0,j] = j
+            d[0,j] = j * ins_cost
 
         for i in xrange(len(s)):
             for j in xrange(len(t)):
