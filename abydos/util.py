@@ -30,13 +30,15 @@ def _qgram_lists(s, t, q=2):
     q_s = qgrams(s, q)
     q_t = qgrams(t, q)
     q_common = []
+    q_s_save = list(q_s)
+    q_t_save = list(q_t)
 
     for qg in q_s:
         if qg in q_t:
             q_s.remove(qg)
             q_t.remove(qg)
             q_common.append(qg)
-    return (qgrams(s, q), qgrams(t, q), q_common)
+    return (q_s_save, q_t_save, q_common)
 
 
 def _qgram_counts(s, t, q=2):
