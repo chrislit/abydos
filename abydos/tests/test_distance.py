@@ -4,8 +4,9 @@ from __future__ import unicode_literals
 from __future__ import division
 import unittest
 from abydos.distance import levenshtein, levenshtein_normalized, hamming, \
-    tversky_index, sorensen_coeff, sorensen, jaccard_coeff, jaccard, \
-    tanimoto_coeff, tanimoto, strcmp95, jaro_winkler, lcs, mra_compare
+    hamming_normalized, tversky_index, sorensen_coeff, sorensen, \
+    jaccard_coeff, jaccard, tanimoto_coeff, tanimoto, strcmp95, jaro_winkler, \
+    lcs, mra_compare
 
 
 class levenshtein_test_cases(unittest.TestCase):
@@ -121,6 +122,28 @@ class hamming_test_cases(unittest.TestCase):
         self.assertEquals(hamming('1011101', '1001001'), 2)
         self.assertEquals(hamming('2173896', '2233796'), 3)
 
+    def test_hamming_normalized(self):
+        self.assertEquals(hamming_normalized('', ''), 0)
+        self.assertEquals(hamming_normalized('', '', False), 0)
+
+        self.assertEquals(hamming_normalized('a', ''), 1)
+        self.assertEquals(hamming_normalized('a', 'a'), 0)
+        self.assertEquals(hamming_normalized('a', 'a', False), 0)
+        self.assertEquals(hamming_normalized('a', 'b'), 1)
+        self.assertEquals(hamming_normalized('a', 'b', False), 1)
+        self.assertEquals(hamming_normalized('abc', 'cba'), 2/3)
+        self.assertEquals(hamming_normalized('abc', 'cba', False), 2/3)
+        self.assertEquals(hamming_normalized('abc', ''), 1)
+        self.assertEquals(hamming_normalized('bb', 'cbab'), 3/4)
+
+        # test exception
+        self.assertRaises(ValueError, hamming_normalized, 'ab', 'a', False)
+
+        # https://en.wikipedia.org/wiki/Hamming_distance
+        self.assertEquals(hamming_normalized('karolin', 'kathrin'), 3/7)
+        self.assertEquals(hamming_normalized('karolin', 'kerstin'), 3/7)
+        self.assertEquals(hamming_normalized('1011101', '1001001'), 2/7)
+        self.assertEquals(hamming_normalized('2173896', '2233796'), 3/7)
 
 class tversky_index_test_cases(unittest.TestCase):
     def test_tversky_index(self):

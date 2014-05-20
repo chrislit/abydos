@@ -132,8 +132,8 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
 
 
 def levenshtein_normalized(s, t, mode='lev', cost=(1,1,1,1)):
-    """Return a Levenshtein distance normalized to the interval [0, 1]
-    The arguments are identical to those for the levenshtein() function.
+    """Return the Levenshtein distance normalized to the interval [0, 1]
+    The arguments are identical to those of the levenshtein() function.
 
     Description:
     The Levenshtein distance is normalized by dividing the Levenshtein distance
@@ -172,13 +172,27 @@ def hamming(s, t, difflens=True):
     """
     if not difflens and len(s) != len(t):
         raise ValueError("Undefined for sequences of unequal length; set \
-            allow_different_lengths to True for Hamming distance between \
-            strings of unequal lengths.")
+            difflens to True for Hamming distance between strings of unequal \
+            lengths.")
     dist = 0
     if difflens:
         dist += abs(len(s)-len(t))
     dist += sum(c1 != c2 for c1, c2 in zip(s, t))
     return dist
+
+
+def hamming_normalized(s, t, difflens=True):
+    """Return the Hamming distance normalized to the interval [0, 1]
+    The arguments are identical to those of the hamming() function.
+
+    Description:
+    The Hamming distance is normalized by dividing the Levenshtein distance
+    by the greater of the number of characters in s and t (unless difflens is
+    set to False, in which case an exception is raised).
+    """
+    if s == t:
+        return 0
+    return hamming(s, t, difflens) / max(len(s), len(t))
 
 
 def tversky_index(s, t, q=2, alpha=1, beta=1, bias=None):
