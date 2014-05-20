@@ -132,8 +132,8 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
 
 
 def levenshtein_normalized(s, t, mode='lev', cost=(1,1,1,1)):
-    """Returns a Levenshtein distance normalized to the interval [0, 1].
-    The arguments are identical to those for the levenshtein function.
+    """Return a Levenshtein distance normalized to the interval [0, 1]
+    The arguments are identical to those for the levenshtein() function.
 
     Description:
     The Levenshtein distance is normalized by dividing the Levenshtein distance
@@ -150,25 +150,32 @@ def levenshtein_normalized(s, t, mode='lev', cost=(1,1,1,1)):
         / (max(len(s)*del_cost, len(t)*ins_cost))
 
 
-def hamming(s, t, allow_different_lengths=False):
-    """Return the hamming distance between two string arguments.
+def hamming(s, t, difflens=True):
+    """Return the Hamming distance between two string arguments
 
     Arguments:
     s, t -- two strings to be compared
     allow_different_lengths --
+        If True (default, this returns the Hamming distance for those characters
+        that have a matching character in both strings plus the difference in
+        the strings' lengths. This is equivalent to  extending the shorter
+        string with obligatorily non-matching characters.
         If False, an exception is raised in the case of strings of unequal
         lengths.
-        If True, this returns the hamming distance for those characters that
-        have a matching character in both strings plus the difference in the
-        strings' lengths. This is equivalent to  extending the shorter string
-        with obligatorily non-matching characters.
+
+    Description:
+    Hamming distance equals the number of character positions at which two
+    strings differ. For strings of unequal lengths, it is not normally defined.
+    By default, this implementation calculates the Hamming distance of the
+    first n characters where n is the lesser of the two strings' lengths and
+    adds to this the difference in string lengths.
     """
-    if not allow_different_lengths and len(s) != len(t):
+    if not difflens and len(s) != len(t):
         raise ValueError("Undefined for sequences of unequal length; set \
             allow_different_lengths to True for Hamming distance between \
             strings of unequal lengths.")
     dist = 0
-    if allow_different_lengths:
+    if difflens:
         dist += abs(len(s)-len(t))
     dist += sum(c1 != c2 for c1, c2 in zip(s, t))
     return dist

@@ -85,11 +85,13 @@ class levenshtein_test_cases(unittest.TestCase):
 
     def test_levenshtein_normalized(self):
         self.assertEquals(levenshtein_normalized('', ''), 0)
+
         self.assertEquals(levenshtein_normalized('a', 'a'), 0)
         self.assertEquals(levenshtein_normalized('ab', 'ab'), 0)
         self.assertEquals(levenshtein_normalized('', 'a'), 1)
         self.assertEquals(levenshtein_normalized('', 'ab'), 1)
         self.assertEquals(levenshtein_normalized('a', 'c'), 1)
+
         self.assertEquals(levenshtein_normalized('abc', 'ac'), 1/3)
         self.assertEquals(levenshtein_normalized('abbc', 'ac'), 1/2)
         self.assertEquals(levenshtein_normalized('abbc', 'abc'), 1/4)
@@ -97,7 +99,28 @@ class levenshtein_test_cases(unittest.TestCase):
 
 class hamming_test_cases(unittest.TestCase):
     def test_hamming(self):
-        pass
+        self.assertEquals(hamming('', ''), 0)
+        self.assertEquals(hamming('', '', False), 0)
+
+        self.assertEquals(hamming('a', ''), 1)
+        self.assertEquals(hamming('a', 'a'), 0)
+        self.assertEquals(hamming('a', 'a', False), 0)
+        self.assertEquals(hamming('a', 'b'), 1)
+        self.assertEquals(hamming('a', 'b', False), 1)
+        self.assertEquals(hamming('abc', 'cba'), 2)
+        self.assertEquals(hamming('abc', 'cba', False), 2)
+        self.assertEquals(hamming('abc', ''), 3)
+        self.assertEquals(hamming('bb', 'cbab'), 3)
+
+        # test exception
+        self.assertRaises(ValueError, hamming, 'ab', 'a', False)
+
+        # https://en.wikipedia.org/wiki/Hamming_distance
+        self.assertEquals(hamming('karolin', 'kathrin'), 3)
+        self.assertEquals(hamming('karolin', 'kerstin'), 3)
+        self.assertEquals(hamming('1011101', '1001001'), 2)
+        self.assertEquals(hamming('2173896', '2233796'), 3)
+
 
 class tversky_index_test_cases(unittest.TestCase):
     def test_tversky_index(self):
