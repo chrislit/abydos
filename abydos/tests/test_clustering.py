@@ -27,3 +27,4 @@ class qgram_fingerprint_test_cases(unittest.TestCase):
 class phonetic_fingerprint_test_cases(unittest.TestCase):
     def test_phonetic_fingerprint(self):
         self.assertEquals(phonetic_fingerprint(''), '')
+        # TODO: add non-trivial tests
