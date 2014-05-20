@@ -35,6 +35,10 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
     Damerau-Levenshtein distance) and the Damerau-Levenshtein distance
     are also supported. Cf.
     https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
+
+    The ordinary Levenshtein & Optimal String Alignment distance both
+    employ the Wagner-Fischer dynamic programming algorithm. Cf.
+    https://en.wikipedia.org/wiki/Wagner%E2%80%93Fischer_algorithm
     """
     ins_cost, del_cost, sub_cost, trans_cost = cost
 
@@ -99,7 +103,8 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
         for i in xrange(1, len(s)):
             max_s_letter_match_index = (0 if s[i] == t[0] else -1)
             for j in xrange(1, len(t)):
-                candidate_swap_index = -1 if t[j] not in s_index_by_character else s_index_by_character[t[j]]
+                candidate_swap_index = -1 if t[j] not in s_index_by_character \
+                else s_index_by_character[t[j]]
                 j_swap = max_s_letter_match_index
                 del_distance = d[i-1,j] + del_cost
                 ins_distance = d[i,j-1] + ins_cost
@@ -124,6 +129,25 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
             s_index_by_character[s[i]] = i
 
         return d[len(s)-1, len(t)-1]
+
+
+def levenshtein_normalized(s, t, mode='lev', cost=(1,1,1,1)):
+    """Returns a Levenshtein distance normalized to the interval [0, 1].
+    The arguments are identical to those for the levenshtein function.
+
+    Description:
+    The Levenshtein distance is normalized by dividing the Levenshtein distance
+    (calculated by any of the three supported methods) by the greater of
+    the number of characters in s times the cost of a delete and
+    the number of characters in t times the cost of an insert.
+    For the case in which all operations have cost == 1, this is equivalent
+    to the greater of the length of the two strings s & t.
+    """
+    if s == t:
+        return 0
+    ins_cost, del_cost = cost[:2]
+    return levenshtein(s, t, mode, cost) \
+        / (max(len(s)*del_cost, len(t)*ins_cost))
 
 
 def hamming(s, t, allow_different_lengths=False):

@@ -2,9 +2,9 @@
 
 from __future__ import unicode_literals
 import unittest
-from abydos.distance import levenshtein, hamming, tversky_index, \
-    sorensen_coeff, sorensen, jaccard_coeff, jaccard, tanimoto_coeff, \
-    tanimoto, strcmp95, jaro_winkler, lcs, mra_compare
+from abydos.distance import levenshtein, levenshtein_normalized, hamming, \
+    tversky_index, sorensen_coeff, sorensen, jaccard_coeff, jaccard, \
+    tanimoto_coeff, tanimoto, strcmp95, jaro_winkler, lcs, mra_compare
 
 
 class levenshtein_test_cases(unittest.TestCase):
@@ -45,24 +45,50 @@ class levenshtein_test_cases(unittest.TestCase):
         self.assertEquals(levenshtein('CA', 'ABC', 'osa'), 3)
 
         # test cost of insert
+        self.assertEquals(levenshtein('', 'b', 'lev', cost=(5,7,10,10)), 5)
+        self.assertEquals(levenshtein('', 'b', 'osa', cost=(5,7,10,10)), 5)
+        self.assertEquals(levenshtein('', 'b', 'dam', cost=(5,7,10,10)), 5)
         self.assertEquals(levenshtein('a', 'ab', 'lev', cost=(5,7,10,10)), 5)
         self.assertEquals(levenshtein('a', 'ab', 'osa', cost=(5,7,10,10)), 5)
         self.assertEquals(levenshtein('a', 'ab', 'dam', cost=(5,7,10,10)), 5)
+
         # test cost of delete
+        self.assertEquals(levenshtein('b', '', 'lev', cost=(5,7,10,10)), 7)
+        self.assertEquals(levenshtein('b', '', 'osa', cost=(5,7,10,10)), 7)
+        self.assertEquals(levenshtein('b', '', 'dam', cost=(5,7,10,10)), 7)
         self.assertEquals(levenshtein('ab', 'a', 'lev', cost=(5,7,10,10)), 7)
         self.assertEquals(levenshtein('ab', 'a', 'osa', cost=(5,7,10,10)), 7)
         self.assertEquals(levenshtein('ab', 'a', 'dam', cost=(5,7,10,10)), 7)
+
         # test cost of substitute
         self.assertEquals(levenshtein('a', 'b', 'lev', cost=(10,10,5,10)), 5)
         self.assertEquals(levenshtein('a', 'b', 'osa', cost=(10,10,5,10)), 5)
         self.assertEquals(levenshtein('a', 'b', 'dam', cost=(10,10,5,10)), 5)
+        self.assertEquals(levenshtein('ac', 'bc', 'lev', cost=(10,10,5,10)), 5)
+        self.assertEquals(levenshtein('ac', 'bc', 'osa', cost=(10,10,5,10)), 5)
+        self.assertEquals(levenshtein('ac', 'bc', 'dam', cost=(10,10,5,10)), 5)
+
         # test cost of transpose
         self.assertEquals(levenshtein('ab', 'ba', 'lev', cost=(10,10,10,5)), 20)
         self.assertEquals(levenshtein('ab', 'ba', 'osa', cost=(10,10,10,5)), 5)
         self.assertEquals(levenshtein('ab', 'ba', 'dam', cost=(5,5,10,5)), 5)
+        self.assertEquals(levenshtein('abc', 'bac', 'lev', cost=(10,10,10,5)), 20)
+        self.assertEquals(levenshtein('abc', 'bac', 'osa', cost=(10,10,10,5)), 5)
+        self.assertEquals(levenshtein('abc', 'bac', 'dam', cost=(5,5,10,5)), 5)
+        self.assertEquals(levenshtein('cab', 'cba', 'lev', cost=(10,10,10,5)), 20)
+        self.assertEquals(levenshtein('cab', 'cba', 'osa', cost=(10,10,10,5)), 5)
+        self.assertEquals(levenshtein('cab', 'cba', 'dam', cost=(5,5,10,5)), 5)
 
         # test exception
         self.assertRaises(ValueError, levenshtein, 'ab', 'ba', 'dam', cost=(10,10,10,5))
+
+    def test_levenshtein_normalized(self):
+        self.assertEquals(levenshtein_normalized('', ''), 0)
+        self.assertEquals(levenshtein_normalized('a', 'a'), 0)
+        self.assertEquals(levenshtein_normalized('ab', 'ab'), 0)
+        self.assertEquals(levenshtein_normalized('', 'a'), 1)
+        self.assertEquals(levenshtein_normalized('', 'ab'), 1)
+        self.assertEquals(levenshtein_normalized('a', 'c'), 1)
 
 
 class hamming_test_cases(unittest.TestCase):
