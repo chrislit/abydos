@@ -218,10 +218,10 @@ def tversky_index(s, t, q=2, alpha=1, beta=1, bias=None):
     α and β < 1 emphsize the intersection over unique contributions.
 
     The symmetric variant is defined in Jiminez, Sergio, Claudio Becerra, and
-        Alexander Gelbukh. 2013. SOFTCARDINALITY-CORE: Improving Text Overlap
-        with Distributional Measures for Semantic Textual Similarity. This is
-        activated by specifying a bias parameter. 
-        Cf. http://aclweb.org/anthology/S/S13/S13-1028.pdf
+    Alexander Gelbukh. 2013. SOFTCARDINALITY-CORE: Improving Text Overlap with
+    Distributional Measures for Semantic Textual Similarity. This is activated
+    by specifying a bias parameter.
+    Cf. http://aclweb.org/anthology/S/S13/S13-1028.pdf
     """
     if alpha < 0 or beta < 0:
         raise ValueError('Unsupported weight assignment; alpha and beta must \
@@ -357,9 +357,7 @@ def strcmp95(s, t, long_strings=False):
     ying = s.strip().upper()
     yang = t.strip().upper()
 
-    """
-    If either string is blank - return - added in Version 2
-    """
+    # If either string is blank - return - added in Version 2
     if len(ying) == 0 or len(yang) == 0:
         return 0.0
 
@@ -373,12 +371,10 @@ def strcmp95(s, t, long_strings=False):
         ('1','I'), ('1','L'), ('0','O'), ('0','Q'), ('C','K'), ('G','J')
     )
 
-    """
-    Initialize the adjwt array on the first call to the function only.
-    The adjwt array is used to give partial credit for characters that
-    may be errors due to known phonetic or character recognition errors.
-    A typical example is to match the letter "O" with the number "0"
-    """
+    # Initialize the adjwt array on the first call to the function only.
+    # The adjwt array is used to give partial credit for characters that
+    # may be errors due to known phonetic or character recognition errors.
+    # A typical example is to match the letter "O" with the number "0"
     for i in sp:
         x,y = i
         adjwt[(x,y)]=3
@@ -391,18 +387,14 @@ def strcmp95(s, t, long_strings=False):
         search_range = len(yang)
         minv = len(ying)
 
-    """
-    Blank out the flags
-    """
+    # Blank out the flags
     ying_flag = [0 for i in xrange(search_range)]
     yang_flag = [0 for j in xrange(search_range)]
     search_range = search_range//2 - 1
     if search_range < 0:
         search_range = 0
 
-    """
-    Looking only within the search range, count and flag the matched pairs.
-    """
+    # Looking only within the search range, count and flag the matched pairs.
     Num_com = 0
     yl1 = len(yang) - 1
     for i in xrange(len(ying)):
@@ -415,15 +407,11 @@ def strcmp95(s, t, long_strings=False):
                 Num_com += 1
                 break
 
-    """
-    If no characters in common - return
-    """
+    # If no characters in common - return
     if Num_com == 0:
         return 0.0
 
-    """
-    Count the number of transpositions
-    """
+    # Count the number of transpositions
     k = N_trans = 0
     for i in xrange(len(ying)):
         if ying_flag[i] != 0:
@@ -435,9 +423,7 @@ def strcmp95(s, t, long_strings=False):
                 N_trans += 1
     N_trans = N_trans // 2
 
-    """
-    Adjust for similarities in nonmatched characters
-    """
+    # Adjust for similarities in unmatched characters
     N_simi = 0
     if (minv > Num_com):
         for i in xrange(len(ying)):
@@ -450,21 +436,15 @@ def strcmp95(s, t, long_strings=False):
                             break
     Num_sim = N_simi/10.0 + Num_com
 
-    """
-    Main weight computation.
-    """
+    # Main weight computation
     weight = Num_sim / len(ying) + Num_sim / len(yang) + \
         (Num_com - N_trans) / Num_com
     weight = weight / 3.0
 
-    """
-    Continue to boost the weight if the strings are similar
-    """
+    # Continue to boost the weight if the strings are similar
     if (weight > 0.7):
 
-        """
-        Adjust for having up to the first 4 characters in common
-        """
+        # Adjust for having up to the first 4 characters in common
         j = 4 if (minv >= 4) else minv
         i = 0
         while ((i<j) and (ying[i]==yang[i]) and (not ying[i].isdigit())):
@@ -472,13 +452,10 @@ def strcmp95(s, t, long_strings=False):
         if i:
             weight += i * 0.1 * (1.0 - weight)
 
-        """
-        Optionally adjust for long strings.
-        """
-        """
-        After agreeing beginning chars, at least two more must agree and
-        the agreeing characters must be > .5 of remaining characters.
-        """
+        #Optionally adjust for long strings.
+
+        # After agreeing beginning chars, at least two more must agree and
+        # the agreeing characters must be > .5 of remaining characters.
         if ((long_strings) and (minv>4) and (Num_com>i+1) and \
             (2*Num_com>=minv+i)):
             if (not ying[0].isdigit()):
@@ -531,9 +508,7 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, \
     lens = len(s)
     lent = len(t)
 
-    """
-    If either string is blank - return - added in Version 2
-    """
+    # If either string is blank - return - added in Version 2
     if lens == 0 or lent == 0:
         return 0.0
 
@@ -544,18 +519,14 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, \
         search_range = lent
         minv = lens
 
-    """
-    Zero out the flags
-    """
+    # Zero out the flags
     s_flag = [0 for i in xrange(search_range)]
     t_flag = [0 for j in xrange(search_range)]
     search_range = search_range//2 - 1
     if search_range < 0:
         search_range = 0
 
-    """
-    Looking only within the search range, count and flag the matched pairs.
-    """
+    # Looking only within the search range, count and flag the matched pairs.
     Num_com = 0
     yl1 = lent - 1
     for i in xrange(lens):
@@ -568,15 +539,11 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, \
                 Num_com += 1
                 break
 
-    """
-    If no characters in common - return
-    """
+    # If no characters in common - return
     if Num_com == 0:
         return 0.0
 
-    """
-    Count the number of transpositions
-    """
+    # Count the number of transpositions
     k = N_trans = 0
     for i in xrange(lens):
         if s_flag[i] != 0:
@@ -588,21 +555,15 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, \
                 N_trans += 1
     N_trans = N_trans // 2
 
-    """
-    Main weight computation for Jaro distance
-    """
+    # Main weight computation for Jaro distance
     weight = Num_com / lens + Num_com / lent + (Num_com - N_trans) / Num_com
     weight = weight / 3.0
 
-    """
-    Continue to boost the weight if the strings are similar
-    This is the Winkler portion of Jaro-Winkler distance
-    """
+    # Continue to boost the weight if the strings are similar
+    # This is the Winkler portion of Jaro-Winkler distance
     if (mode == 'winkler' and weight > boost_threshold):
 
-        """
-        Adjust for having up to the first 4 characters in common
-        """
+        # Adjust for having up to the first 4 characters in common
         j = 4 if (minv >= 4) else minv
         i = 0
         while ((i<j) and (s[i]==t[i])):
@@ -610,13 +571,10 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, \
         if i:
             weight += i * scaling_factor * (1.0 - weight)
 
-        """
-        Optionally adjust for long strings.
-        """
-        """
-        After agreeing beginning chars, at least two more must agree and
-        the agreeing characters must be > .5 of remaining characters.
-        """
+        # Optionally adjust for long strings.
+
+        # After agreeing beginning chars, at least two more must agree and
+        # the agreeing characters must be > .5 of remaining characters.
         if ((long_strings) and (minv>4) and (Num_com>i+1) and \
             (2*Num_com>=minv+i)):
             weight += (1.0-weight) * ((Num_com-i-1) / (lens+lent-i*2+2))
