@@ -132,15 +132,17 @@ def hamming(s, t, allow_different_lengths=False):
     Arguments:
     s, t -- two strings to be compared
     allow_different_lengths --
-      If False, an exception is raised in the case of strings of unequal
-      lengths.
-      If True, this returns the hamming distance for those characters that
-      have a matching character in both strings plus the difference in the
-      strings' lengths. This is equivalent to  extending the shorter string
-      with obligatoriliy non-matching characters.
+        If False, an exception is raised in the case of strings of unequal
+        lengths.
+        If True, this returns the hamming distance for those characters that
+        have a matching character in both strings plus the difference in the
+        strings' lengths. This is equivalent to  extending the shorter string
+        with obligatorily non-matching characters.
     """
     if not allow_different_lengths and len(s) != len(t):
-        raise ValueError("Undefined for sequences of unequal length; set allow_different_lengths to True for Hamming distance between strings of unequal lengths.")
+        raise ValueError("Undefined for sequences of unequal length; set \
+            allow_different_lengths to True for Hamming distance between \
+            strings of unequal lengths.")
     dist = 0
     if allow_different_lengths:
         dist += abs(len(s)-len(t))
@@ -154,7 +156,8 @@ def tversky_index(s, t, q=2, alpha=1, beta=1, bias=None):
     Arguments:
     s, t -- two strings to be compared
     q -- the length of each q-gram
-    alpha, beta -- two Tversky index parameters as indicated in the description below
+    alpha, beta -- two Tversky index parameters as indicated in the
+        description below
 
     The Tversky index is defined as:
     For two sets X and Y:
@@ -163,14 +166,21 @@ def tversky_index(s, t, q=2, alpha=1, beta=1, bias=None):
     α = β = 1 is equivalent to the Jaccard & Tanimoto similarity coefficients
     α = β = 0.5 is equivalent to the Sorensen-Dice similarity coefficient
 
-    Unequal α and β will tend to emphasize one or the other set's contributions (α>β emphasizes the contributions of X over Y; α<β emphasizes the contributions of Y over X.
+    Unequal α and β will tend to emphasize one or the other set's contributions
+        (α>β emphasizes the contributions of X over Y; α<β emphasizes the
+        contributions of Y over X).
     α and β > 1 emphsize unique contributions over the intersection.
     α and β < 1 emphsize the intersection over unique contributions.
 
-    The symmetric variant is defined in Jiminez, Sergio, Claudio Becerra, and Alexander Gelbukh. 2013. SOFTCARDINALITY-CORE: Improving Text Overlap with Distributional Measures for Semantic Textual Similarity. This is activated by specifying a bias parameter. http://aclweb.org/anthology/S/S13/S13-1028.pdf
+    The symmetric variant is defined in Jiminez, Sergio, Claudio Becerra, and
+        Alexander Gelbukh. 2013. SOFTCARDINALITY-CORE: Improving Text Overlap
+        with Distributional Measures for Semantic Textual Similarity. This is
+        activated by specifying a bias parameter. 
+        Cf. http://aclweb.org/anthology/S/S13/S13-1028.pdf
     """
     if alpha < 0 or beta < 0:
-        raise ValueError('Unsupported weight assignment; alpha and beta must be greater than or equal to 0.')
+        raise ValueError('Unsupported weight assignment; alpha and beta must \
+            be greater than or equal to 0.')
 
     if s == t:
         return 1.0
@@ -178,7 +188,8 @@ def tversky_index(s, t, q=2, alpha=1, beta=1, bias=None):
         return 1.0
     q_s, q_t, q_intersection = _qgram_counts(s, t, q)
     if bias is None:
-        return q_intersection / (q_intersection + alpha * (q_s - q_intersection) + beta * (q_t - q_intersection))
+        return q_intersection / (q_intersection + alpha * (q_s - q_intersection)
+                                  + beta * (q_t - q_intersection))
     else:
         a = min(q_s - q_intersection, q_t - q_intersection)
         b = max(q_s - q_intersection, q_t - q_intersection)
@@ -397,7 +408,8 @@ def strcmp95(s, t, long_strings=False):
     """
     Main weight computation.
     """
-    weight = Num_sim / len(ying) + Num_sim / len(yang) + (Num_com - N_trans) / Num_com
+    weight = Num_sim / len(ying) + Num_sim / len(yang) + \
+        (Num_com - N_trans) / Num_com
     weight = weight / 3.0
 
     """
@@ -422,14 +434,17 @@ def strcmp95(s, t, long_strings=False):
         After agreeing beginning chars, at least two more must agree and
         the agreeing characters must be > .5 of remaining characters.
         """
-        if ((long_strings) and (minv>4) and (Num_com>i+1) and (2*Num_com>=minv+i)):
+        if ((long_strings) and (minv>4) and (Num_com>i+1) and \
+            (2*Num_com>=minv+i)):
             if (not ying[0].isdigit()):
-                weight += (1.0-weight) * ((Num_com-i-1) / (len(ying)+len(yang)-i*2+2))
+                weight += (1.0-weight) * ((Num_com-i-1) /
+                                          (len(ying)+len(yang)-i*2+2))
 
     return weight
 
 
-def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=0.7, scaling_factor=0.1):
+def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, \
+                 boost_threshold=0.7, scaling_factor=0.1):
     """Return the Jaro(-Winkler) distance between two string arguments.
 
     Arguments:
@@ -459,9 +474,11 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=
     """
     if mode == 'winkler':
         if boost_threshold > 1 or boost_threshold<0:
-            raise ValueError('Unsupported boost_threshold assignment; boost_threshold must be between 0 and 1.')
+            raise ValueError('Unsupported boost_threshold assignment; \
+                boost_threshold must be between 0 and 1.')
         if scaling_factor > 0.25 or boost_threshold<0:
-            raise ValueError('Unsupported scaling_factor assignment; scaling_factor must be between 0 and 0.25.')
+            raise ValueError('Unsupported scaling_factor assignment; \
+                scaling_factor must be between 0 and 0.25.')
 
     s = qgrams(s.strip(), q)
     t = qgrams(t.strip(), q)
@@ -555,7 +572,8 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, boost_threshold=
         After agreeing beginning chars, at least two more must agree and
         the agreeing characters must be > .5 of remaining characters.
         """
-        if ((long_strings) and (minv>4) and (Num_com>i+1) and (2*Num_com>=minv+i)):
+        if ((long_strings) and (minv>4) and (Num_com>i+1) and \
+            (2*Num_com>=minv+i)):
             weight += (1.0-weight) * ((Num_com-i-1) / (lens+lent-i*2+2))
 
     return weight
