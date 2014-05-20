@@ -3,10 +3,16 @@
 from __future__ import unicode_literals
 
 def qgrams(s, q=2):
-    """Given a string s, return a list of all q-grams in that
-    string for a specified value q (defaults to 2).
+    """Returns a list of all q-grams of a string.
 
-    A q-gram is here defined as all sequences of q characters.
+    Arguments:
+    s -- a string to extract q-grams from
+    q -- the q-gram length (defaults to 2)
+
+    A q-gram is here defined as all sequences of q characters. Q-grams are also
+    known as k-grams and n-grams, but the term n-gram more typically refers to
+    sequences of whitespace-delimited words in a string, where q-gram refers
+    to sequences of characters in a word or string.
     """
     if len(s) < q:
         return []
@@ -14,12 +20,12 @@ def qgrams(s, q=2):
 
 
 def _qgram_lists(s, t, q=2):
-    """Given strings s and t, return a tuple of:
-      the q-grams in s
-      the q-grams in t
-      the q-grams in common
-    An optional argument q (defaults to 2) specifies the length of
-    each q-gram.
+    """Return a tuple for the two supplied strings, consisting of:
+        (q-grams in s, q-grams in t, q-grams in common).
+
+    Arguments:
+    s, t -- strings to extract q-grams from
+    q -- the q-gram length (defaults to 2)
     """
     q_s = qgrams(s, q)
     q_t = qgrams(t, q)
@@ -34,11 +40,12 @@ def _qgram_lists(s, t, q=2):
 
 
 def _qgram_counts(s, t, q=2):
-    """Given strings s and t, return a tuple of:
-      the number of q-grams in s
-      the number of q-grams in t
-      the number of q-grams in common
-    An optional argument q (defaults to 2) specifies the length of
-    each q-gram.
+    """Return a tuple for the two supplied strings, consisting of:
+        (|q-grams in s|, |q-grams in t|, |q-grams in common|).
+    These are the number of q-grams in each set.
+
+    Arguments:
+    s, t -- strings to extract q-grams from
+    q -- the q-gram length (defaults to 2)
     """
     return tuple([len(elt) for elt in _qgram_lists(s, t, q)])
