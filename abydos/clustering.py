@@ -10,10 +10,10 @@ def fingerprint(phrase):
     phrase = ' '.join(sorted(list(set(phrase.split()))))
     return phrase
 
-def qgram_fingerprint(phrase, q=2):
+def qgram_fingerprint(phrase, q=2, start_stop=''):
     phrase = unicodedata.normalize('NFKD', unicode(phrase.strip().lower()))
     phrase = filter(lambda c: c.isalnum(), phrase)
-    phrase = qgrams(phrase, q)
+    phrase = qgrams(phrase, q, start_stop)
     phrase = ''.join(sorted(list(set(phrase))))
     return phrase
 
