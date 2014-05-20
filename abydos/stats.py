@@ -126,7 +126,7 @@ class ConfusionTable:
         Fall-out is defined as fp / (fp+tn)
         AKA false positive rate (FPR)
         """
-        return self.fp / (self.fp / self.tn)
+        return self.fp / (self.fp + self.tn)
 
 
     def fdr(self):
