@@ -16,17 +16,25 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
     Arguments:
     s, t -- two strings to be compared
     mode -- specifies a mode for computing the Levenshtein distance:
-              'lev' (default) computes the ordinary Levenshtein distance,
+            'lev' (default) computes the ordinary Levenshtein distance,
                 in which edits may include inserts, deletes, and substitutions
-              'osa' computes the Optimal String Alignment distance, in which
+            'osa' computes the Optimal String Alignment distance, in which
                 edits may include inserts, deletes, substitutions, and
                 transpositions but substrings may only be edited once
-              'dam' computes the Damerau-Levenshtein distance, in which
+            'dam' computes the Damerau-Levenshtein distance, in which
                 edits may include inserts, deletes, substitutions, and
                 transpositions and substrings may undergo repeated edits
     cost -- a 4-tuple representing the cost of the four possible edits:
-              inserts, deletes, substitutions, and transpositions,
-              respectively (by default: (1,1,1,1))
+                inserts, deletes, substitutions, and transpositions,
+                respectively (by default: (1,1,1,1))
+
+    Description:
+    This is the standard edit distance measure. Cf.
+    https://en.wikipedia.org/wiki/Levenshtein_distance
+    Two additional variants: optimal string alignment (aka restricted
+    Damerau-Levenshtein distance) and the Damerau-Levenshtein distance
+    are also supported. Cf.
+    https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
     """
     ins_cost, del_cost, sub_cost, trans_cost = cost
 
@@ -51,8 +59,9 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
                 )
 
                 if mode=='osa':
-                    if (i+1 > 1 and j+1 > 1 and s[i] == t[j-1] and s[i-1] == t[j]):
-                        d[i+1,j+1] = min(
+                    if (i+1 > 1 and j+1 > 1 and s[i] == t[j-1] and
+                        s[i-1] == t[j]):
+                            d[i+1,j+1] = min(
                             d[i+1,j+1],
                             d[i-1,j-1] + trans_cost  # transposition
                         )
@@ -64,7 +73,9 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
         under the MIT license:
         https://github.com/KevinStern/software-and-algorithms/blob/master/src/main/java/blogspot/software_and_algorithms/stern_library/string/DamerauLevenshteinAlgorithm.java"""
         if 2*trans_cost < ins_cost + del_cost:
-            raise ValueError('Unsupported cost assignment; the cost of two transpositions must not be less than the cost of an insert plus a delete.')
+            raise ValueError('Unsupported cost assignment; the cost of two \
+                transpositions must not be less than the cost of an insert \
+                plus a delete.')
 
         d = numpy.zeros((len(s))*(len(t)), dtype=numpy.int).reshape((len(s), len(t)))
 

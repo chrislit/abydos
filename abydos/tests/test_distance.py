@@ -61,6 +61,10 @@ class levenshtein_test_cases(unittest.TestCase):
         self.assertEquals(levenshtein('ab', 'ba', 'osa', cost=(10,10,10,5)), 5)
         self.assertEquals(levenshtein('ab', 'ba', 'dam', cost=(5,5,10,5)), 5)
 
+        # test exception
+        self.assertRaises(ValueError, levenshtein, 'ab', 'ba', 'dam', cost=(10,10,10,5))
+
+
 class hamming_test_cases(unittest.TestCase):
     def test_hamming(self):
         pass
