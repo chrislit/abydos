@@ -31,6 +31,7 @@ You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
+
 from __future__ import unicode_literals
 from __future__ import division
 from ._compat import _unicode, _range
@@ -38,9 +39,7 @@ from itertools import groupby
 import re
 import unicodedata
 
-_russell_translation_table = dict(zip([ord(_) for _ in
-                                       u'ABCDEFGIKLMNOPQRSTUVXYZ'],
-                                      u'12341231356712383412313'))
+
 def russell_index(word):
     """Return the Russell Index of a word as an int
 
@@ -51,6 +50,10 @@ def russell_index(word):
     This follows Robert C. Russell's Index algorithm, as described in
     US Patent 1,261,167 (1917)
     """
+    _russell_translation_table = dict(zip([ord(_) for _ in
+                                           u'ABCDEFGIKLMNOPQRSTUVXYZ'],
+                                          u'12341231356712383412313'))
+
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = word.replace('GH', '')  # discard gh (rule 3)
     word = word.rstrip('SZ') # discard /[sz]$/ (rule 3)
@@ -71,9 +74,6 @@ def russell_index(word):
     return int(sdx) if sdx else None
 
 
-_russell_num_translation_table = dict(zip([ord(_) for _ in u'12345678'],
-                                          u'ABCDLMNR'))
-
 def russell_index_num_to_alpha(num):
     """Return the Russell Index alphabetic string of a Index number
 
@@ -84,6 +84,8 @@ def russell_index_num_to_alpha(num):
     This follows Robert C. Russell's Index algorithm, as described in
     US Patent 1,261,167 (1917)
     """
+    _russell_num_translation_table = dict(zip([ord(_) for _ in u'12345678'],
+                                              u'ABCDLMNR'))
     num = ''.join([c for c in _unicode(num) if c in list('12345678')])
     if num:
         return num.translate(_russell_num_translation_table)
@@ -103,10 +105,6 @@ def russell_index_alpha(word):
         return russell_index_num_to_alpha(russell_index(word))
 
 
-_soundex_translation_table = dict(zip([ord(_) for _ in
-                                       u'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
-                                      u'01230129022455012623019202'))
-
 def soundex(word, maxlength=4, var='American', reverse=False):
     """Return the Soundex value of a word
 
@@ -123,6 +121,10 @@ def soundex(word, maxlength=4, var='American', reverse=False):
     reverse -- reverse the word before computing the selected Soundex
         (defaults to False); This results in "Reverse Soundex"
     """
+    _soundex_translation_table = dict(zip([ord(_) for _ in
+                                           u'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
+                                          u'01230129022455012623019202'))
+
     # Call the D-M Soundex function itself if requested
     if var == 'dm':
         return dm_soundex(word, maxlength, reverse)
@@ -161,67 +163,6 @@ def soundex(word, maxlength=4, var='American', reverse=False):
 
     return sdx[:maxlength]
 
-_dms_table = {'STCH': (2, 4, 4), 'DRZ': (4, 4, 4), 'ZH': (4, 4, 4),
-              'ZHDZH': (2, 4, 4), 'DZH': (4, 4, 4), 'DRS': (4, 4, 4),
-              'DZS': (4, 4, 4), 'SCHTCH': (2, 4, 4), 'SHTSH': (2, 4, 4),
-              'SZCZ': (2, 4, 4), 'TZS': (4, 4, 4), 'SZCS': (2, 4, 4),
-              'STSH': (2, 4, 4), 'SHCH': (2, 4, 4), 'D': (3, 3, 3),
-              'H': (5, 5, '_'), 'TTSCH': (4, 4, 4), 'THS': (4, 4, 4),
-              'L': (8, 8, 8), 'P': (7, 7, 7), 'CHS': (5, 54, 54),
-              'T': (3, 3, 3), 'X': (5, 54, 54), 'OJ': (0, 1, '_'),
-              'OI': (0, 1, '_'), 'SCHTSH': (2, 4, 4), 'OY': (0, 1, '_'),
-              'Y': (1, '_', '_'), 'TSH': (4, 4, 4), 'ZDZ': (2, 4, 4),
-              'TSZ': (4, 4, 4), 'SHT': (2, 43, 43), 'SCHTSCH': (2, 4, 4),
-              'TTSZ': (4, 4, 4), 'TTZ': (4, 4, 4), 'SCH': (4, 4, 4),
-              'TTS': (4, 4, 4), 'SZD': (2, 43, 43), 'AI': (0, 1, '_'),
-              'PF': (7, 7, 7), 'TCH': (4, 4, 4), 'PH': (7, 7, 7),
-              'TTCH': (4, 4, 4), 'SZT': (2, 43, 43), 'ZDZH': (2, 4, 4),
-              'EI': (0, 1, '_'), 'G': (5, 5, 5), 'EJ': (0, 1, '_'),
-              'ZD': (2, 43, 43), 'IU': (1, '_', '_'), 'K': (5, 5, 5),
-              'O': (0, '_', '_'), 'SHTCH': (2, 4, 4), 'S': (4, 4, 4),
-              'TRZ': (4, 4, 4), 'SHD': (2, 43, 43), 'DSH': (4, 4, 4),
-              'CSZ': (4, 4, 4), 'EU': (1, 1, '_'), 'TRS': (4, 4, 4),
-              'ZS': (4, 4, 4), 'STRZ': (2, 4, 4), 'UY': (0, 1, '_'),
-              'STRS': (2, 4, 4), 'CZS': (4, 4, 4), 'MN': ('6_6', '6_6', '6_6'),
-              'UI': (0, 1, '_'), 'UJ': (0, 1, '_'), 'UE': (0, '_', '_'),
-              'EY': (0, 1, '_'), 'W': (7, 7, 7), 'IA': (1, '_', '_'),
-              'FB': (7, 7, 7), 'STSCH': (2, 4, 4), 'SCHT': (2, 43, 43),
-              'NM': ('6_6', '6_6', '6_6'), 'SCHD': (2, 43, 43),
-              'B': (7, 7, 7), 'DSZ': (4, 4, 4), 'F': (7, 7, 7), 'N': (6, 6, 6),
-              'CZ': (4, 4, 4), 'R': (9, 9, 9), 'U': (0, '_', '_'),
-              'V': (7, 7, 7), 'CS': (4, 4, 4), 'Z': (4, 4, 4), 'SZ': (4, 4, 4),
-              'TSCH': (4, 4, 4), 'KH': (5, 5, 5), 'ST': (2, 43, 43),
-              'KS': (5, 54, 54), 'SH': (4, 4, 4), 'SC': (2, 4, 4),
-              'SD': (2, 43, 43), 'DZ': (4, 4, 4), 'ZHD': (2, 43, 43),
-              'DT': (3, 3, 3), 'ZSH': (4, 4, 4), 'DS': (4, 4, 4),
-              'TZ': (4, 4, 4), 'TS': (4, 4, 4), 'TH': (3, 3, 3),
-              'TC': (4, 4, 4), 'A': (0, '_', '_'), 'E': (0, '_', '_'),
-              'I': (0, '_', '_'), 'AJ': (0, 1, '_'), 'M': (6, 6, 6),
-              'Q': (5, 5, 5), 'AU': (0, 7, '_'), 'IO': (1, '_', '_'),
-              'AY': (0, 1, '_'), 'IE': (1, '_', '_'), 'ZSCH': (4, 4, 4),
-              'CH':((5, 4), (5, 4), (5, 4)), 'CK':((5, 45), (5, 45), (5, 45)),
-              'C':((5, 4), (5, 4), (5, 4)), 'J':((1, 4), ('_', 4), ('_', 4)),
-              'RZ':((94, 4), (94, 4), (94, 4)),
-              'RS':((94, 4), (94, 4), (94, 4))}
-
-_dms_order = {'A':('AI', 'AJ', 'AU', 'AY', 'A'), 'B':('B'),
-             'C':('CHS', 'CSZ', 'CZS', 'CH', 'CK', 'CS', 'CZ', 'C'),
-             'D':('DRS', 'DRZ', 'DSH', 'DSZ', 'DZH', 'DZS', 'DS', 'DT', 'DZ',
-                  'D'), 'E':('EI', 'EJ', 'EU', 'EY', 'E'), 'F':('FB', 'F'),
-             'G':('G'), 'H':('H'), 'I':('IA', 'IE', 'IO', 'IU', 'I'), 'J':('J'),
-             'K':('KH', 'KS', 'K'), 'L':('L'), 'M':('MN', 'M'), 'N':('NM', 'N'),
-             'O':('OI', 'OJ', 'OY', 'O'), 'P':('PF', 'PH', 'P'), 'Q':('Q'),
-             'R':('RS', 'RZ', 'R'),
-             'S':('SCHTSCH', 'SCHTCH', 'SCHTSH', 'SHTCH', 'SHTSH', 'STSCH',
-                  'SCHD', 'SCHT', 'SHCH', 'STCH', 'STRS', 'STRZ', 'STSH',
-                  'SZCS', 'SZCZ', 'SCH', 'SHD', 'SHT', 'SZD', 'SZT', 'SC', 'SD',
-                  'SH', 'ST', 'SZ', 'S'),
-             'T':('TTSCH', 'TSCH', 'TTCH', 'TTSZ', 'TCH', 'THS', 'TRS', 'TRZ',
-                  'TSH', 'TSZ', 'TTS', 'TTZ', 'TZS', 'TC', 'TH', 'TS', 'TZ',
-                  'T'), 'U':('UE', 'UI', 'UJ', 'UY', 'U'), 'V':('V'), 'W':('W'),
-             'X':('X'), 'Y':('Y'),
-             'Z':('ZHDZH', 'ZDZH', 'ZSCH', 'ZDZ', 'ZHD', 'ZSH', 'ZD', 'ZH',
-                  'ZS', 'Z')}
 
 def dm_soundex(word, maxlength=6, reverse=False):
     """Return the Daitch-Mokotoff Soundex values of a word as a set
@@ -234,6 +175,73 @@ def dm_soundex(word, maxlength=6, reverse=False):
     reverse -- reverse the word before computing the selected Soundex
         (defaults to False); This results in "Reverse Soundex"
     """
+    _dms_table = {'STCH': (2, 4, 4), 'DRZ': (4, 4, 4), 'ZH': (4, 4, 4),
+                  'ZHDZH': (2, 4, 4), 'DZH': (4, 4, 4), 'DRS': (4, 4, 4),
+                  'DZS': (4, 4, 4), 'SCHTCH': (2, 4, 4), 'SHTSH': (2, 4, 4),
+                  'SZCZ': (2, 4, 4), 'TZS': (4, 4, 4), 'SZCS': (2, 4, 4),
+                  'STSH': (2, 4, 4), 'SHCH': (2, 4, 4), 'D': (3, 3, 3),
+                  'H': (5, 5, '_'), 'TTSCH': (4, 4, 4), 'THS': (4, 4, 4),
+                  'L': (8, 8, 8), 'P': (7, 7, 7), 'CHS': (5, 54, 54),
+                  'T': (3, 3, 3), 'X': (5, 54, 54), 'OJ': (0, 1, '_'),
+                  'OI': (0, 1, '_'), 'SCHTSH': (2, 4, 4), 'OY': (0, 1, '_'),
+                  'Y': (1, '_', '_'), 'TSH': (4, 4, 4), 'ZDZ': (2, 4, 4),
+                  'TSZ': (4, 4, 4), 'SHT': (2, 43, 43), 'SCHTSCH': (2, 4, 4),
+                  'TTSZ': (4, 4, 4), 'TTZ': (4, 4, 4), 'SCH': (4, 4, 4),
+                  'TTS': (4, 4, 4), 'SZD': (2, 43, 43), 'AI': (0, 1, '_'),
+                  'PF': (7, 7, 7), 'TCH': (4, 4, 4), 'PH': (7, 7, 7),
+                  'TTCH': (4, 4, 4), 'SZT': (2, 43, 43), 'ZDZH': (2, 4, 4),
+                  'EI': (0, 1, '_'), 'G': (5, 5, 5), 'EJ': (0, 1, '_'),
+                  'ZD': (2, 43, 43), 'IU': (1, '_', '_'), 'K': (5, 5, 5),
+                  'O': (0, '_', '_'), 'SHTCH': (2, 4, 4), 'S': (4, 4, 4),
+                  'TRZ': (4, 4, 4), 'SHD': (2, 43, 43), 'DSH': (4, 4, 4),
+                  'CSZ': (4, 4, 4), 'EU': (1, 1, '_'), 'TRS': (4, 4, 4),
+                  'ZS': (4, 4, 4), 'STRZ': (2, 4, 4), 'UY': (0, 1, '_'),
+                  'STRS': (2, 4, 4), 'CZS': (4, 4, 4),
+                  'MN': ('6_6', '6_6', '6_6'), 'UI': (0, 1, '_'),
+                  'UJ': (0, 1, '_'), 'UE': (0, '_', '_'), 'EY': (0, 1, '_'),
+                  'W': (7, 7, 7), 'IA': (1, '_', '_'), 'FB': (7, 7, 7),
+                  'STSCH': (2, 4, 4), 'SCHT': (2, 43, 43),
+                  'NM': ('6_6', '6_6', '6_6'), 'SCHD': (2, 43, 43),
+                  'B': (7, 7, 7), 'DSZ': (4, 4, 4), 'F': (7, 7, 7),
+                  'N': (6, 6, 6), 'CZ': (4, 4, 4), 'R': (9, 9, 9),
+                  'U': (0, '_', '_'), 'V': (7, 7, 7), 'CS': (4, 4, 4),
+                  'Z': (4, 4, 4), 'SZ': (4, 4, 4), 'TSCH': (4, 4, 4),
+                  'KH': (5, 5, 5), 'ST': (2, 43, 43), 'KS': (5, 54, 54),
+                  'SH': (4, 4, 4), 'SC': (2, 4, 4), 'SD': (2, 43, 43),
+                  'DZ': (4, 4, 4), 'ZHD': (2, 43, 43), 'DT': (3, 3, 3),
+                  'ZSH': (4, 4, 4), 'DS': (4, 4, 4), 'TZ': (4, 4, 4),
+                  'TS': (4, 4, 4), 'TH': (3, 3, 3), 'TC': (4, 4, 4),
+                  'A': (0, '_', '_'), 'E': (0, '_', '_'), 'I': (0, '_', '_'),
+                  'AJ': (0, 1, '_'), 'M': (6, 6, 6), 'Q': (5, 5, 5),
+                  'AU': (0, 7, '_'), 'IO': (1, '_', '_'), 'AY': (0, 1, '_'),
+                  'IE': (1, '_', '_'), 'ZSCH': (4, 4, 4),
+                  'CH':((5, 4), (5, 4), (5, 4)),
+                  'CK':((5, 45), (5, 45), (5, 45)),
+                  'C':((5, 4), (5, 4), (5, 4)),
+                  'J':((1, 4), ('_', 4), ('_', 4)),
+                  'RZ':((94, 4), (94, 4), (94, 4)),
+                  'RS':((94, 4), (94, 4), (94, 4))}
+    
+    _dms_order = {'A':('AI', 'AJ', 'AU', 'AY', 'A'), 'B':('B'),
+                 'C':('CHS', 'CSZ', 'CZS', 'CH', 'CK', 'CS', 'CZ', 'C'),
+                 'D':('DRS', 'DRZ', 'DSH', 'DSZ', 'DZH', 'DZS', 'DS', 'DT',
+                      'DZ', 'D'), 'E':('EI', 'EJ', 'EU', 'EY', 'E'),
+                  'F':('FB', 'F'), 'G':('G'), 'H':('H'),
+                  'I':('IA', 'IE', 'IO', 'IU', 'I'), 'J':('J'),
+                  'K':('KH', 'KS', 'K'), 'L':('L'), 'M':('MN', 'M'),
+                  'N':('NM', 'N'), 'O':('OI', 'OJ', 'OY', 'O'),
+                  'P':('PF', 'PH', 'P'), 'Q':('Q'), 'R':('RS', 'RZ', 'R'),
+                  'S':('SCHTSCH', 'SCHTCH', 'SCHTSH', 'SHTCH', 'SHTSH', 'STSCH',
+                       'SCHD', 'SCHT', 'SHCH', 'STCH', 'STRS', 'STRZ', 'STSH',
+                       'SZCS', 'SZCZ', 'SCH', 'SHD', 'SHT', 'SZD', 'SZT', 'SC',
+                       'SD', 'SH', 'ST', 'SZ', 'S'), 
+                  'T':('TTSCH', 'TSCH', 'TTCH', 'TTSZ', 'TCH', 'THS', 'TRS',
+                       'TRZ', 'TSH', 'TSZ', 'TTS', 'TTZ', 'TZS', 'TC', 'TH',
+                       'TS', 'TZ', 'T'), 'U':('UE', 'UI', 'UJ', 'UY', 'U'),
+                  'V':('V'), 'W':('W'), 'X':('X'), 'Y':('Y'),
+                  'Z':('ZHDZH', 'ZDZH', 'ZSCH', 'ZDZ', 'ZHD', 'ZSH', 'ZD', 'ZH',
+                       'ZS', 'Z')}
+
     _vowels = list('AEIJOUY')
     dm = [''] # initialize empty code list
 
@@ -376,13 +384,12 @@ def koelner_phonetik(word):
     return sdx
 
 
-_koelner_num_translation_table = dict(zip([ord(_) for _ in u'012345678'],
-                                          u'APTFKLNRS'))
-
 def koelner_phonetik_num_to_alpha(num):
     """Given the numeric form of a Kölner Phonetik value, returns an
     alphabetic form
     """
+    _koelner_num_translation_table = dict(zip([ord(_) for _ in u'012345678'],
+                                              u'APTFKLNRS'))
     num = ''.join([c for c in _unicode(num) if c in list('012345678')])
     return num.translate(_koelner_num_translation_table)
 
@@ -1474,24 +1481,6 @@ def caverphone(word, version=2):
 
     return word
 
-_alpha_sis_initials = {'GF':'08', 'GM':'03', 'GN':'02', 'KN':'02', 'PF':'08',
-                       'PN':'02', 'PS':'00', 'WR':'04', 'A':'1', 'E':'1',
-                       'H':'2', 'I':'1', 'J':'3', 'O':'1', 'U':'1', 'W':'4',
-                       'Y':'5'}
-_alpha_sis_initials_order = ('GF', 'GM', 'GN', 'KN', 'PF', 'PN', 'PS', 'WR',
-                             'A', 'E', 'H', 'I', 'J', 'O', 'U', 'W', 'Y')
-
-_alpha_sis_basic = {'SCH':'6', 'CZ':('70', '6', '0'), 'CH':('6', '70', '0'),
-                    'CK':('7', '6'), 'DS':('0', '10'), 'DZ':('0', '10'),
-                    'TS':('0', '10'), 'TZ':('0', '10'), 'CI':'0', 'CY':'0',
-                    'CE':'0', 'SH':'6', 'DG':'7', 'PH':'8', 'C':('7', '6'),
-                    'K':('7', '6'), 'Z':'0', 'S':'0', 'D':'1', 'T':'1', 'N':'2',
-                    'M':'3', 'R':'4', 'L':'5', 'J':'6', 'G':'7', 'Q':'7',
-                    'X':'7', 'F':'8', 'V':'8', 'B':'9', 'P':'9'}
-_alpha_sis_basic_order = ('SCH', 'CZ', 'CH', 'CK', 'DS', 'DZ', 'TS', 'TZ',
-                          'CI', 'CY', 'CE', 'SH', 'DG', 'PH', 'C', 'K', 'Z',
-                          'S', 'D', 'T', 'N', 'M', 'R', 'L', 'J', 'C', 'G', 'K',
-                          'Q', 'X', 'F', 'V', 'B', 'P')
 
 def alpha_sis(word, maxlength=14):
     """Return the IBM Alpha Search Inquiry System key of a word as a tuple
@@ -1510,6 +1499,24 @@ def alpha_sis(word, maxlength=14):
     National Bureau of Standards, Washington, D.C (1977):
     https://archive.org/stream/accessingindivid00moor#page/15/mode/1up
     """
+    _alpha_sis_initials = {'GF':'08', 'GM':'03', 'GN':'02', 'KN':'02',
+                           'PF':'08', 'PN':'02', 'PS':'00', 'WR':'04', 'A':'1',
+                           'E':'1', 'H':'2', 'I':'1', 'J':'3', 'O':'1', 'U':'1',
+                           'W':'4', 'Y':'5'}
+    _alpha_sis_initials_order = ('GF', 'GM', 'GN', 'KN', 'PF', 'PN', 'PS', 'WR',
+                                 'A', 'E', 'H', 'I', 'J', 'O', 'U', 'W', 'Y')    
+    _alpha_sis_basic = {'SCH':'6', 'CZ':('70', '6', '0'), 'CH':('6', '70', '0'),
+                        'CK':('7', '6'), 'DS':('0', '10'), 'DZ':('0', '10'),
+                        'TS':('0', '10'), 'TZ':('0', '10'), 'CI':'0', 'CY':'0',
+                        'CE':'0', 'SH':'6', 'DG':'7', 'PH':'8', 'C':('7', '6'),
+                        'K':('7', '6'), 'Z':'0', 'S':'0', 'D':'1', 'T':'1',
+                        'N':'2', 'M':'3', 'R':'4', 'L':'5', 'J':'6', 'G':'7',
+                        'Q':'7', 'X':'7', 'F':'8', 'V':'8', 'B':'9', 'P':'9'}
+    _alpha_sis_basic_order = ('SCH', 'CZ', 'CH', 'CK', 'DS', 'DZ', 'TS', 'TZ',
+                              'CI', 'CY', 'CE', 'SH', 'DG', 'PH', 'C', 'K', 'Z',
+                              'S', 'D', 'T', 'N', 'M', 'R', 'L', 'J', 'C', 'G',
+                              'K', 'Q', 'X', 'F', 'V', 'B', 'P')
+
     alpha = ['']
     pos = 0
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
