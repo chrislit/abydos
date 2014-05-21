@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+from abydos._compat import _range
 import unittest
 from abydos.clustering import fingerprint, qgram_fingerprint, \
     phonetic_fingerprint
@@ -13,13 +14,13 @@ anssetq1 = ('abcdefghijklmnopqrstuvwxyz',)
 class fingerprint_test_cases(unittest.TestCase):
     def test_fingerprint(self):
         self.assertEquals(fingerprint(''), '')
-        for i in xrange(len(testset)):
+        for i in _range(len(testset)):
             self.assertEquals(fingerprint(testset[i]), anssetw[i])
 
 class qgram_fingerprint_test_cases(unittest.TestCase):
     def test_qgram_fingerprint(self):
         self.assertEquals(qgram_fingerprint(''), '')
-        for i in xrange(len(testset)):
+        for i in _range(len(testset)):
             self.assertEquals(qgram_fingerprint(testset[i], 1), anssetq1[i])
             self.assertEquals(qgram_fingerprint(testset[i], 2), anssetq2[i])
             self.assertEquals(qgram_fingerprint(testset[i]), anssetq2[i])

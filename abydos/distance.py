@@ -124,7 +124,7 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
                         pre_swap_cost = d[max(0, i_swap-1), max(0, j_swap-1)]
                     swap_distance = pre_swap_cost + (i - i_swap - 1) * del_cost + (j - j_swap - 1) * ins_cost + trans_cost
                 else:
-                    swap_distance = sys.maxint
+                    swap_distance = sys.maxsize
 
                 d[i,j] = min(del_distance, ins_distance, match_distance, swap_distance)
             s_index_by_character[s[i]] = i

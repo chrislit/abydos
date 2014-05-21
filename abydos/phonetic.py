@@ -25,13 +25,13 @@ def russell_index(word):
     word = word.rstrip('SZ') # discard /[sz]$/ (rule 3)
 
     # translate according to Russell's mapping
-    word = filter(lambda c: c in 'ABCDEFGIKLMNOPQRSTUVXYZ', word)
+    word = ''.join(filter(lambda c: c in 'ABCDEFGIKLMNOPQRSTUVXYZ', word))
     sdx = word.translate(_russell_translation_table)
 
     # remove any 1s after the first occurrence
     one = sdx.find('1')+1
     if one:
-        sdx = sdx[:one] + filter(lambda c: c != '1', sdx[one:])
+        sdx = sdx[:one] + ''.join(filter(lambda c: c != '1', sdx[one:]))
 
     # remove repeating characters
     sdx = _delete_consecutive_repeats(sdx)
@@ -53,7 +53,7 @@ def russell_index_num_to_alpha(num):
     This follows Robert C. Russell's Index algorithm, as described in
     US Patent 1,261,167 (1917)
     """
-    num = filter(lambda c: c in '12345678', _unicode(num))
+    num = ''.join(filter(lambda c: c in '12345678', _unicode(num)))
     if num:
         return num.translate(_russell_num_translation_table)
 
@@ -101,7 +101,7 @@ def soundex(word, maxlength=4, var='American', reverse=False):
 
     # uppercase, normalize, decompose, and filter non-A-Z
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
-    word = filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word)
+    word = ''.join(filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word))
 
     # Nothing to convert, return base case
     if not word:
@@ -209,7 +209,7 @@ def dm_soundex(word, maxlength=6, reverse=False):
 
     # uppercase, normalize, decompose, and filter non-A-Z
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
-    word = filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word)
+    word = ''.join(filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word))
 
     # Nothing to convert, return base case
     if not word:
@@ -247,7 +247,7 @@ def dm_soundex(word, maxlength=6, reverse=False):
                 break
 
     # Filter out double letters and _ placeholders
-    dm = [filter(lambda c: c != '_', _delete_consecutive_repeats(_)) for _ in dm]
+    dm = [''.join(filter(lambda c: c != '_', _delete_consecutive_repeats(_))) for _ in dm]
 
     # Trim codes and return set
     dm = [(_ + ('0'*maxlength))[:maxlength] for _ in dm]
@@ -284,7 +284,7 @@ def koelner_phonetik(word):
     word = word.replace('Ä', 'AE')
     word = word.replace('Ö', 'OE')
     word = word.replace('Ü', 'UE')
-    word = filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word)
+    word = ''.join(filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word))
 
     # Nothing to convert, return base case
     if not word:
@@ -349,7 +349,7 @@ def koelner_phonetik_num_to_alpha(num):
     """Given the numeric form of a Kölner Phonetik value, returns an
     alphabetic form
     """
-    num = filter(lambda c: c in '012345678', _unicode(num))
+    num = ''.join(filter(lambda c: c in '012345678', _unicode(num)))
     return num.translate(_koelner_num_translation_table)
 
 
@@ -377,7 +377,7 @@ def nysiis(word, maxlength=6):
 
     _vowels = list('AEIOU')
 
-    word = filter(lambda i: i.isalpha(), word.upper())
+    word = ''.join(filter(lambda i: i.isalpha(), word.upper()))
 
     if word.startswith('MAC'):
         word = 'MCC'+word[3:]
@@ -455,7 +455,7 @@ def mra(word):
     https://archive.org/details/accessingindivid00moor
     """
     word = word.upper()
-    word = word[0]+filter(lambda c: c not in list('AEIOU'), word[1:])
+    word = word[0]+''.join(filter(lambda c: c not in list('AEIOU'), word[1:]))
     word = _delete_consecutive_repeats(word)
     if len(word)>6:
         word = word[:3]+word[-3:]
@@ -486,7 +486,7 @@ def metaphone(word, maxlength=float('inf')):
     maxlength = max(4, maxlength)
 
     # As in variable sound--those modified by adding an "h"
-    ename = filter(lambda i: i.isalnum(), word.upper())
+    ename = ''.join(filter(lambda i: i.isalnum(), word.upper()))
 
     # Delete nonalphanumeric characters and make all caps
     if ename == '':
@@ -673,7 +673,7 @@ def double_metaphone(word, maxlength=float('inf')):
         return ''
     last = length - 1
 
-    word = filter(lambda i: True, word.upper())
+    word = ''.join(filter(lambda i: True, word.upper()))
 
     # Pad the original string so that we can index beyond the edge of the world
     word += '     '
@@ -1297,7 +1297,7 @@ def caverphone(word, version=2):
     _vowels = list('aeiou')
 
     word = word.lower()
-    word = filter(lambda c: c in 'abcdefghijklmnopqrstuvwxyz', word)
+    word = ''.join(filter(lambda c: c in 'abcdefghijklmnopqrstuvwxyz', word))
 
     # the main replacemet algorithm
     if version!=1 and word.endswith('e'):
@@ -1439,7 +1439,7 @@ def alpha_sis(word, maxlength=14):
     alpha = ['']
     pos = 0
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
-    word = filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word)
+    word = ''.join(filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word))
 
     # Do special processing for initial substrings
     for k in _alpha_sis_initials_order:
