@@ -50,85 +50,85 @@ class ConfusionTable(object):
     The object possesses methods for the caluculation of various statistics
     based on the confusion table.
     """
-    tp, fn, fp, fn = 0, 0, 0, 0
+    tpos, fneg, fpos, fneg = 0, 0, 0, 0
 
     def __init__(self, tp=0, tn=0, fp=0, fn=0):
         if isinstance(tp, tuple) or isinstance(tp, list):
             if len(tp) == 4:
-                self.tp = tp[0]
-                self.tn = tp[1]
-                self.fp = tp[2]
-                self.fn = tp[3]
+                self.tpos = tp[0]
+                self.tneg = tp[1]
+                self.fpos = tp[2]
+                self.fneg = tp[3]
             else:
                 raise AttributeError('ConfusionTable requires a 4-tuple when \
                 being created from a tuple.')
         else:
-            self.tp = tp
-            self.tn = tn
-            self.fp = fp
-            self.fn = fn
+            self.tpos = tp
+            self.tneg = tn
+            self.fpos = fp
+            self.fneg = fn
 
 
     def __str__(self):
         """Return a human-readable version of the confusion table
         """
-        return ('tp:' + _unicode(self.tp) + ' tn:' + _unicode(self.tn) +
-                ' fp:' + _unicode(self.fp) + ' fn:' + _unicode(self.fn))
+        return ('tp:' + _unicode(self.tpos) + ' tn:' + _unicode(self.tneg) +
+                ' fp:' + _unicode(self.fpos) + ' fn:' + _unicode(self.fneg))
 
 
     def tuple(self):
         """Return the confusion table as a 4-tuple (tp, tn, fp, fn)
         """
-        return (self.tp, self.tn, self.fp, self.fn)
+        return (self.tpos, self.tneg, self.fpos, self.fneg)
 
 
     def dict(self):
         """Return the confusion table as a dict
         """
-        return {'tp':self.tp, 'tn':self.tn,
-                'fp':self.fp, 'fn':self.fn}
+        return {'tp':self.tpos, 'tn':self.tneg,
+                'fp':self.fpos, 'fn':self.fneg}
 
 
     def correct_pop(self):
         """Return the correct population of the confusion table
         """
-        return self.tp + self.tn
+        return self.tpos + self.tneg
 
 
     def error_pop(self):
         """Return the correct population of the confusion table
         """
-        return self.fp + self.fn
+        return self.fpos + self.fneg
 
 
     def test_pos_pop(self):
         """Return the correct population of the confusion table
         """
-        return self.tp + self.fp
+        return self.tpos + self.fpos
 
 
     def test_neg_pop(self):
         """Return the correct population of the confusion table
         """
-        return self.tn + self.fn
+        return self.tneg + self.fneg
 
 
     def cond_pos_pop(self):
         """Return the correct population of the confusion table
         """
-        return self.tp + self.fn
+        return self.tpos + self.fneg
 
 
     def cond_neg_pop(self):
         """Return the correct population of the confusion table
         """
-        return self.fp + self.tn
+        return self.fpos + self.tneg
 
 
     def population(self):
         """Return the population (N) of the confusion table
         """
-        return self.tp + self.tn + self.fp + self.fn
+        return self.tpos + self.tneg + self.fpos + self.fneg
 
 
     def precision(self):
@@ -137,7 +137,7 @@ class ConfusionTable(object):
 	    Precision is defined as tp / (tp+fp)
 	    AKA positive predictive value (PPV)
 	    """
-        return self.tp / (self.tp + self.fp)
+        return self.tpos / (self.tpos + self.fpos)
 
 
     def recall(self):
@@ -147,7 +147,7 @@ class ConfusionTable(object):
         AKA sensitivity
         AKA true positive rate (TPR)
         """
-        return self.tp / (self.tp + self.fn)
+        return self.tpos / (self.tpos + self.fneg)
 
 
     def specificity(self):
@@ -156,7 +156,7 @@ class ConfusionTable(object):
         Specificity is defined as tn / (tn+fp)
         AKA true negative rate (TNR)
         """
-        return self.tn / (self.tn + self.fp)
+        return self.tneg / (self.tneg + self.fpos)
 
 
     def npv(self):
@@ -165,7 +165,7 @@ class ConfusionTable(object):
 
         NPV is defined as tn / (tn+fn)
         """
-        return self.tn / (self.tn + self.fn)
+        return self.tneg / (self.tneg + self.fneg)
 
 
     def fallout(self):
@@ -174,7 +174,7 @@ class ConfusionTable(object):
         Fall-out is defined as fp / (fp+tn)
         AKA false positive rate (FPR)
         """
-        return self.fp / (self.fp + self.tn)
+        return self.fpos / (self.fpos + self.tneg)
 
 
     def fdr(self):
@@ -183,7 +183,7 @@ class ConfusionTable(object):
 
         False discovery rate is defined as fp / (fp+tp)
         """
-        return self.fp / (self.fp + self.tp)
+        return self.fpos / (self.fpos + self.tpos)
 
 
     def accuracy(self):
@@ -191,7 +191,7 @@ class ConfusionTable(object):
 
         Accuracy is defined as (tp + tn) / population
         """
-        return (self.tp + self.tn) / self.population()
+        return (self.tpos + self.tneg) / self.population()
 
 
     def balanced_accuracy(self):
@@ -394,9 +394,9 @@ class ConfusionTable(object):
         ((tp * tn) - (fp * fn)) /
         sqrt((tp + fp)(tp + fn)(tn + fp)(tn + fn))
         """
-        return (((self.tp * self.tn) - (self.fp * self.fn)) /
-                math.sqrt((self.tp + self.fp) * (self.tp + self.fn) *
-                          (self.tn + self.fp) * (self.tn + self.fn)))
+        return (((self.tpos * self.tneg) - (self.fpos * self.fneg)) /
+                math.sqrt((self.tpos + self.fpos) * (self.tpos + self.fneg) *
+                          (self.tneg + self.fpos) * (self.tneg + self.fneg)))
 
 
     def significance(self):
@@ -406,7 +406,7 @@ class ConfusionTable(object):
         (tp * tn - fp * fn)^2 (tp + tn + fp + fn) /
         ((tp + fp)(tp + fn)(tn + fp)(tn + fn))
         """
-        return (((self.tp * self.tn - self.fp * self.fn)**2 *
-                 (self.tp + self.tn + self.fp + self.fn)) /
-                ((self.tp + self.fp) * (self.tp + self.fn) *
-                 (self.tn + self.fp) * (self.tn + self.fn)))
+        return (((self.tpos * self.tneg - self.fpos * self.fneg)**2 *
+                 (self.tpos + self.tneg + self.fpos + self.fneg)) /
+                ((self.tpos + self.fpos) * (self.tpos + self.fneg) *
+                 (self.tneg + self.fpos) * (self.tneg + self.fneg)))

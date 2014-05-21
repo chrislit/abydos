@@ -82,29 +82,29 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
         return len(src) * del_cost
 
     if 'dam' not in mode:
-        d = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
+        d_mx = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
         for i in _range(len(src)+1):
-            d[i, 0] = i * del_cost
+            d_mx[i, 0] = i * del_cost
         for j in _range(len(tar)+1):
-            d[0, j] = j * ins_cost
+            d_mx[0, j] = j * ins_cost
 
         for i in _range(len(src)):
             for j in _range(len(tar)):
-                d[i+1, j+1] = min(
-                    d[i+1, j] + ins_cost, # ins
-                    d[i, j+1] + del_cost, # del
-                    d[i, j] + (sub_cost if src[i] != tar[j] else 0) # sub/equal
+                d_mx[i+1, j+1] = min(
+                    d_mx[i+1, j] + ins_cost, # ins
+                    d_mx[i, j+1] + del_cost, # del
+                    d_mx[i, j] + (sub_cost if src[i] != tar[j] else 0) # sub/==
                 )
 
                 if mode == 'osa':
                     if (i+1 > 1 and j+1 > 1 and src[i] == tar[j-1] and
                         src[i-1] == tar[j]):
-                        d[i+1, j+1] = min(
-                                          d[i+1, j+1],
-                                          d[i-1, j-1] + trans_cost  # trans
+                        d_mx[i+1, j+1] = min(
+                                          d_mx[i+1, j+1],
+                                          d_mx[i-1, j-1] + trans_cost  # trans
                                           )
 
-        return d[len(src), len(tar)]
+        return d_mx[len(src), len(tar)]
 
     else:
         """Damerau-Levenshtein code based on Java code by Kevin L. Stern,
@@ -116,37 +116,37 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
                 transpositions must not be less than the cost of an insert \
                 plus a delete.')
 
-        d = numpy.zeros((len(src))*(len(tar)), dtype=numpy.int).\
+        d_mx = numpy.zeros((len(src))*(len(tar)), dtype=numpy.int).\
         reshape((len(src), len(tar)))
 
         if src[0] != tar[0]:
-            d[0, 0] = min(sub_cost, ins_cost + del_cost)
+            d_mx[0, 0] = min(sub_cost, ins_cost + del_cost)
 
-        s_index_by_character = {}
-        s_index_by_character[src[0]] = 0
+        src_index_by_character = {}
+        src_index_by_character[src[0]] = 0
         for i in _range(1, len(src)):
-            del_distance = d[i-1, 0] + del_cost
+            del_distance = d_mx[i-1, 0] + del_cost
             ins_distance = (i+1) * del_cost + ins_cost
             match_distance = i * del_cost + \
             (0 if src[i] == tar[0] else sub_cost)
-            d[i, 0] = min(del_distance, ins_distance, match_distance)
+            d_mx[i, 0] = min(del_distance, ins_distance, match_distance)
 
         for j in _range(1, len(tar)):
             del_distance = (j+1) * ins_cost + del_cost
-            ins_distance = d[0, j-1] + ins_cost
+            ins_distance = d_mx[0, j-1] + ins_cost
             match_distance = j * ins_cost + \
             (0 if src[0] == tar[j] else sub_cost)
-            d[0, j] = min(del_distance, ins_distance, match_distance)
+            d_mx[0, j] = min(del_distance, ins_distance, match_distance)
 
         for i in _range(1, len(src)):
             max_src_letter_match_index = (0 if src[i] == tar[0] else -1)
             for j in _range(1, len(tar)):
                 candidate_swap_index = -1 if tar[j] not in \
-                s_index_by_character else s_index_by_character[tar[j]]
+                src_index_by_character else src_index_by_character[tar[j]]
                 j_swap = max_src_letter_match_index
-                del_distance = d[i-1, j] + del_cost
-                ins_distance = d[i, j-1] + ins_cost
-                match_distance = d[i-1, j-1]
+                del_distance = d_mx[i-1, j] + del_cost
+                ins_distance = d_mx[i, j-1] + ins_cost
+                match_distance = d_mx[i-1, j-1]
                 if src[i] != tar[j]:
                     match_distance += sub_cost
                 else:
@@ -158,18 +158,18 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
                     if i_swap == 0 and j_swap == 0:
                         pre_swap_cost = 0
                     else:
-                        pre_swap_cost = d[max(0, i_swap-1), max(0, j_swap-1)]
+                        pre_swap_cost = d_mx[max(0, i_swap-1), max(0, j_swap-1)]
                     swap_distance = (pre_swap_cost + (i - i_swap - 1) *
                                      del_cost + (j - j_swap - 1) * ins_cost +
                                      trans_cost)
                 else:
                     swap_distance = sys.maxsize
 
-                d[i, j] = min(del_distance, ins_distance,
+                d_mx[i, j] = min(del_distance, ins_distance,
                               match_distance, swap_distance)
-            s_index_by_character[src[i]] = i
+            src_index_by_character[src[i]] = i
 
-        return d[len(src)-1, len(tar)-1]
+        return d_mx[len(src)-1, len(tar)-1]
 
 
 def levenshtein_normalized(src, tar, mode='lev', cost=(1, 1, 1, 1)):
@@ -393,7 +393,7 @@ def strcmp95(src, tar, long_strings=False):
     limited to uppercase ASCII characters, so it is appropriate to American
     names, but not much else.
     """
-    def _INRANGE(c):
+    def _in_range(c):
         return ord(c) > 0 and ord(c) < 91
 
     ying = src.strip().upper()
@@ -404,7 +404,7 @@ def strcmp95(src, tar, long_strings=False):
         return 0.0
 
     adjwt = defaultdict(int)
-    sp = (
+    sp_mx = (
         ('A', 'E'), ('A', 'I'), ('A', 'O'), ('A', 'U'), ('B', 'V'), ('E', 'I'),
         ('E', 'O'), ('E', 'U'), ('I', 'O'), ('I', 'U'), ('O', 'U'), ('I', 'Y'),
         ('E', 'Y'), ('C', 'G'), ('E', 'F'), ('W', 'U'), ('W', 'V'), ('X', 'K'),
@@ -417,7 +417,7 @@ def strcmp95(src, tar, long_strings=False):
     # The adjwt array is used to give partial credit for characters that
     # may be errors due to known phonetic or character recognition errors.
     # A typical example is to match the letter "O" with the number "0"
-    for i in sp:
+    for i in sp_mx:
         x, y = i
         adjwt[(x, y)] = 3
         adjwt[(y, x)] = 3
@@ -432,12 +432,12 @@ def strcmp95(src, tar, long_strings=False):
     # Blank out the flags
     ying_flag = [0 for i in _range(search_range)]
     yang_flag = [0 for j in _range(search_range)]
-    search_range = search_range//2 - 1
+    search_range = search_range // 2 - 1
     if search_range < 0:
         search_range = 0
 
     # Looking only within the search range, count and flag the matched pairs.
-    Num_com = 0
+    num_com = 0
     yl1 = len(yang) - 1
     for i in _range(len(ying)):
         lowlim = (i - search_range) if (i >= search_range) else 0
@@ -446,15 +446,15 @@ def strcmp95(src, tar, long_strings=False):
             if (yang_flag[j] == 0) and (yang[j] == ying[i]):
                 yang_flag[j] = 1
                 ying_flag[i] = 1
-                Num_com += 1
+                num_com += 1
                 break
 
     # If no characters in common - return
-    if Num_com == 0:
+    if num_com == 0:
         return 0.0
 
     # Count the number of transpositions
-    k = N_trans = 0
+    k = n_trans = 0
     for i in _range(len(ying)):
         if ying_flag[i] != 0:
             for j in _range(k, len(yang)):
@@ -462,34 +462,34 @@ def strcmp95(src, tar, long_strings=False):
                     k = j + 1
                     break
             if ying[i] != yang[j]:
-                N_trans += 1
-    N_trans = N_trans // 2
+                n_trans += 1
+    n_trans = n_trans // 2
 
     # Adjust for similarities in unmatched characters
-    N_simi = 0
-    if (minv > Num_com):
+    n_simi = 0
+    if minv > num_com:
         for i in _range(len(ying)):
-            if ying_flag[i] == 0 and _INRANGE(ying[i]):
+            if ying_flag[i] == 0 and _in_range(ying[i]):
                 for j in _range(len(yang)):
-                    if yang_flag[j] == 0 and _INRANGE(yang[j]):
+                    if yang_flag[j] == 0 and _in_range(yang[j]):
                         if (ying[i], yang[j]) in adjwt:
-                            N_simi += adjwt[(ying[i], yang[j])]
+                            n_simi += adjwt[(ying[i], yang[j])]
                             yang_flag[j] = 2
                             break
-    Num_sim = N_simi/10.0 + Num_com
+    num_sim = n_simi/10.0 + num_com
 
     # Main weight computation
-    weight = Num_sim / len(ying) + Num_sim / len(yang) + \
-        (Num_com - N_trans) / Num_com
+    weight = num_sim / len(ying) + num_sim / len(yang) + \
+        (num_com - n_trans) / num_com
     weight = weight / 3.0
 
     # Continue to boost the weight if the strings are similar
-    if (weight > 0.7):
+    if weight > 0.7:
 
         # Adjust for having up to the first 4 characters in common
         j = 4 if (minv >= 4) else minv
         i = 0
-        while ((i < j) and (ying[i] == yang[i]) and (not ying[i].isdigit())):
+        while (i < j) and (ying[i] == yang[i]) and (not ying[i].isdigit()):
             i += 1
         if i:
             weight += i * 0.1 * (1.0 - weight)
@@ -498,10 +498,10 @@ def strcmp95(src, tar, long_strings=False):
 
         # After agreeing beginning chars, at least two more must agree and
         # the agreeing characters must be > .5 of remaining characters.
-        if ((long_strings) and (minv > 4) and (Num_com > i+1) and \
-            (2*Num_com >= minv+i)):
-            if (not ying[0].isdigit()):
-                weight += (1.0-weight) * ((Num_com-i-1) /
+        if ((long_strings) and (minv > 4) and (num_com > i+1) and
+            (2*num_com >= minv+i)):
+            if not ying[0].isdigit():
+                weight += (1.0-weight) * ((num_com-i-1) /
                                           (len(ying)+len(yang)-i*2+2))
 
     return weight
@@ -562,53 +562,53 @@ def jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False, \
         minv = lens
 
     # Zero out the flags
-    s_flag = [0 for i in _range(search_range)]
-    t_flag = [0 for j in _range(search_range)]
+    src_flag = [0 for i in _range(search_range)]
+    tar_flag = [0 for j in _range(search_range)]
     search_range = search_range//2 - 1
     if search_range < 0:
         search_range = 0
 
     # Looking only within the search range, count and flag the matched pairs.
-    Num_com = 0
+    num_com = 0
     yl1 = lent - 1
     for i in _range(lens):
         lowlim = (i - search_range) if (i >= search_range) else 0
         hilim = (i + search_range) if ((i + search_range) <= yl1) else yl1
         for j in _range(lowlim, hilim+1):
-            if (t_flag[j] == 0) and (tar[j] == src[i]):
-                t_flag[j] = 1
-                s_flag[i] = 1
-                Num_com += 1
+            if (tar_flag[j] == 0) and (tar[j] == src[i]):
+                tar_flag[j] = 1
+                src_flag[i] = 1
+                num_com += 1
                 break
 
     # If no characters in common - return
-    if Num_com == 0:
+    if num_com == 0:
         return 0.0
 
     # Count the number of transpositions
-    k = N_trans = 0
+    k = n_trans = 0
     for i in _range(lens):
-        if s_flag[i] != 0:
+        if src_flag[i] != 0:
             for j in _range(k, lent):
-                if t_flag[j] != 0:
+                if tar_flag[j] != 0:
                     k = j + 1
                     break
             if src[i] != tar[j]:
-                N_trans += 1
-    N_trans = N_trans // 2
+                n_trans += 1
+    n_trans = n_trans // 2
 
     # Main weight computation for Jaro distance
-    weight = Num_com / lens + Num_com / lent + (Num_com - N_trans) / Num_com
+    weight = num_com / lens + num_com / lent + (num_com - n_trans) / num_com
     weight = weight / 3.0
 
     # Continue to boost the weight if the strings are similar
     # This is the Winkler portion of Jaro-Winkler distance
-    if (mode == 'winkler' and weight > boost_threshold):
+    if mode == 'winkler' and weight > boost_threshold:
 
         # Adjust for having up to the first 4 characters in common
         j = 4 if (minv >= 4) else minv
         i = 0
-        while ((i < j) and (src[i] == tar[i])):
+        while (i < j) and (src[i] == tar[i]):
             i += 1
         if i:
             weight += i * scaling_factor * (1.0 - weight)
@@ -617,9 +617,9 @@ def jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False, \
 
         # After agreeing beginning chars, at least two more must agree and
         # the agreeing characters must be > .5 of remaining characters.
-        if ((long_strings) and (minv > 4) and (Num_com > i+1) and \
-            (2*Num_com >= minv+i)):
-            weight += (1.0-weight) * ((Num_com-i-1) / (lens+lent-i*2+2))
+        if ((long_strings) and (minv > 4) and (num_com > i+1) and
+            (2*num_com >= minv+i)):
+            weight += (1.0-weight) * ((num_com-i-1) / (lens+lent-i*2+2))
 
     return weight
 

@@ -221,7 +221,7 @@ def dm_soundex(word, maxlength=6, reverse=False):
                   'J':((1, 4), ('_', 4), ('_', 4)),
                   'RZ':((94, 4), (94, 4), (94, 4)),
                   'RS':((94, 4), (94, 4), (94, 4))}
-    
+
     _dms_order = {'A':('AI', 'AJ', 'AU', 'AY', 'A'), 'B':('B'),
                  'C':('CHS', 'CSZ', 'CZS', 'CH', 'CK', 'CS', 'CZ', 'C'),
                  'D':('DRS', 'DRZ', 'DSH', 'DSZ', 'DZH', 'DZS', 'DS', 'DT',
@@ -234,7 +234,7 @@ def dm_soundex(word, maxlength=6, reverse=False):
                   'S':('SCHTSCH', 'SCHTCH', 'SCHTSH', 'SHTCH', 'SHTSH', 'STSCH',
                        'SCHD', 'SCHT', 'SHCH', 'STCH', 'STRS', 'STRZ', 'STSH',
                        'SZCS', 'SZCZ', 'SCH', 'SHD', 'SHT', 'SZD', 'SZT', 'SC',
-                       'SD', 'SH', 'ST', 'SZ', 'S'), 
+                       'SD', 'SH', 'ST', 'SZ', 'S'),
                   'T':('TTSCH', 'TSCH', 'TTCH', 'TTSZ', 'TCH', 'THS', 'TRS',
                        'TRZ', 'TSH', 'TSZ', 'TTS', 'TTZ', 'TZS', 'TC', 'TH',
                        'TS', 'TZ', 'T'), 'U':('UE', 'UI', 'UJ', 'UY', 'U'),
@@ -243,7 +243,7 @@ def dm_soundex(word, maxlength=6, reverse=False):
                        'ZS', 'Z')}
 
     _vowels = list('AEIJOUY')
-    dm = [''] # initialize empty code list
+    dms = [''] # initialize empty code list
 
     # Require a maxlength of at least 6
     maxlength = max(6, maxlength)
@@ -264,36 +264,36 @@ def dm_soundex(word, maxlength=6, reverse=False):
     while pos < len(word):
         # Iterate through _dms_order, which specifies the possible substrings
         # for which codes exist in the Daitch-Mokotoff coding
-        for ss in _dms_order[word[pos]]:
-            if word[pos:].startswith(ss):
+        for sstr in _dms_order[word[pos]]:
+            if word[pos:].startswith(sstr):
                 # Having determined a valid substring start, retrieve the code
-                dm_val = _dms_table[ss]
+                dm_val = _dms_table[sstr]
 
                 # Having retried the code (triple), determine the correct
                 # positional variant (first, pre-vocalic, elsewhere)
                 if pos == 0:
                     dm_val = dm_val[0]
-                elif pos+len(ss) < len(word) and word[pos+len(ss)] in _vowels:
+                elif pos+len(sstr) < len(word) and word[pos+len(sstr)] in _vowels:
                     dm_val = dm_val[1]
                 else:
                     dm_val = dm_val[2]
 
                 # Build the code strings
                 if isinstance(dm_val, tuple):
-                    dm = [_ + _unicode(dm_val[0]) for _ in dm] \
-                            + [_ + _unicode(dm_val[1]) for _ in dm]
+                    dms = [_ + _unicode(dm_val[0]) for _ in dms] \
+                            + [_ + _unicode(dm_val[1]) for _ in dms]
                 else:
-                    dm = [_ + _unicode(dm_val) for _ in dm]
-                pos += len(ss)
+                    dms = [_ + _unicode(dm_val) for _ in dms]
+                pos += len(sstr)
                 break
 
     # Filter out double letters and _ placeholders
-    dm = [''.join([c for c in _delete_consecutive_repeats(_) if c != '_'])
-          for _ in dm]
+    dms = [''.join([c for c in _delete_consecutive_repeats(_) if c != '_'])
+          for _ in dms]
 
     # Trim codes and return set
-    dm = [(_ + ('0'*maxlength))[:maxlength] for _ in dm]
-    return set(dm)
+    dms = [(_ + ('0'*maxlength))[:maxlength] for _ in dms]
+    return set(dms)
 
 
 def koelner_phonetik(word):
@@ -679,7 +679,7 @@ def double_metaphone(word, maxlength=float('inf')):
     secondary = ''
 
     def _slavo_germanic():
-        if ('W' in word or 'K' in word or 'CZ' in word):
+        if 'W' in word or 'K' in word or 'CZ' in word:
             return True
         return False
 
@@ -702,7 +702,7 @@ def double_metaphone(word, maxlength=float('inf')):
         return word[pos] in list('AEIOUY')
 
     def _get_at(pos):
-        if not (pos < 0):
+        if not pos < 0:
             return word[pos]
 
     def _string_at(pos, slen, substrings):
@@ -734,7 +734,7 @@ def double_metaphone(word, maxlength=float('inf')):
         current += 1
 
     # Main loop
-    while(True or len(primary) < maxlength or len(secondary) < maxlength):
+    while True:
         if current >= length:
             break
 
@@ -954,7 +954,7 @@ def double_metaphone(word, maxlength=float('inf')):
                          and (_string_at((current - 3), 1,
                                          ["C", "G", "L", "R", "T"]))):
                         (primary, secondary) = _metaph_add("F")
-                    elif ((current > 0) and _get_at(current - 1) != 'I'):
+                    elif (current > 0) and _get_at(current - 1) != 'I':
                         (primary, secondary) = _metaph_add("K")
                     current += 2
                     continue
@@ -1051,7 +1051,7 @@ def double_metaphone(word, maxlength=float('inf')):
                   and ((_get_at(current + 1) == 'A') or
                        (_get_at(current + 1) == 'O'))):
                 (primary, secondary) = _metaph_add("J", "H")
-            elif (current == last):
+            elif current == last:
                 (primary, secondary) = _metaph_add("J", " ")
             elif (not _string_at((current + 1), 1,
                                  ["L", "T", "K", "S", "N", "M", "B", "Z"])
@@ -1504,7 +1504,7 @@ def alpha_sis(word, maxlength=14):
                            'E':'1', 'H':'2', 'I':'1', 'J':'3', 'O':'1', 'U':'1',
                            'W':'4', 'Y':'5'}
     _alpha_sis_initials_order = ('GF', 'GM', 'GN', 'KN', 'PF', 'PN', 'PS', 'WR',
-                                 'A', 'E', 'H', 'I', 'J', 'O', 'U', 'W', 'Y')    
+                                 'A', 'E', 'H', 'I', 'J', 'O', 'U', 'W', 'Y')
     _alpha_sis_basic = {'SCH':'6', 'CZ':('70', '6', '0'), 'CH':('6', '70', '0'),
                         'CK':('7', '6'), 'DS':('0', '10'), 'DZ':('0', '10'),
                         'TS':('0', '10'), 'TZ':('0', '10'), 'CI':'0', 'CY':'0',

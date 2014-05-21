@@ -27,12 +27,12 @@ from __future__ import unicode_literals
 from __future__ import division
 from ._compat import _range
 
-def qgrams(s, q=2, start_stop='#'):
+def qgrams(src, qval=2, start_stop='#'):
     """Returns a list of all q-grams of a string.
 
     Arguments:
-    s -- a string to extract q-grams from
-    q -- the q-gram length (defaults to 2)
+    src -- a string to extract q-grams from
+    qval -- the q-gram length (defaults to 2)
     start_stop -- a string of length >= 0 indicating start & stop symbols
         If the string is '', q-grams will be calculated without start & stop
         symbols appended to each end.
@@ -46,40 +46,40 @@ def qgrams(s, q=2, start_stop='#'):
     sequences of whitespace-delimited words in a string, where q-gram refers
     to sequences of characters in a word or string.
     """
-    if len(s) < q:
+    if len(src) < qval:
         return []
-    if start_stop and q > 1:
-        s = start_stop[0]*(q-1) + s + start_stop[-1]*(q-1)
-    return [s[i:i+q] for i in _range(len(s)-(q-1))]
+    if start_stop and qval > 1:
+        src = start_stop[0]*(qval-1) + src + start_stop[-1]*(qval-1)
+    return [src[i:i+qval] for i in _range(len(src)-(qval-1))]
 
 
-def _qgram_lists(s, t, q=2):
+def _qgram_lists(src, tar, qval=2):
     """Return a tuple for the two supplied strings, consisting of:
-        (q-grams in s, q-grams in t, q-grams in common).
+        (q-grams in src, q-grams in tar, q-grams in common).
 
     Arguments:
-    s, t -- strings to extract q-grams from
-    q -- the q-gram length (defaults to 2)
+    src, tar -- strings to extract q-grams from
+    qval -- the q-gram length (defaults to 2)
     """
-    q_s = qgrams(s, q)
-    q_t = qgrams(t, q)
+    q_src = qgrams(src, qval)
+    q_tar = qgrams(tar, qval)
     q_common = []
-    q_t_save = list(q_t)
+    q_tar_save = list(q_tar)
 
-    for qg in q_s:
-        if qg in q_t:
-            q_t.remove(qg)
-            q_common.append(qg)
-    return (q_s, q_t_save, q_common)
+    for qgram in q_src:
+        if qgram in q_tar:
+            q_tar.remove(qgram)
+            q_common.append(qgram)
+    return (q_src, q_tar_save, q_common)
 
 
-def _qgram_counts(s, t, q=2):
+def _qgram_counts(src, tar, qval=2):
     """Return a tuple for the two supplied strings, consisting of:
-        (|q-grams in s|, |q-grams in t|, |q-grams in common|).
+        (|q-grams in src|, |q-grams in tar|, |q-grams in common|).
     These are the number of q-grams in each set.
 
     Arguments:
-    s, t -- strings to extract q-grams from
-    q -- the q-gram length (defaults to 2)
+    src, tar -- strings to extract q-grams from
+    qval -- the q-gram length (defaults to 2)
     """
-    return tuple([len(elt) for elt in _qgram_lists(s, t, q)])
+    return tuple([len(elt) for elt in _qgram_lists(src, tar, qval)])
