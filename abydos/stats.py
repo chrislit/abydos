@@ -1,4 +1,39 @@
 # -*- coding: utf-8 -*-
+"""abydos.stats
+
+The stats module defines functions for calculating various statistical data
+about linguistic objects.
+
+This includes the ConfusionTable object, which includes members cable of
+calculating the following data based on a confusion table:
+    population counts
+    precision, recall, specificity, negative predictive value, fall-out,
+        false discovery rate, accuracy, balanced accuracy, informedness,
+        and markedness
+    various means of the precision & recall, including: arithmetic, geometric,
+        harmonic, quadratic, logarithmic, contraharmonic, identic, & power
+        means
+    F_{β}-scores, E-scores, G-measures, along with special functions for
+        F1, F-1/2, and F2 scores
+    significance & Matthews correlation coefficient calculation
+
+
+Copyright 2014 by Christopher C. Little.
+This file is part of Abydos.
+
+Abydos is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Abydos is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Abydos. If not, see <http://www.gnu.org/licenses/>.
+"""
 
 from __future__ import unicode_literals
 from __future__ import division

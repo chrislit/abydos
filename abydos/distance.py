@@ -1,4 +1,37 @@
 # -*- coding: utf-8 -*-
+"""abydos.distance
+
+The distance module implements string edit distance functions including:
+    Levenshtein distance (incl. a [0, 1] normalized variant)
+    Optimal String Alignment distance (incl. a [0, 1] normalized variant)
+    Levenshtein-Damerau distance (incl. a [0, 1] normalized variant)
+    Hamming distance (incl. a [0, 1] normalized variant)
+    Tversky index
+    Sørensen–Dice coefficient & distance
+    Jaccard similarity coefficient & distance
+    Tanimoto coefficient & distance
+    Jaro distance
+    Jaro-Winkler distance (incl. the strcmp95 algorithm variant)
+    Longest common substring
+    Match Rating Algorithm similarity
+
+
+Copyright 2014 by Christopher C. Little.
+This file is part of Abydos.
+
+Abydos is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Abydos is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Abydos. If not, see <http://www.gnu.org/licenses/>.
+"""
 
 from __future__ import unicode_literals
 from __future__ import division
