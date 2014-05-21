@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 from __future__ import division
+from ._compat import _range
 import numpy
 import sys
 import math
@@ -49,13 +50,13 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
 
     if 'dam' not in mode:
         d = numpy.zeros((len(s)+1,len(t)+1), dtype=numpy.int)
-        for i in xrange(len(s)+1):
+        for i in _range(len(s)+1):
             d[i,0] = i * del_cost
-        for j in xrange(len(t)+1):
+        for j in _range(len(t)+1):
             d[0,j] = j * ins_cost
 
-        for i in xrange(len(s)):
-            for j in xrange(len(t)):
+        for i in _range(len(s)):
+            for j in _range(len(t)):
                 d[i+1,j+1] = min(
                     d[i+1,j] + ins_cost, # ins
                     d[i,j+1] + del_cost, # del
@@ -88,21 +89,21 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
 
         s_index_by_character = {}
         s_index_by_character[s[0]] = 0
-        for i in xrange(1, len(s)):
+        for i in _range(1, len(s)):
             del_distance = d[i-1,0] + del_cost
             ins_distance = (i+1) * del_cost + ins_cost
             match_distance = i * del_cost + (0 if s[i] == t[0] else sub_cost)
             d[i,0] = min(del_distance, ins_distance, match_distance)
 
-        for j in xrange(1, len(t)):
+        for j in _range(1, len(t)):
             del_distance = (j+1) * ins_cost + del_cost
             ins_distance = d[0,j-1] + ins_cost
             match_distance = j * ins_cost + (0 if s[0] == t[j] else sub_cost)
             d[0,j] = min(del_distance, ins_distance, match_distance)
 
-        for i in xrange(1, len(s)):
+        for i in _range(1, len(s)):
             max_s_letter_match_index = (0 if s[i] == t[0] else -1)
-            for j in xrange(1, len(t)):
+            for j in _range(1, len(t)):
                 candidate_swap_index = -1 if t[j] not in s_index_by_character \
                 else s_index_by_character[t[j]]
                 j_swap = max_s_letter_match_index
@@ -388,8 +389,8 @@ def strcmp95(s, t, long_strings=False):
         minv = len(ying)
 
     # Blank out the flags
-    ying_flag = [0 for i in xrange(search_range)]
-    yang_flag = [0 for j in xrange(search_range)]
+    ying_flag = [0 for i in _range(search_range)]
+    yang_flag = [0 for j in _range(search_range)]
     search_range = search_range//2 - 1
     if search_range < 0:
         search_range = 0
@@ -397,10 +398,10 @@ def strcmp95(s, t, long_strings=False):
     # Looking only within the search range, count and flag the matched pairs.
     Num_com = 0
     yl1 = len(yang) - 1
-    for i in xrange(len(ying)):
+    for i in _range(len(ying)):
         lowlim = (i - search_range) if (i >= search_range) else 0
         hilim = (i + search_range) if ((i + search_range) <= yl1) else yl1
-        for j in xrange(lowlim, hilim+1):
+        for j in _range(lowlim, hilim+1):
             if (yang_flag[j] == 0) and (yang[j] == ying[i]):
                 yang_flag[j] = 1
                 ying_flag[i] = 1
@@ -413,9 +414,9 @@ def strcmp95(s, t, long_strings=False):
 
     # Count the number of transpositions
     k = N_trans = 0
-    for i in xrange(len(ying)):
+    for i in _range(len(ying)):
         if ying_flag[i] != 0:
-            for j in xrange(k, len(yang)):
+            for j in _range(k, len(yang)):
                 if yang_flag[j] != 0:
                     k = j + 1
                     break
@@ -426,9 +427,9 @@ def strcmp95(s, t, long_strings=False):
     # Adjust for similarities in unmatched characters
     N_simi = 0
     if (minv > Num_com):
-        for i in xrange(len(ying)):
+        for i in _range(len(ying)):
             if ying_flag[i] == 0 and _INRANGE(ying[i]):
-                for j in xrange(len(yang)):
+                for j in _range(len(yang)):
                     if yang_flag[j] == 0 and _INRANGE(yang[j]):
                         if (ying[i],yang[j]) in adjwt:
                             N_simi += adjwt[(ying[i],yang[j])]
@@ -520,8 +521,8 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, \
         minv = lens
 
     # Zero out the flags
-    s_flag = [0 for i in xrange(search_range)]
-    t_flag = [0 for j in xrange(search_range)]
+    s_flag = [0 for i in _range(search_range)]
+    t_flag = [0 for j in _range(search_range)]
     search_range = search_range//2 - 1
     if search_range < 0:
         search_range = 0
@@ -529,10 +530,10 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, \
     # Looking only within the search range, count and flag the matched pairs.
     Num_com = 0
     yl1 = lent - 1
-    for i in xrange(lens):
+    for i in _range(lens):
         lowlim = (i - search_range) if (i >= search_range) else 0
         hilim = (i + search_range) if ((i + search_range) <= yl1) else yl1
-        for j in xrange(lowlim, hilim+1):
+        for j in _range(lowlim, hilim+1):
             if (t_flag[j] == 0) and (t[j] == s[i]):
                 t_flag[j] = 1
                 s_flag[i] = 1
@@ -545,9 +546,9 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, \
 
     # Count the number of transpositions
     k = N_trans = 0
-    for i in xrange(lens):
+    for i in _range(lens):
         if s_flag[i] != 0:
-            for j in xrange(k, lent):
+            for j in _range(k, lent):
                 if t_flag[j] != 0:
                     k = j + 1
                     break
@@ -648,11 +649,11 @@ def mra_compare(s, t):
     else:
         min_rating = 2
 
-    for _ in xrange(2):
+    for _ in _range(2):
         new_s = []
         new_t = []
         minlen=min(len(s),len(t))
-        for i in xrange(minlen):
+        for i in _range(minlen):
             if s[i] != t[i]:
                 new_s.append(s[i])
                 new_t.append(t[i])

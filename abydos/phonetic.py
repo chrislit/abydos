@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+from __future__ import division
+from ._compat import _unicode, _range
 from itertools import groupby
 import re
 import unicodedata
@@ -18,7 +20,7 @@ def russell_index(word):
     This follows Robert C. Russell's Index algorithm, as described in
     US Patent 1,261,167 (1917)
     """
-    word = unicodedata.normalize('NFKD', unicode(word.upper()))
+    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = word.replace('GH', '')  # discard gh (rule 3)
     word = word.rstrip('SZ') # discard /[sz]$/ (rule 3)
 
@@ -51,7 +53,7 @@ def russell_index_num_to_alpha(num):
     This follows Robert C. Russell's Index algorithm, as described in
     US Patent 1,261,167 (1917)
     """
-    num = filter(lambda c: c in '12345678', unicode(num))
+    num = filter(lambda c: c in '12345678', _unicode(num))
     if num:
         return num.translate(_russell_num_translation_table)
 
@@ -98,7 +100,7 @@ def soundex(word, maxlength=4, var='American', reverse=False):
     maxlength = max(4, maxlength)
 
     # uppercase, normalize, decompose, and filter non-A-Z
-    word = unicodedata.normalize('NFKD', unicode(word.upper()))
+    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word)
 
     # Nothing to convert, return base case
@@ -206,7 +208,7 @@ def dm_soundex(word, maxlength=6, reverse=False):
     maxlength = max(6, maxlength)
 
     # uppercase, normalize, decompose, and filter non-A-Z
-    word = unicodedata.normalize('NFKD', unicode(word.upper()))
+    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word)
 
     # Nothing to convert, return base case
@@ -237,10 +239,10 @@ def dm_soundex(word, maxlength=6, reverse=False):
 
                 # Build the code strings
                 if isinstance(dm_val, tuple):
-                    dm = [_ + unicode(dm_val[0]) for _ in dm] \
-                            + [_ + unicode(dm_val[1]) for _ in dm]
+                    dm = [_ + _unicode(dm_val[0]) for _ in dm] \
+                            + [_ + _unicode(dm_val[1]) for _ in dm]
                 else:
-                    dm = [_ + unicode(dm_val) for _ in dm]
+                    dm = [_ + _unicode(dm_val) for _ in dm]
                 pos += len(ss)
                 break
 
@@ -277,7 +279,7 @@ def koelner_phonetik(word):
     sdx = ''
 
     word = word.replace('ß', 'SS')
-    word = unicodedata.normalize('NFKD', unicode(word.upper()))
+    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
 
     word = word.replace('Ä', 'AE')
     word = word.replace('Ö', 'OE')
@@ -288,7 +290,7 @@ def koelner_phonetik(word):
     if not word:
         return sdx
 
-    for i in range(len(word)):
+    for i in _range(len(word)):
         if word[i] in _vowels:
             sdx += '0'
         elif word[i] in 'B':
@@ -347,7 +349,7 @@ def koelner_phonetik_num_to_alpha(num):
     """Given the numeric form of a Kölner Phonetik value, returns an
     alphabetic form
     """
-    num = filter(lambda c: c in '012345678', unicode(num))
+    num = filter(lambda c: c in '012345678', _unicode(num))
     return num.translate(_koelner_num_translation_table)
 
 
@@ -396,7 +398,7 @@ def nysiis(word, maxlength=6):
     key = word[0]
 
     skip = 0
-    for i in xrange(1,len(word)):
+    for i in _range(1,len(word)):
         if i >= len(word):
             continue
         elif skip:
@@ -499,7 +501,7 @@ def metaphone(word, maxlength=float('inf')):
     # Convert to metaph
     l = len(ename)-1
     metaph = ''
-    for n in xrange(len(ename)):
+    for n in _range(len(ename)):
         if len(metaph) >= maxlength:
             break
         if ename[n] not in 'GT' and n > 0 and ename[n-1] == ename[n]:
@@ -1436,7 +1438,7 @@ def alpha_sis(word, maxlength=14):
     """
     alpha = ['']
     pos = 0
-    word = unicodedata.normalize('NFKD', unicode(word.upper()))
+    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word)
 
     # Do special processing for initial substrings
@@ -1458,7 +1460,7 @@ def alpha_sis(word, maxlength=14):
             if word[pos:].startswith(k):
                 if isinstance(_alpha_sis_basic[k], tuple):
                     newalpha = []
-                    for i in xrange(len(_alpha_sis_basic[k])):
+                    for i in _range(len(_alpha_sis_basic[k])):
                         newalpha += [_ + _alpha_sis_basic[k][i] for _ in alpha]
                     alpha = newalpha
                 else:
@@ -1470,7 +1472,7 @@ def alpha_sis(word, maxlength=14):
             pos += 1
 
     # Trim doublets and placeholders
-    for i in xrange(len(alpha)):
+    for i in _range(len(alpha)):
         pos = 1
         while pos < len(alpha[i]):
             if alpha[i][pos] == alpha[i][pos-1]:

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+from __future__ import division
+from ._compat import _range
 
 def qgrams(s, q=2, start_stop='#'):
     """Returns a list of all q-grams of a string.
@@ -25,7 +27,7 @@ def qgrams(s, q=2, start_stop='#'):
         return []
     if start_stop and q > 1:
         s = start_stop[0]*(q-1) + s + start_stop[-1]*(q-1)
-    return [s[i:i+q] for i in range(len(s)-(q-1))]
+    return [s[i:i+q] for i in _range(len(s)-(q-1))]
 
 
 def _qgram_lists(s, t, q=2):
