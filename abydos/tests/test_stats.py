@@ -25,6 +25,8 @@ from __future__ import division
 import unittest
 from abydos.stats import ConfusionTable
 
+
+# pylint: disable=R0904
 class CastTestCases(unittest.TestCase):
     """test cases for abydos.stats.ConfusionTable cast methods
     """

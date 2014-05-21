@@ -27,6 +27,8 @@ from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     koelner_phonetik_num_to_alpha, koelner_phonetik_alpha, nysiis, mra, \
     metaphone, double_metaphone, caverphone, alpha_sis
 
+
+# pylint: disable=R0904
 class RussellIndexTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.russell_index,
     abydos.phonetic.russell_index_num_to_alpha, and russell_index_alpha

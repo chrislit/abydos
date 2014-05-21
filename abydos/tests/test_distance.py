@@ -29,6 +29,7 @@ from abydos.distance import levenshtein, levenshtein_normalized, hamming, \
     lcs, mra_compare
 
 
+# pylint: disable=R0904
 class LevenshteinTestCases(unittest.TestCase):
     """test cases for abydos.distance.levenshtein &
     abydos.distance.levenshtein_normalized

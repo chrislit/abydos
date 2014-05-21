@@ -26,40 +26,41 @@ import unittest
 from abydos.clustering import fingerprint, qgram_fingerprint, \
     phonetic_fingerprint
 
-testset = ('À noite, vovô Kowalsky vê o ímã cair no pé do pingüim queixoso e \
-vovó põe açúcar no chá de tâmaras do jabuti feliz.', )
-anssetw = ('a acucar cair cha de do e feliz ima jabuti kowalsky no noite o pe \
-pinguim poe queixoso tamaras ve vovo', )
-anssetq2 = ('abacadaialamanarasbucachcudedoeaedeieleoetevfeguhaifiminiritix\
-izjakokylilsmamqngnoocoeoiojokoposovowpepipoqurarnsdsksotatetiucueuiutvevo\
-waxoyv', )
-anssetq1 = ('abcdefghijklmnopqrstuvwxyz', )
 
+# pylint: disable=R0904
 class FingerprintTestCases(unittest.TestCase):
-    """test cases for abydos.clustering.fingerprint
+    """test cases for abydos.clustering.fingerprint,
+    abydos.clustering.qgram_fingerprint, and
+    abydos.clustering.phonetic_fingerprint
     """
+    _testset = ('À noite, vovô Kowalsky vê o ímã cair no pé do pingüim \
+queixoso e vovó põe açúcar no chá de tâmaras do jabuti feliz.', )
+    _anssetw = ('a acucar cair cha de do e feliz ima jabuti kowalsky no noite \
+o pe pinguim poe queixoso tamaras ve vovo', )
+    _anssetq2 = ('abacadaialamanarasbucachcudedoeaedeieleoetevfeguhaifiminirit\
+ixizjakokylilsmamqngnoocoeoiojokoposovowpepipoqurarnsdsksotatetiucueuiutvevowa\
+xoyv', )
+    _anssetq1 = ('abcdefghijklmnopqrstuvwxyz', )
+
     def test_fingerprint(self):
         """test abydos.clustering.fingerprint
         """
         self.assertEquals(fingerprint(''), '')
-        for i in _range(len(testset)):
-            self.assertEquals(fingerprint(testset[i]), anssetw[i])
+        for i in _range(len(self._testset)):
+            self.assertEquals(fingerprint(self._testset[i]), self._anssetw[i])
 
-class QgramFingerprintTestCases(unittest.TestCase):
-    """test cases for abydos.clustering.qgram_fingerprint
-    """
     def test_qgram_fingerprint(self):
         """test abydos.clustering.qgram_fingerprint
         """
         self.assertEquals(qgram_fingerprint(''), '')
-        for i in _range(len(testset)):
-            self.assertEquals(qgram_fingerprint(testset[i], 1), anssetq1[i])
-            self.assertEquals(qgram_fingerprint(testset[i], 2), anssetq2[i])
-            self.assertEquals(qgram_fingerprint(testset[i]), anssetq2[i])
+        for i in _range(len(self._testset)):
+            self.assertEquals(qgram_fingerprint(self._testset[i], 1),
+                              self._anssetq1[i])
+            self.assertEquals(qgram_fingerprint(self._testset[i], 2),
+                              self._anssetq2[i])
+            self.assertEquals(qgram_fingerprint(self._testset[i]),
+                              self._anssetq2[i])
 
-class PhoneticFingerprintTestCases(unittest.TestCase):
-    """test cases for abydos.clustering.phonetic_fingerprint
-    """
     def test_phonetic_fingerprint(self):
         """test abydos.clustering.phonetic_fingerprint
         """

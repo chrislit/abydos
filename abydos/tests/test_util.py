@@ -24,6 +24,8 @@ from __future__ import unicode_literals
 import unittest
 from abydos.util import qgrams, _qgram_lists, _qgram_counts
 
+
+# pylint: disable=R0904
 class QgramTestCases(unittest.TestCase):
     """test cases for abydos.utils functions relating to q-grams
     """
