@@ -24,7 +24,7 @@ from __future__ import unicode_literals
 import unittest
 from abydos.util import qgrams, _qgram_lists, _qgram_counts
 
-class qgram_test_cases(unittest.TestCase):
+class QgramTestCases(unittest.TestCase):
     def test_qgrams(self):
         self.assertEquals(qgrams(''), [])
         self.assertEquals(qgrams('NELSON', 3), ['##N', '#NE', 'NEL', 'ELS',

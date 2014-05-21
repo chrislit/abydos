@@ -25,7 +25,7 @@ from __future__ import division
 import unittest
 from abydos.stats import ConfusionTable
 
-class cast_test_cases(unittest.TestCase):
+class CastTestCases(unittest.TestCase):
     def test_tuple(self):
         pass
 
@@ -33,7 +33,7 @@ class cast_test_cases(unittest.TestCase):
         pass
 
 
-class population_test_cases(unittest.TestCase):
+class PopulationTestCases(unittest.TestCase):
     def test_correct_pop(self):
         pass
 
@@ -56,7 +56,7 @@ class population_test_cases(unittest.TestCase):
         pass
 
 
-class statistical_ratio_test_cases(unittest.TestCase):
+class StatisticalRatioTestCases(unittest.TestCase):
     def test_precision(self):
         pass
 
@@ -88,7 +88,7 @@ class statistical_ratio_test_cases(unittest.TestCase):
         pass
 
 
-class pr_means_test_cases(unittest.TestCase):
+class PrMeansTestCases(unittest.TestCase):
     def test_pr_mean(self):
         pass
 
@@ -114,7 +114,7 @@ class pr_means_test_cases(unittest.TestCase):
         pass
 
 
-class statistical_measure_test_cases(unittest.TestCase):
+class StatisticalMeasureTestCases(unittest.TestCase):
     def test_fbeta_score(self):
         pass
 

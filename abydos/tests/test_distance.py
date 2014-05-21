@@ -29,7 +29,7 @@ from abydos.distance import levenshtein, levenshtein_normalized, hamming, \
     lcs, mra_compare
 
 
-class levenshtein_test_cases(unittest.TestCase):
+class LevenshteinTestCases(unittest.TestCase):
     def test_levenshtein(self):
         self.assertEquals(levenshtein('', ''), 0)
 
@@ -131,7 +131,7 @@ class levenshtein_test_cases(unittest.TestCase):
         self.assertEquals(levenshtein_normalized('abbc', 'abc'), 1/4)
 
 
-class hamming_test_cases(unittest.TestCase):
+class HammingTestCases(unittest.TestCase):
     def test_hamming(self):
         self.assertEquals(hamming('', ''), 0)
         self.assertEquals(hamming('', '', False), 0)
@@ -178,12 +178,12 @@ class hamming_test_cases(unittest.TestCase):
         self.assertEquals(hamming_normalized('1011101', '1001001'), 2/7)
         self.assertEquals(hamming_normalized('2173896', '2233796'), 3/7)
 
-class tversky_index_test_cases(unittest.TestCase):
+class TverskyIndexTestCases(unittest.TestCase):
     def test_tversky_index(self):
         pass
 
 
-class sorensen_test_cases(unittest.TestCase):
+class SorensenTestCases(unittest.TestCase):
     def test_sorensen_coeff(self):
         pass
 
@@ -191,7 +191,7 @@ class sorensen_test_cases(unittest.TestCase):
         pass
 
 
-class jaccard_test_cases(unittest.TestCase):
+class JaccardTestCases(unittest.TestCase):
     def test_jaccard_coeff(self):
         pass
 
@@ -199,7 +199,7 @@ class jaccard_test_cases(unittest.TestCase):
         pass
 
 
-class tanimoto_test_cases(unittest.TestCase):
+class TanimotoTestCases(unittest.TestCase):
     def test_tanimoto_coeff(self):
         pass
 
@@ -207,7 +207,7 @@ class tanimoto_test_cases(unittest.TestCase):
         pass
 
 
-class jaro_winkler_test_cases(unittest.TestCase):
+class JaroWinklerTestCases(unittest.TestCase):
     def test_strcmp95(self):
         pass
 
@@ -215,11 +215,11 @@ class jaro_winkler_test_cases(unittest.TestCase):
         pass
 
 
-class lcs_test_cases(unittest.TestCase):
+class LcsTestCases(unittest.TestCase):
     def test_lcs(self):
         pass
 
 
-class mra_compare_test_cases(unittest.TestCase):
+class MraCompareTestCases(unittest.TestCase):
     def test_mra_compare(self):
         pass

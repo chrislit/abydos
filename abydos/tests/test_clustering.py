@@ -35,7 +35,7 @@ izjakokylilsmamqngnoocoeoiojokoposovowpepipoqurarnsdsksotatetiucueuiutvevo\
 waxoyv', )
 anssetq1 = ('abcdefghijklmnopqrstuvwxyz', )
 
-class fingerprint_test_cases(unittest.TestCase):
+class FingerprintTestCases(unittest.TestCase):
     """test cases for abydos.clustering.fingerprint
     """
     def test_fingerprint(self):
@@ -45,7 +45,7 @@ class fingerprint_test_cases(unittest.TestCase):
         for i in _range(len(testset)):
             self.assertEquals(fingerprint(testset[i]), anssetw[i])
 
-class qgram_fingerprint_test_cases(unittest.TestCase):
+class QgramFingerprintTestCases(unittest.TestCase):
     """test cases for abydos.clustering.qgram_fingerprint
     """
     def test_qgram_fingerprint(self):
@@ -57,7 +57,7 @@ class qgram_fingerprint_test_cases(unittest.TestCase):
             self.assertEquals(qgram_fingerprint(testset[i], 2), anssetq2[i])
             self.assertEquals(qgram_fingerprint(testset[i]), anssetq2[i])
 
-class phonetic_fingerprint_test_cases(unittest.TestCase):
+class PhoneticFingerprintTestCases(unittest.TestCase):
     """test cases for abydos.clustering.phonetic_fingerprint
     """
     def test_phonetic_fingerprint(self):

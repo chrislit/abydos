@@ -27,7 +27,7 @@ from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     koelner_phonetik_num_to_alpha, koelner_phonetik_alpha, nysiis, mra, \
     metaphone, double_metaphone, caverphone, alpha_sis
 
-class russell_index_test_cases(unittest.TestCase):
+class RussellIndexTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.russell_index,
     abydos.phonetic.russell_index_num_to_alpha, and russell_index_alpha
     """
@@ -78,7 +78,7 @@ class russell_index_test_cases(unittest.TestCase):
         self.assertEquals(russell_index_alpha('Knack'), 'CNAC')
 
 
-class soundex_test_cases(unittest.TestCase):
+class SoundexTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.soundex and abydos.phonetic_dm_soundex
     """
     def test_soundex(self):
@@ -876,7 +876,7 @@ class soundex_test_cases(unittest.TestCase):
 
     def test_soundex_special(self):
         """test for abydos.phonetic.soundex, special census variant method
-        """        
+        """
         self.assertEquals(soundex('Ashcroft', var='special'), 'A226')
         self.assertEquals(soundex('Asicroft', var='special'), 'A226')
         self.assertEquals(soundex('AsWcroft', var='special'), 'A226')
@@ -998,7 +998,7 @@ class soundex_test_cases(unittest.TestCase):
         self.assertEquals(dm_soundex('Schwartsenegger'), set(['479465']))
 
 
-class koelner_phonetik_test_cases(unittest.TestCase):
+class KoelnerPhonetikTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.koelner_phonetik,
     abydos.phonetic.koelner_phonetik_num_to_alpha, and koelner_phonetik_alpha
     """
@@ -1055,7 +1055,7 @@ class koelner_phonetik_test_cases(unittest.TestCase):
         self.assertEquals(koelner_phonetik_alpha('axel'), 'AKSL')
 
 
-class nysiis_test_cases(unittest.TestCase):
+class NysiisTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.nysiis
     """
     def test_nysiis(self):
@@ -1097,7 +1097,7 @@ class nysiis_test_cases(unittest.TestCase):
         self.assertEquals(nysiis('Wibberley', maxlength=20), 'WABARLY')
 
 
-class mra_test_cases(unittest.TestCase):
+class MraTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.mra
     """
     def test_mra(self):
@@ -1112,7 +1112,7 @@ class mra_test_cases(unittest.TestCase):
         self.assertEquals(mra('Kathryn'), 'KTHRYN')
 
 
-class metaphone_test_cases(unittest.TestCase):
+class MetaphoneTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.metaphone
     """
     def test_metaphone(self):
@@ -1888,7 +1888,7 @@ class metaphone_test_cases(unittest.TestCase):
         self.assertEquals(metaphone('wright'), 'RKT')
 
 
-class double_metaphone_test_cases(unittest.TestCase):
+class DoubleMetaphoneTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.double_metaphone
 
     These test cases are copied from two sources:
@@ -2268,7 +2268,8 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('Brownell'), ('PRNL', ''))
         self.assertEquals(double_metaphone('Bruley'), ('PRL', ''))
         self.assertEquals(double_metaphone('Bryant'), ('PRNT', ''))
-        self.assertEquals(double_metaphone('Brzozowski'), ('PRSSSK', 'PRTSTSFSK'))
+        self.assertEquals(double_metaphone('Brzozowski'),
+                          ('PRSSSK', 'PRTSTSFSK'))
         self.assertEquals(double_metaphone('Buide'), ('PT', ''))
         self.assertEquals(double_metaphone('Bulmer'), ('PLMR', ''))
         self.assertEquals(double_metaphone('Bunker'), ('PNKR', ''))
@@ -4606,7 +4607,7 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('zhao', 4), ('J', ''))
 
 
-class caverphone_test_cases(unittest.TestCase):
+class CaverphoneTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.caverphone
     """
     def test_caverphone2(self):
@@ -7987,7 +7988,8 @@ class caverphone_test_cases(unittest.TestCase):
                 ('mackisack', 'MKSK111111'), ('mackney', 'MKNA111111'),\
                 ('macknight', 'MKNT111111'), ('mackrell', 'MKRA111111'),\
                 ('mackridge', 'MKRK111111'), ('mackway jones', 'MKWNS11111'),\
-                ('mackway-jones', 'MKWNS11111'), ('mackwayjones', 'MKWNS11111'),\
+                ('mackway-jones', 'MKWNS11111'),\
+                ('mackwayjones', 'MKWNS11111'),\
                 ('macky', 'MKA1111111'), ('maclachlan', 'MKLKLN1111'),\
                 ('maclaren', 'MKLRN11111'), ('maclatchy', 'MKLKA11111'),\
                 ('maclean', 'MKLN111111'), ('maclellan', 'MKLLN11111'),\
@@ -8496,7 +8498,8 @@ class caverphone_test_cases(unittest.TestCase):
                 ('norman', 'NMN1111111'), ('norris', 'NRS1111111'),\
                 ('norrish', 'NRS1111111'), ('north', 'NT11111111'),\
                 ('northcoat', 'NTKT111111'), ('northey', 'NTA1111111'),\
-                ('norton taylor', 'NTNTLA1111'), ('norton-taylor', 'NTNTLA1111'),\
+                ('norton taylor', 'NTNTLA1111'),\
+                ('norton-taylor', 'NTNTLA1111'),\
                 ('norton', 'NTN1111111'), ('norwood', 'NWT1111111'),\
                 ('noseda', 'NSTA111111'), ('noster', 'NSTA111111'),\
                 ('notlen', 'NTLN111111'), ('notman', 'NTMN111111'),\
@@ -10404,7 +10407,7 @@ class caverphone_test_cases(unittest.TestCase):
         self.assertEquals(caverphone('David', version=1), 'TFT111')
         self.assertEquals(caverphone('Whittle', version=1), 'WTL111')
 
-class alpha_sis_test_cases(unittest.TestCase):
+class AlphaSisTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.alpha_sis
     """
     def test_alpha_sis(self):
