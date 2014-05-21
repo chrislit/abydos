@@ -30,12 +30,33 @@ import unicodedata
 from .util import qgrams
 
 def fingerprint(phrase):
+    """Return the fingerprint of a phrase
+
+    Arguments:
+    phrase -- a string to calculate the fingerprint of
+
+    Description:
+    The fingerprint of a string is a string consisting of all of the unique
+    words in a string, alphabetized & concatenated with intervening spaces
+    """
     phrase = unicodedata.normalize('NFKD', _unicode(phrase.strip().lower()))
     phrase = ''.join(filter(lambda c: (c.isalnum() or c.isspace()), phrase))
     phrase = ' '.join(sorted(list(set(phrase.split()))))
     return phrase
 
 def qgram_fingerprint(phrase, q=2, start_stop=''):
+    """Return the q-gram fingerprint of a phrase
+
+    Arguments:
+    phrase -- a string to calculate the q-gram fingerprint of
+    q -- the length of each q-gram (by default 2)
+    start_stop -- the start & stop symbol(s) to concatenate on either end of
+        the phrase, as defined in abydos.util.qgram()
+
+    Description:
+    A q-gram fingerprint is a string consisting of all of the unique q-grams
+    in a string, alphabetized & concatenated.
+    """
     phrase = unicodedata.normalize('NFKD', _unicode(phrase.strip().lower()))
     phrase = ''.join(filter(lambda c: c.isalnum(), phrase))
     phrase = qgrams(phrase, q, start_stop)
@@ -43,6 +64,22 @@ def qgram_fingerprint(phrase, q=2, start_stop=''):
     return phrase
 
 def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone, *args):
+    """Return the phonetic fingerprint of a phrase
+
+    Arguments:
+    phrase -- a string to calculate the phonetic fingerprint of
+    phonetic_algorithm -- a phonetic algorithm that takes a string and returns
+        a string (presumably a phonetic representation of the original string)
+        By default, this function uses double_metaphone() from abydos.phonetic.
+    *args -- additional arguments to pass to the phonetic algorithm, along with
+        the phrase itself
+
+    Description:
+    A phonetic fingerprint is identical to a standard string fingerprint, as
+    implemented in abydos.clustering.fingerprint(), but performs the
+    fingerprinting function after converting the string to its phonetic form,
+    as determined by some phonetic algorithm.
+    """
     phrase = phonetic_algorithm(phrase, *args)
     if not isinstance(phrase, _unicode):
         phrase = phrase[0]

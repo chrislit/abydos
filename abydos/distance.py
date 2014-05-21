@@ -96,13 +96,13 @@ def levenshtein(s, t, mode='lev', cost=(1, 1, 1, 1)):
                     d[i, j] + (sub_cost if s[i] != t[j] else 0) # sub (or equal)
                 )
 
-                if mode=='osa':
+                if mode == 'osa':
                     if (i+1 > 1 and j+1 > 1 and s[i] == t[j-1] and
                         s[i-1] == t[j]):
-                            d[i+1, j+1] = min(
-                            d[i+1, j+1],
-                            d[i-1, j-1] + trans_cost  # transposition
-                        )
+                        d[i+1, j+1] = min(
+                                          d[i+1, j+1],
+                                          d[i-1, j-1] + trans_cost  # trans
+                                          )
 
         return d[len(s), len(t)]
 
@@ -155,11 +155,14 @@ def levenshtein(s, t, mode='lev', cost=(1, 1, 1, 1)):
                         pre_swap_cost = 0
                     else:
                         pre_swap_cost = d[max(0, i_swap-1), max(0, j_swap-1)]
-                    swap_distance = pre_swap_cost + (i - i_swap - 1) * del_cost + (j - j_swap - 1) * ins_cost + trans_cost
+                    swap_distance = (pre_swap_cost + (i - i_swap - 1) *
+                                     del_cost + (j - j_swap - 1) * ins_cost +
+                                     trans_cost)
                 else:
                     swap_distance = sys.maxsize
 
-                d[i, j] = min(del_distance, ins_distance, match_distance, swap_distance)
+                d[i, j] = min(del_distance, ins_distance,
+                              match_distance, swap_distance)
             s_index_by_character[s[i]] = i
 
         return d[len(s)-1, len(t)-1]
@@ -386,7 +389,7 @@ def strcmp95(s, t, long_strings=False):
     names, but not much else.
     """
     def _INRANGE(c):
-        return ord(c)>0 and ord(c)<91
+        return ord(c) > 0 and ord(c) < 91
 
     ying = s.strip().upper()
     yang = t.strip().upper()
@@ -411,8 +414,8 @@ def strcmp95(s, t, long_strings=False):
     # A typical example is to match the letter "O" with the number "0"
     for i in sp:
         x, y = i
-        adjwt[(x, y)]=3
-        adjwt[(y, x)]=3
+        adjwt[(x, y)] = 3
+        adjwt[(y, x)] = 3
 
     if len(ying) > len(yang):
         search_range = len(ying)
@@ -481,7 +484,7 @@ def strcmp95(s, t, long_strings=False):
         # Adjust for having up to the first 4 characters in common
         j = 4 if (minv >= 4) else minv
         i = 0
-        while ((i<j) and (ying[i]==yang[i]) and (not ying[i].isdigit())):
+        while ((i < j) and (ying[i] == yang[i]) and (not ying[i].isdigit())):
             i += 1
         if i:
             weight += i * 0.1 * (1.0 - weight)
@@ -490,8 +493,8 @@ def strcmp95(s, t, long_strings=False):
 
         # After agreeing beginning chars, at least two more must agree and
         # the agreeing characters must be > .5 of remaining characters.
-        if ((long_strings) and (minv>4) and (Num_com>i+1) and \
-            (2*Num_com>=minv+i)):
+        if ((long_strings) and (minv > 4) and (Num_com > i+1) and \
+            (2*Num_com >= minv+i)):
             if (not ying[0].isdigit()):
                 weight += (1.0-weight) * ((Num_com-i-1) /
                                           (len(ying)+len(yang)-i*2+2))
@@ -505,7 +508,7 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, \
 
     Arguments:
     s, t -- two strings to be compared
-    q -- the length of each q-gram (defaults to 1: character-wise matching) 
+    q -- the length of each q-gram (defaults to 1: character-wise matching)
     mode -- indicates which variant of this distance metric to compute:
         'winkler' -- computes the Jaro-Winkler distance (default)
             which increases the score for matches near the start of the word
@@ -529,10 +532,10 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, \
     in the public domain.
     """
     if mode == 'winkler':
-        if boost_threshold > 1 or boost_threshold<0:
+        if boost_threshold > 1 or boost_threshold < 0:
             raise ValueError('Unsupported boost_threshold assignment; \
                 boost_threshold must be between 0 and 1.')
-        if scaling_factor > 0.25 or boost_threshold<0:
+        if scaling_factor > 0.25 or boost_threshold < 0:
             raise ValueError('Unsupported scaling_factor assignment; \
                 scaling_factor must be between 0 and 0.25.')
 
@@ -609,8 +612,8 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, \
 
         # After agreeing beginning chars, at least two more must agree and
         # the agreeing characters must be > .5 of remaining characters.
-        if ((long_strings) and (minv>4) and (Num_com>i+1) and \
-            (2*Num_com>=minv+i)):
+        if ((long_strings) and (minv > 4) and (Num_com > i+1) and \
+            (2*Num_com >= minv+i)):
             weight += (1.0-weight) * ((Num_com-i-1) / (lens+lent-i*2+2))
 
     return weight
