@@ -44,11 +44,11 @@ from .util import _qgram_counts, qgrams
 from .phonetic import mra
 
 
-def levenshtein(s, t, mode='lev', cost=(1, 1, 1, 1)):
+def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     """Return the Levenshtein distance between two string arguments
 
     Arguments:
-    s, t -- two strings to be compared
+    src, tar -- two strings to be compared
     mode -- specifies a mode for computing the Levenshtein distance:
             'lev' (default) computes the ordinary Levenshtein distance,
                 in which edits may include inserts, deletes, and substitutions
@@ -76,77 +76,81 @@ def levenshtein(s, t, mode='lev', cost=(1, 1, 1, 1)):
     """
     ins_cost, del_cost, sub_cost, trans_cost = cost
 
-    if len(s) == 0:
-        return len(t) * ins_cost
-    if len(t) == 0:
-        return len(s) * del_cost
+    if len(src) == 0:
+        return len(tar) * ins_cost
+    if len(tar) == 0:
+        return len(src) * del_cost
 
     if 'dam' not in mode:
-        d = numpy.zeros((len(s)+1, len(t)+1), dtype=numpy.int)
-        for i in _range(len(s)+1):
+        d = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
+        for i in _range(len(src)+1):
             d[i, 0] = i * del_cost
-        for j in _range(len(t)+1):
+        for j in _range(len(tar)+1):
             d[0, j] = j * ins_cost
 
-        for i in _range(len(s)):
-            for j in _range(len(t)):
+        for i in _range(len(src)):
+            for j in _range(len(tar)):
                 d[i+1, j+1] = min(
                     d[i+1, j] + ins_cost, # ins
                     d[i, j+1] + del_cost, # del
-                    d[i, j] + (sub_cost if s[i] != t[j] else 0) # sub (or equal)
+                    d[i, j] + (sub_cost if src[i] != tar[j] else 0) # sub/equal
                 )
 
                 if mode == 'osa':
-                    if (i+1 > 1 and j+1 > 1 and s[i] == t[j-1] and
-                        s[i-1] == t[j]):
+                    if (i+1 > 1 and j+1 > 1 and src[i] == tar[j-1] and
+                        src[i-1] == tar[j]):
                         d[i+1, j+1] = min(
                                           d[i+1, j+1],
                                           d[i-1, j-1] + trans_cost  # trans
                                           )
 
-        return d[len(s), len(t)]
+        return d[len(src), len(tar)]
 
     else:
         """Damerau-Levenshtein code based on Java code by Kevin L. Stern,
         under the MIT license:
-        https://github.com/KevinStern/software-and-algorithms/blob/master/src/main/java/blogspot/software_and_algorithms/stern_library/string/DamerauLevenshteinAlgorithm.java"""
+        https://github.com/KevinStern/software-and-algorithms/blob/master/src/main/java/blogspot/software_and_algorithms/stern_library/string/DamerauLevenshteinAlgorithm.java
+        """
         if 2*trans_cost < ins_cost + del_cost:
             raise ValueError('Unsupported cost assignment; the cost of two \
                 transpositions must not be less than the cost of an insert \
                 plus a delete.')
 
-        d = numpy.zeros((len(s))*(len(t)), dtype=numpy.int).reshape((len(s), len(t)))
+        d = numpy.zeros((len(src))*(len(tar)), dtype=numpy.int).\
+        reshape((len(src), len(tar)))
 
-        if s[0] != t[0]:
+        if src[0] != tar[0]:
             d[0, 0] = min(sub_cost, ins_cost + del_cost)
 
         s_index_by_character = {}
-        s_index_by_character[s[0]] = 0
-        for i in _range(1, len(s)):
+        s_index_by_character[src[0]] = 0
+        for i in _range(1, len(src)):
             del_distance = d[i-1, 0] + del_cost
             ins_distance = (i+1) * del_cost + ins_cost
-            match_distance = i * del_cost + (0 if s[i] == t[0] else sub_cost)
+            match_distance = i * del_cost + \
+            (0 if src[i] == tar[0] else sub_cost)
             d[i, 0] = min(del_distance, ins_distance, match_distance)
 
-        for j in _range(1, len(t)):
+        for j in _range(1, len(tar)):
             del_distance = (j+1) * ins_cost + del_cost
             ins_distance = d[0, j-1] + ins_cost
-            match_distance = j * ins_cost + (0 if s[0] == t[j] else sub_cost)
+            match_distance = j * ins_cost + \
+            (0 if src[0] == tar[j] else sub_cost)
             d[0, j] = min(del_distance, ins_distance, match_distance)
 
-        for i in _range(1, len(s)):
-            max_s_letter_match_index = (0 if s[i] == t[0] else -1)
-            for j in _range(1, len(t)):
-                candidate_swap_index = -1 if t[j] not in s_index_by_character \
-                else s_index_by_character[t[j]]
-                j_swap = max_s_letter_match_index
+        for i in _range(1, len(src)):
+            max_src_letter_match_index = (0 if src[i] == tar[0] else -1)
+            for j in _range(1, len(tar)):
+                candidate_swap_index = -1 if tar[j] not in \
+                s_index_by_character else s_index_by_character[tar[j]]
+                j_swap = max_src_letter_match_index
                 del_distance = d[i-1, j] + del_cost
                 ins_distance = d[i, j-1] + ins_cost
                 match_distance = d[i-1, j-1]
-                if s[i] != t[j]:
+                if src[i] != tar[j]:
                     match_distance += sub_cost
                 else:
-                    max_s_letter_match_index = j
+                    max_src_letter_match_index = j
 
                 if candidate_swap_index != -1 and j_swap != -1:
                     i_swap = candidate_swap_index
@@ -163,35 +167,35 @@ def levenshtein(s, t, mode='lev', cost=(1, 1, 1, 1)):
 
                 d[i, j] = min(del_distance, ins_distance,
                               match_distance, swap_distance)
-            s_index_by_character[s[i]] = i
+            s_index_by_character[src[i]] = i
 
-        return d[len(s)-1, len(t)-1]
+        return d[len(src)-1, len(tar)-1]
 
 
-def levenshtein_normalized(s, t, mode='lev', cost=(1, 1, 1, 1)):
+def levenshtein_normalized(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     """Return the Levenshtein distance normalized to the interval [0, 1]
     The arguments are identical to those of the levenshtein() function.
 
     Description:
     The Levenshtein distance is normalized by dividing the Levenshtein distance
     (calculated by any of the three supported methods) by the greater of
-    the number of characters in s times the cost of a delete and
-    the number of characters in t times the cost of an insert.
+    the number of characters in src times the cost of a delete and
+    the number of characters in tar times the cost of an insert.
     For the case in which all operations have cost == 1, this is equivalent
-    to the greater of the length of the two strings s & t.
+    to the greater of the length of the two strings src & tar.
     """
-    if s == t:
+    if src == tar:
         return 0
     ins_cost, del_cost = cost[:2]
-    return levenshtein(s, t, mode, cost) \
-        / (max(len(s)*del_cost, len(t)*ins_cost))
+    return levenshtein(src, tar, mode, cost) \
+        / (max(len(src)*del_cost, len(tar)*ins_cost))
 
 
-def hamming(s, t, difflens=True):
+def hamming(src, tar, difflens=True):
     """Return the Hamming distance between two string arguments
 
     Arguments:
-    s, t -- two strings to be compared
+    src, tar -- two strings to be compared
     allow_different_lengths --
         If True (default, this returns the Hamming distance for those characters
         that have a matching character in both strings plus the difference in
@@ -207,37 +211,37 @@ def hamming(s, t, difflens=True):
     first n characters where n is the lesser of the two strings' lengths and
     adds to this the difference in string lengths.
     """
-    if not difflens and len(s) != len(t):
+    if not difflens and len(src) != len(tar):
         raise ValueError("Undefined for sequences of unequal length; set \
             difflens to True for Hamming distance between strings of unequal \
             lengths.")
     dist = 0
     if difflens:
-        dist += abs(len(s)-len(t))
-    dist += sum(c1 != c2 for c1, c2 in zip(s, t))
+        dist += abs(len(src)-len(tar))
+    dist += sum(c1 != c2 for c1, c2 in zip(src, tar))
     return dist
 
 
-def hamming_normalized(s, t, difflens=True):
+def hamming_normalized(src, tar, difflens=True):
     """Return the Hamming distance normalized to the interval [0, 1]
     The arguments are identical to those of the hamming() function.
 
     Description:
     The Hamming distance is normalized by dividing the Levenshtein distance
-    by the greater of the number of characters in s and t (unless difflens is
+    by the greater of the number of characters in src & tar (unless difflens is
     set to False, in which case an exception is raised).
     """
-    if s == t:
+    if src == tar:
         return 0
-    return hamming(s, t, difflens) / max(len(s), len(t))
+    return hamming(src, tar, difflens) / max(len(src), len(tar))
 
 
-def tversky_index(s, t, q=2, alpha=1, beta=1, bias=None):
+def tversky_index(src, tar, qval=2, alpha=1, beta=1, bias=None):
     """Return the Tversky index of two string arguments.
 
     Arguments:
-    s, t -- two strings to be compared
-    q -- the length of each q-gram
+    src, tar -- two strings to be compared
+    qval -- the length of each q-gram
     alpha, beta -- two Tversky index parameters as indicated in the
         description below
 
@@ -264,27 +268,28 @@ def tversky_index(s, t, q=2, alpha=1, beta=1, bias=None):
         raise ValueError('Unsupported weight assignment; alpha and beta must \
             be greater than or equal to 0.')
 
-    if s == t:
+    if src == tar:
         return 1.0
-    elif len(s) == 0 and len(t) == 0:
+    elif len(src) == 0 and len(tar) == 0:
         return 1.0
-    q_s, q_t, q_intersection = _qgram_counts(s, t, q)
+    q_src, q_tar, q_intersection = _qgram_counts(src, tar, qval)
     if bias is None:
-        return q_intersection / (q_intersection + alpha * (q_s - q_intersection)
-                                  + beta * (q_t - q_intersection))
+        return q_intersection / (q_intersection + alpha *
+                                 (q_src - q_intersection)
+                                  + beta * (q_tar - q_intersection))
     else:
-        a = min(q_s - q_intersection, q_t - q_intersection)
-        b = max(q_s - q_intersection, q_t - q_intersection)
+        a = min(q_src - q_intersection, q_tar - q_intersection)
+        b = max(q_src - q_intersection, q_tar - q_intersection)
         c = q_intersection + bias
         return c / (beta * (alpha * a + (1 - alpha) * b) + c)
 
 
-def sorensen_coeff(s, t, q=2):
+def sorensen_coeff(src, tar, qval=2):
     """Return the Sørensen–Dice coefficient of two string arguments.
 
     Arguments:
-    s, t -- two strings to be compared
-    q -- the length of each q-gram
+    src, tar -- two strings to be compared
+    qval -- the length of each q-gram
 
     Description:
     For two sets X and Y, the Sørensen–Dice coefficient is
@@ -292,28 +297,28 @@ def sorensen_coeff(s, t, q=2):
     This is identical to the Tanimoto similarity coefficient
     and the Tversky index for α = β = 1
     """
-    return tversky_index(s, t, q, 0.5, 0.5)
+    return tversky_index(src, tar, qval, 0.5, 0.5)
 
 
-def sorensen(s, t, q=2):
+def sorensen(src, tar, qval=2):
     """Return the Sørensen–Dice distance of two string arguments.
 
     Arguments:
-    s, t -- two strings to be compared
-    q -- the length of each q-gram
+    src, tar -- two strings to be compared
+    qval -- the length of each q-gram
 
     Description:
     Sørensen–Dice distance is 1 - the Sørensen–Dice coefficient
     """
-    return 1 - sorensen_coeff(s, t, q)
+    return 1 - sorensen_coeff(src, tar, qval)
 
 
-def jaccard_coeff(s, t, q=2):
+def jaccard_coeff(src, tar, qval=2):
     """Return the Jaccard similarity coefficient of two string arguments.
 
     Arguments:
-    s, t -- two strings to be compared
-    q -- the length of each q-gram
+    src, tar -- two strings to be compared
+    qval -- the length of each q-gram
 
     Description:
     For two sets X and Y, the Jaccard similarity coefficient is
@@ -321,28 +326,28 @@ def jaccard_coeff(s, t, q=2):
     This is identical to the Tanimoto similarity coefficient
     and the Tversky index for α = β = 1
     """
-    return tversky_index(s, t, q, 1, 1)
+    return tversky_index(src, tar, qval, 1, 1)
 
 
-def jaccard(s, t, q=2):
+def jaccard(src, tar, qval=2):
     """Return the Jaccard distance of two string arguments.
 
     Arguments:
-    s, t -- two strings to be compared
-    q -- the length of each q-gram
+    src, tar -- two strings to be compared
+    qval -- the length of each q-gram
 
     Description:
     Jaccard distance is 1 - the Jaccard coefficient
     """
-    return 1 - jaccard_coeff(s, t, q)
+    return 1 - jaccard_coeff(src, tar, qval)
 
 
-def tanimoto_coeff(s, t, q=2):
+def tanimoto_coeff(src, tar, qval=2):
     """Return the Tanimoto similarity of two string arguments.
 
     Arguments:
-    s, t -- two strings to be compared
-    q -- the length of each q-gram
+    src, tar -- two strings to be compared
+    qval -- the length of each q-gram
 
     Description:
     For two sets X and Y, the Tanimoto similarity coefficient is
@@ -350,27 +355,27 @@ def tanimoto_coeff(s, t, q=2):
     This is identical to the Jaccard similarity coefficient
     and the Tversky index for α = β = 1
     """
-    return jaccard_coeff(s, t, q)
+    return jaccard_coeff(src, tar, qval)
 
 
-def tanimoto(s, t, q=2):
+def tanimoto(src, tar, qval=2):
     """Return the Tanimoto distance of two string arguments:
 
     Arguments:
-    s, t -- two strings to be compared
-    q -- the length of each q-gram
+    src, tar -- two strings to be compared
+    qval -- the length of each q-gram
 
     Description:
     Tanimoto distance is -log2(Tanimoto coefficient)
     """
-    return math.log(jaccard_coeff(s, t, q), 2)
+    return math.log(jaccard_coeff(src, tar, qval), 2)
 
 
-def strcmp95(s, t, long_strings=False):
+def strcmp95(src, tar, long_strings=False):
     """Return the strcmp95 distance between two string arguments.
 
     Arguments:
-    s, t -- two strings to be compared
+    src, tar -- two strings to be compared
     long_strings -- set to True to "Increase the probability of a match when
         the number of matched characters is large.  This option allows for a
         little more tolerance when the strings are large.  It is not an
@@ -391,8 +396,8 @@ def strcmp95(s, t, long_strings=False):
     def _INRANGE(c):
         return ord(c) > 0 and ord(c) < 91
 
-    ying = s.strip().upper()
-    yang = t.strip().upper()
+    ying = src.strip().upper()
+    yang = tar.strip().upper()
 
     # If either string is blank - return - added in Version 2
     if len(ying) == 0 or len(yang) == 0:
@@ -502,13 +507,13 @@ def strcmp95(s, t, long_strings=False):
     return weight
 
 
-def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, \
+def jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False, \
                  boost_threshold=0.7, scaling_factor=0.1):
     """Return the Jaro(-Winkler) distance between two string arguments.
 
     Arguments:
-    s, t -- two strings to be compared
-    q -- the length of each q-gram (defaults to 1: character-wise matching)
+    src, tar -- two strings to be compared
+    qval -- the length of each q-gram (defaults to 1: character-wise matching)
     mode -- indicates which variant of this distance metric to compute:
         'winkler' -- computes the Jaro-Winkler distance (default)
             which increases the score for matches near the start of the word
@@ -539,11 +544,11 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, \
             raise ValueError('Unsupported scaling_factor assignment; \
                 scaling_factor must be between 0 and 0.25.')
 
-    s = qgrams(s.strip(), q)
-    t = qgrams(t.strip(), q)
+    src = qgrams(src.strip(), qval)
+    tar = qgrams(tar.strip(), qval)
 
-    lens = len(s)
-    lent = len(t)
+    lens = len(src)
+    lent = len(tar)
 
     # If either string is blank - return - added in Version 2
     if lens == 0 or lent == 0:
@@ -570,7 +575,7 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, \
         lowlim = (i - search_range) if (i >= search_range) else 0
         hilim = (i + search_range) if ((i + search_range) <= yl1) else yl1
         for j in _range(lowlim, hilim+1):
-            if (t_flag[j] == 0) and (t[j] == s[i]):
+            if (t_flag[j] == 0) and (tar[j] == src[i]):
                 t_flag[j] = 1
                 s_flag[i] = 1
                 Num_com += 1
@@ -588,7 +593,7 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, \
                 if t_flag[j] != 0:
                     k = j + 1
                     break
-            if s[i] != t[j]:
+            if src[i] != tar[j]:
                 N_trans += 1
     N_trans = N_trans // 2
 
@@ -603,7 +608,7 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, \
         # Adjust for having up to the first 4 characters in common
         j = 4 if (minv >= 4) else minv
         i = 0
-        while ((i < j) and (s[i] == t[i])):
+        while ((i < j) and (src[i] == tar[i])):
             i += 1
         if i:
             weight += i * scaling_factor * (1.0 - weight)
@@ -619,11 +624,11 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, \
     return weight
 
 
-def lcs(s, t):
+def lcs(src, tar):
     """Returns the longest common substring (LCS) of two strings
 
     Arguments:
-    s, t -- two strings to be compared
+    src, tar -- two strings to be compared
 
     Based on the dynamic programming algorithm from
     http://rosettacode.org/wiki/Longest_common_subsequence#Dynamic_Programming_6
@@ -632,11 +637,11 @@ def lcs(s, t):
     Modifications include:
         conversion to a numpy array in place of a list of lists
     """
-    lengths = numpy.zeros((len(s)+1, len(t)+1), dtype=numpy.int)
+    lengths = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
 
     # row 0 and column 0 are initialized to 0 already
-    for i, x in enumerate(s):
-        for j, y in enumerate(t):
+    for i, x in enumerate(src):
+        for j, y in enumerate(tar):
             if x == y:
                 lengths[i+1, j+1] = lengths[i, j] + 1
             else:
@@ -644,38 +649,38 @@ def lcs(s, t):
 
     # read the substring out from the matrix
     result = ""
-    x, y = len(s), len(t)
+    x, y = len(src), len(tar)
     while x != 0 and y != 0:
         if lengths[x, y] == lengths[x-1, y]:
             x -= 1
         elif lengths[x, y] == lengths[x, y-1]:
             y -= 1
         else:
-            assert s[x-1] == t[y-1]
-            result = s[x-1] + result
+            assert src[x-1] == tar[y-1]
+            result = src[x-1] + result
             x -= 1
             y -= 1
     return result
 
 
-def mra_compare(s, t):
+def mra_compare(src, tar):
     """Return the Western Airlines Surname Match Rating Algorithm comparison
     rating between to strings
 
     Arguments:
-    s, t -- two strings to be compared
+    src, tar -- two strings to be compared
 
     Description:
     A description of the algorithm can be found on page 18 of
     https://archive.org/details/accessingindivid00moor
     """
-    s = list(mra(s))
-    t = list(mra(t))
+    src = list(mra(src))
+    tar = list(mra(tar))
 
-    if abs(len(s)-len(t)) > 2:
+    if abs(len(src)-len(tar)) > 2:
         return False
 
-    length_sum = len(s) + len(t)
+    length_sum = len(src) + len(tar)
     if length_sum < 5:
         min_rating = 5
     elif length_sum < 8:
@@ -686,19 +691,19 @@ def mra_compare(s, t):
         min_rating = 2
 
     for _ in _range(2):
-        new_s = []
-        new_t = []
-        minlen = min(len(s), len(t))
+        new_src = []
+        new_tar = []
+        minlen = min(len(src), len(tar))
         for i in _range(minlen):
-            if s[i] != t[i]:
-                new_s.append(s[i])
-                new_t.append(t[i])
-        s = new_s+s[minlen:]
-        t = new_t+t[minlen:]
-        s.reverse()
-        t.reverse()
+            if src[i] != tar[i]:
+                new_src.append(src[i])
+                new_tar.append(tar[i])
+        src = new_src+src[minlen:]
+        tar = new_tar+tar[minlen:]
+        src.reverse()
+        tar.reverse()
 
-    similarity = 6 - max(len(s), len(t))
+    similarity = 6 - max(len(src), len(tar))
 
     if similarity >= min_rating:
         return similarity

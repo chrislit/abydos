@@ -44,12 +44,12 @@ def fingerprint(phrase):
     phrase = ' '.join(sorted(list(set(phrase.split()))))
     return phrase
 
-def qgram_fingerprint(phrase, q=2, start_stop=''):
+def qgram_fingerprint(phrase, qval=2, start_stop=''):
     """Return the q-gram fingerprint of a phrase
 
     Arguments:
     phrase -- a string to calculate the q-gram fingerprint of
-    q -- the length of each q-gram (by default 2)
+    qval -- the length of each q-gram (by default 2)
     start_stop -- the start & stop symbol(s) to concatenate on either end of
         the phrase, as defined in abydos.util.qgram()
 
@@ -59,7 +59,7 @@ def qgram_fingerprint(phrase, q=2, start_stop=''):
     """
     phrase = unicodedata.normalize('NFKD', _unicode(phrase.strip().lower()))
     phrase = ''.join([c for c in phrase if c.isalnum()])
-    phrase = qgrams(phrase, q, start_stop)
+    phrase = qgrams(phrase, qval, start_stop)
     phrase = ''.join(sorted(list(set(phrase))))
     return phrase
 
