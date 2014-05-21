@@ -39,7 +39,7 @@ class FingerprintTestCases(unittest.TestCase):
     """test cases for abydos.clustering.fingerprint
     """
     def test_fingerprint(self):
-        """test for abydos.clustering.fingerprint
+        """test abydos.clustering.fingerprint
         """
         self.assertEquals(fingerprint(''), '')
         for i in _range(len(testset)):
@@ -61,7 +61,7 @@ class PhoneticFingerprintTestCases(unittest.TestCase):
     """test cases for abydos.clustering.phonetic_fingerprint
     """
     def test_phonetic_fingerprint(self):
-        """test for abydos.clustering.phonetic_fingerprint
+        """test abydos.clustering.phonetic_fingerprint
         """
         self.assertEquals(phonetic_fingerprint(''), '')
         # TODO: add non-trivial tests

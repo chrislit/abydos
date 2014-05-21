@@ -25,7 +25,11 @@ import unittest
 from abydos.util import qgrams, _qgram_lists, _qgram_counts
 
 class QgramTestCases(unittest.TestCase):
+    """test cases for abydos.utils functions relating to q-grams
+    """
     def test_qgrams(self):
+        """test abydos.util.qgrams
+        """
         self.assertEquals(qgrams(''), [])
         self.assertEquals(qgrams('NELSON', 3), ['##N', '#NE', 'NEL', 'ELS',
                                                 'LSO', 'SON', 'ON#', 'N##'])
@@ -38,6 +42,8 @@ class QgramTestCases(unittest.TestCase):
                           ['#N', 'NE', 'EI', 'IL', 'LS', 'SE', 'EN', 'N#'])
 
     def test_qgram_lists(self):
+        """test abydos.util._qgrams_lists
+        """
         self.assertEquals(_qgram_lists('NELSON', ''),
                           (['#N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#'], [], []))
         self.assertEquals(_qgram_lists('', 'NEILSEN'),
@@ -57,6 +63,8 @@ class QgramTestCases(unittest.TestCase):
                            []))
 
     def test_qgram_counts(self):
+        """test abydos.util._qgrams_counts
+        """
         self.assertEquals(_qgram_counts('NELSON', ''), (7, 0, 0))
         self.assertEquals(_qgram_counts('', 'NEILSEN'), (0, 8, 0))
         self.assertEquals(_qgram_counts('NELSON', 'NEILSEN'), (7, 8, 4))

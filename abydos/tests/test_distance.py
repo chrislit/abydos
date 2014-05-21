@@ -30,7 +30,12 @@ from abydos.distance import levenshtein, levenshtein_normalized, hamming, \
 
 
 class LevenshteinTestCases(unittest.TestCase):
+    """test cases for abydos.distance.levenshtein &
+    abydos.distance.levenshtein_normalized
+    """
     def test_levenshtein(self):
+        """test abydos.distance.levenshtein
+        """
         self.assertEquals(levenshtein('', ''), 0)
 
         # http://oldfashionedsoftware.com/tag/levenshtein-distance/
@@ -118,6 +123,8 @@ class LevenshteinTestCases(unittest.TestCase):
                           cost=(10, 10, 10, 5))
 
     def test_levenshtein_normalized(self):
+        """test abydos.distance.levenshtein_normalized
+        """
         self.assertEquals(levenshtein_normalized('', ''), 0)
 
         self.assertEquals(levenshtein_normalized('a', 'a'), 0)
@@ -132,7 +139,12 @@ class LevenshteinTestCases(unittest.TestCase):
 
 
 class HammingTestCases(unittest.TestCase):
+    """test cases for abydos.distance.hamming &
+    abydos.distance.hamming_normalized
+    """
     def test_hamming(self):
+        """test abydos.distance.hamming
+        """
         self.assertEquals(hamming('', ''), 0)
         self.assertEquals(hamming('', '', False), 0)
 
@@ -156,6 +168,8 @@ class HammingTestCases(unittest.TestCase):
         self.assertEquals(hamming('2173896', '2233796'), 3)
 
     def test_hamming_normalized(self):
+        """test abydos.distance.hamming_normalized
+        """
         self.assertEquals(hamming_normalized('', ''), 0)
         self.assertEquals(hamming_normalized('', '', False), 0)
 
@@ -179,47 +193,83 @@ class HammingTestCases(unittest.TestCase):
         self.assertEquals(hamming_normalized('2173896', '2233796'), 3/7)
 
 class TverskyIndexTestCases(unittest.TestCase):
+    """test cases for abydos.distance.tversky_index
+    """
     def test_tversky_index(self):
+        """test abydos.distance.tversky_index
+        """
         pass
 
 
 class SorensenTestCases(unittest.TestCase):
+    """test cases for abydos.distance.sorensen_coeff & abydos.distance.sorensen
+    """
     def test_sorensen_coeff(self):
+        """test abydos.distance.sorensen_coeff
+        """
         pass
 
     def test_sorensen(self):
+        """test abydos.distance.sorensen
+        """
         pass
 
 
 class JaccardTestCases(unittest.TestCase):
+    """test cases for abydos.distance.jaccard_coeff & abydos.distance.jaccard
+    """
     def test_jaccard_coeff(self):
+        """test abydos.distance.jaccard_coeff
+        """
         pass
 
     def test_jaccard(self):
+        """test abydos.distance.jaccard
+        """
         pass
 
 
 class TanimotoTestCases(unittest.TestCase):
+    """test cases for abydos.distance.tanimoto_coeff & abydos.distance.tanimoto
+    """
     def test_tanimoto_coeff(self):
+        """test abydos.distance.tanimoto_coeff
+        """
         pass
 
     def test_tanimoto(self):
+        """test abydos.distance.tanimoto
+        """
         pass
 
 
 class JaroWinklerTestCases(unittest.TestCase):
+    """test cases for abydos.distance.strcmp95 & abydos.distance.jaro_winkler
+    """
     def test_strcmp95(self):
+        """test abydos.distance.strcmp95
+        """
         pass
 
     def test_jaro_winkler(self):
+        """test abydos.distance.jaro_winkler
+        """
         pass
 
 
 class LcsTestCases(unittest.TestCase):
+    """test cases for abydos.distance.lcs
+    """
     def test_lcs(self):
+        """test abydos.distance.lcs
+        """
         pass
 
 
 class MraCompareTestCases(unittest.TestCase):
+    """test cases for abydos.distance.mra_compare
+    """
     def test_mra_compare(self):
+        """test abydos.distance.mra_compare
+        """
         pass
