@@ -11,7 +11,7 @@ from .util import _qgram_counts, qgrams
 from .phonetic import mra
 
 
-def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
+def levenshtein(s, t, mode='lev', cost=(1, 1, 1, 1)):
     """Return the Levenshtein distance between two string arguments
 
     Arguments:
@@ -27,7 +27,7 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
                 transpositions and substrings may undergo repeated edits
     cost -- a 4-tuple representing the cost of the four possible edits:
                 inserts, deletes, substitutions, and transpositions,
-                respectively (by default: (1,1,1,1))
+                respectively (by default: (1, 1, 1, 1))
 
     Description:
     This is the standard edit distance measure. Cf.
@@ -49,29 +49,29 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
         return len(s) * del_cost
 
     if 'dam' not in mode:
-        d = numpy.zeros((len(s)+1,len(t)+1), dtype=numpy.int)
+        d = numpy.zeros((len(s)+1, len(t)+1), dtype=numpy.int)
         for i in _range(len(s)+1):
-            d[i,0] = i * del_cost
+            d[i, 0] = i * del_cost
         for j in _range(len(t)+1):
-            d[0,j] = j * ins_cost
+            d[0, j] = j * ins_cost
 
         for i in _range(len(s)):
             for j in _range(len(t)):
-                d[i+1,j+1] = min(
-                    d[i+1,j] + ins_cost, # ins
-                    d[i,j+1] + del_cost, # del
-                    d[i,j] + (sub_cost if s[i] != t[j] else 0) # sub (or equal)
+                d[i+1, j+1] = min(
+                    d[i+1, j] + ins_cost, # ins
+                    d[i, j+1] + del_cost, # del
+                    d[i, j] + (sub_cost if s[i] != t[j] else 0) # sub (or equal)
                 )
 
                 if mode=='osa':
                     if (i+1 > 1 and j+1 > 1 and s[i] == t[j-1] and
                         s[i-1] == t[j]):
-                            d[i+1,j+1] = min(
-                            d[i+1,j+1],
-                            d[i-1,j-1] + trans_cost  # transposition
+                            d[i+1, j+1] = min(
+                            d[i+1, j+1],
+                            d[i-1, j-1] + trans_cost  # transposition
                         )
 
-        return d[len(s),len(t)]
+        return d[len(s), len(t)]
 
     else:
         """Damerau-Levenshtein code based on Java code by Kevin L. Stern,
@@ -85,21 +85,21 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
         d = numpy.zeros((len(s))*(len(t)), dtype=numpy.int).reshape((len(s), len(t)))
 
         if s[0] != t[0]:
-            d[0,0] = min(sub_cost, ins_cost + del_cost)
+            d[0, 0] = min(sub_cost, ins_cost + del_cost)
 
         s_index_by_character = {}
         s_index_by_character[s[0]] = 0
         for i in _range(1, len(s)):
-            del_distance = d[i-1,0] + del_cost
+            del_distance = d[i-1, 0] + del_cost
             ins_distance = (i+1) * del_cost + ins_cost
             match_distance = i * del_cost + (0 if s[i] == t[0] else sub_cost)
-            d[i,0] = min(del_distance, ins_distance, match_distance)
+            d[i, 0] = min(del_distance, ins_distance, match_distance)
 
         for j in _range(1, len(t)):
             del_distance = (j+1) * ins_cost + del_cost
-            ins_distance = d[0,j-1] + ins_cost
+            ins_distance = d[0, j-1] + ins_cost
             match_distance = j * ins_cost + (0 if s[0] == t[j] else sub_cost)
-            d[0,j] = min(del_distance, ins_distance, match_distance)
+            d[0, j] = min(del_distance, ins_distance, match_distance)
 
         for i in _range(1, len(s)):
             max_s_letter_match_index = (0 if s[i] == t[0] else -1)
@@ -107,9 +107,9 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
                 candidate_swap_index = -1 if t[j] not in s_index_by_character \
                 else s_index_by_character[t[j]]
                 j_swap = max_s_letter_match_index
-                del_distance = d[i-1,j] + del_cost
-                ins_distance = d[i,j-1] + ins_cost
-                match_distance = d[i-1,j-1]
+                del_distance = d[i-1, j] + del_cost
+                ins_distance = d[i, j-1] + ins_cost
+                match_distance = d[i-1, j-1]
                 if s[i] != t[j]:
                     match_distance += sub_cost
                 else:
@@ -126,13 +126,13 @@ def levenshtein(s, t, mode='lev', cost=(1,1,1,1)):
                 else:
                     swap_distance = sys.maxsize
 
-                d[i,j] = min(del_distance, ins_distance, match_distance, swap_distance)
+                d[i, j] = min(del_distance, ins_distance, match_distance, swap_distance)
             s_index_by_character[s[i]] = i
 
         return d[len(s)-1, len(t)-1]
 
 
-def levenshtein_normalized(s, t, mode='lev', cost=(1,1,1,1)):
+def levenshtein_normalized(s, t, mode='lev', cost=(1, 1, 1, 1)):
     """Return the Levenshtein distance normalized to the interval [0, 1]
     The arguments are identical to those of the levenshtein() function.
 
@@ -364,12 +364,12 @@ def strcmp95(s, t, long_strings=False):
 
     adjwt = defaultdict(int)
     sp = (
-        ('A','E'), ('A','I'), ('A','O'), ('A','U'), ('B','V'), ('E','I'),
-        ('E','O'), ('E','U'), ('I','O'), ('I','U'), ('O','U'), ('I','Y'),
-        ('E','Y'), ('C','G'), ('E','F'), ('W','U'), ('W','V'), ('X','K'),
-        ('S','Z'), ('X','S'), ('Q','C'), ('U','V'), ('M','N'), ('L','I'),
-        ('Q','O'), ('P','R'), ('I','J'), ('2','Z'), ('5','S'), ('8','B'),
-        ('1','I'), ('1','L'), ('0','O'), ('0','Q'), ('C','K'), ('G','J')
+        ('A', 'E'), ('A', 'I'), ('A', 'O'), ('A', 'U'), ('B', 'V'), ('E', 'I'),
+        ('E', 'O'), ('E', 'U'), ('I', 'O'), ('I', 'U'), ('O', 'U'), ('I', 'Y'),
+        ('E', 'Y'), ('C', 'G'), ('E', 'F'), ('W', 'U'), ('W', 'V'), ('X', 'K'),
+        ('S', 'Z'), ('X', 'S'), ('Q', 'C'), ('U', 'V'), ('M', 'N'), ('L', 'I'),
+        ('Q', 'O'), ('P', 'R'), ('I', 'J'), ('2', 'Z'), ('5', 'S'), ('8', 'B'),
+        ('1', 'I'), ('1', 'L'), ('0', 'O'), ('0', 'Q'), ('C', 'K'), ('G', 'J')
     )
 
     # Initialize the adjwt array on the first call to the function only.
@@ -377,9 +377,9 @@ def strcmp95(s, t, long_strings=False):
     # may be errors due to known phonetic or character recognition errors.
     # A typical example is to match the letter "O" with the number "0"
     for i in sp:
-        x,y = i
-        adjwt[(x,y)]=3
-        adjwt[(y,x)]=3
+        x, y = i
+        adjwt[(x, y)]=3
+        adjwt[(y, x)]=3
 
     if len(ying) > len(yang):
         search_range = len(ying)
@@ -431,8 +431,8 @@ def strcmp95(s, t, long_strings=False):
             if ying_flag[i] == 0 and _INRANGE(ying[i]):
                 for j in _range(len(yang)):
                     if yang_flag[j] == 0 and _INRANGE(yang[j]):
-                        if (ying[i],yang[j]) in adjwt:
-                            N_simi += adjwt[(ying[i],yang[j])]
+                        if (ying[i], yang[j]) in adjwt:
+                            N_simi += adjwt[(ying[i], yang[j])]
                             yang_flag[j] = 2
                             break
     Num_sim = N_simi/10.0 + Num_com
@@ -596,23 +596,23 @@ def lcs(s, t):
     Modifications include:
         conversion to a numpy array in place of a list of lists
     """
-    lengths = numpy.zeros((len(s)+1,len(t)+1), dtype=numpy.int)
+    lengths = numpy.zeros((len(s)+1, len(t)+1), dtype=numpy.int)
 
     # row 0 and column 0 are initialized to 0 already
     for i, x in enumerate(s):
         for j, y in enumerate(t):
             if x == y:
-                lengths[i+1,j+1] = lengths[i,j] + 1
+                lengths[i+1, j+1] = lengths[i, j] + 1
             else:
-                lengths[i+1,j+1] = max(lengths[i+1,j], lengths[i,j+1])
+                lengths[i+1, j+1] = max(lengths[i+1, j], lengths[i, j+1])
 
     # read the substring out from the matrix
     result = ""
     x, y = len(s), len(t)
     while x != 0 and y != 0:
-        if lengths[x,y] == lengths[x-1,y]:
+        if lengths[x, y] == lengths[x-1, y]:
             x -= 1
-        elif lengths[x,y] == lengths[x,y-1]:
+        elif lengths[x, y] == lengths[x, y-1]:
             y -= 1
         else:
             assert s[x-1] == t[y-1]
@@ -652,7 +652,7 @@ def mra_compare(s, t):
     for _ in _range(2):
         new_s = []
         new_t = []
-        minlen=min(len(s),len(t))
+        minlen=min(len(s), len(t))
         for i in _range(minlen):
             if s[i] != t[i]:
                 new_s.append(s[i])
@@ -662,7 +662,7 @@ def mra_compare(s, t):
         s.reverse()
         t.reverse()
 
-    similarity = 6 - max(len(s),len(t))
+    similarity = 6 - max(len(s), len(t))
 
     if similarity >= min_rating:
         return similarity

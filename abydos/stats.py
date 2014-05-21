@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 from __future__ import division
+from ._compat import _unicode
 import math
 
 class ConfusionTable:
@@ -15,7 +16,8 @@ class ConfusionTable:
                 self.fp = tp[2]
                 self.fn = tp[3]
             else:
-                raise AttributeError('ConfusionTable requires a 4-tuple when being created from a tuple.')
+                raise AttributeError('ConfusionTable requires a 4-tuple when \
+                being created from a tuple.')
         else:
             self.tp = tp
             self.tn = tn
@@ -26,7 +28,8 @@ class ConfusionTable:
     def __str__(self):
         """Return a human-readable version of the confusion table
         """
-        return 'tp:' + str(self.tp) + ' tn:' + str(self.tn) + ' fp:' + str(self.fp) + ' fn:' + str(self.fn)
+        return ('tp:' + _unicode(self.tp) + ' tn:' + _unicode(self.tn) +
+                ' fp:' + _unicode(self.fp) + ' fn:' + _unicode(self.fn))
 
 
     def tuple(self):
@@ -183,7 +186,8 @@ class ConfusionTable:
 
 
     def pr_gmean(self):
-        """Return the geometric mean of precision & recall of the confusion table
+        """Return the geometric mean of precision & recall of the
+        confusion table
 
         The geometric mean of precision and recall is defined as:
         √(precision * recall)
@@ -250,7 +254,8 @@ class ConfusionTable:
 
         The identric mean is:
         precision if precision = recall,
-        otherwise (1/e) * (precision^precision / recall^recall)^(1 / (precision - recall))
+        otherwise (1/e) *
+                (precision^precision / recall^recall)^(1 / (precision - recall))
         """
         p = self.precision()
         r = self.recall()
@@ -344,7 +349,9 @@ class ConfusionTable:
         ((tp * tn) - (fp * fn)) /
         sqrt((tp + fp)(tp + fn)(tn + fp)(tn + fn))
         """
-        return ((self.tp * self.tn) - (self.fp * self.fn)) / math.sqrt((self.tp + self.fp) * (self.tp + self.fn) * (self.tn + self.fp) * (self.tn + self.fn))
+        return (((self.tp * self.tn) - (self.fp * self.fn)) /
+                math.sqrt((self.tp + self.fp) * (self.tp + self.fn) *
+                          (self.tn + self.fp) * (self.tn + self.fn)))
 
 
     def significance(self):
@@ -354,4 +361,7 @@ class ConfusionTable:
         (tp * tn - fp * fn)^2 (tp + tn + fp + fn) /
         ((tp + fp)(tp + fn)(tn + fp)(tn + fn))
         """
-        return ((self.tp * self.tn - self.fp * self.fn)**2 * (self.tp + self.tn + self.fp + self.fn)) / ((self.tp + self.fp) * (self.tp + self.fn) * (self.tn + self.fp) * (self.tn + self.fn))
+        return (((self.tp * self.tn - self.fp * self.fn)**2 *
+                 (self.tp + self.tn + self.fp + self.fn)) /
+                ((self.tp + self.fp) * (self.tp + self.fn) *
+                 (self.tn + self.fp) * (self.tn + self.fn)))

@@ -15,13 +15,14 @@ class qgram_test_cases(unittest.TestCase):
         self.assertEquals(qgrams('NELSON'),
                           ['#N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#'])
         self.assertEquals(qgrams('NEILSEN'),
-                          ['#N','NE', 'EI', 'IL', 'LS', 'SE', 'EN', 'N#'])
+                          ['#N', 'NE', 'EI', 'IL', 'LS', 'SE', 'EN', 'N#'])
 
     def test_qgram_lists(self):
         self.assertEquals(_qgram_lists('NELSON', ''),
                           (['#N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#'], [], []))
         self.assertEquals(_qgram_lists('', 'NEILSEN'),
-                          ([], ['#N', 'NE', 'EI', 'IL', 'LS', 'SE', 'EN', 'N#'], []))
+                          ([], ['#N', 'NE', 'EI', 'IL', 'LS',
+                                'SE', 'EN', 'N#'], []))
         self.assertEquals(_qgram_lists('NELSON', 'NEILSEN'),
                           (['#N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#'],
                            ['#N', 'NE', 'EI', 'IL', 'LS', 'SE', 'EN', 'N#'],
