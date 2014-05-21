@@ -56,13 +56,13 @@ def russell_index(word):
     word = word.rstrip('SZ') # discard /[sz]$/ (rule 3)
 
     # translate according to Russell's mapping
-    word = ''.join(filter(lambda c: c in 'ABCDEFGIKLMNOPQRSTUVXYZ', word))
+    word = ''.join([c for c in word if c in list('ABCDEFGIKLMNOPQRSTUVXYZ')])
     sdx = word.translate(_russell_translation_table)
 
     # remove any 1s after the first occurrence
     one = sdx.find('1')+1
     if one:
-        sdx = sdx[:one] + ''.join(filter(lambda c: c != '1', sdx[one:]))
+        sdx = sdx[:one] + ''.join([c for c in sdx[one:] if  c != '1'])
 
     # remove repeating characters
     sdx = _delete_consecutive_repeats(sdx)
@@ -84,7 +84,7 @@ def russell_index_num_to_alpha(num):
     This follows Robert C. Russell's Index algorithm, as described in
     US Patent 1,261,167 (1917)
     """
-    num = ''.join(filter(lambda c: c in '12345678', _unicode(num)))
+    num = ''.join([c for c in _unicode(num) if c in list('12345678')])
     if num:
         return num.translate(_russell_num_translation_table)
 
@@ -132,7 +132,7 @@ def soundex(word, maxlength=4, var='American', reverse=False):
 
     # uppercase, normalize, decompose, and filter non-A-Z
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
-    word = ''.join(filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word))
+    word = ''.join([c for c in word if c in list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
     # Nothing to convert, return base case
     if not word:
@@ -242,7 +242,7 @@ def dm_soundex(word, maxlength=6, reverse=False):
 
     # uppercase, normalize, decompose, and filter non-A-Z
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
-    word = ''.join(filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word))
+    word = ''.join([c for c in word if c in list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
     # Nothing to convert, return base case
     if not word:
@@ -280,7 +280,7 @@ def dm_soundex(word, maxlength=6, reverse=False):
                 break
 
     # Filter out double letters and _ placeholders
-    dm = [''.join(filter(lambda c: c != '_', _delete_consecutive_repeats(_)))
+    dm = [''.join([c for c in _delete_consecutive_repeats(_) if c != '_'])
           for _ in dm]
 
     # Trim codes and return set
@@ -318,7 +318,7 @@ def koelner_phonetik(word):
     word = word.replace('Ä', 'AE')
     word = word.replace('Ö', 'OE')
     word = word.replace('Ü', 'UE')
-    word = ''.join(filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word))
+    word = ''.join([c for c in word if c in list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
     # Nothing to convert, return base case
     if not word:
@@ -383,7 +383,7 @@ def koelner_phonetik_num_to_alpha(num):
     """Given the numeric form of a Kölner Phonetik value, returns an
     alphabetic form
     """
-    num = ''.join(filter(lambda c: c in '012345678', _unicode(num)))
+    num = ''.join([c for c in _unicode(num) if c in list('012345678')])
     return num.translate(_koelner_num_translation_table)
 
 
@@ -411,7 +411,7 @@ def nysiis(word, maxlength=6):
 
     _vowels = list('AEIOU')
 
-    word = ''.join(filter(lambda i: i.isalpha(), word.upper()))
+    word = ''.join([c for c in word.upper() if c.isalpha()])
 
     if word.startswith('MAC'):
         word = 'MCC'+word[3:]
@@ -491,9 +491,9 @@ def mra(word):
     https://archive.org/details/accessingindivid00moor
     """
     word = word.upper()
-    word = word[0]+''.join(filter(lambda c: c not in list('AEIOU'), word[1:]))
+    word = word[0]+''.join([c for c in word[1:] if c not in list('AEIOU')])
     word = _delete_consecutive_repeats(word)
-    if len(word)>6:
+    if len(word) > 6:
         word = word[:3]+word[-3:]
     return word
 
@@ -522,7 +522,7 @@ def metaphone(word, maxlength=float('inf')):
     maxlength = max(4, maxlength)
 
     # As in variable sound--those modified by adding an "h"
-    ename = ''.join(filter(lambda i: i.isalnum(), word.upper()))
+    ename = ''.join([c for c in word.upper() if c.isalnum()])
 
     # Delete nonalphanumeric characters and make all caps
     if ename == '':
@@ -712,7 +712,7 @@ def double_metaphone(word, maxlength=float('inf')):
         return ''
     last = length - 1
 
-    word = ''.join(filter(lambda i: True, word.upper()))
+    word = word.upper()
 
     # Pad the original string so that we can index beyond the edge of the world
     word += '     '
@@ -735,7 +735,7 @@ def double_metaphone(word, maxlength=float('inf')):
             if current == 0:
                 # All init vowels now map to 'A'
                 (primary, secondary) = _metaph_add('A')
-            current +=1
+            current += 1
             continue
 
         elif _get_at(current) == 'B':
@@ -760,26 +760,26 @@ def double_metaphone(word, maxlength=float('inf')):
                  ((_get_at(current + 2) != 'E') or
                   _string_at((current - 2), 6, ["BACHER", "MACHER"])))):
                 (primary, secondary) = _metaph_add("K")
-                current +=2
+                current += 2
                 continue
 
             # Special case 'caesar'
             elif current == 0 and _string_at(current, 6, ["CAESAR"]):
                 (primary, secondary) = _metaph_add("S")
-                current +=2
+                current += 2
                 continue
 
             # Italian 'chianti'
             elif _string_at(current, 4, ["CHIA"]):
                 (primary, secondary) = _metaph_add("K")
-                current +=2
+                current += 2
                 continue
 
             elif _string_at(current, 2, ["CH"]):
                 # Find 'Michael'
                 if  current > 0 and _string_at(current, 4, ["CHAE"]):
                     (primary, secondary) = _metaph_add("K", "X")
-                    current +=2
+                    current += 2
                     continue
 
                 # Greek roots e.g. 'chemistry', 'chorus'
@@ -789,7 +789,7 @@ def double_metaphone(word, maxlength=float('inf')):
                                                      "HIA", "HEM"]))
                       and not _string_at(0, 5, ["CHORE"])):
                     (primary, secondary) = _metaph_add("K")
-                    current +=2
+                    current += 2
                     continue
 
                 # Germanic, Greek, or otherwise 'ch' for 'kh' sound
@@ -817,7 +817,7 @@ def double_metaphone(word, maxlength=float('inf')):
                     else:
                         (primary, secondary) = _metaph_add("X")
 
-                current +=2
+                current += 2
                 continue
 
             # e.g, 'czerny'
@@ -986,7 +986,7 @@ def double_metaphone(word, maxlength=float('inf')):
                    (_get_at(current + 1) == 'Y'))
                   and not _string_at(0, 6, ["DANGER", "RANGER", "MANGER"])
                   and not _string_at((current - 1), 1, ["E", "I"])
-                  and not _string_at((current - 1), 3, ["RGY", "OGY"]) ):
+                  and not _string_at((current - 1), 3, ["RGY", "OGY"])):
                 (primary, secondary) = _metaph_add("K", "J")
                 current += 2
                 continue
@@ -1028,7 +1028,7 @@ def double_metaphone(word, maxlength=float('inf')):
             # obvious spanish, 'jose', 'san jacinto'
             if _string_at(current, 4, ["JOSE"]) or _string_at(0, 4, ["SAN "]):
                 if (((current == 0) and (_get_at(current + 4) == ' ')) or
-                    _string_at(0, 4, ["SAN "]) ):
+                    _string_at(0, 4, ["SAN "])):
                     (primary, secondary) = _metaph_add("H")
                 else:
                     (primary, secondary) = _metaph_add("J", "H")
@@ -1087,7 +1087,7 @@ def double_metaphone(word, maxlength=float('inf')):
                 and (((current + 1) == last) or
                      _string_at((current + 2), 2, ["ER"])))
                # 'dumb', 'thumb'
-               or  (_get_at(current + 1) == 'M') ):
+               or  (_get_at(current + 1) == 'M')):
                 current += 2
             else:
                 current += 1
@@ -1307,7 +1307,7 @@ def double_metaphone(word, maxlength=float('inf')):
                 continue
             # else skip it
             else:
-                current +=1
+                current += 1
                 continue
 
         elif _get_at(current) == 'X':
@@ -1371,10 +1371,10 @@ def caverphone(word, version=2):
     _vowels = list('aeiou')
 
     word = word.lower()
-    word = ''.join(filter(lambda c: c in 'abcdefghijklmnopqrstuvwxyz', word))
+    word = ''.join([c for c in word if c in list('abcdefghijklmnopqrstuvwxyz')])
 
     # the main replacemet algorithm
-    if version!=1 and word.endswith('e'):
+    if version != 1 and word.endswith('e'):
         word = word[:-1]
     if word:
         if word.startswith('cough'):
@@ -1385,7 +1385,7 @@ def caverphone(word, version=2):
             word = 'tou2f'+word[5:]
         if word.startswith('enough'):
             word = 'enou2f'+word[6:]
-        if version!=1 and word.startswith('trough'):
+        if version != 1 and word.startswith('trough'):
             word = 'trou2f'+word[6:]
         if word.startswith('gn'):
             word = '2n'+word[2:]
@@ -1415,7 +1415,7 @@ def caverphone(word, version=2):
         word = word.replace('i', '3')
         word = word.replace('o', '3')
         word = word.replace('u', '3')
-        if version!=1:
+        if version != 1:
             word = word.replace('j', 'y')
             if word.startswith('y3'):
                 word = 'Y3'+word[2:]
@@ -1433,35 +1433,35 @@ def caverphone(word, version=2):
         word = re.sub(r'm+', r'M', word)
         word = re.sub(r'n+', r'N', word)
         word = word.replace('w3', 'W3')
-        if version==1:
+        if version == 1:
             word = word.replace('wy', 'Wy')
         word = word.replace('wh3', 'Wh3')
-        if version==1:
+        if version == 1:
             word = word.replace('why', 'Why')
-        if version!=1 and word.endswith('w'):
+        if version != 1 and word.endswith('w'):
             word = word[:-1]+'3'
         word = word.replace('w', '2')
         if word.startswith('h'):
             word = 'A'+word[1:]
         word = word.replace('h', '2')
         word = word.replace('r3', 'R3')
-        if version==1:
+        if version == 1:
             word = word.replace('ry', 'Ry')
-        if version!=1 and word.endswith('r'):
+        if version != 1 and word.endswith('r'):
             word = word[:-1]+'3'
         word = word.replace('r', '2')
         word = word.replace('l3', 'L3')
-        if version==1:
+        if version == 1:
             word = word.replace('ly', 'Ly')
-        if version!=1 and word.endswith('l'):
+        if version != 1 and word.endswith('l'):
             word = word[:-1]+'3'
         word = word.replace('l', '2')
-        if version==1:
+        if version == 1:
             word = word.replace('j', 'y')
             word = word.replace('y3', 'Y3')
             word = word.replace('y', '2')
         word = word.replace('2', '')
-        if version!=1 and word.endswith('3'):
+        if version != 1 and word.endswith('3'):
             word = word[:-1]+'A'
         word = word.replace('3', '')
 
@@ -1513,7 +1513,7 @@ def alpha_sis(word, maxlength=14):
     alpha = ['']
     pos = 0
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
-    word = ''.join(filter(lambda c: c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', word))
+    word = ''.join([c for c in word if c in list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
     # Do special processing for initial substrings
     for k in _alpha_sis_initials_order:

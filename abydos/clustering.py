@@ -40,7 +40,7 @@ def fingerprint(phrase):
     words in a string, alphabetized & concatenated with intervening spaces
     """
     phrase = unicodedata.normalize('NFKD', _unicode(phrase.strip().lower()))
-    phrase = ''.join(filter(lambda c: (c.isalnum() or c.isspace()), phrase))
+    phrase = ''.join([c for c in phrase if c.isalnum() or c.isspace()])
     phrase = ' '.join(sorted(list(set(phrase.split()))))
     return phrase
 
@@ -58,7 +58,7 @@ def qgram_fingerprint(phrase, q=2, start_stop=''):
     in a string, alphabetized & concatenated.
     """
     phrase = unicodedata.normalize('NFKD', _unicode(phrase.strip().lower()))
-    phrase = ''.join(filter(lambda c: c.isalnum(), phrase))
+    phrase = ''.join([c for c in phrase if c.isalnum()])
     phrase = qgrams(phrase, q, start_stop)
     phrase = ''.join(sorted(list(set(phrase))))
     return phrase

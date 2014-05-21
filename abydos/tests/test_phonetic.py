@@ -91,7 +91,7 @@ class soundex_test_cases(unittest.TestCase):
         self.assertNotEquals(soundex('Rogers'), soundex('Rodgers'))
         self.assertNotEquals(soundex('Sinclair'), soundex('St. Clair'))
         self.assertNotEquals(soundex('Tchebysheff'), soundex('Chebyshev'))
-        
+
         # http://creativyst.com/Doc/Articles/SoundEx1/SoundEx1.htm#Related
         self.assertEquals(soundex('Htacky'), 'H320')
         self.assertEquals(soundex('Atacky'), 'A320')
@@ -100,7 +100,7 @@ class soundex_test_cases(unittest.TestCase):
         self.assertEquals(soundex('Pfister'), 'P236')
         self.assertEquals(soundex('Ashcroft'), 'A261')
         self.assertEquals(soundex('Asicroft'), 'A226')
-        
+
         # https://en.wikipedia.org/wiki/Soundex
         self.assertEquals(soundex('Robert'), 'R163')
         self.assertEquals(soundex('Rupert'), 'R163')
@@ -1007,7 +1007,8 @@ class koelner_phonetik_test_cases(unittest.TestCase):
                           'APTFKLNRS')
 
     def test_koelner_phonetik_alpha(self):
-        self.assertEquals(koelner_phonetik_alpha('Müller-Lüdenscheidt'), 'NLRLTNST')
+        self.assertEquals(koelner_phonetik_alpha('Müller-Lüdenscheidt'),
+                          'NLRLTNST')
         self.assertEquals(koelner_phonetik_alpha('Wikipedia'), 'FKPT')
         self.assertEquals(koelner_phonetik_alpha('Breschnew'), 'PRSNF')
         self.assertEquals(koelner_phonetik_alpha('Müller'), 'NLR')
@@ -1934,7 +1935,8 @@ class double_metaphone_test_cases(unittest.TestCase):
 
     def test_double_metaphone_homophones(self):
         self.assertEqual(double_metaphone(u"tolled"), double_metaphone(u"told"))
-        self.assertEqual(double_metaphone(u"katherine"), double_metaphone(u"catherine"))
+        self.assertEqual(double_metaphone(u"katherine"),
+                         double_metaphone(u"catherine"))
         self.assertEqual(double_metaphone(u"brian"), double_metaphone(u"bryan"))
 
     def test_double_metaphone_similar_names(self):
@@ -1942,8 +1944,12 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone(u"Bartosz"), ('PRTS', 'PRTX'))
         self.assertEquals(double_metaphone(u"Bartosch"), ('PRTX', ''))
         self.assertEquals(double_metaphone(u"Bartos"), ('PRTS', ''))
-        self.assertEquals(list(set(double_metaphone(u"Jablonski")).intersection(double_metaphone(u"Yablonsky"))), ['APLNSK'])
-        self.assertEquals(list(set(double_metaphone(u"Smith")).intersection(double_metaphone(u"Schmidt"))), ['XMT'])
+        self.assertEquals(list(set(double_metaphone(u"Jablonski"))\
+                               .intersection(double_metaphone(u"Yablonsky"))),\
+                          ['APLNSK'])
+        self.assertEquals(list(set(double_metaphone(u"Smith"))\
+                               .intersection(double_metaphone(u"Schmidt"))),\
+                          ['XMT'])
 
     def test_double_metaphone_non_english_unicode(self):
         self.assertEquals(double_metaphone("andestādītu"), ('ANTSTTT', ''))
@@ -1987,7 +1993,8 @@ class double_metaphone_test_cases(unittest.TestCase):
     def test_double_metaphone_dutch_origin(self):
         self.assertEquals(double_metaphone("school"), ("SKL", ""))
         self.assertEquals(double_metaphone("schooner"), ("SKNR", ""))
-        self.assertEquals(double_metaphone("schermerhorn"), ("XRMRRN", "SKRMRRN"))
+        self.assertEquals(double_metaphone("schermerhorn"),
+                          ("XRMRRN", "SKRMRRN"))
         self.assertEquals(double_metaphone("schenker"), ("XNKR", "SKNKR"))
 
     def test_double_metaphone_ch_words(self):
@@ -2207,7 +2214,8 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('Cheney'), ('XN', ''))
         self.assertEquals(double_metaphone('Chetwynd'), ('XTNT', ''))
         self.assertEquals(double_metaphone('Chevalier'), ('XFL', 'XFLR'))
-        self.assertEquals(double_metaphone('Chillingsworth'), ('XLNKSR0', 'XLNKSRT'))
+        self.assertEquals(double_metaphone('Chillingsworth'),
+                          ('XLNKSR0', 'XLNKSRT'))
         self.assertEquals(double_metaphone('Christie'), ('KRST', ''))
         self.assertEquals(double_metaphone('Chubbuck'), ('XPK', ''))
         self.assertEquals(double_metaphone('Church'), ('XRX', 'XRK'))
@@ -2480,7 +2488,8 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('Hume'), ('HM', ''))
         self.assertEquals(double_metaphone('Hundertumark'), ('HNTRTMRK', ''))
         self.assertEquals(double_metaphone('Hundley'), ('HNTL', ''))
-        self.assertEquals(double_metaphone('Hungerford'), ('HNKRFRT', 'HNJRFRT'))
+        self.assertEquals(double_metaphone('Hungerford'),
+                          ('HNKRFRT', 'HNJRFRT'))
         self.assertEquals(double_metaphone('Hunt'), ('HNT', ''))
         self.assertEquals(double_metaphone('Hurst'), ('HRST', ''))
         self.assertEquals(double_metaphone('Husbands'), ('HSPNTS', ''))
@@ -2716,7 +2725,8 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('Pitman'), ('PTMN', ''))
         self.assertEquals(double_metaphone('Pitt'), ('PT', ''))
         self.assertEquals(double_metaphone('Pitts'), ('PTS', ''))
-        self.assertEquals(double_metaphone('Plantagenet'), ('PLNTJNT', 'PLNTKNT'))
+        self.assertEquals(double_metaphone('Plantagenet'),
+                          ('PLNTJNT', 'PLNTKNT'))
         self.assertEquals(double_metaphone('Platt'), ('PLT', ''))
         self.assertEquals(double_metaphone('Platts'), ('PLTS', ''))
         self.assertEquals(double_metaphone('Pleis'), ('PLS', ''))
@@ -2844,7 +2854,8 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('Star'), ('STR', ''))
         self.assertEquals(double_metaphone('Starbuck'), ('STRPK', ''))
         self.assertEquals(double_metaphone('Starkey'), ('STRK', ''))
-        self.assertEquals(double_metaphone('Starkweather'), ('STRK0R', 'STRKTR'))
+        self.assertEquals(double_metaphone('Starkweather'),
+                          ('STRK0R', 'STRKTR'))
         self.assertEquals(double_metaphone('Stearns'), ('STRNS', ''))
         self.assertEquals(double_metaphone('Stebbins'), ('STPNS', ''))
         self.assertEquals(double_metaphone('Steele'), ('STL', ''))
@@ -2885,9 +2896,11 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('Thomas'), ('TMS', ''))
         self.assertEquals(double_metaphone('Thompson'), ('TMPSN', ''))
         self.assertEquals(double_metaphone('Thorne'), ('0RN', 'TRN'))
-        self.assertEquals(double_metaphone('Thornycraft'), ('0RNKRFT', 'TRNKRFT'))
+        self.assertEquals(double_metaphone('Thornycraft'),
+                          ('0RNKRFT', 'TRNKRFT'))
         self.assertEquals(double_metaphone('Threlkeld'), ('0RLKLT', 'TRLKLT'))
-        self.assertEquals(double_metaphone('Throckmorton'), ('0RKMRTN', 'TRKMRTN'))
+        self.assertEquals(double_metaphone('Throckmorton'),
+                          ('0RKMRTN', 'TRKMRTN'))
         self.assertEquals(double_metaphone('Thwaits'), ('0TS', 'TTS'))
         self.assertEquals(double_metaphone('Tibbetts'), ('TPTS', ''))
         self.assertEquals(double_metaphone('Tidd'), ('TT', ''))
@@ -2934,7 +2947,8 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('Walker'), ('ALKR', 'FLKR'))
         self.assertEquals(double_metaphone('Walter'), ('ALTR', 'FLTR'))
         self.assertEquals(double_metaphone('Wandell'), ('ANTL', 'FNTL'))
-        self.assertEquals(double_metaphone('Wandesford'), ('ANTSFRT', 'FNTSFRT'))
+        self.assertEquals(double_metaphone('Wandesford'),
+                          ('ANTSFRT', 'FNTSFRT'))
         self.assertEquals(double_metaphone('Warbleton'), ('ARPLTN', 'FRPLTN'))
         self.assertEquals(double_metaphone('Ward'), ('ART', 'FRT'))
         self.assertEquals(double_metaphone('Warde'), ('ART', 'FRT'))
@@ -2945,7 +2959,8 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('Washburne'), ('AXPRN', 'FXPRN'))
         self.assertEquals(double_metaphone('Waterbury'), ('ATRPR', 'FTRPR'))
         self.assertEquals(double_metaphone('Watson'), ('ATSN', 'FTSN'))
-        self.assertEquals(double_metaphone('WatsonEllithorpe'), ('ATSNL0RP', 'FTSNLTRP'))
+        self.assertEquals(double_metaphone('WatsonEllithorpe'),
+                          ('ATSNL0RP', 'FTSNLTRP'))
         self.assertEquals(double_metaphone('Watts'), ('ATS', 'FTS'))
         self.assertEquals(double_metaphone('Wayne'), ('AN', 'FN'))
         self.assertEquals(double_metaphone('Webb'), ('AP', 'FP'))
@@ -3011,8 +3026,10 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('de Braose'), ('TPRS', ''))
         self.assertEquals(double_metaphone('de Briwere'), ('TPRR', ''))
         self.assertEquals(double_metaphone('de Cantelou'), ('TKNTL', ''))
-        self.assertEquals(double_metaphone('de Cherelton'), ('TXRLTN', 'TKRLTN'))
-        self.assertEquals(double_metaphone('de Cherleton'), ('TXRLTN', 'TKRLTN'))
+        self.assertEquals(double_metaphone('de Cherelton'),
+                          ('TXRLTN', 'TKRLTN'))
+        self.assertEquals(double_metaphone('de Cherleton'),
+                          ('TXRLTN', 'TKRLTN'))
         self.assertEquals(double_metaphone('de Clare'), ('TKLR', ''))
         self.assertEquals(double_metaphone('de Claremont'), ('TKLRMNT', ''))
         self.assertEquals(double_metaphone('de Clifford'), ('TKLFRT', ''))
@@ -3042,7 +3059,8 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('de Mortimer'), ('TMRTMR', ''))
         self.assertEquals(double_metaphone('de Morville'), ('TMRFL', ''))
         self.assertEquals(double_metaphone('de Morvois'), ('TMRF', 'TMRFS'))
-        self.assertEquals(double_metaphone('de Neufmarche'), ('TNFMRX', 'TNFMRK'))
+        self.assertEquals(double_metaphone('de Neufmarche'),
+                          ('TNFMRX', 'TNFMRK'))
         self.assertEquals(double_metaphone('de Odingsells'), ('TTNKSLS', ''))
         self.assertEquals(double_metaphone('de Odyngsells'), ('TTNKSLS', ''))
         self.assertEquals(double_metaphone('de Percy'), ('TPRS', ''))
@@ -3065,7 +3083,8 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('de Valognes'), ('TFLNS', 'TFLKNS'))
         self.assertEquals(double_metaphone('de Vaux'), ('TF', ''))
         self.assertEquals(double_metaphone('de Vere'), ('TFR', ''))
-        self.assertEquals(double_metaphone('de Vermandois'), ('TFRMNT', 'TFRMNTS'))
+        self.assertEquals(double_metaphone('de Vermandois'),
+                          ('TFRMNT', 'TFRMNTS'))
         self.assertEquals(double_metaphone('de Vernon'), ('TFRNN', ''))
         self.assertEquals(double_metaphone('de Vexin'), ('TFKSN', ''))
         self.assertEquals(double_metaphone('de Vitre'), ('TFTR', ''))
@@ -3074,14 +3093,16 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('de Westbury'), ('TSTPR', ''))
         self.assertEquals(double_metaphone('di Saluzzo'), ('TSLS', 'TSLTS'))
         self.assertEquals(double_metaphone('fitz Alan'), ('FTSLN', ''))
-        self.assertEquals(double_metaphone('fitz Geoffrey'), ('FTSJFR', 'FTSKFR'))
+        self.assertEquals(double_metaphone('fitz Geoffrey'),
+                          ('FTSJFR', 'FTSKFR'))
         self.assertEquals(double_metaphone('fitz Herbert'), ('FTSRPRT', ''))
         self.assertEquals(double_metaphone('fitz John'), ('FTSJN', ''))
         self.assertEquals(double_metaphone('fitz Patrick'), ('FTSPTRK', ''))
         self.assertEquals(double_metaphone('fitz Payn'), ('FTSPN', ''))
         self.assertEquals(double_metaphone('fitz Piers'), ('FTSPRS', ''))
         self.assertEquals(double_metaphone('fitz Randolph'), ('FTSRNTLF', ''))
-        self.assertEquals(double_metaphone('fitz Richard'), ('FTSRXRT', 'FTSRKRT'))
+        self.assertEquals(double_metaphone('fitz Richard'),
+                          ('FTSRXRT', 'FTSRKRT'))
         self.assertEquals(double_metaphone('fitz Robert'), ('FTSRPRT', ''))
         self.assertEquals(double_metaphone('fitz Roy'), ('FTSR', ''))
         self.assertEquals(double_metaphone('fitz Scrob'), ('FTSSKP', ''))
@@ -3135,7 +3156,8 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('of Poitou'), ('AFPT', ''))
         self.assertEquals(double_metaphone('of Polotzk'), ('AFPLTSK', ''))
         self.assertEquals(double_metaphone('of Provence'), ('AFPRFNS', ''))
-        self.assertEquals(double_metaphone('of Ringelheim'), ('AFRNJLM', 'AFRNKLM'))
+        self.assertEquals(double_metaphone('of Ringelheim'),
+                          ('AFRNJLM', 'AFRNKLM'))
         self.assertEquals(double_metaphone('of Salisbury'), ('AFSLSPR', ''))
         self.assertEquals(double_metaphone('of Saxony'), ('AFSKSN', ''))
         self.assertEquals(double_metaphone('of Scotland'), ('AFSKTLNT', ''))
@@ -3143,7 +3165,8 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('of Stafford'), ('AFSTFRT', ''))
         self.assertEquals(double_metaphone('of Swabia'), ('AFSP', ''))
         self.assertEquals(double_metaphone('of Tongres'), ('AFTNKRS', ''))
-        self.assertEquals(double_metaphone('of the Tributes'), ('AF0TRPTS', 'AFTTRPTS'))
+        self.assertEquals(double_metaphone('of the Tributes'),
+                          ('AF0TRPTS', 'AFTTRPTS'))
         self.assertEquals(double_metaphone('unknown'), ('ANKNN', ''))
         self.assertEquals(double_metaphone('van der Gouda'), ('FNTRKT', ''))
         self.assertEquals(double_metaphone('von Adenbaugh'), ('FNTNP', ''))
@@ -3234,7 +3257,8 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('rough'), ('RF', ''))
         self.assertEquals(double_metaphone('san jacinto'), ('SNHSNT', ''))
         self.assertEquals(double_metaphone('schenker'), ('XNKR', 'SKNKR'))
-        self.assertEquals(double_metaphone('schermerhorn'), ('XRMRRN', 'SKRMRRN'))
+        self.assertEquals(double_metaphone('schermerhorn'),
+                          ('XRMRRN', 'SKRMRRN'))
         self.assertEquals(double_metaphone('schmidt'), ('XMT', 'SMT'))
         self.assertEquals(double_metaphone('schneider'), ('XNTR', 'SNTR'))
         self.assertEquals(double_metaphone('school'), ('SKL', ''))
@@ -3457,7 +3481,8 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('Cook', 4), ('KK', ''))
         self.assertEquals(double_metaphone('Cooke', 4), ('KK', ''))
         self.assertEquals(double_metaphone('Cooper', 4), ('KPR', ''))
-        self.assertEquals(double_metaphone('Copperthwaite', 4), ('KPR0', 'KPRT'))
+        self.assertEquals(double_metaphone('Copperthwaite', 4),
+                          ('KPR0', 'KPRT'))
         self.assertEquals(double_metaphone('Corbet', 4), ('KRPT', ''))
         self.assertEquals(double_metaphone('Corell', 4), ('KRL', ''))
         self.assertEquals(double_metaphone('Corey', 4), ('KR', ''))
@@ -3468,7 +3493,8 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('Cosgrove', 4), ('KSKR', ''))
         self.assertEquals(double_metaphone('Count of Brionne', 4), ('KNTF', ''))
         self.assertEquals(double_metaphone('Covill', 4), ('KFL', ''))
-        self.assertEquals(double_metaphone('Cowperthwaite', 4), ('KPR0', 'KPRT'))
+        self.assertEquals(double_metaphone('Cowperthwaite', 4),
+                          ('KPR0', 'KPRT'))
         self.assertEquals(double_metaphone('Cowperwaite', 4), ('KPRT', ''))
         self.assertEquals(double_metaphone('Crane', 4), ('KRN', ''))
         self.assertEquals(double_metaphone('Creagmile', 4), ('KRKM', ''))
@@ -4165,7 +4191,8 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('Washburne', 4), ('AXPR', 'FXPR'))
         self.assertEquals(double_metaphone('Waterbury', 4), ('ATRP', 'FTRP'))
         self.assertEquals(double_metaphone('Watson', 4), ('ATSN', 'FTSN'))
-        self.assertEquals(double_metaphone('WatsonEllithorpe', 4), ('ATSN', 'FTSN'))
+        self.assertEquals(double_metaphone('WatsonEllithorpe', 4),
+                          ('ATSN', 'FTSN'))
         self.assertEquals(double_metaphone('Watts', 4), ('ATS', 'FTS'))
         self.assertEquals(double_metaphone('Wayne', 4), ('AN', 'FN'))
         self.assertEquals(double_metaphone('Webb', 4), ('AP', 'FP'))
@@ -4248,7 +4275,8 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('de Hastings', 4), ('TSTN', ''))
         self.assertEquals(double_metaphone('de Hoke', 4), ('TK', ''))
         self.assertEquals(double_metaphone('de Hooch', 4), ('TK', ''))
-        self.assertEquals(double_metaphone('de Hugelville', 4), ('TJLF', 'TKLF'))
+        self.assertEquals(double_metaphone('de Hugelville', 4),
+                          ('TJLF', 'TKLF'))
         self.assertEquals(double_metaphone('de Huntingdon', 4), ('TNTN', ''))
         self.assertEquals(double_metaphone('de Insula', 4), ('TNSL', ''))
         self.assertEquals(double_metaphone('de Keynes', 4), ('TKNS', ''))
@@ -4294,7 +4322,8 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('de Westbury', 4), ('TSTP', ''))
         self.assertEquals(double_metaphone('di Saluzzo', 4), ('TSLS', 'TSLT'))
         self.assertEquals(double_metaphone('fitz Alan', 4), ('FTSL', ''))
-        self.assertEquals(double_metaphone('fitz Geoffrey', 4), ('FTSJ', 'FTSK'))
+        self.assertEquals(double_metaphone('fitz Geoffrey', 4),
+                          ('FTSJ', 'FTSK'))
         self.assertEquals(double_metaphone('fitz Herbert', 4), ('FTSR', ''))
         self.assertEquals(double_metaphone('fitz John', 4), ('FTSJ', ''))
         self.assertEquals(double_metaphone('fitz Patrick', 4), ('FTSP', ''))
@@ -4363,7 +4392,8 @@ class double_metaphone_test_cases(unittest.TestCase):
         self.assertEquals(double_metaphone('of Stafford', 4), ('AFST', ''))
         self.assertEquals(double_metaphone('of Swabia', 4), ('AFSP', ''))
         self.assertEquals(double_metaphone('of Tongres', 4), ('AFTN', ''))
-        self.assertEquals(double_metaphone('of the Tributes', 4), ('AF0T', 'AFTT'))
+        self.assertEquals(double_metaphone('of the Tributes', 4),
+                          ('AF0T', 'AFTT'))
         self.assertEquals(double_metaphone('unknown', 4), ('ANKN', ''))
         self.assertEquals(double_metaphone('van der Gouda', 4), ('FNTR', ''))
         self.assertEquals(double_metaphone('von Adenbaugh', 4), ('FNTN', ''))
@@ -6795,7 +6825,8 @@ class caverphone_test_cases(unittest.TestCase):
                 ('emlis', 'AMLS111111'), ('emmerson', 'AMSN111111'),\
                 ('emond', 'AMNT111111'), ('empey', 'AMPA111111'),\
                 ('emslie', 'AMSLA11111'), ('endicott davies', 'ANTKTFS111'),\
-                ('endicott-davies', 'ANTKTFS111'), ('endicottdavies', 'ANTKTFS111'),\
+                ('endicott-davies', 'ANTKTFS111'),\
+                ('endicottdavies', 'ANTKTFS111'),\
                 ('engelbert', 'ANKPT11111'), ('england', 'ANKLNT1111'),\
                 ('englefield', 'ANKLFT1111'), ('english', 'ANKLS11111'),\
                 ('engstrom', 'ANKSTRM111'), ('enright', 'ANRT111111'),\
@@ -7554,7 +7585,8 @@ class caverphone_test_cases(unittest.TestCase):
                 ('justin', 'YSTN111111'), ('kahlenberg', 'KLNPK11111'),\
                 ('kain', 'KN11111111'), ('kaler', 'KLA1111111'),\
                 ('kane', 'KN11111111'), ('kania', 'KNA1111111'),\
-                ('kannervischer', 'KNFSKA1111'), ('kannewischer', 'KNWSKA1111'),\
+                ('kannervischer', 'KNFSKA1111'),\
+                ('kannewischer', 'KNWSKA1111'),\
                 ('karney', 'KNA1111111'), ('kavanagh', 'KFNA111111'),\
                 ('kay', 'KA11111111'), ('kaye', 'KA11111111'),\
                 ('keach', 'KK11111111'), ('kean', 'KN11111111'),\
@@ -8399,7 +8431,8 @@ class caverphone_test_cases(unittest.TestCase):
                 ('o\'neill', 'ANA1111111'), ('o\'rawe', 'ARA1111111'),\
                 ('o\'regan', 'ARKN111111'), ('o\'reilly', 'ARLA111111'),\
                 ('o\'rogan', 'ARKN111111'), ('o\'rourke', 'ARK1111111'),\
-                ('o\'shannessy', 'ASNSA11111'), ('o\'shaughnessy', 'ASNSA11111'),\
+                ('o\'shannessy', 'ASNSA11111'),\
+                ('o\'shaughnessy', 'ASNSA11111'),\
                 ('o\'shea', 'ASA1111111'), ('o\'sullivan', 'ASLFN11111'),\
                 ('o\'toole', 'ATA1111111'), ('o1sen', 'ASN1111111'),\
                 ('oag', 'AK11111111'), ('oakden', 'AKTN111111'),\
@@ -8662,7 +8695,8 @@ class caverphone_test_cases(unittest.TestCase):
                 ('ralston', 'RSTN111111'), ('ralusay', 'RLSA111111'),\
                 ('ramage', 'RMK1111111'), ('rambaum', 'RMPM111111'),\
                 ('rampton', 'RMPTN11111'), ('ramsay', 'RMSA111111'),\
-                ('ramsbottom-isherwood', 'RMSPTMSWT1'), ('ramsden', 'RMSTN11111'),\
+                ('ramsbottom-isherwood', 'RMSPTMSWT1'),\
+                ('ramsden', 'RMSTN11111'),\
                 ('ramsey', 'RMSA111111'), ('randal', 'RNTA111111'),\
                 ('randall', 'RNTA111111'), ('randell', 'RNTA111111'),\
                 ('randle', 'RNTA111111'), ('ranger', 'RNKA111111'),\
@@ -10280,7 +10314,7 @@ class alpha_sis_test_cases(unittest.TestCase):
         self.assertEquals(alpha_sis('Collier')[0], '07540000000000')
         self.assertEquals(alpha_sis('Schultz')[0], '06500000000000')
         self.assertEquals(alpha_sis('Livingston')[0], '05827012000000')
-        
+
         # tests of repeated letters
         self.assertEquals(alpha_sis('Colllier')[0], '07554000000000')
         self.assertEquals(alpha_sis('Collllier')[0], '07554000000000')

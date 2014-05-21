@@ -41,6 +41,15 @@ from ._compat import _unicode
 import math
 
 class ConfusionTable(object):
+    """ConfusionTable object
+
+    This object is initialized by passing either four integers (or a tuple of
+    four integers) representing the squares of a confusion table:
+    true positives, true negatives, false positives, and false negatives
+
+    The object possesses methods for the caluculation of various statistics
+    based on the confusion table.
+    """
     tp, fn, fp, fn = 0, 0, 0, 0
 
     def __init__(self, tp=0, tn=0, fp=0, fn=0):
@@ -76,7 +85,8 @@ class ConfusionTable(object):
     def dict(self):
         """Return the confusion table as a dict
         """
-        return {'tp':self.tp, 'tn':self.tn, 'fp':self.fp, 'fn':self.fn}
+        return {'tp':self.tp, 'tn':self.tn,
+                'fp':self.fp, 'fn':self.fn}
 
 
     def correct_pop(self):

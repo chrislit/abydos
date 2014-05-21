@@ -603,7 +603,7 @@ def jaro_winkler(s, t, q=1, mode='winkler', long_strings=False, \
         # Adjust for having up to the first 4 characters in common
         j = 4 if (minv >= 4) else minv
         i = 0
-        while ((i<j) and (s[i]==t[i])):
+        while ((i < j) and (s[i] == t[i])):
             i += 1
         if i:
             weight += i * scaling_factor * (1.0 - weight)
@@ -688,13 +688,13 @@ def mra_compare(s, t):
     for _ in _range(2):
         new_s = []
         new_t = []
-        minlen=min(len(s), len(t))
+        minlen = min(len(s), len(t))
         for i in _range(minlen):
             if s[i] != t[i]:
                 new_s.append(s[i])
                 new_t.append(t[i])
-        s=new_s+s[minlen:]
-        t=new_t+t[minlen:]
+        s = new_s+s[minlen:]
+        t = new_t+t[minlen:]
         s.reverse()
         t.reverse()
 
