@@ -712,6 +712,41 @@ def lcs(src, tar):
     return result
 
 
+def lcsr(src, tar):
+    """Returns the longest common substring ratio (LCSR) of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+
+    Description:
+    This employs the LCS function to derive a similarity metric:
+    LCSR(s,t) = |LCS(s,t)| / max(|s|, |t|)
+    """
+    if src == tar:
+        return 1.0
+    elif len(src) == 0 or len(tar) == 0:
+        return 0.0
+    return len(lcs(src, tar)) / max(len(src), len(tar))
+
+
+def lcsd(src, tar):
+    """Returns the longest common substring distance ratio (LCSD) of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+
+    Description:
+    This employs the LCS function to derive a similarity metric:
+    LCSD(s,t) = 1 - LCSR(s,t)
+    """
+    if src == tar:
+        return 0.0
+    elif len(src) == 0 or len(tar) == 0:
+        return 1.0
+    maxlen = max(len(src), len(tar))
+    return (maxlen - len(lcs(src, tar))) / max(len(src), len(tar))
+
+
 def mra_compare(src, tar):
     """Return the Western Airlines Surname Match Rating Algorithm comparison
     rating between to strings

@@ -26,7 +26,7 @@ import unittest
 from abydos.distance import levenshtein, levenshtein_normalized, hamming, \
     hamming_normalized, tversky_index, sorensen_coeff, sorensen, \
     jaccard_coeff, jaccard, tanimoto_coeff, tanimoto, cosine_similarity, \
-    strcmp95, jaro_winkler, lcs, mra_compare
+    strcmp95, jaro_winkler, lcs, lcsr, lcsd, mra_compare
 import math
 
 
@@ -359,6 +359,78 @@ class LcsTestCases(unittest.TestCase):
         self.assertEquals(lcs('aaa', 'aa'), 'aa')
         self.assertEquals(lcs('cc', 'bbbbcccccc'), 'cc')
         self.assertEquals(lcs('ccc', 'bcbb'), 'c')
+
+    def test_lcsr(self):
+        """test abydos.distance.lcsr
+        """
+        self.assertEquals(lcsr('', ''), 1)
+        self.assertEquals(lcsr('A', ''), 0)
+        self.assertEquals(lcsr('', 'A'), 0)
+        self.assertEquals(lcsr('A', 'A'), 1)
+        self.assertEquals(lcsr('ABCD', ''), 0)
+        self.assertEquals(lcsr('', 'ABCD'), 0)
+        self.assertEquals(lcsr('ABCD', 'ABCD'), 1)
+        self.assertEquals(lcsr('ABCD', 'BC'), 2/4)
+        self.assertEquals(lcsr('ABCD', 'AD'), 2/4)
+        self.assertEquals(lcsr('ABCD', 'AC'), 2/4)
+        self.assertEquals(lcsr('AB', 'CD'), 0)
+        self.assertEquals(lcsr('ABC', 'BCD'), 2/3)
+
+        self.assertEquals(lcsr('DIXON', 'DICKSONX'), 4/8)
+
+        # https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
+        self.assertEquals(lcsr('AGCAT', 'GAC'), 2/5)
+        self.assertEquals(lcsr('XMJYAUZ', 'MZJAWXU'), 4/7)
+
+        # https://github.com/jwmerrill/factor/blob/master/basis/lcs/lcs-tests.factor
+        self.assertEquals(lcsr('hell', 'hello'), 4/5)
+        self.assertEquals(lcsr('hello', 'hell'), 4/5)
+        self.assertEquals(lcsr('ell', 'hell'), 3/4)
+        self.assertEquals(lcsr('hell', 'ell'), 3/4)
+        self.assertEquals(lcsr('faxbcd', 'abdef'), 3/6)
+
+        # http://www.unesco.org/culture/languages-atlas/assets/_core/php/qcubed_unit_tests.php
+        self.assertEquals(lcsr('hello world', 'world war 2'), 5/11)
+        self.assertEquals(lcsr('foo bar', 'bar foo'), 3/7)
+        self.assertEquals(lcsr('aaa', 'aa'), 2/3)
+        self.assertEquals(lcsr('cc', 'bbbbcccccc'), 2/10)
+        self.assertEquals(lcsr('ccc', 'bcbb'), 1/4)
+
+    def test_lcsd(self):
+        """test abydos.distance.lcsd
+        """
+        self.assertEquals(lcsd('', ''), 0)
+        self.assertEquals(lcsd('A', ''), 1)
+        self.assertEquals(lcsd('', 'A'), 1)
+        self.assertEquals(lcsd('A', 'A'), 0)
+        self.assertEquals(lcsd('ABCD', ''), 1)
+        self.assertEquals(lcsd('', 'ABCD'), 1)
+        self.assertEquals(lcsd('ABCD', 'ABCD'), 0)
+        self.assertEquals(lcsd('ABCD', 'BC'), 2/4)
+        self.assertEquals(lcsd('ABCD', 'AD'), 2/4)
+        self.assertEquals(lcsd('ABCD', 'AC'), 2/4)
+        self.assertEquals(lcsd('AB', 'CD'), 1)
+        self.assertEquals(lcsd('ABC', 'BCD'), 1/3)
+
+        self.assertEquals(lcsd('DIXON', 'DICKSONX'), 4/8)
+
+        # https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
+        self.assertEquals(lcsd('AGCAT', 'GAC'), 3/5)
+        self.assertEquals(lcsd('XMJYAUZ', 'MZJAWXU'), 3/7)
+
+        # https://github.com/jwmerrill/factor/blob/master/basis/lcs/lcs-tests.factor
+        self.assertEquals(lcsd('hell', 'hello'), 1/5)
+        self.assertEquals(lcsd('hello', 'hell'), 1/5)
+        self.assertEquals(lcsd('ell', 'hell'), 1/4)
+        self.assertEquals(lcsd('hell', 'ell'), 1/4)
+        self.assertEquals(lcsd('faxbcd', 'abdef'), 3/6)
+
+        # http://www.unesco.org/culture/languages-atlas/assets/_core/php/qcubed_unit_tests.php
+        self.assertEquals(lcsd('hello world', 'world war 2'), 6/11)
+        self.assertEquals(lcsd('foo bar', 'bar foo'), 4/7)
+        self.assertEquals(lcsd('aaa', 'aa'), 1/3)
+        self.assertEquals(lcsd('cc', 'bbbbcccccc'), 8/10)
+        self.assertEquals(lcsd('ccc', 'bcbb'), 3/4)
 
 
 class MraCompareTestCases(unittest.TestCase):
