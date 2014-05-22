@@ -27,6 +27,7 @@ from abydos.distance import levenshtein, levenshtein_normalized, hamming, \
     hamming_normalized, tversky_index, sorensen_coeff, sorensen, \
     jaccard_coeff, jaccard, tanimoto_coeff, tanimoto, cosine_similarity, \
     strcmp95, jaro_winkler, lcs, mra_compare
+import math
 
 
 # pylint: disable=R0904
@@ -200,7 +201,11 @@ class TverskyIndexTestCases(unittest.TestCase):
     def test_tversky_index(self):
         """test abydos.distance.tversky_index
         """
-        pass
+        self.assertEquals(tversky_index('', ''), 1)
+        self.assertEquals(tversky_index('nelson', ''), 0)
+        self.assertEquals(tversky_index('', 'neilsen'), 0)
+        self.assertEquals(tversky_index('nelson', 'neilsen'), 4/11)
+        # TODO: Add bias test(s) and unequal alpha & beta tests
 
 
 class SorensenTestCases(unittest.TestCase):
@@ -209,12 +214,18 @@ class SorensenTestCases(unittest.TestCase):
     def test_sorensen_coeff(self):
         """test abydos.distance.sorensen_coeff
         """
-        pass
+        self.assertEquals(sorensen_coeff('', ''), 1)
+        self.assertEquals(sorensen_coeff('nelson', ''), 0)
+        self.assertEquals(sorensen_coeff('', 'neilsen'), 0)
+        self.assertEquals(sorensen_coeff('nelson', 'neilsen'), 4/7.5)
 
     def test_sorensen(self):
         """test abydos.distance.sorensen
         """
-        pass
+        self.assertEquals(sorensen('', ''), 0)
+        self.assertEquals(sorensen('nelson', ''), 1)
+        self.assertEquals(sorensen('', 'neilsen'), 1)
+        self.assertEquals(sorensen('nelson', 'neilsen'), 3.5/7.5)
 
 
 class JaccardTestCases(unittest.TestCase):
@@ -223,12 +234,18 @@ class JaccardTestCases(unittest.TestCase):
     def test_jaccard_coeff(self):
         """test abydos.distance.jaccard_coeff
         """
-        pass
+        self.assertEquals(jaccard_coeff('', ''), 1)
+        self.assertEquals(jaccard_coeff('nelson', ''), 0)
+        self.assertEquals(jaccard_coeff('', 'neilsen'), 0)
+        self.assertEquals(jaccard_coeff('nelson', 'neilsen'), 4/11)
 
     def test_jaccard(self):
         """test abydos.distance.jaccard
         """
-        pass
+        self.assertEquals(jaccard('', ''), 0)
+        self.assertEquals(jaccard('nelson', ''), 1)
+        self.assertEquals(jaccard('', 'neilsen'), 1)
+        self.assertEquals(jaccard('nelson', 'neilsen'), 7/11)
 
 
 class TanimotoTestCases(unittest.TestCase):
@@ -237,12 +254,18 @@ class TanimotoTestCases(unittest.TestCase):
     def test_tanimoto_coeff(self):
         """test abydos.distance.tanimoto_coeff
         """
-        pass
+        self.assertEquals(tanimoto_coeff('', ''), 1)
+        self.assertEquals(tanimoto_coeff('nelson', ''), 0)
+        self.assertEquals(tanimoto_coeff('', 'neilsen'), 0)
+        self.assertEquals(tanimoto_coeff('nelson', 'neilsen'), 4/11)
 
     def test_tanimoto(self):
         """test abydos.distance.tanimoto
         """
-        pass
+        self.assertEquals(tanimoto('', ''), 0)
+        self.assertEquals(tanimoto('nelson', ''), float('-inf'))
+        self.assertEquals(tanimoto('', 'neilsen'), float('-inf'))
+        self.assertEquals(tanimoto('nelson', 'neilsen'), math.log(4/11, 2))
 
 
 class CosineSimilarityTestCases(unittest.TestCase):
@@ -251,7 +274,11 @@ class CosineSimilarityTestCases(unittest.TestCase):
     def test_cosine_similarity(self):
         """test abydos.distance.cosine_similarity
         """
-        pass
+        self.assertEquals(cosine_similarity('', ''), 1)
+        self.assertEquals(cosine_similarity('nelson', ''), 0)
+        self.assertEquals(cosine_similarity('', 'neilsen'), 0)
+        self.assertEquals(cosine_similarity('nelson', 'neilsen'),
+                          4/math.sqrt(15))
 
 
 class JaroWinklerTestCases(unittest.TestCase):
@@ -260,12 +287,38 @@ class JaroWinklerTestCases(unittest.TestCase):
     def test_strcmp95(self):
         """test abydos.distance.strcmp95
         """
-        pass
+        self.assertEquals(strcmp95('', ''), 1)
+        self.assertEquals(strcmp95('MARTHA', ''), 0)
+        self.assertEquals(strcmp95('', 'MARTHA'), 0)
+        self.assertEquals(strcmp95('MARTHA', 'MARTHA'), 1)
+
+        # TODO: find non-trivial strcmp95 tests or manufacture some
 
     def test_jaro_winkler(self):
         """test abydos.distance.jaro_winkler
         """
-        pass
+        self.assertEquals(jaro_winkler('', '', mode='jaro'), 1)
+        self.assertEquals(jaro_winkler('', '', mode='winkler'), 1)
+        self.assertEquals(jaro_winkler('MARTHA', '', mode='jaro'), 0)
+        self.assertEquals(jaro_winkler('MARTHA', '', mode='winkler'), 0)
+        self.assertEquals(jaro_winkler('', 'MARHTA', mode='jaro'), 0)
+        self.assertEquals(jaro_winkler('', 'MARHTA', mode='winkler'), 0)
+        self.assertEquals(jaro_winkler('MARTHA', 'MARTHA', mode='jaro'), 1)
+        self.assertEquals(jaro_winkler('MARTHA', 'MARTHA', mode='winkler'), 1)
+
+        # https://en.wikipedia.org/wiki/Jaro-Winkler_distance
+        self.assertEquals(round(jaro_winkler('MARTHA', 'MARHTA',
+                                             mode='jaro'), 3), 0.944)
+        self.assertEquals(round(jaro_winkler('MARTHA', 'MARHTA',
+                                             mode='winkler'), 3), 0.961)
+        self.assertEquals(round(jaro_winkler('DWAYNE', 'DUANE',
+                                             mode='jaro'), 3), 0.822)
+        self.assertEquals(round(jaro_winkler('DWAYNE', 'DUANE',
+                                             mode='winkler'), 3), 0.84)
+        self.assertEquals(round(jaro_winkler('DIXON', 'DICKSONX',
+                                             mode='jaro'), 3), 0.767)
+        self.assertEquals(round(jaro_winkler('DIXON', 'DICKSONX',
+                                             mode='winkler'), 3), 0.813)
 
 
 class LcsTestCases(unittest.TestCase):
@@ -274,7 +327,38 @@ class LcsTestCases(unittest.TestCase):
     def test_lcs(self):
         """test abydos.distance.lcs
         """
-        pass
+        self.assertEquals(lcs('', ''), '')
+        self.assertEquals(lcs('A', ''), '')
+        self.assertEquals(lcs('', 'A'), '')
+        self.assertEquals(lcs('A', 'A'), 'A')
+        self.assertEquals(lcs('ABCD', ''), '')
+        self.assertEquals(lcs('', 'ABCD'), '')
+        self.assertEquals(lcs('ABCD', 'ABCD'), 'ABCD')
+        self.assertEquals(lcs('ABCD', 'BC'), 'BC')
+        self.assertEquals(lcs('ABCD', 'AD'), 'AD')
+        self.assertEquals(lcs('ABCD', 'AC'), 'AC')
+        self.assertEquals(lcs('AB', 'CD'), '')
+        self.assertEquals(lcs('ABC', 'BCD'), 'BC')
+
+        self.assertEquals(lcs('DIXON', 'DICKSONX'), 'DION')
+
+        # https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
+        self.assertEquals(lcs('AGCAT', 'GAC'), 'AC')
+        self.assertEquals(lcs('XMJYAUZ', 'MZJAWXU'), 'MJAU')
+
+        # https://github.com/jwmerrill/factor/blob/master/basis/lcs/lcs-tests.factor
+        self.assertEquals(lcs('hell', 'hello'), 'hell')
+        self.assertEquals(lcs('hello', 'hell'), 'hell')
+        self.assertEquals(lcs('ell', 'hell'), 'ell')
+        self.assertEquals(lcs('hell', 'ell'), 'ell')
+        self.assertEquals(lcs('faxbcd', 'abdef'), 'abd')
+
+        # http://www.unesco.org/culture/languages-atlas/assets/_core/php/qcubed_unit_tests.php
+        self.assertEquals(lcs('hello world', 'world war 2'), 'world')
+        self.assertEquals(lcs('foo bar', 'bar foo'), 'foo')
+        self.assertEquals(lcs('aaa', 'aa'), 'aa')
+        self.assertEquals(lcs('cc', 'bbbbcccccc'), 'cc')
+        self.assertEquals(lcs('ccc', 'bcbb'), 'c')
 
 
 class MraCompareTestCases(unittest.TestCase):
@@ -283,4 +367,13 @@ class MraCompareTestCases(unittest.TestCase):
     def test_mra_compare(self):
         """test abydos.distance.mra_compare
         """
-        pass
+        self.assertEquals(mra_compare('', ''), 6)
+        self.assertEquals(mra_compare('a', 'a'), 6)
+        self.assertEquals(mra_compare('abcdefg', 'abcdefg'), 6)
+        self.assertEquals(mra_compare('abcdefg', ''), 0)
+        self.assertEquals(mra_compare('', 'abcdefg'), 0)
+
+        # https://en.wikipedia.org/wiki/Match_rating_approach
+        self.assertEquals(mra_compare('Byrne', 'Boern'), 5)
+        self.assertEquals(mra_compare('Smith', 'Smyth'), 5)
+        self.assertEquals(mra_compare('Catherine', 'Kathryn'), 4)

@@ -388,7 +388,11 @@ def tanimoto(src, tar, qval=2):
     Description:
     Tanimoto distance is -log2(Tanimoto coefficient)
     """
-    return math.log(jaccard_coeff(src, tar, qval), 2)
+    coeff = jaccard_coeff(src, tar, qval)
+    if coeff != 0:
+        return math.log(coeff, 2)
+    else:
+        return float('-inf')
 
 
 def cosine_similarity(src, tar, qval=2):
@@ -440,6 +444,8 @@ def strcmp95(src, tar, long_strings=False):
     ying = src.strip().upper()
     yang = tar.strip().upper()
 
+    if ying == yang:
+        return 1.0
     # If either string is blank - return - added in Version 2
     if len(ying) == 0 or len(yang) == 0:
         return 0.0
@@ -576,6 +582,9 @@ def jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False, \
     The above file is a US Government publication and, accordingly,
     in the public domain.
     """
+    if src == tar:
+        return 1.0
+
     if mode == 'winkler':
         if boost_threshold > 1 or boost_threshold < 0:
             raise ValueError('Unsupported boost_threshold assignment; \
@@ -714,11 +723,15 @@ def mra_compare(src, tar):
     A description of the algorithm can be found on page 18 of
     https://archive.org/details/accessingindivid00moor
     """
+    if src == tar:
+        return 6
+    if src == '' or tar == '':
+        return 0
     src = list(mra(src))
     tar = list(mra(tar))
 
     if abs(len(src)-len(tar)) > 2:
-        return False
+        return 0
 
     length_sum = len(src) + len(tar)
     if length_sum < 5:
