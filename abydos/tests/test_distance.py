@@ -25,8 +25,8 @@ from __future__ import division
 import unittest
 from abydos.distance import levenshtein, levenshtein_normalized, hamming, \
     hamming_normalized, tversky_index, sorensen_coeff, sorensen, \
-    jaccard_coeff, jaccard, tanimoto_coeff, tanimoto, strcmp95, jaro_winkler, \
-    lcs, mra_compare
+    jaccard_coeff, jaccard, tanimoto_coeff, tanimoto, cosine_similarity, \
+    strcmp95, jaro_winkler, lcs, mra_compare
 
 
 # pylint: disable=R0904
@@ -241,6 +241,15 @@ class TanimotoTestCases(unittest.TestCase):
 
     def test_tanimoto(self):
         """test abydos.distance.tanimoto
+        """
+        pass
+
+
+class CosineSimilarityTestCases(unittest.TestCase):
+    """test cases for abydos.distance.cosine_similarity
+    """
+    def test_cosine_similarity(self):
+        """test abydos.distance.cosine_similarity
         """
         pass
 

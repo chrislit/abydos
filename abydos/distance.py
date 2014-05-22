@@ -254,7 +254,7 @@ def hamming_normalized(src, tar, difflens=True):
 
 
 def tversky_index(src, tar, qval=2, alpha=1, beta=1, bias=None):
-    """Return the Tversky index of two string arguments.
+    """Return the Tversky index of two strings
 
     Arguments:
     src, tar -- two strings to be compared
@@ -262,9 +262,12 @@ def tversky_index(src, tar, qval=2, alpha=1, beta=1, bias=None):
     alpha, beta -- two Tversky index parameters as indicated in the
         description below
 
+    Description:
     The Tversky index is defined as:
     For two sets X and Y:
     S(X,Y) = |X∩Y| / (|X∩Y| + α|X-Y| + β|Y-X|)
+
+    Cf. https://en.wikipedia.org/wiki/Tversky_index
 
     α = β = 1 is equivalent to the Jaccard & Tanimoto similarity coefficients
     α = β = 0.5 is equivalent to the Sorensen-Dice similarity coefficient
@@ -302,7 +305,7 @@ def tversky_index(src, tar, qval=2, alpha=1, beta=1, bias=None):
 
 
 def sorensen_coeff(src, tar, qval=2):
-    """Return the Sørensen–Dice coefficient of two string arguments.
+    """Return the Sørensen–Dice coefficient of two strings
 
     Arguments:
     src, tar -- two strings to be compared
@@ -318,7 +321,7 @@ def sorensen_coeff(src, tar, qval=2):
 
 
 def sorensen(src, tar, qval=2):
-    """Return the Sørensen–Dice distance of two string arguments.
+    """Return the Sørensen–Dice distance of two strings
 
     Arguments:
     src, tar -- two strings to be compared
@@ -331,7 +334,7 @@ def sorensen(src, tar, qval=2):
 
 
 def jaccard_coeff(src, tar, qval=2):
-    """Return the Jaccard similarity coefficient of two string arguments.
+    """Return the Jaccard similarity coefficient of two strings
 
     Arguments:
     src, tar -- two strings to be compared
@@ -347,7 +350,7 @@ def jaccard_coeff(src, tar, qval=2):
 
 
 def jaccard(src, tar, qval=2):
-    """Return the Jaccard distance of two string arguments.
+    """Return the Jaccard distance of two strings
 
     Arguments:
     src, tar -- two strings to be compared
@@ -360,7 +363,7 @@ def jaccard(src, tar, qval=2):
 
 
 def tanimoto_coeff(src, tar, qval=2):
-    """Return the Tanimoto similarity of two string arguments.
+    """Return the Tanimoto similarity of two strings
 
     Arguments:
     src, tar -- two strings to be compared
@@ -376,7 +379,7 @@ def tanimoto_coeff(src, tar, qval=2):
 
 
 def tanimoto(src, tar, qval=2):
-    """Return the Tanimoto distance of two string arguments:
+    """Return the Tanimoto distance of two strings
 
     Arguments:
     src, tar -- two strings to be compared
@@ -386,6 +389,25 @@ def tanimoto(src, tar, qval=2):
     Tanimoto distance is -log2(Tanimoto coefficient)
     """
     return math.log(jaccard_coeff(src, tar, qval), 2)
+
+
+def cosine_similarity(src, tar, qval=2):
+    """Return the cosine similarity of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+    qval -- the length of each q-gram
+
+    Description:
+    For two sets X and Y, the cosine similarity is:
+    S(X,Y) = |X∩Y| / √(|X| + |Y|)
+    """
+    if src == tar:
+        return 1.0
+    if not src or not tar:
+        return 0.0
+    q_src, q_tar, q_common = _qgram_counts(src, tar, qval)
+    return q_common / math.sqrt(q_src + q_tar)
 
 
 def strcmp95(src, tar, long_strings=False):
