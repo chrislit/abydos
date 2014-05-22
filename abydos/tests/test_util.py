@@ -34,35 +34,52 @@ class QgramTestCases(unittest.TestCase):
         """test abydos.util.qgrams
         """
         self.assertEquals(qgrams(''), [])
-        self.assertEquals(qgrams('NELSON', 3), ['##N', '#NE', 'NEL', 'ELS',
+        self.assertEquals(qgrams('NELSON', 3), ['$$N', '$NE', 'NEL', 'ELS',
                                                 'LSO', 'SON', 'ON#', 'N##'])
         self.assertEquals(qgrams('NELSON', 7), [])
 
         #http://www.sound-ex.com/alternative_qgram.htm
         self.assertEquals(qgrams('NELSON'),
-                          ['#N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#'])
+                          ['$N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#'])
         self.assertEquals(qgrams('NEILSEN'),
-                          ['#N', 'NE', 'EI', 'IL', 'LS', 'SE', 'EN', 'N#'])
+                          ['$N', 'NE', 'EI', 'IL', 'LS', 'SE', 'EN', 'N#'])
+        self.assertEquals(qgrams('NELSON', start_stop=''),
+                          ['NE', 'EL', 'LS', 'SO', 'ON'])
+        self.assertEquals(qgrams('NEILSEN', start_stop=''),
+                          ['NE', 'EI', 'IL', 'LS', 'SE', 'EN'])
 
     def test_qgram_lists(self):
         """test abydos.util._qgrams_lists
         """
         self.assertEquals(_qgram_lists('NELSON', ''),
-                          (['#N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#'], [], []))
+                          (['$N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#'], [], []))
         self.assertEquals(_qgram_lists('', 'NEILSEN'),
-                          ([], ['#N', 'NE', 'EI', 'IL', 'LS',
+                          ([], ['$N', 'NE', 'EI', 'IL', 'LS',
                                 'SE', 'EN', 'N#'], []))
         self.assertEquals(_qgram_lists('NELSON', 'NEILSEN'),
-                          (['#N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#'],
-                           ['#N', 'NE', 'EI', 'IL', 'LS', 'SE', 'EN', 'N#'],
-                           ['#N', 'NE', 'LS', 'N#']))
+                          (['$N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#'],
+                           ['$N', 'NE', 'EI', 'IL', 'LS', 'SE', 'EN', 'N#'],
+                           ['$N', 'NE', 'LS', 'N#']))
         self.assertEquals(_qgram_lists('NELSON', 'NOSLEN'),
-                          (['#N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#'],
-                           ['#N', 'NO', 'OS', 'SL', 'LE', 'EN', 'N#'],
-                           ['#N', 'N#']))
+                          (['$N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#'],
+                           ['$N', 'NO', 'OS', 'SL', 'LE', 'EN', 'N#'],
+                           ['$N', 'N#']))
         self.assertEquals(_qgram_lists('NAIL', 'LIAN'),
-                          (['#N', 'NA', 'AI', 'IL', 'L#'],
-                           ['#L', 'LI', 'IA', 'AN', 'N#'],
+                          (['$N', 'NA', 'AI', 'IL', 'L#'],
+                           ['$L', 'LI', 'IA', 'AN', 'N#'],
+                           []))
+
+        self.assertEquals(_qgram_lists('NELSON', 'NEILSEN', start_stop=''),
+                          (['NE', 'EL', 'LS', 'SO', 'ON'],
+                           ['NE', 'EI', 'IL', 'LS', 'SE', 'EN'],
+                           ['NE', 'LS']))
+        self.assertEquals(_qgram_lists('NELSON', 'NOSLEN', start_stop=''),
+                          (['NE', 'EL', 'LS', 'SO', 'ON'],
+                           ['NO', 'OS', 'SL', 'LE', 'EN'],
+                           []))
+        self.assertEquals(_qgram_lists('NAIL', 'LIAN', start_stop=''),
+                          (['NA', 'AI', 'IL'],
+                           ['LI', 'IA', 'AN'],
                            []))
 
     def test_qgram_counts(self):
@@ -73,3 +90,9 @@ class QgramTestCases(unittest.TestCase):
         self.assertEquals(_qgram_counts('NELSON', 'NEILSEN'), (7, 8, 4))
         self.assertEquals(_qgram_counts('NELSON', 'NOSLEN'), (7, 7, 2))
         self.assertEquals(_qgram_counts('NAIL', 'LIAN'), (5, 5, 0))
+        self.assertEquals(_qgram_counts('NELSON', 'NEILSEN', start_stop=''),
+                          (5, 6, 2))
+        self.assertEquals(_qgram_counts('NELSON', 'NOSLEN', start_stop=''),
+                          (5, 5, 0))
+        self.assertEquals(_qgram_counts('NAIL', 'LIAN', start_stop=''),
+                          (3, 3, 0))
