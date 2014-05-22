@@ -115,7 +115,7 @@ def soundex(word, maxlength=4, var='American', reverse=False):
     var -- the variant of the algorithm to employ (defaults to 'American'):
         'American' follows the American Soundex algorithm, as described at
         http://www.archives.gov/publications/general-info-leaflets/55-census.html
-        and in Knuth(1998:394)
+        and in Knuth(1998:394); this is also called Miracode
         'special' follows the rules from the 1880-1910 US Census, in which
         h & w are not treated as blocking consonants but as vowels
         'dm' computes the Daitch-Mokotoff Soundex
