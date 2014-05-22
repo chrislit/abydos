@@ -31,6 +31,7 @@ You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
+# pylint: disable=C0302
 
 from __future__ import unicode_literals
 from __future__ import division

@@ -30,6 +30,8 @@ from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
 
 # pylint: disable=R0904
 # pylint: disable=R0915
+# pylint: disable=C0302
+
 class RussellIndexTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.russell_index,
     abydos.phonetic.russell_index_num_to_alpha, and russell_index_alpha

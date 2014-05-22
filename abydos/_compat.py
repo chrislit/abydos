@@ -24,6 +24,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 import sys
 
+# pylint: disable=C0103
 if sys.version_info[0] == 3:
     _range = range
     _unicode = str
