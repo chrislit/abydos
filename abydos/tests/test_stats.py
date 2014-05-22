@@ -27,6 +27,7 @@ from abydos.stats import ConfusionTable
 
 
 # pylint: disable=R0904
+# pylint: disable=R0915
 class CastTestCases(unittest.TestCase):
     """test cases for abydos.stats.ConfusionTable cast methods
     """

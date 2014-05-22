@@ -308,12 +308,16 @@ def koelner_phonetik(word):
     https://de.wikipedia.org/wiki/Kölner_Phonetik
     """
     def _after(word, i, letters):
-        if i > 0 and word[i-1] in letters:
+        """Return True if word[i] follows one of the supplied letters
+        """
+        if i > 0 and word[i-1] in list(letters):
             return True
         return False
 
     def _before(word, i, letters):
-        if i+1 < len(word) and word[i+1] in letters:
+        """Return True if word[i] precedes one of the supplied letters
+        """
+        if i+1 < len(word) and word[i+1] in list(letters):
             return True
         return False
 
@@ -1576,10 +1580,8 @@ def alpha_sis(word, maxlength=14):
     return tuple(alpha)
 
 
-"""def phonemicize_graphemes(word):
-    phones = word
-    #phones = phones.replace(
-"""
-
 def _delete_consecutive_repeats(word):
+    """Return word with all contiguous repeating characters collapsed to
+    a single instance
+    """
     return ''.join(char for char, _ in groupby(word))

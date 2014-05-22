@@ -29,6 +29,7 @@ from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
 
 
 # pylint: disable=R0904
+# pylint: disable=R0915
 class RussellIndexTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.russell_index,
     abydos.phonetic.russell_index_num_to_alpha, and russell_index_alpha
@@ -1985,7 +1986,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEquals(double_metaphone('Arnow'), ('ARN', 'ARNF'))
         self.assertEquals(double_metaphone('Thumbail'), ('0MPL', 'TMPL'))
 
-    def test_double_metaphone_homophones(self):
+    def test_double_metaphone_homoph(self):
         """test abydos.phonetic.double_metaphone (homophones)
         """
         self.assertEqual(double_metaphone(u"tolled"), double_metaphone(u"told"))

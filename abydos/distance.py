@@ -107,10 +107,9 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
         return d_mx[len(src), len(tar)]
 
     else:
-        """Damerau-Levenshtein code based on Java code by Kevin L. Stern,
-        under the MIT license:
-        https://github.com/KevinStern/software-and-algorithms/blob/master/src/main/java/blogspot/software_and_algorithms/stern_library/string/DamerauLevenshteinAlgorithm.java
-        """
+        # Damerau-Levenshtein code based on Java code by Kevin L. Stern,
+        # under the MIT license:
+        # https://github.com/KevinStern/software-and-algorithms/blob/master/src/main/java/blogspot/software_and_algorithms/stern_library/string/DamerauLevenshteinAlgorithm.java
         if 2*trans_cost < ins_cost + del_cost:
             raise ValueError('Unsupported cost assignment; the cost of two \
                 transpositions must not be less than the cost of an insert \
@@ -394,6 +393,8 @@ def strcmp95(src, tar, long_strings=False):
     names, but not much else.
     """
     def _in_range(char):
+        """Return True if char is in the range (0, 91)
+        """
         return ord(char) > 0 and ord(char) < 91
 
     ying = src.strip().upper()
