@@ -247,9 +247,9 @@ class ConfusionTable(object):
         The geometric mean of precision and recall is defined as:
         sqrt(precision * recall)
         """
-        p = self.precision()
-        r = self.recall()
-        return 2 * p * r / (p + r)
+        precision = self.precision()
+        recall = self.recall()
+        return 2 * precision * recall / (precision + recall)
 
 
     def pr_qmean(self):
@@ -271,14 +271,15 @@ class ConfusionTable(object):
         the precision if they are equal,
         otherwise (precision - recall) / ln(precision) - ln(recall)
         """
-        p = self.precision()
-        r = self.recall()
-        if not p or not r:
+        precision = self.precision()
+        recall = self.recall()
+        if not precision or not recall:
             return 0
-        elif p == r:
-            return p
+        elif precision == recall:
+            return precision
         else:
-            return (p - r) / (math.log(p) - math.log(r))
+            return ((precision - recall) /
+                    (math.log(precision) - math.log(recall)))
 
 
     def pr_cmean(self):
@@ -288,9 +289,9 @@ class ConfusionTable(object):
         The contraharmonic mean is:
         (precision^2 + recall^2) / (precision + recall)
         """
-        p = self.precision()
-        r = self.recall()
-        return (p**2 + r**2)/(p + r)
+        precision = self.precision()
+        recall = self.recall()
+        return (precision**2 + recall**2)/(precision + recall)
 
 
     def pr_imean(self):
@@ -302,19 +303,20 @@ class ConfusionTable(object):
         otherwise (1/e) *
                 (precision^precision / recall^recall)^(1 / (precision - recall))
         """
-        p = self.precision()
-        r = self.recall()
-        return (1/math.e) * (p**p/r**r)**(1/(p-r))
+        precision = self.precision()
+        recall = self.recall()
+        return ((1/math.e) *
+                (precision**precision/recall**recall)**(1/(precision-recall)))
 
 
-    def pr_pmean(self, m=2):
+    def pr_pmean(self, exp=2):
         """Return the power mean of precision & recall of the
         confusion table
 
-        The m-power mean of precision and recall is defined as:
-        (0.5 * (precision^m + recall^m))^(1/m)
+        The exp mean of precision and recall is defined as:
+        (0.5 * (precision^exp + recall^exp))^(1/exp)
         """
-        return (0.5 * (self.precision()**m + self.recall()**m))**(1/m)
+        return (0.5 * (self.precision()**exp + self.recall()**exp))**(1/exp)
 
 
     def fbeta_score(self, beta=1):
@@ -331,9 +333,10 @@ class ConfusionTable(object):
         """
         if beta <= 0:
             raise AttributeError('Beta must be a positive real value.')
-        p = self.precision()
-        r = self.recall()
-        return (1 + beta**2) * p * r / ((beta**2 * p) + r)
+        precision = self.precision()
+        recall = self.recall()
+        return ((1 + beta**2) *
+                precision * recall / ((beta**2 * precision) + recall))
 
 
     def f2_score(self):

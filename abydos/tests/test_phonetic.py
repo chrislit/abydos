@@ -52,7 +52,7 @@ class RussellIndexTestCases(unittest.TestCase):
         self.assertEquals(russell_index('Mack'), 613)
         self.assertEquals(russell_index('Knack'), 3713)
 
-    def test_russel_index_num_to_alpha(self):
+    def test_russel_index_n2a(self):
         """test abydos.phonetic.russell_index_num_to_alpha
         """
         self.assertEquals(russell_index_num_to_alpha(0), None)
@@ -143,7 +143,7 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEquals(soundex('Lincoln', reverse=True), 'N425')
         self.assertEquals(soundex('Knuth', reverse=True), 'H352')
 
-    def test_soundex_caversham_testset(self):
+    def test_soundex_caversham(self):
         """test abydos.phonetic.soundex (Caversham testset)
         """
         # caversham.otago.ac.nz/files/variantNames.csv
@@ -1028,7 +1028,7 @@ class KoelnerPhonetikTestCases(unittest.TestCase):
         self.assertEquals(koelner_phonetik('cater'), '427')
         self.assertEquals(koelner_phonetik('axel'), '0485')
 
-    def test_koelner_phonetik_num_to_alpha(self):
+    def test_koelner_phonetik_n2a(self):
         """test abydos.phonetic.koelner_phonetik_num_to_alpha
         """
         self.assertEquals(koelner_phonetik_num_to_alpha('0123456789'),
@@ -1155,7 +1155,7 @@ class MetaphoneTestCases(unittest.TestCase):
         self.assertEquals(metaphone('Zupo', 4), 'SP')
         self.assertEquals(metaphone('Zuppa', 4), 'SP')
 
-    def test_metaphone_caversham_testset(self):
+    def test_metaphone_caversham(self):
         """test abydos.phonetic.metaphone (Caversham testset)
         """
         # caversham.otago.ac.nz/files/variantNames.csv
@@ -1938,17 +1938,17 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
     of Double Metaphone that is Copyright 2001, Stephen Woodbridge and
     identified as 'freely distributable'
     """
-    def test_double_metaphone_single_result(self):
+    def test_double_metaphone_single(self):
         """test abydos.phonetic.double_metaphone (single result)
         """
         self.assertEquals(double_metaphone(u"aubrey"), ('APR', ''))
 
-    def test_double_metaphone_double_result(self):
+    def test_double_metaphone_double(self):
         """test abydos.phonetic.double_metaphone (double result)
         """
         self.assertEquals(double_metaphone(u"richard"), ('RXRT', 'RKRT'))
 
-    def test_double_metaphone_general_word_list(self):
+    def test_double_metaphone_general(self):
         """test abydos.phonetic.double_metaphone (general word list)
         """
         self.assertEquals(double_metaphone('Jose'), ('HS', ''))
@@ -1993,7 +1993,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
                          double_metaphone(u"catherine"))
         self.assertEqual(double_metaphone(u"brian"), double_metaphone(u"bryan"))
 
-    def test_double_metaphone_similar_names(self):
+    def test_double_metaphone_similar(self):
         """test abydos.phonetic.double_metaphone (similar names)
         """
         self.assertEquals(double_metaphone("Bartoš"), ('PRT', ''))
@@ -2007,7 +2007,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
                                .intersection(double_metaphone(u"Schmidt"))),\
                           ['XMT'])
 
-    def test_double_metaphone_non_english_unicode(self):
+    def test_double_metaphone_unicode(self):
         """test abydos.phonetic.double_metaphone (non-English Unicode)
         """
         self.assertEquals(double_metaphone("andestādītu"), ('ANTSTTT', ''))
@@ -2062,7 +2062,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         """
         self.assertEquals(double_metaphone("zhao"), ("J", ""))
 
-    def test_double_metaphone_dutch_origin(self):
+    def test_double_metaphone_dutch(self):
         """test abydos.phonetic.double_metaphone (Dutch-origin words)
         """
         self.assertEquals(double_metaphone("school"), ("SKL", ""))
@@ -4636,52 +4636,53 @@ class CaverphoneTestCases(unittest.TestCase):
         # http://caversham.otago.ac.nz/files/working/ctp150804.pdf
         self.assertEquals(caverphone('Stevenson'), 'STFNSN1111')
         self.assertEquals(caverphone('Peter'), 'PTA1111111')
-        for w in ('Darda', 'Datha', 'Dedie', 'Deedee', 'Deerdre', 'Deidre',
-                  'Deirdre', 'Detta', 'Didi', 'Didier', 'Dido', 'Dierdre',
-                  'Dieter', 'Dita', 'Ditter', 'Dodi', 'Dodie', 'Dody',
-                  'Doherty', 'Dorthea', 'Dorthy', 'Doti', 'Dotti', 'Dottie',
-                  'Dotty', 'Doty', 'Doughty', 'Douty', 'Dowdell', 'Duthie',
-                  'Tada', 'Taddeo', 'Tadeo', 'Tadio', 'Tati', 'Teador', 'Tedda',
-                  'Tedder', 'Teddi', 'Teddie', 'Teddy', 'Tedi', 'Tedie',
-                  'Teeter', 'Teodoor', 'Teodor', 'Terti', 'Theda', 'Theodor',
-                  'Theodore', 'Theta', 'Thilda', 'Thordia', 'Tilda', 'Tildi',
-                  'Tildie', 'Tildy', 'Tita', 'Tito', 'Tjader', 'Toddie',
-                  'Toddy', 'Torto', 'Tuddor', 'Tudor', 'Turtle', 'Tuttle',
-                  'Tutto'):
-            self.assertEqual(caverphone(w), 'TTA1111111')
-            self.assertEqual(caverphone(w, 2), 'TTA1111111')
-            self.assertEqual(caverphone(w, version=2), 'TTA1111111')
-        for w in ('Cailean', 'Calan', 'Calen', 'Callahan', 'Callan', 'Callean',
-                  'Carleen', 'Carlen', 'Carlene', 'Carlin', 'Carline', 'Carlyn',
-                  'Carlynn', 'Carlynne', 'Charlean', 'Charleen', 'Charlene',
-                  'Charline', 'Cherlyn', 'Chirlin', 'Clein', 'Cleon', 'Cline',
-                  'Cohleen', 'Colan', 'Coleen', 'Colene', 'Colin', 'Colleen',
-                  'Collen', 'Collin', 'Colline', 'Colon', 'Cullan', 'Cullen',
-                  'Cullin', 'Gaelan', 'Galan', 'Galen', 'Garlan', 'Garlen',
-                  'Gaulin', 'Gayleen', 'Gaylene', 'Giliane', 'Gillan',
-                  'Gillian', 'Glen', 'Glenn', 'Glyn', 'Glynn', 'Gollin',
-                  'Gorlin', 'Kalin', 'Karlan', 'Karleen', 'Karlen', 'Karlene',
-                  'Karlin', 'Karlyn', 'Kaylyn', 'Keelin', 'Kellen', 'Kellene',
-                  'Kellyann', 'Kellyn', 'Khalin', 'Kilan', 'Kilian', 'Killen',
-                  'Killian', 'Killion', 'Klein', 'Kleon', 'Kline', 'Koerlin',
-                  'Kylen', 'Kylynn', 'Quillan', 'Quillon', 'Qulllon', 'Xylon'):
-            self.assertEqual(caverphone(w), 'KLN1111111')
-            self.assertEqual(caverphone(w, 2), 'KLN1111111')
-            self.assertEqual(caverphone(w, version=2), 'KLN1111111')
-        for w in ('Dan', 'Dane', 'Dann', 'Darn', 'Daune', 'Dawn', 'Ddene',
-                  'Dean', 'Deane', 'Deanne', 'DeeAnn', 'Deeann', 'Deeanne',
-                  'Deeyn', 'Den', 'Dene', 'Denn', 'Deonne', 'Diahann', 'Dian',
-                  'Diane', 'Diann', 'Dianne', 'Diannne', 'Dine', 'Dion',
-                  'Dione', 'Dionne', 'Doane', 'Doehne', 'Don', 'Donn', 'Doone',
-                  'Dorn', 'Down', 'Downe', 'Duane', 'Dun', 'Dunn', 'Duyne',
-                  'Dyan', 'Dyane', 'Dyann', 'Dyanne', 'Dyun', 'Tan', 'Tann',
-                  'Teahan', 'Ten', 'Tenn', 'Terhune', 'Thain', 'Thaine',
-                  'Thane', 'Thanh', 'Thayne', 'Theone', 'Thin', 'Thorn',
-                  'Thorne', 'Thun', 'Thynne', 'Tien', 'Tine', 'Tjon', 'Town',
-                  'Towne', 'Turne', 'Tyne'):
-            self.assertEqual(caverphone(w), 'TN11111111')
-            self.assertEqual(caverphone(w, 2), 'TN11111111')
-            self.assertEqual(caverphone(w, version=2), 'TN11111111')
+        for word in ('Darda', 'Datha', 'Dedie', 'Deedee', 'Deerdre', 'Deidre',
+                     'Deirdre', 'Detta', 'Didi', 'Didier', 'Dido', 'Dierdre',
+                     'Dieter', 'Dita', 'Ditter', 'Dodi', 'Dodie', 'Dody',
+                     'Doherty', 'Dorthea', 'Dorthy', 'Doti', 'Dotti', 'Dottie',
+                     'Dotty', 'Doty', 'Doughty', 'Douty', 'Dowdell', 'Duthie',
+                     'Tada', 'Taddeo', 'Tadeo', 'Tadio', 'Tati', 'Teador',
+                     'Tedda', 'Tedder', 'Teddi', 'Teddie', 'Teddy', 'Tedi',
+                     'Tedie', 'Teeter', 'Teodoor', 'Teodor', 'Terti', 'Theda',
+                     'Theodor', 'Theodore', 'Theta', 'Thilda', 'Thordia',
+                     'Tilda', 'Tildi', 'Tildie', 'Tildy', 'Tita', 'Tito',
+                     'Tjader', 'Toddie', 'Toddy', 'Torto', 'Tuddor', 'Tudor',
+                     'Turtle', 'Tuttle', 'Tutto'):
+            self.assertEqual(caverphone(word), 'TTA1111111')
+            self.assertEqual(caverphone(word, 2), 'TTA1111111')
+            self.assertEqual(caverphone(word, version=2), 'TTA1111111')
+        for word in ('Cailean', 'Calan', 'Calen', 'Callahan', 'Callan',
+                     'Callean', 'Carleen', 'Carlen', 'Carlene', 'Carlin',
+                     'Carline', 'Carlyn', 'Carlynn', 'Carlynne', 'Charlean',
+                     'Charleen', 'Charlene', 'Charline', 'Cherlyn', 'Chirlin',
+                     'Clein', 'Cleon', 'Cline', 'Cohleen', 'Colan', 'Coleen',
+                     'Colene', 'Colin', 'Colleen', 'Collen', 'Collin',
+                     'Colline', 'Colon', 'Cullan', 'Cullen', 'Cullin', 'Gaelan',
+                     'Galan', 'Galen', 'Garlan', 'Garlen', 'Gaulin', 'Gayleen',
+                     'Gaylene', 'Giliane', 'Gillan', 'Gillian', 'Glen', 'Glenn',
+                     'Glyn', 'Glynn', 'Gollin', 'Gorlin', 'Kalin', 'Karlan',
+                     'Karleen', 'Karlen', 'Karlene', 'Karlin', 'Karlyn',
+                     'Kaylyn', 'Keelin', 'Kellen', 'Kellene', 'Kellyann',
+                     'Kellyn', 'Khalin', 'Kilan', 'Kilian', 'Killen', 'Killian',
+                     'Killion', 'Klein', 'Kleon', 'Kline', 'Koerlin', 'Kylen',
+                     'Kylynn', 'Quillan', 'Quillon', 'Qulllon', 'Xylon'):
+            self.assertEqual(caverphone(word), 'KLN1111111')
+            self.assertEqual(caverphone(word, 2), 'KLN1111111')
+            self.assertEqual(caverphone(word, version=2), 'KLN1111111')
+        for word in ('Dan', 'Dane', 'Dann', 'Darn', 'Daune', 'Dawn', 'Ddene',
+                     'Dean', 'Deane', 'Deanne', 'DeeAnn', 'Deeann', 'Deeanne',
+                     'Deeyn', 'Den', 'Dene', 'Denn', 'Deonne', 'Diahann',
+                     'Dian', 'Diane', 'Diann', 'Dianne', 'Diannne', 'Dine',
+                     'Dion', 'Dione', 'Dionne', 'Doane', 'Doehne', 'Don',
+                     'Donn', 'Doone', 'Dorn', 'Down', 'Downe', 'Duane', 'Dun',
+                     'Dunn', 'Duyne', 'Dyan', 'Dyane', 'Dyann', 'Dyanne',
+                     'Dyun', 'Tan', 'Tann', 'Teahan', 'Ten', 'Tenn', 'Terhune',
+                     'Thain', 'Thaine', 'Thane', 'Thanh', 'Thayne', 'Theone',
+                     'Thin', 'Thorn', 'Thorne', 'Thun', 'Thynne', 'Tien',
+                     'Tine', 'Tjon', 'Town', 'Towne', 'Turne', 'Tyne'):
+            self.assertEqual(caverphone(word), 'TN11111111')
+            self.assertEqual(caverphone(word, 2), 'TN11111111')
+            self.assertEqual(caverphone(word, version=2), 'TN11111111')
 
     def test_caverphone2_php_testset(self):
         """test abydos.phonetic.caverphone (PHP version testset)
@@ -9661,10 +9662,10 @@ class CaverphoneTestCases(unittest.TestCase):
                 ('yuill', 'YA11111111'), ('zelland', 'SLNT111111'),\
                 ('zeller', 'SLA1111111'), ('zimmerman', 'SMMN111111'),\
                 ('zouch', 'SK11111111'), ('zwimpfer', 'SWMPFA1111'))
-        for w, c in testset:
-            self.assertEquals(caverphone(w), c)
+        for word, caver in testset:
+            self.assertEquals(caverphone(word), caver)
 
-    def test_caverphone2_caversham_testset(self):
+    def test_caverphone2_caversham(self):
         """test abydos.phonetic.caverphone (Caversham testset)
         """
         # caversham.otago.ac.nz/files/variantNames.csv

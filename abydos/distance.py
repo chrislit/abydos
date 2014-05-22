@@ -278,10 +278,10 @@ def tversky_index(src, tar, qval=2, alpha=1, beta=1, bias=None):
                                  (q_src - q_intersection)
                                   + beta * (q_tar - q_intersection))
     else:
-        a = min(q_src - q_intersection, q_tar - q_intersection)
-        b = max(q_src - q_intersection, q_tar - q_intersection)
-        c = q_intersection + bias
-        return c / (beta * (alpha * a + (1 - alpha) * b) + c)
+        a_val = min(q_src - q_intersection, q_tar - q_intersection)
+        b_val = max(q_src - q_intersection, q_tar - q_intersection)
+        c_val = q_intersection + bias
+        return c_val / (beta * (alpha * a_val + (1 - alpha) * b_val) + c_val)
 
 
 def sorensen_coeff(src, tar, qval=2):
@@ -393,8 +393,8 @@ def strcmp95(src, tar, long_strings=False):
     limited to uppercase ASCII characters, so it is appropriate to American
     names, but not much else.
     """
-    def _in_range(c):
-        return ord(c) > 0 and ord(c) < 91
+    def _in_range(char):
+        return ord(char) > 0 and ord(char) < 91
 
     ying = src.strip().upper()
     yang = tar.strip().upper()
@@ -418,9 +418,8 @@ def strcmp95(src, tar, long_strings=False):
     # may be errors due to known phonetic or character recognition errors.
     # A typical example is to match the letter "O" with the number "0"
     for i in sp_mx:
-        x, y = i
-        adjwt[(x, y)] = 3
-        adjwt[(y, x)] = 3
+        adjwt[(i[0], i[1])] = 3
+        adjwt[(i[1], i[0])] = 3
 
     if len(ying) > len(yang):
         search_range = len(ying)
@@ -640,26 +639,26 @@ def lcs(src, tar):
     lengths = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
 
     # row 0 and column 0 are initialized to 0 already
-    for i, x in enumerate(src):
-        for j, y in enumerate(tar):
-            if x == y:
+    for i, src_char in enumerate(src):
+        for j, tar_char in enumerate(tar):
+            if src_char == tar_char:
                 lengths[i+1, j+1] = lengths[i, j] + 1
             else:
                 lengths[i+1, j+1] = max(lengths[i+1, j], lengths[i, j+1])
 
     # read the substring out from the matrix
     result = ""
-    x, y = len(src), len(tar)
-    while x != 0 and y != 0:
-        if lengths[x, y] == lengths[x-1, y]:
-            x -= 1
-        elif lengths[x, y] == lengths[x, y-1]:
-            y -= 1
+    i, j = len(src), len(tar)
+    while i != 0 and j != 0:
+        if lengths[i, j] == lengths[i-1, j]:
+            i -= 1
+        elif lengths[i, j] == lengths[i, j-1]:
+            j -= 1
         else:
-            assert src[x-1] == tar[y-1]
-            result = src[x-1] + result
-            x -= 1
-            y -= 1
+            assert src[i-1] == tar[j-1]
+            result = src[i-1] + result
+            i -= 1
+            j -= 1
     return result
 
 

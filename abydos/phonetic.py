@@ -273,7 +273,8 @@ def dm_soundex(word, maxlength=6, reverse=False):
                 # positional variant (first, pre-vocalic, elsewhere)
                 if pos == 0:
                     dm_val = dm_val[0]
-                elif pos+len(sstr) < len(word) and word[pos+len(sstr)] in _vowels:
+                elif (pos+len(sstr) < len(word) and
+                      word[pos+len(sstr)] in _vowels):
                     dm_val = dm_val[1]
                 else:
                     dm_val = dm_val[2]
@@ -542,118 +543,120 @@ def metaphone(word, maxlength=float('inf')):
         ename = 'W' + ename[2:]
 
     # Convert to metaph
-    l = len(ename)-1
+    elen = len(ename)-1
     metaph = ''
-    for n in _range(len(ename)):
+    for i in _range(len(ename)):
         if len(metaph) >= maxlength:
             break
-        if ename[n] not in 'GT' and n > 0 and ename[n-1] == ename[n]:
+        if ename[i] not in 'GT' and i > 0 and ename[i-1] == ename[i]:
             continue
 
-        if ename[n] in _vowels and n == 0:
-            metaph = ename[n]
+        if ename[i] in _vowels and i == 0:
+            metaph = ename[i]
 
-        elif ename[n] == 'B':
-            if n != l or ename[n-1] != 'M':
-                metaph += ename[n]
+        elif ename[i] == 'B':
+            if i != elen or ename[i-1] != 'M':
+                metaph += ename[i]
 
-        elif ename[n] == 'C':
-            if not (n > 0 and ename[n-1] == 'S' and ename[n+1:n+2] in _frontv):
-                if ename[n+1:n+3] == 'IA':
+        elif ename[i] == 'C':
+            if not (i > 0 and ename[i-1] == 'S' and ename[i+1:i+2] in _frontv):
+                if ename[i+1:i+3] == 'IA':
                     metaph += 'X'
-                elif ename[n+1:n+2] in _frontv:
+                elif ename[i+1:i+2] in _frontv:
                     metaph += 'S'
-                elif n > 0 and ename[n-1:n+2] == 'SCH':
+                elif i > 0 and ename[i-1:i+2] == 'SCH':
                     metaph += 'K'
-                elif ename[n+1:n+2] == 'H':
-                    if n == 0 and n+1 < l and ename[n+2:n+3] not in _vowels:
+                elif ename[i+1:i+2] == 'H':
+                    if i == 0 and i+1 < elen and ename[i+2:i+3] not in _vowels:
                         metaph += 'K'
                     else:
                         metaph += 'X'
                 else:
                     metaph += 'K'
 
-        elif ename[n] == 'D':
-            if ename[n+1:n+2] == 'G' and ename[n+2:n+3] in _frontv:
+        elif ename[i] == 'D':
+            if ename[i+1:i+2] == 'G' and ename[i+2:i+3] in _frontv:
                 metaph += 'J'
             else:
                 metaph += 'T'
 
-        elif ename[n] == 'G':
-            if ename[n+1:n+2] == 'H' and not (n+1 == l or
-                                              ename[n+2:n+3] not in _vowels):
+        elif ename[i] == 'G':
+            if ename[i+1:i+2] == 'H' and not (i+1 == elen or
+                                              ename[i+2:i+3] not in _vowels):
                 continue
-            elif n > 0 and ((n+1 == l and ename[n+1] == 'N') or
-                            (n+3 == l and ename[n+1:n+4] == 'NED')):
+            elif i > 0 and ((i+1 == elen and ename[i+1] == 'N') or
+                            (i+3 == elen and ename[i+1:i+4] == 'NED')):
                 continue
-            elif (n-1 > 0 and n+1 <= l and ename[n-1] == 'D' and
-                  ename[n+1] in _frontv):
+            elif (i-1 > 0 and i+1 <= elen and ename[i-1] == 'D' and
+                  ename[i+1] in _frontv):
                 continue
-            elif ename[n+1:n+2] == 'G':
+            elif ename[i+1:i+2] == 'G':
                 continue
-            elif ename[n+1:n+2] in _frontv:
-                if n == 0 or ename[n-1] != 'G':
+            elif ename[i+1:i+2] in _frontv:
+                if i == 0 or ename[i-1] != 'G':
                     metaph += 'J'
                 else:
                     metaph += 'K'
             else:
                 metaph += 'K'
 
-        elif ename[n] == 'H':
-            if (n > 0 and ename[n-1] in _vowels and
-                ename[n+1:n+2] not in _vowels):
+        elif ename[i] == 'H':
+            if (i > 0 and ename[i-1] in _vowels and
+                ename[i+1:i+2] not in _vowels):
                 continue
-            elif n > 0 and ename[n-1] in _varson:
+            elif i > 0 and ename[i-1] in _varson:
                 continue
             else:
                 metaph += 'H'
 
-        elif ename[n] in 'FJLMNR':
-            metaph += ename[n]
+        elif ename[i] in 'FJLMNR':
+            metaph += ename[i]
 
-        elif ename[n] == 'K':
-            if n > 0 and ename[n-1] == 'C':
+        elif ename[i] == 'K':
+            if i > 0 and ename[i-1] == 'C':
                 continue
             else:
                 metaph += 'K'
 
-        elif ename[n] == 'P':
-            if ename[n+1:n+2] == 'H':
+        elif ename[i] == 'P':
+            if ename[i+1:i+2] == 'H':
                 metaph += 'F'
             else:
                 metaph += 'P'
 
-        elif ename[n] == 'Q':
+        elif ename[i] == 'Q':
             metaph += 'K'
 
-        elif ename[n] == 'S':
-            if n > 0 and n+2 < l and ename[n+1] == 'I' and ename[n+2] in 'OA':
+        elif ename[i] == 'S':
+            if (i > 0 and i+2 < elen and ename[i+1] == 'I' and
+                ename[i+2] in 'OA'):
                 metaph += 'X'
-            elif ename[n+1:n+2] == 'H':
+            elif ename[i+1:i+2] == 'H':
                 metaph += 'X'
             else:
                 metaph += 'S'
 
-        elif ename[n] == 'T':
-            if n > 0 and n+2 < l and ename[n+1] == 'I' and ename[n+2] in 'OA':
+        elif ename[i] == 'T':
+            if (i > 0 and i+2 < elen and ename[i+1] == 'I' and
+                ename[i+2] in 'OA'):
                 metaph += 'X'
-            elif ename[n+1:n+2] == 'H':
+            elif ename[i+1:i+2] == 'H':
                 metaph += '0'
-            elif ename[n+1:n+3] != 'CH':
-                if ename[n-1:n] != 'T':
+            elif ename[i+1:i+3] != 'CH':
+                if ename[i-1:i] != 'T':
                     metaph += 'T'
 
-        elif ename[n] == 'V':
+        elif ename[i] == 'V':
             metaph += 'F'
 
-        elif ename[n] in 'WY':
-            if ename[n+1:n+2] in _vowels:
-                metaph += ename[n]
+        elif ename[i] in 'WY':
+            if ename[i+1:i+2] in _vowels:
+                metaph += ename[i]
 
-        elif ename[n] == 'X':
+        elif ename[i] == 'X':
             metaph += 'KS'
 
-        elif ename[n] == 'Z':
+        elif ename[i] == 'Z':
             metaph += 'S'
 
     return metaph
@@ -679,39 +682,46 @@ def double_metaphone(word, maxlength=float('inf')):
     secondary = ''
 
     def _slavo_germanic():
+        """Return True if the word appears to be Slavic or Germanic
+        """
         if 'W' in word or 'K' in word or 'CZ' in word:
             return True
         return False
 
-    def _metaph_add(p, s=''):
-        newp = primary
-        news = secondary
-        if p:
-            newp += p
-        if s:
-            if s != ' ':
-                news += s
+    def _metaph_add(pri, sec=''):
+        """Return a new metaphone tuple with the supplied additional elements
+        """
+        newpri = primary
+        newsec = secondary
+        if pri:
+            newpri += pri
+        if sec:
+            if sec != ' ':
+                newsec += sec
         else:
-            if p and (p != ' '):
-                news += p
-        return (newp, news)
+            if pri and (pri != ' '):
+                newsec += pri
+        return (newpri, newsec)
 
     def _is_vowel(pos):
+        """Return true if the character at word[pos] is a vowel
+        """
         if pos < 0:
             return False
         return word[pos] in list('AEIOUY')
 
     def _get_at(pos):
+        """Return the character at word[pos]
+        """
         if not pos < 0:
             return word[pos]
 
     def _string_at(pos, slen, substrings):
+        """Return True if word[pos:pos+slen] is in substrings
+        """
         if pos < 0:
             return False
-        for s in substrings:
-            if word[pos:pos+slen] == s:
-                return True
-        return False
+        return word[pos:pos+slen] in substrings
 
     current = 0
     length = len(word)
@@ -1006,7 +1016,7 @@ def double_metaphone(word, maxlength=float('inf')):
                      _string_at(0, 3, ["SCH"]))
                     or _string_at((current + 1), 2, ["ET"])):
                     (primary, secondary) = _metaph_add("K")
-                elif (_string_at((current + 1), 4, ["IER "])):
+                elif _string_at((current + 1), 4, ["IER "]):
                     (primary, secondary) = _metaph_add("J")
                 else:
                     (primary, secondary) = _metaph_add("J", "K")
