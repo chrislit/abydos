@@ -50,7 +50,7 @@ class ConfusionTable(object):
     The object possesses methods for the caluculation of various statistics
     based on the confusion table.
     """
-    tpos, fneg, fpos, fneg = 0, 0, 0, 0
+    tpos, tneg, fpos, fneg = 0, 0, 0, 0
 
     def __init__(self, tp=0, tn=0, fp=0, fn=0):
         if isinstance(tp, tuple) or isinstance(tp, list):
@@ -62,11 +62,41 @@ class ConfusionTable(object):
             else:
                 raise AttributeError('ConfusionTable requires a 4-tuple when \
                 being created from a tuple.')
+        elif isinstance(tp, dict):
+            if 'tp' in tp:
+                self.tpos = tp['tp']
+            if 'tn' in tp:
+                self.tneg = tp['tn']
+            if 'fp' in tp:
+                self.fpos = tp['fp']
+            if 'fn' in tp:
+                self.fneg = tp['fn']
         else:
             self.tpos = tp
             self.tneg = tn
             self.fpos = fp
             self.fneg = fn
+
+
+    def __eq__(self, other):
+        """Return True if two ConfusionTables are the same object or all four
+        of their attributes are equal
+        """
+        if isinstance(other, ConfusionTable):
+            if id(self) == id(other):
+                return True
+            if (self.tpos == other.tpos and self.tneg == other.tneg and
+                self.fpos == other.fpos and self. fneg == other.fneg):
+                return True
+        elif isinstance(other, tuple) or isinstance(other, list):
+            if (self.tpos == other[0] and self.tneg == other[1] and
+                self.fpos == other[2] and self.fneg == other[3]):
+                return True
+        elif isinstance(other, dict):
+            if (self.tpos == other['tp'] and self.tneg == other['tn'] and
+                self.fpos == other['fp'] and self.fneg == other['fn']):
+                return True 
+        return False
 
 
     def __str__(self):
@@ -96,31 +126,31 @@ class ConfusionTable(object):
 
 
     def error_pop(self):
-        """Return the correct population of the confusion table
+        """Return the error population of the confusion table
         """
         return self.fpos + self.fneg
 
 
     def test_pos_pop(self):
-        """Return the correct population of the confusion table
+        """Return the test positive population of the confusion table
         """
         return self.tpos + self.fpos
 
 
     def test_neg_pop(self):
-        """Return the correct population of the confusion table
+        """Return the test negative population of the confusion table
         """
         return self.tneg + self.fneg
 
 
     def cond_pos_pop(self):
-        """Return the correct population of the confusion table
+        """Return the condition positive population of the confusion table
         """
         return self.tpos + self.fneg
 
 
     def cond_neg_pop(self):
-        """Return the correct population of the confusion table
+        """Return the condition negative population of the confusion table
         """
         return self.fpos + self.tneg
 
