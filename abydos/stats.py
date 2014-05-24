@@ -166,6 +166,9 @@ class ConfusionTable(object):
 
 	    Precision is defined as tp / (tp+fp)
 	    AKA positive predictive value (PPV)
+
+        Cf. https://en.wikipedia.org/wiki/Precision_and_recall
+        Cf. https://en.wikipedia.org/wiki/Information_retrieval#Precision
 	    """
         if self.tpos + self.fpos == 0:
             return float('NaN')
@@ -178,6 +181,10 @@ class ConfusionTable(object):
         Recall is defined as tp / (tp+fn)
         AKA sensitivity
         AKA true positive rate (TPR)
+
+        Cf. https://en.wikipedia.org/wiki/Precision_and_recall
+        Cf. https://en.wikipedia.org/wiki/Sensitivity_(test)
+        Cf. https://en.wikipedia.org/wiki/Information_retrieval#Recall
         """
         if self.tpos + self.fneg == 0:
             return float('NaN')
@@ -189,6 +196,8 @@ class ConfusionTable(object):
 
         Specificity is defined as tn / (tn+fp)
         AKA true negative rate (TNR)
+
+        Cf. https://en.wikipedia.org/wiki/Specificity_(tests)
         """
         if self.tneg + self.fpos == 0:
             return float('NaN')
@@ -200,6 +209,8 @@ class ConfusionTable(object):
         confusion table
 
         NPV is defined as tn / (tn+fn)
+
+        Cf. https://en.wikipedia.org/wiki/Negative_predictive_value
         """
         if self.tneg + self.fneg == 0:
             return float('NaN')
@@ -211,6 +222,8 @@ class ConfusionTable(object):
 
         Fall-out is defined as fp / (fp+tn)
         AKA false positive rate (FPR)
+
+        Cf. https://en.wikipedia.org/wiki/Information_retrieval#Fall-out
         """
         if self.fpos + self.tneg == 0:
             return float('NaN')
@@ -222,6 +235,8 @@ class ConfusionTable(object):
         table
 
         False discovery rate is defined as fp / (fp+tp)
+
+        Cf. https://en.wikipedia.org/wiki/False_discovery_rate
         """
         if self.fpos + self.tpos == 0:
             return float('NaN')
@@ -232,6 +247,8 @@ class ConfusionTable(object):
         """Return the accuracy of the confusion table
 
         Accuracy is defined as (tp + tn) / population
+
+        Cf. https://en.wikipedia.org/wiki/Accuracy
         """
         if self.population() == 0:
             return float('NaN')
@@ -243,6 +260,8 @@ class ConfusionTable(object):
 
         Balanced accuracy is defined as
         (sensitivity+specificity) / 2
+
+        Cf. https://en.wikipedia.org/wiki/Accuracy
         """
         return 0.5 * (self.recall() + self.specificity())
 
@@ -262,6 +281,8 @@ class ConfusionTable(object):
         """Return the markedness of the confusion table
 
         Markedness is defined as precision + npv -1
+
+        Cf. https://en.wikipedia.org/wiki/Youden%27s_J_statistic
         """
         return self.precision() + self.npv() - 1
 
@@ -449,7 +470,7 @@ class ConfusionTable(object):
         """Return the E-score (Van Rijsbergen's effectiveness
         measure)
 
-        Cf. https://en.wikipedia.org/wiki/F1_score
+        Cf. https://en.wikipedia.org/wiki/Information_retrieval#F-measure
         """
         return 1-self.fbeta_score(beta)
 
