@@ -252,6 +252,8 @@ class ConfusionTable(object):
 
         Informedness is defined as sensitivity+specificity-1.
         AKA Youden's J statistic
+
+        Cf. https://en.wikipedia.org/wiki/Youden%27s_J_statistic
         """
         return self.recall() + self.specificity() - 1
 
@@ -270,6 +272,8 @@ class ConfusionTable(object):
 
         The arithmetic mean of precision and recall is defined as:
         (precision * recall)/2
+
+        Cf. https://en.wikipedia.org/wiki/Arithmetic_mean
         """
         return (self.precision() + self.recall()) / 2
 
@@ -280,6 +284,8 @@ class ConfusionTable(object):
 
         The geometric mean of precision and recall is defined as:
         √(precision * recall)
+
+        Cf. https://en.wikipedia.org/wiki/Geometric_mean
         """
         return math.sqrt(self.precision() * self.recall())
 
@@ -290,6 +296,8 @@ class ConfusionTable(object):
 
         The geometric mean of precision and recall is defined as:
         sqrt(precision * recall)
+
+        Cf. https://en.wikipedia.org/wiki/Harmonic_mean
         """
         precision = self.precision()
         recall = self.recall()
@@ -302,6 +310,8 @@ class ConfusionTable(object):
 
         The quadratic mean of precision and recall is defined as:
         √((precision^2 + recall^2)/2)
+
+        Cf. https://en.wikipedia.org/wiki/Quadratic_mean
         """
         return math.sqrt((self.precision()**2 + self.recall()**2) / 2)
 
@@ -314,6 +324,8 @@ class ConfusionTable(object):
         0 if either precision or recall is 0,
         the precision if they are equal,
         otherwise (precision - recall) / ln(precision) - ln(recall)
+
+        Cf. https://en.wikipedia.org/wiki/Logarithmic_mean
         """
         precision = self.precision()
         recall = self.recall()
@@ -326,16 +338,33 @@ class ConfusionTable(object):
                     (math.log(precision) - math.log(recall)))
 
 
+    def pr_lehmer_mean(self, exp=2):
+        """Return the Lehmer mean of precision & recall
+        of the confusion table
+
+        The Lehmer mean is:
+        (precision^exp + recall^exp) / (precision^(exp-1) + recall^(exp-1))
+
+        Cf. https://en.wikipedia.org/wiki/Lehmer_mean
+        """
+        precision = self.precision()
+        recall = self.recall()
+        return ((precision**exp + recall**exp) /
+                (precision**(exp-1) + recall**(exp-1)))
+
+
     def pr_cmean(self):
         """Return the contraharmonic mean of precision & recall
         of the confusion table
 
         The contraharmonic mean is:
         (precision^2 + recall^2) / (precision + recall)
+
+        Cf. https://en.wikipedia.org/wiki/Contraharmonic_mean
         """
         precision = self.precision()
         recall = self.recall()
-        return (precision**2 + recall**2)/(precision + recall)
+        return (precision**2 + recall**2) / (precision + recall)
 
 
     def pr_imean(self):
@@ -346,6 +375,8 @@ class ConfusionTable(object):
         precision if precision = recall,
         otherwise (1/e) *
                 (precision^precision / recall^recall)^(1 / (precision - recall))
+
+        Cf. https://en.wikipedia.org/wiki/Identric_mean
         """
         precision = self.precision()
         recall = self.recall()
@@ -361,9 +392,14 @@ class ConfusionTable(object):
         """Return the power mean of precision & recall of the
         confusion table
 
-        The exp mean of precision and recall is defined as:
+        The power mean of precision and recall is defined as:
         (0.5 * (precision^exp + recall^exp))^(1/exp)
+        for exp != 0, and the geometric mean for exp == 0
+
+        Cf. https://en.wikipedia.org/wiki/Generalized_mean
         """
+        if exp == 0:
+            return self.pr_gmean()
         return (0.5 * (self.precision()**exp + self.recall()**exp))**(1/exp)
 
 
@@ -378,6 +414,8 @@ class ConfusionTable(object):
         F_{β} score is defined as:
         (1 + β^2) * precision * recall /
         ((β^2 * precision) + recall)
+
+        Cf. https://en.wikipedia.org/wiki/F1_score
         """
         if beta <= 0:
             raise AttributeError('Beta must be a positive real value.')
@@ -391,6 +429,8 @@ class ConfusionTable(object):
         """Return the F_{2} score of the confusion table,
         which emphasizes recall over precision in comparison
         to the F_{1} score
+
+        Cf. https://en.wikipedia.org/wiki/F1_score
         """
         return self.fbeta_score(2)
 
@@ -399,6 +439,8 @@ class ConfusionTable(object):
         """Return the F_{0.5} score of the confusion table,
         which emphasizes precision over recall in comparison
         to the F_{1} score
+
+        Cf. https://en.wikipedia.org/wiki/F1_score
         """
         return self.fbeta_score(0.5)
 
@@ -406,6 +448,8 @@ class ConfusionTable(object):
     def e_score(self, beta=1):
         """Return the E-score (Van Rijsbergen's effectiveness
         measure)
+
+        Cf. https://en.wikipedia.org/wiki/F1_score
         """
         return 1-self.fbeta_score(beta)
 
@@ -415,6 +459,8 @@ class ConfusionTable(object):
 
         F_{1} score is the harmonic mean of precision and recall:
         2*(precision*recall) / (precision+recall)
+
+        Cf. https://en.wikipedia.org/wiki/F1_score
         """
         return self.pr_hmean()
 
@@ -424,6 +470,8 @@ class ConfusionTable(object):
 
         F-measure is the harmonic mean of precision and recall:
         2*(precision*recall) / (precision+recall)
+
+        Cf. https://en.wikipedia.org/wiki/F1_score
         """
         return self.pr_hmean()
 
@@ -433,6 +481,8 @@ class ConfusionTable(object):
 
         G-measure is the geometric mean of precision and recall:
         √(precision * recall)
+
+        Cf. https://en.wikipedia.org/wiki/F1_score#G-measure
         """
         return self.pr_gmean()
 
@@ -444,6 +494,8 @@ class ConfusionTable(object):
         The Matthews correlation coefficient is defined as:
         ((tp * tn) - (fp * fn)) /
         sqrt((tp + fp)(tp + fn)(tn + fp)(tn + fn))
+
+        Cf. https://en.wikipedia.org/wiki/Matthews_correlation_coefficient
         """
         if ((self.tpos + self.fpos) * (self.tpos + self.fneg) *
             (self.tneg + self.fpos) * (self.tneg + self.fneg)) == 0:
@@ -454,11 +506,13 @@ class ConfusionTable(object):
 
 
     def significance(self):
-        """Return the significance of the confusion table
+        """Return the significance (χ²) of the confusion table
 
         Significance is defined as:
-        (tp * tn - fp * fn)^2 (tp + tn + fp + fn) /
-        ((tp + fp)(tp + fn)(tn + fp)(tn + fn))
+        χ² = (tp * tn - fp * fn)^2 (tp + tn + fp + fn) /
+                                ((tp + fp)(tp + fn)(tn + fp)(tn + fn))
+
+        Cf. https://en.wikipedia.org/wiki/Pearson%27s_chi-square_test
         """
         if ((self.tpos + self.fpos) * (self.tpos + self.fneg) *
             (self.tneg + self.fpos) * (self.tneg + self.fneg)) == 0:
