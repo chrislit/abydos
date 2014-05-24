@@ -167,6 +167,8 @@ class ConfusionTable(object):
 	    Precision is defined as tp / (tp+fp)
 	    AKA positive predictive value (PPV)
 	    """
+        if self.tpos + self.fpos == 0:
+            return float('NaN')
         return self.tpos / (self.tpos + self.fpos)
 
 
@@ -177,6 +179,8 @@ class ConfusionTable(object):
         AKA sensitivity
         AKA true positive rate (TPR)
         """
+        if self.tpos + self.fneg == 0:
+            return float('NaN')
         return self.tpos / (self.tpos + self.fneg)
 
 
@@ -186,6 +190,8 @@ class ConfusionTable(object):
         Specificity is defined as tn / (tn+fp)
         AKA true negative rate (TNR)
         """
+        if self.tneg + self.fpos == 0:
+            return float('NaN')
         return self.tneg / (self.tneg + self.fpos)
 
 
@@ -195,6 +201,8 @@ class ConfusionTable(object):
 
         NPV is defined as tn / (tn+fn)
         """
+        if self.tneg + self.fneg == 0:
+            return float('NaN')
         return self.tneg / (self.tneg + self.fneg)
 
 
@@ -204,6 +212,8 @@ class ConfusionTable(object):
         Fall-out is defined as fp / (fp+tn)
         AKA false positive rate (FPR)
         """
+        if self.fpos + self.tneg == 0:
+            return float('NaN')
         return self.fpos / (self.fpos + self.tneg)
 
 
@@ -213,6 +223,8 @@ class ConfusionTable(object):
 
         False discovery rate is defined as fp / (fp+tp)
         """
+        if self.fpos + self.tpos == 0:
+            return float('NaN')
         return self.fpos / (self.fpos + self.tpos)
 
 
@@ -221,6 +233,8 @@ class ConfusionTable(object):
 
         Accuracy is defined as (tp + tn) / population
         """
+        if self.population() == 0:
+            return float('NaN')
         return (self.tpos + self.tneg) / self.population()
 
 
@@ -335,6 +349,10 @@ class ConfusionTable(object):
         """
         precision = self.precision()
         recall = self.recall()
+        if precision <= 0 or recall <= 0:
+            return float('NaN')
+        elif precision == recall:
+            return precision
         return ((1/math.e) *
                 (precision**precision/recall**recall)**(1/(precision-recall)))
 
@@ -427,6 +445,9 @@ class ConfusionTable(object):
         ((tp * tn) - (fp * fn)) /
         sqrt((tp + fp)(tp + fn)(tn + fp)(tn + fn))
         """
+        if ((self.tpos + self.fpos) * (self.tpos + self.fneg) *
+            (self.tneg + self.fpos) * (self.tneg + self.fneg)) == 0:
+            return float('NaN')
         return (((self.tpos * self.tneg) - (self.fpos * self.fneg)) /
                 math.sqrt((self.tpos + self.fpos) * (self.tpos + self.fneg) *
                           (self.tneg + self.fpos) * (self.tneg + self.fneg)))
@@ -439,6 +460,9 @@ class ConfusionTable(object):
         (tp * tn - fp * fn)^2 (tp + tn + fp + fn) /
         ((tp + fp)(tp + fn)(tn + fp)(tn + fn))
         """
+        if ((self.tpos + self.fpos) * (self.tpos + self.fneg) *
+            (self.tneg + self.fpos) * (self.tneg + self.fneg)) == 0:
+            return float('NaN')
         return (((self.tpos * self.tneg - self.fpos * self.fneg)**2 *
                  (self.tpos + self.tneg + self.fpos + self.fneg)) /
                 ((self.tpos + self.fpos) * (self.tpos + self.fneg) *
