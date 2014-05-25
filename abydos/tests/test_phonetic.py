@@ -3249,30 +3249,30 @@ class CaverphoneTestCases(unittest.TestCase):
         with open(TESTDIR+'/variantNames.csv') as cav_testset:
             next(cav_testset)
             for cav_line in cav_testset:
-                (Name1, Soundex1, Metaphone1, Caverphone1,
-                 Name2, Soundex2, Metaphone2, Caverphone2,
-                 SoundexSame, MetaphoneSame, CaverphoneSame) = cav_line
+                (name1, soundex1, metaphone1, caverphone1,
+                 name2, soundex2, metaphone2, caverphone2,
+                 soundex_same, metaphone_same, caverphone_same) = cav_line
 
-                self.assertEqual(soundex(Name1), Soundex1)
-                self.assertEqual(soundex(Name2), Soundex2)
-                if SoundexSame == '1':
-                    self.assertEqual(soundex(Name1), soundex(Name2))
+                self.assertEqual(soundex(name1), soundex1)
+                self.assertEqual(soundex(name2), soundex2)
+                if soundex_same == '1':
+                    self.assertEqual(soundex(name1), soundex(name2))
                 else:
-                    self.assertNotEqual(soundex(Name1), soundex(Name2))
+                    self.assertNotEqual(soundex(name1), soundex(name2))
 
-                self.assertEqual(metaphone(Name1), Metaphone1)
-                self.assertEqual(metaphone(Name2), Metaphone2)
-                if MetaphoneSame == '1':
-                    self.assertEqual(metaphone(Name1), metaphone(Name2))
+                self.assertEqual(metaphone(name1), metaphone1)
+                self.assertEqual(metaphone(name2), metaphone2)
+                if metaphone_same == '1':
+                    self.assertEqual(metaphone(name1), metaphone(name2))
                 else:
-                    self.assertNotEqual(metaphone(Name1), metaphone(Name2))
+                    self.assertNotEqual(metaphone(name1), metaphone(name2))
 
-                self.assertEqual(caverphone(Name1), Caverphone1)
-                self.assertEqual(caverphone(Name2), Caverphone2)
-                if CaverphoneSame == '1':
-                    self.assertEqual(caverphone(Name1), caverphone(Name2))
+                self.assertEqual(caverphone(name1), caverphone1)
+                self.assertEqual(caverphone(name2), caverphone2)
+                if caverphone_same == '1':
+                    self.assertEqual(caverphone(name1), caverphone(name2))
                 else:
-                    self.assertNotEqual(caverphone(Name1), caverphone(Name2))
+                    self.assertNotEqual(caverphone(name1), caverphone(name2))
 
 
 class AlphaSisTestCases(unittest.TestCase):

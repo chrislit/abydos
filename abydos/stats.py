@@ -95,7 +95,7 @@ class ConfusionTable(object):
         elif isinstance(other, dict):
             if (self.tpos == other['tp'] and self.tneg == other['tn'] and
                 self.fpos == other['fp'] and self.fneg == other['fn']):
-                return True 
+                return True
         return False
 
 
@@ -185,8 +185,8 @@ class ConfusionTable(object):
         """
         if self.population() == 0:
             return float('NaN')
-        r = self.cond_pos_pop()/self.population()
-        return self.precision()/r
+        random_precision = self.cond_pos_pop()/self.population()
+        return self.precision()/random_precision
 
 
     def recall(self):
@@ -279,9 +279,9 @@ class ConfusionTable(object):
         """
         if self.population() == 0:
             return float('NaN')
-        r = ((self.cond_pos_pop()/self.population())**2 +
+        random_accuracy = ((self.cond_pos_pop()/self.population())**2 +
              (self.cond_neg_pop()/self.population())**2)
-        return self.accuracy()/r
+        return self.accuracy()/random_accuracy
 
     def balanced_accuracy(self):
         """Return the balanced accuracy of the confusion table
