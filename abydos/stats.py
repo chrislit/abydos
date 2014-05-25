@@ -533,6 +533,8 @@ class ConfusionTable(object):
         χ² = (tp * tn - fp * fn)^2 (tp + tn + fp + fn) /
                                 ((tp + fp)(tp + fn)(tn + fp)(tn + fn))
 
+        Also: χ² = MCC²*n
+ 
         Cf. https://en.wikipedia.org/wiki/Pearson%27s_chi-square_test
         """
         if ((self.tpos + self.fpos) * (self.tpos + self.fneg) *

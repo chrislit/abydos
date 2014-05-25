@@ -24,7 +24,7 @@ from __future__ import unicode_literals
 from __future__ import division
 import unittest
 from abydos.stats import ConfusionTable
-from math import isnan
+from math import isnan, sqrt
 from numpy import mean
 from scipy.stats.mstats import hmean, gmean
 
@@ -279,6 +279,7 @@ class PrMeansTestCases(unittest.TestCase):
     """test cases for abydos.stats.ConfusionTable precision-recall mean methods
     """
     pr = tuple((tuple((i.precision(), i.recall())) for i in ALL_TABLES))
+
     def test_pr_mean(self):
         """test abydos.stats.ConfusionTable.pr_mean
         """
@@ -309,61 +310,112 @@ class PrMeansTestCases(unittest.TestCase):
     def test_pr_qmean(self):
         """test abydos.stats.ConfusionTable.pr_qmean
         """
-        self.assertEquals(UNIT_TABLE.pr_qmean(), 0.5)
+        self.assertEquals(UNIT_TABLE.pr_qmean(), sqrt(sum([i**2 for i in self.pr[0]])/2))
         self.assertTrue(isnan(NULL_TABLE.pr_qmean()))
-        #self.assertAlmostEqual(SCALE_TABLE.pr_qmean(), 2/9)
-        #self.assertAlmostEqual(CATSNDOGS_TABLE.pr_qmean(), 2/3)
-        #self.assertAlmostEqual(WORKED_EG_TABLE.pr_qmean(), 0.17391304347826089)
+        self.assertAlmostEqual(SCALE_TABLE.pr_qmean(), sqrt(sum([i**2 for i in self.pr[2]])/2))
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_qmean(), sqrt(sum([i**2 for i in self.pr[3]])/2))
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_qmean(), sqrt(sum([i**2 for i in self.pr[4]])/2))
 
     def test_pr_lehmer_mean(self):
         """test abydos.stats.ConfusionTable.pr_lehmer_mean
         """
+        self.assertEquals(UNIT_TABLE.pr_lehmer_mean(3), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.pr_lehmer_mean(3)))
+        self.assertAlmostEqual(SCALE_TABLE.pr_lehmer_mean(3), 189/820)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_lehmer_mean(3), 4275/6328)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(3), 8027/12270)
+
         self.assertEquals(UNIT_TABLE.pr_lehmer_mean(), 0.5)
         self.assertTrue(isnan(NULL_TABLE.pr_lehmer_mean()))
-        #self.assertAlmostEqual(SCALE_TABLE.pr_lehmer_mean(), 2/9)
-        #self.assertAlmostEqual(CATSNDOGS_TABLE.pr_lehmer_mean(), 2/3)
-        #self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(), 0.17391304347826089)
+        self.assertAlmostEqual(SCALE_TABLE.pr_lehmer_mean(), 41/180)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_lehmer_mean(), 113/168)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(), 409/690)
+
+        self.assertEquals(UNIT_TABLE.pr_lehmer_mean(2), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.pr_lehmer_mean(2)))
+        self.assertAlmostEqual(SCALE_TABLE.pr_lehmer_mean(2), 41/180)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_lehmer_mean(2), 113/168)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(2), 409/690)
+
+        # check equivalences to other specific means
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(0), WORKED_EG_TABLE.pr_hmean())
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(0.5), WORKED_EG_TABLE.pr_gmean())
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(1), WORKED_EG_TABLE.pr_mean())
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(2), WORKED_EG_TABLE.pr_cmean())
+
 
     def test_pr_lmean(self):
         """test abydos.stats.ConfusionTable.pr_lmean
         """
         self.assertEquals(UNIT_TABLE.pr_lmean(), 0.5)
         self.assertTrue(isnan(NULL_TABLE.pr_lmean()))
-        #self.assertAlmostEqual(SCALE_TABLE.pr_lmean(), 2/9)
-        #self.assertAlmostEqual(CATSNDOGS_TABLE.pr_lmean(), 2/3)
-        #self.assertAlmostEqual(WORKED_EG_TABLE.pr_lmean(), 0.17391304347826089)
+        self.assertAlmostEqual(SCALE_TABLE.pr_lmean(), 0.2240710058862275)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_lmean(), 0.6686496151266621)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_lmean(), 0.2986983802717959)
 
     def test_pr_cmean(self):
         """test abydos.stats.ConfusionTable.pr_cmean
         """
         self.assertEquals(UNIT_TABLE.pr_cmean(), 0.5)
         self.assertTrue(isnan(NULL_TABLE.pr_cmean()))
-        #self.assertAlmostEqual(SCALE_TABLE.pr_cmean(), 2/9)
-        #self.assertAlmostEqual(CATSNDOGS_TABLE.pr_cmean(), 2/3)
-        #self.assertAlmostEqual(WORKED_EG_TABLE.pr_cmean(), 0.17391304347826089)
+        self.assertAlmostEqual(SCALE_TABLE.pr_cmean(), 41/180)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_cmean(), 113/168)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_cmean(), 409/690)
 
     def test_pr_imean(self):
         """test abydos.stats.ConfusionTable.pr_imean
         """
         self.assertEquals(UNIT_TABLE.pr_imean(), 0.5)
         self.assertTrue(isnan(NULL_TABLE.pr_imean()))
-        #self.assertAlmostEqual(SCALE_TABLE.pr_imean(), 2/9)
-        #self.assertAlmostEqual(CATSNDOGS_TABLE.pr_imean(), 2/3)
-        #self.assertAlmostEqual(WORKED_EG_TABLE.pr_imean(), 0.17391304347826089)
+        self.assertAlmostEqual(SCALE_TABLE.pr_imean(), 0.224535791730617)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_imean(), 0.6691463467789889)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_imean(), 0.34277561539033635)
 
     def test_pr_pmean(self):
         """test abydos.stats.ConfusionTable.pr_pmean
         """
         self.assertEquals(UNIT_TABLE.pr_pmean(), 0.5)
         self.assertTrue(isnan(NULL_TABLE.pr_pmean()))
-        #self.assertAlmostEqual(SCALE_TABLE.pr_pmean(), 2/9)
-        #self.assertAlmostEqual(CATSNDOGS_TABLE.pr_pmean(), 2/3)
-        #self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(), 0.17391304347826089)
+        self.assertAlmostEqual(SCALE_TABLE.pr_pmean(), 0.22638462845343543)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_pmean(), 0.6711293026059334)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(), 0.4766783215358364)
+
+        self.assertEquals(UNIT_TABLE.pr_pmean(0), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.pr_pmean(0)))
+        self.assertAlmostEqual(SCALE_TABLE.pr_pmean(0), 0.22360679774997899)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_pmean(0), 0.66815310478106094)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(0), 0.25819888974716115)
+
+        self.assertEquals(UNIT_TABLE.pr_pmean(1), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.pr_pmean(1)))
+        self.assertAlmostEqual(SCALE_TABLE.pr_pmean(1), 9/40)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_pmean(1), 75/112)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(1), 23/60)
+
+        self.assertEquals(UNIT_TABLE.pr_pmean(2), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.pr_pmean(2)))
+        self.assertAlmostEqual(SCALE_TABLE.pr_pmean(2), 0.22638462845343543)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_pmean(2), 0.6711293026059334)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(2), 0.4766783215358364)
+
+        self.assertEquals(UNIT_TABLE.pr_pmean(3), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.pr_pmean(3)))
+        self.assertAlmostEqual(SCALE_TABLE.pr_pmean(3), 0.2277441728906747)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_pmean(3), 0.6726059172248808)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(3), 0.5297282909519099)
+
+        # check equivalences to other specific means
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(-1), WORKED_EG_TABLE.pr_hmean())
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(0), WORKED_EG_TABLE.pr_gmean())
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(1), WORKED_EG_TABLE.pr_mean())
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(2), WORKED_EG_TABLE.pr_qmean())
 
 
 class StatisticalMeasureTestCases(unittest.TestCase):
     """test cases for abydos.stats.ConfusionTable statistical measure methods
     """
+    pr = tuple((tuple((i.precision(), i.recall())) for i in ALL_TABLES))
+
     def test_fbeta_score(self):
         """test abydos.stats.ConfusionTable.fbeta_score
         """
@@ -371,25 +423,25 @@ class StatisticalMeasureTestCases(unittest.TestCase):
         self.assertTrue(isnan(NULL_TABLE.fbeta_score(1)))
         self.assertAlmostEqual(SCALE_TABLE.fbeta_score(1), 2/9)
         self.assertAlmostEqual(CATSNDOGS_TABLE.fbeta_score(1), 2/3)
-        #self.assertAlmostEqual(WORKED_EG_TABLE.fbeta_score(1), 0.17391304347826089)
+        self.assertAlmostEqual(WORKED_EG_TABLE.fbeta_score(1), 4/23)
 
     def test_f2_score(self):
         """test abydos.stats.ConfusionTable.f2_score
         """
         self.assertEquals(UNIT_TABLE.f2_score(), 0.5)
         self.assertTrue(isnan(NULL_TABLE.f2_score()))
-        #self.assertAlmostEqual(SCALE_TABLE.f2_score(), 0.23809523809523808)
-        #self.assertAlmostEqual(CATSNDOGS_TABLE.f2_score(), 0.69444444444444442)
-        #self.assertAlmostEqual(WORKED_EG_TABLE.f2_score(), 0.3125)
+        self.assertAlmostEqual(SCALE_TABLE.f2_score(), 5/24)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.f2_score(), 25/39)
+        self.assertAlmostEqual(WORKED_EG_TABLE.f2_score(), 5/16)
 
     def test_fhalf_score(self):
         """test abydos.stats.ConfusionTable.fhalf_score
         """
         self.assertEquals(UNIT_TABLE.fhalf_score(), 0.5)
         self.assertTrue(isnan(NULL_TABLE.fhalf_score()))
-        #self.assertAlmostEqual(SCALE_TABLE.fhalf_score(), 0.20833333333333334)
-        #self.assertAlmostEqual(CATSNDOGS_TABLE.fhalf_score(), 0.64102564102564108)
-        #self.assertAlmostEqual(WORKED_EG_TABLE.fhalf_score(), 0.12048192771084337)
+        self.assertAlmostEqual(SCALE_TABLE.fhalf_score(), 5/21)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.fhalf_score(), 25/36)
+        self.assertAlmostEqual(WORKED_EG_TABLE.fhalf_score(), 10/83)
 
     def test_e_score(self):
         """test abydos.stats.ConfusionTable.e_score
@@ -398,7 +450,7 @@ class StatisticalMeasureTestCases(unittest.TestCase):
         self.assertTrue(isnan(NULL_TABLE.e_score()))
         self.assertAlmostEqual(SCALE_TABLE.e_score(), 7/9)
         self.assertAlmostEqual(CATSNDOGS_TABLE.e_score(), 1/3)
-        #self.assertAlmostEqual(WORKED_EG_TABLE.e_score(), 0.17391304347826089)
+        self.assertAlmostEqual(WORKED_EG_TABLE.e_score(), 19/23)
 
     def test_f1_score(self):
         """test abydos.stats.ConfusionTable.f1_score
@@ -407,7 +459,7 @@ class StatisticalMeasureTestCases(unittest.TestCase):
         self.assertTrue(isnan(NULL_TABLE.f1_score()))
         self.assertAlmostEqual(SCALE_TABLE.f1_score(), 2/9)
         self.assertAlmostEqual(CATSNDOGS_TABLE.f1_score(), 2/3)
-        self.assertAlmostEqual(WORKED_EG_TABLE.f1_score(), 0.17391304347826089)
+        self.assertAlmostEqual(WORKED_EG_TABLE.f1_score(), 4/23)
 
     def test_f_measure(self):
         """test abydos.stats.ConfusionTable.f_measure
@@ -416,31 +468,31 @@ class StatisticalMeasureTestCases(unittest.TestCase):
         self.assertTrue(isnan(NULL_TABLE.f_measure()))
         self.assertAlmostEqual(SCALE_TABLE.f_measure(), 2/9)
         self.assertAlmostEqual(CATSNDOGS_TABLE.f_measure(), 2/3)
-        self.assertAlmostEqual(WORKED_EG_TABLE.f_measure(), 0.17391304347826089)
+        self.assertAlmostEqual(WORKED_EG_TABLE.f_measure(), 4/23)
 
     def test_g_measure(self):
         """test abydos.stats.ConfusionTable.g_measure
         """
-        #self.assertEquals(UNIT_TABLE.g_measure(), 0)
+        self.assertEquals(UNIT_TABLE.g_measure(), gmean(self.pr[0]))
         self.assertTrue(isnan(NULL_TABLE.g_measure()))
-        #self.assertAlmostEqual(SCALE_TABLE.g_measure(), -0.40824829046386302)
-        #self.assertAlmostEqual(CATSNDOGS_TABLE.g_measure(), 0.54155339089324317)
-        #self.assertAlmostEqual(WORKED_EG_TABLE.g_measure(), 0.23348550853492078)
+        self.assertAlmostEqual(SCALE_TABLE.g_measure(), gmean(self.pr[2]))
+        self.assertAlmostEqual(CATSNDOGS_TABLE.g_measure(), gmean(self.pr[3]))
+        self.assertAlmostEqual(WORKED_EG_TABLE.g_measure(), gmean(self.pr[4]))
 
     def test_mcc(self):
         """test abydos.stats.ConfusionTable.mcc
         """
         self.assertEquals(UNIT_TABLE.mcc(), 0)
         self.assertTrue(isnan(NULL_TABLE.mcc()))
-        self.assertAlmostEqual(SCALE_TABLE.mcc(), -0.40824829046386302)
-        self.assertAlmostEqual(CATSNDOGS_TABLE.mcc(), 0.54155339089324317)
-        self.assertAlmostEqual(WORKED_EG_TABLE.mcc(), 0.23348550853492078)
+        self.assertAlmostEqual(SCALE_TABLE.mcc(), -10/sqrt(600))
+        self.assertAlmostEqual(CATSNDOGS_TABLE.mcc(), 79/sqrt(21280))
+        self.assertAlmostEqual(WORKED_EG_TABLE.mcc(), 34600/sqrt(21960000000))
 
     def test_significance(self):
         """test abydos.stats.ConfusionTable.significance
         """
         self.assertEquals(UNIT_TABLE.significance(), 0)
         self.assertTrue(isnan(NULL_TABLE.significance()))
-        #self.assertAlmostEqual(SCALE_TABLE.significance(), -0.40824829046386302)
-        #self.assertAlmostEqual(CATSNDOGS_TABLE.significance(), 0.54155339089324317)
-        #self.assertAlmostEqual(WORKED_EG_TABLE.significance(), 0.23348550853492078)
+        self.assertAlmostEqual(SCALE_TABLE.significance(), 5/3)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.significance(), 79**2/21280*27)
+        self.assertAlmostEqual(WORKED_EG_TABLE.significance(), 34600**2/21960000000*2030)
