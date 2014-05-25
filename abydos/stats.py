@@ -279,7 +279,8 @@ class ConfusionTable(object):
         """
         if self.population() == 0:
             return float('NaN')
-        r = (self.cond_pos_pop()/self.population())**2 + (self.cond_neg_pop()/self.population())**2
+        r = ((self.cond_pos_pop()/self.population())**2 +
+             (self.cond_neg_pop()/self.population())**2)
         return self.accuracy()/r
 
     def balanced_accuracy(self):

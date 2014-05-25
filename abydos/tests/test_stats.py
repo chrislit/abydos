@@ -261,9 +261,12 @@ class StatisticalRatioTestCases(unittest.TestCase):
         """
         self.assertEquals(UNIT_TABLE.accuracy_gain(), 1)
         self.assertTrue(isnan(NULL_TABLE.accuracy_gain()))
-        self.assertAlmostEqual(SCALE_TABLE.accuracy_gain(), (3/10)/((5/10)**2+(5/10)**2))
-        self.assertAlmostEqual(CATSNDOGS_TABLE.accuracy_gain(), (22/27)/((8/27)**2+(19/27)**2))
-        self.assertAlmostEqual(WORKED_EG_TABLE.accuracy_gain(), (184/203)/((30/2030)**2+(2000/2030)**2))
+        self.assertAlmostEqual(SCALE_TABLE.accuracy_gain(),
+                               (3/10)/((5/10)**2+(5/10)**2))
+        self.assertAlmostEqual(CATSNDOGS_TABLE.accuracy_gain(),
+                               (22/27)/((8/27)**2+(19/27)**2))
+        self.assertAlmostEqual(WORKED_EG_TABLE.accuracy_gain(),
+                               (184/203)/((30/2030)**2+(2000/2030)**2))
 
     def test_balanced_accuracy(self):
         """test abydos.stats.ConfusionTable.balanced_accuracy
@@ -328,11 +331,15 @@ class PrMeansTestCases(unittest.TestCase):
     def test_pr_qmean(self):
         """test abydos.stats.ConfusionTable.pr_qmean
         """
-        self.assertEquals(UNIT_TABLE.pr_qmean(), sqrt(sum([i**2 for i in self.pr[0]])/2))
+        self.assertEquals(UNIT_TABLE.pr_qmean(),
+                          sqrt(sum([i**2 for i in self.pr[0]])/2))
         self.assertTrue(isnan(NULL_TABLE.pr_qmean()))
-        self.assertAlmostEqual(SCALE_TABLE.pr_qmean(), sqrt(sum([i**2 for i in self.pr[2]])/2))
-        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_qmean(), sqrt(sum([i**2 for i in self.pr[3]])/2))
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_qmean(), sqrt(sum([i**2 for i in self.pr[4]])/2))
+        self.assertAlmostEqual(SCALE_TABLE.pr_qmean(),
+                               sqrt(sum([i**2 for i in self.pr[2]])/2))
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_qmean(),
+                               sqrt(sum([i**2 for i in self.pr[3]])/2))
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_qmean(),
+                               sqrt(sum([i**2 for i in self.pr[4]])/2))
 
     def test_pr_lehmer_mean(self):
         """test abydos.stats.ConfusionTable.pr_lehmer_mean
@@ -356,10 +363,14 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(2), 409/690)
 
         # check equivalences to other specific means
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(0), WORKED_EG_TABLE.pr_hmean())
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(0.5), WORKED_EG_TABLE.pr_gmean())
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(1), WORKED_EG_TABLE.pr_mean())
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(2), WORKED_EG_TABLE.pr_cmean())
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(0),
+                               WORKED_EG_TABLE.pr_hmean())
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(0.5),
+                               WORKED_EG_TABLE.pr_gmean())
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(1),
+                               WORKED_EG_TABLE.pr_mean())
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(2),
+                               WORKED_EG_TABLE.pr_cmean())
 
 
     def test_pr_lmean(self):
@@ -423,10 +434,14 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(3), 0.5297282909519099)
 
         # check equivalences to other specific means
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(-1), WORKED_EG_TABLE.pr_hmean())
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(0), WORKED_EG_TABLE.pr_gmean())
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(1), WORKED_EG_TABLE.pr_mean())
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(2), WORKED_EG_TABLE.pr_qmean())
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(-1),
+                               WORKED_EG_TABLE.pr_hmean())
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(0),
+                               WORKED_EG_TABLE.pr_gmean())
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(1),
+                               WORKED_EG_TABLE.pr_mean())
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(2),
+                               WORKED_EG_TABLE.pr_qmean())
 
 
 class StatisticalMeasureTestCases(unittest.TestCase):
@@ -513,15 +528,21 @@ class StatisticalMeasureTestCases(unittest.TestCase):
         self.assertTrue(isnan(NULL_TABLE.significance()))
         self.assertAlmostEqual(SCALE_TABLE.significance(), 5/3)
         self.assertAlmostEqual(CATSNDOGS_TABLE.significance(), 79**2/21280*27)
-        self.assertAlmostEqual(WORKED_EG_TABLE.significance(), 34600**2/21960000000*2030)
+        self.assertAlmostEqual(WORKED_EG_TABLE.significance(),
+                               34600**2/21960000000*2030)
 
     def test_kappa_statistic(self):
         """test abydos.stats.ConfusionTable.kappa_statistic
         """
         def quick_kappa(acc, racc):
             return (acc-racc)/(1-racc)
+
         self.assertEquals(UNIT_TABLE.kappa_statistic(), 0)
         self.assertTrue(isnan(NULL_TABLE.kappa_statistic()))
-        self.assertAlmostEqual(SCALE_TABLE.kappa_statistic(), quick_kappa((3/10), (1/2)))
-        self.assertAlmostEqual(CATSNDOGS_TABLE.kappa_statistic(), quick_kappa((22/27), (436/27**2)))
-        self.assertAlmostEqual(WORKED_EG_TABLE.kappa_statistic(), quick_kappa((184/203), (((2000*1830)+6000)/2030**2)))
+        self.assertAlmostEqual(SCALE_TABLE.kappa_statistic(),
+                               quick_kappa((3/10), (1/2)))
+        self.assertAlmostEqual(CATSNDOGS_TABLE.kappa_statistic(),
+                               quick_kappa((22/27), (436/27**2)))
+        self.assertAlmostEqual(WORKED_EG_TABLE.kappa_statistic(),
+                               quick_kappa((184/203),
+                                           (((2000*1830)+6000)/2030**2)))
