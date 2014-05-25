@@ -193,6 +193,15 @@ class StatisticalRatioTestCases(unittest.TestCase):
         self.assertAlmostEqual(CATSNDOGS_TABLE.precision(), 5/7)
         self.assertAlmostEqual(WORKED_EG_TABLE.precision(), 0.1)
 
+    def test_precision_gain(self):
+        """test abydos.stats.ConfusionTable.precision_gain
+        """
+        self.assertEquals(UNIT_TABLE.precision_gain(), 1)
+        self.assertTrue(isnan(NULL_TABLE.precision_gain()))
+        self.assertAlmostEqual(SCALE_TABLE.precision_gain(), 0.25/0.5)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.precision_gain(), (5/7)/(8/27))
+        self.assertAlmostEqual(WORKED_EG_TABLE.precision_gain(), 0.1/(30/2030))
+
     def test_recall(self):
         """test abydos.stats.ConfusionTable.recall
         """
@@ -246,6 +255,15 @@ class StatisticalRatioTestCases(unittest.TestCase):
         self.assertAlmostEqual(SCALE_TABLE.accuracy(), 3/10)
         self.assertAlmostEqual(CATSNDOGS_TABLE.accuracy(), 22/27)
         self.assertAlmostEqual(WORKED_EG_TABLE.accuracy(), 184/203)
+
+    def test_accuracy_gain(self):
+        """test abydos.stats.ConfusionTable.accuracy_gain
+        """
+        self.assertEquals(UNIT_TABLE.accuracy_gain(), 1)
+        self.assertTrue(isnan(NULL_TABLE.accuracy_gain()))
+        self.assertAlmostEqual(SCALE_TABLE.accuracy_gain(), (3/10)/((5/10)**2+(5/10)**2))
+        self.assertAlmostEqual(CATSNDOGS_TABLE.accuracy_gain(), (22/27)/((8/27)**2+(19/27)**2))
+        self.assertAlmostEqual(WORKED_EG_TABLE.accuracy_gain(), (184/203)/((30/2030)**2+(2000/2030)**2))
 
     def test_balanced_accuracy(self):
         """test abydos.stats.ConfusionTable.balanced_accuracy
@@ -496,3 +514,14 @@ class StatisticalMeasureTestCases(unittest.TestCase):
         self.assertAlmostEqual(SCALE_TABLE.significance(), 5/3)
         self.assertAlmostEqual(CATSNDOGS_TABLE.significance(), 79**2/21280*27)
         self.assertAlmostEqual(WORKED_EG_TABLE.significance(), 34600**2/21960000000*2030)
+
+    def test_kappa_statistic(self):
+        """test abydos.stats.ConfusionTable.kappa_statistic
+        """
+        def quick_kappa(acc, racc):
+            return (acc-racc)/(1-racc)
+        self.assertEquals(UNIT_TABLE.kappa_statistic(), 0)
+        self.assertTrue(isnan(NULL_TABLE.kappa_statistic()))
+        self.assertAlmostEqual(SCALE_TABLE.kappa_statistic(), quick_kappa((3/10), (1/2)))
+        self.assertAlmostEqual(CATSNDOGS_TABLE.kappa_statistic(), quick_kappa((22/27), (436/27**2)))
+        self.assertAlmostEqual(WORKED_EG_TABLE.kappa_statistic(), quick_kappa((184/203), (((2000*1830)+6000)/2030**2)))

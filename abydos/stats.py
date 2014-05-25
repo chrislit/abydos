@@ -175,6 +175,20 @@ class ConfusionTable(object):
         return self.tpos / (self.tpos + self.fpos)
 
 
+    def precision_gain(self):
+        """Return the gain in precision of the confusion table
+
+        The gain in precision is defined as:
+        G(precision) = precision / random precision
+
+        Cf. https://en.wikipedia.org/wiki/Gain_(information_retrieval)
+        """
+        if self.population() == 0:
+            return float('NaN')
+        r = self.cond_pos_pop()/self.population()
+        return self.precision()/r
+
+
     def recall(self):
         """Return the recall of the confusion table
 
@@ -254,6 +268,19 @@ class ConfusionTable(object):
             return float('NaN')
         return (self.tpos + self.tneg) / self.population()
 
+
+    def accuracy_gain(self):
+        """Return the gain in accuracy of the confusion table
+
+        The gain in accuracy is defined as:
+        G(accuracy) = accuracy / random accuracy
+
+        Cf. https://en.wikipedia.org/wiki/Gain_(information_retrieval)
+        """
+        if self.population() == 0:
+            return float('NaN')
+        r = (self.cond_pos_pop()/self.population())**2 + (self.cond_neg_pop()/self.population())**2
+        return self.accuracy()/r
 
     def balanced_accuracy(self):
         """Return the balanced accuracy of the confusion table
@@ -544,3 +571,22 @@ class ConfusionTable(object):
                  (self.tpos + self.tneg + self.fpos + self.fneg)) /
                 ((self.tpos + self.fpos) * (self.tpos + self.fneg) *
                  (self.tneg + self.fpos) * (self.tneg + self.fneg)))
+
+
+    def kappa_statistic(self):
+        """Return the κ statistic of the confusion table
+
+        The κ statistic is defined as:
+        κ = (accuracy - random accuracy) / (1 - random accuracy)
+
+        The κstatistic compares the performance of the classifier relative to
+        the performance of a random classifier. κ = 0 indicates performance
+        identical to random. κ = 1 indicates perfect predictive success.
+        κ = -1 indicates perfect predictive failure.
+        """
+        if self.population() == 0:
+            return float('NaN')
+        random_accuracy = (((self.tneg + self.fpos) * (self.tneg + self.fneg) +
+                            (self.fneg + self.tpos) * (self.fpos + self.tpos)) /
+                           self.population()**2)
+        return (self.accuracy()-random_accuracy) / (1-random_accuracy)
