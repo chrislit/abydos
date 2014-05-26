@@ -12,6 +12,9 @@ The phonetic module implements phonetic algorithms including:
     Double Metaphone
     Caverphone
     Alpha Search Inquiry System
+    Phonex
+    Phonem
+    Phonix
 
 
 Copyright 2014 by Christopher C. Little.
@@ -173,8 +176,8 @@ def dm_soundex(word, maxlength=6, reverse=False):
     Arguments:
     word -- the word to translate to D-M Soundex
     maxlength -- the length of the code returned (defaults to 4)
-    reverse -- reverse the word before computing the selected Soundex
-        (defaults to False); This results in "Reverse Soundex"
+    reverse -- reverse the word before computing the selected Soundex (defaults
+        to False); This results in "Reverse Soundex"
     """
     _dms_table = {'STCH': (2, 4, 4), 'DRZ': (4, 4, 4), 'ZH': (4, 4, 4),
                   'ZHDZH': (2, 4, 4), 'DZH': (4, 4, 4), 'DRS': (4, 4, 4),
@@ -493,8 +496,8 @@ def nysiis(word, maxlength=6):
 
 
 def mra(word):
-    """Return the personal numeric identifier (PNI) for a word, derived by
-        the Western Airlines Surname Match Rating Algorithm
+    """Return the personal numeric identifier (PNI) for a word, derived by the
+        Western Airlines Surname Match Rating Algorithm
 
     Arguments:
     word -- the word to apply the match rating approach to
@@ -672,9 +675,9 @@ def double_metaphone(word, maxlength=float('inf')):
 
     Arguments:
     word -- the word to apply the Double Metaphone algorithm to
-    maxlength -- the maximum length of the returned Double Metaphone
-        codes (defaults to unlimited, but in Philips' original
-        implementation this was 4)
+    maxlength -- the maximum length of the returned Double Metaphone codes
+        (defaults to unlimited, but in Philips' original implementation this
+        was 4)
 
     Description:
     Based on Lawrence Philips' (Visual) C++ code from 1999:
@@ -1381,8 +1384,7 @@ def caverphone(word, version=2):
 
     Arguments:
     word -- the word to apply the Caverphone algorithm to
-    version -- the version of Caverphone to employ for encoding
-                (defaults to 2)
+    version -- the version of Caverphone to employ for encoding (defaults to 2)
 
     Description:
     A description of version 1 of the algorithm can be found at:
@@ -1579,6 +1581,42 @@ def alpha_sis(word, maxlength=14):
     # Trim codes and return tuple
     alpha = [(_ + ('0'*maxlength))[:maxlength] for _ in alpha]
     return tuple(alpha)
+
+
+def phonex(word):
+    """Return the Phonex encoding of a word
+
+    Arguments:
+    word -- the word to translate to a Phonex encoding
+
+    Description:
+    
+    """
+    pass
+
+
+def phonem(word):
+    """Return the Phonem encoding of a word
+
+    Arguments:
+    word -- the word to translate to a Phonem encoding
+
+    Description:
+    
+    """
+    pass
+
+
+def phonix(word):
+    """Return the Phonix encoding of a word
+
+    Arguments:
+    word -- the word to translate to a Phonix encoding
+
+    Description:
+    
+    """
+    pass
 
 
 def _delete_consecutive_repeats(word):

@@ -26,7 +26,7 @@ import os
 from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     russell_index_alpha, soundex, dm_soundex, koelner_phonetik, \
     koelner_phonetik_num_to_alpha, koelner_phonetik_alpha, nysiis, mra, \
-    metaphone, double_metaphone, caverphone, alpha_sis
+    metaphone, double_metaphone, caverphone, alpha_sis, phonex, phonem, phonix
 
 # pylint: disable=R0904
 # pylint: disable=R0915
@@ -3298,6 +3298,34 @@ class AlphaSisTestCases(unittest.TestCase):
         self.assertEquals(alpha_sis('Colllllier')[0], '07555400000000')
         self.assertEquals(alpha_sis('Collllllier')[0], '07555400000000')
         self.assertEquals(alpha_sis('Colalalier')[0], '07555400000000')
+
+
+class PhonexTestCases(unittest.TestCase):
+    """test cases for abydos.phonetic.phonex
+    """
+    def test_phonex(self):
+        """test abydos.phonetic.phonex
+        """
+        pass
+
+
+class PhonixTestCases(unittest.TestCase):
+    """test cases for abydos.phonetic.phonix
+    """
+    def test_phonix(self):
+        """test abydos.phonetic.phonix
+        """
+        pass
+
+
+class PhonemTestCases(unittest.TestCase):
+    """test cases for abydos.phonetic.phonem
+    """
+    def test_phonem(self):
+        """test abydos.phonetic.phonem
+        """
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()
