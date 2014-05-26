@@ -1583,16 +1583,92 @@ def alpha_sis(word, maxlength=14):
     return tuple(alpha)
 
 
-def phonex(word):
+def phonex(word, maxlength=4):
     """Return the Phonex encoding of a word
 
     Arguments:
     word -- the word to translate to a Phonex encoding
+    maxlength -- the length of the code returned (defaults to 4)
 
     Description:
-    
+    Phonex is a Soundex-like algorithm, defined in:
+    Lait, A. J. and B. Randell. "An Assessment of Name Matching Algorithms".
+    http://homepages.cs.ncl.ac.uk/brian.randell/Genealogy/NameMatching.pdf
     """
-    pass
+    name = unicodedata.normalize('NFKD', _unicode(word.upper()))
+
+    name_code = last = ''
+
+    # Deletions effected by replacing with next letter which
+    # will be ignored due to duplicate handling of Soundex code.
+    # This is faster than 'moving' all subsequent letters.
+
+    # Remove any trailing Ss
+    while name.endswith('S'):
+        name = name[:-1]
+
+    # Phonetic equivalents of first 2 characters
+    # Works since duplicate letters are ignored
+    if name.startswith('KN'):
+        name = 'N' + name[2:] # KN.. == N..
+    elif name.startswith('PH'):
+        name = 'F' + name[2:] # PH.. == F.. (H ignored anyway)
+    elif name.startswith('WR'):
+        name = 'R' + name[2:] # WR.. == R..
+
+    if name:
+        # Special case, ignore H first letter (subsequent Hs ignored anyway)
+        # Works since duplicate letters are ignored
+        if name[0] == 'H':
+            name = name[1:]
+
+        # Phonetic equivalents of first character
+        if name[0] in 'AEIOUY':
+            name = 'A' + name[1:]
+        elif name[0] in 'BP':
+            name = 'B' + name[1:]
+        elif name[0] in 'VF':
+            name = 'F' + name[1:]
+        elif name[0] in 'KQC':
+            name = 'C' + name[1:]
+        elif name[0] in 'JG':
+            name = 'G' + name[1:]
+        elif name[0] in 'ZS':
+            name = 'S' + name[1:]
+
+        name_code = last = name[0]
+
+    # MODIFIED SOUNDEX CODE
+    for i in _range(1, len(name)):
+        if name[i] in 'BPFV':
+            code = '1'
+        elif name[i] in 'CSKGJQXZ':
+            code = '2'
+        elif name[i] in 'DT':
+            if name[i+1:i+2] != 'C':
+                code = '3'
+        elif name[i] == 'L':
+            if name[i+1:i+2] in list('AEIOUY') or i+1 == len(name):
+                code = '4'
+        elif name[i] in 'MN':
+            if name[i+1:i+2] in list('DG'):
+                name = name[:i+1] + name[i] + name[i+2:]
+            code = '5'
+        elif name[i] == 'R':
+            if name[i+1:i+2] in list('AEIOUY') or i+1 == len(name):
+                code = '6'
+        else:
+            code = '0'
+
+        if code != last and code != '0' and i != 0:
+            name_code += code
+        if len(name_code) == 0:
+            last = code
+        else:
+            last = name_code[-1]
+
+    name_code += '0' * maxlength
+    return name_code[:maxlength]
 
 
 def phonem(word):
@@ -1602,7 +1678,7 @@ def phonem(word):
     word -- the word to translate to a Phonem encoding
 
     Description:
-    
+
     """
     pass
 
@@ -1614,7 +1690,10 @@ def phonix(word):
     word -- the word to translate to a Phonix encoding
 
     Description:
-    
+    Phonix is a Soundex-like algorithm defined in:
+    T.N. Gadd: PHONIX --- The Algorithm, Program 24/4, 1990, p.363-366.
+
+    This implementation is based on http://cpansearch.perl.org/src/ULPFR/WAIT-1.800/soundex.c
     """
     pass
 

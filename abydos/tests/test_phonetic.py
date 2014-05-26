@@ -3306,8 +3306,17 @@ class PhonexTestCases(unittest.TestCase):
     def test_phonex(self):
         """test abydos.phonetic.phonex
         """
-        pass
-
+        self.assertEquals(phonex(''), '0000')
+        # http://homepages.cs.ncl.ac.uk/brian.randell/Genealogy/NameMatching.pdf
+        self.assertEquals(phonex('Ewell'), phonex('Ule'))
+        self.assertEquals(phonex('Filp'), phonex('Philp'))
+        self.assertEquals(phonex('Yule'), phonex('Ewell'))
+        self.assertEquals(phonex('Heames'), phonex('Eames'))
+        self.assertEquals(phonex('Kneves'), phonex('Neves'))
+        self.assertEquals(phonex('River'), phonex('Rivers'))
+        self.assertEquals(phonex('Corley'), phonex('Coley'))
+        self.assertEquals(phonex('Carton'), phonex('Carlton'))
+        self.assertEquals(phonex('Cachpole'), phonex('Catchpole'))
 
 class PhonixTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.phonix
