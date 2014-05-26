@@ -1591,7 +1591,7 @@ def phonex(word, maxlength=4):
     maxlength -- the length of the code returned (defaults to 4)
 
     Description:
-    Phonex is a Soundex-like algorithm, defined in:
+    Phonex is an algorithm derived from Soundex, defined in:
     Lait, A. J. and B. Randell. "An Assessment of Name Matching Algorithms".
     http://homepages.cs.ncl.ac.uk/brian.randell/Genealogy/NameMatching.pdf
     """

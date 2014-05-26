@@ -3308,6 +3308,15 @@ class PhonexTestCases(unittest.TestCase):
         """
         self.assertEquals(phonex(''), '0000')
         # http://homepages.cs.ncl.ac.uk/brian.randell/Genealogy/NameMatching.pdf
+        self.assertEquals(phonex('Ewell'), 'A400')
+        self.assertEquals(phonex('Filp'), 'F100')
+        self.assertEquals(phonex('Heames'), 'A500')
+        self.assertEquals(phonex('Kneves'), 'N100')
+        self.assertEquals(phonex('River'), 'R160')
+        self.assertEquals(phonex('Corley'), 'C400')
+        self.assertEquals(phonex('Carton'), 'C350')
+        self.assertEquals(phonex('Cachpole'), 'C214')
+
         self.assertEquals(phonex('Ewell'), phonex('Ule'))
         self.assertEquals(phonex('Filp'), phonex('Philp'))
         self.assertEquals(phonex('Yule'), phonex('Ewell'))
@@ -3317,6 +3326,7 @@ class PhonexTestCases(unittest.TestCase):
         self.assertEquals(phonex('Corley'), phonex('Coley'))
         self.assertEquals(phonex('Carton'), phonex('Carlton'))
         self.assertEquals(phonex('Cachpole'), phonex('Catchpole'))
+
 
 class PhonixTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.phonix
