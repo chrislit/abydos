@@ -3300,6 +3300,15 @@ class AlphaSisTestCases(unittest.TestCase):
         self.assertEquals(alpha_sis('Colalalier')[0], '07555400000000')
 
 
+class FuzzySoundexTestCases(unittest.TestCase):
+    """test cases for abydos.phonetic.fuzzy_soundex
+    """
+    def test_fuzzy_soundex(self):
+        """test abydos.phonetic.fuzzy_soundex
+        """
+        pass
+
+
 class PhonexTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.phonex
     """

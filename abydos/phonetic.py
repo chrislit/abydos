@@ -1583,6 +1583,22 @@ def alpha_sis(word, maxlength=14):
     return tuple(alpha)
 
 
+def fuzzy_soundex(word, maxlength=4):
+    """Return the Phonex encoding of a word
+
+    Arguments:
+    word -- the word to translate to a Phonex encoding
+    maxlength -- the length of the code returned (defaults to 4)
+
+    Description:
+    Phonex is an algorithm derived from Soundex, defined in:
+    Holmes, David and M. Catherine McCabe. "Improving Precision and Recall for
+    Soundex Retrieval."
+    http://wayback.archive.org/web/20100629121128/http://www.ir.iit.edu/publications/downloads/IEEESoundexV5.pdf
+    """
+    pass
+
+
 def phonex(word, maxlength=4):
     """Return the Phonex encoding of a word
 
