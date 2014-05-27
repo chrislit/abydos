@@ -26,7 +26,8 @@ import os
 from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     russell_index_alpha, soundex, dm_soundex, koelner_phonetik, \
     koelner_phonetik_num_to_alpha, koelner_phonetik_alpha, nysiis, mra, \
-    metaphone, double_metaphone, caverphone, alpha_sis, phonex, phonem, phonix
+    metaphone, double_metaphone, caverphone, alpha_sis, fuzzy_soundex, phonex, \
+    phonem, phonix
 
 # pylint: disable=R0904
 # pylint: disable=R0915
@@ -3306,7 +3307,11 @@ class FuzzySoundexTestCases(unittest.TestCase):
     def test_fuzzy_soundex(self):
         """test abydos.phonetic.fuzzy_soundex
         """
-        pass
+        self.assertEquals(fuzzy_soundex(''), '00000')
+        # http://wayback.archive.org/web/20100629121128/http://www.ir.iit.edu/publications/downloads/IEEESoundexV5.pdf
+        self.assertEquals(fuzzy_soundex('Kristen'), 'K6935')
+        self.assertEquals(fuzzy_soundex('Krissy'), 'K6900')
+        self.assertEquals(fuzzy_soundex('Christen'), 'K6935')
 
 
 class PhonexTestCases(unittest.TestCase):

@@ -1583,20 +1583,88 @@ def alpha_sis(word, maxlength=14):
     return tuple(alpha)
 
 
-def fuzzy_soundex(word, maxlength=4):
-    """Return the Phonex encoding of a word
+def fuzzy_soundex(word, maxlength=5):
+    """Return the Fuzzy Soundex encoding of a word
 
     Arguments:
     word -- the word to translate to a Phonex encoding
     maxlength -- the length of the code returned (defaults to 4)
 
     Description:
-    Phonex is an algorithm derived from Soundex, defined in:
+    Fuzzy Soundex is an algorithm derived from Soundex, defined in:
     Holmes, David and M. Catherine McCabe. "Improving Precision and Recall for
     Soundex Retrieval."
     http://wayback.archive.org/web/20100629121128/http://www.ir.iit.edu/publications/downloads/IEEESoundexV5.pdf
     """
-    pass
+    _fuzzy_soundex_translation_table = dict(zip([ord(_) for _ in
+                                                 u'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
+                                                 u'0193017-07745501769301-7-9'))
+
+    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+
+    if not word:
+        return '0' * maxlength
+
+    if word[:2] in ('CS', 'CZ', 'TS', 'TZ'):
+        word = 'SS' + word[2:]
+    elif word[:2] == 'GN':
+        word = 'NN' + word[2:]
+    elif word[:2] in ('HR', 'WR'):
+        word = 'RR' + word[2:]
+    elif word[:2] == 'HW':
+        word = 'WW' + word[2:]
+    elif word[:2] in ('KN', 'NG'):
+        word = 'NN' + word[2:]
+
+    if word[-2:] == 'CH':
+        word = word[:-2] + 'KK'
+    elif word[-2:] == 'NT':
+        word = word[:-2] + 'TT'
+    elif word[-2:] == 'RT':
+        word = word[:-2] + 'RR'
+    elif word[-3:] == 'RDT':
+        word = word[:-3] + 'RR'
+
+    word = word.replace('CA', 'KA')
+    word = word.replace('CC', 'KK')
+    word = word.replace('CK', 'KK')
+    word = word.replace('CE', 'SE')
+    word = word.replace('CHL', 'KL')
+    word = word.replace('CL', 'KL')
+    word = word.replace('CHR', 'KR')
+    word = word.replace('CR', 'KR')
+    word = word.replace('CI', 'SI')
+    word = word.replace('CO', 'KO')
+    word = word.replace('CU', 'KU')
+    word = word.replace('CY', 'SY')
+    word = word.replace('DG', 'GG')
+    word = word.replace('GH', 'HH')
+    word = word.replace('MAC', 'MK')
+    word = word.replace('MC', 'MK')
+    word = word.replace('NST', 'NSS')
+    word = word.replace('PF', 'FF')
+    word = word.replace('PH', 'FF')
+    word = word.replace('SCH', 'SSS')
+    word = word.replace('TIO', 'SIO')
+    word = word.replace('TIA', 'SIO')
+    word = word.replace('TCH', 'CHH')
+
+    sdx = word.translate(_fuzzy_soundex_translation_table)
+    sdx = sdx.replace('-', '')
+
+    # remove repeating characters
+    sdx = _delete_consecutive_repeats(sdx)
+
+    if word[0] in 'HWY':
+        sdx = word[0] + sdx
+    else:
+        sdx = word[0] + sdx[1:]
+
+    sdx = sdx.replace('0', '')
+
+    sdx += ('0'*maxlength)
+
+    return sdx[:maxlength]
 
 
 def phonex(word, maxlength=4):
