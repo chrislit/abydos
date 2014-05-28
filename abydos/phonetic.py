@@ -1768,6 +1768,8 @@ def phonem(word):
 
     This version is based on the Perl implementation documented at:
     http://phonetik.phil-fak.uni-koeln.de/fileadmin/home/ritters/Allgemeine_Dateien/Martin_Wilz.pdf
+    It includes some enhancements presented in the Java port at:
+    https://github.com/dcm4che/dcm4che/blob/master/dcm4che-soundex/src/main/java/org/dcm4che3/soundex/Phonem.java
 
     Phonem is intended chiefly for German names/words.
     """
@@ -1778,8 +1780,8 @@ def phonem(word):
                              ('EY', 'AY'), ('EU', 'OY'), ('AU', 'A§'),
                              ('OU', '§'))
     _phonem_translation_table = dict(zip([ord(_) for _ in
-                                          u'ZKGQÄÜIJFWPT§ÁÀÉÈÚUÔOIÎ'],
-                                          u'CCCCEYYYVVBDUAAEEUUOOYY'))
+                                    u'ZKGQÇÑßFWPTÁÀÂÃÅÄÆÉÈÊËIJÌÍÎÏÜÝ§ÚÙÛÔÒÓÕØ'],
+                                    u'CCCCCNSVVBDAAAAAEEEEEEYYYYYYYYUUUUOOOOÖ'))
 
     word = unicodedata.normalize('NFC', _unicode(word.upper()))
     for i,j in _phonem_substitutions:
