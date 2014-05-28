@@ -43,7 +43,12 @@ from collections import defaultdict
 from .util import _qgram_counts, qgrams
 from .phonetic import mra
 import bz2, zlib
-import lzma
+try:
+    import lzma
+except ImportError:
+    # If there system lacks the lzma library, that's fine, but lzma comrpession
+    # similarity won't be supported.
+    pass
 
 
 def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
@@ -132,8 +137,8 @@ def _damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
 
     if 2*trans_cost < ins_cost + del_cost:
         raise ValueError('Unsupported cost assignment; the cost of two \
-            transpositions must not be less than the cost of an insert \
-            plus a delete.')
+transpositions must not be less than the cost of an insert \
+plus a delete.')
 
     d_mx = numpy.zeros((len(src))*(len(tar)), dtype=numpy.int).\
     reshape((len(src), len(tar)))
@@ -232,8 +237,8 @@ def hamming(src, tar, difflens=True):
     """
     if not difflens and len(src) != len(tar):
         raise ValueError("Undefined for sequences of unequal length; set \
-            difflens to True for Hamming distance between strings of unequal \
-            lengths.")
+difflens to True for Hamming distance between strings of unequal \
+lengths.")
     dist = 0
     if difflens:
         dist += abs(len(src)-len(tar))
@@ -288,7 +293,7 @@ def tversky_index(src, tar, qval=2, alpha=1, beta=1, bias=None):
     """
     if alpha < 0 or beta < 0:
         raise ValueError('Unsupported weight assignment; alpha and beta must \
-            be greater than or equal to 0.')
+be greater than or equal to 0.')
 
     if src == tar:
         return 1.0
@@ -590,10 +595,10 @@ def jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False, \
     if mode == 'winkler':
         if boost_threshold > 1 or boost_threshold < 0:
             raise ValueError('Unsupported boost_threshold assignment; \
-                boost_threshold must be between 0 and 1.')
+boost_threshold must be between 0 and 1.')
         if scaling_factor > 0.25 or boost_threshold < 0:
             raise ValueError('Unsupported scaling_factor assignment; \
-                scaling_factor must be between 0 and 0.25.')
+scaling_factor must be between 0 and 0.25.')
 
     src = qgrams(src.strip(), qval)
     tar = qgrams(tar.strip(), qval)
@@ -816,9 +821,13 @@ def compression(src, tar, compressor='bzip2'):
         tar_comp = bz2.compress(tar)
         concat_comp = bz2.compress(src+tar)
     elif compressor == 'lzma':
-        src_comp = lzma.compress(src)
-        tar_comp = lzma.compress(tar)
-        concat_comp = lzma.compress(src+tar)
+        if 'lzma' in sys.modules:
+            src_comp = lzma.compress(src)
+            tar_comp = lzma.compress(tar)
+            concat_comp = lzma.compress(src+tar)
+        else:
+            raise ValueError('Install the lzma module in order to use lzma \
+compression similarity')
     else: # zlib
         src_comp = zlib.compress(src)
         tar_comp = zlib.compress(tar)
