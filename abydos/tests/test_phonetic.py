@@ -3348,22 +3348,26 @@ class PhonemTestCases(unittest.TestCase):
     def test_phonem(self):
         """test abydos.phonetic.phonem
         """
-        # http://cpansearch.perl.org/src/MAROS/Text-Phonetic-2.05/t/008_phonem.t
         self.assertEqual(phonex(''), '0000')
-        self.assertEqual(phonem('Müller'), 'MULR')
+
+        # http://phonetik.phil-fak.uni-koeln.de/fileadmin/home/ritters/Allgemeine_Dateien/Martin_Wilz.pdf
+        self.assertEqual(phonem('müller'), 'MYLR')
+        self.assertEqual(phonem('schmidt'), 'CMYD')
         self.assertEqual(phonem('schneider'), 'CNAYDR')
         self.assertEqual(phonem('fischer'), 'VYCR')
-        self.assertEqual(phonem('weber'), 'BR')
+        self.assertEqual(phonem('weber'), 'VBR')
         self.assertEqual(phonem('meyer'), 'MAYR')
-        self.assertEqual(phonem('mair'), 'MAYR')
-        self.assertEqual(phonem('wagner'), 'BACNR')
+        self.assertEqual(phonem('wagner'), 'VACNR')
         self.assertEqual(phonem('schulz'), 'CULC')
         self.assertEqual(phonem('becker'), 'BCR')
-        self.assertEqual(phonem('bäker'), 'BACR')
         self.assertEqual(phonem('hoffmann'), 'OVMAN')
-        self.assertEqual(phonem('schäfer'), 'CAVR')
+        self.assertEqual(phonem('schäfer'), 'CVR')
+
+        # http://cpansearch.perl.org/src/MAROS/Text-Phonetic-2.05/t/008_phonem.t
+        self.assertEqual(phonem('mair'), 'MAYR')
+        self.assertEqual(phonem('bäker'), 'BCR')
         self.assertEqual(phonem('schaeffer'), 'CVR')
-        self.assertEqual(phonem('computer'), 'COMDUR')
+        self.assertEqual(phonem('computer'), 'COMBUDR')
         self.assertEqual(phonem('pfeifer'), 'VAYVR')
         self.assertEqual(phonem('pfeiffer'), 'VAYVR')
 

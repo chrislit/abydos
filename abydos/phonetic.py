@@ -1762,10 +1762,32 @@ def phonem(word):
     word -- the word to translate to a Phonem encoding
 
     Description:
+    Phonem is defined in Wilde, Georg and Carsten Meyer. 1999. "Doppelgaenger
+    gesucht - Ein Programm fuer kontextsensitive phonetische Textumwandlung."
+    ct Magazin fuer Computer & Technik 25/1999.
 
+    This version is based on the Perl implementation documented at:
+    http://phonetik.phil-fak.uni-koeln.de/fileadmin/home/ritters/Allgemeine_Dateien/Martin_Wilz.pdf
+
+    Phonem is intended chiefly for German names/words.
     """
-    pass
+    _phonem_substitutions = (('SC', 'C'), ('SZ', 'C'), ('CZ', 'C'), ('TZ', 'C'),
+                             ('TS', 'C'), ('KS', 'X'), ('PF', 'V'),
+                             ('QU', 'KW'), ('PH', 'V'), ('UE', 'Y'),
+                             ('AE', 'E'), ('OE', 'Ö'), ('EI', 'AY'),
+                             ('EY', 'AY'), ('EU', 'OY'), ('AU', 'A§'),
+                             ('OU', '§'))
+    _phonem_translation_table = dict(zip([ord(_) for _ in
+                                          u'ZKGQÄÜIJFWPT§ÁÀÉÈÚUÔOIÎ'],
+                                          u'CCCCEYYYVVBDUAAEEUUOOYY'))
 
+    word = unicodedata.normalize('NFC', _unicode(word.upper()))
+    for i,j in _phonem_substitutions:
+        word = word.replace(i, j)
+    word = word.translate(_phonem_translation_table)
+
+    return ''.join([c for c in _delete_consecutive_repeats(word)
+                    if c in tuple('ABCDLMNORSUVWXYÖ')])
 
 def phonix(word):
     """Return the Phonix encoding of a word
