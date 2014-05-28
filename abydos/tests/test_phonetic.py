@@ -3372,13 +3372,14 @@ class PhonemTestCases(unittest.TestCase):
         self.assertEqual(phonem('pfeiffer'), 'VAYVR')
 
 
-
 class PhonixTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.phonix
     """
     def test_phonix(self):
         """test abydos.phonetic.phonix
         """
+        self.assertEqual(phonix(''), '00000000')
+
         # http://cpansearch.perl.org/src/MAROS/Text-Phonetic-2.05/t/007_phonix.t
         self.assertEqual(phonix('Müller'), 'M4000000')
         self.assertEqual(phonix('schneider'), 'S5300000')
@@ -3391,6 +3392,7 @@ class PhonixTestCases(unittest.TestCase):
         self.assertEqual(phonix('hoffmann'), 'H7550000')
         self.assertEqual(phonix('schäfer'), 'S7000000')
         self.assertEqual(phonix('schmidt'), 'S5300000')
+
         # http://cpansearch.perl.org/src/MAROS/Text-Phonetic-2.05/t/007_phonix.t:
         # testcases from Wais Module
         self.assertEqual(phonix('computer'), 'K5130000')
@@ -3399,6 +3401,7 @@ class PhonixTestCases(unittest.TestCase):
         self.assertEqual(phonix('pfeiffer'), 'F7000000')
         self.assertEqual(phonix('knight'), 'N3000000')
         self.assertEqual(phonix('night'), 'N3000000')
+
         # http://cpansearch.perl.org/src/MAROS/Text-Phonetic-2.05/t/007_phonix.t:
         # testcases from http://www.cl.uni-heidelberg.de/~bormann/documents/phono/
         # They use a sliglty different algorithm (first char is not included in
