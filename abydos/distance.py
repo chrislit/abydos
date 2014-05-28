@@ -805,8 +805,7 @@ def mra_compare(src, tar):
     return 0
 
 def compression(src, tar, compressor='bzip2'):
-    """Return the compression similarity (or normalized compression distance
-    (NCD)) of two strings
+    """Return the normalized compression distance (NCD) of two strings
 
     Arguments:
     src, tar -- two strings to be compared
@@ -816,21 +815,24 @@ def compression(src, tar, compressor='bzip2'):
     Description:
     Cf. https://en.wikipedia.org/wiki/Normalized_compression_distance#Normalized_compression_distance
     """
+    if src == tar:
+        return 0.0
+
     if compressor == 'bzip2':
-        src_comp = bz2.compress(src)
-        tar_comp = bz2.compress(tar)
-        concat_comp = bz2.compress(src+tar)
+        src_comp = bz2.compress(src)[15:]
+        tar_comp = bz2.compress(tar)[15:]
+        concat_comp = bz2.compress(src+tar)[15:]
     elif compressor == 'lzma':
         if 'lzma' in sys.modules:
-            src_comp = lzma.compress(src)
-            tar_comp = lzma.compress(tar)
-            concat_comp = lzma.compress(src+tar)
+            src_comp = lzma.compress(src)[14:]
+            tar_comp = lzma.compress(tar)[14:]
+            concat_comp = lzma.compress(src+tar)[14:]
         else:
             raise ValueError('Install the lzma module in order to use lzma \
 compression similarity')
     else: # zlib
-        src_comp = zlib.compress(src)
-        tar_comp = zlib.compress(tar)
-        concat_comp = zlib.compress(src+tar)
+        src_comp = zlib.compress(src)[2:]
+        tar_comp = zlib.compress(tar)[2:]
+        concat_comp = zlib.compress(src+tar)[2:]
     return ((len(concat_comp) - min(len(src_comp), len(tar_comp))) /
            max(len(src_comp), len(tar_comp)))

@@ -26,7 +26,7 @@ import unittest
 from abydos.distance import levenshtein, levenshtein_normalized, hamming, \
     hamming_normalized, tversky_index, sorensen_coeff, sorensen, \
     jaccard_coeff, jaccard, tanimoto_coeff, tanimoto, cosine_similarity, \
-    strcmp95, jaro_winkler, lcs, lcsr, lcsd, mra_compare
+    strcmp95, jaro_winkler, lcs, lcsr, lcsd, mra_compare, compression
 import math
 
 
@@ -449,3 +449,24 @@ class MraCompareTestCases(unittest.TestCase):
         self.assertEquals(mra_compare('Byrne', 'Boern'), 5)
         self.assertEquals(mra_compare('Smith', 'Smyth'), 5)
         self.assertEquals(mra_compare('Catherine', 'Kathryn'), 4)
+
+class CompressionTestCases(unittest.TestCase):
+    """test cases for abydos.distance.compression
+    """
+    def test_compression(self):
+        """test abydos.distance.comporession
+        """
+        self.assertEquals(compression('', ''), 0)
+        self.assertEquals(compression('', '', 'bzip2'), 0)
+        self.assertEquals(compression('', '', 'lzma'), 0)
+        self.assertEquals(compression('', '', 'zlib'), 0)
+
+        self.assertGreater(compression('a', ''), 0)
+        self.assertGreater(compression('a', '', 'bzip2'), 0)
+        self.assertGreater(compression('a', '', 'lzma'), 0)
+        self.assertGreater(compression('a', '', 'zlib'), 0)
+
+        self.assertGreater(compression('abcdefg', 'fg'), 0)
+        self.assertGreater(compression('abcdefg', 'fg', 'bzip2'), 0)
+        self.assertGreater(compression('abcdefg', 'fg', 'lzma'), 0)
+        self.assertGreater(compression('abcdefg', 'fg', 'zlib'), 0)
