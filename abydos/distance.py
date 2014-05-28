@@ -42,6 +42,8 @@ import math
 from collections import defaultdict
 from .util import _qgram_counts, qgrams
 from .phonetic import mra
+import bz2, zlib
+import lzma
 
 
 def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
@@ -796,3 +798,30 @@ def mra_compare(src, tar):
     if similarity >= min_rating:
         return similarity
     return 0
+
+def compression(src, tar, compressor='bzip2'):
+    """Return the compression similarity (or normalized compression distance
+    (NCD)) of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+    compressor -- a compression scheme to use for the similarity calculation:
+                    'bzip2', 'lzma', and 'zlib' are the supported options
+
+    Description:
+    Cf. https://en.wikipedia.org/wiki/Normalized_compression_distance#Normalized_compression_distance
+    """
+    if compressor == 'bzip2':
+        src_comp = bz2.compress(src)
+        tar_comp = bz2.compress(tar)
+        concat_comp = bz2.compress(src+tar)
+    elif compressor == 'lzma':
+        src_comp = lzma.compress(src)
+        tar_comp = lzma.compress(tar)
+        concat_comp = lzma.compress(src+tar)
+    else: # zlib
+        src_comp = zlib.compress(src)
+        tar_comp = zlib.compress(tar)
+        concat_comp = zlib.compress(src+tar)
+    return ((len(concat_comp) - min(len(src_comp), len(tar_comp))) /
+           max(len(src_comp), len(tar_comp)))
