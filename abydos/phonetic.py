@@ -63,7 +63,7 @@ def russell_index(word):
     word = word.rstrip('SZ') # discard /[sz]$/ (rule 3)
 
     # translate according to Russell's mapping
-    word = ''.join([c for c in word if c in list('ABCDEFGIKLMNOPQRSTUVXYZ')])
+    word = ''.join([c for c in word if c in tuple('ABCDEFGIKLMNOPQRSTUVXYZ')])
     sdx = word.translate(_russell_translation_table)
 
     # remove any 1s after the first occurrence
@@ -90,7 +90,7 @@ def russell_index_num_to_alpha(num):
     """
     _russell_num_translation_table = dict(zip([ord(_) for _ in u'12345678'],
                                               u'ABCDLMNR'))
-    num = ''.join([c for c in _unicode(num) if c in list('12345678')])
+    num = ''.join([c for c in _unicode(num) if c in tuple('12345678')])
     if num:
         return num.translate(_russell_num_translation_table)
 
@@ -138,7 +138,7 @@ def soundex(word, maxlength=4, var='American', reverse=False):
 
     # uppercase, normalize, decompose, and filter non-A-Z
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
-    word = ''.join([c for c in word if c in list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+    word = ''.join([c for c in word if c in tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
     # Nothing to convert, return base case
     if not word:
@@ -246,7 +246,7 @@ def dm_soundex(word, maxlength=6, reverse=False):
                   'Z':('ZHDZH', 'ZDZH', 'ZSCH', 'ZDZ', 'ZHD', 'ZSH', 'ZD', 'ZH',
                        'ZS', 'Z')}
 
-    _vowels = list('AEIJOUY')
+    _vowels = tuple('AEIJOUY')
     dms = [''] # initialize empty code list
 
     # Require a maxlength of at least 6
@@ -254,7 +254,7 @@ def dm_soundex(word, maxlength=6, reverse=False):
 
     # uppercase, normalize, decompose, and filter non-A-Z
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
-    word = ''.join([c for c in word if c in list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+    word = ''.join([c for c in word if c in tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
     # Nothing to convert, return base case
     if not word:
@@ -314,18 +314,18 @@ def koelner_phonetik(word):
     def _after(word, i, letters):
         """Return True if word[i] follows one of the supplied letters
         """
-        if i > 0 and word[i-1] in list(letters):
+        if i > 0 and word[i-1] in tuple(letters):
             return True
         return False
 
     def _before(word, i, letters):
         """Return True if word[i] precedes one of the supplied letters
         """
-        if i+1 < len(word) and word[i+1] in list(letters):
+        if i+1 < len(word) and word[i+1] in tuple(letters):
             return True
         return False
 
-    _vowels = list('AEIJYOU')
+    _vowels = tuple('AEIJYOU')
 
     sdx = ''
 
@@ -335,7 +335,7 @@ def koelner_phonetik(word):
     word = word.replace('Ä', 'AE')
     word = word.replace('Ö', 'OE')
     word = word.replace('Ü', 'UE')
-    word = ''.join([c for c in word if c in list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+    word = ''.join([c for c in word if c in tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
     # Nothing to convert, return base case
     if not word:
@@ -399,7 +399,7 @@ def koelner_phonetik_num_to_alpha(num):
     """
     _koelner_num_translation_table = dict(zip([ord(_) for _ in u'012345678'],
                                               u'APTFKLNRS'))
-    num = ''.join([c for c in _unicode(num) if c in list('012345678')])
+    num = ''.join([c for c in _unicode(num) if c in tuple('012345678')])
     return num.translate(_koelner_num_translation_table)
 
 
@@ -425,7 +425,7 @@ def nysiis(word, maxlength=6):
     # Require a maxlength of at least 6
     maxlength = max(6, maxlength)
 
-    _vowels = list('AEIOU')
+    _vowels = tuple('AEIOU')
 
     word = ''.join([c for c in word.upper() if c.isalpha()])
 
@@ -507,7 +507,7 @@ def mra(word):
     https://archive.org/details/accessingindivid00moor
     """
     word = word.upper()
-    word = word[0]+''.join([c for c in word[1:] if c not in list('AEIOU')])
+    word = word[0]+''.join([c for c in word[1:] if c not in tuple('AEIOU')])
     word = _delete_consecutive_repeats(word)
     if len(word) > 6:
         word = word[:3]+word[-3:]
@@ -530,9 +530,9 @@ def metaphone(word, maxlength=float('inf')):
     some of those suggested by Michael Kuhn in:
     http://aspell.net/metaphone/metaphone-kuhn.txt
     """
-    _vowels = list('AEIOU')
-    _frontv = list('EIY')
-    _varson = list('CSPTG')
+    _vowels = tuple('AEIOU')
+    _frontv = tuple('EIY')
+    _varson = tuple('CSPTG')
 
     # Require a maxlength of at least 4
     maxlength = max(4, maxlength)
@@ -716,7 +716,7 @@ def double_metaphone(word, maxlength=float('inf')):
         """
         if pos < 0:
             return False
-        return word[pos] in list('AEIOUY')
+        return word[pos] in tuple('AEIOUY')
 
     def _get_at(pos):
         """Return the character at word[pos]
@@ -756,7 +756,7 @@ def double_metaphone(word, maxlength=float('inf')):
         if current >= length:
             break
 
-        if _get_at(current) in list('AEIOUY'):
+        if _get_at(current) in tuple('AEIOUY'):
             if current == 0:
                 # All init vowels now map to 'A'
                 (primary, secondary) = _metaph_add('A')
@@ -1392,10 +1392,10 @@ def caverphone(word, version=2):
     A description of version 2 of the algorithm can be found at:
     http://caversham.otago.ac.nz/files/working/ctp150804.pdf
     """
-    _vowels = list('aeiou')
+    _vowels = tuple('aeiou')
 
     word = word.lower()
-    word = ''.join([c for c in word if c in list('abcdefghijklmnopqrstuvwxyz')])
+    word = ''.join([c for c in word if c in tuple('abcdefghijklmnopqrstuvwxyz')])
 
     # the main replacemet algorithm
     if version != 1 and word.endswith('e'):
@@ -1537,7 +1537,7 @@ def alpha_sis(word, maxlength=14):
     alpha = ['']
     pos = 0
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
-    word = ''.join([c for c in word if c in list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+    word = ''.join([c for c in word if c in tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
     # Do special processing for initial substrings
     for k in _alpha_sis_initials_order:
@@ -1732,14 +1732,14 @@ def phonex(word, maxlength=4):
             if name[i+1:i+2] != 'C':
                 code = '3'
         elif name[i] == 'L':
-            if name[i+1:i+2] in list('AEIOUY') or i+1 == len(name):
+            if name[i+1:i+2] in tuple('AEIOUY') or i+1 == len(name):
                 code = '4'
         elif name[i] in 'MN':
-            if name[i+1:i+2] in list('DG'):
+            if name[i+1:i+2] in tuple('DG'):
                 name = name[:i+1] + name[i] + name[i+2:]
             code = '5'
         elif name[i] == 'R':
-            if name[i+1:i+2] in list('AEIOUY') or i+1 == len(name):
+            if name[i+1:i+2] in tuple('AEIOUY') or i+1 == len(name):
                 code = '6'
         else:
             code = '0'
