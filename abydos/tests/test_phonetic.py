@@ -3342,22 +3342,70 @@ class PhonexTestCases(unittest.TestCase):
         self.assertEqual(phonex('Cachpole'), phonex('Catchpole'))
 
 
-class PhonixTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.phonix
-    """
-    def test_phonix(self):
-        """test abydos.phonetic.phonix
-        """
-        pass
-
-
 class PhonemTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.phonem
     """
     def test_phonem(self):
         """test abydos.phonetic.phonem
         """
-        pass
+        # http://cpansearch.perl.org/src/MAROS/Text-Phonetic-2.05/t/008_phonem.t
+        self.assertEqual(phonex(''), '0000')
+        self.assertEqual(phonem('Müller'), 'MULR')
+        self.assertEqual(phonem('schneider'), 'CNAYDR')
+        self.assertEqual(phonem('fischer'), 'VYCR')
+        self.assertEqual(phonem('weber'), 'BR')
+        self.assertEqual(phonem('meyer'), 'MAYR')
+        self.assertEqual(phonem('mair'), 'MAYR')
+        self.assertEqual(phonem('wagner'), 'BACNR')
+        self.assertEqual(phonem('schulz'), 'CULC')
+        self.assertEqual(phonem('becker'), 'BCR')
+        self.assertEqual(phonem('bäker'), 'BACR')
+        self.assertEqual(phonem('hoffmann'), 'OVMAN')
+        self.assertEqual(phonem('schäfer'), 'CAVR')
+        self.assertEqual(phonem('schaeffer'), 'CVR')
+        self.assertEqual(phonem('computer'), 'COMDUR')
+        self.assertEqual(phonem('pfeifer'), 'VAYVR')
+        self.assertEqual(phonem('pfeiffer'), 'VAYVR')
+
+
+
+class PhonixTestCases(unittest.TestCase):
+    """test cases for abydos.phonetic.phonix
+    """
+    def test_phonix(self):
+        """test abydos.phonetic.phonix
+        """
+        # http://cpansearch.perl.org/src/MAROS/Text-Phonetic-2.05/t/007_phonix.t
+        self.assertEqual(phonix('Müller'), 'M4000000')
+        self.assertEqual(phonix('schneider'), 'S5300000')
+        self.assertEqual(phonix('fischer'), 'F8000000')
+        self.assertEqual(phonix('weber'), 'W1000000')
+        self.assertEqual(phonix('meyer'), 'M0000000')
+        self.assertEqual(phonix('wagner'), 'W2500000')
+        self.assertEqual(phonix('schulz'), 'S4800000')
+        self.assertEqual(phonix('becker'), 'B2000000')
+        self.assertEqual(phonix('hoffmann'), 'H7550000')
+        self.assertEqual(phonix('schäfer'), 'S7000000')
+        self.assertEqual(phonix('schmidt'), 'S5300000')
+        # http://cpansearch.perl.org/src/MAROS/Text-Phonetic-2.05/t/007_phonix.t:
+        # testcases from Wais Module
+        self.assertEqual(phonix('computer'), 'K5130000')
+        self.assertEqual(phonix('computers'), 'K5138000')
+        self.assertEqual(phonix('pfeifer'), 'F7000000')
+        self.assertEqual(phonix('pfeiffer'), 'F7000000')
+        self.assertEqual(phonix('knight'), 'N3000000')
+        self.assertEqual(phonix('night'), 'N3000000')
+        # http://cpansearch.perl.org/src/MAROS/Text-Phonetic-2.05/t/007_phonix.t:
+        # testcases from http://www.cl.uni-heidelberg.de/~bormann/documents/phono/
+        # They use a sliglty different algorithm (first char is not included in
+        # num code here)
+        self.assertEqual(phonix('wait'), 'W3000000')
+        self.assertEqual(phonix('weight'), 'W3000000')
+        self.assertEqual(phonix('gnome'), 'N5000000')
+        self.assertEqual(phonix('noam'), 'N5000000')
+        self.assertEqual(phonix('rees'), 'R8000000')
+        self.assertEqual(phonix('reece'), 'R8000000')
+        self.assertEqual(phonix('yaeger'), 'v2000000')   
 
 
 if __name__ == '__main__':
