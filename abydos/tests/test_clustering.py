@@ -46,24 +46,24 @@ xoyv', )
     def test_fingerprint(self):
         """test abydos.clustering.fingerprint
         """
-        self.assertEquals(fingerprint(''), '')
+        self.assertEqual(fingerprint(''), '')
         for i in _range(len(self._testset)):
-            self.assertEquals(fingerprint(self._testset[i]), self._anssetw[i])
+            self.assertEqual(fingerprint(self._testset[i]), self._anssetw[i])
 
     def test_qgram_fingerprint(self):
         """test abydos.clustering.qgram_fingerprint
         """
-        self.assertEquals(qgram_fingerprint(''), '')
+        self.assertEqual(qgram_fingerprint(''), '')
         for i in _range(len(self._testset)):
-            self.assertEquals(qgram_fingerprint(self._testset[i], 1),
+            self.assertEqual(qgram_fingerprint(self._testset[i], 1),
                               self._anssetq1[i])
-            self.assertEquals(qgram_fingerprint(self._testset[i], 2),
+            self.assertEqual(qgram_fingerprint(self._testset[i], 2),
                               self._anssetq2[i])
-            self.assertEquals(qgram_fingerprint(self._testset[i]),
+            self.assertEqual(qgram_fingerprint(self._testset[i]),
                               self._anssetq2[i])
 
     def test_phonetic_fingerprint(self):
         """test abydos.clustering.phonetic_fingerprint
         """
-        self.assertEquals(phonetic_fingerprint(''), '')
+        self.assertEqual(phonetic_fingerprint(''), '')
         # TODO: add non-trivial tests
