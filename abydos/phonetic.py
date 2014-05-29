@@ -1819,7 +1819,7 @@ def phonix(word, maxlength=4):
     def _end_repl(word, src, tar, pre=None, post=None):
         if pre:
             for i in tuple(pre):
-                if word.startswith(i+src):
+                if word.endswith(i+src):
                     return word[:-len(src)] + tar
         elif word.endswith(src):
             return word[:-len(src)] + tar
@@ -1834,7 +1834,8 @@ def phonix(word, maxlength=4):
             else:
                 return _all_repl(word, src, tar, pre, post)
         else:
-            return word[0] + _all_repl(word[1:-1], src, tar, pre, post) + word[-1]
+            return (word[0] + _all_repl(word[1:-1], src, tar, pre, post)
+                    + word[-1])
 
     def _all_repl(word, src, tar, pre=None, post=None):
         if pre or post:
@@ -1889,7 +1890,7 @@ def phonix(word, maxlength=4):
                            (_end_repl, 'GNES', 'NS'),
                            (_start_repl, 'GN', 'N'),
                            (_mid_repl, 'GN', 'N', None, _con),
-                           (_end_repl, 'GN', 'N'), # None, _con
+                           (_end_repl, 'GN', 'N'),
                            (_start_repl, 'PS', 'S'),
                            (_start_repl, 'PT', 'T'),
                            (_start_repl, 'CZ', _con),
@@ -1906,8 +1907,7 @@ def phonix(word, maxlength=4):
                            (_mid_repl, 'J', 'Y', _vow, _vow),
                            (_start_repl, 'YJ', 'Y', None, _vow),
                            (_start_repl, 'GH', 'G'),
-                           # (_end_repl, 'E', 'GH', _vow, None), # WRONG IN PFEIFER
-                           (_end_repl, 'GH', 'E', _vow, None), # FROM ZOBEL CODE
+                           (_end_repl, 'GH', 'E', _vow, None),
                            (_start_repl, 'CY', 'S'),
                            (_all_repl, 'NX', 'NKS'),
                            (_start_repl, 'PF', 'F'),
@@ -1918,7 +1918,7 @@ def phonix(word, maxlength=4):
                            (_start_repl, 'TJ', 'CH', None, _vow),
                            (_start_repl, 'TSJ', 'CH', None, _vow),
                            (_start_repl, 'TS', 'T', None, _vow),
-                           (_all_repl, 'TCH', 'CH'), # WRONG FUNCT CALL IN PFEIFER
+                           (_all_repl, 'TCH', 'CH'),
                            (_mid_repl, 'WSK', 'VSKIE', _vow, None),
                            (_end_repl, 'WSK', 'VSKIE', _vow, None),
                            (_start_repl, 'MN', 'N', None, _vow),
@@ -1934,9 +1934,9 @@ def phonix(word, maxlength=4):
                            (_end_repl, 'EE', 'EA'),
                            (_all_repl, 'ZS', 'S'),
                            (_mid_repl, 'R', 'AH', _vow, _con),
-                           (_end_repl, 'R', 'AH', _vow, None), # _vow, _con
+                           (_end_repl, 'R', 'AH', _vow, None),
                            (_mid_repl, 'HR', 'AH', _vow, _con),
-                           (_end_repl, 'HR', 'AH', _vow, None), # _vow, _con
+                           (_end_repl, 'HR', 'AH', _vow, None),
                            (_end_repl, 'HR', 'AH', _vow, None),
                            (_end_repl, 'RE', 'AR'),
                            (_end_repl, 'R', 'AH', _vow, None),
@@ -1958,11 +1958,15 @@ def phonix(word, maxlength=4):
     sdx = ''
 
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
-    word = ''.join([c for c in word if c in tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+    word = ''.join([c for c in word if c in
+                    tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
     if word:
         for trans in _phonix_substitutions:
             word = trans[0](word, *trans[1:])
-        sdx = word[0] + word[1:].translate(_phonix_translation_table)
+        if word[0] in tuple('AEIOUY'):
+            sdx = 'v' + word[1:].translate(_phonix_translation_table)
+        else:
+            sdx = word[0] + word[1:].translate(_phonix_translation_table)
         sdx = _delete_consecutive_repeats(sdx)
         sdx = sdx.replace('0', '')
 

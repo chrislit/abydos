@@ -3410,7 +3410,8 @@ class PhonixTestCases(unittest.TestCase):
         # http://cpansearch.perl.org/src/MAROS/Text-Phonetic-2.05/t/007_phonix.t:
         # testcases from Wais Module
         self.assertEqual(phonix('computer'), 'K513')
-        self.assertEqual(phonix('computers'), 'K513') #K5138
+        self.assertEqual(phonix('computers'), 'K513')
+        self.assertEqual(phonix('computers', 5), 'K5138')
         self.assertEqual(phonix('pfeifer'), 'F700')
         self.assertEqual(phonix('pfeiffer'), 'F700')
         self.assertEqual(phonix('knight'), 'N300')
@@ -3430,7 +3431,7 @@ class PhonixTestCases(unittest.TestCase):
 
         # http://books.google.com/books?id=xtWPI7Is9wIC&lpg=PA29&ots=DXhaL7ZkvK&dq=phonix%20gadd&pg=PA29#v=onepage&q=phonix%20gadd&f=false
         self.assertEqual(phonix('alam'), 'v450')
-        self.assertEqual(phonix('berkpakaian'), 'B125')
+        self.assertEqual(phonix('berkpakaian'), 'B212')
         self.assertEqual(phonix('capaian'), 'K150')
 
         # http://books.google.com/books?id=LZrT6eWf9NMC&lpg=PA76&ots=Tex3FqNwGP&dq=%22phonix%20algorithm%22&pg=PA75#v=onepage&q=%22phonix%20algorithm%22&f=false
