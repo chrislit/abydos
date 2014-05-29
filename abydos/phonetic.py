@@ -1791,19 +1791,183 @@ def phonem(word):
     return ''.join([c for c in _delete_consecutive_repeats(word)
                     if c in tuple('ABCDLMNORSUVWXYÖ')])
 
-def phonix(word):
+def phonix(word, maxlength=4):
     """Return the Phonix encoding of a word
 
     Arguments:
     word -- the word to translate to a Phonix encoding
+    maxlength -- the length of the code returned (defaults to 4)
 
     Description:
     Phonix is a Soundex-like algorithm defined in:
     T.N. Gadd: PHONIX --- The Algorithm, Program 24/4, 1990, p.363-366.
 
     This implementation is based on http://cpansearch.perl.org/src/ULPFR/WAIT-1.800/soundex.c
+    http://cs.anu.edu.au/people/Peter.Christen/Febrl/febrl-0.4.01/encode.py
+    and
+    https://metacpan.org/pod/Text::Phonetic::Phonix
     """
-    pass
+    def _start_repl(word, src, tar, pre=None, post=None):
+        if post:
+            for i in tuple(post):
+                if word.startswith(src+i):
+                    return tar + word[len(src):]
+        elif word.startswith(src):
+            return tar + word[len(src):]
+        return word
+
+    def _end_repl(word, src, tar, pre=None, post=None):
+        if pre:
+            for i in tuple(pre):
+                if word.startswith(i+src):
+                    return word[:-len(src)] + tar
+        elif word.endswith(src):
+            return word[:-len(src)] + tar
+        return word
+
+    def _mid_repl(word, src, tar, pre=None, post=None):
+        if pre or post:
+            if not pre:
+                return word[0] + _all_repl(word[1:], src, tar, pre, post)
+            elif not post:
+                return _all_repl(word[:-1], src, tar, pre, post) + word[-1]
+            else:
+                return _all_repl(word, src, tar, pre, post)
+        else:
+            return word[0] + _all_repl(word[1:-1], src, tar, pre, post) + word[-1]
+
+    def _all_repl(word, src, tar, pre=None, post=None):
+        if pre or post:
+            if post:
+                post = tuple(post)
+            else:
+                post = tuple(('',))
+            if pre:
+                pre = tuple(pre)
+            else:
+                pre = tuple(('',))
+
+            for i,j in tuple((i,j) for i in pre for j in post):
+                word = word.replace(i+src+j, i+tar+j)
+            return word
+        else:
+            return word.replace(src, tar)
+
+    _vow = 'AEIOU'
+    _con = 'BCDFGHJKLMNPQRSTVWXYZ'
+
+    _phonix_substitutions = [(_all_repl, 'DG', 'G'),
+                           (_all_repl, 'CO', 'KO'),
+                           (_all_repl, 'CA', 'KA'),
+                           (_all_repl, 'CU', 'KU'),
+                           (_all_repl, 'CY', 'SI'),
+                           (_all_repl, 'CI', 'SI'),
+                           (_all_repl, 'CE', 'SE'),
+                           (_start_repl, 'CL', 'KL', None, _vow),
+                           (_all_repl, 'CK', 'K'),
+                           (_end_repl, 'GC', 'K'),
+                           (_end_repl, 'JC', 'K'),
+                           (_start_repl, 'CHR', 'KR', None, _vow),
+                           (_start_repl, 'CR', 'KR', None, _vow),
+                           (_start_repl, 'WR', 'R'),
+                           (_all_repl, 'NC', 'NK'),
+                           (_all_repl, 'CT', 'KT'),
+                           (_all_repl, 'PH', 'F'),
+                           (_all_repl, 'AA', 'AR'),
+                           (_all_repl, 'SCH', 'SH'),
+                           (_all_repl, 'BTL', 'TL'),
+                           (_all_repl, 'GHT', 'T'),
+                           (_all_repl, 'AUGH', 'ARF'),
+                           (_mid_repl, 'LJ', 'LD', _vow, _vow),
+                           (_all_repl, 'LOUGH', 'LOW'),
+                           (_start_repl, 'Q', 'KW'),
+                           (_start_repl, 'KN', 'N'),
+                           (_end_repl, 'GN', 'N'),
+                           (_all_repl, 'GHN', 'N'),
+                           (_end_repl, 'GNE', 'N'),
+                           (_all_repl, 'GHNE', 'NE'),
+                           (_end_repl, 'GNES', 'NS'),
+                           (_start_repl, 'GN', 'N'),
+                           (_mid_repl, 'GN', 'N', None, _con),
+                           (_end_repl, 'GN', 'N'), # None, _con
+                           (_start_repl, 'PS', 'S'),
+                           (_start_repl, 'PT', 'T'),
+                           (_start_repl, 'CZ', _con),
+                           (_mid_repl, 'WZ', 'Z', _vow, None),
+                           (_mid_repl, 'CZ', 'CH'),
+                           (_all_repl, 'LZ', 'LSH'),
+                           (_all_repl, 'RZ', 'RSH'),
+                           (_mid_repl, 'Z', 'S', None, _vow),
+                           (_all_repl, 'ZZ', 'TS'),
+                           (_mid_repl, 'Z', 'TS', _con, None),
+                           (_all_repl, 'HROUG', 'REW'),
+                           (_all_repl, 'OUGH', 'OF'),
+                           (_mid_repl, 'Q', 'KW', _vow, _vow),
+                           (_mid_repl, 'J', 'Y', _vow, _vow),
+                           (_start_repl, 'YJ', 'Y', None, _vow),
+                           (_start_repl, 'GH', 'G'),
+                           # (_end_repl, 'E', 'GH', _vow, None), # WRONG IN PFEIFER
+                           (_end_repl, 'GH', 'E', _vow, None), # FROM ZOBEL CODE
+                           (_start_repl, 'CY', 'S'),
+                           (_all_repl, 'NX', 'NKS'),
+                           (_start_repl, 'PF', 'F'),
+                           (_end_repl, 'DT', 'T'),
+                           (_end_repl, 'TL', 'TIL'),
+                           (_end_repl, 'DL', 'DIL'),
+                           (_all_repl, 'YTH', 'ITH'),
+                           (_start_repl, 'TJ', 'CH', None, _vow),
+                           (_start_repl, 'TSJ', 'CH', None, _vow),
+                           (_start_repl, 'TS', 'T', None, _vow),
+                           (_all_repl, 'TCH', 'CH'), # WRONG FUNCT CALL IN PFEIFER
+                           (_mid_repl, 'WSK', 'VSKIE', _vow, None),
+                           (_end_repl, 'WSK', 'VSKIE', _vow, None),
+                           (_start_repl, 'MN', 'N', None, _vow),
+                           (_start_repl, 'PN', 'N', None, _vow),
+                           (_mid_repl, 'STL', 'SL', _vow, None),
+                           (_end_repl, 'STL', 'SL', _vow, None),
+                           (_end_repl, 'TNT', 'ENT'),
+                           (_end_repl, 'EAUX', 'OH'),
+                           (_all_repl, 'EXCI', 'ECS'),
+                           (_all_repl, 'X', 'ECS'),
+                           (_end_repl, 'NED', 'ND'),
+                           (_all_repl, 'JR', 'DR'),
+                           (_end_repl, 'EE', 'EA'),
+                           (_all_repl, 'ZS', 'S'),
+                           (_mid_repl, 'R', 'AH', _vow, _con),
+                           (_end_repl, 'R', 'AH', _vow, None), # _vow, _con
+                           (_mid_repl, 'HR', 'AH', _vow, _con),
+                           (_end_repl, 'HR', 'AH', _vow, None), # _vow, _con
+                           (_end_repl, 'HR', 'AH', _vow, None),
+                           (_end_repl, 'RE', 'AR'),
+                           (_end_repl, 'R', 'AH', _vow, None),
+                           (_all_repl, 'LLE', 'LE'),
+                           (_end_repl, 'LE', 'ILE', _con, None),
+                           (_end_repl, 'LES', 'ILES', _con, None),
+                           (_end_repl, 'E', ''),
+                           (_end_repl, 'ES', 'S'),
+                           (_end_repl, 'SS', 'AS', _vow, None),
+                           (_end_repl, 'MB', 'M', _vow, None),
+                           (_all_repl, 'MPTS', 'MPS'),
+                           (_all_repl, 'MPS', 'MS'),
+                           (_all_repl, 'MPT', 'MT')]
+
+    _phonix_translation_table = dict(zip([ord(_) for _ in
+                                          u'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
+                                         u'01230720022455012683070808'))
+
+    sdx = ''
+
+    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = ''.join([c for c in word if c in tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+    if word:
+        for trans in _phonix_substitutions:
+            word = trans[0](word, *trans[1:])
+        sdx = word[0] + word[1:].translate(_phonix_translation_table)
+        sdx = _delete_consecutive_repeats(sdx)
+        sdx = sdx.replace('0', '')
+
+    sdx += '0' * maxlength
+    return sdx[:maxlength]
 
 
 def _delete_consecutive_repeats(word):
