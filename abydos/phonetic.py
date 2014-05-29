@@ -54,7 +54,7 @@ def russell_index(word):
     This follows Robert C. Russell's Index algorithm, as described in
     US Patent 1,261,167 (1917)
     """
-    _russell_translation_table = dict(zip([ord(_) for _ in
+    _russell_translation = dict(zip([ord(_) for _ in
                                            u'ABCDEFGIKLMNOPQRSTUVXYZ'],
                                           u'12341231356712383412313'))
 
@@ -64,7 +64,7 @@ def russell_index(word):
 
     # translate according to Russell's mapping
     word = ''.join([c for c in word if c in tuple('ABCDEFGIKLMNOPQRSTUVXYZ')])
-    sdx = word.translate(_russell_translation_table)
+    sdx = word.translate(_russell_translation)
 
     # remove any 1s after the first occurrence
     one = sdx.find('1')+1
@@ -88,11 +88,11 @@ def russell_index_num_to_alpha(num):
     This follows Robert C. Russell's Index algorithm, as described in
     US Patent 1,261,167 (1917)
     """
-    _russell_num_translation_table = dict(zip([ord(_) for _ in u'12345678'],
+    _russell_num_translation = dict(zip([ord(_) for _ in u'12345678'],
                                               u'ABCDLMNR'))
     num = ''.join([c for c in _unicode(num) if c in tuple('12345678')])
     if num:
-        return num.translate(_russell_num_translation_table)
+        return num.translate(_russell_num_translation)
 
 
 def russell_index_alpha(word):
@@ -125,7 +125,7 @@ def soundex(word, maxlength=4, var='American', reverse=False):
     reverse -- reverse the word before computing the selected Soundex
         (defaults to False); This results in "Reverse Soundex"
     """
-    _soundex_translation_table = dict(zip([ord(_) for _ in
+    _soundex_translation = dict(zip([ord(_) for _ in
                                            u'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
                                           u'01230129022455012623019202'))
 
@@ -149,7 +149,7 @@ def soundex(word, maxlength=4, var='American', reverse=False):
         word = word[::-1]
 
     # apply the Soundex algorithm
-    sdx = word.translate(_soundex_translation_table)
+    sdx = word.translate(_soundex_translation)
 
     if var == 'special':
         sdx = sdx.replace('9', '0') # special rule for 1880-1910 census
@@ -397,10 +397,10 @@ def koelner_phonetik_num_to_alpha(num):
     """Given the numeric form of a Kölner Phonetik value, returns an
     alphabetic form
     """
-    _koelner_num_translation_table = dict(zip([ord(_) for _ in u'012345678'],
+    _koelner_num_translation = dict(zip([ord(_) for _ in u'012345678'],
                                               u'APTFKLNRS'))
     num = ''.join([c for c in _unicode(num) if c in tuple('012345678')])
-    return num.translate(_koelner_num_translation_table)
+    return num.translate(_koelner_num_translation)
 
 
 def koelner_phonetik_alpha(word):
@@ -1596,7 +1596,7 @@ def fuzzy_soundex(word, maxlength=5):
     Soundex Retrieval."
     http://wayback.archive.org/web/20100629121128/http://www.ir.iit.edu/publications/downloads/IEEESoundexV5.pdf
     """
-    _fuzzy_soundex_translation_table = dict(zip([ord(_) for _ in
+    _fuzzy_soundex_translation = dict(zip([ord(_) for _ in
                                                  u'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
                                                  u'0193017-07745501769301-7-9'))
 
@@ -1649,7 +1649,7 @@ def fuzzy_soundex(word, maxlength=5):
     word = word.replace('TIA', 'SIO')
     word = word.replace('TCH', 'CHH')
 
-    sdx = word.translate(_fuzzy_soundex_translation_table)
+    sdx = word.translate(_fuzzy_soundex_translation)
     sdx = sdx.replace('-', '')
 
     # remove repeating characters
@@ -1779,14 +1779,14 @@ def phonem(word):
                              ('AE', 'E'), ('OE', 'Ö'), ('EI', 'AY'),
                              ('EY', 'AY'), ('EU', 'OY'), ('AU', 'A§'),
                              ('OU', '§'))
-    _phonem_translation_table = dict(zip([ord(_) for _ in
+    _phonem_translation = dict(zip([ord(_) for _ in
                                     u'ZKGQÇÑßFWPTÁÀÂÃÅÄÆÉÈÊËIJÌÍÎÏÜÝ§ÚÙÛÔÒÓÕØ'],
                                     u'CCCCCNSVVBDAAAAAEEEEEEYYYYYYYYUUUUOOOOÖ'))
 
     word = unicodedata.normalize('NFC', _unicode(word.upper()))
     for i,j in _phonem_substitutions:
         word = word.replace(i, j)
-    word = word.translate(_phonem_translation_table)
+    word = word.translate(_phonem_translation)
 
     return ''.join([c for c in _delete_consecutive_repeats(word)
                     if c in tuple('ABCDLMNORSUVWXYÖ')])
@@ -1951,7 +1951,7 @@ def phonix(word, maxlength=4):
                            (_all_repl, 'MPS', 'MS'),
                            (_all_repl, 'MPT', 'MT')]
 
-    _phonix_translation_table = dict(zip([ord(_) for _ in
+    _phonix_translation = dict(zip([ord(_) for _ in
                                           u'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
                                          u'01230720022455012683070808'))
 
@@ -1964,9 +1964,9 @@ def phonix(word, maxlength=4):
         for trans in _phonix_substitutions:
             word = trans[0](word, *trans[1:])
         if word[0] in tuple('AEIOUY'):
-            sdx = 'v' + word[1:].translate(_phonix_translation_table)
+            sdx = 'v' + word[1:].translate(_phonix_translation)
         else:
-            sdx = word[0] + word[1:].translate(_phonix_translation_table)
+            sdx = word[0] + word[1:].translate(_phonix_translation)
         sdx = _delete_consecutive_repeats(sdx)
         sdx = sdx.replace('0', '')
 
