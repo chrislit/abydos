@@ -814,7 +814,7 @@ def dist_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False, \
 
 
 def lcs(src, tar):
-    """Returns the longest common substring (LCS) of two strings
+    """Returns the longest common subsequence (LCS) of two strings
 
     Arguments:
     src, tar -- two strings to be compared
@@ -853,7 +853,8 @@ def lcs(src, tar):
 
 
 def sim_lcs(src, tar):
-    """Returns the longest common substring ratio (LCSR) of two strings
+    """Returns the longest common subsequence similarity (sim_{LCS}) of two
+    strings
 
     Arguments:
     src, tar -- two strings to be compared
@@ -870,7 +871,8 @@ def sim_lcs(src, tar):
 
 
 def dist_lcs(src, tar):
-    """Returns the longest common substring distance ratio (LCSD) of two strings
+    """Returns the longest common subsequence distance (dist_{LCS}) of two
+    strings
 
     Arguments:
     src, tar -- two strings to be compared
