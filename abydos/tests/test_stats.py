@@ -372,7 +372,6 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(2),
                                WORKED_EG_TABLE.pr_cmean())
 
-
     def test_pr_lmean(self):
         """test abydos.stats.ConfusionTable.pr_lmean
         """
@@ -442,6 +441,24 @@ class PrMeansTestCases(unittest.TestCase):
                                WORKED_EG_TABLE.pr_mean())
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(2),
                                WORKED_EG_TABLE.pr_qmean())
+
+    def test_pr_agmean(self):
+        """test abydos.stats.ConfusionTable.pr_agmean
+        """
+        self.assertEqual(UNIT_TABLE.pr_agmean(), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.pr_agmean()))
+        self.assertAlmostEqual(SCALE_TABLE.pr_agmean(), 0.2243028580)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_agmean(), 0.6688977736)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_agmean(), 0.3176780357)
+
+    def test_pr_ghmean(self):
+        """test abydos.stats.ConfusionTable.pr_ghmean
+        """
+        self.assertEqual(UNIT_TABLE.pr_ghmean(), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.pr_ghmean()))
+        self.assertAlmostEqual(SCALE_TABLE.pr_ghmean(), 0.2229128974)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_ghmean(), 0.6674092650)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_ghmean(), 0.2098560781)
 
 
 class StatisticalMeasureTestCases(unittest.TestCase):

@@ -452,6 +452,39 @@ class ConfusionTable(object):
         return (0.5 * (self.precision()**exp + self.recall()**exp))**(1/exp)
 
 
+    def pr_agmean(self):
+        """Return the arithmetic-geometric mean of precision & recall of the
+        confusion table
+
+        Iterates between arithmetic & geometric means until they converge to
+        a single value (rounded to 12 digits)
+        Cf. https://en.wikipedia.org/wiki/Arithmetic–geometric_mean
+        """
+        x = self.precision()
+        y = self.recall()
+        if math.isnan(x) or math.isnan(y):
+            return float('nan')
+        while (round(x, 12) != round(y, 12)):
+            x, y = (x+y)/2, math.sqrt(x*y)
+        return round(x, 12)
+
+    def pr_ghmean(self):
+        """Return the geometric-harmonic mean of precision & recall of the
+        confusion table
+
+        Iterates between geometric & harmonic means until they converge to
+        a single value (rounded to 12 digits)
+        Cf. https://en.wikipedia.org/wiki/Geometric–harmonic_mean
+        """
+        x = self.precision()
+        y = self.recall()
+        if math.isnan(x) or math.isnan(y):
+            return float('nan')
+        while (round(x, 12) != round(y, 12)):
+            x, y = math.sqrt(x*y), (2*x*y)/(x+y)
+        return round(x, 12)
+
+
     def fbeta_score(self, beta=1):
         """Return the F_{β} score of the confusion table
 
