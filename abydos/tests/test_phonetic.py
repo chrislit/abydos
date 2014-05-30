@@ -3252,7 +3252,7 @@ class CaverphoneTestCases(unittest.TestCase):
             for cav_line in cav_testset:
                 (name1, soundex1, metaphone1, caverphone1,
                  name2, soundex2, metaphone2, caverphone2,
-                 soundex_same, metaphone_same, caverphone_same) = cav_line
+                 soundex_same, metaphone_same, caverphone_same) = cav_line.strip().split(',')
 
                 self.assertEqual(soundex(name1), soundex1)
                 self.assertEqual(soundex(name2), soundex2)
