@@ -196,7 +196,7 @@ plus a delete.')
     return d_mx[len(src)-1, len(tar)-1]
 
 
-def levenshtein_normalized(src, tar, mode='lev', cost=(1, 1, 1, 1)):
+def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     """Return the Levenshtein distance normalized to the interval [0, 1]
     The arguments are identical to those of the levenshtein() function.
 
@@ -213,6 +213,16 @@ def levenshtein_normalized(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     ins_cost, del_cost = cost[:2]
     return levenshtein(src, tar, mode, cost) \
         / (max(len(src)*del_cost, len(tar)*ins_cost))
+
+
+def sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
+    """Return the Levenshtein similarity normalized to the interval [0, 1]
+    The arguments are identical to those of the levenshtein() function.
+
+    Description:
+    The Levenshtein similarity is 1 - the Levenshtein distance
+    """
+    return 1 - dist_levenshtein(src, tar, mode, cost)
 
 
 def hamming(src, tar, difflens=True):
@@ -246,7 +256,7 @@ lengths.")
     return dist
 
 
-def hamming_normalized(src, tar, difflens=True):
+def dist_hamming(src, tar, difflens=True):
     """Return the Hamming distance normalized to the interval [0, 1]
     The arguments are identical to those of the hamming() function.
 
@@ -260,7 +270,17 @@ def hamming_normalized(src, tar, difflens=True):
     return hamming(src, tar, difflens) / max(len(src), len(tar))
 
 
-def tversky_index(src, tar, qval=2, alpha=1, beta=1, bias=None):
+def sim_hamming(src, tar, difflens=True):
+    """Return the Hamming similarity normalized to the interval [0, 1]
+    The arguments are identical to those of the hamming() function.
+
+    Description:
+    The Hamming similarity is 1 - the Hamming distance
+    """
+    return 1 - dist_hamming(src, tar, difflens)
+
+
+def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     """Return the Tversky index of two strings
 
     Arguments:
@@ -311,7 +331,28 @@ be greater than or equal to 0.')
         return c_val / (beta * (alpha * a_val + (1 - alpha) * b_val) + c_val)
 
 
-def sorensen_coeff(src, tar, qval=2):
+def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
+    """Return the Tversky distance of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+    qval -- the length of each q-gram
+    alpha, beta -- two Tversky index parameters as indicated in the
+        description below
+
+    Description:
+    The Tversky distance is 1 - the Tversky index (similarity)
+
+    The symmetric variant is defined in Jiminez, Sergio, Claudio Becerra, and
+    Alexander Gelbukh. 2013. SOFTCARDINALITY-CORE: Improving Text Overlap with
+    Distributional Measures for Semantic Textual Similarity. This is activated
+    by specifying a bias parameter.
+    Cf. http://aclweb.org/anthology/S/S13/S13-1028.pdf
+    """
+    return 1 - sim_tversky(src, tar, qval, alpha, beta, bias)
+
+
+def sim_dice(src, tar, qval=2):
     """Return the Sørensen–Dice coefficient of two strings
 
     Arguments:
@@ -324,10 +365,10 @@ def sorensen_coeff(src, tar, qval=2):
     This is identical to the Tanimoto similarity coefficient
     and the Tversky index for α = β = 1
     """
-    return tversky_index(src, tar, qval, 0.5, 0.5)
+    return sim_tversky(src, tar, qval, 0.5, 0.5)
 
 
-def sorensen(src, tar, qval=2):
+def dist_dice(src, tar, qval=2):
     """Return the Sørensen–Dice distance of two strings
 
     Arguments:
@@ -337,10 +378,10 @@ def sorensen(src, tar, qval=2):
     Description:
     Sørensen–Dice distance is 1 - the Sørensen–Dice coefficient
     """
-    return 1 - sorensen_coeff(src, tar, qval)
+    return 1 - sim_dice(src, tar, qval)
 
 
-def jaccard_coeff(src, tar, qval=2):
+def sim_jaccard(src, tar, qval=2):
     """Return the Jaccard similarity coefficient of two strings
 
     Arguments:
@@ -353,10 +394,10 @@ def jaccard_coeff(src, tar, qval=2):
     This is identical to the Tanimoto similarity coefficient
     and the Tversky index for α = β = 1
     """
-    return tversky_index(src, tar, qval, 1, 1)
+    return sim_tversky(src, tar, qval, 1, 1)
 
 
-def jaccard(src, tar, qval=2):
+def dist_jaccard(src, tar, qval=2):
     """Return the Jaccard distance of two strings
 
     Arguments:
@@ -366,10 +407,10 @@ def jaccard(src, tar, qval=2):
     Description:
     Jaccard distance is 1 - the Jaccard coefficient
     """
-    return 1 - jaccard_coeff(src, tar, qval)
+    return 1 - sim_jaccard(src, tar, qval)
 
 
-def overlap_coeff(src, tar, qval=2):
+def sim_overlap(src, tar, qval=2):
     """Return the overlap coefficient of two strings
 
     Arguments:
@@ -388,7 +429,7 @@ def overlap_coeff(src, tar, qval=2):
     return q_intersection / min(q_src, q_tar)
 
 
-def overlap(src, tar, qval=2):
+def dist_overlap(src, tar, qval=2):
     """Return the overlap distance of two strings
 
     Arguments:
@@ -398,10 +439,10 @@ def overlap(src, tar, qval=2):
     Description:
     overlap distance is 1 - the overlap coefficient
     """
-    return 1 - overlap_coeff(src, tar, qval)
+    return 1 - sim_overlap(src, tar, qval)
 
 
-def tanimoto_coeff(src, tar, qval=2):
+def sim_tanimoto(src, tar, qval=2):
     """Return the Tanimoto similarity of two strings
 
     Arguments:
@@ -414,7 +455,7 @@ def tanimoto_coeff(src, tar, qval=2):
     This is identical to the Jaccard similarity coefficient
     and the Tversky index for α = β = 1
     """
-    return jaccard_coeff(src, tar, qval)
+    return sim_jaccard(src, tar, qval)
 
 
 def tanimoto(src, tar, qval=2):
@@ -427,14 +468,14 @@ def tanimoto(src, tar, qval=2):
     Description:
     Tanimoto distance is -log2(Tanimoto coefficient)
     """
-    coeff = jaccard_coeff(src, tar, qval)
+    coeff = sim_jaccard(src, tar, qval)
     if coeff != 0:
         return math.log(coeff, 2)
     else:
         return float('-inf')
 
 
-def cosine_similarity(src, tar, qval=2):
+def sim_cosine(src, tar, qval=2):
     """Return the cosine similarity of two strings
 
     Arguments:
@@ -453,8 +494,21 @@ def cosine_similarity(src, tar, qval=2):
     return q_common / math.sqrt(q_src + q_tar)
 
 
-def strcmp95(src, tar, long_strings=False):
-    """Return the strcmp95 distance between two string arguments.
+def dist_cosine(src, tar, qval=2):
+    """Return the cosine distance of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+    qval -- the length of each q-gram
+
+    Description:
+    Coside distance is defined as 1 - the cosine similarity
+    """
+    return 1 - sim_cosine(src, tar, qval)
+
+
+def sim_strcmp95(src, tar, long_strings=False):
+    """Return the strcmp95 similarity between two string arguments.
 
     Arguments:
     src, tar -- two strings to be compared
@@ -592,7 +646,24 @@ def strcmp95(src, tar, long_strings=False):
     return weight
 
 
-def jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False, \
+def dist_strcmp95(src, tar, long_strings=False):
+    """Return the strcmp95 distance between two string arguments.
+
+    Arguments:
+    src, tar -- two strings to be compared
+    long_strings -- set to True to "Increase the probability of a match when
+        the number of matched characters is large.  This option allows for a
+        little more tolerance when the strings are large.  It is not an
+        appropriate test when comparing fixed length fields such as phone and
+        social security numbers."
+
+    Description:
+    strcmp95 distance is 1 - strcmp95 similarity
+    """
+    return 1 - sim_strcmp95(src, tar, long_strings)
+
+
+def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False, \
                  boost_threshold=0.7, scaling_factor=0.1):
     """Return the Jaro(-Winkler) distance between two string arguments.
 
@@ -712,6 +783,36 @@ scaling_factor must be between 0 and 0.25.')
     return weight
 
 
+def dist_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False, \
+                 boost_threshold=0.7, scaling_factor=0.1):
+    """Return the Jaro(-Winkler) distance between two string arguments.
+
+    Arguments:
+    src, tar -- two strings to be compared
+    qval -- the length of each q-gram (defaults to 1: character-wise matching)
+    mode -- indicates which variant of this distance metric to compute:
+        'winkler' -- computes the Jaro-Winkler distance (default)
+            which increases the score for matches near the start of the word
+        'jaro' -- computes the Jaro distance
+
+    The following arguments apply only when mode is 'winkler':
+    long_strings -- set to True to "Increase the probability of a match when
+        the number of matched characters is large.  This option allows for a
+        little more tolerance when the strings are large.  It is not an
+        appropriate test when comparing fixed length fields such as phone and
+        social security numbers."
+    boost_threshold -- a value between 0 and 1, below which the Winkler boost
+        is not applied (defaults to 0.7)
+    scaling_factor -- a value between 0 and 0.25, indicating by how much to
+        boost scores for matching prefixes (defaults to 0.1)
+
+    Description:
+    Jaro-Winkler distance is 1 - the Jaro-Winkler similarity
+    """
+    return 1 - sim_jaro_winkler(src, tar, qval, mode, long_strings,
+                                boost_threshold, scaling_factor)
+
+
 def lcs(src, tar):
     """Returns the longest common substring (LCS) of two strings
 
@@ -751,7 +852,7 @@ def lcs(src, tar):
     return result
 
 
-def lcsr(src, tar):
+def sim_lcs(src, tar):
     """Returns the longest common substring ratio (LCSR) of two strings
 
     Arguments:
@@ -759,7 +860,7 @@ def lcsr(src, tar):
 
     Description:
     This employs the LCS function to derive a similarity metric:
-    LCSR(s,t) = |LCS(s,t)| / max(|s|, |t|)
+    sim_{LCS}(s,t) = |LCS(s,t)| / max(|s|, |t|)
     """
     if src == tar:
         return 1.0
@@ -768,7 +869,7 @@ def lcsr(src, tar):
     return len(lcs(src, tar)) / max(len(src), len(tar))
 
 
-def lcsd(src, tar):
+def dist_lcs(src, tar):
     """Returns the longest common substring distance ratio (LCSD) of two strings
 
     Arguments:
@@ -776,14 +877,9 @@ def lcsd(src, tar):
 
     Description:
     This employs the LCS function to derive a similarity metric:
-    LCSD(s,t) = 1 - LCSR(s,t)
+    dist_{LCS}(s,t) = 1 - LCSR(s,t)
     """
-    if src == tar:
-        return 0.0
-    elif len(src) == 0 or len(tar) == 0:
-        return 1.0
-    maxlen = max(len(src), len(tar))
-    return (maxlen - len(lcs(src, tar))) / max(len(src), len(tar))
+    return 1 - sim_lcs(src, tar)
 
 
 def mra_compare(src, tar):
@@ -836,7 +932,8 @@ def mra_compare(src, tar):
         return similarity
     return 0
 
-def compression(src, tar, compressor='bzip2'):
+
+def dist_compression(src, tar, compressor='bzip2'):
     """Return the normalized compression distance (NCD) of two strings
 
     Arguments:
@@ -868,3 +965,18 @@ compression similarity')
         concat_comp = zlib.compress(src+tar)[2:]
     return ((len(concat_comp) - min(len(src_comp), len(tar_comp))) /
            max(len(src_comp), len(tar_comp)))
+
+
+def sim_compression(src, tar, compression='bzip2'):
+    """Return the normalized compression similarity (NCS) of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+    compressor -- a compression scheme to use for the similarity calculation:
+                    'bzip2', 'lzma', and 'zlib' are the supported options
+
+    Description:
+    Normalized compression similarity is equal to 1 - the normalized
+    compression distance
+    """
+    return 1 - dist_compression(src, tar, compression)

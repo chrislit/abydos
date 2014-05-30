@@ -23,19 +23,20 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 from __future__ import division
 import unittest
-from abydos.distance import levenshtein, levenshtein_normalized, hamming, \
-    hamming_normalized, tversky_index, sorensen_coeff, sorensen, \
-    jaccard_coeff, jaccard, overlap_coeff, overlap, tanimoto_coeff, tanimoto, \
-    cosine_similarity, \
-    strcmp95, jaro_winkler, lcs, lcsr, lcsd, mra_compare, compression
+from abydos.distance import levenshtein, dist_levenshtein, sim_levenshtein, \
+    hamming, dist_hamming, sim_hamming, sim_tversky, dist_tversky, sim_dice, \
+    dist_dice, sim_jaccard, dist_jaccard, sim_overlap, dist_overlap, \
+    sim_tanimoto, tanimoto, sim_cosine, dist_cosine, sim_strcmp95, \
+    dist_strcmp95, sim_jaro_winkler, dist_jaro_winkler, lcs, sim_lcs, \
+    dist_lcs, mra_compare, sim_compression, dist_compression
 import math
 
 
 # pylint: disable=R0904
 # pylint: disable=R0915
 class LevenshteinTestCases(unittest.TestCase):
-    """test cases for abydos.distance.levenshtein &
-    abydos.distance.levenshtein_normalized
+    """test cases for abydos.distance.levenshtein,
+    abydos.distance.dist_levenshtein, & abydos.distance.sim_levenshtein
     """
     def test_levenshtein(self):
         """test abydos.distance.levenshtein
@@ -126,25 +127,40 @@ class LevenshteinTestCases(unittest.TestCase):
         self.assertRaises(ValueError, levenshtein, 'ab', 'ba', 'dam',
                           cost=(10, 10, 10, 5))
 
-    def test_levenshtein_normalized(self):
-        """test abydos.distance.levenshtein_normalized
+    def test_dist_levenshtein(self):
+        """test abydos.distance.dist_levenshtein
         """
-        self.assertEqual(levenshtein_normalized('', ''), 0)
+        self.assertEqual(dist_levenshtein('', ''), 0)
 
-        self.assertEqual(levenshtein_normalized('a', 'a'), 0)
-        self.assertEqual(levenshtein_normalized('ab', 'ab'), 0)
-        self.assertEqual(levenshtein_normalized('', 'a'), 1)
-        self.assertEqual(levenshtein_normalized('', 'ab'), 1)
-        self.assertEqual(levenshtein_normalized('a', 'c'), 1)
+        self.assertEqual(dist_levenshtein('a', 'a'), 0)
+        self.assertEqual(dist_levenshtein('ab', 'ab'), 0)
+        self.assertEqual(dist_levenshtein('', 'a'), 1)
+        self.assertEqual(dist_levenshtein('', 'ab'), 1)
+        self.assertEqual(dist_levenshtein('a', 'c'), 1)
 
-        self.assertAlmostEqual(levenshtein_normalized('abc', 'ac'), 1/3)
-        self.assertAlmostEqual(levenshtein_normalized('abbc', 'ac'), 1/2)
-        self.assertAlmostEqual(levenshtein_normalized('abbc', 'abc'), 1/4)
+        self.assertAlmostEqual(dist_levenshtein('abc', 'ac'), 1/3)
+        self.assertAlmostEqual(dist_levenshtein('abbc', 'ac'), 1/2)
+        self.assertAlmostEqual(dist_levenshtein('abbc', 'abc'), 1/4)
+
+    def test_sim_levenshtein(self):
+        """test abydos.distance.sim_levenshtein
+        """
+        self.assertEqual(sim_levenshtein('', ''), 1)
+
+        self.assertEqual(sim_levenshtein('a', 'a'), 1)
+        self.assertEqual(sim_levenshtein('ab', 'ab'), 1)
+        self.assertEqual(sim_levenshtein('', 'a'), 0)
+        self.assertEqual(sim_levenshtein('', 'ab'), 0)
+        self.assertEqual(sim_levenshtein('a', 'c'), 0)
+
+        self.assertAlmostEqual(sim_levenshtein('abc', 'ac'), 2/3)
+        self.assertAlmostEqual(sim_levenshtein('abbc', 'ac'), 1/2)
+        self.assertAlmostEqual(sim_levenshtein('abbc', 'abc'), 3/4)
 
 
 class HammingTestCases(unittest.TestCase):
-    """test cases for abydos.distance.hamming &
-    abydos.distance.hamming_normalized
+    """test cases for abydos.distance.hamming,
+    abydos.distance.dist_hamming, & abydos.distance.sim_hamming
     """
     def test_hamming(self):
         """test abydos.distance.hamming
@@ -171,114 +187,149 @@ class HammingTestCases(unittest.TestCase):
         self.assertEqual(hamming('1011101', '1001001'), 2)
         self.assertEqual(hamming('2173896', '2233796'), 3)
 
-    def test_hamming_normalized(self):
-        """test abydos.distance.hamming_normalized
+    def test_dist_hamming(self):
+        """test abydos.distance.dist_hamming
         """
-        self.assertEqual(hamming_normalized('', ''), 0)
-        self.assertEqual(hamming_normalized('', '', False), 0)
+        self.assertEqual(dist_hamming('', ''), 0)
+        self.assertEqual(dist_hamming('', '', False), 0)
 
-        self.assertEqual(hamming_normalized('a', ''), 1)
-        self.assertEqual(hamming_normalized('a', 'a'), 0)
-        self.assertEqual(hamming_normalized('a', 'a', False), 0)
-        self.assertEqual(hamming_normalized('a', 'b'), 1)
-        self.assertEqual(hamming_normalized('a', 'b', False), 1)
-        self.assertAlmostEqual(hamming_normalized('abc', 'cba'), 2/3)
-        self.assertAlmostEqual(hamming_normalized('abc', 'cba', False), 2/3)
-        self.assertEqual(hamming_normalized('abc', ''), 1)
-        self.assertAlmostEqual(hamming_normalized('bb', 'cbab'), 3/4)
+        self.assertEqual(dist_hamming('a', ''), 1)
+        self.assertEqual(dist_hamming('a', 'a'), 0)
+        self.assertEqual(dist_hamming('a', 'a', False), 0)
+        self.assertEqual(dist_hamming('a', 'b'), 1)
+        self.assertEqual(dist_hamming('a', 'b', False), 1)
+        self.assertAlmostEqual(dist_hamming('abc', 'cba'), 2/3)
+        self.assertAlmostEqual(dist_hamming('abc', 'cba', False), 2/3)
+        self.assertEqual(dist_hamming('abc', ''), 1)
+        self.assertAlmostEqual(dist_hamming('bb', 'cbab'), 3/4)
 
         # test exception
-        self.assertRaises(ValueError, hamming_normalized, 'ab', 'a', False)
+        self.assertRaises(ValueError, dist_hamming, 'ab', 'a', False)
 
         # https://en.wikipedia.org/wiki/Hamming_distance
-        self.assertAlmostEqual(hamming_normalized('karolin', 'kathrin'), 3/7)
-        self.assertAlmostEqual(hamming_normalized('karolin', 'kerstin'), 3/7)
-        self.assertAlmostEqual(hamming_normalized('1011101', '1001001'), 2/7)
-        self.assertAlmostEqual(hamming_normalized('2173896', '2233796'), 3/7)
+        self.assertAlmostEqual(dist_hamming('karolin', 'kathrin'), 3/7)
+        self.assertAlmostEqual(dist_hamming('karolin', 'kerstin'), 3/7)
+        self.assertAlmostEqual(dist_hamming('1011101', '1001001'), 2/7)
+        self.assertAlmostEqual(dist_hamming('2173896', '2233796'), 3/7)
+
+    def test_sim_hamming(self):
+        """test abydos.distance.sim_hamming
+        """
+        self.assertEqual(sim_hamming('', ''), 1)
+        self.assertEqual(sim_hamming('', '', False), 1)
+
+        self.assertEqual(sim_hamming('a', ''), 0)
+        self.assertEqual(sim_hamming('a', 'a'), 1)
+        self.assertEqual(sim_hamming('a', 'a', False), 1)
+        self.assertEqual(sim_hamming('a', 'b'), 0)
+        self.assertEqual(sim_hamming('a', 'b', False), 0)
+        self.assertAlmostEqual(sim_hamming('abc', 'cba'), 1/3)
+        self.assertAlmostEqual(sim_hamming('abc', 'cba', False), 1/3)
+        self.assertEqual(sim_hamming('abc', ''), 0)
+        self.assertAlmostEqual(sim_hamming('bb', 'cbab'), 1/4)
+
+        # test exception
+        self.assertRaises(ValueError, sim_hamming, 'ab', 'a', False)
+
+        # https://en.wikipedia.org/wiki/Hamming_distance
+        self.assertAlmostEqual(sim_hamming('karolin', 'kathrin'), 4/7)
+        self.assertAlmostEqual(sim_hamming('karolin', 'kerstin'), 4/7)
+        self.assertAlmostEqual(sim_hamming('1011101', '1001001'), 5/7)
+        self.assertAlmostEqual(sim_hamming('2173896', '2233796'), 4/7)
+
 
 class TverskyIndexTestCases(unittest.TestCase):
-    """test cases for abydos.distance.tversky_index
+    """test cases for abydos.distance.sim_tversky & abydos.distance.dist_tversky
     """
-    def test_tversky_index(self):
-        """test abydos.distance.tversky_index
+    def test_sim_tversky(self):
+        """test abydos.distance.sim_tversky
         """
-        self.assertEqual(tversky_index('', ''), 1)
-        self.assertEqual(tversky_index('nelson', ''), 0)
-        self.assertEqual(tversky_index('', 'neilsen'), 0)
-        self.assertAlmostEqual(tversky_index('nelson', 'neilsen'), 4/11)
+        self.assertEqual(sim_tversky('', ''), 1)
+        self.assertEqual(sim_tversky('nelson', ''), 0)
+        self.assertEqual(sim_tversky('', 'neilsen'), 0)
+        self.assertAlmostEqual(sim_tversky('nelson', 'neilsen'), 4/11)
+        # TODO: Add bias test(s) and unequal alpha & beta tests
+
+    def test_dist_tversky(self):
+        """test abydos.distance.dist_tversky
+        """
+        self.assertEqual(dist_tversky('', ''), 0)
+        self.assertEqual(dist_tversky('nelson', ''), 1)
+        self.assertEqual(dist_tversky('', 'neilsen'), 1)
+        self.assertAlmostEqual(dist_tversky('nelson', 'neilsen'), 7/11)
         # TODO: Add bias test(s) and unequal alpha & beta tests
 
 
-class SorensenTestCases(unittest.TestCase):
-    """test cases for abydos.distance.sorensen_coeff & abydos.distance.sorensen
+class DiceTestCases(unittest.TestCase):
+    """test cases for abydos.distance.sim_dice & abydos.distance.dist_dice
     """
-    def test_sorensen_coeff(self):
-        """test abydos.distance.sorensen_coeff
+    def test_sim_dice(self):
+        """test abydos.distance.sim_dice
         """
-        self.assertEqual(sorensen_coeff('', ''), 1)
-        self.assertEqual(sorensen_coeff('nelson', ''), 0)
-        self.assertEqual(sorensen_coeff('', 'neilsen'), 0)
-        self.assertAlmostEqual(sorensen_coeff('nelson', 'neilsen'), 8/15)
+        self.assertEqual(sim_dice('', ''), 1)
+        self.assertEqual(sim_dice('nelson', ''), 0)
+        self.assertEqual(sim_dice('', 'neilsen'), 0)
+        self.assertAlmostEqual(sim_dice('nelson', 'neilsen'), 8/15)
 
-    def test_sorensen(self):
-        """test abydos.distance.sorensen
+    def test_dist_dice(self):
+        """test abydos.distance.dist_dice
         """
-        self.assertEqual(sorensen('', ''), 0)
-        self.assertEqual(sorensen('nelson', ''), 1)
-        self.assertEqual(sorensen('', 'neilsen'), 1)
-        self.assertAlmostEqual(sorensen('nelson', 'neilsen'), 7/15)
+        self.assertEqual(dist_dice('', ''), 0)
+        self.assertEqual(dist_dice('nelson', ''), 1)
+        self.assertEqual(dist_dice('', 'neilsen'), 1)
+        self.assertAlmostEqual(dist_dice('nelson', 'neilsen'), 7/15)
 
 
 class JaccardTestCases(unittest.TestCase):
-    """test cases for abydos.distance.jaccard_coeff & abydos.distance.jaccard
+    """test cases for abydos.distance.sim_jaccard & abydos.distance.dist_jaccard
     """
-    def test_jaccard_coeff(self):
-        """test abydos.distance.jaccard_coeff
+    def test_sim_jaccard(self):
+        """test abydos.distance.sim_jaccard
         """
-        self.assertEqual(jaccard_coeff('', ''), 1)
-        self.assertEqual(jaccard_coeff('nelson', ''), 0)
-        self.assertEqual(jaccard_coeff('', 'neilsen'), 0)
-        self.assertAlmostEqual(jaccard_coeff('nelson', 'neilsen'), 4/11)
+        self.assertEqual(sim_jaccard('', ''), 1)
+        self.assertEqual(sim_jaccard('nelson', ''), 0)
+        self.assertEqual(sim_jaccard('', 'neilsen'), 0)
+        self.assertAlmostEqual(sim_jaccard('nelson', 'neilsen'), 4/11)
 
-    def test_jaccard(self):
-        """test abydos.distance.jaccard
+    def test_dist_jaccard(self):
+        """test abydos.distance.dist_jaccard
         """
-        self.assertEqual(jaccard('', ''), 0)
-        self.assertEqual(jaccard('nelson', ''), 1)
-        self.assertEqual(jaccard('', 'neilsen'), 1)
-        self.assertAlmostEqual(jaccard('nelson', 'neilsen'), 7/11)
+        self.assertEqual(dist_jaccard('', ''), 0)
+        self.assertEqual(dist_jaccard('nelson', ''), 1)
+        self.assertEqual(dist_jaccard('', 'neilsen'), 1)
+        self.assertAlmostEqual(dist_jaccard('nelson', 'neilsen'), 7/11)
 
 
 class OverlapTestCases(unittest.TestCase):
-    """test cases for abydos.distance.overlap_coeff & abydos.distance.overlap
+    """test cases for abydos.distance.sim_overlap & abydos.distance.dist_overlap
     """
-    def test_overlap_coeff(self):
-        """test abydos.distance.overlap_coeff
+    def test_sim_overlap(self):
+        """test abydos.distance.sim_overlap
         """
-        self.assertEqual(overlap_coeff('', ''), 1)
-        self.assertEqual(overlap_coeff('nelson', ''), 0)
-        self.assertEqual(overlap_coeff('', 'neilsen'), 0)
-        self.assertAlmostEqual(overlap_coeff('nelson', 'neilsen'), 4/7)
+        self.assertEqual(sim_overlap('', ''), 1)
+        self.assertEqual(sim_overlap('nelson', ''), 0)
+        self.assertEqual(sim_overlap('', 'neilsen'), 0)
+        self.assertAlmostEqual(sim_overlap('nelson', 'neilsen'), 4/7)
 
-    def test_overlap(self):
-        """test abydos.distance.overlap
+    def test_dist_overlap(self):
+        """test abydos.distance.dist_overlap
         """
-        self.assertEqual(overlap('', ''), 0)
-        self.assertEqual(overlap('nelson', ''), 1)
-        self.assertEqual(overlap('', 'neilsen'), 1)
-        self.assertAlmostEqual(overlap('nelson', 'neilsen'), 3/7)
+        self.assertEqual(dist_overlap('', ''), 0)
+        self.assertEqual(dist_overlap('nelson', ''), 1)
+        self.assertEqual(dist_overlap('', 'neilsen'), 1)
+        self.assertAlmostEqual(dist_overlap('nelson', 'neilsen'), 3/7)
 
 
 class TanimotoTestCases(unittest.TestCase):
-    """test cases for abydos.distance.tanimoto_coeff & abydos.distance.tanimoto
+    """test cases for abydos.distance.sim_tanimoto & abydos.distance.tanimoto
     """
     def test_tanimoto_coeff(self):
         """test abydos.distance.tanimoto_coeff
         """
-        self.assertEqual(tanimoto_coeff('', ''), 1)
-        self.assertEqual(tanimoto_coeff('nelson', ''), 0)
-        self.assertEqual(tanimoto_coeff('', 'neilsen'), 0)
-        self.assertAlmostEqual(tanimoto_coeff('nelson', 'neilsen'), 4/11)
+        self.assertEqual(sim_tanimoto('', ''), 1)
+        self.assertEqual(sim_tanimoto('nelson', ''), 0)
+        self.assertEqual(sim_tanimoto('', 'neilsen'), 0)
+        self.assertAlmostEqual(sim_tanimoto('nelson', 'neilsen'), 4/11)
 
     def test_tanimoto(self):
         """test abydos.distance.tanimoto
@@ -290,60 +341,109 @@ class TanimotoTestCases(unittest.TestCase):
 
 
 class CosineSimilarityTestCases(unittest.TestCase):
-    """test cases for abydos.distance.cosine_similarity
+    """test cases for abydos.distance.sim_cosine & abydos.distance.dist_cosine
     """
-    def test_cosine_similarity(self):
-        """test abydos.distance.cosine_similarity
+    def test_sim_cosine(self):
+        """test abydos.distance.sim_cosine
         """
-        self.assertEqual(cosine_similarity('', ''), 1)
-        self.assertEqual(cosine_similarity('nelson', ''), 0)
-        self.assertEqual(cosine_similarity('', 'neilsen'), 0)
-        self.assertAlmostEqual(cosine_similarity('nelson', 'neilsen'),
-                          4/math.sqrt(15))
+        self.assertEqual(sim_cosine('', ''), 1)
+        self.assertEqual(sim_cosine('nelson', ''), 0)
+        self.assertEqual(sim_cosine('', 'neilsen'), 0)
+        self.assertAlmostEqual(sim_cosine('nelson', 'neilsen'), 4/math.sqrt(15))
+
+    def test_dist_cosine(self):
+        """test abydos.distance.dist_cosine
+        """
+        self.assertEqual(dist_cosine('', ''), 0)
+        self.assertEqual(dist_cosine('nelson', ''), 1)
+        self.assertEqual(dist_cosine('', 'neilsen'), 1)
+        self.assertAlmostEqual(dist_cosine('nelson', 'neilsen'),
+                               1-(4/math.sqrt(15)))
 
 
 class JaroWinklerTestCases(unittest.TestCase):
-    """test cases for abydos.distance.strcmp95 & abydos.distance.jaro_winkler
+    """test cases for abydos.distance.sim_strcmp95,
+    abydos.distance.dist_strcmp95, abydos.distance.sim_jaro_winkler,
+    & abydos.distance.dist_jaro_winkler
     """
-    def test_strcmp95(self):
-        """test abydos.distance.strcmp95
+    def test_sim_strcmp95(self):
+        """test abydos.distance.sim_strcmp95
         """
-        self.assertEqual(strcmp95('', ''), 1)
-        self.assertEqual(strcmp95('MARTHA', ''), 0)
-        self.assertEqual(strcmp95('', 'MARTHA'), 0)
-        self.assertEqual(strcmp95('MARTHA', 'MARTHA'), 1)
+        self.assertEqual(sim_strcmp95('', ''), 1)
+        self.assertEqual(sim_strcmp95('MARTHA', ''), 0)
+        self.assertEqual(sim_strcmp95('', 'MARTHA'), 0)
+        self.assertEqual(sim_strcmp95('MARTHA', 'MARTHA'), 1)
 
         # TODO: find non-trivial strcmp95 tests or manufacture some
 
-    def test_jaro_winkler(self):
-        """test abydos.distance.jaro_winkler
+    def test_dist_strcmp95(self):
+        """test abydos.distance.dist_strcmp95
         """
-        self.assertEqual(jaro_winkler('', '', mode='jaro'), 1)
-        self.assertEqual(jaro_winkler('', '', mode='winkler'), 1)
-        self.assertEqual(jaro_winkler('MARTHA', '', mode='jaro'), 0)
-        self.assertEqual(jaro_winkler('MARTHA', '', mode='winkler'), 0)
-        self.assertEqual(jaro_winkler('', 'MARHTA', mode='jaro'), 0)
-        self.assertEqual(jaro_winkler('', 'MARHTA', mode='winkler'), 0)
-        self.assertEqual(jaro_winkler('MARTHA', 'MARTHA', mode='jaro'), 1)
-        self.assertEqual(jaro_winkler('MARTHA', 'MARTHA', mode='winkler'), 1)
+        self.assertEqual(dist_strcmp95('', ''), 0)
+        self.assertEqual(dist_strcmp95('MARTHA', ''), 1)
+        self.assertEqual(dist_strcmp95('', 'MARTHA'), 1)
+        self.assertEqual(dist_strcmp95('MARTHA', 'MARTHA'), 0)
+
+        # TODO: find non-trivial strcmp95 tests or manufacture some
+
+    def test_sim_jaro_winkler(self):
+        """test abydos.distance.sim_jaro_winkler
+        """
+        self.assertEqual(sim_jaro_winkler('', '', mode='jaro'), 1)
+        self.assertEqual(sim_jaro_winkler('', '', mode='winkler'), 1)
+        self.assertEqual(sim_jaro_winkler('MARTHA', '', mode='jaro'), 0)
+        self.assertEqual(sim_jaro_winkler('MARTHA', '', mode='winkler'), 0)
+        self.assertEqual(sim_jaro_winkler('', 'MARHTA', mode='jaro'), 0)
+        self.assertEqual(sim_jaro_winkler('', 'MARHTA', mode='winkler'), 0)
+        self.assertEqual(sim_jaro_winkler('MARTHA', 'MARTHA', mode='jaro'), 1)
+        self.assertEqual(sim_jaro_winkler('MARTHA', 'MARTHA', mode='winkler'),
+                         1)
 
         # https://en.wikipedia.org/wiki/Jaro-Winkler_distance
-        self.assertAlmostEqual(jaro_winkler('MARTHA', 'MARHTA',
+        self.assertAlmostEqual(sim_jaro_winkler('MARTHA', 'MARHTA',
                                              mode='jaro'), 0.94444444)
-        self.assertAlmostEqual(jaro_winkler('MARTHA', 'MARHTA',
+        self.assertAlmostEqual(sim_jaro_winkler('MARTHA', 'MARHTA',
                                              mode='winkler'), 0.96111111)
-        self.assertAlmostEqual(jaro_winkler('DWAYNE', 'DUANE',
+        self.assertAlmostEqual(sim_jaro_winkler('DWAYNE', 'DUANE',
                                              mode='jaro'), 0.82222222)
-        self.assertAlmostEqual(jaro_winkler('DWAYNE', 'DUANE',
+        self.assertAlmostEqual(sim_jaro_winkler('DWAYNE', 'DUANE',
                                              mode='winkler'), 0.84)
-        self.assertAlmostEqual(jaro_winkler('DIXON', 'DICKSONX',
+        self.assertAlmostEqual(sim_jaro_winkler('DIXON', 'DICKSONX',
                                              mode='jaro'), 0.76666666)
-        self.assertAlmostEqual(jaro_winkler('DIXON', 'DICKSONX',
+        self.assertAlmostEqual(sim_jaro_winkler('DIXON', 'DICKSONX',
                                              mode='winkler'), 0.81333333)
+
+    def test_dist_jaro_winkler(self):
+        """test abydos.distance.dist_jaro_winkler
+        """
+        self.assertEqual(dist_jaro_winkler('', '', mode='jaro'), 0)
+        self.assertEqual(dist_jaro_winkler('', '', mode='winkler'), 0)
+        self.assertEqual(dist_jaro_winkler('MARTHA', '', mode='jaro'), 1)
+        self.assertEqual(dist_jaro_winkler('MARTHA', '', mode='winkler'), 1)
+        self.assertEqual(dist_jaro_winkler('', 'MARHTA', mode='jaro'), 1)
+        self.assertEqual(dist_jaro_winkler('', 'MARHTA', mode='winkler'), 1)
+        self.assertEqual(dist_jaro_winkler('MARTHA', 'MARTHA', mode='jaro'), 0)
+        self.assertEqual(dist_jaro_winkler('MARTHA', 'MARTHA', mode='winkler'),
+                         0)
+
+        # https://en.wikipedia.org/wiki/Jaro-Winkler_distance
+        self.assertAlmostEqual(dist_jaro_winkler('MARTHA', 'MARHTA',
+                                             mode='jaro'), 0.05555555)
+        self.assertAlmostEqual(dist_jaro_winkler('MARTHA', 'MARHTA',
+                                             mode='winkler'), 0.03888888)
+        self.assertAlmostEqual(dist_jaro_winkler('DWAYNE', 'DUANE',
+                                             mode='jaro'), 0.17777777)
+        self.assertAlmostEqual(dist_jaro_winkler('DWAYNE', 'DUANE',
+                                             mode='winkler'), 0.16)
+        self.assertAlmostEqual(dist_jaro_winkler('DIXON', 'DICKSONX',
+                                             mode='jaro'), 0.23333333)
+        self.assertAlmostEqual(dist_jaro_winkler('DIXON', 'DICKSONX',
+                                             mode='winkler'), 0.18666666)
 
 
 class LcsTestCases(unittest.TestCase):
-    """test cases for abydos.distance.lcs
+    """test cases for abydos.distance.lcs, abydos.distance.sim_lcs, &
+    abydos.distance.dist_lcs
     """
     def test_lcs(self):
         """test abydos.distance.lcs
@@ -381,77 +481,77 @@ class LcsTestCases(unittest.TestCase):
         self.assertEqual(lcs('cc', 'bbbbcccccc'), 'cc')
         self.assertEqual(lcs('ccc', 'bcbb'), 'c')
 
-    def test_lcsr(self):
-        """test abydos.distance.lcsr
+    def test_sim_lcs(self):
+        """test abydos.distance.sim_lcs
         """
-        self.assertEqual(lcsr('', ''), 1)
-        self.assertEqual(lcsr('A', ''), 0)
-        self.assertEqual(lcsr('', 'A'), 0)
-        self.assertEqual(lcsr('A', 'A'), 1)
-        self.assertEqual(lcsr('ABCD', ''), 0)
-        self.assertEqual(lcsr('', 'ABCD'), 0)
-        self.assertEqual(lcsr('ABCD', 'ABCD'), 1)
-        self.assertAlmostEqual(lcsr('ABCD', 'BC'), 2/4)
-        self.assertAlmostEqual(lcsr('ABCD', 'AD'), 2/4)
-        self.assertAlmostEqual(lcsr('ABCD', 'AC'), 2/4)
-        self.assertAlmostEqual(lcsr('AB', 'CD'), 0)
-        self.assertAlmostEqual(lcsr('ABC', 'BCD'), 2/3)
+        self.assertEqual(sim_lcs('', ''), 1)
+        self.assertEqual(sim_lcs('A', ''), 0)
+        self.assertEqual(sim_lcs('', 'A'), 0)
+        self.assertEqual(sim_lcs('A', 'A'), 1)
+        self.assertEqual(sim_lcs('ABCD', ''), 0)
+        self.assertEqual(sim_lcs('', 'ABCD'), 0)
+        self.assertEqual(sim_lcs('ABCD', 'ABCD'), 1)
+        self.assertAlmostEqual(sim_lcs('ABCD', 'BC'), 2/4)
+        self.assertAlmostEqual(sim_lcs('ABCD', 'AD'), 2/4)
+        self.assertAlmostEqual(sim_lcs('ABCD', 'AC'), 2/4)
+        self.assertAlmostEqual(sim_lcs('AB', 'CD'), 0)
+        self.assertAlmostEqual(sim_lcs('ABC', 'BCD'), 2/3)
 
-        self.assertAlmostEqual(lcsr('DIXON', 'DICKSONX'), 4/8)
+        self.assertAlmostEqual(sim_lcs('DIXON', 'DICKSONX'), 4/8)
 
         # https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
-        self.assertAlmostEqual(lcsr('AGCAT', 'GAC'), 2/5)
-        self.assertAlmostEqual(lcsr('XMJYAUZ', 'MZJAWXU'), 4/7)
+        self.assertAlmostEqual(sim_lcs('AGCAT', 'GAC'), 2/5)
+        self.assertAlmostEqual(sim_lcs('XMJYAUZ', 'MZJAWXU'), 4/7)
 
         # https://github.com/jwmerrill/factor/blob/master/basis/lcs/lcs-tests.factor
-        self.assertAlmostEqual(lcsr('hell', 'hello'), 4/5)
-        self.assertAlmostEqual(lcsr('hello', 'hell'), 4/5)
-        self.assertAlmostEqual(lcsr('ell', 'hell'), 3/4)
-        self.assertAlmostEqual(lcsr('hell', 'ell'), 3/4)
-        self.assertAlmostEqual(lcsr('faxbcd', 'abdef'), 3/6)
+        self.assertAlmostEqual(sim_lcs('hell', 'hello'), 4/5)
+        self.assertAlmostEqual(sim_lcs('hello', 'hell'), 4/5)
+        self.assertAlmostEqual(sim_lcs('ell', 'hell'), 3/4)
+        self.assertAlmostEqual(sim_lcs('hell', 'ell'), 3/4)
+        self.assertAlmostEqual(sim_lcs('faxbcd', 'abdef'), 3/6)
 
         # http://www.unesco.org/culture/languages-atlas/assets/_core/php/qcubed_unit_tests.php
-        self.assertAlmostEqual(lcsr('hello world', 'world war 2'), 5/11)
-        self.assertAlmostEqual(lcsr('foo bar', 'bar foo'), 3/7)
-        self.assertAlmostEqual(lcsr('aaa', 'aa'), 2/3)
-        self.assertAlmostEqual(lcsr('cc', 'bbbbcccccc'), 2/10)
-        self.assertAlmostEqual(lcsr('ccc', 'bcbb'), 1/4)
+        self.assertAlmostEqual(sim_lcs('hello world', 'world war 2'), 5/11)
+        self.assertAlmostEqual(sim_lcs('foo bar', 'bar foo'), 3/7)
+        self.assertAlmostEqual(sim_lcs('aaa', 'aa'), 2/3)
+        self.assertAlmostEqual(sim_lcs('cc', 'bbbbcccccc'), 2/10)
+        self.assertAlmostEqual(sim_lcs('ccc', 'bcbb'), 1/4)
 
-    def test_lcsd(self):
-        """test abydos.distance.lcsd
+    def test_dist_lcs(self):
+        """test abydos.distance.dist_lcs
         """
-        self.assertEqual(lcsd('', ''), 0)
-        self.assertEqual(lcsd('A', ''), 1)
-        self.assertEqual(lcsd('', 'A'), 1)
-        self.assertEqual(lcsd('A', 'A'), 0)
-        self.assertEqual(lcsd('ABCD', ''), 1)
-        self.assertEqual(lcsd('', 'ABCD'), 1)
-        self.assertEqual(lcsd('ABCD', 'ABCD'), 0)
-        self.assertAlmostEqual(lcsd('ABCD', 'BC'), 2/4)
-        self.assertAlmostEqual(lcsd('ABCD', 'AD'), 2/4)
-        self.assertAlmostEqual(lcsd('ABCD', 'AC'), 2/4)
-        self.assertAlmostEqual(lcsd('AB', 'CD'), 1)
-        self.assertAlmostEqual(lcsd('ABC', 'BCD'), 1/3)
+        self.assertEqual(dist_lcs('', ''), 0)
+        self.assertEqual(dist_lcs('A', ''), 1)
+        self.assertEqual(dist_lcs('', 'A'), 1)
+        self.assertEqual(dist_lcs('A', 'A'), 0)
+        self.assertEqual(dist_lcs('ABCD', ''), 1)
+        self.assertEqual(dist_lcs('', 'ABCD'), 1)
+        self.assertEqual(dist_lcs('ABCD', 'ABCD'), 0)
+        self.assertAlmostEqual(dist_lcs('ABCD', 'BC'), 2/4)
+        self.assertAlmostEqual(dist_lcs('ABCD', 'AD'), 2/4)
+        self.assertAlmostEqual(dist_lcs('ABCD', 'AC'), 2/4)
+        self.assertAlmostEqual(dist_lcs('AB', 'CD'), 1)
+        self.assertAlmostEqual(dist_lcs('ABC', 'BCD'), 1/3)
 
-        self.assertAlmostEqual(lcsd('DIXON', 'DICKSONX'), 4/8)
+        self.assertAlmostEqual(dist_lcs('DIXON', 'DICKSONX'), 4/8)
 
         # https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
-        self.assertAlmostEqual(lcsd('AGCAT', 'GAC'), 3/5)
-        self.assertAlmostEqual(lcsd('XMJYAUZ', 'MZJAWXU'), 3/7)
+        self.assertAlmostEqual(dist_lcs('AGCAT', 'GAC'), 3/5)
+        self.assertAlmostEqual(dist_lcs('XMJYAUZ', 'MZJAWXU'), 3/7)
 
         # https://github.com/jwmerrill/factor/blob/master/basis/lcs/lcs-tests.factor
-        self.assertAlmostEqual(lcsd('hell', 'hello'), 1/5)
-        self.assertAlmostEqual(lcsd('hello', 'hell'), 1/5)
-        self.assertAlmostEqual(lcsd('ell', 'hell'), 1/4)
-        self.assertAlmostEqual(lcsd('hell', 'ell'), 1/4)
-        self.assertAlmostEqual(lcsd('faxbcd', 'abdef'), 3/6)
+        self.assertAlmostEqual(dist_lcs('hell', 'hello'), 1/5)
+        self.assertAlmostEqual(dist_lcs('hello', 'hell'), 1/5)
+        self.assertAlmostEqual(dist_lcs('ell', 'hell'), 1/4)
+        self.assertAlmostEqual(dist_lcs('hell', 'ell'), 1/4)
+        self.assertAlmostEqual(dist_lcs('faxbcd', 'abdef'), 3/6)
 
         # http://www.unesco.org/culture/languages-atlas/assets/_core/php/qcubed_unit_tests.php
-        self.assertAlmostEqual(lcsd('hello world', 'world war 2'), 6/11)
-        self.assertAlmostEqual(lcsd('foo bar', 'bar foo'), 4/7)
-        self.assertAlmostEqual(lcsd('aaa', 'aa'), 1/3)
-        self.assertAlmostEqual(lcsd('cc', 'bbbbcccccc'), 8/10)
-        self.assertAlmostEqual(lcsd('ccc', 'bcbb'), 3/4)
+        self.assertAlmostEqual(dist_lcs('hello world', 'world war 2'), 6/11)
+        self.assertAlmostEqual(dist_lcs('foo bar', 'bar foo'), 4/7)
+        self.assertAlmostEqual(dist_lcs('aaa', 'aa'), 1/3)
+        self.assertAlmostEqual(dist_lcs('cc', 'bbbbcccccc'), 8/10)
+        self.assertAlmostEqual(dist_lcs('ccc', 'bcbb'), 3/4)
 
 
 class MraCompareTestCases(unittest.TestCase):
@@ -472,22 +572,41 @@ class MraCompareTestCases(unittest.TestCase):
         self.assertEqual(mra_compare('Catherine', 'Kathryn'), 4)
 
 class CompressionTestCases(unittest.TestCase):
-    """test cases for abydos.distance.compression
+    """test cases for abydos.distance.dist_compression &
+    abydos.distance.sim_compression
     """
-    def test_compression(self):
-        """test abydos.distance.comporession
+    def test_dist_compression(self):
+        """test abydos.distance.dist_compression
         """
-        self.assertEqual(compression('', ''), 0)
-        self.assertEqual(compression('', '', 'bzip2'), 0)
-        self.assertEqual(compression('', '', 'lzma'), 0)
-        self.assertEqual(compression('', '', 'zlib'), 0)
+        self.assertEqual(dist_compression('', ''), 0)
+        self.assertEqual(dist_compression('', '', 'bzip2'), 0)
+        self.assertEqual(dist_compression('', '', 'lzma'), 0)
+        self.assertEqual(dist_compression('', '', 'zlib'), 0)
 
-        self.assertGreater(compression('a', ''), 0)
-        self.assertGreater(compression('a', '', 'bzip2'), 0)
-        self.assertGreater(compression('a', '', 'lzma'), 0)
-        self.assertGreater(compression('a', '', 'zlib'), 0)
+        self.assertGreater(dist_compression('a', ''), 0)
+        self.assertGreater(dist_compression('a', '', 'bzip2'), 0)
+        self.assertGreater(dist_compression('a', '', 'lzma'), 0)
+        self.assertGreater(dist_compression('a', '', 'zlib'), 0)
 
-        self.assertGreater(compression('abcdefg', 'fg'), 0)
-        self.assertGreater(compression('abcdefg', 'fg', 'bzip2'), 0)
-        self.assertGreater(compression('abcdefg', 'fg', 'lzma'), 0)
-        self.assertGreater(compression('abcdefg', 'fg', 'zlib'), 0)
+        self.assertGreater(dist_compression('abcdefg', 'fg'), 0)
+        self.assertGreater(dist_compression('abcdefg', 'fg', 'bzip2'), 0)
+        self.assertGreater(dist_compression('abcdefg', 'fg', 'lzma'), 0)
+        self.assertGreater(dist_compression('abcdefg', 'fg', 'zlib'), 0)
+
+    def test_sim_compression(self):
+        """test abydos.distance.sim_compression
+        """
+        self.assertEqual(sim_compression('', ''), 1)
+        self.assertEqual(sim_compression('', '', 'bzip2'), 1)
+        self.assertEqual(sim_compression('', '', 'lzma'), 1)
+        self.assertEqual(sim_compression('', '', 'zlib'), 1)
+
+        self.assertLess(sim_compression('a', ''), 1)
+        self.assertLess(sim_compression('a', '', 'bzip2'), 1)
+        self.assertLess(sim_compression('a', '', 'lzma'), 1)
+        self.assertLess(sim_compression('a', '', 'zlib'), 1)
+
+        self.assertLess(sim_compression('abcdefg', 'fg'), 1)
+        self.assertLess(sim_compression('abcdefg', 'fg', 'bzip2'), 1)
+        self.assertLess(sim_compression('abcdefg', 'fg', 'lzma'), 1)
+        self.assertLess(sim_compression('abcdefg', 'fg', 'zlib'), 1)
