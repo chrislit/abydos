@@ -137,9 +137,9 @@ class LevenshteinTestCases(unittest.TestCase):
         self.assertEqual(levenshtein_normalized('', 'ab'), 1)
         self.assertEqual(levenshtein_normalized('a', 'c'), 1)
 
-        self.assertEqual(levenshtein_normalized('abc', 'ac'), 1/3)
-        self.assertEqual(levenshtein_normalized('abbc', 'ac'), 1/2)
-        self.assertEqual(levenshtein_normalized('abbc', 'abc'), 1/4)
+        self.assertAlmostEqual(levenshtein_normalized('abc', 'ac'), 1/3)
+        self.assertAlmostEqual(levenshtein_normalized('abbc', 'ac'), 1/2)
+        self.assertAlmostEqual(levenshtein_normalized('abbc', 'abc'), 1/4)
 
 
 class HammingTestCases(unittest.TestCase):
@@ -182,19 +182,19 @@ class HammingTestCases(unittest.TestCase):
         self.assertEqual(hamming_normalized('a', 'a', False), 0)
         self.assertEqual(hamming_normalized('a', 'b'), 1)
         self.assertEqual(hamming_normalized('a', 'b', False), 1)
-        self.assertEqual(hamming_normalized('abc', 'cba'), 2/3)
-        self.assertEqual(hamming_normalized('abc', 'cba', False), 2/3)
+        self.assertAlmostEqual(hamming_normalized('abc', 'cba'), 2/3)
+        self.assertAlmostEqual(hamming_normalized('abc', 'cba', False), 2/3)
         self.assertEqual(hamming_normalized('abc', ''), 1)
-        self.assertEqual(hamming_normalized('bb', 'cbab'), 3/4)
+        self.assertAlmostEqual(hamming_normalized('bb', 'cbab'), 3/4)
 
         # test exception
         self.assertRaises(ValueError, hamming_normalized, 'ab', 'a', False)
 
         # https://en.wikipedia.org/wiki/Hamming_distance
-        self.assertEqual(hamming_normalized('karolin', 'kathrin'), 3/7)
-        self.assertEqual(hamming_normalized('karolin', 'kerstin'), 3/7)
-        self.assertEqual(hamming_normalized('1011101', '1001001'), 2/7)
-        self.assertEqual(hamming_normalized('2173896', '2233796'), 3/7)
+        self.assertAlmostEqual(hamming_normalized('karolin', 'kathrin'), 3/7)
+        self.assertAlmostEqual(hamming_normalized('karolin', 'kerstin'), 3/7)
+        self.assertAlmostEqual(hamming_normalized('1011101', '1001001'), 2/7)
+        self.assertAlmostEqual(hamming_normalized('2173896', '2233796'), 3/7)
 
 class TverskyIndexTestCases(unittest.TestCase):
     """test cases for abydos.distance.tversky_index
@@ -205,7 +205,7 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertEqual(tversky_index('', ''), 1)
         self.assertEqual(tversky_index('nelson', ''), 0)
         self.assertEqual(tversky_index('', 'neilsen'), 0)
-        self.assertEqual(tversky_index('nelson', 'neilsen'), 4/11)
+        self.assertAlmostEqual(tversky_index('nelson', 'neilsen'), 4/11)
         # TODO: Add bias test(s) and unequal alpha & beta tests
 
 
@@ -218,7 +218,7 @@ class SorensenTestCases(unittest.TestCase):
         self.assertEqual(sorensen_coeff('', ''), 1)
         self.assertEqual(sorensen_coeff('nelson', ''), 0)
         self.assertEqual(sorensen_coeff('', 'neilsen'), 0)
-        self.assertEqual(sorensen_coeff('nelson', 'neilsen'), 4/7.5)
+        self.assertAlmostEqual(sorensen_coeff('nelson', 'neilsen'), 8/15)
 
     def test_sorensen(self):
         """test abydos.distance.sorensen
@@ -226,7 +226,7 @@ class SorensenTestCases(unittest.TestCase):
         self.assertEqual(sorensen('', ''), 0)
         self.assertEqual(sorensen('nelson', ''), 1)
         self.assertEqual(sorensen('', 'neilsen'), 1)
-        self.assertEqual(sorensen('nelson', 'neilsen'), 3.5/7.5)
+        self.assertAlmostEqual(sorensen('nelson', 'neilsen'), 7/15)
 
 
 class JaccardTestCases(unittest.TestCase):
@@ -238,7 +238,7 @@ class JaccardTestCases(unittest.TestCase):
         self.assertEqual(jaccard_coeff('', ''), 1)
         self.assertEqual(jaccard_coeff('nelson', ''), 0)
         self.assertEqual(jaccard_coeff('', 'neilsen'), 0)
-        self.assertEqual(jaccard_coeff('nelson', 'neilsen'), 4/11)
+        self.assertAlmostEqual(jaccard_coeff('nelson', 'neilsen'), 4/11)
 
     def test_jaccard(self):
         """test abydos.distance.jaccard
@@ -246,7 +246,7 @@ class JaccardTestCases(unittest.TestCase):
         self.assertEqual(jaccard('', ''), 0)
         self.assertEqual(jaccard('nelson', ''), 1)
         self.assertEqual(jaccard('', 'neilsen'), 1)
-        self.assertEqual(jaccard('nelson', 'neilsen'), 7/11)
+        self.assertAlmostEqual(jaccard('nelson', 'neilsen'), 7/11)
 
 
 class OverlapTestCases(unittest.TestCase):
@@ -278,7 +278,7 @@ class TanimotoTestCases(unittest.TestCase):
         self.assertEqual(tanimoto_coeff('', ''), 1)
         self.assertEqual(tanimoto_coeff('nelson', ''), 0)
         self.assertEqual(tanimoto_coeff('', 'neilsen'), 0)
-        self.assertEqual(tanimoto_coeff('nelson', 'neilsen'), 4/11)
+        self.assertAlmostEqual(tanimoto_coeff('nelson', 'neilsen'), 4/11)
 
     def test_tanimoto(self):
         """test abydos.distance.tanimoto
@@ -286,7 +286,7 @@ class TanimotoTestCases(unittest.TestCase):
         self.assertEqual(tanimoto('', ''), 0)
         self.assertEqual(tanimoto('nelson', ''), float('-inf'))
         self.assertEqual(tanimoto('', 'neilsen'), float('-inf'))
-        self.assertEqual(tanimoto('nelson', 'neilsen'), math.log(4/11, 2))
+        self.assertAlmostEqual(tanimoto('nelson', 'neilsen'), math.log(4/11, 2))
 
 
 class CosineSimilarityTestCases(unittest.TestCase):
@@ -298,7 +298,7 @@ class CosineSimilarityTestCases(unittest.TestCase):
         self.assertEqual(cosine_similarity('', ''), 1)
         self.assertEqual(cosine_similarity('nelson', ''), 0)
         self.assertEqual(cosine_similarity('', 'neilsen'), 0)
-        self.assertEqual(cosine_similarity('nelson', 'neilsen'),
+        self.assertAlmostEqual(cosine_similarity('nelson', 'neilsen'),
                           4/math.sqrt(15))
 
 
@@ -328,18 +328,18 @@ class JaroWinklerTestCases(unittest.TestCase):
         self.assertEqual(jaro_winkler('MARTHA', 'MARTHA', mode='winkler'), 1)
 
         # https://en.wikipedia.org/wiki/Jaro-Winkler_distance
-        self.assertEqual(round(jaro_winkler('MARTHA', 'MARHTA',
-                                             mode='jaro'), 3), 0.944)
-        self.assertEqual(round(jaro_winkler('MARTHA', 'MARHTA',
-                                             mode='winkler'), 3), 0.961)
-        self.assertEqual(round(jaro_winkler('DWAYNE', 'DUANE',
-                                             mode='jaro'), 3), 0.822)
-        self.assertEqual(round(jaro_winkler('DWAYNE', 'DUANE',
-                                             mode='winkler'), 3), 0.84)
-        self.assertEqual(round(jaro_winkler('DIXON', 'DICKSONX',
-                                             mode='jaro'), 3), 0.767)
-        self.assertEqual(round(jaro_winkler('DIXON', 'DICKSONX',
-                                             mode='winkler'), 3), 0.813)
+        self.assertAlmostEqual(jaro_winkler('MARTHA', 'MARHTA',
+                                             mode='jaro'), 0.94444444)
+        self.assertAlmostEqual(jaro_winkler('MARTHA', 'MARHTA',
+                                             mode='winkler'), 0.96111111)
+        self.assertAlmostEqual(jaro_winkler('DWAYNE', 'DUANE',
+                                             mode='jaro'), 0.82222222)
+        self.assertAlmostEqual(jaro_winkler('DWAYNE', 'DUANE',
+                                             mode='winkler'), 0.84)
+        self.assertAlmostEqual(jaro_winkler('DIXON', 'DICKSONX',
+                                             mode='jaro'), 0.76666666)
+        self.assertAlmostEqual(jaro_winkler('DIXON', 'DICKSONX',
+                                             mode='winkler'), 0.81333333)
 
 
 class LcsTestCases(unittest.TestCase):
@@ -391,31 +391,31 @@ class LcsTestCases(unittest.TestCase):
         self.assertEqual(lcsr('ABCD', ''), 0)
         self.assertEqual(lcsr('', 'ABCD'), 0)
         self.assertEqual(lcsr('ABCD', 'ABCD'), 1)
-        self.assertEqual(lcsr('ABCD', 'BC'), 2/4)
-        self.assertEqual(lcsr('ABCD', 'AD'), 2/4)
-        self.assertEqual(lcsr('ABCD', 'AC'), 2/4)
-        self.assertEqual(lcsr('AB', 'CD'), 0)
-        self.assertEqual(lcsr('ABC', 'BCD'), 2/3)
+        self.assertAlmostEqual(lcsr('ABCD', 'BC'), 2/4)
+        self.assertAlmostEqual(lcsr('ABCD', 'AD'), 2/4)
+        self.assertAlmostEqual(lcsr('ABCD', 'AC'), 2/4)
+        self.assertAlmostEqual(lcsr('AB', 'CD'), 0)
+        self.assertAlmostEqual(lcsr('ABC', 'BCD'), 2/3)
 
-        self.assertEqual(lcsr('DIXON', 'DICKSONX'), 4/8)
+        self.assertAlmostEqual(lcsr('DIXON', 'DICKSONX'), 4/8)
 
         # https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
-        self.assertEqual(lcsr('AGCAT', 'GAC'), 2/5)
-        self.assertEqual(lcsr('XMJYAUZ', 'MZJAWXU'), 4/7)
+        self.assertAlmostEqual(lcsr('AGCAT', 'GAC'), 2/5)
+        self.assertAlmostEqual(lcsr('XMJYAUZ', 'MZJAWXU'), 4/7)
 
         # https://github.com/jwmerrill/factor/blob/master/basis/lcs/lcs-tests.factor
-        self.assertEqual(lcsr('hell', 'hello'), 4/5)
-        self.assertEqual(lcsr('hello', 'hell'), 4/5)
-        self.assertEqual(lcsr('ell', 'hell'), 3/4)
-        self.assertEqual(lcsr('hell', 'ell'), 3/4)
-        self.assertEqual(lcsr('faxbcd', 'abdef'), 3/6)
+        self.assertAlmostEqual(lcsr('hell', 'hello'), 4/5)
+        self.assertAlmostEqual(lcsr('hello', 'hell'), 4/5)
+        self.assertAlmostEqual(lcsr('ell', 'hell'), 3/4)
+        self.assertAlmostEqual(lcsr('hell', 'ell'), 3/4)
+        self.assertAlmostEqual(lcsr('faxbcd', 'abdef'), 3/6)
 
         # http://www.unesco.org/culture/languages-atlas/assets/_core/php/qcubed_unit_tests.php
-        self.assertEqual(lcsr('hello world', 'world war 2'), 5/11)
-        self.assertEqual(lcsr('foo bar', 'bar foo'), 3/7)
-        self.assertEqual(lcsr('aaa', 'aa'), 2/3)
-        self.assertEqual(lcsr('cc', 'bbbbcccccc'), 2/10)
-        self.assertEqual(lcsr('ccc', 'bcbb'), 1/4)
+        self.assertAlmostEqual(lcsr('hello world', 'world war 2'), 5/11)
+        self.assertAlmostEqual(lcsr('foo bar', 'bar foo'), 3/7)
+        self.assertAlmostEqual(lcsr('aaa', 'aa'), 2/3)
+        self.assertAlmostEqual(lcsr('cc', 'bbbbcccccc'), 2/10)
+        self.assertAlmostEqual(lcsr('ccc', 'bcbb'), 1/4)
 
     def test_lcsd(self):
         """test abydos.distance.lcsd
@@ -427,31 +427,31 @@ class LcsTestCases(unittest.TestCase):
         self.assertEqual(lcsd('ABCD', ''), 1)
         self.assertEqual(lcsd('', 'ABCD'), 1)
         self.assertEqual(lcsd('ABCD', 'ABCD'), 0)
-        self.assertEqual(lcsd('ABCD', 'BC'), 2/4)
-        self.assertEqual(lcsd('ABCD', 'AD'), 2/4)
-        self.assertEqual(lcsd('ABCD', 'AC'), 2/4)
-        self.assertEqual(lcsd('AB', 'CD'), 1)
-        self.assertEqual(lcsd('ABC', 'BCD'), 1/3)
+        self.assertAlmostEqual(lcsd('ABCD', 'BC'), 2/4)
+        self.assertAlmostEqual(lcsd('ABCD', 'AD'), 2/4)
+        self.assertAlmostEqual(lcsd('ABCD', 'AC'), 2/4)
+        self.assertAlmostEqual(lcsd('AB', 'CD'), 1)
+        self.assertAlmostEqual(lcsd('ABC', 'BCD'), 1/3)
 
-        self.assertEqual(lcsd('DIXON', 'DICKSONX'), 4/8)
+        self.assertAlmostEqual(lcsd('DIXON', 'DICKSONX'), 4/8)
 
         # https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
-        self.assertEqual(lcsd('AGCAT', 'GAC'), 3/5)
-        self.assertEqual(lcsd('XMJYAUZ', 'MZJAWXU'), 3/7)
+        self.assertAlmostEqual(lcsd('AGCAT', 'GAC'), 3/5)
+        self.assertAlmostEqual(lcsd('XMJYAUZ', 'MZJAWXU'), 3/7)
 
         # https://github.com/jwmerrill/factor/blob/master/basis/lcs/lcs-tests.factor
-        self.assertEqual(lcsd('hell', 'hello'), 1/5)
-        self.assertEqual(lcsd('hello', 'hell'), 1/5)
-        self.assertEqual(lcsd('ell', 'hell'), 1/4)
-        self.assertEqual(lcsd('hell', 'ell'), 1/4)
-        self.assertEqual(lcsd('faxbcd', 'abdef'), 3/6)
+        self.assertAlmostEqual(lcsd('hell', 'hello'), 1/5)
+        self.assertAlmostEqual(lcsd('hello', 'hell'), 1/5)
+        self.assertAlmostEqual(lcsd('ell', 'hell'), 1/4)
+        self.assertAlmostEqual(lcsd('hell', 'ell'), 1/4)
+        self.assertAlmostEqual(lcsd('faxbcd', 'abdef'), 3/6)
 
         # http://www.unesco.org/culture/languages-atlas/assets/_core/php/qcubed_unit_tests.php
-        self.assertEqual(lcsd('hello world', 'world war 2'), 6/11)
-        self.assertEqual(lcsd('foo bar', 'bar foo'), 4/7)
-        self.assertEqual(lcsd('aaa', 'aa'), 1/3)
-        self.assertEqual(lcsd('cc', 'bbbbcccccc'), 8/10)
-        self.assertEqual(lcsd('ccc', 'bcbb'), 3/4)
+        self.assertAlmostEqual(lcsd('hello world', 'world war 2'), 6/11)
+        self.assertAlmostEqual(lcsd('foo bar', 'bar foo'), 4/7)
+        self.assertAlmostEqual(lcsd('aaa', 'aa'), 1/3)
+        self.assertAlmostEqual(lcsd('cc', 'bbbbcccccc'), 8/10)
+        self.assertAlmostEqual(lcsd('ccc', 'bcbb'), 3/4)
 
 
 class MraCompareTestCases(unittest.TestCase):
