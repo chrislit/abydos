@@ -369,6 +369,38 @@ def jaccard(src, tar, qval=2):
     return 1 - jaccard_coeff(src, tar, qval)
 
 
+def overlap_coeff(src, tar, qval=2):
+    """Return the overlap coefficient of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+    qval -- the length of each q-gram
+
+    Description:
+    For two sets X and Y, the overlap coefficient is
+    S(X,Y) = |X∩Y| / min(|X|,|Y|)
+    """
+    if src == tar:
+        return 1.0
+    elif len(src) == 0 or len(tar) == 0:
+        return 0.0
+    q_src, q_tar, q_intersection = _qgram_counts(src, tar, qval)
+    return q_intersection / min(q_src, q_tar)
+
+
+def overlap(src, tar, qval=2):
+    """Return the overlap distance of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+    qval -- the length of each q-gram
+
+    Description:
+    overlap distance is 1 - the overlap coefficient
+    """
+    return 1 - overlap_coeff(src, tar, qval)
+
+
 def tanimoto_coeff(src, tar, qval=2):
     """Return the Tanimoto similarity of two strings
 

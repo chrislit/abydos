@@ -25,7 +25,8 @@ from __future__ import division
 import unittest
 from abydos.distance import levenshtein, levenshtein_normalized, hamming, \
     hamming_normalized, tversky_index, sorensen_coeff, sorensen, \
-    jaccard_coeff, jaccard, tanimoto_coeff, tanimoto, cosine_similarity, \
+    jaccard_coeff, jaccard, overlap_coeff, overlap, tanimoto_coeff, tanimoto, \
+    cosine_similarity, \
     strcmp95, jaro_winkler, lcs, lcsr, lcsd, mra_compare, compression
 import math
 
@@ -246,6 +247,26 @@ class JaccardTestCases(unittest.TestCase):
         self.assertEqual(jaccard('nelson', ''), 1)
         self.assertEqual(jaccard('', 'neilsen'), 1)
         self.assertEqual(jaccard('nelson', 'neilsen'), 7/11)
+
+
+class OverlapTestCases(unittest.TestCase):
+    """test cases for abydos.distance.overlap_coeff & abydos.distance.overlap
+    """
+    def test_overlap_coeff(self):
+        """test abydos.distance.overlap_coeff
+        """
+        self.assertEqual(overlap_coeff('', ''), 1)
+        self.assertEqual(overlap_coeff('nelson', ''), 0)
+        self.assertEqual(overlap_coeff('', 'neilsen'), 0)
+        self.assertAlmostEqual(overlap_coeff('nelson', 'neilsen'), 4/7)
+
+    def test_overlap(self):
+        """test abydos.distance.overlap
+        """
+        self.assertEqual(overlap('', ''), 0)
+        self.assertEqual(overlap('nelson', ''), 1)
+        self.assertEqual(overlap('', 'neilsen'), 1)
+        self.assertAlmostEqual(overlap('nelson', 'neilsen'), 3/7)
 
 
 class TanimotoTestCases(unittest.TestCase):
