@@ -27,8 +27,8 @@ from abydos.distance import levenshtein, dist_levenshtein, sim_levenshtein, \
     hamming, dist_hamming, sim_hamming, sim_tversky, dist_tversky, sim_dice, \
     dist_dice, sim_jaccard, dist_jaccard, sim_overlap, dist_overlap, \
     sim_tanimoto, tanimoto, sim_cosine, dist_cosine, sim_strcmp95, \
-    dist_strcmp95, sim_jaro_winkler, dist_jaro_winkler, lcs, sim_lcs, \
-    dist_lcs, mra_compare, sim_compression, dist_compression
+    dist_strcmp95, sim_jaro_winkler, dist_jaro_winkler, lcsseq, sim_lcsseq, \
+    dist_lcsseq, mra_compare, sim_compression, dist_compression
 import math
 
 
@@ -442,116 +442,116 @@ class JaroWinklerTestCases(unittest.TestCase):
 
 
 class LcsTestCases(unittest.TestCase):
-    """test cases for abydos.distance.lcs, abydos.distance.sim_lcs, &
-    abydos.distance.dist_lcs
+    """test cases for abydos.distance.lcsseq, abydos.distance.sim_lcsseq, &
+    abydos.distance.dist_lcsseq
     """
-    def test_lcs(self):
-        """test abydos.distance.lcs
+    def test_lcsseq(self):
+        """test abydos.distance.lcsseq
         """
-        self.assertEqual(lcs('', ''), '')
-        self.assertEqual(lcs('A', ''), '')
-        self.assertEqual(lcs('', 'A'), '')
-        self.assertEqual(lcs('A', 'A'), 'A')
-        self.assertEqual(lcs('ABCD', ''), '')
-        self.assertEqual(lcs('', 'ABCD'), '')
-        self.assertEqual(lcs('ABCD', 'ABCD'), 'ABCD')
-        self.assertEqual(lcs('ABCD', 'BC'), 'BC')
-        self.assertEqual(lcs('ABCD', 'AD'), 'AD')
-        self.assertEqual(lcs('ABCD', 'AC'), 'AC')
-        self.assertEqual(lcs('AB', 'CD'), '')
-        self.assertEqual(lcs('ABC', 'BCD'), 'BC')
+        self.assertEqual(lcsseq('', ''), '')
+        self.assertEqual(lcsseq('A', ''), '')
+        self.assertEqual(lcsseq('', 'A'), '')
+        self.assertEqual(lcsseq('A', 'A'), 'A')
+        self.assertEqual(lcsseq('ABCD', ''), '')
+        self.assertEqual(lcsseq('', 'ABCD'), '')
+        self.assertEqual(lcsseq('ABCD', 'ABCD'), 'ABCD')
+        self.assertEqual(lcsseq('ABCD', 'BC'), 'BC')
+        self.assertEqual(lcsseq('ABCD', 'AD'), 'AD')
+        self.assertEqual(lcsseq('ABCD', 'AC'), 'AC')
+        self.assertEqual(lcsseq('AB', 'CD'), '')
+        self.assertEqual(lcsseq('ABC', 'BCD'), 'BC')
 
-        self.assertEqual(lcs('DIXON', 'DICKSONX'), 'DION')
+        self.assertEqual(lcsseq('DIXON', 'DICKSONX'), 'DION')
 
         # https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
-        self.assertEqual(lcs('AGCAT', 'GAC'), 'AC')
-        self.assertEqual(lcs('XMJYAUZ', 'MZJAWXU'), 'MJAU')
+        self.assertEqual(lcsseq('AGCAT', 'GAC'), 'AC')
+        self.assertEqual(lcsseq('XMJYAUZ', 'MZJAWXU'), 'MJAU')
 
         # https://github.com/jwmerrill/factor/blob/master/basis/lcs/lcs-tests.factor
-        self.assertEqual(lcs('hell', 'hello'), 'hell')
-        self.assertEqual(lcs('hello', 'hell'), 'hell')
-        self.assertEqual(lcs('ell', 'hell'), 'ell')
-        self.assertEqual(lcs('hell', 'ell'), 'ell')
-        self.assertEqual(lcs('faxbcd', 'abdef'), 'abd')
+        self.assertEqual(lcsseq('hell', 'hello'), 'hell')
+        self.assertEqual(lcsseq('hello', 'hell'), 'hell')
+        self.assertEqual(lcsseq('ell', 'hell'), 'ell')
+        self.assertEqual(lcsseq('hell', 'ell'), 'ell')
+        self.assertEqual(lcsseq('faxbcd', 'abdef'), 'abd')
 
         # http://www.unesco.org/culture/languages-atlas/assets/_core/php/qcubed_unit_tests.php
-        self.assertEqual(lcs('hello world', 'world war 2'), 'world')
-        self.assertEqual(lcs('foo bar', 'bar foo'), 'foo')
-        self.assertEqual(lcs('aaa', 'aa'), 'aa')
-        self.assertEqual(lcs('cc', 'bbbbcccccc'), 'cc')
-        self.assertEqual(lcs('ccc', 'bcbb'), 'c')
+        self.assertEqual(lcsseq('hello world', 'world war 2'), 'world')
+        self.assertEqual(lcsseq('foo bar', 'bar foo'), 'foo')
+        self.assertEqual(lcsseq('aaa', 'aa'), 'aa')
+        self.assertEqual(lcsseq('cc', 'bbbbcccccc'), 'cc')
+        self.assertEqual(lcsseq('ccc', 'bcbb'), 'c')
 
-    def test_sim_lcs(self):
-        """test abydos.distance.sim_lcs
+    def test_sim_lcsseq(self):
+        """test abydos.distance.sim_lcsseq
         """
-        self.assertEqual(sim_lcs('', ''), 1)
-        self.assertEqual(sim_lcs('A', ''), 0)
-        self.assertEqual(sim_lcs('', 'A'), 0)
-        self.assertEqual(sim_lcs('A', 'A'), 1)
-        self.assertEqual(sim_lcs('ABCD', ''), 0)
-        self.assertEqual(sim_lcs('', 'ABCD'), 0)
-        self.assertEqual(sim_lcs('ABCD', 'ABCD'), 1)
-        self.assertAlmostEqual(sim_lcs('ABCD', 'BC'), 2/4)
-        self.assertAlmostEqual(sim_lcs('ABCD', 'AD'), 2/4)
-        self.assertAlmostEqual(sim_lcs('ABCD', 'AC'), 2/4)
-        self.assertAlmostEqual(sim_lcs('AB', 'CD'), 0)
-        self.assertAlmostEqual(sim_lcs('ABC', 'BCD'), 2/3)
+        self.assertEqual(sim_lcsseq('', ''), 1)
+        self.assertEqual(sim_lcsseq('A', ''), 0)
+        self.assertEqual(sim_lcsseq('', 'A'), 0)
+        self.assertEqual(sim_lcsseq('A', 'A'), 1)
+        self.assertEqual(sim_lcsseq('ABCD', ''), 0)
+        self.assertEqual(sim_lcsseq('', 'ABCD'), 0)
+        self.assertEqual(sim_lcsseq('ABCD', 'ABCD'), 1)
+        self.assertAlmostEqual(sim_lcsseq('ABCD', 'BC'), 2/4)
+        self.assertAlmostEqual(sim_lcsseq('ABCD', 'AD'), 2/4)
+        self.assertAlmostEqual(sim_lcsseq('ABCD', 'AC'), 2/4)
+        self.assertAlmostEqual(sim_lcsseq('AB', 'CD'), 0)
+        self.assertAlmostEqual(sim_lcsseq('ABC', 'BCD'), 2/3)
 
-        self.assertAlmostEqual(sim_lcs('DIXON', 'DICKSONX'), 4/8)
+        self.assertAlmostEqual(sim_lcsseq('DIXON', 'DICKSONX'), 4/8)
 
         # https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
-        self.assertAlmostEqual(sim_lcs('AGCAT', 'GAC'), 2/5)
-        self.assertAlmostEqual(sim_lcs('XMJYAUZ', 'MZJAWXU'), 4/7)
+        self.assertAlmostEqual(sim_lcsseq('AGCAT', 'GAC'), 2/5)
+        self.assertAlmostEqual(sim_lcsseq('XMJYAUZ', 'MZJAWXU'), 4/7)
 
         # https://github.com/jwmerrill/factor/blob/master/basis/lcs/lcs-tests.factor
-        self.assertAlmostEqual(sim_lcs('hell', 'hello'), 4/5)
-        self.assertAlmostEqual(sim_lcs('hello', 'hell'), 4/5)
-        self.assertAlmostEqual(sim_lcs('ell', 'hell'), 3/4)
-        self.assertAlmostEqual(sim_lcs('hell', 'ell'), 3/4)
-        self.assertAlmostEqual(sim_lcs('faxbcd', 'abdef'), 3/6)
+        self.assertAlmostEqual(sim_lcsseq('hell', 'hello'), 4/5)
+        self.assertAlmostEqual(sim_lcsseq('hello', 'hell'), 4/5)
+        self.assertAlmostEqual(sim_lcsseq('ell', 'hell'), 3/4)
+        self.assertAlmostEqual(sim_lcsseq('hell', 'ell'), 3/4)
+        self.assertAlmostEqual(sim_lcsseq('faxbcd', 'abdef'), 3/6)
 
         # http://www.unesco.org/culture/languages-atlas/assets/_core/php/qcubed_unit_tests.php
-        self.assertAlmostEqual(sim_lcs('hello world', 'world war 2'), 5/11)
-        self.assertAlmostEqual(sim_lcs('foo bar', 'bar foo'), 3/7)
-        self.assertAlmostEqual(sim_lcs('aaa', 'aa'), 2/3)
-        self.assertAlmostEqual(sim_lcs('cc', 'bbbbcccccc'), 2/10)
-        self.assertAlmostEqual(sim_lcs('ccc', 'bcbb'), 1/4)
+        self.assertAlmostEqual(sim_lcsseq('hello world', 'world war 2'), 5/11)
+        self.assertAlmostEqual(sim_lcsseq('foo bar', 'bar foo'), 3/7)
+        self.assertAlmostEqual(sim_lcsseq('aaa', 'aa'), 2/3)
+        self.assertAlmostEqual(sim_lcsseq('cc', 'bbbbcccccc'), 2/10)
+        self.assertAlmostEqual(sim_lcsseq('ccc', 'bcbb'), 1/4)
 
-    def test_dist_lcs(self):
-        """test abydos.distance.dist_lcs
+    def test_dist_lcsseq(self):
+        """test abydos.distance.dist_lcsseq
         """
-        self.assertEqual(dist_lcs('', ''), 0)
-        self.assertEqual(dist_lcs('A', ''), 1)
-        self.assertEqual(dist_lcs('', 'A'), 1)
-        self.assertEqual(dist_lcs('A', 'A'), 0)
-        self.assertEqual(dist_lcs('ABCD', ''), 1)
-        self.assertEqual(dist_lcs('', 'ABCD'), 1)
-        self.assertEqual(dist_lcs('ABCD', 'ABCD'), 0)
-        self.assertAlmostEqual(dist_lcs('ABCD', 'BC'), 2/4)
-        self.assertAlmostEqual(dist_lcs('ABCD', 'AD'), 2/4)
-        self.assertAlmostEqual(dist_lcs('ABCD', 'AC'), 2/4)
-        self.assertAlmostEqual(dist_lcs('AB', 'CD'), 1)
-        self.assertAlmostEqual(dist_lcs('ABC', 'BCD'), 1/3)
+        self.assertEqual(dist_lcsseq('', ''), 0)
+        self.assertEqual(dist_lcsseq('A', ''), 1)
+        self.assertEqual(dist_lcsseq('', 'A'), 1)
+        self.assertEqual(dist_lcsseq('A', 'A'), 0)
+        self.assertEqual(dist_lcsseq('ABCD', ''), 1)
+        self.assertEqual(dist_lcsseq('', 'ABCD'), 1)
+        self.assertEqual(dist_lcsseq('ABCD', 'ABCD'), 0)
+        self.assertAlmostEqual(dist_lcsseq('ABCD', 'BC'), 2/4)
+        self.assertAlmostEqual(dist_lcsseq('ABCD', 'AD'), 2/4)
+        self.assertAlmostEqual(dist_lcsseq('ABCD', 'AC'), 2/4)
+        self.assertAlmostEqual(dist_lcsseq('AB', 'CD'), 1)
+        self.assertAlmostEqual(dist_lcsseq('ABC', 'BCD'), 1/3)
 
-        self.assertAlmostEqual(dist_lcs('DIXON', 'DICKSONX'), 4/8)
+        self.assertAlmostEqual(dist_lcsseq('DIXON', 'DICKSONX'), 4/8)
 
         # https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
-        self.assertAlmostEqual(dist_lcs('AGCAT', 'GAC'), 3/5)
-        self.assertAlmostEqual(dist_lcs('XMJYAUZ', 'MZJAWXU'), 3/7)
+        self.assertAlmostEqual(dist_lcsseq('AGCAT', 'GAC'), 3/5)
+        self.assertAlmostEqual(dist_lcsseq('XMJYAUZ', 'MZJAWXU'), 3/7)
 
         # https://github.com/jwmerrill/factor/blob/master/basis/lcs/lcs-tests.factor
-        self.assertAlmostEqual(dist_lcs('hell', 'hello'), 1/5)
-        self.assertAlmostEqual(dist_lcs('hello', 'hell'), 1/5)
-        self.assertAlmostEqual(dist_lcs('ell', 'hell'), 1/4)
-        self.assertAlmostEqual(dist_lcs('hell', 'ell'), 1/4)
-        self.assertAlmostEqual(dist_lcs('faxbcd', 'abdef'), 3/6)
+        self.assertAlmostEqual(dist_lcsseq('hell', 'hello'), 1/5)
+        self.assertAlmostEqual(dist_lcsseq('hello', 'hell'), 1/5)
+        self.assertAlmostEqual(dist_lcsseq('ell', 'hell'), 1/4)
+        self.assertAlmostEqual(dist_lcsseq('hell', 'ell'), 1/4)
+        self.assertAlmostEqual(dist_lcsseq('faxbcd', 'abdef'), 3/6)
 
         # http://www.unesco.org/culture/languages-atlas/assets/_core/php/qcubed_unit_tests.php
-        self.assertAlmostEqual(dist_lcs('hello world', 'world war 2'), 6/11)
-        self.assertAlmostEqual(dist_lcs('foo bar', 'bar foo'), 4/7)
-        self.assertAlmostEqual(dist_lcs('aaa', 'aa'), 1/3)
-        self.assertAlmostEqual(dist_lcs('cc', 'bbbbcccccc'), 8/10)
-        self.assertAlmostEqual(dist_lcs('ccc', 'bcbb'), 3/4)
+        self.assertAlmostEqual(dist_lcsseq('hello world', 'world war 2'), 6/11)
+        self.assertAlmostEqual(dist_lcsseq('foo bar', 'bar foo'), 4/7)
+        self.assertAlmostEqual(dist_lcsseq('aaa', 'aa'), 1/3)
+        self.assertAlmostEqual(dist_lcsseq('cc', 'bbbbcccccc'), 8/10)
+        self.assertAlmostEqual(dist_lcsseq('ccc', 'bcbb'), 3/4)
 
 
 class MraCompareTestCases(unittest.TestCase):

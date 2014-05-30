@@ -813,7 +813,7 @@ def dist_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False, \
                                 boost_threshold, scaling_factor)
 
 
-def lcs(src, tar):
+def lcsseq(src, tar):
     """Returns the longest common subsequence (LCS) of two strings
 
     Arguments:
@@ -852,7 +852,7 @@ def lcs(src, tar):
     return result
 
 
-def sim_lcs(src, tar):
+def sim_lcsseq(src, tar):
     """Returns the longest common subsequence similarity (sim_{LCS}) of two
     strings
 
@@ -867,10 +867,10 @@ def sim_lcs(src, tar):
         return 1.0
     elif len(src) == 0 or len(tar) == 0:
         return 0.0
-    return len(lcs(src, tar)) / max(len(src), len(tar))
+    return len(lcsseq(src, tar)) / max(len(src), len(tar))
 
 
-def dist_lcs(src, tar):
+def dist_lcsseq(src, tar):
     """Returns the longest common subsequence distance (dist_{LCS}) of two
     strings
 
@@ -881,7 +881,7 @@ def dist_lcs(src, tar):
     This employs the LCS function to derive a similarity metric:
     dist_{LCS}(s,t) = 1 - LCSR(s,t)
     """
-    return 1 - sim_lcs(src, tar)
+    return 1 - sim_lcsseq(src, tar)
 
 
 def mra_compare(src, tar):
