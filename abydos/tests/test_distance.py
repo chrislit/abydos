@@ -28,9 +28,13 @@ from abydos.distance import levenshtein, dist_levenshtein, sim_levenshtein, \
     dist_dice, sim_jaccard, dist_jaccard, sim_overlap, dist_overlap, \
     sim_tanimoto, tanimoto, sim_cosine, dist_cosine, sim_strcmp95, \
     dist_strcmp95, sim_jaro_winkler, dist_jaro_winkler, lcsseq, sim_lcsseq, \
-    dist_lcsseq, mra_compare, sim_compression, dist_compression
+    dist_lcsseq, lcsstr, sim_lcsstr, dist_lcsstr, sim_ratcliffobershelp, \
+    dist_ratcliffobershelp, mra_compare, sim_compression, dist_compression
 import math
+from difflib import SequenceMatcher
+import os
 
+TESTDIR = os.path.dirname(__file__)
 
 # pylint: disable=R0904
 # pylint: disable=R0915
@@ -441,7 +445,7 @@ class JaroWinklerTestCases(unittest.TestCase):
                                              mode='winkler'), 0.18666666)
 
 
-class LcsTestCases(unittest.TestCase):
+class LcsseqTestCases(unittest.TestCase):
     """test cases for abydos.distance.lcsseq, abydos.distance.sim_lcsseq, &
     abydos.distance.dist_lcsseq
     """
@@ -552,6 +556,210 @@ class LcsTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_lcsseq('aaa', 'aa'), 1/3)
         self.assertAlmostEqual(dist_lcsseq('cc', 'bbbbcccccc'), 8/10)
         self.assertAlmostEqual(dist_lcsseq('ccc', 'bcbb'), 3/4)
+
+
+class LcsstrTestCases(unittest.TestCase):
+    """test cases for abydos.distance.lcsstr, abydos.distance.sim_lcsstr, &
+    abydos.distance.dist_lcsstr
+    """
+    def test_lcsstr(self):
+        """test abydos.distance.lcsstr
+        """
+        self.assertEqual(lcsstr('', ''), '')
+        self.assertEqual(lcsstr('A', ''), '')
+        self.assertEqual(lcsstr('', 'A'), '')
+        self.assertEqual(lcsstr('A', 'A'), 'A')
+        self.assertEqual(lcsstr('ABCD', ''), '')
+        self.assertEqual(lcsstr('', 'ABCD'), '')
+        self.assertEqual(lcsstr('ABCD', 'ABCD'), 'ABCD')
+        self.assertEqual(lcsstr('ABCD', 'BC'), 'BC')
+        self.assertEqual(lcsstr('ABCD', 'AD'), 'A')
+        self.assertEqual(lcsstr('ABCD', 'AC'), 'A')
+        self.assertEqual(lcsstr('AB', 'CD'), '')
+        self.assertEqual(lcsstr('ABC', 'BCD'), 'BC')
+
+        self.assertEqual(lcsstr('DIXON', 'DICKSONX'), 'DI')
+
+        # https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
+        self.assertEqual(lcsstr('AGCAT', 'GAC'), 'A')
+        self.assertEqual(lcsstr('XMJYAUZ', 'MZJAWXU'), 'X')
+
+        # https://github.com/jwmerrill/factor/blob/master/basis/lcs/lcs-tests.factor
+        self.assertEqual(lcsstr('hell', 'hello'), 'hell')
+        self.assertEqual(lcsstr('hello', 'hell'), 'hell')
+        self.assertEqual(lcsstr('ell', 'hell'), 'ell')
+        self.assertEqual(lcsstr('hell', 'ell'), 'ell')
+        self.assertEqual(lcsstr('faxbcd', 'abdef'), 'f')
+
+        # http://www.unesco.org/culture/languages-atlas/assets/_core/php/qcubed_unit_tests.php
+        self.assertEqual(lcsstr('hello world', 'world war 2'), 'world')
+        self.assertEqual(lcsstr('foo bar', 'bar foo'), 'foo')
+        self.assertEqual(lcsstr('aaa', 'aa'), 'aa')
+        self.assertEqual(lcsstr('cc', 'bbbbcccccc'), 'cc')
+        self.assertEqual(lcsstr('ccc', 'bcbb'), 'c')
+
+        # http://www.maplesoft.com/support/help/Maple/view.aspx?path=StringTools/LongestCommonSubString
+        self.assertEqual(lcsstr('abax', 'bax'), 'bax')
+        self.assertEqual(lcsstr("tsaxbaxyz", "axcaxy"), 'axy')
+        self.assertEqual(lcsstr("abcde", "uvabxycde"), 'cde')
+        self.assertEqual(lcsstr("abc", "xyz"), '')
+        self.assertEqual(lcsstr('TAAGGTCGGCGCGCACGCTGGCGAGTATGGTGCGGAGGCCCTGGAG\
+AGGTGAGGCTCCCTCCCCTGCTCCGACCCGGGCTCCTCGCCCGCCCGGACCCAC', 'AAGCGCCGCGCAGTCTGGGCT\
+CCGCACACTTCTGGTCCAGTCCGACTGAGAAGGAACCACCATGGTGCTGTCTCCCGCTGACAAGACCAACATCAAGACT\
+GCCTGGGAAAAGATCGGCAGCCACGGTGGCGAGTATGGCGCCGAGGCCGT'), 'TGGCGAGTATGG')
+
+
+    def test_sim_lcsstr(self):
+        """test abydos.distance.sim_lcsstr
+        """
+        self.assertEqual(sim_lcsstr('', ''), 1)
+        self.assertEqual(sim_lcsstr('A', ''), 0)
+        self.assertEqual(sim_lcsstr('', 'A'), 0)
+        self.assertEqual(sim_lcsstr('A', 'A'), 1)
+        self.assertEqual(sim_lcsstr('ABCD', ''), 0)
+        self.assertEqual(sim_lcsstr('', 'ABCD'), 0)
+        self.assertEqual(sim_lcsstr('ABCD', 'ABCD'), 1)
+        self.assertAlmostEqual(sim_lcsstr('ABCD', 'BC'), 2/4)
+        self.assertAlmostEqual(sim_lcsstr('ABCD', 'AD'), 1/4)
+        self.assertAlmostEqual(sim_lcsstr('ABCD', 'AC'), 1/4)
+        self.assertAlmostEqual(sim_lcsstr('AB', 'CD'), 0)
+        self.assertAlmostEqual(sim_lcsstr('ABC', 'BCD'), 2/3)
+
+        self.assertAlmostEqual(sim_lcsstr('DIXON', 'DICKSONX'), 2/8)
+
+        # https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
+        self.assertAlmostEqual(sim_lcsstr('AGCAT', 'GAC'), 1/5)
+        self.assertAlmostEqual(sim_lcsstr('XMJYAUZ', 'MZJAWXU'), 1/7)
+
+        # https://github.com/jwmerrill/factor/blob/master/basis/lcs/lcs-tests.factor
+        self.assertAlmostEqual(sim_lcsstr('hell', 'hello'), 4/5)
+        self.assertAlmostEqual(sim_lcsstr('hello', 'hell'), 4/5)
+        self.assertAlmostEqual(sim_lcsstr('ell', 'hell'), 3/4)
+        self.assertAlmostEqual(sim_lcsstr('hell', 'ell'), 3/4)
+        self.assertAlmostEqual(sim_lcsstr('faxbcd', 'abdef'), 1/6)
+
+        # http://www.unesco.org/culture/languages-atlas/assets/_core/php/qcubed_unit_tests.php
+        self.assertAlmostEqual(sim_lcsstr('hello world', 'world war 2'), 5/11)
+        self.assertAlmostEqual(sim_lcsstr('foo bar', 'bar foo'), 3/7)
+        self.assertAlmostEqual(sim_lcsstr('aaa', 'aa'), 2/3)
+        self.assertAlmostEqual(sim_lcsstr('cc', 'bbbbcccccc'), 2/10)
+        self.assertAlmostEqual(sim_lcsstr('ccc', 'bcbb'), 1/4)
+
+    def test_dist_lcsstr(self):
+        """test abydos.distance.dist_lcsstr
+        """
+        self.assertEqual(dist_lcsstr('', ''), 0)
+        self.assertEqual(dist_lcsstr('A', ''), 1)
+        self.assertEqual(dist_lcsstr('', 'A'), 1)
+        self.assertEqual(dist_lcsstr('A', 'A'), 0)
+        self.assertEqual(dist_lcsstr('ABCD', ''), 1)
+        self.assertEqual(dist_lcsstr('', 'ABCD'), 1)
+        self.assertEqual(dist_lcsstr('ABCD', 'ABCD'), 0)
+        self.assertAlmostEqual(dist_lcsstr('ABCD', 'BC'), 2/4)
+        self.assertAlmostEqual(dist_lcsstr('ABCD', 'AD'), 3/4)
+        self.assertAlmostEqual(dist_lcsstr('ABCD', 'AC'), 3/4)
+        self.assertAlmostEqual(dist_lcsstr('AB', 'CD'), 1)
+        self.assertAlmostEqual(dist_lcsstr('ABC', 'BCD'), 1/3)
+
+        self.assertAlmostEqual(dist_lcsstr('DIXON', 'DICKSONX'), 6/8)
+
+        # https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
+        self.assertAlmostEqual(dist_lcsstr('AGCAT', 'GAC'), 4/5)
+        self.assertAlmostEqual(dist_lcsstr('XMJYAUZ', 'MZJAWXU'), 6/7)
+
+        # https://github.com/jwmerrill/factor/blob/master/basis/lcs/lcs-tests.factor
+        self.assertAlmostEqual(dist_lcsstr('hell', 'hello'), 1/5)
+        self.assertAlmostEqual(dist_lcsstr('hello', 'hell'), 1/5)
+        self.assertAlmostEqual(dist_lcsstr('ell', 'hell'), 1/4)
+        self.assertAlmostEqual(dist_lcsstr('hell', 'ell'), 1/4)
+        self.assertAlmostEqual(dist_lcsstr('faxbcd', 'abdef'), 5/6)
+
+        # http://www.unesco.org/culture/languages-atlas/assets/_core/php/qcubed_unit_tests.php
+        self.assertAlmostEqual(dist_lcsstr('hello world', 'world war 2'), 6/11)
+        self.assertAlmostEqual(dist_lcsstr('foo bar', 'bar foo'), 4/7)
+        self.assertAlmostEqual(dist_lcsstr('aaa', 'aa'), 1/3)
+        self.assertAlmostEqual(dist_lcsstr('cc', 'bbbbcccccc'), 8/10)
+        self.assertAlmostEqual(dist_lcsstr('ccc', 'bcbb'), 3/4)
+
+
+class RatcliffObershelpTestCases(unittest.TestCase):
+    """test cases for abydos.distance.sim_ratcliffobershelp, &
+    abydos.distance.dist_ratcliffobershelp
+    """
+    def test_sim_ratcliffobershelp(self):
+        """test abydos.distance.sim_ratcliffobershelp
+        """
+        # https://github.com/rockymadden/stringmetric/blob/master/core/src/test/scala/com/rockymadden/stringmetric/similarity/RatcliffObershelpMetricSpec.scala
+        self.assertEqual(sim_ratcliffobershelp('', ''), 1)
+        self.assertEqual(sim_ratcliffobershelp('abc', ''), 0)
+        self.assertEqual(sim_ratcliffobershelp('', 'xyz'), 0)
+        self.assertEqual(sim_ratcliffobershelp('abc', 'abc'), 1)
+        self.assertEqual(sim_ratcliffobershelp('123', '123'), 1)
+        self.assertEqual(sim_ratcliffobershelp('abc', 'xyz'), 0)
+        self.assertEqual(sim_ratcliffobershelp('123', '456'), 0)
+        self.assertAlmostEqual(sim_ratcliffobershelp('aleksander', 'alexandre'),
+                               0.7368421052631579)
+        self.assertAlmostEqual(sim_ratcliffobershelp('alexandre', 'aleksander'),
+                               0.7368421052631579)
+        self.assertAlmostEqual(sim_ratcliffobershelp('pennsylvania',
+                                                     'pencilvaneya'),
+                               0.6666666666666666)
+        self.assertAlmostEqual(sim_ratcliffobershelp('pencilvaneya',
+                                                     'pennsylvania'),
+                               0.6666666666666666)
+        self.assertAlmostEqual(sim_ratcliffobershelp('abcefglmn', 'abefglmo'),
+                               0.8235294117647058)
+        self.assertAlmostEqual(sim_ratcliffobershelp('abefglmo', 'abcefglmn'),
+                               0.8235294117647058)
+
+        with open(TESTDIR+'/variantNames.csv') as cav_testset:
+            next(cav_testset)
+            for line in cav_testset:
+                line = line.split(',')
+                word1, word2 = line[0], line[4]
+                self.assertAlmostEqual(sim_ratcliffobershelp(word1, word2),
+                                       SequenceMatcher(None, word1,
+                                                       word2).ratio())
+
+        with open(TESTDIR+'/wikipediaCommonMisspellings.csv') as misspellings:
+            next(misspellings)
+            for line in misspellings:
+                line = line.upper()
+                line = ''.join([_ for _ in line.strip() if _ in
+                                tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ,')])
+                word1, word2 = line.split(',')
+                #print word1, word2e
+                self.assertAlmostEqual(sim_ratcliffobershelp(word1, word2),
+                                       SequenceMatcher(None, word1,
+                                                       word2).ratio())
+
+    def test_dist_ratcliffobershelp(self):
+        """test abydos.distance.dist_ratcliffobershelp
+        """
+        # https://github.com/rockymadden/stringmetric/blob/master/core/src/test/scala/com/rockymadden/stringmetric/similarity/RatcliffObershelpMetricSpec.scala
+        self.assertEqual(dist_ratcliffobershelp('', ''), 0)
+        self.assertEqual(dist_ratcliffobershelp('abc', ''), 1)
+        self.assertEqual(dist_ratcliffobershelp('', 'xyz'), 1)
+        self.assertEqual(dist_ratcliffobershelp('abc', 'abc'), 0)
+        self.assertEqual(dist_ratcliffobershelp('123', '123'), 0)
+        self.assertEqual(dist_ratcliffobershelp('abc', 'xyz'), 1)
+        self.assertEqual(dist_ratcliffobershelp('123', '456'), 1)
+        self.assertAlmostEqual(dist_ratcliffobershelp('aleksander',
+                                                      'alexandre'),
+                               0.2631578947368421)
+        self.assertAlmostEqual(dist_ratcliffobershelp('alexandre',
+                                                      'aleksander'),
+                               0.2631578947368421)
+        self.assertAlmostEqual(dist_ratcliffobershelp('pennsylvania',
+                                                     'pencilvaneya'),
+                               0.3333333333333333)
+        self.assertAlmostEqual(dist_ratcliffobershelp('pencilvaneya',
+                                                     'pennsylvania'),
+                               0.3333333333333333)
+        self.assertAlmostEqual(dist_ratcliffobershelp('abcefglmn', 'abefglmo'),
+                               0.1764705882352941)
+        self.assertAlmostEqual(dist_ratcliffobershelp('abefglmo', 'abcefglmn'),
+                               0.1764705882352941)
 
 
 class MraCompareTestCases(unittest.TestCase):
