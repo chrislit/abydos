@@ -963,6 +963,8 @@ def sim_ratcliffobershelp(src, tar):
         common substring and the left & right recursed sums.
     3. Multiply this length by 2 and divide by the sum of the lengths of
         src & tar.
+
+    Cf. http://www.drdobbs.com/database/pattern-matching-the-gestalt-approach/184407970
     """
     def _lcsstr_stl(src, tar):
         """Return the start position in the source string, start position in
