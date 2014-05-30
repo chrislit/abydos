@@ -818,3 +818,7 @@ class CompressionTestCases(unittest.TestCase):
         self.assertLess(sim_compression('abcdefg', 'fg', 'bzip2'), 1)
         self.assertLess(sim_compression('abcdefg', 'fg', 'lzma'), 1)
         self.assertLess(sim_compression('abcdefg', 'fg', 'zlib'), 1)
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -96,3 +96,7 @@ class QgramTestCases(unittest.TestCase):
                           (5, 5, 0))
         self.assertEqual(_qgram_counts('NAIL', 'LIAN', start_stop=''),
                           (3, 3, 0))
+
+
+if __name__ == '__main__':
+    unittest.main()

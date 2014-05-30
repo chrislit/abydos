@@ -546,3 +546,7 @@ class StatisticalMeasureTestCases(unittest.TestCase):
         self.assertAlmostEqual(WORKED_EG_TABLE.kappa_statistic(),
                                quick_kappa((184/203),
                                            (((2000*1830)+6000)/2030**2)))
+
+
+if __name__ == '__main__':
+    unittest.main()

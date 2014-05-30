@@ -110,3 +110,7 @@ class SPEEDCOPTestCases(unittest.TestCase):
         self.assertEqual(omission_key('caramel'), 'MCLRAE')
         self.assertEqual(omission_key('maceral'), 'MCLRAE')
         self.assertEqual(omission_key('lacrimal'), 'MCLRAI')
+
+
+if __name__ == '__main__':
+    unittest.main()
