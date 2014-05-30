@@ -86,3 +86,70 @@ def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone, *args):
     if hasattr(phrase, '__iter__'):
         phrase = phrase[0]
     return fingerprint(phrase)
+
+
+def skeleton_key(word):
+    """Return the skeleton key of a word
+
+    Arguments:
+    word -- the word to transform into its skeleton key
+
+    Description:
+    The skeleton key of a word is defined in:
+    Pollock, Joseph J. and Antonio Zamora. 1984. "Automatic Spelling Correction
+    in Scientific and Scholarly Text." Communications of the ACM, 27(4).
+    358--368. <http://dl.acm.org/citation.cfm?id=358048>
+    """
+    _vowels = 'AEIOU'
+
+    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = ''.join([c for c in word if c in
+                    tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+
+    start = word[0:1]
+    consonant_part = ''
+    vowel_part = ''
+
+    # add consonants & vowels to to separate strings (omitting the first char & duplicates)
+    for char in word[1:]:
+        if char != start:
+            if char in _vowels:
+                if char not in vowel_part:
+                    vowel_part += char
+            elif char not in consonant_part:
+                consonant_part += char
+    # return the first char followed by consonants followed by vowels
+    return start + consonant_part + vowel_part
+
+
+def omission_key(word):
+    """Return the omission key of a word
+
+    Arguments:
+    word -- the word to transform into its omission key
+
+    Description:
+    The omission key of a word is defined in:
+    Pollock, Joseph J. and Antonio Zamora. 1984. "Automatic Spelling Correction
+    in Scientific and Scholarly Text." Communications of the ACM, 27(4).
+    358--368. <http://dl.acm.org/citation.cfm?id=358048>
+    """
+    _consonants = 'JKQXZVWYBFMGPDHCLNTSR'
+
+    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = ''.join([c for c in word if c in
+                    tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+
+    key = ''
+
+    # add consonants in order supplied by _consonants (no duplicates)
+    for char in _consonants:
+        if char in word:
+            key += char
+
+    # add vowels in order they appeared in the word (no duplicates)
+    for char in word:
+        if char not in _consonants and char not in key:
+            key += char
+
+    return key
