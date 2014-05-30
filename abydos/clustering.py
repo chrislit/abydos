@@ -44,6 +44,7 @@ def fingerprint(phrase):
     phrase = ' '.join(sorted(list(set(phrase.split()))))
     return phrase
 
+
 def qgram_fingerprint(phrase, qval=2, start_stop=''):
     """Return the q-gram fingerprint of a phrase
 
@@ -63,6 +64,7 @@ def qgram_fingerprint(phrase, qval=2, start_stop=''):
     phrase = ''.join(sorted(list(set(phrase))))
     return phrase
 
+
 def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone, *args):
     """Return the phonetic fingerprint of a phrase
 
@@ -81,6 +83,6 @@ def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone, *args):
     as determined by some phonetic algorithm.
     """
     phrase = phonetic_algorithm(phrase, *args)
-    if not isinstance(phrase, _unicode):
+    if hasattr(phrase, '__iter__'):
         phrase = phrase[0]
     return fingerprint(phrase)
