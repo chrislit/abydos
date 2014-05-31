@@ -12,9 +12,11 @@ The phonetic module implements phonetic algorithms including:
     Double Metaphone
     Caverphone
     Alpha Search Inquiry System
+    Fuzzy Soundex
     Phonex
     Phonem
     Phonix
+    phonet
 
 
 Copyright 2014 by Christopher C. Little.
@@ -42,6 +44,13 @@ from ._compat import _unicode, _range
 from itertools import groupby
 import re
 import unicodedata
+
+
+def _delete_consecutive_repeats(word):
+    """Return word with all contiguous repeating characters collapsed to
+    a single instance
+    """
+    return ''.join(char for char, _ in groupby(word))
 
 
 def russell_index(word):
@@ -1796,6 +1805,7 @@ def phonem(word):
     return ''.join([c for c in _delete_consecutive_repeats(word)
                     if c in tuple('ABCDLMNORSUVWXYÖ')])
 
+
 def phonix(word, maxlength=4):
     """Return the Phonix encoding of a word
 
@@ -1992,8 +2002,21 @@ def phonix(word, maxlength=4):
     return sdx[:maxlength]
 
 
-def _delete_consecutive_repeats(word):
-    """Return word with all contiguous repeating characters collapsed to
-    a single instance
+def phonet(word):
+    """Return the phonet encoding of a word
+
+    Arguments:
+    word -- the word to translate to a phonet encoding
+
+    Description:
+    phonet was developed by Jörg Michael and documented in c't magazine
+    vol. 25/1999, p. 252. It is a phonetic algorithm designed primarily for
+    German.
+    Cf. http://www.heise.de/ct/ftp/99/25/252/
+
+    This is a port of Michael's C code (version 1.4.2, dated 2007-08-27), which
+    is licensed LGPL:
+    ftp://ftp.heise.de/pub/ct/listings/phonet.zip
     """
-    return ''.join(char for char, _ in groupby(word))
+    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    return word

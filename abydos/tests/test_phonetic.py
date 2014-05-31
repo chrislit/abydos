@@ -27,7 +27,7 @@ from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     russell_index_alpha, soundex, dm_soundex, koelner_phonetik, \
     koelner_phonetik_num_to_alpha, koelner_phonetik_alpha, nysiis, mra, \
     metaphone, double_metaphone, caverphone, alpha_sis, fuzzy_soundex, phonex, \
-    phonem, phonix
+    phonem, phonix, phonet
 
 # pylint: disable=R0904
 # pylint: disable=R0915
@@ -3449,6 +3449,15 @@ class PhonixTestCases(unittest.TestCase):
         self.assertEqual(phonix('christine'), 'K683')
         self.assertEqual(phonix('christina'), 'K683')
         self.assertEqual(phonix('kristina'), 'K683')
+
+
+class PhonetTestCases(unittest.TestCase):
+    """test cases for abydos.phonetic.phonet
+    """
+    def test_phonet(self):
+        """test abydos.phonetic.phonet
+        """
+        self.assertEqual(phonet(''), '')
 
 
 if __name__ == '__main__':
