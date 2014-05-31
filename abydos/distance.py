@@ -42,7 +42,7 @@ import math
 from collections import defaultdict
 from .util import _qgram_counts, qgrams
 from .phonetic import mra
-import bz2, zlib
+import codecs
 try:
     import lzma
 except ImportError:
@@ -1083,13 +1083,13 @@ def mra_compare(src, tar):
     return 0
 
 
-def dist_compression(src, tar, compressor='bzip2'):
+def dist_compression(src, tar, compressor='bz2'):
     """Return the normalized compression distance (NCD) of two strings
 
     Arguments:
     src, tar -- two strings to be compared
     compressor -- a compression scheme to use for the similarity calculation:
-                    'bzip2', 'lzma', and 'zlib' are the supported options
+                    'bz2', 'lzma', and 'zlib' are the supported options
 
     Description:
     Cf.
@@ -1101,10 +1101,10 @@ def dist_compression(src, tar, compressor='bzip2'):
     src = src.encode('utf-8')
     tar = tar.encode('utf-8')
 
-    if compressor == 'bzip2':
-        src_comp = bz2.compress(src)[15:]
-        tar_comp = bz2.compress(tar)[15:]
-        concat_comp = bz2.compress(src+tar)[15:]
+    if compressor == 'bz2':
+        src_comp = codecs.encode(src, 'bz2_codec')[15:]
+        tar_comp = codecs.encode(tar, 'bz2_codec')[15:]
+        concat_comp = codecs.encode(src+tar, 'bz2_codec')[15:]
     elif compressor == 'lzma':
         if 'lzma' in sys.modules:
             src_comp = lzma.compress(src)[14:]
@@ -1114,20 +1114,20 @@ def dist_compression(src, tar, compressor='bzip2'):
             raise ValueError('Install the lzma module in order to use lzma \
 compression similarity')
     else: # zlib
-        src_comp = zlib.compress(src)[2:]
-        tar_comp = zlib.compress(tar)[2:]
-        concat_comp = zlib.compress(src+tar)[2:]
+        src_comp = codecs.encode(src, 'zlib_codec')[2:]
+        tar_comp = codecs.encode(tar, 'zlib_codec')[2:]
+        concat_comp = codecs.encode(src+tar, 'zlib_codec')[2:]
     return ((len(concat_comp) - min(len(src_comp), len(tar_comp))) /
            max(len(src_comp), len(tar_comp)))
 
 
-def sim_compression(src, tar, compression='bzip2'):
+def sim_compression(src, tar, compression='bz2'):
     """Return the normalized compression similarity (NCS) of two strings
 
     Arguments:
     src, tar -- two strings to be compared
     compressor -- a compression scheme to use for the similarity calculation:
-                    'bzip2', 'lzma', and 'zlib' are the supported options
+                    'bz2', 'lzma', and 'zlib' are the supported options
 
     Description:
     Normalized compression similarity is equal to 1 - the normalized
