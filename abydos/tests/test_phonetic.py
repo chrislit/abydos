@@ -3456,6 +3456,43 @@ class PhonetTestCases(unittest.TestCase):
         """
         self.assertEqual(phonet(''), '')
 
+        # https://code.google.com/p/phonet4java/source/browse/trunk/src/test/java/com/googlecode/phonet4java/Phonet1Test.java
+        self.assertEqual(phonet('Zedlitz'), 'ZETLIZ')
+        self.assertEqual(phonet('Bremerhaven'), 'BREMAHAFN')
+        self.assertEqual(phonet('Hamburger Hafen'), 'HAMBURGA HAFN')
+        self.assertEqual(phonet('Jesper'), 'IESPA')
+        self.assertEqual(phonet('elisabeth'), 'ELISABET')
+        self.assertEqual(phonet('elisabet'), 'ELISABET')
+        self.assertEqual(phonet('Ziegler'), 'ZIKLA')
+        self.assertEqual(phonet('Scherer'), 'SHERA')
+        self.assertEqual(phonet('Bartels'), 'BARTLS')
+        self.assertEqual(phonet('Jansen'), 'IANSN')
+        self.assertEqual(phonet('Sievers'), 'SIWAS')
+        self.assertEqual(phonet('Michels'), 'MICHLS')
+        self.assertEqual(phonet('Ewers'), 'EWERS')
+        self.assertEqual(phonet('Evers'), 'EWERS')
+        self.assertEqual(phonet('Wessels'), 'WESLS')
+        self.assertEqual(phonet('Gottschalk'), 'GOSHALK')
+        self.assertEqual(phonet('Brückmann'), 'BRÜKMAN')
+        self.assertEqual(phonet('Blechschmidt'), 'BLECHSHMIT')
+        self.assertEqual(phonet('Kolodziej'), 'KOLOTZI')
+        self.assertEqual(phonet('Krauße'), 'KRAUSE')
+        self.assertEqual(phonet('Cachel'), 'KESHL')
+
+        """
+        assertEquals("BRENAFN", coder.code("Bremerhaven"));
+        assertEquals("ZÖNBAK",  coder.code("Schönberg"));
+        assertEquals("ANBURKA AFN", coder.code("Hamburger Hafen"));
+        assertEquals("ZERA", coder.code("Scherer"));
+        assertEquals("IANZN", coder.code("Jansen"));
+        assertEquals("EBART", coder.code("Eberhardt"));
+        assertEquals("KUZALK", coder.code("Gottschalk"));
+        assertEquals("BRIKNAN", coder.code("Brückmann"));
+        assertEquals("BLEKZNIT", coder.code("Blechschmidt"));
+        assertEquals("KULUTZI", coder.code("Kolodziej"));
+        assertEquals("KRAUZE", coder.code("Krauße"));
+        """
+
 
 if __name__ == '__main__':
     unittest.main()
