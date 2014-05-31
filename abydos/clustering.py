@@ -29,6 +29,7 @@ from .phonetic import double_metaphone
 import unicodedata
 from .util import qgrams
 
+
 def fingerprint(phrase):
     """Return the fingerprint of a phrase
 

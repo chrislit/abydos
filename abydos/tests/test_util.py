@@ -25,8 +25,6 @@ import unittest
 from abydos.util import qgrams, _qgram_lists, _qgram_counts
 
 
-# pylint: disable=R0904
-# pylint: disable=R0915
 class QgramTestCases(unittest.TestCase):
     """test cases for abydos.utils functions relating to q-grams
     """

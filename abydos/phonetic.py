@@ -36,8 +36,6 @@ You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
-# pylint: disable=C0302
-
 from __future__ import unicode_literals
 from __future__ import division
 from ._compat import _unicode, _range
@@ -542,6 +540,7 @@ def metaphone(word, maxlength=float('inf')):
     some of those suggested by Michael Kuhn in:
     http://aspell.net/metaphone/metaphone-kuhn.txt
     """
+    # pylint: disable=too-many-branches
     _vowels = tuple('AEIOU')
     _frontv = tuple('EIY')
     _varson = tuple('CSPTG')
@@ -695,6 +694,7 @@ def double_metaphone(word, maxlength=float('inf')):
     Based on Lawrence Philips' (Visual) C++ code from 1999:
     http://aspell.net/metaphone/dmetaph.cpp
     """
+    # pylint: disable=too-many-branches
     # Require a maxlength of at least 4
     maxlength = max(4, maxlength)
 

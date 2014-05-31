@@ -27,6 +27,7 @@ from __future__ import unicode_literals
 from __future__ import division
 from ._compat import _range
 
+
 def qgrams(src, qval=2, start_stop='$#'):
     """Returns a list of all q-grams of a string.
 

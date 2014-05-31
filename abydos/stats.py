@@ -40,6 +40,7 @@ from __future__ import division
 from ._compat import _unicode
 import math
 
+
 class ConfusionTable(object):
     """ConfusionTable object
 

@@ -91,7 +91,9 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     if 'dam' in mode:
         return _damerau_levenshtein(src, tar, cost)
 
+    # pylint: disable=no-member
     d_mx = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
+    # pylint: enable=no-member
     for i in _range(len(src)+1):
         d_mx[i, 0] = i * del_cost
     for j in _range(len(tar)+1):
@@ -140,8 +142,10 @@ def _damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
 transpositions must not be less than the cost of an insert \
 plus a delete.')
 
-    d_mx = numpy.zeros((len(src))*(len(tar)), dtype=numpy.int).\
-    reshape((len(src), len(tar)))
+    # pylint: disable=no-member
+    d_mx = (numpy.zeros((len(src))*(len(tar)), dtype=numpy.int).
+            reshape((len(src), len(tar))))
+    # pylint: enable=no-member
 
     if src[0] != tar[0]:
         d_mx[0, 0] = min(sub_cost, ins_cost + del_cost)
@@ -827,7 +831,9 @@ def lcsseq(src, tar):
     Modifications include:
         conversion to a numpy array in place of a list of lists
     """
+    # pylint: disable=no-member
     lengths = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
+    # pylint: enable=no-member
 
     # row 0 and column 0 are initialized to 0 already
     for i, src_char in enumerate(src):
@@ -900,7 +906,9 @@ def lcsstr(src, tar):
         conversion to a numpy array in place of a list of lists
         conversion to Python 2/3-safe _range from xrange
     """
+    # pylint: disable=no-member
     lengths = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
+    # pylint: enable=no-member
     longest, i_longest = 0, 0
     for i in _range(1, len(src)+1):
         for j in _range(1, len(tar)+1):
@@ -972,7 +980,9 @@ def sim_ratcliffobershelp(src, tar):
         the target string, and length of the longest common substring of
         strings src and tar
         """
+        # pylint: disable=no-member
         lengths = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
+        # pylint: enable=no-member
         longest, src_longest, tar_longest = 0, 0, 0
         for i in _range(1, len(src)+1):
             for j in _range(1, len(tar)+1):

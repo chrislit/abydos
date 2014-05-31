@@ -29,11 +29,8 @@ from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     metaphone, double_metaphone, caverphone, alpha_sis, fuzzy_soundex, phonex, \
     phonem, phonix, phonet
 
-# pylint: disable=R0904
-# pylint: disable=R0915
-# pylint: disable=C0302
-
 TESTDIR = os.path.dirname(__file__)
+
 
 class RussellIndexTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.russell_index,

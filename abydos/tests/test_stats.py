@@ -25,7 +25,7 @@ from __future__ import division
 import unittest
 from abydos.stats import ConfusionTable
 from math import isnan, sqrt
-from numpy import mean
+import numpy
 from scipy.stats.mstats import hmean, gmean
 
 UNIT_TABLE = ConfusionTable(1, 1, 1, 1)
@@ -38,6 +38,7 @@ WORKED_EG_TABLE = ConfusionTable(20, 1820, 180, 10)
 
 ALL_TABLES = (UNIT_TABLE, NULL_TABLE, SCALE_TABLE, CATSNDOGS_TABLE,
               WORKED_EG_TABLE)
+
 #def ct2arrays(ct):
 #    y_pred = []
 #    y_true = []
@@ -51,8 +52,7 @@ ALL_TABLES = (UNIT_TABLE, NULL_TABLE, SCALE_TABLE, CATSNDOGS_TABLE,
 #    y_true += [1]*ct.fneg
 #    return y_pred, y_true
 
-# pylint: disable=R0904
-# pylint: disable=R0915
+
 class ConstructorTestCases(unittest.TestCase):
     """test cases for abydos.stats.ConfusionTable constructors (__init__)
     """
@@ -304,11 +304,15 @@ class PrMeansTestCases(unittest.TestCase):
     def test_pr_mean(self):
         """test abydos.stats.ConfusionTable.pr_mean
         """
-        self.assertEqual(UNIT_TABLE.pr_mean(), mean(self.prre[0]))
+        # pylint: disable=no-member
+        self.assertEqual(UNIT_TABLE.pr_mean(), numpy.mean(self.prre[0]))
         self.assertTrue(isnan(NULL_TABLE.pr_mean()))
-        self.assertAlmostEqual(SCALE_TABLE.pr_mean(), mean(self.prre[2]))
-        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_mean(), mean(self.prre[3]))
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_mean(), mean(self.prre[4]))
+        self.assertAlmostEqual(SCALE_TABLE.pr_mean(), numpy.mean(self.prre[2]))
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_mean(),
+                               numpy.mean(self.prre[3]))
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_mean(),
+                               numpy.mean(self.prre[4]))
+        # pylint: enable=no-member
 
     def test_pr_gmean(self):
         """test abydos.stats.ConfusionTable.pr_gmean

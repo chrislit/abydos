@@ -27,8 +27,6 @@ from abydos.clustering import fingerprint, qgram_fingerprint, \
     phonetic_fingerprint, skeleton_key, omission_key
 
 
-# pylint: disable=R0904
-# pylint: disable=R0915
 class FingerprintTestCases(unittest.TestCase):
     """test cases for abydos.clustering.fingerprint,
     abydos.clustering.qgram_fingerprint, and

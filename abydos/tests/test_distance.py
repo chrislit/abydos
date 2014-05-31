@@ -36,8 +36,7 @@ import os
 
 TESTDIR = os.path.dirname(__file__)
 
-# pylint: disable=R0904
-# pylint: disable=R0915
+
 class LevenshteinTestCases(unittest.TestCase):
     """test cases for abydos.distance.levenshtein,
     abydos.distance.dist_levenshtein, & abydos.distance.sim_levenshtein

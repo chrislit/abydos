@@ -1,0 +1,10 @@
+[MESSAGES CONTROL]
+# I0011 Warning locally suppressed using disable-msg
+disable=locally-disabled,too-many-lines
+
+[DESIGN]
+max-args=10
+max-branches=30
+max-statements=1500
+max-locals=30
+max-public-methods=100
