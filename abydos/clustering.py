@@ -110,7 +110,8 @@ def skeleton_key(word):
     consonant_part = ''
     vowel_part = ''
 
-    # add consonants & vowels to to separate strings (omitting the first char & duplicates)
+    # add consonants & vowels to to separate strings
+    # (omitting the first char & duplicates)
     for char in word[1:]:
         if char != start:
             if char in _vowels:

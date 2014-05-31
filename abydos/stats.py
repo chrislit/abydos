@@ -466,7 +466,7 @@ class ConfusionTable(object):
         m_g = self.pr_gmean()
         if math.isnan(m_g):
             return float('nan')
-        while (round(m_a, 12) != round(m_g, 12)):
+        while round(m_a, 12) != round(m_g, 12):
             m_a, m_g = (m_a+m_g)/2, (m_a*m_g)**(1/2)
         return m_a
 
@@ -485,7 +485,7 @@ class ConfusionTable(object):
         m_h = self.pr_hmean()
         if math.isnan(m_h):
             return float('nan')
-        while (round(m_h, 12) != round(m_g, 12)):
+        while round(m_h, 12) != round(m_g, 12):
             m_g, m_h = (m_g*m_h)**(1/2), (2*m_g*m_h)/(m_g+m_h)
         return m_g
 

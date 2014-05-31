@@ -138,7 +138,8 @@ def soundex(word, maxlength=4, var='American', reverse=False):
 
     # uppercase, normalize, decompose, and filter non-A-Z
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
-    word = ''.join([c for c in word if c in tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+    word = ''.join([c for c in word if c in
+                    tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
     # Nothing to convert, return base case
     if not word:
@@ -254,7 +255,8 @@ def dm_soundex(word, maxlength=6, reverse=False):
 
     # uppercase, normalize, decompose, and filter non-A-Z
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
-    word = ''.join([c for c in word if c in tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+    word = ''.join([c for c in word if c in
+                    tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
     # Nothing to convert, return base case
     if not word:
@@ -335,7 +337,8 @@ def koelner_phonetik(word):
     word = word.replace('Ä', 'AE')
     word = word.replace('Ö', 'OE')
     word = word.replace('Ü', 'UE')
-    word = ''.join([c for c in word if c in tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+    word = ''.join([c for c in word if c in
+                    tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
     # Nothing to convert, return base case
     if not word:
@@ -1395,7 +1398,8 @@ def caverphone(word, version=2):
     _vowels = tuple('aeiou')
 
     word = word.lower()
-    word = ''.join([c for c in word if c in tuple('abcdefghijklmnopqrstuvwxyz')])
+    word = ''.join([c for c in word if c in
+                    tuple('abcdefghijklmnopqrstuvwxyz')])
 
     # the main replacemet algorithm
     if version != 1 and word.endswith('e'):
@@ -1537,7 +1541,8 @@ def alpha_sis(word, maxlength=14):
     alpha = ['']
     pos = 0
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
-    word = ''.join([c for c in word if c in tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+    word = ''.join([c for c in word if c in
+                    tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
     # Do special processing for initial substrings
     for k in _alpha_sis_initials_order:
@@ -1784,7 +1789,7 @@ def phonem(word):
                                     u'CCCCCNSVVBDAAAAAEEEEEEYYYYYYYYUUUUOOOOÖ'))
 
     word = unicodedata.normalize('NFC', _unicode(word.upper()))
-    for i,j in _phonem_substitutions:
+    for i, j in _phonem_substitutions:
         word = word.replace(i, j)
     word = word.translate(_phonem_translation)
 
@@ -1802,12 +1807,16 @@ def phonix(word, maxlength=4):
     Phonix is a Soundex-like algorithm defined in:
     T.N. Gadd: PHONIX --- The Algorithm, Program 24/4, 1990, p.363-366.
 
-    This implementation is based on http://cpansearch.perl.org/src/ULPFR/WAIT-1.800/soundex.c
+    This implementation is based on
+    http://cpansearch.perl.org/src/ULPFR/WAIT-1.800/soundex.c
     http://cs.anu.edu.au/people/Peter.Christen/Febrl/febrl-0.4.01/encode.py
     and
     https://metacpan.org/pod/Text::Phonetic::Phonix
     """
-    def _start_repl(word, src, tar, pre=None, post=None):
+    def _start_repl(word, src, tar, post=None):
+        """replace src with tar at the start of word
+        in the environment pre__post
+        """
         if post:
             for i in tuple(post):
                 if word.startswith(src+i):
@@ -1816,7 +1825,10 @@ def phonix(word, maxlength=4):
             return tar + word[len(src):]
         return word
 
-    def _end_repl(word, src, tar, pre=None, post=None):
+    def _end_repl(word, src, tar, pre=None):
+        """replace src with tar at the end of word
+        in the environment pre__post
+        """
         if pre:
             for i in tuple(pre):
                 if word.endswith(i+src):
@@ -1826,6 +1838,9 @@ def phonix(word, maxlength=4):
         return word
 
     def _mid_repl(word, src, tar, pre=None, post=None):
+        """replace src with tar in the middle of word
+        in the environment pre__post
+        """
         if pre or post:
             if not pre:
                 return word[0] + _all_repl(word[1:], src, tar, pre, post)
@@ -1838,6 +1853,9 @@ def phonix(word, maxlength=4):
                     + word[-1])
 
     def _all_repl(word, src, tar, pre=None, post=None):
+        """replace src with tar anywhere in word
+        in the environment pre__post
+        """
         if pre or post:
             if post:
                 post = tuple(post)
@@ -1848,7 +1866,7 @@ def phonix(word, maxlength=4):
             else:
                 pre = tuple(('',))
 
-            for i,j in tuple((i,j) for i in pre for j in post):
+            for i, j in tuple((i, j) for i in pre for j in post):
                 word = word.replace(i+src+j, i+tar+j)
             return word
         else:
@@ -1864,12 +1882,12 @@ def phonix(word, maxlength=4):
                              (_all_repl, 'CY', 'SI'),
                              (_all_repl, 'CI', 'SI'),
                              (_all_repl, 'CE', 'SE'),
-                             (_start_repl, 'CL', 'KL', None, _vow),
+                             (_start_repl, 'CL', 'KL', _vow),
                              (_all_repl, 'CK', 'K'),
                              (_end_repl, 'GC', 'K'),
                              (_end_repl, 'JC', 'K'),
-                             (_start_repl, 'CHR', 'KR', None, _vow),
-                             (_start_repl, 'CR', 'KR', None, _vow),
+                             (_start_repl, 'CHR', 'KR', _vow),
+                             (_start_repl, 'CR', 'KR', _vow),
                              (_start_repl, 'WR', 'R'),
                              (_all_repl, 'NC', 'NK'),
                              (_all_repl, 'CT', 'KT'),
@@ -1894,20 +1912,20 @@ def phonix(word, maxlength=4):
                              (_start_repl, 'PS', 'S'),
                              (_start_repl, 'PT', 'T'),
                              (_start_repl, 'CZ', _con),
-                             (_mid_repl, 'WZ', 'Z', _vow, None),
+                             (_mid_repl, 'WZ', 'Z', _vow),
                              (_mid_repl, 'CZ', 'CH'),
                              (_all_repl, 'LZ', 'LSH'),
                              (_all_repl, 'RZ', 'RSH'),
                              (_mid_repl, 'Z', 'S', None, _vow),
                              (_all_repl, 'ZZ', 'TS'),
-                             (_mid_repl, 'Z', 'TS', _con, None),
+                             (_mid_repl, 'Z', 'TS', _con),
                              (_all_repl, 'HROUG', 'REW'),
                              (_all_repl, 'OUGH', 'OF'),
                              (_mid_repl, 'Q', 'KW', _vow, _vow),
                              (_mid_repl, 'J', 'Y', _vow, _vow),
-                             (_start_repl, 'YJ', 'Y', None, _vow),
+                             (_start_repl, 'YJ', 'Y', _vow),
                              (_start_repl, 'GH', 'G'),
-                             (_end_repl, 'GH', 'E', _vow, None),
+                             (_end_repl, 'GH', 'E', _vow),
                              (_start_repl, 'CY', 'S'),
                              (_all_repl, 'NX', 'NKS'),
                              (_start_repl, 'PF', 'F'),
@@ -1915,16 +1933,16 @@ def phonix(word, maxlength=4):
                              (_end_repl, 'TL', 'TIL'),
                              (_end_repl, 'DL', 'DIL'),
                              (_all_repl, 'YTH', 'ITH'),
-                             (_start_repl, 'TJ', 'CH', None, _vow),
-                             (_start_repl, 'TSJ', 'CH', None, _vow),
-                             (_start_repl, 'TS', 'T', None, _vow),
+                             (_start_repl, 'TJ', 'CH', _vow),
+                             (_start_repl, 'TSJ', 'CH', _vow),
+                             (_start_repl, 'TS', 'T', _vow),
                              (_all_repl, 'TCH', 'CH'),
-                             (_mid_repl, 'WSK', 'VSKIE', _vow, None),
-                             (_end_repl, 'WSK', 'VSKIE', _vow, None),
-                             (_start_repl, 'MN', 'N', None, _vow),
-                             (_start_repl, 'PN', 'N', None, _vow),
-                             (_mid_repl, 'STL', 'SL', _vow, None),
-                             (_end_repl, 'STL', 'SL', _vow, None),
+                             (_mid_repl, 'WSK', 'VSKIE', _vow),
+                             (_end_repl, 'WSK', 'VSKIE', _vow),
+                             (_start_repl, 'MN', 'N', _vow),
+                             (_start_repl, 'PN', 'N', _vow),
+                             (_mid_repl, 'STL', 'SL', _vow),
+                             (_end_repl, 'STL', 'SL', _vow),
                              (_end_repl, 'TNT', 'ENT'),
                              (_end_repl, 'EAUX', 'OH'),
                              (_all_repl, 'EXCI', 'ECS'),
@@ -1934,19 +1952,19 @@ def phonix(word, maxlength=4):
                              (_end_repl, 'EE', 'EA'),
                              (_all_repl, 'ZS', 'S'),
                              (_mid_repl, 'R', 'AH', _vow, _con),
-                             (_end_repl, 'R', 'AH', _vow, None),
+                             (_end_repl, 'R', 'AH', _vow),
                              (_mid_repl, 'HR', 'AH', _vow, _con),
-                             (_end_repl, 'HR', 'AH', _vow, None),
-                             (_end_repl, 'HR', 'AH', _vow, None),
+                             (_end_repl, 'HR', 'AH', _vow),
+                             (_end_repl, 'HR', 'AH', _vow),
                              (_end_repl, 'RE', 'AR'),
-                             (_end_repl, 'R', 'AH', _vow, None),
+                             (_end_repl, 'R', 'AH', _vow),
                              (_all_repl, 'LLE', 'LE'),
-                             (_end_repl, 'LE', 'ILE', _con, None),
-                             (_end_repl, 'LES', 'ILES', _con, None),
+                             (_end_repl, 'LE', 'ILE', _con),
+                             (_end_repl, 'LES', 'ILES', _con),
                              (_end_repl, 'E', ''),
                              (_end_repl, 'ES', 'S'),
-                             (_end_repl, 'SS', 'AS', _vow, None),
-                             (_end_repl, 'MB', 'M', _vow, None),
+                             (_end_repl, 'SS', 'AS', _vow),
+                             (_end_repl, 'MB', 'M', _vow),
                              (_all_repl, 'MPTS', 'MPS'),
                              (_all_repl, 'MPS', 'MS'),
                              (_all_repl, 'MPT', 'MT')]

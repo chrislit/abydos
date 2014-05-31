@@ -3252,7 +3252,8 @@ class CaverphoneTestCases(unittest.TestCase):
             for cav_line in cav_testset:
                 (name1, soundex1, metaphone1, caverphone1,
                  name2, soundex2, metaphone2, caverphone2,
-                 soundex_same, metaphone_same, caverphone_same) = cav_line.strip().split(',')
+                 soundex_same, metaphone_same, caverphone_same) = \
+                 cav_line.strip().split(',')
 
                 self.assertEqual(soundex(name1), soundex1)
                 self.assertEqual(soundex(name2), soundex2)
@@ -3418,7 +3419,8 @@ class PhonixTestCases(unittest.TestCase):
         self.assertEqual(phonix('night'), 'N300')
 
         # http://cpansearch.perl.org/src/MAROS/Text-Phonetic-2.05/t/007_phonix.t:
-        # testcases from http://www.cl.uni-heidelberg.de/~bormann/documents/phono/
+        # testcases from
+        # http://www.cl.uni-heidelberg.de/~bormann/documents/phono/
         # They use a sliglty different algorithm (first char is not included in
         # num code here)
         self.assertEqual(phonix('wait'), 'W300')

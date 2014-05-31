@@ -561,8 +561,7 @@ class StatisticalMeasureTestCases(unittest.TestCase):
     def test_kappa_statistic(self):
         """test abydos.stats.ConfusionTable.kappa_statistic
         """
-        def quick_kappa(acc, racc):
-            return (acc-racc)/(1-racc)
+        quick_kappa = lambda acc, racc: (acc-racc)/(1-racc)
 
         self.assertEqual(UNIT_TABLE.kappa_statistic(), 0)
         self.assertTrue(isnan(NULL_TABLE.kappa_statistic()))

@@ -905,12 +905,12 @@ def lcsstr(src, tar):
     for i in _range(1, len(src)+1):
         for j in _range(1, len(tar)+1):
             if src[i-1] == tar[j-1]:
-                lengths[i,j] = lengths[i-1,j-1] + 1
-                if lengths[i,j] > longest:
-                    longest = lengths[i,j]
+                lengths[i, j] = lengths[i-1, j-1] + 1
+                if lengths[i, j] > longest:
+                    longest = lengths[i, j]
                     i_longest = i
             else:
-                lengths[i,j] = 0
+                lengths[i, j] = 0
     return src[i_longest - longest:i_longest]
 
 
@@ -964,7 +964,8 @@ def sim_ratcliffobershelp(src, tar):
     3. Multiply this length by 2 and divide by the sum of the lengths of
         src & tar.
 
-    Cf. http://www.drdobbs.com/database/pattern-matching-the-gestalt-approach/184407970
+    Cf.
+    http://www.drdobbs.com/database/pattern-matching-the-gestalt-approach/184407970
     """
     def _lcsstr_stl(src, tar):
         """Return the start position in the source string, start position in
@@ -976,13 +977,13 @@ def sim_ratcliffobershelp(src, tar):
         for i in _range(1, len(src)+1):
             for j in _range(1, len(tar)+1):
                 if src[i-1] == tar[j-1]:
-                    lengths[i,j] = lengths[i-1,j-1] + 1
-                    if lengths[i,j] > longest:
-                        longest = lengths[i,j]
+                    lengths[i, j] = lengths[i-1, j-1] + 1
+                    if lengths[i, j] > longest:
+                        longest = lengths[i, j]
                         src_longest = i
                         tar_longest = j
                 else:
-                    lengths[i,j] = 0
+                    lengths[i, j] = 0
         return (src_longest-longest, tar_longest-longest, longest)
 
     def _sstr_matches(src, tar):
@@ -1081,7 +1082,8 @@ def dist_compression(src, tar, compressor='bzip2'):
                     'bzip2', 'lzma', and 'zlib' are the supported options
 
     Description:
-    Cf. https://en.wikipedia.org/wiki/Normalized_compression_distance#Normalized_compression_distance
+    Cf.
+    https://en.wikipedia.org/wiki/Normalized_compression_distance#Normalized_compression_distance
     """
     if src == tar:
         return 0.0
