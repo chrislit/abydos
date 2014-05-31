@@ -444,12 +444,13 @@ class PrMeansTestCases(unittest.TestCase):
 
     def test_pr_agmean(self):
         """test abydos.stats.ConfusionTable.pr_agmean
+        Test values computed via http://arithmeticgeometricmean.blogspot.de/
         """
         self.assertEqual(UNIT_TABLE.pr_agmean(), 0.5)
         self.assertTrue(isnan(NULL_TABLE.pr_agmean()))
-        self.assertAlmostEqual(SCALE_TABLE.pr_agmean(), 0.2243028580)
-        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_agmean(), 0.6688977736)
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_agmean(), 0.3176780357)
+        self.assertAlmostEqual(SCALE_TABLE.pr_agmean(), 0.2243028580287603)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_agmean(), 0.6688977735879823)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_agmean(), 0.3176780357448827)
 
     def test_pr_ghmean(self):
         """test abydos.stats.ConfusionTable.pr_ghmean
