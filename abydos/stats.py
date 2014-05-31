@@ -460,8 +460,8 @@ class ConfusionTable(object):
         a single value (rounded to 12 digits)
         Cf. https://en.wikipedia.org/wiki/Arithmetic–geometric_mean
         """
-        x = self.precision()
-        y = self.recall()
+        x = self.pr_mean()
+        y = self.pr_gmean()
         if math.isnan(x) or math.isnan(y):
             return float('nan')
         while (round(x, 12) != round(y, 12)):
@@ -476,8 +476,8 @@ class ConfusionTable(object):
         a single value (rounded to 12 digits)
         Cf. https://en.wikipedia.org/wiki/Geometric–harmonic_mean
         """
-        x = self.precision()
-        y = self.recall()
+        x = self.pr_gmean()
+        y = self.pr_hmean()
         if math.isnan(x) or math.isnan(y):
             return float('nan')
         while (round(x, 12) != round(y, 12)):
