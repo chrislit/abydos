@@ -1088,6 +1088,9 @@ def dist_compression(src, tar, compressor='bzip2'):
     if src == tar:
         return 0.0
 
+    src = src.encode('utf-8')
+    tar = tar.encode('utf-8')
+
     if compressor == 'bzip2':
         src_comp = bz2.compress(src)[15:]
         tar_comp = bz2.compress(tar)[15:]
