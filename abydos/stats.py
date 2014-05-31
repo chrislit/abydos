@@ -460,13 +460,16 @@ class ConfusionTable(object):
         a single value (rounded to 12 digits)
         Cf. https://en.wikipedia.org/wiki/Arithmetic–geometric_mean
         """
-        x = self.pr_mean()
-        y = self.pr_gmean()
-        if math.isnan(x) or math.isnan(y):
+        m_a = self.pr_mean()
+        if math.isnan(m_a):
             return float('nan')
-        while (round(x, 12) != round(y, 12)):
-            x, y = (x+y)/2, math.sqrt(x*y)
-        return round(x, 12)
+        m_g = self.pr_gmean()
+        if math.isnan(m_g):
+            return float('nan')
+        while (round(m_a, 12) != round(m_g, 12)):
+            m_a, m_g = (m_a+m_g)/2, (m_a*m_g)**(1/2)
+        return m_a
+
 
     def pr_ghmean(self):
         """Return the geometric-harmonic mean of precision & recall of the
@@ -476,13 +479,41 @@ class ConfusionTable(object):
         a single value (rounded to 12 digits)
         Cf. https://en.wikipedia.org/wiki/Geometric–harmonic_mean
         """
-        x = self.pr_gmean()
-        y = self.pr_hmean()
-        if math.isnan(x) or math.isnan(y):
+        m_g = self.pr_gmean()
+        if math.isnan(m_g):
             return float('nan')
-        while (round(x, 12) != round(y, 12)):
-            x, y = math.sqrt(x*y), (2*x*y)/(x+y)
-        return round(x, 12)
+        m_h = self.pr_hmean()
+        if math.isnan(m_h):
+            return float('nan')
+        while (round(m_h, 12) != round(m_g, 12)):
+            m_g, m_h = (m_g*m_h)**(1/2), (2*m_g*m_h)/(m_g+m_h)
+        return m_g
+
+
+    def pr_aghmean(self):
+        """Return the arithmetic-geometric-harmonic mean of precision & recall
+        of the confusion table
+
+        Iterates over arithmetic, geometric, & harmonic means until they
+        converge to a single value (rounded to 12 digits), following the
+        method described by Raïssouli, Leazizi, & Chergui:
+        http://www.emis.de/journals/JIPAM/images/014_08_JIPAM/014_08.pdf
+        """
+        m_a = self.pr_mean()
+        if math.isnan(m_a):
+            return float('nan')
+        m_g = self.pr_gmean()
+        if math.isnan(m_g):
+            return float('nan')
+        m_h = self.pr_hmean()
+        if math.isnan(m_h):
+            return float('nan')
+        while (round(m_a, 12) != round(m_g, 12) and
+               round(m_g, 12) != round(m_h, 12)):
+            m_a, m_g, m_h = ((m_a+m_g+m_h)/3,
+                             (m_a*m_g*m_h)**(1/3),
+                             3/(1/m_a+1/m_g+1/m_h))
+        return m_a
 
 
     def fbeta_score(self, beta=1):

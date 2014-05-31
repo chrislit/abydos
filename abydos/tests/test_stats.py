@@ -461,6 +461,15 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(CATSNDOGS_TABLE.pr_ghmean(), 0.6674092650)
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_ghmean(), 0.2098560781)
 
+    def test_pr_aghmean(self):
+        """test abydos.stats.ConfusionTable.pr_aghmean
+        """
+        self.assertEqual(UNIT_TABLE.pr_aghmean(), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.pr_aghmean()))
+        self.assertAlmostEqual(SCALE_TABLE.pr_aghmean(), 0.2236067977)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_aghmean(), 0.6681531047)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_aghmean(), 0.2581988897)
+
 
 class StatisticalMeasureTestCases(unittest.TestCase):
     """test cases for abydos.stats.ConfusionTable statistical measure methods
