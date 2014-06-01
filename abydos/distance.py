@@ -51,6 +51,44 @@ except ImportError:
     pass
 
 
+def sim(src, tar, method='levenshtein'):
+    """Return the similarity of two strings
+    This is a generalized function for calling other similarity functions.
+
+    Arguments:
+    src, tar -- two strings to be compared
+    method -- specifies the similarity metric (levenshtein by default)
+    """
+    if not method.startswith('sim_'):
+        method = 'sim_' + method
+
+    try:
+        sim_function = getattr(sys.modules['abydos.distance'], method)
+    except TypeError:
+        raise AttributeError('Unknown similarity function: ' + method)
+
+    return sim_function(src, tar)
+
+
+def dist(src, tar, method='levenshtein'):
+    """Return the distance between two strings
+    This is a generalized function for calling other distance functions.
+
+    Arguments:
+    src, tar -- two strings to be compared
+    method -- specifies the distance metric (levenshtein by default)
+    """
+    if not method.startswith('dist_'):
+        method = 'dist_' + method
+
+    try:
+        dist_function = getattr(sys.modules['abydos.distance'], method)
+    except TypeError:
+        raise AttributeError('Unknown distance function: ' + method)
+
+    return dist_function(src, tar)
+
+
 def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     """Return the Levenshtein distance between two string arguments
 
