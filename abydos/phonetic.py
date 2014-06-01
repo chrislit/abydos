@@ -42,6 +42,7 @@ from ._compat import _unicode, _range
 from itertools import groupby
 import re
 import unicodedata
+import numpy as np
 
 
 def _delete_consecutive_repeats(word):
@@ -2962,4 +2963,20 @@ def phonet(word):
                      ('Z(VW)7^', 'SW', None))
 
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+
+    HASH_COUNT = 256
+    umlaut_upper = 'ÀÁÂÃÅÄÆÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ'
+    umlaut_lower = 'àáâãåäæçðèéêëìíîïñòóôõöøœšßþùúûüýÿ'
+    letters_a_to_z = 'abcdefghijklmnopqrstuvwxyz'
+    letters_A_to_Z = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+    # Output debug information if set <code>true</code>.
+    trace = False
+    upperchar = np.chararray((HASH_COUNT,))
+    isletter = np.array('l')
+    phonet_hash = np.array('l')
+    alpha_pos = np.array('l')
+    #int[][] phonet_hash_1 = new int[26][28];
+    #int[][] phonet_hash_2 = new int[26][28];
+    
     return word

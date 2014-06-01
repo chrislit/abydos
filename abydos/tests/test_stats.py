@@ -25,7 +25,7 @@ from __future__ import division
 import unittest
 from abydos.stats import ConfusionTable
 from math import isnan, sqrt
-import numpy
+import numpy as np
 from scipy.stats.mstats import hmean, gmean
 
 UNIT_TABLE = ConfusionTable(1, 1, 1, 1)
@@ -305,13 +305,13 @@ class PrMeansTestCases(unittest.TestCase):
         """test abydos.stats.ConfusionTable.pr_mean
         """
         # pylint: disable=no-member
-        self.assertEqual(UNIT_TABLE.pr_mean(), numpy.mean(self.prre[0]))
+        self.assertEqual(UNIT_TABLE.pr_mean(), np.mean(self.prre[0]))
         self.assertTrue(isnan(NULL_TABLE.pr_mean()))
-        self.assertAlmostEqual(SCALE_TABLE.pr_mean(), numpy.mean(self.prre[2]))
+        self.assertAlmostEqual(SCALE_TABLE.pr_mean(), np.mean(self.prre[2]))
         self.assertAlmostEqual(CATSNDOGS_TABLE.pr_mean(),
-                               numpy.mean(self.prre[3]))
+                               np.mean(self.prre[3]))
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_mean(),
-                               numpy.mean(self.prre[4]))
+                               np.mean(self.prre[4]))
         # pylint: enable=no-member
 
     def test_pr_gmean(self):

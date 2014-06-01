@@ -36,7 +36,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 from __future__ import division
 from ._compat import _range
-import numpy
+import numpy as np
 import sys
 import math
 from collections import defaultdict
@@ -92,7 +92,7 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
         return _damerau_levenshtein(src, tar, cost)
 
     # pylint: disable=no-member
-    d_mx = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
+    d_mx = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
     # pylint: enable=no-member
     for i in _range(len(src)+1):
         d_mx[i, 0] = i * del_cost
@@ -143,7 +143,7 @@ transpositions must not be less than the cost of an insert \
 plus a delete.')
 
     # pylint: disable=no-member
-    d_mx = (numpy.zeros((len(src))*(len(tar)), dtype=numpy.int).
+    d_mx = (np.zeros((len(src))*(len(tar)), dtype=np.int).
             reshape((len(src), len(tar))))
     # pylint: enable=no-member
 
@@ -832,7 +832,7 @@ def lcsseq(src, tar):
         conversion to a numpy array in place of a list of lists
     """
     # pylint: disable=no-member
-    lengths = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
+    lengths = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
     # pylint: enable=no-member
 
     # row 0 and column 0 are initialized to 0 already
@@ -907,7 +907,7 @@ def lcsstr(src, tar):
         conversion to Python 2/3-safe _range from xrange
     """
     # pylint: disable=no-member
-    lengths = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
+    lengths = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
     # pylint: enable=no-member
     longest, i_longest = 0, 0
     for i in _range(1, len(src)+1):
@@ -981,7 +981,7 @@ def sim_ratcliffobershelp(src, tar):
         strings src and tar
         """
         # pylint: disable=no-member
-        lengths = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
+        lengths = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
         # pylint: enable=no-member
         longest, src_longest, tar_longest = 0, 0, 0
         for i in _range(1, len(src)+1):
