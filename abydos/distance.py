@@ -1172,3 +1172,34 @@ def sim_compression(src, tar, compression='bz2'):
     compression distance
     """
     return 1 - dist_compression(src, tar, compression)
+
+
+def sim_elkan_monge(src, tar, sim=sim_levenshtein):
+    """Return the Elkan-Monge similarity of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+    sim -- the internal similarity metric to emply
+
+    Description:
+    Elkan-Monge is defined in:
+    Monge, Alvaro E. and Charles P. Elkan. 1996. "The field matching problem:
+    Algorithms and applications." KDD-9 Proceedings.
+    http://www.aaai.org/Papers/KDD/1996/KDD96-044.pdf
+    """
+    if src == tar:
+        return 1.0
+
+    q_src = qgrams(src)
+    q_tar = qgrams(tar)
+
+    if len(q_src) == 0 or len(q_tar) == 0:
+        return 0.0
+
+    sum_of_maxes = 0
+    for q_s in q_src:
+        max_sim = float('-inf')
+        for q_t in q_tar:
+            max_sim = max(max_sim, sim(q_s, q_t))
+        sum_of_maxes += max_sim
+    return sum_of_maxes / len(q_src)
