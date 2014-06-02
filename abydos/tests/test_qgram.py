@@ -31,46 +31,57 @@ class QgramTestCases(unittest.TestCase):
         """test abydos.util.qgrams
         """
         self.assertEqual(sorted(QGrams('').elements()), [])
-        self.assertEqual(sorted(QGrams('NELSON', 3).elements()), sorted(['$$N', '$NE', 'NEL', 'ELS',
-                                                'LSO', 'SON', 'ON#', 'N##']))
+        self.assertEqual(sorted(QGrams('NELSON', 3).elements()),
+                         sorted(['$$N', '$NE', 'NEL', 'ELS', 'LSO', 'SON',
+                                 'ON#', 'N##']))
         self.assertEqual(sorted(QGrams('NELSON', 7).elements()), sorted([]))
 
         #http://www.sound-ex.com/alternative_qgram.htm
         self.assertEqual(sorted(QGrams('NELSON').elements()),
                           sorted(['$N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#']))
         self.assertEqual(sorted(QGrams('NEILSEN').elements()),
-                          sorted(['$N', 'NE', 'EI', 'IL', 'LS', 'SE', 'EN', 'N#']))
+                          sorted(['$N', 'NE', 'EI', 'IL', 'LS', 'SE', 'EN',
+                                  'N#']))
         self.assertEqual(sorted(QGrams('NELSON', start_stop='').elements()),
                           sorted(['NE', 'EL', 'LS', 'SO', 'ON']))
         self.assertEqual(sorted(QGrams('NEILSEN', start_stop='').elements()),
                           sorted(['NE', 'EI', 'IL', 'LS', 'SE', 'EN']))
 
-    def test_qgram_lists(self):
+    def test_qgram_intersections(self):
         """test abydos.util._qgrams_lists
         """
-        #self.assertEqual(_qgram_lists('NELSON', ''), (['$N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#'], [], []))
-        #self.assertEqual(_qgram_lists('', 'NEILSEN'), ([], ['$N', 'NE', 'EI', 'IL', 'LS', 'SE', 'EN', 'N#'], []))
-        #self.assertEqual(_qgram_lists('NELSON', 'NEILSEN'), (['$N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#'], ['$N', 'NE', 'EI', 'IL', 'LS', 'SE', 'EN', 'N#'], ['$N', 'NE', 'LS', 'N#']))
-        #self.assertEqual(_qgram_lists('NELSON', 'NOSLEN'), (['$N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#'], ['$N', 'NO', 'OS', 'SL', 'LE', 'EN', 'N#'], ['$N', 'N#']))
-        #self.assertEqual(_qgram_lists('NAIL', 'LIAN'), (['$N', 'NA', 'AI', 'IL', 'L#'], ['$L', 'LI', 'IA', 'AN', 'N#'], []))
+        self.assertEqual(sorted(QGrams('NELSON') & QGrams('')), [])
+        self.assertEqual(sorted(QGrams('') & QGrams('NEILSEN')), [])
+        self.assertEqual(sorted(QGrams('NELSON') & QGrams('NEILSEN')),
+                         sorted(['$N', 'NE', 'LS', 'N#']))
+        self.assertEqual(sorted(QGrams('NELSON') & QGrams('NOSLEN')),
+                         sorted(['$N', 'N#']))
+        self.assertEqual(sorted(QGrams('NAIL') & QGrams('LIAN')), [])
 
-        #self.assertEqual(_qgram_lists('NELSON', 'NEILSEN', start_stop=''), (['NE', 'EL', 'LS', 'SO', 'ON'], ['NE', 'EI', 'IL', 'LS', 'SE', 'EN'], ['NE', 'LS']))
-        #self.assertEqual(_qgram_lists('NELSON', 'NOSLEN', start_stop=''), (['NE', 'EL', 'LS', 'SO', 'ON'], ['NO', 'OS', 'SL', 'LE', 'EN'], []))
-        #self.assertEqual(_qgram_lists('NAIL', 'LIAN', start_stop=''), (['NA', 'AI', 'IL'], ['LI', 'IA', 'AN'], []))
-        pass
+        self.assertEqual(sorted(QGrams('NELSON', start_stop='') &
+                                QGrams('NEILSEN', start_stop='')),
+                         sorted(['NE', 'LS']))
+        self.assertEqual(sorted(QGrams('NELSON', start_stop='') &
+                                QGrams('NOSLEN', start_stop='')), [])
+        self.assertEqual(sorted(QGrams('NAIL', start_stop='') &
+                                QGrams('LIAN', start_stop='')), [])
 
     def test_qgram_counts(self):
         """test abydos.util._qgrams_counts
         """
-        #self.assertEqual(_qgram_counts('NELSON', ''), (7, 0, 0))
-        #self.assertEqual(_qgram_counts('', 'NEILSEN'), (0, 8, 0))
-        #self.assertEqual(_qgram_counts('NELSON', 'NEILSEN'), (7, 8, 4))
-        #self.assertEqual(_qgram_counts('NELSON', 'NOSLEN'), (7, 7, 2))
-        #self.assertEqual(_qgram_counts('NAIL', 'LIAN'), (5, 5, 0))
-        #self.assertEqual(_qgram_counts('NELSON', 'NEILSEN', start_stop=''), (5, 6, 2))
-        #self.assertEqual(_qgram_counts('NELSON', 'NOSLEN', start_stop=''), (5, 5, 0))
-        #self.assertEqual(_qgram_counts('NAIL', 'LIAN', start_stop=''), (3, 3, 0))
-        pass
+        self.assertEqual(QGrams('').count(), 0)
+        self.assertEqual(len(QGrams('').ordered_list), 0)
+
+        self.assertEqual(QGrams('NEILSEN').count(), 8)
+        self.assertEqual(QGrams('NELSON').count(), 7)
+        self.assertEqual(QGrams('NEILSEN', start_stop='').count(), 6)
+        self.assertEqual(QGrams('NELSON', start_stop='').count(), 5)
+
+        self.assertEqual(len(QGrams('NEILSEN').ordered_list), 8)
+        self.assertEqual(len(QGrams('NELSON').ordered_list), 7)
+        self.assertEqual(len(QGrams('NEILSEN', start_stop='').ordered_list), 6)
+        self.assertEqual(len(QGrams('NELSON', start_stop='').ordered_list), 5)
+
 
 if __name__ == '__main__':
     unittest.main()
