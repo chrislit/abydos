@@ -27,7 +27,7 @@ from __future__ import division
 from ._compat import _unicode
 from .phonetic import double_metaphone
 import unicodedata
-from .util import qgrams
+from .qgram import QGrams
 
 
 def fingerprint(phrase):
@@ -61,8 +61,8 @@ def qgram_fingerprint(phrase, qval=2, start_stop=''):
     """
     phrase = unicodedata.normalize('NFKD', _unicode(phrase.strip().lower()))
     phrase = ''.join([c for c in phrase if c.isalnum()])
-    phrase = qgrams(phrase, qval, start_stop)
-    phrase = ''.join(sorted(list(set(phrase))))
+    phrase = QGrams(phrase, qval, start_stop)
+    phrase = ''.join(sorted(list(phrase)))
     return phrase
 
 

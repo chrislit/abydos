@@ -40,7 +40,7 @@ import numpy as np
 import sys
 import math
 from collections import defaultdict
-from .util import _qgram_counts, qgrams
+from .qgram import QGrams
 from .phonetic import mra
 import codecs
 try:
@@ -361,15 +361,21 @@ be greater than or equal to 0.')
         return 1.0
     elif len(src) == 0 and len(tar) == 0:
         return 1.0
-    q_src, q_tar, q_intersection = _qgram_counts(src, tar, qval)
+
+    q_src = QGrams(src, qval)
+    q_tar = QGrams(tar, qval)
+    q_src_mag = q_src.count()
+    q_tar_mag = q_tar.count()
+    q_intersection_mag = sum((q_src & q_tar).values())
+
     if bias is None:
-        return q_intersection / (q_intersection + alpha *
-                                 (q_src - q_intersection)
-                                  + beta * (q_tar - q_intersection))
+        return q_intersection_mag / (q_intersection_mag + alpha *
+                                 (q_src_mag - q_intersection_mag)
+                                  + beta * (q_tar_mag - q_intersection_mag))
     else:
-        a_val = min(q_src - q_intersection, q_tar - q_intersection)
-        b_val = max(q_src - q_intersection, q_tar - q_intersection)
-        c_val = q_intersection + bias
+        a_val = min(q_src_mag - q_intersection_mag, q_tar_mag - q_intersection_mag)
+        b_val = max(q_src_mag - q_intersection_mag, q_tar_mag - q_intersection_mag)
+        c_val = q_intersection_mag + bias
         return c_val / (beta * (alpha * a_val + (1 - alpha) * b_val) + c_val)
 
 
@@ -467,8 +473,14 @@ def sim_overlap(src, tar, qval=2):
         return 1.0
     elif len(src) == 0 or len(tar) == 0:
         return 0.0
-    q_src, q_tar, q_intersection = _qgram_counts(src, tar, qval)
-    return q_intersection / min(q_src, q_tar)
+
+    q_src = QGrams(src, qval)
+    q_tar = QGrams(tar, qval)
+    q_src_mag = q_src.count()
+    q_tar_mag = q_tar.count()
+    q_intersection_mag = sum((q_src & q_tar).values())
+
+    return q_intersection_mag / min(q_src_mag, q_tar_mag)
 
 
 def dist_overlap(src, tar, qval=2):
@@ -532,8 +544,14 @@ def sim_cosine(src, tar, qval=2):
         return 1.0
     if not src or not tar:
         return 0.0
-    q_src, q_tar, q_common = _qgram_counts(src, tar, qval)
-    return q_common / math.sqrt(q_src + q_tar)
+
+    q_src = QGrams(src, qval)
+    q_tar = QGrams(tar, qval)
+    q_src_mag = q_src.count()
+    q_tar_mag = q_tar.count()
+    q_intersection_mag = sum((q_src & q_tar).values())
+
+    return q_intersection_mag / math.sqrt(q_src_mag + q_tar_mag)
 
 
 def dist_cosine(src, tar, qval=2):
@@ -745,8 +763,8 @@ boost_threshold must be between 0 and 1.')
             raise ValueError('Unsupported scaling_factor assignment; \
 scaling_factor must be between 0 and 0.25.')
 
-    src = qgrams(src.strip(), qval)
-    tar = qgrams(tar.strip(), qval)
+    src = QGrams(src.strip(), qval).ordered_list
+    tar = QGrams(tar.strip(), qval).ordered_list
 
     lens = len(src)
     lent = len(tar)
@@ -1197,8 +1215,8 @@ def sim_elkan_monge(src, tar, sim=sim_levenshtein, sym=False):
     if src == tar:
         return 1.0
 
-    q_src = qgrams(src)
-    q_tar = qgrams(tar)
+    q_src = QGrams(src).elements()
+    q_tar = QGrams(tar).elements()
 
     if len(q_src) == 0 or len(q_tar) == 0:
         return 0.0
