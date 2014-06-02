@@ -1158,8 +1158,8 @@ def sim_compression(src, tar, compression='bz2'):
     return 1 - dist_compression(src, tar, compression)
 
 
-def sim_elkan_monge(src, tar, sim_func=sim_levenshtein, sym=False):
-    """Return the Elkan-Monge similarity of two strings
+def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, sym=False):
+    """Return the Monge-Elkan similarity of two strings
 
     Arguments:
     src, tar -- two strings to be compared
@@ -1167,12 +1167,12 @@ def sim_elkan_monge(src, tar, sim_func=sim_levenshtein, sym=False):
     sym -- return a symmetric similarity measure
 
     Description:
-    Elkan-Monge is defined in:
+    Monge-Elkan is defined in:
     Monge, Alvaro E. and Charles P. Elkan. 1996. "The field matching problem:
     Algorithms and applications." KDD-9 Proceedings.
     http://www.aaai.org/Papers/KDD/1996/KDD96-044.pdf
 
-    Note: Elkan-Monge is NOT a symmetric similarity algoritm. Thus, the
+    Note: Monge-Elkan is NOT a symmetric similarity algoritm. Thus, the
     similarity of src to tar is not necessarily equal to the similarity of
     tar to src. If the sym argument is True, a symmetric value is calculated,
     at the cost of doubling the computation time (since the sim(src, tar) and
