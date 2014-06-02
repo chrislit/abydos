@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""abydos.tests.test_util
+"""abydos.qgram
 
 This module contains unit tests for abydos.util
 
@@ -25,10 +25,10 @@ import unittest
 from abydos.qgram import QGrams
 
 class QgramTestCases(unittest.TestCase):
-    """test cases for abydos.utils functions relating to q-grams
+    """test cases for abydos.qgram
     """
     def test_qgrams(self):
-        """test abydos.util.qgrams
+        """test abydos.qgram.QGrams
         """
         self.assertEqual(sorted(QGrams('').elements()), [])
         self.assertEqual(sorted(QGrams('NELSON', 3).elements()),
@@ -48,7 +48,7 @@ class QgramTestCases(unittest.TestCase):
                           sorted(['NE', 'EI', 'IL', 'LS', 'SE', 'EN']))
 
     def test_qgram_intersections(self):
-        """test abydos.util._qgrams_lists
+        """test abydos.qgram.QGrams intersections
         """
         self.assertEqual(sorted(QGrams('NELSON') & QGrams('')), [])
         self.assertEqual(sorted(QGrams('') & QGrams('NEILSEN')), [])
@@ -67,7 +67,7 @@ class QgramTestCases(unittest.TestCase):
                                 QGrams('LIAN', start_stop='')), [])
 
     def test_qgram_counts(self):
-        """test abydos.util._qgrams_counts
+        """test abydos.qgram.QGrams counts
         """
         self.assertEqual(QGrams('').count(), 0)
         self.assertEqual(len(QGrams('').ordered_list), 0)
