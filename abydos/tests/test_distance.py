@@ -29,7 +29,8 @@ from abydos.distance import levenshtein, dist_levenshtein, sim_levenshtein, \
     sim_tanimoto, tanimoto, sim_cosine, dist_cosine, sim_strcmp95, \
     dist_strcmp95, sim_jaro_winkler, dist_jaro_winkler, lcsseq, sim_lcsseq, \
     dist_lcsseq, lcsstr, sim_lcsstr, dist_lcsstr, sim_ratcliffobershelp, \
-    dist_ratcliffobershelp, mra_compare, sim_compression, dist_compression
+    dist_ratcliffobershelp, mra_compare, sim_compression, dist_compression, \
+    sim_monge_elkan, dist_monge_elkan
 import math
 from difflib import SequenceMatcher
 import os
@@ -818,6 +819,24 @@ class CompressionTestCases(unittest.TestCase):
         self.assertLess(sim_compression('abcdefg', 'fg', 'lzma'), 1)
         self.assertLess(sim_compression('abcdefg', 'fg', 'zlib'), 1)
 
+
+class MongeElkanTestCases(unittest.TestCase):
+    """test cases for abydos.distance.sim_monge_elkan &
+    abydos.distance.dist_monge_elkan
+    """
+    def test_sim_monge_elkan(self):
+        """test abydos.distance.sim_monge_elkan
+        """
+        self.assertEqual(sim_monge_elkan('', ''), 1)
+        self.assertEqual(sim_monge_elkan('', 'a'), 0)
+        #TODO: Add non-trivial tests
+
+    def test_dist_monge_elkan(self):
+        """test abydos.distance.dist_monge_elkan
+        """
+        self.assertEqual(dist_monge_elkan('', ''), 0)
+        self.assertEqual(dist_monge_elkan('', 'a'), 1)
+        #TODO: Add non-trivial tests
 
 if __name__ == '__main__':
     unittest.main()

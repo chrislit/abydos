@@ -80,6 +80,9 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     The ordinary Levenshtein & Optimal String Alignment distance both
     employ the Wagner-Fischer dynamic programming algorithm. Cf.
     https://en.wikipedia.org/wiki/Wagner%E2%80%93Fischer_algorithm
+
+    Levenshtein edit distance ordinarily has unit insertion, deletion, and
+    substitution costs.
     """
     ins_cost, del_cost, sub_cost, trans_cost = cost
 
@@ -1181,8 +1184,8 @@ def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, sym=False):
     if src == tar:
         return 1.0
 
-    q_src = QGrams(src).elements()
-    q_tar = QGrams(tar).elements()
+    q_src = sorted(QGrams(src).elements())
+    q_tar = sorted(QGrams(tar).elements())
 
     if len(q_src) == 0 or len(q_tar) == 0:
         return 0.0
@@ -1199,6 +1202,29 @@ def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, sym=False):
         sim_em = (sim_em + sim_monge_elkan(tar, src, sim, False))/2
 
     return sim_em
+
+
+def dist_monge_elkan(src, tar, sim_func=sim_levenshtein, sym=False):
+    """Return the Monge-Elkan distance between two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+    sim_func -- the internal similarity metric to emply
+    sym -- return a symmetric similarity measure
+
+    Description:
+    Monge-Elkan is defined in:
+    Monge, Alvaro E. and Charles P. Elkan. 1996. "The field matching problem:
+    Algorithms and applications." KDD-9 Proceedings.
+    http://www.aaai.org/Papers/KDD/1996/KDD96-044.pdf
+
+    Note: Monge-Elkan is NOT a symmetric similarity algoritm. Thus, the
+    distance between src and tar is not necessarily equal to the distance
+    between tar and src. If the sym argument is True, a symmetric value is
+    calculated, at the cost of doubling the computation time (since the sim(src,
+    tar) and sim(tar, src) are both calculated and then averaged).
+    """
+    return 1 - sim_monge_elkan(src, tar, sim_func, sym)
 
 
 def sim(src, tar, method=sim_levenshtein):
