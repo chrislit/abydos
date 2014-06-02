@@ -1196,7 +1196,7 @@ def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, sym=False):
     sim_em = sum_of_maxes / len(q_src)
 
     if sym:
-        sim_em = (sim_em + sim_elkan_monge(tar, src, sim, False))/2
+        sim_em = (sim_em + sim_monge_elkan(tar, src, sim, False))/2
 
     return sim_em
 
