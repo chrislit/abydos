@@ -27,6 +27,7 @@ from __future__ import division
 from ._compat import _range
 from collections import Counter
 
+#pylint: disable=abstract-method
 class QGrams(Counter):
     """A q-gram class, which functions like a bag/multiset
 
@@ -38,7 +39,7 @@ class QGrams(Counter):
     term = ''
     term_ss = ''
     ordered_list = []
-    
+
     def __init__(self, term, qval=2, start_stop='$#'):
         """Qgrams initializer
 

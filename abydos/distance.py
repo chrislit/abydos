@@ -51,44 +51,6 @@ except ImportError:
     pass
 
 
-def sim(src, tar, method='levenshtein'):
-    """Return the similarity of two strings
-    This is a generalized function for calling other similarity functions.
-
-    Arguments:
-    src, tar -- two strings to be compared
-    method -- specifies the similarity metric (levenshtein by default)
-    """
-    if not method.startswith('sim_'):
-        method = 'sim_' + method
-
-    try:
-        sim_function = getattr(sys.modules['abydos.distance'], method)
-    except TypeError:
-        raise AttributeError('Unknown similarity function: ' + method)
-
-    return sim_function(src, tar)
-
-
-def dist(src, tar, method='levenshtein'):
-    """Return the distance between two strings
-    This is a generalized function for calling other distance functions.
-
-    Arguments:
-    src, tar -- two strings to be compared
-    method -- specifies the distance metric (levenshtein by default)
-    """
-    if not method.startswith('dist_'):
-        method = 'dist_' + method
-
-    try:
-        dist_function = getattr(sys.modules['abydos.distance'], method)
-    except TypeError:
-        raise AttributeError('Unknown distance function: ' + method)
-
-    return dist_function(src, tar)
-
-
 def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     """Return the Levenshtein distance between two string arguments
 
@@ -291,11 +253,13 @@ def hamming(src, tar, difflens=True):
         raise ValueError("Undefined for sequences of unequal length; set \
 difflens to True for Hamming distance between strings of unequal \
 lengths.")
-    dist = 0
+
+    hdist = 0
     if difflens:
-        dist += abs(len(src)-len(tar))
-    dist += sum(c1 != c2 for c1, c2 in zip(src, tar))
-    return dist
+        hdist += abs(len(src)-len(tar))
+    hdist += sum(c1 != c2 for c1, c2 in zip(src, tar))
+
+    return hdist
 
 
 def dist_hamming(src, tar, difflens=True):
@@ -373,8 +337,10 @@ be greater than or equal to 0.')
                                  (q_src_mag - q_intersection_mag)
                                   + beta * (q_tar_mag - q_intersection_mag))
     else:
-        a_val = min(q_src_mag - q_intersection_mag, q_tar_mag - q_intersection_mag)
-        b_val = max(q_src_mag - q_intersection_mag, q_tar_mag - q_intersection_mag)
+        a_val = min(q_src_mag - q_intersection_mag,
+                    q_tar_mag - q_intersection_mag)
+        b_val = max(q_src_mag - q_intersection_mag,
+                    q_tar_mag - q_intersection_mag)
         c_val = q_intersection_mag + bias
         return c_val / (beta * (alpha * a_val + (1 - alpha) * b_val) + c_val)
 
@@ -1192,12 +1158,12 @@ def sim_compression(src, tar, compression='bz2'):
     return 1 - dist_compression(src, tar, compression)
 
 
-def sim_elkan_monge(src, tar, sim=sim_levenshtein, sym=False):
+def sim_elkan_monge(src, tar, sim_func=sim_levenshtein, sym=False):
     """Return the Elkan-Monge similarity of two strings
 
     Arguments:
     src, tar -- two strings to be compared
-    sim -- the internal similarity metric to emply
+    sim_func -- the internal similarity metric to emply
     sym -- return a symmetric similarity measure
 
     Description:
@@ -1225,7 +1191,7 @@ def sim_elkan_monge(src, tar, sim=sim_levenshtein, sym=False):
     for q_s in q_src:
         max_sim = float('-inf')
         for q_t in q_tar:
-            max_sim = max(max_sim, sim(q_s, q_t))
+            max_sim = max(max_sim, sim_func(q_s, q_t))
         sum_of_maxes += max_sim
     sim_em = sum_of_maxes / len(q_src)
 
@@ -1233,3 +1199,31 @@ def sim_elkan_monge(src, tar, sim=sim_levenshtein, sym=False):
         sim_em = (sim_em + sim_elkan_monge(tar, src, sim, False))/2
 
     return sim_em
+
+
+def sim(src, tar, method=sim_levenshtein):
+    """Return the similarity of two strings
+    This is a generalized function for calling other similarity functions.
+
+    Arguments:
+    src, tar -- two strings to be compared
+    method -- specifies the similarity metric (levenshtein by default)
+    """
+    if hasattr(method, '__call__'):
+        return method(src, tar)
+    else:
+        raise AttributeError('Unknown similarity function: ' + str(method))
+
+
+def dist(src, tar, method=dist_levenshtein):
+    """Return the distance between two strings
+    This is a generalized function for calling other distance functions.
+
+    Arguments:
+    src, tar -- two strings to be compared
+    method -- specifies the distance metric (levenshtein by default)
+    """
+    if hasattr(method, '__call__'):
+        return method(src, tar)
+    else:
+        raise AttributeError('Unknown distance function: ' + str(method))

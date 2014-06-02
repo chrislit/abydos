@@ -2978,5 +2978,5 @@ def phonet(word):
     alpha_pos = np.array('l')
     #int[][] phonet_hash_1 = new int[26][28];
     #int[][] phonet_hash_2 = new int[26][28];
-    
+
     return word
