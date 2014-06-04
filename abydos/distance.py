@@ -1253,6 +1253,35 @@ def dist_ident(src, tar):
     return 1 - sim_ident(src, tar)
 
 
+def needleman_wunsch(src, tar, gap_cost=-5, sim_func=sim_ident):
+    """Return the Needleman-Wunsch score of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+    gap_cost -- the cost of an alignment gap (5 by default)
+    sim_func -- a function that returns the similarity of two characters
+                (identity similarity by default)
+
+    Description:
+    This is the standard edit distance measure. Cf.
+    https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm
+    http://csb.stanford.edu/class/public/readings/Bioinformatics_I_Lecture6/Needleman_Wunsch_JMB_70_Global_alignment.pdf
+    """
+    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
+    
+    for i in _range(len(src)+1):
+        d_mat[i, 0] = i * gap_cost
+    for j in _range(len(tar)+1):
+        d_mat[0, j] = j * gap_cost
+    for i in _range(1,len(src)+1):
+        for j in _range(1,len(tar)+1):
+            match = d_mat[i-1, j-1] + sim_func(src[i], tar[j])
+            delete = d_mat[i-1, j] + gap_cost
+            insert = d_mat[i, j-1] + gap_cost
+            d_mat[i, j] = max(match, delete, insert)
+    return d_mat(d_mat.shape)
+
+
 def sim(src, tar, method=sim_levenshtein):
     """Return the similarity of two strings
     This is a generalized function for calling other similarity functions.
