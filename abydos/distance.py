@@ -95,30 +95,30 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
         return _damerau_levenshtein(src, tar, cost)
 
     # pylint: disable=no-member
-    d_mx = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
+    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
     # pylint: enable=no-member
     for i in _range(len(src)+1):
-        d_mx[i, 0] = i * del_cost
+        d_mat[i, 0] = i * del_cost
     for j in _range(len(tar)+1):
-        d_mx[0, j] = j * ins_cost
+        d_mat[0, j] = j * ins_cost
 
     for i in _range(len(src)):
         for j in _range(len(tar)):
-            d_mx[i+1, j+1] = min(
-                d_mx[i+1, j] + ins_cost, # ins
-                d_mx[i, j+1] + del_cost, # del
-                d_mx[i, j] + (sub_cost if src[i] != tar[j] else 0) # sub/==
+            d_mat[i+1, j+1] = min(
+                d_mat[i+1, j] + ins_cost, # ins
+                d_mat[i, j+1] + del_cost, # del
+                d_mat[i, j] + (sub_cost if src[i] != tar[j] else 0) # sub/==
             )
 
             if mode == 'osa':
                 if (i+1 > 1 and j+1 > 1 and src[i] == tar[j-1] and
                     src[i-1] == tar[j]):
-                    d_mx[i+1, j+1] = min(
-                                      d_mx[i+1, j+1],
-                                      d_mx[i-1, j-1] + trans_cost  # trans
+                    d_mat[i+1, j+1] = min(
+                                      d_mat[i+1, j+1],
+                                      d_mat[i-1, j-1] + trans_cost  # trans
                                       )
 
-    return d_mx[len(src), len(tar)]
+    return d_mat[len(src), len(tar)]
 
 
 def _damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
@@ -146,28 +146,28 @@ transpositions must not be less than the cost of an insert \
 plus a delete.')
 
     # pylint: disable=no-member
-    d_mx = (np.zeros((len(src))*(len(tar)), dtype=np.int).
+    d_mat = (np.zeros((len(src))*(len(tar)), dtype=np.int).
             reshape((len(src), len(tar))))
     # pylint: enable=no-member
 
     if src[0] != tar[0]:
-        d_mx[0, 0] = min(sub_cost, ins_cost + del_cost)
+        d_mat[0, 0] = min(sub_cost, ins_cost + del_cost)
 
     src_index_by_character = {}
     src_index_by_character[src[0]] = 0
     for i in _range(1, len(src)):
-        del_distance = d_mx[i-1, 0] + del_cost
+        del_distance = d_mat[i-1, 0] + del_cost
         ins_distance = (i+1) * del_cost + ins_cost
         match_distance = i * del_cost + \
         (0 if src[i] == tar[0] else sub_cost)
-        d_mx[i, 0] = min(del_distance, ins_distance, match_distance)
+        d_mat[i, 0] = min(del_distance, ins_distance, match_distance)
 
     for j in _range(1, len(tar)):
         del_distance = (j+1) * ins_cost + del_cost
-        ins_distance = d_mx[0, j-1] + ins_cost
+        ins_distance = d_mat[0, j-1] + ins_cost
         match_distance = j * ins_cost + \
         (0 if src[0] == tar[j] else sub_cost)
-        d_mx[0, j] = min(del_distance, ins_distance, match_distance)
+        d_mat[0, j] = min(del_distance, ins_distance, match_distance)
 
     for i in _range(1, len(src)):
         max_src_letter_match_index = (0 if src[i] == tar[0] else -1)
@@ -175,9 +175,9 @@ plus a delete.')
             candidate_swap_index = -1 if tar[j] not in \
             src_index_by_character else src_index_by_character[tar[j]]
             j_swap = max_src_letter_match_index
-            del_distance = d_mx[i-1, j] + del_cost
-            ins_distance = d_mx[i, j-1] + ins_cost
-            match_distance = d_mx[i-1, j-1]
+            del_distance = d_mat[i-1, j] + del_cost
+            ins_distance = d_mat[i, j-1] + ins_cost
+            match_distance = d_mat[i-1, j-1]
             if src[i] != tar[j]:
                 match_distance += sub_cost
             else:
@@ -189,18 +189,18 @@ plus a delete.')
                 if i_swap == 0 and j_swap == 0:
                     pre_swap_cost = 0
                 else:
-                    pre_swap_cost = d_mx[max(0, i_swap-1), max(0, j_swap-1)]
+                    pre_swap_cost = d_mat[max(0, i_swap-1), max(0, j_swap-1)]
                 swap_distance = (pre_swap_cost + (i - i_swap - 1) *
                                  del_cost + (j - j_swap - 1) * ins_cost +
                                  trans_cost)
             else:
                 swap_distance = sys.maxsize
 
-            d_mx[i, j] = min(del_distance, ins_distance,
+            d_mat[i, j] = min(del_distance, ins_distance,
                           match_distance, swap_distance)
         src_index_by_character[src[i]] = i
 
-    return d_mx[len(src)-1, len(tar)-1]
+    return d_mat[len(src)-1, len(tar)-1]
 
 
 def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
