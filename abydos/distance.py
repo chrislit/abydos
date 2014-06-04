@@ -326,14 +326,17 @@ be greater than or equal to 0.')
 
     if src == tar:
         return 1.0
-    elif len(src) == 0 and len(tar) == 0:
-        return 1.0
+    elif len(src) == 0 or len(tar) == 0:
+        return 0.0
 
     q_src = QGrams(src, qval)
     q_tar = QGrams(tar, qval)
     q_src_mag = q_src.count()
     q_tar_mag = q_tar.count()
     q_intersection_mag = sum((q_src & q_tar).values())
+
+    if len(q_src) == 0 or len(q_tar) == 0:
+        return 0.0
 
     if bias is None:
         return q_intersection_mag / (q_intersection_mag + alpha *
@@ -380,7 +383,7 @@ def sim_dice(src, tar, qval=2):
     For two sets X and Y, the Sørensen–Dice coefficient is
     S(X,Y) = 2 * |X∩Y| / (|X| + |Y|)
     This is identical to the Tanimoto similarity coefficient
-    and the Tversky index for α = β = 1
+    and the Tversky index for α = β = 0.5
     """
     return sim_tversky(src, tar, qval, 0.5, 0.5)
 
