@@ -520,7 +520,7 @@ def sim_cosine(src, tar, qval=2):
     q_tar_mag = q_tar.count()
     q_intersection_mag = sum((q_src & q_tar).values())
 
-    return q_intersection_mag / math.sqrt(q_src_mag + q_tar_mag)
+    return q_intersection_mag / math.sqrt(q_src_mag * q_tar_mag)
 
 
 def dist_cosine(src, tar, qval=2):

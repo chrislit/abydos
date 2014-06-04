@@ -353,7 +353,7 @@ class CosineSimilarityTestCases(unittest.TestCase):
         self.assertEqual(sim_cosine('', ''), 1)
         self.assertEqual(sim_cosine('nelson', ''), 0)
         self.assertEqual(sim_cosine('', 'neilsen'), 0)
-        self.assertAlmostEqual(sim_cosine('nelson', 'neilsen'), 4/math.sqrt(15))
+        self.assertAlmostEqual(sim_cosine('nelson', 'neilsen'), 4/math.sqrt(7*8))
 
     def test_dist_cosine(self):
         """test abydos.distance.dist_cosine
@@ -362,7 +362,7 @@ class CosineSimilarityTestCases(unittest.TestCase):
         self.assertEqual(dist_cosine('nelson', ''), 1)
         self.assertEqual(dist_cosine('', 'neilsen'), 1)
         self.assertAlmostEqual(dist_cosine('nelson', 'neilsen'),
-                               1-(4/math.sqrt(15)))
+                               1-(4/math.sqrt(7*8)))
 
 
 class JaroWinklerTestCases(unittest.TestCase):
