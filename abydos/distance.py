@@ -1250,7 +1250,7 @@ def dist_ident(src, tar):
     This is 0 if the two strings are identical, otherwise 1, i.e.
     1 - the identity similarity.
     """
-    return 1 - sim_ident
+    return 1 - sim_ident(src, tar)
 
 
 def sim(src, tar, method=sim_levenshtein):

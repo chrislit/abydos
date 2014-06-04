@@ -30,7 +30,7 @@ from abydos.distance import levenshtein, dist_levenshtein, sim_levenshtein, \
     dist_strcmp95, sim_jaro_winkler, dist_jaro_winkler, lcsseq, sim_lcsseq, \
     dist_lcsseq, lcsstr, sim_lcsstr, dist_lcsstr, sim_ratcliffobershelp, \
     dist_ratcliffobershelp, mra_compare, sim_compression, dist_compression, \
-    sim_monge_elkan, dist_monge_elkan
+    sim_monge_elkan, dist_monge_elkan, sim_ident, dist_ident
 import math
 from difflib import SequenceMatcher
 import os
@@ -837,6 +837,35 @@ class MongeElkanTestCases(unittest.TestCase):
         self.assertEqual(dist_monge_elkan('', ''), 0)
         self.assertEqual(dist_monge_elkan('', 'a'), 1)
         #TODO: Add non-trivial tests
+
+
+class IdentityTestCases(unittest.TestCase):
+    """test cases for abydos.distance.sim_ident &
+    abydos.distance.dist_ident
+    """
+    def test_sim_ident(self):
+        """test abydos.distance.sim_ident
+        """
+        self.assertEqual(sim_ident('', ''), 1)
+        self.assertEqual(sim_ident('', 'a'), 0)
+        self.assertEqual(sim_ident('a', ''), 0)
+        self.assertEqual(sim_ident('a', 'a'), 1)
+        self.assertEqual(sim_ident('abcd', 'abcd'), 1)
+        self.assertEqual(sim_ident('abcd', 'dcba'), 0)
+        self.assertEqual(sim_ident('abc', 'cba'), 0)
+
+
+    def test_dist_ident(self):
+        """test abydos.distance.dist_ident
+        """
+        self.assertEqual(dist_ident('', ''), 0)
+        self.assertEqual(dist_ident('', 'a'), 1)
+        self.assertEqual(dist_ident('a', ''), 1)
+        self.assertEqual(dist_ident('a', 'a'), 0)
+        self.assertEqual(dist_ident('abcd', 'abcd'), 0)
+        self.assertEqual(dist_ident('abcd', 'dcba'), 1)
+        self.assertEqual(dist_ident('abc', 'cba'), 1)
+
 
 if __name__ == '__main__':
     unittest.main()
