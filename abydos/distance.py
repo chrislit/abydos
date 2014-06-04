@@ -499,15 +499,15 @@ def tanimoto(src, tar, qval=2):
 
 
 def sim_cosine(src, tar, qval=2):
-    """Return the cosine similarity of two strings
+    """Return the cosine similarity (Ochiai coefficient) of two strings
 
     Arguments:
     src, tar -- two strings to be compared
     qval -- the length of each q-gram
 
     Description:
-    For two sets X and Y, the cosine similarity is:
-    S(X,Y) = |X∩Y| / √(|X| + |Y|)
+    For two sets X and Y, the cosine similarity (Ochiai coefficient) is:
+    S(X,Y) = |X∩Y| / √(|X| * |Y|)
     """
     if src == tar:
         return 1.0
