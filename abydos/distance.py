@@ -1230,6 +1230,29 @@ def dist_monge_elkan(src, tar, sim_func=sim_levenshtein, sym=False):
     return 1 - sim_monge_elkan(src, tar, sim_func, sym)
 
 
+def sim_ident(src, tar):
+    """Return the identity similarity of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+
+    This is 1 if the two strings are identical, otherwise 0.
+    """
+    return float(src == tar)
+
+
+def dist_ident(src, tar):
+    """Return the identity similarity of two strings:
+
+    Arguments:
+    src, tar -- two strings to be compared
+
+    This is 0 if the two strings are identical, otherwise 1, i.e.
+    1 - the identity similarity.
+    """
+    return 1 - sim_ident
+
+
 def sim(src, tar, method=sim_levenshtein):
     """Return the similarity of two strings
     This is a generalized function for calling other similarity functions.
