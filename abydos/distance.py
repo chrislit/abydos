@@ -1253,6 +1253,52 @@ def dist_ident(src, tar):
     return 1 - sim_ident(src, tar)
 
 
+def sim_matrix(src, tar, mat={}, mismatch_cost=0, match_cost=1,  symmetric=True,
+               alphabet=None):
+    """Return the similarity of two strings, defined by a similarity matrix
+
+    Arguments:
+    src, tar -- two strings to be compared
+    mat -- a dict mapping tuples to costs; the tuples are (src, tar) pairs
+            of symbols from the alphabet parameter
+    mismatch_cost -- the value returned if (src, tar) is absent from mat when
+                    src does not equal tar
+    match_cost -- the value returned if (src, tar) is absent from mat when
+                    src equals tar
+    symmetric -- True if the cost of src not matching tar is identical to
+                    the cost of tar not matching src; in this case, the values
+                    in mat need only contain (src, tar) or (tar, src), not both
+    alphabet -- a collection of tokens from which src and tar are drawn; if
+                this is defined a ValueError is raised if either tar or src
+                is not found in alphabet
+
+    Description:
+    With the default parameters, this is identical to sim_ident.
+    It is possible for sim_matrix to return values outside of the range [0,1],
+    if values outside that range are present in mat, mismatch_cost, or
+    match_cost.
+    """
+    if alphabet:
+        alphabet = tuple(alphabet)
+        if src not in alphabet:
+            raise ValueError('src value not in alphabet')
+        elif tar not in alphabet:
+            raise ValueError('tar value not in alphabet')
+
+    if src == tar:
+        if (src, src) in mat:
+            return mat[(src, src)]
+        else:
+            return match_cost
+    else:
+        if (src, tar) in mat:
+            return mat[(src, mat)]
+        elif symmetric and (tar, src) in mat:
+            return mat[(tar, src)]
+        else:
+            return mismatch_cost
+
+
 def needleman_wunsch(src, tar, gap_cost=-5, sim_func=sim_ident):
     """Return the Needleman-Wunsch score of two strings
 
@@ -1268,7 +1314,7 @@ def needleman_wunsch(src, tar, gap_cost=-5, sim_func=sim_ident):
     http://csb.stanford.edu/class/public/readings/Bioinformatics_I_Lecture6/Needleman_Wunsch_JMB_70_Global_alignment.pdf
     """
     d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
-    
+
     for i in _range(len(src)+1):
         d_mat[i, 0] = i * gap_cost
     for j in _range(len(tar)+1):
