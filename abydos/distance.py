@@ -1342,6 +1342,34 @@ def sim(src, tar, method=sim_levenshtein):
         raise AttributeError('Unknown similarity function: ' + str(method))
 
 
+def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
+    """Return the Smith-Waterman score of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+    gap_cost -- the cost of an alignment gap (-1 by default)
+    sim_func -- a function that returns the similarity of two characters
+                (identity similarity by default)
+
+    Description:
+    This is the standard edit distance measure. Cf.
+    https://en.wikipedia.org/wiki/Smith–Waterman_algorithm
+    """
+    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
+
+    for i in _range(len(src)+1):
+        d_mat[i, 0] = 0
+    for j in _range(len(tar)+1):
+        d_mat[0, j] = 0
+    for i in _range(1,len(src)+1):
+        for j in _range(1,len(tar)+1):
+            match = d_mat[i-1, j-1] + sim_func(src[i-1], tar[j-1])
+            delete = d_mat[i-1, j] - gap_cost
+            insert = d_mat[i, j-1] - gap_cost
+            d_mat[i, j] = max(0, match, delete, insert)
+    return d_mat[d_mat.shape[0]-1, d_mat.shape[1]-1]
+
+
 def dist(src, tar, method=dist_levenshtein):
     """Return the distance between two strings
     This is a generalized function for calling other distance functions.
