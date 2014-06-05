@@ -917,22 +917,22 @@ class NeedlemanWunschTestCases(unittest.TestCase):
 
         # https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm
         self.assertEqual(needleman_wunsch('GATTACA', 'GCATGCU',
-                                          -1, _sim_nw), 0)
+                                          1, _sim_nw), 0)
         self.assertEqual(needleman_wunsch('AGACTAGTTAC', 'CGAGACGT',
-                                          -5, _sim_wikipedia), 16)
+                                          5, _sim_wikipedia), 16)
 
         # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=5, skew=5)
         self.assertEqual(needleman_wunsch('CGATATCAG', 'TGACGSTGC',
-                                          -5, _sim_nw), -5)
+                                          5, _sim_nw), -5)
         self.assertEqual(needleman_wunsch('AGACTAGTTAC', 'TGACGSTGC',
-                                          -5, _sim_nw), -7)
+                                          5, _sim_nw), -7)
         self.assertEqual(needleman_wunsch('AGACTAGTTAC', 'CGAGACGT',
-                                          -5, _sim_nw), -15)
+                                          5, _sim_nw), -15)
 
         # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=2, skew=2)
         nw_vals = (5, 0, -2, 3, 1, 1, -2, -2, -1, -3, -3, -5, -3, -7, -7, -19)
         for n in _range(len(NIALL)):
-            self.assertEqual(needleman_wunsch(NIALL[0], NIALL[n], -2, _sim_nw),
+            self.assertEqual(needleman_wunsch(NIALL[0], NIALL[n], 2, _sim_nw),
                              nw_vals[n])
 
 

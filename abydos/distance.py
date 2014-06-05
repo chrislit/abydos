@@ -1299,7 +1299,7 @@ def sim_matrix(src, tar, mat={}, mismatch_cost=0, match_cost=1,  symmetric=True,
             return mismatch_cost
 
 
-def needleman_wunsch(src, tar, gap_cost=-1, sim_func=sim_ident):
+def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
     """Return the Needleman-Wunsch score of two strings
 
     Arguments:
@@ -1310,20 +1310,20 @@ def needleman_wunsch(src, tar, gap_cost=-1, sim_func=sim_ident):
 
     Description:
     This is the standard edit distance measure. Cf.
-    https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm
+    https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
     http://csb.stanford.edu/class/public/readings/Bioinformatics_I_Lecture6/Needleman_Wunsch_JMB_70_Global_alignment.pdf
     """
     d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
 
     for i in _range(len(src)+1):
-        d_mat[i, 0] = i * gap_cost
+        d_mat[i, 0] = -(i * gap_cost)
     for j in _range(len(tar)+1):
-        d_mat[0, j] = j * gap_cost
+        d_mat[0, j] = -(j * gap_cost)
     for i in _range(1,len(src)+1):
         for j in _range(1,len(tar)+1):
             match = d_mat[i-1, j-1] + sim_func(src[i-1], tar[j-1])
-            delete = d_mat[i-1, j] + gap_cost
-            insert = d_mat[i, j-1] + gap_cost
+            delete = d_mat[i-1, j] - gap_cost
+            insert = d_mat[i, j-1] - gap_cost
             d_mat[i, j] = max(match, delete, insert)
     return d_mat[d_mat.shape[0]-1, d_mat.shape[1]-1]
 
