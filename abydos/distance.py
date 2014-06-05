@@ -1304,7 +1304,7 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
 
     Arguments:
     src, tar -- two strings to be compared
-    gap_cost -- the cost of an alignment gap (-1 by default)
+    gap_cost -- the cost of an alignment gap (1 by default)
     sim_func -- a function that returns the similarity of two characters
                 (identity similarity by default)
 
@@ -1313,7 +1313,7 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
     https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
     http://csb.stanford.edu/class/public/readings/Bioinformatics_I_Lecture6/Needleman_Wunsch_JMB_70_Global_alignment.pdf
     """
-    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
+    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
 
     for i in _range(len(src)+1):
         d_mat[i, 0] = -(i * gap_cost)
@@ -1328,26 +1328,12 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
     return d_mat[d_mat.shape[0]-1, d_mat.shape[1]-1]
 
 
-def sim(src, tar, method=sim_levenshtein):
-    """Return the similarity of two strings
-    This is a generalized function for calling other similarity functions.
-
-    Arguments:
-    src, tar -- two strings to be compared
-    method -- specifies the similarity metric (levenshtein by default)
-    """
-    if hasattr(method, '__call__'):
-        return method(src, tar)
-    else:
-        raise AttributeError('Unknown similarity function: ' + str(method))
-
-
 def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
     """Return the Smith-Waterman score of two strings
 
     Arguments:
     src, tar -- two strings to be compared
-    gap_cost -- the cost of an alignment gap (-1 by default)
+    gap_cost -- the cost of an alignment gap (1 by default)
     sim_func -- a function that returns the similarity of two characters
                 (identity similarity by default)
 
@@ -1355,7 +1341,7 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
     This is the standard edit distance measure. Cf.
     https://en.wikipedia.org/wiki/Smith–Waterman_algorithm
     """
-    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
+    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
 
     for i in _range(len(src)+1):
         d_mat[i, 0] = 0
@@ -1368,6 +1354,69 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
             insert = d_mat[i, j-1] - gap_cost
             d_mat[i, j] = max(0, match, delete, insert)
     return d_mat[d_mat.shape[0]-1, d_mat.shape[1]-1]
+
+
+def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
+    """Return the Gotoh score of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+    gap_open -- the cost of an open alignment gap (1 by default)
+    gap_ext -- the cost of an alignment gap extension (0.4 by default)
+    sim_func -- a function that returns the similarity of two characters
+                (identity similarity by default)
+
+    Description:
+    Gotoh's algorithm is essentially Needleman-Wunsch with affine gap penalties:
+    https://www.cs.umd.edu/class/spring2003/cmsc838t/papers/gotoh1982.pdf
+    """
+    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
+    p_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
+    q_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
+
+    d_mat[0, 0] = 0
+    p_mat[0, 0] = float('-inf')
+    q_mat[0, 0] = float('-inf')
+    for i in _range(1,len(src)+1):
+        d_mat[i, 0] = float('-inf')
+        p_mat[i, 0] = -gap_open - gap_ext*(i-1)
+        q_mat[i, 0] = float('-inf')
+        q_mat[i, 1] = -gap_open
+    for j in _range(1,len(tar)+1):
+        d_mat[0, j] = float('-inf')
+        p_mat[0, j] = float('-inf')
+        p_mat[1, j] = -gap_open
+        q_mat[0, j] = -gap_open - gap_ext*(j-1)
+
+    for i in _range(1,len(src)+1):
+        for j in _range(1,len(tar)+1):
+            sim_val = sim_func(src[i-1], tar[j-1])
+            d_mat[i, j] = max(d_mat[i-1, j-1] + sim_val,
+                              p_mat[i-1, j-1] + sim_val,
+                              q_mat[i-1, j-1] + sim_val)
+
+            p_mat[i, j] = max(d_mat[i-1, j] - gap_open,
+                              p_mat[i-1, j] - gap_ext)
+
+            q_mat[i, j] = max(d_mat[i, j-1] - gap_open,
+                              q_mat[i, j-1] - gap_ext)
+
+    i, j = (n - 1 for n in d_mat.shape)
+    return max(d_mat[i, j], p_mat[i, j], q_mat[i, j])
+
+
+def sim(src, tar, method=sim_levenshtein):
+    """Return the similarity of two strings
+    This is a generalized function for calling other similarity functions.
+
+    Arguments:
+    src, tar -- two strings to be compared
+    method -- specifies the similarity metric (levenshtein by default)
+    """
+    if hasattr(method, '__call__'):
+        return method(src, tar)
+    else:
+        raise AttributeError('Unknown similarity function: ' + str(method))
 
 
 def dist(src, tar, method=dist_levenshtein):
