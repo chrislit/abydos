@@ -23,6 +23,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 from __future__ import division
 import unittest
+from abydos._compat import _range
 from abydos.distance import levenshtein, dist_levenshtein, sim_levenshtein, \
     hamming, dist_hamming, sim_hamming, sim_tversky, dist_tversky, sim_dice, \
     dist_dice, sim_jaccard, dist_jaccard, sim_overlap, dist_overlap, \
@@ -38,6 +39,9 @@ import os
 
 TESTDIR = os.path.dirname(__file__)
 
+NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
+         'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill', 'MacNeil',
+         'MacNele', 'Niall Noígíallach')
 
 class LevenshteinTestCases(unittest.TestCase):
     """test cases for abydos.distance.levenshtein,
@@ -926,22 +930,11 @@ class NeedlemanWunschTestCases(unittest.TestCase):
                                           -5, _sim_nw), -15)
 
         # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=2, skew=2)
-        self.assertEqual(needleman_wunsch('Niall', 'Njall', -2, _sim_nw), 3)
-        self.assertEqual(needleman_wunsch('Niall', 'Njáll', -2, _sim_nw), 1)
-        self.assertEqual(needleman_wunsch('Niall', 'Neil', -2, _sim_nw), -2)
-        self.assertEqual(needleman_wunsch('Niall', 'Neal', -2, _sim_nw), 0)
-        self.assertEqual(needleman_wunsch('Niall', 'Niall Noígíallach',
-                                          -2, _sim_nw), -19)
-        self.assertEqual(needleman_wunsch('Niall', 'Uí Néill', -2, _sim_nw), -5)
-        self.assertEqual(needleman_wunsch('Niall', 'Nigel', -2, _sim_nw), 1)
-        self.assertEqual(needleman_wunsch('Niall', 'O\'Neill', -2, _sim_nw), -3)
-        self.assertEqual(needleman_wunsch('Niall', 'MacNeil', -2, _sim_nw), -7)
-        self.assertEqual(needleman_wunsch('Niall', 'MacNele', -2, _sim_nw), -7)
-        self.assertEqual(needleman_wunsch('Niall', 'Neel', -2, _sim_nw), -2)
-        self.assertEqual(needleman_wunsch('Niall', 'Nele', -2, _sim_nw), -2)
-        self.assertEqual(needleman_wunsch('Niall', 'Nigelli', -2, _sim_nw), -1)
-        self.assertEqual(needleman_wunsch('Niall', 'Nel', -2, _sim_nw), -3)
-        self.assertEqual(needleman_wunsch('Niall', 'Kneale', -2, _sim_nw), -3)
+        nw_vals = (5, 0, -2, 3, 1, 1, -2, -2, -1, -3, -3, -5, -3, -7, -7, -19)
+        for n in _range(len(NIALL)):
+            self.assertEqual(needleman_wunsch(NIALL[0], NIALL[n], -2, _sim_nw),
+                             nw_vals[n])
+
 
 if __name__ == '__main__':
     unittest.main()
