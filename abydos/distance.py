@@ -1405,6 +1405,34 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
     return max(d_mat[i, j], p_mat[i, j], q_mat[i, j])
 
 
+def sim_length(src, tar):
+    """Return the length similarity of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+
+    Description:
+    This is the ratio of the length of the shorter string to the longer.
+    """
+    if src == tar:
+        return 1.0
+    if len(src) == 0 or len(tar) == 0:
+        return 0.0
+    return len(src)/len(tar) if len(src)<len(tar) else len(tar)/len(src)
+
+
+def dist_length(src, tar):
+    """Return the length distance of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+
+    Description:
+    length distance = 1 - length similarity
+    """    
+    return 1 - sim_length(src, tar)
+
+ 
 def sim(src, tar, method=sim_levenshtein):
     """Return the similarity of two strings
     This is a generalized function for calling other similarity functions.

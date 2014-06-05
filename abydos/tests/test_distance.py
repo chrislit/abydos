@@ -32,7 +32,7 @@ from abydos.distance import levenshtein, dist_levenshtein, sim_levenshtein, \
     dist_lcsseq, lcsstr, sim_lcsstr, dist_lcsstr, sim_ratcliffobershelp, \
     dist_ratcliffobershelp, mra_compare, sim_compression, dist_compression, \
     sim_monge_elkan, dist_monge_elkan, sim_ident, dist_ident, sim_matrix, \
-    needleman_wunsch, smith_waterman, gotoh
+    needleman_wunsch, smith_waterman, gotoh, sim_length, dist_length
 import math
 from difflib import SequenceMatcher
 import os
@@ -1027,6 +1027,41 @@ class SmithWatermanTestCases(unittest.TestCase):
         for n in _range(len(NIALL)):
             self.assertEqual(smith_waterman(NIALL[0], NIALL[n], 2,
                                             _sim_nw), sw_vals[n])
+
+
+class LengthTestCases(unittest.TestCase):
+    """test cases for abydos.distance.sim_length &
+    abydos.distance.dist_length
+    """
+    def test_sim_ident(self):
+        """test abydos.distance.sim_ident
+        """
+        self.assertEqual(sim_length('', ''), 1)
+        self.assertEqual(sim_length('', 'a'), 0)
+        self.assertEqual(sim_length('a', ''), 0)
+        self.assertEqual(sim_length('a', 'a'), 1)
+        self.assertEqual(sim_length('abcd', 'abcd'), 1)
+        self.assertEqual(sim_length('abcd', 'dcba'), 1)
+        self.assertEqual(sim_length('abc', 'cba'), 1)
+        self.assertEqual(sim_length('abc', 'dcba'), 0.75)
+        self.assertEqual(sim_length('abcd', 'cba'), 0.75)
+        self.assertEqual(sim_length('ab', 'dcba'), 0.5)
+        self.assertEqual(sim_length('abcd', 'ba'), 0.5)
+
+    def test_dist_ident(self):
+        """test abydos.distance.dist_ident
+        """
+        self.assertEqual(dist_length('', ''), 0)
+        self.assertEqual(dist_length('', 'a'), 1)
+        self.assertEqual(dist_length('a', ''), 1)
+        self.assertEqual(dist_length('a', 'a'), 0)
+        self.assertEqual(dist_length('abcd', 'abcd'), 0)
+        self.assertEqual(dist_length('abcd', 'dcba'), 0)
+        self.assertEqual(dist_length('abc', 'cba'), 0)
+        self.assertEqual(dist_length('abc', 'dcba'), 0.25)
+        self.assertEqual(dist_length('abcd', 'cba'), 0.25)
+        self.assertEqual(dist_length('ab', 'dcba'), 0.5)
+        self.assertEqual(dist_length('abcd', 'ba'), 0.5)
 
 
 if __name__ == '__main__':
