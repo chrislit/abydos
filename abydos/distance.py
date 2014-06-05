@@ -1304,7 +1304,7 @@ def needleman_wunsch(src, tar, gap_cost=-1, sim_func=sim_ident):
 
     Arguments:
     src, tar -- two strings to be compared
-    gap_cost -- the cost of an alignment gap (5 by default)
+    gap_cost -- the cost of an alignment gap (-1 by default)
     sim_func -- a function that returns the similarity of two characters
                 (identity similarity by default)
 

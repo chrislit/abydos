@@ -867,10 +867,7 @@ class IdentityTestCases(unittest.TestCase):
         self.assertEqual(dist_ident('abc', 'cba'), 1)
 
 
-def _sim_nw1(src, tar):
-    return sim_matrix(src, tar, mismatch_cost=-1, match_cost=1)
-
-def _sim_nw2(src, tar):
+def _sim_wikipedia(src, tar):
     # Values copied from:
     # https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm
     nw_matrix = {('A', 'A'):10, ('G', 'G'):7,
@@ -879,7 +876,6 @@ def _sim_nw2(src, tar):
                  ('G', 'C'):-5, ('G', 'T'):-3,
                  ('C', 'T'):0}
     return sim_matrix(src, tar, nw_matrix, symmetric=True, alphabet='CGAT')
-
 
 class MatrixSimTestCases(unittest.TestCase):
     """test cases for abydos.distance.sim_matrix
@@ -896,13 +892,13 @@ class MatrixSimTestCases(unittest.TestCase):
         self.assertEqual(sim_matrix('abc', 'cba'), 0)
 
         # https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm
-        self.assertEqual(_sim_nw2('A','C'), -3)
-        self.assertEqual(_sim_nw2('G','G'), 7)
-        self.assertEqual(_sim_nw2('A','A'), 10)
-        self.assertEqual(_sim_nw2('T','A'), -4)
-        self.assertEqual(_sim_nw2('T','C'), 0)
-        self.assertEqual(_sim_nw2('A','G'), -1)
-        self.assertEqual(_sim_nw2('C','T'), 0)
+        self.assertEqual(_sim_wikipedia('A','C'), -3)
+        self.assertEqual(_sim_wikipedia('G','G'), 7)
+        self.assertEqual(_sim_wikipedia('A','A'), 10)
+        self.assertEqual(_sim_wikipedia('T','A'), -4)
+        self.assertEqual(_sim_wikipedia('T','C'), 0)
+        self.assertEqual(_sim_wikipedia('A','G'), -1)
+        self.assertEqual(_sim_wikipedia('C','T'), 0)
 
 
 class NeedlemanWunschTestCases(unittest.TestCase):
@@ -911,15 +907,41 @@ class NeedlemanWunschTestCases(unittest.TestCase):
     def test_needleman_wunsch(self):
         """test abydos.distance.needleman_wunsch
         """
+        _sim_nw = lambda x,y: 2*float(x is y)-1
+
         self.assertEqual(needleman_wunsch('', ''), 0)
 
         # https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm
         self.assertEqual(needleman_wunsch('GATTACA', 'GCATGCU',
-                                          -1, _sim_nw1), 0)
+                                          -1, _sim_nw), 0)
         self.assertEqual(needleman_wunsch('AGACTAGTTAC', 'CGAGACGT',
-                                          -5, _sim_nw2), 16)
+                                          -5, _sim_wikipedia), 16)
 
+        # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=5, skew=5)
+        self.assertEqual(needleman_wunsch('CGATATCAG', 'TGACGSTGC',
+                                          -5, _sim_nw), -5)
+        self.assertEqual(needleman_wunsch('AGACTAGTTAC', 'TGACGSTGC',
+                                          -5, _sim_nw), -7)
+        self.assertEqual(needleman_wunsch('AGACTAGTTAC', 'CGAGACGT',
+                                          -5, _sim_nw), -15)
 
+        # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=2, skew=2)
+        self.assertEqual(needleman_wunsch('Niall', 'Njall', -2, _sim_nw), 3)
+        self.assertEqual(needleman_wunsch('Niall', 'Njáll', -2, _sim_nw), 1)
+        self.assertEqual(needleman_wunsch('Niall', 'Neil', -2, _sim_nw), -2)
+        self.assertEqual(needleman_wunsch('Niall', 'Neal', -2, _sim_nw), 0)
+        self.assertEqual(needleman_wunsch('Niall', 'Niall Noígíallach',
+                                          -2, _sim_nw), -19)
+        self.assertEqual(needleman_wunsch('Niall', 'Uí Néill', -2, _sim_nw), -5)
+        self.assertEqual(needleman_wunsch('Niall', 'Nigel', -2, _sim_nw), 1)
+        self.assertEqual(needleman_wunsch('Niall', 'O\'Neill', -2, _sim_nw), -3)
+        self.assertEqual(needleman_wunsch('Niall', 'MacNeil', -2, _sim_nw), -7)
+        self.assertEqual(needleman_wunsch('Niall', 'MacNele', -2, _sim_nw), -7)
+        self.assertEqual(needleman_wunsch('Niall', 'Neel', -2, _sim_nw), -2)
+        self.assertEqual(needleman_wunsch('Niall', 'Nele', -2, _sim_nw), -2)
+        self.assertEqual(needleman_wunsch('Niall', 'Nigelli', -2, _sim_nw), -1)
+        self.assertEqual(needleman_wunsch('Niall', 'Nel', -2, _sim_nw), -3)
+        self.assertEqual(needleman_wunsch('Niall', 'Kneale', -2, _sim_nw), -3)
 
 if __name__ == '__main__':
     unittest.main()
