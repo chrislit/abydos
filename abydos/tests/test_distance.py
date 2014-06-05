@@ -30,7 +30,8 @@ from abydos.distance import levenshtein, dist_levenshtein, sim_levenshtein, \
     dist_strcmp95, sim_jaro_winkler, dist_jaro_winkler, lcsseq, sim_lcsseq, \
     dist_lcsseq, lcsstr, sim_lcsstr, dist_lcsstr, sim_ratcliffobershelp, \
     dist_ratcliffobershelp, mra_compare, sim_compression, dist_compression, \
-    sim_monge_elkan, dist_monge_elkan, sim_ident, dist_ident
+    sim_monge_elkan, dist_monge_elkan, sim_ident, dist_ident, sim_matrix, \
+    needleman_wunsch
 import math
 from difflib import SequenceMatcher
 import os
@@ -854,7 +855,6 @@ class IdentityTestCases(unittest.TestCase):
         self.assertEqual(sim_ident('abcd', 'dcba'), 0)
         self.assertEqual(sim_ident('abc', 'cba'), 0)
 
-
     def test_dist_ident(self):
         """test abydos.distance.dist_ident
         """
@@ -865,6 +865,60 @@ class IdentityTestCases(unittest.TestCase):
         self.assertEqual(dist_ident('abcd', 'abcd'), 0)
         self.assertEqual(dist_ident('abcd', 'dcba'), 1)
         self.assertEqual(dist_ident('abc', 'cba'), 1)
+
+
+def _sim_nw1(src, tar):
+    return sim_matrix(src, tar, mismatch_cost=-1, match_cost=1)
+
+def _sim_nw2(src, tar):
+    # Values copied from:
+    # https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm
+    nw_matrix = {('A', 'A'):10, ('G', 'G'):7,
+                 ('C', 'C'):9, ('T', 'T'):8,
+                 ('A', 'G'):-1, ('A', 'C'):-3, ('A', 'T'):-4,
+                 ('G', 'C'):-5, ('G', 'T'):-3,
+                 ('C', 'T'):0}
+    return sim_matrix(src, tar, nw_matrix, symmetric=True, alphabet='CGAT')
+
+
+class MatrixSimTestCases(unittest.TestCase):
+    """test cases for abydos.distance.sim_matrix
+    """
+    def test_sim_matrix(self):
+        """test abydos.distance.sim_matrix
+        """
+        self.assertEqual(sim_matrix('', ''), 1)
+        self.assertEqual(sim_matrix('', 'a'), 0)
+        self.assertEqual(sim_matrix('a', ''), 0)
+        self.assertEqual(sim_matrix('a', 'a'), 1)
+        self.assertEqual(sim_matrix('abcd', 'abcd'), 1)
+        self.assertEqual(sim_matrix('abcd', 'dcba'), 0)
+        self.assertEqual(sim_matrix('abc', 'cba'), 0)
+
+        # https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm
+        self.assertEqual(_sim_nw2('A','C'), -3)
+        self.assertEqual(_sim_nw2('G','G'), 7)
+        self.assertEqual(_sim_nw2('A','A'), 10)
+        self.assertEqual(_sim_nw2('T','A'), -4)
+        self.assertEqual(_sim_nw2('T','C'), 0)
+        self.assertEqual(_sim_nw2('A','G'), -1)
+        self.assertEqual(_sim_nw2('C','T'), 0)
+
+
+class NeedlemanWunschTestCases(unittest.TestCase):
+    """test cases for abydos.distance.needleman_wunsch
+    """
+    def test_needleman_wunsch(self):
+        """test abydos.distance.needleman_wunsch
+        """
+        self.assertEqual(needleman_wunsch('', ''), 0)
+
+        # https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm
+        self.assertEqual(needleman_wunsch('GATTACA', 'GCATGCU',
+                                          -1, _sim_nw1), 0)
+        self.assertEqual(needleman_wunsch('AGACTAGTTAC', 'CGAGACGT',
+                                          -5, _sim_nw2), 16)
+
 
 
 if __name__ == '__main__':

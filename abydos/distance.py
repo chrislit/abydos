@@ -1292,14 +1292,14 @@ def sim_matrix(src, tar, mat={}, mismatch_cost=0, match_cost=1,  symmetric=True,
             return match_cost
     else:
         if (src, tar) in mat:
-            return mat[(src, mat)]
+            return mat[(src, tar)]
         elif symmetric and (tar, src) in mat:
             return mat[(tar, src)]
         else:
             return mismatch_cost
 
 
-def needleman_wunsch(src, tar, gap_cost=-5, sim_func=sim_ident):
+def needleman_wunsch(src, tar, gap_cost=-1, sim_func=sim_ident):
     """Return the Needleman-Wunsch score of two strings
 
     Arguments:
@@ -1321,11 +1321,11 @@ def needleman_wunsch(src, tar, gap_cost=-5, sim_func=sim_ident):
         d_mat[0, j] = j * gap_cost
     for i in _range(1,len(src)+1):
         for j in _range(1,len(tar)+1):
-            match = d_mat[i-1, j-1] + sim_func(src[i], tar[j])
+            match = d_mat[i-1, j-1] + sim_func(src[i-1], tar[j-1])
             delete = d_mat[i-1, j] + gap_cost
             insert = d_mat[i, j-1] + gap_cost
             d_mat[i, j] = max(match, delete, insert)
-    return d_mat(d_mat.shape)
+    return d_mat[d_mat.shape[0]-1, d_mat.shape[1]-1]
 
 
 def sim(src, tar, method=sim_levenshtein):
