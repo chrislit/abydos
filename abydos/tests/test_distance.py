@@ -29,8 +29,8 @@ from abydos.distance import levenshtein, dist_levenshtein, sim_levenshtein, \
     dist_dice, sim_jaccard, dist_jaccard, sim_overlap, dist_overlap, \
     sim_tanimoto, tanimoto, sim_cosine, dist_cosine, sim_strcmp95, \
     dist_strcmp95, sim_jaro_winkler, dist_jaro_winkler, lcsseq, sim_lcsseq, \
-    dist_lcsseq, lcsstr, sim_lcsstr, dist_lcsstr, sim_ratcliffobershelp, \
-    dist_ratcliffobershelp, mra_compare, sim_compression, dist_compression, \
+    dist_lcsseq, lcsstr, sim_lcsstr, dist_lcsstr, sim_ratcliff_obershelp, \
+    dist_ratcliff_obershelp, mra_compare, sim_compression, dist_compression, \
     sim_monge_elkan, dist_monge_elkan, sim_ident, dist_ident, sim_matrix, \
     needleman_wunsch, smith_waterman, gotoh, sim_length, dist_length
 import math
@@ -689,33 +689,33 @@ GCCTGGGAAAAGATCGGCAGCCACGGTGGCGAGTATGGCGCCGAGGCCGT'), 'TGGCGAGTATGG')
 
 
 class RatcliffObershelpTestCases(unittest.TestCase):
-    """test cases for abydos.distance.sim_ratcliffobershelp, &
-    abydos.distance.dist_ratcliffobershelp
+    """test cases for abydos.distance.sim_ratcliff_obershelp, &
+    abydos.distance.dist_ratcliff_obershelp
     """
-    def test_sim_ratcliffobershelp(self):
-        """test abydos.distance.sim_ratcliffobershelp
+    def test_sim_ratcliff_obershelp(self):
+        """test abydos.distance.sim_ratcliff_obershelp
         """
         # https://github.com/rockymadden/stringmetric/blob/master/core/src/test/scala/com/rockymadden/stringmetric/similarity/RatcliffObershelpMetricSpec.scala
-        self.assertEqual(sim_ratcliffobershelp('', ''), 1)
-        self.assertEqual(sim_ratcliffobershelp('abc', ''), 0)
-        self.assertEqual(sim_ratcliffobershelp('', 'xyz'), 0)
-        self.assertEqual(sim_ratcliffobershelp('abc', 'abc'), 1)
-        self.assertEqual(sim_ratcliffobershelp('123', '123'), 1)
-        self.assertEqual(sim_ratcliffobershelp('abc', 'xyz'), 0)
-        self.assertEqual(sim_ratcliffobershelp('123', '456'), 0)
-        self.assertAlmostEqual(sim_ratcliffobershelp('aleksander', 'alexandre'),
+        self.assertEqual(sim_ratcliff_obershelp('', ''), 1)
+        self.assertEqual(sim_ratcliff_obershelp('abc', ''), 0)
+        self.assertEqual(sim_ratcliff_obershelp('', 'xyz'), 0)
+        self.assertEqual(sim_ratcliff_obershelp('abc', 'abc'), 1)
+        self.assertEqual(sim_ratcliff_obershelp('123', '123'), 1)
+        self.assertEqual(sim_ratcliff_obershelp('abc', 'xyz'), 0)
+        self.assertEqual(sim_ratcliff_obershelp('123', '456'), 0)
+        self.assertAlmostEqual(sim_ratcliff_obershelp('aleksander', 'alexandre'),
                                0.7368421052631579)
-        self.assertAlmostEqual(sim_ratcliffobershelp('alexandre', 'aleksander'),
+        self.assertAlmostEqual(sim_ratcliff_obershelp('alexandre', 'aleksander'),
                                0.7368421052631579)
-        self.assertAlmostEqual(sim_ratcliffobershelp('pennsylvania',
+        self.assertAlmostEqual(sim_ratcliff_obershelp('pennsylvania',
                                                      'pencilvaneya'),
                                0.6666666666666666)
-        self.assertAlmostEqual(sim_ratcliffobershelp('pencilvaneya',
+        self.assertAlmostEqual(sim_ratcliff_obershelp('pencilvaneya',
                                                      'pennsylvania'),
                                0.6666666666666666)
-        self.assertAlmostEqual(sim_ratcliffobershelp('abcefglmn', 'abefglmo'),
+        self.assertAlmostEqual(sim_ratcliff_obershelp('abcefglmn', 'abefglmo'),
                                0.8235294117647058)
-        self.assertAlmostEqual(sim_ratcliffobershelp('abefglmo', 'abcefglmn'),
+        self.assertAlmostEqual(sim_ratcliff_obershelp('abefglmo', 'abcefglmn'),
                                0.8235294117647058)
 
         with open(TESTDIR+'/variantNames.csv') as cav_testset:
@@ -723,7 +723,7 @@ class RatcliffObershelpTestCases(unittest.TestCase):
             for line in cav_testset:
                 line = line.split(',')
                 word1, word2 = line[0], line[4]
-                self.assertAlmostEqual(sim_ratcliffobershelp(word1, word2),
+                self.assertAlmostEqual(sim_ratcliff_obershelp(word1, word2),
                                        SequenceMatcher(None, word1,
                                                        word2).ratio())
 
@@ -735,36 +735,36 @@ class RatcliffObershelpTestCases(unittest.TestCase):
                                 tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ,')])
                 word1, word2 = line.split(',')
                 #print word1, word2e
-                self.assertAlmostEqual(sim_ratcliffobershelp(word1, word2),
+                self.assertAlmostEqual(sim_ratcliff_obershelp(word1, word2),
                                        SequenceMatcher(None, word1,
                                                        word2).ratio())
 
-    def test_dist_ratcliffobershelp(self):
-        """test abydos.distance.dist_ratcliffobershelp
+    def test_dist_ratcliff_obershelp(self):
+        """test abydos.distance.dist_ratcliff_obershelp
         """
         # https://github.com/rockymadden/stringmetric/blob/master/core/src/test/scala/com/rockymadden/stringmetric/similarity/RatcliffObershelpMetricSpec.scala
-        self.assertEqual(dist_ratcliffobershelp('', ''), 0)
-        self.assertEqual(dist_ratcliffobershelp('abc', ''), 1)
-        self.assertEqual(dist_ratcliffobershelp('', 'xyz'), 1)
-        self.assertEqual(dist_ratcliffobershelp('abc', 'abc'), 0)
-        self.assertEqual(dist_ratcliffobershelp('123', '123'), 0)
-        self.assertEqual(dist_ratcliffobershelp('abc', 'xyz'), 1)
-        self.assertEqual(dist_ratcliffobershelp('123', '456'), 1)
-        self.assertAlmostEqual(dist_ratcliffobershelp('aleksander',
+        self.assertEqual(dist_ratcliff_obershelp('', ''), 0)
+        self.assertEqual(dist_ratcliff_obershelp('abc', ''), 1)
+        self.assertEqual(dist_ratcliff_obershelp('', 'xyz'), 1)
+        self.assertEqual(dist_ratcliff_obershelp('abc', 'abc'), 0)
+        self.assertEqual(dist_ratcliff_obershelp('123', '123'), 0)
+        self.assertEqual(dist_ratcliff_obershelp('abc', 'xyz'), 1)
+        self.assertEqual(dist_ratcliff_obershelp('123', '456'), 1)
+        self.assertAlmostEqual(dist_ratcliff_obershelp('aleksander',
                                                       'alexandre'),
                                0.2631578947368421)
-        self.assertAlmostEqual(dist_ratcliffobershelp('alexandre',
+        self.assertAlmostEqual(dist_ratcliff_obershelp('alexandre',
                                                       'aleksander'),
                                0.2631578947368421)
-        self.assertAlmostEqual(dist_ratcliffobershelp('pennsylvania',
+        self.assertAlmostEqual(dist_ratcliff_obershelp('pennsylvania',
                                                      'pencilvaneya'),
                                0.3333333333333333)
-        self.assertAlmostEqual(dist_ratcliffobershelp('pencilvaneya',
+        self.assertAlmostEqual(dist_ratcliff_obershelp('pencilvaneya',
                                                      'pennsylvania'),
                                0.3333333333333333)
-        self.assertAlmostEqual(dist_ratcliffobershelp('abcefglmn', 'abefglmo'),
+        self.assertAlmostEqual(dist_ratcliff_obershelp('abcefglmn', 'abefglmo'),
                                0.1764705882352941)
-        self.assertAlmostEqual(dist_ratcliffobershelp('abefglmo', 'abcefglmn'),
+        self.assertAlmostEqual(dist_ratcliff_obershelp('abefglmo', 'abcefglmn'),
                                0.1764705882352941)
 
 

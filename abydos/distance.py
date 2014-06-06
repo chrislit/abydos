@@ -982,7 +982,7 @@ def dist_lcsstr(src, tar):
     return 1 - sim_lcsstr(src, tar)
 
 
-def sim_ratcliffobershelp(src, tar):
+def sim_ratcliff_obershelp(src, tar):
     """Returns the longest common substring distance (dist_{LCSstr}) of two
     strings
 
@@ -1047,7 +1047,7 @@ def sim_ratcliffobershelp(src, tar):
     return 2*_sstr_matches(src, tar)/(len(src)+len(tar))
 
 
-def dist_ratcliffobershelp(src, tar):
+def dist_ratcliff_obershelp(src, tar):
     """Returns the longest common substring distance (dist_{LCSstr}) of two
     strings
 
@@ -1057,7 +1057,7 @@ def dist_ratcliffobershelp(src, tar):
     Description:
     Ratcliff-Obsershelp distance is 1 - Ratcliff-Obershelp similarity
     """
-    return 1 - sim_ratcliffobershelp(src, tar)
+    return 1 - sim_ratcliff_obershelp(src, tar)
 
 
 def mra_compare(src, tar):
