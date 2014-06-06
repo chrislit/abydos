@@ -2003,6 +2003,22 @@ def phonix(word, maxlength=4):
     return sdx[:maxlength]
 
 
+def sfinxbis(word, maxlength=float('inf')):
+    """Return the SfinxBis encoding of a word
+
+    Arguments:
+    word -- the word to translate to a Phonix encoding
+    maxlength -- the length of the code returned (defaults to infinity)
+
+    Description:
+    SfinxBis is a Soundex-like algorithm defined in:
+    http://www.swami.se/download/18.248ad5af12aa8136533800091/SfinxBis.pdf
+
+    Phonem is intended chiefly for Swedish names.
+    """
+    pass
+
+
 def phonet(word):
     """Return the phonet encoding of a word
 
