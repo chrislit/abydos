@@ -3445,16 +3445,19 @@ class SfinxBisTestCases(unittest.TestCase):
         self.assertEqual(sfinxbis('de Alfaro y Gómez'), ('$476', 'G58'))
         self.assertEqual(sfinxbis('Arjaliès-de la Lande'), ('$6248', 'L53'))
         self.assertEqual(sfinxbis('Dominicus van den Bussche'), ('D5528', 'B8'))
-        self.assertEqual(sfinxbis('Edebol Eeg-Olofsson'), ('$314', '$2', '$4785'))
+        self.assertEqual(sfinxbis('Edebol Eeg-Olofsson'), ('$314', '$2',
+                                                           '$4785'))
         self.assertEqual(sfinxbis('Jonsson-Blomqvist'), ('J585', 'B452783'))
         self.assertEqual(sfinxbis('Kiviniemi Birgersson'), ('#755', 'B62685'))
-        self.assertEqual(sfinxbis('Massena Serpa dos Santos'), ('M85', 'S61', 'S538'))
+        self.assertEqual(sfinxbis('Massena Serpa dos Santos'), ('M85', 'S61',
+                                                                'S538'))
         self.assertEqual(sfinxbis('S:t Clair Renard'), ('K426', 'R563'))
         self.assertEqual(sfinxbis('Skoog H Andersson'), ('S22', 'H', '$53685'))
         self.assertEqual(sfinxbis('von Post-Skagegård'), ('P83', 'S22263'))
         self.assertEqual(sfinxbis('von Zur-Mühlen'), ('S6', 'M45'))
         self.assertEqual(sfinxbis('Waltå O:son'), ('V43', '$85'))
-        self.assertEqual(sfinxbis('Zardán Gómez de la Torre'), ('S635', 'G58', 'T6'))
+        self.assertEqual(sfinxbis('Zardán Gómez de la Torre'), ('S635', 'G58',
+                                                                'T6'))
         self.assertEqual(sfinxbis('af Jochnick'), ('J252',))
         self.assertEqual(sfinxbis('af Ioscnick'), ('J8252',))
         self.assertEqual(sfinxbis('Aabakken'), ('$125',))

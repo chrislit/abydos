@@ -2003,12 +2003,12 @@ def phonix(word, maxlength=4):
     return sdx[:maxlength]
 
 
-def sfinxbis(word, maxlength=float('inf')):
+def sfinxbis(word, maxlength=None):
     """Return the SfinxBis encoding of a word
 
     Arguments:
     word -- the word to translate to a SfinxBis encoding
-    maxlength -- the length of the code returned (defaults to infinity)
+    maxlength -- the length of the code returned (defaults to unlimited)
 
     Description:
     SfinxBis is a Soundex-like algorithm defined in:
@@ -2120,40 +2120,45 @@ def sfinxbis(word, maxlength=float('inf')):
     ordlista = word.split()
 
     # Steg 3, Ta bort dubbelteckning i början på namnet
-    ordlista = [_delete_consecutive_repeats(_) for _ in ordlista]
+    ordlista = [_delete_consecutive_repeats(ordet) for ordet in ordlista]
     if not ordlista:
         return ('',)
 
     # Steg 4, Försvenskning
-    ordlista = [_foersvensker(_) for _ in ordlista]
+    ordlista = [_foersvensker(ordet) for ordet in ordlista]
 
     # Steg 5, Ta bort alla tecken som inte är A-Ö (65-90,196,197,214)
-    ordlista = [''.join([_ for _ in ordet if _ in _alfabet])
+    ordlista = [''.join([c for c in ordet if c in _alfabet])
                 for ordet in ordlista]
 
     # Steg 6, Koda första ljudet
-    ordlista = [_koda_foersta_ljudet(_) for _ in ordlista]
+    ordlista = [_koda_foersta_ljudet(ordet) for ordet in ordlista]
 
     # Steg 7, Dela upp namnet i två delar
-    rest = [_[1:] for _ in ordlista]
+    rest = [ordet[1:] for ordet in ordlista]
 
     # Steg 8, Utför fonetisk transformation i resten
-    rest = [_.replace('DT', 'T') for _ in rest]
-    rest = [_.replace('X', 'KS') for _ in rest]
+    rest = [ordet.replace('DT', 'T') for ordet in rest]
+    rest = [ordet.replace('X', 'KS') for ordet in rest]
 
     # Steg 9, Koda resten till en sifferkod
     for vokal in _mjuka_vokaler:
-        rest = [_.replace('C'+vokal, '8'+vokal) for _ in rest]
-    rest = [_.translate(_sfinxbis_translation) for _ in rest]
+        rest = [ordet.replace('C'+vokal, '8'+vokal) for ordet in rest]
+    rest = [ordet.translate(_sfinxbis_translation) for ordet in rest]
 
     # Steg 10, Ta bort intilliggande dubbletter
-    rest = [_delete_consecutive_repeats(_) for _ in rest]
+    rest = [_delete_consecutive_repeats(ordet) for ordet in rest]
 
     # Steg 11, Ta bort alla "9"
-    rest = [_.replace('9', '') for _ in rest]
+    rest = [ordet.replace('9', '') for ordet in rest]
 
     # Steg 12, Sätt ihop delarna igen
-    ordlista = [''.join(_) for _ in zip([_[0:1] for _ in ordlista], rest)]
+    ordlista = [''.join(ordet) for ordet in
+                zip([_[0:1] for _ in ordlista], rest)]
+
+    # truncate, if maxlength is set
+    if maxlength:
+        ordlista = [ordet[:maxlength] for ordet in ordlista]
 
     return tuple(ordlista)
 

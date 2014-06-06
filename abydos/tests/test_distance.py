@@ -358,7 +358,8 @@ class CosineSimilarityTestCases(unittest.TestCase):
         self.assertEqual(sim_cosine('', ''), 1)
         self.assertEqual(sim_cosine('nelson', ''), 0)
         self.assertEqual(sim_cosine('', 'neilsen'), 0)
-        self.assertAlmostEqual(sim_cosine('nelson', 'neilsen'), 4/math.sqrt(7*8))
+        self.assertAlmostEqual(sim_cosine('nelson', 'neilsen'),
+                               4/math.sqrt(7*8))
 
     def test_dist_cosine(self):
         """test abydos.distance.dist_cosine
@@ -906,13 +907,13 @@ class MatrixSimTestCases(unittest.TestCase):
         self.assertEqual(sim_matrix('abc', 'cba'), 0)
 
         # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
-        self.assertEqual(_sim_wikipedia('A','C'), -3)
-        self.assertEqual(_sim_wikipedia('G','G'), 7)
-        self.assertEqual(_sim_wikipedia('A','A'), 10)
-        self.assertEqual(_sim_wikipedia('T','A'), -4)
-        self.assertEqual(_sim_wikipedia('T','C'), 0)
-        self.assertEqual(_sim_wikipedia('A','G'), -1)
-        self.assertEqual(_sim_wikipedia('C','T'), 0)
+        self.assertEqual(_sim_wikipedia('A', 'C'), -3)
+        self.assertEqual(_sim_wikipedia('G', 'G'), 7)
+        self.assertEqual(_sim_wikipedia('A', 'A'), 10)
+        self.assertEqual(_sim_wikipedia('T', 'A'), -4)
+        self.assertEqual(_sim_wikipedia('T', 'C'), 0)
+        self.assertEqual(_sim_wikipedia('A', 'G'), -1)
+        self.assertEqual(_sim_wikipedia('C', 'T'), 0)
 
 
 class NeedlemanWunschTestCases(unittest.TestCase):
@@ -942,9 +943,9 @@ class NeedlemanWunschTestCases(unittest.TestCase):
         """
         # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=2, skew=2)
         nw_vals = (5, 0, -2, 3, 1, 1, -2, -2, -1, -3, -3, -5, -3, -7, -7, -19)
-        for n in _range(len(NIALL)):
-            self.assertEqual(needleman_wunsch(NIALL[0], NIALL[n], 2,
-                                              _sim_nw), nw_vals[n])
+        for i in _range(len(NIALL)):
+            self.assertEqual(needleman_wunsch(NIALL[0], NIALL[i], 2,
+                                              _sim_nw), nw_vals[i])
 
 
 class GotohTestCases(unittest.TestCase):
@@ -987,15 +988,15 @@ class GotohTestCases(unittest.TestCase):
         """
         # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=2, skew=2)
         nw_vals = (5, 0, -2, 3, 1, 1, -2, -2, -1, -3, -3, -5, -3, -7, -7, -19)
-        for n in _range(len(NIALL)):
-            self.assertEqual(gotoh(NIALL[0], NIALL[n], 2, 2, _sim_nw),
-                             nw_vals[n])
+        for i in _range(len(NIALL)):
+            self.assertEqual(gotoh(NIALL[0], NIALL[i], 2, 2, _sim_nw),
+                             nw_vals[i])
         nw_vals2 = (5, 0, -2, 3, 1, 1, -2, -2, -1, -2, -3, -3, -2, -6, -6, -8)
-        for n in _range(len(NIALL)):
-            self.assertEqual(gotoh(NIALL[0], NIALL[n], 2, 1, _sim_nw),
-                             nw_vals2[n])
-            self.assertGreaterEqual(gotoh(NIALL[0], NIALL[n], 2, 0.5, _sim_nw),
-                                    needleman_wunsch(NIALL[0], NIALL[n], 2,
+        for i in _range(len(NIALL)):
+            self.assertEqual(gotoh(NIALL[0], NIALL[i], 2, 1, _sim_nw),
+                             nw_vals2[i])
+            self.assertGreaterEqual(gotoh(NIALL[0], NIALL[i], 2, 0.5, _sim_nw),
+                                    needleman_wunsch(NIALL[0], NIALL[i], 2,
                                                      _sim_nw))
 
 
@@ -1024,9 +1025,9 @@ class SmithWatermanTestCases(unittest.TestCase):
         """test abydos.distance.smith_waterman (Nialls set)
         """
         sw_vals = (5, 1, 1, 3, 2, 1, 1, 0, 0, 1, 1, 2, 2, 1, 0, 0)
-        for n in _range(len(NIALL)):
-            self.assertEqual(smith_waterman(NIALL[0], NIALL[n], 2,
-                                            _sim_nw), sw_vals[n])
+        for i in _range(len(NIALL)):
+            self.assertEqual(smith_waterman(NIALL[0], NIALL[i], 2,
+                                            _sim_nw), sw_vals[i])
 
 
 class LengthTestCases(unittest.TestCase):

@@ -1253,8 +1253,8 @@ def dist_ident(src, tar):
     return 1 - sim_ident(src, tar)
 
 
-def sim_matrix(src, tar, mat={}, mismatch_cost=0, match_cost=1,  symmetric=True,
-               alphabet=None):
+def sim_matrix(src, tar, mat=None, mismatch_cost=0, match_cost=1,
+               symmetric=True, alphabet=None):
     """Return the similarity of two strings, defined by a similarity matrix
 
     Arguments:
@@ -1286,14 +1286,14 @@ def sim_matrix(src, tar, mat={}, mismatch_cost=0, match_cost=1,  symmetric=True,
             raise ValueError('tar value not in alphabet')
 
     if src == tar:
-        if (src, src) in mat:
+        if mat and (src, src) in mat:
             return mat[(src, src)]
         else:
             return match_cost
     else:
-        if (src, tar) in mat:
+        if mat and (src, tar) in mat:
             return mat[(src, tar)]
-        elif symmetric and (tar, src) in mat:
+        elif symmetric and mat and (tar, src) in mat:
             return mat[(tar, src)]
         else:
             return mismatch_cost
@@ -1313,14 +1313,16 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
     https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
     http://csb.stanford.edu/class/public/readings/Bioinformatics_I_Lecture6/Needleman_Wunsch_JMB_70_Global_alignment.pdf
     """
+    # pylint: disable=no-member
     d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
+    # pylint: enable=no-member
 
     for i in _range(len(src)+1):
         d_mat[i, 0] = -(i * gap_cost)
     for j in _range(len(tar)+1):
         d_mat[0, j] = -(j * gap_cost)
-    for i in _range(1,len(src)+1):
-        for j in _range(1,len(tar)+1):
+    for i in _range(1, len(src)+1):
+        for j in _range(1, len(tar)+1):
             match = d_mat[i-1, j-1] + sim_func(src[i-1], tar[j-1])
             delete = d_mat[i-1, j] - gap_cost
             insert = d_mat[i, j-1] - gap_cost
@@ -1341,14 +1343,16 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
     This is the standard edit distance measure. Cf.
     https://en.wikipedia.org/wiki/Smith–Waterman_algorithm
     """
+    # pylint: disable=no-member
     d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
+    # pylint: enable=no-member
 
     for i in _range(len(src)+1):
         d_mat[i, 0] = 0
     for j in _range(len(tar)+1):
         d_mat[0, j] = 0
-    for i in _range(1,len(src)+1):
-        for j in _range(1,len(tar)+1):
+    for i in _range(1, len(src)+1):
+        for j in _range(1, len(tar)+1):
             match = d_mat[i-1, j-1] + sim_func(src[i-1], tar[j-1])
             delete = d_mat[i-1, j] - gap_cost
             insert = d_mat[i, j-1] - gap_cost
@@ -1370,26 +1374,28 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
     Gotoh's algorithm is essentially Needleman-Wunsch with affine gap penalties:
     https://www.cs.umd.edu/class/spring2003/cmsc838t/papers/gotoh1982.pdf
     """
+    # pylint: disable=no-member
     d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
     p_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
     q_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
+    # pylint: enable=no-member
 
     d_mat[0, 0] = 0
     p_mat[0, 0] = float('-inf')
     q_mat[0, 0] = float('-inf')
-    for i in _range(1,len(src)+1):
+    for i in _range(1, len(src)+1):
         d_mat[i, 0] = float('-inf')
         p_mat[i, 0] = -gap_open - gap_ext*(i-1)
         q_mat[i, 0] = float('-inf')
         q_mat[i, 1] = -gap_open
-    for j in _range(1,len(tar)+1):
+    for j in _range(1, len(tar)+1):
         d_mat[0, j] = float('-inf')
         p_mat[0, j] = float('-inf')
         p_mat[1, j] = -gap_open
         q_mat[0, j] = -gap_open - gap_ext*(j-1)
 
-    for i in _range(1,len(src)+1):
-        for j in _range(1,len(tar)+1):
+    for i in _range(1, len(src)+1):
+        for j in _range(1, len(tar)+1):
             sim_val = sim_func(src[i-1], tar[j-1])
             d_mat[i, j] = max(d_mat[i-1, j-1] + sim_val,
                               p_mat[i-1, j-1] + sim_val,
@@ -1418,7 +1424,7 @@ def sim_length(src, tar):
         return 1.0
     if len(src) == 0 or len(tar) == 0:
         return 0.0
-    return len(src)/len(tar) if len(src)<len(tar) else len(tar)/len(src)
+    return len(src)/len(tar) if len(src) < len(tar) else len(tar)/len(src)
 
 
 def dist_length(src, tar):
@@ -1429,10 +1435,10 @@ def dist_length(src, tar):
 
     Description:
     length distance = 1 - length similarity
-    """    
+    """
     return 1 - sim_length(src, tar)
 
- 
+
 def sim(src, tar, method=sim_levenshtein):
     """Return the similarity of two strings
     This is a generalized function for calling other similarity functions.
