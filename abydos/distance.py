@@ -1439,6 +1439,87 @@ def dist_length(src, tar):
     return 1 - sim_length(src, tar)
 
 
+def sim_prefix(src, tar):
+    """Return the prefix similarity of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+
+    Description:
+    """
+    if src == tar:
+        return 1.0
+    if len(src) == 0 or len(tar) == 0:
+        return 0.0
+    pass
+
+
+def dist_prefix(src, tar):
+    """Return the prefix distance of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+
+    Description:
+    prefix distance = 1 - prefix similarity
+    """
+    return 1 - sim_prefix(src, tar)
+
+
+def sim_suffix(src, tar):
+    """Return the suffix similarity of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+
+    Description:
+    """
+    if src == tar:
+        return 1.0
+    if len(src) == 0 or len(tar) == 0:
+        return 0.0
+    pass
+
+
+def dist_suffix(src, tar):
+    """Return the suffix distance of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+
+    Description:
+    suffix distance = 1 - suffix similarity
+    """
+    return 1 - sim_suffix(src, tar)
+
+
+def sim_infix(src, tar):
+    """Return the infix similarity of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+
+    Description:
+    """
+    if src == tar:
+        return 1.0
+    if len(src) == 0 or len(tar) == 0:
+        return 0.0
+    pass
+
+
+def dist_infix(src, tar):
+    """Return the infix distance of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+
+    Description:
+    infix distance = 1 - infix similarity
+    """
+    return 1 - sim_infix(src, tar)
+
+
 def sim(src, tar, method=sim_levenshtein):
     """Return the similarity of two strings
     This is a generalized function for calling other similarity functions.
