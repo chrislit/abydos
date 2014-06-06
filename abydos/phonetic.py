@@ -2007,16 +2007,155 @@ def sfinxbis(word, maxlength=float('inf')):
     """Return the SfinxBis encoding of a word
 
     Arguments:
-    word -- the word to translate to a Phonix encoding
+    word -- the word to translate to a SfinxBis encoding
     maxlength -- the length of the code returned (defaults to infinity)
 
     Description:
     SfinxBis is a Soundex-like algorithm defined in:
     http://www.swami.se/download/18.248ad5af12aa8136533800091/SfinxBis.pdf
 
-    Phonem is intended chiefly for Swedish names.
+    This implementation follows the reference implementation:
+    http://www.swami.se/download/18.248ad5af12aa8136533800093/swamiSfinxBis.java.txt
+
+    SfinxBis is intended chiefly for Swedish names.
     """
-    pass
+    adelstitler = (' DE LA ', ' DE LAS ', ' DE LOS ', ' VAN DE ', ' VAN DEN ',
+                   ' VAN DER ', ' VON DEM ', ' VON DER ',
+                   ' AF ', ' AV ', ' DA ', ' DE ', ' DEL ', ' DEN ', ' DES ',
+                   ' DI ', ' DO ', ' DON ', ' DOS ', ' DU ', ' E ', ' IN ',
+                   ' LA ', ' LE ', ' MAC ', ' MC ', ' VAN ', ' VON ', ' Y ',
+                   ' S:T ')
+
+    _harde_vokaler = tuple('AOUÅ')
+    _mjuka_vokaler = tuple('EIYÄÖ')
+    _konsonanter = tuple('BCDFGHJKLMNPQRSTVWXZ')
+    _alfabet = tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ')
+
+    _sfinxbis_translation = dict(zip([ord(_) for _ in
+                                      u'BCDFGHJKLMNPQRSTVZAOUÅEIYÄÖ'],
+                                      u'123729224551268378999999999'))
+
+    _sfinxbis_substitutions = dict(zip([ord(_) for _ in
+                                        u'WZÀÁÂÃÆÇÈÉÊËÌÍÎÏÑÒÓÔÕØÙÚÛÜÝ'],
+                                       u'VSAAAAÄCEEEEIIIINOOOOÖUUUYY'))
+
+    def _foersvensker(ordet):
+        """Return Swedish-ized form of the word
+        """
+        ordet = ordet.replace('STIERN', 'STJÄRN')
+        ordet = ordet.replace('HIE', 'HJ')
+        ordet = ordet.replace('SIÖ', 'SJÖ')
+        ordet = ordet.replace('SCH', 'SH')
+        ordet = ordet.replace('QU', 'KV')
+        ordet = ordet.replace('IO', 'JO')
+        ordet = ordet.replace('PH', 'F')
+
+        for i in _harde_vokaler:
+            ordet = ordet.replace(i+'Ü', i+'J')
+            ordet = ordet.replace(i+'Y', i+'J')
+            ordet = ordet.replace(i+'I', i+'J')
+        for i in _mjuka_vokaler:
+            ordet = ordet.replace(i+'Ü', i+'J')
+            ordet = ordet.replace(i+'Y', i+'J')
+            ordet = ordet.replace(i+'I', i+'J')
+
+        if 'H' in ordet:
+            for i in _konsonanter:
+                ordet = ordet.replace('H'+i, i)
+
+        ordet = ordet.translate(_sfinxbis_substitutions)
+
+        ordet = ordet.replace('Ð', 'ETH')
+        ordet = ordet.replace('Þ', 'TH')
+        ordet = ordet.replace('ß', 'SS')
+
+        return ordet
+
+
+    def _koda_foersta_ljudet(ordet):
+        """Return word with the first sound coded
+        """
+        if ordet[0:1] in _mjuka_vokaler or ordet[0:1] in _harde_vokaler:
+            ordet = '$' + ordet[1:]
+        elif ordet[0:2] in ('DJ', 'GJ', 'HJ', 'LJ'):
+            ordet = 'J' + ordet[2:]
+        elif ordet[0:1] == 'G' and ordet[1:2] in _mjuka_vokaler:
+            ordet = 'J' + ordet[1:]
+        elif ordet[0:1] == 'Q':
+            ordet = 'K' + ordet[1:]
+        elif ordet[0:1] == 'C' and ordet[1:2] in _harde_vokaler:
+            ordet = 'K' + ordet[1:]
+        elif ordet[0:1] == 'C' and ordet[1:2] in _konsonanter:
+            ordet = 'K' + ordet[1:]
+        elif ordet[0:1] == 'X':
+            ordet = 'S' + ordet[1:]
+        elif ordet[0:1] == 'C' and ordet[1:2] in _mjuka_vokaler:
+            ordet = 'S' + ordet[1:]
+        elif ordet[0:3] in ('SKJ', 'STJ', 'SCH'):
+            ordet = '#' + ordet[3:]
+        elif ordet[0:2] in ('SH', 'KJ', 'TJ', 'SJ'):
+            ordet = '#' + ordet[2:]
+        elif (ordet[0:2] == 'CH' and
+              ordet[2:3] in _mjuka_vokaler + _harde_vokaler):
+            ordet = '#' + ordet[2:]
+        elif ordet[0:2] == 'SK' and ordet[2:3] in _mjuka_vokaler:
+            ordet = '#' + ordet[2:]
+        elif ordet[0:1] == 'K' and ordet[1:2] in _mjuka_vokaler:
+            ordet = '#' + ordet[1:]
+        return ordet
+
+
+    # Steg 1, Versaler
+    word = unicodedata.normalize('NFC', _unicode(word.upper()))
+    word = word.replace('-', ' ')
+
+    # Steg 2, Ta bort adelsprefix
+    for adelstitel in adelstitler:
+        while adelstitel in word:
+            word = word.replace(adelstitel, ' ')
+        if word.startswith(adelstitel[1:]):
+            word = word[len(adelstitel)-1:]
+
+    # Split word into tokens
+    ordlista = word.split()
+
+    # Steg 3, Ta bort dubbelteckning i början på namnet
+    ordlista = [_delete_consecutive_repeats(_) for _ in ordlista]
+    if not ordlista:
+        return ('',)
+
+    # Steg 4, Försvenskning
+    ordlista = [_foersvensker(_) for _ in ordlista]
+
+    # Steg 5, Ta bort alla tecken som inte är A-Ö (65-90,196,197,214)
+    ordlista = [''.join([_ for _ in ordet if _ in _alfabet])
+                for ordet in ordlista]
+
+    # Steg 6, Koda första ljudet
+    ordlista = [_koda_foersta_ljudet(_) for _ in ordlista]
+
+    # Steg 7, Dela upp namnet i två delar
+    rest = [_[1:] for _ in ordlista]
+
+    # Steg 8, Utför fonetisk transformation i resten
+    rest = [_.replace('DT', 'T') for _ in rest]
+    rest = [_.replace('X', 'KS') for _ in rest]
+
+    # Steg 9, Koda resten till en sifferkod
+    for vokal in _mjuka_vokaler:
+        rest = [_.replace('C'+vokal, '8'+vokal) for _ in rest]
+    rest = [_.translate(_sfinxbis_translation) for _ in rest]
+
+    # Steg 10, Ta bort intilliggande dubbletter
+    rest = [_delete_consecutive_repeats(_) for _ in rest]
+
+    # Steg 11, Ta bort alla "9"
+    rest = [_.replace('9', '') for _ in rest]
+
+    # Steg 12, Sätt ihop delarna igen
+    ordlista = [''.join(_) for _ in zip([_[0:1] for _ in ordlista], rest)]
+
+    return tuple(ordlista)
 
 
 def phonet(word):

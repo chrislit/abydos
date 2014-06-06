@@ -3393,17 +3393,19 @@ class SfinxBisTestCases(unittest.TestCase):
         self.assertEqual(sfinxbis(''), ('',))
 
         # http://www.swami.se/download/18.248ad5af12aa81365338000106/TestSfinx.txt
+        # cases where the gold standard gave clearly wrong values have been
+        # corrected below (marked with '# wrong'
         self.assertEqual(sfinxbis('af Sandeberg'), ('S53162',))
         self.assertEqual(sfinxbis('av Ekenstam'), ('$25835',))
         self.assertEqual(sfinxbis('Da Costa'), ('K83',))
         self.assertEqual(sfinxbis('Das Neves'), ('D8', 'N78'))
         self.assertEqual(sfinxbis('de Besche'), ('B8',))
         self.assertEqual(sfinxbis('de la Motte'), ('M3',))
-        self.assertEqual(sfinxbis('de Las Heras'), ('D4868',))
+        self.assertEqual(sfinxbis('de Las Heras'), ('H68',)) # wrong
         self.assertEqual(sfinxbis('de Los Santos'), ('S538',))
         self.assertEqual(sfinxbis('del Rosario'), ('R862',))
         self.assertEqual(sfinxbis('Den Boer'), ('B6',))
-        self.assertEqual(sfinxbis('Der de Kazinczy'), ('K8528',))
+        self.assertEqual(sfinxbis('Der de Kazinczy'), ('D6', 'K8528',)) # wrong
         self.assertEqual(sfinxbis('des Rieux'), ('R28',))
         self.assertEqual(sfinxbis('Di Luca'), ('L2',))
         self.assertEqual(sfinxbis('Do Rosario'), ('R862',))
