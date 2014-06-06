@@ -3360,7 +3360,7 @@ class PhonemTestCases(unittest.TestCase):
     def test_phonem(self):
         """test abydos.phonetic.phonem
         """
-        self.assertEqual(phonex(''), '0000')
+        self.assertEqual(phonem(''), '')
 
         # http://phonetik.phil-fak.uni-koeln.de/fileadmin/home/ritters/Allgemeine_Dateien/Martin_Wilz.pdf
         self.assertEqual(phonem('müller'), 'MYLR')
@@ -3384,10 +3384,74 @@ class PhonemTestCases(unittest.TestCase):
         self.assertEqual(phonem('pfeiffer'), 'VAYVR')
 
 
+class PhonixTestCases(unittest.TestCase):
+    """test cases for abydos.phonetic.phonix
+    """
+    def test_phonix(self):
+        """test abydos.phonetic.phonix
+        """
+        self.assertEqual(phonix(''), '0000')
+
+        # http://cpansearch.perl.org/src/MAROS/Text-Phonetic-2.05/t/007_phonix.t
+        self.assertEqual(phonix('Müller'), 'M400')
+        self.assertEqual(phonix('schneider'), 'S530')
+        self.assertEqual(phonix('fischer'), 'F800')
+        self.assertEqual(phonix('weber'), 'W100')
+        self.assertEqual(phonix('meyer'), 'M000')
+        self.assertEqual(phonix('wagner'), 'W250')
+        self.assertEqual(phonix('schulz'), 'S480')
+        self.assertEqual(phonix('becker'), 'B200')
+        self.assertEqual(phonix('hoffmann'), 'H755')
+        self.assertEqual(phonix('schäfer'), 'S700')
+        self.assertEqual(phonix('schmidt'), 'S530')
+
+        # http://cpansearch.perl.org/src/MAROS/Text-Phonetic-2.05/t/007_phonix.t:
+        # testcases from Wais Module
+        self.assertEqual(phonix('computer'), 'K513')
+        self.assertEqual(phonix('computers'), 'K513')
+        self.assertEqual(phonix('computers', 5), 'K5138')
+        self.assertEqual(phonix('pfeifer'), 'F700')
+        self.assertEqual(phonix('pfeiffer'), 'F700')
+        self.assertEqual(phonix('knight'), 'N300')
+        self.assertEqual(phonix('night'), 'N300')
+
+        # http://cpansearch.perl.org/src/MAROS/Text-Phonetic-2.05/t/007_phonix.t:
+        # testcases from
+        # http://www.cl.uni-heidelberg.de/~bormann/documents/phono/
+        # They use a sliglty different algorithm (first char is not included in
+        # num code here)
+        self.assertEqual(phonix('wait'), 'W300')
+        self.assertEqual(phonix('weight'), 'W300')
+        self.assertEqual(phonix('gnome'), 'N500')
+        self.assertEqual(phonix('noam'), 'N500')
+        self.assertEqual(phonix('rees'), 'R800')
+        self.assertEqual(phonix('reece'), 'R800')
+        self.assertEqual(phonix('yaeger'), 'v200')
+
+        # http://books.google.com/books?id=xtWPI7Is9wIC&lpg=PA29&ots=DXhaL7ZkvK&dq=phonix%20gadd&pg=PA29#v=onepage&q=phonix%20gadd&f=false
+        self.assertEqual(phonix('alam'), 'v450')
+        self.assertEqual(phonix('berkpakaian'), 'B212')
+        self.assertEqual(phonix('capaian'), 'K150')
+
+        # http://books.google.com/books?id=LZrT6eWf9NMC&lpg=PA76&ots=Tex3FqNwGP&dq=%22phonix%20algorithm%22&pg=PA75#v=onepage&q=%22phonix%20algorithm%22&f=false
+        self.assertEqual(phonix('peter'), 'P300')
+        self.assertEqual(phonix('pete'), 'P300')
+        self.assertEqual(phonix('pedro'), 'P360')
+        self.assertEqual(phonix('stephen'), 'S375')
+        self.assertEqual(phonix('steve'), 'S370')
+        self.assertEqual(phonix('smith'), 'S530')
+        self.assertEqual(phonix('smythe'), 'S530')
+        self.assertEqual(phonix('gail'), 'G400')
+        self.assertEqual(phonix('gayle'), 'G400')
+        self.assertEqual(phonix('christine'), 'K683')
+        self.assertEqual(phonix('christina'), 'K683')
+        self.assertEqual(phonix('kristina'), 'K683')
+
+
 class SfinxBisTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.sfinxbis
     """
-    def test_phonix(self):
+    def test_sfinxbis(self):
         """test abydos.phonetic.sfinxbis
         """
         self.assertEqual(sfinxbis(''), ('',))
@@ -3569,70 +3633,6 @@ class SfinxBisTestCases(unittest.TestCase):
         self.assertEqual(sfinxbis('K'), ('K',))
         self.assertEqual(sfinxbis('2010'), ('',))
         self.assertEqual(sfinxbis('cese'), ('S8',))
-
-
-class PhonixTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.phonix
-    """
-    def test_phonix(self):
-        """test abydos.phonetic.phonix
-        """
-        self.assertEqual(phonix(''), '0000')
-
-        # http://cpansearch.perl.org/src/MAROS/Text-Phonetic-2.05/t/007_phonix.t
-        self.assertEqual(phonix('Müller'), 'M400')
-        self.assertEqual(phonix('schneider'), 'S530')
-        self.assertEqual(phonix('fischer'), 'F800')
-        self.assertEqual(phonix('weber'), 'W100')
-        self.assertEqual(phonix('meyer'), 'M000')
-        self.assertEqual(phonix('wagner'), 'W250')
-        self.assertEqual(phonix('schulz'), 'S480')
-        self.assertEqual(phonix('becker'), 'B200')
-        self.assertEqual(phonix('hoffmann'), 'H755')
-        self.assertEqual(phonix('schäfer'), 'S700')
-        self.assertEqual(phonix('schmidt'), 'S530')
-
-        # http://cpansearch.perl.org/src/MAROS/Text-Phonetic-2.05/t/007_phonix.t:
-        # testcases from Wais Module
-        self.assertEqual(phonix('computer'), 'K513')
-        self.assertEqual(phonix('computers'), 'K513')
-        self.assertEqual(phonix('computers', 5), 'K5138')
-        self.assertEqual(phonix('pfeifer'), 'F700')
-        self.assertEqual(phonix('pfeiffer'), 'F700')
-        self.assertEqual(phonix('knight'), 'N300')
-        self.assertEqual(phonix('night'), 'N300')
-
-        # http://cpansearch.perl.org/src/MAROS/Text-Phonetic-2.05/t/007_phonix.t:
-        # testcases from
-        # http://www.cl.uni-heidelberg.de/~bormann/documents/phono/
-        # They use a sliglty different algorithm (first char is not included in
-        # num code here)
-        self.assertEqual(phonix('wait'), 'W300')
-        self.assertEqual(phonix('weight'), 'W300')
-        self.assertEqual(phonix('gnome'), 'N500')
-        self.assertEqual(phonix('noam'), 'N500')
-        self.assertEqual(phonix('rees'), 'R800')
-        self.assertEqual(phonix('reece'), 'R800')
-        self.assertEqual(phonix('yaeger'), 'v200')
-
-        # http://books.google.com/books?id=xtWPI7Is9wIC&lpg=PA29&ots=DXhaL7ZkvK&dq=phonix%20gadd&pg=PA29#v=onepage&q=phonix%20gadd&f=false
-        self.assertEqual(phonix('alam'), 'v450')
-        self.assertEqual(phonix('berkpakaian'), 'B212')
-        self.assertEqual(phonix('capaian'), 'K150')
-
-        # http://books.google.com/books?id=LZrT6eWf9NMC&lpg=PA76&ots=Tex3FqNwGP&dq=%22phonix%20algorithm%22&pg=PA75#v=onepage&q=%22phonix%20algorithm%22&f=false
-        self.assertEqual(phonix('peter'), 'P300')
-        self.assertEqual(phonix('pete'), 'P300')
-        self.assertEqual(phonix('pedro'), 'P360')
-        self.assertEqual(phonix('stephen'), 'S375')
-        self.assertEqual(phonix('steve'), 'S370')
-        self.assertEqual(phonix('smith'), 'S530')
-        self.assertEqual(phonix('smythe'), 'S530')
-        self.assertEqual(phonix('gail'), 'G400')
-        self.assertEqual(phonix('gayle'), 'G400')
-        self.assertEqual(phonix('christine'), 'K683')
-        self.assertEqual(phonix('christina'), 'K683')
-        self.assertEqual(phonix('kristina'), 'K683')
 
 
 class PhonetTestCases(unittest.TestCase):
