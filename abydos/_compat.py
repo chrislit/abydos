@@ -28,6 +28,8 @@ import sys
 if sys.version_info[0] == 3:
     _range = range
     _unicode = str
+    _unichr = chr
 else:
     _range = xrange
     _unicode = unicode
+    _unichr = unichr

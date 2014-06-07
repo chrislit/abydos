@@ -38,7 +38,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
 from __future__ import division
-from ._compat import _unicode, _range
+from ._compat import _unicode, _range, _unichr
 from itertools import groupby
 import re
 import unicodedata
@@ -2175,8 +2175,9 @@ def phonet(word):
     German.
     Cf. http://www.heise.de/ct/ftp/99/25/252/
 
-    This is a port of Michael's C code (version 1.4.2, dated 2007-08-27), which
-    is licensed LGPL:
+    This is a port of Jesper Zedlitz's code, which is licensed LGPL:
+    https://code.google.com/p/phonet4java/source/browse/trunk/src/main/java/com/googlecode/phonet4java/Phonet.java
+    That is, in turn, based on Michael's C code, which is also licensed LGPL:
     ftp://ftp.heise.de/pub/ct/listings/phonet.zip
     """
     _phonet_rules = (('´', ' ', ' '),
@@ -3122,21 +3123,95 @@ def phonet(word):
                      ('ZYK3$', 'ZIK', None),
                      ('Z(VW)7^', 'SW', None))
 
-    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
-
-    HASH_COUNT = 256
+    HASH_COUNT = 512
     umlaut_upper = 'ÀÁÂÃÅÄÆÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ'
     umlaut_lower = 'àáâãåäæçðèéêëìíîïñòóôõöøœšßþùúûüýÿ'
-    letters_a_to_z = 'abcdefghijklmnopqrstuvwxyz'
     letters_A_to_Z = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    letters_a_to_z = 'abcdefghijklmnopqrstuvwxyz'
 
-    # Output debug information if set <code>true</code>.
+    # Output debug information if set True.
     trace = False
-    upperchar = np.chararray((HASH_COUNT,))
-    isletter = np.array('l')
-    phonet_hash = np.array('l')
-    alpha_pos = np.array('l')
-    #int[][] phonet_hash_1 = new int[26][28];
-    #int[][] phonet_hash_2 = new int[26][28];
+    # pylint: disable=no-member
+    upperchar = np.chararray((HASH_COUNT,), unicode=True)
+    isletter = np.zeros((HASH_COUNT,), dtype=np.int)
+    phonet_hash = np.zeros((HASH_COUNT,), dtype=np.int)
+    alpha_pos = np.zeros((HASH_COUNT,), dtype=np.int)
+    # pylint: enable=no-member
+
+    phonet_hash_1 = np.zeros((26,28), dtype=np.int)
+    phonet_hash_2 = np.zeros((26,28), dtype=np.int)
+
+    def trace_info(text, n, err_text):
+        """Output debug information.
+        """
+        s = '(NULL)' if _phonet_rules[n] == None else _phonet_rules[n]
+        s2 = '(NULL)' if (_phonet_rules[n + 1] == None) else _phonet_rules[n + 1]
+        s3 = '(NULL)' if (_phonet_rules[n + 2] == None) else _phonet_rules[n + 2]
+        print("%s %d:  \"%s\"%s\"%s\" %s\n", text, ((n / 3) + 1), s, s2, s3, err_text)
+
+    def remove_first(s):
+        """Remove the first character of a String.
+        """
+        if not s:
+            return ''
+        return s[1:]
+
+    def char_at(s, pos):
+        """Return the pos's character, 0 is the String is too short or null
+        """
+        if len(s) > pos:
+            return s[pos]
+        return ''
+
+    def initialize_phonet():
+        # generate array "upperchar"
+        for i in _range(HASH_COUNT):
+            upperchar[i] = _unichr(i)
+
+        # German and international umlauts
+        s = umlaut_lower;
+        s2 = umlaut_upper;
+
+        for i in _range(len(s)):
+            # s2
+            n = ord(s2[i])
+            alpha_pos[n] = -1 + 2
+            isletter[n] = 2
+            upperchar[n] = s2[i]
+
+            # s
+            n = ord(s[i])
+            alpha_pos[n] = -1 + 2
+            isletter[n] = 1
+            upperchar[n] = s2[i]
+
+        # "normal" letters ('a'-'z' and 'A'-'Z')
+        s = letters_a_to_z
+        s2 = letters_A_to_Z
+
+        for i in _range(len(s)):
+            # s2
+            n = ord(s2[i])
+            alpha_pos[n] = i + 2
+            isletter[n] = 2
+            upperchar[n] = s2[i]
+
+            # s
+            n = ord(s[i])
+            alpha_pos[n] = i + 2
+            isletter[n] = 1
+            upperchar[n] = s2[i]
+
+        for i in _range(HASH_COUNT):
+            phonet_hash[i] = -1
+
+        for i in _range(26):
+            for k in _range(28):
+                phonet_hash_1[i, k] = -1
+                phonet_hash_2[i, k] = -1
+
+    initialize_phonet()
+
+    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
 
     return word
