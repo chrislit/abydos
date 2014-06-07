@@ -1446,12 +1446,20 @@ def sim_prefix(src, tar):
     src, tar -- two strings to be compared
 
     Description:
+    Prefix similarity is the ratio of the length of the shorter term that
+    exactly matches the longer term to the length of the shorter term, beginning
+    at the start of both terms.
     """
     if src == tar:
         return 1.0
     if len(src) == 0 or len(tar) == 0:
         return 0.0
-    pass
+    min_word, max_word = (src, tar) if len(src) < len(tar) else (tar, src)
+    min_len = len(min_word)
+    for i in _range(min_len, 0, -1):
+        if min_word[:i] == max_word[:i]:
+            return i/min_len
+    return 0.0
 
 
 def dist_prefix(src, tar):
@@ -1473,12 +1481,20 @@ def sim_suffix(src, tar):
     src, tar -- two strings to be compared
 
     Description:
+    Suffix similarity is the ratio of the length of the shorter term that
+    exactly matches the longer term to the length of the shorter term, beginning
+    at the end of both terms.
     """
     if src == tar:
         return 1.0
     if len(src) == 0 or len(tar) == 0:
         return 0.0
-    pass
+    min_word, max_word = (src, tar) if len(src) < len(tar) else (tar, src)
+    min_len = len(min_word)
+    for i in _range(min_len, 0, -1):
+        if min_word[-i:] == max_word[-i:]:
+            return i/min_len
+    return 0.0
 
 
 def dist_suffix(src, tar):
@@ -1491,33 +1507,6 @@ def dist_suffix(src, tar):
     suffix distance = 1 - suffix similarity
     """
     return 1 - sim_suffix(src, tar)
-
-
-def sim_infix(src, tar):
-    """Return the infix similarity of two strings
-
-    Arguments:
-    src, tar -- two strings to be compared
-
-    Description:
-    """
-    if src == tar:
-        return 1.0
-    if len(src) == 0 or len(tar) == 0:
-        return 0.0
-    pass
-
-
-def dist_infix(src, tar):
-    """Return the infix distance of two strings
-
-    Arguments:
-    src, tar -- two strings to be compared
-
-    Description:
-    infix distance = 1 - infix similarity
-    """
-    return 1 - sim_infix(src, tar)
 
 
 def sim(src, tar, method=sim_levenshtein):

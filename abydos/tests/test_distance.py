@@ -32,7 +32,8 @@ from abydos.distance import levenshtein, dist_levenshtein, sim_levenshtein, \
     dist_lcsseq, lcsstr, sim_lcsstr, dist_lcsstr, sim_ratcliff_obershelp, \
     dist_ratcliff_obershelp, mra_compare, sim_compression, dist_compression, \
     sim_monge_elkan, dist_monge_elkan, sim_ident, dist_ident, sim_matrix, \
-    needleman_wunsch, smith_waterman, gotoh, sim_length, dist_length
+    needleman_wunsch, smith_waterman, gotoh, sim_length, dist_length, \
+    sim_prefix, dist_prefix, sim_suffix, dist_suffix
 import math
 from difflib import SequenceMatcher
 import os
@@ -703,9 +704,11 @@ class RatcliffObershelpTestCases(unittest.TestCase):
         self.assertEqual(sim_ratcliff_obershelp('123', '123'), 1)
         self.assertEqual(sim_ratcliff_obershelp('abc', 'xyz'), 0)
         self.assertEqual(sim_ratcliff_obershelp('123', '456'), 0)
-        self.assertAlmostEqual(sim_ratcliff_obershelp('aleksander', 'alexandre'),
+        self.assertAlmostEqual(sim_ratcliff_obershelp('aleksander',
+                                                      'alexandre'),
                                0.7368421052631579)
-        self.assertAlmostEqual(sim_ratcliff_obershelp('alexandre', 'aleksander'),
+        self.assertAlmostEqual(sim_ratcliff_obershelp('alexandre',
+                                                      'aleksander'),
                                0.7368421052631579)
         self.assertAlmostEqual(sim_ratcliff_obershelp('pennsylvania',
                                                      'pencilvaneya'),
@@ -1035,7 +1038,7 @@ class LengthTestCases(unittest.TestCase):
     abydos.distance.dist_length
     """
     def test_sim_ident(self):
-        """test abydos.distance.sim_ident
+        """test abydos.distance.sim_length
         """
         self.assertEqual(sim_length('', ''), 1)
         self.assertEqual(sim_length('', 'a'), 0)
@@ -1050,7 +1053,7 @@ class LengthTestCases(unittest.TestCase):
         self.assertEqual(sim_length('abcd', 'ba'), 0.5)
 
     def test_dist_ident(self):
-        """test abydos.distance.dist_ident
+        """test abydos.distance.dist_length
         """
         self.assertEqual(dist_length('', ''), 0)
         self.assertEqual(dist_length('', 'a'), 1)
@@ -1063,6 +1066,144 @@ class LengthTestCases(unittest.TestCase):
         self.assertEqual(dist_length('abcd', 'cba'), 0.25)
         self.assertEqual(dist_length('ab', 'dcba'), 0.5)
         self.assertEqual(dist_length('abcd', 'ba'), 0.5)
+
+
+class PrefixTestCases(unittest.TestCase):
+    """test cases for abydos.distance.sim_prefix &
+    abydos.distance.dist_prefix
+    """
+    def test_sim_prefix(self):
+        """test abydos.distance.sim_prefix
+        """
+        self.assertEqual(sim_prefix('', ''), 1)
+        self.assertEqual(sim_prefix('a', ''), 0)
+        self.assertEqual(sim_prefix('', 'a'), 0)
+        self.assertEqual(sim_prefix('a', 'a'), 1)
+        self.assertEqual(sim_prefix('ax', 'a'), 1)
+        self.assertEqual(sim_prefix('axx', 'a'), 1)
+        self.assertEqual(sim_prefix('ax', 'ay'), 1/2)
+        self.assertEqual(sim_prefix('a', 'ay'), 1)
+        self.assertEqual(sim_prefix('a', 'ayy'), 1)
+        self.assertEqual(sim_prefix('ax', 'ay'), 1/2)
+        self.assertEqual(sim_prefix('a', 'y'), 0)
+        self.assertEqual(sim_prefix('y', 'a'), 0)
+        self.assertEqual(sim_prefix('aaax', 'aaa'), 1)
+        self.assertAlmostEqual(sim_prefix('axxx', 'aaa'), 1/3)
+        self.assertEqual(sim_prefix('aaxx', 'aayy'), 1/2)
+        self.assertEqual(sim_prefix('xxaa', 'yyaa'), 0)
+        self.assertAlmostEqual(sim_prefix('aaxxx', 'aay'), 2/3)
+        self.assertEqual(sim_prefix('aaxxxx', 'aayyy'), 2/5)
+        self.assertEqual(sim_prefix('xa', 'a'), 0)
+        self.assertEqual(sim_prefix('xxa', 'a'), 0)
+        self.assertEqual(sim_prefix('xa', 'ya'), 0)
+        self.assertEqual(sim_prefix('a', 'ya'), 0)
+        self.assertEqual(sim_prefix('a', 'yya'), 0)
+        self.assertEqual(sim_prefix('xa', 'ya'), 0)
+        self.assertEqual(sim_prefix('xaaa', 'aaa'), 0)
+        self.assertEqual(sim_prefix('xxxa', 'aaa'), 0)
+        self.assertEqual(sim_prefix('xxxaa', 'yaa'), 0)
+        self.assertEqual(sim_prefix('xxxxaa', 'yyyaa'), 0)
+
+    def test_dist_prefix(self):
+        """test abydos.distance.dist_prefix
+        """
+        self.assertEqual(dist_prefix('', ''), 0)
+        self.assertEqual(dist_prefix('a', ''), 1)
+        self.assertEqual(dist_prefix('', 'a'), 1)
+        self.assertEqual(dist_prefix('a', 'a'), 0)
+        self.assertEqual(dist_prefix('ax', 'a'), 0)
+        self.assertEqual(dist_prefix('axx', 'a'), 0)
+        self.assertEqual(dist_prefix('ax', 'ay'), 1/2)
+        self.assertEqual(dist_prefix('a', 'ay'), 0)
+        self.assertEqual(dist_prefix('a', 'ayy'), 0)
+        self.assertEqual(dist_prefix('ax', 'ay'), 1/2)
+        self.assertEqual(dist_prefix('a', 'y'), 1)
+        self.assertEqual(dist_prefix('y', 'a'), 1)
+        self.assertEqual(dist_prefix('aaax', 'aaa'), 0)
+        self.assertAlmostEqual(dist_prefix('axxx', 'aaa'), 2/3)
+        self.assertEqual(dist_prefix('aaxx', 'aayy'), 1/2)
+        self.assertEqual(dist_prefix('xxaa', 'yyaa'), 1)
+        self.assertAlmostEqual(dist_prefix('aaxxx', 'aay'), 1/3)
+        self.assertEqual(dist_prefix('aaxxxx', 'aayyy'), 3/5)
+        self.assertEqual(dist_prefix('xa', 'a'), 1)
+        self.assertEqual(dist_prefix('xxa', 'a'), 1)
+        self.assertEqual(dist_prefix('xa', 'ya'), 1)
+        self.assertEqual(dist_prefix('a', 'ya'), 1)
+        self.assertEqual(dist_prefix('a', 'yya'), 1)
+        self.assertEqual(dist_prefix('xa', 'ya'), 1)
+        self.assertEqual(dist_prefix('xaaa', 'aaa'), 1)
+        self.assertEqual(dist_prefix('xxxa', 'aaa'), 1)
+        self.assertEqual(dist_prefix('xxxaa', 'yaa'), 1)
+        self.assertEqual(dist_prefix('xxxxaa', 'yyyaa'), 1)
+
+
+class SuffixTestCases(unittest.TestCase):
+    """test cases for abydos.distance.sim_suffix &
+    abydos.distance.dist_suffix
+    """
+    def test_sim_suffix(self):
+        """test abydos.distance.sim_suffix
+        """
+        self.assertEqual(sim_suffix('', ''), 1)
+        self.assertEqual(sim_suffix('a', ''), 0)
+        self.assertEqual(sim_suffix('', 'a'), 0)
+        self.assertEqual(sim_suffix('a', 'a'), 1)
+        self.assertEqual(sim_suffix('ax', 'a'), 0)
+        self.assertEqual(sim_suffix('axx', 'a'), 0)
+        self.assertEqual(sim_suffix('ax', 'ay'), 0)
+        self.assertEqual(sim_suffix('a', 'ay'), 0)
+        self.assertEqual(sim_suffix('a', 'ayy'), 0)
+        self.assertEqual(sim_suffix('ax', 'ay'), 0)
+        self.assertEqual(sim_suffix('a', 'y'), 0)
+        self.assertEqual(sim_suffix('y', 'a'), 0)
+        self.assertEqual(sim_suffix('aaax', 'aaa'), 0)
+        self.assertEqual(sim_suffix('axxx', 'aaa'), 0)
+        self.assertEqual(sim_suffix('aaxx', 'aayy'), 0)
+        self.assertEqual(sim_suffix('xxaa', 'yyaa'), 1/2)
+        self.assertEqual(sim_suffix('aaxxx', 'aay'), 0)
+        self.assertEqual(sim_suffix('aaxxxx', 'aayyy'), 0)
+        self.assertEqual(sim_suffix('xa', 'a'), 1)
+        self.assertEqual(sim_suffix('xxa', 'a'), 1)
+        self.assertEqual(sim_suffix('xa', 'ya'), 1/2)
+        self.assertEqual(sim_suffix('a', 'ya'), 1)
+        self.assertEqual(sim_suffix('a', 'yya'), 1)
+        self.assertEqual(sim_suffix('xa', 'ya'), 1/2)
+        self.assertEqual(sim_suffix('xaaa', 'aaa'), 1)
+        self.assertAlmostEqual(sim_suffix('xxxa', 'aaa'), 1/3)
+        self.assertAlmostEqual(sim_suffix('xxxaa', 'yaa'), 2/3)
+        self.assertEqual(sim_suffix('xxxxaa', 'yyyaa'), 2/5)
+
+    def test_dist_suffix(self):
+        """test abydos.distance.dist_suffix
+        """
+        self.assertEqual(dist_suffix('', ''), 0)
+        self.assertEqual(dist_suffix('a', ''), 1)
+        self.assertEqual(dist_suffix('', 'a'), 1)
+        self.assertEqual(dist_suffix('a', 'a'), 0)
+        self.assertEqual(dist_suffix('ax', 'a'), 1)
+        self.assertEqual(dist_suffix('axx', 'a'), 1)
+        self.assertEqual(dist_suffix('ax', 'ay'), 1)
+        self.assertEqual(dist_suffix('a', 'ay'), 1)
+        self.assertEqual(dist_suffix('a', 'ayy'), 1)
+        self.assertEqual(dist_suffix('ax', 'ay'), 1)
+        self.assertEqual(dist_suffix('a', 'y'), 1)
+        self.assertEqual(dist_suffix('y', 'a'), 1)
+        self.assertEqual(dist_suffix('aaax', 'aaa'), 1)
+        self.assertEqual(dist_suffix('axxx', 'aaa'), 1)
+        self.assertEqual(dist_suffix('aaxx', 'aayy'), 1)
+        self.assertEqual(dist_suffix('xxaa', 'yyaa'), 1/2)
+        self.assertEqual(dist_suffix('aaxxx', 'aay'), 1)
+        self.assertEqual(dist_suffix('aaxxxx', 'aayyy'), 1)
+        self.assertEqual(dist_suffix('xa', 'a'), 0)
+        self.assertEqual(dist_suffix('xxa', 'a'), 0)
+        self.assertEqual(dist_suffix('xa', 'ya'), 1/2)
+        self.assertEqual(dist_suffix('a', 'ya'), 0)
+        self.assertEqual(dist_suffix('a', 'yya'), 0)
+        self.assertEqual(dist_suffix('xa', 'ya'), 1/2)
+        self.assertEqual(dist_suffix('xaaa', 'aaa'), 0)
+        self.assertAlmostEqual(dist_suffix('xxxa', 'aaa'), 2/3)
+        self.assertAlmostEqual(dist_suffix('xxxaa', 'yaa'), 1/3)
+        self.assertEqual(dist_suffix('xxxxaa', 'yyyaa'), 3/5)
 
 
 if __name__ == '__main__':
