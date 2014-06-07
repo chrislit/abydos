@@ -2183,7 +2183,7 @@ def phonet(word):
     _phonet_rules = (('´', ' ', ' '),
                      ('\'', ' ', ' '),
                      ('`$', '', ''),
-                     ('\'', ' ', ' '),
+                     ('"', ' ', ' '),
                      (',', ' ', ' '),
                      (';', ' ', ' '),
                      ('-', ' ', ' '),
@@ -3209,6 +3209,56 @@ def phonet(word):
             for k in _range(28):
                 phonet_hash_1[i, k] = -1
                 phonet_hash_2[i, k] = -1
+
+        # for each phonetc rule
+        for i in _range(len(_phonet_rules)):
+            p_rule = _phonet_rules[i]
+
+            # calculate first hash value
+            k = ord(p_rule[0][0])
+
+            if phonet_hash[k] < 0 and (p_rule[1] or p_rule[2]):
+                phonet_hash[k] = i
+
+            # calculate second hash values
+            if k != 0 and alpha_pos[k] >= 2:
+                k = alpha_pos[k]
+
+                xk = k-2
+                #int[] p_hash1 = phonet_hash_1[k - 2];
+                #int[] p_hash2 = phonet_hash_2[k - 2];
+                s = p_rule[0][1:]
+
+                if not s:
+                    s = " "
+                elif s[0] == '(':
+                    s = s[1:]
+                else:
+                    s = s[0]
+
+                while s and (s[0] != ')'):
+                    k = alpha_pos[ord(s[0])];
+
+                    if k > 0:
+                        # add hash value for this letter
+                        if phonet_hash_1[xk, k] < 0:
+                            phonet_hash_1[xk, k] = i
+                            phonet_hash_2[xk, k] = i
+
+                        if phonet_hash_2[xk, k] >= (i - 30):
+                            phonet_hash_2[xk, k] = i
+                        else:
+                            k = -1
+
+                    if k <= 0:
+                        # add hash value for all letters
+                        if phonet_hash_1[xk, 0] < 0:
+                            phonet_hash_1[xk, 0] = i
+
+                        phonet_hash_2[xk, 0] = i
+
+                    s = s[1:]
+
 
     initialize_phonet()
 
