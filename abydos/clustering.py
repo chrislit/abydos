@@ -28,6 +28,7 @@ from ._compat import _unicode
 from .phonetic import double_metaphone
 import unicodedata
 from .qgram import QGrams
+from .distance import sim
 
 
 def fingerprint(phrase):
@@ -155,3 +156,42 @@ def omission_key(word):
             key += char
 
     return key
+
+
+def mean_pairwise_similarity(collection, metric=sim,
+                             mean='harmonic', symmetric=False):
+    """Return the mean pairwise similarity of a collection of strings
+
+    Arguments:
+    collection -- a tuple, list, or set of terms or a string that can be split
+    metric -- a similarity metric function
+    mean -- 'harmonic', 'geometric', or 'arithmetic': the mean type
+    symmetric -- set to True if all pairwise similarities should be calculated
+                    in both directions
+    """
+    if hasattr(collection, 'split'):
+        collection = collection.split()
+    if not hasattr(collection, '__iter__'):
+        raise ValueError('collection is neither a string nor iterable type')
+    elif len(collection) < 2:
+        raise ValueError('collection has fewer than two members')
+
+    pairwise_values = []
+
+    collection = enumerate(collection)
+    for i,word1 in collection:
+        for j,word2 in collection:
+            if i != j:
+                pairwise_values.append(metric(word1, word2))
+                if symmetric:
+                    pairwise_values.append(metric(word2, word1))
+    
+    if mean == 'harmonic':
+        return len(pairwise_values)/sum([1/x for x in pairwise_values])
+    elif mean == 'geometric':
+        return (reduce(lambda x, y : x*y, pairwise_values, 1)**
+                (1/len(pairwise_values)))
+    elif mean == 'arithmetic':
+        return sum(pairwise_values)/len(pairwise_values) 
+    else:
+        raise ValueError('Unknown mean type')
