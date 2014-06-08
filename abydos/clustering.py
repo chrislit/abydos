@@ -185,13 +185,13 @@ def mean_pairwise_similarity(collection, metric=sim,
                 pairwise_values.append(metric(word1, word2))
                 if symmetric:
                     pairwise_values.append(metric(word2, word1))
-    
+
     if mean == 'harmonic':
         return len(pairwise_values)/sum([1/x for x in pairwise_values])
     elif mean == 'geometric':
         return (reduce(lambda x, y : x*y, pairwise_values, 1)**
                 (1/len(pairwise_values)))
     elif mean == 'arithmetic':
-        return sum(pairwise_values)/len(pairwise_values) 
+        return sum(pairwise_values)/len(pairwise_values)
     else:
         raise ValueError('Unknown mean type')
