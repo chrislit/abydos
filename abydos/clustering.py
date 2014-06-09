@@ -178,8 +178,8 @@ def mean_pairwise_similarity(collection, metric=sim,
 
     pairwise_values = []
 
-    for i,word1 in list(enumerate(collection)):
-        for j,word2 in list(enumerate(collection)):
+    for i, word1 in list(enumerate(collection)):
+        for j, word2 in list(enumerate(collection)):
             if i != j:
                 pairwise_values.append(metric(word1, word2))
                 if symmetric:
@@ -188,7 +188,7 @@ def mean_pairwise_similarity(collection, metric=sim,
     if mean == 'harmonic':
         return len(pairwise_values)/sum([1/x for x in pairwise_values])
     elif mean == 'geometric':
-        return (reduce(lambda x, y : x*y, pairwise_values, 1)**
+        return (reduce(lambda x, y: x*y, pairwise_values, 1)**
                 (1/len(pairwise_values)))
     elif mean == 'arithmetic':
         return sum(pairwise_values)/len(pairwise_values)

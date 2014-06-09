@@ -3138,8 +3138,8 @@ def phonet(word):
     alpha_pos = np.zeros((HASH_COUNT,), dtype=np.int)
     # pylint: enable=no-member
 
-    phonet_hash_1 = np.zeros((26,28), dtype=np.int)
-    phonet_hash_2 = np.zeros((26,28), dtype=np.int)
+    phonet_hash_1 = np.zeros((26, 28), dtype=np.int)
+    phonet_hash_2 = np.zeros((26, 28), dtype=np.int)
 
     def trace_info(text, n, err_text):
         """Output debug information.
@@ -3169,8 +3169,8 @@ def phonet(word):
             upperchar[i] = _unichr(i)
 
         # German and international umlauts
-        s = umlaut_lower;
-        s2 = umlaut_upper;
+        s = umlaut_lower
+        s2 = umlaut_upper
 
         for i in _range(len(s)):
             # s2
@@ -3225,8 +3225,8 @@ def phonet(word):
                 k = alpha_pos[k]
 
                 xk = k-2
-                #int[] p_hash1 = phonet_hash_1[k - 2];
-                #int[] p_hash2 = phonet_hash_2[k - 2];
+                #int[] p_hash1 = phonet_hash_1[k - 2]
+                #int[] p_hash2 = phonet_hash_2[k - 2]
                 s = p_rule[0][1:]
 
                 if not s:
@@ -3237,7 +3237,7 @@ def phonet(word):
                     s = s[0]
 
                 while s and (s[0] != ')'):
-                    k = alpha_pos[ord(s[0])];
+                    k = alpha_pos[ord(s[0])]
 
                     if k > 0:
                         # add hash value for this letter

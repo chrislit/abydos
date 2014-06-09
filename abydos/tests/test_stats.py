@@ -27,7 +27,6 @@ from abydos.stats import ConfusionTable
 from math import isnan, sqrt
 import numpy as np
 from scipy.stats.mstats import hmean, gmean
-from abydos._compat import _unicode
 
 UNIT_TABLE = ConfusionTable(1, 1, 1, 1)
 NULL_TABLE = ConfusionTable(0, 0, 0, 0)

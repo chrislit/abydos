@@ -31,6 +31,7 @@ class CompatTestCases(unittest.TestCase):
     def test__compat(self):
         """test abydos._compat
         """
+        # pylint: disable=protected-access
         if sys.version_info[0] == 3:
             self.assertTrue(isinstance(abydos._compat._range(5), range))
             self.assertTrue(isinstance(abydos._compat._unicode('abcdefg'), str))
@@ -40,3 +41,8 @@ class CompatTestCases(unittest.TestCase):
             self.assertTrue(isinstance(abydos._compat._unicode('abcdefg'),
                                        unicode))
             self.assertTrue(isinstance(abydos._compat._unichr(0x2014), unicode))
+        # pylint: enable=protected-access
+
+if __name__ == '__main__':
+    unittest.main()
+     
