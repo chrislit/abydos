@@ -178,9 +178,8 @@ def mean_pairwise_similarity(collection, metric=sim,
 
     pairwise_values = []
 
-    collection = enumerate(collection)
-    for i,word1 in collection:
-        for j,word2 in collection:
+    for i,word1 in list(enumerate(collection)):
+        for j,word2 in list(enumerate(collection)):
             if i != j:
                 pairwise_values.append(metric(word1, word2))
                 if symmetric:

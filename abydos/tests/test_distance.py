@@ -33,7 +33,7 @@ from abydos.distance import levenshtein, dist_levenshtein, sim_levenshtein, \
     dist_ratcliff_obershelp, mra_compare, sim_compression, dist_compression, \
     sim_monge_elkan, dist_monge_elkan, sim_ident, dist_ident, sim_matrix, \
     needleman_wunsch, smith_waterman, gotoh, sim_length, dist_length, \
-    sim_prefix, dist_prefix, sim_suffix, dist_suffix
+    sim_prefix, dist_prefix, sim_suffix, dist_suffix, sim, dist
 import math
 from difflib import SequenceMatcher
 import os
@@ -258,7 +258,25 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertEqual(sim_tversky('nelson', ''), 0)
         self.assertEqual(sim_tversky('', 'neilsen'), 0)
         self.assertAlmostEqual(sim_tversky('nelson', 'neilsen'), 4/11)
-        # TODO: Add bias test(s) and unequal alpha & beta tests
+
+        # test valid alpha & beta
+        self.assertRaises(ValueError, sim_tversky, 'abcd', 'dcba', 2, -1, -1)
+        self.assertRaises(ValueError, sim_tversky, 'abcd', 'dcba', 2, -1, 0)
+        self.assertRaises(ValueError, sim_tversky, 'abcd', 'dcba', 2, 0, -1)
+
+        # test empty QGrams
+        self.assertAlmostEqual(sim_tversky('nelson', 'neilsen', 7), 0.0)
+
+        # test unequal alpha & beta
+        self.assertAlmostEqual(sim_tversky('niall', 'neal', 2, 2, 1), 3/11)
+        self.assertAlmostEqual(sim_tversky('niall', 'neal', 2, 1, 2), 3/10)
+        self.assertAlmostEqual(sim_tversky('niall', 'neal', 2, 2, 2), 3/13)
+
+        # test bias parameter
+        self.assertAlmostEqual(sim_tversky('niall', 'neal', 2, 1, 1, 0.5), 7/11)
+        self.assertAlmostEqual(sim_tversky('niall', 'neal', 2, 2, 1, 0.5), 7/9)
+        self.assertAlmostEqual(sim_tversky('niall', 'neal', 2, 1, 2, 0.5), 7/15)
+        self.assertAlmostEqual(sim_tversky('niall', 'neal', 2, 2, 2, 0.5), 7/11)
 
     def test_dist_tversky(self):
         """test abydos.distance.dist_tversky
@@ -267,7 +285,28 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertEqual(dist_tversky('nelson', ''), 1)
         self.assertEqual(dist_tversky('', 'neilsen'), 1)
         self.assertAlmostEqual(dist_tversky('nelson', 'neilsen'), 7/11)
-        # TODO: Add bias test(s) and unequal alpha & beta tests
+
+        # test valid alpha & beta
+        self.assertRaises(ValueError, dist_tversky, 'abcd', 'dcba', 2, -1, -1)
+        self.assertRaises(ValueError, dist_tversky, 'abcd', 'dcba', 2, -1, 0)
+        self.assertRaises(ValueError, dist_tversky, 'abcd', 'dcba', 2, 0, -1)
+
+        # test empty QGrams
+        self.assertAlmostEqual(dist_tversky('nelson', 'neilsen', 7), 1.0)
+
+        # test unequal alpha & beta
+        self.assertAlmostEqual(dist_tversky('niall', 'neal', 2, 2, 1), 8/11)
+        self.assertAlmostEqual(dist_tversky('niall', 'neal', 2, 1, 2), 7/10)
+        self.assertAlmostEqual(dist_tversky('niall', 'neal', 2, 2, 2), 10/13)
+
+        # test bias parameter
+        self.assertAlmostEqual(dist_tversky('niall', 'neal', 2, 1, 1, 0.5),
+                               4/11)
+        self.assertAlmostEqual(dist_tversky('niall', 'neal', 2, 2, 1, 0.5), 2/9)
+        self.assertAlmostEqual(dist_tversky('niall', 'neal', 2, 1, 2, 0.5),
+                               8/15)
+        self.assertAlmostEqual(dist_tversky('niall', 'neal', 2, 2, 2, 0.5),
+                               4/11)
 
 
 class DiceTestCases(unittest.TestCase):
@@ -385,7 +424,11 @@ class JaroWinklerTestCases(unittest.TestCase):
         self.assertEqual(sim_strcmp95('', 'MARTHA'), 0)
         self.assertEqual(sim_strcmp95('MARTHA', 'MARTHA'), 1)
 
-        # TODO: find non-trivial strcmp95 tests or manufacture some
+        self.assertAlmostEqual(sim_strcmp95('MARTHA', 'MARHTA'), 0.96111111)
+        self.assertAlmostEqual(sim_strcmp95('DWAYNE', 'DUANE'), 0.873)
+        self.assertAlmostEqual(sim_strcmp95('DIXON', 'DICKSONX'), 0.839333333)
+
+        self.assertAlmostEqual(sim_strcmp95('ABCD', 'EFGH'), 0.0)
 
     def test_dist_strcmp95(self):
         """test abydos.distance.dist_strcmp95
@@ -395,7 +438,11 @@ class JaroWinklerTestCases(unittest.TestCase):
         self.assertEqual(dist_strcmp95('', 'MARTHA'), 1)
         self.assertEqual(dist_strcmp95('MARTHA', 'MARTHA'), 0)
 
-        # TODO: find non-trivial strcmp95 tests or manufacture some
+        self.assertAlmostEqual(dist_strcmp95('MARTHA', 'MARHTA'), 0.03888888)
+        self.assertAlmostEqual(dist_strcmp95('DWAYNE', 'DUANE'), 0.127)
+        self.assertAlmostEqual(dist_strcmp95('DIXON', 'DICKSONX'), 0.160666666)
+
+        self.assertAlmostEqual(dist_strcmp95('ABCD', 'EFGH'), 1.0)
 
     def test_sim_jaro_winkler(self):
         """test abydos.distance.sim_jaro_winkler
@@ -424,6 +471,17 @@ class JaroWinklerTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_jaro_winkler('DIXON', 'DICKSONX',
                                              mode='winkler'), 0.81333333)
 
+        self.assertRaises(ValueError, sim_jaro_winkler, 'abcd', 'dcba',
+                          boost_threshold=2)
+        self.assertRaises(ValueError, sim_jaro_winkler, 'abcd', 'dcba',
+                          boost_threshold=-1)
+        self.assertRaises(ValueError, sim_jaro_winkler, 'abcd', 'dcba',
+                          scaling_factor=0.3)
+        self.assertRaises(ValueError, sim_jaro_winkler, 'abcd', 'dcba',
+                          scaling_factor=-1)
+
+        self.assertAlmostEqual(sim_jaro_winkler('ABCD', 'EFGH'), 0.0)
+
     def test_dist_jaro_winkler(self):
         """test abydos.distance.dist_jaro_winkler
         """
@@ -451,6 +509,16 @@ class JaroWinklerTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_jaro_winkler('DIXON', 'DICKSONX',
                                              mode='winkler'), 0.18666666)
 
+        self.assertRaises(ValueError, dist_jaro_winkler, 'abcd', 'dcba',
+                          boost_threshold=2)
+        self.assertRaises(ValueError, dist_jaro_winkler, 'abcd', 'dcba',
+                          boost_threshold=-1)
+        self.assertRaises(ValueError, dist_jaro_winkler, 'abcd', 'dcba',
+                          scaling_factor=0.3)
+        self.assertRaises(ValueError, dist_jaro_winkler, 'abcd', 'dcba',
+                          scaling_factor=-1)
+
+        self.assertAlmostEqual(dist_jaro_winkler('ABCD', 'EFGH'), 1.0)
 
 class LcsseqTestCases(unittest.TestCase):
     """test cases for abydos.distance.lcsseq, abydos.distance.sim_lcsseq, &
@@ -788,6 +856,12 @@ class MraCompareTestCases(unittest.TestCase):
         self.assertEqual(mra_compare('Smith', 'Smyth'), 5)
         self.assertEqual(mra_compare('Catherine', 'Kathryn'), 4)
 
+        self.assertEqual(mra_compare('ab', 'abcdefgh'), 0)
+        self.assertEqual(mra_compare('ab', 'ac'), 5)
+        self.assertEqual(mra_compare('abcdefik', 'abcdefgh'), 3)
+        self.assertEqual(mra_compare('xyz', 'abc'), 0)
+
+
 class CompressionTestCases(unittest.TestCase):
     """test cases for abydos.distance.dist_compression &
     abydos.distance.sim_compression
@@ -838,14 +912,38 @@ class MongeElkanTestCases(unittest.TestCase):
         """
         self.assertEqual(sim_monge_elkan('', ''), 1)
         self.assertEqual(sim_monge_elkan('', 'a'), 0)
-        #TODO: Add non-trivial tests
+        self.assertEqual(sim_monge_elkan('a', 'a'), 1)
+
+        self.assertEqual(sim_monge_elkan('Niall', 'Neal'), 3/4)
+        self.assertEqual(sim_monge_elkan('Niall', 'Njall'), 5/6)
+        self.assertEqual(sim_monge_elkan('Niall', 'Niel'), 3/4)
+        self.assertEqual(sim_monge_elkan('Niall', 'Nigel'), 3/4)
+
+        self.assertEqual(sim_monge_elkan('Niall', 'Neal', sym=True), 31/40)
+        self.assertEqual(sim_monge_elkan('Niall', 'Njall', sym=True), 5/6)
+        self.assertEqual(sim_monge_elkan('Niall', 'Niel', sym=True), 31/40)
+        self.assertAlmostEqual(sim_monge_elkan('Niall', 'Nigel', sym=True),
+                               17/24)
 
     def test_dist_monge_elkan(self):
         """test abydos.distance.dist_monge_elkan
         """
         self.assertEqual(dist_monge_elkan('', ''), 0)
         self.assertEqual(dist_monge_elkan('', 'a'), 1)
-        #TODO: Add non-trivial tests
+
+        self.assertEqual(dist_monge_elkan('Niall', 'Neal'), 1/4)
+        self.assertAlmostEqual(dist_monge_elkan('Niall', 'Njall'), 1/6)
+        self.assertEqual(dist_monge_elkan('Niall', 'Niel'), 1/4)
+        self.assertEqual(dist_monge_elkan('Niall', 'Nigel'), 1/4)
+
+        self.assertAlmostEqual(dist_monge_elkan('Niall', 'Neal', sym=True),
+                               9/40)
+        self.assertAlmostEqual(dist_monge_elkan('Niall', 'Njall', sym=True),
+                               1/6)
+        self.assertAlmostEqual(dist_monge_elkan('Niall', 'Niel', sym=True),
+                               9/40)
+        self.assertAlmostEqual(dist_monge_elkan('Niall', 'Nigel', sym=True),
+                               7/24)
 
 
 class IdentityTestCases(unittest.TestCase):
@@ -917,6 +1015,10 @@ class MatrixSimTestCases(unittest.TestCase):
         self.assertEqual(_sim_wikipedia('T', 'C'), 0)
         self.assertEqual(_sim_wikipedia('A', 'G'), -1)
         self.assertEqual(_sim_wikipedia('C', 'T'), 0)
+
+        self.assertRaises(ValueError, sim_matrix, 'abc', 'cba', alphabet='ab')
+        self.assertRaises(ValueError, sim_matrix, 'abc', 'ba', alphabet='ab')
+        self.assertRaises(ValueError, sim_matrix, 'ab', 'cba', alphabet='ab')
 
 
 class NeedlemanWunschTestCases(unittest.TestCase):
@@ -1204,6 +1306,25 @@ class SuffixTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_suffix('xxxa', 'aaa'), 2/3)
         self.assertAlmostEqual(dist_suffix('xxxaa', 'yaa'), 1/3)
         self.assertEqual(dist_suffix('xxxxaa', 'yyyaa'), 3/5)
+
+
+class SimDistTestCases(unittest.TestCase):
+    """test cases for abydos.distance.sim &
+    abydos.distance.dist
+    """
+    def test_sim(self):
+        """test abydos.distance.sim
+        """
+        self.assertEqual(sim('Niall', 'Nigel'),
+                         sim_levenshtein('Niall', 'Nigel'))
+        self.assertRaises(AttributeError, sim, 'abc', 'abc', 0)
+
+    def test_dist(self):
+        """test abydos.distance.dist
+        """
+        self.assertEqual(dist('Niall', 'Nigel'),
+                         dist_levenshtein('Niall', 'Nigel'))
+        self.assertRaises(AttributeError, dist, 'abc', 'abc', 0)
 
 
 if __name__ == '__main__':

@@ -306,7 +306,7 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     Cf. https://en.wikipedia.org/wiki/Tversky_index
 
     α = β = 1 is equivalent to the Jaccard & Tanimoto similarity coefficients
-    α = β = 0.5 is equivalent to the Sorensen-Dice similarity coefficient
+    α = β = 0.5 is equivalent to the Sørensen-Dice similarity coefficient
 
     Unequal α and β will tend to emphasize one or the other set's contributions
         (α>β emphasizes the contributions of X over Y; α<β emphasizes the
@@ -724,16 +724,16 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False, \
     The above file is a US Government publication and, accordingly,
     in the public domain.
     """
-    if src == tar:
-        return 1.0
-
     if mode == 'winkler':
         if boost_threshold > 1 or boost_threshold < 0:
             raise ValueError('Unsupported boost_threshold assignment; \
 boost_threshold must be between 0 and 1.')
-        if scaling_factor > 0.25 or boost_threshold < 0:
+        if scaling_factor > 0.25 or scaling_factor < 0:
             raise ValueError('Unsupported scaling_factor assignment; \
 scaling_factor must be between 0 and 0.25.')
+
+    if src == tar:
+        return 1.0
 
     src = QGrams(src.strip(), qval).ordered_list
     tar = QGrams(tar.strip(), qval).ordered_list
@@ -1280,10 +1280,12 @@ def sim_matrix(src, tar, mat=None, mismatch_cost=0, match_cost=1,
     """
     if alphabet:
         alphabet = tuple(alphabet)
-        if src not in alphabet:
-            raise ValueError('src value not in alphabet')
-        elif tar not in alphabet:
-            raise ValueError('tar value not in alphabet')
+        for i in src:
+            if i not in alphabet:
+                raise ValueError('src value not in alphabet')
+        for i in tar:
+            if i not in alphabet:
+                raise ValueError('tar value not in alphabet')
 
     if src == tar:
         if mat and (src, src) in mat:

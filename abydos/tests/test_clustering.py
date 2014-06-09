@@ -24,8 +24,15 @@ from __future__ import unicode_literals
 from abydos._compat import _range
 import unittest
 from abydos.clustering import fingerprint, qgram_fingerprint, \
-    phonetic_fingerprint, skeleton_key, omission_key
+    phonetic_fingerprint, skeleton_key, omission_key, mean_pairwise_similarity
 
+NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
+         'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill', 'MacNeil',
+         'MacNele', 'Niall Noígíallach')
+
+NIALL_1WORD = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel',
+               'Nele', 'Nigelli', 'Nel', 'Kneale', 'O\'Neill', 'MacNeil',
+               'MacNele')
 
 class FingerprintTestCases(unittest.TestCase):
     """test cases for abydos.clustering.fingerprint,
@@ -60,11 +67,24 @@ xoyv', )
             self.assertEqual(qgram_fingerprint(self._testset[i]),
                               self._anssetq2[i])
 
+        qgram_fp_niall = ('aliallni', 'aleane', 'eiilne', 'aljallnj',
+                          'aljallnj', 'elgeigni', 'eeelne', 'ellene',
+                          'elgeiglillni', 'elne', 'aleaknlene', 'eiilinllneui',
+                          'eiilllneon', 'accneiilmane', 'accnellemane',
+                          'acalchgiiaiglalllnninooi')
+        for i in _range(len(NIALL)):
+            self.assertEqual(qgram_fingerprint(NIALL[i]), qgram_fp_niall[i])
+
     def test_phonetic_fingerprint(self):
         """test abydos.clustering.phonetic_fingerprint
         """
         self.assertEqual(phonetic_fingerprint(''), '')
-        # TODO: add non-trivial tests
+
+        phonetic_niall = ('nl', 'nl', 'nl', 'njl', 'njl', 'njl', 'nl', 'nl',
+                          'njl', 'nl', 'nl', 'anl', 'anl', 'mknl', 'mknl',
+                          'nlnklk')
+        for i in _range(len(NIALL)):
+            self.assertEqual(phonetic_fingerprint(NIALL[i]), phonetic_niall[i])
 
 
 class SPEEDCOPTestCases(unittest.TestCase):
@@ -108,6 +128,61 @@ class SPEEDCOPTestCases(unittest.TestCase):
         self.assertEqual(omission_key('caramel'), 'MCLRAE')
         self.assertEqual(omission_key('maceral'), 'MCLRAE')
         self.assertEqual(omission_key('lacrimal'), 'MCLRAI')
+
+
+class MPSTestCases(unittest.TestCase):
+    """test cases for abydos.clustering.mean_pairwise_similarity
+    """
+    def test_mean_pairwise_similarity(self):
+        """test abydos.clustering.mean_pairwise_similarity
+        """
+        self.assertEqual(mean_pairwise_similarity(NIALL), 0.29362587170180676)
+        self.assertEqual(mean_pairwise_similarity(NIALL, symmetric=True),
+                         0.29362587170180632)
+        self.assertEqual(mean_pairwise_similarity(NIALL, mean='harmonic'),
+                         0.29362587170180676)
+        self.assertEqual(mean_pairwise_similarity(NIALL, mean='harmonic',
+                                                  symmetric=True),
+                         0.29362587170180632)
+        self.assertEqual(mean_pairwise_similarity(NIALL, mean='geometric'),
+                         0.33747245800668441)
+        self.assertEqual(mean_pairwise_similarity(NIALL, mean='geometric',
+                                                  symmetric=True),
+                         0.33747245800668441)
+        self.assertEqual(mean_pairwise_similarity(NIALL, mean='arithmetic'),
+                         0.38009278711484623)
+        self.assertEqual(mean_pairwise_similarity(NIALL, mean='arithmetic',
+                                                  symmetric=True),
+                         0.38009278711484584)
+
+        self.assertEqual(mean_pairwise_similarity(NIALL_1WORD),
+                         mean_pairwise_similarity(' '.join(NIALL_1WORD)))
+        self.assertEqual(mean_pairwise_similarity(NIALL_1WORD, symmetric=True),
+                         mean_pairwise_similarity(' '.join(NIALL_1WORD),
+                                                  symmetric=True))
+        self.assertEqual(mean_pairwise_similarity(NIALL_1WORD,
+                                                  mean='geometric'),
+                         mean_pairwise_similarity(' '.join(NIALL_1WORD),
+                                                  mean='geometric'))
+        self.assertEqual(mean_pairwise_similarity(NIALL_1WORD,
+                                                  mean='arithmetic'),
+                         mean_pairwise_similarity(' '.join(NIALL_1WORD),
+                                                  mean='arithmetic'))
+
+        self.assertRaises(ValueError, mean_pairwise_similarity, ['a b c'])
+        self.assertRaises(ValueError, mean_pairwise_similarity, 'abc')
+        self.assertRaises(ValueError, mean_pairwise_similarity, 0)
+        self.assertRaises(ValueError, mean_pairwise_similarity, NIALL,
+                          mean='imaginary')
+
+        self.assertEqual(mean_pairwise_similarity(NIALL),
+                         mean_pairwise_similarity(tuple(NIALL)))
+        self.assertEqual(mean_pairwise_similarity(NIALL),
+                         mean_pairwise_similarity(list(NIALL)))
+        self.assertAlmostEqual(mean_pairwise_similarity(NIALL),
+                               mean_pairwise_similarity(sorted(NIALL)))
+        self.assertAlmostEqual(mean_pairwise_similarity(NIALL),
+                               mean_pairwise_similarity(set(NIALL)))
 
 
 if __name__ == '__main__':
