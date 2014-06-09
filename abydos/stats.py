@@ -62,7 +62,7 @@ class ConfusionTable(object):
                 self.fneg = tp[3]
             else:
                 raise AttributeError('ConfusionTable requires a 4-tuple when \
-                being created from a tuple.')
+being created from a tuple.')
         elif isinstance(tp, dict):
             if 'tp' in tp:
                 self.tpos = tp['tp']
@@ -103,8 +103,8 @@ class ConfusionTable(object):
     def __str__(self):
         """Return a human-readable version of the confusion table
         """
-        return ('tp:' + _unicode(self.tpos) + ' tn:' + _unicode(self.tneg) +
-                ' fp:' + _unicode(self.fpos) + ' fn:' + _unicode(self.fneg))
+        return ('tp:' + str(self.tpos) + ', tn:' + str(self.tneg) + ', fp:' +
+                str(self.fpos) + ', fn:' + str(self.fneg))
 
 
     def tuple(self):

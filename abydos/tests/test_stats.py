@@ -27,6 +27,7 @@ from abydos.stats import ConfusionTable
 from math import isnan, sqrt
 import numpy as np
 from scipy.stats.mstats import hmean, gmean
+from abydos._compat import _unicode
 
 UNIT_TABLE = ConfusionTable(1, 1, 1, 1)
 NULL_TABLE = ConfusionTable(0, 0, 0, 0)
@@ -35,6 +36,7 @@ SCALE_TABLE = ConfusionTable(1, 2, 3, 4)
 CATSNDOGS_TABLE = ConfusionTable(5, 17, 2, 3)
 # https://en.wikipedia.org/wiki/Sensitivity_and_specificity#Worked_example
 WORKED_EG_TABLE = ConfusionTable(20, 1820, 180, 10)
+#VERY_POOR_TABLE = ConfusionTable(0, 0, 20, 20)
 
 ALL_TABLES = (UNIT_TABLE, NULL_TABLE, SCALE_TABLE, CATSNDOGS_TABLE,
               WORKED_EG_TABLE)
@@ -95,6 +97,9 @@ class ConstructorTestCases(unittest.TestCase):
         # test __eq__ by dict
         self.assertEqual(SCALE_TABLE, {'tp':1, 'tn':2, 'fp':3, 'fn':4})
 
+        # test invalid tuple constructor
+        self.assertRaises(AttributeError, ConfusionTable, (1, 2,))
+
 
 class CastTestCases(unittest.TestCase):
     """test cases for abydos.stats.ConfusionTable cast methods
@@ -111,6 +116,12 @@ class CastTestCases(unittest.TestCase):
         """
         self.assertIsInstance(SCALE_TABLE.dict(), dict)
         self.assertEqual(SCALE_TABLE.dict(), {'tp':1, 'tn':2, 'fp':3, 'fn':4})
+
+    def test_str(self):
+        """test abydos.stats.ConfusionTable._str_
+        """
+        self.assertIsInstance(str(SCALE_TABLE), str)
+        self.assertEqual(str(SCALE_TABLE), 'tp:1, tn:2, fp:3, fn:4')
 
 
 class PopulationTestCases(unittest.TestCase):
