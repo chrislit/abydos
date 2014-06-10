@@ -3197,8 +3197,6 @@ def phonet(word, ml=1):
                     k = alpha_pos[k]
 
                     xk = k-2
-                    #int[] p_hash1 = phonet_hash_1[k - 2]
-                    #int[] p_hash2 = phonet_hash_2[k - 2]
                     s = s[1:]
 
                     if not s:
@@ -3249,7 +3247,7 @@ def phonet(word, ml=1):
         z = 0
 
         while i < term_length:
-            c = src[i]
+            c = src[i:i+1]
 
             if trace:
                 print('\ncheck position {}:  src = "{}",  dest = "{}'.format(j, src[i:], dest[:j]))
@@ -3258,8 +3256,6 @@ def phonet(word, ml=1):
 
             if n >= 2:
                 xn = n-2
-                #int[] p_hash1 = phonet_hash_1[n - 2]
-                #int[] p_hash2 = phonet_hash_2[n - 2]
 
                 if (i + 1) == len(src):
                     n = alpha_pos[0]
@@ -3326,7 +3322,7 @@ def phonet(word, ml=1):
                     k = 1 # number of matching letters
                     p = 5 # default priority
                     s = _phonet_rules[n]
-                    s = s[1:2]
+                    s = s[1:]
 
                     while (s and (len(s) > 0) and
                             (len(src) > (i + k)) and
@@ -3334,7 +3330,7 @@ def phonet(word, ml=1):
                             not s[0].isdigit() and
                             (s not in "(-<^$")):
                         k += 1
-                        s = s[1:2]
+                        s = s[1:]
 
                     if (s and (s[0:1] == '(')):
                         # check an array of letters
@@ -3344,10 +3340,10 @@ def phonet(word, ml=1):
                             k += 1
 
                             while s and s[0] != ')':
-                                s = s[1:2]
+                                s = s[1:]
 
                             if s[0] == ')':
-                                s = s[1:2]
+                                s = s[1:]
 
                     if s:
                         p0 = s[0]
@@ -3358,7 +3354,7 @@ def phonet(word, ml=1):
 
                     while ((s[0:1] == '-') and (k > 1)):
                         k -= 1
-                        s = s[1:2]
+                        s = s[1:]
 
                     if s[0:1] == '<':
                         s = s[1:]
@@ -3366,15 +3362,15 @@ def phonet(word, ml=1):
                         if (len(s) == 0):
                             s = None
 
-                    if (s[0:1] != '') and s[0].isdigit():
+                    if s and s[0:1] != '' and s[0].isdigit():
                         # read priority
-                        p = s[0] - '0'
-                        s = s[1:2]
+                        p = int(s[0])
+                        s = s[1:]
 
-                    if s[0:2] == '^^':
-                        s = s[1:2]
+                    if s and s[0:2] == '^^':
+                        s = s[1:]
 
-                    if ((s[0:1] == '') or
+                    if ((not s or s[0:1] == '') or
                         ((s[0:1] == '^') and
                          ((i == 0) or
                           not src[i-1:i].isalpha()) and
@@ -3401,8 +3397,6 @@ def phonet(word, ml=1):
 
                             if ((n0 >= 2) and (src[i+k:i+k+1] != '')):
                                 xn = n0 - 2
-                                # int[] p_hash1 = phonet_hash_1[n0 - 2]
-                                # int[] p_hash2 = phonet_hash_2[n0 - 2]
                                 n0 = alpha_pos[src[i+k:i+k+1]]
                                 start3 = phonet_hash[xn, n0]
                                 start4 = phonet_hash[xn, 0]
