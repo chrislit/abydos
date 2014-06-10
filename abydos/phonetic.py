@@ -3283,12 +3283,12 @@ def phonet(word):
                 print('\ncheck position %d:  src = "%s",', j, src[i:])
                 print('  dest = "%s"\n', dest[:j])
 
-            n = alpha_pos[c];
+            n = alpha_pos[c]
 
             if n >= 2:
                 xn = n-2
-                #int[] p_hash1 = phonet_hash_1[n - 2];
-                #int[] p_hash2 = phonet_hash_2[n - 2];
+                #int[] p_hash1 = phonet_hash_1[n - 2]
+                #int[] p_hash2 = phonet_hash_2[n - 2]
 
                 if (i + 1) == len(src):
                     n = alpha_pos[0]
@@ -3328,7 +3328,7 @@ def phonet(word):
             if (n >= 0):
                 # check rules for this char
                 while ((_phonet_rules[n] is None) or
-                        (_phonet_rules[n].charAt(0) == c)):
+                        (_phonet_rules[n][0] == c)):
                     if (n > end1):
                         if (start2 > 0):
                             n = start2
@@ -3399,6 +3399,113 @@ def phonet(word):
                         # read priority
                         p = s[0] - '0'
                         s = remove_first(s)
+
+                    if (char_at(s, 0) == '^' and char_at(s, 1) == '^'):
+                        s = s[1:]
+
+                    if ((char_at(s, 0) == 0) or
+                        ((char_at(s, 0) == '^') and
+                         ((i == 0) or
+                          not char_at(src, i - 1).isletter()) and
+                         ((char_at(s, 1) != '$') or
+                          (not (char_at(src, i + k0).isalpha()) and
+                           (char_at(src, i + k0) != '.')))) or
+                        ((char_at(s, 0) == '$') and (i > 0) and
+                         char_at(src, i - 1).isalpha() and
+                         ((not char_at(src, i + k0).isalpha()) and
+                          (char_at(src, i + k0) != '.')))):
+                        # look for continuation, if:
+                        # k > 1 und NO '-' in first string */
+                        n0 = -1
+
+                        start3 = 0
+                        start4 = 0
+                        end3 = 0
+                        end4 = 0
+
+                        if ((k > 1) and (char_at(src, i + k) != 0) and
+                            (p0 != '-')):
+                            c0 = char_at(src, (i + k) - 1)
+                            n0 = alpha_pos[c0]
+
+                            if ((n0 >= 2) and (char_at(src, i + k) != 0)):
+                                xn = n0 - 2
+                                # int[] p_hash1 = phonet_hash_1[n0 - 2]
+                                # int[] p_hash2 = phonet_hash_2[n0 - 2]
+                                n0 = alpha_pos[char_at(src, i + k)]
+                                start3 = phonet_hash[xn, n0]
+                                start4 = phonet_hash[xn, 0]
+                                end3 = phonet_hash[xn, n0]
+                                end4 = phonet_hash[xn, 0]
+
+                                # preserve rule priorities
+                                if ((start4 >= 0) and
+                                    ((start3 < 0) or (start4 < start3))):
+                                    n0 = start3
+                                    start3 = start4
+                                    start4 = n0
+                                    n0 = end3
+                                    end3 = end4
+                                    end4 = n0
+
+                                if ((end3 >= start4) and (start4 >= 0)):
+                                    if (end4 > end3):
+                                        end3 = end4
+
+                                    start4 = -1
+                                    end4 = -1
+                            else:
+                                n0 = phonet_hash[c0]
+                                start3 = n0
+                                end3 = 10000
+                                start4 = -1
+                                end4 = -1
+
+                            n0 = start3
+
+                        if (n0 >= 0): # check continuation rules for "src[i+k]
+                            while ((_phonet_rules[n0] == None) or
+                                   (_phonet_rules[n0][0] == c0)):
+                                if (n0 > end3):
+                                    if (start4 > 0):
+                                        n0 = start4
+                                        start3 = start4
+                                        start4 = -1
+                                        end3 = end4
+                                        end4 = -1
+
+                                        continue
+
+                                    p0 = -1
+
+                                    # important
+                                    break
+
+                                if ((_phonet_rules[n0] == None) or
+                                    (_phonet_rules[n0 + ml] == None)):
+                                    # no conversion rule available
+                                    n0 += 3
+
+                                    continue
+
+                                if (trace):
+                                    trace_info("> > continuation rule no.", n0,
+                                               "is being checked")
+
+                                # check whole string
+                                k0 = k
+                                p0 = 5
+                                s = _phonet_rules[n0]
+                                s = s[1:]
+
+                                while (s and len(s) > 0 and
+                                       (char_at(src, i + k0) == char_at(s, 0)) and
+                                       (not char_at(s, 0).isdigit() or
+                                        ("(-<^$".indexOf(s) == -1))):
+                                    k0 += 1
+                                    s = s[1:]
+
+
 
         return dest            
 
