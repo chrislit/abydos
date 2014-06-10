@@ -35,10 +35,10 @@ SCALE_TABLE = ConfusionTable(1, 2, 3, 4)
 CATSNDOGS_TABLE = ConfusionTable(5, 17, 2, 3)
 # https://en.wikipedia.org/wiki/Sensitivity_and_specificity#Worked_example
 WORKED_EG_TABLE = ConfusionTable(20, 1820, 180, 10)
-#VERY_POOR_TABLE = ConfusionTable(0, 0, 20, 20)
+VERY_POOR_TABLE = ConfusionTable(0, 0, 200, 200)
 
 ALL_TABLES = (UNIT_TABLE, NULL_TABLE, SCALE_TABLE, CATSNDOGS_TABLE,
-              WORKED_EG_TABLE)
+              WORKED_EG_TABLE, VERY_POOR_TABLE)
 
 #def ct2arrays(ct):
 #    y_pred = []
@@ -394,6 +394,7 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(SCALE_TABLE.pr_lmean(), 0.2240710058862275)
         self.assertAlmostEqual(CATSNDOGS_TABLE.pr_lmean(), 0.6686496151266621)
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_lmean(), 0.2986983802717959)
+        self.assertAlmostEqual(VERY_POOR_TABLE.pr_lmean(), 0.0)
 
     def test_pr_cmean(self):
         """test abydos.stats.ConfusionTable.pr_cmean
@@ -412,6 +413,7 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(SCALE_TABLE.pr_imean(), 0.224535791730617)
         self.assertAlmostEqual(CATSNDOGS_TABLE.pr_imean(), 0.6691463467789889)
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_imean(), 0.34277561539033635)
+        self.assertTrue(isnan(VERY_POOR_TABLE.pr_imean()))
 
     def test_pr_pmean(self):
         """test abydos.stats.ConfusionTable.pr_pmean
@@ -498,6 +500,7 @@ class StatisticalMeasureTestCases(unittest.TestCase):
         self.assertAlmostEqual(SCALE_TABLE.fbeta_score(1), 2/9)
         self.assertAlmostEqual(CATSNDOGS_TABLE.fbeta_score(1), 2/3)
         self.assertAlmostEqual(WORKED_EG_TABLE.fbeta_score(1), 4/23)
+        self.assertRaises(AttributeError, UNIT_TABLE.fbeta_score, -1)
 
     def test_f2_score(self):
         """test abydos.stats.ConfusionTable.f2_score

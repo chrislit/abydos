@@ -379,7 +379,7 @@ being created from a tuple.')
         precision = self.precision()
         recall = self.recall()
         if not precision or not recall:
-            return 0
+            return 0.0
         elif precision == recall:
             return precision
         else:
@@ -461,10 +461,8 @@ being created from a tuple.')
         Cf. https://en.wikipedia.org/wiki/Arithmetic–geometric_mean
         """
         m_a = self.pr_mean()
-        if math.isnan(m_a):
-            return float('nan')
         m_g = self.pr_gmean()
-        if math.isnan(m_g):
+        if math.isnan(m_a) or math.isnan(m_g):
             return float('nan')
         while round(m_a, 12) != round(m_g, 12):
             m_a, m_g = (m_a+m_g)/2, (m_a*m_g)**(1/2)
@@ -480,10 +478,8 @@ being created from a tuple.')
         Cf. https://en.wikipedia.org/wiki/Geometric–harmonic_mean
         """
         m_g = self.pr_gmean()
-        if math.isnan(m_g):
-            return float('nan')
         m_h = self.pr_hmean()
-        if math.isnan(m_h):
+        if math.isnan(m_g) or math.isnan(m_h):
             return float('nan')
         while round(m_h, 12) != round(m_g, 12):
             m_g, m_h = (m_g*m_h)**(1/2), (2*m_g*m_h)/(m_g+m_h)
@@ -500,13 +496,9 @@ being created from a tuple.')
         http://www.emis.de/journals/JIPAM/images/014_08_JIPAM/014_08.pdf
         """
         m_a = self.pr_mean()
-        if math.isnan(m_a):
-            return float('nan')
         m_g = self.pr_gmean()
-        if math.isnan(m_g):
-            return float('nan')
         m_h = self.pr_hmean()
-        if math.isnan(m_h):
+        if math.isnan(m_a) or math.isnan(m_g) or math.isnan(m_h):
             return float('nan')
         while (round(m_a, 12) != round(m_g, 12) and
                round(m_g, 12) != round(m_h, 12)):
