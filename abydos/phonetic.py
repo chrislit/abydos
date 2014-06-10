@@ -3131,7 +3131,7 @@ def phonet(word, ml=1):
     letters_a_to_z = 'abcdefghijklmnopqrstuvwxyz'
 
     # Output debug information if set True.
-    trace = True
+    trace = False
     phonet_hash = Counter()
     alpha_pos = Counter()
 
@@ -3230,7 +3230,7 @@ def phonet(word, ml=1):
                         s = s[1:]
 
     def _phonet(term, ml):
-        c0 = 0
+        c0 = ''
         dest = term
 
         if not term:
@@ -3564,7 +3564,7 @@ def phonet(word, ml=1):
                             z += 1
                             k0 = 0
 
-                            while (s and (src[i+k0:i+k0+1] != 0)):
+                            while (s and (src[i+k0:i+k0+1] != '')):
                                 src = (src[0:i+k0] + s[0:1] + src[i+k0+1:])
                                 k0 += 1
                                 s = s[1:]
@@ -3579,7 +3579,7 @@ def phonet(word, ml=1):
 
                             while len(s) > 1:
                                 if ((j == 0) or (dest[j - 1] != s[0])):
-                                    dest = dest[0:j] + s[0] + dest[min(len(dest), j + 1):]
+                                    dest = dest[0:j] + s[0] + dest[min(len(dest), j+1):]
                                     j += 1
 
                                 s = s[1:]
@@ -3587,15 +3587,14 @@ def phonet(word, ml=1):
                             # new "current char"
                             if not s:
                                 s = ''
-                                c = 0
+                                c = ''
                             else:
                                 c = s[0]
 
                             if (_phonet_rules[n] and
                                 "^^" in _phonet_rules[n][1:]):
-                                if c != 0:
-                                    dest = (dest[0:j] + c +
-                                            dest[min(len(dest), j + 1):])
+                                if c != '':
+                                    dest = (dest[0:j] + c + dest[min(len(dest), j + 1):])
                                     j += 1
 
                                 src = src[i + 1:]
@@ -3614,9 +3613,9 @@ def phonet(word, ml=1):
                         end2 = -1
 
             if (z0 == 0):
-                if ((c != 0) and ((j == 0) or (dest[j-1:j] != c))):
+                if ((c != '') and ((j == 0) or (dest[j-1:j] != c))):
                     # delete multiple letters only
-                    dest = dest[0:j] + c + dest[min(j + 1, term_length):]
+                    dest = dest[0:j] + c + dest[min(j+1, term_length):]
                     j += 1
 
                 i += 1
@@ -3629,5 +3628,5 @@ def phonet(word, ml=1):
 
     _initialize_phonet()
 
-    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = unicodedata.normalize('NFKC', _unicode(word.upper()))
     return _phonet(word, ml)
