@@ -40,6 +40,7 @@ from __future__ import unicode_literals
 from __future__ import division
 from ._compat import _unicode, _range, _unichr
 from itertools import groupby
+from collections import Counter
 import re
 import unicodedata
 import numpy as np
@@ -2163,7 +2164,7 @@ def sfinxbis(word, maxlength=None):
     return tuple(ordlista)
 
 
-def phonet(word):
+def phonet(word, ml=1):
     """Return the phonet encoding of a word
 
     Arguments:
@@ -3123,7 +3124,7 @@ def phonet(word):
                      ('ZYK3$', 'ZIK', None),
                      ('Z(VW)7^', 'SW', None))
 
-    HASH_COUNT = 512
+    hash_count = 512
     umlaut_upper = 'ÀÁÂÃÅÄÆÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ'
     umlaut_lower = 'àáâãåäæçðèéêëìíîïñòóôõöøœšßþùúûüýÿ'
     letters_A_to_Z = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -3131,17 +3132,15 @@ def phonet(word):
 
     # Output debug information if set True.
     trace = False
-    # pylint: disable=no-member
-    upperchar = np.chararray((HASH_COUNT,), unicode=True)
-    isletter = np.zeros((HASH_COUNT,), dtype=np.int)
-    phonet_hash = np.zeros((HASH_COUNT,), dtype=np.int)
-    alpha_pos = np.zeros((HASH_COUNT,), dtype=np.int)
-    # pylint: enable=no-member
+    upperchar = Counter()
+    isletter = Counter()
+    phonet_hash = Counter()
+    alpha_pos = Counter()
 
-    phonet_hash_1 = np.zeros((26, 28), dtype=np.int)
-    phonet_hash_2 = np.zeros((26, 28), dtype=np.int)
+    phonet_hash_1 = Counter()
+    phonet_hash_2 = Counter()
 
-    def trace_info(text, n, err_text):
+    def _trace_info(text, n, err_text):
         """Output debug information.
         """
         s = '(NULL)' if _phonet_rules[n] == None else _phonet_rules[n]
@@ -3149,23 +3148,9 @@ def phonet(word):
         s3 = '(NULL)' if (_phonet_rules[n + 2] == None) else _phonet_rules[n + 2]
         print("%s %d:  \"%s\"%s\"%s\" %s\n", text, ((n / 3) + 1), s, s2, s3, err_text)
 
-    def remove_first(s):
-        """Remove the first character of a String.
-        """
-        if not s:
-            return ''
-        return s[1:]
-
-    def char_at(s, pos):
-        """Return the pos's character, 0 is the String is too short or null
-        """
-        if len(s) > pos:
-            return s[pos]
-        return ''
-
-    def initialize_phonet():
+    def _initialize_phonet():
         # generate array "upperchar"
-        for i in _range(HASH_COUNT):
+        for i in _range(hash_count):
             upperchar[i] = _unichr(i)
 
         # German and international umlauts
@@ -3202,7 +3187,7 @@ def phonet(word):
             isletter[n] = 1
             upperchar[n] = s2[i]
 
-        for i in _range(HASH_COUNT):
+        for i in _range(hash_count):
             phonet_hash[i] = -1
 
         for i in _range(26):
@@ -3259,24 +3244,24 @@ def phonet(word):
 
                     s = s[1:]
 
-    def _phonet(input, ml):
+    def _phonet(term, ml):
         c0 = 0
-        dest = input
+        dest = term
 
-        if not input:
+        if not term:
             return ''
 
-        input_length = len(input)
+        term_length = len(term)
 
         # convert input string to upper-case
-        src = input.upper()
+        src = term.upper()
 
         # check "src"
         i = 0
         j = 0
         z = 0
 
-        while i < input_length:
+        while i < term_length:
             c = src[i]
 
             if trace:
@@ -3349,13 +3334,13 @@ def phonet(word):
                         continue
 
                     if trace:
-                        trace_info("> rule no.", n, "is being checked")
+                        _trace_info("> rule no.", n, "is being checked")
 
                     # check whole string
                     k = 1 # number of matching letters
                     p = 5 # default priority
                     s = _phonet_rules[n]
-                    s = remove_first(s)
+                    s = s[1:2]
 
                     while (s and (len(s) > 0) and
                             (len(src) > (i + k)) and
@@ -3363,9 +3348,9 @@ def phonet(word):
                             not s[0].isdigit() and
                             (s not in "(-<^$")):
                         k += 1
-                        s = remove_first(s)
+                        s = s[1:2]
 
-                    if (s and (s[0] == '(')):
+                    if (s and (s[0:1] == '(')):
                         # check an array of letters
                         if ((src.length() > (i + k)) and
                                 src[i + k].isalpha() and
@@ -3373,10 +3358,10 @@ def phonet(word):
                             k += 1
 
                             while s and s[0] != ')':
-                                s = remove_first(s)
+                                s = s[1:2]
 
                             if s[0] == ')':
-                                s = remove_first(s)
+                                s = s[1:2]
 
                     if s:
                         p0 = s[0]
@@ -3385,35 +3370,35 @@ def phonet(word):
 
                     k0 = k
 
-                    while ((char_at(s, 0) == '-') and (k > 1)):
+                    while ((s[0:1] == '-') and (k > 1)):
                         k -= 1
-                        s = remove_first(s)
+                        s = s[1:2]
 
-                    if char_at(s, 0) == '<':
-                        s = s.substring(1)
+                    if s[0:1] == '<':
+                        s = s[1:]
 
                         if (len(s) == 0):
                             s = None
 
-                    if ((char_at(s, 0) != 0) and s[0].isdigit()):
+                    if (s[0:1] != '') and s[0].isdigit():
                         # read priority
                         p = s[0] - '0'
-                        s = remove_first(s)
+                        s = s[1:2]
 
-                    if (char_at(s, 0) == '^' and char_at(s, 1) == '^'):
-                        s = s[1:]
+                    if s[0:2] == '^^':
+                        s = s[1:2]
 
-                    if ((char_at(s, 0) == 0) or
-                        ((char_at(s, 0) == '^') and
+                    if ((s[0:1] == '') or
+                        ((s[0:1] == '^') and
                          ((i == 0) or
-                          not char_at(src, i - 1).isletter()) and
-                         ((char_at(s, 1) != '$') or
-                          (not (char_at(src, i + k0).isalpha()) and
-                           (char_at(src, i + k0) != '.')))) or
-                        ((char_at(s, 0) == '$') and (i > 0) and
-                         char_at(src, i - 1).isalpha() and
-                         ((not char_at(src, i + k0).isalpha()) and
-                          (char_at(src, i + k0) != '.')))):
+                          not src[i-1:i].isletter()) and
+                         ((s[1:2] != '$') or
+                          (not (src[i+k0:i+k0+1].isalpha()) and
+                           (src[i+k0:i+k0+1] != '.')))) or
+                        ((s[0:1] == '$') and (i > 0) and
+                         src[i-1:i].isalpha() and
+                         ((not src[i+k0:i+k0+1].isalpha()) and
+                          (src[i+k0:i+k0+1] != '.')))):
                         # look for continuation, if:
                         # k > 1 und NO '-' in first string */
                         n0 = -1
@@ -3423,16 +3408,16 @@ def phonet(word):
                         end3 = 0
                         end4 = 0
 
-                        if ((k > 1) and (char_at(src, i + k) != 0) and
+                        if ((k > 1) and (src[i+k:i+k+1] != '') and
                             (p0 != '-')):
-                            c0 = char_at(src, (i + k) - 1)
+                            c0 = src[i+k-1:i+k]
                             n0 = alpha_pos[c0]
 
-                            if ((n0 >= 2) and (char_at(src, i + k) != 0)):
+                            if ((n0 >= 2) and (src[i+k:i+k+1] != '')):
                                 xn = n0 - 2
                                 # int[] p_hash1 = phonet_hash_1[n0 - 2]
                                 # int[] p_hash2 = phonet_hash_2[n0 - 2]
-                                n0 = alpha_pos[char_at(src, i + k)]
+                                n0 = alpha_pos[src[i+k:i+k+1]]
                                 start3 = phonet_hash[xn, n0]
                                 start4 = phonet_hash[xn, 0]
                                 end3 = phonet_hash[xn, n0]
@@ -3489,7 +3474,7 @@ def phonet(word):
                                     continue
 
                                 if trace:
-                                    trace_info("> > continuation rule no.", n0,
+                                    _trace_info("> > continuation rule no.", n0,
                                                "is being checked")
 
                                 # check whole string
@@ -3499,16 +3484,16 @@ def phonet(word):
                                 s = s[1:]
 
                                 while (s and len(s) > 0 and
-                                       (char_at(src, i + k0) == char_at(s, 0)) and
-                                       (not char_at(s, 0).isdigit() or
-                                        ("(-<^$".indexOf(s) == -1))):
+                                       (src[i+k0:i+k0+1] == s[0:1]) and
+                                       (not s[0:1].isdigit() or
+                                        (s in "(-<^$"))):
                                     k0 += 1
                                     s = s[1:]
 
-                                if (char_at(s, 0) == '('):
+                                if s[0:1] == '(':
                                     # check an array of letters
-                                    if (char_at(src, i + k0).isalpha() and
-                                        (char_at(src, i + k0) in s[1:])):
+                                    if (src[i+k0:i+k0+1].isalpha() and
+                                        (src[i+k0:i+k0+1] in s[1:])):
                                         k0 += 1
 
                                         while (s and (s[0] != ')')):
@@ -3517,27 +3502,27 @@ def phonet(word):
                                         if (s[0] == ')'):
                                             s = s[1:]
 
-                                while (char_at(s, 0) == '-'):
+                                while s[0:1] == '-':
                                     # "k0" is NOT decremented
                                     # because of  "if (k0 == k)"
                                     s = s[1:]
 
-                                if (char_at(s, 0) == '<'):
+                                if s[0:1] == '<':
                                     s = s[1:]
 
-                                if (char_at(s, 0).isdigit()):
+                                if s[0:1].isdigit():
                                     p0 = s[0] - '0'
                                     s = s[1:]
 
                                 if (not s or
                                     # s == '^' is not possible here 
-                                    ((char_at(s, 0) == '$') and
-                                     not char_at(src, i + k0).isalpha() and
-                                     (char_at(src, i + k0) != '.'))):
+                                    ((s[0:1] == '$') and
+                                     not src[i+k0:i+k0+1].isalpha() and
+                                     (src[i+k0:i+k0+1] != '.'))):
                                     if (k0 == k):
                                         # this is only a partial string
                                         if trace:
-                                            trace_info("> > continuation rule no.",
+                                            _trace_info("> > continuation rule no.",
                                                 n0, "not used (too short)")
 
                                         n0 += 3
@@ -3547,7 +3532,7 @@ def phonet(word):
                                     if p0 < p:
                                         # priority is too low
                                         if trace:
-                                            trace_info("> > continuation rule no.",
+                                            _trace_info("> > continuation rule no.",
                                                 n0, "not used (priority)")
 
                                         n0 += 3
@@ -3558,7 +3543,7 @@ def phonet(word):
                                     break
 
                                 if trace:
-                                    trace_info("> > continuation rule no.", n0,
+                                    _trace_info("> > continuation rule no.", n0,
                                         "not used")
 
                                 n0 += 3
@@ -3570,15 +3555,15 @@ def phonet(word):
                                 n += 3
 
                                 if trace:
-                                    trace_info("> rule no.", n, "")
-                                    trace_info("> not used because of continuation",
+                                    _trace_info("> rule no.", n, "")
+                                    _trace_info("> not used because of continuation",
                                         n0, "")
 
                                 continue
 
                         # replace string
                         if trace:
-                            trace_info("Rule no.", n, "is applied")
+                            _trace_info("Rule no.", n, "is applied")
 
                         if (_phonet_rules[n] and
                             ('<' in _phonet_rules[n][1:])):
@@ -3591,31 +3576,30 @@ def phonet(word):
                         if ((p0 == 1) and (z == 0)):
                             # rule with '<' is applied
                             if ((j > 0) and s and
-                                ((char_at(dest, j - 1) == c) or
-                                 (char_at(dest, j - 1) == char_at(s, 0)))):
+                                ((dest[j-1:j] == c) or
+                                 (dest[j-1:j] == s[0:1]))):
                                 j -= 1
 
                             z0 = 1
                             z += 1
                             k0 = 0
 
-                            while (s and (char_at(src, i + k0) != 0)):
-                                src = (src[0:i + k0] + char_at(s, 0) +
-                                       src[i+k0+1:])
+                            while (s and (src[i+k0:i+k0+1] != 0)):
+                                src = (src[0:i+k0] + s[0:1] + src[i+k0+1:])
                                 k0 += 1
                                 s = s[1:]
 
                             if (k0 < k):
-                                src = src[0:i + k0] + src[i + k:]
+                                src = src[0:i+k0] + src[i+k:]
 
                             c = src[i]
                         else:
-                            i = (i + k) - 1
+                            i = i + k - 1
                             z = 0
 
                             while len(s) > 1:
                                 if ((j == 0) or (dest[j - 1] != s[0])):
-                                    dest = dest[0:j] + s[0] + dest.substring[min(len(dest), j + 1):]
+                                    dest = dest[0:j] + s[0] + dest[min(len(dest), j + 1):]
                                     j += 1
 
                                 s = s[1:]
@@ -3642,7 +3626,7 @@ def phonet(word):
 
                     n += 3
 
-                    if ((n > end1) and (start2 > 0)):
+                    if n > end1 and start2 > 0:
                         n = start2
                         start1 = start2
                         end1 = end2
@@ -3650,20 +3634,20 @@ def phonet(word):
                         end2 = -1
 
             if (z0 == 0):
-                if ((c != 0) and ((j == 0) or (dest.charAt(j - 1) != c))):
+                if ((c != 0) and ((j == 0) or (dest[j-1:j] != c))):
                     # delete multiple letters only
-                    dest = dest[0:j] + c + dest[min(j + 1, input_length):]
+                    dest = dest[0:j] + c + dest[min(j + 1, term_length):]
                     j += 1
 
                 i += 1
                 z = 0
 
-        dest = dest.substring(0, j)
+        dest = dest[0:j]
 
         return dest            
 
 
-    initialize_phonet()
+    _initialize_phonet()
 
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
-    return _phonet(word, 1)
+    return _phonet(word, ml)

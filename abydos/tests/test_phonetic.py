@@ -3644,42 +3644,43 @@ class PhonetTestCases(unittest.TestCase):
         self.assertEqual(phonet(''), '')
 
         # https://code.google.com/p/phonet4java/source/browse/trunk/src/test/java/com/googlecode/phonet4java/Phonet1Test.java
-        """
-        self.assertEqual(phonet('Zedlitz'), 'ZETLIZ')
-        self.assertEqual(phonet('Bremerhaven'), 'BREMAHAFN')
-        self.assertEqual(phonet('Hamburger Hafen'), 'HAMBURGA HAFN')
-        self.assertEqual(phonet('Jesper'), 'IESPA')
-        self.assertEqual(phonet('elisabeth'), 'ELISABET')
-        self.assertEqual(phonet('elisabet'), 'ELISABET')
-        self.assertEqual(phonet('Ziegler'), 'ZIKLA')
-        self.assertEqual(phonet('Scherer'), 'SHERA')
-        self.assertEqual(phonet('Bartels'), 'BARTLS')
-        self.assertEqual(phonet('Jansen'), 'IANSN')
-        self.assertEqual(phonet('Sievers'), 'SIWAS')
-        self.assertEqual(phonet('Michels'), 'MICHLS')
-        self.assertEqual(phonet('Ewers'), 'EWERS')
-        self.assertEqual(phonet('Evers'), 'EWERS')
-        self.assertEqual(phonet('Wessels'), 'WESLS')
-        self.assertEqual(phonet('Gottschalk'), 'GOSHALK')
-        self.assertEqual(phonet('Brückmann'), 'BRÜKMAN')
-        self.assertEqual(phonet('Blechschmidt'), 'BLECHSHMIT')
-        self.assertEqual(phonet('Kolodziej'), 'KOLOTZI')
-        self.assertEqual(phonet('Krauße'), 'KRAUSE')
-        self.assertEqual(phonet('Cachel'), 'KESHL')
+        self.assertEqual('', phonet('', 1))
+        self.assertEqual('ZETLIZ', phonet('Zedlitz', 1))
+        self.assertEqual('BREMAHAFN', phonet('Bremerhaven', 1))
+        self.assertEqual('HAMBURGA HAFN', phonet('Hamburger Hafen', 1))
+        self.assertEqual('IESPA', phonet('Jesper', 1))
+        self.assertEqual('ELISABET', phonet('elisabeth', 1))
+        self.assertEqual('ELISABET', phonet('elisabet', 1))
+        self.assertEqual('ZIKLA', phonet('Ziegler', 1))
+        self.assertEqual('SHERA', phonet('Scherer', 1))
+        self.assertEqual('BARTLS', phonet('Bartels', 1))
+        self.assertEqual('IANSN', phonet('Jansen', 1))
+        self.assertEqual('SIWAS', phonet('Sievers', 1))
+        self.assertEqual('MICHLS', phonet('Michels', 1))
+        self.assertEqual('EWERS', phonet('Ewers', 1))
+        self.assertEqual('EWERS', phonet('Evers', 1))
+        self.assertEqual('WESLS', phonet('Wessels', 1))
+        self.assertEqual('GOSHALK', phonet('Gottschalk', 1))
+        self.assertEqual('BRÜKMAN', phonet('Brückmann', 1))
+        self.assertEqual('BLECHSHMIT', phonet('Blechschmidt', 1))
+        self.assertEqual('KOLOTZI', phonet('Kolodziej', 1))
+        self.assertEqual('KRAUSE', phonet('Krauße', 1))
+        self.assertEqual('KESHL', phonet('Cachel', 1))
 
-        assertEquals("BRENAFN", coder.code("Bremerhaven"));
-        assertEquals("ZÖNBAK",  coder.code("Schönberg"));
-        assertEquals("ANBURKA AFN", coder.code("Hamburger Hafen"));
-        assertEquals("ZERA", coder.code("Scherer"));
-        assertEquals("IANZN", coder.code("Jansen"));
-        assertEquals("EBART", coder.code("Eberhardt"));
-        assertEquals("KUZALK", coder.code("Gottschalk"));
-        assertEquals("BRIKNAN", coder.code("Brückmann"));
-        assertEquals("BLEKZNIT", coder.code("Blechschmidt"));
-        assertEquals("KULUTZI", coder.code("Kolodziej"));
-        assertEquals("KRAUZE", coder.code("Krauße"));
-        """
-
+        self.assertEqual('', phonet('', 2))
+        self.assertEqual('ZETLIZ', phonet('Zedlitz', 2))
+        self.assertEqual('BRENAFN', phonet('Bremerhaven', 2))
+        self.assertEqual('ZÖNBAK',  phonet('Schönberg', 2))
+        self.assertEqual('ANBURKA AFN', phonet('Hamburger Hafen', 2))
+        self.assertEqual('ZIKLA', phonet('Ziegler', 2))
+        self.assertEqual('ZERA', phonet('Scherer', 2))
+        self.assertEqual('IANZN', phonet('Jansen', 2))
+        self.assertEqual('EBART', phonet('Eberhardt', 2))
+        self.assertEqual('KUZALK', phonet('Gottschalk', 2))
+        self.assertEqual('BRIKNAN', phonet('Brückmann', 2))
+        self.assertEqual('BLEKZNIT', phonet('Blechschmidt', 2))
+        self.assertEqual('KULUTZI', phonet('Kolodziej', 2))
+        self.assertEqual('KRAUZE', phonet('Krauße', 2))
 
 if __name__ == '__main__':
     unittest.main()
