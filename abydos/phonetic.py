@@ -3131,7 +3131,7 @@ def phonet(word, ml=1):
     letters_a_to_z = 'abcdefghijklmnopqrstuvwxyz'
 
     # Output debug information if set True.
-    trace = False
+    trace = True
     phonet_hash = Counter()
     alpha_pos = Counter()
 
@@ -3141,10 +3141,10 @@ def phonet(word, ml=1):
     def _trace_info(text, n, err_text):
         """Output debug information.
         """
-        s = '(NULL)' if _phonet_rules[n] == None else _phonet_rules[n]
+        s  = '(NULL)' if _phonet_rules[n] == None else _phonet_rules[n]
         s2 = '(NULL)' if (_phonet_rules[n + 1] == None) else _phonet_rules[n + 1]
         s3 = '(NULL)' if (_phonet_rules[n + 2] == None) else _phonet_rules[n + 2]
-        print("%s %d:  \"%s\"%s\"%s\" %s\n", text, ((n / 3) + 1), s, s2, s3, err_text)
+        print('"{} {}:  "{}"{}"{}" {}'.format(text, ((n / 3) + 1), s, s2, s3, err_text))
 
     def _initialize_phonet():
         # German and international umlauts
@@ -3252,8 +3252,7 @@ def phonet(word, ml=1):
             c = src[i]
 
             if trace:
-                print('\ncheck position %d:  src = "%s",', j, src[i:])
-                print('  dest = "%s"\n', dest[:j])
+                print('\ncheck position {}:  src = "{}",  dest = "{}'.format(j, src[i:], dest[:j]))
 
             n = alpha_pos[c]
 
