@@ -45,7 +45,7 @@ from .phonetic import mra
 import codecs
 try:
     import lzma
-except ImportError:
+except ImportError: # pragma: no cover
     # If there system lacks the lzma library, that's fine, but lzma comrpession
     # similarity won't be supported.
     pass
@@ -1138,7 +1138,7 @@ def dist_compression(src, tar, compressor='bz2'):
             src_comp = lzma.compress(src)[14:]
             tar_comp = lzma.compress(tar)[14:]
             concat_comp = lzma.compress(src+tar)[14:]
-        else:
+        else: # pragma: no cover
             raise ValueError('Install the lzma module in order to use lzma \
 compression similarity')
     else: # zlib
