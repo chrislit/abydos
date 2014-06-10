@@ -3259,6 +3259,149 @@ def phonet(word):
 
                     s = s[1:]
 
+    def phonet(input, ml):
+        c0 = 0
+        dest = input
+
+        if not input:
+            return ''
+
+        input_length = len(input)
+
+        # convert input string to upper-case
+        src = input.upper()
+
+        # check "src"
+        i = 0
+        j = 0
+        z = 0
+
+        while i < input_length:
+            c = src[i]
+
+            if trace:
+                print('\ncheck position %d:  src = "%s",', j, src[i:])
+                print('  dest = "%s"\n', dest[:j])
+
+            n = alpha_pos[c];
+
+            if n >= 2:
+                xn = n-2
+                #int[] p_hash1 = phonet_hash_1[n - 2];
+                #int[] p_hash2 = phonet_hash_2[n - 2];
+
+                if (i + 1) == len(src):
+                    n = alpha_pos[0]
+                else:
+                    n = alpha_pos[src[i + 1]]
+
+                start1 = phonet_hash_1[xn, n]
+                start2 = phonet_hash_1[xn, 0]
+                end1 = phonet_hash_2[xn, n]
+                end2 = phonet_hash_2[xn, 0]
+
+                # preserve rule priorities
+                if ((start2 >= 0) and ((start1 < 0) or (start2 < start1))):
+                    n = start1
+                    start1 = start2
+                    start2 = n
+                    n = end1
+                    end1 = end2
+                    end2 = n
+
+                if ((end1 >= start2) and (start2 >= 0)):
+                    if (end2 > end1):
+                        end1 = end2
+
+                    start2 = -1
+                    end2 = -1
+            else:
+                n = phonet_hash[c]
+                start1 = n
+                end1 = 10000
+                start2 = -1
+                end2 = -1
+
+            n = start1
+            z0 = 0
+
+            if (n >= 0):
+                # check rules for this char
+                while ((_phonet_rules[n] is None) or
+                        (_phonet_rules[n].charAt(0) == c)):
+                    if (n > end1):
+                        if (start2 > 0):
+                            n = start2
+                            start1 = start2
+                            start2 = -1
+                            end1 = end2
+                            end2 = -1
+
+                            continue
+
+                        break
+
+                    if ((_phonet_rules[n] is None) or
+                            (_phonet_rules[n + ml] is None)):
+                        # no conversion rule available
+                        n += 3
+
+                        continue
+
+                    if trace:
+                        trace_info("> rule no.", n, "is being checked")
+
+                    # check whole string
+                    k = 1 # number of matching letters
+                    p = 5 # default priority
+                    s = _phonet_rules[n]
+                    s = remove_first(s)
+
+                    while (s and (len(s) > 0) and
+                            (len(src) > (i + k)) and
+                            (src[i + k] == s[0]) and
+                            not s[0].isdigit() and
+                            (s not in "(-<^$")):
+                        k += 1
+                        s = remove_first(s)
+
+                    if (s and (s[0] == '(')):
+                        # check an array of letters
+                        if ((src.length() > (i + k)) and
+                                src[i + k].isalpha() and
+                                (src[i + k] in s[1:])):
+                            k += 1
+
+                            while s and s[0] != ')':
+                                s = remove_first(s)
+
+                            if s[0] == ')':
+                                s = remove_first(s)
+
+                    if s:
+                        p0 = s[0]
+                    else:
+                        p0 = 0
+
+                    k0 = k
+
+                    while ((char_at(s, 0) == '-') and (k > 1)):
+                        k -= 1
+                        s = remove_first(s)
+
+                    if char_at(s, 0) == '<':
+                        s = s.substring(1)
+
+                        if (len(s) == 0):
+                            s = None
+
+                    if ((char_at(s, 0) != 0) and s[0].isdigit()):
+                        # read priority
+                        p = s[0] - '0'
+                        s = remove_first(s)
+
+        return dest            
+
 
     initialize_phonet()
 
