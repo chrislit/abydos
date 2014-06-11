@@ -3131,7 +3131,7 @@ def phonet(word, ml=1):
     letters_a_to_z = 'abcdefghijklmnopqrstuvwxyz'
 
     # Output debug information if set True.
-    trace = False
+    trace = True
     phonet_hash = Counter()
     alpha_pos = Counter()
 
@@ -3362,7 +3362,7 @@ def phonet(word, ml=1):
                         if (len(s) == 0):
                             s = None
 
-                    if s and s[0:1] != '' and s[0].isdigit():
+                    if s and s[0].isdigit():
                         # read priority
                         p = int(s[0])
                         s = s[1:]
@@ -3491,7 +3491,7 @@ def phonet(word, ml=1):
                                     s = s[1:]
 
                                 if s[0:1].isdigit():
-                                    p0 = s[0] - '0'
+                                    p0 = int(s[0])
                                     s = s[1:]
 
                                 if (not s or
