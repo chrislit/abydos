@@ -3199,10 +3199,18 @@ def phonet(word, ml=1, lang='de'):
 
     phonet_hash_1 = Counter()
     phonet_hash_2 = Counter()
+    
+    def _safe_ord(char):
+        return ord(char) if char else 0
 
-    def _trace_info(text, n, err_text):
+    def _trace_info(text, n, err_text, lang='de'):
         """Output debug information.
         """
+        if lang == 'none':
+            _phonet_rules = _phonet_rules_no_lang
+        else:
+            _phonet_rules = _phonet_rules_german
+
         s  = '(NULL)' if _phonet_rules[n] == None else _phonet_rules[n]
         s2 = '(NULL)' if (_phonet_rules[n + 1] == None) else _phonet_rules[n + 1]
         s3 = '(NULL)' if (_phonet_rules[n + 2] == None) else _phonet_rules[n + 2]
@@ -3295,7 +3303,12 @@ def phonet(word, ml=1, lang='de'):
 
                         s = s[1:]
 
-    def _phonet(term, ml):
+    def _phonet(term, ml, lang='de'):
+        if lang == 'none':
+            _phonet_rules = _phonet_rules_no_lang
+        else:
+            _phonet_rules = _phonet_rules_german
+
         c0 = ''
         dest = term
 
@@ -3324,7 +3337,7 @@ def phonet(word, ml=1, lang='de'):
                 xn = n-2
 
                 if (i + 1) == len(src):
-                    n = alpha_pos[0]
+                    n = alpha_pos['']
                 else:
                     n = alpha_pos[src[i + 1]]
 
@@ -3349,7 +3362,7 @@ def phonet(word, ml=1, lang='de'):
                     start2 = -1
                     end2 = -1
             else:
-                n = phonet_hash[c]
+                n = phonet_hash[_safe_ord(c)]
                 start1 = n
                 end1 = 10000
                 start2 = -1
@@ -3464,10 +3477,10 @@ def phonet(word, ml=1, lang='de'):
                             if ((n0 >= 2) and (src[i+k:i+k+1] != '')):
                                 xn = n0 - 2
                                 n0 = alpha_pos[src[i+k:i+k+1]]
-                                start3 = phonet_hash[xn, n0]
-                                start4 = phonet_hash[xn, 0]
-                                end3 = phonet_hash[xn, n0]
-                                end4 = phonet_hash[xn, 0]
+                                start3 = phonet_hash_1[xn, n0]
+                                start4 = phonet_hash_1[xn, 0]
+                                end3 = phonet_hash_2[xn, n0]
+                                end4 = phonet_hash_2[xn, 0]
 
                                 # preserve rule priorities
                                 if ((start4 >= 0) and
@@ -3486,7 +3499,7 @@ def phonet(word, ml=1, lang='de'):
                                     start4 = -1
                                     end4 = -1
                             else:
-                                n0 = phonet_hash[c0]
+                                n0 = phonet_hash[_safe_ord(c0)]
                                 start3 = n0
                                 end3 = 10000
                                 start4 = -1
