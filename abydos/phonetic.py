@@ -1762,6 +1762,7 @@ def phonex(word, maxlength=4):
 
         if code != last and code != '0' and i != 0:
             name_code += code
+
         if len(name_code) == 0:
             last = code
         else:

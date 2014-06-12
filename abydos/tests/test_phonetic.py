@@ -3325,6 +3325,11 @@ class FuzzySoundexTestCases(unittest.TestCase):
         self.assertEqual(fuzzy_soundex('christina', 4), 'K693')
         self.assertEqual(fuzzy_soundex('kristina', 4), 'K693')
 
+        # etc.
+        self.assertEqual(fuzzy_soundex('Wight'), 'W3000')
+        self.assertEqual(fuzzy_soundex('Hardt'), 'H6000')
+        self.assertEqual(fuzzy_soundex('Knight'), 'N3000')
+
 
 class PhonexTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.phonex
@@ -3333,6 +3338,7 @@ class PhonexTestCases(unittest.TestCase):
         """test abydos.phonetic.phonex
         """
         self.assertEqual(phonex(''), '0000')
+
         # http://homepages.cs.ncl.ac.uk/brian.randell/Genealogy/NameMatching.pdf
         self.assertEqual(phonex('Ewell'), 'A400')
         self.assertEqual(phonex('Filp'), 'F100')
@@ -3352,6 +3358,11 @@ class PhonexTestCases(unittest.TestCase):
         self.assertEqual(phonex('Corley'), phonex('Coley'))
         self.assertEqual(phonex('Carton'), phonex('Carlton'))
         self.assertEqual(phonex('Cachpole'), phonex('Catchpole'))
+
+        # etc.
+        self.assertEqual(phonex('Saxon'), 'S250')
+        self.assertEqual(phonex('Wright'), 'R230')
+        self.assertEqual(phonex('Ai'), 'A000')
 
 
 class PhonemTestCases(unittest.TestCase):
@@ -3633,6 +3644,28 @@ class SfinxBisTestCases(unittest.TestCase):
         self.assertEqual(sfinxbis('K'), ('K',))
         self.assertEqual(sfinxbis('2010'), ('',))
         self.assertEqual(sfinxbis('cese'), ('S8',))
+
+        # a few maxlength tests
+        self.assertEqual(sfinxbis('Kiviniemi Birgersson', 3), ('#75', 'B62'))
+        self.assertEqual(sfinxbis('Eichorn', 4), ('$265',))
+        self.assertEqual(sfinxbis('Friedrich', 4), ('F636',))
+        self.assertEqual(sfinxbis('Grantcharova', 4), ('G653',))
+        self.assertEqual(sfinxbis('Ilichev', 4), ('$427',))
+        self.assertEqual(sfinxbis('Ivankovic', 4), ('$752',))
+        self.assertEqual(sfinxbis('Ivangurich', 4), ('$752',))
+        self.assertEqual(sfinxbis('Kinch', 4), ('#52',))
+        self.assertEqual(sfinxbis('Kirchmann', 4), ('#625',))
+        self.assertEqual(sfinxbis('Machado', 4), ('M23',))
+        self.assertEqual(sfinxbis('Reich', 4), ('R2',))
+        self.assertEqual(sfinxbis('Roche', 4), ('R2',))
+        self.assertEqual(sfinxbis('Rubaszkin', 4), ('R182',))
+        self.assertEqual(sfinxbis('Rubaschkin', 4), ('R182',))
+        self.assertEqual(sfinxbis('Sanchez', 4), ('S528',))
+        self.assertEqual(sfinxbis('Walukiewicz', 4), ('V427',))
+        self.assertEqual(sfinxbis('Valukievitch', 4), ('V427',))
+        self.assertEqual(sfinxbis('K', 4), ('K',))
+        self.assertEqual(sfinxbis('2010', 4), ('',))
+        self.assertEqual(sfinxbis('cese', 4), ('S8',))
 
 
 class PhonetTestCases(unittest.TestCase):
