@@ -3215,7 +3215,7 @@ def phonet(word, ml=1, lang='de'):
             _phonet_rules = _phonet_rules_no_lang
         else:
             _phonet_rules = _phonet_rules_german
-            
+
         phonet_hash[''] = -1
 
         # German and international umlauts
