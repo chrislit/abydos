@@ -3187,10 +3187,6 @@ def phonet(word, ml=1, lang='de'):
     _phonet_rules = tuple()
     
     hash_count = 512
-    umlaut_upper = 'ÀÁÂÃÅÄÆÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ'
-    umlaut_lower = 'àáâãåäæçðèéêëìíîïñòóôõöøœšßþùúûüýÿ'
-    letters_A_to_Z = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    letters_a_to_z = 'abcdefghijklmnopqrstuvwxyz'
 
     # Output debug information if set True.
     trace = True
@@ -3199,7 +3195,7 @@ def phonet(word, ml=1, lang='de'):
 
     phonet_hash_1 = Counter()
     phonet_hash_2 = Counter()
-    
+
     def _safe_ord(char):
         return ord(char) if char else 0
 
@@ -3222,8 +3218,8 @@ def phonet(word, ml=1, lang='de'):
         else:
             _phonet_rules = _phonet_rules_german
         # German and international umlauts
-        s = umlaut_lower
-        s2 = umlaut_upper
+        s  = 'àáâãåäæçðèéêëìíîïñòóôõöøœšßþùúûüýÿ'
+        s2 = 'ÀÁÂÃÅÄÆÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ'
 
         for i in _range(len(s)):
             # s2
@@ -3235,8 +3231,8 @@ def phonet(word, ml=1, lang='de'):
             alpha_pos[n] = -1 + 2
 
         # "normal" letters ('a'-'z' and 'A'-'Z')
-        s = letters_a_to_z
-        s2 = letters_A_to_Z
+        s  = 'abcdefghijklmnopqrstuvwxyz'
+        s2 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
         for i in _range(len(s)):
             # s2
@@ -3427,7 +3423,7 @@ def phonet(word, ml=1, lang='de'):
                     if s:
                         p0 = s[0]
                     else:
-                        p0 = 0
+                        p0 = ''
 
                     k0 = k
 
@@ -3441,7 +3437,7 @@ def phonet(word, ml=1, lang='de'):
                         if (len(s) == 0):
                             s = None
 
-                    if s and s[0].isdigit():
+                    if s and s[0:1].isdigit():
                         # read priority
                         p = int(s[0])
                         s = s[1:]
