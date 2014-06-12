@@ -3207,10 +3207,10 @@ def phonet(word, ml=1, lang='de'):
         else:
             _phonet_rules = _phonet_rules_german
 
-        s  = '(NULL)' if _phonet_rules[n] == None else _phonet_rules[n]
-        s2 = '(NULL)' if (_phonet_rules[n + 1] == None) else _phonet_rules[n + 1]
-        s3 = '(NULL)' if (_phonet_rules[n + 2] == None) else _phonet_rules[n + 2]
-        print('"{} {}:  "{}"{}"{}" {}'.format(text, ((n / 3) + 1), s, s2, s3, err_text))
+        from_rule  = '(NULL)' if _phonet_rules[n] == None else _phonet_rules[n]
+        to_rule1 = '(NULL)' if (_phonet_rules[n + 1] == None) else _phonet_rules[n + 1]
+        to_rule2 = '(NULL)' if (_phonet_rules[n + 2] == None) else _phonet_rules[n + 2]
+        print('"{} {}:  "{}"{}"{}" {}'.format(text, ((n / 3) + 1), from_rule, to_rule1, to_rule2, err_text))
 
     def _initialize_phonet(lang='de'):
         if lang == 'none':
@@ -3253,9 +3253,9 @@ def phonet(word, ml=1, lang='de'):
 
         # for each phonetc rule
         for i in _range(len(_phonet_rules)):
-            s = _phonet_rules[i]
+            rule = _phonet_rules[i]
 
-            if s and i % 3 == 0:
+            if rule and i % 3 == 0:
                 # calculate first hash value
                 k = _phonet_rules[i][0:1]
 
@@ -3267,17 +3267,17 @@ def phonet(word, ml=1, lang='de'):
                     k = alpha_pos[k]
 
                     xk = k-2
-                    s = s[1:]
+                    rule = rule[1:]
 
-                    if not s:
-                        s = " "
-                    elif s[0] == '(':
-                        s = s[1:]
+                    if not rule:
+                        rule = ' '
+                    elif rule[0] == '(':
+                        rule = rule[1:]
                     else:
-                        s = s[0]
+                        rule = rule[0]
 
-                    while s and (s[0] != ')'):
-                        k = alpha_pos[s[0]]
+                    while rule and (rule[0] != ')'):
+                        k = alpha_pos[rule[0]]
     
                         if k > 0:
                             # add hash value for this letter
@@ -3297,7 +3297,7 @@ def phonet(word, ml=1, lang='de'):
 
                             phonet_hash_2[xk, 0] = i
 
-                        s = s[1:]
+                        rule = rule[1:]
 
     def _phonet(term, ml, lang='de'):
         if lang == 'none':
@@ -3305,7 +3305,7 @@ def phonet(word, ml=1, lang='de'):
         else:
             _phonet_rules = _phonet_rules_german
 
-        c0 = ''
+        char0 = ''
         dest = term
 
         if not term:
@@ -3322,12 +3322,12 @@ def phonet(word, ml=1, lang='de'):
         z = 0
 
         while i < term_length:
-            c = src[i:i+1]
+            char = src[i:i+1]
 
             if trace:
-                print('\ncheck position {}:  src = "{}",  dest = "{}'.format(j, src[i:], dest[:j]))
+                print('\ncheck position {}:  src = "{}",  dest = "{}"'.format(j, src[i:], dest[:j]))
 
-            n = alpha_pos[c]
+            n = alpha_pos[char]
 
             if n >= 2:
                 xn = n-2
@@ -3358,7 +3358,7 @@ def phonet(word, ml=1, lang='de'):
                     start2 = -1
                     end2 = -1
             else:
-                n = phonet_hash[_safe_ord(c)]
+                n = phonet_hash[_safe_ord(char)]
                 start1 = n
                 end1 = 10000
                 start2 = -1
@@ -3370,7 +3370,7 @@ def phonet(word, ml=1, lang='de'):
             if (n >= 0):
                 # check rules for this char
                 while ((_phonet_rules[n] is None) or
-                        (_phonet_rules[n][0] == c)):
+                        (_phonet_rules[n][0] == char)):
                     if (n > end1):
                         if (start2 > 0):
                             n = start2
@@ -3391,73 +3391,73 @@ def phonet(word, ml=1, lang='de'):
                         continue
 
                     if trace:
-                        _trace_info("> rule no.", n, "is being checked")
+                        _trace_info('> rule no.', n, 'is being checked')
 
                     # check whole string
-                    k = 1 # number of matching letters
-                    p = 5 # default priority
-                    s = _phonet_rules[n]
-                    s = s[1:]
+                    matches = 1 # number of matching letters
+                    priority = 5 # default priority
+                    rule = _phonet_rules[n]
+                    rule = rule[1:]
 
-                    while (s and (len(s) > 0) and
-                            (len(src) > (i + k)) and
-                            (src[i + k] == s[0]) and
-                            not s[0].isdigit() and
-                            (s not in "(-<^$")):
-                        k += 1
-                        s = s[1:]
+                    while (rule and (len(rule) > 0) and
+                            (len(src) > (i + matches)) and
+                            (src[i + matches] == rule[0]) and
+                            not rule[0].isdigit() and
+                            (rule not in '(-<^$')):
+                        matches += 1
+                        rule = rule[1:]
 
-                    if (s and (s[0:1] == '(')):
+                    if (rule and (rule[0:1] == '(')):
                         # check an array of letters
-                        if ((len(src) > (i + k)) and
-                                src[i + k].isalpha() and
-                                (src[i + k] in s[1:])):
-                            k += 1
+                        if ((len(src) > (i + matches)) and
+                                src[i + matches].isalpha() and
+                                (src[i + matches] in rule[1:])):
+                            matches += 1
 
-                            while s and s[0] != ')':
-                                s = s[1:]
+                            while rule and rule[0] != ')':
+                                rule = rule[1:]
 
-                            if s[0] == ')':
-                                s = s[1:]
+                            if rule[0] == ')':
+                                rule = rule[1:]
 
-                    if s:
-                        p0 = s[0]
+                    if rule:
+                        priority0 = rule[0]
                     else:
-                        p0 = ''
+                        priority0 = ''
 
-                    k0 = k
+                    matches0 = matches
 
-                    while ((s[0:1] == '-') and (k > 1)):
-                        k -= 1
-                        s = s[1:]
+                    while ((rule[0:1] == '-') and (matches > 1)):
+                        matches -= 1
+                        rule = rule[1:]
 
-                    if s[0:1] == '<':
-                        s = s[1:]
+                    if rule[0:1] == '<':
+                        rule = rule[1:]
 
-                        if (len(s) == 0):
-                            s = None
+                        if (len(rule) == 0):
+                            rule = None
 
-                    if s and s[0:1].isdigit():
+                    if rule and rule[0:1].isdigit():
                         # read priority
-                        p = int(s[0])
-                        s = s[1:]
+                        priority = int(rule[0])
+                        rule = rule[1:]
 
-                    if s and s[0:2] == '^^':
-                        s = s[1:]
+                    if rule and rule[0:2] == '^^':
+                        rule = rule[1:]
 
-                    if ((not s or s[0:1] == '') or
-                        ((s[0:1] == '^') and
+                    if ((not rule or rule[0:1] == '') or
+                        ((rule[0:1] == '^') and
                          ((i == 0) or
                           not src[i-1:i].isalpha()) and
-                         ((s[1:2] != '$') or
-                          (not (src[i+k0:i+k0+1].isalpha()) and
-                           (src[i+k0:i+k0+1] != '.')))) or
-                        ((s[0:1] == '$') and (i > 0) and
+                         ((rule[1:2] != '$') or
+                          (not (src[i+matches0:i+matches0+1].isalpha()) and
+                           (src[i+matches0:i+matches0+1] != '.')))) or
+                        ((rule[0:1] == '$') and (i > 0) and
                          src[i-1:i].isalpha() and
-                         ((not src[i+k0:i+k0+1].isalpha()) and
-                          (src[i+k0:i+k0+1] != '.')))):
+                         ((not src[i+matches0:i+matches0+1].isalpha()) and
+                          (src[i+matches0:i+matches0+1] != '.')))):
                         # look for continuation, if:
-                        # k > 1 und NO '-' in first string */
+                        # matches > 1 und NO '-' in first string */
                         n0 = -1
 
                         start3 = 0
@@ -3465,14 +3465,14 @@ def phonet(word, ml=1, lang='de'):
                         end3 = 0
                         end4 = 0
 
-                        if ((k > 1) and (src[i+k:i+k+1] != '') and
-                            (p0 != '-')):
-                            c0 = src[i+k-1:i+k]
-                            n0 = alpha_pos[c0]
+                        if ((matches > 1) and (src[i+matches:i+matches+1] != '') and
+                            (priority0 != '-')):
+                            char0 = src[i+matches-1:i+matches]
+                            n0 = alpha_pos[char0]
 
-                            if ((n0 >= 2) and (src[i+k:i+k+1] != '')):
+                            if ((n0 >= 2) and (src[i+matches:i+matches+1] != '')):
                                 xn = n0 - 2
-                                n0 = alpha_pos[src[i+k:i+k+1]]
+                                n0 = alpha_pos[src[i+matches:i+matches+1]]
                                 start3 = phonet_hash_1[xn, n0]
                                 start4 = phonet_hash_1[xn, 0]
                                 end3 = phonet_hash_2[xn, n0]
@@ -3495,7 +3495,7 @@ def phonet(word, ml=1, lang='de'):
                                     start4 = -1
                                     end4 = -1
                             else:
-                                n0 = phonet_hash[_safe_ord(c0)]
+                                n0 = phonet_hash[_safe_ord(char0)]
                                 start3 = n0
                                 end3 = 10000
                                 start4 = -1
@@ -3503,9 +3503,9 @@ def phonet(word, ml=1, lang='de'):
 
                             n0 = start3
 
-                        if (n0 >= 0): # check continuation rules for "src[i+k]
+                        if (n0 >= 0): # check continuation rules for "src[i+matches]
                             while ((_phonet_rules[n0] == None) or
-                                   (_phonet_rules[n0][0] == c0)):
+                                   (_phonet_rules[n0][0] == char0)):
                                 if (n0 > end3):
                                     if (start4 > 0):
                                         n0 = start4
@@ -3516,7 +3516,7 @@ def phonet(word, ml=1, lang='de'):
 
                                         continue
 
-                                    p0 = -1
+                                    priority0 = -1
 
                                     # important
                                     break
@@ -3529,66 +3529,66 @@ def phonet(word, ml=1, lang='de'):
                                     continue
 
                                 if trace:
-                                    _trace_info("> > continuation rule no.", n0,
-                                               "is being checked")
+                                    _trace_info('> > continuation rule no.', n0,
+                                               'is being checked')
 
                                 # check whole string
-                                k0 = k
-                                p0 = 5
-                                s = _phonet_rules[n0]
-                                s = s[1:]
+                                matches0 = matches
+                                priority0 = 5
+                                rule = _phonet_rules[n0]
+                                rule = rule[1:]
 
-                                while (s and len(s) > 0 and
-                                       (src[i+k0:i+k0+1] == s[0:1]) and
-                                       (not s[0:1].isdigit() or
-                                        (s in "(-<^$"))):
-                                    k0 += 1
-                                    s = s[1:]
+                                while (rule and len(rule) > 0 and
+                                       (src[i+matches0:i+matches0+1] == rule[0:1]) and
+                                       (not rule[0:1].isdigit() or
+                                        (rule in '(-<^$'))):
+                                    matches0 += 1
+                                    rule = rule[1:]
 
-                                if s[0:1] == '(':
+                                if rule[0:1] == '(':
                                     # check an array of letters
-                                    if (src[i+k0:i+k0+1].isalpha() and
-                                        (src[i+k0:i+k0+1] in s[1:])):
-                                        k0 += 1
+                                    if (src[i+matches0:i+matches0+1].isalpha() and
+                                        (src[i+matches0:i+matches0+1] in rule[1:])):
+                                        matches0 += 1
 
-                                        while (s and (s[0] != ')')):
-                                            s = s[1:]
+                                        while (rule and (rule[0] != ')')):
+                                            rule = rule[1:]
 
-                                        if (s[0] == ')'):
-                                            s = s[1:]
+                                        if (rule[0] == ')'):
+                                            rule = rule[1:]
 
-                                while s[0:1] == '-':
-                                    # "k0" is NOT decremented
-                                    # because of  "if (k0 == k)"
-                                    s = s[1:]
+                                while rule[0:1] == '-':
+                                    # "matches0" is NOT decremented
+                                    # because of  "if (matches0 == matches)"
+                                    rule = rule[1:]
 
-                                if s[0:1] == '<':
-                                    s = s[1:]
+                                if rule[0:1] == '<':
+                                    rule = rule[1:]
 
-                                if s[0:1].isdigit():
-                                    p0 = int(s[0])
-                                    s = s[1:]
+                                if rule[0:1].isdigit():
+                                    priority0 = int(rule[0])
+                                    rule = rule[1:]
 
-                                if (not s or
-                                    # s == '^' is not possible here 
-                                    ((s[0:1] == '$') and
-                                     not src[i+k0:i+k0+1].isalpha() and
-                                     (src[i+k0:i+k0+1] != '.'))):
-                                    if (k0 == k):
+                                if (not rule or
+                                    # rule == '^' is not possible here 
+                                    ((rule[0:1] == '$') and
+                                     not src[i+matches0:i+matches0+1].isalpha() and
+                                     (src[i+matches0:i+matches0+1] != '.'))):
+                                    if (matches0 == matches):
                                         # this is only a partial string
                                         if trace:
-                                            _trace_info("> > continuation rule no.",
-                                                n0, "not used (too short)")
+                                            _trace_info('> > continuation rule no.',
+                                                n0, 'not used (too short)')
 
                                         n0 += 3
 
                                         continue
 
-                                    if p0 < p:
+                                    if priority0 < priority:
                                         # priority is too low
                                         if trace:
-                                            _trace_info("> > continuation rule no.",
-                                                n0, "not used (priority)")
+                                            _trace_info('> > continuation rule no.',
+                                                n0, 'not used (priority)')
 
                                         n0 += 3
 
@@ -3598,78 +3598,78 @@ def phonet(word, ml=1, lang='de'):
                                     break
 
                                 if trace:
-                                    _trace_info("> > continuation rule no.", n0,
-                                        "not used")
+                                    _trace_info('> > continuation rule no.', n0,
+                                        'not used')
 
                                 n0 += 3
 
                             # end of "while"
-                            if ((p0 >= p) and
+                            if ((priority0 >= priority) and
                                 ((_phonet_rules[n0] != None) and
-                                 (_phonet_rules[n0][0] == c0))):
+                                 (_phonet_rules[n0][0] == char0))):
                                 n += 3
 
                                 if trace:
-                                    _trace_info("> rule no.", n, "")
-                                    _trace_info("> not used because of continuation",
-                                        n0, "")
+                                    _trace_info('> rule no.', n, '')
+                                    _trace_info('> not used because of continuation',
+                                        n0, '')
 
                                 continue
 
                         # replace string
                         if trace:
-                            _trace_info("Rule no.", n, "is applied")
+                            _trace_info('Rule no.', n, 'is applied')
 
                         if (_phonet_rules[n] and
                             ('<' in _phonet_rules[n][1:])):
-                            p0 = 1
+                            priority0 = 1
                         else:
-                            p0 = 0
+                            priority0 = 0
 
-                        s = _phonet_rules[n + ml]
+                        rule = _phonet_rules[n + ml]
 
-                        if ((p0 == 1) and (z == 0)):
+                        if ((priority0 == 1) and (z == 0)):
                             # rule with '<' is applied
-                            if ((j > 0) and s and
-                                ((dest[j-1:j] == c) or
-                                 (dest[j-1:j] == s[0:1]))):
+                            if ((j > 0) and rule and
+                                ((dest[j-1:j] == char) or
+                                 (dest[j-1:j] == rule[0:1]))):
                                 j -= 1
 
                             z0 = 1
                             z += 1
-                            k0 = 0
+                            matches0 = 0
 
-                            while (s and (src[i+k0:i+k0+1] != '')):
-                                src = (src[0:i+k0] + s[0:1] + src[i+k0+1:])
-                                k0 += 1
-                                s = s[1:]
+                            while (rule and (src[i+matches0:i+matches0+1] != '')):
+                                src = (src[0:i+matches0] + rule[0:1] + src[i+matches0+1:])
+                                matches0 += 1
+                                rule = rule[1:]
 
-                            if (k0 < k):
-                                src = src[0:i+k0] + src[i+k:]
+                            if (matches0 < matches):
+                                src = src[0:i+matches0] + src[i+matches:]
 
-                            c = src[i]
+                            char = src[i]
                         else:
-                            i = i + k - 1
+                            i = i + matches - 1
                             z = 0
 
-                            while len(s) > 1:
-                                if ((j == 0) or (dest[j - 1] != s[0])):
-                                    dest = dest[0:j] + s[0] + dest[min(len(dest), j+1):]
+                            while len(rule) > 1:
+                                if ((j == 0) or (dest[j - 1] != rule[0])):
+                                    dest = dest[0:j] + rule[0] + dest[min(len(dest), j+1):]
                                     j += 1
 
-                                s = s[1:]
+                                rule = rule[1:]
 
                             # new "current char"
-                            if not s:
-                                s = ''
-                                c = ''
+                            if not rule:
+                                rule = ''
+                                char = ''
                             else:
-                                c = s[0]
+                                char = rule[0]
 
                             if (_phonet_rules[n] and
-                                "^^" in _phonet_rules[n][1:]):
-                                if c != '':
-                                    dest = (dest[0:j] + c + dest[min(len(dest), j + 1):])
+                                '^^' in _phonet_rules[n][1:]):
+                                if char != '':
+                                    dest = (dest[0:j] + char + dest[min(len(dest), j + 1):])
                                     j += 1
 
                                 src = src[i + 1:]
@@ -3688,9 +3688,9 @@ def phonet(word, ml=1, lang='de'):
                         end2 = -1
 
             if (z0 == 0):
-                if ((c != '') and ((j == 0) or (dest[j-1:j] != c))):
+                if ((char != '') and ((j == 0) or (dest[j-1:j] != char))):
                     # delete multiple letters only
-                    dest = dest[0:j] + c + dest[min(j+1, term_length):]
+                    dest = dest[0:j] + char + dest[min(j+1, term_length):]
                     j += 1
 
                 i += 1
