@@ -2164,14 +2164,15 @@ def sfinxbis(word, maxlength=None):
     return tuple(ordlista)
 
 
-def phonet(word, ml=1, lang='de'):
+def phonet(word, ml=1, lang='de', trace=False):
     """Return the phonet encoding of a word
 
     Arguments:
     word -- the word to translate to a phonet encoding
-    ml -- 
+    ml -- the ponet variant to employ (1 or 2)
     lang -- 'de' (default) for German
             'none' for no language
+    trace -- prints debugging info if True
 
     Description:
     phonet was developed by Jörg Michael and documented in c't magazine
@@ -3187,8 +3188,6 @@ def phonet(word, ml=1, lang='de'):
 
     _phonet_rules = tuple()
 
-    # Output debug information if set True.
-    trace = True
     phonet_hash = Counter()
     alpha_pos = Counter()
 
@@ -3196,7 +3195,7 @@ def phonet(word, ml=1, lang='de'):
     phonet_hash_2 = Counter()
 
 
-    def _trace_info(text, n, err_text, lang='de'):
+    def _trace_info(text, n, err_text, lang):
         """Output debug information.
         """
         if lang == 'none':
@@ -3210,7 +3209,7 @@ def phonet(word, ml=1, lang='de'):
         print('"{} {}:  "{}"{}"{}" {}'.format(text, ((n / 3) + 1), from_rule, to_rule1, to_rule2, err_text))
 
 
-    def _initialize_phonet(lang='de'):
+    def _initialize_phonet(lang):
         if lang == 'none':
             _phonet_rules = _phonet_rules_no_lang
         else:
@@ -3282,7 +3281,7 @@ def phonet(word, ml=1, lang='de'):
                         rule = rule[1:]
 
 
-    def _phonet(term, ml, lang='de'):
+    def _phonet(term, ml, lang, trace):
         if lang == 'none':
             _phonet_rules = _phonet_rules_no_lang
         else:
@@ -3374,7 +3373,7 @@ def phonet(word, ml=1, lang='de'):
                         continue
 
                     if trace:
-                        _trace_info('> rule no.', n, 'is being checked')
+                        _trace_info('> rule no.', n, 'is being checked', lang)
 
                     # check whole string
                     matches = 1 # number of matching letters
@@ -3513,7 +3512,7 @@ def phonet(word, ml=1, lang='de'):
 
                                 if trace:
                                     _trace_info('> > continuation rule no.', n0,
-                                               'is being checked')
+                                               'is being checked', lang)
 
                                 # check whole string
                                 matches0 = matches
@@ -3561,7 +3560,7 @@ def phonet(word, ml=1, lang='de'):
                                         # this is only a partial string
                                         if trace:
                                             _trace_info('> > continuation rule no.',
-                                                n0, 'not used (too short)')
+                                                n0, 'not used (too short)', lang)
 
                                         n0 += 3
 
@@ -3571,7 +3570,7 @@ def phonet(word, ml=1, lang='de'):
                                         # priority is too low
                                         if trace:
                                             _trace_info('> > continuation rule no.',
-                                                n0, 'not used (priority)')
+                                                n0, 'not used (priority)', lang)
 
                                         n0 += 3
 
@@ -3582,7 +3581,7 @@ def phonet(word, ml=1, lang='de'):
 
                                 if trace:
                                     _trace_info('> > continuation rule no.', n0,
-                                        'not used')
+                                        'not used', lang)
 
                                 n0 += 3
 
@@ -3593,15 +3592,15 @@ def phonet(word, ml=1, lang='de'):
                                 n += 3
 
                                 if trace:
-                                    _trace_info('> rule no.', n, '')
+                                    _trace_info('> rule no.', n, '', lang)
                                     _trace_info('> not used because of continuation',
-                                        n0, '')
+                                        n0, '', lang)
 
                                 continue
 
                         # replace string
                         if trace:
-                            _trace_info('Rule no.', n, 'is applied')
+                            _trace_info('Rule no.', n, 'is applied', lang)
 
                         if (_phonet_rules[n] and
                             ('<' in _phonet_rules[n][1:])):
@@ -3687,4 +3686,4 @@ def phonet(word, ml=1, lang='de'):
     _initialize_phonet(lang)
 
     word = unicodedata.normalize('NFKC', _unicode(word.upper()))
-    return _phonet(word, ml)
+    return _phonet(word, ml, lang, trace)
