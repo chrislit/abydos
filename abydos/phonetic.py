@@ -3304,8 +3304,8 @@ def phonet(word, ml=1, lang='de', trace=False):
         j = 0
         z = 0
 
-        while i < term_length:
-            char = src[i:i+1]
+        while i < len(src):
+            char = src[i]
 
             if trace:
                 print('\ncheck position {}:  src = "{}",  dest = "{}"'.format(j, src[i:], dest[:j]))
@@ -3315,10 +3315,10 @@ def phonet(word, ml=1, lang='de', trace=False):
             if n >= 2:
                 xn = n-2
 
-                if (i + 1) == len(src):
+                if i+1 == len(src):
                     n = alpha_pos['']
                 else:
-                    n = alpha_pos[src[i + 1]]
+                    n = alpha_pos[src[i+1]]
 
                 start1 = phonet_hash_1[xn, n]
                 start2 = phonet_hash_1[xn, 0]
@@ -3390,7 +3390,7 @@ def phonet(word, ml=1, lang='de', trace=False):
                         matches += 1
                         rule = rule[1:]
 
-                    if (rule and (rule[0:1] == '(')):
+                    if (rule and (rule[0] == '(')):
                         # check an array of letters
                         if ((len(src) > (i + matches)) and
                                 src[i + matches].isalpha() and
@@ -3410,17 +3410,14 @@ def phonet(word, ml=1, lang='de', trace=False):
 
                     matches0 = matches
 
-                    while ((rule[0:1] == '-') and (matches > 1)):
+                    while (rule and rule[0] == '-' and matches > 1):
                         matches -= 1
                         rule = rule[1:]
 
-                    if rule[0:1] == '<':
+                    if rule and rule[0] == '<':
                         rule = rule[1:]
 
-                        if (len(rule) == 0):
-                            rule = None
-
-                    if rule and rule[0:1].isdigit():
+                    if rule and rule[0].isdigit():
                         # read priority
                         priority = int(rule[0])
                         rule = rule[1:]
@@ -3428,15 +3425,15 @@ def phonet(word, ml=1, lang='de', trace=False):
                     if rule and rule[0:2] == '^^':
                         rule = rule[1:]
 
-                    if ((not rule or rule[0:1] == '') or
-                        ((rule[0:1] == '^') and
+                    if ((not rule or rule[0] == '') or
+                        ((rule[0] == '^') and
                          ((i == 0) or
-                          not src[i-1:i].isalpha()) and
+                          not src[i-1].isalpha()) and
                          ((rule[1:2] != '$') or
-                          (not (src[i+matches0:i+matches0+1].isalpha()) and
-                           (src[i+matches0:i+matches0+1] != '.')))) or
-                        ((rule[0:1] == '$') and (i > 0) and
-                         src[i-1:i].isalpha() and
+                          (not (src[i+matches0].isalpha()) and
+                           (src[i+matches0] != '.')))) or
+                        ((rule[0] == '$') and (i > 0) and
+                         src[i-1].isalpha() and
                          ((not src[i+matches0:i+matches0+1].isalpha()) and
                           (src[i+matches0:i+matches0+1] != '.')))):
                         # look for continuation, if:
@@ -3450,12 +3447,12 @@ def phonet(word, ml=1, lang='de', trace=False):
 
                         if ((matches > 1) and (src[i+matches:i+matches+1] != '') and
                             (priority0 != '-')):
-                            char0 = src[i+matches-1:i+matches]
+                            char0 = src[i+matches-1]
                             n0 = alpha_pos[char0]
 
-                            if ((n0 >= 2) and (src[i+matches:i+matches+1] != '')):
+                            if ((n0 >= 2) and (src[i+matches] != '')):
                                 xn = n0 - 2
-                                n0 = alpha_pos[src[i+matches:i+matches+1]]
+                                n0 = alpha_pos[src[i+matches]]
                                 start3 = phonet_hash_1[xn, n0]
                                 start4 = phonet_hash_1[xn, 0]
                                 end3 = phonet_hash_2[xn, n0]
@@ -3522,16 +3519,16 @@ def phonet(word, ml=1, lang='de', trace=False):
                                 rule = rule[1:]
 
                                 while (rule and len(rule) > 0 and
-                                       (src[i+matches0:i+matches0+1] == rule[0:1]) and
-                                       (not rule[0:1].isdigit() or
+                                       (src[i+matches0:i+matches0+1] == rule[0]) and
+                                       (not rule[0].isdigit() or
                                         (rule in '(-<^$'))):
                                     matches0 += 1
                                     rule = rule[1:]
 
-                                if rule[0:1] == '(':
+                                if rule and rule[0] == '(':
                                     # check an array of letters
-                                    if (src[i+matches0:i+matches0+1].isalpha() and
-                                        (src[i+matches0:i+matches0+1] in rule[1:])):
+                                    if (src[i+matches0].isalpha() and
+                                        (src[i+matches0] in rule[1:])):
                                         matches0 += 1
 
                                         while (rule and (rule[0] != ')')):
@@ -3540,21 +3537,21 @@ def phonet(word, ml=1, lang='de', trace=False):
                                         if (rule[0] == ')'):
                                             rule = rule[1:]
 
-                                while rule[0:1] == '-':
+                                while rule and rule[0] == '-':
                                     # "matches0" is NOT decremented
                                     # because of  "if (matches0 == matches)"
                                     rule = rule[1:]
 
-                                if rule[0:1] == '<':
+                                if rule and rule[0] == '<':
                                     rule = rule[1:]
 
-                                if rule[0:1].isdigit():
+                                if rule and rule[0].isdigit():
                                     priority0 = int(rule[0])
                                     rule = rule[1:]
 
                                 if (not rule or
                                     # rule == '^' is not possible here 
-                                    ((rule[0:1] == '$') and
+                                    ((rule[0] == '$') and
                                      not src[i+matches0:i+matches0+1].isalpha() and
                                      (src[i+matches0:i+matches0+1] != '.'))):
                                     if (matches0 == matches):
@@ -3614,16 +3611,16 @@ def phonet(word, ml=1, lang='de', trace=False):
                         if ((priority0 == 1) and (z == 0)):
                             # rule with '<' is applied
                             if ((j > 0) and rule and
-                                ((dest[j-1:j] == char) or
-                                 (dest[j-1:j] == rule[0:1]))):
+                                ((dest[j-1] == char) or
+                                 (dest[j-1] == rule[0]))):
                                 j -= 1
 
                             z0 = 1
                             z += 1
                             matches0 = 0
 
-                            while (rule and (src[i+matches0:i+matches0+1] != '')):
-                                src = (src[0:i+matches0] + rule[0:1] + src[i+matches0+1:])
+                            while (rule and (src[i+matches0] != '')):
+                                src = (src[0:i+matches0] + rule[0] + src[i+matches0+1:])
                                 matches0 += 1
                                 rule = rule[1:]
 
@@ -3671,7 +3668,7 @@ def phonet(word, ml=1, lang='de', trace=False):
                         end2 = -1
 
             if (z0 == 0):
-                if ((char != '') and ((j == 0) or (dest[j-1:j] != char))):
+                if ((char != '') and ((j == 0) or (dest[j-1] != char))):
                     # delete multiple letters only
                     dest = dest[0:j] + char + dest[min(j+1, term_length):]
                     j += 1
