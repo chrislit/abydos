@@ -270,6 +270,12 @@ class SoundexTestCases(unittest.TestCase):
                           set(['479465']))
         self.assertEqual(dm_soundex('Schwartsenegger'), set(['479465']))
 
+        # reverse DM-Soundex
+        self.assertEqual(soundex('Schwarzenegger', var='dm', reverse=True),
+                          set(['956497']))
+        self.assertEqual(dm_soundex('Schwarzenegger', reverse=True),
+                          set(['956497']))
+
 
 class KoelnerPhonetikTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.koelner_phonetik,
@@ -299,6 +305,11 @@ class KoelnerPhonetikTestCases(unittest.TestCase):
         self.assertEqual(koelner_phonetik('schäfer'), '837')
         self.assertEqual(koelner_phonetik('cater'), '427')
         self.assertEqual(koelner_phonetik('axel'), '0485')
+
+        # etc. (for code coverage)
+        self.assertEqual(koelner_phonetik('Akxel'), '0485')
+        self.assertEqual(koelner_phonetik('Adz'), '08')
+        self.assertEqual(koelner_phonetik('Alpharades'), '053728')
 
     def test_koelner_phonetik_n2a(self):
         """test abydos.phonetic.koelner_phonetik_num_to_alpha
