@@ -310,6 +310,8 @@ class KoelnerPhonetikTestCases(unittest.TestCase):
         self.assertEqual(koelner_phonetik('Akxel'), '0485')
         self.assertEqual(koelner_phonetik('Adz'), '08')
         self.assertEqual(koelner_phonetik('Alpharades'), '053728')
+        self.assertEqual(koelner_phonetik('Cent'), '862')
+        self.assertEqual(koelner_phonetik('Acre'), '087')
 
     def test_koelner_phonetik_n2a(self):
         """test abydos.phonetic.koelner_phonetik_num_to_alpha
@@ -3713,32 +3715,33 @@ class PhonetTestCases(unittest.TestCase):
         """
         if True:
             return
-        with codecs.open(TESTDIR+'/nachnamen.csv', encoding='utf-8') as nachnamen_testset:
-            for nn_line in nachnamen_testset:
-                if nn_line[0] != '#':
-                    nn_line = nn_line.strip().split(',')
-                    # This test set is very large (~9999 entries)
-                    # so let's just randomly select about 10 for testing
-                    if len(nn_line) >= 3 and random.random() * 100 < 1:
-                        (term, ph1, ph2) = nn_line
-                        self.assertEqual(phonet(term, 1), ph1)
-                        self.assertEqual(phonet(term, 2), ph2)
+        nachnamen_testset = codecs.open(TESTDIR+'/nachnamen.csv',
+                                        encoding='utf-8')
+        for nn_line in nachnamen_testset:
+            if nn_line[0] != '#':
+                nn_line = nn_line.strip().split(',')
+                # This test set is very large (~9999 entries)
+                # so let's just randomly select about 10 for testing
+                if len(nn_line) >= 3 and random.random() * 100 < 1:
+                    (term, ph1, ph2) = nn_line
+                    self.assertEqual(phonet(term, 1), ph1)
+                    self.assertEqual(phonet(term, 2), ph2)
 
     def test_phonet_ngerman(self):
         """test abydos.phonetic.phonet (ngerman set)
         """
         if True:
             return
-        with codecs.open(TESTDIR+'/ngerman.csv', encoding='utf-8') as ngerman_testset:
-            for ng_line in ngerman_testset:
-                if ng_line[0] != '#':
-                    ng_line = ng_line.strip().split(',')
-                    # This test set is very large (~3000000 entries)
-                    # so let's just randomly select about 30 for testing
-                    if len(ng_line) >= 3 and random.random() * 10000 < 1:
-                        (term, ph1, ph2) = ng_line
-                        self.assertEqual(phonet(term, 1), ph1)
-                        self.assertEqual(phonet(term, 2), ph2)
+        ngerman_testset = codecs.open(TESTDIR+'/ngerman.csv', encoding='utf-8')
+        for ng_line in ngerman_testset:
+            if ng_line[0] != '#':
+                ng_line = ng_line.strip().split(',')
+                # This test set is very large (~3000000 entries)
+                # so let's just randomly select about 30 for testing
+                if len(ng_line) >= 3 and random.random() * 10000 < 1:
+                    (term, ph1, ph2) = ng_line
+                    self.assertEqual(phonet(term, 1), ph1)
+                    self.assertEqual(phonet(term, 2), ph2)
 
 
 if __name__ == '__main__':
