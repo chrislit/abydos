@@ -603,9 +603,7 @@ def sim_strcmp95(src, tar, long_strings=False):
     # Blank out the flags
     ying_flag = [0 for i in _range(search_range)]
     yang_flag = [0 for j in _range(search_range)]
-    search_range = search_range // 2 - 1
-    if search_range < 0:
-        search_range = 0
+    search_range = max(0, search_range // 2 - 1)
 
     # Looking only within the search range, count and flag the matched pairs.
     num_com = 0
@@ -755,9 +753,7 @@ scaling_factor must be between 0 and 0.25.')
     # Zero out the flags
     src_flag = [0 for i in _range(search_range)]
     tar_flag = [0 for j in _range(search_range)]
-    search_range = search_range//2 - 1
-    if search_range < 0:
-        search_range = 0
+    search_range = max(0, search_range//2 - 1)
 
     # Looking only within the search range, count and flag the matched pairs.
     num_com = 0

@@ -430,6 +430,14 @@ class JaroWinklerTestCases(unittest.TestCase):
 
         self.assertAlmostEqual(sim_strcmp95('ABCD', 'EFGH'), 0.0)
 
+        # long_strings = True
+        self.assertAlmostEqual(sim_strcmp95('DIXON', 'DICKSONX', True),
+                               0.85393939)
+        self.assertAlmostEqual(sim_strcmp95('DWAYNE', 'DUANE', True),
+                               0.89609090)
+        self.assertAlmostEqual(sim_strcmp95('MARTHA', 'MARHTA', True),
+                               0.97083333)
+
     def test_dist_strcmp95(self):
         """test abydos.distance.dist_strcmp95
         """
@@ -481,6 +489,21 @@ class JaroWinklerTestCases(unittest.TestCase):
                           scaling_factor=-1)
 
         self.assertAlmostEqual(sim_jaro_winkler('ABCD', 'EFGH'), 0.0)
+        
+        # long_strings = True (applies only to Jaro-Winkler, not Jaro)
+        self.assertEqual(sim_jaro_winkler('ABCD', 'EFGH', long_strings=True),
+                         sim_jaro_winkler('ABCD', 'EFGH'))
+        self.assertEqual(sim_jaro_winkler('DIXON', 'DICKSONX',
+                                                mode='jaro',
+                                                long_strings=True),
+                               sim_jaro_winkler('DIXON', 'DICKSONX',
+                                                mode='jaro'))
+        self.assertAlmostEqual(sim_jaro_winkler('DIXON', 'DICKSONX',
+                                                mode='winkler',
+                                                long_strings=True), 0.83030303)
+        self.assertAlmostEqual(sim_jaro_winkler('MARTHA', 'MARHTA',
+                                                mode='winkler',
+                                                long_strings=True), 0.97083333)
 
     def test_dist_jaro_winkler(self):
         """test abydos.distance.dist_jaro_winkler
