@@ -24,9 +24,10 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
 from __future__ import division
+import unicodedata
+import numpy as np
 from ._compat import _unicode
 from .phonetic import double_metaphone
-import unicodedata
 from .qgram import QGrams
 from .distance import sim
 
@@ -188,8 +189,7 @@ def mean_pairwise_similarity(collection, metric=sim,
     if mean == 'harmonic':
         return len(pairwise_values)/sum([1/x for x in pairwise_values])
     elif mean == 'geometric':
-        return (reduce(lambda x, y: x*y, pairwise_values, 1)**
-                (1/len(pairwise_values)))
+        return (np.prod(pairwise_values)**(1/len(pairwise_values)))
     elif mean == 'arithmetic':
         return sum(pairwise_values)/len(pairwise_values)
     else:
