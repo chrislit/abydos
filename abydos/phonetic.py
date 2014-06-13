@@ -3705,3 +3705,128 @@ def phonet(word, mode=1, lang='de', trace=False):
 
     word = unicodedata.normalize('NFKC', _unicode(word))
     return _phonet(word, mode, lang, trace)
+
+
+def spfc(word):
+    """Return the Standardized Phonetic Frequency Code of a word
+
+    Arguments:
+    word -- the word to translate to a Standardized Phonetic Frequency Code
+
+    Description:
+    Standardized Phonetic Frequency Code is roughly Soundex-like.
+    This implementation is based on page 19-21 of
+    https://archive.org/stream/accessingindivid00moor#page/19/mode/1up
+    """
+
+    _pf1 = dict(zip([ord(_) for _ in u'SZCKQVFPUWABLORDHIEMNXGJT'],
+                   u'0011112222334445556666777'))
+    _pf2 = dict(zip([ord(_) for _ in
+                    u'SZCKQFPXABORDHIMNGJTUVWEL'],
+                    u'0011122233445556677788899'))
+    _pf3 = dict(zip([ord(_) for _ in
+                    u'BCKQVDTFLPGJXMNRSZAEHIOUWY'],
+                    u'00000112223334456677777777'))
+
+    _substitutions = (('DK', 'K'), ('DT', 'T'), ('SC', 'S'), ('KN', 'N'),
+                      ('MN', 'N'))
+
+    def _raise_word_ex():
+        """Raise an AttributeError
+        """
+        raise AttributeError('word attribute must be a string with a space or\
+period dividing the first and last names or a tuple/list consisting of the\
+first and last names')
+
+    if not word:
+        return ''
+
+    if isinstance(word, _unicode):
+        names = word.split('.', 1)
+        if len(names) != 2:
+            names = word.split(' ', 1)
+            if len(names) != 2:
+                _raise_word_ex()
+    elif hasattr(word, '__iter__'):
+        if len(word) != 2:
+            _raise_word_ex()
+        names = word
+    else:
+        _raise_word_ex()
+
+    names = [unicodedata.normalize('NFKD', _unicode(_.strip().upper()))
+             for _ in names]
+    code = ''
+
+    def steps_one_to_three(name):
+        """Performs the first three steps of SPFC
+        """
+        # filter out non A-Z
+        name = ''.join([_ for _ in name if _ in
+                        tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+
+        # 1. In the field, convert DK to K, DT to T, SC to S, KN to N,
+        # and MN to N
+        for subst in _substitutions:
+            name = name.replace(subst[0], subst[1])
+
+        # 2. In the name field, replace multiple letters with a single letter
+        name = _delete_consecutive_repeats(name)
+
+        # 3. Remove vowels, W, H, and Y, but keep the first letter in the name
+        # field.
+        name = name[0] + ''.join([_ for _ in name[1:] if _ not in
+                                  tuple('AEIOUWHY')])
+        return name
+
+    names = [steps_one_to_three(_) for _ in names]
+
+    # 4. The first digit of the code is obtained using PF1 and the first letter
+    # of the name field. Remove this letter after coding.
+    code += names[1][0].translate(_pf1)
+    names[1] = names[1][1:]
+
+    # 5. Using the last letters of the name, use Table PF3 to obtain the
+    # second digit of the code. Use as many letters as possible and remove
+    # after coding.
+    if names[1].endswith('STN') or names[1].endswith('PRS'):
+        code += '8'
+        names[1] = names[1][:-3]
+    elif names[1].endswith('SN'):
+        code += '8'
+        names[1] = names[1][:-2]
+    elif names[1].endswith('STR'):
+        code += '9'
+        names[1] = names[1][:-3]
+    elif (names[1].endswith('SR') or names[1].endswith('TN') or
+          names[1].endswith('TD')):
+        code += '9'
+        names[1] = names[1][:-2]
+    elif names[1].endswith('DRS'):
+        code += '7'
+        names[1] = names[1][:-3]
+    elif names[1].endswith('TR') or names[1].endswith('MN'):
+        code += '7'
+        names[1] = names[1][:-2]
+    else:
+        code += names[1][-1].translate(_pf3)
+        names[1] = names[1][:-1]
+
+    # 6. The third digit is found using Table PF2 and the first character of
+    # the first name. Remove after coding.
+    code += names[0][0].translate(_pf2)
+    names[0] = names[0][1:]
+
+    # 7. The fourth digit is found using Table PF2 and the first character of
+    # the name field. If no letters remain use zero. After coding remove the
+    # letter.
+    # 8. The fifth digit is found in the same manner as the fourth using the
+    # remaining characters of the name field if any.
+    for _ in _range(2):
+        if names[1]:
+            code += names[1][0].translate(_pf2)
+            names[1] = names[1][1:]
+        else:
+            code += '0'
+
+    return code

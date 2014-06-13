@@ -29,7 +29,7 @@ from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     russell_index_alpha, soundex, dm_soundex, koelner_phonetik, \
     koelner_phonetik_num_to_alpha, koelner_phonetik_alpha, nysiis, mra, \
     metaphone, double_metaphone, caverphone, alpha_sis, fuzzy_soundex, phonex, \
-    phonem, phonix, sfinxbis, phonet
+    phonem, phonix, sfinxbis, phonet, spfc
 
 TESTDIR = os.path.dirname(__file__)
 
@@ -3742,6 +3742,33 @@ class PhonetTestCases(unittest.TestCase):
                     (term, ph1, ph2) = ng_line
                     self.assertEqual(phonet(term, 1), ph1)
                     self.assertEqual(phonet(term, 2), ph2)
+
+
+class SPFCTestCases(unittest.TestCase):
+    """test cases for abydos.phonetic.spfc
+    """
+    def test_spfc(self):
+        """test abydos.phonetic.spfc
+        """
+        self.assertEqual(spfc(''), '')
+
+        # https://archive.org/stream/accessingindivid00moor#page/19/mode/1up
+        self.assertEqual(spfc(('J', 'KUHNS')), '16760')
+        self.assertEqual(spfc(('G', 'ALTSHULER')), '35797')
+        self.assertEqual(spfc('J KUHNS'), '16760')
+        self.assertEqual(spfc('G ALTSHULER'), '35797')
+        self.assertEqual(spfc('J. KUHNS'), '16760')
+        self.assertEqual(spfc('G. ALTSHULER'), '35797')
+        self.assertEqual(spfc('J. Kuhns'), '16760')
+        self.assertEqual(spfc('G. Altshuler'), '35797')
+        self.assertEqual(spfc('T. Vines'), '16760')
+        self.assertEqual(spfc('J. Butler'), '35779')
+        self.assertNotEqual(spfc('J. Kuhns'), spfc('J. Kuntz'))
+        self.assertEqual(spfc('Jon Kuhns'), '16760')
+        self.assertEqual(spfc('James Kuhns'), '16760')
+
+        self.assertRaises(AttributeError, spfc, ('J', 'A', 'Kuhns'))
+        self.assertRaises(AttributeError, spfc, 'JKuhns')
 
 
 if __name__ == '__main__':
