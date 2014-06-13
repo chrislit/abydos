@@ -3184,7 +3184,8 @@ def phonet(word, ml=1, lang='de', trace=False):
                             'ZUWENIG', 'ZU WENIK', 'ZU FENIK',
                             'ZY9^', 'ZÜ', None,
                             'ZYK3$', 'ZIK', None,
-                            'Z(VW)7^', 'SW', None)
+                            'Z(VW)7^', 'SW', None,
+                            None, None, None)
 
 
     _phonet_rules = tuple()
@@ -3430,8 +3431,8 @@ def phonet(word, ml=1, lang='de', trace=False):
                          ((i == 0) or
                           not src[i-1].isalpha()) and
                          ((rule[1:2] != '$') or
-                          (not (src[i+matches0].isalpha()) and
-                           (src[i+matches0] != '.')))) or
+                          (not (src[i+matches0:i+matches0+1].isalpha()) and
+                           (src[i+matches0:i+matches0+1] != '.')))) or
                         ((rule[0] == '$') and (i > 0) and
                          src[i-1].isalpha() and
                          ((not src[i+matches0:i+matches0+1].isalpha()) and
@@ -3527,7 +3528,7 @@ def phonet(word, ml=1, lang='de', trace=False):
 
                                 if rule and rule[0] == '(':
                                     # check an array of letters
-                                    if (src[i+matches0].isalpha() and
+                                    if (src[i+matches0:i+matches0+1].isalpha() and
                                         (src[i+matches0] in rule[1:])):
                                         matches0 += 1
 

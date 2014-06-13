@@ -23,6 +23,8 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 import unittest
 import os
+import codecs
+import random
 from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     russell_index_alpha, soundex, dm_soundex, koelner_phonetik, \
     koelner_phonetik_num_to_alpha, koelner_phonetik_alpha, nysiis, mra, \
@@ -3714,6 +3716,35 @@ class PhonetTestCases(unittest.TestCase):
         self.assertEqual(phonet('Blechschmidt', 2), 'BLEKZNIT')
         self.assertEqual(phonet('Kolodziej', 2), 'KULUTZI')
         self.assertEqual(phonet('Krauße', 2), 'KRAUZE')
+
+    def test_phonet_nachnamen(self):
+        """test abydos.phonetic.phonet (Nachnamen set)
+        """
+        with codecs.open(TESTDIR+'/nachnamen.csv', encoding='utf-8') as nachnamen_testset:
+            for nn_line in nachnamen_testset:
+                if nn_line[0] != '#':
+                    nn_line = nn_line.strip().split(',')
+                    # This test set is very large (~9999 entries)
+                    # so let's just randomly select about 10 for testing
+                    if len(nn_line) >= 3 and random.random() * 100 < 1:
+                        (term, ph1, ph2) = nn_line
+                        self.assertEqual(phonet(term, 1), ph1)
+                        self.assertEqual(phonet(term, 2), ph2)
+
+    def test_phonet_ngerman(self):
+        """test abydos.phonetic.phonet (ngerman set)
+        """
+        with codecs.open(TESTDIR+'/ngerman.csv', encoding='utf-8') as ngerman_testset:
+            for ng_line in ngerman_testset:
+                if ng_line[0] != '#':
+                    ng_line = ng_line.strip().split(',')
+                    # This test set is very large (~3000000 entries)
+                    # so let's just randomly select about 30 for testing
+                    if len(ng_line) >= 3 and random.random() * 10000 < 1:
+                        (term, ph1, ph2) = ng_line
+                        self.assertEqual(phonet(term, 1), ph1)
+                        self.assertEqual(phonet(term, 2), ph2)
+
 
 if __name__ == '__main__':
     unittest.main()
