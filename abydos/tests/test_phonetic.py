@@ -3228,7 +3228,7 @@ class CaverphoneTestCases(unittest.TestCase):
         """test abydos.phonetic.caverphone (PHP version testset)
         """
         # https://raw.githubusercontent.com/kiphughes/caverphone/master/unit_tests.php
-        with open(TESTDIR+'/phpCaverphone.dat') as php_testset:
+        with open(TESTDIR+'/php_caverphone.csv') as php_testset:
             for php_line in php_testset:
                 (word, caver) = php_line.strip().split(',')
                 self.assertEqual(caverphone(word), caver)
