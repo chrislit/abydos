@@ -369,6 +369,12 @@ class NysiisTestCases(unittest.TestCase):
         self.assertEqual(nysiis('Webberley', maxlength=20), 'WABARLY')
         self.assertEqual(nysiis('Wibberley', maxlength=20), 'WABARLY')
 
+        # etc. (for code coverage)
+        self.assertEqual(nysiis('Alpharades'), 'ALFARA')
+        self.assertEqual(nysiis('Aschenputtel'), 'ASANPA')
+        self.assertEqual(nysiis('Beverly'), 'BAFARL')
+        self.assertEqual(nysiis('Hardt'), 'HARD')
+
 
 class MraTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.mra

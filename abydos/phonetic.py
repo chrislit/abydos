@@ -494,8 +494,10 @@ def nysiis(word, maxlength=6):
         elif word[i] == 'W' and word[i-1] in _vowels:
             word = word[:i] + word[i-1] + word[i+1:]
 
-        if word[i] != key[-1]:
-            key += word[i]
+        if word[i:i+skip+1] != key[-1:]:
+            key += word[i:i+skip+1]
+
+    key = _delete_consecutive_repeats(key)
 
     if key[-1] == 'S':
         key = key[:-1]
