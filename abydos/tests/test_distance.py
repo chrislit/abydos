@@ -489,7 +489,7 @@ class JaroWinklerTestCases(unittest.TestCase):
                           scaling_factor=-1)
 
         self.assertAlmostEqual(sim_jaro_winkler('ABCD', 'EFGH'), 0.0)
-        
+
         # long_strings = True (applies only to Jaro-Winkler, not Jaro)
         self.assertEqual(sim_jaro_winkler('ABCD', 'EFGH', long_strings=True),
                          sim_jaro_winkler('ABCD', 'EFGH'))
