@@ -3196,6 +3196,9 @@ def phonet(word, ml=1, lang='de', trace=False):
     phonet_hash_1 = Counter()
     phonet_hash_2 = Counter()
 
+    _phonet_upper_translation = dict(zip([ord(_) for _ in
+            u'abcdefghijklmnopqrstuvwxyzàáâãåäæçðèéêëìíîïñòóôõöøœšßþùúûüýÿ'],
+            u'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÅÄÆÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ'))
 
     def _trace_info(text, n, err_text, lang):
         """Output debug information.
@@ -3298,7 +3301,7 @@ def phonet(word, ml=1, lang='de', trace=False):
         term_length = len(term)
 
         # convert input string to upper-case
-        src = term.upper()
+        src = term.translate(_phonet_upper_translation)
 
         # check "src"
         i = 0
@@ -3405,9 +3408,9 @@ def phonet(word, ml=1, lang='de', trace=False):
                                 rule = rule[1:]
 
                     if rule:
-                        priority0 = rule[0]
+                        priority0 = ord(rule[0])
                     else:
-                        priority0 = ''
+                        priority0 = 0
 
                     matches0 = matches
 
@@ -3447,7 +3450,7 @@ def phonet(word, ml=1, lang='de', trace=False):
                         end4 = 0
 
                         if ((matches > 1) and (src[i+matches:i+matches+1] != '') and
-                            (priority0 != '-')):
+                            (priority0 != ord('-'))):
                             char0 = src[i+matches-1]
                             n0 = alpha_pos[char0]
 
@@ -3684,5 +3687,5 @@ def phonet(word, ml=1, lang='de', trace=False):
 
     _initialize_phonet(lang)
 
-    word = unicodedata.normalize('NFKC', _unicode(word.upper()))
+    word = unicodedata.normalize('NFKC', _unicode(word))
     return _phonet(word, ml, lang, trace)
