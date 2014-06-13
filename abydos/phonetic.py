@@ -3408,9 +3408,9 @@ def phonet(word, ml=1, lang='de', trace=False):
                                 rule = rule[1:]
 
                     if rule:
-                        priority0 = rule[0]
+                        priority0 = ord(rule[0])
                     else:
-                        priority0 = ''
+                        priority0 = 0
 
                     matches0 = matches
 
@@ -3450,7 +3450,7 @@ def phonet(word, ml=1, lang='de', trace=False):
                         end4 = 0
 
                         if ((matches > 1) and (src[i+matches:i+matches+1] != '') and
-                            (priority0 != '-')):
+                            (priority0 != ord('-'))):
                             char0 = src[i+matches-1]
                             n0 = alpha_pos[char0]
 
