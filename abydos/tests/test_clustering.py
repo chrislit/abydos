@@ -25,6 +25,7 @@ from abydos._compat import _range
 import unittest
 from abydos.clustering import fingerprint, qgram_fingerprint, \
     phonetic_fingerprint, skeleton_key, omission_key, mean_pairwise_similarity
+import abydos.stats as stats
 
 NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
          'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill', 'MacNeil',
@@ -139,19 +140,19 @@ class MPSTestCases(unittest.TestCase):
         self.assertEqual(mean_pairwise_similarity(NIALL), 0.29362587170180676)
         self.assertEqual(mean_pairwise_similarity(NIALL, symmetric=True),
                          0.29362587170180632)
-        self.assertEqual(mean_pairwise_similarity(NIALL, mean='harmonic'),
+        self.assertEqual(mean_pairwise_similarity(NIALL, meanfunc=stats.hmean),
                          0.29362587170180676)
-        self.assertEqual(mean_pairwise_similarity(NIALL, mean='harmonic',
+        self.assertEqual(mean_pairwise_similarity(NIALL, meanfunc=stats.hmean,
                                                   symmetric=True),
                          0.29362587170180632)
-        self.assertEqual(mean_pairwise_similarity(NIALL, mean='geometric'),
+        self.assertEqual(mean_pairwise_similarity(NIALL, meanfunc=stats.gmean),
                          0.33747245800668441)
-        self.assertEqual(mean_pairwise_similarity(NIALL, mean='geometric',
+        self.assertEqual(mean_pairwise_similarity(NIALL, meanfunc=stats.gmean,
                                                   symmetric=True),
                          0.33747245800668441)
-        self.assertEqual(mean_pairwise_similarity(NIALL, mean='arithmetic'),
+        self.assertEqual(mean_pairwise_similarity(NIALL, meanfunc=stats.amean),
                          0.38009278711484623)
-        self.assertEqual(mean_pairwise_similarity(NIALL, mean='arithmetic',
+        self.assertEqual(mean_pairwise_similarity(NIALL, meanfunc=stats.amean,
                                                   symmetric=True),
                          0.38009278711484584)
 
@@ -161,19 +162,19 @@ class MPSTestCases(unittest.TestCase):
                          mean_pairwise_similarity(' '.join(NIALL_1WORD),
                                                   symmetric=True))
         self.assertEqual(mean_pairwise_similarity(NIALL_1WORD,
-                                                  mean='geometric'),
+                                                  meanfunc=stats.gmean),
                          mean_pairwise_similarity(' '.join(NIALL_1WORD),
-                                                  mean='geometric'))
+                                                  meanfunc=stats.gmean))
         self.assertEqual(mean_pairwise_similarity(NIALL_1WORD,
-                                                  mean='arithmetic'),
+                                                  meanfunc=stats.amean),
                          mean_pairwise_similarity(' '.join(NIALL_1WORD),
-                                                  mean='arithmetic'))
+                                                  meanfunc=stats.amean))
 
         self.assertRaises(ValueError, mean_pairwise_similarity, ['a b c'])
         self.assertRaises(ValueError, mean_pairwise_similarity, 'abc')
         self.assertRaises(ValueError, mean_pairwise_similarity, 0)
         self.assertRaises(ValueError, mean_pairwise_similarity, NIALL,
-                          mean='imaginary')
+                          meanfunc='imaginary')
 
         self.assertEqual(mean_pairwise_similarity(NIALL),
                          mean_pairwise_similarity(tuple(NIALL)))

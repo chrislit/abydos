@@ -21,3 +21,23 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
+
+from __future__ import division
+import sys
+if sys.version_info[0] == 3:
+    # pylint: disable=redefined-builtin
+    from functools import reduce
+    # pylint: enable=redefined-builtin
+
+
+def prod(nums):
+    """Return the product of a series of numbers
+
+    Arguments:
+    nums -- a tuple, list, or set of numbers
+
+    The product is Π(nums).
+
+    Cf. https://en.wikipedia.org/wiki/Product_(mathematics)
+    """
+    return reduce(lambda x, y: x*y, nums, 1)

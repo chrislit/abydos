@@ -22,19 +22,15 @@ You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
+
 from __future__ import unicode_literals
 from __future__ import division
-import sys
-if sys.version_info[0] == 3:
-    # pylint: disable=redefined-builtin
-    from functools import reduce
-    # pylint: enable=redefined-builtin
 import unicodedata
 from ._compat import _unicode
 from .phonetic import double_metaphone
 from .qgram import QGrams
 from .distance import sim
-
+import abydos.stats as stats
 
 def fingerprint(phrase):
     """Return the fingerprint of a phrase
@@ -164,13 +160,13 @@ def omission_key(word):
 
 
 def mean_pairwise_similarity(collection, metric=sim,
-                             mean='harmonic', symmetric=False):
+                             meanfunc=stats.hmean, symmetric=False):
     """Return the mean pairwise similarity of a collection of strings
 
     Arguments:
     collection -- a tuple, list, or set of terms or a string that can be split
     metric -- a similarity metric function
-    mean -- 'harmonic', 'geometric', or 'arithmetic': the mean type
+    mean -- a mean function that takes a list of values and returns a float
     symmetric -- set to True if all pairwise similarities should be calculated
                     in both directions
     """
@@ -190,12 +186,6 @@ def mean_pairwise_similarity(collection, metric=sim,
                 if symmetric:
                     pairwise_values.append(metric(word2, word1))
 
-    if mean == 'harmonic':
-        return len(pairwise_values)/sum([1/x for x in pairwise_values])
-    elif mean == 'geometric':
-        return (reduce(lambda x, y: x*y, pairwise_values, 1)**
-                (1/len(pairwise_values)))
-    elif mean == 'arithmetic':
-        return sum(pairwise_values)/len(pairwise_values)
-    else:
-        raise ValueError('Unknown mean type')
+    if not hasattr(meanfunc, '__call__'):
+        raise ValueError('meanfunc must be a function')
+    return meanfunc(pairwise_values)

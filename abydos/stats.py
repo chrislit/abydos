@@ -38,6 +38,9 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 from __future__ import division
 import math
+from .util import prod
+from ._compat import _range
+from collections import Counter
 
 
 class ConfusionTable(object):
@@ -283,6 +286,7 @@ being created from a tuple.')
              (self.cond_neg_pop()/self.population())**2)
         return self.accuracy()/random_accuracy
 
+
     def balanced_accuracy(self):
         """Return the balanced accuracy of the confusion table
 
@@ -324,7 +328,7 @@ being created from a tuple.')
 
         Cf. https://en.wikipedia.org/wiki/Arithmetic_mean
         """
-        return (self.precision() + self.recall()) / 2
+        return amean((self.precision(), self.recall()))
 
 
     def pr_gmean(self):
@@ -336,21 +340,19 @@ being created from a tuple.')
 
         Cf. https://en.wikipedia.org/wiki/Geometric_mean
         """
-        return math.sqrt(self.precision() * self.recall())
+        return gmean((self.precision(), self.recall()))
 
 
     def pr_hmean(self):
         """Return the harmonic mean of precision & recall of the
         confusion table
 
-        The geometric mean of precision and recall is defined as:
-        sqrt(precision * recall)
+        The harmonic mean of precision and recall is defined as:
+        2 * precision * recall / (precision + recall)
 
         Cf. https://en.wikipedia.org/wiki/Harmonic_mean
         """
-        precision = self.precision()
-        recall = self.recall()
-        return 2 * precision * recall / (precision + recall)
+        return hmean((self.precision(), self.recall()))
 
 
     def pr_qmean(self):
@@ -362,7 +364,7 @@ being created from a tuple.')
 
         Cf. https://en.wikipedia.org/wiki/Quadratic_mean
         """
-        return math.sqrt((self.precision()**2 + self.recall()**2) / 2)
+        return qmean((self.precision(), self.recall()))
 
 
     def pr_lmean(self):
@@ -396,10 +398,7 @@ being created from a tuple.')
 
         Cf. https://en.wikipedia.org/wiki/Lehmer_mean
         """
-        precision = self.precision()
-        recall = self.recall()
-        return ((precision**exp + recall**exp) /
-                (precision**(exp-1) + recall**(exp-1)))
+        return lehmer_mean((self.precision(), self.recall()), exp)
 
 
     def pr_cmean(self):
@@ -411,9 +410,7 @@ being created from a tuple.')
 
         Cf. https://en.wikipedia.org/wiki/Contraharmonic_mean
         """
-        precision = self.precision()
-        recall = self.recall()
-        return (precision**2 + recall**2) / (precision + recall)
+        return cmean((self.precision(), self.recall()))
 
 
     def pr_imean(self):
@@ -447,9 +444,7 @@ being created from a tuple.')
 
         Cf. https://en.wikipedia.org/wiki/Generalized_mean
         """
-        if exp == 0:
-            return self.pr_gmean()
-        return (0.5 * (self.precision()**exp + self.recall()**exp))**(1/exp)
+        return hoelder_mean((self.precision(), self.recall()), exp)
 
 
     def pr_agmean(self):
@@ -460,13 +455,7 @@ being created from a tuple.')
         a single value (rounded to 12 digits)
         Cf. https://en.wikipedia.org/wiki/Arithmetic–geometric_mean
         """
-        m_a = self.pr_mean()
-        m_g = self.pr_gmean()
-        if math.isnan(m_a) or math.isnan(m_g):
-            return float('nan')
-        while round(m_a, 12) != round(m_g, 12):
-            m_a, m_g = (m_a+m_g)/2, (m_a*m_g)**(1/2)
-        return m_a
+        return agmean((self.precision(), self.recall()))
 
 
     def pr_ghmean(self):
@@ -477,14 +466,7 @@ being created from a tuple.')
         a single value (rounded to 12 digits)
         Cf. https://en.wikipedia.org/wiki/Geometric–harmonic_mean
         """
-        m_g = self.pr_gmean()
-        m_h = self.pr_hmean()
-        if math.isnan(m_g) or math.isnan(m_h):
-            return float('nan')
-        while round(m_h, 12) != round(m_g, 12):
-            m_g, m_h = (m_g*m_h)**(1/2), (2*m_g*m_h)/(m_g+m_h)
-        return m_g
-
+        return ghmean((self.precision(), self.recall()))
 
     def pr_aghmean(self):
         """Return the arithmetic-geometric-harmonic mean of precision & recall
@@ -495,17 +477,7 @@ being created from a tuple.')
         method described by Raïssouli, Leazizi, & Chergui:
         http://www.emis.de/journals/JIPAM/images/014_08_JIPAM/014_08.pdf
         """
-        m_a = self.pr_mean()
-        m_g = self.pr_gmean()
-        m_h = self.pr_hmean()
-        if math.isnan(m_a) or math.isnan(m_g) or math.isnan(m_h):
-            return float('nan')
-        while (round(m_a, 12) != round(m_g, 12) and
-               round(m_g, 12) != round(m_h, 12)):
-            m_a, m_g, m_h = ((m_a+m_g+m_h)/3,
-                             (m_a*m_g*m_h)**(1/3),
-                             3/(1/m_a+1/m_g+1/m_h))
-        return m_a
+        return aghmean((self.precision(), self.recall()))
 
 
     def fbeta_score(self, beta=1):
@@ -647,3 +619,302 @@ being created from a tuple.')
                             (self.fneg + self.tpos) * (self.fpos + self.tpos)) /
                            self.population()**2)
         return (self.accuracy()-random_accuracy) / (1-random_accuracy)
+
+
+def amean(nums):
+    """Return the arithmetic mean of a series of numbers
+
+    Arguments:
+    nums -- a tuple, list, or set of numbers
+
+    The arithmetic mean is defined as:
+    Σ(nums)/|nums|
+
+    Cf. https://en.wikipedia.org/wiki/Arithmetic_mean
+    """
+    return sum(nums)/len(nums)
+
+
+def gmean(nums):
+    """Return the geometric mean of a series of numbers
+
+    Arguments:
+    nums -- a tuple, list, or set of numbers
+
+    The geometric mean is defined as:
+    Π(nums)^(1/|nums|)
+
+    Cf. https://en.wikipedia.org/wiki/Geometric_mean
+    """
+    return prod(nums)**(1/len(nums))
+
+
+def hmean(nums):
+    """Return the harmonic mean of a series of numbers
+
+    Arguments:
+    nums -- a tuple, list, or set of numbers
+
+    The harmonic mean is defined as:
+    |nums| / Σ_i(1/num_i)
+
+    Cf. https://en.wikipedia.org/wiki/Harmonic_mean
+    """
+    return len(nums)/sum([1/i for i in nums])
+
+
+def qmean(nums):
+    """Return the quadratic mean of a series of numbers
+
+    Arguments:
+    nums -- a tuple, list, or set of numbers
+
+    The quadratic mean of precision and recall is defined as:
+    √(Σ_i(num_i^2)/|nums|)
+
+    Cf. https://en.wikipedia.org/wiki/Quadratic_mean
+    """
+    return (sum([i**2 for i in nums])/len(nums))**(0.5)
+
+
+def cmean(nums):
+    """Return the contraharmonic mean of a series of numbers
+
+    Arguments:
+    nums -- a tuple, list, or set of numbers
+
+    The contraharmonic mean is:
+    Σ_i(x_i^2)/Σx
+
+    Cf. https://en.wikipedia.org/wiki/Contraharmonic_mean
+    """
+    return sum([x**2 for x in nums])/sum(nums)
+
+
+def lmean(nums):
+    """Return the logarithmic mean of a series of numbers
+
+    Arguments:
+    nums -- a tuple, list, or set of numbers
+
+    The logarithmic mean of an arbitrary series is defined by
+    http://www.survo.fi/papers/logmean.pdf
+    as:
+    L(x_1, x_2, ..., x_n) = (n-1)! * Σ_i(x_i /  Π_j[i!=j] (log (x_i/x_j)))
+
+    Cf. https://en.wikipedia.org/wiki/Logarithmic_mean
+    """
+    rolling_sum = 0
+    for i in _range(len(nums)):
+        rolling_prod = 1
+        for j in _range(len(nums)):
+            if i != j:
+                rolling_prod *= (math.log(nums[i]/nums[j]))
+        rolling_sum += nums[i]/rolling_prod
+    return math.factorial(len(nums)-1) * rolling_sum
+
+
+def imean(nums):
+    """Return the identric (exponential) mean of a pair of numbers
+
+    Arguments:
+    nums -- a tuple, list, or set of numbers
+
+    The identric mean of two numbers x and y is:
+    x if x == y
+    otherwise (1/e) * (x^x / y^y)^(1 / (x-y))
+
+    Cf. https://en.wikipedia.org/wiki/Identric_mean
+    """
+    if len(nums) == 1:
+        return nums[0]
+    if len(nums) > 2:
+        raise AttributeError('imean supports no more than two values')
+    if nums[0] <= 0 or nums[1] <= 0:
+        return float('NaN')
+    elif nums[0] == nums[1]:
+        return nums[0]
+    return ((1/math.e) *
+            (nums[0]**nums[0]/nums[1]**nums[1])**(1/(nums[0]-nums[1])))
+
+
+def seiffert_mean(nums):
+    """Return Seiffert's mean of a pair of numbers
+
+    Arguments:
+    nums -- a tuple, list, or set of numbers
+
+    Seiffert's mean of two number x and y is:
+    (x - y) / (4 * arctan(√(x/y)) - π)
+
+    Cf. http://www.helsinki.fi/~hasto/pp/miaPreprint.pdf
+    """
+    if len(nums) == 1:
+        return nums[0]
+    if len(nums) > 2:
+        raise AttributeError('imean supports no more than two values')
+    return (nums[0]-nums[1])/(2*math.asin((nums[0]-nums[1])/(nums[0]+nums[1])))
+
+
+def lehmer_mean(nums, exp=2):
+    """Return the Lehmer mean of a series of numbers
+
+    Arguments:
+    nums -- a tuple, list, or set of numbers
+
+    The Lehmer mean is:
+    Σ_i(x_i^p)/Σ_i(x_i^(p-1))
+
+    Cf. https://en.wikipedia.org/wiki/Lehmer_mean
+    """
+    return sum([x**exp for x in nums])/sum([x**(exp-1) for x in nums])
+
+
+def heronian_mean(nums):
+    """Return the Heronian mean of a series of numbers
+
+    Arguments:
+    nums -- a tuple, list, or set of numbers
+
+    The Heronian mean is:
+    Σ_i,j((x_i*x_j)^(1/2))/(|nums|*(|nums|+1)/2)
+    for j >= i
+
+    Cf. https://en.wikipedia.org/wiki/Heronian_mean
+    """
+    mag = len(nums)
+    rolling_sum = 0
+    for i in _range(mag):
+        for j in _range(i,mag):
+            if nums[i] == nums[j]:
+                rolling_sum += nums[i]
+            else:
+                rolling_sum += (nums[i]*nums[j])**(0.5)
+    return rolling_sum * 2 / (mag*(mag+1))
+
+
+def hoelder_mean(nums, exp=2):
+    """Return the Hölder (power) mean of a series of numbers
+
+    Arguments:
+    nums -- a tuple, list, or set of numbers
+
+    The Hölder mean is defined as:
+    ((1/|nums|)*Σ_i(x_i^p))^(1/p)
+    for p != 0, and the geometric mean for p == 0
+
+    Cf. https://en.wikipedia.org/wiki/Generalized_mean
+    """
+    if exp == 0:
+        return gmean(nums)
+    return ((1/len(nums)) * sum([i**exp for i in nums]))**(1/exp)
+
+
+def agmean(nums):
+    """Return the arithmetic-geometric mean of a series of numbers
+
+    Arguments:
+    nums -- a tuple, list, or set of numbers
+
+    Iterates between arithmetic & geometric means until they converge to
+    a single value (rounded to 12 digits)
+    Cf. https://en.wikipedia.org/wiki/Arithmetic–geometric_mean
+    """
+    m_a = amean(nums)
+    m_g = gmean(nums)
+    if math.isnan(m_a) or math.isnan(m_g):
+        return float('nan')
+    while round(m_a, 12) != round(m_g, 12):
+        m_a, m_g = (m_a+m_g)/2, (m_a*m_g)**(1/2)
+    return m_a
+
+
+def ghmean(nums):
+    """Return the geometric-harmonic mean of a series of numbers
+
+    Arguments:
+    nums -- a tuple, list, or set of numbers
+
+    Iterates between geometric & harmonic means until they converge to
+    a single value (rounded to 12 digits)
+    Cf. https://en.wikipedia.org/wiki/Geometric–harmonic_mean
+    """
+    m_g = gmean(nums)
+    m_h = hmean(nums)
+    if math.isnan(m_g) or math.isnan(m_h):
+        return float('nan')
+    while round(m_h, 12) != round(m_g, 12):
+        m_g, m_h = (m_g*m_h)**(1/2), (2*m_g*m_h)/(m_g+m_h)
+    return m_g
+
+
+def aghmean(nums):
+    """Return the arithmetic-geometric-harmonic mean of a series of numbers
+
+    Arguments:
+    nums -- a tuple, list, or set of numbers
+
+    Iterates over arithmetic, geometric, & harmonic means until they
+    converge to a single value (rounded to 12 digits), following the
+    method described by Raïssouli, Leazizi, & Chergui:
+    http://www.emis.de/journals/JIPAM/images/014_08_JIPAM/014_08.pdf
+    """
+    m_a = amean(nums)
+    m_g = gmean(nums)
+    m_h = hmean(nums)
+    if math.isnan(m_a) or math.isnan(m_g) or math.isnan(m_h):
+        return float('nan')
+    while (round(m_a, 12) != round(m_g, 12) and
+           round(m_g, 12) != round(m_h, 12)):
+        m_a, m_g, m_h = ((m_a+m_g+m_h)/3,
+                         (m_a*m_g*m_h)**(1/3),
+                         3/(1/m_a+1/m_g+1/m_h))
+    return m_a
+
+
+def midrange(nums):
+    """Return the median of a series of numbers
+
+    Arguments:
+    nums -- a tuple, list, or set of numbers
+
+    The midrange is the arithmetic mean of the maximum & minimum of a series.
+
+    Cf. https://en.wikipedia.org/wiki/Midrange
+    """
+    return 0.5*(max(nums)+min(nums))
+
+
+def median(nums):
+    """Return the median of a series of numbers
+
+    Arguments:
+    nums -- a tuple, list, or set of numbers
+
+    With number sorted by value, the median is the middle value (if there is
+    an odd number of values) or the arithmetic mean of the two middle values
+    (if there is an even number of values).
+
+    Cf. https://en.wikipedia.org/wiki/Median
+    """
+    nums = sorted(nums)
+    mag = len(nums)
+    if mag%2:
+        mag = (mag-1)/2
+        return nums[mag]
+    else:
+        mag /= 2
+        return (nums[mag-1]+nums[mag])/2
+
+
+def mode(nums):
+    """Return the mode of a series of numbers
+
+    Arguments:
+    nums -- a tuple, list, or set of numbers
+
+    The mode of a series is the most common element of that series
+
+    https://en.wikipedia.org/wiki/Mode_(statistics)
+    """
+    return Counter(nums).most_common(1)[0][0]
