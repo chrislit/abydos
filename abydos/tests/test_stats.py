@@ -23,7 +23,9 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 from __future__ import division
 import unittest
-from abydos.stats import ConfusionTable
+from abydos.stats import ConfusionTable, amean, gmean, hmean, qmean, cmean, \
+    lmean, imean, seiffert_mean, lehmer_mean, heronian_mean, hoelder_mean, \
+    agmean, ghmean, aghmean, midrange, median, mode
 from math import isnan, sqrt
 import numpy as np
 from scipy.stats.mstats import hmean, gmean
@@ -601,6 +603,130 @@ class StatisticalMeasureTestCases(unittest.TestCase):
         self.assertAlmostEqual(WORKED_EG_TABLE.kappa_statistic(),
                                quick_kappa((184/203),
                                            (((2000*1830)+6000)/2030**2)))
+
+
+class MeansTestCases(unittest.TestCase):
+    """test cases for abydos.stats mean functions
+    """
+    def test_means(self):
+        """test abydos.stats means
+        """
+        _ones = [1, 1, 1, 1, 1]
+        _zeros = [0, 0, 0, 0, 0]
+        _one_to_five = [1, 2, 3, 4, 5]
+        _onethreefive = [1, 1, 3, 5, 5]
+        _floats = [0.5, 0.8, 0.1, 0.2, 0.25]
+
+        self.assertAlmostEqual(amean(_ones), 1)
+        self.assertAlmostEqual(amean(_zeros), 0)
+        self.assertAlmostEqual(amean(_one_to_five), 3)
+        self.assertAlmostEqual(amean(_onethreefive), 3)
+        self.assertAlmostEqual(amean(_floats), 0.37)
+
+        self.assertAlmostEqual(gmean(_ones), 1)
+        self.assertAlmostEqual(gmean(_one_to_five), 2.605171084697352)
+        self.assertAlmostEqual(gmean(_onethreefive), 2.3714406097793117)
+        self.assertAlmostEqual(gmean(_floats), 0.2885399811814427)
+
+        self.assertAlmostEqual(hmean(_ones), 1)
+        self.assertAlmostEqual(hmean(_one_to_five), 2.18978102189781)
+        self.assertAlmostEqual(hmean(_onethreefive), 1.8292682926829265)
+        self.assertAlmostEqual(hmean(_floats), 0.2247191011235955)
+
+        self.assertAlmostEqual(qmean(_ones), 1)
+        self.assertAlmostEqual(qmean(_zeros), 0)
+        self.assertAlmostEqual(qmean(_one_to_five), 3.3166247903554)
+        self.assertAlmostEqual(qmean(_onethreefive), 3.492849839314596)
+        self.assertAlmostEqual(qmean(_floats), 0.4477722635447623)
+
+        self.assertAlmostEqual(cmean(_ones), 1)
+        self.assertAlmostEqual(cmean(_one_to_five), 3.6666666666666665)
+        self.assertAlmostEqual(cmean(_onethreefive), 4.066666666666666)
+        self.assertAlmostEqual(cmean(_floats), 0.5418918918918919)
+
+        self.assertAlmostEqual(lmean(_one_to_five), 2.6739681320855766)
+        self.assertAlmostEqual(lmean(_floats), 0.301387278840469)
+        self.assertRaises(AttributeError, lmean, (1, 1))
+        self.assertRaises(AttributeError, lmean, (0.15, 0.15))
+
+        _2ones = [1, 1]
+        _2zeros = [0, 0]
+        _onetwo = [1, 2]
+        _2floats = [0.5, 0.25]
+
+        self.assertRaises(AttributeError, imean, _ones)
+        self.assertRaises(AttributeError, imean, _zeros)
+        self.assertRaises(AttributeError, imean, _one_to_five)
+        self.assertRaises(AttributeError, imean, _onethreefive)
+        self.assertRaises(AttributeError, imean, _floats)
+        self.assertAlmostEqual(imean(_2ones), 1)
+        self.assertTrue(isnan(imean(_2zeros)))
+        self.assertAlmostEqual(imean(_onetwo), 1.4715177646857693)
+        self.assertAlmostEqual(imean(_2floats), 0.36787944117144233)
+        self.assertEqual(imean([1]), 1)
+        self.assertEqual(imean([0.05]), 0.05)
+
+        self.assertRaises(AttributeError, seiffert_mean, _ones)
+        self.assertRaises(AttributeError, seiffert_mean, _zeros)
+        self.assertRaises(AttributeError, seiffert_mean, _one_to_five)
+        self.assertRaises(AttributeError, seiffert_mean, _onethreefive)
+        self.assertRaises(AttributeError, seiffert_mean, _floats)
+        self.assertAlmostEqual(seiffert_mean(_onetwo), 1.4712939827611637)
+        self.assertAlmostEqual(seiffert_mean(_2floats), 0.36782349569029094)
+        self.assertEqual(seiffert_mean([1]), 1)
+        self.assertEqual(seiffert_mean([0.05]), 0.05)
+
+        self.assertAlmostEqual(lehmer_mean(_ones), 1)
+        self.assertAlmostEqual(lehmer_mean(_one_to_five), 3.6666666666666665)
+        self.assertAlmostEqual(lehmer_mean(_onethreefive), 4.066666666666666)
+        self.assertAlmostEqual(lehmer_mean(_floats), 0.5418918918918919)
+
+        self.assertAlmostEqual(heronian_mean(_ones), 1)
+        self.assertAlmostEqual(heronian_mean(_zeros), 0)
+        self.assertAlmostEqual(heronian_mean(_one_to_five), 2.8421165194322837)
+        self.assertAlmostEqual(heronian_mean(_onethreefive), 2.7436226811701165)
+        self.assertAlmostEqual(heronian_mean(_floats), 0.33526945542427006)
+
+        self.assertAlmostEqual(hoelder_mean(_ones), 1)
+        self.assertAlmostEqual(hoelder_mean(_zeros), 0)
+        self.assertAlmostEqual(hoelder_mean(_one_to_five), 3.3166247903554)
+        self.assertAlmostEqual(hoelder_mean(_onethreefive), 3.492849839314596)
+        self.assertAlmostEqual(hoelder_mean(_floats), 0.4477722635447623)
+
+        self.assertAlmostEqual(agmean(_ones), 1)
+        self.assertAlmostEqual(agmean(_zeros), 0)
+        self.assertAlmostEqual(agmean(_one_to_five), 2.799103662640505)
+        self.assertAlmostEqual(agmean(_onethreefive), 2.6764865062631356)
+        self.assertAlmostEqual(agmean(_floats), 0.32800436242611486)
+
+        self.assertAlmostEqual(ghmean(_ones), 1)
+        self.assertAlmostEqual(ghmean(_one_to_five), 2.3839666656453167)
+        self.assertAlmostEqual(ghmean(_onethreefive), 2.0740491019412035)
+        self.assertAlmostEqual(ghmean(_floats), 0.2536468771476393)
+
+        self.assertAlmostEqual(aghmean(_ones), 1)
+        self.assertAlmostEqual(aghmean(_one_to_five), 2.5769530579812563)
+        self.assertAlmostEqual(aghmean(_onethreefive), 2.3520502484275387)
+        self.assertAlmostEqual(aghmean(_floats), 0.28841285333045547)
+
+        self.assertAlmostEqual(midrange(_ones), 1)
+        self.assertAlmostEqual(midrange(_zeros), 0)
+        self.assertAlmostEqual(midrange(_one_to_five), 3)
+        self.assertAlmostEqual(midrange(_onethreefive), 3)
+        self.assertAlmostEqual(midrange(_floats), 0.45)
+
+        self.assertAlmostEqual(median(_ones), 1)
+        self.assertAlmostEqual(median(_zeros), 0)
+        self.assertAlmostEqual(median(_one_to_five), 3)
+        self.assertAlmostEqual(median(_onethreefive), 3)
+        self.assertAlmostEqual(median(_floats), 0.25)
+        self.assertAlmostEqual(median([0, 2, 4, 8]), 3)
+        self.assertAlmostEqual(median([0.01, 0.2, 0.4, 5]), 0.3)
+
+        self.assertEqual(mode(_ones), 1)
+        self.assertEqual(mode(_zeros), 0)
+        self.assertEqual(mode([1, 1, 2, 2, 2]), 2)
+        self.assertEqual(mode([1, 5, 5, 2, 5, 2]), 5)
 
 
 if __name__ == '__main__':

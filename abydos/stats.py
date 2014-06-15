@@ -721,6 +721,8 @@ def lmean(nums):
 
     Cf. https://en.wikipedia.org/wiki/Logarithmic_mean
     """
+    if len(nums) != len(set(nums)):
+        raise AttributeError('No to values in the nums list may be equal.')
     rolling_sum = 0
     for i in _range(len(nums)):
         rolling_prod = 1
@@ -769,7 +771,7 @@ def seiffert_mean(nums):
     if len(nums) == 1:
         return nums[0]
     if len(nums) > 2:
-        raise AttributeError('imean supports no more than two values')
+        raise AttributeError('seiffert_mean supports no more than two values')
     return (nums[0]-nums[1])/(2*math.asin((nums[0]-nums[1])/(nums[0]+nums[1])))
 
 
@@ -917,10 +919,10 @@ def median(nums):
     nums = sorted(nums)
     mag = len(nums)
     if mag%2:
-        mag = (mag-1)/2
+        mag = int((mag-1)/2)
         return nums[mag]
     else:
-        mag /= 2
+        mag = int(mag/2)
         return (nums[mag-1]+nums[mag])/2
 
 
