@@ -284,7 +284,11 @@ def sim_hamming(src, tar, difflens=True):
     The arguments are identical to those of the hamming() function.
 
     Description:
-    The Hamming similarity is 1 - the Hamming distance
+    The Hamming similarity is 1 - the normalized Hamming distance
+
+    Provided that difflens==True, the Hamming similarity is identical to the
+    Language-Independent Product Name Search (LIPNS) similarity score. For
+    further information, see the sim_mlipns documentation.
     """
     return 1 - dist_hamming(src, tar, difflens)
 
@@ -1505,6 +1509,67 @@ def dist_suffix(src, tar):
     suffix distance = 1 - suffix similarity
     """
     return 1 - sim_suffix(src, tar)
+
+
+def sim_mlipns(src, tar, threshold=0.25, maxmismatches=2):
+    """Return the Modified Language-Independent Product Name Search (MLIPNS)
+    similarity of two strings.
+    
+    Arguments:
+    src, tar -- two strings to be compared
+    threshold -- a number [0, 1] indicating the maximum similarity score, below
+        which the strings are considered 'similar' (0.25 by default)
+    maxmismatches -- a number indicating the allowable number of mismatches to
+        remove before declaring two strings not similar (2 by default)
+
+    Description:
+    The MLIPNS algorithm is described in Shannaq, Boumedyen A. N. and Victor V.
+    Alexandrov. 2010. "Using Product Similarity for Adding Business." Global
+    Journal of Computer Science and Technology. 10(12). 2-8.
+    http://www.sial.iias.spb.su/files/386-386-1-PB.pdf
+
+    This function returns only 1.0 (similar) or 0.0 (not similar).
+
+    LIPNS similarity is identical to normalized Hamming similarity.
+    """
+    if tar == src:
+        return 1.0
+    if len(src) == 0 or len(tar) == 0:
+        return 0.0
+
+    mismatches = 0
+    ham = hamming(src, tar, difflens=True)
+    maxlen = max(len(src), len(tar))
+    while src and tar and mismatches <= maxmismatches:
+        if (1-(maxlen-ham)/maxlen) <= threshold:
+            return 1.0
+        else:
+            mismatches += 1
+            ham -= 1
+            maxlen -= 1
+
+    if maxlen < 1:
+        return 1.0
+    return 0.0
+
+
+def dist_mlipns(src, tar, threshold=0.25, maxmismatches=2):
+    """Return the Modified Language-Independent Product Name Search (MLIPNS)
+    distance between two strings.
+
+    Arguments:
+    src, tar -- two strings to be compared
+    threshold -- a number [0, 1] indicating the maximum similarity score, below
+        which the strings are considered 'similar' (0.25 by default)
+    maxmismatches -- a number indicating the allowable number of mismatches to
+        remove before declaring two strings not similar (2 by default)
+
+    Description:
+    MLIPNS distance = 1 - MLIPNS similarity
+    
+    This function returns only 0.0 (distant) or 1.0 (not distant)
+    """
+    return 1.0 - sim_mlipns(src, tar, threshold, maxmismatches)
 
 
 def sim(src, tar, method=sim_levenshtein):

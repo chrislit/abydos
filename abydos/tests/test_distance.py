@@ -33,7 +33,8 @@ from abydos.distance import levenshtein, dist_levenshtein, sim_levenshtein, \
     dist_ratcliff_obershelp, mra_compare, sim_compression, dist_compression, \
     sim_monge_elkan, dist_monge_elkan, sim_ident, dist_ident, sim_matrix, \
     needleman_wunsch, smith_waterman, gotoh, sim_length, dist_length, \
-    sim_prefix, dist_prefix, sim_suffix, dist_suffix, sim, dist
+    sim_prefix, dist_prefix, sim_suffix, dist_suffix, sim_mlipns, dist_mlipns, \
+    sim, dist
 import math
 from difflib import SequenceMatcher
 import os
@@ -1329,6 +1330,36 @@ class SuffixTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_suffix('xxxa', 'aaa'), 2/3)
         self.assertAlmostEqual(dist_suffix('xxxaa', 'yaa'), 1/3)
         self.assertEqual(dist_suffix('xxxxaa', 'yyyaa'), 3/5)
+
+
+class MLIPNSTestCases(unittest.TestCase):
+    """test cases for abydos.distance.sim_mlipns &
+    abydos.distance.dist_mlipns
+    """
+    def test_sim_mlipns(self):
+        """test abydos.distance.sim_mlipns
+        """
+        self.assertEqual(sim_mlipns('', ''), 1)
+        self.assertEqual(sim_mlipns('a', ''), 0)
+        self.assertEqual(sim_mlipns('', 'a'), 0)
+        self.assertEqual(sim_mlipns('abc', 'abc'), 1)
+        self.assertEqual(sim_mlipns('abc', 'abcde'), 1)
+        self.assertEqual(sim_mlipns('abcg', 'abcdeg'), 1)
+        self.assertEqual(sim_mlipns('abcg', 'abcdefg'), 0)
+        self.assertEqual(sim_mlipns('Tomato', 'Tamato'), 1)
+
+    def test_dist_mlipns(self):
+        """test abydos.distance.dist_mlipns
+        """
+        self.assertEqual(dist_mlipns('', ''), 0)
+        self.assertEqual(dist_mlipns('a', ''), 1)
+        self.assertEqual(dist_mlipns('', 'a'), 1)
+        self.assertEqual(dist_mlipns('a', 'a'), 0)
+        self.assertEqual(dist_mlipns('abc', 'abc'), 0)
+        self.assertEqual(dist_mlipns('abc', 'abcde'), 0)
+        self.assertEqual(dist_mlipns('abcg', 'abcdeg'), 0)
+        self.assertEqual(dist_mlipns('abcg', 'abcdefg'), 1)
+        self.assertEqual(dist_mlipns('Tomato', 'Tamato'), 0)
 
 
 class SimDistTestCases(unittest.TestCase):
