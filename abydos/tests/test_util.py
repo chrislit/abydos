@@ -20,8 +20,42 @@ You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
-from __future__ import unicode_literals
+from abydos._compat import _range
+from abydos.util import prod
 import unittest
+
+class ProdTestCases(unittest.TestCase):
+    """test cases for abydos.utils.prod
+    """
+    def test_prod(self):
+        """test abydos.utils.prod
+        """
+        self.assertEqual(prod([]), 1)
+        self.assertEqual(prod(tuple()), 1)
+        self.assertEqual(prod(set()), 1)
+
+        self.assertEqual(prod([1, 1, 1, 1, 1]), 1)
+        self.assertEqual(prod((1, 1, 1, 1, 1)), 1)
+        self.assertEqual(prod(set([1, 1, 1, 1, 1])), 1)
+        
+        self.assertEqual(prod([2, 2, 2, 2, 2]), 32)
+        self.assertEqual(prod((2, 2, 2, 2, 2)), 32)
+        self.assertEqual(prod(set([2, 2, 2, 2, 2])), 2)
+
+
+        self.assertEqual(prod([1, 2, 3, 4, 5]), 120)
+        self.assertEqual(prod((1, 2, 3, 4, 5)), 120)
+        self.assertEqual(prod(set([1, 2, 3, 4, 5])), 120)
+        self.assertEqual(prod(_range(1, 6)), 120)
+        self.assertEqual(prod(list(_range(1, 6))), 120)
+        self.assertEqual(prod(tuple(_range(1, 6))), 120)
+        self.assertEqual(prod(set(_range(1, 6))), 120)
+
+        self.assertEqual(prod(_range(6)), 0)
+        self.assertEqual(prod(list(_range(6))), 0)
+        self.assertEqual(prod(tuple(_range(6))), 0)
+        self.assertEqual(prod(set(_range(6))), 0)
+
 
 if __name__ == '__main__':
     unittest.main()

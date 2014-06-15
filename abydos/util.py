@@ -26,7 +26,7 @@ from __future__ import division
 import sys
 if sys.version_info[0] == 3:
     # pylint: disable=redefined-builtin
-    from functools import reduce
+    from functools import reduce  # pragma: no cover
     # pylint: enable=redefined-builtin
 
 
