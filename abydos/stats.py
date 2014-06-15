@@ -804,7 +804,7 @@ def heronian_mean(nums):
     mag = len(nums)
     rolling_sum = 0
     for i in _range(mag):
-        for j in _range(i,mag):
+        for j in _range(i, mag):
             if nums[i] == nums[j]:
                 rolling_sum += nums[i]
             else:

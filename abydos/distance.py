@@ -1514,7 +1514,7 @@ def dist_suffix(src, tar):
 def sim_mlipns(src, tar, threshold=0.25, maxmismatches=2):
     """Return the Modified Language-Independent Product Name Search (MLIPNS)
     similarity of two strings.
-    
+
     Arguments:
     src, tar -- two strings to be compared
     threshold -- a number [0, 1] indicating the maximum similarity score, below
@@ -1566,7 +1566,7 @@ def dist_mlipns(src, tar, threshold=0.25, maxmismatches=2):
 
     Description:
     MLIPNS distance = 1 - MLIPNS similarity
-    
+
     This function returns only 0.0 (distant) or 1.0 (not distant)
     """
     return 1.0 - sim_mlipns(src, tar, threshold, maxmismatches)
