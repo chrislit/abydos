@@ -319,7 +319,7 @@ being created from a tuple.')
         return self.precision() + self.npv() - 1
 
 
-    def pr_mean(self):
+    def pr_amean(self):
         """Return the arithmetic mean of precision & recall of the
         confusion table
 
@@ -367,6 +367,18 @@ being created from a tuple.')
         return qmean((self.precision(), self.recall()))
 
 
+    def pr_cmean(self):
+        """Return the contraharmonic mean of precision & recall
+        of the confusion table
+
+        The contraharmonic mean is:
+        (precision^2 + recall^2) / (precision + recall)
+
+        Cf. https://en.wikipedia.org/wiki/Contraharmonic_mean
+        """
+        return cmean((self.precision(), self.recall()))
+
+
     def pr_lmean(self):
         """Return the logarithmic mean of precision & recall of
         the confusion table
@@ -389,6 +401,32 @@ being created from a tuple.')
                     (math.log(precision) - math.log(recall)))
 
 
+    def pr_imean(self):
+        """Return the identric mean of precision & recall of the
+        confusion table
+
+        The identric mean is:
+        precision if precision = recall,
+        otherwise (1/e) *
+                (precision^precision / recall^recall)^(1 / (precision - recall))
+
+        Cf. https://en.wikipedia.org/wiki/Identric_mean
+        """
+        return imean((self.precision(), self.recall()))
+
+
+    def pr_seiffert_mean(self):
+        """Return Seiffert's mean of precision & recall of the
+        confusion table
+
+        Seiffert's mean of precision and recall is:
+        (precision - recall) / (4 * arctan(√(precision/recall)) - π)
+
+        Cf. http://www.helsinki.fi/~hasto/pp/miaPreprint.pdf
+        """
+        return seiffert_mean((self.precision(), self.recall()))
+
+
     def pr_lehmer_mean(self, exp=2):
         """Return the Lehmer mean of precision & recall
         of the confusion table
@@ -401,41 +439,20 @@ being created from a tuple.')
         return lehmer_mean((self.precision(), self.recall()), exp)
 
 
-    def pr_cmean(self):
-        """Return the contraharmonic mean of precision & recall
+    def pr_heronian_mean(self):
+        """Return the Heronian mean of precision & recall
         of the confusion table
 
-        The contraharmonic mean is:
-        (precision^2 + recall^2) / (precision + recall)
+        The Heronian mean of precision and recall is defined as:
+        (precision + √(precision*recall) + recall) / 3
 
-        Cf. https://en.wikipedia.org/wiki/Contraharmonic_mean
+        Cf. https://en.wikipedia.org/wiki/Heronian_mean
         """
-        return cmean((self.precision(), self.recall()))
+        return heronian_mean((self.precision(), self.recall()))
 
 
-    def pr_imean(self):
-        """Return the identric mean of precision & recall of the
-        confusion table
-
-        The identric mean is:
-        precision if precision = recall,
-        otherwise (1/e) *
-                (precision^precision / recall^recall)^(1 / (precision - recall))
-
-        Cf. https://en.wikipedia.org/wiki/Identric_mean
-        """
-        precision = self.precision()
-        recall = self.recall()
-        if precision <= 0 or recall <= 0:
-            return float('NaN')
-        elif precision == recall:
-            return precision
-        return ((1/math.e) *
-                (precision**precision/recall**recall)**(1/(precision-recall)))
-
-
-    def pr_pmean(self, exp=2):
-        """Return the power mean of precision & recall of the
+    def pr_hoelder_mean(self, exp=2):
+        """Return the Hölder (power) mean of precision & recall of the
         confusion table
 
         The power mean of precision and recall is defined as:
@@ -744,7 +761,7 @@ def seiffert_mean(nums):
     Arguments:
     nums -- a tuple, list, or set of numbers
 
-    Seiffert's mean of two number x and y is:
+    Seiffert's mean of two numbers x and y is:
     (x - y) / (4 * arctan(√(x/y)) - π)
 
     Cf. http://www.helsinki.fi/~hasto/pp/miaPreprint.pdf

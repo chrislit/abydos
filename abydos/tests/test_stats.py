@@ -311,16 +311,16 @@ class PrMeansTestCases(unittest.TestCase):
     """
     prre = tuple((tuple((i.precision(), i.recall())) for i in ALL_TABLES))
 
-    def test_pr_mean(self):
-        """test abydos.stats.ConfusionTable.pr_mean
+    def test_pr_amean(self):
+        """test abydos.stats.ConfusionTable.pr_amean
         """
         # pylint: disable=no-member
-        self.assertEqual(UNIT_TABLE.pr_mean(), np.mean(self.prre[0]))
-        self.assertTrue(isnan(NULL_TABLE.pr_mean()))
-        self.assertAlmostEqual(SCALE_TABLE.pr_mean(), np.mean(self.prre[2]))
-        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_mean(),
+        self.assertEqual(UNIT_TABLE.pr_amean(), np.mean(self.prre[0]))
+        self.assertTrue(isnan(NULL_TABLE.pr_amean()))
+        self.assertAlmostEqual(SCALE_TABLE.pr_amean(), np.mean(self.prre[2]))
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_amean(),
                                np.mean(self.prre[3]))
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_mean(),
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_amean(),
                                np.mean(self.prre[4]))
         # pylint: enable=no-member
 
@@ -382,7 +382,7 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(0.5),
                                WORKED_EG_TABLE.pr_gmean())
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(1),
-                               WORKED_EG_TABLE.pr_mean())
+                               WORKED_EG_TABLE.pr_amean())
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(2),
                                WORKED_EG_TABLE.pr_cmean())
 
@@ -415,47 +415,59 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_imean(), 0.34277561539033635)
         self.assertTrue(isnan(VERY_POOR_TABLE.pr_imean()))
 
-    def test_pr_pmean(self):
-        """test abydos.stats.ConfusionTable.pr_pmean
+    def test_pr_hoelder_mean(self):
+        """test abydos.stats.ConfusionTable.pr_hoelder_mean
         """
-        self.assertEqual(UNIT_TABLE.pr_pmean(), 0.5)
-        self.assertTrue(isnan(NULL_TABLE.pr_pmean()))
-        self.assertAlmostEqual(SCALE_TABLE.pr_pmean(), 0.22638462845343543)
-        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_pmean(), 0.6711293026059334)
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(), 0.4766783215358364)
+        self.assertEqual(UNIT_TABLE.pr_hoelder_mean(), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.pr_hoelder_mean()))
+        self.assertAlmostEqual(SCALE_TABLE.pr_hoelder_mean(),
+                               0.22638462845343543)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_hoelder_mean(),
+                               0.6711293026059334)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_hoelder_mean(),
+                               0.4766783215358364)
 
-        self.assertEqual(UNIT_TABLE.pr_pmean(0), 0.5)
-        self.assertTrue(isnan(NULL_TABLE.pr_pmean(0)))
-        self.assertAlmostEqual(SCALE_TABLE.pr_pmean(0), 0.22360679774997899)
-        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_pmean(0), 0.66815310478106094)
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(0), 0.25819888974716115)
+        self.assertEqual(UNIT_TABLE.pr_hoelder_mean(0), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.pr_hoelder_mean(0)))
+        self.assertAlmostEqual(SCALE_TABLE.pr_hoelder_mean(0),
+                               0.22360679774997899)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_hoelder_mean(0),
+                               0.66815310478106094)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_hoelder_mean(0),
+                               0.25819888974716115)
 
-        self.assertEqual(UNIT_TABLE.pr_pmean(1), 0.5)
-        self.assertTrue(isnan(NULL_TABLE.pr_pmean(1)))
-        self.assertAlmostEqual(SCALE_TABLE.pr_pmean(1), 9/40)
-        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_pmean(1), 75/112)
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(1), 23/60)
+        self.assertEqual(UNIT_TABLE.pr_hoelder_mean(1), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.pr_hoelder_mean(1)))
+        self.assertAlmostEqual(SCALE_TABLE.pr_hoelder_mean(1), 9/40)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_hoelder_mean(1), 75/112)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_hoelder_mean(1), 23/60)
 
-        self.assertEqual(UNIT_TABLE.pr_pmean(2), 0.5)
-        self.assertTrue(isnan(NULL_TABLE.pr_pmean(2)))
-        self.assertAlmostEqual(SCALE_TABLE.pr_pmean(2), 0.22638462845343543)
-        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_pmean(2), 0.6711293026059334)
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(2), 0.4766783215358364)
+        self.assertEqual(UNIT_TABLE.pr_hoelder_mean(2), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.pr_hoelder_mean(2)))
+        self.assertAlmostEqual(SCALE_TABLE.pr_hoelder_mean(2),
+                               0.22638462845343543)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_hoelder_mean(2),
+                               0.6711293026059334)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_hoelder_mean(2),
+                               0.4766783215358364)
 
-        self.assertEqual(UNIT_TABLE.pr_pmean(3), 0.5)
-        self.assertTrue(isnan(NULL_TABLE.pr_pmean(3)))
-        self.assertAlmostEqual(SCALE_TABLE.pr_pmean(3), 0.2277441728906747)
-        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_pmean(3), 0.6726059172248808)
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(3), 0.5297282909519099)
+        self.assertEqual(UNIT_TABLE.pr_hoelder_mean(3), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.pr_hoelder_mean(3)))
+        self.assertAlmostEqual(SCALE_TABLE.pr_hoelder_mean(3),
+                               0.2277441728906747)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_hoelder_mean(3),
+                               0.6726059172248808)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_hoelder_mean(3),
+                               0.5297282909519099)
 
         # check equivalences to other specific means
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(-1),
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_hoelder_mean(-1),
                                WORKED_EG_TABLE.pr_hmean())
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(0),
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_hoelder_mean(0),
                                WORKED_EG_TABLE.pr_gmean())
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(1),
-                               WORKED_EG_TABLE.pr_mean())
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_pmean(2),
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_hoelder_mean(1),
+                               WORKED_EG_TABLE.pr_amean())
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_hoelder_mean(2),
                                WORKED_EG_TABLE.pr_qmean())
 
     def test_pr_agmean(self):
