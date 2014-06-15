@@ -37,11 +37,10 @@ class ProdTestCases(unittest.TestCase):
         self.assertEqual(prod([1, 1, 1, 1, 1]), 1)
         self.assertEqual(prod((1, 1, 1, 1, 1)), 1)
         self.assertEqual(prod(set([1, 1, 1, 1, 1])), 1)
-        
+
         self.assertEqual(prod([2, 2, 2, 2, 2]), 32)
         self.assertEqual(prod((2, 2, 2, 2, 2)), 32)
         self.assertEqual(prod(set([2, 2, 2, 2, 2])), 2)
-
 
         self.assertEqual(prod([1, 2, 3, 4, 5]), 120)
         self.assertEqual(prod((1, 2, 3, 4, 5)), 120)
