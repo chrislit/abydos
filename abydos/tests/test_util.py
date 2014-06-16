@@ -21,14 +21,14 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 from abydos._compat import _range
-from abydos.util import prod
+from abydos.util import prod, jitter
 import unittest
 
 class ProdTestCases(unittest.TestCase):
-    """test cases for abydos.utils.prod
+    """test cases for abydos.util.prod
     """
     def test_prod(self):
-        """test abydos.utils.prod
+        """test abydos.util.prod
         """
         self.assertEqual(prod([]), 1)
         self.assertEqual(prod(tuple()), 1)
@@ -54,6 +54,30 @@ class ProdTestCases(unittest.TestCase):
         self.assertEqual(prod(list(_range(6))), 0)
         self.assertEqual(prod(tuple(_range(6))), 0)
         self.assertEqual(prod(set(_range(6))), 0)
+
+
+class JitterTestCases(unittest.TestCase):
+    """test cases for abydos.util.jitter
+    """
+    def test_jitter(self):
+        """test abydos.util.jitter
+        """
+        self.assertEqual(jitter([]), [])
+        self.assertEqual(jitter(tuple()), [])
+        self.assertTrue(isinstance(jitter(5), float))
+        self.assertTrue(isinstance(jitter([5]), list))
+        self.assertEqual(len(jitter([1, 2, 3])), 3)
+        self.assertEqual(len(jitter([0, 0, 0])), 3)
+        self.assertEqual(len(jitter([0, 0, 0, 0, 0])), 5)
+        self.assertEqual(len(jitter((0, 0, 0, 0, 0))), 5)
+        self.assertEqual(len(jitter(set([1, 2, 3, 4, 5]))), 5)
+        self.assertEqual(len(jitter(_range(5))), 5)
+        self.assertRaises(AttributeError, jitter, ['a'])
+        self.assertRaises(AttributeError, jitter, [1, 2, 3, 'a', 4])
+        self.assertRaises(AttributeError, jitter, [0, 0, 0, 'a', 0])
+        self.assertRaises(AttributeError, jitter, [0, 1], min_val=0.5)
+        self.assertRaises(AttributeError, jitter, [0, 1], max_val=0.5)
+        self.assertEqual(len(jitter([0, 0, 0, 0, 0], 1, 0)), 5)
 
 
 if __name__ == '__main__':
