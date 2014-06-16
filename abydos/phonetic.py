@@ -16,7 +16,9 @@ The phonetic module implements phonetic algorithms including:
     Phonex
     Phonem
     Phonix
+    SfinxBis
     phonet
+    Standardized Phonetic Frequency Code
 
 
 Copyright 2014 by Christopher C. Little.
