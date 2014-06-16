@@ -3835,3 +3835,199 @@ first and last names')
             code += '0'
 
     return code
+
+def german_ipa(word):
+    """Return the IPA transcription of a German word
+    
+    Arguments:
+    word -- the German word to transcribe to IPA
+
+    Description:
+    This is based largely on the orthographic mapping described at:
+    https://en.wikipedia.org/wiki/German_orthography
+
+    No significant attempt is made to accomodate loanwords.
+    """
+    _vowels = tuple('AEIOUYÄÖÜ')
+
+    word = unicodedata.normalize('NFKC', _unicode(word.upper()))
+    word = word.replace('ß', 'SS')
+    
+    #word = ''.join([c for c in word if c in tuple('ABCDEFGIKLMNOPQRSTUVXYZ')])
+
+    ipa = ''
+    last = len(word)-1
+    skip = 0
+    for i in _range(len(word)):
+        if skip:
+            skip -= 1
+            continue
+
+        # Consonants
+        if word[i] == 'B':
+            ipa += 'b'
+        elif word[i] == 'C':
+            if word[i:i+2] == 'CH':
+                if word[i:i+3] == 'CHS':
+                    ipa += 'ks'
+                    skip = 2
+                elif word[i:i+4] == 'CHEN':
+                    ipa += 'ç'
+                    skip = 1
+                elif i-1 >= 0 and word[i-1] in tuple('AOU'):
+                    ipa += 'x'
+                    skip = 1
+                else:
+                    ipa += 'ç'
+                    skip = 1
+            elif word[i:i+2] == 'CK':
+                ipa += 'k'
+                skip = 1
+            elif i != last and word[i+1] in tuple('ÄEI'):
+                ipa += 'ts'
+            else:
+                ipa += 'k'
+        elif word[i] == 'D':
+            if word[i:i+4] == 'DSCH':
+                ipa += 'dʒ'
+                skip = 3
+            elif word[i:i+2] == 'DT':
+                ipa += 'd'
+                skip = 1
+            else:
+                ipa += 'd'
+        elif word[i] == 'F':
+            ipa += 'f'
+        elif word[i] == 'G':
+            if i-1 >= 0 and word[i-1] == 'I':
+                ipa += 'ç'
+            else:
+                ipa += 'g'
+        elif word[i] == 'H':
+            if i != last and word[i+1] in _vowels:
+                ipa += 'h'
+            # else ignore
+        elif word[i] in 'JKLM':
+            ipa += word[i].lower()
+        elif word[i] == 'N':
+            if word[i:i+2] == 'NG':
+                ipa += 'ŋ'
+                skip = 1
+            elif word[i:i+2] == 'NK':
+                ipa += 'ŋk'
+                skip = 1
+            else:
+                ipa += 'n'
+        elif word[i] == 'P':
+            if word[i:i+2] == 'PH':
+                ipa += 'f'
+                skip = 1
+            else:
+                ipa += 'p'
+        elif word[i] == 'Q':
+            if word[i:i+2] == 'QU':
+                ipa += 'kv'
+                skip = 1
+            else:
+                ipa += 'k'
+        elif word[i] == 'R':
+            # The particular qualities of rhotics aren't that important here
+            ipa += 'r'
+        elif word[i] == 'S':
+            if word[i:i+2] == 'SS':
+                ipa += 's'
+                skip = 1
+            elif word[i:i+3] == 'SCH':
+                ipa += 'ʃ'
+                skip = 2
+            elif i == 0 and i != last and word[i+1] in tuple('pt'):
+                ipa += 'ʃ'
+                skip = 1
+            elif i != last and word[i+1] in _vowels:
+                ipa += 'z'
+            else:
+                ipa += 's'
+        elif word[i] == 'T':
+            if word[i:i+4] == 'TSCH':
+                ipa += 'tʃ'
+                skip = 3
+            elif word[i:i+5] == 'TZSCH':
+                ipa += 'tʃ'
+                skip = 4
+            elif (word[i:i+4] == 'TION' or word[i:i+4] == 'TIÄR' or
+                  word[i:i+4] == 'TIAL' or word[i:i+5] == 'TIELL'):
+                ipa += 'tsi'
+                skip = 2
+            elif word[i:i+2] == 'TZ':
+                ipa += 'ts'
+                skip = 1
+            elif word[i:i+2] == 'TH':
+                ipa += 't'
+                skip = 1
+            else:
+                ipa += 't'
+        elif word[i] == 'V':
+            ipa += 'f'
+        elif word[i] == 'W':
+            ipa += 'v'
+        elif word[i] == 'X':
+            ipa += 'ks'
+        elif word[i] == 'Z':
+            if word[i:i+4] == 'ZSCH':
+                ipa += 'tʃ'
+                skip = 3
+            else:
+                ipa += 'ts'
+
+        # Vowels -- little attention is paid to length or tenseness
+        # -Diphthongs first
+        elif word[i:i+2] in tuple(('EI', 'AI', 'EY', 'AY')):
+            ipa += 'ai'
+            skip = 1
+        elif word[i:i+2] in tuple(('EU', 'ÄU')):
+            ipa += 'oy'
+            skip = 1
+        elif word[i:i+2] == 'AU':
+            ipa += 'au'
+            skip = 1
+        
+        # -Monophthongs following
+        elif word[i] == 'A':
+            if word[i:i+2] in tuple(('AA', 'AH')):
+                skip = 1
+            ipa += 'a'
+        elif word[i] == 'E':
+            if word[i:i+2] in tuple(('EE', 'EH')):
+                skip = 1
+            ipa += 'e'
+        elif word[i] == 'I':
+            if word[i:i+2] in tuple(('IE', 'IH')):
+                skip = 1
+            if word[i:i+3] == 'IEH':
+                skip = 2
+            ipa += 'i'
+        elif word[i] == 'O':
+            if word[i:i+2] in tuple(('OO', 'OH')):
+                skip = 1
+            ipa += 'o'
+        elif word[i] == 'U':
+            if word[i:i+2] == 'UH':
+                skip = 1
+            ipa += 'u'
+        elif word[i] == 'Y':
+            ipa += 'y'
+        elif word[i] == 'Ä':
+            if word[i:i+2] == 'ÄH':
+                skip = 1
+            ipa += 'e'
+        elif word[i] == 'Ö':
+            if word[i:i+2] == 'ÖH':
+                skip = 1
+            ipa += 'ø'
+        elif word[i] == 'Ü':
+            if word[i:i+2] == 'ÜH':
+                skip = 1
+            ipa += 'y'
+
+    return ipa
+          

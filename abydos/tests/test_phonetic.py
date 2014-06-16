@@ -29,7 +29,7 @@ from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     russell_index_alpha, soundex, dm_soundex, koelner_phonetik, \
     koelner_phonetik_num_to_alpha, koelner_phonetik_alpha, nysiis, mra, \
     metaphone, double_metaphone, caverphone, alpha_sis, fuzzy_soundex, phonex, \
-    phonem, phonix, sfinxbis, phonet, spfc
+    phonem, phonix, sfinxbis, phonet, spfc, german_ipa
 
 TESTDIR = os.path.dirname(__file__)
 
@@ -3769,6 +3769,54 @@ class SPFCTestCases(unittest.TestCase):
 
         self.assertRaises(AttributeError, spfc, ('J', 'A', 'Kuhns'))
         self.assertRaises(AttributeError, spfc, 'JKuhns')
+
+
+class GermanIPATestCases(unittest.TestCase):
+    """test cases for abydos.phonetic.german_ipa
+    """
+    def test_german_ipa(self):
+        """test abydos.phonetic.german_ipa
+        """
+        self.assertEqual(german_ipa(''), '')
+
+        # https://en.wikipedia.org/wiki/German_orthography
+        self.assertEqual(german_ipa('Wasser'), 'vaser')
+        self.assertEqual(german_ipa('Männer'), 'menner')
+        self.assertEqual(german_ipa('Bett'), 'bett')
+        self.assertEqual(german_ipa('Ochse'), 'okse')
+        self.assertEqual(german_ipa('Mittel'), 'mittel')
+        self.assertEqual(german_ipa('kommen'), 'kommen')
+        self.assertEqual(german_ipa('Göttin'), 'gøttin')
+        self.assertEqual(german_ipa('Mutter'), 'mutter')
+        self.assertEqual(german_ipa('Müller'), 'myller')
+        self.assertEqual(german_ipa('Dystrophie'), 'dystrofi')
+
+        # etc.
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
+        self.assertEqual(german_ipa(''), '')
 
 
 if __name__ == '__main__':
