@@ -3838,7 +3838,7 @@ first and last names')
 
 def german_ipa(word):
     """Return the IPA transcription of a German word
-    
+
     Arguments:
     word -- the German word to transcribe to IPA
 
@@ -3848,11 +3848,12 @@ def german_ipa(word):
 
     No significant attempt is made to accomodate loanwords.
     """
+    # pylint: disable=too-many-branches
     _vowels = tuple('AEIOUYÄÖÜ')
 
     word = unicodedata.normalize('NFKC', _unicode(word.upper()))
     word = word.replace('ß', 'SS')
-    
+
     #word = ''.join([c for c in word if c in tuple('ABCDEFGIKLMNOPQRSTUVXYZ')])
 
     ipa = ''
@@ -3892,7 +3893,7 @@ def german_ipa(word):
                 ipa += 'dʒ'
                 skip = 3
             elif word[i:i+2] == 'DT':
-                ipa += 'd'
+                ipa += 't'
                 skip = 1
             else:
                 ipa += 'd'
@@ -3925,7 +3926,7 @@ def german_ipa(word):
             else:
                 ipa += 'p'
         elif word[i] == 'Q':
-            if word[i:i+2] == 'QU':
+            if word[i:i+2] == 'QU' and i+1 != last and word[i+2] in _vowels:
                 ipa += 'kv'
                 skip = 1
             else:
@@ -3940,9 +3941,8 @@ def german_ipa(word):
             elif word[i:i+3] == 'SCH':
                 ipa += 'ʃ'
                 skip = 2
-            elif i == 0 and i != last and word[i+1] in tuple('pt'):
+            elif i == 0 and i != last and word[i+1] in tuple('PT'):
                 ipa += 'ʃ'
-                skip = 1
             elif i != last and word[i+1] in _vowels:
                 ipa += 'z'
             else:
@@ -3957,7 +3957,7 @@ def german_ipa(word):
             elif (word[i:i+4] == 'TION' or word[i:i+4] == 'TIÄR' or
                   word[i:i+4] == 'TIAL' or word[i:i+5] == 'TIELL'):
                 ipa += 'tsi'
-                skip = 2
+                skip = 1
             elif word[i:i+2] == 'TZ':
                 ipa += 'ts'
                 skip = 1
@@ -3990,7 +3990,7 @@ def german_ipa(word):
         elif word[i:i+2] == 'AU':
             ipa += 'au'
             skip = 1
-        
+
         # -Monophthongs following
         elif word[i] == 'A':
             if word[i:i+2] in tuple(('AA', 'AH')):
@@ -4030,4 +4030,3 @@ def german_ipa(word):
             ipa += 'y'
 
     return ipa
-          
