@@ -69,6 +69,7 @@ def russell_index(word):
                                           u'12341231356712383412313'))
 
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = word.replace('ß', 'SS')
     word = word.replace('GH', '')  # discard gh (rule 3)
     word = word.rstrip('SZ') # discard /[sz]$/ (rule 3)
 
@@ -148,6 +149,7 @@ def soundex(word, maxlength=4, var='American', reverse=False):
 
     # uppercase, normalize, decompose, and filter non-A-Z
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = word.replace('ß', 'SS')
     word = ''.join([c for c in word if c in
                     tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
@@ -265,6 +267,7 @@ def dm_soundex(word, maxlength=6, reverse=False):
 
     # uppercase, normalize, decompose, and filter non-A-Z
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = word.replace('ß', 'SS')
     word = ''.join([c for c in word if c in
                     tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
