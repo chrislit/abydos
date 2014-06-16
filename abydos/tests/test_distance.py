@@ -34,7 +34,7 @@ from abydos.distance import levenshtein, dist_levenshtein, sim_levenshtein, \
     sim_monge_elkan, dist_monge_elkan, sim_ident, dist_ident, sim_matrix, \
     needleman_wunsch, smith_waterman, gotoh, sim_length, dist_length, \
     sim_prefix, dist_prefix, sim_suffix, dist_suffix, sim_mlipns, dist_mlipns, \
-    sim, dist
+    sim_bag, dist_bag, sim, dist
 import math
 from difflib import SequenceMatcher
 import os
@@ -1360,6 +1360,34 @@ class MLIPNSTestCases(unittest.TestCase):
         self.assertEqual(dist_mlipns('abcg', 'abcdeg'), 0)
         self.assertEqual(dist_mlipns('abcg', 'abcdefg'), 1)
         self.assertEqual(dist_mlipns('Tomato', 'Tamato'), 0)
+
+
+class BagTestCases(unittest.TestCase):
+    """test cases for abydos.distance.sim_bag & abydos.distance.dist_bag
+    """
+    def test_sim_bag(self):
+        """test abydos.distance.sim_bag
+        """
+        self.assertEqual(sim_bag('', ''), 1)
+        self.assertEqual(sim_bag('nelson', ''), 0)
+        self.assertEqual(sim_bag('', 'neilsen'), 0)
+        self.assertEqual(sim_bag('ab', 'a'), 0.5)
+        self.assertEqual(sim_bag('ab', 'c'), 0)
+        self.assertAlmostEqual(sim_bag('nelson', 'neilsen'), 5/7)
+        self.assertAlmostEqual(sim_bag('neilsen', 'nelson'), 5/7)
+        self.assertAlmostEqual(sim_bag('niall', 'neal'), 3/5)
+
+    def test_dist_bag(self):
+        """test abydos.distance.dist_bag
+        """
+        self.assertEqual(dist_bag('', ''), 0)
+        self.assertEqual(dist_bag('nelson', ''), 1)
+        self.assertEqual(dist_bag('', 'neilsen'), 1)
+        self.assertEqual(dist_bag('ab', 'a'), 0.5)
+        self.assertEqual(dist_bag('ab', 'c'), 1)
+        self.assertAlmostEqual(dist_bag('nelson', 'neilsen'), 2/7)
+        self.assertAlmostEqual(dist_bag('neilsen', 'nelson'), 2/7)
+        self.assertAlmostEqual(dist_bag('niall', 'neal'), 2/5)
 
 
 class SimDistTestCases(unittest.TestCase):
