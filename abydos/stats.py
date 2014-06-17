@@ -772,6 +772,8 @@ def seiffert_mean(nums):
         return nums[0]
     if len(nums) > 2:
         raise AttributeError('seiffert_mean supports no more than two values')
+    if nums[0]+nums[1] == 0 or nums[0]-nums[1] == 0:
+        return float('NaN')
     return (nums[0]-nums[1])/(2*math.asin((nums[0]-nums[1])/(nums[0]+nums[1])))
 
 

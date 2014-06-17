@@ -357,6 +357,45 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_qmean(),
                                sqrt(sum([i**2 for i in self.prre[4]])/2))
 
+    def test_pr_cmean(self):
+        """test abydos.stats.ConfusionTable.pr_cmean
+        """
+        self.assertEqual(UNIT_TABLE.pr_cmean(), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.pr_cmean()))
+        self.assertAlmostEqual(SCALE_TABLE.pr_cmean(), 41/180)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_cmean(), 113/168)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_cmean(), 409/690)
+
+    def test_pr_lmean(self):
+        """test abydos.stats.ConfusionTable.pr_lmean
+        """
+        self.assertEqual(UNIT_TABLE.pr_lmean(), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.pr_lmean()))
+        self.assertAlmostEqual(SCALE_TABLE.pr_lmean(), 0.2240710058862275)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_lmean(), 0.6686496151266621)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_lmean(), 0.2986983802717959)
+        self.assertAlmostEqual(VERY_POOR_TABLE.pr_lmean(), 0.0)
+
+    def test_pr_imean(self):
+        """test abydos.stats.ConfusionTable.pr_imean
+        """
+        self.assertEqual(UNIT_TABLE.pr_imean(), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.pr_imean()))
+        self.assertAlmostEqual(SCALE_TABLE.pr_imean(), 0.224535791730617)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_imean(), 0.6691463467789889)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_imean(), 0.34277561539033635)
+        self.assertTrue(isnan(VERY_POOR_TABLE.pr_imean()))
+
+    def test_pr_seiffert_mean(self):
+        """test abydos.stats.ConfusionTable.pr_seiffert_mean
+        """
+        self.assertTrue(isnan(UNIT_TABLE.pr_seiffert_mean()))
+        self.assertTrue(isnan(NULL_TABLE.pr_seiffert_mean()))
+        self.assertAlmostEqual(SCALE_TABLE.pr_seiffert_mean(), 0.2245354073)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_seiffert_mean(), 0.6691461993)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_seiffert_mean(), 0.3406355792)
+        self.assertTrue(isnan(VERY_POOR_TABLE.pr_seiffert_mean()))
+
     def test_pr_lehmer_mean(self):
         """test abydos.stats.ConfusionTable.pr_lehmer_mean
         """
@@ -388,34 +427,15 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_lehmer_mean(2),
                                WORKED_EG_TABLE.pr_cmean())
 
-    def test_pr_lmean(self):
-        """test abydos.stats.ConfusionTable.pr_lmean
+    def test_pr_heronian_mean(self):
+        """test abydos.stats.ConfusionTable.pr_heronian_mean
         """
-        self.assertEqual(UNIT_TABLE.pr_lmean(), 0.5)
-        self.assertTrue(isnan(NULL_TABLE.pr_lmean()))
-        self.assertAlmostEqual(SCALE_TABLE.pr_lmean(), 0.2240710058862275)
-        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_lmean(), 0.6686496151266621)
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_lmean(), 0.2986983802717959)
-        self.assertAlmostEqual(VERY_POOR_TABLE.pr_lmean(), 0.0)
-
-    def test_pr_cmean(self):
-        """test abydos.stats.ConfusionTable.pr_cmean
-        """
-        self.assertEqual(UNIT_TABLE.pr_cmean(), 0.5)
-        self.assertTrue(isnan(NULL_TABLE.pr_cmean()))
-        self.assertAlmostEqual(SCALE_TABLE.pr_cmean(), 41/180)
-        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_cmean(), 113/168)
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_cmean(), 409/690)
-
-    def test_pr_imean(self):
-        """test abydos.stats.ConfusionTable.pr_imean
-        """
-        self.assertEqual(UNIT_TABLE.pr_imean(), 0.5)
-        self.assertTrue(isnan(NULL_TABLE.pr_imean()))
-        self.assertAlmostEqual(SCALE_TABLE.pr_imean(), 0.224535791730617)
-        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_imean(), 0.6691463467789889)
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_imean(), 0.34277561539033635)
-        self.assertTrue(isnan(VERY_POOR_TABLE.pr_imean()))
+        self.assertEqual(UNIT_TABLE.pr_heronian_mean(), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.pr_heronian_mean()))
+        self.assertAlmostEqual(SCALE_TABLE.pr_heronian_mean(), 0.2245355992)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_heronian_mean(), 0.6691462730)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_heronian_mean(), 0.3416218521)
+        self.assertEqual(VERY_POOR_TABLE.pr_heronian_mean(), 0)
 
     def test_pr_hoelder_mean(self):
         """test abydos.stats.ConfusionTable.pr_hoelder_mean

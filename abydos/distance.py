@@ -1541,7 +1541,7 @@ def sim_mlipns(src, tar, threshold=0.25, maxmismatches=2):
     ham = hamming(src, tar, difflens=True)
     maxlen = max(len(src), len(tar))
     while src and tar and mismatches <= maxmismatches:
-        if (1-(maxlen-ham)/maxlen) <= threshold:
+        if maxlen < 1 or (1-(maxlen-ham)/maxlen) <= threshold:
             return 1.0
         else:
             mismatches += 1
