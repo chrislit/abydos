@@ -30,7 +30,7 @@ if sys.version_info[0] == 3:
     # pylint: enable=redefined-builtin
 from numpy.random import uniform
 from math import floor, log10
-from ._compat import _range
+from ._compat import _range, numeric_type
 
 
 def prod(nums):
@@ -77,11 +77,11 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None):
     Source:
     http://svn.r-project.org/R/trunk/src/library/base/R/jitter.R
     """
-    if isinstance(nums, (int, long, float, complex)):
+    if isinstance(nums, numeric_type):
         return jitter([nums])[0]
     if len(nums) == 0:
         return []
-    if (sum([isinstance(i, (int, long, float, complex)) for i in nums]) !=
+    if (sum([isinstance(i, numeric_type) for i in nums]) !=
         len(nums)):
         raise AttributeError('All members of nums must be numeric.')
 

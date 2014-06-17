@@ -29,7 +29,9 @@ if sys.version_info[0] == 3:
     _range = range
     _unicode = str
     _unichr = chr
+    numeric_type = (int, float, complex)
 else:
     _range = xrange
     _unicode = unicode
     _unichr = unichr
+    numeric_type = (int, long, float, complex)
