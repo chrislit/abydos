@@ -34,7 +34,7 @@ from abydos.distance import levenshtein, dist_levenshtein, sim_levenshtein, \
     sim_monge_elkan, dist_monge_elkan, sim_ident, dist_ident, sim_matrix, \
     needleman_wunsch, smith_waterman, gotoh, sim_length, dist_length, \
     sim_prefix, dist_prefix, sim_suffix, dist_suffix, sim_mlipns, dist_mlipns, \
-    sim_bag, dist_bag, sim, dist
+    bag, sim_bag, dist_bag, sim, dist
 import math
 from difflib import SequenceMatcher
 import os
@@ -1363,8 +1363,21 @@ class MLIPNSTestCases(unittest.TestCase):
 
 
 class BagTestCases(unittest.TestCase):
-    """test cases for abydos.distance.sim_bag & abydos.distance.dist_bag
+    """test cases for abydos.distance.bag, abydos.distance.sim_bag &
+    abydos.distance.dist_bag
     """
+    def test_bag(self):
+        """test abydos.distance.sim_bag
+        """
+        self.assertEqual(bag('', ''), 0)
+        self.assertEqual(bag('nelson', ''), 6)
+        self.assertEqual(bag('', 'neilsen'), 7)
+        self.assertEqual(bag('ab', 'a'), 1)
+        self.assertEqual(bag('ab', 'c'), 2)
+        self.assertAlmostEqual(bag('nelson', 'neilsen'), 2)
+        self.assertAlmostEqual(bag('neilsen', 'nelson'), 2)
+        self.assertAlmostEqual(bag('niall', 'neal'), 2)
+
     def test_sim_bag(self):
         """test abydos.distance.sim_bag
         """
