@@ -39,7 +39,7 @@ from ._compat import _range
 import numpy as np
 import sys
 import math
-from collections import defaultdict
+from collections import defaultdict, Counter
 from .qgram import QGrams
 from .phonetic import mra
 import codecs
@@ -1570,6 +1570,43 @@ def dist_mlipns(src, tar, threshold=0.25, maxmismatches=2):
     This function returns only 0.0 (distant) or 1.0 (not distant)
     """
     return 1.0 - sim_mlipns(src, tar, threshold, maxmismatches)
+
+
+def sim_bag(src, tar):
+    """Return the normalized bag similarity of two strings.
+
+    Arguments:
+    src, tar -- two strings to be compared
+
+    Description:
+    Bag distance is:
+    max( |multiset(src)-multiset(tar)|, |multiset(tar)-multiset(src)| )
+    The distance is normalized by dividing by max( |src|, |tar| ) and this is
+    converted to a similarity measure by subtracting it from 1.
+    """
+    if tar == src:
+        return 1.0
+    if len(src) == 0 or len(tar) == 0:
+        return 0.0
+
+    src_bag = Counter(src)
+    tar_bag = Counter(tar)
+    maxlen = max(len(src), len(tar))
+    maxbag = max(len(src_bag-tar_bag), len(tar_bag-src_bag))
+
+    return 1-maxbag/maxlen
+
+
+def dist_bag(src, tar):
+    """Return the normalized bag distance of two strings.
+
+    Arguments:
+    src, tar -- two strings to be compared
+
+    Description:
+    Normalized bag distance is 1 - normalized bag similarity
+    """
+    return 1 - sim_bag(src, tar)
 
 
 def sim(src, tar, method=sim_levenshtein):
