@@ -3731,6 +3731,11 @@ class PhonetTestCases(unittest.TestCase):
         self.assertEqual(phonet('Kolodziej', 2, trace=True), 'KULUTZI')
         self.assertEqual(phonet('Krauße', 2, trace=True), 'KRAUZE')
 
+        # etc. (for code coverage)
+        self.assertEqual(phonet('Jesper', 1, trace=True), 'IESPA')
+        self.assertEqual(phonet('Glacéhandschuh', 1), 'GLAZANSHU')
+
+
     def test_phonet_nolang(self):
         """test abydos.phonetic.phonet (no language)
         """
