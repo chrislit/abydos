@@ -2091,6 +2091,9 @@ def sfinxbis(word, maxlength=None):
             ordet = 'J' + ordet[1:]
         elif ordet[0:1] == 'Q':
             ordet = 'K' + ordet[1:]
+        elif (ordet[0:2] == 'CH' and
+              ordet[2:3] in _mjuka_vokaler + _harde_vokaler):
+            ordet = '#' + ordet[2:]
         elif ordet[0:1] == 'C' and ordet[1:2] in _harde_vokaler:
             ordet = 'K' + ordet[1:]
         elif ordet[0:1] == 'C' and ordet[1:2] in _konsonanter:
@@ -2102,9 +2105,6 @@ def sfinxbis(word, maxlength=None):
         elif ordet[0:3] in ('SKJ', 'STJ', 'SCH'):
             ordet = '#' + ordet[3:]
         elif ordet[0:2] in ('SH', 'KJ', 'TJ', 'SJ'):
-            ordet = '#' + ordet[2:]
-        elif (ordet[0:2] == 'CH' and
-              ordet[2:3] in _mjuka_vokaler + _harde_vokaler):
             ordet = '#' + ordet[2:]
         elif ordet[0:2] == 'SK' and ordet[2:3] in _mjuka_vokaler:
             ordet = '#' + ordet[2:]

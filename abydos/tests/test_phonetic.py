@@ -387,6 +387,7 @@ class NysiisTestCases(unittest.TestCase):
         self.assertEqual(nysiis('Aschenputtel'), 'ASANPA')
         self.assertEqual(nysiis('Beverly'), 'BAFARL')
         self.assertEqual(nysiis('Hardt'), 'HARD')
+        self.assertEqual(nysiis('acknowledge'), 'ACNALA')
 
 
 class MraTestCases(unittest.TestCase):
@@ -3662,14 +3663,18 @@ class SfinxBisTestCases(unittest.TestCase):
         self.assertEqual(sfinxbis('2010', 4), ('',))
         self.assertEqual(sfinxbis('cese', 4), ('S8',))
 
+        # etc. (for code coverage)
+        self.assertEqual(sfinxbis('chans'), ('#58',))
+
 
 class PhonetTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.phonet
     """
-    def test_phonet(self):
-        """test abydos.phonetic.phonet
+    def test_phonet_german(self):
+        """test abydos.phonetic.phonet (German)
         """
         self.assertEqual(phonet(''), '')
+        self.assertEqual(phonet('', trace=True), '')
 
         # https://code.google.com/p/phonet4java/source/browse/trunk/src/test/java/com/googlecode/phonet4java/Phonet1Test.java
         self.assertEqual(phonet('', 1), '')
@@ -3709,6 +3714,49 @@ class PhonetTestCases(unittest.TestCase):
         self.assertEqual(phonet('Blechschmidt', 2), 'BLEKZNIT')
         self.assertEqual(phonet('Kolodziej', 2), 'KULUTZI')
         self.assertEqual(phonet('Krauße', 2), 'KRAUZE')
+
+        self.assertEqual(phonet('', 2, trace=True), '')
+        self.assertEqual(phonet('Zedlitz', 2, trace=True), 'ZETLIZ')
+        self.assertEqual(phonet('Bremerhaven', 2, trace=True), 'BRENAFN')
+        self.assertEqual(phonet('Schönberg', 2, trace=True), 'ZÖNBAK')
+        self.assertEqual(phonet('Hamburger Hafen', 2, trace=True),
+                         'ANBURKA AFN')
+        self.assertEqual(phonet('Ziegler', 2, trace=True), 'ZIKLA')
+        self.assertEqual(phonet('Scherer', 2, trace=True), 'ZERA')
+        self.assertEqual(phonet('Jansen', 2, trace=True), 'IANZN')
+        self.assertEqual(phonet('Eberhardt', 2, trace=True), 'EBART')
+        self.assertEqual(phonet('Gottschalk', 2, trace=True), 'KUZALK')
+        self.assertEqual(phonet('Brückmann', 2, trace=True), 'BRIKNAN')
+        self.assertEqual(phonet('Blechschmidt', 2, trace=True), 'BLEKZNIT')
+        self.assertEqual(phonet('Kolodziej', 2, trace=True), 'KULUTZI')
+        self.assertEqual(phonet('Krauße', 2, trace=True), 'KRAUZE')
+
+    def test_phonet_nolang(self):
+        """test abydos.phonetic.phonet (no language)
+        """
+        self.assertEqual(phonet('', lang='none'), '')
+
+        # https://code.google.com/p/phonet4java/source/browse/trunk/src/test/java/com/googlecode/phonet4java/Phonet1Test.java
+        self.assertEqual(phonet('', 1, 'none'), '')
+        self.assertEqual(phonet('Zedlitz', 1, 'none'), 'ZEDLITZ')
+        self.assertEqual(phonet('Bremerhaven', 1, 'none'), 'BREMERHAVEN')
+        self.assertEqual(phonet('Schönberg', 2, 'none'), 'SCHOENBERG')
+        self.assertEqual(phonet('Brückmann', 1, 'none'), 'BRUECKMAN')
+        self.assertEqual(phonet('Krauße', 1, 'none'), 'KRAUSE')
+
+        self.assertEqual(phonet('', 2, 'none'), '')
+        self.assertEqual(phonet('Zedlitz', 2, 'none'), 'ZEDLITZ')
+        self.assertEqual(phonet('Bremerhaven', 2, 'none'), 'BREMERHAVEN')
+        self.assertEqual(phonet('Schönberg', 2, 'none'), 'SCHOENBERG')
+        self.assertEqual(phonet('Brückmann', 2, 'none'), 'BRUECKMAN')
+        self.assertEqual(phonet('Krauße', 2, 'none'), 'KRAUSE')
+
+        self.assertEqual(phonet('', 2, 'none', True), '')
+        self.assertEqual(phonet('Zedlitz', 2, 'none', True), 'ZEDLITZ')
+        self.assertEqual(phonet('Bremerhaven', 2, 'none', True), 'BREMERHAVEN')
+        self.assertEqual(phonet('Schönberg', 2, 'none', True), 'SCHOENBERG')
+        self.assertEqual(phonet('Brückmann', 2, 'none', True), 'BRUECKMAN')
+        self.assertEqual(phonet('Krauße', 2, 'none', True), 'KRAUSE')
 
     def test_phonet_nachnamen(self):
         """test abydos.phonetic.phonet (Nachnamen set)
@@ -3769,7 +3817,16 @@ class SPFCTestCases(unittest.TestCase):
 
         self.assertRaises(AttributeError, spfc, ('J', 'A', 'Kuhns'))
         self.assertRaises(AttributeError, spfc, 'JKuhns')
+        self.assertRaises(AttributeError, spfc, 5)
 
+        # etc. (for code coverage)
+        self.assertEqual(spfc('James Goldstein'), '78795')
+        self.assertEqual(spfc('James Hansen'), '58760')
+        self.assertEqual(spfc('James Hester'), '59700')
+        self.assertEqual(spfc('James Bardot'), '31745')
+        self.assertEqual(spfc('James Windsor'), '29765')
+        self.assertEqual(spfc('James Wenders'), '27760')
+        self.assertEqual(spfc('James Ventor'), '17760')
 
 class GermanIPATestCases(unittest.TestCase):
     """test cases for abydos.phonetic.german_ipa
@@ -3795,7 +3852,7 @@ class GermanIPATestCases(unittest.TestCase):
         self.assertEqual(german_ipa('Boot'), 'bot')
         self.assertEqual(german_ipa('Weh'), 've')
 
-        # etc.
+        # etc. (for code coverage)
         self.assertEqual(german_ipa('Mädchen'), 'medçen')
         self.assertEqual(german_ipa('Achtung'), 'axtuŋ')
         self.assertEqual(german_ipa('ich'), 'iç')
@@ -3824,6 +3881,15 @@ class GermanIPATestCases(unittest.TestCase):
         self.assertEqual(german_ipa('Eichhorn'), 'aiçhorn')
         self.assertEqual(german_ipa('Löwenbräu'), 'løvenbroy')
         self.assertEqual(german_ipa('graue'), 'graue')
+        self.assertEqual(german_ipa('singen'), 'ziŋen')
+        self.assertEqual(german_ipa('Volk'), 'folk')
+        self.assertEqual(german_ipa('Haar'), 'har')
+        self.assertEqual(german_ipa('Vieh'), 'fi')
+        self.assertEqual(german_ipa('Kuh'), 'ku')
+        self.assertEqual(german_ipa('Kuchen'), 'kuçen')
+        self.assertEqual(german_ipa('äh'), 'e')
+        self.assertEqual(german_ipa('Klöh'), 'klø')
+        self.assertEqual(german_ipa('Küh-Bach'), 'kybax')
 
 
 if __name__ == '__main__':
