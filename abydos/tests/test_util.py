@@ -77,7 +77,10 @@ class JitterTestCases(unittest.TestCase):
         self.assertRaises(AttributeError, jitter, [0, 0, 0, 'a', 0])
         self.assertRaises(AttributeError, jitter, [0, 1], min_val=0.5)
         self.assertRaises(AttributeError, jitter, [0, 1], max_val=0.5)
-        self.assertEqual(len(jitter([0, 0, 0, 0, 0], 1, 0)), 5)
+        self.assertEqual(len(jitter([0]*5, 1, 0)), 5)
+        self.assertEqual(len(jitter([0]*5, rfunc='uniform')), 5)
+        self.assertEqual(len(jitter([0]*5, rfunc='normal')), 5)
+        self.assertEqual(len(jitter([0]*5, rfunc='laplace')), 5)
 
 
 if __name__ == '__main__':

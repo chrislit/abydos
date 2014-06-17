@@ -28,7 +28,8 @@ if sys.version_info[0] == 3:
     # pylint: disable=redefined-builtin
     from functools import reduce    # pragma: no cover
     # pylint: enable=redefined-builtin
-from numpy.random import uniform
+from random import uniform, normalvariate
+from numpy.random import laplace
 from math import floor, log10
 from ._compat import _range, numeric_type
 
@@ -46,7 +47,8 @@ def prod(nums):
     return reduce(lambda x, y: x*y, nums, 1)
 
 
-def jitter(nums, factor=1, amount=None, min_val=None, max_val=None):
+def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
+           rfunc='normal'):
     """Return list of numbers with random noise added, according to the R
     jitter function, q.v.:
 
@@ -59,6 +61,9 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None):
         between x values.
     min_val -- the minimum permitted value in the returned list
     max_val -- the maximum permitted value in the returned list
+    rand -- a string to indicate the random distribution used:
+        'normal' (default), 'uniform' (standard in the R version),
+        'lognormal', or 'laplace'
 
     Description:
     (adapted from R documentation as this is ported directly from the R code)
@@ -119,15 +124,21 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None):
 
     amount = abs(amount)
 
-    newnums = [i + uniform(-amount, amount) for i in nums]
+    if rfunc == 'uniform':
+        _rand = lambda: uniform(-amount, amount)
+    elif rfunc == 'laplace':
+        _rand = lambda: laplace(0, amount)
+    else:
+        _rand = lambda: normalvariate(0, amount)
+
+    newnums = [i + _rand() for i in nums]
 
     # Check that we haven't introduced values that exceed specified bounds
     # and aren't too far outside of normal
     # (This is an addition to the standard R algorithm)
     for i in _range(len(newnums)):
         while newnums[i] < min_val or newnums[i] > max_val:
-            newnums[i] = (newnums[i] +
-                          uniform(-amount, amount)) # pragma: no cover
+            newnums[i] = (newnums[i] + _rand()) # pragma: no cover
 
     # In the unlikely event that two equal values are in the list, try again
     if len(newnums) != len(set(newnums)):
