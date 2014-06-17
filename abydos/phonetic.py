@@ -3380,7 +3380,6 @@ def phonet(word, mode=1, lang='de', trace=False):
                             start2 = -1
                             end1 = end2
                             end2 = -1
-
                             continue
 
                         break
@@ -3389,7 +3388,6 @@ def phonet(word, mode=1, lang='de', trace=False):
                         (_phonet_rules[pos + mode] is None)):
                         # no conversion rule available
                         pos += 3
-
                         continue
 
                     if trace:
@@ -3511,7 +3509,6 @@ def phonet(word, mode=1, lang='de', trace=False):
                                         start4 = -1
                                         end3 = end4
                                         end4 = -1
-
                                         continue
 
                                     priority0 = -1
@@ -3523,7 +3520,6 @@ def phonet(word, mode=1, lang='de', trace=False):
                                     (_phonet_rules[pos0 + mode] == None)):
                                     # no conversion rule available
                                     pos0 += 3
-
                                     continue
 
                                 if trace:
@@ -3581,7 +3577,6 @@ def phonet(word, mode=1, lang='de', trace=False):
                                                     lang)
 
                                         pos0 += 3
-
                                         continue
 
                                     if priority0 < priority:
@@ -3592,7 +3587,6 @@ def phonet(word, mode=1, lang='de', trace=False):
                                                     lang)
 
                                         pos0 += 3
-
                                         continue
 
                                     # continuation rule found
