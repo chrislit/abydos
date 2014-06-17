@@ -1572,8 +1572,8 @@ def dist_mlipns(src, tar, threshold=0.25, maxmismatches=2):
     return 1.0 - sim_mlipns(src, tar, threshold, maxmismatches)
 
 
-def sim_bag(src, tar):
-    """Return the normalized bag similarity of two strings.
+def bag(src, tar):
+    """Return the bag distance of two strings.
 
     Arguments:
     src, tar -- two strings to be compared
@@ -1581,20 +1581,30 @@ def sim_bag(src, tar):
     Description:
     Bag distance is:
     max( |multiset(src)-multiset(tar)|, |multiset(tar)-multiset(src)| )
-    The distance is normalized by dividing by max( |src|, |tar| ) and this is
-    converted to a similarity measure by subtracting it from 1.
     """
     if tar == src:
-        return 1.0
-    if len(src) == 0 or len(tar) == 0:
-        return 0.0
+        return 0
+    elif len(src) == 0:
+        return len(tar)
+    elif len(tar) == 0:
+        return len(src)
 
     src_bag = Counter(src)
     tar_bag = Counter(tar)
-    maxlen = max(len(src), len(tar))
-    maxbag = max(len(src_bag-tar_bag), len(tar_bag-src_bag))
+    return max(len(src_bag-tar_bag), len(tar_bag-src_bag))
 
-    return 1-maxbag/maxlen
+
+def sim_bag(src, tar):
+    """Return the normalized bag similarity of two strings.
+
+    Arguments:
+    src, tar -- two strings to be compared
+
+    Description:
+    Normalized bag similarity is 1 - normalized bag distance
+    """
+
+    return 1-dist_bag(src, tar)
 
 
 def dist_bag(src, tar):
@@ -1604,9 +1614,16 @@ def dist_bag(src, tar):
     src, tar -- two strings to be compared
 
     Description:
-    Normalized bag distance is 1 - normalized bag similarity
+    Bag distance is normalized by dividing by max( |src|, |tar| ).
     """
-    return 1 - sim_bag(src, tar)
+    if tar == src:
+        return 0.0
+    if len(src) == 0 or len(tar) == 0:
+        return 1.0
+
+    maxlen = max(len(src), len(tar))
+
+    return bag(src, tar)/maxlen
 
 
 def sim(src, tar, method=sim_levenshtein):
