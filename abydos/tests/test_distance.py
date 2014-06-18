@@ -30,11 +30,11 @@ from abydos.distance import levenshtein, dist_levenshtein, sim_levenshtein, \
     sim_tanimoto, tanimoto, sim_cosine, dist_cosine, sim_strcmp95, \
     dist_strcmp95, sim_jaro_winkler, dist_jaro_winkler, lcsseq, sim_lcsseq, \
     dist_lcsseq, lcsstr, sim_lcsstr, dist_lcsstr, sim_ratcliff_obershelp, \
-    dist_ratcliff_obershelp, mra_compare, sim_compression, dist_compression, \
-    sim_monge_elkan, dist_monge_elkan, sim_ident, dist_ident, sim_matrix, \
-    needleman_wunsch, smith_waterman, gotoh, sim_length, dist_length, \
-    sim_prefix, dist_prefix, sim_suffix, dist_suffix, sim_mlipns, dist_mlipns, \
-    bag, sim_bag, dist_bag, sim, dist
+    dist_ratcliff_obershelp, mra_compare, sim_mra, dist_mra, sim_compression, \
+    dist_compression, sim_monge_elkan, dist_monge_elkan, sim_ident, \
+    dist_ident, sim_matrix, needleman_wunsch, smith_waterman, gotoh, \
+    sim_length, dist_length, sim_prefix, dist_prefix, sim_suffix, dist_suffix, \
+    sim_mlipns, dist_mlipns, bag, sim_bag, dist_bag, sim, dist
 import math
 from difflib import SequenceMatcher
 import os
@@ -863,8 +863,9 @@ class RatcliffObershelpTestCases(unittest.TestCase):
                                0.1764705882352941)
 
 
-class MraCompareTestCases(unittest.TestCase):
-    """test cases for abydos.distance.mra_compare
+class MraTestCases(unittest.TestCase):
+    """test cases for abydos.distance.mra_compare, abydos.distance.sim_mra &
+    abydos.distance.dist_mra
     """
     def test_mra_compare(self):
         """test abydos.distance.mra_compare
@@ -884,6 +885,44 @@ class MraCompareTestCases(unittest.TestCase):
         self.assertEqual(mra_compare('ab', 'ac'), 5)
         self.assertEqual(mra_compare('abcdefik', 'abcdefgh'), 3)
         self.assertEqual(mra_compare('xyz', 'abc'), 0)
+
+    def test_sim_mra(self):
+        """test abydos.distance.sim_mra
+        """
+        self.assertEqual(sim_mra('', ''), 1)
+        self.assertEqual(sim_mra('a', 'a'), 1)
+        self.assertEqual(sim_mra('abcdefg', 'abcdefg'), 1)
+        self.assertEqual(sim_mra('abcdefg', ''), 0)
+        self.assertEqual(sim_mra('', 'abcdefg'), 0)
+
+        # https://en.wikipedia.org/wiki/Match_rating_approach
+        self.assertEqual(sim_mra('Byrne', 'Boern'), 5/6)
+        self.assertEqual(sim_mra('Smith', 'Smyth'), 5/6)
+        self.assertEqual(sim_mra('Catherine', 'Kathryn'), 4/6)
+
+        self.assertEqual(sim_mra('ab', 'abcdefgh'), 0)
+        self.assertEqual(sim_mra('ab', 'ac'), 5/6)
+        self.assertEqual(sim_mra('abcdefik', 'abcdefgh'), 3/6)
+        self.assertEqual(sim_mra('xyz', 'abc'), 0)
+
+    def test_dist_mra(self):
+        """test abydos.distance.dist_mra
+        """
+        self.assertEqual(dist_mra('', ''), 0)
+        self.assertEqual(dist_mra('a', 'a'), 0)
+        self.assertEqual(dist_mra('abcdefg', 'abcdefg'), 0)
+        self.assertEqual(dist_mra('abcdefg', ''), 1)
+        self.assertEqual(dist_mra('', 'abcdefg'), 1)
+
+        # https://en.wikipedia.org/wiki/Match_rating_approach
+        self.assertAlmostEqual(dist_mra('Byrne', 'Boern'), 1/6)
+        self.assertAlmostEqual(dist_mra('Smith', 'Smyth'), 1/6)
+        self.assertAlmostEqual(dist_mra('Catherine', 'Kathryn'), 2/6)
+
+        self.assertEqual(dist_mra('ab', 'abcdefgh'), 1)
+        self.assertAlmostEqual(dist_mra('ab', 'ac'), 1/6)
+        self.assertAlmostEqual(dist_mra('abcdefik', 'abcdefgh'), 3/6)
+        self.assertEqual(dist_mra('xyz', 'abc'), 1)
 
 
 class CompressionTestCases(unittest.TestCase):

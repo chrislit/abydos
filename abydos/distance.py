@@ -1062,7 +1062,7 @@ def dist_ratcliff_obershelp(src, tar):
 
 def mra_compare(src, tar):
     """Return the Western Airlines Surname Match Rating Algorithm comparison
-    rating between to strings
+    rating between two strings
 
     Arguments:
     src, tar -- two strings to be compared
@@ -1109,6 +1109,32 @@ def mra_compare(src, tar):
     if similarity >= min_rating:
         return similarity
     return 0
+
+
+def sim_mra(src, tar):
+    """Return a normalized Match Rating Algorithm similarity of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+
+    Description:
+    This is the MRA normalized to [0, 1], given that MRA itself is constrained
+    to the range [0, 6]
+    """
+    return mra_compare(src, tar)/6
+
+
+def dist_mra(src, tar):
+    """Return a normalized Match Rating Algorithm distance between two strings
+
+    Arguments:
+    src, tar -- two strings to be compared
+
+    Description:
+    This is the MRA normalized to [0, 1], given that MRA itself is constrained
+    to the range [0, 6]
+    """
+    return 1 - sim_mra(src, tar)
 
 
 def dist_compression(src, tar, compressor='bz2'):
