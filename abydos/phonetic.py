@@ -3858,8 +3858,8 @@ def german_ipa(word):
             continue
 
         # Consonants
-        if word[i] == 'B':
-            ipa += 'b'
+        if word[i] in 'BFJKLMR':
+            ipa += word[i].lower()
         elif word[i] == 'C':
             if word[i:i+2] == 'CH':
                 if word[i:i+3] == 'CHS':
@@ -3890,8 +3890,6 @@ def german_ipa(word):
                 skip = 1
             else:
                 ipa += 'd'
-        elif word[i] == 'F':
-            ipa += 'f'
         elif word[i] == 'G':
             if i-1 >= 0 and word[i-1] == 'I':
                 ipa += 'ç'
@@ -3901,8 +3899,6 @@ def german_ipa(word):
             if i != last and word[i+1] in _vowels:
                 ipa += 'h'
             # else ignore
-        elif word[i] in 'JKLM':
-            ipa += word[i].lower()
         elif word[i] == 'N':
             if word[i:i+2] == 'NG':
                 ipa += 'ŋ'
@@ -3924,9 +3920,6 @@ def german_ipa(word):
                 skip = 1
             else:
                 ipa += 'k'
-        elif word[i] == 'R':
-            # The particular qualities of rhotics aren't that important here
-            ipa += 'r'
         elif word[i] == 'S':
             if word[i:i+2] == 'SS':
                 ipa += 's'
