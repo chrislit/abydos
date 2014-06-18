@@ -372,7 +372,7 @@ def sim_hamming(src, tar, difflens=True):
     return 1 - dist_hamming(src, tar, difflens)
 
 
-def sim_tversky(src, tar, qval=None, alpha=1, beta=1, bias=None):
+def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     """Return the Tversky index of two strings
 
     Arguments:
@@ -412,12 +412,12 @@ be greater than or equal to 0.')
     elif len(src) == 0 or len(tar) == 0:
         return 0.0
 
-    if qval and qval > 0:
-        q_src = QGrams(src, qval)
-        q_tar = QGrams(tar, qval)
-    elif isinstance(src, Counter) and isinstance(tar, Counter):
+    if isinstance(src, Counter) and isinstance(tar, Counter):
         q_src = src
         q_tar = tar
+    elif qval and qval > 0:
+        q_src = QGrams(src, qval)
+        q_tar = QGrams(tar, qval)
     else:
         q_src = Counter(src.strip().split())
         q_tar = Counter(tar.strip().split())
@@ -441,7 +441,7 @@ be greater than or equal to 0.')
         return c_val / (beta * (alpha * a_val + (1 - alpha) * b_val) + c_val)
 
 
-def dist_tversky(src, tar, qval=None, alpha=1, beta=1, bias=None):
+def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     """Return the Tversky distance of two strings
 
     Arguments:
@@ -462,7 +462,7 @@ def dist_tversky(src, tar, qval=None, alpha=1, beta=1, bias=None):
     return 1 - sim_tversky(src, tar, qval, alpha, beta, bias)
 
 
-def sim_dice(src, tar, qval=None):
+def sim_dice(src, tar, qval=2):
     """Return the Sørensen–Dice coefficient of two strings
 
     Arguments:
@@ -478,7 +478,7 @@ def sim_dice(src, tar, qval=None):
     return sim_tversky(src, tar, qval, 0.5, 0.5)
 
 
-def dist_dice(src, tar, qval=None):
+def dist_dice(src, tar, qval=2):
     """Return the Sørensen–Dice distance of two strings
 
     Arguments:
@@ -491,7 +491,7 @@ def dist_dice(src, tar, qval=None):
     return 1 - sim_dice(src, tar, qval)
 
 
-def sim_jaccard(src, tar, qval=None):
+def sim_jaccard(src, tar, qval=2):
     """Return the Jaccard similarity coefficient of two strings
 
     Arguments:
@@ -507,7 +507,7 @@ def sim_jaccard(src, tar, qval=None):
     return sim_tversky(src, tar, qval, 1, 1)
 
 
-def dist_jaccard(src, tar, qval=None):
+def dist_jaccard(src, tar, qval=2):
     """Return the Jaccard distance of two strings
 
     Arguments:
@@ -520,7 +520,7 @@ def dist_jaccard(src, tar, qval=None):
     return 1 - sim_jaccard(src, tar, qval)
 
 
-def sim_overlap(src, tar, qval=None):
+def sim_overlap(src, tar, qval=2):
     """Return the overlap coefficient of two strings
 
     Arguments:
@@ -536,12 +536,12 @@ def sim_overlap(src, tar, qval=None):
     elif len(src) == 0 or len(tar) == 0:
         return 0.0
 
-    if qval and qval > 0:
-        q_src = QGrams(src, qval)
-        q_tar = QGrams(tar, qval)
-    elif isinstance(src, Counter) and isinstance(tar, Counter):
+    if isinstance(src, Counter) and isinstance(tar, Counter):
         q_src = src
         q_tar = tar
+    elif qval and qval > 0:
+        q_src = QGrams(src, qval)
+        q_tar = QGrams(tar, qval)
     else:
         q_src = Counter(src.strip().split())
         q_tar = Counter(tar.strip().split())
@@ -552,7 +552,7 @@ def sim_overlap(src, tar, qval=None):
     return q_intersection_mag / min(q_src_mag, q_tar_mag)
 
 
-def dist_overlap(src, tar, qval=None):
+def dist_overlap(src, tar, qval=2):
     """Return the overlap distance of two strings
 
     Arguments:
@@ -565,7 +565,7 @@ def dist_overlap(src, tar, qval=None):
     return 1 - sim_overlap(src, tar, qval)
 
 
-def sim_tanimoto(src, tar, qval=None):
+def sim_tanimoto(src, tar, qval=2):
     """Return the Tanimoto similarity of two strings
 
     Arguments:
@@ -581,7 +581,7 @@ def sim_tanimoto(src, tar, qval=None):
     return sim_jaccard(src, tar, qval)
 
 
-def tanimoto(src, tar, qval=None):
+def tanimoto(src, tar, qval=2):
     """Return the Tanimoto distance of two strings
 
     Arguments:
@@ -598,7 +598,7 @@ def tanimoto(src, tar, qval=None):
         return float('-inf')
 
 
-def sim_cosine(src, tar, qval=None):
+def sim_cosine(src, tar, qval=2):
     """Return the cosine similarity (Ochiai coefficient) of two strings
 
     Arguments:
@@ -614,12 +614,12 @@ def sim_cosine(src, tar, qval=None):
     if not src or not tar:
         return 0.0
 
-    if qval and qval > 0:
-        q_src = QGrams(src, qval)
-        q_tar = QGrams(tar, qval)
-    elif isinstance(src, Counter) and isinstance(tar, Counter):
+    if isinstance(src, Counter) and isinstance(tar, Counter):
         q_src = src
         q_tar = tar
+    elif qval and qval > 0:
+        q_src = QGrams(src, qval)
+        q_tar = QGrams(tar, qval)
     else:
         q_src = Counter(src.strip().split())
         q_tar = Counter(tar.strip().split())
@@ -630,7 +630,7 @@ def sim_cosine(src, tar, qval=None):
     return q_intersection_mag / math.sqrt(q_src_mag * q_tar_mag)
 
 
-def dist_cosine(src, tar, qval=None):
+def dist_cosine(src, tar, qval=2):
     """Return the cosine distance of two strings
 
     Arguments:
