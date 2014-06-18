@@ -86,13 +86,15 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     """
     ins_cost, del_cost, sub_cost, trans_cost = cost
 
+    if src == tar:
+        return 0
     if len(src) == 0:
         return len(tar) * ins_cost
     if len(tar) == 0:
         return len(src) * del_cost
 
     if 'dam' in mode:
-        return _damerau_levenshtein(src, tar, cost)
+        return damerau_levenshtein(src, tar, cost)
 
     # pylint: disable=no-member
     d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
@@ -121,7 +123,65 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     return d_mat[len(src), len(tar)]
 
 
-def _damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
+def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
+    """Return the Levenshtein distance normalized to the interval [0, 1]
+
+    Arguments:
+    src, tar -- two strings to be compared
+    mode -- specifies a mode for computing the Levenshtein distance:
+            'lev' (default) computes the ordinary Levenshtein distance,
+                in which edits may include inserts, deletes, and substitutions
+            'osa' computes the Optimal String Alignment distance, in which
+                edits may include inserts, deletes, substitutions, and
+                transpositions but substrings may only be edited once
+            'dam' computes the Damerau-Levenshtein distance, in which
+                edits may include inserts, deletes, substitutions, and
+                transpositions and substrings may undergo repeated edits
+    cost -- a 4-tuple representing the cost of the four possible edits:
+                inserts, deletes, substitutions, and transpositions,
+                respectively (by default: (1, 1, 1, 1))
+
+    Description:
+    The Levenshtein distance is normalized by dividing the Levenshtein distance
+    (calculated by any of the three supported methods) by the greater of
+    the number of characters in src times the cost of a delete and
+    the number of characters in tar times the cost of an insert.
+    For the case in which all operations have cost == 1, this is equivalent
+    to the greater of the length of the two strings src & tar.
+    """
+    if src == tar:
+        return 0
+    ins_cost, del_cost = cost[:2]
+    return (levenshtein(src, tar, mode, cost) /
+            (max(len(src)*del_cost, len(tar)*ins_cost)))
+
+
+def sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
+    """Return the Levenshtein similarity normalized to the interval [0, 1]
+    The arguments are identical to those of the levenshtein() function.
+
+    Arguments:
+    src, tar -- two strings to be compared
+    mode -- specifies a mode for computing the Levenshtein distance:
+            'lev' (default) computes the ordinary Levenshtein distance,
+                in which edits may include inserts, deletes, and substitutions
+            'osa' computes the Optimal String Alignment distance, in which
+                edits may include inserts, deletes, substitutions, and
+                transpositions but substrings may only be edited once
+            'dam' computes the Damerau-Levenshtein distance, in which
+                edits may include inserts, deletes, substitutions, and
+                transpositions and substrings may undergo repeated edits
+    cost -- a 4-tuple representing the cost of the four possible edits:
+                inserts, deletes, substitutions, and transpositions,
+                respectively (by default: (1, 1, 1, 1))
+
+    Description:
+    The Levenshtein similarity is 1 - the Levenshtein distance
+    """
+    return 1 - dist_levenshtein(src, tar, mode, cost)
+
+
+def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
     """Return the Damerau-Levenshtein distance between two string arguments
 
     Arguments:
@@ -139,6 +199,13 @@ def _damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
     https://github.com/KevinStern/software-and-algorithms/blob/master/src/main/java/blogspot/software_and_algorithms/stern_library/string/DamerauLevenshteinAlgorithm.java
     """
     ins_cost, del_cost, sub_cost, trans_cost = cost
+
+    if src == tar:
+        return 0
+    if len(src) == 0:
+        return len(tar) * ins_cost
+    if len(tar) == 0:
+        return len(src) * del_cost
 
     if 2*trans_cost < ins_cost + del_cost:
         raise ValueError('Unsupported cost assignment; the cost of two \
@@ -203,13 +270,19 @@ plus a delete.')
     return d_mat[len(src)-1, len(tar)-1]
 
 
-def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
-    """Return the Levenshtein distance normalized to the interval [0, 1]
+def dist_damerau(src, tar, cost=(1, 1, 1, 1)):
+    """Return the Damerau-Levenshtein distance normalized to the interval [0, 1]
     The arguments are identical to those of the levenshtein() function.
 
+    Arguments:
+    src, tar -- two strings to be compared
+    cost -- a 4-tuple representing the cost of the four possible edits:
+                inserts, deletes, substitutions, and transpositions,
+                respectively (by default: (1, 1, 1, 1))
+
     Description:
-    The Levenshtein distance is normalized by dividing the Levenshtein distance
-    (calculated by any of the three supported methods) by the greater of
+    The Damerau-Levenshtein distance is normalized by dividing the
+    Damerau-Levenshtein distance by the greater of
     the number of characters in src times the cost of a delete and
     the number of characters in tar times the cost of an insert.
     For the case in which all operations have cost == 1, this is equivalent
@@ -218,18 +291,24 @@ def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     if src == tar:
         return 0
     ins_cost, del_cost = cost[:2]
-    return levenshtein(src, tar, mode, cost) \
-        / (max(len(src)*del_cost, len(tar)*ins_cost))
+    return (damerau_levenshtein(src, tar, cost) /
+            (max(len(src)*del_cost, len(tar)*ins_cost)))
 
 
-def sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
+def sim_damerau(src, tar, cost=(1, 1, 1, 1)):
     """Return the Levenshtein similarity normalized to the interval [0, 1]
     The arguments are identical to those of the levenshtein() function.
 
+    Arguments:
+    src, tar -- two strings to be compared
+    cost -- a 4-tuple representing the cost of the four possible edits:
+                inserts, deletes, substitutions, and transpositions,
+                respectively (by default: (1, 1, 1, 1))
+
     Description:
-    The Levenshtein similarity is 1 - the Levenshtein distance
+    The Damerau-Levenshtein similarity is 1 - the Damerau-Levenshtein distance
     """
-    return 1 - dist_levenshtein(src, tar, mode, cost)
+    return 1 - dist_damerau(src, tar, cost)
 
 
 def hamming(src, tar, difflens=True):
