@@ -1448,6 +1448,36 @@ class NeedlemanWunschTestCases(unittest.TestCase):
                                               _sim_nw), nw_vals[i])
 
 
+class SmithWatermanTestCases(unittest.TestCase):
+    """test cases for abydos.distance.smith_waterman
+    """
+    def test_smith_waterman(self):
+        """test abydos.distance.smith_waterman
+        """
+        self.assertEqual(smith_waterman('', ''), 0)
+
+        # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
+        self.assertEqual(smith_waterman('GATTACA', 'GCATGCU',
+                                          1, _sim_nw), 0)
+        self.assertEqual(smith_waterman('AGACTAGTTAC', 'CGAGACGT',
+                                          5, _sim_wikipedia), 26)
+
+        self.assertEqual(smith_waterman('CGATATCAG', 'TGACGSTGC',
+                                          5, _sim_nw), 0)
+        self.assertEqual(smith_waterman('AGACTAGTTAC', 'TGACGSTGC',
+                                          5, _sim_nw), 1)
+        self.assertEqual(smith_waterman('AGACTAGTTAC', 'CGAGACGT',
+                                          5, _sim_nw), 0)
+
+    def test_smith_waterman_nialls(self):
+        """test abydos.distance.smith_waterman (Nialls set)
+        """
+        sw_vals = (5, 1, 1, 3, 2, 1, 1, 0, 0, 1, 1, 2, 2, 1, 0, 0)
+        for i in _range(len(NIALL)):
+            self.assertEqual(smith_waterman(NIALL[0], NIALL[i], 2,
+                                            _sim_nw), sw_vals[i])
+
+
 class GotohTestCases(unittest.TestCase):
     """test cases for abydos.distance.gotoh
     """
@@ -1498,36 +1528,6 @@ class GotohTestCases(unittest.TestCase):
             self.assertGreaterEqual(gotoh(NIALL[0], NIALL[i], 2, 0.5, _sim_nw),
                                     needleman_wunsch(NIALL[0], NIALL[i], 2,
                                                      _sim_nw))
-
-
-class SmithWatermanTestCases(unittest.TestCase):
-    """test cases for abydos.distance.smith_waterman
-    """
-    def test_smith_waterman(self):
-        """test abydos.distance.smith_waterman
-        """
-        self.assertEqual(smith_waterman('', ''), 0)
-
-        # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
-        self.assertEqual(smith_waterman('GATTACA', 'GCATGCU',
-                                          1, _sim_nw), 0)
-        self.assertEqual(smith_waterman('AGACTAGTTAC', 'CGAGACGT',
-                                          5, _sim_wikipedia), 26)
-
-        self.assertEqual(smith_waterman('CGATATCAG', 'TGACGSTGC',
-                                          5, _sim_nw), 0)
-        self.assertEqual(smith_waterman('AGACTAGTTAC', 'TGACGSTGC',
-                                          5, _sim_nw), 1)
-        self.assertEqual(smith_waterman('AGACTAGTTAC', 'CGAGACGT',
-                                          5, _sim_nw), 0)
-
-    def test_smith_waterman_nialls(self):
-        """test abydos.distance.smith_waterman (Nialls set)
-        """
-        sw_vals = (5, 1, 1, 3, 2, 1, 1, 0, 0, 1, 1, 2, 2, 1, 0, 0)
-        for i in _range(len(NIALL)):
-            self.assertEqual(smith_waterman(NIALL[0], NIALL[i], 2,
-                                            _sim_nw), sw_vals[i])
 
 
 class LengthTestCases(unittest.TestCase):
