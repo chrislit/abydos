@@ -49,6 +49,7 @@ except ImportError: # pragma: no cover
     # If there system lacks the lzma library, that's fine, but lzma comrpession
     # similarity won't be supported.
     pass
+from .util import ac_train, ac_encode
 
 
 def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
@@ -1237,13 +1238,14 @@ def dist_mra(src, tar):
     return 1 - sim_mra(src, tar)
 
 
-def dist_compression(src, tar, compressor='bz2'):
+def dist_compression(src, tar, compressor='bz2', probs=None):
     """Return the normalized compression distance (NCD) of two strings
 
     Arguments:
     src, tar -- two strings to be compared
     compressor -- a compression scheme to use for the similarity calculation:
-                    'bz2', 'lzma', and 'zlib' are the supported options
+                    'bz2', 'lzma', 'arith', and 'zlib' are the supported options
+    probs -- a dictionary trained with ac_train (for the arith compressor only)
 
     Description:
     Cf.
@@ -1267,6 +1269,13 @@ def dist_compression(src, tar, compressor='bz2'):
         else: # pragma: no cover
             raise ValueError('Install the lzma module in order to use lzma \
 compression similarity')
+    elif compressor == 'arith':
+        if probs == None:
+            # lacking a reasonably dictionary, train on the strings themselves
+            probs = ac_train(src+tar)
+        src_comp = ac_encode(src, probs)[1]
+        tar_comp = ac_encode(tar, probs)[1]
+        concat_comp = ac_encode(src+tar, probs)[1]
     else: # zlib
         src_comp = codecs.encode(src, 'zlib_codec')[2:]
         tar_comp = codecs.encode(tar, 'zlib_codec')[2:]

@@ -32,7 +32,7 @@ from random import uniform, normalvariate
 from numpy.random import laplace
 from math import floor, log10
 from ._compat import _range, numeric_type
-
+from sympy import Rational as R
 
 def prod(nums):
     """Return the product of a series of numbers
@@ -146,3 +146,68 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
                          min_val, max_val) # pragma: no cover
 
     return newnums
+
+
+def ac_train(text):
+    """text -> 0-order probability statistics as a dictionary
+
+    Text must not contain the NUL (0x00) character because that's used to
+    indicate the end of data.
+    
+    This is based on Andrew Dalke's public domain implementation:
+    http://code.activestate.com/recipes/306626/
+    It has been ported to use SymPy's Rational class.
+    """
+    assert '\x00' not in text
+    counts = {}
+    for c in text:
+        counts[c]=counts.get(c,0)+1
+    counts['\x00'] = 1
+    tot_letters = sum(counts.values())
+
+    tot = 0
+    d = {}
+    prev = R(0)
+    for c, count in counts.items():
+        follow = R(tot + count, tot_letters)
+        d[c] = (prev, follow)
+        prev = follow
+        tot = tot + count
+    assert tot == tot_letters
+
+    return d
+
+
+def ac_encode(text, probs):
+    """text and the 0-order probability statistics -> longval, nbits
+
+    The encoded number is rational(longval, 2**nbits)
+    
+    This is based on Andrew Dalke's public domain implementation:
+    http://code.activestate.com/recipes/306626/
+    It has been ported to use SymPy's Rational class.
+    """
+    minval = R(0)
+    maxval = R(1)
+    for c in text + '\x00':
+        prob_range = probs[c]
+        delta = maxval - minval
+        maxval = minval + prob_range[1] * delta
+        minval = minval + prob_range[0] * delta
+
+    # I tried without the /2 just to check.  Doesn't work.
+    # Keep scaling up until the error range is >= 1.  That
+    # gives me the minimum number of bits needed to resolve
+    # down to the end-of-data character.
+    delta = (maxval - minval)/2
+    nbits = long(0)
+    while delta < 1:
+        nbits = nbits + 1
+        delta = R(delta.p<<1, delta.q)
+    if nbits == 0:
+        return 0, 0
+    else:
+        maxminsum = maxval + minval
+        avg = R(maxminsum.p<<(nbits-1), maxminsum.q)  # using -1 instead of /2
+    # Could return a rational instead ...
+    return avg.p//avg.q, nbits  # the division truncation is deliberate
