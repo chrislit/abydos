@@ -1652,6 +1652,9 @@ def dist_bag(src, tar):
     return bag(src, tar)/maxlen
 
 
+
+################################################################################
+
 def sim(src, tar, method=sim_levenshtein):
     """Return the similarity of two strings
     This is a generalized function for calling other similarity functions.
