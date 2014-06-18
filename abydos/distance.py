@@ -372,12 +372,12 @@ def sim_hamming(src, tar, difflens=True):
     return 1 - dist_hamming(src, tar, difflens)
 
 
-def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
+def sim_tversky(src, tar, qval=None, alpha=1, beta=1, bias=None):
     """Return the Tversky index of two strings
 
     Arguments:
-    src, tar -- two strings to be compared
-    qval -- the length of each q-gram
+    src, tar -- two strings to be compared (or QGrams/Counter objects)
+    qval -- the length of each q-gram; 0 or None for non-q-gram version
     alpha, beta -- two Tversky index parameters as indicated in the
         description below
 
@@ -412,10 +412,17 @@ be greater than or equal to 0.')
     elif len(src) == 0 or len(tar) == 0:
         return 0.0
 
-    q_src = QGrams(src, qval)
-    q_tar = QGrams(tar, qval)
-    q_src_mag = q_src.count()
-    q_tar_mag = q_tar.count()
+    if qval and qval > 0:
+        q_src = QGrams(src, qval)
+        q_tar = QGrams(tar, qval)
+    elif isinstance(src, Counter) and isinstance(tar, Counter):
+        q_src = src
+        q_tar = tar
+    else:
+        q_src = Counter(src.strip().split())
+        q_tar = Counter(tar.strip().split())
+    q_src_mag = sum(q_src.values())
+    q_tar_mag = sum(q_tar.values())
     q_intersection_mag = sum((q_src & q_tar).values())
 
     if len(q_src) == 0 or len(q_tar) == 0:
@@ -434,12 +441,12 @@ be greater than or equal to 0.')
         return c_val / (beta * (alpha * a_val + (1 - alpha) * b_val) + c_val)
 
 
-def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
+def dist_tversky(src, tar, qval=None, alpha=1, beta=1, bias=None):
     """Return the Tversky distance of two strings
 
     Arguments:
-    src, tar -- two strings to be compared
-    qval -- the length of each q-gram
+    src, tar -- two strings to be compared (or QGrams/Counter objects)
+    qval -- the length of each q-gram; 0 or None for non-q-gram version
     alpha, beta -- two Tversky index parameters as indicated in the
         description below
 
@@ -455,12 +462,12 @@ def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     return 1 - sim_tversky(src, tar, qval, alpha, beta, bias)
 
 
-def sim_dice(src, tar, qval=2):
+def sim_dice(src, tar, qval=None):
     """Return the Sørensen–Dice coefficient of two strings
 
     Arguments:
-    src, tar -- two strings to be compared
-    qval -- the length of each q-gram
+    src, tar -- two strings to be compared (or QGrams/Counter objects)
+    qval -- the length of each q-gram; 0 or None for non-q-gram version
 
     Description:
     For two sets X and Y, the Sørensen–Dice coefficient is
@@ -471,12 +478,12 @@ def sim_dice(src, tar, qval=2):
     return sim_tversky(src, tar, qval, 0.5, 0.5)
 
 
-def dist_dice(src, tar, qval=2):
+def dist_dice(src, tar, qval=None):
     """Return the Sørensen–Dice distance of two strings
 
     Arguments:
-    src, tar -- two strings to be compared
-    qval -- the length of each q-gram
+    src, tar -- two strings to be compared (or QGrams/Counter objects)
+    qval -- the length of each q-gram; 0 or None for non-q-gram version
 
     Description:
     Sørensen–Dice distance is 1 - the Sørensen–Dice coefficient
@@ -484,12 +491,12 @@ def dist_dice(src, tar, qval=2):
     return 1 - sim_dice(src, tar, qval)
 
 
-def sim_jaccard(src, tar, qval=2):
+def sim_jaccard(src, tar, qval=None):
     """Return the Jaccard similarity coefficient of two strings
 
     Arguments:
-    src, tar -- two strings to be compared
-    qval -- the length of each q-gram
+    src, tar -- two strings to be compared (or QGrams/Counter objects)
+    qval -- the length of each q-gram; 0 or None for non-q-gram version
 
     Description:
     For two sets X and Y, the Jaccard similarity coefficient is
@@ -500,12 +507,12 @@ def sim_jaccard(src, tar, qval=2):
     return sim_tversky(src, tar, qval, 1, 1)
 
 
-def dist_jaccard(src, tar, qval=2):
+def dist_jaccard(src, tar, qval=None):
     """Return the Jaccard distance of two strings
 
     Arguments:
-    src, tar -- two strings to be compared
-    qval -- the length of each q-gram
+    src, tar -- two strings to be compared (or QGrams/Counter objects)
+    qval -- the length of each q-gram; 0 or None for non-q-gram version
 
     Description:
     Jaccard distance is 1 - the Jaccard coefficient
@@ -513,12 +520,12 @@ def dist_jaccard(src, tar, qval=2):
     return 1 - sim_jaccard(src, tar, qval)
 
 
-def sim_overlap(src, tar, qval=2):
+def sim_overlap(src, tar, qval=None):
     """Return the overlap coefficient of two strings
 
     Arguments:
-    src, tar -- two strings to be compared
-    qval -- the length of each q-gram
+    src, tar -- two strings to be compared (or QGrams/Counter objects)
+    qval -- the length of each q-gram; 0 or None for non-q-gram version
 
     Description:
     For two sets X and Y, the overlap coefficient is
@@ -529,21 +536,28 @@ def sim_overlap(src, tar, qval=2):
     elif len(src) == 0 or len(tar) == 0:
         return 0.0
 
-    q_src = QGrams(src, qval)
-    q_tar = QGrams(tar, qval)
-    q_src_mag = q_src.count()
-    q_tar_mag = q_tar.count()
+    if qval and qval > 0:
+        q_src = QGrams(src, qval)
+        q_tar = QGrams(tar, qval)
+    elif isinstance(src, Counter) and isinstance(tar, Counter):
+        q_src = src
+        q_tar = tar
+    else:
+        q_src = Counter(src.strip().split())
+        q_tar = Counter(tar.strip().split())
+    q_src_mag = sum(q_src.values())
+    q_tar_mag = sum(q_tar.values())
     q_intersection_mag = sum((q_src & q_tar).values())
 
     return q_intersection_mag / min(q_src_mag, q_tar_mag)
 
 
-def dist_overlap(src, tar, qval=2):
+def dist_overlap(src, tar, qval=None):
     """Return the overlap distance of two strings
 
     Arguments:
-    src, tar -- two strings to be compared
-    qval -- the length of each q-gram
+    src, tar -- two strings to be compared (or QGrams/Counter objects)
+    qval -- the length of each q-gram; 0 or None for non-q-gram version
 
     Description:
     overlap distance is 1 - the overlap coefficient
@@ -551,12 +565,12 @@ def dist_overlap(src, tar, qval=2):
     return 1 - sim_overlap(src, tar, qval)
 
 
-def sim_tanimoto(src, tar, qval=2):
+def sim_tanimoto(src, tar, qval=None):
     """Return the Tanimoto similarity of two strings
 
     Arguments:
-    src, tar -- two strings to be compared
-    qval -- the length of each q-gram
+    src, tar -- two strings to be compared (or QGrams/Counter objects)
+    qval -- the length of each q-gram; 0 or None for non-q-gram version
 
     Description:
     For two sets X and Y, the Tanimoto similarity coefficient is
@@ -567,12 +581,12 @@ def sim_tanimoto(src, tar, qval=2):
     return sim_jaccard(src, tar, qval)
 
 
-def tanimoto(src, tar, qval=2):
+def tanimoto(src, tar, qval=None):
     """Return the Tanimoto distance of two strings
 
     Arguments:
-    src, tar -- two strings to be compared
-    qval -- the length of each q-gram
+    src, tar -- two strings to be compared (or QGrams/Counter objects)
+    qval -- the length of each q-gram; 0 or None for non-q-gram version
 
     Description:
     Tanimoto distance is -log2(Tanimoto coefficient)
@@ -584,12 +598,12 @@ def tanimoto(src, tar, qval=2):
         return float('-inf')
 
 
-def sim_cosine(src, tar, qval=2):
+def sim_cosine(src, tar, qval=None):
     """Return the cosine similarity (Ochiai coefficient) of two strings
 
     Arguments:
-    src, tar -- two strings to be compared
-    qval -- the length of each q-gram
+    src, tar -- two strings to be compared (or QGrams/Counter objects)
+    qval -- the length of each q-gram; 0 or None for non-q-gram version
 
     Description:
     For two sets X and Y, the cosine similarity (Ochiai coefficient) is:
@@ -600,21 +614,28 @@ def sim_cosine(src, tar, qval=2):
     if not src or not tar:
         return 0.0
 
-    q_src = QGrams(src, qval)
-    q_tar = QGrams(tar, qval)
-    q_src_mag = q_src.count()
-    q_tar_mag = q_tar.count()
+    if qval and qval > 0:
+        q_src = QGrams(src, qval)
+        q_tar = QGrams(tar, qval)
+    elif isinstance(src, Counter) and isinstance(tar, Counter):
+        q_src = src
+        q_tar = tar
+    else:
+        q_src = Counter(src.strip().split())
+        q_tar = Counter(tar.strip().split())
+    q_src_mag = sum(q_src.values())
+    q_tar_mag = sum(q_tar.values())
     q_intersection_mag = sum((q_src & q_tar).values())
 
     return q_intersection_mag / math.sqrt(q_src_mag * q_tar_mag)
 
 
-def dist_cosine(src, tar, qval=2):
+def dist_cosine(src, tar, qval=None):
     """Return the cosine distance of two strings
 
     Arguments:
-    src, tar -- two strings to be compared
-    qval -- the length of each q-gram
+    src, tar -- two strings to be compared (or QGrams/Counter objects)
+    qval -- the length of each q-gram; 0 or None for non-q-gram version
 
     Description:
     Coside distance is defined as 1 - the cosine similarity
