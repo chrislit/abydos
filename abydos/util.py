@@ -32,7 +32,6 @@ from random import uniform, normalvariate
 from numpy.random import laplace
 from math import floor, log10
 from ._compat import _range, numeric_type
-from sympy import Rational as R
 
 def prod(nums):
     """Return the product of a series of numbers
@@ -148,6 +147,118 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
     return newnums
 
 
+class Rational(object):
+    p = long(0)
+    q = long(1)
+
+    def __init__(self, p=0, q=1):
+        """Construct a Rational object from p (the numerator) and q (the
+        denominator
+        """
+        if isinstance(p, (int, long)) and isinstance(q, (int, long)):
+            self.p = long(p)
+            self.q = long(q)
+        elif isinstance(p, float) and isinstance(q, (int, long)):
+            pfloat_p, pfloat_q = p.as_integer_ratio()
+            self.p = long(pfloat_p)
+            self.q = long(pfloat_q) * long(q)
+        elif isinstance(p, (int, long)) and isinstance(q, float):
+            qfloat_p, qfloat_q = q.as_integer_ratio()
+            self.p = long(p) * long(qfloat_q)
+            self.q = long(qfloat_p)
+        elif isinstance(p, float) and isinstance(q, float):
+            pfloat_p, pfloat_q = p.as_integer_ratio()
+            qfloat_p, qfloat_q = q.as_integer_ratio()
+            self.p = long(pfloat_p) * long(qfloat_q)
+            self.q = long(pfloat_q) * long(qfloat_p)
+        else:
+            raise AttributeError('Unsupported values, both p and q must be \
+of type int, long, or float')
+
+        self._simplify()
+
+    def _gcd(self, p, q):
+        """Return the greatest common denominator of integers p and q
+        """
+        while q != 0:
+            p, q = q, p%q
+        return p
+
+    def _simplify(self):
+        """Simplify p and q by dividing both by their GCD
+        """
+        gcd = self._gcd(self.p, self.q)
+        self.p //= gcd
+        self.q //= gcd
+
+    def __add__(self, other):
+        """Returns a Rational object after adding self to other
+        """
+        if not isinstance(other, Rational):
+            other = Rational(other)
+        if self.q == other.q:
+            p = self.p + other.p
+            q = self.q
+        else:
+            p = self.p * other.q + other.p * self.q
+            q = self.q * other.q
+        return Rational(p, q)
+
+    def __sub__(self, other):
+        """Returns a Rational object after subtracting self from other
+        """
+        if not isinstance(other, Rational):
+            other = Rational(other)
+        if self.q == other.q:
+            p = self.p - other.p
+            q = self.q
+        else:
+            p = self.p * other.q - other.p * self.q
+            q = self.q * other.q
+        return Rational(p, q)
+
+    def __mul__(self, other):
+        """Returns a Rational object after multiplying self by other
+        """
+        if not isinstance(other, Rational):
+            other = Rational(other)
+        p = self.p * other.p
+        q = self.q * other.q
+        return Rational(p, q)
+
+    def __div__(self, other):
+        """Returns a Rational object after multiplying self by other
+        """
+        return self.__truediv__(other)
+
+    def __truediv__(self, other):
+        """Returns a Rational object after multiplying self by other
+        """
+        if not isinstance(other, Rational):
+            other = Rational(other)
+        p = self.p * other.q
+        q = self.q * other.p
+        return Rational(p, q)
+
+    def __lshift__(self, shift):
+        """Return a Rational object after left bit shifting the numerator
+        """
+        p = self.p << shift
+        q = self.q
+        return Rational(p, q)
+        
+    def __rshift__(self, shift):
+        """Return a Rational object after left bit shifting the denominator
+        (equivalent to right bit shifting the numerator)
+        """
+        p = self.p
+        q = self.q << shift
+        return Rational(p, q)
+
+    def __str__(self):
+        return 'Rational({}, {})'.format(self.p, self.q)
+        
+
 def ac_train(text):
     """text -> 0-order probability statistics as a dictionary
 
@@ -167,9 +278,9 @@ def ac_train(text):
 
     tot = 0
     d = {}
-    prev = R(0)
+    prev = Rational(0)
     for c, count in counts.items():
-        follow = R(tot + count, tot_letters)
+        follow = Rational(tot + count, tot_letters)
         d[c] = (prev, follow)
         prev = follow
         tot = tot + count
@@ -187,8 +298,8 @@ def ac_encode(text, probs):
     http://code.activestate.com/recipes/306626/
     It has been ported to use SymPy's Rational class.
     """
-    minval = R(0)
-    maxval = R(1)
+    minval = Rational(0)
+    maxval = Rational(1)
     for c in text + '\x00':
         prob_range = probs[c]
         delta = maxval - minval
@@ -199,15 +310,15 @@ def ac_encode(text, probs):
     # Keep scaling up until the error range is >= 1.  That
     # gives me the minimum number of bits needed to resolve
     # down to the end-of-data character.
-    delta = (maxval - minval)/2
+    delta = (maxval - minval) / 2
     nbits = long(0)
     while delta < 1:
         nbits = nbits + 1
-        delta = R(delta.p<<1, delta.q)
+        delta <<= 1
     if nbits == 0:
         return 0, 0
     else:
-        maxminsum = maxval + minval
-        avg = R(maxminsum.p<<(nbits-1), maxminsum.q)  # using -1 instead of /2
+        # using -1 instead of /2
+        avg = (maxval + minval)<<(nbits-1)
     # Could return a rational instead ...
     return avg.p//avg.q, nbits  # the division truncation is deliberate
