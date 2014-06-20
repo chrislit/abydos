@@ -191,6 +191,21 @@ of type int, long, or float')
         self.p //= gcd
         self.q //= gcd
 
+    def __eq__(self, other):
+        """Returns True if other has an equal value to self
+        """
+        if not isinstance(other, Rational):
+            other = Rational(other)
+        if self.p == other.p and self.q == other.q:
+            return True
+        else:
+            return False
+
+    def __ne__(self, other):
+        """Returns True if other has an unequal value to self
+        """
+        return not (self==other)
+
     def __add__(self, other):
         """Returns a Rational object after adding self to other
         """
@@ -255,8 +270,25 @@ of type int, long, or float')
         q = self.q << shift
         return Rational(p, q)
 
+    def __int__(self):
+        """Return an int of the Rational (rounded down)
+        """
+        return int(self.p//self.q)
+
+    def __float__(self):
+        """Return a float of the Rational
+        """
+        return float(self.p/self.q)
+
     def __str__(self):
-        return 'Rational({}, {})'.format(self.p, self.q)
+        """Return a string representation of the Rational
+        """
+        return '{}/{}'.format(self.p, self.q)
+
+    def __repr__(self):
+        """Return a string representation of the Rational
+        """
+        return '{}/{}'.format(self.p, self.q)
         
 
 def ac_train(text):
@@ -269,7 +301,8 @@ def ac_train(text):
     http://code.activestate.com/recipes/306626/
     It has been ported to use SymPy's Rational class.
     """
-    assert '\x00' not in text
+    if '\x00' in text:
+        text = text.replace('\x00', ' ')
     counts = {}
     for c in text:
         counts[c]=counts.get(c,0)+1

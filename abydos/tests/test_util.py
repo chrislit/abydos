@@ -21,7 +21,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 from abydos._compat import _range
-from abydos.util import prod, jitter, ac_train, ac_encode
+from abydos.util import prod, jitter, Rational, ac_train, ac_encode
 import unittest
 
 NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
@@ -89,29 +89,40 @@ class JitterTestCases(unittest.TestCase):
 
 class ArithmeticCoderTestCases(unittest.TestCase):
     """test cases for abydos.util.ac_train & abydos.util.ac_encode
-    niall_probs = {'\x00': (R(0), R(1, 119)), '\xa1': (R(1/119), R(2/119)),
-                   ' ': (R(2/119), R(19/119)), "'": (R(19/119), R(20/119)),
-                   '\xa9': (R(20/119), R(3/17)), '\xad': (R(3/17), R(24/119)),
-                   '\xc3': (R(24/119), R(29/119)), 'K': (R(29/119), R(30/119)),
-                   'M': (R(30/119), R(32/119)), 'O': (R(32/119), R(33/119)),
-                   'N': (R(33/119), R(7/17)), 'U': (R(7/17), R(50/119)),
-                   'a': (R(50/119), R(59/119)), 'c': (R(59/119), R(62/119)),
-                   'e': (R(62/119), R(11/17)), 'g': (R(11/17), R(80/119)),
-                   'i': (R(80/119), R(89/119)), 'h': (R(89/119), R(90/119)),
-                   'j': (R(90/119), R(92/119)), 'l': (R(92/119), R(117/119)),
-                   'o': (R(117/119), R(118/119)), 'n': (R(118/119), R(1))}
     """
+    niall_probs = {'\x00': (Rational(0), Rational(1, 119)),
+                   '\xa1': (Rational(1, 119), Rational(2, 119)),
+                   ' ': (Rational(2, 119), Rational(19, 119)),
+                   "'": (Rational(19, 119), Rational(20, 119)),
+                   '\xa9': (Rational(20, 119), Rational(3, 17)),
+                   '\xad': (Rational(3, 17), Rational(24, 119)),
+                   '\xc3': (Rational(24, 119), Rational(29, 119)),
+                   'K': (Rational(29, 119), Rational(30, 119)),
+                   'M': (Rational(30, 119), Rational(32, 119)),
+                   'O': (Rational(32, 119), Rational(33, 119)),
+                   'N': (Rational(33, 119), Rational(7, 17)),
+                   'U': (Rational(7, 17), Rational(50, 119)),
+                   'a': (Rational(50, 119), Rational(59, 119)),
+                   'c': (Rational(59, 119), Rational(62, 119)),
+                   'e': (Rational(62, 119), Rational(11, 17)),
+                   'g': (Rational(11, 17), Rational(80, 119)),
+                   'i': (Rational(80, 119), Rational(89, 119)),
+                   'h': (Rational(89, 119), Rational(90, 119)),
+                   'j': (Rational(90, 119), Rational(92, 119)),
+                   'l': (Rational(92, 119), Rational(117, 119)),
+                   'o': (Rational(117, 119), Rational(118, 119)),
+                   'n': (Rational(118, 119), Rational(1))}
 
     def test_ac_train(self):
         """test abydos.util.ac_train
         """
-        #self.assertEqual(ac_train(''), {'\x00': (0, 1)})
-        #self.assertEqual(ac_train(' '.join(NIALL)), self.niall_probs)
-        #self.assertEqual(ac_train(' '.join(sorted(NIALL))), self.niall_probs)
-        #self.assertEqual(ac_train(' '.join(NIALL)),
-        #                 ac_train(' '.join(sorted(NIALL))))
-        #self.assertEqual(ac_train(' '.join(NIALL)),
-        #                 ac_train('\x00'.join(NIALL)))
+        self.assertEqual(ac_train(''), {'\x00': (Rational(0), Rational(1))})
+        self.assertEqual(ac_train(' '.join(NIALL)), self.niall_probs)
+        self.assertEqual(ac_train(' '.join(sorted(NIALL))), self.niall_probs)
+        self.assertEqual(ac_train(' '.join(NIALL)),
+                         ac_train(' '.join(sorted(NIALL))))
+        self.assertEqual(ac_train(' '.join(NIALL)),
+                         ac_train('\x00'.join(NIALL)))
 
     def test_ac_encode(self):
         """test abydos.util.ac_encode
