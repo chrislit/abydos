@@ -228,13 +228,123 @@ class RationalTestCases(unittest.TestCase):
         """test abydos.util.Rational arithmetic operators
         (negation, +, -, *, / (future & non), **, <<, >>)
         """
-        pass
+        # negation
+        self.assertEqual(Rational(1), -Rational(-1))
+        self.assertEqual(-Rational(1), Rational(-1))
+        self.assertEqual(-self.third, -Rational(1, 3))
+        self.assertEqual(-Rational(1, 3), -self.third)
+        self.assertEqual(self.third, -Rational(-1, 3))
+        self.assertEqual(-Rational(-1, 3), self.third)
+
+        # +
+        self.assertEqual(self.half_1+self.half_2, Rational(1))
+        self.assertEqual(self.half_1+0.5, Rational(1))
+        self.assertEqual(0.5+self.half_1, Rational(1))
+        self.assertEqual(self.sevenhalves+self.half_1, Rational(4))
+        self.assertEqual(self.half_1+self.sevenhalves, Rational(4))
+        self.assertEqual(self.sevenhalves+0.5, Rational(4))
+        self.assertEqual(0.5+self.sevenhalves, Rational(4))
+        self.assertEqual(Rational(3)+2, Rational(5))
+        self.assertEqual(2+Rational(3), Rational(5))
+
+        # -
+        self.assertEqual(self.half_1-self.half_2, Rational(0))
+        self.assertEqual(self.half_1-0.5, Rational(0))
+        self.assertEqual(0.5-self.half_1, Rational(0))
+        self.assertEqual(self.sevenhalves-self.half_1, Rational(3))
+        self.assertEqual(self.half_1-self.sevenhalves, Rational(-3))
+        self.assertEqual(self.sevenhalves-0.5, Rational(3))
+        self.assertEqual(0.5-self.sevenhalves, Rational(-3))
+        self.assertEqual(Rational(3)-2, Rational(1))
+        self.assertEqual(2-Rational(3), Rational(-1))
+
+        # *
+        self.assertEqual(self.half_1*self.half_2, Rational(1, 4))
+        self.assertEqual(self.half_1*0.5, Rational(1, 4))
+        self.assertEqual(0.5*self.half_1, Rational(1, 4))
+        self.assertEqual(self.sevenhalves*self.half_1, Rational(7, 4))
+        self.assertEqual(self.half_1*self.sevenhalves, Rational(7, 4))
+        self.assertEqual(self.sevenhalves*0.5, Rational(7, 4))
+        self.assertEqual(0.5*self.sevenhalves, Rational(7, 4))
+        self.assertEqual(Rational(3)*2, Rational(6))
+        self.assertEqual(2*Rational(3), Rational(6))
+
+        # /
+        self.assertEqual(self.half_1/self.half_2, Rational(1))
+        self.assertEqual(self.half_1/0.5, Rational(1))
+        self.assertEqual(0.5/self.half_1, Rational(1))
+        self.assertEqual(self.sevenhalves/self.half_1, self.seven)
+        self.assertEqual(self.half_1/self.sevenhalves, Rational(1, 7))
+        self.assertEqual(self.sevenhalves/0.5, self.seven)
+        self.assertEqual(0.5/self.sevenhalves, Rational(1, 7))
+        self.assertEqual(Rational(3)/2, Rational(3, 2))
+        self.assertEqual(2/Rational(3), Rational(2, 3))
+
+        # **
+        self.assertEqual(Rational(1, 2)**2, Rational(1, 4))
+        self.assertEqual(Rational(2, 3)**3, Rational(8, 27))
+        self.assertEqual(Rational(3)**0, Rational(1))
+        self.assertEqual(Rational(0)**2, Rational(0))
+        self.assertEqual(Rational(3)**2, Rational(9))
+        self.assertEqual(2**Rational(3), Rational(8))
+        self.assertEqual(Rational(1, 2)**2.0, Rational(1, 4))
+        self.assertEqual(Rational(2, 3)**3.0, Rational(8, 27))
+        self.assertEqual(Rational(3)**0.0, Rational(1))
+        self.assertEqual(Rational(0)**2.0, Rational(0))
+        self.assertEqual(Rational(3)**2.0, Rational(9))
+        self.assertEqual(2.0**Rational(3), Rational(8))
+
+        # <<
+        self.assertEqual(Rational(1, 2)<<1, Rational(1))
+        self.assertEqual(Rational(1, 2)<<2, Rational(2))
+        self.assertEqual(Rational(1, 3)<<1, Rational(2, 3))
+        self.assertEqual(Rational(1, 3)<<2, Rational(4, 3))
+        self.assertEqual(Rational(2, 5)<<1, Rational(4, 5))
+        self.assertEqual(Rational(2, 5)<<2, Rational(8, 5))
+
+        # >>
+        self.assertEqual(Rational(1, 2)>>1, Rational(1, 4))
+        self.assertEqual(Rational(1, 2)>>2, Rational(1, 8))
+        self.assertEqual(Rational(1, 3)>>1, Rational(1, 6))
+        self.assertEqual(Rational(1, 3)>>2, Rational(1, 12))
+        self.assertEqual(Rational(2, 5)>>1, Rational(1, 5))
+        self.assertEqual(Rational(2, 5)>>2, Rational(1, 10))
 
     def test_rational_casts(self):
         """test abydos.util.Rational cast functions
         (int, float, str, __repr__)
         """
-        pass
+        # int
+        self.assertEqual(int(Rational(1, 4)), 0)
+        self.assertEqual(int(Rational(1, 3)), 0)
+        self.assertEqual(int(Rational(1, 2)), 0)
+        self.assertEqual(int(Rational(1)), 1)
+        self.assertEqual(int(Rational(2)), 2)
+        self.assertEqual(int(Rational(5, 2)), 2)
+
+        # float
+        self.assertEqual(float(Rational(1, 4)), 0.25)
+        self.assertAlmostEqual(float(Rational(1, 3)), 0.33333333)
+        self.assertEqual(float(Rational(1, 2)), 0.5)
+        self.assertEqual(float(Rational(1)), 1.0)
+        self.assertEqual(float(Rational(2)), 2.0)
+        self.assertEqual(float(Rational(5, 2)), 2.5)
+
+        # str
+        self.assertEqual(str(Rational(1, 4)), '1/4')
+        self.assertEqual(str(Rational(1, 3)), '1/3')
+        self.assertEqual(str(Rational(1, 2)), '1/2')
+        self.assertEqual(str(Rational(1)), '1/1')
+        self.assertEqual(str(Rational(2)), '2/1')
+        self.assertEqual(str(Rational(5, 2)), '5/2')
+
+        # __repr__
+        self.assertEqual(Rational(1, 4).__repr__(), '1/4')
+        self.assertEqual(Rational(1, 3).__repr__(), '1/3')
+        self.assertEqual(Rational(1, 2).__repr__(), '1/2')
+        self.assertEqual(Rational(1).__repr__(), '1/1')
+        self.assertEqual(Rational(2).__repr__(), '2/1')
+        self.assertEqual(Rational(5, 2).__repr__(), '5/2')
 
 
 class ArithmeticCoderTestCases(unittest.TestCase):
