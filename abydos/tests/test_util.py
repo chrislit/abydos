@@ -128,13 +128,13 @@ class ArithmeticCoderTestCases(unittest.TestCase):
         """test abydos.util.ac_encode
         """
         #self.assertEqual(ac_encode('', self.niall_probs), (1, 8L))
-        #self.assertEqual(ac_encode('a', self.niall_probs), (1722, 12L))
-        #self.assertEqual(ac_encode('Niall', self.niall_probs), (3126369, 23L))
-        #self.assertEqual(ac_encode('Niel', self.niall_probs), (392157, 20L))
-        #self.assertEqual(ac_encode('Mean', self.niall_probs), (70304934, 28L))
-        #self.assertEqual(ac_encode('Neil Noígíallach', self.niall_probs),
-        #                 (1739727914825858776309937L, 82L))
-        #self.assertRaise(KeyError, ac_encode, 'NIALL', self.niall_probs) 
+        self.assertEqual(ac_encode('a', self.niall_probs), (1722, 12L))
+        self.assertEqual(ac_encode('Niall', self.niall_probs), (3126369, 23L))
+        self.assertEqual(ac_encode('Niel', self.niall_probs), (392157, 20L))
+        self.assertEqual(ac_encode('Mean', self.niall_probs), (70304934, 28L))
+        self.assertEqual(ac_encode('Neil Noígíallach', self.niall_probs),
+                         (1739727914825858776309937L, 82L))
+        self.assertRaises(KeyError, ac_encode, 'NIALL', self.niall_probs)
 
 
 if __name__ == '__main__':

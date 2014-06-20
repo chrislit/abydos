@@ -31,7 +31,7 @@ if sys.version_info[0] == 3:
 from random import uniform, normalvariate
 from numpy.random import laplace
 from math import floor, log10
-from ._compat import _range, numeric_type
+from ._compat import _unicode, _range, numeric_type
 
 def prod(nums):
     """Return the product of a series of numbers
@@ -155,6 +155,21 @@ class Rational(object):
         """Construct a Rational object from p (the numerator) and q (the
         denominator
         """
+        # First try to interpret a string as a numeric value
+        if isinstance(p, (_unicode, str)):
+            p = p.replace(' ', '')
+            if '/' in p:
+                p, q = p.split('/', 1)
+                if '.' in q:
+                    q = float(q)
+                else:
+                    q = long(q)
+            if '.' in p:
+                p = float(p)
+            else:
+                p = long(p)
+
+        # Then divide determine numeric values for p & q
         if isinstance(p, (int, long)) and isinstance(q, (int, long)):
             self.p = long(p)
             self.q = long(q)
@@ -173,8 +188,9 @@ class Rational(object):
             self.q = long(pfloat_q) * long(qfloat_p)
         else:
             raise AttributeError('Unsupported values, both p and q must be \
-of type int, long, or float')
+of type int, long, or float or p must be a string representation of a fraction')
 
+        # Finally, simplify by reducing with the GCD
         self._simplify()
 
     def _gcd(self, p, q):
@@ -192,7 +208,7 @@ of type int, long, or float')
         self.q //= gcd
 
     def __eq__(self, other):
-        """Returns True if other has an equal value to self
+        """Returns True if self == other (numerically)
         """
         if not isinstance(other, Rational):
             other = Rational(other)
@@ -202,12 +218,45 @@ of type int, long, or float')
             return False
 
     def __ne__(self, other):
-        """Returns True if other has an unequal value to self
+        """Returns True if self != other
         """
         return not (self==other)
 
+    def __lt__(self, other):
+        """Returns True if self < other
+        """
+        if not isinstance(other, Rational):
+            other = Rational(other)
+        return self.p*other.q < self.q*other.p
+
+    def __le__(self, other):
+        """Returns True if self <= other
+        """
+        if not isinstance(other, Rational):
+            other = Rational(other)
+        return self.p*other.q <= self.q*other.p
+
+    def __gt__(self, other):
+        """Returns True if self > other
+        """
+        if not isinstance(other, Rational):
+            other = Rational(other)
+        return self.p*other.q > self.q*other.p
+
+    def __ge__(self, other):
+        """Returns True if self >= other
+        """
+        if not isinstance(other, Rational):
+            other = Rational(other)
+        return self.p*other.q >= self.q*other.p
+
+    def __neg__(self):
+        """Returns a Rational object after negating the numerator
+        """
+        return Rational(-self.p, self.q)
+
     def __add__(self, other):
-        """Returns a Rational object after adding self to other
+        """Returns a Rational object after adding other to self
         """
         if not isinstance(other, Rational):
             other = Rational(other)
@@ -219,8 +268,13 @@ of type int, long, or float')
             q = self.q * other.q
         return Rational(p, q)
 
+    def __radd__(self, other):
+        """Returns a Rational object after adding self to other
+        """
+        return self + other
+
     def __sub__(self, other):
-        """Returns a Rational object after subtracting self from other
+        """Returns a Rational object after subtracting other from self
         """
         if not isinstance(other, Rational):
             other = Rational(other)
@@ -232,6 +286,11 @@ of type int, long, or float')
             q = self.q * other.q
         return Rational(p, q)
 
+    def __rsub__(self, other):
+        """Returns a Rational object after subtracting self from other
+        """
+        return -self + other
+
     def __mul__(self, other):
         """Returns a Rational object after multiplying self by other
         """
@@ -241,19 +300,47 @@ of type int, long, or float')
         q = self.q * other.q
         return Rational(p, q)
 
+    def __rmul__(self, other):
+        """Returns a Rational object after multiplying other by self
+        """
+        return self * other
+
     def __div__(self, other):
-        """Returns a Rational object after multiplying self by other
+        """Returns a Rational object after dividing self by other
         """
         return self.__truediv__(other)
 
+    def __rdiv__(self, other):
+        """Returns a Rational object after dividing other by self
+        """
+        return Rational(other).__div__(self)
+
     def __truediv__(self, other):
-        """Returns a Rational object after multiplying self by other
+        """Returns a Rational object after dividing self by other
         """
         if not isinstance(other, Rational):
             other = Rational(other)
         p = self.p * other.q
         q = self.q * other.p
         return Rational(p, q)
+
+    def __rtruediv__(self, other):
+        """Returns a Rational object after dividing other by self
+        """
+        return Rational(other).__truediv__(self)
+
+    def __pow__(self, exponent):
+        """Returns a Rational object after raising self to the power of exponent
+        """
+        if isinstance(exponent, Rational):
+            exponent = float(exponent)
+        return Rational(self.p**exponent, self.q**exponent)
+
+    def __rpow__(self, base):
+        """Returns a Rational object after raising base to the power of self
+        """
+        exponent = float(self)
+        return Rational(base**exponent)
 
     def __lshift__(self, shift):
         """Return a Rational object after left bit shifting the numerator
@@ -331,6 +418,8 @@ def ac_encode(text, probs):
     http://code.activestate.com/recipes/306626/
     It has been ported to use SymPy's Rational class.
     """
+    if '\x00' in text:
+        text = text.replace('\x00', ' ')
     minval = Rational(0)
     maxval = Rational(1)
     for c in text + '\x00':
