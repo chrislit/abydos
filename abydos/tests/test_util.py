@@ -86,6 +86,156 @@ class JitterTestCases(unittest.TestCase):
         self.assertEqual(len(jitter([0]*5, rfunc='normal')), 5)
         self.assertEqual(len(jitter([0]*5, rfunc='laplace')), 5)
 
+class RationalTestCases(unittest.TestCase):
+    """test cases for the abydos.util.Rational class
+    """
+    half_1 = Rational('1/2')
+    half_2 = Rational(1, 2)
+    half_3 = Rational('0.5')
+    half_4 = Rational(0.5)
+    half_5 = Rational(6, 12)
+    half_6 = Rational(0.25, 0.5)
+    half_7 = Rational('1 / 2')
+    half_8 = Rational('2.5 /5.0')
+    half_9 = Rational(long(1), 2)
+    half_A = Rational(2.0, long(4))
+
+    third = Rational(1, 3)
+    twosevenths = Rational(2, 7)
+    twosevenths_alt = Rational(14, 49)
+    sevenhalves = Rational(7, 2)
+    seven = Rational(7)
+
+    def test_rational_init(self):
+        """test abydos.util.Rational constructor
+        """
+        self.assertEqual(self.half_1, self.half_2)
+        self.assertEqual(self.half_3, self.half_4)
+        self.assertEqual(self.half_5, self.half_6)
+        self.assertEqual(self.half_7, self.half_8)
+        self.assertEqual(self.half_9, self.half_A)
+        self.assertEqual(self.half_1, self.half_3)
+        self.assertEqual(self.half_5, self.half_7)
+        self.assertEqual(self.half_3, self.half_5)
+        self.assertEqual(self.half_1, self.half_9)
+
+        self.assertEqual(self.twosevenths, self.twosevenths_alt)
+
+    def test_rational_helpers(self):
+        """test abydos.util.Rational helper functions
+        (_gcd & _simplify)
+        """
+        self.assertEqual(Rational()._gcd(2, 7), 1)
+        self.assertEqual(Rational()._gcd(3, 18), 3)
+        self.assertEqual(Rational()._gcd(2, 4), 2)
+        self.assertEqual(Rational()._gcd(1, 7), 1)
+        self.assertEqual(Rational()._gcd(54, 7), 1)
+        self.assertEqual(Rational()._gcd(49, 21), 7)
+
+        # Create a default Rational (0), set p & q manually, without simplifying
+        rat_twothirds = Rational()
+        rat_twothirds.p = 10
+        rat_twothirds.q = 15
+        # It should not be equal to a numerically equal Rational
+        self.assertNotEqual(Rational(2, 3), rat_twothirds)
+        # After simplification, it should become equal to the same Rational
+        rat_twothirds._simplify()
+        self.assertEqual(Rational(2, 3), rat_twothirds)
+
+    def test_rational_comparisons(self):
+        """test abydos.util.Rational comparison operators
+        (==, !=, <, <=, >, >=)
+        """
+        # ==
+        self.assertTrue(self.half_1 == self.half_2)
+        self.assertFalse(self.third == self.twosevenths)
+        self.assertFalse(self.twosevenths == self.third)
+        self.assertFalse(0.3333333 == self.twosevenths)
+        self.assertFalse(self.twosevenths == 0.3333333)
+        self.assertTrue(7 == self.seven)
+        self.assertTrue(7.0 == self.seven)
+        self.assertTrue(self.seven == 7)
+        self.assertTrue(self.seven == 7.0)
+        self.assertFalse(self.sevenhalves == 4)
+        self.assertFalse(4 == self.sevenhalves)
+
+        # !=
+        self.assertFalse(self.half_1 != self.half_2)
+        self.assertTrue(self.third != self.twosevenths)
+        self.assertTrue(self.twosevenths != self.third)
+        self.assertTrue(0.3333333 != self.twosevenths)
+        self.assertTrue(self.twosevenths != 0.3333333)
+        self.assertFalse(7 != self.seven)
+        self.assertFalse(7.0 != self.seven)
+        self.assertFalse(self.seven != 7)
+        self.assertFalse(self.seven != 7.0)
+        self.assertTrue(self.sevenhalves != 4)
+        self.assertTrue(4 != self.sevenhalves)
+
+        # <
+        self.assertFalse(self.half_1 < self.half_2)
+        self.assertFalse(self.third < self.twosevenths)
+        self.assertTrue(self.twosevenths < self.third)
+        self.assertFalse(0.3333333 < self.twosevenths)
+        self.assertTrue(self.twosevenths < 0.3333333)
+        self.assertFalse(7 < self.seven)
+        self.assertFalse(7.0 < self.seven)
+        self.assertFalse(self.seven < 7)
+        self.assertFalse(self.seven < 7.0)
+        self.assertTrue(self.sevenhalves < 4)
+        self.assertFalse(4 < self.sevenhalves)
+
+        # <=
+        self.assertTrue(self.half_1 <= self.half_2)
+        self.assertFalse(self.third <= self.twosevenths)
+        self.assertTrue(self.twosevenths <= self.third)
+        self.assertFalse(0.3333333 <= self.twosevenths)
+        self.assertTrue(self.twosevenths <= 0.3333333)
+        self.assertTrue(7 <= self.seven)
+        self.assertTrue(7.0 <= self.seven)
+        self.assertTrue(self.seven <= 7)
+        self.assertTrue(self.seven <= 7.0)
+        self.assertTrue(self.sevenhalves <= 4)
+        self.assertFalse(4 <= self.sevenhalves)
+
+        # >
+        self.assertFalse(self.half_1 > self.half_2)
+        self.assertTrue(self.third > self.twosevenths)
+        self.assertFalse(self.twosevenths > self.third)
+        self.assertTrue(0.3333333 > self.twosevenths)
+        self.assertFalse(self.twosevenths > 0.3333333)
+        self.assertFalse(7 > self.seven)
+        self.assertFalse(7.0 > self.seven)
+        self.assertFalse(self.seven > 7)
+        self.assertFalse(self.seven > 7.0)
+        self.assertFalse(self.sevenhalves > 4)
+        self.assertTrue(4 > self.sevenhalves)
+
+        # >=
+        self.assertTrue(self.half_1 >= self.half_2)
+        self.assertTrue(self.third >= self.twosevenths)
+        self.assertFalse(self.twosevenths >= self.third)
+        self.assertTrue(0.3333333 >= self.twosevenths)
+        self.assertFalse(self.twosevenths >= 0.3333333)
+        self.assertTrue(7 >= self.seven)
+        self.assertTrue(7.0 >= self.seven)
+        self.assertTrue(self.seven >= 7)
+        self.assertTrue(self.seven >= 7.0)
+        self.assertFalse(self.sevenhalves >= 4)
+        self.assertTrue(4 >= self.sevenhalves)
+
+    def test_rational_arithmetic(self):
+        """test abydos.util.Rational arithmetic operators
+        (negation, +, -, *, / (future & non), **, <<, >>)
+        """
+        pass
+
+    def test_rational_casts(self):
+        """test abydos.util.Rational cast functions
+        (int, float, str, __repr__)
+        """
+        pass
+
 
 class ArithmeticCoderTestCases(unittest.TestCase):
     """test cases for abydos.util.ac_train & abydos.util.ac_encode
@@ -116,7 +266,7 @@ class ArithmeticCoderTestCases(unittest.TestCase):
     def test_ac_train(self):
         """test abydos.util.ac_train
         """
-        self.assertEqual(ac_train(''), {'\x00': (Rational(0), Rational(1))})
+        self.assertEqual(ac_train(''), {'\x00': (0, 1)})
         self.assertEqual(ac_train(' '.join(NIALL)), self.niall_probs)
         self.assertEqual(ac_train(' '.join(sorted(NIALL))), self.niall_probs)
         self.assertEqual(ac_train(' '.join(NIALL)),
