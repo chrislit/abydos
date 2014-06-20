@@ -1271,11 +1271,12 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
 compression similarity')
     elif compressor == 'arith':
         if probs == None:
-            # lacking a reasonably dictionary, train on the strings themselves
+            # lacking a reasonable dictionary, train on the strings themselves
             probs = ac_train(src+tar)
         src_comp = ac_encode(src, probs)[1]
         tar_comp = ac_encode(tar, probs)[1]
         concat_comp = ac_encode(src+tar, probs)[1]
+        return (concat_comp - min(src_comp, tar_comp)) / max(src_comp, tar_comp)
     else: # zlib
         src_comp = codecs.encode(src, 'zlib_codec')[2:]
         tar_comp = codecs.encode(tar, 'zlib_codec')[2:]
@@ -1284,19 +1285,19 @@ compression similarity')
            max(len(src_comp), len(tar_comp)))
 
 
-def sim_compression(src, tar, compression='bz2'):
+def sim_compression(src, tar, compression='bz2', probs=None):
     """Return the normalized compression similarity (NCS) of two strings
 
     Arguments:
     src, tar -- two strings to be compared
     compressor -- a compression scheme to use for the similarity calculation:
-                    'bz2', 'lzma', and 'zlib' are the supported options
+                    'bz2', 'lzma', 'arith', and 'zlib' are the supported options
 
     Description:
     Normalized compression similarity is equal to 1 - the normalized
     compression distance
     """
-    return 1 - dist_compression(src, tar, compression)
+    return 1 - dist_compression(src, tar, compression, probs)
 
 
 def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, sym=False):
