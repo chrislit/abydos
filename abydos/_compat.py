@@ -30,9 +30,10 @@ if sys.version_info[0] == 3:
     _unicode = str
     _unichr = chr
     numeric_type = (int, float, complex)
-    long = int
+    _long = int
 else:
     _range = xrange
     _unicode = unicode
     _unichr = unichr
     numeric_type = (int, long, float, complex)
+    _long = long

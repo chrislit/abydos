@@ -33,7 +33,7 @@ from random import uniform, normalvariate
 from numpy.random import laplace
 from math import floor, log10
 from collections import Counter
-from ._compat import _unicode, _range, numeric_type
+from ._compat import _unicode, _range, numeric_type, _long
 
 def prod(nums):
     """Return the product of a series of numbers
@@ -150,8 +150,19 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
 
 
 class Rational(object):
-    p = long(0)
-    q = long(1)
+    """Rational number object supporting arithmetic and comparison operations
+
+    Construct a Rational with:
+        Rational(p, q), where p is the numerator and q the denominator
+    Also supported are construction with
+    floats: Rational(1.25) or Rational(1, 1.25)
+    strings: Rational('1/4') or Rational('1.25')
+    or a single int/long: Rational(1) or Rational(12)
+    """
+
+    # pylint: disable=invalid-name
+    p = _long(0)
+    q = _long(1)
 
     def __init__(self, p=0, q=1):
         """Construct a Rational object from p (the numerator) and q (the
@@ -159,35 +170,36 @@ class Rational(object):
         """
         # First try to interpret a string as a numeric value
         if isinstance(p, (_unicode, str)):
+            # pylint: disable=maybe-no-member
             p = p.replace(' ', '')
             if '/' in p:
                 p, q = p.split('/', 1)
                 if '.' in q:
                     q = float(q)
                 else:
-                    q = long(q)
+                    q = _long(q)
             if '.' in p:
                 p = float(p)
             else:
-                p = long(p)
+                p = _long(p)
 
         # Then divide determine numeric values for p & q
-        if isinstance(p, (int, long)) and isinstance(q, (int, long)):
-            self.p = long(p)
-            self.q = long(q)
-        elif isinstance(p, float) and isinstance(q, (int, long)):
+        if isinstance(p, (int, _long)) and isinstance(q, (int, _long)):
+            self.p = _long(p)
+            self.q = _long(q)
+        elif isinstance(p, float) and isinstance(q, (int, _long)):
             pfloat_p, pfloat_q = p.as_integer_ratio()
-            self.p = long(pfloat_p)
-            self.q = long(pfloat_q) * long(q)
-        elif isinstance(p, (int, long)) and isinstance(q, float):
+            self.p = _long(pfloat_p)
+            self.q = _long(pfloat_q) * _long(q)
+        elif isinstance(p, (int, _long)) and isinstance(q, float):
             qfloat_p, qfloat_q = q.as_integer_ratio()
-            self.p = long(p) * long(qfloat_q)
-            self.q = long(qfloat_p)
+            self.p = _long(p) * _long(qfloat_q)
+            self.q = _long(qfloat_p)
         elif isinstance(p, float) and isinstance(q, float):
             pfloat_p, pfloat_q = p.as_integer_ratio()
             qfloat_p, qfloat_q = q.as_integer_ratio()
-            self.p = long(pfloat_p) * long(qfloat_q)
-            self.q = long(pfloat_q) * long(qfloat_p)
+            self.p = _long(pfloat_p) * _long(qfloat_q)
+            self.q = _long(pfloat_q) * _long(qfloat_p)
         else:
             raise AttributeError('Unsupported values, both p and q must be \
 of type int, long, or float or p must be a string representation of a fraction')
@@ -195,9 +207,23 @@ of type int, long, or float or p must be a string representation of a fraction')
         # Finally, simplify by reducing with the GCD
         self._simplify()
 
-    def _gcd(self, p, q):
+    def numerator(self):
+        """Return the Rational's numerator (p)
+        """
+        return self.p
+
+    def denominator(self):
+        """Return the Rational's denominator (q)
+        """
+        return self.q
+
+    def _gcd(self, p=None, q=None):
         """Return the greatest common denominator of integers p and q
         """
+        if not p:
+            p = self.p
+        if not q:
+            q = self.q
         while q != 0:
             p, q = q, p%q
         return p
@@ -222,7 +248,7 @@ of type int, long, or float or p must be a string representation of a fraction')
     def __ne__(self, other):
         """Returns True if self != other
         """
-        return not (self==other)
+        return not self == other
 
     def __lt__(self, other):
         """Returns True if self < other
@@ -350,7 +376,7 @@ of type int, long, or float or p must be a string representation of a fraction')
         p = self.p << shift
         q = self.q
         return Rational(p, q)
-        
+
     def __rshift__(self, shift):
         """Return a Rational object after left bit shifting the denominator
         (equivalent to right bit shifting the numerator)
@@ -378,14 +404,14 @@ of type int, long, or float or p must be a string representation of a fraction')
         """Return a string representation of the Rational
         """
         return '{}/{}'.format(self.p, self.q)
-        
+
 
 def ac_train(text):
     """text -> 0-order probability statistics as a dictionary
 
     Text must not contain the NUL (0x00) character because that's used to
     indicate the end of data.
-    
+
     This is based on Andrew Dalke's public domain implementation:
     http://code.activestate.com/recipes/306626/
     It has been ported to use SymPy's Rational class.
@@ -398,23 +424,24 @@ def ac_train(text):
     tot_letters = sum(counts.values())
 
     tot = 0
-    d = {}
+    prob_range = {}
     prev = Rational(0)
-    for c, count in sorted(counts.items(), key=lambda x: (x[1], x[0]), reverse=True):
+    for char, count in sorted(counts.items(), key=lambda x: (x[1], x[0]),
+                           reverse=True):
         follow = Rational(tot + count, tot_letters)
-        d[c] = (prev, follow)
+        prob_range[char] = (prev, follow)
         prev = follow
         tot = tot + count
     assert tot == tot_letters
 
-    return d
+    return prob_range
 
 
 def ac_encode(text, probs):
     """text and the 0-order probability statistics -> longval, nbits
 
     The encoded number is rational(longval, 2**nbits)
-    
+
     This is based on Andrew Dalke's public domain implementation:
     http://code.activestate.com/recipes/306626/
     It has been ported to use SymPy's Rational class.
@@ -424,8 +451,8 @@ def ac_encode(text, probs):
         text = text.replace('\x00', ' ')
     minval = Rational(0)
     maxval = Rational(1)
-    for c in text + '\x00':
-        prob_range = probs[c]
+    for char in text + '\x00':
+        prob_range = probs[char]
         delta = maxval - minval
         maxval = minval + prob_range[1] * delta
         minval = minval + prob_range[0] * delta
@@ -435,7 +462,7 @@ def ac_encode(text, probs):
     # gives me the minimum number of bits needed to resolve
     # down to the end-of-data character.
     delta = (maxval - minval) / 2
-    nbits = long(0)
+    nbits = _long(0)
     while delta < 1:
         nbits = nbits + 1
         delta <<= 1

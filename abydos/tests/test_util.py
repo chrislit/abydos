@@ -21,7 +21,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 from __future__ import unicode_literals
-from abydos._compat import _range
+from abydos._compat import _range, _long
 from abydos.util import prod, jitter, Rational, ac_train, ac_encode
 import unittest
 
@@ -98,8 +98,8 @@ class RationalTestCases(unittest.TestCase):
     half_6 = Rational(0.25, 0.5)
     half_7 = Rational('1 / 2')
     half_8 = Rational('2.5 /5.0')
-    half_9 = Rational(long(1), 2)
-    half_A = Rational(2.0, long(4))
+    half_9 = Rational(_long(1), 2)
+    half_A = Rational(2.0, _long(4))
 
     third = Rational(1, 3)
     twosevenths = Rational(2, 7)
@@ -108,7 +108,7 @@ class RationalTestCases(unittest.TestCase):
     seven = Rational(7)
 
     def test_rational_init(self):
-        """test abydos.util.Rational constructor
+        """test abydos.util.Rational constructor and getters
         """
         self.assertEqual(self.half_1, self.half_2)
         self.assertEqual(self.half_3, self.half_4)
@@ -122,16 +122,31 @@ class RationalTestCases(unittest.TestCase):
 
         self.assertEqual(self.twosevenths, self.twosevenths_alt)
 
+        self.assertEqual(self.twosevenths.numerator(), 2)
+        self.assertEqual(self.twosevenths.denominator(), 7)
+        self.assertEqual(self.seven.numerator(), 7)
+        self.assertEqual(self.seven.denominator(), 1)
+
     def test_rational_helpers(self):
         """test abydos.util.Rational helper functions
         (_gcd & _simplify)
         """
+        # pylint: disable=protected-access
         self.assertEqual(Rational()._gcd(2, 7), 1)
+        self.assertEqual(Rational(2, 7)._gcd(), 1)
         self.assertEqual(Rational()._gcd(3, 18), 3)
+        self.assertEqual(Rational(3, 18)._gcd(), 1)
         self.assertEqual(Rational()._gcd(2, 4), 2)
+        self.assertEqual(Rational(2, 4)._gcd(), 1)
         self.assertEqual(Rational()._gcd(1, 7), 1)
+        self.assertEqual(Rational(1, 7)._gcd(), 1)
         self.assertEqual(Rational()._gcd(54, 7), 1)
+        self.assertEqual(Rational(54, 7)._gcd(), 1)
         self.assertEqual(Rational()._gcd(49, 21), 7)
+        self.assertEqual(Rational(49, 21)._gcd(), 1)
+
+        self.assertEqual(Rational(49, 21)._gcd(p=1), 1)
+        self.assertEqual(Rational(49, 21)._gcd(q=1), 1)
 
         # Create a default Rational (0), set p & q manually, without simplifying
         rat_twothirds = Rational()
@@ -376,7 +391,6 @@ class ArithmeticCoderTestCases(unittest.TestCase):
     def test_ac_train(self):
         """test abydos.util.ac_train
         """
-        self.maxDiff = None
         self.assertEqual(ac_train(''), {'\x00': (0, 1)})
         self.assertEqual(ac_train(' '.join(NIALL)), self.niall_probs)
         self.assertEqual(ac_train(' '.join(sorted(NIALL))), self.niall_probs)
@@ -388,13 +402,13 @@ class ArithmeticCoderTestCases(unittest.TestCase):
     def test_ac_encode(self):
         """test abydos.util.ac_encode
         """
-        self.assertEqual(ac_encode('', self.niall_probs), (254L, 8L))
-        self.assertEqual(ac_encode('a', self.niall_probs), (3268L, 12L))
-        self.assertEqual(ac_encode('Niall', self.niall_probs), (3911665L, 23L))
-        self.assertEqual(ac_encode('Niel', self.niall_probs), (486801L, 20L))
-        self.assertEqual(ac_encode('Mean', self.niall_probs), (243067161L, 28L))
+        self.assertEqual(ac_encode('', self.niall_probs), (254, 8))
+        self.assertEqual(ac_encode('a', self.niall_probs), (3268, 12))
+        self.assertEqual(ac_encode('Niall', self.niall_probs), (3911665, 23))
+        self.assertEqual(ac_encode('Niel', self.niall_probs), (486801, 20))
+        self.assertEqual(ac_encode('Mean', self.niall_probs), (243067161, 28))
         self.assertEqual(ac_encode('Neil Noígíallach', self.niall_probs),
-                         (2133315320471368785758L, 72L))
+                         (2133315320471368785758, 72))
         self.assertRaises(KeyError, ac_encode, 'NIALL', self.niall_probs)
 
 
