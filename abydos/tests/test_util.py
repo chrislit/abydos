@@ -20,6 +20,7 @@ You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
+from __future__ import unicode_literals
 from abydos._compat import _range
 from abydos.util import prod, jitter, Rational, ac_train, ac_encode
 import unittest
@@ -350,32 +351,32 @@ class RationalTestCases(unittest.TestCase):
 class ArithmeticCoderTestCases(unittest.TestCase):
     """test cases for abydos.util.ac_train & abydos.util.ac_encode
     """
-    niall_probs = {'\x00': (Rational(0), Rational(1, 119)),
-                   '\xa1': (Rational(1, 119), Rational(2, 119)),
-                   ' ': (Rational(2, 119), Rational(19, 119)),
-                   "'": (Rational(19, 119), Rational(20, 119)),
-                   '\xa9': (Rational(20, 119), Rational(3, 17)),
-                   '\xad': (Rational(3, 17), Rational(24, 119)),
-                   '\xc3': (Rational(24, 119), Rational(29, 119)),
-                   'K': (Rational(29, 119), Rational(30, 119)),
-                   'M': (Rational(30, 119), Rational(32, 119)),
-                   'O': (Rational(32, 119), Rational(33, 119)),
-                   'N': (Rational(33, 119), Rational(7, 17)),
-                   'U': (Rational(7, 17), Rational(50, 119)),
-                   'a': (Rational(50, 119), Rational(59, 119)),
-                   'c': (Rational(59, 119), Rational(62, 119)),
-                   'e': (Rational(62, 119), Rational(11, 17)),
-                   'g': (Rational(11, 17), Rational(80, 119)),
-                   'i': (Rational(80, 119), Rational(89, 119)),
-                   'h': (Rational(89, 119), Rational(90, 119)),
-                   'j': (Rational(90, 119), Rational(92, 119)),
-                   'l': (Rational(92, 119), Rational(117, 119)),
-                   'o': (Rational(117, 119), Rational(118, 119)),
-                   'n': (Rational(118, 119), Rational(1))}
+    niall_probs = {'a': (Rational(41, 57), Rational(91, 114)),
+                   ' ': (Rational(25, 114), Rational(7, 19)),
+                   'c': (Rational(97, 114), Rational(50, 57)),
+                   'e': (Rational(29, 57), Rational(73, 114)),
+                   "'": (Rational(56, 57), Rational(113, 114)),
+                   'g': (Rational(47, 57), Rational(97, 114)),
+                   '\x00': (Rational(113, 114), Rational(1, 1)),
+                   'i': (Rational(73, 114), Rational(41, 57)),
+                   'M': (Rational(17, 19), Rational(52, 57)),
+                   'K': (Rational(37, 38), Rational(56, 57)),
+                   'j': (Rational(50, 57), Rational(17, 19)),
+                   '\xed': (Rational(91, 114), Rational(47, 57)),
+                   'l': (Rational(0, 1), Rational(25, 114)),
+                   'o': (Rational(53, 57), Rational(107, 114)),
+                   'N': (Rational(7, 19), Rational(29, 57)),
+                   '\xe9': (Rational(52, 57), Rational(35, 38)),
+                   '\xe1': (Rational(35, 38), Rational(53, 57)),
+                   'U': (Rational(109, 114), Rational(55, 57)),
+                   'O': (Rational(55, 57), Rational(37, 38)),
+                   'h': (Rational(18, 19), Rational(109, 114)),
+                   'n': (Rational(107, 114), Rational(18, 19))}
 
     def test_ac_train(self):
         """test abydos.util.ac_train
         """
+        self.maxDiff = None
         self.assertEqual(ac_train(''), {'\x00': (0, 1)})
         self.assertEqual(ac_train(' '.join(NIALL)), self.niall_probs)
         self.assertEqual(ac_train(' '.join(sorted(NIALL))), self.niall_probs)
@@ -387,13 +388,13 @@ class ArithmeticCoderTestCases(unittest.TestCase):
     def test_ac_encode(self):
         """test abydos.util.ac_encode
         """
-        #self.assertEqual(ac_encode('', self.niall_probs), (1, 8L))
-        self.assertEqual(ac_encode('a', self.niall_probs), (1722, 12L))
-        self.assertEqual(ac_encode('Niall', self.niall_probs), (3126369, 23L))
-        self.assertEqual(ac_encode('Niel', self.niall_probs), (392157, 20L))
-        self.assertEqual(ac_encode('Mean', self.niall_probs), (70304934, 28L))
+        self.assertEqual(ac_encode('', self.niall_probs), (254L, 8L))
+        self.assertEqual(ac_encode('a', self.niall_probs), (3268L, 12L))
+        self.assertEqual(ac_encode('Niall', self.niall_probs), (3911665L, 23L))
+        self.assertEqual(ac_encode('Niel', self.niall_probs), (486801L, 20L))
+        self.assertEqual(ac_encode('Mean', self.niall_probs), (243067161L, 28L))
         self.assertEqual(ac_encode('Neil Noígíallach', self.niall_probs),
-                         (1739727914825858776309937L, 82L))
+                         (2133315320471368785758L, 72L))
         self.assertRaises(KeyError, ac_encode, 'NIALL', self.niall_probs)
 
 

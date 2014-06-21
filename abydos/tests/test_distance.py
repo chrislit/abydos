@@ -36,6 +36,7 @@ from abydos.distance import levenshtein, dist_levenshtein, sim_levenshtein, \
     smith_waterman, gotoh, sim_length, dist_length, sim_prefix, dist_prefix, \
     sim_suffix, dist_suffix, sim_mlipns, dist_mlipns, bag, sim_bag, dist_bag, \
     sim, dist
+from abydos.util import ac_train
 from abydos.qgram import QGrams
 import math
 from difflib import SequenceMatcher
@@ -1261,6 +1262,8 @@ class CompressionTestCases(unittest.TestCase):
     """test cases for abydos.distance.dist_compression &
     abydos.distance.sim_compression
     """
+    arith_dict = ac_train(' '.join(NIALL))
+
     def test_dist_compression(self):
         """test abydos.distance.dist_compression
         """
@@ -1268,16 +1271,43 @@ class CompressionTestCases(unittest.TestCase):
         self.assertEqual(dist_compression('', '', 'bzip2'), 0)
         self.assertEqual(dist_compression('', '', 'lzma'), 0)
         self.assertEqual(dist_compression('', '', 'zlib'), 0)
+        self.assertEqual(dist_compression('', '', 'arith'), 0)
+        self.assertEqual(dist_compression('', '', 'arith', self.arith_dict), 0)
 
         self.assertGreater(dist_compression('a', ''), 0)
         self.assertGreater(dist_compression('a', '', 'bzip2'), 0)
         self.assertGreater(dist_compression('a', '', 'lzma'), 0)
         self.assertGreater(dist_compression('a', '', 'zlib'), 0)
+        self.assertGreater(dist_compression('a', '', 'arith'), 0)
+        self.assertGreater(dist_compression('a', '', 'arith', self.arith_dict),
+                           0)
 
         self.assertGreater(dist_compression('abcdefg', 'fg'), 0)
         self.assertGreater(dist_compression('abcdefg', 'fg', 'bzip2'), 0)
         self.assertGreater(dist_compression('abcdefg', 'fg', 'lzma'), 0)
         self.assertGreater(dist_compression('abcdefg', 'fg', 'zlib'), 0)
+        self.assertGreater(dist_compression('abcdefg', 'fg', 'arith'), 0)
+
+        self.assertAlmostEqual(dist_compression('Niall', 'Neil', 'arith',
+                                                self.arith_dict),
+                               0.608695652173913)
+        self.assertAlmostEqual(dist_compression('Neil', 'Niall', 'arith',
+                                                self.arith_dict),
+                               0.608695652173913)
+        self.assertAlmostEqual(dist_compression('Niall', 'Neil', 'arith'),
+                               0.6875)
+        self.assertAlmostEqual(dist_compression('Neil', 'Niall', 'arith'),
+                               0.6875)
+        self.assertAlmostEqual(dist_compression(u'Njáll', 'Njall', 'arith',
+                                                self.arith_dict),
+                               0.714285714285714)
+        self.assertAlmostEqual(dist_compression('Njall', u'Njáll', 'arith',
+                                                self.arith_dict),
+                               0.714285714285714)
+        self.assertAlmostEqual(dist_compression('Njáll', 'Njall', 'arith'),
+                               0.75)
+        self.assertAlmostEqual(dist_compression('Njall', 'Njáll', 'arith'),
+                               0.75)
 
     def test_sim_compression(self):
         """test abydos.distance.sim_compression
@@ -1286,16 +1316,42 @@ class CompressionTestCases(unittest.TestCase):
         self.assertEqual(sim_compression('', '', 'bzip2'), 1)
         self.assertEqual(sim_compression('', '', 'lzma'), 1)
         self.assertEqual(sim_compression('', '', 'zlib'), 1)
+        self.assertEqual(sim_compression('', '', 'arith'), 1)
+        self.assertEqual(sim_compression('', '', 'arith', self.arith_dict), 1)
 
         self.assertLess(sim_compression('a', ''), 1)
         self.assertLess(sim_compression('a', '', 'bzip2'), 1)
         self.assertLess(sim_compression('a', '', 'lzma'), 1)
         self.assertLess(sim_compression('a', '', 'zlib'), 1)
+        self.assertLess(sim_compression('a', '', 'arith'), 1)
+        self.assertLess(sim_compression('a', '', 'arith', self.arith_dict), 1)
 
         self.assertLess(sim_compression('abcdefg', 'fg'), 1)
         self.assertLess(sim_compression('abcdefg', 'fg', 'bzip2'), 1)
         self.assertLess(sim_compression('abcdefg', 'fg', 'lzma'), 1)
         self.assertLess(sim_compression('abcdefg', 'fg', 'zlib'), 1)
+        self.assertLess(sim_compression('abcdefg', 'fg', 'arith'), 1)
+
+        self.assertAlmostEqual(sim_compression('Niall', 'Neil', 'arith',
+                                                self.arith_dict),
+                               0.3913043478260869)
+        self.assertAlmostEqual(sim_compression('Neil', 'Niall', 'arith',
+                                                self.arith_dict),
+                               0.3913043478260869)
+        self.assertAlmostEqual(sim_compression('Niall', 'Neil', 'arith'),
+                               0.3125)
+        self.assertAlmostEqual(sim_compression('Neil', 'Niall', 'arith'),
+                               0.3125)
+        self.assertAlmostEqual(sim_compression(u'Njáll', 'Njall', 'arith',
+                                                self.arith_dict),
+                               0.285714285714285)
+        self.assertAlmostEqual(sim_compression('Njall', u'Njáll', 'arith',
+                                                self.arith_dict),
+                               0.285714285714285)
+        self.assertAlmostEqual(sim_compression('Njáll', 'Njall', 'arith'),
+                               0.25)
+        self.assertAlmostEqual(sim_compression('Njall', 'Njáll', 'arith'),
+                               0.25)
 
 
 class MongeElkanTestCases(unittest.TestCase):

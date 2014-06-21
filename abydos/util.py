@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
+from __future__ import unicode_literals
 from __future__ import division
 import sys
 if sys.version_info[0] == 3:
@@ -31,6 +32,7 @@ if sys.version_info[0] == 3:
 from random import uniform, normalvariate
 from numpy.random import laplace
 from math import floor, log10
+from collections import Counter
 from ._compat import _unicode, _range, numeric_type
 
 def prod(nums):
@@ -388,18 +390,17 @@ def ac_train(text):
     http://code.activestate.com/recipes/306626/
     It has been ported to use SymPy's Rational class.
     """
+    text = _unicode(text)
     if '\x00' in text:
         text = text.replace('\x00', ' ')
-    counts = {}
-    for c in text:
-        counts[c]=counts.get(c,0)+1
+    counts = Counter(text)
     counts['\x00'] = 1
     tot_letters = sum(counts.values())
 
     tot = 0
     d = {}
     prev = Rational(0)
-    for c, count in counts.items():
+    for c, count in sorted(counts.items(), key=lambda x: (x[1], x[0]), reverse=True):
         follow = Rational(tot + count, tot_letters)
         d[c] = (prev, follow)
         prev = follow
@@ -418,6 +419,7 @@ def ac_encode(text, probs):
     http://code.activestate.com/recipes/306626/
     It has been ported to use SymPy's Rational class.
     """
+    text = _unicode(text)
     if '\x00' in text:
         text = text.replace('\x00', ' ')
     minval = Rational(0)
