@@ -99,6 +99,34 @@ PHONETIC_FEATURES = {'t': 0b0110101000010110100000000010001010101010101010,
                      'kw': 0b0110100101100000010110011010001010101010101010,
                      'gw': 0b0110100101100000010110011010000110101010101010}
 
+FEATURE_MASK = {'consonantal': 0b1100000000000000000000000000000000000000000000,
+                'sonorant': 0b0011000000000000000000000000000000000000000000,
+                'syllabic': 0b0000110000000000000000000000000000000000000000,
+                'labial': 0b0000001100000000000000000000000000000000000000,
+                'round': 0b0000000011000000000000000000000000000000000000,
+                'coronal': 0b0000000000110000000000000000000000000000000000,
+                'anterior': 0b0000000000001100000000000000000000000000000000,
+                'distributed': 0b0000000000000011000000000000000000000000000000,
+                'dorsal': 0b0000000000000000110000000000000000000000000000,
+                'high': 0b0000000000000000001100000000000000000000000000,
+                'low': 0b0000000000000000000011000000000000000000000000,
+                'back': 0b0000000000000000000000110000000000000000000000,
+                'tense': 0b0000000000000000000000001100000000000000000000,
+                'pharyngeal': 0b0000000000000000000000000011000000000000000000,
+                'ATR': 0b0000000000000000000000000000110000000000000000,
+                'voice': 0b0000000000000000000000000000001100000000000000,
+                'spread_glottis':
+                0b0000000000000000000000000000000011000000000000,
+                'constricted_glottis':
+                0b0000000000000000000000000000000000110000000000,
+                'continuant': 0b0000000000000000000000000000000000001100000000,
+                'strident': 0b0000000000000000000000000000000000000011000000,
+                'lateral': 0b0000000000000000000000000000000000000000110000,
+                'delayed_release':
+                0b0000000000000000000000000000000000000000001100,
+                'nasal': 0b0000000000000000000000000000000000000000000011}
+
+
 def ipa_to_features(ipa):
     """Return the feature representation (as a list of ints) of one or more
     phones
@@ -125,3 +153,47 @@ def ipa_to_features(ipa):
             pos += 1
 
     return features
+
+def has_feature(vector, feature, binary=False):
+    """Returns a list of ints representing presents/absence/neutrality with
+    respect to a particular phonetic feature
+
+    Arguments:
+    vector -- a tuple or list of ints representing the phonetic features of a
+        phone (such as is returned by the ipa_to_features function
+    feature -- a feature name from the set:
+        'consonantal', 'sonorant', 'syllabic', 'labial', 'round', 'coronal',
+        'anterior', 'distributed', 'dorsal', 'high', 'low', 'back', 'tense',
+        'pharyngeal', 'ATR', 'voice', 'spread_glottis', 'constricted_glottis',
+        'continuant', 'strident', 'lateral', 'delayed_release', 'nasal'
+    binary -- if False, -1, 0, & 1 represent -, 0, & +
+              if True, only binary oppositions are allowed:
+              0 & 1 represent - & + and 0s are mapped to -
+    """
+    if feature not in FEATURE_MASK:
+        raise AttributeError("feature must be one of: 'consonantal', \
+'sonorant', 'syllabic', 'labial', 'round', 'coronal', 'anterior', \
+'distributed', 'dorsal', 'high', 'low', 'back', 'tense', 'pharyngeal', 'ATR', \
+'voice', 'spread_glottis', 'constricted_glottis', 'continuant', 'strident', \
+'lateral', 'delayed_release', 'nasal'")
+
+    # each feature mask contains two bits, one each for - and +
+    mask = FEATURE_MASK[feature]
+    # the lower bit represents +
+    pos_mask = mask >> 1
+    retvec = []
+    for char in vector:
+        if char < 0:
+            retvec.append(float('NaN'))
+        else:
+            masked = char & mask
+            if not masked:
+                retvec.append(0) # 0
+            elif masked & pos_mask:
+                retvec.append(1) # +
+            elif binary:
+                retvec.append(0) # -
+            else:
+                retvec.append(-1) # -
+
+    return retvec
