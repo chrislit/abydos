@@ -22,7 +22,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
 from abydos._compat import _range, _long
-from abydos.util import prod, jitter, Rational, ac_train, ac_encode
+from abydos.util import prod, jitter, Rational, ac_train, ac_encode, ac_decode
 import unittest
 
 NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
@@ -410,6 +410,17 @@ class ArithmeticCoderTestCases(unittest.TestCase):
         self.assertEqual(ac_encode('Neil Noígíallach', self.niall_probs),
                          (2133315320471368785758, 72))
         self.assertRaises(KeyError, ac_encode, 'NIALL', self.niall_probs)
+
+    def test_ac_decode(self):
+        """test abydos.util.ac_decode
+        """
+        self.assertEqual(ac_decode(254, 8, self.niall_probs), '')
+        self.assertEqual(ac_decode(3268, 12, self.niall_probs), 'a')
+        self.assertEqual(ac_decode(3911665, 23, self.niall_probs), 'Niall')
+        self.assertEqual(ac_decode(486801, 20, self.niall_probs), 'Niel')
+        self.assertEqual(ac_decode(243067161, 28, self.niall_probs), 'Mean')
+        self.assertEqual(ac_decode(2133315320471368785758, 72,
+                                   self.niall_probs), 'Neil Noígíallach')
 
 
 if __name__ == '__main__':

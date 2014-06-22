@@ -407,14 +407,16 @@ of type int, long, or float or p must be a string representation of a fraction')
 
 
 def ac_train(text):
-    """text -> 0-order probability statistics as a dictionary
+    """Generate a probability dict from the provided text
+
+    Text -> 0-order probability statistics as a dict
 
     Text must not contain the NUL (0x00) character because that's used to
     indicate the end of data.
 
     This is based on Andrew Dalke's public domain implementation:
     http://code.activestate.com/recipes/306626/
-    It has been ported to use SymPy's Rational class.
+    It has been ported to use the custom Rational class above.
     """
     text = _unicode(text)
     if '\x00' in text:
@@ -438,13 +440,15 @@ def ac_train(text):
 
 
 def ac_encode(text, probs):
-    """text and the 0-order probability statistics -> longval, nbits
+    """Encode a text using arithmetic coding with the provided probabilities
+
+    Text and the 0-order probability statistics -> longval, nbits
 
     The encoded number is rational(longval, 2**nbits)
 
     This is based on Andrew Dalke's public domain implementation:
     http://code.activestate.com/recipes/306626/
-    It has been ported to use SymPy's Rational class.
+    It has been ported to use the custom Rational class above.
     """
     text = _unicode(text)
     if '\x00' in text:
@@ -467,9 +471,33 @@ def ac_encode(text, probs):
         nbits = nbits + 1
         delta <<= 1
     if nbits == 0:
-        return 0, 0
+        return 0, 0     # pragma: no cover
     else:
         # using -1 instead of /2
         avg = (maxval + minval)<<(nbits-1)
     # Could return a rational instead ...
     return avg.p//avg.q, nbits  # the division truncation is deliberate
+
+def ac_decode(longval, nbits, probs):
+    """Decode the number to a string using the given statistics
+
+    This is based on Andrew Dalke's public domain implementation:
+    http://code.activestate.com/recipes/306626/
+    It has been ported to use the custom Rational class above.
+    """
+    val = Rational(longval, _long(1)<<nbits)
+    letters = []
+    probs_items = [(char, minval, maxval) for (char, (minval, maxval))
+                   in probs.items()]
+
+    while True:
+        for (char, minval, maxval) in probs_items:
+            if minval <= val < maxval:
+                break
+
+        if char == '\x00':
+            break
+        letters.append(char)
+        delta = maxval - minval
+        val = (val - minval)/delta
+    return ''.join(letters)
