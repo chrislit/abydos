@@ -3833,6 +3833,7 @@ class SPFCTestCases(unittest.TestCase):
         self.assertEqual(spfc('James Wenders'), '27760')
         self.assertEqual(spfc('James Ventor'), '17760')
 
+
 class GermanIPATestCases(unittest.TestCase):
     """test cases for abydos.phonetic.german_ipa
     """
