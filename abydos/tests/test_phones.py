@@ -23,6 +23,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 import unittest
 from abydos.phones import ipa_to_features, has_feature
+from math import isnan
 
 
 class IpaFeaturesTestCases(unittest.TestCase):
@@ -89,6 +90,10 @@ class HasFeatureTestCases(unittest.TestCase):
                           'vocalic', True)
         self.assertEqual(has_feature(ipa_to_features('løvenbroy'), 'ATR',),
                          [0, 1, 0, 1, 0, 0, 0, 1, 1])
+        self.assertNotEqual(has_feature(ipa_to_features('i@c'), 'syllabic'),
+                            [1, float('NaN'), -1])
+        self.assertTrue(isnan(has_feature(ipa_to_features('i@c'),
+                                              'syllabic')[1]))
 
 
 if __name__ == '__main__':
