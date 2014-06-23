@@ -35,7 +35,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
 from __future__ import division
-from ._compat import _range
+from ._compat import _range, _unicode
 import numpy as np
 import sys
 import math
@@ -50,6 +50,7 @@ except ImportError: # pragma: no cover
     # similarity won't be supported.
     pass
 from .util import ac_train, ac_encode
+import unicodedata
 
 
 def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
@@ -1762,6 +1763,127 @@ def dist_bag(src, tar):
 
     return bag(src, tar)/maxlen
 
+
+def editex(src, tar, cost=(0, 1, 2), local=False):
+    """Return the Editex distance between two string arguments
+
+    Arguments:
+    src, tar -- two strings to be compared
+    cost -- a 3-tuple representing the cost of the four possible edits:
+                match, same-group, and mismatch respectively
+                (by default: (0, 1, 2))
+
+    Description:
+    As described on pages 3 & 4 of
+    Zobel, Justin and Philip Dart. 1996. Phonetic string matching: Lessons from
+    information retrieval. In: Proceedings of the ACM-SIGIR Conference on
+    Research and Development in Information Retrieval, Zurich, Switzerland.
+    166–173. http://goanna.cs.rmit.edu.au/~jz/fulltext/sigir96.pdf
+
+    The local variant is based on
+    Ring, Nicholas and Alexandra L. Uitdenbogerd. 2009. Finding ‘Lucy in
+    Disguise’: The Misheard Lyric Matching Problem. In: Proceedings of the 5th
+    Asia Information Retrieval Symposium, Sapporo, Japan. 157-167.
+    http://www.seg.rmit.edu.au/research/download.php?manuscript=404
+    """
+    match_cost, group_cost, mismatch_cost = cost
+    letter_groups = (set('AEIOUY'), set('BP'), set('CKQ'), set('DT'), set('LR'),
+                     set('MN'), set('GJ'), set('FPV'), set('SXZ'), set('CSZ'))
+    all_letters = set('AEIOUYBPCKQDTLRMNGJFVSXZ')
+
+    def r_cost(ch1, ch2):
+        """Return r(a,b) according to Zobel & Dart's definition
+        """
+        if ch1 == ch2:
+            return match_cost
+        if ch1 in all_letters and ch2 in all_letters:
+            for group in letter_groups:
+                if ch1 in group and ch2 in group:
+                    return group_cost
+        return mismatch_cost
+
+    def d_cost(ch1, ch2):
+        """Return d(a,b) according to Zobel & Dart's definition
+        """
+        if ch1 != ch2 and (ch1 == 'H' or ch1 == 'W'):
+            return group_cost
+        return r_cost(ch1, ch2)
+
+    # convert both src & tar to NFKD normalized unicode
+    src = unicodedata.normalize('NFKD', _unicode(src.upper()))
+    tar = unicodedata.normalize('NFKD', _unicode(tar.upper()))
+    # convert ß to SS (for Python2)
+    src = src.replace('ß', 'SS')
+    tar = tar.replace('ß', 'SS')
+
+    if src == tar:
+        return 0
+    if len(src) == 0:
+        return len(tar) * mismatch_cost
+    if len(tar) == 0:
+        return len(src) * mismatch_cost
+
+    # pylint: disable=no-member
+    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
+    # pylint: enable=no-member
+    lens = len(src)
+    lent = len(tar)
+    src = ' '+src
+    tar = ' '+tar
+
+    if not local:
+        for i in _range(1, lens+1):
+            d_mat[i, 0] = d_mat[i-1, 0] + d_cost(src[i-1], src[i])
+    for j in _range(1, lent+1):
+        d_mat[0, j] = d_mat[0, j-1] + d_cost(tar[j-1], tar[j])
+
+    for i in _range(1, lens+1):
+        for j in _range(1, lent+1):
+            d_mat[i, j] = min(d_mat[i-1, j] + d_cost(src[i-1], src[i]),
+                              d_mat[i, j-1] + d_cost(tar[j-1], tar[j]),
+                              d_mat[i-1, j-1] + r_cost(src[i], tar[j]))
+
+    return d_mat[lens, lent]
+
+
+def dist_editex(src, tar, cost=(0, 1, 2)):
+    """Return the Levenshtein distance normalized to the interval [0, 1]
+
+    Arguments:
+    src, tar -- two strings to be compared
+    cost -- a 3-tuple representing the cost of the four possible edits:
+                match, same-group, and mismatch respectively
+                (by default: (0, 1, 2))
+
+    Description:
+    The Editex distance is normalized by dividing the Editex distance
+    (calculated by any of the three supported methods) by the greater of
+    the number of characters in src times the cost of a delete and
+    the number of characters in tar times the cost of an insert.
+    For the case in which all operations have cost == 1, this is equivalent
+    to the greater of the length of the two strings src & tar.
+    """
+    if src == tar:
+        return 0
+    mismatch_cost = cost[2]
+    return (editex(src, tar, cost) /
+            (max(len(src)*mismatch_cost, len(tar)*mismatch_cost)))
+
+
+def sim_editex(src, tar, cost=(0, 1, 2)):
+    """Return the Editex similarity normalized to the interval [0, 1]
+    The arguments are identical to those of the editex() function.
+
+    Arguments:
+    src, tar -- two strings to be compared
+    cost -- a 3-tuple representing the cost of the four possible edits:
+                match, same-group, and mismatch respectively
+                (by default: (0, 1, 2))
+
+    Description:
+    The Editex similarity is 1 - the Editex distance
+    """
+    return 1 - dist_editex(src, tar, cost)
 
 
 ################################################################################

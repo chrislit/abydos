@@ -35,7 +35,7 @@ from abydos.distance import levenshtein, dist_levenshtein, sim_levenshtein, \
     dist_monge_elkan, sim_ident, dist_ident, sim_matrix, needleman_wunsch, \
     smith_waterman, gotoh, sim_length, dist_length, sim_prefix, dist_prefix, \
     sim_suffix, dist_suffix, sim_mlipns, dist_mlipns, bag, sim_bag, dist_bag, \
-    sim, dist
+    editex, sim_editex, dist_editex, sim, dist
 from abydos.util import ac_train
 from abydos.qgram import QGrams
 import math
@@ -1797,7 +1797,7 @@ class BagTestCases(unittest.TestCase):
     abydos.distance.dist_bag
     """
     def test_bag(self):
-        """test abydos.distance.sim_bag
+        """test abydos.distance.bag
         """
         self.assertEqual(bag('', ''), 0)
         self.assertEqual(bag('nelson', ''), 6)
@@ -1831,6 +1831,52 @@ class BagTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_bag('nelson', 'neilsen'), 2/7)
         self.assertAlmostEqual(dist_bag('neilsen', 'nelson'), 2/7)
         self.assertAlmostEqual(dist_bag('niall', 'neal'), 2/5)
+
+
+class EditexTestCases(unittest.TestCase):
+    """test cases for abydos.distance.editex, abydos.distance.sim_editex &
+    abydos.distance.dist_editex
+    """
+    def test_editex(self):
+        """test abydos.distance.editex
+        """
+        self.assertEqual(editex('', ''), 0)
+        self.assertEqual(editex('nelson', ''), 12)
+        self.assertEqual(editex('', 'neilsen'), 14)
+        self.assertEqual(editex('ab', 'a'), 2)
+        self.assertEqual(editex('ab', 'c'), 4)
+        self.assertEqual(editex('nelson', 'neilsen'), 2)
+        self.assertEqual(editex('neilsen', 'nelson'), 2)
+        self.assertEqual(editex('niall', 'neal'), 1)
+        self.assertEqual(editex('neal', 'niall'), 1)
+        self.assertEqual(editex('niall', 'nihal'), 2)
+        self.assertEqual(editex('nihal', 'niall'), 2)
+        self.assertEqual(editex('neal', 'nihl'), 3)
+        self.assertEqual(editex('nihl', 'neal'), 3)
+
+    def test_sim_bag(self):
+        """test abydos.distance.sim_bag
+        """
+        self.assertEqual(sim_editex('', ''), 1)
+        self.assertEqual(sim_editex('nelson', ''), 0)
+        self.assertEqual(sim_editex('', 'neilsen'), 0)
+        self.assertEqual(sim_editex('ab', 'a'), 0.5)
+        self.assertEqual(sim_editex('ab', 'c'), 0)
+        self.assertAlmostEqual(sim_editex('nelson', 'neilsen'), 12/14)
+        self.assertAlmostEqual(sim_editex('neilsen', 'nelson'), 12/14)
+        self.assertEqual(sim_editex('niall', 'neal'), 0.9)
+
+    def test_dist_bag(self):
+        """test abydos.distance.dist_editex
+        """
+        self.assertEqual(dist_editex('', ''), 0)
+        self.assertEqual(dist_editex('nelson', ''), 1)
+        self.assertEqual(dist_editex('', 'neilsen'), 1)
+        self.assertEqual(dist_editex('ab', 'a'), 0.5)
+        self.assertEqual(dist_editex('ab', 'c'), 1)
+        self.assertAlmostEqual(dist_editex('nelson', 'neilsen'), 2/14)
+        self.assertAlmostEqual(dist_editex('neilsen', 'nelson'), 2/14)
+        self.assertEqual(dist_editex('niall', 'neal'), 0.1)
 
 
 class SimDistTestCases(unittest.TestCase):
