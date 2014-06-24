@@ -22,7 +22,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 from __future__ import unicode_literals
-from ._compat import _unicode
+from ._compat import _unicode, _range
 import unicodedata
 
 
@@ -170,17 +170,17 @@ def ipa_to_features(ipa):
     pos = 0
     ipa = unicodedata.normalize('NFC', _unicode(ipa.lower()))
 
+    maxsymlen = max([len(_) for _ in PHONETIC_FEATURES.keys()])
+
     while pos < len(ipa):
-        if pos+2 <= len(ipa) and ipa[pos:pos+3] in PHONETIC_FEATURES:
-            features.append(PHONETIC_FEATURES[ipa[pos:pos+3]])
-            pos += 3
-        elif pos+1 <= len(ipa) and ipa[pos:pos+2] in PHONETIC_FEATURES:
-            features.append(PHONETIC_FEATURES[ipa[pos:pos+2]])
-            pos += 2
-        elif ipa[pos] in PHONETIC_FEATURES:
-            features.append(PHONETIC_FEATURES[ipa[pos]])
-            pos += 1
-        else:
+        found_match = False
+        for i in _range(maxsymlen, 0, -1):
+            if pos+i-1 <= len(ipa) and ipa[pos:pos+i] in PHONETIC_FEATURES:
+                features.append(PHONETIC_FEATURES[ipa[pos:pos+i]])
+                pos += i
+                found_match = True
+
+        if not found_match:
             features.append(-1)
             pos += 1
 
@@ -220,7 +220,7 @@ def has_feature(vector, feature, binary=False):
             retvec.append(float('NaN'))
         else:
             masked = char & mask
-            if not masked:
+            if masked == mask:
                 retvec.append(0) # 0
             elif masked & pos_mask:
                 retvec.append(1) # +
