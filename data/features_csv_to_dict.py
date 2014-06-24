@@ -43,11 +43,17 @@ import sys, getopt, codecs
 import unicodedata
 
 def main(argv):
+    """Main conversion script
+    """
     def print_usage():
+        """Print usage statement
+        """
         print 'features_csv_to_dict.py -i <inputfile> -o <outputfile>'
         sys.exit(2)
         
     def binarize(num):
+        """Replace 0, -1, 1 with 11, 10, 01
+        """
         if num == '0':
             return '11'
         elif num == '-1':
