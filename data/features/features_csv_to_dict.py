@@ -52,14 +52,16 @@ def main(argv):
         sys.exit(2)
         
     def binarize(num):
-        """Replace 0, -1, 1 with 11, 10, 01
+        """Replace 0, -1, 1, 2 with 00, 10, 01, 11
         """
-        if num == '0':
-            return '11'
-        elif num == '-1':
+        if num == '0':      # 0
+            return '00'
+        elif num == '-1':   # -
             return '10'
-        elif num == '1':
+        elif num == '1':    # +
             return '01'
+        elif num == '2':    # ±
+            return '11'
 
 
     ifile = ''
