@@ -60,7 +60,7 @@ def main(argv):
             return '10'
         elif num == '1':    # +
             return '01'
-        elif num == '2':    # ±
+        elif num == '2':    # ± (segmental) or copy from base (non-segmental)
             return '11'
 
 
@@ -86,14 +86,18 @@ def main(argv):
     else:
         ofile.write(oline+'\n')
 
-    next(ifile)
+    first_col = 3
+    last_col = -1
+
+    keyline = ifile.readline().strip().split(',')[first_col:last_col]
     for line in ifile:
         if not line.startswith('#'):
             line = line.strip().split(',')
             symbol = line[0]
             variant = int(line[1])
             segmental = bool(line[2])
-            features = '0b' + ''.join([binarize(val) for val in line[3:]])
+            features = '0b' + ''.join([binarize(val) for val
+                                       in line[first_col:last_col]])
             if not segmental:
                 features = '-' + features
 
@@ -110,6 +114,28 @@ def main(argv):
         print(oline)
     else:
         ofile.write(oline+'\n')
+
+    oline = 'FEATURE_MASK = {'
+    if not ofile:
+        print(oline)
+    else:
+        ofile.write(oline+'\n')
+
+    mag = len(keyline)
+    for i in range(len(keyline)):
+        features = '0b' + ('00' * i) + '11' + ('00' * (mag - i - 1))
+        oline = '                \'{}\': {},'.format(keyline[i], features)
+        if not ofile:
+            print(oline)
+        else:
+            ofile.write(oline+'\n')
+
+    oline = '               }'
+    if not ofile:
+        print(oline)
+    else:
+        ofile.write(oline+'\n')
+
 
 
 if __name__ == "__main__":
