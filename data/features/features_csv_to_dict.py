@@ -63,6 +63,16 @@ def main(argv):
         elif num == '2':    # ± (segmental) or copy from base (non-segmental)
             return '11'
 
+    def checkfeatures(features):
+        """Check for necessary feature assignments (entailments)
+        For example, [+round] necessitates [+labial]
+        """
+        pass
+
+    checkdict = dict() # a mapping of symbol to feature
+    checkset_s = set() # a set of the symbols seen
+    checkset_f = set() # a set of the feature values seen
+
     ifile = ''
     ofile = ''
     try:
@@ -103,7 +113,7 @@ def main(argv):
 
         else:
             line = line.strip().split(',')
-            symbol = line[0]
+            symbol = unicode(line[0])
             variant = int(line[1])
             segmental = bool(line[2])
             features = '0b' + ''.join([binarize(val) for val
@@ -111,7 +121,22 @@ def main(argv):
             if not segmental:
                 features = '-' + features
 
-            if variant == 0 or variant == 2:
+            featint = int(features, 2)
+            if symbol in checkset_s:
+                print 'Symbol ' + symbol + ' appears twice in CSV.'
+            else:
+                checkset_s.add(symbol)
+
+            if variant == 0:
+                if featint in checkset_f:
+                    print ('Feature set ' + unicode(featint) +
+                           ' appears in CSV for two primary IPA symbols: ' +
+                           symbol + ' and ' + unicode(checkdict[featint]))
+                else:
+                    checkdict[featint] = symbol
+                    checkset_f.add(featint)
+
+            if variant in set([0, 2, 5]):
                 oline = '                     \'{}\': {},'.format(symbol,
                                                                   features)
             else:
