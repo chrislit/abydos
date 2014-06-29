@@ -63,7 +63,6 @@ def main(argv):
         elif num == '2':    # ± (segmental) or copy from base (non-segmental)
             return '11'
 
-
     ifile = ''
     ofile = ''
     try:
@@ -95,6 +94,8 @@ def main(argv):
 
         if line.startswith('####'):
             break
+
+        line = unicodedata.normalize('NFC', line)
 
         oline = ''
         if not line or line.startswith('#'):
