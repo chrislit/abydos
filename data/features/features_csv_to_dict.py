@@ -92,7 +92,15 @@ def main(argv):
     keyline = ifile.readline().strip().split(',')[first_col:last_col]
     for line in ifile:
         line = line.strip().rstrip(',')
-        if line and not line.startswith('#'):
+
+        if line.startswith('####'):
+            break
+
+        oline = ''
+        if not line or line.startswith('#'):
+            oline = '                     '+line
+
+        else:
             line = line.strip().split(',')
             symbol = line[0]
             variant = int(line[1])
@@ -105,10 +113,14 @@ def main(argv):
             if variant == 0 or variant == 2:
                 oline = '                     \'{}\': {},'.format(symbol,
                                                                   features)
-                if not ofile:
-                    print(oline)
-                else:
-                    ofile.write(oline+'\n')
+            else:
+                oline = ''
+
+        if oline:
+            if not ofile:
+                print(oline)
+            else:
+                ofile.write(oline+'\n')
 
     oline = '                    }'
     if not ofile:
