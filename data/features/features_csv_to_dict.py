@@ -91,7 +91,8 @@ def main(argv):
 
     keyline = ifile.readline().strip().split(',')[first_col:last_col]
     for line in ifile:
-        if not line.startswith('#'):
+        line = line.strip().rstrip(',')
+        if line and not line.startswith('#'):
             line = line.strip().split(',')
             symbol = line[0]
             variant = int(line[1])
@@ -115,7 +116,7 @@ def main(argv):
     else:
         ofile.write(oline+'\n')
 
-    oline = 'FEATURE_MASK = {'
+    oline = '\nFEATURE_MASK = {'
     if not ofile:
         print(oline)
     else:
