@@ -563,7 +563,7 @@ o̞,0,1,-1,1,1,1,1,-1,-1,-1,-1,0,0,1,-1,-1,-1,1,1,1,-1,-1,1,-1,-1,-1,-1,1,1,-1,-
 ̘,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,-1,0,0,0,0,0,0,0,0,0,0,0,Advanced tongue root
 ̙,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,1,0,0,0,0,0,0,0,0,0,0,0,Retracted tongue root
 ˭,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,0,0,0,0,0,0,0,-1,Tenuis
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+####,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 # This is first & foremost derived from Jason Riggle's https://dl.dropbox.com/u/5956329/Riggle/PhonChart_v1212.pdf,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 # Additions are derived largely from Wikipedia's inventory of phonetic signs,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 # Additional features include:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
@@ -571,6 +571,8 @@ o̞,0,1,-1,1,1,1,1,-1,-1,-1,-1,0,0,1,-1,-1,-1,1,1,1,-1,-1,1,-1,-1,-1,-1,1,1,-1,-
 ## [labiodental] on the [labial] node,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ## [RTR] on the [pharyngeal] node (Cf. file:///home/chrislit/Downloads/note_on_pharyngeal_features_3-08-libre.pdf),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ## [approximant] on the manner tier,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+## [glottalic_suction] and [velaric_suction] were added to the laryngeal node to distinguish implosives & clicks ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 # Variant values:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 # 0 = IPA,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
