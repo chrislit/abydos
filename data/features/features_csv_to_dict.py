@@ -116,29 +116,56 @@ def main(argv):
         """Check for necessary feature assignments (entailments)
         For example, [+round] necessitates [+labial]
         """
-        entailments = {'+labial': ('±round', '±protruded', '±compressed', '±labiodental'),
-                       '-labial': ('0round', '0protruded', '0compressed', '0labiodental'),
+        entailments = {'+labial': ('±round', '±protruded', '±compressed',
+                                   '±labiodental'),
+                       '-labial': ('0round', '0protruded', '0compressed',
+                                   '0labiodental'),
                        '+coronal': ('±anterior', '±distributed'),
                        '-coronal': ('0anterior', '0distributed'),
-                       '+dorsal': ('±high', '±low', '±front', '±back', '±tense'),
-                       '-dorsal': ('0high', '0low', '0front', '0back', '0tense'),
+                       '+dorsal': ('±high', '±low', '±front', '±back',
+                                   '±tense'),
+                       '-dorsal': ('0high', '0low', '0front', '0back',
+                                   '0tense'),
                        '+pharyngeal': ('±atr', '±rtr'),
                        '-pharyngeal': ('0atr', '0rtr'),
 
                        '+protruded': ('+labial', '+round', '-compressed'),
-                       '-protruded': ('-round'),
                        '+compressed': ('+labial', '+round', '-protruded'),
-                       '-compressed': ('-round'),
 
-                       '+glottalic_suction': ('-velaric_suction'),
-                       '+velaric_suction': ('-glottalic_suction'),
+                       '+glottalic_suction': ('-velaric_suction',),
+                       '+velaric_suction': ('-glottalic_suction',),
                        }
 
         if '#' in name:
             name = name[:name.find('#')].strip()
         for feature in entailments:
-            pass
+            fname = feature[1:]
+            if feature[0] == '+':
+                fm = (feature_mask[fname] >> 1) & feature_mask[fname]
+            else:
+                fm = (feature_mask[fname] << 1) & feature_mask[fname]
+            if (features & fm) == fm:
+                for ent in entailments[feature]:
+                    ename = ent[1:]
+                    if ent[0] == '+':
+                        efm = (feature_mask[ename] >> 1) & feature_mask[ename]
+                    elif ent[0] == '-':
+                        efm = (feature_mask[ename] << 1) & feature_mask[ename]
+                    elif ent[0] == '0':
+                        efm = 0
+                    elif ent[0] == '±':
+                        efm = feature_mask[ename]
 
+                    if ent[0] == '±':
+                        if (features & efm) == 0:
+                            print('Incorrect entailment for ' + sym +
+                                  ' for feature ' + fname + ' and entailment ' +
+                                  ename)
+                    else:
+                        if (features & efm) != efm:
+                            print('Incorrect entailment for ' + sym +
+                                  ' for feature ' + fname + ' and entailment ' +
+                                  ename)
 
     checkdict = dict() # a mapping of symbol to feature
     checkset_s = set() # a set of the symbols seen
