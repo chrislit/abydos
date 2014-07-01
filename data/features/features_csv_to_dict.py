@@ -202,7 +202,7 @@ def main(argv):
             else:
                 checkset_s.add(symbol)
 
-            if variant == 0:
+            if variant < 2:
                 if featint in checkset_f:
                     print ('Feature set ' + unicode(featint) +
                            ' appears in CSV for two primary IPA symbols: ' +
@@ -211,7 +211,7 @@ def main(argv):
                     checkdict[featint] = symbol
                     checkset_f.add(featint)
 
-            if variant in set([0, 2, 5]):
+            if variant < 5:
                 oline = '                     \'{}\': {},'.format(symbol,
                                                                   features)
             else:
