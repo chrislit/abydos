@@ -68,12 +68,19 @@ def main(argv):
             return '11'
 
 
-    def init_termdict():
+    def init_termdicts():
         """Initialize the terms dict
         """
         ifile = codecs.open('features_terms.csv', 'r', 'utf-8')
-        termdict = dict()
+
+        feature_mask = dict()
         keyline = ifile.readline().strip().split(',')[first_col:last_col]
+        mag = len(keyline)
+        for i in range(len(keyline)):
+            features = '0b' + ('00' * i) + '11' + ('00' * (mag - i - 1))
+            feature_mask[keyline[i]] = int(features, 2)
+
+        termdict = dict()
         for line in ifile:
             line = line.strip().rstrip(',')
             if '#' in line:
@@ -82,11 +89,11 @@ def main(argv):
                 line = line.split(',')
                 term = line[last_col]
                 #print line[first_col:last_col]
-                features = ''.join([binarize(val) for val
-                                    in line[first_col:last_col]])
+                features = '0b' + ''.join([binarize(val) for val
+                                           in line[first_col:last_col]])
                 termdict[term] = int(features, 2)
 
-        return termdict
+        return termdict, feature_mask
 
 
     def check_terms(sym, features, name, termdict):
@@ -105,18 +112,39 @@ def main(argv):
                 print 'Unknown term "' + term + '" in ' + name + ' : ' + sym
 
 
-    def check_entailments(sym, features, name, entailments):
+    def check_entailments(sym, features, name, feature_mask):
         """Check for necessary feature assignments (entailments)
         For example, [+round] necessitates [+labial]
         """
-        pass
+        entailments = {'+labial': ('±round', '±protruded', '±compressed', '±labiodental'),
+                       '-labial': ('0round', '0protruded', '0compressed', '0labiodental'),
+                       '+coronal': ('±anterior', '±distributed'),
+                       '-coronal': ('0anterior', '0distributed'),
+                       '+dorsal': ('±high', '±low', '±front', '±back', '±tense'),
+                       '-dorsal': ('0high', '0low', '0front', '0back', '0tense'),
+                       '+pharyngeal': ('±atr', '±rtr'),
+                       '-pharyngeal': ('0atr', '0rtr'),
+
+                       '+protruded': ('+labial', '+round', '-compressed'),
+                       '-protruded': ('-round'),
+                       '+compressed': ('+labial', '+round', '-protruded'),
+                       '-compressed': ('-round'),
+
+                       '+glottalic_suction': ('-velaric_suction'),
+                       '+velaric_suction': ('-glottalic_suction'),
+                       }
+
+        if '#' in name:
+            name = name[:name.find('#')].strip()
+        for feature in entailments:
+            pass
 
 
     checkdict = dict() # a mapping of symbol to feature
     checkset_s = set() # a set of the symbols seen
     checkset_f = set() # a set of the feature values seen
 
-    termdict = init_termdict()
+    termdict, feature_mask = init_termdicts()
 
     ifile = ''
     ofile = ''
@@ -168,6 +196,7 @@ def main(argv):
 
             featint = int(features, 2)
             check_terms(symbol, featint, name, termdict)
+            check_entailments(symbol, featint, name, feature_mask)
             if symbol in checkset_s:
                 print 'Symbol ' + symbol + ' appears twice in CSV.'
             else:
