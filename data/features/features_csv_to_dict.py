@@ -45,12 +45,16 @@ import unicodedata
 def main(argv):
     """Main conversion script
     """
+    first_col = 3
+    last_col = -1
+
     def print_usage():
         """Print usage statement
         """
         print 'features_csv_to_dict.py -i <inputfile> -o <outputfile>'
         sys.exit(2)
-        
+
+
     def binarize(num):
         """Replace 0, -1, 1, 2 with 00, 10, 01, 11
         """
@@ -63,15 +67,56 @@ def main(argv):
         elif num == '2':    # ± (segmental) or copy from base (non-segmental)
             return '11'
 
-    def checkfeatures(features):
+
+    def init_termdict():
+        """Initialize the terms dict
+        """
+        ifile = codecs.open('features_terms.csv', 'r', 'utf-8')
+        termdict = dict()
+        keyline = ifile.readline().strip().split(',')[first_col:last_col]
+        for line in ifile:
+            line = line.strip().rstrip(',')
+            if '#' in line:
+                line = line[:line.find('#')].strip()
+            if line:
+                line = line.split(',')
+                term = line[last_col]
+                #print line[first_col:last_col]
+                features = ''.join([binarize(val) for val
+                                    in line[first_col:last_col]])
+                termdict[term] = int(features, 2)
+
+        return termdict
+
+
+    def check_terms(sym, features, name, termdict):
+        """Check each term of the phone name to confirm that it matches
+        the expected features implied by that feature
+        """
+        if '#' in name:
+            name = name[:name.find('#')].strip()
+        for term in name.split():
+            if term in termdict:
+                if termdict[term] & features != termdict[term]:
+                    # print termdict[term], features & termdict[term]
+                    print('Feature mismatch for term "' + term +
+                          '" in   ' + sym)
+            else:
+                print 'Unknown term "' + term + '" in ' + name + ' : ' + sym
+
+
+    def check_entailments(sym, features, name, entailments):
         """Check for necessary feature assignments (entailments)
         For example, [+round] necessitates [+labial]
         """
         pass
 
+
     checkdict = dict() # a mapping of symbol to feature
     checkset_s = set() # a set of the symbols seen
     checkset_f = set() # a set of the feature values seen
+
+    termdict = init_termdict()
 
     ifile = ''
     ofile = ''
@@ -95,9 +140,6 @@ def main(argv):
     else:
         ofile.write(oline+'\n')
 
-    first_col = 3
-    last_col = -1
-
     keyline = ifile.readline().strip().split(',')[first_col:last_col]
     for line in ifile:
         line = line.strip().rstrip(',')
@@ -113,15 +155,19 @@ def main(argv):
 
         else:
             line = line.strip().split(',')
+            if '#' in line:
+                line = line[:line.find('#')]
             symbol = unicode(line[0])
             variant = int(line[1])
             segmental = bool(line[2])
             features = '0b' + ''.join([binarize(val) for val
                                        in line[first_col:last_col]])
+            name = line[-1].strip()
             if not segmental:
                 features = '-' + features
 
             featint = int(features, 2)
+            check_terms(symbol, featint, name, termdict)
             if symbol in checkset_s:
                 print 'Symbol ' + symbol + ' appears twice in CSV.'
             else:
@@ -174,7 +220,6 @@ def main(argv):
         print(oline)
     else:
         ofile.write(oline+'\n')
-
 
 
 if __name__ == "__main__":
