@@ -22,7 +22,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
 import unittest
-from abydos.phones import ipa_to_features, has_feature
+from abydos.phones import ipa_to_features, get_feature
 from math import isnan
 
 
@@ -33,66 +33,95 @@ class IpaFeaturesTestCases(unittest.TestCase):
         """test abydos.phones.ipa_to_features
         """
         self.assertEqual(ipa_to_features('medçen'),
-                         [24652843543209, 41145158953386, 29367643892394,
-                          29370440460714, 41145158953386, 24969597381289])
+                         [2709662981243185770,
+                          1826957430176000426,
+                          2783230754501864106,
+                          2783233463150094762,
+                          1826957430176000426,
+                          2711173160463936106])
         self.assertEqual(ipa_to_features('axtuŋ'),
-                         [41145143290282, 29394058586538, 29367643908778,
-                          41076368173482, 24996012059305])
+                         [1826957425952336298,
+                          2783233462881659306,
+                          2783230754502126250,
+                          1825831513894594986,
+                          2711175868843469418])
         self.assertEqual(ipa_to_features('iç'),
-                         [41145091844522, 29370440460714])
+                         [1826957412996131242,
+                          2783233463150094762])
         self.assertEqual(ipa_to_features('bakofen'),
-                         [29050890054314, 41145143290282, 29394058586794,
-                          41076435282346, 29050890070442, 41145158953386,
-                          24969597381289])
+                         [2781720575281113770,
+                          1826957425952336298,
+                          2783233462881659562,
+                          1825831531074464170,
+                          2781702983095331242,
+                          1826957430176000426,
+                          2711173160463936106])
         self.assertEqual(ipa_to_features('dʒuŋel'),
-                         [29370440444518, 41076368173482, 24996012059305,
-                          41145158953386, 24969597381018])
+                         [2783230754501864106,
+                          2783231556184353178,
+                          1825831513894594986,
+                          2711175868843469418,
+                          1826957430176000426,
+                          2693158761954453926])
         self.assertEqual(ipa_to_features('kvatʃ'),
-                         [29394058586794, 29050890054058, 41145143290282,
-                          29370440460902])
+                         [2783233462881659562,
+                          2781702983095069098,
+                          1826957425952336298,
+                          2783230754502126250,
+                          2783231556184615322])
         self.assertEqual(ipa_to_features('nitʃe'),
-                         [24969597381289, 41145091844522, 29370440460902,
-                          41145158953386])
+                         [2711173160463936106,
+                          1826957412996131242,
+                          2783230754502126250,
+                          2783231556184615322,
+                          1826957430176000426])
         self.assertEqual(ipa_to_features('klø'),
-                         [29394058586794, 24969597381018, 41076439476650])
+                         [2783233462881659562,
+                          2693158761954453926,
+                          1825831530269157802])
         self.assertEqual(ipa_to_features('kybax'),
-                         [29394058586794, 41076372367786, 29050890054314,
-                          41145143290282, 29394058586538])
+                         [2783233462881659562,
+                          1825831513089288618,
+                          2781720575281113770,
+                          1826957425952336298,
+                          2783233462881659306])
         self.assertEqual(ipa_to_features('i@c'),
-                         [41145091844522, -1, 29370440460970])
+                         [1826957412996131242,
+                          -1,
+                          2783233463150095018])
 
 
 class HasFeatureTestCases(unittest.TestCase):
-    """test cases for abydos.phones.has_feature
+    """test cases for abydos.phones.get_feature
     """
     def test_ipa_to_features(self):
-        """test abydos.phones.has_feature
+        """test abydos.phones.get_feature
         """
-        self.assertEqual(has_feature(ipa_to_features('medçen'), 'nasal'),
+        self.assertEqual(get_feature(ipa_to_features('medçen'), 'nasal'),
                          [1, -1, -1, -1, -1, 1])
-        self.assertEqual(has_feature(ipa_to_features('nitʃe'), 'nasal'),
-                         [1, -1, -1, -1])
-        self.assertEqual(has_feature(ipa_to_features('nitʃe'), 'strident'),
-                         [-1, -1, 1, -1])
-        self.assertEqual(has_feature(ipa_to_features('nitʃe'), 'syllabic'),
-                         [-1, 1, -1, 1])
-        self.assertRaises(AttributeError, has_feature, ipa_to_features('nitʃe'),
+        self.assertEqual(get_feature(ipa_to_features('nitʃe'), 'nasal'),
+                         [1, -1, -1, -1, -1])
+        self.assertEqual(get_feature(ipa_to_features('nitʃe'), 'strident'),
+                         [-1, -1, -1, 1, -1])
+        self.assertEqual(get_feature(ipa_to_features('nitʃe'), 'syllabic'),
+                         [-1, 1, -1, -1, 1])
+        self.assertRaises(AttributeError, get_feature, ipa_to_features('nitʃe'),
                           'vocalic')
-        self.assertEqual(has_feature(ipa_to_features('medçen'), 'nasal', True),
-                         [1, 0, 0, 0, 0, 1])
-        self.assertEqual(has_feature(ipa_to_features('nitʃe'), 'nasal', True),
-                         [1, 0, 0, 0])
-        self.assertEqual(has_feature(ipa_to_features('nitʃe'), 'strident',
-                                     True), [0, 0, 1, 0])
-        self.assertEqual(has_feature(ipa_to_features('nitʃe'), 'syllabic',
-                                     True), [0, 1, 0, 1])
-        self.assertRaises(AttributeError, has_feature, ipa_to_features('nitʃe'),
-                          'vocalic', True)
-        self.assertEqual(has_feature(ipa_to_features('løvenbroy'), 'ATR',),
+        self.assertEqual(get_feature(ipa_to_features('medçen'), 'nasal'),
+                         [1, -1, -1, -1, -1, 1])
+        self.assertEqual(get_feature(ipa_to_features('nitʃe'), 'nasal'),
+                         [1, -1, -1, -1, -1])
+        self.assertEqual(get_feature(ipa_to_features('nitʃe'), 'strident'),
+                         [-1, -1, -1, 1, -1])
+        self.assertEqual(get_feature(ipa_to_features('nitʃe'), 'syllabic'),
+                         [-1, 1, -1, -1, 1])
+        self.assertRaises(AttributeError, get_feature, ipa_to_features('nitʃe'),
+                          'vocalic')
+        self.assertEqual(get_feature(ipa_to_features('løvenbroy'), 'atr'),
                          [0, 1, 0, 1, 0, 0, 0, 1, 1])
-        self.assertNotEqual(has_feature(ipa_to_features('i@c'), 'syllabic'),
+        self.assertNotEqual(get_feature(ipa_to_features('i@c'), 'syllabic'),
                             [1, float('NaN'), -1])
-        self.assertTrue(isnan(has_feature(ipa_to_features('i@c'),
+        self.assertTrue(isnan(get_feature(ipa_to_features('i@c'),
                                               'syllabic')[1]))
 
 
