@@ -240,7 +240,7 @@ def main(argv):
 
             if variant < 5:
                 oline = '                     \'{}\': {},'.format(symbol,
-                                                                  features)
+                                                                  featint)
             else:
                 oline = ''
 
@@ -264,7 +264,7 @@ def main(argv):
 
     mag = len(keyline)
     for i in range(len(keyline)):
-        features = '0b' + ('00' * i) + '11' + ('00' * (mag - i - 1))
+        features = int('0b' + ('00' * i) + '11' + ('00' * (mag - i - 1)), 2)
         oline = '                \'{}\': {},'.format(keyline[i], features)
         if not ofile:
             print(oline)
