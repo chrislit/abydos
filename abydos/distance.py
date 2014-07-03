@@ -1886,6 +1886,44 @@ def sim_editex(src, tar, cost=(0, 1, 2)):
     return 1 - dist_editex(src, tar, cost)
 
 
+def sim_tfidf(src, tar, qval=2, docs=None):
+    """Return the TF-IDF similarity of two strings
+
+    Arguments:
+    src, tar -- two strings to be compared (or QGrams/Counter objects)
+    qval -- the length of each q-gram; 0 or None for non-q-gram version
+    docs -- a Counter object or string representing the document corpus
+
+    Description:
+    """
+    if src == tar:
+        return 1.0
+    elif len(src) == 0 or len(tar) == 0:
+        return 0.0
+
+    if isinstance(src, Counter) and isinstance(tar, Counter):
+        q_src = src
+        q_tar = tar
+    elif qval and qval > 0:
+        q_src = QGrams(src, qval)
+        q_tar = QGrams(tar, qval)
+    else:
+        q_src = Counter(src.strip().split())
+        q_tar = Counter(tar.strip().split())
+
+    if isinstance(docs, Counter):
+        q_docs = docs
+    elif qval and qval > 0:
+        q_docs = QGrams(docs, qval)
+    else:
+        q_docs = Counter(docs.strip().split())
+
+    if len(q_src) == 0 or len(q_tar) == 0:
+        return 0.0
+
+    pass
+
+
 ################################################################################
 
 def sim(src, tar, method=sim_levenshtein):
