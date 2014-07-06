@@ -641,3 +641,19 @@ def get_feature(vector, feature):
                 retvec.append(-1) # -
 
     return retvec
+
+def cmp_features(feat1, feat2):
+    """Returns a number in the range [0, 1] representing a comparison of two
+    feature bundles.
+    If the bundles are identical, 1 is returned.
+    If they are inverses of one another, 0 is returned.
+    Otherwise, a float representing their similarity is returned.
+
+    Arguments:
+    feat1, feat2 -- Two feature bundles to compare
+    """    
+    if feat1 == feat2:
+        return 1.0
+
+    magnitude = len(FEATURE_MASK)
+    return 1 - (sum(feat1 ^ feat2)/(2*magnitude))
