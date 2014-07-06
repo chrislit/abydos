@@ -651,7 +651,7 @@ def cmp_features(feat1, feat2):
 
     Arguments:
     feat1, feat2 -- Two feature bundles to compare
-    """    
+    """
     if feat1 == feat2:
         return 1.0
 
