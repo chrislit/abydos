@@ -643,6 +643,7 @@ def get_feature(vector, feature):
 
     return retvec
 
+
 def cmp_features(feat1, feat2):
     """Returns a number in the range [0, 1] representing a comparison of two
     feature bundles.
@@ -663,7 +664,7 @@ def cmp_features(feat1, feat2):
     featxor = feat1 ^ feat2
     diffbits = 0
     print featxor
-    while featxor != 0:
+    while featxor:
         if featxor & 0b1:
             diffbits += 1
         featxor >>= 1
