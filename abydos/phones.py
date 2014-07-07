@@ -645,6 +645,7 @@ def get_feature(vector, feature):
 def cmp_features(feat1, feat2):
     """Returns a number in the range [0, 1] representing a comparison of two
     feature bundles.
+    If one of the bundles is negative, -1 is returned (for unknown values)
     If the bundles are identical, 1 is returned.
     If they are inverses of one another, 0 is returned.
     Otherwise, a float representing their similarity is returned.
@@ -652,6 +653,8 @@ def cmp_features(feat1, feat2):
     Arguments:
     feat1, feat2 -- Two feature bundles to compare
     """
+    if feat1 < 0 or feat2 < 0:
+        return -1.0
     if feat1 == feat2:
         return 1.0
 

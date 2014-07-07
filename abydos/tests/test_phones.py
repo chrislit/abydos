@@ -22,7 +22,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
 import unittest
-from abydos.phones import ipa_to_features, get_feature
+from abydos.phones import ipa_to_features, get_feature, cmp_features
 from math import isnan
 
 
@@ -123,6 +123,22 @@ class HasFeatureTestCases(unittest.TestCase):
                             [1, float('NaN'), -1])
         self.assertTrue(isnan(get_feature(ipa_to_features('i@c'),
                                               'syllabic')[1]))
+
+
+class CmpFeaturesTestCases(unittest.TestCase):
+    """test cases for abydos.phones.cmp_features
+    """
+    def test_cmp_features(self):
+        """test abydos.phones.cmp_features
+        """
+        # negatives
+        self.assertEqual(cmp_features(-1, 1826957425952336298), -1)
+        self.assertEqual(cmp_features(1826957425952336298, -1), -1)
+        self.assertEqual(cmp_features(-1, -1), -1)
+        # equals
+        self.assertEqual(cmp_features(0, 0), 1)
+        self.assertEqual(cmp_features(1826957425952336298,
+                                      1826957425952336298), 1)
 
 
 if __name__ == '__main__':
