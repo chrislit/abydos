@@ -22,6 +22,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 from __future__ import unicode_literals
+from __future__ import division
 from ._compat import _unicode, _range
 import unicodedata
 
@@ -659,4 +660,12 @@ def cmp_features(feat1, feat2):
         return 1.0
 
     magnitude = len(FEATURE_MASK)
-    return 1 - (sum(feat1 ^ feat2)/(2*magnitude))
+    featxor = feat1 ^ feat2
+    diffbits = 0
+    print featxor
+    while featxor != 0:
+        if featxor & 0b1:
+            diffbits += 1
+        featxor >>= 1
+    print diffbits
+    return 1 - (diffbits/(2*magnitude))
