@@ -147,7 +147,7 @@ def soundex(word, maxlength=4, var='American', reverse=False):
     # Require a maxlength of at least 4
     maxlength = max(4, maxlength)
 
-    # uppercase, normalize, decompose, and filter non-A-Z
+    # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join([c for c in word if c in
