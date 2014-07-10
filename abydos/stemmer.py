@@ -24,7 +24,10 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
 import unicodedata
-from ._compat import _unicode
+from ._compat import _range, _unicode
+
+
+_vowels = tuple('AEIOUy')
 
 def _m_degree(term):
     """Return the m-degree as defined in the Porter stemmer definition
@@ -35,11 +38,10 @@ def _m_degree(term):
     Description:
     m-degree is equal to the number of V to C transitions
     """
-    _vowels = tuple('AEIOU')
     mdeg = 0
     last_was_vowel = False
     for letter in term:
-        if letter in _vowels or (last_was_vowel and letter == 'Y'):
+        if letter in _vowels:
             last_was_vowel = True
         else:
             if last_was_vowel:
@@ -53,6 +55,9 @@ def _has_vowel(term):
     Arguments:
     term -- the word to scan for vowels
     """
+    for letter in term:
+        if letter in _vowels:
+            return True
     return False
 
 def _ends_in_doubled_cons(term):
@@ -62,6 +67,8 @@ def _ends_in_doubled_cons(term):
     Arguments:
     term -- the word to scan for vowels
     """
+    if len(term) > 1 and term[-1] not in _vowels and term[-2] == term[-1]:
+        return True
     return False
 
 def _ends_in_cvc(term):
@@ -71,6 +78,10 @@ def _ends_in_cvc(term):
     Arguments:
     term -- the word to scan for cvc
     """
+    if len(term) > 2 and (term[-1] not in _vowels and
+                          term[-2] in _vowels and
+                          term[-3] not in _vowels):
+        return True
     return False
 
 def porter(word):
@@ -88,6 +99,12 @@ def porter(word):
     word = word.replace('ß', 'SS')
     word = ''.join([c for c in word if c in
                     tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+
+    # Re-map vocalic Y to y (Y will be C, y will be V)
+    _vowels = tuple('AEIOUy')
+    for i in _range(1, len(word)):
+        if word[i] == 'Y' and word[i-1] not in _vowels:
+            word = word[:i] + 'y' + word[i+1:]
 
     # Step 1a
     if word.endswith('SSES'):
