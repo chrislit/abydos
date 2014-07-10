@@ -24,7 +24,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
 import unicodedata
-from ._compat import _range, _unicode
+from ._compat import _unicode
 
 def _m_degree(term):
     """Return the m-degree as defined in the Porter stemmer definition
@@ -47,6 +47,32 @@ def _m_degree(term):
             last_was_vowel = False
     return mdeg
 
+def _has_vowel(term):
+    """Return true iff a vowel exists in the term (as defined in the Porter stemmer definition)
+
+    Arguments:
+    term -- the word to scan for vowels
+    """
+    return False
+
+def _ends_in_doubled_cons(term):
+    """Return true iff the stem ends in a doubled consonant (as defined in the
+    Porter stemmer definition)
+
+    Arguments:
+    term -- the word to scan for vowels
+    """
+    return False
+
+def _ends_in_cvc(term):
+    """Return true iff the stem ends in cvc (as defined in the Porter stemmer
+    definition)
+
+    Arguments:
+    term -- the word to scan for cvc
+    """
+    return False
+
 def porter(word):
     """Implementation of Porter stemmer -- ideally returns the word stem
 
@@ -63,11 +89,6 @@ def porter(word):
     word = ''.join([c for c in word if c in
                     tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
-    m_deg = _m_degree(word)
-    has_vowel = False
-    double_cons_end = False
-    cvc_end = False
-
     # Step 1a
     if word.endswith('SSES'):
         word = word[:-2]
@@ -80,29 +101,29 @@ def porter(word):
 
     # Step 1b
     oneb_flag = False
-    if m_deg > 0 and word.endswith('EED'):
+    if _m_degree(word) > 0 and word.endswith('EED'):
         word = word[:-1]
-    elif has_vowel and word.endswith('ED'):
+    elif _has_vowel(word) and word.endswith('ED'):
         word = word[:-2]
         oneb_flag = True
-    elif has_vowel and word.endswith('ING'):
+    elif _has_vowel(word) and word.endswith('ING'):
         word = word[:-3]
         oneb_flag = True
 
     if oneb_flag:
         if word.endswith('AT') or word.endswith('BL') or word.endswith('IZ'):
             word += 'E'
-        elif double_cons_end and word[-1] not in tuple('LSZ'):
+        elif _ends_in_doubled_cons(word) and word[-1] not in tuple('LSZ'):
             word = word[:-1]
-        elif m_deg == 1 and cvc_end:
+        elif _m_degree(word) == 1 and _ends_in_cvc(word):
             word += 'E'
 
     # Step 1c
-    if has_vowel and word.endswith('Y'):
+    if _has_vowel(word) and word.endswith('Y'):
         word = word[:-1] + 'I'
 
     # Step 2
-    if m_deg > 0:
+    if _m_degree(word) > 0:
         if word.endswith('ATIONAL'):
             word = word[:-5] + 'E'
         elif word.endswith('TIONAL'):
@@ -133,7 +154,7 @@ def porter(word):
             word = word[:-3] + 'E'
 
     # Step 3
-    if m_deg > 0:
+    if _m_degree(word) > 0:
         if word.endswith('ICATE'):
             word = word[:-3]
         elif word.endswith('ATIVE'):
@@ -148,7 +169,7 @@ def porter(word):
             word = word[:-4]
 
     # Step 4
-    if m_deg > 1:
+    if _m_degree(word) > 1:
         if word.endswith('AL'):
             word = word[:-2]
         elif word.endswith('ANCE'):
@@ -189,13 +210,13 @@ def porter(word):
             word = word[:-3]
 
     # Step 5a
-    if m_deg > 1 and word.endswith('E'):
+    if _m_degree(word) > 1 and word.endswith('E'):
         word = word[:-1]
-    elif m_deg == 1 and not cvc_end and word.endswith('E'):
+    elif _m_degree(word) == 1 and not _ends_in_cvc(word) and word.endswith('E'):
         word = word[:-1]
 
     # Step 5b
-    if m_deg > 1 and double_cons_end and word.endswith('L'):
+    if _m_degree(word) > 1 and _ends_in_doubled_cons(word) and word.endswith('L'):
         word = word[:-1]
 
     return word
