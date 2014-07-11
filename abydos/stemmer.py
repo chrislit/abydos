@@ -103,8 +103,8 @@ def porter(word):
                     set('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
     # Return empty string if there's nothing left to stem
-    if not word:
-        return ''
+    if len(word) < 3:
+        return word
 
     # Re-map vocalic Y to y (Y will be C, y will be V)
     _vowels = tuple('AEIOUy')
@@ -113,7 +113,7 @@ def porter(word):
             word = word[:i] + 'y' + word[i+1:]
 
     # Step 1a
-    if len(word) and word[-1] == 'S':
+    if word[-1] == 'S':
         if word[-4:] == 'SSES':
             word = word[:-2]
         elif word[-3:] == 'IES':
@@ -145,10 +145,6 @@ def porter(word):
         elif _m_degree(word) == 1 and _ends_in_cvc(word):
             word += 'E'
 
-    # Return early if no letters remain
-    if not word:
-        return ''
-
     # Step 1c
     if (word[-1] == 'Y' or word[-1] == 'y') and _has_vowel(word[:-1]):
         word = word[:-1] + 'I'
@@ -170,9 +166,13 @@ def porter(word):
             if word[-4:] == 'IZER':
                 if _m_degree(word[:-4]) > 0:
                     word = word[:-1]
-        elif word[-2] == 'L':
-            if word[-4:] == 'ABLI':
+        elif word[-2] == 'G':
+            if word[-4:] == 'LOGI':
                 if _m_degree(word[:-4]) > 0:
+                    word = word[:-1]
+        elif word[-2] == 'L':
+            if word[-3:] == 'BLI':
+                if _m_degree(word[:-3]) > 0:
                     word = word[:-1] + 'E'
             elif word[-4:] == 'ALLI':
                 if _m_degree(word[:-4]) > 0:
