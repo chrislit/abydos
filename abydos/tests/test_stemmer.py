@@ -174,7 +174,7 @@ class PorterTestCases(unittest.TestCase):
         http://snowball.tartarus.org/algorithms/porter/diffs.txt
         """
         #  Snowball Porter test set
-        with open(TESTDIR+'/porter.csv') as snowball_testset:
+        with open(TESTDIR+'/snowball_porter.csv') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
                 line = line.strip().split(',')
