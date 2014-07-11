@@ -22,7 +22,8 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
 import unittest
-from abydos.stemmer import _m_degree, porter
+from abydos.stemmer import _m_degree, _has_vowel, _ends_in_doubled_cons, \
+    _ends_in_cvc, porter
 
 class PorterTestCases(unittest.TestCase):
     """test cases for abydos.stemmer._m_degree, abydos.stemmer.porter 
@@ -52,7 +53,107 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(_m_degree('OATEN'), 2)
         self.assertEqual(_m_degree('ORRERY'), 2)
 
+
+    def test_has_vowel(self):
+        """test abydos.stemmer._has_vowel
+        """
+        # base case
+        self.assertFalse(_has_vowel(''))
+
+        # False cases
+        self.assertFalse(_has_vowel('B'))
+        self.assertFalse(_has_vowel('C'))
+        self.assertFalse(_has_vowel('BC'))
+        self.assertFalse(_has_vowel('BCDFGHJKLMNPQRSTVWXYZ'))
+        self.assertFalse(_has_vowel('Y'))
+
+        # True cases
+        self.assertTrue(_has_vowel('A'))
+        self.assertTrue(_has_vowel('E'))
+        self.assertTrue(_has_vowel('AE'))
+        self.assertTrue(_has_vowel('AEIOUy'))
+        self.assertTrue(_has_vowel('y'))
+
+        self.assertTrue(_has_vowel('ADE'))
+        self.assertTrue(_has_vowel('CAD'))
+        self.assertTrue(_has_vowel('ADD'))
+        self.assertTrue(_has_vowel('PHI'))
+        self.assertTrue(_has_vowel('PFy'))
+
+
+    def test_ends_in_doubled_cons(self):
+        """test abydos.stemmer._ends_in_doubled_cons
+        """
+        # base case
+        self.assertFalse(_ends_in_doubled_cons(''))
+
+        # False cases
+        self.assertFalse(_ends_in_doubled_cons('B'))
+        self.assertFalse(_ends_in_doubled_cons('C'))
+        self.assertFalse(_ends_in_doubled_cons('BC'))
+        self.assertFalse(_ends_in_doubled_cons('BCDFGHJKLMNPQRSTVWXYZ'))
+        self.assertFalse(_ends_in_doubled_cons('Y'))
+        self.assertFalse(_ends_in_doubled_cons('A'))
+        self.assertFalse(_ends_in_doubled_cons('E'))
+        self.assertFalse(_ends_in_doubled_cons('AE'))
+        self.assertFalse(_ends_in_doubled_cons('AEIOUy'))
+        self.assertFalse(_ends_in_doubled_cons('y'))
+        self.assertFalse(_ends_in_doubled_cons('ADE'))
+        self.assertFalse(_ends_in_doubled_cons('CAD'))
+        self.assertFalse(_ends_in_doubled_cons('PHI'))
+        self.assertFalse(_ends_in_doubled_cons('PFy'))
+        self.assertFalse(_ends_in_doubled_cons('FADDY'))
+        self.assertFalse(_ends_in_doubled_cons('AIII'))
+        self.assertFalse(_ends_in_doubled_cons('Ayyy'))
+
+        # True cases
+        self.assertTrue(_ends_in_doubled_cons('ADD'))
+        self.assertTrue(_ends_in_doubled_cons('FADD'))
+        self.assertTrue(_ends_in_doubled_cons('FADDDD'))
+        self.assertTrue(_ends_in_doubled_cons('RAYY'))
+        self.assertTrue(_ends_in_doubled_cons('DOLL'))
+        self.assertTrue(_ends_in_doubled_cons('PARR'))
+        self.assertTrue(_ends_in_doubled_cons('PARRR'))
+        self.assertTrue(_ends_in_doubled_cons('BACC'))
+
+
+    def test_ends_in_cvc(self):
+        """test abydos.stemmer._ends_in_cvc
+        """
+        # base case
+        self.assertFalse(_ends_in_cvc(''))
+
+        # False cases
+        self.assertFalse(_ends_in_cvc('B'))
+        self.assertFalse(_ends_in_cvc('C'))
+        self.assertFalse(_ends_in_cvc('BC'))
+        self.assertFalse(_ends_in_cvc('BCDFGHJKLMNPQRSTVWXYZ'))
+        self.assertFalse(_ends_in_cvc('YYY'))
+        self.assertFalse(_ends_in_cvc('DDD'))
+        self.assertFalse(_ends_in_cvc('FAAF'))
+        self.assertFalse(_ends_in_cvc('RARE'))
+        self.assertFalse(_ends_in_cvc('RHy'))
+
+        # True cases
+        self.assertTrue(_ends_in_cvc('DAD'))
+        self.assertTrue(_ends_in_cvc('PHAD'))
+        self.assertTrue(_ends_in_cvc('FADED'))
+        self.assertTrue(_ends_in_cvc('MAYOR'))
+        self.assertTrue(_ends_in_cvc('ENLIL'))
+        self.assertTrue(_ends_in_cvc('PARER'))
+        self.assertTrue(_ends_in_cvc('PADRES'))
+        self.assertTrue(_ends_in_cvc('BACyC'))
+
+        # Special case for W, X, & Y
+        self.assertFalse(_ends_in_cvc('CRAW'))
+        self.assertFalse(_ends_in_cvc('MAX'))
+        self.assertFalse(_ends_in_cvc('CRAY'))
+
+
     def test_porter(self):
         """test abydos.stemmer.porter
+
+        A majority of test cases are from
+        http://snowball.tartarus.org/algorithms/porter/diffs.txt
         """
         pass
