@@ -24,6 +24,9 @@ from __future__ import unicode_literals
 import unittest
 from abydos.stemmer import _m_degree, _has_vowel, _ends_in_doubled_cons, \
     _ends_in_cvc, porter
+import os
+
+TESTDIR = os.path.dirname(__file__)
 
 class PorterTestCases(unittest.TestCase):
     """test cases for abydos.stemmer._m_degree, abydos.stemmer.porter 
@@ -152,8 +155,28 @@ class PorterTestCases(unittest.TestCase):
 
     def test_porter(self):
         """test abydos.stemmer.porter
+        """
+        # base case
+        self.assertEqual(porter(''), '')
 
-        A majority of test cases are from
+        # simple cases
+        self.assertEqual(porter('C'), 'C')
+        self.assertEqual(porter('DA'), 'DA')
+        self.assertEqual(porter('AD'), 'AD')
+        self.assertEqual(porter('SING'), 'SING')
+        self.assertEqual(porter('SINGING'), 'SING')
+
+
+    def test_porter_snowball(self):
+        """test abydos.stemmer.porter (Snowball testset)
+
+        These test cases are from
         http://snowball.tartarus.org/algorithms/porter/diffs.txt
         """
-        pass
+        #  Snowball Porter test set
+        with open(TESTDIR+'/porter.csv') as snowball_testset:
+            next(snowball_testset)
+            for line in snowball_testset:
+                line = line.strip().split(',')
+                word, stem = line[0], line[1]
+                self.assertEqual(porter(word), stem.upper())
