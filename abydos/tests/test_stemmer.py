@@ -23,7 +23,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 import unittest
 from abydos.stemmer import _m_degree, _has_vowel, _ends_in_doubled_cons, \
-    _ends_in_cvc, porter, _p2_r1, _p2_r2, porter2
+    _ends_in_cvc, porter, _snowball_r1, _snowball_r2, porter2
 import os
 
 TESTDIR = os.path.dirname(__file__)
@@ -181,33 +181,33 @@ class PorterTestCases(unittest.TestCase):
                 word, stem = line[0], line[1]
                 self.assertEqual(porter(word), stem.upper())
 
-    def test_p2_r1(self):
-        """test abydos.stemmer._p2_r1
+    def test_snowball_r1(self):
+        """test abydos.stemmer._snowball_r1
         """
         # base case
-        self.assertEqual(_p2_r1(''), '')
+        self.assertEqual(_snowball_r1(''), '')
 
         # examples from http://snowball.tartarus.org/texts/r1r2.html
-        self.assertEqual(_p2_r1('BEAUTIFUL'), 'IFUL')
-        self.assertEqual(_p2_r1('BEAUTY'), 'Y')
-        self.assertEqual(_p2_r1('BEAU'), '')
-        self.assertEqual(_p2_r1('ANIMADVERSION'), 'IMADVERSION')
-        self.assertEqual(_p2_r1('SPRINKLED'), 'KLED')
-        self.assertEqual(_p2_r1('EUCHARIST'), 'HARIST')
+        self.assertEqual(_snowball_r1('BEAUTIFUL'), 'IFUL')
+        self.assertEqual(_snowball_r1('BEAUTY'), 'Y')
+        self.assertEqual(_snowball_r1('BEAU'), '')
+        self.assertEqual(_snowball_r1('ANIMADVERSION'), 'IMADVERSION')
+        self.assertEqual(_snowball_r1('SPRINKLED'), 'KLED')
+        self.assertEqual(_snowball_r1('EUCHARIST'), 'HARIST')
 
-    def test_p2_r2(self):
-        """test abydos.stemmer._p2_r2
+    def test_snowball_r2(self):
+        """test abydos.stemmer._snowball_r2
         """
         # base case
-        self.assertEqual(_p2_r2(''), '')
+        self.assertEqual(_snowball_r2(''), '')
 
         # examples from http://snowball.tartarus.org/texts/r1r2.html
-        self.assertEqual(_p2_r2('BEAUTIFUL'), 'UL')
-        self.assertEqual(_p2_r2('BEAUTY'), '')
-        self.assertEqual(_p2_r2('BEAU'), '')
-        self.assertEqual(_p2_r2('ANIMADVERSION'), 'ADVERSION')
-        self.assertEqual(_p2_r2('SPRINKLED'), '')
-        self.assertEqual(_p2_r2('EUCHARIST'), 'IST')
+        self.assertEqual(_snowball_r2('BEAUTIFUL'), 'UL')
+        self.assertEqual(_snowball_r2('BEAUTY'), '')
+        self.assertEqual(_snowball_r2('BEAU'), '')
+        self.assertEqual(_snowball_r2('ANIMADVERSION'), 'ADVERSION')
+        self.assertEqual(_snowball_r2('SPRINKLED'), '')
+        self.assertEqual(_snowball_r2('EUCHARIST'), 'IST')
 
     def test_porter2(self):
         """test abydos.stemmer.porter2
