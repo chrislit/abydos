@@ -352,6 +352,17 @@ def _snowball_ends_in_short_syllable(term, vowels=set('aeiouy'),
             return _snowball_short_syllable(term, i, vowels, codanonvowels)
     return False
 
+def _snowball_short_word(term, vowels=set('aeiouy'),
+                         codanonvowels=set('bcdfghjklmnpqrstvz\'')):
+    """Return True iff term is a short word,
+    according to the Porter2 specification
+    """
+    if (_snowball_r1(term, vowels) == '' and
+        _snowball_ends_in_short_syllable(term, vowels, codanonvowels)):
+        return True
+    return False
+ 
+
 _p2_vowels = set('aeiouy')
 _p2_doubles = set(['bb', 'dd', 'ff', 'gg', 'mm', 'nn', 'pp', 'rr', 'tt'])
 _p2_li = set('cdeghkmnrt')

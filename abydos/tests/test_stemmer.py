@@ -24,7 +24,8 @@ from __future__ import unicode_literals
 import unittest
 from abydos.stemmer import _m_degree, _has_vowel, _ends_in_doubled_cons, \
     _ends_in_cvc, porter, _snowball_r1, _snowball_r2, \
-    _snowball_short_syllable, _snowball_ends_in_short_syllable, porter2
+    _snowball_short_syllable, _snowball_ends_in_short_syllable, \
+    _snowball_short_word, porter2
 import os
 
 TESTDIR = os.path.dirname(__file__)
@@ -247,6 +248,21 @@ class PorterTestCases(unittest.TestCase):
         self.assertFalse(_snowball_ends_in_short_syllable('uproot'))
         self.assertFalse(_snowball_ends_in_short_syllable('bestow'))
         self.assertFalse(_snowball_short_syllable('disturb'))
+
+    def test_snowball_short_word(self):
+        """test abydos.stemmer._snowball_short_word
+        """
+        # base case
+        self.assertFalse(_snowball_short_word(''))
+
+        # examples from
+        # http://snowball.tartarus.org/algorithms/english/stemmer.html
+        self.assertTrue(_snowball_short_word('bed'))
+        self.assertTrue(_snowball_short_word('shed'))
+        self.assertTrue(_snowball_short_word('shred'))
+        self.assertFalse(_snowball_short_word('bead'))
+        self.assertFalse(_snowball_short_word('embed'))
+        self.assertFalse(_snowball_short_word('beds'))
 
 
     def test_porter2(self):
