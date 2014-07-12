@@ -392,12 +392,27 @@ def porter2(word):
     if len(word) < 3:
         return word
 
+    # Remove initial ', if present.
+    if word[0] == '\'':
+        word = word[1:]
+
     # Re-map vocalic Y to y (Y will be C, y will be V)
     if word[0] == 'y':
         word = 'Y' + word[1:]
     for i in _range(1, len(word)):
         if word[i] == 'y' and word[i-1] in _p2_vowels:
             word = word[:i] + 'Y' + word[i+1:]
+
+    r1_region = _snowball_r1(word, _p2_vowels)
+    r2_region = _snowball_r2(word, _p2_vowels)
+
+    # Step 0
+    if word[-3:] == '\'s\'':
+        word = word[:-3]
+    elif word[-2:] == '\'s':
+        word = word[:-1]
+    elif word[-1:] == '\'':
+        word = word[:-1]
 
     # Change 'y' back to 'Y' if it survived stemming
     for i in _range(0, len(word)):
