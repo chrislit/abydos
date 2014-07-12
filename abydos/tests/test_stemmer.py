@@ -40,23 +40,23 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(_m_degree(''), 0)
 
         # m==0
-        self.assertEqual(_m_degree('TR'), 0)
-        self.assertEqual(_m_degree('EE'), 0)
-        self.assertEqual(_m_degree('TREE'), 0)
-        self.assertEqual(_m_degree('Y'), 0)
-        self.assertEqual(_m_degree('BY'), 0)
+        self.assertEqual(_m_degree('tr'), 0)
+        self.assertEqual(_m_degree('ee'), 0)
+        self.assertEqual(_m_degree('tree'), 0)
+        self.assertEqual(_m_degree('y'), 0)
+        self.assertEqual(_m_degree('by'), 0)
 
         # m==1
-        self.assertEqual(_m_degree('TROUBLE'), 1)
-        self.assertEqual(_m_degree('OATS'), 1)
-        self.assertEqual(_m_degree('TREES'), 1)
-        self.assertEqual(_m_degree('IVY'), 1)
+        self.assertEqual(_m_degree('trouble'), 1)
+        self.assertEqual(_m_degree('oats'), 1)
+        self.assertEqual(_m_degree('trees'), 1)
+        self.assertEqual(_m_degree('ivy'), 1)
 
         # m==2
-        self.assertEqual(_m_degree('TROUBLES'), 2)
-        self.assertEqual(_m_degree('PRIVATE'), 2)
-        self.assertEqual(_m_degree('OATEN'), 2)
-        self.assertEqual(_m_degree('ORRERY'), 2)
+        self.assertEqual(_m_degree('troubles'), 2)
+        self.assertEqual(_m_degree('private'), 2)
+        self.assertEqual(_m_degree('oaten'), 2)
+        self.assertEqual(_m_degree('orrery'), 2)
 
 
     def test_has_vowel(self):
@@ -66,24 +66,26 @@ class PorterTestCases(unittest.TestCase):
         self.assertFalse(_has_vowel(''))
 
         # False cases
-        self.assertFalse(_has_vowel('B'))
-        self.assertFalse(_has_vowel('C'))
-        self.assertFalse(_has_vowel('BC'))
-        self.assertFalse(_has_vowel('BCDFGHJKLMNPQRSTVWXYZ'))
+        self.assertFalse(_has_vowel('b'))
+        self.assertFalse(_has_vowel('c'))
+        self.assertFalse(_has_vowel('bc'))
+        self.assertFalse(_has_vowel('bcdfghjklmnpqrstvwxYz'))
         self.assertFalse(_has_vowel('Y'))
 
         # True cases
-        self.assertTrue(_has_vowel('A'))
-        self.assertTrue(_has_vowel('E'))
-        self.assertTrue(_has_vowel('AE'))
-        self.assertTrue(_has_vowel('AEIOUy'))
+        self.assertTrue(_has_vowel('a'))
+        self.assertTrue(_has_vowel('e'))
+        self.assertTrue(_has_vowel('ae'))
+        self.assertTrue(_has_vowel('aeiouy'))
         self.assertTrue(_has_vowel('y'))
 
-        self.assertTrue(_has_vowel('ADE'))
-        self.assertTrue(_has_vowel('CAD'))
-        self.assertTrue(_has_vowel('ADD'))
-        self.assertTrue(_has_vowel('PHI'))
-        self.assertTrue(_has_vowel('PFy'))
+        self.assertTrue(_has_vowel('ade'))
+        self.assertTrue(_has_vowel('cad'))
+        self.assertTrue(_has_vowel('add'))
+        self.assertTrue(_has_vowel('phi'))
+        self.assertTrue(_has_vowel('pfy'))
+
+        self.assertFalse(_has_vowel('pfY'))
 
 
     def test_ends_in_doubled_cons(self):
@@ -93,33 +95,33 @@ class PorterTestCases(unittest.TestCase):
         self.assertFalse(_ends_in_doubled_cons(''))
 
         # False cases
-        self.assertFalse(_ends_in_doubled_cons('B'))
-        self.assertFalse(_ends_in_doubled_cons('C'))
-        self.assertFalse(_ends_in_doubled_cons('BC'))
-        self.assertFalse(_ends_in_doubled_cons('BCDFGHJKLMNPQRSTVWXYZ'))
+        self.assertFalse(_ends_in_doubled_cons('b'))
+        self.assertFalse(_ends_in_doubled_cons('c'))
+        self.assertFalse(_ends_in_doubled_cons('bc'))
+        self.assertFalse(_ends_in_doubled_cons('bcdfghjklmnpqrstvwxYz'))
         self.assertFalse(_ends_in_doubled_cons('Y'))
-        self.assertFalse(_ends_in_doubled_cons('A'))
-        self.assertFalse(_ends_in_doubled_cons('E'))
-        self.assertFalse(_ends_in_doubled_cons('AE'))
-        self.assertFalse(_ends_in_doubled_cons('AEIOUy'))
+        self.assertFalse(_ends_in_doubled_cons('a'))
+        self.assertFalse(_ends_in_doubled_cons('e'))
+        self.assertFalse(_ends_in_doubled_cons('ae'))
+        self.assertFalse(_ends_in_doubled_cons('aeiouy'))
         self.assertFalse(_ends_in_doubled_cons('y'))
-        self.assertFalse(_ends_in_doubled_cons('ADE'))
-        self.assertFalse(_ends_in_doubled_cons('CAD'))
-        self.assertFalse(_ends_in_doubled_cons('PHI'))
-        self.assertFalse(_ends_in_doubled_cons('PFy'))
-        self.assertFalse(_ends_in_doubled_cons('FADDY'))
-        self.assertFalse(_ends_in_doubled_cons('AIII'))
-        self.assertFalse(_ends_in_doubled_cons('Ayyy'))
+        self.assertFalse(_ends_in_doubled_cons('ade'))
+        self.assertFalse(_ends_in_doubled_cons('cad'))
+        self.assertFalse(_ends_in_doubled_cons('phi'))
+        self.assertFalse(_ends_in_doubled_cons('pfy'))
+        self.assertFalse(_ends_in_doubled_cons('faddy'))
+        self.assertFalse(_ends_in_doubled_cons('aiii'))
+        self.assertFalse(_ends_in_doubled_cons('ayyy'))
 
         # True cases
-        self.assertTrue(_ends_in_doubled_cons('ADD'))
-        self.assertTrue(_ends_in_doubled_cons('FADD'))
-        self.assertTrue(_ends_in_doubled_cons('FADDDD'))
-        self.assertTrue(_ends_in_doubled_cons('RAYY'))
-        self.assertTrue(_ends_in_doubled_cons('DOLL'))
-        self.assertTrue(_ends_in_doubled_cons('PARR'))
-        self.assertTrue(_ends_in_doubled_cons('PARRR'))
-        self.assertTrue(_ends_in_doubled_cons('BACC'))
+        self.assertTrue(_ends_in_doubled_cons('add'))
+        self.assertTrue(_ends_in_doubled_cons('fadd'))
+        self.assertTrue(_ends_in_doubled_cons('fadddd'))
+        self.assertTrue(_ends_in_doubled_cons('raYY'))
+        self.assertTrue(_ends_in_doubled_cons('doll'))
+        self.assertTrue(_ends_in_doubled_cons('parr'))
+        self.assertTrue(_ends_in_doubled_cons('parrr'))
+        self.assertTrue(_ends_in_doubled_cons('bacc'))
 
 
     def test_ends_in_cvc(self):
@@ -129,30 +131,30 @@ class PorterTestCases(unittest.TestCase):
         self.assertFalse(_ends_in_cvc(''))
 
         # False cases
-        self.assertFalse(_ends_in_cvc('B'))
-        self.assertFalse(_ends_in_cvc('C'))
-        self.assertFalse(_ends_in_cvc('BC'))
-        self.assertFalse(_ends_in_cvc('BCDFGHJKLMNPQRSTVWXYZ'))
+        self.assertFalse(_ends_in_cvc('b'))
+        self.assertFalse(_ends_in_cvc('c'))
+        self.assertFalse(_ends_in_cvc('bc'))
+        self.assertFalse(_ends_in_cvc('bcdfghjklmnpqrstvwxYz'))
         self.assertFalse(_ends_in_cvc('YYY'))
-        self.assertFalse(_ends_in_cvc('DDD'))
-        self.assertFalse(_ends_in_cvc('FAAF'))
-        self.assertFalse(_ends_in_cvc('RARE'))
-        self.assertFalse(_ends_in_cvc('RHy'))
+        self.assertFalse(_ends_in_cvc('ddd'))
+        self.assertFalse(_ends_in_cvc('faaf'))
+        self.assertFalse(_ends_in_cvc('rare'))
+        self.assertFalse(_ends_in_cvc('rhy'))
 
         # True cases
-        self.assertTrue(_ends_in_cvc('DAD'))
-        self.assertTrue(_ends_in_cvc('PHAD'))
-        self.assertTrue(_ends_in_cvc('FADED'))
-        self.assertTrue(_ends_in_cvc('MAYOR'))
-        self.assertTrue(_ends_in_cvc('ENLIL'))
-        self.assertTrue(_ends_in_cvc('PARER'))
-        self.assertTrue(_ends_in_cvc('PADRES'))
-        self.assertTrue(_ends_in_cvc('BACyC'))
+        self.assertTrue(_ends_in_cvc('dad'))
+        self.assertTrue(_ends_in_cvc('phad'))
+        self.assertTrue(_ends_in_cvc('faded'))
+        self.assertTrue(_ends_in_cvc('maYor'))
+        self.assertTrue(_ends_in_cvc('enlil'))
+        self.assertTrue(_ends_in_cvc('parer'))
+        self.assertTrue(_ends_in_cvc('padres'))
+        self.assertTrue(_ends_in_cvc('bacyc'))
 
         # Special case for W, X, & Y
-        self.assertFalse(_ends_in_cvc('CRAW'))
-        self.assertFalse(_ends_in_cvc('MAX'))
-        self.assertFalse(_ends_in_cvc('CRAY'))
+        self.assertFalse(_ends_in_cvc('craw'))
+        self.assertFalse(_ends_in_cvc('max'))
+        self.assertFalse(_ends_in_cvc('cray'))
 
 
     def test_porter(self):
@@ -162,11 +164,11 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(porter(''), '')
 
         # simple cases
-        self.assertEqual(porter('C'), 'C')
-        self.assertEqual(porter('DA'), 'DA')
-        self.assertEqual(porter('AD'), 'AD')
-        self.assertEqual(porter('SING'), 'SING')
-        self.assertEqual(porter('SINGING'), 'SING')
+        self.assertEqual(porter('c'), 'c')
+        self.assertEqual(porter('da'), 'da')
+        self.assertEqual(porter('ad'), 'ad')
+        self.assertEqual(porter('sing'), 'sing')
+        self.assertEqual(porter('singing'), 'sing')
 
 
     def test_porter_snowball(self):
@@ -181,7 +183,7 @@ class PorterTestCases(unittest.TestCase):
             for line in snowball_testset:
                 line = line.strip().split(',')
                 word, stem = line[0], line[1]
-                self.assertEqual(porter(word), stem.upper())
+                self.assertEqual(porter(word), stem.lower())
 
     def test_snowball_r1(self):
         """test abydos.stemmer._snowball_r1

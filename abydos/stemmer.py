@@ -27,13 +27,12 @@ import unicodedata
 from ._compat import _range, _unicode
 
 
-_vowels = set('AEIOUy')
-
-def _m_degree(term):
+def _m_degree(term, vowels=set('aeiouy')):
     """Return the m-degree as defined in the Porter stemmer definition
 
     Arguments:
     term -- the word for which to calculate the m-degree
+    vowels -- the set of vowels in the language
 
     Description:
     m-degree is equal to the number of V to C transitions
@@ -41,7 +40,7 @@ def _m_degree(term):
     mdeg = 0
     last_was_vowel = False
     for letter in term:
-        if letter in _vowels:
+        if letter in vowels:
             last_was_vowel = True
         else:
             if last_was_vowel:
@@ -49,40 +48,43 @@ def _m_degree(term):
             last_was_vowel = False
     return mdeg
 
-def _has_vowel(term):
+def _has_vowel(term, vowels = set('aeiouy')):
     """Return true iff a vowel exists in the term (as defined in the Porter
     stemmer definition)
 
     Arguments:
     term -- the word to scan for vowels
+    vowels -- the set of vowels in the language
     """
     for letter in term:
-        if letter in _vowels:
+        if letter in vowels:
             return True
     return False
 
-def _ends_in_doubled_cons(term):
+def _ends_in_doubled_cons(term, vowels = set('aeiouy')):
     """Return true iff the stem ends in a doubled consonant (as defined in the
     Porter stemmer definition)
 
     Arguments:
-    term -- the word to scan for vowels
+    term -- the word to check for a final doubled consonant
+    vowels -- the set of vowels in the language
     """
-    if len(term) > 1 and term[-1] not in _vowels and term[-2] == term[-1]:
+    if len(term) > 1 and term[-1] not in vowels and term[-2] == term[-1]:
         return True
     return False
 
-def _ends_in_cvc(term):
+def _ends_in_cvc(term, vowels = set('aeiouy')):
     """Return true iff the stem ends in cvc (as defined in the Porter stemmer
     definition)
 
     Arguments:
     term -- the word to scan for cvc
+    vowels -- the set of vowels in the language
     """
-    if len(term) > 2 and (term[-1] not in _vowels and
-                          term[-2] in _vowels and
-                          term[-3] not in _vowels and
-                          term[-1] not in tuple('WXY')):
+    if len(term) > 2 and (term[-1] not in vowels and
+                          term[-2] in vowels and
+                          term[-3] not in vowels and
+                          term[-1] not in tuple('wxY')):
         return True
     return False
 
@@ -97,217 +99,219 @@ def porter(word):
     http://snowball.tartarus.org/algorithms/porter/stemmer.html
     """
     # uppercase, normalize, decompose, and filter non-A-Z out
-    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
-    word = word.replace('ß', 'SS')
+    word = unicodedata.normalize('NFKD', _unicode(word.lower()))
+    word = word.replace('ß', 'ss')
     word = ''.join([c for c in word if c in
-                    set('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+                    set('abcdefghijklmnopqrstuvwxyz')])
 
     # Return empty string if there's nothing left to stem
     if len(word) < 3:
         return word
 
-    # Re-map vocalic Y to y (Y will be C, y will be V)
-    _vowels = set('AEIOUy')
+    _vowels = set('aeiouy')
+    # Re-map consonantal y to Y (Y will be C, y will be V)
+    if word[0] == 'y':
+        word = 'Y' + word[1:]
     for i in _range(1, len(word)):
-        if word[i] == 'Y' and word[i-1] not in _vowels:
-            word = word[:i] + 'y' + word[i+1:]
+        if word[i] == 'y' and word[i-1] in _vowels:
+            word = word[:i] + 'Y' + word[i+1:]
 
     # Step 1a
-    if word[-1] == 'S':
-        if word[-4:] == 'SSES':
+    if word[-1] == 's':
+        if word[-4:] == 'sses':
             word = word[:-2]
-        elif word[-3:] == 'IES':
+        elif word[-3:] == 'ies':
             word = word[:-2]
-        elif word[-2:] == 'SS':
+        elif word[-2:] == 'ss':
             pass
-        elif word[-1] == 'S':
+        elif word[-1] == 's':
             word = word[:-1]
 
     # Step 1b
     step1b_flag = False
-    if word[-3:] == 'EED':
+    if word[-3:] == 'eed':
         if _m_degree(word[:-3]) > 0:
             word = word[:-1]
-    elif word[-2:] == 'ED':
+    elif word[-2:] == 'ed':
         if _has_vowel(word[:-2]):
             word = word[:-2]
             step1b_flag = True
-    elif word[-3:] == 'ING':
+    elif word[-3:] == 'ing':
         if _has_vowel(word[:-3]):
             word = word[:-3]
             step1b_flag = True
 
     if step1b_flag:
-        if word[-2:] in set(['AT', 'BL', 'IZ']):
-            word += 'E'
-        elif _ends_in_doubled_cons(word) and word[-1] not in set('LSZ'):
+        if word[-2:] in set(['at', 'bl', 'iz']):
+            word += 'e'
+        elif _ends_in_doubled_cons(word) and word[-1] not in set('lsz'):
             word = word[:-1]
         elif _m_degree(word) == 1 and _ends_in_cvc(word):
-            word += 'E'
+            word += 'e'
 
     # Step 1c
     if (word[-1] == 'Y' or word[-1] == 'y') and _has_vowel(word[:-1]):
-        word = word[:-1] + 'I'
+        word = word[:-1] + 'i'
 
     # Step 2
     if len(word) > 1:
-        if word[-2] == 'A':
-            if word[-7:] == 'ATIONAL':
+        if word[-2] == 'a':
+            if word[-7:] == 'ational':
                 if _m_degree(word[:-7]) > 0:
-                    word = word[:-5] + 'E'
-            elif word[-6:] == 'TIONAL':
+                    word = word[:-5] + 'e'
+            elif word[-6:] == 'tional':
                 if _m_degree(word[:-6]) > 0:
                     word = word[:-2]
-        elif word[-2] == 'C':
-            if word[-4:] in set(['ENCI', 'ANCI']):
+        elif word[-2] == 'c':
+            if word[-4:] in set(['enci', 'anci']):
                 if _m_degree(word[:-4]) > 0:
-                    word = word[:-1] + 'E'
-        elif word[-2] == 'E':
-            if word[-4:] == 'IZER':
-                if _m_degree(word[:-4]) > 0:
-                    word = word[:-1]
-        elif word[-2] == 'G':
-            if word[-4:] == 'LOGI':
+                    word = word[:-1] + 'e'
+        elif word[-2] == 'e':
+            if word[-4:] == 'izer':
                 if _m_degree(word[:-4]) > 0:
                     word = word[:-1]
-        elif word[-2] == 'L':
-            if word[-3:] == 'BLI':
+        elif word[-2] == 'g':
+            if word[-4:] == 'logi':
+                if _m_degree(word[:-4]) > 0:
+                    word = word[:-1]
+        elif word[-2] == 'l':
+            if word[-3:] == 'bli':
                 if _m_degree(word[:-3]) > 0:
-                    word = word[:-1] + 'E'
-            elif word[-4:] == 'ALLI':
+                    word = word[:-1] + 'e'
+            elif word[-4:] == 'alli':
                 if _m_degree(word[:-4]) > 0:
                     word = word[:-2]
-            elif word[-5:] == 'ENTLI':
+            elif word[-5:] == 'entli':
                 if _m_degree(word[:-5]) > 0:
                     word = word[:-2]
-            elif word[-3:] == 'ELI':
+            elif word[-3:] == 'eli':
                 if _m_degree(word[:-3]) > 0:
                     word = word[:-2]
-            elif word[-5:] == 'OUSLI':
+            elif word[-5:] == 'ousli':
                 if _m_degree(word[:-5]) > 0:
                     word = word[:-2]
-        elif word[-2] == 'O':
-            if word[-7:] == 'IZATION':
+        elif word[-2] == 'o':
+            if word[-7:] == 'ization':
                 if _m_degree(word[:-7]) > 0:
-                    word = word[:-5] + 'E'
-            elif word[-5:] == 'ATION':
+                    word = word[:-5] + 'e'
+            elif word[-5:] == 'ation':
                 if _m_degree(word[:-5]) > 0:
-                    word = word[:-3] + 'E'
-            elif word[-4:] == 'ATOR':
+                    word = word[:-3] + 'e'
+            elif word[-4:] == 'ator':
                 if _m_degree(word[:-4]) > 0:
-                    word = word[:-2] + 'E'
-        elif word[-2] == 'S':
-            if word[-5:] == 'ALISM':
+                    word = word[:-2] + 'e'
+        elif word[-2] == 's':
+            if word[-5:] == 'alism':
                 if _m_degree(word[:-5]) > 0:
                     word = word[:-3]
-            elif word[-7:] in set(['IVENESS', 'FULNESS', 'OUSNESS']):
+            elif word[-7:] in set(['iveness', 'fulness', 'ousness']):
                 if _m_degree(word[:-7]) > 0:
                     word = word[:-4]
-        elif word[-2] == 'T':
-            if word[-5:] == 'ALITI':
+        elif word[-2] == 't':
+            if word[-5:] == 'aliti':
                 if _m_degree(word[:-5]) > 0:
                     word = word[:-3]
-            elif word[-5:] == 'IVITI':
+            elif word[-5:] == 'iviti':
                 if _m_degree(word[:-5]) > 0:
-                    word = word[:-3] + 'E'
-            elif word[-6:] == 'BILITI':
+                    word = word[:-3] + 'e'
+            elif word[-6:] == 'biliti':
                 if _m_degree(word[:-6]) > 0:
-                    word = word[:-5] + 'LE'
+                    word = word[:-5] + 'le'
 
     # Step 3
-    if word[-5:] == 'ICATE':
+    if word[-5:] == 'icate':
         if _m_degree(word[:-5]) > 0:
             word = word[:-3]
-    elif word[-5:] == 'ATIVE':
+    elif word[-5:] == 'ative':
         if _m_degree(word[:-5]) > 0:
             word = word[:-5]
-    elif word[-5:] in set(['ALIZE', 'ICITI']):
+    elif word[-5:] in set(['alize', 'iciti']):
         if _m_degree(word[:-5]) > 0:
             word = word[:-3]
-    elif word[-4:] == 'ICAL':
+    elif word[-4:] == 'ical':
         if _m_degree(word[:-4]) > 0:
             word = word[:-2]
-    elif word[-3:] == 'FUL':
+    elif word[-3:] == 'ful':
         if _m_degree(word[:-3]) > 0:
             word = word[:-3]
-    elif word[-4:] == 'NESS':
+    elif word[-4:] == 'ness':
         if _m_degree(word[:-4]) > 0:
             word = word[:-4]
 
     # Step 4
-    if word[-2:] == 'AL':
+    if word[-2:] == 'al':
         if _m_degree(word[:-2]) > 1:
             word = word[:-2]
-    elif word[-4:] == 'ANCE':
+    elif word[-4:] == 'ance':
         if _m_degree(word[:-4]) > 1:
             word = word[:-4]
-    elif word[-4:] == 'ENCE':
+    elif word[-4:] == 'ence':
         if _m_degree(word[:-4]) > 1:
             word = word[:-4]
-    elif word[-2:] == 'ER':
+    elif word[-2:] == 'er':
         if _m_degree(word[:-2]) > 1:
             word = word[:-2]
-    elif word[-2:] == 'IC':
+    elif word[-2:] == 'ic':
         if _m_degree(word[:-2]) > 1:
             word = word[:-2]
-    elif word[-4:] == 'ABLE':
+    elif word[-4:] == 'able':
         if _m_degree(word[:-4]) > 1:
             word = word[:-4]
-    elif word[-4:] == 'IBLE':
+    elif word[-4:] == 'ible':
         if _m_degree(word[:-4]) > 1:
             word = word[:-4]
-    elif word[-3:] == 'ANT':
+    elif word[-3:] == 'ant':
         if _m_degree(word[:-3]) > 1:
             word = word[:-3]
-    elif word[-5:] == 'EMENT':
+    elif word[-5:] == 'ement':
         if _m_degree(word[:-5]) > 1:
             word = word[:-5]
-    elif word[-4:] == 'MENT':
+    elif word[-4:] == 'ment':
         if _m_degree(word[:-4]) > 1:
             word = word[:-4]
-    elif word[-3:] == 'ENT':
+    elif word[-3:] == 'ent':
         if _m_degree(word[:-3]) > 1:
             word = word[:-3]
-    elif word[-4:] in set(['SION', 'TION']):
+    elif word[-4:] in set(['sion', 'tion']):
         if _m_degree(word[:-3]) > 1:
             word = word[:-3]
-    elif word[-2:] == 'OU':
+    elif word[-2:] == 'ou':
         if _m_degree(word[:-2]) > 1:
             word = word[:-2]
-    elif word[-3:] == 'ISM':
+    elif word[-3:] == 'ism':
         if _m_degree(word[:-3]) > 1:
             word = word[:-3]
-    elif word[-3:] == 'ATE':
+    elif word[-3:] == 'ate':
         if _m_degree(word[:-3]) > 1:
             word = word[:-3]
-    elif word[-3:] == 'ITI':
+    elif word[-3:] == 'iti':
         if _m_degree(word[:-3]) > 1:
             word = word[:-3]
-    elif word[-3:] == 'OUS':
+    elif word[-3:] == 'ous':
         if _m_degree(word[:-3]) > 1:
             word = word[:-3]
-    elif word[-3:] == 'IVE':
+    elif word[-3:] == 'ive':
         if _m_degree(word[:-3]) > 1:
             word = word[:-3]
-    elif word[-3:] == 'IZE':
+    elif word[-3:] == 'ize':
         if _m_degree(word[:-3]) > 1:
             word = word[:-3]
 
     # Step 5a
-    if word[-1] == 'E':
+    if word[-1] == 'e':
         if _m_degree(word[:-1]) > 1:
             word = word[:-1]
         elif _m_degree(word[:-1]) == 1 and not _ends_in_cvc(word[:-1]):
             word = word[:-1]
 
     # Step 5b
-    if word[-2:] == 'LL' and _m_degree(word) > 1:
+    if word[-2:] == 'll' and _m_degree(word) > 1:
         word = word[:-1]
 
     # Change 'y' back to 'Y' if it survived stemming
-    for i in _range(1, len(word)):
-        if word[i] == 'y':
-            word = word[:i] + 'Y' + word[i+1:]
+    for i in _range(len(word)):
+        if word[i] == 'Y':
+            word = word[:i] + 'y' + word[i+1:]
 
     return word
 
@@ -417,12 +421,12 @@ def porter2(word):
     # Step 1a
     if word[-4:] == 'sses':
         word = word[:-2]
-    elif word[-3:] in set('ied', 'ies'):
+    elif word[-3:] in set(['ied', 'ies']):
         if len(word) > 4:
             word = word[:-1]
         else:
             word = word[:-2]
-    elif word[-2:] in set('us', 'ss'):
+    elif word[-2:] in set(['us', 'ss']):
         pass
     elif word[-1] == 's':
         word = word[:-1]
