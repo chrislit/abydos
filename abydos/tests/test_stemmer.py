@@ -23,7 +23,8 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 import unittest
 from abydos.stemmer import _m_degree, _has_vowel, _ends_in_doubled_cons, \
-    _ends_in_cvc, porter, _snowball_r1, _snowball_r2, porter2
+    _ends_in_cvc, porter, _snowball_r1, _snowball_r2, \
+    _snowball_short_syllable, porter2
 import os
 
 TESTDIR = os.path.dirname(__file__)
@@ -188,12 +189,12 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(_snowball_r1(''), '')
 
         # examples from http://snowball.tartarus.org/texts/r1r2.html
-        self.assertEqual(_snowball_r1('BEAUTIFUL'), 'IFUL')
-        self.assertEqual(_snowball_r1('BEAUTY'), 'Y')
-        self.assertEqual(_snowball_r1('BEAU'), '')
-        self.assertEqual(_snowball_r1('ANIMADVERSION'), 'IMADVERSION')
-        self.assertEqual(_snowball_r1('SPRINKLED'), 'KLED')
-        self.assertEqual(_snowball_r1('EUCHARIST'), 'HARIST')
+        self.assertEqual(_snowball_r1('beautiful'), 'iful')
+        self.assertEqual(_snowball_r1('beauty'), 'y')
+        self.assertEqual(_snowball_r1('beau'), '')
+        self.assertEqual(_snowball_r1('animadversion'), 'imadversion')
+        self.assertEqual(_snowball_r1('sprinkled'), 'kled')
+        self.assertEqual(_snowball_r1('eucharist'), 'harist')
 
     def test_snowball_r2(self):
         """test abydos.stemmer._snowball_r2
@@ -202,12 +203,31 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(_snowball_r2(''), '')
 
         # examples from http://snowball.tartarus.org/texts/r1r2.html
-        self.assertEqual(_snowball_r2('BEAUTIFUL'), 'UL')
-        self.assertEqual(_snowball_r2('BEAUTY'), '')
-        self.assertEqual(_snowball_r2('BEAU'), '')
-        self.assertEqual(_snowball_r2('ANIMADVERSION'), 'ADVERSION')
-        self.assertEqual(_snowball_r2('SPRINKLED'), '')
-        self.assertEqual(_snowball_r2('EUCHARIST'), 'IST')
+        self.assertEqual(_snowball_r2('beautiful'), 'ul')
+        self.assertEqual(_snowball_r2('beauty'), '')
+        self.assertEqual(_snowball_r2('beau'), '')
+        self.assertEqual(_snowball_r2('animadversion'), 'adversion')
+        self.assertEqual(_snowball_r2('sprinkled'), '')
+        self.assertEqual(_snowball_r2('eucharist'), 'ist')
+
+    def test_snowball_short_syllable(self):
+        """test abydos.stemmer._snowball_short_syllable
+        """
+        # base case
+        self.assertFalse(_snowball_short_syllable(''))
+
+        # examples from
+        # http://snowball.tartarus.org/algorithms/english/stemmer.html
+        self.assertTrue(_snowball_short_syllable('rap', 1))
+        self.assertTrue(_snowball_short_syllable('trap', 2))
+        self.assertTrue(_snowball_short_syllable('entrap', 4))
+        self.assertTrue(_snowball_short_syllable('ow'))
+        self.assertTrue(_snowball_short_syllable('on'))
+        self.assertTrue(_snowball_short_syllable('at'))
+        self.assertFalse(_snowball_short_syllable('uproot', 3))
+        self.assertFalse(_snowball_short_syllable('uproot', 4))
+        self.assertFalse(_snowball_short_syllable('bestow', 4))
+        #self.assertFalse(_snowball_short_syllable('disturb', 4))
 
     def test_porter2(self):
         """test abydos.stemmer.porter2
@@ -216,11 +236,11 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(porter2(''), '')
 
         # simple cases
-        self.assertEqual(porter2('C'), 'C')
-        self.assertEqual(porter2('DA'), 'DA')
-        self.assertEqual(porter2('AD'), 'AD')
-        self.assertEqual(porter2('SING'), 'SING')
-        self.assertEqual(porter2('SINGING'), 'SING')
+        self.assertEqual(porter2('c'), 'c')
+        self.assertEqual(porter2('da'), 'da')
+        self.assertEqual(porter2('ad'), 'ad')
+        self.assertEqual(porter2('sing'), 'sing')
+        self.assertEqual(porter2('singing'), 'sing')
 
 
     def test_porter2_snowball(self):

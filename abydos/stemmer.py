@@ -312,7 +312,7 @@ def porter(word):
     return word
 
 
-def _snowball_r1(term, vowels=set('AEIOUY')):
+def _snowball_r1(term, vowels=set('aeiouy')):
     """Return the R1 region, as defined in the Porter2 specification
     """
     vowel_found = False
@@ -323,13 +323,27 @@ def _snowball_r1(term, vowels=set('AEIOUY')):
             return term[i+1:]
     return ''
 
-def _snowball_r2(term, vowels=set('AEIOUY')):
+def _snowball_r2(term, vowels=set('aeiouy')):
     """Return the R2 region, as defined in the Porter2 specification
     """
     return _snowball_r1(_snowball_r1(term, vowels), vowels)
 
+def _snowball_short_syllable(term, start=0, vowels=set('aeiouy'),
+                             codanonvowels=set('bcdfghjklmnpqrstvz\'')):
+    """Return True iff term has a short syllable starting at start,
+    according to the Porter2 specification
+    """
+    if not term or term[start] not in vowels:
+        return False
+    elif start == 0:
+        if term[start+1:start+2] not in vowels:
+            return True
+    elif term[start+1:start+2] in codanonvowels and term[start-1] not in vowels:
+        return True
+    return False
 
-_p2_vowels = set('AEIOUY')
+
+_p2_vowels = set('aeiouy')
 _p2_doubles = set(['bb', 'dd', 'ff', 'gg', 'mm', 'nn', 'pp', 'rr', 'tt'])
 _p2_li = set('cdeghkmnrt')
 
@@ -345,28 +359,29 @@ def porter2(word):
     http://snowball.tartarus.org/algorithms/english/stemmer.html
     """
     # uppercase, normalize, decompose, and filter non-A-Z out
-    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
-    word = word.replace('ß', 'SS') # for Python2
+    word = unicodedata.normalize('NFKD', _unicode(word.lower()))
+    word = word.replace('ß', 'ss')
     # replace apostrophe-like characters with U+0027, per
     # http://snowball.tartarus.org/texts/apostrophe.html
     word = word.replace('’', '\'')
     word = word.replace('’', '\'')
     word = ''.join([c for c in word if c in
-                    set('ABCDEFGHIJKLMNOPQRSTUVWXYZ\'')])
+                    set('abcdefghijklmnopqrstuvwxyz\'')])
 
     # Return empty string if there's nothing left to stem
     if len(word) < 3:
         return word
 
     # Re-map vocalic Y to y (Y will be C, y will be V)
-    _vowels = set('AEIOUY')
+    if word[0] == 'y':
+        word = 'Y' + word[1:]
     for i in _range(1, len(word)):
-        if word[i] == 'Y' and word[i-1] not in _vowels:
-            word = word[:i] + 'y' + word[i+1:]
+        if word[i] == 'y' and word[i-1] in _p2_vowels:
+            word = word[:i] + 'Y' + word[i+1:]
 
     # Change 'y' back to 'Y' if it survived stemming
-    for i in _range(1, len(word)):
-        if word[i] == 'y':
-            word = word[:i] + 'Y' + word[i+1:]
+    for i in _range(0, len(word)):
+        if word[i] == 'Y':
+            word = word[:i] + 'y' + word[i+1:]
 
     return word
