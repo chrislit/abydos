@@ -107,7 +107,7 @@ def porter(word):
         return word
 
     # Re-map vocalic Y to y (Y will be C, y will be V)
-    _vowels = tuple('AEIOUy')
+    _vowels = set('AEIOUy')
     for i in _range(1, len(word)):
         if word[i] == 'Y' and word[i-1] not in _vowels:
             word = word[:i] + 'y' + word[i+1:]
@@ -303,6 +303,45 @@ def porter(word):
     # Step 5b
     if word[-2:] == 'LL' and _m_degree(word) > 1:
         word = word[:-1]
+
+    # Change 'y' back to 'Y' if it survived stemming
+    for i in _range(1, len(word)):
+        if word[i] == 'y':
+            word = word[:i] + 'Y' + word[i+1:]
+
+    return word
+
+
+def porter2(word):
+    """Implementation of Porter2 (Snowball English) stemmer -- ideally returns
+    the word stem
+
+    Arguments:
+    word -- the word to calculate the stem of
+
+    Description:
+    The Porter2/Snowball English stemmer is defined at
+    http://snowball.tartarus.org/algorithms/english/stemmer.html
+    """
+    # uppercase, normalize, decompose, and filter non-A-Z out
+    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = word.replace('ß', 'SS') # for Python2
+    # replace apostrophe-like characters with U+0027, per
+    # http://snowball.tartarus.org/texts/apostrophe.html
+    word = word.replace('’', '\'')
+    word = word.replace('’', '\'')
+    word = ''.join([c for c in word if c in
+                    set('ABCDEFGHIJKLMNOPQRSTUVWXYZ\'')])
+
+    # Return empty string if there's nothing left to stem
+    if len(word) < 3:
+        return word
+
+    # Re-map vocalic Y to y (Y will be C, y will be V)
+    _vowels = set('AEIOUY')
+    for i in _range(1, len(word)):
+        if word[i] == 'Y' and word[i-1] not in _vowels:
+            word = word[:i] + 'y' + word[i+1:]
 
     # Change 'y' back to 'Y' if it survived stemming
     for i in _range(1, len(word)):

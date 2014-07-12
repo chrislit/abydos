@@ -23,7 +23,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 import unittest
 from abydos.stemmer import _m_degree, _has_vowel, _ends_in_doubled_cons, \
-    _ends_in_cvc, porter
+    _ends_in_cvc, porter, porter2
 import os
 
 TESTDIR = os.path.dirname(__file__)
@@ -180,3 +180,31 @@ class PorterTestCases(unittest.TestCase):
                 line = line.strip().split(',')
                 word, stem = line[0], line[1]
                 self.assertEqual(porter(word), stem.upper())
+
+    def test_porter2(self):
+        """test abydos.stemmer.porter2
+        """
+        # base case
+        self.assertEqual(porter2(''), '')
+
+        # simple cases
+        self.assertEqual(porter2('C'), 'C')
+        self.assertEqual(porter2('DA'), 'DA')
+        self.assertEqual(porter2('AD'), 'AD')
+        self.assertEqual(porter2('SING'), 'SING')
+        self.assertEqual(porter2('SINGING'), 'SING')
+
+
+    def test_porter2_snowball(self):
+        """test abydos.stemmer.porter2 (Snowball testset)
+
+        These test cases are from
+        http://snowball.tartarus.org/algorithms/english/diffs.txt
+        """
+        #  Snowball Porter test set
+        with open(TESTDIR+'/snowball_porter2.csv') as snowball_testset:
+            next(snowball_testset)
+            for line in snowball_testset:
+                line = line.strip().split(',')
+                word, stem = line[0], line[1]
+                self.assertEqual(porter2(word), stem.upper())
