@@ -48,7 +48,7 @@ def _m_degree(term, vowels=set('aeiouy')):
             last_was_vowel = False
     return mdeg
 
-def _has_vowel(term, vowels = set('aeiouy')):
+def _sb_has_vowel(term, vowels = set('aeiouy')):
     """Return true iff a vowel exists in the term (as defined in the Porter
     stemmer definition)
 
@@ -133,11 +133,11 @@ def porter(word):
         if _m_degree(word[:-3]) > 0:
             word = word[:-1]
     elif word[-2:] == 'ed':
-        if _has_vowel(word[:-2]):
+        if _sb_has_vowel(word[:-2]):
             word = word[:-2]
             step1b_flag = True
     elif word[-3:] == 'ing':
-        if _has_vowel(word[:-3]):
+        if _sb_has_vowel(word[:-3]):
             word = word[:-3]
             step1b_flag = True
 
@@ -150,7 +150,7 @@ def porter(word):
             word += 'e'
 
     # Step 1c
-    if (word[-1] == 'Y' or word[-1] == 'y') and _has_vowel(word[:-1]):
+    if (word[-1] == 'Y' or word[-1] == 'y') and _sb_has_vowel(word[:-1]):
         word = word[:-1] + 'i'
 
     # Step 2
@@ -316,7 +316,7 @@ def porter(word):
     return word
 
 
-def _snowball_r1(term, vowels=set('aeiouy')):
+def _sb_r1(term, vowels=set('aeiouy')):
     """Return the R1 region, as defined in the Porter2 specification
     """
     vowel_found = False
@@ -327,13 +327,13 @@ def _snowball_r1(term, vowels=set('aeiouy')):
             return term[i+1:]
     return ''
 
-def _snowball_r2(term, vowels=set('aeiouy')):
+def _sb_r2(term, vowels=set('aeiouy')):
     """Return the R2 region, as defined in the Porter2 specification
     """
-    return _snowball_r1(_snowball_r1(term, vowels), vowels)
+    return _sb_r1(_sb_r1(term, vowels), vowels)
 
-def _snowball_short_syllable(term, start=0, vowels=set('aeiouy'),
-                             codanonvowels=set('bcdfghjklmnpqrstvz\'')):
+def _sb_short_syllable(term, start=0, vowels=set('aeiouy'),
+                       codanonvowels=set('bcdfghjklmnpqrstvz\'')):
     """Return True iff term has a short syllable starting at start,
     according to the Porter2 specification
     """
@@ -346,23 +346,23 @@ def _snowball_short_syllable(term, start=0, vowels=set('aeiouy'),
         return True
     return False
 
-def _snowball_ends_in_short_syllable(term, vowels=set('aeiouy'),
-                                     codanonvowels=set('bcdfghjklmnpqrstvz\'')):
+def _sb_ends_in_short_syllable(term, vowels=set('aeiouy'),
+                               codanonvowels=set('bcdfghjklmnpqrstvz\'')):
     """Return True iff term ends in a short syllable,
     according to the Porter2 specification
     """
     for i in reversed(_range(len(term))):
         if term[i] in vowels:
-            return _snowball_short_syllable(term, i, vowels, codanonvowels)
+            return _sb_short_syllable(term, i, vowels, codanonvowels)
     return False
 
-def _snowball_short_word(term, vowels=set('aeiouy'),
-                         codanonvowels=set('bcdfghjklmnpqrstvz\'')):
+def _sb_short_word(term, vowels=set('aeiouy'),
+                   codanonvowels=set('bcdfghjklmnpqrstvz\'')):
     """Return True iff term is a short word,
     according to the Porter2 specification
     """
-    if (_snowball_r1(term, vowels) == '' and
-        _snowball_ends_in_short_syllable(term, vowels, codanonvowels)):
+    if (_sb_r1(term, vowels) == '' and
+        _sb_ends_in_short_syllable(term, vowels, codanonvowels)):
         return True
     return False
  
@@ -407,8 +407,8 @@ def porter2(word):
         if word[i] == 'y' and word[i-1] in _p2_vowels:
             word = word[:i] + 'Y' + word[i+1:]
 
-    r1_region = _snowball_r1(word, _p2_vowels)
-    r2_region = _snowball_r2(word, _p2_vowels)
+    r1_region = _sb_r1(word, _p2_vowels)
+    r2_region = _sb_r2(word, _p2_vowels)
 
     # Step 0
     if word[-3:] == '\'s\'':

@@ -22,10 +22,9 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
 import unittest
-from abydos.stemmer import _m_degree, _has_vowel, _ends_in_doubled_cons, \
-    _ends_in_cvc, porter, _snowball_r1, _snowball_r2, \
-    _snowball_short_syllable, _snowball_ends_in_short_syllable, \
-    _snowball_short_word, porter2
+from abydos.stemmer import _m_degree, _sb_has_vowel, _ends_in_doubled_cons, \
+    _ends_in_cvc, porter, _sb_r1, _sb_r2, _sb_short_syllable, \
+    _sb_ends_in_short_syllable, _sb_short_word, porter2
 import os
 
 TESTDIR = os.path.dirname(__file__)
@@ -63,29 +62,29 @@ class PorterTestCases(unittest.TestCase):
         """test abydos.stemmer._has_vowel
         """
         # base case
-        self.assertFalse(_has_vowel(''))
+        self.assertFalse(_sb_has_vowel(''))
 
         # False cases
-        self.assertFalse(_has_vowel('b'))
-        self.assertFalse(_has_vowel('c'))
-        self.assertFalse(_has_vowel('bc'))
-        self.assertFalse(_has_vowel('bcdfghjklmnpqrstvwxYz'))
-        self.assertFalse(_has_vowel('Y'))
+        self.assertFalse(_sb_has_vowel('b'))
+        self.assertFalse(_sb_has_vowel('c'))
+        self.assertFalse(_sb_has_vowel('bc'))
+        self.assertFalse(_sb_has_vowel('bcdfghjklmnpqrstvwxYz'))
+        self.assertFalse(_sb_has_vowel('Y'))
 
         # True cases
-        self.assertTrue(_has_vowel('a'))
-        self.assertTrue(_has_vowel('e'))
-        self.assertTrue(_has_vowel('ae'))
-        self.assertTrue(_has_vowel('aeiouy'))
-        self.assertTrue(_has_vowel('y'))
+        self.assertTrue(_sb_has_vowel('a'))
+        self.assertTrue(_sb_has_vowel('e'))
+        self.assertTrue(_sb_has_vowel('ae'))
+        self.assertTrue(_sb_has_vowel('aeiouy'))
+        self.assertTrue(_sb_has_vowel('y'))
 
-        self.assertTrue(_has_vowel('ade'))
-        self.assertTrue(_has_vowel('cad'))
-        self.assertTrue(_has_vowel('add'))
-        self.assertTrue(_has_vowel('phi'))
-        self.assertTrue(_has_vowel('pfy'))
+        self.assertTrue(_sb_has_vowel('ade'))
+        self.assertTrue(_sb_has_vowel('cad'))
+        self.assertTrue(_sb_has_vowel('add'))
+        self.assertTrue(_sb_has_vowel('phi'))
+        self.assertTrue(_sb_has_vowel('pfy'))
 
-        self.assertFalse(_has_vowel('pfY'))
+        self.assertFalse(_sb_has_vowel('pfY'))
 
 
     def test_ends_in_doubled_cons(self):
@@ -185,86 +184,86 @@ class PorterTestCases(unittest.TestCase):
                 word, stem = line[0], line[1]
                 self.assertEqual(porter(word), stem.lower())
 
-    def test_snowball_r1(self):
-        """test abydos.stemmer._snowball_r1
+    def test_sb_r1(self):
+        """test abydos.stemmer._sb_r1
         """
         # base case
-        self.assertEqual(_snowball_r1(''), '')
+        self.assertEqual(_sb_r1(''), '')
 
         # examples from http://snowball.tartarus.org/texts/r1r2.html
-        self.assertEqual(_snowball_r1('beautiful'), 'iful')
-        self.assertEqual(_snowball_r1('beauty'), 'y')
-        self.assertEqual(_snowball_r1('beau'), '')
-        self.assertEqual(_snowball_r1('animadversion'), 'imadversion')
-        self.assertEqual(_snowball_r1('sprinkled'), 'kled')
-        self.assertEqual(_snowball_r1('eucharist'), 'harist')
+        self.assertEqual(_sb_r1('beautiful'), 'iful')
+        self.assertEqual(_sb_r1('beauty'), 'y')
+        self.assertEqual(_sb_r1('beau'), '')
+        self.assertEqual(_sb_r1('animadversion'), 'imadversion')
+        self.assertEqual(_sb_r1('sprinkled'), 'kled')
+        self.assertEqual(_sb_r1('eucharist'), 'harist')
 
-    def test_snowball_r2(self):
-        """test abydos.stemmer._snowball_r2
+    def test_sb_r2(self):
+        """test abydos.stemmer._sb_r2
         """
         # base case
-        self.assertEqual(_snowball_r2(''), '')
+        self.assertEqual(_sb_r2(''), '')
 
         # examples from http://snowball.tartarus.org/texts/r1r2.html
-        self.assertEqual(_snowball_r2('beautiful'), 'ul')
-        self.assertEqual(_snowball_r2('beauty'), '')
-        self.assertEqual(_snowball_r2('beau'), '')
-        self.assertEqual(_snowball_r2('animadversion'), 'adversion')
-        self.assertEqual(_snowball_r2('sprinkled'), '')
-        self.assertEqual(_snowball_r2('eucharist'), 'ist')
+        self.assertEqual(_sb_r2('beautiful'), 'ul')
+        self.assertEqual(_sb_r2('beauty'), '')
+        self.assertEqual(_sb_r2('beau'), '')
+        self.assertEqual(_sb_r2('animadversion'), 'adversion')
+        self.assertEqual(_sb_r2('sprinkled'), '')
+        self.assertEqual(_sb_r2('eucharist'), 'ist')
 
-    def test_snowball_short_syllable(self):
-        """test abydos.stemmer._snowball_short_syllable
+    def test_sb_short_syllable(self):
+        """test abydos.stemmer._sb_short_syllable
         """
         # base case
-        self.assertFalse(_snowball_short_syllable(''))
+        self.assertFalse(_sb_short_syllable(''))
 
         # examples from
         # http://snowball.tartarus.org/algorithms/english/stemmer.html
-        self.assertTrue(_snowball_short_syllable('rap', 1))
-        self.assertTrue(_snowball_short_syllable('trap', 2))
-        self.assertTrue(_snowball_short_syllable('entrap', 4))
-        self.assertTrue(_snowball_short_syllable('ow'))
-        self.assertTrue(_snowball_short_syllable('on'))
-        self.assertTrue(_snowball_short_syllable('at'))
-        self.assertFalse(_snowball_short_syllable('uproot', 3))
-        self.assertFalse(_snowball_short_syllable('uproot', 4))
-        self.assertFalse(_snowball_short_syllable('bestow', 4))
-        #self.assertFalse(_snowball_short_syllable('disturb', 4))
+        self.assertTrue(_sb_short_syllable('rap', 1))
+        self.assertTrue(_sb_short_syllable('trap', 2))
+        self.assertTrue(_sb_short_syllable('entrap', 4))
+        self.assertTrue(_sb_short_syllable('ow'))
+        self.assertTrue(_sb_short_syllable('on'))
+        self.assertTrue(_sb_short_syllable('at'))
+        self.assertFalse(_sb_short_syllable('uproot', 3))
+        self.assertFalse(_sb_short_syllable('uproot', 4))
+        self.assertFalse(_sb_short_syllable('bestow', 4))
+        #self.assertFalse(_sb_short_syllable('disturb', 4))
 
-    def test_snowball_ends_in_short_syllable(self):
-        """test abydos.stemmer._snowball_ends_in_short_syllable
+    def test_sb_ends_in_short_syllable(self):
+        """test abydos.stemmer._sb_ends_in_short_syllable
         """
         # base case
-        self.assertFalse(_snowball_ends_in_short_syllable(''))
+        self.assertFalse(_sb_ends_in_short_syllable(''))
 
         # examples from
         # http://snowball.tartarus.org/algorithms/english/stemmer.html
-        self.assertTrue(_snowball_ends_in_short_syllable('rap'))
-        self.assertTrue(_snowball_ends_in_short_syllable('trap'))
-        self.assertTrue(_snowball_ends_in_short_syllable('entrap'))
-        self.assertTrue(_snowball_ends_in_short_syllable('ow'))
-        self.assertTrue(_snowball_ends_in_short_syllable('on'))
-        self.assertTrue(_snowball_ends_in_short_syllable('at'))
-        self.assertFalse(_snowball_ends_in_short_syllable('uproot'))
-        self.assertFalse(_snowball_ends_in_short_syllable('uproot'))
-        self.assertFalse(_snowball_ends_in_short_syllable('bestow'))
-        self.assertFalse(_snowball_short_syllable('disturb'))
+        self.assertTrue(_sb_ends_in_short_syllable('rap'))
+        self.assertTrue(_sb_ends_in_short_syllable('trap'))
+        self.assertTrue(_sb_ends_in_short_syllable('entrap'))
+        self.assertTrue(_sb_ends_in_short_syllable('ow'))
+        self.assertTrue(_sb_ends_in_short_syllable('on'))
+        self.assertTrue(_sb_ends_in_short_syllable('at'))
+        self.assertFalse(_sb_ends_in_short_syllable('uproot'))
+        self.assertFalse(_sb_ends_in_short_syllable('uproot'))
+        self.assertFalse(_sb_ends_in_short_syllable('bestow'))
+        self.assertFalse(_sb_short_syllable('disturb'))
 
-    def test_snowball_short_word(self):
-        """test abydos.stemmer._snowball_short_word
+    def test_sb_short_word(self):
+        """test abydos.stemmer._sb_short_word
         """
         # base case
-        self.assertFalse(_snowball_short_word(''))
+        self.assertFalse(_sb_short_word(''))
 
         # examples from
         # http://snowball.tartarus.org/algorithms/english/stemmer.html
-        self.assertTrue(_snowball_short_word('bed'))
-        self.assertTrue(_snowball_short_word('shed'))
-        self.assertTrue(_snowball_short_word('shred'))
-        self.assertFalse(_snowball_short_word('bead'))
-        self.assertFalse(_snowball_short_word('embed'))
-        self.assertFalse(_snowball_short_word('beds'))
+        self.assertTrue(_sb_short_word('bed'))
+        self.assertTrue(_sb_short_word('shed'))
+        self.assertTrue(_sb_short_word('shred'))
+        self.assertFalse(_sb_short_word('bead'))
+        self.assertFalse(_sb_short_word('embed'))
+        self.assertFalse(_sb_short_word('beds'))
 
 
     def test_porter2(self):
