@@ -312,6 +312,27 @@ def porter(word):
     return word
 
 
+def _snowball_r1(term, vowels=set('AEIOUY')):
+    """Return the R1 region, as defined in the Porter2 specification
+    """
+    vowel_found = False
+    for i in _range(len(term)):
+        if not vowel_found and term[i] in vowels:
+            vowel_found = True
+        elif vowel_found and term[i] not in vowels:
+            return term[i+1:]
+    return ''
+
+def _snowball_r2(term, vowels=set('AEIOUY')):
+    """Return the R2 region, as defined in the Porter2 specification
+    """
+    return _snowball_r1(_snowball_r1(term, vowels), vowels)
+
+
+_p2_vowels = set('AEIOUY')
+_p2_doubles = set(['bb', 'dd', 'ff', 'gg', 'mm', 'nn', 'pp', 'rr', 'tt'])
+_p2_li = set('cdeghkmnrt')
+
 def porter2(word):
     """Implementation of Porter2 (Snowball English) stemmer -- ideally returns
     the word stem
