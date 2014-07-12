@@ -291,4 +291,4 @@ class PorterTestCases(unittest.TestCase):
             for line in snowball_testset:
                 line = line.strip().split(',')
                 word, stem = line[0], line[1]
-                self.assertEqual(porter2(word), stem.upper())
+                self.assertEqual(porter2(word), stem.lower())
