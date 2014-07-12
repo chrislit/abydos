@@ -24,7 +24,7 @@ from __future__ import unicode_literals
 import unittest
 from abydos.stemmer import _m_degree, _has_vowel, _ends_in_doubled_cons, \
     _ends_in_cvc, porter, _snowball_r1, _snowball_r2, \
-    _snowball_short_syllable, porter2
+    _snowball_short_syllable, _snowball_ends_in_short_syllable, porter2
 import os
 
 TESTDIR = os.path.dirname(__file__)
@@ -228,6 +228,26 @@ class PorterTestCases(unittest.TestCase):
         self.assertFalse(_snowball_short_syllable('uproot', 4))
         self.assertFalse(_snowball_short_syllable('bestow', 4))
         #self.assertFalse(_snowball_short_syllable('disturb', 4))
+
+    def test_snowball_ends_in_short_syllable(self):
+        """test abydos.stemmer._snowball_ends_in_short_syllable
+        """
+        # base case
+        self.assertFalse(_snowball_ends_in_short_syllable(''))
+
+        # examples from
+        # http://snowball.tartarus.org/algorithms/english/stemmer.html
+        self.assertTrue(_snowball_ends_in_short_syllable('rap'))
+        self.assertTrue(_snowball_ends_in_short_syllable('trap'))
+        self.assertTrue(_snowball_ends_in_short_syllable('entrap'))
+        self.assertTrue(_snowball_ends_in_short_syllable('ow'))
+        self.assertTrue(_snowball_ends_in_short_syllable('on'))
+        self.assertTrue(_snowball_ends_in_short_syllable('at'))
+        self.assertFalse(_snowball_ends_in_short_syllable('uproot'))
+        self.assertFalse(_snowball_ends_in_short_syllable('uproot'))
+        self.assertFalse(_snowball_ends_in_short_syllable('bestow'))
+        self.assertFalse(_snowball_short_syllable('disturb'))
+
 
     def test_porter2(self):
         """test abydos.stemmer.porter2
