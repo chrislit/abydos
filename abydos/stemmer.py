@@ -414,6 +414,22 @@ def porter2(word):
     elif word[-1:] == '\'':
         word = word[:-1]
 
+    # Step 1a
+    if word[-4:] == 'sses':
+        word = word[:-2]
+    elif word[-3:] in set('ied', 'ies'):
+        if len(word) > 4:
+            word = word[:-1]
+        else:
+            word = word[:-2]
+    elif word[-2:] in set('us', 'ss'):
+        pass
+    elif word[-1] == 's':
+        word = word[:-1]
+
+
+
+
     # Change 'y' back to 'Y' if it survived stemming
     for i in _range(0, len(word)):
         if word[i] == 'Y':
