@@ -352,9 +352,14 @@ def _sb_ends_in_short_syllable(term, vowels=set('aeiouy'),
     """Return True iff term ends in a short syllable,
     according to the Porter2 specification
     """
-    for i in reversed(_range(len(term))):
-        if term[i] in vowels:
-            return _sb_short_syllable(term, i, vowels, codanonvowels)
+    if not term:
+        return False
+    if len(term) == 2:
+        if term[-2] in vowels and term[-1] not in vowels:
+            return True
+    elif len(term) >= 3:
+        if term[-3] not in vowels and term[-2] in vowels and term[-1] in codanonvowels:
+            return True
     return False
 
 def _sb_short_word(term, vowels=set('aeiouy'),
@@ -431,9 +436,9 @@ def porter2(word):
         word = word[:-2]
     elif word[-3:] in set(['ied', 'ies']):
         if len(word) > 4:
-            word = word[:-1]
-        else:
             word = word[:-2]
+        else:
+            word = word[:-1]
     elif word[-2:] in set(['us', 'ss']):
         pass
     elif word[-1] == 's':
@@ -444,30 +449,30 @@ def porter2(word):
     if word[-5:] == 'eedly':
         if len(word[r1_start:]) >= 5:
             word = word[:-3]
-    if word[-5:] == 'ingly':
+    elif word[-5:] == 'ingly':
         if _sb_has_vowel(word[:-5]):
             word = word[:-5]
             step1b_flag = True
-    if word[-4:] == 'edly':
+    elif word[-4:] == 'edly':
         if _sb_has_vowel(word[:-4]):
             word = word[:-4]
             step1b_flag = True
-    if word[-3:] == 'eed':
+    elif word[-3:] == 'eed':
         if len(word[r1_start:]) >= 3:
             word = word[:-1]
-    if word[-3:] == 'ing':
+    elif word[-3:] == 'ing':
         if _sb_has_vowel(word[:-3]):
             word = word[:-3]
             step1b_flag = True
-    if word[-2:] == 'ed':
+    elif word[-2:] == 'ed':
         if _sb_has_vowel(word[:-2]):
             word = word[:-2]
             step1b_flag = True
 
     if step1b_flag:
-        if word[:-2] in set(['at', 'bl', 'iz']):
+        if word[-2:] in set(['at', 'bl', 'iz']):
             word += 'e'
-        elif word[:-2] in _doubles:
+        elif word[-2:] in _doubles:
             word = word[:-1]
         elif _sb_short_word(word, _vowels, _codanonvowels):
             word += 'e'
@@ -581,11 +586,12 @@ def porter2(word):
     # Step 5
     if word:
         if word[-1] == 'e':
-            if (len(word[r2_start]) >= 1 or
-                (len(word[r1_start]) >= 1 and _sb_short_syllable(word[:-1]))):
+            if (len(word[r2_start:]) >= 1 or
+                (len(word[r1_start:]) >= 1 and
+                 not _sb_ends_in_short_syllable(word[:-1]))):
                 word = word[:-1]
         elif word[-1] == 'l':
-            if len(word[r2_start]) >= 1 and word[-2] == 'l':
+            if len(word[r2_start:]) >= 1 and word[-2] == 'l':
                 word = word[:-1]
 
     # Change 'y' back to 'Y' if it survived stemming
