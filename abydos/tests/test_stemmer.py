@@ -23,8 +23,8 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 import unittest
 from abydos.stemmer import _m_degree, _sb_has_vowel, _ends_in_doubled_cons, \
-    _ends_in_cvc, porter, _sb_r1, _sb_r2, _sb_short_syllable, \
-    _sb_ends_in_short_syllable, _sb_short_word, porter2
+    _ends_in_cvc, porter, _sb_r1, _sb_r2, _sb_ends_in_short_syllable, \
+    _sb_short_word, porter2
 import os
 
 TESTDIR = os.path.dirname(__file__)
@@ -213,25 +213,6 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(_sb_r2('sprinkled'), 9)
         self.assertEqual(_sb_r2('eucharist'), 6)
 
-    def test_sb_short_syllable(self):
-        """test abydos.stemmer._sb_short_syllable
-        """
-        # base case
-        self.assertFalse(_sb_short_syllable(''))
-
-        # examples from
-        # http://snowball.tartarus.org/algorithms/english/stemmer.html
-        self.assertTrue(_sb_short_syllable('rap', 1))
-        self.assertTrue(_sb_short_syllable('trap', 2))
-        self.assertTrue(_sb_short_syllable('entrap', 4))
-        self.assertTrue(_sb_short_syllable('ow'))
-        self.assertTrue(_sb_short_syllable('on'))
-        self.assertTrue(_sb_short_syllable('at'))
-        self.assertFalse(_sb_short_syllable('uproot', 3))
-        self.assertFalse(_sb_short_syllable('uproot', 4))
-        self.assertFalse(_sb_short_syllable('bestow', 4))
-        #self.assertFalse(_sb_short_syllable('disturb', 4))
-
     def test_sb_ends_in_short_syllable(self):
         """test abydos.stemmer._sb_ends_in_short_syllable
         """
@@ -249,7 +230,7 @@ class PorterTestCases(unittest.TestCase):
         self.assertFalse(_sb_ends_in_short_syllable('uproot'))
         self.assertFalse(_sb_ends_in_short_syllable('uproot'))
         self.assertFalse(_sb_ends_in_short_syllable('bestow'))
-        self.assertFalse(_sb_short_syllable('disturb'))
+        self.assertFalse(_sb_ends_in_short_syllable('disturb'))
 
     def test_sb_short_word(self):
         """test abydos.stemmer._sb_short_word

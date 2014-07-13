@@ -333,24 +333,13 @@ def _sb_r2(term, vowels=set('aeiouy')):
     r1_start = _sb_r1(term, vowels)
     return  r1_start + _sb_r1(term[r1_start:], vowels)
 
-def _sb_short_syllable(term, start=0, vowels=set('aeiouy'),
-                       codanonvowels=set('bcdfghjklmnpqrstvz\'')):
-    """Return True iff term has a short syllable starting at start,
-    according to the Porter2 specification
-    """
-    if not term or term[start] not in vowels:
-        return False
-    elif start == 0:
-        if term[start+1:start+2] not in vowels:
-            return True
-    elif term[start+1:start+2] in codanonvowels and term[start-1] not in vowels:
-        return True
-    return False
-
 def _sb_ends_in_short_syllable(term, vowels=set('aeiouy'),
                                codanonvowels=set('bcdfghjklmnpqrstvz\'')):
     """Return True iff term ends in a short syllable,
     according to the Porter2 specification
+
+    NB: This is akin to the CVC test from the Porter stemmer. The description
+    is unfortunately poor/ambiguous.
     """
     if not term:
         return False
