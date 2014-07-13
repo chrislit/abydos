@@ -572,6 +572,16 @@ def porter2(word):
         if word[-3:] == 'ion' and len(word) > 4 and len(word[r2_start:]) > 3:
             word = word[:-3]
 
+    # Step 5
+    if word:
+        if word[-1] == 'e':
+            if (len(word[r2_start]) >= 1 or
+                (len(word[r1_start]) >= 1 and _sb_short_syllable(word[:-1]))):
+                word = word[:-1]
+        elif word[-1] == 'l':
+            if len(word[r2_start]) >= 1 and word[-2] == 'l':
+                word = word[:-1]
+
     # Change 'y' back to 'Y' if it survived stemming
     for i in _range(0, len(word)):
         if word[i] == 'Y':
