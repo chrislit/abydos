@@ -104,7 +104,7 @@ def porter(word):
     word = ''.join([c for c in word if c in
                     set('abcdefghijklmnopqrstuvwxyz')])
 
-    # Return empty string if there's nothing left to stem
+    # Return word if stem is shorter than 2
     if len(word) < 3:
         return word
 
@@ -394,13 +394,16 @@ def porter2(word):
     word = ''.join([c for c in word if c in
                     set('abcdefghijklmnopqrstuvwxyz\'')])
 
-    # Return empty string if there's nothing left to stem
+    # Return word if stem is shorter than 2
     if len(word) < 3:
         return word
 
     # Remove initial ', if present.
-    if word[0] == '\'':
+    while word and word[0] == '\'':
         word = word[1:]
+        # Return word if stem is shorter than 2
+        if len(word) < 2:
+            return word
 
     # Re-map vocalic Y to y (Y will be C, y will be V)
     if word[0] == 'y':
@@ -419,6 +422,9 @@ def porter2(word):
         word = word[:-1]
     elif word[-1:] == '\'':
         word = word[:-1]
+    # Return word if stem is shorter than 2
+    if len(word) < 3:
+        return word
 
     # Step 1a
     if word[-4:] == 'sses':
