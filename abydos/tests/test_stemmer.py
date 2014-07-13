@@ -188,29 +188,29 @@ class PorterTestCases(unittest.TestCase):
         """test abydos.stemmer._sb_r1
         """
         # base case
-        self.assertEqual(_sb_r1(''), '')
+        self.assertEqual(_sb_r1(''), 0)
 
         # examples from http://snowball.tartarus.org/texts/r1r2.html
-        self.assertEqual(_sb_r1('beautiful'), 'iful')
-        self.assertEqual(_sb_r1('beauty'), 'y')
-        self.assertEqual(_sb_r1('beau'), '')
-        self.assertEqual(_sb_r1('animadversion'), 'imadversion')
-        self.assertEqual(_sb_r1('sprinkled'), 'kled')
-        self.assertEqual(_sb_r1('eucharist'), 'harist')
+        self.assertEqual(_sb_r1('beautiful'), 5)
+        self.assertEqual(_sb_r1('beauty'), 5)
+        self.assertEqual(_sb_r1('beau'), 4)
+        self.assertEqual(_sb_r1('animadversion'), 2)
+        self.assertEqual(_sb_r1('sprinkled'), 5)
+        self.assertEqual(_sb_r1('eucharist'), 3)
 
     def test_sb_r2(self):
         """test abydos.stemmer._sb_r2
         """
         # base case
-        self.assertEqual(_sb_r2(''), '')
+        self.assertEqual(_sb_r2(''), 0)
 
         # examples from http://snowball.tartarus.org/texts/r1r2.html
-        self.assertEqual(_sb_r2('beautiful'), 'ul')
-        self.assertEqual(_sb_r2('beauty'), '')
-        self.assertEqual(_sb_r2('beau'), '')
-        self.assertEqual(_sb_r2('animadversion'), 'adversion')
-        self.assertEqual(_sb_r2('sprinkled'), '')
-        self.assertEqual(_sb_r2('eucharist'), 'ist')
+        self.assertEqual(_sb_r2('beautiful'), 7)
+        self.assertEqual(_sb_r2('beauty'), 6)
+        self.assertEqual(_sb_r2('beau'), 4)
+        self.assertEqual(_sb_r2('animadversion'), 4)
+        self.assertEqual(_sb_r2('sprinkled'), 9)
+        self.assertEqual(_sb_r2('eucharist'), 6)
 
     def test_sb_short_syllable(self):
         """test abydos.stemmer._sb_short_syllable

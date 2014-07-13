@@ -324,13 +324,14 @@ def _sb_r1(term, vowels=set('aeiouy')):
         if not vowel_found and term[i] in vowels:
             vowel_found = True
         elif vowel_found and term[i] not in vowels:
-            return term[i+1:]
-    return ''
+            return i+1
+    return len(term)
 
 def _sb_r2(term, vowels=set('aeiouy')):
     """Return the R2 region, as defined in the Porter2 specification
     """
-    return _sb_r1(_sb_r1(term, vowels), vowels)
+    r1_start = _sb_r1(term, vowels)
+    return  r1_start + _sb_r1(term[r1_start:], vowels)
 
 def _sb_short_syllable(term, start=0, vowels=set('aeiouy'),
                        codanonvowels=set('bcdfghjklmnpqrstvz\'')):
@@ -361,7 +362,7 @@ def _sb_short_word(term, vowels=set('aeiouy'),
     """Return True iff term is a short word,
     according to the Porter2 specification
     """
-    if (_sb_r1(term, vowels) == '' and
+    if (_sb_r1(term, vowels) == len(term) and
         _sb_ends_in_short_syllable(term, vowels, codanonvowels)):
         return True
     return False
@@ -407,8 +408,8 @@ def porter2(word):
         if word[i] == 'y' and word[i-1] in _p2_vowels:
             word = word[:i] + 'Y' + word[i+1:]
 
-    r1_region = _sb_r1(word, _p2_vowels)
-    r2_region = _sb_r2(word, _p2_vowels)
+    r1_start = _sb_r1(word, _p2_vowels)
+    r2_start = _sb_r2(word, _p2_vowels)
 
     # Step 0
     if word[-3:] == '\'s\'':
@@ -430,8 +431,6 @@ def porter2(word):
         pass
     elif word[-1] == 's':
         word = word[:-1]
-
-
 
 
     # Change 'y' back to 'Y' if it survived stemming
