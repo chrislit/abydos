@@ -366,7 +366,7 @@ def _sb_short_word(term, vowels=set('aeiouy'),
         _sb_ends_in_short_syllable(term, vowels, codanonvowels)):
         return True
     return False
- 
+
 
 def porter2(word):
     """Implementation of Porter2 (Snowball English) stemmer -- ideally returns
@@ -470,7 +470,7 @@ def porter2(word):
     if len(word) > 2 and word[-1] in set('Yy') and word[-2] not in _vowels:
         word = word[:-1] + 'i'
 
-    # Step 2:
+    # Step 2
     if len(word) > 1:
         if word[-2] == 'a':
             if word[-7:] == 'ational':
@@ -509,7 +509,7 @@ def porter2(word):
                     word = word[:-1] + 'e'
             elif word[-2:] == 'li':
                 if r1_start >= 1 and len(word[r1_start:]) >= 2 and word[-3] in _li:
-                    word = word[:-2]                
+                    word = word[:-2]
         elif word[-2] == 'o':
             if word[-7:] == 'ization':
                 if len(word[r1_start:]) >= 7:
@@ -537,6 +537,29 @@ def porter2(word):
             elif word[-5:] == 'iviti':
                 if len(word[r1_start:]) >= 5:
                     word = word[:-3] + 'e'
+
+    # Step 3
+    if word[-7:] == 'ational':
+        if len(word[r1_start:]) >= 7:
+            word = word[:-5] + 'e'
+    elif word[-6:] == 'tional':
+        if len(word[r1_start:]) >= 6:
+            word = word[:-2]
+    elif word[-5:] in set(['alize', 'icate', 'iciti']):
+        if len(word[r1_start:]) >= 5:
+            word = word[:-3]
+    elif word[-5:] == 'ical':
+        if len(word[r2_start:]) >= 5:
+            word = word[:-5]
+    elif word[-4:] == 'ical':
+        if len(word[r1_start:]) >= 4:
+            word = word[:-2]
+    elif word[-4:] == 'ness':
+        if len(word[r1_start:]) >= 4:
+            word = word[:-4]
+    elif word[-3:] == 'ful':
+        if len(word[r1_start:]) >= 3:
+            word = word[:-3]
 
     # Change 'y' back to 'Y' if it survived stemming
     for i in _range(0, len(word)):
