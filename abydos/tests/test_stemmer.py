@@ -290,6 +290,7 @@ class PorterTestCases(unittest.TestCase):
         with open(TESTDIR+'/snowball_porter2.csv') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
-                line = line.strip().split(',')
-                word, stem = line[0], line[1]
-                self.assertEqual(porter2(word), stem.lower())
+                if line[0] != '#':
+                    line = line.strip().split(',')
+                    word, stem = line[0], line[1]
+                    self.assertEqual(porter2(word), stem.lower())
