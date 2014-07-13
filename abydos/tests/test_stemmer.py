@@ -180,9 +180,10 @@ class PorterTestCases(unittest.TestCase):
         with open(TESTDIR+'/snowball_porter.csv') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
-                line = line.strip().split(',')
-                word, stem = line[0], line[1]
-                self.assertEqual(porter(word), stem.lower())
+                if line[0] != '#':
+                    line = line.strip().split(',')
+                    word, stem = line[0], line[1]
+                    self.assertEqual(porter(word), stem.lower())
 
     def test_sb_r1(self):
         """test abydos.stemmer._sb_r1
