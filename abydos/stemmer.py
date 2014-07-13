@@ -368,10 +368,6 @@ def _sb_short_word(term, vowels=set('aeiouy'),
     return False
  
 
-_p2_vowels = set('aeiouy')
-_p2_doubles = set(['bb', 'dd', 'ff', 'gg', 'mm', 'nn', 'pp', 'rr', 'tt'])
-_p2_li = set('cdeghkmnrt')
-
 def porter2(word):
     """Implementation of Porter2 (Snowball English) stemmer -- ideally returns
     the word stem
@@ -383,6 +379,11 @@ def porter2(word):
     The Porter2/Snowball English stemmer is defined at
     http://snowball.tartarus.org/algorithms/english/stemmer.html
     """
+    _vowels = set('aeiouy')
+    _codanonvowels = set('bcdfghjklmnpqrstvz\'')
+    _doubles = set(['bb', 'dd', 'ff', 'gg', 'mm', 'nn', 'pp', 'rr', 'tt'])
+    _li = set('cdeghkmnrt')
+
     # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicodedata.normalize('NFKD', _unicode(word.lower()))
     word = word.replace('ß', 'ss')
@@ -405,11 +406,11 @@ def porter2(word):
     if word[0] == 'y':
         word = 'Y' + word[1:]
     for i in _range(1, len(word)):
-        if word[i] == 'y' and word[i-1] in _p2_vowels:
+        if word[i] == 'y' and word[i-1] in _vowels:
             word = word[:i] + 'Y' + word[i+1:]
 
-    r1_start = _sb_r1(word, _p2_vowels)
-    r2_start = _sb_r2(word, _p2_vowels)
+    r1_start = _sb_r1(word, _vowels)
+    r2_start = _sb_r2(word, _vowels)
 
     # Step 0
     if word[-3:] == '\'s\'':
@@ -432,6 +433,38 @@ def porter2(word):
     elif word[-1] == 's':
         word = word[:-1]
 
+    # Step 1b
+    step1b_flag = False
+    if word[-5:] == 'eedly':
+        if len(word[r1_start:]) >= 5:
+            word = word[:-3]
+    if word[-5:] == 'ingly':
+        if _sb_has_vowel(word[:-5]):
+            word = word[:-5]
+            step1b_flag = True
+    if word[-4:] == 'edly':
+        if _sb_has_vowel(word[:-4]):
+            word = word[:-4]
+            step1b_flag = True
+    if word[-3:] == 'eed':
+        if len(word[r1_start:]) >= 3:
+            word = word[:-1]
+    if word[-3:] == 'ing':
+        if _sb_has_vowel(word[:-3]):
+            word = word[:-3]
+            step1b_flag = True
+    if word[-2:] == 'ed':
+        if _sb_has_vowel(word[:-2]):
+            word = word[:-2]
+            step1b_flag = True
+
+    if step1b_flag:
+        if word[:-2] in set(['at', 'bl', 'iz']):
+            word += 'e'
+        elif word[:-2] in _doubles:
+            word = word[:-1]
+        elif _sb_short_word(word, _vowels, _codanonvowels):
+            word += 'e'
 
     # Change 'y' back to 'Y' if it survived stemming
     for i in _range(0, len(word)):
