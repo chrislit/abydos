@@ -150,7 +150,7 @@ def porter(word):
             word += 'e'
 
     # Step 1c
-    if (word[-1] == 'Y' or word[-1] == 'y') and _sb_has_vowel(word[:-1]):
+    if word[-1] in set('Yy') and _sb_has_vowel(word[:-1]):
         word = word[:-1] + 'i'
 
     # Step 2
@@ -465,6 +465,12 @@ def porter2(word):
             word = word[:-1]
         elif _sb_short_word(word, _vowels, _codanonvowels):
             word += 'e'
+
+    # Step 1c
+    if len(word) > 2 and word[-1] in set('Yy') and word[-2] not in _vowels:
+        word = word[:-1] + 'i'
+
+
 
     # Change 'y' back to 'Y' if it survived stemming
     for i in _range(0, len(word)):
