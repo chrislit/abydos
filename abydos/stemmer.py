@@ -561,6 +561,17 @@ def porter2(word):
         if len(word[r1_start:]) >= 3:
             word = word[:-3]
 
+    # Step 4
+    for suffix in ('ement', 'ance', 'ence', 'able', 'ible', 'ment', 'ant', 'ent'
+                   'ism', 'ate', 'iti', 'ous', 'ive', 'ize', 'al', 'er', 'ic'):
+        if word[-len(suffix):] == suffix:
+            if len(word[r2_start:]) >= len(suffix):
+                word = word[:-len(suffix)]
+            break
+    else:
+        if word[-3:] == 'ion' and len(word) > 4 and len(word[r2_start:]) > 3:
+            word = word[:-3]
+
     # Change 'y' back to 'Y' if it survived stemming
     for i in _range(0, len(word)):
         if word[i] == 'Y':
