@@ -662,14 +662,15 @@ def german(word):
     http://snowball.tartarus.org/algorithms/german/stemmer.html
     """
     _vowels = set('aeiouyäöü')
-    _s_ending = set('bdfghklmnrt')
-    _st_ending = set('bdfghklmnt')
+    _s_endings = set('bdfghklmnrt')
+    _st_endings = set('bdfghklmnt')
 
     # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicodedata.normalize('NFKD', _unicode(word.lower()))
     word = word.replace('ß', 'ss')
     word = ''.join([c for c in word if c in
-                    set('abcdefghijklmnopqrstuvwxyzäöü')])
+                    set('abcdefghijklmnopqrstuvwxyz̈')])
+    word = unicodedata.normalize('NFC', word.lower())
 
     if len(word) > 2:
         for i in _range(2, len(word)):
@@ -683,13 +684,76 @@ def german(word):
     r2_start = _sb_r2(word, _vowels)
 
     # Step 1
+    niss_flag = False
+    if word[-3:] == 'ern':
+        if len(word[r1_start:]) >= 3:
+            word = word[:-3]
+    elif word[-2:] == 'em':
+        if len(word[r1_start:]) >= 2:
+            word = word[:-2]
+    elif word[-2:] == 'er':
+        if len(word[r1_start:]) >= 2:
+            word = word[:-2]
+    elif word[-2:] == 'en':
+        if len(word[r1_start:]) >= 2:
+            word = word[:-2]
+            niss_flag = True
+    elif word[-2:] == 'es':
+        if len(word[r1_start:]) >= 2:
+            word = word[:-2]
+            niss_flag = True
+    elif word[-1:] == 'e':
+        if len(word[r1_start:]) >= 1:
+            word = word[:-1]
+            niss_flag = True
+    elif word[-1:] == 's':
+        if (len(word[r1_start:]) >= 1 and len(word) >= 2 and
+            word[-2] in _s_endings):
+            word = word[:-1]
 
+    if niss_flag and word[-4:] == 'niss':
+        word = word[:-1]
 
     # Step 2
-
+    if word[-3:] == 'est':
+        if len(word[r1_start:]) >= 3:
+            word = word[:-3]
+    elif word[-2:] == 'en':
+        if len(word[r1_start:]) >= 2:
+            word = word[:-2]
+    elif word[-2:] == 'er':
+        if len(word[r1_start:]) >= 2:
+            word = word[:-2]
+    elif word[-2:] == 'st':
+        if (len(word[r1_start:]) >= 2 and len(word) >= 6 and
+            word[-3] in _st_endings):
+            word = word[:-2]
 
     # Step 3
-
+    if word[-4:] == 'isch':
+        if len(word[r2_start:]) >= 4 and word[-5] != 'e':
+            word = word[:-4]
+    elif word[-4:] in set(['lich', 'heit']):
+        if len(word[r2_start:]) >= 4:
+            word = word[:-4]
+            if (word[-2:] in set(['er', 'en']) and len(word[r1_start:]) >= 2):
+                word = word[:-2]
+    elif word[-4:] == 'keit':
+        if len(word[r2_start:]) >= 4:
+            word = word[:-4]
+            if (word[-4:] == 'lich' and len(word[r2_start:]) >= 4):
+                word = word[:-4]
+            elif (word[-2:] == 'ig' and len(word[r2_start:]) >= 2):
+                word = word[:-2]
+    elif word[-3:] in set(['end', 'ung']):
+        if len(word[r2_start:]) >= 3:
+            word = word[:-3]
+            if (word[-2:] == 'ig' and len(word[r2_start:]) >= 2 and
+                word[-3] != 'e'):
+                word = word[:-2]
+    elif word[-2:] in set(['ig', 'ik']):
+        if len(word[r2_start:]) >= 2 and word[-3] != 'e':
+            word = word[:-2]
 
     # Change 'Y' and 'U' back to lowercase if survived stemming
     for i in _range(0, len(word)):
@@ -697,5 +761,9 @@ def german(word):
             word = word[:i] + 'y' + word[i+1:]
         elif word[i] == 'U':
             word = word[:i] + 'u' + word[i+1:]
+
+    # Remove umlauts
+    _umlauts = dict(zip([ord(_) for _ in 'äöü'], 'aou'))
+    word = word.translate(_umlauts)
 
     return word
