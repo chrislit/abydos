@@ -48,7 +48,7 @@ def _m_degree(term, vowels=set('aeiouy')):
             last_was_vowel = False
     return mdeg
 
-def _sb_has_vowel(term, vowels = set('aeiouy')):
+def _sb_has_vowel(term, vowels=set('aeiouy')):
     """Return true iff a vowel exists in the term (as defined in the Porter
     stemmer definition)
 
@@ -61,7 +61,7 @@ def _sb_has_vowel(term, vowels = set('aeiouy')):
             return True
     return False
 
-def _ends_in_doubled_cons(term, vowels = set('aeiouy')):
+def _ends_in_doubled_cons(term, vowels=set('aeiouy')):
     """Return true iff the stem ends in a doubled consonant (as defined in the
     Porter stemmer definition)
 
@@ -73,7 +73,7 @@ def _ends_in_doubled_cons(term, vowels = set('aeiouy')):
         return True
     return False
 
-def _ends_in_cvc(term, vowels = set('aeiouy')):
+def _ends_in_cvc(term, vowels=set('aeiouy')):
     """Return true iff the stem ends in cvc (as defined in the Porter stemmer
     definition)
 
@@ -380,6 +380,8 @@ def porter2(word):
     The Porter2/Snowball English stemmer is defined at
     http://snowball.tartarus.org/algorithms/english/stemmer.html
     """
+    # pylint: disable=too-many-branches
+    # pylint: disable=too-many-return-statements
     _vowels = set('aeiouy')
     _codanonvowels = set('bcdfghjklmnpqrstvz\'')
     _doubles = set(['bb', 'dd', 'ff', 'gg', 'mm', 'nn', 'pp', 'rr', 'tt'])

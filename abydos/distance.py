@@ -1921,8 +1921,7 @@ def sim_tfidf(src, tar, qval=2, docs=None):
     if len(q_src) == 0 or len(q_tar) == 0:
         return 0.0
 
-    pass
-
+    # TODO: finish implementation
 
 ################################################################################
 
