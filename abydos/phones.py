@@ -663,10 +663,10 @@ def cmp_features(feat1, feat2):
     magnitude = len(FEATURE_MASK)
     featxor = feat1 ^ feat2
     diffbits = 0
-    print featxor
+    # print(featxor)
     while featxor:
         if featxor & 0b1:
             diffbits += 1
         featxor >>= 1
-    print diffbits
+    # print(diffbits)
     return 1 - (diffbits/(2*magnitude))
