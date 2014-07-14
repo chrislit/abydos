@@ -680,7 +680,7 @@ def german(word):
                 elif word[i-1] == 'y':
                     word = word[:i-1] + 'Y' + word[i:]
 
-    r1_start = _sb_r1(word, _vowels)
+    r1_start = max(3, _sb_r1(word, _vowels))
     r2_start = _sb_r2(word, _vowels)
 
     # Step 1
