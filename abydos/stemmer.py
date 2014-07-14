@@ -112,7 +112,6 @@ def porter(word, early_english=False):
 
     # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicodedata.normalize('NFKD', _unicode(word.lower()))
-    word = word.replace('ß', 'ss')
     word = ''.join([c for c in word if c in
                     set('abcdefghijklmnopqrstuvwxyz')])
 
@@ -435,7 +434,6 @@ def porter2(word, early_english=False):
 
     # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicodedata.normalize('NFKD', _unicode(word.lower()))
-    word = word.replace('ß', 'ss')
     # replace apostrophe-like characters with U+0027, per
     # http://snowball.tartarus.org/texts/apostrophe.html
     word = word.replace('’', '\'')
