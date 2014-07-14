@@ -30,7 +30,7 @@ import os
 TESTDIR = os.path.dirname(__file__)
 
 class PorterTestCases(unittest.TestCase):
-    """test cases for abydos.stemmer._m_degree, abydos.stemmer.porter 
+    """test cases for abydos.stemmer._m_degree, abydos.stemmer.porter
     """
     def test_m_degree(self):
         """test abydos.stemmer._m_degree
