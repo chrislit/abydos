@@ -548,7 +548,7 @@ def porter2(word):
     elif word[-5:] in set(['alize', 'icate', 'iciti']):
         if len(word[r1_start:]) >= 5:
             word = word[:-3]
-    elif word[-5:] == 'ical':
+    elif word[-5:] == 'ative':
         if len(word[r2_start:]) >= 5:
             word = word[:-5]
     elif word[-4:] == 'ical':
@@ -562,15 +562,17 @@ def porter2(word):
             word = word[:-3]
 
     # Step 4
-    for suffix in ('ement', 'ance', 'ence', 'able', 'ible', 'ment', 'ant', 'ent'
-                   'ism', 'ate', 'iti', 'ous', 'ive', 'ize', 'al', 'er', 'ic'):
+    for suffix in ('ement', 'ance', 'ence', 'able', 'ible', 'ment', 'ant',
+                   'ent', 'ism', 'ate', 'iti', 'ous', 'ive', 'ize', 'al', 'er',
+                   'ic'):
         if word[-len(suffix):] == suffix:
             if len(word[r2_start:]) >= len(suffix):
                 word = word[:-len(suffix)]
             break
     else:
-        if word[-3:] == 'ion' and len(word) > 4 and len(word[r2_start:]) > 3:
-            word = word[:-3]
+        if word[-3:] == 'ion':
+            if len(word[r2_start:]) >= 3 and len(word) >= 4 and word[-4] in tuple('st'):
+                word = word[:-3]
 
     # Step 5
     if word:
