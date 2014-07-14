@@ -316,10 +316,15 @@ def porter(word):
     return word
 
 
-def _sb_r1(term, vowels=set('aeiouy')):
+def _sb_r1(term, vowels=set('aeiouy'), r1_prefixes=None):
     """Return the R1 region, as defined in the Porter2 specification
     """
     vowel_found = False
+    if hasattr(r1_prefixes, '__iter__'):
+        for prefix in r1_prefixes:
+            if term[:len(prefix)] == prefix:
+                return len(prefix)
+
     for i in _range(len(term)):
         if not vowel_found and term[i] in vowels:
             vowel_found = True
@@ -327,11 +332,11 @@ def _sb_r1(term, vowels=set('aeiouy')):
             return i+1
     return len(term)
 
-def _sb_r2(term, vowels=set('aeiouy')):
+def _sb_r2(term, vowels=set('aeiouy'), r1_prefixes=None):
     """Return the R2 region, as defined in the Porter2 specification
     """
-    r1_start = _sb_r1(term, vowels)
-    return  r1_start + _sb_r1(term[r1_start:], vowels)
+    r1_start = _sb_r1(term, vowels, r1_prefixes)
+    return r1_start + _sb_r1(term[r1_start:], vowels)
 
 def _sb_ends_in_short_syllable(term, vowels=set('aeiouy'),
                                codanonvowels=set('bcdfghjklmnpqrstvz\'')):
@@ -352,11 +357,12 @@ def _sb_ends_in_short_syllable(term, vowels=set('aeiouy'),
     return False
 
 def _sb_short_word(term, vowels=set('aeiouy'),
-                   codanonvowels=set('bcdfghjklmnpqrstvz\'')):
+                   codanonvowels=set('bcdfghjklmnpqrstvz\''),
+                   r1_prefixes=None):
     """Return True iff term is a short word,
     according to the Porter2 specification
     """
-    if (_sb_r1(term, vowels) == len(term) and
+    if (_sb_r1(term, vowels, r1_prefixes) == len(term) and
         _sb_ends_in_short_syllable(term, vowels, codanonvowels)):
         return True
     return False
@@ -378,6 +384,19 @@ def porter2(word):
     _doubles = set(['bb', 'dd', 'ff', 'gg', 'mm', 'nn', 'pp', 'rr', 'tt'])
     _li = set('cdeghkmnrt')
 
+    # R1 prefixes should be in order from longest to shortest to prevent masking
+    _r1_prefixes = ('commun', 'gener', 'arsen')
+    _exception1dict = {# special changes:
+                       'skis': 'ski', 'skies': 'sky', 'dying': 'die',
+                       'lying': 'lie', 'tying': 'tie',
+                       # special -LY cases:
+                       'idly': 'idl', 'gently': 'gentl', 'ugly': 'ugli',
+                       'early': 'earli', 'only': 'onli', 'singly': 'singl'}
+    _exception1set = set(['sky', 'news', 'howe', 'atlas', 'cosmos', 'bias',
+                          'andes'])
+    _exception2set = set(['inning', 'outing', 'canning', 'herring', 'earring',
+                          'proceed', 'exceed', 'succeed'])
+
     # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicodedata.normalize('NFKD', _unicode(word.lower()))
     word = word.replace('ß', 'ss')
@@ -387,6 +406,12 @@ def porter2(word):
     word = word.replace('’', '\'')
     word = ''.join([c for c in word if c in
                     set('abcdefghijklmnopqrstuvwxyz\'')])
+
+    # Exceptions 1
+    if word in _exception1dict:
+        return _exception1dict[word]
+    elif word in _exception1set:
+        return word
 
     # Return word if stem is shorter than 2
     if len(word) < 3:
@@ -406,8 +431,8 @@ def porter2(word):
         if word[i] == 'y' and word[i-1] in _vowels:
             word = word[:i] + 'Y' + word[i+1:]
 
-    r1_start = _sb_r1(word, _vowels)
-    r2_start = _sb_r2(word, _vowels)
+    r1_start = _sb_r1(word, _vowels, _r1_prefixes)
+    r2_start = _sb_r2(word, _vowels, _r1_prefixes)
 
     # Step 0
     if word[-3:] == '\'s\'':
@@ -431,7 +456,12 @@ def porter2(word):
     elif word[-2:] in set(['us', 'ss']):
         pass
     elif word[-1] == 's':
-        word = word[:-1]
+        if _sb_has_vowel(word[:-2]):
+            word = word[:-1]
+
+    # Exceptions 2
+    if word in _exception2set:
+        return word
 
     # Step 1b
     step1b_flag = False
@@ -463,7 +493,7 @@ def porter2(word):
             word += 'e'
         elif word[-2:] in _doubles:
             word = word[:-1]
-        elif _sb_short_word(word, _vowels, _codanonvowels):
+        elif _sb_short_word(word, _vowels, _codanonvowels, _r1_prefixes):
             word += 'e'
 
     # Step 1c
