@@ -364,7 +364,7 @@ def _sb_ends_in_short_syllable(term, vowels=None, codanonvowels=None):
     if vowels is None:
         vowels = set('aeiouy')
     if codanonvowels is None:
-        set('bcdfghjklmnpqrstvz\'')
+        codanonvowels = set('bcdfghjklmnpqrstvz\'')
     if len(term) == 2:
         if term[-2] in vowels and term[-1] not in vowels:
             return True
@@ -381,7 +381,7 @@ def _sb_short_word(term, vowels=None, codanonvowels=None, r1_prefixes=None):
     if vowels is None:
         vowels = set('aeiouy')
     if codanonvowels is None:
-        set('bcdfghjklmnpqrstvz\'')
+        codanonvowels = set('bcdfghjklmnpqrstvz\'')
     if (_sb_r1(term, vowels, r1_prefixes) == len(term) and
         _sb_ends_in_short_syllable(term, vowels, codanonvowels)):
         return True
