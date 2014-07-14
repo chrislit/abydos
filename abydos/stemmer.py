@@ -98,6 +98,8 @@ def porter(word):
     The Porter stemmer is defined at
     http://snowball.tartarus.org/algorithms/porter/stemmer.html
     """
+    # pylint: disable=too-many-branches
+
     # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicodedata.normalize('NFKD', _unicode(word.lower()))
     word = word.replace('ß', 'ss')
@@ -382,6 +384,7 @@ def porter2(word):
     """
     # pylint: disable=too-many-branches
     # pylint: disable=too-many-return-statements
+
     _vowels = set('aeiouy')
     _codanonvowels = set('bcdfghjklmnpqrstvz\'')
     _doubles = set(['bb', 'dd', 'ff', 'gg', 'mm', 'nn', 'pp', 'rr', 'tt'])
