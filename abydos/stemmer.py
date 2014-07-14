@@ -352,7 +352,8 @@ def _sb_ends_in_short_syllable(term, vowels=set('aeiouy'),
         if term[-2] in vowels and term[-1] not in vowels:
             return True
     elif len(term) >= 3:
-        if term[-3] not in vowels and term[-2] in vowels and term[-1] in codanonvowels:
+        if (term[-3] not in vowels and term[-2] in vowels and
+            term[-1] in codanonvowels):
             return True
     return False
 
@@ -519,7 +520,8 @@ def porter2(word):
                     word = word[:-1]
         elif word[-2] == 'g':
             if word[-3:] == 'ogi':
-                if r1_start >= 1 and len(word[r1_start:]) >= 3 and word[-4] == 'l':
+                if (r1_start >= 1 and len(word[r1_start:]) >= 3 and
+                    word[-4] == 'l'):
                     word = word[:-1]
         elif word[-2] == 'l':
             if word[-6:] == 'lessli':
@@ -538,7 +540,8 @@ def porter2(word):
                 if len(word[r1_start:]) >= 3:
                     word = word[:-1] + 'e'
             elif word[-2:] == 'li':
-                if r1_start >= 1 and len(word[r1_start:]) >= 2 and word[-3] in _li:
+                if (r1_start >= 1 and len(word[r1_start:]) >= 2 and
+                    word[-3] in _li):
                     word = word[:-2]
         elif word[-2] == 'o':
             if word[-7:] == 'ization':
@@ -601,7 +604,8 @@ def porter2(word):
             break
     else:
         if word[-3:] == 'ion':
-            if len(word[r2_start:]) >= 3 and len(word) >= 4 and word[-4] in tuple('st'):
+            if (len(word[r2_start:]) >= 3 and len(word) >= 4 and
+                word[-4] in tuple('st')):
                 word = word[:-3]
 
     # Step 5
