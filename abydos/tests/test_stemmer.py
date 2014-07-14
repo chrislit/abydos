@@ -24,8 +24,8 @@ from __future__ import unicode_literals
 import unittest
 from abydos.stemmer import _m_degree, _sb_has_vowel, _ends_in_doubled_cons, \
     _ends_in_cvc, porter, _sb_r1, _sb_r2, _sb_ends_in_short_syllable, \
-    _sb_short_word, porter2
-import os
+    _sb_short_word, porter2, german
+import os, codecs
 
 TESTDIR = os.path.dirname(__file__)
 
@@ -298,3 +298,19 @@ class PorterTestCases(unittest.TestCase):
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
                     self.assertEqual(porter2(word), stem.lower())
+
+    def test_german_snowball(self):
+        """test abydos.stemmer.german (Snowball testset)
+
+        These test cases are from
+        http://snowball.tartarus.org/algorithms/german/diffs.txt
+        """
+        #  Snowball Porter test set
+        with codecs.open(TESTDIR+'/snowball_german.csv', 'r',
+                         'utf-8') as snowball_testset:
+            next(snowball_testset)
+            for line in snowball_testset:
+                if line[0] != '#':
+                    line = line.strip().split(',')
+                    word, stem = line[0], line[1]
+                    self.assertEqual(german(word), stem.lower())
