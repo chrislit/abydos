@@ -299,6 +299,7 @@ class PorterTestCases(unittest.TestCase):
                     word, stem = line[0], line[1]
                     self.assertEqual(porter2(word), stem.lower())
 
+
     def test_german_snowball(self):
         """test abydos.stemmer.german (Snowball testset)
 
