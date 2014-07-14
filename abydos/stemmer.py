@@ -320,7 +320,7 @@ def porter(word, early_english=False):
     if word[-2:] == 'll' and _m_degree(word, _vowels) > 1:
         word = word[:-1]
 
-    # Change 'y' back to 'Y' if it survived stemming
+    # Change 'Y' back to 'y' if it survived stemming
     for i in _range(len(word)):
         if word[i] == 'Y':
             word = word[:i] + 'y' + word[i+1:]
@@ -642,9 +642,60 @@ def porter2(word, early_english=False):
             if len(word[r2_start:]) >= 1 and word[-2] == 'l':
                 word = word[:-1]
 
-    # Change 'y' back to 'Y' if it survived stemming
+    # Change 'Y' back to 'y' if it survived stemming
     for i in _range(0, len(word)):
         if word[i] == 'Y':
             word = word[:i] + 'y' + word[i+1:]
+
+    return word
+
+
+def german(word):
+    """Implementation of Snowball German stemmer -- ideally returns the word
+    stem
+
+    Arguments:
+    word -- the word to calculate the stem of
+
+    Description:
+    The Snowball German stemmer is defined at
+    http://snowball.tartarus.org/algorithms/german/stemmer.html
+    """
+    _vowels = set('aeiouyäöü')
+    _s_ending = set('bdfghklmnrt')
+    _st_ending = set('bdfghklmnt')
+
+    # uppercase, normalize, decompose, and filter non-A-Z out
+    word = unicodedata.normalize('NFKD', _unicode(word.lower()))
+    word = word.replace('ß', 'ss')
+    word = ''.join([c for c in word if c in
+                    set('abcdefghijklmnopqrstuvwxyzäöü')])
+
+    if len(word) > 2:
+        for i in _range(2, len(word)):
+            if word[i] in _vowels and word[i-2] in _vowels:
+                if word[i-1] == 'u':
+                    word = word[:i-1] + 'U' + word[i:]
+                elif word[i-1] == 'y':
+                    word = word[:i-1] + 'Y' + word[i:]
+
+    r1_start = _sb_r1(word, _vowels)
+    r2_start = _sb_r2(word, _vowels)
+
+    # Step 1
+
+
+    # Step 2
+
+
+    # Step 3
+
+
+    # Change 'Y' and 'U' back to lowercase if survived stemming
+    for i in _range(0, len(word)):
+        if word[i] == 'Y':
+            word = word[:i] + 'y' + word[i+1:]
+        elif word[i] == 'U':
+            word = word[:i] + 'u' + word[i+1:]
 
     return word
