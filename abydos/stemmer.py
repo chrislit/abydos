@@ -27,7 +27,7 @@ import unicodedata
 from ._compat import _range, _unicode
 
 
-def _m_degree(term, vowels=set('aeiouy')):
+def _m_degree(term, vowels=None):
     """Return the m-degree as defined in the Porter stemmer definition
 
     Arguments:
@@ -37,6 +37,8 @@ def _m_degree(term, vowels=set('aeiouy')):
     Description:
     m-degree is equal to the number of V to C transitions
     """
+    if vowels is None:
+        vowels = set('aeiouy')
     mdeg = 0
     last_was_vowel = False
     for letter in term:
@@ -48,7 +50,7 @@ def _m_degree(term, vowels=set('aeiouy')):
             last_was_vowel = False
     return mdeg
 
-def _sb_has_vowel(term, vowels=set('aeiouy')):
+def _sb_has_vowel(term, vowels=None):
     """Return true iff a vowel exists in the term (as defined in the Porter
     stemmer definition)
 
@@ -56,12 +58,14 @@ def _sb_has_vowel(term, vowels=set('aeiouy')):
     term -- the word to scan for vowels
     vowels -- the set of vowels in the language
     """
+    if vowels is None:
+        vowels = set('aeiouy')
     for letter in term:
         if letter in vowels:
             return True
     return False
 
-def _ends_in_doubled_cons(term, vowels=set('aeiouy')):
+def _ends_in_doubled_cons(term, vowels=None):
     """Return true iff the stem ends in a doubled consonant (as defined in the
     Porter stemmer definition)
 
@@ -69,11 +73,13 @@ def _ends_in_doubled_cons(term, vowels=set('aeiouy')):
     term -- the word to check for a final doubled consonant
     vowels -- the set of vowels in the language
     """
+    if vowels is None:
+        vowels = set('aeiouy')
     if len(term) > 1 and term[-1] not in vowels and term[-2] == term[-1]:
         return True
     return False
 
-def _ends_in_cvc(term, vowels=set('aeiouy')):
+def _ends_in_cvc(term, vowels=None):
     """Return true iff the stem ends in cvc (as defined in the Porter stemmer
     definition)
 
@@ -81,6 +87,8 @@ def _ends_in_cvc(term, vowels=set('aeiouy')):
     term -- the word to scan for cvc
     vowels -- the set of vowels in the language
     """
+    if vowels is None:
+        vowels = set('aeiouy')
     if len(term) > 2 and (term[-1] not in vowels and
                           term[-2] in vowels and
                           term[-3] not in vowels and
@@ -318,9 +326,11 @@ def porter(word):
     return word
 
 
-def _sb_r1(term, vowels=set('aeiouy'), r1_prefixes=None):
+def _sb_r1(term, vowels=None, r1_prefixes=None):
     """Return the R1 region, as defined in the Porter2 specification
     """
+    if vowels is None:
+        vowels = set('aeiouy')
     vowel_found = False
     if hasattr(r1_prefixes, '__iter__'):
         for prefix in r1_prefixes:
@@ -334,14 +344,15 @@ def _sb_r1(term, vowels=set('aeiouy'), r1_prefixes=None):
             return i+1
     return len(term)
 
-def _sb_r2(term, vowels=set('aeiouy'), r1_prefixes=None):
+def _sb_r2(term, vowels=None, r1_prefixes=None):
     """Return the R2 region, as defined in the Porter2 specification
     """
+    if vowels is None:
+        vowels = set('aeiouy')
     r1_start = _sb_r1(term, vowels, r1_prefixes)
     return r1_start + _sb_r1(term[r1_start:], vowels)
 
-def _sb_ends_in_short_syllable(term, vowels=set('aeiouy'),
-                               codanonvowels=set('bcdfghjklmnpqrstvz\'')):
+def _sb_ends_in_short_syllable(term, vowels=None, codanonvowels=None):
     """Return True iff term ends in a short syllable,
     according to the Porter2 specification
 
@@ -350,6 +361,10 @@ def _sb_ends_in_short_syllable(term, vowels=set('aeiouy'),
     """
     if not term:
         return False
+    if vowels is None:
+        vowels = set('aeiouy')
+    if codanonvowels is None:
+        set('bcdfghjklmnpqrstvz\'')
     if len(term) == 2:
         if term[-2] in vowels and term[-1] not in vowels:
             return True
@@ -359,12 +374,14 @@ def _sb_ends_in_short_syllable(term, vowels=set('aeiouy'),
             return True
     return False
 
-def _sb_short_word(term, vowels=set('aeiouy'),
-                   codanonvowels=set('bcdfghjklmnpqrstvz\''),
-                   r1_prefixes=None):
+def _sb_short_word(term, vowels=None, codanonvowels=None, r1_prefixes=None):
     """Return True iff term is a short word,
     according to the Porter2 specification
     """
+    if vowels is None:
+        vowels = set('aeiouy')
+    if codanonvowels is None:
+        set('bcdfghjklmnpqrstvz\'')
     if (_sb_r1(term, vowels, r1_prefixes) == len(term) and
         _sb_ends_in_short_syllable(term, vowels, codanonvowels)):
         return True
