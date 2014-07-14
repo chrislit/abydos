@@ -96,11 +96,13 @@ def _ends_in_cvc(term, vowels=None):
         return True
     return False
 
-def porter(word):
+def porter(word, early_english=False):
     """Implementation of Porter stemmer -- ideally returns the word stem
 
     Arguments:
     word -- the word to calculate the stem of
+    early_english -- set to True in order to remove -eth & -est (2nd & 3rd
+        person singular verbal agreement suffixes)
 
     Description:
     The Porter stemmer is defined at
@@ -150,6 +152,15 @@ def porter(word):
         if _sb_has_vowel(word[:-3]):
             word = word[:-3]
             step1b_flag = True
+    elif early_english:
+        if word[-3:] == 'est':
+            if _sb_has_vowel(word[:-3]):
+                word = word[:-3]
+                step1b_flag = True
+        elif word[-3:] == 'eth':
+            if _sb_has_vowel(word[:-3]):
+                word = word[:-3]
+                step1b_flag = True
 
     if step1b_flag:
         if word[-2:] in set(['at', 'bl', 'iz']):
@@ -388,12 +399,14 @@ def _sb_short_word(term, vowels=None, codanonvowels=None, r1_prefixes=None):
     return False
 
 
-def porter2(word):
+def porter2(word, early_english=False):
     """Implementation of Porter2 (Snowball English) stemmer -- ideally returns
     the word stem
 
     Arguments:
     word -- the word to calculate the stem of
+    early_english -- set to True in order to remove -eth & -est (2nd & 3rd
+        person singular verbal agreement suffixes)
 
     Description:
     The Porter2/Snowball English stemmer is defined at
@@ -510,6 +523,15 @@ def porter2(word):
         if _sb_has_vowel(word[:-2]):
             word = word[:-2]
             step1b_flag = True
+    elif early_english:
+        if word[-3:] == 'est':
+            if _sb_has_vowel(word[:-3]):
+                word = word[:-3]
+                step1b_flag = True
+        elif word[-3:] == 'eth':
+            if _sb_has_vowel(word[:-3]):
+                word = word[:-3]
+                step1b_flag = True
 
     if step1b_flag:
         if word[-2:] in set(['at', 'bl', 'iz']):
