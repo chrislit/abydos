@@ -16,3 +16,5 @@ sudo python3 setup.py install; nosetests3 -v --with-coverage --cover-package=aby
 
 For pylint testing, run:
 pylint --rcfile=pylint.rc abydos > pylint.log
+
+
