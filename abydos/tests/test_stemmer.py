@@ -35,125 +35,130 @@ class PorterTestCases(unittest.TestCase):
     def test_m_degree(self):
         """test abydos.stemmer._m_degree
         """
+        _vowels = set('aeiouy')
         # base case
-        self.assertEqual(_m_degree(''), 0)
+        self.assertEqual(_m_degree('', _vowels), 0)
 
         # m==0
-        self.assertEqual(_m_degree('tr'), 0)
-        self.assertEqual(_m_degree('ee'), 0)
-        self.assertEqual(_m_degree('tree'), 0)
-        self.assertEqual(_m_degree('y'), 0)
-        self.assertEqual(_m_degree('by'), 0)
+        self.assertEqual(_m_degree('tr', _vowels), 0)
+        self.assertEqual(_m_degree('ee', _vowels), 0)
+        self.assertEqual(_m_degree('tree', _vowels), 0)
+        self.assertEqual(_m_degree('y', _vowels), 0)
+        self.assertEqual(_m_degree('by', _vowels), 0)
 
         # m==1
-        self.assertEqual(_m_degree('trouble'), 1)
-        self.assertEqual(_m_degree('oats'), 1)
-        self.assertEqual(_m_degree('trees'), 1)
-        self.assertEqual(_m_degree('ivy'), 1)
+        self.assertEqual(_m_degree('trouble', _vowels), 1)
+        self.assertEqual(_m_degree('oats', _vowels), 1)
+        self.assertEqual(_m_degree('trees', _vowels), 1)
+        self.assertEqual(_m_degree('ivy', _vowels), 1)
 
         # m==2
-        self.assertEqual(_m_degree('troubles'), 2)
-        self.assertEqual(_m_degree('private'), 2)
-        self.assertEqual(_m_degree('oaten'), 2)
-        self.assertEqual(_m_degree('orrery'), 2)
+        self.assertEqual(_m_degree('troubles', _vowels), 2)
+        self.assertEqual(_m_degree('private', _vowels), 2)
+        self.assertEqual(_m_degree('oaten', _vowels), 2)
+        self.assertEqual(_m_degree('orrery', _vowels), 2)
 
 
     def test_has_vowel(self):
         """test abydos.stemmer._has_vowel
         """
+        _vowels = set('aeiouy')
         # base case
-        self.assertFalse(_sb_has_vowel(''))
+        self.assertFalse(_sb_has_vowel('', _vowels))
 
         # False cases
-        self.assertFalse(_sb_has_vowel('b'))
-        self.assertFalse(_sb_has_vowel('c'))
-        self.assertFalse(_sb_has_vowel('bc'))
-        self.assertFalse(_sb_has_vowel('bcdfghjklmnpqrstvwxYz'))
-        self.assertFalse(_sb_has_vowel('Y'))
+        self.assertFalse(_sb_has_vowel('b', _vowels))
+        self.assertFalse(_sb_has_vowel('c', _vowels))
+        self.assertFalse(_sb_has_vowel('bc', _vowels))
+        self.assertFalse(_sb_has_vowel('bcdfghjklmnpqrstvwxYz', _vowels))
+        self.assertFalse(_sb_has_vowel('Y', _vowels))
 
         # True cases
-        self.assertTrue(_sb_has_vowel('a'))
-        self.assertTrue(_sb_has_vowel('e'))
-        self.assertTrue(_sb_has_vowel('ae'))
-        self.assertTrue(_sb_has_vowel('aeiouy'))
-        self.assertTrue(_sb_has_vowel('y'))
+        self.assertTrue(_sb_has_vowel('a', _vowels))
+        self.assertTrue(_sb_has_vowel('e', _vowels))
+        self.assertTrue(_sb_has_vowel('ae', _vowels))
+        self.assertTrue(_sb_has_vowel('aeiouy', _vowels))
+        self.assertTrue(_sb_has_vowel('y', _vowels))
 
-        self.assertTrue(_sb_has_vowel('ade'))
-        self.assertTrue(_sb_has_vowel('cad'))
-        self.assertTrue(_sb_has_vowel('add'))
-        self.assertTrue(_sb_has_vowel('phi'))
-        self.assertTrue(_sb_has_vowel('pfy'))
+        self.assertTrue(_sb_has_vowel('ade', _vowels))
+        self.assertTrue(_sb_has_vowel('cad', _vowels))
+        self.assertTrue(_sb_has_vowel('add', _vowels))
+        self.assertTrue(_sb_has_vowel('phi', _vowels))
+        self.assertTrue(_sb_has_vowel('pfy', _vowels))
 
-        self.assertFalse(_sb_has_vowel('pfY'))
+        self.assertFalse(_sb_has_vowel('pfY', _vowels))
 
 
     def test_ends_in_doubled_cons(self):
         """test abydos.stemmer._ends_in_doubled_cons
         """
+        _vowels = set('aeiouy')
         # base case
-        self.assertFalse(_ends_in_doubled_cons(''))
+        self.assertFalse(_ends_in_doubled_cons('', _vowels))
 
         # False cases
-        self.assertFalse(_ends_in_doubled_cons('b'))
-        self.assertFalse(_ends_in_doubled_cons('c'))
-        self.assertFalse(_ends_in_doubled_cons('bc'))
-        self.assertFalse(_ends_in_doubled_cons('bcdfghjklmnpqrstvwxYz'))
-        self.assertFalse(_ends_in_doubled_cons('Y'))
-        self.assertFalse(_ends_in_doubled_cons('a'))
-        self.assertFalse(_ends_in_doubled_cons('e'))
-        self.assertFalse(_ends_in_doubled_cons('ae'))
-        self.assertFalse(_ends_in_doubled_cons('aeiouy'))
-        self.assertFalse(_ends_in_doubled_cons('y'))
-        self.assertFalse(_ends_in_doubled_cons('ade'))
-        self.assertFalse(_ends_in_doubled_cons('cad'))
-        self.assertFalse(_ends_in_doubled_cons('phi'))
-        self.assertFalse(_ends_in_doubled_cons('pfy'))
-        self.assertFalse(_ends_in_doubled_cons('faddy'))
-        self.assertFalse(_ends_in_doubled_cons('aiii'))
-        self.assertFalse(_ends_in_doubled_cons('ayyy'))
+        self.assertFalse(_ends_in_doubled_cons('b', _vowels))
+        self.assertFalse(_ends_in_doubled_cons('c', _vowels))
+        self.assertFalse(_ends_in_doubled_cons('bc', _vowels))
+        self.assertFalse(_ends_in_doubled_cons('bcdfghjklmnpqrstvwxYz',
+                                               _vowels))
+        self.assertFalse(_ends_in_doubled_cons('Y', _vowels))
+        self.assertFalse(_ends_in_doubled_cons('a', _vowels))
+        self.assertFalse(_ends_in_doubled_cons('e', _vowels))
+        self.assertFalse(_ends_in_doubled_cons('ae', _vowels))
+        self.assertFalse(_ends_in_doubled_cons('aeiouy', _vowels))
+        self.assertFalse(_ends_in_doubled_cons('y', _vowels))
+        self.assertFalse(_ends_in_doubled_cons('ade', _vowels))
+        self.assertFalse(_ends_in_doubled_cons('cad', _vowels))
+        self.assertFalse(_ends_in_doubled_cons('phi', _vowels))
+        self.assertFalse(_ends_in_doubled_cons('pfy', _vowels))
+        self.assertFalse(_ends_in_doubled_cons('faddy', _vowels))
+        self.assertFalse(_ends_in_doubled_cons('aiii', _vowels))
+        self.assertFalse(_ends_in_doubled_cons('ayyy', _vowels))
 
         # True cases
-        self.assertTrue(_ends_in_doubled_cons('add'))
-        self.assertTrue(_ends_in_doubled_cons('fadd'))
-        self.assertTrue(_ends_in_doubled_cons('fadddd'))
-        self.assertTrue(_ends_in_doubled_cons('raYY'))
-        self.assertTrue(_ends_in_doubled_cons('doll'))
-        self.assertTrue(_ends_in_doubled_cons('parr'))
-        self.assertTrue(_ends_in_doubled_cons('parrr'))
-        self.assertTrue(_ends_in_doubled_cons('bacc'))
+        self.assertTrue(_ends_in_doubled_cons('add', _vowels))
+        self.assertTrue(_ends_in_doubled_cons('fadd', _vowels))
+        self.assertTrue(_ends_in_doubled_cons('fadddd', _vowels))
+        self.assertTrue(_ends_in_doubled_cons('raYY', _vowels))
+        self.assertTrue(_ends_in_doubled_cons('doll', _vowels))
+        self.assertTrue(_ends_in_doubled_cons('parr', _vowels))
+        self.assertTrue(_ends_in_doubled_cons('parrr', _vowels))
+        self.assertTrue(_ends_in_doubled_cons('bacc', _vowels))
 
 
     def test_ends_in_cvc(self):
         """test abydos.stemmer._ends_in_cvc
         """
+        _vowels = set('aeiouy')
         # base case
-        self.assertFalse(_ends_in_cvc(''))
+        self.assertFalse(_ends_in_cvc('', _vowels))
 
         # False cases
-        self.assertFalse(_ends_in_cvc('b'))
-        self.assertFalse(_ends_in_cvc('c'))
-        self.assertFalse(_ends_in_cvc('bc'))
-        self.assertFalse(_ends_in_cvc('bcdfghjklmnpqrstvwxYz'))
-        self.assertFalse(_ends_in_cvc('YYY'))
-        self.assertFalse(_ends_in_cvc('ddd'))
-        self.assertFalse(_ends_in_cvc('faaf'))
-        self.assertFalse(_ends_in_cvc('rare'))
-        self.assertFalse(_ends_in_cvc('rhy'))
+        self.assertFalse(_ends_in_cvc('b', _vowels))
+        self.assertFalse(_ends_in_cvc('c', _vowels))
+        self.assertFalse(_ends_in_cvc('bc', _vowels))
+        self.assertFalse(_ends_in_cvc('bcdfghjklmnpqrstvwxYz', _vowels))
+        self.assertFalse(_ends_in_cvc('YYY', _vowels))
+        self.assertFalse(_ends_in_cvc('ddd', _vowels))
+        self.assertFalse(_ends_in_cvc('faaf', _vowels))
+        self.assertFalse(_ends_in_cvc('rare', _vowels))
+        self.assertFalse(_ends_in_cvc('rhy', _vowels))
 
         # True cases
-        self.assertTrue(_ends_in_cvc('dad'))
-        self.assertTrue(_ends_in_cvc('phad'))
-        self.assertTrue(_ends_in_cvc('faded'))
-        self.assertTrue(_ends_in_cvc('maYor'))
-        self.assertTrue(_ends_in_cvc('enlil'))
-        self.assertTrue(_ends_in_cvc('parer'))
-        self.assertTrue(_ends_in_cvc('padres'))
-        self.assertTrue(_ends_in_cvc('bacyc'))
+        self.assertTrue(_ends_in_cvc('dad', _vowels))
+        self.assertTrue(_ends_in_cvc('phad', _vowels))
+        self.assertTrue(_ends_in_cvc('faded', _vowels))
+        self.assertTrue(_ends_in_cvc('maYor', _vowels))
+        self.assertTrue(_ends_in_cvc('enlil', _vowels))
+        self.assertTrue(_ends_in_cvc('parer', _vowels))
+        self.assertTrue(_ends_in_cvc('padres', _vowels))
+        self.assertTrue(_ends_in_cvc('bacyc', _vowels))
 
         # Special case for W, X, & Y
-        self.assertFalse(_ends_in_cvc('craw'))
-        self.assertFalse(_ends_in_cvc('max'))
-        self.assertFalse(_ends_in_cvc('cray'))
+        self.assertFalse(_ends_in_cvc('craw', _vowels))
+        self.assertFalse(_ends_in_cvc('max', _vowels))
+        self.assertFalse(_ends_in_cvc('cray', _vowels))
 
 
     def test_porter(self):
@@ -188,64 +193,81 @@ class PorterTestCases(unittest.TestCase):
     def test_sb_r1(self):
         """test abydos.stemmer._sb_r1
         """
+        _vowels = set('aeiouy')
         # base case
-        self.assertEqual(_sb_r1(''), 0)
+        self.assertEqual(_sb_r1('', _vowels), 0)
 
         # examples from http://snowball.tartarus.org/texts/r1r2.html
-        self.assertEqual(_sb_r1('beautiful'), 5)
-        self.assertEqual(_sb_r1('beauty'), 5)
-        self.assertEqual(_sb_r1('beau'), 4)
-        self.assertEqual(_sb_r1('animadversion'), 2)
-        self.assertEqual(_sb_r1('sprinkled'), 5)
-        self.assertEqual(_sb_r1('eucharist'), 3)
+        self.assertEqual(_sb_r1('beautiful', _vowels), 5)
+        self.assertEqual(_sb_r1('beauty', _vowels), 5)
+        self.assertEqual(_sb_r1('beau', _vowels), 4)
+        self.assertEqual(_sb_r1('animadversion', _vowels), 2)
+        self.assertEqual(_sb_r1('sprinkled', _vowels), 5)
+        self.assertEqual(_sb_r1('eucharist', _vowels), 3)
 
     def test_sb_r2(self):
         """test abydos.stemmer._sb_r2
         """
+        _vowels = set('aeiouy')
         # base case
-        self.assertEqual(_sb_r2(''), 0)
+        self.assertEqual(_sb_r2('', _vowels), 0)
 
         # examples from http://snowball.tartarus.org/texts/r1r2.html
-        self.assertEqual(_sb_r2('beautiful'), 7)
-        self.assertEqual(_sb_r2('beauty'), 6)
-        self.assertEqual(_sb_r2('beau'), 4)
-        self.assertEqual(_sb_r2('animadversion'), 4)
-        self.assertEqual(_sb_r2('sprinkled'), 9)
-        self.assertEqual(_sb_r2('eucharist'), 6)
+        self.assertEqual(_sb_r2('beautiful', _vowels), 7)
+        self.assertEqual(_sb_r2('beauty', _vowels), 6)
+        self.assertEqual(_sb_r2('beau', _vowels), 4)
+        self.assertEqual(_sb_r2('animadversion', _vowels), 4)
+        self.assertEqual(_sb_r2('sprinkled', _vowels), 9)
+        self.assertEqual(_sb_r2('eucharist', _vowels), 6)
 
     def test_sb_ends_in_short_syllable(self):
         """test abydos.stemmer._sb_ends_in_short_syllable
         """
+        _vowels = set('aeiouy')
+        _codanonvowels = set('bcdfghjklmnpqrstvz\'')
         # base case
-        self.assertFalse(_sb_ends_in_short_syllable(''))
+        self.assertFalse(_sb_ends_in_short_syllable('', _vowels,
+                                                    _codanonvowels))
 
         # examples from
         # http://snowball.tartarus.org/algorithms/english/stemmer.html
-        self.assertTrue(_sb_ends_in_short_syllable('rap'))
-        self.assertTrue(_sb_ends_in_short_syllable('trap'))
-        self.assertTrue(_sb_ends_in_short_syllable('entrap'))
-        self.assertTrue(_sb_ends_in_short_syllable('ow'))
-        self.assertTrue(_sb_ends_in_short_syllable('on'))
-        self.assertTrue(_sb_ends_in_short_syllable('at'))
-        self.assertFalse(_sb_ends_in_short_syllable('uproot'))
-        self.assertFalse(_sb_ends_in_short_syllable('uproot'))
-        self.assertFalse(_sb_ends_in_short_syllable('bestow'))
-        self.assertFalse(_sb_ends_in_short_syllable('disturb'))
+        self.assertTrue(_sb_ends_in_short_syllable('rap', _vowels,
+                                                   _codanonvowels))
+        self.assertTrue(_sb_ends_in_short_syllable('trap', _vowels,
+                                                   _codanonvowels))
+        self.assertTrue(_sb_ends_in_short_syllable('entrap', _vowels,
+                                                   _codanonvowels))
+        self.assertTrue(_sb_ends_in_short_syllable('ow', _vowels,
+                                                   _codanonvowels))
+        self.assertTrue(_sb_ends_in_short_syllable('on', _vowels,
+                                                   _codanonvowels))
+        self.assertTrue(_sb_ends_in_short_syllable('at', _vowels,
+                                                   _codanonvowels))
+        self.assertFalse(_sb_ends_in_short_syllable('uproot', _vowels,
+                                                    _codanonvowels))
+        self.assertFalse(_sb_ends_in_short_syllable('uproot', _vowels,
+                                                    _codanonvowels))
+        self.assertFalse(_sb_ends_in_short_syllable('bestow', _vowels,
+                                                    _codanonvowels))
+        self.assertFalse(_sb_ends_in_short_syllable('disturb', _vowels,
+                                                    _codanonvowels))
 
     def test_sb_short_word(self):
         """test abydos.stemmer._sb_short_word
         """
+        _vowels = set('aeiouy')
+        _codanonvowels = set('bcdfghjklmnpqrstvz\'')
         # base case
-        self.assertFalse(_sb_short_word(''))
+        self.assertFalse(_sb_short_word('', _vowels, _codanonvowels))
 
         # examples from
         # http://snowball.tartarus.org/algorithms/english/stemmer.html
-        self.assertTrue(_sb_short_word('bed'))
-        self.assertTrue(_sb_short_word('shed'))
-        self.assertTrue(_sb_short_word('shred'))
-        self.assertFalse(_sb_short_word('bead'))
-        self.assertFalse(_sb_short_word('embed'))
-        self.assertFalse(_sb_short_word('beds'))
+        self.assertTrue(_sb_short_word('bed', _vowels, _codanonvowels))
+        self.assertTrue(_sb_short_word('shed', _vowels, _codanonvowels))
+        self.assertTrue(_sb_short_word('shred', _vowels, _codanonvowels))
+        self.assertFalse(_sb_short_word('bead', _vowels, _codanonvowels))
+        self.assertFalse(_sb_short_word('embed', _vowels, _codanonvowels))
+        self.assertFalse(_sb_short_word('beds', _vowels, _codanonvowels))
 
 
     def test_porter2(self):

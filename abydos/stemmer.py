@@ -27,7 +27,7 @@ import unicodedata
 from ._compat import _range, _unicode
 
 
-def _m_degree(term, vowels=None):
+def _m_degree(term, vowels):
     """Return the m-degree as defined in the Porter stemmer definition
 
     Arguments:
@@ -37,8 +37,6 @@ def _m_degree(term, vowels=None):
     Description:
     m-degree is equal to the number of V to C transitions
     """
-    if vowels is None:
-        vowels = set('aeiouy')
     mdeg = 0
     last_was_vowel = False
     for letter in term:
@@ -50,7 +48,7 @@ def _m_degree(term, vowels=None):
             last_was_vowel = False
     return mdeg
 
-def _sb_has_vowel(term, vowels=None):
+def _sb_has_vowel(term, vowels):
     """Return true iff a vowel exists in the term (as defined in the Porter
     stemmer definition)
 
@@ -58,14 +56,12 @@ def _sb_has_vowel(term, vowels=None):
     term -- the word to scan for vowels
     vowels -- the set of vowels in the language
     """
-    if vowels is None:
-        vowels = set('aeiouy')
     for letter in term:
         if letter in vowels:
             return True
     return False
 
-def _ends_in_doubled_cons(term, vowels=None):
+def _ends_in_doubled_cons(term, vowels):
     """Return true iff the stem ends in a doubled consonant (as defined in the
     Porter stemmer definition)
 
@@ -73,13 +69,11 @@ def _ends_in_doubled_cons(term, vowels=None):
     term -- the word to check for a final doubled consonant
     vowels -- the set of vowels in the language
     """
-    if vowels is None:
-        vowels = set('aeiouy')
     if len(term) > 1 and term[-1] not in vowels and term[-2] == term[-1]:
         return True
     return False
 
-def _ends_in_cvc(term, vowels=None):
+def _ends_in_cvc(term, vowels):
     """Return true iff the stem ends in cvc (as defined in the Porter stemmer
     definition)
 
@@ -87,8 +81,6 @@ def _ends_in_cvc(term, vowels=None):
     term -- the word to scan for cvc
     vowels -- the set of vowels in the language
     """
-    if vowels is None:
-        vowels = set('aeiouy')
     if len(term) > 2 and (term[-1] not in vowels and
                           term[-2] in vowels and
                           term[-3] not in vowels and
@@ -141,191 +133,191 @@ def porter(word, early_english=False):
     # Step 1b
     step1b_flag = False
     if word[-3:] == 'eed':
-        if _m_degree(word[:-3]) > 0:
+        if _m_degree(word[:-3], _vowels) > 0:
             word = word[:-1]
     elif word[-2:] == 'ed':
-        if _sb_has_vowel(word[:-2]):
+        if _sb_has_vowel(word[:-2], _vowels):
             word = word[:-2]
             step1b_flag = True
     elif word[-3:] == 'ing':
-        if _sb_has_vowel(word[:-3]):
+        if _sb_has_vowel(word[:-3], _vowels):
             word = word[:-3]
             step1b_flag = True
     elif early_english:
         if word[-3:] == 'est':
-            if _sb_has_vowel(word[:-3]):
+            if _sb_has_vowel(word[:-3], _vowels):
                 word = word[:-3]
                 step1b_flag = True
         elif word[-3:] == 'eth':
-            if _sb_has_vowel(word[:-3]):
+            if _sb_has_vowel(word[:-3], _vowels):
                 word = word[:-3]
                 step1b_flag = True
 
     if step1b_flag:
         if word[-2:] in set(['at', 'bl', 'iz']):
             word += 'e'
-        elif _ends_in_doubled_cons(word) and word[-1] not in set('lsz'):
+        elif _ends_in_doubled_cons(word, _vowels) and word[-1] not in set('lsz'):
             word = word[:-1]
-        elif _m_degree(word) == 1 and _ends_in_cvc(word):
+        elif _m_degree(word, _vowels) == 1 and _ends_in_cvc(word, _vowels):
             word += 'e'
 
     # Step 1c
-    if word[-1] in set('Yy') and _sb_has_vowel(word[:-1]):
+    if word[-1] in set('Yy') and _sb_has_vowel(word[:-1], _vowels):
         word = word[:-1] + 'i'
 
     # Step 2
     if len(word) > 1:
         if word[-2] == 'a':
             if word[-7:] == 'ational':
-                if _m_degree(word[:-7]) > 0:
+                if _m_degree(word[:-7], _vowels) > 0:
                     word = word[:-5] + 'e'
             elif word[-6:] == 'tional':
-                if _m_degree(word[:-6]) > 0:
+                if _m_degree(word[:-6], _vowels) > 0:
                     word = word[:-2]
         elif word[-2] == 'c':
             if word[-4:] in set(['enci', 'anci']):
-                if _m_degree(word[:-4]) > 0:
+                if _m_degree(word[:-4], _vowels) > 0:
                     word = word[:-1] + 'e'
         elif word[-2] == 'e':
             if word[-4:] == 'izer':
-                if _m_degree(word[:-4]) > 0:
+                if _m_degree(word[:-4], _vowels) > 0:
                     word = word[:-1]
         elif word[-2] == 'g':
             if word[-4:] == 'logi':
-                if _m_degree(word[:-4]) > 0:
+                if _m_degree(word[:-4], _vowels) > 0:
                     word = word[:-1]
         elif word[-2] == 'l':
             if word[-3:] == 'bli':
-                if _m_degree(word[:-3]) > 0:
+                if _m_degree(word[:-3], _vowels) > 0:
                     word = word[:-1] + 'e'
             elif word[-4:] == 'alli':
-                if _m_degree(word[:-4]) > 0:
+                if _m_degree(word[:-4], _vowels) > 0:
                     word = word[:-2]
             elif word[-5:] == 'entli':
-                if _m_degree(word[:-5]) > 0:
+                if _m_degree(word[:-5], _vowels) > 0:
                     word = word[:-2]
             elif word[-3:] == 'eli':
-                if _m_degree(word[:-3]) > 0:
+                if _m_degree(word[:-3], _vowels) > 0:
                     word = word[:-2]
             elif word[-5:] == 'ousli':
-                if _m_degree(word[:-5]) > 0:
+                if _m_degree(word[:-5], _vowels) > 0:
                     word = word[:-2]
         elif word[-2] == 'o':
             if word[-7:] == 'ization':
-                if _m_degree(word[:-7]) > 0:
+                if _m_degree(word[:-7], _vowels) > 0:
                     word = word[:-5] + 'e'
             elif word[-5:] == 'ation':
-                if _m_degree(word[:-5]) > 0:
+                if _m_degree(word[:-5], _vowels) > 0:
                     word = word[:-3] + 'e'
             elif word[-4:] == 'ator':
-                if _m_degree(word[:-4]) > 0:
+                if _m_degree(word[:-4], _vowels) > 0:
                     word = word[:-2] + 'e'
         elif word[-2] == 's':
             if word[-5:] == 'alism':
-                if _m_degree(word[:-5]) > 0:
+                if _m_degree(word[:-5], _vowels) > 0:
                     word = word[:-3]
             elif word[-7:] in set(['iveness', 'fulness', 'ousness']):
-                if _m_degree(word[:-7]) > 0:
+                if _m_degree(word[:-7], _vowels) > 0:
                     word = word[:-4]
         elif word[-2] == 't':
             if word[-5:] == 'aliti':
-                if _m_degree(word[:-5]) > 0:
+                if _m_degree(word[:-5], _vowels) > 0:
                     word = word[:-3]
             elif word[-5:] == 'iviti':
-                if _m_degree(word[:-5]) > 0:
+                if _m_degree(word[:-5], _vowels) > 0:
                     word = word[:-3] + 'e'
             elif word[-6:] == 'biliti':
-                if _m_degree(word[:-6]) > 0:
+                if _m_degree(word[:-6], _vowels) > 0:
                     word = word[:-5] + 'le'
 
     # Step 3
     if word[-5:] == 'icate':
-        if _m_degree(word[:-5]) > 0:
+        if _m_degree(word[:-5], _vowels) > 0:
             word = word[:-3]
     elif word[-5:] == 'ative':
-        if _m_degree(word[:-5]) > 0:
+        if _m_degree(word[:-5], _vowels) > 0:
             word = word[:-5]
     elif word[-5:] in set(['alize', 'iciti']):
-        if _m_degree(word[:-5]) > 0:
+        if _m_degree(word[:-5], _vowels) > 0:
             word = word[:-3]
     elif word[-4:] == 'ical':
-        if _m_degree(word[:-4]) > 0:
+        if _m_degree(word[:-4], _vowels) > 0:
             word = word[:-2]
     elif word[-3:] == 'ful':
-        if _m_degree(word[:-3]) > 0:
+        if _m_degree(word[:-3], _vowels) > 0:
             word = word[:-3]
     elif word[-4:] == 'ness':
-        if _m_degree(word[:-4]) > 0:
+        if _m_degree(word[:-4], _vowels) > 0:
             word = word[:-4]
 
     # Step 4
     if word[-2:] == 'al':
-        if _m_degree(word[:-2]) > 1:
+        if _m_degree(word[:-2], _vowels) > 1:
             word = word[:-2]
     elif word[-4:] == 'ance':
-        if _m_degree(word[:-4]) > 1:
+        if _m_degree(word[:-4], _vowels) > 1:
             word = word[:-4]
     elif word[-4:] == 'ence':
-        if _m_degree(word[:-4]) > 1:
+        if _m_degree(word[:-4], _vowels) > 1:
             word = word[:-4]
     elif word[-2:] == 'er':
-        if _m_degree(word[:-2]) > 1:
+        if _m_degree(word[:-2], _vowels) > 1:
             word = word[:-2]
     elif word[-2:] == 'ic':
-        if _m_degree(word[:-2]) > 1:
+        if _m_degree(word[:-2], _vowels) > 1:
             word = word[:-2]
     elif word[-4:] == 'able':
-        if _m_degree(word[:-4]) > 1:
+        if _m_degree(word[:-4], _vowels) > 1:
             word = word[:-4]
     elif word[-4:] == 'ible':
-        if _m_degree(word[:-4]) > 1:
+        if _m_degree(word[:-4], _vowels) > 1:
             word = word[:-4]
     elif word[-3:] == 'ant':
-        if _m_degree(word[:-3]) > 1:
+        if _m_degree(word[:-3], _vowels) > 1:
             word = word[:-3]
     elif word[-5:] == 'ement':
-        if _m_degree(word[:-5]) > 1:
+        if _m_degree(word[:-5], _vowels) > 1:
             word = word[:-5]
     elif word[-4:] == 'ment':
-        if _m_degree(word[:-4]) > 1:
+        if _m_degree(word[:-4], _vowels) > 1:
             word = word[:-4]
     elif word[-3:] == 'ent':
-        if _m_degree(word[:-3]) > 1:
+        if _m_degree(word[:-3], _vowels) > 1:
             word = word[:-3]
     elif word[-4:] in set(['sion', 'tion']):
-        if _m_degree(word[:-3]) > 1:
+        if _m_degree(word[:-3], _vowels) > 1:
             word = word[:-3]
     elif word[-2:] == 'ou':
-        if _m_degree(word[:-2]) > 1:
+        if _m_degree(word[:-2], _vowels) > 1:
             word = word[:-2]
     elif word[-3:] == 'ism':
-        if _m_degree(word[:-3]) > 1:
+        if _m_degree(word[:-3], _vowels) > 1:
             word = word[:-3]
     elif word[-3:] == 'ate':
-        if _m_degree(word[:-3]) > 1:
+        if _m_degree(word[:-3], _vowels) > 1:
             word = word[:-3]
     elif word[-3:] == 'iti':
-        if _m_degree(word[:-3]) > 1:
+        if _m_degree(word[:-3], _vowels) > 1:
             word = word[:-3]
     elif word[-3:] == 'ous':
-        if _m_degree(word[:-3]) > 1:
+        if _m_degree(word[:-3], _vowels) > 1:
             word = word[:-3]
     elif word[-3:] == 'ive':
-        if _m_degree(word[:-3]) > 1:
+        if _m_degree(word[:-3], _vowels) > 1:
             word = word[:-3]
     elif word[-3:] == 'ize':
-        if _m_degree(word[:-3]) > 1:
+        if _m_degree(word[:-3], _vowels) > 1:
             word = word[:-3]
 
     # Step 5a
     if word[-1] == 'e':
-        if _m_degree(word[:-1]) > 1:
+        if _m_degree(word[:-1], _vowels) > 1:
             word = word[:-1]
-        elif _m_degree(word[:-1]) == 1 and not _ends_in_cvc(word[:-1]):
+        elif _m_degree(word[:-1], _vowels) == 1 and not _ends_in_cvc(word[:-1], _vowels):
             word = word[:-1]
 
     # Step 5b
-    if word[-2:] == 'll' and _m_degree(word) > 1:
+    if word[-2:] == 'll' and _m_degree(word, _vowels) > 1:
         word = word[:-1]
 
     # Change 'y' back to 'Y' if it survived stemming
@@ -336,11 +328,9 @@ def porter(word, early_english=False):
     return word
 
 
-def _sb_r1(term, vowels=None, r1_prefixes=None):
+def _sb_r1(term, vowels, r1_prefixes=None):
     """Return the R1 region, as defined in the Porter2 specification
     """
-    if vowels is None:
-        vowels = set('aeiouy')
     vowel_found = False
     if hasattr(r1_prefixes, '__iter__'):
         for prefix in r1_prefixes:
@@ -354,15 +344,13 @@ def _sb_r1(term, vowels=None, r1_prefixes=None):
             return i+1
     return len(term)
 
-def _sb_r2(term, vowels=None, r1_prefixes=None):
+def _sb_r2(term, vowels, r1_prefixes=None):
     """Return the R2 region, as defined in the Porter2 specification
     """
-    if vowels is None:
-        vowels = set('aeiouy')
     r1_start = _sb_r1(term, vowels, r1_prefixes)
     return r1_start + _sb_r1(term[r1_start:], vowels)
 
-def _sb_ends_in_short_syllable(term, vowels=None, codanonvowels=None):
+def _sb_ends_in_short_syllable(term, vowels, codanonvowels):
     """Return True iff term ends in a short syllable,
     according to the Porter2 specification
 
@@ -371,10 +359,6 @@ def _sb_ends_in_short_syllable(term, vowels=None, codanonvowels=None):
     """
     if not term:
         return False
-    if vowels is None:
-        vowels = set('aeiouy')
-    if codanonvowels is None:
-        codanonvowels = set('bcdfghjklmnpqrstvz\'')
     if len(term) == 2:
         if term[-2] in vowels and term[-1] not in vowels:
             return True
@@ -384,14 +368,10 @@ def _sb_ends_in_short_syllable(term, vowels=None, codanonvowels=None):
             return True
     return False
 
-def _sb_short_word(term, vowels=None, codanonvowels=None, r1_prefixes=None):
+def _sb_short_word(term, vowels, codanonvowels, r1_prefixes=None):
     """Return True iff term is a short word,
     according to the Porter2 specification
     """
-    if vowels is None:
-        vowels = set('aeiouy')
-    if codanonvowels is None:
-        codanonvowels = set('bcdfghjklmnpqrstvz\'')
     if (_sb_r1(term, vowels, r1_prefixes) == len(term) and
         _sb_ends_in_short_syllable(term, vowels, codanonvowels)):
         return True
@@ -490,7 +470,7 @@ def porter2(word, early_english=False):
     elif word[-2:] in set(['us', 'ss']):
         pass
     elif word[-1] == 's':
-        if _sb_has_vowel(word[:-2]):
+        if _sb_has_vowel(word[:-2], _vowels):
             word = word[:-1]
 
     # Exceptions 2
@@ -503,31 +483,31 @@ def porter2(word, early_english=False):
         if len(word[r1_start:]) >= 5:
             word = word[:-3]
     elif word[-5:] == 'ingly':
-        if _sb_has_vowel(word[:-5]):
+        if _sb_has_vowel(word[:-5], _vowels):
             word = word[:-5]
             step1b_flag = True
     elif word[-4:] == 'edly':
-        if _sb_has_vowel(word[:-4]):
+        if _sb_has_vowel(word[:-4], _vowels):
             word = word[:-4]
             step1b_flag = True
     elif word[-3:] == 'eed':
         if len(word[r1_start:]) >= 3:
             word = word[:-1]
     elif word[-3:] == 'ing':
-        if _sb_has_vowel(word[:-3]):
+        if _sb_has_vowel(word[:-3], _vowels):
             word = word[:-3]
             step1b_flag = True
     elif word[-2:] == 'ed':
-        if _sb_has_vowel(word[:-2]):
+        if _sb_has_vowel(word[:-2], _vowels):
             word = word[:-2]
             step1b_flag = True
     elif early_english:
         if word[-3:] == 'est':
-            if _sb_has_vowel(word[:-3]):
+            if _sb_has_vowel(word[:-3], _vowels):
                 word = word[:-3]
                 step1b_flag = True
         elif word[-3:] == 'eth':
-            if _sb_has_vowel(word[:-3]):
+            if _sb_has_vowel(word[:-3], _vowels):
                 word = word[:-3]
                 step1b_flag = True
 
@@ -655,7 +635,8 @@ def porter2(word, early_english=False):
         if word[-1] == 'e':
             if (len(word[r2_start:]) >= 1 or
                 (len(word[r1_start:]) >= 1 and
-                 not _sb_ends_in_short_syllable(word[:-1]))):
+                 not _sb_ends_in_short_syllable(word[:-1], _vowels,
+                                                _codanonvowels))):
                 word = word[:-1]
         elif word[-1] == 'l':
             if len(word[r2_start:]) >= 1 and word[-2] == 'l':
