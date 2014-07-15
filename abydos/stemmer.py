@@ -156,7 +156,8 @@ def porter(word, early_english=False):
     if step1b_flag:
         if word[-2:] in set(['at', 'bl', 'iz']):
             word += 'e'
-        elif _ends_in_doubled_cons(word, _vowels) and word[-1] not in set('lsz'):
+        elif (_ends_in_doubled_cons(word, _vowels) and
+              word[-1] not in set('lsz')):
             word = word[:-1]
         elif _m_degree(word, _vowels) == 1 and _ends_in_cvc(word, _vowels):
             word += 'e'
@@ -313,7 +314,8 @@ def porter(word, early_english=False):
     if word[-1] == 'e':
         if _m_degree(word[:-1], _vowels) > 1:
             word = word[:-1]
-        elif _m_degree(word[:-1], _vowels) == 1 and not _ends_in_cvc(word[:-1], _vowels):
+        elif (_m_degree(word[:-1], _vowels) == 1 and
+              not _ends_in_cvc(word[:-1], _vowels)):
             word = word[:-1]
 
     # Step 5b
@@ -661,6 +663,8 @@ def german(word):
     The Snowball German stemmer is defined at
     http://snowball.tartarus.org/algorithms/german/stemmer.html
     """
+    # pylint: disable=too-many-branches
+
     _vowels = set('aeiouyäöü')
     _s_endings = set('bdfghklmnrt')
     _st_endings = set('bdfghklmnt')
@@ -736,14 +740,14 @@ def german(word):
     elif word[-4:] in set(['lich', 'heit']):
         if len(word[r2_start:]) >= 4:
             word = word[:-4]
-            if (word[-2:] in set(['er', 'en']) and len(word[r1_start:]) >= 2):
+            if word[-2:] in set(['er', 'en']) and len(word[r1_start:]) >= 2:
                 word = word[:-2]
     elif word[-4:] == 'keit':
         if len(word[r2_start:]) >= 4:
             word = word[:-4]
-            if (word[-4:] == 'lich' and len(word[r2_start:]) >= 4):
+            if word[-4:] == 'lich' and len(word[r2_start:]) >= 4:
                 word = word[:-4]
-            elif (word[-2:] == 'ig' and len(word[r2_start:]) >= 2):
+            elif word[-2:] == 'ig' and len(word[r2_start:]) >= 2:
                 word = word[:-2]
     elif word[-3:] in set(['end', 'ung']):
         if len(word[r2_start:]) >= 3:
