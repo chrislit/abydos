@@ -104,8 +104,8 @@ def porter(word, early_english=False):
 
     # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicodedata.normalize('NFKD', _unicode(word.lower()))
-    word = ''.join([c for c in word if c in
-                    set('abcdefghijklmnopqrstuvwxyz')])
+    # word = ''.join([c for c in word if c in
+    #                 set('abcdefghijklmnopqrstuvwxyz')])
 
     # Return word if stem is shorter than 2
     if len(word) < 3:
@@ -418,8 +418,8 @@ def porter2(word, early_english=False):
     # http://snowball.tartarus.org/texts/apostrophe.html
     word = word.replace('’', '\'')
     word = word.replace('’', '\'')
-    word = ''.join([c for c in word if c in
-                    set('abcdefghijklmnopqrstuvwxyz\'')])
+    # word = ''.join([c for c in word if c in
+    #                 set('abcdefghijklmnopqrstuvwxyz\'')])
 
     # Exceptions 1
     if word in _exception1dict:
@@ -668,8 +668,8 @@ def german(word):
     # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicodedata.normalize('NFKD', _unicode(word.lower()))
     word = word.replace('ß', 'ss')
-    word = ''.join([c for c in word if c in
-                    set('abcdefghijklmnopqrstuvwxyz̈')])
+    # word = ''.join([c for c in word if c in
+    #                 set('abcdefghijklmnopqrstuvwxyz̈')])
     word = unicodedata.normalize('NFC', word.lower())
 
     if len(word) > 2:
