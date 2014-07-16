@@ -24,7 +24,8 @@ from __future__ import unicode_literals
 import unittest
 from abydos.stemmer import _m_degree, _sb_has_vowel, _ends_in_doubled_cons, \
     _ends_in_cvc, porter, _sb_r1, _sb_r2, _sb_ends_in_short_syllable, \
-    _sb_short_word, porter2, german, dutch, norwegian, swedish, danish
+    _sb_short_word, porter2, sb_german, sb_dutch, sb_norwegian, sb_swedish, \
+    sb_danish
 import os, codecs
 
 TESTDIR = os.path.dirname(__file__)
@@ -352,8 +353,8 @@ class PorterTestCases(unittest.TestCase):
                     self.assertEqual(porter2(word), stem.lower())
 
 
-    def test_german_snowball(self):
-        """test abydos.stemmer.german (Snowball testset)
+    def test_sb_german_snowball(self):
+        """test abydos.stemmer.sb_german (Snowball testset)
 
         These test cases are from
         http://snowball.tartarus.org/algorithms/german/diffs.txt
@@ -366,60 +367,64 @@ class PorterTestCases(unittest.TestCase):
                 if line[0] != '#':
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
-                    self.assertEqual(german(word), stem.lower())
+                    self.assertEqual(sb_german(word), stem.lower())
 
 
-    def test_german_snowball_alt(self):
-        """test abydos.stemmer.german (alternate vowels)
+    def test_sb_german_snowball_alt(self):
+        """test abydos.stemmer.sb_german (alternate vowels)
         """
         # base case
-        self.assertEqual(german('', alternate_vowels=True), '')
+        self.assertEqual(sb_german('', alternate_vowels=True), '')
 
         # dämmerung,dammer
-        self.assertEqual(german('dämmerung', alternate_vowels=True), 'dammer')
-        self.assertEqual(german('daemmerung', alternate_vowels=True), 'dammer')
-        self.assertEqual(german('dämmerung'), 'dammer')
-        self.assertEqual(german('daemmerung'), 'daemmer')
+        self.assertEqual(sb_german('dämmerung', alternate_vowels=True),
+                         'dammer')
+        self.assertEqual(sb_german('daemmerung', alternate_vowels=True),
+                         'dammer')
+        self.assertEqual(sb_german('dämmerung'), 'dammer')
+        self.assertEqual(sb_german('daemmerung'), 'daemmer')
 
         # brötchen,brotch
-        self.assertEqual(german('brötchen', alternate_vowels=True), 'brotch')
-        self.assertEqual(german('broetchen', alternate_vowels=True), 'brotch')
-        self.assertEqual(german('brötchen'), 'brotch')
-        self.assertEqual(german('broetchen'), 'broetch')
+        self.assertEqual(sb_german('brötchen', alternate_vowels=True),
+                         'brotch')
+        self.assertEqual(sb_german('broetchen', alternate_vowels=True),
+                         'brotch')
+        self.assertEqual(sb_german('brötchen'), 'brotch')
+        self.assertEqual(sb_german('broetchen'), 'broetch')
 
         # büro,buro
-        self.assertEqual(german('büro', alternate_vowels=True), 'buro')
-        self.assertEqual(german('buero', alternate_vowels=True), 'buro')
-        self.assertEqual(german('büro'), 'buro')
-        self.assertEqual(german('buero'), 'buero')
+        self.assertEqual(sb_german('büro', alternate_vowels=True), 'buro')
+        self.assertEqual(sb_german('buero', alternate_vowels=True), 'buro')
+        self.assertEqual(sb_german('büro'), 'buro')
+        self.assertEqual(sb_german('buero'), 'buero')
 
         # häufen,hauf
-        self.assertEqual(german('häufen', alternate_vowels=True), 'hauf')
-        self.assertEqual(german('haeufen', alternate_vowels=True), 'hauf')
-        self.assertEqual(german('häufen'), 'hauf')
-        self.assertEqual(german('haeufen'), 'haeuf')
+        self.assertEqual(sb_german('häufen', alternate_vowels=True), 'hauf')
+        self.assertEqual(sb_german('haeufen', alternate_vowels=True), 'hauf')
+        self.assertEqual(sb_german('häufen'), 'hauf')
+        self.assertEqual(sb_german('haeufen'), 'haeuf')
 
         # quelle,quell
-        self.assertEqual(german('qülle', alternate_vowels=True), 'qull')
-        self.assertEqual(german('quelle', alternate_vowels=True), 'quell')
-        self.assertEqual(german('qülle'), 'qull')
-        self.assertEqual(german('quelle'), 'quell')
+        self.assertEqual(sb_german('qülle', alternate_vowels=True), 'qull')
+        self.assertEqual(sb_german('quelle', alternate_vowels=True), 'quell')
+        self.assertEqual(sb_german('qülle'), 'qull')
+        self.assertEqual(sb_german('quelle'), 'quell')
 
         # feuer,feuer
-        self.assertEqual(german('feür', alternate_vowels=True), 'feur')
-        self.assertEqual(german('feuer', alternate_vowels=True), 'feu')
-        self.assertEqual(german('feür'), 'feur')
-        self.assertEqual(german('feuer'), 'feu')
+        self.assertEqual(sb_german('feür', alternate_vowels=True), 'feur')
+        self.assertEqual(sb_german('feuer', alternate_vowels=True), 'feu')
+        self.assertEqual(sb_german('feür'), 'feur')
+        self.assertEqual(sb_german('feuer'), 'feu')
 
         # über,uber
-        self.assertEqual(german('über', alternate_vowels=True), 'uber')
-        self.assertEqual(german('ueber', alternate_vowels=True), 'uber')
-        self.assertEqual(german('über'), 'uber')
-        self.assertEqual(german('ueber'), 'ueb')
+        self.assertEqual(sb_german('über', alternate_vowels=True), 'uber')
+        self.assertEqual(sb_german('ueber', alternate_vowels=True), 'uber')
+        self.assertEqual(sb_german('über'), 'uber')
+        self.assertEqual(sb_german('ueber'), 'ueb')
 
 
-    def test_dutch_snowball(self):
-        """test abydos.stemmer.dutch (Snowball testset)
+    def test_sb_dutch_snowball(self):
+        """test abydos.stemmer.sb_dutch (Snowball testset)
 
         These test cases are from
         http://snowball.tartarus.org/algorithms/dutch/diffs.txt
@@ -432,11 +437,11 @@ class PorterTestCases(unittest.TestCase):
                 if line[0] != '#':
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
-                    self.assertEqual(dutch(word), stem.lower())
+                    self.assertEqual(sb_dutch(word), stem.lower())
 
 
-    def test_norwegian_snowball(self):
-        """test abydos.stemmer.norwegian (Snowball testset)
+    def test_sb_norwegian_snowball(self):
+        """test abydos.stemmer.sb_norwegian (Snowball testset)
 
         These test cases are from
         http://snowball.tartarus.org/algorithms/norwegian/diffs.txt
@@ -449,11 +454,11 @@ class PorterTestCases(unittest.TestCase):
                 if line[0] != '#':
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
-                    self.assertEqual(norwegian(word), stem.lower())
+                    self.assertEqual(sb_norwegian(word), stem.lower())
 
 
-    def test_swedish_snowball(self):
-        """test abydos.stemmer.swedish (Snowball testset)
+    def test_sb_swedish_snowball(self):
+        """test abydos.stemmer.sb_swedish (Snowball testset)
 
         These test cases are from
         http://snowball.tartarus.org/algorithms/swedish/diffs.txt
@@ -466,11 +471,11 @@ class PorterTestCases(unittest.TestCase):
                 if line[0] != '#':
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
-                    self.assertEqual(swedish(word), stem.lower())
+                    self.assertEqual(sb_swedish(word), stem.lower())
 
 
-    def test_danish_snowball(self):
-        """test abydos.stemmer.danish (Snowball testset)
+    def test_sb_danish_snowball(self):
+        """test abydos.stemmer.sb_danish (Snowball testset)
 
         These test cases are from
         http://snowball.tartarus.org/algorithms/danish/diffs.txt
@@ -483,4 +488,4 @@ class PorterTestCases(unittest.TestCase):
                 if line[0] != '#':
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
-                    self.assertEqual(danish(word), stem.lower())
+                    self.assertEqual(sb_danish(word), stem.lower())

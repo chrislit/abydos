@@ -648,7 +648,7 @@ def porter2(word, early_english=False):
     return word
 
 
-def german(word, alternate_vowels=False):
+def sb_german(word, alternate_vowels=False):
     """Implementation of Snowball German stemmer -- ideally returns the word
     stem
 
@@ -775,7 +775,7 @@ def german(word, alternate_vowels=False):
     return word
 
 
-def dutch(word):
+def sb_dutch(word):
     """Implementation of Snowball Dutch stemmer -- ideally returns the word
     stem
 
@@ -893,7 +893,7 @@ def dutch(word):
     return word
 
 
-def norwegian(word):
+def sb_norwegian(word):
     """Implementation of Snowball Norwegian stemmer -- ideally returns the word
     stem
 
@@ -958,7 +958,7 @@ def norwegian(word):
     return word
 
 
-def swedish(word):
+def sb_swedish(word):
     """Implementation of Snowball Swedish stemmer -- ideally returns the word
     stem
 
@@ -1017,7 +1017,7 @@ def swedish(word):
     return word
 
 
-def danish(word):
+def sb_danish(word):
     """Implementation of Snowball Danish stemmer -- ideally returns the word
     stem
 
