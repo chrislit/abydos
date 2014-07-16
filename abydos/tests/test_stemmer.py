@@ -24,7 +24,7 @@ from __future__ import unicode_literals
 import unittest
 from abydos.stemmer import _m_degree, _sb_has_vowel, _ends_in_doubled_cons, \
     _ends_in_cvc, porter, _sb_r1, _sb_r2, _sb_ends_in_short_syllable, \
-    _sb_short_word, porter2, german
+    _sb_short_word, porter2, german, dutch, norwegian, swedish, danish
 import os, codecs
 
 TESTDIR = os.path.dirname(__file__)
@@ -315,3 +315,71 @@ class PorterTestCases(unittest.TestCase):
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
                     self.assertEqual(german(word), stem.lower())
+
+
+    def test_dutch_snowball(self):
+        """test abydos.stemmer.dutch (Snowball testset)
+
+        These test cases are from
+        http://snowball.tartarus.org/algorithms/dutch/diffs.txt
+        """
+        #  Snowball Porter test set
+        with codecs.open(TESTDIR+'/snowball_dutch.csv', 'r',
+                         'utf-8') as snowball_testset:
+            next(snowball_testset)
+            for line in snowball_testset:
+                if line[0] != '#':
+                    line = line.strip().split(',')
+                    word, stem = line[0], line[1]
+                    self.assertEqual(dutch(word), stem.lower())
+
+
+    def test_norwegian_snowball(self):
+        """test abydos.stemmer.norwegian (Snowball testset)
+
+        These test cases are from
+        http://snowball.tartarus.org/algorithms/norwegian/diffs.txt
+        """
+        #  Snowball Porter test set
+        with codecs.open(TESTDIR+'/snowball_norwegian.csv', 'r',
+                         'utf-8') as snowball_testset:
+            next(snowball_testset)
+            for line in snowball_testset:
+                if line[0] != '#':
+                    line = line.strip().split(',')
+                    word, stem = line[0], line[1]
+                    self.assertEqual(norwegian(word), stem.lower())
+
+
+    def test_swedish_snowball(self):
+        """test abydos.stemmer.swedish (Snowball testset)
+
+        These test cases are from
+        http://snowball.tartarus.org/algorithms/swedish/diffs.txt
+        """
+        #  Snowball Porter test set
+        with codecs.open(TESTDIR+'/snowball_swedish.csv', 'r',
+                         'utf-8') as snowball_testset:
+            next(snowball_testset)
+            for line in snowball_testset:
+                if line[0] != '#':
+                    line = line.strip().split(',')
+                    word, stem = line[0], line[1]
+                    self.assertEqual(swedish(word), stem.lower())
+
+
+    def test_danish_snowball(self):
+        """test abydos.stemmer.danish (Snowball testset)
+
+        These test cases are from
+        http://snowball.tartarus.org/algorithms/danish/diffs.txt
+        """
+        #  Snowball Porter test set
+        with codecs.open(TESTDIR+'/snowball_danish.csv', 'r',
+                         'utf-8') as snowball_testset:
+            next(snowball_testset)
+            for line in snowball_testset:
+                if line[0] != '#':
+                    line = line.strip().split(',')
+                    word, stem = line[0], line[1]
+                    self.assertEqual(danish(word), stem.lower())
