@@ -25,7 +25,7 @@ import unittest
 from abydos.stemmer import _m_degree, _sb_has_vowel, _ends_in_doubled_cons, \
     _ends_in_cvc, porter, _sb_r1, _sb_r2, _sb_ends_in_short_syllable, \
     _sb_short_word, porter2, sb_german, sb_dutch, sb_norwegian, sb_swedish, \
-    sb_danish
+    sb_danish, clef_german, clef_german_plus
 import os, codecs
 
 TESTDIR = os.path.dirname(__file__)
@@ -489,3 +489,59 @@ class PorterTestCases(unittest.TestCase):
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
                     self.assertEqual(sb_danish(word), stem.lower())
+
+    def test_clef_german(self):
+        """test abydos.stemmer.clef_german
+        """
+        # base case
+        self.assertEqual(clef_german(''), '')
+
+        # len <= 2
+        self.assertEqual(clef_german('ä'), 'a')
+        self.assertEqual(clef_german('er'), 'er')
+        self.assertEqual(clef_german('es'), 'es')
+        self.assertEqual(clef_german('äh'), 'ah')
+
+        # len > 2
+        self.assertEqual(clef_german('deinen'), 'dei')
+        self.assertEqual(clef_german('können'), 'kon')
+        self.assertEqual(clef_german('Damen'), 'dam')
+        self.assertEqual(clef_german('kleines'), 'klein')
+        self.assertEqual(clef_german('Namen'), 'nam')
+        self.assertEqual(clef_german('Äpfel'), 'apfel')
+        self.assertEqual(clef_german('Jahre'), 'jahr')
+        self.assertEqual(clef_german('Mannes'), 'mann')
+        self.assertEqual(clef_german('Häuser'), 'haus')
+        self.assertEqual(clef_german('Motoren'), 'motor')
+        self.assertEqual(clef_german('kleine'), 'klein')
+
+
+    def test_clef_german_plus(self):
+        """test abydos.stemmer.clef_german_plus
+        """
+        # base case
+        self.assertEqual(clef_german_plus(''), '')
+
+        # len <= 2
+        self.assertEqual(clef_german_plus('ä'), 'a')
+        self.assertEqual(clef_german_plus('er'), 'er')
+        self.assertEqual(clef_german_plus('es'), 'es')
+        self.assertEqual(clef_german_plus('äh'), 'ah')
+
+        # len > 2
+        self.assertEqual(clef_german_plus('deinen'), 'dei')
+        self.assertEqual(clef_german_plus('können'), 'kon')
+        self.assertEqual(clef_german_plus('Damen'), 'dam')
+        self.assertEqual(clef_german_plus('kleines'), 'klein')
+        self.assertEqual(clef_german_plus('Namen'), 'nam')
+        self.assertEqual(clef_german_plus('Äpfel'), 'apfel')
+        self.assertEqual(clef_german_plus('Jahre'), 'jahr')
+        self.assertEqual(clef_german_plus('Mannes'), 'mann')
+        self.assertEqual(clef_german_plus('Häuser'), 'haus')
+        self.assertEqual(clef_german_plus('Motoren'), 'motor')
+        self.assertEqual(clef_german_plus('kleine'), 'klein')
+        self.assertEqual(clef_german_plus('Pfingsten'), 'pfing')
+        self.assertEqual(clef_german_plus('lautest'), 'laut')
+        self.assertEqual(clef_german_plus('lauteste'), 'laut')
+        self.assertEqual(clef_german_plus('lautere'), 'laut')
+        self.assertEqual(clef_german_plus('lautste'), 'laut')

@@ -1090,3 +1090,74 @@ def sb_danish(word):
         word = word[:-1]
 
     return word
+
+
+def clef_german(word):
+    """Implementation of CLEF German stemmer -- ideally returns the word
+    stem
+
+    Arguments:
+    word -- the word to calculate the stem of
+
+    Description:
+    The CLEF German stemmer is defined at
+    http://members.unine.ch/jacques.savoy/clef/germanStemmer.txt
+    """
+    # lowercase, normalize, and compose
+    word = unicodedata.normalize('NFC', _unicode(word.lower()))
+
+    # remove umlauts
+    _umlauts = dict(zip([ord(_) for _ in 'äöü'], 'aou'))
+    word = word.translate(_umlauts)
+
+    # remove plurals
+    if len(word) >= 3:
+        if len(word) >= 5:
+            if word[-3:] == 'nen':
+                return word[:-3]
+        if len(word) >= 4:
+            if word[-2:] in set(['en', 'se', 'es', 'er']):
+                return word[:-2]
+        if word[-1] in set('nsre'):
+            return word[:-1]
+
+    return word
+
+def clef_german_plus(word):
+    """Implementation of CLEF German stemmer plus -- ideally returns the word
+    stem
+
+    Arguments:
+    word -- the word to calculate the stem of
+
+    Description:
+    The CLEF German stemmer plus is defined at
+    http://members.unine.ch/jacques.savoy/clef/germanStemmerPlus.txt
+    """
+    _st_ending = set('bdfghklmnt')
+
+    # lowercase, normalize, and compose
+    word = unicodedata.normalize('NFC', _unicode(word.lower()))
+
+    # remove umlauts
+    _accents = dict(zip([ord(_) for _ in 'äàáâöòóôïìíîüùúû'],
+                        'aaaaooooiiiiuuuu'))
+    word = word.translate(_accents)
+
+    # Step 1
+    if len(word) >= 4 and word[-3:] == 'nen':
+        word = word[:-3]
+    elif len(word) >= 3 and word[-2:] in set(['em', 'en', 'er', 'es']):
+        word = word[:-2]
+    elif len(word) >= 2 and (word[-1] == 'e' or
+                           (word[-1] == 's' and word[-2] in _st_ending)):
+        word = word[:-1]
+
+    # Step 2
+    if len(word) >= 4 and word[-3:] == 'est':
+        word = word[:-3]
+    elif len(word) >= 3 and (word[-2:] in set(['er', 'en']) or
+                             (word[-2:] == 'st' and word[-3] in _st_ending)):
+        word = word[:-2]
+
+    return word
