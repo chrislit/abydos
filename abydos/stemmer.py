@@ -786,6 +786,8 @@ def dutch(word):
     The Snowball Dutch stemmer is defined at
     http://snowball.tartarus.org/algorithms/dutch/stemmer.html
     """
+    # pylint: disable=too-many-branches
+
     _vowels = set('aeiouyè')
     _not_s_endings = _vowels.union(['j'])
 
@@ -911,29 +913,29 @@ def norwegian(word):
     r1_start = min(max(3, _sb_r1(word, _vowels)), len(word))
 
     # Step 1
-    R1 = word[r1_start:]
-    if R1[-7:] == 'hetenes':
+    _r1 = word[r1_start:]
+    if _r1[-7:] == 'hetenes':
         word = word[:-7]
-    elif R1[-6:] in set(['hetene', 'hetens']):
+    elif _r1[-6:] in set(['hetene', 'hetens']):
         word = word[:-6]
-    elif R1[-5:] in set(['heten', 'heter', 'endes']):
+    elif _r1[-5:] in set(['heten', 'heter', 'endes']):
         word = word[:-5]
-    elif R1[-4:] in set(['ande', 'ende', 'edes', 'enes', 'erte']):
+    elif _r1[-4:] in set(['ande', 'ende', 'edes', 'enes', 'erte']):
         if word[-4:] == 'erte':
             word = word[:-2]
         else:
             word = word[:-4]
-    elif R1[-3:] in set(['ede', 'ane', 'ene', 'ens', 'ers', 'ets', 'het',
-                         'ast', 'ert']):
+    elif _r1[-3:] in set(['ede', 'ane', 'ene', 'ens', 'ers', 'ets', 'het',
+                          'ast', 'ert']):
         if word[-3:] == 'ert':
             word = word[:-1]
         else:
             word = word[:-3]
-    elif R1[-2:] in set(['en', 'ar', 'er', 'as', 'es', 'et']):
+    elif _r1[-2:] in set(['en', 'ar', 'er', 'as', 'es', 'et']):
         word = word[:-2]
-    elif R1[-1:] in set('ae'):
+    elif _r1[-1:] in set('ae'):
         word = word[:-1]
-    elif R1[-1:] == 's':
+    elif _r1[-1:] == 's':
         if ((len(word) > 1 and word[-2] in _s_endings) or
             (len(word) > 2 and word[-2] == 'k' and word[-3] not in _vowels)):
             word = word[:-1]
@@ -943,14 +945,14 @@ def norwegian(word):
         word = word[:-1]
 
     # Step 3
-    R1 = word[r1_start:]
-    if R1[-7:] == 'hetslov':
+    _r1 = word[r1_start:]
+    if _r1[-7:] == 'hetslov':
         word = word[:-7]
-    elif R1[-4:] in set(['eleg', 'elig', 'elov', 'slov']):
+    elif _r1[-4:] in set(['eleg', 'elig', 'elov', 'slov']):
         word = word[:-4]
-    elif R1[-3:] in set(['leg', 'eig', 'lig', 'els', 'lov']):
+    elif _r1[-3:] in set(['leg', 'eig', 'lig', 'els', 'lov']):
         word = word[:-3]
-    elif R1[-2:] == 'ig':
+    elif _r1[-2:] == 'ig':
         word = word[:-2]
 
     return word
@@ -976,24 +978,24 @@ def swedish(word):
     r1_start = min(max(3, _sb_r1(word, _vowels)), len(word))
 
     # Step 1
-    R1 = word[r1_start:]
-    if R1[-7:] == 'heterna':
+    _r1 = word[r1_start:]
+    if _r1[-7:] == 'heterna':
         word = word[:-7]
-    elif R1[-6:] == 'hetens':
+    elif _r1[-6:] == 'hetens':
         word = word[:-6]
-    elif R1[-5:] in set(['anden', 'heten', 'heter', 'arnas', 'ernas', 'ornas',
-                         'andes', 'arens', 'andet']):
+    elif _r1[-5:] in set(['anden', 'heten', 'heter', 'arnas', 'ernas', 'ornas',
+                          'andes', 'arens', 'andet']):
         word = word[:-5]
-    elif R1[-4:] in set(['arna', 'erna', 'orna', 'ande', 'arne', 'aste', 'aren',
-                         'ades', 'erns']):
+    elif _r1[-4:] in set(['arna', 'erna', 'orna', 'ande', 'arne', 'aste',
+                          'aren', 'ades', 'erns']):
         word = word[:-4]
-    elif R1[-3:] in set(['ade', 'are', 'ern', 'ens', 'het', 'ast']):
+    elif _r1[-3:] in set(['ade', 'are', 'ern', 'ens', 'het', 'ast']):
         word = word[:-3]
-    elif R1[-2:] in set(['ad', 'en', 'ar', 'er', 'or', 'as', 'es', 'at']):
+    elif _r1[-2:] in set(['ad', 'en', 'ar', 'er', 'or', 'as', 'es', 'at']):
         word = word[:-2]
-    elif R1[-1:] in set('ae'):
+    elif _r1[-1:] in set('ae'):
         word = word[:-1]
-    elif R1[-1:] == 's':
+    elif _r1[-1:] == 's':
         if len(word) > 1 and word[-2] in _s_endings:
             word = word[:-1]
 
@@ -1002,14 +1004,14 @@ def swedish(word):
         word = word[:-1]
 
     # Step 3
-    R1 = word[r1_start:]
-    if R1[-5:] == 'fullt':
+    _r1 = word[r1_start:]
+    if _r1[-5:] == 'fullt':
         word = word[:-1]
-    elif R1[-4:] == 'löst':
+    elif _r1[-4:] == 'löst':
         word = word[:-1]
-    elif R1[-3:] in set(['lig', 'els']):
+    elif _r1[-3:] in set(['lig', 'els']):
         word = word[:-3]
-    elif R1[-2:] == 'ig':
+    elif _r1[-2:] == 'ig':
         word = word[:-2]
 
     return word
@@ -1035,24 +1037,24 @@ def danish(word):
     r1_start = min(max(3, _sb_r1(word, _vowels)), len(word))
 
     # Step 1
-    R1 = word[r1_start:]
-    if R1[-7:] == 'erendes':
+    _r1 = word[r1_start:]
+    if _r1[-7:] == 'erendes':
         word = word[:-7]
-    elif R1[-6:] in set(['erende', 'hedens']):
+    elif _r1[-6:] in set(['erende', 'hedens']):
         word = word[:-6]
-    elif R1[-5:] in set(['ethed', 'erede', 'heden', 'heder', 'endes', 'ernes',
-                         'erens', 'erets']):
+    elif _r1[-5:] in set(['ethed', 'erede', 'heden', 'heder', 'endes', 'ernes',
+                          'erens', 'erets']):
         word = word[:-5]
-    elif R1[-4:] in set(['ered', 'ende', 'erne', 'eren', 'erer', 'heds', 'enes',
-                         'eres', 'eret']):
+    elif _r1[-4:] in set(['ered', 'ende', 'erne', 'eren', 'erer', 'heds',
+                          'enes', 'eres', 'eret']):
         word = word[:-4]
-    elif R1[-3:] in set(['hed', 'ene', 'ere', 'ens', 'ers', 'ets']):
+    elif _r1[-3:] in set(['hed', 'ene', 'ere', 'ens', 'ers', 'ets']):
         word = word[:-3]
-    elif R1[-2:] in set(['en', 'er', 'es', 'et']):
+    elif _r1[-2:] in set(['en', 'er', 'es', 'et']):
         word = word[:-2]
-    elif R1[-1:] == 'e':
+    elif _r1[-1:] == 'e':
         word = word[:-1]
-    elif R1[-1:] == 's':
+    elif _r1[-1:] == 's':
         if len(word) > 1 and word[-2] in _s_endings:
             word = word[:-1]
 
@@ -1064,17 +1066,17 @@ def danish(word):
     if word[-4:] == 'igst':
         word = word[:-2]
 
-    R1 = word[r1_start:]
+    _r1 = word[r1_start:]
     repeat_step2 = False
-    if R1[-4:] == 'elig':
+    if _r1[-4:] == 'elig':
         word = word[:-4]
         repeat_step2 = True
-    elif R1[-4:] == 'løst':
+    elif _r1[-4:] == 'løst':
         word = word[:-1]
-    elif R1[-3:] in set(['lig', 'els']):
+    elif _r1[-3:] in set(['lig', 'els']):
         word = word[:-3]
         repeat_step2 = True
-    elif R1[-2:] == 'ig':
+    elif _r1[-2:] == 'ig':
         word = word[:-2]
         repeat_step2 = True
 
