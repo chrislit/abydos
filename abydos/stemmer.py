@@ -805,9 +805,9 @@ def dutch(word):
         return word
 
     # lowercase, normalize, decompose, filter umlauts & acutes out, and compose
-    word = unicodedata.normalize('NFKD', _unicode(word.lower()))
-    word = ''.join([c for c in word if c not in set('̈́')])
-    word = unicodedata.normalize('NFC', word.lower())
+    word = unicodedata.normalize('NFC', _unicode(word.lower()))
+    _accented = dict(zip([ord(_) for _ in 'äëïöüáéíóú'], 'aeiouaeiou'))
+    word = word.translate(_accented)
 
     for i in _range(len(word)):
         if i == 0 and word[0] == 'y':
@@ -849,7 +849,7 @@ def dutch(word):
 
     # Step 3a
     if word[-4:] == 'heid':
-        if len(word[r2_start:]) >= 4 and word[-2] != 'c':
+        if len(word[r2_start:]) >= 4 and word[-5] != 'c':
             word = word[:-4]
             if word[-2:] == 'en':
                 if (len(word[r1_start:]) >= 2 and
