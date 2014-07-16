@@ -780,3 +780,39 @@ def german(word, alternate_vowels=False):
     word = word.translate(_umlauts)
 
     return word
+
+
+def dutch(word):
+    """Implementation of Snowball Dutch stemmer -- ideally returns the word
+    stem
+
+    Arguments:
+    word -- the word to calculate the stem of
+
+    Description:
+    The Snowball Dutch stemmer is defined at
+    http://snowball.tartarus.org/algorithms/dutch/stemmer.html
+    """
+    _vowels = set('aeiouyè')
+    _not_s_endings = _vowels.union(['j'])
+    _non_en_endings = _vowels.union(['gem'])
+    _undoubleables = set('kk', 'dd', 'tt')
+
+    # uppercase, normalize, decompose, and filter non-A-Z out
+    word = unicodedata.normalize('NFKD', _unicode(word.lower()))
+    word = ''.join([c for c in word if c not in set('̈́')])
+    word = unicodedata.normalize('NFC', word.lower())
+
+    for i in _range(len(word)):
+        if i == 0 and word[0] == 'y':
+            word = 'Y' + word[1:]
+        elif word[i] == 'y' and word[i-1] in _vowels:
+            word = word[:i] + 'Y' + word[i+1:]
+        elif (word[i] == 'i' and word[i-1] in _vowels and i+1 < len(word) and
+              word[i+1] in _vowels):
+            word = word[:i] + 'I' + word[i+1:]
+
+    r1_start = max(3, _sb_r1(word, _vowels))
+    r2_start = _sb_r2(word, _vowels)
+
+    return word
