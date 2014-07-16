@@ -840,5 +840,18 @@ def dutch(word):
         if len(word[r1_start:]) >= 1 and word[-2] not in _not_s_endings:
             word = word[:-1]
 
+    # Step 2
+    if word[-1:] == 'e':
+        if len(word[r1_start:]) >= 1 and word[-2] not in _vowels:
+            word = _undouble(word[:-1])
+
+    # Step 3a
+    if word[-4:] == 'heid':
+        if len(word[r2_start:]) >= 1 and word[-2] != 'c':
+            word = word[:-4]
+            if word[-2:] == 'en':
+                if (len(word[r1_start:]) >= 2 and
+                    (word[-3] not in _vowels and word[-5:-2] != 'gem')):
+                    word = _undouble(word[:-2])
 
     return word
