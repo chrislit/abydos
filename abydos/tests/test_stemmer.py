@@ -175,6 +175,32 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(porter('singing'), 'sing')
 
 
+    def test_porter_early_english(self):
+        """test abydos.stemmer.porter (early English)
+        """
+        # base case
+        self.assertEqual(porter('', early_english=True), '')
+
+        # simple cases (no different from regular stemmer)
+        self.assertEqual(porter('c', early_english=True), 'c')
+        self.assertEqual(porter('da', early_english=True), 'da')
+        self.assertEqual(porter('ad', early_english=True), 'ad')
+        self.assertEqual(porter('sing', early_english=True), 'sing')
+        self.assertEqual(porter('singing', early_english=True), 'sing')
+
+        # make
+        self.assertEqual(porter('make', early_english=True), 'make')
+        self.assertEqual(porter('makes', early_english=True), 'make')
+        self.assertEqual(porter('maketh', early_english=True), 'make')
+        self.assertEqual(porter('makest', early_english=True), 'make')
+
+        # say
+        self.assertEqual(porter('say', early_english=True), 'sai')
+        self.assertEqual(porter('says', early_english=True), 'sai')
+        self.assertEqual(porter('sayeth', early_english=True), 'sai')
+        self.assertEqual(porter('sayest', early_english=True), 'sai')
+
+
     def test_porter_snowball(self):
         """test abydos.stemmer.porter (Snowball testset)
 
@@ -284,6 +310,32 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(porter2('singing'), 'sing')
 
 
+    def test_porter2_early_english(self):
+        """test abydos.stemmer.porter2 (early English)
+        """
+        # base case
+        self.assertEqual(porter2('', early_english=True), '')
+
+        # simple cases (no different from regular stemmer)
+        self.assertEqual(porter2('c', early_english=True), 'c')
+        self.assertEqual(porter2('da', early_english=True), 'da')
+        self.assertEqual(porter2('ad', early_english=True), 'ad')
+        self.assertEqual(porter2('sing', early_english=True), 'sing')
+        self.assertEqual(porter2('singing', early_english=True), 'sing')
+
+        # make
+        self.assertEqual(porter2('make', early_english=True), 'make')
+        self.assertEqual(porter2('makes', early_english=True), 'make')
+        self.assertEqual(porter2('maketh', early_english=True), 'make')
+        self.assertEqual(porter2('makest', early_english=True), 'make')
+
+        # say
+        self.assertEqual(porter2('say', early_english=True), 'say')
+        self.assertEqual(porter2('says', early_english=True), 'say')
+        self.assertEqual(porter2('sayeth', early_english=True), 'say')
+        self.assertEqual(porter2('sayest', early_english=True), 'say')
+
+
     def test_porter2_snowball(self):
         """test abydos.stemmer.porter2 (Snowball testset)
 
@@ -315,6 +367,55 @@ class PorterTestCases(unittest.TestCase):
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
                     self.assertEqual(german(word), stem.lower())
+
+
+    def test_german_snowball_alt(self):
+        """test abydos.stemmer.german (alternate vowels)
+        """
+        # base case
+        self.assertEqual(german('', alternate_vowels=True), '')
+
+        # dämmerung,dammer
+        self.assertEqual(german('dämmerung', alternate_vowels=True), 'dammer')
+        self.assertEqual(german('daemmerung', alternate_vowels=True), 'dammer')
+        self.assertEqual(german('dämmerung'), 'dammer')
+        self.assertEqual(german('daemmerung'), 'daemmer')
+
+        # brötchen,brotch
+        self.assertEqual(german('brötchen', alternate_vowels=True), 'brotch')
+        self.assertEqual(german('broetchen', alternate_vowels=True), 'brotch')
+        self.assertEqual(german('brötchen'), 'brotch')
+        self.assertEqual(german('broetchen'), 'broetch')
+
+        # büro,buro
+        self.assertEqual(german('büro', alternate_vowels=True), 'buro')
+        self.assertEqual(german('buero', alternate_vowels=True), 'buro')
+        self.assertEqual(german('büro'), 'buro')
+        self.assertEqual(german('buero'), 'buero')
+
+        # häufen,hauf
+        self.assertEqual(german('häufen', alternate_vowels=True), 'hauf')
+        self.assertEqual(german('haeufen', alternate_vowels=True), 'hauf')
+        self.assertEqual(german('häufen'), 'hauf')
+        self.assertEqual(german('haeufen'), 'haeuf')
+
+        # quelle,quell
+        self.assertEqual(german('qülle', alternate_vowels=True), 'qull')
+        self.assertEqual(german('quelle', alternate_vowels=True), 'quell')
+        self.assertEqual(german('qülle'), 'qull')
+        self.assertEqual(german('quelle'), 'quell')
+
+        # feuer,feuer
+        self.assertEqual(german('feür', alternate_vowels=True), 'feur')
+        self.assertEqual(german('feuer', alternate_vowels=True), 'feu')
+        self.assertEqual(german('feür'), 'feur')
+        self.assertEqual(german('feuer'), 'feu')
+
+        # über,uber
+        self.assertEqual(german('über', alternate_vowels=True), 'uber')
+        self.assertEqual(german('ueber', alternate_vowels=True), 'uber')
+        self.assertEqual(german('über'), 'uber')
+        self.assertEqual(german('ueber'), 'ueb')
 
 
     def test_dutch_snowball(self):
