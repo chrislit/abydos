@@ -902,6 +902,57 @@ def norwegian(word):
     The Snowball Norwegian stemmer is defined at
     http://snowball.tartarus.org/algorithms/norwegian/stemmer.html
     """
+    _vowels = set('aeiouyæåø')
+    _s_endings = set('bcdfghjlmnoprtvyz')
+
+    # lowercase, normalize, and compose
+    word = unicodedata.normalize('NFC', _unicode(word.lower()))
+
+    r1_start = min(max(3, _sb_r1(word, _vowels)), len(word))
+
+    # Step 1
+    R1 = word[r1_start:]
+    if R1[-7:] == 'hetenes':
+        word = word[:-7]
+    elif R1[-6:] in set(['hetene', 'hetens']):
+        word = word[:-6]
+    elif R1[-5:] in set(['heten', 'heter', 'endes']):
+        word = word[:-5]
+    elif R1[-4:] in set(['ande', 'ende', 'edes', 'enes', 'erte']):
+        if word[-4:] == 'erte':
+            word = word[:-2]
+        else:
+            word = word[:-4]
+    elif R1[-3:] in set(['ede', 'ane', 'ene', 'ens', 'ers', 'ets', 'het',
+                         'ast', 'ert']):
+        if word[-3:] == 'ert':
+            word = word[:-1]
+        else:
+            word = word[:-3]
+    elif R1[-2:] in set(['en', 'ar', 'er', 'as', 'es', 'et']):
+        word = word[:-2]
+    elif R1[-1:] in set('ae'):
+        word = word[:-1]
+    elif R1[-1:] == 's':
+        if ((len(word) > 1 and word[-2] in _s_endings) or
+            (len(word) > 2 and word[-2] == 'k' and word[-3] not in _vowels)):
+            word = word[:-1]
+
+    # Step 2
+    if word[r1_start:][-2:] in set(['dt', 'vt']):
+        word = word[:-1]
+
+    # Step 3
+    R1 = word[r1_start:]
+    if R1[-7:] == 'hetslov':
+        word = word[:-7]
+    elif R1[-4:] in set(['eleg', 'elig', 'elov', 'slov']):
+        word = word[:-4]
+    elif R1[-3:] in set(['leg', 'eig', 'lig', 'els', 'lov']):
+        word = word[:-3]
+    elif R1[-2:] == 'ig':
+        word = word[:-2]
+
     return word
 
 
