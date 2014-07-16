@@ -652,12 +652,14 @@ def porter2(word, early_english=False):
     return word
 
 
-def german(word):
+def german(word, alternate_vowels=False):
     """Implementation of Snowball German stemmer -- ideally returns the word
     stem
 
     Arguments:
     word -- the word to calculate the stem of
+    alternate_vowels -- composes ae as ä, oe as ö, and ue as ü before running
+        the algorithm
 
     Description:
     The Snowball German stemmer is defined at
@@ -683,6 +685,13 @@ def german(word):
                     word = word[:i-1] + 'U' + word[i:]
                 elif word[i-1] == 'y':
                     word = word[:i-1] + 'Y' + word[i:]
+
+    if alternate_vowels:
+        word = word.replace('ae', 'ä')
+        word = word.replace('oe', 'ö')
+        word = word.replace('que', 'Q')
+        word = word.replace('ue', 'ü')
+        word = word.replace('Q', 'que')
 
     r1_start = max(3, _sb_r1(word, _vowels))
     r2_start = _sb_r2(word, _vowels)
