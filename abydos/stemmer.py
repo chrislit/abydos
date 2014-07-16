@@ -1026,4 +1026,65 @@ def danish(word):
     The Snowball Danish stemmer is defined at
     http://snowball.tartarus.org/algorithms/danish/stemmer.html
     """
+    _vowels = set('aeiouyæåø')
+    _s_endings = set('abcdfghjklmnoprtvyzå')
+
+    # lowercase, normalize, and compose
+    word = unicodedata.normalize('NFC', _unicode(word.lower()))
+
+    r1_start = min(max(3, _sb_r1(word, _vowels)), len(word))
+
+    # Step 1
+    R1 = word[r1_start:]
+    if R1[-7:] == 'erendes':
+        word = word[:-7]
+    elif R1[-6:] in set(['erende', 'hedens']):
+        word = word[:-6]
+    elif R1[-5:] in set(['ethed', 'erede', 'heden', 'heder', 'endes', 'ernes',
+                         'erens', 'erets']):
+        word = word[:-5]
+    elif R1[-4:] in set(['ered', 'ende', 'erne', 'eren', 'erer', 'heds', 'enes',
+                         'eres', 'eret']):
+        word = word[:-4]
+    elif R1[-3:] in set(['hed', 'ene', 'ere', 'ens', 'ers', 'ets']):
+        word = word[:-3]
+    elif R1[-2:] in set(['en', 'er', 'es', 'et']):
+        word = word[:-2]
+    elif R1[-1:] == 'e':
+        word = word[:-1]
+    elif R1[-1:] == 's':
+        if len(word) > 1 and word[-2] in _s_endings:
+            word = word[:-1]
+
+    # Step 2
+    if word[r1_start:][-2:] in set(['gd', 'dt', 'gt', 'kt']):
+        word = word[:-1]
+
+    # Step 3
+    if word[-4:] == 'igst':
+        word = word[:-2]
+
+    R1 = word[r1_start:]
+    repeat_step2 = False
+    if R1[-4:] == 'elig':
+        word = word[:-4]
+        repeat_step2 = True
+    elif R1[-4:] == 'løst':
+        word = word[:-1]
+    elif R1[-3:] in set(['lig', 'els']):
+        word = word[:-3]
+        repeat_step2 = True
+    elif R1[-2:] == 'ig':
+        word = word[:-2]
+        repeat_step2 = True
+
+    if repeat_step2:
+        if word[r1_start:][-2:] in set(['gd', 'dt', 'gt', 'kt']):
+            word = word[:-1]
+
+    # Step 4
+    if (len(word[r1_start:]) >= 1 and len(word) >= 2 and
+        word[-1] == word[-2] and word[-1] not in _vowels):
+        word = word[:-1]
+
     return word
