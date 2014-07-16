@@ -967,6 +967,51 @@ def swedish(word):
     The Snowball Swedish stemmer is defined at
     http://snowball.tartarus.org/algorithms/swedish/stemmer.html
     """
+    _vowels = set('aeiouyäåö')
+    _s_endings = set('bcdfghjklmnoprtvy')
+
+    # lowercase, normalize, and compose
+    word = unicodedata.normalize('NFC', _unicode(word.lower()))
+
+    r1_start = min(max(3, _sb_r1(word, _vowels)), len(word))
+
+    # Step 1
+    R1 = word[r1_start:]
+    if R1[-7:] == 'heterna':
+        word = word[:-7]
+    elif R1[-6:] == 'hetens':
+        word = word[:-6]
+    elif R1[-5:] in set(['anden', 'heten', 'heter', 'arnas', 'ernas', 'ornas',
+                         'andes', 'arens', 'andet']):
+        word = word[:-5]
+    elif R1[-4:] in set(['arna', 'erna', 'orna', 'ande', 'arne', 'aste', 'aren',
+                         'ades', 'erns']):
+        word = word[:-4]
+    elif R1[-3:] in set(['ade', 'are', 'ern', 'ens', 'het', 'ast']):
+        word = word[:-3]
+    elif R1[-2:] in set(['ad', 'en', 'ar', 'er', 'or', 'as', 'es', 'at']):
+        word = word[:-2]
+    elif R1[-1:] in set('ae'):
+        word = word[:-1]
+    elif R1[-1:] == 's':
+        if len(word) > 1 and word[-2] in _s_endings:
+            word = word[:-1]
+
+    # Step 2
+    if word[r1_start:][-2:] in set(['dd', 'gd', 'nn', 'dt', 'gt', 'kt', 'tt']):
+        word = word[:-1]
+
+    # Step 3
+    R1 = word[r1_start:]
+    if R1[-5:] == 'fullt':
+        word = word[:-1]
+    elif R1[-4:] == 'löst':
+        word = word[:-1]
+    elif R1[-3:] in set(['lig', 'els']):
+        word = word[:-3]
+    elif R1[-2:] == 'ig':
+        word = word[:-2]
+
     return word
 
 
