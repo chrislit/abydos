@@ -841,17 +841,46 @@ def dutch(word):
             word = word[:-1]
 
     # Step 2
+    e_removed = False
     if word[-1:] == 'e':
         if len(word[r1_start:]) >= 1 and word[-2] not in _vowels:
             word = _undouble(word[:-1])
+            e_removed = True
 
     # Step 3a
     if word[-4:] == 'heid':
-        if len(word[r2_start:]) >= 1 and word[-2] != 'c':
+        if len(word[r2_start:]) >= 4 and word[-2] != 'c':
             word = word[:-4]
             if word[-2:] == 'en':
                 if (len(word[r1_start:]) >= 2 and
                     (word[-3] not in _vowels and word[-5:-2] != 'gem')):
                     word = _undouble(word[:-2])
+
+    # Step 3b
+    if word[-4:] == 'lijk':
+        if len(word[r2_start:]) >= 4:
+            word = word[:-4]
+            # Repeat step 2
+            if word[-1:] == 'e':
+                if len(word[r1_start:]) >= 1 and word[-2] not in _vowels:
+                    word = _undouble(word[:-1])
+    elif word[-4:] == 'baar':
+        if len(word[r2_start:]) >= 4:
+            word = word[:-4]
+    elif word[-3:] in ('end', 'ing'):
+        if len(word[r2_start:]) >= 3:
+            word = word[:-3]
+            if (word[-2:] == 'ig' and len(word[r2_start:]) >= 2 and
+                word[-3] != 'e'):
+                word = word[:-2]
+            else:
+                word = _undouble(word)
+    elif word[-3:] == 'bar':
+        if len(word[r2_start:]) >= 3 and e_removed:
+            word = word[:-3]
+    elif word[-2:] == 'ig':
+        if len(word[r2_start:]) >= 2 and word[-3] != 'e':
+            word = word[:-2]
+
 
     return word
