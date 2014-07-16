@@ -897,3 +897,45 @@ def dutch(word):
             word = word[:i] + 'i' + word[i+1:]
 
     return word
+
+
+def norwegian(word):
+    """Implementation of Snowball Norwegian stemmer -- ideally returns the word
+    stem
+
+    Arguments:
+    word -- the word to calculate the stem of
+
+    Description:
+    The Snowball Norwegian stemmer is defined at
+    http://snowball.tartarus.org/algorithms/norwegian/stemmer.html
+    """
+    return word
+
+
+def swedish(word):
+    """Implementation of Snowball Swedish stemmer -- ideally returns the word
+    stem
+
+    Arguments:
+    word -- the word to calculate the stem of
+
+    Description:
+    The Snowball Swedish stemmer is defined at
+    http://snowball.tartarus.org/algorithms/swedish/stemmer.html
+    """
+    return word
+
+
+def danish(word):
+    """Implementation of Snowball Danish stemmer -- ideally returns the word
+    stem
+
+    Arguments:
+    word -- the word to calculate the stem of
+
+    Description:
+    The Snowball Danish stemmer is defined at
+    http://snowball.tartarus.org/algorithms/danish/stemmer.html
+    """
+    return word
