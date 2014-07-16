@@ -102,10 +102,8 @@ def porter(word, early_english=False):
     """
     # pylint: disable=too-many-branches
 
-    # uppercase, normalize, decompose, and filter non-A-Z out
-    word = unicodedata.normalize('NFKD', _unicode(word.lower()))
-    # word = ''.join([c for c in word if c in
-    #                 set('abcdefghijklmnopqrstuvwxyz')])
+    # lowercase, normalize, and compose
+    word = unicodedata.normalize('NFC', _unicode(word.lower()))
 
     # Return word if stem is shorter than 2
     if len(word) < 3:
@@ -414,14 +412,12 @@ def porter2(word, early_english=False):
     _exception2set = set(['inning', 'outing', 'canning', 'herring', 'earring',
                           'proceed', 'exceed', 'succeed'])
 
-    # uppercase, normalize, decompose, and filter non-A-Z out
-    word = unicodedata.normalize('NFKD', _unicode(word.lower()))
+    # lowercase, normalize, and compose
+    word = unicodedata.normalize('NFC', _unicode(word.lower()))
     # replace apostrophe-like characters with U+0027, per
     # http://snowball.tartarus.org/texts/apostrophe.html
     word = word.replace('’', '\'')
     word = word.replace('’', '\'')
-    # word = ''.join([c for c in word if c in
-    #                 set('abcdefghijklmnopqrstuvwxyz\'')])
 
     # Exceptions 1
     if word in _exception1dict:
@@ -671,12 +667,9 @@ def german(word, alternate_vowels=False):
     _s_endings = set('bdfghklmnrt')
     _st_endings = set('bdfghklmnt')
 
-    # uppercase, normalize, decompose, and filter non-A-Z out
-    word = unicodedata.normalize('NFKD', _unicode(word.lower()))
-    word = word.replace('ß', 'ss')
-    # word = ''.join([c for c in word if c in
-    #                 set('abcdefghijklmnopqrstuvwxyz̈')])
+    # lowercase, normalize, and compose
     word = unicodedata.normalize('NFC', word.lower())
+    word = word.replace('ß', 'ss')
 
     if len(word) > 2:
         for i in _range(2, len(word)):
@@ -795,7 +788,6 @@ def dutch(word):
     """
     _vowels = set('aeiouyè')
     _not_s_endings = _vowels.union(['j'])
-    #_non_en_endings = _vowels.union(['gem'])
 
     def _undouble(word):
         """Undouble endings -kk, -dd, and -tt
