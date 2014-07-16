@@ -882,5 +882,18 @@ def dutch(word):
         if len(word[r2_start:]) >= 2 and word[-3] != 'e':
             word = word[:-2]
 
+    # Step 4
+    if (len(word) >= 4 and
+        word[-3] == word[-2] and word[-2] in set('aeou') and
+        word[-4] not in _vowels and
+        word[-1] not in _vowels and word[-1] != 'I'):
+        word = word[:-2] + word[-1]
+
+    # Change 'Y' and 'U' back to lowercase if survived stemming
+    for i in _range(0, len(word)):
+        if word[i] == 'Y':
+            word = word[:i] + 'y' + word[i+1:]
+        elif word[i] == 'I':
+            word = word[:i] + 'i' + word[i+1:]
 
     return word
