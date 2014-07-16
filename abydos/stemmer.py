@@ -795,10 +795,10 @@ def dutch(word):
     """
     _vowels = set('aeiouyè')
     _not_s_endings = _vowels.union(['j'])
-    _non_en_endings = _vowels.union(['gem'])
-    _undoubleables = set('kk', 'dd', 'tt')
+    #_non_en_endings = _vowels.union(['gem'])
+    _undoubleables = set('kdt')
 
-    # uppercase, normalize, decompose, and filter non-A-Z out
+    # lowercase, normalize, decompose, filter umlauts & acutes out, and compose
     word = unicodedata.normalize('NFKD', _unicode(word.lower()))
     word = ''.join([c for c in word if c not in set('̈́')])
     word = unicodedata.normalize('NFC', word.lower())
@@ -814,5 +814,31 @@ def dutch(word):
 
     r1_start = max(3, _sb_r1(word, _vowels))
     r2_start = _sb_r2(word, _vowels)
+
+    # Step 1
+    if word[-5:] == 'heden':
+        if len(word[r1_start:]) >= 5:
+            word = word[:-3] + 'id'
+    elif word[-3:] == 'ene':
+        if (len(word[r1_start:]) >= 3 and
+            (word[-4] not in _vowels and word[-6:-3] != 'gem')):
+            word = word[:-3]
+            if (len(word) > 1 and word[-1] == word[-2] and
+                word[-1] in _undoubleables):
+                word = word[:-1]
+    elif word[-2:] == 'en':
+        if (len(word[r1_start:]) >= 2 and
+            (word[-3] not in _vowels and word[-5:-2] != 'gem')):
+            word = word[:-2]
+            if (len(word) > 1 and word[-1] == word[-2] and
+                word[-1] in _undoubleables):
+                word = word[:-1]
+    elif word[-2:] == 'se':
+        if len(word[r1_start:]) >= 2 and word[-3] not in _not_s_endings:
+            word = word[:-2]
+    elif word[-1:] == 's':
+        if len(word[r1_start:]) >= 1 and word[-2] not in _not_s_endings:
+            word = word[:-1]
+
 
     return word
