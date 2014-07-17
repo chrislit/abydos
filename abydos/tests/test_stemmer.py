@@ -503,11 +503,11 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(clef_german('äh'), 'ah')
 
         # len > 2
-        self.assertEqual(clef_german('deinen'), 'dei')
-        self.assertEqual(clef_german('können'), 'kon')
-        self.assertEqual(clef_german('Damen'), 'dam')
+        self.assertEqual(clef_german('deinen'), 'dein')
+        self.assertEqual(clef_german('können'), 'konn')
+        self.assertEqual(clef_german('Damen'), 'dame')
         self.assertEqual(clef_german('kleines'), 'klein')
-        self.assertEqual(clef_german('Namen'), 'nam')
+        self.assertEqual(clef_german('Namen'), 'name')
         self.assertEqual(clef_german('Äpfel'), 'apfel')
         self.assertEqual(clef_german('Jahre'), 'jahr')
         self.assertEqual(clef_german('Mannes'), 'mann')
@@ -519,6 +519,7 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(clef_german('lauteste'), 'lautest')
         self.assertEqual(clef_german('lautere'), 'lauter')
         self.assertEqual(clef_german('lautste'), 'lautst')
+        self.assertEqual(clef_german('kleinen'), 'klei')
 
 
     def test_clef_german_plus(self):
@@ -534,8 +535,8 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(clef_german_plus('äh'), 'ah')
 
         # len > 2
-        self.assertEqual(clef_german_plus('deinen'), 'dei')
-        self.assertEqual(clef_german_plus('können'), 'kon')
+        self.assertEqual(clef_german_plus('deinen'), 'dein')
+        self.assertEqual(clef_german_plus('können'), 'konn')
         self.assertEqual(clef_german_plus('Damen'), 'dam')
         self.assertEqual(clef_german_plus('kleines'), 'klein')
         self.assertEqual(clef_german_plus('Namen'), 'nam')
@@ -550,6 +551,7 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(clef_german_plus('lauteste'), 'laut')
         self.assertEqual(clef_german_plus('lautere'), 'laut')
         self.assertEqual(clef_german_plus('lautste'), 'laut')
+        self.assertEqual(clef_german_plus('kleinen'), 'klein')
 
 
     def test_clef_swedish(self):

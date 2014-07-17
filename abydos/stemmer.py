@@ -1111,16 +1111,17 @@ def clef_german(word):
     word = word.translate(_umlauts)
 
     # remove plurals
-    if len(word) >= 3:
-        if len(word) >= 5:
+    wlen = len(word)-1
+
+    if wlen > 3:
+        if wlen > 5:
             if word[-3:] == 'nen':
                 return word[:-3]
-        if len(word) >= 4:
+        if wlen > 4:
             if word[-2:] in set(['en', 'se', 'es', 'er']):
                 return word[:-2]
         if word[-1] in set('nsre'):
             return word[:-1]
-
     return word
 
 def clef_german_plus(word):
@@ -1145,19 +1146,21 @@ def clef_german_plus(word):
     word = word.translate(_accents)
 
     # Step 1
-    if len(word) >= 4 and word[-3:] == 'nen':
+    wlen = len(word)-1
+    if wlen > 4 and word[-3:] == 'ern':
         word = word[:-3]
-    elif len(word) >= 3 and word[-2:] in set(['em', 'en', 'er', 'es']):
+    elif wlen > 3 and word[-2:] in set(['em', 'en', 'er', 'es']):
         word = word[:-2]
-    elif len(word) >= 2 and (word[-1] == 'e' or
-                           (word[-1] == 's' and word[-2] in _st_ending)):
+    elif wlen > 2 and (word[-1] == 'e' or
+                       (word[-1] == 's' and word[-2] in _st_ending)):
         word = word[:-1]
 
     # Step 2
-    if len(word) >= 4 and word[-3:] == 'est':
+    wlen = len(word)-1
+    if wlen > 4 and word[-3:] == 'est':
         word = word[:-3]
-    elif len(word) >= 3 and (word[-2:] in set(['er', 'en']) or
-                             (word[-2:] == 'st' and word[-3] in _st_ending)):
+    elif wlen > 3 and (word[-2:] in set(['er', 'en']) or
+                       (word[-2:] == 'st' and word[-3] in _st_ending)):
         word = word[:-2]
 
     return word
