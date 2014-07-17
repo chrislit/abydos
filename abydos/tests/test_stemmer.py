@@ -25,7 +25,7 @@ import unittest
 from abydos.stemmer import _m_degree, _sb_has_vowel, _ends_in_doubled_cons, \
     _ends_in_cvc, porter, _sb_r1, _sb_r2, _sb_ends_in_short_syllable, \
     _sb_short_word, porter2, sb_german, sb_dutch, sb_norwegian, sb_swedish, \
-    sb_danish, clef_german, clef_german_plus
+    sb_danish, clef_german, clef_german_plus, clef_swedish
 import os, codecs
 
 TESTDIR = os.path.dirname(__file__)
@@ -514,6 +514,11 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(clef_german('Häuser'), 'haus')
         self.assertEqual(clef_german('Motoren'), 'motor')
         self.assertEqual(clef_german('kleine'), 'klein')
+        self.assertEqual(clef_german('Pfingsten'), 'pfingst')
+        self.assertEqual(clef_german('lautest'), 'lautest')
+        self.assertEqual(clef_german('lauteste'), 'lautest')
+        self.assertEqual(clef_german('lautere'), 'lauter')
+        self.assertEqual(clef_german('lautste'), 'lautst')
 
 
     def test_clef_german_plus(self):
