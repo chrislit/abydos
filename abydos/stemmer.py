@@ -1161,3 +1161,39 @@ def clef_german_plus(word):
         word = word[:-2]
 
     return word
+
+
+def clef_swedish(word):
+    """Implementation of CLEF Swedish stemmer -- ideally returns the word
+    stem
+
+    Arguments:
+    word -- the word to calculate the stem of
+
+    Description:
+    The CLEF Swedish stemmer is defined at
+    http://members.unine.ch/jacques.savoy/clef/swedishStemmer.txt
+    """
+    wlen = len(word)-1
+
+    if wlen > 3 and word[-1] == 's':
+        word = word[:-1]
+        wlen -= 1
+
+    if wlen > 6:
+        if word[-5:] in set(['elser', 'heten']):
+            return word[:-5]
+    if wlen > 5:
+        if word[-4:] in set(['arne', 'erna', 'ande', 'else', 'aste', 'orna',
+                             'aren']):
+            return word[:-4]
+    if wlen > 4:
+        if word[-3:] in set(['are', 'ast', 'het']):
+            return word[:-3]
+    if wlen > 3:
+        if word[-2:] in set(['ar', 'er', 'or', 'en', 'at', 'te', 'et']):
+            return word[:-2]
+    if wlen > 2:
+        if word[-1] in set('taen'):
+            return word[:-1]
+    return word

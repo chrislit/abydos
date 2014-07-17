@@ -550,3 +550,61 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(clef_german_plus('lauteste'), 'laut')
         self.assertEqual(clef_german_plus('lautere'), 'laut')
         self.assertEqual(clef_german_plus('lautste'), 'laut')
+
+
+    def test_clef_swedish(self):
+        """test abydos.stemmer.clef_swedish
+        """
+        # base case
+        self.assertEqual(clef_swedish(''), '')
+
+        # len <= 3
+        self.assertEqual(clef_swedish('km'), 'km')
+        self.assertEqual(clef_swedish('ja'), 'ja')
+        self.assertEqual(clef_swedish('de'), 'de')
+        self.assertEqual(clef_swedish('in'), 'in')
+        self.assertEqual(clef_swedish('a'), 'a')
+        self.assertEqual(clef_swedish('mer'), 'mer')
+        self.assertEqual(clef_swedish('s'), 's')
+        self.assertEqual(clef_swedish('e'), 'e')
+        self.assertEqual(clef_swedish('oss'), 'oss')
+        self.assertEqual(clef_swedish('hos'), 'hos')
+
+        # genitive
+        self.assertEqual(clef_swedish('svenskars'), 'svensk')
+        self.assertEqual(clef_swedish('stadens'), 'stad')
+        self.assertEqual(clef_swedish('kommuns'), 'kommu')
+        self.assertEqual(clef_swedish('aftonbladets'), 'aftonblad')
+
+        # len > 7
+        self.assertEqual(clef_swedish('fängelser'), 'fäng')
+        self.assertEqual(clef_swedish('möjligheten'), 'möjlig')
+
+        # len > 6
+        self.assertEqual(clef_swedish('svenskar'), 'svensk')
+        self.assertEqual(clef_swedish('myndigheterna'), 'myndighet')
+        self.assertEqual(clef_swedish('avgörande'), 'avgör')
+        self.assertEqual(clef_swedish('fängelse'), 'fäng')
+        self.assertEqual(clef_swedish('viktigaste'), 'viktig')
+        self.assertEqual(clef_swedish('kvinnorna'), 'kvinn')
+        self.assertEqual(clef_swedish('åklagaren'), 'åklag')
+
+        # len > 5
+        self.assertEqual(clef_swedish('tidigare'), 'tidig')
+        self.assertEqual(clef_swedish('senast'), 'sen')
+        self.assertEqual(clef_swedish('möjlighet'), 'möjlig')
+
+        # len > 4
+        self.assertEqual(clef_swedish('svenskar'), 'svensk')
+        self.assertEqual(clef_swedish('skriver'), 'skriv')
+        self.assertEqual(clef_swedish('människor'), 'människ')
+        self.assertEqual(clef_swedish('staden'), 'stad')
+        self.assertEqual(clef_swedish('kunnat'), 'kunn')
+        self.assertEqual(clef_swedish('samarbete'), 'samarbe')
+        self.assertEqual(clef_swedish('aftonbladet'), 'aftonblad')
+
+        # len > 3
+        self.assertEqual(clef_swedish('allt'), 'all')
+        self.assertEqual(clef_swedish('vilka'), 'vilk')
+        self.assertEqual(clef_swedish('länge'), 'läng')
+        self.assertEqual(clef_swedish('kommun'), 'kommu')
