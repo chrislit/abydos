@@ -3222,7 +3222,7 @@ class CaverphoneTestCases(unittest.TestCase):
         """test abydos.phonetic.caverphone (PHP version testset)
         """
         # https://raw.githubusercontent.com/kiphughes/caverphone/master/unit_tests.php
-        with open(TESTDIR+'/php_caverphone.csv') as php_testset:
+        with open(TESTDIR+'/corpora/php_caverphone.csv') as php_testset:
             for php_line in php_testset:
                 (word, caver) = php_line.strip().split(',')
                 self.assertEqual(caverphone(word), caver)
@@ -3240,7 +3240,7 @@ class CaverphoneTestCases(unittest.TestCase):
     def test_caversham(self):
         """test using Caversham test set (SoundEx, Metaphone, & Caverphone)
         """
-        with open(TESTDIR+'/variantNames.csv') as cav_testset:
+        with open(TESTDIR+'/corpora/variantNames.csv') as cav_testset:
             next(cav_testset)
             for cav_line in cav_testset:
                 (name1, soundex1, metaphone1, caverphone1,
@@ -3768,7 +3768,7 @@ class PhonetTestCases(unittest.TestCase):
         """
         if True:
             return
-        nachnamen_testset = codecs.open(TESTDIR+'/nachnamen.csv',
+        nachnamen_testset = codecs.open(TESTDIR+'/corpora/nachnamen.csv',
                                         encoding='utf-8')
         for nn_line in nachnamen_testset:
             if nn_line[0] != '#':
@@ -3785,7 +3785,8 @@ class PhonetTestCases(unittest.TestCase):
         """
         if True:
             return
-        ngerman_testset = codecs.open(TESTDIR+'/ngerman.csv', encoding='utf-8')
+        ngerman_testset = codecs.open(TESTDIR+'/corpora/ngerman.csv',
+                                      encoding='utf-8')
         for ng_line in ngerman_testset:
             if ng_line[0] != '#':
                 ng_line = ng_line.strip().split(',')

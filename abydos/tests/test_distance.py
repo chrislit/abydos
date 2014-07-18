@@ -1146,7 +1146,7 @@ class RatcliffObershelpTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_ratcliff_obershelp('abefglmo', 'abcefglmn'),
                                0.8235294117647058)
 
-        with open(TESTDIR+'/variantNames.csv') as cav_testset:
+        with open(TESTDIR+'/corpora/variantNames.csv') as cav_testset:
             next(cav_testset)
             for line in cav_testset:
                 line = line.split(',')
@@ -1155,7 +1155,8 @@ class RatcliffObershelpTestCases(unittest.TestCase):
                                        SequenceMatcher(None, word1,
                                                        word2).ratio())
 
-        with open(TESTDIR+'/wikipediaCommonMisspellings.csv') as misspellings:
+        with open(TESTDIR+'/corpora/wikipediaCommonMisspellings.csv') as \
+        misspellings:
             next(misspellings)
             for line in misspellings:
                 line = line.upper()

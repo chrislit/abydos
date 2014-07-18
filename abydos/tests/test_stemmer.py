@@ -209,7 +209,7 @@ class PorterTestCases(unittest.TestCase):
         http://snowball.tartarus.org/algorithms/porter/diffs.txt
         """
         #  Snowball Porter test set
-        with open(TESTDIR+'/snowball_porter.csv') as snowball_testset:
+        with open(TESTDIR+'/corpora/snowball_porter.csv') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
                 if line[0] != '#':
@@ -344,7 +344,7 @@ class PorterTestCases(unittest.TestCase):
         http://snowball.tartarus.org/algorithms/english/diffs.txt
         """
         #  Snowball Porter test set
-        with open(TESTDIR+'/snowball_porter2.csv') as snowball_testset:
+        with open(TESTDIR+'/corpora/snowball_porter2.csv') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
                 if line[0] != '#':
@@ -360,7 +360,7 @@ class PorterTestCases(unittest.TestCase):
         http://snowball.tartarus.org/algorithms/german/diffs.txt
         """
         #  Snowball Porter test set
-        with codecs.open(TESTDIR+'/snowball_german.csv', 'r',
+        with codecs.open(TESTDIR+'/corpora/snowball_german.csv', 'r',
                          'utf-8') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
@@ -430,7 +430,7 @@ class PorterTestCases(unittest.TestCase):
         http://snowball.tartarus.org/algorithms/dutch/diffs.txt
         """
         #  Snowball Porter test set
-        with codecs.open(TESTDIR+'/snowball_dutch.csv', 'r',
+        with codecs.open(TESTDIR+'/corpora/snowball_dutch.csv', 'r',
                          'utf-8') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
@@ -447,7 +447,7 @@ class PorterTestCases(unittest.TestCase):
         http://snowball.tartarus.org/algorithms/norwegian/diffs.txt
         """
         #  Snowball Porter test set
-        with codecs.open(TESTDIR+'/snowball_norwegian.csv', 'r',
+        with codecs.open(TESTDIR+'/corpora/snowball_norwegian.csv', 'r',
                          'utf-8') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
@@ -464,7 +464,7 @@ class PorterTestCases(unittest.TestCase):
         http://snowball.tartarus.org/algorithms/swedish/diffs.txt
         """
         #  Snowball Porter test set
-        with codecs.open(TESTDIR+'/snowball_swedish.csv', 'r',
+        with codecs.open(TESTDIR+'/corpora/snowball_swedish.csv', 'r',
                          'utf-8') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
@@ -481,7 +481,7 @@ class PorterTestCases(unittest.TestCase):
         http://snowball.tartarus.org/algorithms/danish/diffs.txt
         """
         #  Snowball Porter test set
-        with codecs.open(TESTDIR+'/snowball_danish.csv', 'r',
+        with codecs.open(TESTDIR+'/corpora/snowball_danish.csv', 'r',
                          'utf-8') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
