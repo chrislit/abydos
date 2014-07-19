@@ -3830,27 +3830,6 @@ first and last names')
 
     return code
 
-def bmpm(word, language=None, var='gen'):
-    """Return the Beider-Morse Phonetic Matching algorithm encoding(s) of a
-    term
-
-    Arguments:
-    word -- the term to which to apply the Beider-Morse Phonetic Matching
-            algorithm
-    language -- the language of the term; supported values include:
-                ....
-    var -- the variant form of the algorithm: 'gen' (default),
-            'ash' (Ashkenazi), or 'sep' (Sephardic)
-
-    Description:
-    The Beider-Morse Phonetic Matching algorithm is described at:
-    http://stevemorse.org/phonetics/bmpm.htm
-    The reference implementation is available at:
-    http://stevemorse.org/phoneticinfo.htm
-    """
-
-    return word
-
 def german_ipa(word):
     """Return the IPA transcription of a German word
 
