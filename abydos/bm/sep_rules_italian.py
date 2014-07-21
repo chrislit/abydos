@@ -21,64 +21,67 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
-             ('kh','','','x'),#foreign
-             
-             ('gli','','','(l|gli)'),
-             ('gn','','[aeou]','(n|nj|gn)'),
-             ('gni','','','(ni|gni)'),
-             
-             ('gi','','[aeou]','dZ'),
-             ('gg','','[ei]','dZ'),
-             ('g','','[ei]','dZ'),
-             ('h','[bdgt]','','g'),#ghisIt;othersfromArabictranslit
-             
-             ('ci','','[aeou]','tS'),
-             ('ch','','[ei]','k'),
-             ('sc','','[ei]','S'),
-             ('cc','','[ei]','tS'),
-             ('c','','[ei]','tS'),
-             ('s','[aeiou]','[aeiou]','z'),
-             
-             ('i','[aeou]','','j'),
-             ('i','','[aeou]','j'),
-             ('y','[aeou]','','j'),#foreign
-             ('y','','[aeou]','j'),#foreign
-             
-             ('qu','','','k'),
-             ('uo','','','(vo|o)'),
-             ('u','','[aei]','v'),
-             
-             ('è','','','e'),
-             ('é','','','e'),
-             ('ò','','','o'),
-             ('ó','','','o'),
-             
-             #LATINALPHABET
-             ('a','','','a'),
-             ('b','','','b'),
-             ('c','','','k'),
-             ('d','','','d'),
-             ('e','','','e'),
-             ('f','','','f'),
-             ('g','','','g'),
-             ('h','','','h'),
-             ('i','','','i'),
-             ('j','','','(Z|dZ|j)'),#foreign
-             ('k','','','k'),
-             ('l','','','l'),
-             ('m','','','m'),
-             ('n','','','n'),
-             ('o','','','o'),
-             ('p','','','p'),
-             ('q','','','k'),
-             ('r','','','r'),
-             ('s','','','s'),
-             ('t','','','t'),
-             ('u','','','u'),
-             ('v','','','v'),
-             ('w','','','v'),#foreign
-             ('x','','','ks'),#foreign
-             ('y','','','i'),#foreign
-             ('z','','','(ts|dz)'),
-             
-             ('rulesitalian')
+
+_sep_rules_italian = (
+                      ("kh","","","x"), # foreign
+
+                      ("gli","","","(l|gli)"),
+                      ("gn","","[aeou]","(n|nj|gn)"),
+                      ("gni","","","(ni|gni)"),
+
+                      ("gi","","[aeou]","dZ"),
+                      ("gg","","[ei]","dZ"),
+                      ("g","","[ei]","dZ"),
+                      ("h","[bdgt]","","g"), # gh is It; others from Arabic translit
+
+                      ("ci","","[aeou]","tS"),
+                      ("ch","","[ei]","k"),
+                      ("sc","","[ei]","S"),
+                      ("cc","","[ei]","tS"),
+                      ("c","","[ei]","tS"),
+                      ("s","[aeiou]","[aeiou]","z"),
+
+                      ("i","[aeou]","","j"),
+                      ("i","","[aeou]","j"),
+                      ("y","[aeou]","","j"), # foreign
+                      ("y","","[aeou]","j"), # foreign
+
+                      ("qu","","","k"),
+                      ("uo","","","(vo|o)"),
+                      ("u","","[aei]","v"),
+
+                      ("è","","","e"),
+                      ("é","","","e"),
+                      ("ò","","","o"),
+                      ("ó","","","o"),
+
+                      # LATIN ALPHABET
+                      ("a","","","a"),
+                      ("b","","","b"),
+                      ("c","","","k"),
+                      ("d","","","d"),
+                      ("e","","","e"),
+                      ("f","","","f"),
+                      ("g","","","g"),
+                      ("h","","","h"),
+                      ("i","","","i"),
+                      ("j","","","(Z|dZ|j)"), # foreign
+                      ("k","","","k"),
+                      ("l","","","l"),
+                      ("m","","","m"),
+                      ("n","","","n"),
+                      ("o","","","o"),
+                      ("p","","","p"),
+                      ("q","","","k"),
+                      ("r","","","r"),
+                      ("s","","","s"),
+                      ("t","","","t"),
+                      ("u","","","u"),
+                      ("v","","","v"),
+                      ("w","","","v"),    # foreign
+                      ("x","","","ks"),    # foreign
+                      ("y","","","i"),    # foreign
+                      ("z","","","(ts|dz)"),
+
+                      ("rulesitalian")
+                      )

@@ -21,13 +21,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
-             ('au','','','(D|a|u)'),
-             ('ou','','','(D|o|u)'),
-             ('ai','','','(D|a|i)'),
-             ('oi','','','(D|o|i)'),
-             ('ui','','','(D|u|i)'),
-             
-             ('a','','','(a|o)'),
-             ('e','','','i'),
-             
-             ('approxfrench')
+
+_gen_approx_french = (
+                      ("au","","","(D|a|u)"),
+                      ("ou","","","(D|o|u)"),
+                      ("ai","","","(D|a|i)"),
+                      ("oi","","","(D|o|i)"),
+                      ("ui","","","(D|u|i)"),
+
+                      ("a", "", "", "(a|o)"),
+                      ("e", "", "", "i"),
+
+                      ("approxfrench")
+                      )

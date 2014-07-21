@@ -21,18 +21,21 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
-             ('h','','',''),
-             #('C','','','k'),#cthatcanactuallybeç
-             
-             #VOICED-UNVOICEDCONSONANTS
-             ('s','[^t]','[bgZd]','z'),
-             ('Z','','[pfkst]','S'),
-             ('Z','','$','S'),
-             ('S','','[bgzd]','Z'),
-             ('z','','$','s'),
-             
-             #specialcharactertodealcorrectlyinHebrewmatch
-             ('B','','','b'),
-             ('V','','','v'),
-             
-             ('exactapproxcommonplusexactcommon')
+
+_sep_exact_common = (
+                     ("h","","",""),
+                     #("C","","","k"),  # c that can actually be ç
+
+                     # VOICED - UNVOICED CONSONANTS
+                     ("s","[^t]","[bgZd]","z"),
+                     ("Z","","[pfkst]","S"),
+                     ("Z","","$","S"),
+                     ("S","","[bgzd]","Z"),
+                     ("z","","$","s"),
+
+                     #special character to deal correctly in Hebrew match
+                     ("B","","","b"),
+                     ("V","","","v"),
+
+                     ("exactapproxcommon plus exactcommon")
+                     )

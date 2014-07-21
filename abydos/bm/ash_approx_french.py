@@ -21,30 +21,33 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
-             
-             ('I','','$','i'),
-             ('I','[aEIeiou]','','i'),
-             ('I','','[^k]$','i'),
-             ('Ik','[lr]','$','(ik|Qk)'),
-             ('Ik','','$','ik'),
-             ('sIts','','$','(sits|sQts)'),
-             ('Its','','$','its'),
-             ('I','','','(i|Q)'),
-             
-             ('au','','','(D|a|u)'),
-             ('ou','','','(D|o|u)'),
-             ('ai','','','(D|a|i)'),
-             ('oi','','','(D|o|i)'),
-             ('ui','','','(D|u|i)'),
-             
-             ('a','','','(a|o)'),
-             ('e','','','i'),
-             
-             ('E','','[fklmnprsStv]$','i'),
-             ('E','','ts$','i'),
-             ('E','[aoiuQ]','','i'),
-             ('E','','[aoQ]','i'),
-             ('E','','','(Y|i)'),
-             
-             ('approxfrench')
-             
+
+_ash_approx_french = (
+
+                      ("I", "", "$", "i"),
+                      ("I", "[aEIeiou]", "", "i"),
+                      ("I", "", "[^k]$", "i"),
+                      ("Ik", "[lr]", "$", "(ik|Qk)"),
+                      ("Ik", "", "$", "ik"),
+                      ("sIts", "", "$", "(sits|sQts)"),
+                      ("Its", "", "$", "its"),
+                      ("I", "", "", "(i|Q)"),
+
+                      ("au","","","(D|a|u)"),
+                      ("ou","","","(D|o|u)"),
+                      ("ai","","","(D|a|i)"),
+                      ("oi","","","(D|o|i)"),
+                      ("ui","","","(D|u|i)"),
+
+                      ("a", "", "", "(a|o)"),
+                      ("e", "", "", "i"),
+
+                      ("E", "", "[fklmnprsStv]$", "i"),
+                      ("E", "", "ts$", "i"),
+                      ("E", "[aoiuQ]", "", "i"),
+                      ("E", "", "[aoQ]", "i"),
+                      ("E", "", "", "(Y|i)"),
+
+                      ("approxfrench")
+
+                      )

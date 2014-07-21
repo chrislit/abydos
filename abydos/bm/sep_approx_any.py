@@ -21,7 +21,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
-             
-             ('E','','',''),#FinalFrench'e'
-             
-             ('approxany')
+
+_sep_approx_any = (
+
+                   ("E","","",""), # Final French "e"
+
+                   ("approxany")
+                   )

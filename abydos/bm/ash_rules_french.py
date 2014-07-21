@@ -21,79 +21,82 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
-             
-             #CONSONANTS
-             ('kh','','','x'),#foreign
-             ('ph','','','f'),
-             
-             ('ç','','','s'),
-             ('x','','','ks'),
-             ('ch','','','S'),
-             ('c','','[eiyéèê]','s'),
-             ('c','','','k'),
-             ('gn','','','(n|gn)'),
-             ('g','','[eiy]','Z'),
-             ('gue','','$','k'),
-             ('gu','','[eiy]','g'),
-             #('aill','','e','aj'),#nonJewish
-             #('ll','','e','(l|j)'),#nonJewish
-             ('que','','$','k'),
-             ('qu','','','k'),
-             ('q','','','k'),
-             ('s','[aeiouyéèê]','[aeiouyéèê]','z'),
-             ('h','[bdgt]','',''),#translitfromArabic
-             ('h','','$',''),#foreign
-             ('j','','','Z'),
-             ('w','','','v'),
-             ('ouh','','[aioe]','(v|uh)'),
-             ('ou','','[aeio]','v'),
-             ('uo','','','(vo|o)'),
-             ('u','','[aeio]','v'),
-             
-             #VOWELS
-             ('aue','','','aue'),
-             ('eau','','','o'),
-             #('au','','','(o|au)'),#nonJewish
-             ('ai','','','aj'),#[e]isnonJewish
-             ('ay','','','aj'),#[e]isnonJewish
-             ('é','','','e'),
-             ('ê','','','e'),
-             ('è','','','e'),
-             ('à','','','a'),
-             ('â','','','a'),
-             ('où','','','u'),
-             ('ou','','','u'),
-             ('oi','','','oj'),#[ua]isnonJewish
-             ('ei','','','aj'),#[e]isnonJewish
-             ('ey','','','aj'),#[e]nonJewish
-             #('eu','','','(e|o)'),#nonJewish
-             ('y','[ou]','','j'),
-             ('e','','$','(e|)'),
-             ('i','','[aou]','j'),
-             ('y','','[aoeu]','j'),
-             ('y','','','i'),
-             
-             #TRIVIAL
-             ('a','','','a'),
-             ('b','','','b'),
-             ('d','','','d'),
-             ('e','','','E'),#onlyAshkenazic
-             ('f','','','f'),
-             ('g','','','g'),
-             ('h','','','h'),
-             ('i','','','I'),#onlyAshkenazic
-             ('k','','','k'),
-             ('l','','','l'),
-             ('m','','','m'),
-             ('n','','','n'),
-             ('o','','','o'),
-             ('p','','','p'),
-             ('r','','','r'),
-             ('s','','','s'),
-             ('t','','','t'),
-             ('u','','','u'),
-             ('v','','','v'),
-             ('z','','','z'),
-             
-             ('rulesfrench')
-             
+
+_ash_rules_french = (
+
+                     # CONSONANTS
+                     ("kh","","","x"), # foreign
+                     ("ph","","","f"),
+
+                     ("ç","","","s"),
+                     ("x","","","ks"),
+                     ("ch","","","S"),
+                     ("c","","[eiyéèê]","s"),
+                     ("c","","","k"),
+                     ("gn","","","(n|gn)"),
+                     ("g","","[eiy]","Z"),
+                     ("gue","","$","k"),
+                     ("gu","","[eiy]","g"),
+                     #("aill","","e","aj"), # non Jewish
+                     #("ll","","e","(l|j)"), # non Jewish
+                     ("que","","$","k"),
+                     ("qu","","","k"),
+                     ("q","","","k"),
+                     ("s","[aeiouyéèê]","[aeiouyéèê]","z"),
+                     ("h","[bdgt]","",""), # translit from Arabic
+                     ("h","","$",""), # foreign
+                     ("j","","","Z"),
+                     ("w","","","v"),
+                     ("ouh","","[aioe]","(v|uh)"),
+                     ("ou","","[aeio]","v"),
+                     ("uo","","","(vo|o)"),
+                     ("u","","[aeio]","v"),
+
+                     # VOWELS
+                     ("aue","","","aue"),
+                     ("eau","","","o"),
+                     #("au","","","(o|au)"), # non Jewish
+                     ("ai","","","aj"), # [e] is non Jewish
+                     ("ay","","","aj"), # [e] is non Jewish
+                     ("é","","","e"),
+                     ("ê","","","e"),
+                     ("è","","","e"),
+                     ("à","","","a"),
+                     ("â","","","a"),
+                     ("où","","","u"),
+                     ("ou","","","u"),
+                     ("oi","","","oj"), # [ua] is non Jewish
+                     ("ei","","","aj"), # [e] is non Jewish
+                     ("ey","","","aj"), # [e] non Jewish
+                     #("eu","","","(e|o)"), # non Jewish
+                     ("y","[ou]","","j"),
+                     ("e","","$","(e|)"),
+                     ("i","","[aou]","j"),
+                     ("y","","[aoeu]","j"),
+                     ("y","","","i"),
+
+                     # TRIVIAL
+                     ("a","","","a"),
+                     ("b","","","b"),
+                     ("d","","","d"),
+                     ("e","","","E"), # only Ashkenazic
+                     ("f","","","f"),
+                     ("g","","","g"),
+                     ("h","","","h"),
+                     ("i","","","I"), # only Ashkenazic
+                     ("k","","","k"),
+                     ("l","","","l"),
+                     ("m","","","m"),
+                     ("n","","","n"),
+                     ("o","","","o"),
+                     ("p","","","p"),
+                     ("r","","","r"),
+                     ("s","","","s"),
+                     ("t","","","t"),
+                     ("u","","","u"),
+                     ("v","","","v"),
+                     ("z","","","z"),
+
+                     ("rulesfrench")
+
+                     )

@@ -21,25 +21,28 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
-             ('EE','','$','e'),
-             
-             ('A','','','a'),
-             ('E','','','e'),
-             ('I','','','i'),
-             ('O','','','o'),
-             ('P','','','o'),
-             ('U','','','u'),
-             
-             ('B','','[fktSs]','p'),
-             ('B','','p',''),
-             ('B','','$','p'),
-             ('V','','[pktSs]','f'),
-             ('V','','f',''),
-             ('V','','$','f'),
-             
-             ('B','','','b'),
-             ('V','','','v'),
-             
-             
-             ('exactany')
-             
+
+_gen_exact_any = (
+                  ("EE", "", "$", "e"),
+
+                  ("A", "", "", "a"),
+                  ("E", "", "", "e"),
+                  ("I", "", "", "i"),
+                  ("O", "", "", "o"),
+                  ("P", "", "", "o"),
+                  ("U", "", "", "u"),
+
+                  ("B","","[fktSs]","p"),
+                  ("B","","p",""),
+                  ("B","","$","p"),
+                  ("V","","[pktSs]","f"),
+                  ("V","","f",""),
+                  ("V","","$","f"),
+
+                  ("B", "", "", "b"),
+                  ("V", "", "", "v"),
+
+
+                  ("exactany")
+
+                  )

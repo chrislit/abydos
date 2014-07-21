@@ -21,16 +21,19 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
-             
-             ('1a','','','(D|a)'),
-             ('1i','','','(D|i|e)'),
-             ('1u','','','(D|u|o)'),
-             ('j1','','','(ja|je|jo|ju|j)'),
-             ('1','','','(a|e|i|o|u|)'),
-             ('u','','','(o|u)'),
-             ('i','','','(i|e)'),
-             ('p','','$','p'),
-             ('p','','','(p|b)'),
-             
-             ('approxarabic')
-             
+
+_gen_approx_arabic = (
+
+                      ("1a", "", "", "(D|a)"),
+                      ("1i", "", "", "(D|i|e)"),
+                      ("1u", "", "", "(D|u|o)"),
+                      ("j1", "", "", "(ja|je|jo|ju|j)"),
+                      ("1", "", "", "(a|e|i|o|u|)"),
+                      ("u", "", "", "(o|u)"),
+                      ("i", "", "", "(i|e)"),
+                      ("p", "", "$", "p"),
+                      ("p", "", "", "(p|b)"),
+
+                      ("approxarabic")
+
+                      )

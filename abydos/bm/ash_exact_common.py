@@ -21,19 +21,22 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
-             ('H','','','h'),
-             
-             #VOICED-UNVOICEDCONSONANTS
-             
-             ('s','[^t]','[bgZd]','z'),
-             ('Z','','[pfkst]','S'),
-             ('Z','','$','S'),
-             ('S','','[bgzd]','Z'),
-             ('z','','$','s'),
-             
-             ('ji','[aAoOeEiIuU]','','j'),
-             ('jI','[aAoOeEiIuU]','','j'),
-             ('je','[aAoOeEiIuU]','','j'),
-             ('jE','[aAoOeEiIuU]','','j'),
-             
-             ('exactapproxcommonplusexactcommon')
+
+_ash_exact_common = (
+                     ("H","","","h"),
+
+                     # VOICED - UNVOICED CONSONANTS
+
+                     ("s","[^t]","[bgZd]","z"),
+                     ("Z","","[pfkst]","S"),
+                     ("Z","","$","S"),
+                     ("S","","[bgzd]","Z"),
+                     ("z","","$","s"),
+
+                     ("ji","[aAoOeEiIuU]","","j"),
+                     ("jI","[aAoOeEiIuU]","","j"),
+                     ("je","[aAoOeEiIuU]","","j"),
+                     ("jE","[aAoOeEiIuU]","","j"),
+
+                     ("exactapproxcommon plus exactcommon")
+                     )

@@ -21,7 +21,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
-             ('B','','','(b|v)'),
-             ('V','','','(b|v)'),
-             
-             ('approxfrenchplusapproxspanish')
+
+_gen_approx_spanish = (
+                       ("B","","","(b|v)"),
+                       ("V","","","(b|v)"),
+
+                       ("approxfrench plus approxspanish")
+                       )
