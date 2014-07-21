@@ -89,7 +89,6 @@ _gen_approx_any = (
                    ("iA","","","(ia|io|iY[$german])"),
                    ("A","","[^aeiouAEBFIOU]e","(a|o|Y[$german]|D[$english])"), # "plane"
 
-
                    ("E","i[^aeiouAEIOU]","","(i|Y[$german]|[$english])"), # Wineberg (vineberg/vajneberg) --> vajnberg
                    ("E","a[^aeiouAEIOU]","","(i|Y[$german]|[$english])"), #  Shaneberg (shaneberg/shejneberg) --> shejnberg
 
@@ -134,7 +133,5 @@ _gen_approx_any = (
                    ("e", "", "", "(i|Y[$german])"),
 
                    ("a", "", "", "(a|o)"),
-
-
 
                    )

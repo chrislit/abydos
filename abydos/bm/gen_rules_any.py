@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _gen_rules_any = (
-
                   # CONVERTING FEMININE TO MASCULINE
                   ("yna","","$","(in[$russian]|ina)"),
                   ("ina","","$","(in[$russian]|ina)"),
@@ -358,6 +357,5 @@ _gen_rules_any = (
                   ("x","","","(ks|gz|S[$portuguese+$spanish])"),   # S/ks Port & Sp, gz Sp, It only ks
                   ("y","","","i"),
                   ("z","","","(z|ts[$german]|dz[$italian]|ts[$italian]|s[$spanish])"), # ts/dz It, z Port & Fr, z/s Sp
-
 
                   )

@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _gen_rules_english = (
-
                       # CONSONANTS
                       ("’","","",""), # O’Neill
                       ("'","","",""), # O’Neill
@@ -118,7 +117,5 @@ _gen_rules_english = (
                       ("x","","","ks"),
                       ("y","","","i"),
                       ("z","","","z"),
-
-
 
                       )

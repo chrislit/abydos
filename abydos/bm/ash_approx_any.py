@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _ash_approx_any = (
-
                    # CONSONANTS
                    ("b","","","(b|v[$spanish])"),
                    ("J", "", "", "z"), # Argentina Spanish: "ll" = /Z/, but approximately /Z/ = /z/
@@ -156,7 +155,5 @@ _ash_approx_any = (
                    ("sUts", "", "$", "(suts|sQts[$german])"),
                    ("Uts", "", "$", "uts"),
                    ("U", "", "", "(u|Q[$german])"),
-
-
 
                    )

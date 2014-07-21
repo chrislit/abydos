@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _ash_rules_french = (
-
                      # CONSONANTS
                      ("kh","","","x"), # foreign
                      ("ph","","","f"),
@@ -96,7 +95,5 @@ _ash_rules_french = (
                      ("u","","","u"),
                      ("v","","","v"),
                      ("z","","","z"),
-
-
 
                      )

@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _gen_rules_dutch = (
-
                     # CONSONANTS
                     ("ssj","","","S"),
                     ("sj","","","S"),
@@ -85,7 +84,5 @@ _gen_rules_dutch = (
                     ("x","","","ks"),
                     ("y","","","i"),
                     ("z","","","z"),
-
-
 
                     )

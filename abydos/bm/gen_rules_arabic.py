@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _gen_rules_arabic = (
-
                      ("ا","","","a"), # alif isol & init
 
                      ("ب","","$","b"),
@@ -109,6 +108,5 @@ _gen_rules_arabic = (
 
                      ("ي‎","","$","(i|j)"),
                      ("ي‎","","","(i|j1)"), # ya' isol
-
 
                      )

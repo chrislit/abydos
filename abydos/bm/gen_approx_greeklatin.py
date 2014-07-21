@@ -25,5 +25,4 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 _gen_approx_greeklatin = (
                           ("N","","",""),
 
-                          ("approxfrench plus approxgreeklatin")
                           )

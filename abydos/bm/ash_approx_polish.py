@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _ash_approx_polish = (
-
                       ("aiB","","[bp]","(D|Dm)"),
                       ("oiB","","[bp]","(D|Dm)"),
                       ("uiB","","[bp]","(D|Dm)"),
@@ -90,7 +89,5 @@ _ash_approx_polish = (
                       ("E", "[DaoiuQ]", "", "i"),
                       ("E", "", "[aoQ]", "i"),
                       ("E", "", "", "(Y|i)"),
-
-
 
                       )

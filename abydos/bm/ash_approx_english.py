@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _ash_approx_english = (
-
                        # VOWELS
                        ("I","","[^aEIeiou]e","(Q|i|D)"), # like in "five"
                        ("I", "", "$", "i"),
@@ -54,7 +53,5 @@ _ash_approx_english = (
                        ("E", "", "", "(Y|i)"),
 
                        ("a", "", "", "(a|o)"),
-
-
 
                        )

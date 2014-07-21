@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _sep_rules_spanish = (
-
                       # Includes both Spanish (Castillian) & Catalan
 
                       # CONSONANTS
@@ -100,6 +99,5 @@ _sep_rules_spanish = (
                       ("s","","","s"),
                       ("t","","","t"),
                       ("u","","","u"),
-
 
                       )

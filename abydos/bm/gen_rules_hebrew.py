@@ -23,8 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _gen_rules_hebrew = (
-
-
                      ("אי","","","i"),
                      ("עי","","","i"),
                      ("עו","","","VV"),
@@ -68,6 +66,5 @@ _gen_rules_hebrew = (
                      ("ר","","","r"),
                      ("ש","","","s"),
                      ("ת","","","TB"), # only Ashkenazic
-
 
                      )

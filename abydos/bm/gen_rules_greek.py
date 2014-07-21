@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _gen_rules_greek = (
-
                     ("αυ","","$","af"),  # "av" before vowels and voiced consonants, "af" elsewhere
                     ("αυ","","(κ|π|σ|τ|φ|θ|χ|ψ)","af"),
                     ("αυ","","","av"),
@@ -104,7 +103,5 @@ _gen_rules_greek = (
                     ("χ","","","x"),
                     ("ψ","","","ps"),
                     ("ω","","","o"),
-
-
 
                     )

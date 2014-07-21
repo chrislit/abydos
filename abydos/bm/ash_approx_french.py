@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _ash_approx_french = (
-
                       ("I", "", "$", "i"),
                       ("I", "[aEIeiou]", "", "i"),
                       ("I", "", "[^k]$", "i"),
@@ -47,7 +46,5 @@ _ash_approx_french = (
                       ("E", "[aoiuQ]", "", "i"),
                       ("E", "", "[aoQ]", "i"),
                       ("E", "", "", "(Y|i)"),
-
-
 
                       )

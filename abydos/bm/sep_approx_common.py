@@ -120,5 +120,4 @@ _sep_approx_common = (
                       # Arabic
                       ("p", "^", "", "b"),
 
-                      ("exactapproxcommon plus approxcommon")
                       )

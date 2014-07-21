@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _gen_rules_hungarian = (
-
                         # CONSONANTS
                         ("sz","","","s"),
                         ("zs","","","Z"),
@@ -88,6 +87,5 @@ _gen_rules_hungarian = (
                         ("x","","","ks"),
                         ("y","","","i"),
                         ("z","","","z"),
-
 
                         )

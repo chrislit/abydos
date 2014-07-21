@@ -23,8 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _ash_approx_russian = (
-
-
                        # VOWELS
                        ("I", "", "$", "i"),
                        ("I", "", "[^k]$", "i"),
@@ -56,7 +54,5 @@ _ash_approx_russian = (
                        ("E", "[DaoiuQ]", "", "i"),
                        ("E", "", "[aoQ]", "i"),
                        ("E", "", "", "(Y|i)"),
-
-
 
                        )

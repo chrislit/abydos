@@ -80,6 +80,4 @@ _gen_approx_german = (
                       ("Uts", "", "$", "uts"),
                       ("U", "", "", "(u|Q)"),
 
-
-
                       )

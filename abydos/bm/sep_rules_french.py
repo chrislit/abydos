@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _sep_rules_french = (
-
                      # CONSONANTS
                      ("kh","","","x"), # foreign
                      ("ph","","","f"),
@@ -96,6 +95,5 @@ _sep_rules_french = (
                      ("u","","","u"),
                      ("v","","","v"),
                      ("z","","","z"),
-
 
                      )

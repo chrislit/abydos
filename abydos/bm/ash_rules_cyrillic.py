@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _ash_rules_cyrillic = (
-
                        ("ця","","","tsa"),
                        ("цю","","","tsu"),
                        ("циа","","","tsa"),
@@ -107,7 +106,5 @@ _ash_rules_cyrillic = (
                        ("э","","","E"),
                        ("ю","","","ju"),
                        ("я","","","ja"),
-
-
 
                        )

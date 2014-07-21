@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _gen_rules_greeklatin = (
-
                          ("au","","$","af"),
                          ("au","","[kpstfh]","af"),
                          ("au","","","av"),
@@ -125,8 +124,5 @@ _gen_rules_greeklatin = (
                          ("x","","","ks"),
                          ("y","","","(i|Q|u)"), # [ü]
                          ("z","","","z"),
-
-
-
 
                          )

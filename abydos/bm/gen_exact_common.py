@@ -37,5 +37,4 @@ _gen_exact_common = (
                      ("je","[aAoOeEiIuU]","","j"),
                      ("jE","[aAoOeEiIuU]","","j"),
 
-                     ("exactapproxcommon plus exactcommon")
                      )

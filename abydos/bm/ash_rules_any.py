@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _ash_rules_any = (
-
                   # CONVERTING FEMININE TO MASCULINE
                   ("yna","","$","(in[$russian]|ina)"),
                   ("ina","","$","(in[$russian]|ina)"),
@@ -337,6 +336,5 @@ _ash_rules_any = (
                   ("x","","","ks"),
                   ("y","","","i"),
                   ("z","","","(ts[$german]|z)"),
-
 
                   )

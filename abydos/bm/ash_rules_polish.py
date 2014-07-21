@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _ash_rules_polish = (
-
                      # CONVERTING FEMININE TO MASCULINE
                      ("ska","","$","ski"),
                      ("cka","","$","tski"),
@@ -190,6 +189,5 @@ _ash_rules_polish = (
                      ("x","","","ks"),
                      ("y","","","I"),
                      ("z","","","z"),
-
 
                      )

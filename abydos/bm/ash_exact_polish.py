@@ -23,14 +23,11 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _ash_exact_polish = (
-
                      ("B", "", "", "a"),
                      ("F", "", "", "e"),
                      ("P", "", "", "o"),
 
                      ("E", "", "", "e"),
                      ("I", "", "", "i"),
-
-
 
                      )

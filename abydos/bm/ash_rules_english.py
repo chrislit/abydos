@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _ash_rules_english = (
-
                       # CONSONANTS
                       ("tch","","","tS"),
                       ("ch","","","(tS|x)"),
@@ -113,7 +112,5 @@ _ash_rules_english = (
                       ("t","","","t"),
                       ("v","","","v"),
                       ("z","","","z"),
-
-
 
                       )

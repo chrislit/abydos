@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _gen_approx_common = (
-
                       # DUTCH
                       ("van", "^", "[bp]", "(vam|)"),
                       ("van", "^", "", "(van|)"),
@@ -227,5 +226,4 @@ _gen_approx_common = (
                       ("dZ", "", "", "z"),
                       ("Z", "", "", "z"),
 
-                      ("exactapproxcommon plus approxcommon")
                       )

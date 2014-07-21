@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _sep_hebrew_common = (
-
                       ("E","","",""),  # final French "e": only in Sephardic
 
                       ("ts","","","C"), # for not confusion Gutes [=guts] and Guts [=guc]
@@ -92,5 +91,4 @@ _sep_hebrew_common = (
                       ("h","^","","1"),
                       ("h","","",""),
 
-                      ("exactapproxcommon plus hebrewcommon")
                       )

@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _ash_exact_approxcommon = (
-
                            ("h","","$",""),
                            # VOICED - UNVOICED CONSONANTS
                            ("b","","[fktSs]","p"),

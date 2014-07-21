@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _ash_approx_common = (
-
                       # REGRESSIVE ASSIMILATION OF CONSONANTS
                       ("n","","[bp]","m"),
 
@@ -224,7 +223,5 @@ _ash_approx_common = (
                       ("S", "", "", "s"),
                       ("dZ", "", "", "z"),
                       ("Z", "", "", "z"),
-
-                      ("exactapproxcommon plus approxcommon")
 
                       )

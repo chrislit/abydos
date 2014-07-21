@@ -26,5 +26,4 @@ _gen_approx_spanish = (
                        ("B","","","(b|v)"),
                        ("V","","","(b|v)"),
 
-                       ("approxfrench plus approxspanish")
                        )

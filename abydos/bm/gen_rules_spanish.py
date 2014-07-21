@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _gen_rules_spanish = (
-
                       # Includes both Spanish (Castillian) & Catalan
 
                       # CONSONANTS
@@ -90,6 +89,5 @@ _gen_rules_spanish = (
                       ("x","","","(ks|gz|S)"), # ks is Spanish, all are Catalan
                       ("y","","","(i|j)"),
                       ("z","","","(z|s)"), # as "c" befoire "e" or "i", in Spain it is like unvoiced English "th"
-
 
                       )

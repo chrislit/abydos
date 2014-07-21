@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _gen_rules_german = (
-
                      # CONSONANTS
                      ("ewitsch","","$","evitS"),
                      ("owitsch","","$","ovitS"),
@@ -81,7 +80,6 @@ _gen_rules_german = (
                      ("s","[aeiouyäöüj]","[aeiouyäöü]","z"),
                      ("ß","","","s"),
 
-
                      # VOWELS
                      ("ij","","$","i"),
                      ("aue","","","aue"),
@@ -134,7 +132,5 @@ _gen_rules_german = (
                      ("x","","","ks"),
                      ("y","","","i"),
                      ("z","","","ts"),
-
-
 
                      )

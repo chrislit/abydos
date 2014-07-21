@@ -57,5 +57,4 @@ _gen_rules_turkish = (
                       ("y","","","j"),
                       ("z","","","z"),
 
-                      ("turkish")
                       )

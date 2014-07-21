@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _ash_rules_romanian = (
-
                        ("j","","","Z"),
 
                        ("ce","","","tSe"),
@@ -73,6 +72,5 @@ _ash_rules_romanian = (
                        ("u","","","u"),
                        ("v","","","v"),
                        ("z","","","z"),
-
 
                        )

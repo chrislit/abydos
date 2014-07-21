@@ -37,5 +37,4 @@ _sep_exact_common = (
                      ("B","","","b"),
                      ("V","","","v"),
 
-                     ("exactapproxcommon plus exactcommon")
                      )

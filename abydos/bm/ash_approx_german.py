@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _ash_approx_german = (
-
                       ("I", "", "$", "i"),
                       ("I", "[aeiAEIOUouQY]", "", "i"),
                       ("I", "", "[^k]$", "i"),
@@ -79,7 +78,5 @@ _ash_approx_german = (
                       ("sUts", "", "$", "(suts|sQts)"),
                       ("Uts", "", "$", "uts"),
                       ("U", "", "", "(u|Q)"),
-
-
 
                       )

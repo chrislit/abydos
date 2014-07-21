@@ -118,5 +118,4 @@ _gen_hebrew_common = (
                       ("h","^","","1"),
                       ("h","","",""),
 
-                      ("exactapproxcommon plus hebrewcommon")
                       )

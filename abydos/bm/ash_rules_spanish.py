@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _ash_rules_spanish = (
-
                       # CONSONANTS
                       ("ñ","","","(n|nj)"),
 
@@ -82,6 +81,5 @@ _ash_rules_spanish = (
                       ("s","","","s"),
                       ("t","","","t"),
                       ("u","","","u"),
-
 
                       )

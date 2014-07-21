@@ -23,7 +23,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 _ash_hebrew_common = (
-
                       ("ts","","","C"), # for not confusion Gutes [=guts] and Guts [=guc]
                       ("tS","","","C"), # same reason
                       ("S","","","s"),
@@ -128,7 +127,5 @@ _ash_hebrew_common = (
                       ("H","","","(x|)"),
                       ("h","^","","1"),
                       ("h","","",""),
-
-                      ("exactapproxcommon plus hebrewcommon")
 
                       )
