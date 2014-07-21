@@ -29,8 +29,8 @@ _sep_rules_any = (
                   ("kh","","","x"), # foreign
 
                   ("gli","","","(gli|l[$italian])"),
-                  ("gni","","","(gni|ni[".($italian+$french)."])"),
-                  ("gn","","[aeou]","(n[".($italian+$french)."]|nj[".($italian+$french)."]|gn)"),
+                  ("gni","","","(gni|ni[$italian+$french])"),
+                  ("gn","","[aeou]","(n[$italian+$french]|nj[$italian+$french]|gn)"),
                   ("gh","","","g"), # It + translit. from Arabic
                   ("dh","","","d"), # translit. from Arabic
                   ("bh","","","b"), # translit. from Arabic
@@ -47,8 +47,8 @@ _sep_rules_any = (
 
                   ("gi","","[aeou]","dZ"), # italian
                   ("g","","y","Z"), # french
-                  ("gg","","[ei]","(gZ[".($portuguese+$french)."]|dZ[".($italian+$spanish)."]|x[$spanish])"),
-                  ("g","","[ei]","(Z[".($portuguese+$french)."]|dZ[".($italian+$spanish)."]|x[$spanish])"),
+                  ("gg","","[ei]","(gZ[$portuguese+$french]|dZ[$italian+$spanish]|x[$spanish])"),
+                  ("g","","[ei]","(Z[$portuguese+$french]|dZ[$italian+$spanish]|x[$spanish])"),
 
                   ("guy","","","gi"),
                   ("gue","","$","(k[$french]|ge)"),
@@ -63,16 +63,16 @@ _sep_rules_any = (
                   ("ss","","","s"),
                   ("ç","","","s"),   # not It
 
-                  ("ch","","[ei]","(k[$italian]|S[".($portuguese+$french)."]|tS[$spanish]|dZ[$spanish])"),
+                  ("ch","","[ei]","(k[$italian]|S[$portuguese+$french]|tS[$spanish]|dZ[$spanish])"),
                   ("ch","","","(S|tS[$spanish]|dZ[$spanish])"),
 
                   ("ci","","[aeou]","(tS[$italian]|si)"),
-                  ("cc","","[eiyéèê]","(tS[$italian]|ks[".($portuguese+$french+$spanish)."])"),
-                  ("c","","[eiyéèê]","(tS[$italian]|s[".($portuguese+$french+$spanish)."])"),
-                  #("c","","[aou]","(k|C[".($portuguese+$spanish)."])"), # "C" means that the actual letter could be "ç" (cedille omitted)
+                  ("cc","","[eiyéèê]","(tS[$italian]|ks[$portuguese+$french+$spanish])"),
+                  ("c","","[eiyéèê]","(tS[$italian]|s[$portuguese+$french+$spanish])"),
+                  #("c","","[aou]","(k|C[$portuguese+$spanish])"), # "C" means that the actual letter could be "ç" (cedille omitted)
 
                   ("s","^","","s"),
-                  ("s","[aáuiíoóeéêy]","[aáuiíoóeéêy]","(s[$spanish]|z[".($portuguese+$french+$italian)."])"),
+                  ("s","[aáuiíoóeéêy]","[aáuiíoóeéêy]","(s[$spanish]|z[$portuguese+$french+$italian])"),
                   ("s","","[dglmnrv]","(z|Z[$portuguese])"),
 
                   ("z","","$","(s|ts[$italian]|S[$portuguese])"), # ts It, s/S/Z Port, s in Sp, z Fr
@@ -88,7 +88,7 @@ _sep_rules_any = (
                   ("ex","","[cs]","(e[$portuguese]|ek)"),
 
                   ("m","","[cdglnrst]","(m|n[$portuguese])"),
-                  ("m","","[bfpv]","(m|n[".($portuguese+$spanish)."])"),
+                  ("m","","[bfpv]","(m|n[$portuguese+$spanish])"),
                   ("m","","$","(m|n[$portuguese])"),
 
                   ("b","^","","(b|V[$spanish])"),
@@ -156,7 +156,7 @@ _sep_rules_any = (
                   ("u","","","u"),
                   ("v","","","(v|b[$spanish])"),
                   ("w","","","v"),    # foreign
-                  ("x","","","(ks|gz|S[".($portuguese+$spanish)."])"),   # S/ks Port & Sp, gz Sp, It only ks
+                  ("x","","","(ks|gz|S[$portuguese+$spanish])"),   # S/ks Port & Sp, gz Sp, It only ks
                   ("y","","","i"),
                   ("z","","","z"),
 

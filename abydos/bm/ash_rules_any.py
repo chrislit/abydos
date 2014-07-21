@@ -60,19 +60,19 @@ _ash_rules_any = (
                   ("ssh","","","S"),
 
                   ("sh","","[äöü]","sh"), # german
-                  ("sh","","[aeiou]","(S[".($russian+$english)."]|sh)"),
+                  ("sh","","[aeiou]","(S[$russian+$english]|sh)"),
                   ("sh","","","S"), # russian+english
 
-                  ("kh","","","(x[".($russian+$english)."]|kh)"),
+                  ("kh","","","(x[$russian+$english]|kh)"),
 
-                  ("chs","","","(ks[$german]|xs|tSs[".($russian+$english)."])"),
+                  ("chs","","","(ks[$german]|xs|tSs[$russian+$english])"),
 
                   # French "ch" is currently disabled
                   #("ch","","[ei]","(x|tS|k[$romanian]|S[$french])"),
-                  #("ch","","","(x|tS[".($russian+$english)."]|S[$french])"),
+                  #("ch","","","(x|tS[$russian+$english]|S[$french])"),
 
-                  ("ch","","[ei]","(x|k[$romanian]|tS[".($russian+$english)."])"),
-                  ("ch","","","(x|tS[".($russian+$english)."])"),
+                  ("ch","","[ei]","(x|k[$romanian]|tS[$russian+$english])"),
+                  ("ch","","","(x|tS[$russian+$english])"),
 
                   ("ck","","","(k|tsk[$polish])"),
 
@@ -101,10 +101,10 @@ _ash_rules_any = (
                   ("cio","","","(tSo[$polish]|tso)"),
                   ("ciu","","","(tSu[$polish]|tsu)"),
 
-                  ("ci","","$","(tsi[$polish]|tSi[".($polish+$romanian)."]|tS[$romanian]|si)"),
-                  ("ci","","","(tsi[$polish]|tSi[".($polish+$romanian)."]|si)"),
-                  ("ce","","[bcdgkpstwzż]","(tsF[$polish]|tSe[".($polish+$romanian)."]|se)"),
-                  ("ce","","","(tSe[".($polish+$romanian)."]|tse[$polish]|se)"),
+                  ("ci","","$","(tsi[$polish]|tSi[$polish+$romanian]|tS[$romanian]|si)"),
+                  ("ci","","","(tsi[$polish]|tSi[$polish+$romanian]|si)"),
+                  ("ce","","[bcdgkpstwzż]","(tsF[$polish]|tSe[$polish+$romanian]|se)"),
+                  ("ce","","","(tSe[$polish+$romanian]|tse[$polish]|se)"),
                   ("cy","","","(si|tsi[$polish])"),
 
                   ("ssz","","","S"), # Polish
@@ -159,16 +159,16 @@ _ash_rules_any = (
 
                   ("gie","","$","(ge|gi[$german]|ji[$french])"),
                   ("gie","","","ge"),
-                  ("ge","[yaeiou]","","(gE|xe[$spanish]|dZe[".($english+$romanian)."])"),
-                  ("gi","[yaeiou]","","(gI|xi[$spanish]|dZi[".($english+$romanian)."])"),
-                  ("ge","","","(gE|dZe[".($english+$romanian)."]|hE[$russian]|xe[$spanish])"),
-                  ("gi","","","(gI|dZi[".($english+$romanian)."]|hI[$russian]|xi[$spanish])"),
+                  ("ge","[yaeiou]","","(gE|xe[$spanish]|dZe[$english+$romanian])"),
+                  ("gi","[yaeiou]","","(gI|xi[$spanish]|dZi[$english+$romanian])"),
+                  ("ge","","","(gE|dZe[$english+$romanian]|hE[$russian]|xe[$spanish])"),
+                  ("gi","","","(gI|dZi[$english+$romanian]|hI[$russian]|xi[$spanish])"),
                   ("gy","","[aeouáéóúüöőű]","(gi|dj[$hungarian])"),
                   ("gy","","","(gi|d[$hungarian])"),
                   ("g","[jyaeiou]","[aouyei]","g"),
                   ("g","","[aouei]","(g|h[$russian])"),
 
-                  ("ej","","","(aj|eZ[".($french+$romanian)."]|ex[$spanish])"),
+                  ("ej","","","(aj|eZ[$french+$romanian]|ex[$spanish])"),
                   ("ej","","","aj"),
 
                   ("ly","","[au]","l"),
@@ -178,7 +178,7 @@ _ash_rules_any = (
                   ("lyo","","","(lo|le[$russian])"),
                   ("ll","","","(l|J[$spanish])"),
 
-                  ("j","","[aoeiuy]","(j|dZ[$english]|x[$spanish]|Z[".($french+$romanian)."])"),
+                  ("j","","[aoeiuy]","(j|dZ[$english]|x[$spanish]|Z[$french+$romanian])"),
                   ("j","","","(j|x[$spanish])"),
 
                   ("pf","","","(pf|p|f)"),
@@ -193,9 +193,9 @@ _ash_rules_any = (
                   ("rz","t","","(S[$polish]|r)"), # polish
                   ("rz","","","(rz|rts[$german]|Z[$polish]|r[$polish]|rZ[$polish])"), # polish
 
-                  ("tz","","$","(ts|tS[".($english+$german)."])"),
-                  ("tz","^","","(ts|tS[".($english+$german)."])"),
-                  ("tz","","","(ts[".($english+$german+$russian)."]|tz)"),
+                  ("tz","","$","(ts|tS[$english+$german])"),
+                  ("tz","^","","(ts|tS[$english+$german])"),
+                  ("tz","","","(ts[$english+$german+$russian]|tz)"),
 
                   ("zh","","","(Z|zh[$polish]|tsh[$german])"),
 
@@ -219,8 +219,8 @@ _ash_rules_any = (
                   ("v","^","","(v|f[$german])"),
 
                   ("h","[aeiouyäöü]","",""), #german
-                  ("h","","","(h|x[".($romanian+$polish)."])"),
-                  ("h","^","","(h|H[".($english+$german)."])"), # H can be exact "h" or approximate "kh"
+                  ("h","","","(h|x[$romanian+$polish])"),
+                  ("h","^","","(h|H[$english+$german])"), # H can be exact "h" or approximate "kh"
 
                   # VOWELS
                   ("yi","^","","i"),

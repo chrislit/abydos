@@ -47,7 +47,7 @@ _gen_rules_any = (
                   ("kówna","","$","(k|ek)"),  # polish
                   ("ówna","","$",""),         # polish
                   ("á","","$","(a|i[$czech])"),
-                  ("a","","$","(a|i[".($polish+$czech)."])"),
+                  ("a","","$","(a|i[$polish+$czech])"),
 
                   # CONSONANTS
                   ("pf","","","(pf|p|f)"),
@@ -56,7 +56,7 @@ _gen_rules_any = (
 
                   ("m","","[bfpv]","(m|n)"),
                   ("m","[aeiouy]","[aeiouy]", "m"),
-                  ("m","[aeiouy]","", "(m|n[".($french+$portuguese)."])"),  # nasal
+                  ("m","[aeiouy]","", "(m|n[$french+$portuguese])"),  # nasal
 
                   ("ly","","[au]","l"),
                   ("li","","[au]","l"),
@@ -71,7 +71,7 @@ _gen_rules_any = (
                   ("ex","","[cs]","(e[$portuguese]|ek)"),
                   ("x","u","$","(ks|[$french])"),
 
-                  ("ck","","","(k|tsk[".($polish+$czech)."])"),
+                  ("ck","","","(k|tsk[$polish+$czech])"),
                   ("cz","","","(tS|tsz[$czech])"), # Polish
 
                   #Proceccing of "h" in various combinations
@@ -80,7 +80,7 @@ _gen_rules_any = (
                   ("bh","^","","b"),
 
                   ("ph","","","(ph|f)"),
-                  ("kh","","","(x[".($russian+$english)."]|kh)"),
+                  ("kh","","","(x[$russian+$english]|kh)"),
 
                   ("lh","","","(lh|l[$portuguese])"),
                   ("nh","","","(nh|nj[$portuguese])"),
@@ -93,33 +93,33 @@ _gen_rules_any = (
                   #/ ("desh","^","","(dES|de[$french])"),
                   #/ ("des","^","[^aeiouy]","(dEs|de[$french])"),
 
-                  ("sch","[aeiouy]","[ei]","(S|StS[$russian]|sk[".($romanian+$italian)."])"),
+                  ("sch","[aeiouy]","[ei]","(S|StS[$russian]|sk[$romanian+$italian])"),
                   ("sch","[aeiouy]","","(S|StS[$russian])"),
-                  ("sch","","[ei]","(sk[".($romanian+$italian)."]|S|StS[$russian])"),
+                  ("sch","","[ei]","(sk[$romanian+$italian]|S|StS[$russian])"),
                   ("sch","","","(S|StS[$russian])"),
                   ("ssh","","","S"),
 
                   ("sh","","[äöü]","sh"),      # german
-                  ("sh","","[aeiou]","(S[".($russian+$english)."]|sh)"),
+                  ("sh","","[aeiou]","(S[$russian+$english]|sh)"),
                   ("sh","","","S"),
 
-                  ("zh","","","(Z[".($english+$russian)."]|zh|tsh[$german])"),
+                  ("zh","","","(Z[$english+$russian]|zh|tsh[$german])"),
 
-                  ("chs","","","(ks[$german]|xs|tSs[".($russian+$english)."])"),
-                  ("ch","","[ei]","(x|tS[".($spanish+$english+$russian)."]|k[".($romanian+$italian)."]|S[".($portuguese+$french)."])"),
-                  ("ch","","","(x|tS[".($spanish+$english+$russian)."]|S[".($portuguese+$french)."])"),
+                  ("chs","","","(ks[$german]|xs|tSs[$russian+$english])"),
+                  ("ch","","[ei]","(x|tS[$spanish+$english+$russian]|k[$romanian+$italian]|S[$portuguese+$french])"),
+                  ("ch","","","(x|tS[$spanish+$english+$russian]|S[$portuguese+$french])"),
 
                   ("th","^","","t"),     # english+german+greeklatin
-                  ("th","","[äöüaeiou]","(t[".($english+$german+$greeklatin)."]|th)"),
+                  ("th","","[äöüaeiou]","(t[$english+$german+$greeklatin]|th)"),
                   ("th","","","t"),  # english+german+greeklatin
 
-                  ("gh","","[ei]","(g[".($romanian+$italian+$greeklatin)."]|gh)"),
+                  ("gh","","[ei]","(g[$romanian+$italian+$greeklatin]|gh)"),
 
                   ("ouh","","[aioe]","(v[$french]|uh)"),
                   ("uh","","[aioe]","(v|uh)"),
                   ("h","","$",""),
                   ("h","[aeiouyäöü]","",""),  # $german
-                  ("h","^","","(h|x[".($romanian+$greeklatin)."]|H[".($english+$romanian+$polish+$french+$portuguese+$italian+$spanish)."])"),
+                  ("h","^","","(h|x[$romanian+$greeklatin]|H[$english+$romanian+$polish+$french+$portuguese+$italian+$spanish])"),
 
                   #Processing of "ci", "ce" & "cy"
                   ("cia","","","(tSa[$polish]|tsa)"),  # Polish
@@ -131,11 +131,11 @@ _gen_rules_any = (
                   ("cio","","","(tSo[$polish]|tso)"),  # Polish
                   ("ciu","","","(tSu[$polish]|tsu)"), # Polish
 
-                  ("sci","","$","(Si[$italian]|stsi[".($polish+$czech)."]|dZi[$turkish]|tSi[".($polish+$romanian)."]|tS[$romanian]|si)"),
-                  ("sc","","[ei]","(S[$italian]|sts[".($polish+$czech)."]|dZ[$turkish]|tS[".($polish+$romanian)."]|s)"),
-                  ("ci","","$","(tsi[".($polish+$czech)."]|dZi[$turkish]|tSi[".($polish+$romanian)."]|tS[$romanian]|si)"),
+                  ("sci","","$","(Si[$italian]|stsi[$polish+$czech]|dZi[$turkish]|tSi[$polish+$romanian]|tS[$romanian]|si)"),
+                  ("sc","","[ei]","(S[$italian]|sts[$polish+$czech]|dZ[$turkish]|tS[$polish+$romanian]|s)"),
+                  ("ci","","$","(tsi[$polish+$czech]|dZi[$turkish]|tSi[$polish+$romanian]|tS[$romanian]|si)"),
                   ("cy","","","(si|tsi[$polish])"),
-                  ("c","","[ei]","(ts[".($polish+$czech)."]|dZ[$turkish]|tS[".($polish+$romanian)."]|k[$greeklatin]|s)"),
+                  ("c","","[ei]","(ts[$polish+$czech]|dZ[$turkish]|tS[$polish+$romanian]|k[$greeklatin]|s)"),
 
                   #Processing of "s"
                   ("sç","","[aeiou]","(s|stS[$turkish])"),
@@ -150,7 +150,7 @@ _gen_rules_any = (
                   ("ss","","","s"),
                   ("sj","^","","S"), # dutch
                   ("sj","","$","S"), # dutch
-                  ("sj","","","(sj|S[$dutch]|sx[$spanish]|sZ[".($romanian+$turkish)."])"),
+                  ("sj","","","(sj|S[$dutch]|sx[$spanish]|sZ[$romanian+$turkish])"),
 
                   ("sia","","","(Sa[$polish]|sa[$polish]|sja)"),
                   ("sią","","[bp]","(Som[$polish]|som)"), # polish
@@ -162,55 +162,55 @@ _gen_rules_any = (
                   ("sio","","","(So[$polish]|so)"),
                   ("siu","","","(Su[$polish]|sju)"),
 
-                  ("si","[äöëaáuiíoóeéêy]","","(Si[$polish]|si|zi[".($portuguese+$french+$italian+$german)."])"),
+                  ("si","[äöëaáuiíoóeéêy]","","(Si[$polish]|si|zi[$portuguese+$french+$italian+$german])"),
                   ("si","","","(Si[$polish]|si|zi[$german])"),
-                  ("s","[aáuiíoóeéêy]","[aáuíoóeéêy]","(s|z[".($portuguese+$french+$italian+$german)."])"),
+                  ("s","[aáuiíoóeéêy]","[aáuíoóeéêy]","(s|z[$portuguese+$french+$italian+$german])"),
                   ("s","","[aeouäöë]","(s|z[$german])"),
                   ("s","[aeiouy]","[dglmnrv]","(s|z|Z[$portuguese]|[$french])"), # Groslot
                   ("s","","[dglmnrv]","(s|z|Z[$portuguese])"),
 
                   #Processing of "g"
                   ("gue","","$","(k[$french]|gve)"),  # portuguese+spanish
-                  ("gu","","[ei]","(g[$french]|gv[".($portuguese+$spanish)."])"), # portuguese+spanish
+                  ("gu","","[ei]","(g[$french]|gv[$portuguese+$spanish])"), # portuguese+spanish
                   ("gu","","[ao]","gv"),     # portuguese+spanish
                   ("guy","","","gi"),  # french
 
                   ("gli","","","(glI|l[$italian])"),
-                  ("gni","","","(gnI|ni[".($italian+$french)."])"),
-                  ("gn","","[aeou]","(n[".($italian+$french)."]|nj[".($italian+$french)."]|gn)"),
+                  ("gni","","","(gnI|ni[$italian+$french])"),
+                  ("gn","","[aeou]","(n[$italian+$french]|nj[$italian+$french]|gn)"),
 
                   ("ggie","","","(je[$greeklatin]|dZe)"), # dZ is Italian
                   ("ggi","","[aou]","(j[$greeklatin]|dZ)"), # dZ is Italian
 
                   ("ggi","[yaeiou]","[aou]","(gI|dZ[$italian]|j[$greeklatin])"),
-                  ("gge","[yaeiou]","","(gE|xe[$spanish]|gZe[".($portuguese+$french)."]|dZe[".($english+$romanian+$italian+$spanish)."]|je[$greeklatin])"),
-                  ("ggi","[yaeiou]","","(gI|xi[$spanish]|gZi[".($portuguese+$french)."]|dZi[".($english+$romanian+$italian+$spanish)."]|i[$greeklatin])"),
+                  ("gge","[yaeiou]","","(gE|xe[$spanish]|gZe[$portuguese+$french]|dZe[$english+$romanian+$italian+$spanish]|je[$greeklatin])"),
+                  ("ggi","[yaeiou]","","(gI|xi[$spanish]|gZi[$portuguese+$french]|dZi[$english+$romanian+$italian+$spanish]|i[$greeklatin])"),
                   ("ggi","","[aou]","(gI|dZ[$italian]|j[$greeklatin])"),
 
                   ("gie","","$","(ge|gi[$german]|ji[$french]|dZe[$italian])"),
                   ("gie","","","(ge|gi[$german]|dZe[$italian]|je[$greeklatin])"),
                   ("gi","","[aou]","(i[$greeklatin]|dZ)"), # dZ is Italian
 
-                  ("ge","[yaeiou]","","(gE|xe[$spanish]|Ze[".($portuguese+$french)."]|dZe[".($english+$romanian+$italian+$spanish)."])"),
-                  ("gi","[yaeiou]","","(gI|xi[$spanish]|Zi[".($portuguese+$french)."]|dZi[".($english+$romanian+$italian+$spanish)."])"),
-                  ("ge","","","(gE|xe[$spanish]|hE[$russian]|je[$greeklatin]|Ze[".($portuguese+$french)."]|dZe[".($english+$romanian+$italian+$spanish)."])"),
-                  ("gi","","","(gI|xi[$spanish]|hI[$russian]|i[$greeklatin]|Zi[".($portuguese+$french)."]|dZi[".($english+$romanian+$italian+$spanish)."])"),
+                  ("ge","[yaeiou]","","(gE|xe[$spanish]|Ze[$portuguese+$french]|dZe[$english+$romanian+$italian+$spanish])"),
+                  ("gi","[yaeiou]","","(gI|xi[$spanish]|Zi[$portuguese+$french]|dZi[$english+$romanian+$italian+$spanish])"),
+                  ("ge","","","(gE|xe[$spanish]|hE[$russian]|je[$greeklatin]|Ze[$portuguese+$french]|dZe[$english+$romanian+$italian+$spanish])"),
+                  ("gi","","","(gI|xi[$spanish]|hI[$russian]|i[$greeklatin]|Zi[$portuguese+$french]|dZi[$english+$romanian+$italian+$spanish])"),
                   ("gy","","[aeouáéóúüöőű]","(gi|dj[$hungarian])"),
                   ("gy","","","(gi|d[$hungarian])"),
                   ("g","[yaeiou]","[aouyei]","g"),
                   ("g","","[aouei]","(g|h[$russian])"),
 
                   #Processing of "j"
-                  ("ij","","","(i|ej[$dutch]|ix[$spanish]|iZ[".($french+$romanian+$turkish+$portuguese)."])"),
-                  ("j","","[aoeiuy]","(j|dZ[$english]|x[$spanish]|Z[".($french+$romanian+$turkish+$portuguese)."])"),
+                  ("ij","","","(i|ej[$dutch]|ix[$spanish]|iZ[$french+$romanian+$turkish+$portuguese])"),
+                  ("j","","[aoeiuy]","(j|dZ[$english]|x[$spanish]|Z[$french+$romanian+$turkish+$portuguese])"),
 
                   #Processing of "z"
                   ("rz","t","","(S[$polish]|r)"), # polish
                   ("rz","","","(rz|rts[$german]|Z[$polish]|r[$polish]|rZ[$polish])"),
 
-                  ("tz","","$","(ts|tS[".($english+$german)."])"),
-                  ("tz","^","","(ts[".($english+$german+$russian)."]|tS[".($english+$german)."])"),
-                  ("tz","","","(ts[".($english+$german+$russian)."]|tz)"),
+                  ("tz","","$","(ts|tS[$english+$german])"),
+                  ("tz","^","","(ts[$english+$german+$russian]|tS[$english+$german])"),
+                  ("tz","","","(ts[$english+$german+$russian]|tz)"),
 
                   ("zia","","[bcdgkpstwzż]","(Za[$polish]|za[$polish]|zja)"),
                   ("zia","","","(Za[$polish]|zja)"),
@@ -254,7 +254,7 @@ _gen_rules_any = (
                   ("oe","","","(Y[$german]|oje[$russian]|u[$dutch]|oe)"),
                   ("oi","","","oj"),
                   ("oo","","","(u[$english]|o)"),
-                  ("ou","","","(ou|u[".($french+$greeklatin)."]|au[$dutch])"),
+                  ("ou","","","(ou|u[$french+$greeklatin]|au[$dutch])"),
                   ("où","","","u"), # french
                   ("oy","","","oj"),
                   ("õe","","","(oj|on)"), # Port
@@ -276,7 +276,7 @@ _gen_rules_any = (
                   ("y","[áóéê]","","j"),
 
                   ("e","^","","(e|je[$russian])"),
-                  ("e","","$","(e|EE[".($english+$french)."])"),
+                  ("e","","$","(e|EE[$english+$french])"),
 
                   # LANGUAGE SPECIFIC CHARACTERS
                   ("ą","","[bp]","om"), # polish
@@ -316,7 +316,7 @@ _gen_rules_any = (
                   ("ţ","","","ts"),  # romanian
                   ("ť","","","(t|tj[$czech])"),
                   ("ű","","","Q"), # hungarian
-                  ("ü","","","(Q|u[".($portuguese+$spanish)."])"),
+                  ("ü","","","(Q|u[$portuguese+$spanish])"),
                   ("ú","","","u"),
                   ("ů","","","u"), # czech
                   ("ù","","","u"), # french
@@ -333,15 +333,15 @@ _gen_rules_any = (
                   # LATIN ALPHABET
                   ("a","","","A"),
                   ("b","","","B"),
-                  ("c","","","(k|ts[".($polish+$czech)."]|dZ[$turkish])"),
+                  ("c","","","(k|ts[$polish+$czech]|dZ[$turkish])"),
                   ("d","","","d"),
                   ("e","","","E"),
                   ("f","","","f"),
                   #("g","","","(g|x[$dutch])"), # Dutch sound disabled
                   ("g","","","g"),
-                  ("h","","","(h|x[$romanian]|H[".($french+$portuguese+$italian+$spanish)."])"),
+                  ("h","","","(h|x[$romanian]|H[$french+$portuguese+$italian+$spanish])"),
                   ("i","","","I"),
-                  ("j","","","(j|x[$spanish]|Z[".($french+$romanian+$turkish+$portuguese)."])"),
+                  ("j","","","(j|x[$spanish]|Z[$french+$romanian+$turkish+$portuguese])"),
                   ("k","","","k"),
                   ("l","","","l"),
                   ("m","","","m"),
@@ -354,8 +354,8 @@ _gen_rules_any = (
                   ("t","","","t"),
                   ("u","","","U"),
                   ("v","","","V"),
-                  ("w","","","(v|w[".($english+$dutch)."])"),
-                  ("x","","","(ks|gz|S[".($portuguese+$spanish)."])"),   # S/ks Port & Sp, gz Sp, It only ks
+                  ("w","","","(v|w[$english+$dutch])"),
+                  ("x","","","(ks|gz|S[$portuguese+$spanish])"),   # S/ks Port & Sp, gz Sp, It only ks
                   ("y","","","i"),
                   ("z","","","(z|ts[$german]|dz[$italian]|ts[$italian]|s[$spanish])"), # ts/dz It, z Port & Fr, z/s Sp
 

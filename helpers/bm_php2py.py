@@ -10,6 +10,7 @@ def pythonize(line, indent=0):
     line = line.strip()
     line = line.replace('//', '#')
     #line = re.sub('"(.*?)"', r"'\1'", line)
+    line = re.sub('"\.\((\$.+?)\)\."', r'\1', line)
     line = line.replace('array', '')
     line = re.sub('^\s*', '', line)
     if line:
