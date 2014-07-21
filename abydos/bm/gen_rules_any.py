@@ -359,5 +359,5 @@ _gen_rules_any = (
                   ("y","","","i"),
                   ("z","","","(z|ts[$german]|dz[$italian]|ts[$italian]|s[$spanish])"), # ts/dz It, z Port & Fr, z/s Sp
 
-                  ("rulesany")
+
                   )

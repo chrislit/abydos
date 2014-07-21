@@ -69,5 +69,5 @@ _ash_rules_hebrew = (
                      ("ש","","","s"),
                      ("ת","","","TB"), # only Ashkenazic
 
-                     ("ruleshebrew")
+
                      )

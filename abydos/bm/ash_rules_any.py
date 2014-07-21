@@ -338,5 +338,5 @@ _ash_rules_any = (
                   ("y","","","i"),
                   ("z","","","(ts[$german]|z)"),
 
-                  ("rulesany")
+
                   )

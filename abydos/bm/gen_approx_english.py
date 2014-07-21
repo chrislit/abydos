@@ -55,6 +55,6 @@ _gen_approx_english = (
 
                        ("a", "", "", "(a|o)"),
 
-                       ("approxenglish")
+
 
                        )

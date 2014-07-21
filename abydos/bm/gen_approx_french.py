@@ -32,5 +32,5 @@ _gen_approx_french = (
                       ("a", "", "", "(a|o)"),
                       ("e", "", "", "i"),
 
-                      ("approxfrench")
+
                       )

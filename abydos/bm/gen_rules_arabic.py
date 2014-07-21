@@ -110,5 +110,5 @@ _gen_rules_arabic = (
                      ("ي‎","","$","(i|j)"),
                      ("ي‎","","","(i|j1)"), # ya' isol
 
-                     ("rulesarabic")
+
                      )

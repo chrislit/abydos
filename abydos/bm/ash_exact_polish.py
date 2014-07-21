@@ -31,6 +31,6 @@ _ash_exact_polish = (
                      ("E", "", "", "e"),
                      ("I", "", "", "i"),
 
-                     ("exactpolish")
+
 
                      )

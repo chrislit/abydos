@@ -149,5 +149,5 @@ _gen_rules_russian = (
                       ("y","","","I"),
                       ("z","","","z"),
 
-                      ("rulesrussian")
+
                       )

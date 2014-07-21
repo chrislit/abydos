@@ -114,6 +114,6 @@ _ash_rules_english = (
                       ("v","","","v"),
                       ("z","","","z"),
 
-                      ("rulesenglish")
+
 
                       )

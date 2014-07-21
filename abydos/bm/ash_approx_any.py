@@ -157,6 +157,6 @@ _ash_approx_any = (
                    ("Uts", "", "$", "uts"),
                    ("U", "", "", "(u|Q[$german])"),
 
-                   ("approxany")
+
 
                    )

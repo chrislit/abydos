@@ -86,6 +86,6 @@ _gen_rules_dutch = (
                     ("y","","","i"),
                     ("z","","","z"),
 
-                    ("rulesdutch")
+
 
                     )

@@ -127,6 +127,6 @@ _gen_rules_greeklatin = (
                          ("z","","","z"),
 
 
-                         ("rulesgreeklatin")
+
 
                          )

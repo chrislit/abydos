@@ -71,5 +71,5 @@ _gen_rules_romanian = (
                        ("y","","","i"),
                        ("z","","","z"),
 
-                       ("rulesromanian")
+
                        )

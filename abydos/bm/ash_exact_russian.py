@@ -27,6 +27,6 @@ _ash_exact_russian = (
                       ("E", "", "", "e"),
                       ("I", "", "", "i"),
 
-                      ("exactrussian")
+
 
                       )

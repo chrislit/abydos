@@ -26,5 +26,5 @@ _sep_approx_any = (
 
                    ("E","","",""), # Final French "e"
 
-                   ("approxany")
+
                    )

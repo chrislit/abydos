@@ -111,5 +111,5 @@ _sep_rules_portuguese = (
                          ("y","","","i"),
                          ("z","","","z"),
 
-                         ("rulesportuguese")
+
                          )

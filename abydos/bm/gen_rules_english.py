@@ -119,6 +119,6 @@ _gen_rules_english = (
                       ("y","","","i"),
                       ("z","","","z"),
 
-                      ("rulesenglish")
+
 
                       )

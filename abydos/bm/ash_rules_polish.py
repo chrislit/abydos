@@ -191,5 +191,5 @@ _ash_rules_polish = (
                      ("y","","","I"),
                      ("z","","","z"),
 
-                     ("rulespolish")
+
                      )

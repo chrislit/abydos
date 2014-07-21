@@ -26,6 +26,6 @@ _gen_exact_arabic = (
 
                      ("1", "", "", ""),
 
-                     ("exactarabic")
+
 
                      )

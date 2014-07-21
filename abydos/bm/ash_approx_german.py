@@ -80,6 +80,6 @@ _ash_approx_german = (
                       ("Uts", "", "$", "uts"),
                       ("U", "", "", "(u|Q)"),
 
-                      ("approxgerman")
+
 
                       )

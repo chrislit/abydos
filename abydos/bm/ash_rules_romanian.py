@@ -74,5 +74,5 @@ _ash_rules_romanian = (
                        ("v","","","v"),
                        ("z","","","z"),
 
-                       ("rulesromanian")
+
                        )

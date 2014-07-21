@@ -69,5 +69,5 @@ _sep_rules_hebrew = (
                      ("ש","","","s"),
                      ("ת","","","T"),   # Special for Sephardim
 
-                     ("ruleshebrew")
+
                      )

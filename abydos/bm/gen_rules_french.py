@@ -120,6 +120,6 @@ _gen_rules_french = (
                      ("y","","","i"),
                      ("z","","","z"),
 
-                     ("rulesfrench")
+
 
                      )

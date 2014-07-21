@@ -90,5 +90,5 @@ _ash_rules_hungarian = (
                         ("y","","","i"),
                         ("z","","","z"),
 
-                        ("ruleshungarian")
+
                         )

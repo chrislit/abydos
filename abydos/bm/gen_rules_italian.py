@@ -84,5 +84,5 @@ _gen_rules_italian = (
                       ("y","","","i"),    # foreign
                       ("z","","","(ts|dz)"),
 
-                      ("rulesitalian")
+
                       )

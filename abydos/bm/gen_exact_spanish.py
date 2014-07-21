@@ -27,5 +27,5 @@ _gen_exact_spanish = (
                       ("B", "", "", "b"),
                       ("V", "", "", "v"),
 
-                      ("exactspanish")
+
                       )

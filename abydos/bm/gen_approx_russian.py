@@ -57,6 +57,6 @@ _gen_approx_russian = (
                        ("E", "", "[aoQ]", "i"),
                        ("E", "", "", "(Y|i)"),
 
-                       ("approxrussian")
+
 
                        )

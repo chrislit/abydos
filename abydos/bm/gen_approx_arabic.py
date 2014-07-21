@@ -34,6 +34,6 @@ _gen_approx_arabic = (
                       ("p", "", "$", "p"),
                       ("p", "", "", "(p|b)"),
 
-                      ("approxarabic")
+
 
                       )

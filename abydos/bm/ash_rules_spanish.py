@@ -83,5 +83,5 @@ _ash_rules_spanish = (
                       ("t","","","t"),
                       ("u","","","u"),
 
-                      ("rulesspanish")
+
                       )

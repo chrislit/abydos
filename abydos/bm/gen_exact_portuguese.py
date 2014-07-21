@@ -24,5 +24,5 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 _gen_exact_portuguese = (
 
-                         ("exactportuguese")
+
                          )

@@ -27,6 +27,6 @@ _gen_exact_russian = (
                       ("E", "", "", "e"),
                       ("I", "", "", "i"),
 
-                      ("exactrussian")
+
 
                       )

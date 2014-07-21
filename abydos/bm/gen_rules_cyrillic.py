@@ -105,6 +105,6 @@ _gen_rules_cyrillic = (
                        ("ю","","","ju"),
                        ("я","","","ja"),
 
-                       ("rulescyrillic")
+
 
                        )

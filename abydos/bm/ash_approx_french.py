@@ -48,6 +48,6 @@ _ash_approx_french = (
                       ("E", "", "[aoQ]", "i"),
                       ("E", "", "", "(Y|i)"),
 
-                      ("approxfrench")
+
 
                       )

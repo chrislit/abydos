@@ -31,6 +31,6 @@ _gen_exact_polish = (
                      ("E", "", "", "e"),
                      ("I", "", "", "i"),
 
-                     ("exactpolish")
+
 
                      )

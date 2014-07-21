@@ -105,6 +105,6 @@ _gen_rules_greek = (
                     ("ψ","","","ps"),
                     ("ω","","","o"),
 
-                    ("rulesgreek")
+
 
                     )

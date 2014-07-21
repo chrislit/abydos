@@ -97,6 +97,6 @@ _ash_rules_french = (
                      ("v","","","v"),
                      ("z","","","z"),
 
-                     ("rulesfrench")
+
 
                      )

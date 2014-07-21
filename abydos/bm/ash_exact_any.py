@@ -36,6 +36,6 @@ _ash_exact_any = (
 
                   ("J", "", "", "l"),
 
-                  ("exactany")
+
 
                   )

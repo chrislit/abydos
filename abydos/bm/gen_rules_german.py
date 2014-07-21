@@ -135,6 +135,6 @@ _gen_rules_german = (
                      ("y","","","i"),
                      ("z","","","ts"),
 
-                     ("rulesgerman")
+
 
                      )

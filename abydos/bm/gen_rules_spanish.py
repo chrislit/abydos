@@ -91,5 +91,5 @@ _gen_rules_spanish = (
                       ("y","","","(i|j)"),
                       ("z","","","(z|s)"), # as "c" befoire "e" or "i", in Spain it is like unvoiced English "th"
 
-                      ("rulesspanish")
+
                       )

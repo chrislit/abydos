@@ -135,6 +135,6 @@ _gen_approx_any = (
 
                    ("a", "", "", "(a|o)"),
 
-                   ("approxany")
+
 
                    )

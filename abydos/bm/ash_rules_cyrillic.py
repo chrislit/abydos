@@ -108,6 +108,6 @@ _ash_rules_cyrillic = (
                        ("ю","","","ju"),
                        ("я","","","ja"),
 
-                       ("rulescyrillic")
+
 
                        )

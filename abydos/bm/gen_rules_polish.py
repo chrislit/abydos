@@ -191,5 +191,5 @@ _gen_rules_polish = (
                      ("y","","","I"),
                      ("z","","","z"),
 
-                     ("rulespolish")
+
                      )

@@ -91,6 +91,6 @@ _ash_approx_polish = (
                       ("E", "", "[aoQ]", "i"),
                       ("E", "", "", "(Y|i)"),
 
-                      ("approxpolish")
+
 
                       )

@@ -26,5 +26,5 @@ _sep_exact_any = (
 
                   ("E","","","e"), # final French "e"
 
-                  ("exactany")
+
                   )
