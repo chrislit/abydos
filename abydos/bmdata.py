@@ -42,7 +42,6 @@ l_russian = 2<<16
 l_spanish = 2<<17
 l_turkish = 2<<18
 
-
 # gen/approxany.php
 
 # GENERIC
@@ -164,9 +163,6 @@ _gen_approx_any = (
 
      )
 
-
-
-
 # gen/approxarabic.php
 _gen_approx_arabic = (
 
@@ -181,8 +177,6 @@ _gen_approx_arabic = (
      ("p", "", "", "(p|b)"),
 
      )
-
-
 
 # gen/approxcommon.php
 
@@ -395,26 +389,15 @@ _gen_approx_common = (
 
      )
 
-
-
-
 # gen/approxcyrillic.php
 # this file uses the same rules as approxrussian.php
-
-
 
 # gen/approxczech.php
 
 # this file uses the same rules as approxfrench.php
 
-
-
-
 # gen/approxdutch.php
 # this file uses the same rules as approxfrench.php
-
-
-
 
 # gen/approxenglish.php
 _gen_approx_english = (
@@ -452,9 +435,6 @@ _gen_approx_english = (
 
      )
 
-
-
-
 # gen/approxfrench.php
 #GENERAL
 _gen_approx_french = (
@@ -468,8 +448,6 @@ _gen_approx_french = (
      ("e", "", "", "i"),
 
      )
-
-
 
 # gen/approxgerman.php
 
@@ -533,14 +511,9 @@ _gen_approx_german = (
 
      )
 
-
-
 # gen/approxgreek.php
 
 # this file uses the same rules as approxfrench.php
-
-
-
 
 # gen/approxgreeklatin.php
 _gen_approx_greeklatin = (
@@ -548,27 +521,16 @@ _gen_approx_greeklatin = (
 
      )
 
-
-
-
 # gen/approxhebrew.php
 _gen_approx_hebrew = (
      )
-
-
 
 # gen/approxhungarian.php
 
 # this file uses the same rules as approxfrench.php
 
-
-
-
 # gen/approxitalian.php
 # this file uses the same rules as approxfrench.php
-
-
-
 
 # gen/approxpolish.php
 _gen_approx_polish = (
@@ -642,19 +604,12 @@ _gen_approx_polish = (
 
      )
 
-
-
 # gen/approxportuguese.php
 
 # this file uses the same rules as approxfrench.php
 
-
-
-
 # gen/approxromanian.php
 # this file uses the same rules as approxpolish.php
-
-
 
 # gen/approxrussian.php
 
@@ -694,8 +649,6 @@ _gen_approx_russian = (
 
      )
 
-
-
 # gen/approxspanish.php
 
 _gen_approx_spanish = (
@@ -704,14 +657,8 @@ _gen_approx_spanish = (
 
      )
 
-
-
-
 # gen/approxturkish.php
 # this file uses the same rules as approxfrench.php
-
-
-
 
 # gen/exactany.php
 # GENERAL
@@ -740,9 +687,6 @@ _gen_exact_any = (
      ("V", "", "", "v"),
 
      )
-
-
-
 
 # gen/exactapproxcommon.php
 # GENERAL
@@ -811,17 +755,12 @@ _gen_exact_approx_common = (
      # do not put name of file here since it always gets merged into another file
      )
 
-
-
 # gen/exactarabic.php
 _gen_exact_arabic = (
 
      ("1", "", "", ""),
 
      )
-
-
-
 
 # gen/exactcommon.php
 # GENERAL
@@ -843,34 +782,19 @@ _gen_exact_common = (
 
      )
 
-
-
-
 # gen/exactcyrillic.php
 # this file uses the same rules as exactrussian.php
 
-
-
-
 # gen/exactczech.php
 # this file uses the same rules as exactrussian.php
-
-
-
 
 # gen/exactdutch.php
 _gen_exact_dutch = (
 
      )
 
-
-
-
 # gen/exactenglish.php
 # this file uses the same rules as exactrussian.php
-
-
-
 
 # gen/exactfrench.php
 # GENERAL
@@ -878,22 +802,13 @@ _gen_exact_french = (
 
      )
 
-
-
-
 # gen/exactgerman.php
 # this file uses the same rules as exactany.php
-
-
-
 
 # gen/exactgreek.php
 _gen_exact_greek = (
 
      )
-
-
-
 
 # gen/exactgreeklatin.php
 _gen_exact_greeklatin = (
@@ -902,30 +817,18 @@ _gen_exact_greeklatin = (
 
      )
 
-
-
-
 # gen/exacthebrew.php
 _gen_exact_hebrew = (
      )
 
-
-
-
 # gen/exacthungarian.php
 # this file uses the same rules as exactrussian.php
-
-
-
 
 # gen/exactitalian.php
 # GENERAL
 _gen_exact_italian = (
 
      )
-
-
-
 
 # gen/exactpolish.php
 _gen_exact_polish = (
@@ -939,23 +842,14 @@ _gen_exact_polish = (
 
      )
 
-
-
-
 # gen/exactportuguese.php
 # GENERAL
 _gen_exact_portuguese = (
 
      )
 
-
-
-
 # gen/exactromanian.php
 # this file uses the same rules as exactrussian.php
-
-
-
 
 # gen/exactrussian.php
 _gen_exact_russian = (
@@ -964,9 +858,6 @@ _gen_exact_russian = (
      ("I", "", "", "i"),
 
      )
-
-
-
 
 # gen/exactspanish.php
 # GENERAL
@@ -977,16 +868,10 @@ _gen_exact_spanish = (
 
      )
 
-
-
-
 # gen/exactturkish.php
 _gen_exact_turkish = (
 
      )
-
-
-
 
 # gen/hebrewcommon.php
 #GENERAL
@@ -1088,9 +973,6 @@ _gen_hebrew_common = (
      ("h","","",""),
 
      )
-
-
-
 
 # gen/lang.php
 # GENERIC
@@ -1385,14 +1267,10 @@ _gen_language_rules = (
 
      )
 
-
-
 # gen/languagenames.php
 _gen_languages = ("any", "arabic", "cyrillic", "czech", "dutch", "english", "french", "german", "greek",
      "greeklatin", "hebrew", "hungarian", "italian", "polish", "portuguese","romanian",
      "russian", "spanish", "turkish")
-
-
 
 # gen/rulesany.php
 # format of each entry rule in the table
@@ -1749,8 +1627,6 @@ _gen_rules_any = (
 
      )
 
-
-
 # gen/rulesarabic.php
 
 # General
@@ -1844,8 +1720,6 @@ _gen_rules_arabic = (
 
      )
 
-
-
 # gen/rulescyrillic.php
 
 # GENERAL
@@ -1934,8 +1808,6 @@ _gen_rules_cyrillic = (
 
      )
 
-
-
 # gen/rulesczech.php
 
 _gen_rules_czech = (
@@ -1991,8 +1863,6 @@ _gen_rules_czech = (
      ("z","","","z"),
 
      )
-
-
 
 # gen/rulesdutch.php
 
@@ -2061,8 +1931,6 @@ _gen_rules_dutch = (
      ("z","","","z"),
 
      )
-
-
 
 # gen/rulesenglish.php
 
@@ -2166,8 +2034,6 @@ _gen_rules_english = (
 
      )
 
-
-
 # gen/rulesfrench.php
 
 # GENERAL
@@ -2270,8 +2136,6 @@ _gen_rules_french = (
      ("z","","","z"),
 
      )
-
-
 
 # gen/rulesgerman.php
 
@@ -2390,8 +2254,6 @@ _gen_rules_german = (
 
      )
 
-
-
 # gen/rulesgreek.php
 
 _gen_rules_greek = (
@@ -2478,8 +2340,6 @@ _gen_rules_greek = (
      ("ω","","","o"),
 
      )
-
-
 
 # gen/rulesgreeklatin.php
 
@@ -2589,8 +2449,6 @@ _gen_rules_greeklatin = (
 
      )
 
-
-
 # gen/ruleshebrew.php
 
 # General = Ashkenazic
@@ -2641,8 +2499,6 @@ _gen_rules_hebrew = (
      ("ת","","","TB"), # only Ashkenazic
 
      )
-
-
 
 # gen/ruleshungarian.php
 
@@ -2716,8 +2572,6 @@ _gen_rules_hungarian = (
 
      )
 
-
-
 # gen/rulesitalian.php
 
 _gen_rules_italian = (
@@ -2783,8 +2637,6 @@ _gen_rules_italian = (
      ("z","","","(ts|dz)"),
 
      )
-
-
 
 # gen/rulespolish.php
 
@@ -2960,8 +2812,6 @@ _gen_rules_polish = (
 
      )
 
-
-
 # gen/rulesportuguese.php
 
 _gen_rules_portuguese = (
@@ -3056,8 +2906,6 @@ _gen_rules_portuguese = (
 
      )
 
-
-
 # gen/rulesromanian.php
 
 # GENERAL
@@ -3111,8 +2959,6 @@ _gen_rules_romanian = (
      ("z","","","z"),
 
      )
-
-
 
 # gen/rulesrussian.php
 
@@ -3246,8 +3092,6 @@ _gen_rules_russian = (
 
      )
 
-
-
 # gen/rulesspanish.php
 
 # GENERAL
@@ -3322,8 +3166,6 @@ _gen_rules_spanish = (
 
      )
 
-
-
 # gen/rulesturkish.php
 
 _gen_rules_turkish = (
@@ -3363,8 +3205,6 @@ _gen_rules_turkish = (
 
      )
 
-
-
 # sep/approxany.php
 
 # SEPHARDIC
@@ -3373,9 +3213,6 @@ _sep_approx_any = (
      ("E","","",""), # Final French "e"
 
      )
-
-
-
 
 # sep/approxcommon.php
 #Sephardic
@@ -3480,42 +3317,25 @@ _sep_approx_common = (
 
      )
 
-
-
-
 # sep/approxfrench.php
 _sep_approx_french = (
 
      )
-
-
-
 
 # sep/approxhebrew.php
 _sep_approx_hebrew = (
 
      )
 
-
-
 # sep/approxitalian.php
 
 # this file uses the same rules as approxfrench.php
 
-
-
-
 # sep/approxportuguese.php
 # this file uses the same rules as approxfrench.php
 
-
-
-
 # sep/approxspanish.php
 # this file uses the same rules as approxfrench.php
-
-
-
 
 # sep/exactany.php
 _sep_exact_any = (
@@ -3523,9 +3343,6 @@ _sep_exact_any = (
      ("E","","","e"), # final French "e"
 
      )
-
-
-
 
 # sep/exactapproxcommon.php
 # Sephardic
@@ -3594,8 +3411,6 @@ _sep_exact_approx_common = (
      # do not put name of file here since it always gets merged into another file
      )
 
-
-
 # sep/exactcommon.php
 # Sephardic
 
@@ -3616,25 +3431,16 @@ _sep_exact_common = (
 
      )
 
-
-
-
 # sep/exactfrench.php
 # Sephardic
 _sep_exact_french = (
 
      )
 
-
-
-
 # sep/exacthebrew.php
 _sep_exact_hebrew = (
 
      )
-
-
-
 
 # sep/exactitalian.php
 # Sephardic
@@ -3642,26 +3448,17 @@ _sep_exact_italian = (
 
      )
 
-
-
-
 # sep/exactportuguese.php
 # Sephardic
 _sep_exact_portuguese = (
 
      )
 
-
-
-
 # sep/exactspanish.php
 # Sephardic
 _sep_exact_spanish = (
 
      )
-
-
-
 
 # sep/hebrewcommon.php
 #Sephardic
@@ -3737,9 +3534,6 @@ _sep_hebrew_common = (
      ("h","","",""),
 
      )
-
-
-
 
 # sep/lang.php
 # SEPHARDIC
@@ -3835,12 +3629,8 @@ _sep_language_rules = (
 
      )
 
-
-
 # sep/languagenames.php
 _sep_languages = ("any", "french", "hebrew", "italian", "portuguese", "spanish")
-
-
 
 # sep/rulesany.php
 # SEPHARDIC: INCORPORATES Portuguese + Italian + Spanish(+Catalan) + French
@@ -3984,8 +3774,6 @@ _sep_rules_any = (
 
      )
 
-
-
 # sep/rulesfrench.php
 
 # Sephardic
@@ -4066,8 +3854,6 @@ _sep_rules_french = (
 
      )
 
-
-
 # sep/ruleshebrew.php
 
 # Sephardic
@@ -4118,8 +3904,6 @@ _sep_rules_hebrew = (
      ("ת","","","T"),   # Special for Sephardim
 
      )
-
-
 
 # sep/rulesitalian.php
 
@@ -4185,8 +3969,6 @@ _sep_rules_italian = (
      ("z","","","(ts|dz)"),
 
      )
-
-
 
 # sep/rulesportuguese.php
 
@@ -4281,8 +4063,6 @@ _sep_rules_portuguese = (
 
      )
 
-
-
 # sep/rulesspanish.php
 
 #Sephardic
@@ -4366,8 +4146,6 @@ _sep_rules_spanish = (
      ("u","","","u"),
 
      )
-
-
 
 # ash/approxany.php
 
@@ -4512,9 +4290,6 @@ _ash_approx_any = (
      ("U", "", "", "(u|Q[l_german])"),
 
      )
-
-
-
 
 # ash/approxcommon.php
 # Ashkenazic
@@ -4724,13 +4499,8 @@ _ash_approx_common = (
 
      )
 
-
-
-
 # ash/approxcyrillic.php
 # this file uses the same rules as approxrussian.php
-
-
 
 # ash/approxenglish.php
 
@@ -4769,9 +4539,6 @@ _ash_approx_english = (
 
      )
 
-
-
-
 # ash/approxfrench.php
 # THE LINES BELOW WERE VALID FOR ASHKENAZIM
 
@@ -4802,8 +4569,6 @@ _ash_approx_french = (
      ("E", "", "", "(Y|i)"),
 
      )
-
-
 
 # ash/approxgerman.php
 
@@ -4867,21 +4632,14 @@ _ash_approx_german = (
 
      )
 
-
-
 # ash/approxhebrew.php
 
 _ash_approx_hebrew = (
      )
 
-
-
 # ash/approxhungarian.php
 
 # this file uses the same rules as approxfrench.php
-
-
-
 
 # ash/approxpolish.php
 _ash_approx_polish = (
@@ -4955,13 +4713,9 @@ _ash_approx_polish = (
 
      )
 
-
-
 # ash/approxromanian.php
 
 # this file uses the same rules as approxpolish.php
-
-
 
 # ash/approxrussian.php
 
@@ -5001,14 +4755,9 @@ _ash_approx_russian = (
 
      )
 
-
-
 # ash/approxspanish.php
 
 # this file uses the same rules as approxfrench.php
-
-
-
 
 # ash/exactany.php
 # These rules are applied after the word has been transliterated into the phonetic alphabet
@@ -5048,9 +4797,6 @@ _ash_exact_any = (
      ("J", "", "", "l"),
 
      )
-
-
-
 
 # ash/exactapproxcommon.php
 # Ashkenazic
@@ -5122,8 +4868,6 @@ _ash_exact_approx_common = (
      # do not put name of file here since it always gets merged into another file
      )
 
-
-
 # ash/exactcommon.php
 # Ashkenazic
 
@@ -5145,46 +4889,25 @@ _ash_exact_common = (
 
      )
 
-
-
-
 # ash/exactcyrillic.php
 # this file uses the same rules as exactrussian.php
 
-
-
-
 # ash/exactenglish.php
 # this file uses the same rules as exactrussian.php
-
-
-
 
 # ash/exactfrench.php
 #   For Ashkenazic searches:
 #this file uses the same rules as exactrussian.php
 
-
-
-
 # ash/exactgerman.php
 # this file uses the same rules as exactany.php
-
-
-
 
 # ash/exacthebrew.php
 _ash_exact_hebrew = (
      )
 
-
-
-
 # ash/exacthungarian.php
 # this file uses the same rules as exactrussian.php
-
-
-
 
 # ash/exactpolish.php
 _ash_exact_polish = (
@@ -5198,14 +4921,8 @@ _ash_exact_polish = (
 
      )
 
-
-
-
 # ash/exactromanian.php
 # this file uses the same rules as exactrussian.php
-
-
-
 
 # ash/exactrussian.php
 _ash_exact_russian = (
@@ -5215,14 +4932,8 @@ _ash_exact_russian = (
 
      )
 
-
-
-
 # ash/exactspanish.php
 #this Ashkenazic file uses the same rules as exactrussian.php
-
-
-
 
 # ash/hebrewcommon.php
 #Ashkenazic
@@ -5335,9 +5046,6 @@ _ash_hebrew_common = (
      ("h","","",""),
 
      )
-
-
-
 
 # ash/lang.php
 # ASHKENAZIC
@@ -5545,13 +5253,9 @@ _ash_language_rules = (
 
      )
 
-
-
 # ash/languagenames.php
 _ash_languages = ("any", "cyrillic", "english", "french", "german", "hebrew",
      "hungarian", "polish", "romanian", "russian", "spanish")
-
-
 
 # ash/rulesany.php
 #ASHKENAZIC
@@ -5873,8 +5577,6 @@ _ash_rules_any = (
 
      )
 
-
-
 # ash/rulescyrillic.php
 
 _ash_rules_cyrillic = (
@@ -5964,8 +5666,6 @@ _ash_rules_cyrillic = (
      ("я","","","ja"),
 
      )
-
-
 
 # ash/rulesenglish.php
 
@@ -6063,8 +5763,6 @@ _ash_rules_english = (
 
      )
 
-
-
 # ash/rulesfrench.php
 
 # Ashkenazic
@@ -6144,8 +5842,6 @@ _ash_rules_french = (
      ("z","","","z"),
 
      )
-
-
 
 # ash/rulesgerman.php
 
@@ -6264,8 +5960,6 @@ _ash_rules_german = (
 
      )
 
-
-
 # ash/ruleshebrew.php
 
 # Ashkenazic
@@ -6316,8 +6010,6 @@ _ash_rules_hebrew = (
      ("ת","","","TB"), # only Ashkenazic
 
      )
-
-
 
 # ash/ruleshungarian.php
 
@@ -6391,8 +6083,6 @@ _ash_rules_hungarian = (
      ("z","","","z"),
 
      )
-
-
 
 # ash/rulespolish.php
 
@@ -6568,8 +6258,6 @@ _ash_rules_polish = (
 
      )
 
-
-
 # ash/rulesromanian.php
 
 _ash_rules_romanian = (
@@ -6625,8 +6313,6 @@ _ash_rules_romanian = (
      ("z","","","z"),
 
      )
-
-
 
 # ash/rulesrussian.php
 
@@ -6781,8 +6467,6 @@ _ash_rules_russian = (
 
      )
 
-
-
 # ash/rulesspanish.php
 
 # Ashkenazic = Argentina
@@ -6848,9 +6532,6 @@ _ash_rules_spanish = (
      ("u","","","u"),
 
      )
-
-
-
 
 bmdata = dict()
 

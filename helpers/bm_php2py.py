@@ -135,3 +135,19 @@ for s in subdirs:
                     break
 
 outfile.write(tail_text)
+
+outfile.close()
+outfilelines = codecs.open(outfilename, 'r', 'utf-8').readlines()
+outfile = codecs.open(outfilename, 'w', 'utf-8')
+nl = False
+for line in outfilelines:
+    line = line.rstrip()
+    if line:
+        outfile.write(line)
+        outfile.write('\n')
+        nl = False
+    else:
+        if not nl:
+            outfile.write('\n')
+        nl = True
+
