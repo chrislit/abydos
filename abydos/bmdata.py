@@ -1392,13 +1392,6 @@ _gen_languages = ("any", "arabic", "cyrillic", "czech", "dutch", "english", "fre
 
 
 
-# gen/languagenames.php
-_gen_languages = ("any", "arabic", "cyrillic", "czech", "dutch", "english", "french", "german", "greek",
-     "greeklatin", "hebrew", "hungarian", "italian", "polish", "portuguese","romanian",
-     "russian", "spanish", "turkish")
-
-
-
 # gen/rulesany.php
      # format of each entry rule in the table
      #   (pattern, left context, right context, phonetic)
@@ -3847,11 +3840,6 @@ _sep_languages = ("any", "french", "hebrew", "italian", "portuguese", "spanish")
 
 
 
-# sep/languagenames.php
-_sep_languages = ("any", "french", "hebrew", "italian", "portuguese", "spanish")
-
-
-
 # sep/rulesany.php
      # SEPHARDIC: INCORPORATES Portuguese + Italian + Spanish(+Catalan) + French
 _sep_rules_any = (
@@ -5554,12 +5542,6 @@ _ash_language_rules = (
      ('/^h/', l_russian, False)
 
      )
-
-
-
-# ash/languagenames.php
-_ash_languages = ("any", "cyrillic", "english", "french", "german", "hebrew",
-     "hungarian", "polish", "romanian", "russian", "spanish")
 
 
 

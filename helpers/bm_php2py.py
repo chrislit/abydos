@@ -124,5 +124,6 @@ for s in subdirs:
                             ignore = False
 
                     outfile.write('\n\n')
+                    break
 
 outfile.write(tail_text)
