@@ -99,6 +99,7 @@ for s in subdirs:
     tail_text += 'bmdata[\''+s+'\'][\'approx\'] = dict()\n'
     tail_text += 'bmdata[\''+s+'\'][\'exact\'] = dict()\n'
     tail_text += 'bmdata[\''+s+'\'][\'rules\'] = dict()\n\n'
+    tail_text += 'bmdata[\''+s+'\'][\'language_rules\'] = _'+s+'_language_rules\n'
 
     phps = [f for f in sorted(listdir(bmdir + s + '/')) if (isfile(bmdir + s + '/' + f) and f.endswith('.php'))]
     for infilename in phps:
