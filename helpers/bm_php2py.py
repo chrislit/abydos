@@ -12,6 +12,7 @@ for i,l in enumerate(lang_tuple):
     lang_dict[l] = 2<<i
 
 nl = False
+array_seen = False
 
 tail_text = ''
 
@@ -25,8 +26,13 @@ def c2u(name):
 
 
 def pythonize(line, fn='', subdir='gen'):
-    global nl
+    global nl, array_seen
+
     line = line.strip()
+
+    if 'array' in line and not line.startswith('//'):
+        array_seen = True
+
     line = re.sub('//+', '#', line)
     #line = re.sub('"\.\((\$.+?)\)\."', r'\1', line)
     if line and re.search('array\("[^"]+?"\)', line):
@@ -65,7 +71,7 @@ def pythonize(line, fn='', subdir='gen'):
 
     if line:
         nl = False
-        if not (line[0] == '_' or line.startswith('bmdata')):
+        if array_seen and not (line[0] == '_' or line.startswith('bmdata')):
             line = ' '*5 + line
         return line + '\n'
     elif nl == False:
@@ -82,6 +88,7 @@ outfile.write('# -*- coding: utf-8 -*-\n\"\"\"abydos.distance\n\nCopyright 2014 
 
 for i,l in enumerate(lang_tuple):
     outfile.write('l_' + l + ' = 2<<' + str(i) + '\n')
+outfile.write('\n\n')
 
 tail_text += '\nbmdata = dict()\n'
 
@@ -97,6 +104,7 @@ for s in subdirs:
     for infilename in phps:
             for pfx in ('rules', 'approx', 'exact', 'hebrew', 'language', 'lang'):
                 if infilename.startswith(pfx):
+                    array_seen = False
                     infilepath = bmdir + s + '/' + infilename
                     infileenc = chardet.detect(open(infilepath).read())['encoding']
                     print s+'/'+infilename
