@@ -67,7 +67,6 @@ def redo_language(term, mode, rules, final_rules1, final_rules2, concat):
 
 def phonetic(term, mode, rules, final_rules1, final_rules2, language_arg='', concat=False):
     term = term.replace('-', ' ').strip()
-    
 
 
 def bmpm(word, language='', mode='gen'):
@@ -100,10 +99,12 @@ def bmpm(word, language='', mode='gen'):
     lang_set = 0
     if isinstance(language, (int, float, _long)):
         lang_set = int(language)
-    elif language in lang_dict:
-        lang_set = lang_dict[language]
     else:
-        sum([lang_dict[_] for _ in bmdata[mode]['languages']])
+        language = language.lower()
+        if language in lang_dict:
+            lang_set = lang_dict[language]
+        else:
+            sum([lang_dict[_] for _ in bmdata[mode]['languages']])
 
     lang = language(word, mode, lang_set)
     result = phonetic(word, mode,
