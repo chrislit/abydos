@@ -46,8 +46,9 @@ bmdata['sep']['discards'] = ('al', 'el', 'da', 'dal', 'de', 'del', 'dela',
                              'de la', 'della', 'des', 'di', 'do', 'dos', 'du',
                              'van', 'von')
 
-def language(name, rules, lang_choices):
+def language(name, mode, lang_choices):
     name = name.strip().lower()
+    rules = bmdata[mode]['language_rules']
     choices_remaining = lang_choices
     for rule in rules:
         letters, languages, accept = rule
@@ -60,10 +61,11 @@ def language(name, rules, lang_choices):
         choices_remaining = l_any
     return choices_remaining
 
-def redo_language(term, rules, final_rules1, final_rules2, language_arg, concat, lang_choices):
-    lang_choices = language(term, language_arg, lang_choices)
+def redo_language(term, mode, rules, final_rules1, final_rules2, concat):
+    language_arg = language(term, bmdata[mode]['language_rules'])
+    return phonetic(term, mode, rules, final_rules1, final_rules2, language_arg, concat)
 
-def phonetic(term, rules, final_rules1, final_rules2, language_arg='', concat=False):
+def phonetic(term, mode, rules, final_rules1, final_rules2, language_arg='', concat=False):
     term = term.replace('-', ' ').strip()
     
 
@@ -103,8 +105,8 @@ def bmpm(word, language='', mode='gen'):
     else:
         sum([lang_dict[_] for _ in bmdata[mode]['languages']])
 
-    lang = language(word, bmdata[mode]['language_rules'], lang_set)
-    result = phonetic(word,
+    lang = language(word, mode, lang_set)
+    result = phonetic(word, mode,
                       bmdata[mode]['rules'][lang],
                       bmdata[mode]['approx']['common'],
                       bmdata[mode]['approx'][lang],
