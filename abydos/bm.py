@@ -73,7 +73,9 @@ def bmpm(word, language='', ntype='gen'):
     if name_type not in ['ash', 'sep']:
         name_type = 'gen'
     if language not in lang_dict:
-        language_choices = language(word, bmdata[name_type]['language_rules'])
+        language_choices = language(word, bmdata[name_type]['language_rules'],
+                                    sum([lang_dict[_] for _ in
+                                         bmdata[name_type]['languages']]))
     
     phonetic(word, )
 

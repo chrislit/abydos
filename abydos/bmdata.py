@@ -6541,6 +6541,7 @@ bmdata['gen']['exact'] = dict()
 bmdata['gen']['rules'] = dict()
 
 bmdata['gen']['language_rules'] = _gen_language_rules
+bmdata['gen']['languages'] = _gen_languages
 bmdata['gen']['approx'][l_any] = _gen_approx_any
 bmdata['gen']['approx'][l_arabic] = _gen_approx_arabic
 bmdata['gen']['approx']['common'] = _gen_exact_approx_common + _gen_approx_common
@@ -6608,6 +6609,7 @@ bmdata['sep']['exact'] = dict()
 bmdata['sep']['rules'] = dict()
 
 bmdata['sep']['language_rules'] = _sep_language_rules
+bmdata['sep']['languages'] = _sep_languages
 bmdata['sep']['approx'][l_any] = _sep_approx_any
 bmdata['sep']['approx']['common'] = _sep_exact_approx_common + _sep_approx_common
 bmdata['sep']['approx'][l_french] = _sep_approx_french
@@ -6636,6 +6638,7 @@ bmdata['ash']['exact'] = dict()
 bmdata['ash']['rules'] = dict()
 
 bmdata['ash']['language_rules'] = _ash_language_rules
+bmdata['ash']['languages'] = _ash_languages
 bmdata['ash']['approx'][l_any] = _ash_approx_any
 bmdata['ash']['approx']['common'] = _ash_exact_approx_common + _ash_approx_common
 bmdata['ash']['approx'][l_cyrillic] = _ash_approx_russian
