@@ -2,7 +2,7 @@
 
 import re
 import unicodedata
-from ._compat import _unicode
+from ._compat import _unicode, _long
 from abydos.bmdata import bmdata, l_any, l_arabic, l_cyrillic, l_czech, \
     l_dutch, l_english, l_french, l_german, l_greek, l_greeklatin, l_hebrew, \
     l_hungarian, l_italian, l_polish, l_portuguese, l_romanian, l_russian, \
@@ -23,8 +23,6 @@ bmdata['ash']['discards'] = ('bar', 'ben', 'da', 'de', 'van', 'von')
 bmdata['sep']['discards'] = ('al', 'el', 'da', 'dal', 'de', 'del', 'dela',
                              'de la', 'della', 'des', 'di', 'do', 'dos', 'du',
                              'van', 'von')
-
-name_type = 'gen' # other options include 'sep' & 'ash'
 
 def language(name, rules, lang_choices):
     name = name.strip().lower()
@@ -48,17 +46,20 @@ def phonetic(term, rules, final_rules1, final_rules2, language_arg='', concat=Fa
     
 
 
-def bmpm(word, language='', ntype='gen'):
+def bmpm(word, language='', mode='gen'):
     """Return the Beider-Morse Phonetic Matching algorithm encoding(s) of a
     term
 
     Arguments:
     word -- the term to which to apply the Beider-Morse Phonetic Matching
-            algorithm
+                algorithm
     language -- the language of the term; supported values include:
-                ....
-    type -- the variant form of the algorithm: 'gen' (default),
-            'ash' (Ashkenazi), or 'sep' (Sephardic)
+                "any", "arabic", "cyrillic", "czech", "dutch", "english",
+                "french", "german", "greek", "greeklatin", "hebrew",
+                "hungarian", "italian", "polish", "portuguese","romanian",
+                "russian", "spanish", "turkish"
+    mode -- the name mode of the algorithm: 'gen' (default),
+                'ash' (Ashkenazi), or 'sep' (Sephardic)
 
     Description:
     The Beider-Morse Phonetic Matching algorithm is described at:
@@ -68,15 +69,23 @@ def bmpm(word, language='', ntype='gen'):
     """
     word = unicodedata.normalize('NFC', _unicode(word.strip().lower()))
 
-    global name_type
-    name_type = ntype.strip().lower()[:3]
-    if name_type not in ['ash', 'sep']:
-        name_type = 'gen'
-    if language not in lang_dict:
-        language_choices = language(word, bmdata[name_type]['language_rules'],
-                                    sum([lang_dict[_] for _ in
-                                         bmdata[name_type]['languages']]))
-    
-    phonetic(word, )
+    mode = mode.strip().lower()[:3]
+    if mode not in ['ash', 'sep']:
+        mode = 'gen'
 
-    return word
+    lang_set = 0
+    if isinstance(language, (int, float, _long)):
+        lang_set = int(language)
+    elif language in lang_dict:
+        lang_set = lang_dict[language]
+    else:
+        sum([lang_dict[_] for _ in bmdata[mode]['languages']])
+
+    lang = language(word, bmdata[mode]['language_rules'], lang_set)
+    result = phonetic(word,
+                      bmdata[mode]['rules'][lang],
+                      bmdata[mode]['approx']['common'],
+                      bmdata[mode]['approx'][lang],
+                      lang)
+
+    return result
