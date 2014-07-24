@@ -22,25 +22,25 @@ You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
-l_any = 2<<0
-l_arabic = 2<<1
-l_cyrillic = 2<<2
-l_czech = 2<<3
-l_dutch = 2<<4
-l_english = 2<<5
-l_french = 2<<6
-l_german = 2<<7
-l_greek = 2<<8
-l_greeklatin = 2<<9
-l_hebrew = 2<<10
-l_hungarian = 2<<11
-l_italian = 2<<12
-l_polish = 2<<13
-l_portuguese = 2<<14
-l_romanian = 2<<15
-l_russian = 2<<16
-l_spanish = 2<<17
-l_turkish = 2<<18
+l_any = 2**0
+l_arabic = 2**1
+l_cyrillic = 2**2
+l_czech = 2**3
+l_dutch = 2**4
+l_english = 2**5
+l_french = 2**6
+l_german = 2**7
+l_greek = 2**8
+l_greeklatin = 2**9
+l_hebrew = 2**10
+l_hungarian = 2**11
+l_italian = 2**12
+l_polish = 2**13
+l_portuguese = 2**14
+l_romanian = 2**15
+l_russian = 2**16
+l_spanish = 2**17
+l_turkish = 2**18
 
 # gen/approxany.php
 
