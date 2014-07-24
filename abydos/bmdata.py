@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
+l_none = 0
 l_any = 2**0
 l_arabic = 2**1
 l_cyrillic = 2**2

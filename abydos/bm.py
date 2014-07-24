@@ -3,10 +3,10 @@
 import re
 import unicodedata
 from ._compat import _unicode, _long
-from abydos.bmdata import bmdata, l_any, l_arabic, l_cyrillic, l_czech, \
-    l_dutch, l_english, l_french, l_german, l_greek, l_greeklatin, l_hebrew, \
-    l_hungarian, l_italian, l_polish, l_portuguese, l_romanian, l_russian, \
-    l_spanish, l_turkish
+from abydos.bmdata import bmdata, l_none, l_any, l_arabic, l_cyrillic, \
+    l_czech, l_dutch, l_english, l_french, l_german, l_greek, l_greeklatin, \
+    l_hebrew, l_hungarian, l_italian, l_polish, l_portuguese, l_romanian, \
+    l_russian, l_spanish, l_turkish
 
 lang_dict = {'any': l_any, 'arabic': l_arabic, 'cyrillic': l_cyrillic,
              'czech': l_czech, 'dutch': l_dutch, 'english': l_english,
@@ -34,8 +34,8 @@ def language(name, rules, lang_choices):
                 choices_remaining &= languages
             else:
                 choices_remaining &= (~languages) % (lang_choices+1)
-    if choices_remaining == 0:
-        choices_remaining = 1
+    if choices_remaining == l_none:
+        choices_remaining = l_any
     return choices_remaining
 
 def redo_language(term, rules, final_rules1, final_rules2, language_arg, concat, lang_choices):
