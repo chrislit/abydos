@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""abydos.distance
+"""abydos.bmdata
 
 Copyright 2014 by Christopher C. Little.
 This file is part of Abydos.
