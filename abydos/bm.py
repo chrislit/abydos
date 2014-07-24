@@ -41,10 +41,10 @@ lang_dict = {'any': l_any, 'arabic': l_arabic, 'cyrillic': l_cyrillic,
 bmdata['gen']['discards'] = ('da ', 'dal ', 'de ', 'del ', 'dela ', 'de la ',
                              'della ', 'des ', 'di ', 'do ', 'dos ', 'du ',
                              'van ', 'von ', 'd\'')
-bmdata['ash']['discards'] = ('bar', 'ben', 'da', 'de', 'van', 'von')
-bmdata['sep']['discards'] = ('al', 'el', 'da', 'dal', 'de', 'del', 'dela',
+bmdata['sep']['discards'] = set(['al', 'el', 'da', 'dal', 'de', 'del', 'dela',
                              'de la', 'della', 'des', 'di', 'do', 'dos', 'du',
-                             'van', 'von')
+                             'van', 'von'])
+bmdata['ash']['discards'] = set(['bar', 'ben', 'da', 'de', 'van', 'von'])
 
 def language(name, mode, lang_choices):
     name = name.strip().lower()
@@ -68,7 +68,8 @@ def redo_language(term, mode, rules, final_rules1, final_rules2, concat):
 def phonetic(term, mode, rules, final_rules1, final_rules2, language_arg='', concat=False):
     term = term.replace('-', ' ').strip()
 
-    if mode == 'gen':
+    if mode == 'gen': # generic case
+        # both discard and concatenate certain words if at the start of the name
         for pfx in bmdata['gen']['discards']:
             if term.startswith(pfx):
                 remainder = term[len(pfx):]
@@ -79,6 +80,119 @@ def phonetic(term, mode, rules, final_rules1, final_rules2, language_arg='', con
                                         final_rules2, concat))
                 return result
 
+    words = term.split() # create array of the individual words in the name
+    words2 = []
+
+    if mode == 'sep': # Sephardic case
+        # for each word in the name, delete portions of word preceding apostrophe
+        # ex: d'avila d'aguilar --> avila aguilar
+        # also discard certain words in the name
+
+        # FIXME:
+        # note that we can never get a match on "de la" because we are checking single words below
+        # this is a bug, but I won't try to fix it now
+
+        for word in words:
+            word = word[word.rfind('\'')+1:]
+            if word not in bmdata['sep']['discards']:
+                words2.append(word)
+
+    elif mode == 'ash': # Ashkenazic case
+        # discard certain words if at the start of the name
+
+        if len(words) > 1 and words[0] in bmdata['ash']['discards']:
+            words2 = words[1:]
+        else:
+            words2 = list(words)
+    else:
+        words2 = list(words)
+
+    if concat: #concatenate the separate words of a multi-word name (normally used for exact matches)
+        term = ' '.join(words2)
+    elif len(words2) == 1: # not a multi-word name
+        term = words2[0]
+    else: # encode each word in a multi-word name separately (normally used for approx matches)
+        result = ''
+        for word in words2:
+            result += '-' + redo_language(word, mode, rules, final_rules1, final_rules2, concat)
+        return result[1:] # strip off the leading dash
+
+    term_length = len(term)
+
+    # format of rules array
+
+    pattern_pos = 0
+    lcontext_pos = 1
+    rcontext_pos = 2
+    phonetic_pos = 3
+    language_pos = 4
+    logical_pos = 5
+
+    # apply language rules to map to phonetic alphabet
+
+    phonetic = ''
+    skip = 0
+    for i in len(term_length):
+        if skip:
+            skip -= 1
+            continue
+        found = False
+        for rule in rules:
+            pattern = rule[pattern_pos]
+            pattern_length = len(pattern)
+            lcontext = rule[lcontext_pos]
+            rcontext = rule[rcontext_pos]
+
+            # check to see if next sequence in input matches the string in the rule
+            if (pattern_length > term_length - 1) or (term[i:i+pattern_length] != pattern):
+                continue
+
+            right = '^'+rcontext
+            left = lcontext+'$'
+
+            # check that right context is satisfied
+            if rcontext:
+                if not re.search(right, term[i+pattern_length:]):
+                    continue
+
+            # check that left context is satisfied
+            if lcontext:
+                if not re.search(left, term[:i]):
+                    continue
+
+            # TODO: check this. since it's likely to represent bugs
+            # check to see if language_arg is one of the allowable ones (used only with "any" rules)
+            if language_arg != '1' and language_pos < len(rule):
+                language = rule[language_pos]
+                logical = rule[logical_pos]
+                if logical == 'ALL':
+                    # check to see if language_arg contains all the required languages
+                    if (language_arg & language) != language:
+                        continue
+                else:
+                    if (language_arg & language) == 0:
+                        continue
+
+            # check for incompatible attributes
+
+            candidate = apply_rule_if_compatible(phonetic, rule[phonetic_pos], language_arg)
+            if candidate == False:
+                continue
+            phonetic = candidate
+            found = True
+            break
+
+        if not found: # character in name that is not in table -- e.g., space
+            pattern_length = 1
+        skip = pattern_length-1
+
+    # apply final rules on phonetic-alphabet, doing a substitution of certain characters
+    # final_rules1 are the common approx rules, final_rules2 are approx rules for specific language
+
+    phonetic = apply_final_rules(phonetic, final_rules1, language_arg, False, False) # apply common rules
+    phonetic = apply_final_rules(phonetic, final_rules2, language_arg, True, False) # apply lang specific rules
+
+    return phonetic
 
 
 def bmpm(word, language='', mode='gen'):
