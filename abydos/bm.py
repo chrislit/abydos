@@ -68,6 +68,18 @@ def redo_language(term, mode, rules, final_rules1, final_rules2, concat):
 def phonetic(term, mode, rules, final_rules1, final_rules2, language_arg='', concat=False):
     term = term.replace('-', ' ').strip()
 
+    if mode == 'gen':
+        for pfx in bmdata['gen']['discards']:
+            if term.startswith(pfx):
+                remainder = term[len(pfx):]
+                combined = pfx[:-1]+remainder
+                result = (redo_language(remainder, mode, rules, final_rules1,
+                                        final_rules2, concat) + '-' +
+                          redo_language(combined, mode, rules, final_rules1,
+                                        final_rules2, concat))
+                return result
+
+
 
 def bmpm(word, language='', mode='gen'):
     """Return the Beider-Morse Phonetic Matching algorithm encoding(s) of a
