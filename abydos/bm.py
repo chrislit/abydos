@@ -400,14 +400,14 @@ def apply_rule_if_compatible(phonetic, target, language_arg):
     return candidate
 
 
-def bmpm(word, language='', mode='gen'):
+def bmpm(word, language_arg='', mode='gen'):
     """Return the Beider-Morse Phonetic Matching algorithm encoding(s) of a
     term
 
     Arguments:
     word -- the term to which to apply the Beider-Morse Phonetic Matching
                 algorithm
-    language -- the language of the term; supported values include:
+    language_arg -- the language of the term; supported values include:
                 "any", "arabic", "cyrillic", "czech", "dutch", "english",
                 "french", "german", "greek", "greeklatin", "hebrew",
                 "hungarian", "italian", "polish", "portuguese","romanian",
@@ -428,20 +428,20 @@ def bmpm(word, language='', mode='gen'):
         mode = 'gen'
 
     lang_set = 0
-    if isinstance(language, (int, float, _long)):
-        lang_set = int(language)
+    if isinstance(language_arg, (int, float, _long)):
+        lang_set = int(language_arg)
     else:
-        language = language.lower()
-        if language in lang_dict:
-            lang_set = lang_dict[language]
+        language_arg = language_arg.lower()
+        if language_arg in lang_dict:
+            lang_set = lang_dict[language_arg]
         else:
             sum([lang_dict[_] for _ in bmdata[mode]['languages']])
 
-    lang = language(word, mode, lang_set)
+    language_arg = language(word, mode, lang_set)
     result = phonetic(word, mode,
-                      bmdata[mode]['rules'][lang],
+                      bmdata[mode]['rules'][language_arg],
                       bmdata[mode]['approx']['common'],
-                      bmdata[mode]['approx'][lang],
-                      lang)
+                      bmdata[mode]['approx'][language_arg],
+                      language_arg)
 
     return result
