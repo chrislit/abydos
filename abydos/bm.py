@@ -24,7 +24,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 import re
 import unicodedata
-from ._compat import _unicode, _long
+from ._compat import _unicode, _long, _range
 from abydos.bmdata import bmdata, l_none, l_any, l_arabic, l_cyrillic, \
     l_czech, l_dutch, l_english, l_french, l_german, l_greek, l_greeklatin, \
     l_hebrew, l_hungarian, l_italian, l_polish, l_portuguese, l_romanian, \
@@ -46,6 +46,15 @@ bmdata['sep']['discards'] = set(['al', 'el', 'da', 'dal', 'de', 'del', 'dela',
                              'van', 'von'])
 bmdata['ash']['discards'] = set(['bar', 'ben', 'da', 'de', 'van', 'von'])
 
+# format of rules array
+
+_pattern_pos = 0
+_lcontext_pos = 1
+_rcontext_pos = 2
+_phonetic_pos = 3
+_language_pos = 4
+_logical_pos = 5
+
 def language(name, mode, lang_choices):
     name = name.strip().lower()
     rules = bmdata[mode]['language_rules']
@@ -64,6 +73,123 @@ def language(name, mode, lang_choices):
 def redo_language(term, mode, rules, final_rules1, final_rules2, concat):
     language_arg = language(term, bmdata[mode]['language_rules'])
     return phonetic(term, mode, rules, final_rules1, final_rules2, language_arg, concat)
+
+def expand(phonetic):
+    alt_start = phonetic.find('(')
+    if alt_start == -1:
+        return normalize_language_attributes(phonetic, False)
+
+    prefix = phonetic[:alt_start]
+    alt_start += 1 # get past the (
+    alt_end = phonetic.find(')', alt_start)
+    alt_string = phonetic[alt_start:alt_end]
+    alt_end += 1 # get past the )
+    suffix = phonetic[alt_end:]
+    alt_array = alt_string.split('|')
+    result = ''
+
+    for i in _range(len(alt_array)):
+        alt = alt_array[i];
+        alternate = expand(prefix+alt+suffix)
+        if alternate != '' and alternate != '[0]':
+            if result != '':
+                result += '|'
+            result += alternate;
+
+    return result
+
+def apply_final_rules(phonetic, final_rules, language_arg, strip):
+    # optimization to save time
+    if not final_rules:
+        return phonetic
+
+    # expand the result
+    phonetic = expand(phonetic)
+    phonetic_array = phonetic.split('|')
+
+    for k in _range(len(phonetic_array)):
+        phonetic = phonetic_array[k]
+        phonetic2 = ''
+        phoneticx = normalize_language_attributes(phonetic, True)
+
+        i = 0
+        while i < len(phonetic):
+            found = False
+
+            if phonetic[i] == '[': # skip over language attribute
+                attrib_start = i
+                i += 1
+                while (True):
+                    if phonetic[i] == ']':
+                        i += 1
+                        phonetic2 += phonetic[attrib_start:i]
+                        break
+                    i += 1
+                continue
+
+            for rule in _range(len(final_rules)):
+                pattern = rule[_pattern_pos]
+                pattern_length = len(pattern) 
+                lcontext = rule[_lcontext_pos]
+                rcontext = rule[_rcontext_pos]
+    
+                right = '^'+rcontext
+                left = lcontext+'$'
+    
+                # check to see if next sequence in phonetic matches the string in the rule
+                if (pattern_length > len(phoneticx) - i) or phoneticx[i:i+pattern_length] != pattern:
+                    continue
+
+                # check that right context is satisfied
+                if rcontext != '':
+                    if not re.search(right, phoneticx[i + pattern_length:]):
+                        continue
+
+                # check that left context is satisfied
+                if lcontext != '':
+                    if not re.search(left, phoneticx[:i]):
+                        continue
+
+                # check to see if rule applies to languageArg (used only with "any" rules)
+                if language_arg != "1" and _language_pos < len(rule):
+                    language = rule[_language_pos] # the required language(s) for this rule to apply
+                    logical = rule[_logical_pos] # do we require ALL or ANY of the required languages
+                    if logical == 'ALL':
+                        # check to see if languageArg contains all the required languages
+                        if (language_arg & language) != language:
+                            continue
+                    else: # any
+                        # check to see if languageArg contains at least one required language
+                        if (language_arg & language) == 0:
+                            continue
+
+                # check for incompatible attributes
+
+                candidate = apply_rule_if_compatible(phonetic2, rule[_phonetic_pos], language_arg)
+                if candidate == False:
+                    continue
+                phonetic2 = candidate
+
+                found = True
+                break
+
+            if not found: # character in name for which there is no subsitution in the table
+                phonetic2 += phonetic[i]
+                pattern_length = 1
+
+            i += pattern_length
+
+        phonetic_array[k] = expand(phonetic2)
+
+    phonetic = '|'.join(phonetic_array)
+    if strip:
+        phonetic = normalize_language_attributes(phonetic, True)
+
+    if '|' in phonetic:
+        phonetic = '(' + remove_duplicate_alternates(phonetic) + ')'
+
+    return phonetic
+
 
 def phonetic(term, mode, rules, final_rules1, final_rules2, language_arg='', concat=False):
     term = term.replace('-', ' ').strip()
@@ -119,29 +245,20 @@ def phonetic(term, mode, rules, final_rules1, final_rules2, language_arg='', con
 
     term_length = len(term)
 
-    # format of rules array
-
-    pattern_pos = 0
-    lcontext_pos = 1
-    rcontext_pos = 2
-    phonetic_pos = 3
-    language_pos = 4
-    logical_pos = 5
-
     # apply language rules to map to phonetic alphabet
 
     phonetic = ''
     skip = 0
-    for i in len(term_length):
+    for i in _range(len(term_length)):
         if skip:
             skip -= 1
             continue
         found = False
         for rule in rules:
-            pattern = rule[pattern_pos]
+            pattern = rule[_pattern_pos]
             pattern_length = len(pattern)
-            lcontext = rule[lcontext_pos]
-            rcontext = rule[rcontext_pos]
+            lcontext = rule[_lcontext_pos]
+            rcontext = rule[_rcontext_pos]
 
             # check to see if next sequence in input matches the string in the rule
             if (pattern_length > term_length - 1) or (term[i:i+pattern_length] != pattern):
@@ -162,9 +279,9 @@ def phonetic(term, mode, rules, final_rules1, final_rules2, language_arg='', con
 
             # TODO: check this. since it's likely to represent bugs
             # check to see if language_arg is one of the allowable ones (used only with "any" rules)
-            if language_arg != '1' and language_pos < len(rule):
-                language = rule[language_pos]
-                logical = rule[logical_pos]
+            if language_arg != '1' and _language_pos < len(rule):
+                language = rule[_language_pos]
+                logical = rule[_logical_pos]
                 if logical == 'ALL':
                     # check to see if language_arg contains all the required languages
                     if (language_arg & language) != language:
@@ -175,7 +292,7 @@ def phonetic(term, mode, rules, final_rules1, final_rules2, language_arg='', con
 
             # check for incompatible attributes
 
-            candidate = apply_rule_if_compatible(phonetic, rule[phonetic_pos], language_arg)
+            candidate = apply_rule_if_compatible(phonetic, rule[_phonetic_pos], language_arg)
             if candidate == False:
                 continue
             phonetic = candidate
@@ -189,8 +306,8 @@ def phonetic(term, mode, rules, final_rules1, final_rules2, language_arg='', con
     # apply final rules on phonetic-alphabet, doing a substitution of certain characters
     # final_rules1 are the common approx rules, final_rules2 are approx rules for specific language
 
-    phonetic = apply_final_rules(phonetic, final_rules1, language_arg, False, False) # apply common rules
-    phonetic = apply_final_rules(phonetic, final_rules2, language_arg, True, False) # apply lang specific rules
+    phonetic = apply_final_rules(phonetic, final_rules1, language_arg, False) # apply common rules
+    phonetic = apply_final_rules(phonetic, final_rules2, language_arg, True) # apply lang specific rules
 
     return phonetic
 
