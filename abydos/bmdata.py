@@ -6542,6 +6542,7 @@ bmdata['gen'] = dict()
 bmdata['gen']['approx'] = dict()
 bmdata['gen']['exact'] = dict()
 bmdata['gen']['rules'] = dict()
+bmdata['gen']['hebrew'] = dict()
 
 bmdata['gen']['language_rules'] = _gen_language_rules
 bmdata['gen']['languages'] = _gen_languages
@@ -6610,6 +6611,7 @@ bmdata['sep'] = dict()
 bmdata['sep']['approx'] = dict()
 bmdata['sep']['exact'] = dict()
 bmdata['sep']['rules'] = dict()
+bmdata['sep']['hebrew'] = dict()
 
 bmdata['sep']['language_rules'] = _sep_language_rules
 bmdata['sep']['languages'] = _sep_languages
@@ -6639,6 +6641,7 @@ bmdata['ash'] = dict()
 bmdata['ash']['approx'] = dict()
 bmdata['ash']['exact'] = dict()
 bmdata['ash']['rules'] = dict()
+bmdata['ash']['hebrew'] = dict()
 
 bmdata['ash']['language_rules'] = _ash_language_rules
 bmdata['ash']['languages'] = _ash_languages

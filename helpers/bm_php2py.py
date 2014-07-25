@@ -104,7 +104,8 @@ for s in subdirs:
     tail_text += '\nbmdata[\''+s+'\'] = dict()\n'
     tail_text += 'bmdata[\''+s+'\'][\'approx\'] = dict()\n'
     tail_text += 'bmdata[\''+s+'\'][\'exact\'] = dict()\n'
-    tail_text += 'bmdata[\''+s+'\'][\'rules\'] = dict()\n\n'
+    tail_text += 'bmdata[\''+s+'\'][\'rules\'] = dict()\n'
+    tail_text += 'bmdata[\''+s+'\'][\'hebrew\'] = dict()\n\n'
     tail_text += 'bmdata[\''+s+'\'][\'language_rules\'] = _'+s+'_language_rules\n'
     tail_text += 'bmdata[\''+s+'\'][\'languages\'] = _'+s+'_languages\n'
 
