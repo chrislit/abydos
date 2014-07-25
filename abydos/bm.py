@@ -141,6 +141,20 @@ def apply_rule_if_compatible(phonetic, target, language_arg):
         candidate = '('+candidate+')'
     return candidate
 
+def remove_duplicate_alternates(phonetic):
+    alt_string = phonetic
+    alt_array = alt_string.split('|')
+
+    result = '|'
+    altcount = 0
+    for i in _range(len(alt_array)):
+        alt = alt_array[i]
+        if '|'+alt+'|' not in result:
+            result += alt+'|'
+            altcount += 1
+
+    return result[1:-1] # remove leading and trailing |
+
 def expand(phonetic):
     alt_start = phonetic.find('(')
     if alt_start == -1:
