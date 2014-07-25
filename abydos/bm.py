@@ -47,14 +47,15 @@ bmdata['sep']['discards'] = set(['al', 'el', 'da', 'dal', 'de', 'del', 'dela',
                              'van', 'von'])
 bmdata['ash']['discards'] = set(['bar', 'ben', 'da', 'de', 'van', 'von'])
 
-# format of rules array
 
+# format of rules array
 _pattern_pos = 0
 _lcontext_pos = 1
 _rcontext_pos = 2
 _phonetic_pos = 3
 _language_pos = 4
 _logical_pos = 5
+
 
 def language(name, mode, lang_choices):
     name = name.strip().lower()
@@ -71,205 +72,10 @@ def language(name, mode, lang_choices):
         choices_remaining = l_any
     return choices_remaining
 
+
 def redo_language(term, mode, rules, final_rules1, final_rules2, concat):
     language_arg = language(term, bmdata[mode]['language_rules'])
     return phonetic(term, mode, rules, final_rules1, final_rules2, language_arg, concat)
-
-def normalize_language_attributes(text, strip):
-    """this is applied to a single alternative at a time -- not to a parenthisized list
-    it removes all embedded bracketed attributes, logically-ands them together, and places them at the end.
-    however if strip is true, this can indeed remove embedded bracketed attributes from a parenthesized list
-    """
-    uninitialized = -1; # all 1's
-    attrib = uninitialized
-    while text.find('[') != -1:
-        bracket_start = text.find('[')
-        bracket_end = text.find(']', bracket_start)
-        if bracket_end == False:
-            print('fatal error: no closing square bracket: text=('+text+') strip=('+strip+')')
-            return
-        attrib = attrib & int(text[bracket_start+1:bracket_end])
-        text = text[:bracket_start] + text[bracket_end+1:]
-
-    if attrib == (uninitialized or strip):
-        return text
-    elif attrib == 0:
-        return '[0]' # means that the attributes were incompatible and there is no alternative here
-    else:
-        return text + '[' + str(attrib) + ']'
-
-def apply_rule_if_compatible(phonetic, target, language_arg):
-    """tests for compatible language rules
-    to do so, apply the rule, expand the results, and detect alternatives with incompatible attributes
-    then drop each alternative that has incompatible attributes and keep those that are compatible
-    if there are no compatible alternatives left, return false
-    otherwise return the compatible alternatives
-    apply the rule
-    """
-    candidate = phonetic + target
-    if candidate.find('[') == -1: # no attributes so we need test no further
-        return candidate
-
-    # expand the result, converting incompatible attributes to [0]
-
-    candidate = expand(candidate);
-    candidate_array = candidate.split('|')
-
-    # drop each alternative that has incompatible attributes
-
-    candidate = ''
-    found = False
-
-    for i in _range(len(candidate_array)):
-        this_candidate = candidate_array[i]
-        if language_arg != '1':
-            this_candidate = normalize_language_attributes(this_candidate + '[' + str(language_arg) + ']', False)
-        if this_candidate != '[0]':
-            found = True
-            if candidate != '':
-                candidate += '|'
-            candidate += this_candidate
-
-    # return false if no compatible alternatives remain
-
-    if not found:
-        return False
-
-    # return the result of applying the rule
-
-    if candidate.find('|') != -1:
-        candidate = '('+candidate+')'
-    return candidate
-
-def remove_duplicate_alternates(phonetic):
-    alt_string = phonetic
-    alt_array = alt_string.split('|')
-
-    result = '|'
-    altcount = 0
-    for i in _range(len(alt_array)):
-        alt = alt_array[i]
-        if '|'+alt+'|' not in result:
-            result += alt+'|'
-            altcount += 1
-
-    return result[1:-1] # remove leading and trailing |
-
-def expand(phonetic):
-    alt_start = phonetic.find('(')
-    if alt_start == -1:
-        return normalize_language_attributes(phonetic, False)
-
-    prefix = phonetic[:alt_start]
-    alt_start += 1 # get past the (
-    alt_end = phonetic.find(')', alt_start)
-    alt_string = phonetic[alt_start:alt_end]
-    alt_end += 1 # get past the )
-    suffix = phonetic[alt_end:]
-    alt_array = alt_string.split('|')
-    result = ''
-
-    for i in _range(len(alt_array)):
-        alt = alt_array[i];
-        alternate = expand(prefix+alt+suffix)
-        if alternate != '' and alternate != '[0]':
-            if result != '':
-                result += '|'
-            result += alternate;
-
-    return result
-
-def apply_final_rules(phonetic, final_rules, language_arg, strip):
-    # optimization to save time
-    if not final_rules:
-        return phonetic
-
-    # expand the result
-    phonetic = expand(phonetic)
-    phonetic_array = phonetic.split('|')
-
-    for k in _range(len(phonetic_array)):
-        phonetic = phonetic_array[k]
-        phonetic2 = ''
-        phoneticx = normalize_language_attributes(phonetic, True)
-
-        i = 0
-        while i < len(phonetic):
-            found = False
-
-            if phonetic[i] == '[': # skip over language attribute
-                attrib_start = i
-                i += 1
-                while (True):
-                    if phonetic[i] == ']':
-                        i += 1
-                        phonetic2 += phonetic[attrib_start:i]
-                        break
-                    i += 1
-                continue
-
-            for rule in _range(len(final_rules)):
-                pattern = rule[_pattern_pos]
-                pattern_length = len(pattern)
-                lcontext = rule[_lcontext_pos]
-                rcontext = rule[_rcontext_pos]
-
-                right = '^'+rcontext
-                left = lcontext+'$'
-
-                # check to see if next sequence in phonetic matches the string in the rule
-                if (pattern_length > len(phoneticx) - i) or phoneticx[i:i+pattern_length] != pattern:
-                    continue
-
-                # check that right context is satisfied
-                if rcontext != '':
-                    if not re.search(right, phoneticx[i + pattern_length:]):
-                        continue
-
-                # check that left context is satisfied
-                if lcontext != '':
-                    if not re.search(left, phoneticx[:i]):
-                        continue
-
-                # check to see if rule applies to languageArg (used only with "any" rules)
-                if language_arg != "1" and _language_pos < len(rule):
-                    language = rule[_language_pos] # the required language(s) for this rule to apply
-                    logical = rule[_logical_pos] # do we require ALL or ANY of the required languages
-                    if logical == 'ALL':
-                        # check to see if languageArg contains all the required languages
-                        if (language_arg & language) != language:
-                            continue
-                    else: # any
-                        # check to see if languageArg contains at least one required language
-                        if (language_arg & language) == 0:
-                            continue
-
-                # check for incompatible attributes
-
-                candidate = apply_rule_if_compatible(phonetic2, rule[_phonetic_pos], language_arg)
-                if candidate == False:
-                    continue
-                phonetic2 = candidate
-
-                found = True
-                break
-
-            if not found: # character in name for which there is no subsitution in the table
-                phonetic2 += phonetic[i]
-                pattern_length = 1
-
-            i += pattern_length
-
-        phonetic_array[k] = expand(phonetic2)
-
-    phonetic = '|'.join(phonetic_array)
-    if strip:
-        phonetic = normalize_language_attributes(phonetic, True)
-
-    if '|' in phonetic:
-        phonetic = '(' + remove_duplicate_alternates(phonetic) + ')'
-
-    return phonetic
 
 
 def phonetic(term, mode, rules, final_rules1, final_rules2, language_arg='', concat=False):
@@ -391,6 +197,207 @@ def phonetic(term, mode, rules, final_rules1, final_rules2, language_arg='', con
     phonetic = apply_final_rules(phonetic, final_rules2, language_arg, True) # apply lang specific rules
 
     return phonetic
+
+
+def apply_final_rules(phonetic, final_rules, language_arg, strip):
+    # optimization to save time
+    if not final_rules:
+        return phonetic
+
+    # expand the result
+    phonetic = expand(phonetic)
+    phonetic_array = phonetic.split('|')
+
+    for k in _range(len(phonetic_array)):
+        phonetic = phonetic_array[k]
+        phonetic2 = ''
+        phoneticx = normalize_language_attributes(phonetic, True)
+
+        i = 0
+        while i < len(phonetic):
+            found = False
+
+            if phonetic[i] == '[': # skip over language attribute
+                attrib_start = i
+                i += 1
+                while (True):
+                    if phonetic[i] == ']':
+                        i += 1
+                        phonetic2 += phonetic[attrib_start:i]
+                        break
+                    i += 1
+                continue
+
+            for rule in _range(len(final_rules)):
+                pattern = rule[_pattern_pos]
+                pattern_length = len(pattern)
+                lcontext = rule[_lcontext_pos]
+                rcontext = rule[_rcontext_pos]
+
+                right = '^'+rcontext
+                left = lcontext+'$'
+
+                # check to see if next sequence in phonetic matches the string in the rule
+                if (pattern_length > len(phoneticx) - i) or phoneticx[i:i+pattern_length] != pattern:
+                    continue
+
+                # check that right context is satisfied
+                if rcontext != '':
+                    if not re.search(right, phoneticx[i + pattern_length:]):
+                        continue
+
+                # check that left context is satisfied
+                if lcontext != '':
+                    if not re.search(left, phoneticx[:i]):
+                        continue
+
+                # check to see if rule applies to languageArg (used only with "any" rules)
+                if language_arg != "1" and _language_pos < len(rule):
+                    language = rule[_language_pos] # the required language(s) for this rule to apply
+                    logical = rule[_logical_pos] # do we require ALL or ANY of the required languages
+                    if logical == 'ALL':
+                        # check to see if languageArg contains all the required languages
+                        if (language_arg & language) != language:
+                            continue
+                    else: # any
+                        # check to see if languageArg contains at least one required language
+                        if (language_arg & language) == 0:
+                            continue
+
+                # check for incompatible attributes
+
+                candidate = apply_rule_if_compatible(phonetic2, rule[_phonetic_pos], language_arg)
+                if candidate == False:
+                    continue
+                phonetic2 = candidate
+
+                found = True
+                break
+
+            if not found: # character in name for which there is no subsitution in the table
+                phonetic2 += phonetic[i]
+                pattern_length = 1
+
+            i += pattern_length
+
+        phonetic_array[k] = expand(phonetic2)
+
+    phonetic = '|'.join(phonetic_array)
+    if strip:
+        phonetic = normalize_language_attributes(phonetic, True)
+
+    if '|' in phonetic:
+        phonetic = '(' + remove_duplicate_alternates(phonetic) + ')'
+
+    return phonetic
+
+
+def expand(phonetic):
+    alt_start = phonetic.find('(')
+    if alt_start == -1:
+        return normalize_language_attributes(phonetic, False)
+
+    prefix = phonetic[:alt_start]
+    alt_start += 1 # get past the (
+    alt_end = phonetic.find(')', alt_start)
+    alt_string = phonetic[alt_start:alt_end]
+    alt_end += 1 # get past the )
+    suffix = phonetic[alt_end:]
+    alt_array = alt_string.split('|')
+    result = ''
+
+    for i in _range(len(alt_array)):
+        alt = alt_array[i];
+        alternate = expand(prefix+alt+suffix)
+        if alternate != '' and alternate != '[0]':
+            if result != '':
+                result += '|'
+            result += alternate;
+
+    return result
+
+
+def remove_duplicate_alternates(phonetic):
+    alt_string = phonetic
+    alt_array = alt_string.split('|')
+
+    result = '|'
+    altcount = 0
+    for i in _range(len(alt_array)):
+        alt = alt_array[i]
+        if '|'+alt+'|' not in result:
+            result += alt+'|'
+            altcount += 1
+
+    return result[1:-1] # remove leading and trailing |
+
+
+def normalize_language_attributes(text, strip):
+    """this is applied to a single alternative at a time -- not to a parenthisized list
+    it removes all embedded bracketed attributes, logically-ands them together, and places them at the end.
+    however if strip is true, this can indeed remove embedded bracketed attributes from a parenthesized list
+    """
+    uninitialized = -1; # all 1's
+    attrib = uninitialized
+    while text.find('[') != -1:
+        bracket_start = text.find('[')
+        bracket_end = text.find(']', bracket_start)
+        if bracket_end == False:
+            print('fatal error: no closing square bracket: text=('+text+') strip=('+strip+')')
+            return
+        attrib = attrib & int(text[bracket_start+1:bracket_end])
+        text = text[:bracket_start] + text[bracket_end+1:]
+
+    if attrib == (uninitialized or strip):
+        return text
+    elif attrib == 0:
+        return '[0]' # means that the attributes were incompatible and there is no alternative here
+    else:
+        return text + '[' + str(attrib) + ']'
+
+
+def apply_rule_if_compatible(phonetic, target, language_arg):
+    """tests for compatible language rules
+    to do so, apply the rule, expand the results, and detect alternatives with incompatible attributes
+    then drop each alternative that has incompatible attributes and keep those that are compatible
+    if there are no compatible alternatives left, return false
+    otherwise return the compatible alternatives
+    apply the rule
+    """
+    candidate = phonetic + target
+    if candidate.find('[') == -1: # no attributes so we need test no further
+        return candidate
+
+    # expand the result, converting incompatible attributes to [0]
+
+    candidate = expand(candidate);
+    candidate_array = candidate.split('|')
+
+    # drop each alternative that has incompatible attributes
+
+    candidate = ''
+    found = False
+
+    for i in _range(len(candidate_array)):
+        this_candidate = candidate_array[i]
+        if language_arg != '1':
+            this_candidate = normalize_language_attributes(this_candidate + '[' + str(language_arg) + ']', False)
+        if this_candidate != '[0]':
+            found = True
+            if candidate != '':
+                candidate += '|'
+            candidate += this_candidate
+
+    # return false if no compatible alternatives remain
+
+    if not found:
+        return False
+
+    # return the result of applying the rule
+
+    if candidate.find('|') != -1:
+        candidate = '('+candidate+')'
+    return candidate
 
 
 def bmpm(word, language='', mode='gen'):
