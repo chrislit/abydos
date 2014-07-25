@@ -73,12 +73,12 @@ def language(name, mode, lang_choices):
     return choices_remaining
 
 
-def redo_language(term, mode, rules, final_rules1, final_rules2, concat):
-    language_arg = language(term, bmdata[mode]['language_rules'])
-    return phonetic(term, mode, rules, final_rules1, final_rules2, language_arg, concat)
+def redo_language(term, mode, lang_choices, rules, final_rules1, final_rules2, concat):
+    language_arg = language(term, bmdata[mode]['language_rules'], lang_choices)
+    return phonetic(term, mode, lang_choices, rules, final_rules1, final_rules2, language_arg, concat)
 
 
-def phonetic(term, mode, rules, final_rules1, final_rules2, language_arg='', concat=False):
+def phonetic(term, mode, lang_choices, rules, final_rules1, final_rules2, language_arg='', concat=False):
     term = term.replace('-', ' ').strip()
 
     if mode == 'gen': # generic case
@@ -87,10 +87,11 @@ def phonetic(term, mode, rules, final_rules1, final_rules2, language_arg='', con
             if term.startswith(pfx):
                 remainder = term[len(pfx):]
                 combined = pfx[:-1]+remainder
-                result = (redo_language(remainder, mode, rules, final_rules1,
-                                        final_rules2, concat) + '-' +
-                          redo_language(combined, mode, rules, final_rules1,
-                                        final_rules2, concat))
+                result = (redo_language(remainder, mode, lang_choices, rules,
+                                        final_rules1, final_rules2, concat) +
+                          '-' +
+                          redo_language(combined, mode, lang_choices, rules,
+                                        final_rules1, final_rules2, concat))
                 return result
 
     words = term.split() # create array of the individual words in the name
@@ -127,7 +128,8 @@ def phonetic(term, mode, rules, final_rules1, final_rules2, language_arg='', con
     else: # encode each word in a multi-word name separately (normally used for approx matches)
         result = ''
         for word in words2:
-            result += '-' + redo_language(word, mode, rules, final_rules1, final_rules2, concat)
+            result += '-' + redo_language(word, mode, lang_choices, rules,
+                                          final_rules1, final_rules2, concat)
         return result[1:] # strip off the leading dash
 
     term_length = len(term)
@@ -427,18 +429,18 @@ def bmpm(word, language_arg='', mode='gen'):
     if mode not in ['ash', 'sep']:
         mode = 'gen'
 
-    lang_set = 0
+    lang_choices = 0
     if isinstance(language_arg, (int, float, _long)):
-        lang_set = int(language_arg)
+        lang_choices = int(language_arg)
     else:
         language_arg = language_arg.lower()
         if language_arg in lang_dict:
-            lang_set = lang_dict[language_arg]
+            lang_choices = lang_dict[language_arg]
         else:
-            sum([lang_dict[_] for _ in bmdata[mode]['languages']])
+            lang_choices = sum([lang_dict[_] for _ in bmdata[mode]['languages']])
 
-    language_arg = language(word, mode, lang_set)
-    result = phonetic(word, mode,
+    language_arg = language(word, mode, lang_choices)
+    result = phonetic(word, mode, lang_choices,
                       bmdata[mode]['rules'][language_arg],
                       bmdata[mode]['approx']['common'],
                       bmdata[mode]['approx'][language_arg],
