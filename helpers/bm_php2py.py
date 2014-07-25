@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import unicode_literals
 from os import listdir
 from os.path import isfile
 import codecs, chardet
@@ -61,6 +62,10 @@ def pythonize(line, fn='', subdir='gen'):
     line = re.sub('\$([a-zA-Z]+)', lambda m: 'l_'+m.group(1) if m.group(1) in lang_dict else '$'+m.group(1), line)
     line = re.sub('\[\"\.\((l_[a-z_\+]+)\)\.\"\]', r'[\1]', line)
 
+    line = re.sub('l_([a-z]+)', lambda m: str(lang_dict[m.group(1)]), line)
+    for i in range(4):
+        line = re.sub('([0-9]+) *\+ *([0-9]+)', lambda m: str(int(m.group(1))+int(m.group(2))), line)
+
     if fn == 'lang':
         if len(line.split(',')) >= 3:
             parts = line.split(',')
@@ -84,7 +89,7 @@ bmdir = sys.argv[1]
 
 outfilename = '../abydos/bmdata.py'
 outfile = codecs.open(outfilename, 'w', 'utf-8')
-outfile.write('# -*- coding: utf-8 -*-\n\"\"\"abydos.bmdata\n\nCopyright 2014 by Christopher C. Little.\nThis file is part of Abydos.\n\nThis file is derived from PHP code by Alexander Beider and Stephen P. Morse that\nis part of the Beider-Morse Phonetic Matching (BMPM) System, available at\nhttp://stevemorse.org/phonetics/bmpm.htm.\n\nAbydos is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nAbydos is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with Abydos. If not, see <http://www.gnu.org/licenses/>.\n\"\"\"\n\n')
+outfile.write('# -*- coding: utf-8 -*-\n\"\"\"abydos.bmdata\n\nCopyright 2014 by Christopher C. Little.\nThis file is part of Abydos.\n\nThis file is derived from PHP code by Alexander Beider and Stephen P. Morse that\nis part of the Beider-Morse Phonetic Matching (BMPM) System, available at\nhttp://stevemorse.org/phonetics/bmpm.htm.\n\nAbydos is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nAbydos is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with Abydos. If not, see <http://www.gnu.org/licenses/>.\n\"\"\"\n\nfrom __future__ import unicode_literals\n\n')
 
 outfile.write('l_none = 0\n')
 for i,l in enumerate(lang_tuple):
@@ -105,37 +110,37 @@ for s in subdirs:
 
     phps = [f for f in sorted(listdir(bmdir + s + '/')) if (isfile(bmdir + s + '/' + f) and f.endswith('.php'))]
     for infilename in phps:
-            for pfx in ('rules', 'approx', 'exact', 'hebrew', 'language', 'lang'):
-                if infilename.startswith(pfx):
-                    array_seen = False
-                    infilepath = bmdir + s + '/' + infilename
-                    infileenc = chardet.detect(open(infilepath).read())['encoding']
-                    print s+'/'+infilename
-                    infile = codecs.open(infilepath, 'r', infileenc)
-                    if infilename.startswith('lang'):
-                        tuplename = infilename[:-4]
-                    else:
-                        tuplename = pfx + '_' + infilename[len(pfx):-4]
-                    # indent = len(tuplename) + 21
+        for pfx in ('rules', 'approx', 'exact', 'hebrew', 'language', 'lang'):
+            if infilename.startswith(pfx):
+                array_seen = False
+                infilepath = bmdir + s + '/' + infilename
+                infileenc = chardet.detect(open(infilepath).read())['encoding']
+                print s+'/'+infilename
+                infile = codecs.open(infilepath, 'r', infileenc)
+                if infilename.startswith('lang'):
+                    tuplename = infilename[:-4]
+                else:
+                    tuplename = pfx + '_' + infilename[len(pfx):-4]
+                # indent = len(tuplename) + 21
 
-                    outfile.write('# ' + s + '/' + infilename + '\n')
+                outfile.write('# ' + s + '/' + infilename + '\n')
 
-                    ignore = True
-                    for line in infile:
-                        if not ignore:
-                            if re.search(r'\?>', line):
-                                ignore = True
+                ignore = True
+                for line in infile:
+                    if not ignore:
+                        if re.search(r'\?>', line):
+                            ignore = True
+                        else:
+                            line = pythonize(line, infilename[:-4], s)
+                            if line.startswith('bmdata'):
+                                tail_text += line
                             else:
-                                line = pythonize(line, infilename[:-4], s)
-                                if line.startswith('bmdata'):
-                                    tail_text += line
-                                else:
-                                    outfile.write(line)
-                        if re.search('\*/', line):
-                            ignore = False
+                                outfile.write(line)
+                    if re.search('\*/', line):
+                        ignore = False
 
-                    outfile.write('\n\n')
-                    break
+                outfile.write('\n\n')
+                break
 
 outfile.write(tail_text)
 

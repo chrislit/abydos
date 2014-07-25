@@ -129,13 +129,13 @@ def apply_final_rules(phonetic, final_rules, language_arg, strip):
 
             for rule in _range(len(final_rules)):
                 pattern = rule[_pattern_pos]
-                pattern_length = len(pattern) 
+                pattern_length = len(pattern)
                 lcontext = rule[_lcontext_pos]
                 rcontext = rule[_rcontext_pos]
-    
+
                 right = '^'+rcontext
                 left = lcontext+'$'
-    
+
                 # check to see if next sequence in phonetic matches the string in the rule
                 if (pattern_length > len(phoneticx) - i) or phoneticx[i:i+pattern_length] != pattern:
                     continue

@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
+from __future__ import unicode_literals
+
 l_none = 0
 l_any = 2**0
 l_arabic = 2**1
@@ -56,45 +58,45 @@ _gen_approx_any = (
      #  {a,o} are totally interchangeable if non-stressed; in German "a/o" can actually be from "ä/ö" (that are equivalent to "e")
      #  {i,e} are interchangeable if non-stressed, while in German "u" can actually be from "ü" (that is equivalent to "i")
 
-     ("mb","","","(mb|b[l_greeklatin])"),
-     ("mp","","","(mp|b[l_greeklatin])"),
-     ("ng","","","(ng|g[l_greeklatin])"),
+     ("mb","","","(mb|b[512])"),
+     ("mp","","","(mp|b[512])"),
+     ("ng","","","(ng|g[512])"),
 
-     ("B","","[fktSs]","(p|f[l_spanish])"),
+     ("B","","[fktSs]","(p|f[131072])"),
      ("B","","p",""),
-     ("B","","$","(p|f[l_spanish])"),
-     ("V","","[pktSs]","(f|p[l_spanish])"),
+     ("B","","$","(p|f[131072])"),
+     ("V","","[pktSs]","(f|p[131072])"),
      ("V","","f",""),
-     ("V","","$","(f|p[l_spanish])"),
+     ("V","","$","(f|p[131072])"),
 
-     ("B","","","(b|v[l_spanish])"),
-     ("V","","","(v|b[l_spanish])"),
+     ("B","","","(b|v[131072])"),
+     ("V","","","(v|b[131072])"),
 
      # French word-final and word-part-final letters
-     ("t","","$","(t|[l_french])"),
-     ("g","n","$","(g|[l_french])"),
-     ("k","n","$","(k|[l_french])"),
-     ("p","","$","(p|[l_french])"),
-     ("r","[Ee]","$","(r|[l_french])"),
-     ("s","","$","(s|[l_french])"),
-     ("t","[aeiouAEIOU]","[^aeiouAEIOU]","(t|[l_french])"), # Petitjean
-     ("s","[aeiouAEIOU]","[^aeiouAEIOU]","(s|[l_french])"), # Groslot, Grosleau
-     #("p","[aeiouAEIOU]","[^aeiouAEIOU]","(p|[l_french])"),
+     ("t","","$","(t|[64])"),
+     ("g","n","$","(g|[64])"),
+     ("k","n","$","(k|[64])"),
+     ("p","","$","(p|[64])"),
+     ("r","[Ee]","$","(r|[64])"),
+     ("s","","$","(s|[64])"),
+     ("t","[aeiouAEIOU]","[^aeiouAEIOU]","(t|[64])"), # Petitjean
+     ("s","[aeiouAEIOU]","[^aeiouAEIOU]","(s|[64])"), # Groslot, Grosleau
+     #("p","[aeiouAEIOU]","[^aeiouAEIOU]","(p|[64])"),
 
      ("I", "[aeiouAEIBFOUQY]", "", "i"),
-     ("I","","[^aeiouAEBFIOU]e","(Q[l_german]|i|D[l_english])"),  # "line"
+     ("I","","[^aeiouAEBFIOU]e","(Q[128]|i|D[32])"),  # "line"
      ("I", "", "$", "i"),
      ("I", "", "[^k]$", "i"),
-     ("Ik", "[lr]", "$", "(ik|Qk[l_german])"),
+     ("Ik", "[lr]", "$", "(ik|Qk[128])"),
      ("Ik", "", "$", "ik"),
-     ("sIts", "", "$", "(sits|sQts[l_german])"),
+     ("sIts", "", "$", "(sits|sQts[128])"),
      ("Its", "", "$", "its"),
-     ("I", "", "", "(Q[l_german]|i)"),
+     ("I", "", "", "(Q[128]|i)"),
 
-     ("lEE","[bdfgkmnprsStvzZ]","","(li|il[l_english])"),  # Apple = Appel
-     ("rEE","[bdfgkmnprsStvzZ]","","(ri|ir[l_english])"),
-     ("lE","[bdfgkmnprsStvzZ]","","(li|il[l_english]|lY[l_german])"),  # Applebaum < Appelbaum
-     ("rE","[bdfgkmnprsStvzZ]","","(ri|ir[l_english]|rY[l_german])"),
+     ("lEE","[bdfgkmnprsStvzZ]","","(li|il[32])"),  # Apple = Appel
+     ("rEE","[bdfgkmnprsStvzZ]","","(ri|ir[32])"),
+     ("lE","[bdfgkmnprsStvzZ]","","(li|il[32]|lY[128])"),  # Applebaum < Appelbaum
+     ("rE","[bdfgkmnprsStvzZ]","","(ri|ir[32]|rY[128])"),
 
      ("EE","","","(i|)"),
 
@@ -114,18 +116,18 @@ _gen_approx_any = (
      ("Ei","","","(D|i)"),
 
      ("iA","","$","(ia|io)"),
-     ("iA","","","(ia|io|iY[l_german])"),
-     ("A","","[^aeiouAEBFIOU]e","(a|o|Y[l_german]|D[l_english])"), # "plane"
+     ("iA","","","(ia|io|iY[128])"),
+     ("A","","[^aeiouAEBFIOU]e","(a|o|Y[128]|D[32])"), # "plane"
 
-     ("E","i[^aeiouAEIOU]","","(i|Y[l_german]|[l_english])"), # Wineberg (vineberg/vajneberg) --> vajnberg
-     ("E","a[^aeiouAEIOU]","","(i|Y[l_german]|[l_english])"), #  Shaneberg (shaneberg/shejneberg) --> shejnberg
+     ("E","i[^aeiouAEIOU]","","(i|Y[128]|[32])"), # Wineberg (vineberg/vajneberg) --> vajnberg
+     ("E","a[^aeiouAEIOU]","","(i|Y[128]|[32])"), #  Shaneberg (shaneberg/shejneberg) --> shejnberg
 
      ("E", "", "[fklmnprst]$", "i"),
      ("E", "", "ts$", "i"),
      ("E", "", "$", "i"),
      ("E", "[DaoiuAOIUQY]", "", "i"),
      ("E", "", "[aoAOQY]", "i"),
-     ("E", "", "", "(i|Y[l_german])"),
+     ("E", "", "", "(i|Y[128])"),
 
      ("P", "", "", "(o|u)"),
 
@@ -133,24 +135,24 @@ _gen_approx_any = (
      ("O", "", "ts$", "o"),
      ("O", "", "$", "o"),
      ("O", "[oeiuQY]", "", "o"),
-     ("O", "", "", "(o|Y[l_german])"),
+     ("O", "", "", "(o|Y[128])"),
      ("O", "", "", "o"),
 
      ("A", "", "[fklmnprst]$", "(a|o)"),
      ("A", "", "ts$", "(a|o)"),
      ("A", "", "$", "(a|o)"),
      ("A", "[oeiuQY]", "", "(a|o)"),
-     ("A", "", "", "(a|o|Y[l_german])"),
+     ("A", "", "", "(a|o|Y[128])"),
      ("A", "", "", "(a|o)"),
 
      ("U", "", "$", "u"),
      ("U", "[DoiuQY]", "", "u"),
      ("U", "", "[^k]$", "u"),
-     ("Uk", "[lr]", "$", "(uk|Qk[l_german])"),
+     ("Uk", "[lr]", "$", "(uk|Qk[128])"),
      ("Uk", "", "$", "uk"),
-     ("sUts", "", "$", "(suts|sQts[l_german])"),
+     ("sUts", "", "$", "(suts|sQts[128])"),
      ("Uts", "", "$", "uts"),
-     ("U", "", "", "(u|Q[l_german])"),
+     ("U", "", "", "(u|Q[128])"),
      ("U", "", "", "u"),
 
      ("e", "", "[fklmnprstv]$", "i"),
@@ -158,7 +160,7 @@ _gen_approx_any = (
      ("e", "", "$", "i"),
      ("e", "[DaoiuAOIUQY]", "", "i"),
      ("e", "", "[aoAOQY]", "i"),
-     ("e", "", "", "(i|Y[l_german])"),
+     ("e", "", "", "(i|Y[128])"),
 
      ("a", "", "", "(a|o)"),
 
@@ -993,278 +995,278 @@ _gen_language_rules = (
 
      # 1. following are rules to accept the language
      # 1.1 Special letter combinations
-     ('/^o’/', l_english, True),
-     ("/^o'/", l_english, True),
-     ('/^mc/', l_english, True),
-     ('/^fitz/', l_english, True),
-     ('/ceau/', l_french+l_romanian, True),
-     ('/eau/', l_romanian, True),
-     ('/ault$/', l_french, True),
-     ('/oult$/', l_french, True),
-     ('/eux$/', l_french, True),
-     ('/eix$/', l_french, True),
-     ('/glou$/', l_greeklatin, True),
-     ('/uu/', l_dutch, True),
-     ('/tx/', l_spanish, True),
-     ('/witz/', l_german, True),
-     ('/tz$/', l_german+l_russian+l_english, True),
-     ('/^tz/', l_russian+l_english, True),
-     ('/poulos$/', l_greeklatin, True),
-     ('/pulos$/', l_greeklatin, True),
-     ('/iou/', l_greeklatin, True),
-     ('/sj$/', l_dutch, True),
-     ('/^sj/', l_dutch, True),
-     ('/güe/', l_spanish, True),
-     ('/güi/', l_spanish, True),
-     ('/ghe/', l_romanian + l_greeklatin, True),
-     ('/ghi/', l_romanian + l_greeklatin, True),
-     ('/escu$/', l_romanian, True),
-     ('/esco$/', l_romanian, True),
-     ('/vici$/', l_romanian, True),
-     ('/schi$/', l_romanian, True),
-     ('/ii$/', l_russian, True),
-     ('/iy$/', l_russian, True),
-     ('/yy$/', l_russian, True),
-     ('/yi$/', l_russian, True),
-     ('/^rz/', l_polish, True),
-     ('/rz$/', l_polish+l_german, True),
-     ("/[bcdfgklmnpstwz]rz/", l_polish, True),
-     ('/rz[bcdfghklmnpstw]/', l_polish, True),
-     ('/cki$/', l_polish, True),
-     ('/ska$/', l_polish, True),
-     ('/cka$/', l_polish, True),
-     ('/ae/', l_german+l_russian+l_english, True),
-     ('/oe/', l_german+l_french+l_russian+l_english+l_dutch, True),
-     ('/th$/', l_german+l_english, True),
-     ('/^th/', l_german+l_english+l_greeklatin, True),
-     ('/mann/', l_german, True),
-     ('/cz/', l_polish, True),
-     ('/cy/', l_polish+l_greeklatin, True),
-     ('/niew/', l_polish, True),
-     ('/etti$/', l_italian, True),
-     ('/eti$/', l_italian, True),
-     ('/ati$/', l_italian, True),
-     ('/ato$/', l_italian, True),
-     ('/[aoei]no$/', l_italian, True),
-     ('/[aoei]ni$/', l_italian, True),
-     ('/esi$/', l_italian, True),
-     ('/oli$/', l_italian, True),
-     ('/field$/', l_english, True),
-     ('/stein/', l_german, True),
-     ('/heim$/', l_german, True),
-     ('/heimer$/', l_german, True),
-     ('/thal/', l_german, True),
-     ('/zweig/', l_german, True),
-     ("/[aeou]h/", l_german, True),
-     ("/äh/", l_german, True),
-     ("/öh/", l_german, True),
-     ("/üh/", l_german, True),
-     ("/[ln]h[ao]$/", l_portuguese, True),
-     ("/[ln]h[aou]/", l_portuguese+l_french+l_german+l_dutch+l_czech+l_spanish+l_turkish, True),
-     ('/chsch/', l_german, True),
-     ('/tsch/', l_german, True),
-     ('/sch$/', l_german+l_russian, True),
-     ('/^sch/', l_german+l_russian, True),
-     ('/ck$/', l_german + l_english, True),
-     ('/c$/', l_polish + l_romanian + l_hungarian + l_czech + l_turkish, True),
-     ('/sz/', l_polish + l_hungarian, True),
-     ('/cs$/', l_hungarian, True),
-     ('/^cs/', l_hungarian, True),
-     ('/dzs/', l_hungarian, True),
-     ('/zs$/', l_hungarian, True),
-     ('/^zs/', l_hungarian, True),
-     ("/^wl/", l_polish, True),
-     ("/^wr/", l_polish+l_english+l_german+l_dutch, True),
+     ('/^o’/', 32, True),
+     ("/^o'/", 32, True),
+     ('/^mc/', 32, True),
+     ('/^fitz/', 32, True),
+     ('/ceau/', 32832, True),
+     ('/eau/', 32768, True),
+     ('/ault$/', 64, True),
+     ('/oult$/', 64, True),
+     ('/eux$/', 64, True),
+     ('/eix$/', 64, True),
+     ('/glou$/', 512, True),
+     ('/uu/', 16, True),
+     ('/tx/', 131072, True),
+     ('/witz/', 128, True),
+     ('/tz$/', 65696, True),
+     ('/^tz/', 65568, True),
+     ('/poulos$/', 512, True),
+     ('/pulos$/', 512, True),
+     ('/iou/', 512, True),
+     ('/sj$/', 16, True),
+     ('/^sj/', 16, True),
+     ('/güe/', 131072, True),
+     ('/güi/', 131072, True),
+     ('/ghe/', 33280, True),
+     ('/ghi/', 33280, True),
+     ('/escu$/', 32768, True),
+     ('/esco$/', 32768, True),
+     ('/vici$/', 32768, True),
+     ('/schi$/', 32768, True),
+     ('/ii$/', 65536, True),
+     ('/iy$/', 65536, True),
+     ('/yy$/', 65536, True),
+     ('/yi$/', 65536, True),
+     ('/^rz/', 8192, True),
+     ('/rz$/', 8320, True),
+     ("/[bcdfgklmnpstwz]rz/", 8192, True),
+     ('/rz[bcdfghklmnpstw]/', 8192, True),
+     ('/cki$/', 8192, True),
+     ('/ska$/', 8192, True),
+     ('/cka$/', 8192, True),
+     ('/ae/', 65696, True),
+     ('/oe/', 65776, True),
+     ('/th$/', 160, True),
+     ('/^th/', 672, True),
+     ('/mann/', 128, True),
+     ('/cz/', 8192, True),
+     ('/cy/', 8704, True),
+     ('/niew/', 8192, True),
+     ('/etti$/', 4096, True),
+     ('/eti$/', 4096, True),
+     ('/ati$/', 4096, True),
+     ('/ato$/', 4096, True),
+     ('/[aoei]no$/', 4096, True),
+     ('/[aoei]ni$/', 4096, True),
+     ('/esi$/', 4096, True),
+     ('/oli$/', 4096, True),
+     ('/field$/', 32, True),
+     ('/stein/', 128, True),
+     ('/heim$/', 128, True),
+     ('/heimer$/', 128, True),
+     ('/thal/', 128, True),
+     ('/zweig/', 128, True),
+     ("/[aeou]h/", 128, True),
+     ("/äh/", 128, True),
+     ("/öh/", 128, True),
+     ("/üh/", 128, True),
+     ("/[ln]h[ao]$/", 16384, True),
+     ("/[ln]h[aou]/", 409816, True),
+     ('/chsch/', 128, True),
+     ('/tsch/', 128, True),
+     ('/sch$/', 65664, True),
+     ('/^sch/', 65664, True),
+     ('/ck$/', 160, True),
+     ('/c$/', 305160, True),
+     ('/sz/', 10240, True),
+     ('/cs$/', 2048, True),
+     ('/^cs/', 2048, True),
+     ('/dzs/', 2048, True),
+     ('/zs$/', 2048, True),
+     ('/^zs/', 2048, True),
+     ("/^wl/", 8192, True),
+     ("/^wr/", 8368, True),
 
-     ("/gy$/", l_hungarian, True),
-     ("/gy[aeou]/", l_hungarian, True),
-     ("/gy/", l_hungarian + l_russian + l_french+l_greeklatin, True),
-     ("/guy/", l_french, True),
-     ('/gu[ei]/', l_spanish + l_french + l_portuguese, True),
-     ('/gu[ao]/', l_spanish + l_portuguese, True),
-     ('/gi[aou]/', l_italian + l_greeklatin, True),
+     ("/gy$/", 2048, True),
+     ("/gy[aeou]/", 2048, True),
+     ("/gy/", 68160, True),
+     ("/guy/", 64, True),
+     ('/gu[ei]/', 147520, True),
+     ('/gu[ao]/', 147456, True),
+     ('/gi[aou]/', 4608, True),
 
-     ("/ly/", l_hungarian + l_russian + l_polish + l_greeklatin, True),
-     ("/ny/", l_hungarian + l_russian + l_polish + l_spanish + l_greeklatin, True),
-     ("/ty/", l_hungarian + l_russian + l_polish + l_greeklatin, True),
+     ("/ly/", 76288, True),
+     ("/ny/", 207360, True),
+     ("/ty/", 76288, True),
 
      # 1.2 special characters
-     ('/ć/', l_polish, True),
-     ('/ç/', l_french + l_spanish + l_portuguese + l_turkish, True),
-     ('/č/', l_czech, True),
-     ('/ď/', l_czech, True),
-     ('/ğ/', l_turkish, True),
-     ('/ł/', l_polish, True),
-     ('/ń/', l_polish, True),
-     ('/ñ/', l_spanish, True),
-     ('/ň/', l_czech, True),
-     ('/ř/', l_czech, True),
-     ('/ś/', l_polish, True),
-     ('/ş/', l_romanian + l_turkish, True),
-     ('/š/', l_czech, True),
-     ('/ţ/', l_romanian, True),
-     ('/ť/', l_czech, True),
-     ('/ź/', l_polish, True),
-     ('/ż/', l_polish, True),
+     ('/ć/', 8192, True),
+     ('/ç/', 409664, True),
+     ('/č/', 8, True),
+     ('/ď/', 8, True),
+     ('/ğ/', 262144, True),
+     ('/ł/', 8192, True),
+     ('/ń/', 8192, True),
+     ('/ñ/', 131072, True),
+     ('/ň/', 8, True),
+     ('/ř/', 8, True),
+     ('/ś/', 8192, True),
+     ('/ş/', 294912, True),
+     ('/š/', 8, True),
+     ('/ţ/', 32768, True),
+     ('/ť/', 8, True),
+     ('/ź/', 8192, True),
+     ('/ż/', 8192, True),
 
-     ('/ß/', l_german, True),
+     ('/ß/', 128, True),
 
-     ('/ä/', l_german, True),
-     ('/á/', l_hungarian + l_spanish + l_portuguese + l_czech + l_greeklatin, True),
-     ('/â/', l_romanian + l_french +l_portuguese, True),
-     ('/ă/', l_romanian, True),
-     ('/ą/', l_polish, True),
-     ('/à/', l_portuguese, True),
-     ('/ã/', l_portuguese, True),
-     ('/ę/', l_polish, True),
-     ('/é/', l_french + l_hungarian + l_czech + l_greeklatin, True),
-     ('/è/', l_french + l_spanish + l_italian, True),
-     ('/ê/', l_french, True),
-     ('/ě/', l_czech, True),
-     ('/ê/', l_french + l_portuguese, True),
-     ('/í/', l_hungarian + l_spanish + l_portuguese + l_czech + l_greeklatin, True),
-     ('/î/', l_romanian + l_french, True),
-     ('/ı/', l_turkish, True),
-     ('/ó/', l_polish + l_hungarian + l_spanish + l_italian + l_portuguese +l_czech + l_greeklatin, True),
-     ('/ö/', l_german + l_hungarian + l_turkish, True),
-     ('/ô/', l_french + l_portuguese, True),
-     ('/õ/', l_portuguese + l_hungarian, True),
-     ('/ò/', l_italian + l_spanish, True),
-     ('/ű/', l_hungarian, True),
-     ('/ú/', l_hungarian + l_spanish + l_portuguese + l_czech + l_greeklatin, True),
-     ('/ü/', l_german + l_hungarian + l_spanish + l_portuguese + l_turkish, True),
-     ('/ù/', l_french, True),
-     ('/ů/', l_czech, True),
-     ('/ý/', l_czech + l_greeklatin, True),
+     ('/ä/', 128, True),
+     ('/á/', 150024, True),
+     ('/â/', 49216, True),
+     ('/ă/', 32768, True),
+     ('/ą/', 8192, True),
+     ('/à/', 16384, True),
+     ('/ã/', 16384, True),
+     ('/ę/', 8192, True),
+     ('/é/', 2632, True),
+     ('/è/', 135232, True),
+     ('/ê/', 64, True),
+     ('/ě/', 8, True),
+     ('/ê/', 16448, True),
+     ('/í/', 150024, True),
+     ('/î/', 32832, True),
+     ('/ı/', 262144, True),
+     ('/ó/', 162312, True),
+     ('/ö/', 264320, True),
+     ('/ô/', 16448, True),
+     ('/õ/', 18432, True),
+     ('/ò/', 135168, True),
+     ('/ű/', 2048, True),
+     ('/ú/', 150024, True),
+     ('/ü/', 411776, True),
+     ('/ù/', 64, True),
+     ('/ů/', 8, True),
+     ('/ý/', 520, True),
 
      # Every Cyrillic word has at least one Cyrillic vowel (аёеоиуыэюя)
-     ("/а/", l_cyrillic, True),
-     ("/ё/", l_cyrillic, True),
-     ("/о/", l_cyrillic, True),
-     ("/е/", l_cyrillic, True),
-     ("/и/", l_cyrillic, True),
-     ("/у/", l_cyrillic, True),
-     ("/ы/", l_cyrillic, True),
-     ("/э/", l_cyrillic, True),
-     ("/ю/", l_cyrillic, True),
-     ("/я/", l_cyrillic, True),
+     ("/а/", 4, True),
+     ("/ё/", 4, True),
+     ("/о/", 4, True),
+     ("/е/", 4, True),
+     ("/и/", 4, True),
+     ("/у/", 4, True),
+     ("/ы/", 4, True),
+     ("/э/", 4, True),
+     ("/ю/", 4, True),
+     ("/я/", 4, True),
 
      # Every Greek word has at least one Greek vowel
-     ("/α/", l_greek, True),
-     ("/ε/", l_greek, True),
-     ("/η/", l_greek, True),
-     ("/ι/", l_greek, True),
-     ("/ο/", l_greek, True),
-     ("/υ/", l_greek, True),
-     ("/ω/", l_greek, True),
+     ("/α/", 256, True),
+     ("/ε/", 256, True),
+     ("/η/", 256, True),
+     ("/ι/", 256, True),
+     ("/ο/", 256, True),
+     ("/υ/", 256, True),
+     ("/ω/", 256, True),
 
      # Arabic (only initial)
-     ("/ا/", l_arabic, True), # alif (isol + init)
-     ("/ب/", l_arabic, True), # ba'
-     ("/ت/", l_arabic, True), # ta'
-     ("/ث/", l_arabic, True), # tha'
-     ("/ج/", l_arabic, True), # jim
-     ("/ح/", l_arabic, True), # h.a'
-     ("/خ'/", l_arabic, True), # kha'
-     ("/د/", l_arabic, True), # dal (isol + init)
-     ("/ذ/", l_arabic, True), # dhal (isol + init)
-     ("/ر/", l_arabic, True), # ra' (isol + init)
-     ("/ز/", l_arabic, True), # za' (isol + init)
-     ("/س/", l_arabic, True), # sin
-     ("/ش/", l_arabic, True), # shin
-     ("/ص/", l_arabic, True), # s.ad
-     ("/ض/", l_arabic, True), # d.ad
-     ("/ط/", l_arabic, True), # t.a'
-     ("/ظ/", l_arabic, True), # z.a'
-     ("/ع/", l_arabic, True), # 'ayn
-     ("/غ/", l_arabic, True), # ghayn
-     ("/ف/", l_arabic, True), # fa'
-     ("/ق/", l_arabic, True), # qaf
-     ("/ك/", l_arabic, True), # kaf
-     ("/ل/", l_arabic, True), # lam
-     ("/م/", l_arabic, True), # mim
-     ("/ن/", l_arabic, True), # nun
-     ("/ه/", l_arabic, True), # ha'
-     ("/و/", l_arabic, True), # waw (isol + init)
-     ("/ي/", l_arabic, True), # ya'
+     ("/ا/", 2, True), # alif (isol + init)
+     ("/ب/", 2, True), # ba'
+     ("/ت/", 2, True), # ta'
+     ("/ث/", 2, True), # tha'
+     ("/ج/", 2, True), # jim
+     ("/ح/", 2, True), # h.a'
+     ("/خ'/", 2, True), # kha'
+     ("/د/", 2, True), # dal (isol + init)
+     ("/ذ/", 2, True), # dhal (isol + init)
+     ("/ر/", 2, True), # ra' (isol + init)
+     ("/ز/", 2, True), # za' (isol + init)
+     ("/س/", 2, True), # sin
+     ("/ش/", 2, True), # shin
+     ("/ص/", 2, True), # s.ad
+     ("/ض/", 2, True), # d.ad
+     ("/ط/", 2, True), # t.a'
+     ("/ظ/", 2, True), # z.a'
+     ("/ع/", 2, True), # 'ayn
+     ("/غ/", 2, True), # ghayn
+     ("/ف/", 2, True), # fa'
+     ("/ق/", 2, True), # qaf
+     ("/ك/", 2, True), # kaf
+     ("/ل/", 2, True), # lam
+     ("/م/", 2, True), # mim
+     ("/ن/", 2, True), # nun
+     ("/ه/", 2, True), # ha'
+     ("/و/", 2, True), # waw (isol + init)
+     ("/ي/", 2, True), # ya'
 
-     ("/آ/", l_arabic, True), # alif madda
-     ("/إ/", l_arabic, True), # alif + diacritic
-     ("/أ/", l_arabic, True), # alif + hamza
-     ("/ؤ/", l_arabic, True), #  waw + hamza
-     ("/ئ/", l_arabic, True), #  ya' + hamza
-     #    ("/لا/‎", l_arabic, True), # ligature l+a
+     ("/آ/", 2, True), # alif madda
+     ("/إ/", 2, True), # alif + diacritic
+     ("/أ/", 2, True), # alif + hamza
+     ("/ؤ/", 2, True), #  waw + hamza
+     ("/ئ/", 2, True), #  ya' + hamza
+     #    ("/لا/‎", 2, True), # ligature l+a
 
      # Hebrew
-     ("/א/", l_hebrew, True),
-     ("/ב/", l_hebrew, True),
-     ("/ג/", l_hebrew, True),
-     ("/ד/", l_hebrew, True),
-     ("/ה/", l_hebrew, True),
-     ("/ו/", l_hebrew, True),
-     ("/ז/", l_hebrew, True),
-     ("/ח/", l_hebrew, True),
-     ("/ט/", l_hebrew, True),
-     ("/י/", l_hebrew, True),
-     ("/כ/", l_hebrew, True),
-     ("/ל/", l_hebrew, True),
-     ("/מ/", l_hebrew, True),
-     ("/נ/", l_hebrew, True),
-     ("/ס/", l_hebrew, True),
-     ("/ע/", l_hebrew, True),
-     ("/פ/", l_hebrew, True),
-     ("/צ/", l_hebrew, True),
-     ("/ק/", l_hebrew, True),
-     ("/ר/", l_hebrew, True),
-     ("/ש/", l_hebrew, True),
-     ("/ת/", l_hebrew, True),
+     ("/א/", 1024, True),
+     ("/ב/", 1024, True),
+     ("/ג/", 1024, True),
+     ("/ד/", 1024, True),
+     ("/ה/", 1024, True),
+     ("/ו/", 1024, True),
+     ("/ז/", 1024, True),
+     ("/ח/", 1024, True),
+     ("/ט/", 1024, True),
+     ("/י/", 1024, True),
+     ("/כ/", 1024, True),
+     ("/ל/", 1024, True),
+     ("/מ/", 1024, True),
+     ("/נ/", 1024, True),
+     ("/ס/", 1024, True),
+     ("/ע/", 1024, True),
+     ("/פ/", 1024, True),
+     ("/צ/", 1024, True),
+     ("/ק/", 1024, True),
+     ("/ר/", 1024, True),
+     ("/ש/", 1024, True),
+     ("/ת/", 1024, True),
 
      # 2. following are rules to reject the language
 
      # Every Latin character word has at least one Latin vowel
-     ("/a/", l_cyrillic + l_hebrew + l_greek + l_arabic, False),
-     ("/o/", l_cyrillic + l_hebrew + l_greek + l_arabic, False),
-     ("/e/", l_cyrillic + l_hebrew + l_greek + l_arabic, False),
-     ("/i/", l_cyrillic + l_hebrew + l_greek + l_arabic, False),
-     ("/y/", l_cyrillic + l_hebrew + l_greek  + l_arabic + l_romanian + l_dutch, False),
-     ("/u/", l_cyrillic + l_hebrew + l_greek + l_arabic, False),
+     ("/a/", 1286, False),
+     ("/o/", 1286, False),
+     ("/e/", 1286, False),
+     ("/i/", 1286, False),
+     ("/y/", 34070, False),
+     ("/u/", 1286, False),
 
-     ("/j/", l_italian, False),
-     ("/j[^aoeiuy]/", l_french+l_spanish+l_portuguese+l_greeklatin, False),
-     ("/g/", l_czech, False),
-     ("/k/", l_romanian + l_spanish + l_portuguese + l_french + l_italian, False),
-     ("/q/", l_hungarian + l_polish + l_russian + l_romanian + l_czech + l_dutch + l_turkish + l_greeklatin, False),
-     ("/v/", l_polish, False),
-     ("/w/", l_french + l_romanian + l_spanish + l_hungarian + l_russian + l_czech + l_turkish + l_greeklatin, False),
-     ("/x/", l_czech + l_hungarian + l_dutch + l_turkish, False), # polish excluded from the list
+     ("/j/", 4096, False),
+     ("/j[^aoeiuy]/", 148032, False),
+     ("/g/", 8, False),
+     ("/k/", 184384, False),
+     ("/q/", 371224, False),
+     ("/v/", 8192, False),
+     ("/w/", 494152, False),
+     ("/x/", 264216, False), # polish excluded from the list
 
-     ("/dj/", l_spanish + l_turkish, False),
-     ("/v[^aoeiu]/", l_german, False), # in german, "v" can be found before a vowel only
-     ("/y[^aoeiu]/", l_german, False),  # in german, "y" usually appears only in the last position; sometimes before a vowel
-     ("/c[^aohk]/", l_german, False),
-     ("/dzi/", l_german + l_english + l_french + l_turkish, False),
-     ("/ou/", l_german, False),
-     ("/a[eiou]/", l_turkish, False), # no diphthongs in Turkish
-     ("/ö[eaiou]/", l_turkish, False),
-     ("/ü[eaiou]/", l_turkish, False),
-     ("/e[aiou]/", l_turkish, False),
-     ("/i[aeou]/", l_turkish, False),
-     ("/o[aieu]/", l_turkish, False),
-     ("/u[aieo]/", l_turkish, False),
-     ("/aj/", l_german + l_english + l_french + l_dutch, False),
-     ("/ej/", l_german + l_english + l_french + l_dutch, False),
-     ("/oj/", l_german + l_english + l_french + l_dutch, False),
-     ("/uj/", l_german + l_english + l_french + l_dutch, False),
-     ("/eu/", l_russian + l_polish, False),
-     ("/ky/", l_polish, False),
-     ("/kie/", l_french + l_spanish + l_greeklatin, False),
-     ("/gie/", l_portuguese + l_romanian + l_spanish + l_greeklatin, False),
-     ("/ch[aou]/", l_italian, False),
-     ("/ch/", l_turkish, False),
-     ("/son$/", l_german, False),
-     ('/sc[ei]/', l_french, False),
-     ('/sch/', l_hungarian + l_polish + l_french + l_spanish, False),
-     ('/^h/', l_russian, False)
+     ("/dj/", 393216, False),
+     ("/v[^aoeiu]/", 128, False), # in german, "v" can be found before a vowel only
+     ("/y[^aoeiu]/", 128, False),  # in german, "y" usually appears only in the last position; sometimes before a vowel
+     ("/c[^aohk]/", 128, False),
+     ("/dzi/", 262368, False),
+     ("/ou/", 128, False),
+     ("/a[eiou]/", 262144, False), # no diphthongs in Turkish
+     ("/ö[eaiou]/", 262144, False),
+     ("/ü[eaiou]/", 262144, False),
+     ("/e[aiou]/", 262144, False),
+     ("/i[aeou]/", 262144, False),
+     ("/o[aieu]/", 262144, False),
+     ("/u[aieo]/", 262144, False),
+     ("/aj/", 240, False),
+     ("/ej/", 240, False),
+     ("/oj/", 240, False),
+     ("/uj/", 240, False),
+     ("/eu/", 73728, False),
+     ("/ky/", 8192, False),
+     ("/kie/", 131648, False),
+     ("/gie/", 180736, False),
+     ("/ch[aou]/", 4096, False),
+     ("/ch/", 262144, False),
+     ("/son$/", 128, False),
+     ('/sc[ei]/', 64, False),
+     ('/sch/', 141376, False),
+     ('/^h/', 65536, False)
 
      )
 
@@ -1292,54 +1294,54 @@ _gen_languages = ("any", "arabic", "cyrillic", "czech", "dutch", "english", "fre
 _gen_rules_any = (
 
      # CONVERTING FEMININE TO MASCULINE
-     ("yna","","$","(in[l_russian]|ina)"),
-     ("ina","","$","(in[l_russian]|ina)"),
-     ("liova","","$","(lova|lof[l_russian]|lef[l_russian])"),
-     ("lova","","$","(lova|lof[l_russian]|lef[l_russian]|l[l_czech]|el[l_czech])"),
-     ("kova","","$","(kova|kof[l_russian]|k[l_czech]|ek[l_czech])"),
-     ("ova","","$","(ova|of[l_russian]|[l_czech])"),
-     ("ová","","$","(ova|[l_czech])"),
-     ("eva","","$","(eva|ef[l_russian])"),
-     ("aia","","$","(aja|i[l_russian])"),
-     ("aja","","$","(aja|i[l_russian])"),
-     ("aya","","$","(aja|i[l_russian])"),
+     ("yna","","$","(in[65536]|ina)"),
+     ("ina","","$","(in[65536]|ina)"),
+     ("liova","","$","(lova|lof[65536]|lef[65536])"),
+     ("lova","","$","(lova|lof[65536]|lef[65536]|l[8]|el[8])"),
+     ("kova","","$","(kova|kof[65536]|k[8]|ek[8])"),
+     ("ova","","$","(ova|of[65536]|[8])"),
+     ("ová","","$","(ova|[8])"),
+     ("eva","","$","(eva|ef[65536])"),
+     ("aia","","$","(aja|i[65536])"),
+     ("aja","","$","(aja|i[65536])"),
+     ("aya","","$","(aja|i[65536])"),
 
-     ("lowa","","$","(lova|lof[l_polish]|l[l_polish]|el[l_polish])"),
-     ("kowa","","$","(kova|kof[l_polish]|k[l_polish]|ek[l_polish])"),
-     ("owa","","$","(ova|of[l_polish]|)"),
-     ("lowna","","$","(lovna|levna|l[l_polish]|el[l_polish])"),
-     ("kowna","","$","(kovna|k[l_polish]|ek[l_polish])"),
-     ("owna","","$","(ovna|[l_polish])"),
+     ("lowa","","$","(lova|lof[8192]|l[8192]|el[8192])"),
+     ("kowa","","$","(kova|kof[8192]|k[8192]|ek[8192])"),
+     ("owa","","$","(ova|of[8192]|)"),
+     ("lowna","","$","(lovna|levna|l[8192]|el[8192])"),
+     ("kowna","","$","(kovna|k[8192]|ek[8192])"),
+     ("owna","","$","(ovna|[8192])"),
      ("lówna","","$","(l|el)"),  # polish
      ("kówna","","$","(k|ek)"),  # polish
      ("ówna","","$",""),         # polish
-     ("á","","$","(a|i[l_czech])"),
-     ("a","","$","(a|i[l_polish+l_czech])"),
+     ("á","","$","(a|i[8])"),
+     ("a","","$","(a|i[8200])"),
 
      # CONSONANTS
      ("pf","","","(pf|p|f)"),
-     ("que","","$","(k[l_french]|ke|kve)"),
+     ("que","","$","(k[64]|ke|kve)"),
      ("qu","","","(kv|k)"),
 
      ("m","","[bfpv]","(m|n)"),
      ("m","[aeiouy]","[aeiouy]", "m"),
-     ("m","[aeiouy]","", "(m|n[l_french+l_portuguese])"),  # nasal
+     ("m","[aeiouy]","", "(m|n[16448])"),  # nasal
 
      ("ly","","[au]","l"),
      ("li","","[au]","l"),
-     ("lio","","","(lo|le[l_russian])"),
-     ("lyo","","","(lo|le[l_russian])"),
-     #("ll","","","(l|J[l_spanish])"),  # Disabled Argentinian rule
-     ("lt","u","$","(lt|[l_french])"),
+     ("lio","","","(lo|le[65536])"),
+     ("lyo","","","(lo|le[65536])"),
+     #("ll","","","(l|J[131072])"),  # Disabled Argentinian rule
+     ("lt","u","$","(lt|[64])"),
 
-     ("v","^","","(v|f[l_german]|b[l_spanish])"),
+     ("v","^","","(v|f[128]|b[131072])"),
 
-     ("ex","","[aáuiíoóeéêy]","(ez[l_portuguese]|eS[l_portuguese]|eks|egz)"),
-     ("ex","","[cs]","(e[l_portuguese]|ek)"),
-     ("x","u","$","(ks|[l_french])"),
+     ("ex","","[aáuiíoóeéêy]","(ez[16384]|eS[16384]|eks|egz)"),
+     ("ex","","[cs]","(e[16384]|ek)"),
+     ("x","u","$","(ks|[64])"),
 
-     ("ck","","","(k|tsk[l_polish+l_czech])"),
-     ("cz","","","(tS|tsz[l_czech])"), # Polish
+     ("ck","","","(k|tsk[8200])"),
+     ("cz","","","(tS|tsz[8])"), # Polish
 
      #Proceccing of "h" in various combinations
      ("rh","^","","r"),
@@ -1347,203 +1349,203 @@ _gen_rules_any = (
      ("bh","^","","b"),
 
      ("ph","","","(ph|f)"),
-     ("kh","","","(x[l_russian+l_english]|kh)"),
+     ("kh","","","(x[65568]|kh)"),
 
-     ("lh","","","(lh|l[l_portuguese])"),
-     ("nh","","","(nh|nj[l_portuguese])"),
+     ("lh","","","(lh|l[16384])"),
+     ("nh","","","(nh|nj[16384])"),
 
      ("ssch","","","S"),      # german
      ("chsch","","","xS"),    # german
      ("tsch","","","tS"),     # german
 
      # ("desch","^","","deS"),
-     # ("desh","^","","(dES|de[l_french])"),
-     # ("des","^","[^aeiouy]","(dEs|de[l_french])"),
+     # ("desh","^","","(dES|de[64])"),
+     # ("des","^","[^aeiouy]","(dEs|de[64])"),
 
-     ("sch","[aeiouy]","[ei]","(S|StS[l_russian]|sk[l_romanian+l_italian])"),
-     ("sch","[aeiouy]","","(S|StS[l_russian])"),
-     ("sch","","[ei]","(sk[l_romanian+l_italian]|S|StS[l_russian])"),
-     ("sch","","","(S|StS[l_russian])"),
+     ("sch","[aeiouy]","[ei]","(S|StS[65536]|sk[36864])"),
+     ("sch","[aeiouy]","","(S|StS[65536])"),
+     ("sch","","[ei]","(sk[36864]|S|StS[65536])"),
+     ("sch","","","(S|StS[65536])"),
      ("ssh","","","S"),
 
      ("sh","","[äöü]","sh"),      # german
-     ("sh","","[aeiou]","(S[l_russian+l_english]|sh)"),
+     ("sh","","[aeiou]","(S[65568]|sh)"),
      ("sh","","","S"),
 
-     ("zh","","","(Z[l_english+l_russian]|zh|tsh[l_german])"),
+     ("zh","","","(Z[65568]|zh|tsh[128])"),
 
-     ("chs","","","(ks[l_german]|xs|tSs[l_russian+l_english])"),
-     ("ch","","[ei]","(x|tS[l_spanish+l_english+l_russian]|k[l_romanian+l_italian]|S[l_portuguese+l_french])"),
-     ("ch","","","(x|tS[l_spanish+l_english+l_russian]|S[l_portuguese+l_french])"),
+     ("chs","","","(ks[128]|xs|tSs[65568])"),
+     ("ch","","[ei]","(x|tS[196640]|k[36864]|S[16448])"),
+     ("ch","","","(x|tS[196640]|S[16448])"),
 
      ("th","^","","t"),     # english+german+greeklatin
-     ("th","","[äöüaeiou]","(t[l_english+l_german+l_greeklatin]|th)"),
+     ("th","","[äöüaeiou]","(t[672]|th)"),
      ("th","","","t"),  # english+german+greeklatin
 
-     ("gh","","[ei]","(g[l_romanian+l_italian+l_greeklatin]|gh)"),
+     ("gh","","[ei]","(g[37376]|gh)"),
 
-     ("ouh","","[aioe]","(v[l_french]|uh)"),
+     ("ouh","","[aioe]","(v[64]|uh)"),
      ("uh","","[aioe]","(v|uh)"),
      ("h","","$",""),
-     ("h","[aeiouyäöü]","",""),  # l_german
-     ("h","^","","(h|x[l_romanian+l_greeklatin]|H[l_english+l_romanian+l_polish+l_french+l_portuguese+l_italian+l_spanish])"),
+     ("h","[aeiouyäöü]","",""),  # 128
+     ("h","^","","(h|x[33280]|H[192608])"),
 
      #Processing of "ci", "ce" & "cy"
-     ("cia","","","(tSa[l_polish]|tsa)"),  # Polish
+     ("cia","","","(tSa[8192]|tsa)"),  # Polish
      ("cią","","[bp]","(tSom|tsom)"),     # Polish
-     ("cią","","","(tSon[l_polish]|tson)"), # Polish
-     ("cię","","[bp]","(tSem[l_polish]|tsem)"), # Polish
-     ("cię","","","(tSen[l_polish]|tsen)"), # Polish
-     ("cie","","","(tSe[l_polish]|tse)"),  # Polish
-     ("cio","","","(tSo[l_polish]|tso)"),  # Polish
-     ("ciu","","","(tSu[l_polish]|tsu)"), # Polish
+     ("cią","","","(tSon[8192]|tson)"), # Polish
+     ("cię","","[bp]","(tSem[8192]|tsem)"), # Polish
+     ("cię","","","(tSen[8192]|tsen)"), # Polish
+     ("cie","","","(tSe[8192]|tse)"),  # Polish
+     ("cio","","","(tSo[8192]|tso)"),  # Polish
+     ("ciu","","","(tSu[8192]|tsu)"), # Polish
 
-     ("sci","","$","(Si[l_italian]|stsi[l_polish+l_czech]|dZi[l_turkish]|tSi[l_polish+l_romanian]|tS[l_romanian]|si)"),
-     ("sc","","[ei]","(S[l_italian]|sts[l_polish+l_czech]|dZ[l_turkish]|tS[l_polish+l_romanian]|s)"),
-     ("ci","","$","(tsi[l_polish+l_czech]|dZi[l_turkish]|tSi[l_polish+l_romanian]|tS[l_romanian]|si)"),
-     ("cy","","","(si|tsi[l_polish])"),
-     ("c","","[ei]","(ts[l_polish+l_czech]|dZ[l_turkish]|tS[l_polish+l_romanian]|k[l_greeklatin]|s)"),
+     ("sci","","$","(Si[4096]|stsi[8200]|dZi[262144]|tSi[40960]|tS[32768]|si)"),
+     ("sc","","[ei]","(S[4096]|sts[8200]|dZ[262144]|tS[40960]|s)"),
+     ("ci","","$","(tsi[8200]|dZi[262144]|tSi[40960]|tS[32768]|si)"),
+     ("cy","","","(si|tsi[8192])"),
+     ("c","","[ei]","(ts[8200]|dZ[262144]|tS[40960]|k[512]|s)"),
 
      #Processing of "s"
-     ("sç","","[aeiou]","(s|stS[l_turkish])"),
+     ("sç","","[aeiou]","(s|stS[262144])"),
      ("ssz","","","S"), # polish
-     ("sz","^","","(S|s[l_hungarian])"), # polish
-     ("sz","","$","(S|s[l_hungarian])"), # polish
-     ("sz","","","(S|s[l_hungarian]|sts[l_german])"), # polish
-     ("ssp","","","(Sp[l_german]|sp)"),
-     ("sp","","","(Sp[l_german]|sp)"),
-     ("sst","","","(St[l_german]|st)"),
-     ("st","","","(St[l_german]|st)"),
+     ("sz","^","","(S|s[2048])"), # polish
+     ("sz","","$","(S|s[2048])"), # polish
+     ("sz","","","(S|s[2048]|sts[128])"), # polish
+     ("ssp","","","(Sp[128]|sp)"),
+     ("sp","","","(Sp[128]|sp)"),
+     ("sst","","","(St[128]|st)"),
+     ("st","","","(St[128]|st)"),
      ("ss","","","s"),
      ("sj","^","","S"), # dutch
      ("sj","","$","S"), # dutch
-     ("sj","","","(sj|S[l_dutch]|sx[l_spanish]|sZ[l_romanian+l_turkish])"),
+     ("sj","","","(sj|S[16]|sx[131072]|sZ[294912])"),
 
-     ("sia","","","(Sa[l_polish]|sa[l_polish]|sja)"),
-     ("sią","","[bp]","(Som[l_polish]|som)"), # polish
-     ("sią","","","(Son[l_polish]|son)"), # polish
-     ("się","","[bp]","(Sem[l_polish]|sem)"), # polish
-     ("się","","","(Sen[l_polish]|sen)"), # polish
-     ("sie","","","(se|sje|Se[l_polish]|zi[l_german])"),
+     ("sia","","","(Sa[8192]|sa[8192]|sja)"),
+     ("sią","","[bp]","(Som[8192]|som)"), # polish
+     ("sią","","","(Son[8192]|son)"), # polish
+     ("się","","[bp]","(Sem[8192]|sem)"), # polish
+     ("się","","","(Sen[8192]|sen)"), # polish
+     ("sie","","","(se|sje|Se[8192]|zi[128])"),
 
-     ("sio","","","(So[l_polish]|so)"),
-     ("siu","","","(Su[l_polish]|sju)"),
+     ("sio","","","(So[8192]|so)"),
+     ("siu","","","(Su[8192]|sju)"),
 
-     ("si","[äöëaáuiíoóeéêy]","","(Si[l_polish]|si|zi[l_portuguese+l_french+l_italian+l_german])"),
-     ("si","","","(Si[l_polish]|si|zi[l_german])"),
-     ("s","[aáuiíoóeéêy]","[aáuíoóeéêy]","(s|z[l_portuguese+l_french+l_italian+l_german])"),
-     ("s","","[aeouäöë]","(s|z[l_german])"),
-     ("s","[aeiouy]","[dglmnrv]","(s|z|Z[l_portuguese]|[l_french])"), # Groslot
-     ("s","","[dglmnrv]","(s|z|Z[l_portuguese])"),
+     ("si","[äöëaáuiíoóeéêy]","","(Si[8192]|si|zi[20672])"),
+     ("si","","","(Si[8192]|si|zi[128])"),
+     ("s","[aáuiíoóeéêy]","[aáuíoóeéêy]","(s|z[20672])"),
+     ("s","","[aeouäöë]","(s|z[128])"),
+     ("s","[aeiouy]","[dglmnrv]","(s|z|Z[16384]|[64])"), # Groslot
+     ("s","","[dglmnrv]","(s|z|Z[16384])"),
 
      #Processing of "g"
-     ("gue","","$","(k[l_french]|gve)"),  # portuguese+spanish
-     ("gu","","[ei]","(g[l_french]|gv[l_portuguese+l_spanish])"), # portuguese+spanish
+     ("gue","","$","(k[64]|gve)"),  # portuguese+spanish
+     ("gu","","[ei]","(g[64]|gv[147456])"), # portuguese+spanish
      ("gu","","[ao]","gv"),     # portuguese+spanish
      ("guy","","","gi"),  # french
 
-     ("gli","","","(glI|l[l_italian])"),
-     ("gni","","","(gnI|ni[l_italian+l_french])"),
-     ("gn","","[aeou]","(n[l_italian+l_french]|nj[l_italian+l_french]|gn)"),
+     ("gli","","","(glI|l[4096])"),
+     ("gni","","","(gnI|ni[4160])"),
+     ("gn","","[aeou]","(n[4160]|nj[4160]|gn)"),
 
-     ("ggie","","","(je[l_greeklatin]|dZe)"), # dZ is Italian
-     ("ggi","","[aou]","(j[l_greeklatin]|dZ)"), # dZ is Italian
+     ("ggie","","","(je[512]|dZe)"), # dZ is Italian
+     ("ggi","","[aou]","(j[512]|dZ)"), # dZ is Italian
 
-     ("ggi","[yaeiou]","[aou]","(gI|dZ[l_italian]|j[l_greeklatin])"),
-     ("gge","[yaeiou]","","(gE|xe[l_spanish]|gZe[l_portuguese+l_french]|dZe[l_english+l_romanian+l_italian+l_spanish]|je[l_greeklatin])"),
-     ("ggi","[yaeiou]","","(gI|xi[l_spanish]|gZi[l_portuguese+l_french]|dZi[l_english+l_romanian+l_italian+l_spanish]|i[l_greeklatin])"),
-     ("ggi","","[aou]","(gI|dZ[l_italian]|j[l_greeklatin])"),
+     ("ggi","[yaeiou]","[aou]","(gI|dZ[4096]|j[512])"),
+     ("gge","[yaeiou]","","(gE|xe[131072]|gZe[16448]|dZe[167968]|je[512])"),
+     ("ggi","[yaeiou]","","(gI|xi[131072]|gZi[16448]|dZi[167968]|i[512])"),
+     ("ggi","","[aou]","(gI|dZ[4096]|j[512])"),
 
-     ("gie","","$","(ge|gi[l_german]|ji[l_french]|dZe[l_italian])"),
-     ("gie","","","(ge|gi[l_german]|dZe[l_italian]|je[l_greeklatin])"),
-     ("gi","","[aou]","(i[l_greeklatin]|dZ)"), # dZ is Italian
+     ("gie","","$","(ge|gi[128]|ji[64]|dZe[4096])"),
+     ("gie","","","(ge|gi[128]|dZe[4096]|je[512])"),
+     ("gi","","[aou]","(i[512]|dZ)"), # dZ is Italian
 
-     ("ge","[yaeiou]","","(gE|xe[l_spanish]|Ze[l_portuguese+l_french]|dZe[l_english+l_romanian+l_italian+l_spanish])"),
-     ("gi","[yaeiou]","","(gI|xi[l_spanish]|Zi[l_portuguese+l_french]|dZi[l_english+l_romanian+l_italian+l_spanish])"),
-     ("ge","","","(gE|xe[l_spanish]|hE[l_russian]|je[l_greeklatin]|Ze[l_portuguese+l_french]|dZe[l_english+l_romanian+l_italian+l_spanish])"),
-     ("gi","","","(gI|xi[l_spanish]|hI[l_russian]|i[l_greeklatin]|Zi[l_portuguese+l_french]|dZi[l_english+l_romanian+l_italian+l_spanish])"),
-     ("gy","","[aeouáéóúüöőű]","(gi|dj[l_hungarian])"),
-     ("gy","","","(gi|d[l_hungarian])"),
+     ("ge","[yaeiou]","","(gE|xe[131072]|Ze[16448]|dZe[167968])"),
+     ("gi","[yaeiou]","","(gI|xi[131072]|Zi[16448]|dZi[167968])"),
+     ("ge","","","(gE|xe[131072]|hE[65536]|je[512]|Ze[16448]|dZe[167968])"),
+     ("gi","","","(gI|xi[131072]|hI[65536]|i[512]|Zi[16448]|dZi[167968])"),
+     ("gy","","[aeouáéóúüöőű]","(gi|dj[2048])"),
+     ("gy","","","(gi|d[2048])"),
      ("g","[yaeiou]","[aouyei]","g"),
-     ("g","","[aouei]","(g|h[l_russian])"),
+     ("g","","[aouei]","(g|h[65536])"),
 
      #Processing of "j"
-     ("ij","","","(i|ej[l_dutch]|ix[l_spanish]|iZ[l_french+l_romanian+l_turkish+l_portuguese])"),
-     ("j","","[aoeiuy]","(j|dZ[l_english]|x[l_spanish]|Z[l_french+l_romanian+l_turkish+l_portuguese])"),
+     ("ij","","","(i|ej[16]|ix[131072]|iZ[311360])"),
+     ("j","","[aoeiuy]","(j|dZ[32]|x[131072]|Z[311360])"),
 
      #Processing of "z"
-     ("rz","t","","(S[l_polish]|r)"), # polish
-     ("rz","","","(rz|rts[l_german]|Z[l_polish]|r[l_polish]|rZ[l_polish])"),
+     ("rz","t","","(S[8192]|r)"), # polish
+     ("rz","","","(rz|rts[128]|Z[8192]|r[8192]|rZ[8192])"),
 
-     ("tz","","$","(ts|tS[l_english+l_german])"),
-     ("tz","^","","(ts[l_english+l_german+l_russian]|tS[l_english+l_german])"),
-     ("tz","","","(ts[l_english+l_german+l_russian]|tz)"),
+     ("tz","","$","(ts|tS[160])"),
+     ("tz","^","","(ts[65696]|tS[160])"),
+     ("tz","","","(ts[65696]|tz)"),
 
-     ("zia","","[bcdgkpstwzż]","(Za[l_polish]|za[l_polish]|zja)"),
-     ("zia","","","(Za[l_polish]|zja)"),
-     ("zią","","[bp]","(Zom[l_polish]|zom)"),  # polish
-     ("zią","","","(Zon[l_polish]|zon)"), # polish
-     ("zię","","[bp]","(Zem[l_polish]|zem)"), # polish
-     ("zię","","","(Zen[l_polish]|zen)"), # polish
-     ("zie","","[bcdgkpstwzż]","(Ze[l_polish]|ze[l_polish]|ze|tsi[l_german])"),
-     ("zie","","","(ze|Ze[l_polish]|tsi[l_german])"),
-     ("zio","","","(Zo[l_polish]|zo)"),
-     ("ziu","","","(Zu[l_polish]|zju)"),
-     ("zi","","","(Zi[l_polish]|zi|tsi[l_german]|dzi[l_italian]|tsi[l_italian]|si[l_spanish])"),
+     ("zia","","[bcdgkpstwzż]","(Za[8192]|za[8192]|zja)"),
+     ("zia","","","(Za[8192]|zja)"),
+     ("zią","","[bp]","(Zom[8192]|zom)"),  # polish
+     ("zią","","","(Zon[8192]|zon)"), # polish
+     ("zię","","[bp]","(Zem[8192]|zem)"), # polish
+     ("zię","","","(Zen[8192]|zen)"), # polish
+     ("zie","","[bcdgkpstwzż]","(Ze[8192]|ze[8192]|ze|tsi[128])"),
+     ("zie","","","(ze|Ze[8192]|tsi[128])"),
+     ("zio","","","(Zo[8192]|zo)"),
+     ("ziu","","","(Zu[8192]|zju)"),
+     ("zi","","","(Zi[8192]|zi|tsi[128]|dzi[4096]|tsi[4096]|si[131072])"),
 
-     ("z","","$","(s|ts[l_german]|ts[l_italian]|S[l_portuguese])"), # ts It, s/S/Z Port, s in Sp, z Fr
-     ("z","","[bdgv]","(z|dz[l_italian]|Z[l_portuguese])"), # dz It, Z/z Port, z Sp & Fr
-     ("z","","[ptckf]","(s|ts[l_italian]|S[l_portuguese])"), # ts It, s/S/z Port, z/s Sp
+     ("z","","$","(s|ts[128]|ts[4096]|S[16384])"), # ts It, s/S/Z Port, s in Sp, z Fr
+     ("z","","[bdgv]","(z|dz[4096]|Z[16384])"), # dz It, Z/z Port, z Sp & Fr
+     ("z","","[ptckf]","(s|ts[4096]|S[16384])"), # ts It, s/S/z Port, z/s Sp
 
      # VOWELS
      ("aue","","","aue"),
-     ("oue","","","(oue|ve[l_french])"),
+     ("oue","","","(oue|ve[64])"),
      ("eau","","","o"), # French
 
-     ("ae","","","(Y[l_german]|aje[l_russian]|ae)"),
+     ("ae","","","(Y[128]|aje[65536]|ae)"),
      ("ai","","","aj"),
-     ("au","","","(au|o[l_french])"),
+     ("au","","","(au|o[64])"),
      ("ay","","","aj"),
      ("ão","","","(au|an)"), # Port
      ("ãe","","","(aj|an)"), # Port
      ("ãi","","","(aj|an)"), # Port
-     ("ea","","","(ea|ja[l_romanian])"),
-     ("ee","","","(i[l_english]|aje[l_russian]|e)"),
+     ("ea","","","(ea|ja[32768])"),
+     ("ee","","","(i[32]|aje[65536]|e)"),
      ("ei","","","(aj|ej)"),
-     ("eu","","","(eu|Yj[l_german]|ej[l_german]|oj[l_german]|Y[l_dutch])"),
+     ("eu","","","(eu|Yj[128]|ej[128]|oj[128]|Y[16])"),
      ("ey","","","(aj|ej)"),
      ("ia","","","ja"),
-     ("ie","","","(i[l_german]|e[l_polish]|ije[l_russian]|Q[l_dutch]|je)"),
+     ("ie","","","(i[128]|e[8192]|ije[65536]|Q[16]|je)"),
      ("ii","","$","i"), # russian
-     ("io","","","(jo|e[l_russian])"),
+     ("io","","","(jo|e[65536])"),
      ("iu","","","ju"),
      ("iy","","$","i"), # russian
-     ("oe","","","(Y[l_german]|oje[l_russian]|u[l_dutch]|oe)"),
+     ("oe","","","(Y[128]|oje[65536]|u[16]|oe)"),
      ("oi","","","oj"),
-     ("oo","","","(u[l_english]|o)"),
-     ("ou","","","(ou|u[l_french+l_greeklatin]|au[l_dutch])"),
+     ("oo","","","(u[32]|o)"),
+     ("ou","","","(ou|u[576]|au[16])"),
      ("où","","","u"), # french
      ("oy","","","oj"),
      ("õe","","","(oj|on)"), # Port
      ("ua","","","va"),
-     ("ue","","","(Q[l_german]|uje[l_russian]|ve)"),
-     ("ui","","","(uj|vi|Y[l_dutch])"),
-     ("uu","","","(u|Q[l_dutch])"),
+     ("ue","","","(Q[128]|uje[65536]|ve)"),
+     ("ui","","","(uj|vi|Y[16])"),
+     ("uu","","","(u|Q[16])"),
      ("uo","","","(vo|o)"),
      ("uy","","","uj"),
      ("ya","","","ja"),
-     ("ye","","","(je|ije[l_russian])"),
+     ("ye","","","(je|ije[65536])"),
      ("yi","^","","i"),
      ("yi","","$","i"), # russian
-     ("yo","","","(jo|e[l_russian])"),
+     ("yo","","","(jo|e[65536])"),
      ("yu","","","ju"),
      ("yy","","$","i"), # russian
 
      ("i","[áóéê]","","j"),
      ("y","[áóéê]","","j"),
 
-     ("e","^","","(e|je[l_russian])"),
-     ("e","","$","(e|EE[l_english+l_french])"),
+     ("e","^","","(e|je[65536])"),
+     ("e","","$","(e|EE[96])"),
 
      # LANGUAGE SPECIFIC CHARACTERS
      ("ą","","[bp]","om"), # polish
@@ -1553,62 +1555,62 @@ _gen_rules_any = (
      ("à","","","a"),
      ("â","","","a"),
      ("ã","","","(a|an)"), # Port
-     ("ă","","","(e[l_romanian]|a)"), # romanian
+     ("ă","","","(e[32768]|a)"), # romanian
      ("č","","", "tS"), # czech
-     ("ć","","","(tS[l_polish]|ts)"),  # polish
-     ("ç","","","(s|tS[l_turkish])"),
-     ("ď","","","(d|dj[l_czech])"),
+     ("ć","","","(tS[8192]|ts)"),  # polish
+     ("ç","","","(s|tS[262144])"),
+     ("ď","","","(d|dj[8])"),
      ("ę","","[bp]","em"), # polish
      ("ę","","","en"), # polish
      ("é","","","e"),
      ("è","","","e"),
      ("ê","","","e"),
-     ("ě","","","(e|je[l_czech])"),
+     ("ě","","","(e|je[8])"),
      ("ğ","","",""), # turkish
      ("í","","","i"),
      ("î","","","i"),
-     ("ı","","","(i|e[l_turkish]|[l_turkish])"),
+     ("ı","","","(i|e[262144]|[262144])"),
      ("ł","","","l"),
-     ("ń","","","(n|nj[l_polish])"), # polish
-     ("ñ","","","(n|nj[l_spanish])"),
-     ("ó","","","(u[l_polish]|o)"),
+     ("ń","","","(n|nj[8192])"), # polish
+     ("ñ","","","(n|nj[131072])"),
+     ("ó","","","(u[8192]|o)"),
      ("ô","","","o"), # Port & Fr
-     ("õ","","","(o|on[l_portuguese]|Y[l_hungarian])"),
+     ("õ","","","(o|on[16384]|Y[2048])"),
      ("ò","","","o"),  # Sp & It
      ("ö","","","Y"),
-     ("ř","","","(r|rZ[l_czech])"),
-     ("ś","","","(S[l_polish]|s)"),
+     ("ř","","","(r|rZ[8])"),
+     ("ś","","","(S[8192]|s)"),
      ("ş","","","S"), # romanian+turkish
      ("š","","", "S"), # czech
      ("ţ","","","ts"),  # romanian
-     ("ť","","","(t|tj[l_czech])"),
+     ("ť","","","(t|tj[8])"),
      ("ű","","","Q"), # hungarian
-     ("ü","","","(Q|u[l_portuguese+l_spanish])"),
+     ("ü","","","(Q|u[147456])"),
      ("ú","","","u"),
      ("ů","","","u"), # czech
      ("ù","","","u"), # french
      ("ý","","","i"),  # czech
      ("ż","","","Z"), # polish
-     ("ź","","","(Z[l_polish]|z)"),
+     ("ź","","","(Z[8192]|z)"),
 
      ("ß","","","s"), # german
      ("'","","",""), # russian
      ('"',"","",""), # russian
 
-     ("o","","[bcćdgklłmnńrsśtwzźż]","(O|P[l_polish])"),
+     ("o","","[bcćdgklłmnńrsśtwzźż]","(O|P[8192])"),
 
      # LATIN ALPHABET
      ("a","","","A"),
      ("b","","","B"),
-     ("c","","","(k|ts[l_polish+l_czech]|dZ[l_turkish])"),
+     ("c","","","(k|ts[8200]|dZ[262144])"),
      ("d","","","d"),
      ("e","","","E"),
      ("f","","","f"),
-     #("g","","","(g|x[l_dutch])"), # Dutch sound disabled
+     #("g","","","(g|x[16])"), # Dutch sound disabled
      ("g","","","g"),
-     ("h","","","(h|x[l_romanian]|H[l_french+l_portuguese+l_italian+l_spanish])"),
+     ("h","","","(h|x[32768]|H[151616])"),
      ("i","","","I"),
-     ("j","","","(j|x[l_spanish]|Z[l_french+l_romanian+l_turkish+l_portuguese])"),
+     ("j","","","(j|x[131072]|Z[311360])"),
      ("k","","","k"),
      ("l","","","l"),
      ("m","","","m"),
@@ -1617,14 +1619,14 @@ _gen_rules_any = (
      ("p","","","p"),
      ("q","","","k"),
      ("r","","","r"),
-     ("s","","","(s|S[l_portuguese])"),
+     ("s","","","(s|S[16384])"),
      ("t","","","t"),
      ("u","","","U"),
      ("v","","","V"),
-     ("w","","","(v|w[l_english+l_dutch])"),
-     ("x","","","(ks|gz|S[l_portuguese+l_spanish])"),   # S/ks Port & Sp, gz Sp, It only ks
+     ("w","","","(v|w[48])"),
+     ("x","","","(ks|gz|S[147456])"),   # S/ks Port & Sp, gz Sp, It only ks
      ("y","","","i"),
-     ("z","","","(z|ts[l_german]|dz[l_italian]|ts[l_italian]|s[l_spanish])"), # ts/dz It, z Port & Fr, z/s Sp
+     ("z","","","(z|ts[128]|dz[4096]|ts[4096]|s[131072])"), # ts/dz It, z Port & Fr, z/s Sp
 
      )
 
@@ -3543,90 +3545,90 @@ _sep_language_rules = (
 
      # 1. following are rules to accept the language
      # 1.1 Special letter combinations
-     ('/eau/', l_french, True),
-     ('/ou/', l_french, True),
-     ('/gni/', l_italian+l_french, True),
-     ('/tx/', l_spanish, True),
-     ('/tj/', l_spanish, True),
-     ('/gy/', l_french, True),
-     ('/guy/', l_french, True),
+     ('/eau/', 64, True),
+     ('/ou/', 64, True),
+     ('/gni/', 4160, True),
+     ('/tx/', 131072, True),
+     ('/tj/', 131072, True),
+     ('/gy/', 64, True),
+     ('/guy/', 64, True),
 
-     ("/sh/", l_spanish+l_portuguese, True), # English, but no sign for /sh/ in these languages
+     ("/sh/", 147456, True), # English, but no sign for /sh/ in these languages
 
-     ('/lh/', l_portuguese, True),
-     ('/nh/', l_portuguese, True),
-     ('/ny/', l_spanish, True),
+     ('/lh/', 16384, True),
+     ('/nh/', 16384, True),
+     ('/ny/', 131072, True),
 
-     ('/gue/', l_spanish + l_french, True),
-     ('/gui/', l_spanish + l_french, True),
-     ('/gia/', l_italian, True),
-     ('/gie/', l_italian, True),
-     ('/gio/', l_italian, True),
-     ('/giu/', l_italian, True),
+     ('/gue/', 131136, True),
+     ('/gui/', 131136, True),
+     ('/gia/', 4096, True),
+     ('/gie/', 4096, True),
+     ('/gio/', 4096, True),
+     ('/giu/', 4096, True),
 
      # 1.2 special characters
-     ('/ñ/', l_spanish, True),
-     ('/â/', l_portuguese + l_french, True),
-     ('/á/', l_portuguese + l_spanish, True),
-     ('/à/', l_portuguese, True),
-     ('/ã/', l_portuguese, True),
-     ('/ê/', l_french + l_portuguese, True),
-     ('/í/', l_portuguese + l_spanish, True),
-     ('/î/', l_french, True),
-     ('/ô/', l_french + l_portuguese, True),
-     ('/õ/', l_portuguese, True),
-     ('/ò/', l_italian + l_spanish, True),
-     ('/ú/', l_portuguese + l_spanish, True),
-     ('/ù/', l_french, True),
-     ('/ü/', l_portuguese + l_spanish, True),
+     ('/ñ/', 131072, True),
+     ('/â/', 16448, True),
+     ('/á/', 147456, True),
+     ('/à/', 16384, True),
+     ('/ã/', 16384, True),
+     ('/ê/', 16448, True),
+     ('/í/', 147456, True),
+     ('/î/', 64, True),
+     ('/ô/', 16448, True),
+     ('/õ/', 16384, True),
+     ('/ò/', 135168, True),
+     ('/ú/', 147456, True),
+     ('/ù/', 64, True),
+     ('/ü/', 147456, True),
 
      # Hebrew
-     ("/א/", l_hebrew, True),
-     ("/ב/", l_hebrew, True),
-     ("/ג/", l_hebrew, True),
-     ("/ד/", l_hebrew, True),
-     ("/ה/", l_hebrew, True),
-     ("/ו/", l_hebrew, True),
-     ("/ז/", l_hebrew, True),
-     ("/ח/", l_hebrew, True),
-     ("/ט/", l_hebrew, True),
-     ("/י/", l_hebrew, True),
-     ("/כ/", l_hebrew, True),
-     ("/ל/", l_hebrew, True),
-     ("/מ/", l_hebrew, True),
-     ("/נ/", l_hebrew, True),
-     ("/ס/", l_hebrew, True),
-     ("/ע/", l_hebrew, True),
-     ("/פ/", l_hebrew, True),
-     ("/צ/", l_hebrew, True),
-     ("/ק/", l_hebrew, True),
-     ("/ר/", l_hebrew, True),
-     ("/ש/", l_hebrew, True),
-     ("/ת/", l_hebrew, True),
+     ("/א/", 1024, True),
+     ("/ב/", 1024, True),
+     ("/ג/", 1024, True),
+     ("/ד/", 1024, True),
+     ("/ה/", 1024, True),
+     ("/ו/", 1024, True),
+     ("/ז/", 1024, True),
+     ("/ח/", 1024, True),
+     ("/ט/", 1024, True),
+     ("/י/", 1024, True),
+     ("/כ/", 1024, True),
+     ("/ל/", 1024, True),
+     ("/מ/", 1024, True),
+     ("/נ/", 1024, True),
+     ("/ס/", 1024, True),
+     ("/ע/", 1024, True),
+     ("/פ/", 1024, True),
+     ("/צ/", 1024, True),
+     ("/ק/", 1024, True),
+     ("/ר/", 1024, True),
+     ("/ש/", 1024, True),
+     ("/ת/", 1024, True),
 
      # 2. following are rules to reject the language
 
      # Every Latin character word has at least one Latin vowel
-     ("/a/", l_hebrew, False),
-     ("/o/", l_hebrew, False),
-     ("/e/", l_hebrew, False),
-     ("/i/",  l_hebrew, False),
-     ("/y/", l_hebrew, False),
-     ("/u/", l_hebrew, False),
+     ("/a/", 1024, False),
+     ("/o/", 1024, False),
+     ("/e/", 1024, False),
+     ("/i/",  1024, False),
+     ("/y/", 1024, False),
+     ("/u/", 1024, False),
 
-     ("/kh/", l_spanish, False),
-     ("/gua/", l_italian, False),
-     ("/guo/", l_italian, False),
-     ("/ç/", l_italian, False),
-     ("/cha/", l_italian, False),
-     ("/cho/", l_italian, False),
-     ("/chu/", l_italian, False),
-     ("/j/", l_italian, False),
-     ("/dj/", l_spanish, False),
-     ('/sce/', l_french, False),
-     ('/sci/', l_french, False),
-     ('/ó/', l_french, False),
-     ('/è/', l_portuguese, False)
+     ("/kh/", 131072, False),
+     ("/gua/", 4096, False),
+     ("/guo/", 4096, False),
+     ("/ç/", 4096, False),
+     ("/cha/", 4096, False),
+     ("/cho/", 4096, False),
+     ("/chu/", 4096, False),
+     ("/j/", 4096, False),
+     ("/dj/", 131072, False),
+     ('/sce/', 64, False),
+     ('/sci/', 64, False),
+     ('/ó/', 64, False),
+     ('/è/', 16384, False)
 
      )
 
@@ -3641,9 +3643,9 @@ _sep_rules_any = (
      ("sh","","","S"), # foreign
      ("kh","","","x"), # foreign
 
-     ("gli","","","(gli|l[l_italian])"),
-     ("gni","","","(gni|ni[l_italian+l_french])"),
-     ("gn","","[aeou]","(n[l_italian+l_french]|nj[l_italian+l_french]|gn)"),
+     ("gli","","","(gli|l[4096])"),
+     ("gni","","","(gni|ni[4160])"),
+     ("gn","","[aeou]","(n[4160]|nj[4160]|gn)"),
      ("gh","","","g"), # It + translit. from Arabic
      ("dh","","","d"), # translit. from Arabic
      ("bh","","","b"), # translit. from Arabic
@@ -3651,66 +3653,66 @@ _sep_rules_any = (
      ("lh","","","l"), # Port
      ("nh","","","nj"), # Port
 
-     ("ig","[aeiou]","","(ig|tS[l_spanish])"),
+     ("ig","[aeiou]","","(ig|tS[131072])"),
      ("ix","[aeiou]","","S"), # Sp
      ("tx","","","tS"), # Sp
      ("tj","","$","tS"), # Sp
      ("tj","","","dZ"), # Sp
-     ("tg","","","(tg|dZ[l_spanish])"),
+     ("tg","","","(tg|dZ[131072])"),
 
      ("gi","","[aeou]","dZ"), # italian
      ("g","","y","Z"), # french
-     ("gg","","[ei]","(gZ[l_portuguese+l_french]|dZ[l_italian+l_spanish]|x[l_spanish])"),
-     ("g","","[ei]","(Z[l_portuguese+l_french]|dZ[l_italian+l_spanish]|x[l_spanish])"),
+     ("gg","","[ei]","(gZ[16448]|dZ[135168]|x[131072])"),
+     ("g","","[ei]","(Z[16448]|dZ[135168]|x[131072])"),
 
      ("guy","","","gi"),
-     ("gue","","$","(k[l_french]|ge)"),
+     ("gue","","$","(k[64]|ge)"),
      ("gu","","[ei]","(g|gv)"),     # not It
      ("gu","","[ao]","gv"),  # not It
 
      ("ñ","","","(n|nj)"),
      ("ny","","","nj"),
 
-     ("sc","","[ei]","(s|S[l_italian])"),
+     ("sc","","[ei]","(s|S[4096])"),
      ("sç","","[aeiou]","s"), # not It
      ("ss","","","s"),
      ("ç","","","s"),   # not It
 
-     ("ch","","[ei]","(k[l_italian]|S[l_portuguese+l_french]|tS[l_spanish]|dZ[l_spanish])"),
-     ("ch","","","(S|tS[l_spanish]|dZ[l_spanish])"),
+     ("ch","","[ei]","(k[4096]|S[16448]|tS[131072]|dZ[131072])"),
+     ("ch","","","(S|tS[131072]|dZ[131072])"),
 
-     ("ci","","[aeou]","(tS[l_italian]|si)"),
-     ("cc","","[eiyéèê]","(tS[l_italian]|ks[l_portuguese+l_french+l_spanish])"),
-     ("c","","[eiyéèê]","(tS[l_italian]|s[l_portuguese+l_french+l_spanish])"),
-     #("c","","[aou]","(k|C[l_portuguese+l_spanish])"), # "C" means that the actual letter could be "ç" (cedille omitted)
+     ("ci","","[aeou]","(tS[4096]|si)"),
+     ("cc","","[eiyéèê]","(tS[4096]|ks[147520])"),
+     ("c","","[eiyéèê]","(tS[4096]|s[147520])"),
+     #("c","","[aou]","(k|C[147456])"), # "C" means that the actual letter could be "ç" (cedille omitted)
 
      ("s","^","","s"),
-     ("s","[aáuiíoóeéêy]","[aáuiíoóeéêy]","(s[l_spanish]|z[l_portuguese+l_french+l_italian])"),
-     ("s","","[dglmnrv]","(z|Z[l_portuguese])"),
+     ("s","[aáuiíoóeéêy]","[aáuiíoóeéêy]","(s[131072]|z[20544])"),
+     ("s","","[dglmnrv]","(z|Z[16384])"),
 
-     ("z","","$","(s|ts[l_italian]|S[l_portuguese])"), # ts It, s/S/Z Port, s in Sp, z Fr
-     ("z","","[bdgv]","(z|dz[l_italian]|Z[l_portuguese])"), # dz It, Z/z Port, z Sp & Fr
-     ("z","","[ptckf]","(s|ts[l_italian]|S[l_portuguese])"), # ts It, s/S/z Port, z/s Sp
-     ("z","","","(z|dz[l_italian]|ts[l_italian]|s[l_spanish])"), # ts/dz It, z Port & Fr, z/s Sp
+     ("z","","$","(s|ts[4096]|S[16384])"), # ts It, s/S/Z Port, s in Sp, z Fr
+     ("z","","[bdgv]","(z|dz[4096]|Z[16384])"), # dz It, Z/z Port, z Sp & Fr
+     ("z","","[ptckf]","(s|ts[4096]|S[16384])"), # ts It, s/S/z Port, z/s Sp
+     ("z","","","(z|dz[4096]|ts[4096]|s[131072])"), # ts/dz It, z Port & Fr, z/s Sp
 
-     ("que","","$","(k[l_french]|ke)"),
+     ("que","","$","(k[64]|ke)"),
      ("qu","","[eiu]","k"),
      ("qu","","[ao]","(kv|k)"), # k is It
 
-     ("ex","","[aáuiíoóeéêy]","(ez[l_portuguese]|eS[l_portuguese]|eks|egz)"),
-     ("ex","","[cs]","(e[l_portuguese]|ek)"),
+     ("ex","","[aáuiíoóeéêy]","(ez[16384]|eS[16384]|eks|egz)"),
+     ("ex","","[cs]","(e[16384]|ek)"),
 
-     ("m","","[cdglnrst]","(m|n[l_portuguese])"),
-     ("m","","[bfpv]","(m|n[l_portuguese+l_spanish])"),
-     ("m","","$","(m|n[l_portuguese])"),
+     ("m","","[cdglnrst]","(m|n[16384])"),
+     ("m","","[bfpv]","(m|n[147456])"),
+     ("m","","$","(m|n[16384])"),
 
-     ("b","^","","(b|V[l_spanish])"),
-     ("v","^","","(v|B[l_spanish])"),
+     ("b","^","","(b|V[131072])"),
+     ("v","^","","(v|B[131072])"),
 
      # VOWELS
      ("eau","","","o"), # Fr
 
-     ("ouh","","[aioe]","(v[l_french]|uh)"),
+     ("ouh","","[aioe]","(v[64]|uh)"),
      ("uh","","[aioe]","(v|uh)"),
      ("ou","","[aioe]","v"), # french
      ("uo","","","(vo|o)"),
@@ -3720,14 +3722,14 @@ _sep_rules_any = (
      ("i","","[aeou]","j"),
      ("y","[aáuiíoóeéê]","","j"),
      ("y","","[aeiíou]","j"),
-     ("e","","$","(e|E[l_french])"),
+     ("e","","$","(e|E[64])"),
 
      ("ão","","","(au|an)"), # Port
      ("ãe","","","(aj|an)"), # Port
      ("ãi","","","(aj|an)"), # Port
      ("õe","","","(oj|on)"), # Port
      ("où","","","u"), # Fr
-     ("ou","","","(ou|u[l_french])"),
+     ("ou","","","(ou|u[64])"),
 
      ("â","","","a"), # Port & Fr
      ("à","","","a"), # Port
@@ -3747,7 +3749,7 @@ _sep_rules_any = (
 
      # LATIN ALPHABET
      ("a","","","a"),
-     ("b","","","(b|v[l_spanish])"),
+     ("b","","","(b|v[131072])"),
      ("c","","","k"),
      ("d","","","d"),
      ("e","","","e"),
@@ -3755,7 +3757,7 @@ _sep_rules_any = (
      ("g","","","g"),
      ("h","","","h"),
      ("i","","","i"),
-     ("j","","","(x[l_spanish]|Z)"), # not It
+     ("j","","","(x[131072]|Z)"), # not It
      ("k","","","k"),
      ("l","","","l"),
      ("m","","","m"),
@@ -3764,12 +3766,12 @@ _sep_rules_any = (
      ("p","","","p"),
      ("q","","","k"),
      ("r","","","r"),
-     ("s","","","(s|S[l_portuguese])"),
+     ("s","","","(s|S[16384])"),
      ("t","","","t"),
      ("u","","","u"),
-     ("v","","","(v|b[l_spanish])"),
+     ("v","","","(v|b[131072])"),
      ("w","","","v"),    # foreign
-     ("x","","","(ks|gz|S[l_portuguese+l_spanish])"),   # S/ks Port & Sp, gz Sp, It only ks
+     ("x","","","(ks|gz|S[147456])"),   # S/ks Port & Sp, gz Sp, It only ks
      ("y","","","i"),
      ("z","","","z"),
 
@@ -4158,7 +4160,7 @@ _sep_rules_spanish = (
 _ash_approx_any = (
 
      # CONSONANTS
-     ("b","","","(b|v[l_spanish])"),
+     ("b","","","(b|v[131072])"),
      ("J", "", "", "z"), # Argentina Spanish: "ll" = /Z/, but approximately /Z/ = /z/
 
      # VOWELS
@@ -4188,8 +4190,8 @@ _ash_approx_any = (
      ("iiB","","[dgkstvz]","(D|Dn)"),
      ("IiB","","[dgkstvz]","(D|Dn)"),
 
-     ("B","","[bp]","(o|om[l_polish]|im[l_polish])"),
-     ("B","","[dgkstvz]","(a|o|on[l_polish]|in[l_polish])"),
+     ("B","","[bp]","(o|om[8192]|im[8192])"),
+     ("B","","[dgkstvz]","(a|o|on[8192]|in[8192])"),
      ("B", "", "", "(a|o)"),
 
      ("aiF","","[bp]","(D|Dm)"),
@@ -4214,24 +4216,24 @@ _ash_approx_any = (
      ("iiF","","[dgkstvz]","(D|Dn)"),
      ("IiF","","[dgkstvz]","(D|Dn)"),
 
-     ("F","","[bp]","(i|im[l_polish]|om[l_polish])"),
-     ("F","","[dgkstvz]","(i|in[l_polish]|on[l_polish])"),
+     ("F","","[bp]","(i|im[8192]|om[8192])"),
+     ("F","","[dgkstvz]","(i|in[8192]|on[8192])"),
      ("F", "", "", "i"),
 
      ("P", "", "", "(o|u)"),
 
      ("I", "[aeiouAEIBFOUQY]", "", "i"),
-     ("I","","[^aeiouAEBFIOU]e","(Q[l_german]|i|D[l_english])"),  # "line"
+     ("I","","[^aeiouAEBFIOU]e","(Q[128]|i|D[32])"),  # "line"
      ("I", "", "$", "i"),
      ("I", "", "[^k]$", "i"),
-     ("Ik", "[lr]", "$", "(ik|Qk[l_german])"),
+     ("Ik", "[lr]", "$", "(ik|Qk[128])"),
      ("Ik", "", "$", "ik"),
-     ("sIts", "", "$", "(sits|sQts[l_german])"),
+     ("sIts", "", "$", "(sits|sQts[128])"),
      ("Its", "", "$", "its"),
-     ("I", "", "", "(Q[l_german]|i)"),
+     ("I", "", "", "(Q[128]|i)"),
 
-     ("lE","[bdfgkmnprsStvzZ]","$","(li|il[l_english])"),  # Apple < Appel
-     ("lE","[bdfgkmnprsStvzZ]","","(li|il[l_english]|lY[l_german])"),  # Applebaum < Appelbaum
+     ("lE","[bdfgkmnprsStvzZ]","$","(li|il[32])"),  # Apple < Appel
+     ("lE","[bdfgkmnprsStvzZ]","","(li|il[32]|lY[128])"),  # Applebaum < Appelbaum
 
      ("au","","","(D|a|u)"),
      ("ou","","","(D|o|u)"),
@@ -4246,25 +4248,25 @@ _ash_approx_any = (
      ("Ei","","","(D|i)"),
 
      ("iA","","$","(ia|io)"),
-     ("iA","","","(ia|io|iY[l_german])"),
-     ("A","","[^aeiouAEBFIOU]e","(a|o|Y[l_german]|D[l_english])"), # "plane"
+     ("iA","","","(ia|io|iY[128])"),
+     ("A","","[^aeiouAEBFIOU]e","(a|o|Y[128]|D[32])"), # "plane"
 
-     ("E","i[^aeiouAEIOU]","","(i|Y[l_german]|[l_english])"), # Wineberg (vineberg/vajneberg) --> vajnberg
-     ("E","a[^aeiouAEIOU]","","(i|Y[l_german]|[l_english])"), #  Shaneberg (shaneberg/shejneberg) --> shejnberg
+     ("E","i[^aeiouAEIOU]","","(i|Y[128]|[32])"), # Wineberg (vineberg/vajneberg) --> vajnberg
+     ("E","a[^aeiouAEIOU]","","(i|Y[128]|[32])"), #  Shaneberg (shaneberg/shejneberg) --> shejnberg
 
      ("e", "", "[fklmnprstv]$", "i"),
      ("e", "", "ts$", "i"),
      ("e", "", "$", "i"),
      ("e", "[DaoiuAOIUQY]", "", "i"),
      ("e", "", "[aoAOQY]", "i"),
-     ("e", "", "", "(i|Y[l_german])"),
+     ("e", "", "", "(i|Y[128])"),
 
      ("E", "", "[fklmnprst]$", "i"),
      ("E", "", "ts$", "i"),
      ("E", "", "$", "i"),
      ("E", "[DaoiuAOIUQY]", "", "i"),
      ("E", "", "[aoAOQY]", "i"),
-     ("E", "", "", "(i|Y[l_german])"),
+     ("E", "", "", "(i|Y[128])"),
 
      ("a", "", "", "(a|o)"),
 
@@ -4272,23 +4274,23 @@ _ash_approx_any = (
      ("O", "", "ts$", "o"),
      ("O", "", "$", "o"),
      ("O", "[oeiuQY]", "", "o"),
-     ("O", "", "", "(o|Y[l_german])"),
+     ("O", "", "", "(o|Y[128])"),
 
      ("A", "", "[fklmnprst]$", "(a|o)"),
      ("A", "", "ts$", "(a|o)"),
      ("A", "", "$", "(a|o)"),
      ("A", "[oeiuQY]", "", "(a|o)"),
-     ("A", "", "", "(a|o|Y[l_german])"),
+     ("A", "", "", "(a|o|Y[128])"),
 
      ("U", "", "$", "u"),
      ("U", "[DoiuQY]", "", "u"),
      ("U", "", "[^k]$", "u"),
-     ("Uk", "[lr]", "$", "(uk|Qk[l_german])"),
+     ("Uk", "[lr]", "$", "(uk|Qk[128])"),
      ("Uk", "", "$", "uk"),
 
-     ("sUts", "", "$", "(suts|sQts[l_german])"),
+     ("sUts", "", "$", "(suts|sQts[128])"),
      ("Uts", "", "$", "uts"),
-     ("U", "", "", "(u|Q[l_german])"),
+     ("U", "", "", "(u|Q[128])"),
 
      )
 
@@ -5066,191 +5068,191 @@ _ash_language_rules = (
 
      # 1. following are rules to accept the language
      # 1.1 Special letter combinations
-     ('/zh/', l_polish+l_russian+l_german+l_english, True),
-     ('/eau/', l_french, True),
-     ('/[aoeiuäöü]h/', l_german, True),
-     ('/^vogel/', l_german, True),
-     ('/vogel$/', l_german, True),
-     ('/witz/', l_german, True),
-     ('/tz$/', l_german+l_russian+l_english, True),
-     ('/^tz/', l_russian+l_english, True),
-     ('/güe/', l_spanish, True),
-     ('/güi/', l_spanish, True),
-     ('/ghe/', l_romanian, True),
-     ('/ghi/', l_romanian, True),
-     ('/vici$/', l_romanian, True),
-     ('/schi$/', l_romanian, True),
-     ('/chsch/', l_german, True),
-     ('/tsch/', l_german, True),
-     ('/ssch/', l_german, True),
-     ('/sch$/', l_german+l_russian, True),
-     ('/^sch/', l_german+l_russian, True),
-     ('/^rz/', l_polish, True),
-     ('/rz$/', l_polish+l_german, True),
-     ('/[^aoeiuäöü]rz/', l_polish, True),
-     ('/rz[^aoeiuäöü]/', l_polish, True),
-     ('/cki$/', l_polish, True),
-     ('/ska$/', l_polish, True),
-     ('/cka$/', l_polish, True),
-     ('/ue/', l_german+l_russian, True),
-     ('/ae/', l_german+l_russian+l_english, True),
-     ('/oe/', l_german+l_french+l_russian+l_english, True),
-     ('/th$/', l_german, True),
-     ('/^th/', l_german, True),
-     ('/th[^aoeiu]/', l_german, True),
-     ('/mann/', l_german, True),
-     ('/cz/', l_polish, True),
-     ('/cy/', l_polish, True),
-     ('/niew/', l_polish, True),
-     ('/stein/', l_german, True),
-     ('/heim$/', l_german, True),
-     ('/heimer$/', l_german, True),
-     ('/ii$/', l_russian, True),
-     ('/iy$/', l_russian, True),
-     ('/yy$/', l_russian, True),
-     ('/yi$/', l_russian, True),
-     ('/yj$/', l_russian, True),
-     ('/ij$/', l_russian, True),
-     ('/gaus$/', l_russian, True),
-     ('/gauz$/', l_russian, True),
-     ('/gauz$/', l_russian, True),
-     ('/goltz$/', l_russian, True),
-     ("/gol'tz$/", l_russian, True),
-     ('/golts$/', l_russian, True),
-     ("/gol'ts$/", l_russian, True),
-     ('/^goltz/', l_russian, True),
-     ("/^gol'tz/", l_russian, True),
-     ('/^golts/', l_russian, True),
-     ("/^gol'ts/", l_russian, True),
-     ('/gendler$/', l_russian, True),
-     ('/gejmer$/', l_russian, True),
-     ('/gejm$/', l_russian, True),
-     ('/geimer$/', l_russian, True),
-     ('/geim$/', l_russian, True),
-     ('/geymer/', l_russian, True),
-     ('/geym$/', l_russian, True),
-     ('/gof$/', l_russian, True),
-     ('/thal/', l_german, True),
-     ('/zweig/', l_german, True),
-     ('/ck$/', l_german + l_english, True),
-     ('/c$/', l_polish + l_romanian + l_hungarian, True),
-     ('/sz/', l_polish + l_hungarian, True),
-     ('/gue/', l_spanish + l_french, True),
-     ('/gui/', l_spanish + l_french, True),
-     ('/guy/', l_french, True),
-     ('/cs$/', l_hungarian, True),
-     ('/^cs/', l_hungarian, True),
-     ('/dzs/', l_hungarian, True),
-     ('/zs$/', l_hungarian, True),
-     ('/^zs/', l_hungarian, True),
-     ('/^wl/', l_polish, True),
-     ('/^wr/', l_polish+l_english+l_german, True),
+     ('/zh/', 73888, True),
+     ('/eau/', 64, True),
+     ('/[aoeiuäöü]h/', 128, True),
+     ('/^vogel/', 128, True),
+     ('/vogel$/', 128, True),
+     ('/witz/', 128, True),
+     ('/tz$/', 65696, True),
+     ('/^tz/', 65568, True),
+     ('/güe/', 131072, True),
+     ('/güi/', 131072, True),
+     ('/ghe/', 32768, True),
+     ('/ghi/', 32768, True),
+     ('/vici$/', 32768, True),
+     ('/schi$/', 32768, True),
+     ('/chsch/', 128, True),
+     ('/tsch/', 128, True),
+     ('/ssch/', 128, True),
+     ('/sch$/', 65664, True),
+     ('/^sch/', 65664, True),
+     ('/^rz/', 8192, True),
+     ('/rz$/', 8320, True),
+     ('/[^aoeiuäöü]rz/', 8192, True),
+     ('/rz[^aoeiuäöü]/', 8192, True),
+     ('/cki$/', 8192, True),
+     ('/ska$/', 8192, True),
+     ('/cka$/', 8192, True),
+     ('/ue/', 65664, True),
+     ('/ae/', 65696, True),
+     ('/oe/', 65760, True),
+     ('/th$/', 128, True),
+     ('/^th/', 128, True),
+     ('/th[^aoeiu]/', 128, True),
+     ('/mann/', 128, True),
+     ('/cz/', 8192, True),
+     ('/cy/', 8192, True),
+     ('/niew/', 8192, True),
+     ('/stein/', 128, True),
+     ('/heim$/', 128, True),
+     ('/heimer$/', 128, True),
+     ('/ii$/', 65536, True),
+     ('/iy$/', 65536, True),
+     ('/yy$/', 65536, True),
+     ('/yi$/', 65536, True),
+     ('/yj$/', 65536, True),
+     ('/ij$/', 65536, True),
+     ('/gaus$/', 65536, True),
+     ('/gauz$/', 65536, True),
+     ('/gauz$/', 65536, True),
+     ('/goltz$/', 65536, True),
+     ("/gol'tz$/", 65536, True),
+     ('/golts$/', 65536, True),
+     ("/gol'ts$/", 65536, True),
+     ('/^goltz/', 65536, True),
+     ("/^gol'tz/", 65536, True),
+     ('/^golts/', 65536, True),
+     ("/^gol'ts/", 65536, True),
+     ('/gendler$/', 65536, True),
+     ('/gejmer$/', 65536, True),
+     ('/gejm$/', 65536, True),
+     ('/geimer$/', 65536, True),
+     ('/geim$/', 65536, True),
+     ('/geymer/', 65536, True),
+     ('/geym$/', 65536, True),
+     ('/gof$/', 65536, True),
+     ('/thal/', 128, True),
+     ('/zweig/', 128, True),
+     ('/ck$/', 160, True),
+     ('/c$/', 43008, True),
+     ('/sz/', 10240, True),
+     ('/gue/', 131136, True),
+     ('/gui/', 131136, True),
+     ('/guy/', 64, True),
+     ('/cs$/', 2048, True),
+     ('/^cs/', 2048, True),
+     ('/dzs/', 2048, True),
+     ('/zs$/', 2048, True),
+     ('/^zs/', 2048, True),
+     ('/^wl/', 8192, True),
+     ('/^wr/', 8352, True),
 
-     ('/gy$/', l_hungarian, True),
-     ("/gy[aeou]/", l_hungarian, True),
-     ("/gy/", l_hungarian + l_russian, True),
-     ("/ly/", l_hungarian + l_russian + l_polish, True),
-     ("/ny/", l_hungarian + l_russian + l_polish, True),
-     ("/ty/", l_hungarian + l_russian + l_polish, True),
+     ('/gy$/', 2048, True),
+     ("/gy[aeou]/", 2048, True),
+     ("/gy/", 67584, True),
+     ("/ly/", 75776, True),
+     ("/ny/", 75776, True),
+     ("/ty/", 75776, True),
 
      # 1.2 special characters
-     ('/â/', l_romanian + l_french, True),
-     ('/ă/', l_romanian, True),
-     ('/à/', l_french, True),
-     ('/ä/', l_german, True),
-     ('/á/', l_hungarian + l_spanish, True),
-     ('/ą/', l_polish, True),
-     ('/ć/', l_polish, True),
-     ('/ç/', l_french, True),
-     ('/ę/', l_polish, True),
-     ('/é/', l_french + l_hungarian + l_spanish, True),
-     ('/è/', l_french, True),
-     ('/ê/', l_french, True),
-     ('/í/', l_hungarian + l_spanish, True),
-     ('/î/', l_romanian + l_french, True),
-     ('/ł/', l_polish, True),
-     ('/ń/', l_polish, True),
-     ('/ñ/', l_spanish, True),
-     ('/ó/', l_polish + l_hungarian + l_spanish, True),
-     ('/ö/', l_german + l_hungarian, True),
-     ('/õ/', l_hungarian, True),
-     ('/ş/', l_romanian, True),
-     ('/ś/', l_polish, True),
-     ('/ţ/', l_romanian, True),
-     ('/ü/', l_german + l_hungarian, True),
-     ('/ù/', l_french, True),
-     ('/ű/', l_hungarian, True),
-     ('/ú/', l_hungarian + l_spanish, True),
-     ('/ź/', l_polish, True),
-     ('/ż/', l_polish, True),
+     ('/â/', 32832, True),
+     ('/ă/', 32768, True),
+     ('/à/', 64, True),
+     ('/ä/', 128, True),
+     ('/á/', 133120, True),
+     ('/ą/', 8192, True),
+     ('/ć/', 8192, True),
+     ('/ç/', 64, True),
+     ('/ę/', 8192, True),
+     ('/é/', 133184, True),
+     ('/è/', 64, True),
+     ('/ê/', 64, True),
+     ('/í/', 133120, True),
+     ('/î/', 32832, True),
+     ('/ł/', 8192, True),
+     ('/ń/', 8192, True),
+     ('/ñ/', 131072, True),
+     ('/ó/', 141312, True),
+     ('/ö/', 2176, True),
+     ('/õ/', 2048, True),
+     ('/ş/', 32768, True),
+     ('/ś/', 8192, True),
+     ('/ţ/', 32768, True),
+     ('/ü/', 2176, True),
+     ('/ù/', 64, True),
+     ('/ű/', 2048, True),
+     ('/ú/', 133120, True),
+     ('/ź/', 8192, True),
+     ('/ż/', 8192, True),
 
-     ('/ß/', l_german, True),
+     ('/ß/', 128, True),
 
      # Every Cyrillic word has at least one Cyrillic vowel (аёеоиуыэюя)
-     ('/а/', l_cyrillic, True),
-     ('/ё/', l_cyrillic, True),
-     ('/о/', l_cyrillic, True),
-     ('/е/', l_cyrillic, True),
-     ('/и/', l_cyrillic, True),
-     ('/у/', l_cyrillic, True),
-     ('/ы/', l_cyrillic, True),
-     ('/э/', l_cyrillic, True),
-     ('/ю/', l_cyrillic, True),
-     ('/я/', l_cyrillic, True),
+     ('/а/', 4, True),
+     ('/ё/', 4, True),
+     ('/о/', 4, True),
+     ('/е/', 4, True),
+     ('/и/', 4, True),
+     ('/у/', 4, True),
+     ('/ы/', 4, True),
+     ('/э/', 4, True),
+     ('/ю/', 4, True),
+     ('/я/', 4, True),
 
      # Hebrew
-     ("/א/", l_hebrew, True),
-     ("/ב/", l_hebrew, True),
-     ("/ג/", l_hebrew, True),
-     ("/ד/", l_hebrew, True),
-     ("/ה/", l_hebrew, True),
-     ("/ו/", l_hebrew, True),
-     ("/ז/", l_hebrew, True),
-     ("/ח/", l_hebrew, True),
-     ("/ט/", l_hebrew, True),
-     ("/י/", l_hebrew, True),
-     ("/כ/", l_hebrew, True),
-     ("/ל/", l_hebrew, True),
-     ("/מ/", l_hebrew, True),
-     ("/נ/", l_hebrew, True),
-     ("/ס/", l_hebrew, True),
-     ("/ע/", l_hebrew, True),
-     ("/פ/", l_hebrew, True),
-     ("/צ/", l_hebrew, True),
-     ("/ק/", l_hebrew, True),
-     ("/ר/", l_hebrew, True),
-     ("/ש/", l_hebrew, True),
-     ("/ת/", l_hebrew, True),
+     ("/א/", 1024, True),
+     ("/ב/", 1024, True),
+     ("/ג/", 1024, True),
+     ("/ד/", 1024, True),
+     ("/ה/", 1024, True),
+     ("/ו/", 1024, True),
+     ("/ז/", 1024, True),
+     ("/ח/", 1024, True),
+     ("/ט/", 1024, True),
+     ("/י/", 1024, True),
+     ("/כ/", 1024, True),
+     ("/ל/", 1024, True),
+     ("/מ/", 1024, True),
+     ("/נ/", 1024, True),
+     ("/ס/", 1024, True),
+     ("/ע/", 1024, True),
+     ("/פ/", 1024, True),
+     ("/צ/", 1024, True),
+     ("/ק/", 1024, True),
+     ("/ר/", 1024, True),
+     ("/ש/", 1024, True),
+     ("/ת/", 1024, True),
 
      # 2. following are rules to reject the language
 
      # Every Latin character word has at least one Latin vowel
-     ("/a/", l_cyrillic + l_hebrew, False),
-     ("/o/", l_cyrillic + l_hebrew, False),
-     ("/e/", l_cyrillic + l_hebrew, False),
-     ("/i/", l_cyrillic + l_hebrew, False),
-     ("/y/", l_cyrillic + l_hebrew + l_romanian, False),
-     ("/u/", l_cyrillic + l_hebrew, False),
+     ("/a/", 1028, False),
+     ("/o/", 1028, False),
+     ("/e/", 1028, False),
+     ("/i/", 1028, False),
+     ("/y/", 33796, False),
+     ("/u/", 1028, False),
 
-     ("/v[^aoeiuäüö]/", l_german, False), # in german, "v" can be found before a vowel only
-     ("/y[^aoeiu]/", l_german, False),  # in german, "y" usually appears only in the last position; sometimes before a vowel
-     ("/c[^aohk]/", l_german, False),
-     ("/dzi/", l_german+l_english+l_french, False),
-     ("/ou/", l_german, False),
-     ("/aj/", l_german + l_english+l_french, False),
-     ("/ej/", l_german + l_english+l_french, False),
-     ("/oj/", l_german + l_english+l_french, False),
-     ("/uj/", l_german + l_english+l_french, False),
-     ("/k/", l_romanian, False),
-     ("/v/", l_polish, False),
-     ("/ky/", l_polish, False),
-     ("/eu/", l_russian + l_polish, False),
-     ("/w/", l_french + l_romanian + l_spanish + l_hungarian + l_russian, False),
-     ("/kie/", l_french + l_spanish, False),
-     ("/gie/", l_french + l_romanian + l_spanish, False),
-     ("/q/", l_hungarian + l_polish + l_russian + l_romanian, False),
-     ('/sch/', l_hungarian + l_polish + l_french + l_spanish, False),
-     ('/^h/', l_russian, False)
+     ("/v[^aoeiuäüö]/", 128, False), # in german, "v" can be found before a vowel only
+     ("/y[^aoeiu]/", 128, False),  # in german, "y" usually appears only in the last position; sometimes before a vowel
+     ("/c[^aohk]/", 128, False),
+     ("/dzi/", 224, False),
+     ("/ou/", 128, False),
+     ("/aj/", 224, False),
+     ("/ej/", 224, False),
+     ("/oj/", 224, False),
+     ("/uj/", 224, False),
+     ("/k/", 32768, False),
+     ("/v/", 8192, False),
+     ("/ky/", 8192, False),
+     ("/eu/", 73728, False),
+     ("/w/", 231488, False),
+     ("/kie/", 131136, False),
+     ("/gie/", 163904, False),
+     ("/q/", 108544, False),
+     ('/sch/', 141376, False),
+     ('/^h/', 65536, False)
 
      )
 
@@ -5263,27 +5265,27 @@ _ash_languages = ("any", "cyrillic", "english", "french", "german", "hebrew",
 _ash_rules_any = (
 
      # CONVERTING FEMININE TO MASCULINE
-     ("yna","","$","(in[l_russian]|ina)"),
-     ("ina","","$","(in[l_russian]|ina)"),
-     ("liova","","$","(lof[l_russian]|lef[l_russian]|lova)"),
-     ("lova","","$","(lof[l_russian]|lef[l_russian]|lova)"),
-     ("ova","","$","(of[l_russian]|ova)"),
-     ("eva","","$","(ef[l_russian]|eva)"),
-     ("aia","","$","(aja|i[l_russian])"),
-     ("aja","","$","(aja|i[l_russian])"),
-     ("aya","","$","(aja|i[l_russian])"),
+     ("yna","","$","(in[65536]|ina)"),
+     ("ina","","$","(in[65536]|ina)"),
+     ("liova","","$","(lof[65536]|lef[65536]|lova)"),
+     ("lova","","$","(lof[65536]|lef[65536]|lova)"),
+     ("ova","","$","(of[65536]|ova)"),
+     ("eva","","$","(ef[65536]|eva)"),
+     ("aia","","$","(aja|i[65536])"),
+     ("aja","","$","(aja|i[65536])"),
+     ("aya","","$","(aja|i[65536])"),
 
-     ("lowa","","$","(lova|lof[l_polish]|l[l_polish]|el[l_polish])"),
-     ("kowa","","$","(kova|kof[l_polish]|k[l_polish]|ek[l_polish])"),
-     ("owa","","$","(ova|of[l_polish]|)"),
-     ("lowna","","$","(lovna|levna|l[l_polish]|el[l_polish])"),
-     ("kowna","","$","(kovna|k[l_polish]|ek[l_polish])"),
-     ("owna","","$","(ovna|[l_polish])"),
-     ("lówna","","$","(l|el[l_polish])"),  # polish
-     ("kówna","","$","(k|ek[l_polish])"),  # polish
+     ("lowa","","$","(lova|lof[8192]|l[8192]|el[8192])"),
+     ("kowa","","$","(kova|kof[8192]|k[8192]|ek[8192])"),
+     ("owa","","$","(ova|of[8192]|)"),
+     ("lowna","","$","(lovna|levna|l[8192]|el[8192])"),
+     ("kowna","","$","(kovna|k[8192]|ek[8192])"),
+     ("owna","","$","(ovna|[8192])"),
+     ("lówna","","$","(l|el[8192])"),  # polish
+     ("kówna","","$","(k|ek[8192])"),  # polish
      ("ówna","","$",""),   # polish
 
-     ("a","","$","(a|i[l_polish])"),
+     ("a","","$","(a|i[8192])"),
 
      # CONSONANTS  (integrated: German, Polish, Russian, Romanian and English)
 
@@ -5292,27 +5294,27 @@ _ash_rules_any = (
      ("chsch","","","xS"),
      ("tsch","","","tS"),
 
-     ("sch","","[ei]","(sk[l_romanian]|S|StS[l_russian])"), # german
-     ("sch","","","(S|StS[l_russian])"), # german
+     ("sch","","[ei]","(sk[32768]|S|StS[65536])"), # german
+     ("sch","","","(S|StS[65536])"), # german
 
      ("ssh","","","S"),
 
      ("sh","","[äöü]","sh"), # german
-     ("sh","","[aeiou]","(S[l_russian+l_english]|sh)"),
+     ("sh","","[aeiou]","(S[65568]|sh)"),
      ("sh","","","S"), # russian+english
 
-     ("kh","","","(x[l_russian+l_english]|kh)"),
+     ("kh","","","(x[65568]|kh)"),
 
-     ("chs","","","(ks[l_german]|xs|tSs[l_russian+l_english])"),
+     ("chs","","","(ks[128]|xs|tSs[65568])"),
 
      # French "ch" is currently disabled
-     #("ch","","[ei]","(x|tS|k[l_romanian]|S[l_french])"),
-     #("ch","","","(x|tS[l_russian+l_english]|S[l_french])"),
+     #("ch","","[ei]","(x|tS|k[32768]|S[64])"),
+     #("ch","","","(x|tS[65568]|S[64])"),
 
-     ("ch","","[ei]","(x|k[l_romanian]|tS[l_russian+l_english])"),
-     ("ch","","","(x|tS[l_russian+l_english])"),
+     ("ch","","[ei]","(x|k[32768]|tS[65568])"),
+     ("ch","","","(x|tS[65568])"),
 
-     ("ck","","","(k|tsk[l_polish])"),
+     ("ck","","","(k|tsk[8192])"),
 
      ("czy","","","tSi"),
      ("cze","","[bcdgkpstwzż]","(tSe|tSF)"),
@@ -5328,49 +5330,49 @@ _ash_rules_any = (
      ("icz","","","itS"),
      ("cz","","","tS"), # Polish
 
-     ("cia","","[bcdgkpstwzż]","(tSB[l_polish]|tsB)"),
-     ("cia","","","(tSa[l_polish]|tsa)"),
-     ("cią","","[bp]","(tSom[l_polish]|tsom)"),
-     ("cią","","","(tSon[l_polish]|tson)"),
-     ("cię","","[bp]","(tSem[l_polish]|tsem)"),
-     ("cię","","","(tSen[l_polish]|tsen)"),
-     ("cie","","[bcdgkpstwzż]","(tSF[l_polish]|tsF)"),
-     ("cie","","","(tSe[l_polish]|tse)"),
-     ("cio","","","(tSo[l_polish]|tso)"),
-     ("ciu","","","(tSu[l_polish]|tsu)"),
+     ("cia","","[bcdgkpstwzż]","(tSB[8192]|tsB)"),
+     ("cia","","","(tSa[8192]|tsa)"),
+     ("cią","","[bp]","(tSom[8192]|tsom)"),
+     ("cią","","","(tSon[8192]|tson)"),
+     ("cię","","[bp]","(tSem[8192]|tsem)"),
+     ("cię","","","(tSen[8192]|tsen)"),
+     ("cie","","[bcdgkpstwzż]","(tSF[8192]|tsF)"),
+     ("cie","","","(tSe[8192]|tse)"),
+     ("cio","","","(tSo[8192]|tso)"),
+     ("ciu","","","(tSu[8192]|tsu)"),
 
-     ("ci","","$","(tsi[l_polish]|tSi[l_polish+l_romanian]|tS[l_romanian]|si)"),
-     ("ci","","","(tsi[l_polish]|tSi[l_polish+l_romanian]|si)"),
-     ("ce","","[bcdgkpstwzż]","(tsF[l_polish]|tSe[l_polish+l_romanian]|se)"),
-     ("ce","","","(tSe[l_polish+l_romanian]|tse[l_polish]|se)"),
-     ("cy","","","(si|tsi[l_polish])"),
+     ("ci","","$","(tsi[8192]|tSi[40960]|tS[32768]|si)"),
+     ("ci","","","(tsi[8192]|tSi[40960]|si)"),
+     ("ce","","[bcdgkpstwzż]","(tsF[8192]|tSe[40960]|se)"),
+     ("ce","","","(tSe[40960]|tse[8192]|se)"),
+     ("cy","","","(si|tsi[8192])"),
 
      ("ssz","","","S"), # Polish
      ("sz","","","S"), # Polish; actually could also be Hungarian /s/, disabled here
 
-     ("ssp","","","(Sp[l_german]|sp)"),
-     ("sp","","","(Sp[l_german]|sp)"),
-     ("sst","","","(St[l_german]|st)"),
-     ("st","","","(St[l_german]|st)"),
+     ("ssp","","","(Sp[128]|sp)"),
+     ("sp","","","(Sp[128]|sp)"),
+     ("sst","","","(St[128]|st)"),
+     ("st","","","(St[128]|st)"),
      ("ss","","","s"),
 
-     ("sia","","[bcdgkpstwzż]","(SB[l_polish]|sB[l_polish]|sja)"),
-     ("sia","","","(Sa[l_polish]|sja)"),
-     ("sią","","[bp]","(Som[l_polish]|som)"),
-     ("sią","","","(Son[l_polish]|son)"),
-     ("się","","[bp]","(Sem[l_polish]|sem)"),
-     ("się","","","(Sen[l_polish]|sen)"),
-     ("sie","","[bcdgkpstwzż]","(SF[l_polish]|sF|zi[l_german])"),
-     ("sie","","","(se|Se[l_polish]|zi[l_german])"),
-     ("sio","","","(So[l_polish]|so)"),
-     ("siu","","","(Su[l_polish]|sju)"),
-     ("si","","","(Si[l_polish]|si|zi[l_german])"),
-     ("s","","[aeiouäöë]","(s|z[l_german])"),
+     ("sia","","[bcdgkpstwzż]","(SB[8192]|sB[8192]|sja)"),
+     ("sia","","","(Sa[8192]|sja)"),
+     ("sią","","[bp]","(Som[8192]|som)"),
+     ("sią","","","(Son[8192]|son)"),
+     ("się","","[bp]","(Sem[8192]|sem)"),
+     ("się","","","(Sen[8192]|sen)"),
+     ("sie","","[bcdgkpstwzż]","(SF[8192]|sF|zi[128])"),
+     ("sie","","","(se|Se[8192]|zi[128])"),
+     ("sio","","","(So[8192]|so)"),
+     ("siu","","","(Su[8192]|sju)"),
+     ("si","","","(Si[8192]|si|zi[128])"),
+     ("s","","[aeiouäöë]","(s|z[128])"),
 
      ("gue","","","ge"),
      ("gui","","","gi"),
      ("guy","","","gi"),
-     ("gh","","[ei]","(g[l_romanian]|gh)"),
+     ("gh","","[ei]","(g[32768]|gh)"),
 
      ("gauz","","$","haus"),
      ("gaus","","$","haus"),
@@ -5395,76 +5397,76 @@ _ash_rules_any = (
      ("gen","","$","gen"),
      ("gin","","$","gin"),
 
-     ("gie","","$","(ge|gi[l_german]|ji[l_french])"),
+     ("gie","","$","(ge|gi[128]|ji[64])"),
      ("gie","","","ge"),
-     ("ge","[yaeiou]","","(gE|xe[l_spanish]|dZe[l_english+l_romanian])"),
-     ("gi","[yaeiou]","","(gI|xi[l_spanish]|dZi[l_english+l_romanian])"),
-     ("ge","","","(gE|dZe[l_english+l_romanian]|hE[l_russian]|xe[l_spanish])"),
-     ("gi","","","(gI|dZi[l_english+l_romanian]|hI[l_russian]|xi[l_spanish])"),
-     ("gy","","[aeouáéóúüöőű]","(gi|dj[l_hungarian])"),
-     ("gy","","","(gi|d[l_hungarian])"),
+     ("ge","[yaeiou]","","(gE|xe[131072]|dZe[32800])"),
+     ("gi","[yaeiou]","","(gI|xi[131072]|dZi[32800])"),
+     ("ge","","","(gE|dZe[32800]|hE[65536]|xe[131072])"),
+     ("gi","","","(gI|dZi[32800]|hI[65536]|xi[131072])"),
+     ("gy","","[aeouáéóúüöőű]","(gi|dj[2048])"),
+     ("gy","","","(gi|d[2048])"),
      ("g","[jyaeiou]","[aouyei]","g"),
-     ("g","","[aouei]","(g|h[l_russian])"),
+     ("g","","[aouei]","(g|h[65536])"),
 
-     ("ej","","","(aj|eZ[l_french+l_romanian]|ex[l_spanish])"),
+     ("ej","","","(aj|eZ[32832]|ex[131072])"),
      ("ej","","","aj"),
 
      ("ly","","[au]","l"),
      ("li","","[au]","l"),
      ("lj","","[au]","l"),
-     ("lio","","","(lo|le[l_russian])"),
-     ("lyo","","","(lo|le[l_russian])"),
-     ("ll","","","(l|J[l_spanish])"),
+     ("lio","","","(lo|le[65536])"),
+     ("lyo","","","(lo|le[65536])"),
+     ("ll","","","(l|J[131072])"),
 
-     ("j","","[aoeiuy]","(j|dZ[l_english]|x[l_spanish]|Z[l_french+l_romanian])"),
-     ("j","","","(j|x[l_spanish])"),
+     ("j","","[aoeiuy]","(j|dZ[32]|x[131072]|Z[32832])"),
+     ("j","","","(j|x[131072])"),
 
      ("pf","","","(pf|p|f)"),
      ("ph","","","(ph|f)"),
 
-     ("qu","","","(kv[l_german]|k)"),
+     ("qu","","","(kv[128]|k)"),
 
-     ("rze","t","","(Se[l_polish]|re)"), # polish
-     ("rze","","","(rze|rtsE[l_german]|Ze[l_polish]|re[l_polish]|rZe[l_polish])"),
-     ("rzy","t","","(Si[l_polish]|ri)"), # polish
-     ("rzy","","","(Zi[l_polish]|ri[l_polish]|rZi)"),
-     ("rz","t","","(S[l_polish]|r)"), # polish
-     ("rz","","","(rz|rts[l_german]|Z[l_polish]|r[l_polish]|rZ[l_polish])"), # polish
+     ("rze","t","","(Se[8192]|re)"), # polish
+     ("rze","","","(rze|rtsE[128]|Ze[8192]|re[8192]|rZe[8192])"),
+     ("rzy","t","","(Si[8192]|ri)"), # polish
+     ("rzy","","","(Zi[8192]|ri[8192]|rZi)"),
+     ("rz","t","","(S[8192]|r)"), # polish
+     ("rz","","","(rz|rts[128]|Z[8192]|r[8192]|rZ[8192])"), # polish
 
-     ("tz","","$","(ts|tS[l_english+l_german])"),
-     ("tz","^","","(ts|tS[l_english+l_german])"),
-     ("tz","","","(ts[l_english+l_german+l_russian]|tz)"),
+     ("tz","","$","(ts|tS[160])"),
+     ("tz","^","","(ts|tS[160])"),
+     ("tz","","","(ts[65696]|tz)"),
 
-     ("zh","","","(Z|zh[l_polish]|tsh[l_german])"),
+     ("zh","","","(Z|zh[8192]|tsh[128])"),
 
-     ("zia","","[bcdgkpstwzż]","(ZB[l_polish]|zB[l_polish]|zja)"),
-     ("zia","","","(Za[l_polish]|zja)"),
-     ("zią","","[bp]","(Zom[l_polish]|zom)"),
-     ("zią","","","(Zon[l_polish]|zon)"),
-     ("zię","","[bp]","(Zem[l_polish]|zem)"),
-     ("zię","","","(Zen[l_polish]|zen)"),
-     ("zie","","[bcdgkpstwzż]","(ZF[l_polish]|zF[l_polish]|ze|tsi[l_german])"),
-     ("zie","","","(ze|Ze[l_polish]|tsi[l_german])"),
-     ("zio","","","(Zo[l_polish]|zo)"),
-     ("ziu","","","(Zu[l_polish]|zju)"),
-     ("zi","","","(Zi[l_polish]|zi|tsi[l_german])"),
+     ("zia","","[bcdgkpstwzż]","(ZB[8192]|zB[8192]|zja)"),
+     ("zia","","","(Za[8192]|zja)"),
+     ("zią","","[bp]","(Zom[8192]|zom)"),
+     ("zią","","","(Zon[8192]|zon)"),
+     ("zię","","[bp]","(Zem[8192]|zem)"),
+     ("zię","","","(Zen[8192]|zen)"),
+     ("zie","","[bcdgkpstwzż]","(ZF[8192]|zF[8192]|ze|tsi[128])"),
+     ("zie","","","(ze|Ze[8192]|tsi[128])"),
+     ("zio","","","(Zo[8192]|zo)"),
+     ("ziu","","","(Zu[8192]|zju)"),
+     ("zi","","","(Zi[8192]|zi|tsi[128])"),
 
      ("thal","","$","tal"),
      ("th","^","","t"),
-     ("th","","[aeiou]","(t[l_german]|th)"),
+     ("th","","[aeiou]","(t[128]|th)"),
      ("th","","","t"), # german
-     ("vogel","","","(vogel|fogel[l_german])"),
-     ("v","^","","(v|f[l_german])"),
+     ("vogel","","","(vogel|fogel[128])"),
+     ("v","^","","(v|f[128])"),
 
      ("h","[aeiouyäöü]","",""), #german
-     ("h","","","(h|x[l_romanian+l_polish])"),
-     ("h","^","","(h|H[l_english+l_german])"), # H can be exact "h" or approximate "kh"
+     ("h","","","(h|x[40960])"),
+     ("h","^","","(h|H[160])"), # H can be exact "h" or approximate "kh"
 
      # VOWELS
      ("yi","^","","i"),
 
      # ("e","","$","(e|)"),  # French & English rule disabled except for final -ine
-     ("e","in","$","(e|[l_french])"),
+     ("e","in","$","(e|[64])"),
 
      ("ii","","$","i"), # russian
      ("iy","","$","i"), # russian
@@ -5476,45 +5478,45 @@ _ash_rules_any = (
      ("aue","","","aue"),
      ("oue","","","oue"),
 
-     ("au","","","(au|o[l_french])"),
-     ("ou","","","(ou|u[l_french])"),
+     ("au","","","(au|o[64])"),
+     ("ou","","","(ou|u[64])"),
 
-     ("ue","","","(Q|uje[l_russian])"),
-     ("ae","","","(Y[l_german]|aje[l_russian]|ae)"),
-     ("oe","","","(Y[l_german]|oje[l_russian]|oe)"),
-     ("ee","","","(i[l_english]|aje[l_russian]|e)"),
+     ("ue","","","(Q|uje[65536])"),
+     ("ae","","","(Y[128]|aje[65536]|ae)"),
+     ("oe","","","(Y[128]|oje[65536]|oe)"),
+     ("ee","","","(i[32]|aje[65536]|e)"),
 
      ("ei","","","aj"),
      ("ey","","","aj"),
-     ("eu","","","(aj[l_german]|oj[l_german]|eu)"),
+     ("eu","","","(aj[128]|oj[128]|eu)"),
 
      ("i","[aou]","","j"),
      ("y","[aou]","","j"),
 
-     ("ie","","[bcdgkpstwzż]","(i[l_german]|e[l_polish]|ije[l_russian]|je)"),
-     ("ie","","","(i[l_german]|e[l_polish]|ije[l_russian]|je)"),
-     ("ye","","","(je|ije[l_russian])"),
+     ("ie","","[bcdgkpstwzż]","(i[128]|e[8192]|ije[65536]|je)"),
+     ("ie","","","(i[128]|e[8192]|ije[65536]|je)"),
+     ("ye","","","(je|ije[65536])"),
 
      ("i","","[au]","j"),
      ("y","","[au]","j"),
-     ("io","","","(jo|e[l_russian])"),
-     ("yo","","","(jo|e[l_russian])"),
+     ("io","","","(jo|e[65536])"),
+     ("yo","","","(jo|e[65536])"),
 
-     ("ea","","","(ea|ja[l_romanian])"),
-     ("e","^","","(e|je[l_russian])"),
-     ("oo","","","(u[l_english]|o)"),
+     ("ea","","","(ea|ja[32768])"),
+     ("e","^","","(e|je[65536])"),
+     ("oo","","","(u[32]|o)"),
      ("uu","","","u"),
 
      # LANGUAGE SPECIFIC CHARACTERS
-     ("ć","","","(tS[l_polish]|ts)"),  # polish
+     ("ć","","","(tS[8192]|ts)"),  # polish
      ("ł","","","l"),  # polish
      ("ń","","","n"),  # polish
-     ("ñ","","","(n|nj[l_spanish])"),
-     ("ś","","","(S[l_polish]|s)"), # polish
+     ("ñ","","","(n|nj[131072])"),
+     ("ś","","","(S[8192]|s)"), # polish
      ("ş","","","S"),  # romanian
      ("ţ","","","ts"),  # romanian
      ("ż","","","Z"),  # polish
-     ("ź","","","(Z[l_polish]|z)"), # polish
+     ("ź","","","(Z[8192]|z)"), # polish
 
      ("où","","","u"), # french
 
@@ -5522,7 +5524,7 @@ _ash_rules_any = (
      ("ą","","","on"),  # polish
      ("ä","","","(Y|e)"),  # german
      ("á","","","a"), # hungarian
-     ("ă","","","(e[l_romanian]|a)"), #romanian
+     ("ă","","","(e[32768]|a)"), #romanian
      ("à","","","a"),  # french
      ("â","","","a"), #french+romanian
      ("é","","","e"),
@@ -5534,7 +5536,7 @@ _ash_rules_any = (
      ("î","","","i"),
      ("ö","","","Y"),
      ("ő","","","Y"), # hungarian
-     ("ó","","","(u[l_polish]|o)"),
+     ("ó","","","(u[8192]|o)"),
      ("ű","","","Q"),
      ("ü","","","Q"),
      ("ú","","","u"),
@@ -5544,14 +5546,14 @@ _ash_rules_any = (
      ("'","","",""),
      ('"',"","",""),
 
-     ("a","","[bcdgkpstwzż]","(A|B[l_polish])"),
-     ("e","","[bcdgkpstwzż]","(E|F[l_polish])"),
-     ("o","","[bcćdgklłmnńrsśtwzźż]","(O|P[l_polish])"),
+     ("a","","[bcdgkpstwzż]","(A|B[8192])"),
+     ("e","","[bcdgkpstwzż]","(E|F[8192])"),
+     ("o","","[bcćdgklłmnńrsśtwzźż]","(O|P[8192])"),
 
      # LATIN ALPHABET
      ("a","","","A"),
      ("b","","","b"),
-     ("c","","","(k|ts[l_polish])"),
+     ("c","","","(k|ts[8192])"),
      ("d","","","d"),
      ("e","","","E"),
      ("f","","","f"),
@@ -5574,7 +5576,7 @@ _ash_rules_any = (
      ("w","","","v"), # English disabled
      ("x","","","ks"),
      ("y","","","i"),
-     ("z","","","(ts[l_german]|z)"),
+     ("z","","","(ts[128]|z)"),
 
      )
 
@@ -6543,66 +6545,66 @@ bmdata['gen']['rules'] = dict()
 
 bmdata['gen']['language_rules'] = _gen_language_rules
 bmdata['gen']['languages'] = _gen_languages
-bmdata['gen']['approx'][l_any] = _gen_approx_any
-bmdata['gen']['approx'][l_arabic] = _gen_approx_arabic
+bmdata['gen']['approx'][1] = _gen_approx_any
+bmdata['gen']['approx'][2] = _gen_approx_arabic
 bmdata['gen']['approx']['common'] = _gen_exact_approx_common + _gen_approx_common
-bmdata['gen']['approx'][l_cyrillic] = _gen_approx_russian
-bmdata['gen']['approx'][l_czech] = _gen_approx_french
-bmdata['gen']['approx'][l_dutch] = _gen_approx_french
-bmdata['gen']['approx'][l_english] = _gen_approx_english
-bmdata['gen']['approx'][l_french] = _gen_approx_french
-bmdata['gen']['approx'][l_german] = _gen_approx_german
-bmdata['gen']['approx'][l_greek] = _gen_approx_french
+bmdata['gen']['approx'][4] = _gen_approx_russian
+bmdata['gen']['approx'][8] = _gen_approx_french
+bmdata['gen']['approx'][16] = _gen_approx_french
+bmdata['gen']['approx'][32] = _gen_approx_english
+bmdata['gen']['approx'][64] = _gen_approx_french
+bmdata['gen']['approx'][128] = _gen_approx_german
+bmdata['gen']['approx'][256] = _gen_approx_french
 bmdata['gen']['approx']['greeklatin'] = _gen_approx_french + _gen_approx_greeklatin
-bmdata['gen']['approx'][l_hebrew] = _gen_approx_hebrew
-bmdata['gen']['approx'][l_hungarian] = _gen_approx_french
-bmdata['gen']['approx'][l_italian] = _gen_approx_french
-bmdata['gen']['approx'][l_polish] = _gen_approx_polish
-bmdata['gen']['approx'][l_portuguese] = _gen_approx_french
-bmdata['gen']['approx'][l_romanian] = _gen_approx_polish
-bmdata['gen']['approx'][l_russian] = _gen_approx_russian
+bmdata['gen']['approx'][1024] = _gen_approx_hebrew
+bmdata['gen']['approx'][2048] = _gen_approx_french
+bmdata['gen']['approx'][4096] = _gen_approx_french
+bmdata['gen']['approx'][8192] = _gen_approx_polish
+bmdata['gen']['approx'][16384] = _gen_approx_french
+bmdata['gen']['approx'][32768] = _gen_approx_polish
+bmdata['gen']['approx'][65536] = _gen_approx_russian
 bmdata['gen']['approx']['spanish'] = _gen_approx_french + _gen_approx_spanish
-bmdata['gen']['approx'][l_turkish] = _gen_approx_french
-bmdata['gen']['exact'][l_any] = _gen_exact_any
-bmdata['gen']['exact'][l_arabic] = _gen_exact_arabic
+bmdata['gen']['approx'][262144] = _gen_approx_french
+bmdata['gen']['exact'][1] = _gen_exact_any
+bmdata['gen']['exact'][2] = _gen_exact_arabic
 bmdata['gen']['exact']['common'] = _gen_exact_approx_common + _gen_exact_common
-bmdata['gen']['exact'][l_cyrillic] = _gen_exact_russian
-bmdata['gen']['exact'][l_czech] = _gen_exact_russian
-bmdata['gen']['exact'][l_dutch] = _gen_exact_dutch
-bmdata['gen']['exact'][l_english] = _gen_exact_russian
-bmdata['gen']['exact'][l_french] = _gen_exact_french
-bmdata['gen']['exact'][l_german] = _gen_exact_any
-bmdata['gen']['exact'][l_greek] = _gen_exact_greek
-bmdata['gen']['exact'][l_greeklatin] = _gen_exact_greeklatin
-bmdata['gen']['exact'][l_hebrew] = _gen_exact_hebrew
-bmdata['gen']['exact'][l_hungarian] = _gen_exact_russian
-bmdata['gen']['exact'][l_italian] = _gen_exact_italian
-bmdata['gen']['exact'][l_polish] = _gen_exact_polish
-bmdata['gen']['exact'][l_portuguese] = _gen_exact_portuguese
-bmdata['gen']['exact'][l_romanian] = _gen_exact_russian
-bmdata['gen']['exact'][l_russian] = _gen_exact_russian
-bmdata['gen']['exact'][l_spanish] = _gen_exact_spanish
-bmdata['gen']['exact'][l_turkish] = _gen_exact_turkish
+bmdata['gen']['exact'][4] = _gen_exact_russian
+bmdata['gen']['exact'][8] = _gen_exact_russian
+bmdata['gen']['exact'][16] = _gen_exact_dutch
+bmdata['gen']['exact'][32] = _gen_exact_russian
+bmdata['gen']['exact'][64] = _gen_exact_french
+bmdata['gen']['exact'][128] = _gen_exact_any
+bmdata['gen']['exact'][256] = _gen_exact_greek
+bmdata['gen']['exact'][512] = _gen_exact_greeklatin
+bmdata['gen']['exact'][1024] = _gen_exact_hebrew
+bmdata['gen']['exact'][2048] = _gen_exact_russian
+bmdata['gen']['exact'][4096] = _gen_exact_italian
+bmdata['gen']['exact'][8192] = _gen_exact_polish
+bmdata['gen']['exact'][16384] = _gen_exact_portuguese
+bmdata['gen']['exact'][32768] = _gen_exact_russian
+bmdata['gen']['exact'][65536] = _gen_exact_russian
+bmdata['gen']['exact'][131072] = _gen_exact_spanish
+bmdata['gen']['exact'][262144] = _gen_exact_turkish
 bmdata['gen']['hebrew']['common'] = _gen_exact_approx_common + _gen_hebrew_common
-bmdata['gen']['rules'][l_any] = _gen_rules_any
-bmdata['gen']['rules'][l_arabic] = _gen_rules_arabic
-bmdata['gen']['rules'][l_cyrillic] = _gen_rules_cyrillic
-bmdata['gen']['rules'][l_czech] = _gen_rules_czech
-bmdata['gen']['rules'][l_dutch] = _gen_rules_dutch
-bmdata['gen']['rules'][l_english] = _gen_rules_english
-bmdata['gen']['rules'][l_french] = _gen_rules_french
-bmdata['gen']['rules'][l_german] = _gen_rules_german
-bmdata['gen']['rules'][l_greek] = _gen_rules_greek
-bmdata['gen']['rules'][l_greeklatin] = _gen_rules_greeklatin
-bmdata['gen']['rules'][l_hebrew] = _gen_rules_hebrew
-bmdata['gen']['rules'][l_hungarian] = _gen_rules_hungarian
-bmdata['gen']['rules'][l_italian] = _gen_rules_italian
-bmdata['gen']['rules'][l_polish] = _gen_rules_polish
-bmdata['gen']['rules'][l_portuguese] = _gen_rules_portuguese
-bmdata['gen']['rules'][l_romanian] = _gen_rules_romanian
-bmdata['gen']['rules'][l_russian] = _gen_rules_russian
-bmdata['gen']['rules'][l_spanish] = _gen_rules_spanish
-bmdata['gen']['rules'][l_turkish] = _gen_rules_turkish
+bmdata['gen']['rules'][1] = _gen_rules_any
+bmdata['gen']['rules'][2] = _gen_rules_arabic
+bmdata['gen']['rules'][4] = _gen_rules_cyrillic
+bmdata['gen']['rules'][8] = _gen_rules_czech
+bmdata['gen']['rules'][16] = _gen_rules_dutch
+bmdata['gen']['rules'][32] = _gen_rules_english
+bmdata['gen']['rules'][64] = _gen_rules_french
+bmdata['gen']['rules'][128] = _gen_rules_german
+bmdata['gen']['rules'][256] = _gen_rules_greek
+bmdata['gen']['rules'][512] = _gen_rules_greeklatin
+bmdata['gen']['rules'][1024] = _gen_rules_hebrew
+bmdata['gen']['rules'][2048] = _gen_rules_hungarian
+bmdata['gen']['rules'][4096] = _gen_rules_italian
+bmdata['gen']['rules'][8192] = _gen_rules_polish
+bmdata['gen']['rules'][16384] = _gen_rules_portuguese
+bmdata['gen']['rules'][32768] = _gen_rules_romanian
+bmdata['gen']['rules'][65536] = _gen_rules_russian
+bmdata['gen']['rules'][131072] = _gen_rules_spanish
+bmdata['gen']['rules'][262144] = _gen_rules_turkish
 
 bmdata['sep'] = dict()
 bmdata['sep']['approx'] = dict()
@@ -6611,27 +6613,27 @@ bmdata['sep']['rules'] = dict()
 
 bmdata['sep']['language_rules'] = _sep_language_rules
 bmdata['sep']['languages'] = _sep_languages
-bmdata['sep']['approx'][l_any] = _sep_approx_any
+bmdata['sep']['approx'][1] = _sep_approx_any
 bmdata['sep']['approx']['common'] = _sep_exact_approx_common + _sep_approx_common
-bmdata['sep']['approx'][l_french] = _sep_approx_french
-bmdata['sep']['approx'][l_hebrew] = _sep_approx_hebrew
-bmdata['sep']['approx'][l_italian] = _sep_approx_french
-bmdata['sep']['approx'][l_portuguese] = _sep_approx_french
-bmdata['sep']['approx'][l_spanish] = _sep_approx_french
-bmdata['sep']['exact'][l_any] = _sep_exact_any
+bmdata['sep']['approx'][64] = _sep_approx_french
+bmdata['sep']['approx'][1024] = _sep_approx_hebrew
+bmdata['sep']['approx'][4096] = _sep_approx_french
+bmdata['sep']['approx'][16384] = _sep_approx_french
+bmdata['sep']['approx'][131072] = _sep_approx_french
+bmdata['sep']['exact'][1] = _sep_exact_any
 bmdata['sep']['exact']['common'] = _sep_exact_approx_common + _sep_exact_common
-bmdata['sep']['exact'][l_french] = _sep_exact_french
-bmdata['sep']['exact'][l_hebrew] = _sep_exact_hebrew
-bmdata['sep']['exact'][l_italian] = _sep_exact_italian
-bmdata['sep']['exact'][l_portuguese] = _sep_exact_portuguese
-bmdata['sep']['exact'][l_spanish] = _sep_exact_spanish
+bmdata['sep']['exact'][64] = _sep_exact_french
+bmdata['sep']['exact'][1024] = _sep_exact_hebrew
+bmdata['sep']['exact'][4096] = _sep_exact_italian
+bmdata['sep']['exact'][16384] = _sep_exact_portuguese
+bmdata['sep']['exact'][131072] = _sep_exact_spanish
 bmdata['sep']['hebrew']['common'] = _sep_exact_approx_common + _sep_hebrew_common
-bmdata['sep']['rules'][l_any] = _sep_rules_any
-bmdata['sep']['rules'][l_french] = _sep_rules_french
-bmdata['sep']['rules'][l_hebrew] = _sep_rules_hebrew
-bmdata['sep']['rules'][l_italian] = _sep_rules_italian
-bmdata['sep']['rules'][l_portuguese] = _sep_rules_portuguese
-bmdata['sep']['rules'][l_spanish] = _sep_rules_spanish
+bmdata['sep']['rules'][1] = _sep_rules_any
+bmdata['sep']['rules'][64] = _sep_rules_french
+bmdata['sep']['rules'][1024] = _sep_rules_hebrew
+bmdata['sep']['rules'][4096] = _sep_rules_italian
+bmdata['sep']['rules'][16384] = _sep_rules_portuguese
+bmdata['sep']['rules'][131072] = _sep_rules_spanish
 
 bmdata['ash'] = dict()
 bmdata['ash']['approx'] = dict()
@@ -6640,39 +6642,39 @@ bmdata['ash']['rules'] = dict()
 
 bmdata['ash']['language_rules'] = _ash_language_rules
 bmdata['ash']['languages'] = _ash_languages
-bmdata['ash']['approx'][l_any] = _ash_approx_any
+bmdata['ash']['approx'][1] = _ash_approx_any
 bmdata['ash']['approx']['common'] = _ash_exact_approx_common + _ash_approx_common
-bmdata['ash']['approx'][l_cyrillic] = _ash_approx_russian
-bmdata['ash']['approx'][l_english] = _ash_approx_english
-bmdata['ash']['approx'][l_french] = _ash_approx_french
-bmdata['ash']['approx'][l_german] = _ash_approx_german
-bmdata['ash']['approx'][l_hebrew] = _ash_approx_hebrew
-bmdata['ash']['approx'][l_hungarian] = _ash_approx_french
-bmdata['ash']['approx'][l_polish] = _ash_approx_polish
-bmdata['ash']['approx'][l_romanian] = _ash_approx_polish
-bmdata['ash']['approx'][l_russian] = _ash_approx_russian
-bmdata['ash']['approx'][l_spanish] = _ash_approx_french
-bmdata['ash']['exact'][l_any] = _ash_exact_any
+bmdata['ash']['approx'][4] = _ash_approx_russian
+bmdata['ash']['approx'][32] = _ash_approx_english
+bmdata['ash']['approx'][64] = _ash_approx_french
+bmdata['ash']['approx'][128] = _ash_approx_german
+bmdata['ash']['approx'][1024] = _ash_approx_hebrew
+bmdata['ash']['approx'][2048] = _ash_approx_french
+bmdata['ash']['approx'][8192] = _ash_approx_polish
+bmdata['ash']['approx'][32768] = _ash_approx_polish
+bmdata['ash']['approx'][65536] = _ash_approx_russian
+bmdata['ash']['approx'][131072] = _ash_approx_french
+bmdata['ash']['exact'][1] = _ash_exact_any
 bmdata['ash']['exact']['common'] = _ash_exact_approx_common + _ash_exact_common
-bmdata['ash']['exact'][l_cyrillic] = _ash_exact_russian
-bmdata['ash']['exact'][l_english] = _ash_exact_russian
-bmdata['ash']['exact'][l_french] = _ash_exact_russian
-bmdata['ash']['exact'][l_german] = _ash_exact_any
-bmdata['ash']['exact'][l_hebrew] = _ash_exact_hebrew
-bmdata['ash']['exact'][l_hungarian] = _ash_exact_russian
-bmdata['ash']['exact'][l_polish] = _ash_exact_polish
-bmdata['ash']['exact'][l_romanian] = _ash_exact_russian
-bmdata['ash']['exact'][l_russian] = _ash_exact_russian
-bmdata['ash']['exact'][l_spanish] = _ash_exact_russian
+bmdata['ash']['exact'][4] = _ash_exact_russian
+bmdata['ash']['exact'][32] = _ash_exact_russian
+bmdata['ash']['exact'][64] = _ash_exact_russian
+bmdata['ash']['exact'][128] = _ash_exact_any
+bmdata['ash']['exact'][1024] = _ash_exact_hebrew
+bmdata['ash']['exact'][2048] = _ash_exact_russian
+bmdata['ash']['exact'][8192] = _ash_exact_polish
+bmdata['ash']['exact'][32768] = _ash_exact_russian
+bmdata['ash']['exact'][65536] = _ash_exact_russian
+bmdata['ash']['exact'][131072] = _ash_exact_russian
 bmdata['ash']['hebrew']['common'] = _ash_exact_approx_common + _ash_hebrew_common
-bmdata['ash']['rules'][l_any] = _ash_rules_any
-bmdata['ash']['rules'][l_cyrillic] = _ash_rules_cyrillic
-bmdata['ash']['rules'][l_english] = _ash_rules_english
-bmdata['ash']['rules'][l_french] = _ash_rules_french
-bmdata['ash']['rules'][l_german] = _ash_rules_german
-bmdata['ash']['rules'][l_hebrew] = _ash_rules_hebrew
-bmdata['ash']['rules'][l_hungarian] = _ash_rules_hungarian
-bmdata['ash']['rules'][l_polish] = _ash_rules_polish
-bmdata['ash']['rules'][l_romanian] = _ash_rules_romanian
-bmdata['ash']['rules'][l_russian] = _ash_rules_russian
-bmdata['ash']['rules'][l_spanish] = _ash_rules_spanish
+bmdata['ash']['rules'][1] = _ash_rules_any
+bmdata['ash']['rules'][4] = _ash_rules_cyrillic
+bmdata['ash']['rules'][32] = _ash_rules_english
+bmdata['ash']['rules'][64] = _ash_rules_french
+bmdata['ash']['rules'][128] = _ash_rules_german
+bmdata['ash']['rules'][1024] = _ash_rules_hebrew
+bmdata['ash']['rules'][2048] = _ash_rules_hungarian
+bmdata['ash']['rules'][8192] = _ash_rules_polish
+bmdata['ash']['rules'][32768] = _ash_rules_romanian
+bmdata['ash']['rules'][65536] = _ash_rules_russian
+bmdata['ash']['rules'][131072] = _ash_rules_spanish
