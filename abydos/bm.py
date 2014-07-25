@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
+from __future__ import unicode_literals
 import re
 import unicodedata
 from ._compat import _unicode, _long, _range
@@ -73,6 +74,72 @@ def language(name, mode, lang_choices):
 def redo_language(term, mode, rules, final_rules1, final_rules2, concat):
     language_arg = language(term, bmdata[mode]['language_rules'])
     return phonetic(term, mode, rules, final_rules1, final_rules2, language_arg, concat)
+
+def normalize_language_attributes(text, strip):
+    """this is applied to a single alternative at a time -- not to a parenthisized list
+    it removes all embedded bracketed attributes, logically-ands them together, and places them at the end.
+    however if strip is true, this can indeed remove embedded bracketed attributes from a parenthesized list
+    """
+    uninitialized = -1; # all 1's
+    attrib = uninitialized
+    while text.find('[') != -1:
+        bracket_start = text.find('[')
+        bracket_end = text.find(']', bracket_start)
+        if bracket_end == False:
+            print('fatal error: no closing square bracket: text=('+text+') strip=('+strip+')')
+            return
+        attrib = attrib & int(text[bracket_start+1:bracket_end])
+        text = text[:bracket_start] + text[bracket_end+1:]
+
+    if attrib == (uninitialized or strip):
+        return text
+    elif attrib == 0:
+        return '[0]' # means that the attributes were incompatible and there is no alternative here
+    else:
+        return text + '[' + str(attrib) + ']'
+
+def apply_rule_if_compatible(phonetic, target, language_arg):
+    """tests for compatible language rules
+    to do so, apply the rule, expand the results, and detect alternatives with incompatible attributes
+    then drop each alternative that has incompatible attributes and keep those that are compatible
+    if there are no compatible alternatives left, return false
+    otherwise return the compatible alternatives
+    apply the rule
+    """
+    candidate = phonetic + target
+    if candidate.find('[') == -1: # no attributes so we need test no further
+        return candidate
+
+    # expand the result, converting incompatible attributes to [0]
+
+    candidate = expand(candidate);
+    candidate_array = candidate.split('|')
+
+    # drop each alternative that has incompatible attributes
+
+    candidate = ''
+    found = False
+
+    for i in _range(len(candidate_array)):
+        this_candidate = candidate_array[i]
+        if language_arg != '1':
+            this_candidate = normalize_language_attributes(this_candidate + '[' + str(language_arg) + ']', False)
+        if this_candidate != '[0]':
+            found = True
+            if candidate != '':
+                candidate += '|'
+            candidate += this_candidate
+
+    # return false if no compatible alternatives remain
+
+    if not found:
+        return False
+
+    # return the result of applying the rule
+
+    if candidate.find('|') != -1:
+        candidate = '('+candidate+')'
+    return candidate
 
 def expand(phonetic):
     alt_start = phonetic.find('(')
