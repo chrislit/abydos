@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""abydos.bmd
+"""abydos.bm
 
 Copyright 2014 by Christopher C. Little.
 This file is part of Abydos.
@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import re
 import unicodedata
 from ._compat import _unicode, _long, _range
-from abydos.bmdata import bmdata, l_none, l_any, l_arabic, l_cyrillic, \
+from .bmdata import bmdata, l_none, l_any, l_arabic, l_cyrillic, \
     l_czech, l_dutch, l_english, l_french, l_german, l_greek, l_greeklatin, \
     l_hebrew, l_hungarian, l_italian, l_polish, l_portuguese, l_romanian, \
     l_russian, l_spanish, l_turkish
@@ -136,7 +136,7 @@ def phonetic(term, mode, rules, final_rules1, final_rules2, language_arg='', con
 
     phonetic = ''
     skip = 0
-    for i in _range(len(term_length)):
+    for i in _range(term_length):
         if skip:
             skip -= 1
             continue
@@ -228,7 +228,7 @@ def apply_final_rules(phonetic, final_rules, language_arg, strip):
                     i += 1
                 continue
 
-            for rule in _range(len(final_rules)):
+            for rule in final_rules:
                 pattern = rule[_pattern_pos]
                 pattern_length = len(pattern)
                 lcontext = rule[_lcontext_pos]
