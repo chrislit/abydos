@@ -401,6 +401,15 @@ def apply_rule_if_compatible(phonetic, target, language_arg):
         candidate = '('+candidate+')'
     return candidate
 
+def language_index_from_code(code, mode):
+    if (code < 1 or
+        code > sum([lang_dict[_] for _ in
+                    bmdata[mode]['languages']])): # code out of range
+        return l_any
+    if ((code & (code - 1)) != 0): # choice was more than one language; use any
+        return l_any
+    return code
+
 
 def bmpm(word, language_arg='', mode='gen'):
     """Return the Beider-Morse Phonetic Matching algorithm encoding(s) of a
@@ -440,6 +449,7 @@ def bmpm(word, language_arg='', mode='gen'):
             lang_choices = sum([lang_dict[_] for _ in bmdata[mode]['languages']])
 
     language_arg = language(word, mode, lang_choices)
+    language_arg = language_index_from_code(language_arg, mode)
     result = phonetic(word, mode, lang_choices,
                       bmdata[mode]['rules'][language_arg],
                       bmdata[mode]['approx']['common'],
