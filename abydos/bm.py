@@ -74,7 +74,7 @@ def language(name, mode, lang_choices):
 
 
 def redo_language(term, mode, lang_choices, rules, final_rules1, final_rules2, concat):
-    language_arg = language(term, bmdata[mode]['language_rules'], lang_choices)
+    language_arg = language(term, mode, lang_choices)
     return phonetic(term, mode, lang_choices, rules, final_rules1, final_rules2, language_arg, concat)
 
 
@@ -400,6 +400,7 @@ def apply_rule_if_compatible(phonetic, target, language_arg):
     if candidate.find('|') != -1:
         candidate = '('+candidate+')'
     return candidate
+
 
 def language_index_from_code(code, mode):
     if (code < 1 or
