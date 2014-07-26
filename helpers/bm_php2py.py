@@ -69,6 +69,7 @@ def pythonize(line, fn='', subdir='gen'):
     if fn == 'lang':
         if len(line.split(',')) >= 3:
             parts = line.split(',')
+            parts[0] = re.sub("/(.+?)/", r"\1", parts[0])
             #parts[1] = re.sub('\$', 'l_', parts[1])
             #parts[1] = re.sub(' *\+ *', '|', parts[1])
             parts[2] = parts[2].title()
