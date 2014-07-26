@@ -57,9 +57,9 @@ _language_pos = 4
 _logical_pos = 5
 
 
-def language(name, mode, lang_choices):
+def language(name, name_mode, lang_choices):
     name = name.strip().lower()
-    rules = bmdata[mode]['language_rules']
+    rules = bmdata[name_mode]['language_rules']
     choices_remaining = lang_choices
     for rule in rules:
         letters, languages, accept = rule
@@ -73,31 +73,31 @@ def language(name, mode, lang_choices):
     return choices_remaining
 
 
-def redo_language(term, mode, lang_choices, rules, final_rules1, final_rules2, concat):
-    language_arg = language(term, mode, lang_choices)
-    return phonetic(term, mode, lang_choices, rules, final_rules1, final_rules2, language_arg, concat)
+def redo_language(term, name_mode, lang_choices, rules, final_rules1, final_rules2, concat):
+    language_arg = language(term, name_mode, lang_choices)
+    return phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, language_arg, concat)
 
 
-def phonetic(term, mode, lang_choices, rules, final_rules1, final_rules2, language_arg='', concat=False):
+def phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, language_arg='', concat=False):
     term = term.replace('-', ' ').strip()
 
-    if mode == 'gen': # generic case
+    if name_mode == 'gen': # generic case
         # both discard and concatenate certain words if at the start of the name
         for pfx in bmdata['gen']['discards']:
             if term.startswith(pfx):
                 remainder = term[len(pfx):]
                 combined = pfx[:-1]+remainder
-                result = (redo_language(remainder, mode, lang_choices, rules,
+                result = (redo_language(remainder, name_mode, lang_choices, rules,
                                         final_rules1, final_rules2, concat) +
                           '-' +
-                          redo_language(combined, mode, lang_choices, rules,
+                          redo_language(combined, name_mode, lang_choices, rules,
                                         final_rules1, final_rules2, concat))
                 return result
 
     words = term.split() # create array of the individual words in the name
     words2 = []
 
-    if mode == 'sep': # Sephardic case
+    if name_mode == 'sep': # Sephardic case
         # for each word in the name, delete portions of word preceding apostrophe
         # ex: d'avila d'aguilar --> avila aguilar
         # also discard certain words in the name
@@ -111,7 +111,7 @@ def phonetic(term, mode, lang_choices, rules, final_rules1, final_rules2, langua
             if word not in bmdata['sep']['discards']:
                 words2.append(word)
 
-    elif mode == 'ash': # Ashkenazic case
+    elif name_mode == 'ash': # Ashkenazic case
         # discard certain words if at the start of the name
 
         if len(words) > 1 and words[0] in bmdata['ash']['discards']:
@@ -128,7 +128,7 @@ def phonetic(term, mode, lang_choices, rules, final_rules1, final_rules2, langua
     else: # encode each word in a multi-word name separately (normally used for approx matches)
         result = ''
         for word in words2:
-            result += '-' + redo_language(word, mode, lang_choices, rules,
+            result += '-' + redo_language(word, name_mode, lang_choices, rules,
                                           final_rules1, final_rules2, concat)
         return result[1:] # strip off the leading dash
 
@@ -402,17 +402,17 @@ def apply_rule_if_compatible(phonetic, target, language_arg):
     return candidate
 
 
-def language_index_from_code(code, mode):
+def language_index_from_code(code, name_mode):
     if (code < 1 or
         code > sum([lang_dict[_] for _ in
-                    bmdata[mode]['languages']])): # code out of range
+                    bmdata[name_mode]['languages']])): # code out of range
         return l_any
     if ((code & (code - 1)) != 0): # choice was more than one language; use any
         return l_any
     return code
 
 
-def bmpm(word, language_arg='', mode='gen'):
+def bmpm(word, language_arg='', name_mode='gen', match_mode='approx'):
     """Return the Beider-Morse Phonetic Matching algorithm encoding(s) of a
     term
 
@@ -424,8 +424,9 @@ def bmpm(word, language_arg='', mode='gen'):
                 "french", "german", "greek", "greeklatin", "hebrew",
                 "hungarian", "italian", "polish", "portuguese","romanian",
                 "russian", "spanish", "turkish"
-    mode -- the name mode of the algorithm: 'gen' (default),
+    name_mode -- the name mode of the algorithm: 'gen' (default),
                 'ash' (Ashkenazi), or 'sep' (Sephardic)
+    match_mode -- matching mode: 'approx' or 'exact'
 
     Description:
     The Beider-Morse Phonetic Matching algorithm is described at:
@@ -435,9 +436,9 @@ def bmpm(word, language_arg='', mode='gen'):
     """
     word = unicodedata.normalize('NFC', _unicode(word.strip().lower()))
 
-    mode = mode.strip().lower()[:3]
-    if mode not in ['ash', 'sep']:
-        mode = 'gen'
+    name_mode = name_mode.strip().lower()[:3]
+    if name_mode not in ['ash', 'sep']:
+        name_mode = 'gen'
 
     lang_choices = 0
     if isinstance(language_arg, (int, float, _long)):
@@ -447,14 +448,17 @@ def bmpm(word, language_arg='', mode='gen'):
         if language_arg in lang_dict:
             lang_choices = lang_dict[language_arg]
         else:
-            lang_choices = sum([lang_dict[_] for _ in bmdata[mode]['languages']])
+            lang_choices = sum([lang_dict[_] for _ in bmdata[name_mode]['languages']])
 
-    language_arg = language(word, mode, lang_choices)
-    language_arg = language_index_from_code(language_arg, mode)
-    result = phonetic(word, mode, lang_choices,
-                      bmdata[mode]['rules'][language_arg],
-                      bmdata[mode]['approx']['common'],
-                      bmdata[mode]['approx'][language_arg],
+    if match_mode != 'exact':
+        match_mode = 'approx'
+
+    language_arg = language(word, name_mode, lang_choices)
+    language_arg = language_index_from_code(language_arg, name_mode)
+    result = phonetic(word, name_mode, lang_choices,
+                      bmdata[name_mode]['rules'][language_arg],
+                      bmdata[name_mode][match_mode]['common'],
+                      bmdata[name_mode][match_mode][language_arg],
                       language_arg)
 
     return result
