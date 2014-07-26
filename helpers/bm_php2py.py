@@ -11,6 +11,7 @@ lang_tuple = ('any', 'arabic', 'cyrillic', 'czech', 'dutch', 'english', 'french'
 lang_dict = dict()
 for i,l in enumerate(lang_tuple):
     lang_dict[l] = 2**i
+lang_dict['common'] = "'common'"
 
 nl = False
 array_seen = False
@@ -51,7 +52,7 @@ def pythonize(line, fn='', subdir='gen'):
 
     line = re.sub(
         '\$(approx|rules|exact|hebrew)([A-Za-z]+) = _merge\(\$([a-zA-Z]+), \$([a-zA-Z]+)\)',
-        lambda m: "bmdata['" + subdir + "']['" + m.group(1) + "']['" + c2u(m.group(2))+ "'] = _" + subdir + '_' + c2u(m.group(3)) + ' + _' + subdir + '_' + c2u(m.group(4)),
+        lambda m: "bmdata['" + subdir + "']['" + m.group(1) + "'][l_" + c2u(m.group(2)) + "] = _" + subdir + '_' + c2u(m.group(3)) + ' + _' + subdir + '_' + c2u(m.group(4)),
         line)
 
     line = re.sub('^\$([a-zA-Z]+)',  lambda m: '_' + s + '_' + c2u(m.group(1)), line)
