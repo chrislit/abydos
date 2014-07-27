@@ -3906,7 +3906,7 @@ class BeiderMorseTestCases(unittest.TestCase):
     def test_bmpm(self):
         """test abydos.bm.bmpm
         Most test cases from:
-        http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/PhoneticEngineRegressionTest.java?revision=1608115&view=markup
+        http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/
         """
         # base cases
         self.assertEqual(bmpm(''), '')
@@ -3918,6 +3918,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                                                   match_mode, concat), '')
 
 
+        ## http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/PhoneticEngineRegressionTest.java?view=markup
         # testSolrGENERIC
         # concat is true, ruleType is EXACT
         self.assertEqual(bmpm('Angelo', '', 'gen', 'exact', True),
@@ -4053,6 +4054,21 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'Ybram|Ybrom|abram|abrom|avram|avrom|imbram|imbrom|obram|obrom|ombram|ombrom|ovram|ovrom')
         self.assertEqual(bmpm('Halpern', '', 'ash', 'approx', False),
                          'YlpYrn|Ylpirn|alpYrn|alpirn|olpYrn|olpirn|xalpirn|xolpirn')
+
+        # http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/PhoneticEngineTest.java?view=markup
+        # PhoneticEngineTest
+        self.assertEqual(bmpm('Renault', '', 'gen', 'approx', True),
+                         'rinD|rinDlt|rina|rinalt|rino|rinolt|rinu|rinult')
+        self.assertEqual(bmpm('Renault', '', 'ash', 'approx', True),
+                         'rYnDlt|rYnalt|rYnult|rinDlt|rinalt|rinolt|rinult')
+        self.assertEqual(bmpm('Renault', '', 'sep', 'approx', True),
+                         'rinDlt')
+        self.assertEqual(bmpm('SntJohn-Smith', '', 'gen', 'exact', True),
+                         'sntjonsmit')
+        self.assertEqual(bmpm('d\'ortley', '', 'gen', 'exact', True),
+                         '(ortlaj|ortlej)-(dortlaj|dortlej)')
+        self.assertEqual(bmpm('van helsing', '', 'gen', 'exact', False),
+                         '(elSink|elsink|helSink|helsink|helzink|xelsink)-(banhelsink|fanhelsink|fanhelzink|vanhelsink|vanhelzink|vanjelsink)')
 
 
 if __name__ == '__main__':
