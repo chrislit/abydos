@@ -58,6 +58,16 @@ _logical_pos = 5
 
 
 def language(name, name_mode, lang_choices):
+    """Return the best guess language ID for the given word and set of language
+    choices
+
+    Arguments:
+    name -- the term to guess the language of
+    name_mode -- the name mode of the algorithm: 'gen' (default),
+                'ash' (Ashkenazi), or 'sep' (Sephardic)
+    lang_choices -- an integer, the bits of which indicate the set of possible
+                languages
+    """
     name = name.strip().lower()
     rules = bmdata[name_mode]['language_rules']
     choices_remaining = lang_choices
@@ -74,11 +84,40 @@ def language(name, name_mode, lang_choices):
 
 
 def redo_language(term, name_mode, lang_choices, rules, final_rules1, final_rules2, concat):
+    """Using a split multi-work term, reassess the language of the terms and
+    call the phonetic encoder
+
+    Arguments:
+    term -- the term to encode via Beider-Morse
+    name_mode -- the name mode of the algorithm: 'gen' (default),
+                'ash' (Ashkenazi), or 'sep' (Sephardic)
+    lang_choices -- an integer, the bits of which indicate the set of possible
+                languages
+    rules -- the set of initial phonetic transform regexps
+    final_rules1 -- the common set of final phonetic transform regexps
+    final_rules2 -- the specific set of final phonetic transform regexps
+    concat -- a flag to indicate concatenation
+    """
     language_arg = language(term, name_mode, lang_choices)
     return phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, language_arg, concat)
 
 
 def phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, language_arg='', concat=False):
+    """Return the Beider-Morse encoding(s) of a term
+
+    Arguments:
+    term -- the term to encode via Beider-Morse
+    name_mode -- the name mode of the algorithm: 'gen' (default),
+                'ash' (Ashkenazi), or 'sep' (Sephardic)
+    lang_choices -- an integer, the bits of which indicate the set of possible
+                languages
+    rules -- the set of initial phonetic transform regexps
+    final_rules1 -- the common set of final phonetic transform regexps
+    final_rules2 -- the specific set of final phonetic transform regexps
+    language_arg -- an integer representing the target language of the phonetic
+                encoding
+    concat -- a flag to indicate concatenation
+    """
     term = term.replace('-', ' ').strip()
 
     if name_mode == 'gen': # generic case
@@ -202,6 +241,15 @@ def phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, l
 
 
 def apply_final_rules(phonetic, final_rules, language_arg, strip):
+    """Apply a set of final rules to the phonetic encoding
+
+    Arguments:
+    phonetic -- the term to which to apply the final rules
+    final_rules -- the set of final phonetic transform regexps
+    language_arg -- an integer representing the target language of the phonetic
+                encoding
+    strip -- flag to indicate whether to normalize the language attributes
+    """
     # optimization to save time
     if not final_rules:
         return phonetic
@@ -295,6 +343,11 @@ def apply_final_rules(phonetic, final_rules, language_arg, strip):
 
 
 def expand(phonetic):
+    """Expand phonetic alternates separated by |s
+
+    Arguments:
+    phonetic -- a Beider-Morse phonetic encoding
+    """
     alt_start = phonetic.find('(')
     if alt_start == -1:
         return normalize_language_attributes(phonetic, False)
@@ -320,6 +373,11 @@ def expand(phonetic):
 
 
 def remove_duplicate_alternates(phonetic):
+    """Remove duplicates from a phonetic encoding list
+
+    Arguments:
+    phonetic -- a Beider-Morse phonetic encoding
+    """
     alt_string = phonetic
     alt_array = alt_string.split('|')
 
@@ -335,9 +393,19 @@ def remove_duplicate_alternates(phonetic):
 
 
 def normalize_language_attributes(text, strip):
-    """this is applied to a single alternative at a time -- not to a parenthisized list
-    it removes all embedded bracketed attributes, logically-ands them together, and places them at the end.
-    however if strip is true, this can indeed remove embedded bracketed attributes from a parenthesized list
+    """Remove embedded bracketed attributes and (potentially) and them together
+    and add to the end
+
+    Arguments:
+    text -- a Beider-Morse phonetic encoding (in progress)
+    strip -- remove the bracketed attributes (and throw away)
+
+    this is applied to a single alternative at a time -- not to a parenthisized
+        list
+    it removes all embedded bracketed attributes, logically-ands them together,
+        and places them at the end.
+    however if strip is true, this can indeed remove embedded bracketed
+        attributes from a parenthesized list
     """
     uninitialized = -1; # all 1's
     attrib = uninitialized
@@ -359,9 +427,20 @@ def normalize_language_attributes(text, strip):
 
 
 def apply_rule_if_compatible(phonetic, target, language_arg):
-    """tests for compatible language rules
-    to do so, apply the rule, expand the results, and detect alternatives with incompatible attributes
-    then drop each alternative that has incompatible attributes and keep those that are compatible
+    """Applies a phonetic regex if compatible
+
+    Arguments:
+    phoentic -- the Beider-Morse phonetic encoding (so far)
+    target -- a proposed addition to the phonetic encoding
+    language_arg -- an integer representing the target language of the phonetic
+                encoding
+
+    Description:
+    tests for compatible language rules
+    to do so, apply the rule, expand the results, and detect alternatives with
+        incompatible attributes
+    then drop each alternative that has incompatible attributes and keep those
+        that are compatible
     if there are no compatible alternatives left, return false
     otherwise return the compatible alternatives
     apply the rule
@@ -403,6 +482,14 @@ def apply_rule_if_compatible(phonetic, target, language_arg):
 
 
 def language_index_from_code(code, name_mode):
+    """Return the index value for a language code (or l_any if more than one
+    is specified or the code is out of bounds)
+
+    Arguments:
+    code -- the language code to interpret
+    name_mode -- the name mode of the algorithm: 'gen' (default),
+                'ash' (Ashkenazi), or 'sep' (Sephardic) 
+    """
     if (code < 1 or
         code > sum([lang_dict[_] for _ in
                     bmdata[name_mode]['languages']])): # code out of range
