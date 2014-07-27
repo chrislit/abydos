@@ -4071,5 +4071,31 @@ class BeiderMorseTestCases(unittest.TestCase):
                          '(elSink|elsink|helSink|helsink|helzink|xelsink)-(banhelsink|fanhelsink|fanhelzink|vanhelsink|vanhelzink|vanjelsink)')
 
 
+    def test_bm_language(self):
+        """test abydos.bm.language
+        Most test cases from:
+        http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/LanguageGuessingTest.java?view=markup
+        """
+        gen_langs = sum([lang_dict[_] for _ in bmdata['gen']['languages']])
+        self.assertEqual(language('Renault', 'gen', gen_langs), l_french)
+        self.assertEqual(language('Mickiewicz', 'gen', gen_langs), l_polish)
+        self.assertEqual(language('Thompson', 'gen', gen_langs) & l_english, l_english)
+        self.assertEqual(language('Nuñez', 'gen', gen_langs), l_spanish)
+        self.assertEqual(language('Carvalho', 'gen', gen_langs), l_portuguese)
+        self.assertEqual(language('Čapek', 'gen', gen_langs), l_czech)
+        self.assertEqual(language('Sjneijder', 'gen', gen_langs), l_dutch)
+        self.assertEqual(language('Klausewitz', 'gen', gen_langs), l_german)
+        self.assertEqual(language('Küçük', 'gen', gen_langs), l_turkish)
+        self.assertEqual(language('Giacometti', 'gen', gen_langs), l_italian)
+        self.assertEqual(language('Nagy', 'gen', gen_langs), l_hungarian)
+        self.assertEqual(language('Ceauşescu', 'gen', gen_langs), l_romanian)
+        self.assertEqual(language('Angelopoulos', 'gen', gen_langs), l_greeklatin)
+        self.assertEqual(language('Αγγελόπουλος', 'gen', gen_langs), l_greek)
+        self.assertEqual(language('Пушкин', 'gen', gen_langs), l_cyrillic)
+        self.assertEqual(language('כהן', 'gen', gen_langs), l_hebrew)
+        self.assertEqual(language('ácz', 'gen', gen_langs), l_any)
+        self.assertEqual(language('átz', 'gen', gen_langs), l_any)
+
+
 if __name__ == '__main__':
     unittest.main()
