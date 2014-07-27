@@ -30,6 +30,7 @@ from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     koelner_phonetik_num_to_alpha, koelner_phonetik_alpha, nysiis, mra, \
     metaphone, double_metaphone, caverphone, alpha_sis, fuzzy_soundex, phonex, \
     phonem, phonix, sfinxbis, phonet, spfc, german_ipa
+from abydos.bm import *
 
 TESTDIR = os.path.dirname(__file__)
 
@@ -3897,6 +3898,161 @@ class GermanIPATestCases(unittest.TestCase):
         self.assertEqual(german_ipa('äh'), 'e')
         self.assertEqual(german_ipa('Klöh'), 'klø')
         self.assertEqual(german_ipa('Küh-Bach'), 'kybax')
+
+
+class BeiderMorseTestCases(unittest.TestCase):
+    """test cases for abydos.bm.*
+    """
+    def test_bmpm(self):
+        """test abydos.bm.bmpm
+        Most test cases from:
+        http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/PhoneticEngineRegressionTest.java?revision=1608115&view=markup
+        """
+        # base cases
+        self.assertEqual(bmpm(''), '')
+        for langs in ('', 1, 'english', 'english,spanish', 3):
+            for name_mode in ('gen', 'ash', 'sep'):
+                for match_mode in ('approx', 'exact'):
+                    for concat in (False, True):
+                            self.assertEqual(bmpm('', langs, name_mode,
+                                                  match_mode, concat), '')
+
+
+        # testSolrGENERIC
+        # concat is true, ruleType is EXACT
+        self.assertEqual(bmpm('Angelo', '', 'gen', 'exact', True),
+                         'anZelo|andZelo|angelo|anhelo|anjelo|anxelo')
+        self.assertEqual(bmpm('D\'Angelo', '', 'gen', 'exact', True),
+                         '(anZelo|andZelo|angelo|anhelo|anjelo|anxelo)-(danZelo|dandZelo|dangelo|danhelo|danjelo|danxelo)')
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen', 'exact', True),
+                         'andZelo|angelo|anxelo')
+        self.assertEqual(bmpm('1234', 'italian,greek,spanish', 'gen', 'exact', True),
+                         '')
+
+        # concat is false, ruleType is EXACT
+        self.assertEqual(bmpm('Angelo', '', 'gen', 'exact', False),
+                         'anZelo|andZelo|angelo|anhelo|anjelo|anxelo')
+        self.assertEqual(bmpm('D\'Angelo', '', 'gen', 'exact', False),
+                         '(anZelo|andZelo|angelo|anhelo|anjelo|anxelo)-(danZelo|dandZelo|dangelo|danhelo|danjelo|danxelo)')
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen', 'exact', False),
+                         'andZelo|angelo|anxelo')
+        self.assertEqual(bmpm('1234', 'italian,greek,spanish', 'gen', 'exact', False),
+                         '')
+
+        # concat is true, ruleType is APPROX
+        self.assertEqual(bmpm('Angelo', '', 'gen', 'approx', True),
+                         'YngYlo|Yngilo|agilo|angYlo|angilo|aniilo|anilo|anxilo|anzilo|ogilo|ongYlo|ongilo|oniilo|onilo|onxilo|onzilo')
+        self.assertEqual(bmpm('D\'Angelo', '', 'gen', 'approx', True),
+                         '(YngYlo|Yngilo|agilo|angYlo|angilo|aniilo|anilo|anxilo|anzilo|ogilo|ongYlo|ongilo|oniilo|onilo|onxilo|onzilo)-(dYngYlo|dYngilo|dagilo|dangYlo|dangilo|daniilo|danilo|danxilo|danzilo|dogilo|dongYlo|dongilo|doniilo|donilo|donxilo|donzilo)')
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen', 'approx', True),
+                         'angilo|anxilo|anzilo|ongilo|onxilo|onzilo')
+        self.assertEqual(bmpm('1234', 'italian,greek,spanish', 'gen', 'approx', True),
+                         '')
+
+        # concat is false, ruleType is APPROX
+        self.assertEqual(bmpm('Angelo', '', 'gen', 'approx', False),
+                         'YngYlo|Yngilo|agilo|angYlo|angilo|aniilo|anilo|anxilo|anzilo|ogilo|ongYlo|ongilo|oniilo|onilo|onxilo|onzilo')
+        self.assertEqual(bmpm('D\'Angelo', '', 'gen', 'approx', False),
+                         '(YngYlo|Yngilo|agilo|angYlo|angilo|aniilo|anilo|anxilo|anzilo|ogilo|ongYlo|ongilo|oniilo|onilo|onxilo|onzilo)-(dYngYlo|dYngilo|dagilo|dangYlo|dangilo|daniilo|danilo|danxilo|danzilo|dogilo|dongYlo|dongilo|doniilo|donilo|donxilo|donzilo)')
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen', 'approx', False),
+                         'angilo|anxilo|anzilo|ongilo|onxilo|onzilo')
+        self.assertEqual(bmpm('1234', 'italian,greek,spanish', 'gen', 'approx', False),
+                         '')
+
+
+        # testSolrASHKENAZI
+        # concat is true, ruleType is EXACT
+        self.assertEqual(bmpm('Angelo', '', 'ash', 'exact', True),
+                         'andZelo|angelo|anhelo|anxelo')
+        self.assertEqual(bmpm('D\'Angelo', '', 'ash', 'exact', True),
+                         'dandZelo|dangelo|danhelo|danxelo')
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'ash', 'exact', True),
+                         'angelo|anxelo')
+        self.assertEqual(bmpm('1234', 'italian,greek,spanish', 'ash', 'exact', True),
+                         '')
+
+        # concat is false, ruleType is EXACT
+        self.assertEqual(bmpm('Angelo', '', 'ash', 'exact', False),
+                         'andZelo|angelo|anhelo|anxelo')
+        self.assertEqual(bmpm('D\'Angelo', '', 'ash', 'exact', False),
+                         'dandZelo|dangelo|danhelo|danxelo')
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'ash', 'exact', False),
+                         'angelo|anxelo')
+        self.assertEqual(bmpm('1234', 'italian,greek,spanish', 'ash', 'exact', False),
+                         '')
+
+        # concat is true, ruleType is APPROX
+        self.assertEqual(bmpm('Angelo', '', 'ash', 'approx', True),
+                         'YngYlo|Yngilo|angYlo|angilo|anilo|anxilo|anzilo|ongYlo|ongilo|onilo|onxilo|onzilo')
+        self.assertEqual(bmpm('D\'Angelo', '', 'ash', 'approx', True),
+                         'dYngYlo|dYngilo|dangYlo|dangilo|danilo|danxilo|danzilo|dongYlo|dongilo|donilo|donxilo|donzilo')
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'ash', 'approx', True),
+                         'angilo|anxilo|ongilo|onxilo')
+        self.assertEqual(bmpm('1234', 'italian,greek,spanish', 'ash', 'approx', True),
+                         '')
+
+        # concat is false, ruleType is APPROX
+        self.assertEqual(bmpm('Angelo', '', 'ash', 'approx', False),
+                         'YngYlo|Yngilo|angYlo|angilo|anilo|anxilo|anzilo|ongYlo|ongilo|onilo|onxilo|onzilo')
+        self.assertEqual(bmpm('D\'Angelo', '', 'ash', 'approx', False),
+                         'dYngYlo|dYngilo|dangYlo|dangilo|danilo|danxilo|danzilo|dongYlo|dongilo|donilo|donxilo|donzilo')
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'ash', 'approx', False),
+                         'angilo|anxilo|ongilo|onxilo')
+        self.assertEqual(bmpm('1234', 'italian,greek,spanish', 'ash', 'approx', False),
+                         '')
+
+        # testSolrSEPHARDIC
+        # concat is true, ruleType is EXACT
+        self.assertEqual(bmpm('Angelo', '', 'sep', 'exact', True),
+                         'anZelo|andZelo|anxelo')
+        self.assertEqual(bmpm('D\'Angelo', '', 'sep', 'exact', True),
+                         'anZelo|andZelo|anxelo')
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'sep', 'exact', True),
+                         'andZelo|anxelo')
+        self.assertEqual(bmpm('1234', 'italian,greek,spanish', 'sep', 'exact', True),
+                         '')
+
+        # concat is false, ruleType is EXACT
+        self.assertEqual(bmpm('Angelo', '', 'sep', 'exact', False),
+                         'anZelo|andZelo|anxelo')
+        self.assertEqual(bmpm('D\'Angelo', '', 'sep', 'exact', False),
+                         'danZelo|dandZelo|danxelo')
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'sep', 'exact', False),
+                         'andZelo|anxelo')
+        self.assertEqual(bmpm('1234', 'italian,greek,spanish', 'sep', 'exact', False),
+                         '')
+
+        # concat is true, ruleType is APPROX
+        self.assertEqual(bmpm('Angelo', '', 'sep', 'approx', True),
+                         'anhila|anhilu|anzila|anzilu|nhila|nhilu|nzila|nzilu')
+        self.assertEqual(bmpm('D\'Angelo', '', 'sep', 'approx', True),
+                         'anhila|anhilu|anzila|anzilu|nhila|nhilu|nzila|nzilu')
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'sep', 'approx', True),
+                         'anhila|anhilu|anzila|anzilu|nhila|nhilu|nzila|nzilu')
+        self.assertEqual(bmpm('1234', 'italian,greek,spanish', 'sep', 'approx', True),
+                         '')
+
+        # concat is false, ruleType is APPROX
+        self.assertEqual(bmpm('Angelo', '', 'sep', 'approx', False),
+                         'anhila|anhilu|anzila|anzilu|nhila|nhilu|nzila|nzilu')
+        self.assertEqual(bmpm('D\'Angelo', '', 'sep', 'approx', False),
+                         'danhila|danhilu|danzila|danzilu|nhila|nhilu|nzila|nzilu')
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'sep', 'approx', False),
+                         'anhila|anhilu|anzila|anzilu|nhila|nhilu|nzila|nzilu')
+        self.assertEqual(bmpm('1234', 'italian,greek,spanish', 'sep', 'approx', False),
+                         '')
+
+
+        # testCompatibilityWithOriginalVersion
+        self.assertEqual(bmpm('abram', '', 'gen', 'approx', False),
+                         'Ybram|Ybrom|abram|abran|abrom|abron|avram|avrom|obram|obran|obrom|obron|ovram|ovrom')
+        self.assertEqual(bmpm('Bendzin', '', 'gen', 'approx', False),
+                         'bndzn|bntsn|bnzn|vndzn|vntsn')
+
+        self.assertEqual(bmpm('abram', '', 'ash', 'approx', False),
+                         'Ybram|Ybrom|abram|abrom|avram|avrom|imbram|imbrom|obram|obrom|ombram|ombrom|ovram|ovrom')
+        self.assertEqual(bmpm('Halpern', '', 'ash', 'approx', False),
+                         'YlpYrn|Ylpirn|alpYrn|alpirn|olpYrn|olpirn|xalpirn|xolpirn')
 
 
 if __name__ == '__main__':
