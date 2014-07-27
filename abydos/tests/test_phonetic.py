@@ -3910,7 +3910,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         """
         # base cases
         self.assertEqual(bmpm(''), '')
-        for langs in ('', 1, 'english', 'english,spanish', 3):
+        for langs in ('', 1, 'spanish', 'english,italian', 3):
             for name_mode in ('gen', 'ash', 'sep'):
                 for match_mode in ('approx', 'exact'):
                     for concat in (False, True):
