@@ -412,7 +412,8 @@ def language_index_from_code(code, name_mode):
     return code
 
 
-def bmpm(word, language_arg='', name_mode='gen', match_mode='approx'):
+def bmpm(word, language_arg='', name_mode='gen', match_mode='approx',
+         concat=False):
     """Return the Beider-Morse Phonetic Matching algorithm encoding(s) of a
     term
 
@@ -427,6 +428,7 @@ def bmpm(word, language_arg='', name_mode='gen', match_mode='approx'):
     name_mode -- the name mode of the algorithm: 'gen' (default),
                 'ash' (Ashkenazi), or 'sep' (Sephardic)
     match_mode -- matching mode: 'approx' or 'exact'
+    concat -- concatenation mode
 
     Description:
     The Beider-Morse Phonetic Matching algorithm is described at:
@@ -479,6 +481,6 @@ def bmpm(word, language_arg='', name_mode='gen', match_mode='approx'):
     language_arg = language(word, name_mode, lang_choices)
     language_arg = language_index_from_code(language_arg, name_mode)
     result = phonetic(word, name_mode, lang_choices,
-                      rules, final_rules1, final_rules2, language_arg)
+                      rules, final_rules1, final_rules2, language_arg, concat)
 
     return result
