@@ -488,7 +488,7 @@ def language_index_from_code(code, name_mode):
     Arguments:
     code -- the language code to interpret
     name_mode -- the name mode of the algorithm: 'gen' (default),
-                'ash' (Ashkenazi), or 'sep' (Sephardic) 
+                'ash' (Ashkenazi), or 'sep' (Sephardic)
     """
     if (code < 1 or
         code > sum([lang_dict[_] for _ in
