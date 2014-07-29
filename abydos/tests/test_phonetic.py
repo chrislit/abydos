@@ -4126,6 +4126,30 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(expand_alternates('(a[1]|b[2])(c|d)'), 'ac[1]|ad[1]|bc[2]|bd[2]')
         self.assertEqual(expand_alternates('(a[1]|b[2])(c[4]|d)'), 'ad[1]|bd[2]')
         
+    def test_normalize_language_attributes(self):
+        """test abydos.bm.normalize_language_attributes
+        """
+        self.assertEqual(normalize_language_attributes('', False), '')
+        self.assertEqual(normalize_language_attributes('', True), '')
+
+        self.assertRaises(ValueError, normalize_language_attributes, 'a[1', False)
+        self.assertRaises(ValueError, normalize_language_attributes,'a[1', True)
+
+        self.assertEqual(normalize_language_attributes('abc', False), 'abc')
+        self.assertEqual(normalize_language_attributes('abc[0]', False), '[0]')
+        self.assertEqual(normalize_language_attributes('abc[2]', False), 'abc[2]')
+        self.assertEqual(normalize_language_attributes('abc[2][4]', False), '[0]')
+        self.assertEqual(normalize_language_attributes('abc[2][6]', False), 'abc[2]')
+        self.assertEqual(normalize_language_attributes('ab[2]c[4]', False), '[0]')
+        self.assertEqual(normalize_language_attributes('ab[2]c[6]', False), 'abc[2]')
+
+        self.assertEqual(normalize_language_attributes('abc', True), 'abc')
+        self.assertEqual(normalize_language_attributes('abc[0]', True), 'abc')
+        self.assertEqual(normalize_language_attributes('abc[2]', True), 'abc')
+        self.assertEqual(normalize_language_attributes('abc[2][4]', True), 'abc')
+        self.assertEqual(normalize_language_attributes('abc[2][6]', True), 'abc')
+        self.assertEqual(normalize_language_attributes('ab[2]c[4]', True), 'abc')
+        self.assertEqual(normalize_language_attributes('ab[2]c[6]', True), 'abc')
 
 
 if __name__ == '__main__':

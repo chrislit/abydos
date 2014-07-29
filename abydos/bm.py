@@ -412,13 +412,13 @@ def normalize_language_attributes(text, strip):
     while text.find('[') != -1:
         bracket_start = text.find('[')
         bracket_end = text.find(']', bracket_start)
-        if bracket_end == False:
-            print('fatal error: no closing square bracket: text=('+text+') strip=('+strip+')')
-            return
+        if bracket_end == -1:
+            raise ValueError('fatal error: no closing square bracket: text=(' +
+                             text + ') strip=(' + _unicode(strip) + ')')
         attrib = attrib & int(text[bracket_start+1:bracket_end])
         text = text[:bracket_start] + text[bracket_end+1:]
 
-    if attrib == (uninitialized or strip):
+    if attrib == uninitialized or strip:
         return text
     elif attrib == 0:
         return '[0]' # means that the attributes were incompatible and there is no alternative here
