@@ -25,6 +25,7 @@ import unittest
 import os
 import codecs
 import random
+from abydos._compat import _unicode
 from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     russell_index_alpha, soundex, dm_soundex, koelner_phonetik, \
     koelner_phonetik_num_to_alpha, koelner_phonetik_alpha, nysiis, mra, \
@@ -3910,13 +3911,19 @@ class BeiderMorseTestCases(unittest.TestCase):
         """
         # base cases
         self.assertEqual(bmpm(''), '')
+
         for langs in ('', 1, 'spanish', 'english,italian', 3):
             for name_mode in ('gen', 'ash', 'sep'):
                 for match_mode in ('approx', 'exact'):
                     for concat in (False, True):
+                        if (isinstance(langs, _unicode) and
+                            ((name_mode == 'ash' and 'italian' in langs) or
+                             (name_mode == 'sep' and 'english' in langs))):
+                            self.assertRaises(ValueError, bmpm, '', langs,
+                                              name_mode, match_mode, concat)
+                        else:
                             self.assertEqual(bmpm('', langs, name_mode,
                                                   match_mode, concat), '')
-
 
         ## http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/PhoneticEngineRegressionTest.java?view=markup
         # testSolrGENERIC
@@ -4125,7 +4132,8 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(expand_alternates('(a|b|c)(a|b|c)'), 'aa|ab|ac|ba|bb|bc|ca|cb|cc')
         self.assertEqual(expand_alternates('(a[1]|b[2])(c|d)'), 'ac[1]|ad[1]|bc[2]|bd[2]')
         self.assertEqual(expand_alternates('(a[1]|b[2])(c[4]|d)'), 'ad[1]|bd[2]')
-        
+
+
     def test_normalize_language_attributes(self):
         """test abydos.bm.normalize_language_attributes
         """

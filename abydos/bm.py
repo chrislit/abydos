@@ -539,7 +539,7 @@ def bmpm(word, language_arg='', name_mode='gen', match_mode='approx',
         lang_choices = int(language_arg)
         i = 1
         while i < all_langs:
-            if i & lang_choices:
+            if (i & lang_choices) and (i & all_langs):
                 rules += bmdata[name_mode]['rules'][i]
                 final_rules2 += bmdata[name_mode][match_mode][i]
             i <<= 1
@@ -550,7 +550,8 @@ def bmpm(word, language_arg='', name_mode='gen', match_mode='approx',
                 rules += bmdata[name_mode]['rules'][lang_dict[lang]]
                 final_rules2 += bmdata[name_mode][match_mode][lang_dict[lang]]
             else:
-                print('unknown \'' + name_mode + '\' language: ' + lang)
+                raise ValueError('Unknown \'' + name_mode + '\' language: \'' +
+                                 lang + '\'')
 
     if lang_choices == 0:
         lang_choices = all_langs
