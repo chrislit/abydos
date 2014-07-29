@@ -3925,6 +3925,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                             self.assertEqual(bmpm('', langs, name_mode,
                                                   match_mode, concat), '')
 
+
         ## http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/PhoneticEngineRegressionTest.java?view=markup
         # testSolrGENERIC
         # concat is true, ruleType is EXACT
@@ -4009,6 +4010,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(bmpm('1234', 'italian,greek,spanish', 'ash', 'approx', False),
                          '')
 
+
         # testSolrSEPHARDIC
         # concat is true, ruleType is EXACT
         self.assertEqual(bmpm('Angelo', '', 'sep', 'exact', True),
@@ -4061,6 +4063,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'Ybram|Ybrom|abram|abrom|avram|avrom|imbram|imbrom|obram|obrom|ombram|ombrom|ovram|ovrom')
         self.assertEqual(bmpm('Halpern', '', 'ash', 'approx', False),
                          'YlpYrn|Ylpirn|alpYrn|alpirn|olpYrn|olpirn|xalpirn|xolpirn')
+
 
         # http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/PhoneticEngineTest.java?view=markup
         # PhoneticEngineTest
