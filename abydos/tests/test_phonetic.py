@@ -4108,5 +4108,25 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(remove_duplicate_alternates('bb|aa|bb|aa|bb'), 'bb|aa')
 
 
+    def test_expand_alternates(self):
+        """test abydos.bm.expand_alternates
+        """
+        self.assertEqual(expand_alternates(''), '')
+        self.assertEqual(expand_alternates('aa'), 'aa')
+        self.assertEqual(expand_alternates('aa|bb'), 'aa|bb')
+        self.assertEqual(expand_alternates('aa|aa'), 'aa|aa')
+
+        self.assertEqual(expand_alternates('(aa)(bb)'), 'aabb')
+        self.assertEqual(expand_alternates('(aa)(bb[0])'), '')
+        self.assertEqual(expand_alternates('(aa)(bb[4])'), 'aabb[4]')
+        self.assertEqual(expand_alternates('(aa[0])(bb)'), '')
+        self.assertEqual(expand_alternates('(aa[4])(bb)'), 'aabb[4]')
+
+        self.assertEqual(expand_alternates('(a|b|c)(a|b|c)'), 'aa|ab|ac|ba|bb|bc|ca|cb|cc')
+        self.assertEqual(expand_alternates('(a[1]|b[2])(c|d)'), 'ac[1]|ad[1]|bc[2]|bd[2]')
+        self.assertEqual(expand_alternates('(a[1]|b[2])(c[4]|d)'), 'ad[1]|bd[2]')
+        
+
+
 if __name__ == '__main__':
     unittest.main()
