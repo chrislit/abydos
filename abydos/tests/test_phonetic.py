@@ -4097,5 +4097,16 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(language('átz', 'gen', gen_langs), l_any)
 
 
+    def test_remove_duplicate_alternates(self):
+        """test abydos.bm.remove_duplicate_alternates
+        """
+        self.assertEqual(remove_duplicate_alternates(''), '')
+        self.assertEqual(remove_duplicate_alternates('aa'), 'aa')
+        self.assertEqual(remove_duplicate_alternates('aa|bb'), 'aa|bb')
+        self.assertEqual(remove_duplicate_alternates('aa|aa'), 'aa')
+        self.assertEqual(remove_duplicate_alternates('aa|aa|aa|bb|aa'), 'aa|bb')
+        self.assertEqual(remove_duplicate_alternates('bb|aa|bb|aa|bb'), 'bb|aa')
+
+
 if __name__ == '__main__':
     unittest.main()
