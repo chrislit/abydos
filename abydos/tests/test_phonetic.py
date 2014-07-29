@@ -4107,7 +4107,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(language('átz', 'gen', gen_langs), l_any)
 
 
-    def test_remove_duplicate_alternates(self):
+    def test_bm_remove_duplicate_alternates(self):
         """test abydos.bm.remove_duplicate_alternates
         """
         self.assertEqual(remove_duplicate_alternates(''), '')
@@ -4118,7 +4118,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(remove_duplicate_alternates('bb|aa|bb|aa|bb'), 'bb|aa')
 
 
-    def test_expand_alternates(self):
+    def test_bm_expand_alternates(self):
         """test abydos.bm.expand_alternates
         """
         self.assertEqual(expand_alternates(''), '')
@@ -4137,7 +4137,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(expand_alternates('(a[1]|b[2])(c[4]|d)'), 'ad[1]|bd[2]')
 
 
-    def test_normalize_language_attributes(self):
+    def test_bm_normalize_language_attributes(self):
         """test abydos.bm.normalize_language_attributes
         """
         self.assertEqual(normalize_language_attributes('', False), '')
