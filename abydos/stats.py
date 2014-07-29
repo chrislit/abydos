@@ -63,8 +63,8 @@ class ConfusionTable(object):
                 self.fpos = tp[2]
                 self.fneg = tp[3]
             else:
-                raise AttributeError('ConfusionTable requires a 4-tuple when \
-being created from a tuple.')
+                raise AttributeError('ConfusionTable requires a 4-tuple when ' +
+                                     'being created from a tuple.')
         elif isinstance(tp, dict):
             if 'tp' in tp:
                 self.tpos = tp['tp']

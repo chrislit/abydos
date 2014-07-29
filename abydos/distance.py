@@ -210,9 +210,9 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
         return len(src) * del_cost
 
     if 2*trans_cost < ins_cost + del_cost:
-        raise ValueError('Unsupported cost assignment; the cost of two \
-transpositions must not be less than the cost of an insert \
-plus a delete.')
+        raise ValueError('Unsupported cost assignment; the cost of two ' +
+                         'transpositions must not be less than the cost of ' +
+                         'an insert plus a delete.')
 
     # pylint: disable=no-member
     d_mat = (np.zeros((len(src))*(len(tar)), dtype=np.int).
@@ -334,9 +334,9 @@ def hamming(src, tar, difflens=True):
     adds to this the difference in string lengths.
     """
     if not difflens and len(src) != len(tar):
-        raise ValueError("Undefined for sequences of unequal length; set \
-difflens to True for Hamming distance between strings of unequal \
-lengths.")
+        raise ValueError('Undefined for sequences of unequal length; set ' +
+                         'difflens to True for Hamming distance between ' +
+                         'strings of unequal lengths.')
 
     hdist = 0
     if difflens:
@@ -406,8 +406,8 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     Cf. http://aclweb.org/anthology/S/S13/S13-1028.pdf
     """
     if alpha < 0 or beta < 0:
-        raise ValueError('Unsupported weight assignment; alpha and beta must \
-be greater than or equal to 0.')
+        raise ValueError('Unsupported weight assignment; alpha and beta must ' +
+                         'be greater than or equal to 0.')
 
     if src == tar:
         return 1.0
@@ -830,11 +830,11 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False, \
     """
     if mode == 'winkler':
         if boost_threshold > 1 or boost_threshold < 0:
-            raise ValueError('Unsupported boost_threshold assignment; \
-boost_threshold must be between 0 and 1.')
+            raise ValueError('Unsupported boost_threshold assignment; ' + 
+                             'boost_threshold must be between 0 and 1.')
         if scaling_factor > 0.25 or scaling_factor < 0:
-            raise ValueError('Unsupported scaling_factor assignment; \
-scaling_factor must be between 0 and 0.25.')
+            raise ValueError('Unsupported scaling_factor assignment; ' +
+                             'scaling_factor must be between 0 and 0.25.')
 
     if src == tar:
         return 1.0
@@ -1269,8 +1269,8 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
             tar_comp = lzma.compress(tar)[14:]
             concat_comp = lzma.compress(src+tar)[14:]
         else: # pragma: no cover
-            raise ValueError('Install the lzma module in order to use lzma \
-compression similarity')
+            raise ValueError('Install the lzma module in order to use lzma ' +
+                             'compression similarity')
     elif compressor == 'arith':
         if probs == None:
             # lacking a reasonable dictionary, train on the strings themselves

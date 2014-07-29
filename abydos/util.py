@@ -201,8 +201,9 @@ class Rational(object):
             self.p = _long(pfloat_p) * _long(qfloat_q)
             self.q = _long(pfloat_q) * _long(qfloat_p)
         else:
-            raise AttributeError('Unsupported values, both p and q must be \
-of type int, long, or float or p must be a string representation of a fraction')
+            raise AttributeError('Unsupported values, both p and q must be ' +
+                                 'of type int, long, or float or p must be a ' +
+                                 'string representation of a fraction')
 
         # Finally, simplify by reducing with the GCD
         self._simplify()
