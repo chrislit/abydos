@@ -255,7 +255,7 @@ def apply_final_rules(phonetic, final_rules, language_arg, strip):
         return phonetic
 
     # expand the result
-    phonetic = expand(phonetic)
+    phonetic = expand_alternates(phonetic)
     phonetic_array = phonetic.split('|')
 
     for k in _range(len(phonetic_array)):
@@ -330,7 +330,7 @@ def apply_final_rules(phonetic, final_rules, language_arg, strip):
 
             i += pattern_length
 
-        phonetic_array[k] = expand(phonetic2)
+        phonetic_array[k] = expand_alternates(phonetic2)
 
     phonetic = '|'.join(phonetic_array)
     if strip:
@@ -342,7 +342,7 @@ def apply_final_rules(phonetic, final_rules, language_arg, strip):
     return phonetic
 
 
-def expand(phonetic):
+def expand_alternates(phonetic):
     """Expand phonetic alternates separated by |s
 
     Arguments:
@@ -363,7 +363,7 @@ def expand(phonetic):
 
     for i in _range(len(alt_array)):
         alt = alt_array[i];
-        alternate = expand(prefix+alt+suffix)
+        alternate = expand_alternates(prefix+alt+suffix)
         if alternate != '' and alternate != '[0]':
             if result != '':
                 result += '|'
@@ -451,7 +451,7 @@ def apply_rule_if_compatible(phonetic, target, language_arg):
 
     # expand the result, converting incompatible attributes to [0]
 
-    candidate = expand(candidate);
+    candidate = expand_alternates(candidate);
     candidate_array = candidate.split('|')
 
     # drop each alternative that has incompatible attributes
