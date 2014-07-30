@@ -102,7 +102,7 @@ def redo_language(term, name_mode, lang_choices, rules, final_rules1, final_rule
     return phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, language_arg, concat)
 
 
-def phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, language_arg='', concat=False):
+def phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, language_arg=0, concat=False):
     """Return the Beider-Morse encoding(s) of a term
 
     Arguments:
@@ -219,7 +219,7 @@ def phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, l
 
             # check for incompatible attributes
             candidate = apply_rule_if_compatible(phonetic, rule[_phonetic_pos], language_arg)
-            if candidate == False:
+            if not candidate:
                 continue
             phonetic = candidate
             found = True
@@ -302,7 +302,7 @@ def apply_final_rules(phonetic, final_rules, language_arg, strip):
                         continue
 
                 # check to see if rule applies to languageArg (used only with "any" rules)
-                if language_arg != "1" and _language_pos < len(rule):
+                if language_arg != 1 and _language_pos < len(rule):
                     language = rule[_language_pos] # the required language(s) for this rule to apply
                     logical = rule[_logical_pos] # do we require ALL or ANY of the required languages
                     if logical == 'ALL':
@@ -317,7 +317,7 @@ def apply_final_rules(phonetic, final_rules, language_arg, strip):
                 # check for incompatible attributes
 
                 candidate = apply_rule_if_compatible(phonetic2, rule[_phonetic_pos], language_arg)
-                if candidate == False:
+                if not candidate:
                     continue
                 phonetic2 = candidate
 
@@ -450,32 +450,28 @@ def apply_rule_if_compatible(phonetic, target, language_arg):
         return candidate
 
     # expand the result, converting incompatible attributes to [0]
-
     candidate = expand_alternates(candidate);
     candidate_array = candidate.split('|')
 
     # drop each alternative that has incompatible attributes
-
     candidate = ''
     found = False
 
     for i in _range(len(candidate_array)):
         this_candidate = candidate_array[i]
-        if language_arg != '1':
+        if language_arg != 1:
             this_candidate = normalize_language_attributes(this_candidate + '[' + str(language_arg) + ']', False)
         if this_candidate != '[0]':
             found = True
-            if candidate != '':
+            if candidate:
                 candidate += '|'
             candidate += this_candidate
 
     # return false if no compatible alternatives remain
-
     if not found:
-        return False
+        return ''
 
     # return the result of applying the rule
-
     if candidate.find('|') != -1:
         candidate = '('+candidate+')'
     return candidate
@@ -499,7 +495,7 @@ def language_index_from_code(code, name_mode):
     return code
 
 
-def bmpm(word, language_arg='', name_mode='gen', match_mode='approx',
+def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False):
     """Return the Beider-Morse Phonetic Matching algorithm encoding(s) of a
     term
