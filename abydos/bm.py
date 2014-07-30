@@ -409,7 +409,7 @@ def normalize_language_attributes(text, strip):
     """
     uninitialized = -1; # all 1's
     attrib = uninitialized
-    while text.find('[') != -1:
+    while '[' in text:
         bracket_start = text.find('[')
         bracket_end = text.find(']', bracket_start)
         if bracket_end == -1:
@@ -446,7 +446,7 @@ def apply_rule_if_compatible(phonetic, target, language_arg):
     apply the rule
     """
     candidate = phonetic + target
-    if candidate.find('[') == -1: # no attributes so we need test no further
+    if '[' in candidate: # no attributes so we need test no further
         return candidate
 
     # expand the result, converting incompatible attributes to [0]
@@ -472,7 +472,7 @@ def apply_rule_if_compatible(phonetic, target, language_arg):
         return ''
 
     # return the result of applying the rule
-    if candidate.find('|') != -1:
+    if '|' in candidate:
         candidate = '('+candidate+')'
     return candidate
 
