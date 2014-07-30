@@ -4107,15 +4107,22 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(language('átz', 'gen', gen_langs), l_any)
 
 
-    def test_bm_remove_duplicate_alternates(self):
-        """test abydos.bm.remove_duplicate_alternates
+    def test_bm_redo_language(self):
+        """test abydos.bm.redo_language
         """
-        self.assertEqual(remove_duplicate_alternates(''), '')
-        self.assertEqual(remove_duplicate_alternates('aa'), 'aa')
-        self.assertEqual(remove_duplicate_alternates('aa|bb'), 'aa|bb')
-        self.assertEqual(remove_duplicate_alternates('aa|aa'), 'aa')
-        self.assertEqual(remove_duplicate_alternates('aa|aa|aa|bb|aa'), 'aa|bb')
-        self.assertEqual(remove_duplicate_alternates('bb|aa|bb|aa|bb'), 'bb|aa')
+        pass
+
+
+    def test_bm_phonetic(self):
+        """test abydos.bm.phonetic
+        """
+        pass
+
+
+    def test_bm_apply_final_rules(self):
+        """test abydos.bm.apply_final_rules
+        """
+        pass
 
 
     def test_bm_expand_alternates(self):
@@ -4135,6 +4142,17 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(expand_alternates('(a|b|c)(a|b|c)'), 'aa|ab|ac|ba|bb|bc|ca|cb|cc')
         self.assertEqual(expand_alternates('(a[1]|b[2])(c|d)'), 'ac[1]|ad[1]|bc[2]|bd[2]')
         self.assertEqual(expand_alternates('(a[1]|b[2])(c[4]|d)'), 'ad[1]|bd[2]')
+
+
+    def test_bm_remove_duplicate_alternates(self):
+        """test abydos.bm.remove_duplicate_alternates
+        """
+        self.assertEqual(remove_duplicate_alternates(''), '')
+        self.assertEqual(remove_duplicate_alternates('aa'), 'aa')
+        self.assertEqual(remove_duplicate_alternates('aa|bb'), 'aa|bb')
+        self.assertEqual(remove_duplicate_alternates('aa|aa'), 'aa')
+        self.assertEqual(remove_duplicate_alternates('aa|aa|aa|bb|aa'), 'aa|bb')
+        self.assertEqual(remove_duplicate_alternates('bb|aa|bb|aa|bb'), 'bb|aa')
 
 
     def test_bm_normalize_language_attributes(self):
@@ -4161,6 +4179,18 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(normalize_language_attributes('abc[2][6]', True), 'abc')
         self.assertEqual(normalize_language_attributes('ab[2]c[4]', True), 'abc')
         self.assertEqual(normalize_language_attributes('ab[2]c[6]', True), 'abc')
+
+
+    def test_bm_apply_rule_if_compatible(self):
+        """test abydos.bm.apply_rule_if_compatible
+        """
+        pass
+
+
+    def test_bm_language_index_from_code(self):
+        """test abydos.bm.language_index_from_code
+        """
+        pass
 
 
 if __name__ == '__main__':
