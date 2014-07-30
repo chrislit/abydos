@@ -526,44 +526,31 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
         name_mode = 'gen'
 
     all_langs = sum([lang_dict[_] for _ in bmdata[name_mode]['languages']])
-    rules = ()
-    final_rules1 = bmdata[name_mode][match_mode]['common']
-    final_rules2 = ()
     lang_choices = 0
 
     if isinstance(language_arg, (int, float, _long)):
         lang_choices = int(language_arg)
-        i = 1
-        while i < all_langs:
-            if (i & lang_choices) and (i & all_langs):
-                rules += bmdata[name_mode]['rules'][i]
-                final_rules2 += bmdata[name_mode][match_mode][i]
-            i <<= 1
     elif language_arg != '' and isinstance(language_arg, (_unicode, str)):
         for lang in language_arg.lower().split(','):
             if lang in lang_dict and (lang_dict[lang] & all_langs):
                 lang_choices += lang_dict[lang]
-                rules += bmdata[name_mode]['rules'][lang_dict[lang]]
-                final_rules2 += bmdata[name_mode][match_mode][lang_dict[lang]]
             else:
                 raise ValueError('Unknown \'' + name_mode + '\' language: \'' +
                                  lang + '\'')
 
     if lang_choices == 0:
         lang_choices = all_langs
-        i = 1
-        while i < all_langs:
-            if i & lang_choices:
-                rules += bmdata[name_mode]['rules'][i]
-                final_rules2 += bmdata[name_mode][match_mode][i]
-            i <<= 1
-
 
     if match_mode != 'exact':
         match_mode = 'approx'
 
     language_arg = language(word, name_mode, lang_choices)
     language_arg = language_index_from_code(language_arg, name_mode)
+
+    rules = bmdata[name_mode]['rules'][language_arg]
+    final_rules1 = bmdata[name_mode][match_mode]['common']
+    final_rules2 = bmdata[name_mode][match_mode][language_arg]
+
     print str(language_arg) + ' ' + name_mode
     result = phonetic(word, name_mode, lang_choices,
                       rules, final_rules1, final_rules2, language_arg, concat)
