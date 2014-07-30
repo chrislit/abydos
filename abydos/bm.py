@@ -219,7 +219,7 @@ def phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, l
 
             # check for incompatible attributes
             candidate = apply_rule_if_compatible(phonetic, rule[_phonetic_pos], language_arg)
-            if not candidate:
+            if candidate == '':
                 continue
             phonetic = candidate
             found = True
@@ -317,7 +317,7 @@ def apply_final_rules(phonetic, final_rules, language_arg, strip):
                 # check for incompatible attributes
 
                 candidate = apply_rule_if_compatible(phonetic2, rule[_phonetic_pos], language_arg)
-                if not candidate:
+                if candidate == '':
                     continue
                 phonetic2 = candidate
 
@@ -446,7 +446,7 @@ def apply_rule_if_compatible(phonetic, target, language_arg):
     apply the rule
     """
     candidate = phonetic + target
-    if '[' in candidate: # no attributes so we need test no further
+    if '[' not in candidate: # no attributes so we need test no further
         return candidate
 
     # expand the result, converting incompatible attributes to [0]
