@@ -152,7 +152,6 @@ def phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, l
 
     elif name_mode == 'ash': # Ashkenazic case
         # discard certain words if at the start of the name
-
         if len(words) > 1 and words[0] in bmdata['ash']['discards']:
             words2 = words[1:]
         else:
@@ -174,7 +173,6 @@ def phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, l
     term_length = len(term)
 
     # apply language rules to map to phonetic alphabet
-
     print 'before main: ' + term
     phonetic = ''
     skip = 0
@@ -220,7 +218,6 @@ def phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, l
                         continue
 
             # check for incompatible attributes
-
             candidate = apply_rule_if_compatible(phonetic, rule[_phonetic_pos], language_arg)
             if candidate == False:
                 continue
@@ -232,12 +229,11 @@ def phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, l
             pattern_length = 1
         skip = pattern_length-1
 
-    # apply final rules on phonetic-alphabet, doing a substitution of certain characters
-    # final_rules1 are the common approx rules, final_rules2 are approx rules for specific language
-
     print 'before common:  ' + phonetic
+    # apply final rules on phonetic-alphabet, doing a substitution of certain characters
     phonetic = apply_final_rules(phonetic, final_rules1, language_arg, False) # apply common rules
     print 'after common:   ' + phonetic
+    # final_rules1 are the common approx rules, final_rules2 are approx rules for specific language
     phonetic = apply_final_rules(phonetic, final_rules2, language_arg, True) # apply lang specific rules
     print 'after specific: ' + phonetic
 
