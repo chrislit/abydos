@@ -175,6 +175,7 @@ def phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, l
 
     # apply language rules to map to phonetic alphabet
 
+    print 'before main: ' + term
     phonetic = ''
     skip = 0
     for i in _range(term_length):
@@ -189,32 +190,32 @@ def phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, l
             rcontext = rule[_rcontext_pos]
 
             # check to see if next sequence in input matches the string in the rule
-            if (pattern_length > term_length - 1) or (term[i:i+pattern_length] != pattern):
+            if (pattern_length > term_length - i) or (term[i:i+pattern_length] != pattern): # no match
                 continue
 
             right = '^'+rcontext
             left = lcontext+'$'
 
             # check that right context is satisfied
-            if rcontext:
+            if rcontext != '':
                 if not re.search(right, term[i+pattern_length:]):
                     continue
 
             # check that left context is satisfied
-            if lcontext:
+            if lcontext != '':
                 if not re.search(left, term[:i]):
                     continue
 
-            # TODO: check this. since it's likely to represent bugs
             # check to see if language_arg is one of the allowable ones (used only with "any" rules)
-            if language_arg != '1' and _language_pos < len(rule):
-                language = rule[_language_pos]
-                logical = rule[_logical_pos]
+            if language_arg != 1 and _language_pos < len(rule):
+                language = rule[_language_pos] # the required language(s) for this rule to apply
+                logical = rule[_logical_pos] # do we require ALL or ANY of the required languages
                 if logical == 'ALL':
                     # check to see if language_arg contains all the required languages
                     if (language_arg & language) != language:
                         continue
-                else:
+                else: #any
+                    # check to see if languageArg contains at least one required language
                     if (language_arg & language) == 0:
                         continue
 
@@ -234,8 +235,11 @@ def phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, l
     # apply final rules on phonetic-alphabet, doing a substitution of certain characters
     # final_rules1 are the common approx rules, final_rules2 are approx rules for specific language
 
+    print 'before common:  ' + phonetic
     phonetic = apply_final_rules(phonetic, final_rules1, language_arg, False) # apply common rules
+    print 'after common:   ' + phonetic
     phonetic = apply_final_rules(phonetic, final_rules2, language_arg, True) # apply lang specific rules
+    print 'after specific: ' + phonetic
 
     return phonetic
 
@@ -568,6 +572,7 @@ def bmpm(word, language_arg='', name_mode='gen', match_mode='approx',
 
     language_arg = language(word, name_mode, lang_choices)
     language_arg = language_index_from_code(language_arg, name_mode)
+    print str(language_arg) + ' ' + name_mode
     result = phonetic(word, name_mode, lang_choices,
                       rules, final_rules1, final_rules2, language_arg, concat)
 
