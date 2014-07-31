@@ -4083,33 +4083,31 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(bmpm('d\'ortley', '', 'gen', 'exact', True),
                          'ortlaj ortlej dortlaj dortlej')
         #self.assertEqual(bmpm('van helsing', '', 'gen', 'exact', False),
-        #                 'helSink helsink helzink xelsink elSink elsink vanhelsink vanhelzink vanjelsink fanhelsink fanhelzink banhelsink')
-
+        #                 'ilznk ilzn Ylznk xilznk xilzn vanilznk vanilzn vanYlznk vonilznk vonilzn vonYlznk vYnilznk vYnYlznk vaniilznk voniilznk fanilznk fanYlznk fonilznk fonYlznk fYnilznk fYnYlznk banilznk bonilznk')
 
     def test_bm_language(self):
         """test abydos.bm.language
         Most test cases from:
         http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/LanguageGuessingTest.java?view=markup
         """
-        gen_langs = sum([lang_dict[_] for _ in bmdata['gen']['languages']])
-        self.assertEqual(language('Renault', 'gen', gen_langs), l_french)
-        self.assertEqual(language('Mickiewicz', 'gen', gen_langs), l_polish)
-        self.assertEqual(language('Thompson', 'gen', gen_langs) & l_english, l_english)
-        self.assertEqual(language('Nuñez', 'gen', gen_langs), l_spanish)
-        self.assertEqual(language('Carvalho', 'gen', gen_langs), l_portuguese)
-        self.assertEqual(language('Čapek', 'gen', gen_langs), l_czech)
-        self.assertEqual(language('Sjneijder', 'gen', gen_langs), l_dutch)
-        self.assertEqual(language('Klausewitz', 'gen', gen_langs), l_german)
-        self.assertEqual(language('Küçük', 'gen', gen_langs), l_turkish)
-        self.assertEqual(language('Giacometti', 'gen', gen_langs), l_italian)
-        self.assertEqual(language('Nagy', 'gen', gen_langs), l_hungarian)
-        self.assertEqual(language('Ceauşescu', 'gen', gen_langs), l_romanian)
-        self.assertEqual(language('Angelopoulos', 'gen', gen_langs), l_greeklatin)
-        self.assertEqual(language('Αγγελόπουλος', 'gen', gen_langs), l_greek)
-        self.assertEqual(language('Пушкин', 'gen', gen_langs), l_cyrillic)
-        self.assertEqual(language('כהן', 'gen', gen_langs), l_hebrew)
-        self.assertEqual(language('ácz', 'gen', gen_langs), l_any)
-        self.assertEqual(language('átz', 'gen', gen_langs), l_any)
+        self.assertEqual(language('Renault', 'gen'), l_french)
+        self.assertEqual(language('Mickiewicz', 'gen'), l_polish)
+        self.assertEqual(language('Thompson', 'gen') & l_english, l_english)
+        self.assertEqual(language('Nuñez', 'gen'), l_spanish)
+        self.assertEqual(language('Carvalho', 'gen'), l_portuguese)
+        self.assertEqual(language('Čapek', 'gen'), l_czech)
+        self.assertEqual(language('Sjneijder', 'gen'), l_dutch)
+        self.assertEqual(language('Klausewitz', 'gen'), l_german)
+        self.assertEqual(language('Küçük', 'gen'), l_turkish)
+        self.assertEqual(language('Giacometti', 'gen'), l_italian)
+        self.assertEqual(language('Nagy', 'gen'), l_hungarian)
+        self.assertEqual(language('Ceauşescu', 'gen'), l_romanian)
+        self.assertEqual(language('Angelopoulos', 'gen'), l_greeklatin)
+        self.assertEqual(language('Αγγελόπουλος', 'gen'), l_greek)
+        self.assertEqual(language('Пушкин', 'gen'), l_cyrillic)
+        self.assertEqual(language('כהן', 'gen'), l_hebrew)
+        self.assertEqual(language('ácz', 'gen'), l_any)
+        self.assertEqual(language('átz', 'gen'), l_any)
 
 
     def test_bm_redo_language(self):

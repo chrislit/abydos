@@ -57,7 +57,7 @@ _language_pos = 4
 _logical_pos = 5
 
 
-def language(name, name_mode, lang_choices):
+def language(name, name_mode):
     """Return the best guess language ID for the given word and set of language
     choices
 
@@ -65,25 +65,24 @@ def language(name, name_mode, lang_choices):
     name -- the term to guess the language of
     name_mode -- the name mode of the algorithm: 'gen' (default),
                 'ash' (Ashkenazi), or 'sep' (Sephardic)
-    lang_choices -- an integer, the bits of which indicate the set of possible
-                languages
     """
     name = name.strip().lower()
     rules = bmdata[name_mode]['language_rules']
-    choices_remaining = lang_choices
+    all = sum([lang_dict[_] for _ in bmdata[name_mode]['languages']])
+    choices_remaining = all
     for rule in rules:
         letters, languages, accept = rule
         if re.search(letters, name) != None:
             if accept:
                 choices_remaining &= languages
             else:
-                choices_remaining &= (~languages) % (lang_choices+1)
+                choices_remaining &= (~languages) % (all+1)
     if choices_remaining == l_none:
         choices_remaining = l_any
     return choices_remaining
 
 
-def redo_language(term, name_mode, lang_choices, rules, final_rules1, final_rules2, concat):
+def redo_language(term, name_mode, rules, final_rules1, final_rules2, concat):
     """Using a split multi-work term, reassess the language of the terms and
     call the phonetic encoder
 
@@ -91,26 +90,22 @@ def redo_language(term, name_mode, lang_choices, rules, final_rules1, final_rule
     term -- the term to encode via Beider-Morse
     name_mode -- the name mode of the algorithm: 'gen' (default),
                 'ash' (Ashkenazi), or 'sep' (Sephardic)
-    lang_choices -- an integer, the bits of which indicate the set of possible
-                languages
     rules -- the set of initial phonetic transform regexps
     final_rules1 -- the common set of final phonetic transform regexps
     final_rules2 -- the specific set of final phonetic transform regexps
     concat -- a flag to indicate concatenation
     """
-    language_arg = language(term, name_mode, lang_choices)
-    return phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, language_arg, concat)
+    language_arg = language(term, name_mode)
+    return phonetic(term, name_mode, rules, final_rules1, final_rules2, language_arg, concat)
 
 
-def phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, language_arg=0, concat=False):
+def phonetic(term, name_mode, rules, final_rules1, final_rules2, language_arg=0, concat=False):
     """Return the Beider-Morse encoding(s) of a term
 
     Arguments:
     term -- the term to encode via Beider-Morse
     name_mode -- the name mode of the algorithm: 'gen' (default),
                 'ash' (Ashkenazi), or 'sep' (Sephardic)
-    lang_choices -- an integer, the bits of which indicate the set of possible
-                languages
     rules -- the set of initial phonetic transform regexps
     final_rules1 -- the common set of final phonetic transform regexps
     final_rules2 -- the specific set of final phonetic transform regexps
@@ -126,10 +121,10 @@ def phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, l
             if term.startswith(pfx):
                 remainder = term[len(pfx):]
                 combined = pfx[:-1]+remainder
-                result = (redo_language(remainder, name_mode, lang_choices, rules,
+                result = (redo_language(remainder, name_mode, rules,
                                         final_rules1, final_rules2, concat) +
                           '-' +
-                          redo_language(combined, name_mode, lang_choices, rules,
+                          redo_language(combined, name_mode, rules,
                                         final_rules1, final_rules2, concat))
                 return result
 
@@ -166,7 +161,7 @@ def phonetic(term, name_mode, lang_choices, rules, final_rules1, final_rules2, l
     else: # encode each word in a multi-word name separately (normally used for approx matches)
         result = ''
         for word in words2:
-            result += '-' + redo_language(word, name_mode, lang_choices, rules,
+            result += '-' + redo_language(word, name_mode, rules,
                                           final_rules1, final_rules2, concat)
         return result[1:] # strip off the leading dash
 
@@ -607,7 +602,7 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     # Language choices are either all incompatible with the name mode or
     # no choices were given, so try to autodetect
     if lang_choices == 0:
-        language_arg = language(word, name_mode, all_langs)
+        language_arg = language(word, name_mode)
     else:
         language_arg = lang_choices
     language_arg2 = language_index_from_code(language_arg, name_mode)
@@ -619,8 +614,9 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     final_rules2 = bmdata[name_mode][match_mode][language_arg2]
 
     print str(language_arg) + ' ' + name_mode
-    result = phonetic(word, name_mode, lang_choices, rules, final_rules1,
+    result = phonetic(word, name_mode, rules, final_rules1,
                       final_rules2, language_arg, concat)
+    print 'Results: ' + result
     result = phonetic_numbers(result)
     print 'after numbers: ' + result
     return result
