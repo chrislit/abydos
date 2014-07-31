@@ -557,7 +557,7 @@ def language_index_from_code(code, name_mode):
 
 
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
-         concat=False):
+         concat=False, filter_langs=False):
     """Return the Beider-Morse Phonetic Matching algorithm encoding(s) of a
     term
 
@@ -573,6 +573,7 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
                 'ash' (Ashkenazi), or 'sep' (Sephardic)
     match_mode -- matching mode: 'approx' or 'exact'
     concat -- concatenation mode
+    filter_langs -- filter out incompatible languages
 
     Description:
     The Beider-Morse Phonetic Matching algorithm is described at:
@@ -583,34 +584,39 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     word = unicodedata.normalize('NFC', _unicode(word.strip().lower()))
 
     name_mode = name_mode.strip().lower()[:3]
-    if name_mode not in ['ash', 'sep']:
+    if name_mode not in set(['ash', 'sep', 'gen']):
         name_mode = 'gen'
 
+    if match_mode != 'exact':
+        match_mode = 'approx'
+
+    # Translate the supplied language_arg value into an integer representing
+    # a set of languages
     all_langs = sum([lang_dict[_] for _ in bmdata[name_mode]['languages']])
     lang_choices = 0
-
     if isinstance(language_arg, (int, float, _long)):
         lang_choices = int(language_arg)
     elif language_arg != '' and isinstance(language_arg, (_unicode, str)):
         for lang in language_arg.lower().split(','):
             if lang in lang_dict and (lang_dict[lang] & all_langs):
                 lang_choices += lang_dict[lang]
-            else:
+            elif not filter_langs:
                 raise ValueError('Unknown \'' + name_mode + '\' language: \'' +
                                  lang + '\'')
 
+    # Language choices are either all incompatible with the name mode or
+    # no choices were given, so try to autodetect
     if lang_choices == 0:
-        lang_choices = all_langs
+        language_arg = language(word, name_mode, all_langs)
+    else:
+        language_arg = lang_choices
+    language_arg2 = language_index_from_code(language_arg, name_mode)
 
-    if match_mode != 'exact':
-        match_mode = 'approx'
+    print language_arg, language_arg
 
-    language_arg = language(word, name_mode, lang_choices)
-    language_arg = language_index_from_code(language_arg, name_mode)
-
-    rules = bmdata[name_mode]['rules'][language_arg]
+    rules = bmdata[name_mode]['rules'][language_arg2]
     final_rules1 = bmdata[name_mode][match_mode]['common']
-    final_rules2 = bmdata[name_mode][match_mode][language_arg]
+    final_rules2 = bmdata[name_mode][match_mode][language_arg2]
 
     print str(language_arg) + ' ' + name_mode
     result = phonetic(word, name_mode, lang_choices, rules, final_rules1,
