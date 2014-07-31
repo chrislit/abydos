@@ -342,7 +342,7 @@ def apply_final_rules(phonetic, final_rules, language_arg, strip):
     return phonetic
 
 
-def phonetic_number(phonetic, hash=True):
+def phonetic_number(phonetic, hashed=True):
     bracket = phonetic.find('[')
     if (bracket != -1):
         return phonetic[:bracket]
@@ -368,7 +368,7 @@ def phonetic_number(phonetic, hash=True):
         if j == False:
             raise ValueError('fatal error: invalid phonetic letter at position ' + _unicode(i + 1) + ' in ' + phonetic)
         result *= len(phonetic_letters) + len(meta_phonetic_letters)
-        if hash:
+        if hashed:
             # result = result & 0xff
             result = result & 0x7fffffff
             # result = Mod(result, 999999999)
@@ -616,5 +616,5 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     result = phonetic(word, name_mode, lang_choices, rules, final_rules1,
                       final_rules2, language_arg, concat)
     result = phonetic_numbers(result)
-
+    print 'after numbers: ' + result
     return result
