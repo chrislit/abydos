@@ -342,6 +342,42 @@ def apply_final_rules(phonetic, final_rules, language_arg, strip):
     return phonetic
 
 
+def phonetic_number(phonetic, hash=True):
+    bracket = phonetic.find('[')
+    if (bracket != -1):
+        return phonetic[:bracket]
+
+    return phonetic # experimental !!!!
+
+    phonetic_letters = '!bdfghjklmnNprsSt68vwzZxAa4oe5iI9uUEyQY' # true phonetic letters
+    phonetic_letters += '1BCDEHJKLOTUVWX' # metaphonetic letters
+    # dummy first letter, otherwise b would be treated as 0 and have no effect on result
+    meta_phonetic_letters = '' # added letters to be used in finalxxx.php rules
+    result = 0
+    i = 0
+    while i < len(phonetic):
+        if phonetic[i:i+1] == '#': # it's a meta phonetic letter
+            if i == len(phonetic)-1:
+                raise ValueError('fatal error: invalid metaphonetic letter at position ' + _unicode(i + 1) + ' in ' + phonetic)
+            i += 1
+            j = meta_phonetic_letters.find(phonetic[i:i+1])
+            if j != -1:
+                j += len(phonetic_letters)
+        else:
+            j = phonetic_letters.find(phonetic[i:i+1])
+        if j == False:
+            raise ValueError('fatal error: invalid phonetic letter at position ' + _unicode(i + 1) + ' in ' + phonetic)
+        result *= len(phonetic_letters) + len(meta_phonetic_letters)
+        if hash:
+            # result = result & 0xff
+            result = result & 0x7fffffff
+            # result = Mod(result, 999999999)
+
+        result += j
+        i += 1
+    return hex(result)
+
+
 def expand_alternates(phonetic):
     """Expand phonetic alternates separated by |s
 
@@ -369,6 +405,31 @@ def expand_alternates(phonetic):
                 result += '|'
             result += alternate;
 
+    return result
+
+
+def phonetic_numbers_with_leading_space(phonetic):
+    alt_start = phonetic.find('(')
+    if alt_start == -1:
+        return ' ' + phonetic_number(phonetic)
+
+    prefix = phonetic[:alt_start]
+    alt_start += 1 # get past the (
+    alt_end = phonetic.find(')', alt_start)
+    alt_string = phonetic[alt_start:alt_end]
+    alt_end += 1 # get past the )
+    suffix = phonetic[alt_end:]
+    alt_array = alt_string.split('|')
+    result = ''
+    for alt in alt_array:
+        result += phonetic_numbers_with_leading_space(prefix+alt+suffix)
+
+    return result
+
+
+def phonetic_numbers(phonetic):
+    phonetic_array = phonetic.split('-') # for names with spaces in them
+    result = ' '.join([phonetic_numbers_with_leading_space(i)[1:] for i in phonetic_array])
     return result
 
 
@@ -552,7 +613,8 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     final_rules2 = bmdata[name_mode][match_mode][language_arg]
 
     print str(language_arg) + ' ' + name_mode
-    result = phonetic(word, name_mode, lang_choices,
-                      rules, final_rules1, final_rules2, language_arg, concat)
+    result = phonetic(word, name_mode, lang_choices, rules, final_rules1,
+                      final_rules2, language_arg, concat)
+    result = phonetic_numbers(result)
 
     return result
