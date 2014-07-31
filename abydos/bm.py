@@ -68,15 +68,15 @@ def language(name, name_mode):
     """
     name = name.strip().lower()
     rules = bmdata[name_mode]['language_rules']
-    all = sum([lang_dict[_] for _ in bmdata[name_mode]['languages']])
-    choices_remaining = all
+    all_langs = sum([lang_dict[_] for _ in bmdata[name_mode]['languages']])
+    choices_remaining = all_langs
     for rule in rules:
         letters, languages, accept = rule
         if re.search(letters, name) != None:
             if accept:
                 choices_remaining &= languages
             else:
-                choices_remaining &= (~languages) % (all+1)
+                choices_remaining &= (~languages) % (all_langs+1)
     if choices_remaining == l_none:
         choices_remaining = l_any
     return choices_remaining
