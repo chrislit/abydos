@@ -4004,7 +4004,6 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'anxYlo anxilo onxYlo onxilo angYlo angilo ongYlo ongilo')
         self.assertEqual(bmpm('1234', '', 'ash', 'approx', True), '')
 
-
         # concat is false, ruleType is APPROX
         self.assertEqual(bmpm('Angelo', '', 'ash', 'approx', False),
                          'angilo angYlo ongilo ongYlo Yngilo YngYlo anzilo onzilo anilo onilo anxilo onxilo')
@@ -4063,11 +4062,10 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'abram abrom avram avrom obram obrom ovram ovrom Ybram Ybrom abran abron obran obron')
         self.assertEqual(bmpm('Bendzin', '', 'gen', 'approx', False),
                          'bnzn bndzn vndzn bntsn vntsn')
-
         self.assertEqual(bmpm('abram', '', 'ash', 'approx', False),
                          'abram abrom avram avrom obram obrom ovram ovrom Ybram Ybrom ombram ombrom imbram imbrom')
-        #self.assertEqual(bmpm('Halpern', '', 'ash', 'approx', False),
-        #                 'alpirn alpYrn olpirn olpYrn Ylpirn YlpYrn xalpirn xolpirn')
+        self.assertEqual(bmpm('Halpern', '', 'ash', 'approx', False),
+                         'alpirn alpYrn olpirn olpYrn Ylpirn YlpYrn xalpirn xolpirn')
 
 
         # http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/PhoneticEngineTest.java?view=markup
@@ -4082,8 +4080,9 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'sntjonsmit')
         self.assertEqual(bmpm('d\'ortley', '', 'gen', 'exact', True),
                          'ortlaj ortlej dortlaj dortlej')
-        #self.assertEqual(bmpm('van helsing', '', 'gen', 'exact', False),
-        #                 'ilznk ilzn Ylznk xilznk xilzn vanilznk vanilzn vanYlznk vonilznk vonilzn vonYlznk vYnilznk vYnYlznk vaniilznk voniilznk fanilznk fanYlznk fonilznk fonYlznk fYnilznk fYnYlznk banilznk bonilznk')
+        self.assertEqual(bmpm('van helsing', '', 'gen', 'exact', False),
+                         'helSink helsink helzink xelsink elSink elsink vanhelsink vanhelzink vanjelsink fanhelsink fanhelzink banhelsink')
+
 
     def test_bm_language(self):
         """test abydos.bm.language

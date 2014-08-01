@@ -310,9 +310,8 @@ def apply_final_rules(phonetic, final_rules, language_arg, strip):
                             continue
 
                 # check for incompatible attributes
-
                 candidate = apply_rule_if_compatible(phonetic2, rule[_phonetic_pos], language_arg)
-                if candidate == '':
+                if candidate == None:
                     continue
                 phonetic2 = candidate
 
@@ -525,7 +524,7 @@ def apply_rule_if_compatible(phonetic, target, language_arg):
 
     # return false if no compatible alternatives remain
     if not found:
-        return ''
+        return None
 
     # return the result of applying the rule
     if '|' in candidate:
