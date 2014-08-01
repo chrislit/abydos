@@ -4084,6 +4084,20 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'helSink helsink helzink xelsink elSink elsink vanhelsink vanhelzink vanjelsink fanhelsink fanhelzink banhelsink')
 
 
+    def test_bmpm_nachnamen(self):
+        """test abydos.bm.bmpm (Nachnamen set)
+        """
+        with codecs.open(TESTDIR+'/corpora/nachnamen.bm',
+                         encoding='utf-8') as nachnamen_testset:
+            next(nachnamen_testset)
+            for nn_line in nachnamen_testset:
+                if nn_line[0] != '#':
+                    nn_line = nn_line.strip().split(',')
+                    self.assertEqual(bmpm(nn_line[0], language_arg='german'),
+                                     nn_line[1])
+                    #self.assertEqual(bmpm(nn_line[0]), nn_line[3])
+
+
     def test_bm_language(self):
         """test abydos.bm.language
         Most test cases from:
