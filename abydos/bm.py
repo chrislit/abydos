@@ -68,7 +68,7 @@ def language(name, name_mode):
     """
     name = name.strip().lower()
     rules = bmdata[name_mode]['language_rules']
-    all_langs = sum([lang_dict[_] for _ in bmdata[name_mode]['languages']])
+    all_langs = sum([lang_dict[_] for _ in bmdata[name_mode]['languages']])-1
     choices_remaining = all_langs
     for rule in rules:
         letters, languages, accept = rule
@@ -582,7 +582,7 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
 
     # Translate the supplied language_arg value into an integer representing
     # a set of languages
-    all_langs = sum([lang_dict[_] for _ in bmdata[name_mode]['languages']])
+    all_langs = sum([lang_dict[_] for _ in bmdata[name_mode]['languages']])-1
     lang_choices = 0
     if isinstance(language_arg, (int, float, _long)):
         lang_choices = int(language_arg)
