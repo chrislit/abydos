@@ -4095,7 +4095,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                     nn_line = nn_line.strip().split(',')
                     self.assertEqual(bmpm(nn_line[0], language_arg='german'),
                                      nn_line[1])
-                    #self.assertEqual(bmpm(nn_line[0]), nn_line[3])
+                    self.assertEqual(bmpm(nn_line[0]), nn_line[3])
 
 
     def test_bm_language(self):
