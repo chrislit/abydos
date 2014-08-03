@@ -4155,24 +4155,6 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(language('átz', 'gen'), l_any)
 
 
-    def test_bm_redo_language(self):
-        """test abydos.bm.redo_language
-        """
-        pass
-
-
-    def test_bm_phonetic(self):
-        """test abydos.bm.phonetic
-        """
-        pass
-
-
-    def test_bm_apply_final_rules(self):
-        """test abydos.bm.apply_final_rules
-        """
-        pass
-
-
     def test_bm_expand_alternates(self):
         """test abydos.bm.expand_alternates
         """
@@ -4227,18 +4209,6 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(normalize_language_attributes('abc[2][6]', True), 'abc')
         self.assertEqual(normalize_language_attributes('ab[2]c[4]', True), 'abc')
         self.assertEqual(normalize_language_attributes('ab[2]c[6]', True), 'abc')
-
-
-    def test_bm_apply_rule_if_compatible(self):
-        """test abydos.bm.apply_rule_if_compatible
-        """
-        pass
-
-
-    def test_bm_language_index_from_code(self):
-        """test abydos.bm.language_index_from_code
-        """
-        pass
 
 
 if __name__ == '__main__':
