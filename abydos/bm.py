@@ -329,9 +329,10 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
 
 
 def _bm_phonetic_number(phonetic):
-    bracket = phonetic.find('[')
-    if bracket != -1:
-        return phonetic[:bracket]
+    """Remove bracketed text from the end of a string
+    """
+    if '[' in phonetic:
+        return phonetic[:phonetic.find('[')]
 
     return phonetic # experimental !!!!
 
