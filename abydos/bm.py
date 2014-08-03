@@ -95,10 +95,12 @@ def redo_language(term, name_mode, rules, final_rules1, final_rules2, concat):
     concat -- a flag to indicate concatenation
     """
     language_arg = language(term, name_mode)
-    return phonetic(term, name_mode, rules, final_rules1, final_rules2, language_arg, concat)
+    return phonetic(term, name_mode, rules, final_rules1, final_rules2,
+                    language_arg, concat)
 
 
-def phonetic(term, name_mode, rules, final_rules1, final_rules2, language_arg=0, concat=False):
+def phonetic(term, name_mode, rules, final_rules1, final_rules2,
+             language_arg=0, concat=False):
     """Return the Beider-Morse encoding(s) of a term
 
     Arguments:
@@ -181,7 +183,8 @@ def phonetic(term, name_mode, rules, final_rules1, final_rules2, language_arg=0,
             rcontext = rule[_rcontext_pos]
 
             # check to see if next sequence in input matches the string in the rule
-            if (pattern_length > term_length - i) or (term[i:i+pattern_length] != pattern): # no match
+            if (pattern_length > term_length - i) or (term[i:i+pattern_length]
+                                                      != pattern): # no match
                 continue
 
             right = '^'+rcontext
@@ -211,7 +214,8 @@ def phonetic(term, name_mode, rules, final_rules1, final_rules2, language_arg=0,
                         continue
 
             # check for incompatible attributes
-            candidate = apply_rule_if_compatible(phonetic, rule[_phonetic_pos], language_arg)
+            candidate = apply_rule_if_compatible(phonetic, rule[_phonetic_pos],
+                                                 language_arg)
             if candidate == None:
                 continue
             phonetic = candidate
@@ -278,7 +282,8 @@ def apply_final_rules(phonetic, final_rules, language_arg, strip):
                 left = lcontext+'$'
 
                 # check to see if next sequence in phonetic matches the string in the rule
-                if (pattern_length > len(phoneticx) - i) or phoneticx[i:i+pattern_length] != pattern:
+                if ((pattern_length > len(phoneticx) - i) or
+                    phoneticx[i:i+pattern_length] != pattern):
                     continue
 
                 # check that right context is satisfied
@@ -305,7 +310,9 @@ def apply_final_rules(phonetic, final_rules, language_arg, strip):
                             continue
 
                 # check for incompatible attributes
-                candidate = apply_rule_if_compatible(phonetic2, rule[_phonetic_pos], language_arg)
+                candidate = apply_rule_if_compatible(phonetic2,
+                                                     rule[_phonetic_pos],
+                                                     language_arg)
                 if candidate == None:
                     continue
                 phonetic2 = candidate
@@ -418,7 +425,8 @@ def phonetic_numbers_with_leading_space(phonetic):
 
 def phonetic_numbers(phonetic):
     phonetic_array = phonetic.split('-') # for names with spaces in them
-    result = ' '.join([phonetic_numbers_with_leading_space(i)[1:] for i in phonetic_array])
+    result = ' '.join([phonetic_numbers_with_leading_space(i)[1:] for i in
+                       phonetic_array])
     return result
 
 
@@ -510,7 +518,9 @@ def apply_rule_if_compatible(phonetic, target, language_arg):
     for i in _range(len(candidate_array)):
         this_candidate = candidate_array[i]
         if language_arg != 1:
-            this_candidate = normalize_language_attributes(this_candidate + '[' + str(language_arg) + ']', False)
+            this_candidate = normalize_language_attributes(this_candidate + '['
+                                                           + str(language_arg) +
+                                                           ']', False)
         if this_candidate != '[0]':
             found = True
             if candidate:
