@@ -3943,7 +3943,8 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'angelo anxelo anhelo anjelo anZelo andZelo')
         self.assertEqual(bmpm('D\'Angelo', '', 'gen', 'exact', True),
                          'angelo anxelo anhelo anjelo anZelo andZelo dangelo danxelo danhelo danjelo danZelo dandZelo')
-        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen', 'exact', True),
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen', 'exact',
+                              True),
                          'angelo anxelo andZelo')
         self.assertEqual(bmpm('1234', '', 'gen', 'exact', True), '')
 
@@ -3952,7 +3953,8 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'angelo anxelo anhelo anjelo anZelo andZelo')
         self.assertEqual(bmpm('D\'Angelo', '', 'gen', 'exact', False),
                          'angelo anxelo anhelo anjelo anZelo andZelo dangelo danxelo danhelo danjelo danZelo dandZelo')
-        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen', 'exact', False),
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen', 'exact',
+                              False),
                          'angelo anxelo andZelo')
         self.assertEqual(bmpm('1234', '', 'gen', 'exact', False), '')
         
@@ -3961,7 +3963,8 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'angilo angYlo agilo ongilo ongYlo ogilo Yngilo YngYlo anxilo onxilo anilo onilo aniilo oniilo anzilo onzilo')
         self.assertEqual(bmpm('D\'Angelo', '', 'gen', 'approx', True),
                          'angilo angYlo agilo ongilo ongYlo ogilo Yngilo YngYlo anxilo onxilo anilo onilo aniilo oniilo anzilo onzilo dangilo dangYlo dagilo dongilo dongYlo dogilo dYngilo dYngYlo danxilo donxilo danilo donilo daniilo doniilo danzilo donzilo')
-        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen', 'approx', True),
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen',
+                              'approx', True),
                          'angilo ongilo anxilo onxilo anzilo onzilo')
         self.assertEqual(bmpm('1234', '', 'gen', 'approx', True), '')
 
@@ -3971,7 +3974,8 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'angilo angYlo agilo ongilo ongYlo ogilo Yngilo YngYlo anxilo onxilo anilo onilo aniilo oniilo anzilo onzilo')
         self.assertEqual(bmpm('D\'Angelo', '', 'gen', 'approx', False),
                          'angilo angYlo agilo ongilo ongYlo ogilo Yngilo YngYlo anxilo onxilo anilo onilo aniilo oniilo anzilo onzilo dangilo dangYlo dagilo dongilo dongYlo dogilo dYngilo dYngYlo danxilo donxilo danilo donilo daniilo doniilo danzilo donzilo')
-        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen', 'approx', False),
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen',
+                              'approx', False),
                          'angilo ongilo anxilo onxilo anzilo onzilo')
         self.assertEqual(bmpm('1234', '', 'gen', 'approx', False), '')
 
@@ -3982,9 +3986,10 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'angelo andZelo anhelo anxelo')
         self.assertEqual(bmpm('D\'Angelo', '', 'ash', 'exact', True),
                          'dangelo dandZelo danhelo danxelo')
-        self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish', 'ash', 'exact', True)
-        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'ash', 'exact', True, True),
-                         'anxelo angelo')
+        self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish',
+                          'ash', 'exact', True)
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'ash', 'exact',
+                              True, True), 'anxelo angelo')
         self.assertEqual(bmpm('1234', '', 'ash', 'exact', True), '')
 
         # concat is false, ruleType is EXACT
@@ -3992,9 +3997,10 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'angelo andZelo anhelo anxelo')
         self.assertEqual(bmpm('D\'Angelo', '', 'ash', 'exact', False),
                          'dangelo dandZelo danhelo danxelo')
-        self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish', 'ash', 'exact', False)
-        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'ash', 'exact', False, True),
-                         'anxelo angelo')
+        self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish',
+                          'ash', 'exact', False)
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'ash', 'exact',
+                              False, True), 'anxelo angelo')
         self.assertEqual(bmpm('1234', '', 'ash', 'exact', False), '')
 
         # concat is true, ruleType is APPROX
@@ -4002,8 +4008,10 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'angilo angYlo ongilo ongYlo Yngilo YngYlo anzilo onzilo anilo onilo anxilo onxilo')
         self.assertEqual(bmpm('D\'Angelo', '', 'ash', 'approx', True),
                          'dangilo dangYlo dongilo dongYlo dYngilo dYngYlo danzilo donzilo danilo donilo danxilo donxilo')
-        self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish', 'ash', 'approx', True)
-        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'ash', 'approx', True, True),
+        self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish',
+                          'ash', 'approx', True)
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'ash',
+                              'approx', True, True),
                          'anxYlo anxilo onxYlo onxilo angYlo angilo ongYlo ongilo')
         self.assertEqual(bmpm('1234', '', 'ash', 'approx', True), '')
 
@@ -4012,8 +4020,10 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'angilo angYlo ongilo ongYlo Yngilo YngYlo anzilo onzilo anilo onilo anxilo onxilo')
         self.assertEqual(bmpm('D\'Angelo', '', 'ash', 'approx', False),
                          'dangilo dangYlo dongilo dongYlo dYngilo dYngYlo danzilo donzilo danilo donilo danxilo donxilo')
-        self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish', 'ash', 'approx', False)
-        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'ash', 'approx', False, True),
+        self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish',
+                          'ash', 'approx', False)
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'ash',
+                              'approx', False, True),
                          'anxYlo anxilo onxYlo onxilo angYlo angilo ongYlo ongilo')
         self.assertEqual(bmpm('1234', '', 'ash', 'approx', False), '')
 
@@ -4024,8 +4034,10 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'anZelo andZelo anxelo')
         self.assertEqual(bmpm('D\'Angelo', '', 'sep', 'exact', True),
                          'anZelo andZelo anxelo')
-        self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish', 'sep', 'exact', True)
-        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'sep', 'exact', True, True),
+        self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish',
+                          'sep', 'exact', True)
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'sep', 'exact',
+                              True, True),
                          'andZelo anxelo')
         self.assertEqual(bmpm('1234', '', 'sep', 'exact', True), '')
 
@@ -4034,9 +4046,10 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'anZelo andZelo anxelo')
         self.assertEqual(bmpm('D\'Angelo', '', 'sep', 'exact', False),
                          'anZelo andZelo anxelo')
-        self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish', 'sep', 'exact', False)
-        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'sep', 'exact', False, True),
-                         'andZelo anxelo')
+        self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish',
+                          'sep', 'exact', False)
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'sep', 'exact',
+                              False, True), 'andZelo anxelo')
         self.assertEqual(bmpm('1234', '', 'sep', 'exact', False), '')
 
         # concat is true, ruleType is APPROX
@@ -4044,8 +4057,10 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'anzila anzilu nzila nzilu anhila anhilu nhila nhilu')
         self.assertEqual(bmpm('D\'Angelo', '', 'sep', 'approx', True),
                          'anzila anzilu nzila nzilu anhila anhilu nhila nhilu')
-        self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish', 'sep', 'approx', True)
-        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'sep', 'approx', True, True),
+        self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish',
+                          'sep', 'approx', True)
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'sep',
+                              'approx', True, True),
                          'anzila anzilu nzila nzilu anhila anhilu nhila nhilu')
         self.assertEqual(bmpm('1234', '', 'sep', 'approx', True), '')
 
@@ -4054,8 +4069,10 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'anzila anzilu nzila nzilu anhila anhilu nhila nhilu')
         self.assertEqual(bmpm('D\'Angelo', '', 'sep', 'approx', False),
                          'anzila anzilu nzila nzilu anhila anhilu nhila nhilu')
-        self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish', 'sep', 'approx', False)
-        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'sep', 'approx', False, True),
+        self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish',
+                          'sep', 'approx', False)
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'sep',
+                              'approx', False, True),
                          'anzila anzilu nzila nzilu anhila anhilu nhila nhilu')
         self.assertEqual(bmpm('1234', '', 'sep', 'approx', False), '')
 
@@ -4169,9 +4186,12 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(expand_alternates('(aa[0])(bb)'), '')
         self.assertEqual(expand_alternates('(aa[4])(bb)'), 'aabb[4]')
 
-        self.assertEqual(expand_alternates('(a|b|c)(a|b|c)'), 'aa|ab|ac|ba|bb|bc|ca|cb|cc')
-        self.assertEqual(expand_alternates('(a[1]|b[2])(c|d)'), 'ac[1]|ad[1]|bc[2]|bd[2]')
-        self.assertEqual(expand_alternates('(a[1]|b[2])(c[4]|d)'), 'ad[1]|bd[2]')
+        self.assertEqual(expand_alternates('(a|b|c)(a|b|c)'),
+                         'aa|ab|ac|ba|bb|bc|ca|cb|cc')
+        self.assertEqual(expand_alternates('(a[1]|b[2])(c|d)'),
+                         'ac[1]|ad[1]|bc[2]|bd[2]')
+        self.assertEqual(expand_alternates('(a[1]|b[2])(c[4]|d)'),
+                         'ad[1]|bd[2]')
 
 
     def test_bm_remove_duplicate_alternates(self):
@@ -4191,24 +4211,34 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(normalize_language_attributes('', False), '')
         self.assertEqual(normalize_language_attributes('', True), '')
 
-        self.assertRaises(ValueError, normalize_language_attributes, 'a[1', False)
+        self.assertRaises(ValueError, normalize_language_attributes, 'a[1',
+                          False)
         self.assertRaises(ValueError, normalize_language_attributes,'a[1', True)
 
         self.assertEqual(normalize_language_attributes('abc', False), 'abc')
         self.assertEqual(normalize_language_attributes('abc[0]', False), '[0]')
-        self.assertEqual(normalize_language_attributes('abc[2]', False), 'abc[2]')
-        self.assertEqual(normalize_language_attributes('abc[2][4]', False), '[0]')
-        self.assertEqual(normalize_language_attributes('abc[2][6]', False), 'abc[2]')
-        self.assertEqual(normalize_language_attributes('ab[2]c[4]', False), '[0]')
-        self.assertEqual(normalize_language_attributes('ab[2]c[6]', False), 'abc[2]')
+        self.assertEqual(normalize_language_attributes('abc[2]', False),
+                         'abc[2]')
+        self.assertEqual(normalize_language_attributes('abc[2][4]', False),
+                         '[0]')
+        self.assertEqual(normalize_language_attributes('abc[2][6]', False),
+                         'abc[2]')
+        self.assertEqual(normalize_language_attributes('ab[2]c[4]', False),
+                         '[0]')
+        self.assertEqual(normalize_language_attributes('ab[2]c[6]', False),
+                         'abc[2]')
 
         self.assertEqual(normalize_language_attributes('abc', True), 'abc')
         self.assertEqual(normalize_language_attributes('abc[0]', True), 'abc')
         self.assertEqual(normalize_language_attributes('abc[2]', True), 'abc')
-        self.assertEqual(normalize_language_attributes('abc[2][4]', True), 'abc')
-        self.assertEqual(normalize_language_attributes('abc[2][6]', True), 'abc')
-        self.assertEqual(normalize_language_attributes('ab[2]c[4]', True), 'abc')
-        self.assertEqual(normalize_language_attributes('ab[2]c[6]', True), 'abc')
+        self.assertEqual(normalize_language_attributes('abc[2][4]', True),
+                         'abc')
+        self.assertEqual(normalize_language_attributes('abc[2][6]', True),
+                         'abc')
+        self.assertEqual(normalize_language_attributes('ab[2]c[4]', True),
+                         'abc')
+        self.assertEqual(normalize_language_attributes('ab[2]c[6]', True),
+                         'abc')
 
 
 if __name__ == '__main__':
