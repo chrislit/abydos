@@ -3775,8 +3775,8 @@ class PhonetTestCases(unittest.TestCase):
         for nn_line in nachnamen_testset:
             if nn_line[0] != '#':
                 nn_line = nn_line.strip().split(',')
-                # This test set is very large (~9999 entries)
-                # so let's just randomly select about 10 for testing
+                # This test set is very large (~10000 entries)
+                # so let's just randomly select about 100 for testing
                 if len(nn_line) >= 3 and random.random() * 100 < 1:
                     (term, ph1, ph2) = nn_line
                     self.assertEqual(phonet(term, 1), ph1)
@@ -4091,11 +4091,33 @@ class BeiderMorseTestCases(unittest.TestCase):
                          encoding='utf-8') as nachnamen_testset:
             next(nachnamen_testset)
             for nn_line in nachnamen_testset:
-                if nn_line[0] != '#':
-                    nn_line = nn_line.strip().split(',')
+                nn_line = nn_line.strip().split(',')
+                # This test set is very large (~10000 entries)
+                # so let's just randomly select about 20 for testing
+                if nn_line[0] != '#' and random.random() * 500 < 1:
                     self.assertEqual(bmpm(nn_line[0], language_arg='german'),
                                      nn_line[1])
-                    self.assertEqual(bmpm(nn_line[0]), nn_line[3])
+                    self.assertEqual(bmpm(nn_line[0]), nn_line[2])
+
+
+    def test_bmpm_uscensus2000(self):
+        """test abydos.bm.bmpm (US Census 2000 set)
+        """
+        self.assertEqual(bmpm(''), '')
+        with codecs.open(TESTDIR+'/corpora/uscensus2000.bm',
+                         encoding='utf-8') as uscensus_testset:
+            next(uscensus_testset)
+            for cen_line in uscensus_testset:
+                cen_line = cen_line.strip().split(',')
+                # This test set is very large (~150000 entries)
+                # so let's just randomly select about 100 for testing
+                if cen_line[0] != '#':
+                    self.assertEqual(bmpm(cen_line[0],
+                                          name_mode='gen'), cen_line[1])
+                    self.assertEqual(bmpm(cen_line[0],
+                                          name_mode='ash'), cen_line[2])
+                    self.assertEqual(bmpm(cen_line[0],
+                                          name_mode='sep'), cen_line[3])
 
 
     def test_bm_language(self):
