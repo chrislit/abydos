@@ -216,7 +216,7 @@ def phonetic(term, name_mode, rules, final_rules1, final_rules2, language_arg=0,
 
             # check for incompatible attributes
             candidate = apply_rule_if_compatible(phonetic, rule[_phonetic_pos], language_arg)
-            if candidate == '':
+            if candidate == None:
                 continue
             else:
                 if debug:
@@ -456,8 +456,8 @@ def remove_duplicate_alternates(phonetic):
 
 
 def normalize_language_attributes(text, strip):
-    """Remove embedded bracketed attributes and (potentially) and them together
-    and add to the end
+    """Remove embedded bracketed attributes and (potentially) bitwise-and them
+    together and add to the end
 
     Arguments:
     text -- a Beider-Morse phonetic encoding (in progress)
