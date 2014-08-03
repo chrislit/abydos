@@ -47,6 +47,7 @@ bmdata['sep']['discards'] = set(['al', 'el', 'da', 'dal', 'de', 'del', 'dela',
                              'van', 'von'])
 bmdata['ash']['discards'] = set(['bar', 'ben', 'da', 'de', 'van', 'von'])
 
+debug = False
 
 # format of rules array
 _pattern_pos = 0
@@ -168,6 +169,8 @@ def phonetic(term, name_mode, rules, final_rules1, final_rules2, language_arg=0,
     term_length = len(term)
 
     # apply language rules to map to phonetic alphabet
+    if debug:
+        print 'before main: ' + term
     phonetic = ''
     skip = 0
     for i in _range(term_length):
@@ -215,6 +218,9 @@ def phonetic(term, name_mode, rules, final_rules1, final_rules2, language_arg=0,
             candidate = apply_rule_if_compatible(phonetic, rule[_phonetic_pos], language_arg)
             if candidate == '':
                 continue
+            else:
+                if debug:
+                    print '# ' + candidate + ' ' + str(rule) + ' ' + unicode(language_arg)
             phonetic = candidate
             found = True
             break
@@ -223,10 +229,16 @@ def phonetic(term, name_mode, rules, final_rules1, final_rules2, language_arg=0,
             pattern_length = 1
         skip = pattern_length-1
 
+    if debug:
+        print 'before common:  ' + phonetic
     # apply final rules on phonetic-alphabet, doing a substitution of certain characters
     phonetic = apply_final_rules(phonetic, final_rules1, language_arg, False) # apply common rules
+    if debug:
+        print 'after common:   ' + phonetic
     # final_rules1 are the common approx rules, final_rules2 are approx rules for specific language
     phonetic = apply_final_rules(phonetic, final_rules2, language_arg, True) # apply lang specific rules
+    if debug:
+        print 'after specific: ' + phonetic
 
     return phonetic
 
@@ -436,7 +448,7 @@ def remove_duplicate_alternates(phonetic):
     altcount = 0
     for i in _range(len(alt_array)):
         alt = alt_array[i]
-        if '|'+alt+'|' not in result:
+        if alt and '|'+alt+'|' not in result:
             result += alt+'|'
             altcount += 1
 
@@ -602,11 +614,20 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
         language_arg = lang_choices
     language_arg2 = language_index_from_code(language_arg, name_mode)
 
+    if debug:
+        print language_arg, language_arg2
+
     rules = bmdata[name_mode]['rules'][language_arg2]
     final_rules1 = bmdata[name_mode][match_mode]['common']
     final_rules2 = bmdata[name_mode][match_mode][language_arg2]
 
+    if debug:
+        print str(language_arg) + ' ' + name_mode
     result = phonetic(word, name_mode, rules, final_rules1,
                       final_rules2, language_arg, concat)
+    if debug:
+        print 'Results: ' + result
     result = phonetic_numbers(result)
+    if debug:
+        print 'after numbers: ' + result
     return result
