@@ -4112,12 +4112,18 @@ class BeiderMorseTestCases(unittest.TestCase):
                 # This test set is very large (~150000 entries)
                 # so let's just randomly select about 100 for testing
                 if cen_line[0] != '#':
-                    self.assertEqual(bmpm(cen_line[0],
+                    self.assertEqual(bmpm(cen_line[0], match_mode='approx',
                                           name_mode='gen'), cen_line[1])
-                    self.assertEqual(bmpm(cen_line[0],
+                    self.assertEqual(bmpm(cen_line[0], match_mode='approx',
                                           name_mode='ash'), cen_line[2])
-                    self.assertEqual(bmpm(cen_line[0],
+                    self.assertEqual(bmpm(cen_line[0], match_mode='approx',
                                           name_mode='sep'), cen_line[3])
+                    self.assertEqual(bmpm(cen_line[0], match_mode='exact',
+                                          name_mode='gen'), cen_line[4])
+                    self.assertEqual(bmpm(cen_line[0], match_mode='exact',
+                                          name_mode='ash'), cen_line[5])
+                    self.assertEqual(bmpm(cen_line[0], match_mode='exact',
+                                          name_mode='sep'), cen_line[6])
 
 
     def test_bm_language(self):
