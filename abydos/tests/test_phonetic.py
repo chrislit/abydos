@@ -4103,15 +4103,14 @@ class BeiderMorseTestCases(unittest.TestCase):
     def test_bmpm_uscensus2000(self):
         """test abydos.bm.bmpm (US Census 2000 set)
         """
-        self.assertEqual(bmpm(''), '')
         with codecs.open(TESTDIR+'/corpora/uscensus2000.bm',
                          encoding='utf-8') as uscensus_testset:
             next(uscensus_testset)
             for cen_line in uscensus_testset:
                 cen_line = cen_line.strip().split(',')
                 # This test set is very large (~150000 entries)
-                # so let's just randomly select about 100 for testing
-                if cen_line[0] != '#':
+                # so let's just randomly select about 50 for testing
+                if cen_line[0] != '#' and random.random() * 3000 < 1:
                     self.assertEqual(bmpm(cen_line[0], match_mode='approx',
                                           name_mode='gen'), cen_line[1])
                     self.assertEqual(bmpm(cen_line[0], match_mode='approx',
