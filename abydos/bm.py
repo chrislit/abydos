@@ -80,7 +80,8 @@ def _bm_language(name, name_mode):
     return choices_remaining
 
 
-def _bm_redo_language(term, name_mode, rules, final_rules1, final_rules2, concat):
+def _bm_redo_language(term, name_mode, rules, final_rules1, final_rules2,
+                      concat):
     """Using a split multi-work term, reassess the language of the terms and
     call the phonetic encoder
 
@@ -132,12 +133,14 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
     words2 = []
 
     if name_mode == 'sep': # Sephardic case
-        # for each word in the name, delete portions of word preceding apostrophe
+        # for each word in the name, delete portions of word preceding
+        # apostrophe
         # ex: d'avila d'aguilar --> avila aguilar
         # also discard certain words in the name
 
         # FIXME:
-        # note that we can never get a match on "de la" because we are checking single words below
+        # note that we can never get a match on "de la" because we are checking
+        # single words below
         # this is a bug, but I won't try to fix it now
 
         for word in words:
@@ -154,11 +157,15 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
     else:
         words2 = list(words)
 
-    if concat: #concatenate the separate words of a multi-word name (normally used for exact matches)
+    if concat:
+        # concatenate the separate words of a multi-word name
+        # (normally used for exact matches)
         term = ' '.join(words2)
     elif len(words2) == 1: # not a multi-word name
         term = words2[0]
-    else: # encode each word in a multi-word name separately (normally used for approx matches)
+    else:
+        # encode each word in a multi-word name separately
+        # (normally used for approx matches)
         result = ''
         for word in words2:
             result += '-' + _bm_redo_language(word, name_mode, rules,
@@ -182,7 +189,8 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
             lcontext = rule[_lcontext_pos]
             rcontext = rule[_rcontext_pos]
 
-            # check to see if next sequence in input matches the string in the rule
+            # check to see if next sequence in input matches the string in the
+            # rule
             if (pattern_length > term_length - i) or (term[i:i+pattern_length]
                                                       != pattern): # no match
                 continue
@@ -256,7 +264,7 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
             if phonetic[i] == '[': # skip over language attribute
                 attrib_start = i
                 i += 1
-                while (True):
+                while True:
                     if phonetic[i] == ']':
                         i += 1
                         phonetic2 += phonetic[attrib_start:i]
@@ -273,7 +281,8 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
                 right = '^'+rcontext
                 left = lcontext+'$'
 
-                # check to see if next sequence in phonetic matches the string in the rule
+                # check to see if next sequence in phonetic matches the string
+                # in the rule
                 if ((pattern_length > len(phoneticx) - i) or
                     phoneticx[i:i+pattern_length] != pattern):
                     continue
@@ -299,7 +308,9 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
                 found = True
                 break
 
-            if not found: # character in name for which there is no subsitution in the table
+            if not found:
+                # character in name for which there is no subsitution in the
+                # table
                 phonetic2 += phonetic[i]
                 pattern_length = 1
 
@@ -317,9 +328,9 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
     return phonetic
 
 
-def _bm_phonetic_number(phonetic, hashed=True):
+def _bm_phonetic_number(phonetic):
     bracket = phonetic.find('[')
-    if (bracket != -1):
+    if bracket != -1:
         return phonetic[:bracket]
 
     return phonetic # experimental !!!!
@@ -345,12 +356,12 @@ def _bm_expand_alternates(phonetic):
     result = ''
 
     for i in _range(len(alt_array)):
-        alt = alt_array[i];
+        alt = alt_array[i]
         alternate = _bm_expand_alternates(prefix+alt+suffix)
         if alternate != '' and alternate != '[0]':
             if result != '':
                 result += '|'
-            result += alternate;
+            result += alternate
 
     return result
 
@@ -391,12 +402,10 @@ def _bm_remove_duplicate_alternates(phonetic):
     alt_array = alt_string.split('|')
 
     result = '|'
-    altcount = 0
     for i in _range(len(alt_array)):
         alt = alt_array[i]
         if alt and '|'+alt+'|' not in result:
             result += alt+'|'
-            altcount += 1
 
     return result[1:-1] # remove leading and trailing |
 
@@ -416,7 +425,7 @@ def _bm_normalize_language_attributes(text, strip):
     however if strip is true, this can indeed remove embedded bracketed
         attributes from a parenthesized list
     """
-    uninitialized = -1; # all 1's
+    uninitialized = -1 # all 1's
     attrib = uninitialized
     while '[' in text:
         bracket_start = text.find('[')
@@ -430,7 +439,9 @@ def _bm_normalize_language_attributes(text, strip):
     if attrib == uninitialized or strip:
         return text
     elif attrib == 0:
-        return '[0]' # means that the attributes were incompatible and there is no alternative here
+        # means that the attributes were incompatible and there is no
+        # alternative here
+        return '[0]'
     else:
         return text + '[' + str(attrib) + ']'
 
@@ -459,7 +470,7 @@ def _bm_apply_rule_if_compatible(phonetic, target, language_arg):
         return candidate
 
     # expand the result, converting incompatible attributes to [0]
-    candidate = _bm_expand_alternates(candidate);
+    candidate = _bm_expand_alternates(candidate)
     candidate_array = candidate.split('|')
 
     # drop each alternative that has incompatible attributes
@@ -502,7 +513,7 @@ def _bm_language_index_from_code(code, name_mode):
         code > sum([lang_dict[_] for _ in
                     bmdata[name_mode]['languages']])): # code out of range
         return l_any
-    if ((code & (code - 1)) != 0): # choice was more than one language; use any
+    if (code & (code - 1)) != 0: # choice was more than one language; use any
         return l_any
     return code
 
@@ -548,7 +559,7 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     if isinstance(language_arg, (int, float, _long)):
         lang_choices = int(language_arg)
     elif language_arg != '' and isinstance(language_arg, (_unicode, str)):
-        for lang in language_arg.lower().split(','):
+        for lang in _unicode(language_arg).lower().split(','):
             if lang in lang_dict and (lang_dict[lang] & all_langs):
                 lang_choices += lang_dict[lang]
             elif not filter_langs:
