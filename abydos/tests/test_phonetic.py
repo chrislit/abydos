@@ -3940,13 +3940,13 @@ class BeiderMorseTestCases(unittest.TestCase):
                                                   match_mode, concat), '')
 
 
-        ## http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/PhoneticEngineRegressionTest.java?view=markup
         # testSolrGENERIC
         # concat is true, ruleType is EXACT
         self.assertEqual(bmpm('Angelo', '', 'gen', 'exact', True),
                          'angelo anxelo anhelo anjelo anZelo andZelo')
         self.assertEqual(bmpm('D\'Angelo', '', 'gen', 'exact', True),
-                         'angelo anxelo anhelo anjelo anZelo andZelo dangelo danxelo danhelo danjelo danZelo dandZelo')
+                         'angelo anxelo anhelo anjelo anZelo andZelo dangelo'+
+                         ' danxelo danhelo danjelo danZelo dandZelo')
         self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen', 'exact',
                               True),
                          'angelo anxelo andZelo')
@@ -3956,28 +3956,40 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(bmpm('Angelo', '', 'gen', 'exact', False),
                          'angelo anxelo anhelo anjelo anZelo andZelo')
         self.assertEqual(bmpm('D\'Angelo', '', 'gen', 'exact', False),
-                         'angelo anxelo anhelo anjelo anZelo andZelo dangelo danxelo danhelo danjelo danZelo dandZelo')
+                         'angelo anxelo anhelo anjelo anZelo andZelo dangelo'+
+                         ' danxelo danhelo danjelo danZelo dandZelo')
         self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen', 'exact',
                               False),
                          'angelo anxelo andZelo')
         self.assertEqual(bmpm('1234', '', 'gen', 'exact', False), '')
-        
+
         # concat is true, ruleType is APPROX
         self.assertEqual(bmpm('Angelo', '', 'gen', 'approx', True),
-                         'angilo angYlo agilo ongilo ongYlo ogilo Yngilo YngYlo anxilo onxilo anilo onilo aniilo oniilo anzilo onzilo')
+                         'angilo angYlo agilo ongilo ongYlo ogilo Yngilo'+
+                         ' YngYlo anxilo onxilo anilo onilo aniilo oniilo'+
+                         ' anzilo onzilo')
         self.assertEqual(bmpm('D\'Angelo', '', 'gen', 'approx', True),
-                         'angilo angYlo agilo ongilo ongYlo ogilo Yngilo YngYlo anxilo onxilo anilo onilo aniilo oniilo anzilo onzilo dangilo dangYlo dagilo dongilo dongYlo dogilo dYngilo dYngYlo danxilo donxilo danilo donilo daniilo doniilo danzilo donzilo')
+                         'angilo angYlo agilo ongilo ongYlo ogilo Yngilo'+
+                         ' YngYlo anxilo onxilo anilo onilo aniilo oniilo'+
+                         ' anzilo onzilo dangilo dangYlo dagilo dongilo'+
+                         ' dongYlo dogilo dYngilo dYngYlo danxilo donxilo'+
+                         ' danilo donilo daniilo doniilo danzilo donzilo')
         self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen',
                               'approx', True),
                          'angilo ongilo anxilo onxilo anzilo onzilo')
         self.assertEqual(bmpm('1234', '', 'gen', 'approx', True), '')
 
-
         # concat is false, ruleType is APPROX
         self.assertEqual(bmpm('Angelo', '', 'gen', 'approx', False),
-                         'angilo angYlo agilo ongilo ongYlo ogilo Yngilo YngYlo anxilo onxilo anilo onilo aniilo oniilo anzilo onzilo')
+                         'angilo angYlo agilo ongilo ongYlo ogilo Yngilo'+
+                         ' YngYlo anxilo onxilo anilo onilo aniilo oniilo'+
+                         ' anzilo onzilo')
         self.assertEqual(bmpm('D\'Angelo', '', 'gen', 'approx', False),
-                         'angilo angYlo agilo ongilo ongYlo ogilo Yngilo YngYlo anxilo onxilo anilo onilo aniilo oniilo anzilo onzilo dangilo dangYlo dagilo dongilo dongYlo dogilo dYngilo dYngYlo danxilo donxilo danilo donilo daniilo doniilo danzilo donzilo')
+                         'angilo angYlo agilo ongilo ongYlo ogilo Yngilo'+
+                         ' YngYlo anxilo onxilo anilo onilo aniilo oniilo'+
+                         ' anzilo onzilo dangilo dangYlo dagilo dongilo'+
+                         ' dongYlo dogilo dYngilo dYngYlo danxilo donxilo'+
+                         ' danilo donilo daniilo doniilo danzilo donzilo')
         self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen',
                               'approx', False),
                          'angilo ongilo anxilo onxilo anzilo onzilo')
@@ -4009,26 +4021,32 @@ class BeiderMorseTestCases(unittest.TestCase):
 
         # concat is true, ruleType is APPROX
         self.assertEqual(bmpm('Angelo', '', 'ash', 'approx', True),
-                         'angilo angYlo ongilo ongYlo Yngilo YngYlo anzilo onzilo anilo onilo anxilo onxilo')
+                         'angilo angYlo ongilo ongYlo Yngilo YngYlo anzilo'+
+                         ' onzilo anilo onilo anxilo onxilo')
         self.assertEqual(bmpm('D\'Angelo', '', 'ash', 'approx', True),
-                         'dangilo dangYlo dongilo dongYlo dYngilo dYngYlo danzilo donzilo danilo donilo danxilo donxilo')
+                         'dangilo dangYlo dongilo dongYlo dYngilo dYngYlo'+
+                         ' danzilo donzilo danilo donilo danxilo donxilo')
         self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish',
                           'ash', 'approx', True)
         self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'ash',
                               'approx', True, True),
-                         'anxYlo anxilo onxYlo onxilo angYlo angilo ongYlo ongilo')
+                         'anxYlo anxilo onxYlo onxilo angYlo angilo ongYlo'+
+                         ' ongilo')
         self.assertEqual(bmpm('1234', '', 'ash', 'approx', True), '')
 
         # concat is false, ruleType is APPROX
         self.assertEqual(bmpm('Angelo', '', 'ash', 'approx', False),
-                         'angilo angYlo ongilo ongYlo Yngilo YngYlo anzilo onzilo anilo onilo anxilo onxilo')
+                         'angilo angYlo ongilo ongYlo Yngilo YngYlo anzilo'+
+                         ' onzilo anilo onilo anxilo onxilo')
         self.assertEqual(bmpm('D\'Angelo', '', 'ash', 'approx', False),
-                         'dangilo dangYlo dongilo dongYlo dYngilo dYngYlo danzilo donzilo danilo donilo danxilo donxilo')
+                         'dangilo dangYlo dongilo dongYlo dYngilo dYngYlo'+
+                         ' danzilo donzilo danilo donilo danxilo donxilo')
         self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish',
                           'ash', 'approx', False)
         self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'ash',
                               'approx', False, True),
-                         'anxYlo anxilo onxYlo onxilo angYlo angilo ongYlo ongilo')
+                         'anxYlo anxilo onxYlo onxilo angYlo angilo ongYlo'+
+                         ' ongilo')
         self.assertEqual(bmpm('1234', '', 'ash', 'approx', False), '')
 
 
@@ -4083,16 +4101,18 @@ class BeiderMorseTestCases(unittest.TestCase):
 
         # testCompatibilityWithOriginalVersion
         self.assertEqual(bmpm('abram', '', 'gen', 'approx', False),
-                         'abram abrom avram avrom obram obrom ovram ovrom Ybram Ybrom abran abron obran obron')
+                         'abram abrom avram avrom obram obrom ovram ovrom'+
+                         ' Ybram Ybrom abran abron obran obron')
         self.assertEqual(bmpm('Bendzin', '', 'gen', 'approx', False),
                          'bnzn bndzn vndzn bntsn vntsn')
         self.assertEqual(bmpm('abram', '', 'ash', 'approx', False),
-                         'abram abrom avram avrom obram obrom ovram ovrom Ybram Ybrom ombram ombrom imbram imbrom')
+                         'abram abrom avram avrom obram obrom ovram ovrom'+
+                         ' Ybram Ybrom ombram ombrom imbram imbrom')
         self.assertEqual(bmpm('Halpern', '', 'ash', 'approx', False),
-                         'alpirn alpYrn olpirn olpYrn Ylpirn YlpYrn xalpirn xolpirn')
+                         'alpirn alpYrn olpirn olpYrn Ylpirn YlpYrn xalpirn'+
+                         ' xolpirn')
 
 
-        # http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/PhoneticEngineTest.java?view=markup
         # PhoneticEngineTest
         self.assertEqual(bmpm('Renault', '', 'gen', 'approx', True),
                          'rinolt rino rinDlt rinalt rinult rinD rina rinu')
@@ -4105,7 +4125,9 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(bmpm('d\'ortley', '', 'gen', 'exact', True),
                          'ortlaj ortlej dortlaj dortlej')
         self.assertEqual(bmpm('van helsing', '', 'gen', 'exact', False),
-                         'helSink helsink helzink xelsink elSink elsink vanhelsink vanhelzink vanjelsink fanhelsink fanhelzink banhelsink')
+                         'helSink helsink helzink xelsink elSink elsink'+
+                         ' vanhelsink vanhelzink vanjelsink fanhelsink'+
+                         ' fanhelzink banhelsink')
 
 
     def test_bmpm_nachnamen(self):
@@ -4219,7 +4241,7 @@ class BeiderMorseTestCases(unittest.TestCase):
 
         self.assertRaises(ValueError, _bm_normalize_language_attributes, 'a[1',
                           False)
-        self.assertRaises(ValueError, _bm_normalize_language_attributes,'a[1',
+        self.assertRaises(ValueError, _bm_normalize_language_attributes, 'a[1',
                           True)
 
         self.assertEqual(_bm_normalize_language_attributes('abc', False), 'abc')
