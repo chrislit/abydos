@@ -368,6 +368,8 @@ def _bm_expand_alternates(phonetic):
 
 
 def _bm_phonetic_numbers_with_leading_space(phonetic):
+    """Join prefixes & suffixes in cases of alternate phonetic values
+    """
     alt_start = phonetic.find('(')
     if alt_start == -1:
         return ' ' + _bm_phonetic_number(phonetic)
@@ -387,6 +389,9 @@ def _bm_phonetic_numbers_with_leading_space(phonetic):
 
 
 def _bm_phonetic_numbers(phonetic):
+    """Split phonetic value on '-', run through
+    _bm_phonetic_numbers_with_leading_space, and join with ' '
+    """
     phonetic_array = phonetic.split('-') # for names with spaces in them
     result = ' '.join([_bm_phonetic_numbers_with_leading_space(i)[1:] for i in
                        phonetic_array])
