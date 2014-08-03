@@ -35,6 +35,7 @@ from abydos.bm import *
 
 TESTDIR = os.path.dirname(__file__)
 
+EXTREME_TEST = False
 
 class RussellIndexTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.russell_index,
@@ -3777,7 +3778,8 @@ class PhonetTestCases(unittest.TestCase):
                 nn_line = nn_line.strip().split(',')
                 # This test set is very large (~10000 entries)
                 # so let's just randomly select about 100 for testing
-                if len(nn_line) >= 3 and random.random() * 100 < 1:
+                if len(nn_line) >= 3 and (EXTREME_TEST or
+                                          random.random() * 100 < 1):
                     (term, ph1, ph2) = nn_line
                     self.assertEqual(phonet(term, 1), ph1)
                     self.assertEqual(phonet(term, 2), ph2)
@@ -3794,7 +3796,8 @@ class PhonetTestCases(unittest.TestCase):
                 ng_line = ng_line.strip().split(',')
                 # This test set is very large (~3000000 entries)
                 # so let's just randomly select about 30 for testing
-                if len(ng_line) >= 3 and random.random() * 10000 < 1:
+                if len(ng_line) >= 3 and (EXTREME_TEST or
+                                          random.random() * 10000 < 1):
                     (term, ph1, ph2) = ng_line
                     self.assertEqual(phonet(term, 1), ph1)
                     self.assertEqual(phonet(term, 2), ph2)
@@ -4094,7 +4097,8 @@ class BeiderMorseTestCases(unittest.TestCase):
                 nn_line = nn_line.strip().split(',')
                 # This test set is very large (~10000 entries)
                 # so let's just randomly select about 20 for testing
-                if nn_line[0] != '#' and random.random() * 500 < 1:
+                if nn_line[0] != '#' and (EXTREME_TEST or
+                                          random.random() * 500 < 1):
                     self.assertEqual(bmpm(nn_line[0], language_arg='german'),
                                      nn_line[1])
                     self.assertEqual(bmpm(nn_line[0]), nn_line[2])
@@ -4109,8 +4113,9 @@ class BeiderMorseTestCases(unittest.TestCase):
             for cen_line in uscensus_testset:
                 cen_line = cen_line.strip().split(',')
                 # This test set is very large (~150000 entries)
-                # so let's just randomly select about 50 for testing
-                if cen_line[0] != '#' and random.random() * 3000 < 1:
+                # so let's just randomly select about 20 for testing
+                if cen_line[0] != '#' and (EXTREME_TEST or
+                                           random.random() * 7500 < 1):
                     self.assertEqual(bmpm(cen_line[0], match_mode='approx',
                                           name_mode='gen'), cen_line[1])
                     self.assertEqual(bmpm(cen_line[0], match_mode='approx',
