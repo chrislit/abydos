@@ -318,34 +318,6 @@ def phonetic_number(phonetic, hashed=True):
 
     return phonetic # experimental !!!!
 
-    phonetic_letters = '!bdfghjklmnNprsSt68vwzZxAa4oe5iI9uUEyQY' # true phonetic letters
-    phonetic_letters += '1BCDEHJKLOTUVWX' # metaphonetic letters
-    # dummy first letter, otherwise b would be treated as 0 and have no effect on result
-    meta_phonetic_letters = '' # added letters to be used in finalxxx.php rules
-    result = 0
-    i = 0
-    while i < len(phonetic):
-        if phonetic[i:i+1] == '#': # it's a meta phonetic letter
-            if i == len(phonetic)-1:
-                raise ValueError('fatal error: invalid metaphonetic letter at position ' + _unicode(i + 1) + ' in ' + phonetic)
-            i += 1
-            j = meta_phonetic_letters.find(phonetic[i:i+1])
-            if j != -1:
-                j += len(phonetic_letters)
-        else:
-            j = phonetic_letters.find(phonetic[i:i+1])
-        if j == False:
-            raise ValueError('fatal error: invalid phonetic letter at position ' + _unicode(i + 1) + ' in ' + phonetic)
-        result *= len(phonetic_letters) + len(meta_phonetic_letters)
-        if hashed:
-            # result = result & 0xff
-            result = result & 0x7fffffff
-            # result = Mod(result, 999999999)
-
-        result += j
-        i += 1
-    return hex(result)
-
 
 def expand_alternates(phonetic):
     """Expand phonetic alternates separated by |s
