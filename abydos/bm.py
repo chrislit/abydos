@@ -53,7 +53,6 @@ _lcontext_pos = 1
 _rcontext_pos = 2
 _phonetic_pos = 3
 _language_pos = 4
-_logical_pos = 5
 
 
 def language(name, name_mode):
@@ -200,19 +199,6 @@ def phonetic(term, name_mode, rules, final_rules1, final_rules2,
                 if not re.search(left, term[:i]):
                     continue
 
-            # check to see if language_arg is one of the allowable ones (used only with "any" rules)
-            if language_arg != 1 and _language_pos < len(rule):
-                language = rule[_language_pos] # the required language(s) for this rule to apply
-                logical = rule[_logical_pos] # do we require ALL or ANY of the required languages
-                if logical == 'ALL':
-                    # check to see if language_arg contains all the required languages
-                    if (language_arg & language) != language:
-                        continue
-                else: #any
-                    # check to see if languageArg contains at least one required language
-                    if (language_arg & language) == 0:
-                        continue
-
             # check for incompatible attributes
             candidate = apply_rule_if_compatible(phonetic, rule[_phonetic_pos],
                                                  language_arg)
@@ -295,19 +281,6 @@ def apply_final_rules(phonetic, final_rules, language_arg, strip):
                 if lcontext != '':
                     if not re.search(left, phoneticx[:i]):
                         continue
-
-                # check to see if rule applies to languageArg (used only with "any" rules)
-                if language_arg != 1 and _language_pos < len(rule):
-                    language = rule[_language_pos] # the required language(s) for this rule to apply
-                    logical = rule[_logical_pos] # do we require ALL or ANY of the required languages
-                    if logical == 'ALL':
-                        # check to see if languageArg contains all the required languages
-                        if (language_arg & language) != language:
-                            continue
-                    else: # any
-                        # check to see if languageArg contains at least one required language
-                        if (language_arg & language) == 0:
-                            continue
 
                 # check for incompatible attributes
                 candidate = apply_rule_if_compatible(phonetic2,
