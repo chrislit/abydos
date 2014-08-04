@@ -88,6 +88,13 @@ def pythonize(line, fn='', subdir='gen'):
     else:
         code = line
 
+    if '(' in code and ')' in code:
+        prefix = code[:code.find('(')+1]
+        suffix = code[code.rfind(')'):]
+        tuplecontent = code[len(prefix):len(code)-len(suffix)]
+
+        code = prefix+tuplecontent+suffix
+
     line = code + comment
 
     if line:
