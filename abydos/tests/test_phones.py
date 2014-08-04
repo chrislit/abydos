@@ -99,24 +99,27 @@ class HasFeatureTestCases(unittest.TestCase):
         """
         self.assertEqual(get_feature(ipa_to_features('medçen'), 'nasal'),
                          [1, -1, -1, -1, -1, 1])
+        self.assertRaises(AttributeError, get_feature,
+                          ipa_to_features('medçen'), 'vocalic')
+
         self.assertEqual(get_feature(ipa_to_features('nitʃe'), 'nasal'),
                          [1, -1, -1, -1, -1])
         self.assertEqual(get_feature(ipa_to_features('nitʃe'), 'strident'),
                          [-1, -1, -1, 1, -1])
         self.assertEqual(get_feature(ipa_to_features('nitʃe'), 'syllabic'),
                          [-1, 1, -1, -1, 1])
-        self.assertRaises(AttributeError, get_feature, ipa_to_features('nitʃe'),
-                          'vocalic')
-        self.assertEqual(get_feature(ipa_to_features('medçen'), 'nasal'),
-                         [1, -1, -1, -1, -1, 1])
-        self.assertEqual(get_feature(ipa_to_features('nitʃe'), 'nasal'),
-                         [1, -1, -1, -1, -1])
-        self.assertEqual(get_feature(ipa_to_features('nitʃe'), 'strident'),
-                         [-1, -1, -1, 1, -1])
-        self.assertEqual(get_feature(ipa_to_features('nitʃe'), 'syllabic'),
-                         [-1, 1, -1, -1, 1])
-        self.assertRaises(AttributeError, get_feature, ipa_to_features('nitʃe'),
-                          'vocalic')
+        self.assertEqual(get_feature(ipa_to_features('nitʃe'), 'continuant'),
+                         [-1, 1, -1, 1, 1])
+
+        self.assertEqual(get_feature(ipa_to_features('nit͡ʃe'), 'nasal'),
+                         [1, -1, -1, -1])
+        self.assertEqual(get_feature(ipa_to_features('nit͡ʃe'), 'strident'),
+                         [-1, -1, 1, -1])
+        self.assertEqual(get_feature(ipa_to_features('nit͡ʃe'), 'syllabic'),
+                         [-1, 1, -1, 1])
+        self.assertEqual(get_feature(ipa_to_features('nit͡ʃe'), 'continuant'),
+                         [-1, 1, 2, 1])
+
         self.assertEqual(get_feature(ipa_to_features('løvenbroy'), 'atr'),
                          [0, 1, 0, 1, 0, 0, 0, 1, 1])
         self.assertNotEqual(get_feature(ipa_to_features('i@c'), 'syllabic'),
@@ -131,14 +134,47 @@ class CmpFeaturesTestCases(unittest.TestCase):
     def test_cmp_features(self):
         """test abydos.phones.cmp_features
         """
-        # negatives
+        ## negatives
         self.assertEqual(cmp_features(-1, 1826957425952336298), -1)
         self.assertEqual(cmp_features(1826957425952336298, -1), -1)
         self.assertEqual(cmp_features(-1, -1), -1)
-        # equals
+        ## equals
         self.assertEqual(cmp_features(0, 0), 1)
         self.assertEqual(cmp_features(1826957425952336298,
                                       1826957425952336298), 1)
+
+        ## unequals
+        # pre-calc everything
+        cced = ipa_to_features('ç')[0]
+        esh = ipa_to_features('ʃ')[0]
+        tesh = ipa_to_features('t͡ʃ')[0]
+
+        cmp_cced_tesh = cmp_features(cced, tesh)
+        cmp_cced_esh = cmp_features(cced, esh)
+        cmp_esh_tesh = cmp_features(esh, tesh)
+
+        cmp_tesh_cced = cmp_features(tesh, cced)
+        cmp_esh_cced = cmp_features(esh, cced)
+        cmp_tesh_esh = cmp_features(tesh, esh)
+
+        # check symmetric equality
+        self.assertEqual(cmp_cced_tesh, cmp_tesh_cced)
+        self.assertEqual(cmp_cced_esh, cmp_esh_cced)
+        self.assertEqual(cmp_esh_tesh, cmp_tesh_esh)
+
+        # check that they're all greater than 0
+        self.assertGreater(cmp_cced_tesh, 0)
+        self.assertGreater(cmp_cced_esh, 0)
+        self.assertGreater(cmp_esh_tesh, 0)
+
+        # check that they're all less than 1
+        self.assertLess(cmp_cced_tesh, 1)
+        self.assertLess(cmp_cced_esh, 1)
+        self.assertLess(cmp_esh_tesh, 1)
+
+        # ʃ and t͡ʃ should be more similar than either of these and ç
+        self.assertGreater(cmp_esh_tesh, cmp_cced_tesh)
+        self.assertGreater(cmp_esh_tesh, cmp_cced_esh)
 
 
 if __name__ == '__main__':
