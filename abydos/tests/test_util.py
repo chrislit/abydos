@@ -106,6 +106,7 @@ class RationalTestCases(unittest.TestCase):
     twosevenths_alt = Rational(14, 49)
     sevenhalves = Rational(7, 2)
     seven = Rational(7)
+    two = Rational(1, 0.5)
 
     def test_rational_init(self):
         """test abydos.util.Rational constructor and getters
@@ -126,6 +127,10 @@ class RationalTestCases(unittest.TestCase):
         self.assertEqual(self.twosevenths.denominator(), 7)
         self.assertEqual(self.seven.numerator(), 7)
         self.assertEqual(self.seven.denominator(), 1)
+        self.assertEqual(self.two, 2)
+
+        self.assertRaises(AttributeError, Rational, ())
+        self.assertRaises(AttributeError, Rational, 2, '1/2')
 
     def test_rational_helpers(self):
         """test abydos.util.Rational helper functions
@@ -295,6 +300,7 @@ class RationalTestCases(unittest.TestCase):
         self.assertEqual(0.5/self.sevenhalves, Rational(1, 7))
         self.assertEqual(Rational(3)/2, Rational(3, 2))
         self.assertEqual(2/Rational(3), Rational(2, 3))
+        self.assertEqual(Rational(3).__rtruediv__(2), Rational(2, 3))
 
         # **
         self.assertEqual(Rational(1, 2)**2, Rational(1, 4))
@@ -309,6 +315,7 @@ class RationalTestCases(unittest.TestCase):
         self.assertEqual(Rational(0)**2.0, Rational(0))
         self.assertEqual(Rational(3)**2.0, Rational(9))
         self.assertEqual(2.0**Rational(3), Rational(8))
+        self.assertEqual(Rational(4)**Rational(1, 2), 2)
 
         # <<
         self.assertEqual(Rational(1, 2)<<1, Rational(1))
@@ -405,6 +412,7 @@ class ArithmeticCoderTestCases(unittest.TestCase):
         self.assertEqual(ac_encode('', self.niall_probs), (254, 8))
         self.assertEqual(ac_encode('a', self.niall_probs), (3268, 12))
         self.assertEqual(ac_encode('Niall', self.niall_probs), (3911665, 23))
+        self.assertEqual(ac_encode('Ni\x00ll', self.niall_probs), (1932751, 22))
         self.assertEqual(ac_encode('Niel', self.niall_probs), (486801, 20))
         self.assertEqual(ac_encode('Mean', self.niall_probs), (243067161, 28))
         self.assertEqual(ac_encode('Neil Noígíallach', self.niall_probs),
@@ -417,6 +425,7 @@ class ArithmeticCoderTestCases(unittest.TestCase):
         self.assertEqual(ac_decode(254, 8, self.niall_probs), '')
         self.assertEqual(ac_decode(3268, 12, self.niall_probs), 'a')
         self.assertEqual(ac_decode(3911665, 23, self.niall_probs), 'Niall')
+        self.assertEqual(ac_decode(1932751, 22, self.niall_probs), 'Ni ll')
         self.assertEqual(ac_decode(486801, 20, self.niall_probs), 'Niel')
         self.assertEqual(ac_decode(243067161, 28, self.niall_probs), 'Mean')
         self.assertEqual(ac_decode(2133315320471368785758, 72,
