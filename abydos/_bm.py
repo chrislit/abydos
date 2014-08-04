@@ -521,7 +521,7 @@ def _bm_language_index_from_code(code, name_mode):
     return code
 
 
-def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
+def _bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
     """Return the Beider-Morse Phonetic Matching algorithm encoding(s) of a
     term

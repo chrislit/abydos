@@ -46,6 +46,7 @@ from itertools import groupby
 from collections import Counter
 import re
 import unicodedata
+from ._bm import _bmpm
 
 
 def _delete_consecutive_repeats(word):
@@ -4018,3 +4019,32 @@ def german_ipa(word):
             ipa += 'y'
 
     return ipa
+
+
+def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
+         concat=False, filter_langs=False):
+    """Return the Beider-Morse Phonetic Matching algorithm encoding(s) of a
+    term
+
+    Arguments:
+    word -- the term to which to apply the Beider-Morse Phonetic Matching
+                algorithm
+    language_arg -- the language of the term; supported values include:
+                "any", "arabic", "cyrillic", "czech", "dutch", "english",
+                "french", "german", "greek", "greeklatin", "hebrew",
+                "hungarian", "italian", "polish", "portuguese","romanian",
+                "russian", "spanish", "turkish"
+    name_mode -- the name mode of the algorithm: 'gen' (default),
+                'ash' (Ashkenazi), or 'sep' (Sephardic)
+    match_mode -- matching mode: 'approx' or 'exact'
+    concat -- concatenation mode
+    filter_langs -- filter out incompatible languages
+
+    Description:
+    The Beider-Morse Phonetic Matching algorithm is described at:
+    http://stevemorse.org/phonetics/bmpm.htm
+    The reference implementation is licensed under GPLv3 and available at:
+    http://stevemorse.org/phoneticinfo.htm
+    """
+    return _bmpm(word, language_arg, name_mode, match_mode,
+                 concat, filter_langs)

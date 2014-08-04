@@ -30,8 +30,8 @@ from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     russell_index_alpha, soundex, dm_soundex, koelner_phonetik, \
     koelner_phonetik_num_to_alpha, koelner_phonetik_alpha, nysiis, mra, \
     metaphone, double_metaphone, caverphone, alpha_sis, fuzzy_soundex, phonex, \
-    phonem, phonix, sfinxbis, phonet, spfc, german_ipa
-from abydos._bm import bmpm, _bm_language, _bm_expand_alternates, \
+    phonem, phonix, sfinxbis, phonet, spfc, german_ipa, bmpm
+from abydos._bm import _bm_language, _bm_expand_alternates, \
     _bm_remove_dupes, _bm_normalize_lang_attrs
 from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
     L_FRENCH, L_GERMAN, L_GREEK, L_GREEKLATIN, L_HEBREW, L_HUNGARIAN, \
