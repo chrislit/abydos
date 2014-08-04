@@ -32,7 +32,7 @@ from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     metaphone, double_metaphone, caverphone, alpha_sis, fuzzy_soundex, phonex, \
     phonem, phonix, sfinxbis, phonet, spfc, german_ipa, bmpm
 from abydos._bm import _bm_language, _bm_expand_alternates, \
-    _bm_remove_dupes, _bm_normalize_lang_attrs
+    _bm_remove_dupes, _bm_normalize_lang_attrs, _bm_phonetic_number
 from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
     L_FRENCH, L_GERMAN, L_GREEK, L_GREEKLATIN, L_HEBREW, L_HUNGARIAN, \
     L_ITALIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, L_SPANISH, L_TURKISH
@@ -3909,10 +3909,10 @@ class GermanIPATestCases(unittest.TestCase):
 
 
 class BeiderMorseTestCases(unittest.TestCase):
-    """test cases for abydos.bm.*
+    """test cases for abydos.phonetic.bmpm and abydos.bm.*
     """
     def test_bmpm(self):
-        """test abydos.bm.bmpm
+        """test abydos.phonetic.bmpm
         Most test cases from:
         http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/
 
@@ -4130,8 +4130,29 @@ class BeiderMorseTestCases(unittest.TestCase):
                          ' fanhelzink banhelsink')
 
 
+    def test_bmpm_misc(self):
+        """test abydos.phonetic.bmpm (miscellaneous tests)
+
+        The purpose of this test set is to achieve higher code coverage
+        and to hit some of the test cases noted in the BMPM reference code.
+        """
+        self.assertEqual(bmpm('bar Hayim', name_mode='ash'), 'Dm xDm')
+        self.assertEqual(bmpm('Rodham Clinton', concat=False),
+                         'rodam rodom rYdam rYdom rodan rodon rodxam rodxom' +
+                         ' rodxan rodxon rudam rudom klnton klntun tzlnton' +
+                         ' tzlntun zlnton')
+        self.assertEqual(bmpm('Rodham Clinton', concat=True),
+                         'rodamklnton rodomklnton rodamklntun rodomklntun' +
+                         ' rodamtzlnton rodomtzlnton rodamtzlntun' +
+                         ' rodomtzlntun rodamzlnton rodomzlnton rodanklnton' +
+                         ' rodonklnton rodxamklnton rodxomklnton rodxanklnton' +
+                         ' rodxonklnton rudamklnton rudomklnton rudamklntun' +
+                         ' rudomklntun rudamtzlnton rudomtzlnton rudamtzlntun' +
+                         ' rudomtzlntun')
+
+
     def test_bmpm_nachnamen(self):
-        """test abydos.bm.bmpm (Nachnamen set)
+        """test abydos.phonetic.bmpm (Nachnamen set)
         """
         with codecs.open(TESTDIR + '/corpora/nachnamen.bm',
                          encoding='utf-8') as nachnamen_testset:
@@ -4148,7 +4169,7 @@ class BeiderMorseTestCases(unittest.TestCase):
 
 
     def test_bmpm_uscensus2000(self):
-        """test abydos.bm.bmpm (US Census 2000 set)
+        """test abydos.phonetic.bmpm (US Census 2000 set)
         """
         with codecs.open(TESTDIR + '/corpora/uscensus2000.bm',
                          encoding='utf-8') as uscensus_testset:
@@ -4171,6 +4192,17 @@ class BeiderMorseTestCases(unittest.TestCase):
                                           name_mode='ash'), cen_line[5])
                     self.assertEqual(bmpm(cen_line[0], match_mode='exact',
                                           name_mode='sep'), cen_line[6])
+
+
+    def test_bm_phonetic_number(self):
+        """test abydos.bm._bm_phonetic_number
+        """
+        self.assertEqual(_bm_phonetic_number(''), '')
+        self.assertEqual(_bm_phonetic_number('abcd'), 'abcd')
+        self.assertEqual(_bm_phonetic_number('abcd[123]'), 'abcd')
+        self.assertEqual(_bm_phonetic_number('abcd[123'), 'abcd')
+        self.assertEqual(_bm_phonetic_number('abcd['), 'abcd')
+        self.assertEqual(_bm_phonetic_number('abcd[[[123]]]'), 'abcd')
 
 
     def test_bm_language(self):
@@ -4221,7 +4253,7 @@ class BeiderMorseTestCases(unittest.TestCase):
 
 
     def test_bm_remove_dupes(self):
-        """test abydos.bm.remove_dupes
+        """test abydos.bm._bm_remove_dupes
         """
         self.assertEqual(_bm_remove_dupes(''), '')
         self.assertEqual(_bm_remove_dupes('aa'), 'aa')
@@ -4234,7 +4266,7 @@ class BeiderMorseTestCases(unittest.TestCase):
 
 
     def test_bm_normalize_lang_attrs(self):
-        """test abydos.bm.normalize_language_attributes
+        """test abydos.bm._bm_normalize_language_attributes
         """
         self.assertEqual(_bm_normalize_lang_attrs('', False), '')
         self.assertEqual(_bm_normalize_lang_attrs('', True), '')
