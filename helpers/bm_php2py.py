@@ -79,6 +79,7 @@ def pythonize(line, fn='', subdir='gen'):
 
     if fn == 'languagenames':
         line = line.replace('"', "'")
+        line = line.replace("','", "', '")
 
     line = line.replace('ë', 'ü')
 

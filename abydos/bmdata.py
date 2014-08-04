@@ -1272,7 +1272,7 @@ _GEN_LANGUAGE_RULES = (
 
 # gen/languagenames.php
 _GEN_LANGUAGES = ('any', 'arabic', 'cyrillic', 'czech', 'dutch', 'english', 'french', 'german', 'greek',
-     'greeklatin', 'hebrew', 'hungarian', 'italian', 'polish', 'portuguese','romanian',
+     'greeklatin', 'hebrew', 'hungarian', 'italian', 'polish', 'portuguese', 'romanian',
      'russian', 'spanish', 'turkish')
 
 # gen/rulesany.php
