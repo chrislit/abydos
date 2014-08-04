@@ -24,26 +24,26 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
 
-l_none = 0
-l_any = 2**0
-l_arabic = 2**1
-l_cyrillic = 2**2
-l_czech = 2**3
-l_dutch = 2**4
-l_english = 2**5
-l_french = 2**6
-l_german = 2**7
-l_greek = 2**8
-l_greeklatin = 2**9
-l_hebrew = 2**10
-l_hungarian = 2**11
-l_italian = 2**12
-l_polish = 2**13
-l_portuguese = 2**14
-l_romanian = 2**15
-l_russian = 2**16
-l_spanish = 2**17
-l_turkish = 2**18
+L_NONE = 0
+L_ANY = 2**0
+L_ARABIC = 2**1
+L_CYRILLIC = 2**2
+L_CZECH = 2**3
+L_DUTCH = 2**4
+L_ENGLISH = 2**5
+L_FRENCH = 2**6
+L_GERMAN = 2**7
+L_GREEK = 2**8
+L_GREEKLATIN = 2**9
+L_HEBREW = 2**10
+L_HUNGARIAN = 2**11
+L_ITALIAN = 2**12
+L_POLISH = 2**13
+L_PORTUGUESE = 2**14
+L_ROMANIAN = 2**15
+L_RUSSIAN = 2**16
+L_SPANISH = 2**17
+L_TURKISH = 2**18
 
 # gen/approxany.php
 
@@ -52,7 +52,7 @@ l_turkish = 2**18
 # Q = ü ; Y = ä = ö
 # EE = final "e" (english or french)
 
-_gen_approx_any = (
+_GEN_APPROX_ANY = (
      # VOWELS
      # "ALL" DIPHTHONGS are interchangeable BETWEEN THEM and with monophthongs of which they are composed ("D" means "diphthong")
      #  {a,o} are totally interchangeable if non-stressed; in German "a/o" can actually be from "ä/ö" (that are equivalent to "e")
@@ -167,7 +167,7 @@ _gen_approx_any = (
      )
 
 # gen/approxarabic.php
-_gen_approx_arabic = (
+_GEN_APPROX_ARABIC = (
 
      ('1a', '', '', '(D|a)'),
      ('1i', '', '', '(D|i|e)'),
@@ -185,7 +185,7 @@ _gen_approx_arabic = (
 
 # GENERIC
 
-_gen_approx_common = (
+_GEN_APPROX_COMMON = (
 
      # DUTCH
      ('van', '^', '[bp]', '(vam|)'),
@@ -403,7 +403,7 @@ _gen_approx_common = (
 # this file uses the same rules as approxfrench.php
 
 # gen/approxenglish.php
-_gen_approx_english = (
+_GEN_APPROX_ENGLISH = (
 
      # VOWELS
      ('I', '', '[^aEIeiou]e', '(Q|i|D)'), # like in "five"
@@ -440,7 +440,7 @@ _gen_approx_english = (
 
 # gen/approxfrench.php
 #GENERAL
-_gen_approx_french = (
+_GEN_APPROX_FRENCH = (
      ('au', '', '', '(D|a|u)'),
      ('ou', '', '', '(D|o|u)'),
      ('ai', '', '', '(D|a|i)'),
@@ -454,7 +454,7 @@ _gen_approx_french = (
 
 # gen/approxgerman.php
 
-_gen_approx_german = (
+_GEN_APPROX_GERMAN = (
 
      ('I', '', '$', 'i'),
      ('I', '[aeiAEIOUouQY]', '', 'i'),
@@ -519,13 +519,13 @@ _gen_approx_german = (
 # this file uses the same rules as approxfrench.php
 
 # gen/approxgreeklatin.php
-_gen_approx_greeklatin = (
+_GEN_APPROX_GREEKLATIN = (
      ('N', '', '', ''),
 
      )
 
 # gen/approxhebrew.php
-_gen_approx_hebrew = (
+_GEN_APPROX_HEBREW = (
      )
 
 # gen/approxhungarian.php
@@ -536,7 +536,7 @@ _gen_approx_hebrew = (
 # this file uses the same rules as approxfrench.php
 
 # gen/approxpolish.php
-_gen_approx_polish = (
+_GEN_APPROX_POLISH = (
 
      ('aiB', '', '[bp]', '(D|Dm)'),
      ('oiB', '', '[bp]', '(D|Dm)'),
@@ -616,7 +616,7 @@ _gen_approx_polish = (
 
 # gen/approxrussian.php
 
-_gen_approx_russian = (
+_GEN_APPROX_RUSSIAN = (
 
      # VOWELS
      ('I', '', '$', 'i'),
@@ -654,7 +654,7 @@ _gen_approx_russian = (
 
 # gen/approxspanish.php
 
-_gen_approx_spanish = (
+_GEN_APPROX_SPANISH = (
      ('B', '', '', '(b|v)'),
      ('V', '', '', '(b|v)'),
 
@@ -669,7 +669,7 @@ _gen_approx_spanish = (
 # EE = final "e" (english & french)
 # V, B from Spanish
 # but a, e, i, o, u should not create any new variant
-_gen_exact_any = (
+_GEN_EXACT_ANY = (
      ('EE', '', '$', 'e'),
 
      ('A', '', '', 'a'),
@@ -693,7 +693,7 @@ _gen_exact_any = (
 
 # gen/exactapproxcommon.php
 # GENERAL
-_gen_exact_approx_common = (
+_GEN_EXACT_APPROX_COMMON = (
      ('h', '', '$', ''),
 
      # VOICED - UNVOICED CONSONANTS
@@ -759,7 +759,7 @@ _gen_exact_approx_common = (
      )
 
 # gen/exactarabic.php
-_gen_exact_arabic = (
+_GEN_EXACT_ARABIC = (
 
      ('1', '', '', ''),
 
@@ -768,7 +768,7 @@ _gen_exact_arabic = (
 # gen/exactcommon.php
 # GENERAL
 
-_gen_exact_common = (
+_GEN_EXACT_COMMON = (
      ('H', '', '', ''),
 
      # VOICED - UNVOICED CONSONANTS
@@ -792,7 +792,7 @@ _gen_exact_common = (
 # this file uses the same rules as exactrussian.php
 
 # gen/exactdutch.php
-_gen_exact_dutch = (
+_GEN_EXACT_DUTCH = (
 
      )
 
@@ -801,7 +801,7 @@ _gen_exact_dutch = (
 
 # gen/exactfrench.php
 # GENERAL
-_gen_exact_french = (
+_GEN_EXACT_FRENCH = (
 
      )
 
@@ -809,19 +809,19 @@ _gen_exact_french = (
 # this file uses the same rules as exactany.php
 
 # gen/exactgreek.php
-_gen_exact_greek = (
+_GEN_EXACT_GREEK = (
 
      )
 
 # gen/exactgreeklatin.php
-_gen_exact_greeklatin = (
+_GEN_EXACT_GREEKLATIN = (
 
      ('N', '', '', 'n'),
 
      )
 
 # gen/exacthebrew.php
-_gen_exact_hebrew = (
+_GEN_EXACT_HEBREW = (
      )
 
 # gen/exacthungarian.php
@@ -829,12 +829,12 @@ _gen_exact_hebrew = (
 
 # gen/exactitalian.php
 # GENERAL
-_gen_exact_italian = (
+_GEN_EXACT_ITALIAN = (
 
      )
 
 # gen/exactpolish.php
-_gen_exact_polish = (
+_GEN_EXACT_POLISH = (
 
      ('B', '', '', 'a'),
      ('F', '', '', 'e'),
@@ -847,7 +847,7 @@ _gen_exact_polish = (
 
 # gen/exactportuguese.php
 # GENERAL
-_gen_exact_portuguese = (
+_GEN_EXACT_PORTUGUESE = (
 
      )
 
@@ -855,7 +855,7 @@ _gen_exact_portuguese = (
 # this file uses the same rules as exactrussian.php
 
 # gen/exactrussian.php
-_gen_exact_russian = (
+_GEN_EXACT_RUSSIAN = (
 
      ('E', '', '', 'e'),
      ('I', '', '', 'i'),
@@ -864,7 +864,7 @@ _gen_exact_russian = (
 
 # gen/exactspanish.php
 # GENERAL
-_gen_exact_spanish = (
+_GEN_EXACT_SPANISH = (
 
      ('B', '', '', 'b'),
      ('V', '', '', 'v'),
@@ -872,14 +872,14 @@ _gen_exact_spanish = (
      )
 
 # gen/exactturkish.php
-_gen_exact_turkish = (
+_GEN_EXACT_TURKISH = (
 
      )
 
 # gen/hebrewcommon.php
 #GENERAL
 
-_gen_hebrew_common = (
+_GEN_HEBREW_COMMON = (
      ('ts', '', '', 'C'), # for not confusion Gutes [=guts] and Guts [=guc]
      ('tS', '', '', 'C'), # same reason
      ('S', '', '', 's'),
@@ -991,7 +991,7 @@ _gen_hebrew_common = (
 #    if "pattern" matches and acceptance is true, name is in one of the languages indicated and no others
 #    if "pattern" matches and acceptance is false, name is not in any of the languages indicated
 
-_gen_language_rules = (
+_GEN_LANGUAGE_RULES = (
 
      # 1. following are rules to accept the language
      # 1.1 Special letter combinations
@@ -1271,7 +1271,7 @@ _gen_language_rules = (
      )
 
 # gen/languagenames.php
-_gen_languages = ('any', 'arabic', 'cyrillic', 'czech', 'dutch', 'english', 'french', 'german', 'greek',
+_GEN_LANGUAGES = ('any', 'arabic', 'cyrillic', 'czech', 'dutch', 'english', 'french', 'german', 'greek',
      'greeklatin', 'hebrew', 'hungarian', 'italian', 'polish', 'portuguese','romanian',
      'russian', 'spanish', 'turkish')
 
@@ -1291,7 +1291,7 @@ _gen_languages = ('any', 'arabic', 'cyrillic', 'czech', 'dutch', 'english', 'fre
 #     right context of e$ means preceding a final e
 
 #GENERIC
-_gen_rules_any = (
+_GEN_RULES_ANY = (
 
      # CONVERTING FEMININE TO MASCULINE
      ('yna', '', '$', '(in[65536]|ina)'),
@@ -1633,7 +1633,7 @@ _gen_rules_any = (
 # gen/rulesarabic.php
 
 # General
-_gen_rules_arabic = (
+_GEN_RULES_ARABIC = (
 
      ('ا', '', '', 'a'), # alif isol & init
 
@@ -1726,7 +1726,7 @@ _gen_rules_arabic = (
 # gen/rulescyrillic.php
 
 # GENERAL
-_gen_rules_cyrillic = (
+_GEN_RULES_CYRILLIC = (
      ('ця', '', '', 'tsa'),
      ('цю', '', '', 'tsu'),
      ('циа', '', '', 'tsa'),
@@ -1813,7 +1813,7 @@ _gen_rules_cyrillic = (
 
 # gen/rulesczech.php
 
-_gen_rules_czech = (
+_GEN_RULES_CZECH = (
      ('ch', '', '', 'x'),
      ('qu', '', '', '(k|kv)'),
      ('aue', '', '', 'aue'),
@@ -1869,7 +1869,7 @@ _gen_rules_czech = (
 
 # gen/rulesdutch.php
 
-_gen_rules_dutch = (
+_GEN_RULES_DUTCH = (
 
      # CONSONANTS
      ('ssj', '', '', 'S'),
@@ -1938,7 +1938,7 @@ _gen_rules_dutch = (
 # gen/rulesenglish.php
 
 # GENERAL
-_gen_rules_english = (
+_GEN_RULES_ENGLISH = (
 
      # CONSONANTS
      ('', '', '', ''), # ONeill
@@ -2040,7 +2040,7 @@ _gen_rules_english = (
 # gen/rulesfrench.php
 
 # GENERAL
-_gen_rules_french = (
+_GEN_RULES_FRENCH = (
 
      # CONSONANTS
      ('lt', 'u', '$', '(lt|)'), # Renault
@@ -2143,7 +2143,7 @@ _gen_rules_french = (
 # gen/rulesgerman.php
 
 # GENERIC
-_gen_rules_german = (
+_GEN_RULES_GERMAN = (
 
      # CONSONANTS
      ('ewitsch', '', '$', 'evitS'),
@@ -2259,7 +2259,7 @@ _gen_rules_german = (
 
 # gen/rulesgreek.php
 
-_gen_rules_greek = (
+_GEN_RULES_GREEK = (
 
      ('αυ', '', '$', 'af'),  # "av" before vowels and voiced consonants, "af" elsewhere
      ('αυ', '', '(κ|π|σ|τ|φ|θ|χ|ψ)', 'af'),
@@ -2346,7 +2346,7 @@ _gen_rules_greek = (
 
 # gen/rulesgreeklatin.php
 
-_gen_rules_greeklatin = (
+_GEN_RULES_GREEKLATIN = (
 
      ('au', '', '$', 'af'),
      ('au', '', '[kpstfh]', 'af'),
@@ -2455,7 +2455,7 @@ _gen_rules_greeklatin = (
 # gen/ruleshebrew.php
 
 # General = Ashkenazic
-_gen_rules_hebrew = (
+_GEN_RULES_HEBREW = (
 
      ('אי', '', '', 'i'),
      ('עי', '', '', 'i'),
@@ -2506,7 +2506,7 @@ _gen_rules_hebrew = (
 # gen/ruleshungarian.php
 
 # GENERAL
-_gen_rules_hungarian = (
+_GEN_RULES_HUNGARIAN = (
 
      # CONSONANTS
      ('sz', '', '', 's'),
@@ -2577,7 +2577,7 @@ _gen_rules_hungarian = (
 
 # gen/rulesitalian.php
 
-_gen_rules_italian = (
+_GEN_RULES_ITALIAN = (
      ('kh', '', '', 'x'), # foreign
 
      ('gli', '', '', '(l|gli)'),
@@ -2644,7 +2644,7 @@ _gen_rules_italian = (
 # gen/rulespolish.php
 
 # GENERIC
-_gen_rules_polish = (
+_GEN_RULES_POLISH = (
 
      # CONVERTING FEMININE TO MASCULINE
      ('ska', '', '$', 'ski'),
@@ -2817,7 +2817,7 @@ _gen_rules_polish = (
 
 # gen/rulesportuguese.php
 
-_gen_rules_portuguese = (
+_GEN_RULES_PORTUGUESE = (
      ('kh', '', '', 'x'), # foreign
      ('ch', '', '', 'S'),
      ('ss', '', '', 's'),
@@ -2912,7 +2912,7 @@ _gen_rules_portuguese = (
 # gen/rulesromanian.php
 
 # GENERAL
-_gen_rules_romanian = (
+_GEN_RULES_ROMANIAN = (
      ('ce', '', '', 'tSe'),
      ('ci', '', '', '(tSi|tS)'),
      ('ch', '', '[ei]', 'k'),
@@ -2966,7 +2966,7 @@ _gen_rules_romanian = (
 # gen/rulesrussian.php
 
 #GENERAL
-_gen_rules_russian = (
+_GEN_RULES_RUSSIAN = (
      # CONVERTING FEMININE TO MASCULINE
      ('yna', '', '$', '(in|ina)'),
      ('ina', '', '$', '(in|ina)'),
@@ -3098,7 +3098,7 @@ _gen_rules_russian = (
 # gen/rulesspanish.php
 
 # GENERAL
-_gen_rules_spanish = (
+_GEN_RULES_SPANISH = (
 
      # Includes both Spanish (Castillian) & Catalan
 
@@ -3171,7 +3171,7 @@ _gen_rules_spanish = (
 
 # gen/rulesturkish.php
 
-_gen_rules_turkish = (
+_GEN_RULES_TURKISH = (
      ('ç', '', '', 'tS'),
      ('ğ', '', '', ''), # to show that previous vowel is long
      ('ş', '', '', 'S'),
@@ -3211,7 +3211,7 @@ _gen_rules_turkish = (
 # sep/approxany.php
 
 # SEPHARDIC
-_sep_approx_any = (
+_SEP_APPROX_ANY = (
 
      ('E', '', '', ''), # Final French "e"
 
@@ -3220,7 +3220,7 @@ _sep_approx_any = (
 # sep/approxcommon.php
 #Sephardic
 
-_sep_approx_common = (
+_SEP_APPROX_COMMON = (
      ('bens', '^', '', '(binz|s)'),
      ('benS', '^', '', '(binz|s)'),
      ('ben', '^', '', '(bin|)'),
@@ -3321,12 +3321,12 @@ _sep_approx_common = (
      )
 
 # sep/approxfrench.php
-_sep_approx_french = (
+_SEP_APPROX_FRENCH = (
 
      )
 
 # sep/approxhebrew.php
-_sep_approx_hebrew = (
+_SEP_APPROX_HEBREW = (
 
      )
 
@@ -3341,7 +3341,7 @@ _sep_approx_hebrew = (
 # this file uses the same rules as approxfrench.php
 
 # sep/exactany.php
-_sep_exact_any = (
+_SEP_EXACT_ANY = (
 
      ('E', '', '', 'e'), # final French "e"
 
@@ -3349,7 +3349,7 @@ _sep_exact_any = (
 
 # sep/exactapproxcommon.php
 # Sephardic
-_sep_exact_approx_common = (
+_SEP_EXACT_APPROX_COMMON = (
      ('h', '', '$', ''),
 
      # VOICED - UNVOICED CONSONANTS
@@ -3417,7 +3417,7 @@ _sep_exact_approx_common = (
 # sep/exactcommon.php
 # Sephardic
 
-_sep_exact_common = (
+_SEP_EXACT_COMMON = (
      ('h', '', '', ''),
      #("C","","","k"),  # c that can actually be ç
 
@@ -3436,37 +3436,37 @@ _sep_exact_common = (
 
 # sep/exactfrench.php
 # Sephardic
-_sep_exact_french = (
+_SEP_EXACT_FRENCH = (
 
      )
 
 # sep/exacthebrew.php
-_sep_exact_hebrew = (
+_SEP_EXACT_HEBREW = (
 
      )
 
 # sep/exactitalian.php
 # Sephardic
-_sep_exact_italian = (
+_SEP_EXACT_ITALIAN = (
 
      )
 
 # sep/exactportuguese.php
 # Sephardic
-_sep_exact_portuguese = (
+_SEP_EXACT_PORTUGUESE = (
 
      )
 
 # sep/exactspanish.php
 # Sephardic
-_sep_exact_spanish = (
+_SEP_EXACT_SPANISH = (
 
      )
 
 # sep/hebrewcommon.php
 #Sephardic
 
-_sep_hebrew_common = (
+_SEP_HEBREW_COMMON = (
 
      ('E', '', '', ''),  # final French "e": only in Sephardic
 
@@ -3541,7 +3541,7 @@ _sep_hebrew_common = (
 # sep/lang.php
 # SEPHARDIC
 
-_sep_language_rules = (
+_SEP_LANGUAGE_RULES = (
 
      # 1. following are rules to accept the language
      # 1.1 Special letter combinations
@@ -3633,11 +3633,11 @@ _sep_language_rules = (
      )
 
 # sep/languagenames.php
-_sep_languages = ('any', 'french', 'hebrew', 'italian', 'portuguese', 'spanish')
+_SEP_LANGUAGES = ('any', 'french', 'hebrew', 'italian', 'portuguese', 'spanish')
 
 # sep/rulesany.php
 # SEPHARDIC: INCORPORATES Portuguese + Italian + Spanish(+Catalan) + French
-_sep_rules_any = (
+_SEP_RULES_ANY = (
      # CONSONANTS
      ('ph', '', '', 'f'), # foreign
      ('sh', '', '', 'S'), # foreign
@@ -3780,7 +3780,7 @@ _sep_rules_any = (
 # sep/rulesfrench.php
 
 # Sephardic
-_sep_rules_french = (
+_SEP_RULES_FRENCH = (
 
      # CONSONANTS
      ('kh', '', '', 'x'), # foreign
@@ -3860,7 +3860,7 @@ _sep_rules_french = (
 # sep/ruleshebrew.php
 
 # Sephardic
-_sep_rules_hebrew = (
+_SEP_RULES_HEBREW = (
 
      ('אי', '', '', 'i'),
      ('עי', '', '', 'i'),
@@ -3910,7 +3910,7 @@ _sep_rules_hebrew = (
 
 # sep/rulesitalian.php
 
-_sep_rules_italian = (
+_SEP_RULES_ITALIAN = (
      ('kh', '', '', 'x'), # foreign
 
      ('gli', '', '', '(l|gli)'),
@@ -3975,7 +3975,7 @@ _sep_rules_italian = (
 
 # sep/rulesportuguese.php
 
-_sep_rules_portuguese = (
+_SEP_RULES_PORTUGUESE = (
      ('kh', '', '', 'x'), # foreign
      ('ch', '', '', 'S'),
      ('ss', '', '', 's'),
@@ -4069,7 +4069,7 @@ _sep_rules_portuguese = (
 # sep/rulesspanish.php
 
 #Sephardic
-_sep_rules_spanish = (
+_SEP_RULES_SPANISH = (
 
      # Includes both Spanish (Castillian) & Catalan
 
@@ -4157,7 +4157,7 @@ _sep_rules_spanish = (
 # A, E, I, O, P, U should create variants, but a, e, i, o, u should not create any new variant
 # Q = ü ; Y = ä = ö
 # H = initial "H" in German/English
-_ash_approx_any = (
+_ASH_APPROX_ANY = (
 
      # CONSONANTS
      ('b', '', '', '(b|v[131072])'),
@@ -4297,7 +4297,7 @@ _ash_approx_any = (
 # ash/approxcommon.php
 # Ashkenazic
 
-_ash_approx_common = (
+_ASH_APPROX_COMMON = (
 
      # REGRESSIVE ASSIMILATION OF CONSONANTS
      ('n', '', '[bp]', 'm'),
@@ -4507,7 +4507,7 @@ _ash_approx_common = (
 
 # ash/approxenglish.php
 
-_ash_approx_english = (
+_ASH_APPROX_ENGLISH = (
 
      # VOWELS
      ('I', '', '[^aEIeiou]e', '(Q|i|D)'), # like in "five"
@@ -4545,7 +4545,7 @@ _ash_approx_english = (
 # ash/approxfrench.php
 # THE LINES BELOW WERE VALID FOR ASHKENAZIM
 
-_ash_approx_french = (
+_ASH_APPROX_FRENCH = (
 
      ('I', '', '$', 'i'),
      ('I', '[aEIeiou]', '', 'i'),
@@ -4575,7 +4575,7 @@ _ash_approx_french = (
 
 # ash/approxgerman.php
 
-_ash_approx_german = (
+_ASH_APPROX_GERMAN = (
 
      ('I', '', '$', 'i'),
      ('I', '[aeiAEIOUouQY]', '', 'i'),
@@ -4637,7 +4637,7 @@ _ash_approx_german = (
 
 # ash/approxhebrew.php
 
-_ash_approx_hebrew = (
+_ASH_APPROX_HEBREW = (
      )
 
 # ash/approxhungarian.php
@@ -4645,7 +4645,7 @@ _ash_approx_hebrew = (
 # this file uses the same rules as approxfrench.php
 
 # ash/approxpolish.php
-_ash_approx_polish = (
+_ASH_APPROX_POLISH = (
 
      ('aiB', '', '[bp]', '(D|Dm)'),
      ('oiB', '', '[bp]', '(D|Dm)'),
@@ -4722,7 +4722,7 @@ _ash_approx_polish = (
 
 # ash/approxrussian.php
 
-_ash_approx_russian = (
+_ASH_APPROX_RUSSIAN = (
 
      # VOWELS
      ('I', '', '$', 'i'),
@@ -4785,7 +4785,7 @@ _ash_approx_russian = (
 # A, E, I, O, P, U should create variants, but a, e, i, o, u should not create any new variant
 # Q = ü ; Y = ä = ö
 
-_ash_exact_any = (
+_ASH_EXACT_ANY = (
      ('A', '', '', 'a'),
      ('B', '', '', 'a'),
 
@@ -4803,7 +4803,7 @@ _ash_exact_any = (
 
 # ash/exactapproxcommon.php
 # Ashkenazic
-_ash_exact_approx_common = (
+_ASH_EXACT_APPROX_COMMON = (
 
      ('h', '', '$', ''),
      # VOICED - UNVOICED CONSONANTS
@@ -4874,7 +4874,7 @@ _ash_exact_approx_common = (
 # ash/exactcommon.php
 # Ashkenazic
 
-_ash_exact_common = (
+_ASH_EXACT_COMMON = (
      ('H', '', '', 'h'),
 
      # VOICED - UNVOICED CONSONANTS
@@ -4906,14 +4906,14 @@ _ash_exact_common = (
 # this file uses the same rules as exactany.php
 
 # ash/exacthebrew.php
-_ash_exact_hebrew = (
+_ASH_EXACT_HEBREW = (
      )
 
 # ash/exacthungarian.php
 # this file uses the same rules as exactrussian.php
 
 # ash/exactpolish.php
-_ash_exact_polish = (
+_ASH_EXACT_POLISH = (
 
      ('B', '', '', 'a'),
      ('F', '', '', 'e'),
@@ -4928,7 +4928,7 @@ _ash_exact_polish = (
 # this file uses the same rules as exactrussian.php
 
 # ash/exactrussian.php
-_ash_exact_russian = (
+_ASH_EXACT_RUSSIAN = (
 
      ('E', '', '', 'e'),
      ('I', '', '', 'i'),
@@ -4941,7 +4941,7 @@ _ash_exact_russian = (
 # ash/hebrewcommon.php
 #Ashkenazic
 
-_ash_hebrew_common = (
+_ASH_HEBREW_COMMON = (
 
      ('ts', '', '', 'C'), # for not confusion Gutes [=guts] and Guts [=guc]
      ('tS', '', '', 'C'), # same reason
@@ -5064,7 +5064,7 @@ _ash_hebrew_common = (
 #    if "pattern" matches and acceptance is true, name is in one of the languages indicated and no others
 #    if "pattern" matches and acceptance is false, name is not in any of the languages indicated
 
-_ash_language_rules = (
+_ASH_LANGUAGE_RULES = (
 
      # 1. following are rules to accept the language
      # 1.1 Special letter combinations
@@ -5257,12 +5257,12 @@ _ash_language_rules = (
      )
 
 # ash/languagenames.php
-_ash_languages = ('any', 'cyrillic', 'english', 'french', 'german', 'hebrew',
+_ASH_LANGUAGES = ('any', 'cyrillic', 'english', 'french', 'german', 'hebrew',
      'hungarian', 'polish', 'romanian', 'russian', 'spanish')
 
 # ash/rulesany.php
 #ASHKENAZIC
-_ash_rules_any = (
+_ASH_RULES_ANY = (
 
      # CONVERTING FEMININE TO MASCULINE
      ('yna', '', '$', '(in[65536]|ina)'),
@@ -5582,7 +5582,7 @@ _ash_rules_any = (
 
 # ash/rulescyrillic.php
 
-_ash_rules_cyrillic = (
+_ASH_RULES_CYRILLIC = (
 
      ('ця', '', '', 'tsa'),
      ('цю', '', '', 'tsu'),
@@ -5672,7 +5672,7 @@ _ash_rules_cyrillic = (
 
 # ash/rulesenglish.php
 
-_ash_rules_english = (
+_ASH_RULES_ENGLISH = (
 
      # CONSONANTS
      ('tch', '', '', 'tS'),
@@ -5769,7 +5769,7 @@ _ash_rules_english = (
 # ash/rulesfrench.php
 
 # Ashkenazic
-_ash_rules_french = (
+_ASH_RULES_FRENCH = (
 
      # CONSONANTS
      ('kh', '', '', 'x'), # foreign
@@ -5849,7 +5849,7 @@ _ash_rules_french = (
 # ash/rulesgerman.php
 
 # Ashkenazic
-_ash_rules_german = (
+_ASH_RULES_GERMAN = (
 
      # CONSONANTS
      ('ziu', '', '', 'tsu'),
@@ -5966,7 +5966,7 @@ _ash_rules_german = (
 # ash/ruleshebrew.php
 
 # Ashkenazic
-_ash_rules_hebrew = (
+_ASH_RULES_HEBREW = (
 
      ('אי', '', '', 'i'),
      ('עי', '', '', 'i'),
@@ -6017,7 +6017,7 @@ _ash_rules_hebrew = (
 # ash/ruleshungarian.php
 
 # ASHKENAZIC
-_ash_rules_hungarian = (
+_ASH_RULES_HUNGARIAN = (
 
      # CONSONANTS
      ('sz', '', '', 's'),
@@ -6090,7 +6090,7 @@ _ash_rules_hungarian = (
 # ash/rulespolish.php
 
 # Ashkenazic
-_ash_rules_polish = (
+_ASH_RULES_POLISH = (
 
      # CONVERTING FEMININE TO MASCULINE
      ('ska', '', '$', 'ski'),
@@ -6263,7 +6263,7 @@ _ash_rules_polish = (
 
 # ash/rulesromanian.php
 
-_ash_rules_romanian = (
+_ASH_RULES_ROMANIAN = (
 
      ('j', '', '', 'Z'),
 
@@ -6319,7 +6319,7 @@ _ash_rules_romanian = (
 
 # ash/rulesrussian.php
 
-_ash_rules_russian = (
+_ASH_RULES_RUSSIAN = (
 
      # CONVERTING FEMININE TO MASCULINE
      ('yna', '', '$', '(in|ina)'),
@@ -6473,7 +6473,7 @@ _ash_rules_russian = (
 # ash/rulesspanish.php
 
 # Ashkenazic = Argentina
-_ash_rules_spanish = (
+_ASH_RULES_SPANISH = (
 
      # CONSONANTS
      ('ñ', '', '', '(n|nj)'),
@@ -6536,148 +6536,148 @@ _ash_rules_spanish = (
 
      )
 
-bmdata = dict()
+BMDATA = dict()
 
-bmdata['gen'] = dict()
-bmdata['gen']['approx'] = dict()
-bmdata['gen']['exact'] = dict()
-bmdata['gen']['rules'] = dict()
-bmdata['gen']['hebrew'] = dict()
+BMDATA['gen'] = dict()
+BMDATA['gen']['approx'] = dict()
+BMDATA['gen']['exact'] = dict()
+BMDATA['gen']['rules'] = dict()
+BMDATA['gen']['hebrew'] = dict()
 
-bmdata['gen']['language_rules'] = _gen_language_rules
-bmdata['gen']['languages'] = _gen_languages
-bmdata['gen']['approx'][1] = _gen_approx_any
-bmdata['gen']['approx'][2] = _gen_approx_arabic
-bmdata['gen']['approx']['common'] = _gen_exact_approx_common + _gen_approx_common
-bmdata['gen']['approx'][4] = _gen_approx_russian
-bmdata['gen']['approx'][8] = _gen_approx_french
-bmdata['gen']['approx'][16] = _gen_approx_french
-bmdata['gen']['approx'][32] = _gen_approx_english
-bmdata['gen']['approx'][64] = _gen_approx_french
-bmdata['gen']['approx'][128] = _gen_approx_german
-bmdata['gen']['approx'][256] = _gen_approx_french
-bmdata['gen']['approx'][512] = _gen_approx_french + _gen_approx_greeklatin
-bmdata['gen']['approx'][1024] = _gen_approx_hebrew
-bmdata['gen']['approx'][2048] = _gen_approx_french
-bmdata['gen']['approx'][4096] = _gen_approx_french
-bmdata['gen']['approx'][8192] = _gen_approx_polish
-bmdata['gen']['approx'][16384] = _gen_approx_french
-bmdata['gen']['approx'][32768] = _gen_approx_polish
-bmdata['gen']['approx'][65536] = _gen_approx_russian
-bmdata['gen']['approx'][131072] = _gen_approx_french + _gen_approx_spanish
-bmdata['gen']['approx'][262144] = _gen_approx_french
-bmdata['gen']['exact'][1] = _gen_exact_any
-bmdata['gen']['exact'][2] = _gen_exact_arabic
-bmdata['gen']['exact']['common'] = _gen_exact_approx_common + _gen_exact_common
-bmdata['gen']['exact'][4] = _gen_exact_russian
-bmdata['gen']['exact'][8] = _gen_exact_russian
-bmdata['gen']['exact'][16] = _gen_exact_dutch
-bmdata['gen']['exact'][32] = _gen_exact_russian
-bmdata['gen']['exact'][64] = _gen_exact_french
-bmdata['gen']['exact'][128] = _gen_exact_any
-bmdata['gen']['exact'][256] = _gen_exact_greek
-bmdata['gen']['exact'][512] = _gen_exact_greeklatin
-bmdata['gen']['exact'][1024] = _gen_exact_hebrew
-bmdata['gen']['exact'][2048] = _gen_exact_russian
-bmdata['gen']['exact'][4096] = _gen_exact_italian
-bmdata['gen']['exact'][8192] = _gen_exact_polish
-bmdata['gen']['exact'][16384] = _gen_exact_portuguese
-bmdata['gen']['exact'][32768] = _gen_exact_russian
-bmdata['gen']['exact'][65536] = _gen_exact_russian
-bmdata['gen']['exact'][131072] = _gen_exact_spanish
-bmdata['gen']['exact'][262144] = _gen_exact_turkish
-bmdata['gen']['hebrew']['common'] = _gen_exact_approx_common + _gen_hebrew_common
-bmdata['gen']['rules'][1] = _gen_rules_any
-bmdata['gen']['rules'][2] = _gen_rules_arabic
-bmdata['gen']['rules'][4] = _gen_rules_cyrillic
-bmdata['gen']['rules'][8] = _gen_rules_czech
-bmdata['gen']['rules'][16] = _gen_rules_dutch
-bmdata['gen']['rules'][32] = _gen_rules_english
-bmdata['gen']['rules'][64] = _gen_rules_french
-bmdata['gen']['rules'][128] = _gen_rules_german
-bmdata['gen']['rules'][256] = _gen_rules_greek
-bmdata['gen']['rules'][512] = _gen_rules_greeklatin
-bmdata['gen']['rules'][1024] = _gen_rules_hebrew
-bmdata['gen']['rules'][2048] = _gen_rules_hungarian
-bmdata['gen']['rules'][4096] = _gen_rules_italian
-bmdata['gen']['rules'][8192] = _gen_rules_polish
-bmdata['gen']['rules'][16384] = _gen_rules_portuguese
-bmdata['gen']['rules'][32768] = _gen_rules_romanian
-bmdata['gen']['rules'][65536] = _gen_rules_russian
-bmdata['gen']['rules'][131072] = _gen_rules_spanish
-bmdata['gen']['rules'][262144] = _gen_rules_turkish
+BMDATA['gen']['language_rules'] = _GEN_LANGUAGE_RULES
+BMDATA['gen']['languages'] = _GEN_LANGUAGES
+BMDATA['gen']['approx'][1] = _GEN_APPROX_ANY
+BMDATA['gen']['approx'][2] = _GEN_APPROX_ARABIC
+BMDATA['gen']['approx']['common'] = _GEN_EXACT_APPROX_COMMON + _GEN_APPROX_COMMON
+BMDATA['gen']['approx'][4] = _GEN_APPROX_RUSSIAN
+BMDATA['gen']['approx'][8] = _GEN_APPROX_FRENCH
+BMDATA['gen']['approx'][16] = _GEN_APPROX_FRENCH
+BMDATA['gen']['approx'][32] = _GEN_APPROX_ENGLISH
+BMDATA['gen']['approx'][64] = _GEN_APPROX_FRENCH
+BMDATA['gen']['approx'][128] = _GEN_APPROX_GERMAN
+BMDATA['gen']['approx'][256] = _GEN_APPROX_FRENCH
+BMDATA['gen']['approx'][512] = _GEN_APPROX_FRENCH + _GEN_APPROX_GREEKLATIN
+BMDATA['gen']['approx'][1024] = _GEN_APPROX_HEBREW
+BMDATA['gen']['approx'][2048] = _GEN_APPROX_FRENCH
+BMDATA['gen']['approx'][4096] = _GEN_APPROX_FRENCH
+BMDATA['gen']['approx'][8192] = _GEN_APPROX_POLISH
+BMDATA['gen']['approx'][16384] = _GEN_APPROX_FRENCH
+BMDATA['gen']['approx'][32768] = _GEN_APPROX_POLISH
+BMDATA['gen']['approx'][65536] = _GEN_APPROX_RUSSIAN
+BMDATA['gen']['approx'][131072] = _GEN_APPROX_FRENCH + _GEN_APPROX_SPANISH
+BMDATA['gen']['approx'][262144] = _GEN_APPROX_FRENCH
+BMDATA['gen']['exact'][1] = _GEN_EXACT_ANY
+BMDATA['gen']['exact'][2] = _GEN_EXACT_ARABIC
+BMDATA['gen']['exact']['common'] = _GEN_EXACT_APPROX_COMMON + _GEN_EXACT_COMMON
+BMDATA['gen']['exact'][4] = _GEN_EXACT_RUSSIAN
+BMDATA['gen']['exact'][8] = _GEN_EXACT_RUSSIAN
+BMDATA['gen']['exact'][16] = _GEN_EXACT_DUTCH
+BMDATA['gen']['exact'][32] = _GEN_EXACT_RUSSIAN
+BMDATA['gen']['exact'][64] = _GEN_EXACT_FRENCH
+BMDATA['gen']['exact'][128] = _GEN_EXACT_ANY
+BMDATA['gen']['exact'][256] = _GEN_EXACT_GREEK
+BMDATA['gen']['exact'][512] = _GEN_EXACT_GREEKLATIN
+BMDATA['gen']['exact'][1024] = _GEN_EXACT_HEBREW
+BMDATA['gen']['exact'][2048] = _GEN_EXACT_RUSSIAN
+BMDATA['gen']['exact'][4096] = _GEN_EXACT_ITALIAN
+BMDATA['gen']['exact'][8192] = _GEN_EXACT_POLISH
+BMDATA['gen']['exact'][16384] = _GEN_EXACT_PORTUGUESE
+BMDATA['gen']['exact'][32768] = _GEN_EXACT_RUSSIAN
+BMDATA['gen']['exact'][65536] = _GEN_EXACT_RUSSIAN
+BMDATA['gen']['exact'][131072] = _GEN_EXACT_SPANISH
+BMDATA['gen']['exact'][262144] = _GEN_EXACT_TURKISH
+BMDATA['gen']['hebrew']['common'] = _GEN_EXACT_APPROX_COMMON + _GEN_HEBREW_COMMON
+BMDATA['gen']['rules'][1] = _GEN_RULES_ANY
+BMDATA['gen']['rules'][2] = _GEN_RULES_ARABIC
+BMDATA['gen']['rules'][4] = _GEN_RULES_CYRILLIC
+BMDATA['gen']['rules'][8] = _GEN_RULES_CZECH
+BMDATA['gen']['rules'][16] = _GEN_RULES_DUTCH
+BMDATA['gen']['rules'][32] = _GEN_RULES_ENGLISH
+BMDATA['gen']['rules'][64] = _GEN_RULES_FRENCH
+BMDATA['gen']['rules'][128] = _GEN_RULES_GERMAN
+BMDATA['gen']['rules'][256] = _GEN_RULES_GREEK
+BMDATA['gen']['rules'][512] = _GEN_RULES_GREEKLATIN
+BMDATA['gen']['rules'][1024] = _GEN_RULES_HEBREW
+BMDATA['gen']['rules'][2048] = _GEN_RULES_HUNGARIAN
+BMDATA['gen']['rules'][4096] = _GEN_RULES_ITALIAN
+BMDATA['gen']['rules'][8192] = _GEN_RULES_POLISH
+BMDATA['gen']['rules'][16384] = _GEN_RULES_PORTUGUESE
+BMDATA['gen']['rules'][32768] = _GEN_RULES_ROMANIAN
+BMDATA['gen']['rules'][65536] = _GEN_RULES_RUSSIAN
+BMDATA['gen']['rules'][131072] = _GEN_RULES_SPANISH
+BMDATA['gen']['rules'][262144] = _GEN_RULES_TURKISH
 
-bmdata['sep'] = dict()
-bmdata['sep']['approx'] = dict()
-bmdata['sep']['exact'] = dict()
-bmdata['sep']['rules'] = dict()
-bmdata['sep']['hebrew'] = dict()
+BMDATA['sep'] = dict()
+BMDATA['sep']['approx'] = dict()
+BMDATA['sep']['exact'] = dict()
+BMDATA['sep']['rules'] = dict()
+BMDATA['sep']['hebrew'] = dict()
 
-bmdata['sep']['language_rules'] = _sep_language_rules
-bmdata['sep']['languages'] = _sep_languages
-bmdata['sep']['approx'][1] = _sep_approx_any
-bmdata['sep']['approx']['common'] = _sep_exact_approx_common + _sep_approx_common
-bmdata['sep']['approx'][64] = _sep_approx_french
-bmdata['sep']['approx'][1024] = _sep_approx_hebrew
-bmdata['sep']['approx'][4096] = _sep_approx_french
-bmdata['sep']['approx'][16384] = _sep_approx_french
-bmdata['sep']['approx'][131072] = _sep_approx_french
-bmdata['sep']['exact'][1] = _sep_exact_any
-bmdata['sep']['exact']['common'] = _sep_exact_approx_common + _sep_exact_common
-bmdata['sep']['exact'][64] = _sep_exact_french
-bmdata['sep']['exact'][1024] = _sep_exact_hebrew
-bmdata['sep']['exact'][4096] = _sep_exact_italian
-bmdata['sep']['exact'][16384] = _sep_exact_portuguese
-bmdata['sep']['exact'][131072] = _sep_exact_spanish
-bmdata['sep']['hebrew']['common'] = _sep_exact_approx_common + _sep_hebrew_common
-bmdata['sep']['rules'][1] = _sep_rules_any
-bmdata['sep']['rules'][64] = _sep_rules_french
-bmdata['sep']['rules'][1024] = _sep_rules_hebrew
-bmdata['sep']['rules'][4096] = _sep_rules_italian
-bmdata['sep']['rules'][16384] = _sep_rules_portuguese
-bmdata['sep']['rules'][131072] = _sep_rules_spanish
+BMDATA['sep']['language_rules'] = _SEP_LANGUAGE_RULES
+BMDATA['sep']['languages'] = _SEP_LANGUAGES
+BMDATA['sep']['approx'][1] = _SEP_APPROX_ANY
+BMDATA['sep']['approx']['common'] = _SEP_EXACT_APPROX_COMMON + _SEP_APPROX_COMMON
+BMDATA['sep']['approx'][64] = _SEP_APPROX_FRENCH
+BMDATA['sep']['approx'][1024] = _SEP_APPROX_HEBREW
+BMDATA['sep']['approx'][4096] = _SEP_APPROX_FRENCH
+BMDATA['sep']['approx'][16384] = _SEP_APPROX_FRENCH
+BMDATA['sep']['approx'][131072] = _SEP_APPROX_FRENCH
+BMDATA['sep']['exact'][1] = _SEP_EXACT_ANY
+BMDATA['sep']['exact']['common'] = _SEP_EXACT_APPROX_COMMON + _SEP_EXACT_COMMON
+BMDATA['sep']['exact'][64] = _SEP_EXACT_FRENCH
+BMDATA['sep']['exact'][1024] = _SEP_EXACT_HEBREW
+BMDATA['sep']['exact'][4096] = _SEP_EXACT_ITALIAN
+BMDATA['sep']['exact'][16384] = _SEP_EXACT_PORTUGUESE
+BMDATA['sep']['exact'][131072] = _SEP_EXACT_SPANISH
+BMDATA['sep']['hebrew']['common'] = _SEP_EXACT_APPROX_COMMON + _SEP_HEBREW_COMMON
+BMDATA['sep']['rules'][1] = _SEP_RULES_ANY
+BMDATA['sep']['rules'][64] = _SEP_RULES_FRENCH
+BMDATA['sep']['rules'][1024] = _SEP_RULES_HEBREW
+BMDATA['sep']['rules'][4096] = _SEP_RULES_ITALIAN
+BMDATA['sep']['rules'][16384] = _SEP_RULES_PORTUGUESE
+BMDATA['sep']['rules'][131072] = _SEP_RULES_SPANISH
 
-bmdata['ash'] = dict()
-bmdata['ash']['approx'] = dict()
-bmdata['ash']['exact'] = dict()
-bmdata['ash']['rules'] = dict()
-bmdata['ash']['hebrew'] = dict()
+BMDATA['ash'] = dict()
+BMDATA['ash']['approx'] = dict()
+BMDATA['ash']['exact'] = dict()
+BMDATA['ash']['rules'] = dict()
+BMDATA['ash']['hebrew'] = dict()
 
-bmdata['ash']['language_rules'] = _ash_language_rules
-bmdata['ash']['languages'] = _ash_languages
-bmdata['ash']['approx'][1] = _ash_approx_any
-bmdata['ash']['approx']['common'] = _ash_exact_approx_common + _ash_approx_common
-bmdata['ash']['approx'][4] = _ash_approx_russian
-bmdata['ash']['approx'][32] = _ash_approx_english
-bmdata['ash']['approx'][64] = _ash_approx_french
-bmdata['ash']['approx'][128] = _ash_approx_german
-bmdata['ash']['approx'][1024] = _ash_approx_hebrew
-bmdata['ash']['approx'][2048] = _ash_approx_french
-bmdata['ash']['approx'][8192] = _ash_approx_polish
-bmdata['ash']['approx'][32768] = _ash_approx_polish
-bmdata['ash']['approx'][65536] = _ash_approx_russian
-bmdata['ash']['approx'][131072] = _ash_approx_french
-bmdata['ash']['exact'][1] = _ash_exact_any
-bmdata['ash']['exact']['common'] = _ash_exact_approx_common + _ash_exact_common
-bmdata['ash']['exact'][4] = _ash_exact_russian
-bmdata['ash']['exact'][32] = _ash_exact_russian
-bmdata['ash']['exact'][64] = _ash_exact_russian
-bmdata['ash']['exact'][128] = _ash_exact_any
-bmdata['ash']['exact'][1024] = _ash_exact_hebrew
-bmdata['ash']['exact'][2048] = _ash_exact_russian
-bmdata['ash']['exact'][8192] = _ash_exact_polish
-bmdata['ash']['exact'][32768] = _ash_exact_russian
-bmdata['ash']['exact'][65536] = _ash_exact_russian
-bmdata['ash']['exact'][131072] = _ash_exact_russian
-bmdata['ash']['hebrew']['common'] = _ash_exact_approx_common + _ash_hebrew_common
-bmdata['ash']['rules'][1] = _ash_rules_any
-bmdata['ash']['rules'][4] = _ash_rules_cyrillic
-bmdata['ash']['rules'][32] = _ash_rules_english
-bmdata['ash']['rules'][64] = _ash_rules_french
-bmdata['ash']['rules'][128] = _ash_rules_german
-bmdata['ash']['rules'][1024] = _ash_rules_hebrew
-bmdata['ash']['rules'][2048] = _ash_rules_hungarian
-bmdata['ash']['rules'][8192] = _ash_rules_polish
-bmdata['ash']['rules'][32768] = _ash_rules_romanian
-bmdata['ash']['rules'][65536] = _ash_rules_russian
-bmdata['ash']['rules'][131072] = _ash_rules_spanish
+BMDATA['ash']['language_rules'] = _ASH_LANGUAGE_RULES
+BMDATA['ash']['languages'] = _ASH_LANGUAGES
+BMDATA['ash']['approx'][1] = _ASH_APPROX_ANY
+BMDATA['ash']['approx']['common'] = _ASH_EXACT_APPROX_COMMON + _ASH_APPROX_COMMON
+BMDATA['ash']['approx'][4] = _ASH_APPROX_RUSSIAN
+BMDATA['ash']['approx'][32] = _ASH_APPROX_ENGLISH
+BMDATA['ash']['approx'][64] = _ASH_APPROX_FRENCH
+BMDATA['ash']['approx'][128] = _ASH_APPROX_GERMAN
+BMDATA['ash']['approx'][1024] = _ASH_APPROX_HEBREW
+BMDATA['ash']['approx'][2048] = _ASH_APPROX_FRENCH
+BMDATA['ash']['approx'][8192] = _ASH_APPROX_POLISH
+BMDATA['ash']['approx'][32768] = _ASH_APPROX_POLISH
+BMDATA['ash']['approx'][65536] = _ASH_APPROX_RUSSIAN
+BMDATA['ash']['approx'][131072] = _ASH_APPROX_FRENCH
+BMDATA['ash']['exact'][1] = _ASH_EXACT_ANY
+BMDATA['ash']['exact']['common'] = _ASH_EXACT_APPROX_COMMON + _ASH_EXACT_COMMON
+BMDATA['ash']['exact'][4] = _ASH_EXACT_RUSSIAN
+BMDATA['ash']['exact'][32] = _ASH_EXACT_RUSSIAN
+BMDATA['ash']['exact'][64] = _ASH_EXACT_RUSSIAN
+BMDATA['ash']['exact'][128] = _ASH_EXACT_ANY
+BMDATA['ash']['exact'][1024] = _ASH_EXACT_HEBREW
+BMDATA['ash']['exact'][2048] = _ASH_EXACT_RUSSIAN
+BMDATA['ash']['exact'][8192] = _ASH_EXACT_POLISH
+BMDATA['ash']['exact'][32768] = _ASH_EXACT_RUSSIAN
+BMDATA['ash']['exact'][65536] = _ASH_EXACT_RUSSIAN
+BMDATA['ash']['exact'][131072] = _ASH_EXACT_RUSSIAN
+BMDATA['ash']['hebrew']['common'] = _ASH_EXACT_APPROX_COMMON + _ASH_HEBREW_COMMON
+BMDATA['ash']['rules'][1] = _ASH_RULES_ANY
+BMDATA['ash']['rules'][4] = _ASH_RULES_CYRILLIC
+BMDATA['ash']['rules'][32] = _ASH_RULES_ENGLISH
+BMDATA['ash']['rules'][64] = _ASH_RULES_FRENCH
+BMDATA['ash']['rules'][128] = _ASH_RULES_GERMAN
+BMDATA['ash']['rules'][1024] = _ASH_RULES_HEBREW
+BMDATA['ash']['rules'][2048] = _ASH_RULES_HUNGARIAN
+BMDATA['ash']['rules'][8192] = _ASH_RULES_POLISH
+BMDATA['ash']['rules'][32768] = _ASH_RULES_ROMANIAN
+BMDATA['ash']['rules'][65536] = _ASH_RULES_RUSSIAN
+BMDATA['ash']['rules'][131072] = _ASH_RULES_SPANISH

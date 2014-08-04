@@ -48,23 +48,23 @@ def pythonize(line, fn='', subdir='gen'):
 
     line = re.sub(
         '\$(approx|rules|exact)\[LanguageIndex\("([^"]+)", \$languages\)\] = \$([a-zA-Z]+)',
-        lambda m: "bmdata['" + subdir + "']['" + m.group(1) + "'][l_" + m.group(2) + "] = _" + subdir + '_' + c2u(m.group(3)),
+        lambda m: "BMDATA['" + subdir + "']['" + m.group(1) + "'][L_" + m.group(2).upper() + "] = _" + subdir.upper() + '_' + c2u(m.group(3)).upper(),
         line)
 
     line = re.sub(
         '\$(approx|rules|exact|hebrew)([A-Za-z]+) = _merge\(\$([a-zA-Z]+), \$([a-zA-Z]+)\)',
-        lambda m: "bmdata['" + subdir + "']['" + m.group(1) + "'][l_" + c2u(m.group(2)) + "] = _" + subdir + '_' + c2u(m.group(3)) + ' + _' + subdir + '_' + c2u(m.group(4)),
+        lambda m: "BMDATA['" + subdir + "']['" + m.group(1) + "'][L_" + c2u(m.group(2)).upper() + "] = _" + subdir.upper() + '_' + c2u(m.group(3)).upper() + ' + _' + subdir.upper() + '_' + c2u(m.group(4)).upper(),
         line)
 
-    line = re.sub('^\$([a-zA-Z]+)',  lambda m: '_' + s + '_' + c2u(m.group(1)), line)
+    line = re.sub('^\$([a-zA-Z]+)',  lambda m: '_' + s.upper() + '_' + c2u(m.group(1)).upper(), line)
 
     for _ in range(len(lang_tuple)):
         line = re.sub('($[a-zA-Z]+) *\+ *($[a-zA-Z]+)', r'\1\+\2', line)
 
-    line = re.sub('\$([a-zA-Z]+)', lambda m: 'l_'+m.group(1) if m.group(1) in lang_dict else '$'+m.group(1), line)
-    line = re.sub('\[\"\.\((l_[a-z_\+]+)\)\.\"\]', r'[\1]', line)
+    line = re.sub('\$([a-zA-Z]+)', lambda m: 'L_'+m.group(1).upper() if m.group(1) in lang_dict else '$'+m.group(1), line)
+    line = re.sub('\[\"\.\((L_[A-Z_\+]+)\)\.\"\]', r'[\1]', line)
 
-    line = re.sub('l_([a-z]+)', lambda m: str(lang_dict[m.group(1)]), line)
+    line = re.sub('L_([A-Z]+)', lambda m: str(lang_dict[m.group(1).lower()]), line)
     for i in range(4):
         line = re.sub('([0-9]+) *\+ *([0-9]+)', lambda m: str(int(m.group(1))+int(m.group(2))), line)
 
@@ -72,7 +72,7 @@ def pythonize(line, fn='', subdir='gen'):
         if len(line.split(',')) >= 3:
             parts = line.split(',')
             parts[0] = re.sub("/(.+?)/", r"\1", parts[0])
-            #parts[1] = re.sub('\$', 'l_', parts[1])
+            #parts[1] = re.sub('\$', 'L_', parts[1])
             #parts[1] = re.sub(' *\+ *', '|', parts[1])
             parts[2] = parts[2].title()
             line = ','.join(parts)
@@ -109,7 +109,7 @@ def pythonize(line, fn='', subdir='gen'):
 
     if line:
         nl = False
-        if array_seen and not (line[0] == '_' or line.startswith('bmdata')):
+        if array_seen and not (line[0] == '_' or line.startswith('BMDATA')):
             line = ' '*5 + line
         return line + '\n'
     elif nl == False:
@@ -124,23 +124,23 @@ outfilename = '../abydos/bmdata.py'
 outfile = codecs.open(outfilename, 'w', 'utf-8')
 outfile.write('# -*- coding: utf-8 -*-\n\"\"\"abydos.bmdata\n\nCopyright 2014 by Christopher C. Little.\nThis file is part of Abydos.\n\nThis file is derived from PHP code by Alexander Beider and Stephen P. Morse that\nis part of the Beider-Morse Phonetic Matching (BMPM) System, available at\nhttp://stevemorse.org/phonetics/bmpm.htm.\n\nAbydos is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nAbydos is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with Abydos. If not, see <http://www.gnu.org/licenses/>.\n\"\"\"\n\nfrom __future__ import unicode_literals\n\n')
 
-outfile.write('l_none = 0\n')
+outfile.write('L_NONE = 0\n')
 for i,l in enumerate(lang_tuple):
-    outfile.write('l_' + l + ' = 2**' + str(i) + '\n')
+    outfile.write('L_' + l.upper() + ' = 2**' + str(i) + '\n')
 outfile.write('\n\n')
 
-tail_text += '\nbmdata = dict()\n'
+tail_text += '\nBMDATA = dict()\n'
 
 subdirs = ('gen', 'sep', 'ash')
 
 for s in subdirs:
-    tail_text += '\nbmdata[\''+s+'\'] = dict()\n'
-    tail_text += 'bmdata[\''+s+'\'][\'approx\'] = dict()\n'
-    tail_text += 'bmdata[\''+s+'\'][\'exact\'] = dict()\n'
-    tail_text += 'bmdata[\''+s+'\'][\'rules\'] = dict()\n'
-    tail_text += 'bmdata[\''+s+'\'][\'hebrew\'] = dict()\n\n'
-    tail_text += 'bmdata[\''+s+'\'][\'language_rules\'] = _'+s+'_language_rules\n'
-    tail_text += 'bmdata[\''+s+'\'][\'languages\'] = _'+s+'_languages\n'
+    tail_text += '\nBMDATA[\''+s+'\'] = dict()\n'
+    tail_text += 'BMDATA[\''+s+'\'][\'approx\'] = dict()\n'
+    tail_text += 'BMDATA[\''+s+'\'][\'exact\'] = dict()\n'
+    tail_text += 'BMDATA[\''+s+'\'][\'rules\'] = dict()\n'
+    tail_text += 'BMDATA[\''+s+'\'][\'hebrew\'] = dict()\n\n'
+    tail_text += 'BMDATA[\''+s+'\'][\'language_rules\'] = _'+s.upper()+'_LANGUAGE_RULES\n'
+    tail_text += 'BMDATA[\''+s+'\'][\'languages\'] = _'+s.upper()+'_LANGUAGES\n'
 
     phps = [f for f in sorted(listdir(bmdir + s + '/')) if (isfile(bmdir + s + '/' + f) and f.endswith('.php'))]
     for infilename in phps:
@@ -168,7 +168,7 @@ for s in subdirs:
                             ignore = True
                         else:
                             line = pythonize(line, infilename[:-4], s)
-                            if line.startswith('bmdata'):
+                            if line.startswith('BMDATA'):
                                 tail_text += line
                             else:
                                 outfile.write(line)

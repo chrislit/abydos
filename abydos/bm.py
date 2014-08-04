@@ -26,26 +26,26 @@ from __future__ import unicode_literals
 import re
 import unicodedata
 from ._compat import _unicode, _long, _range
-from .bmdata import bmdata, l_none, l_any, l_arabic, l_cyrillic, \
-    l_czech, l_dutch, l_english, l_french, l_german, l_greek, l_greeklatin, \
-    l_hebrew, l_hungarian, l_italian, l_polish, l_portuguese, l_romanian, \
-    l_russian, l_spanish, l_turkish
+from .bmdata import BMDATA, L_NONE, L_ANY, L_ARABIC, L_CYRILLIC, \
+    L_CZECH, L_DUTCH, L_ENGLISH, L_FRENCH, L_GERMAN, L_GREEK, L_GREEKLATIN, \
+    L_HEBREW, L_HUNGARIAN, L_ITALIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, \
+    L_RUSSIAN, L_SPANISH, L_TURKISH
 
-lang_dict = {'any': l_any, 'arabic': l_arabic, 'cyrillic': l_cyrillic,
-             'czech': l_czech, 'dutch': l_dutch, 'english': l_english,
-             'french': l_french, 'german': l_german, 'greek': l_greek,
-             'greeklatin': l_greeklatin, 'hebrew': l_hebrew,
-             'hungarian': l_hungarian, 'italian': l_italian, 'polish': l_polish,
-             'portuguese': l_portuguese, 'romanian': l_romanian,
-             'russian': l_russian, 'spanish': l_spanish, 'turkish': l_turkish}
+lang_dict = {'any': L_ANY, 'arabic': L_ARABIC, 'cyrillic': L_CYRILLIC,
+             'czech': L_CZECH, 'dutch': L_DUTCH, 'english': L_ENGLISH,
+             'french': L_FRENCH, 'german': L_GERMAN, 'greek': L_GREEK,
+             'greeklatin': L_GREEKLATIN, 'hebrew': L_HEBREW,
+             'hungarian': L_HUNGARIAN, 'italian': L_ITALIAN, 'polish': L_POLISH,
+             'portuguese': L_PORTUGUESE, 'romanian': L_ROMANIAN,
+             'russian': L_RUSSIAN, 'spanish': L_SPANISH, 'turkish': L_TURKISH}
 
-bmdata['gen']['discards'] = ('da ', 'dal ', 'de ', 'del ', 'dela ', 'de la ',
+BMDATA['gen']['discards'] = ('da ', 'dal ', 'de ', 'del ', 'dela ', 'de la ',
                              'della ', 'des ', 'di ', 'do ', 'dos ', 'du ',
                              'van ', 'von ', 'd\'')
-bmdata['sep']['discards'] = set(['al', 'el', 'da', 'dal', 'de', 'del', 'dela',
+BMDATA['sep']['discards'] = set(['al', 'el', 'da', 'dal', 'de', 'del', 'dela',
                              'de la', 'della', 'des', 'di', 'do', 'dos', 'du',
                              'van', 'von'])
-bmdata['ash']['discards'] = set(['bar', 'ben', 'da', 'de', 'van', 'von'])
+BMDATA['ash']['discards'] = set(['bar', 'ben', 'da', 'de', 'van', 'von'])
 
 # format of rules array
 _pattern_pos = 0
@@ -65,8 +65,8 @@ def _bm_language(name, name_mode):
                 'ash' (Ashkenazi), or 'sep' (Sephardic)
     """
     name = name.strip().lower()
-    rules = bmdata[name_mode]['language_rules']
-    all_langs = sum([lang_dict[_] for _ in bmdata[name_mode]['languages']])-1
+    rules = BMDATA[name_mode]['language_rules']
+    all_langs = sum([lang_dict[_] for _ in BMDATA[name_mode]['languages']])-1
     choices_remaining = all_langs
     for rule in rules:
         letters, languages, accept = rule
@@ -75,8 +75,8 @@ def _bm_language(name, name_mode):
                 choices_remaining &= languages
             else:
                 choices_remaining &= (~languages) % (all_langs+1)
-    if choices_remaining == l_none:
-        choices_remaining = l_any
+    if choices_remaining == L_NONE:
+        choices_remaining = L_ANY
     return choices_remaining
 
 
@@ -118,7 +118,7 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
 
     if name_mode == 'gen': # generic case
         # both discard and concatenate certain words if at the start of the name
-        for pfx in bmdata['gen']['discards']:
+        for pfx in BMDATA['gen']['discards']:
             if term.startswith(pfx):
                 remainder = term[len(pfx):]
                 combined = pfx[:-1]+remainder
@@ -145,12 +145,12 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
 
         for word in words:
             word = word[word.rfind('\'')+1:]
-            if word not in bmdata['sep']['discards']:
+            if word not in BMDATA['sep']['discards']:
                 words2.append(word)
 
     elif name_mode == 'ash': # Ashkenazic case
         # discard certain words if at the start of the name
-        if len(words) > 1 and words[0] in bmdata['ash']['discards']:
+        if len(words) > 1 and words[0] in BMDATA['ash']['discards']:
             words2 = words[1:]
         else:
             words2 = list(words)
@@ -517,10 +517,10 @@ def _bm_language_index_from_code(code, name_mode):
     """
     if (code < 1 or
         code > sum([lang_dict[_] for _ in
-                    bmdata[name_mode]['languages']])): # code out of range
-        return l_any
+                    BMDATA[name_mode]['languages']])): # code out of range
+        return L_ANY
     if (code & (code - 1)) != 0: # choice was more than one language; use any
-        return l_any
+        return L_ANY
     return code
 
 
@@ -560,7 +560,7 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
 
     # Translate the supplied language_arg value into an integer representing
     # a set of languages
-    all_langs = sum([lang_dict[_] for _ in bmdata[name_mode]['languages']])-1
+    all_langs = sum([lang_dict[_] for _ in BMDATA[name_mode]['languages']])-1
     lang_choices = 0
     if isinstance(language_arg, (int, float, _long)):
         lang_choices = int(language_arg)
@@ -581,9 +581,9 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     language_arg2 = _bm_language_index_from_code(language_arg, name_mode)
 
 
-    rules = bmdata[name_mode]['rules'][language_arg2]
-    final_rules1 = bmdata[name_mode][match_mode]['common']
-    final_rules2 = bmdata[name_mode][match_mode][language_arg2]
+    rules = BMDATA[name_mode]['rules'][language_arg2]
+    final_rules1 = BMDATA[name_mode][match_mode]['common']
+    final_rules2 = BMDATA[name_mode][match_mode][language_arg2]
 
     result = _bm_phonetic(word, name_mode, rules, final_rules1,
                           final_rules2, language_arg, concat)

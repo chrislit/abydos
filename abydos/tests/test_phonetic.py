@@ -33,9 +33,9 @@ from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     phonem, phonix, sfinxbis, phonet, spfc, german_ipa
 from abydos.bm import bmpm, _bm_language, _bm_expand_alternates, \
     _bm_remove_duplicate_alternates, _bm_normalize_language_attributes
-from abydos.bmdata import l_any, l_cyrillic, l_czech, l_dutch, l_english, \
-    l_french, l_german, l_greek, l_greeklatin, l_hebrew, l_hungarian, \
-    l_italian, l_polish, l_portuguese, l_romanian, l_spanish, l_turkish
+from abydos.bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
+    L_FRENCH, L_GERMAN, L_GREEK, L_GREEKLATIN, L_HEBREW, L_HUNGARIAN, \
+    L_ITALIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, L_SPANISH, L_TURKISH
 
 TESTDIR = os.path.dirname(__file__)
 
@@ -560,10 +560,10 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone(u"Bartosch"), ('PRTX', ''))
         self.assertEqual(double_metaphone(u"Bartos"), ('PRTS', ''))
         self.assertEqual(list(set(double_metaphone(u"Jablonski"))\
-                               .intersection(double_metaphone(u"Yablonsky"))),\
+                               .intersection(double_metaphone(u"Yablonsky"))), \
                           ['APLNSK'])
         self.assertEqual(list(set(double_metaphone(u"Smith"))\
-                               .intersection(double_metaphone(u"Schmidt"))),\
+                               .intersection(double_metaphone(u"Schmidt"))), \
                           ['XMT'])
 
         # non-English Unicode
@@ -3229,7 +3229,7 @@ class CaverphoneTestCases(unittest.TestCase):
         """test abydos.phonetic.caverphone (PHP version testset)
         """
         # https://raw.githubusercontent.com/kiphughes/caverphone/master/unit_tests.php
-        with open(TESTDIR+'/corpora/php_caverphone.csv') as php_testset:
+        with open(TESTDIR + '/corpora/php_caverphone.csv') as php_testset:
             for php_line in php_testset:
                 (word, caver) = php_line.strip().split(',')
                 self.assertEqual(caverphone(word), caver)
@@ -3247,7 +3247,7 @@ class CaverphoneTestCases(unittest.TestCase):
     def test_caversham(self):
         """test using Caversham test set (SoundEx, Metaphone, & Caverphone)
         """
-        with open(TESTDIR+'/corpora/variantNames.csv') as cav_testset:
+        with open(TESTDIR + '/corpora/variantNames.csv') as cav_testset:
             next(cav_testset)
             for cav_line in cav_testset:
                 (name1, soundex1, metaphone1, caverphone1,
@@ -3479,11 +3479,11 @@ class SfinxBisTestCases(unittest.TestCase):
         self.assertEqual(sfinxbis('Das Neves'), ('D8', 'N78'))
         self.assertEqual(sfinxbis('de Besche'), ('B8',))
         self.assertEqual(sfinxbis('de la Motte'), ('M3',))
-        self.assertEqual(sfinxbis('de Las Heras'), ('H68',)) # wrong
+        self.assertEqual(sfinxbis('de Las Heras'), ('H68',))  # wrong
         self.assertEqual(sfinxbis('de Los Santos'), ('S538',))
         self.assertEqual(sfinxbis('del Rosario'), ('R862',))
         self.assertEqual(sfinxbis('Den Boer'), ('B6',))
-        self.assertEqual(sfinxbis('Der de Kazinczy'), ('D6', 'K8528',)) # wrong
+        self.assertEqual(sfinxbis('Der de Kazinczy'), ('D6', 'K8528',))  # wrong
         self.assertEqual(sfinxbis('des Rieux'), ('R28',))
         self.assertEqual(sfinxbis('Di Luca'), ('L2',))
         self.assertEqual(sfinxbis('Do Rosario'), ('R862',))
@@ -3775,7 +3775,7 @@ class PhonetTestCases(unittest.TestCase):
         """
         if True:
             return
-        nachnamen_testset = codecs.open(TESTDIR+'/corpora/nachnamen.csv',
+        nachnamen_testset = codecs.open(TESTDIR + '/corpora/nachnamen.csv',
                                         encoding='utf-8')
         for nn_line in nachnamen_testset:
             if nn_line[0] != '#':
@@ -3793,7 +3793,7 @@ class PhonetTestCases(unittest.TestCase):
         """
         if True:
             return
-        ngerman_testset = codecs.open(TESTDIR+'/corpora/ngerman.csv',
+        ngerman_testset = codecs.open(TESTDIR + '/corpora/ngerman.csv',
                                       encoding='utf-8')
         for ng_line in ngerman_testset:
             if ng_line[0] != '#':
@@ -3945,7 +3945,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(bmpm('Angelo', '', 'gen', 'exact', True),
                          'angelo anxelo anhelo anjelo anZelo andZelo')
         self.assertEqual(bmpm('D\'Angelo', '', 'gen', 'exact', True),
-                         'angelo anxelo anhelo anjelo anZelo andZelo dangelo'+
+                         'angelo anxelo anhelo anjelo anZelo andZelo dangelo' + 
                          ' danxelo danhelo danjelo danZelo dandZelo')
         self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen', 'exact',
                               True),
@@ -3956,7 +3956,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(bmpm('Angelo', '', 'gen', 'exact', False),
                          'angelo anxelo anhelo anjelo anZelo andZelo')
         self.assertEqual(bmpm('D\'Angelo', '', 'gen', 'exact', False),
-                         'angelo anxelo anhelo anjelo anZelo andZelo dangelo'+
+                         'angelo anxelo anhelo anjelo anZelo andZelo dangelo' + 
                          ' danxelo danhelo danjelo danZelo dandZelo')
         self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen', 'exact',
                               False),
@@ -3965,14 +3965,14 @@ class BeiderMorseTestCases(unittest.TestCase):
 
         # concat is true, ruleType is APPROX
         self.assertEqual(bmpm('Angelo', '', 'gen', 'approx', True),
-                         'angilo angYlo agilo ongilo ongYlo ogilo Yngilo'+
-                         ' YngYlo anxilo onxilo anilo onilo aniilo oniilo'+
+                         'angilo angYlo agilo ongilo ongYlo ogilo Yngilo' + 
+                         ' YngYlo anxilo onxilo anilo onilo aniilo oniilo' + 
                          ' anzilo onzilo')
         self.assertEqual(bmpm('D\'Angelo', '', 'gen', 'approx', True),
-                         'angilo angYlo agilo ongilo ongYlo ogilo Yngilo'+
-                         ' YngYlo anxilo onxilo anilo onilo aniilo oniilo'+
-                         ' anzilo onzilo dangilo dangYlo dagilo dongilo'+
-                         ' dongYlo dogilo dYngilo dYngYlo danxilo donxilo'+
+                         'angilo angYlo agilo ongilo ongYlo ogilo Yngilo' + 
+                         ' YngYlo anxilo onxilo anilo onilo aniilo oniilo' + 
+                         ' anzilo onzilo dangilo dangYlo dagilo dongilo' + 
+                         ' dongYlo dogilo dYngilo dYngYlo danxilo donxilo' + 
                          ' danilo donilo daniilo doniilo danzilo donzilo')
         self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen',
                               'approx', True),
@@ -3981,14 +3981,14 @@ class BeiderMorseTestCases(unittest.TestCase):
 
         # concat is false, ruleType is APPROX
         self.assertEqual(bmpm('Angelo', '', 'gen', 'approx', False),
-                         'angilo angYlo agilo ongilo ongYlo ogilo Yngilo'+
-                         ' YngYlo anxilo onxilo anilo onilo aniilo oniilo'+
+                         'angilo angYlo agilo ongilo ongYlo ogilo Yngilo' + 
+                         ' YngYlo anxilo onxilo anilo onilo aniilo oniilo' + 
                          ' anzilo onzilo')
         self.assertEqual(bmpm('D\'Angelo', '', 'gen', 'approx', False),
-                         'angilo angYlo agilo ongilo ongYlo ogilo Yngilo'+
-                         ' YngYlo anxilo onxilo anilo onilo aniilo oniilo'+
-                         ' anzilo onzilo dangilo dangYlo dagilo dongilo'+
-                         ' dongYlo dogilo dYngilo dYngYlo danxilo donxilo'+
+                         'angilo angYlo agilo ongilo ongYlo ogilo Yngilo' + 
+                         ' YngYlo anxilo onxilo anilo onilo aniilo oniilo' + 
+                         ' anzilo onzilo dangilo dangYlo dagilo dongilo' + 
+                         ' dongYlo dogilo dYngilo dYngYlo danxilo donxilo' + 
                          ' danilo donilo daniilo doniilo danzilo donzilo')
         self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen',
                               'approx', False),
@@ -4021,31 +4021,31 @@ class BeiderMorseTestCases(unittest.TestCase):
 
         # concat is true, ruleType is APPROX
         self.assertEqual(bmpm('Angelo', '', 'ash', 'approx', True),
-                         'angilo angYlo ongilo ongYlo Yngilo YngYlo anzilo'+
+                         'angilo angYlo ongilo ongYlo Yngilo YngYlo anzilo' + 
                          ' onzilo anilo onilo anxilo onxilo')
         self.assertEqual(bmpm('D\'Angelo', '', 'ash', 'approx', True),
-                         'dangilo dangYlo dongilo dongYlo dYngilo dYngYlo'+
+                         'dangilo dangYlo dongilo dongYlo dYngilo dYngYlo' + 
                          ' danzilo donzilo danilo donilo danxilo donxilo')
         self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish',
                           'ash', 'approx', True)
         self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'ash',
                               'approx', True, True),
-                         'anxYlo anxilo onxYlo onxilo angYlo angilo ongYlo'+
+                         'anxYlo anxilo onxYlo onxilo angYlo angilo ongYlo' + 
                          ' ongilo')
         self.assertEqual(bmpm('1234', '', 'ash', 'approx', True), '')
 
         # concat is false, ruleType is APPROX
         self.assertEqual(bmpm('Angelo', '', 'ash', 'approx', False),
-                         'angilo angYlo ongilo ongYlo Yngilo YngYlo anzilo'+
+                         'angilo angYlo ongilo ongYlo Yngilo YngYlo anzilo' + 
                          ' onzilo anilo onilo anxilo onxilo')
         self.assertEqual(bmpm('D\'Angelo', '', 'ash', 'approx', False),
-                         'dangilo dangYlo dongilo dongYlo dYngilo dYngYlo'+
+                         'dangilo dangYlo dongilo dongYlo dYngilo dYngYlo' + 
                          ' danzilo donzilo danilo donilo danxilo donxilo')
         self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish',
                           'ash', 'approx', False)
         self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'ash',
                               'approx', False, True),
-                         'anxYlo anxilo onxYlo onxilo angYlo angilo ongYlo'+
+                         'anxYlo anxilo onxYlo onxilo angYlo angilo ongYlo' + 
                          ' ongilo')
         self.assertEqual(bmpm('1234', '', 'ash', 'approx', False), '')
 
@@ -4101,15 +4101,15 @@ class BeiderMorseTestCases(unittest.TestCase):
 
         # testCompatibilityWithOriginalVersion
         self.assertEqual(bmpm('abram', '', 'gen', 'approx', False),
-                         'abram abrom avram avrom obram obrom ovram ovrom'+
+                         'abram abrom avram avrom obram obrom ovram ovrom' + 
                          ' Ybram Ybrom abran abron obran obron')
         self.assertEqual(bmpm('Bendzin', '', 'gen', 'approx', False),
                          'bnzn bndzn vndzn bntsn vntsn')
         self.assertEqual(bmpm('abram', '', 'ash', 'approx', False),
-                         'abram abrom avram avrom obram obrom ovram ovrom'+
+                         'abram abrom avram avrom obram obrom ovram ovrom' + 
                          ' Ybram Ybrom ombram ombrom imbram imbrom')
         self.assertEqual(bmpm('Halpern', '', 'ash', 'approx', False),
-                         'alpirn alpYrn olpirn olpYrn Ylpirn YlpYrn xalpirn'+
+                         'alpirn alpYrn olpirn olpYrn Ylpirn YlpYrn xalpirn' + 
                          ' xolpirn')
 
 
@@ -4125,15 +4125,15 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(bmpm('d\'ortley', '', 'gen', 'exact', True),
                          'ortlaj ortlej dortlaj dortlej')
         self.assertEqual(bmpm('van helsing', '', 'gen', 'exact', False),
-                         'helSink helsink helzink xelsink elSink elsink'+
-                         ' vanhelsink vanhelzink vanjelsink fanhelsink'+
+                         'helSink helsink helzink xelsink elSink elsink' + 
+                         ' vanhelsink vanhelzink vanjelsink fanhelsink' + 
                          ' fanhelzink banhelsink')
 
 
     def test_bmpm_nachnamen(self):
         """test abydos.bm.bmpm (Nachnamen set)
         """
-        with codecs.open(TESTDIR+'/corpora/nachnamen.bm',
+        with codecs.open(TESTDIR + '/corpora/nachnamen.bm',
                          encoding='utf-8') as nachnamen_testset:
             next(nachnamen_testset)
             for nn_line in nachnamen_testset:
@@ -4150,7 +4150,7 @@ class BeiderMorseTestCases(unittest.TestCase):
     def test_bmpm_uscensus2000(self):
         """test abydos.bm.bmpm (US Census 2000 set)
         """
-        with codecs.open(TESTDIR+'/corpora/uscensus2000.bm',
+        with codecs.open(TESTDIR + '/corpora/uscensus2000.bm',
                          encoding='utf-8') as uscensus_testset:
             next(uscensus_testset)
             for cen_line in uscensus_testset:
@@ -4178,24 +4178,24 @@ class BeiderMorseTestCases(unittest.TestCase):
         Most test cases from:
         http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/LanguageGuessingTest.java?view=markup
         """
-        self.assertEqual(_bm_language('Renault', 'gen'), l_french)
-        self.assertEqual(_bm_language('Mickiewicz', 'gen'), l_polish)
-        self.assertEqual(_bm_language('Thompson', 'gen') & l_english, l_english)
-        self.assertEqual(_bm_language('Nuñez', 'gen'), l_spanish)
-        self.assertEqual(_bm_language('Carvalho', 'gen'), l_portuguese)
-        self.assertEqual(_bm_language('Čapek', 'gen'), l_czech)
-        self.assertEqual(_bm_language('Sjneijder', 'gen'), l_dutch)
-        self.assertEqual(_bm_language('Klausewitz', 'gen'), l_german)
-        self.assertEqual(_bm_language('Küçük', 'gen'), l_turkish)
-        self.assertEqual(_bm_language('Giacometti', 'gen'), l_italian)
-        self.assertEqual(_bm_language('Nagy', 'gen'), l_hungarian)
-        self.assertEqual(_bm_language('Ceauşescu', 'gen'), l_romanian)
-        self.assertEqual(_bm_language('Angelopoulos', 'gen'), l_greeklatin)
-        self.assertEqual(_bm_language('Αγγελόπουλος', 'gen'), l_greek)
-        self.assertEqual(_bm_language('Пушкин', 'gen'), l_cyrillic)
-        self.assertEqual(_bm_language('כהן', 'gen'), l_hebrew)
-        self.assertEqual(_bm_language('ácz', 'gen'), l_any)
-        self.assertEqual(_bm_language('átz', 'gen'), l_any)
+        self.assertEqual(_bm_language('Renault', 'gen'), L_FRENCH)
+        self.assertEqual(_bm_language('Mickiewicz', 'gen'), L_POLISH)
+        self.assertEqual(_bm_language('Thompson', 'gen') & L_ENGLISH, L_ENGLISH)
+        self.assertEqual(_bm_language('Nuñez', 'gen'), L_SPANISH)
+        self.assertEqual(_bm_language('Carvalho', 'gen'), L_PORTUGUESE)
+        self.assertEqual(_bm_language('Čapek', 'gen'), L_CZECH)
+        self.assertEqual(_bm_language('Sjneijder', 'gen'), L_DUTCH)
+        self.assertEqual(_bm_language('Klausewitz', 'gen'), L_GERMAN)
+        self.assertEqual(_bm_language('Küçük', 'gen'), L_TURKISH)
+        self.assertEqual(_bm_language('Giacometti', 'gen'), L_ITALIAN)
+        self.assertEqual(_bm_language('Nagy', 'gen'), L_HUNGARIAN)
+        self.assertEqual(_bm_language('Ceauşescu', 'gen'), L_ROMANIAN)
+        self.assertEqual(_bm_language('Angelopoulos', 'gen'), L_GREEKLATIN)
+        self.assertEqual(_bm_language('Αγγελόπουλος', 'gen'), L_GREEK)
+        self.assertEqual(_bm_language('Пушкин', 'gen'), L_CYRILLIC)
+        self.assertEqual(_bm_language('כהן', 'gen'), L_HEBREW)
+        self.assertEqual(_bm_language('ácz', 'gen'), L_ANY)
+        self.assertEqual(_bm_language('átz', 'gen'), L_ANY)
 
 
     def test_bm_expand_alternates(self):
