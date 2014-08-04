@@ -176,6 +176,8 @@ class LevenshteinTestCases(unittest.TestCase):
     def test_damerau_levenshtein(self):
         """test abydos.distance.damerau_levenshtein
         """
+        self.assertEqual(damerau_levenshtein('', ''), 0)
+        self.assertEqual(damerau_levenshtein('CA', 'CA'), 0)
         self.assertEqual(damerau_levenshtein('CA', 'ABC'), 2)
         self.assertEqual(damerau_levenshtein('', 'b', cost=(5, 7, 10, 10)), 5)
         self.assertEqual(damerau_levenshtein('a', 'ab', cost=(5, 7, 10, 10)), 5)
@@ -1777,6 +1779,7 @@ class MLIPNSTestCases(unittest.TestCase):
         self.assertEqual(sim_mlipns('abcg', 'abcdeg'), 1)
         self.assertEqual(sim_mlipns('abcg', 'abcdefg'), 0)
         self.assertEqual(sim_mlipns('Tomato', 'Tamato'), 1)
+        self.assertEqual(sim_mlipns('ato', 'Tam'), 1)
 
     def test_dist_mlipns(self):
         """test abydos.distance.dist_mlipns
@@ -1791,6 +1794,7 @@ class MLIPNSTestCases(unittest.TestCase):
         self.assertEqual(dist_mlipns('abcg', 'abcdeg'), 0)
         self.assertEqual(dist_mlipns('abcg', 'abcdefg'), 1)
         self.assertEqual(dist_mlipns('Tomato', 'Tamato'), 0)
+        self.assertEqual(dist_mlipns('ato', 'Tam'), 0)
 
 
 class BagTestCases(unittest.TestCase):
