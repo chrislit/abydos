@@ -25,13 +25,13 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 import sys
 
 # pylint: disable=invalid-name
-if sys.version_info[0] == 3:
+if sys.version_info[0] == 3: # pragma: no cover
     _range = range
     _unicode = str
     _unichr = chr
     numeric_type = (int, float, complex)
     _long = int
-else:
+else: # pragma: no cover
     _range = xrange
     _unicode = unicode
     _unichr = unichr
