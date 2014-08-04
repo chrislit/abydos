@@ -4136,7 +4136,10 @@ class BeiderMorseTestCases(unittest.TestCase):
         The purpose of this test set is to achieve higher code coverage
         and to hit some of the test cases noted in the BMPM reference code.
         """
+        # test of Ashkenazi with discardable prefix
         self.assertEqual(bmpm('bar Hayim', name_mode='ash'), 'Dm xDm')
+
+        # tests of concat behavior
         self.assertEqual(bmpm('Rodham Clinton', concat=False),
                          'rodam rodom rYdam rYdom rodan rodon rodxam rodxom' +
                          ' rodxan rodxon rudam rudom klnton klntun tzlnton' +
@@ -4149,6 +4152,36 @@ class BeiderMorseTestCases(unittest.TestCase):
                          ' rodxonklnton rudamklnton rudomklnton rudamklntun' +
                          ' rudomklntun rudamtzlnton rudomtzlnton rudamtzlntun' +
                          ' rudomtzlntun')
+
+        # tests of name_mode values
+        self.assertEqual(bmpm('bar Hayim', name_mode='ash'), 'Dm xDm')
+        self.assertEqual(bmpm('bar Hayim', name_mode='ashkenazi'), 'Dm xDm')
+        self.assertEqual(bmpm('bar Hayim', name_mode='Ashkenazi'), 'Dm xDm')
+        self.assertEqual(bmpm('bar Hayim', name_mode='gen', concat=True),
+                         'barDm borDm bYrDm varDm vorDm barDn borDn barxDm' +
+                         ' borxDm varxDm vorxDm barxDn borxDn')
+        self.assertEqual(bmpm('bar Hayim', name_mode='general', concat=True),
+                         'barDm borDm bYrDm varDm vorDm barDn borDn barxDm' +
+                         ' borxDm varxDm vorxDm barxDn borxDn')
+        self.assertEqual(bmpm('bar Hayim', name_mode='Mizrahi', concat=True),
+                         'barDm borDm bYrDm varDm vorDm barDn borDn barxDm' +
+                         ' borxDm varxDm vorxDm barxDn borxDn')
+        self.assertEqual(bmpm('bar Hayim', name_mode='mizrahi', concat=True),
+                         'barDm borDm bYrDm varDm vorDm barDn borDn barxDm' +
+                         ' borxDm varxDm vorxDm barxDn borxDn')
+        self.assertEqual(bmpm('bar Hayim', name_mode='miz', concat=True),
+                         'barDm borDm bYrDm varDm vorDm barDn borDn barxDm' +
+                         ' borxDm varxDm vorxDm barxDn borxDn')
+
+        # test that out-of-range langauge_arg results in L_ANY
+        self.assertEqual(bmpm('Rodham Clinton', language_arg=2097152),
+                         'rodam rodom rYdam rYdom rodan rodon rodxam rodxom' +
+                         ' rodxan rodxon rudam rudom klnton klntun tzlnton' +
+                         ' tzlntun zlnton')
+        self.assertEqual(bmpm('Rodham Clinton', language_arg=-4),
+                         'rodam rodom rYdam rYdom rodan rodon rodxam rodxom' +
+                         ' rodxan rodxon rudam rudom klnton klntun tzlnton' +
+                         ' tzlntun zlnton')
 
 
     def test_bmpm_nachnamen(self):
