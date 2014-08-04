@@ -830,7 +830,7 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False, \
     """
     if mode == 'winkler':
         if boost_threshold > 1 or boost_threshold < 0:
-            raise ValueError('Unsupported boost_threshold assignment; ' + 
+            raise ValueError('Unsupported boost_threshold assignment; ' +
                              'boost_threshold must be between 0 and 1.')
         if scaling_factor > 0.25 or scaling_factor < 0:
             raise ValueError('Unsupported scaling_factor assignment; ' +
