@@ -93,6 +93,13 @@ def pythonize(line, fn='', subdir='gen'):
         suffix = code[code.rfind(')'):]
         tuplecontent = code[len(prefix):len(code)-len(suffix)]
 
+        elts = tuplecontent.split(',')
+        for i in range(len(elts)):
+            elts[i] = elts[i].strip()
+            if elts[i][0] == '"' and elts[i][-1] == '"':
+                elts[i] = "'" + elts[i][1:-1].replace("'", "\\'") + "'"
+        tuplecontent = ', '.join(elts)
+
         code = prefix+tuplecontent+suffix
 
     line = code + comment
