@@ -72,31 +72,32 @@ class ConstructorTestCases(unittest.TestCase):
         self.assertNotEquals(ConfusionTable(), ConfusionTable(0, 0, 1))
         self.assertNotEquals(ConfusionTable(), ConfusionTable(0, 0, 0, 1))
 
-        # test __eq__ by id()
-        self.assertEqual(SCALE_TABLE, SCALE_TABLE)
         # test int constructor & __eq__ by value
         self.assertEqual(SCALE_TABLE, ConfusionTable(1, 2, 3, 4))
         # test tuple constructor
         self.assertEqual(SCALE_TABLE, ConfusionTable((1, 2, 3, 4)))
-        self.assertEqual(SCALE_TABLE, ConfusionTable((1, 2, 3, 4),
-                                                          5, 6, 7))
+        self.assertEqual(SCALE_TABLE, ConfusionTable((1, 2, 3, 4), 5, 6, 7))
         # test list constructor
         self.assertEqual(SCALE_TABLE, ConfusionTable([1, 2, 3, 4]))
-        self.assertEqual(SCALE_TABLE, ConfusionTable([1, 2, 3, 4],
-                                                          5, 6, 7))
+        self.assertEqual(SCALE_TABLE, ConfusionTable([1, 2, 3, 4], 5, 6, 7))
         # test dict constructor
-        self.assertEqual(SCALE_TABLE, ConfusionTable({'tp':1, 'tn':2,
-                                                           'fp':3, 'fn':4}))
-        self.assertEqual(SCALE_TABLE, ConfusionTable({'tp':1, 'tn':2,
-                                                           'fp':3, 'fn':4},
-                                                          5, 6, 7))
+        self.assertEqual(SCALE_TABLE, ConfusionTable({'tp':1, 'tn':2, 'fp':3,
+                                                      'fn':4}))
+        self.assertEqual(SCALE_TABLE, ConfusionTable({'tp':1, 'tn':2, 'fp':3,
+                                                      'fn':4}, 5, 6, 7))
 
+        # test __eq__ by id()
+        self.assertTrue(SCALE_TABLE == SCALE_TABLE)
+        self.assertFalse(CATSNDOGS_TABLE == SCALE_TABLE)
         # test __eq__ by tuple
-        self.assertEqual(SCALE_TABLE, (1, 2, 3, 4))
+        self.assertTrue(SCALE_TABLE == (1, 2, 3, 4))
+        self.assertFalse(CATSNDOGS_TABLE == (1, 2, 3, 4))
         # test __eq__ by list
-        self.assertEqual(SCALE_TABLE, [1, 2, 3, 4])
+        self.assertTrue(SCALE_TABLE == [1, 2, 3, 4])
+        self.assertFalse(CATSNDOGS_TABLE == [1, 2, 3, 4])
         # test __eq__ by dict
-        self.assertEqual(SCALE_TABLE, {'tp':1, 'tn':2, 'fp':3, 'fn':4})
+        self.assertTrue(SCALE_TABLE == {'tp':1, 'tn':2, 'fp':3, 'fn':4})
+        self.assertFalse(CATSNDOGS_TABLE == {'tp':1, 'tn':2, 'fp':3, 'fn':4})
 
         # test invalid tuple constructor
         self.assertRaises(AttributeError, ConfusionTable, (1, 2,))
