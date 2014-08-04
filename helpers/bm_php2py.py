@@ -31,6 +31,11 @@ def c2u(name):
 def pythonize(line, fn='', subdir='gen'):
     global nl, array_seen
 
+    if '$all' in line:
+        return ''
+    if 'make the sum of all languages be visible in the function' in line:
+        return ''
+
     line = line.strip()
 
     if 'array' in line and not line.startswith('//'):
@@ -53,6 +58,11 @@ def pythonize(line, fn='', subdir='gen'):
 
     line = re.sub(
         '\$(approx|rules|exact|hebrew)([A-Za-z]+) = _merge\(\$([a-zA-Z]+), \$([a-zA-Z]+)\)',
+        lambda m: "BMDATA['" + subdir + "']['" + m.group(1) + "'][L_" + c2u(m.group(2)).upper() + "] = _" + subdir.upper() + '_' + c2u(m.group(3)).upper() + ' + _' + subdir.upper() + '_' + c2u(m.group(4)).upper(),
+        line)
+
+    line = re.sub(
+        '\$(approx|rules|exact)\[LanguageIndex\("([^"]+)", \$languages\)\] = _merge\(\$([a-zA-Z]+), \$([a-zA-Z]+)\)',
         lambda m: "BMDATA['" + subdir + "']['" + m.group(1) + "'][L_" + c2u(m.group(2)).upper() + "] = _" + subdir.upper() + '_' + c2u(m.group(3)).upper() + ' + _' + subdir.upper() + '_' + c2u(m.group(4)).upper(),
         line)
 
@@ -162,7 +172,7 @@ for s in subdirs:
 
                 ignore = True
                 for line in infile:
-                    if 'function' in line:
+                    if 'function Language' in line:
                         break
                     if not ignore:
                         if re.search(r'\?>', line):
@@ -185,11 +195,18 @@ outfile.close()
 outfilelines = codecs.open(outfilename, 'r', 'utf-8').readlines()
 outfile = codecs.open(outfilename, 'w', 'utf-8')
 nl = False
+fixlanguagesarray = False
 for line in outfilelines:
     line = line.rstrip()
     if line:
+        if fixlanguagesarray:
+            line = ' '+line.strip()
+            fixlanguagesarray = False
         outfile.write(line)
-        outfile.write('\n')
+        if not line.endswith('='):
+            outfile.write('\n')
+        else:
+            fixlanguagesarray = True
         nl = False
     else:
         if not nl:
