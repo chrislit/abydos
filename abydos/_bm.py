@@ -205,9 +205,8 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
                     continue
 
             # check for incompatible attributes
-            candidate = _bm_apply_rule_if_compatible(phonetic,
-                                                     rule[_PHONETIC_POS],
-                                                     language_arg)
+            candidate = _bm_apply_rule_if_compat(phonetic, rule[_PHONETIC_POS],
+                                                 language_arg)
             if candidate == None:
                 continue
             phonetic = candidate
@@ -294,9 +293,9 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
                         continue
 
                 # check for incompatible attributes
-                candidate = _bm_apply_rule_if_compatible(phonetic2,
-                                                         rule[_PHONETIC_POS],
-                                                         language_arg)
+                candidate = _bm_apply_rule_if_compat(phonetic2,
+                                                     rule[_PHONETIC_POS],
+                                                     language_arg)
                 if candidate == None:
                     continue
                 phonetic2 = candidate
@@ -448,7 +447,7 @@ def _bm_normalize_lang_attrs(text, strip):
         return text + '[' + str(attrib) + ']'
 
 
-def _bm_apply_rule_if_compatible(phonetic, target, language_arg):
+def _bm_apply_rule_if_compat(phonetic, target, language_arg):
     """Applies a phonetic regex if compatible
 
     Arguments:

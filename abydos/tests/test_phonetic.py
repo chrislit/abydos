@@ -33,7 +33,7 @@ from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     phonem, phonix, sfinxbis, phonet, spfc, german_ipa, bmpm
 from abydos._bm import _bm_language, _bm_expand_alternates, \
     _bm_remove_dupes, _bm_normalize_lang_attrs, _bm_phonetic_number, \
-    _bm_apply_rule_if_compatible
+    _bm_apply_rule_if_compat
 from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
     L_FRENCH, L_GERMAN, L_GREEK, L_GREEKLATIN, L_HEBREW, L_HUNGARIAN, \
     L_ITALIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, L_SPANISH, L_TURKISH
@@ -4239,19 +4239,16 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(_bm_phonetic_number('abcd[[[123]]]'), 'abcd')
 
 
-    def test_bm_apply_rule_if_compatible(self):
-        """test abydos.bm._bm_apply_rule_if_compatible
+    def test_bm_apply_rule_if_compat(self):
+        """test abydos.bm._bm_apply_rule_if_compat
         """
-        self.assertEqual(_bm_apply_rule_if_compatible('abc', 'def', 4),
-                         'abcdef')
-        self.assertEqual(_bm_apply_rule_if_compatible('abc', 'def[6]', 4),
+        self.assertEqual(_bm_apply_rule_if_compat('abc', 'def', 4), 'abcdef')
+        self.assertEqual(_bm_apply_rule_if_compat('abc', 'def[6]', 4),
                          'abcdef[4]')
-        self.assertEqual(_bm_apply_rule_if_compatible('abc', 'def[4]', 4),
+        self.assertEqual(_bm_apply_rule_if_compat('abc', 'def[4]', 4),
                          'abcdef[4]')
-        self.assertEqual(_bm_apply_rule_if_compatible('abc', 'def[0]', 4),
-                         None)
-        self.assertEqual(_bm_apply_rule_if_compatible('abc', 'def[8]', 4),
-                         None)
+        self.assertEqual(_bm_apply_rule_if_compat('abc', 'def[0]', 4), None)
+        self.assertEqual(_bm_apply_rule_if_compat('abc', 'def[8]', 4), None)
 
 
     def test_bm_language(self):
