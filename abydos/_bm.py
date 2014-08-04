@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import re
 import unicodedata
 from ._compat import _unicode, _long, _range
-from .bmdata import BMDATA, L_NONE, L_ANY, L_ARABIC, L_CYRILLIC, \
+from ._bmdata import BMDATA, L_NONE, L_ANY, L_ARABIC, L_CYRILLIC, \
     L_CZECH, L_DUTCH, L_ENGLISH, L_FRENCH, L_GERMAN, L_GREEK, L_GREEKLATIN, \
     L_HEBREW, L_HUNGARIAN, L_ITALIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, \
     L_RUSSIAN, L_SPANISH, L_TURKISH
