@@ -1271,9 +1271,9 @@ _gen_language_rules = (
      )
 
 # gen/languagenames.php
-_gen_languages = ("any", "arabic", "cyrillic", "czech", "dutch", "english", "french", "german", "greek",
-     "greeklatin", "hebrew", "hungarian", "italian", "polish", "portuguese","romanian",
-     "russian", "spanish", "turkish")
+_gen_languages = ('any', 'arabic', 'cyrillic', 'czech', 'dutch', 'english', 'french', 'german', 'greek',
+     'greeklatin', 'hebrew', 'hungarian', 'italian', 'polish', 'portuguese','romanian',
+     'russian', 'spanish', 'turkish')
 
 # gen/rulesany.php
 # format of each entry rule in the table
@@ -5257,8 +5257,8 @@ _ash_language_rules = (
      )
 
 # ash/languagenames.php
-_ash_languages = ("any", "cyrillic", "english", "french", "german", "hebrew",
-     "hungarian", "polish", "romanian", "russian", "spanish")
+_ash_languages = ('any', 'cyrillic', 'english', 'french', 'german', 'hebrew',
+     'hungarian', 'polish', 'romanian', 'russian', 'spanish')
 
 # ash/rulesany.php
 #ASHKENAZIC
