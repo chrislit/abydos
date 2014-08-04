@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
 from os import listdir
@@ -76,6 +77,8 @@ def pythonize(line, fn='', subdir='gen'):
             parts[2] = parts[2].title()
             line = ','.join(parts)
 
+    line = line.replace('ë', 'ü')
+
     if line:
         nl = False
         if array_seen and not (line[0] == '_' or line.startswith('bmdata')):
@@ -130,6 +133,8 @@ for s in subdirs:
 
                 ignore = True
                 for line in infile:
+                    if 'function' in line:
+                        break
                     if not ignore:
                         if re.search(r'\?>', line):
                             ignore = True
@@ -139,7 +144,7 @@ for s in subdirs:
                                 tail_text += line
                             else:
                                 outfile.write(line)
-                    if re.search('\*/', line):
+                    if '*/' in line:
                         ignore = False
 
                 outfile.write('\n\n')
