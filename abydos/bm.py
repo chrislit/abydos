@@ -137,7 +137,6 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
         # ex: d'avila d'aguilar --> avila aguilar
         # also discard certain words in the name
 
-        # FIXME:
         # note that we can never get a match on "de la" because we are checking
         # single words below
         # this is a bug, but I won't try to fix it now
