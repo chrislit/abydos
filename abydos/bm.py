@@ -31,7 +31,7 @@ from .bmdata import BMDATA, L_NONE, L_ANY, L_ARABIC, L_CYRILLIC, \
     L_HEBREW, L_HUNGARIAN, L_ITALIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, \
     L_RUSSIAN, L_SPANISH, L_TURKISH
 
-lang_dict = {'any': L_ANY, 'arabic': L_ARABIC, 'cyrillic': L_CYRILLIC,
+_LANG_DICT = {'any': L_ANY, 'arabic': L_ARABIC, 'cyrillic': L_CYRILLIC,
              'czech': L_CZECH, 'dutch': L_DUTCH, 'english': L_ENGLISH,
              'french': L_FRENCH, 'german': L_GERMAN, 'greek': L_GREEK,
              'greeklatin': L_GREEKLATIN, 'hebrew': L_HEBREW,
@@ -48,11 +48,10 @@ BMDATA['sep']['discards'] = set(['al', 'el', 'da', 'dal', 'de', 'del', 'dela',
 BMDATA['ash']['discards'] = set(['bar', 'ben', 'da', 'de', 'van', 'von'])
 
 # format of rules array
-_pattern_pos = 0
-_lcontext_pos = 1
-_rcontext_pos = 2
-_phonetic_pos = 3
-_language_pos = 4
+_PATTERN_POS = 0
+_LCONTEXT_POS = 1
+_RCONTEXT_POS = 2
+_PHONETIC_POS = 3
 
 
 def _bm_language(name, name_mode):
@@ -66,7 +65,7 @@ def _bm_language(name, name_mode):
     """
     name = name.strip().lower()
     rules = BMDATA[name_mode]['language_rules']
-    all_langs = sum([lang_dict[_] for _ in BMDATA[name_mode]['languages']])-1
+    all_langs = sum([_LANG_DICT[_] for _ in BMDATA[name_mode]['languages']])-1
     choices_remaining = all_langs
     for rule in rules:
         letters, languages, accept = rule
@@ -184,10 +183,10 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
             continue
         found = False
         for rule in rules:
-            pattern = rule[_pattern_pos]
+            pattern = rule[_PATTERN_POS]
             pattern_length = len(pattern)
-            lcontext = rule[_lcontext_pos]
-            rcontext = rule[_rcontext_pos]
+            lcontext = rule[_LCONTEXT_POS]
+            rcontext = rule[_RCONTEXT_POS]
 
             # check to see if next sequence in input matches the string in the
             # rule
@@ -210,7 +209,7 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
 
             # check for incompatible attributes
             candidate = _bm_apply_rule_if_compatible(phonetic,
-                                                     rule[_phonetic_pos],
+                                                     rule[_PHONETIC_POS],
                                                      language_arg)
             if candidate == None:
                 continue
@@ -255,7 +254,7 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
     for k in _range(len(phonetic_array)):
         phonetic = phonetic_array[k]
         phonetic2 = ''
-        phoneticx = _bm_normalize_language_attributes(phonetic, True)
+        phoneticx = _bm_normalize_lang_attrs(phonetic, True)
 
         i = 0
         while i < len(phonetic):
@@ -273,10 +272,10 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
                 continue
 
             for rule in final_rules:
-                pattern = rule[_pattern_pos]
+                pattern = rule[_PATTERN_POS]
                 pattern_length = len(pattern)
-                lcontext = rule[_lcontext_pos]
-                rcontext = rule[_rcontext_pos]
+                lcontext = rule[_LCONTEXT_POS]
+                rcontext = rule[_RCONTEXT_POS]
 
                 right = '^'+rcontext
                 left = lcontext+'$'
@@ -299,7 +298,7 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
 
                 # check for incompatible attributes
                 candidate = _bm_apply_rule_if_compatible(phonetic2,
-                                                         rule[_phonetic_pos],
+                                                         rule[_PHONETIC_POS],
                                                          language_arg)
                 if candidate == None:
                     continue
@@ -320,10 +319,10 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
 
     phonetic = '|'.join(phonetic_array)
     if strip:
-        phonetic = _bm_normalize_language_attributes(phonetic, True)
+        phonetic = _bm_normalize_lang_attrs(phonetic, True)
 
     if '|' in phonetic:
-        phonetic = '(' + _bm_remove_duplicate_alternates(phonetic) + ')'
+        phonetic = '(' + _bm_remove_dupes(phonetic) + ')'
 
     return phonetic
 
@@ -345,7 +344,7 @@ def _bm_expand_alternates(phonetic):
     """
     alt_start = phonetic.find('(')
     if alt_start == -1:
-        return _bm_normalize_language_attributes(phonetic, False)
+        return _bm_normalize_lang_attrs(phonetic, False)
 
     prefix = phonetic[:alt_start]
     alt_start += 1 # get past the (
@@ -367,7 +366,7 @@ def _bm_expand_alternates(phonetic):
     return result
 
 
-def _bm_phonetic_numbers_with_leading_space(phonetic):
+def _bm_pnums_with_leading_space(phonetic):
     """Join prefixes & suffixes in cases of alternate phonetic values
     """
     alt_start = phonetic.find('(')
@@ -383,22 +382,22 @@ def _bm_phonetic_numbers_with_leading_space(phonetic):
     alt_array = alt_string.split('|')
     result = ''
     for alt in alt_array:
-        result += _bm_phonetic_numbers_with_leading_space(prefix+alt+suffix)
+        result += _bm_pnums_with_leading_space(prefix+alt+suffix)
 
     return result
 
 
 def _bm_phonetic_numbers(phonetic):
     """Split phonetic value on '-', run through
-    _bm_phonetic_numbers_with_leading_space, and join with ' '
+    _bm_pnums_with_leading_space, and join with ' '
     """
     phonetic_array = phonetic.split('-') # for names with spaces in them
-    result = ' '.join([_bm_phonetic_numbers_with_leading_space(i)[1:] for i in
+    result = ' '.join([_bm_pnums_with_leading_space(i)[1:] for i in
                        phonetic_array])
     return result
 
 
-def _bm_remove_duplicate_alternates(phonetic):
+def _bm_remove_dupes(phonetic):
     """Remove duplicates from a phonetic encoding list
 
     Arguments:
@@ -416,7 +415,7 @@ def _bm_remove_duplicate_alternates(phonetic):
     return result[1:-1] # remove leading and trailing |
 
 
-def _bm_normalize_language_attributes(text, strip):
+def _bm_normalize_lang_attrs(text, strip):
     """Remove embedded bracketed attributes and (potentially) bitwise-and them
     together and add to the end
 
@@ -486,10 +485,9 @@ def _bm_apply_rule_if_compatible(phonetic, target, language_arg):
     for i in _range(len(candidate_array)):
         this_candidate = candidate_array[i]
         if language_arg != 1:
-            this_candidate = _bm_normalize_language_attributes(this_candidate +
-                                                               '[' +
-                                                               str(language_arg)
-                                                               + ']', False)
+            this_candidate = _bm_normalize_lang_attrs(this_candidate + '[' +
+                                                      str(language_arg) + ']',
+                                                      False)
         if this_candidate != '[0]':
             found = True
             if candidate:
@@ -516,7 +514,7 @@ def _bm_language_index_from_code(code, name_mode):
                 'ash' (Ashkenazi), or 'sep' (Sephardic)
     """
     if (code < 1 or
-        code > sum([lang_dict[_] for _ in
+        code > sum([_LANG_DICT[_] for _ in
                     BMDATA[name_mode]['languages']])): # code out of range
         return L_ANY
     if (code & (code - 1)) != 0: # choice was more than one language; use any
@@ -560,14 +558,14 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
 
     # Translate the supplied language_arg value into an integer representing
     # a set of languages
-    all_langs = sum([lang_dict[_] for _ in BMDATA[name_mode]['languages']])-1
+    all_langs = sum([_LANG_DICT[_] for _ in BMDATA[name_mode]['languages']])-1
     lang_choices = 0
     if isinstance(language_arg, (int, float, _long)):
         lang_choices = int(language_arg)
     elif language_arg != '' and isinstance(language_arg, (_unicode, str)):
         for lang in _unicode(language_arg).lower().split(','):
-            if lang in lang_dict and (lang_dict[lang] & all_langs):
-                lang_choices += lang_dict[lang]
+            if lang in _LANG_DICT and (_LANG_DICT[lang] & all_langs):
+                lang_choices += _LANG_DICT[lang]
             elif not filter_langs:
                 raise ValueError('Unknown \'' + name_mode + '\' language: \'' +
                                  lang + '\'')

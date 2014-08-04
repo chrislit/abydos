@@ -32,7 +32,7 @@ from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     metaphone, double_metaphone, caverphone, alpha_sis, fuzzy_soundex, phonex, \
     phonem, phonix, sfinxbis, phonet, spfc, german_ipa
 from abydos.bm import bmpm, _bm_language, _bm_expand_alternates, \
-    _bm_remove_duplicate_alternates, _bm_normalize_language_attributes
+    _bm_remove_dupes, _bm_normalize_lang_attrs
 from abydos.bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
     L_FRENCH, L_GERMAN, L_GREEK, L_GREEKLATIN, L_HEBREW, L_HUNGARIAN, \
     L_ITALIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, L_SPANISH, L_TURKISH
@@ -4220,56 +4220,56 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'ad[1]|bd[2]')
 
 
-    def test_bm_remove_duplicate_alternates(self):
-        """test abydos.bm.remove_duplicate_alternates
+    def test_bm_remove_dupes(self):
+        """test abydos.bm.remove_dupes
         """
-        self.assertEqual(_bm_remove_duplicate_alternates(''), '')
-        self.assertEqual(_bm_remove_duplicate_alternates('aa'), 'aa')
-        self.assertEqual(_bm_remove_duplicate_alternates('aa|bb'), 'aa|bb')
-        self.assertEqual(_bm_remove_duplicate_alternates('aa|aa'), 'aa')
-        self.assertEqual(_bm_remove_duplicate_alternates('aa|aa|aa|bb|aa'),
+        self.assertEqual(_bm_remove_dupes(''), '')
+        self.assertEqual(_bm_remove_dupes('aa'), 'aa')
+        self.assertEqual(_bm_remove_dupes('aa|bb'), 'aa|bb')
+        self.assertEqual(_bm_remove_dupes('aa|aa'), 'aa')
+        self.assertEqual(_bm_remove_dupes('aa|aa|aa|bb|aa'),
                          'aa|bb')
-        self.assertEqual(_bm_remove_duplicate_alternates('bb|aa|bb|aa|bb'),
+        self.assertEqual(_bm_remove_dupes('bb|aa|bb|aa|bb'),
                          'bb|aa')
 
 
-    def test_bm_normalize_language_attributes(self):
+    def test_bm_normalize_lang_attrs(self):
         """test abydos.bm.normalize_language_attributes
         """
-        self.assertEqual(_bm_normalize_language_attributes('', False), '')
-        self.assertEqual(_bm_normalize_language_attributes('', True), '')
+        self.assertEqual(_bm_normalize_lang_attrs('', False), '')
+        self.assertEqual(_bm_normalize_lang_attrs('', True), '')
 
-        self.assertRaises(ValueError, _bm_normalize_language_attributes, 'a[1',
+        self.assertRaises(ValueError, _bm_normalize_lang_attrs, 'a[1',
                           False)
-        self.assertRaises(ValueError, _bm_normalize_language_attributes, 'a[1',
+        self.assertRaises(ValueError, _bm_normalize_lang_attrs, 'a[1',
                           True)
 
-        self.assertEqual(_bm_normalize_language_attributes('abc', False), 'abc')
-        self.assertEqual(_bm_normalize_language_attributes('abc[0]', False),
+        self.assertEqual(_bm_normalize_lang_attrs('abc', False), 'abc')
+        self.assertEqual(_bm_normalize_lang_attrs('abc[0]', False),
                          '[0]')
-        self.assertEqual(_bm_normalize_language_attributes('abc[2]', False),
+        self.assertEqual(_bm_normalize_lang_attrs('abc[2]', False),
                          'abc[2]')
-        self.assertEqual(_bm_normalize_language_attributes('abc[2][4]', False),
+        self.assertEqual(_bm_normalize_lang_attrs('abc[2][4]', False),
                          '[0]')
-        self.assertEqual(_bm_normalize_language_attributes('abc[2][6]', False),
+        self.assertEqual(_bm_normalize_lang_attrs('abc[2][6]', False),
                          'abc[2]')
-        self.assertEqual(_bm_normalize_language_attributes('ab[2]c[4]', False),
+        self.assertEqual(_bm_normalize_lang_attrs('ab[2]c[4]', False),
                          '[0]')
-        self.assertEqual(_bm_normalize_language_attributes('ab[2]c[6]', False),
+        self.assertEqual(_bm_normalize_lang_attrs('ab[2]c[6]', False),
                          'abc[2]')
 
-        self.assertEqual(_bm_normalize_language_attributes('abc', True), 'abc')
-        self.assertEqual(_bm_normalize_language_attributes('abc[0]', True),
+        self.assertEqual(_bm_normalize_lang_attrs('abc', True), 'abc')
+        self.assertEqual(_bm_normalize_lang_attrs('abc[0]', True),
                          'abc')
-        self.assertEqual(_bm_normalize_language_attributes('abc[2]', True),
+        self.assertEqual(_bm_normalize_lang_attrs('abc[2]', True),
                          'abc')
-        self.assertEqual(_bm_normalize_language_attributes('abc[2][4]', True),
+        self.assertEqual(_bm_normalize_lang_attrs('abc[2][4]', True),
                          'abc')
-        self.assertEqual(_bm_normalize_language_attributes('abc[2][6]', True),
+        self.assertEqual(_bm_normalize_lang_attrs('abc[2][6]', True),
                          'abc')
-        self.assertEqual(_bm_normalize_language_attributes('ab[2]c[4]', True),
+        self.assertEqual(_bm_normalize_lang_attrs('ab[2]c[4]', True),
                          'abc')
-        self.assertEqual(_bm_normalize_language_attributes('ab[2]c[6]', True),
+        self.assertEqual(_bm_normalize_lang_attrs('ab[2]c[6]', True),
                          'abc')
 
 
