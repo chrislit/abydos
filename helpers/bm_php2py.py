@@ -79,6 +79,17 @@ def pythonize(line, fn='', subdir='gen'):
 
     line = line.replace('ë', 'ü')
 
+    code = ''
+    comment = ''
+    if '#' in line:
+        hashsign = line.find('#')
+        comment = line[hashsign:]
+        code = line[:hashsign]
+    else:
+        code = line
+
+    line = code + comment
+
     if line:
         nl = False
         if array_seen and not (line[0] == '_' or line.startswith('bmdata')):
