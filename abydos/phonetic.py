@@ -3607,7 +3607,8 @@ def phonet(word, mode=1, lang='de', trace=False):
                                     _trinfo('> rule no.', pos, '', lang)
                                     _trinfo('> not used because of continuation'
                                             , pos0, '', lang)
-                                continue
+                                if True:
+                                    continue
 
                         # replace string
                         if trace:
