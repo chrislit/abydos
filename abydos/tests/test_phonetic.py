@@ -3367,6 +3367,15 @@ class FuzzySoundexTestCases(unittest.TestCase):
         self.assertEqual(fuzzy_soundex('Wight'), 'W3000')
         self.assertEqual(fuzzy_soundex('Hardt'), 'H6000')
         self.assertEqual(fuzzy_soundex('Knight'), 'N3000')
+        self.assertEqual(fuzzy_soundex('Czech'), 'S7000')
+        self.assertEqual(fuzzy_soundex('Tsech'), 'S7000')
+        self.assertEqual(fuzzy_soundex('gnomic'), 'N5900')
+        self.assertEqual(fuzzy_soundex('Wright'), 'R3000')
+        self.assertEqual(fuzzy_soundex('Hrothgar'), 'R3760')
+        self.assertEqual(fuzzy_soundex('Hwaet'), 'W3000')
+        self.assertEqual(fuzzy_soundex('Grant'), 'G6300')
+        self.assertEqual(fuzzy_soundex('Hart'), 'H6000')
+        self.assertEqual(fuzzy_soundex('Hardt'), 'H6000')
 
 
 class PhonexTestCases(unittest.TestCase):
