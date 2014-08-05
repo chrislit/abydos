@@ -736,9 +736,9 @@ def double_metaphone(word, maxlength=float('inf')):
     def _is_vowel(pos):
         """Return true if the character at word[pos] is a vowel
         """
-        if pos < 0:
-            return False
-        return word[pos] in tuple('AEIOUY')
+        if pos >= 0 and word[pos] in tuple('AEIOUY'):
+            return True
+        return False
 
     def _get_at(pos):
         """Return the character at word[pos]
@@ -755,8 +755,8 @@ def double_metaphone(word, maxlength=float('inf')):
 
     current = 0
     length = len(word)
-    if length < 0:
-        return ''
+    if length < 1:
+        return ('', '')
     last = length - 1
 
     word = word.upper()
