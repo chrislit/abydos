@@ -32,6 +32,8 @@ TESTDIR = os.path.dirname(__file__)
 
 class PorterTestCases(unittest.TestCase):
     """test cases for abydos.stemmer._m_degree, abydos.stemmer.porter
+    abydos.stemmer._sb_has_vowel, abydos.stemmer._ends_in_doubled_cons,
+    & abydos.stemmer._ends_in_cvc
     """
     def test_m_degree(self):
         """test abydos.stemmer._m_degree
@@ -175,6 +177,10 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(porter('sing'), 'sing')
         self.assertEqual(porter('singing'), 'sing')
 
+        # missed branch test cases
+        self.assertEqual(porter('capitalism'), 'capit')
+        self.assertEqual(porter('fatalism'), 'fatal')
+
 
     def test_porter_early_english(self):
         """test abydos.stemmer.porter (early English)
@@ -217,6 +223,12 @@ class PorterTestCases(unittest.TestCase):
                     word, stem = line[0], line[1]
                     self.assertEqual(porter(word), stem.lower())
 
+
+class Porter2TestCases(unittest.TestCase):
+    """test cases for abydos.stemmer._sb_r1, abydos.stemmer._sb_r2,
+    abydos.stemmer._sb_ends_in_short_syllable, abydos.stemmer._sb_short_word,
+    & abydos.stemmer.porter2
+    """
     def test_sb_r1(self):
         """test abydos.stemmer._sb_r1
         """
@@ -310,6 +322,13 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(porter2('sing'), 'sing')
         self.assertEqual(porter2('singing'), 'sing')
 
+        # missed branch test cases
+        self.assertEqual(porter2('capitalism'), 'capit')
+        self.assertEqual(porter2('fatalism'), 'fatal')
+        self.assertEqual(porter2('dog\'s'), 'dog')
+        self.assertEqual(porter2('A\'s\''), 'a')
+        self.assertEqual(porter2('agreedly'), 'agre')
+
 
     def test_porter2_early_english(self):
         """test abydos.stemmer.porter2 (early English)
@@ -353,6 +372,11 @@ class PorterTestCases(unittest.TestCase):
                     self.assertEqual(porter2(word), stem.lower())
 
 
+class SnowballTestCases(unittest.TestCase):
+    """test cases for abydos.stemmer.sb_german, abydos.stemmer.sb_dutch,
+    abydos.stemmer.sb_norwegian, abydos.stemmer.sb_swedish, &
+    abydos.stemmer.sb_danish
+    """
     def test_sb_german_snowball(self):
         """test abydos.stemmer.sb_german (Snowball testset)
 
@@ -490,6 +514,10 @@ class PorterTestCases(unittest.TestCase):
                     word, stem = line[0], line[1]
                     self.assertEqual(sb_danish(word), stem.lower())
 
+class CLEFTestCases(unittest.TestCase):
+    """test cases for abydos.stemmer.clef_german,
+    abydos.stemmer.clef_german_plus, & abydos.stemmer.clef_swedish
+    """
     def test_clef_german(self):
         """test abydos.stemmer.clef_german
         """
@@ -552,6 +580,7 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(clef_german_plus('lautere'), 'laut')
         self.assertEqual(clef_german_plus('lautste'), 'laut')
         self.assertEqual(clef_german_plus('kleinen'), 'klein')
+        self.assertEqual(clef_german_plus('Pfarrern'), 'pfarr')
 
 
     def test_clef_swedish(self):
@@ -610,3 +639,7 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(clef_swedish('vilka'), 'vilk')
         self.assertEqual(clef_swedish('länge'), 'läng')
         self.assertEqual(clef_swedish('kommun'), 'kommu')
+
+
+if __name__ == '__main__':
+    unittest.main()
