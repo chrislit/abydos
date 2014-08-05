@@ -3817,6 +3817,11 @@ class PhonetTestCases(unittest.TestCase):
         # etc. (for code coverage)
         self.assertEqual(phonet('Jesper', 1, trace=True), 'IESPA')
         self.assertEqual(phonet('Glacéhandschuh', 1), 'GLAZANSHU')
+        self.assertEqual(phonet('Blechschmidt', 1, trace=True), 'BLECHSHMIT')
+        self.assertEqual(phonet('Burgdorf', 1), 'BURKDORF')
+        self.assertEqual(phonet('Holzschuh', 1), 'HOLSHU')
+        self.assertEqual(phonet('Aachen', 1, trace=True), 'ACHN')
+        self.assertEqual(phonet('Abendspaziergang', 1), 'ABENTSPAZIRGANK')
 
 
     def test_phonet_nolang(self):
