@@ -3254,6 +3254,12 @@ class CaverphoneTestCases(unittest.TestCase):
             self.assertEqual(caverphone(word, 2), 'TN11111111')
             self.assertEqual(caverphone(word, version=2), 'TN11111111')
 
+        # etc. (for code coverage)
+        self.assertEqual(caverphone('enough'), 'ANF1111111')
+        self.assertEqual(caverphone('trough'), 'TRF1111111')
+        self.assertEqual(caverphone('gnu'), 'NA11111111')
+
+
     def test_caverphone2_php_testset(self):
         """test abydos.phonetic.caverphone (PHP version testset)
         """
