@@ -41,7 +41,7 @@ from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
 TESTDIR = os.path.dirname(__file__)
 
 EXTREME_TEST = False # Set to True to test EVERY single case (takes hours)
-ALLOW_RANDOM = True  # Set to False to skip all random tests (to check coverage)
+ALLOW_RANDOM = True # Set to False to skip all random tests (to check coverage)
 
 def one_in(inverse_probability):
     """Return True if:
@@ -3428,6 +3428,14 @@ class PhonexTestCases(unittest.TestCase):
         self.assertEqual(phonex('Saxon'), 'S250')
         self.assertEqual(phonex('Wright'), 'R230')
         self.assertEqual(phonex('Ai'), 'A000')
+        self.assertEqual(phonex('Barth'), 'B300')
+        self.assertEqual(phonex('Perry'), 'B600')
+        self.assertEqual(phonex('Garth'), 'G300')
+        self.assertEqual(phonex('Jerry'), 'G600')
+        self.assertEqual(phonex('Gerry'), 'G600')
+        self.assertEqual(phonex('Camden'), 'C500')
+        self.assertEqual(phonex('Ganges'), 'G500')
+        self.assertEqual(phonex('A-1'), 'A000')
 
 
 class PhonemTestCases(unittest.TestCase):
