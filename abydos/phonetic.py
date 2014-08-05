@@ -1771,10 +1771,7 @@ def phonex(word, maxlength=4):
         if code != last and code != '0' and i != 0:
             name_code += code
 
-        if len(name_code) == 0:
-            last = code
-        else:
-            last = name_code[-1]
+        last = name_code[-1]
 
     name_code += '0' * maxlength
     return name_code[:maxlength]
