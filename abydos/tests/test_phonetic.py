@@ -3849,7 +3849,7 @@ class PhonetTestCases(unittest.TestCase):
     def test_phonet_nachnamen(self):
         """test abydos.phonetic.phonet (Nachnamen set)
         """
-        if True:
+        if not ALLOW_RANDOM:
             return
         nachnamen_testset = codecs.open(TESTDIR + '/corpora/nachnamen.csv',
                                         encoding='utf-8')
@@ -3866,7 +3866,7 @@ class PhonetTestCases(unittest.TestCase):
     def test_phonet_ngerman(self):
         """test abydos.phonetic.phonet (ngerman set)
         """
-        if True:
+        if not ALLOW_RANDOM:
             return
         ngerman_testset = codecs.open(TESTDIR + '/corpora/ngerman.csv',
                                       encoding='utf-8')
@@ -4261,6 +4261,8 @@ class BeiderMorseTestCases(unittest.TestCase):
     def test_bmpm_nachnamen(self):
         """test abydos.phonetic.bmpm (Nachnamen set)
         """
+        if not ALLOW_RANDOM:
+            return
         with codecs.open(TESTDIR + '/corpora/nachnamen.bm',
                          encoding='utf-8') as nachnamen_testset:
             next(nachnamen_testset)
@@ -4277,6 +4279,8 @@ class BeiderMorseTestCases(unittest.TestCase):
     def test_bmpm_uscensus2000(self):
         """test abydos.phonetic.bmpm (US Census 2000 set)
         """
+        if not ALLOW_RANDOM:
+            return
         with codecs.open(TESTDIR + '/corpora/uscensus2000.bm',
                          encoding='utf-8') as uscensus_testset:
             next(uscensus_testset)
