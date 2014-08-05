@@ -529,11 +529,14 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
     def test_double_metaphone(self):
         """test abydos.phonetic.double_metaphone
         """
+        # base case
+        self.assertEqual(double_metaphone(''), ('', ''))
+
         # single result
-        self.assertEqual(double_metaphone(u"aubrey"), ('APR', ''))
+        self.assertEqual(double_metaphone('aubrey'), ('APR', ''))
 
         # double result
-        self.assertEqual(double_metaphone(u"richard"), ('RXRT', 'RKRT'))
+        self.assertEqual(double_metaphone('richard'), ('RXRT', 'RKRT'))
 
         # general word list
         self.assertEqual(double_metaphone('Jose'), ('HS', ''))
@@ -571,121 +574,121 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('Thumbail'), ('0MPL', 'TMPL'))
 
         # homophones
-        self.assertEqual(double_metaphone(u"tolled"), double_metaphone(u"told"))
-        self.assertEqual(double_metaphone(u"katherine"),
-                         double_metaphone(u"catherine"))
-        self.assertEqual(double_metaphone(u"brian"), double_metaphone(u"bryan"))
+        self.assertEqual(double_metaphone('tolled'), double_metaphone('told'))
+        self.assertEqual(double_metaphone('katherine'),
+                         double_metaphone('catherine'))
+        self.assertEqual(double_metaphone('brian'), double_metaphone('bryan'))
 
         # similar names
-        self.assertEqual(double_metaphone("Bartoš"), ('PRT', ''))
-        self.assertEqual(double_metaphone(u"Bartosz"), ('PRTS', 'PRTX'))
-        self.assertEqual(double_metaphone(u"Bartosch"), ('PRTX', ''))
-        self.assertEqual(double_metaphone(u"Bartos"), ('PRTS', ''))
-        self.assertEqual(list(set(double_metaphone(u"Jablonski"))\
-                               .intersection(double_metaphone(u"Yablonsky"))), \
-                          ['APLNSK'])
-        self.assertEqual(list(set(double_metaphone(u"Smith"))\
-                               .intersection(double_metaphone(u"Schmidt"))), \
-                          ['XMT'])
+        self.assertEqual(double_metaphone('Bartoš'), ('PRT', ''))
+        self.assertEqual(double_metaphone('Bartosz'), ('PRTS', 'PRTX'))
+        self.assertEqual(double_metaphone('Bartosch'), ('PRTX', ''))
+        self.assertEqual(double_metaphone('Bartos'), ('PRTS', ''))
+        self.assertEqual(list(set(double_metaphone('Jablonski'))\
+                               .intersection(double_metaphone('Yablonsky'))),
+                         ['APLNSK'])
+        self.assertEqual(list(set(double_metaphone('Smith'))\
+                               .intersection(double_metaphone('Schmidt'))),
+                         ['XMT'])
 
         # non-English Unicode
-        self.assertEqual(double_metaphone("andestādītu"), ('ANTSTTT', ''))
+        self.assertEqual(double_metaphone('andestādītu'), ('ANTSTTT', ''))
 
         # c-cedilla
-        self.assertEqual(double_metaphone("français"), ('FRNS', 'FRNSS'))
-        self.assertEqual(double_metaphone("garçon"), ('KRSN', ''))
-        self.assertEqual(double_metaphone("leçon"), ('LSN', ''))
+        self.assertEqual(double_metaphone('français'), ('FRNS', 'FRNSS'))
+        self.assertEqual(double_metaphone('garçon'), ('KRSN', ''))
+        self.assertEqual(double_metaphone('leçon'), ('LSN', ''))
 
         # German words
-        self.assertEqual(double_metaphone("ach"), ("AK", ""))
-        self.assertEqual(double_metaphone("bacher"), ("PKR", ""))
-        self.assertEqual(double_metaphone("macher"), ("MKR", ""))
+        self.assertEqual(double_metaphone('ach'), ('AK', ''))
+        self.assertEqual(double_metaphone('bacher'), ('PKR', ''))
+        self.assertEqual(double_metaphone('macher'), ('MKR', ''))
 
         # Italian words
-        self.assertEqual(double_metaphone("bacci"), ("PX", ""))
-        self.assertEqual(double_metaphone("bertucci"), ("PRTX", ""))
-        self.assertEqual(double_metaphone("bellocchio"), ("PLX", ""))
-        self.assertEqual(double_metaphone("bacchus"), ("PKS", ""))
-        self.assertEqual(double_metaphone("focaccia"), ("FKX", ""))
-        self.assertEqual(double_metaphone("chianti"), ("KNT", ""))
-        self.assertEqual(double_metaphone("tagliaro"), ("TKLR", "TLR"))
-        self.assertEqual(double_metaphone("biaggi"), ("PJ", "PK"))
+        self.assertEqual(double_metaphone('bacci'), ('PX', ''))
+        self.assertEqual(double_metaphone('bertucci'), ('PRTX', ''))
+        self.assertEqual(double_metaphone('bellocchio'), ('PLX', ''))
+        self.assertEqual(double_metaphone('bacchus'), ('PKS', ''))
+        self.assertEqual(double_metaphone('focaccia'), ('FKX', ''))
+        self.assertEqual(double_metaphone('chianti'), ('KNT', ''))
+        self.assertEqual(double_metaphone('tagliaro'), ('TKLR', 'TLR'))
+        self.assertEqual(double_metaphone('biaggi'), ('PJ', 'PK'))
 
         # Spanish words
-        self.assertEqual(double_metaphone("bajador"), ("PJTR", "PHTR"))
-        self.assertEqual(double_metaphone("cabrillo"), ("KPRL", "KPR"))
-        self.assertEqual(double_metaphone("gallegos"), ("KLKS", "KKS"))
-        self.assertEqual(double_metaphone("San Jacinto"), ("SNHSNT", ""))
+        self.assertEqual(double_metaphone('bajador'), ('PJTR', 'PHTR'))
+        self.assertEqual(double_metaphone('cabrillo'), ('KPRL', 'KPR'))
+        self.assertEqual(double_metaphone('gallegos'), ('KLKS', 'KKS'))
+        self.assertEqual(double_metaphone('San Jacinto'), ('SNHSNT', ''))
 
         # French words
-        self.assertEqual(double_metaphone("rogier"), ("RJ", "RJR"))
-        self.assertEqual(double_metaphone("breaux"), ("PR", ""))
+        self.assertEqual(double_metaphone('rogier'), ('RJ', 'RJR'))
+        self.assertEqual(double_metaphone('breaux'), ('PR', ''))
 
         # Slavic words
-        self.assertEqual(double_metaphone("Wewski"), ("ASK", "FFSK"))
+        self.assertEqual(double_metaphone('Wewski'), ('ASK', 'FFSK'))
 
         # Chinese words
-        self.assertEqual(double_metaphone("zhao"), ("J", ""))
+        self.assertEqual(double_metaphone('zhao'), ('J', ''))
 
         # Dutch-origin words
-        self.assertEqual(double_metaphone("school"), ("SKL", ""))
-        self.assertEqual(double_metaphone("schooner"), ("SKNR", ""))
-        self.assertEqual(double_metaphone("schermerhorn"),
-                          ("XRMRRN", "SKRMRRN"))
-        self.assertEqual(double_metaphone("schenker"), ("XNKR", "SKNKR"))
+        self.assertEqual(double_metaphone('school'), ('SKL', ''))
+        self.assertEqual(double_metaphone('schooner'), ('SKNR', ''))
+        self.assertEqual(double_metaphone('schermerhorn'),
+                          ('XRMRRN', 'SKRMRRN'))
+        self.assertEqual(double_metaphone('schenker'), ('XNKR', 'SKNKR'))
 
         # <ch> words
-        self.assertEqual(double_metaphone("Charac"), ("KRK", ""))
-        self.assertEqual(double_metaphone("Charis"), ("KRS", ""))
-        self.assertEqual(double_metaphone("chord"), ("KRT", ""))
-        self.assertEqual(double_metaphone("Chym"), ("KM", ""))
-        self.assertEqual(double_metaphone("Chia"), ("K", ""))
-        self.assertEqual(double_metaphone("chem"), ("KM", ""))
-        self.assertEqual(double_metaphone("chore"), ("XR", ""))
-        self.assertEqual(double_metaphone("orchestra"), ("ARKSTR", ""))
-        self.assertEqual(double_metaphone("architect"), ("ARKTKT", ""))
-        self.assertEqual(double_metaphone("orchid"), ("ARKT", ""))
+        self.assertEqual(double_metaphone('Charac'), ('KRK', ''))
+        self.assertEqual(double_metaphone('Charis'), ('KRS', ''))
+        self.assertEqual(double_metaphone('chord'), ('KRT', ''))
+        self.assertEqual(double_metaphone('Chym'), ('KM', ''))
+        self.assertEqual(double_metaphone('Chia'), ('K', ''))
+        self.assertEqual(double_metaphone('chem'), ('KM', ''))
+        self.assertEqual(double_metaphone('chore'), ('XR', ''))
+        self.assertEqual(double_metaphone('orchestra'), ('ARKSTR', ''))
+        self.assertEqual(double_metaphone('architect'), ('ARKTKT', ''))
+        self.assertEqual(double_metaphone('orchid'), ('ARKT', ''))
 
         # <cc> words
-        self.assertEqual(double_metaphone("accident"), ("AKSTNT", ""))
-        self.assertEqual(double_metaphone("accede"), ("AKST", ""))
-        self.assertEqual(double_metaphone("succeed"), ("SKST", ""))
+        self.assertEqual(double_metaphone('accident'), ('AKSTNT', ''))
+        self.assertEqual(double_metaphone('accede'), ('AKST', ''))
+        self.assertEqual(double_metaphone('succeed'), ('SKST', ''))
 
         # <mc> words
-        self.assertEqual(double_metaphone("mac caffrey"), ("MKFR", ""))
-        self.assertEqual(double_metaphone("mac gregor"), ("MKRKR", ""))
-        self.assertEqual(double_metaphone("mc crae"), ("MKR", ""))
-        self.assertEqual(double_metaphone("mcclain"), ("MKLN", ""))
+        self.assertEqual(double_metaphone('mac caffrey'), ('MKFR', ''))
+        self.assertEqual(double_metaphone('mac gregor'), ('MKRKR', ''))
+        self.assertEqual(double_metaphone('mc crae'), ('MKR', ''))
+        self.assertEqual(double_metaphone('mcclain'), ('MKLN', ''))
 
         # <gh> words
-        self.assertEqual(double_metaphone("laugh"), ("LF", ""))
-        self.assertEqual(double_metaphone("cough"), ("KF", ""))
-        self.assertEqual(double_metaphone("rough"), ("RF", ""))
+        self.assertEqual(double_metaphone('laugh'), ('LF', ''))
+        self.assertEqual(double_metaphone('cough'), ('KF', ''))
+        self.assertEqual(double_metaphone('rough'), ('RF', ''))
 
         # <g__> words
-        self.assertEqual(double_metaphone("gya"), ("K", "J"))
-        self.assertEqual(double_metaphone("ges"), ("KS", "JS"))
-        self.assertEqual(double_metaphone("gep"), ("KP", "JP"))
-        self.assertEqual(double_metaphone("geb"), ("KP", "JP"))
-        self.assertEqual(double_metaphone("gel"), ("KL", "JL"))
-        self.assertEqual(double_metaphone("gey"), ("K", "J"))
-        self.assertEqual(double_metaphone("gib"), ("KP", "JP"))
-        self.assertEqual(double_metaphone("gil"), ("KL", "JL"))
-        self.assertEqual(double_metaphone("gin"), ("KN", "JN"))
-        self.assertEqual(double_metaphone("gie"), ("K", "J"))
-        self.assertEqual(double_metaphone("gei"), ("K", "J"))
-        self.assertEqual(double_metaphone("ger"), ("KR", "JR"))
-        self.assertEqual(double_metaphone("danger"), ("TNJR", "TNKR"))
-        self.assertEqual(double_metaphone("manager"), ("MNKR", "MNJR"))
-        self.assertEqual(double_metaphone("dowager"), ("TKR", "TJR"))
+        self.assertEqual(double_metaphone('gya'), ('K', 'J'))
+        self.assertEqual(double_metaphone('ges'), ('KS', 'JS'))
+        self.assertEqual(double_metaphone('gep'), ('KP', 'JP'))
+        self.assertEqual(double_metaphone('geb'), ('KP', 'JP'))
+        self.assertEqual(double_metaphone('gel'), ('KL', 'JL'))
+        self.assertEqual(double_metaphone('gey'), ('K', 'J'))
+        self.assertEqual(double_metaphone('gib'), ('KP', 'JP'))
+        self.assertEqual(double_metaphone('gil'), ('KL', 'JL'))
+        self.assertEqual(double_metaphone('gin'), ('KN', 'JN'))
+        self.assertEqual(double_metaphone('gie'), ('K', 'J'))
+        self.assertEqual(double_metaphone('gei'), ('K', 'J'))
+        self.assertEqual(double_metaphone('ger'), ('KR', 'JR'))
+        self.assertEqual(double_metaphone('danger'), ('TNJR', 'TNKR'))
+        self.assertEqual(double_metaphone('manager'), ('MNKR', 'MNJR'))
+        self.assertEqual(double_metaphone('dowager'), ('TKR', 'TJR'))
 
         # <pb> words
-        self.assertEqual(double_metaphone("Campbell"), ("KMPL", ""))
-        self.assertEqual(double_metaphone("raspberry"), ("RSPR", ""))
+        self.assertEqual(double_metaphone('Campbell'), ('KMPL', ''))
+        self.assertEqual(double_metaphone('raspberry'), ('RSPR', ''))
 
         # <th> words
-        self.assertEqual(double_metaphone("Thomas"), ("TMS", ""))
-        self.assertEqual(double_metaphone("Thames"), ("TMS", ""))
+        self.assertEqual(double_metaphone('Thomas'), ('TMS', ''))
+        self.assertEqual(double_metaphone('Thames'), ('TMS', ''))
 
         # etc. (for code coverage)
         self.assertEqual(double_metaphone('Xavier'), ('SF', 'SFR'))
@@ -700,6 +703,10 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('Zaqqum'), ('SKM', ''))
         self.assertEqual(double_metaphone('stevven'), ('STFN', ''))
         self.assertEqual(double_metaphone('Tuxx'), ('TKS', ''))
+        self.assertEqual(double_metaphone('Ghiradelli'), ('JRTL', ''))
+        self.assertEqual(double_metaphone('ghoul'), ('KL', ''))
+        self.assertEqual(double_metaphone('hej'), ('HJ', 'H'))
+
 
     def test_double_metaphone_surnames(self):
         """test abydos.phonetic.double_metaphone (surname data)
