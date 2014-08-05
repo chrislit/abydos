@@ -427,6 +427,9 @@ class MetaphoneTestCases(unittest.TestCase):
     def test_metaphone(self):
         """test abydos.phonetic.metaphone
         """
+        self.assertEqual(metaphone(''), '')
+        self.assertEqual(metaphone('...'), '')
+
         # http://ntz-develop.blogspot.com/2011/03/phonetic-algorithms.html
         self.assertEqual(metaphone('Fishpool', 4), 'FXPL')
         self.assertEqual(metaphone('Fishpoole', 4), 'FXPL')
@@ -462,6 +465,16 @@ class MetaphoneTestCases(unittest.TestCase):
         self.assertEqual(metaphone('Zupa', 4), 'SP')
         self.assertEqual(metaphone('Zupo', 4), 'SP')
         self.assertEqual(metaphone('Zuppa', 4), 'SP')
+
+        # assorted tests to complete code coverage
+        self.assertEqual(metaphone('Xavier'), 'SFR')
+        self.assertEqual(metaphone('Acacia'), 'AKX')
+        self.assertEqual(metaphone('Schuler'), 'SKLR')
+        self.assertEqual(metaphone('Sign'), 'SN')
+        self.assertEqual(metaphone('Signed'), 'SNT')
+        self.assertEqual(metaphone('Horatio'), 'HRX')
+        self.assertEqual(metaphone('Ignatio'), 'IKNX')
+        self.assertEqual(metaphone('Lucretia'), 'LKRX')
 
 
 class DoubleMetaphoneTestCases(unittest.TestCase):
