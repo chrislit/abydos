@@ -207,11 +207,10 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
             # check for incompatible attributes
             candidate = _bm_apply_rule_if_compat(phonetic, rule[_PHONETIC_POS],
                                                  language_arg)
-            if candidate == None:
-                continue
-            phonetic = candidate
-            found = True
-            break
+            if candidate != None:
+                phonetic = candidate
+                found = True
+                break
 
         if not found: # character in name that is not in table -- e.g., space
             pattern_length = 1
@@ -296,12 +295,10 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
                 candidate = _bm_apply_rule_if_compat(phonetic2,
                                                      rule[_PHONETIC_POS],
                                                      language_arg)
-                if candidate == None:
-                    continue
-                phonetic2 = candidate
-
-                found = True
-                break
+                if candidate != None:
+                    phonetic2 = candidate
+                    found = True
+                    break
 
             if not found:
                 # character in name for which there is no subsitution in the
