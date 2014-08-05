@@ -3742,6 +3742,12 @@ class SfinxBisTestCases(unittest.TestCase):
 
         # etc. (for code coverage)
         self.assertEqual(sfinxbis('chans'), ('#58',))
+        self.assertEqual(sfinxbis('ljud'), ('J3',))
+        self.assertEqual(sfinxbis('qi'), ('K',))
+        self.assertEqual(sfinxbis('xavier'), ('S76',))
+        self.assertEqual(sfinxbis('skjul'), ('#4',))
+        self.assertEqual(sfinxbis('schul'), ('#4',))
+        self.assertEqual(sfinxbis('skil'), ('#4',))
 
 
 class PhonetTestCases(unittest.TestCase):
