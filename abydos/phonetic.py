@@ -657,7 +657,7 @@ def metaphone(word, maxlength=float('inf')):
             metaph += 'K'
 
         elif ename[i] == 'S':
-            if (i > 0 and i+2 < elen and ename[i+1] == 'I' and
+            if (i > 0 and i+2 <= elen and ename[i+1] == 'I' and
                 ename[i+2] in 'OA'):
                 metaph += 'X'
             elif ename[i+1:i+2] == 'H':
@@ -666,7 +666,7 @@ def metaphone(word, maxlength=float('inf')):
                 metaph += 'S'
 
         elif ename[i] == 'T':
-            if (i > 0 and i+2 < elen and ename[i+1] == 'I' and
+            if (i > 0 and i+2 <= elen and ename[i+1] == 'I' and
                 ename[i+2] in 'OA'):
                 metaph += 'X'
             elif ename[i+1:i+2] == 'H':
