@@ -396,7 +396,15 @@ class NysiisTestCases(unittest.TestCase):
         self.assertEqual(nysiis('Beverly'), 'BAFARL')
         self.assertEqual(nysiis('Hardt'), 'HARD')
         self.assertEqual(nysiis('acknowledge'), 'ACNALA')
-
+        self.assertEqual(nysiis('MacNeill'), 'MCNAL')
+        self.assertEqual(nysiis('MacNeill'), nysiis('McNeill'))
+        self.assertEqual(nysiis('Knight'), 'NAGT')
+        self.assertEqual(nysiis('Knight'), nysiis('Night'))
+        self.assertEqual(nysiis('Pfarr'), 'FAR')
+        self.assertEqual(nysiis('Phair'), 'FAR')
+        self.assertEqual(nysiis('Phair'), nysiis('Pfarr'))
+        self.assertEqual(nysiis('Cherokee'), 'CARACY')
+        self.assertEqual(nysiis('Iraq'), 'IRAG')
 
 class MraTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.mra
