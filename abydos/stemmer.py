@@ -450,7 +450,7 @@ def porter2(word, early_english=False):
     if word[-3:] == '\'s\'':
         word = word[:-3]
     elif word[-2:] == '\'s':
-        word = word[:-1]
+        word = word[:-2]
     elif word[-1:] == '\'':
         word = word[:-1]
     # Return word if stem is shorter than 2
