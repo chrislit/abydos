@@ -728,9 +728,8 @@ def double_metaphone(word, maxlength=float('inf')):
         if sec:
             if sec != ' ':
                 newsec += sec
-        else:
-            if pri and (pri != ' '):
-                newsec += pri
+        elif pri and (pri != ' '):
+            newsec += pri
         return (newpri, newsec)
 
     def _is_vowel(pos):
@@ -3897,9 +3896,8 @@ def german_ipa(word):
             else:
                 ipa += 'g'
         elif word[i] == 'H':
-            if i != last and word[i+1] in _vowels:
-                ipa += 'h'
-            # else ignore
+            # H after vowels should already be covered by the vowel rules
+            ipa += 'h'
         elif word[i] == 'N':
             if word[i:i+2] == 'NG':
                 ipa += 'ŋ'

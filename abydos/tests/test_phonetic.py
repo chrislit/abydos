@@ -3989,6 +3989,8 @@ class GermanIPATestCases(unittest.TestCase):
         self.assertEqual(german_ipa('äh'), 'e')
         self.assertEqual(german_ipa('Klöh'), 'klø')
         self.assertEqual(german_ipa('Küh-Bach'), 'kybax')
+        self.assertEqual(german_ipa('Frohe'), 'froe')
+        self.assertEqual(german_ipa('ohne'), 'one')
 
 
 class BeiderMorseTestCases(unittest.TestCase):
