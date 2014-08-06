@@ -471,8 +471,8 @@ def ac_encode(text, probs):
     while delta < 1:
         nbits = nbits + 1
         delta <<= 1
-    if nbits == 0:
-        return 0, 0     # pragma: no cover
+    if nbits == 0: # pragma: no cover
+        return 0, 0
     else:
         # using -1 instead of /2
         avg = (maxval + minval)<<(nbits-1)
@@ -491,6 +491,7 @@ def ac_decode(longval, nbits, probs):
     probs_items = [(char, minval, maxval) for (char, (minval, maxval))
                    in probs.items()]
 
+    char = '\x00'
     while True:
         for (char, minval, maxval) in probs_items:
             if minval <= val < maxval:

@@ -420,6 +420,7 @@ class ArithmeticCoderTestCases(unittest.TestCase):
         self.assertEqual(ac_encode('Neil Noígíallach', self.niall_probs),
                          (2133315320471368785758, 72))
         self.assertRaises(KeyError, ac_encode, 'NIALL', self.niall_probs)
+        self.assertEqual(ac_encode('', {'\x00': (0, 1)}), (1, 1))
 
     def test_ac_decode(self):
         """test abydos.util.ac_decode
@@ -432,6 +433,8 @@ class ArithmeticCoderTestCases(unittest.TestCase):
         self.assertEqual(ac_decode(243067161, 28, self.niall_probs), 'Mean')
         self.assertEqual(ac_decode(2133315320471368785758, 72,
                                    self.niall_probs), 'Neil Noígíallach')
+        self.assertEqual(ac_decode(0, 0, {}), '')
+        self.assertEqual(ac_decode(1, 1, {'\x00': (0, 1)}), '')
 
 
 if __name__ == '__main__':
