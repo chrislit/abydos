@@ -85,6 +85,9 @@ class ConstructorTestCases(unittest.TestCase):
                                                       'fn':4}))
         self.assertEqual(SCALE_TABLE, ConfusionTable({'tp':1, 'tn':2, 'fp':3,
                                                       'fn':4}, 5, 6, 7))
+        self.assertEqual(NULL_TABLE, ConfusionTable({}))
+        self.assertEqual(NULL_TABLE, ConfusionTable({'pt':1, 'nt':2, 'pf':3,
+                                                     'nf':4}))
 
         # test __eq__ by id()
         self.assertTrue(SCALE_TABLE == SCALE_TABLE)
@@ -98,6 +101,8 @@ class ConstructorTestCases(unittest.TestCase):
         # test __eq__ by dict
         self.assertTrue(SCALE_TABLE == {'tp':1, 'tn':2, 'fp':3, 'fn':4})
         self.assertFalse(CATSNDOGS_TABLE == {'tp':1, 'tn':2, 'fp':3, 'fn':4})
+        # test __eq__ with non-ConfusionTable/tuple/list/dict
+        self.assertFalse(SCALE_TABLE == 5)
 
         # test invalid tuple constructor
         self.assertRaises(AttributeError, ConfusionTable, (1, 2,))
