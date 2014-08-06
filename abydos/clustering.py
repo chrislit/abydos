@@ -85,10 +85,14 @@ def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone, *args):
     fingerprinting function after converting the string to its phonetic form,
     as determined by some phonetic algorithm.
     """
-    phrase = phonetic_algorithm(phrase, *args)
-    if hasattr(phrase, '__iter__'):
-        phrase = phrase[0]
-    return fingerprint(phrase)
+    phonetic = ''
+    for word in phrase.split():
+        word = phonetic_algorithm(word, *args)
+        if hasattr(word, '__iter__'):
+            word = word[0]
+        phonetic += word + ' '
+    phonetic = phonetic[:-1]
+    return fingerprint(phonetic)
 
 
 def skeleton_key(word):

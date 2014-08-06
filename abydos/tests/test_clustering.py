@@ -26,6 +26,7 @@ import unittest
 from abydos.clustering import fingerprint, qgram_fingerprint, \
     phonetic_fingerprint, skeleton_key, omission_key, mean_pairwise_similarity
 import abydos.stats as stats
+import abydos.phonetic as phonetic
 
 NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
          'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill', 'MacNeil',
@@ -81,12 +82,14 @@ xoyv', )
         """
         self.assertEqual(phonetic_fingerprint(''), '')
 
-        phonetic_niall = ('nl', 'nl', 'nl', 'njl', 'njl', 'njl', 'nl', 'nl',
-                          'njl', 'nl', 'nl', 'anl', 'anl', 'mknl', 'mknl',
-                          'nlnklk')
-        for i in _range(len(NIALL)):
-            self.assertEqual(phonetic_fingerprint(NIALL[i]), phonetic_niall[i])
-
+        self.assertEqual(phonetic_fingerprint(' '.join(NIALL)),
+                         'a anl mknl njl nklk nl')
+        self.assertEqual(phonetic_fingerprint(' '.join(NIALL), phonetic.phonet),
+                         'knile makneil maknele neil nel nele nial nigeli nigl'+
+                         ' nil noigialach oneil ui')
+        self.assertEqual(phonetic_fingerprint(' '.join(NIALL),
+                                              phonetic.soundex),
+                         'k540 m254 n240 n242 n400 o540 u000')
 
 class SPEEDCOPTestCases(unittest.TestCase):
     """test cases for abydos.clustering.skeleton_key and
