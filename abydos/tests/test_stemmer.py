@@ -589,6 +589,9 @@ class CLEFTestCases(unittest.TestCase):
         # base case
         self.assertEqual(clef_swedish(''), '')
 
+        # unstemmed
+        self.assertEqual(clef_swedish('konung'), 'konung')
+
         # len <= 3
         self.assertEqual(clef_swedish('km'), 'km')
         self.assertEqual(clef_swedish('ja'), 'ja')
