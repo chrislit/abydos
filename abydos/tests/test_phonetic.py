@@ -494,6 +494,10 @@ class MetaphoneTestCases(unittest.TestCase):
         self.assertEqual(metaphone('Ignatio'), 'IKNX')
         self.assertEqual(metaphone('Lucretia'), 'LKRX')
 
+        # assorted tests to complete branch coverage
+        self.assertEqual(metaphone('Lamb'), 'LM')
+        self.assertEqual(metaphone('science'), 'SNS')
+
 
 class DoubleMetaphoneTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.double_metaphone
