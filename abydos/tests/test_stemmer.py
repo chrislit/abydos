@@ -503,7 +503,7 @@ class SnowballTestCases(unittest.TestCase):
                     self.assertEqual(sb_dutch(word), stem.lower())
 
         # missed branch test cases
-        self.assertEqual(sb_dutch('onduielijk'), 'ondui')
+        self.assertEqual(sb_dutch('zondulielijk'), 'zondulie')
 
 
     def test_sb_norwegian_snowball(self):
