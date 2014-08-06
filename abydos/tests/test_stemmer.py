@@ -413,6 +413,9 @@ class SnowballTestCases(unittest.TestCase):
         These test cases are from
         http://snowball.tartarus.org/algorithms/german/diffs.txt
         """
+        # base case
+        self.assertEqual(sb_german(''), '')
+
         #  Snowball Porter test set
         with codecs.open(TESTDIR+'/corpora/snowball_german.csv', 'r',
                          'utf-8') as snowball_testset:
@@ -422,6 +425,9 @@ class SnowballTestCases(unittest.TestCase):
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
                     self.assertEqual(sb_german(word), stem.lower())
+
+        # missed branch test cases
+        self.assertEqual(sb_german('ikeit'), 'ikeit')
 
 
     def test_sb_german_snowball_alt(self):
@@ -483,6 +489,9 @@ class SnowballTestCases(unittest.TestCase):
         These test cases are from
         http://snowball.tartarus.org/algorithms/dutch/diffs.txt
         """
+        # base case
+        self.assertEqual(sb_dutch(''), '')
+
         #  Snowball Porter test set
         with codecs.open(TESTDIR+'/corpora/snowball_dutch.csv', 'r',
                          'utf-8') as snowball_testset:
@@ -493,6 +502,9 @@ class SnowballTestCases(unittest.TestCase):
                     word, stem = line[0], line[1]
                     self.assertEqual(sb_dutch(word), stem.lower())
 
+        # missed branch test cases
+        self.assertEqual(sb_dutch('onduielijk'), 'ondui')
+
 
     def test_sb_norwegian_snowball(self):
         """test abydos.stemmer.sb_norwegian (Snowball testset)
@@ -500,6 +512,9 @@ class SnowballTestCases(unittest.TestCase):
         These test cases are from
         http://snowball.tartarus.org/algorithms/norwegian/diffs.txt
         """
+        # base case
+        self.assertEqual(sb_norwegian(''), '')
+
         #  Snowball Porter test set
         with codecs.open(TESTDIR+'/corpora/snowball_norwegian.csv', 'r',
                          'utf-8') as snowball_testset:
@@ -517,6 +532,9 @@ class SnowballTestCases(unittest.TestCase):
         These test cases are from
         http://snowball.tartarus.org/algorithms/swedish/diffs.txt
         """
+        # base case
+        self.assertEqual(sb_swedish(''), '')
+
         #  Snowball Porter test set
         with codecs.open(TESTDIR+'/corpora/snowball_swedish.csv', 'r',
                          'utf-8') as snowball_testset:
@@ -534,6 +552,9 @@ class SnowballTestCases(unittest.TestCase):
         These test cases are from
         http://snowball.tartarus.org/algorithms/danish/diffs.txt
         """
+        # base case
+        self.assertEqual(sb_danish(''), '')
+
         #  Snowball Porter test set
         with codecs.open(TESTDIR+'/corpora/snowball_danish.csv', 'r',
                          'utf-8') as snowball_testset:
