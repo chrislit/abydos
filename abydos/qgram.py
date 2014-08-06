@@ -55,16 +55,14 @@ class QGrams(Counter):
             for both.)
         """
         self.term = term
-        if len(term) < qval:
+        if len(term) < qval or qval < 1:
             return
         if start_stop and qval > 1:
             term = start_stop[0]*(qval-1) + term + start_stop[-1]*(qval-1)
         self.term_ss = term
 
-        if len(term) >= qval:
-            self.ordered_list = [term[i:i+qval] for i in
-                             _range(len(term)-(qval-1))]
-            super(QGrams, self).__init__(self.ordered_list)
+        self.ordered_list = [term[i:i+qval] for i in _range(len(term)-(qval-1))]
+        super(QGrams, self).__init__(self.ordered_list)
 
     def count(self):
         """Return the total count of q-grams in a QGrams object

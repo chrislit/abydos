@@ -31,6 +31,10 @@ class QgramTestCases(unittest.TestCase):
         """test abydos.qgram.QGrams
         """
         self.assertEqual(sorted(QGrams('').elements()), [])
+        self.assertEqual(sorted(QGrams('a', 2).elements()), [])
+        self.assertEqual(sorted(QGrams('NELSON', 0).elements()), [])
+        self.assertEqual(sorted(QGrams('NELSON', -1).elements()), [])
+
         self.assertEqual(sorted(QGrams('NELSON', 3).elements()),
                          sorted(['$$N', '$NE', 'NEL', 'ELS', 'LSO', 'SON',
                                  'ON#', 'N##']))
