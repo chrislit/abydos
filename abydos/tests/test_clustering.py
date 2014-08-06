@@ -91,6 +91,7 @@ xoyv', )
                                               phonetic.soundex),
                          'k540 m254 n240 n242 n400 o540 u000')
 
+
 class SPEEDCOPTestCases(unittest.TestCase):
     """test cases for abydos.clustering.skeleton_key and
     abydos.clustering.omission_key
