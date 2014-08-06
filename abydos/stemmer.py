@@ -125,7 +125,7 @@ def porter(word, early_english=False):
             word = word[:-2]
         elif word[-2:] == 'ss':
             pass
-        elif word[-1] == 's':
+        else:
             word = word[:-1]
 
     # Step 1b
