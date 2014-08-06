@@ -425,7 +425,7 @@ def porter2(word, early_english=False):
     elif word in _exception1set:
         return word
 
-    # Return word if stem is shorter than 2
+    # Return word if stem is shorter than 3
     if len(word) < 3:
         return word
 
@@ -522,74 +522,73 @@ def porter2(word, early_english=False):
         word = word[:-1] + 'i'
 
     # Step 2
-    if len(word) > 1:
-        if word[-2] == 'a':
-            if word[-7:] == 'ational':
-                if len(word[r1_start:]) >= 7:
-                    word = word[:-5] + 'e'
-            elif word[-6:] == 'tional':
-                if len(word[r1_start:]) >= 6:
-                    word = word[:-2]
-        elif word[-2] == 'c':
-            if word[-4:] in set(['enci', 'anci']):
-                if len(word[r1_start:]) >= 4:
-                    word = word[:-1] + 'e'
-        elif word[-2] == 'e':
-            if word[-4:] == 'izer':
-                if len(word[r1_start:]) >= 4:
-                    word = word[:-1]
-        elif word[-2] == 'g':
-            if word[-3:] == 'ogi':
-                if (r1_start >= 1 and len(word[r1_start:]) >= 3 and
-                    word[-4] == 'l'):
-                    word = word[:-1]
-        elif word[-2] == 'l':
-            if word[-6:] == 'lessli':
-                if len(word[r1_start:]) >= 6:
-                    word = word[:-2]
-            elif word[-5:] in set(['entli', 'fulli', 'ousli']):
-                if len(word[r1_start:]) >= 5:
-                    word = word[:-2]
-            elif word[-4:] == 'abli':
-                if len(word[r1_start:]) >= 4:
-                    word = word[:-1] + 'e'
-            elif word[-4:] == 'alli':
-                if len(word[r1_start:]) >= 4:
-                    word = word[:-2]
-            elif word[-3:] == 'bli':
-                if len(word[r1_start:]) >= 3:
-                    word = word[:-1] + 'e'
-            elif word[-2:] == 'li':
-                if (r1_start >= 1 and len(word[r1_start:]) >= 2 and
-                    word[-3] in _li):
-                    word = word[:-2]
-        elif word[-2] == 'o':
-            if word[-7:] == 'ization':
-                if len(word[r1_start:]) >= 7:
-                    word = word[:-5] + 'e'
-            elif word[-5:] == 'ation':
-                if len(word[r1_start:]) >= 5:
-                    word = word[:-3] + 'e'
-            elif word[-4:] == 'ator':
-                if len(word[r1_start:]) >= 4:
-                    word = word[:-2] + 'e'
-        elif word[-2] == 's':
-            if word[-7:] in set(['fulness', 'ousness', 'iveness']):
-                if len(word[r1_start:]) >= 7:
-                    word = word[:-4]
-            elif word[-5:] == 'alism':
-                if len(word[r1_start:]) >= 5:
-                    word = word[:-3]
-        elif word[-2] == 't':
-            if word[-6:] == 'biliti':
-                if len(word[r1_start:]) >= 6:
-                    word = word[:-5] + 'le'
-            elif word[-5:] == 'aliti':
-                if len(word[r1_start:]) >= 5:
-                    word = word[:-3]
-            elif word[-5:] == 'iviti':
-                if len(word[r1_start:]) >= 5:
-                    word = word[:-3] + 'e'
+    if word[-2] == 'a':
+        if word[-7:] == 'ational':
+            if len(word[r1_start:]) >= 7:
+                word = word[:-5] + 'e'
+        elif word[-6:] == 'tional':
+            if len(word[r1_start:]) >= 6:
+                word = word[:-2]
+    elif word[-2] == 'c':
+        if word[-4:] in set(['enci', 'anci']):
+            if len(word[r1_start:]) >= 4:
+                word = word[:-1] + 'e'
+    elif word[-2] == 'e':
+        if word[-4:] == 'izer':
+            if len(word[r1_start:]) >= 4:
+                word = word[:-1]
+    elif word[-2] == 'g':
+        if word[-3:] == 'ogi':
+            if (r1_start >= 1 and len(word[r1_start:]) >= 3 and
+                word[-4] == 'l'):
+                word = word[:-1]
+    elif word[-2] == 'l':
+        if word[-6:] == 'lessli':
+            if len(word[r1_start:]) >= 6:
+                word = word[:-2]
+        elif word[-5:] in set(['entli', 'fulli', 'ousli']):
+            if len(word[r1_start:]) >= 5:
+                word = word[:-2]
+        elif word[-4:] == 'abli':
+            if len(word[r1_start:]) >= 4:
+                word = word[:-1] + 'e'
+        elif word[-4:] == 'alli':
+            if len(word[r1_start:]) >= 4:
+                word = word[:-2]
+        elif word[-3:] == 'bli':
+            if len(word[r1_start:]) >= 3:
+                word = word[:-1] + 'e'
+        elif word[-2:] == 'li':
+            if (r1_start >= 1 and len(word[r1_start:]) >= 2 and
+                word[-3] in _li):
+                word = word[:-2]
+    elif word[-2] == 'o':
+        if word[-7:] == 'ization':
+            if len(word[r1_start:]) >= 7:
+                word = word[:-5] + 'e'
+        elif word[-5:] == 'ation':
+            if len(word[r1_start:]) >= 5:
+                word = word[:-3] + 'e'
+        elif word[-4:] == 'ator':
+            if len(word[r1_start:]) >= 4:
+                word = word[:-2] + 'e'
+    elif word[-2] == 's':
+        if word[-7:] in set(['fulness', 'ousness', 'iveness']):
+            if len(word[r1_start:]) >= 7:
+                word = word[:-4]
+        elif word[-5:] == 'alism':
+            if len(word[r1_start:]) >= 5:
+                word = word[:-3]
+    elif word[-2] == 't':
+        if word[-6:] == 'biliti':
+            if len(word[r1_start:]) >= 6:
+                word = word[:-5] + 'le'
+        elif word[-5:] == 'aliti':
+            if len(word[r1_start:]) >= 5:
+                word = word[:-3]
+        elif word[-5:] == 'iviti':
+            if len(word[r1_start:]) >= 5:
+                word = word[:-3] + 'e'
 
     # Step 3
     if word[-7:] == 'ational':
@@ -629,16 +628,15 @@ def porter2(word, early_english=False):
                 word = word[:-3]
 
     # Step 5
-    if word:
-        if word[-1] == 'e':
-            if (len(word[r2_start:]) >= 1 or
-                (len(word[r1_start:]) >= 1 and
-                 not _sb_ends_in_short_syllable(word[:-1], _vowels,
-                                                _codanonvowels))):
-                word = word[:-1]
-        elif word[-1] == 'l':
-            if len(word[r2_start:]) >= 1 and word[-2] == 'l':
-                word = word[:-1]
+    if word[-1] == 'e':
+        if (len(word[r2_start:]) >= 1 or
+            (len(word[r1_start:]) >= 1 and
+             not _sb_ends_in_short_syllable(word[:-1], _vowels,
+                                            _codanonvowels))):
+            word = word[:-1]
+    elif word[-1] == 'l':
+        if len(word[r2_start:]) >= 1 and word[-2] == 'l':
+            word = word[:-1]
 
     # Change 'Y' back to 'y' if it survived stemming
     for i in _range(0, len(word)):
