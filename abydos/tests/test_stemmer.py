@@ -180,6 +180,11 @@ class PorterTestCases(unittest.TestCase):
         # missed branch test cases
         self.assertEqual(porter('capitalism'), 'capit')
         self.assertEqual(porter('fatalism'), 'fatal')
+        self.assertEqual(porter('stional'), 'stional')
+        self.assertEqual(porter('palism'), 'palism')
+        self.assertEqual(porter('sization'), 'sizat')
+        self.assertEqual(porter('licated'), 'licat')
+        self.assertEqual(porter('lical'), 'lical')
 
 
     def test_porter_early_english(self):
@@ -206,6 +211,10 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(porter('says', early_english=True), 'sai')
         self.assertEqual(porter('sayeth', early_english=True), 'sai')
         self.assertEqual(porter('sayest', early_english=True), 'sai')
+
+        # missed branch test cases
+        self.assertEqual(porter('best', early_english=True), 'best')
+        self.assertEqual(porter('meth', early_english=True), 'meth')
 
 
     def test_porter_snowball(self):
@@ -291,6 +300,13 @@ class Porter2TestCases(unittest.TestCase):
         self.assertFalse(_sb_ends_in_short_syllable('disturb', _vowels,
                                                     _codanonvowels))
 
+        # missed branch test cases
+        self.assertFalse(_sb_ends_in_short_syllable('d', _vowels,
+                                                    _codanonvowels))
+        self.assertFalse(_sb_ends_in_short_syllable('a', _vowels,
+                                                    _codanonvowels))
+
+
     def test_sb_short_word(self):
         """test abydos.stemmer._sb_short_word
         """
@@ -328,6 +344,16 @@ class Porter2TestCases(unittest.TestCase):
         self.assertEqual(porter2('dog\'s'), 'dog')
         self.assertEqual(porter2('A\'s\''), 'a')
         self.assertEqual(porter2('agreedly'), 'agre')
+        self.assertEqual(porter2('feedly'), 'feed')
+        self.assertEqual(porter2('stional'), 'stional')
+        self.assertEqual(porter2('palism'), 'palism')
+        self.assertEqual(porter2('sization'), 'sizat')
+        self.assertEqual(porter2('licated'), 'licat')
+        self.assertEqual(porter2('lical'), 'lical')
+        self.assertEqual(porter2('clessly'), 'clessli')
+        self.assertEqual(porter2('tably'), 'tabli')
+        self.assertEqual(porter2('sizer'), 'sizer')
+        self.assertEqual(porter2('livity'), 'liviti')
 
 
     def test_porter2_early_english(self):
@@ -354,6 +380,10 @@ class Porter2TestCases(unittest.TestCase):
         self.assertEqual(porter2('says', early_english=True), 'say')
         self.assertEqual(porter2('sayeth', early_english=True), 'say')
         self.assertEqual(porter2('sayest', early_english=True), 'say')
+
+        # missed branch test cases
+        self.assertEqual(porter2('best', early_english=True), 'best')
+        self.assertEqual(porter2('meth', early_english=True), 'meth')
 
 
     def test_porter2_snowball(self):
