@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-"""abydos.qgram
+"""abydos.tests.test_qgram
 
-This module contains unit tests for abydos.util
+This module contains unit tests for abydos.qgram
 
 Copyright 2014 by Christopher C. Little.
 This file is part of Abydos.
