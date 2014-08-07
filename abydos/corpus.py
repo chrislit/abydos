@@ -47,3 +47,5 @@ class Corpus():
                 corpus_text = corpus_text.replace(char, '')
 
         self.corpus = [s.split() for s in corpus_text.splitlines()]
+        while [] in self.corpus:
+            self.corpus.remove([])
