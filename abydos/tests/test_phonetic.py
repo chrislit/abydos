@@ -41,7 +41,7 @@ from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
 TESTDIR = os.path.dirname(__file__)
 
 EXTREME_TEST = False # Set to True to test EVERY single case (takes hours)
-ALLOW_RANDOM = True # Set to False to skip all random tests (to check coverage)
+ALLOW_RANDOM = False # Set to False to skip all random tests (to check coverage)
 
 def one_in(inverse_probability):
     """Return True if:
@@ -4268,6 +4268,9 @@ class BeiderMorseTestCases(unittest.TestCase):
                          ' rodxan rodxon rudam rudom klnton klntun tzlnton' +
                          ' tzlntun zlnton')
 
+        # etc. (for code coverage)
+        self.assertEqual(bmpm('van Damme', name_mode='sep'), 'dami mi dam m')
+
 
     def test_bmpm_nachnamen(self):
         """test abydos.phonetic.bmpm (Nachnamen set)
@@ -4335,6 +4338,9 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'abcdef[4]')
         self.assertEqual(_bm_apply_rule_if_compat('abc', 'def[0]', 4), None)
         self.assertEqual(_bm_apply_rule_if_compat('abc', 'def[8]', 4), None)
+        self.assertEqual(_bm_apply_rule_if_compat('abc', 'def', 1), 'abcdef')
+        self.assertEqual(_bm_apply_rule_if_compat('abc', 'def[4]', 1),
+                         'abcdef[4]')
 
 
     def test_bm_language(self):
