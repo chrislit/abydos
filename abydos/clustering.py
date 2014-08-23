@@ -88,7 +88,7 @@ def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone, *args):
     phonetic = ''
     for word in phrase.split():
         word = phonetic_algorithm(word, *args)
-        if hasattr(word, '__iter__'):
+        if not isinstance(word, _unicode) and hasattr(word, '__iter__'):
             word = word[0]
         phonetic += word + ' '
     phonetic = phonetic[:-1]
