@@ -46,6 +46,7 @@ from itertools import groupby
 from collections import Counter
 import re
 import unicodedata
+import sys
 from ._bm import _bmpm
 
 
@@ -150,8 +151,11 @@ def soundex(word, maxlength=4, var='American', reverse=False):
     if var == 'dm':
         return dm_soundex(word, maxlength, reverse)
 
-    # Require a maxlength of at least 4
-    maxlength = max(4, maxlength)
+    # Require a maxlength of at least 4 and not more than 64
+    if maxlength is not None:
+        maxlength = min(max(4, maxlength), 64)
+    else:
+        maxlength = 64
 
     # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
@@ -194,7 +198,7 @@ def dm_soundex(word, maxlength=6, reverse=False):
 
     Arguments:
     word -- the word to translate to D-M Soundex
-    maxlength -- the length of the code returned (defaults to 4)
+    maxlength -- the length of the code returned (defaults to 6)
     reverse -- reverse the word before computing the selected Soundex (defaults
         to False); This results in "Reverse Soundex"
     """
@@ -268,8 +272,11 @@ def dm_soundex(word, maxlength=6, reverse=False):
     _vowels = tuple('AEIJOUY')
     dms = [''] # initialize empty code list
 
-    # Require a maxlength of at least 6
-    maxlength = max(6, maxlength)
+    # Require a maxlength of at least 6 and not more than 64
+    if maxlength is not None:
+        maxlength = min(max(6, maxlength), 64)
+    else:
+        maxlength = 64
 
     # uppercase, normalize, decompose, and filter non-A-Z
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
@@ -445,7 +452,8 @@ def nysiis(word, maxlength=6):
     https://en.wikipedia.org/wiki/New_York_State_Identification_and_Intelligence_System
     """
     # Require a maxlength of at least 6
-    maxlength = max(6, maxlength)
+    if maxlength:
+        maxlength = max(6, maxlength)
 
     _vowels = tuple('AEIOU')
 
@@ -516,7 +524,10 @@ def nysiis(word, maxlength=6):
     if key[-1:] == 'A':
         key = key[:-1]
 
-    return key[:maxlength]
+    if maxlength and maxlength < float('inf'):
+        key = key[:maxlength]
+
+    return key
 
 
 def mra(word):
@@ -560,7 +571,10 @@ def metaphone(word, maxlength=float('inf')):
     _varson = tuple('CSPTG')
 
     # Require a maxlength of at least 4
-    maxlength = max(4, maxlength)
+    if maxlength is not None:
+        maxlength = max(4, maxlength)
+    else:
+        maxlength = 64
 
     # As in variable sound--those modified by adding an "h"
     ename = ''.join([c for c in word.upper() if c.isalnum()])
@@ -710,7 +724,11 @@ def double_metaphone(word, maxlength=float('inf')):
     """
     # pylint: disable=too-many-branches
     # Require a maxlength of at least 4
-    maxlength = max(4, maxlength)
+    # Require a maxlength of at least 4
+    if maxlength is not None:
+        maxlength = max(4, maxlength)
+    else:
+        maxlength = 64
 
     primary = ''
     secondary = ''
@@ -1395,7 +1413,7 @@ def double_metaphone(word, maxlength=float('inf')):
         else:
             current += 1
 
-    if maxlength < float('inf'):
+    if maxlength and maxlength < float('inf'):
         primary = primary[:maxlength]
         secondary = secondary[:maxlength]
     if primary == secondary:
@@ -1566,6 +1584,12 @@ def alpha_sis(word, maxlength=14):
     word = ''.join([c for c in word if c in
                     tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
+    # Clamp maxlength to [4, 64]
+    if maxlength is not None:
+        maxlength = min(max(4, maxlength), 64)
+    else:
+        maxlength = 64
+
     # Do special processing for initial substrings
     for k in _alpha_sis_initials_order:
         if word.startswith(k):
@@ -1628,6 +1652,12 @@ def fuzzy_soundex(word, maxlength=5):
                                           u'0193017-07745501769301-7-9'))
 
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+
+    # Clamp maxlength to [4, 64]
+    if maxlength is not None:
+        maxlength = min(max(4, maxlength), 64)
+    else:
+        maxlength = 64
 
     if not word:
         return '0' * maxlength
@@ -1707,6 +1737,12 @@ def phonex(word, maxlength=4):
     http://homepages.cs.ncl.ac.uk/brian.randell/Genealogy/NameMatching.pdf
     """
     name = unicodedata.normalize('NFKD', _unicode(word.upper()))
+
+    # Clamp maxlength to [4, 64]
+    if maxlength is not None:
+        maxlength = min(max(4, maxlength), 64)
+    else:
+        maxlength = 64
 
     name_code = last = ''
 
@@ -2009,6 +2045,12 @@ def phonix(word, maxlength=4):
         sdx = _delete_consecutive_repeats(sdx)
         sdx = sdx.replace('0', '')
 
+    # Clamp maxlength to [4, 64]
+    if maxlength is not None:
+        maxlength = min(max(4, maxlength), 64)
+    else:
+        maxlength = 64
+
     sdx += '0' * maxlength
     return sdx[:maxlength]
 
@@ -2167,7 +2209,7 @@ def sfinxbis(word, maxlength=None):
                 zip([_[0:1] for _ in ordlista], rest)]
 
     # truncate, if maxlength is set
-    if maxlength:
+    if maxlength and maxlength < float('inf'):
         ordlista = [ordet[:maxlength] for ordet in ordlista]
 
     return tuple(ordlista)

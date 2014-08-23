@@ -172,6 +172,14 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(soundex('Lincoln', 5), 'L5245')
         self.assertEqual(soundex('Christopher', 6), 'C62316')
 
+        # maxlength bounds tests
+        self.assertEqual(soundex('Niall', maxlength=float('inf')), 'N400000000'+
+                         '0000000000000000000000000000000000000000000000000000'+
+                         '00')
+        self.assertEqual(soundex('Niall', maxlength=None), 'N40000000000000000'+
+                         '0000000000000000000000000000000000000000000000')
+        self.assertEqual(soundex('Niall', maxlength=0), 'N400')
+
         # reverse tests
         self.assertEqual(soundex('Rubin', reverse=True), 'N160')
         self.assertEqual(soundex('Llyod', reverse=True), 'D400')
@@ -306,6 +314,15 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(dm_soundex('Schwarzenegger', reverse=True),
                           set(['956497']))
 
+        # maxlength bounds tests
+        self.assertEqual(dm_soundex('Niall', maxlength=float('inf')), set(['68'+
+                         '0000000000000000000000000000000000000000000000000000'+
+                         '0000000000']))
+        self.assertEqual(dm_soundex('Niall', maxlength=None), set(['6800000000'+
+                         '0000000000000000000000000000000000000000000000000000'+
+                         '00']))
+        self.assertEqual(dm_soundex('Niall', maxlength=0), set(['680000']))
+
 
 class KoelnerPhonetikTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.koelner_phonetik,
@@ -428,6 +445,11 @@ class NysiisTestCases(unittest.TestCase):
         self.assertEqual(nysiis('Cherokee'), 'CARACY')
         self.assertEqual(nysiis('Iraq'), 'IRAG')
 
+        # maxlength bounds tests
+        self.assertEqual(nysiis('Niall', maxlength=float('inf')), 'NAL')
+        self.assertEqual(nysiis('Niall', maxlength=None), 'NAL')
+        self.assertEqual(nysiis('Niall', maxlength=0), 'NAL')
+
 class MraTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.mra
     """
@@ -501,6 +523,11 @@ class MetaphoneTestCases(unittest.TestCase):
         # assorted tests to complete branch coverage
         self.assertEqual(metaphone('Lamb'), 'LM')
         self.assertEqual(metaphone('science'), 'SNS')
+        
+        # maxlength bounds tests
+        self.assertEqual(metaphone('Niall', maxlength=float('inf')), 'NL')
+        self.assertEqual(metaphone('Niall', maxlength=None), 'NL')
+        self.assertEqual(metaphone('Niall', maxlength=0), 'NL')
 
 
 class DoubleMetaphoneTestCases(unittest.TestCase):
@@ -732,6 +759,12 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('Ghiradelli'), ('JRTL', ''))
         self.assertEqual(double_metaphone('ghoul'), ('KL', ''))
         self.assertEqual(double_metaphone('hej'), ('HJ', 'H'))
+
+        # maxlength bounds tests
+        self.assertEqual(double_metaphone('Niall', maxlength=float('inf')),
+                         ('NL', ''))
+        self.assertEqual(double_metaphone('Niall', maxlength=None), ('NL', ''))
+        self.assertEqual(double_metaphone('Niall', maxlength=0), ('NL', ''))
 
 
     def test_double_metaphone_surnames(self):
@@ -3362,6 +3395,14 @@ class AlphaSisTestCases(unittest.TestCase):
         self.assertEqual(alpha_sis('Collllllier')[0], '07555400000000')
         self.assertEqual(alpha_sis('Colalalier')[0], '07555400000000')
 
+        # maxlength bounds tests
+        self.assertEqual(alpha_sis('Niall', maxlength=float('inf'))[0], '02500'+
+                         '0000000000000000000000000000000000000000000000000000'+
+                         '0000000')
+        self.assertEqual(alpha_sis('Niall', maxlength=None)[0], '0250000000000'+
+                         '000000000000000000000000000000000000000000000000000')
+        self.assertEqual(alpha_sis('Niall', maxlength=0)[0], '0250')
+
 
 class FuzzySoundexTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.fuzzy_soundex
@@ -3402,6 +3443,14 @@ class FuzzySoundexTestCases(unittest.TestCase):
         self.assertEqual(fuzzy_soundex('Grant'), 'G6300')
         self.assertEqual(fuzzy_soundex('Hart'), 'H6000')
         self.assertEqual(fuzzy_soundex('Hardt'), 'H6000')
+
+        # maxlength bounds tests
+        self.assertEqual(fuzzy_soundex('Niall', maxlength=float('inf')), 'N400'+
+                         '0000000000000000000000000000000000000000000000000000'+
+                         '00000000')
+        self.assertEqual(fuzzy_soundex('Niall', maxlength=None), 'N40000000000'+
+                         '0000000000000000000000000000000000000000000000000000')
+        self.assertEqual(fuzzy_soundex('Niall', maxlength=0), 'N400')
 
 
 class PhonexTestCases(unittest.TestCase):
@@ -3444,6 +3493,14 @@ class PhonexTestCases(unittest.TestCase):
         self.assertEqual(phonex('Camden'), 'C500')
         self.assertEqual(phonex('Ganges'), 'G500')
         self.assertEqual(phonex('A-1'), 'A000')
+
+        # maxlength bounds tests
+        self.assertEqual(phonex('Niall', maxlength=float('inf')), 'N4000000000'+
+                         '0000000000000000000000000000000000000000000000000000'+
+                         '0')
+        self.assertEqual(phonex('Niall', maxlength=None), 'N400000000000000000'+
+                         '000000000000000000000000000000000000000000000')
+        self.assertEqual(phonex('Niall', maxlength=0), 'N400')
 
 
 class PhonemTestCases(unittest.TestCase):
@@ -3538,6 +3595,14 @@ class PhonixTestCases(unittest.TestCase):
         self.assertEqual(phonix('christine'), 'K683')
         self.assertEqual(phonix('christina'), 'K683')
         self.assertEqual(phonix('kristina'), 'K683')
+
+        # maxlength bounds tests
+        self.assertEqual(phonix('Niall', maxlength=float('inf')), 'N4000000000'+
+                         '0000000000000000000000000000000000000000000000000000'+
+                         '0')
+        self.assertEqual(phonix('Niall', maxlength=None), 'N400000000000000000'+
+                         '000000000000000000000000000000000000000000000')
+        self.assertEqual(phonix('Niall', maxlength=0), 'N400')
 
 
 class SfinxBisTestCases(unittest.TestCase):
@@ -3756,6 +3821,11 @@ class SfinxBisTestCases(unittest.TestCase):
         self.assertEqual(sfinxbis('skjul'), ('#4',))
         self.assertEqual(sfinxbis('schul'), ('#4',))
         self.assertEqual(sfinxbis('skil'), ('#4',))
+
+        # maxlength bounds tests
+        self.assertEqual(sfinxbis('Niall', maxlength=float('inf')), ('N4',))
+        self.assertEqual(sfinxbis('Niall', maxlength=None), ('N4',))
+        self.assertEqual(sfinxbis('Niall', maxlength=0), ('N4',))
 
 
 class PhonetTestCases(unittest.TestCase):
