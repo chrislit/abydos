@@ -88,7 +88,7 @@ def russell_index(word):
     sdx = _delete_consecutive_repeats(sdx)
 
     # return as an int
-    return int(sdx) if sdx else None
+    return int(sdx) if sdx else float('NaN')
 
 
 def russell_index_num_to_alpha(num):
@@ -106,6 +106,8 @@ def russell_index_num_to_alpha(num):
     num = ''.join([c for c in _unicode(num) if c in tuple('12345678')])
     if num:
         return num.translate(_russell_num_translation)
+    else:
+        return ''
 
 
 def russell_index_alpha(word):
@@ -120,6 +122,8 @@ def russell_index_alpha(word):
     """
     if word:
         return russell_index_num_to_alpha(russell_index(word))
+    else:
+        return ''
 
 
 def soundex(word, maxlength=4, var='American', reverse=False):

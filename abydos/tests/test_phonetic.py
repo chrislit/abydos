@@ -25,6 +25,7 @@ import unittest
 import os
 import codecs
 import random
+import math
 from abydos._compat import _unicode
 from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     russell_index_alpha, soundex, dm_soundex, koelner_phonetik, \
@@ -67,7 +68,8 @@ class RussellIndexTestCases(unittest.TestCase):
     def test_russel_index(self):
         """test abydos.phonetic.russell_index
         """
-        self.assertEqual(russell_index(''), None)
+        self.assertTrue(math.isnan(russell_index('')))
+        self.assertTrue(math.isnan(russell_index('H')))
         self.assertEqual(russell_index('Hoppa'), 12)
         self.assertEqual(russell_index('Hopley'), 125)
         self.assertEqual(russell_index('Highfield'), 1254)
@@ -86,15 +88,17 @@ class RussellIndexTestCases(unittest.TestCase):
     def test_russel_index_n2a(self):
         """test abydos.phonetic.russell_index_num_to_alpha
         """
-        self.assertEqual(russell_index_num_to_alpha(0), None)
-        self.assertEqual(russell_index_num_to_alpha(''), None)
+        self.assertEqual(russell_index_num_to_alpha(0), '')
+        self.assertEqual(russell_index_num_to_alpha(''), '')
+        self.assertEqual(russell_index_num_to_alpha(float('NaN')), '')
         self.assertEqual(russell_index_num_to_alpha(123456789), 'ABCDLMNR')
         self.assertEqual(russell_index_num_to_alpha('0123456789'), 'ABCDLMNR')
 
     def test_russel_index_alpha(self):
         """test abydos.phonetic.russell_index_alpha
         """
-        self.assertEqual(russell_index_alpha(''), None)
+        self.assertEqual(russell_index_alpha(''), '')
+        self.assertEqual(russell_index_alpha('H'), '')
         self.assertEqual(russell_index_alpha('Hoppa'), 'AB')
         self.assertEqual(russell_index_alpha('Hopley'), 'ABL')
         self.assertEqual(russell_index_alpha('Highfield'), 'ABLD')
