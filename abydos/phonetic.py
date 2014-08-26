@@ -127,7 +127,7 @@ def russell_index_alpha(word):
         return ''
 
 
-def soundex(word, maxlength=4, var='American', reverse=False):
+def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     """Return the Soundex value of a word
 
     Arguments:
@@ -142,6 +142,8 @@ def soundex(word, maxlength=4, var='American', reverse=False):
         'dm' computes the Daitch-Mokotoff Soundex
     reverse -- reverse the word before computing the selected Soundex
         (defaults to False); This results in "Reverse Soundex"
+    zero_pad -- pad the end of the return value with 0s to achieve a maxlength
+        string
     """
     _soundex_translation = dict(zip([ord(_) for _ in
                                      u'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
@@ -149,7 +151,7 @@ def soundex(word, maxlength=4, var='American', reverse=False):
 
     # Call the D-M Soundex function itself if requested
     if var == 'dm':
-        return dm_soundex(word, maxlength, reverse)
+        return dm_soundex(word, maxlength, reverse, zero_pad)
 
     # Require a maxlength of at least 4 and not more than 64
     if maxlength is not None:
@@ -186,12 +188,13 @@ def soundex(word, maxlength=4, var='American', reverse=False):
         sdx = word[0] + sdx[1:]
     sdx = sdx.replace('0', '') # rule 1
 
-    sdx += ('0'*maxlength) # rule 4
+    if zero_pad:
+        sdx += ('0'*maxlength) # rule 4
 
     return sdx[:maxlength]
 
 
-def dm_soundex(word, maxlength=6, reverse=False):
+def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
     """Return the Daitch-Mokotoff Soundex values of a word as a set
         A collection is necessary since there can be multiple values for a
         single word.
@@ -201,6 +204,8 @@ def dm_soundex(word, maxlength=6, reverse=False):
     maxlength -- the length of the code returned (defaults to 6)
     reverse -- reverse the word before computing the selected Soundex (defaults
         to False); This results in "Reverse Soundex"
+    zero_pad -- pad the end of the return value with 0s to achieve a maxlength
+        string
     """
     _dms_table = {'STCH': (2, 4, 4), 'DRZ': (4, 4, 4), 'ZH': (4, 4, 4),
                   'ZHDZH': (2, 4, 4), 'DZH': (4, 4, 4), 'DRS': (4, 4, 4),
@@ -325,7 +330,10 @@ def dm_soundex(word, maxlength=6, reverse=False):
           for _ in dms]
 
     # Trim codes and return set
-    dms = [(_ + ('0'*maxlength))[:maxlength] for _ in dms]
+    if zero_pad:
+        dms = [(_ + ('0'*maxlength))[:maxlength] for _ in dms]
+    else:
+        dms = [_[:maxlength] for _ in dms]
     return set(dms)
 
 
@@ -1634,12 +1642,14 @@ def alpha_sis(word, maxlength=14):
     return tuple(alpha)
 
 
-def fuzzy_soundex(word, maxlength=5):
+def fuzzy_soundex(word, maxlength=5, zero_pad=True):
     """Return the Fuzzy Soundex encoding of a word
 
     Arguments:
     word -- the word to translate to a Phonex encoding
     maxlength -- the length of the code returned (defaults to 4)
+    zero_pad -- pad the end of the return value with 0s to achieve a maxlength
+        string
 
     Description:
     Fuzzy Soundex is an algorithm derived from Soundex, defined in:
@@ -1719,17 +1729,20 @@ def fuzzy_soundex(word, maxlength=5):
 
     sdx = sdx.replace('0', '')
 
-    sdx += ('0'*maxlength)
+    if zero_pad:
+        sdx += ('0'*maxlength)
 
     return sdx[:maxlength]
 
 
-def phonex(word, maxlength=4):
+def phonex(word, maxlength=4, zero_pad=True):
     """Return the Phonex encoding of a word
 
     Arguments:
     word -- the word to translate to a Phonex encoding
     maxlength -- the length of the code returned (defaults to 4)
+    zero_pad -- pad the end of the return value with 0s to achieve a maxlength
+        string
 
     Description:
     Phonex is an algorithm derived from Soundex, defined in:
@@ -1812,7 +1825,8 @@ def phonex(word, maxlength=4):
 
         last = name_code[-1]
 
-    name_code += '0' * maxlength
+    if zero_pad:
+        name_code += '0' * maxlength
     return name_code[:maxlength]
 
 
@@ -1853,12 +1867,14 @@ def phonem(word):
                     if c in tuple('ABCDLMNORSUVWXYÖ')])
 
 
-def phonix(word, maxlength=4):
+def phonix(word, maxlength=4, zero_pad=True):
     """Return the Phonix encoding of a word
 
     Arguments:
     word -- the word to translate to a Phonix encoding
     maxlength -- the length of the code returned (defaults to 4)
+    zero_pad -- pad the end of the return value with 0s to achieve a maxlength
+        string
 
     Description:
     Phonix is a Soundex-like algorithm defined in:
@@ -2051,7 +2067,8 @@ def phonix(word, maxlength=4):
     else:
         maxlength = 64
 
-    sdx += '0' * maxlength
+    if zero_pad:
+        sdx += '0' * maxlength
     return sdx[:maxlength]
 
 

@@ -523,7 +523,7 @@ class MetaphoneTestCases(unittest.TestCase):
         # assorted tests to complete branch coverage
         self.assertEqual(metaphone('Lamb'), 'LM')
         self.assertEqual(metaphone('science'), 'SNS')
-        
+
         # maxlength bounds tests
         self.assertEqual(metaphone('Niall', maxlength=float('inf')), 'NL')
         self.assertEqual(metaphone('Niall', maxlength=None), 'NL')
