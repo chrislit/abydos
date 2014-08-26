@@ -468,6 +468,10 @@ def nysiis(word, maxlength=6):
 
     word = ''.join([c for c in word.upper() if c.isalpha()])
 
+    # exit early if there are no alphas
+    if not word:
+        return ''
+
     if word.startswith('MAC'):
         word = 'MCC'+word[3:]
     if word.startswith('KN'):
