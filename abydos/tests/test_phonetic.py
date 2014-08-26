@@ -376,6 +376,7 @@ class KoelnerPhonetikTestCases(unittest.TestCase):
         self.assertEqual(koelner_phonetik('Alpharades'), '053728')
         self.assertEqual(koelner_phonetik('Cent'), '862')
         self.assertEqual(koelner_phonetik('Acre'), '087')
+        self.assertEqual(koelner_phonetik('H'), '')
 
     def test_koelner_phonetik_n2a(self):
         """test abydos.phonetic.koelner_phonetik_num_to_alpha

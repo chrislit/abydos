@@ -425,7 +425,8 @@ def koelner_phonetik(word):
 
     sdx = _delete_consecutive_repeats(sdx)
 
-    sdx = sdx[0] + sdx[1:].replace('0', '')
+    if sdx:
+        sdx = sdx[0] + sdx[1:].replace('0', '')
 
     return sdx
 
