@@ -303,6 +303,8 @@ class RationalTestCases(unittest.TestCase):
         self.assertEqual(Rational(3)/2, Rational(3, 2))
         self.assertEqual(2/Rational(3), Rational(2, 3))
         self.assertEqual(Rational(3).__rtruediv__(2), Rational(2, 3))
+        self.assertEqual(Rational(3).__rdiv__(2), Rational(2, 3))
+        self.assertEqual(Rational(3).__div__(2), Rational(3, 2))
 
         # **
         self.assertEqual(Rational(1, 2)**2, Rational(1, 4))
