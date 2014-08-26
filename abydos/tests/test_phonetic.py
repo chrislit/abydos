@@ -186,6 +186,13 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(soundex('Lincoln', reverse=True), 'N425')
         self.assertEqual(soundex('Knuth', reverse=True), 'H352')
 
+        # zero_pad tests
+        self.assertEqual(soundex('Niall', maxlength=float('inf'),
+                                 zero_pad=False), 'N4')
+        self.assertEqual(soundex('Niall', maxlength=None, zero_pad=False), 'N4')
+        self.assertEqual(soundex('Niall', maxlength=0, zero_pad=False), 'N4')
+        self.assertEqual(soundex('Niall', maxlength=0, zero_pad=True), 'N400')
+
     def test_soundex_special(self):
         """test abydos.phonetic.soundex (special census variant method)
         """
@@ -322,6 +329,16 @@ class SoundexTestCases(unittest.TestCase):
                          '0000000000000000000000000000000000000000000000000000'+
                          '00']))
         self.assertEqual(dm_soundex('Niall', maxlength=0), set(['680000']))
+
+        # zero_pad tests
+        self.assertEqual(dm_soundex('Niall', maxlength=float('inf'),
+                                    zero_pad=False), set(['68']))
+        self.assertEqual(dm_soundex('Niall', maxlength=None, zero_pad=False),
+                         set(['68']))
+        self.assertEqual(dm_soundex('Niall', maxlength=0, zero_pad=False),
+                         set(['68']))
+        self.assertEqual(dm_soundex('Niall', maxlength=0, zero_pad=True),
+                         set(['680000']))
 
 
 class KoelnerPhonetikTestCases(unittest.TestCase):
@@ -3452,6 +3469,16 @@ class FuzzySoundexTestCases(unittest.TestCase):
                          '0000000000000000000000000000000000000000000000000000')
         self.assertEqual(fuzzy_soundex('Niall', maxlength=0), 'N400')
 
+        # zero_pad tests
+        self.assertEqual(fuzzy_soundex('Niall', maxlength=float('inf'),
+                                       zero_pad=False), 'N4')
+        self.assertEqual(fuzzy_soundex('Niall', maxlength=None, zero_pad=False),
+                         'N4')
+        self.assertEqual(fuzzy_soundex('Niall', maxlength=0, zero_pad=False),
+                         'N4')
+        self.assertEqual(fuzzy_soundex('Niall', maxlength=0, zero_pad=True),
+                         'N400')
+
 
 class PhonexTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.phonex
@@ -3501,6 +3528,16 @@ class PhonexTestCases(unittest.TestCase):
         self.assertEqual(phonex('Niall', maxlength=None), 'N400000000000000000'+
                          '000000000000000000000000000000000000000000000')
         self.assertEqual(phonex('Niall', maxlength=0), 'N400')
+
+        # zero_pad tests
+        self.assertEqual(phonex('Niall', maxlength=float('inf'),
+                                zero_pad=False), 'N4')
+        self.assertEqual(phonex('Niall', maxlength=None, zero_pad=False),
+                         'N4')
+        self.assertEqual(phonex('Niall', maxlength=0, zero_pad=False),
+                         'N4')
+        self.assertEqual(phonex('Niall', maxlength=0, zero_pad=True),
+                         'N400')
 
 
 class PhonemTestCases(unittest.TestCase):
@@ -3603,6 +3640,16 @@ class PhonixTestCases(unittest.TestCase):
         self.assertEqual(phonix('Niall', maxlength=None), 'N400000000000000000'+
                          '000000000000000000000000000000000000000000000')
         self.assertEqual(phonix('Niall', maxlength=0), 'N400')
+
+        # zero_pad tests
+        self.assertEqual(phonix('Niall', maxlength=float('inf'),
+                                zero_pad=False), 'N4')
+        self.assertEqual(phonix('Niall', maxlength=None, zero_pad=False),
+                         'N4')
+        self.assertEqual(phonix('Niall', maxlength=0, zero_pad=False),
+                         'N4')
+        self.assertEqual(phonix('Niall', maxlength=0, zero_pad=True),
+                         'N400')
 
 
 class SfinxBisTestCases(unittest.TestCase):
