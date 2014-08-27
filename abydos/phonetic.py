@@ -1796,6 +1796,7 @@ def phonex(word, maxlength=4, zero_pad=True):
         if name[0] == 'H':
             name = name[1:]
 
+    if name:
         # Phonetic equivalents of first character
         if name[0] in 'AEIOUY':
             name = 'A' + name[1:]
@@ -1814,6 +1815,7 @@ def phonex(word, maxlength=4, zero_pad=True):
 
     # MODIFIED SOUNDEX CODE
     for i in _range(1, len(name)):
+        code = '0'
         if name[i] in 'BPFV':
             code = '1'
         elif name[i] in 'CSKGJQXZ':
@@ -1831,8 +1833,6 @@ def phonex(word, maxlength=4, zero_pad=True):
         elif name[i] == 'R':
             if name[i+1:i+2] in tuple('AEIOUY') or i+1 == len(name):
                 code = '6'
-        else:
-            code = '0'
 
         if code != last and code != '0' and i != 0:
             name_code += code
