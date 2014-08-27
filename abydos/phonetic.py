@@ -2327,7 +2327,8 @@ def phonet(word, mode=1, lang='de', trace=False):
                              'M\'^', 'MAC', 'MAC',
                              'O´^', 'O', 'O',
                              'O\'^', 'O', 'O',
-                             'VAN DEN ^', 'VANDEN', 'VANDEN')
+                             'VAN DEN ^', 'VANDEN', 'VANDEN',
+                             None, None, None)
 
     _phonet_rules_german = (# separator chars
                             '´', ' ', ' ',
