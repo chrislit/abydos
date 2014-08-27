@@ -3854,47 +3854,51 @@ def spfc(word):
 
         # 3. Remove vowels, W, H, and Y, but keep the first letter in the name
         # field.
-        name = name[0] + ''.join([_ for _ in name[1:] if _ not in
-                                  tuple('AEIOUWHY')])
+        if name:
+            name = name[0] + ''.join([_ for _ in name[1:] if _ not in
+                                      tuple('AEIOUWHY')])
         return name
 
     names = [steps_one_to_three(_) for _ in names]
 
     # 4. The first digit of the code is obtained using PF1 and the first letter
     # of the name field. Remove this letter after coding.
-    code += names[1][0].translate(_pf1)
-    names[1] = names[1][1:]
+    if names[1]:
+        code += names[1][0].translate(_pf1)
+        names[1] = names[1][1:]
 
     # 5. Using the last letters of the name, use Table PF3 to obtain the
     # second digit of the code. Use as many letters as possible and remove
     # after coding.
-    if names[1].endswith('STN') or names[1].endswith('PRS'):
-        code += '8'
-        names[1] = names[1][:-3]
-    elif names[1].endswith('SN'):
-        code += '8'
-        names[1] = names[1][:-2]
-    elif names[1].endswith('STR'):
-        code += '9'
-        names[1] = names[1][:-3]
-    elif (names[1].endswith('SR') or names[1].endswith('TN') or
-          names[1].endswith('TD')):
-        code += '9'
-        names[1] = names[1][:-2]
-    elif names[1].endswith('DRS'):
-        code += '7'
-        names[1] = names[1][:-3]
-    elif names[1].endswith('TR') or names[1].endswith('MN'):
-        code += '7'
-        names[1] = names[1][:-2]
-    else:
-        code += names[1][-1].translate(_pf3)
-        names[1] = names[1][:-1]
+    if names[1]:
+        if names[1].endswith('STN') or names[1].endswith('PRS'):
+            code += '8'
+            names[1] = names[1][:-3]
+        elif names[1].endswith('SN'):
+            code += '8'
+            names[1] = names[1][:-2]
+        elif names[1].endswith('STR'):
+            code += '9'
+            names[1] = names[1][:-3]
+        elif (names[1].endswith('SR') or names[1].endswith('TN') or
+              names[1].endswith('TD')):
+            code += '9'
+            names[1] = names[1][:-2]
+        elif names[1].endswith('DRS'):
+            code += '7'
+            names[1] = names[1][:-3]
+        elif names[1].endswith('TR') or names[1].endswith('MN'):
+            code += '7'
+            names[1] = names[1][:-2]
+        else:
+            code += names[1][-1].translate(_pf3)
+            names[1] = names[1][:-1]
 
     # 6. The third digit is found using Table PF2 and the first character of
     # the first name. Remove after coding.
-    code += names[0][0].translate(_pf2)
-    names[0] = names[0][1:]
+    if names[0]:
+        code += names[0][0].translate(_pf2)
+        names[0] = names[0][1:]
 
     # 7. The fourth digit is found using Table PF2 and the first character of
     # the name field. If no letters remain use zero. After coding remove the
