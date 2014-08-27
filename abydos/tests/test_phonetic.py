@@ -192,6 +192,8 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(soundex('Niall', maxlength=None, zero_pad=False), 'N4')
         self.assertEqual(soundex('Niall', maxlength=0, zero_pad=False), 'N4')
         self.assertEqual(soundex('Niall', maxlength=0, zero_pad=True), 'N400')
+        self.assertEqual(soundex('', maxlength=4, zero_pad=False), '0')
+        self.assertEqual(soundex('', maxlength=4, zero_pad=True), '0000')
 
     def test_soundex_special(self):
         """test abydos.phonetic.soundex (special census variant method)
@@ -339,6 +341,10 @@ class SoundexTestCases(unittest.TestCase):
                          set(['68']))
         self.assertEqual(dm_soundex('Niall', maxlength=0, zero_pad=True),
                          set(['680000']))
+        self.assertEqual(dm_soundex('', maxlength=6, zero_pad=False),
+                         set(['0']))
+        self.assertEqual(dm_soundex('', maxlength=6, zero_pad=True),
+                         set(['000000']))
 
 
 class KoelnerPhonetikTestCases(unittest.TestCase):
@@ -3479,6 +3485,8 @@ class FuzzySoundexTestCases(unittest.TestCase):
                          'N4')
         self.assertEqual(fuzzy_soundex('Niall', maxlength=0, zero_pad=True),
                          'N400')
+        self.assertEqual(fuzzy_soundex('', maxlength=4, zero_pad=False), '0')
+        self.assertEqual(fuzzy_soundex('', maxlength=4, zero_pad=True), '0000')
 
 
 class PhonexTestCases(unittest.TestCase):
@@ -3539,6 +3547,8 @@ class PhonexTestCases(unittest.TestCase):
                          'N4')
         self.assertEqual(phonex('Niall', maxlength=0, zero_pad=True),
                          'N400')
+        self.assertEqual(phonex('', maxlength=4, zero_pad=False), '0')
+        self.assertEqual(phonex('', maxlength=4, zero_pad=True), '0000')
 
 
 class PhonemTestCases(unittest.TestCase):
@@ -3651,6 +3661,8 @@ class PhonixTestCases(unittest.TestCase):
                          'N4')
         self.assertEqual(phonix('Niall', maxlength=0, zero_pad=True),
                          'N400')
+        self.assertEqual(phonix('', maxlength=4, zero_pad=False), '0')
+        self.assertEqual(phonix('', maxlength=4, zero_pad=True), '0000')
 
 
 class SfinxBisTestCases(unittest.TestCase):

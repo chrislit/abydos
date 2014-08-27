@@ -167,7 +167,10 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
 
     # Nothing to convert, return base case
     if not word:
-        return '0'*maxlength
+        if zero_pad:
+            return '0'*maxlength
+        else:
+            return '0'
 
     # Reverse word if computing Reverse Soundex
     if reverse:
@@ -291,7 +294,10 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
 
     # Nothing to convert, return base case
     if not word:
-        return set(['0'*maxlength])
+        if zero_pad:
+            return set(['0'*maxlength])
+        else:
+            return set(['0'])
 
     # Reverse word if computing Reverse Soundex
     if reverse:
@@ -1675,7 +1681,10 @@ def fuzzy_soundex(word, maxlength=5, zero_pad=True):
         maxlength = 64
 
     if not word:
-        return '0' * maxlength
+        if zero_pad:
+            return '0' * maxlength
+        else:
+            return '0'
 
     if word[:2] in ('CS', 'CZ', 'TS', 'TZ'):
         word = 'SS' + word[2:]
@@ -1832,6 +1841,8 @@ def phonex(word, maxlength=4, zero_pad=True):
 
     if zero_pad:
         name_code += '0' * maxlength
+    if not name_code:
+        name_code = '0'
     return name_code[:maxlength]
 
 
@@ -2074,6 +2085,8 @@ def phonix(word, maxlength=4, zero_pad=True):
 
     if zero_pad:
         sdx += '0' * maxlength
+    if not sdx:
+        sdx = '0'
     return sdx[:maxlength]
 
 
