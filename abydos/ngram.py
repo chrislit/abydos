@@ -36,7 +36,7 @@ class NGramCorpus():
     The key at each level is a word. The value at the most deeply embedded level
     is a numeric value representing the frequency of the trigram. E.g. the
     trigram frequency of 'colorless green ideas' would be the value of
-    self.ngcorpus['colorless']['green']['ideas']. 
+    self.ngcorpus['colorless']['green']['ideas'].
     """
     ngcorpus = Counter()
 
