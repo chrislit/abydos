@@ -1,10 +1,10 @@
 #!/bin/sh
 
 sudo rm -rf ./build
-
 python setup.py build
 sudo python setup.py install
 
+sudo rm -rf ./build
 python3 setup.py build
 sudo python3 setup.py install
 
