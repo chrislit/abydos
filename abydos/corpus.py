@@ -23,7 +23,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
 
-class Corpus():
+class Corpus(object):
     """The Corpus class
 
     Internally, this is a list of lists. The corpus itself is an ordered list of

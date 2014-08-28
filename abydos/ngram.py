@@ -24,7 +24,7 @@ from __future__ import unicode_literals
 from collections import Counter
 from .corpus import Corpus
 
-class NGramCorpus():
+class NGramCorpus(object):
     """The NGramCorpus class
 
     Internally, this is a set of recursively embedded dicts, with n layers for
