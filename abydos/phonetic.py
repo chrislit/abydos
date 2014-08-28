@@ -352,6 +352,7 @@ def koelner_phonetik(word):
     Based on the algorithm described at
     https://de.wikipedia.org/wiki/Kölner_Phonetik
     """
+    # pylint: disable=too-many-branches
     def _after(word, i, letters):
         """Return True if word[i] follows one of the supplied letters
         """
@@ -1901,6 +1902,7 @@ def phonix(word, maxlength=4, zero_pad=True):
     and
     https://metacpan.org/pod/Text::Phonetic::Phonix
     """
+    # pylint: disable=too-many-branches
     def _start_repl(word, src, tar, post=None):
         """replace src with tar at the start of word
         in the environment pre__post
