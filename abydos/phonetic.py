@@ -68,8 +68,8 @@ def russell_index(word):
     US Patent 1,261,167 (1917)
     """
     _russell_translation = dict(zip([ord(_) for _ in
-                                           u'ABCDEFGIKLMNOPQRSTUVXYZ'],
-                                          u'12341231356712383412313'))
+                                     u'ABCDEFGIKLMNOPQRSTUVXYZ'],
+                                    u'12341231356712383412313'))
 
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = word.replace('ß', 'SS')
@@ -258,9 +258,9 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
                   'RS':((94, 4), (94, 4), (94, 4))}
 
     _dms_order = {'A':('AI', 'AJ', 'AU', 'AY', 'A'), 'B':('B'),
-                 'C':('CHS', 'CSZ', 'CZS', 'CH', 'CK', 'CS', 'CZ', 'C'),
-                 'D':('DRS', 'DRZ', 'DSH', 'DSZ', 'DZH', 'DZS', 'DS', 'DT',
-                      'DZ', 'D'), 'E':('EI', 'EJ', 'EU', 'EY', 'E'),
+                  'C':('CHS', 'CSZ', 'CZS', 'CH', 'CK', 'CS', 'CZ', 'C'),
+                  'D':('DRS', 'DRZ', 'DSH', 'DSZ', 'DZH', 'DZS', 'DS', 'DT',
+                       'DZ', 'D'), 'E':('EI', 'EJ', 'EU', 'EY', 'E'),
                   'F':('FB', 'F'), 'G':('G'), 'H':('H'),
                   'I':('IA', 'IE', 'IO', 'IU', 'I'), 'J':('J'),
                   'K':('KH', 'KS', 'K'), 'L':('L'), 'M':('MN', 'M'),
@@ -333,7 +333,7 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
 
     # Filter out double letters and _ placeholders
     dms = [''.join([c for c in _delete_consecutive_repeats(_) if c != '_'])
-          for _ in dms]
+           for _ in dms]
 
     # Trim codes and return set
     if zero_pad:
