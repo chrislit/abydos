@@ -46,7 +46,6 @@ from itertools import groupby
 from collections import Counter
 import re
 import unicodedata
-import sys
 from ._bm import _bmpm
 
 
