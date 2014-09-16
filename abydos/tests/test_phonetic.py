@@ -31,7 +31,7 @@ from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     russell_index_alpha, soundex, dm_soundex, koelner_phonetik, \
     koelner_phonetik_num_to_alpha, koelner_phonetik_alpha, nysiis, mra, \
     metaphone, double_metaphone, caverphone, alpha_sis, fuzzy_soundex, phonex, \
-    phonem, phonix, sfinxbis, phonet, spfc, german_ipa, bmpm
+    phonem, phonix, sfinxbis, phonet, spfc, german_ipa, bmpm, metaphone3
 from abydos._bm import _bm_language, _bm_expand_alternates, \
     _bm_remove_dupes, _bm_normalize_lang_attrs, _bm_phonetic_number, \
     _bm_apply_rule_if_compat
@@ -4576,6 +4576,39 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(_bm_normalize_lang_attrs('ab[2]c[6]', True),
                          'abc')
 
+class Metaphone3TestCases(unittest.TestCase):
+    """test cases for abydos.phonetic.metaphone3
+    
+    This just tests a few
+    """
+    def test_double_metaphone(self):
+        """test abydos.phonetic.metaphone3
+        """
+        self.assertEqual(metaphone3(''), ('', ''))
+        self.assertEqual(metaphone3('iron'), ('ARN', ''))
+        self.assertEqual(metaphone3('witz'), ('TS', 'FX'))
+        self.assertEqual(metaphone3('Guillermo', vowels=True, exact=True),
+                         ('GARMA', ''))
+        self.assertEqual(metaphone3('Villasenor', vowels=True, exact=True),
+                         ('VALASANAR', 'VASANAR'))
+        self.assertEqual(metaphone3('Guillermina', vowels=True, exact=True),
+                         ('GARMANA', ''))
+        self.assertEqual(metaphone3('Padilla', vowels=True, exact=True),
+                         ('PADALA', 'PADA'))
+        self.assertEqual(metaphone3('Bjork', vowels=True, exact=True),
+                         ('BARK', ''))
+        self.assertEqual(metaphone3('belle', vowels=True, exact=True),
+                         ('BAL', ''))
+        self.assertEqual(metaphone3('Erich', vowels=True, exact=True),
+                         ('ARAK', 'ARAX'))
+        self.assertEqual(metaphone3('Croce', vowels=True, exact=True),
+                         ('KRAXA', 'KRASA'))
+        self.assertEqual(metaphone3('Glowacki', vowels=True, exact=True),
+                         ('GLAKA', 'GLAVASKA'))
+        self.assertEqual(metaphone3('Qing', vowels=True, exact=True),
+                         ('XANG', ''))
+        self.assertEqual(metaphone3('Tsing', vowels=True, exact=True),
+                         ('XANG', ''))
 
 if __name__ == '__main__':
     unittest.main()

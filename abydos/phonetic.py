@@ -47,6 +47,12 @@ from collections import Counter
 import re
 import unicodedata
 from ._bm import _bmpm
+try:
+    from metaphone3.metaphone3 import Metaphone3
+except ImportError: # pragma: no cover
+    # If there system lacks Metaphone3, that's fine, but Metaphone3 won't be
+    # supported.
+    pass
 
 
 def _delete_consecutive_repeats(word):
@@ -4131,3 +4137,27 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     """
     return _bmpm(word, language_arg, name_mode, match_mode,
                  concat, filter_langs)
+
+def metaphone3(word, maxlength=float('inf'), vowels=False, exact=False):
+    """Return the Metaphone3 encodings of a word as a tuple
+
+    Arguments:
+    word -- the word to apply the Double Metaphone algorithm to
+    maxlength -- the maximum length of the returned Double Metaphone codes
+        (defaults to unlimited though it is 8 by default in Metaphone3)
+    vowels -- boolean indicating whether vowels are included in the encoding
+    exact -- boolean indicating whether to use the exact vs. approximate
+        encodings
+
+    Description:
+    This requires a metaphone3 Python library, without which this returns an
+    empty tuple. The inclusion of this is for convenience to keep a consistent
+    API for the full set of phonetic algorithms.
+    """
+    m3 = Metaphone3()
+    m3.set_encode_vowels(vowels)
+    m3.set_encode_exact(exact)
+    m3.set_key_length(maxlength)
+    m3.set_word(word)
+    m3.encode()
+    return (m3.get_metaph(), m3.get_alternate_metaph())
