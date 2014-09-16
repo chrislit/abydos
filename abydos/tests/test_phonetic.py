@@ -26,6 +26,7 @@ import os
 import codecs
 import random
 import math
+import sys
 from abydos._compat import _unicode
 from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     russell_index_alpha, soundex, dm_soundex, koelner_phonetik, \
@@ -4579,11 +4580,14 @@ class BeiderMorseTestCases(unittest.TestCase):
 class Metaphone3TestCases(unittest.TestCase):
     """test cases for abydos.phonetic.metaphone3
     
-    This just tests a few
+    This just tests a few cases to see that everything is working. It is not
+    intended as an exhaustive test of the metaphone3 library.
     """
     def test_double_metaphone(self):
         """test abydos.phonetic.metaphone3
         """
+        if 'metaphone3.metaphone3' not in sys.modules:
+            return
         self.assertEqual(metaphone3(''), ('', ''))
         self.assertEqual(metaphone3('iron'), ('ARN', ''))
         self.assertEqual(metaphone3('witz'), ('TS', 'FX'))
@@ -4609,6 +4613,7 @@ class Metaphone3TestCases(unittest.TestCase):
                          ('XANG', ''))
         self.assertEqual(metaphone3('Tsing', vowels=True, exact=True),
                          ('XANG', ''))
+
 
 if __name__ == '__main__':
     unittest.main()

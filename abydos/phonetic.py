@@ -46,6 +46,7 @@ from itertools import groupby
 from collections import Counter
 import re
 import unicodedata
+import sys
 from ._bm import _bmpm
 try:
     from metaphone3.metaphone3 import Metaphone3
@@ -4150,10 +4151,12 @@ def metaphone3(word, maxlength=float('inf'), vowels=False, exact=False):
         encodings
 
     Description:
-    This requires a metaphone3 Python library, without which this returns an
-    empty tuple. The inclusion of this is for convenience to keep a consistent
+    This requires a metaphone3 Python library, without which this returns
+    None. The inclusion of this is for convenience to keep a consistent
     API for the full set of phonetic algorithms.
     """
+    if 'metaphone3.metaphone3' not in sys.modules: # pragma: no cover
+            return None
     m3 = Metaphone3()
     m3.set_encode_vowels(vowels)
     m3.set_encode_exact(exact)
