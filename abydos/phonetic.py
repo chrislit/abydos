@@ -1664,7 +1664,7 @@ def fuzzy_soundex(word, maxlength=5, zero_pad=True):
     """Return the Fuzzy Soundex encoding of a word
 
     Arguments:
-    word -- the word to translate to a Phonex encoding
+    word -- the word to translate to a Fuzzy Soundex encoding
     maxlength -- the length of the code returned (defaults to 4)
     zero_pad -- pad the end of the return value with 0s to achieve a maxlength
         string
