@@ -303,6 +303,7 @@ class ConfusionTable(object):
 
         Informedness is defined as sensitivity+specificity-1.
         AKA Youden's J statistic
+        AKA DeltaP'
 
         Cf. https://en.wikipedia.org/wiki/Youden%27s_J_statistic
         """
@@ -313,6 +314,7 @@ class ConfusionTable(object):
         """Return the markedness of the confusion table
 
         Markedness is defined as precision + npv -1
+        AKA DeltaP
 
         Cf. https://en.wikipedia.org/wiki/Youden%27s_J_statistic
         """
