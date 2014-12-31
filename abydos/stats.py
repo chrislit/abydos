@@ -306,6 +306,7 @@ class ConfusionTable(object):
         AKA DeltaP'
 
         Cf. https://en.wikipedia.org/wiki/Youden%27s_J_statistic
+        Cf. http://dspace.flinders.edu.au/xmlui/bitstream/handle/2328/27165/Powers%20Evaluation.pdf
         """
         return self.recall() + self.specificity() - 1
 
@@ -317,6 +318,7 @@ class ConfusionTable(object):
         AKA DeltaP
 
         Cf. https://en.wikipedia.org/wiki/Youden%27s_J_statistic
+        Cf. http://dspace.flinders.edu.au/xmlui/bitstream/handle/2328/27165/Powers%20Evaluation.pdf
         """
         return self.precision() + self.npv() - 1
 
