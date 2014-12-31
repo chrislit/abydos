@@ -582,12 +582,15 @@ class ConfusionTable(object):
 
 
     def mcc(self):
-        """Return the Matthews correlation coefficient of the
+        """Return the Matthews correlation coefficient (MCC) of the
         confusion table
 
         The Matthews correlation coefficient is defined as:
         ((tp * tn) - (fp * fn)) /
         sqrt((tp + fp)(tp + fn)(tn + fp)(tn + fn))
+
+        This is equivalent to the geometric mean of informedness and markedness,
+        defined above.
 
         Cf. https://en.wikipedia.org/wiki/Matthews_correlation_coefficient
         """
