@@ -74,8 +74,8 @@ def russell_index(word):
     US Patent 1,261,167 (1917)
     """
     _russell_translation = dict(zip([ord(_) for _ in
-                                     u'ABCDEFGIKLMNOPQRSTUVXYZ'],
-                                    u'12341231356712383412313'))
+                                     'ABCDEFGIKLMNOPQRSTUVXYZ'],
+                                    '12341231356712383412313'))
 
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = word.replace('ß', 'SS')
@@ -108,8 +108,8 @@ def russell_index_num_to_alpha(num):
     This follows Robert C. Russell's Index algorithm, as described in
     US Patent 1,261,167 (1917)
     """
-    _russell_num_translation = dict(zip([ord(_) for _ in u'12345678'],
-                                        u'ABCDLMNR'))
+    _russell_num_translation = dict(zip([ord(_) for _ in '12345678'],
+                                        'ABCDLMNR'))
     num = ''.join([c for c in _unicode(num) if c in tuple('12345678')])
     if num:
         return num.translate(_russell_num_translation)
@@ -152,8 +152,8 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
         string
     """
     _soundex_translation = dict(zip([ord(_) for _ in
-                                     u'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
-                                    u'01230129022455012623019202'))
+                                     'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
+                                    '01230129022455012623019202'))
 
     # Call the D-M Soundex function itself if requested
     if var == 'dm':
@@ -448,8 +448,8 @@ def koelner_phonetik_num_to_alpha(num):
     """Given the numeric form of a Kölner Phonetik value, returns an
     alphabetic form
     """
-    _koelner_num_translation = dict(zip([ord(_) for _ in u'012345678'],
-                                        u'APTFKLNRS'))
+    _koelner_num_translation = dict(zip([ord(_) for _ in '012345678'],
+                                        'APTFKLNRS'))
     num = ''.join([c for c in _unicode(num) if c in tuple('012345678')])
     return num.translate(_koelner_num_translation)
 
@@ -1676,8 +1676,8 @@ def fuzzy_soundex(word, maxlength=5, zero_pad=True):
     http://wayback.archive.org/web/20100629121128/http://www.ir.iit.edu/publications/downloads/IEEESoundexV5.pdf
     """
     _fuzzy_soundex_translation = dict(zip([ord(_) for _ in
-                                           u'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
-                                          u'0193017-07745501769301-7-9'))
+                                           'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
+                                          '0193017-07745501769301-7-9'))
 
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
 
@@ -1878,8 +1878,8 @@ def phonem(word):
                              ('EY', 'AY'), ('EU', 'OY'), ('AU', 'A§'),
                              ('OU', '§'))
     _phonem_translation = dict(zip([ord(_) for _ in
-                                    u'ZKGQÇÑßFWPTÁÀÂÃÅÄÆÉÈÊËIJÌÍÎÏÜÝ§ÚÙÛÔÒÓÕØ'],
-                                   u'CCCCCNSVVBDAAAAAEEEEEEYYYYYYYYUUUUOOOOÖ'))
+                                    'ZKGQÇÑßFWPTÁÀÂÃÅÄÆÉÈÊËIJÌÍÎÏÜÝ§ÚÙÛÔÒÓÕØ'],
+                                   'CCCCCNSVVBDAAAAAEEEEEEYYYYYYYYUUUUOOOOÖ'))
 
     word = unicodedata.normalize('NFC', _unicode(word.upper()))
     for i, j in _phonem_substitutions:
@@ -2067,8 +2067,8 @@ def phonix(word, maxlength=4, zero_pad=True):
                              (_all_repl, 'MPT', 'MT')]
 
     _phonix_translation = dict(zip([ord(_) for _ in
-                                    u'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
-                                   u'01230720022455012683070808'))
+                                    'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
+                                   '01230720022455012683070808'))
 
     sdx = ''
 
@@ -2127,12 +2127,12 @@ def sfinxbis(word, maxlength=None):
     _alfabet = tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ')
 
     _sfinxbis_translation = dict(zip([ord(_) for _ in
-                                      u'BCDFGHJKLMNPQRSTVZAOUÅEIYÄÖ'],
-                                      u'123729224551268378999999999'))
+                                      'BCDFGHJKLMNPQRSTVZAOUÅEIYÄÖ'],
+                                      '123729224551268378999999999'))
 
     _sfinxbis_substitutions = dict(zip([ord(_) for _ in
-                                        u'WZÀÁÂÃÆÇÈÉÊËÌÍÎÏÑÒÓÔÕØÙÚÛÜÝ'],
-                                       u'VSAAAAÄCEEEEIIIINOOOOÖUUUYY'))
+                                        'WZÀÁÂÃÆÇÈÉÊËÌÍÎÏÑÒÓÔÕØÙÚÛÜÝ'],
+                                       'VSAAAAÄCEEEEIIIINOOOOÖUUUYY'))
 
     def _foersvensker(ordet):
         """Return Swedish-ized form of the word
@@ -3291,8 +3291,8 @@ def phonet(word, mode=1, lang='de', trace=False):
     phonet_hash_2 = Counter()
 
     _phonet_upper_translation = dict(zip([ord(_) for _ in
-            u'abcdefghijklmnopqrstuvwxyzàáâãåäæçðèéêëìíîïñòóôõöøœšßþùúûüýÿ'],
-            u'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÅÄÆÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ'))
+            'abcdefghijklmnopqrstuvwxyzàáâãåäæçðèéêëìíîïñòóôõöøœšßþùúûüýÿ'],
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÅÄÆÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ'))
 
     def _trinfo(text, rule, err_text, lang):
         """Output debug information
@@ -3806,14 +3806,14 @@ def spfc(word):
     https://archive.org/stream/accessingindivid00moor#page/19/mode/1up
     """
 
-    _pf1 = dict(zip([ord(_) for _ in u'SZCKQVFPUWABLORDHIEMNXGJT'],
-                   u'0011112222334445556666777'))
+    _pf1 = dict(zip([ord(_) for _ in 'SZCKQVFPUWABLORDHIEMNXGJT'],
+                   '0011112222334445556666777'))
     _pf2 = dict(zip([ord(_) for _ in
-                    u'SZCKQFPXABORDHIMNGJTUVWEL'],
-                    u'0011122233445556677788899'))
+                    'SZCKQFPXABORDHIMNGJTUVWEL'],
+                    '0011122233445556677788899'))
     _pf3 = dict(zip([ord(_) for _ in
-                    u'BCKQVDTFLPGJXMNRSZAEHIOUWY'],
-                    u'00000112223334456677777777'))
+                    'BCKQVDTFLPGJXMNRSZAEHIOUWY'],
+                    '00000112223334456677777777'))
 
     _substitutions = (('DK', 'K'), ('DT', 'T'), ('SC', 'S'), ('KN', 'N'),
                       ('MN', 'N'))
