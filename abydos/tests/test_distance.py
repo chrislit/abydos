@@ -1301,10 +1301,10 @@ class CompressionTestCases(unittest.TestCase):
                                0.6875)
         self.assertAlmostEqual(dist_compression('Neil', 'Niall', 'arith'),
                                0.6875)
-        self.assertAlmostEqual(dist_compression(u'Njáll', 'Njall', 'arith',
+        self.assertAlmostEqual(dist_compression('Njáll', 'Njall', 'arith',
                                                 self.arith_dict),
                                0.714285714285714)
-        self.assertAlmostEqual(dist_compression('Njall', u'Njáll', 'arith',
+        self.assertAlmostEqual(dist_compression('Njall', 'Njáll', 'arith',
                                                 self.arith_dict),
                                0.714285714285714)
         self.assertAlmostEqual(dist_compression('Njáll', 'Njall', 'arith'),
@@ -1345,10 +1345,10 @@ class CompressionTestCases(unittest.TestCase):
                                0.3125)
         self.assertAlmostEqual(sim_compression('Neil', 'Niall', 'arith'),
                                0.3125)
-        self.assertAlmostEqual(sim_compression(u'Njáll', 'Njall', 'arith',
+        self.assertAlmostEqual(sim_compression('Njáll', 'Njall', 'arith',
                                                 self.arith_dict),
                                0.285714285714285)
-        self.assertAlmostEqual(sim_compression('Njall', u'Njáll', 'arith',
+        self.assertAlmostEqual(sim_compression('Njall', 'Njáll', 'arith',
                                                 self.arith_dict),
                                0.285714285714285)
         self.assertAlmostEqual(sim_compression('Njáll', 'Njall', 'arith'),
