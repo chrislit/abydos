@@ -378,8 +378,8 @@ def koelner_phonetik(word):
 
     sdx = ''
 
-    word = word.replace('ß', 'SS')
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = word.replace('ß', 'SS')
 
     word = word.replace('Ä', 'AE')
     word = word.replace('Ö', 'OE')
@@ -480,6 +480,7 @@ def nysiis(word, maxlength=6):
     _vowels = tuple('AEIOU')
 
     word = ''.join([c for c in word.upper() if c.isalpha()])
+    word = word.replace('ß', 'SS')
 
     # exit early if there are no alphas
     if not word:
@@ -604,6 +605,7 @@ def metaphone(word, maxlength=float('inf')):
 
     # As in variable sound--those modified by adding an "h"
     ename = ''.join([c for c in word.upper() if c.isalnum()])
+    ename = ename.replace('ß', 'SS')
 
     # Delete nonalphanumeric characters and make all caps
     if ename == '':
@@ -807,6 +809,7 @@ def double_metaphone(word, maxlength=float('inf')):
     last = length - 1
 
     word = word.upper()
+    word = word.replace('ß', 'SS')
 
     # Pad the original string so that we can index beyond the edge of the world
     word += '     '
@@ -1607,6 +1610,7 @@ def alpha_sis(word, maxlength=14):
     alpha = ['']
     pos = 0
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = word.replace('ß', 'SS')
     word = ''.join([c for c in word if c in
                     tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
@@ -1680,6 +1684,7 @@ def fuzzy_soundex(word, maxlength=5, zero_pad=True):
                                           '0193017-07745501769301-7-9'))
 
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = word.replace('ß', 'SS')
 
     # Clamp maxlength to [4, 64]
     if maxlength is not None:
@@ -1771,6 +1776,7 @@ def phonex(word, maxlength=4, zero_pad=True):
     http://homepages.cs.ncl.ac.uk/brian.randell/Genealogy/NameMatching.pdf
     """
     name = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    name = name.replace('ß', 'SS')
 
     # Clamp maxlength to [4, 64]
     if maxlength is not None:
@@ -2073,6 +2079,7 @@ def phonix(word, maxlength=4, zero_pad=True):
     sdx = ''
 
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = word.replace('ß', 'SS')
     word = ''.join([c for c in word if c in
                     tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
     if word:
@@ -2202,6 +2209,7 @@ def sfinxbis(word, maxlength=None):
 
     # Steg 1, Versaler
     word = unicodedata.normalize('NFC', _unicode(word.upper()))
+    word = word.replace('ß', 'SS')
     word = word.replace('-', ' ')
 
     # Steg 2, Ta bort adelsprefix
@@ -3842,7 +3850,9 @@ def spfc(word):
     else:
         _raise_word_ex()
 
-    names = [unicodedata.normalize('NFKD', _unicode(_.strip().upper()))
+    names = [unicodedata.normalize('NFKD',_unicode(_.strip()
+                                                    .replace('ß', 'SS')
+                                                    .upper()))
              for _ in names]
     code = ''
 
