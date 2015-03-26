@@ -569,6 +569,7 @@ def mra(word):
     https://archive.org/details/accessingindivid00moor
     """
     word = word.upper()
+    word = word.replace('ß', 'SS')
     word = word[0]+''.join([c for c in word[1:] if c not in tuple('AEIOU')])
     word = _delete_consecutive_repeats(word)
     if len(word) > 6:
