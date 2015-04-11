@@ -587,7 +587,7 @@ def metaphone(word, maxlength=float('inf')):
         this was 4)
 
     Description:
-    Based on Lawrence Philips' BASIC code from 1990:
+    Based on Lawrence Philips' Pick BASIC code from 1990:
     http://aspell.net/metaphone/metaphone.basic
     This incorporates some corrections to the above code, particularly
     some of those suggested by Michael Kuhn in:
