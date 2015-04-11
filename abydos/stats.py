@@ -680,10 +680,18 @@ def hmean(nums):
     nums -- a tuple, list, or set of numbers
 
     The harmonic mean is defined as:
-    |nums| / Σ_i(1/num_i)
+    |nums| / Σ_i(1/nums_i)
+
+    Following the behavior of Wolfram|Alpha:
+    If one of the values in nums is 0, return 0.
+    If more than one value in nums is 0, return NaN.
 
     Cf. https://en.wikipedia.org/wiki/Harmonic_mean
     """
+    if 0 in nums:
+        if sum(map(lambda x: x == 0, nums)) > 1:
+            return float('nan')
+        return 0
     return len(nums)/sum([1/i for i in nums])
 
 
