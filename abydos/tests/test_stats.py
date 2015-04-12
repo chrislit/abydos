@@ -664,6 +664,11 @@ class MeansTestCases(unittest.TestCase):
         self.assertTrue(isnan(hmean([1, 0, 2, 0, 3])))
         self.assertTrue(isnan(hmean([1, 0, 2, 0, 3, 0])))
         self.assertTrue(isnan(hmean([1, 0, 2, 0, 3, 0, 0])))
+        self.assertEqual(hmean([0, 0]), 0)
+        self.assertEqual(hmean([0, 0, 0, 0]), 0)
+        self.assertEqual(hmean([1, 1, 1, 1, 1]), 1)
+        self.assertEqual(hmean([5, 5, 5, 5, 5]), 5)
+
 
         self.assertAlmostEqual(qmean(_ones), 1)
         self.assertAlmostEqual(qmean(_zeros), 0)
