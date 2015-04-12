@@ -658,6 +658,8 @@ class MeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(hmean(_one_to_five), 2.18978102189781)
         self.assertAlmostEqual(hmean(_onethreefive), 1.8292682926829265)
         self.assertAlmostEqual(hmean(_floats), 0.2247191011235955)
+        self.assertEqual(hmean([0, 1, 2]), 0)
+        self.assertEqual(hmean([1, 2, 3, 0]), 0)
 
         self.assertAlmostEqual(qmean(_ones), 1)
         self.assertAlmostEqual(qmean(_zeros), 0)
