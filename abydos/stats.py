@@ -688,11 +688,16 @@ def hmean(nums):
 
     Cf. https://en.wikipedia.org/wiki/Harmonic_mean
     """
-    for i in _range(1,len(nums)):
-        if nums[0] != nums[i]:
-            break
-    else:
+    if len(nums) < 1:
+        raise AttributeError('hmean requires at least one value')
+    elif len(nums) == 1:
         return nums[0]
+    else:
+        for i in _range(1,len(nums)):
+            if nums[0] != nums[i]:
+                break
+        else:
+            return nums[0]
 
     if 0 in nums:
         if sum(map(lambda x: x == 0, nums)) > 1:
