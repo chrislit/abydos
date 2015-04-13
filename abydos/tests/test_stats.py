@@ -650,11 +650,13 @@ class MeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(amean(_floats), 0.37)
 
         self.assertAlmostEqual(gmean(_ones), 1)
+        self.assertAlmostEqual(gmean(_zeros), 0)
         self.assertAlmostEqual(gmean(_one_to_five), 2.605171084697352)
         self.assertAlmostEqual(gmean(_onethreefive), 2.3714406097793117)
         self.assertAlmostEqual(gmean(_floats), 0.2885399811814427)
 
         self.assertAlmostEqual(hmean(_ones), 1)
+        self.assertAlmostEqual(hmean(_zeros), 0)
         self.assertAlmostEqual(hmean(_one_to_five), 2.18978102189781)
         self.assertAlmostEqual(hmean(_onethreefive), 1.8292682926829265)
         self.assertAlmostEqual(hmean(_floats), 0.2247191011235955)
@@ -668,7 +670,6 @@ class MeansTestCases(unittest.TestCase):
         self.assertEqual(hmean([0, 0, 0, 0]), 0)
         self.assertEqual(hmean([1, 1, 1, 1, 1]), 1)
         self.assertEqual(hmean([5, 5, 5, 5, 5]), 5)
-
 
         self.assertAlmostEqual(qmean(_ones), 1)
         self.assertAlmostEqual(qmean(_zeros), 0)
