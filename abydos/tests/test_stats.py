@@ -28,7 +28,8 @@ from abydos.stats import ConfusionTable, amean, gmean, hmean, qmean, cmean, \
     agmean, ghmean, aghmean, midrange, median, mode
 from math import isnan, sqrt
 import numpy as np
-from scipy.stats.mstats import hmean, gmean
+from scipy.stats.mstats import hmean as scipy_hmean
+from scipy.stats.mstats import gmean as scipy_gmean
 
 UNIT_TABLE = ConfusionTable(1, 1, 1, 1)
 NULL_TABLE = ConfusionTable(0, 0, 0, 0)
@@ -335,20 +336,26 @@ class PrMeansTestCases(unittest.TestCase):
     def test_pr_gmean(self):
         """test abydos.stats.ConfusionTable.pr_gmean
         """
-        self.assertEqual(UNIT_TABLE.pr_gmean(), gmean(self.prre[0]))
+        self.assertEqual(UNIT_TABLE.pr_gmean(), scipy_gmean(self.prre[0]))
         self.assertTrue(isnan(NULL_TABLE.pr_gmean()))
-        self.assertAlmostEqual(SCALE_TABLE.pr_gmean(), gmean(self.prre[2]))
-        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_gmean(), gmean(self.prre[3]))
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_gmean(), gmean(self.prre[4]))
+        self.assertAlmostEqual(SCALE_TABLE.pr_gmean(),
+                               scipy_gmean(self.prre[2]))
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_gmean(),
+                               scipy_gmean(self.prre[3]))
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_gmean(),
+                               scipy_gmean(self.prre[4]))
 
     def test_pr_hmean(self):
         """test abydos.stats.ConfusionTable.pr_hmean
         """
         self.assertEqual(UNIT_TABLE.pr_hmean(), 0.5)
         self.assertTrue(isnan(NULL_TABLE.pr_hmean()))
-        self.assertAlmostEqual(SCALE_TABLE.pr_hmean(), hmean(self.prre[2]))
-        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_hmean(), hmean(self.prre[3]))
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_hmean(), hmean(self.prre[4]))
+        self.assertAlmostEqual(SCALE_TABLE.pr_hmean(),
+                               scipy_hmean(self.prre[2]))
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_hmean(),
+                               scipy_hmean(self.prre[3]))
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_hmean(),
+                               scipy_hmean(self.prre[4]))
 
     def test_pr_qmean(self):
         """test abydos.stats.ConfusionTable.pr_qmean
@@ -590,11 +597,14 @@ class StatisticalMeasureTestCases(unittest.TestCase):
     def test_g_measure(self):
         """test abydos.stats.ConfusionTable.g_measure
         """
-        self.assertEqual(UNIT_TABLE.g_measure(), gmean(self.prre[0]))
+        self.assertEqual(UNIT_TABLE.g_measure(), scipy_gmean(self.prre[0]))
         self.assertTrue(isnan(NULL_TABLE.g_measure()))
-        self.assertAlmostEqual(SCALE_TABLE.g_measure(), gmean(self.prre[2]))
-        self.assertAlmostEqual(CATSNDOGS_TABLE.g_measure(), gmean(self.prre[3]))
-        self.assertAlmostEqual(WORKED_EG_TABLE.g_measure(), gmean(self.prre[4]))
+        self.assertAlmostEqual(SCALE_TABLE.g_measure(),
+                               scipy_gmean(self.prre[2]))
+        self.assertAlmostEqual(CATSNDOGS_TABLE.g_measure(),
+                               scipy_gmean(self.prre[3]))
+        self.assertAlmostEqual(WORKED_EG_TABLE.g_measure(),
+                               scipy_gmean(self.prre[4]))
 
     def test_mcc(self):
         """test abydos.stats.ConfusionTable.mcc
