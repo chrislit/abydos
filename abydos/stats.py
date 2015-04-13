@@ -688,6 +688,12 @@ def hmean(nums):
 
     Cf. https://en.wikipedia.org/wiki/Harmonic_mean
     """
+    for i in _range(1,len(nums)):
+        if nums[0] != nums[i]:
+            break
+    else:
+        return nums[0]
+
     if 0 in nums:
         if sum(map(lambda x: x == 0, nums)) > 1:
             return float('nan')
