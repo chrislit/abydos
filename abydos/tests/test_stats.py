@@ -664,6 +664,10 @@ class MeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(gmean(_one_to_five), 2.605171084697352)
         self.assertAlmostEqual(gmean(_onethreefive), 2.3714406097793117)
         self.assertAlmostEqual(gmean(_floats), 0.2885399811814427)
+        self.assertEqual(gmean(_ones), scipy_gmean(_ones))
+        self.assertAlmostEqual(gmean(_one_to_five), scipy_gmean(_one_to_five))
+        self.assertEqual(gmean(_onethreefive), scipy_gmean(_onethreefive))
+        self.assertEqual(gmean(_floats), scipy_gmean(_floats))
 
         self.assertAlmostEqual(hmean(_ones), 1)
         self.assertAlmostEqual(hmean(_zeros), 0)
@@ -680,6 +684,12 @@ class MeansTestCases(unittest.TestCase):
         self.assertEqual(hmean([0, 0, 0, 0]), 0)
         self.assertEqual(hmean([1, 1, 1, 1, 1]), 1)
         self.assertEqual(hmean([5, 5, 5, 5, 5]), 5)
+        self.assertEqual(hmean(_ones), scipy_hmean(_ones))
+        self.assertEqual(hmean(_one_to_five), scipy_hmean(_one_to_five))
+        self.assertEqual(hmean(_onethreefive), scipy_hmean(_onethreefive))
+        self.assertEqual(hmean(_floats), scipy_hmean(_floats))
+        self.assertEqual(hmean([1, 1, 1, 1, 1]), scipy_hmean([1, 1, 1, 1, 1]))
+        self.assertEqual(hmean([5, 5, 5, 5, 5]), scipy_hmean([5, 5, 5, 5, 5]))
 
         self.assertAlmostEqual(qmean(_ones), 1)
         self.assertAlmostEqual(qmean(_zeros), 0)
