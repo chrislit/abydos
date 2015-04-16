@@ -4154,8 +4154,8 @@ def metaphone3(word, maxlength=float('inf'), vowels=False, exact=False):
     """Return the Metaphone3 encodings of a word as a tuple
 
     Arguments:
-    word -- the word to apply the Double Metaphone algorithm to
-    maxlength -- the maximum length of the returned Double Metaphone codes
+    word -- the word to apply the Metaphone3 algorithm to
+    maxlength -- the maximum length of the returned Metaphone3 codes
         (defaults to unlimited though it is 8 by default in Metaphone3)
     vowels -- boolean indicating whether vowels are included in the encoding
     exact -- boolean indicating whether to use the exact vs. approximate
