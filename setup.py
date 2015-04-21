@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 def _read(fn):
     """Read fn and return the contents."""
@@ -9,7 +9,7 @@ def _read(fn):
 
 setup(
       name = 'abydos',
-      packages = ['abydos'],
+      packages = find_packages(exclude=['tests*']),
       version = '0.1.0',
       description = 'Abydos NLP/IR library',
       author = 'Christopher C. Little',
@@ -35,4 +35,6 @@ setup(
       long_description = (_read('README.rst') + '\n\n' +
                           _read('HISTORY.rst') + '\n\n' +
                           _read('AUTHORS.rst')),
+      install_requires = ['numpy', 'scipy'],
+      extras_require = {'LZMA': ['pyliblzma']},
     )
