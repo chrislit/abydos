@@ -13,9 +13,9 @@ setup(
       keywords = ["nlp", "ai", "ir"],
       classifiers = [
                      "Programming Language :: Python",
+                     "Programming Language :: Python :: 2",
                      "Programming Language :: Python :: 3",
                      "Development Status :: 4 - Beta",
-                     "Environment :: Other Environment",
                      "Intended Audience :: Developers",
                      "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
                      "Operating System :: OS Independent",
@@ -23,6 +23,7 @@ setup(
                      "Topic :: Software Development :: Libraries :: Python Modules",
                      "Topic :: Text Processing :: Indexing",
                      "Topic :: Text Processing :: Linguistic",
+                     "Natural Language :: English"
                      ],
       long_description = """\
 Abydos NLP/IR library
