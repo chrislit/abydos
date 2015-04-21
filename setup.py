@@ -4,13 +4,13 @@ from distutils.core import setup
 setup(
       name = "abydos",
       packages = ["abydos"],
-      version = "1.0.0",
-      description = "Abydos NLP library",
+      version = "0.1.0",
+      description = "Abydos NLP/IR library",
       author = "Christopher C. Little",
       author_email = "chrisclittle@gmail.com",
       url = "https://github.com/chrislit/abydos",
       download_url = "https://github.com/chrislit/abydos/archive/master.zip",
-      keywords = ["nlp", "ai"],
+      keywords = ["nlp", "ai", "ir"],
       classifiers = [
                      "Programming Language :: Python",
                      "Programming Language :: Python :: 3",
@@ -25,7 +25,7 @@ setup(
                      "Topic :: Text Processing :: Linguistic",
                      ],
       long_description = """\
-Abydos NLP library
+Abydos NLP/IR library
 ------------------
 
 Includes ...
