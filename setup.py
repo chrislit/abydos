@@ -12,6 +12,7 @@ setup(
       url = "https://github.com/chrislit/abydos",
       download_url = "https://github.com/chrislit/abydos/archive/master.zip",
       keywords = ["nlp", "ai", "ir"],
+      license='GPLv3+',
       classifiers = [
                      "Programming Language :: Python",
                      "Programming Language :: Python :: 2",
