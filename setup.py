@@ -2,6 +2,11 @@
 
 from setuptools import setup
 
+def _read(fn):
+    """Read fn and return the contents."""
+    with open(fn, 'r') as f:
+        return f.read()
+
 setup(
       name = 'abydos',
       packages = ['abydos'],
@@ -27,12 +32,7 @@ setup(
                      'Topic :: Text Processing :: Linguistic',
                      'Natural Language :: English'
                      ],
-      long_description = """\
-Abydos NLP/IR library
-------------------
-
-Includes ...
-
-This version requires Python 2.7 or later.
-"""
+      long_description = (_read('README.rst') + '\n\n' +
+                          _read('HISTORY.rst') + '\n\n' +
+                          _read('AUTHORS.rst')),
     )
