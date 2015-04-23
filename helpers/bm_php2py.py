@@ -8,7 +8,7 @@ import codecs, chardet
 import re
 import sys
 
-lang_tuple = ('any', 'arabic', 'cyrillic', 'czech', 'dutch', 'english', 'french', 'german', 'greek', 'greeklatin', 'hebrew', 'hungarian', 'italian', 'polish', 'portuguese', 'romanian', 'russian', 'spanish', 'turkish')
+lang_tuple = ('any', 'arabic', 'cyrillic', 'czech', 'dutch', 'english', 'french', 'german', 'greek', 'greeklatin', 'hebrew', 'hungarian', 'italian', 'polish', 'portuguese', 'romanian', 'russian', 'spanish', 'turkish', 'germandjsg', 'polishdjskp', 'russiandjsre')
 lang_dict = dict()
 for i,l in enumerate(lang_tuple):
     lang_dict[l] = 2**i
