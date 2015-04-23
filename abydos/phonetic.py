@@ -3940,7 +3940,8 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
                 "any", "arabic", "cyrillic", "czech", "dutch", "english",
                 "french", "german", "greek", "greeklatin", "hebrew",
                 "hungarian", "italian", "polish", "portuguese","romanian",
-                "russian", "spanish", "turkish"
+                "russian", "spanish", "turkish", "germandjsg", "polishdjskp",
+                "russiandjsre"
     name_mode -- the name mode of the algorithm: 'gen' (default),
                 'ash' (Ashkenazi), or 'sep' (Sephardic)
     match_mode -- matching mode: 'approx' or 'exact'

@@ -39,8 +39,8 @@ _LANG_DICT = {'any': L_ANY, 'arabic': L_ARABIC, 'cyrillic': L_CYRILLIC,
              'hungarian': L_HUNGARIAN, 'italian': L_ITALIAN, 'polish': L_POLISH,
              'portuguese': L_PORTUGUESE, 'romanian': L_ROMANIAN,
              'russian': L_RUSSIAN, 'spanish': L_SPANISH, 'turkish': L_TURKISH,
-             'german_djsg': L_GERMANDJSG, 'polish_djskp': L_POLISHDJSKP,
-             'russian_djsre': L_RUSSIANDJSRE}
+             'germandjsg': L_GERMANDJSG, 'polishdjskp': L_POLISHDJSKP,
+             'russiandjsre': L_RUSSIANDJSRE}
 
 BMDATA['gen']['discards'] = ('da ', 'dal ', 'de ', 'del ', 'dela ', 'de la ',
                              'della ', 'des ', 'di ', 'do ', 'dos ', 'du ',

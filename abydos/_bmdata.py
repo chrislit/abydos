@@ -1377,19 +1377,11 @@ _GEN_LANGUAGE_RULES = (
      )
 
 # gen/languagenames.php
-_GEN_LANGUAGES = ('any', 'arabic', 'cyrillic', 'czech', 'dutch', 'english', 'french', 'german', 'greek',
-     'greeklatin', 'hebrew', 'hungarian', 'italian', 'polish', 'portuguese', 'romanian',
-     'russian', 'spanish', 'turkish')
-
-# gen/languagenames1.php
-_GEN_LANGUAGES = ("any", "arabic", "cyrillic", "czech", "dutch", "english", "french", "german", "germandjsg", "greek",
-     "greeklatin", "hebrew", "hungarian", "italian", "polish", "polishdjskp", "portuguese","romanian",
-     "russian", "russiandjsre", "spanish", "turkish")
-
-# gen/languagenames2.php
-_GEN_LANGUAGES = ("any", "arabic", "cyrillic", "czech", "dutch", "english", "french", "german", "greek",
-     "greeklatin", "hebrew", "hungarian", "italian", "polish", "portuguese","romanian",
-     "russian", "spanish", "turkish")
+_GEN_LANGUAGES = ("any", "arabic", "cyrillic", "czech", "dutch", "english",
+                  "french", "german", "germandjsg", "greek", "greeklatin",
+                  "hebrew", "hungarian", "italian", "polish", "polishdjskp",
+                  "portuguese","romanian", "russian", "russiandjsre", "spanish",
+                  "turkish")
 
 # gen/rulesany.php
 # format of each entry rule in the table
@@ -6085,12 +6077,6 @@ _ASH_RULES_GERMAN = (
 
      )
 
-# ash/rulesgermandjsg.php
-
-# this file uses the same rules as rulesgerman.php
-
-_ASH_RULES_GERMANDJSG = _ASH_RULES_GERMAN
-
 # ash/ruleshebrew.php
 
 # Ashkenazic
@@ -6391,7 +6377,7 @@ _ASH_RULES_POLISH = (
 
 # ash/rulespolishdjskp.php
 
-_ASH_RULES_POLISHDJSKP = (
+_GEN_RULES_POLISHDJSKP = (
 
      # CONSONANTS
      ('cka', '', '$', 'tski'), # because in rulespolish all final ska --> ski
@@ -6706,7 +6692,7 @@ _ASH_RULES_RUSSIAN = (
 
 # ash/rulesrussiandjsre.php
 
-_ASH_RULES_RUSSIANDJSRE = (
+_GEN_RULES_RUSSIANDJSRE = (
      ('tsya', '', '', 'tsa'),
      ('tsyu', '', '', 'tsu'),
      ('tsia', '', '', 'tsa'),
@@ -6946,6 +6932,9 @@ BMDATA['gen']['rules'][32768] = _GEN_RULES_ROMANIAN
 BMDATA['gen']['rules'][65536] = _GEN_RULES_RUSSIAN
 BMDATA['gen']['rules'][131072] = _GEN_RULES_SPANISH
 BMDATA['gen']['rules'][262144] = _GEN_RULES_TURKISH
+BMDATA['gen']['rules'][524288] = _GEN_RULES_GERMAN
+BMDATA['gen']['rules'][1048576] = _GEN_RULES_POLISHDJSKP
+BMDATA['gen']['rules'][2097152] = _GEN_RULES_RUSSIANDJSRE
 
 BMDATA['sep'] = dict()
 BMDATA['sep']['approx'] = dict()
@@ -7015,12 +7004,9 @@ BMDATA['ash']['rules'][4] = _ASH_RULES_CYRILLIC
 BMDATA['ash']['rules'][32] = _ASH_RULES_ENGLISH
 BMDATA['ash']['rules'][64] = _ASH_RULES_FRENCH
 BMDATA['ash']['rules'][128] = _ASH_RULES_GERMAN
-BMDATA['ash']['rules'][524288] = _ASH_RULES_GERMANDJSG
 BMDATA['ash']['rules'][1024] = _ASH_RULES_HEBREW
 BMDATA['ash']['rules'][2048] = _ASH_RULES_HUNGARIAN
 BMDATA['ash']['rules'][8192] = _ASH_RULES_POLISH
-BMDATA['ash']['rules'][1048576] = _ASH_RULES_POLISHDJSKP
 BMDATA['ash']['rules'][32768] = _ASH_RULES_ROMANIAN
 BMDATA['ash']['rules'][65536] = _ASH_RULES_RUSSIAN
-BMDATA['ash']['rules'][2097152] = _ASH_RULES_RUSSIANDJSRE
 BMDATA['ash']['rules'][131072] = _ASH_RULES_SPANISH
