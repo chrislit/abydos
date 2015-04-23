@@ -4328,7 +4328,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                          ' borxDm varxDm vorxDm barxDn borxDn')
 
         # test that out-of-range langauge_arg results in L_ANY
-        self.assertEqual(bmpm('Rodham Clinton', language_arg=2097152),
+        self.assertEqual(bmpm('Rodham Clinton', language_arg=2**32),
                          'rodam rodom rYdam rYdom rodan rodon rodxam rodxom' +
                          ' rodxan rodxon rudam rudom klnton klntun tzlnton' +
                          ' tzlntun zlnton')
