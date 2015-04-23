@@ -9,11 +9,27 @@ The distance module implements string edit distance functions including:
     Tversky index
     Sørensen–Dice coefficient & distance
     Jaccard similarity coefficient & distance
+    overlap similarity & distance
     Tanimoto coefficient & distance
+    cosine similarity & distance
     Jaro distance
     Jaro-Winkler distance (incl. the strcmp95 algorithm variant)
     Longest common substring
+    Ratcliff-Obershelp similarity & distance
     Match Rating Algorithm similarity
+    Normalized Compression Distance (NCD) & similarity
+    Monge-Elkan similarity & distance
+    Matrix similarity
+    Needleman-Wunsch score
+    Smither-Waterman score
+    Gotoh score
+    Length similarity
+    Prefix, Suffix, and Identity similarity & distance
+    Modified Language-Independent Product Name Search (MLIPNS) similarity &
+        distance
+    Bag distance (incl. a [0, 1] normalized variant)
+    Editex distance (incl. a [0, 1] normalized variant)
+    TF-IDF similarity
 
 
 Copyright 2014 by Christopher C. Little.
@@ -1085,8 +1101,7 @@ def dist_lcsstr(src, tar):
 
 
 def sim_ratcliff_obershelp(src, tar):
-    """Returns the longest common substring distance (dist_{LCSstr}) of two
-    strings
+    """Returns the Ratcliff-Obershelp similarity of two strings
 
     Arguments:
     src, tar -- two strings to be compared
