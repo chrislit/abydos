@@ -18,7 +18,7 @@ calculating the following data based on a confusion table:
     significance & Matthews correlation coefficient calculation
 
 
-Copyright 2014 by Christopher C. Little.
+Copyright 2014-2015 by Christopher C. Little.
 This file is part of Abydos.
 
 Abydos is free software: you can redistribute it and/or modify

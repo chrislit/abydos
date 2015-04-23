@@ -22,7 +22,7 @@ The phonetic module implements phonetic algorithms including:
     Beider-Morse Phonetic Matching
 
 
-Copyright 2014 by Christopher C. Little.
+Copyright 2014-2015 by Christopher C. Little.
 This file is part of Abydos.
 
 Abydos is free software: you can redistribute it and/or modify
