@@ -561,6 +561,8 @@ def mra(word):
     A description of the algorithm can be found on page 18 of
     https://archive.org/details/accessingindivid00moor
     """
+    if not len(word):
+        return word
     word = word.upper()
     word = word.replace('ß', 'SS')
     word = word[0]+''.join([c for c in word[1:] if c not in tuple('AEIOU')])
