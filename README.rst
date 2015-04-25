@@ -21,16 +21,22 @@ Recommended:
 
 -----
 
-To build/install/unittest in Python 2::
+To build/install/unittest in Python 2:
 
-sudo python setup.py install; nosetests -v --with-coverage --cover-erase --cover-html --cover-branches --cover-package=abydos .
+::
 
-To build/install/unittest in Python 3::
+    sudo python setup.py install
+    nosetests -v --with-coverage --cover-erase --cover-html --cover-branches --cover-package=abydos .
 
-sudo python3 setup.py install; nosetests3 -v --with-coverage --cover-erase --cover-html --cover-branches --cover-package=abydos .
+To build/install/unittest in Python 3:
 
-For pylint testing, run::
+::
 
-pylint --rcfile=pylint.rc abydos > pylint.log
+    sudo python3 setup.py install
+    nosetests3 -v --with-coverage --cover-erase --cover-html --cover-branches --cover-package=abydos .
 
+For pylint testing, run:
 
+::
+
+    pylint --rcfile=pylint.rc abydos > pylint.log
