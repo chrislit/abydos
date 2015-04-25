@@ -18,3 +18,4 @@ A git push should be performed only under the following conditions:
 - library passes all tests according to nosetests in both Python 2 & 3
 - test coverage is 100% according to nosetests
 - using the included pylint.rc, pylint reports a 10/10 rating
+c
