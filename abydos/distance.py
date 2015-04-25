@@ -1901,18 +1901,23 @@ def sim_editex(src, tar, cost=(0, 1, 2)):
     return 1 - dist_editex(src, tar, cost)
 
 
-def sim_tfidf(src, tar, qval=2, docs=None):
+def sim_tfidf(src, tar, qval=2, docs_src=None, docs_tar=None):
     """Return the TF-IDF similarity of two strings
 
     Arguments:
     src, tar -- two strings to be compared (or QGrams/Counter objects)
     qval -- the length of each q-gram; 0 or None for non-q-gram version
-    docs -- a Counter object or string representing the document corpus
+    docs_src -- a Counter object or string representing the document corpus
+        for the src string
+    docs_tar -- a Counter object or string representing the document corpus
+        for the tar string (or set to None to use the docs_src for both)
 
     Description:
+    This is chiefly based on the "Formal Definition of TF/IDF Distance" at:
+    http://alias-i.com/lingpipe/docs/api/com/aliasi/spell/TfIdfDistance.html
     """
     if src == tar:
-        return 1.0
+        return 1.0 # TODO: confirm the correctness of this when the docs are different
     elif len(src) == 0 or len(tar) == 0:
         return 0.0
 
@@ -1926,12 +1931,12 @@ def sim_tfidf(src, tar, qval=2, docs=None):
         q_src = Counter(src.strip().split())
         q_tar = Counter(tar.strip().split())
 
-    if isinstance(docs, Counter):
-        q_docs = docs
+    if isinstance(docs_src, Counter):
+        q_docs = docs_src
     elif qval and qval > 0:
-        q_docs = QGrams(docs, qval)
+        q_docs = QGrams(docs_src, qval)
     else:
-        q_docs = Counter(docs.strip().split())
+        q_docs = Counter(docs_src.strip().split())
 
     if len(q_src) == 0 or len(q_tar) == 0:
         return 0.0
