@@ -31,6 +31,7 @@ class Corpus(object):
     documents. And each sentence is an ordered list of words that make up that
     sentence.
     """
+
     def __init__(self, corpus_text='', doc_split='\n', sent_split='.',
                  filter_chars='', stop_words=[]):
         """Corpus initializer
@@ -62,3 +63,15 @@ class Corpus(object):
                     doc.append(sentence)
             if doc:
                 self.corpus.append(doc)
+
+    def docs(self):
+        return self.corpus
+
+    def paras(self):
+        return self.docs()
+
+    def sents(self):
+        return [words for sents in self.corpus for words in sents]
+
+    def words(self):
+        return [words for sents in self.sents() for words in sents]
