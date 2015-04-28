@@ -1239,3 +1239,16 @@ def lancaster(word):
     http://wayback.archive.org/web/20140724170659/http://www.comp.lancs.ac.uk/computing/research/stemming/Links/paice.htm
     """
     pass
+
+
+def caumanns(word):
+    """Implementation of the Jörg Caumanns' German stemmer
+
+    Arguments:
+    word -- the word to calculate the stem of
+
+    Description:
+    Caumanns' stemmer is described in his article at
+    http://edocs.fu-berlin.de/docs/servlets/MCRFileNodeServlet/FUDOCS_derivate_000000000350/tr-b-99-16.pdf
+    """
+    pass
