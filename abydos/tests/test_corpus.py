@@ -75,5 +75,15 @@ class CorpusTestCases(unittest.TestCase):
                          [[['abc']], [['def', 'ghi']],
                           [['a', 'b', 'c', 'd', 'e', 'f', 'g']]])
 
+        # sentences with stopword removal
+        self.assertEqual(Corpus('The quick brown fox jumped over the lazy dog',
+                                stop_words=('The', 'the')).corpus,
+                          [[['quick', 'brown', 'fox', 'jumped', 'over', 'lazy',
+                             'dog']]])
+        self.assertEqual(Corpus('a ab abc def',
+                                stop_words=('A', 'a')).corpus,
+                          [[['ab', 'abc', 'def']]])
+
+
 if __name__ == '__main__':
     unittest.main()
