@@ -1211,3 +1211,17 @@ def lovins(word):
     http://www.mt-archive.info/MT-1968-Lovins.pdf
     """
     pass
+
+
+def uealite(word):
+    """Implementation of the UEA-Lite stemmer
+
+    Arguments:
+    word -- the word to calculate the stem of
+
+    Description:
+    The UEA-Lite stemmer is defined in Marie-Claire Jenkins and Dan Smith's
+    article at
+    http://wayback.archive.org/web/20121012154211/http://www.uea.ac.uk/polopoly_fs/1.85493!stemmer25feb.pdf
+    """
+    pass
