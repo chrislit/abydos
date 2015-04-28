@@ -1225,3 +1225,17 @@ def uealite(word):
     http://wayback.archive.org/web/20121012154211/http://www.uea.ac.uk/polopoly_fs/1.85493!stemmer25feb.pdf
     """
     pass
+
+
+def lancaster(word):
+    """Implementation of the Lancaster Stemming Algorithm, developed by
+    Chris Paice, with the assistance of Gareth Husk
+
+    Arguments:
+    word -- the word to calculate the stem of
+
+    Description:
+    The Lancaster Stemming Algorithm, described at:
+    http://wayback.archive.org/web/20140724170659/http://www.comp.lancs.ac.uk/computing/research/stemming/Links/paice.htm
+    """
+    pass
