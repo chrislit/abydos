@@ -36,8 +36,10 @@ class Corpus(object):
         """Corpus initializer
 
         corpus_text -- The corpus text as a single string
-        doc_split -- a character used to split corpus_text into documents
-        sent_split -- a character used to split documents into sentences
+        doc_split -- a character or string used to split corpus_text into
+            documents
+        sent_split -- a character or string used to split documents into
+            sentences
         filter_chars -- A list of characters (as a string, tuple, set, or list)
             to filter out of the corpus text
         stop_words -- A list of words (as a tuple, set, or list) to filter out

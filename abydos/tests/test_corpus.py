@@ -84,6 +84,31 @@ class CorpusTestCases(unittest.TestCase):
                                 stop_words=('A', 'a')).corpus,
                           [[['ab', 'abc', 'def']]])
 
+        # alternate document divider
+        self.assertEqual(Corpus('The quick brown@ fox jumped over@the lazy dog',
+                                doc_split='@').corpus,
+                          [[['The', 'quick', 'brown']],
+                           [['fox', 'jumped', 'over']],
+                           [['the', 'lazy', 'dog']]])
+
+        # alternate sentence divider
+        self.assertEqual(Corpus('The quick brown$ fox jumped over$the lazy dog',
+                                sent_split='$').corpus,
+                          [[['The', 'quick', 'brown'],
+                            ['fox', 'jumped', 'over'],
+                            ['the', 'lazy', 'dog']]])
+        self.assertEqual(Corpus('The quick brown$ fox jumped over@the lazy dog',
+                                doc_split='@', sent_split='$').corpus,
+                          [[['The', 'quick', 'brown'],
+                            ['fox', 'jumped', 'over']],
+                           [['the', 'lazy', 'dog']]])
+        self.assertEqual(Corpus('<BOS> The quick brown <EOS>'+
+                                '<BOS> fox jumped over the lazy dog <EOS>',
+                                sent_split='<BOS>',
+                                stop_words=['<EOS>']).corpus,
+                          [[['The', 'quick', 'brown'],
+                            ['fox', 'jumped', 'over', 'the', 'lazy', 'dog']]])
+        
 
 if __name__ == '__main__':
     unittest.main()
