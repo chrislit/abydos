@@ -26,14 +26,18 @@ from __future__ import unicode_literals
 class Corpus(object):
     """The Corpus class
 
-    Internally, this is a list of lists. The corpus itself is an ordered list of
-    sentences; each sentence is an ordered list of words that make up the
+    Internally, this is a list of lists or lists. The corpus itself is a list
+    of documents. Each document is an ordered list of sentences in those
+    documents. And each sentence is an ordered list of words that make up that
     sentence.
     """
-    def __init__(self, corpus_text='', filter_chars='', stop_words=[]):
+    def __init__(self, corpus_text='', doc_split='\n', sent_split='.',
+                 filter_chars='', stop_words=[]):
         """Corpus initializer
 
         corpus_text -- The corpus text as a single string
+        doc_split -- a character used to split corpus_text into documents
+        sent_split -- a character used to split documents into sentences
         filter_chars -- A list of characters (as a string, tuple, set, or list)
             to filter out of the corpus text
         stop_words -- A list of words (as a tuple, set, or list) to filter out
@@ -44,13 +48,15 @@ class Corpus(object):
         """
         self.corpus = []
 
-        for sentence in [s.split() for s in corpus_text.splitlines()]:
-            for sw in set(stop_words):
-                while sw in sentence:
-                    sentence.remove(sw)
-            for char in set(filter_chars):
-                sentence = [w.replace(char, '') for w in sentence]
-            self.corpus.append(sentence)
-
-        while [] in self.corpus:
-            self.corpus.remove([])
+        for document in corpus_text.split(doc_split):
+            doc = []
+            for sentence in [s.split() for s in document.split(sent_split)]:
+                for sw in set(stop_words):
+                    while sw in sentence:
+                        sentence.remove(sw)
+                for char in set(filter_chars):
+                    sentence = [w.replace(char, '') for w in sentence]
+                if sentence:
+                    doc.append(sentence)
+            if doc:
+                self.corpus.append(doc)
