@@ -46,7 +46,7 @@ class Corpus(object):
 
         for sentence in [s.split() for s in corpus_text.splitlines()]:
             for sw in set(stop_words):
-                if sw in sentence:
+                while sw in sentence:
                     sentence.remove(sw)
             for char in set(filter_chars):
                 sentence = [w.replace(char, '') for w in sentence]
