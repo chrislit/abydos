@@ -39,27 +39,28 @@ class CorpusTestCases(unittest.TestCase):
         self.assertEqual(Corpus(' \n ').corpus, [])
 
         # one sentence
-        self.assertEqual(Corpus('a').corpus, [['a']])
-        self.assertEqual(Corpus('ab ab').corpus, [['ab', 'ab']])
-        self.assertEqual(Corpus('abc def ghi').corpus, [['abc', 'def', 'ghi']])
+        self.assertEqual(Corpus('a').corpus, [[['a']]])
+        self.assertEqual(Corpus('ab ab').corpus, [[['ab', 'ab']]])
+        self.assertEqual(Corpus('abc def ghi').corpus,
+                         [[['abc', 'def', 'ghi']]])
 
         # multiple sentences
         self.assertEqual(Corpus('abc\ndef ghi').corpus,
-                         [['abc'], ['def', 'ghi']])
+                         [[['abc']], [['def', 'ghi']]])
         self.assertEqual(Corpus('abc\ndef ghi\n').corpus,
-                         [['abc'], ['def', 'ghi']])
+                         [[['abc']], [['def', 'ghi']]])
         self.assertEqual(Corpus('\nabc\r\ndef ghi\n').corpus,
-                         [['abc'], ['def', 'ghi']])
+                         [[['abc']], [['def', 'ghi']]])
 
         # sentence(s) with ignorables
-        self.assertEqual(Corpus('abc. d-ef ghi.', '.-').corpus,
-                         [['abc', 'def', 'ghi']])
-        self.assertEqual(Corpus('abc.\nd-ef ghi.\n', '.-').corpus,
-                         [['abc'], ['def', 'ghi']])
+        self.assertEqual(Corpus('abc. d-ef ghi.', filter_chars='.-').corpus,
+                         [[['abc'], ['def', 'ghi']]])
+        self.assertEqual(Corpus('abc.\nd-ef ghi.\n', filter_chars='.-').corpus,
+                         [[['abc']], [['def', 'ghi']]])
         self.assertEqual(Corpus('\nabc\r\ndef ghi\na b c d e f g.\n',
-                                '.-').corpus,
-                         [['abc'], ['def', 'ghi'],
-                          ['a', 'b', 'c', 'd', 'e', 'f', 'g']])
+                                filter_chars='.-').corpus,
+                         [[['abc']], [['def', 'ghi']],
+                          [['a', 'b', 'c', 'd', 'e', 'f', 'g']]])
 
 if __name__ == '__main__':
     unittest.main()
