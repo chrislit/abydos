@@ -38,19 +38,32 @@ class CorpusTestCases(unittest.TestCase):
         self.assertEqual(Corpus(' \n').corpus, [])
         self.assertEqual(Corpus(' \n ').corpus, [])
 
-        # one sentence
+        # one document/one sentence
         self.assertEqual(Corpus('a').corpus, [[['a']]])
         self.assertEqual(Corpus('ab ab').corpus, [[['ab', 'ab']]])
         self.assertEqual(Corpus('abc def ghi').corpus,
                          [[['abc', 'def', 'ghi']]])
 
-        # multiple sentences
+        # multiple documents (one sentence each)
         self.assertEqual(Corpus('abc\ndef ghi').corpus,
                          [[['abc']], [['def', 'ghi']]])
         self.assertEqual(Corpus('abc\ndef ghi\n').corpus,
                          [[['abc']], [['def', 'ghi']]])
         self.assertEqual(Corpus('\nabc\r\ndef ghi\n').corpus,
                          [[['abc']], [['def', 'ghi']]])
+
+        # one document (multiple sentences each)
+        self.assertEqual(Corpus('abc. def ghi').corpus,
+                         [[['abc'], ['def', 'ghi']]])
+        self.assertEqual(Corpus('abc. def ghi.').corpus,
+                         [[['abc'], ['def', 'ghi']]])
+        self.assertEqual(Corpus('.abc. def ghi.').corpus,
+                         [[['abc'], ['def', 'ghi']]])
+
+        # multiple documents (multiple sentences each)
+        self.assertEqual(Corpus('abc. abc def.\ndef ghi. jkl.').corpus,
+                         [[['abc'], ['abc', 'def']],
+                          [['def', 'ghi'], ['jkl']]])
 
         # sentence(s) with ignorables
         self.assertEqual(Corpus('abc. d-ef ghi.', filter_chars='.-').corpus,
