@@ -30,22 +30,27 @@ class Corpus(object):
     sentences; each sentence is an ordered list of words that make up the
     sentence.
     """
-    corpus = []
-
-    def __init__(self, corpus_text='', filter_chars=''):
+    def __init__(self, corpus_text='', filter_chars='', stop_words=[]):
         """Corpus initializer
 
         corpus_text -- The corpus text as a single string
         filter_chars -- A list of characters (as a string, tuple, set, or list)
-            to filter out of the corpus text.
+            to filter out of the corpus text
+        stop_words -- A list of words (as a tuple, set, or list) to filter out
+            of the corpus text
 
         When importing a corpus, newlines divide sentences and other whitespace
         divides words.
         """
-        for char in set(filter_chars):
-            if char in corpus_text:
-                corpus_text = corpus_text.replace(char, '')
+        self.corpus = []
 
-        self.corpus = [s.split() for s in corpus_text.splitlines()]
+        for sentence in [s.split() for s in corpus_text.splitlines()]:
+            for sw in set(stop_words):
+                if sw in sentence:
+                    sentence.remove(sw)
+            for char in set(filter_chars):
+                sentence = [w.replace(char, '') for w in sentence]
+            self.corpus.append(sentence)
+
         while [] in self.corpus:
             self.corpus.remove([])
