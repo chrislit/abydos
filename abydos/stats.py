@@ -11,11 +11,18 @@ calculating the following data based on a confusion table:
         false discovery rate, accuracy, balanced accuracy, informedness,
         and markedness
     various means of the precision & recall, including: arithmetic, geometric,
-        harmonic, quadratic, logarithmic, contraharmonic, identic, & power
-        means
+        harmonic, quadratic, logarithmic, contraharmonic, identric, &
+        Hölder (power) means
     F_{β}-scores, E-scores, G-measures, along with special functions for
-        F1, F-1/2, and F2 scores
+        F1, F-1/2, & F2 scores
     significance & Matthews correlation coefficient calculation
+
+Functions are provided for calculating the following means:
+    arithmetic, geometric, harmonic, quadratic, contraharmonic, logarithmic,
+    identric, Seiffert's, Lehmer, Heronian, Hölder (power),
+    arithmetic-geometric, geometric-harmonic, & arithmetic-geometric-harmonic
+And for calculating:
+    midrange, median, & mode
 
 
 Copyright 2014-2015 by Christopher C. Little.
