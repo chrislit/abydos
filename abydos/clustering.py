@@ -163,19 +163,50 @@ def omission_key(word):
     return key
 
 
-def bwt(word):
+def bwt(word, terminator='\0'):
     """Return the Burrows-Wheeler transformed form of a word
 
     Arguments:
     word -- the word to transform using BWT
+    terminator -- a character to add to word to signal the end of the string
 
     Description:
     The Burrows-Wheeler transform is an attempt at placing similar characters
     together to improve compression.
     Cf. https://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform
     """
-    wordlist = sorted([word[i:]+word[:i] for i in _range(len(word))])
-    return ''.join([w[-1] for w in wordlist])
+    if word:
+        assert terminator not in word, ('Specified terminator, '+
+                                        terminator if terminator else '\\0'+
+                                        ', already in word.')
+        word += terminator
+        wordlist = sorted([word[i:]+word[:i] for i in _range(len(word))])
+        return ''.join([w[-1] for w in wordlist])
+    return terminator
+
+
+def bwt_decode(code, terminator='\0'):
+    """Return a word decoded from BWT form
+
+    Arguments:
+    code -- the word to transform from BWT form
+    terminator -- a character added to word to signal the end of the string
+
+    Description:
+    The Burrows-Wheeler transform is an attempt at placing similar characters
+    together to improve compression. This function reverses the transform.
+    Cf. https://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform
+    """
+    if code:
+        assert terminator in code, ('Specified terminator, '+
+                                    terminator if terminator else '\\0'+
+                                    ', already in word.')
+        wordlist = [''] * len(code)
+        for i in _range(len(code)):
+            wordlist = sorted([code[i]+wordlist[i] for i in _range(len(code))])
+        s = [w for w in wordlist if w[-1] == '\0'][0]
+        return s.rstrip('\0')
+    return ''
 
 
 def mean_pairwise_similarity(collection, metric=sim,
