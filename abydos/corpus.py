@@ -104,4 +104,5 @@ class Corpus(object):
         Each list within the corpus represents all the words of that document.
         Thus the sentence level of lists has been flattened.
         """
-        pass
+        return [[words for sents in doc for words in sents]
+                for doc in self.corpus]
