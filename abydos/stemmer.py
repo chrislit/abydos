@@ -33,6 +33,19 @@ import unicodedata
 from ._compat import _range, _unicode
 
 
+def lovins(word):
+    """Implementation of Lovins stemmer by Julie Beth Lovins
+
+    Arguments:
+    word -- the word to calculate the stem of
+
+    Description:
+    The Lovins stemmer is described in her article at
+    http://www.mt-archive.info/MT-1968-Lovins.pdf
+    """
+    pass
+
+
 def _m_degree(term, vowels):
     """Return the m-degree as defined in the Porter stemmer definition
 
@@ -1204,19 +1217,6 @@ def clef_swedish(word):
         if word[-1] in set('taen'):
             return word[:-1]
     return word
-
-
-def lovins(word):
-    """Implementation of Lovins stemmer by Julie Beth Lovins
-
-    Arguments:
-    word -- the word to calculate the stem of
-
-    Description:
-    The Lovins stemmer is described in her article at
-    http://www.mt-archive.info/MT-1968-Lovins.pdf
-    """
-    pass
 
 
 def uealite(word):
