@@ -22,6 +22,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
 from __future__ import unicode_literals
+from math import log10
 
 class Corpus(object):
     """The Corpus class
@@ -118,3 +119,30 @@ class Corpus(object):
             doc_list.append(self.sent_split.join(sent_list))
             del sent_list
         return self.doc_split.join(doc_list)
+
+    def idf(self, term, transform=None):
+        """Calculates the Inverse Document Frequency (IDF) of a term in the
+        corpus.
+
+        Arguments:
+        term -- the term to calculate the IDF of
+        transform -- a function to apply to each document term before
+            checking for the presence of term
+        """
+        docs_with_term = 0
+        docs = self.docs_of_words()
+        for doc in docs:
+            doc_set = set(doc)
+            if transform:
+                transformed_doc = []
+                for word in doc_set:
+                    transformed_doc.append(transform(word))
+                doc_set = set(transformed_doc)
+
+            if term in doc_set:
+                docs_with_term += 1
+
+        if docs_with_term == 0:
+            return float('inf')
+
+        return log10(len(docs)/docs_with_term)
