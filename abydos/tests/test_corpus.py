@@ -111,7 +111,7 @@ class CorpusTestCases(unittest.TestCase):
 
         
     def test_corpus_docs_sents_words(self):
-        """test abydos.corpus.docs, .sents, .words
+        """test abydos.corpus.docs, .sents, .words, .docs_of_words
         """
         tc = Corpus('a b c d\n\ne f g\nh i j\nk')
 
@@ -127,6 +127,10 @@ class CorpusTestCases(unittest.TestCase):
         self.assertEqual(tc.words(),
                          ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
                           'k'])
+
+        self.assertEqual(tc.docs_of_words(),
+                         [['a', 'b', 'c', 'd'],
+                          ['e', 'f', 'g', 'h', 'i', 'j', 'k']])
 
 
 if __name__ == '__main__':

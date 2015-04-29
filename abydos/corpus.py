@@ -96,3 +96,12 @@ class Corpus(object):
         """Return the words in the corpus: a list of strs
         """
         return [words for sents in self.sents() for words in sents]
+
+    def docs_of_words(self):
+        """Return the docs in the corpus as lists of words: a list of (lists of
+        strs)
+
+        Each list within the corpus represents all the words of that document.
+        Thus the sentence level of lists has been flattened.
+        """
+        pass
