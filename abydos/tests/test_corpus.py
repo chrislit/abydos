@@ -27,6 +27,44 @@ from abydos.corpus import Corpus
 class CorpusTestCases(unittest.TestCase):
     """test cases for abydos.corpus
     """
+    sotu2015Sample = 'Mr. Speaker, Mr. Vice President, Members of Congress, my\
+    fellow Americans:\n\nWe are 15 years into this new century.\n Fifteen years\
+    that dawned with terror touching our shores; that unfolded with a new\
+    generation fighting two long and costly wars; that saw a vicious recession\
+    spread across our nation and the world.\n It has been, and still is, a hard\
+    time for many.\n\nBut tonight, we turn the page.\n Tonight, after a\
+    breakthrough year for America, our economy is growing and creating jobs at\
+    the fastest pace since 1999.\n Our unemployment rate is now lower than it\
+    was before the financial crisis.\n More of our kids are graduating than\
+    ever before.\n More of our people are insured than ever before.\n And we\
+    are as free from the grip of foreign oil as we\'ve been in almost 30 years.\
+    \n\nTonight, for the first time since 9/11, our combat mission in\
+    Afghanistan is over.\n Six years ago, nearly 180,000 American troops served\
+    in Iraq and Afghanistan.\n Today, fewer than 15,000 remain.\n And we salute\
+    the courage and sacrifice of every man and woman in this 9/11 Generation\
+    who has served to keep us safe.\n We are humbled and grateful for your\
+    service.\n\nAmerica, for all that we have endured; for all the grit and\
+    hard work required to come back; for all the tasks that lie ahead, know\
+    this: The shadow of crisis has passed, and the State of the Union is\
+    strong.\n\nAt this moment -- with a growing economy, shrinking deficits,\
+    bustling industry, booming energy production -- we have risen from\
+    recession freer to write our own future than any other nation on Earth.\n\
+    It\'s now up to us to choose who we want to be over the next 15 years and\
+    for decades to come.\n\nWill we accept an economy where only a few of us do\
+    spectacularly well?\n Or will we commit ourselves to an economy that\
+    generates rising incomes and chances for everyone who makes the effort?\n\n\
+    Will we approach the world fearful and reactive, dragged into costly\
+    conflicts that strain our military and set back our standing?\n Or will we\
+    lead wisely, using all elements of our power to defeat new threats and\
+    protect our planet?\n\nWill we allow ourselves to be sorted into factions\
+    and turned against one another?\n Or will we recapture the sense of common\
+    purpose that has always propelled America forward?\n\nIn two weeks, I will\
+    send this Congress a budget filled with ideas that are practical, not\
+    partisan.\n And in the months ahead, I\'ll crisscross the country making a\
+    case for those ideas.\n So tonight, I want to focus less on a checklist of\
+    proposals, and focus more on the values at stake in the choices before us.'
+    sotu2015Corpus = Corpus(sotu2015Sample, filter_chars='.?-;,:')
+
 
     def test_corpus(self):
         """test abydos.corpus.Corpus
