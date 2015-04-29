@@ -106,3 +106,8 @@ class Corpus(object):
         """
         return [[words for sents in doc for words in sents]
                 for doc in self.corpus]
+
+    def raw(self):
+        """Return the corpus as a single reconstructed string
+        """
+        pass
