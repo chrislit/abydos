@@ -24,7 +24,8 @@ from __future__ import unicode_literals
 from abydos._compat import _range
 import unittest
 from abydos.clustering import fingerprint, qgram_fingerprint, \
-    phonetic_fingerprint, skeleton_key, omission_key, mean_pairwise_similarity
+    phonetic_fingerprint, skeleton_key, omission_key, bwt, bwt_decode, \
+    mean_pairwise_similarity
 import abydos.stats as stats
 import abydos.phonetic as phonetic
 
@@ -141,7 +142,14 @@ class BWTTestCases(unittest.TestCase):
     def test_bwt(self):
         """test abydos.clustering.bwt
         """
-        pass
+
+        # Examples from Wikipedia entry on BWT
+        self.assertEqual(bwt('^BANANA', '|'), 'BNN^AA|A')
+        self.assertEqual(bwt('SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES',
+                             '|'),
+                         'TEXYDST.E.IXIXIXXSSMPPS.B..E.|.UESFXDIIOIIITS')
+
+        self.assertEqual(bwt('aardvark', '$'), 'k$avrraad')
 
     def test_bwt_decode(self):
         """test abydos.clustering.bwt_clustering
