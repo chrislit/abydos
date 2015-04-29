@@ -2,10 +2,18 @@
 """abydos._compat.py
 
 The _compat module defines some variables to enable Python 2 and Python 3
-compatability within a single codebase
+compatibility within a single codebase
+
+The following are defined:
+    _range   -- use in place of xrange/range
+    _unicode -- use in place of unicode/str
+    _unichr  -- use in place of unichr/chr
+    _long    -- use in place of long/int
+And:
+    numeric_type -- defines the set of numeric types
 
 
-Copyright 2014 by Christopher C. Little.
+Copyright 2014-2015 by Christopher C. Little.
 This file is part of Abydos.
 
 Abydos is free software: you can redistribute it and/or modify
