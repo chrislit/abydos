@@ -45,32 +45,32 @@ class CorpusTestCases(unittest.TestCase):
                          [[['abc', 'def', 'ghi']]])
 
         # multiple documents (one sentence each)
-        self.assertEqual(Corpus('abc\ndef ghi').corpus,
+        self.assertEqual(Corpus('abc\n\ndef ghi').corpus,
                          [[['abc']], [['def', 'ghi']]])
-        self.assertEqual(Corpus('abc\ndef ghi\n').corpus,
+        self.assertEqual(Corpus('abc\n\ndef ghi\n\n').corpus,
                          [[['abc']], [['def', 'ghi']]])
-        self.assertEqual(Corpus('\nabc\r\ndef ghi\n').corpus,
+        self.assertEqual(Corpus('\n\nabc\r\n\ndef ghi\n\n').corpus,
                          [[['abc']], [['def', 'ghi']]])
 
         # one document (multiple sentences each)
-        self.assertEqual(Corpus('abc. def ghi').corpus,
+        self.assertEqual(Corpus('abc\n def ghi').corpus,
                          [[['abc'], ['def', 'ghi']]])
-        self.assertEqual(Corpus('abc. def ghi.').corpus,
+        self.assertEqual(Corpus('abc\n def ghi\n').corpus,
                          [[['abc'], ['def', 'ghi']]])
-        self.assertEqual(Corpus('.abc. def ghi.').corpus,
+        self.assertEqual(Corpus('\nabc\n def ghi\n').corpus,
                          [[['abc'], ['def', 'ghi']]])
 
         # multiple documents (multiple sentences each)
-        self.assertEqual(Corpus('abc. abc def.\ndef ghi. jkl.').corpus,
+        self.assertEqual(Corpus('abc\n abc def\n\n\ndef ghi\n jkl\n').corpus,
                          [[['abc'], ['abc', 'def']],
                           [['def', 'ghi'], ['jkl']]])
 
         # sentence(s) with ignorables
-        self.assertEqual(Corpus('abc. d-ef ghi.', filter_chars='.-').corpus,
+        self.assertEqual(Corpus('abc\nd-ef ghi\n', filter_chars='.-').corpus,
                          [[['abc'], ['def', 'ghi']]])
-        self.assertEqual(Corpus('abc.\nd-ef ghi.\n', filter_chars='.-').corpus,
+        self.assertEqual(Corpus('abc\n\n\nd-ef ghi\n\n\n', filter_chars='.-').corpus,
                          [[['abc']], [['def', 'ghi']]])
-        self.assertEqual(Corpus('\nabc\r\ndef ghi\na b c d e f g.\n',
+        self.assertEqual(Corpus('\n\nabc\r\n\ndef ghi.\n\na b c d e f g.\n\n\n',
                                 filter_chars='.-').corpus,
                          [[['abc']], [['def', 'ghi']],
                           [['a', 'b', 'c', 'd', 'e', 'f', 'g']]])
