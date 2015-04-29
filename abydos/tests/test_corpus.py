@@ -27,6 +27,7 @@ from abydos.corpus import Corpus
 class CorpusTestCases(unittest.TestCase):
     """test cases for abydos.corpus
     """
+
     def test_corpus(self):
         """test abydos.corpus.Corpus
         """
@@ -134,6 +135,21 @@ class CorpusTestCases(unittest.TestCase):
                           ['e', 'f', 'g', 'h', 'i', 'j', 'k']])
         self.assertEqual(doc_corp.raw(),
                          doc_str)
+
+
+    def test_corpus_idf(self):
+        """test abydos.corpus.idf
+        """
+        wikiIDFSample = 'this is a a sample\n\nthis is another another example\
+        example example'
+        wikiIDFCorpus = Corpus(wikiIDFSample)
+
+        self.assertAlmostEqual(wikiIDFCorpus.idf('this'), 0)
+        self.assertAlmostEqual(wikiIDFCorpus.idf('example'), 0.30102999566)
+        self.assertAlmostEqual(wikiIDFCorpus.idf('these'), float('inf'))
+        self.assertAlmostEqual(wikiIDFCorpus.idf('A'), float('inf'))
+        self.assertAlmostEqual(wikiIDFCorpus.idf('A', lambda w: w.upper()),
+                               0.30102999566)
 
 
 if __name__ == '__main__':
