@@ -108,7 +108,26 @@ class CorpusTestCases(unittest.TestCase):
                                 stop_words=['<EOS>']).corpus,
                           [[['The', 'quick', 'brown'],
                             ['fox', 'jumped', 'over', 'the', 'lazy', 'dog']]])
+
         
+    def test_corpus_docs_sents_words(self):
+        """test abydos.corpus.docs, .sents, .words
+        """
+        tc = Corpus('a b c d\n\ne f g\nh i j\nk')
+
+        self.assertEqual(tc.docs(),
+                         [[['a', 'b', 'c', 'd']],
+                          [['e', 'f', 'g'], ['h', 'i', 'j'], ['k']]])
+        self.assertEqual(tc.paras(),
+                         [[['a', 'b', 'c', 'd']],
+                          [['e', 'f', 'g'], ['h', 'i', 'j'], ['k']]])
+        self.assertEqual(tc.sents(),
+                         [['a', 'b', 'c', 'd'], ['e', 'f', 'g'],
+                          ['h', 'i', 'j'], ['k']])
+        self.assertEqual(tc.words(),
+                         ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+                          'k'])
+
 
 if __name__ == '__main__':
     unittest.main()
