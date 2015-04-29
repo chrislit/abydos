@@ -177,7 +177,7 @@ def bwt(word, terminator='\0'):
     """
     if word:
         assert terminator not in word, ('Specified terminator, '+
-                                        terminator if terminator else '\\0'+
+                                        (terminator if terminator else '\\0')+
                                         ', already in word.')
         word += terminator
         wordlist = sorted([word[i:]+word[:i] for i in _range(len(word))])
@@ -199,8 +199,8 @@ def bwt_decode(code, terminator='\0'):
     """
     if code:
         assert terminator in code, ('Specified terminator, '+
-                                    terminator if terminator else '\\0'+
-                                    ', already in word.')
+                                    (terminator if terminator else '\\0')+
+                                    ', absent from word.')
         wordlist = [''] * len(code)
         for i in _range(len(code)):
             wordlist = sorted([code[i]+wordlist[i] for i in _range(len(code))])
