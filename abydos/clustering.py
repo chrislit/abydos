@@ -204,8 +204,8 @@ def bwt_decode(code, terminator='\0'):
         wordlist = [''] * len(code)
         for i in _range(len(code)):
             wordlist = sorted([code[i]+wordlist[i] for i in _range(len(code))])
-        s = [w for w in wordlist if w[-1] == '\0'][0]
-        return s.rstrip('\0')
+        s = [w for w in wordlist if w[-1] == terminator][0]
+        return s.rstrip(terminator)
     return ''
 
 
