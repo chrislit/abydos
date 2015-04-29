@@ -161,6 +161,16 @@ class BWTTestCases(unittest.TestCase):
 
         self.assertEqual(bwt_decode('k$avrraad', '$'), 'aardvark')
 
+    def test_bwt_roundtripping(self):
+        """test abydos.clustering.bwt & .bwt_decode roundtripping
+        """
+        for w in ('Banana', 'The quick brown fox, etc.',
+                  'it is better a chylde unborne than untaught',
+                  'manners maketh man', 'בְּרֵאשִׁית, בָּרָא אֱלֹהִים',
+                  'Ein Rückblick bietet sich folglich an.'):
+            self.assertEqual(bwt_decode(bwt(w)), w)
+            self.assertEqual(bwt_decode(bwt(w, '$'), '$'), w)
+
 
 class MPSTestCases(unittest.TestCase):
     """test cases for abydos.clustering.mean_pairwise_similarity
