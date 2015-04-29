@@ -26,7 +26,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 from __future__ import division
 import unicodedata
-from ._compat import _unicode
+from ._compat import _unicode, _range
 from .phonetic import double_metaphone
 from .qgram import QGrams
 from .distance import sim
@@ -161,6 +161,21 @@ def omission_key(word):
             key += char
 
     return key
+
+
+def bwt(word):
+    """Return the Burrows-Wheeler transformed form of a word
+
+    Arguments:
+    word -- the word to transform using BWT
+
+    Description:
+    The Burrows-Wheeler transform is an attempt at placing similar characters
+    together to improve compression.
+    Cf. https://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform
+    """
+    wordlist = sorted([word[i:]+word[:i] for i in _range(len(word))])
+    return ''.join([w[-1] for w in wordlist])
 
 
 def mean_pairwise_similarity(collection, metric=sim,
