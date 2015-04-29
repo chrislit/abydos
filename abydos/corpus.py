@@ -32,7 +32,7 @@ class Corpus(object):
     sentence.
     """
 
-    def __init__(self, corpus_text='', doc_split='\n', sent_split='.',
+    def __init__(self, corpus_text='', doc_split='\n\n', sent_split='\n',
                  filter_chars='', stop_words=[]):
         """Corpus initializer
 
@@ -50,6 +50,8 @@ class Corpus(object):
         divides words.
         """
         self.corpus = []
+        self.doc_split = doc_split
+        self.sent_split = sent_split
 
         for document in corpus_text.split(doc_split):
             doc = []
