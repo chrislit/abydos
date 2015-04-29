@@ -3,9 +3,14 @@
 
 The util module defines various utility functions for other modules within
 Abydos, including:
+    prod -- computes the product of a collection of numbers (akin to sum)
+    jitter -- adds small random noise to each member of a list of numbers
+        (ported from R's jitter function)
+    Rational -- a rational number class
+    ac_train, ac_encode, & ac_decode -- arithmetic coding functions
 
 
-Copyright 2014 by Christopher C. Little.
+Copyright 2014-2015 by Christopher C. Little.
 This file is part of Abydos.
 
 Abydos is free software: you can redistribute it and/or modify
