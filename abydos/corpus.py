@@ -67,13 +67,32 @@ class Corpus(object):
                 self.corpus.append(doc)
 
     def docs(self):
+        """Return the docs in the corpus: a list of (lists of (lists of strs))
+
+        Each list within a doc represents the sentences in that doc, each of
+        which is in turn a list of words within that sentence.
+        """
         return self.corpus
 
     def paras(self):
+        """Return the paragraphs in the corpus: a list of (lists of (lists of
+        strs))
+
+        Each list within a paragraph represents the sentences in that doc, each
+        of which is in turn a list of words within that sentence.
+        This is identical to the docs() member function and exists only to
+        mirror part of NLTK's API for corpora.
+        """
         return self.docs()
 
     def sents(self):
+        """Return the sentences in the corpus: a list of (lists of strs)
+
+        Each list within a sentence represents the words within that sentence.
+        """
         return [words for sents in self.corpus for words in sents]
 
     def words(self):
+        """Return the words in the corpus: a list of strs
+        """
         return [words for sents in self.sents() for words in sents]
