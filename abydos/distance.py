@@ -32,7 +32,7 @@ The distance module implements string edit distance functions including:
     TF-IDF similarity
 
 
-Copyright 2014 by Christopher C. Little.
+Copyright 2014-2015 by Christopher C. Little.
 This file is part of Abydos.
 
 Abydos is free software: you can redistribute it and/or modify
