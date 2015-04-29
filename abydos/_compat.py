@@ -37,11 +37,11 @@ if sys.version_info[0] == 3: # pragma: no cover
     _range = range
     _unicode = str
     _unichr = chr
-    numeric_type = (int, float, complex)
     _long = int
+    numeric_type = (int, float, complex)
 else: # pragma: no cover
     _range = xrange
     _unicode = unicode
     _unichr = unichr
-    numeric_type = (int, long, float, complex)
     _long = long
+    numeric_type = (int, long, float, complex)
