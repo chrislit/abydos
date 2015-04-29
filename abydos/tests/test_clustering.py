@@ -135,6 +135,20 @@ class SPEEDCOPTestCases(unittest.TestCase):
         self.assertEqual(omission_key('lacrimal'), 'MCLRAI')
 
 
+class BWTTestCases(unittest.TestCase):
+    """test cases for abydos.clustering.bwt and abydos.clustering.bwt_decode
+    """
+    def test_bwt(self):
+        """test abydos.clustering.bwt
+        """
+        pass
+
+    def test_bwt_decode(self):
+        """test abydos.clustering.bwt_clustering
+        """
+        pass
+
+
 class MPSTestCases(unittest.TestCase):
     """test cases for abydos.clustering.mean_pairwise_similarity
     """
