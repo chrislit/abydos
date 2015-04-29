@@ -5,7 +5,7 @@ The clustering module implements clustering algorithms such as string
 fingerprinting, k-nearest neighbors, and ...
 
 
-Copyright 2014 by Christopher C. Little.
+Copyright 2014-2015 by Christopher C. Little.
 This file is part of Abydos.
 
 Abydos is free software: you can redistribute it and/or modify
