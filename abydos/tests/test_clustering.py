@@ -154,7 +154,12 @@ class BWTTestCases(unittest.TestCase):
     def test_bwt_decode(self):
         """test abydos.clustering.bwt_clustering
         """
-        pass
+        self.assertEqual(bwt_decode('BNN^AA|A', '|'), '^BANANA')
+        self.assertEqual(bwt_decode('TEXYDST.E.IXIXIXXSSMPPS.B..E.|.UESFXDIIOIIITS',
+                                    '|'),
+                         'SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES')
+
+        self.assertEqual(bwt_decode('k$avrraad', '$'), 'aardvark')
 
 
 class MPSTestCases(unittest.TestCase):
