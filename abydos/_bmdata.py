@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """abydos.bmdata
 
-Copyright 2014 by Christopher C. Little.
+Copyright 2014-2015 by Christopher C. Little.
 This file is part of Abydos.
 
 This file is derived from PHP code by Alexander Beider and Stephen P. Morse that
