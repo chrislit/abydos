@@ -2,7 +2,13 @@
 """abydos.stemmer
 
 The stemmer module defines word stemmers including:
-    the Porter stemmer
+    the Lovins stemmer
+    the Porter and Porter2 stemmers
+    Snowball stemmers for German, Dutch, Norwegian, Swedish, and Danish
+    CLEF German, German plus, and Swedish stemmers
+    the UEA-lite stemmer
+    the Lancaster Stemming Algorithm
+    Caumann's German stemmer
 
 
 Copyright 2014-2015 by Christopher C. Little.
