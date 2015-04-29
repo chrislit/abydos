@@ -111,26 +111,29 @@ class CorpusTestCases(unittest.TestCase):
 
         
     def test_corpus_docs_sents_words(self):
-        """test abydos.corpus.docs, .sents, .words, .docs_of_words
+        """test abydos.corpus.docs, .sents, .words, .docs_of_words, .raw
         """
-        tc = Corpus('a b c d\n\ne f g\nh i j\nk')
+        doc_str = 'a b c d\n\ne f g\nh i j\nk'
+        doc_corp = Corpus(doc_str)
 
-        self.assertEqual(tc.docs(),
+        self.assertEqual(doc_corp.docs(),
                          [[['a', 'b', 'c', 'd']],
                           [['e', 'f', 'g'], ['h', 'i', 'j'], ['k']]])
-        self.assertEqual(tc.paras(),
+        self.assertEqual(doc_corp.paras(),
                          [[['a', 'b', 'c', 'd']],
                           [['e', 'f', 'g'], ['h', 'i', 'j'], ['k']]])
-        self.assertEqual(tc.sents(),
+        self.assertEqual(doc_corp.sents(),
                          [['a', 'b', 'c', 'd'], ['e', 'f', 'g'],
                           ['h', 'i', 'j'], ['k']])
-        self.assertEqual(tc.words(),
+        self.assertEqual(doc_corp.words(),
                          ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
                           'k'])
 
-        self.assertEqual(tc.docs_of_words(),
+        self.assertEqual(doc_corp.docs_of_words(),
                          [['a', 'b', 'c', 'd'],
                           ['e', 'f', 'g', 'h', 'i', 'j', 'k']])
+        self.assertEqual(doc_corp.raw(),
+                         doc_str)
 
 
 if __name__ == '__main__':
