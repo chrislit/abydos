@@ -110,4 +110,11 @@ class Corpus(object):
     def raw(self):
         """Return the corpus as a single reconstructed string
         """
-        pass
+        doc_list = []
+        for doc in self.corpus:
+            sent_list = []
+            for sent in doc:
+                sent_list.append(' '.join(sent))
+            doc_list.append(self.sent_split.join(sent_list))
+            del sent_list
+        return self.doc_split.join(doc_list)
