@@ -508,3 +508,29 @@ def ac_decode(longval, nbits, probs):
         delta = maxval - minval
         val = (val - minval)/delta
     return ''.join(letters)
+
+
+def rle_encode(text, bwt=True):
+    """Simple, crude run-length encoder based on
+    http://rosettacode.org/wiki/Run-length_encoding#Python
+
+    Arguments:
+    text -- a text string to encode
+    bwt -- boolean indicating whether to perform BWT encoding before RLE
+
+    Description:
+    Based on http://rosettacode.org/wiki/Run-length_encoding#Python
+    """
+    pass
+
+def rle_decode(text, bwt=True):
+    """Simple, crude run-length decoder
+
+    Arguments:
+    text -- a text string to decode
+    bwt -- boolean indicating whether to perform BWT decoding after RLE decoding
+
+    Description:
+    Based on http://rosettacode.org/wiki/Run-length_encoding#Python
+    """
+    pass
