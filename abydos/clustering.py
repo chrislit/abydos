@@ -225,7 +225,8 @@ def rle_encode(text, use_bwt=True):
     """
     if use_bwt:
         text = bwt(text)
-    text = [str(len(list(g)))+k for k,g in groupby(text)]
+    text = [(len(list(g)),k) for k,g in groupby(text)]
+    text = [(str(n)+k if n>2 else (k if n==1 else 2*k)) for n,k in text]
     return ''.join(text)
 
 def rle_decode(text, use_bwt=True):
@@ -244,11 +245,15 @@ def rle_decode(text, use_bwt=True):
     mult = ''
     decoded = []
     for l in list(text):
-        if l.isdigit():
-            mult += l
+        if not l.isdigit():
+            if mult:
+                decoded.append(int(mult)*l)
+                mult = ''
+            else:
+                decoded.append(l)
         else:
-            decoded.append(int(mult)*l)
-            mult = ''
+            mult += l
+
     text = ''.join(decoded)
     if use_bwt:
         text = bwt_decode(text)
