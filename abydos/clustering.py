@@ -211,7 +211,7 @@ def bwt_decode(code, terminator='\0'):
 
 
 def rle_encode(text, use_bwt=True):
-    """Simple, crude run-length encoder based on
+    """Simple, crude run-length-encoding (RLE) encoder
     http://rosettacode.org/wiki/Run-length_encoding#Python
 
     Arguments:
@@ -220,14 +220,16 @@ def rle_encode(text, use_bwt=True):
 
     Description:
     Based on http://rosettacode.org/wiki/Run-length_encoding#Python
+
+    Digits 0-9 cannot be in text.
     """
     if use_bwt:
         text = bwt(text)
     text = [str(len(list(g)))+k for k,g in groupby(text)]
     return ''.join(text)
 
-def rle_decode(text, bwt=True):
-    """Simple, crude run-length decoder
+def rle_decode(text, use_bwt=True):
+    """Simple, crude run-length-encoding (RLE) decoder
 
     Arguments:
     text -- a text string to decode
@@ -236,8 +238,21 @@ def rle_decode(text, bwt=True):
 
     Description:
     Based on http://rosettacode.org/wiki/Run-length_encoding#Python
+
+    Digits 0-9 cannot have been in the original text.
     """
-    pass
+    mult = ''
+    decoded = []
+    for l in list(text):
+        if l.isdigit():
+            mult += l
+        else:
+            decoded.append(int(mult)*l)
+            mult = ''
+    text = ''.join(decoded)
+    if use_bwt:
+        text = bwt_decode(text)
+    return text
 
 
 def mean_pairwise_similarity(collection, metric=sim,
