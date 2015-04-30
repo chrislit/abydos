@@ -26,6 +26,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 from __future__ import division
 import unicodedata
+from itertools import groupby
 from ._compat import _unicode, _range
 from .phonetic import double_metaphone
 from .qgram import QGrams
@@ -207,6 +208,36 @@ def bwt_decode(code, terminator='\0'):
         s = [w for w in wordlist if w[-1] == terminator][0]
         return s.rstrip(terminator)
     return ''
+
+
+def rle_encode(text, use_bwt=True):
+    """Simple, crude run-length encoder based on
+    http://rosettacode.org/wiki/Run-length_encoding#Python
+
+    Arguments:
+    text -- a text string to encode
+    use_bwt -- boolean indicating whether to perform BWT encoding before RLE
+
+    Description:
+    Based on http://rosettacode.org/wiki/Run-length_encoding#Python
+    """
+    if use_bwt:
+        text = bwt(text)
+    text = [str(len(list(g)))+k for k,g in groupby(text)]
+    return ''.join(text)
+
+def rle_decode(text, bwt=True):
+    """Simple, crude run-length decoder
+
+    Arguments:
+    text -- a text string to decode
+    use_bwt -- boolean indicating whether to perform BWT decoding after RLE
+        decoding
+
+    Description:
+    Based on http://rosettacode.org/wiki/Run-length_encoding#Python
+    """
+    pass
 
 
 def mean_pairwise_similarity(collection, metric=sim,
