@@ -142,8 +142,8 @@ class BWTTestCases(unittest.TestCase):
     def test_bwt(self):
         """test abydos.clustering.bwt
         """
-
         # Examples from Wikipedia entry on BWT
+        self.assertEqual(bwt(''), '\x00')
         self.assertEqual(bwt('^BANANA', '|'), 'BNN^AA|A')
         self.assertEqual(bwt('SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES',
                              '|'),
@@ -154,6 +154,8 @@ class BWTTestCases(unittest.TestCase):
     def test_bwt_decode(self):
         """test abydos.clustering.bwt_clustering
         """
+        self.assertEqual(bwt_decode(''), '')
+        self.assertEqual(bwt_decode('\x00'), '')
         self.assertEqual(bwt_decode('BNN^AA|A', '|'), '^BANANA')
         self.assertEqual(bwt_decode('TEXYDST.E.IXIXIXXSSMPPS.B..E.|.UESFXDIIOIIITS',
                                     '|'),
@@ -164,7 +166,7 @@ class BWTTestCases(unittest.TestCase):
     def test_bwt_roundtripping(self):
         """test abydos.clustering.bwt & .bwt_decode roundtripping
         """
-        for w in ('Banana', 'The quick brown fox, etc.',
+        for w in ('', 'Banana', 'The quick brown fox, etc.',
                   'it is better a chylde unborne than untaught',
                   'manners maketh man', 'בְּרֵאשִׁית, בָּרָא אֱלֹהִים',
                   'Ein Rückblick bietet sich folglich an.'):
