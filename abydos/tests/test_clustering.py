@@ -172,6 +172,26 @@ class BWTTestCases(unittest.TestCase):
             self.assertEqual(bwt_decode(bwt(w, '$'), '$'), w)
 
 
+class RLETestCases(unittest.TestCase):
+    """test cases for abydos.clustering.rle_encode &
+    abydos.clustering.rle_decode
+    """
+    def test_rle_encode(self):
+        """test abydos.clustering.rle_encode
+        """
+        pass
+
+    def test_rle_decode(self):
+        """test abydos.clustering.rle_decode
+        """
+        pass
+
+    def test_rle_roundtripping(self):
+        """test abydos.clustering.rle_encode & .rle_decode roundtripping
+        """
+        pass
+
+
 class MPSTestCases(unittest.TestCase):
     """test cases for abydos.clustering.mean_pairwise_similarity
     """
