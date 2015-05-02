@@ -180,17 +180,20 @@ class RLETestCases(unittest.TestCase):
         """test abydos.clustering.rle_encode
         """
         self.assertEqual(rle_encode('banana', False), 'banana')
+        self.assertEqual(rle_encode('banana'), 'annb\x00aa')
 
     def test_rle_decode(self):
         """test abydos.clustering.rle_decode
         """
-        self.assertEqual(rle_encode('banana', False), 'banana')
+        self.assertEqual(rle_decode('banana', False), 'banana')
+        self.assertEqual(rle_decode('annb\x00aa'), 'banana')
 
     def test_rle_roundtripping(self):
         """test abydos.clustering.rle_encode & .rle_decode roundtripping
         """
         self.assertEqual(rle_decode(rle_encode('banana', False), False),
                          'banana')
+        self.assertEqual(rle_decode(rle_encode('banana')), 'banana')
 
 
 class MPSTestCases(unittest.TestCase):
