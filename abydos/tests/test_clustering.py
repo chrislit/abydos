@@ -180,17 +180,22 @@ class RLETestCases(unittest.TestCase):
     def test_rle_encode(self):
         """test abydos.clustering.rle_encode
         """
+        self.assertEqual(rle_encode('', False), '')
+        self.assertEqual(rle_encode(''), '\x00')
         self.assertEqual(rle_encode('banana', False), 'banana')
         self.assertEqual(rle_encode('banana'), 'annb\x00aa')
-        self.assertEqual(rle_encode(self.bws, False), '12W1B12W3B24W1B14W')
+        self.assertEqual(rle_encode(self.bws, False), '12WB12W3B24WB14W')
         self.assertEqual(rle_encode(self.bws), 'WWBWWB45WB\x003WB10WB')
         self.assertEqual(rle_encode('Schifffahrt', False), 'Schi3fahrt')
 
     def test_rle_decode(self):
         """test abydos.clustering.rle_decode
         """
+        self.assertEqual(rle_decode('', False), '')
+        self.assertEqual(rle_decode('\x00'), '')
         self.assertEqual(rle_decode('banana', False), 'banana')
         self.assertEqual(rle_decode('annb\x00aa'), 'banana')
+        self.assertEqual(rle_decode('12WB12W3B24WB14W', False), self.bws)
         self.assertEqual(rle_decode('12W1B12W3B24W1B14W', False), self.bws)
         self.assertEqual(rle_decode('WWBWWB45WB\x003WB10WB'), self.bws)
         self.assertEqual(rle_decode('Schi3fahrt', False), 'Schifffahrt')
@@ -198,6 +203,8 @@ class RLETestCases(unittest.TestCase):
     def test_rle_roundtripping(self):
         """test abydos.clustering.rle_encode & .rle_decode roundtripping
         """
+        self.assertEqual(rle_decode(rle_encode('', False), False), '')
+        self.assertEqual(rle_decode(rle_encode('')), '')
         self.assertEqual(rle_decode(rle_encode('banana', False), False),
                          'banana')
         self.assertEqual(rle_decode(rle_encode('banana')), 'banana')
