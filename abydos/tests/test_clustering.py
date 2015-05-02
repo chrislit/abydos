@@ -25,7 +25,7 @@ from abydos._compat import _range
 import unittest
 from abydos.clustering import fingerprint, qgram_fingerprint, \
     phonetic_fingerprint, skeleton_key, omission_key, bwt, bwt_decode, \
-    mean_pairwise_similarity
+    rle_encode, rle_decode, mean_pairwise_similarity
 import abydos.stats as stats
 import abydos.phonetic as phonetic
 
@@ -179,17 +179,18 @@ class RLETestCases(unittest.TestCase):
     def test_rle_encode(self):
         """test abydos.clustering.rle_encode
         """
-        pass
+        self.assertEqual(rle_encode('banana', False), 'banana')
 
     def test_rle_decode(self):
         """test abydos.clustering.rle_decode
         """
-        pass
+        self.assertEqual(rle_encode('banana', False), 'banana')
 
     def test_rle_roundtripping(self):
         """test abydos.clustering.rle_encode & .rle_decode roundtripping
         """
-        pass
+        self.assertEqual(rle_decode(rle_encode('banana', False), False),
+                         'banana')
 
 
 class MPSTestCases(unittest.TestCase):
