@@ -36,7 +36,7 @@ from abydos.distance import levenshtein, dist_levenshtein, sim_levenshtein, \
     smith_waterman, gotoh, sim_length, dist_length, sim_prefix, dist_prefix, \
     sim_suffix, dist_suffix, sim_mlipns, dist_mlipns, bag, sim_bag, dist_bag, \
     editex, sim_editex, dist_editex, sim, dist
-from abydos.util import ac_train
+from abydos.compression import ac_train
 from abydos.qgram import QGrams
 import math
 from difflib import SequenceMatcher

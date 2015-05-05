@@ -7,7 +7,6 @@ Abydos, including:
     jitter -- adds small random noise to each member of a list of numbers
         (ported from R's jitter function)
     Rational -- a rational number class
-    ac_train, ac_encode, & ac_decode -- arithmetic coding functions
 
 
 Copyright 2014-2015 by Christopher C. Little.
@@ -37,7 +36,6 @@ if sys.version_info[0] == 3:
 from random import uniform, normalvariate
 from numpy.random import laplace
 from math import floor, log10
-from collections import Counter
 from ._compat import _unicode, _range, numeric_type, _long
 
 def prod(nums):
@@ -410,101 +408,3 @@ class Rational(object):
         """Return a string representation of the Rational
         """
         return '{}/{}'.format(self.p, self.q)
-
-
-def ac_train(text):
-    """Generate a probability dict from the provided text
-
-    Text -> 0-order probability statistics as a dict
-
-    Text must not contain the NUL (0x00) character because that's used to
-    indicate the end of data.
-
-    This is based on Andrew Dalke's public domain implementation:
-    http://code.activestate.com/recipes/306626/
-    It has been ported to use the custom Rational class above.
-    """
-    text = _unicode(text)
-    if '\x00' in text:
-        text = text.replace('\x00', ' ')
-    counts = Counter(text)
-    counts['\x00'] = 1
-    tot_letters = sum(counts.values())
-
-    tot = 0
-    prob_range = {}
-    prev = Rational(0)
-    for char, count in sorted(counts.items(), key=lambda x: (x[1], x[0]),
-                           reverse=True):
-        follow = Rational(tot + count, tot_letters)
-        prob_range[char] = (prev, follow)
-        prev = follow
-        tot = tot + count
-    assert tot == tot_letters
-
-    return prob_range
-
-
-def ac_encode(text, probs):
-    """Encode a text using arithmetic coding with the provided probabilities
-
-    Text and the 0-order probability statistics -> longval, nbits
-
-    The encoded number is rational(longval, 2**nbits)
-
-    This is based on Andrew Dalke's public domain implementation:
-    http://code.activestate.com/recipes/306626/
-    It has been ported to use the custom Rational class above.
-    """
-    text = _unicode(text)
-    if '\x00' in text:
-        text = text.replace('\x00', ' ')
-    minval = Rational(0)
-    maxval = Rational(1)
-    for char in text + '\x00':
-        prob_range = probs[char]
-        delta = maxval - minval
-        maxval = minval + prob_range[1] * delta
-        minval = minval + prob_range[0] * delta
-
-    # I tried without the /2 just to check.  Doesn't work.
-    # Keep scaling up until the error range is >= 1.  That
-    # gives me the minimum number of bits needed to resolve
-    # down to the end-of-data character.
-    delta = (maxval - minval) / 2
-    nbits = _long(0)
-    while delta < 1:
-        nbits = nbits + 1
-        delta <<= 1
-    if nbits == 0: # pragma: no cover
-        return 0, 0
-    else:
-        # using -1 instead of /2
-        avg = (maxval + minval)<<(nbits-1)
-    # Could return a rational instead ...
-    return avg.p//avg.q, nbits  # the division truncation is deliberate
-
-def ac_decode(longval, nbits, probs):
-    """Decode the number to a string using the given statistics
-
-    This is based on Andrew Dalke's public domain implementation:
-    http://code.activestate.com/recipes/306626/
-    It has been ported to use the custom Rational class above.
-    """
-    val = Rational(longval, _long(1)<<nbits)
-    letters = []
-    probs_items = [(char, minval, maxval) for (char, (minval, maxval))
-                   in probs.items()]
-
-    char = '\x00'
-    while True:
-        for (char, minval, maxval) in probs_items:
-            if minval <= val < maxval:
-                break
-
-        if char == '\x00':
-            break
-        letters.append(char)
-        delta = maxval - minval
-        val = (val - minval)/delta
-    return ''.join(letters)

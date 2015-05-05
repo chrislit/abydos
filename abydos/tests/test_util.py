@@ -3,7 +3,7 @@
 
 This module contains unit tests for abydos.util
 
-Copyright 2014 by Christopher C. Little.
+Copyright 2014-2015 by Christopher C. Little.
 This file is part of Abydos.
 
 Abydos is free software: you can redistribute it and/or modify
@@ -22,12 +22,9 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
 from abydos._compat import _range, _long
-from abydos.util import prod, jitter, Rational, ac_train, ac_encode, ac_decode
+from abydos.util import prod, jitter, Rational
 import unittest
 
-NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
-         'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill', 'MacNeil',
-         'MacNele', 'Niall Noígíallach')
 
 class ProdTestCases(unittest.TestCase):
     """test cases for abydos.util.prod
@@ -372,71 +369,6 @@ class RationalTestCases(unittest.TestCase):
         self.assertEqual(Rational(1).__repr__(), '1/1')
         self.assertEqual(Rational(2).__repr__(), '2/1')
         self.assertEqual(Rational(5, 2).__repr__(), '5/2')
-
-
-class ArithmeticCoderTestCases(unittest.TestCase):
-    """test cases for abydos.util.ac_train & abydos.util.ac_encode
-    """
-    niall_probs = {'a': (Rational(41, 57), Rational(91, 114)),
-                   ' ': (Rational(25, 114), Rational(7, 19)),
-                   'c': (Rational(97, 114), Rational(50, 57)),
-                   'e': (Rational(29, 57), Rational(73, 114)),
-                   "'": (Rational(56, 57), Rational(113, 114)),
-                   'g': (Rational(47, 57), Rational(97, 114)),
-                   '\x00': (Rational(113, 114), Rational(1, 1)),
-                   'i': (Rational(73, 114), Rational(41, 57)),
-                   'M': (Rational(17, 19), Rational(52, 57)),
-                   'K': (Rational(37, 38), Rational(56, 57)),
-                   'j': (Rational(50, 57), Rational(17, 19)),
-                   '\xed': (Rational(91, 114), Rational(47, 57)),
-                   'l': (Rational(0, 1), Rational(25, 114)),
-                   'o': (Rational(53, 57), Rational(107, 114)),
-                   'N': (Rational(7, 19), Rational(29, 57)),
-                   '\xe9': (Rational(52, 57), Rational(35, 38)),
-                   '\xe1': (Rational(35, 38), Rational(53, 57)),
-                   'U': (Rational(109, 114), Rational(55, 57)),
-                   'O': (Rational(55, 57), Rational(37, 38)),
-                   'h': (Rational(18, 19), Rational(109, 114)),
-                   'n': (Rational(107, 114), Rational(18, 19))}
-
-    def test_ac_train(self):
-        """test abydos.util.ac_train
-        """
-        self.assertEqual(ac_train(''), {'\x00': (0, 1)})
-        self.assertEqual(ac_train(' '.join(NIALL)), self.niall_probs)
-        self.assertEqual(ac_train(' '.join(sorted(NIALL))), self.niall_probs)
-        self.assertEqual(ac_train(' '.join(NIALL)),
-                         ac_train(' '.join(sorted(NIALL))))
-        self.assertEqual(ac_train(' '.join(NIALL)),
-                         ac_train('\x00'.join(NIALL)))
-
-    def test_ac_encode(self):
-        """test abydos.util.ac_encode
-        """
-        self.assertEqual(ac_encode('', self.niall_probs), (254, 8))
-        self.assertEqual(ac_encode('a', self.niall_probs), (3268, 12))
-        self.assertEqual(ac_encode('Niall', self.niall_probs), (3911665, 23))
-        self.assertEqual(ac_encode('Ni\x00ll', self.niall_probs), (1932751, 22))
-        self.assertEqual(ac_encode('Niel', self.niall_probs), (486801, 20))
-        self.assertEqual(ac_encode('Mean', self.niall_probs), (243067161, 28))
-        self.assertEqual(ac_encode('Neil Noígíallach', self.niall_probs),
-                         (2133315320471368785758, 72))
-        self.assertRaises(KeyError, ac_encode, 'NIALL', self.niall_probs)
-        self.assertEqual(ac_encode('', {'\x00': (0, 1)}), (1, 1))
-
-    def test_ac_decode(self):
-        """test abydos.util.ac_decode
-        """
-        self.assertEqual(ac_decode(254, 8, self.niall_probs), '')
-        self.assertEqual(ac_decode(3268, 12, self.niall_probs), 'a')
-        self.assertEqual(ac_decode(3911665, 23, self.niall_probs), 'Niall')
-        self.assertEqual(ac_decode(1932751, 22, self.niall_probs), 'Ni ll')
-        self.assertEqual(ac_decode(486801, 20, self.niall_probs), 'Niel')
-        self.assertEqual(ac_decode(243067161, 28, self.niall_probs), 'Mean')
-        self.assertEqual(ac_decode(2133315320471368785758, 72,
-                                   self.niall_probs), 'Neil Noígíallach')
-        self.assertEqual(ac_decode(0, 0, {}), '')
-        self.assertEqual(ac_decode(1, 1, {'\x00': (0, 1)}), '')
 
 
 if __name__ == '__main__':

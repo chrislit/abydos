@@ -3,7 +3,7 @@
 
 This module contains unit tests for abydos.clustering
 
-Copyright 2014 by Christopher C. Little.
+Copyright 2014-2015 by Christopher C. Little.
 This file is part of Abydos.
 
 Abydos is free software: you can redistribute it and/or modify
@@ -24,8 +24,7 @@ from __future__ import unicode_literals
 from abydos._compat import _range
 import unittest
 from abydos.clustering import fingerprint, qgram_fingerprint, \
-    phonetic_fingerprint, skeleton_key, omission_key, bwt, bwt_decode, \
-    rle_encode, rle_decode, mean_pairwise_similarity
+    phonetic_fingerprint, skeleton_key, omission_key, mean_pairwise_similarity
 import abydos.stats as stats
 import abydos.phonetic as phonetic
 
@@ -134,88 +133,6 @@ class SPEEDCOPTestCases(unittest.TestCase):
         self.assertEqual(omission_key('caramel'), 'MCLRAE')
         self.assertEqual(omission_key('maceral'), 'MCLRAE')
         self.assertEqual(omission_key('lacrimal'), 'MCLRAI')
-
-
-class BWTTestCases(unittest.TestCase):
-    """test cases for abydos.clustering.bwt and abydos.clustering.bwt_decode
-    """
-    def test_bwt(self):
-        """test abydos.clustering.bwt
-        """
-        # Examples from Wikipedia entry on BWT
-        self.assertEqual(bwt(''), '\x00')
-        self.assertEqual(bwt('^BANANA', '|'), 'BNN^AA|A')
-        self.assertEqual(bwt('SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES',
-                             '|'),
-                         'TEXYDST.E.IXIXIXXSSMPPS.B..E.|.UESFXDIIOIIITS')
-
-        self.assertEqual(bwt('aardvark', '$'), 'k$avrraad')
-
-    def test_bwt_decode(self):
-        """test abydos.clustering.bwt_clustering
-        """
-        self.assertEqual(bwt_decode(''), '')
-        self.assertEqual(bwt_decode('\x00'), '')
-        self.assertEqual(bwt_decode('BNN^AA|A', '|'), '^BANANA')
-        self.assertEqual(bwt_decode('TEXYDST.E.IXIXIXXSSMPPS.B..E.|.UESFXDIIOIIITS',
-                                    '|'),
-                         'SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES')
-
-        self.assertEqual(bwt_decode('k$avrraad', '$'), 'aardvark')
-
-    def test_bwt_roundtripping(self):
-        """test abydos.clustering.bwt & .bwt_decode roundtripping
-        """
-        for w in ('', 'Banana', 'The quick brown fox, etc.',
-                  'it is better a chylde unborne than untaught',
-                  'manners maketh man', 'בְּרֵאשִׁית, בָּרָא אֱלֹהִים',
-                  'Ein Rückblick bietet sich folglich an.'):
-            self.assertEqual(bwt_decode(bwt(w)), w)
-            self.assertEqual(bwt_decode(bwt(w, '$'), '$'), w)
-
-
-class RLETestCases(unittest.TestCase):
-    """test cases for abydos.clustering.rle_encode &
-    abydos.clustering.rle_decode
-    """
-    bws = 'WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWBWWWWWWWWWWWWWW'
-    def test_rle_encode(self):
-        """test abydos.clustering.rle_encode
-        """
-        self.assertEqual(rle_encode('', False), '')
-        self.assertEqual(rle_encode(''), '\x00')
-        self.assertEqual(rle_encode('banana', False), 'banana')
-        self.assertEqual(rle_encode('banana'), 'annb\x00aa')
-        self.assertEqual(rle_encode(self.bws, False), '12WB12W3B24WB14W')
-        self.assertEqual(rle_encode(self.bws), 'WWBWWB45WB\x003WB10WB')
-        self.assertEqual(rle_encode('Schifffahrt', False), 'Schi3fahrt')
-
-    def test_rle_decode(self):
-        """test abydos.clustering.rle_decode
-        """
-        self.assertEqual(rle_decode('', False), '')
-        self.assertEqual(rle_decode('\x00'), '')
-        self.assertEqual(rle_decode('banana', False), 'banana')
-        self.assertEqual(rle_decode('annb\x00aa'), 'banana')
-        self.assertEqual(rle_decode('12WB12W3B24WB14W', False), self.bws)
-        self.assertEqual(rle_decode('12W1B12W3B24W1B14W', False), self.bws)
-        self.assertEqual(rle_decode('WWBWWB45WB\x003WB10WB'), self.bws)
-        self.assertEqual(rle_decode('Schi3fahrt', False), 'Schifffahrt')
-
-    def test_rle_roundtripping(self):
-        """test abydos.clustering.rle_encode & .rle_decode roundtripping
-        """
-        self.assertEqual(rle_decode(rle_encode('', False), False), '')
-        self.assertEqual(rle_decode(rle_encode('')), '')
-        self.assertEqual(rle_decode(rle_encode('banana', False), False),
-                         'banana')
-        self.assertEqual(rle_decode(rle_encode('banana')), 'banana')
-        self.assertEqual(rle_decode(rle_encode(self.bws, False), False),
-                         self.bws)
-        self.assertEqual(rle_decode(rle_encode(self.bws)), self.bws)
-        self.assertEqual(rle_decode(rle_encode('Schifffahrt', False), False),
-                         'Schifffahrt')
-        self.assertEqual(rle_decode(rle_encode('Schifffahrt')), 'Schifffahrt')
 
 
 class MPSTestCases(unittest.TestCase):

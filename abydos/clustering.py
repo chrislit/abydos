@@ -26,8 +26,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 from __future__ import division
 import unicodedata
-from itertools import groupby
-from ._compat import _unicode, _range
+from ._compat import _unicode
 from .phonetic import double_metaphone
 from .qgram import QGrams
 from .distance import sim
@@ -162,102 +161,6 @@ def omission_key(word):
             key += char
 
     return key
-
-
-def bwt(word, terminator='\0'):
-    """Return the Burrows-Wheeler transformed form of a word
-
-    Arguments:
-    word -- the word to transform using BWT
-    terminator -- a character to add to word to signal the end of the string
-
-    Description:
-    The Burrows-Wheeler transform is an attempt at placing similar characters
-    together to improve compression.
-    Cf. https://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform
-    """
-    if word:
-        assert terminator not in word, ('Specified terminator, '+
-                                        (terminator if terminator else '\\0')+
-                                        ', already in word.')
-        word += terminator
-        wordlist = sorted([word[i:]+word[:i] for i in _range(len(word))])
-        return ''.join([w[-1] for w in wordlist])
-    return terminator
-
-
-def bwt_decode(code, terminator='\0'):
-    """Return a word decoded from BWT form
-
-    Arguments:
-    code -- the word to transform from BWT form
-    terminator -- a character added to word to signal the end of the string
-
-    Description:
-    The Burrows-Wheeler transform is an attempt at placing similar characters
-    together to improve compression. This function reverses the transform.
-    Cf. https://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform
-    """
-    if code:
-        assert terminator in code, ('Specified terminator, '+
-                                    (terminator if terminator else '\\0')+
-                                    ', absent from word.')
-        wordlist = [''] * len(code)
-        for i in _range(len(code)):
-            wordlist = sorted([code[i]+wordlist[i] for i in _range(len(code))])
-        s = [w for w in wordlist if w[-1] == terminator][0]
-        return s.rstrip(terminator)
-    return ''
-
-
-def rle_encode(text, use_bwt=True):
-    """Simple, crude run-length-encoding (RLE) encoder
-    http://rosettacode.org/wiki/Run-length_encoding#Python
-
-    Arguments:
-    text -- a text string to encode
-    use_bwt -- boolean indicating whether to perform BWT encoding before RLE
-
-    Description:
-    Based on http://rosettacode.org/wiki/Run-length_encoding#Python
-
-    Digits 0-9 cannot be in text.
-    """
-    if use_bwt:
-        text = bwt(text)
-    text = [(len(list(g)),k) for k,g in groupby(text)]
-    text = [(str(n)+k if n>2 else (k if n==1 else 2*k)) for n,k in text]
-    return ''.join(text)
-
-def rle_decode(text, use_bwt=True):
-    """Simple, crude run-length-encoding (RLE) decoder
-
-    Arguments:
-    text -- a text string to decode
-    use_bwt -- boolean indicating whether to perform BWT decoding after RLE
-        decoding
-
-    Description:
-    Based on http://rosettacode.org/wiki/Run-length_encoding#Python
-
-    Digits 0-9 cannot have been in the original text.
-    """
-    mult = ''
-    decoded = []
-    for l in list(text):
-        if not l.isdigit():
-            if mult:
-                decoded.append(int(mult)*l)
-                mult = ''
-            else:
-                decoded.append(l)
-        else:
-            mult += l
-
-    text = ''.join(decoded)
-    if use_bwt:
-        text = bwt_decode(text)
-    return text
 
 
 def mean_pairwise_similarity(collection, metric=sim,
