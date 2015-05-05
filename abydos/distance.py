@@ -62,7 +62,7 @@ import codecs
 try:
     import lzma
 except ImportError: # pragma: no cover
-    # If there system lacks the lzma library, that's fine, but lzma comrpession
+    # If the system lacks the lzma library, that's fine, but lzma comrpession
     # similarity won't be supported.
     pass
 from .compression import ac_train, ac_encode
