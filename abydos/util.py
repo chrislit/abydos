@@ -38,6 +38,7 @@ from numpy.random import laplace
 from math import floor, log10
 from ._compat import _unicode, _range, numeric_type, _long
 
+
 def prod(nums):
     """Return the product of a series of numbers
 
