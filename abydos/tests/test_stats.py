@@ -28,8 +28,6 @@ from abydos.stats import ConfusionTable, amean, gmean, hmean, qmean, cmean, \
     agmean, ghmean, aghmean, midrange, median, mode
 from math import isnan, sqrt
 import numpy as np
-from scipy.stats.mstats import hmean as scipy_hmean
-from scipy.stats.mstats import gmean as scipy_gmean
 
 UNIT_TABLE = ConfusionTable(1, 1, 1, 1)
 NULL_TABLE = ConfusionTable(0, 0, 0, 0)
@@ -336,26 +334,20 @@ class PrMeansTestCases(unittest.TestCase):
     def test_pr_gmean(self):
         """test abydos.stats.ConfusionTable.pr_gmean
         """
-        self.assertEqual(UNIT_TABLE.pr_gmean(), scipy_gmean(self.prre[0]))
+        self.assertEqual(UNIT_TABLE.pr_gmean(), 0.5)
         self.assertTrue(isnan(NULL_TABLE.pr_gmean()))
-        self.assertAlmostEqual(SCALE_TABLE.pr_gmean(),
-                               scipy_gmean(self.prre[2]))
-        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_gmean(),
-                               scipy_gmean(self.prre[3]))
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_gmean(),
-                               scipy_gmean(self.prre[4]))
+        self.assertAlmostEqual(SCALE_TABLE.pr_gmean(), 0.22360679774997899)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_gmean(), 0.66815310478106094)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_gmean(), 0.25819888974716115)
 
     def test_pr_hmean(self):
         """test abydos.stats.ConfusionTable.pr_hmean
         """
         self.assertEqual(UNIT_TABLE.pr_hmean(), 0.5)
         self.assertTrue(isnan(NULL_TABLE.pr_hmean()))
-        self.assertAlmostEqual(SCALE_TABLE.pr_hmean(),
-                               scipy_hmean(self.prre[2]))
-        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_hmean(),
-                               scipy_hmean(self.prre[3]))
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_hmean(),
-                               scipy_hmean(self.prre[4]))
+        self.assertAlmostEqual(SCALE_TABLE.pr_hmean(), 0.22222222222222221)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_hmean(), 0.66666666666666663)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_hmean(), 0.17391304347826086)
 
     def test_pr_qmean(self):
         """test abydos.stats.ConfusionTable.pr_qmean
@@ -597,14 +589,11 @@ class StatisticalMeasureTestCases(unittest.TestCase):
     def test_g_measure(self):
         """test abydos.stats.ConfusionTable.g_measure
         """
-        self.assertEqual(UNIT_TABLE.g_measure(), scipy_gmean(self.prre[0]))
+        self.assertEqual(UNIT_TABLE.g_measure(), 0.5)
         self.assertTrue(isnan(NULL_TABLE.g_measure()))
-        self.assertAlmostEqual(SCALE_TABLE.g_measure(),
-                               scipy_gmean(self.prre[2]))
-        self.assertAlmostEqual(CATSNDOGS_TABLE.g_measure(),
-                               scipy_gmean(self.prre[3]))
-        self.assertAlmostEqual(WORKED_EG_TABLE.g_measure(),
-                               scipy_gmean(self.prre[4]))
+        self.assertAlmostEqual(SCALE_TABLE.g_measure(), 0.22360679774997899)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.g_measure(), 0.66815310478106094)
+        self.assertAlmostEqual(WORKED_EG_TABLE.g_measure(), 0.25819888974716115)
 
     def test_mcc(self):
         """test abydos.stats.ConfusionTable.mcc
@@ -664,10 +653,6 @@ class MeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(gmean(_one_to_five), 2.605171084697352)
         self.assertAlmostEqual(gmean(_onethreefive), 2.3714406097793117)
         self.assertAlmostEqual(gmean(_floats), 0.2885399811814427)
-        self.assertEqual(gmean(_ones), scipy_gmean(_ones))
-        self.assertAlmostEqual(gmean(_one_to_five), scipy_gmean(_one_to_five))
-        self.assertEqual(gmean(_onethreefive), scipy_gmean(_onethreefive))
-        self.assertEqual(gmean(_floats), scipy_gmean(_floats))
 
         self.assertAlmostEqual(hmean(_ones), 1)
         self.assertAlmostEqual(hmean(_zeros), 0)
@@ -682,11 +667,6 @@ class MeansTestCases(unittest.TestCase):
         self.assertTrue(isnan(hmean([1, 0, 2, 0, 3, 0, 0])))
         self.assertEqual(hmean([0, 0]), 0)
         self.assertEqual(hmean([5, 5, 5, 5, 5]), 5)
-        self.assertEqual(hmean(_ones), scipy_hmean(_ones))
-        self.assertEqual(hmean(_one_to_five), scipy_hmean(_one_to_five))
-        self.assertEqual(hmean(_onethreefive), scipy_hmean(_onethreefive))
-        self.assertEqual(hmean(_floats), scipy_hmean(_floats))
-        self.assertEqual(hmean([5, 5, 5, 5, 5]), scipy_hmean([5, 5, 5, 5, 5]))
         self.assertEqual(hmean([0]), 0)
         self.assertEqual(hmean([8]), 8)
         self.assertRaises(AttributeError, hmean, ([]))

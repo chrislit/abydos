@@ -19,7 +19,6 @@ This library contains code I'm using for research, in particular dissertation re
 Required:
 
 - Numpy
-- SciPy
 
 
 Recommended:

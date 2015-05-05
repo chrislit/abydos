@@ -35,6 +35,6 @@ setup(
       long_description = (_read('README.rst') + '\n\n' +
                           _read('HISTORY.rst') + '\n\n' +
                           _read('AUTHORS.rst')),
-      install_requires = ['numpy', 'scipy'],
+      install_requires = ['numpy'],
       extras_require = {'LZMA': ['pyliblzma']},
     )
