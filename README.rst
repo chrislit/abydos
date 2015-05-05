@@ -5,7 +5,7 @@ abydos
     :target: https://travis-ci.org/chrislit/abydos
 
 .. image:: https://readthedocs.org/projects/abydos/badge/?version=latest
-    :target: https://readthedocs.org/projects/abydos/?badge=latest
+    :target: https://abydos.readthedocs.org/en/latest/
     :alt: Documentation Status
 
 Abydos NLP/IR library
