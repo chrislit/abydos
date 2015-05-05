@@ -28,8 +28,8 @@ install:
  
 # Run test
 script:
-  - nosetests --with-coverage --cover-branches --cover-package=abydos --logging-level=INFO
+  - nosetests --verbose --with-coverage --cover-branches --cover-package=abydos --logging-level=INFO
  
 # Calculate coverage
 after_success:
-  - coveralls --config_file .coveragerc
+  - coveralls --verbose --rcfile=.coveragerc
