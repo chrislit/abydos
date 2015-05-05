@@ -28,7 +28,7 @@ install:
  
 # Run test
 script:
-  - nosetests --with-coverage --cover-package=abydos --logging-level=INFO
+  - nosetests --with-coverage --cover-brances --cover-package=abydos --logging-level=INFO
  
 # Calculate coverage
 after_success:
