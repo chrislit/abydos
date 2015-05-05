@@ -22,8 +22,9 @@ install:
   - conda install --yes python=$TRAVIS_PYTHON_VERSION numpy scipy nose
   # Coverage packages are on my binstar channel
   - conda install --yes -c dan_blanchard python-coveralls nose-cov
-  - pip install coveralls
-  - python setup.py install
+  - if [[ $TRAVIS_PYTHON_VERSION == 2*]]; then travis_retry pip install pyliblzma; fi
+  - travis_retry pip install coveralls
+  - travis_retry python setup.py install
  
 # Run test
 script:
