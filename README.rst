@@ -4,6 +4,9 @@ abydos
 .. image:: https://travis-ci.org/chrislit/abydos.svg
     :target: https://travis-ci.org/chrislit/abydos
 
+.. image:: https://coveralls.io/repos/chrislit/abydos/badge.svg
+  :target: https://coveralls.io/r/chrislit/abydos
+
 .. image:: https://readthedocs.org/projects/abydos/badge/?version=latest
     :target: https://abydos.readthedocs.org/en/latest/
     :alt: Documentation Status
