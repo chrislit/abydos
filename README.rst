@@ -1,6 +1,9 @@
 abydos
 ======
 
+.. image:: https://travis-ci.org/chrislit/abydos.svg
+    :target: https://travis-ci.org/chrislit/abydos
+
 Abydos NLP/IR library
 Copyright 2014-2015 by Christopher C. Little
 
