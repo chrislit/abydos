@@ -28,7 +28,7 @@ from abydos.compression import ac_train, ac_encode, ac_decode, \
 
 
 class ArithmeticCoderTestCases(unittest.TestCase):
-    """test cases for abydos.util.ac_train & abydos.util.ac_encode
+    """test cases for abydos.compression.ac_train & .ac_encode
     """
     NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
              'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill', 'MacNeil',
@@ -58,7 +58,7 @@ class ArithmeticCoderTestCases(unittest.TestCase):
 
 
     def test_ac_train(self):
-        """test abydos.util.ac_train
+        """test abydos.compression.ac_train
         """
         self.assertEqual(ac_train(''), {'\x00': (0, 1)})
         self.assertEqual(ac_train(' '.join(self.NIALL)), self.niall_probs)
@@ -70,7 +70,7 @@ class ArithmeticCoderTestCases(unittest.TestCase):
                          ac_train('\x00'.join(self.NIALL)))
 
     def test_ac_encode(self):
-        """test abydos.util.ac_encode
+        """test abydos.compression.ac_encode
         """
         self.assertEqual(ac_encode('', self.niall_probs), (254, 8))
         self.assertEqual(ac_encode('a', self.niall_probs), (3268, 12))
@@ -84,7 +84,7 @@ class ArithmeticCoderTestCases(unittest.TestCase):
         self.assertEqual(ac_encode('', {'\x00': (0, 1)}), (1, 1))
 
     def test_ac_decode(self):
-        """test abydos.util.ac_decode
+        """test abydos.compression.ac_decode
         """
         self.assertEqual(ac_decode(254, 8, self.niall_probs), '')
         self.assertEqual(ac_decode(3268, 12, self.niall_probs), 'a')
@@ -99,10 +99,10 @@ class ArithmeticCoderTestCases(unittest.TestCase):
 
 
 class BWTTestCases(unittest.TestCase):
-    """test cases for abydos.clustering.bwt and abydos.clustering.bwt_decode
+    """test cases for abydos.compression.bwt and .bwt_decode
     """
     def test_bwt(self):
-        """test abydos.clustering.bwt
+        """test abydos.compression.bwt
         """
         # Examples from Wikipedia entry on BWT
         self.assertEqual(bwt_encode(''), '\x00')
@@ -114,7 +114,7 @@ class BWTTestCases(unittest.TestCase):
         self.assertEqual(bwt_encode('aardvark', '$'), 'k$avrraad')
 
     def test_bwt_decode(self):
-        """test abydos.clustering.bwt_clustering
+        """test abydos.compression.bwt_clustering
         """
         self.assertEqual(bwt_decode(''), '')
         self.assertEqual(bwt_decode('\x00'), '')
@@ -126,7 +126,7 @@ class BWTTestCases(unittest.TestCase):
         self.assertEqual(bwt_decode('k$avrraad', '$'), 'aardvark')
 
     def test_bwt_roundtripping(self):
-        """test abydos.clustering.bwt & .bwt_decode roundtripping
+        """test abydos.compression.bwt & .bwt_decode roundtripping
         """
         for w in ('', 'Banana', 'The quick brown fox, etc.',
                   'it is better a chylde unborne than untaught',
@@ -137,12 +137,11 @@ class BWTTestCases(unittest.TestCase):
 
 
 class RLETestCases(unittest.TestCase):
-    """test cases for abydos.clustering.rle_encode &
-    abydos.clustering.rle_decode
+    """test cases for abydos.compression.rle_encode & .rle_decode
     """
     bws = 'WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWBWWWWWWWWWWWWWW'
     def test_rle_encode(self):
-        """test abydos.clustering.rle_encode
+        """test abydos.compression.rle_encode
         """
         self.assertEqual(rle_encode('', False), '')
         self.assertEqual(rle_encode(''), '\x00')
@@ -153,7 +152,7 @@ class RLETestCases(unittest.TestCase):
         self.assertEqual(rle_encode('Schifffahrt', False), 'Schi3fahrt')
 
     def test_rle_decode(self):
-        """test abydos.clustering.rle_decode
+        """test abydos.compression.rle_decode
         """
         self.assertEqual(rle_decode('', False), '')
         self.assertEqual(rle_decode('\x00'), '')
@@ -165,7 +164,7 @@ class RLETestCases(unittest.TestCase):
         self.assertEqual(rle_decode('Schi3fahrt', False), 'Schifffahrt')
 
     def test_rle_roundtripping(self):
-        """test abydos.clustering.rle_encode & .rle_decode roundtripping
+        """test abydos.compression.rle_encode & .rle_decode roundtripping
         """
         self.assertEqual(rle_decode(rle_encode('', False), False), '')
         self.assertEqual(rle_decode(rle_encode('')), '')
