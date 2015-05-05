@@ -28,11 +28,12 @@ install:
   - conda install --yes python=$TRAVIS_PYTHON_VERSION numpy scipy nose
   # Coverage packages are on my binstar channel
   - conda install --yes -c dan_blanchard python-coveralls nose-cov
+  - pip install coveralls
   - python setup.py install
  
 # Run test
 script:
-  - nosetests --with-cov --cov abydos --cov-config .coveragerc --logging-level=INFO
+  - nosetests --with-coverage --cover-package=abydos --logging-level=INFO
  
 # Calculate coverage
 after_success:
