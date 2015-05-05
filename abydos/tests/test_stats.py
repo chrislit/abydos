@@ -326,6 +326,7 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(SCALE_TABLE.pr_amean(), 0.225)
         self.assertAlmostEqual(CATSNDOGS_TABLE.pr_amean(), 0.6696428571428572)
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_amean(), 0.3833333333333333)
+        self.assertAlmostEqual(VERY_POOR_TABLE.pr_amean(), 0.0)
 
     def test_pr_gmean(self):
         """test abydos.stats.ConfusionTable.pr_gmean
@@ -335,6 +336,7 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(SCALE_TABLE.pr_gmean(), 0.22360679774997899)
         self.assertAlmostEqual(CATSNDOGS_TABLE.pr_gmean(), 0.66815310478106094)
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_gmean(), 0.25819888974716115)
+        self.assertAlmostEqual(VERY_POOR_TABLE.pr_gmean(), 0.0)
 
     def test_pr_hmean(self):
         """test abydos.stats.ConfusionTable.pr_hmean
@@ -344,6 +346,7 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(SCALE_TABLE.pr_hmean(), 0.22222222222222221)
         self.assertAlmostEqual(CATSNDOGS_TABLE.pr_hmean(), 0.66666666666666663)
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_hmean(), 0.17391304347826086)
+        self.assertAlmostEqual(VERY_POOR_TABLE.pr_hmean(), 0.0)
 
     def test_pr_qmean(self):
         """test abydos.stats.ConfusionTable.pr_qmean
@@ -357,6 +360,7 @@ class PrMeansTestCases(unittest.TestCase):
                                sqrt(sum([i**2 for i in self.prre[3]])/2))
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_qmean(),
                                sqrt(sum([i**2 for i in self.prre[4]])/2))
+        self.assertAlmostEqual(VERY_POOR_TABLE.pr_qmean(), 0.0)
 
     def test_pr_cmean(self):
         """test abydos.stats.ConfusionTable.pr_cmean
@@ -502,6 +506,7 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(SCALE_TABLE.pr_agmean(), 0.2243028580287603)
         self.assertAlmostEqual(CATSNDOGS_TABLE.pr_agmean(), 0.6688977735879823)
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_agmean(), 0.3176780357448827)
+        self.assertAlmostEqual(VERY_POOR_TABLE.pr_agmean(), 0.0)
 
     def test_pr_ghmean(self):
         """test abydos.stats.ConfusionTable.pr_ghmean
@@ -511,6 +516,7 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(SCALE_TABLE.pr_ghmean(), 0.2229128974)
         self.assertAlmostEqual(CATSNDOGS_TABLE.pr_ghmean(), 0.6674092650)
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_ghmean(), 0.2098560781)
+        self.assertAlmostEqual(VERY_POOR_TABLE.pr_ghmean(), 0.0)
 
     def test_pr_aghmean(self):
         """test abydos.stats.ConfusionTable.pr_aghmean
@@ -520,6 +526,7 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(SCALE_TABLE.pr_aghmean(), 0.2236067977)
         self.assertAlmostEqual(CATSNDOGS_TABLE.pr_aghmean(), 0.6681531047)
         self.assertAlmostEqual(WORKED_EG_TABLE.pr_aghmean(), 0.2581988897)
+        self.assertAlmostEqual(VERY_POOR_TABLE.pr_aghmean(), 0.0)
 
 
 class StatisticalMeasureTestCases(unittest.TestCase):
