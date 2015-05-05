@@ -8,7 +8,7 @@ notifications:
  
 # Install packages
 install:
-  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then pip install pyliblzma; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then travis_retry pip install pyliblzma; fi
   - travis_retry pip install coveralls
   - travis_retry python setup.py install
  
