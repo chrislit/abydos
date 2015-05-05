@@ -4,6 +4,10 @@ abydos
 .. image:: https://travis-ci.org/chrislit/abydos.svg
     :target: https://travis-ci.org/chrislit/abydos
 
+.. image:: https://readthedocs.org/projects/abydos/badge/?version=latest
+    :target: https://readthedocs.org/projects/abydos/?badge=latest
+    :alt: Documentation Status
+
 Abydos NLP/IR library
 Copyright 2014-2015 by Christopher C. Little
 
