@@ -27,7 +27,7 @@ from abydos.stats import ConfusionTable, amean, gmean, hmean, qmean, cmean, \
     lmean, imean, seiffert_mean, lehmer_mean, heronian_mean, hoelder_mean, \
     agmean, ghmean, aghmean, midrange, median, mode
 from math import isnan, sqrt
-import numpy as np
+
 
 UNIT_TABLE = ConfusionTable(1, 1, 1, 1)
 NULL_TABLE = ConfusionTable(0, 0, 0, 0)
@@ -321,15 +321,11 @@ class PrMeansTestCases(unittest.TestCase):
     def test_pr_amean(self):
         """test abydos.stats.ConfusionTable.pr_amean
         """
-        # pylint: disable=no-member
-        self.assertEqual(UNIT_TABLE.pr_amean(), np.mean(self.prre[0]))
+        self.assertEqual(UNIT_TABLE.pr_amean(), 0.5)
         self.assertTrue(isnan(NULL_TABLE.pr_amean()))
-        self.assertAlmostEqual(SCALE_TABLE.pr_amean(), np.mean(self.prre[2]))
-        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_amean(),
-                               np.mean(self.prre[3]))
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_amean(),
-                               np.mean(self.prre[4]))
-        # pylint: enable=no-member
+        self.assertAlmostEqual(SCALE_TABLE.pr_amean(), 0.225)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_amean(), 0.6696428571428572)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_amean(), 0.3833333333333333)
 
     def test_pr_gmean(self):
         """test abydos.stats.ConfusionTable.pr_gmean
