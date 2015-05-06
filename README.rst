@@ -3,13 +3,23 @@ abydos
 
 .. image:: https://travis-ci.org/chrislit/abydos.svg
     :target: https://travis-ci.org/chrislit/abydos
+    :alt: Build Status
 
 .. image:: https://coveralls.io/repos/chrislit/abydos/badge.svg
-  :target: https://coveralls.io/r/chrislit/abydos
+    :target: https://coveralls.io/r/chrislit/abydos
+    :alt: Coverage Status
+
+.. image:: https://codeclimate.com/github/chrislit/abydos/badges/gpa.svg
+   :target: https://codeclimate.com/github/chrislit/abydos
+   :alt: Code Climate
 
 .. image:: https://readthedocs.org/projects/abydos/badge/?version=latest
     :target: https://abydos.readthedocs.org/en/latest/
     :alt: Documentation Status
+
+.. image:: https://www.openhub.net/p/abydosnlp/widgets/project_thin_badge.gif
+    :target: https://www.openhub.net/p/abydosnlp
+    :alt: OpenHUB
 
 Abydos NLP/IR library
 Copyright 2014-2015 by Christopher C. Little
