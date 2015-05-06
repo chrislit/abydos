@@ -41,6 +41,7 @@ from abydos.qgram import QGrams
 import math
 from difflib import SequenceMatcher
 import os
+import bz2
 
 TESTDIR = os.path.dirname(__file__)
 
@@ -1148,20 +1149,19 @@ class RatcliffObershelpTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_ratcliff_obershelp('abefglmo', 'abcefglmn'),
                                0.8235294117647058)
 
-        with open(TESTDIR+'/corpora/variantNames.csv') as cav_testset:
+        with bz2.BZ2File(TESTDIR+'/corpora/variantNames.csv.bz2') as cav_testset:
             next(cav_testset)
             for line in cav_testset:
-                line = line.split(',')
+                line = line.strip().decode('utf-8').split(',')
                 word1, word2 = line[0], line[4]
                 self.assertAlmostEqual(sim_ratcliff_obershelp(word1, word2),
                                        SequenceMatcher(None, word1,
                                                        word2).ratio())
 
-        with open(TESTDIR+'/corpora/wikipediaCommonMisspellings.csv') as \
-        misspellings:
+        with bz2.BZ2File(TESTDIR+'/corpora/wikipediaCommonMisspellings.csv.bz2') as misspellings:
             next(misspellings)
             for line in misspellings:
-                line = line.upper()
+                line = line.strip().decode('utf-8').upper()
                 line = ''.join([_ for _ in line.strip() if _ in
                                 tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ,')])
                 word1, word2 = line.split(',')
