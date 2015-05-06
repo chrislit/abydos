@@ -13,7 +13,7 @@ abydos
     :target: https://abydos.readthedocs.org/en/latest/
     :alt: Documentation Status
 
-.. image:: https://www.openhub.net/p/abydosnlp/widgets/project_partner_badge.gif
+.. image:: https://www.openhub.net/p/abydosnlp/widgets/project_thin_badge.gif
     :target: https://www.openhub.net/p/abydosnlp
     :alt: OpenHUB
 
