@@ -38,9 +38,9 @@ setup(
                      'Topic :: Text Processing :: Linguistic',
                      'Natural Language :: English'
                      ],
-      long_description = (readfile('README.rst') + '\n\n' +
-                          readfile('HISTORY.rst') + '\n\n' +
-                          readfile('AUTHORS.rst')),
+      long_description = '\n\n'.join([readfile(f) for f in ('README.rst',
+                                                            'HISTORY.rst',
+                                                            'AUTHORS.rst')]),
       install_requires = ['numpy'],
       extras_require = {'LZMA': ['pyliblzma']},
     )
