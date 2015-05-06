@@ -4346,7 +4346,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         """
         if not ALLOW_RANDOM:
             return
-        with codecs.open(TESTDIR + '/corpora/nachnamen.bm',
+        with codecs.open(TESTDIR + '/corpora/nachnamen.bm.csv',
                          encoding='utf-8') as nachnamen_testset:
             next(nachnamen_testset)
             for nn_line in nachnamen_testset:
@@ -4364,7 +4364,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         """
         if not ALLOW_RANDOM:
             return
-        with codecs.open(TESTDIR + '/corpora/uscensus2000.bm',
+        with codecs.open(TESTDIR + '/corpora/uscensus2000.bm.csv',
                          encoding='utf-8') as uscensus_testset:
             next(uscensus_testset)
             for cen_line in uscensus_testset:
