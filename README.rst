@@ -9,6 +9,10 @@ abydos
     :target: https://coveralls.io/r/chrislit/abydos
     :alt: Coverage Status
 
+.. image:: https://codeclimate.com/github/chrislit/abydos/badges/gpa.svg
+   :target: https://codeclimate.com/github/chrislit/abydos
+   :alt: Code Climate
+
 .. image:: https://readthedocs.org/projects/abydos/badge/?version=latest
     :target: https://abydos.readthedocs.org/en/latest/
     :alt: Documentation Status
