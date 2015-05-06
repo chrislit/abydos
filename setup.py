@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from setuptools import setup, find_packages
+from codecs import open
+from os import path
 
-def _read(fn):
+here = path.abspath(path.dirname(__file__))
+def readfile(fn):
     """Read fn and return the contents."""
-    with open(fn, 'r') as f:
+    with open(path.join(here, fn), 'r', encoding='utf-8') as f:
         return f.read()
 
 setup(
@@ -35,9 +38,9 @@ setup(
                      'Topic :: Text Processing :: Linguistic',
                      'Natural Language :: English'
                      ],
-      long_description = (_read('README.rst') + '\n\n' +
-                          _read('HISTORY.rst') + '\n\n' +
-                          _read('AUTHORS.rst')),
+      long_description = (readfile('README.rst') + '\n\n' +
+                          readfile('HISTORY.rst') + '\n\n' +
+                          readfile('AUTHORS.rst')),
       install_requires = ['numpy'],
       extras_require = {'LZMA': ['pyliblzma']},
     )
