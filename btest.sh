@@ -12,3 +12,4 @@ nosetests -v --with-coverage --cover-erase --cover-html --cover-branches --cover
 nosetests3 -v --with-coverage --cover-erase --cover-html --cover-branches --cover-package=abydos .
 
 pylint --rcfile=pylint.rc abydos > pylint.log
+./badge_update.py
