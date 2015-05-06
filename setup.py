@@ -23,7 +23,6 @@ setup(
                      'Programming Language :: Python :: 2',
                      'Programming Language :: Python :: 2.7',
                      'Programming Language :: Python :: 3',
-                     'Programming Language :: Python :: 3.2',
                      'Programming Language :: Python :: 3.3',
                      'Programming Language :: Python :: 3.4',
                      'Development Status :: 4 - Beta',
@@ -39,6 +38,6 @@ setup(
       long_description = (_read('README.rst') + '\n\n' +
                           _read('HISTORY.rst') + '\n\n' +
                           _read('AUTHORS.rst')),
-      extras_require = {'numpy': ['numpy'],
-                        'LZMA': ['pyliblzma']},
+      install_requires = ['numpy'],
+      extras_require = {'LZMA': ['pyliblzma']},
     )

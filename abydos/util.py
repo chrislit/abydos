@@ -34,16 +34,7 @@ if sys.version_info[0] == 3:
     from functools import reduce    # pragma: no cover
     # pylint: enable=redefined-builtin
 from random import uniform, normalvariate
-try:
-    from numpy.random import laplace
-    _numpy_installed = True
-except ImportError: # pragma: no cover
-    # If the system lacks the numpy, laplace distribution will not besupported
-    # for jitter
-    # Substitute normalvariate call:
-    laplace = lambda x, y: normalvariate(x, y)
-    _numpy_installed = False
-
+from numpy.random import laplace
 from math import floor, log10
 from ._compat import _unicode, _range, numeric_type, _long
 
@@ -140,7 +131,7 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
 
     if rfunc == 'uniform':
         _rand = lambda: uniform(-amount, amount)
-    elif _numpy_installed and rfunc == 'laplace':
+    elif rfunc == 'laplace':
         _rand = lambda: laplace(0, amount)
     else:
         _rand = lambda: normalvariate(0, amount)
