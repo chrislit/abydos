@@ -16,7 +16,7 @@ setup(
     version = '0.1.0',
     description = 'Abydos NLP/IR library',
     author = 'Christopher C. Little',
-    author_email = 'chrisclittle@gmail.com',
+    author_email = 'chrisclittle+abydos@gmail.com',
     url = 'https://github.com/chrislit/abydos',
     download_url = 'https://github.com/chrislit/abydos/archive/master.zip',
     keywords = ['nlp', 'ai', 'ir', 'language', 'linguistics', 'phonetic algorithms',
