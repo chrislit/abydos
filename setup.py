@@ -19,7 +19,8 @@ setup(
     author_email = 'chrisclittle@gmail.com',
     url = 'https://github.com/chrislit/abydos',
     download_url = 'https://github.com/chrislit/abydos/archive/master.zip',
-    keywords = ['nlp', 'ai', 'ir'],
+    keywords = ['nlp', 'ai', 'ir', 'language', 'linguistics', 'phonetic algorithms',
+                'string distance'],
     license='GPLv3+',
     classifiers = [
         'Programming Language :: Python',
@@ -42,5 +43,5 @@ setup(
                                                           'HISTORY.rst',
                                                           'AUTHORS.rst')]),
     install_requires = ['numpy'],
-    extras_require = {'LZMA': ['pyliblzma']},
+    #extras_require = {'LZMA': ['pyliblzma']},
 )
