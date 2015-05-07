@@ -1,7 +1,7 @@
 Abydos
 ======
 
-.. image:: abydos-small.png
+.. image:: https://raw.githubusercontent.com/chrislit/abydos/master/abydos-small.png
     :alt: abydos
     :align: right
 |
