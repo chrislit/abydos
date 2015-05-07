@@ -17,6 +17,10 @@
 .. image:: https://img.shields.io/badge/pylint-9.94/10-brightgreen.svg
     :alt: Pylint Status
 
+.. image:: https://img.shields.io/pypi/v/abydos.svg
+    :target: https://pypi.python.org/pypi/abydos
+    :alt: PyPI
+
 .. image:: https://readthedocs.org/projects/abydos/badge/?version=latest
     :target: https://abydos.readthedocs.org/en/latest/
     :alt: Documentation Status
