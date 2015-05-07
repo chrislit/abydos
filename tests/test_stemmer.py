@@ -27,7 +27,7 @@ from abydos.stemmer import _m_degree, _sb_has_vowel, _ends_in_doubled_cons, \
     _sb_short_word, porter2, sb_german, sb_dutch, sb_norwegian, sb_swedish, \
     sb_danish, clef_german, clef_german_plus, clef_swedish
 import os
-import bz2
+import codecs
 
 TESTDIR = os.path.dirname(__file__)
 
@@ -225,11 +225,11 @@ class PorterTestCases(unittest.TestCase):
         http://snowball.tartarus.org/algorithms/porter/diffs.txt
         """
         #  Snowball Porter test set
-        with bz2.BZ2File(TESTDIR+'/corpora/snowball_porter.csv.bz2') as snowball_testset:
+        with open(TESTDIR+'/corpora/snowball_porter.csv') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
                 if line[0] != '#':
-                    line = line.strip().decode('utf-8').split(',')
+                    line = line.strip().split(',')
                     word, stem = line[0], line[1]
                     self.assertEqual(porter(word), stem.lower())
 
@@ -394,11 +394,11 @@ class Porter2TestCases(unittest.TestCase):
         http://snowball.tartarus.org/algorithms/english/diffs.txt
         """
         #  Snowball Porter test set
-        with bz2.BZ2File(TESTDIR+'/corpora/snowball_porter2.csv.bz2') as snowball_testset:
+        with open(TESTDIR+'/corpora/snowball_porter2.csv') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
                 if line[0] != '#':
-                    line = line.strip().decode('utf-8').split(',')
+                    line = line.strip().split(',')
                     word, stem = line[0], line[1]
                     self.assertEqual(porter2(word), stem.lower())
 
@@ -418,11 +418,11 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_german(''), '')
 
         #  Snowball Porter test set
-        with bz2.BZ2File(TESTDIR+'/corpora/snowball_german.csv.bz2') as snowball_testset:
+        with codecs.open(TESTDIR+'/corpora/snowball_german.csv', encoding='utf-8') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
                 if line[0] != '#':
-                    line = line.strip().decode('utf-8').split(',')
+                    line = line.strip().split(',')
                     word, stem = line[0], line[1]
                     self.assertEqual(sb_german(word), stem.lower())
 
@@ -493,11 +493,11 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_dutch(''), '')
 
         #  Snowball Porter test set
-        with bz2.BZ2File(TESTDIR+'/corpora/snowball_dutch.csv.bz2') as snowball_testset:
+        with codecs.open(TESTDIR+'/corpora/snowball_dutch.csv', encoding='utf-8') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
                 if line[0] != '#':
-                    line = line.strip().decode('utf-8').split(',')
+                    line = line.strip().split(',')
                     word, stem = line[0], line[1]
                     self.assertEqual(sb_dutch(word), stem.lower())
 
@@ -515,11 +515,11 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_norwegian(''), '')
 
         #  Snowball Porter test set
-        with bz2.BZ2File(TESTDIR+'/corpora/snowball_norwegian.csv.bz2') as snowball_testset:
+        with codecs.open(TESTDIR+'/corpora/snowball_norwegian.csv', encoding='utf-8') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
                 if line[0] != '#':
-                    line = line.strip().decode('utf-8').split(',')
+                    line = line.strip().split(',')
                     word, stem = line[0], line[1]
                     self.assertEqual(sb_norwegian(word), stem.lower())
 
@@ -534,11 +534,11 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_swedish(''), '')
 
         #  Snowball Porter test set
-        with bz2.BZ2File(TESTDIR+'/corpora/snowball_swedish.csv.bz2') as snowball_testset:
+        with codecs.open(TESTDIR+'/corpora/snowball_swedish.csv', encoding='utf-8') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
                 if line[0] != '#':
-                    line = line.strip().decode('utf-8').split(',')
+                    line = line.strip().split(',')
                     word, stem = line[0], line[1]
                     self.assertEqual(sb_swedish(word), stem.lower())
 
@@ -553,11 +553,11 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_danish(''), '')
 
         #  Snowball Porter test set
-        with bz2.BZ2File(TESTDIR+'/corpora/snowball_danish.csv.bz2') as snowball_testset:
+        with codecs.open(TESTDIR+'/corpora/snowball_danish.csv', encoding='utf-8') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
                 if line[0] != '#':
-                    line = line.strip().decode('utf-8').split(',')
+                    line = line.strip().split(',')
                     word, stem = line[0], line[1]
                     self.assertEqual(sb_danish(word), stem.lower())
 
