@@ -36,7 +36,7 @@ Required:
 
 Recommended:
 
-- PylibLZMA   (for LZMA compression string distance metric)
+- PylibLZMA   (Python 2 only--for LZMA compression string distance metric)
 - Nose        (for unit testing)
 - coverage.py (for code coverage checking)
 - Pylint      (for code quality checking)
