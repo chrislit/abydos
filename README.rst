@@ -1,5 +1,6 @@
-abydos
-======
+.. image:: abydos-small.png
+    :alt: abydos
+===========================
 
 .. image:: https://travis-ci.org/chrislit/abydos.svg
     :target: https://travis-ci.org/chrislit/abydos
