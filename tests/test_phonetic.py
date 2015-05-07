@@ -25,7 +25,7 @@ import unittest
 import os
 import random
 import math
-import bz2
+import codecs
 from abydos._compat import _unicode
 from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     russell_index_alpha, soundex, dm_soundex, koelner_phonetik, \
@@ -3348,9 +3348,9 @@ class CaverphoneTestCases(unittest.TestCase):
         """test abydos.phonetic.caverphone (PHP version testset)
         """
         # https://raw.githubusercontent.com/kiphughes/caverphone/master/unit_tests.php
-        with bz2.BZ2File(TESTDIR + '/corpora/php_caverphone.csv.bz2') as php_testset:
+        with open(TESTDIR + '/corpora/php_caverphone.csv') as php_testset:
             for php_line in php_testset:
-                (word, caver) = php_line.strip().decode('utf-8').split(',')
+                (word, caver) = php_line.strip().split(',')
                 self.assertEqual(caverphone(word), caver)
 
     def test_caverphone1(self):
@@ -3366,13 +3366,13 @@ class CaverphoneTestCases(unittest.TestCase):
     def test_caversham(self):
         """test using Caversham test set (SoundEx, Metaphone, & Caverphone)
         """
-        with bz2.BZ2File(TESTDIR + '/corpora/variantNames.csv.bz2') as cav_testset:
+        with open(TESTDIR + '/corpora/variantNames.csv') as cav_testset:
             next(cav_testset)
             for cav_line in cav_testset:
                 (name1, soundex1, metaphone1, caverphone1,
                  name2, soundex2, metaphone2, caverphone2,
                  soundex_same, metaphone_same, caverphone_same) = \
-                 cav_line.decode('utf-8').strip().split(',')
+                 cav_line.strip().split(',')
 
                 self.assertEqual(soundex(name1), soundex1)
                 self.assertEqual(soundex(name2), soundex2)
@@ -3995,10 +3995,10 @@ class PhonetTestCases(unittest.TestCase):
         """
         if not ALLOW_RANDOM:
             return
-        with bz2.BZ2File(TESTDIR + '/corpora/nachnamen.csv.bz2') as nachnamen_testset:
+        with codecs.open(TESTDIR + '/corpora/nachnamen.csv', encoding='utf-8') as nachnamen_testset:
             for nn_line in nachnamen_testset:
                 if nn_line[0] != '#':
-                    nn_line = nn_line.strip().decode('utf-8').split(',')
+                    nn_line = nn_line.strip().split(',')
                     # This test set is very large (~10000 entries)
                     # so let's just randomly select about 100 for testing
                     if len(nn_line) >= 3 and one_in(100):
@@ -4011,10 +4011,10 @@ class PhonetTestCases(unittest.TestCase):
         """
         if not ALLOW_RANDOM:
             return
-        with bz2.BZ2File(TESTDIR + '/corpora/ngerman.csv.bz2') as ngerman_testset:
+        with codecs.open(TESTDIR + '/corpora/ngerman.csv', encoding='utf-8') as ngerman_testset:
             for ng_line in ngerman_testset:
                 if ng_line[0] != '#':
-                    ng_line = ng_line.strip().decode('utf-8').split(',')
+                    ng_line = ng_line.strip().split(',')
                     # This test set is very large (~3000000 entries)
                     # so let's just randomly select about 30 for testing
                     if len(ng_line) >= 3 and one_in(10000):
@@ -4344,10 +4344,10 @@ class BeiderMorseTestCases(unittest.TestCase):
         """
         if not ALLOW_RANDOM:
             return
-        with bz2.BZ2File(TESTDIR + '/corpora/nachnamen.bm.csv.bz2') as nachnamen_testset:
+        with codecs.open(TESTDIR + '/corpora/nachnamen.bm.csv', encoding='utf-8') as nachnamen_testset:
             next(nachnamen_testset)
             for nn_line in nachnamen_testset:
-                nn_line = nn_line.strip().decode('utf-8').split(',')
+                nn_line = nn_line.strip().split(',')
                 # This test set is very large (~10000 entries)
                 # so let's just randomly select about 20 for testing
                 if nn_line[0] != '#' and one_in(500):
@@ -4361,10 +4361,10 @@ class BeiderMorseTestCases(unittest.TestCase):
         """
         if not ALLOW_RANDOM:
             return
-        with bz2.BZ2File(TESTDIR + '/corpora/uscensus2000.bm.csv.bz2') as uscensus_testset:
+        with open(TESTDIR + '/corpora/uscensus2000.bm.csv') as uscensus_testset:
             next(uscensus_testset)
             for cen_line in uscensus_testset:
-                cen_line = cen_line.decode('utf-8').strip().split(',')
+                cen_line = cen_line.strip().split(',')
                 # This test set is very large (~150000 entries)
                 # so let's just randomly select about 20 for testing
                 if cen_line[0] != '#' and one_in(7500):
