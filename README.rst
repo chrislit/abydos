@@ -1,11 +1,6 @@
 Abydos
 ======
 
-.. image:: https://raw.githubusercontent.com/chrislit/abydos/master/abydos-small.png
-    :alt: abydos
-    :align: right
-|
-|
 .. image:: https://travis-ci.org/chrislit/abydos.svg
     :target: https://travis-ci.org/chrislit/abydos
     :alt: Build Status
@@ -33,8 +28,15 @@ Abydos
     :target: https://www.openhub.net/p/abydosnlp
     :alt: OpenHUB
 
-Abydos NLP/IR library
-Copyright 2014-2015 by Christopher C. Little
+|
+
+.. image:: https://raw.githubusercontent.com/chrislit/abydos/master/abydos-small.png
+    :alt: abydos
+    :align: right
+
+|
+| Abydos NLP/IR library
+| Copyright 2014-2015 by Christopher C. Little
 
 This library contains code I'm using for research, in particular dissertation research & experimentation.
 
