@@ -3,8 +3,9 @@ Abydos
 
 .. image:: abydos-small.png
     :alt: abydos
-
-
+    :align: right
+|
+|
 .. image:: https://travis-ci.org/chrislit/abydos.svg
     :target: https://travis-ci.org/chrislit/abydos
     :alt: Build Status
