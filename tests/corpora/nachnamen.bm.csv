@@ -1285,7 +1285,7 @@ Pelz,plts,plz plts
 Meinhardt,mDnart mDnort mDnYrt manart manort manYrt minart minort minYrt miinart miinort miinYrt,mDnart mDnar mDnort mDnor mDnYrt manart manar manort manor manYrt minart minar minort minor minYrt mDniart mDniort maniart maniort miniart miniort
 Wrobel,vrobl vrYbl,vrobl vrYbl vrubl wrobl
 Rosenberg,rozmbYrk rozmbirk rYzmbYrk rYzmbirk rosmbYrk rosmbirk rYsmbYrk rYsmbirk,rosnbirk rosnbYrk rosnvirk ronbirk rYsnbirk rYsnbYrk roznbirk roznbYrk rYznbirk rYznbYrk rusnbirk
-Brandenburg,brandmburk brandmbQrk brondmburk brondmbQrk brYndmburk brYndmbQrk,brandnburk brandnbQrk brandnvurk brondnburk brondnbQrk brondnvurk brYndnburk brYndnbQrk vrandnburk vrandnvurk vrondnburk vrondnvurk
+Brandenburg,brandmburk brondmburk brYndmburk brandmbirk brondmbirk brYndmbirk,brandnburk brondnburk brYndnburk vrandnburk vrondnburk brandnbirk brandnbYrk brondnbirk brondnbYrk brYndnbirk brYndnbYrk vrandnbirk vrondnbirk
 Strasser,strasir strosir strYsir,strasir strosir strYsir strasi strosi
 Völkel,flkl vlkl,vlkl
 Glöckner,glYknir,glYknir
@@ -1672,7 +1672,7 @@ Gundlach,gundlax gundlox gundlYx gQndlax gQndlox gQndlYx,gundlax gundlox gundlYx
 Schlicht,zlQxt zlixt,zlQxt zlixt zlitst stzlixt stzlitst
 Hägele,xYgYli xYgili YgYli Ygili xigYli xigili igYli igili,xYgYli xYgili YgYli Ygili xigYli xigili igYli igili
 Burkert,burkYrt burkirt bQrkYrt bQrkirt,burkirt burkYrt bQrkirt bQrkYrt
-Oldenburg,oldmburk oldmbQrk Yldmburk YldmbQrk,oldnburk oldnbQrk oldnvurk Yldnburk YldnbQrk uldnburk
+Oldenburg,oldmburk Yldmburk oldmbirk Yldmbirk,oldnburk Yldnburk oldnbirk oldnbYrk Yldnbirk YldnbYrk uldnburk uldnbirk
 Zielinski,tsQlnzki tsilnzki,zilnzki zYlnzki tsilnzki
 Pauls,pDlz palz pulz,pDlz palz pulz polz
 Schaffer,safir sofir sYfir,safir sofir sYfir stsafir stsofir
@@ -2203,7 +2203,7 @@ Mönch,mYnx,mYnx
 Hegemann,xYgYman xYgYmon xYgiman xYgimon xigYman xigYmon xigiman xigimon YgYman YgYmon Ygiman Ygimon igYman igYmon igiman igimon,xYgYman xYgYmon xYgiman xYgimon xigYman xigYmon xigiman xigimon YgYman YgYmon Ygiman Ygimon igYman igYmon igiman igimon
 Matthias,matias matios motias motios mYtias mYtios,matias matios motias motios mYtias mYtios matia matio motia motio matiaS matioS motiaS motioS
 Aslan,azlan azlon ozlan ozlon Yzlan Yzlon,azlan azlon ozlan ozlon Yzlan Yzlon alan alon olan olon
-Burg,burk bQrk,burk bQrk vurk
+Burg,burk birk,burk birk bYrk
 Jahns,ianz ionz,ianz ionz
 Epp,ip,ip i iip
 Heer,xYir xiir Yir iir,ir i xir xi
@@ -2350,11 +2350,11 @@ Tölle,tli,tli
 Menne,mni,mni mn
 Helfrich,xYlfrix xilfrix Ylfrix ilfrix,ilfrix Ylfrix ilfritS ilfrits ilfriS ilfris ilfri xilfrix xilfritS xilfrits xilfriS xilfris xilfri
 Büchler,bQxlir,bQxlir vQxlir bQtzlir vQtzlir bQtzlr vQtzlr bQzlir bQzlr buxlir vuxlir butzlir vutzlir butzlr vutzlr buzlir buzlr
-Büsing,bQznk bQsnk,bQsnk vQsnk bQznk busnk vusnk buznk
+Büsing,bQznk bQsnk,bQsnk vQsnk bQznk busnk vusnk
 Scheck,sik,sik
 Benecke,bYnYki bYniki binYki biniki,biniki binYki bYniki bYnYki binik binitski
 Lucht,luxt lQxt,luxt lux lQxt lutst lust lus lut lu
-Burk,burk bQrk,burk bQrk
+Burk,burk birk,burk birk bYrk
 Hass,xas xos as os,as a os o xas xos xa xo
 Kappel,kapl kopl kYpl,kapl kopl kYpl
 Hohn,xon on,xon on
@@ -2849,7 +2849,7 @@ Blumenthal,blumntal blumntol blQmntal blQmntol,blumntal blumntol blQmntal blQmnt
 Özcan,Ytskan Ytskon,Yskan Yskon Yzan Yzon
 Peetz,pYits piits,pits pitS pDts pYtS
 Seewald,zYYvalt zYYvolt zYYvYlt zYivalt zYivolt zYivYlt ziYvalt ziYvolt ziYvYlt ziivalt ziivolt ziivYlt sYYvalt sYYvolt sYYvYlt sYivalt sYivolt sYivYlt siYvalt siYvolt siYvYlt siivalt siivolt siivYlt,sivalt sivolt siwalt siwolt sivYlt sYvalt sYvolt sYvYlt zivalt zivolt zivYlt zYvalt zYvolt zYvYlt
-Blankenburg,blankmburk blankmbQrk blonkmburk blonkmbQrk blYnkmburk blYnkmbQrk,blanknburk blanknbQrk blonknburk blonknbQrk blYnknburk blYnknbQrk
+Blankenburg,blankmburk blonkmburk blYnkmburk blankmbirk blonkmbirk blYnkmbirk,blanknburk blonknburk blYnknburk blanknbirk blanknbYrk blonknbirk blonknbYrk blYnknbirk blYnknbYrk
 Stauch,stDx stax stux,stDx stax stux stDtS statS stutS stDts stats stuts stDS staS stuS stDs stD stas sta stus stu stox stoS stos sto
 Wölfle,vlfli vlfl,vlfli vlfl
 Sperlich,spYrlix spirlix,spirlix spYrlix spirlitS spirlits spirliS spirlis spirli
@@ -3916,7 +3916,7 @@ Gros,gros,gros gro groS grus
 Seeber,zYYbir zYibir ziYbir ziibir sYYbir sYibir siYbir siibir,sibir sibr sDbir sibi sivir sYbir zibir zYbir
 Hämmerle,xYmYrli xYmirli xYmYrl xYmirl YmYrli Ymirli YmYrl Ymirl ximYrli ximirli ximYrl ximirl imYrli imirli imYrl imirl,xYmYrli xYmirli xYmYrl xYmirl YmYrli Ymirli YmYrl Ymirl ximYrli ximirli ximYrl ximirl imYrli imirli imYrl imirl
 Cakir,kakir kokir kYkir,kakir kokir kYkir tsakir tsokir zakir zokir
-Schulenburg,sulmburk sulmbQrk sQlmburk sQlmbQrk,sulnburk sulnbQrk sQlnburk sQlnbQrk stsulnburk
+Schulenburg,sulmburk sQlmburk sulmbirk sQlmbirk,sulnburk sQlnburk sulnbirk sulnbYrk sQlnbirk sQlnbYrk stsulnburk stsulnbirk
 Fell,fl,fl
 Blumberg,blumbYrk blumbirk blQmbYrk blQmbirk,blumbirk blumbYrk blumvirk blQmbirk blQmbYrk vlumbirk vlumvirk blunbirk blunbYrk blunvirk blQnbirk blQnbYrk vlunbirk vlunvirk
 Siedler,zQdlir zidlir zQdlr zidlr sQdlir sidlir sQdlr sidlr,sidlir sidli sidilr sidlYr sYdlir sYdlYr sidlr sYdlr siidlir siidli siidilr siidlYr siidlr zidlir zidlYr zidlr
@@ -3942,7 +3942,7 @@ Ristau,rQstD rQsta rQstu ristD rista ristu,rQstD rQsta rQstu ristD rista ristu r
 Stamer,stamir stomir stYmir,stamir stomir stYmir stami stomi
 Sigmund,zQgmunt zQgmQnt zigmunt zigmQnt sQgmunt sQgmQnt sigmunt sigmQnt,sigmunt sigmun sigmQnt zigmunt zigmQnt
 Bierwirth,bQrvQrt bQrvirt birvQrt birvirt,birvQrt birvirt biirvQrt biirvirt biirwirt
-Schomburg,somburk sombQrk sYmburk sYmbQrk,somburk sombQrk sYmburk sYmbQrk sonburk sonbQrk sYnburk sYnbQrk stsomburk stsonburk
+Schomburg,somburk sYmburk sombirk sYmbirk,somburk sYmburk sombirk sombYrk sYmbirk sYmbYrk sonburk sYnburk sonbirk sonbYrk sYnbirk sYnbYrk stsomburk stsombirk stsonburk stsonbirk
 Wittkowski,vQtkofski vQtkYfski vitkofski vitkYfski,vQtkofski vQtkYfski vitkofski vitkYfski vitkowski vitkufski witkofski witkowski
 Bürgel,bQrgl,bQrgl vQrgl bQrxil vQrxil bQrzl vQrzl burgl vurgl burxil vurxil burzl vurzl
 Wendlandt,vndlant vndlont vndlYnt,vndlant vndlont vndlYnt windlant windlont
@@ -3967,7 +3967,7 @@ Felix,fYlQks fYliks filQks filiks,filQks filiks filik fYlQks fYliks filQgS filig
 Lotter,lotir lYtir,lotir loti lYtir lutir
 Tank,tank tonk tYnk,tank tonk tYnk
 Eppler,Yplir iplir Yplr iplr,iplir ipli ipilr iplYr Yplir YplYr iplr Yplr iiplir iiplr
-Papadopoulos,papadopDlos papadopolos papadopulos papadYpDlos papadYpolos papadYpulos papodopDlos papodopolos papodopulos papodYpDlos papodYpolos papodYpulos papYdopDlos papYdopolos papYdopulos papYdYpDlos papYdYpolos papYdYpulos popadopDlos popadopolos popadopulos popadYpDlos popadYpolos popadYpulos popodopDlos popodopolos popodopulos popodYpDlos popodYpolos popodYpulos popYdopDlos popYdopolos popYdopulos popYdYpDlos popYdYpolos popYdYpulos pYpadopDlos pYpadopolos pYpadopulos pYpadYpDlos pYpadYpolos pYpadYpulos pYpodopDlos pYpodopolos pYpodopulos pYpodYpDlos pYpodYpolos pYpodYpulos pYpYdopDlos pYpYdopolos pYpYdopulos pYpYdYpDlos pYpYdYpolos pYpYdYpulos,papatpulz papotpulz popatpulz popotpulz
+Papadopoulos,papadopDlos papadopolos papadopulos papadYpDlos papadYpolos papadYpulos papodopDlos papodopolos papodopulos papodYpDlos papodYpolos papodYpulos papYdopDlos papYdopolos papYdopulos papYdYpDlos papYdYpolos papYdYpulos popadopDlos popadopolos popadopulos popadYpDlos popadYpolos popadYpulos popodopDlos popodopolos popodopulos popodYpDlos popodYpolos popodYpulos popYdopDlos popYdopolos popYdopulos popYdYpDlos popYdYpolos popYdYpulos pYpadopDlos pYpadopolos pYpadopulos pYpadYpDlos pYpadYpolos pYpadYpulos pYpodopDlos pYpodopolos pYpodopulos pYpodYpDlos pYpodYpolos pYpodYpulos pYpYdopDlos pYpYdopolos pYpYdopulos pYpYdYpDlos pYpYdYpolos pYpYdYpulos,papatpulz
 Strehle,strYli strili,strYli strili
 Breitkopf,brDtkopf brDtkYpf bratkopf bratkYpf britkopf britkYpf brDtkop bratkop britkop brDtkof bratkof britkof briitkopf briitkYpf briitkop briitkof,brDtkopf brDtkYpf bratkopf bratkYpf britkopf britkYpf brDtkop bratkop britkop brDtkof bratkof britkof
 Karch,karx korx kYrx,karx korx kYrx kartS kortS karts korts
@@ -4578,7 +4578,7 @@ Wickert,vQkYrt vQkirt vikYrt vikirt,vQkirt vQkYrt vikirt vikYrt vitskirt wikirt
 Eisenbarth,Dzmbart Dzmbort DzmbYrt azmbart azmbort azmbYrt izmbart izmbort izmbYrt Dsmbart Dsmbort DsmbYrt asmbart asmbort asmbYrt ismbart ismbort ismbYrt iizmbart iizmbort iizmbYrt iismbart iismbort iismbYrt,Dsnbart Dsnbort DsnbYrt asnbart asnbort asnbYrt isnbart isnbort isnbYrt Dznbart Dznbort DznbYrt aznbart aznbort aznbYrt iznbart iznbort iznbYrt
 Hubrich,xubrix xQbrix ubrix Qbrix,ubrix uvrix Qbrix ubritS uvritS ubrits uvrits ubriS ubris ubri xubrix xuvrix xubritS xuvritS xubrits xuvrits xubriS xubris xubri
 Dengel,dngl,dngl dgl dinxil dinil diniil dnzl
-Homburg,xomburk xombQrk xYmburk xYmbQrk omburk ombQrk Ymburk YmbQrk,omburk ombQrk omvurk Ymburk YmbQrk onburk onbQrk onvurk Ynburk YnbQrk umburk unburk xomburk xonburk xomvurk xonvurk xumburk xunburk
+Homburg,xomburk xYmburk xombirk xYmbirk omburk Ymburk ombirk Ymbirk,omburk oburk Ymburk ombirk ombYrk obirk Ymbirk YmbYrk onburk Ynburk onbirk onbYrk Ynbirk YnbYrk umburk umbirk unburk unbirk xomburk xoburk xombirk xobirk xonburk xonbirk xumburk xumbirk xunburk xunbirk
 Kurze,kurtsi kQrtsi,kurzi kQrzi kurz kurtsi kQrtsi kuzi kuri
 Gräser,grYzir grYsir grizir grisir,grYzir grYsir grizir grisir
 Kahler,kalir kolir kYlir,kalir kolir kYlir
@@ -4759,7 +4759,7 @@ Jurk,iurk,iurk zurk
 Liebing,lQbnk libnk,libnk lDbnk lQbnk liibnk liibn liivnk
 Martins,martnz mortnz mYrtnz,martnz mortnz mYrtnz
 Schamberger,sambYrgir sambirgir sombYrgir sombirgir sYmbYrgir sYmbirgir,sambirgir sambYrgir sombirgir sombYrgir sYmbirgir sYmbYrgir sambirir sombirir sanbirgir sanbYrgir sonbirgir sonbYrgir sYnbirgir sYnbYrgir sanbirir sonbirir stsambirgir stsombirgir stsambirir stsombirir stsanbirgir stsonbirgir stsanbirir stsonbirir
-Altenburg,altmburk altmbQrk oltmburk oltmbQrk Yltmburk YltmbQrk,altnburk altnbQrk altnvurk oltnburk oltnbQrk oltnvurk Yltnburk YltnbQrk
+Altenburg,altmburk oltmburk Yltmburk altmbirk oltmbirk Yltmbirk,altnburk oltnburk Yltnburk altnbirk altnbYrk oltnbirk oltnbYrk Yltnbirk YltnbYrk
 Falkner,falknir folknir fYlknir,falknir folknir fYlknir
 Graw,graf grof,graf grof graw grow
 Ibrahim,Qbraim Qbroim QbrYim ibraim ibroim ibrYim,Qbraim Qbroim QbrYim ibraim ibroim ibrYim
@@ -5241,7 +5241,7 @@ Schönauer,sYnDr,sYnDr
 Baran,baran baron boran boron bYran bYron,baran baron boran boron bYran bYron varan varon voran voron
 Baumgardt,bDmgart bDmgort bDmgYrt bamgart bamgort bamgYrt bumgart bumgort bumgYrt,bDmgart bDmgar bDmgort bDmgor bDmgYrt bamgart bamgar bamgort bamgor bamgYrt bumgart bumgar bumgort bumgor bumgYrt vDmgart vDmgort vamgart vamgort vumgart vumgort bDmart bDmort bamart bamort bumart bumort bDngart bDngar bDngort bDngor bangart bangar bangort bangor bungart bungar bungort bungor bomgart bomgar bomgort bomgor bongart bongar bongort bongor
 Göpel,gYpl,gYpl
-Schaumburg,sDmburk sDmbQrk samburk sambQrk sumburk sumbQrk,sDmburk sDmbQrk samburk sambQrk sumburk sumbQrk sDnburk sDnbQrk sanburk sanbQrk sunburk sunbQrk stsDmburk stsamburk stsumburk stsDnburk stsanburk stsunburk
+Schaumburg,sDmburk samburk sumburk sDmbirk sambirk sumbirk,sDmburk samburk sumburk sDmbirk sDmbYrk sambirk sambYrk sumbirk sumbYrk sDnburk sanburk sunburk sDnbirk sDnbYrk sanbirk sanbYrk sunbirk sunbYrk stsDmburk stsamburk stsumburk stsDmbirk stsambirk stsumbirk stsDnburk stsanburk stsunburk stsDnbirk stsanbirk stsunbirk
 Derr,dir,dir di
 Dienst,dnzt,dnzt dDnzt diinzt diinz
 Eiden,Ddn adn idn iidn,Ddn adn idn
@@ -5370,7 +5370,7 @@ Gutknecht,gutknYxt gutknixt gQtknYxt gQtknixt,gutknixt gutknYxt gQtknixt gQtknYx
 Huppert,xupYrt xupirt xQpYrt xQpirt upYrt upirt QpYrt Qpirt,upirt upir upYrt Qpirt QpYrt xupirt xupir
 Kiene,kQni kini,kini kDni kQni kiini kiin
 Mauersberger,mDrzbYrgir mDrzbirgir,mDrzbirgir mDrzbirgi mDrzbYrgir mDrzvirgir mDrzbirxir mDrzvirxir mDrzbirir mDrzbiriir mDrzbirzir mDrzbirzi mDrzvirzir
-Mecklenburg,mYklYmburk mYklYmbQrk mYklimburk mYklimbQrk miklYmburk miklYmbQrk miklimburk miklimbQrk mYklmburk mYklmbQrk miklmburk miklmbQrk,miklinburk miklinbQrk mikilnburk miklYnburk miklYnbQrk mYklinburk mYklinbQrk mYklYnburk mYklYnbQrk miklnburk miklnbQrk mYklnburk mYklnbQrk mitsklinburk mitsklnburk
+Mecklenburg,mYklYmburk mYklimburk miklYmburk miklimburk mYklYmbirk mYklimbirk miklYmbirk miklimbirk mYklmburk miklmburk mYklmbirk miklmbirk,miklinburk mikilnburk miklYnburk mYklinburk mYklYnburk miklinbirk miklinbYrk mikilnbirk miklYnbirk miklYnbYrk mYklinbirk mYklinbYrk mYklYnbirk mYklYnbYrk miklnburk mYklnburk miklnbirk miklnbYrk mYklnbirk mYklnbYrk mitsklinburk mitsklinbirk mitsklnburk mitsklnbirk
 Gleixner,glDkznir glakznir glikznir gliikznir,glDkznir glDkzni glakznir glakzni glikznir glikzni glDgznir glDgzni glagznir glagzni gligznir gligzni glDznir glaznir gliznir
 Horvat,xorfat xorfot xYrfat xYrfot orfat orfot Yrfat Yrfot xorvat xorvot xYrvat xYrvot orvat orvot Yrvat Yrvot,orvat orva orvot orvo orbat orbot Yrvat Yrvot xorvat xorvot xorva xorvo xorbat xorbot
 Seefeldt,zYYflt zYiflt ziYflt ziiflt sYYflt sYiflt siYflt siiflt,siflt sDflt sifl sYflt ziflt zYflt
@@ -5542,7 +5542,7 @@ Port,port pYrt,port por pYrt purt
 Sauerwald,zDrvalt zDrvolt zDrvYlt sDrvalt sDrvolt sDrvYlt,sDrvalt sDrvolt sDrvYlt sDrwalt sDrwolt zDrvalt zDrvolt zDrvYlt
 Tröndle,trndli trndl,trndli
 Bürk,bQrk,bQrk
-Hüsing,xQznk Qznk xQsnk Qsnk,Qsnk Qznk usnk uznk xQsnk xQznk xusnk xuznk
+Hüsing,xQznk Qznk xQsnk Qsnk,Qsnk Qznk usnk xQsnk xusnk
 Rothmann,rotman rotmon rYtman rYtmon,rotman rotmon rYtman rYtmon
 Schindele,sndYli sndili,sndili sndYli stsndili
 Schotte,soti sYti,soti sYti stsoti
@@ -6343,7 +6343,7 @@ Klapp,klap klop,klap klop
 Meyers,mDrz,mDrz
 Plischke,plQski pliski,plQski pliski plisk plistski
 Remmel,rYml riml,riml rYml rnml
-Sonnenburg,zonmburk zonmbQrk zYnmburk zYnmbQrk sonmburk sonmbQrk sYnmburk sYnmbQrk,sonnburk sonnbQrk sonnvurk sYnnburk sYnnbQrk sunnburk zonnburk zonnbQrk zYnnburk zYnnbQrk
+Sonnenburg,zonmburk zYnmburk zonmbirk zYnmbirk sonmburk sYnmburk sonmbirk sYnmbirk,sonnburk sYnnburk sonnbirk sonnbYrk sYnnbirk sYnnbYrk sunnburk sunnbirk zonnburk zYnnburk zonnbirk zonnbYrk zYnnbirk zYnnbYrk
 Bohmann,boman bomon bYman bYmon,boman bomon bYman bYmon
 Kümmerle,kQmYrli kQmirli kQmYrl kQmirl,kQmirli kQmYrli
 Regel,rYgl rigl,rigl rYgl rixil rizl
@@ -6770,7 +6770,7 @@ Erfurt,Yrfurt YrfQrt irfurt irfQrt,irfurt irfur irfQrt Yrfurt YrfQrt iirfurt
 Finken,fnkn,fnkn
 Gentsch,gntS gnts,gntS gnts
 Kilb,klp,klp
-Kloppenburg,klopmburk klopmbQrk klYpmburk klYpmbQrk,klopnburk klopnbQrk klYpnburk klYpnbQrk
+Kloppenburg,klopmburk klYpmburk klopmbirk klYpmbirk,klopnburk klYpnburk klopnbirk klopnbYrk klYpnbirk klYpnbYrk
 Kohnert,konYrt konirt kYnYrt kYnirt,konYrt konirt kYnYrt kYnirt
 Lamparter,lampartir lamportir lampYrtir lompartir lomportir lompYrtir lYmpartir lYmportir lYmpYrtir,lampartir lamparti lamportir lamporti lampYrtir labartir labortir lompartir lomparti lomportir lomporti lompYrtir lobartir lobortir lYmpartir lYmportir lYmpYrtir
 Layer,lDr,lDr
@@ -7276,7 +7276,7 @@ Böhling,bYlnk,bYlnk
 Bräu,brYu briu,brYu briu
 Kees,kYis kiis,kis kDs
 Kumar,kumar kumor kQmar kQmor,kumar kumor kQmar kQmor
-Limburg,lQmburk lQmbQrk limburk limbQrk,lQmburk lQmbQrk limburk limbQrk limvurk lnburk lnbQrk lnvurk
+Limburg,lQmburk limburk lQmbirk limbirk,lQmburk limburk liburk lQmbirk lQmbYrk limbirk limbYrk libirk lnburk lnbirk lnbYrk
 Panitz,panits ponits pYnits,panits ponits pYnits panQtS panitS ponQtS ponitS pYnQtS pYnitS
 Syring,zirnk sirnk,sirnk sirn
 Thümmler,tQmlir tQmlr,tQmlir tQmlr
@@ -7461,7 +7461,7 @@ Kietzmann,kQtzman kQtzmon kitzman kitzmon,kQtzman kQtzmon kitzman kitzmon
 Lohrer,lorir lYrir,lorir lYrir
 Schiek,sik,sik sDk siik stsDk stsiik
 Sonnabend,zonabnt zonobnt zonYbnt zYnabnt zYnobnt zYnYbnt sonabnt sonobnt sonYbnt sYnabnt sYnobnt sYnYbnt,sonabnt sonabn sonavnt sonobnt sonobn sonovnt sonYbnt sYnabnt sYnobnt sYnYbnt sunabnt sunobnt zonabnt zonobnt zonYbnt zYnabnt zYnobnt zYnYbnt
-Stolzenburg,stoltsmburk stoltsmbQrk stYltsmburk stYltsmbQrk,stolznburk stolznbQrk stYlznburk stYlznbQrk stoltsnburk stoltsnbQrk stYltsnburk stYltsnbQrk stolznvurk stoldznburk stulznburk
+Stolzenburg,stoltsmburk stYltsmburk stoltsmbirk stYltsmbirk,stolznburk stYlznburk stolznbirk stolznbYrk stYlznbirk stYlznbYrk stoltsnburk stYltsnburk stoltsnbirk stoltsnbYrk stYltsnbirk stYltsnbYrk stoldznburk stoldznbirk stulznburk stulznbirk
 Tegethoff,tYgYtof tYgitof tigYtof tigitof,tigitof tigYtof tYgitof tYgYtof tixitof tizitof
 Kinkel,knkl,knkl
 Klöcker,klYkir,klYkir
@@ -8021,7 +8021,7 @@ Häffner,xYfnir Yfnir xifnir ifnir,xYfnir Yfnir xifnir ifnir
 Klimpel,klQmpl klimpl,klQmpl klimpl klibl klmpl klbl
 Kohnke,konki kYnki,konki kYnki
 Ohle,oli Yli,oli Yli
-Rüsing,rQznk rQsnk,rQsnk rQznk rusnk ruznk
+Rüsing,rQznk rQsnk,rQsnk rQznk rusnk
 Ziesche,tsQsi tsisi,zisi zYsi zis zistsi ziski tsisi
 Bennemann,bnYman bnYmon bniman bnimon,bnYman bnYmon bniman bnimon
 Haut,xDt xat xut Dt at ut,Dt D at a ut u ot o xDt xat xut xD xa xu xot xo
@@ -8260,7 +8260,7 @@ Siebels,zQblz ziblz sQblz siblz,siblz sivlz sYblz siiblz siivlz ziblz
 Albayrak,albDrak albDrok albarak albarok albirak albirok olbDrak olbDrok olbarak olbarok olbirak olbirok YlbDrak YlbDrok Ylbarak Ylbarok Ylbirak Ylbirok,albDrak albDrok albarak albarok albirak albirok olbDrak olbDrok olbarak olbarok olbirak olbirok
 Book,book bYok,buk bok
 Bruno,bruno brQno,bruno brQno vruno
-Düsing,dQznk dQsnk,dQsnk dQznk dusnk duznk
+Düsing,dQznk dQsnk,dQsnk dQznk dusnk
 Huse,xuzi xQzi uzi Qzi xusi xQsi usi Qsi,usi Qsi us uzi Qzi uz xusi xus xuzi xuz
 Kolar,kolar kolor kYlar kYlor,kolar kolor kYlar kYlor kular kulor
 Lindig,lndik,lndik
@@ -8431,7 +8431,7 @@ Hoppen,xopn xYpn opn Ypn,opn Ypn xopn
 Jöns,iYnz,iYnz znz
 Leidel,lDdl ladl lidl liidl,lDdl ladl lidl
 Leininger,lDnngir lanngir linngir liinngir,lDnngir lDnngi lDngir lanngir lanngi langir linngir linngi lingir lDninxir laninxir lininxir lDninir laninir lininir lDniniir laniniir lininiir lDnnzir lDnnzi lannzir lannzi linnzir linnzi
-Wittenburg,vQtmburk vQtmbQrk vitmburk vitmbQrk,vQtnburk vQtnbQrk vitnburk vitnbQrk witnburk
+Wittenburg,vQtmburk vitmburk vQtmbirk vitmbirk,vQtnburk vitnburk vQtnbirk vQtnbYrk vitnbirk vitnbYrk witnburk witnbirk
 Callsen,kalzn kolzn kYlzn kalzon kolzon kYlzon,kalzn kolzn kYlzn kalzon kolzon kYlzon tsalzn tsolzn tsalzon tsolzon zalzn zolzn zalzon zolzon
 Geister,gDstir gastir gistir giistir,giistir gYistir giisti giitir giiti xiistir iistir iiistir ziistir ziisti ziitir ziiti
 Gogolin,gogoln gogYln gYgoln gYgYln,gogoln gogYln gYgoln gYgYln goguln gugoln guguln ogoln
@@ -8655,7 +8655,7 @@ Frommer,fromir frYmir,fromir fromi frYmir fronmir fronmi frumir
 Keilholz,kDlolts kDlYlts kalolts kalYlts kilolts kilYlts kiilolts kiilYlts,kDlolz kDlYlz kalolz kalYlz kilolz kilYlz kDlolts kDlYlts kalolts kalYlts kilolts kilYlts
 Knüttel,knQtl,knQtl
 See,zYi zii sYi sii,si sD zi
-Straßburg,strasburk strasbQrk strosburk strosbQrk strYsburk strYsbQrk,strasburk strasbQrk strosburk strosbQrk strYsburk strYsbQrk
+Straßburg,strasburk strosburk strYsburk strasbirk strosbirk strYsbirk,strasburk strosburk strYsburk strasbirk strosbirk strYsbirk
 Biallas,bialas bialos biolas biolos,bialas biala bialos bialo biolas biola biolos biolo vialas vialos violas violos bialaS bialoS biolaS bioloS
 Gundelach,gundYlax gundYlox gundYlYx gundilax gundilox gundilYx gQndYlax gQndYlox gQndYlYx gQndilax gQndilox gQndilYx,gundilax gundilox gundilYx gundYlax gundYlox gundYlYx gQndilax gQndilox gQndilYx gQndYlax gQndYlox gQndYlYx gundilatS gundilotS gundilats gundilots gundilaS gundiloS gundilas gundila gundilos gundilo undilax undilox undilatS undilotS undilats undilots
 Ledermann,lYdYrman lYdYrmon lYdirman lYdirmon lidYrman lidYrmon lidirman lidirmon,lYdYrman lYdYrmon lYdirman lYdirmon lidYrman lidYrmon lidirman lidirmon
@@ -9703,7 +9703,7 @@ Grundner,grundnir grQndnir,grundnir grundni grQndnir
 Kanter,kantir kontir kYntir,kantir kontir kYntir
 Lauermann,lDrman lDrmon,lDrman lDrmon
 Lipfert,lQpfYrt lQpfirt lipfYrt lipfirt lQpYrt lQpirt lipYrt lipirt lQfYrt lQfirt lifYrt lifirt,lQpfirt lQpfYrt lipfirt lipfir lipfYrt lQpirt lQpYrt lipirt lipir lipYrt lQfirt lQfYrt lifirt lifir lifYrt
-Lüneburg,lQnYburk lQnYbQrk lQniburk lQnibQrk,lQniburk lQnibQrk lQnivurk lQnYburk lQnYbQrk luniburk lunivurk
+Lüneburg,lQnYburk lQniburk lQnYbirk lQnibirk,lQniburk lQnYburk lQnibirk lQnibYrk lQnYbirk lQnYbYrk luniburk lunibirk
 Schlink,zlnk,zlnk stzlnk
 Schollmeyer,solmDr sYlmDr,solmDr sYlmDr stsolmDr
 Schwedes,svYdis svidis,svYdis svidis

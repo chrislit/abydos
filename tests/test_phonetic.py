@@ -43,7 +43,7 @@ from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
 TESTDIR = os.path.dirname(__file__)
 
 EXTREME_TEST = False # Set to True to test EVERY single case (takes hours)
-ALLOW_RANDOM = True # Set to False to skip all random tests (to check coverage)
+ALLOW_RANDOM = False # Set to False to skip all random tests (to check coverage)
 
 def one_in(inverse_probability):
     """Return True if:
@@ -4356,6 +4356,21 @@ class BeiderMorseTestCases(unittest.TestCase):
                     self.assertEqual(bmpm(nn_line[0]), nn_line[2])
 
 
+    def test_bmpm_nachnamen_304(self):
+        """test abydos.phonetic.bmpm (Nachnamen set, 3.04 changed)
+        """
+        with codecs.open(TESTDIR + '/corpora/nachnamen.bm.304.csv', encoding='utf-8') as nachnamen_testset:
+            next(nachnamen_testset)
+            for nn_line in nachnamen_testset:
+                nn_line = nn_line.strip().split(',')
+                # This test set is very large (~10000 entries)
+                # so let's just randomly select about 20 for testing
+                if nn_line[0] != '#':
+                    self.assertEqual(bmpm(nn_line[0], language_arg='german'),
+                                     nn_line[1])
+                    self.assertEqual(bmpm(nn_line[0]), nn_line[2])
+
+
     def test_bmpm_uscensus2000(self):
         """test abydos.phonetic.bmpm (US Census 2000 set)
         """
@@ -4368,6 +4383,30 @@ class BeiderMorseTestCases(unittest.TestCase):
                 # This test set is very large (~150000 entries)
                 # so let's just randomly select about 20 for testing
                 if cen_line[0] != '#' and one_in(7500):
+                    self.assertEqual(bmpm(cen_line[0], match_mode='approx',
+                                          name_mode='gen'), cen_line[1])
+                    self.assertEqual(bmpm(cen_line[0], match_mode='approx',
+                                          name_mode='ash'), cen_line[2])
+                    self.assertEqual(bmpm(cen_line[0], match_mode='approx',
+                                          name_mode='sep'), cen_line[3])
+                    self.assertEqual(bmpm(cen_line[0], match_mode='exact',
+                                          name_mode='gen'), cen_line[4])
+                    self.assertEqual(bmpm(cen_line[0], match_mode='exact',
+                                          name_mode='ash'), cen_line[5])
+                    self.assertEqual(bmpm(cen_line[0], match_mode='exact',
+                                          name_mode='sep'), cen_line[6])
+
+
+    def test_bmpm_uscensus2000_304(self):
+        """test abydos.phonetic.bmpm (US Census 2000 set, 3.04 changed)
+        """
+        with open(TESTDIR + '/corpora/uscensus2000.bm.304.csv') as uscensus_testset:
+            next(uscensus_testset)
+            for cen_line in uscensus_testset:
+                cen_line = cen_line.strip().split(',')
+                # This test set is very large (~150000 entries)
+                # so let's just randomly select about 20 for testing
+                if cen_line[0] != '#':
                     self.assertEqual(bmpm(cen_line[0], match_mode='approx',
                                           name_mode='gen'), cen_line[1])
                     self.assertEqual(bmpm(cen_line[0], match_mode='approx',
