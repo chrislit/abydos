@@ -143,11 +143,13 @@ def bwt_encode(word, terminator='\0'):
     Cf. https://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform
     """
     if word:
-        assert terminator not in word, ("Specified terminator, %s, already in word." %
-                                        (terminator if terminator!='\0' else '\\0'))
-        word += terminator
-        wordlist = sorted([word[i:]+word[:i] for i in _range(len(word))])
-        return ''.join([w[-1] for w in wordlist])
+        if terminator in word:
+            raise ValueError('Specified terminator, %s, already in word.' %
+                             (terminator if terminator!='\0' else '\\0'))
+        else:
+            word += terminator
+            wordlist = sorted([word[i:]+word[:i] for i in _range(len(word))])
+            return ''.join([w[-1] for w in wordlist])
     else:
         return terminator
 
@@ -165,13 +167,15 @@ def bwt_decode(code, terminator='\0'):
     Cf. https://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform
     """
     if code:
-        assert terminator in code, ('Specified terminator, %s, absent from code.' %
-                                    (terminator if terminator!='\0' else '\\0'))
-        wordlist = [''] * len(code)
-        for i in _range(len(code)):
-            wordlist = sorted([code[i]+wordlist[i] for i in _range(len(code))])
-        s = [w for w in wordlist if w[-1] == terminator][0]
-        return s.rstrip(terminator)
+        if terminator not in code:
+            raise ValueError('Specified terminator, %s, absent from code.' %
+                             (terminator if terminator!='\0' else '\\0'))
+        else:
+            wordlist = [''] * len(code)
+            for i in _range(len(code)):
+                wordlist = sorted([code[i]+wordlist[i] for i in _range(len(code))])
+            s = [w for w in wordlist if w[-1] == terminator][0]
+            return s.rstrip(terminator)
     else:
         return ''
 
@@ -193,8 +197,6 @@ def rle_encode(text, use_bwt=True):
         text = bwt_encode(text)
     if text:
         text = [(len(list(g)), k) for k, g in groupby(text)]
-        if isinstance(text[0][1], int):
-            text = [(i[0],_unichr(i[1])) for i in text]
         text = [(str(n)+k if n>2 else (k if n==1 else 2*k)) for n,k in text]
     return ''.join(text)
 
