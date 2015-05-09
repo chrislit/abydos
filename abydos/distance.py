@@ -65,7 +65,7 @@ except ImportError: # pragma: no cover
     # If the system lacks the lzma library, that's fine, but lzma comrpession
     # similarity won't be supported.
     pass
-from .compression import ac_train, ac_encode
+from .compression import ac_train, ac_encode, rle_encode
 import unicodedata
 
 
@@ -1260,7 +1260,8 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
     Arguments:
     src, tar -- two strings to be compared
     compressor -- a compression scheme to use for the similarity calculation:
-                    'bz2', 'lzma', 'arith', and 'zlib' are the supported options
+                    'bz2', 'lzma', 'arith', 'zlib', 'rle', and compression'bwtrle' are
+                    the supported options
     probs -- a dictionary trained with ac_train (for the arith compressor only)
 
     Description:
@@ -1284,7 +1285,7 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
             tar_comp = lzma.compress(tar)[14:]
             concat_comp = lzma.compress(src+tar)[14:]
         else: # pragma: no cover
-            raise ValueError('Install the lzma module in order to use lzma ' +
+            raise ValueError('Install the PylibLZMA module in order to use lzma ' +
                              'compression similarity')
     elif compressor == 'arith':
         if probs == None:
@@ -1294,6 +1295,10 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
         tar_comp = ac_encode(tar, probs)[1]
         concat_comp = ac_encode(src+tar, probs)[1]
         return (concat_comp - min(src_comp, tar_comp)) / max(src_comp, tar_comp)
+    elif compressor in {'rle', 'bwtrle'}:
+        src_comp = rle_encode(src, (compressor=='bwtrle'))
+        tar_comp = rle_encode(tar, (compressor=='bwtrle'))
+        concat_comp = rle_encode(src+tar, (compressor=='bwtrle'))
     else: # zlib
         src_comp = codecs.encode(src, 'zlib_codec')[2:]
         tar_comp = codecs.encode(tar, 'zlib_codec')[2:]
@@ -1302,19 +1307,21 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
            max(len(src_comp), len(tar_comp)))
 
 
-def sim_compression(src, tar, compression='bz2', probs=None):
+def sim_compression(src, tar, compressor='bz2', probs=None):
     """Return the normalized compression similarity (NCS) of two strings
 
     Arguments:
     src, tar -- two strings to be compared
     compressor -- a compression scheme to use for the similarity calculation:
-                    'bz2', 'lzma', 'arith', and 'zlib' are the supported options
+                    'bz2', 'lzma', 'arith', 'zlib', 'rle', and 'bwtrle' are
+                    the supported options
+    probs -- a dictionary trained with ac_train (for the arith compressor only)
 
     Description:
     Normalized compression similarity is equal to 1 - the normalized
     compression distance
     """
-    return 1 - dist_compression(src, tar, compression, probs)
+    return 1 - dist_compression(src, tar, compressor, probs)
 
 
 def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, sym=False):
