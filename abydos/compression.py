@@ -30,7 +30,7 @@ from __future__ import division
 from collections import Counter
 from itertools import groupby
 from .util import Rational
-from ._compat import _unicode, _long, _range
+from ._compat import _unicode, _long, _range, _unichr
 
 def ac_train(text):
     """Generate a probability dict from the provided text
@@ -143,13 +143,13 @@ def bwt_encode(word, terminator='\0'):
     Cf. https://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform
     """
     if word:
-        assert terminator not in word, ('Specified terminator, '+
-                                        (terminator if terminator else '\\0')+
-                                        ', already in word.')
+        assert terminator not in word, ("Specified terminator, %s, already in word." %
+                                        (terminator if terminator!='\0' else '\\0'))
         word += terminator
         wordlist = sorted([word[i:]+word[:i] for i in _range(len(word))])
         return ''.join([w[-1] for w in wordlist])
-    return terminator
+    else:
+        return terminator
 
 
 def bwt_decode(code, terminator='\0'):
@@ -165,15 +165,15 @@ def bwt_decode(code, terminator='\0'):
     Cf. https://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform
     """
     if code:
-        assert terminator in code, ('Specified terminator, '+
-                                    (terminator if terminator else '\\0')+
-                                    ', absent from word.')
+        assert terminator in code, ('Specified terminator, %s, absent from code.' %
+                                    (terminator if terminator!='\0' else '\\0'))
         wordlist = [''] * len(code)
         for i in _range(len(code)):
             wordlist = sorted([code[i]+wordlist[i] for i in _range(len(code))])
         s = [w for w in wordlist if w[-1] == terminator][0]
         return s.rstrip(terminator)
-    return ''
+    else:
+        return ''
 
 
 def rle_encode(text, use_bwt=True):
@@ -191,8 +191,11 @@ def rle_encode(text, use_bwt=True):
     """
     if use_bwt:
         text = bwt_encode(text)
-    text = [(len(list(g)),k) for k,g in groupby(text)]
-    text = [(str(n)+k if n>2 else (k if n==1 else 2*k)) for n,k in text]
+    if text:
+        text = [(len(list(g)), k) for k, g in groupby(text)]
+        if isinstance(text[0][1], int):
+            text = [(i[0],_unichr(i[1])) for i in text]
+        text = [(str(n)+k if n>2 else (k if n==1 else 2*k)) for n,k in text]
     return ''.join(text)
 
 def rle_decode(text, use_bwt=True):
