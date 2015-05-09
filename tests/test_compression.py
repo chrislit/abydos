@@ -102,7 +102,7 @@ class BWTTestCases(unittest.TestCase):
     """test cases for abydos.compression.bwt and .bwt_decode
     """
     def test_bwt(self):
-        """test abydos.compression.bwt
+        """test abydos.compression.bwt_encode
         """
         # Examples from Wikipedia entry on BWT
         self.assertEqual(bwt_encode(''), '\x00')
@@ -117,7 +117,7 @@ class BWTTestCases(unittest.TestCase):
         self.assertRaises(ValueError, bwt_encode, 'ABC\0')
 
     def test_bwt_decode(self):
-        """test abydos.compression.bwt_clustering
+        """test abydos.compression.bwt_decode
         """
         self.assertEqual(bwt_decode(''), '')
         self.assertEqual(bwt_decode('\x00'), '')
