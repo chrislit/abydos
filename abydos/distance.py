@@ -1271,7 +1271,7 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
     if src == tar:
         return 0.0
 
-    if compressor != 'arith':
+    if compressor not in {'arith', 'rle', 'bwtrle'}:
         src = src.encode('utf-8')
         tar = tar.encode('utf-8')
 
