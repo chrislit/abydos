@@ -1290,6 +1290,9 @@ class CompressionTestCases(unittest.TestCase):
         self.assertGreater(dist_compression('abcdefg', 'fg', 'zlib'), 0)
         self.assertGreater(dist_compression('abcdefg', 'fg', 'arith'), 0)
 
+    def test_dist_compression_arith(self):
+        """test abydos.distance.dist_compression (arithmetric compression)
+        """
         self.assertAlmostEqual(dist_compression('Niall', 'Neil', 'arith',
                                                 self.arith_dict),
                                0.608695652173913)
@@ -1334,6 +1337,9 @@ class CompressionTestCases(unittest.TestCase):
         self.assertLess(sim_compression('abcdefg', 'fg', 'zlib'), 1)
         self.assertLess(sim_compression('abcdefg', 'fg', 'arith'), 1)
 
+    def test_sim_compression_arith(self):
+        """test abydos.distance.sim_compression (arithmetric compression)
+        """
         self.assertAlmostEqual(sim_compression('Niall', 'Neil', 'arith',
                                                 self.arith_dict),
                                0.3913043478260869)
