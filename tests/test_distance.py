@@ -1275,6 +1275,8 @@ class CompressionTestCases(unittest.TestCase):
         self.assertEqual(dist_compression('', '', 'zlib'), 0)
         self.assertEqual(dist_compression('', '', 'arith'), 0)
         self.assertEqual(dist_compression('', '', 'arith', self.arith_dict), 0)
+        self.assertEqual(dist_compression('', '', 'rle'), 0)
+        self.assertEqual(dist_compression('', '', 'bwtrle'), 0)
 
         self.assertGreater(dist_compression('a', ''), 0)
         self.assertGreater(dist_compression('a', '', 'bzip2'), 0)
@@ -1283,12 +1285,16 @@ class CompressionTestCases(unittest.TestCase):
         self.assertGreater(dist_compression('a', '', 'arith'), 0)
         self.assertGreater(dist_compression('a', '', 'arith', self.arith_dict),
                            0)
+        self.assertGreater(dist_compression('a', '', 'rle'), 0)
+        self.assertGreater(dist_compression('a', '', 'bwtrle'), 0)
 
         self.assertGreater(dist_compression('abcdefg', 'fg'), 0)
         self.assertGreater(dist_compression('abcdefg', 'fg', 'bzip2'), 0)
         self.assertGreater(dist_compression('abcdefg', 'fg', 'lzma'), 0)
         self.assertGreater(dist_compression('abcdefg', 'fg', 'zlib'), 0)
         self.assertGreater(dist_compression('abcdefg', 'fg', 'arith'), 0)
+        self.assertGreater(dist_compression('abcdefg', 'fg', 'rle'), 0)
+        self.assertGreater(dist_compression('abcdefg', 'fg', 'bwtrle'), 0)
 
     def test_dist_compression_arith(self):
         """test abydos.distance.dist_compression (arithmetric compression)
@@ -1323,6 +1329,8 @@ class CompressionTestCases(unittest.TestCase):
         self.assertEqual(sim_compression('', '', 'zlib'), 1)
         self.assertEqual(sim_compression('', '', 'arith'), 1)
         self.assertEqual(sim_compression('', '', 'arith', self.arith_dict), 1)
+        self.assertEqual(sim_compression('', '', 'rle'), 1)
+        self.assertEqual(sim_compression('', '', 'bwtrle'), 1)
 
         self.assertLess(sim_compression('a', ''), 1)
         self.assertLess(sim_compression('a', '', 'bzip2'), 1)
@@ -1330,12 +1338,16 @@ class CompressionTestCases(unittest.TestCase):
         self.assertLess(sim_compression('a', '', 'zlib'), 1)
         self.assertLess(sim_compression('a', '', 'arith'), 1)
         self.assertLess(sim_compression('a', '', 'arith', self.arith_dict), 1)
+        self.assertLess(sim_compression('a', '', 'rle'), 1)
+        self.assertLess(sim_compression('a', '', 'bwtrle'), 1)
 
         self.assertLess(sim_compression('abcdefg', 'fg'), 1)
         self.assertLess(sim_compression('abcdefg', 'fg', 'bzip2'), 1)
         self.assertLess(sim_compression('abcdefg', 'fg', 'lzma'), 1)
         self.assertLess(sim_compression('abcdefg', 'fg', 'zlib'), 1)
         self.assertLess(sim_compression('abcdefg', 'fg', 'arith'), 1)
+        self.assertLess(sim_compression('abcdefg', 'fg', 'rle'), 1)
+        self.assertLess(sim_compression('abcdefg', 'fg', 'bwtrle'), 1)
 
     def test_sim_compression_arith(self):
         """test abydos.distance.sim_compression (arithmetric compression)
