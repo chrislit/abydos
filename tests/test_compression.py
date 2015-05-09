@@ -113,6 +113,9 @@ class BWTTestCases(unittest.TestCase):
 
         self.assertEqual(bwt_encode('aardvark', '$'), 'k$avrraad')
 
+        self.assertRaises(ValueError, bwt_encode, 'ABC$', '$')
+        self.assertRaises(ValueError, bwt_encode, 'ABC\0')
+
     def test_bwt_decode(self):
         """test abydos.compression.bwt_clustering
         """
@@ -124,6 +127,9 @@ class BWTTestCases(unittest.TestCase):
                          'SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES')
 
         self.assertEqual(bwt_decode('k$avrraad', '$'), 'aardvark')
+
+        self.assertRaises(ValueError, bwt_decode, 'ABC', '$')
+        self.assertRaises(ValueError, bwt_decode, 'ABC')
 
     def test_bwt_roundtripping(self):
         """test abydos.compression.bwt & .bwt_decode roundtripping
