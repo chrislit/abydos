@@ -419,6 +419,8 @@ class NysiisTestCases(unittest.TestCase):
     def test_nysiis(self):
         """test abydos.phonetic.nysiis
         """
+        self.assertEqual(nysiis(''), '')
+
         # http://coryodaniel.com/index.php/2009/12/30/ruby-nysiis-implementation/
         self.assertEqual(nysiis('O\'Daniel'), 'ODANAL')
         self.assertEqual(nysiis('O\'Donnel'), 'ODANAL')
@@ -481,6 +483,8 @@ class MraTestCases(unittest.TestCase):
     def test_mra(self):
         """test abydos.phonetic.mra
         """
+        self.assertEqual(mra(''), '')
+
         # https://en.wikipedia.org/wiki/Match_rating_approach
         self.assertEqual(mra('Byrne'), 'BYRN')
         self.assertEqual(mra('Boern'), 'BRN')
