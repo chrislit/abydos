@@ -1326,6 +1326,9 @@ class CompressionTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_compression('abc', 'abc', 'rle'), 0)
         self.assertAlmostEqual(dist_compression('abc', 'def', 'rle'), 1)
 
+        self.assertAlmostEqual(dist_compression('abc', 'abc', 'bwtrle'), 0)
+        self.assertAlmostEqual(dist_compression('abc', 'def', 'bwtrle'), 0.75)
+
     def test_sim_compression(self):
         """test abydos.distance.sim_compression
         """
@@ -1384,6 +1387,9 @@ class CompressionTestCases(unittest.TestCase):
         """
         self.assertAlmostEqual(sim_compression('abc', 'abc', 'rle'), 1)
         self.assertAlmostEqual(sim_compression('abc', 'def', 'rle'), 0)
+
+        self.assertAlmostEqual(sim_compression('abc', 'abc', 'bwtrle'), 1)
+        self.assertAlmostEqual(sim_compression('abc', 'def', 'bwtrle'), 0.25)
 
 
 class MongeElkanTestCases(unittest.TestCase):
