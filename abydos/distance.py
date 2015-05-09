@@ -1279,11 +1279,13 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
         src_comp = codecs.encode(src, 'bz2_codec')[15:]
         tar_comp = codecs.encode(tar, 'bz2_codec')[15:]
         concat_comp = codecs.encode(src+tar, 'bz2_codec')[15:]
+        concat_comp2 = codecs.encode(tar+src, 'bz2_codec')[15:]
     elif compressor == 'lzma':
         if 'lzma' in sys.modules:
             src_comp = lzma.compress(src)[14:]
             tar_comp = lzma.compress(tar)[14:]
             concat_comp = lzma.compress(src+tar)[14:]
+            concat_comp2 = lzma.compress(tar+src)[14:]
         else: # pragma: no cover
             raise ValueError('Install the PylibLZMA module in order to use lzma ' +
                              'compression similarity')
@@ -1294,17 +1296,22 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
         src_comp = ac_encode(src, probs)[1]
         tar_comp = ac_encode(tar, probs)[1]
         concat_comp = ac_encode(src+tar, probs)[1]
-        return (concat_comp - min(src_comp, tar_comp)) / max(src_comp, tar_comp)
+        concat_comp2 = ac_encode(tar+src, probs)[1]
+        return ((min(concat_comp, concat_comp2) - min(src_comp, tar_comp)) /
+                max(src_comp, tar_comp))
     elif compressor in {'rle', 'bwtrle'}:
         src_comp = rle_encode(src, (compressor=='bwtrle'))
         tar_comp = rle_encode(tar, (compressor=='bwtrle'))
         concat_comp = rle_encode(src+tar, (compressor=='bwtrle'))
+        concat_comp2 = rle_encode(tar+src, (compressor=='bwtrle'))
     else: # zlib
         src_comp = codecs.encode(src, 'zlib_codec')[2:]
         tar_comp = codecs.encode(tar, 'zlib_codec')[2:]
         concat_comp = codecs.encode(src+tar, 'zlib_codec')[2:]
-    return ((len(concat_comp) - min(len(src_comp), len(tar_comp))) /
-           max(len(src_comp), len(tar_comp)))
+        concat_comp2 = codecs.encode(tar+src, 'zlib_codec')[2:]
+    return ((min(len(concat_comp), len(concat_comp2))
+             - min(len(src_comp), len(tar_comp))) /
+            max(len(src_comp), len(tar_comp)))
 
 
 def sim_compression(src, tar, compressor='bz2', probs=None):
