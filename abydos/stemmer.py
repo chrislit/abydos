@@ -1257,4 +1257,30 @@ def caumanns(word):
     Caumanns' stemmer is described in his article at
     http://edocs.fu-berlin.de/docs/servlets/MCRFileNodeServlet/FUDOCS_derivate_000000000350/tr-b-99-16.pdf
     """
+    word = unicodedata.normalize('NFC', _unicode(word))
+
+    ## Part 1: Recursive Context-Free Stripping
+
+    # Remove the following 7 suffixes recursively
+    while True:
+        if len(word) < 4:
+            break
+        if ((len(word) > 4 and word[-2:] in {'em', 'er'}) or
+            (len(word) > 5 and word[-2:] == 'nd')):
+            word = word[:-2]
+            continue
+        if ((word[-1] in {'e', 's', 'n'}) or
+            (not word[1].isupper() and word[-1] == 't')):
+            word = word[:-1]
+            continue
+        else:
+            break
+
+    # Then remove ge- and -ge
+    if len(word) > 3: # TODO: verify restriction
+        if word[:2] == 'ge':
+            word = word[2:]
+        if word[-2:] == 'ge':
+            word = word[:-2]
+
     return word

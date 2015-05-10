@@ -13,7 +13,7 @@ Abydos
    :target: https://codeclimate.com/github/chrislit/abydos
    :alt: Code Climate
 
-.. image:: https://img.shields.io/badge/pylint-9.93/10-brightgreen.svg
+.. image:: https://img.shields.io/badge/pylint-9.92/10-brightgreen.svg
     :alt: Pylint Status
 
 .. image:: https://img.shields.io/pypi/v/abydos.svg
