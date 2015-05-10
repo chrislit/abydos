@@ -692,5 +692,35 @@ class CLEFTestCases(unittest.TestCase):
         self.assertEqual(clef_swedish('kommun'), 'kommu')
 
 
+class UEALiteTestCases(unittest.TestCase):
+    """test cases for abydos.stemmer.uealite
+    """
+    def test_caumanns(self):
+        """test abydos.stemmer.uealite
+        """
+        # base case
+        self.assertEqual(uealite(''), '')
+
+
+class LancasterTestCases(unittest.TestCase):
+    """test cases for abydos.stemmer.lancaster
+    """
+    def test_caumanns(self):
+        """test abydos.stemmer.lancaster
+        """
+        # base case
+        self.assertEqual(lancaster(''), '')
+
+
+class CaumannsTestCases(unittest.TestCase):
+    """test cases for abydos.stemmer.caumanns
+    """
+    def test_caumanns(self):
+        """test abydos.stemmer.caumanns
+        """
+        # base case
+        self.assertEqual(caumanns(''), '')
+
+
 if __name__ == '__main__':
     unittest.main()
