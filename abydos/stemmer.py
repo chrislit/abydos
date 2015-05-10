@@ -1259,6 +1259,9 @@ def caumanns(word):
     """
     word = unicodedata.normalize('NFC', _unicode(word))
 
+    ## Part 2: Substitution
+
+
     ## Part 1: Recursive Context-Free Stripping
 
     # Remove the following 7 suffixes recursively
