@@ -25,7 +25,8 @@ import unittest
 from abydos.stemmer import _m_degree, _sb_has_vowel, _ends_in_doubled_cons, \
     _ends_in_cvc, porter, _sb_r1, _sb_r2, _sb_ends_in_short_syllable, \
     _sb_short_word, porter2, sb_german, sb_dutch, sb_norwegian, sb_swedish, \
-    sb_danish, clef_german, clef_german_plus, clef_swedish
+    sb_danish, clef_german, clef_german_plus, clef_swedish, uealite, \
+    lancaster, caumanns
 import os
 import codecs
 
