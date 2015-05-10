@@ -25,18 +25,17 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
-
 from __future__ import unicode_literals
 from __future__ import division
 import sys
-if sys.version_info[0] == 3:
-    # pylint: disable=redefined-builtin
-    from functools import reduce    # pragma: no cover
-    # pylint: enable=redefined-builtin
 from random import uniform, normalvariate
 from numpy.random import laplace
 from math import floor, log10
 from ._compat import _unicode, _range, numeric_type, _long
+if sys.version_info[0] == 3:
+    # pylint: disable=redefined-builtin
+    from functools import reduce    # pragma: no cover
+    # pylint: enable=redefined-builtin
 
 
 def prod(nums):
@@ -76,8 +75,8 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
     and a is the amount argument (if specified).
 
     Let z = max(x) - min(x) (assuming the usual case). The amount a to be added
-    is either provided as positive argument amount or otherwise computed from z,
-    as follows:
+    is either provided as positive argument amount or otherwise computed from
+    z, as follows:
 
     If amount == 0, we set a = factor * z/50 (same as S).
 
@@ -91,8 +90,7 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
         return jitter([nums])[0]
     if len(nums) == 0:
         return []
-    if (sum([isinstance(i, numeric_type) for i in nums]) !=
-        len(nums)):
+    if (sum([isinstance(i, numeric_type) for i in nums]) != len(nums)):
         raise AttributeError('All members of nums must be numeric.')
 
     rng = (min(nums), max(nums))
@@ -102,17 +100,17 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
     if diff == 0:
         diff = 1
 
-    if min_val == None:
+    if min_val is None:
         min_val = rng[0]-diff
     elif rng[0] < min_val:
         raise AttributeError('Minimum of nums is less than min_val.')
 
-    if max_val == None:
+    if max_val is None:
         max_val = rng[1]+diff
     elif rng[1] > max_val:
         raise AttributeError('Maximum of nums is greater than max_val.')
 
-    if amount == None:
+    if amount is None:
         ndigits = int(3 - floor(log10(diff)))
         snums = sorted(set([round(i, ndigits) for i in nums]))
         if len(snums) == 1:
@@ -143,12 +141,12 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
     # (This is an addition to the standard R algorithm)
     for i in _range(len(newnums)):
         while newnums[i] < min_val or newnums[i] > max_val:
-            newnums[i] = (newnums[i] + _rand()) # pragma: no cover
+            newnums[i] = (newnums[i] + _rand())  # pragma: no cover
 
     # In the unlikely event that two equal values are in the list, try again
     if len(newnums) != len(set(newnums)):
         newnums = jitter(nums, factor, amount,
-                         min_val, max_val) # pragma: no cover
+                         min_val, max_val)  # pragma: no cover
 
     return newnums
 
@@ -206,8 +204,8 @@ class Rational(object):
             self.q = _long(pfloat_q) * _long(qfloat_p)
         else:
             raise AttributeError('Unsupported values, both p and q must be ' +
-                                 'of type int, long, or float or p must be a ' +
-                                 'string representation of a fraction')
+                                 'of type int, long, or float or p must be ' +
+                                 'a string representation of a fraction')
 
         # Finally, simplify by reducing with the GCD
         self._simplify()
@@ -230,7 +228,7 @@ class Rational(object):
         if not q:
             q = self.q
         while q != 0:
-            p, q = q, p%q
+            p, q = q, p % q
         return p
 
     def _simplify(self):
