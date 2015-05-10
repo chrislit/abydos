@@ -1230,7 +1230,7 @@ def uealite(word):
     article at
     http://wayback.archive.org/web/20121012154211/http://www.uea.ac.uk/polopoly_fs/1.85493!stemmer25feb.pdf
     """
-    pass
+    return word
 
 
 def lancaster(word):
@@ -1244,7 +1244,7 @@ def lancaster(word):
     The Lancaster Stemming Algorithm, described at:
     http://wayback.archive.org/web/20140724170659/http://www.comp.lancs.ac.uk/computing/research/stemming/Links/paice.htm
     """
-    pass
+    return word
 
 
 def caumanns(word):
@@ -1257,4 +1257,4 @@ def caumanns(word):
     Caumanns' stemmer is described in his article at
     http://edocs.fu-berlin.de/docs/servlets/MCRFileNodeServlet/FUDOCS_derivate_000000000350/tr-b-99-16.pdf
     """
-    pass
+    return word
