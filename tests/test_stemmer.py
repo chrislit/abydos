@@ -721,6 +721,21 @@ class CaumannsTestCases(unittest.TestCase):
         # base case
         self.assertEqual(caumanns(''), '')
 
+        # tests from Caumanns' description of the algorithm
+        self.assertEqual(caumanns('singt'), 'sing')
+        self.assertEqual(caumanns('singen'), 'sing')
+        self.assertEqual(caumanns('beliebt'), 'belieb')
+        self.assertEqual(caumanns('beliebtester'), 'belieb')
+        self.assertEqual(caumanns('stören'), 'stö')
+        self.assertEqual(caumanns('stöhnen'), 'stöhn')
+        self.assertEqual(caumanns('Kuß'), 'Kuß')
+        self.assertEqual(caumanns('Küsse'), 'Küss')
+        self.assertEqual(caumanns('Verlierer'), 'Verli')
+        self.assertEqual(caumanns('Verlies'), 'Verli')
+        self.assertEqual(caumanns('Maus'), 'Mau')
+        self.assertEqual(caumanns('Mauer'), 'Mau')
+        self.assertEqual(caumanns('Störsender'), 'stö')
+
 
 if __name__ == '__main__':
     unittest.main()
