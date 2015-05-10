@@ -4,6 +4,9 @@
 import os.path
 import re
 
+ordered_badge_colors = ('brightgreen', 'green', 'yellowgreen', 'yellow',
+                        'orange', 'red')
+
 if not os.path.isfile('./pylint.log'):
     exit('Please direct pylint output to pylint.log')
 if not os.path.isfile('./README.rst'):
