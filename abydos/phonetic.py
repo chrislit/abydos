@@ -73,7 +73,7 @@ def russell_index(word):
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = word.replace('ß', 'SS')
     word = word.replace('GH', '')  # discard gh (rule 3)
-    word = word.rstrip('SZ') # discard /[sz]$/ (rule 3)
+    word = word.rstrip('SZ')  # discard /[sz]$/ (rule 3)
 
     # translate according to Russell's mapping
     word = ''.join([c for c in word if c in tuple('ABCDEFGIKLMNOPQRSTUVXYZ')])
@@ -179,19 +179,19 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     sdx = word.translate(_soundex_translation)
 
     if var == 'special':
-        sdx = sdx.replace('9', '0') # special rule for 1880-1910 census
+        sdx = sdx.replace('9', '0')  # special rule for 1880-1910 census
     else:
-        sdx = sdx.replace('9', '') # rule 1
-    sdx = _delete_consecutive_repeats(sdx) # rule 3
+        sdx = sdx.replace('9', '')  # rule 1
+    sdx = _delete_consecutive_repeats(sdx)  # rule 3
 
     if word[0] in 'HW':
         sdx = word[0] + sdx
     else:
         sdx = word[0] + sdx[1:]
-    sdx = sdx.replace('0', '') # rule 1
+    sdx = sdx.replace('0', '')  # rule 1
 
     if zero_pad:
-        sdx += ('0'*maxlength) # rule 4
+        sdx += ('0'*maxlength)  # rule 4
 
     return sdx[:maxlength]
 
@@ -256,28 +256,42 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
                   'RZ':((94, 4), (94, 4), (94, 4)),
                   'RS':((94, 4), (94, 4), (94, 4))}
 
-    _dms_order = {'A':('AI', 'AJ', 'AU', 'AY', 'A'), 'B':('B'),
-                  'C':('CHS', 'CSZ', 'CZS', 'CH', 'CK', 'CS', 'CZ', 'C'),
-                  'D':('DRS', 'DRZ', 'DSH', 'DSZ', 'DZH', 'DZS', 'DS', 'DT',
-                       'DZ', 'D'), 'E':('EI', 'EJ', 'EU', 'EY', 'E'),
-                  'F':('FB', 'F'), 'G':('G'), 'H':('H'),
-                  'I':('IA', 'IE', 'IO', 'IU', 'I'), 'J':('J'),
-                  'K':('KH', 'KS', 'K'), 'L':('L'), 'M':('MN', 'M'),
-                  'N':('NM', 'N'), 'O':('OI', 'OJ', 'OY', 'O'),
-                  'P':('PF', 'PH', 'P'), 'Q':('Q'), 'R':('RS', 'RZ', 'R'),
-                  'S':('SCHTSCH', 'SCHTCH', 'SCHTSH', 'SHTCH', 'SHTSH', 'STSCH',
-                       'SCHD', 'SCHT', 'SHCH', 'STCH', 'STRS', 'STRZ', 'STSH',
-                       'SZCS', 'SZCZ', 'SCH', 'SHD', 'SHT', 'SZD', 'SZT', 'SC',
-                       'SD', 'SH', 'ST', 'SZ', 'S'),
-                  'T':('TTSCH', 'TSCH', 'TTCH', 'TTSZ', 'TCH', 'THS', 'TRS',
-                       'TRZ', 'TSH', 'TSZ', 'TTS', 'TTZ', 'TZS', 'TC', 'TH',
-                       'TS', 'TZ', 'T'), 'U':('UE', 'UI', 'UJ', 'UY', 'U'),
-                  'V':('V'), 'W':('W'), 'X':('X'), 'Y':('Y'),
-                  'Z':('ZHDZH', 'ZDZH', 'ZSCH', 'ZDZ', 'ZHD', 'ZSH', 'ZD', 'ZH',
-                       'ZS', 'Z')}
+    _dms_order = {'A': ('AI', 'AJ', 'AU', 'AY', 'A'),
+                  'B': ('B'),
+                  'C': ('CHS', 'CSZ', 'CZS', 'CH', 'CK', 'CS', 'CZ', 'C'),
+                  'D': ('DRS', 'DRZ', 'DSH', 'DSZ', 'DZH', 'DZS', 'DS', 'DT',
+                        'DZ', 'D'),
+                  'E': ('EI', 'EJ', 'EU', 'EY', 'E'),
+                  'F': ('FB', 'F'),
+                  'G': ('G'),
+                  'H': ('H'),
+                  'I': ('IA', 'IE', 'IO', 'IU', 'I'),
+                  'J': ('J'),
+                  'K': ('KH', 'KS', 'K'),
+                  'L': ('L'),
+                  'M': ('MN', 'M'),
+                  'N': ('NM', 'N'),
+                  'O': ('OI', 'OJ', 'OY', 'O'),
+                  'P': ('PF', 'PH', 'P'),
+                  'Q': ('Q'),
+                  'R': ('RS', 'RZ', 'R'),
+                  'S': ('SCHTSCH', 'SCHTCH', 'SCHTSH', 'SHTCH', 'SHTSH',
+                        'STSCH', 'SCHD', 'SCHT', 'SHCH', 'STCH', 'STRS',
+                        'STRZ', 'STSH', 'SZCS', 'SZCZ', 'SCH', 'SHD', 'SHT',
+                        'SZD', 'SZT', 'SC', 'SD', 'SH', 'ST', 'SZ', 'S'),
+                  'T': ('TTSCH', 'TSCH', 'TTCH', 'TTSZ', 'TCH', 'THS', 'TRS',
+                        'TRZ', 'TSH', 'TSZ', 'TTS', 'TTZ', 'TZS', 'TC', 'TH',
+                        'TS', 'TZ', 'T'),
+                  'U': ('UE', 'UI', 'UJ', 'UY', 'U'),
+                  'V': ('V'),
+                  'W': ('W'),
+                  'X': ('X'),
+                  'Y': ('Y'),
+                  'Z': ('ZHDZH', 'ZDZH', 'ZSCH', 'ZDZ', 'ZHD', 'ZSH', 'ZD',
+                        'ZH', 'ZS', 'Z')}
 
     _vowels = tuple('AEIJOUY')
-    dms = [''] # initialize empty code list
+    dms = ['']  # initialize empty code list
 
     # Require a maxlength of at least 6 and not more than 64
     if maxlength is not None:
@@ -492,8 +506,8 @@ def nysiis(word, maxlength=6):
 
     if word.endswith('EE') or word.endswith('IE'):
         word = word[:-2]+'Y'
-    if (word.endswith('DT') or word.endswith('RT') or word.endswith('RD') or
-        word.endswith('NT') or word.endswith('ND')):
+    if ((word.endswith('DT') or word.endswith('RT') or word.endswith('RD') or
+         word.endswith('NT') or word.endswith('ND'))):
         word = word[:-2]+'D'
 
     key = word[0]
@@ -816,7 +830,7 @@ def double_metaphone(word, maxlength=float('inf')):
 
     # Initial 'X' is pronounced 'Z' e.g. 'Xavier'
     if _get_at(0) == 'X':
-        (primary, secondary) = _metaph_add('S') # 'Z' maps to 'S'
+        (primary, secondary) = _metaph_add('S')  # 'Z' maps to 'S'
         current += 1
 
     # Main loop
@@ -1059,7 +1073,8 @@ def double_metaphone(word, maxlength=float('inf')):
                 continue
 
             # 'tagliaro'
-            elif _string_at((current + 1), 2, ["LI"]) and not _slavo_germanic():
+            elif (_string_at((current + 1), 2, ["LI"]) and
+                  not _slavo_germanic()):
                 (primary, secondary) = _metaph_add("KL", "L")
                 current += 2
                 continue
@@ -1113,7 +1128,7 @@ def double_metaphone(word, maxlength=float('inf')):
                 and _is_vowel(current + 1)):
                 (primary, secondary) = _metaph_add("H")
                 current += 2
-            else: # also takes care of 'HH'
+            else:  # also takes care of 'HH'
                 current += 1
             continue
 
@@ -1144,7 +1159,7 @@ def double_metaphone(word, maxlength=float('inf')):
                   and not _string_at((current - 1), 1, ["S", "K", "L"])):
                 (primary, secondary) = _metaph_add("J")
 
-            if _get_at(current + 1) == 'J': # it could happen!
+            if _get_at(current + 1) == 'J':  # it could happen!
                 current += 2
             else:
                 current += 1
@@ -1585,23 +1600,25 @@ def alpha_sis(word, maxlength=14):
     National Bureau of Standards, Washington, D.C (1977):
     https://archive.org/stream/accessingindivid00moor#page/15/mode/1up
     """
-    _alpha_sis_initials = {'GF':'08', 'GM':'03', 'GN':'02', 'KN':'02',
-                           'PF':'08', 'PN':'02', 'PS':'00', 'WR':'04', 'A':'1',
-                           'E':'1', 'H':'2', 'I':'1', 'J':'3', 'O':'1', 'U':'1',
-                           'W':'4', 'Y':'5'}
+    _alpha_sis_initials = {'GF': '08', 'GM': '03', 'GN': '02', 'KN': '02',
+                           'PF': '08', 'PN': '02', 'PS': '00', 'WR': '04',
+                           'A': '1', 'E': '1', 'H': '2', 'I': '1', 'J': '3',
+                           'O': '1', 'U': '1', 'W': '4', 'Y': '5'}
     _alpha_sis_initials_order = ('GF', 'GM', 'GN', 'KN', 'PF', 'PN', 'PS', 'WR',
                                  'A', 'E', 'H', 'I', 'J', 'O', 'U', 'W', 'Y')
-    _alpha_sis_basic = {'SCH':'6', 'CZ':('70', '6', '0'), 'CH':('6', '70', '0'),
-                        'CK':('7', '6'), 'DS':('0', '10'), 'DZ':('0', '10'),
-                        'TS':('0', '10'), 'TZ':('0', '10'), 'CI':'0', 'CY':'0',
-                        'CE':'0', 'SH':'6', 'DG':'7', 'PH':'8', 'C':('7', '6'),
-                        'K':('7', '6'), 'Z':'0', 'S':'0', 'D':'1', 'T':'1',
-                        'N':'2', 'M':'3', 'R':'4', 'L':'5', 'J':'6', 'G':'7',
-                        'Q':'7', 'X':'7', 'F':'8', 'V':'8', 'B':'9', 'P':'9'}
+    _alpha_sis_basic = {'SCH': '6', 'CZ': ('70', '6', '0'),
+                        'CH': ('6', '70', '0'), 'CK': ('7', '6'),
+                        'DS': ('0', '10'), 'DZ': ('0', '10'),
+                        'TS': ('0', '10'), 'TZ': ('0', '10'), 'CI': '0',
+                        'CY': '0', 'CE': '0', 'SH': '6', 'DG':'7', 'PH':'8',
+                        'C':('7', '6'), 'K': ('7', '6'), 'Z': '0', 'S': '0',
+                        'D': '1', 'T': '1', 'N': '2', 'M': '3', 'R': '4',
+                        'L': '5', 'J': '6', 'G': '7', 'Q': '7', 'X': '7',
+                        'F': '8', 'V': '8', 'B': '9', 'P': '9'}
     _alpha_sis_basic_order = ('SCH', 'CZ', 'CH', 'CK', 'DS', 'DZ', 'TS', 'TZ',
-                              'CI', 'CY', 'CE', 'SH', 'DG', 'PH', 'C', 'K', 'Z',
-                              'S', 'D', 'T', 'N', 'M', 'R', 'L', 'J', 'C', 'G',
-                              'K', 'Q', 'X', 'F', 'V', 'B', 'P')
+                              'CI', 'CY', 'CE', 'SH', 'DG', 'PH', 'C', 'K',
+                              'Z', 'S', 'D', 'T', 'N', 'M', 'R', 'L', 'J', 'C',
+                              'G', 'K', 'Q', 'X', 'F', 'V', 'B', 'P')
 
     alpha = ['']
     pos = 0
@@ -1793,11 +1810,11 @@ def phonex(word, maxlength=4, zero_pad=True):
     # Phonetic equivalents of first 2 characters
     # Works since duplicate letters are ignored
     if name.startswith('KN'):
-        name = 'N' + name[2:] # KN.. == N..
+        name = 'N' + name[2:]  # KN.. == N..
     elif name.startswith('PH'):
-        name = 'F' + name[2:] # PH.. == F.. (H ignored anyway)
+        name = 'F' + name[2:]  # PH.. == F.. (H ignored anyway)
     elif name.startswith('WR'):
-        name = 'R' + name[2:] # WR.. == R..
+        name = 'R' + name[2:]  # WR.. == R..
 
     if name:
         # Special case, ignore H first letter (subsequent Hs ignored anyway)
@@ -1873,12 +1890,12 @@ def phonem(word):
 
     Phonem is intended chiefly for German names/words.
     """
-    _phonem_substitutions = (('SC', 'C'), ('SZ', 'C'), ('CZ', 'C'), ('TZ', 'C'),
-                             ('TS', 'C'), ('KS', 'X'), ('PF', 'V'),
-                             ('QU', 'KW'), ('PH', 'V'), ('UE', 'Y'),
-                             ('AE', 'E'), ('OE', 'Ö'), ('EI', 'AY'),
-                             ('EY', 'AY'), ('EU', 'OY'), ('AU', 'A§'),
-                             ('OU', '§'))
+    _phonem_substitutions = (('SC', 'C'), ('SZ', 'C'), ('CZ', 'C'),
+                             ('TZ', 'C'), ('TS', 'C'), ('KS', 'X'),
+                             ('PF', 'V'), ('QU', 'KW'), ('PH', 'V'),
+                             ('UE', 'Y'), ('AE', 'E'), ('OE', 'Ö'),
+                             ('EI', 'AY'), ('EY', 'AY'), ('EU', 'OY'),
+                             ('AU', 'A§'), ('OU', '§'))
     _phonem_translation = dict(zip([ord(_) for _ in
                                     'ZKGQÇÑßFWPTÁÀÂÃÅÄÆÉÈÊËIJÌÍÎÏÜÝ§ÚÙÛÔÒÓÕØ'],
                                    'CCCCCNSVVBDAAAAAEEEEEEYYYYYYYYUUUUOOOOÖ'))
@@ -2847,7 +2864,7 @@ def phonet(word, mode=1, lang='de', trace=False):
                             'KRY9^', 'KRÜ', None,
                             'KSCH---', 'K', 'K',
                             'KSH--', 'K', 'K',
-                            'K(SßXZ)7', 'X', 'X', # implies 'KST' -> 'XT'
+                            'K(SßXZ)7', 'X', 'X',  # implies 'KST' -> 'XT'
                             'KT\'S$', 'X', 'X',
                             'KTI(AIOU)-3', 'XI', 'XI',
                             'KT(SßXZ)', 'X', 'X',
@@ -2988,7 +3005,7 @@ def phonet(word, mode=1, lang='de', trace=False):
                             'OUSE$', 'AUS', 'AUZ',
                             'OUT-', 'AU', 'AU',
                             'OU', 'U', 'U',
-                            'O(FV)$', 'AU', 'AU', # due to 'OW$' -> 'AU'
+                            'O(FV)$', 'AU', 'AU',  # due to 'OW$' -> 'AU'
                             'OVER--<', 'OW', None,
                             'OV(AOU)-', 'OW', None,
                             'OW$', 'AU', 'AU',
@@ -3312,8 +3329,9 @@ def phonet(word, mode=1, lang='de', trace=False):
                     _phonet_rules[rule + 1])
         to_rule2 = ('(NULL)' if (_phonet_rules[rule + 2] == None) else
                     _phonet_rules[rule + 2])
-        print('"{} {}:  "{}"{}"{}" {}'.format(text, ((rule / 3) + 1), from_rule,
-                                              to_rule1, to_rule2, err_text))
+        print('"{} {}:  "{}"{}"{}" {}'.format(text, ((rule / 3) + 1),
+                                              from_rule, to_rule1, to_rule2,
+                                              err_text))
 
     def _initialize_phonet(lang):
         """Initialize phonet variables
@@ -3486,8 +3504,8 @@ def phonet(word, mode=1, lang='de', trace=False):
                         _trinfo('> rule no.', pos, 'is being checked', lang)
 
                     # check whole string
-                    matches = 1 # number of matching letters
-                    priority = 5 # default priority
+                    matches = 1  # number of matching letters
+                    priority = 5  # default priority
                     rule = _phonet_rules[pos]
                     rule = rule[1:]
 
@@ -3825,10 +3843,10 @@ def spfc(word):
     def _raise_word_ex():
         """Raise an AttributeError
         """
-        raise AttributeError('word attribute must be a string with a space or' +
-                             ' period dividing the first and last names or a ' +
-                             'tuple/list consisting of the first and last ' +
-                             'names')
+        raise AttributeError('word attribute must be a string with a space ' +
+                             'or period dividing the first and last names ' +
+                             'or a tuple/list consisting of the first and ' +
+                             'last names')
 
     if not word:
         return ''
