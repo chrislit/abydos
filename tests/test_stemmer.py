@@ -716,15 +716,15 @@ class CaumannsTestCases(unittest.TestCase):
         self.assertEqual(caumanns('singen'), 'sing')
         self.assertEqual(caumanns('beliebt'), 'belieb')
         self.assertEqual(caumanns('beliebtester'), 'belieb')
-        self.assertEqual(caumanns('stören'), 'stör')
-        self.assertEqual(caumanns('stöhnen'), 'stöh')
-        self.assertEqual(caumanns('Kuß'), 'Kuß')
-        self.assertEqual(caumanns('Küsse'), 'Küs')
-        self.assertEqual(caumanns('Verlierer'), 'Verli')
-        self.assertEqual(caumanns('Verlies'), 'Verli')
+        self.assertEqual(caumanns('stören'), 'stor')
+        self.assertEqual(caumanns('stöhnen'), 'stoh')
+        self.assertEqual(caumanns('Kuß'), 'Kuss')
+        self.assertEqual(caumanns('Küsse'), 'Kuss')
+        self.assertEqual(caumanns('Verlierer'), 'Verlier')
+        self.assertEqual(caumanns('Verlies'), 'Verlie')
         self.assertEqual(caumanns('Maus'), 'Mau')
         self.assertEqual(caumanns('Mauer'), 'Mau')
-        self.assertEqual(caumanns('Störsender'), 'Stör')
+        self.assertEqual(caumanns('Störsender'), 'Stor')
 
 
 if __name__ == '__main__':
