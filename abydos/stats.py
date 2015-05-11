@@ -70,8 +70,8 @@ class ConfusionTable(object):
                 self.fpos = tp[2]
                 self.fneg = tp[3]
             else:
-                raise AttributeError('ConfusionTable requires a 4-tuple when ' +
-                                     'being created from a tuple.')
+                raise AttributeError('ConfusionTable requires a 4-tuple ' +
+                                     'when being created from a tuple.')
         elif isinstance(tp, dict):
             if 'tp' in tp:
                 self.tpos = tp['tp']
@@ -87,7 +87,6 @@ class ConfusionTable(object):
             self.fpos = fp
             self.fneg = fn
 
-
     def __eq__(self, other):
         """Return True if two ConfusionTables are the same object or all four
         of their attributes are equal
@@ -95,19 +94,18 @@ class ConfusionTable(object):
         if isinstance(other, ConfusionTable):
             if id(self) == id(other):
                 return True
-            if (self.tpos == other.tpos and self.tneg == other.tneg and
-                self.fpos == other.fpos and self. fneg == other.fneg):
+            if ((self.tpos == other.tpos and self.tneg == other.tneg and
+                 self.fpos == other.fpos and self. fneg == other.fneg)):
                 return True
         elif isinstance(other, tuple) or isinstance(other, list):
-            if (self.tpos == other[0] and self.tneg == other[1] and
-                self.fpos == other[2] and self.fneg == other[3]):
+            if ((self.tpos == other[0] and self.tneg == other[1] and
+                 self.fpos == other[2] and self.fneg == other[3])):
                 return True
         elif isinstance(other, dict):
-            if (self.tpos == other['tp'] and self.tneg == other['tn'] and
-                self.fpos == other['fp'] and self.fneg == other['fn']):
+            if ((self.tpos == other['tp'] and self.tneg == other['tn'] and
+                 self.fpos == other['fp'] and self.fneg == other['fn'])):
                 return True
         return False
-
 
     def __str__(self):
         """Return a human-readable version of the confusion table
@@ -115,75 +113,64 @@ class ConfusionTable(object):
         return ('tp:' + str(self.tpos) + ', tn:' + str(self.tneg) + ', fp:' +
                 str(self.fpos) + ', fn:' + str(self.fneg))
 
-
     def tuple(self):
         """Return the confusion table as a 4-tuple (tp, tn, fp, fn)
         """
         return (self.tpos, self.tneg, self.fpos, self.fneg)
 
-
     def dict(self):
         """Return the confusion table as a dict
         """
-        return {'tp':self.tpos, 'tn':self.tneg,
-                'fp':self.fpos, 'fn':self.fneg}
-
+        return {'tp': self.tpos, 'tn': self.tneg,
+                'fp': self.fpos, 'fn': self.fneg}
 
     def correct_pop(self):
         """Return the correct population of the confusion table
         """
         return self.tpos + self.tneg
 
-
     def error_pop(self):
         """Return the error population of the confusion table
         """
         return self.fpos + self.fneg
-
 
     def test_pos_pop(self):
         """Return the test positive population of the confusion table
         """
         return self.tpos + self.fpos
 
-
     def test_neg_pop(self):
         """Return the test negative population of the confusion table
         """
         return self.tneg + self.fneg
-
 
     def cond_pos_pop(self):
         """Return the condition positive population of the confusion table
         """
         return self.tpos + self.fneg
 
-
     def cond_neg_pop(self):
         """Return the condition negative population of the confusion table
         """
         return self.fpos + self.tneg
-
 
     def population(self):
         """Return the population (N) of the confusion table
         """
         return self.tpos + self.tneg + self.fpos + self.fneg
 
-
     def precision(self):
         """Return the precision of the confusion table
 
-	    Precision is defined as tp / (tp+fp)
-	    AKA positive predictive value (PPV)
+        Precision is defined as tp / (tp+fp)
+        AKA positive predictive value (PPV)
 
         Cf. https://en.wikipedia.org/wiki/Precision_and_recall
         Cf. https://en.wikipedia.org/wiki/Information_retrieval#Precision
-	    """
+        """
         if self.tpos + self.fpos == 0:
             return float('NaN')
         return self.tpos / (self.tpos + self.fpos)
-
 
     def precision_gain(self):
         """Return the gain in precision of the confusion table
@@ -197,7 +184,6 @@ class ConfusionTable(object):
             return float('NaN')
         random_precision = self.cond_pos_pop()/self.population()
         return self.precision()/random_precision
-
 
     def recall(self):
         """Return the recall of the confusion table
@@ -214,7 +200,6 @@ class ConfusionTable(object):
             return float('NaN')
         return self.tpos / (self.tpos + self.fneg)
 
-
     def specificity(self):
         """Return the specificity of the confusion table
 
@@ -226,7 +211,6 @@ class ConfusionTable(object):
         if self.tneg + self.fpos == 0:
             return float('NaN')
         return self.tneg / (self.tneg + self.fpos)
-
 
     def npv(self):
         """Return the negative predictive value (NPV) of the
@@ -240,7 +224,6 @@ class ConfusionTable(object):
             return float('NaN')
         return self.tneg / (self.tneg + self.fneg)
 
-
     def fallout(self):
         """Return the fall-out of the confusion table
 
@@ -252,7 +235,6 @@ class ConfusionTable(object):
         if self.fpos + self.tneg == 0:
             return float('NaN')
         return self.fpos / (self.fpos + self.tneg)
-
 
     def fdr(self):
         """Return the false discovery rate (FDR) of the confusion
@@ -266,7 +248,6 @@ class ConfusionTable(object):
             return float('NaN')
         return self.fpos / (self.fpos + self.tpos)
 
-
     def accuracy(self):
         """Return the accuracy of the confusion table
 
@@ -277,7 +258,6 @@ class ConfusionTable(object):
         if self.population() == 0:
             return float('NaN')
         return (self.tpos + self.tneg) / self.population()
-
 
     def accuracy_gain(self):
         """Return the gain in accuracy of the confusion table
@@ -290,9 +270,8 @@ class ConfusionTable(object):
         if self.population() == 0:
             return float('NaN')
         random_accuracy = ((self.cond_pos_pop()/self.population())**2 +
-             (self.cond_neg_pop()/self.population())**2)
+                           (self.cond_neg_pop()/self.population())**2)
         return self.accuracy()/random_accuracy
-
 
     def balanced_accuracy(self):
         """Return the balanced accuracy of the confusion table
@@ -304,7 +283,6 @@ class ConfusionTable(object):
         """
         return 0.5 * (self.recall() + self.specificity())
 
-
     def informedness(self):
         """Return the informedness of the confusion table
 
@@ -313,10 +291,10 @@ class ConfusionTable(object):
         AKA DeltaP'
 
         Cf. https://en.wikipedia.org/wiki/Youden%27s_J_statistic
-        Cf. http://dspace.flinders.edu.au/xmlui/bitstream/handle/2328/27165/Powers%20Evaluation.pdf
+        Cf.
+        http://dspace.flinders.edu.au/xmlui/bitstream/handle/2328/27165/Powers%20Evaluation.pdf
         """
         return self.recall() + self.specificity() - 1
-
 
     def markedness(self):
         """Return the markedness of the confusion table
@@ -325,10 +303,10 @@ class ConfusionTable(object):
         AKA DeltaP
 
         Cf. https://en.wikipedia.org/wiki/Youden%27s_J_statistic
-        Cf. http://dspace.flinders.edu.au/xmlui/bitstream/handle/2328/27165/Powers%20Evaluation.pdf
+        Cf.
+        http://dspace.flinders.edu.au/xmlui/bitstream/handle/2328/27165/Powers%20Evaluation.pdf
         """
         return self.precision() + self.npv() - 1
-
 
     def pr_amean(self):
         """Return the arithmetic mean of precision & recall of the
@@ -341,7 +319,6 @@ class ConfusionTable(object):
         """
         return amean((self.precision(), self.recall()))
 
-
     def pr_gmean(self):
         """Return the geometric mean of precision & recall of the
         confusion table
@@ -352,7 +329,6 @@ class ConfusionTable(object):
         Cf. https://en.wikipedia.org/wiki/Geometric_mean
         """
         return gmean((self.precision(), self.recall()))
-
 
     def pr_hmean(self):
         """Return the harmonic mean of precision & recall of the
@@ -365,7 +341,6 @@ class ConfusionTable(object):
         """
         return hmean((self.precision(), self.recall()))
 
-
     def pr_qmean(self):
         """Return the quadratic mean of precision & recall of the
         confusion table
@@ -377,7 +352,6 @@ class ConfusionTable(object):
         """
         return qmean((self.precision(), self.recall()))
 
-
     def pr_cmean(self):
         """Return the contraharmonic mean of precision & recall
         of the confusion table
@@ -388,7 +362,6 @@ class ConfusionTable(object):
         Cf. https://en.wikipedia.org/wiki/Contraharmonic_mean
         """
         return cmean((self.precision(), self.recall()))
-
 
     def pr_lmean(self):
         """Return the logarithmic mean of precision & recall of
@@ -411,7 +384,6 @@ class ConfusionTable(object):
             return ((precision - recall) /
                     (math.log(precision) - math.log(recall)))
 
-
     def pr_imean(self):
         """Return the identric mean of precision & recall of the
         confusion table
@@ -419,12 +391,11 @@ class ConfusionTable(object):
         The identric mean is:
         precision if precision = recall,
         otherwise (1/e) *
-                (precision^precision / recall^recall)^(1 / (precision - recall))
+            (precision^precision / recall^recall)^(1 / (precision - recall))
 
         Cf. https://en.wikipedia.org/wiki/Identric_mean
         """
         return imean((self.precision(), self.recall()))
-
 
     def pr_seiffert_mean(self):
         """Return Seiffert's mean of precision & recall of the
@@ -437,7 +408,6 @@ class ConfusionTable(object):
         """
         return seiffert_mean((self.precision(), self.recall()))
 
-
     def pr_lehmer_mean(self, exp=2):
         """Return the Lehmer mean of precision & recall
         of the confusion table
@@ -449,7 +419,6 @@ class ConfusionTable(object):
         """
         return lehmer_mean((self.precision(), self.recall()), exp)
 
-
     def pr_heronian_mean(self):
         """Return the Heronian mean of precision & recall
         of the confusion table
@@ -460,7 +429,6 @@ class ConfusionTable(object):
         Cf. https://en.wikipedia.org/wiki/Heronian_mean
         """
         return heronian_mean((self.precision(), self.recall()))
-
 
     def pr_hoelder_mean(self, exp=2):
         """Return the Hölder (power) mean of precision & recall of the
@@ -474,7 +442,6 @@ class ConfusionTable(object):
         """
         return hoelder_mean((self.precision(), self.recall()), exp)
 
-
     def pr_agmean(self):
         """Return the arithmetic-geometric mean of precision & recall of the
         confusion table
@@ -484,7 +451,6 @@ class ConfusionTable(object):
         Cf. https://en.wikipedia.org/wiki/Arithmetic–geometric_mean
         """
         return agmean((self.precision(), self.recall()))
-
 
     def pr_ghmean(self):
         """Return the geometric-harmonic mean of precision & recall of the
@@ -507,7 +473,6 @@ class ConfusionTable(object):
         """
         return aghmean((self.precision(), self.recall()))
 
-
     def fbeta_score(self, beta=1):
         """Return the F_{β} score of the confusion table
 
@@ -529,7 +494,6 @@ class ConfusionTable(object):
         return ((1 + beta**2) *
                 precision * recall / ((beta**2 * precision) + recall))
 
-
     def f2_score(self):
         """Return the F_{2} score of the confusion table,
         which emphasizes recall over precision in comparison
@@ -538,7 +502,6 @@ class ConfusionTable(object):
         Cf. https://en.wikipedia.org/wiki/F1_score
         """
         return self.fbeta_score(2)
-
 
     def fhalf_score(self):
         """Return the F_{0.5} score of the confusion table,
@@ -549,7 +512,6 @@ class ConfusionTable(object):
         """
         return self.fbeta_score(0.5)
 
-
     def e_score(self, beta=1):
         """Return the E-score (Van Rijsbergen's effectiveness
         measure)
@@ -557,7 +519,6 @@ class ConfusionTable(object):
         Cf. https://en.wikipedia.org/wiki/Information_retrieval#F-measure
         """
         return 1-self.fbeta_score(beta)
-
 
     def f1_score(self):
         """Return the F_{1} score of the confusion table
@@ -569,7 +530,6 @@ class ConfusionTable(object):
         """
         return self.pr_hmean()
 
-
     def f_measure(self):
         """Return the F-measure of the confusion table
 
@@ -579,7 +539,6 @@ class ConfusionTable(object):
         Cf. https://en.wikipedia.org/wiki/F1_score
         """
         return self.pr_hmean()
-
 
     def g_measure(self):
         """Return the G-measure of the confusion table
@@ -591,7 +550,6 @@ class ConfusionTable(object):
         """
         return self.pr_gmean()
 
-
     def mcc(self):
         """Return the Matthews correlation coefficient (MCC) of the
         confusion table
@@ -600,18 +558,17 @@ class ConfusionTable(object):
         ((tp * tn) - (fp * fn)) /
         sqrt((tp + fp)(tp + fn)(tn + fp)(tn + fn))
 
-        This is equivalent to the geometric mean of informedness and markedness,
-        defined above.
+        This is equivalent to the geometric mean of informedness and
+        markedness, defined above.
 
         Cf. https://en.wikipedia.org/wiki/Matthews_correlation_coefficient
         """
-        if ((self.tpos + self.fpos) * (self.tpos + self.fneg) *
-            (self.tneg + self.fpos) * (self.tneg + self.fneg)) == 0:
+        if (((self.tpos + self.fpos) * (self.tpos + self.fneg) *
+             (self.tneg + self.fpos) * (self.tneg + self.fneg))) == 0:
             return float('NaN')
         return (((self.tpos * self.tneg) - (self.fpos * self.fneg)) /
                 math.sqrt((self.tpos + self.fpos) * (self.tpos + self.fneg) *
                           (self.tneg + self.fpos) * (self.tneg + self.fneg)))
-
 
     def significance(self):
         """Return the significance (χ²) of the confusion table
@@ -624,14 +581,13 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Pearson%27s_chi-square_test
         """
-        if ((self.tpos + self.fpos) * (self.tpos + self.fneg) *
-            (self.tneg + self.fpos) * (self.tneg + self.fneg)) == 0:
+        if (((self.tpos + self.fpos) * (self.tpos + self.fneg) *
+             (self.tneg + self.fpos) * (self.tneg + self.fneg))) == 0:
             return float('NaN')
         return (((self.tpos * self.tneg - self.fpos * self.fneg)**2 *
                  (self.tpos + self.tneg + self.fpos + self.fneg)) /
                 ((self.tpos + self.fpos) * (self.tpos + self.fneg) *
                  (self.tneg + self.fpos) * (self.tneg + self.fneg)))
-
 
     def kappa_statistic(self):
         """Return the κ statistic of the confusion table
@@ -646,8 +602,10 @@ class ConfusionTable(object):
         """
         if self.population() == 0:
             return float('NaN')
-        random_accuracy = (((self.tneg + self.fpos) * (self.tneg + self.fneg) +
-                            (self.fneg + self.tpos) * (self.fpos + self.tpos)) /
+        random_accuracy = (((self.tneg + self.fpos) *
+                            (self.tneg + self.fneg) +
+                            (self.fneg + self.tpos) *
+                            (self.fpos + self.tpos)) /
                            self.population()**2)
         return (self.accuracy()-random_accuracy) / (1-random_accuracy)
 
@@ -700,7 +658,7 @@ def hmean(nums):
     elif len(nums) == 1:
         return nums[0]
     else:
-        for i in _range(1,len(nums)):
+        for i in _range(1, len(nums)):
             if nums[0] != nums[i]:
                 break
         else:
@@ -953,7 +911,7 @@ def median(nums):
     """
     nums = sorted(nums)
     mag = len(nums)
-    if mag%2:
+    if mag % 2:
         mag = int((mag-1)/2)
         return nums[mag]
     else:
