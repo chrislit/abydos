@@ -24,6 +24,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 from math import log10
 
+
 class Corpus(object):
     """The Corpus class
 
@@ -32,7 +33,6 @@ class Corpus(object):
     documents. And each sentence is an ordered list of words that make up that
     sentence.
     """
-
     def __init__(self, corpus_text='', doc_split='\n\n', sent_split='\n',
                  filter_chars='', stop_words=[]):
         """Corpus initializer
