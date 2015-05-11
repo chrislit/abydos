@@ -127,12 +127,21 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
 
     amount = abs(amount)
 
+    def _rand_uniform():
+        return uniform(-amount, amount)
+
+    def _rand_laplace():
+        return laplace(0, amount)
+
+    def _rand_normal():
+        return normalvariate(0, amount)
+
     if rfunc == 'uniform':
-        _rand = lambda: uniform(-amount, amount)
+        _rand = _rand_uniform
     elif rfunc == 'laplace':
-        _rand = lambda: laplace(0, amount)
+        _rand = _rand_laplace
     else:
-        _rand = lambda: normalvariate(0, amount)
+        _rand = _rand_normal
 
     newnums = [i + _rand() for i in nums]
 
