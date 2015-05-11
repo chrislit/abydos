@@ -59,14 +59,14 @@ from collections import defaultdict, Counter
 from .qgram import QGrams
 from .phonetic import mra
 import codecs
+from .compression import ac_train, ac_encode, rle_encode
+import unicodedata
 try:
     import lzma
-except ImportError: # pragma: no cover
+except ImportError:  # pragma: no cover
     # If the system lacks the lzma library, that's fine, but lzma comrpession
     # similarity won't be supported.
     pass
-from .compression import ac_train, ac_encode, rle_encode
-import unicodedata
 
 
 def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
@@ -125,18 +125,17 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     for i in _range(len(src)):
         for j in _range(len(tar)):
             d_mat[i+1, j+1] = min(
-                d_mat[i+1, j] + ins_cost, # ins
-                d_mat[i, j+1] + del_cost, # del
-                d_mat[i, j] + (sub_cost if src[i] != tar[j] else 0) # sub/==
+                d_mat[i+1, j] + ins_cost,  # ins
+                d_mat[i, j+1] + del_cost,  # del
+                d_mat[i, j] + (sub_cost if src[i] != tar[j] else 0)  # sub/==
             )
 
             if mode == 'osa':
-                if (i+1 > 1 and j+1 > 1 and src[i] == tar[j-1] and
-                    src[i-1] == tar[j]):
-                    d_mat[i+1, j+1] = min(
-                                      d_mat[i+1, j+1],
-                                      d_mat[i-1, j-1] + trans_cost  # trans
-                                      )
+                if ((i+1 > 1 and j+1 > 1 and src[i] == tar[j-1] and
+                     src[i-1] == tar[j])):
+                    d_mat[i+1, j+1] = min(d_mat[i+1, j+1],
+                                          d_mat[i-1, j-1] + trans_cost  # trans
+                                          )
 
     return d_mat[len(src), len(tar)]
 
@@ -232,7 +231,7 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
 
     # pylint: disable=no-member
     d_mat = (np.zeros((len(src))*(len(tar)), dtype=np.int).
-            reshape((len(src), len(tar))))
+             reshape((len(src), len(tar))))
     # pylint: enable=no-member
 
     if src[0] != tar[0]:
@@ -243,22 +242,23 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
     for i in _range(1, len(src)):
         del_distance = d_mat[i-1, 0] + del_cost
         ins_distance = (i+1) * del_cost + ins_cost
-        match_distance = i * del_cost + \
-        (0 if src[i] == tar[0] else sub_cost)
+        match_distance = (i * del_cost +
+                          (0 if src[i] == tar[0] else sub_cost))
         d_mat[i, 0] = min(del_distance, ins_distance, match_distance)
 
     for j in _range(1, len(tar)):
         del_distance = (j+1) * ins_cost + del_cost
         ins_distance = d_mat[0, j-1] + ins_cost
-        match_distance = j * ins_cost + \
-        (0 if src[0] == tar[j] else sub_cost)
+        match_distance = (j * ins_cost +
+                          (0 if src[0] == tar[j] else sub_cost))
         d_mat[0, j] = min(del_distance, ins_distance, match_distance)
 
     for i in _range(1, len(src)):
         max_src_letter_match_index = (0 if src[i] == tar[0] else -1)
         for j in _range(1, len(tar)):
-            candidate_swap_index = -1 if tar[j] not in \
-            src_index_by_character else src_index_by_character[tar[j]]
+            candidate_swap_index = (-1 if tar[j] not in
+                                    src_index_by_character else
+                                    src_index_by_character[tar[j]])
             j_swap = max_src_letter_match_index
             del_distance = d_mat[i-1, j] + del_cost
             ins_distance = d_mat[i, j-1] + ins_cost
@@ -282,7 +282,7 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
                 swap_distance = sys.maxsize
 
             d_mat[i, j] = min(del_distance, ins_distance,
-                          match_distance, swap_distance)
+                              match_distance, swap_distance)
         src_index_by_character[src[i]] = i
 
     return d_mat[len(src)-1, len(tar)-1]
@@ -335,10 +335,10 @@ def hamming(src, tar, difflens=True):
     Arguments:
     src, tar -- two strings to be compared
     allow_different_lengths --
-        If True (default, this returns the Hamming distance for those characters
-        that have a matching character in both strings plus the difference in
-        the strings' lengths. This is equivalent to  extending the shorter
-        string with obligatorily non-matching characters.
+        If True (default, this returns the Hamming distance for those
+        characters that have a matching character in both strings plus the
+        difference in the strings' lengths. This is equivalent to  extending
+        the shorter string with obligatorily non-matching characters.
         If False, an exception is raised in the case of strings of unequal
         lengths.
 
@@ -422,8 +422,8 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     Cf. http://aclweb.org/anthology/S/S13/S13-1028.pdf
     """
     if alpha < 0 or beta < 0:
-        raise ValueError('Unsupported weight assignment; alpha and beta must ' +
-                         'be greater than or equal to 0.')
+        raise ValueError('Unsupported weight assignment; alpha and beta ' +
+                         'must be greater than or equal to 0.')
 
     if src == tar:
         return 1.0
@@ -448,8 +448,8 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
 
     if bias is None:
         return q_intersection_mag / (q_intersection_mag + alpha *
-                                 (q_src_mag - q_intersection_mag)
-                                  + beta * (q_tar_mag - q_intersection_mag))
+                                     (q_src_mag - q_intersection_mag) +
+                                     beta * (q_tar_mag - q_intersection_mag))
     else:
         a_val = min(q_src_mag - q_intersection_mag,
                     q_tar_mag - q_intersection_mag)
@@ -785,12 +785,12 @@ def sim_strcmp95(src, tar, long_strings=False):
         if i:
             weight += i * 0.1 * (1.0 - weight)
 
-        #Optionally adjust for long strings.
+        # Optionally adjust for long strings.
 
         # After agreeing beginning chars, at least two more must agree and
         # the agreeing characters must be > .5 of remaining characters.
-        if ((long_strings) and (minv > 4) and (num_com > i+1) and
-            (2*num_com >= minv+i)):
+        if (((long_strings) and (minv > 4) and (num_com > i+1) and
+             (2*num_com >= minv+i))):
             if not ying[0].isdigit():
                 weight += (1.0-weight) * ((num_com-i-1) /
                                           (len(ying)+len(yang)-i*2+2))
@@ -815,8 +815,8 @@ def dist_strcmp95(src, tar, long_strings=False):
     return 1 - sim_strcmp95(src, tar, long_strings)
 
 
-def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False, \
-                 boost_threshold=0.7, scaling_factor=0.1):
+def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
+                     boost_threshold=0.7, scaling_factor=0.1):
     """Return the Jaro(-Winkler) distance between two string arguments.
 
     Arguments:
@@ -926,15 +926,15 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False, \
 
         # After agreeing beginning chars, at least two more must agree and
         # the agreeing characters must be > .5 of remaining characters.
-        if ((long_strings) and (minv > 4) and (num_com > i+1) and
-            (2*num_com >= minv+i)):
+        if (((long_strings) and (minv > 4) and (num_com > i+1) and
+             (2*num_com >= minv+i))):
             weight += (1.0-weight) * ((num_com-i-1) / (lens+lent-i*2+2))
 
     return weight
 
 
-def dist_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False, \
-                 boost_threshold=0.7, scaling_factor=0.1):
+def dist_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
+                      boost_threshold=0.7, scaling_factor=0.1):
     """Return the Jaro(-Winkler) distance between two string arguments.
 
     Arguments:
@@ -1153,9 +1153,9 @@ def sim_ratcliff_obershelp(src, tar):
         src_start, tar_start, length = _lcsstr_stl(src, tar)
         if length == 0:
             return 0
-        return (_sstr_matches(src[:src_start], tar[:tar_start])
-                + length
-                + _sstr_matches(src[src_start+length:], tar[tar_start+length:]))
+        return (_sstr_matches(src[:src_start], tar[:tar_start]) +
+                length +
+                _sstr_matches(src[src_start+length:], tar[tar_start+length:]))
 
     if src == tar:
         return 1.0
@@ -1260,7 +1260,7 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
     Arguments:
     src, tar -- two strings to be compared
     compressor -- a compression scheme to use for the similarity calculation:
-                    'bz2', 'lzma', 'arith', 'zlib', 'rle', and compression'bwtrle' are
+                    'bz2', 'lzma', 'arith', 'zlib', 'rle', and 'bwtrle' are
                     the supported options
     probs -- a dictionary trained with ac_train (for the arith compressor only)
 
@@ -1286,11 +1286,11 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
             tar_comp = lzma.compress(tar)[14:]
             concat_comp = lzma.compress(src+tar)[14:]
             concat_comp2 = lzma.compress(tar+src)[14:]
-        else: # pragma: no cover
-            raise ValueError('Install the PylibLZMA module in order to use lzma ' +
-                             'compression similarity')
+        else:  # pragma: no cover
+            raise ValueError('Install the PylibLZMA module in order to use ' +
+                             'lzma compression similarity')
     elif compressor == 'arith':
-        if probs == None:
+        if probs is None:
             # lacking a reasonable dictionary, train on the strings themselves
             probs = ac_train(src+tar)
         src_comp = ac_encode(src, probs)[1]
@@ -1300,17 +1300,17 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
         return ((min(concat_comp, concat_comp2) - min(src_comp, tar_comp)) /
                 max(src_comp, tar_comp))
     elif compressor in {'rle', 'bwtrle'}:
-        src_comp = rle_encode(src, (compressor=='bwtrle'))
-        tar_comp = rle_encode(tar, (compressor=='bwtrle'))
-        concat_comp = rle_encode(src+tar, (compressor=='bwtrle'))
-        concat_comp2 = rle_encode(tar+src, (compressor=='bwtrle'))
-    else: # zlib
+        src_comp = rle_encode(src, (compressor == 'bwtrle'))
+        tar_comp = rle_encode(tar, (compressor == 'bwtrle'))
+        concat_comp = rle_encode(src+tar, (compressor == 'bwtrle'))
+        concat_comp2 = rle_encode(tar+src, (compressor == 'bwtrle'))
+    else:  # zlib
         src_comp = codecs.encode(src, 'zlib_codec')[2:]
         tar_comp = codecs.encode(tar, 'zlib_codec')[2:]
         concat_comp = codecs.encode(src+tar, 'zlib_codec')[2:]
         concat_comp2 = codecs.encode(tar+src, 'zlib_codec')[2:]
-    return ((min(len(concat_comp), len(concat_comp2))
-             - min(len(src_comp), len(tar_comp))) /
+    return ((min(len(concat_comp), len(concat_comp2)) -
+             min(len(src_comp), len(tar_comp))) /
             max(len(src_comp), len(tar_comp)))
 
 
@@ -1391,8 +1391,8 @@ def dist_monge_elkan(src, tar, sim_func=sim_levenshtein, sym=False):
     Note: Monge-Elkan is NOT a symmetric similarity algoritm. Thus, the
     distance between src and tar is not necessarily equal to the distance
     between tar and src. If the sym argument is True, a symmetric value is
-    calculated, at the cost of doubling the computation time (since the sim(src,
-    tar) and sim(tar, src) are both calculated and then averaged).
+    calculated, at the cost of doubling the computation time (since the
+    sim(src, tar) and sim(tar, src) are both calculated and then averaged).
     """
     return 1 - sim_monge_elkan(src, tar, sim_func, sym)
 
@@ -1540,7 +1540,8 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
                 (identity similarity by default)
 
     Description:
-    Gotoh's algorithm is essentially Needleman-Wunsch with affine gap penalties:
+    Gotoh's algorithm is essentially Needleman-Wunsch with affine gap
+    penalties:
     https://www.cs.umd.edu/class/spring2003/cmsc838t/papers/gotoh1982.pdf
     """
     # pylint: disable=no-member
@@ -1616,8 +1617,8 @@ def sim_prefix(src, tar):
 
     Description:
     Prefix similarity is the ratio of the length of the shorter term that
-    exactly matches the longer term to the length of the shorter term, beginning
-    at the start of both terms.
+    exactly matches the longer term to the length of the shorter term,
+    beginning at the start of both terms.
     """
     if src == tar:
         return 1.0
@@ -1651,8 +1652,8 @@ def sim_suffix(src, tar):
 
     Description:
     Suffix similarity is the ratio of the length of the shorter term that
-    exactly matches the longer term to the length of the shorter term, beginning
-    at the end of both terms.
+    exactly matches the longer term to the length of the shorter term,
+    beginning at the end of both terms.
     """
     if src == tar:
         return 1.0
@@ -1816,8 +1817,9 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
     http://www.seg.rmit.edu.au/research/download.php?manuscript=404
     """
     match_cost, group_cost, mismatch_cost = cost
-    letter_groups = (set('AEIOUY'), set('BP'), set('CKQ'), set('DT'), set('LR'),
-                     set('MN'), set('GJ'), set('FPV'), set('SXZ'), set('CSZ'))
+    letter_groups = (set('AEIOUY'), set('BP'), set('CKQ'), set('DT'),
+                     set('LR'), set('MN'), set('GJ'), set('FPV'), set('SXZ'),
+                     set('CSZ'))
     all_letters = set('AEIOUYBPCKQDTLRMNGJFVSXZ')
 
     def r_cost(ch1, ch2):
@@ -1931,7 +1933,7 @@ def sim_tfidf(src, tar, qval=2, docs_src=None, docs_tar=None):
     http://alias-i.com/lingpipe/docs/api/com/aliasi/spell/TfIdfDistance.html
     """
     if src == tar:
-        return 1.0 # TODO: confirm the correctness of this when the docs are different
+        return 1.0  # TODO: confirm correctness of this when docs are different
     elif len(src) == 0 or len(tar) == 0:
         return 0.0
 
@@ -1957,7 +1959,8 @@ def sim_tfidf(src, tar, qval=2, docs_src=None, docs_tar=None):
 
     # TODO: finish implementation
 
-################################################################################
+###############################################################################
+
 
 def sim(src, tar, method=sim_levenshtein):
     """Return the similarity of two strings
