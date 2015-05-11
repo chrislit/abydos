@@ -32,6 +32,7 @@ from .qgram import QGrams
 from .distance import sim
 import abydos.stats as stats
 
+
 def fingerprint(phrase):
     """Return the fingerprint of a phrase
 
