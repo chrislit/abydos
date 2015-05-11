@@ -125,7 +125,7 @@ class HasFeatureTestCases(unittest.TestCase):
         self.assertNotEqual(get_feature(ipa_to_features('i@c'), 'syllabic'),
                             [1, float('NaN'), -1])
         self.assertTrue(isnan(get_feature(ipa_to_features('i@c'),
-                                              'syllabic')[1]))
+                                          'syllabic')[1]))
 
 
 class CmpFeaturesTestCases(unittest.TestCase):
@@ -134,16 +134,16 @@ class CmpFeaturesTestCases(unittest.TestCase):
     def test_cmp_features(self):
         """test abydos.phones.cmp_features
         """
-        ## negatives
+        # # negatives
         self.assertEqual(cmp_features(-1, 1826957425952336298), -1)
         self.assertEqual(cmp_features(1826957425952336298, -1), -1)
         self.assertEqual(cmp_features(-1, -1), -1)
-        ## equals
+        # # equals
         self.assertEqual(cmp_features(0, 0), 1)
         self.assertEqual(cmp_features(1826957425952336298,
                                       1826957425952336298), 1)
 
-        ## unequals
+        # # unequals
         # pre-calc everything
         cced = ipa_to_features('ç')[0]
         esh = ipa_to_features('ʃ')[0]
