@@ -30,9 +30,9 @@ from abydos.compression import ac_train, ac_encode, ac_decode, \
 class ArithmeticCoderTestCases(unittest.TestCase):
     """test cases for abydos.compression.ac_train & .ac_encode
     """
-    NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
-             'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill', 'MacNeil',
-             'MacNele', 'Niall Noígíallach')
+    NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel',
+             'Nele', 'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill',
+             'MacNeil', 'MacNele', 'Niall Noígíallach')
 
     niall_probs = {'a': (Rational(41, 57), Rational(91, 114)),
                    ' ': (Rational(25, 114), Rational(7, 19)),
@@ -56,7 +56,6 @@ class ArithmeticCoderTestCases(unittest.TestCase):
                    'h': (Rational(18, 19), Rational(109, 114)),
                    'n': (Rational(107, 114), Rational(18, 19))}
 
-
     def test_ac_train(self):
         """test abydos.compression.ac_train
         """
@@ -75,7 +74,8 @@ class ArithmeticCoderTestCases(unittest.TestCase):
         self.assertEqual(ac_encode('', self.niall_probs), (254, 8))
         self.assertEqual(ac_encode('a', self.niall_probs), (3268, 12))
         self.assertEqual(ac_encode('Niall', self.niall_probs), (3911665, 23))
-        self.assertEqual(ac_encode('Ni\x00ll', self.niall_probs), (1932751, 22))
+        self.assertEqual(ac_encode('Ni\x00ll', self.niall_probs),
+                         (1932751, 22))
         self.assertEqual(ac_encode('Niel', self.niall_probs), (486801, 20))
         self.assertEqual(ac_encode('Mean', self.niall_probs), (243067161, 28))
         self.assertEqual(ac_encode('Neil Noígíallach', self.niall_probs),
@@ -107,8 +107,8 @@ class BWTTestCases(unittest.TestCase):
         # Examples from Wikipedia entry on BWT
         self.assertEqual(bwt_encode(''), '\x00')
         self.assertEqual(bwt_encode('^BANANA', '|'), 'BNN^AA|A')
-        self.assertEqual(bwt_encode('SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES',
-                                    '|'),
+        self.assertEqual(bwt_encode('SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST' +
+                                    '.BOXES', '|'),
                          'TEXYDST.E.IXIXIXXSSMPPS.B..E.|.UESFXDIIOIIITS')
 
         self.assertEqual(bwt_encode('aardvark', '$'), 'k$avrraad')
@@ -122,8 +122,8 @@ class BWTTestCases(unittest.TestCase):
         self.assertEqual(bwt_decode(''), '')
         self.assertEqual(bwt_decode('\x00'), '')
         self.assertEqual(bwt_decode('BNN^AA|A', '|'), '^BANANA')
-        self.assertEqual(bwt_decode('TEXYDST.E.IXIXIXXSSMPPS.B..E.|.UESFXDIIOIIITS',
-                                    '|'),
+        self.assertEqual(bwt_decode('TEXYDST.E.IXIXIXXSSMPPS.B..E.|.' +
+                                    'UESFXDIIOIIITS', '|'),
                          'SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES')
 
         self.assertEqual(bwt_decode('k$avrraad', '$'), 'aardvark')
@@ -146,6 +146,7 @@ class RLETestCases(unittest.TestCase):
     """test cases for abydos.compression.rle_encode & .rle_decode
     """
     bws = 'WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWBWWWWWWWWWWWWWW'
+
     def test_rle_encode(self):
         """test abydos.compression.rle_encode
         """
