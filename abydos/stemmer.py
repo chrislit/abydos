@@ -1281,8 +1281,13 @@ def caumanns(word):
     word = word.replace('ß', 'ss')
 
     # 2. Change second of doubled characters to *
-    word = ''.join([word[0]] + ['*' if word[i] == word[i-1] else word[i] for
-                                i in range(1, len(word))])
+    newword = word[0]
+    for l in _range(1, len(word)):
+        if newword[l-1] == word[l]:
+            newword += '*'
+        else:
+            newword += word[l]
+    word = newword
 
     # 3. Replace sch, ch, ei, ie with $, §, %, &
     word = word.replace('sch', '$')
@@ -1320,7 +1325,7 @@ def caumanns(word):
 
     # Expand doubled
     word = ''.join([word[0]] + [word[i-1] if word[i] == '*' else word[i] for
-                                i in range(1, len(word))])
+                                i in _range(1, len(word))])
 
     # Finally, convert gege to ge
     if len(word) > 4:
