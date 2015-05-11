@@ -30,8 +30,8 @@ from abydos._compat import _unicode
 from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
     russell_index_alpha, soundex, dm_soundex, koelner_phonetik, \
     koelner_phonetik_num_to_alpha, koelner_phonetik_alpha, nysiis, mra, \
-    metaphone, double_metaphone, caverphone, alpha_sis, fuzzy_soundex, phonex, \
-    phonem, phonix, sfinxbis, phonet, spfc, bmpm
+    metaphone, double_metaphone, caverphone, alpha_sis, fuzzy_soundex, \
+    phonex, phonem, phonix, sfinxbis, phonet, spfc, bmpm
 from abydos._bm import _bm_language, _bm_expand_alternates, \
     _bm_remove_dupes, _bm_normalize_lang_attrs, _bm_phonetic_number, \
     _bm_apply_rule_if_compat
@@ -42,8 +42,9 @@ from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
 
 TESTDIR = os.path.dirname(__file__)
 
-EXTREME_TEST = False # Set to True to test EVERY single case (takes hours)
-ALLOW_RANDOM = False # Set to False to skip all random tests (to check coverage)
+EXTREME_TEST = False  # Set to True to test EVERY single case (NB: takes hours)
+ALLOW_RANDOM = False  # Set to False to skip all random tests
+
 
 def one_in(inverse_probability):
     """Return True if:
@@ -64,7 +65,7 @@ def one_in(inverse_probability):
 
 class RussellIndexTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.russell_index,
-    abydos.phonetic.russell_index_num_to_alpha, and russell_index_alpha
+    .russell_index_num_to_alpha, & .russell_index_alpha
     """
     def test_russel_index(self):
         """test abydos.phonetic.russell_index
@@ -117,7 +118,7 @@ class RussellIndexTestCases(unittest.TestCase):
 
 
 class SoundexTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.soundex and abydos.phonetic_dm_soundex
+    """test cases for abydos.phonetic.soundex & .dm_soundex
     """
     def test_soundex(self):
         """test abydos.phonetic.soundex
@@ -174,11 +175,12 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(soundex('Christopher', 6), 'C62316')
 
         # maxlength bounds tests
-        self.assertEqual(soundex('Niall', maxlength=float('inf')), 'N400000000'+
-                         '0000000000000000000000000000000000000000000000000000'+
-                         '00')
-        self.assertEqual(soundex('Niall', maxlength=None), 'N40000000000000000'+
-                         '0000000000000000000000000000000000000000000000')
+        self.assertEqual(soundex('Niall', maxlength=float('inf')),
+                         'N4000000000000000000000000000000000000000000000000' +
+                         '00000000000000')
+        self.assertEqual(soundex('Niall', maxlength=None),
+                         'N4000000000000000000000000000000000000000000000000' +
+                         '00000000000000')
         self.assertEqual(soundex('Niall', maxlength=0), 'N400')
 
         # reverse tests
@@ -190,7 +192,8 @@ class SoundexTestCases(unittest.TestCase):
         # zero_pad tests
         self.assertEqual(soundex('Niall', maxlength=float('inf'),
                                  zero_pad=False), 'N4')
-        self.assertEqual(soundex('Niall', maxlength=None, zero_pad=False), 'N4')
+        self.assertEqual(soundex('Niall', maxlength=None,
+                                 zero_pad=False), 'N4')
         self.assertEqual(soundex('Niall', maxlength=0, zero_pad=False), 'N4')
         self.assertEqual(soundex('Niall', maxlength=0, zero_pad=True), 'N400')
         self.assertEqual(soundex('', maxlength=4, zero_pad=False), '0')
@@ -206,7 +209,7 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(soundex('Rubin', var='special'), 'R150')
 
     def test_dm_soundex(self):
-        """test abydos.phonetic_dm_soundex (Daitchh-Mokotoff Soundex)
+        """test abydos.phonetic.dm_soundex (Daitchh-Mokotoff Soundex)
         """
         # D-M tests
         self.assertEqual(soundex('', var='dm'), set(['000000']))
@@ -279,13 +282,13 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(dm_soundex('Jackson'),
                           set(['154600', '454600', '145460', '445460']))
         self.assertEqual(soundex('Jackson-Jackson', var='dm'),
-                          set(['154654', '454654', '145465', '445465', '154645',
-                               '454645', '145464', '445464', '154644',
-                               '454644']))
+                          set(['154654', '454654', '145465', '445465',
+                               '154645', '454645', '145464', '445464',
+                               '154644', '454644']))
         self.assertEqual(dm_soundex('Jackson-Jackson'),
-                          set(['154654', '454654', '145465', '445465', '154645',
-                               '454645', '145464', '445464', '154644',
-                               '454644']))
+                          set(['154654', '454654', '145465', '445465',
+                               '154645', '454645', '145464', '445464',
+                               '154644', '454644']))
 
         # http://www.jewishgen.org/infofiles/soundex.html
         self.assertEqual(soundex('OHRBACH', var='dm'),
@@ -325,12 +328,12 @@ class SoundexTestCases(unittest.TestCase):
                           set(['956497']))
 
         # maxlength bounds tests
-        self.assertEqual(dm_soundex('Niall', maxlength=float('inf')), set(['68'+
-                         '0000000000000000000000000000000000000000000000000000'+
-                         '0000000000']))
-        self.assertEqual(dm_soundex('Niall', maxlength=None), set(['6800000000'+
-                         '0000000000000000000000000000000000000000000000000000'+
-                         '00']))
+        self.assertEqual(dm_soundex('Niall', maxlength=float('inf')),
+                         set(['680000000000000000000000000000000000000000000' +
+                              '0000000000000000000']))
+        self.assertEqual(dm_soundex('Niall', maxlength=None),
+                         set(['680000000000000000000000000000000000000000000' +
+                              '0000000000000000000']))
         self.assertEqual(dm_soundex('Niall', maxlength=0), set(['680000']))
 
         # zero_pad tests
@@ -350,7 +353,7 @@ class SoundexTestCases(unittest.TestCase):
 
 class KoelnerPhonetikTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.koelner_phonetik,
-    abydos.phonetic.koelner_phonetik_num_to_alpha, and koelner_phonetik_alpha
+    .koelner_phonetik_num_to_alpha, & .koelner_phonetik_alpha
     """
     def test_koelner_phonetik(self):
         """test abydos.phonetic.koelner_phonetik
@@ -476,6 +479,7 @@ class NysiisTestCases(unittest.TestCase):
         self.assertEqual(nysiis('Niall', maxlength=float('inf')), 'NAL')
         self.assertEqual(nysiis('Niall', maxlength=None), 'NAL')
         self.assertEqual(nysiis('Niall', maxlength=0), 'NAL')
+
 
 class MraTestCases(unittest.TestCase):
     """test cases for abydos.phonetic.mra
@@ -716,7 +720,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('school'), ('SKL', ''))
         self.assertEqual(double_metaphone('schooner'), ('SKNR', ''))
         self.assertEqual(double_metaphone('schermerhorn'),
-                          ('XRMRRN', 'SKRMRRN'))
+                         ('XRMRRN', 'SKRMRRN'))
         self.assertEqual(double_metaphone('schenker'), ('XNKR', 'SKNKR'))
 
         # <ch> words
@@ -928,7 +932,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('Bruley'), ('PRL', ''))
         self.assertEqual(double_metaphone('Bryant'), ('PRNT', ''))
         self.assertEqual(double_metaphone('Brzozowski'),
-                          ('PRSSSK', 'PRTSTSFSK'))
+                         ('PRSSSK', 'PRTSTSFSK'))
         self.assertEqual(double_metaphone('Buide'), ('PT', ''))
         self.assertEqual(double_metaphone('Bulmer'), ('PLMR', ''))
         self.assertEqual(double_metaphone('Bunker'), ('PNKR', ''))
@@ -964,7 +968,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('Chetwynd'), ('XTNT', ''))
         self.assertEqual(double_metaphone('Chevalier'), ('XFL', 'XFLR'))
         self.assertEqual(double_metaphone('Chillingsworth'),
-                          ('XLNKSR0', 'XLNKSRT'))
+                         ('XLNKSR0', 'XLNKSRT'))
         self.assertEqual(double_metaphone('Christie'), ('KRST', ''))
         self.assertEqual(double_metaphone('Chubbuck'), ('XPK', ''))
         self.assertEqual(double_metaphone('Church'), ('XRX', 'XRK'))
@@ -1238,7 +1242,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('Hundertumark'), ('HNTRTMRK', ''))
         self.assertEqual(double_metaphone('Hundley'), ('HNTL', ''))
         self.assertEqual(double_metaphone('Hungerford'),
-                          ('HNKRFRT', 'HNJRFRT'))
+                         ('HNKRFRT', 'HNJRFRT'))
         self.assertEqual(double_metaphone('Hunt'), ('HNT', ''))
         self.assertEqual(double_metaphone('Hurst'), ('HRST', ''))
         self.assertEqual(double_metaphone('Husbands'), ('HSPNTS', ''))
@@ -1475,7 +1479,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('Pitt'), ('PT', ''))
         self.assertEqual(double_metaphone('Pitts'), ('PTS', ''))
         self.assertEqual(double_metaphone('Plantagenet'),
-                          ('PLNTJNT', 'PLNTKNT'))
+                         ('PLNTJNT', 'PLNTKNT'))
         self.assertEqual(double_metaphone('Platt'), ('PLT', ''))
         self.assertEqual(double_metaphone('Platts'), ('PLTS', ''))
         self.assertEqual(double_metaphone('Pleis'), ('PLS', ''))
@@ -1604,7 +1608,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('Starbuck'), ('STRPK', ''))
         self.assertEqual(double_metaphone('Starkey'), ('STRK', ''))
         self.assertEqual(double_metaphone('Starkweather'),
-                          ('STRK0R', 'STRKTR'))
+                         ('STRK0R', 'STRKTR'))
         self.assertEqual(double_metaphone('Stearns'), ('STRNS', ''))
         self.assertEqual(double_metaphone('Stebbins'), ('STPNS', ''))
         self.assertEqual(double_metaphone('Steele'), ('STL', ''))
@@ -1646,10 +1650,10 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('Thompson'), ('TMPSN', ''))
         self.assertEqual(double_metaphone('Thorne'), ('0RN', 'TRN'))
         self.assertEqual(double_metaphone('Thornycraft'),
-                          ('0RNKRFT', 'TRNKRFT'))
+                         ('0RNKRFT', 'TRNKRFT'))
         self.assertEqual(double_metaphone('Threlkeld'), ('0RLKLT', 'TRLKLT'))
         self.assertEqual(double_metaphone('Throckmorton'),
-                          ('0RKMRTN', 'TRKMRTN'))
+                         ('0RKMRTN', 'TRKMRTN'))
         self.assertEqual(double_metaphone('Thwaits'), ('0TS', 'TTS'))
         self.assertEqual(double_metaphone('Tibbetts'), ('TPTS', ''))
         self.assertEqual(double_metaphone('Tidd'), ('TT', ''))
@@ -1697,7 +1701,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('Walter'), ('ALTR', 'FLTR'))
         self.assertEqual(double_metaphone('Wandell'), ('ANTL', 'FNTL'))
         self.assertEqual(double_metaphone('Wandesford'),
-                          ('ANTSFRT', 'FNTSFRT'))
+                         ('ANTSFRT', 'FNTSFRT'))
         self.assertEqual(double_metaphone('Warbleton'), ('ARPLTN', 'FRPLTN'))
         self.assertEqual(double_metaphone('Ward'), ('ART', 'FRT'))
         self.assertEqual(double_metaphone('Warde'), ('ART', 'FRT'))
@@ -1709,7 +1713,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('Waterbury'), ('ATRPR', 'FTRPR'))
         self.assertEqual(double_metaphone('Watson'), ('ATSN', 'FTSN'))
         self.assertEqual(double_metaphone('WatsonEllithorpe'),
-                          ('ATSNL0RP', 'FTSNLTRP'))
+                         ('ATSNL0RP', 'FTSNLTRP'))
         self.assertEqual(double_metaphone('Watts'), ('ATS', 'FTS'))
         self.assertEqual(double_metaphone('Wayne'), ('AN', 'FN'))
         self.assertEqual(double_metaphone('Webb'), ('AP', 'FP'))
@@ -1776,9 +1780,9 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('de Briwere'), ('TPRR', ''))
         self.assertEqual(double_metaphone('de Cantelou'), ('TKNTL', ''))
         self.assertEqual(double_metaphone('de Cherelton'),
-                          ('TXRLTN', 'TKRLTN'))
+                         ('TXRLTN', 'TKRLTN'))
         self.assertEqual(double_metaphone('de Cherleton'),
-                          ('TXRLTN', 'TKRLTN'))
+                         ('TXRLTN', 'TKRLTN'))
         self.assertEqual(double_metaphone('de Clare'), ('TKLR', ''))
         self.assertEqual(double_metaphone('de Claremont'), ('TKLRMNT', ''))
         self.assertEqual(double_metaphone('de Clifford'), ('TKLFRT', ''))
@@ -1809,7 +1813,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('de Morville'), ('TMRFL', ''))
         self.assertEqual(double_metaphone('de Morvois'), ('TMRF', 'TMRFS'))
         self.assertEqual(double_metaphone('de Neufmarche'),
-                          ('TNFMRX', 'TNFMRK'))
+                         ('TNFMRX', 'TNFMRK'))
         self.assertEqual(double_metaphone('de Odingsells'), ('TTNKSLS', ''))
         self.assertEqual(double_metaphone('de Odyngsells'), ('TTNKSLS', ''))
         self.assertEqual(double_metaphone('de Percy'), ('TPRS', ''))
@@ -1833,7 +1837,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('de Vaux'), ('TF', ''))
         self.assertEqual(double_metaphone('de Vere'), ('TFR', ''))
         self.assertEqual(double_metaphone('de Vermandois'),
-                          ('TFRMNT', 'TFRMNTS'))
+                         ('TFRMNT', 'TFRMNTS'))
         self.assertEqual(double_metaphone('de Vernon'), ('TFRNN', ''))
         self.assertEqual(double_metaphone('de Vexin'), ('TFKSN', ''))
         self.assertEqual(double_metaphone('de Vitre'), ('TFTR', ''))
@@ -1843,7 +1847,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('di Saluzzo'), ('TSLS', 'TSLTS'))
         self.assertEqual(double_metaphone('fitz Alan'), ('FTSLN', ''))
         self.assertEqual(double_metaphone('fitz Geoffrey'),
-                          ('FTSJFR', 'FTSKFR'))
+                         ('FTSJFR', 'FTSKFR'))
         self.assertEqual(double_metaphone('fitz Herbert'), ('FTSRPRT', ''))
         self.assertEqual(double_metaphone('fitz John'), ('FTSJN', ''))
         self.assertEqual(double_metaphone('fitz Patrick'), ('FTSPTRK', ''))
@@ -1851,7 +1855,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('fitz Piers'), ('FTSPRS', ''))
         self.assertEqual(double_metaphone('fitz Randolph'), ('FTSRNTLF', ''))
         self.assertEqual(double_metaphone('fitz Richard'),
-                          ('FTSRXRT', 'FTSRKRT'))
+                         ('FTSRXRT', 'FTSRKRT'))
         self.assertEqual(double_metaphone('fitz Robert'), ('FTSRPRT', ''))
         self.assertEqual(double_metaphone('fitz Roy'), ('FTSR', ''))
         self.assertEqual(double_metaphone('fitz Scrob'), ('FTSSKP', ''))
@@ -1906,7 +1910,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('of Polotzk'), ('AFPLTSK', ''))
         self.assertEqual(double_metaphone('of Provence'), ('AFPRFNS', ''))
         self.assertEqual(double_metaphone('of Ringelheim'),
-                          ('AFRNJLM', 'AFRNKLM'))
+                         ('AFRNJLM', 'AFRNKLM'))
         self.assertEqual(double_metaphone('of Salisbury'), ('AFSLSPR', ''))
         self.assertEqual(double_metaphone('of Saxony'), ('AFSKSN', ''))
         self.assertEqual(double_metaphone('of Scotland'), ('AFSKTLNT', ''))
@@ -1915,7 +1919,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('of Swabia'), ('AFSP', ''))
         self.assertEqual(double_metaphone('of Tongres'), ('AFTNKRS', ''))
         self.assertEqual(double_metaphone('of the Tributes'),
-                          ('AF0TRPTS', 'AFTTRPTS'))
+                         ('AF0TRPTS', 'AFTTRPTS'))
         self.assertEqual(double_metaphone('unknown'), ('ANKNN', ''))
         self.assertEqual(double_metaphone('van der Gouda'), ('FNTRKT', ''))
         self.assertEqual(double_metaphone('von Adenbaugh'), ('FNTNP', ''))
@@ -2007,7 +2011,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('san jacinto'), ('SNHSNT', ''))
         self.assertEqual(double_metaphone('schenker'), ('XNKR', 'SKNKR'))
         self.assertEqual(double_metaphone('schermerhorn'),
-                          ('XRMRRN', 'SKRMRRN'))
+                         ('XRMRRN', 'SKRMRRN'))
         self.assertEqual(double_metaphone('schmidt'), ('XMT', 'SMT'))
         self.assertEqual(double_metaphone('schneider'), ('XNTR', 'SNTR'))
         self.assertEqual(double_metaphone('school'), ('SKL', ''))
@@ -2233,7 +2237,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('Cooke', 4), ('KK', ''))
         self.assertEqual(double_metaphone('Cooper', 4), ('KPR', ''))
         self.assertEqual(double_metaphone('Copperthwaite', 4),
-                          ('KPR0', 'KPRT'))
+                         ('KPR0', 'KPRT'))
         self.assertEqual(double_metaphone('Corbet', 4), ('KRPT', ''))
         self.assertEqual(double_metaphone('Corell', 4), ('KRL', ''))
         self.assertEqual(double_metaphone('Corey', 4), ('KR', ''))
@@ -2245,7 +2249,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('Count of Brionne', 4), ('KNTF', ''))
         self.assertEqual(double_metaphone('Covill', 4), ('KFL', ''))
         self.assertEqual(double_metaphone('Cowperthwaite', 4),
-                          ('KPR0', 'KPRT'))
+                         ('KPR0', 'KPRT'))
         self.assertEqual(double_metaphone('Cowperwaite', 4), ('KPRT', ''))
         self.assertEqual(double_metaphone('Crane', 4), ('KRN', ''))
         self.assertEqual(double_metaphone('Creagmile', 4), ('KRKM', ''))
@@ -2943,7 +2947,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('Waterbury', 4), ('ATRP', 'FTRP'))
         self.assertEqual(double_metaphone('Watson', 4), ('ATSN', 'FTSN'))
         self.assertEqual(double_metaphone('WatsonEllithorpe', 4),
-                          ('ATSN', 'FTSN'))
+                         ('ATSN', 'FTSN'))
         self.assertEqual(double_metaphone('Watts', 4), ('ATS', 'FTS'))
         self.assertEqual(double_metaphone('Wayne', 4), ('AN', 'FN'))
         self.assertEqual(double_metaphone('Webb', 4), ('AP', 'FP'))
@@ -3027,7 +3031,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('de Hoke', 4), ('TK', ''))
         self.assertEqual(double_metaphone('de Hooch', 4), ('TK', ''))
         self.assertEqual(double_metaphone('de Hugelville', 4),
-                          ('TJLF', 'TKLF'))
+                         ('TJLF', 'TKLF'))
         self.assertEqual(double_metaphone('de Huntingdon', 4), ('TNTN', ''))
         self.assertEqual(double_metaphone('de Insula', 4), ('TNSL', ''))
         self.assertEqual(double_metaphone('de Keynes', 4), ('TKNS', ''))
@@ -3074,7 +3078,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('di Saluzzo', 4), ('TSLS', 'TSLT'))
         self.assertEqual(double_metaphone('fitz Alan', 4), ('FTSL', ''))
         self.assertEqual(double_metaphone('fitz Geoffrey', 4),
-                          ('FTSJ', 'FTSK'))
+                         ('FTSJ', 'FTSK'))
         self.assertEqual(double_metaphone('fitz Herbert', 4), ('FTSR', ''))
         self.assertEqual(double_metaphone('fitz John', 4), ('FTSJ', ''))
         self.assertEqual(double_metaphone('fitz Patrick', 4), ('FTSP', ''))
@@ -3144,7 +3148,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('of Swabia', 4), ('AFSP', ''))
         self.assertEqual(double_metaphone('of Tongres', 4), ('AFTN', ''))
         self.assertEqual(double_metaphone('of the Tributes', 4),
-                          ('AF0T', 'AFTT'))
+                         ('AF0T', 'AFTT'))
         self.assertEqual(double_metaphone('unknown', 4), ('ANKN', ''))
         self.assertEqual(double_metaphone('van der Gouda', 4), ('FNTR', ''))
         self.assertEqual(double_metaphone('von Adenbaugh', 4), ('FNTN', ''))
@@ -3425,11 +3429,12 @@ class AlphaSisTestCases(unittest.TestCase):
         self.assertEqual(alpha_sis('Colalalier')[0], '07555400000000')
 
         # maxlength bounds tests
-        self.assertEqual(alpha_sis('Niall', maxlength=float('inf'))[0], '02500'+
-                         '0000000000000000000000000000000000000000000000000000'+
-                         '0000000')
-        self.assertEqual(alpha_sis('Niall', maxlength=None)[0], '0250000000000'+
-                         '000000000000000000000000000000000000000000000000000')
+        self.assertEqual(alpha_sis('Niall', maxlength=float('inf'))[0],
+                         '02500000000000000000000000000000000000000000000000' +
+                         '00000000000000')
+        self.assertEqual(alpha_sis('Niall', maxlength=None)[0],
+                         '02500000000000000000000000000000000000000000000000' +
+                         '00000000000000')
         self.assertEqual(alpha_sis('Niall', maxlength=0)[0], '0250')
 
 
@@ -3474,22 +3479,23 @@ class FuzzySoundexTestCases(unittest.TestCase):
         self.assertEqual(fuzzy_soundex('Hardt'), 'H6000')
 
         # maxlength bounds tests
-        self.assertEqual(fuzzy_soundex('Niall', maxlength=float('inf')), 'N400'+
-                         '0000000000000000000000000000000000000000000000000000'+
-                         '00000000')
-        self.assertEqual(fuzzy_soundex('Niall', maxlength=None), 'N40000000000'+
-                         '0000000000000000000000000000000000000000000000000000')
+        self.assertEqual(fuzzy_soundex('Niall', maxlength=float('inf')),
+                         'N4000000000000000000000000000000000000000000000000' +
+                         '00000000000000')
+        self.assertEqual(fuzzy_soundex('Niall', maxlength=None),
+                         'N4000000000000000000000000000000000000000000000000' +
+                         '00000000000000')
         self.assertEqual(fuzzy_soundex('Niall', maxlength=0), 'N400')
 
         # zero_pad tests
         self.assertEqual(fuzzy_soundex('Niall', maxlength=float('inf'),
                                        zero_pad=False), 'N4')
-        self.assertEqual(fuzzy_soundex('Niall', maxlength=None, zero_pad=False),
-                         'N4')
-        self.assertEqual(fuzzy_soundex('Niall', maxlength=0, zero_pad=False),
-                         'N4')
-        self.assertEqual(fuzzy_soundex('Niall', maxlength=0, zero_pad=True),
-                         'N400')
+        self.assertEqual(fuzzy_soundex('Niall', maxlength=None,
+                                       zero_pad=False), 'N4')
+        self.assertEqual(fuzzy_soundex('Niall', maxlength=0,
+                                       zero_pad=False), 'N4')
+        self.assertEqual(fuzzy_soundex('Niall', maxlength=0,
+                                       zero_pad=True), 'N400')
         self.assertEqual(fuzzy_soundex('', maxlength=4, zero_pad=False), '0')
         self.assertEqual(fuzzy_soundex('', maxlength=4, zero_pad=True), '0000')
 
@@ -3536,11 +3542,12 @@ class PhonexTestCases(unittest.TestCase):
         self.assertEqual(phonex('A-1'), 'A000')
 
         # maxlength bounds tests
-        self.assertEqual(phonex('Niall', maxlength=float('inf')), 'N4000000000'+
-                         '0000000000000000000000000000000000000000000000000000'+
-                         '0')
-        self.assertEqual(phonex('Niall', maxlength=None), 'N400000000000000000'+
-                         '000000000000000000000000000000000000000000000')
+        self.assertEqual(phonex('Niall', maxlength=float('inf')),
+                         'N4000000000000000000000000000000000000000000000000' +
+                         '00000000000000')
+        self.assertEqual(phonex('Niall', maxlength=None),
+                         'N4000000000000000000000000000000000000000000000000' +
+                         '00000000000000')
         self.assertEqual(phonex('Niall', maxlength=0), 'N400')
 
         # zero_pad tests
@@ -3650,11 +3657,12 @@ class PhonixTestCases(unittest.TestCase):
         self.assertEqual(phonix('kristina'), 'K683')
 
         # maxlength bounds tests
-        self.assertEqual(phonix('Niall', maxlength=float('inf')), 'N4000000000'+
-                         '0000000000000000000000000000000000000000000000000000'+
-                         '0')
-        self.assertEqual(phonix('Niall', maxlength=None), 'N400000000000000000'+
-                         '000000000000000000000000000000000000000000000')
+        self.assertEqual(phonix('Niall', maxlength=float('inf')),
+                         'N4000000000000000000000000000000000000000000000000' +
+                         '00000000000000')
+        self.assertEqual(phonix('Niall', maxlength=None),
+                         'N4000000000000000000000000000000000000000000000000' +
+                         '00000000000000')
         self.assertEqual(phonix('Niall', maxlength=0), 'N400')
 
         # zero_pad tests
@@ -3730,20 +3738,21 @@ class SfinxBisTestCases(unittest.TestCase):
         self.assertEqual(sfinxbis('de Oliveira e Silva'), ('$4726', 'S47'))
         self.assertEqual(sfinxbis('de Alfaro y Gómez'), ('$476', 'G58'))
         self.assertEqual(sfinxbis('Arjaliès-de la Lande'), ('$6248', 'L53'))
-        self.assertEqual(sfinxbis('Dominicus van den Bussche'), ('D5528', 'B8'))
-        self.assertEqual(sfinxbis('Edebol Eeg-Olofsson'), ('$314', '$2',
-                                                           '$4785'))
+        self.assertEqual(sfinxbis('Dominicus van den Bussche'),
+                         ('D5528', 'B8'))
+        self.assertEqual(sfinxbis('Edebol Eeg-Olofsson'),
+                         ('$314', '$2', '$4785'))
         self.assertEqual(sfinxbis('Jonsson-Blomqvist'), ('J585', 'B452783'))
         self.assertEqual(sfinxbis('Kiviniemi Birgersson'), ('#755', 'B62685'))
-        self.assertEqual(sfinxbis('Massena Serpa dos Santos'), ('M85', 'S61',
-                                                                'S538'))
+        self.assertEqual(sfinxbis('Massena Serpa dos Santos'),
+                         ('M85', 'S61', 'S538'))
         self.assertEqual(sfinxbis('S:t Clair Renard'), ('K426', 'R563'))
         self.assertEqual(sfinxbis('Skoog H Andersson'), ('S22', 'H', '$53685'))
         self.assertEqual(sfinxbis('von Post-Skagegård'), ('P83', 'S22263'))
         self.assertEqual(sfinxbis('von Zur-Mühlen'), ('S6', 'M45'))
         self.assertEqual(sfinxbis('Waltå O:son'), ('V43', '$85'))
-        self.assertEqual(sfinxbis('Zardán Gómez de la Torre'), ('S635', 'G58',
-                                                                'T6'))
+        self.assertEqual(sfinxbis('Zardán Gómez de la Torre'),
+                         ('S635', 'G58', 'T6'))
         self.assertEqual(sfinxbis('af Jochnick'), ('J252',))
         self.assertEqual(sfinxbis('af Ioscnick'), ('J8252',))
         self.assertEqual(sfinxbis('Aabakken'), ('$125',))
@@ -3999,7 +4008,8 @@ class PhonetTestCases(unittest.TestCase):
         """
         if not ALLOW_RANDOM:
             return
-        with codecs.open(TESTDIR + '/corpora/nachnamen.csv', encoding='utf-8') as nachnamen_testset:
+        with codecs.open(TESTDIR + '/corpora/nachnamen.csv',
+                         encoding='utf-8') as nachnamen_testset:
             for nn_line in nachnamen_testset:
                 if nn_line[0] != '#':
                     nn_line = nn_line.strip().split(',')
@@ -4015,7 +4025,8 @@ class PhonetTestCases(unittest.TestCase):
         """
         if not ALLOW_RANDOM:
             return
-        with codecs.open(TESTDIR + '/corpora/ngerman.csv', encoding='utf-8') as ngerman_testset:
+        with codecs.open(TESTDIR + '/corpora/ngerman.csv',
+                         encoding='utf-8') as ngerman_testset:
             for ng_line in ngerman_testset:
                 if ng_line[0] != '#':
                     ng_line = ng_line.strip().split(',')
@@ -4103,8 +4114,8 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(bmpm('D\'Angelo', '', 'gen', 'exact', True),
                          'angelo anxelo anhelo anjelo anZelo andZelo dangelo' +
                          ' danxelo danhelo danjelo danZelo dandZelo')
-        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen', 'exact',
-                              True),
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen',
+                              'exact', True),
                          'angelo anxelo andZelo')
         self.assertEqual(bmpm('1234', '', 'gen', 'exact', True), '')
 
@@ -4114,8 +4125,8 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(bmpm('D\'Angelo', '', 'gen', 'exact', False),
                          'angelo anxelo anhelo anjelo anZelo andZelo dangelo' +
                          ' danxelo danhelo danjelo danZelo dandZelo')
-        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen', 'exact',
-                              False),
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'gen',
+                              'exact', False),
                          'angelo anxelo andZelo')
         self.assertEqual(bmpm('1234', '', 'gen', 'exact', False), '')
 
@@ -4214,8 +4225,8 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'anZelo andZelo anxelo')
         self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish',
                           'sep', 'exact', True)
-        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'sep', 'exact',
-                              True, True),
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'sep',
+                              'exact', True, True),
                          'andZelo anxelo')
         self.assertEqual(bmpm('1234', '', 'sep', 'exact', True), '')
 
@@ -4226,8 +4237,8 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'anZelo andZelo anxelo')
         self.assertRaises(ValueError, bmpm, 'Angelo', 'italian,greek,spanish',
                           'sep', 'exact', False)
-        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'sep', 'exact',
-                              False, True), 'andZelo anxelo')
+        self.assertEqual(bmpm('Angelo', 'italian,greek,spanish', 'sep',
+                              'exact', False, True), 'andZelo anxelo')
         self.assertEqual(bmpm('1234', '', 'sep', 'exact', False), '')
 
         # concat is true, ruleType is APPROX
@@ -4304,10 +4315,10 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'rodamklnton rodomklnton rodamklntun rodomklntun' +
                          ' rodamtzlnton rodomtzlnton rodamtzlntun' +
                          ' rodomtzlntun rodamzlnton rodomzlnton rodanklnton' +
-                         ' rodonklnton rodxamklnton rodxomklnton rodxanklnton' +
-                         ' rodxonklnton rudamklnton rudomklnton rudamklntun' +
-                         ' rudomklntun rudamtzlnton rudomtzlnton rudamtzlntun' +
-                         ' rudomtzlntun')
+                         ' rodonklnton rodxamklnton rodxomklnton' +
+                         ' rodxanklnton rodxonklnton rudamklnton' +
+                         ' rudomklnton rudamklntun rudomklntun rudamtzlnton' +
+                         ' rudomtzlnton rudamtzlntun rudomtzlntun')
 
         # tests of name_mode values
         self.assertEqual(bmpm('bar Hayim', name_mode='ash'), 'Dm xDm')
@@ -4348,7 +4359,8 @@ class BeiderMorseTestCases(unittest.TestCase):
         """
         if not ALLOW_RANDOM:
             return
-        with codecs.open(TESTDIR + '/corpora/nachnamen.bm.csv', encoding='utf-8') as nachnamen_testset:
+        with codecs.open(TESTDIR + '/corpora/nachnamen.bm.csv',
+                         encoding='utf-8') as nachnamen_testset:
             next(nachnamen_testset)
             for nn_line in nachnamen_testset:
                 nn_line = nn_line.strip().split(',')
@@ -4365,7 +4377,8 @@ class BeiderMorseTestCases(unittest.TestCase):
         """
         return
         # TODO: fix data or algo so this can pass
-        with codecs.open(TESTDIR + '/corpora/nachnamen.bm.304.csv', encoding='utf-8') as nachnamen_testset:
+        with codecs.open(TESTDIR + '/corpora/nachnamen.bm.304.csv',
+                         encoding='utf-8') as nachnamen_testset:
             next(nachnamen_testset)
             for nn_line in nachnamen_testset:
                 nn_line = nn_line.strip().split(',')
@@ -4382,9 +4395,9 @@ class BeiderMorseTestCases(unittest.TestCase):
         """
         if not ALLOW_RANDOM:
             return
-        with open(TESTDIR + '/corpora/uscensus2000.bm.csv') as uscensus_testset:
-            next(uscensus_testset)
-            for cen_line in uscensus_testset:
+        with open(TESTDIR + '/corpora/uscensus2000.bm.csv') as uscensus_ts:
+            next(uscensus_ts)
+            for cen_line in uscensus_ts:
                 cen_line = cen_line.strip().split(',')
                 # This test set is very large (~150000 entries)
                 # so let's just randomly select about 20 for testing
@@ -4408,9 +4421,9 @@ class BeiderMorseTestCases(unittest.TestCase):
         """
         return
         # TODO: fix data or algo so this can pass
-        with open(TESTDIR + '/corpora/uscensus2000.bm.304.csv') as uscensus_testset:
-            next(uscensus_testset)
-            for cen_line in uscensus_testset:
+        with open(TESTDIR + '/corpora/uscensus2000.bm.304.csv') as uscensus_ts:
+            next(uscensus_ts)
+            for cen_line in uscensus_ts:
                 cen_line = cen_line.strip().split(',')
                 # This test set is very large (~150000 entries)
                 # so let's just randomly select about 20 for testing
@@ -4462,7 +4475,8 @@ class BeiderMorseTestCases(unittest.TestCase):
         """
         self.assertEqual(_bm_language('Renault', 'gen'), L_FRENCH)
         self.assertEqual(_bm_language('Mickiewicz', 'gen'), L_POLISH)
-        self.assertEqual(_bm_language('Thompson', 'gen') & L_ENGLISH, L_ENGLISH)
+        self.assertEqual(_bm_language('Thompson', 'gen') & L_ENGLISH,
+                         L_ENGLISH)
         self.assertEqual(_bm_language('Nuñez', 'gen'), L_SPANISH)
         self.assertEqual(_bm_language('Carvalho', 'gen'), L_PORTUGUESE)
         self.assertEqual(_bm_language('Čapek', 'gen'), L_CZECH)
@@ -4509,10 +4523,8 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(_bm_remove_dupes('aa'), 'aa')
         self.assertEqual(_bm_remove_dupes('aa|bb'), 'aa|bb')
         self.assertEqual(_bm_remove_dupes('aa|aa'), 'aa')
-        self.assertEqual(_bm_remove_dupes('aa|aa|aa|bb|aa'),
-                         'aa|bb')
-        self.assertEqual(_bm_remove_dupes('bb|aa|bb|aa|bb'),
-                         'bb|aa')
+        self.assertEqual(_bm_remove_dupes('aa|aa|aa|bb|aa'), 'aa|bb')
+        self.assertEqual(_bm_remove_dupes('bb|aa|bb|aa|bb'), 'bb|aa')
 
 
     def test_bm_normalize_lang_attrs(self):
@@ -4521,38 +4533,24 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(_bm_normalize_lang_attrs('', False), '')
         self.assertEqual(_bm_normalize_lang_attrs('', True), '')
 
-        self.assertRaises(ValueError, _bm_normalize_lang_attrs, 'a[1',
-                          False)
-        self.assertRaises(ValueError, _bm_normalize_lang_attrs, 'a[1',
-                          True)
+        self.assertRaises(ValueError, _bm_normalize_lang_attrs, 'a[1', False)
+        self.assertRaises(ValueError, _bm_normalize_lang_attrs, 'a[1', True)
 
         self.assertEqual(_bm_normalize_lang_attrs('abc', False), 'abc')
-        self.assertEqual(_bm_normalize_lang_attrs('abc[0]', False),
-                         '[0]')
-        self.assertEqual(_bm_normalize_lang_attrs('abc[2]', False),
-                         'abc[2]')
-        self.assertEqual(_bm_normalize_lang_attrs('abc[2][4]', False),
-                         '[0]')
-        self.assertEqual(_bm_normalize_lang_attrs('abc[2][6]', False),
-                         'abc[2]')
-        self.assertEqual(_bm_normalize_lang_attrs('ab[2]c[4]', False),
-                         '[0]')
-        self.assertEqual(_bm_normalize_lang_attrs('ab[2]c[6]', False),
-                         'abc[2]')
+        self.assertEqual(_bm_normalize_lang_attrs('abc[0]', False), '[0]')
+        self.assertEqual(_bm_normalize_lang_attrs('abc[2]', False), 'abc[2]')
+        self.assertEqual(_bm_normalize_lang_attrs('abc[2][4]', False), '[0]')
+        self.assertEqual(_bm_normalize_lang_attrs('abc[2][6]', False), 'abc[2]')
+        self.assertEqual(_bm_normalize_lang_attrs('ab[2]c[4]', False), '[0]')
+        self.assertEqual(_bm_normalize_lang_attrs('ab[2]c[6]', False), 'abc[2]')
 
         self.assertEqual(_bm_normalize_lang_attrs('abc', True), 'abc')
-        self.assertEqual(_bm_normalize_lang_attrs('abc[0]', True),
-                         'abc')
-        self.assertEqual(_bm_normalize_lang_attrs('abc[2]', True),
-                         'abc')
-        self.assertEqual(_bm_normalize_lang_attrs('abc[2][4]', True),
-                         'abc')
-        self.assertEqual(_bm_normalize_lang_attrs('abc[2][6]', True),
-                         'abc')
-        self.assertEqual(_bm_normalize_lang_attrs('ab[2]c[4]', True),
-                         'abc')
-        self.assertEqual(_bm_normalize_lang_attrs('ab[2]c[6]', True),
-                         'abc')
+        self.assertEqual(_bm_normalize_lang_attrs('abc[0]', True), 'abc')
+        self.assertEqual(_bm_normalize_lang_attrs('abc[2]', True), 'abc')
+        self.assertEqual(_bm_normalize_lang_attrs('abc[2][4]', True), 'abc')
+        self.assertEqual(_bm_normalize_lang_attrs('abc[2][6]', True), 'abc')
+        self.assertEqual(_bm_normalize_lang_attrs('ab[2]c[4]', True), 'abc')
+        self.assertEqual(_bm_normalize_lang_attrs('ab[2]c[6]', True), 'abc')
 
 
 if __name__ == '__main__':
