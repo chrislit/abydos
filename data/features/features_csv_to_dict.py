@@ -38,9 +38,12 @@ You should have received a copy of the GNU General Public License
 along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 """
 
-from __future__ import unicode_literals
-import sys, getopt, codecs
+from __future__ import unicode_literals, print_function
+import sys
+import getopt
+import codecs
 import unicodedata
+
 
 def main(argv):
     """Main conversion script
@@ -54,7 +57,6 @@ def main(argv):
         print 'features_csv_to_dict.py -i <inputfile> -o <outputfile>'
         sys.exit(2)
 
-
     def binarize(num):
         """Replace 0, -1, 1, 2 with 00, 10, 01, 11
         """
@@ -66,7 +68,6 @@ def main(argv):
             return '01'
         elif num == '2':    # ± (segmental) or copy from base (non-segmental)
             return '11'
-
 
     def init_termdicts():
         """Initialize the terms dict
@@ -88,13 +89,12 @@ def main(argv):
             if line:
                 line = line.split(',')
                 term = line[last_col]
-                #print line[first_col:last_col]
+                # print line[first_col:last_col]
                 features = '0b' + ''.join([binarize(val) for val
                                            in line[first_col:last_col]])
                 termdict[term] = int(features, 2)
 
         return termdict, feature_mask
-
 
     def check_terms(sym, features, name, termdict):
         """Check each term of the phone name to confirm that it matches
@@ -110,7 +110,6 @@ def main(argv):
                           '" in   ' + sym)
             else:
                 print 'Unknown term "' + term + '" in ' + name + ' : ' + sym
-
 
     def check_entailments(sym, features, name, feature_mask):
         """Check for necessary feature assignments (entailments)
@@ -159,24 +158,24 @@ def main(argv):
                     if ent[0] == '±':
                         if (features & efm) == 0:
                             print('Incorrect entailment for ' + sym +
-                                  ' for feature ' + fname + ' and entailment ' +
-                                  ename)
+                                  ' for feature ' + fname +
+                                  ' and entailment ' + ename)
                     else:
                         if (features & efm) != efm:
                             print('Incorrect entailment for ' + sym +
-                                  ' for feature ' + fname + ' and entailment ' +
-                                  ename)
+                                  ' for feature ' + fname +
+                                  ' and entailment ' + ename)
 
-    checkdict = dict() # a mapping of symbol to feature
-    checkset_s = set() # a set of the symbols seen
-    checkset_f = set() # a set of the feature values seen
+    checkdict = dict()  # a mapping of symbol to feature
+    checkset_s = set()  # a set of the symbols seen
+    checkset_f = set()  # a set of the feature values seen
 
     termdict, feature_mask = init_termdicts()
 
     ifile = ''
     ofile = ''
     try:
-        opts = getopt.getopt(argv, "hi:o:", ["ifile=","ofile="])[0]
+        opts = getopt.getopt(argv, "hi:o:", ["ifile=", "ofile="])[0]
     except getopt.GetoptError:
         print_usage()
     for opt, arg in opts:
@@ -231,9 +230,9 @@ def main(argv):
 
             if variant < 2:
                 if featint in checkset_f:
-                    print ('Feature set ' + unicode(featint) +
-                           ' appears in CSV for two primary IPA symbols: ' +
-                           symbol + ' and ' + unicode(checkdict[featint]))
+                    print('Feature set ' + unicode(featint) +
+                          ' appears in CSV for two primary IPA symbols: ' +
+                          symbol + ' and ' + unicode(checkdict[featint]))
                 else:
                     checkdict[featint] = symbol
                     checkset_f.add(featint)
@@ -248,7 +247,7 @@ def main(argv):
             if not ofile:
                 print(oline)
             else:
-                ofile.write(oline+'\n')
+                ofile.write(oline + '\n')
 
     oline = '                    }'
     if not ofile:
