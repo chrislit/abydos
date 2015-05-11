@@ -25,6 +25,7 @@ import unittest
 from abydos.corpus import Corpus
 from abydos.ngram import NGramCorpus
 
+
 class NGramCorpusTestCases(unittest.TestCase):
     """test cases for abydos.ngram.NGramCorpus
     """
