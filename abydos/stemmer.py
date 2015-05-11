@@ -1303,8 +1303,8 @@ def caumanns(word):
         if (((len(word) > 4 and word[-2:] in {'em', 'er'}) or
              (len(word) > 5 and word[-2:] == 'nd'))):
             word = word[:-2]
-        elif (((word[-1] in {'e', 's', 'n'}) or
-             (not upper_initial and word[-1] in {'t', '!'}))):
+        elif ((word[-1] in {'e', 's', 'n'}) or
+              (not upper_initial and word[-1] in {'t', '!'})):
             word = word[:-1]
         else:
             break
