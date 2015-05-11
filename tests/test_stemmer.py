@@ -32,6 +32,7 @@ import codecs
 
 TESTDIR = os.path.dirname(__file__)
 
+
 class PorterTestCases(unittest.TestCase):
     """test cases for abydos.stemmer._m_degree, abydos.stemmer.porter
     abydos.stemmer._sb_has_vowel, abydos.stemmer._ends_in_doubled_cons,
@@ -63,7 +64,6 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(_m_degree('oaten', _vowels), 2)
         self.assertEqual(_m_degree('orrery', _vowels), 2)
 
-
     def test_has_vowel(self):
         """test abydos.stemmer._has_vowel
         """
@@ -92,7 +92,6 @@ class PorterTestCases(unittest.TestCase):
         self.assertTrue(_sb_has_vowel('pfy', _vowels))
 
         self.assertFalse(_sb_has_vowel('pfY', _vowels))
-
 
     def test_ends_in_doubled_cons(self):
         """test abydos.stemmer._ends_in_doubled_cons
@@ -131,7 +130,6 @@ class PorterTestCases(unittest.TestCase):
         self.assertTrue(_ends_in_doubled_cons('parrr', _vowels))
         self.assertTrue(_ends_in_doubled_cons('bacc', _vowels))
 
-
     def test_ends_in_cvc(self):
         """test abydos.stemmer._ends_in_cvc
         """
@@ -165,7 +163,6 @@ class PorterTestCases(unittest.TestCase):
         self.assertFalse(_ends_in_cvc('max', _vowels))
         self.assertFalse(_ends_in_cvc('cray', _vowels))
 
-
     def test_porter(self):
         """test abydos.stemmer.porter
         """
@@ -187,7 +184,6 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(porter('sization'), 'sizat')
         self.assertEqual(porter('licated'), 'licat')
         self.assertEqual(porter('lical'), 'lical')
-
 
     def test_porter_early_english(self):
         """test abydos.stemmer.porter (early English)
@@ -217,7 +213,6 @@ class PorterTestCases(unittest.TestCase):
         # missed branch test cases
         self.assertEqual(porter('best', early_english=True), 'best')
         self.assertEqual(porter('meth', early_english=True), 'meth')
-
 
     def test_porter_snowball(self):
         """test abydos.stemmer.porter (Snowball testset)
@@ -308,7 +303,6 @@ class Porter2TestCases(unittest.TestCase):
         self.assertFalse(_sb_ends_in_short_syllable('a', _vowels,
                                                     _codanonvowels))
 
-
     def test_sb_short_word(self):
         """test abydos.stemmer._sb_short_word
         """
@@ -325,7 +319,6 @@ class Porter2TestCases(unittest.TestCase):
         self.assertFalse(_sb_short_word('bead', _vowels, _codanonvowels))
         self.assertFalse(_sb_short_word('embed', _vowels, _codanonvowels))
         self.assertFalse(_sb_short_word('beds', _vowels, _codanonvowels))
-
 
     def test_porter2(self):
         """test abydos.stemmer.porter2
@@ -357,7 +350,6 @@ class Porter2TestCases(unittest.TestCase):
         self.assertEqual(porter2('sizer'), 'sizer')
         self.assertEqual(porter2('livity'), 'liviti')
 
-
     def test_porter2_early_english(self):
         """test abydos.stemmer.porter2 (early English)
         """
@@ -386,7 +378,6 @@ class Porter2TestCases(unittest.TestCase):
         # missed branch test cases
         self.assertEqual(porter2('best', early_english=True), 'best')
         self.assertEqual(porter2('meth', early_english=True), 'meth')
-
 
     def test_porter2_snowball(self):
         """test abydos.stemmer.porter2 (Snowball testset)
@@ -419,7 +410,8 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_german(''), '')
 
         #  Snowball Porter test set
-        with codecs.open(TESTDIR+'/corpora/snowball_german.csv', encoding='utf-8') as snowball_testset:
+        with codecs.open(TESTDIR+'/corpora/snowball_german.csv',
+                         encoding='utf-8') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
                 if line[0] != '#':
@@ -429,7 +421,6 @@ class SnowballTestCases(unittest.TestCase):
 
         # missed branch test cases
         self.assertEqual(sb_german('ikeit'), 'ikeit')
-
 
     def test_sb_german_snowball_alt(self):
         """test abydos.stemmer.sb_german (alternate vowels)
@@ -483,7 +474,6 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_german('über'), 'uber')
         self.assertEqual(sb_german('ueber'), 'ueb')
 
-
     def test_sb_dutch_snowball(self):
         """test abydos.stemmer.sb_dutch (Snowball testset)
 
@@ -494,7 +484,8 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_dutch(''), '')
 
         #  Snowball Porter test set
-        with codecs.open(TESTDIR+'/corpora/snowball_dutch.csv', encoding='utf-8') as snowball_testset:
+        with codecs.open(TESTDIR+'/corpora/snowball_dutch.csv',
+                         encoding='utf-8') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
                 if line[0] != '#':
@@ -504,7 +495,6 @@ class SnowballTestCases(unittest.TestCase):
 
         # missed branch test cases
         self.assertEqual(sb_dutch('zondulielijk'), 'zondulie')
-
 
     def test_sb_norwegian_snowball(self):
         """test abydos.stemmer.sb_norwegian (Snowball testset)
@@ -516,14 +506,14 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_norwegian(''), '')
 
         #  Snowball Porter test set
-        with codecs.open(TESTDIR+'/corpora/snowball_norwegian.csv', encoding='utf-8') as snowball_testset:
+        with codecs.open(TESTDIR+'/corpora/snowball_norwegian.csv',
+                         encoding='utf-8') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
                 if line[0] != '#':
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
                     self.assertEqual(sb_norwegian(word), stem.lower())
-
 
     def test_sb_swedish_snowball(self):
         """test abydos.stemmer.sb_swedish (Snowball testset)
@@ -535,14 +525,14 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_swedish(''), '')
 
         #  Snowball Porter test set
-        with codecs.open(TESTDIR+'/corpora/snowball_swedish.csv', encoding='utf-8') as snowball_testset:
+        with codecs.open(TESTDIR+'/corpora/snowball_swedish.csv',
+                         encoding='utf-8') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
                 if line[0] != '#':
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
                     self.assertEqual(sb_swedish(word), stem.lower())
-
 
     def test_sb_danish_snowball(self):
         """test abydos.stemmer.sb_danish (Snowball testset)
@@ -554,13 +544,15 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_danish(''), '')
 
         #  Snowball Porter test set
-        with codecs.open(TESTDIR+'/corpora/snowball_danish.csv', encoding='utf-8') as snowball_testset:
+        with codecs.open(TESTDIR+'/corpora/snowball_danish.csv',
+                         encoding='utf-8') as snowball_testset:
             next(snowball_testset)
             for line in snowball_testset:
                 if line[0] != '#':
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
                     self.assertEqual(sb_danish(word), stem.lower())
+
 
 class CLEFTestCases(unittest.TestCase):
     """test cases for abydos.stemmer.clef_german,
@@ -597,7 +589,6 @@ class CLEFTestCases(unittest.TestCase):
         self.assertEqual(clef_german('lautste'), 'lautst')
         self.assertEqual(clef_german('kleinen'), 'klei')
 
-
     def test_clef_german_plus(self):
         """test abydos.stemmer.clef_german_plus
         """
@@ -629,7 +620,6 @@ class CLEFTestCases(unittest.TestCase):
         self.assertEqual(clef_german_plus('lautste'), 'laut')
         self.assertEqual(clef_german_plus('kleinen'), 'klein')
         self.assertEqual(clef_german_plus('Pfarrern'), 'pfarr')
-
 
     def test_clef_swedish(self):
         """test abydos.stemmer.clef_swedish
