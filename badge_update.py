@@ -7,6 +7,30 @@ import re
 ordered_badge_colors = ('brightgreen', 'green', 'yellowgreen', 'yellow',
                         'orange', 'red')
 
+def pylint_badge(score):
+    # These are the score cutoffs for each color above.
+    # I.e. score==10 -> brightgreen, down to 7.5 > score >= 5 -> orange
+    score_cutoffs = (10, 9.5, 8.5, 7.5, 5)
+    for i in range(len(score_cutoffs)):
+        if score >= i:
+            return ordered_badge_colors[i]
+    # and score < 5 -> red
+    else:
+        return ordered_badge_colors[-1]
+
+
+def pep8_badge(score):
+    # These are the score cutoffs for each color above.
+    # I.e. score==0 -> brightgreen, down to 100 < score <= 200 -> orange
+    score_cutoffs = (0, 20, 50, 100, 200)
+    for i in range(len(score_cutoffs)):
+        if score <= i:
+            return ordered_badge_colors[i]
+    # and score > 200 -> red
+    else:
+        return ordered_badge_colors[-1]
+
+
 if not os.path.isfile('./README.rst'):
     exit('README.rst file missing.')
 
