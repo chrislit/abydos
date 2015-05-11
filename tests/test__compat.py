@@ -25,6 +25,7 @@ import abydos._compat
 import unittest
 import sys
 
+
 class CompatTestCases(unittest.TestCase):
     """test cases for abydos._compat
     """
@@ -34,13 +35,15 @@ class CompatTestCases(unittest.TestCase):
         # pylint: disable=protected-access
         if sys.version_info[0] == 3:
             self.assertTrue(isinstance(abydos._compat._range(5), range))
-            self.assertTrue(isinstance(abydos._compat._unicode('abcdefg'), str))
+            self.assertTrue(isinstance(abydos._compat._unicode('abcdefg'),
+                                       str))
             self.assertTrue(isinstance(abydos._compat._unichr(0x2014), str))
         else:
             self.assertTrue(isinstance(abydos._compat._range(5), xrange))
             self.assertTrue(isinstance(abydos._compat._unicode('abcdefg'),
                                        unicode))
-            self.assertTrue(isinstance(abydos._compat._unichr(0x2014), unicode))
+            self.assertTrue(isinstance(abydos._compat._unichr(0x2014),
+                                       unicode))
         # pylint: enable=protected-access
 
 if __name__ == '__main__':
