@@ -67,6 +67,7 @@ def _m_degree(term, vowels):
             last_was_vowel = False
     return mdeg
 
+
 def _sb_has_vowel(term, vowels):
     """Return true iff a vowel exists in the term (as defined in the Porter
     stemmer definition)
@@ -80,6 +81,7 @@ def _sb_has_vowel(term, vowels):
             return True
     return False
 
+
 def _ends_in_doubled_cons(term, vowels):
     """Return true iff the stem ends in a doubled consonant (as defined in the
     Porter stemmer definition)
@@ -91,6 +93,7 @@ def _ends_in_doubled_cons(term, vowels):
     if len(term) > 1 and term[-1] not in vowels and term[-2] == term[-1]:
         return True
     return False
+
 
 def _ends_in_cvc(term, vowels):
     """Return true iff the stem ends in cvc (as defined in the Porter stemmer
@@ -106,6 +109,7 @@ def _ends_in_cvc(term, vowels):
                           term[-1] not in tuple('wxY')):
         return True
     return False
+
 
 def porter(word, early_english=False):
     """Implementation of Porter stemmer -- ideally returns the word stem
@@ -363,11 +367,13 @@ def _sb_r1(term, vowels, r1_prefixes=None):
             return i+1
     return len(term)
 
+
 def _sb_r2(term, vowels, r1_prefixes=None):
     """Return the R2 region, as defined in the Porter2 specification
     """
     r1_start = _sb_r1(term, vowels, r1_prefixes)
     return r1_start + _sb_r1(term[r1_start:], vowels)
+
 
 def _sb_ends_in_short_syllable(term, vowels, codanonvowels):
     """Return True iff term ends in a short syllable,
@@ -382,17 +388,18 @@ def _sb_ends_in_short_syllable(term, vowels, codanonvowels):
         if term[-2] in vowels and term[-1] not in vowels:
             return True
     elif len(term) >= 3:
-        if (term[-3] not in vowels and term[-2] in vowels and
-            term[-1] in codanonvowels):
+        if ((term[-3] not in vowels and term[-2] in vowels and
+             term[-1] in codanonvowels)):
             return True
     return False
+
 
 def _sb_short_word(term, vowels, codanonvowels, r1_prefixes=None):
     """Return True iff term is a short word,
     according to the Porter2 specification
     """
-    if (_sb_r1(term, vowels, r1_prefixes) == len(term) and
-        _sb_ends_in_short_syllable(term, vowels, codanonvowels)):
+    if ((_sb_r1(term, vowels, r1_prefixes) == len(term) and
+         _sb_ends_in_short_syllable(term, vowels, codanonvowels))):
         return True
     return False
 
@@ -418,9 +425,10 @@ def porter2(word, early_english=False):
     _doubles = set(['bb', 'dd', 'ff', 'gg', 'mm', 'nn', 'pp', 'rr', 'tt'])
     _li = set('cdeghkmnrt')
 
-    # R1 prefixes should be in order from longest to shortest to prevent masking
+    # R1 prefixes should be in order from longest to shortest to prevent
+    # masking
     _r1_prefixes = ('commun', 'gener', 'arsen')
-    _exception1dict = {# special changes:
+    _exception1dict = {  # special changes:
                        'skis': 'ski', 'skies': 'sky', 'dying': 'die',
                        'lying': 'lie', 'tying': 'tie',
                        # special -LY cases:
@@ -558,8 +566,8 @@ def porter2(word, early_english=False):
                 word = word[:-1]
     elif word[-2] == 'g':
         if word[-3:] == 'ogi':
-            if (r1_start >= 1 and len(word[r1_start:]) >= 3 and
-                word[-4] == 'l'):
+            if ((r1_start >= 1 and len(word[r1_start:]) >= 3 and
+                 word[-4] == 'l')):
                 word = word[:-1]
     elif word[-2] == 'l':
         if word[-6:] == 'lessli':
@@ -578,8 +586,8 @@ def porter2(word, early_english=False):
             if len(word[r1_start:]) >= 3:
                 word = word[:-1] + 'e'
         elif word[-2:] == 'li':
-            if (r1_start >= 1 and len(word[r1_start:]) >= 2 and
-                word[-3] in _li):
+            if ((r1_start >= 1 and len(word[r1_start:]) >= 2 and
+                 word[-3] in _li)):
                 word = word[:-2]
     elif word[-2] == 'o':
         if word[-7:] == 'ization':
@@ -642,8 +650,8 @@ def porter2(word, early_english=False):
             break
     else:
         if word[-3:] == 'ion':
-            if (len(word[r2_start:]) >= 3 and len(word) >= 4 and
-                word[-4] in tuple('st')):
+            if ((len(word[r2_start:]) >= 3 and len(word) >= 4 and
+                 word[-4] in tuple('st'))):
                 word = word[:-3]
 
     # Step 5
@@ -730,8 +738,8 @@ def sb_german(word, alternate_vowels=False):
             word = word[:-1]
             niss_flag = True
     elif word[-1:] == 's':
-        if (len(word[r1_start:]) >= 1 and len(word) >= 2 and
-            word[-2] in _s_endings):
+        if ((len(word[r1_start:]) >= 1 and len(word) >= 2 and
+             word[-2] in _s_endings)):
             word = word[:-1]
 
     if niss_flag and word[-4:] == 'niss':
@@ -748,8 +756,8 @@ def sb_german(word, alternate_vowels=False):
         if len(word[r1_start:]) >= 2:
             word = word[:-2]
     elif word[-2:] == 'st':
-        if (len(word[r1_start:]) >= 2 and len(word) >= 6 and
-            word[-3] in _st_endings):
+        if ((len(word[r1_start:]) >= 2 and len(word) >= 6 and
+             word[-3] in _st_endings)):
             word = word[:-2]
 
     # Step 3
@@ -771,8 +779,8 @@ def sb_german(word, alternate_vowels=False):
     elif word[-3:] in set(['end', 'ung']):
         if len(word[r2_start:]) >= 3:
             word = word[:-3]
-            if (word[-2:] == 'ig' and len(word[r2_start:]) >= 2 and
-                word[-3] != 'e'):
+            if ((word[-2:] == 'ig' and len(word[r2_start:]) >= 2 and
+                 word[-3] != 'e')):
                 word = word[:-2]
     elif word[-2:] in set(['ig', 'ik']):
         if len(word[r2_start:]) >= 2 and word[-3] != 'e':
@@ -837,12 +845,12 @@ def sb_dutch(word):
         if len(word[r1_start:]) >= 5:
             word = word[:-3] + 'id'
     elif word[-3:] == 'ene':
-        if (len(word[r1_start:]) >= 3 and
-            (word[-4] not in _vowels and word[-6:-3] != 'gem')):
+        if ((len(word[r1_start:]) >= 3 and
+             (word[-4] not in _vowels and word[-6:-3] != 'gem'))):
             word = _undouble(word[:-3])
     elif word[-2:] == 'en':
-        if (len(word[r1_start:]) >= 2 and
-            (word[-3] not in _vowels and word[-5:-2] != 'gem')):
+        if ((len(word[r1_start:]) >= 2 and
+             (word[-3] not in _vowels and word[-5:-2] != 'gem'))):
             word = _undouble(word[:-2])
     elif word[-2:] == 'se':
         if len(word[r1_start:]) >= 2 and word[-3] not in _not_s_endings:
@@ -863,8 +871,8 @@ def sb_dutch(word):
         if len(word[r2_start:]) >= 4 and word[-5] != 'c':
             word = word[:-4]
             if word[-2:] == 'en':
-                if (len(word[r1_start:]) >= 2 and
-                    (word[-3] not in _vowels and word[-5:-2] != 'gem')):
+                if ((len(word[r1_start:]) >= 2 and
+                     (word[-3] not in _vowels and word[-5:-2] != 'gem'))):
                     word = _undouble(word[:-2])
 
     # Step 3b
@@ -881,8 +889,8 @@ def sb_dutch(word):
     elif word[-3:] in ('end', 'ing'):
         if len(word[r2_start:]) >= 3:
             word = word[:-3]
-            if (word[-2:] == 'ig' and len(word[r2_start:]) >= 2 and
-                word[-3] != 'e'):
+            if ((word[-2:] == 'ig' and len(word[r2_start:]) >= 2 and
+                 word[-3] != 'e')):
                 word = word[:-2]
             else:
                 word = _undouble(word)
@@ -894,10 +902,10 @@ def sb_dutch(word):
             word = word[:-2]
 
     # Step 4
-    if (len(word) >= 4 and
-        word[-3] == word[-2] and word[-2] in set('aeou') and
-        word[-4] not in _vowels and
-        word[-1] not in _vowels and word[-1] != 'I'):
+    if ((len(word) >= 4 and
+         word[-3] == word[-2] and word[-2] in set('aeou') and
+         word[-4] not in _vowels and
+         word[-1] not in _vowels and word[-1] != 'I')):
         word = word[:-2] + word[-1]
 
     # Change 'Y' and 'U' back to lowercase if survived stemming
@@ -953,8 +961,8 @@ def sb_norwegian(word):
     elif _r1[-1:] in set('ae'):
         word = word[:-1]
     elif _r1[-1:] == 's':
-        if ((len(word) > 1 and word[-2] in _s_endings) or
-            (len(word) > 2 and word[-2] == 'k' and word[-3] not in _vowels)):
+        if (((len(word) > 1 and word[-2] in _s_endings) or
+             (len(word) > 2 and word[-2] == 'k' and word[-3] not in _vowels))):
             word = word[:-1]
 
     # Step 2
@@ -1102,8 +1110,8 @@ def sb_danish(word):
             word = word[:-1]
 
     # Step 4
-    if (len(word[r1_start:]) >= 1 and len(word) >= 2 and
-        word[-1] == word[-2] and word[-1] not in _vowels):
+    if ((len(word[r1_start:]) >= 1 and len(word) >= 2 and
+         word[-1] == word[-2] and word[-1] not in _vowels)):
         word = word[:-1]
 
     return word
@@ -1140,6 +1148,7 @@ def clef_german(word):
         if word[-1] in set('nsre'):
             return word[:-1]
     return word
+
 
 def clef_german_plus(word):
     """Implementation of CLEF German stemmer plus -- ideally returns the word
@@ -1259,28 +1268,27 @@ def caumanns(word):
     """
     word = unicodedata.normalize('NFC', _unicode(word))
 
-    ## Part 2: Substitution
+    # # Part 2: Substitution
 
-
-    ## Part 1: Recursive Context-Free Stripping
+    # # Part 1: Recursive Context-Free Stripping
 
     # Remove the following 7 suffixes recursively
     while True:
         if len(word) < 4:
             break
-        if ((len(word) > 4 and word[-2:] in {'em', 'er'}) or
-            (len(word) > 5 and word[-2:] == 'nd')):
+        if (((len(word) > 4 and word[-2:] in {'em', 'er'}) or
+             (len(word) > 5 and word[-2:] == 'nd'))):
             word = word[:-2]
             continue
-        if ((word[-1] in {'e', 's', 'n'}) or
-            (not word[1].isupper() and word[-1] == 't')):
+        if (((word[-1] in {'e', 's', 'n'}) or
+             (not word[1].isupper() and word[-1] == 't'))):
             word = word[:-1]
             continue
         else:
             break
 
     # Then remove ge- and -ge
-    if len(word) > 3: # TODO: verify restriction
+    if len(word) > 3:  # TODO: verify restriction
         if word[:2] == 'ge':
             word = word[2:]
         if word[-2:] == 'ge':
