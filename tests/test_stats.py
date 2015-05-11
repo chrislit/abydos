@@ -41,18 +41,18 @@ VERY_POOR_TABLE = ConfusionTable(0, 0, 200, 200)
 ALL_TABLES = (UNIT_TABLE, NULL_TABLE, SCALE_TABLE, CATSNDOGS_TABLE,
               WORKED_EG_TABLE, VERY_POOR_TABLE)
 
-#def ct2arrays(ct):
-#    y_pred = []
-#    y_true = []
-#    y_pred += [1]*ct.tpos
-#    y_true += [1]*ct.tpos
-#    y_pred += [0]*ct.tneg
-#    y_true += [0]*ct.tneg
-#    y_pred += [1]*ct.fpos
-#    y_true += [0]*ct.fpos
-#    y_pred += [0]*ct.fneg
-#    y_true += [1]*ct.fneg
-#    return y_pred, y_true
+# def ct2arrays(ct):
+#     y_pred = []
+#     y_true = []
+#     y_pred += [1]*ct.tpos
+#     y_true += [1]*ct.tpos
+#     y_pred += [0]*ct.tneg
+#     y_true += [0]*ct.tneg
+#     y_pred += [1]*ct.fpos
+#     y_true += [0]*ct.fpos
+#     y_pred += [0]*ct.fneg
+#     y_true += [1]*ct.fneg
+#     return y_pred, y_true
 
 
 class ConstructorTestCases(unittest.TestCase):
@@ -80,13 +80,14 @@ class ConstructorTestCases(unittest.TestCase):
         self.assertEqual(SCALE_TABLE, ConfusionTable([1, 2, 3, 4]))
         self.assertEqual(SCALE_TABLE, ConfusionTable([1, 2, 3, 4], 5, 6, 7))
         # test dict constructor
-        self.assertEqual(SCALE_TABLE, ConfusionTable({'tp':1, 'tn':2, 'fp':3,
-                                                      'fn':4}))
-        self.assertEqual(SCALE_TABLE, ConfusionTable({'tp':1, 'tn':2, 'fp':3,
-                                                      'fn':4}, 5, 6, 7))
+        self.assertEqual(SCALE_TABLE, ConfusionTable({'tp': 1, 'tn': 2,
+                                                      'fp': 3, 'fn': 4}))
+        self.assertEqual(SCALE_TABLE, ConfusionTable({'tp': 1, 'tn': 2,
+                                                      'fp': 3, 'fn': 4},
+                                                     5, 6, 7))
         self.assertEqual(NULL_TABLE, ConfusionTable({}))
-        self.assertEqual(NULL_TABLE, ConfusionTable({'pt':1, 'nt':2, 'pf':3,
-                                                     'nf':4}))
+        self.assertEqual(NULL_TABLE, ConfusionTable({'pt': 1, 'nt': 2,
+                                                     'pf': 3, 'nf': 4}))
 
         # test __eq__ by id()
         self.assertTrue(SCALE_TABLE == SCALE_TABLE)
@@ -98,8 +99,10 @@ class ConstructorTestCases(unittest.TestCase):
         self.assertTrue(SCALE_TABLE == [1, 2, 3, 4])
         self.assertFalse(CATSNDOGS_TABLE == [1, 2, 3, 4])
         # test __eq__ by dict
-        self.assertTrue(SCALE_TABLE == {'tp':1, 'tn':2, 'fp':3, 'fn':4})
-        self.assertFalse(CATSNDOGS_TABLE == {'tp':1, 'tn':2, 'fp':3, 'fn':4})
+        self.assertTrue(SCALE_TABLE == {'tp': 1, 'tn': 2,
+                                        'fp': 3, 'fn': 4})
+        self.assertFalse(CATSNDOGS_TABLE == {'tp': 1, 'tn': 2,
+                                             'fp': 3, 'fn': 4})
         # test __eq__ with non-ConfusionTable/tuple/list/dict
         self.assertFalse(SCALE_TABLE == 5)
 
@@ -121,7 +124,8 @@ class CastTestCases(unittest.TestCase):
         """test abydos.stats.ConfusionTable.dict
         """
         self.assertIsInstance(SCALE_TABLE.dict(), dict)
-        self.assertEqual(SCALE_TABLE.dict(), {'tp':1, 'tn':2, 'fp':3, 'fn':4})
+        self.assertEqual(SCALE_TABLE.dict(), {'tp': 1, 'tn': 2,
+                                              'fp': 3, 'fn': 4})
 
     def test_str(self):
         """test abydos.stats.ConfusionTable._str_
@@ -352,7 +356,7 @@ class PrMeansTestCases(unittest.TestCase):
         """test abydos.stats.ConfusionTable.pr_qmean
         """
         self.assertEqual(UNIT_TABLE.pr_qmean(),
-                          sqrt(sum([i**2 for i in self.prre[0]])/2))
+                         sqrt(sum([i**2 for i in self.prre[0]])/2))
         self.assertTrue(isnan(NULL_TABLE.pr_qmean()))
         self.assertAlmostEqual(SCALE_TABLE.pr_qmean(),
                                sqrt(sum([i**2 for i in self.prre[2]])/2))
@@ -397,8 +401,10 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertTrue(isnan(UNIT_TABLE.pr_seiffert_mean()))
         self.assertTrue(isnan(NULL_TABLE.pr_seiffert_mean()))
         self.assertAlmostEqual(SCALE_TABLE.pr_seiffert_mean(), 0.2245354073)
-        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_seiffert_mean(), 0.6691461993)
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_seiffert_mean(), 0.3406355792)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_seiffert_mean(),
+                               0.6691461993)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_seiffert_mean(),
+                               0.3406355792)
         self.assertTrue(isnan(VERY_POOR_TABLE.pr_seiffert_mean()))
 
     def test_pr_lehmer_mean(self):
@@ -438,8 +444,10 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertEqual(UNIT_TABLE.pr_heronian_mean(), 0.5)
         self.assertTrue(isnan(NULL_TABLE.pr_heronian_mean()))
         self.assertAlmostEqual(SCALE_TABLE.pr_heronian_mean(), 0.2245355992)
-        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_heronian_mean(), 0.6691462730)
-        self.assertAlmostEqual(WORKED_EG_TABLE.pr_heronian_mean(), 0.3416218521)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pr_heronian_mean(),
+                               0.6691462730)
+        self.assertAlmostEqual(WORKED_EG_TABLE.pr_heronian_mean(),
+                               0.3416218521)
         self.assertEqual(VERY_POOR_TABLE.pr_heronian_mean(), 0)
 
     def test_pr_hoelder_mean(self):
@@ -595,8 +603,10 @@ class StatisticalMeasureTestCases(unittest.TestCase):
         self.assertEqual(UNIT_TABLE.g_measure(), 0.5)
         self.assertTrue(isnan(NULL_TABLE.g_measure()))
         self.assertAlmostEqual(SCALE_TABLE.g_measure(), 0.22360679774997899)
-        self.assertAlmostEqual(CATSNDOGS_TABLE.g_measure(), 0.66815310478106094)
-        self.assertAlmostEqual(WORKED_EG_TABLE.g_measure(), 0.25819888974716115)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.g_measure(),
+                               0.66815310478106094)
+        self.assertAlmostEqual(WORKED_EG_TABLE.g_measure(),
+                               0.25819888974716115)
 
     def test_mcc(self):
         """test abydos.stats.ConfusionTable.mcc
@@ -620,7 +630,8 @@ class StatisticalMeasureTestCases(unittest.TestCase):
     def test_kappa_statistic(self):
         """test abydos.stats.ConfusionTable.kappa_statistic
         """
-        quick_kappa = lambda acc, racc: (acc-racc)/(1-racc)
+        def quick_kappa(acc, racc):
+            return (acc-racc)/(1-racc)
 
         self.assertEqual(UNIT_TABLE.kappa_statistic(), 0)
         self.assertTrue(isnan(NULL_TABLE.kappa_statistic()))
@@ -725,7 +736,8 @@ class MeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(heronian_mean(_ones), 1)
         self.assertAlmostEqual(heronian_mean(_zeros), 0)
         self.assertAlmostEqual(heronian_mean(_one_to_five), 2.8421165194322837)
-        self.assertAlmostEqual(heronian_mean(_onethreefive), 2.7436226811701165)
+        self.assertAlmostEqual(heronian_mean(_onethreefive),
+                               2.7436226811701165)
         self.assertAlmostEqual(heronian_mean(_floats), 0.33526945542427006)
 
         self.assertAlmostEqual(hoelder_mean(_ones), 1)
