@@ -223,13 +223,13 @@ class LevenshteinTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_damerau('a', 'b',
                                             cost=(10, 10, 5, 10)), 1/2)
         self.assertAlmostEqual(dist_damerau('ac', 'bc',
-                                             cost=(10, 10, 5, 10)), 1/4)
+                                            cost=(10, 10, 5, 10)), 1/4)
         self.assertAlmostEqual(dist_damerau('ab', 'ba',
-                                             cost=(5, 5, 10, 5)), 1/2)
+                                            cost=(5, 5, 10, 5)), 1/2)
         self.assertAlmostEqual(dist_damerau('abc', 'bac',
-                                             cost=(5, 5, 10, 5)), 1/3)
+                                            cost=(5, 5, 10, 5)), 1/3)
         self.assertAlmostEqual(dist_damerau('cab', 'cba',
-                                             cost=(5, 5, 10, 5)), 1/3)
+                                            cost=(5, 5, 10, 5)), 1/3)
         self.assertRaises(ValueError, dist_damerau, 'ab', 'ba',
                           cost=(10, 10, 10, 5))
 
@@ -258,13 +258,13 @@ class LevenshteinTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_damerau('a', 'b', cost=(10, 10, 5, 10)),
                                1/2)
         self.assertAlmostEqual(sim_damerau('ac', 'bc',
-                                             cost=(10, 10, 5, 10)), 3/4)
+                                           cost=(10, 10, 5, 10)), 3/4)
         self.assertAlmostEqual(sim_damerau('ab', 'ba',
-                                             cost=(5, 5, 10, 5)), 1/2)
+                                           cost=(5, 5, 10, 5)), 1/2)
         self.assertAlmostEqual(sim_damerau('abc', 'bac',
-                                             cost=(5, 5, 10, 5)), 2/3)
+                                           cost=(5, 5, 10, 5)), 2/3)
         self.assertAlmostEqual(sim_damerau('cab', 'cba',
-                                             cost=(5, 5, 10, 5)), 2/3)
+                                           cost=(5, 5, 10, 5)), 2/3)
         self.assertRaises(ValueError, sim_damerau, 'ab', 'ba',
                           cost=(10, 10, 10, 5))
 
@@ -350,6 +350,7 @@ class HammingTestCases(unittest.TestCase):
 
 NONQ_FROM = 'The quick brown fox jumped over the lazy dog.'
 NONQ_TO = 'That brown dog jumped over the fox.'
+
 
 class TverskyIndexTestCases(unittest.TestCase):
     """test cases for abydos.distance.sim_tversky & .dist_tversky
@@ -532,8 +533,8 @@ class JaccardTestCases(unittest.TestCase):
         self.assertEqual(sim_jaccard(QGrams(''), QGrams('')), 1)
         self.assertEqual(sim_jaccard(QGrams('nelson'), QGrams('')), 0)
         self.assertEqual(sim_jaccard(QGrams(''), QGrams('neilsen')), 0)
-        self.assertAlmostEqual(sim_jaccard(QGrams('nelson'), QGrams('neilsen')),
-                               4/11)
+        self.assertAlmostEqual(sim_jaccard(QGrams('nelson'),
+                                           QGrams('neilsen')), 4/11)
 
         # non-q-gram tests
         self.assertEqual(sim_jaccard('', '', None), 1)
@@ -676,7 +677,8 @@ class TanimotoTestCases(unittest.TestCase):
         # supplied q-gram tests
         self.assertEqual(tanimoto(QGrams(''), QGrams('')), 0)
         self.assertEqual(tanimoto(QGrams('nelson'), QGrams('')), float('-inf'))
-        self.assertEqual(tanimoto(QGrams(''), QGrams('neilsen')), float('-inf'))
+        self.assertEqual(tanimoto(QGrams(''), QGrams('neilsen')),
+                         float('-inf'))
         self.assertAlmostEqual(tanimoto(QGrams('nelson'), QGrams('neilsen')),
                                math.log(4/11, 2))
 
@@ -887,6 +889,7 @@ class JaroWinklerTestCases(unittest.TestCase):
 
         self.assertAlmostEqual(dist_jaro_winkler('ABCD', 'EFGH'), 1.0)
 
+
 class LcsseqTestCases(unittest.TestCase):
     """test cases for abydos.distance.lcsseq, .sim_lcsseq, & .dist_lcsseq
     """
@@ -1048,7 +1051,6 @@ AGGTGAGGCTCCCTCCCCTGCTCCGACCCGGGCTCCTCGCCCGCCCGGACCCAC', 'AAGCGCCGCGCAGTCTGGGCT\
 CCGCACACTTCTGGTCCAGTCCGACTGAGAAGGAACCACCATGGTGCTGTCTCCCGCTGACAAGACCAACATCAAGACT\
 GCCTGGGAAAAGATCGGCAGCCACGGTGGCGAGTATGGCGCCGAGGCCGT'), 'TGGCGAGTATGG')
 
-
     def test_sim_lcsstr(self):
         """test abydos.distance.sim_lcsstr
         """
@@ -1144,10 +1146,10 @@ class RatcliffObershelpTestCases(unittest.TestCase):
                                                       'aleksander'),
                                0.7368421052631579)
         self.assertAlmostEqual(sim_ratcliff_obershelp('pennsylvania',
-                                                     'pencilvaneya'),
+                                                      'pencilvaneya'),
                                0.6666666666666666)
         self.assertAlmostEqual(sim_ratcliff_obershelp('pencilvaneya',
-                                                     'pennsylvania'),
+                                                      'pennsylvania'),
                                0.6666666666666666)
         self.assertAlmostEqual(sim_ratcliff_obershelp('abcefglmn', 'abefglmo'),
                                0.8235294117647058)
@@ -1163,14 +1165,14 @@ class RatcliffObershelpTestCases(unittest.TestCase):
                                        SequenceMatcher(None, word1,
                                                        word2).ratio())
 
-        with open(TESTDIR+'/corpora/wikipediaCommonMisspellings.csv') as misspellings:
-            next(misspellings)
-            for line in misspellings:
+        with open(TESTDIR+'/corpora/wikipediaCommonMisspellings.csv') as missp:
+            next(missp)
+            for line in missp:
                 line = line.strip().upper()
                 line = ''.join([_ for _ in line.strip() if _ in
                                 tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ,')])
                 word1, word2 = line.split(',')
-                #print word1, word2e
+                # print(word1, word2e)
                 self.assertAlmostEqual(sim_ratcliff_obershelp(word1, word2),
                                        SequenceMatcher(None, word1,
                                                        word2).ratio())
@@ -1187,20 +1189,22 @@ class RatcliffObershelpTestCases(unittest.TestCase):
         self.assertEqual(dist_ratcliff_obershelp('abc', 'xyz'), 1)
         self.assertEqual(dist_ratcliff_obershelp('123', '456'), 1)
         self.assertAlmostEqual(dist_ratcliff_obershelp('aleksander',
-                                                      'alexandre'),
+                                                       'alexandre'),
                                0.2631578947368421)
         self.assertAlmostEqual(dist_ratcliff_obershelp('alexandre',
-                                                      'aleksander'),
+                                                       'aleksander'),
                                0.2631578947368421)
         self.assertAlmostEqual(dist_ratcliff_obershelp('pennsylvania',
-                                                     'pencilvaneya'),
+                                                       'pencilvaneya'),
                                0.3333333333333333)
         self.assertAlmostEqual(dist_ratcliff_obershelp('pencilvaneya',
-                                                     'pennsylvania'),
+                                                       'pennsylvania'),
                                0.3333333333333333)
-        self.assertAlmostEqual(dist_ratcliff_obershelp('abcefglmn', 'abefglmo'),
+        self.assertAlmostEqual(dist_ratcliff_obershelp('abcefglmn',
+                                                       'abefglmo'),
                                0.1764705882352941)
-        self.assertAlmostEqual(dist_ratcliff_obershelp('abefglmo', 'abcefglmn'),
+        self.assertAlmostEqual(dist_ratcliff_obershelp('abefglmo',
+                                                       'abcefglmn'),
                                0.1764705882352941)
 
 
@@ -1337,7 +1341,8 @@ class CompressionTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_compression('abb', 'bbba', 'rle'), 1/3)
         self.assertAlmostEqual(dist_compression('banana', 'banane', 'bwtrle'),
                                0.57142857142)
-        self.assertAlmostEqual(dist_compression('bananas', 'bananen', 'bwtrle'),
+        self.assertAlmostEqual(dist_compression('bananas', 'bananen',
+                                                'bwtrle'),
                                0.5)
 
     def test_sim_compression(self):
@@ -1373,20 +1378,20 @@ class CompressionTestCases(unittest.TestCase):
         """test abydos.distance.sim_compression (arithmetric compression)
         """
         self.assertAlmostEqual(sim_compression('Niall', 'Neil', 'arith',
-                                                self.arith_dict),
+                                               self.arith_dict),
                                0.3913043478260869)
         self.assertAlmostEqual(sim_compression('Neil', 'Niall', 'arith',
-                                                self.arith_dict),
+                                               self.arith_dict),
                                0.3913043478260869)
         self.assertAlmostEqual(sim_compression('Niall', 'Neil', 'arith'),
                                0.3125)
         self.assertAlmostEqual(sim_compression('Neil', 'Niall', 'arith'),
                                0.3125)
         self.assertAlmostEqual(sim_compression('Njáll', 'Njall', 'arith',
-                                                self.arith_dict),
+                                               self.arith_dict),
                                0.285714285714285)
         self.assertAlmostEqual(sim_compression('Njall', 'Njáll', 'arith',
-                                                self.arith_dict),
+                                               self.arith_dict),
                                0.285714285714285)
         self.assertAlmostEqual(sim_compression('Njáll', 'Njall', 'arith'),
                                0.25)
@@ -1484,11 +1489,9 @@ def _sim_wikipedia(src, tar):
     Values copied from:
     https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm
     """
-    nw_matrix = {('A', 'A'):10, ('G', 'G'):7,
-                 ('C', 'C'):9, ('T', 'T'):8,
-                 ('A', 'G'):-1, ('A', 'C'):-3, ('A', 'T'):-4,
-                 ('G', 'C'):-5, ('G', 'T'):-3,
-                 ('C', 'T'):0}
+    nw_matrix = {('A', 'A'): 10, ('G', 'G'): 7, ('C', 'C'): 9, ('T', 'T'): 8,
+                 ('A', 'G'): -1, ('A', 'C'): -3, ('A', 'T'): -4,
+                 ('G', 'C'): -5, ('G', 'T'): -3, ('C', 'T'): 0}
     return sim_matrix(src, tar, nw_matrix, symmetric=True, alphabet='CGAT')
 
 
@@ -1568,16 +1571,16 @@ class SmithWatermanTestCases(unittest.TestCase):
 
         # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
         self.assertEqual(smith_waterman('GATTACA', 'GCATGCU',
-                                          1, _sim_nw), 0)
+                                        1, _sim_nw), 0)
         self.assertEqual(smith_waterman('AGACTAGTTAC', 'CGAGACGT',
-                                          5, _sim_wikipedia), 26)
+                                        5, _sim_wikipedia), 26)
 
         self.assertEqual(smith_waterman('CGATATCAG', 'TGACGSTGC',
-                                          5, _sim_nw), 0)
+                                        5, _sim_nw), 0)
         self.assertEqual(smith_waterman('AGACTAGTTAC', 'TGACGSTGC',
-                                          5, _sim_nw), 1)
+                                        5, _sim_nw), 1)
         self.assertEqual(smith_waterman('AGACTAGTTAC', 'CGAGACGT',
-                                          5, _sim_nw), 0)
+                                        5, _sim_nw), 0)
 
     def test_smith_waterman_nialls(self):
         """test abydos.distance.smith_waterman (Nialls set)
@@ -1601,8 +1604,8 @@ class GotohTestCases(unittest.TestCase):
         self.assertGreaterEqual(gotoh('GATTACA', 'GCATGCU', 1, 0.5, _sim_nw),
                                 needleman_wunsch('GATTACA', 'GCATGCU', 1,
                                                  _sim_nw))
-        self.assertEqual(gotoh('AGACTAGTTAC', 'CGAGACGT', 5, 5, _sim_wikipedia),
-                         16)
+        self.assertEqual(gotoh('AGACTAGTTAC', 'CGAGACGT', 5, 5,
+                               _sim_wikipedia), 16)
         self.assertGreaterEqual(gotoh('AGACTAGTTAC', 'CGAGACGT', 5, 2,
                                       _sim_wikipedia),
                                 needleman_wunsch('AGACTAGTTAC', 'CGAGACGT', 5,
@@ -1619,7 +1622,8 @@ class GotohTestCases(unittest.TestCase):
                                 needleman_wunsch('AGACTAGTTAC', 'TGACGSTGC', 5,
                                                  _sim_nw))
         self.assertEqual(gotoh('AGACTAGTTAC', 'CGAGACGT', 5, 5, _sim_nw), -15)
-        self.assertGreaterEqual(gotoh('AGACTAGTTAC', 'CGAGACGT', 5, 2, _sim_nw),
+        self.assertGreaterEqual(gotoh('AGACTAGTTAC', 'CGAGACGT', 5, 2,
+                                      _sim_nw),
                                 needleman_wunsch('AGACTAGTTAC', 'CGAGACGT', 5,
                                                  _sim_nw))
 
