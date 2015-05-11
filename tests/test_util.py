@@ -86,6 +86,7 @@ class JitterTestCases(unittest.TestCase):
         self.assertEqual(len(jitter([0]*5, rfunc='normal')), 5)
         self.assertEqual(len(jitter([0]*5, rfunc='laplace')), 5)
 
+
 class RationalTestCases(unittest.TestCase):
     """test cases for the abydos.util.Rational class
     """
@@ -152,7 +153,8 @@ class RationalTestCases(unittest.TestCase):
         self.assertEqual(Rational(49, 21)._gcd(p=1), 1)
         self.assertEqual(Rational(49, 21)._gcd(q=1), 1)
 
-        # Create a default Rational (0), set p & q manually, without simplifying
+        # Create a default Rational (0), set p & q manually,
+        # without simplifying
         rat_twothirds = Rational()
         rat_twothirds.p = 10
         rat_twothirds.q = 15
@@ -319,20 +321,20 @@ class RationalTestCases(unittest.TestCase):
         self.assertEqual(Rational(4)**Rational(1, 2), 2)
 
         # <<
-        self.assertEqual(Rational(1, 2)<<1, Rational(1))
-        self.assertEqual(Rational(1, 2)<<2, Rational(2))
-        self.assertEqual(Rational(1, 3)<<1, Rational(2, 3))
-        self.assertEqual(Rational(1, 3)<<2, Rational(4, 3))
-        self.assertEqual(Rational(2, 5)<<1, Rational(4, 5))
-        self.assertEqual(Rational(2, 5)<<2, Rational(8, 5))
+        self.assertEqual(Rational(1, 2) << 1, Rational(1))
+        self.assertEqual(Rational(1, 2) << 2, Rational(2))
+        self.assertEqual(Rational(1, 3) << 1, Rational(2, 3))
+        self.assertEqual(Rational(1, 3) << 2, Rational(4, 3))
+        self.assertEqual(Rational(2, 5) << 1, Rational(4, 5))
+        self.assertEqual(Rational(2, 5) << 2, Rational(8, 5))
 
         # >>
-        self.assertEqual(Rational(1, 2)>>1, Rational(1, 4))
-        self.assertEqual(Rational(1, 2)>>2, Rational(1, 8))
-        self.assertEqual(Rational(1, 3)>>1, Rational(1, 6))
-        self.assertEqual(Rational(1, 3)>>2, Rational(1, 12))
-        self.assertEqual(Rational(2, 5)>>1, Rational(1, 5))
-        self.assertEqual(Rational(2, 5)>>2, Rational(1, 10))
+        self.assertEqual(Rational(1, 2) >> 1, Rational(1, 4))
+        self.assertEqual(Rational(1, 2) >> 2, Rational(1, 8))
+        self.assertEqual(Rational(1, 3) >> 1, Rational(1, 6))
+        self.assertEqual(Rational(1, 3) >> 2, Rational(1, 12))
+        self.assertEqual(Rational(2, 5) >> 1, Rational(1, 5))
+        self.assertEqual(Rational(2, 5) >> 2, Rational(1, 10))
 
     def test_rational_casts(self):
         """test abydos.util.Rational cast functions
