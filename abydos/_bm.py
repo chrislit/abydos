@@ -33,21 +33,22 @@ from ._bmdata import BMDATA, L_NONE, L_ANY, L_ARABIC, L_CYRILLIC, \
     L_RUSSIANDJSRE
 
 _LANG_DICT = {'any': L_ANY, 'arabic': L_ARABIC, 'cyrillic': L_CYRILLIC,
-             'czech': L_CZECH, 'dutch': L_DUTCH, 'english': L_ENGLISH,
-             'french': L_FRENCH, 'german': L_GERMAN, 'greek': L_GREEK,
-             'greeklatin': L_GREEKLATIN, 'hebrew': L_HEBREW,
-             'hungarian': L_HUNGARIAN, 'italian': L_ITALIAN, 'polish': L_POLISH,
-             'portuguese': L_PORTUGUESE, 'romanian': L_ROMANIAN,
-             'russian': L_RUSSIAN, 'spanish': L_SPANISH, 'turkish': L_TURKISH,
-             'germandjsg': L_GERMANDJSG, 'polishdjskp': L_POLISHDJSKP,
-             'russiandjsre': L_RUSSIANDJSRE}
+              'czech': L_CZECH, 'dutch': L_DUTCH, 'english': L_ENGLISH,
+              'french': L_FRENCH, 'german': L_GERMAN, 'greek': L_GREEK,
+              'greeklatin': L_GREEKLATIN, 'hebrew': L_HEBREW,
+              'hungarian': L_HUNGARIAN, 'italian': L_ITALIAN,
+              'polish': L_POLISH, 'portuguese': L_PORTUGUESE,
+              'romanian': L_ROMANIAN, 'russian': L_RUSSIAN,
+              'spanish': L_SPANISH, 'turkish': L_TURKISH,
+              'germandjsg': L_GERMANDJSG, 'polishdjskp': L_POLISHDJSKP,
+              'russiandjsre': L_RUSSIANDJSRE}
 
 BMDATA['gen']['discards'] = ('da ', 'dal ', 'de ', 'del ', 'dela ', 'de la ',
                              'della ', 'des ', 'di ', 'do ', 'dos ', 'du ',
                              'van ', 'von ', 'd\'')
 BMDATA['sep']['discards'] = set(['al', 'el', 'da', 'dal', 'de', 'del', 'dela',
-                             'de la', 'della', 'des', 'di', 'do', 'dos', 'du',
-                             'van', 'von'])
+                                 'de la', 'della', 'des', 'di', 'do', 'dos',
+                                 'du', 'van', 'von'])
 BMDATA['ash']['discards'] = set(['bar', 'ben', 'da', 'de', 'van', 'von'])
 
 # format of rules array
@@ -102,7 +103,7 @@ def _bm_redo_language(term, name_mode, rules, final_rules1, final_rules2,
 
 
 def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
-             language_arg=0, concat=False):
+                 language_arg=0, concat=False):
     """Return the Beider-Morse encoding(s) of a term
 
     Arguments:
@@ -118,23 +119,25 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
     """
     term = term.replace('-', ' ').strip()
 
-    if name_mode == 'gen': # generic case
-        # both discard and concatenate certain words if at the start of the name
+    if name_mode == 'gen':  # generic case
+        # discard and concatenate certain words if at the start of the name
         for pfx in BMDATA['gen']['discards']:
             if term.startswith(pfx):
                 remainder = term[len(pfx):]
                 combined = pfx[:-1]+remainder
                 result = (_bm_redo_language(remainder, name_mode, rules,
-                                            final_rules1, final_rules2, concat)
-                          + '-' +
+                                            final_rules1, final_rules2,
+                                            concat) +
+                          '-' +
                           _bm_redo_language(combined, name_mode, rules,
-                                            final_rules1, final_rules2, concat))
+                                            final_rules1, final_rules2,
+                                            concat))
                 return result
 
-    words = term.split() # create array of the individual words in the name
+    words = term.split()  # create array of the individual words in the name
     words2 = []
 
-    if name_mode == 'sep': # Sephardic case
+    if name_mode == 'sep':  # Sephardic case
         # for each word in the name, delete portions of word preceding
         # apostrophe
         # ex: d'avila d'aguilar --> avila aguilar
@@ -149,7 +152,7 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
             if word not in BMDATA['sep']['discards']:
                 words2.append(word)
 
-    elif name_mode == 'ash': # Ashkenazic case
+    elif name_mode == 'ash':  # Ashkenazic case
         # discard certain words if at the start of the name
         if len(words) > 1 and words[0] in BMDATA['ash']['discards']:
             words2 = words[1:]
@@ -162,13 +165,14 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
         # concatenate the separate words of a multi-word name
         # (normally used for exact matches)
         term = ' '.join(words2)
-    elif len(words2) == 1: # not a multi-word name
+    elif len(words2) == 1:  # not a multi-word name
         term = words2[0]
     else:
         # encode each word in a multi-word name separately
         # (normally used for approx matches)
         result = '-'.join([_bm_redo_language(word, name_mode, rules,
-                                             final_rules1, final_rules2, concat)
+                                             final_rules1, final_rules2,
+                                             concat)
                            for word in words2])
         return result
 
@@ -190,8 +194,8 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
 
             # check to see if next sequence in input matches the string in the
             # rule
-            if (pattern_length > term_length - i) or (term[i:i+pattern_length]
-                                                      != pattern): # no match
+            if (((pattern_length > term_length - i) or
+                 (term[i:i+pattern_length] != pattern))):  # no match
                 continue
 
             right = '^'+rcontext
@@ -210,23 +214,23 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
             # check for incompatible attributes
             candidate = _bm_apply_rule_if_compat(phonetic, rule[_PHONETIC_POS],
                                                  language_arg)
-            if candidate != None:
+            if candidate is not None:
                 phonetic = candidate
                 found = True
                 break
 
-        if not found: # character in name that is not in table -- e.g., space
+        if not found:  # character in name that is not in table -- e.g., space
             pattern_length = 1
         skip = pattern_length-1
 
     # apply final rules on phonetic-alphabet,
     # doing a substitution of certain characters
     phonetic = _bm_apply_final_rules(phonetic, final_rules1, language_arg,
-                                     False) # apply common rules
+                                     False)  # apply common rules
     # final_rules1 are the common approx rules,
     # final_rules2 are approx rules for specific language
     phonetic = _bm_apply_final_rules(phonetic, final_rules2, language_arg,
-                                     True) # apply lang specific rules
+                                     True)  # apply lang specific rules
 
     return phonetic
 
@@ -258,7 +262,7 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
         while i < len(phonetic):
             found = False
 
-            if phonetic[i] == '[': # skip over language attribute
+            if phonetic[i] == '[':  # skip over language attribute
                 attrib_start = i
                 i += 1
                 while True:
@@ -280,8 +284,8 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
 
                 # check to see if next sequence in phonetic matches the string
                 # in the rule
-                if ((pattern_length > len(phoneticx) - i) or
-                    phoneticx[i:i+pattern_length] != pattern):
+                if (((pattern_length > len(phoneticx) - i) or
+                     phoneticx[i:i+pattern_length] != pattern)):
                     continue
 
                 # check that right context is satisfied
@@ -298,7 +302,7 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
                 candidate = _bm_apply_rule_if_compat(phonetic2,
                                                      rule[_PHONETIC_POS],
                                                      language_arg)
-                if candidate != None:
+                if candidate is not None:
                     phonetic2 = candidate
                     found = True
                     break
@@ -329,7 +333,7 @@ def _bm_phonetic_number(phonetic):
     if '[' in phonetic:
         return phonetic[:phonetic.find('[')]
 
-    return phonetic # experimental !!!!
+    return phonetic  # experimental !!!!
 
 
 def _bm_expand_alternates(phonetic):
@@ -343,10 +347,10 @@ def _bm_expand_alternates(phonetic):
         return _bm_normalize_lang_attrs(phonetic, False)
 
     prefix = phonetic[:alt_start]
-    alt_start += 1 # get past the (
+    alt_start += 1  # get past the (
     alt_end = phonetic.find(')', alt_start)
     alt_string = phonetic[alt_start:alt_end]
-    alt_end += 1 # get past the )
+    alt_end += 1  # get past the )
     suffix = phonetic[alt_end:]
     alt_array = alt_string.split('|')
     result = ''
@@ -370,10 +374,10 @@ def _bm_pnums_with_leading_space(phonetic):
         return ' ' + _bm_phonetic_number(phonetic)
 
     prefix = phonetic[:alt_start]
-    alt_start += 1 # get past the (
+    alt_start += 1  # get past the (
     alt_end = phonetic.find(')', alt_start)
     alt_string = phonetic[alt_start:alt_end]
-    alt_end += 1 # get past the )
+    alt_end += 1  # get past the )
     suffix = phonetic[alt_end:]
     alt_array = alt_string.split('|')
     result = ''
@@ -387,7 +391,7 @@ def _bm_phonetic_numbers(phonetic):
     """Split phonetic value on '-', run through
     _bm_pnums_with_leading_space, and join with ' '
     """
-    phonetic_array = phonetic.split('-') # for names with spaces in them
+    phonetic_array = phonetic.split('-')  # for names with spaces in them
     result = ' '.join([_bm_pnums_with_leading_space(i)[1:] for i in
                        phonetic_array])
     return result
@@ -408,7 +412,7 @@ def _bm_remove_dupes(phonetic):
         if alt and '|'+alt+'|' not in result:
             result += alt+'|'
 
-    return result[1:-1] # remove leading and trailing |
+    return result[1:-1]  # remove leading and trailing |
 
 
 def _bm_normalize_lang_attrs(text, strip):
@@ -426,7 +430,7 @@ def _bm_normalize_lang_attrs(text, strip):
     however if strip is true, this can indeed remove embedded bracketed
         attributes from a parenthesized list
     """
-    uninitialized = -1 # all 1's
+    uninitialized = -1  # all 1's
     attrib = uninitialized
     while '[' in text:
         bracket_start = text.find('[')
@@ -467,7 +471,7 @@ def _bm_apply_rule_if_compat(phonetic, target, language_arg):
     apply the rule
     """
     candidate = phonetic + target
-    if '[' not in candidate: # no attributes so we need test no further
+    if '[' not in candidate:  # no attributes so we need test no further
         return candidate
 
     # expand the result, converting incompatible attributes to [0]
@@ -511,15 +515,15 @@ def _bm_language_index_from_code(code, name_mode):
     """
     if (code < 1 or
         code > sum([_LANG_DICT[_] for _ in
-                    BMDATA[name_mode]['languages']])): # code out of range
+                    BMDATA[name_mode]['languages']])):  # code out of range
         return L_ANY
-    if (code & (code - 1)) != 0: # choice was more than one language; use any
+    if (code & (code - 1)) != 0:  # choice was more than one language; use any
         return L_ANY
     return code
 
 
 def _bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
-         concat=False, filter_langs=False):
+          concat=False, filter_langs=False):
     """Return the Beider-Morse Phonetic Matching algorithm encoding(s) of a
     term
 
@@ -573,7 +577,6 @@ def _bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     else:
         language_arg = lang_choices
     language_arg2 = _bm_language_index_from_code(language_arg, name_mode)
-
 
     rules = BMDATA[name_mode]['rules'][language_arg2]
     final_rules1 = BMDATA[name_mode][match_mode]['common']
