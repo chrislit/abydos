@@ -726,6 +726,11 @@ class CaumannsTestCases(unittest.TestCase):
         self.assertEqual(caumanns('Mauer'), 'mau')
         self.assertEqual(caumanns('Störsender'), 'stor')
 
+        # additional tests to achieve full coverage
+        self.assertEqual(caumanns('Müllerinnen'), 'mullerin')
+        self.assertEqual(caumanns('Matrix'), 'matrix')
+        self.assertEqual(caumanns('Matrizen'), 'matrix')
+
     def test_caumanns_lucene(self):
         """test abydos.stemmer.caumanns (Lucene tests)
 
