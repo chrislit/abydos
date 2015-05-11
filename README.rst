@@ -14,7 +14,10 @@ Abydos
    :alt: Code Climate
 
 .. image:: https://img.shields.io/badge/pylint-9.99/10-brightgreen.svg
-    :alt: Pylint Status
+    :alt: Pylint Score
+
+.. image:: https://img.shields.io/badge/PEP8-5000-brightgreen.svg
+    :alt: PEP8 Errors
 
 .. image:: https://img.shields.io/pypi/v/abydos.svg
     :target: https://pypi.python.org/pypi/abydos
