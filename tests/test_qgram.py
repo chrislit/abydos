@@ -24,6 +24,7 @@ from __future__ import unicode_literals
 import unittest
 from abydos.qgram import QGrams
 
+
 class QgramTestCases(unittest.TestCase):
     """test cases for abydos.qgram
     """
@@ -40,16 +41,16 @@ class QgramTestCases(unittest.TestCase):
                                  'ON#', 'N##']))
         self.assertEqual(sorted(QGrams('NELSON', 7).elements()), sorted([]))
 
-        #http://www.sound-ex.com/alternative_qgram.htm
+        # http://www.sound-ex.com/alternative_qgram.htm
         self.assertEqual(sorted(QGrams('NELSON').elements()),
-                          sorted(['$N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#']))
+                         sorted(['$N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#']))
         self.assertEqual(sorted(QGrams('NEILSEN').elements()),
-                          sorted(['$N', 'NE', 'EI', 'IL', 'LS', 'SE', 'EN',
-                                  'N#']))
+                         sorted(['$N', 'NE', 'EI', 'IL', 'LS', 'SE', 'EN',
+                                 'N#']))
         self.assertEqual(sorted(QGrams('NELSON', start_stop='').elements()),
-                          sorted(['NE', 'EL', 'LS', 'SO', 'ON']))
+                         sorted(['NE', 'EL', 'LS', 'SO', 'ON']))
         self.assertEqual(sorted(QGrams('NEILSEN', start_stop='').elements()),
-                          sorted(['NE', 'EI', 'IL', 'LS', 'SE', 'EN']))
+                         sorted(['NE', 'EI', 'IL', 'LS', 'SE', 'EN']))
 
     def test_qgram_intersections(self):
         """test abydos.qgram.QGrams intersections
