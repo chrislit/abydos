@@ -30,12 +30,13 @@ from abydos.distance import levenshtein, dist_levenshtein, sim_levenshtein, \
     dist_jaccard, sim_overlap, dist_overlap, sim_tanimoto, tanimoto, \
     sim_cosine, dist_cosine, sim_strcmp95, dist_strcmp95, sim_jaro_winkler, \
     dist_jaro_winkler, lcsseq, sim_lcsseq, dist_lcsseq, lcsstr, sim_lcsstr, \
-    dist_lcsstr, sim_ratcliff_obershelp, dist_ratcliff_obershelp, mra_compare, \
-    sim_mra, dist_mra, sim_compression, dist_compression, sim_monge_elkan, \
-    dist_monge_elkan, sim_ident, dist_ident, sim_matrix, needleman_wunsch, \
-    smith_waterman, gotoh, sim_length, dist_length, sim_prefix, dist_prefix, \
-    sim_suffix, dist_suffix, sim_mlipns, dist_mlipns, bag, sim_bag, dist_bag, \
-    editex, sim_editex, dist_editex, sim, dist
+    dist_lcsstr, sim_ratcliff_obershelp, dist_ratcliff_obershelp, \
+    mra_compare, sim_mra, dist_mra, sim_compression, dist_compression, \
+    sim_monge_elkan, dist_monge_elkan, sim_ident, dist_ident, sim_matrix, \
+    needleman_wunsch,  smith_waterman, gotoh, sim_length, dist_length, \
+    sim_prefix, dist_prefix, sim_suffix, dist_suffix, sim_mlipns, \
+    dist_mlipns, bag, sim_bag, dist_bag, editex, sim_editex, dist_editex, \
+    sim, dist
 from abydos.compression import ac_train
 from abydos.qgram import QGrams
 import math
@@ -48,11 +49,10 @@ NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
          'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill', 'MacNeil',
          'MacNele', 'Niall Noígíallach')
 
+
 class LevenshteinTestCases(unittest.TestCase):
-    """test cases for abydos.distance.levenshtein,
-    abydos.distance.dist_levenshtein, abydos.distance.sim_levenshtein,
-    abydos.distance.damerau, abydos.distance.dist_damerau, &
-    abydos.distance.sim_damerau
+    """test cases for abydos.distance.levenshtein, .dist_levenshtein,
+    .sim_levenshtein, .damerau, .dist_damerau, & .sim_damerau
     """
     def test_levenshtein(self):
         """test abydos.distance.levenshtein
@@ -113,31 +113,31 @@ class LevenshteinTestCases(unittest.TestCase):
         self.assertEqual(levenshtein('a', 'b', 'osa', cost=(10, 10, 5, 10)), 5)
         self.assertEqual(levenshtein('a', 'b', 'dam', cost=(10, 10, 5, 10)), 5)
         self.assertEqual(levenshtein('ac', 'bc', 'lev',
-                                      cost=(10, 10, 5, 10)), 5)
+                                     cost=(10, 10, 5, 10)), 5)
         self.assertEqual(levenshtein('ac', 'bc', 'osa',
-                                      cost=(10, 10, 5, 10)), 5)
+                                     cost=(10, 10, 5, 10)), 5)
         self.assertEqual(levenshtein('ac', 'bc', 'dam',
-                                      cost=(10, 10, 5, 10)), 5)
+                                     cost=(10, 10, 5, 10)), 5)
 
         # test cost of transpose
         self.assertEqual(levenshtein('ab', 'ba', 'lev',
-                                      cost=(10, 10, 10, 5)), 20)
+                                     cost=(10, 10, 10, 5)), 20)
         self.assertEqual(levenshtein('ab', 'ba', 'osa',
-                                      cost=(10, 10, 10, 5)), 5)
+                                     cost=(10, 10, 10, 5)), 5)
         self.assertEqual(levenshtein('ab', 'ba', 'dam',
-                                      cost=(5, 5, 10, 5)), 5)
+                                     cost=(5, 5, 10, 5)), 5)
         self.assertEqual(levenshtein('abc', 'bac', 'lev',
-                                      cost=(10, 10, 10, 5)), 20)
+                                     cost=(10, 10, 10, 5)), 20)
         self.assertEqual(levenshtein('abc', 'bac', 'osa',
-                                      cost=(10, 10, 10, 5)), 5)
+                                     cost=(10, 10, 10, 5)), 5)
         self.assertEqual(levenshtein('abc', 'bac', 'dam',
-                                      cost=(5, 5, 10, 5)), 5)
+                                     cost=(5, 5, 10, 5)), 5)
         self.assertEqual(levenshtein('cab', 'cba', 'lev',
-                                      cost=(10, 10, 10, 5)), 20)
+                                     cost=(10, 10, 10, 5)), 20)
         self.assertEqual(levenshtein('cab', 'cba', 'osa',
-                                      cost=(10, 10, 10, 5)), 5)
+                                     cost=(10, 10, 10, 5)), 5)
         self.assertEqual(levenshtein('cab', 'cba', 'dam',
-                                      cost=(5, 5, 10, 5)), 5)
+                                     cost=(5, 5, 10, 5)), 5)
 
         # test exception
         self.assertRaises(ValueError, levenshtein, 'ab', 'ba', 'dam',
@@ -180,10 +180,13 @@ class LevenshteinTestCases(unittest.TestCase):
         self.assertEqual(damerau_levenshtein('CA', 'CA'), 0)
         self.assertEqual(damerau_levenshtein('CA', 'ABC'), 2)
         self.assertEqual(damerau_levenshtein('', 'b', cost=(5, 7, 10, 10)), 5)
-        self.assertEqual(damerau_levenshtein('a', 'ab', cost=(5, 7, 10, 10)), 5)
+        self.assertEqual(damerau_levenshtein('a', 'ab', cost=(5, 7, 10, 10)),
+                         5)
         self.assertEqual(damerau_levenshtein('b', '', cost=(5, 7, 10, 10)), 7)
-        self.assertEqual(damerau_levenshtein('ab', 'a', cost=(5, 7, 10, 10)), 7)
-        self.assertEqual(damerau_levenshtein('a', 'b', cost=(10, 10, 5, 10)), 5)
+        self.assertEqual(damerau_levenshtein('ab', 'a', cost=(5, 7, 10, 10)),
+                         7)
+        self.assertEqual(damerau_levenshtein('a', 'b', cost=(10, 10, 5, 10)),
+                         5)
         self.assertEqual(damerau_levenshtein('ac', 'bc',
                                              cost=(10, 10, 5, 10)), 5)
         self.assertEqual(damerau_levenshtein('ab', 'ba',
@@ -247,10 +250,13 @@ class LevenshteinTestCases(unittest.TestCase):
 
         self.assertAlmostEqual(sim_damerau('CA', 'ABC'), 1/3)
         self.assertAlmostEqual(sim_damerau('', 'b', cost=(5, 7, 10, 10)), 0)
-        self.assertAlmostEqual(sim_damerau('a', 'ab', cost=(5, 7, 10, 10)), 1/2)
+        self.assertAlmostEqual(sim_damerau('a', 'ab', cost=(5, 7, 10, 10)),
+                               1/2)
         self.assertAlmostEqual(sim_damerau('b', '', cost=(5, 7, 10, 10)), 0)
-        self.assertAlmostEqual(sim_damerau('ab', 'a', cost=(5, 7, 10, 10)), 1/2)
-        self.assertAlmostEqual(sim_damerau('a', 'b', cost=(10, 10, 5, 10)), 1/2)
+        self.assertAlmostEqual(sim_damerau('ab', 'a', cost=(5, 7, 10, 10)),
+                               1/2)
+        self.assertAlmostEqual(sim_damerau('a', 'b', cost=(10, 10, 5, 10)),
+                               1/2)
         self.assertAlmostEqual(sim_damerau('ac', 'bc',
                                              cost=(10, 10, 5, 10)), 3/4)
         self.assertAlmostEqual(sim_damerau('ab', 'ba',
@@ -264,8 +270,7 @@ class LevenshteinTestCases(unittest.TestCase):
 
 
 class HammingTestCases(unittest.TestCase):
-    """test cases for abydos.distance.hamming,
-    abydos.distance.dist_hamming, & abydos.distance.sim_hamming
+    """test cases for abydos.distance.hamming, .dist_hamming, & .sim_hamming
     """
     def test_hamming(self):
         """test abydos.distance.hamming
@@ -347,7 +352,7 @@ NONQ_FROM = 'The quick brown fox jumped over the lazy dog.'
 NONQ_TO = 'That brown dog jumped over the fox.'
 
 class TverskyIndexTestCases(unittest.TestCase):
-    """test cases for abydos.distance.sim_tversky & abydos.distance.dist_tversky
+    """test cases for abydos.distance.sim_tversky & .dist_tversky
     """
     def test_sim_tversky(self):
         """test abydos.distance.sim_tversky
@@ -376,17 +381,20 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_tversky('niall', 'neal', 2, 2, 2), 3/13)
 
         # test bias parameter
-        self.assertAlmostEqual(sim_tversky('niall', 'neal', 2, 1, 1, 0.5), 7/11)
+        self.assertAlmostEqual(sim_tversky('niall', 'neal', 2, 1, 1, 0.5),
+                               7/11)
         self.assertAlmostEqual(sim_tversky('niall', 'neal', 2, 2, 1, 0.5), 7/9)
-        self.assertAlmostEqual(sim_tversky('niall', 'neal', 2, 1, 2, 0.5), 7/15)
-        self.assertAlmostEqual(sim_tversky('niall', 'neal', 2, 2, 2, 0.5), 7/11)
+        self.assertAlmostEqual(sim_tversky('niall', 'neal', 2, 1, 2, 0.5),
+                               7/15)
+        self.assertAlmostEqual(sim_tversky('niall', 'neal', 2, 2, 2, 0.5),
+                               7/11)
 
         # supplied q-gram tests
         self.assertEqual(sim_tversky(QGrams(''), QGrams('')), 1)
         self.assertEqual(sim_tversky(QGrams('nelson'), QGrams('')), 0)
         self.assertEqual(sim_tversky(QGrams(''), QGrams('neilsen')), 0)
-        self.assertAlmostEqual(sim_tversky(QGrams('nelson'), QGrams('neilsen')),
-                               4/11)
+        self.assertAlmostEqual(sim_tversky(QGrams('nelson'),
+                                           QGrams('neilsen')), 4/11)
 
         # non-q-gram tests
         self.assertEqual(sim_tversky('', '', None), 1)
@@ -424,7 +432,8 @@ class TverskyIndexTestCases(unittest.TestCase):
         # test bias parameter
         self.assertAlmostEqual(dist_tversky('niall', 'neal', 2, 1, 1, 0.5),
                                4/11)
-        self.assertAlmostEqual(dist_tversky('niall', 'neal', 2, 2, 1, 0.5), 2/9)
+        self.assertAlmostEqual(dist_tversky('niall', 'neal', 2, 2, 1, 0.5),
+                               2/9)
         self.assertAlmostEqual(dist_tversky('niall', 'neal', 2, 1, 2, 0.5),
                                8/15)
         self.assertAlmostEqual(dist_tversky('niall', 'neal', 2, 2, 2, 0.5),
@@ -446,7 +455,7 @@ class TverskyIndexTestCases(unittest.TestCase):
 
 
 class DiceTestCases(unittest.TestCase):
-    """test cases for abydos.distance.sim_dice & abydos.distance.dist_dice
+    """test cases for abydos.distance.sim_dice & .dist_dice
     """
     def test_sim_dice(self):
         """test abydos.distance.sim_dice
@@ -504,7 +513,7 @@ class DiceTestCases(unittest.TestCase):
 
 
 class JaccardTestCases(unittest.TestCase):
-    """test cases for abydos.distance.sim_jaccard & abydos.distance.dist_jaccard
+    """test cases for abydos.distance.sim_jaccard & .dist_jaccard
     """
     def test_sim_jaccard(self):
         """test abydos.distance.sim_jaccard
@@ -562,7 +571,7 @@ class JaccardTestCases(unittest.TestCase):
 
 
 class OverlapTestCases(unittest.TestCase):
-    """test cases for abydos.distance.sim_overlap & abydos.distance.dist_overlap
+    """test cases for abydos.distance.sim_overlap & .dist_overlap
     """
     def test_sim_overlap(self):
         """test abydos.distance.sim_overlap
@@ -581,8 +590,8 @@ class OverlapTestCases(unittest.TestCase):
         self.assertEqual(sim_overlap(QGrams(''), QGrams('')), 1)
         self.assertEqual(sim_overlap(QGrams('nelson'), QGrams('')), 0)
         self.assertEqual(sim_overlap(QGrams(''), QGrams('neilsen')), 0)
-        self.assertAlmostEqual(sim_overlap(QGrams('nelson'), QGrams('neilsen')),
-                               4/7)
+        self.assertAlmostEqual(sim_overlap(QGrams('nelson'),
+                                           QGrams('neilsen')), 4/7)
 
         # non-q-gram tests
         self.assertEqual(sim_overlap('', '', None), 1)
@@ -620,10 +629,10 @@ class OverlapTestCases(unittest.TestCase):
 
 
 class TanimotoTestCases(unittest.TestCase):
-    """test cases for abydos.distance.sim_tanimoto & abydos.distance.tanimoto
+    """test cases for abydos.distance.sim_tanimoto & .tanimoto
     """
     def test_tanimoto_coeff(self):
-        """test abydos.distance.tanimoto_coeff
+        """test abydos.distance.sim_tanimoto
         """
         self.assertEqual(sim_tanimoto('', ''), 1)
         self.assertEqual(sim_tanimoto('nelson', ''), 0)
@@ -682,7 +691,7 @@ class TanimotoTestCases(unittest.TestCase):
 
 
 class CosineSimilarityTestCases(unittest.TestCase):
-    """test cases for abydos.distance.sim_cosine & abydos.distance.dist_cosine
+    """test cases for abydos.distance.sim_cosine & .dist_cosine
     """
     def test_sim_cosine(self):
         """test abydos.distance.sim_cosine
@@ -734,7 +743,8 @@ class CosineSimilarityTestCases(unittest.TestCase):
         self.assertEqual(dist_cosine(QGrams(''), QGrams('')), 0)
         self.assertEqual(dist_cosine(QGrams('nelson'), QGrams('')), 1)
         self.assertEqual(dist_cosine(QGrams(''), QGrams('neilsen')), 1)
-        self.assertAlmostEqual(dist_cosine(QGrams('nelson'), QGrams('neilsen')),
+        self.assertAlmostEqual(dist_cosine(QGrams('nelson'),
+                                           QGrams('neilsen')),
                                1-(4/math.sqrt(7*8)))
 
         # non-q-gram tests
@@ -748,9 +758,8 @@ class CosineSimilarityTestCases(unittest.TestCase):
 
 
 class JaroWinklerTestCases(unittest.TestCase):
-    """test cases for abydos.distance.sim_strcmp95,
-    abydos.distance.dist_strcmp95, abydos.distance.sim_jaro_winkler,
-    & abydos.distance.dist_jaro_winkler
+    """test cases for abydos.distance.sim_strcmp95, .dist_strcmp95,
+    .sim_jaro_winkler, & .dist_jaro_winkler
     """
     def test_sim_strcmp95(self):
         """test abydos.distance.sim_strcmp95
@@ -803,17 +812,17 @@ class JaroWinklerTestCases(unittest.TestCase):
 
         # https://en.wikipedia.org/wiki/Jaro-Winkler_distance
         self.assertAlmostEqual(sim_jaro_winkler('MARTHA', 'MARHTA',
-                                             mode='jaro'), 0.94444444)
+                                                mode='jaro'), 0.94444444)
         self.assertAlmostEqual(sim_jaro_winkler('MARTHA', 'MARHTA',
-                                             mode='winkler'), 0.96111111)
+                                                mode='winkler'), 0.96111111)
         self.assertAlmostEqual(sim_jaro_winkler('DWAYNE', 'DUANE',
-                                             mode='jaro'), 0.82222222)
+                                                mode='jaro'), 0.82222222)
         self.assertAlmostEqual(sim_jaro_winkler('DWAYNE', 'DUANE',
-                                             mode='winkler'), 0.84)
+                                                mode='winkler'), 0.84)
         self.assertAlmostEqual(sim_jaro_winkler('DIXON', 'DICKSONX',
-                                             mode='jaro'), 0.76666666)
+                                                mode='jaro'), 0.76666666)
         self.assertAlmostEqual(sim_jaro_winkler('DIXON', 'DICKSONX',
-                                             mode='winkler'), 0.81333333)
+                                                mode='winkler'), 0.81333333)
 
         self.assertRaises(ValueError, sim_jaro_winkler, 'abcd', 'dcba',
                           boost_threshold=2)
@@ -829,11 +838,10 @@ class JaroWinklerTestCases(unittest.TestCase):
         # long_strings = True (applies only to Jaro-Winkler, not Jaro)
         self.assertEqual(sim_jaro_winkler('ABCD', 'EFGH', long_strings=True),
                          sim_jaro_winkler('ABCD', 'EFGH'))
-        self.assertEqual(sim_jaro_winkler('DIXON', 'DICKSONX',
-                                                mode='jaro',
-                                                long_strings=True),
-                               sim_jaro_winkler('DIXON', 'DICKSONX',
-                                                mode='jaro'))
+        self.assertEqual(sim_jaro_winkler('DIXON', 'DICKSONX', mode='jaro',
+                                          long_strings=True),
+                         sim_jaro_winkler('DIXON', 'DICKSONX',
+                                          mode='jaro'))
         self.assertAlmostEqual(sim_jaro_winkler('DIXON', 'DICKSONX',
                                                 mode='winkler',
                                                 long_strings=True), 0.83030303)
@@ -856,17 +864,17 @@ class JaroWinklerTestCases(unittest.TestCase):
 
         # https://en.wikipedia.org/wiki/Jaro-Winkler_distance
         self.assertAlmostEqual(dist_jaro_winkler('MARTHA', 'MARHTA',
-                                             mode='jaro'), 0.05555555)
+                                                 mode='jaro'), 0.05555555)
         self.assertAlmostEqual(dist_jaro_winkler('MARTHA', 'MARHTA',
-                                             mode='winkler'), 0.03888888)
+                                                 mode='winkler'), 0.03888888)
         self.assertAlmostEqual(dist_jaro_winkler('DWAYNE', 'DUANE',
-                                             mode='jaro'), 0.17777777)
+                                                 mode='jaro'), 0.17777777)
         self.assertAlmostEqual(dist_jaro_winkler('DWAYNE', 'DUANE',
-                                             mode='winkler'), 0.16)
+                                                 mode='winkler'), 0.16)
         self.assertAlmostEqual(dist_jaro_winkler('DIXON', 'DICKSONX',
-                                             mode='jaro'), 0.23333333)
+                                                 mode='jaro'), 0.23333333)
         self.assertAlmostEqual(dist_jaro_winkler('DIXON', 'DICKSONX',
-                                             mode='winkler'), 0.18666666)
+                                                 mode='winkler'), 0.18666666)
 
         self.assertRaises(ValueError, dist_jaro_winkler, 'abcd', 'dcba',
                           boost_threshold=2)
@@ -880,8 +888,7 @@ class JaroWinklerTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_jaro_winkler('ABCD', 'EFGH'), 1.0)
 
 class LcsseqTestCases(unittest.TestCase):
-    """test cases for abydos.distance.lcsseq, abydos.distance.sim_lcsseq, &
-    abydos.distance.dist_lcsseq
+    """test cases for abydos.distance.lcsseq, .sim_lcsseq, & .dist_lcsseq
     """
     def test_lcsseq(self):
         """test abydos.distance.lcsseq
@@ -993,8 +1000,7 @@ class LcsseqTestCases(unittest.TestCase):
 
 
 class LcsstrTestCases(unittest.TestCase):
-    """test cases for abydos.distance.lcsstr, abydos.distance.sim_lcsstr, &
-    abydos.distance.dist_lcsstr
+    """test cases for abydos.distance.lcsstr, .sim_lcsstr, & .dist_lcsstr
     """
     def test_lcsstr(self):
         """test abydos.distance.lcsstr
@@ -1199,8 +1205,7 @@ class RatcliffObershelpTestCases(unittest.TestCase):
 
 
 class MraTestCases(unittest.TestCase):
-    """test cases for abydos.distance.mra_compare, abydos.distance.sim_mra &
-    abydos.distance.dist_mra
+    """test cases for abydos.distance.mra_compare, .sim_mra & .dist_mra
     """
     def test_mra_compare(self):
         """test abydos.distance.mra_compare
@@ -1261,8 +1266,7 @@ class MraTestCases(unittest.TestCase):
 
 
 class CompressionTestCases(unittest.TestCase):
-    """test cases for abydos.distance.dist_compression &
-    abydos.distance.sim_compression
+    """test cases for abydos.distance.dist_compression & .sim_compression
     """
     arith_dict = ac_train(' '.join(NIALL))
 
@@ -1407,8 +1411,7 @@ class CompressionTestCases(unittest.TestCase):
 
 
 class MongeElkanTestCases(unittest.TestCase):
-    """test cases for abydos.distance.sim_monge_elkan &
-    abydos.distance.dist_monge_elkan
+    """test cases for abydos.distance.sim_monge_elkan & .dist_monge_elkan
     """
     def test_sim_monge_elkan(self):
         """test abydos.distance.sim_monge_elkan
@@ -1450,8 +1453,7 @@ class MongeElkanTestCases(unittest.TestCase):
 
 
 class IdentityTestCases(unittest.TestCase):
-    """test cases for abydos.distance.sim_ident &
-    abydos.distance.dist_ident
+    """test cases for abydos.distance.sim_ident & .dist_ident
     """
     def test_sim_ident(self):
         """test abydos.distance.sim_ident
@@ -1639,8 +1641,7 @@ class GotohTestCases(unittest.TestCase):
 
 
 class LengthTestCases(unittest.TestCase):
-    """test cases for abydos.distance.sim_length &
-    abydos.distance.dist_length
+    """test cases for abydos.distance.sim_length & .dist_length
     """
     def test_sim_ident(self):
         """test abydos.distance.sim_length
@@ -1674,8 +1675,7 @@ class LengthTestCases(unittest.TestCase):
 
 
 class PrefixTestCases(unittest.TestCase):
-    """test cases for abydos.distance.sim_prefix &
-    abydos.distance.dist_prefix
+    """test cases for abydos.distance.sim_prefix & .dist_prefix
     """
     def test_sim_prefix(self):
         """test abydos.distance.sim_prefix
@@ -1743,8 +1743,7 @@ class PrefixTestCases(unittest.TestCase):
 
 
 class SuffixTestCases(unittest.TestCase):
-    """test cases for abydos.distance.sim_suffix &
-    abydos.distance.dist_suffix
+    """test cases for abydos.distance.sim_suffix & .dist_suffix
     """
     def test_sim_suffix(self):
         """test abydos.distance.sim_suffix
@@ -1812,8 +1811,7 @@ class SuffixTestCases(unittest.TestCase):
 
 
 class MLIPNSTestCases(unittest.TestCase):
-    """test cases for abydos.distance.sim_mlipns &
-    abydos.distance.dist_mlipns
+    """test cases for abydos.distance.sim_mlipns & .dist_mlipns
     """
     def test_sim_mlipns(self):
         """test abydos.distance.sim_mlipns
@@ -1847,8 +1845,7 @@ class MLIPNSTestCases(unittest.TestCase):
 
 
 class BagTestCases(unittest.TestCase):
-    """test cases for abydos.distance.bag, abydos.distance.sim_bag &
-    abydos.distance.dist_bag
+    """test cases for abydos.distance.bag, .sim_bag & .dist_bag
     """
     def test_bag(self):
         """test abydos.distance.bag
@@ -1888,8 +1885,7 @@ class BagTestCases(unittest.TestCase):
 
 
 class EditexTestCases(unittest.TestCase):
-    """test cases for abydos.distance.editex, abydos.distance.sim_editex &
-    abydos.distance.dist_editex
+    """test cases for abydos.distance.editex, .sim_editex & .dist_editex
     """
     def test_editex(self):
         """test abydos.distance.editex
@@ -1934,8 +1930,7 @@ class EditexTestCases(unittest.TestCase):
 
 
 class SimDistTestCases(unittest.TestCase):
-    """test cases for abydos.distance.sim &
-    abydos.distance.dist
+    """test cases for abydos.distance.sim & .dist
     """
     def test_sim(self):
         """test abydos.distance.sim
