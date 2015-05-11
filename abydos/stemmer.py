@@ -1326,8 +1326,4 @@ def caumanns(word):
     if len(word) > 4:
         word = word.replace('gege', 'ge', 1)
 
-    # Re-uppercase the first letter if it came in as uppercase
-    if upper_initial:
-        word = word[0].upper() + word[1:]
-
     return word
