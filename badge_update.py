@@ -12,7 +12,7 @@ def pylint_color(score):
     # I.e. score==10 -> brightgreen, down to 7.5 > score >= 5 -> orange
     score_cutoffs = (10, 9.5, 8.5, 7.5, 5)
     for i in range(len(score_cutoffs)):
-        if score >= i:
+        if score >= score_cutoffs[i]:
             return badge_colors[i]
     # and score < 5 -> red
     else:
@@ -24,7 +24,7 @@ def pep8_color(score):
     # I.e. score==0 -> brightgreen, down to 100 < score <= 200 -> orange
     score_cutoffs = (0, 20, 50, 100, 200)
     for i in range(len(score_cutoffs)):
-        if score <= i:
+        if score <= score_cutoffs[i]:
             return badge_colors[i]
     # and score > 200 -> red
     else:
@@ -47,10 +47,10 @@ pep8_score = sum([int(n) for n in re.findall('\n([0-9]+)  +', pep8_text)])
 
 readme_text = open('README.rst', 'r', encoding='utf-8').read()
 prefix = 'https://img.shields.io/badge/Pylint-'
-readme_text = re.sub(prefix+'([0-9\.]+)',
-                     prefix+str(pylint_score), readme_text, 1)
+readme_text = re.sub(prefix+'([0-9\.]+/10\-[a-z]+)',
+                     prefix+str(pylint_score)+'/10-'+pylint_color(pylint_score), readme_text, 1)
 prefix = 'https://img.shields.io/badge/PEP8-'
-readme_text = re.sub(prefix+'([0-9\.]+)',
-                     prefix+str(pep8_score), readme_text, 1)
+readme_text = re.sub(prefix+'([0-9\.]+-[a-z]+)',
+                     prefix+str(pep8_score)+'-'+pep8_color(pep8_score), readme_text, 1)
 with open('README.rst', 'w', encoding='utf-8') as f:
     f.write(readme_text)
