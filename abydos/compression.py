@@ -30,7 +30,8 @@ from __future__ import division
 from collections import Counter
 from itertools import groupby
 from .util import Rational
-from ._compat import _unicode, _long, _range, _unichr
+from ._compat import _unicode, _long, _range
+
 
 def ac_train(text):
     """Generate a probability dict from the provided text
@@ -55,7 +56,7 @@ def ac_train(text):
     prob_range = {}
     prev = Rational(0)
     for char, count in sorted(counts.items(), key=lambda x: (x[1], x[0]),
-                           reverse=True):
+                              reverse=True):
         follow = Rational(tot + count, tot_letters)
         prob_range[char] = (prev, follow)
         prev = follow
@@ -96,13 +97,14 @@ def ac_encode(text, probs):
     while delta < 1:
         nbits = nbits + 1
         delta <<= 1
-    if nbits == 0: # pragma: no cover
+    if nbits == 0:  # pragma: no cover
         return 0, 0
     else:
         # using -1 instead of /2
-        avg = (maxval + minval)<<(nbits-1)
+        avg = (maxval + minval) << (nbits-1)
     # Could return a rational instead ...
     return avg.p//avg.q, nbits  # the division truncation is deliberate
+
 
 def ac_decode(longval, nbits, probs):
     """Decode the number to a string using the given statistics
@@ -111,7 +113,7 @@ def ac_decode(longval, nbits, probs):
     http://code.activestate.com/recipes/306626/
     It has been ported to use the custom Rational class above.
     """
-    val = Rational(longval, _long(1)<<nbits)
+    val = Rational(longval, _long(1) << nbits)
     letters = []
     probs_items = [(char, minval, maxval) for (char, (minval, maxval))
                    in probs.items()]
@@ -145,10 +147,10 @@ def bwt_encode(word, terminator='\0'):
     if word:
         if terminator in word:
             raise ValueError('Specified terminator, %s, already in word.' %
-                             (terminator if terminator!='\0' else '\\0'))
+                             (terminator if terminator != '\0' else '\\0'))
         else:
             word += terminator
-            wordlist = sorted([word[i:]+word[:i] for i in _range(len(word))])
+            wordlist = sorted([word[i:] + word[:i] for i in _range(len(word))])
             return ''.join([w[-1] for w in wordlist])
     else:
         return terminator
@@ -169,11 +171,12 @@ def bwt_decode(code, terminator='\0'):
     if code:
         if terminator not in code:
             raise ValueError('Specified terminator, %s, absent from code.' %
-                             (terminator if terminator!='\0' else '\\0'))
+                             (terminator if terminator != '\0' else '\\0'))
         else:
             wordlist = [''] * len(code)
             for i in _range(len(code)):
-                wordlist = sorted([code[i]+wordlist[i] for i in _range(len(code))])
+                wordlist = sorted([code[i] + wordlist[i] for i in
+                                   _range(len(code))])
             s = [w for w in wordlist if w[-1] == terminator][0]
             return s.rstrip(terminator)
     else:
@@ -197,8 +200,10 @@ def rle_encode(text, use_bwt=True):
         text = bwt_encode(text)
     if text:
         text = [(len(list(g)), k) for k, g in groupby(text)]
-        text = [(str(n)+k if n>2 else (k if n==1 else 2*k)) for n,k in text]
+        text = [(str(n) + k if n > 2 else (k if n == 1 else 2*k)) for
+                n, k in text]
     return ''.join(text)
+
 
 def rle_decode(text, use_bwt=True):
     """Simple, crude run-length-encoding (RLE) decoder
