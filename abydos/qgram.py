@@ -27,7 +27,8 @@ from __future__ import division
 from ._compat import _range
 from collections import Counter
 
-#pylint: disable=abstract-method
+
+# pylint: disable=abstract-method
 class QGrams(Counter):
     """A q-gram class, which functions like a bag/multiset
 
@@ -46,8 +47,8 @@ class QGrams(Counter):
         word -- a string to extract q-grams from
         qval -- the q-gram length (defaults to 2)
         start_stop -- a string of length >= 0 indicating start & stop symbols
-            If the string is '', q-grams will be calculated without start & stop
-            symbols appended to each end.
+            If the string is '', q-grams will be calculated without start &
+            stop symbols appended to each end.
             Otherwise, the first character of start_stop will pad the beginning
             of the string and the last character of start_stop will pad the end
             of the string before q-grams are calculated. (In the case that
@@ -61,7 +62,8 @@ class QGrams(Counter):
             term = start_stop[0]*(qval-1) + term + start_stop[-1]*(qval-1)
         self.term_ss = term
 
-        self.ordered_list = [term[i:i+qval] for i in _range(len(term)-(qval-1))]
+        self.ordered_list = [term[i:i+qval] for i in
+                             _range(len(term)-(qval-1))]
         super(QGrams, self).__init__(self.ordered_list)
 
     def count(self):
