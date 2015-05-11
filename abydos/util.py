@@ -28,7 +28,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 from __future__ import division
 import sys
-from random import uniform, normalvariate, lognormvariate
+from random import uniform, normalvariate
 from numpy.random import laplace
 from math import floor, log10
 from ._compat import _unicode, _range, numeric_type, _long
@@ -67,7 +67,7 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
     max_val -- the maximum permitted value in the returned list
     rand -- a string to indicate the random distribution used:
         'normal' (default), 'uniform' (standard in the R version),
-        'lognormal', or 'laplace' (requires Numpy)
+        or 'laplace' (requires Numpy)
 
     Description:
     (adapted from R documentation as this is ported directly from the R code)
@@ -142,17 +142,10 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
         """
         return normalvariate(0, amount)
 
-    def _rand_lognormal():
-        """Return a random number from the normal distribution
-        """
-        return lognormvariate(0, amount)
-
     if rfunc == 'uniform':
         _rand = _rand_uniform
     elif rfunc == 'laplace':
         _rand = _rand_laplace
-    elif rfunc == 'lognormal':
-        _rand = _rand_lognormal
     else:
         _rand = _rand_normal
 
