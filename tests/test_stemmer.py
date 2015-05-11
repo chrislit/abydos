@@ -711,6 +711,20 @@ class LancasterTestCases(unittest.TestCase):
         # base case
         self.assertEqual(lancaster(''), '')
 
+        # cases copied from
+        # http://www.nltk.org/_modules/nltk/stem/lancaster.html
+        # self.assertEqual(lancaster('maximum'), 'maxim')
+        # self.assertEqual(lancaster('presumably'), 'presum')
+        # self.assertEqual(lancaster('multiply'), 'multiply')
+        # self.assertEqual(lancaster('provision'), 'provid')
+        # self.assertEqual(lancaster('owed'), 'ow')
+        # self.assertEqual(lancaster('ear'), 'ear')
+        # self.assertEqual(lancaster('saying'), 'say')
+        # self.assertEqual(lancaster('crying'), 'cry')
+        # self.assertEqual(lancaster('string'), 'string')
+        # self.assertEqual(lancaster('meant'), 'meant')
+        # self.assertEqual(lancaster('cement'), 'cem')
+
 
 class CaumannsTestCases(unittest.TestCase):
     """test cases for abydos.stemmer.caumanns
