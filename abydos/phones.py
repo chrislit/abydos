@@ -611,19 +611,22 @@ def get_feature(vector, feature):
         'anterior', 'distributed', 'dorsal', 'high', 'low', 'back', 'tense',
         'pharyngeal', 'ATR', 'voice', 'spread_glottis', 'constricted_glottis',
         'continuant', 'strident', 'lateral', 'delayed_release', 'nasal'
-    #binary -- if False, -1, 0, & 1 represent -, 0, & +
-    #          if True, only binary oppositions are allowed:
-    #          0 & 1 represent - & + and 0s are mapped to -
+    # binary -- if False, -1, 0, & 1 represent -, 0, & +
+    #           if True, only binary oppositions are allowed:
+    #           0 & 1 represent - & + and 0s are mapped to -
     """
     if feature not in FEATURE_MASK:
-        raise AttributeError("feature must be one of: 'consonantal', " +
-                             "'sonorant', 'syllabic', 'labial', 'round', " +
-                             "'coronal', 'anterior', 'distributed', 'dorsal'," +
-                             " 'high', 'low', 'back', 'tense', 'pharyngeal', " +
-                             "'ATR', 'voice', 'spread_glottis', " +
-                             "'constricted_glottis', 'continuant', " +
-                             "'strident', 'lateral', 'delayed_release', " +
-                             "'nasal'")
+        raise AttributeError("feature must be one of: '" +
+                             "', '".join(('consonantal', 'sonorant',
+                                          'syllabic', 'labial', 'round',
+                                          'coronal', 'anterior', 'distributed',
+                                          'dorsal', 'high', 'low', 'back',
+                                          'tense', 'pharyngeal', 'ATR',
+                                          'voice', 'spread_glottis',
+                                          'constricted_glottis', 'continuant',
+                                          'strident', 'lateral',
+                                          'delayed_release', 'nasal')) +
+                             "'")
 
     # each feature mask contains two bits, one each for - and +
     mask = FEATURE_MASK[feature]
@@ -636,13 +639,13 @@ def get_feature(vector, feature):
         else:
             masked = char & mask
             if masked == 0:
-                retvec.append(0) # 0
+                retvec.append(0)  # 0
             elif masked == mask:
-                retvec.append(2) # +/-
+                retvec.append(2)  # +/-
             elif masked & pos_mask:
-                retvec.append(1) # +
+                retvec.append(1)  # +
             else:
-                retvec.append(-1) # -
+                retvec.append(-1)  # -
 
     return retvec
 
