@@ -36,6 +36,7 @@ NIALL_1WORD = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel',
                'Nele', 'Nigelli', 'Nel', 'Kneale', 'O\'Neill', 'MacNeil',
                'MacNele')
 
+
 class FingerprintTestCases(unittest.TestCase):
     """test cases for abydos.clustering.fingerprint,
     abydos.clustering.qgram_fingerprint, and
@@ -63,11 +64,11 @@ xoyv', )
         self.assertEqual(qgram_fingerprint(''), '')
         for i in _range(len(self._testset)):
             self.assertEqual(qgram_fingerprint(self._testset[i], 1),
-                              self._anssetq1[i])
+                             self._anssetq1[i])
             self.assertEqual(qgram_fingerprint(self._testset[i], 2),
-                              self._anssetq2[i])
+                             self._anssetq2[i])
             self.assertEqual(qgram_fingerprint(self._testset[i]),
-                              self._anssetq2[i])
+                             self._anssetq2[i])
 
         qgram_fp_niall = ('aliallni', 'aleane', 'eiilne', 'aljallnj',
                           'aljallnj', 'elgeigni', 'eeelne', 'ellene',
@@ -84,9 +85,10 @@ xoyv', )
 
         self.assertEqual(phonetic_fingerprint(' '.join(NIALL)),
                          'a anl mknl njl nklk nl')
-        self.assertEqual(phonetic_fingerprint(' '.join(NIALL), phonetic.phonet),
-                         'knile makneil maknele neil nel nele nial nigeli nigl'+
-                         ' nil noigialach oneil ui')
+        self.assertEqual(phonetic_fingerprint(' '.join(NIALL),
+                                              phonetic.phonet),
+                         'knile makneil maknele neil nel nele nial nigeli ' +
+                         'nigl nil noigialach oneil ui')
         self.assertEqual(phonetic_fingerprint(' '.join(NIALL),
                                               phonetic.soundex),
                          'k540 m254 n240 n242 n400 o540 u000')
