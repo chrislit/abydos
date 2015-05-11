@@ -54,7 +54,7 @@ def main(argv):
     def print_usage():
         """Print usage statement
         """
-        print 'features_csv_to_dict.py -i <inputfile> -o <outputfile>'
+        print('features_csv_to_dict.py -i <inputfile> -o <outputfile>')
         sys.exit(2)
 
     def binarize(num):
@@ -109,7 +109,7 @@ def main(argv):
                     print('Feature mismatch for term "' + term +
                           '" in   ' + sym)
             else:
-                print 'Unknown term "' + term + '" in ' + name + ' : ' + sym
+                print('Unknown term "' + term + '" in ' + name + ' : ' + sym)
 
     def check_entailments(sym, features, name, feature_mask):
         """Check for necessary feature assignments (entailments)
@@ -192,7 +192,7 @@ def main(argv):
     if not ofile:
         print(oline)
     else:
-        ofile.write(oline+'\n')
+        ofile.write(oline + '\n')
 
     keyline = ifile.readline().strip().split(',')[first_col:last_col]
     for line in ifile:
@@ -224,7 +224,7 @@ def main(argv):
             check_terms(symbol, featint, name, termdict)
             check_entailments(symbol, featint, name, feature_mask)
             if symbol in checkset_s:
-                print 'Symbol ' + symbol + ' appears twice in CSV.'
+                print('Symbol ' + symbol + ' appears twice in CSV.')
             else:
                 checkset_s.add(symbol)
 
@@ -253,13 +253,13 @@ def main(argv):
     if not ofile:
         print(oline)
     else:
-        ofile.write(oline+'\n')
+        ofile.write(oline + '\n')
 
     oline = '\nFEATURE_MASK = {'
     if not ofile:
         print(oline)
     else:
-        ofile.write(oline+'\n')
+        ofile.write(oline + '\n')
 
     mag = len(keyline)
     for i in range(len(keyline)):
@@ -268,13 +268,13 @@ def main(argv):
         if not ofile:
             print(oline)
         else:
-            ofile.write(oline+'\n')
+            ofile.write(oline + '\n')
 
     oline = '               }'
     if not ofile:
         print(oline)
     else:
-        ofile.write(oline+'\n')
+        ofile.write(oline + '\n')
 
 
 if __name__ == "__main__":
