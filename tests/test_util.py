@@ -86,6 +86,13 @@ class JitterTestCases(unittest.TestCase):
         self.assertEqual(len(jitter([0]*5, rfunc='normal')), 5)
         self.assertEqual(len(jitter([0]*5, rfunc='laplace')), 5)
 
+        # user-supplied function tests:
+        # terrible random function:
+        self.assertEqual(len(jitter([0]*5, rfunc=lambda x: x+0.1)), 5)
+        # imported Student's t-distribution
+        from numpy.random import standard_t
+        self.assertEqual(len(jitter([0]*5, rfunc=standard_t)), 5)
+
 
 class RationalTestCases(unittest.TestCase):
     """test cases for the abydos.util.Rational class
