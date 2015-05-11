@@ -24,18 +24,19 @@ from __future__ import unicode_literals
 from collections import Counter
 from .corpus import Corpus
 
+
 class NGramCorpus(object):
     """The NGramCorpus class
 
     Internally, this is a set of recursively embedded dicts, with n layers for
-    a corpus of n-grams. E.g. for a trigram corpus, this will be a dict of dicts
-    of dicts. More precisely, collections.Counter is used in place of dict,
-    making multiset operations valid and allowing unattested n-grams to be
-    queries.
+    a corpus of n-grams. E.g. for a trigram corpus, this will be a dict of
+    dicts of dicts. More precisely, collections.Counter is used in place of
+    dict, making multiset operations valid and allowing unattested n-grams to
+    be queries.
 
-    The key at each level is a word. The value at the most deeply embedded level
-    is a numeric value representing the frequency of the trigram. E.g. the
-    trigram frequency of 'colorless green ideas' would be the value of
+    The key at each level is a word. The value at the most deeply embedded
+    level is a numeric value representing the frequency of the trigram. E.g.
+    the trigram frequency of 'colorless green ideas' would be the value of
     self.ngcorpus['colorless']['green']['ideas'].
     """
     ngcorpus = Counter()
@@ -47,12 +48,12 @@ class NGramCorpus(object):
             default, this is None, which initializes an empty NGramCorpus. This
             can then be populated using NGramCorpus methods.
         """
-        if corpus == None:
+        if corpus is None:
             return
         elif isinstance(corpus, Corpus):
             self.corpus_importer(corpus)
         else:
-            raise TypeError('Corpus argument must be None or of type '+
+            raise TypeError('Corpus argument must be None or of type ' +
                             'abydos.Corpus. ' + str(type(corpus)) + ' found.')
 
     def corpus_importer(self, corpus):
