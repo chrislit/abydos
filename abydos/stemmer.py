@@ -43,7 +43,7 @@ def lovins(word):
     The Lovins stemmer is described in her article at
     http://www.mt-archive.info/MT-1968-Lovins.pdf
     """
-    pass
+    return word
 
 
 def _m_degree(term, vowels):
@@ -1282,11 +1282,11 @@ def caumanns(word):
 
     # 2. Change second of doubled characters to *
     newword = word[0]
-    for l in _range(1, len(word)):
-        if newword[l-1] == word[l]:
+    for i in _range(1, len(word)):
+        if newword[i-1] == word[i]:
             newword += '*'
         else:
-            newword += word[l]
+            newword += word[i]
     word = newword
 
     # 3. Replace sch, ch, ei, ie with $, §, %, &

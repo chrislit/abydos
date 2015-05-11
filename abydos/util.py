@@ -90,7 +90,7 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
         return jitter([nums])[0]
     if len(nums) == 0:
         return []
-    if (sum([isinstance(i, numeric_type) for i in nums]) != len(nums)):
+    if sum([isinstance(i, numeric_type) for i in nums]) != len(nums):
         raise AttributeError('All members of nums must be numeric.')
 
     rng = (min(nums), max(nums))
@@ -128,12 +128,18 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
     amount = abs(amount)
 
     def _rand_uniform():
+        """Return a random number from the uniform distribution
+        """
         return uniform(-amount, amount)
 
     def _rand_laplace():
+        """Return a random number from the Laplace distribution
+        """
         return laplace(0, amount)
 
     def _rand_normal():
+        """Return a random number from the normal distribution
+        """
         return normalvariate(0, amount)
 
     if rfunc == 'uniform':

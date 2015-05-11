@@ -34,7 +34,7 @@ class Corpus(object):
     sentence.
     """
     def __init__(self, corpus_text='', doc_split='\n\n', sent_split='\n',
-                 filter_chars='', stop_words=[]):
+                 filter_chars='', stop_words=None):
         """Corpus initializer
 
         corpus_text -- The corpus text as a single string
@@ -57,11 +57,12 @@ class Corpus(object):
         for document in corpus_text.split(doc_split):
             doc = []
             for sentence in [s.split() for s in document.split(sent_split)]:
-                for sw in set(stop_words):
-                    while sw in sentence:
-                        sentence.remove(sw)
+                if stop_words:
+                    for word in set(stop_words):
+                        while word in sentence:
+                            sentence.remove(word)
                 for char in set(filter_chars):
-                    sentence = [w.replace(char, '') for w in sentence]
+                    sentence = [word.replace(char, '') for word in sentence]
                 if sentence:
                     doc.append(sentence)
             if doc:

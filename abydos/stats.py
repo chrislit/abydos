@@ -665,7 +665,7 @@ def hmean(nums):
             return nums[0]
 
     if 0 in nums:
-        if sum(map(lambda x: x == 0, nums)) > 1:
+        if nums.count(0) > 1:
             return float('nan')
         return 0
     return len(nums)/sum([1/i for i in nums])

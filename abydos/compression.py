@@ -177,8 +177,8 @@ def bwt_decode(code, terminator='\0'):
             for i in _range(len(code)):
                 wordlist = sorted([code[i] + wordlist[i] for i in
                                    _range(len(code))])
-            s = [w for w in wordlist if w[-1] == terminator][0]
-            return s.rstrip(terminator)
+            rows = [w for w in wordlist if w[-1] == terminator][0]
+            return rows.rstrip(terminator)
     else:
         return ''
 
@@ -220,15 +220,15 @@ def rle_decode(text, use_bwt=True):
     """
     mult = ''
     decoded = []
-    for l in list(text):
-        if not l.isdigit():
+    for letter in list(text):
+        if not letter.isdigit():
             if mult:
-                decoded.append(int(mult)*l)
+                decoded.append(int(mult)*letter)
                 mult = ''
             else:
-                decoded.append(l)
+                decoded.append(letter)
         else:
-            mult += l
+            mult += letter
 
     text = ''.join(decoded)
     if use_bwt:
