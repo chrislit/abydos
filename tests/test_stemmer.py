@@ -695,7 +695,7 @@ class CLEFTestCases(unittest.TestCase):
 class UEALiteTestCases(unittest.TestCase):
     """test cases for abydos.stemmer.uealite
     """
-    def test_caumanns(self):
+    def test_uealite(self):
         """test abydos.stemmer.uealite
         """
         # base case
@@ -705,7 +705,7 @@ class UEALiteTestCases(unittest.TestCase):
 class LancasterTestCases(unittest.TestCase):
     """test cases for abydos.stemmer.lancaster
     """
-    def test_caumanns(self):
+    def test_lancaster(self):
         """test abydos.stemmer.lancaster
         """
         # base case
