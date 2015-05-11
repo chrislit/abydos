@@ -65,9 +65,11 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
         between x values.
     min_val -- the minimum permitted value in the returned list
     max_val -- the maximum permitted value in the returned list
-    rand -- a string to indicate the random distribution used:
+    rand -- a string or function to indicate the random distribution used:
         'normal' (default), 'uniform' (standard in the R version),
         or 'laplace' (requires Numpy)
+        If a function is supplied, it should take one argument (the value
+        passed as amount).
 
     Description:
     (adapted from R documentation as this is ported directly from the R code)
@@ -142,7 +144,14 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
         """
         return normalvariate(0, amount)
 
-    if rfunc == 'uniform':
+    def _rand_user():
+        """Return a random number using a user-defined random number generator
+        """
+        return rfunc(amount)
+
+    if callable(rfunc):
+        _rand = _rand_user
+    elif rfunc == 'uniform':
         _rand = _rand_uniform
     elif rfunc == 'laplace':
         _rand = _rand_laplace
