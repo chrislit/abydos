@@ -1265,33 +1265,69 @@ def caumanns(word):
     Description:
     Caumanns' stemmer is described in his article at
     http://edocs.fu-berlin.de/docs/servlets/MCRFileNodeServlet/FUDOCS_derivate_000000000350/tr-b-99-16.pdf
+    This implementation is based on the GermanStemFilter described at
+    http://www.evelix.ch/unternehmen/Blog/evelix/2013/11/11/inner-workings-of-the-german-analyzer-in-lucene
     """
-    word = unicodedata.normalize('NFC', _unicode(word))
+    if not len(word):
+        return ''
+
+    upper_initial = word[0].isupper()
+    word = unicodedata.normalize('NFC', _unicode(word.lower()))
 
     # # Part 2: Substitution
+    # 1. Change umlauts to corresponding vowels & ß to ss
+    _umlauts = dict(zip([ord(_) for _ in 'äöü'], 'aou'))
+    word = word.translate(_umlauts)
+    word = word.replace('ß', 'ss')
+
+    # 2. Change second of doubled characters to *
+    word = ''.join([word[0]] + ['*' if word[i] == word[i-1] else word[i] for
+                                i in range(1, len(word))])
+
+    # 3. Replace sch, ch, ei, ie with $, §, %, &
+    word = word.replace('sch', '$')
+    word = word.replace('ch', '§')
+    word = word.replace('ei', '%')
+    word = word.replace('ie', '&')
+    word = word.replace('ig', '#')
+    word = word.replace('st', '!')
 
     # # Part 1: Recursive Context-Free Stripping
-
-    # Remove the following 7 suffixes recursively
-    while True:
-        if len(word) < 4:
-            break
+    # 1. Remove the following 7 suffixes recursively
+    while len(word) > 3:
         if (((len(word) > 4 and word[-2:] in {'em', 'er'}) or
              (len(word) > 5 and word[-2:] == 'nd'))):
             word = word[:-2]
-            continue
-        if (((word[-1] in {'e', 's', 'n'}) or
-             (not word[1].isupper() and word[-1] == 't'))):
+        elif (((word[-1] in {'e', 's', 'n'}) or
+             (not upper_initial and word[-1] in {'t', '!'}))):
             word = word[:-1]
-            continue
         else:
             break
 
-    # Then remove ge- and -ge
-    if len(word) > 3:  # TODO: verify restriction
-        if word[:2] == 'ge':
-            word = word[2:]
-        if word[-2:] == 'ge':
-            word = word[:-2]
+    # Additional optimizations:
+    if len(word) > 5 and word[-5:] == 'erin*':
+        word = word[:-1]
+    if word[-1] == 'z':
+        word = word[:-1] + 'z'
+
+    # Reverse substitutions:
+    word = word.replace('$', 'sch')
+    word = word.replace('§', 'ch')
+    word = word.replace('%', 'ei')
+    word = word.replace('&', 'ie')
+    word = word.replace('#', 'ig')
+    word = word.replace('!', 'st')
+
+    # Expand doubled
+    word = ''.join([word[0]] + [word[i-1] if word[i] == '*' else word[i] for
+                                i in range(1, len(word))])
+
+    # Finally, convert gege to ge
+    if len(word) > 4:
+        word = word.replace('gege', 'ge', 1)
+
+    # Re-uppercase the first letter if it came in as uppercase
+    if upper_initial:
+        word = word[0].upper() + word[1:]
 
     return word
