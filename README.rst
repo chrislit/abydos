@@ -16,7 +16,7 @@ Abydos
 .. image:: https://img.shields.io/badge/Pylint-9.99/10-green.svg
     :alt: Pylint Score
 
-.. image:: https://img.shields.io/badge/PEP8-1-green.svg
+.. image:: https://img.shields.io/badge/PEP8-0-brightgreen.svg
     :alt: PEP8 Errors
 
 .. image:: https://img.shields.io/pypi/v/abydos.svg
