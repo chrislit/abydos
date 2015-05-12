@@ -143,7 +143,7 @@ def omission_key(word):
     in Scientific and Scholarly Text." Communications of the ACM, 27(4).
     358--368. <http://dl.acm.org/citation.cfm?id=358048>
     """
-    _consonants = frozenset('JKQXZVWYBFMGPDHCLNTSR')
+    _consonants = tuple('JKQXZVWYBFMGPDHCLNTSR')
 
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = ''.join([c for c in word if c in
