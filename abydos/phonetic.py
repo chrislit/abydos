@@ -76,7 +76,8 @@ def russell_index(word):
     word = word.rstrip('SZ')  # discard /[sz]$/ (rule 3)
 
     # translate according to Russell's mapping
-    word = ''.join([c for c in word if c in tuple('ABCDEFGIKLMNOPQRSTUVXYZ')])
+    word = ''.join([c for c in word if c in
+                    frozenset('ABCDEFGIKLMNOPQRSTUVXYZ')])
     sdx = word.translate(_russell_translation)
 
     # remove any 1s after the first occurrence
@@ -103,7 +104,7 @@ def russell_index_num_to_alpha(num):
     """
     _russell_num_translation = dict(zip([ord(_) for _ in '12345678'],
                                         'ABCDLMNR'))
-    num = ''.join([c for c in _unicode(num) if c in tuple('12345678')])
+    num = ''.join([c for c in _unicode(num) if c in frozenset('12345678')])
     if num:
         return num.translate(_russell_num_translation)
     else:
@@ -162,7 +163,7 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join([c for c in word if c in
-                    tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
     # Nothing to convert, return base case
     if not word:
@@ -290,7 +291,7 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
                   'Z': ('ZHDZH', 'ZDZH', 'ZSCH', 'ZDZ', 'ZHD', 'ZSH', 'ZD',
                         'ZH', 'ZS', 'Z')}
 
-    _vowels = tuple('AEIJOUY')
+    _vowels = frozenset('AEIJOUY')
     dms = ['']  # initialize empty code list
 
     # Require a maxlength of at least 6 and not more than 64
@@ -303,7 +304,7 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join([c for c in word if c in
-                    tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
     # Nothing to convert, return base case
     if not word:
@@ -370,18 +371,18 @@ def koelner_phonetik(word):
     def _after(word, i, letters):
         """Return True if word[i] follows one of the supplied letters
         """
-        if i > 0 and word[i-1] in tuple(letters):
+        if i > 0 and word[i-1] in frozenset(letters):
             return True
         return False
 
     def _before(word, i, letters):
         """Return True if word[i] precedes one of the supplied letters
         """
-        if i+1 < len(word) and word[i+1] in tuple(letters):
+        if i+1 < len(word) and word[i+1] in frozenset(letters):
             return True
         return False
 
-    _vowels = tuple('AEIJYOU')
+    _vowels = frozenset('AEIJYOU')
 
     sdx = ''
 
@@ -392,7 +393,7 @@ def koelner_phonetik(word):
     word = word.replace('Ö', 'OE')
     word = word.replace('Ü', 'UE')
     word = ''.join([c for c in word if c in
-                    tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
     # Nothing to convert, return base case
     if not word:
@@ -457,7 +458,7 @@ def koelner_phonetik_num_to_alpha(num):
     """
     _koelner_num_translation = dict(zip([ord(_) for _ in '012345678'],
                                         'APTFKLNRS'))
-    num = ''.join([c for c in _unicode(num) if c in tuple('012345678')])
+    num = ''.join([c for c in _unicode(num) if c in frozenset('012345678')])
     return num.translate(_koelner_num_translation)
 
 
@@ -484,7 +485,7 @@ def nysiis(word, maxlength=6):
     if maxlength:
         maxlength = max(6, maxlength)
 
-    _vowels = tuple('AEIOU')
+    _vowels = frozenset('AEIOU')
 
     word = ''.join([c for c in word.upper() if c.isalpha()])
     word = word.replace('ß', 'SS')
@@ -579,7 +580,8 @@ def mra(word):
         return word
     word = word.upper()
     word = word.replace('ß', 'SS')
-    word = word[0]+''.join([c for c in word[1:] if c not in tuple('AEIOU')])
+    word = word[0]+''.join([c for c in word[1:] if
+                            c not in frozenset('AEIOU')])
     word = _delete_consecutive_repeats(word)
     if len(word) > 6:
         word = word[:3]+word[-3:]
@@ -603,9 +605,9 @@ def metaphone(word, maxlength=float('inf')):
     http://aspell.net/metaphone/metaphone-kuhn.txt
     """
     # pylint: disable=too-many-branches
-    _vowels = tuple('AEIOU')
-    _frontv = tuple('EIY')
-    _varson = tuple('CSPTG')
+    _vowels = frozenset('AEIOU')
+    _frontv = frozenset('EIY')
+    _varson = frozenset('CSPTG')
 
     # Require a maxlength of at least 4
     if maxlength is not None:
@@ -795,7 +797,7 @@ def double_metaphone(word, maxlength=float('inf')):
     def _is_vowel(pos):
         """Return true if the character at word[pos] is a vowel
         """
-        if pos >= 0 and word[pos] in tuple('AEIOUY'):
+        if pos >= 0 and word[pos] in frozenset('AEIOUY'):
             return True
         return False
 
@@ -838,7 +840,7 @@ def double_metaphone(word, maxlength=float('inf')):
         if current >= length:
             break
 
-        if _get_at(current) in tuple('AEIOUY'):
+        if _get_at(current) in frozenset('AEIOUY'):
             if current == 0:
                 # All init vowels now map to 'A'
                 (primary, secondary) = _metaph_add('A')
@@ -1475,11 +1477,11 @@ def caverphone(word, version=2):
     A description of version 2 of the algorithm can be found at:
     http://caversham.otago.ac.nz/files/working/ctp150804.pdf
     """
-    _vowels = tuple('aeiou')
+    _vowels = frozenset('aeiou')
 
     word = word.lower()
     word = ''.join([c for c in word if c in
-                    tuple('abcdefghijklmnopqrstuvwxyz')])
+                    frozenset('abcdefghijklmnopqrstuvwxyz')])
 
     # the main replacemet algorithm
     if version != 1 and word.endswith('e'):
@@ -1626,7 +1628,7 @@ def alpha_sis(word, maxlength=14):
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join([c for c in word if c in
-                    tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
     # Clamp maxlength to [4, 64]
     if maxlength is not None:
@@ -1851,14 +1853,14 @@ def phonex(word, maxlength=4, zero_pad=True):
             if name[i+1:i+2] != 'C':
                 code = '3'
         elif name[i] == 'L':
-            if name[i+1:i+2] in tuple('AEIOUY') or i+1 == len(name):
+            if name[i+1:i+2] in frozenset('AEIOUY') or i+1 == len(name):
                 code = '4'
         elif name[i] in 'MN':
-            if name[i+1:i+2] in tuple('DG'):
+            if name[i+1:i+2] in frozenset('DG'):
                 name = name[:i+1] + name[i] + name[i+2:]
             code = '5'
         elif name[i] == 'R':
-            if name[i+1:i+2] in tuple('AEIOUY') or i+1 == len(name):
+            if name[i+1:i+2] in frozenset('AEIOUY') or i+1 == len(name):
                 code = '6'
 
         if code != last and code != '0' and i != 0:
@@ -1907,7 +1909,7 @@ def phonem(word):
     word = word.translate(_phonem_translation)
 
     return ''.join([c for c in _delete_consecutive_repeats(word)
-                    if c in tuple('ABCDLMNORSUVWXYÖ')])
+                    if c in frozenset('ABCDLMNORSUVWXYÖ')])
 
 
 def phonix(word, maxlength=4, zero_pad=True):
@@ -1930,31 +1932,31 @@ def phonix(word, maxlength=4, zero_pad=True):
     https://metacpan.org/pod/Text::Phonetic::Phonix
     """
     # pylint: disable=too-many-branches
-    def _start_repl(word, src, tar, post=None):
+    def _start_repl(word, src, tar, post=frozenset()):
         """replace src with tar at the start of word
         in the environment pre__post
         """
         if post:
-            for i in tuple(post):
+            for i in post:
                 if word.startswith(src+i):
                     return tar + word[len(src):]
         elif word.startswith(src):
             return tar + word[len(src):]
         return word
 
-    def _end_repl(word, src, tar, pre=None):
+    def _end_repl(word, src, tar, pre=frozenset()):
         """replace src with tar at the end of word
         in the environment pre__post
         """
         if pre:
-            for i in tuple(pre):
+            for i in pre:
                 if word.endswith(i+src):
                     return word[:-len(src)] + tar
         elif word.endswith(src):
             return word[:-len(src)] + tar
         return word
 
-    def _mid_repl(word, src, tar, pre=None, post=None):
+    def _mid_repl(word, src, tar, pre=frozenset(), post=frozenset()):
         """replace src with tar in the middle of word
         in the environment pre__post
         """
@@ -1969,19 +1971,19 @@ def phonix(word, maxlength=4, zero_pad=True):
             return (word[0] + _all_repl(word[1:-1], src, tar, pre, post) +
                     word[-1])
 
-    def _all_repl(word, src, tar, pre=None, post=None):
+    def _all_repl(word, src, tar, pre=frozenset(), post=frozenset()):
         """replace src with tar anywhere in word
         in the environment pre__post
         """
         if pre or post:
             if post:
-                post = tuple(post)
+                post = post
             else:
-                post = tuple(('',))
+                post = frozenset(('',))
             if pre:
-                pre = tuple(pre)
+                pre = pre
             else:
-                pre = tuple(('',))
+                pre = frozenset(('',))
 
             for i, j in tuple((i, j) for i in pre for j in post):
                 word = word.replace(i+src+j, i+tar+j)
@@ -1989,8 +1991,8 @@ def phonix(word, maxlength=4, zero_pad=True):
         else:
             return word.replace(src, tar)
 
-    _vow = 'AEIOU'
-    _con = 'BCDFGHJKLMNPQRSTVWXYZ'
+    _vow = frozenset('AEIOU')
+    _con = frozenset('BCDFGHJKLMNPQRSTVWXYZ')
 
     _phonix_substitutions = [(_all_repl, 'DG', 'G'),
                              (_all_repl, 'CO', 'KO'),
@@ -2095,11 +2097,11 @@ def phonix(word, maxlength=4, zero_pad=True):
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join([c for c in word if c in
-                    tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
     if word:
         for trans in _phonix_substitutions:
             word = trans[0](word, *trans[1:])
-        if word[0] in tuple('AEIOUY'):
+        if word[0] in frozenset('AEIOUY'):
             sdx = 'v' + word[1:].translate(_phonix_translation)
         else:
             sdx = word[0] + word[1:].translate(_phonix_translation)
@@ -2142,10 +2144,10 @@ def sfinxbis(word, maxlength=None):
                    ' LA ', ' LE ', ' MAC ', ' MC ', ' VAN ', ' VON ', ' Y ',
                    ' S:T ')
 
-    _harde_vokaler = tuple('AOUÅ')
-    _mjuka_vokaler = tuple('EIYÄÖ')
-    _konsonanter = tuple('BCDFGHJKLMNPQRSTVWXZ')
-    _alfabet = tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ')
+    _harde_vokaler = frozenset('AOUÅ')
+    _mjuka_vokaler = frozenset('EIYÄÖ')
+    _konsonanter = frozenset('BCDFGHJKLMNPQRSTVWXZ')
+    _alfabet = frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ')
 
     _sfinxbis_translation = dict(zip([ord(_) for _ in
                                       'BCDFGHJKLMNPQRSTVZAOUÅEIYÄÖ'],
@@ -2199,7 +2201,7 @@ def sfinxbis(word, maxlength=None):
         elif ordet[0:1] == 'Q':
             ordet = 'K' + ordet[1:]
         elif (ordet[0:2] == 'CH' and
-              ordet[2:3] in _mjuka_vokaler + _harde_vokaler):
+              ordet[2:3] in frozenset(_mjuka_vokaler | _harde_vokaler)):
             ordet = '#' + ordet[2:]
         elif ordet[0:1] == 'C' and ordet[1:2] in _harde_vokaler:
             ordet = 'K' + ordet[1:]
@@ -3880,7 +3882,7 @@ def spfc(word):
         """
         # filter out non A-Z
         name = ''.join([_ for _ in name if _ in
-                        tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+                        frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
         # 1. In the field, convert DK to K, DT to T, SC to S, KN to N,
         # and MN to N
@@ -3894,7 +3896,7 @@ def spfc(word):
         # field.
         if name:
             name = name[0] + ''.join([_ for _ in name[1:] if _ not in
-                                      tuple('AEIOUWHY')])
+                                      frozenset('AEIOUWHY')])
         return name
 
     names = [steps_one_to_three(_) for _ in names]
