@@ -494,21 +494,20 @@ def nysiis(word, maxlength=6):
     if not word:
         return ''
 
-    if word.startswith('MAC'):
+    if word[:3] == 'MAC':
         word = 'MCC'+word[3:]
-    if word.startswith('KN'):
+    if word[:2] == 'KN':
         word = 'NN'+word[2:]
-    if word.startswith('K'):
+    if word[:1] == 'K':
         word = 'C'+word[1:]
-    if word.startswith('PH') or word.startswith('PF'):
+    if word[:2] in frozenset(['PH', 'PF']):
         word = 'FF'+word[2:]
-    if word.startswith('SCH'):
+    if word[:3] == 'SCH':
         word = 'SSS'+word[3:]
 
-    if word.endswith('EE') or word.endswith('IE'):
+    if word[-2:] == 'EE' or word[-2:] == 'IE':
         word = word[:-2]+'Y'
-    if ((word.endswith('DT') or word.endswith('RT') or word.endswith('RD') or
-         word.endswith('NT') or word.endswith('ND'))):
+    if word[-2:] in frozenset(['DT', 'RT', 'RD', 'NT', 'ND']):
         word = word[:-2]+'D'
 
     key = word[0]
