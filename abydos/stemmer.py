@@ -546,8 +546,8 @@ def porter2(word, early_english=False):
             word += 'e'
 
     # Step 1c
-    if (len(word) > 2 and word[-1] in frozenset('Yy') and
-        word[-2] not in _vowels):
+    if ((len(word) > 2 and word[-1] in frozenset('Yy') and
+         word[-2] not in _vowels)):
         word = word[:-1] + 'i'
 
     # Step 2
@@ -769,8 +769,8 @@ def sb_german(word, alternate_vowels=False):
     elif word[-4:] in frozenset(['lich', 'heit']):
         if len(word[r2_start:]) >= 4:
             word = word[:-4]
-            if (word[-2:] in frozenset(['er', 'en']) and
-                len(word[r1_start:]) >= 2):
+            if ((word[-2:] in frozenset(['er', 'en']) and
+                 len(word[r1_start:]) >= 2)):
                 word = word[:-2]
     elif word[-4:] == 'keit':
         if len(word[r2_start:]) >= 4:
@@ -822,8 +822,8 @@ def sb_dutch(word):
     def _undouble(word):
         """Undouble endings -kk, -dd, and -tt
         """
-        if (len(word) > 1 and word[-1] == word[-2] and
-            word[-1] in frozenset('kdt')):
+        if ((len(word) > 1 and word[-1] == word[-2] and
+             word[-1] in frozenset('kdt'))):
             return word[:-1]
         return word
 

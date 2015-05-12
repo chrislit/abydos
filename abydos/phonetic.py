@@ -911,7 +911,8 @@ def double_metaphone(word, maxlength=float('inf')):
                                  frozenset(["ORCHES", "ARCHIT", "ORCHID"])) or
                       _string_at((current + 2), 1, frozenset(["T", "S"])) or
                       ((_string_at((current - 1), 1,
-                                   frozenset(["A", "O", "U", "E"])) or (current == 0)) and
+                                   frozenset(["A", "O", "U", "E"])) or
+                        (current == 0)) and
                           # e.g., 'wachtler', 'wechsler', but not 'tichner'
                           _string_at((current + 2), 1,
                                      frozenset(["L", "R", "N", "M", "B", "H",
@@ -3938,7 +3939,7 @@ def spfc(word):
         elif names[1][-3:] == 'STR':
             code += '9'
             names[1] = names[1][:-3]
-        elif (names[1][-2:] in frozenset(['SR', 'TN', 'TD'])):
+        elif names[1][-2:] in frozenset(['SR', 'TN', 'TD']):
             code += '9'
             names[1] = names[1][:-2]
         elif names[1][-3:] == 'DRS':
