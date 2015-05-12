@@ -1732,15 +1732,15 @@ def fuzzy_soundex(word, maxlength=5, zero_pad=True):
         else:
             return '0'
 
-    if word[:2] in ('CS', 'CZ', 'TS', 'TZ'):
+    if word[:2] in frozenset(['CS', 'CZ', 'TS', 'TZ']):
         word = 'SS' + word[2:]
     elif word[:2] == 'GN':
         word = 'NN' + word[2:]
-    elif word[:2] in ('HR', 'WR'):
+    elif word[:2] in frozenset(['HR', 'WR']):
         word = 'RR' + word[2:]
     elif word[:2] == 'HW':
         word = 'WW' + word[2:]
-    elif word[:2] in ('KN', 'NG'):
+    elif word[:2] in frozenset(['KN', 'NG']):
         word = 'NN' + word[2:]
 
     if word[-2:] == 'CH':
@@ -1782,7 +1782,7 @@ def fuzzy_soundex(word, maxlength=5, zero_pad=True):
     # remove repeating characters
     sdx = _delete_consecutive_repeats(sdx)
 
-    if word[0] in 'HWY':
+    if word[0] in frozenset('HWY'):
         sdx = word[0] + sdx
     else:
         sdx = word[0] + sdx[1:]
