@@ -402,9 +402,9 @@ def koelner_phonetik(word):
     for i in _range(len(word)):
         if word[i] in _vowels:
             sdx += '0'
-        elif word[i] is 'B':
+        elif word[i] == 'B':
             sdx += '1'
-        elif word[i] is 'P':
+        elif word[i] == 'P':
             if _before(word, i, frozenset('H')):
                 sdx += '3'
             else:
@@ -418,7 +418,7 @@ def koelner_phonetik(word):
             sdx += '3'
         elif word[i] in frozenset('GKQ'):
             sdx += '4'
-        elif word[i] is 'C':
+        elif word[i] == 'C':
             if _after(word, i, frozenset('SZ')):
                 sdx += '8'
             elif i == 0:
@@ -430,16 +430,16 @@ def koelner_phonetik(word):
                 sdx += '4'
             else:
                 sdx += '8'
-        elif word[i] is 'X':
+        elif word[i] == 'X':
             if _after(word, i, frozenset('CKQ')):
                 sdx += '8'
             else:
                 sdx += '48'
-        elif word[i] is 'L':
+        elif word[i] == 'L':
             sdx += '5'
         elif word[i] in frozenset('MN'):
             sdx += '6'
-        elif word[i] is 'R':
+        elif word[i] == 'R':
             sdx += '7'
         elif word[i] in frozenset('SZ'):
             sdx += '8'
