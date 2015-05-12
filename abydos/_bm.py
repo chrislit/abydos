@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """abydos.bm
 
-Copyright 2014 by Christopher C. Little.
+Copyright 2014-2015 by Christopher C. Little.
 This file is part of Abydos.
 
 This file is based on Alexander Beider and Stephen P. Morse's implementation of
@@ -46,10 +46,10 @@ _LANG_DICT = {'any': L_ANY, 'arabic': L_ARABIC, 'cyrillic': L_CYRILLIC,
 BMDATA['gen']['discards'] = ('da ', 'dal ', 'de ', 'del ', 'dela ', 'de la ',
                              'della ', 'des ', 'di ', 'do ', 'dos ', 'du ',
                              'van ', 'von ', 'd\'')
-BMDATA['sep']['discards'] = set(['al', 'el', 'da', 'dal', 'de', 'del', 'dela',
-                                 'de la', 'della', 'des', 'di', 'do', 'dos',
-                                 'du', 'van', 'von'])
-BMDATA['ash']['discards'] = set(['bar', 'ben', 'da', 'de', 'van', 'von'])
+BMDATA['sep']['discards'] = frozenset(['al', 'el', 'da', 'dal', 'de', 'del',
+                                       'dela', 'de la', 'della', 'des', 'di',
+                                       'do', 'dos', 'du', 'van', 'von'])
+BMDATA['ash']['discards'] = frozenset(['bar', 'ben', 'da', 'de', 'van', 'von'])
 
 # format of rules array
 _PATTERN_POS = 0
@@ -550,7 +550,7 @@ def _bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     word = unicodedata.normalize('NFC', _unicode(word.strip().lower()))
 
     name_mode = name_mode.strip().lower()[:3]
-    if name_mode not in set(['ash', 'sep', 'gen']):
+    if name_mode not in frozenset(['ash', 'sep', 'gen']):
         name_mode = 'gen'
 
     if match_mode != 'exact':
