@@ -1845,17 +1845,17 @@ def phonex(word, maxlength=4, zero_pad=True):
 
     if name:
         # Phonetic equivalents of first character
-        if name[0] in 'AEIOUY':
+        if name[0] in frozenset('AEIOUY'):
             name = 'A' + name[1:]
-        elif name[0] in 'BP':
+        elif name[0] in frozenset('BP'):
             name = 'B' + name[1:]
-        elif name[0] in 'VF':
+        elif name[0] in frozenset('VF'):
             name = 'F' + name[1:]
-        elif name[0] in 'KQC':
+        elif name[0] in frozenset('KQC'):
             name = 'C' + name[1:]
-        elif name[0] in 'JG':
+        elif name[0] in frozenset('JG'):
             name = 'G' + name[1:]
-        elif name[0] in 'ZS':
+        elif name[0] in frozenset('ZS'):
             name = 'S' + name[1:]
 
         name_code = last = name[0]
@@ -1863,17 +1863,17 @@ def phonex(word, maxlength=4, zero_pad=True):
     # MODIFIED SOUNDEX CODE
     for i in _range(1, len(name)):
         code = '0'
-        if name[i] in 'BPFV':
+        if name[i] in frozenset('BPFV'):
             code = '1'
-        elif name[i] in 'CSKGJQXZ':
+        elif name[i] in frozenset('CSKGJQXZ'):
             code = '2'
-        elif name[i] in 'DT':
+        elif name[i] in frozenset('DT'):
             if name[i+1:i+2] != 'C':
                 code = '3'
         elif name[i] == 'L':
             if name[i+1:i+2] in frozenset('AEIOUY') or i+1 == len(name):
                 code = '4'
-        elif name[i] in 'MN':
+        elif name[i] in frozenset('MN'):
             if name[i+1:i+2] in frozenset('DG'):
                 name = name[:i+1] + name[i] + name[i+2:]
             code = '5'
@@ -3364,7 +3364,7 @@ def phonet(word, mode=1, lang='de', trace=False):
         phonet_hash[''] = -1
 
         # German and international umlauts
-        for j in 'ÀÁÂÃÅÄÆÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ':
+        for j in frozenset('ÀÁÂÃÅÄÆÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ'):
             alpha_pos[j] = 1
             phonet_hash[j] = -1
 
