@@ -371,14 +371,14 @@ def koelner_phonetik(word):
     def _after(word, i, letters):
         """Return True if word[i] follows one of the supplied letters
         """
-        if i > 0 and word[i-1] in frozenset(letters):
+        if i > 0 and word[i-1] in letters:
             return True
         return False
 
     def _before(word, i, letters):
         """Return True if word[i] precedes one of the supplied letters
         """
-        if i+1 < len(word) and word[i+1] in frozenset(letters):
+        if i+1 < len(word) and word[i+1] in letters:
             return True
         return False
 
@@ -402,46 +402,46 @@ def koelner_phonetik(word):
     for i in _range(len(word)):
         if word[i] in _vowels:
             sdx += '0'
-        elif word[i] in 'B':
+        elif word[i] is 'B':
             sdx += '1'
-        elif word[i] in 'P':
-            if _before(word, i, 'H'):
+        elif word[i] is 'P':
+            if _before(word, i, frozenset('H')):
                 sdx += '3'
             else:
                 sdx += '1'
-        elif word[i] in 'DT':
-            if _before(word, i, 'CSZ'):
+        elif word[i] in frozenset('DT'):
+            if _before(word, i, frozenset('CSZ')):
                 sdx += '8'
             else:
                 sdx += '2'
-        elif word[i] in 'FVW':
+        elif word[i] in frozenset('FVW'):
             sdx += '3'
-        elif word[i] in 'GKQ':
+        elif word[i] in frozenset('GKQ'):
             sdx += '4'
-        elif word[i] in 'C':
-            if _after(word, i, 'SZ'):
+        elif word[i] is 'C':
+            if _after(word, i, frozenset('SZ')):
                 sdx += '8'
             elif i == 0:
-                if _before(word, i, 'AHKLOQRUX'):
+                if _before(word, i, frozenset('AHKLOQRUX')):
                     sdx += '4'
                 else:
                     sdx += '8'
-            elif _before(word, i, 'AHKOQUX'):
+            elif _before(word, i, frozenset('AHKOQUX')):
                 sdx += '4'
             else:
                 sdx += '8'
-        elif word[i] in 'X':
-            if _after(word, i, 'CKQ'):
+        elif word[i] is 'X':
+            if _after(word, i, frozenset('CKQ')):
                 sdx += '8'
             else:
                 sdx += '48'
-        elif word[i] in 'L':
+        elif word[i] is 'L':
             sdx += '5'
-        elif word[i] in 'MN':
+        elif word[i] in frozenset('MN'):
             sdx += '6'
-        elif word[i] in 'R':
+        elif word[i] is 'R':
             sdx += '7'
-        elif word[i] in 'SZ':
+        elif word[i] in frozenset('SZ'):
             sdx += '8'
 
     sdx = _delete_consecutive_repeats(sdx)
