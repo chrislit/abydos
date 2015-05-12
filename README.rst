@@ -57,6 +57,7 @@ Suggested for testing & QA:
 - Nose        (for unit testing)
 - coverage.py (for code coverage checking)
 - Pylint      (for code quality checking)
+- PEP8        (for code quality checking)
 
 -----
 
