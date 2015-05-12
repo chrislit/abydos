@@ -108,11 +108,11 @@ def skeleton_key(word):
     in Scientific and Scholarly Text." Communications of the ACM, 27(4).
     358--368. <http://dl.acm.org/citation.cfm?id=358048>
     """
-    _vowels = 'AEIOU'
+    _vowels = frozenset('AEIOU')
 
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = ''.join([c for c in word if c in
-                    tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
     start = word[0:1]
     consonant_part = ''
@@ -143,11 +143,11 @@ def omission_key(word):
     in Scientific and Scholarly Text." Communications of the ACM, 27(4).
     358--368. <http://dl.acm.org/citation.cfm?id=358048>
     """
-    _consonants = 'JKQXZVWYBFMGPDHCLNTSR'
+    _consonants = frozenset('JKQXZVWYBFMGPDHCLNTSR')
 
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = ''.join([c for c in word if c in
-                    tuple('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
 
     key = ''
 
