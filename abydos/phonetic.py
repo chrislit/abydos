@@ -1502,22 +1502,22 @@ def caverphone(word, version=2):
                     frozenset('abcdefghijklmnopqrstuvwxyz')])
 
     # the main replacemet algorithm
-    if version != 1 and word.endswith('e'):
+    if version != 1 and word[-1:] == 'e':
         word = word[:-1]
     if word:
-        if word.startswith('cough'):
+        if word[:5] == 'cough':
             word = 'cou2f'+word[5:]
-        if word.startswith('rough'):
+        if word[:5] == 'rough':
             word = 'rou2f'+word[5:]
-        if word.startswith('tough'):
+        if word[:5] == 'tough':
             word = 'tou2f'+word[5:]
-        if word.startswith('enough'):
+        if word[:6] == 'enough':
             word = 'enou2f'+word[6:]
-        if version != 1 and word.startswith('trough'):
+        if version != 1 and word[:6] == 'trough':
             word = 'trou2f'+word[6:]
-        if word.startswith('gn'):
+        if word[:2] == 'gn':
             word = '2n'+word[2:]
-        if word.endswith('mb'):
+        if word[-2:] == 'mb':
             word = word[:-1]+'2'
         word = word.replace('cq', '2q')
         word = word.replace('ci', 'si')
@@ -1545,9 +1545,9 @@ def caverphone(word, version=2):
         word = word.replace('u', '3')
         if version != 1:
             word = word.replace('j', 'y')
-            if word.startswith('y3'):
+            if word[:2] == 'y3':
                 word = 'Y3'+word[2:]
-            if word.startswith('y'):
+            if word[:1] == 'y':
                 word = 'A'+word[1:]
             word = word.replace('y', '3')
         word = word.replace('3gh3', '3kh3')
@@ -1566,22 +1566,22 @@ def caverphone(word, version=2):
         word = word.replace('wh3', 'Wh3')
         if version == 1:
             word = word.replace('why', 'Why')
-        if version != 1 and word.endswith('w'):
+        if version != 1 and word[-1:] == 'w':
             word = word[:-1]+'3'
         word = word.replace('w', '2')
-        if word.startswith('h'):
+        if word[:1] == 'h':
             word = 'A'+word[1:]
         word = word.replace('h', '2')
         word = word.replace('r3', 'R3')
         if version == 1:
             word = word.replace('ry', 'Ry')
-        if version != 1 and word.endswith('r'):
+        if version != 1 and word[-1:] == 'r':
             word = word[:-1]+'3'
         word = word.replace('r', '2')
         word = word.replace('l3', 'L3')
         if version == 1:
             word = word.replace('ly', 'Ly')
-        if version != 1 and word.endswith('l'):
+        if version != 1 and word[-1:] == 'l':
             word = word[:-1]+'3'
         word = word.replace('l', '2')
         if version == 1:
@@ -1589,7 +1589,7 @@ def caverphone(word, version=2):
             word = word.replace('y3', 'Y3')
             word = word.replace('y', '2')
         word = word.replace('2', '')
-        if version != 1 and word.endswith('3'):
+        if version != 1 and word[-1:] == '3':
             word = word[:-1]+'A'
         word = word.replace('3', '')
 
@@ -1825,16 +1825,16 @@ def phonex(word, maxlength=4, zero_pad=True):
     # This is faster than 'moving' all subsequent letters.
 
     # Remove any trailing Ss
-    while name.endswith('S'):
+    while name[-1:] == 'S':
         name = name[:-1]
 
     # Phonetic equivalents of first 2 characters
     # Works since duplicate letters are ignored
-    if name.startswith('KN'):
+    if name[:2] == 'KN':
         name = 'N' + name[2:]  # KN.. == N..
-    elif name.startswith('PH'):
+    elif name[:2] == 'PH':
         name = 'F' + name[2:]  # PH.. == F.. (H ignored anyway)
-    elif name.startswith('WR'):
+    elif name[:2] == 'WR':
         name = 'R' + name[2:]  # WR.. == R..
 
     if name:
@@ -3929,23 +3929,22 @@ def spfc(word):
     # second digit of the code. Use as many letters as possible and remove
     # after coding.
     if names[1]:
-        if names[1].endswith('STN') or names[1].endswith('PRS'):
+        if names[1][-3:] == 'STN' or names[1][-3:] == 'PRS':
             code += '8'
             names[1] = names[1][:-3]
-        elif names[1].endswith('SN'):
+        elif names[1][-2:] == 'SN':
             code += '8'
             names[1] = names[1][:-2]
-        elif names[1].endswith('STR'):
+        elif names[1][-3:] == 'STR':
             code += '9'
             names[1] = names[1][:-3]
-        elif (names[1].endswith('SR') or names[1].endswith('TN') or
-              names[1].endswith('TD')):
+        elif (names[1][-2:] in frozenset(['SR', 'TN', 'TD'])):
             code += '9'
             names[1] = names[1][:-2]
-        elif names[1].endswith('DRS'):
+        elif names[1][-3:] == 'DRS':
             code += '7'
             names[1] = names[1][:-3]
-        elif names[1].endswith('TR') or names[1].endswith('MN'):
+        elif names[1][-2:] in frozenset(['TR', 'MN']):
             code += '7'
             names[1] = names[1][:-2]
         else:
