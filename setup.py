@@ -15,7 +15,7 @@ def readfile(fn):
 setup(
     name='abydos',
     packages=find_packages(exclude=['tests*']),
-    version='0.1.1',
+    version='0.1.2',
     description='Abydos NLP/IR library',
     author='Christopher C. Little',
     author_email='chrisclittle+abydos@gmail.com',
