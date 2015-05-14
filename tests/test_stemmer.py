@@ -42,6 +42,40 @@ class LovinsTestCases(unittest.TestCase):
         # base case
         self.assertEqual(lovins(''), '')
 
+        # test cases from Lovins' "Development of a Stemming Algorithm":
+        # http://www.mt-archive.info/MT-1968-Lovins.pdf
+        self.assertEqual(lovins('magnesia'), 'magnes')
+        self.assertEqual(lovins('magnesite'), 'magnes')
+        self.assertEqual(lovins('magnesian'), 'magnes')
+        self.assertEqual(lovins('magnesium'), 'magnes')
+        self.assertEqual(lovins('magnet'), 'magnet')
+        self.assertEqual(lovins('magnetic'), 'magnet')
+        self.assertEqual(lovins('magneto'), 'magnet')
+        self.assertEqual(lovins('magnetically'), 'magnet')
+        self.assertEqual(lovins('magnetism'), 'magnet')
+        self.assertEqual(lovins('magnetite'), 'magnet')
+        self.assertEqual(lovins('magnetitic'), 'magnet')
+        self.assertEqual(lovins('magnetizable'), 'magnet')
+        self.assertEqual(lovins('magnetization'), 'magnet')
+        self.assertEqual(lovins('magnetize'), 'magnet')
+        self.assertEqual(lovins('magnetometer'), 'magnetometer')
+        self.assertEqual(lovins('magnetometric'), 'magnetometer')
+        self.assertEqual(lovins('magnetometry'), 'magnetometer')
+        self.assertEqual(lovins('magnetomotive'), 'magnetomot')
+        self.assertEqual(lovins('magnetron'), 'magnet')
+        self.assertEqual(lovins('metal'), 'metal')
+        self.assertEqual(lovins('metall'), 'metal')
+        self.assertEqual(lovins('metallically'), 'metal')
+        self.assertEqual(lovins('metalliferous'), 'metallifer')
+        self.assertEqual(lovins('metallize'), 'metal')
+        self.assertEqual(lovins('metallurical'), 'metallurg')
+        self.assertEqual(lovins('metallugy'), 'metallurg')
+        self.assertEqual(lovins('induction'), 'induc')
+        self.assertEqual(lovins('inductance'), 'induc')
+        self.assertEqual(lovins('induced'), 'induc')
+        self.assertEqual(lovins('angular'), 'angl')
+        self.assertEqual(lovins('angle'), 'angl')
+
 
 class PorterTestCases(unittest.TestCase):
     """test cases for abydos.stemmer._m_degree, abydos.stemmer.porter
