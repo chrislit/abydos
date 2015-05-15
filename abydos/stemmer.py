@@ -42,8 +42,6 @@ def lovins(word):
     Description:
     The Lovins stemmer is described in her article at
     http://www.mt-archive.info/MT-1968-Lovins.pdf
-
-    Errors: magnesite,magnetite,magneton
     """
     def condA(word, suffix_len):
         return True
@@ -142,7 +140,7 @@ def lovins(word):
         return word[-suffix_len-1] != 'f'
 
     def condAA(word, suffix_len):
-        return (word[-suffix_len-1] in frozenset(['dflt']) or
+        return (word[-suffix_len-1] in frozenset('dflt') or
                 word[-suffix_len-2:-suffix_len] in frozenset(['ph', 'th', 'er',
                                                               'or', 'es']))
 
@@ -243,6 +241,83 @@ def lovins(word):
             len(word)-suffix_len >= 2 and
             suffix[word[-suffix_len:]](word, suffix_len)):
             word = word[:-suffix_len]
+            break
+
+    def recode9(stem):
+        if stem[-3:-2] in frozenset('aio'):
+            return stem
+        else:
+            return stem[:-2]+'l'
+
+    def recode24(stem):
+        if stem[-4:-3] == 's':
+            return stem
+        else:
+            return stem[:-1]+'s'
+
+    def recode28(stem):
+        if stem[-4:-3] in frozenset('pt'):
+            return stem
+        else:
+            return stem[:-1]+'s'
+
+    def recode30(stem):
+        if stem[-4:-3] == 'm':
+            return stem
+        else:
+            return stem[:-1]+'s'
+
+    def recode32(stem):
+        if stem[-3:-2] == 'n':
+            return stem
+        else:
+            return stem[:-1]+'s'
+
+    recode = {'bb': 'b', 'dd': 'd', 'gg': 'g', 'll': 'l', 'mm': 'm', 'nn': 'n',
+              'pp': 'p', 'rr': 'r', 'ss': 's', 'tt': 't',
+              'iev': 'ief',
+              'uct': 'uc',
+              'umpt': 'um',
+              'rpt': 'rb',
+              'urs': 'ur',
+              'istr': 'ister',
+              'metr': 'meter',
+              'olv': 'olut',
+              'ul': recode9,
+              'bex': 'bic',
+              'dex': 'dic',
+              'pex': 'pic',
+              'tex': 'tic',
+              'ax': 'ac',
+              'ex': 'ec',
+              'ix': 'ic',
+              'lux': 'luc',
+              'uad': 'uas',
+              'vad': 'vas',
+              'cid': 'cis',
+              'lid': 'lis',
+              'erid': 'eris',
+              'pand': 'pans',
+              'end': recode24,
+              'ond': 'ons',
+              'lud': 'lus',
+              'rud': 'rus',
+              'her': recode28,
+              'mit': 'mis',
+              'ent': recode30,
+              'ert': 'ers',
+              'et': recode32,
+              'yt': 'ys',
+              'yz': 'ys'
+              }
+
+    for ending_len in _range(4, 0, -1):
+        ending = word[-ending_len:]
+        if ending in recode:
+            if callable(recode[ending]):
+                word = recode[ending](word)
+            else:
+                word = word[:-ending_len] + recode[ending]
             break
 
     return word
