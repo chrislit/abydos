@@ -43,6 +43,9 @@ def lovins(word):
     The Lovins stemmer is described in her article at
     http://www.mt-archive.info/MT-1968-Lovins.pdf
     """
+    # lowercase, normalize, and compose
+    word = unicodedata.normalize('NFC', _unicode(word.lower()))
+
     def condA(word, suffix_len):
         return True
 
