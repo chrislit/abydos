@@ -46,52 +46,80 @@ def lovins(word):
     # lowercase, normalize, and compose
     word = unicodedata.normalize('NFC', _unicode(word.lower()))
 
-    def condA(word, suffix_len):
+    def cond_a(word, suffix_len):
+        """Lovins' condition A
+        """
         return True
 
-    def condB(word, suffix_len):
+    def cond_b(word, suffix_len):
+        """Lovins' condition B
+        """
         return len(word)-suffix_len >= 3
 
-    def condC(word, suffix_len):
+    def cond_c(word, suffix_len):
+        """Lovins' condition C
+        """
         return len(word)-suffix_len >= 4
 
-    def condD(word, suffix_len):
+    def cond_d(word, suffix_len):
+        """Lovins' condition D
+        """
         return len(word)-suffix_len >= 5
 
-    def condE(word, suffix_len):
+    def cond_e(word, suffix_len):
+        """Lovins' condition E
+        """
         return word[-suffix_len-1] != 'e'
 
-    def condF(word, suffix_len):
+    def cond_f(word, suffix_len):
+        """Lovins' condition F
+        """
         return (len(word)-suffix_len >= 3 and
                 word[-suffix_len-1] != 'e')
 
-    def condG(word, suffix_len):
+    def cond_g(word, suffix_len):
+        """Lovins' condition G
+        """
         return (len(word)-suffix_len >= 3 and
                 word[-suffix_len-1] == 'f')
 
-    def condH(word, suffix_len):
+    def cond_h(word, suffix_len):
+        """Lovins' condition H
+        """
         return (word[-suffix_len-1] == 't' or
                 word[-suffix_len-2:-suffix_len] == 'll')
 
-    def condI(word, suffix_len):
+    def cond_i(word, suffix_len):
+        """Lovins' condition I
+        """
         return word[-suffix_len-1] not in frozenset('oe')
 
-    def condJ(word, suffix_len):
+    def cond_j(word, suffix_len):
+        """Lovins' condition J
+        """
         return word[-suffix_len-1] not in frozenset('ae')
 
-    def condK(word, suffix_len):
+    def cond_k(word, suffix_len):
+        """Lovins' condition K
+        """
         return (len(word)-suffix_len >= 3 and
                 (word[-suffix_len-1] in frozenset('li') or
                  (word[-suffix_len-3] == 'u' and word[-suffix_len-1] == 'e')))
 
-    def condL(word, suffix_len):
+    def cond_l(word, suffix_len):
+        """Lovins' condition L
+        """
         return (word[-suffix_len-1] not in frozenset('uxs') or
                 word[-suffix_len-1] == 'os')
 
-    def condM(word, suffix_len):
+    def cond_m(word, suffix_len):
+        """Lovins' condition M
+        """
         return word[-suffix_len-1] not in frozenset('acem')
 
-    def condN(word, suffix_len):
+    def cond_n(word, suffix_len):
+        """Lovins' condition N
+        """
         if len(word)-suffix_len >= 3:
             if word[-suffix_len-3] == 's':
                 if len(word)-suffix_len >= 4:
@@ -100,143 +128,180 @@ def lovins(word):
                 return True
         return False
 
-    def condO(word, suffix_len):
+    def cond_o(word, suffix_len):
+        """Lovins' condition O
+        """
         return word[-suffix_len-1] in frozenset('li')
 
-    def condP(word, suffix_len):
+    def cond_p(word, suffix_len):
+        """Lovins' condition P
+        """
         return word[-suffix_len-1] != 'c'
 
-    def condQ(word, suffix_len):
+    def cond_q(word, suffix_len):
+        """Lovins' condition Q
+        """
         return (len(word)-suffix_len >= 3 and
                 word[-suffix_len-1] not in frozenset('ln'))
 
-    def condR(word, suffix_len):
+    def cond_r(word, suffix_len):
+        """Lovins' condition R
+        """
         return word[-suffix_len-1] in frozenset('nr')
 
-    def condS(word, suffix_len):
+    def cond_s(word, suffix_len):
+        """Lovins' condition S
+        """
         return (word[-suffix_len-2:-suffix_len] == 'dr' or
                 (word[-suffix_len-1] == 't' and
                  word[-suffix_len-2:-suffix_len] != 'tt'))
 
-    def condT(word, suffix_len):
+    def cond_t(word, suffix_len):
+        """Lovins' condition T
+        """
         return (word[-suffix_len-1] in frozenset('st') and
                 word[-suffix_len-2:-suffix_len] != 'ot')
 
-    def condU(word, suffix_len):
+    def cond_u(word, suffix_len):
+        """Lovins' condition U
+        """
         return word[-suffix_len-1] in frozenset('lmnr')
 
-    def condV(word, suffix_len):
+    def cond_v(word, suffix_len):
+        """Lovins' condition V
+        """
         return word[-suffix_len-1] == 'c'
 
-    def condW(word, suffix_len):
+    def cond_w(word, suffix_len):
+        """Lovins' condition W
+        """
         return word[-suffix_len-1] not in frozenset('su')
 
-    def condX(word, suffix_len):
+    def cond_x(word, suffix_len):
+        """Lovins' condition X
+        """
         return (word[-suffix_len-1] in frozenset('li') or
                 (word[-suffix_len-3:-suffix_len] == 'u' and
                  word[-suffix_len-1] == 'e'))
 
-    def condY(word, suffix_len):
+    def cond_y(word, suffix_len):
+        """Lovins' condition Y
+        """
         return word[-suffix_len-2:-suffix_len] == 'in'
 
-    def condZ(word, suffix_len):
+    def cond_z(word, suffix_len):
+        """Lovins' condition Z
+        """
         return word[-suffix_len-1] != 'f'
 
-    def condAA(word, suffix_len):
+    def cond_aa(word, suffix_len):
+        """Lovins' condition AA
+        """
         return (word[-suffix_len-1] in frozenset('dflt') or
                 word[-suffix_len-2:-suffix_len] in frozenset(['ph', 'th', 'er',
                                                               'or', 'es']))
 
-    def condBB(word, suffix_len):
+    def cond_bb(word, suffix_len):
+        """Lovins' condition BB
+        """
         return (len(word)-suffix_len >= 3 and
                 word[-suffix_len-3:-suffix_len] != 'met' and
                 word[-suffix_len-4:-suffix_len] != 'ryst')
 
-    def condCC(word, suffix_len):
+    def cond_cc(word, suffix_len):
+        """Lovins' condition CC
+        """
         return word[-suffix_len-1] == 'l'
 
-    suffix = {'alistically': condB, 'arizability': condA, 'izationally': condB,
-              'antialness': condA, 'arisations': condA, 'arizations': condA,
-              'entialness': condA, 'allically': condC, 'antaneous': condA,
-              'antiality': condA, 'arisation': condA, 'arization': condA,
-              'ationally': condB, 'ativeness': condA, 'eableness': condE,
-              'entations': condA, 'entiality': condA, 'entialize': condA,
-              'entiation': condA, 'ionalness': condA, 'istically': condA,
-              'itousness': condA, 'izability': condA, 'izational': condA,
-              'ableness': condA, 'arizable': condA, 'entation': condA,
-              'entially': condA, 'eousness': condA, 'ibleness': condA,
-              'icalness': condA, 'ionalism': condA, 'ionality': condA,
-              'ionalize': condA, 'iousness': condA, 'izations': condA,
-              'lessness': condA, 'ability': condA, 'aically': condA,
-              'alistic': condB, 'alities': condA, 'ariness': condE,
-              'aristic': condA, 'arizing': condA, 'ateness': condA,
-              'atingly': condA, 'ational': condB, 'atively': condA,
-              'ativism': condA, 'elihood': condE, 'encible': condA,
-              'entally': condA, 'entials': condA, 'entiate': condA,
-              'entness': condA, 'fulness': condA, 'ibility': condA,
-              'icalism': condA, 'icalist': condA, 'icality': condA,
-              'icalize': condA, 'ication': condG, 'icianry': condA,
-              'ination': condA, 'ingness': condA, 'ionally': condA,
-              'isation': condA, 'ishness': condA, 'istical': condA,
-              'iteness': condA, 'iveness': condA, 'ivistic': condA,
-              'ivities': condA, 'ization': condF, 'izement': condA,
-              'oidally': condA, 'ousness': condA, 'aceous': condA,
-              'acious': condB, 'action': condG, 'alness': condA,
-              'ancial': condA, 'ancies': condA, 'ancing': condB,
-              'ariser': condA, 'arized': condA, 'arizer': condA,
-              'atable': condA, 'ations': condB, 'atives': condA,
-              'eature': condZ, 'efully': condA, 'encies': condA,
-              'encing': condA, 'ential': condA, 'enting': condC,
-              'entist': condA, 'eously': condA, 'ialist': condA,
-              'iality': condA, 'ialize': condA, 'ically': condA,
-              'icance': condA, 'icians': condA, 'icists': condA,
-              'ifully': condA, 'ionals': condA, 'ionate': condD,
-              'ioning': condA, 'ionist': condA, 'iously': condA,
-              'istics': condA, 'izable': condE, 'lessly': condA,
-              'nesses': condA, 'oidism': condA, 'acies': condA, 'acity': condA,
-              'aging': condB, 'aical': condA, 'alist': condA, 'alism': condB,
-              'ality': condA, 'alize': condA, 'allic': condBB, 'anced': condB,
-              'ances': condB, 'antic': condC, 'arial': condA, 'aries': condA,
-              'arily': condA, 'arity': condB, 'arize': condA, 'aroid': condA,
-              'ately': condA, 'ating': condI, 'ation': condB, 'ative': condA,
-              'ators': condA, 'atory': condA, 'ature': condE, 'early': condY,
-              'ehood': condA, 'eless': condA, 'elity': condA, 'ement': condA,
-              'enced': condA, 'ences': condA, 'eness': condE, 'ening': condE,
-              'ental': condA, 'ented': condC, 'ently': condA, 'fully': condA,
-              'ially': condA, 'icant': condA, 'ician': condA, 'icide': condA,
-              'icism': condA, 'icist': condA, 'icity': condA, 'idine': condI,
-              'iedly': condA, 'ihood': condA, 'inate': condA, 'iness': condA,
-              'ingly': condB, 'inism': condJ, 'inity': condCC, 'ional': condA,
-              'ioned': condA, 'ished': condA, 'istic': condA, 'ities': condA,
-              'itous': condA, 'ively': condA, 'ivity': condA, 'izers': condF,
-              'izing': condF, 'oidal': condA, 'oides': condA, 'otide': condA,
-              'ously': condA, 'able': condA, 'ably': condA, 'ages': condB,
-              'ally': condB, 'ance': condB, 'ancy': condB, 'ants': condB,
-              'aric': condA, 'arly': condK, 'ated': condI, 'ates': condA,
-              'atic': condB, 'ator': condA, 'ealy': condY, 'edly': condE,
-              'eful': condA, 'eity': condA, 'ence': condA, 'ency': condA,
-              'ened': condE, 'enly': condE, 'eous': condA, 'hood': condA,
-              'ials': condA, 'ians': condA, 'ible': condA, 'ibly': condA,
-              'ical': condA, 'ides': condL, 'iers': condA, 'iful': condA,
-              'ines': condM, 'ings': condN, 'ions': condB, 'ious': condA,
-              'isms': condB, 'ists': condA, 'itic': condH, 'ized': condF,
-              'izer': condF, 'less': condA, 'lily': condA, 'ness': condA,
-              'ogen': condA, 'ward': condA, 'wise': condA, 'ying': condB,
-              'yish': condA, 'acy': condA, 'age': condB, 'aic': condA,
-              'als': condBB, 'ant': condB, 'ars': condO, 'ary': condF,
-              'ata': condA, 'ate': condA, 'eal': condY, 'ear': condY,
-              'ely': condE, 'ene': condE, 'ent': condC, 'ery': condE,
-              'ese': condA, 'ful': condA, 'ial': condA, 'ian': condA,
-              'ics': condA, 'ide': condL, 'ied': condA, 'ier': condA,
-              'ies': condP, 'ily': condA, 'ine': condM, 'ing': condN,
-              'ion': condQ, 'ish': condC, 'ism': condB, 'ist': condA,
-              'ite': condAA, 'ity': condA, 'ium': condA, 'ive': condA,
-              'ize': condF, 'oid': condA, 'one': condR, 'ous': condA,
-              'ae': condA, 'al': condBB, 'ar': condX, 'as': condB, 'ed': condE,
-              'en': condF, 'es': condE, 'ia': condA, 'ic': condA, 'is': condA,
-              'ly': condB, 'on': condS, 'or': condT, 'um': condU, 'us': condV,
-              'yl': condR, '\'s': condA, 's\'': condA, 'a': condA, 'e': condA,
-              'i': condA, 'o': condA, 's': condW, 'y': condB}
+    suffix = {'alistically': cond_b, 'arizability': cond_a,
+              'izationally': cond_b, 'antialness': cond_a,
+              'arisations': cond_a, 'arizations': cond_a, 'entialness': cond_a,
+              'allically': cond_c, 'antaneous': cond_a, 'antiality': cond_a,
+              'arisation': cond_a, 'arization': cond_a, 'ationally': cond_b,
+              'ativeness': cond_a, 'eableness': cond_e, 'entations': cond_a,
+              'entiality': cond_a, 'entialize': cond_a, 'entiation': cond_a,
+              'ionalness': cond_a, 'istically': cond_a, 'itousness': cond_a,
+              'izability': cond_a, 'izational': cond_a, 'ableness': cond_a,
+              'arizable': cond_a, 'entation': cond_a, 'entially': cond_a,
+              'eousness': cond_a, 'ibleness': cond_a, 'icalness': cond_a,
+              'ionalism': cond_a, 'ionality': cond_a, 'ionalize': cond_a,
+              'iousness': cond_a, 'izations': cond_a, 'lessness': cond_a,
+              'ability': cond_a, 'aically': cond_a, 'alistic': cond_b,
+              'alities': cond_a, 'ariness': cond_e, 'aristic': cond_a,
+              'arizing': cond_a, 'ateness': cond_a, 'atingly': cond_a,
+              'ational': cond_b, 'atively': cond_a, 'ativism': cond_a,
+              'elihood': cond_e, 'encible': cond_a, 'entally': cond_a,
+              'entials': cond_a, 'entiate': cond_a, 'entness': cond_a,
+              'fulness': cond_a, 'ibility': cond_a, 'icalism': cond_a,
+              'icalist': cond_a, 'icality': cond_a, 'icalize': cond_a,
+              'ication': cond_g, 'icianry': cond_a, 'ination': cond_a,
+              'ingness': cond_a, 'ionally': cond_a, 'isation': cond_a,
+              'ishness': cond_a, 'istical': cond_a, 'iteness': cond_a,
+              'iveness': cond_a, 'ivistic': cond_a, 'ivities': cond_a,
+              'ization': cond_f, 'izement': cond_a, 'oidally': cond_a,
+              'ousness': cond_a, 'aceous': cond_a, 'acious': cond_b,
+              'action': cond_g, 'alness': cond_a, 'ancial': cond_a,
+              'ancies': cond_a, 'ancing': cond_b, 'ariser': cond_a,
+              'arized': cond_a, 'arizer': cond_a, 'atable': cond_a,
+              'ations': cond_b, 'atives': cond_a, 'eature': cond_z,
+              'efully': cond_a, 'encies': cond_a, 'encing': cond_a,
+              'ential': cond_a, 'enting': cond_c, 'entist': cond_a,
+              'eously': cond_a, 'ialist': cond_a, 'iality': cond_a,
+              'ialize': cond_a, 'ically': cond_a, 'icance': cond_a,
+              'icians': cond_a, 'icists': cond_a, 'ifully': cond_a,
+              'ionals': cond_a, 'ionate': cond_d, 'ioning': cond_a,
+              'ionist': cond_a, 'iously': cond_a, 'istics': cond_a,
+              'izable': cond_e, 'lessly': cond_a, 'nesses': cond_a,
+              'oidism': cond_a, 'acies': cond_a, 'acity': cond_a,
+              'aging': cond_b, 'aical': cond_a, 'alist': cond_a,
+              'alism': cond_b, 'ality': cond_a, 'alize': cond_a,
+              'allic': cond_bb, 'anced': cond_b, 'ances': cond_b,
+              'antic': cond_c, 'arial': cond_a, 'aries': cond_a,
+              'arily': cond_a, 'arity': cond_b, 'arize': cond_a,
+              'aroid': cond_a, 'ately': cond_a, 'ating': cond_i,
+              'ation': cond_b, 'ative': cond_a, 'ators': cond_a,
+              'atory': cond_a, 'ature': cond_e, 'early': cond_y,
+              'ehood': cond_a, 'eless': cond_a, 'elity': cond_a,
+              'ement': cond_a, 'enced': cond_a, 'ences': cond_a,
+              'eness': cond_e, 'ening': cond_e, 'ental': cond_a,
+              'ented': cond_c, 'ently': cond_a, 'fully': cond_a,
+              'ially': cond_a, 'icant': cond_a, 'ician': cond_a,
+              'icide': cond_a, 'icism': cond_a, 'icist': cond_a,
+              'icity': cond_a, 'idine': cond_i, 'iedly': cond_a,
+              'ihood': cond_a, 'inate': cond_a, 'iness': cond_a,
+              'ingly': cond_b, 'inism': cond_j, 'inity': cond_cc,
+              'ional': cond_a, 'ioned': cond_a, 'ished': cond_a,
+              'istic': cond_a, 'ities': cond_a, 'itous': cond_a,
+              'ively': cond_a, 'ivity': cond_a, 'izers': cond_f,
+              'izing': cond_f, 'oidal': cond_a, 'oides': cond_a,
+              'otide': cond_a, 'ously': cond_a, 'able': cond_a, 'ably': cond_a,
+              'ages': cond_b, 'ally': cond_b, 'ance': cond_b, 'ancy': cond_b,
+              'ants': cond_b, 'aric': cond_a, 'arly': cond_k, 'ated': cond_i,
+              'ates': cond_a, 'atic': cond_b, 'ator': cond_a, 'ealy': cond_y,
+              'edly': cond_e, 'eful': cond_a, 'eity': cond_a, 'ence': cond_a,
+              'ency': cond_a, 'ened': cond_e, 'enly': cond_e, 'eous': cond_a,
+              'hood': cond_a, 'ials': cond_a, 'ians': cond_a, 'ible': cond_a,
+              'ibly': cond_a, 'ical': cond_a, 'ides': cond_l, 'iers': cond_a,
+              'iful': cond_a, 'ines': cond_m, 'ings': cond_n, 'ions': cond_b,
+              'ious': cond_a, 'isms': cond_b, 'ists': cond_a, 'itic': cond_h,
+              'ized': cond_f, 'izer': cond_f, 'less': cond_a, 'lily': cond_a,
+              'ness': cond_a, 'ogen': cond_a, 'ward': cond_a, 'wise': cond_a,
+              'ying': cond_b, 'yish': cond_a, 'acy': cond_a, 'age': cond_b,
+              'aic': cond_a, 'als': cond_bb, 'ant': cond_b, 'ars': cond_o,
+              'ary': cond_f, 'ata': cond_a, 'ate': cond_a, 'eal': cond_y,
+              'ear': cond_y, 'ely': cond_e, 'ene': cond_e, 'ent': cond_c,
+              'ery': cond_e, 'ese': cond_a, 'ful': cond_a, 'ial': cond_a,
+              'ian': cond_a, 'ics': cond_a, 'ide': cond_l, 'ied': cond_a,
+              'ier': cond_a, 'ies': cond_p, 'ily': cond_a, 'ine': cond_m,
+              'ing': cond_n, 'ion': cond_q, 'ish': cond_c, 'ism': cond_b,
+              'ist': cond_a, 'ite': cond_aa, 'ity': cond_a, 'ium': cond_a,
+              'ive': cond_a, 'ize': cond_f, 'oid': cond_a, 'one': cond_r,
+              'ous': cond_a, 'ae': cond_a, 'al': cond_bb, 'ar': cond_x,
+              'as': cond_b, 'ed': cond_e, 'en': cond_f, 'es': cond_e,
+              'ia': cond_a, 'ic': cond_a, 'is': cond_a, 'ly': cond_b,
+              'on': cond_s, 'or': cond_t, 'um': cond_u, 'us': cond_v,
+              'yl': cond_r, '\'s': cond_a, 's\'': cond_a, 'a': cond_a,
+              'e': cond_a, 'i': cond_a, 'o': cond_a, 's': cond_w, 'y': cond_b}
 
     for suffix_len in _range(11, 0, -1):
         if ((word[-suffix_len:] in suffix and
@@ -246,30 +311,40 @@ def lovins(word):
             break
 
     def recode9(stem):
+        """Lovins' conditional recode rule 9
+        """
         if stem[-3:-2] in frozenset('aio'):
             return stem
         else:
             return stem[:-2]+'l'
 
     def recode24(stem):
+        """Lovins' conditional recode rule 24
+        """
         if stem[-4:-3] == 's':
             return stem
         else:
             return stem[:-1]+'s'
 
     def recode28(stem):
+        """Lovins' conditional recode rule 28
+        """
         if stem[-4:-3] in frozenset('pt'):
             return stem
         else:
             return stem[:-1]+'s'
 
     def recode30(stem):
+        """Lovins' conditional recode rule 30
+        """
         if stem[-4:-3] == 'm':
             return stem
         else:
             return stem[:-1]+'s'
 
     def recode32(stem):
+        """Lovins' conditional recode rule 32
+        """
         if stem[-3:-2] == 'n':
             return stem
         else:
