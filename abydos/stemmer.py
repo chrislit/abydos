@@ -31,7 +31,6 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 import unicodedata
 from ._compat import _range, _unicode
-from __builtin__ import True
 
 
 def lovins(word):
@@ -43,93 +42,118 @@ def lovins(word):
     Description:
     The Lovins stemmer is described in her article at
     http://www.mt-archive.info/MT-1968-Lovins.pdf
+
+    Errors: magnesite,magnetite,magneton
     """
-    def condA(word, suffix):
-        return True
-    
-    def condB(word, suffix):
-        return True
-    
-    def condC(word, suffix):
+    def condA(word, suffix_len):
         return True
 
-    def condD(word, suffix):
-        return True
+    def condB(word, suffix_len):
+        return len(word)-suffix_len >= 3
 
-    def condE(word, suffix):
-        return True
+    def condC(word, suffix_len):
+        return len(word)-suffix_len >= 4
 
-    def condF(word, suffix):
-        return True
+    def condD(word, suffix_len):
+        return len(word)-suffix_len >= 5
 
-    def condG(word, suffix):
-        return True
+    def condE(word, suffix_len):
+        return word[-suffix_len-1] != 'e'
 
-    def condH(word, suffix):
-        return True
+    def condF(word, suffix_len):
+        return (len(word)-suffix_len >= 3 and
+                word[-suffix_len-1] != 'e')
 
-    def condI(word, suffix):
-        return True
+    def condG(word, suffix_len):
+        return (len(word)-suffix_len >= 3 and
+                word[-suffix_len-1] == 'f')
 
-    def condJ(word, suffix):
-        return True
+    def condH(word, suffix_len):
+        return (word[-suffix_len-1] == 't' or
+                word[-suffix_len-2:-suffix_len] == 'll')
 
-    def condK(word, suffix):
-        return True
+    def condI(word, suffix_len):
+        return word[-suffix_len-1] not in frozenset('oe')
 
-    def condL(word, suffix):
-        return True
+    def condJ(word, suffix_len):
+        return word[-suffix_len-1] not in frozenset('ae')
 
-    def condM(word, suffix):
-        return True
+    def condK(word, suffix_len):
+        return (len(word)-suffix_len >= 3 and
+                (word[-suffix_len-1] in frozenset('li') or
+                 (word[-suffix_len-3] == 'u' and word[-suffix_len-1] == 'e')))
 
-    def condN(word, suffix):
-        return True
+    def condL(word, suffix_len):
+        return (word[-suffix_len-1] not in frozenset('uxs') or
+                word[-suffix_len-1] == 'os')
 
-    def condO(word, suffix):
-        return True
+    def condM(word, suffix_len):
+        return word[-suffix_len-1] not in frozenset('acem')
 
-    def condP(word, suffix):
-        return True
+    def condN(word, suffix_len):
+        if len(word)-suffix_len >= 3:
+            if word[-suffix_len-3] == 's' :
+                if len(word)-suffix_len >= 4:
+                    return True
+            else:
+                return True
+        return False
 
-    def condQ(word, suffix):
-        return True
+    def condO(word, suffix_len):
+        return word[-suffix_len-1] in frozenset('li')
 
-    def condR(word, suffix):
-        return True
+    def condP(word, suffix_len):
+        return word[-suffix_len-1] != 'c'
 
-    def condS(word, suffix):
-        return True
+    def condQ(word, suffix_len):
+        return (len(word)-suffix_len >= 3 and
+                word[-suffix_len-1] not in frozenset('ln'))
 
-    def condT(word, suffix):
-        return True
+    def condR(word, suffix_len):
+        return word[-suffix_len-1] in frozenset('nr')
 
-    def condU(word, suffix):
-        return True
+    def condS(word, suffix_len):
+        return (word[-suffix_len-2:-suffix_len] == 'dr' or
+                (word[-suffix_len-1] == 't' and
+                 word[-suffix_len-2:-suffix_len] == 'tt'))
 
-    def condV(word, suffix):
-        return True
+    def condT(word, suffix_len):
+        return (word[-suffix_len-1] in frozenset('st') and
+                word[-suffix_len-2:-suffix_len] == 'ot')
 
-    def condW(word, suffix):
-        return True
+    def condU(word, suffix_len):
+        return word[-suffix_len-1] in frozenset('lmnr')
 
-    def condX(word, suffix):
-        return True
+    def condV(word, suffix_len):
+        return word[-suffix_len-1] == 'c'
 
-    def condY(word, suffix):
-        return True
+    def condW(word, suffix_len):
+        return word[-suffix_len-1] not in frozenset('su')
 
-    def condZ(word, suffix):
-        return True
+    def condX(word, suffix_len):
+        return (word[-suffix_len-1] in frozenset('li') or
+                (word[-suffix_len-3:-suffix_len] == 'u' and
+                 word[-suffix_len-1] == 'e'))
 
-    def condAA(word, suffix):
-        return True
+    def condY(word, suffix_len):
+        return word[-suffix_len-2:-suffix_len] == 'in'
 
-    def condBB(word, suffix):
-        return True
+    def condZ(word, suffix_len):
+        return word[-suffix_len-1] != 'f'
 
-    def condCC(word, suffix):
-        return True
+    def condAA(word, suffix_len):
+        return (word[-suffix_len-1] in frozenset(['dflt']) or
+                word[-suffix_len-2:-suffix_len] in frozenset(['ph', 'th', 'er',
+                                                              'or', 'es']))
+
+    def condBB(word, suffix_len):
+        return (len(word)-suffix_len >= 3 and
+                word[-suffix_len-3:-suffix_len] != 'met' and
+                word[-suffix_len-4:-suffix_len] != 'ryst')
+
+    def condCC(word, suffix_len):
+        return word[-suffix_len-1] == 'l'
+
 
     suffix = {'alistically': condB, 'arizability': condA, 'izationally': condB,
               'antialness': condA, 'arisations': condA, 'arizations': condA,
@@ -213,6 +237,13 @@ def lovins(word):
               'ly': condB, 'on': condS, 'or': condT, 'um': condU, 'us': condV,
               'yl': condR, '\'s': condA, 's\'': condA, 'a': condA, 'e': condA,
               'i': condA, 'o': condA, 's': condW, 'y': condB}
+
+    for suffix_len in _range(11, 0, -1):
+        if (word[-suffix_len:] in suffix and
+            len(word)-suffix_len >= 2 and
+            suffix[word[-suffix_len:]](word, suffix_len)):
+            word = word[:-suffix_len]
+            break
 
     return word
 
