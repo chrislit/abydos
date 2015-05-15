@@ -116,11 +116,11 @@ def lovins(word):
     def condS(word, suffix_len):
         return (word[-suffix_len-2:-suffix_len] == 'dr' or
                 (word[-suffix_len-1] == 't' and
-                 word[-suffix_len-2:-suffix_len] == 'tt'))
+                 word[-suffix_len-2:-suffix_len] != 'tt'))
 
     def condT(word, suffix_len):
         return (word[-suffix_len-1] in frozenset('st') and
-                word[-suffix_len-2:-suffix_len] == 'ot')
+                word[-suffix_len-2:-suffix_len] != 'ot')
 
     def condU(word, suffix_len):
         return word[-suffix_len-1] in frozenset('lmnr')
@@ -276,52 +276,51 @@ def lovins(word):
         else:
             return stem[:-1]+'s'
 
-    recode = {'bb': 'b', 'dd': 'd', 'gg': 'g', 'll': 'l', 'mm': 'm', 'nn': 'n',
-              'pp': 'p', 'rr': 'r', 'ss': 's', 'tt': 't',
-              'iev': 'ief',
-              'uct': 'uc',
-              'umpt': 'um',
-              'rpt': 'rb',
-              'urs': 'ur',
-              'istr': 'ister',
-              'metr': 'meter',
-              'olv': 'olut',
-              'ul': recode9,
-              'bex': 'bic',
-              'dex': 'dic',
-              'pex': 'pic',
-              'tex': 'tic',
-              'ax': 'ac',
-              'ex': 'ec',
-              'ix': 'ic',
-              'lux': 'luc',
-              'uad': 'uas',
-              'vad': 'vas',
-              'cid': 'cis',
-              'lid': 'lis',
-              'erid': 'eris',
-              'pand': 'pans',
-              'end': recode24,
-              'ond': 'ons',
-              'lud': 'lus',
-              'rud': 'rus',
-              'her': recode28,
-              'mit': 'mis',
-              'ent': recode30,
-              'ert': 'ers',
-              'et': recode32,
-              'yt': 'ys',
-              'yz': 'ys'
-              }
+    if word[-2:] in frozenset(['bb', 'dd', 'gg', 'll', 'mm', 'nn', 'pp', 'rr',
+                               'ss', 'tt']):
+        word = word[:-1]
 
-    for ending_len in _range(4, 0, -1):
-        ending = word[-ending_len:]
-        if ending in recode:
-            if callable(recode[ending]):
-                word = recode[ending](word)
+    recode = (('iev', 'ief'),
+              ('uct', 'uc'),
+              ('umpt', 'um'),
+              ('rpt', 'rb'),
+              ('urs', 'ur'),
+              ('istr', 'ister'),
+              ('metr', 'meter'),
+              ('olv', 'olut'),
+              ('ul', recode9),
+              ('bex', 'bic'),
+              ('dex', 'dic'),
+              ('pex', 'pic'),
+              ('tex', 'tic'),
+              ('ax', 'ac'),
+              ('ex', 'ec'),
+              ('ix', 'ic'),
+              ('lux', 'luc'),
+              ('uad', 'uas'),
+              ('vad', 'vas'),
+              ('cid', 'cis'),
+              ('lid', 'lis'),
+              ('erid', 'eris'),
+              ('pand', 'pans'),
+              ('end', recode24),
+              ('ond', 'ons'),
+              ('lud', 'lus'),
+              ('rud', 'rus'),
+              ('her', recode28),
+              ('mit', 'mis'),
+              ('ent', recode30),
+              ('ert', 'ers'),
+              ('et', recode32),
+              ('yt', 'ys'),
+              ('yz', 'ys'))
+
+    for ending, replacement in recode:
+        if word.endswith(ending):
+            if callable(replacement):
+                word = replacement(word)
             else:
-                word = word[:-ending_len] + recode[ending]
-            break
+                word = word[:-len(ending)] + replacement
 
     return word
 
