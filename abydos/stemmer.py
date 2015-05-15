@@ -31,6 +31,7 @@ along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 import unicodedata
 from ._compat import _range, _unicode
+from __builtin__ import True
 
 
 def lovins(word):
@@ -43,89 +44,175 @@ def lovins(word):
     The Lovins stemmer is described in her article at
     http://www.mt-archive.info/MT-1968-Lovins.pdf
     """
+    def condA(word, suffix):
+        return True
+    
+    def condB(word, suffix):
+        return True
+    
+    def condC(word, suffix):
+        return True
 
-    stems = {'alistically': condB, 'arizability': condA, 'izationally': condB,
-             'antialness': condA, 'arisations': condA, 'arizations': condA,
-             'entialness': condA, 'allically': condC, 'antaneous': condA,
-             'antiality': condA, 'arisation': condA, 'arization': condA,
-             'ationally': condB, 'ativeness': condA, 'eableness': condE,
-             'entations': condA, 'entiality': condA, 'entialize': condA,
-             'entiation': condA, 'ionalness': condA, 'istically': condA,
-             'itousness': condA, 'izability': condA, 'izational': condA,
-             'ableness': condA, 'arizable': condA, 'entation': condA,
-             'entially': condA, 'eousness': condA, 'ibleness': condA,
-             'icalness': condA, 'ionalism': condA, 'ionality': condA,
-             'ionalize': condA, 'iousness': condA, 'izations': condA,
-             'lessness': condA, 'ability': condA, 'aically': condA,
-             'alistic': condB, 'alities': condA, 'ariness': condE,
-             'aristic': condA, 'arizing': condA, 'ateness': condA,
-             'atingly': condA, 'ational': condB, 'atively': condA,
-             'ativism': condA, 'elihood': condE, 'encible': condA,
-             'entally': condA, 'entials': condA, 'entiate': condA,
-             'entness': condA, 'fulness': condA, 'ibility': condA,
-             'icalism': condA, 'icalist': condA, 'icality': condA,
-             'icalize': condA, 'ication': condG, 'icianry': condA,
-             'ination': condA, 'ingness': condA, 'ionally': condA,
-             'isation': condA, 'ishness': condA, 'istical': condA,
-             'iteness': condA, 'iveness': condA, 'ivistic': condA,
-             'ivities': condA, 'ization': condF, 'izement': condA,
-             'oidally': condA, 'ousness': condA, 'aceous': condA,
-             'acious': condB, 'action': condG, 'alness': condA,
-             'ancial': condA, 'ancies': condA, 'ancing': condB,
-             'ariser': condA, 'arized': condA, 'arizer': condA,
-             'atable': condA, 'ations': condB, 'atives': condA,
-             'eature': condZ, 'efully': condA, 'encies': condA,
-             'encing': condA, 'ential': condA, 'enting': condC,
-             'entist': condA, 'eously': condA, 'ialist': condA,
-             'iality': condA, 'ialize': condA, 'ically': condA,
-             'icance': condA, 'icians': condA, 'icists': condA,
-             'ifully': condA, 'ionals': condA, 'ionate': condD,
-             'ioning': condA, 'ionist': condA, 'iously': condA,
-             'istics': condA, 'izable': condE, 'lessly': condA,
-             'nesses': condA, 'oidism': condA, 'acies': condA, 'acity': condA,
-             'aging': condB, 'aical': condA, 'alist': condA, 'alism': condB,
-             'ality': condA, 'alize': condA, 'allic': condBB, 'anced': condB,
-             'ances': condB, 'antic': condC, 'arial': condA, 'aries': condA,
-             'arily': condA, 'arity': condB, 'arize': condA, 'aroid': condA,
-             'ately': condA, 'ating': condI, 'ation': condB, 'ative': condA,
-             'ators': condA, 'atory': condA, 'ature': condE, 'early': condY,
-             'ehood': condA, 'eless': condA, 'elity': condA, 'ement': condA,
-             'enced': condA, 'ences': condA, 'eness': condE, 'ening': condE,
-             'ental': condA, 'ented': condC, 'ently': condA, 'fully': condA,
-             'ially': condA, 'icant': condA, 'ician': condA, 'icide': condA,
-             'icism': condA, 'icist': condA, 'icity': condA, 'idine': condI,
-             'iedly': condA, 'ihood': condA, 'inate': condA, 'iness': condA,
-             'ingly': condB, 'inism': condJ, 'inity': condCC, 'ional': condA,
-             'ioned': condA, 'ished': condA, 'istic': condA, 'ities': condA,
-             'itous': condA, 'ively': condA, 'ivity': condA, 'izers': condF,
-             'izing': condF, 'oidal': condA, 'oides': condA, 'otide': condA,
-             'ously': condA, 'able': condA, 'ably': condA, 'ages': condB,
-             'ally': condB, 'ance': condB, 'ancy': condB, 'ants': condB,
-             'aric': condA, 'arly': condK, 'ated': condI, 'ates': condA,
-             'atic': condB, 'ator': condA, 'ealy': condY, 'edly': condE,
-             'eful': condA, 'eity': condA, 'ence': condA, 'ency': condA,
-             'ened': condE, 'enly': condE, 'eous': condA, 'hood': condA,
-             'ials': condA, 'ians': condA, 'ible': condA, 'ibly': condA,
-             'ical': condA, 'ides': condL, 'iers': condA, 'iful': condA,
-             'ines': condM, 'ings': condN, 'ions': condB, 'ious': condA,
-             'isms': condB, 'ists': condA, 'itic': condH, 'ized': condF,
-             'izer': condF, 'less': condA, 'lily': condA, 'ness': condA,
-             'ogen': condA, 'ward': condA, 'wise': condA, 'ying': condB,
-             'yish': condA, 'acy': condA, 'age': condB, 'aic': condA,
-             'als': condBB, 'ant': condB, 'ars': condO, 'ary': condF,
-             'ata': condA, 'ate': condA, 'eal': condY, 'ear': condY,
-             'ely': condE, 'ene': condE, 'ent': condC, 'ery': condE,
-             'ese': condA, 'ful': condA, 'ial': condA, 'ian': condA,
-             'ics': condA, 'ide': condL, 'ied': condA, 'ier': condA,
-             'ies': condP, 'ily': condA, 'ine': condM, 'ing': condN,
-             'ion': condQ, 'ish': condC, 'ism': condB, 'ist': condA,
-             'ite': condAA, 'ity': condA, 'ium': condA, 'ive': condA,
-             'ize': condF, 'oid': condA, 'one': condR, 'ous': condA,
-             'ae': condA, 'al': condBB, 'ar': condX, 'as': condB, 'ed': condE,
-             'en': condF, 'es': condE, 'ia': condA, 'ic': condA, 'is': condA,
-             'ly': condB, 'on': condS, 'or': condT, 'um': condU, 'us': condV,
-             'yl': condR, '\'s': condA, 's\'': condA, 'a': condA, 'e': condA,
-             'i': condA, 'o': condA, 's': condW, 'y': condB}
+    def condD(word, suffix):
+        return True
+
+    def condE(word, suffix):
+        return True
+
+    def condF(word, suffix):
+        return True
+
+    def condG(word, suffix):
+        return True
+
+    def condH(word, suffix):
+        return True
+
+    def condI(word, suffix):
+        return True
+
+    def condJ(word, suffix):
+        return True
+
+    def condK(word, suffix):
+        return True
+
+    def condL(word, suffix):
+        return True
+
+    def condM(word, suffix):
+        return True
+
+    def condN(word, suffix):
+        return True
+
+    def condO(word, suffix):
+        return True
+
+    def condP(word, suffix):
+        return True
+
+    def condQ(word, suffix):
+        return True
+
+    def condR(word, suffix):
+        return True
+
+    def condS(word, suffix):
+        return True
+
+    def condT(word, suffix):
+        return True
+
+    def condU(word, suffix):
+        return True
+
+    def condV(word, suffix):
+        return True
+
+    def condW(word, suffix):
+        return True
+
+    def condX(word, suffix):
+        return True
+
+    def condY(word, suffix):
+        return True
+
+    def condZ(word, suffix):
+        return True
+
+    def condAA(word, suffix):
+        return True
+
+    def condBB(word, suffix):
+        return True
+
+    def condCC(word, suffix):
+        return True
+
+    suffix = {'alistically': condB, 'arizability': condA, 'izationally': condB,
+              'antialness': condA, 'arisations': condA, 'arizations': condA,
+              'entialness': condA, 'allically': condC, 'antaneous': condA,
+              'antiality': condA, 'arisation': condA, 'arization': condA,
+              'ationally': condB, 'ativeness': condA, 'eableness': condE,
+              'entations': condA, 'entiality': condA, 'entialize': condA,
+              'entiation': condA, 'ionalness': condA, 'istically': condA,
+              'itousness': condA, 'izability': condA, 'izational': condA,
+              'ableness': condA, 'arizable': condA, 'entation': condA,
+              'entially': condA, 'eousness': condA, 'ibleness': condA,
+              'icalness': condA, 'ionalism': condA, 'ionality': condA,
+              'ionalize': condA, 'iousness': condA, 'izations': condA,
+              'lessness': condA, 'ability': condA, 'aically': condA,
+              'alistic': condB, 'alities': condA, 'ariness': condE,
+              'aristic': condA, 'arizing': condA, 'ateness': condA,
+              'atingly': condA, 'ational': condB, 'atively': condA,
+              'ativism': condA, 'elihood': condE, 'encible': condA,
+              'entally': condA, 'entials': condA, 'entiate': condA,
+              'entness': condA, 'fulness': condA, 'ibility': condA,
+              'icalism': condA, 'icalist': condA, 'icality': condA,
+              'icalize': condA, 'ication': condG, 'icianry': condA,
+              'ination': condA, 'ingness': condA, 'ionally': condA,
+              'isation': condA, 'ishness': condA, 'istical': condA,
+              'iteness': condA, 'iveness': condA, 'ivistic': condA,
+              'ivities': condA, 'ization': condF, 'izement': condA,
+              'oidally': condA, 'ousness': condA, 'aceous': condA,
+              'acious': condB, 'action': condG, 'alness': condA,
+              'ancial': condA, 'ancies': condA, 'ancing': condB,
+              'ariser': condA, 'arized': condA, 'arizer': condA,
+              'atable': condA, 'ations': condB, 'atives': condA,
+              'eature': condZ, 'efully': condA, 'encies': condA,
+              'encing': condA, 'ential': condA, 'enting': condC,
+              'entist': condA, 'eously': condA, 'ialist': condA,
+              'iality': condA, 'ialize': condA, 'ically': condA,
+              'icance': condA, 'icians': condA, 'icists': condA,
+              'ifully': condA, 'ionals': condA, 'ionate': condD,
+              'ioning': condA, 'ionist': condA, 'iously': condA,
+              'istics': condA, 'izable': condE, 'lessly': condA,
+              'nesses': condA, 'oidism': condA, 'acies': condA, 'acity': condA,
+              'aging': condB, 'aical': condA, 'alist': condA, 'alism': condB,
+              'ality': condA, 'alize': condA, 'allic': condBB, 'anced': condB,
+              'ances': condB, 'antic': condC, 'arial': condA, 'aries': condA,
+              'arily': condA, 'arity': condB, 'arize': condA, 'aroid': condA,
+              'ately': condA, 'ating': condI, 'ation': condB, 'ative': condA,
+              'ators': condA, 'atory': condA, 'ature': condE, 'early': condY,
+              'ehood': condA, 'eless': condA, 'elity': condA, 'ement': condA,
+              'enced': condA, 'ences': condA, 'eness': condE, 'ening': condE,
+              'ental': condA, 'ented': condC, 'ently': condA, 'fully': condA,
+              'ially': condA, 'icant': condA, 'ician': condA, 'icide': condA,
+              'icism': condA, 'icist': condA, 'icity': condA, 'idine': condI,
+              'iedly': condA, 'ihood': condA, 'inate': condA, 'iness': condA,
+              'ingly': condB, 'inism': condJ, 'inity': condCC, 'ional': condA,
+              'ioned': condA, 'ished': condA, 'istic': condA, 'ities': condA,
+              'itous': condA, 'ively': condA, 'ivity': condA, 'izers': condF,
+              'izing': condF, 'oidal': condA, 'oides': condA, 'otide': condA,
+              'ously': condA, 'able': condA, 'ably': condA, 'ages': condB,
+              'ally': condB, 'ance': condB, 'ancy': condB, 'ants': condB,
+              'aric': condA, 'arly': condK, 'ated': condI, 'ates': condA,
+              'atic': condB, 'ator': condA, 'ealy': condY, 'edly': condE,
+              'eful': condA, 'eity': condA, 'ence': condA, 'ency': condA,
+              'ened': condE, 'enly': condE, 'eous': condA, 'hood': condA,
+              'ials': condA, 'ians': condA, 'ible': condA, 'ibly': condA,
+              'ical': condA, 'ides': condL, 'iers': condA, 'iful': condA,
+              'ines': condM, 'ings': condN, 'ions': condB, 'ious': condA,
+              'isms': condB, 'ists': condA, 'itic': condH, 'ized': condF,
+              'izer': condF, 'less': condA, 'lily': condA, 'ness': condA,
+              'ogen': condA, 'ward': condA, 'wise': condA, 'ying': condB,
+              'yish': condA, 'acy': condA, 'age': condB, 'aic': condA,
+              'als': condBB, 'ant': condB, 'ars': condO, 'ary': condF,
+              'ata': condA, 'ate': condA, 'eal': condY, 'ear': condY,
+              'ely': condE, 'ene': condE, 'ent': condC, 'ery': condE,
+              'ese': condA, 'ful': condA, 'ial': condA, 'ian': condA,
+              'ics': condA, 'ide': condL, 'ied': condA, 'ier': condA,
+              'ies': condP, 'ily': condA, 'ine': condM, 'ing': condN,
+              'ion': condQ, 'ish': condC, 'ism': condB, 'ist': condA,
+              'ite': condAA, 'ity': condA, 'ium': condA, 'ive': condA,
+              'ize': condF, 'oid': condA, 'one': condR, 'ous': condA,
+              'ae': condA, 'al': condBB, 'ar': condX, 'as': condB, 'ed': condE,
+              'en': condF, 'es': condE, 'ia': condA, 'ic': condA, 'is': condA,
+              'ly': condB, 'on': condS, 'or': condT, 'um': condU, 'us': condV,
+              'yl': condR, '\'s': condA, 's\'': condA, 'a': condA, 'e': condA,
+              'i': condA, 'o': condA, 's': condW, 'y': condB}
 
     return word
 
