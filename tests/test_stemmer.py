@@ -469,7 +469,7 @@ class SnowballTestCases(unittest.TestCase):
         # base case
         self.assertEqual(sb_german(''), '')
 
-        #  Snowball Porter test set
+        #  Snowball German test set
         with codecs.open(TESTDIR+'/corpora/snowball_german.csv',
                          encoding='utf-8') as snowball_testset:
             next(snowball_testset)
@@ -543,7 +543,7 @@ class SnowballTestCases(unittest.TestCase):
         # base case
         self.assertEqual(sb_dutch(''), '')
 
-        #  Snowball Porter test set
+        #  Snowball Dutch test set
         with codecs.open(TESTDIR+'/corpora/snowball_dutch.csv',
                          encoding='utf-8') as snowball_testset:
             next(snowball_testset)
@@ -565,7 +565,7 @@ class SnowballTestCases(unittest.TestCase):
         # base case
         self.assertEqual(sb_norwegian(''), '')
 
-        #  Snowball Porter test set
+        #  Snowball Norwegian test set
         with codecs.open(TESTDIR+'/corpora/snowball_norwegian.csv',
                          encoding='utf-8') as snowball_testset:
             next(snowball_testset)
@@ -584,7 +584,7 @@ class SnowballTestCases(unittest.TestCase):
         # base case
         self.assertEqual(sb_swedish(''), '')
 
-        #  Snowball Porter test set
+        #  Snowball Swedish test set
         with codecs.open(TESTDIR+'/corpora/snowball_swedish.csv',
                          encoding='utf-8') as snowball_testset:
             next(snowball_testset)
@@ -603,7 +603,7 @@ class SnowballTestCases(unittest.TestCase):
         # base case
         self.assertEqual(sb_danish(''), '')
 
-        #  Snowball Porter test set
+        #  Snowball Danish test set
         with codecs.open(TESTDIR+'/corpora/snowball_danish.csv',
                          encoding='utf-8') as snowball_testset:
             next(snowball_testset)
