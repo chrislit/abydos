@@ -76,6 +76,22 @@ class LovinsTestCases(unittest.TestCase):
         self.assertEqual(lovins('angular'), 'angl')
         self.assertEqual(lovins('angle'), 'angl')
 
+    def test_lovins_snowball(self):
+        """test abydos.stemmer.lovins (Snowball testset)
+
+        These test cases are from
+        https://github.com/snowballstem/snowball-data/tree/master/lovins
+        """
+        #  Snowball Lovins test set
+        with codecs.open(TESTDIR+'/corpora/snowball_lovins.csv',
+                         encoding='utf-8') as snowball_testset:
+            next(snowball_testset)
+            for line in snowball_testset:
+                if line[0] != '#':
+                    line = line.strip().split(',')
+                    word, stem = line[0], line[1]
+                    self.assertEqual(lovins(word), stem.lower())
+
 
 class PorterTestCases(unittest.TestCase):
     """test cases for abydos.stemmer._m_degree, abydos.stemmer.porter
