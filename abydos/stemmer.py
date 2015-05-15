@@ -93,7 +93,7 @@ def lovins(word):
 
     def condN(word, suffix_len):
         if len(word)-suffix_len >= 3:
-            if word[-suffix_len-3] == 's' :
+            if word[-suffix_len-3] == 's':
                 if len(word)-suffix_len >= 4:
                     return True
             else:
@@ -154,7 +154,6 @@ def lovins(word):
 
     def condCC(word, suffix_len):
         return word[-suffix_len-1] == 'l'
-
 
     suffix = {'alistically': condB, 'arizability': condA, 'izationally': condB,
               'antialness': condA, 'arisations': condA, 'arizations': condA,
@@ -240,9 +239,9 @@ def lovins(word):
               'i': condA, 'o': condA, 's': condW, 'y': condB}
 
     for suffix_len in _range(11, 0, -1):
-        if (word[-suffix_len:] in suffix and
-            len(word)-suffix_len >= 2 and
-            suffix[word[-suffix_len:]](word, suffix_len)):
+        if ((word[-suffix_len:] in suffix and
+             len(word)-suffix_len >= 2 and
+             suffix[word[-suffix_len:]](word, suffix_len))):
             word = word[:-suffix_len]
             break
 
