@@ -26,7 +26,8 @@ from abydos.stemmer import lovins, _m_degree, _sb_has_vowel, \
     _ends_in_doubled_cons, _ends_in_cvc, porter, _sb_r1, _sb_r2, \
     _sb_ends_in_short_syllable, _sb_short_word, porter2, sb_german, \
     sb_dutch, sb_norwegian, sb_swedish, sb_danish, clef_german, \
-    clef_german_plus, clef_swedish, uealite, lancaster, caumanns
+    clef_german_plus, clef_swedish, caumanns
+# uealite, lancaster,
 import os
 import codecs
 
@@ -745,40 +746,6 @@ class CLEFTestCases(unittest.TestCase):
         self.assertEqual(clef_swedish('kommun'), 'kommu')
 
 
-class UEALiteTestCases(unittest.TestCase):
-    """test cases for abydos.stemmer.uealite
-    """
-    def test_uealite(self):
-        """test abydos.stemmer.uealite
-        """
-        # base case
-        self.assertEqual(uealite(''), '')
-
-
-class LancasterTestCases(unittest.TestCase):
-    """test cases for abydos.stemmer.lancaster
-    """
-    def test_lancaster(self):
-        """test abydos.stemmer.lancaster
-        """
-        # base case
-        self.assertEqual(lancaster(''), '')
-
-        # cases copied from
-        # http://www.nltk.org/_modules/nltk/stem/lancaster.html
-        # self.assertEqual(lancaster('maximum'), 'maxim')
-        # self.assertEqual(lancaster('presumably'), 'presum')
-        # self.assertEqual(lancaster('multiply'), 'multiply')
-        # self.assertEqual(lancaster('provision'), 'provid')
-        # self.assertEqual(lancaster('owed'), 'ow')
-        # self.assertEqual(lancaster('ear'), 'ear')
-        # self.assertEqual(lancaster('saying'), 'say')
-        # self.assertEqual(lancaster('crying'), 'cry')
-        # self.assertEqual(lancaster('string'), 'string')
-        # self.assertEqual(lancaster('meant'), 'meant')
-        # self.assertEqual(lancaster('cement'), 'cem')
-
-
 class CaumannsTestCases(unittest.TestCase):
     """test cases for abydos.stemmer.caumanns
     """
@@ -867,6 +834,39 @@ class CaumannsTestCases(unittest.TestCase):
         # -nd is not removed from words shorter than six characters:
         self.assertEqual(caumanns('xxxnd'), 'xxxnd')
 
+
+# class UEALiteTestCases(unittest.TestCase):
+#     """test cases for abydos.stemmer.uealite
+#     """
+#     def test_uealite(self):
+#         """test abydos.stemmer.uealite
+#         """
+#         # base case
+#         self.assertEqual(uealite(''), '')
+#
+#
+# class LancasterTestCases(unittest.TestCase):
+#     """test cases for abydos.stemmer.lancaster
+#     """
+#     def test_lancaster(self):
+#         """test abydos.stemmer.lancaster
+#         """
+#         # base case
+#         self.assertEqual(lancaster(''), '')
+#
+#         # cases copied from
+#         # http://www.nltk.org/_modules/nltk/stem/lancaster.html
+#         # self.assertEqual(lancaster('maximum'), 'maxim')
+#         # self.assertEqual(lancaster('presumably'), 'presum')
+#         # self.assertEqual(lancaster('multiply'), 'multiply')
+#         # self.assertEqual(lancaster('provision'), 'provid')
+#         # self.assertEqual(lancaster('owed'), 'ow')
+#         # self.assertEqual(lancaster('ear'), 'ear')
+#         # self.assertEqual(lancaster('saying'), 'say')
+#         # self.assertEqual(lancaster('crying'), 'cry')
+#         # self.assertEqual(lancaster('string'), 'string')
+#         # self.assertEqual(lancaster('meant'), 'meant')
+#         # self.assertEqual(lancaster('cement'), 'cem')
 
 if __name__ == '__main__':
     unittest.main()
