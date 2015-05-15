@@ -76,6 +76,9 @@ class LovinsTestCases(unittest.TestCase):
         self.assertEqual(lovins('angular'), 'angl')
         self.assertEqual(lovins('angle'), 'angl')
 
+        # missed branch test cases
+        self.assertEqual(lovins('feminism'), 'fem')
+
     def test_lovins_snowball(self):
         """test abydos.stemmer.lovins (Snowball testset)
 
