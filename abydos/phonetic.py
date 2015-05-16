@@ -2013,7 +2013,7 @@ def phonix(word, maxlength=4, zero_pad=True):
     _vow = frozenset('AEIOU')
     _con = frozenset('BCDFGHJKLMNPQRSTVWXYZ')
 
-    _phonix_substitutions = [(_all_repl, 'DG', 'G'),
+    _phonix_substitutions = ((_all_repl, 'DG', 'G'),
                              (_all_repl, 'CO', 'KO'),
                              (_all_repl, 'CA', 'KA'),
                              (_all_repl, 'CU', 'KU'),
@@ -2105,7 +2105,7 @@ def phonix(word, maxlength=4, zero_pad=True):
                              (_end_repl, 'MB', 'M', _vow),
                              (_all_repl, 'MPTS', 'MPS'),
                              (_all_repl, 'MPS', 'MS'),
-                             (_all_repl, 'MPT', 'MT')]
+                             (_all_repl, 'MPT', 'MT'))
 
     _phonix_translation = dict(zip([ord(_) for _ in
                                     'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
