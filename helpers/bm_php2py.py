@@ -174,21 +174,22 @@ bmdir = sys.argv[1].rstrip('/') + '/'
 
 outfilename = '../abydos/_bmdata.py'
 outfile = codecs.open(outfilename, 'w', 'utf-8')
-outfile.write('# -*- coding: utf-8 -*-\n\"\"\"abydos._bmdata\n\nCopyright \
-2014-2015 \
-by Christopher C. Little.\nThis file is part of Abydos.\n\nThis file is \
-derived from PHP code by Alexander Beider and Stephen P. Morse that\nis part \
-of the Beider-Morse Phonetic Matching (BMPM) System, available at\n\
-http://stevemorse.org/phonetics/bmpm.htm.\n\nAbydos is free software: \
-you can redistribute it and/or modify\nit under the terms of the GNU General \
-Public License as published by\nthe Free Software Foundation, either version \
-3 of the License, or\n(at your option) any later version.\n\nAbydos is \
-distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; \
-without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A \
-PARTICULAR PURPOSE. See the\nGNU General Public License for more details.\n\n\
-You should have received a copy of the GNU General Public License\nalong with \
-Abydos. If not, see <http://www.gnu.org/licenses/>.\n\"\"\"\n# pylint: \
-disable=line-too-long\n\nfrom __future__ import unicode_literals\n\n')
+
+outfile.write('# -*- coding: utf-8 -*-\n\n# Copyright 2014-2015 by \
+Christopher C. Little.\n# This file is part of Abydos.\n#\n# This file is \
+based on Alexander Beider and Stephen P. Morse\'s implementation\n# of the \
+Beider-Morse Phonetic Matching (BMPM) System, available at\n# \
+http://stevemorse.org/phonetics/bmpm.htm.\n#\n# Abydos is free software: \
+you can redistribute it and/or modify\n# it under the terms of the GNU \
+General Public License as published by\n# the Free Software Foundation, \
+either version 3 of the License, or\n# (at your option) any later version.\n\
+#\n# Abydos is distributed in the hope that it will be useful,\n# but WITHOUT \
+ANY WARRANTY; without even the implied warranty of\n# MERCHANTABILITY or \
+FITNESS FOR A PARTICULAR PURPOSE. See the\n# GNU General Public License for \
+more details.\n#\n# You should have received a copy of the GNU General Public \
+License\n# along with Abydos. If not, see <http://www.gnu.org/licenses/>.\n\n\
+"""abydos._bmdata\n"""\n# pylint: disable=line-too-long\n\nfrom __future__ \
+import unicode_literals\n\n')
 
 outfile.write('L_NONE = 0\n')
 for i, l in enumerate(lang_tuple):
