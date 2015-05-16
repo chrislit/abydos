@@ -1,0 +1,11 @@
+languages:
+  Python: true
+exclude_paths:
+- "tests/*"
+- "data/*"
+- "helpers/*"
+- ""
+- "abydos/__init__.py"
+- "badge_update.py"
+- "setup.py"
+- "abydos/_bmdata.py"
