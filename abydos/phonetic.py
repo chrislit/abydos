@@ -1951,7 +1951,7 @@ def phonix(word, maxlength=4, zero_pad=True):
     https://metacpan.org/pod/Text::Phonetic::Phonix
     """
     # pylint: disable=too-many-branches
-    def _start_repl(word, src, tar, post=frozenset()):
+    def _start_repl(word, src, tar, post=None):
         """replace src with tar at the start of word
         in the environment pre__post
         """
@@ -1963,7 +1963,7 @@ def phonix(word, maxlength=4, zero_pad=True):
             return tar + word[len(src):]
         return word
 
-    def _end_repl(word, src, tar, pre=frozenset()):
+    def _end_repl(word, src, tar, pre=None):
         """replace src with tar at the end of word
         in the environment pre__post
         """
@@ -1975,7 +1975,7 @@ def phonix(word, maxlength=4, zero_pad=True):
             return word[:-len(src)] + tar
         return word
 
-    def _mid_repl(word, src, tar, pre=frozenset(), post=frozenset()):
+    def _mid_repl(word, src, tar, pre=None, post=None):
         """replace src with tar in the middle of word
         in the environment pre__post
         """
@@ -1990,7 +1990,7 @@ def phonix(word, maxlength=4, zero_pad=True):
             return (word[0] + _all_repl(word[1:-1], src, tar, pre, post) +
                     word[-1])
 
-    def _all_repl(word, src, tar, pre=frozenset(), post=frozenset()):
+    def _all_repl(word, src, tar, pre=None, post=None):
         """replace src with tar anywhere in word
         in the environment pre__post
         """
