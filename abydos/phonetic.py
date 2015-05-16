@@ -2049,7 +2049,7 @@ def phonix(word, maxlength=4, zero_pad=True):
                              (_end_repl, 'GN', 'N'),
                              (_start_repl, 'PS', 'S'),
                              (_start_repl, 'PT', 'T'),
-                             (_start_repl, 'CZ', _con),
+                             (_start_repl, 'CZ', 'C'),
                              (_mid_repl, 'WZ', 'Z', _vow),
                              (_mid_repl, 'CZ', 'CH'),
                              (_all_repl, 'LZ', 'LSH'),
