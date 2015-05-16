@@ -1,6 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# Copyright 2014-2015 by Christopher C. Little.
+# This file is part of Abydos.
+#
+# Abydos is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Abydos is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Abydos. If not, see <http://www.gnu.org/licenses/>.
+
 from __future__ import unicode_literals, print_function
 from os import listdir
 from os.path import isfile
@@ -158,7 +174,8 @@ bmdir = sys.argv[1].rstrip('/') + '/'
 
 outfilename = '../abydos/_bmdata.py'
 outfile = codecs.open(outfilename, 'w', 'utf-8')
-outfile.write('# -*- coding: utf-8 -*-\n\"\"\"abydos.bmdata\n\nCopyright 2014 \
+outfile.write('# -*- coding: utf-8 -*-\n\"\"\"abydos._bmdata\n\nCopyright \
+2014-2015 \
 by Christopher C. Little.\nThis file is part of Abydos.\n\nThis file is \
 derived from PHP code by Alexander Beider and Stephen P. Morse that\nis part \
 of the Beider-Morse Phonetic Matching (BMPM) System, available at\n\
