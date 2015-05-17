@@ -22,7 +22,6 @@ The clustering module implements clustering algorithms such as string
 fingerprinting, k-nearest neighbors, and ...
 """
 
-
 from __future__ import unicode_literals
 from __future__ import division
 import unicodedata
