@@ -19,13 +19,12 @@
 """abydos.stemmer
 
 The stemmer module defines word stemmers including:
-    the Lovins stemmer
-    the Porter and Porter2 stemmers
-    Snowball stemmers for German, Dutch, Norwegian, Swedish, and Danish
-    CLEF German, German plus, and Swedish stemmers
-    the UEA-lite stemmer
-    the Lancaster Stemming Algorithm
-    Caumann's German stemmer
+
+    - the Lovins stemmer
+    - the Porter and Porter2 (Snowball English) stemmers
+    - Snowball stemmers for German, Dutch, Norwegian, Swedish, and Danish
+    - CLEF German, German plus, and Swedish stemmers
+    - Caumann's German stemmer
 """
 
 from __future__ import unicode_literals
@@ -34,14 +33,14 @@ from ._compat import _range, _unicode
 
 
 def lovins(word):
-    """Implementation of Lovins stemmer by Julie Beth Lovins
+    """Lovins stemmer
 
-    Arguments:
-    word -- the word to calculate the stem of
-
-    Description:
-    The Lovins stemmer is described in her article at
+    The Lovins stemmer is described in Julie Beth Lovins's article at:
     http://www.mt-archive.info/MT-1968-Lovins.pdf
+
+    :param word: the word to stem
+    :returns: word stem
+    :rtype: string
     """
     # pylint: disable=too-many-branches
 
@@ -399,14 +398,13 @@ def lovins(word):
 
 
 def _m_degree(term, vowels):
-    """Return the m-degree as defined in the Porter stemmer definition
+    """Porter helper function _m_degree
 
-    Arguments:
-    term -- the word for which to calculate the m-degree
-    vowels -- the set of vowels in the language
-
-    Description:
     m-degree is equal to the number of V to C transitions
+
+    :param term: the word for which to calculate the m-degree
+    :param vowels: the set of vowels in the language
+    :returns: the m-degree as defined in the Porter stemmer definition
     """
     mdeg = 0
     last_was_vowel = False
@@ -421,12 +419,12 @@ def _m_degree(term, vowels):
 
 
 def _sb_has_vowel(term, vowels):
-    """Return true iff a vowel exists in the term (as defined in the Porter
-    stemmer definition)
+    """Porter helper function _sb_has_vowel
 
-    Arguments:
-    term -- the word to scan for vowels
-    vowels -- the set of vowels in the language
+    :param term: the word to scan for vowels
+    :param vowels: the set of vowels in the language
+    :returns: true iff a vowel exists in the term (as defined in the Porter
+        stemmer definition)
     """
     for letter in term:
         if letter in vowels:
@@ -435,12 +433,12 @@ def _sb_has_vowel(term, vowels):
 
 
 def _ends_in_doubled_cons(term, vowels):
-    """Return true iff the stem ends in a doubled consonant (as defined in the
-    Porter stemmer definition)
+    """Porter helper function _ends_in_doubled_cons
 
-    Arguments:
-    term -- the word to check for a final doubled consonant
-    vowels -- the set of vowels in the language
+    :param term: the word to check for a final doubled consonant
+    :param vowels: the set of vowels in the language
+    :returns: true iff the stem ends in a doubled consonant (as defined in the
+        Porter stemmer definition)
     """
     if len(term) > 1 and term[-1] not in vowels and term[-2] == term[-1]:
         return True
@@ -448,12 +446,12 @@ def _ends_in_doubled_cons(term, vowels):
 
 
 def _ends_in_cvc(term, vowels):
-    """Return true iff the stem ends in cvc (as defined in the Porter stemmer
-    definition)
+    """Porter helper function _ends_in_cvc
 
-    Arguments:
-    term -- the word to scan for cvc
-    vowels -- the set of vowels in the language
+    :param term: the word to scan for cvc
+    :param vowels: the set of vowels in the language
+    :returns: true iff the stem ends in cvc (as defined in the Porter stemmer
+        definition)
     """
     if len(term) > 2 and (term[-1] not in vowels and
                           term[-2] in vowels and
@@ -464,16 +462,16 @@ def _ends_in_cvc(term, vowels):
 
 
 def porter(word, early_english=False):
-    """Implementation of Porter stemmer -- ideally returns the word stem
+    """Porter stemmer
 
-    Arguments:
-    word -- the word to calculate the stem of
-    early_english -- set to True in order to remove -eth & -est (2nd & 3rd
-        person singular verbal agreement suffixes)
-
-    Description:
-    The Porter stemmer is defined at
+    The Porter stemmer is defined at:
     http://snowball.tartarus.org/algorithms/porter/stemmer.html
+
+    :param word: the word to calculate the stem of
+    :param early_english: set to True in order to remove -eth & -est (2nd & 3rd
+        person singular verbal agreement suffixes)
+    :returns: word stem
+    :rtype: str
     """
     # pylint: disable=too-many-branches
 
@@ -757,17 +755,16 @@ def _sb_short_word(term, vowels, codanonvowels, r1_prefixes=None):
 
 
 def porter2(word, early_english=False):
-    """Implementation of Porter2 (Snowball English) stemmer -- ideally returns
-    the word stem
+    """Porter2 (Snowball English) stemmer:
 
-    Arguments:
-    word -- the word to calculate the stem of
-    early_english -- set to True in order to remove -eth & -est (2nd & 3rd
-        person singular verbal agreement suffixes)
-
-    Description:
-    The Porter2/Snowball English stemmer is defined at
+    The Porter2 (Snowball English) stemmer is defined at:
     http://snowball.tartarus.org/algorithms/english/stemmer.html
+
+    :param word: the word to calculate the stem of
+    :param early_english: set to True in order to remove -eth & -est (2nd & 3rd
+        person singular verbal agreement suffixes)
+    :returns: word stem
+    :rtype: str
     """
     # pylint: disable=too-many-branches
     # pylint: disable=too-many-return-statements
@@ -1028,17 +1025,16 @@ def porter2(word, early_english=False):
 
 
 def sb_german(word, alternate_vowels=False):
-    """Implementation of Snowball German stemmer -- ideally returns the word
-    stem
+    """Snowball German stemmer
 
-    Arguments:
-    word -- the word to calculate the stem of
-    alternate_vowels -- composes ae as ä, oe as ö, and ue as ü before running
-        the algorithm
-
-    Description:
-    The Snowball German stemmer is defined at
+    The Snowball German stemmer is defined at:
     http://snowball.tartarus.org/algorithms/german/stemmer.html
+
+    :param word: the word to calculate the stem of
+    :param alternate_vowels: composes ae as ä, oe as ö, and ue as ü before
+        running the algorithm
+    :returns: word stem
+    :rtype: str
     """
     # pylint: disable=too-many-branches
 
@@ -1156,15 +1152,14 @@ def sb_german(word, alternate_vowels=False):
 
 
 def sb_dutch(word):
-    """Implementation of Snowball Dutch stemmer -- ideally returns the word
-    stem
+    """Snowball Dutch stemmer
 
-    Arguments:
-    word -- the word to calculate the stem of
-
-    Description:
-    The Snowball Dutch stemmer is defined at
+    The Snowball Dutch stemmer is defined at:
     http://snowball.tartarus.org/algorithms/dutch/stemmer.html
+
+    :param word: the word to calculate the stem of
+    :returns: word stem
+    :rtype: str
     """
     # pylint: disable=too-many-branches
 
@@ -1275,15 +1270,14 @@ def sb_dutch(word):
 
 
 def sb_norwegian(word):
-    """Implementation of Snowball Norwegian stemmer -- ideally returns the word
-    stem
+    """Snowball Norwegian stemmer
 
-    Arguments:
-    word -- the word to calculate the stem of
-
-    Description:
-    The Snowball Norwegian stemmer is defined at
+    The Snowball Norwegian stemmer is defined at:
     http://snowball.tartarus.org/algorithms/norwegian/stemmer.html
+
+    :param word: the word to calculate the stem of
+    :returns: word stem
+    :rtype: str
     """
     _vowels = frozenset('aeiouyæåø')
     _s_endings = frozenset('bcdfghjlmnoprtvyz')
@@ -1340,15 +1334,14 @@ def sb_norwegian(word):
 
 
 def sb_swedish(word):
-    """Implementation of Snowball Swedish stemmer -- ideally returns the word
-    stem
+    """Snowball Swedish stemmer
 
-    Arguments:
-    word -- the word to calculate the stem of
-
-    Description:
-    The Snowball Swedish stemmer is defined at
+    The Snowball Swedish stemmer is defined at:
     http://snowball.tartarus.org/algorithms/swedish/stemmer.html
+
+    :param word: the word to calculate the stem of
+    :returns: word stem
+    :rtype: str
     """
     _vowels = frozenset('aeiouyäåö')
     _s_endings = frozenset('bcdfghjklmnoprtvy')
@@ -1401,15 +1394,14 @@ def sb_swedish(word):
 
 
 def sb_danish(word):
-    """Implementation of Snowball Danish stemmer -- ideally returns the word
-    stem
+    """Snowball Danish stemmer
 
-    Arguments:
-    word -- the word to calculate the stem of
-
-    Description:
-    The Snowball Danish stemmer is defined at
+    The Snowball Danish stemmer is defined at:
     http://snowball.tartarus.org/algorithms/danish/stemmer.html
+
+    :param word: the word to calculate the stem of
+    :returns: word stem
+    :rtype: str
     """
     _vowels = frozenset('aeiouyæåø')
     _s_endings = frozenset('abcdfghjklmnoprtvyzå')
@@ -1476,15 +1468,14 @@ def sb_danish(word):
 
 
 def clef_german(word):
-    """Implementation of CLEF German stemmer -- ideally returns the word
-    stem
+    """CLEF German stemmer
 
-    Arguments:
-    word -- the word to calculate the stem of
-
-    Description:
-    The CLEF German stemmer is defined at
+    The CLEF German stemmer is defined at:
     http://members.unine.ch/jacques.savoy/clef/germanStemmer.txt
+
+    :param word: the word to calculate the stem of
+    :returns: word stem
+    :rtype: str
     """
     # lowercase, normalize, and compose
     word = unicodedata.normalize('NFC', _unicode(word.lower()))
@@ -1509,15 +1500,14 @@ def clef_german(word):
 
 
 def clef_german_plus(word):
-    """Implementation of CLEF German stemmer plus -- ideally returns the word
-    stem
+    """CLEF German stemmer plus
 
-    Arguments:
-    word -- the word to calculate the stem of
-
-    Description:
-    The CLEF German stemmer plus is defined at
+    The CLEF German stemmer plus is defined at:
     http://members.unine.ch/jacques.savoy/clef/germanStemmerPlus.txt
+
+    :param word: the word to calculate the stem of
+    :returns: word stem
+    :rtype: str
     """
     _st_ending = frozenset('bdfghklmnt')
 
@@ -1551,15 +1541,14 @@ def clef_german_plus(word):
 
 
 def clef_swedish(word):
-    """Implementation of CLEF Swedish stemmer -- ideally returns the word
-    stem
+    """CLEF Swedish stemmer
 
-    Arguments:
-    word -- the word to calculate the stem of
-
-    Description:
-    The CLEF Swedish stemmer is defined at
+    The CLEF Swedish stemmer is defined at:
     http://members.unine.ch/jacques.savoy/clef/swedishStemmer.txt
+
+    :param word: the word to calculate the stem of
+    :returns: word stem
+    :rtype: str
     """
     wlen = len(word)-1
 
@@ -1587,16 +1576,17 @@ def clef_swedish(word):
 
 
 def caumanns(word):
-    """Implementation of the Jörg Caumanns' German stemmer
+    """Caumanns German stemmer
 
-    Arguments:
-    word -- the word to calculate the stem of
-
-    Description:
-    Caumanns' stemmer is described in his article at
+    Jörg Caumanns' stemmer is described in his article at:
     http://edocs.fu-berlin.de/docs/servlets/MCRFileNodeServlet/FUDOCS_derivate_000000000350/tr-b-99-16.pdf
-    This implementation is based on the GermanStemFilter described at
+
+    This implementation is based on the GermanStemFilter described at:
     http://www.evelix.ch/unternehmen/Blog/evelix/2013/11/11/inner-workings-of-the-german-analyzer-in-lucene
+
+    :param word: the word to calculate the stem of
+    :returns: word stem
+    :rtype: str
     """
     if not len(word):
         return ''
@@ -1665,15 +1655,15 @@ def caumanns(word):
 
 
 # def uealite(word):
-#     """Implementation of the UEA-Lite stemmer
+#     """UEA-Lite stemmer
 #
-#     Arguments:
-#     word -- the word to calculate the stem of
-#
-#     Description:
 #     The UEA-Lite stemmer is defined in Marie-Claire Jenkins and Dan Smith's
-#     article at
+#     article at:
 # http://wayback.archive.org/web/20121012154211/http://www.uea.ac.uk/polopoly_fs/1.85493!stemmer25feb.pdf
+#
+#     :param word: the word to calculate the stem of
+#     :returns: word stem
+#     :rtype: str
 #     """
 #     return word
 #
