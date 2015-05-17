@@ -19,6 +19,6 @@ pep8 -v --statistics --exclude=.git,__pycache__,build,_bmdata.py,docs . > pep8.l
 
 ./badge_update.py
 
-sphinx-apidocs -F -o docs abydos
+sphinx-apidoc -F -o docs abydos
 cd docs
 make html epub latexpdf >> /dev/null
