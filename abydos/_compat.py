@@ -22,12 +22,12 @@ The _compat module defines some variables to enable Python 2 and Python 3
 compatibility within a single codebase
 
 The following are defined:
-    _range   -- use in place of xrange/range
-    _unicode -- use in place of unicode/str
-    _unichr  -- use in place of unichr/chr
-    _long    -- use in place of long/int
+    - _range   -- use in place of xrange/range
+    - _unicode -- use in place of unicode/str
+    - _unichr  -- use in place of unichr/chr
+    - _long    -- use in place of long/int
 And:
-    numeric_type -- defines the set of numeric types
+    - numeric_type -- defines the set of numeric types
 """
 
 import sys
