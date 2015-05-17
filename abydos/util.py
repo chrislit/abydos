@@ -130,22 +130,34 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
     amount = abs(amount)
 
     def _rand_uniform():
-        """Return a random number from the uniform distribution
+        """Uniform distribution RNG
+
+        :returns: random number
+        :rtype: float
         """
         return uniform(-amount, amount)
 
     def _rand_laplace():
-        """Return a random number from the Laplace distribution
+        """Laplace distribution RNG
+
+        :returns: random number
+        :rtype: float
         """
         return laplace(0, amount)
 
     def _rand_normal():
-        """Return a random number from the normal distribution
+        """Normal distribution RNG
+
+        :returns: random number
+        :rtype: float
         """
         return normalvariate(0, amount)
 
     def _rand_user():
-        """Return a random number using a user-defined random number generator
+        """User-defined RNG
+
+        :returns: random number
+        :rtype: float
         """
         return rfunc(amount)
 
@@ -177,13 +189,6 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
 
 class Rational(object):
     """Rational number object supporting arithmetic and comparison operations
-
-    Construct a Rational with:
-        Rational(p, q), where p is the numerator and q the denominator
-    Also supported are construction with
-    floats: Rational(1.25) or Rational(1, 1.25)
-    strings: Rational('1/4') or Rational('1.25')
-    or a single int/long: Rational(1) or Rational(12)
     """
 
     # pylint: disable=invalid-name
@@ -193,6 +198,15 @@ class Rational(object):
     def __init__(self, p=0, q=1):
         """Construct a Rational object from p (the numerator) and q (the
         denominator
+
+        A Rational object can be constructed with:
+        - ints: Rational(p, q), where p is the numerator and q the denominator
+        - a float: Rational(1.25) or Rational(1, 1.25)
+        - a string: Rational('1/4') or Rational('1.25')
+        - a single int/long: Rational(1) or Rational(12)
+
+        :params p: numerator (or a string or float)
+        :params q: denominator
         """
         # First try to interpret a string as a numeric value
         if isinstance(p, (_unicode, str)):
@@ -235,17 +249,32 @@ class Rational(object):
         self._simplify()
 
     def numerator(self):
-        """Return the Rational's numerator (p)
+        """Get the numerator (p)
+
+        :returns: the numerator p
+        :rtype: int
         """
         return self.p
 
     def denominator(self):
-        """Return the Rational's denominator (q)
+        """Get the denominator (q)
+
+        :returns: the denominator q
+        :rtype: int
         """
         return self.q
 
     def _gcd(self, p=None, q=None):
-        """Return the greatest common denominator of integers p and q
+        """Greatest common denominator (GCD)
+
+        By default, this computes the GCD of the Rational's current
+        numerator & denominator, but can also accept p and/or q values and
+        calculate their GCD.
+
+        :param p: the numerator
+        :param q: the denominator
+        :returns: the greatest common denominator GCD of integers p and q
+        :rtype: int
         """
         if not p:
             p = self.p
@@ -256,14 +285,19 @@ class Rational(object):
         return p
 
     def _simplify(self):
-        """Simplify p and q by dividing both by their GCD
+        """Update p and q by dividing both by their GCD
+
+        :returns: None
         """
         gcd = self._gcd(self.p, self.q)
         self.p //= gcd
         self.q //= gcd
 
     def __eq__(self, other):
-        """Returns True if self == other (numerically)
+        """equals operator (==)
+
+        :returns: True if self == other (numerically)
+        :rtype: bool
         """
         if not isinstance(other, Rational):
             other = Rational(other)
@@ -273,45 +307,66 @@ class Rational(object):
             return False
 
     def __ne__(self, other):
-        """Returns True if self != other
+        """not-equal operator (!=)
+
+        :returns: True if self != other
+        :rtype: bool
         """
         return not self == other
 
     def __lt__(self, other):
-        """Returns True if self < other
+        """less-than operator (<)
+
+        :returns: True if self < other
+        :rtype: bool
         """
         if not isinstance(other, Rational):
             other = Rational(other)
         return self.p*other.q < self.q*other.p
 
     def __le__(self, other):
-        """Returns True if self <= other
+        """less-than or equal operator (<=)
+
+        :returns: True if self <= other
+        :rtype: bool
         """
         if not isinstance(other, Rational):
             other = Rational(other)
         return self.p*other.q <= self.q*other.p
 
     def __gt__(self, other):
-        """Returns True if self > other
+        """greater than operator (>)
+
+        :returns: True if self > other
+        :rtype: bool
         """
         if not isinstance(other, Rational):
             other = Rational(other)
         return self.p*other.q > self.q*other.p
 
     def __ge__(self, other):
-        """Returns True if self >= other
+        """greater-than or equal operator (>=)
+
+        :returns: True if self >= other
+        :rtype: bool
         """
         if not isinstance(other, Rational):
             other = Rational(other)
         return self.p*other.q >= self.q*other.p
 
     def __neg__(self):
-        """Returns a Rational object after negating the numerator
+        """negation operator (-)
+
+        :returns: a Rational object after negating the numerator
+        :rtype: Rational
         """
         return Rational(-self.p, self.q)
 
     def __add__(self, other):
-        """Returns a Rational object after adding other to self
+        """addition operator (+)
+
+        :returns: a Rational object after adding other to self
+        :rtype: Rational
         """
         if not isinstance(other, Rational):
             other = Rational(other)
@@ -324,12 +379,18 @@ class Rational(object):
         return Rational(p, q)
 
     def __radd__(self, other):
-        """Returns a Rational object after adding self to other
+        """right addition operator (+)
+
+        :returns: a Rational object after adding self to other
+        :rtype: Rational
         """
         return self + other
 
     def __sub__(self, other):
-        """Returns a Rational object after subtracting other from self
+        """subtraction operator (-)
+
+        :returns: a Rational object after subtracting other from self
+        :rtype: Rational
         """
         if not isinstance(other, Rational):
             other = Rational(other)
@@ -342,12 +403,18 @@ class Rational(object):
         return Rational(p, q)
 
     def __rsub__(self, other):
-        """Returns a Rational object after subtracting self from other
+        """right subtraction operator (-)
+
+        :returns: a Rational object after subtracting self from other
+        :rtype: Rational
         """
         return -self + other
 
     def __mul__(self, other):
-        """Returns a Rational object after multiplying self by other
+        """multiplication operator (*)
+
+        :returns: a Rational object after multiplying self by other
+        :rtype: Rational
         """
         if not isinstance(other, Rational):
             other = Rational(other)
@@ -356,22 +423,34 @@ class Rational(object):
         return Rational(p, q)
 
     def __rmul__(self, other):
-        """Returns a Rational object after multiplying other by self
+        """right multiplication operator (*)
+
+        :returns: a Rational object after multiplying other by self
+        :rtype: Rational
         """
         return self * other
 
     def __div__(self, other):
-        """Returns a Rational object after dividing self by other
+        """division operator (/)
+
+        :returns: a Rational object after dividing self by other
+        :rtype: Rational
         """
         return self.__truediv__(other)
 
     def __rdiv__(self, other):
-        """Returns a Rational object after dividing other by self
+        """right division operator (/)
+
+        :returns: a Rational object after dividing other by self
+        :rtype: Rational
         """
         return Rational(other).__div__(self)
 
     def __truediv__(self, other):
-        """Returns a Rational object after dividing self by other
+        """true division operator (/ when __future__.division)
+
+        :returns: a Rational object after dividing self by other
+        :rtype: Rational
         """
         if not isinstance(other, Rational):
             other = Rational(other)
@@ -380,54 +459,86 @@ class Rational(object):
         return Rational(p, q)
 
     def __rtruediv__(self, other):
-        """Returns a Rational object after dividing other by self
+        """right true division operator (/ when __future__.division)
+
+        :returns: a Rational object after dividing other by self
+        :rtype: Rational
         """
         return Rational(other).__truediv__(self)
 
     def __pow__(self, exponent):
-        """Returns a Rational object after raising self to the power of exponent
+        """exponentiation operator (**)
+
+        :returns: a Rational object after raising self to the power of exponent
+        :rtype: Rational
         """
         if isinstance(exponent, Rational):
             exponent = float(exponent)
         return Rational(self.p**exponent, self.q**exponent)
 
     def __rpow__(self, base):
-        """Returns a Rational object after raising base to the power of self
+        """right exponentiation operator (**)
+
+        :returns: a Rational object after raising base to the power of self
+        :rtype: Rational
         """
         exponent = float(self)
         return Rational(base**exponent)
 
     def __lshift__(self, shift):
-        """Return a Rational object after left bit shifting the numerator
+        """left shift operator (<<)
+
+        This is equivalent to left bit-shifting the numerator only or
+        right-bit-shifting the denominator only.
+
+        :returns: a Rational object after left bit shifting the numerator
+        :rtype: Rational
         """
         p = self.p << shift
         q = self.q
         return Rational(p, q)
 
     def __rshift__(self, shift):
-        """Return a Rational object after left bit shifting the denominator
-        (equivalent to right bit shifting the numerator)
+        """right shift operator (>>)
+
+        This is equivalent to right bit-shifting the numerator only or
+        left bit-shifting the denominator only.
+
+        :returns: a Rational object after left bit shifting the denominator
+        :rtype: Rational
         """
         p = self.p
         q = self.q << shift
         return Rational(p, q)
 
     def __int__(self):
-        """Return an int of the Rational (rounded down)
+        """cast to int
+
+        :returns: an int of the Rational, after calculating its floor
+        :rtype: int
         """
         return int(self.p//self.q)
 
     def __float__(self):
-        """Return a float of the Rational
+        """cast to float
+
+        :returns: a float approximation of the Rational
+        :rtype: float
         """
         return float(self.p/self.q)
 
     def __str__(self):
-        """Return a string representation of the Rational
+        """cast to str
+
+        :returns: a string representation of the Rational
+        :rtype: str
         """
         return '{}/{}'.format(self.p, self.q)
 
     def __repr__(self):
-        """Return a string representation of the Rational
+        """cast to a str representation
+
+        :returns: a string representation of the Rational
+        :rtype: str
         """
-        return '{}/{}'.format(self.p, self.q)
+        return self.__str__()
