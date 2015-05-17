@@ -21,6 +21,12 @@
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 """abydos._bmdata
+
+Behind-the-scenes constants, rules, etc. for the Beider-Morse Phonentic
+Matching (BMPM) algorithm
+
+DO NOT EDIT - This document is automatically generated from the reference
+implementation in PHP.
 """
 # pylint: disable=line-too-long
 

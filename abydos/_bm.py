@@ -21,6 +21,9 @@
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 """abydos._bm
+
+Helper functions and behind-the-scenes implementation of the Beider-Morse
+Phonentic Matching (BMPM) algorithm
 """
 
 from __future__ import unicode_literals

@@ -188,7 +188,10 @@ ANY WARRANTY; without even the implied warranty of\n# MERCHANTABILITY or \
 FITNESS FOR A PARTICULAR PURPOSE. See the\n# GNU General Public License for \
 more details.\n#\n# You should have received a copy of the GNU General Public \
 License\n# along with Abydos. If not, see <http://www.gnu.org/licenses/>.\n\n\
-"""abydos._bmdata\n"""\n# pylint: disable=line-too-long\n\nfrom __future__ \
+"""abydos._bmdata\n\nBehind-the-scenes constants, rules, etc. for the \
+Beider-Morse Phonentic\nMatching (BMPM) algorithm\n\nDO NOT EDIT - This \
+document is automatically generated from the reference\nimplementation in \
+PHP.\n"""\n# pylint: disable=line-too-long\n\nfrom __future__ \
 import unicode_literals\n\n')
 
 outfile.write('L_NONE = 0\n')
