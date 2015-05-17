@@ -21,6 +21,4 @@ pep8 -v --statistics --exclude=.git,__pycache__,build,_bmdata.py,docs . > pep8.l
 
 sphinx-apidocs -F -o docs abydos
 cd docs
-make html
-make latexpdf
-make epub
+make html epub latexpdf >> /dev/null
