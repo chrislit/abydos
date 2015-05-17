@@ -143,7 +143,9 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
         :returns: random number
         :rtype: float
         """
+        # pylint: disable=no-member
         return numpy.random.laplace(0, amount)
+        # pylint: enable=no-member
 
     def _rand_normal():
         """Normal distribution RNG
