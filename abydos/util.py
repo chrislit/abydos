@@ -56,7 +56,8 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
            rfunc='normal'):
     """Jitter
 
-    (adapted from R documentation as this is ported directly from the R code)
+    Adapted from R documentation as this is ported directly from the R code:
+
     The result, say r, is r = x + numpy.random.uniform(-a, a) where n = len(x)
     and a is the amount argument (if specified).
 
