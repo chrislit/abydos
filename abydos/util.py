@@ -20,10 +20,11 @@
 
 The util module defines various utility functions for other modules within
 Abydos, including:
-    prod -- computes the product of a collection of numbers (akin to sum)
-    jitter -- adds small random noise to each member of a list of numbers
+
+    - prod -- computes the product of a collection of numbers (akin to sum)
+    - jitter -- adds small random noise to each member of a list of numbers
         (ported from R's jitter function)
-    Rational -- a rational number class
+    - Rational -- a rational number class
 """
 from __future__ import unicode_literals
 from __future__ import division
@@ -39,39 +40,22 @@ if sys.version_info[0] == 3:
 
 
 def prod(nums):
-    """Return the product of a series of numbers
-
-    Arguments:
-    nums -- a tuple, list, or set of numbers
+    """Product
 
     The product is Π(nums).
 
     Cf. https://en.wikipedia.org/wiki/Product_(mathematics)
+
+    :param nums: a collection (list, tuple, set, etc.) of numbers
+    :returns: the product of a nums
     """
     return reduce(lambda x, y: x*y, nums, 1)
 
 
 def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
            rfunc='normal'):
-    """Return list of numbers with random noise added, according to the R
-    jitter function, q.v.:
+    """Jitter
 
-    Arguments:
-    x --  numeric collection to which jitter should be added
-    factor --  numeric
-    amount --  numeric; if positive, used as amount (see below), otherwise,
-        if = 0 the default is factor * z/50.
-        Default (NULL): factor * d/5 where d is about the smallest difference
-        between x values.
-    min_val -- the minimum permitted value in the returned list
-    max_val -- the maximum permitted value in the returned list
-    rand -- a string or function to indicate the random distribution used:
-        'normal' (default), 'uniform' (standard in the R version),
-        or 'laplace' (requires Numpy)
-        If a function is supplied, it should take one argument (the value
-        passed as amount).
-
-    Description:
     (adapted from R documentation as this is ported directly from the R code)
     The result, say r, is r = x + numpy.random.uniform(-a, a) where n = len(x)
     and a is the amount argument (if specified).
@@ -85,8 +69,24 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
     If amount is None (default), we set a = factor * d/5 where d is the
     smallest difference between adjacent unique x values.
 
-    Source:
+    Based on:
     http://svn.r-project.org/R/trunk/src/library/base/R/jitter.R
+
+    :param x:  numeric collection to which jitter should be added
+    :param factor:  numeric
+    :param amount:  numeric; if positive, used as amount (see below),
+        otherwise, if = 0 the default is factor * z/50.
+        Default (NULL): factor * d/5 where d is about the smallest difference
+        between x values.
+    :param min_val: the minimum permitted value in the returned list
+    :param max_val: the maximum permitted value in the returned list
+    :param rand: a string or function to indicate the random distribution used:
+        'normal' (default), 'uniform' (standard in the R version),
+        or 'laplace' (requires Numpy)
+        If a function is supplied, it should take one argument (the value
+        passed as amount).
+    :returns: a list of numbers with random noise added, according to the R
+        jitter function
     """
     if isinstance(nums, numeric_type):
         return jitter([nums])[0]
