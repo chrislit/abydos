@@ -52,7 +52,7 @@ The distance module implements string edit distance functions including:
 from __future__ import unicode_literals
 from __future__ import division
 from ._compat import _range, _unicode
-import numpy as np
+import numpy
 import sys
 import math
 from collections import defaultdict, Counter
@@ -115,7 +115,7 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
         return damerau_levenshtein(src, tar, cost)
 
     # pylint: disable=no-member
-    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
+    d_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
     # pylint: enable=no-member
     for i in _range(len(src)+1):
         d_mat[i, 0] = i * del_cost
@@ -230,7 +230,7 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
                          'an insert plus a delete.')
 
     # pylint: disable=no-member
-    d_mat = (np.zeros((len(src))*(len(tar)), dtype=np.int).
+    d_mat = (numpy.zeros((len(src))*(len(tar)), dtype=numpy.int).
              reshape((len(src), len(tar))))
     # pylint: enable=no-member
 
@@ -978,7 +978,7 @@ def lcsseq(src, tar):
         conversion to a numpy array in place of a list of lists
     """
     # pylint: disable=no-member
-    lengths = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
+    lengths = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
     # pylint: enable=no-member
 
     # row 0 and column 0 are initialized to 0 already
@@ -1053,7 +1053,7 @@ def lcsstr(src, tar):
         conversion to Python 2/3-safe _range from xrange
     """
     # pylint: disable=no-member
-    lengths = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
+    lengths = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
     # pylint: enable=no-member
     longest, i_longest = 0, 0
     for i in _range(1, len(src)+1):
@@ -1126,7 +1126,7 @@ def sim_ratcliff_obershelp(src, tar):
         strings src and tar
         """
         # pylint: disable=no-member
-        lengths = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
+        lengths = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
         # pylint: enable=no-member
         longest, src_longest, tar_longest = 0, 0, 0
         for i in _range(1, len(src)+1):
@@ -1483,7 +1483,7 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
     http://csb.stanford.edu/class/public/readings/Bioinformatics_I_Lecture6/Needleman_Wunsch_JMB_70_Global_alignment.pdf
     """
     # pylint: disable=no-member
-    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
+    d_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.float)
     # pylint: enable=no-member
 
     for i in _range(len(src)+1):
@@ -1513,7 +1513,7 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
     https://en.wikipedia.org/wiki/Smith–Waterman_algorithm
     """
     # pylint: disable=no-member
-    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
+    d_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.float)
     # pylint: enable=no-member
 
     for i in _range(len(src)+1):
@@ -1545,9 +1545,9 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
     https://www.cs.umd.edu/class/spring2003/cmsc838t/papers/gotoh1982.pdf
     """
     # pylint: disable=no-member
-    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
-    p_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
-    q_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
+    d_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.float)
+    p_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.float)
+    q_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.float)
     # pylint: enable=no-member
 
     d_mat[0, 0] = 0
@@ -1856,7 +1856,7 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
         return len(src) * mismatch_cost
 
     # pylint: disable=no-member
-    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
+    d_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
     # pylint: enable=no-member
     lens = len(src)
     lent = len(tar)
