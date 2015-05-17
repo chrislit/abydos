@@ -29,9 +29,9 @@ Abydos, including:
 from __future__ import unicode_literals
 from __future__ import division
 import sys
-from random import uniform, normalvariate
-from numpy.random import laplace
-from math import floor, log10
+import random
+import numpy.random
+import math
 from ._compat import _unicode, _range, numeric_type, _long
 if sys.version_info[0] == 3:
     # pylint: disable=redefined-builtin
@@ -113,7 +113,7 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
         raise AttributeError('Maximum of nums is greater than max_val.')
 
     if amount is None:
-        ndigits = int(3 - floor(log10(diff)))
+        ndigits = int(3 - math.floor(math.log10(diff)))
         snums = sorted(set([round(i, ndigits) for i in nums]))
         if len(snums) == 1:
             if snums[0] != 0:
@@ -135,7 +135,7 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
         :returns: random number
         :rtype: float
         """
-        return uniform(-amount, amount)
+        return random.uniform(-amount, amount)
 
     def _rand_laplace():
         """Laplace distribution RNG
@@ -143,7 +143,7 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
         :returns: random number
         :rtype: float
         """
-        return laplace(0, amount)
+        return numpy.random.laplace(0, amount)
 
     def _rand_normal():
         """Normal distribution RNG
@@ -151,7 +151,7 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
         :returns: random number
         :rtype: float
         """
-        return normalvariate(0, amount)
+        return random.normalvariate(0, amount)
 
     def _rand_user():
         """User-defined RNG
