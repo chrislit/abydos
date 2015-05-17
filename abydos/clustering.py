@@ -30,7 +30,7 @@ from ._compat import _unicode
 from .phonetic import double_metaphone
 from .qgram import QGrams
 from .distance import sim
-import abydos.stats as stats
+from .stats import hmean
 
 
 def fingerprint(phrase):
@@ -165,7 +165,7 @@ def omission_key(word):
 
 
 def mean_pairwise_similarity(collection, metric=sim,
-                             meanfunc=stats.hmean, symmetric=False):
+                             meanfunc=hmean, symmetric=False):
     """Return the mean pairwise similarity of a collection of strings
 
     Arguments:
