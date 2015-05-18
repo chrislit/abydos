@@ -18,8 +18,8 @@
 
 """abydos.clustering
 
-The clustering module implements clustering algorithms such as string
-fingerprinting, k-nearest neighbors, and ...
+The clustering module implements clustering algorithms such as:
+    - string fingerprinting
 """
 
 from __future__ import unicode_literals
@@ -33,14 +33,14 @@ from .stats import hmean
 
 
 def fingerprint(phrase):
-    """Return the fingerprint of a phrase
+    """String fingerprint
 
-    Arguments:
-    phrase -- a string to calculate the fingerprint of
-
-    Description:
     The fingerprint of a string is a string consisting of all of the unique
     words in a string, alphabetized & concatenated with intervening spaces
+
+    :param phrase: the string from which to calculate the fingerprint
+    :returns: the fingerprint of the phrase
+    :rtype: str
     """
     phrase = unicodedata.normalize('NFKD', _unicode(phrase.strip().lower()))
     phrase = ''.join([c for c in phrase if c.isalnum() or c.isspace()])
@@ -49,17 +49,17 @@ def fingerprint(phrase):
 
 
 def qgram_fingerprint(phrase, qval=2, start_stop=''):
-    """Return the q-gram fingerprint of a phrase
+    """Q-Gram fingerprint
 
-    Arguments:
-    phrase -- a string to calculate the q-gram fingerprint of
-    qval -- the length of each q-gram (by default 2)
-    start_stop -- the start & stop symbol(s) to concatenate on either end of
-        the phrase, as defined in abydos.util.qgram()
-
-    Description:
     A q-gram fingerprint is a string consisting of all of the unique q-grams
     in a string, alphabetized & concatenated.
+
+    :param phrase: the string from which to calculate the q-gram fingerprint
+    :param qval: the length of each q-gram (by default 2)
+    :param start_stop: the start & stop symbol(s) to concatenate on either end
+        of the phrase, as defined in abydos.util.qgram()
+    :returns: the q-gram fingerprint of the phrase
+    :rtype: str
     """
     phrase = unicodedata.normalize('NFKD', _unicode(phrase.strip().lower()))
     phrase = ''.join([c for c in phrase if c.isalnum()])
@@ -71,19 +71,20 @@ def qgram_fingerprint(phrase, qval=2, start_stop=''):
 def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone, *args):
     """Return the phonetic fingerprint of a phrase
 
-    Arguments:
-    phrase -- a string to calculate the phonetic fingerprint of
-    phonetic_algorithm -- a phonetic algorithm that takes a string and returns
-        a string (presumably a phonetic representation of the original string)
-        By default, this function uses double_metaphone() from abydos.phonetic.
-    *args -- additional arguments to pass to the phonetic algorithm, along with
-        the phrase itself
-
-    Description:
     A phonetic fingerprint is identical to a standard string fingerprint, as
     implemented in abydos.clustering.fingerprint(), but performs the
     fingerprinting function after converting the string to its phonetic form,
     as determined by some phonetic algorithm.
+
+    :param phrase: the string from which to calculate the phonetic fingerprint
+    :param phonetic_algorithm: a phonetic algorithm that takes a string and
+        returns a string (presumably a phonetic representation of the original
+        string) By default, this function uses
+        abydos.phonetic.double_metaphone()
+    :param *args: additional arguments to pass to the phonetic algorithm,
+        along with the phrase itself
+    :returns: the phonetic fingerprint of the phrase
+    :rtype: str
     """
     phonetic = ''
     for word in phrase.split():
@@ -96,16 +97,16 @@ def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone, *args):
 
 
 def skeleton_key(word):
-    """Return the skeleton key of a word
+    """Skeleton key
 
-    Arguments:
-    word -- the word to transform into its skeleton key
-
-    Description:
     The skeleton key of a word is defined in:
     Pollock, Joseph J. and Antonio Zamora. 1984. "Automatic Spelling Correction
     in Scientific and Scholarly Text." Communications of the ACM, 27(4).
     358--368. <http://dl.acm.org/citation.cfm?id=358048>
+
+    :param word: the word to transform into its skeleton key
+    :returns: the skeleton key
+    :rtype: str
     """
     _vowels = frozenset('AEIOU')
 
@@ -131,16 +132,16 @@ def skeleton_key(word):
 
 
 def omission_key(word):
-    """Return the omission key of a word
+    """Omission key
 
-    Arguments:
-    word -- the word to transform into its omission key
-
-    Description:
     The omission key of a word is defined in:
     Pollock, Joseph J. and Antonio Zamora. 1984. "Automatic Spelling Correction
     in Scientific and Scholarly Text." Communications of the ACM, 27(4).
     358--368. <http://dl.acm.org/citation.cfm?id=358048>
+
+    :param word: the word to transform into its omission key
+    :returns: the omission key
+    :rtype: str
     """
     _consonants = tuple('JKQXZVWYBFMGPDHCLNTSR')
 
@@ -165,14 +166,20 @@ def omission_key(word):
 
 def mean_pairwise_similarity(collection, metric=sim,
                              meanfunc=hmean, symmetric=False):
-    """Return the mean pairwise similarity of a collection of strings
+    """Mean pairwise similarity of a collection of strings
 
-    Arguments:
-    collection -- a tuple, list, or set of terms or a string that can be split
-    metric -- a similarity metric function
-    mean -- a mean function that takes a list of values and returns a float
-    symmetric -- set to True if all pairwise similarities should be calculated
-                    in both directions
+    Takes the mean of the pairwise similarity between each member of a
+    collection, optionally in both directions (for asymmetric similarity
+    metrics.
+
+    :param collection: a collection of terms or a string that can be split
+    :param metric: a similarity metric function
+    :param mean: a mean function that takes a list of values and returns a
+        float
+    :param symmetric: set to True if all pairwise similarities should be
+        calculated in both directions
+    :returns: the mean pairwise similarity of a collection of strings
+    :rtype: str
     """
     if hasattr(collection, 'split'):
         collection = collection.split()

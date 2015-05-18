@@ -38,18 +38,20 @@ class Corpus(object):
                  filter_chars='', stop_words=None):
         """Corpus initializer
 
-        corpus_text -- The corpus text as a single string
-        doc_split -- a character or string used to split corpus_text into
-            documents
-        sent_split -- a character or string used to split documents into
-            sentences
-        filter_chars -- A list of characters (as a string, tuple, set, or list)
-            to filter out of the corpus text
-        stop_words -- A list of words (as a tuple, set, or list) to filter out
-            of the corpus text
+        By default, when importing a corpus:
+            - two consecutive newlines divide documents
+            - single newlines divide sentences
+            - other whitespace divides words
 
-        When importing a corpus, newlines divide sentences and other whitespace
-        divides words.
+        :param corpus_text: the corpus text as a single string
+        :param doc_split: a character or string used to split corpus_text into
+            documents
+        :param sent_split: a character or string used to split documents into
+            sentences
+        :param filter_chars: A list of characters (as a string, tuple, set, or
+            list) to filter out of the corpus text
+        :param stop_words: A list of words (as a tuple, set, or list) to filter
+            out of the corpus text
         """
         self.corpus = []
         self.doc_split = doc_split
@@ -70,48 +72,69 @@ class Corpus(object):
                 self.corpus.append(doc)
 
     def docs(self):
-        """Return the docs in the corpus: a list of (lists of (lists of strs))
+        """Get the docs in the corpus
 
         Each list within a doc represents the sentences in that doc, each of
         which is in turn a list of words within that sentence.
+
+        :returns: the paragraphs in the corpus as a list of lists of lists
+            of strs
+        :rtype: list(list(list(str)))
         """
         return self.corpus
 
     def paras(self):
-        """Return the paragraphs in the corpus: a list of (lists of (lists of
-        strs))
+        """Get the paragraphs in the corpus
 
         Each list within a paragraph represents the sentences in that doc, each
         of which is in turn a list of words within that sentence.
         This is identical to the docs() member function and exists only to
         mirror part of NLTK's API for corpora.
+
+        :returns: the paragraphs in the corpus as a list of lists of lists
+            of strs
+        :rtype: list(list(list(str)))
         """
         return self.docs()
 
     def sents(self):
-        """Return the sentences in the corpus: a list of (lists of strs)
+        """Get the sentences in the corpus
 
         Each list within a sentence represents the words within that sentence.
+
+        :returns: the sentences in the corpus as a list of lists of strs
+        :rtype: list(list(str))
         """
         return [words for sents in self.corpus for words in sents]
 
     def words(self):
-        """Return the words in the corpus: a list of strs
+        """Get the words in the corpus as a single list
+
+        :returns: the words in the corpus as a list of strs
+        :rtype: list(str)
         """
         return [words for sents in self.sents() for words in sents]
 
     def docs_of_words(self):
-        """Return the docs in the corpus as lists of words: a list of (lists of
-        strs)
+        """Get the docs in the corpus, with sentences flattened
 
         Each list within the corpus represents all the words of that document.
         Thus the sentence level of lists has been flattened.
+
+        :returns: the docs in the corpus as a list of list of strs
+        :rtype: list(list(str))
         """
         return [[words for sents in doc for words in sents]
                 for doc in self.corpus]
 
     def raw(self):
-        """Return the corpus as a single reconstructed string
+        """Get the raw corpus
+
+        This is reconstructed by joining sub-components with the corpus' split
+        characters
+
+        :returns: the raw corpus
+        :rtype: str
         """
         doc_list = []
         for doc in self.corpus:
@@ -126,10 +149,11 @@ class Corpus(object):
         """Calculates the Inverse Document Frequency (IDF) of a term in the
         corpus.
 
-        Arguments:
-        term -- the term to calculate the IDF of
-        transform -- a function to apply to each document term before
+        :param term: the term to calculate the IDF of
+        :param transform: a function to apply to each document term before
             checking for the presence of term
+        :returns: the IDF
+        :rtype: float
         """
         docs_with_term = 0
         docs = self.docs_of_words()
