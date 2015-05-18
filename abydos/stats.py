@@ -113,10 +113,10 @@ class ConfusionTable(object):
 
     def __eq__(self, other):
         """eqality operator (==)
-        
+
         Compares a ConfusionTable to another ConfusionTable or its equivalent
         in the form of a tuple, list, or dict.
-        
+
         :returns: True if two ConfusionTables are the same object or all four
         of their attributes are equal
         :rtype: bool
@@ -139,7 +139,7 @@ class ConfusionTable(object):
 
     def __str__(self):
         """cast to str
-        
+
         :returns: a human-readable version of the confusion table
         :rtype: str
         """
