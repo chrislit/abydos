@@ -536,7 +536,10 @@ class Rational(object):
         :returns: a string representation of the Rational
         :rtype: str
         """
-        return '{}/{}'.format(self.p, self.q)
+        if self.q == 1:
+            return str(self.p)
+        else:
+            return '{}/{}'.format(self.p, self.q)
 
     def __repr__(self):
         """cast to a str representation

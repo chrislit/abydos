@@ -277,6 +277,9 @@ class RationalTestCases(unittest.TestCase):
         self.assertEqual(Rational(3)+2, Rational(5))
         self.assertEqual(2+Rational(3), Rational(5))
 
+        self.assertEqual(self.sevenhalves+'1/2', Rational(4))
+        self.assertEqual('1/2'+self.sevenhalves, Rational(4))
+
         # -
         self.assertEqual(self.half_1-self.half_2, Rational(0))
         self.assertEqual(self.half_1-0.5, Rational(0))
@@ -368,16 +371,16 @@ class RationalTestCases(unittest.TestCase):
         self.assertEqual(str(Rational(1, 4)), '1/4')
         self.assertEqual(str(Rational(1, 3)), '1/3')
         self.assertEqual(str(Rational(1, 2)), '1/2')
-        self.assertEqual(str(Rational(1)), '1/1')
-        self.assertEqual(str(Rational(2)), '2/1')
+        self.assertEqual(str(Rational(1)), '1')
+        self.assertEqual(str(Rational(2)), '2')
         self.assertEqual(str(Rational(5, 2)), '5/2')
 
         # __repr__
         self.assertEqual(Rational(1, 4).__repr__(), '1/4')
         self.assertEqual(Rational(1, 3).__repr__(), '1/3')
         self.assertEqual(Rational(1, 2).__repr__(), '1/2')
-        self.assertEqual(Rational(1).__repr__(), '1/1')
-        self.assertEqual(Rational(2).__repr__(), '2/1')
+        self.assertEqual(Rational(1).__repr__(), '1')
+        self.assertEqual(Rational(2).__repr__(), '2')
         self.assertEqual(Rational(5, 2).__repr__(), '5/2')
 
 
