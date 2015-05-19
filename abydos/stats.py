@@ -29,7 +29,7 @@ calculating the following data based on a confusion table:
         and markedness
     - various means of the precision & recall, including: arithmetic,
         geometric, harmonic, quadratic, logarithmic, contraharmonic,
-        identric, & Hölder (power) means
+        identric (exponential), & Hölder (power/generalized) means
     - :math:`F_{β}`-scores, :math:`E`-scores, :math:`G`-measures, along with
         special functions for :math:`F_{1}`, :math:`F_{0.5}`, & :math:`F_{2}`
         scores
@@ -42,11 +42,11 @@ Functions are provided for calculating the following means:
     - quadratic
     - contraharmonic
     - logarithmic,
-    - identric
+    - identric (exponential)
     - Seiffert's
     - Lehmer
     - Heronian
-    - Hölder (power)
+    - Hölder (power/generalized)
     - arithmetic-geometric
     - geometric-harmonic
     - arithmetic-geometric-harmonic
@@ -256,7 +256,7 @@ class ConfusionTable(object):
     def recall(self):
         """recall
 
-        Recall is defined as :math:`\\frac{tp}{tp + fn}
+        Recall is defined as :math:`\\frac{tp}{tp + fn}`
 
         AKA sensitivity
 
@@ -307,6 +307,7 @@ class ConfusionTable(object):
         """fall-out
 
         Fall-out is defined as :math:`\\frac{fp}{fp + tn}`
+
         AKA false positive rate (FPR)
 
         Cf. https://en.wikipedia.org/wiki/Information_retrieval#Fall-out
@@ -380,7 +381,9 @@ class ConfusionTable(object):
         """informedness
 
         Informedness is defined as :math:`sensitivity + specificity - 1`.
+
         AKA Youden's J statistic
+
         AKA DeltaP'
 
         Cf. https://en.wikipedia.org/wiki/Youden%27s_J_statistic
@@ -397,6 +400,7 @@ class ConfusionTable(object):
         """markedness
 
         Markedness is defined as :math:`precision + npv - 1`
+
         AKA DeltaP
 
         Cf. https://en.wikipedia.org/wiki/Youden%27s_J_statistic
@@ -504,7 +508,7 @@ class ConfusionTable(object):
                     (math.log(precision) - math.log(recall)))
 
     def pr_imean(self):
-        """identric mean of precision & recall
+        """identric (exponential) mean of precision & recall
 
         The identric mean is:
         precision if precision = recall,
@@ -563,11 +567,11 @@ class ConfusionTable(object):
         return heronian_mean((self.precision(), self.recall()))
 
     def pr_hoelder_mean(self, exp=2):
-        """Hölder (power) mean of precision & recall
+        """Hölder (power/generalized) mean of precision & recall
 
         The power mean of precision and recall is defined as:
         :math:`\\frac{1}{2} \\cdot
-        \sqrt[exp]{precision^{exp} + recall^{exp}}`
+        \\sqrt[exp]{precision^{exp} + recall^{exp}}`
         for :math:`exp \\ne 0`, and the geometric mean for :math:`exp = 0`
 
         Cf. https://en.wikipedia.org/wiki/Generalized_mean
@@ -661,7 +665,7 @@ class ConfusionTable(object):
 
     def fhalf_score(self):
         """:math:`F_{0.5}` score
-        
+
         The :math:`F_{0.5}` score emphasizes precision over recall in
         comparison to the :math:`F_{1}` score
 
@@ -674,7 +678,7 @@ class ConfusionTable(object):
 
     def e_score(self, beta=1):
         """:math:`E`-score
-        
+
         This is Van Rijsbergen's effectiveness measure
 
         Cf. https://en.wikipedia.org/wiki/Information_retrieval#F-measure
@@ -793,10 +797,10 @@ class ConfusionTable(object):
 
 
 def amean(nums):
-    """Return the arithmetic mean of a series of numbers
+    """arithmetic mean
 
     The arithmetic mean is defined as:
-    Σ(nums)/|nums|
+    :math:`\\frac{\\sum{nums}}{|nums|}`
 
     Cf. https://en.wikipedia.org/wiki/Arithmetic_mean
 
@@ -808,10 +812,10 @@ def amean(nums):
 
 
 def gmean(nums):
-    """Return the geometric mean of a series of numbers
+    """geometric mean
 
     The geometric mean is defined as:
-    Π(nums)^(1/|nums|)
+    :math:`\\sqrt[|nums|]{\\prod\\limits_{i} nums_{i}}`
 
     Cf. https://en.wikipedia.org/wiki/Geometric_mean
 
@@ -823,10 +827,10 @@ def gmean(nums):
 
 
 def hmean(nums):
-    """Return the harmonic mean of a series of numbers
+    """harmonic mean
 
     The harmonic mean is defined as:
-    |nums| / Σ_i(1/nums_i)
+    :math:`\\frac{|nums|}{\\sum\\limits_{i}\\frac{1}{nums_i}}`
 
     Following the behavior of Wolfram|Alpha:
     If one of the values in nums is 0, return 0.
@@ -857,13 +861,10 @@ def hmean(nums):
 
 
 def qmean(nums):
-    """Return the quadratic mean of a series of numbers
-
-    Arguments:
-    nums -- a tuple, list, or set of numbers
+    """quadratic mean
 
     The quadratic mean of precision and recall is defined as:
-    √(Σ_i(num_i^2)/|nums|)
+    :math:`\\sqrt{\\sum\\limits_{i} \\frac{num_i^2}{|nums|}}`
 
     Cf. https://en.wikipedia.org/wiki/Quadratic_mean
 
@@ -875,13 +876,10 @@ def qmean(nums):
 
 
 def cmean(nums):
-    """Return the contraharmonic mean of a series of numbers
-
-    Arguments:
-    nums -- a tuple, list, or set of numbers
+    """contraharmonic mean
 
     The contraharmonic mean is:
-    Σ_i(x_i^2)/Σx
+    :math:`\\frac{\\sum\\limits_i x_i^2}{\\sum\\limits_i x_i}`
 
     Cf. https://en.wikipedia.org/wiki/Contraharmonic_mean
 
@@ -893,12 +891,15 @@ def cmean(nums):
 
 
 def lmean(nums):
-    """Return the logarithmic mean of a series of numbers
+    """logarithmic mean
 
-    The logarithmic mean of an arbitrary series is defined by
+    The logarithmic mean of an arbitrarily long series is defined by
     http://www.survo.fi/papers/logmean.pdf
     as:
-    L(x_1, x_2, ..., x_n) = (n-1)! * Σ_i(x_i /  Π_j[i!=j] (log (x_i/x_j)))
+    :math:`L(x_1, x_2, ..., x_n) =
+    (n-1)! \\sum\\limits_{i=1}^n \\frac{x_i}
+    {\\prod\\limits_{\\substack{j = 1\\\\j \\ne i}}^n
+    ln \\frac{x_i}{x_j}}`
 
     Cf. https://en.wikipedia.org/wiki/Logarithmic_mean
 
@@ -919,11 +920,11 @@ def lmean(nums):
 
 
 def imean(nums):
-    """Return the identric (exponential) mean of a pair of numbers
+    """identric (exponential) mean
 
     The identric mean of two numbers x and y is:
-    x if x == y
-    otherwise (1/e) * (x^x / y^y)^(1 / (x-y))
+    x if x = y
+    otherwise :math:`\\frac{1}{e} \\sqrt[x-y]{\\frac{x^x}{y^y}}`
 
     Cf. https://en.wikipedia.org/wiki/Identric_mean
 
@@ -944,10 +945,10 @@ def imean(nums):
 
 
 def seiffert_mean(nums):
-    """Return Seiffert's mean of a pair of numbers
+    """Seiffert's mean
 
     Seiffert's mean of two numbers x and y is:
-    (x - y) / (4 * arctan(√(x/y)) - π)
+    :math:`\\frac{x - y}{4 \\cdot arctan \\sqrt{\\frac{x}{y}} - π}`
 
     Cf. http://www.helsinki.fi/~hasto/pp/miaPreprint.pdf
 
@@ -965,10 +966,10 @@ def seiffert_mean(nums):
 
 
 def lehmer_mean(nums, exp=2):
-    """Return the Lehmer mean of a series of numbers
+    """Lehmer mean
 
     The Lehmer mean is:
-    Σ_i(x_i^p)/Σ_i(x_i^(p-1))
+    :math:`\\frac{\\sum\\limits_i{x_i^p}}{\\sum\\limits_i{x_i^(p-1)}}`
 
     Cf. https://en.wikipedia.org/wiki/Lehmer_mean
 
@@ -981,11 +982,12 @@ def lehmer_mean(nums, exp=2):
 
 
 def heronian_mean(nums):
-    """Return the Heronian mean of a series of numbers
+    """Heronian mean
 
     The Heronian mean is:
-    Σ_i,j((x_i*x_j)^(1/2))/(|nums|*(|nums|+1)/2)
-    for j >= i
+    :math:`\\frac{\\sum\\limits_{i, j}\\sqrt{{x_i \\cdot x_j}}}
+    {|nums| \\cdot \\frac{|nums| + 1}{2}}`
+    for :math:`j \\ge i`
 
     Cf. https://en.wikipedia.org/wiki/Heronian_mean
 
@@ -1005,11 +1007,11 @@ def heronian_mean(nums):
 
 
 def hoelder_mean(nums, exp=2):
-    """Return the Hölder (power) mean of a series of numbers
+    """Hölder (power/generalized) mean
 
     The Hölder mean is defined as:
-    ((1/|nums|)*Σ_i(x_i^p))^(1/p)
-    for p != 0, and the geometric mean for p == 0
+    :math:`\\sqrt[p]{\\frac{1}{|nums|} \\cdot \\sum\\limits_i{x_i^p}}`
+    for :math:`p \\ne 0`, and the geometric mean for :math:`p = 0`
 
     Cf. https://en.wikipedia.org/wiki/Generalized_mean
 
@@ -1024,7 +1026,7 @@ def hoelder_mean(nums, exp=2):
 
 
 def agmean(nums):
-    """Return the arithmetic-geometric mean of a series of numbers
+    """arithmetic-geometric mean
 
     Iterates between arithmetic & geometric means until they converge to
     a single value (rounded to 12 digits)
@@ -1044,7 +1046,7 @@ def agmean(nums):
 
 
 def ghmean(nums):
-    """Return the geometric-harmonic mean of a series of numbers
+    """geometric-harmonic mean
 
     Iterates between geometric & harmonic means until they converge to
     a single value (rounded to 12 digits)
@@ -1064,7 +1066,7 @@ def ghmean(nums):
 
 
 def aghmean(nums):
-    """Return the arithmetic-geometric-harmonic mean of a series of numbers
+    """arithmetic-geometric-harmonic mean
 
     Iterates over arithmetic, geometric, & harmonic means until they
     converge to a single value (rounded to 12 digits), following the
@@ -1089,7 +1091,7 @@ def aghmean(nums):
 
 
 def midrange(nums):
-    """Return the median of a series of numbers
+    """midrange
 
     The midrange is the arithmetic mean of the maximum & minimum of a series.
 
@@ -1103,7 +1105,7 @@ def midrange(nums):
 
 
 def median(nums):
-    """Return the median of a series of numbers
+    """median
 
     With numbers sorted by value, the median is the middle value (if there is
     an odd number of values) or the arithmetic mean of the two middle values
@@ -1126,7 +1128,7 @@ def median(nums):
 
 
 def mode(nums):
-    """Calculate the mode
+    """mode
 
     The mode of a series is the most common element of that series
 
