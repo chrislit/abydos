@@ -38,7 +38,7 @@ def fingerprint(phrase):
     The fingerprint of a string is a string consisting of all of the unique
     words in a string, alphabetized & concatenated with intervening spaces
 
-    :param phrase: the string from which to calculate the fingerprint
+    :param str phrase: the string from which to calculate the fingerprint
     :returns: the fingerprint of the phrase
     :rtype: str
     """
@@ -54,10 +54,11 @@ def qgram_fingerprint(phrase, qval=2, start_stop=''):
     A q-gram fingerprint is a string consisting of all of the unique q-grams
     in a string, alphabetized & concatenated.
 
-    :param phrase: the string from which to calculate the q-gram fingerprint
-    :param qval: the length of each q-gram (by default 2)
-    :param start_stop: the start & stop symbol(s) to concatenate on either end
-        of the phrase, as defined in abydos.util.qgram()
+    :param str phrase: the string from which to calculate the q-gram
+        fingerprint
+    :param int qval: the length of each q-gram (by default 2)
+    :param str start_stop: the start & stop symbol(s) to concatenate on either
+        end of the phrase, as defined in abydos.util.qgram()
     :returns: the q-gram fingerprint of the phrase
     :rtype: str
     """
@@ -76,10 +77,11 @@ def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone, *args):
     fingerprinting function after converting the string to its phonetic form,
     as determined by some phonetic algorithm.
 
-    :param phrase: the string from which to calculate the phonetic fingerprint
-    :param phonetic_algorithm: a phonetic algorithm that takes a string and
-        returns a string (presumably a phonetic representation of the original
-        string) By default, this function uses
+    :param str phrase: the string from which to calculate the phonetic
+        fingerprint
+    :param function phonetic_algorithm: a phonetic algorithm that takes a
+        string and returns a string (presumably a phonetic representation of
+        the original string) By default, this function uses
         abydos.phonetic.double_metaphone()
     :param *args: additional arguments to pass to the phonetic algorithm,
         along with the phrase itself
@@ -104,7 +106,7 @@ def skeleton_key(word):
     in Scientific and Scholarly Text." Communications of the ACM, 27(4).
     358--368. <http://dl.acm.org/citation.cfm?id=358048>
 
-    :param word: the word to transform into its skeleton key
+    :param str word: the word to transform into its skeleton key
     :returns: the skeleton key
     :rtype: str
     """
@@ -139,7 +141,7 @@ def omission_key(word):
     in Scientific and Scholarly Text." Communications of the ACM, 27(4).
     358--368. <http://dl.acm.org/citation.cfm?id=358048>
 
-    :param word: the word to transform into its omission key
+    :param str word: the word to transform into its omission key
     :returns: the omission key
     :rtype: str
     """
