@@ -20,7 +20,7 @@
 
 The util module defines various utility functions for other modules within
 Abydos, including:
-    Qgrams multi-set class
+    - Qgrams multi-set class
 """
 
 from __future__ import unicode_literals
@@ -45,9 +45,10 @@ class QGrams(Counter):
     def __init__(self, term, qval=2, start_stop='$#'):
         """Qgrams initializer
 
-        word -- a string to extract q-grams from
-        qval -- the q-gram length (defaults to 2)
-        start_stop -- a string of length >= 0 indicating start & stop symbols
+        :param str word: a string to extract q-grams from
+        :param int qval: the q-gram length (defaults to 2)
+        :param str start_stop: a string of length >= 0 indicating start & stop
+            symbols.
             If the string is '', q-grams will be calculated without start &
             stop symbols appended to each end.
             Otherwise, the first character of start_stop will pad the beginning
@@ -68,6 +69,9 @@ class QGrams(Counter):
         super(QGrams, self).__init__(self.ordered_list)
 
     def count(self):
-        """Return the total count of q-grams in a QGrams object
+        """q-grams count
+
+        :returns: the total count of q-grams in a QGrams object
+        :rtype: int
         """
         return sum(self.values())
