@@ -144,24 +144,24 @@ class MPSTestCases(unittest.TestCase):
     def test_mean_pairwise_similarity(self):
         """test abydos.clustering.mean_pairwise_similarity
         """
-        self.assertEqual(mean_pairwise_similarity(NIALL), 0.29362587170180676)
+        self.assertEqual(mean_pairwise_similarity(NIALL), 0.29362587170180671)
         self.assertEqual(mean_pairwise_similarity(NIALL, symmetric=True),
-                         0.29362587170180632)
+                         0.2936258717018066)
         self.assertEqual(mean_pairwise_similarity(NIALL, meanfunc=stats.hmean),
-                         0.29362587170180676)
+                         0.29362587170180671)
         self.assertEqual(mean_pairwise_similarity(NIALL, meanfunc=stats.hmean,
                                                   symmetric=True),
-                         0.29362587170180632)
+                         0.2936258717018066)
         self.assertEqual(mean_pairwise_similarity(NIALL, meanfunc=stats.gmean),
                          0.33747245800668441)
         self.assertEqual(mean_pairwise_similarity(NIALL, meanfunc=stats.gmean,
                                                   symmetric=True),
                          0.33747245800668441)
         self.assertEqual(mean_pairwise_similarity(NIALL, meanfunc=stats.amean),
-                         0.38009278711484623)
+                         0.38009278711484601)
         self.assertEqual(mean_pairwise_similarity(NIALL, meanfunc=stats.amean,
                                                   symmetric=True),
-                         0.38009278711484584)
+                         0.38009278711484623)
 
         self.assertEqual(mean_pairwise_similarity(NIALL_1WORD),
                          mean_pairwise_similarity(' '.join(NIALL_1WORD)))

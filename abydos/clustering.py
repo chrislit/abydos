@@ -25,7 +25,7 @@ The clustering module implements clustering algorithms such as:
 from __future__ import unicode_literals
 from __future__ import division
 import unicodedata
-from ._compat import _unicode
+from ._compat import _unicode, _range
 from .phonetic import double_metaphone
 from .qgram import QGrams
 from .distance import sim
@@ -172,11 +172,11 @@ def mean_pairwise_similarity(collection, metric=sim,
     collection, optionally in both directions (for asymmetric similarity
     metrics.
 
-    :param collection: a collection of terms or a string that can be split
-    :param metric: a similarity metric function
-    :param mean: a mean function that takes a list of values and returns a
-        float
-    :param symmetric: set to True if all pairwise similarities should be
+    :param list collection: a collection of terms or a string that can be split
+    :param function metric: a similarity metric function
+    :param function mean: a mean function that takes a list of values and
+        returns a float
+    :param bool symmetric: set to True if all pairwise similarities should be
         calculated in both directions
     :returns: the mean pairwise similarity of a collection of strings
     :rtype: str
@@ -188,14 +188,15 @@ def mean_pairwise_similarity(collection, metric=sim,
     elif len(collection) < 2:
         raise ValueError('collection has fewer than two members')
 
+    collection = list(collection)
+
     pairwise_values = []
 
-    for i, word1 in list(enumerate(collection)):
-        for j, word2 in list(enumerate(collection)):
-            if i != j:
-                pairwise_values.append(metric(word1, word2))
-                if symmetric:
-                    pairwise_values.append(metric(word2, word1))
+    for i in _range(len(collection)):
+        for j in _range(i+1, len(collection)):
+            pairwise_values.append(metric(collection[i], collection[j]))
+            if symmetric:
+                pairwise_values.append(metric(collection[j], collection[i]))
 
     if not hasattr(meanfunc, '__call__'):
         raise ValueError('meanfunc must be a function')
