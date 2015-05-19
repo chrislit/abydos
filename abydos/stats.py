@@ -227,6 +227,7 @@ class ConfusionTable(object):
         AKA positive predictive value (PPV)
 
         Cf. https://en.wikipedia.org/wiki/Precision_and_recall
+
         Cf. https://en.wikipedia.org/wiki/Information_retrieval#Precision
 
         :returns: The precision of the confusion table
@@ -258,6 +259,7 @@ class ConfusionTable(object):
         Recall is defined as :math:`\\frac{tp}{tp + fn}
 
         AKA sensitivity
+
         AKA true positive rate (TPR)
 
         Cf. https://en.wikipedia.org/wiki/Precision_and_recall
@@ -382,6 +384,7 @@ class ConfusionTable(object):
         AKA DeltaP'
 
         Cf. https://en.wikipedia.org/wiki/Youden%27s_J_statistic
+
         Cf.
         http://dspace.flinders.edu.au/xmlui/bitstream/handle/2328/27165/Powers%20Evaluation.pdf
 
@@ -397,6 +400,7 @@ class ConfusionTable(object):
         AKA DeltaP
 
         Cf. https://en.wikipedia.org/wiki/Youden%27s_J_statistic
+
         Cf.
         http://dspace.flinders.edu.au/xmlui/bitstream/handle/2328/27165/Powers%20Evaluation.pdf
 
@@ -580,6 +584,7 @@ class ConfusionTable(object):
 
         Iterates between arithmetic & geometric means until they converge to
         a single value (rounded to 12 digits)
+
         Cf. https://en.wikipedia.org/wiki/Arithmetic–geometric_mean
 
         :returns: The arithmetic-geometric mean of the confusion table's
@@ -593,6 +598,7 @@ class ConfusionTable(object):
 
         Iterates between geometric & harmonic means until they converge to
         a single value (rounded to 12 digits)
+
         Cf. https://en.wikipedia.org/wiki/Geometric–harmonic_mean
 
         :returns: The geometric-harmonic mean of the confusion table's
@@ -629,6 +635,7 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
+        :params numeric beta: The β parameter in the above formula
         :returns: The :math:`F_{β}` of the confusion table
         :rtype: float
         """
@@ -640,62 +647,65 @@ class ConfusionTable(object):
                 precision * recall / ((beta**2 * precision) + recall))
 
     def f2_score(self):
-        """Return the F_{2} score of the confusion table,
-        which emphasizes recall over precision in comparison
-        to the F_{1} score
+        """:math:`F_{2}`
+
+        The :math:`F_{2}` score emphasizes recall over precision in comparison
+        to the :math:`F_{1}` score
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
-        :returns: The  of the confusion table
+        :returns: The :math:`F_{2}` of the confusion table
         :rtype: float
         """
         return self.fbeta_score(2)
 
     def fhalf_score(self):
-        """Return the F_{0.5} score of the confusion table,
-        which emphasizes precision over recall in comparison
-        to the F_{1} score
+        """:math:`F_{0.5}` score
+        
+        The :math:`F_{0.5}` score emphasizes precision over recall in
+        comparison to the :math:`F_{1}` score
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
-        :returns: The  of the confusion table
+        :returns: The :math:`F_{0.5}` score of the confusion table
         :rtype: float
         """
         return self.fbeta_score(0.5)
 
     def e_score(self, beta=1):
-        """Return the E-score (Van Rijsbergen's effectiveness
-        measure)
+        """:math:`E`-score
+        
+        This is Van Rijsbergen's effectiveness measure
 
         Cf. https://en.wikipedia.org/wiki/Information_retrieval#F-measure
 
-        :returns: The  of the confusion table
+        :returns: The :math:`E`-score of the confusion table
         :rtype: float
         """
         return 1-self.fbeta_score(beta)
 
     def f1_score(self):
-        """Return the F_{1} score of the confusion table
+        """:math:`F_{1}` score
 
-        F_{1} score is the harmonic mean of precision and recall:
-        2*(precision*recall) / (precision+recall)
+        :math:`F_{1}` score is the harmonic mean of precision and recall:
+        :math:`2 \\cdot \\frac{precision \\cdot recall}{precision + recall}`
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
-        :returns: The  of the confusion table
+        :returns: The :math:`F_{1}` of the confusion table
         :rtype: float
         """
         return self.pr_hmean()
 
     def f_measure(self):
-        """Return the F-measure of the confusion table
+        """:math:`F`-measure
 
-        F-measure is the harmonic mean of precision and recall:
-        2*(precision*recall) / (precision+recall)
+        :math:`F`-measure is the harmonic mean of precision and recall:
+        :math:`2 \\cdot \\frac{precision \\cdot recall}{precision + recall}`
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
-        :returns: The  of the confusion table
+        :returns: The math:`F`-measure of the confusion table
         :rtype: float
         """
         return self.pr_hmean()
@@ -703,8 +713,8 @@ class ConfusionTable(object):
     def g_measure(self):
         """G-measure
 
-        G-measure is the geometric mean of precision and recall:
-        √(precision * recall)
+        :math:`G`-measure is the geometric mean of precision and recall:
+        :math:`\\sqrt{precision \\cdot recall}`
 
         Cf. https://en.wikipedia.org/wiki/F1_score#G-measure
 
@@ -717,8 +727,8 @@ class ConfusionTable(object):
         """Matthews correlation coefficient (MCC)
 
         The Matthews correlation coefficient is defined as:
-        ((tp * tn) - (fp * fn)) /
-        sqrt((tp + fp)(tp + fn)(tn + fp)(tn + fn))
+        :math:`\\frac{(tp \\cdot tn) - (fp \\cdot fn)}
+        {\\sqrt{(tp + fp)(tp + fn)(tn + fp)(tn + fn)}}`
 
         This is equivalent to the geometric mean of informedness and
         markedness, defined above.
@@ -736,13 +746,14 @@ class ConfusionTable(object):
                           (self.tneg + self.fpos) * (self.tneg + self.fneg)))
 
     def significance(self):
-        """Return the significance (χ²) of the confusion table
+        """the significance (:math:`χ^{2}`)
 
         Significance is defined as:
-        χ² = (tp * tn - fp * fn)^2 (tp + tn + fp + fn) /
-                                ((tp + fp)(tp + fn)(tn + fp)(tn + fn))
+        :math:`χ^{2} =
+        \\frac{(tp \\cdot tn - fp \\cdot fn)^{2} (tp + tn + fp + fn)}
+        {((tp + fp)(tp + fn)(tn + fp)(tn + fn)}`
 
-        Also: χ² = MCC²*n
+        Also: :math:`χ^{2} = MCC^{2} \\cdot n`
 
         Cf. https://en.wikipedia.org/wiki/Pearson%27s_chi-square_test
 
@@ -761,9 +772,9 @@ class ConfusionTable(object):
         """κ statistic
 
         The κ statistic is defined as:
-        κ = (accuracy - random accuracy) / (1 - random accuracy)
+        :math:`κ = \\frac{accuracy - random~ accuracy}{1 - random~ accuracy}`
 
-        The κstatistic compares the performance of the classifier relative to
+        The κ statistic compares the performance of the classifier relative to
         the performance of a random classifier. κ = 0 indicates performance
         identical to random. κ = 1 indicates perfect predictive success.
         κ = -1 indicates perfect predictive failure.
