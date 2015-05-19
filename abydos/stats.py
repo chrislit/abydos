@@ -222,7 +222,8 @@ class ConfusionTable(object):
     def precision(self):
         """precision
 
-        Precision is defined as tp / (tp+fp)
+        Precision is defined as :math:`\\frac{tp}{tp + fp}`
+
         AKA positive predictive value (PPV)
 
         Cf. https://en.wikipedia.org/wiki/Precision_and_recall
@@ -239,7 +240,7 @@ class ConfusionTable(object):
         """gain in precision
 
         The gain in precision is defined as:
-        G(precision) = precision / random precision
+        :math:`G(precision) = \\frac{precision}{random~ precision}`
 
         Cf. https://en.wikipedia.org/wiki/Gain_(information_retrieval)
 
@@ -254,7 +255,8 @@ class ConfusionTable(object):
     def recall(self):
         """recall
 
-        Recall is defined as tp / (tp+fn)
+        Recall is defined as :math:`\\frac{tp}{tp + fn}
+
         AKA sensitivity
         AKA true positive rate (TPR)
 
@@ -272,7 +274,8 @@ class ConfusionTable(object):
     def specificity(self):
         """specificity
 
-        Specificity is defined as tn / (tn+fp)
+        Specificity is defined as :math:`\\frac{tn}{tn + fp}`
+
         AKA true negative rate (TNR)
 
         Cf. https://en.wikipedia.org/wiki/Specificity_(tests)
@@ -287,7 +290,7 @@ class ConfusionTable(object):
     def npv(self):
         """negative predictive value (NPV)
 
-        NPV is defined as tn / (tn+fn)
+        NPV is defined as :math:`\\frac{tn}{tn + fn}`
 
         Cf. https://en.wikipedia.org/wiki/Negative_predictive_value
 
@@ -301,7 +304,7 @@ class ConfusionTable(object):
     def fallout(self):
         """fall-out
 
-        Fall-out is defined as fp / (fp+tn)
+        Fall-out is defined as :math:`\\frac{fp}{fp + tn}`
         AKA false positive rate (FPR)
 
         Cf. https://en.wikipedia.org/wiki/Information_retrieval#Fall-out
@@ -316,7 +319,7 @@ class ConfusionTable(object):
     def fdr(self):
         """false discovery rate (FDR)
 
-        False discovery rate is defined as fp / (fp+tp)
+        False discovery rate is defined as :math:`\\frac{fp}{fp + tp}`
 
         Cf. https://en.wikipedia.org/wiki/False_discovery_rate
 
@@ -330,7 +333,7 @@ class ConfusionTable(object):
     def accuracy(self):
         """accuracy
 
-        Accuracy is defined as (tp + tn) / population
+        Accuracy is defined as :math:`\\frac{tp + tn}{population}`
 
         Cf. https://en.wikipedia.org/wiki/Accuracy
 
@@ -345,7 +348,7 @@ class ConfusionTable(object):
         """gain in accuracy
 
         The gain in accuracy is defined as:
-        G(accuracy) = accuracy / random accuracy
+        :math:`G(accuracy) = \frac{accuracy}{random~ accuracy}`
 
         Cf. https://en.wikipedia.org/wiki/Gain_(information_retrieval)
 
@@ -362,7 +365,7 @@ class ConfusionTable(object):
         """balanced accuracy
 
         Balanced accuracy is defined as
-        (sensitivity+specificity) / 2
+        :math:`\\frac{sensitivity + specificity}{2}`
 
         Cf. https://en.wikipedia.org/wiki/Accuracy
 
@@ -374,7 +377,7 @@ class ConfusionTable(object):
     def informedness(self):
         """informedness
 
-        Informedness is defined as sensitivity+specificity-1.
+        Informedness is defined as :math:`sensitivity + specificity - 1`.
         AKA Youden's J statistic
         AKA DeltaP'
 
@@ -390,7 +393,7 @@ class ConfusionTable(object):
     def markedness(self):
         """markedness
 
-        Markedness is defined as precision + npv -1
+        Markedness is defined as :math:`precision + npv - 1`
         AKA DeltaP
 
         Cf. https://en.wikipedia.org/wiki/Youden%27s_J_statistic
@@ -406,7 +409,7 @@ class ConfusionTable(object):
         """arithmetic mean of precision & recall
 
         The arithmetic mean of precision and recall is defined as:
-        (precision * recall)/2
+        :math:`\\frac{precision \\cdot recall}{2}`
 
         Cf. https://en.wikipedia.org/wiki/Arithmetic_mean
 
@@ -420,7 +423,7 @@ class ConfusionTable(object):
         """geometric mean of precision & recall
 
         The geometric mean of precision and recall is defined as:
-        √(precision * recall)
+        :math:`\\sqrt{precision \\cdot recall}`
 
         Cf. https://en.wikipedia.org/wiki/Geometric_mean
 
@@ -434,7 +437,7 @@ class ConfusionTable(object):
         """harmonic mean of precision & recall
 
         The harmonic mean of precision and recall is defined as:
-        2 * precision * recall / (precision + recall)
+        :math:`\\frac{2 \\cdot precision \\cdot recall}{precision + recall}`
 
         Cf. https://en.wikipedia.org/wiki/Harmonic_mean
 
@@ -447,7 +450,7 @@ class ConfusionTable(object):
         """quadratic mean of precision & recall
 
         The quadratic mean of precision and recall is defined as:
-        √((precision^2 + recall^2)/2)
+        :math:`\\sqrt{\\frac{precision^{2} + recall^{2}}{2}}`
 
         Cf. https://en.wikipedia.org/wiki/Quadratic_mean
 
@@ -461,7 +464,7 @@ class ConfusionTable(object):
         """contraharmonic mean of precision & recall
 
         The contraharmonic mean is:
-        (precision^2 + recall^2) / (precision + recall)
+        :math:`\\frac{precision^{2} + recall^{2}}{precision + recall}`
 
         Cf. https://en.wikipedia.org/wiki/Contraharmonic_mean
 
@@ -477,7 +480,8 @@ class ConfusionTable(object):
         The logarithmic mean is:
         0 if either precision or recall is 0,
         the precision if they are equal,
-        otherwise (precision - recall) / ln(precision) - ln(recall)
+        otherwise :math:`\\frac{precision - recall}
+        {ln(precision) - ln(recall)}`
 
         Cf. https://en.wikipedia.org/wiki/Logarithmic_mean
 
@@ -500,8 +504,9 @@ class ConfusionTable(object):
 
         The identric mean is:
         precision if precision = recall,
-        otherwise (1/e) *
-            (precision^precision / recall^recall)^(1 / (precision - recall))
+        otherwise :math:`\\frac{1}{e} \\cdot
+        \\sqrt[precision - recall]\\frac{precision^{precision}}
+        {recall^{recall}}`
 
         Cf. https://en.wikipedia.org/wiki/Identric_mean
 
@@ -514,7 +519,8 @@ class ConfusionTable(object):
         """Seiffert's mean of precision & recall
 
         Seiffert's mean of precision and recall is:
-        (precision - recall) / (4 * arctan(√(precision/recall)) - π)
+        :math:`\\frac{precision - recall}{4 \\cdot arctan
+        \\sqrt{\\frac{precision}{recall}} - π}`
 
         Cf. http://www.helsinki.fi/~hasto/pp/miaPreprint.pdf
 
@@ -527,7 +533,8 @@ class ConfusionTable(object):
         """Lehmer mean of precision & recall
 
         The Lehmer mean is:
-        (precision^exp + recall^exp) / (precision^(exp-1) + recall^(exp-1))
+        :math:`\\frac{precision^{exp} + recall^{exp}}
+        {precision^{exp-1} + recall^{exp-1}}`
 
         Cf. https://en.wikipedia.org/wiki/Lehmer_mean
 
@@ -542,7 +549,7 @@ class ConfusionTable(object):
         """Heronian mean of precision & recall
 
         The Heronian mean of precision and recall is defined as:
-        (precision + √(precision*recall) + recall) / 3
+        :math:`\\frac{precision + \\sqrt{precision \\cdot recall} + recall}{3}`
 
         Cf. https://en.wikipedia.org/wiki/Heronian_mean
 
@@ -555,8 +562,9 @@ class ConfusionTable(object):
         """Hölder (power) mean of precision & recall
 
         The power mean of precision and recall is defined as:
-        (0.5 * (precision^exp + recall^exp))^(1/exp)
-        for exp != 0, and the geometric mean for exp == 0
+        :math:`\\frac{1}{2} \\cdot
+        \sqrt[exp]{precision^{exp} + recall^{exp}}`
+        for :math:`exp \\ne 0`, and the geometric mean for :math:`exp = 0`
 
         Cf. https://en.wikipedia.org/wiki/Generalized_mean
 
