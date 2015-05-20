@@ -572,11 +572,14 @@ FEATURE_MASK = {'syllabic': 3458764513820540928,
 
 
 def ipa_to_features(ipa):
-    """Return the feature representation (as a list of ints) of one or more
-    phones
+    """IPA to features
 
-    Arguments:
-    ipa -- the IPA representation of a phone or series of phones
+    This translates an IPA string of one or more phones to a list of ints
+    representing the features of the string.
+
+    :param str ipa: the IPA representation of a phone or series of phones
+    :returns: a representation of the features of the input string
+    :rtype: list(int)
     """
     features = []
     pos = 0
@@ -600,21 +603,29 @@ def ipa_to_features(ipa):
 
 
 def get_feature(vector, feature):
-    """Returns a list of ints representing presents/absence/neutrality with
-    respect to a particular phonetic feature
+    """Get feature
 
-    Arguments:
-    vector -- a tuple or list of ints representing the phonetic features of a
-        phone (such as is returned by the ipa_to_features function
-    feature -- a feature name from the set:
+    This returns a list of ints, equal in length to the vector input,
+        representing presence/absence/neutrality with respect to a particular
+        phonetic feature.
+
+    :param list vector: a tuple or list of ints representing the phonetic
+        features of a phone or series of phones
+        (such as is returned by the ipa_to_features function)
+    :param str feature: a feature name from the set:
         'consonantal', 'sonorant', 'syllabic', 'labial', 'round', 'coronal',
         'anterior', 'distributed', 'dorsal', 'high', 'low', 'back', 'tense',
         'pharyngeal', 'ATR', 'voice', 'spread_glottis', 'constricted_glottis',
         'continuant', 'strident', 'lateral', 'delayed_release', 'nasal'
-    # binary -- if False, -1, 0, & 1 represent -, 0, & +
+    :returns: a list indicating presence/absence/neutrality with respect to
+        the feature
+    :rtype: list(int)
+    """
+
+    # :param bool binary: if False, -1, 0, & 1 represent -, 0, & +
     #           if True, only binary oppositions are allowed:
     #           0 & 1 represent - & + and 0s are mapped to -
-    """
+
     if feature not in FEATURE_MASK:
         raise AttributeError("feature must be one of: '" +
                              "', '".join(('consonantal', 'sonorant',
@@ -651,15 +662,20 @@ def get_feature(vector, feature):
 
 
 def cmp_features(feat1, feat2):
-    """Returns a number in the range [0, 1] representing a comparison of two
+    """Compare features
+
+    This returns a number in the range [0, 1] representing a comparison of two
     feature bundles.
+
     If one of the bundles is negative, -1 is returned (for unknown values)
+
     If the bundles are identical, 1 is returned.
+
     If they are inverses of one another, 0 is returned.
+
     Otherwise, a float representing their similarity is returned.
 
-    Arguments:
-    feat1, feat2 -- Two feature bundles to compare
+    :param int feat1, feat2: Two feature bundles to compare
     """
     if feat1 < 0 or feat2 < 0:
         return -1.0
