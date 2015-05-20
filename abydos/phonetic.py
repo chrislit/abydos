@@ -19,24 +19,24 @@
 """abydos.phonetic
 
 The phonetic module implements phonetic algorithms including:
-    Robert C. Russell's Index
-    American Soundex
-    Daitch-Mokotoff Soundex
-    Kölner Phonetik
-    NYSIIS
-    Match Rating Algorithm
-    Metaphone
-    Double Metaphone
-    Caverphone
-    Alpha Search Inquiry System
-    Fuzzy Soundex
-    Phonex
-    Phonem
-    Phonix
-    SfinxBis
-    phonet
-    Standardized Phonetic Frequency Code
-    Beider-Morse Phonetic Matching
+    - Robert C. Russell's Index
+    - American Soundex
+    - Daitch-Mokotoff Soundex
+    - Kölner Phonetik
+    - NYSIIS
+    - Match Rating Algorithm
+    - Metaphone
+    - Double Metaphone
+    - Caverphone
+    - Alpha Search Inquiry System
+    - Fuzzy Soundex
+    - Phonex
+    - Phonem
+    - Phonix
+    - SfinxBis
+    - phonet
+    - Standardized Phonetic Frequency Code
+    - Beider-Morse Phonetic Matching
 """
 
 from __future__ import unicode_literals
@@ -50,21 +50,25 @@ from ._bm import _bmpm
 
 
 def _delete_consecutive_repeats(word):
-    """Return word with all contiguous repeating characters collapsed to
-    a single instance
+    """Delete consecutive repeated characters
+
+    :param str word: the word to transform
+    :returns: word with consecutive repeating characters collapsed to
+        a single instance
+    :rtype: str
     """
     return ''.join(char for char, _ in groupby(word))
 
 
 def russell_index(word):
-    """Return the Russell Index of a word as an int
+    """Russell Index of a word as an integer
 
-    Arguments:
-    word -- the word to translate to a Russell Index value
-
-    Description:
     This follows Robert C. Russell's Index algorithm, as described in
     US Patent 1,261,167 (1917)
+
+    :param str word: the word to transform
+    :returns: the Russell Index value
+    :rtype: int
     """
     _russell_translation = dict(zip([ord(_) for _ in
                                      'ABCDEFGIKLMNOPQRSTUVXYZ'],
@@ -93,14 +97,14 @@ def russell_index(word):
 
 
 def russell_index_num_to_alpha(num):
-    """Return the Russell Index alphabetic string of a Index number
+    """Russell Index integer to alphabetic string
 
-    Arguments:
-    num -- an integer representing a Russell Index
-
-    Description:
     This follows Robert C. Russell's Index algorithm, as described in
     US Patent 1,261,167 (1917)
+
+    :param int num: a Russell Index integer value
+    :returns: the Russell Index as an alphabetic string
+    :rtype: str
     """
     _russell_num_translation = dict(zip([ord(_) for _ in '12345678'],
                                         'ABCDLMNR'))
@@ -112,14 +116,14 @@ def russell_index_num_to_alpha(num):
 
 
 def russell_index_alpha(word):
-    """Return the Russell Index of a word as an alphabetic string
+    """Russell Index of a word as an alphabetic string
 
-    Arguments:
-    word -- the word to translate to a Russell Index value
-
-    Description:
     This follows Robert C. Russell's Index algorithm, as described in
     US Patent 1,261,167 (1917)
+
+    :param str word: the word to transform
+    :returns: the Russell Index value as an alphabetic string
+    :rtype: str
     """
     if word:
         return russell_index_num_to_alpha(russell_index(word))
@@ -128,22 +132,23 @@ def russell_index_alpha(word):
 
 
 def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
-    """Return the Soundex value of a word
+    """Soundex
 
-    Arguments:
-    word -- the word to translate to Soundex
-    maxlength -- the length of the code returned (defaults to 4)
-    var -- the variant of the algorithm to employ (defaults to 'American'):
+    :param str word: the word to transform
+    :param int maxlength: the length of the code returned (defaults to 4)
+    :param str var: the variant of the algorithm to employ (defaults to 'American'):
         'American' follows the American Soundex algorithm, as described at
         http://www.archives.gov/publications/general-info-leaflets/55-census.html
         and in Knuth(1998:394); this is also called Miracode
         'special' follows the rules from the 1880-1910 US Census, in which
         h & w are not treated as blocking consonants but as vowels
         'dm' computes the Daitch-Mokotoff Soundex
-    reverse -- reverse the word before computing the selected Soundex
+    :param bool reverse: reverse the word before computing the selected Soundex
         (defaults to False); This results in "Reverse Soundex"
-    zero_pad -- pad the end of the return value with 0s to achieve a maxlength
+    :param bool zero_pad: pad the end of the return value with 0s to achieve a maxlength
         string
+    :returns:
+    :rtype: str
     """
     _soundex_translation = dict(zip([ord(_) for _ in
                                      'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
@@ -198,17 +203,19 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
 
 
 def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
-    """Return the Daitch-Mokotoff Soundex values of a word as a set
-        A collection is necessary since there can be multiple values for a
-        single word.
+    """Daitch-Mokotoff Soundex
 
-    Arguments:
-    word -- the word to translate to D-M Soundex
-    maxlength -- the length of the code returned (defaults to 6)
-    reverse -- reverse the word before computing the selected Soundex (defaults
+    Returns values of a word as a set. A collection is necessary since there
+    can be multiple values for a single word.
+
+    :param word: the word to transform
+    :param maxlength: the length of the code returned (defaults to 6)
+    :param reverse: reverse the word before computing the selected Soundex (defaults
         to False); This results in "Reverse Soundex"
-    zero_pad -- pad the end of the return value with 0s to achieve a maxlength
+    :param zero_pad: pad the end of the return value with 0s to achieve a maxlength
         string
+    :returns:
+    :rtype:
     """
     _dms_table = {'STCH': (2, 4, 4), 'DRZ': (4, 4, 4), 'ZH': (4, 4, 4),
                   'ZHDZH': (2, 4, 4), 'DZH': (4, 4, 4), 'DRS': (4, 4, 4),
@@ -358,14 +365,14 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
 
 
 def koelner_phonetik(word):
-    """Return the Kölner Phonetik code for a word
+    """Kölner Phonetik
 
-    Arguments:
-    word -- the word to translate to a Kölner Phonetik code
-
-    Description:
     Based on the algorithm described at
     https://de.wikipedia.org/wiki/Kölner_Phonetik
+
+    :param str word: the word to transform
+    :returns:
+    :rtype:
     """
     # pylint: disable=too-many-branches
     def _after(word, i, letters):
@@ -455,6 +462,10 @@ def koelner_phonetik(word):
 def koelner_phonetik_num_to_alpha(num):
     """Given the numeric form of a Kölner Phonetik value, returns an
     alphabetic form
+
+    :param int num:
+    :returns:
+    :rtype:
     """
     _koelner_num_translation = dict(zip([ord(_) for _ in '012345678'],
                                         'APTFKLNRS'))
@@ -465,21 +476,24 @@ def koelner_phonetik_num_to_alpha(num):
 def koelner_phonetik_alpha(word):
     """Given a string 'word', returns an alphabetic value representing
     its Kölner Phonetik value
+
+    :param str word: the word to transform
+    :returns:
+    :rtype:
     """
     return koelner_phonetik_num_to_alpha(koelner_phonetik(word))
 
 
 def nysiis(word, maxlength=6):
-    """Return the New York State Identification and Intelligence System
-        (NYSIIS) coding of a string
+    """New York State Identification and Intelligence System (NYSIIS)
 
-    Arguments:
-    word -- the word to apply the match rating approach to
-    maxlength -- the maximum length (default 6) of the code to return
-
-    Description:
     A description of the algorithm can be found at
     https://en.wikipedia.org/wiki/New_York_State_Identification_and_Intelligence_System
+
+    :param str word: the word to transform
+    :param int maxlength: the maximum length (default 6) of the code to return
+    :returns:
+    :rtype:
     """
     # Require a maxlength of at least 6
     if maxlength:
@@ -565,15 +579,15 @@ def nysiis(word, maxlength=6):
 
 
 def mra(word):
-    """Return the personal numeric identifier (PNI) for a word, derived by the
-        Western Airlines Surname Match Rating Algorithm
+    """Western Airlines Surname Match Rating Algorithm
+    personal numeric identifier (PNI)
 
-    Arguments:
-    word -- the word to apply the match rating approach to
-
-    Description:
     A description of the algorithm can be found on page 18 of
     https://archive.org/details/accessingindivid00moor
+
+    :param str word: the word to transform
+    :returns:
+    :rtype:
     """
     if not len(word):
         return word
@@ -588,20 +602,20 @@ def mra(word):
 
 
 def metaphone(word, maxlength=float('inf')):
-    """Return the Metaphone encoding of a word
+    """Metaphone
 
-    Arguments:
-    word -- the word to apply the Metaphone algorithm to
-    maxlength -- the maximum length of the returned Metaphone code
-        (defaults to unlimited, but in Philips' original implementation
-        this was 4)
-
-    Description:
     Based on Lawrence Philips' Pick BASIC code from 1990:
     http://aspell.net/metaphone/metaphone.basic
     This incorporates some corrections to the above code, particularly
     some of those suggested by Michael Kuhn in:
     http://aspell.net/metaphone/metaphone-kuhn.txt
+
+    :param str word: the word to transform
+    :param int maxlength: the maximum length of the returned Metaphone code
+        (defaults to unlimited, but in Philips' original implementation
+        this was 4)
+    :returns:
+    :rtype:
     """
     # pylint: disable=too-many-branches
     _vowels = frozenset('AEIOU')
@@ -750,20 +764,19 @@ def metaphone(word, maxlength=float('inf')):
 
 
 def double_metaphone(word, maxlength=float('inf')):
-    """Return the Double Metaphone encodings of a word as a tuple
+    """Double Metaphone
 
-    Arguments:
-    word -- the word to apply the Double Metaphone algorithm to
-    maxlength -- the maximum length of the returned Double Metaphone codes
-        (defaults to unlimited, but in Philips' original implementation this
-        was 4)
-
-    Description:
     Based on Lawrence Philips' (Visual) C++ code from 1999:
     http://aspell.net/metaphone/dmetaph.cpp
+
+    :param word: the word to transform
+    :param maxlength: the maximum length of the returned Double Metaphone codes
+        (defaults to unlimited, but in Philips' original implementation this
+        was 4)
+    :returns:
+    :rtype:
     """
     # pylint: disable=too-many-branches
-    # Require a maxlength of at least 4
     # Require a maxlength of at least 4
     if maxlength is not None:
         maxlength = max(4, maxlength)
@@ -1484,17 +1497,18 @@ def double_metaphone(word, maxlength=float('inf')):
 
 
 def caverphone(word, version=2):
-    """Return the Caverphone encoding of a word
+    """Caverphone
 
-    Arguments:
-    word -- the word to apply the Caverphone algorithm to
-    version -- the version of Caverphone to employ for encoding (defaults to 2)
-
-    Description:
     A description of version 1 of the algorithm can be found at:
     http://caversham.otago.ac.nz/files/working/ctp060902.pdf
     A description of version 2 of the algorithm can be found at:
     http://caversham.otago.ac.nz/files/working/ctp150804.pdf
+
+    :param str word: the word to transform
+    :param int version: the version of Caverphone to employ for encoding
+        (defaults to 2)
+    :returns:
+    :rtype:
     """
     _vowels = frozenset('aeiou')
 
@@ -1605,21 +1619,22 @@ def caverphone(word, version=2):
 
 
 def alpha_sis(word, maxlength=14):
-    """Return the IBM Alpha Search Inquiry System key of a word as a tuple
-        A collection is necessary since there can be multiple values for a
-        single word. But the collection must be ordered since the first value
-        is the primary coding.
+    """IBM Alpha Search Inquiry System
 
-    Arguments:
-    word -- the word to apply the Alpha SIS algorithm to
-    maxlength -- the length of the code returned (defaults to 14)
-
-    Description:
     Based on the algorithm described in "Accessing individual records from
     personal data files using non-unique identifiers" / Gwendolyn B. Moore,
     et al.; prepared for the Institute for Computer Sciences and Technology,
     National Bureau of Standards, Washington, D.C (1977):
     https://archive.org/stream/accessingindivid00moor#page/15/mode/1up
+
+    A collection is necessary since there can be multiple values for a
+    single word. But the collection must be ordered since the first value
+    is the primary coding.
+
+    :param str word: the word to transform
+    :param int maxlength: the length of the code returned (defaults to 14)
+    :returns:
+    :rtype:
     """
     _alpha_sis_initials = {'GF': '08', 'GM': '03', 'GN': '02', 'KN': '02',
                            'PF': '08', 'PN': '02', 'PS': '00', 'WR': '04',
@@ -1700,19 +1715,19 @@ def alpha_sis(word, maxlength=14):
 
 
 def fuzzy_soundex(word, maxlength=5, zero_pad=True):
-    """Return the Fuzzy Soundex encoding of a word
+    """Fuzzy Soundex
 
-    Arguments:
-    word -- the word to translate to a Fuzzy Soundex encoding
-    maxlength -- the length of the code returned (defaults to 4)
-    zero_pad -- pad the end of the return value with 0s to achieve a maxlength
-        string
-
-    Description:
     Fuzzy Soundex is an algorithm derived from Soundex, defined in:
     Holmes, David and M. Catherine McCabe. "Improving Precision and Recall for
     Soundex Retrieval."
     http://wayback.archive.org/web/20100629121128/http://www.ir.iit.edu/publications/downloads/IEEESoundexV5.pdf
+
+    :param str word: the word to transform
+    :param int maxlength: the length of the code returned (defaults to 4)
+    :param bool zero_pad: pad the end of the return value with 0s to achieve a maxlength
+        string
+    :returns:
+    :rtype:
     """
     _fuzzy_soundex_translation = dict(zip([ord(_) for _ in
                                            'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
@@ -1797,18 +1812,18 @@ def fuzzy_soundex(word, maxlength=5, zero_pad=True):
 
 
 def phonex(word, maxlength=4, zero_pad=True):
-    """Return the Phonex encoding of a word
+    """Phonex
 
-    Arguments:
-    word -- the word to translate to a Phonex encoding
-    maxlength -- the length of the code returned (defaults to 4)
-    zero_pad -- pad the end of the return value with 0s to achieve a maxlength
-        string
-
-    Description:
     Phonex is an algorithm derived from Soundex, defined in:
     Lait, A. J. and B. Randell. "An Assessment of Name Matching Algorithms".
     http://homepages.cs.ncl.ac.uk/brian.randell/Genealogy/NameMatching.pdf
+
+    :param str word: the word to transform
+    :param int maxlength: the length of the code returned (defaults to 4)
+    :param bool zero_pad: pad the end of the return value with 0s to achieve a maxlength
+        string
+    :returns:
+    :rtype:
     """
     name = unicodedata.normalize('NFKD', _unicode(word.upper()))
     name = name.replace('ß', 'SS')
@@ -1895,12 +1910,8 @@ def phonex(word, maxlength=4, zero_pad=True):
 
 
 def phonem(word):
-    """Return the Phonem encoding of a word
+    """Phonem
 
-    Arguments:
-    word -- the word to translate to a Phonem encoding
-
-    Description:
     Phonem is defined in Wilde, Georg and Carsten Meyer. 1999. "Doppelgaenger
     gesucht - Ein Programm fuer kontextsensitive phonetische Textumwandlung."
     ct Magazin fuer Computer & Technik 25/1999.
@@ -1911,6 +1922,10 @@ def phonem(word):
     https://github.com/dcm4che/dcm4che/blob/master/dcm4che-soundex/src/main/java/org/dcm4che3/soundex/Phonem.java
 
     Phonem is intended chiefly for German names/words.
+
+    :param str word: the word to transform
+    :returns:
+    :rtype:
     """
     _phonem_substitutions = (('SC', 'C'), ('SZ', 'C'), ('CZ', 'C'),
                              ('TZ', 'C'), ('TS', 'C'), ('KS', 'X'),
@@ -1932,15 +1947,8 @@ def phonem(word):
 
 
 def phonix(word, maxlength=4, zero_pad=True):
-    """Return the Phonix encoding of a word
+    """Phonix
 
-    Arguments:
-    word -- the word to translate to a Phonix encoding
-    maxlength -- the length of the code returned (defaults to 4)
-    zero_pad -- pad the end of the return value with 0s to achieve a maxlength
-        string
-
-    Description:
     Phonix is a Soundex-like algorithm defined in:
     T.N. Gadd: PHONIX --- The Algorithm, Program 24/4, 1990, p.363-366.
 
@@ -1949,6 +1957,13 @@ def phonix(word, maxlength=4, zero_pad=True):
     http://cs.anu.edu.au/people/Peter.Christen/Febrl/febrl-0.4.01/encode.py
     and
     https://metacpan.org/pod/Text::Phonetic::Phonix
+
+    :param str word: the word to transform
+    :param int maxlength: the length of the code returned (defaults to 4)
+    :param bool zero_pad: pad the end of the return value with 0s to achieve a maxlength
+        string
+    :returns:
+    :rtype:
     """
     # pylint: disable=too-many-branches
     def _start_repl(word, src, tar, post=None):
@@ -2141,13 +2156,8 @@ def phonix(word, maxlength=4, zero_pad=True):
 
 
 def sfinxbis(word, maxlength=None):
-    """Return the SfinxBis encoding of a word
+    """SfinxBis
 
-    Arguments:
-    word -- the word to translate to a SfinxBis encoding
-    maxlength -- the length of the code returned (defaults to unlimited)
-
-    Description:
     SfinxBis is a Soundex-like algorithm defined in:
     http://www.swami.se/download/18.248ad5af12aa8136533800091/SfinxBis.pdf
 
@@ -2155,6 +2165,12 @@ def sfinxbis(word, maxlength=None):
     http://www.swami.se/download/18.248ad5af12aa8136533800093/swamiSfinxBis.java.txt
 
     SfinxBis is intended chiefly for Swedish names.
+
+    :param str word: the word to transform
+    :param int maxlength: the length of the code returned (defaults to
+    unlimited)
+    :returns:
+    :rtype:
     """
     adelstitler = (' DE LA ', ' DE LAS ', ' DE LOS ', ' VAN DE ', ' VAN DEN ',
                    ' VAN DER ', ' VON DEM ', ' VON DER ',
@@ -2300,16 +2316,8 @@ def sfinxbis(word, maxlength=None):
 
 
 def phonet(word, mode=1, lang='de', trace=False):
-    """Return the phonet encoding of a word
+    """phonet
 
-    Arguments:
-    word -- the word to translate to a phonet encoding
-    mode -- the ponet variant to employ (1 or 2)
-    lang -- 'de' (default) for German
-            'none' for no language
-    trace -- prints debugging info if True
-
-    Description:
     phonet was developed by Jörg Michael and documented in c't magazine
     vol. 25/1999, p. 252. It is a phonetic algorithm designed primarily for
     German.
@@ -2319,6 +2327,14 @@ def phonet(word, mode=1, lang='de', trace=False):
     https://code.google.com/p/phonet4java/source/browse/trunk/src/main/java/com/googlecode/phonet4java/Phonet.java
     That is, in turn, based on Michael's C code, which is also licensed LGPL:
     ftp://ftp.heise.de/pub/ct/listings/phonet.zip
+
+    :param str word: the word to transform
+    :param int mode: the ponet variant to employ (1 or 2)
+    :param str lang: 'de' (default) for German
+            'none' for no language
+    :param bool trace: prints debugging info if True
+    :returns:
+    :rtype:
     """
     # pylint: disable=too-many-branches
 
@@ -3843,15 +3859,15 @@ def phonet(word, mode=1, lang='de', trace=False):
 
 
 def spfc(word):
-    """Return the Standardized Phonetic Frequency Code of a word
+    """Standardized Phonetic Frequency Code
 
-    Arguments:
-    word -- the word to translate to a Standardized Phonetic Frequency Code
-
-    Description:
     Standardized Phonetic Frequency Code is roughly Soundex-like.
     This implementation is based on page 19-21 of
     https://archive.org/stream/accessingindivid00moor#page/19/mode/1up
+
+    :param str word: the word to transform
+    :returns:
+    :rtype:
     """
 
     _pf1 = dict(zip([ord(_) for _ in 'SZCKQVFPUWABLORDHIEMNXGJT'],
@@ -3975,29 +3991,27 @@ def spfc(word):
 
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
-    """Return the Beider-Morse Phonetic Matching algorithm encoding(s) of a
-    term
+    """Beider-Morse Phonetic Matching algorithm
 
-    Arguments:
-    word -- the term to which to apply the Beider-Morse Phonetic Matching
-                algorithm
-    language_arg -- the language of the term; supported values include:
+    The Beider-Morse Phonetic Matching algorithm is described at:
+    http://stevemorse.org/phonetics/bmpm.htm
+    The reference implementation is licensed under GPLv3 and available at:
+    http://stevemorse.org/phoneticinfo.htm
+
+    :param str word: the word to transform
+    :param str language_arg: the language of the term; supported values include:
                 "any", "arabic", "cyrillic", "czech", "dutch", "english",
                 "french", "german", "greek", "greeklatin", "hebrew",
                 "hungarian", "italian", "polish", "portuguese","romanian",
                 "russian", "spanish", "turkish", "germandjsg", "polishdjskp",
                 "russiandjsre"
-    name_mode -- the name mode of the algorithm: 'gen' (default),
+    :param str name_mode: the name mode of the algorithm: 'gen' (default),
                 'ash' (Ashkenazi), or 'sep' (Sephardic)
-    match_mode -- matching mode: 'approx' or 'exact'
-    concat -- concatenation mode
-    filter_langs -- filter out incompatible languages
-
-    Description:
-    The Beider-Morse Phonetic Matching algorithm is described at:
-    http://stevemorse.org/phonetics/bmpm.htm
-    The reference implementation is licensed under GPLv3 and available at:
-    http://stevemorse.org/phoneticinfo.htm
+    :param str match_mode: matching mode: 'approx' or 'exact'
+    :param bool concat: concatenation mode
+    :param bool filter_langs: filter out incompatible languages
+    :returns:
+    :rtype:
     """
     return _bmpm(word, language_arg, name_mode, match_mode,
                  concat, filter_langs)
