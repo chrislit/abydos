@@ -429,12 +429,14 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
 
     The Tversky index is defined as:
     For two sets X and Y:
-    S(X,Y) = |X∩Y| / (|X∩Y| + α|X-Y| + β|Y-X|)
+    :math:`S(X,Y) = \\frac{|X∩Y|}{|X∩Y| + α|X-Y| + β|Y-X|}`
 
     Cf. https://en.wikipedia.org/wiki/Tversky_index
 
-    α = β = 1 is equivalent to the Jaccard & Tanimoto similarity coefficients
-    α = β = 0.5 is equivalent to the Sørensen-Dice similarity coefficient
+    :math:`α = β = 1` is equivalent to the Jaccard & Tanimoto similarity
+        coefficients
+    :math:`α = β = 0.5` is equivalent to the Sørensen-Dice similarity
+        coefficient
 
     Unequal α and β will tend to emphasize one or the other set's contributions
         (α>β emphasizes the contributions of X over Y; α<β emphasizes the
@@ -522,9 +524,9 @@ def sim_dice(src, tar, qval=2):
     """Sørensen–Dice coefficient
 
     For two sets X and Y, the Sørensen–Dice coefficient is
-    S(X,Y) = 2 * |X∩Y| / (|X| + |Y|)
+    :math:`S(X,Y) = 2 * |X∩Y| / (|X| + |Y|)`
     This is identical to the Tanimoto similarity coefficient
-    and the Tversky index for α = β = 0.5
+    and the Tversky index for :math:`α = β = 0.5`
 
     :param str src, tar: two strings to be compared (or QGrams/Counter objects)
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
@@ -553,9 +555,9 @@ def sim_jaccard(src, tar, qval=2):
     """Jaccard similarity coefficient
 
     For two sets X and Y, the Jaccard similarity coefficient is
-    S(X,Y) = |X∩Y| / |X∪Y|
+    :math:`S(X,Y) = |X∩Y| / |X∪Y|`
     This is identical to the Tanimoto similarity coefficient
-    and the Tversky index for α = β = 1
+    and the Tversky index for :math:`α = β = 1`
 
     :param str src, tar: two strings to be compared (or QGrams/Counter objects)
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
@@ -584,7 +586,7 @@ def sim_overlap(src, tar, qval=2):
     """overlap coefficient
 
     For two sets X and Y, the overlap coefficient is
-    S(X,Y) = |X∩Y| / min(|X|,|Y|)
+    :math:`S(X,Y) = |X∩Y| / min(|X|,|Y|)`
 
     :param str src, tar: two strings to be compared (or QGrams/Counter objects)
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
@@ -631,9 +633,9 @@ def sim_tanimoto(src, tar, qval=2):
     """Tanimoto similarity
 
     For two sets X and Y, the Tanimoto similarity coefficient is
-    S(X,Y) = |X∩Y| / |X∪Y|
+    :math:`S(X,Y) = |X∩Y| / |X∪Y|`
     This is identical to the Jaccard similarity coefficient
-    and the Tversky index for α = β = 1
+    and the Tversky index for :math:`α = β = 1`
 
     :param str src, tar: two strings to be compared (or QGrams/Counter objects)
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
@@ -647,7 +649,7 @@ def sim_tanimoto(src, tar, qval=2):
 def tanimoto(src, tar, qval=2):
     """Tanimoto distance
 
-    Tanimoto distance is -log2(Tanimoto coefficient)
+    Tanimoto distance is :math:`-log_{2}(Tanimoto~ coefficient)`
 
     :param str src, tar: two strings to be compared (or QGrams/Counter objects)
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
@@ -666,7 +668,7 @@ def sim_cosine(src, tar, qval=2):
     """cosine similarity (Ochiai coefficient)
 
     For two sets X and Y, the cosine similarity (Ochiai coefficient) is:
-    S(X,Y) = |X∩Y| / √(|X| * |Y|)
+    :math:`S(X,Y) = |X∩Y| / √(|X| * |Y|)`
 
     :param str src, tar: two strings to be compared (or QGrams/Counter objects)
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
@@ -1061,7 +1063,7 @@ def sim_lcsseq(src, tar):
     """longest common subsequence similarity (:math:`sim_{LCSseq}`)
 
     This employs the LCSseq function to derive a similarity metric:
-    sim_{LCSseq}(s,t) = |LCSseq(s,t)| / max(|s|, |t|)
+    :math:`sim_{LCSseq}(s,t) = \\frac{|LCSseq(s,t)|}{max(|s|, |t|)}`
 
     :param str src, tar: two strings to be compared
     :returns: LCSseq similarity
@@ -1078,7 +1080,7 @@ def dist_lcsseq(src, tar):
     """longest common subsequence distance (:math:`dist_{LCSseq}`)
 
     This employs the LCSseq function to derive a similarity metric:
-    dist_{LCSseq}(s,t) = 1 - sim_{LCSseq}(s,t)
+    :math:`dist_{LCSseq}(s,t) = 1 - sim_{LCSseq}(s,t)`
 
     :param str src, tar: two strings to be compared
     :returns: LCSseq distance
@@ -1122,7 +1124,7 @@ def sim_lcsstr(src, tar):
     """longest common substring similarity (:math:`sim_{LCSstr}`)
 
     This employs the LCS function to derive a similarity metric:
-    sim_{LCSstr}(s,t) = |LCSstr(s,t)| / max(|s|, |t|)
+    :math:`sim_{LCSstr}(s,t) = \\frac{|LCSstr(s,t)|}{max(|s|, |t|)}`
 
     :param str src, tar: two strings to be compared
     :returns: LCSstr similarity
@@ -1139,7 +1141,7 @@ def dist_lcsstr(src, tar):
     """longest common substring distance (:math:`dist_{LCSstr}`)
 
     This employs the LCS function to derive a similarity metric:
-    dist_{LCSstr}(s,t) = 1 - sim_{LCSstr}(s,t)
+    :math:`dist_{LCSstr}(s,t) = 1 - sim_{LCSstr}(s,t)}`
 
     :param str src, tar: two strings to be compared
     :returns: LCSstr distance
@@ -1658,7 +1660,7 @@ def sim_length(src, tar):
 def dist_length(src, tar):
     """length distance
 
-    length distance = 1 - length similarity
+    :math:`length~ distance = 1 - length~ similarity`
 
     :param str src, tar: two strings to be compared
     :returns: length distance
@@ -1693,7 +1695,7 @@ def sim_prefix(src, tar):
 def dist_prefix(src, tar):
     """prefix distance
 
-    prefix distance = 1 - prefix similarity
+    :math:`prefix~ distance = 1 - prefix~ similarity`
 
     :param str src, tar: two strings to be compared
     :returns: prefix distance
@@ -1728,7 +1730,7 @@ def sim_suffix(src, tar):
 def dist_suffix(src, tar):
     """suffix distance
 
-    suffix distance = 1 - suffix similarity
+    :math:`suffix~ distance = 1 - suffix~ similarity`
 
     :param str src, tar: two strings to be compared
     :returns: suffix distance
@@ -1783,7 +1785,7 @@ def sim_mlipns(src, tar, threshold=0.25, maxmismatches=2):
 def dist_mlipns(src, tar, threshold=0.25, maxmismatches=2):
     """Modified Language-Independent Product Name Search (MLIPNS)
 
-    MLIPNS distance = 1 - MLIPNS similarity
+    :math:`MLIPNS~ distance = 1 - MLIPNS~ similarity`
 
     This function returns only 0.0 (distant) or 1.0 (not distant)
 
@@ -1804,7 +1806,8 @@ def bag(src, tar):
     """bag distance
 
     Bag distance is:
-    max( |multiset(src)-multiset(tar)|, |multiset(tar)-multiset(src)| )
+    :math:`max( |multiset(src)-multiset(tar)|,
+                |multiset(tar)-multiset(src)| )`
 
     :param str src, tar: two strings to be compared
     :returns: bag distance
@@ -1837,7 +1840,7 @@ def sim_bag(src, tar):
 def dist_bag(src, tar):
     """Return the normalized bag distance of two strings.
 
-    Bag distance is normalized by dividing by max( |src|, |tar| ).
+    Bag distance is normalized by dividing by :math:`max( |src|, |tar| )`.
 
     :param str src, tar: two strings to be compared
     :returns: normalized bag distance
@@ -1945,8 +1948,8 @@ def dist_editex(src, tar, cost=(0, 1, 2)):
     (calculated by any of the three supported methods) by the greater of
     the number of characters in src times the cost of a delete and
     the number of characters in tar times the cost of an insert.
-    For the case in which all operations have cost == 1, this is equivalent
-    to the greater of the length of the two strings src & tar.
+    For the case in which all operations have :math:`cost = 1`, this is
+    equivalent to the greater of the length of the two strings src & tar.
 
     :param str src, tar: two strings to be compared
     :param tuple cost: a 3-tuple representing the cost of the four possible
