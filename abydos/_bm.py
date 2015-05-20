@@ -66,9 +66,8 @@ def _bm_language(name, name_mode):
     """Return the best guess language ID for the given word and set of language
     choices
 
-    Arguments:
-    name -- the term to guess the language of
-    name_mode -- the name mode of the algorithm: 'gen' (default),
+    :param str name: the term to guess the language of
+    :param str name_mode: the name mode of the algorithm: 'gen' (default),
                 'ash' (Ashkenazi), or 'sep' (Sephardic)
     """
     name = name.strip().lower()
@@ -92,14 +91,15 @@ def _bm_redo_language(term, name_mode, rules, final_rules1, final_rules2,
     """Using a split multi-work term, reassess the language of the terms and
     call the phonetic encoder
 
-    Arguments:
-    term -- the term to encode via Beider-Morse
-    name_mode -- the name mode of the algorithm: 'gen' (default),
-                'ash' (Ashkenazi), or 'sep' (Sephardic)
-    rules -- the set of initial phonetic transform regexps
-    final_rules1 -- the common set of final phonetic transform regexps
-    final_rules2 -- the specific set of final phonetic transform regexps
-    concat -- a flag to indicate concatenation
+    :param str term: the term to encode via Beider-Morse
+    :param str name_mode: the name mode of the algorithm: 'gen' (default),
+        'ash' (Ashkenazi), or 'sep' (Sephardic)
+    :param tuple rules: the set of initial phonetic transform regexps
+    :param tuple final_rules1: the common set of final phonetic transform
+        regexps
+    :param tuple final_rules2: the specific set of final phonetic transform
+        regexps
+    :param bool concat: a flag to indicate concatenation
     """
     language_arg = _bm_language(term, name_mode)
     return _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
@@ -111,15 +111,17 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
     """Return the Beider-Morse encoding(s) of a term
 
     Arguments:
-    term -- the term to encode via Beider-Morse
-    name_mode -- the name mode of the algorithm: 'gen' (default),
-                'ash' (Ashkenazi), or 'sep' (Sephardic)
-    rules -- the set of initial phonetic transform regexps
-    final_rules1 -- the common set of final phonetic transform regexps
-    final_rules2 -- the specific set of final phonetic transform regexps
-    language_arg -- an integer representing the target language of the phonetic
-                encoding
-    concat -- a flag to indicate concatenation
+    :param str term: the term to encode via Beider-Morse
+    :param str name_mode: the name mode of the algorithm: 'gen' (default),
+        ash' (Ashkenazi), or 'sep' (Sephardic)
+    :param tuple rules: the set of initial phonetic transform regexps
+    :param tuple final_rules1: the common set of final phonetic transform
+        regexps
+    :param tuple final_rules2: the specific set of final phonetic transform
+        regexps
+    :param int language_arg: an integer representing the target language of the
+        phonetic encoding
+    :param bool concat: a flag to indicate concatenation
     """
     term = term.replace('-', ' ').strip()
 
@@ -242,12 +244,12 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
 def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
     """Apply a set of final rules to the phonetic encoding
 
-    Arguments:
-    phonetic -- the term to which to apply the final rules
-    final_rules -- the set of final phonetic transform regexps
-    language_arg -- an integer representing the target language of the phonetic
-                encoding
-    strip -- flag to indicate whether to normalize the language attributes
+    :param str phonetic: the term to which to apply the final rules
+    :param tuple final_rules: the set of final phonetic transform regexps
+    :param int language_arg: an integer representing the target language of the
+        phonetic encoding
+    :param bool strip: flag to indicate whether to normalize the language
+        attributes
     """
     # optimization to save time
     if not final_rules:
@@ -333,6 +335,8 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
 
 def _bm_phonetic_number(phonetic):
     """Remove bracketed text from the end of a string
+
+    :param str phonetic: a Beider-Morse phonetic encoding
     """
     if '[' in phonetic:
         return phonetic[:phonetic.find('[')]
@@ -343,8 +347,7 @@ def _bm_phonetic_number(phonetic):
 def _bm_expand_alternates(phonetic):
     """Expand phonetic alternates separated by |s
 
-    Arguments:
-    phonetic -- a Beider-Morse phonetic encoding
+    :param str phonetic: a Beider-Morse phonetic encoding
     """
     alt_start = phonetic.find('(')
     if alt_start == -1:
@@ -372,6 +375,8 @@ def _bm_expand_alternates(phonetic):
 
 def _bm_pnums_with_leading_space(phonetic):
     """Join prefixes & suffixes in cases of alternate phonetic values
+
+    :param str phonetic: a Beider-Morse phonetic encoding
     """
     alt_start = phonetic.find('(')
     if alt_start == -1:
@@ -394,6 +399,8 @@ def _bm_pnums_with_leading_space(phonetic):
 def _bm_phonetic_numbers(phonetic):
     """Split phonetic value on '-', run through
     _bm_pnums_with_leading_space, and join with ' '
+
+    :param str phonetic: a Beider-Morse phonetic encoding
     """
     phonetic_array = phonetic.split('-')  # for names with spaces in them
     result = ' '.join([_bm_pnums_with_leading_space(i)[1:] for i in
@@ -404,8 +411,7 @@ def _bm_phonetic_numbers(phonetic):
 def _bm_remove_dupes(phonetic):
     """Remove duplicates from a phonetic encoding list
 
-    Arguments:
-    phonetic -- a Beider-Morse phonetic encoding
+    :param str phonetic: a Beider-Morse phonetic encoding
     """
     alt_string = phonetic
     alt_array = alt_string.split('|')
@@ -423,16 +429,17 @@ def _bm_normalize_lang_attrs(text, strip):
     """Remove embedded bracketed attributes and (potentially) bitwise-and them
     together and add to the end
 
-    Arguments:
-    text -- a Beider-Morse phonetic encoding (in progress)
-    strip -- remove the bracketed attributes (and throw away)
-
     this is applied to a single alternative at a time -- not to a parenthisized
         list
+
     it removes all embedded bracketed attributes, logically-ands them together,
         and places them at the end.
+
     however if strip is true, this can indeed remove embedded bracketed
         attributes from a parenthesized list
+
+    :param str text: a Beider-Morse phonetic encoding (in progress)
+    :param bool strip: remove the bracketed attributes (and throw away)
     """
     uninitialized = -1  # all 1's
     attrib = uninitialized
@@ -458,21 +465,24 @@ def _bm_normalize_lang_attrs(text, strip):
 def _bm_apply_rule_if_compat(phonetic, target, language_arg):
     """Applies a phonetic regex if compatible
 
-    Arguments:
-    phoentic -- the Beider-Morse phonetic encoding (so far)
-    target -- a proposed addition to the phonetic encoding
-    language_arg -- an integer representing the target language of the phonetic
-                encoding
-
-    Description:
     tests for compatible language rules
+
     to do so, apply the rule, expand the results, and detect alternatives with
         incompatible attributes
+
     then drop each alternative that has incompatible attributes and keep those
         that are compatible
+
     if there are no compatible alternatives left, return false
+
     otherwise return the compatible alternatives
+
     apply the rule
+
+    :param str phoentic: the Beider-Morse phonetic encoding (so far)
+    :param str target: a proposed addition to the phonetic encoding
+    :param int language_arg: an integer representing the target language of
+        the phonetic encoding
     """
     candidate = phonetic + target
     if '[' not in candidate:  # no attributes so we need test no further
@@ -512,9 +522,8 @@ def _bm_language_index_from_code(code, name_mode):
     """Return the index value for a language code (or l_any if more than one
     is specified or the code is out of bounds)
 
-    Arguments:
-    code -- the language code to interpret
-    name_mode -- the name mode of the algorithm: 'gen' (default),
+    :param int code: the language code to interpret
+    :param str name_mode: the name mode of the algorithm: 'gen' (default),
                 'ash' (Ashkenazi), or 'sep' (Sephardic)
     """
     if (code < 1 or
@@ -531,25 +540,24 @@ def _bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     """Return the Beider-Morse Phonetic Matching algorithm encoding(s) of a
     term
 
-    Arguments:
-    word -- the term to which to apply the Beider-Morse Phonetic Matching
-                algorithm
-    language_arg -- the language of the term; supported values include:
-                "any", "arabic", "cyrillic", "czech", "dutch", "english",
-                "french", "german", "greek", "greeklatin", "hebrew",
-                "hungarian", "italian", "polish", "portuguese","romanian",
-                "russian", "spanish", "turkish"
-    name_mode -- the name mode of the algorithm: 'gen' (default),
-                'ash' (Ashkenazi), or 'sep' (Sephardic)
-    match_mode -- matching mode: 'approx' or 'exact'
-    concat -- concatenation mode
-    filter_langs -- filter out incompatible languages
-
-    Description:
     The Beider-Morse Phonetic Matching algorithm is described at:
     http://stevemorse.org/phonetics/bmpm.htm
     The reference implementation is licensed under GPLv3 and available at:
     http://stevemorse.org/phoneticinfo.htm
+
+    :param str word: the term to which to apply the Beider-Morse Phonetic
+        Matching algorithm
+    :param str language_arg: the language of the term; supported values
+        include:
+            "any", "arabic", "cyrillic", "czech", "dutch", "english",
+            "french", "german", "greek", "greeklatin", "hebrew",
+            "hungarian", "italian", "polish", "portuguese","romanian",
+            "russian", "spanish", "turkish"
+    :param str name_mode: the name mode of the algorithm: 'gen' (default),
+        'ash' (Ashkenazi), or 'sep' (Sephardic)
+    :param str match_mode: matching mode: 'approx' or 'exact'
+    :param bool concat: concatenation mode
+    :param bool filter_langs: filter out incompatible languages
     """
     word = unicodedata.normalize('NFC', _unicode(word.strip().lower()))
 
