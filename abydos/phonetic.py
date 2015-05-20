@@ -61,7 +61,7 @@ def _delete_consecutive_repeats(word):
 
 
 def russell_index(word):
-    """Russell Index of a word as an integer
+    """Russell Index (integer output)
 
     This follows Robert C. Russell's Index algorithm, as described in
     US Patent 1,261,167 (1917)
@@ -116,7 +116,7 @@ def russell_index_num_to_alpha(num):
 
 
 def russell_index_alpha(word):
-    """Russell Index of a word as an alphabetic string
+    """Russell Index (alphabetic output)
 
     This follows Robert C. Russell's Index algorithm, as described in
     US Patent 1,261,167 (1917)
@@ -136,18 +136,19 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
 
     :param str word: the word to transform
     :param int maxlength: the length of the code returned (defaults to 4)
-    :param str var: the variant of the algorithm to employ (defaults to 'American'):
-        'American' follows the American Soundex algorithm, as described at
+    :param str var: the variant of the algorithm to employ (defaults to
+        'American'):
+         - 'American' follows the American Soundex algorithm, as described at
         http://www.archives.gov/publications/general-info-leaflets/55-census.html
         and in Knuth(1998:394); this is also called Miracode
-        'special' follows the rules from the 1880-1910 US Census, in which
+         - 'special' follows the rules from the 1880-1910 US Census, in which
         h & w are not treated as blocking consonants but as vowels
-        'dm' computes the Daitch-Mokotoff Soundex
+         - 'dm' computes the Daitch-Mokotoff Soundex
     :param bool reverse: reverse the word before computing the selected Soundex
         (defaults to False); This results in "Reverse Soundex"
-    :param bool zero_pad: pad the end of the return value with 0s to achieve a maxlength
-        string
-    :returns:
+    :param bool zero_pad: pad the end of the return value with 0s to achieve a
+        maxlength string
+    :returns: the Soundex value
     :rtype: str
     """
     _soundex_translation = dict(zip([ord(_) for _ in
@@ -210,12 +211,12 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
 
     :param word: the word to transform
     :param maxlength: the length of the code returned (defaults to 6)
-    :param reverse: reverse the word before computing the selected Soundex (defaults
-        to False); This results in "Reverse Soundex"
-    :param zero_pad: pad the end of the return value with 0s to achieve a maxlength
-        string
-    :returns:
-    :rtype:
+    :param reverse: reverse the word before computing the selected Soundex
+        (defaults to False); This results in "Reverse Soundex"
+    :param zero_pad: pad the end of the return value with 0s to achieve a
+        maxlength string
+    :returns: the Daitch-Mokotoff Soundex value
+    :rtype: str
     """
     _dms_table = {'STCH': (2, 4, 4), 'DRZ': (4, 4, 4), 'ZH': (4, 4, 4),
                   'ZHDZH': (2, 4, 4), 'DZH': (4, 4, 4), 'DRS': (4, 4, 4),
@@ -365,14 +366,17 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
 
 
 def koelner_phonetik(word):
-    """Kölner Phonetik
+    """Kölner Phonetik (numeric output)
 
     Based on the algorithm described at
     https://de.wikipedia.org/wiki/Kölner_Phonetik
 
+    While the output code is numeric, it is still a str because 0s can lead
+    the code.
+
     :param str word: the word to transform
-    :returns:
-    :rtype:
+    :returns: the Kölner Phonetik value as a numeric string
+    :rtype: str
     """
     # pylint: disable=too-many-branches
     def _after(word, i, letters):
@@ -460,12 +464,11 @@ def koelner_phonetik(word):
 
 
 def koelner_phonetik_num_to_alpha(num):
-    """Given the numeric form of a Kölner Phonetik value, returns an
-    alphabetic form
+    """Convert Kölner Phonetik from numeric to alphabetic
 
-    :param int num:
-    :returns:
-    :rtype:
+    :param str num: a numeric Kölner Phonetik representation
+    :returns: an alphabetic representation of the same word
+    :rtype: str
     """
     _koelner_num_translation = dict(zip([ord(_) for _ in '012345678'],
                                         'APTFKLNRS'))
@@ -474,12 +477,11 @@ def koelner_phonetik_num_to_alpha(num):
 
 
 def koelner_phonetik_alpha(word):
-    """Given a string 'word', returns an alphabetic value representing
-    its Kölner Phonetik value
+    """Kölner Phonetik (alphabetic output)
 
     :param str word: the word to transform
-    :returns:
-    :rtype:
+    :returns: the Kölner Phonetik value as an alphabetic string
+    :rtype: str
     """
     return koelner_phonetik_num_to_alpha(koelner_phonetik(word))
 
@@ -492,8 +494,8 @@ def nysiis(word, maxlength=6):
 
     :param str word: the word to transform
     :param int maxlength: the maximum length (default 6) of the code to return
-    :returns:
-    :rtype:
+    :returns: the NYSIIS value
+    :rtype: str
     """
     # Require a maxlength of at least 6
     if maxlength:
@@ -586,8 +588,8 @@ def mra(word):
     https://archive.org/details/accessingindivid00moor
 
     :param str word: the word to transform
-    :returns:
-    :rtype:
+    :returns: the MRA PNI
+    :rtype: str
     """
     if not len(word):
         return word
@@ -614,8 +616,8 @@ def metaphone(word, maxlength=float('inf')):
     :param int maxlength: the maximum length of the returned Metaphone code
         (defaults to unlimited, but in Philips' original implementation
         this was 4)
-    :returns:
-    :rtype:
+    :returns: the Metaphone value
+    :rtype: str
     """
     # pylint: disable=too-many-branches
     _vowels = frozenset('AEIOU')
@@ -773,8 +775,8 @@ def double_metaphone(word, maxlength=float('inf')):
     :param maxlength: the maximum length of the returned Double Metaphone codes
         (defaults to unlimited, but in Philips' original implementation this
         was 4)
-    :returns:
-    :rtype:
+    :returns: the Double Metaphone value(s)
+    :rtype: tuple
     """
     # pylint: disable=too-many-branches
     # Require a maxlength of at least 4
@@ -787,14 +789,14 @@ def double_metaphone(word, maxlength=float('inf')):
     secondary = ''
 
     def _slavo_germanic():
-        """Return True if the word appears to be Slavic or Germanic
+        """Returns True if the word appears to be Slavic or Germanic
         """
         if 'W' in word or 'K' in word or 'CZ' in word:
             return True
         return False
 
     def _metaph_add(pri, sec=''):
-        """Return a new metaphone tuple with the supplied additional elements
+        """Returns a new metaphone tuple with the supplied additional elements
         """
         newpri = primary
         newsec = secondary
@@ -808,20 +810,20 @@ def double_metaphone(word, maxlength=float('inf')):
         return (newpri, newsec)
 
     def _is_vowel(pos):
-        """Return true if the character at word[pos] is a vowel
+        """Returns true if the character at word[pos] is a vowel
         """
         if pos >= 0 and word[pos] in frozenset('AEIOUY'):
             return True
         return False
 
     def _get_at(pos):
-        """Return the character at word[pos]
+        """Returns the character at word[pos]
         """
         if not pos < 0:
             return word[pos]
 
     def _string_at(pos, slen, substrings):
-        """Return True if word[pos:pos+slen] is in substrings
+        """Returns True if word[pos:pos+slen] is in substrings
         """
         if pos < 0:
             return False
@@ -1507,8 +1509,8 @@ def caverphone(word, version=2):
     :param str word: the word to transform
     :param int version: the version of Caverphone to employ for encoding
         (defaults to 2)
-    :returns:
-    :rtype:
+    :returns: the Caverphone value
+    :rtype: str
     """
     _vowels = frozenset('aeiou')
 
@@ -1633,8 +1635,8 @@ def alpha_sis(word, maxlength=14):
 
     :param str word: the word to transform
     :param int maxlength: the length of the code returned (defaults to 14)
-    :returns:
-    :rtype:
+    :returns: the Alpha SIS value
+    :rtype: tuple
     """
     _alpha_sis_initials = {'GF': '08', 'GM': '03', 'GN': '02', 'KN': '02',
                            'PF': '08', 'PN': '02', 'PS': '00', 'WR': '04',
@@ -1724,10 +1726,10 @@ def fuzzy_soundex(word, maxlength=5, zero_pad=True):
 
     :param str word: the word to transform
     :param int maxlength: the length of the code returned (defaults to 4)
-    :param bool zero_pad: pad the end of the return value with 0s to achieve a maxlength
-        string
-    :returns:
-    :rtype:
+    :param bool zero_pad: pad the end of the return value with 0s to achieve
+        a maxlength string
+    :returns: the Fuzzy Soundex value
+    :rtype: str
     """
     _fuzzy_soundex_translation = dict(zip([ord(_) for _ in
                                            'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
@@ -1820,10 +1822,10 @@ def phonex(word, maxlength=4, zero_pad=True):
 
     :param str word: the word to transform
     :param int maxlength: the length of the code returned (defaults to 4)
-    :param bool zero_pad: pad the end of the return value with 0s to achieve a maxlength
-        string
-    :returns:
-    :rtype:
+    :param bool zero_pad: pad the end of the return value with 0s to achieve
+        a maxlength string
+    :returns: the Phonex value
+    :rtype: str
     """
     name = unicodedata.normalize('NFKD', _unicode(word.upper()))
     name = name.replace('ß', 'SS')
@@ -1924,8 +1926,8 @@ def phonem(word):
     Phonem is intended chiefly for German names/words.
 
     :param str word: the word to transform
-    :returns:
-    :rtype:
+    :returns: the Phonem value
+    :rtype: str
     """
     _phonem_substitutions = (('SC', 'C'), ('SZ', 'C'), ('CZ', 'C'),
                              ('TZ', 'C'), ('TS', 'C'), ('KS', 'X'),
@@ -1960,10 +1962,10 @@ def phonix(word, maxlength=4, zero_pad=True):
 
     :param str word: the word to transform
     :param int maxlength: the length of the code returned (defaults to 4)
-    :param bool zero_pad: pad the end of the return value with 0s to achieve a maxlength
-        string
-    :returns:
-    :rtype:
+    :param bool zero_pad: pad the end of the return value with 0s to achieve
+        a maxlength string
+    :returns: the Phonix value
+    :rtype: str
     """
     # pylint: disable=too-many-branches
     def _start_repl(word, src, tar, post=None):
@@ -2168,9 +2170,9 @@ def sfinxbis(word, maxlength=None):
 
     :param str word: the word to transform
     :param int maxlength: the length of the code returned (defaults to
-    unlimited)
-    :returns:
-    :rtype:
+        unlimited)
+    :returns: the SfinxBis value
+    :rtype: tuple
     """
     adelstitler = (' DE LA ', ' DE LAS ', ' DE LOS ', ' VAN DE ', ' VAN DEN ',
                    ' VAN DER ', ' VON DEM ', ' VON DER ',
@@ -2333,8 +2335,8 @@ def phonet(word, mode=1, lang='de', trace=False):
     :param str lang: 'de' (default) for German
             'none' for no language
     :param bool trace: prints debugging info if True
-    :returns:
-    :rtype:
+    :returns: the phonet value
+    :rtype: str
     """
     # pylint: disable=too-many-branches
 
@@ -3859,15 +3861,15 @@ def phonet(word, mode=1, lang='de', trace=False):
 
 
 def spfc(word):
-    """Standardized Phonetic Frequency Code
+    """Standardized Phonetic Frequency Code (SPFC)
 
     Standardized Phonetic Frequency Code is roughly Soundex-like.
     This implementation is based on page 19-21 of
     https://archive.org/stream/accessingindivid00moor#page/19/mode/1up
 
     :param str word: the word to transform
-    :returns:
-    :rtype:
+    :returns: the SPFC value
+    :rtype: str
     """
 
     _pf1 = dict(zip([ord(_) for _ in 'SZCKQVFPUWABLORDHIEMNXGJT'],
@@ -3999,19 +4001,20 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     http://stevemorse.org/phoneticinfo.htm
 
     :param str word: the word to transform
-    :param str language_arg: the language of the term; supported values include:
-                "any", "arabic", "cyrillic", "czech", "dutch", "english",
-                "french", "german", "greek", "greeklatin", "hebrew",
-                "hungarian", "italian", "polish", "portuguese","romanian",
-                "russian", "spanish", "turkish", "germandjsg", "polishdjskp",
-                "russiandjsre"
+    :param str language_arg: the language of the term; supported values
+        include:
+            "any", "arabic", "cyrillic", "czech", "dutch", "english",
+            "french", "german", "greek", "greeklatin", "hebrew",
+            "hungarian", "italian", "polish", "portuguese","romanian",
+            "russian", "spanish", "turkish", "germandjsg", "polishdjskp",
+            "russiandjsre"
     :param str name_mode: the name mode of the algorithm: 'gen' (default),
                 'ash' (Ashkenazi), or 'sep' (Sephardic)
     :param str match_mode: matching mode: 'approx' or 'exact'
     :param bool concat: concatenation mode
     :param bool filter_langs: filter out incompatible languages
-    :returns:
-    :rtype:
+    :returns: the BMPM value(s)
+    :rtype: tuple
     """
     return _bmpm(word, language_arg, name_mode, match_mode,
                  concat, filter_langs)
