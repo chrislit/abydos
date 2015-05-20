@@ -86,19 +86,22 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     Levenshtein edit distance ordinarily has unit insertion, deletion, and
     substitution costs.
 
-    src, tar -- two strings to be compared
-    mode -- specifies a mode for computing the Levenshtein distance:
-            'lev' (default) computes the ordinary Levenshtein distance,
+    :param str :param str src, tar: two strings to be compared
+    :param str mode: specifies a mode for computing the Levenshtein distance:
+            - 'lev' (default) computes the ordinary Levenshtein distance,
                 in which edits may include inserts, deletes, and substitutions
-            'osa' computes the Optimal String Alignment distance, in which
+            - 'osa' computes the Optimal String Alignment distance, in which
                 edits may include inserts, deletes, substitutions, and
                 transpositions but substrings may only be edited once
-            'dam' computes the Damerau-Levenshtein distance, in which
+            - 'dam' computes the Damerau-Levenshtein distance, in which
                 edits may include inserts, deletes, substitutions, and
                 transpositions and substrings may undergo repeated edits
-    cost -- a 4-tuple representing the cost of the four possible edits:
-                inserts, deletes, substitutions, and transpositions,
-                respectively (by default: (1, 1, 1, 1))
+    :param tuple cost: a 4-tuple representing the cost of the four possible
+        edits:
+            inserts, deletes, substitutions, and transpositions, respectively
+            (by default: (1, 1, 1, 1))
+    :returns:
+    :rtype:
     """
     ins_cost, del_cost, sub_cost, trans_cost = cost
 
@@ -148,19 +151,22 @@ def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     For the case in which all operations have cost == 1, this is equivalent
     to the greater of the length of the two strings src & tar.
 
-    src, tar -- two strings to be compared
-    mode -- specifies a mode for computing the Levenshtein distance:
-            'lev' (default) computes the ordinary Levenshtein distance,
+    :param str src, tar: two strings to be compared
+    :param str mode: specifies a mode for computing the Levenshtein distance:
+            - 'lev' (default) computes the ordinary Levenshtein distance,
                 in which edits may include inserts, deletes, and substitutions
-            'osa' computes the Optimal String Alignment distance, in which
+            - 'osa' computes the Optimal String Alignment distance, in which
                 edits may include inserts, deletes, substitutions, and
                 transpositions but substrings may only be edited once
-            'dam' computes the Damerau-Levenshtein distance, in which
+            - 'dam' computes the Damerau-Levenshtein distance, in which
                 edits may include inserts, deletes, substitutions, and
                 transpositions and substrings may undergo repeated edits
-    cost -- a 4-tuple representing the cost of the four possible edits:
-                inserts, deletes, substitutions, and transpositions,
-                respectively (by default: (1, 1, 1, 1))
+    :param tuple cost: a 4-tuple representing the cost of the four possible
+        edits:
+            inserts, deletes, substitutions, and transpositions, respectively
+            (by default: (1, 1, 1, 1))
+    :returns:
+    :rtype:
     """
     if src == tar:
         return 0
@@ -175,19 +181,22 @@ def sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     The Levenshtein similarity is 1 - the Levenshtein distance.
     The arguments are identical to those of the levenshtein() function.
 
-    src, tar -- two strings to be compared
-    mode -- specifies a mode for computing the Levenshtein distance:
-            'lev' (default) computes the ordinary Levenshtein distance,
+    :param str :param str src, tar: two strings to be compared
+    :param str mode: specifies a mode for computing the Levenshtein distance:
+            - 'lev' (default) computes the ordinary Levenshtein distance,
                 in which edits may include inserts, deletes, and substitutions
-            'osa' computes the Optimal String Alignment distance, in which
+            - 'osa' computes the Optimal String Alignment distance, in which
                 edits may include inserts, deletes, substitutions, and
                 transpositions but substrings may only be edited once
-            'dam' computes the Damerau-Levenshtein distance, in which
+            - 'dam' computes the Damerau-Levenshtein distance, in which
                 edits may include inserts, deletes, substitutions, and
                 transpositions and substrings may undergo repeated edits
-    cost -- a 4-tuple representing the cost of the four possible edits:
-                inserts, deletes, substitutions, and transpositions,
-                respectively (by default: (1, 1, 1, 1))
+    :param tuple cost: a 4-tuple representing the cost of the four possible
+        edits:
+            inserts, deletes, substitutions, and transpositions, respectively
+            (by default: (1, 1, 1, 1))
+    :returns:
+    :rtype:
     """
     return 1 - dist_levenshtein(src, tar, mode, cost)
 
@@ -202,10 +211,13 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
     under the MIT license:
     https://github.com/KevinStern/software-and-algorithms/blob/master/src/main/java/blogspot/software_and_algorithms/stern_library/string/DamerauLevenshteinAlgorithm.java
 
-    src, tar -- two strings to be compared
-    cost -- a 4-tuple representing the cost of the four possible edits:
-                inserts, deletes, substitutions, and transpositions,
-                respectively (by default: (1, 1, 1, 1))
+    :param str :param str src, tar: two strings to be compared
+    :param tuple cost: a 4-tuple representing the cost of the four possible
+        edits:
+            inserts, deletes, substitutions, and transpositions, respectively
+            (by default: (1, 1, 1, 1))
+    :returns:
+    :rtype:
     """
     ins_cost, del_cost, sub_cost, trans_cost = cost
 
@@ -291,10 +303,13 @@ def dist_damerau(src, tar, cost=(1, 1, 1, 1)):
     to the greater of the length of the two strings src & tar.
     The arguments are identical to those of the levenshtein() function.
 
-    src, tar -- two strings to be compared
-    cost -- a 4-tuple representing the cost of the four possible edits:
-                inserts, deletes, substitutions, and transpositions,
-                respectively (by default: (1, 1, 1, 1))
+    :param str :param str src, tar: two strings to be compared
+    :param tuple cost: a 4-tuple representing the cost of the four possible
+        edits:
+            inserts, deletes, substitutions, and transpositions, respectively
+            (by default: (1, 1, 1, 1))
+    :returns:
+    :rtype:
     """
     if src == tar:
         return 0
@@ -309,10 +324,13 @@ def sim_damerau(src, tar, cost=(1, 1, 1, 1)):
     The Damerau-Levenshtein similarity is 1 - the Damerau-Levenshtein distance.
     The arguments are identical to those of the levenshtein() function.
 
-    src, tar -- two strings to be compared
-    cost -- a 4-tuple representing the cost of the four possible edits:
-                inserts, deletes, substitutions, and transpositions,
-                respectively (by default: (1, 1, 1, 1))
+    :param str :param str src, tar: two strings to be compared
+    :param tuple cost: a 4-tuple representing the cost of the four possible
+        edits:
+            inserts, deletes, substitutions, and transpositions, respectively
+            (by default: (1, 1, 1, 1))
+    :returns:
+    :rtype:
     """
     return 1 - dist_damerau(src, tar, cost)
 
@@ -326,14 +344,16 @@ def hamming(src, tar, difflens=True):
     first n characters where n is the lesser of the two strings' lengths and
     adds to this the difference in string lengths.
 
-    src, tar -- two strings to be compared
-    allow_different_lengths --
-        If True (default, this returns the Hamming distance for those
+    :param str :param str src, tar: two strings to be compared
+    :param bool allow_different_lengths:
+        If True (default), this returns the Hamming distance for those
         characters that have a matching character in both strings plus the
-        difference in the strings' lengths. This is equivalent to  extending
+        difference in the strings' lengths. This is equivalent to extending
         the shorter string with obligatorily non-matching characters.
         If False, an exception is raised in the case of strings of unequal
         lengths.
+    :returns:
+    :rtype:
     """
     if not difflens and len(src) != len(tar):
         raise ValueError('Undefined for sequences of unequal length; set ' +
@@ -356,6 +376,17 @@ def dist_hamming(src, tar, difflens=True):
     set to False, in which case an exception is raised).
 
     The arguments are identical to those of the hamming() function.
+
+    :param str :param str src, tar: two strings to be compared
+    :param bool allow_different_lengths:
+        If True (default), this returns the Hamming distance for those
+        characters that have a matching character in both strings plus the
+        difference in the strings' lengths. This is equivalent to extending
+        the shorter string with obligatorily non-matching characters.
+        If False, an exception is raised in the case of strings of unequal
+        lengths.
+    :returns:
+    :rtype:
     """
     if src == tar:
         return 0
@@ -372,6 +403,17 @@ def sim_hamming(src, tar, difflens=True):
     further information, see the sim_mlipns documentation.
 
     The arguments are identical to those of the hamming() function.
+
+    :param str :param str src, tar: two strings to be compared
+    :param bool allow_different_lengths:
+        If True (default), this returns the Hamming distance for those
+        characters that have a matching character in both strings plus the
+        difference in the strings' lengths. This is equivalent to extending
+        the shorter string with obligatorily non-matching characters.
+        If False, an exception is raised in the case of strings of unequal
+        lengths.
+    :returns:
+    :rtype:
     """
     return 1 - dist_hamming(src, tar, difflens)
 
@@ -400,10 +442,14 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     by specifying a bias parameter.
     Cf. http://aclweb.org/anthology/S/S13/S13-1028.pdf
 
-    src, tar -- two strings to be compared (or QGrams/Counter objects)
-    qval -- the length of each q-gram; 0 or None for non-q-gram version
-    alpha, beta -- two Tversky index parameters as indicated in the
+    :param str :param str src, tar: two strings to be compared
+        (or QGrams/Counter objects)
+    :param int qval: the length of each q-gram; 0 or None for non-q-gram
+        version
+    :param float alpha, beta: two Tversky index parameters as indicated in the
         description below
+    :returns:
+    :rtype:
     """
     if alpha < 0 or beta < 0:
         raise ValueError('Unsupported weight assignment; alpha and beta ' +
@@ -454,10 +500,14 @@ def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     by specifying a bias parameter.
     Cf. http://aclweb.org/anthology/S/S13/S13-1028.pdf
 
-    src, tar -- two strings to be compared (or QGrams/Counter objects)
-    qval -- the length of each q-gram; 0 or None for non-q-gram version
-    alpha, beta -- two Tversky index parameters as indicated in the
+    :param str :param str src, tar: two strings to be compared
+        (or QGrams/Counter objects)
+    :param int qval: the length of each q-gram; 0 or None for non-q-gram
+        version
+    :param float alpha, beta: two Tversky index parameters as indicated in the
         description below
+    :returns:
+    :rtype:
     """
     return 1 - sim_tversky(src, tar, qval, alpha, beta, bias)
 
@@ -470,8 +520,11 @@ def sim_dice(src, tar, qval=2):
     This is identical to the Tanimoto similarity coefficient
     and the Tversky index for α = β = 0.5
 
-    src, tar -- two strings to be compared (or QGrams/Counter objects)
-    qval -- the length of each q-gram; 0 or None for non-q-gram version
+    :param str src, tar: two strings to be compared (or QGrams/Counter objects)
+    :param int qval: the length of each q-gram; 0 or None for non-q-gram
+        version
+    :returns:
+    :rtype:
     """
     return sim_tversky(src, tar, qval, 0.5, 0.5)
 
@@ -481,8 +534,11 @@ def dist_dice(src, tar, qval=2):
 
     Sørensen–Dice distance is 1 - the Sørensen–Dice coefficient
 
-    src, tar -- two strings to be compared (or QGrams/Counter objects)
-    qval -- the length of each q-gram; 0 or None for non-q-gram version
+    :param str src, tar: two strings to be compared (or QGrams/Counter objects)
+    :param int qval: the length of each q-gram; 0 or None for non-q-gram
+        version
+    :returns:
+    :rtype:
     """
     return 1 - sim_dice(src, tar, qval)
 
@@ -495,8 +551,11 @@ def sim_jaccard(src, tar, qval=2):
     This is identical to the Tanimoto similarity coefficient
     and the Tversky index for α = β = 1
 
-    src, tar -- two strings to be compared (or QGrams/Counter objects)
-    qval -- the length of each q-gram; 0 or None for non-q-gram version
+    :param str src, tar: two strings to be compared (or QGrams/Counter objects)
+    :param int qval: the length of each q-gram; 0 or None for non-q-gram
+        version
+    :returns:
+    :rtype:
     """
     return sim_tversky(src, tar, qval, 1, 1)
 
@@ -506,8 +565,11 @@ def dist_jaccard(src, tar, qval=2):
 
     Jaccard distance is 1 - the Jaccard similarity coefficient
 
-    src, tar -- two strings to be compared (or QGrams/Counter objects)
-    qval -- the length of each q-gram; 0 or None for non-q-gram version
+    :param str src, tar: two strings to be compared (or QGrams/Counter objects)
+    :param int qval: the length of each q-gram; 0 or None for non-q-gram
+        version
+    :returns:
+    :rtype:
     """
     return 1 - sim_jaccard(src, tar, qval)
 
@@ -518,8 +580,11 @@ def sim_overlap(src, tar, qval=2):
     For two sets X and Y, the overlap coefficient is
     S(X,Y) = |X∩Y| / min(|X|,|Y|)
 
-    src, tar -- two strings to be compared (or QGrams/Counter objects)
-    qval -- the length of each q-gram; 0 or None for non-q-gram version
+    :param str src, tar: two strings to be compared (or QGrams/Counter objects)
+    :param int qval: the length of each q-gram; 0 or None for non-q-gram
+        version
+    :returns:
+    :rtype:
     """
     if src == tar:
         return 1.0
@@ -547,8 +612,11 @@ def dist_overlap(src, tar, qval=2):
 
     overlap distance is 1 - the overlap coefficient
 
-    src, tar -- two strings to be compared (or QGrams/Counter objects)
-    qval -- the length of each q-gram; 0 or None for non-q-gram version
+    :param str src, tar: two strings to be compared (or QGrams/Counter objects)
+    :param int qval: the length of each q-gram; 0 or None for non-q-gram
+        version
+    :returns:
+    :rtype:
     """
     return 1 - sim_overlap(src, tar, qval)
 
@@ -561,8 +629,11 @@ def sim_tanimoto(src, tar, qval=2):
     This is identical to the Jaccard similarity coefficient
     and the Tversky index for α = β = 1
 
-    src, tar -- two strings to be compared (or QGrams/Counter objects)
-    qval -- the length of each q-gram; 0 or None for non-q-gram version
+    :param str src, tar: two strings to be compared (or QGrams/Counter objects)
+    :param int qval: the length of each q-gram; 0 or None for non-q-gram
+        version
+    :returns:
+    :rtype:
     """
     return sim_jaccard(src, tar, qval)
 
@@ -572,8 +643,11 @@ def tanimoto(src, tar, qval=2):
 
     Tanimoto distance is -log2(Tanimoto coefficient)
 
-    src, tar -- two strings to be compared (or QGrams/Counter objects)
-    qval -- the length of each q-gram; 0 or None for non-q-gram version
+    :param str src, tar: two strings to be compared (or QGrams/Counter objects)
+    :param int qval: the length of each q-gram; 0 or None for non-q-gram
+        version
+    :returns:
+    :rtype:
     """
     coeff = sim_jaccard(src, tar, qval)
     if coeff != 0:
@@ -588,8 +662,11 @@ def sim_cosine(src, tar, qval=2):
     For two sets X and Y, the cosine similarity (Ochiai coefficient) is:
     S(X,Y) = |X∩Y| / √(|X| * |Y|)
 
-    src, tar -- two strings to be compared (or QGrams/Counter objects)
-    qval -- the length of each q-gram; 0 or None for non-q-gram version
+    :param str src, tar: two strings to be compared (or QGrams/Counter objects)
+    :param int qval: the length of each q-gram; 0 or None for non-q-gram
+        version
+    :returns:
+    :rtype:
     """
     if src == tar:
         return 1.0
@@ -615,10 +692,13 @@ def sim_cosine(src, tar, qval=2):
 def dist_cosine(src, tar, qval=2):
     """cosine distance
 
-    Coside distance is defined as 1 - the cosine similarity
+    Cosine distance is defined as 1 - the cosine similarity
 
-    src, tar -- two strings to be compared (or QGrams/Counter objects)
-    qval -- the length of each q-gram; 0 or None for non-q-gram version
+    :param str src, tar: two strings to be compared (or QGrams/Counter objects)
+    :param int qval: the length of each q-gram; 0 or None for non-q-gram
+        version
+    :returns:
+    :rtype:
     """
     return 1 - sim_cosine(src, tar, qval)
 
@@ -636,12 +716,14 @@ def sim_strcmp95(src, tar, long_strings=False):
     limited to uppercase ASCII characters, so it is appropriate to American
     names, but not much else.
 
-    src, tar -- two strings to be compared
-    long_strings -- set to True to "Increase the probability of a match when
-        the number of matched characters is large.  This option allows for a
-        little more tolerance when the strings are large.  It is not an
-        appropriate test when comparing fixed length fields such as phone and
-        social security numbers."
+    :param str src, tar: two strings to be compared
+    :param bool long_strings: set to True to "Increase the probability of a
+        match when the number of matched characters is large.  This option
+        allows for a little more tolerance when the strings are large. It is
+        not an appropriate test when comparing fixed length fields such as
+        phone and social security numbers."
+    :returns:
+    :rtype: float
     """
     def _in_range(char):
         """Return True if char is in the range (0, 91)
@@ -763,12 +845,14 @@ def dist_strcmp95(src, tar, long_strings=False):
 
     strcmp95 distance is 1 - strcmp95 similarity
 
-    src, tar -- two strings to be compared
-    long_strings -- set to True to "Increase the probability of a match when
-        the number of matched characters is large.  This option allows for a
-        little more tolerance when the strings are large.  It is not an
-        appropriate test when comparing fixed length fields such as phone and
-        social security numbers."
+    :param str src, tar: two strings to be compared
+    :param bool long_strings: set to True to "Increase the probability of a
+        match when the number of matched characters is large.  This option
+        allows for a little more tolerance when the strings are large. It is
+        not an appropriate test when comparing fixed length fields such as
+        phone and social security numbers."
+    :returns:
+    :rtype: float
     """
     return 1 - sim_strcmp95(src, tar, long_strings)
 
@@ -782,23 +866,27 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
     The above file is a US Government publication and, accordingly,
     in the public domain.
 
-    src, tar -- two strings to be compared
-    qval -- the length of each q-gram (defaults to 1: character-wise matching)
-    mode -- indicates which variant of this distance metric to compute:
-        'winkler' -- computes the Jaro-Winkler distance (default)
-            which increases the score for matches near the start of the word
-        'jaro' -- computes the Jaro distance
+    :param str src, tar: two strings to be compared
+    :param int qval: the length of each q-gram (defaults to 1: character-wise
+        matching)
+    :param str mode: indicates which variant of this distance metric to
+        compute:
+            'winkler' -- computes the Jaro-Winkler distance (default) which
+                increases the score for matches near the start of the word
+            'jaro' -- computes the Jaro distance
 
     The following arguments apply only when mode is 'winkler':
-    long_strings -- set to True to "Increase the probability of a match when
-        the number of matched characters is large.  This option allows for a
-        little more tolerance when the strings are large.  It is not an
-        appropriate test when comparing fixed length fields such as phone and
-        social security numbers."
-    boost_threshold -- a value between 0 and 1, below which the Winkler boost
-        is not applied (defaults to 0.7)
-    scaling_factor -- a value between 0 and 0.25, indicating by how much to
-        boost scores for matching prefixes (defaults to 0.1)
+    :param bool long_strings: set to True to "Increase the probability of a
+        match when the number of matched characters is large.  This option
+        allows for a little more tolerance when the strings are large.  It is
+        not an appropriate test when comparing fixed length fields such as
+        phone and social security numbers."
+    :param float boost_threshold: a value between 0 and 1, below which the
+        Winkler boost is not applied (defaults to 0.7)
+    :param float scaling_factor: a value between 0 and 0.25, indicating by how
+        much to boost scores for matching prefixes (defaults to 0.1)
+    :returns:
+    :rtype: float
     """
     if mode == 'winkler':
         if boost_threshold > 1 or boost_threshold < 0:
@@ -895,23 +983,27 @@ def dist_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
 
     Jaro-Winkler distance is 1 - the Jaro-Winkler similarity
 
-    src, tar -- two strings to be compared
-    qval -- the length of each q-gram (defaults to 1: character-wise matching)
-    mode -- indicates which variant of this distance metric to compute:
-        'winkler' -- computes the Jaro-Winkler distance (default)
-            which increases the score for matches near the start of the word
-        'jaro' -- computes the Jaro distance
+    :param str src, tar: two strings to be compared
+    :param int qval: the length of each q-gram (defaults to 1: character-wise
+        matching)
+    :param str mode: indicates which variant of this distance metric to
+        compute:
+            'winkler' -- computes the Jaro-Winkler distance (default) which
+                increases the score for matches near the start of the word
+            'jaro' -- computes the Jaro distance
 
     The following arguments apply only when mode is 'winkler':
-    long_strings -- set to True to "Increase the probability of a match when
-        the number of matched characters is large.  This option allows for a
-        little more tolerance when the strings are large.  It is not an
-        appropriate test when comparing fixed length fields such as phone and
-        social security numbers."
-    boost_threshold -- a value between 0 and 1, below which the Winkler boost
-        is not applied (defaults to 0.7)
-    scaling_factor -- a value between 0 and 0.25, indicating by how much to
-        boost scores for matching prefixes (defaults to 0.1)
+    :param bool long_strings: set to True to "Increase the probability of a
+        match when the number of matched characters is large.  This option
+        allows for a little more tolerance when the strings are large.  It is
+        not an appropriate test when comparing fixed length fields such as
+        phone and social security numbers."
+    :param float boost_threshold: a value between 0 and 1, below which the
+        Winkler boost is not applied (defaults to 0.7)
+    :param float scaling_factor: a value between 0 and 0.25, indicating by how
+        much to boost scores for matching prefixes (defaults to 0.1)
+    :returns:
+    :rtype: float
     """
     return 1 - sim_jaro_winkler(src, tar, qval, mode, long_strings,
                                 boost_threshold, scaling_factor)
@@ -927,7 +1019,9 @@ def lcsseq(src, tar):
     Modifications include:
         conversion to a numpy array in place of a list of lists
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     # pylint: disable=no-member
     lengths = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
@@ -963,7 +1057,9 @@ def sim_lcsseq(src, tar):
     This employs the LCSseq function to derive a similarity metric:
     sim_{LCSseq}(s,t) = |LCSseq(s,t)| / max(|s|, |t|)
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     if src == tar:
         return 1.0
@@ -978,7 +1074,9 @@ def dist_lcsseq(src, tar):
     This employs the LCSseq function to derive a similarity metric:
     dist_{LCSseq}(s,t) = 1 - sim_{LCSseq}(s,t)
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     return 1 - sim_lcsseq(src, tar)
 
@@ -994,7 +1092,9 @@ def lcsstr(src, tar):
         conversion to a numpy array in place of a list of lists
         conversion to Python 2/3-safe _range from xrange
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     # pylint: disable=no-member
     lengths = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
@@ -1018,7 +1118,9 @@ def sim_lcsstr(src, tar):
     This employs the LCS function to derive a similarity metric:
     sim_{LCSstr}(s,t) = |LCSstr(s,t)| / max(|s|, |t|)
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     if src == tar:
         return 1.0
@@ -1033,7 +1135,9 @@ def dist_lcsstr(src, tar):
     This employs the LCS function to derive a similarity metric:
     dist_{LCSstr}(s,t) = 1 - sim_{LCSstr}(s,t)
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     return 1 - sim_lcsstr(src, tar)
 
@@ -1054,7 +1158,9 @@ def sim_ratcliff_obershelp(src, tar):
     Cf.
     http://www.drdobbs.com/database/pattern-matching-the-gestalt-approach/184407970
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     def _lcsstr_stl(src, tar):
         """Return the start position in the source string, start position in
@@ -1105,7 +1211,9 @@ def dist_ratcliff_obershelp(src, tar):
 
     Ratcliff-Obsershelp distance is 1 - Ratcliff-Obershelp similarity
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     return 1 - sim_ratcliff_obershelp(src, tar)
 
@@ -1116,7 +1224,9 @@ def mra_compare(src, tar):
     A description of the algorithm can be found on page 18 of
     https://archive.org/details/accessingindivid00moor
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     if src == tar:
         return 6
@@ -1164,7 +1274,9 @@ def sim_mra(src, tar):
     This is the MRA normalized to [0, 1], given that MRA itself is constrained
     to the range [0, 6]
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     return mra_compare(src, tar)/6
 
@@ -1175,7 +1287,9 @@ def dist_mra(src, tar):
     This is the MRA normalized to [0, 1], given that MRA itself is constrained
     to the range [0, 6]
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     return 1 - sim_mra(src, tar)
 
@@ -1186,11 +1300,15 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
     Cf.
     https://en.wikipedia.org/wiki/Normalized_compression_distance#Normalized_compression_distance
 
-    src, tar -- two strings to be compared
-    compressor -- a compression scheme to use for the similarity calculation:
-                    'bz2', 'lzma', 'arith', 'zlib', 'rle', and 'bwtrle' are
-                    the supported options
-    probs -- a dictionary trained with ac_train (for the arith compressor only)
+    :param str src, tar: two strings to be compared
+    :param str compressor: a compression scheme to use for the similarity
+        calculation:
+            'bz2', 'lzma', 'arith', 'zlib', 'rle', and 'bwtrle' are the
+            supported options
+    :param doct probs: a dictionary trained with ac_train (for the arith
+        compressor only)
+    :returns:
+    :rtype: float
     """
     if src == tar:
         return 0.0
@@ -1244,11 +1362,15 @@ def sim_compression(src, tar, compressor='bz2', probs=None):
     Normalized compression similarity is equal to 1 - the normalized
     compression distance
 
-    src, tar -- two strings to be compared
-    compressor -- a compression scheme to use for the similarity calculation:
-                    'bz2', 'lzma', 'arith', 'zlib', 'rle', and 'bwtrle' are
-                    the supported options
-    probs -- a dictionary trained with ac_train (for the arith compressor only)
+    :param str src, tar: two strings to be compared
+    :param str compressor: a compression scheme to use for the similarity
+        calculation:
+            'bz2', 'lzma', 'arith', 'zlib', 'rle', and 'bwtrle' are the
+            supported options
+    :param dict probs: a dictionary trained with ac_train (for the arith
+        compressor only)
+    :returns:
+    :rtype: float
     """
     return 1 - dist_compression(src, tar, compressor, probs)
 
@@ -1267,9 +1389,11 @@ def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, sym=False):
     at the cost of doubling the computation time (since the sim(src, tar) and
     sim(tar, src) are both calculated and then averaged).
 
-    src, tar -- two strings to be compared
-    sim_func -- the internal similarity metric to emply
-    sym -- return a symmetric similarity measure
+    :param str src, tar: two strings to be compared
+    :param function sim_func: the internal similarity metric to emply
+    :param bool sym: return a symmetric similarity measure
+    :returns:
+    :rtype: float
     """
     if src == tar:
         return 1.0
@@ -1308,9 +1432,11 @@ def dist_monge_elkan(src, tar, sim_func=sim_levenshtein, sym=False):
     calculated, at the cost of doubling the computation time (since the
     sim(src, tar) and sim(tar, src) are both calculated and then averaged).
 
-    src, tar -- two strings to be compared
-    sim_func -- the internal similarity metric to emply
-    sym -- return a symmetric similarity measure
+    :param str src, tar: two strings to be compared
+    :param function sim_func: the internal similarity metric to emply
+    :param bool sym: return a symmetric similarity measure
+    :returns:
+    :rtype: float
     """
     return 1 - sim_monge_elkan(src, tar, sim_func, sym)
 
@@ -1320,7 +1446,9 @@ def sim_ident(src, tar):
 
     This is 1 if the two strings are identical, otherwise 0.
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     return float(src == tar)
 
@@ -1331,7 +1459,9 @@ def dist_ident(src, tar):
     This is 0 if the two strings are identical, otherwise 1, i.e.
     1 - the identity similarity.
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     return 1 - sim_ident(src, tar)
 
@@ -1345,19 +1475,21 @@ def sim_matrix(src, tar, mat=None, mismatch_cost=0, match_cost=1,
     if values outside that range are present in mat, mismatch_cost, or
     match_cost.
 
-    src, tar -- two strings to be compared
-    mat -- a dict mapping tuples to costs; the tuples are (src, tar) pairs
-            of symbols from the alphabet parameter
-    mismatch_cost -- the value returned if (src, tar) is absent from mat when
-                    src does not equal tar
-    match_cost -- the value returned if (src, tar) is absent from mat when
-                    src equals tar
-    symmetric -- True if the cost of src not matching tar is identical to
-                    the cost of tar not matching src; in this case, the values
-                    in mat need only contain (src, tar) or (tar, src), not both
-    alphabet -- a collection of tokens from which src and tar are drawn; if
-                this is defined a ValueError is raised if either tar or src
-                is not found in alphabet
+    :param str src, tar: two strings to be compared
+    :param dict mat: a dict mapping tuples to costs; the tuples are (src, tar)
+        pairs of symbols from the alphabet parameter
+    :param float mismatch_cost: the value returned if (src, tar) is absent from
+        mat when src does not equal tar
+    :param float match_cost: the value returned if (src, tar) is absent from
+        mat when src equals tar
+    :param bool symmetric: True if the cost of src not matching tar is
+        identical to the cost of tar not matching src; in this case, the values
+        in mat need only contain (src, tar) or (tar, src), not both
+    :param str alphabet: a collection of tokens from which src and tar are
+        drawn; if this is defined a ValueError is raised if either tar or src
+        is not found in alphabet
+    :returns:
+    :rtype: float
     """
     if alphabet:
         alphabet = tuple(alphabet)
@@ -1392,10 +1524,12 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
     Cf.
     http://csb.stanford.edu/class/public/readings/Bioinformatics_I_Lecture6/Needleman_Wunsch_JMB_70_Global_alignment.pdf
 
-    src, tar -- two strings to be compared
-    gap_cost -- the cost of an alignment gap (1 by default)
-    sim_func -- a function that returns the similarity of two characters
-                (identity similarity by default)
+    :param str src, tar: two strings to be compared
+    :param float gap_cost: the cost of an alignment gap (1 by default)
+    :param function sim_func: a function that returns the similarity of two
+        characters (identity similarity by default)
+    :returns:
+    :rtype: float
     """
     # pylint: disable=no-member
     d_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.float)
@@ -1421,10 +1555,12 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
 
     Cf. https://en.wikipedia.org/wiki/Smith–Waterman_algorithm
 
-    src, tar -- two strings to be compared
-    gap_cost -- the cost of an alignment gap (1 by default)
-    sim_func -- a function that returns the similarity of two characters
-                (identity similarity by default)
+    :param str src, tar: two strings to be compared
+    :param float gap_cost: the cost of an alignment gap (1 by default)
+    :param function sim_func: a function that returns the similarity of two
+        characters (identity similarity by default)
+    :returns:
+    :rtype: float
     """
     # pylint: disable=no-member
     d_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.float)
@@ -1450,11 +1586,14 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
     penalties:
     https://www.cs.umd.edu/class/spring2003/cmsc838t/papers/gotoh1982.pdf
 
-    src, tar -- two strings to be compared
-    gap_open -- the cost of an open alignment gap (1 by default)
-    gap_ext -- the cost of an alignment gap extension (0.4 by default)
-    sim_func -- a function that returns the similarity of two characters
-                (identity similarity by default)
+    :param str src, tar: two strings to be compared
+    :param float gap_open: the cost of an open alignment gap (1 by default)
+    :param float gap_ext: the cost of an alignment gap extension (0.4 by
+        default)
+    :param function sim_func: a function that returns the similarity of two
+        characters (identity similarity by default)
+    :returns:
+    :rtype: float
     """
     # pylint: disable=no-member
     d_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.float)
@@ -1498,7 +1637,9 @@ def sim_length(src, tar):
 
     This is the ratio of the length of the shorter string to the longer.
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     if src == tar:
         return 1.0
@@ -1512,7 +1653,9 @@ def dist_length(src, tar):
 
     length distance = 1 - length similarity
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     return 1 - sim_length(src, tar)
 
@@ -1524,7 +1667,9 @@ def sim_prefix(src, tar):
     exactly matches the longer term to the length of the shorter term,
     beginning at the start of both terms.
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     if src == tar:
         return 1.0
@@ -1543,7 +1688,9 @@ def dist_prefix(src, tar):
 
     prefix distance = 1 - prefix similarity
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     return 1 - sim_prefix(src, tar)
 
@@ -1555,7 +1702,9 @@ def sim_suffix(src, tar):
     exactly matches the longer term to the length of the shorter term,
     beginning at the end of both terms.
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     if src == tar:
         return 1.0
@@ -1574,7 +1723,9 @@ def dist_suffix(src, tar):
 
     suffix distance = 1 - suffix similarity
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     return 1 - sim_suffix(src, tar)
 
@@ -1591,11 +1742,15 @@ def sim_mlipns(src, tar, threshold=0.25, maxmismatches=2):
 
     LIPNS similarity is identical to normalized Hamming similarity.
 
-    src, tar -- two strings to be compared
-    threshold -- a number [0, 1] indicating the maximum similarity score, below
-        which the strings are considered 'similar' (0.25 by default)
-    maxmismatches -- a number indicating the allowable number of mismatches to
-        remove before declaring two strings not similar (2 by default)
+    :param str src, tar: two strings to be compared
+    :param float threshold: a number [0, 1] indicating the maximum similarity
+        score, below which the strings are considered 'similar' (0.25 by
+        default)
+    :param int maxmismatches: a number indicating the allowable number of
+        mismatches to remove before declaring two strings not similar (2 by
+        default)
+    :returns:
+    :rtype: float
     """
     if tar == src:
         return 1.0
@@ -1625,11 +1780,15 @@ def dist_mlipns(src, tar, threshold=0.25, maxmismatches=2):
 
     This function returns only 0.0 (distant) or 1.0 (not distant)
 
-    src, tar -- two strings to be compared
-    threshold -- a number [0, 1] indicating the maximum similarity score, below
-        which the strings are considered 'similar' (0.25 by default)
-    maxmismatches -- a number indicating the allowable number of mismatches to
-        remove before declaring two strings not similar (2 by default)
+    :param str src, tar: two strings to be compared
+    :param float threshold: a number [0, 1] indicating the maximum similarity
+        score, below which the strings are considered 'similar' (0.25 by
+        default)
+    :param int maxmismatches: a number indicating the allowable number of
+        mismatches to remove before declaring two strings not similar (2 by
+        default)
+    :returns:
+    :rtype: float
     """
     return 1.0 - sim_mlipns(src, tar, threshold, maxmismatches)
 
@@ -1640,7 +1799,9 @@ def bag(src, tar):
     Bag distance is:
     max( |multiset(src)-multiset(tar)|, |multiset(tar)-multiset(src)| )
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     if tar == src:
         return 0
@@ -1659,9 +1820,10 @@ def sim_bag(src, tar):
 
     Normalized bag similarity is 1 - normalized bag distance
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
-
     return 1-dist_bag(src, tar)
 
 
@@ -1670,7 +1832,9 @@ def dist_bag(src, tar):
 
     Bag distance is normalized by dividing by max( |src|, |tar| ).
 
-    src, tar -- two strings to be compared
+    :param str src, tar: two strings to be compared
+    :returns:
+    :rtype: float
     """
     if tar == src:
         return 0.0
@@ -1697,10 +1861,13 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
     Asia Information Retrieval Symposium, Sapporo, Japan. 157-167.
     http://www.seg.rmit.edu.au/research/download.php?manuscript=404
 
-    src, tar -- two strings to be compared
-    cost -- a 3-tuple representing the cost of the four possible edits:
-                match, same-group, and mismatch respectively
-                (by default: (0, 1, 2))
+    :param str src, tar: two strings to be compared
+    :param tuple cost: a 3-tuple representing the cost of the four possible
+        edits:
+            match, same-group, and mismatch respectively
+            (by default: (0, 1, 2))
+    :returns:
+    :rtype: float
     """
     match_cost, group_cost, mismatch_cost = cost
     letter_groups = (frozenset('AEIOUY'), frozenset('BP'), frozenset('CKQ'),
@@ -1774,10 +1941,13 @@ def dist_editex(src, tar, cost=(0, 1, 2)):
     For the case in which all operations have cost == 1, this is equivalent
     to the greater of the length of the two strings src & tar.
 
-    src, tar -- two strings to be compared
-    cost -- a 3-tuple representing the cost of the four possible edits:
-                match, same-group, and mismatch respectively
-                (by default: (0, 1, 2))
+    :param str src, tar: two strings to be compared
+    :param tuple cost: a 3-tuple representing the cost of the four possible
+        edits:
+            match, same-group, and mismatch respectively
+            (by default: (0, 1, 2))
+    :returns:
+    :rtype: float
     """
     if src == tar:
         return 0
@@ -1793,26 +1963,33 @@ def sim_editex(src, tar, cost=(0, 1, 2)):
 
     The arguments are identical to those of the editex() function.
 
-    src, tar -- two strings to be compared
-    cost -- a 3-tuple representing the cost of the four possible edits:
-                match, same-group, and mismatch respectively
-                (by default: (0, 1, 2))
+    :param str src, tar: two strings to be compared
+    :param tuple cost: a 3-tuple representing the cost of the four possible
+        edits:
+            match, same-group, and mismatch respectively
+            (by default: (0, 1, 2))
+    :returns:
+    :rtype: float
     """
     return 1 - dist_editex(src, tar, cost)
 
 
 def sim_tfidf(src, tar, qval=2, docs_src=None, docs_tar=None):
-    """TF-IDF similarity
+    """Q-Gram TF-IDF similarity
 
     This is chiefly based on the "Formal Definition of TF/IDF Distance" at:
     http://alias-i.com/lingpipe/docs/api/com/aliasi/spell/TfIdfDistance.html
 
-    src, tar -- two strings to be compared (or QGrams/Counter objects)
-    qval -- the length of each q-gram; 0 or None for non-q-gram version
-    docs_src -- a Counter object or string representing the document corpus
-        for the src string
-    docs_tar -- a Counter object or string representing the document corpus
-        for the tar string (or set to None to use the docs_src for both)
+    :param str src, tar: two strings to be compared (or QGrams/Counter objects)
+    :param int qval: the length of each q-gram; 0 or None for non-q-gram
+        version
+    :param Counter docs_src: a Counter object or string representing the
+        document corpus for the src string
+    :param Counter docs_tar: a Counter object or string representing the
+        document corpus for the tar string (or set to None to use the docs_src
+        for both)
+    :returns:
+    :rtype: float
     """
     if src == tar:
         return 1.0  # TODO: confirm correctness of this when docs are different
@@ -1849,8 +2026,11 @@ def sim(src, tar, method=sim_levenshtein):
 
     This is a generalized function for calling other similarity functions.
 
-    src, tar -- two strings to be compared
-    method -- specifies the similarity metric (levenshtein by default)
+    :param str src, tar: two strings to be compared
+    :param function method: specifies the similarity metric (Levenshtein by
+        default)
+    :returns:
+    :rtype: float
     """
     if hasattr(method, '__call__'):
         return method(src, tar)
@@ -1863,8 +2043,11 @@ def dist(src, tar, method=dist_levenshtein):
 
     This is a generalized function for calling other distance functions.
 
-    src, tar -- two strings to be compared
-    method -- specifies the distance metric (levenshtein by default)
+    :param str src, tar: two strings to be compared
+    :param function method: specifies the distance metric (Levenshtein by
+        default)
+    :returns:
+    :rtype: float
     """
     if hasattr(method, '__call__'):
         return method(src, tar)
