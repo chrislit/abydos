@@ -2109,18 +2109,19 @@ def sim(src, tar, method=sim_levenshtein):
         raise AttributeError('Unknown similarity function: ' + str(method))
 
 
-def dist(src, tar, method=dist_levenshtein):
+def dist(src, tar, method=sim_levenshtein):
     """generalized distance
 
     This is a generalized function for calling other distance functions.
 
     :param str src, tar: two strings to be compared
-    :param function method: specifies the distance metric (Levenshtein by
-        default)
+    :param function method: specifies the similarity metric (Levenshtein by
+        default) -- Note that this takes a similarity metric function, not
+        a distance metric function.
     :returns: distance according to the specified function
     :rtype: float
     """
     if hasattr(method, '__call__'):
-        return method(src, tar)
+        return 1 - method(src, tar)
     else:
         raise AttributeError('Unknown distance function: ' + str(method))
