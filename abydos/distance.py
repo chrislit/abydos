@@ -49,10 +49,10 @@ The distance module implements string edit distance functions including:
     - Editex distance (incl. a [0, 1] normalized variant)
     - TF-IDF similarity
 
-Functions beginning with the prefixes sim\_ and dist\_ are guaranteed to be in
-the range [0, 1], and sim_* = 1 - dist_*. If a sim_* function is applied to
-the same value, it is guaranteed to return 1; the corresponding dist_*
-function is guaranteed to return 0.
+Functions beginning with the prefixes 'sim' and 'dist' are guaranteed to be
+in the range [0, 1], and sim_X = 1 - dist_X since the two are complements.
+If a sim_X function is supplied identical src & tar arguments, it is guaranteed
+to return 1; the corresponding dist_X function is guaranteed to return 0.
 """
 
 from __future__ import unicode_literals
@@ -908,7 +908,7 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
         matching)
     :param str mode: indicates which variant of this distance metric to
         compute:
-    
+
             - 'winkler' -- computes the Jaro-Winkler distance (default) which
               increases the score for matches near the start of the word
             - 'jaro' -- computes the Jaro distance
@@ -1334,7 +1334,7 @@ def dist_mra(src, tar):
     """normalized Match Rating Algorithm distance
 
     MRA distance is the complement of MRA similarity:
-    :math:`dist_{MRA} = 1 - sim_{MRA}` 
+    :math:`dist_{MRA} = 1 - sim_{MRA}`
 
     :param str src, tar: two strings to be compared
     :returns: normalized MRA distance
