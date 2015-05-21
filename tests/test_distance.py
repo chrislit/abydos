@@ -1431,11 +1431,14 @@ class MongeElkanTestCases(unittest.TestCase):
         self.assertEqual(sim_monge_elkan('Niall', 'Niel'), 3/4)
         self.assertEqual(sim_monge_elkan('Niall', 'Nigel'), 3/4)
 
-        self.assertEqual(sim_monge_elkan('Niall', 'Neal', sym=True), 31/40)
-        self.assertEqual(sim_monge_elkan('Niall', 'Njall', sym=True), 5/6)
-        self.assertEqual(sim_monge_elkan('Niall', 'Niel', sym=True), 31/40)
-        self.assertAlmostEqual(sim_monge_elkan('Niall', 'Nigel', sym=True),
-                               17/24)
+        self.assertEqual(sim_monge_elkan('Niall', 'Neal', symmetric=True),
+                         31/40)
+        self.assertEqual(sim_monge_elkan('Niall', 'Njall', symmetric=True),
+                         5/6)
+        self.assertEqual(sim_monge_elkan('Niall', 'Niel', symmetric=True),
+                         31/40)
+        self.assertAlmostEqual(sim_monge_elkan('Niall', 'Nigel',
+                                               symmetric=True), 17/24)
 
     def test_dist_monge_elkan(self):
         """test abydos.distance.dist_monge_elkan
@@ -1448,14 +1451,14 @@ class MongeElkanTestCases(unittest.TestCase):
         self.assertEqual(dist_monge_elkan('Niall', 'Niel'), 1/4)
         self.assertEqual(dist_monge_elkan('Niall', 'Nigel'), 1/4)
 
-        self.assertAlmostEqual(dist_monge_elkan('Niall', 'Neal', sym=True),
-                               9/40)
-        self.assertAlmostEqual(dist_monge_elkan('Niall', 'Njall', sym=True),
-                               1/6)
-        self.assertAlmostEqual(dist_monge_elkan('Niall', 'Niel', sym=True),
-                               9/40)
-        self.assertAlmostEqual(dist_monge_elkan('Niall', 'Nigel', sym=True),
-                               7/24)
+        self.assertAlmostEqual(dist_monge_elkan('Niall', 'Neal',
+                                                symmetric=True), 9/40)
+        self.assertAlmostEqual(dist_monge_elkan('Niall', 'Njall',
+                                                symmetric=True), 1/6)
+        self.assertAlmostEqual(dist_monge_elkan('Niall', 'Niel',
+                                                symmetric=True), 9/40)
+        self.assertAlmostEqual(dist_monge_elkan('Niall', 'Nigel',
+                                                symmetric=True), 7/24)
 
 
 class IdentityTestCases(unittest.TestCase):
