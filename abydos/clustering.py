@@ -83,7 +83,7 @@ def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone, *args):
         string and returns a string (presumably a phonetic representation of
         the original string) By default, this function uses
         abydos.phonetic.double_metaphone()
-    :param *args: additional arguments to pass to the phonetic algorithm,
+    :param \*args: additional arguments to pass to the phonetic algorithm,
         along with the phrase itself
     :returns: the phonetic fingerprint of the phrase
     :rtype: str
