@@ -23,19 +23,21 @@ about linguistic objects.
 
 This includes the ConfusionTable object, which includes members cable of
 calculating the following data based on a confusion table:
+
     - population counts
     - precision, recall, specificity, negative predictive value, fall-out,
-        false discovery rate, accuracy, balanced accuracy, informedness,
-        and markedness
+      false discovery rate, accuracy, balanced accuracy, informedness,
+      and markedness
     - various means of the precision & recall, including: arithmetic,
-        geometric, harmonic, quadratic, logarithmic, contraharmonic,
-        identric (exponential), & Hölder (power/generalized) means
+      geometric, harmonic, quadratic, logarithmic, contraharmonic,
+      identric (exponential), & Hölder (power/generalized) means
     - :math:`F_{β}`-scores, :math:`E`-scores, :math:`G`-measures, along with
-        special functions for :math:`F_{1}`, :math:`F_{0.5}`, & :math:`F_{2}`
-        scores
+      special functions for :math:`F_{1}`, :math:`F_{0.5}`, & :math:`F_{2}`
+      scores
     - significance & Matthews correlation coefficient calculation
 
 Functions are provided for calculating the following means:
+
     - arithmetic
     - geometric
     - harmonic
@@ -50,7 +52,9 @@ Functions are provided for calculating the following means:
     - arithmetic-geometric
     - geometric-harmonic
     - arithmetic-geometric-harmonic
+
 And for calculating:
+
     - midrange
     - median
     - mode
@@ -351,7 +355,7 @@ class ConfusionTable(object):
         """gain in accuracy
 
         The gain in accuracy is defined as:
-        :math:`G(accuracy) = \frac{accuracy}{random~ accuracy}`
+        :math:`G(accuracy) = \\frac{accuracy}{random~ accuracy}`
 
         Cf. https://en.wikipedia.org/wiki/Gain_(information_retrieval)
 

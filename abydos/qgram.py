@@ -18,9 +18,7 @@
 
 """abydos.qgram
 
-The util module defines various utility functions for other modules within
-Abydos, including:
-    - Qgrams multi-set class
+The qgram module defines the QGrams multi-set class
 """
 
 from __future__ import unicode_literals

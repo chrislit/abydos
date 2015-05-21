@@ -19,6 +19,7 @@
 """abydos.phonetic
 
 The phonetic module implements phonetic algorithms including:
+
     - Robert C. Russell's Index
     - American Soundex
     - Daitch-Mokotoff Soundex
@@ -138,12 +139,14 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     :param int maxlength: the length of the code returned (defaults to 4)
     :param str var: the variant of the algorithm to employ (defaults to
         'American'):
-         - 'American' follows the American Soundex algorithm, as described at
-        http://www.archives.gov/publications/general-info-leaflets/55-census.html
-        and in Knuth(1998:394); this is also called Miracode
-         - 'special' follows the rules from the 1880-1910 US Census, in which
-        h & w are not treated as blocking consonants but as vowels
-         - 'dm' computes the Daitch-Mokotoff Soundex
+
+        - 'American' follows the American Soundex algorithm, as described at
+          http://www.archives.gov/publications/general-info-leaflets/55-census.html
+          and in Knuth(1998:394); this is also called Miracode
+        - 'special' follows the rules from the 1880-1910 US Census, in which
+          h & w are not treated as blocking consonants but as vowels
+        - 'dm' computes the Daitch-Mokotoff Soundex
+
     :param bool reverse: reverse the word before computing the selected Soundex
         (defaults to False); This results in "Reverse Soundex"
     :param bool zero_pad: pad the end of the return value with 0s to achieve a
@@ -1503,6 +1506,7 @@ def caverphone(word, version=2):
 
     A description of version 1 of the algorithm can be found at:
     http://caversham.otago.ac.nz/files/working/ctp060902.pdf
+
     A description of version 2 of the algorithm can be found at:
     http://caversham.otago.ac.nz/files/working/ctp150804.pdf
 
@@ -2327,6 +2331,7 @@ def phonet(word, mode=1, lang='de', trace=False):
 
     This is a port of Jesper Zedlitz's code, which is licensed LGPL:
     https://code.google.com/p/phonet4java/source/browse/trunk/src/main/java/com/googlecode/phonet4java/Phonet.java
+
     That is, in turn, based on Michael's C code, which is also licensed LGPL:
     ftp://ftp.heise.de/pub/ct/listings/phonet.zip
 
@@ -4003,13 +4008,36 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     :param str word: the word to transform
     :param str language_arg: the language of the term; supported values
         include:
-            "any", "arabic", "cyrillic", "czech", "dutch", "english",
-            "french", "german", "greek", "greeklatin", "hebrew",
-            "hungarian", "italian", "polish", "portuguese","romanian",
-            "russian", "spanish", "turkish", "germandjsg", "polishdjskp",
-            "russiandjsre"
-    :param str name_mode: the name mode of the algorithm: 'gen' (default),
-                'ash' (Ashkenazi), or 'sep' (Sephardic)
+
+            - 'any'
+            - 'arabic'
+            - 'cyrillic'
+            - 'czech'
+            - 'dutch'
+            - 'english'
+            - 'french'
+            - 'german'
+            - 'greek'
+            - 'greeklatin'
+            - 'hebrew'
+            - 'hungarian'
+            - 'italian'
+            - 'polish'
+            - 'portuguese'
+            - 'romanian'
+            - 'russian'
+            - 'spanish'
+            - 'turkish'
+            - 'germandjsg'
+            - 'polishdjskp'
+            - 'russiandjsre'
+
+    :param str name_mode: the name mode of the algorithm:
+
+            - 'gen' -- general (default)
+            - 'ash' -- Ashkenazi
+            - 'sep' -- Sephardic
+
     :param str match_mode: matching mode: 'approx' or 'exact'
     :param bool concat: concatenation mode
     :param bool filter_langs: filter out incompatible languages
