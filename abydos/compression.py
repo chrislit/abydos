@@ -20,6 +20,7 @@
 
 The compression module defines compression and compression-related functions
 for use within Abydos, including implementations of the following:
+
     - arithmetic coding functions (ac_train, ac_encode, & ac_decode)
     - Burrows-Wheeler transform encoder/decoder (bwt_encode & bwt_decode)
     - Run-Length Encoding encoder/decoder (rle_encode & rle_decode)
