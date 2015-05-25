@@ -11,7 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   modules
+   abydos
 
 
 Indices and tables
