@@ -442,28 +442,28 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     The Tversky index is defined as:
     For two sets X and Y:
     :math:`sim_{Tversky}(X, Y) = \\frac{|X \\cap Y|}
-    {|X \\cap Y| + α|X - Y| + β|Y - X|}`
+    {|X \\cap Y| + \\alpha|X - Y| + \\beta|Y - X|}`
 
     Cf. https://en.wikipedia.org/wiki/Tversky_index
 
-    :math:`α = β = 1` is equivalent to the Jaccard & Tanimoto similarity
+    :math:`\\alpha = \\beta = 1` is equivalent to the Jaccard & Tanimoto similarity
     coefficients.
 
-    :math:`α = β = 0.5` is equivalent to the Sørensen-Dice similarity
+    :math:`\\alpha = \\beta = 0.5` is equivalent to the Sørensen-Dice similarity
     coefficient.
 
     Unequal α and β will tend to emphasize one or the other set's
     contributions:
 
-        - :math:`α > β` emphasizes the contributions of X over Y
-        - :math:`α < β` emphasizes the contributions of Y over X)
+        - :math:`\\alpha > \\beta` emphasizes the contributions of X over Y
+        - :math:`\\alpha < \\beta` emphasizes the contributions of Y over X)
 
     Parameter values' relation to 1 emphasizes different types of
     contributions:
 
-        - :math:`α and β > 1` emphsize unique contributions over the
+        - :math:`\\alpha and \\beta > 1` emphsize unique contributions over the
           intersection
-        - :math:`α and β < 1` emphsize the intersection over unique
+        - :math:`\\alpha and \\beta < 1` emphsize the intersection over unique
           contributions
 
     The symmetric variant is defined in Jiminez, Sergio, Claudio Becerra, and
@@ -550,7 +550,7 @@ def sim_dice(src, tar, qval=2):
     :math:`sim_{dice}(X, Y) = \\frac{2 \\cdot |X \\cap Y|}{|X| + |Y|}`
 
     This is identical to the Tanimoto similarity coefficient
-    and the Tversky index for :math:`α = β = 0.5`
+    and the Tversky index for :math:`\\alpha = \\beta = 0.5`
 
     :param str src, tar: two strings to be compared (or QGrams/Counter objects)
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
@@ -583,7 +583,7 @@ def sim_jaccard(src, tar, qval=2):
     :math:`sim_{jaccard}(X, Y) = \\frac{|X \\cap Y|}{|X \\cup Y|}`
 
     This is identical to the Tanimoto similarity coefficient
-    and the Tversky index for :math:`α = β = 1`
+    and the Tversky index for :math:`\\alpha = \\beta = 1`
 
     :param str src, tar: two strings to be compared (or QGrams/Counter objects)
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
@@ -663,7 +663,7 @@ def sim_tanimoto(src, tar, qval=2):
     For two sets X and Y, the Tanimoto similarity coefficient is
     :math:`sim_{Tanimoto}(X, Y) = \\frac{|X \\cap Y|}{|X \\cup Y|}`
     This is identical to the Jaccard similarity coefficient
-    and the Tversky index for :math:`α = β = 1`
+    and the Tversky index for :math:`\\alpha = \\beta = 1`
 
     :param str src, tar: two strings to be compared (or QGrams/Counter objects)
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
