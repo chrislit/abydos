@@ -170,7 +170,10 @@ def pythonize(line, fn='', subdir='gen'):
     else:
         return ''
 
-bmdir = sys.argv[1].rstrip('/') + '/'
+if len(sys.argv) > 1:
+    bmdir = sys.argv[1].rstrip('/') + '/'
+else:
+    bmdir = '../../bmpm/'
 
 outfilename = '../abydos/_bmdata.py'
 outfile = codecs.open(outfilename, 'w', 'utf-8')
