@@ -31,9 +31,9 @@ calculating the following data based on a confusion table:
     - various means of the precision & recall, including: arithmetic,
       geometric, harmonic, quadratic, logarithmic, contraharmonic,
       identric (exponential), & Hölder (power/generalized) means
-    - :math:`F_{β}`-scores, :math:`E`-scores, :math:`G`-measures, along with
-      special functions for :math:`F_{1}`, :math:`F_{0.5}`, & :math:`F_{2}`
-      scores
+    - :math:`F_{\\beta}`-scores, :math:`E`-scores, :math:`G`-measures, along
+      with special functions for :math:`F_{1}`, :math:`F_{0.5}`, &
+      :math:`F_{2}` scores
     - significance & Matthews correlation coefficient calculation
 
 Functions are provided for calculating the following means:
@@ -517,8 +517,8 @@ class ConfusionTable(object):
         The identric mean is:
         precision if precision = recall,
         otherwise :math:`\\frac{1}{e} \\cdot
-        \\sqrt[precision - recall]\\frac{precision^{precision}}
-        {recall^{recall}}`
+        \\sqrt[precision - recall]{\\frac{precision^{precision}}
+        {recall^{recall}}}`
 
         Cf. https://en.wikipedia.org/wiki/Identric_mean
 
@@ -532,7 +532,7 @@ class ConfusionTable(object):
 
         Seiffert's mean of precision and recall is:
         :math:`\\frac{precision - recall}{4 \\cdot arctan
-        \\sqrt{\\frac{precision}{recall}} - π}`
+        \\sqrt{\\frac{precision}{recall}} - \\pi}`
 
         Cf. http://www.helsinki.fi/~hasto/pp/miaPreprint.pdf
 
@@ -630,21 +630,21 @@ class ConfusionTable(object):
         return aghmean((self.precision(), self.recall()))
 
     def fbeta_score(self, beta=1):
-        """:math:`F_{β}` score
+        """:math:`F_{\\beta}` score
 
-        :math:`F_{β}` for a positive real value :math:`β` "measures the
-        effectiveness of retrieval with respect to a user who
-        attaches :math:`β` times as much importance to recall as
+        :math:`F_{\\beta}` for a positive real value :math:`\\beta` "measures
+        the effectiveness of retrieval with respect to a user who
+        attaches :math:`\\beta` times as much importance to recall as
         precision" (van Rijsbergen 1979)
 
-        :math:`F_{β}` score is defined as:
-        :math:`(1 + β^2) \\cdot \\frac{precision \\cdot recall}
-        {((β^2 \\cdot precision) + recall)}`
+        :math:`F_{\\beta}` score is defined as:
+        :math:`(1 + \\beta^2) \\cdot \\frac{precision \\cdot recall}
+        {((\\beta^2 \\cdot precision) + recall)}`
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
-        :params numeric beta: The β parameter in the above formula
-        :returns: The :math:`F_{β}` of the confusion table
+        :params numeric beta: The :math:`\\beta` parameter in the above formula
+        :returns: The :math:`F_{\\beta}` of the confusion table
         :rtype: float
         """
         if beta <= 0:
@@ -780,7 +780,8 @@ class ConfusionTable(object):
         """κ statistic
 
         The κ statistic is defined as:
-        :math:`κ = \\frac{accuracy - random~ accuracy}{1 - random~ accuracy}`
+        :math:`\\kappa = \\frac{accuracy - random~ accuracy}
+        {1 - random~ accuracy}`
 
         The κ statistic compares the performance of the classifier relative to
         the performance of a random classifier. κ = 0 indicates performance
@@ -952,7 +953,7 @@ def seiffert_mean(nums):
     """Seiffert's mean
 
     Seiffert's mean of two numbers x and y is:
-    :math:`\\frac{x - y}{4 \\cdot arctan \\sqrt{\\frac{x}{y}} - π}`
+    :math:`\\frac{x - y}{4 \\cdot arctan \\sqrt{\\frac{x}{y}} - \\pi}`
 
     Cf. http://www.helsinki.fi/~hasto/pp/miaPreprint.pdf
 
