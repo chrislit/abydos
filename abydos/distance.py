@@ -547,7 +547,7 @@ def sim_dice(src, tar, qval=2):
     """Sørensen–Dice coefficient
 
     For two sets X and Y, the Sørensen–Dice coefficient is
-    :math:`sim_{dice}(X, Y) = \\frac{2 \\cdot |X \\cap Y|}{{|X| + |Y|}`
+    :math:`sim_{dice}(X, Y) = \\frac{2 \\cdot |X \\cap Y|}{|X| + |Y|}`
 
     This is identical to the Tanimoto similarity coefficient
     and the Tversky index for :math:`α = β = 0.5`
