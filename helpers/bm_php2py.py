@@ -132,7 +132,8 @@ def pythonize(line, fn='', subdir='gen'):
         line = line.replace('"', "'")
         line = line.replace("','", "', '")
 
-    line = line.replace('ë', 'ü')
+    # fix upstream
+    # line = line.replace('ë', 'ü')
 
     code = ''
     comment = ''
