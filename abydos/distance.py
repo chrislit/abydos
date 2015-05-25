@@ -1177,7 +1177,7 @@ def dist_lcsstr(src, tar):
     """longest common substring distance (:math:`dist_{LCSstr}`)
 
     This employs the LCS function to derive a similarity metric:
-    :math:`dist_{LCSstr}(s,t) = 1 - sim_{LCSstr}(s,t)}`
+    :math:`dist_{LCSstr}(s,t) = 1 - sim_{LCSstr}(s,t)`
 
     :param str src, tar: two strings to be compared
     :returns: LCSstr distance
