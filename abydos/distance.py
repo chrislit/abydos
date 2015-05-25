@@ -446,11 +446,11 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
 
     Cf. https://en.wikipedia.org/wiki/Tversky_index
 
-    :math:`\\alpha = \\beta = 1` is equivalent to the Jaccard & Tanimoto similarity
-    coefficients.
+    :math:`\\alpha = \\beta = 1` is equivalent to the Jaccard & Tanimoto
+    similarity coefficients.
 
-    :math:`\\alpha = \\beta = 0.5` is equivalent to the Sørensen-Dice similarity
-    coefficient.
+    :math:`\\alpha = \\beta = 0.5` is equivalent to the Sørensen-Dice
+    similarity coefficient.
 
     Unequal α and β will tend to emphasize one or the other set's
     contributions:
