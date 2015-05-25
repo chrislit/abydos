@@ -754,14 +754,14 @@ class ConfusionTable(object):
                           (self.tneg + self.fpos) * (self.tneg + self.fneg)))
 
     def significance(self):
-        """the significance (:math:`χ^{2}`)
+        """the significance (:math:`\\chi^{2}`)
 
         Significance is defined as:
-        :math:`χ^{2} =
+        :math:`\\chi^{2} =
         \\frac{(tp \\cdot tn - fp \\cdot fn)^{2} (tp + tn + fp + fn)}
         {((tp + fp)(tp + fn)(tn + fp)(tn + fn)}`
 
-        Also: :math:`χ^{2} = MCC^{2} \\cdot n`
+        Also: :math:`\\chi^{2} = MCC^{2} \\cdot n`
 
         Cf. https://en.wikipedia.org/wiki/Pearson%27s_chi-square_test
 
