@@ -441,8 +441,8 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
 
     The Tversky index is defined as:
     For two sets X and Y:
-    :math:`sim_{Tversky}(X, Y) = \\frac{|X ∩ Y|}
-    {|X ∩ Y| + α|X - Y| + β|Y - X|}`
+    :math:`sim_{Tversky}(X, Y) = \\frac{|X \\cap Y|}
+    {|X \\cap Y| + α|X - Y| + β|Y - X|}`
 
     Cf. https://en.wikipedia.org/wiki/Tversky_index
 
@@ -547,7 +547,7 @@ def sim_dice(src, tar, qval=2):
     """Sørensen–Dice coefficient
 
     For two sets X and Y, the Sørensen–Dice coefficient is
-    :math:`sim_{dice}(X, Y) = \\frac{2 \\cdot |X ∩ Y|}{{|X| + |Y|}`
+    :math:`sim_{dice}(X, Y) = \\frac{2 \\cdot |X \\cap Y|}{{|X| + |Y|}`
 
     This is identical to the Tanimoto similarity coefficient
     and the Tversky index for :math:`α = β = 0.5`
@@ -580,7 +580,7 @@ def sim_jaccard(src, tar, qval=2):
     """Jaccard similarity coefficient
 
     For two sets X and Y, the Jaccard similarity coefficient is
-    :math:`sim_{jaccard}(X, Y) = \\frac{|X ∩ Y|}{|X ∪ Y|}`
+    :math:`sim_{jaccard}(X, Y) = \\frac{|X \\cap Y|}{|X \\cup Y|}`
 
     This is identical to the Tanimoto similarity coefficient
     and the Tversky index for :math:`α = β = 1`
@@ -613,7 +613,7 @@ def sim_overlap(src, tar, qval=2):
     """overlap coefficient
 
     For two sets X and Y, the overlap coefficient is
-    :math:`sim_{overlap}(X, Y) = \\frac{|X ∩ Y|}{min(|X|, |Y|)}`
+    :math:`sim_{overlap}(X, Y) = \\frac{|X \\cap Y|}{min(|X|, |Y|)}`
 
     :param str src, tar: two strings to be compared (or QGrams/Counter objects)
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
@@ -661,7 +661,7 @@ def sim_tanimoto(src, tar, qval=2):
     """Tanimoto similarity
 
     For two sets X and Y, the Tanimoto similarity coefficient is
-    :math:`sim_{Tanimoto}(X, Y) = \\frac{|X ∩ Y|}{|X ∪ Y|}`
+    :math:`sim_{Tanimoto}(X, Y) = \\frac{|X \\cap Y|}{|X \\cup Y|}`
     This is identical to the Jaccard similarity coefficient
     and the Tversky index for :math:`α = β = 1`
 
@@ -696,7 +696,7 @@ def sim_cosine(src, tar, qval=2):
     """cosine similarity (Ochiai coefficient)
 
     For two sets X and Y, the cosine similarity (Ochiai coefficient) is:
-    :math:`sim_{cosine}(X, Y) = \\frac{|X ∩ Y|}{\\sqrt{|X| \\cdot |Y|}}`
+    :math:`sim_{cosine}(X, Y) = \\frac{|X \\cap Y|}{\\sqrt{|X| \\cdot |Y|}}`
 
     :param str src, tar: two strings to be compared (or QGrams/Counter objects)
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
