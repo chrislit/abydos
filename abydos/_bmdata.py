@@ -1383,12 +1383,20 @@ _GEN_LANGUAGE_RULES = (
 
      )
 
-# gen/languagenames.php
-_GEN_LANGUAGES = ("any", "arabic", "cyrillic", "czech", "dutch", "english",
-                  "french", "german", "germandjsg", "greek", "greeklatin",
-                  "hebrew", "hungarian", "italian", "polish", "polishdjskp",
-                  "portuguese", "romanian", "russian", "russiandjsre",
-                  "spanish", "turkish")
+# # gen/languagenames.php
+# _GEN_LANGUAGES = ('any', 'arabic', 'cyrillic', 'czech', 'dutch', 'english', 'french', 'german', 'greek',
+#      'greeklatin', 'hebrew', 'hungarian', 'italian', 'polish', 'portuguese', 'romanian',
+#     'russian', 'spanish', 'turkish')
+
+# gen/languagenames1.php
+_GEN_LANGUAGES = ("any", "arabic", "cyrillic", "czech", "dutch", "english", "french", "german", "germandjsg", "greek",
+     "greeklatin", "hebrew", "hungarian", "italian", "polish", "polishdjskp", "portuguese", "romanian",
+     "russian", "russiandjsre", "spanish", "turkish")
+
+# # gen/languagenames2.php
+# _GEN_LANGUAGES = ("any", "arabic", "cyrillic", "czech", "dutch", "english", "french", "german", "greek",
+#      "greeklatin", "hebrew", "hungarian", "italian", "polish", "portuguese", "romanian",
+#      "russian", "spanish", "turkish")
 
 # gen/rulesany.php
 # format of each entry rule in the table
@@ -2372,6 +2380,12 @@ _GEN_RULES_GERMAN = (
 
      )
 
+# gen/rulesgermandjsg.php
+
+# this file uses the same rules as rulesgerman.php
+
+_GEN_RULES_GERMANDJSG = _GEN_RULES_GERMAN
+
 # gen/rulesgreek.php
 
 _GEN_RULES_GREEK = (
@@ -2930,6 +2944,112 @@ _GEN_RULES_POLISH = (
 
      )
 
+# gen/rulespolishdjskp.php
+
+_GEN_RULES_POLISHDJSKP = (
+
+     # CONSONANTS
+     ('cka', '', '$', 'tski'), # because in rulespolish all final ska --> ski
+     ('ska', '', '$', 'ski'), # because in rulespolish all final ska --> ski
+
+     ('x', '', '', 'ks'),
+
+     ('cz', '', '', 'tS'),
+     ('ch', '', '', 'x'),
+     ('cia', '', '', '(tSa|tsa)'),
+     ('cią', '', '[bp]', '(tSom|tsom)'),
+     ('cią', '', '', '(tSon|tson)'),
+     ('cię', '', '[bp]', '(tSem|tsem)'),
+     ('cię', '', '', '(tSen|tsen)'),
+     ('cie', '', '', '(tSe|tse)'),
+     ('cio', '', '', '(tSo|tso)'),
+     ('ciu', '', '', '(tSu|tsu)'),
+     ('ci', '', '', '(tSi|tsI)'),
+     ('ć', '', '', '(tS|ts)'),
+     ('c_h', '', '', 'tsh'), # only in Beider's DJSKP
+     ('c', '', '', 'ts'),
+
+     ('ssz', '', '', 'S'),
+     ('sz', '', '', 'S'),
+     ('sia', '', '', '(Sa|sja)'),
+     ('sią', '', '[bp]', '(Som|som)'),
+     ('sią', '', '', '(Son|son)'),
+     ('się', '', '[bp]', '(Sem|sem)'),
+     ('się', '', '', '(Sen|sen)'),
+     ('sie', '', '', '(Se|se)'),
+     ('sio', '', '', '(So|so)'),
+     ('siu', '', '', '(Su|sju)'),
+     ('si', '', '', '(Si|sI)'),
+     ('ś', '', '', '(S|s)'),
+
+     ('zia', '', '', '(Za|zja)'),
+     ('zią', '', '[bp]', '(Zom|zom)'),
+     ('zią', '', '', '(Zon|zon)'),
+     ('zię', '', '[bp]', '(Zem|zem)'),
+     ('zię', '', '', '(Zen|zen)'),
+     ('zie', '', '', '(Ze|ze)'),
+     ('zio', '', '', '(Zo|zo)'),
+     ('ziu', '', '', '(Zu|zju)'),
+     ('zi', '', '', '(Zi|zI)'),
+     ('ż', '', '', 'Z'),
+     ('ź', '', '', '(Z|z)'),
+
+     ('rz', 't', '', '(S|r)'),
+     ('rz', '', '', '(Z|r|rZ)'),
+     ('r_z', '', '', 'rz'), # only in Beider's DJSKP
+     ('lio', '', '', '(lo|le)'),
+     ('ł', '', '', 'l'),
+     ('ń', '', '', 'n'),
+     ('w', '', '', 'v'),
+     ('h', '', '', 'h'),
+
+     # VOWELS
+     ('ó', '', '', '(u|o)'),
+     ('ą', '', '[bp]', 'om'),
+     ('ę', '', '[bp]', 'em'),
+     ('ą', '', '', 'on'),
+     ('ę', '', '', 'en'),
+
+     ('ije', '', '', 'je'),
+     ('yje', '', '', 'je'),
+     ('ij', '', '[aou]', 'j'),
+     ('yj', '', '[aou]', 'j'),
+
+     ('rie', '', '', 'rje'),
+     ('die', '', '', 'dje'),
+     ('tie', '', '', 'tje'),
+     ('ie', '', '', 'e'),
+
+     ('ej', '', '', 'aj'),
+     ('i', '', '[aou]', 'j'),
+
+     ('aue', '', '', 'aue'),
+
+     ('y', '', '', 'I'),
+     ('e', '', '', 'E'),
+     ('i', '', '', 'I'),
+
+     # TRIVIAL
+     ('a', '', '', 'a'),
+     ('b', '', '', 'b'),
+     ('d', '', '', 'd'),
+     ('f', '', '', 'f'),
+     ('g', '', '', 'g'),
+     ('j', '', '', 'j'),
+     ('k', '', '', 'k'),
+     ('l', '', '', 'l'),
+     ('m', '', '', 'm'),
+     ('n', '', '', 'n'),
+     ('o', '', '', 'o'),
+     ('p', '', '', 'p'),
+     ('r', '', '', 'r'),
+     ('s', '', '', 's'),
+     ('t', '', '', 't'),
+     ('u', '', '', 'u'),
+     ('z', '', '', 'z')
+
+     )
+
 # gen/rulesportuguese.php
 
 _GEN_RULES_PORTUGUESE = (
@@ -3207,6 +3327,106 @@ _GEN_RULES_RUSSIAN = (
      ('x', '', '', 'ks'),
      ('y', '', '', 'I'),
      ('z', '', '', 'z'),
+
+     )
+
+# gen/rulesrussiandjsre.php
+
+_GEN_RULES_RUSSIANDJSRE = (
+     ('tsya', '', '', 'tsa'),
+     ('tsyu', '', '', 'tsu'),
+     ('tsia', '', '', 'tsa'),
+     ('tsie', '', '', 'tse'),
+     ('tsio', '', '', 'tso'),
+     ('tsiu', '', '', 'tsu'),
+     ('sie', '', '', 'se'),
+     ('sio', '', '', 'so'),
+     ('zie', '', '', 'ze'),
+     ('zio', '', '', 'zo'),
+
+     ('gauz', '', '$', 'haus'),
+     ('gaus', '', '$', 'haus'),
+     ('gol\'ts', '', '$', 'holts'),
+     ('gendler', '', '$', 'hendler'),
+     ('gejmer', '', '$', 'hajmer'),
+     ('gejm', '', '$', 'hajm'),
+     ('gof', '', '$', 'hof'),
+     ('gojf', '', '$', 'hojf'),
+     ('ger', '', '$', 'ger'),
+     ('gen', '', '$', 'gen'),
+     ('gin', '', '$', 'gin'),
+     ('gg', '', '', 'g'),
+     ('g', '[jaeoiuy]', '[aeoiu]', 'g'),
+     ('g', '', '[aeoiu]', '(g|h)'),
+
+     ('kh', '', '', 'x'),
+     ('ch', '', '', 'tS'),
+     ('ssh', '', '', 'S'),
+     ('sh', '', '', 'S'),
+     ('zh', '', '', 'Z'),
+     ('t_s', '', '', 'ts'),
+     ('s', '', 's', ''),
+
+     ('lya', '', '', 'la'),
+     ('lyu', '', '', 'lu'),
+     ('lej', '', '', 'laj'),
+     ('ley', '', '[au]', 'laj'),
+     ('le', '', '', '(lo|lE)'),
+     ('lio', '', '', '(lo|le)'),
+
+     ('ije', '', '', 'je'),
+     ('ie', '', '', 'je'),
+     ('yje', '', '', 'je'),
+     ('ye', '', '', 'je'),
+     ('ij', '', '[aou]', 'j'),
+     ('yj', '', '[aou]', 'j'),
+
+     ('i', '', '[au]', 'j'),
+     ('io', '', '', '(jo|e)'),
+     ('y', '', '[au]', 'j'),
+     ('yj', '', '$', 'i'),
+     ('ij', '', '$', 'i'),
+
+     ('ej', '^', '', '(jaj|aj)'),
+     ('ej', '', '', 'aj'),
+     ('e', '^', '', 'je'),
+     ('ee', '', '', 'aje'),
+     ('e', '[aou]', '', 'je'),
+
+     ('èj', '', '', 'aj'),
+     ('è', '', '', 'E'),
+     ('y', '', '', 'I'),
+     ('\'', '', '', ''),
+     ('"', '', '', ''),
+
+     ('ai', '', '', 'aj'),
+     ('ei', '', '', 'aj'),
+     ('ii', '', '', 'i'),
+     ('oi', '', '', 'oj'),  # Kikoin
+     ('ui', '', '', 'uj'),
+
+     ('aue', '', '', 'aue'),
+
+     ('a', '', '', 'a'),
+     ('b', '', '', 'b'),
+     ('d', '', '', 'd'),
+     ('e', '', '', 'E'),
+     ('f', '', '', 'f'),
+     ('g', '', '', 'g'),
+     ('i', '', '', 'I'),
+     ('j', '', '', 'j'),
+     ('k', '', '', 'k'),
+     ('l', '', '', 'l'),
+     ('m', '', '', 'm'),
+     ('n', '', '', 'n'),
+     ('o', '', '', 'o'),
+     ('p', '', '', 'p'),
+     ('r', '', '', 'r'),
+     ('s', '', '', 's'),
+     ('t', '', '', 't'),
+     ('u', '', '', 'u'),
+     ('v', '', '', 'v'),
+     ('z', '', '', 'z')
 
      )
 
@@ -6382,112 +6602,6 @@ _ASH_RULES_POLISH = (
 
      )
 
-# ash/rulespolishdjskp.php
-
-_GEN_RULES_POLISHDJSKP = (
-
-     # CONSONANTS
-     ('cka', '', '$', 'tski'), # because in rulespolish all final ska --> ski
-     ('ska', '', '$', 'ski'), # because in rulespolish all final ska --> ski
-
-     ('x', '', '', 'ks'),
-
-     ('cz', '', '', 'tS'),
-     ('ch', '', '', 'x'),
-     ('cia', '', '', '(tSa|tsa)'),
-     ('cią', '', '[bp]', '(tSom|tsom)'),
-     ('cią', '', '', '(tSon|tson)'),
-     ('cię', '', '[bp]', '(tSem|tsem)'),
-     ('cię', '', '', '(tSen|tsen)'),
-     ('cie', '', '', '(tSe|tse)'),
-     ('cio', '', '', '(tSo|tso)'),
-     ('ciu', '', '', '(tSu|tsu)'),
-     ('ci', '', '', '(tSi|tsI)'),
-     ('ć', '', '', '(tS|ts)'),
-     ('c_h', '', '', 'tsh'), # only in Beider's DJSKP
-     ('c', '', '', 'ts'),
-
-     ('ssz', '', '', 'S'),
-     ('sz', '', '', 'S'),
-     ('sia', '', '', '(Sa|sja)'),
-     ('sią', '', '[bp]', '(Som|som)'),
-     ('sią', '', '', '(Son|son)'),
-     ('się', '', '[bp]', '(Sem|sem)'),
-     ('się', '', '', '(Sen|sen)'),
-     ('sie', '', '', '(Se|se)'),
-     ('sio', '', '', '(So|so)'),
-     ('siu', '', '', '(Su|sju)'),
-     ('si', '', '', '(Si|sI)'),
-     ('ś', '', '', '(S|s)'),
-
-     ('zia', '', '', '(Za|zja)'),
-     ('zią', '', '[bp]', '(Zom|zom)'),
-     ('zią', '', '', '(Zon|zon)'),
-     ('zię', '', '[bp]', '(Zem|zem)'),
-     ('zię', '', '', '(Zen|zen)'),
-     ('zie', '', '', '(Ze|ze)'),
-     ('zio', '', '', '(Zo|zo)'),
-     ('ziu', '', '', '(Zu|zju)'),
-     ('zi', '', '', '(Zi|zI)'),
-     ('ż', '', '', 'Z'),
-     ('ź', '', '', '(Z|z)'),
-
-     ('rz', 't', '', '(S|r)'),
-     ('rz', '', '', '(Z|r|rZ)'),
-     ('r_z', '', '', 'rz'), # only in Beider's DJSKP
-     ('lio', '', '', '(lo|le)'),
-     ('ł', '', '', 'l'),
-     ('ń', '', '', 'n'),
-     ('w', '', '', 'v'),
-     ('h', '', '', 'h'),
-
-     # VOWELS
-     ('ó', '', '', '(u|o)'),
-     ('ą', '', '[bp]', 'om'),
-     ('ę', '', '[bp]', 'em'),
-     ('ą', '', '', 'on'),
-     ('ę', '', '', 'en'),
-
-     ('ije', '', '', 'je'),
-     ('yje', '', '', 'je'),
-     ('ij', '', '[aou]', 'j'),
-     ('yj', '', '[aou]', 'j'),
-
-     ('rie', '', '', 'rje'),
-     ('die', '', '', 'dje'),
-     ('tie', '', '', 'tje'),
-     ('ie', '', '', 'e'),
-
-     ('ej', '', '', 'aj'),
-     ('i', '', '[aou]', 'j'),
-
-     ('aue', '', '', 'aue'),
-
-     ('y', '', '', 'I'),
-     ('e', '', '', 'E'),
-     ('i', '', '', 'I'),
-
-     # TRIVIAL
-     ('a', '', '', 'a'),
-     ('b', '', '', 'b'),
-     ('d', '', '', 'd'),
-     ('f', '', '', 'f'),
-     ('g', '', '', 'g'),
-     ('j', '', '', 'j'),
-     ('k', '', '', 'k'),
-     ('l', '', '', 'l'),
-     ('m', '', '', 'm'),
-     ('n', '', '', 'n'),
-     ('o', '', '', 'o'),
-     ('p', '', '', 'p'),
-     ('r', '', '', 'r'),
-     ('s', '', '', 's'),
-     ('t', '', '', 't'),
-     ('u', '', '', 'u'),
-     ('z', '', '', 'z')
-
-     )
-
 # ash/rulesromanian.php
 
 _ASH_RULES_ROMANIAN = (
@@ -6697,106 +6811,6 @@ _ASH_RULES_RUSSIAN = (
 
      )
 
-# ash/rulesrussiandjsre.php
-
-_GEN_RULES_RUSSIANDJSRE = (
-     ('tsya', '', '', 'tsa'),
-     ('tsyu', '', '', 'tsu'),
-     ('tsia', '', '', 'tsa'),
-     ('tsie', '', '', 'tse'),
-     ('tsio', '', '', 'tso'),
-     ('tsiu', '', '', 'tsu'),
-     ('sie', '', '', 'se'),
-     ('sio', '', '', 'so'),
-     ('zie', '', '', 'ze'),
-     ('zio', '', '', 'zo'),
-
-     ('gauz', '', '$', 'haus'),
-     ('gaus', '', '$', 'haus'),
-     ('gol\'ts', '', '$', 'holts'),
-     ('gendler', '', '$', 'hendler'),
-     ('gejmer', '', '$', 'hajmer'),
-     ('gejm', '', '$', 'hajm'),
-     ('gof', '', '$', 'hof'),
-     ('gojf', '', '$', 'hojf'),
-     ('ger', '', '$', 'ger'),
-     ('gen', '', '$', 'gen'),
-     ('gin', '', '$', 'gin'),
-     ('gg', '', '', 'g'),
-     ('g', '[jaeoiuy]', '[aeoiu]', 'g'),
-     ('g', '', '[aeoiu]', '(g|h)'),
-
-     ('kh', '', '', 'x'),
-     ('ch', '', '', 'tS'),
-     ('ssh', '', '', 'S'),
-     ('sh', '', '', 'S'),
-     ('zh', '', '', 'Z'),
-     ('t_s', '', '', 'ts'),
-     ('s', '', 's', ''),
-
-     ('lya', '', '', 'la'),
-     ('lyu', '', '', 'lu'),
-     ('lej', '', '', 'laj'),
-     ('ley', '', '[au]', 'laj'),
-     ('le', '', '', '(lo|lE)'),
-     ('lio', '', '', '(lo|le)'),
-
-     ('ije', '', '', 'je'),
-     ('ie', '', '', 'je'),
-     ('yje', '', '', 'je'),
-     ('ye', '', '', 'je'),
-     ('ij', '', '[aou]', 'j'),
-     ('yj', '', '[aou]', 'j'),
-
-     ('i', '', '[au]', 'j'),
-     ('io', '', '', '(jo|e)'),
-     ('y', '', '[au]', 'j'),
-     ('yj', '', '$', 'i'),
-     ('ij', '', '$', 'i'),
-
-     ('ej', '^', '', '(jaj|aj)'),
-     ('ej', '', '', 'aj'),
-     ('e', '^', '', 'je'),
-     ('ee', '', '', 'aje'),
-     ('e', '[aou]', '', 'je'),
-
-     ('èj', '', '', 'aj'),
-     ('è', '', '', 'E'),
-     ('y', '', '', 'I'),
-     ('\'', '', '', ''),
-     ('"', '', '', ''),
-
-     ('ai', '', '', 'aj'),
-     ('ei', '', '', 'aj'),
-     ('ii', '', '', 'i'),
-     ('oi', '', '', 'oj'),  # Kikoin
-     ('ui', '', '', 'uj'),
-
-     ('aue', '', '', 'aue'),
-
-     ('a', '', '', 'a'),
-     ('b', '', '', 'b'),
-     ('d', '', '', 'd'),
-     ('e', '', '', 'E'),
-     ('f', '', '', 'f'),
-     ('g', '', '', 'g'),
-     ('i', '', '', 'I'),
-     ('j', '', '', 'j'),
-     ('k', '', '', 'k'),
-     ('l', '', '', 'l'),
-     ('m', '', '', 'm'),
-     ('n', '', '', 'n'),
-     ('o', '', '', 'o'),
-     ('p', '', '', 'p'),
-     ('r', '', '', 'r'),
-     ('s', '', '', 's'),
-     ('t', '', '', 't'),
-     ('u', '', '', 'u'),
-     ('v', '', '', 'v'),
-     ('z', '', '', 'z')
-
-     )
-
 # ash/rulesspanish.php
 
 # Ashkenazic = Argentina
@@ -6928,20 +6942,20 @@ BMDATA['gen']['rules'][16] = _GEN_RULES_DUTCH
 BMDATA['gen']['rules'][32] = _GEN_RULES_ENGLISH
 BMDATA['gen']['rules'][64] = _GEN_RULES_FRENCH
 BMDATA['gen']['rules'][128] = _GEN_RULES_GERMAN
+BMDATA['gen']['rules'][524288] = _GEN_RULES_GERMANDJSG
 BMDATA['gen']['rules'][256] = _GEN_RULES_GREEK
 BMDATA['gen']['rules'][512] = _GEN_RULES_GREEKLATIN
 BMDATA['gen']['rules'][1024] = _GEN_RULES_HEBREW
 BMDATA['gen']['rules'][2048] = _GEN_RULES_HUNGARIAN
 BMDATA['gen']['rules'][4096] = _GEN_RULES_ITALIAN
 BMDATA['gen']['rules'][8192] = _GEN_RULES_POLISH
+BMDATA['gen']['rules'][1048576] = _GEN_RULES_POLISHDJSKP
 BMDATA['gen']['rules'][16384] = _GEN_RULES_PORTUGUESE
 BMDATA['gen']['rules'][32768] = _GEN_RULES_ROMANIAN
 BMDATA['gen']['rules'][65536] = _GEN_RULES_RUSSIAN
+BMDATA['gen']['rules'][2097152] = _GEN_RULES_RUSSIANDJSRE
 BMDATA['gen']['rules'][131072] = _GEN_RULES_SPANISH
 BMDATA['gen']['rules'][262144] = _GEN_RULES_TURKISH
-BMDATA['gen']['rules'][524288] = _GEN_RULES_GERMAN
-BMDATA['gen']['rules'][1048576] = _GEN_RULES_POLISHDJSKP
-BMDATA['gen']['rules'][2097152] = _GEN_RULES_RUSSIANDJSRE
 
 BMDATA['sep'] = dict()
 BMDATA['sep']['approx'] = dict()
