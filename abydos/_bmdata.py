@@ -1383,20 +1383,10 @@ _GEN_LANGUAGE_RULES = (
 
      )
 
-# # gen/languagenames.php
-# _GEN_LANGUAGES = ('any', 'arabic', 'cyrillic', 'czech', 'dutch', 'english', 'french', 'german', 'greek',
-#      'greeklatin', 'hebrew', 'hungarian', 'italian', 'polish', 'portuguese', 'romanian',
-#     'russian', 'spanish', 'turkish')
-
-# gen/languagenames1.php
+# gen/languagenames.php
 _GEN_LANGUAGES = ("any", "arabic", "cyrillic", "czech", "dutch", "english", "french", "german", "germandjsg", "greek",
      "greeklatin", "hebrew", "hungarian", "italian", "polish", "polishdjskp", "portuguese", "romanian",
      "russian", "russiandjsre", "spanish", "turkish")
-
-# # gen/languagenames2.php
-# _GEN_LANGUAGES = ("any", "arabic", "cyrillic", "czech", "dutch", "english", "french", "german", "greek",
-#      "greeklatin", "hebrew", "hungarian", "italian", "polish", "portuguese", "romanian",
-#      "russian", "spanish", "turkish")
 
 # gen/rulesany.php
 # format of each entry rule in the table
