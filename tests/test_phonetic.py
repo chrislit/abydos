@@ -4364,12 +4364,10 @@ class BeiderMorseTestCases(unittest.TestCase):
                                      nn_line[1])
                     self.assertEqual(bmpm(nn_line[0]), nn_line[2])
 
-    def test_bmpm_nachnamen_304(self):
-        """test abydos.phonetic.bmpm (Nachnamen set, 3.04 changed)
+    def test_bmpm_nachnamen_cc(self):
+        """test abydos.phonetic.bmpm (Nachnamen set, corner cases)
         """
-        return
-        # TODO: fix data or algo so this can pass
-        with codecs.open(TESTDIR + '/corpora/nachnamen.bm.304.csv',
+        with codecs.open(TESTDIR + '/corpora/nachnamen.bm.cc.csv',
                          encoding='utf-8') as nachnamen_testset:
             next(nachnamen_testset)
             for nn_line in nachnamen_testset:
@@ -4406,18 +4404,16 @@ class BeiderMorseTestCases(unittest.TestCase):
                     self.assertEqual(bmpm(cen_line[0], match_mode='exact',
                                           name_mode='sep'), cen_line[6])
 
-    def test_bmpm_uscensus2000_304(self):
-        """test abydos.phonetic.bmpm (US Census 2000 set, 3.04 changed)
+    def test_bmpm_uscensus2000_cc(self):
+        """test abydos.phonetic.bmpm (US Census 2000 set, corner cases)
         """
-        return
-        # TODO: fix data or algo so this can pass
-        with open(TESTDIR + '/corpora/uscensus2000.bm.304.csv') as uscensus_ts:
+        with open(TESTDIR + '/corpora/uscensus2000.bm.cc.csv') as uscensus_ts:
             next(uscensus_ts)
             for cen_line in uscensus_ts:
                 cen_line = cen_line.strip().split(',')
                 # This test set is very large (~150000 entries)
                 # so let's just randomly select about 20 for testing
-                if cen_line[0] != '#':
+                if cen_line[0] != '#' and one_in(10):
                     self.assertEqual(bmpm(cen_line[0], match_mode='approx',
                                           name_mode='gen'), cen_line[1])
                     self.assertEqual(bmpm(cen_line[0], match_mode='approx',
