@@ -2350,7 +2350,7 @@ Tölle,tli,tli
 Menne,mni,mni mn
 Helfrich,xYlfrix xilfrix Ylfrix ilfrix,ilfrix Ylfrix ilfritS ilfrits ilfriS ilfris ilfri xilfrix xilfritS xilfrits xilfriS xilfris xilfri
 Büchler,bQxlir,bQxlir vQxlir bQtzlir vQtzlir bQtzlr vQtzlr bQzlir bQzlr buxlir vuxlir butzlir vutzlir butzlr vutzlr buzlir buzlr
-Büsing,bQznk bQsnk,bQsnk vQsnk bQznk busnk vusnk
+Büsing,bQznk bQsnk,bQsnk vQsnk bQznk busnk vusnk buznk
 Scheck,sik,sik
 Benecke,bYnYki bYniki binYki biniki,biniki binYki bYniki bYnYki binik binitski
 Lucht,luxt lQxt,luxt lux lQxt lutst lust lus lut lu
@@ -3967,7 +3967,7 @@ Felix,fYlQks fYliks filQks filiks,filQks filiks filik fYlQks fYliks filQgS filig
 Lotter,lotir lYtir,lotir loti lYtir lutir
 Tank,tank tonk tYnk,tank tonk tYnk
 Eppler,Yplir iplir Yplr iplr,iplir ipli ipilr iplYr Yplir YplYr iplr Yplr iiplir iiplr
-Papadopoulos,papadopDlos papadopolos papadopulos papadYpDlos papadYpolos papadYpulos papodopDlos papodopolos papodopulos papodYpDlos papodYpolos papodYpulos papYdopDlos papYdopolos papYdopulos papYdYpDlos papYdYpolos papYdYpulos popadopDlos popadopolos popadopulos popadYpDlos popadYpolos popadYpulos popodopDlos popodopolos popodopulos popodYpDlos popodYpolos popodYpulos popYdopDlos popYdopolos popYdopulos popYdYpDlos popYdYpolos popYdYpulos pYpadopDlos pYpadopolos pYpadopulos pYpadYpDlos pYpadYpolos pYpadYpulos pYpodopDlos pYpodopolos pYpodopulos pYpodYpDlos pYpodYpolos pYpodYpulos pYpYdopDlos pYpYdopolos pYpYdopulos pYpYdYpDlos pYpYdYpolos pYpYdYpulos,papatpulz
+Papadopoulos,papadopDlos papadopolos papadopulos papadYpDlos papadYpolos papadYpulos papodopDlos papodopolos papodopulos papodYpDlos papodYpolos papodYpulos papYdopDlos papYdopolos papYdopulos papYdYpDlos papYdYpolos papYdYpulos popadopDlos popadopolos popadopulos popadYpDlos popadYpolos popadYpulos popodopDlos popodopolos popodopulos popodYpDlos popodYpolos popodYpulos popYdopDlos popYdopolos popYdopulos popYdYpDlos popYdYpolos popYdYpulos pYpadopDlos pYpadopolos pYpadopulos pYpadYpDlos pYpadYpolos pYpadYpulos pYpodopDlos pYpodopolos pYpodopulos pYpodYpDlos pYpodYpolos pYpodYpulos pYpYdopDlos pYpYdopolos pYpYdopulos pYpYdYpDlos pYpYdYpolos pYpYdYpulos,papatpulz papotpulz popatpulz popotpulz
 Strehle,strYli strili,strYli strili
 Breitkopf,brDtkopf brDtkYpf bratkopf bratkYpf britkopf britkYpf brDtkop bratkop britkop brDtkof bratkof britkof briitkopf briitkYpf briitkop briitkof,brDtkopf brDtkYpf bratkopf bratkYpf britkopf britkYpf brDtkop bratkop britkop brDtkof bratkof britkof
 Karch,karx korx kYrx,karx korx kYrx kartS kortS karts korts
@@ -5542,7 +5542,7 @@ Port,port pYrt,port por pYrt purt
 Sauerwald,zDrvalt zDrvolt zDrvYlt sDrvalt sDrvolt sDrvYlt,sDrvalt sDrvolt sDrvYlt sDrwalt sDrwolt zDrvalt zDrvolt zDrvYlt
 Tröndle,trndli trndl,trndli
 Bürk,bQrk,bQrk
-Hüsing,xQznk Qznk xQsnk Qsnk,Qsnk Qznk usnk xQsnk xusnk
+Hüsing,xQznk Qznk xQsnk Qsnk,Qsnk Qznk usnk uznk xQsnk xQznk xusnk xuznk
 Rothmann,rotman rotmon rYtman rYtmon,rotman rotmon rYtman rYtmon
 Schindele,sndYli sndili,sndili sndYli stsndili
 Schotte,soti sYti,soti sYti stsoti
@@ -8021,7 +8021,7 @@ Häffner,xYfnir Yfnir xifnir ifnir,xYfnir Yfnir xifnir ifnir
 Klimpel,klQmpl klimpl,klQmpl klimpl klibl klmpl klbl
 Kohnke,konki kYnki,konki kYnki
 Ohle,oli Yli,oli Yli
-Rüsing,rQznk rQsnk,rQsnk rQznk rusnk
+Rüsing,rQznk rQsnk,rQsnk rQznk rusnk ruznk
 Ziesche,tsQsi tsisi,zisi zYsi zis zistsi ziski tsisi
 Bennemann,bnYman bnYmon bniman bnimon,bnYman bnYmon bniman bnimon
 Haut,xDt xat xut Dt at ut,Dt D at a ut u ot o xDt xat xut xD xa xu xot xo
@@ -8260,7 +8260,7 @@ Siebels,zQblz ziblz sQblz siblz,siblz sivlz sYblz siiblz siivlz ziblz
 Albayrak,albDrak albDrok albarak albarok albirak albirok olbDrak olbDrok olbarak olbarok olbirak olbirok YlbDrak YlbDrok Ylbarak Ylbarok Ylbirak Ylbirok,albDrak albDrok albarak albarok albirak albirok olbDrak olbDrok olbarak olbarok olbirak olbirok
 Book,book bYok,buk bok
 Bruno,bruno brQno,bruno brQno vruno
-Düsing,dQznk dQsnk,dQsnk dQznk dusnk
+Düsing,dQznk dQsnk,dQsnk dQznk dusnk duznk
 Huse,xuzi xQzi uzi Qzi xusi xQsi usi Qsi,usi Qsi us uzi Qzi uz xusi xus xuzi xuz
 Kolar,kolar kolor kYlar kYlor,kolar kolor kYlar kYlor kular kulor
 Lindig,lndik,lndik
