@@ -128,7 +128,7 @@ def pythonize(line, fn='', subdir='gen'):
             parts[2] = parts[2].title()
             line = ','.join(parts)
 
-    if fn == 'languagenames':
+    if 'languagenames' in fn:
         line = line.replace('"', "'")
         line = line.replace("','", "', '")
 
