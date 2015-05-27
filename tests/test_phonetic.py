@@ -4072,6 +4072,7 @@ class SPFCTestCases(unittest.TestCase):
         self.assertEqual(spfc('James Windsor'), '29765')
         self.assertEqual(spfc('James Wenders'), '27760')
         self.assertEqual(spfc('James Ventor'), '17760')
+        self.assertEqual(spfc('þ þ'), '00')
 
 
 class BeiderMorseTestCases(unittest.TestCase):
