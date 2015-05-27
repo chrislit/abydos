@@ -332,7 +332,7 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
     while pos < len(word):
         # Iterate through _dms_order, which specifies the possible substrings
         # for which codes exist in the Daitch-Mokotoff coding
-        for sstr in _dms_order[word[pos]]:
+        for sstr in _dms_order[word[pos]]:  # pragma: no branch
             if word[pos:].startswith(sstr):
                 # Having determined a valid substring start, retrieve the code
                 dm_val = _dms_table[sstr]
