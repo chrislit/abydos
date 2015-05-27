@@ -3825,7 +3825,7 @@ def phonet(word, mode=1, lang='de', trace=False):
 
                             if ((_phonet_rules[pos] and
                                  '^^' in _phonet_rules[pos][1:])):
-                                if char:
+                                if char:  # pragma: no branch
                                     dest = (dest[0:j] + char +
                                             dest[min(len(dest), j + 1):])
                                     j += 1
