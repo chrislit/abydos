@@ -1938,6 +1938,7 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
     :param tuple cost: a 3-tuple representing the cost of the four possible
         edits:
         match, same-group, and mismatch respectively (by default: (0, 1, 2))
+    :param bool local: if True, the local variant of Editex is used
     :returns: Editex distance
     :rtype: int
     """
@@ -2003,7 +2004,7 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
     return d_mat[lens, lent]
 
 
-def dist_editex(src, tar, cost=(0, 1, 2)):
+def dist_editex(src, tar, cost=(0, 1, 2), local=False):
     """Editex distance normalized to the interval [0, 1]
 
     The Editex distance is normalized by dividing the Editex distance
@@ -2017,17 +2018,18 @@ def dist_editex(src, tar, cost=(0, 1, 2)):
     :param tuple cost: a 3-tuple representing the cost of the four possible
         edits:
         match, same-group, and mismatch respectively (by default: (0, 1, 2))
+    :param bool local: if True, the local variant of Editex is used
     :returns: normalized Editex distance
     :rtype: float
     """
     if src == tar:
         return 0
     mismatch_cost = cost[2]
-    return (editex(src, tar, cost) /
+    return (editex(src, tar, cost, local) /
             (max(len(src)*mismatch_cost, len(tar)*mismatch_cost)))
 
 
-def sim_editex(src, tar, cost=(0, 1, 2)):
+def sim_editex(src, tar, cost=(0, 1, 2), local=False):
     """Editex similarity normalized to the interval [0, 1]
 
     The Editex similarity is the complement of Editex distance
@@ -2039,10 +2041,11 @@ def sim_editex(src, tar, cost=(0, 1, 2)):
     :param tuple cost: a 3-tuple representing the cost of the four possible
         edits:
         match, same-group, and mismatch respectively (by default: (0, 1, 2))
+    :param bool local: if True, the local variant of Editex is used
     :returns: normalized Editex similarity
     :rtype: float
     """
-    return 1 - dist_editex(src, tar, cost)
+    return 1 - dist_editex(src, tar, cost, local)
 
 
 def sim_tfidf(src, tar, qval=2, docs_src=None, docs_tar=None):
