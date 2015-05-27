@@ -3569,7 +3569,7 @@ def phonet(word, mode=1, lang='de', trace=False):
                             while rule and rule[0] != ')':
                                 rule = rule[1:]
 
-                            #if rule[0] == ')':
+                            # if rule[0] == ')':
                             rule = rule[1:]
 
                     if rule:
@@ -3704,7 +3704,7 @@ def phonet(word, mode=1, lang='de', trace=False):
                                         while rule and rule[0] != ')':
                                             rule = rule[1:]
 
-                                        #if rule[0] == ')':
+                                        # if rule[0] == ')':
                                         rule = rule[1:]
 
                                 while rule and rule[0] == '-':
