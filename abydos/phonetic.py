@@ -3900,7 +3900,7 @@ def spfc(word):
     if not word:
         return ''
 
-    if isinstance(word, _unicode):
+    if isinstance(word, (str, _unicode)):
         names = word.split('.', 1)
         if len(names) != 2:
             names = word.split(' ', 1)
