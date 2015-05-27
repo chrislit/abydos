@@ -638,7 +638,7 @@ def metaphone(word, maxlength=float('inf')):
     ename = ename.replace('ß', 'SS')
 
     # Delete nonalphanumeric characters and make all caps
-    if ename == '':
+    if not ename:
         return ''
     if ename[0:2] in frozenset(['PN', 'AE', 'KN', 'GN', 'WR']):
         ename = ename[1:]
@@ -3414,7 +3414,7 @@ def phonet(word, mode=1, lang='de', trace=False):
                     phonet_hash[k] = i
 
                 # calculate second hash values
-                if k != '' and alpha_pos[k] >= 2:
+                if k and alpha_pos[k] >= 2:
                     k = alpha_pos[k]
 
                     j = k-2
@@ -3594,7 +3594,7 @@ def phonet(word, mode=1, lang='de', trace=False):
                     if rule and rule[0:2] == '^^':
                         rule = rule[1:]
 
-                    if ((not rule or rule[0] == '') or
+                    if (not rule or
                         ((rule[0] == '^') and
                          ((i == 0) or not src[i-1].isalpha()) and
                          ((rule[1:2] != '$') or
@@ -3614,12 +3614,12 @@ def phonet(word, mode=1, lang='de', trace=False):
                         end4 = 0
 
                         if (((matches > 1) and
-                             (src[i+matches:i+matches+1] != '') and
+                             src[i+matches:i+matches+1] and
                              (priority0 != ord('-')))):
                             char0 = src[i+matches-1]
                             pos0 = alpha_pos[char0]
 
-                            if (pos0 >= 2) and (src[i+matches] != ''):
+                            if pos0 >= 2 and src[i+matches]:
                                 xpos = pos0 - 2
                                 pos0 = alpha_pos[src[i+matches]]
                                 start3 = phonet_hash_1[xpos, pos0]
@@ -3793,7 +3793,7 @@ def phonet(word, mode=1, lang='de', trace=False):
                             zeta += 1
                             matches0 = 0
 
-                            while rule and (src[i+matches0] != ''):
+                            while rule and src[i+matches0]:
                                 src = (src[0:i+matches0] + rule[0] +
                                        src[i+matches0+1:])
                                 matches0 += 1
@@ -3825,7 +3825,7 @@ def phonet(word, mode=1, lang='de', trace=False):
 
                             if ((_phonet_rules[pos] and
                                  '^^' in _phonet_rules[pos][1:])):
-                                if char != '':
+                                if char:
                                     dest = (dest[0:j] + char +
                                             dest[min(len(dest), j + 1):])
                                     j += 1
@@ -3846,7 +3846,7 @@ def phonet(word, mode=1, lang='de', trace=False):
                         end2 = -1
 
             if zeta0 == 0:
-                if (char != '') and ((j == 0) or (dest[j-1] != char)):
+                if char and ((j == 0) or (dest[j-1] != char)):
                     # delete multiple letters only
                     dest = dest[0:j] + char + dest[min(j+1, term_length):]
                     j += 1
