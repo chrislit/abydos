@@ -808,7 +808,7 @@ def double_metaphone(word, maxlength=float('inf')):
         if sec:
             if sec != ' ':
                 newsec += sec
-        elif pri and (pri != ' '):
+        else:
             newsec += pri
         return (newpri, newsec)
 
