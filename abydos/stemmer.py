@@ -42,7 +42,7 @@ def lovins(word):
     :returns: word stem
     :rtype: string
     """
-    # pylint: disable=too-many-branches
+    # pylint: disable=too-many-branches, too-many-locals
 
     # lowercase, normalize, and compose
     word = unicodedata.normalize('NFC', _unicode(word.lower()))
