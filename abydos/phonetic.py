@@ -3761,13 +3761,13 @@ def phonet(word, mode=1, lang='de', trace=False):
                             if ((priority0 >= priority) and
                                 ((_phonet_rules[pos0] != None) and
                                  (_phonet_rules[pos0][0] == char0))):
-                                pos += 3
 
                                 if trace:
                                     _trinfo('> rule no.', pos, '', lang)
                                     _trinfo('> not used because of ' +
                                             'continuation', pos0, '', lang)
 
+                                pos += 3
                                 continue
 
                         # replace string
