@@ -822,8 +822,7 @@ def double_metaphone(word, maxlength=float('inf')):
     def _get_at(pos):
         """Returns the character at word[pos]
         """
-        if not pos < 0:
-            return word[pos]
+        return word[pos]
 
     def _string_at(pos, slen, substrings):
         """Returns True if word[pos:pos+slen] is in substrings
