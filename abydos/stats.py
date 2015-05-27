@@ -724,7 +724,12 @@ class ConfusionTable(object):
         :math:`G`-measure is the geometric mean of precision and recall:
         :math:`\\sqrt{precision \\cdot recall}`
 
+        This is identical to the Fowlkes–Mallows (FM) index for two
+        clusters.
+
         Cf. https://en.wikipedia.org/wiki/F1_score#G-measure
+
+        Cf. https://en.wikipedia.org/wiki/Fowlkes%E2%80%93Mallows_index
 
         :returns: The :math:`G`-measure of the confusion table
         :rtype: float
