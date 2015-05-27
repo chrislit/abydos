@@ -78,7 +78,7 @@ class ConfusionTable(object):
     The object possesses methods for the calculation of various statistics
     based on the confusion table.
     """
-    tpos, tneg, fpos, fneg = 0, 0, 0, 0
+    _tp, _tn, _fp, _fn = 0, 0, 0, 0
 
     def __init__(self, tp=0, tn=0, fp=0, fn=0):
         """ConfusionTable constructor
@@ -93,27 +93,27 @@ class ConfusionTable(object):
         """
         if isinstance(tp, tuple) or isinstance(tp, list):
             if len(tp) == 4:
-                self.tpos = tp[0]
-                self.tneg = tp[1]
-                self.fpos = tp[2]
-                self.fneg = tp[3]
+                self._tp = tp[0]
+                self._tn = tp[1]
+                self._fp = tp[2]
+                self._fn = tp[3]
             else:
                 raise AttributeError('ConfusionTable requires a 4-tuple ' +
                                      'when being created from a tuple.')
         elif isinstance(tp, dict):
             if 'tp' in tp:
-                self.tpos = tp['tp']
+                self._tp = tp['tp']
             if 'tn' in tp:
-                self.tneg = tp['tn']
+                self._tn = tp['tn']
             if 'fp' in tp:
-                self.fpos = tp['fp']
+                self._fp = tp['fp']
             if 'fn' in tp:
-                self.fneg = tp['fn']
+                self._fn = tp['fn']
         else:
-            self.tpos = tp
-            self.tneg = tn
-            self.fpos = fp
-            self.fneg = fn
+            self._tp = tp
+            self._tn = tn
+            self._fp = fp
+            self._fn = fn
 
     def __eq__(self, other):
         """eqality operator (==)
@@ -128,16 +128,18 @@ class ConfusionTable(object):
         if isinstance(other, ConfusionTable):
             if id(self) == id(other):
                 return True
-            if ((self.tpos == other.tpos and self.tneg == other.tneg and
-                 self.fpos == other.fpos and self. fneg == other.fneg)):
+            if ((self._tp == other.true_pos() and
+                 self._tn == other.true_neg() and
+                 self._fp == other.false_pos() and
+                 self._fn == other.false_neg())):
                 return True
         elif isinstance(other, tuple) or isinstance(other, list):
-            if ((self.tpos == other[0] and self.tneg == other[1] and
-                 self.fpos == other[2] and self.fneg == other[3])):
+            if ((self._tp == other[0] and self._tn == other[1] and
+                 self._fp == other[2] and self._fn == other[3])):
                 return True
         elif isinstance(other, dict):
-            if ((self.tpos == other['tp'] and self.tneg == other['tn'] and
-                 self.fpos == other['fp'] and self.fneg == other['fn'])):
+            if ((self._tp == other['tp'] and self._tn == other['tn'] and
+                 self._fp == other['fp'] and self._fn == other['fn'])):
                 return True
         return False
 
@@ -147,8 +149,8 @@ class ConfusionTable(object):
         :returns: a human-readable version of the confusion table
         :rtype: str
         """
-        return ('tp:' + str(self.tpos) + ', tn:' + str(self.tneg) + ', fp:' +
-                str(self.fpos) + ', fn:' + str(self.fneg))
+        return ('tp:' + str(self._tp) + ', tn:' + str(self._tn) + ', fp:' +
+                str(self._fp) + ', fn:' + str(self._fn))
 
     def tuple(self):
         """cast to tuple
@@ -156,7 +158,7 @@ class ConfusionTable(object):
         :returns: the confusion table as a 4-tuple (tp, tn, fp, fn)
         :rtype: tuple
         """
-        return (self.tpos, self.tneg, self.fpos, self.fneg)
+        return (self._tp, self._tn, self._fp, self._fn)
 
     def dict(self):
         """cast to dict
@@ -164,8 +166,40 @@ class ConfusionTable(object):
         :returns: the confusion table as a dict
         :rtype: dict
         """
-        return {'tp': self.tpos, 'tn': self.tneg,
-                'fp': self.fpos, 'fn': self.fneg}
+        return {'tp': self._tp, 'tn': self._tn,
+                'fp': self._fp, 'fn': self._fn}
+
+    def true_pos(self):
+        """true positives
+
+        :returns: the true positives of the confusion table
+        :rtype: int
+        """
+        return self._tp
+
+    def true_neg(self):
+        """true negatives
+
+        :returns: the true negatives of the confusion table
+        :rtype: int
+        """
+        return self._tn
+
+    def false_pos(self):
+        """false positives
+
+        :returns: the false positives of the confusion table
+        :rtype: int
+        """
+        return self._fp
+
+    def false_neg(self):
+        """false negatives
+
+        :returns: the false negatives of the confusion table
+        :rtype: int
+        """
+        return self._fn
 
     def correct_pop(self):
         """correct population
@@ -173,7 +207,7 @@ class ConfusionTable(object):
         :returns: the correct population of the confusion table
         :rtype: int
         """
-        return self.tpos + self.tneg
+        return self._tp + self._tn
 
     def error_pop(self):
         """error population
@@ -181,7 +215,7 @@ class ConfusionTable(object):
         :returns: The error population of the confusion table
         :rtype: int
         """
-        return self.fpos + self.fneg
+        return self._fp + self._fn
 
     def test_pos_pop(self):
         """test positive population
@@ -189,7 +223,7 @@ class ConfusionTable(object):
         :returns: The test positive population of the confusion table
         :rtype: int
         """
-        return self.tpos + self.fpos
+        return self._tp + self._fp
 
     def test_neg_pop(self):
         """test negative population
@@ -197,7 +231,7 @@ class ConfusionTable(object):
         :returns: The test negative population of the confusion table
         :rtype: int
         """
-        return self.tneg + self.fneg
+        return self._tn + self._fn
 
     def cond_pos_pop(self):
         """condition positive population
@@ -205,7 +239,7 @@ class ConfusionTable(object):
         :returns: The condition positive population of the confusion table
         :rtype: int
         """
-        return self.tpos + self.fneg
+        return self._tp + self._fn
 
     def cond_neg_pop(self):
         """condition negative population
@@ -213,7 +247,7 @@ class ConfusionTable(object):
         :returns: The condition negative population of the confusion table
         :rtype: int
         """
-        return self.fpos + self.tneg
+        return self._fp + self._tn
 
     def population(self):
         """population (N)
@@ -221,7 +255,7 @@ class ConfusionTable(object):
         :returns: The population (N) of the confusion table
         :rtype: int
         """
-        return self.tpos + self.tneg + self.fpos + self.fneg
+        return self._tp + self._tn + self._fp + self._fn
 
     def precision(self):
         """precision
@@ -237,9 +271,9 @@ class ConfusionTable(object):
         :returns: The precision of the confusion table
         :rtype: float
         """
-        if self.tpos + self.fpos == 0:
+        if self._tp + self._fp == 0:
             return float('NaN')
-        return self.tpos / (self.tpos + self.fpos)
+        return self._tp / (self._tp + self._fp)
 
     def precision_gain(self):
         """gain in precision
@@ -273,9 +307,9 @@ class ConfusionTable(object):
         :returns: The recall of the confusion table
         :rtype: float
         """
-        if self.tpos + self.fneg == 0:
+        if self._tp + self._fn == 0:
             return float('NaN')
-        return self.tpos / (self.tpos + self.fneg)
+        return self._tp / (self._tp + self._fn)
 
     def specificity(self):
         """specificity
@@ -289,9 +323,9 @@ class ConfusionTable(object):
         :returns: The specificity of the confusion table
         :rtype: float
         """
-        if self.tneg + self.fpos == 0:
+        if self._tn + self._fp == 0:
             return float('NaN')
-        return self.tneg / (self.tneg + self.fpos)
+        return self._tn / (self._tn + self._fp)
 
     def npv(self):
         """negative predictive value (NPV)
@@ -303,9 +337,9 @@ class ConfusionTable(object):
         :returns: The negative predictive value of the confusion table
         :rtype: float
         """
-        if self.tneg + self.fneg == 0:
+        if self._tn + self._fn == 0:
             return float('NaN')
-        return self.tneg / (self.tneg + self.fneg)
+        return self._tn / (self._tn + self._fn)
 
     def fallout(self):
         """fall-out
@@ -319,9 +353,9 @@ class ConfusionTable(object):
         :returns: The fall-out of the confusion table
         :rtype: float
         """
-        if self.fpos + self.tneg == 0:
+        if self._fp + self._tn == 0:
             return float('NaN')
-        return self.fpos / (self.fpos + self.tneg)
+        return self._fp / (self._fp + self._tn)
 
     def fdr(self):
         """false discovery rate (FDR)
@@ -333,9 +367,9 @@ class ConfusionTable(object):
         :returns: The false discovery rate of the confusion table
         :rtype: float
         """
-        if self.fpos + self.tpos == 0:
+        if self._fp + self._tp == 0:
             return float('NaN')
-        return self.fpos / (self.fpos + self.tpos)
+        return self._fp / (self._fp + self._tp)
 
     def accuracy(self):
         """accuracy
@@ -349,7 +383,7 @@ class ConfusionTable(object):
         """
         if self.population() == 0:
             return float('NaN')
-        return (self.tpos + self.tneg) / self.population()
+        return (self._tp + self._tn) / self.population()
 
     def accuracy_gain(self):
         """gain in accuracy
@@ -751,12 +785,12 @@ class ConfusionTable(object):
         :returns: The Matthews correlation coefficient of the confusion table
         :rtype: float
         """
-        if (((self.tpos + self.fpos) * (self.tpos + self.fneg) *
-             (self.tneg + self.fpos) * (self.tneg + self.fneg))) == 0:
+        if (((self._tp + self._fp) * (self._tp + self._fn) *
+             (self._tn + self._fp) * (self._tn + self._fn))) == 0:
             return float('NaN')
-        return (((self.tpos * self.tneg) - (self.fpos * self.fneg)) /
-                math.sqrt((self.tpos + self.fpos) * (self.tpos + self.fneg) *
-                          (self.tneg + self.fpos) * (self.tneg + self.fneg)))
+        return (((self._tp * self._tn) - (self._fp * self._fn)) /
+                math.sqrt((self._tp + self._fp) * (self._tp + self._fn) *
+                          (self._tn + self._fp) * (self._tn + self._fn)))
 
     def significance(self):
         """the significance (:math:`\\chi^{2}`)
@@ -773,13 +807,13 @@ class ConfusionTable(object):
         :returns: The significance of the confusion table
         :rtype: float
         """
-        if (((self.tpos + self.fpos) * (self.tpos + self.fneg) *
-             (self.tneg + self.fpos) * (self.tneg + self.fneg))) == 0:
+        if (((self._tp + self._fp) * (self._tp + self._fn) *
+             (self._tn + self._fp) * (self._tn + self._fn))) == 0:
             return float('NaN')
-        return (((self.tpos * self.tneg - self.fpos * self.fneg)**2 *
-                 (self.tpos + self.tneg + self.fpos + self.fneg)) /
-                ((self.tpos + self.fpos) * (self.tpos + self.fneg) *
-                 (self.tneg + self.fpos) * (self.tneg + self.fneg)))
+        return (((self._tp * self._tn - self._fp * self._fn)**2 *
+                 (self._tp + self._tn + self._fp + self._fn)) /
+                ((self._tp + self._fp) * (self._tp + self._fn) *
+                 (self._tn + self._fp) * (self._tn + self._fn)))
 
     def kappa_statistic(self):
         """κ statistic
@@ -798,10 +832,10 @@ class ConfusionTable(object):
         """
         if self.population() == 0:
             return float('NaN')
-        random_accuracy = (((self.tneg + self.fpos) *
-                            (self.tneg + self.fneg) +
-                            (self.fneg + self.tpos) *
-                            (self.fpos + self.tpos)) /
+        random_accuracy = (((self._tn + self._fp) *
+                            (self._tn + self._fn) +
+                            (self._fn + self._tp) *
+                            (self._fp + self._tp)) /
                            self.population()**2)
         return (self.accuracy()-random_accuracy) / (1-random_accuracy)
 
