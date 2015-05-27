@@ -3569,8 +3569,8 @@ def phonet(word, mode=1, lang='de', trace=False):
                             while rule and rule[0] != ')':
                                 rule = rule[1:]
 
-                            if rule[0] == ')':
-                                rule = rule[1:]
+                            #if rule[0] == ')':
+                            rule = rule[1:]
 
                     if rule:
                         priority0 = ord(rule[0])
@@ -3701,11 +3701,11 @@ def phonet(word, mode=1, lang='de', trace=False):
                                          (src[i+matches0] in rule[1:]))):
                                         matches0 += 1
 
-                                        while rule and (rule[0] != ')'):
+                                        while rule and rule[0] != ')':
                                             rule = rule[1:]
 
-                                        if rule[0] == ')':
-                                            rule = rule[1:]
+                                        #if rule[0] == ')':
+                                        rule = rule[1:]
 
                                 while rule and rule[0] == '-':
                                     # "matches0" is NOT decremented
@@ -3767,8 +3767,8 @@ def phonet(word, mode=1, lang='de', trace=False):
                                     _trinfo('> rule no.', pos, '', lang)
                                     _trinfo('> not used because of ' +
                                             'continuation', pos0, '', lang)
-                                if True:
-                                    continue
+
+                                continue
 
                         # replace string
                         if trace:
