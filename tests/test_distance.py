@@ -1912,8 +1912,22 @@ class EditexTestCases(unittest.TestCase):
         self.assertEqual(editex('neal', 'nihl'), 3)
         self.assertEqual(editex('nihl', 'neal'), 3)
 
-    def test_sim_bag(self):
-        """test abydos.distance.sim_bag
+        self.assertEqual(editex('', '', local=True), 0)
+        self.assertEqual(editex('nelson', '', local=True), 12)
+        self.assertEqual(editex('', 'neilsen', local=True), 14)
+        self.assertEqual(editex('ab', 'a', local=True), 2)
+        self.assertEqual(editex('ab', 'c', local=True), 2)
+        self.assertEqual(editex('nelson', 'neilsen', local=True), 2)
+        self.assertEqual(editex('neilsen', 'nelson', local=True), 2)
+        self.assertEqual(editex('niall', 'neal', local=True), 1)
+        self.assertEqual(editex('neal', 'niall', local=True), 1)
+        self.assertEqual(editex('niall', 'nihal', local=True), 2)
+        self.assertEqual(editex('nihal', 'niall', local=True), 2)
+        self.assertEqual(editex('neal', 'nihl', local=True), 3)
+        self.assertEqual(editex('nihl', 'neal', local=True), 3)
+
+    def test_sim_editex(self):
+        """test abydos.distance.sim_editex
         """
         self.assertEqual(sim_editex('', ''), 1)
         self.assertEqual(sim_editex('nelson', ''), 0)
@@ -1924,7 +1938,7 @@ class EditexTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_editex('neilsen', 'nelson'), 12/14)
         self.assertEqual(sim_editex('niall', 'neal'), 0.9)
 
-    def test_dist_bag(self):
+    def test_dist_editex(self):
         """test abydos.distance.dist_editex
         """
         self.assertEqual(dist_editex('', ''), 0)
