@@ -33,8 +33,7 @@ from ._compat import _unicode, _long, _range
 from ._bmdata import BMDATA, L_NONE, L_ANY, L_ARABIC, L_CYRILLIC, \
     L_CZECH, L_DUTCH, L_ENGLISH, L_FRENCH, L_GERMAN, L_GREEK, L_GREEKLATIN, \
     L_HEBREW, L_HUNGARIAN, L_ITALIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, \
-    L_RUSSIAN, L_SPANISH, L_TURKISH, L_GERMANDJSG, L_POLISHDJSKP, \
-    L_RUSSIANDJSRE
+    L_RUSSIAN, L_SPANISH, L_TURKISH
 
 _LANG_DICT = {'any': L_ANY, 'arabic': L_ARABIC, 'cyrillic': L_CYRILLIC,
               'czech': L_CZECH, 'dutch': L_DUTCH, 'english': L_ENGLISH,
@@ -43,9 +42,7 @@ _LANG_DICT = {'any': L_ANY, 'arabic': L_ARABIC, 'cyrillic': L_CYRILLIC,
               'hungarian': L_HUNGARIAN, 'italian': L_ITALIAN,
               'polish': L_POLISH, 'portuguese': L_PORTUGUESE,
               'romanian': L_ROMANIAN, 'russian': L_RUSSIAN,
-              'spanish': L_SPANISH, 'turkish': L_TURKISH,
-              'germandjsg': L_GERMANDJSG, 'polishdjskp': L_POLISHDJSKP,
-              'russiandjsre': L_RUSSIANDJSRE}
+              'spanish': L_SPANISH, 'turkish': L_TURKISH}
 
 BMDATA['gen']['discards'] = ('da ', 'dal ', 'de ', 'del ', 'dela ', 'de la ',
                              'della ', 'des ', 'di ', 'do ', 'dos ', 'du ',

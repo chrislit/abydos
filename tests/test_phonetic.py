@@ -38,13 +38,12 @@ from abydos._bm import _bm_language, _bm_expand_alternates, \
     _bm_apply_rule_if_compat
 from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
     L_FRENCH, L_GERMAN, L_GREEK, L_GREEKLATIN, L_HEBREW, L_HUNGARIAN, \
-    L_ITALIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, L_SPANISH, L_TURKISH, \
-    L_GERMANDJSG, L_POLISHDJSKP, L_RUSSIANDJSRE
+    L_ITALIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, L_SPANISH, L_TURKISH
 
 TESTDIR = os.path.dirname(__file__)
 
 EXTREME_TEST = False  # Set to True to test EVERY single case (NB: takes hours)
-ALLOW_RANDOM = False  # Set to False to skip all random tests
+ALLOW_RANDOM = True  # Set to False to skip all random tests
 
 
 def one_in(inverse_probability):
