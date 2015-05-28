@@ -17,7 +17,10 @@ import sys
 import os
 import shlex
 
-from unittest.mock import MagicMock
+try:
+    from unittest.mock import MagicMock
+except ImportError:
+    from mock import Mock as MagicMock
 
 class Mock(MagicMock):
     @classmethod
