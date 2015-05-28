@@ -68,8 +68,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'Abydos'
-copyright = '2015, Christopher C. Little'
-author = 'Christopher C. Little'
+copyright = '2015, Chris Little'
+author = 'Chris Little'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -154,7 +154,7 @@ if not on_rtd:  # only import and set the theme if we're building docs locally
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-#html_logo = None
+# html_logo = '../abydos.png'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
@@ -233,10 +233,10 @@ htmlhelp_basename = 'Abydosdoc'
 
 latex_elements = {
 # The paper size ('letterpaper' or 'a4paper').
-#'papersize': 'letterpaper',
+'papersize': 'letterpaper',
 
 # The font size ('10pt', '11pt' or '12pt').
-#'pointsize': '10pt',
+'pointsize': '10pt',
 
 # Additional stuff for the LaTeX preamble.
 #'preamble': '',
@@ -250,12 +250,12 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   (master_doc, 'Abydos.tex', 'Abydos Documentation',
-   'Christopher C. Little', 'manual'),
+   'Chris Little', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
-#latex_logo = None
+# latex_logo = '../abydos.png'
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.

@@ -6,6 +6,8 @@
 Welcome to Abydos's documentation!
 ==================================
 
+.. image:: ../abydos-small.png
+
 Contents:
 
 .. toctree::

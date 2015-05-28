@@ -17,7 +17,7 @@ setup(
     packages=find_packages(exclude=['tests*']),
     version='0.2.0',
     description='Abydos NLP/IR library',
-    author='Christopher C. Little',
+    author='Chris Little',
     author_email='chrisclittle+abydos@gmail.com',
     url='https://github.com/chrislit/abydos',
     download_url='https://github.com/chrislit/abydos/archive/master.zip',
