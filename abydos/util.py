@@ -30,7 +30,7 @@ from __future__ import unicode_literals
 from __future__ import division
 import sys
 import random
-import numpy.random
+import numpy
 import math
 from ._compat import _unicode, _range, numeric_type, _long
 if sys.version_info[0] == 3:
