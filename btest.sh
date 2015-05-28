@@ -1,14 +1,20 @@
 #!/bin/sh
 
 quick_mode=0
+clean=0
 while [ "$1" != "" ]; do
     case $1 in
-        -q | --quick ) quick_mode=1
+        -q | --quick | -qc) quick_mode=1
+    esac
+    case $1 in
+	-c | --clean | -qc) clean=1
     esac
     shift
 done
 
-./cleanup.sh
+if [ "$clean" = "1" ]; then
+    ./cleanup.sh
+fi
 
 python setup.py build
 python3 setup.py build
