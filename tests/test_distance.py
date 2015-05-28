@@ -1912,6 +1912,9 @@ class EditexTestCases(unittest.TestCase):
         self.assertEqual(editex('neal', 'nihl'), 3)
         self.assertEqual(editex('nihl', 'neal'), 3)
 
+    def test_editex_local(self):
+        """test abydos.distance.editex (local variant)
+        """
         self.assertEqual(editex('', '', local=True), 0)
         self.assertEqual(editex('nelson', '', local=True), 12)
         self.assertEqual(editex('', 'neilsen', local=True), 14)
