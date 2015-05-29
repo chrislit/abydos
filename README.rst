@@ -47,12 +47,11 @@ Required:
 
 - Numpy
 
-
 Recommended:
 
 - PylibLZMA   (Python 2 only--for LZMA compression string distance metric)
 
-Suggested for testing & QA:
+Suggested for development, testing, & QA:
 
 - Nose        (for unit testing)
 - coverage.py (for code coverage checking)
@@ -61,22 +60,32 @@ Suggested for testing & QA:
 
 -----
 
-To build/install/unittest in Python 2:
+Installation
+============
 
-::
+To install Abydos from PyPI using pip::
+
+   pip install abydos
+
+It should run on Python Python 2.7 and Python 3.3+
+
+
+To build/install/unittest from source in Python 2::
 
     sudo python setup.py install
     nosetests -v --with-coverage --cover-erase --cover-html --cover-branches --cover-package=abydos .
 
-To build/install/unittest in Python 3:
-
-::
+To build/install/unittest from source in Python 3::
 
     sudo python3 setup.py install
     nosetests3 -v --with-coverage --cover-erase --cover-html --cover-branches --cover-package=abydos .
 
-For pylint testing, run:
-
-::
+For pylint testing, run::
 
     pylint --rcfile=pylint.rc abydos > pylint.log
+
+A simple shell script is also included, which will build,
+install, test, and code-quality check (with Pylint & PEP8)
+the package and build the documentations. To run it, execute::
+
+    ./btest.sh
