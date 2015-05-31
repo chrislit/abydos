@@ -24,7 +24,8 @@ The NGram class is a container for an n-gram corpus
 from __future__ import unicode_literals
 from collections import Counter
 from .corpus import Corpus
-
+import codecs
+from ._compat import _range
 
 class NGramCorpus(object):
     """The NGramCorpus class
@@ -70,4 +71,7 @@ class NGramCorpus(object):
         :param file corpus_file: The Google NGram file from which to
             initialize the n-gram corpus
         """
-        pass
+        with codecs.open(corpus_file, 'r', encoding='utf-8') as gng:
+            for line in gng:
+                line = line.rstrip().split('\t')
+                self.ngcorpus[line[0]] += line[2]
