@@ -16,8 +16,7 @@ def pylint_color(score):
         if score >= score_cutoffs[i]:
             return badge_colors[i]
     # and score < 5 -> red
-    else:
-        return badge_colors[-1]
+    return badge_colors[-1]
 
 
 def pep8_color(score):
@@ -28,8 +27,7 @@ def pep8_color(score):
         if score <= score_cutoffs[i]:
             return badge_colors[i]
     # and score > 200 -> red
-    else:
-        return badge_colors[-1]
+    return badge_colors[-1]
 
 
 if not os.path.isfile('./README.rst'):
