@@ -25,7 +25,6 @@ from __future__ import unicode_literals
 from collections import Counter
 from .corpus import Corpus
 import codecs
-from ._compat import _range
 
 class NGramCorpus(object):
     """The NGramCorpus class
