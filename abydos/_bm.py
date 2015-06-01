@@ -173,10 +173,10 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
     else:
         # encode each word in a multi-word name separately
         # (normally used for approx matches)
-        result = '-'.join([_bm_redo_language(word, name_mode, rules,
+        result = '-'.join([_bm_redo_language(w, name_mode, rules,
                                              final_rules1, final_rules2,
                                              concat)
-                           for word in words2])
+                           for w in words2])
         return result
 
     term_length = len(term)
