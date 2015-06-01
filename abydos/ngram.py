@@ -26,6 +26,8 @@ from collections import Counter
 from .corpus import Corpus
 import codecs
 
+
+
 class NGramCorpus(object):
     """The NGramCorpus class
 
@@ -38,7 +40,7 @@ class NGramCorpus(object):
     The key at each level is a word. The value at the most deeply embedded
     level is a numeric value representing the frequency of the trigram. E.g.
     the trigram frequency of 'colorless green ideas' would be the value stored
-    in self.ngcorpus['colorless']['green']['ideas'].
+    in self.ngcorpus['colorless']['green']['ideas'][None].
     """
     ngcorpus = Counter()
 
@@ -64,6 +66,48 @@ class NGramCorpus(object):
         """
         pass
 
+    def get_count(self, ngram, corpus=ngcorpus):
+        """Get the count of an n-gram in the corpus
+
+        :param ngram: The n-gram to retrieve the count of from the n-gram
+            corpus
+        :type ngram: list, tuple, or string
+        :returns: The n-gram count
+        :rtype: int
+        """
+        # if ngram is empty, we're at our leaf node and should return the
+        # value in None
+        if not ngram:
+            return corpus[None]
+
+        # support strings or lists/tuples by splitting strings
+        if type(ngram) == str:
+            ngram = ngram.split()
+
+        # if ngram is not empty, check whether the next element is in the
+        # corpus; if so, recurse--if not, return 0
+        if ngram[0] in corpus:
+            return self.get_count(ngram[1:], corpus[ngram[0]])
+        else:
+            return 0
+
+
+    def _add_to_ngcorpus(self, corpus, words, count):
+        """Builds up a corpus entry recursively
+
+        :param Counter corpus:
+        :param list words:
+        :param int count:
+        """
+        if words[0] not in corpus:
+            corpus[words[0]] = Counter()
+
+        if len(words) == 1:
+            corpus[words[0]][None] += count
+        else:
+            self._add_to_ngcorpus(corpus[words[0]], words[1:], count)
+
+
     def gng_importer(self, corpus_file):
         """Fill in self.ngcorpus from a Google NGram corpus file
 
@@ -73,4 +117,6 @@ class NGramCorpus(object):
         with codecs.open(corpus_file, 'r', encoding='utf-8') as gng:
             for line in gng:
                 line = line.rstrip().split('\t')
-                self.ngcorpus[line[0]] += line[2]
+                words = line[0].split()
+
+                self._add_to_ngcorpus(self.ngcorpus, words, int(line[2]))
