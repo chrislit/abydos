@@ -25,11 +25,21 @@ from __future__ import unicode_literals
 import unittest
 from abydos.corpus import Corpus
 from abydos.ngram import NGramCorpus
+from collections import Counter
+import os
 
 
 class NGramCorpusTestCases(unittest.TestCase):
     """test cases for abydos.ngram.NGramCorpus
     """
+    TESTDIR = os.path.dirname(__file__)
+    simple_corpus = NGramCorpus()
+    simple_corpus.gng_importer(TESTDIR+'/corpora/simple-ngrams.txt')
+
+    double_corpus = NGramCorpus()
+    double_corpus.gng_importer(TESTDIR+'/corpora/simple-ngrams.txt')
+    double_corpus.gng_importer(TESTDIR+'/corpora/simple-ngrams.txt')
+
     def test_init(self):
         """test abydos.ngram.__init__
         """
@@ -45,12 +55,20 @@ class NGramCorpusTestCases(unittest.TestCase):
     def test_gng_importer(self):
         """test abydos.ngram.gng_importer
         """
-        pass
+        self.assertIsInstance(self.simple_corpus, NGramCorpus)
+        self.assertIsInstance(self.simple_corpus.ngcorpus, Counter)
+
+        self.assertEqual(self.simple_corpus.get_count('the'), 20)
+        self.assertEqual(self.double_corpus.get_count('the'), 40)
 
     def test_get_count(self):
         """test abydos.ngram.get_count
         """
-        pass
+        self.assertEqual(self.simple_corpus.get_count('the'), 20)
+        self.assertEqual(self.simple_corpus.get_count('the quick'), 2)
+        
+        self.assertEqual(self.simple_corpus.get_count(['the']), 20)
+        self.assertEqual(self.simple_corpus.get_count(['the', 'quick']), 2)
 
 
 if __name__ == '__main__':
