@@ -64,12 +64,15 @@ class NGramCorpusTestCases(unittest.TestCase):
     def test_get_count(self):
         """test abydos.ngram.get_count
         """
+        # string-style tests
         self.assertEqual(self.simple_corpus.get_count('the'), 20)
         self.assertEqual(self.simple_corpus.get_count('the quick'), 2)
-        
+        self.assertEqual(self.simple_corpus.get_count('trolley'), 0)
+
+        # list-style tests
         self.assertEqual(self.simple_corpus.get_count(['the']), 20)
         self.assertEqual(self.simple_corpus.get_count(['the', 'quick']), 2)
-
+        self.assertEqual(self.simple_corpus.get_count(['trolley']), 0)
 
 if __name__ == '__main__':
     unittest.main()
