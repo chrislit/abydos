@@ -27,7 +27,6 @@ from .corpus import Corpus
 import codecs
 
 
-
 class NGramCorpus(object):
     """The NGramCorpus class
 
@@ -77,7 +76,7 @@ class NGramCorpus(object):
         """
         if not corpus:
             corpus = self.ngcorpus
-        
+
         # if ngram is empty, we're at our leaf node and should return the
         # value in None
         if not ngram:
@@ -94,7 +93,6 @@ class NGramCorpus(object):
         else:
             return 0
 
-
     def _add_to_ngcorpus(self, corpus, words, count):
         """Builds up a corpus entry recursively
 
@@ -109,7 +107,6 @@ class NGramCorpus(object):
             corpus[words[0]][None] += count
         else:
             self._add_to_ngcorpus(corpus[words[0]], words[1:], count)
-
 
     def gng_importer(self, corpus_file):
         """Fill in self.ngcorpus from a Google NGram corpus file
