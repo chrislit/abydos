@@ -42,8 +42,6 @@ class NGramCorpus(object):
     the trigram frequency of 'colorless green ideas' would be the value stored
     in self.ngcorpus['colorless']['green']['ideas'][None].
     """
-    ngcorpus = Counter()
-
     def __init__(self, corpus=None):
         """Corpus initializer
 
@@ -51,6 +49,8 @@ class NGramCorpus(object):
             corpus. By default, this is None, which initializes an empty
             NGramCorpus. This can then be populated using NGramCorpus methods.
         """
+        self.ngcorpus = Counter()
+
         if corpus is None:
             return
         elif isinstance(corpus, Corpus):
@@ -66,7 +66,7 @@ class NGramCorpus(object):
         """
         pass
 
-    def get_count(self, ngram, corpus=ngcorpus):
+    def get_count(self, ngram, corpus=None):
         """Get the count of an n-gram in the corpus
 
         :param ngram: The n-gram to retrieve the count of from the n-gram
@@ -75,6 +75,9 @@ class NGramCorpus(object):
         :returns: The n-gram count
         :rtype: int
         """
+        if not corpus:
+            corpus = self.ngcorpus
+        
         # if ngram is empty, we're at our leaf node and should return the
         # value in None
         if not ngram:
