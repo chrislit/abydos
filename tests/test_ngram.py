@@ -23,10 +23,10 @@ This module contains unit tests for abydos.ngram
 
 from __future__ import unicode_literals
 import unittest
+import os
+from collections import Counter
 from abydos.corpus import Corpus
 from abydos.ngram import NGramCorpus
-from collections import Counter
-import os
 
 
 class NGramCorpusTestCases(unittest.TestCase):
