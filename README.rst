@@ -13,6 +13,10 @@ Abydos
    :target: https://codeclimate.com/github/chrislit/abydos
    :alt: Code Climate
 
+.. image:: https://landscape.io/github/chrislit/abydos/master/landscape.svg?style=flat
+   :target: https://landscape.io/github/chrislit/abydos/master
+   :alt: Code Health
+
 .. image:: https://img.shields.io/badge/Pylint-9.99/10-green.svg
     :alt: Pylint Score
 
