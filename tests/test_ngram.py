@@ -33,7 +33,9 @@ class NGramCorpusTestCases(unittest.TestCase):
     def test_init(self):
         """test abydos.ngram.__init__
         """
-        pass
+        self.assertIsInstance(NGramCorpus(), NGramCorpus)
+        # TODO: Add constructor from Corpus test
+        self.assertRaises(TypeError, NGramCorpus, ["a", "b", "c"])
 
     def test_corpus_importer(self):
         """test abydos.ngram.corpus_importer
