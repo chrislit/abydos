@@ -30,10 +30,26 @@ from abydos.ngram import NGramCorpus
 class NGramCorpusTestCases(unittest.TestCase):
     """test cases for abydos.ngram.NGramCorpus
     """
-    def test_corpus(self):
-        """test abydos.ngram
+    def test_init(self):
+        """test abydos.ngram.__init__
         """
         pass
+
+    def test_corpus_importer(self):
+        """test abydos.ngram.corpus_importer
+        """
+        pass
+
+    def test_gng_importer(self):
+        """test abydos.ngram.gng_importer
+        """
+        pass
+
+    def test_get_count(self):
+        """test abydos.ngram.get_count
+        """
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()
