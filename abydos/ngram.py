@@ -22,9 +22,10 @@ The NGram class is a container for an n-gram corpus
 """
 
 from __future__ import unicode_literals
+import codecs
 from collections import Counter
 from .corpus import Corpus
-import codecs
+from ._compat import _unicode
 
 
 class NGramCorpus(object):
@@ -116,7 +117,7 @@ class NGramCorpus(object):
         """
         with codecs.open(corpus_file, 'r', encoding='utf-8') as gng:
             for line in gng:
-                line = line.rstrip().split('\t')
+                line = _unicode(line).rstrip().split('\t')
                 words = line[0].split()
 
                 self._add_to_ngcorpus(self.ngcorpus, words, int(line[2]))
