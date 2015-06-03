@@ -32,18 +32,13 @@ from abydos.ngram import NGramCorpus
 class NGramCorpusTestCases(unittest.TestCase):
     """test cases for abydos.ngram.NGramCorpus
     """
-    def __init__(self, *args, **kwargs):
-        """NGramCorpusTestCases constructor
-        """
-        super(NGramCorpusTestCases, self).__init__(*args, **kwargs)
+    TESTDIR = os.path.dirname(__file__)
+    simple_corpus = NGramCorpus()
+    simple_corpus.gng_importer(TESTDIR+'/corpora/simple-ngrams.txt')
 
-        TESTDIR = os.path.dirname(__file__)
-        self.simple_corpus = NGramCorpus()
-        self.simple_corpus.gng_importer(TESTDIR+'/corpora/simple-ngrams.txt')
-
-        self.double_corpus = NGramCorpus()
-        self.double_corpus.gng_importer(TESTDIR+'/corpora/simple-ngrams.txt')
-        self.double_corpus.gng_importer(TESTDIR+'/corpora/simple-ngrams.txt')
+    double_corpus = NGramCorpus()
+    double_corpus.gng_importer(TESTDIR+'/corpora/simple-ngrams.txt')
+    double_corpus.gng_importer(TESTDIR+'/corpora/simple-ngrams.txt')
 
     def test_init(self):
         """test abydos.ngram.__init__
