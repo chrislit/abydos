@@ -84,8 +84,8 @@ class NGramCorpus(object):
             return corpus[None]
 
         # support strings or lists/tuples by splitting strings
-        if type(ngram) == str:
-            ngram = ngram.split()
+        if type(ngram) in frozenset((_unicode, str)):
+            ngram = _unicode(ngram).split()
 
         # if ngram is not empty, check whether the next element is in the
         # corpus; if so, recurse--if not, return 0
@@ -117,7 +117,7 @@ class NGramCorpus(object):
         """
         with codecs.open(corpus_file, 'r', encoding='utf-8') as gng:
             for line in gng:
-                line = _unicode(line).rstrip().split('\t')
+                line = line.rstrip().split('\t')
                 words = line[0].split()
 
                 self._add_to_ngcorpus(self.ngcorpus, words, int(line[2]))
