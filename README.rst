@@ -1,6 +1,10 @@
 Abydos
 ======
 
+.. image:: https://badges.gitter.im/Join%20Chat.svg
+   :alt: Join the chat at https://gitter.im/chrislit/abydos
+   :target: https://gitter.im/chrislit/abydos?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+
 .. image:: https://travis-ci.org/chrislit/abydos.svg
     :target: https://travis-ci.org/chrislit/abydos
     :alt: Build Status
