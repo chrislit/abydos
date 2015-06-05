@@ -59,12 +59,24 @@ class NGramCorpus(object):
             raise TypeError('Corpus argument must be None or of type ' +
                             'abydos.Corpus. ' + str(type(corpus)) + ' found.')
 
-    def corpus_importer(self, corpus):
+    def corpus_importer(self, corpus, n_val=1, sos='_START_', eos='_EOS_'):
         """Fill in self.ngcorpus from a Corpus argument
 
-        :param corpus: The Corpus from which to initialize the n-gram corpus
+        :param Corpus corpus: The Corpus from which to initialize the n-gram
+            corpus
+        :param int n_val: maximum n value for n-grams
+        :param str sos: string to insert as an indicator of start of sentence
+        :param str eos: string to insert as an indicator of end of sentence
         """
-        pass
+        if not corpus or not isinstance(corpus, Corpus):
+            raise TypeError('Corpus argument is required.')
+
+        sentences = corpus.sents()
+
+        for s in sentences:
+            ngs = Counter(s)
+            for key in ngs.keys():
+                self._add_to_ngcorpus(self.ngcorpus, [key], ngs[key])
 
     def get_count(self, ngram, corpus=None):
         """Get the count of an n-gram in the corpus
