@@ -79,12 +79,17 @@ class NGramCorpusTestCases(unittest.TestCase):
     stake in the choices before us.'
     sotu2015Corpus = Corpus(sotu2015Sample, filter_chars='.?-;,:')
 
+    sotu_corpus = NGramCorpus(sotu2015Corpus)
+
+    sotu_corpus2 = NGramCorpus()
+    sotu_corpus2.corpus_importer(sotu2015Corpus)
+
     def test_init(self):
         """test abydos.ngram.__init__
         """
         self.assertIsInstance(NGramCorpus(), NGramCorpus)
-        # TODO: Add constructor from Corpus test
         self.assertRaises(TypeError, NGramCorpus, ["a", "b", "c"])
+        self.assertIsInstance(NGramCorpus(self.sotu2015Corpus), NGramCorpus)
 
     def test_corpus_importer(self):
         """test abydos.ngram.corpus_importer
