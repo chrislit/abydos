@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 import codecs
 from collections import Counter
 from .corpus import Corpus
-from ._compat import _unicode
+from ._compat import _unicode, _range
 
 
 class NGramCorpus(object):
@@ -77,6 +77,15 @@ class NGramCorpus(object):
             ngs = Counter(s)
             for key in ngs.keys():
                 self._add_to_ngcorpus(self.ngcorpus, [key], ngs[key])
+
+            if n_val > 1:
+                if sos:
+                    s = [sos] + s
+                if eos:
+                    s = s + [eos]
+                for n in _range(2, n_val+1):
+                    for i in _range(len(s)-n+1):
+                        self._add_to_ngcorpus(self.ngcorpus, s[i:i+n], 1)
 
     def get_count(self, ngram, corpus=None):
         """Get the count of an n-gram in the corpus
