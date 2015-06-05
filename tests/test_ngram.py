@@ -84,6 +84,9 @@ class NGramCorpusTestCases(unittest.TestCase):
     sotu_ngcorpus_tri = NGramCorpus()
     sotu_ngcorpus_tri.corpus_importer(sotu2015Corpus, 3, '<SOS>', '<EOS>')
 
+    sotu_ngcorpus_5 = NGramCorpus()
+    sotu_ngcorpus_5.corpus_importer(sotu2015Corpus, 5, '', '')
+
     def test_init(self):
         """test abydos.ngram.__init__
         """
@@ -94,8 +97,13 @@ class NGramCorpusTestCases(unittest.TestCase):
     def test_corpus_importer(self):
         """test abydos.ngram.corpus_importer
         """
+        self.assertRaises(TypeError, self.sotu_ngcorpus_5.corpus_importer,
+                          'a b c d')
+        self.assertRaises(TypeError, self.sotu_ngcorpus_5.corpus_importer)
+
         self.assertIsInstance(self.sotu_ngcorpus_uni, NGramCorpus)
         self.assertIsInstance(self.sotu_ngcorpus_tri, NGramCorpus)
+
         self.assertIsInstance(self.sotu_ngcorpus_uni.ngcorpus, Counter)
         self.assertIsInstance(self.sotu_ngcorpus_tri.ngcorpus, Counter)
 
@@ -107,6 +115,10 @@ class NGramCorpusTestCases(unittest.TestCase):
 
         self.assertEqual(self.sotu_ngcorpus_uni.get_count('to come'), 0)
         self.assertEqual(self.sotu_ngcorpus_tri.get_count('to come'), 2)
+
+        self.assertEqual(self.sotu_ngcorpus_tri.get_count('<SOS> And'), 3)
+        self.assertGreater(self.sotu_ngcorpus_tri.get_count('<SOS> And'),
+                           self.sotu_ngcorpus_5.get_count('<SOS> And'))
 
     def test_gng_importer(self):
         """test abydos.ngram.gng_importer
