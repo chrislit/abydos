@@ -79,10 +79,10 @@ class NGramCorpusTestCases(unittest.TestCase):
     stake in the choices before us.'
     sotu2015Corpus = Corpus(sotu2015Sample, filter_chars='.?-;,:')
 
-    sotu_corpus = NGramCorpus(sotu2015Corpus)
+    sotu_ngcorpus = NGramCorpus(sotu2015Corpus)
 
-    sotu_corpus2 = NGramCorpus()
-    sotu_corpus2.corpus_importer(sotu2015Corpus)
+    sotu_ngcorpus2 = NGramCorpus()
+    sotu_ngcorpus2.corpus_importer(sotu2015Corpus)
 
     def test_init(self):
         """test abydos.ngram.__init__
@@ -94,7 +94,14 @@ class NGramCorpusTestCases(unittest.TestCase):
     def test_corpus_importer(self):
         """test abydos.ngram.corpus_importer
         """
-        pass
+        self.assertIsInstance(self.sotu_ngcorpus, NGramCorpus)
+        self.assertIsInstance(self.sotu_ngcorpus.ngcorpus, Counter)
+
+        self.assertEqual(self.sotu_ngcorpus.get_count('Mr'), 2)
+        self.assertEqual(self.sotu_ngcorpus2.get_count('Mr'), 2)
+
+        self.assertEqual(self.sotu_ngcorpus.get_count('the'), 19)
+        self.assertEqual(self.sotu_ngcorpus2.get_count('the'), 19)
 
     def test_gng_importer(self):
         """test abydos.ngram.gng_importer
