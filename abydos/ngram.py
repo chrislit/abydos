@@ -69,7 +69,7 @@ class NGramCorpus(object):
         :param str eos: string to insert as an indicator of end of sentence
         """
         if not corpus or not isinstance(corpus, Corpus):
-            raise TypeError('Corpus argument is required.')
+            raise TypeError('Corpus argument of the Corpus class required.')
 
         sentences = corpus.sents()
 
