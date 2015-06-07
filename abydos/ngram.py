@@ -73,19 +73,19 @@ class NGramCorpus(object):
 
         sentences = corpus.sents()
 
-        for s in sentences:
-            ngs = Counter(s)
+        for sent in sentences:
+            ngs = Counter(sent)
             for key in ngs.keys():
                 self._add_to_ngcorpus(self.ngcorpus, [key], ngs[key])
 
             if n_val > 1:
                 if sos and sos != '':
-                    s = [sos] + s
+                    sent = [sos] + sent
                 if eos and eos != '':
-                    s = s + [eos]
-                for n in _range(2, n_val+1):
-                    for i in _range(len(s)-n+1):
-                        self._add_to_ngcorpus(self.ngcorpus, s[i:i+n], 1)
+                    sent = sent + [eos]
+                for i in _range(2, n_val+1):
+                    for j in _range(len(sent)-i+1):
+                        self._add_to_ngcorpus(self.ngcorpus, sent[j:j+i], 1)
 
     def get_count(self, ngram, corpus=None):
         """Get the count of an n-gram in the corpus
