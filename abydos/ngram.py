@@ -79,9 +79,9 @@ class NGramCorpus(object):
                 self._add_to_ngcorpus(self.ngcorpus, [key], ngs[key])
 
             if n_val > 1:
-                if sos:
+                if sos and sos != '':
                     s = [sos] + s
-                if eos:
+                if eos and eos != '':
                     s = s + [eos]
                 for n in _range(2, n_val+1):
                     for i in _range(len(s)-n+1):
