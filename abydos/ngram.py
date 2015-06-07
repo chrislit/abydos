@@ -59,13 +59,14 @@ class NGramCorpus(object):
             raise TypeError('Corpus argument must be None or of type ' +
                             'abydos.Corpus. ' + str(type(corpus)) + ' found.')
 
-    def corpus_importer(self, corpus, n_val=1, sos='_START_', eos='_EOS_'):
+    def corpus_importer(self, corpus, n_val=1, bos='_START_', eos='_EOS_'):
         """Fill in self.ngcorpus from a Corpus argument
 
         :param Corpus corpus: The Corpus from which to initialize the n-gram
             corpus
         :param int n_val: maximum n value for n-grams
-        :param str sos: string to insert as an indicator of start of sentence
+        :param str bos: string to insert as an indicator of beginning of
+            sentence
         :param str eos: string to insert as an indicator of end of sentence
         """
         if not corpus or not isinstance(corpus, Corpus):
@@ -79,8 +80,8 @@ class NGramCorpus(object):
                 self._add_to_ngcorpus(self.ngcorpus, [key], ngs[key])
 
             if n_val > 1:
-                if sos and sos != '':
-                    sent = [sos] + sent
+                if bos and bos != '':
+                    sent = [bos] + sent
                 if eos and eos != '':
                     sent = sent + [eos]
                 for i in _range(2, n_val+1):
