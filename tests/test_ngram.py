@@ -130,8 +130,10 @@ class NGramCorpusTestCases(unittest.TestCase):
         self.assertEqual(self.simple_ngcorpus_5.get_count('a _END_'), 1)
         self.assertEqual(self.simple_ngcorpus_5.get_count('_END_ a'), 0)
         self.assertEqual(self.simple_ngcorpus_5.get_count('a _START_'), 0)
-        self.assertEqual(self.simple_ngcorpus_5.get_count('_START_ a _END_'), 0)
-        self.assertEqual(self.simple_ngcorpus_5.get_count('_END_ a _START_'), 0)
+        self.assertEqual(self.simple_ngcorpus_5.get_count('_START_ a _END_'),
+                         0)
+        self.assertEqual(self.simple_ngcorpus_5.get_count('_END_ a _START_'),
+                         0)
 
         self.assertEqual(self.sotu_ngcorpus_uni.get_count('Mr'), 2)
         self.assertEqual(self.sotu_ngcorpus_tri.get_count('Mr'), 2)
