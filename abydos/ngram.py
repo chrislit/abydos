@@ -59,7 +59,7 @@ class NGramCorpus(object):
             raise TypeError('Corpus argument must be None or of type ' +
                             'abydos.Corpus. ' + str(type(corpus)) + ' found.')
 
-    def corpus_importer(self, corpus, n_val=1, bos='_START_', eos='_EOS_'):
+    def corpus_importer(self, corpus, n_val=1, bos='_START_', eos='_END_'):
         """Fill in self.ngcorpus from a Corpus argument
 
         :param Corpus corpus: The Corpus from which to initialize the n-gram
