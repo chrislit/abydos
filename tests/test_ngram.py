@@ -88,7 +88,7 @@ class NGramCorpusTestCases(unittest.TestCase):
     sotu_ngcorpus_5.corpus_importer(sotu2015Corpus, 5, '', '')
 
     simple_ngcorpus_5 = NGramCorpus()
-    simple_ngcorpus_5.corpus_importer(Corpus('a a a a a a a a a a'),
+    simple_ngcorpus_5.corpus_importer(Corpus(' '.join(['a']*10)),
                                       15)  # 10 a's
 
     def test_init(self):
