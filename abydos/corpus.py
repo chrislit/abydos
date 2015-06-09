@@ -23,7 +23,7 @@ functions for corpus statistics, language modeling, etc.
 """
 
 from __future__ import unicode_literals
-import math
+from math import log10
 
 
 class Corpus(object):
@@ -171,4 +171,4 @@ class Corpus(object):
         if docs_with_term == 0:
             return float('inf')
 
-        return math.log10(len(docs)/docs_with_term)
+        return log10(len(docs)/docs_with_term)
