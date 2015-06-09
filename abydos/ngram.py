@@ -143,3 +143,12 @@ class NGramCorpus(object):
                 words = line[0].split()
 
                 self._add_to_ngcorpus(self.ngcorpus, words, int(line[2]))
+
+    def tf(self, term):
+        """Term frequency
+
+        :param str term: The term for which to calculate tf
+        :returns: The term frequency (tf)
+        :rtype: float
+        """
+        pass
