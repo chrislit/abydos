@@ -24,6 +24,7 @@ The NGram class is a container for an n-gram corpus
 from __future__ import unicode_literals
 import codecs
 from collections import Counter
+from math import log10
 from .corpus import Corpus
 from ._compat import _unicode, _range
 
@@ -151,4 +152,4 @@ class NGramCorpus(object):
         :returns: The term frequency (tf)
         :rtype: float
         """
-        pass
+        return 1 + log10(self.get_count(term))
