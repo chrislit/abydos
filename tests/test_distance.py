@@ -1954,6 +1954,15 @@ class EditexTestCases(unittest.TestCase):
         self.assertEqual(dist_editex('niall', 'neal'), 0.1)
 
 
+class SimTFIDFTestCases(unittest.TestCase):
+    """test cases for abydos.distance.sim_tfidf
+    """
+    def test_sim(self):
+        """test abydos.distance.sim_tfidf
+        """
+        pass
+
+
 class SimDistTestCases(unittest.TestCase):
     """test cases for abydos.distance.sim & .dist
     """
