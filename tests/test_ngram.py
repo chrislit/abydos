@@ -170,5 +170,10 @@ class NGramCorpusTestCases(unittest.TestCase):
         self.assertEqual(self.simple_corpus.get_count(['the', 'quick']), 2)
         self.assertEqual(self.simple_corpus.get_count(['trolley']), 0)
 
+    def test_tf(self):
+        """test abydos.ngram.tf
+        """
+        pass
+
 if __name__ == '__main__':
     unittest.main()
