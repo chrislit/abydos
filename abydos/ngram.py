@@ -152,4 +152,8 @@ class NGramCorpus(object):
         :returns: The term frequency (tf)
         :rtype: float
         """
-        return 1 + log10(self.get_count(term))
+        tcount = self.get_count(term)
+        if tcount == 0:
+            return 0.0
+        else:
+            return 1 + log10(tcount)
