@@ -173,7 +173,13 @@ class NGramCorpusTestCases(unittest.TestCase):
     def test_tf(self):
         """test abydos.ngram.tf
         """
-        pass
+        # zero case
+        self.assertEqual(self.sotu_ngcorpus_uni.tf('Niall'), 0)
+
+        # simple cases
+        self.assertAlmostEqual(self.sotu_ngcorpus_uni.tf('the'), 2.2787536)
+        self.assertAlmostEqual(self.sotu_ngcorpus_uni.tf('America'), 1.4771213)
+
 
 if __name__ == '__main__':
     unittest.main()
