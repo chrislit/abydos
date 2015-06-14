@@ -152,6 +152,9 @@ class NGramCorpus(object):
         :returns: The term frequency (tf)
         :rtype: float
         """
+        if ' ' in term:
+            raise ValueError('tf can only calculate the term frequency of'+
+                             'individual words')
         tcount = self.get_count(term)
         if tcount == 0:
             return 0.0
