@@ -181,8 +181,8 @@ class NGramCorpusTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.sotu_ngcorpus_uni.tf('America'), 1.4771213)
 
         # bigrams
-        self.assertAlmostEqual(self.sotu_ngcorpus_tri.tf('the sense'), 1.0)
-        self.assertAlmostEqual(self.sotu_ngcorpus_tri.tf('the world'), 1.3010300)
+        self.assertRaises(ValueError, self.sotu_ngcorpus_tri.tf, 'the sense')
+        self.assertRaises(ValueError, self.sotu_ngcorpus_tri.tf, 'the world')
 
 
 if __name__ == '__main__':
