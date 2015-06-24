@@ -166,7 +166,7 @@ def bwt_encode(word, terminator='\0'):
                              (terminator if terminator != '\0' else '\\0'))
         else:
             word += terminator
-            wordlist = sorted([word[i:] + word[:i] for i in _range(len(word))])
+            wordlist = sorted(word[i:] + word[:i] for i in _range(len(word)))
             return ''.join([w[-1] for w in wordlist])
     else:
         return terminator
@@ -216,9 +216,9 @@ def rle_encode(text, use_bwt=True):
     if use_bwt:
         text = bwt_encode(text)
     if text:
-        text = [(len(list(g)), k) for k, g in groupby(text)]
-        text = [(str(n) + k if n > 2 else (k if n == 1 else 2*k)) for
-                n, k in text]
+        text = ((len(list(g)), k) for k, g in groupby(text))
+        text = ((str(n) + k if n > 2 else (k if n == 1 else 2*k)) for
+                n, k in text)
     return ''.join(text)
 
 
