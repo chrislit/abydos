@@ -585,7 +585,7 @@ def ipa_to_features(ipa):
     pos = 0
     ipa = unicodedata.normalize('NFD', _unicode(ipa.lower()))
 
-    maxsymlen = max([len(_) for _ in PHONETIC_FEATURES.keys()])
+    maxsymlen = max(len(_) for _ in PHONETIC_FEATURES.keys())
 
     while pos < len(ipa):
         found_match = False
