@@ -63,9 +63,9 @@ def qgram_fingerprint(phrase, qval=2, start_stop=''):
     :rtype: str
     """
     phrase = unicodedata.normalize('NFKD', _unicode(phrase.strip().lower()))
-    phrase = ''.join([c for c in phrase if c.isalnum()])
+    phrase = ''.join(c for c in phrase if c.isalnum())
     phrase = QGrams(phrase, qval, start_stop)
-    phrase = ''.join(sorted(list(phrase)))
+    phrase = ''.join(sorted(phrase))
     return phrase
 
 
@@ -113,8 +113,8 @@ def skeleton_key(word):
     _vowels = frozenset('AEIOU')
 
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
-    word = ''.join([c for c in word if c in
-                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+    word = ''.join(c for c in word if c in
+                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
 
     start = word[0:1]
     consonant_part = ''
@@ -148,8 +148,8 @@ def omission_key(word):
     _consonants = tuple('JKQXZVWYBFMGPDHCLNTSR')
 
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
-    word = ''.join([c for c in word if c in
-                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+    word = ''.join(c for c in word if c in
+                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
 
     key = ''
 
