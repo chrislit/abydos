@@ -94,7 +94,7 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
         return jitter([nums])[0]
     if len(nums) == 0:
         return []
-    if sum([isinstance(i, numeric_type) for i in nums]) != len(nums):
+    if sum(isinstance(i, numeric_type) for i in nums) != len(nums):
         raise AttributeError('All members of nums must be numeric.')
 
     rng = (min(nums), max(nums))
@@ -123,8 +123,8 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
             else:
                 scaler = diff/10
         else:
-            scaler = min([j - snums[i - 1] for i, j in enumerate(snums)
-                          if i > 0])
+            scaler = min(j - snums[i - 1] for i, j in enumerate(snums)
+                         if i > 0)
         amount = factor/5 * abs(scaler)
     elif amount == 0:
         amount = factor * (diff/50)
