@@ -32,6 +32,7 @@ import sys
 import random
 import numpy
 import math
+from operator import mul
 from ._compat import _unicode, _range, numeric_type, _long
 if sys.version_info[0] == 3:
     # pylint: disable=redefined-builtin
@@ -49,7 +50,7 @@ def prod(nums):
     :param nums: a collection (list, tuple, set, etc.) of numbers
     :returns: the product of a nums
     """
-    return reduce(lambda x, y: x*y, nums, 1)
+    return reduce(mul, nums, 1)
 
 
 def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
