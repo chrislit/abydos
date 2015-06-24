@@ -59,7 +59,7 @@ class Corpus(object):
 
         for document in corpus_text.split(doc_split):
             doc = []
-            for sentence in [s.split() for s in document.split(sent_split)]:
+            for sentence in (s.split() for s in document.split(sent_split)):
                 if stop_words:
                     for word in set(stop_words):
                         while word in sentence:
