@@ -2135,8 +2135,8 @@ def phonix(word, maxlength=4, zero_pad=True):
 
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = word.replace('ß', 'SS')
-    word = ''.join([c for c in word if c in
-                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+    word = ''.join(c for c in word if c in
+                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
     if word:
         for trans in _phonix_substitutions:
             word = trans[0](word, *trans[1:])
@@ -2285,7 +2285,7 @@ def sfinxbis(word, maxlength=None):
     ordlista = [_foersvensker(ordet) for ordet in ordlista]
 
     # Steg 5, Ta bort alla tecken som inte är A-Ö (65-90,196,197,214)
-    ordlista = [''.join([c for c in ordet if c in _alfabet])
+    ordlista = [''.join(c for c in ordet if c in _alfabet)
                 for ordet in ordlista]
 
     # Steg 6, Koda första ljudet
@@ -2310,12 +2310,12 @@ def sfinxbis(word, maxlength=None):
     rest = [ordet.replace('9', '') for ordet in rest]
 
     # Steg 12, Sätt ihop delarna igen
-    ordlista = (''.join(ordet) for ordet in
-                zip((_[0:1] for _ in ordlista), rest))
+    ordlista = [''.join(ordet) for ordet in
+                zip((_[0:1] for _ in ordlista), rest)]
 
     # truncate, if maxlength is set
     if maxlength and maxlength < float('inf'):
-        ordlista = (ordet[:maxlength] for ordet in ordlista)
+        ordlista = [ordet[:maxlength] for ordet in ordlista]
 
     return tuple(ordlista)
 
@@ -3922,8 +3922,8 @@ def spfc(word):
         """Performs the first three steps of SPFC
         """
         # filter out non A-Z
-        name = ''.join([_ for _ in name if _ in
-                        frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+        name = ''.join(_ for _ in name if _ in
+                       frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
 
         # 1. In the field, convert DK to K, DT to T, SC to S, KN to N,
         # and MN to N
@@ -3936,8 +3936,8 @@ def spfc(word):
         # 3. Remove vowels, W, H, and Y, but keep the first letter in the name
         # field.
         if name:
-            name = name[0] + ''.join([_ for _ in name[1:] if _ not in
-                                      frozenset('AEIOUWHY')])
+            name = name[0] + ''.join(_ for _ in name[1:] if _ not in
+                                     frozenset('AEIOUWHY'))
         return name
 
     names = [steps_one_to_three(_) for _ in names]
