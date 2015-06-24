@@ -1145,7 +1145,7 @@ def sb_german(word, alternate_vowels=False):
             word = word[:i] + 'u' + word[i+1:]
 
     # Remove umlauts
-    _umlauts = dict(zip([ord(_) for _ in 'äöü'], 'aou'))
+    _umlauts = dict(zip((ord(_) for _ in 'äöü'), 'aou'))
     word = word.translate(_umlauts)
 
     return word
@@ -1176,7 +1176,7 @@ def sb_dutch(word):
 
     # lowercase, normalize, decompose, filter umlauts & acutes out, and compose
     word = unicodedata.normalize('NFC', _unicode(word.lower()))
-    _accented = dict(zip([ord(_) for _ in 'äëïöüáéíóú'], 'aeiouaeiou'))
+    _accented = dict(zip((ord(_) for _ in 'äëïöüáéíóú'), 'aeiouaeiou'))
     word = word.translate(_accented)
 
     for i in _range(len(word)):
@@ -1481,7 +1481,7 @@ def clef_german(word):
     word = unicodedata.normalize('NFC', _unicode(word.lower()))
 
     # remove umlauts
-    _umlauts = dict(zip([ord(_) for _ in 'äöü'], 'aou'))
+    _umlauts = dict(zip((ord(_) for _ in 'äöü'), 'aou'))
     word = word.translate(_umlauts)
 
     # remove plurals
@@ -1515,7 +1515,7 @@ def clef_german_plus(word):
     word = unicodedata.normalize('NFC', _unicode(word.lower()))
 
     # remove umlauts
-    _accents = dict(zip([ord(_) for _ in 'äàáâöòóôïìíîüùúû'],
+    _accents = dict(zip((ord(_) for _ in 'äàáâöòóôïìíîüùúû'),
                         'aaaaooooiiiiuuuu'))
     word = word.translate(_accents)
 
@@ -1596,7 +1596,7 @@ def caumanns(word):
 
     # # Part 2: Substitution
     # 1. Change umlauts to corresponding vowels & ß to ss
-    _umlauts = dict(zip([ord(_) for _ in 'äöü'], 'aou'))
+    _umlauts = dict(zip((ord(_) for _ in 'äöü'), 'aou'))
     word = word.translate(_umlauts)
     word = word.replace('ß', 'ss')
 
