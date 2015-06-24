@@ -901,7 +901,7 @@ def hmean(nums):
         if nums.count(0) > 1:
             return float('nan')
         return 0
-    return len(nums)/sum([1/i for i in nums])
+    return len(nums)/sum(1/i for i in nums)
 
 
 def qmean(nums):
@@ -916,7 +916,7 @@ def qmean(nums):
     :returns: The quadratic mean of nums
     :rtype: float
     """
-    return (sum([i**2 for i in nums])/len(nums))**(0.5)
+    return (sum(i**2 for i in nums)/len(nums))**(0.5)
 
 
 def cmean(nums):
@@ -931,7 +931,7 @@ def cmean(nums):
     :returns: The contraharmonic mean of nums
     :rtype: float
     """
-    return sum([x**2 for x in nums])/sum(nums)
+    return sum(x**2 for x in nums)/sum(nums)
 
 
 def lmean(nums):
@@ -1022,7 +1022,7 @@ def lehmer_mean(nums, exp=2):
     :returns: The Lehmer mean of nums for the given exponent
     :rtype: float
     """
-    return sum([x**exp for x in nums])/sum([x**(exp-1) for x in nums])
+    return sum(x**exp for x in nums)/sum(x**(exp-1) for x in nums)
 
 
 def heronian_mean(nums):
@@ -1066,7 +1066,7 @@ def hoelder_mean(nums, exp=2):
     """
     if exp == 0:
         return gmean(nums)
-    return ((1/len(nums)) * sum([i**exp for i in nums]))**(1/exp)
+    return ((1/len(nums)) * sum(i**exp for i in nums))**(1/exp)
 
 
 def agmean(nums):
