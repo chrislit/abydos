@@ -71,8 +71,8 @@ def russell_index(word):
     :returns: the Russell Index value
     :rtype: int
     """
-    _russell_translation = dict(zip([ord(_) for _ in
-                                     'ABCDEFGIKLMNOPQRSTUVXYZ'],
+    _russell_translation = dict(zip((ord(_) for _ in
+                                     'ABCDEFGIKLMNOPQRSTUVXYZ'),
                                     '12341231356712383412313'))
 
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
@@ -81,14 +81,14 @@ def russell_index(word):
     word = word.rstrip('SZ')  # discard /[sz]$/ (rule 3)
 
     # translate according to Russell's mapping
-    word = ''.join([c for c in word if c in
-                    frozenset('ABCDEFGIKLMNOPQRSTUVXYZ')])
+    word = ''.join(c for c in word if c in
+                   frozenset('ABCDEFGIKLMNOPQRSTUVXYZ'))
     sdx = word.translate(_russell_translation)
 
     # remove any 1s after the first occurrence
     one = sdx.find('1')+1
     if one:
-        sdx = sdx[:one] + ''.join([c for c in sdx[one:] if c != '1'])
+        sdx = sdx[:one] + ''.join(c for c in sdx[one:] if c != '1')
 
     # remove repeating characters
     sdx = _delete_consecutive_repeats(sdx)
@@ -107,9 +107,9 @@ def russell_index_num_to_alpha(num):
     :returns: the Russell Index as an alphabetic string
     :rtype: str
     """
-    _russell_num_translation = dict(zip([ord(_) for _ in '12345678'],
+    _russell_num_translation = dict(zip((ord(_) for _ in '12345678'),
                                         'ABCDLMNR'))
-    num = ''.join([c for c in _unicode(num) if c in frozenset('12345678')])
+    num = ''.join(c for c in _unicode(num) if c in frozenset('12345678'))
     if num:
         return num.translate(_russell_num_translation)
     else:
@@ -154,8 +154,8 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     :returns: the Soundex value
     :rtype: str
     """
-    _soundex_translation = dict(zip([ord(_) for _ in
-                                     'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
+    _soundex_translation = dict(zip((ord(_) for _ in
+                                     'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
                                     '01230129022455012623019202'))
 
     # Call the D-M Soundex function itself if requested
@@ -171,8 +171,8 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = word.replace('ß', 'SS')
-    word = ''.join([c for c in word if c in
-                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+    word = ''.join(c for c in word if c in
+                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
 
     # Nothing to convert, return base case
     if not word:
@@ -314,8 +314,8 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
     # uppercase, normalize, decompose, and filter non-A-Z
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = word.replace('ß', 'SS')
-    word = ''.join([c for c in word if c in
-                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+    word = ''.join(c for c in word if c in
+                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
 
     # Nothing to convert, return base case
     if not word:
@@ -357,14 +357,14 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
                 break
 
     # Filter out double letters and _ placeholders
-    dms = [''.join([c for c in _delete_consecutive_repeats(_) if c != '_'])
-           for _ in dms]
+    dms = (''.join(c for c in _delete_consecutive_repeats(_) if c != '_')
+           for _ in dms)
 
     # Trim codes and return set
     if zero_pad:
-        dms = [(_ + ('0'*maxlength))[:maxlength] for _ in dms]
+        dms = ((_ + ('0'*maxlength))[:maxlength] for _ in dms)
     else:
-        dms = [_[:maxlength] for _ in dms]
+        dms = (_[:maxlength] for _ in dms)
     return set(dms)
 
 
@@ -406,8 +406,8 @@ def koelner_phonetik(word):
     word = word.replace('Ä', 'AE')
     word = word.replace('Ö', 'OE')
     word = word.replace('Ü', 'UE')
-    word = ''.join([c for c in word if c in
-                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+    word = ''.join(c for c in word if c in
+                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
 
     # Nothing to convert, return base case
     if not word:
@@ -473,9 +473,9 @@ def koelner_phonetik_num_to_alpha(num):
     :returns: an alphabetic representation of the same word
     :rtype: str
     """
-    _koelner_num_translation = dict(zip([ord(_) for _ in '012345678'],
+    _koelner_num_translation = dict(zip((ord(_) for _ in '012345678'),
                                         'APTFKLNRS'))
-    num = ''.join([c for c in _unicode(num) if c in frozenset('012345678')])
+    num = ''.join(c for c in _unicode(num) if c in frozenset('012345678'))
     return num.translate(_koelner_num_translation)
 
 
@@ -506,7 +506,7 @@ def nysiis(word, maxlength=6):
 
     _vowels = frozenset('AEIOU')
 
-    word = ''.join([c for c in word.upper() if c.isalpha()])
+    word = ''.join(c for c in word.upper() if c.isalpha())
     word = word.replace('ß', 'SS')
 
     # exit early if there are no alphas
@@ -598,8 +598,8 @@ def mra(word):
         return word
     word = word.upper()
     word = word.replace('ß', 'SS')
-    word = word[0]+''.join([c for c in word[1:] if
-                            c not in frozenset('AEIOU')])
+    word = word[0]+''.join(c for c in word[1:] if
+                           c not in frozenset('AEIOU'))
     word = _delete_consecutive_repeats(word)
     if len(word) > 6:
         word = word[:3]+word[-3:]
@@ -634,7 +634,7 @@ def metaphone(word, maxlength=float('inf')):
         maxlength = 64
 
     # As in variable sound--those modified by adding an "h"
-    ename = ''.join([c for c in word.upper() if c.isalnum()])
+    ename = ''.join(c for c in word.upper() if c.isalnum())
     ename = ename.replace('ß', 'SS')
 
     # Delete nonalphanumeric characters and make all caps
@@ -1518,8 +1518,8 @@ def caverphone(word, version=2):
     _vowels = frozenset('aeiou')
 
     word = word.lower()
-    word = ''.join([c for c in word if c in
-                    frozenset('abcdefghijklmnopqrstuvwxyz')])
+    word = ''.join(c for c in word if c in
+                   frozenset('abcdefghijklmnopqrstuvwxyz'))
 
     # the main replacemet algorithm
     if version != 1 and word[-1:] == 'e':
@@ -1666,8 +1666,8 @@ def alpha_sis(word, maxlength=14):
     pos = 0
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
     word = word.replace('ß', 'SS')
-    word = ''.join([c for c in word if c in
-                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ')])
+    word = ''.join(c for c in word if c in
+                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
 
     # Clamp maxlength to [4, 64]
     if maxlength is not None:
@@ -1712,10 +1712,10 @@ def alpha_sis(word, maxlength=14):
             if alpha[i][pos] == alpha[i][pos-1]:
                 alpha[i] = alpha[i][:pos]+alpha[i][pos+1:]
             pos += 1
-    alpha = [_.replace('_', '') for _ in alpha]
+    alpha = (_.replace('_', '') for _ in alpha)
 
     # Trim codes and return tuple
-    alpha = [(_ + ('0'*maxlength))[:maxlength] for _ in alpha]
+    alpha = ((_ + ('0'*maxlength))[:maxlength] for _ in alpha)
     return tuple(alpha)
 
 
@@ -1734,8 +1734,8 @@ def fuzzy_soundex(word, maxlength=5, zero_pad=True):
     :returns: the Fuzzy Soundex value
     :rtype: str
     """
-    _fuzzy_soundex_translation = dict(zip([ord(_) for _ in
-                                           'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
+    _fuzzy_soundex_translation = dict(zip((ord(_) for _ in
+                                           'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
                                           '0193017-07745501769301-7-9'))
 
     word = unicodedata.normalize('NFKD', _unicode(word.upper()))
@@ -1938,8 +1938,8 @@ def phonem(word):
                              ('UE', 'Y'), ('AE', 'E'), ('OE', 'Ö'),
                              ('EI', 'AY'), ('EY', 'AY'), ('EU', 'OY'),
                              ('AU', 'A§'), ('OU', '§'))
-    _phonem_translation = dict(zip([ord(_) for _ in
-                                    'ZKGQÇÑßFWPTÁÀÂÃÅÄÆÉÈÊËIJÌÍÎÏÜÝ§ÚÙÛÔÒÓÕØ'],
+    _phonem_translation = dict(zip((ord(_) for _ in
+                                    'ZKGQÇÑßFWPTÁÀÂÃÅÄÆÉÈÊËIJÌÍÎÏÜÝ§ÚÙÛÔÒÓÕØ'),
                                    'CCCCCNSVVBDAAAAAEEEEEEYYYYYYYYUUUUOOOOÖ'))
 
     word = unicodedata.normalize('NFC', _unicode(word.upper()))
@@ -1947,8 +1947,8 @@ def phonem(word):
         word = word.replace(i, j)
     word = word.translate(_phonem_translation)
 
-    return ''.join([c for c in _delete_consecutive_repeats(word)
-                    if c in frozenset('ABCDLMNORSUVWXYÖ')])
+    return ''.join(c for c in _delete_consecutive_repeats(word)
+                   if c in frozenset('ABCDLMNORSUVWXYÖ'))
 
 
 def phonix(word, maxlength=4, zero_pad=True):
@@ -2024,7 +2024,7 @@ def phonix(word, maxlength=4, zero_pad=True):
             else:
                 pre = frozenset(('',))
 
-            for i, j in tuple((i, j) for i in pre for j in post):
+            for i, j in ((i, j) for i in pre for j in post):
                 word = word.replace(i+src+j, i+tar+j)
             return word
         else:
@@ -2127,8 +2127,8 @@ def phonix(word, maxlength=4, zero_pad=True):
                              (_all_repl, 'MPS', 'MS'),
                              (_all_repl, 'MPT', 'MT'))
 
-    _phonix_translation = dict(zip([ord(_) for _ in
-                                    'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
+    _phonix_translation = dict(zip((ord(_) for _ in
+                                    'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
                                    '01230720022455012683070808'))
 
     sdx = ''
@@ -2189,12 +2189,12 @@ def sfinxbis(word, maxlength=None):
     _konsonanter = frozenset('BCDFGHJKLMNPQRSTVWXZ')
     _alfabet = frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ')
 
-    _sfinxbis_translation = dict(zip([ord(_) for _ in
-                                      'BCDFGHJKLMNPQRSTVZAOUÅEIYÄÖ'],
+    _sfinxbis_translation = dict(zip((ord(_) for _ in
+                                      'BCDFGHJKLMNPQRSTVZAOUÅEIYÄÖ'),
                                      '123729224551268378999999999'))
 
-    _sfinxbis_substitutions = dict(zip([ord(_) for _ in
-                                        'WZÀÁÂÃÆÇÈÉÊËÌÍÎÏÑÒÓÔÕØÙÚÛÜÝ'],
+    _sfinxbis_substitutions = dict(zip((ord(_) for _ in
+                                        'WZÀÁÂÃÆÇÈÉÊËÌÍÎÏÑÒÓÔÕØÙÚÛÜÝ'),
                                        'VSAAAAÄCEEEEIIIINOOOOÖUUUYY'))
 
     def _foersvensker(ordet):
@@ -2310,12 +2310,12 @@ def sfinxbis(word, maxlength=None):
     rest = [ordet.replace('9', '') for ordet in rest]
 
     # Steg 12, Sätt ihop delarna igen
-    ordlista = [''.join(ordet) for ordet in
-                zip([_[0:1] for _ in ordlista], rest)]
+    ordlista = (''.join(ordet) for ordet in
+                zip((_[0:1] for _ in ordlista), rest))
 
     # truncate, if maxlength is set
     if maxlength and maxlength < float('inf'):
-        ordlista = [ordet[:maxlength] for ordet in ordlista]
+        ordlista = (ordet[:maxlength] for ordet in ordlista)
 
     return tuple(ordlista)
 
@@ -3352,9 +3352,9 @@ def phonet(word, mode=1, lang='de', trace=False):
     phonet_hash_1 = Counter()
     phonet_hash_2 = Counter()
 
-    _phonet_upper_translation = dict(zip([ord(_) for _ in
+    _phonet_upper_translation = dict(zip((ord(_) for _ in
                                           'abcdefghijklmnopqrstuvwxyzàáâãåäæ' +
-                                          'çðèéêëìíîïñòóôõöøœšßþùúûüýÿ'],
+                                          'çðèéêëìíîïñòóôõöøœšßþùúûüýÿ'),
                                          'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÅÄÆ' +
                                          'ÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ'))
 
@@ -3876,13 +3876,13 @@ def spfc(word):
     :rtype: str
     """
 
-    _pf1 = dict(zip([ord(_) for _ in 'SZCKQVFPUWABLORDHIEMNXGJT'],
+    _pf1 = dict(zip((ord(_) for _ in 'SZCKQVFPUWABLORDHIEMNXGJT'),
                     '0011112222334445556666777'))
-    _pf2 = dict(zip([ord(_) for _ in
-                     'SZCKQFPXABORDHIMNGJTUVWEL'],
+    _pf2 = dict(zip((ord(_) for _ in
+                     'SZCKQFPXABORDHIMNGJTUVWEL'),
                     '0011122233445556677788899'))
-    _pf3 = dict(zip([ord(_) for _ in
-                     'BCKQVDTFLPGJXMNRSZAEHIOUWY'],
+    _pf3 = dict(zip((ord(_) for _ in
+                     'BCKQVDTFLPGJXMNRSZAEHIOUWY'),
                     '00000112223334456677777777'))
 
     _substitutions = (('DK', 'K'), ('DT', 'T'), ('SC', 'S'), ('KN', 'N'),
