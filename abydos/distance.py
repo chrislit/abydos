@@ -802,8 +802,8 @@ def sim_strcmp95(src, tar, long_strings=False):
         minv = len(ying)
 
     # Blank out the flags
-    ying_flag = [0 for i in _range(search_range)]
-    yang_flag = [0 for j in _range(search_range)]
+    ying_flag = [0] * search_range
+    yang_flag = [0] * search_range
     search_range = max(0, search_range // 2 - 1)
 
     # Looking only within the search range, count and flag the matched pairs.
@@ -957,8 +957,8 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
         minv = lens
 
     # Zero out the flags
-    src_flag = [0 for i in _range(search_range)]
-    tar_flag = [0 for j in _range(search_range)]
+    src_flag = [0] * search_range
+    tar_flag = [0] * search_range
     search_range = max(0, search_range//2 - 1)
 
     # Looking only within the search range, count and flag the matched pairs.
