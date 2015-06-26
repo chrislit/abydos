@@ -153,6 +153,11 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
         maxlength string
     :returns: the Soundex value
     :rtype: str
+
+    >>> soundex("Christopher")
+    u'C623'
+    >>> soundex("Niall")
+    u'N400'
     """
     _soundex_translation = dict(zip((ord(_) for _ in
                                      'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
@@ -4045,3 +4050,8 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     """
     return _bmpm(word, language_arg, name_mode, match_mode,
                  concat, filter_langs)
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
