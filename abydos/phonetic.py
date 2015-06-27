@@ -70,6 +70,11 @@ def russell_index(word):
     :param str word: the word to transform
     :returns: the Russell Index value
     :rtype: int
+
+    >>> russell_index('Christopher')
+    3813428
+    >>> russell_index('Niall')
+    715
     """
     _russell_translation = dict(zip((ord(_) for _ in
                                      'ABCDEFGIKLMNOPQRSTUVXYZ'),
@@ -106,6 +111,11 @@ def russell_index_num_to_alpha(num):
     :param int num: a Russell Index integer value
     :returns: the Russell Index as an alphabetic string
     :rtype: str
+
+    >>> russell_index_num_to_alpha(3813428)
+    'CRACDBR'
+    >>> russell_index_num_to_alpha(715)
+    'NAL'
     """
     _russell_num_translation = dict(zip((ord(_) for _ in '12345678'),
                                         'ABCDLMNR'))
@@ -125,6 +135,11 @@ def russell_index_alpha(word):
     :param str word: the word to transform
     :returns: the Russell Index value as an alphabetic string
     :rtype: str
+
+    >>> russell_index_alpha('Christopher')
+    'CRACDBR'
+    >>> russell_index_alpha('Niall')
+    'NAL'
     """
     if word:
         return russell_index_num_to_alpha(russell_index(word))
