@@ -192,6 +192,11 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     'A226'
     >>> soundex('Asicroft', var='special')
     'A226'
+
+    >>> soundex('Christopher', var='dm')
+    {'494379', '594379'}
+    >>> soundex('Niall', var='dm')
+    {'680000'}
     """
     _soundex_translation = dict(zip((ord(_) for _ in
                                      'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
@@ -260,7 +265,13 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
     :returns: the Daitch-Mokotoff Soundex value
     :rtype: str
 
-    
+    >>> dm_soundex('Christopher')
+    {'494379', '594379'}
+    >>> dm_soundex('Niall')
+    {'680000'}
+
+    >>> dm_soundex('The quick brown fox', maxlength=20, zero_pad=False)
+    {'35457976754', '3557976754'}
     """
     _dms_table = {'STCH': (2, 4, 4), 'DRZ': (4, 4, 4), 'ZH': (4, 4, 4),
                   'ZHDZH': (2, 4, 4), 'DZH': (4, 4, 4), 'DRS': (4, 4, 4),
@@ -421,6 +432,13 @@ def koelner_phonetik(word):
     :param str word: the word to transform
     :returns: the Kölner Phonetik value as a numeric string
     :rtype: str
+
+    >>> koelner_phonetik('Schmidt')
+    '862'
+    >>> koelner_phonetik('Müller')
+    '657'
+    >>> koelner_phonetik('Zimmermann')
+    '86766'
     """
     # pylint: disable=too-many-branches
     def _after(word, i, letters):
@@ -513,6 +531,13 @@ def koelner_phonetik_num_to_alpha(num):
     :param str num: a numeric Kölner Phonetik representation
     :returns: an alphabetic representation of the same word
     :rtype: str
+
+    >>> koelner_phonetik_num_to_alpha(862)
+    'SNT'
+    >>> koelner_phonetik_num_to_alpha(657)
+    'NLR'
+    >>> koelner_phonetik_num_to_alpha(86766)
+    'SNRNN'
     """
     _koelner_num_translation = dict(zip((ord(_) for _ in '012345678'),
                                         'APTFKLNRS'))
@@ -526,6 +551,13 @@ def koelner_phonetik_alpha(word):
     :param str word: the word to transform
     :returns: the Kölner Phonetik value as an alphabetic string
     :rtype: str
+
+    >>> koelner_phonetik_alpha('SChmidt')
+    'SNT'
+    >>> koelner_phonetik_alpha('Müller')
+    'NLR'
+    >>> koelner_phonetik_alpha('Zimmermann')
+    'SNRNN'
     """
     return koelner_phonetik_num_to_alpha(koelner_phonetik(word))
 
@@ -540,6 +572,14 @@ def nysiis(word, maxlength=6):
     :param int maxlength: the maximum length (default 6) of the code to return
     :returns: the NYSIIS value
     :rtype: str
+
+    >>> nysiis('Christopher')
+    'CRASTA'
+    >>> nysiis('Niall')
+    'NAL'
+
+    >>> nysiis('Christopher', maxlength=float('inf'))
+    'CRASTAFAR'
     """
     # Require a maxlength of at least 6
     if maxlength:
@@ -634,6 +674,11 @@ def mra(word):
     :param str word: the word to transform
     :returns: the MRA PNI
     :rtype: str
+
+    >>> mra('Christopher')
+    'CHRPHR'
+    >>> mra('Niall')
+    'NL'
     """
     if not len(word):
         return word
