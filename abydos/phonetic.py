@@ -158,8 +158,10 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
         - 'American' follows the American Soundex algorithm, as described at
           http://www.archives.gov/publications/general-info-leaflets/55-census.html
           and in Knuth(1998:394); this is also called Miracode
-        - 'special' follows the rules from the 1880-1910 US Census, in which
-          h & w are not treated as blocking consonants but as vowels
+        - 'special' follows the rules from the 1880-1910 US Census
+          retrospective re-analysis, in which h & w are not treated as blocking
+          consonants but as vowels.
+          Cf. http://creativyst.com/Doc/Articles/SoundEx1/SoundEx1.htm
         - 'dm' computes the Daitch-Mokotoff Soundex
 
     :param bool reverse: reverse the word before computing the selected Soundex
@@ -181,6 +183,15 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
 
     >>> soundex('Christopher', reverse=True)
     'R132'
+
+    >>> soundex('Ashcroft')
+    'A261'
+    >>> soundex('Asicroft')
+    'A226'
+    >>> soundex('Ashcroft', var='special')
+    'A226'
+    >>> soundex('Asicroft', var='special')
+    'A226'
     """
     _soundex_translation = dict(zip((ord(_) for _ in
                                      'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
