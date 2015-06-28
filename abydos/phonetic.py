@@ -173,6 +173,14 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     u'C623'
     >>> soundex("Niall")
     u'N400'
+
+    >>> soundex('Christopher', maxlength=float('inf'))
+    'C623160000000000000000000000000000000000000000000000000000000000'
+    >>> soundex('Christopher', maxlength=float('inf'), zero_pad=False)
+    'C62316'
+
+    >>> soundex('Christopher', reverse=True)
+    'R132'
     """
     _soundex_translation = dict(zip((ord(_) for _ in
                                      'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
@@ -240,6 +248,8 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
         maxlength string
     :returns: the Daitch-Mokotoff Soundex value
     :rtype: str
+
+    
     """
     _dms_table = {'STCH': (2, 4, 4), 'DRZ': (4, 4, 4), 'ZH': (4, 4, 4),
                   'ZHDZH': (2, 4, 4), 'DZH': (4, 4, 4), 'DRS': (4, 4, 4),
