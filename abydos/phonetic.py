@@ -707,6 +707,12 @@ def metaphone(word, maxlength=float('inf')):
         this was 4)
     :returns: the Metaphone value
     :rtype: str
+
+
+    >>> metaphone('Christopher')
+    'KRSTFR'
+    >>> metaphone('Niall')
+    'NL'
     """
     # pylint: disable=too-many-branches
     _vowels = frozenset('AEIOU')
@@ -866,6 +872,13 @@ def double_metaphone(word, maxlength=float('inf')):
         was 4)
     :returns: the Double Metaphone value(s)
     :rtype: tuple
+
+    >>> double_metaphone('Christopher')
+    ('KRSTFR', '')
+    >>> double_metaphone('Niall')
+    ('NL', '')
+    >>> double_metaphone('Schmidt')
+    ('XMT', 'SMT')
     """
     # pylint: disable=too-many-branches
     # Require a maxlength of at least 4
@@ -1600,6 +1613,20 @@ def caverphone(word, version=2):
         (defaults to 2)
     :returns: the Caverphone value
     :rtype: str
+
+    >>> caverphone('Christopher')
+    'KRSTFA1111'
+    >>> caverphone('Niall')
+    'NA11111111'
+    >>> caverphone('Smith')
+    'SMT1111111'
+
+    >>> caverphone('Christopher', 1)
+    'KRSTF1'
+    >>> caverphone('Niall', 1)
+    'N11111'
+    >>> caverphone('Smith', 1)
+    'SMT111'
     """
     _vowels = frozenset('aeiou')
 
@@ -1726,6 +1753,13 @@ def alpha_sis(word, maxlength=14):
     :param int maxlength: the length of the code returned (defaults to 14)
     :returns: the Alpha SIS value
     :rtype: tuple
+
+    >>> alpha_sis('Christopher')
+    ('06401840000000', '07040184000000', '04018400000000')
+    >>> alpha_sis('Niall')
+    ('02500000000000',)
+    >>> alpha_sis('Smith')
+    ('03100000000000',)
     """
     _alpha_sis_initials = {'GF': '08', 'GM': '03', 'GN': '02', 'KN': '02',
                            'PF': '08', 'PN': '02', 'PS': '00', 'WR': '04',
@@ -1819,6 +1853,13 @@ def fuzzy_soundex(word, maxlength=5, zero_pad=True):
         a maxlength string
     :returns: the Fuzzy Soundex value
     :rtype: str
+
+    >>> fuzzy_soundex('Christopher')
+    'K6931'
+    >>> fuzzy_soundex('Niall')
+    'N4000'
+    >>> fuzzy_soundex('Smith')
+    'S5300'
     """
     _fuzzy_soundex_translation = dict(zip((ord(_) for _ in
                                            'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
