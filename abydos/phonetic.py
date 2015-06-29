@@ -75,6 +75,10 @@ def russell_index(word):
     3813428
     >>> russell_index('Niall')
     715
+    >>> russell_index('Smith')
+    3614
+    >>> russell_index('Schmidt')
+    3614
     """
     _russell_translation = dict(zip((ord(_) for _ in
                                      'ABCDEFGIKLMNOPQRSTUVXYZ'),
@@ -116,6 +120,8 @@ def russell_index_num_to_alpha(num):
     'CRACDBR'
     >>> russell_index_num_to_alpha(715)
     'NAL'
+    >>> russell_index_num_to_alpha(3614)
+    'CMAD'
     """
     _russell_num_translation = dict(zip((ord(_) for _ in '12345678'),
                                         'ABCDLMNR'))
@@ -140,6 +146,10 @@ def russell_index_alpha(word):
     'CRACDBR'
     >>> russell_index_alpha('Niall')
     'NAL'
+    >>> russell_index_alpha('Smith')
+    'CMAD'
+    >>> russell_index_alpha('Schmidt')
+    'CMAD'
     """
     if word:
         return russell_index_num_to_alpha(russell_index(word))
@@ -172,9 +182,14 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     :rtype: str
 
     >>> soundex("Christopher")
-    u'C623'
+    'C623'
     >>> soundex("Niall")
-    u'N400'
+    'N400'
+    >>> soundex('Smith')
+    'S530'
+    >>> soundex('Schmidt')
+    'S530'
+
 
     >>> soundex('Christopher', maxlength=float('inf'))
     'C623160000000000000000000000000000000000000000000000000000000000'
@@ -197,6 +212,10 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     {'494379', '594379'}
     >>> soundex('Niall', var='dm')
     {'680000'}
+    >>> soundex('Smith', var='dm')
+    {'463000'}
+    >>> soundex('Schmidt', var='dm')
+    {'463000'}
     """
     _soundex_translation = dict(zip((ord(_) for _ in
                                      'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
@@ -269,6 +288,10 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
     {'494379', '594379'}
     >>> dm_soundex('Niall')
     {'680000'}
+    >>> dm_soundex('Smith')
+    {'463000'}
+    >>> dm_soundex('Schmidt')
+    {'463000'}
 
     >>> dm_soundex('The quick brown fox', maxlength=20, zero_pad=False)
     {'35457976754', '3557976754'}
@@ -433,6 +456,8 @@ def koelner_phonetik(word):
     :returns: the Kölner Phonetik value as a numeric string
     :rtype: str
 
+    >>> koelner_phonetik('Smith')
+    '862'
     >>> koelner_phonetik('Schmidt')
     '862'
     >>> koelner_phonetik('Müller')
@@ -552,7 +577,9 @@ def koelner_phonetik_alpha(word):
     :returns: the Kölner Phonetik value as an alphabetic string
     :rtype: str
 
-    >>> koelner_phonetik_alpha('SChmidt')
+    >>> koelner_phonetik_alpha('Smith')
+    'SNT'
+    >>> koelner_phonetik_alpha('Schmidt')
     'SNT'
     >>> koelner_phonetik_alpha('Müller')
     'NLR'
@@ -577,6 +604,10 @@ def nysiis(word, maxlength=6):
     'CRASTA'
     >>> nysiis('Niall')
     'NAL'
+    >>> nysiis('Smith')          
+    'SNAT'
+    >>> nysiis('Schmidt')
+    'SNAD'
 
     >>> nysiis('Christopher', maxlength=float('inf'))
     'CRASTAFAR'
@@ -679,6 +710,10 @@ def mra(word):
     'CHRPHR'
     >>> mra('Niall')
     'NL'
+    >>> mra('Smith')
+    'SMTH'
+    >>> mra('Schmidt')
+    'SCHMDT'
     """
     if not len(word):
         return word
@@ -713,6 +748,10 @@ def metaphone(word, maxlength=float('inf')):
     'KRSTFR'
     >>> metaphone('Niall')
     'NL'
+    >>> metaphone('Smith')
+    'SM0'
+    >>> metaphone('Schmidt')
+    'SKMTT'
     """
     # pylint: disable=too-many-branches
     _vowels = frozenset('AEIOU')
@@ -877,6 +916,8 @@ def double_metaphone(word, maxlength=float('inf')):
     ('KRSTFR', '')
     >>> double_metaphone('Niall')
     ('NL', '')
+    >>> double_metaphone('Smith')
+    ('SM0', 'XMT')
     >>> double_metaphone('Schmidt')
     ('XMT', 'SMT')
     """
@@ -1620,6 +1661,8 @@ def caverphone(word, version=2):
     'NA11111111'
     >>> caverphone('Smith')
     'SMT1111111'
+    >>> caverphone('Schmidt')
+    'SKMT111111'
 
     >>> caverphone('Christopher', 1)
     'KRSTF1'
@@ -1627,6 +1670,8 @@ def caverphone(word, version=2):
     'N11111'
     >>> caverphone('Smith', 1)
     'SMT111'
+    >>> caverphone('Schmidt', 1)
+    'SKMT11'
     """
     _vowels = frozenset('aeiou')
 
@@ -1760,6 +1805,8 @@ def alpha_sis(word, maxlength=14):
     ('02500000000000',)
     >>> alpha_sis('Smith')
     ('03100000000000',)
+    >>> alpha_sis('Schmidt')
+    ('06310000000000',)
     """
     _alpha_sis_initials = {'GF': '08', 'GM': '03', 'GN': '02', 'KN': '02',
                            'PF': '08', 'PN': '02', 'PS': '00', 'WR': '04',
@@ -1858,6 +1905,8 @@ def fuzzy_soundex(word, maxlength=5, zero_pad=True):
     'K6931'
     >>> fuzzy_soundex('Niall')
     'N4000'
+    >>> fuzzy_soundex('Smith')
+    'S5300'
     >>> fuzzy_soundex('Smith')
     'S5300'
     """
