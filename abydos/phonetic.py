@@ -456,6 +456,10 @@ def koelner_phonetik(word):
     :returns: the Kölner Phonetik value as a numeric string
     :rtype: str
 
+    >>> koelner_phonetik('Christopher')
+    '478237'
+    >>> koelner_phonetik('Niall')
+    '65'
     >>> koelner_phonetik('Smith')
     '862'
     >>> koelner_phonetik('Schmidt')
@@ -2005,6 +2009,15 @@ def phonex(word, maxlength=4, zero_pad=True):
         a maxlength string
     :returns: the Phonex value
     :rtype: str
+
+    >>> phonex('Christopher')
+    'C623'
+    >>> phonex('Niall')
+    'N400'
+    >>> phonex('Schmidt')
+    'S253'
+    >>> phonex('Smith')
+    'S530'
     """
     name = unicodedata.normalize('NFKD', _unicode(word.upper()))
     name = name.replace('ß', 'SS')
@@ -2107,6 +2120,15 @@ def phonem(word):
     :param str word: the word to transform
     :returns: the Phonem value
     :rtype: str
+
+    >>> phonem('Christopher')
+    'CRYSDOVR'
+    >>> phonem('Niall')
+    'NYAL'
+    >>> phonem('Smith')
+    'SMYD'
+    >>> phonem('Schmidt')
+    'CMYD'
     """
     _phonem_substitutions = (('SC', 'C'), ('SZ', 'C'), ('CZ', 'C'),
                              ('TZ', 'C'), ('TS', 'C'), ('KS', 'X'),
@@ -2145,6 +2167,15 @@ def phonix(word, maxlength=4, zero_pad=True):
         a maxlength string
     :returns: the Phonix value
     :rtype: str
+
+    >>> phonix('Christopher')
+    'K683'
+    >>> phonix('Niall')
+    'N400'
+    >>> phonix('Smith')
+    'S530'
+    >>> phonix('Schmidt')
+    'S530'
     """
     # pylint: disable=too-many-branches
     def _start_repl(word, src, tar, post=None):
