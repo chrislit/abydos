@@ -2383,6 +2383,20 @@ def sfinxbis(word, maxlength=None):
         unlimited)
     :returns: the SfinxBis value
     :rtype: tuple
+
+    >>> sfinxbis('Christopher')
+    ('K68376',)
+    >>> sfinxbis('Niall')
+    ('N4',)
+    >>> sfinxbis('Smith')
+    ('S53',)
+    >>> sfinxbis('Schmidt')
+    ('S53',)
+
+    >>> sfinxbis('Johansson')
+    ('J585',)
+    >>> sfinxbis('Sjöberg')
+    ('#162',)
     """
     adelstitler = (' DE LA ', ' DE LAS ', ' DE LOS ', ' VAN DE ', ' VAN DEN ',
                    ' VAN DER ', ' VON DEM ', ' VON DER ',
@@ -2548,6 +2562,33 @@ def phonet(word, mode=1, lang='de', trace=False):
     :param bool trace: prints debugging info if True
     :returns: the phonet value
     :rtype: str
+
+    >>> phonet('Christopher')
+    'KRISTOFA'
+    >>> phonet('Niall')
+    'NIAL'
+    >>> phonet('Smith')
+    'SMIT'
+    >>> phonet('Schmidt')
+    'SHMIT'
+
+    >>> phonet('Christopher', mode=2)
+    'KRIZTUFA'
+    >>> phonet('Niall', mode=2)
+    'NIAL'
+    >>> phonet('Smith', mode=2)
+    'ZNIT'
+    >>> phonet('Schmidt', mode=2)
+    'ZNIT'
+
+    >>> phonet('Christopher', lang='none')
+    'CHRISTOPHER'
+    >>> phonet('Niall', lang='none')
+    'NIAL'
+    >>> phonet('Smith', lang='none')
+    'SMITH'
+    >>> phonet('Schmidt', lang='none')
+    'SCHMIDT'
     """
     # pylint: disable=too-many-branches
 
@@ -4081,6 +4122,24 @@ def spfc(word):
     :param str word: the word to transform
     :returns: the SPFC value
     :rtype: str
+
+    >>> spfc('Christopher Smith')
+    '01160'
+    >>> spfc('Christopher Schmidt')
+    '01160'
+    >>> spfc('Niall Smith')
+    '01660'
+    >>> spfc('Niall Schmidt')
+
+    >>> spfc('L.Smith')
+    '01960'
+    >>> spfc('R.Miller')
+    '65490'
+
+    >>> spfc(('L', 'Smith'))
+    '01960'
+    >>> spfc(('R', 'Miller'))
+    '65490'
     """
 
     _pf1 = dict(zip((ord(_) for _ in 'SZCKQVFPUWABLORDHIEMNXGJT'),
@@ -4249,6 +4308,25 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     :param bool filter_langs: filter out incompatible languages
     :returns: the BMPM value(s)
     :rtype: tuple
+
+    >>> bmpm('Christopher')
+    'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir xristYfir xristopi xritopir xritopi xristofi xritofir xritofi tzristopir tzristofir zristopir zristopi zritopir zritopi zristofir zristofi zritofir zritofi'
+    >>> bmpm('Niall')
+    'nial niol'
+    >>> bmpm('Smith')
+    'zmit'
+    >>> bmpm('Schmidt')
+    'zmit stzmit'
+
+    >>> bmpm('Christopher', language_arg='German')
+    'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir xristYfir'
+    >>> bmpm('Christopher', language_arg='English')
+    'tzristofir tzrQstofir tzristafir tzrQstafir xristofir xrQstofir xristafir xrQstafir'
+    >>> bmpm('Christopher', language_arg='German', name_mode='ash')
+    'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir xristYfir'
+
+    >>> bmpm('Christopher', language_arg='German', match_mode='exact')
+    'xriStopher xriStofer xristopher xristofer'
     """
     return _bmpm(word, language_arg, name_mode, match_mode,
                  concat, filter_langs)
