@@ -49,6 +49,15 @@ def prod(nums):
 
     :param nums: a collection (list, tuple, set, etc.) of numbers
     :returns: the product of a nums
+
+    >>> prod([1,1,1,1])
+    1
+    >>> prod((2,4,8))
+    64
+    >>> prod({1,2,3,4})
+    24
+    >>> prod(2**i for i in range(5))
+    1024
     """
     return reduce(mul, nums, 1)
 
@@ -89,6 +98,19 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
         passed as amount).
     :returns: a list of numbers with random noise added, according to the R
         jitter function
+
+    >>> from random import seed
+    >>> seed(0)
+    >>> jitter(5)
+    4.981613177890674
+    >>> jitter([5])
+    [5.003250412907758]
+    >>> jitter([0, 0, 0])
+    [0.013976553865079613, -0.0019273569003055062, 0.028270155800962433]
+    >>> jitter([i**2 for i in range(3)])
+    [-0.3065271742181766, 1.0541873299537723, 3.758893123139162]
+    >>> jitter([i**2 for i in range(3)], min_val=0)
+    [0.046097833594303306, 0.9419551458754979, 3.9414353766272496]
     """
     if isinstance(nums, numeric_type):
         return jitter([nums])[0]
@@ -211,6 +233,17 @@ class Rational(object):
 
         :params p: numerator (or a string or float)
         :params q: denominator
+
+        >>> Rational(2, 5)
+        2/5
+        >>> Rational(0.5)
+        1/2
+        >>> Rational(2)
+        2
+        >>> Rational(0.5,2)
+        1/4
+        >>> Rational('2/5')
+        2/5
         """
         # First try to interpret a string as a numeric value
         if isinstance(p, (_unicode, str)):
@@ -257,6 +290,9 @@ class Rational(object):
 
         :returns: the numerator p
         :rtype: int
+
+        >>> Rational('2/5').numerator()
+        2
         """
         return self.p
 
@@ -265,6 +301,9 @@ class Rational(object):
 
         :returns: the denominator q
         :rtype: int
+
+        >>> Rational('2/5').denominator()
+        5
         """
         return self.q
 
@@ -302,6 +341,11 @@ class Rational(object):
 
         :returns: True if self == other (numerically)
         :rtype: bool
+
+        >>> Rational('2/5') == '2/5'     
+        True
+        >>> Rational(1, 2) == 0.9
+        False
         """
         if not isinstance(other, Rational):
             other = Rational(other)
@@ -315,6 +359,11 @@ class Rational(object):
 
         :returns: True if self != other
         :rtype: bool
+
+        >>> Rational('2/5') != '2/5'     
+        False
+        >>> Rational(1, 2) != 0.9
+        True
         """
         return not self == other
 
@@ -323,6 +372,11 @@ class Rational(object):
 
         :returns: True if self < other
         :rtype: bool
+
+        >>> Rational('2/5') < '2/5'     
+        False
+        >>> Rational(1, 2) < 0.9
+        True
         """
         if not isinstance(other, Rational):
             other = Rational(other)
@@ -333,6 +387,11 @@ class Rational(object):
 
         :returns: True if self <= other
         :rtype: bool
+
+        >>> Rational('2/5') <= '2/5'     
+        True
+        >>> Rational(1, 2) <= 0.9
+        True
         """
         if not isinstance(other, Rational):
             other = Rational(other)
@@ -343,6 +402,11 @@ class Rational(object):
 
         :returns: True if self > other
         :rtype: bool
+
+        >>> Rational('2/5') > '2/5'     
+        False
+        >>> Rational(1, 2) > 0.9
+        False
         """
         if not isinstance(other, Rational):
             other = Rational(other)
@@ -353,6 +417,11 @@ class Rational(object):
 
         :returns: True if self >= other
         :rtype: bool
+
+        >>> Rational('2/5') >= '2/5'     
+        True
+        >>> Rational(1, 2) >= 0.9
+        False
         """
         if not isinstance(other, Rational):
             other = Rational(other)
@@ -363,6 +432,11 @@ class Rational(object):
 
         :returns: a Rational object after negating the numerator
         :rtype: Rational
+
+        >>> -Rational('2/5')     
+        -2/5
+        >>> -Rational(1, -2)
+        1/2
         """
         return Rational(-self.p, self.q)
 
@@ -371,6 +445,13 @@ class Rational(object):
 
         :returns: a Rational object after adding other to self
         :rtype: Rational
+
+        >>> Rational('2/5')+Rational(3, 5)
+        1
+        >>> Rational('6/5')+Rational(3, 5)
+        9/5
+        >>> Rational(7, 5)+4
+        27/5
         """
         if not isinstance(other, Rational):
             other = Rational(other)
@@ -387,6 +468,9 @@ class Rational(object):
 
         :returns: a Rational object after adding self to other
         :rtype: Rational
+
+        >>> 4+Rational(7, 5)
+        27/5
         """
         return self + other
 
@@ -395,6 +479,9 @@ class Rational(object):
 
         :returns: a Rational object after subtracting other from self
         :rtype: Rational
+
+        >>> Rational(7, 5)-4
+        -13/5
         """
         if not isinstance(other, Rational):
             other = Rational(other)
@@ -411,6 +498,9 @@ class Rational(object):
 
         :returns: a Rational object after subtracting self from other
         :rtype: Rational
+
+        >>> 4-Rational(7, 5)  
+        13/5
         """
         return -self + other
 
@@ -419,6 +509,9 @@ class Rational(object):
 
         :returns: a Rational object after multiplying self by other
         :rtype: Rational
+
+        >>> Rational(7, 5)*4
+        28/5
         """
         if not isinstance(other, Rational):
             other = Rational(other)
@@ -431,6 +524,9 @@ class Rational(object):
 
         :returns: a Rational object after multiplying other by self
         :rtype: Rational
+
+        >>> 4*Rational(7, 5)  
+        28/5
         """
         return self * other
 
@@ -439,6 +535,9 @@ class Rational(object):
 
         :returns: a Rational object after dividing self by other
         :rtype: Rational
+
+        >>> Rational(7, 5)/4
+        7/20
         """
         return self.__truediv__(other)
 
@@ -447,6 +546,9 @@ class Rational(object):
 
         :returns: a Rational object after dividing other by self
         :rtype: Rational
+
+        >>> 4/Rational(7, 5)
+        20/7
         """
         return Rational(other).__div__(self)
 
@@ -475,6 +577,9 @@ class Rational(object):
 
         :returns: a Rational object after raising self to the power of exponent
         :rtype: Rational
+
+        >>> Rational(7, 5)**4
+        2401/625
         """
         if isinstance(exponent, Rational):
             exponent = float(exponent)
@@ -485,6 +590,9 @@ class Rational(object):
 
         :returns: a Rational object after raising base to the power of self
         :rtype: Rational
+
+        >>> 4**Rational(7, 5)   
+        7841222384935199/1125899906842624
         """
         exponent = float(self)
         return Rational(base**exponent)
@@ -497,6 +605,9 @@ class Rational(object):
 
         :returns: a Rational object after left bit shifting the numerator
         :rtype: Rational
+
+        >>> Rational(7, 5) << 2
+        28/5
         """
         p = self.p << shift
         q = self.q
@@ -510,6 +621,9 @@ class Rational(object):
 
         :returns: a Rational object after left bit shifting the denominator
         :rtype: Rational
+
+        >>> Rational(7, 5) >> 2
+        7/20
         """
         p = self.p
         q = self.q << shift
@@ -520,6 +634,11 @@ class Rational(object):
 
         :returns: an int of the Rational, after calculating its floor
         :rtype: int
+
+        >>> int(Rational(7, 5))    
+        1
+        >>> int(Rational(12, 5))
+        2
         """
         return int(self.p//self.q)
 
@@ -528,6 +647,11 @@ class Rational(object):
 
         :returns: a float approximation of the Rational
         :rtype: float
+
+        >>> float(Rational(7, 5))
+        1.4
+        >>> float(Rational(12, 5))
+        2.4
         """
         return float(self.p/self.q)
 
@@ -536,6 +660,9 @@ class Rational(object):
 
         :returns: a string representation of the Rational
         :rtype: str
+
+        >>> str(Rational(7, 5))
+        '7/5'
         """
         if self.q == 1:
             return str(self.p)
@@ -547,5 +674,8 @@ class Rational(object):
 
         :returns: a string representation of the Rational
         :rtype: str
+
+        >>> repr(Rational(7, 5))
+        '7/5'
         """
         return self.__str__()
