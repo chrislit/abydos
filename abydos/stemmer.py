@@ -1062,6 +1062,13 @@ def sb_german(word, alternate_vowels=False):
         running the algorithm
     :returns: word stem
     :rtype: str
+
+    >>> sb_german('lesen')
+    'les'
+    >>> sb_german('graues')
+    'grau'
+    >>> sb_german('buchstabieren')
+    'buchstabi'
     """
     # pylint: disable=too-many-branches
 
@@ -1503,6 +1510,13 @@ def clef_german(word):
     :param word: the word to calculate the stem of
     :returns: word stem
     :rtype: str
+
+    >>> clef_german('lesen')
+    'lese'
+    >>> clef_german('graues')
+    'grau'
+    >>> clef_german('buchstabieren')
+    'buchstabier'
     """
     # lowercase, normalize, and compose
     word = unicodedata.normalize('NFC', _unicode(word.lower()))
@@ -1535,6 +1549,13 @@ def clef_german_plus(word):
     :param word: the word to calculate the stem of
     :returns: word stem
     :rtype: str
+
+    >>> clef_german_plus('lesen')
+    'les'
+    >>> clef_german_plus('graues')
+    'grau'
+    >>> clef_german_plus('buchstabieren')
+    'buchstabi'
     """
     _st_ending = frozenset('bdfghklmnt')
 
@@ -1614,6 +1635,13 @@ def caumanns(word):
     :param word: the word to calculate the stem of
     :returns: word stem
     :rtype: str
+
+    >>> caumanns('lesen')
+    'les'
+    >>> caumanns('graues')
+    'grau'
+    >>> caumanns('buchstabieren')
+    'buchstabier'
     """
     if not len(word):
         return ''
