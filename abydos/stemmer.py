@@ -1319,6 +1319,13 @@ def sb_norwegian(word):
     :param word: the word to calculate the stem of
     :returns: word stem
     :rtype: str
+
+    >>> sb_norwegian('lese')
+    'les'
+    >>> sb_norwegian('suspensjon')
+    'suspensjon'
+    >>> sb_norwegian('sikkerhet')
+    'sikker'
     """
     _vowels = frozenset('aeiouyæåø')
     _s_endings = frozenset('bcdfghjlmnoprtvyz')
@@ -1383,6 +1390,13 @@ def sb_swedish(word):
     :param word: the word to calculate the stem of
     :returns: word stem
     :rtype: str
+
+    >>> sb_swedish('undervisa')
+    'undervis'
+    >>> sb_swedish('suspension')
+    'suspension'
+    >>> sb_swedish('visshet')
+    'viss'
     """
     _vowels = frozenset('aeiouyäåö')
     _s_endings = frozenset('bcdfghjklmnoprtvy')
@@ -1443,6 +1457,13 @@ def sb_danish(word):
     :param word: the word to calculate the stem of
     :returns: word stem
     :rtype: str
+
+    >>> sb_danish('underviser')
+    'undervis'
+    >>> sb_danish('suspension')
+    'suspension'
+    >>> sb_danish('sikkerhed')
+    'sikker'
     """
     _vowels = frozenset('aeiouyæåø')
     _s_endings = frozenset('abcdfghjklmnoprtvyzå')
@@ -1604,6 +1625,13 @@ def clef_swedish(word):
     :param word: the word to calculate the stem of
     :returns: word stem
     :rtype: str
+
+    >>> clef_swedish('undervisa')
+    'undervis'
+    >>> clef_swedish('suspension')
+    'suspensio'
+    >>> clef_swedish('visshet')
+    'viss'
     """
     wlen = len(word)-1
 
