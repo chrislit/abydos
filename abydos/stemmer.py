@@ -1194,6 +1194,13 @@ def sb_dutch(word):
     :param word: the word to calculate the stem of
     :returns: word stem
     :rtype: str
+
+    >>> sb_dutch('lezen')
+    'lez'
+    >>> sb_dutch('opschorting')
+    'opschort'
+    >>> sb_dutch('ongrijpbaarheid')
+    'ongrijp'
     """
     # pylint: disable=too-many-branches
 
