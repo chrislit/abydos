@@ -41,6 +41,13 @@ def lovins(word):
     :param word: the word to stem
     :returns: word stem
     :rtype: string
+
+    >>> lovins('reading')
+    'read'
+    >>> lovins('suspension')
+    'suspens'
+    >>> lovins('elusiveness')
+    'elus'
     """
     # pylint: disable=too-many-branches, too-many-locals
 
@@ -472,6 +479,16 @@ def porter(word, early_english=False):
         person singular verbal agreement suffixes)
     :returns: word stem
     :rtype: str
+
+    >>> porter('reading')
+    'read'
+    >>> porter('suspension')
+    'suspens'
+    >>> porter('elusiveness')
+    'elus'
+
+    >>> porter('eateth', early_english=True)
+    'eat'
     """
     # pylint: disable=too-many-branches
 
@@ -765,6 +782,16 @@ def porter2(word, early_english=False):
         person singular verbal agreement suffixes)
     :returns: word stem
     :rtype: str
+
+    >>> porter2('reading')
+    'read'
+    >>> porter2('suspension')
+    'suspens'
+    >>> porter2('elusiveness')
+    'elus'
+
+    >>> porter2('eateth', early_english=True)
+    'eat'
     """
     # pylint: disable=too-many-branches
     # pylint: disable=too-many-return-statements
