@@ -41,6 +41,9 @@ def fingerprint(phrase):
     :param str phrase: the string from which to calculate the fingerprint
     :returns: the fingerprint of the phrase
     :rtype: str
+
+    >>> fingerprint('The quick brown fox jumped over the lazy dog.')
+    'brown dog fox jumped lazy over quick the'
     """
     phrase = unicodedata.normalize('NFKD', _unicode(phrase.strip().lower()))
     phrase = ''.join([c for c in phrase if c.isalnum() or c.isspace()])
@@ -61,6 +64,13 @@ def qgram_fingerprint(phrase, qval=2, start_stop=''):
         end of the phrase, as defined in abydos.util.qgram()
     :returns: the q-gram fingerprint of the phrase
     :rtype: str
+
+    >>> qgram_fingerprint('The quick brown fox jumped over the lazy dog.')
+    'azbrckdoedeleqerfoheicjukblampnfogovowoxpequrortthuiumvewnxjydzy'
+    >>> qgram_fingerprint('Christopher')
+    'cherhehrisopphristto'
+    >>> qgram_fingerprint('Niall')
+    'aliallni'
     """
     phrase = unicodedata.normalize('NFKD', _unicode(phrase.strip().lower()))
     phrase = ''.join(c for c in phrase if c.isalnum())
@@ -87,6 +97,11 @@ def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone, *args):
         along with the phrase itself
     :returns: the phonetic fingerprint of the phrase
     :rtype: str
+
+    >>> phonetic_fingerprint('The quick brown fox jumped over the lazy dog.')
+    '0 afr fks jmpt kk ls prn tk'
+    >>> phonetic_fingerprint('The quick brown fox jumped over the lazy dog.', phonetic_algorithm=soundex)
+    'b650 d200 f200 j513 l200 o160 q200 t000'
     """
     phonetic = ''
     for word in phrase.split():
@@ -109,6 +124,13 @@ def skeleton_key(word):
     :param str word: the word to transform into its skeleton key
     :returns: the skeleton key
     :rtype: str
+
+    >>> skeleton_key('The quick brown fox jumped over the lazy dog.')
+    'THQCKBRWNFXJMPDVLZYGEUIOA'
+    >>> skeleton_key('Christopher')
+    'CHRSTPIOE'
+    >>> skeleton_key('Niall')
+    'NLIA'
     """
     _vowels = frozenset('AEIOU')
 
@@ -144,6 +166,13 @@ def omission_key(word):
     :param str word: the word to transform into its omission key
     :returns: the omission key
     :rtype: str
+
+    >>> omission_key('The quick brown fox jumped over the lazy dog.')
+    'JKQXZVWYBFMGPDHCLNTREUIOA'
+    >>> omission_key('Christopher')
+    'PHCTSRIOE'
+    >>> omission_key('Niall')
+    'LNIA'
     """
     _consonants = tuple('JKQXZVWYBFMGPDHCLNTSR')
 
@@ -182,6 +211,11 @@ def mean_pairwise_similarity(collection, metric=sim,
         calculated in both directions
     :returns: the mean pairwise similarity of a collection of strings
     :rtype: str
+
+    >>> mean_pairwise_similarity(['Christopher', 'Kristof', 'Christobal'])
+    0.51980198019801982
+    >>> mean_pairwise_similarity(['Niall', 'Neal', 'Neil'])
+    0.54545454545454541
     """
     if hasattr(collection, 'split'):
         collection = collection.split()
