@@ -608,7 +608,7 @@ def nysiis(word, maxlength=6):
     'CRASTA'
     >>> nysiis('Niall')
     'NAL'
-    >>> nysiis('Smith')          
+    >>> nysiis('Smith')
     'SNAT'
     >>> nysiis('Schmidt')
     'SNAD'
@@ -4310,7 +4310,10 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     :rtype: tuple
 
     >>> bmpm('Christopher')
-    'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir xristYfir xristopi xritopir xritopi xristofi xritofir xritofi tzristopir tzristofir zristopir zristopi zritopir zritopi zristofir zristofi zritofir zritofi'
+    'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
+    xristYfir xristopi xritopir xritopi xristofi xritofir xritofi tzristopir
+    tzristofir zristopir zristopi zritopir zritopi zristofir zristofi zritofir
+    zritofi'
     >>> bmpm('Niall')
     'nial niol'
     >>> bmpm('Smith')
@@ -4319,11 +4322,14 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     'zmit stzmit'
 
     >>> bmpm('Christopher', language_arg='German')
-    'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir xristYfir'
+    'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
+    xristYfir'
     >>> bmpm('Christopher', language_arg='English')
-    'tzristofir tzrQstofir tzristafir tzrQstafir xristofir xrQstofir xristafir xrQstafir'
+    'tzristofir tzrQstofir tzristafir tzrQstafir xristofir xrQstofir xristafir
+    xrQstafir'
     >>> bmpm('Christopher', language_arg='German', name_mode='ash')
-    'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir xristYfir'
+    'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
+    xristYfir'
 
     >>> bmpm('Christopher', language_arg='German', match_mode='exact')
     'xriStopher xriStofer xristopher xristofer'
