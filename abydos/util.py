@@ -342,7 +342,7 @@ class Rational(object):
         :returns: True if self == other (numerically)
         :rtype: bool
 
-        >>> Rational('2/5') == '2/5'     
+        >>> Rational('2/5') == '2/5'
         True
         >>> Rational(1, 2) == 0.9
         False
@@ -360,7 +360,7 @@ class Rational(object):
         :returns: True if self != other
         :rtype: bool
 
-        >>> Rational('2/5') != '2/5'     
+        >>> Rational('2/5') != '2/5'
         False
         >>> Rational(1, 2) != 0.9
         True
@@ -373,7 +373,7 @@ class Rational(object):
         :returns: True if self < other
         :rtype: bool
 
-        >>> Rational('2/5') < '2/5'     
+        >>> Rational('2/5') < '2/5'
         False
         >>> Rational(1, 2) < 0.9
         True
@@ -388,7 +388,7 @@ class Rational(object):
         :returns: True if self <= other
         :rtype: bool
 
-        >>> Rational('2/5') <= '2/5'     
+        >>> Rational('2/5') <= '2/5'
         True
         >>> Rational(1, 2) <= 0.9
         True
@@ -403,7 +403,7 @@ class Rational(object):
         :returns: True if self > other
         :rtype: bool
 
-        >>> Rational('2/5') > '2/5'     
+        >>> Rational('2/5') > '2/5'
         False
         >>> Rational(1, 2) > 0.9
         False
@@ -418,7 +418,7 @@ class Rational(object):
         :returns: True if self >= other
         :rtype: bool
 
-        >>> Rational('2/5') >= '2/5'     
+        >>> Rational('2/5') >= '2/5'
         True
         >>> Rational(1, 2) >= 0.9
         False
@@ -433,7 +433,7 @@ class Rational(object):
         :returns: a Rational object after negating the numerator
         :rtype: Rational
 
-        >>> -Rational('2/5')     
+        >>> -Rational('2/5')
         -2/5
         >>> -Rational(1, -2)
         1/2
@@ -499,7 +499,7 @@ class Rational(object):
         :returns: a Rational object after subtracting self from other
         :rtype: Rational
 
-        >>> 4-Rational(7, 5)  
+        >>> 4-Rational(7, 5)
         13/5
         """
         return -self + other
@@ -525,7 +525,7 @@ class Rational(object):
         :returns: a Rational object after multiplying other by self
         :rtype: Rational
 
-        >>> 4*Rational(7, 5)  
+        >>> 4*Rational(7, 5)
         28/5
         """
         return self * other
@@ -591,7 +591,7 @@ class Rational(object):
         :returns: a Rational object after raising base to the power of self
         :rtype: Rational
 
-        >>> 4**Rational(7, 5)   
+        >>> 4**Rational(7, 5)
         7841222384935199/1125899906842624
         """
         exponent = float(self)
@@ -635,7 +635,7 @@ class Rational(object):
         :returns: an int of the Rational, after calculating its floor
         :rtype: int
 
-        >>> int(Rational(7, 5))    
+        >>> int(Rational(7, 5))
         1
         >>> int(Rational(12, 5))
         2
