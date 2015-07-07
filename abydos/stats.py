@@ -1175,8 +1175,8 @@ def median(nums):
         return nums[mag]
     else:
         mag = int(mag/2)
-        return (nums[mag-1]+nums[mag])/2
-
+        med = (nums[mag-1]+nums[mag])/2
+        return med if not med.is_integer() else int(med)
 
 def mode(nums):
     """mode
