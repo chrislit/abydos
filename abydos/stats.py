@@ -1159,7 +1159,7 @@ def median(nums):
 
     :param list nums: A series of numbers
     :returns: The median of nums
-    :rtype: float
+    :rtype: int or float
 
     >>> median([1, 2, 3])
     2
@@ -1177,6 +1177,7 @@ def median(nums):
         mag = int(mag/2)
         med = (nums[mag-1]+nums[mag])/2
         return med if not med.is_integer() else int(med)
+
 
 def mode(nums):
     """mode
