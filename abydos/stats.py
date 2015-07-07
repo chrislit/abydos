@@ -1144,6 +1144,13 @@ def midrange(nums):
     :param list nums: A series of numbers
     :returns: The midrange of nums
     :rtype: float
+
+    >>> midrange([1, 2, 3])
+    2.0
+    >>> midrange([1, 2, 2, 3])
+    2.0
+    >>> midrange([1, 2, 1000, 3])
+    500.5
     """
     return 0.5*(max(nums)+min(nums))
 
