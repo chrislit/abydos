@@ -1160,6 +1160,13 @@ def median(nums):
     :param list nums: A series of numbers
     :returns: The median of nums
     :rtype: float
+
+    >>> median([1, 2, 3])
+    2
+    >>> median([1, 2, 3, 4])
+    2.5
+    >>> median([1, 2, 2, 4])
+    2
     """
     nums = sorted(nums)
     mag = len(nums)
@@ -1181,5 +1188,8 @@ def mode(nums):
     :param list nums: A series of numbers
     :returns: The mode of nums
     :rtype: float
+
+    >>> mode([1, 2, 2, 3])
+    2
     """
     return Counter(nums).most_common(1)[0][0]
