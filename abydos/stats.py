@@ -851,6 +851,13 @@ def amean(nums):
     :param list nums: A series of numbers
     :returns: The arithmetric mean of nums
     :rtype: float
+
+    >>> amean([1, 2, 3, 4])
+    2.5
+    >>> amean([1, 2])
+    1.5
+    >>> amean([0, 5, 1000])
+    335.0
     """
     return sum(nums)/len(nums)
 
@@ -866,6 +873,13 @@ def gmean(nums):
     :param list nums: A series of numbers
     :returns: The geometric mean of nums
     :rtype: float
+
+    >>> gmean([1, 2, 3, 4])
+    2.213363839400643
+    >>> gmean([1, 2])
+    1.4142135623730951
+    >>> gmean([0, 5, 1000])
+    0.0
     """
     return prod(nums)**(1/len(nums))
 
@@ -885,6 +899,13 @@ def hmean(nums):
     :param list nums: A series of numbers
     :returns: The harmonic mean of nums
     :rtype: float
+
+    >>> hmean([1, 2, 3, 4])
+    1.9200000000000004
+    >>> hmean([1, 2])
+    1.3333333333333333
+    >>> hmean([0, 5, 1000])
+    0
     """
     if len(nums) < 1:
         raise AttributeError('hmean requires at least one value')
@@ -1079,6 +1100,13 @@ def agmean(nums):
     :param list nums: A series of numbers
     :returns: The arithmetic-geometric mean of nums
     :rtype: float
+
+    >>> agmean([1, 2, 3, 4])
+    2.3545004777751077
+    >>> agmean([1, 2])
+    1.4567910310469068
+    >>> agmean([0, 5, 1000])
+    2.9753977059954195e-13
     """
     m_a = amean(nums)
     m_g = gmean(nums)
@@ -1099,6 +1127,18 @@ def ghmean(nums):
     :param list nums: A series of numbers
     :returns: The geometric-harmonic mean of nums
     :rtype: float
+
+    >>> ghmean([1, 2, 3, 4])
+    2.058868154613003
+    >>> ghmean([1, 2])
+    1.3728805006183502
+    >>> ghmean([0, 5, 1000])
+    0.0
+
+    >>> ghmean([0, 0])
+    0.0
+    >>> ghmean([0, 0, 5])
+    nan
     """
     m_g = gmean(nums)
     m_h = hmean(nums)
@@ -1120,6 +1160,13 @@ def aghmean(nums):
     :param list nums: A series of numbers
     :returns: The arithmetic-geometric-harmonic mean of nums
     :rtype: float
+
+    >>> aghmean([1, 2, 3, 4])
+    2.198327159900212
+    >>> aghmean([1, 2])
+    1.4142135623731884
+    >>> aghmean([0, 5, 1000])
+    335.0
     """
     m_a = amean(nums)
     m_g = gmean(nums)
