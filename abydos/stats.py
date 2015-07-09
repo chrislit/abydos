@@ -1046,6 +1046,15 @@ def seiffert_mean(nums):
     :param list nums: A series of numbers
     :returns: Sieffert's mean of nums
     :rtype: float
+
+    >>> seiffert_mean([1, 2])
+    1.4712939827611637
+    >>> seiffert_mean([1, 0])
+    0.3183098861837907
+    >>> seiffert_mean([2, 4])
+    2.9425879655223275
+    >>> seiffert_mean([2, 1000])
+    336.84053300118825
     """
     if len(nums) == 1:
         return nums[0]
@@ -1068,6 +1077,13 @@ def lehmer_mean(nums, exp=2):
     :param numeric exp: The exponent of the Lehmer mean
     :returns: The Lehmer mean of nums for the given exponent
     :rtype: float
+
+    >>> lehmer_mean([1, 2, 3, 4])
+    3.0
+    >>> lehmer_mean([1, 2])
+    1.6666666666666667
+    >>> lehmer_mean([0, 5, 1000])
+    995.0497512437811
     """
     return sum(x**exp for x in nums)/sum(x**(exp-1) for x in nums)
 
@@ -1085,6 +1101,13 @@ def heronian_mean(nums):
     :param list nums: A series of numbers
     :returns: The Heronian mean of nums
     :rtype: float
+
+    >>> heronian_mean([1, 2, 3, 4])
+    2.3888282852609093
+    >>> heronian_mean([1, 2])
+    1.4714045207910316
+    >>> heronian_mean([0, 5, 1000])
+    179.28511301977582
     """
     mag = len(nums)
     rolling_sum = 0
@@ -1110,6 +1133,13 @@ def hoelder_mean(nums, exp=2):
     :param numeric exp: The exponent of the Hölder mean
     :returns: The Hölder mean of nums for the given exponent
     :rtype: float
+
+    >>> hoelder_mean([1, 2, 3, 4])
+    2.7386127875258306
+    >>> hoelder_mean([1, 2])
+    1.5811388300841898
+    >>> hoelder_mean([0, 5, 1000])
+    577.3574860228857
     """
     if exp == 0:
         return gmean(nums)
