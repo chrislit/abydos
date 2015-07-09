@@ -936,6 +936,13 @@ def qmean(nums):
     :param list nums: A series of numbers
     :returns: The quadratic mean of nums
     :rtype: float
+
+    >>> qmean([1, 2, 3, 4])
+    2.7386127875258306
+    >>> qmean([1, 2])
+    1.5811388300841898
+    >>> qmean([0, 5, 1000])
+    577.3574860228857
     """
     return (sum(i**2 for i in nums)/len(nums))**(0.5)
 
@@ -951,6 +958,13 @@ def cmean(nums):
     :param list nums: A series of numbers
     :returns: The contraharmonic mean of nums
     :rtype: float
+
+    >>> cmean([1, 2, 3, 4])
+    3.0
+    >>> cmean([1, 2])
+    1.6666666666666667
+    >>> cmean([0, 5, 1000])
+    995.0497512437811
     """
     return sum(x**2 for x in nums)/sum(nums)
 
@@ -971,6 +985,11 @@ def lmean(nums):
     :param list nums: A series of numbers
     :returns: The logarithmic mean of nums
     :rtype: float
+
+    >>> lmean([1, 2, 3, 4])
+    2.2724242417489258
+    >>> lmean([1, 2])
+    1.4426950408889634
     """
     if len(nums) != len(set(nums)):
         raise AttributeError('No two values in the nums list may be equal.')
@@ -996,6 +1015,13 @@ def imean(nums):
     :param list nums: A series of numbers
     :returns: The identric mean of nums
     :rtype: float
+
+    >>> imean([1, 2])
+    1.4715177646857693
+    >>> imean([1, 0])
+    nan
+    >>> imean([2, 4])
+    2.9430355293715387
     """
     if len(nums) == 1:
         return nums[0]
