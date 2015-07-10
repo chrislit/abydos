@@ -16,3 +16,19 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
+"""abydos.lm
+
+The lm module implements language model classes, including:
+
+    - maximum likelihood estimated
+    - additive (Laplacian) smoothed
+    - Good-Turing estimated
+    - Jelinek-Mercer smoothed
+    - Katz smoothed
+    - Witten-Bell smoothed
+    - absolute discounted
+    - Kneser-Ney smoothed
+    - Church-Gale smoothed
+    - Modified Kneser-Ney smoothed
+
+"""
