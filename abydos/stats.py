@@ -90,6 +90,14 @@ class ConfusionTable(object):
         :param int tn: true negatives
         :param int fp: false positives
         :param int fn: false negatives
+
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct == ConfusionTable((120, 60, 20, 30))
+        True
+        >>> ct == ConfusionTable([120, 60, 20, 30])
+        True
+        >>> ct == ConfusionTable({'tp': 120, 'tn': 60, 'fp': 20, 'fn': 30})
+        True
         """
         if isinstance(tp, tuple) or isinstance(tp, list):
             if len(tp) == 4:
@@ -124,6 +132,20 @@ class ConfusionTable(object):
         :returns: True if two ConfusionTables are the same object or all four
         of their attributes are equal
         :rtype: bool
+
+        >>> ct1 = ConfusionTable(120, 60, 20, 30)
+        >>> ct2 = ConfusionTable(120, 60, 20, 30)
+        >>> ct3 = ConfusionTable(60, 30, 10, 15)
+
+        >>> ct1 == ct2
+        True
+        >>> ct1 == ct3
+        False
+
+        >>> ct1 != ct2
+        False
+        >>> ct1 != ct3
+        True
         """
         if isinstance(other, ConfusionTable):
             if id(self) == id(other):
@@ -148,6 +170,10 @@ class ConfusionTable(object):
 
         :returns: a human-readable version of the confusion table
         :rtype: str
+
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> str(ct)
+        'tp:120, tn:60, fp:20, fn:30'
         """
         return ('tp:' + str(self._tp) + ', tn:' + str(self._tn) + ', fp:' +
                 str(self._fp) + ', fn:' + str(self._fn))
@@ -157,6 +183,10 @@ class ConfusionTable(object):
 
         :returns: the confusion table as a 4-tuple (tp, tn, fp, fn)
         :rtype: tuple
+
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.tuple()
+        (120, 60, 20, 30)
         """
         return (self._tp, self._tn, self._fp, self._fn)
 
@@ -165,6 +195,10 @@ class ConfusionTable(object):
 
         :returns: the confusion table as a dict
         :rtype: dict
+
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.dict()
+        {'fp': 20, 'fn': 30, 'tn': 60, 'tp': 120}
         """
         return {'tp': self._tp, 'tn': self._tn,
                 'fp': self._fp, 'fn': self._fn}
