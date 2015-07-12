@@ -863,7 +863,10 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.fbeta_score()
+        0.8275862068965518
+        >>> ct.fbeta_score(beta=0.1)
+        0.8565371024734982
         """
         if beta <= 0:
             raise AttributeError('Beta must be a positive real value.')
@@ -884,7 +887,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.f2_score()           
+        0.8108108108108109
         """
         return self.fbeta_score(2)
 
@@ -900,7 +904,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.fhalf_score()
+        0.8450704225352114
         """
         return self.fbeta_score(0.5)
 
@@ -915,7 +920,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.e_score()    
+        0.17241379310344818
         """
         return 1-self.fbeta_score(beta)
 
@@ -931,7 +937,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.f1_score()
+        0.8275862068965516
         """
         return self.pr_hmean()
 
@@ -947,7 +954,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.f_measure()
+        0.8275862068965516
         """
         return self.pr_hmean()
 
@@ -968,7 +976,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.g_measure()
+        0.828078671210825
         """
         return self.pr_gmean()
 
@@ -988,7 +997,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.mcc()      
+        0.5367450401216932
         """
         if (((self._tp + self._fp) * (self._tp + self._fn) *
              (self._tn + self._fp) * (self._tn + self._fn))) == 0:
@@ -1013,7 +1023,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.significance()
+        66.26190476190476
         """
         if (((self._tp + self._fp) * (self._tp + self._fn) *
              (self._tn + self._fp) * (self._tn + self._fn))) == 0:
@@ -1039,7 +1050,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.kappa_statistic()
+        0.5344129554655871
         """
         if self.population() == 0:
             return float('NaN')
