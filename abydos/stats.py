@@ -330,7 +330,7 @@ class ConfusionTable(object):
         :rtype: int
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        >>> ct.population()  
+        >>> ct.population()
         230
         """
         return self._tp + self._tn + self._fp + self._fn
@@ -350,7 +350,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.precision()
+        0.8571428571428571
         """
         if self._tp + self._fp == 0:
             return float('NaN')
@@ -368,7 +369,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.precision_gain()
+        1.3142857142857143
         """
         if self.population() == 0:
             return float('NaN')
@@ -392,7 +394,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.recall()        
+        0.8
         """
         if self._tp + self._fn == 0:
             return float('NaN')
@@ -411,7 +414,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.specificity()
+        0.75
         """
         if self._tn + self._fp == 0:
             return float('NaN')
@@ -428,7 +432,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.npv()        
+        0.6666666666666666
         """
         if self._tn + self._fn == 0:
             return float('NaN')
@@ -447,7 +452,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.fallout()
+        0.25
         """
         if self._fp + self._tn == 0:
             return float('NaN')
@@ -464,7 +470,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.fdr()    
+        0.14285714285714285
         """
         if self._fp + self._tp == 0:
             return float('NaN')
@@ -481,7 +488,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.accuracy()
+        0.782608695652174
         """
         if self.population() == 0:
             return float('NaN')
@@ -499,7 +507,7 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        1.4325259515570934
         """
         if self.population() == 0:
             return float('NaN')
@@ -519,7 +527,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.balanced_accuracy()
+        0.775
         """
         return 0.5 * (self.recall() + self.specificity())
 
@@ -541,7 +550,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.informedness()     
+        0.55
         """
         return self.recall() + self.specificity() - 1
 
@@ -561,7 +571,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.markedness()  
+        0.5238095238095237
         """
         return self.precision() + self.npv() - 1
 
@@ -578,7 +589,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.pr_amean()
+        0.8285714285714285
         """
         return amean((self.precision(), self.recall()))
 
@@ -595,7 +607,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.pr_gmean()
+        0.828078671210825
         """
         return gmean((self.precision(), self.recall()))
 
@@ -611,7 +624,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.pr_hmean()
+        0.8275862068965516
         """
         return hmean((self.precision(), self.recall()))
 
@@ -628,7 +642,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.pr_qmean()
+        0.8290638930598233
         """
         return qmean((self.precision(), self.recall()))
 
@@ -645,7 +660,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.pr_cmean()
+        0.8295566502463055
         """
         return cmean((self.precision(), self.recall()))
 
@@ -665,7 +681,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.pr_lmean()
+        0.8282429171492667
         """
         precision = self.precision()
         recall = self.recall()
@@ -692,7 +709,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.pr_imean()
+        0.8284071826325543
         """
         return imean((self.precision(), self.recall()))
 
@@ -709,7 +727,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.pr_seiffert_mean()
+        0.8284071696048312
         """
         return seiffert_mean((self.precision(), self.recall()))
 
@@ -728,7 +747,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.pr_lehmer_mean()  
+        0.8295566502463055
         """
         return lehmer_mean((self.precision(), self.recall()), exp)
 
@@ -744,7 +764,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.pr_heronian_mean()
+        0.8284071761178939
         """
         return heronian_mean((self.precision(), self.recall()))
 
@@ -764,7 +785,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.pr_hoelder_mean() 
+        0.8290638930598233
         """
         return hoelder_mean((self.precision(), self.recall()), exp)
 
@@ -781,7 +803,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.pr_agmean()      
+        0.8283250315702829
         """
         return agmean((self.precision(), self.recall()))
 
@@ -798,7 +821,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.pr_ghmean()
+        0.8278323841238441
         """
         return ghmean((self.precision(), self.recall()))
 
@@ -815,7 +839,8 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        
+        >>> ct.pr_aghmean()
+        0.8280786712108288
         """
         return aghmean((self.precision(), self.recall()))
 
