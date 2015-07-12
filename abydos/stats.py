@@ -208,6 +208,10 @@ class ConfusionTable(object):
 
         :returns: the true positives of the confusion table
         :rtype: int
+
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.true_pos()
+        120
         """
         return self._tp
 
@@ -216,6 +220,10 @@ class ConfusionTable(object):
 
         :returns: the true negatives of the confusion table
         :rtype: int
+
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.true_neg()
+        60
         """
         return self._tn
 
@@ -224,6 +232,10 @@ class ConfusionTable(object):
 
         :returns: the false positives of the confusion table
         :rtype: int
+
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.false_pos()
+        20
         """
         return self._fp
 
@@ -232,6 +244,10 @@ class ConfusionTable(object):
 
         :returns: the false negatives of the confusion table
         :rtype: int
+
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.false_neg()
+        30
         """
         return self._fn
 
@@ -240,6 +256,10 @@ class ConfusionTable(object):
 
         :returns: the correct population of the confusion table
         :rtype: int
+
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.correct_pop()
+        180
         """
         return self._tp + self._tn
 
@@ -248,6 +268,10 @@ class ConfusionTable(object):
 
         :returns: The error population of the confusion table
         :rtype: int
+
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.error_pop()  
+        50
         """
         return self._fp + self._fn
 
@@ -256,6 +280,10 @@ class ConfusionTable(object):
 
         :returns: The test positive population of the confusion table
         :rtype: int
+
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.test_pos_pop()
+        140
         """
         return self._tp + self._fp
 
@@ -264,6 +292,10 @@ class ConfusionTable(object):
 
         :returns: The test negative population of the confusion table
         :rtype: int
+
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.test_neg_pop()
+        90        
         """
         return self._tn + self._fn
 
@@ -272,6 +304,10 @@ class ConfusionTable(object):
 
         :returns: The condition positive population of the confusion table
         :rtype: int
+
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.cond_pos_pop()
+        150
         """
         return self._tp + self._fn
 
@@ -280,6 +316,10 @@ class ConfusionTable(object):
 
         :returns: The condition negative population of the confusion table
         :rtype: int
+
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.cond_neg_pop()
+        80        
         """
         return self._fp + self._tn
 
@@ -288,6 +328,10 @@ class ConfusionTable(object):
 
         :returns: The population (N) of the confusion table
         :rtype: int
+
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.population()  
+        230
         """
         return self._tp + self._tn + self._fp + self._fn
 
