@@ -54,6 +54,18 @@ class QGrams(Counter):
             of the string before q-grams are calculated. (In the case that
             start_stop is only 1 character long, the same symbol will be used
             for both.)
+
+        >>> qg = QGrams('AATTATAT')
+        >>> qg
+        QGrams({'AT': 3, 'TA': 2, 'TT': 1, '$A': 1, 'AA': 1, 'T#': 1})
+
+        >>> qg = QGrams('AATTATAT', qval=1, start_stop='')
+        >>> qg
+        QGrams({'A': 4, 'T': 4})
+
+        >>> qg = QGrams('AATTATAT', qval=3, start_stop='')
+        >>> qg
+        QGrams({'TAT': 2, 'ATT': 1, 'TTA': 1, 'ATA': 1, 'AAT': 1})
         """
         self.term = term
         if len(term) < qval or qval < 1:
@@ -71,5 +83,17 @@ class QGrams(Counter):
 
         :returns: the total count of q-grams in a QGrams object
         :rtype: int
+
+        >>> qg = QGrams('AATTATAT')
+        >>> qg.count()
+        9
+
+        >>> qg = QGrams('AATTATAT', qval=1, start_stop='')
+        >>> qg.count()
+        8
+
+        >>> qg = QGrams('AATTATAT', qval=3, start_stop='')
+        >>> qg.count()
+        6
         """
         return sum(self.values())
