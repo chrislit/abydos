@@ -110,6 +110,25 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
         respectively (by default: (1, 1, 1, 1))
     :returns: the Levenshtein distance between src & tar
     :rtype: int (may return a float if cost has float values)
+
+    >>> levenshtein('cat', 'hat')
+    1
+    >>> levenshtein('Niall', 'Neil')
+    3
+    >>> levenshtein('aluminum', 'Catalan')
+    7
+    >>> levenshtein('ATCG', 'TAGC')
+    3
+
+    >>> levenshtein('ATCG', 'TAGC', mode='osa')
+    2
+    >>> levenshtein('ACTG', 'TAGC', mode='osa')
+    4
+
+    >>> levenshtein('ATCG', 'TAGC', mode='dam')
+    2
+    >>> levenshtein('ACTG', 'TAGC', mode='dam')
+    3
     """
     ins_cost, del_cost, sub_cost, trans_cost = cost
 
@@ -176,6 +195,15 @@ def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
         respectively (by default: (1, 1, 1, 1))
     :returns: normalized Levenshtein distance
     :rtype: float
+
+    >>> dist_levenshtein('cat', 'hat')
+    0.33333333333333331
+    >>> dist_levenshtein('Niall', 'Neil')
+    0.59999999999999998
+    >>> dist_levenshtein('aluminum', 'Catalan')
+    0.875
+    >>> dist_levenshtein('ATCG', 'TAGC')
+    0.75
     """
     if src == tar:
         return 0
@@ -210,6 +238,15 @@ def sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
         (by default: (1, 1, 1, 1))
     :returns: normalized Levenshtein similarity
     :rtype: float
+
+    >>> sim_levenshtein('cat', 'hat')
+    0.66666666666666674
+    >>> sim_levenshtein('Niall', 'Neil')
+    0.40000000000000002
+    >>> sim_levenshtein('aluminum', 'Catalan')
+    0.125
+    >>> sim_levenshtein('ATCG', 'TAGC')
+    0.25
     """
     return 1 - dist_levenshtein(src, tar, mode, cost)
 
