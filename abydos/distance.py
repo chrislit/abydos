@@ -268,6 +268,15 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
         (by default: (1, 1, 1, 1))
     :returns: the Damerau-Levenshtein distance between src & tar
     :rtype: int (may return a float if cost has float values)
+
+    >>> damerau_levenshtein('cat', 'hat')
+    1
+    >>> damerau_levenshtein('Niall', 'Neil')
+    3
+    >>> damerau_levenshtein('aluminum', 'Catalan')
+    7
+    >>> damerau_levenshtein('ATCG', 'TAGC')
+    2
     """
     ins_cost, del_cost, sub_cost, trans_cost = cost
 
@@ -361,6 +370,15 @@ def dist_damerau(src, tar, cost=(1, 1, 1, 1)):
         (by default: (1, 1, 1, 1))
     :returns: normalized Damerau-Levenshtein distance
     :rtype: float
+
+    >>> dist_damerau('cat', 'hat')
+    0.33333333333333331
+    >>> dist_damerau('Niall', 'Neil')
+    0.59999999999999998
+    >>> dist_damerau('aluminum', 'Catalan')
+    0.875
+    >>> dist_damerau('ATCG', 'TAGC')
+    0.5
     """
     if src == tar:
         return 0
@@ -385,6 +403,15 @@ def sim_damerau(src, tar, cost=(1, 1, 1, 1)):
         (by default: (1, 1, 1, 1))
     :returns: normalized Damerau-Levenshtein similarity
     :rtype: float
+
+    >>> sim_damerau('cat', 'hat')
+    0.66666666666666674
+    >>> sim_damerau('Niall', 'Neil')
+    0.40000000000000002
+    >>> sim_damerau('aluminum', 'Catalan')
+    0.125
+    >>> sim_damerau('ATCG', 'TAGC')
+    0.5
     """
     return 1 - dist_damerau(src, tar, cost)
 
