@@ -435,6 +435,15 @@ def hamming(src, tar, difflens=True):
         lengths.
     :returns: the Hamming distance between src & tar
     :rtype: int
+
+    >>> hamming('cat', 'hat')
+    1
+    >>> hamming('Niall', 'Neil')
+    3
+    >>> hamming('aluminum', 'Catalan')
+    8
+    >>> hamming('ATCG', 'TAGC')
+    4
     """
     if not difflens and len(src) != len(tar):
         raise ValueError('Undefined for sequences of unequal length; set ' +
@@ -468,6 +477,15 @@ def dist_hamming(src, tar, difflens=True):
         lengths.
     :returns: normalized Hamming distance
     :rtype: float
+
+    >>> dist_hamming('cat', 'hat')
+    0.3333333333333333
+    >>> dist_hamming('Niall', 'Neil')
+    0.6
+    >>> dist_hamming('aluminum', 'Catalan')
+    1.0
+    >>> dist_hamming('ATCG', 'TAGC')
+    1.0
     """
     if src == tar:
         return 0
@@ -496,6 +514,15 @@ def sim_hamming(src, tar, difflens=True):
         lengths.
     :returns: normalized Hamming similarity
     :rtype: float
+
+    >>> sim_hamming('cat', 'hat')
+    0.6666666666666667
+    >>> sim_hamming('Niall', 'Neil')
+    0.4
+    >>> sim_hamming('aluminum', 'Catalan')
+    0.0
+    >>> sim_hamming('ATCG', 'TAGC')
+    0.0
     """
     return 1 - dist_hamming(src, tar, difflens)
 
