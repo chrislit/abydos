@@ -571,6 +571,15 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
         description below
     :returns: Tversky similarity
     :rtype: float
+
+    >>> sim_tversky('cat', 'hat')
+    0.3333333333333333
+    >>> sim_tversky('Niall', 'Neil')
+    0.2222222222222222
+    >>> sim_tversky('aluminum', 'Catalan')
+    0.0625
+    >>> sim_tversky('ATCG', 'TAGC')
+    0.0
     """
     if alpha < 0 or beta < 0:
         raise ValueError('Unsupported weight assignment; alpha and beta ' +
@@ -630,6 +639,15 @@ def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
         description below
     :returns: Tversky distance
     :rtype: float
+
+    >>> dist_tversky('cat', 'hat')
+    0.6666666666666667
+    >>> dist_tversky('Niall', 'Neil')
+    0.7777777777777778
+    >>> dist_tversky('aluminum', 'Catalan')
+    0.9375
+    >>> dist_tversky('ATCG', 'TAGC')
+    1.0
     """
     return 1 - sim_tversky(src, tar, qval, alpha, beta, bias)
 
