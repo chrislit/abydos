@@ -666,6 +666,15 @@ def sim_dice(src, tar, qval=2):
         version
     :returns: Sørensen–Dice similarity
     :rtype: float
+
+    >>> sim_dice('cat', 'hat')
+    0.5
+    >>> sim_dice('Niall', 'Neil')
+    0.36363636363636365
+    >>> sim_dice('aluminum', 'Catalan')
+    0.11764705882352941
+    >>> sim_dice('ATCG', 'TAGC')
+    0.0
     """
     return sim_tversky(src, tar, qval, 0.5, 0.5)
 
@@ -681,6 +690,15 @@ def dist_dice(src, tar, qval=2):
         version
     :returns: Sørensen–Dice distance
     :rtype: float
+
+    >>> dist_dice('cat', 'hat')
+    0.5
+    >>> dist_dice('Niall', 'Neil')
+    0.6363636363636364
+    >>> dist_dice('aluminum', 'Catalan')
+    0.8823529411764706
+    >>> dist_dice('ATCG', 'TAGC')
+    1.0
     """
     return 1 - sim_dice(src, tar, qval)
 
