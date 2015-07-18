@@ -884,6 +884,15 @@ def sim_cosine(src, tar, qval=2):
         version
     :returns: cosine similarity
     :rtype: float
+
+    >>> sim_cosine('cat', 'hat')
+    0.5
+    >>> sim_cosine('Niall', 'Neil')
+    0.3651483716701107
+    >>> sim_cosine('aluminum', 'Catalan')
+    0.11785113019775793
+    >>> sim_cosine('ATCG', 'TAGC')
+    0.0
     """
     if src == tar:
         return 1.0
@@ -917,6 +926,15 @@ def dist_cosine(src, tar, qval=2):
         version
     :returns: cosine distance
     :rtype: float
+
+    >>> dist_cosine('cat', 'hat')
+    0.5
+    >>> dist_cosine('Niall', 'Neil')
+    0.6348516283298893
+    >>> dist_cosine('aluminum', 'Catalan')
+    0.882148869802242
+    >>> dist_cosine('ATCG', 'TAGC')
+    1.0
     """
     return 1 - sim_cosine(src, tar, qval)
 
