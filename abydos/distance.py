@@ -717,6 +717,15 @@ def sim_jaccard(src, tar, qval=2):
         version
     :returns: Jaccard similarity
     :rtype: float
+
+    >>> sim_jaccard('cat', 'hat')
+    0.3333333333333333
+    >>> sim_jaccard('Niall', 'Neil')
+    0.2222222222222222
+    >>> sim_jaccard('aluminum', 'Catalan')
+    0.0625
+    >>> sim_jaccard('ATCG', 'TAGC')
+    0.0
     """
     return sim_tversky(src, tar, qval, 1, 1)
 
@@ -732,6 +741,15 @@ def dist_jaccard(src, tar, qval=2):
         version
     :returns: Jaccard distance
     :rtype: float
+
+    >>> dist_jaccard('cat', 'hat')
+    0.6666666666666667
+    >>> dist_jaccard('Niall', 'Neil')
+    0.7777777777777778
+    >>> dist_jaccard('aluminum', 'Catalan')
+    0.9375
+    >>> dist_jaccard('ATCG', 'TAGC')
+    1.0
     """
     return 1 - sim_jaccard(src, tar, qval)
 
@@ -747,6 +765,15 @@ def sim_overlap(src, tar, qval=2):
         version
     :returns: overlap similarity
     :rtype: float
+
+    >>> sim_overlap('cat', 'hat')
+    0.5
+    >>> sim_overlap('Niall', 'Neil')
+    0.4
+    >>> sim_overlap('aluminum', 'Catalan')
+    0.125
+    >>> sim_overlap('ATCG', 'TAGC')
+    0.0
     """
     if src == tar:
         return 1.0
@@ -780,6 +807,15 @@ def dist_overlap(src, tar, qval=2):
         version
     :returns: overlap distance
     :rtype: float
+
+    >>> dist_overlap('cat', 'hat')
+    0.5
+    >>> dist_overlap('Niall', 'Neil')
+    0.6
+    >>> dist_overlap('aluminum', 'Catalan')
+    0.875
+    >>> dist_overlap('ATCG', 'TAGC')
+    1.0
     """
     return 1 - sim_overlap(src, tar, qval)
 
@@ -797,6 +833,15 @@ def sim_tanimoto(src, tar, qval=2):
         version
     :returns: Tanimoto similarity
     :rtype: float
+
+    >>> sim_tanimoto('cat', 'hat')
+    0.3333333333333333
+    >>> sim_tanimoto('Niall', 'Neil')
+    0.2222222222222222
+    >>> sim_tanimoto('aluminum', 'Catalan')
+    0.0625
+    >>> sim_tanimoto('ATCG', 'TAGC')
+    0.0
     """
     return sim_jaccard(src, tar, qval)
 
@@ -811,6 +856,15 @@ def tanimoto(src, tar, qval=2):
         version
     :returns: Tanimoto distance
     :rtype: float
+
+    >>> tanimoto('cat', 'hat')
+    -1.5849625007211563
+    >>> tanimoto('Niall', 'Neil')
+    -2.1699250014423126
+    >>> tanimoto('aluminum', 'Catalan')
+    -4.0
+    >>> tanimoto('ATCG', 'TAGC')
+    -inf
     """
     coeff = sim_jaccard(src, tar, qval)
     if coeff != 0:
