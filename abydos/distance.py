@@ -1318,6 +1318,15 @@ def lcsseq(src, tar):
     :param str src, tar: two strings to be compared
     :returns: the longes common subsequence
     :rtype: str
+
+    >>> lcsseq('cat', 'hat')
+    'at'
+    >>> lcsseq('Niall', 'Neil')
+    'Nil'
+    >>> lcsseq('aluminum', 'Catalan')
+    'aln'
+    >>> lcsseq('ATCG', 'TAGC')
+    'AC'
     """
     # pylint: disable=no-member
     lengths = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
@@ -1356,6 +1365,15 @@ def sim_lcsseq(src, tar):
     :param str src, tar: two strings to be compared
     :returns: LCSseq similarity
     :rtype: float
+
+    >>> sim_lcsseq('cat', 'hat')
+    0.6666666666666666
+    >>> sim_lcsseq('Niall', 'Neil')
+    0.6
+    >>> sim_lcsseq('aluminum', 'Catalan')
+    0.375
+    >>> sim_lcsseq('ATCG', 'TAGC')
+    0.5
     """
     if src == tar:
         return 1.0
@@ -1373,6 +1391,15 @@ def dist_lcsseq(src, tar):
     :param str src, tar: two strings to be compared
     :returns: LCSseq distance
     :rtype: float
+
+    >>> dist_lcsseq('cat', 'hat')
+    0.33333333333333337
+    >>> dist_lcsseq('Niall', 'Neil')
+    0.4
+    >>> dist_lcsseq('aluminum', 'Catalan')
+    0.625
+    >>> dist_lcsseq('ATCG', 'TAGC')
+    0.5
     """
     return 1 - sim_lcsseq(src, tar)
 
@@ -1392,6 +1419,15 @@ def lcsstr(src, tar):
     :param str src, tar: two strings to be compared
     :returns: the longes common substring
     :rtype: float
+
+    >>> lcsstr('cat', 'hat')
+    'at'
+    >>> lcsstr('Niall', 'Neil')
+    'N'
+    >>> lcsstr('aluminum', 'Catalan')
+    'al'
+    >>> lcsstr('ATCG', 'TAGC')
+    'A'
     """
     # pylint: disable=no-member
     lengths = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
@@ -1418,6 +1454,15 @@ def sim_lcsstr(src, tar):
     :param str src, tar: two strings to be compared
     :returns: LCSstr similarity
     :rtype: float
+
+    >>> sim_lcsstr('cat', 'hat')
+    0.6666666666666666
+    >>> sim_lcsstr('Niall', 'Neil')
+    0.2
+    >>> sim_lcsstr('aluminum', 'Catalan')
+    0.25
+    >>> sim_lcsstr('ATCG', 'TAGC')
+    0.25
     """
     if src == tar:
         return 1.0
@@ -1435,6 +1480,15 @@ def dist_lcsstr(src, tar):
     :param str src, tar: two strings to be compared
     :returns: LCSstr distance
     :rtype: float
+
+    >>> dist_lcsstr('cat', 'hat')
+    0.33333333333333337
+    >>> dist_lcsstr('Niall', 'Neil')
+    0.8
+    >>> dist_lcsstr('aluminum', 'Catalan')
+    0.75
+    >>> dist_lcsstr('ATCG', 'TAGC')
+    0.75
     """
     return 1 - sim_lcsstr(src, tar)
 
