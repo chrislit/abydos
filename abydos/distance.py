@@ -960,6 +960,15 @@ def sim_strcmp95(src, tar, long_strings=False):
         phone and social security numbers."
     :returns: strcmp95 similarity
     :rtype: float
+
+    >>> sim_strcmp95('cat', 'hat')
+    0.7777777777777777
+    >>> sim_strcmp95('Niall', 'Neil')
+    0.8454999999999999
+    >>> sim_strcmp95('aluminum', 'Catalan')
+    0.6547619047619048
+    >>> sim_strcmp95('ATCG', 'TAGC')
+    0.8333333333333334
     """
     def _in_range(char):
         """Return True if char is in the range (0, 91)
@@ -1089,6 +1098,15 @@ def dist_strcmp95(src, tar, long_strings=False):
         phone and social security numbers."
     :returns: strcmp95 distance
     :rtype: float
+
+    >>> dist_strcmp95('cat', 'hat')
+    0.22222222222222232
+    >>> dist_strcmp95('Niall', 'Neil')
+    0.15450000000000008
+    >>> dist_strcmp95('aluminum', 'Catalan')
+    0.34523809523809523
+    >>> dist_strcmp95('ATCG', 'TAGC')
+    0.16666666666666663
     """
     return 1 - sim_strcmp95(src, tar, long_strings)
 
@@ -1115,7 +1133,7 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
     The following arguments apply only when mode is 'winkler':
 
     :param bool long_strings: set to True to "Increase the probability of a
-        match when the number of matched characters is large.  This option
+1        match when the number of matched characters is large.  This option
         allows for a little more tolerance when the strings are large.  It is
         not an appropriate test when comparing fixed length fields such as
         phone and social security numbers."
@@ -1126,6 +1144,24 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
 
     :returns: Jaro or Jaro-Winkler similarity
     :rtype: float
+
+    >>> sim_jaro_winkler('cat', 'hat')
+    0.7777777777777777
+    >>> sim_jaro_winkler('Niall', 'Neil')
+    0.8049999999999999
+    >>> sim_jaro_winkler('aluminum', 'Catalan')
+    0.6011904761904762
+    >>> sim_jaro_winkler('ATCG', 'TAGC')
+    0.8333333333333334
+
+    >>> sim_jaro_winkler('cat', 'hat', mode='jaro')
+    0.7777777777777777
+    >>> sim_jaro_winkler('Niall', 'Neil', mode='jaro')
+    0.7833333333333333
+    >>> sim_jaro_winkler('aluminum', 'Catalan', mode='jaro')
+    0.6011904761904762
+    >>> sim_jaro_winkler('ATCG', 'TAGC', mode='jaro')
+    0.8333333333333334
     """
     if mode == 'winkler':
         if boost_threshold > 1 or boost_threshold < 0:
@@ -1246,6 +1282,24 @@ def dist_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
 
     :returns: Jaro or Jaro-Winkler distance
     :rtype: float
+
+    >>> dist_jaro_winkler('cat', 'hat')
+    0.22222222222222232
+    >>> dist_jaro_winkler('Niall', 'Neil')
+    0.19500000000000006
+    >>> dist_jaro_winkler('aluminum', 'Catalan')
+    0.39880952380952384
+    >>> dist_jaro_winkler('ATCG', 'TAGC')
+    0.16666666666666663
+
+    >>> dist_jaro_winkler('cat', 'hat', mode='jaro')
+    0.22222222222222232
+    >>> dist_jaro_winkler('Niall', 'Neil', mode='jaro')
+    0.21666666666666667
+    >>> dist_jaro_winkler('aluminum', 'Catalan', mode='jaro')
+    0.39880952380952384
+    >>> dist_jaro_winkler('ATCG', 'TAGC', mode='jaro')
+    0.16666666666666663
     """
     return 1 - sim_jaro_winkler(src, tar, qval, mode, long_strings,
                                 boost_threshold, scaling_factor)
