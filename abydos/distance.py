@@ -1513,6 +1513,15 @@ def sim_ratcliff_obershelp(src, tar):
     :param str src, tar: two strings to be compared
     :returns: Ratcliff-Obserhelp similarity
     :rtype: float
+
+    >>> sim_ratcliff_obershelp('cat', 'hat')
+    0.66666666666666663
+    >>> sim_ratcliff_obershelp('Niall', 'Neil')
+    0.66666666666666663
+    >>> sim_ratcliff_obershelp('aluminum', 'Catalan')
+    0.40000000000000002
+    >>> sim_ratcliff_obershelp('ATCG', 'TAGC')
+    0.5
     """
     def _lcsstr_stl(src, tar):
         """Return the start position in the source string, start position in
@@ -1570,6 +1579,15 @@ def dist_ratcliff_obershelp(src, tar):
     :param str src, tar: two strings to be compared
     :returns: Ratcliffe-Obershelp distance
     :rtype: float
+
+    >>> dist_ratcliff_obershelp('cat', 'hat')
+    0.33333333333333337
+    >>> dist_ratcliff_obershelp('Niall', 'Neil')
+    0.33333333333333337
+    >>> dist_ratcliff_obershelp('aluminum', 'Catalan')
+    0.59999999999999998
+    >>> dist_ratcliff_obershelp('ATCG', 'TAGC')
+    0.5
     """
     return 1 - sim_ratcliff_obershelp(src, tar)
 
