@@ -1601,6 +1601,15 @@ def mra_compare(src, tar):
     :param str src, tar: two strings to be compared
     :returns: MRA comparison rating
     :rtype: int
+
+    >>> mra_compare('cat', 'hat')
+    5
+    >>> mra_compare('Niall', 'Neil')
+    6
+    >>> mra_compare('aluminum', 'Catalan')
+    0
+    >>> mra_compare('ATCG', 'TAGC')
+    5
     """
     if src == tar:
         return 6
@@ -1651,6 +1660,15 @@ def sim_mra(src, tar):
     :param str src, tar: two strings to be compared
     :returns: normalized MRA similarity
     :rtype: float
+
+    >>> sim_mra('cat', 'hat')
+    0.8333333333333334
+    >>> sim_mra('Niall', 'Neil')
+    1.0
+    >>> sim_mra('aluminum', 'Catalan')
+    0.0
+    >>> sim_mra('ATCG', 'TAGC')
+    0.8333333333333334
     """
     return mra_compare(src, tar)/6
 
@@ -1664,6 +1682,15 @@ def dist_mra(src, tar):
     :param str src, tar: two strings to be compared
     :returns: normalized MRA distance
     :rtype: float
+
+    >>> dist_mra('cat', 'hat')
+    0.16666666666666663
+    >>> dist_mra('Niall', 'Neil')
+    0.0
+    >>> dist_mra('aluminum', 'Catalan')
+    1.0
+    >>> dist_mra('ATCG', 'TAGC')
+    0.16666666666666663
     """
     return 1 - sim_mra(src, tar)
 
