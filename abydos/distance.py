@@ -1929,6 +1929,11 @@ def sim_ident(src, tar):
     :param str src, tar: two strings to be compared
     :returns: identity similarity
     :rtype: int
+
+    >>> sim_ident('cat', 'hat')
+    0
+    >>> sim_ident('cat', 'cat')
+    1
     """
     return int(src == tar)
 
@@ -1942,6 +1947,8 @@ def dist_ident(src, tar):
     :param str src, tar: two strings to be compared
     :returns: indentity distance
     :rtype: int
+
+    
     """
     return 1 - sim_ident(src, tar)
 
