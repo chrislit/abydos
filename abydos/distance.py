@@ -2025,6 +2025,15 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
         characters (identity similarity by default)
     :returns: Needleman-Wunsch score
     :rtype: int (in fact dependent on the gap_cost & return value of sim_func)
+
+    >>> needleman_wunsch('cat', 'hat')
+    2.0
+    >>> needleman_wunsch('Niall', 'Neil')
+    1.0
+    >>> needleman_wunsch('aluminum', 'Catalan')
+    -1.0
+    >>> needleman_wunsch('ATCG', 'TAGC')
+    0.0
     """
     # pylint: disable=no-member
     d_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.float)
@@ -2056,6 +2065,15 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
         characters (identity similarity by default)
     :returns: Smith-Waterman score
     :rtype: int (in fact dependent on the gap_cost & return value of sim_func)
+
+    >>> smith_waterman('cat', 'hat')
+    2.0
+    >>> smith_waterman('Niall', 'Neil')
+    1.0
+    >>> smith_waterman('aluminum', 'Catalan')
+    0.0
+    >>> smith_waterman('ATCG', 'TAGC')
+    1.0
     """
     # pylint: disable=no-member
     d_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.float)
@@ -2090,6 +2108,15 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
     :returns: Gotoh score
     :rtype: float (in fact dependent on the gap_cost & return value of
         sim_func)
+
+    >>> gotoh('cat', 'hat')
+    2.0
+    >>> gotoh('Niall', 'Neil')
+    1.0
+    >>> gotoh('aluminum', 'Catalan')
+    -0.40000000000000002
+    >>> gotoh('cat', 'hat')
+    2.0
     """
     # pylint: disable=no-member
     d_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.float)
