@@ -1705,8 +1705,8 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
     :param str compressor: a compression scheme to use for the similarity
         calculation, from the following:
 
-            - `zlib` -- standard zlib/gzip (default)
-            - `bz2` -- bzip2
+            - `zlib` -- standard zlib/gzip
+            - `bz2` -- bzip2 (default)
             - `lzma` -- Lempel–Ziv–Markov chain algorithm
             - `arith` -- arithmetic coding
             - `rle` -- run-length encoding
@@ -1726,6 +1726,19 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
     0.20689655172413793
     >>> dist_compression('ATCG', 'TAGC')
     0.037037037037037035
+
+    >>> dist_compression('Niall', 'Neil', compressor='zlib')
+    0.45454545454545453
+    >>> dist_compression('Niall', 'Neil', compressor='bz2')
+    0.037037037037037035
+    >>> dist_compression('Niall', 'Neil', compressor='lzma')
+    0.16
+    >>> dist_compression('Niall', 'Neil', compressor='arith')
+    0.6875
+    >>> dist_compression('Niall', 'Neil', compressor='rle')
+    1.0
+    >>> dist_compression('Niall', 'Neil', compressor='bwtrle')
+    0.8333333333333334
     """
     if src == tar:
         return 0.0
@@ -1784,8 +1797,8 @@ def sim_compression(src, tar, compressor='bz2', probs=None):
     :param str compressor: a compression scheme to use for the similarity
         calculation:
 
-            - `zlib` -- standard zlib/gzip (default)
-            - `bz2` -- bzip2
+            - `zlib` -- standard zlib/gzip
+            - `bz2` -- bzip2 (default)
             - `lzma` -- Lempel–Ziv–Markov chain algorithm
             - `arith` -- arithmetic coding
             - `rle` -- run-length encoding
@@ -1805,6 +1818,19 @@ def sim_compression(src, tar, compressor='bz2', probs=None):
     0.7931034482758621
     >>> sim_compression('ATCG', 'TAGC')
     0.962962962962963
+
+    >>> sim_compression('Niall', 'Neil', compressor='zlib')
+    0.5454545454545454
+    >>> sim_compression('Niall', 'Neil', compressor='bz2')
+    0.962962962962963
+    >>> sim_compression('Niall', 'Neil', compressor='lzma')
+    0.84
+    >>> sim_compression('Niall', 'Neil', compressor='arith')
+    0.3125
+    >>> sim_compression('Niall', 'Neil', compressor='rle')
+    0.0
+    >>> sim_compression('Niall', 'Neil', compressor='bwtrle')
+    0.16666666666666663
     """
     return 1 - dist_compression(src, tar, compressor, probs)
 
