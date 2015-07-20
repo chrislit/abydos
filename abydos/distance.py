@@ -1705,7 +1705,7 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
     :param str compressor: a compression scheme to use for the similarity
         calculation, from the following:
 
-            - `zlib` -- standard zlib/gzip
+            - `zlib` -- standard zlib/gzip (default)
             - `bz2` -- bzip2
             - `lzma` -- Lempel–Ziv–Markov chain algorithm
             - `arith` -- arithmetic coding
@@ -1717,6 +1717,15 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
         compressor only)
     :returns: compression distance
     :rtype: float
+
+    >>> dist_compression('cat', 'hat')
+    0.08
+    >>> dist_compression('Niall', 'Neil')
+    0.037037037037037035
+    >>> dist_compression('aluminum', 'Catalan')
+    0.20689655172413793
+    >>> dist_compression('ATCG', 'TAGC')
+    0.037037037037037035
     """
     if src == tar:
         return 0.0
@@ -1775,7 +1784,7 @@ def sim_compression(src, tar, compressor='bz2', probs=None):
     :param str compressor: a compression scheme to use for the similarity
         calculation:
 
-            - `zlib` -- standard zlib/gzip
+            - `zlib` -- standard zlib/gzip (default)
             - `bz2` -- bzip2
             - `lzma` -- Lempel–Ziv–Markov chain algorithm
             - `arith` -- arithmetic coding
@@ -1787,6 +1796,15 @@ def sim_compression(src, tar, compressor='bz2', probs=None):
         compressor only)
     :returns: compression similarity
     :rtype: float
+
+    >>> sim_compression('cat', 'hat')
+    0.92
+    >>> sim_compression('Niall', 'Neil')
+    0.962962962962963
+    >>> sim_compression('aluminum', 'Catalan')
+    0.7931034482758621
+    >>> sim_compression('ATCG', 'TAGC')
+    0.962962962962963
     """
     return 1 - dist_compression(src, tar, compressor, probs)
 
