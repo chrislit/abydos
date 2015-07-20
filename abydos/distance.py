@@ -1948,7 +1948,10 @@ def dist_ident(src, tar):
     :returns: indentity distance
     :rtype: int
 
-    
+    >>> dist_ident('cat', 'hat')
+    1
+    >>> dist_ident('cat', 'cat')
+    0
     """
     return 1 - sim_ident(src, tar)
 
@@ -2128,6 +2131,15 @@ def sim_length(src, tar):
     :param str src, tar: two strings to be compared
     :returns: length similarity
     :rtype: float
+
+    >>> sim_length('cat', 'hat')
+    1.0
+    >>> sim_length('Niall', 'Neil')
+    0.8
+    >>> sim_length('aluminum', 'Catalan')
+    0.875
+    >>> sim_length('ATCG', 'TAGC')
+    1.0
     """
     if src == tar:
         return 1.0
@@ -2145,6 +2157,15 @@ def dist_length(src, tar):
     :param str src, tar: two strings to be compared
     :returns: length distance
     :rtype: float
+
+    >>> dist_length('cat', 'hat')
+    0.0
+    >>> dist_length('Niall', 'Neil')
+    0.19999999999999996
+    >>> dist_length('aluminum', 'Catalan')
+    0.125
+    >>> dist_length('ATCG', 'TAGC')
+    0.0
     """
     return 1 - sim_length(src, tar)
 
@@ -2159,6 +2180,15 @@ def sim_prefix(src, tar):
     :param str src, tar: two strings to be compared
     :returns: prefix similarity
     :rtype: float
+
+    >>> sim_prefix('cat', 'hat')
+    0.0
+    >>> sim_prefix('Niall', 'Neil')
+    0.25
+    >>> sim_prefix('aluminum', 'Catalan')
+    0.0
+    >>> sim_prefix('ATCG', 'TAGC')
+    0.0
     """
     if src == tar:
         return 1.0
@@ -2181,6 +2211,15 @@ def dist_prefix(src, tar):
     :param str src, tar: two strings to be compared
     :returns: prefix distance
     :rtype: float
+
+        >>> dist_prefix('cat', 'hat')
+    1.0
+    >>> dist_prefix('Niall', 'Neil')
+    0.75
+    >>> dist_prefix('aluminum', 'Catalan')
+    1.0
+    >>> dist_prefix('ATCG', 'TAGC')
+    1.0
     """
     return 1 - sim_prefix(src, tar)
 
@@ -2195,6 +2234,15 @@ def sim_suffix(src, tar):
     :param str src, tar: two strings to be compared
     :returns: suffix similarity
     :rtype: float
+
+    >>> sim_suffix('cat', 'hat')
+    0.6666666666666666
+    >>> sim_suffix('Niall', 'Neil')
+    0.25
+    >>> sim_suffix('aluminum', 'Catalan')
+    0.0
+    >>> sim_suffix('ATCG', 'TAGC')
+    0.0
     """
     if src == tar:
         return 1.0
@@ -2217,6 +2265,15 @@ def dist_suffix(src, tar):
     :param str src, tar: two strings to be compared
     :returns: suffix distance
     :rtype: float
+
+    >>> dist_suffix('cat', 'hat')
+    0.33333333333333337
+    >>> dist_suffix('Niall', 'Neil')
+    0.75
+    >>> dist_suffix('aluminum', 'Catalan')
+    1.0
+    >>> dist_suffix('ATCG', 'TAGC')
+    1.0
     """
     return 1 - sim_suffix(src, tar)
 
