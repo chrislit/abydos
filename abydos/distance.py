@@ -1855,6 +1855,15 @@ def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
     :param bool symmetric: return a symmetric similarity measure
     :returns: Monge-Elkan similarity
     :rtype: float
+
+    >>> sim_monge_elkan('cat', 'hat')
+    0.75
+    >>> sim_monge_elkan('Niall', 'Neil')
+    0.66666666666666663
+    >>> sim_monge_elkan('aluminum', 'Catalan')
+    0.3888888888888889
+    >>> sim_monge_elkan('ATCG', 'TAGC')
+    0.5
     """
     if src == tar:
         return 1.0
@@ -1899,6 +1908,15 @@ def dist_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
     :param bool symmetric: return a symmetric similarity measure
     :returns: Monge-Elkan distance
     :rtype: float
+
+    >>> dist_monge_elkan('cat', 'hat')
+    0.25
+    >>> dist_monge_elkan('Niall', 'Neil')
+    0.33333333333333337
+    >>> dist_monge_elkan('aluminum', 'Catalan')
+    0.61111111111111116
+    >>> dist_monge_elkan('ATCG', 'TAGC')
+    0.5
     """
     return 1 - sim_monge_elkan(src, tar, sim_func, symmetric)
 
