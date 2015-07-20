@@ -1980,6 +1980,11 @@ def sim_matrix(src, tar, mat=None, mismatch_cost=0, match_cost=1,
         is not found in alphabet
     :returns: matrix similarity
     :rtype: float
+
+    >>> sim_matrix('cat', 'hat')
+    0
+    >>> sim_matrix('hat', 'hat')
+    1
     """
     if alphabet:
         alphabet = tuple(alphabet)
