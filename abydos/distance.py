@@ -2401,6 +2401,15 @@ def bag(src, tar):
     :param str src, tar: two strings to be compared
     :returns: bag distance
     :rtype: int
+
+    >>> bag('cat', 'hat')
+    1
+    >>> bag('Niall', 'Neil')
+    2
+    >>> bag('aluminum', 'Catalan')
+    3
+    >>> bag('ATCG', 'TAGC')
+    0
     """
     if tar == src:
         return 0
@@ -2422,6 +2431,15 @@ def dist_bag(src, tar):
     :param str src, tar: two strings to be compared
     :returns: normalized bag distance
     :rtype: float
+
+    >>> dist_bag('cat', 'hat')
+    0.3333333333333333
+    >>> dist_bag('Niall', 'Neil')
+    0.4
+    >>> dist_bag('aluminum', 'Catalan')
+    0.375
+    >>> dist_bag('ATCG', 'TAGC')
+    0.0
     """
     if tar == src:
         return 0.0
@@ -2436,13 +2454,21 @@ def dist_bag(src, tar):
 def sim_bag(src, tar):
     """normalized bag similarity
 
-
     Normalized bag similarity is the complement of normalized bag distance:
     :math:`sim_{bag} = 1 - dist_{bag}`
 
     :param str src, tar: two strings to be compared
     :returns: normalized bag similarity
     :rtype: float
+
+    >>> sim_bag('cat', 'hat')
+    0.6666666666666667
+    >>> sim_bag('Niall', 'Neil')
+    0.6
+    >>> sim_bag('aluminum', 'Catalan')
+    0.625
+    >>> sim_bag('ATCG', 'TAGC')
+    1.0
     """
     return 1-dist_bag(src, tar)
 
