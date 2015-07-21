@@ -2495,6 +2495,15 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
     :param bool local: if True, the local variant of Editex is used
     :returns: Editex distance
     :rtype: int
+
+    >>> editex('cat', 'hat')
+    2
+    >>> editex('Niall', 'Neil')
+    2
+    >>> editex('aluminum', 'Catalan')
+    12
+    >>> editex('ATCG', 'TAGC')
+    6
     """
     match_cost, group_cost, mismatch_cost = cost
     letter_groups = (frozenset('AEIOUY'), frozenset('BP'), frozenset('CKQ'),
@@ -2575,6 +2584,15 @@ def dist_editex(src, tar, cost=(0, 1, 2), local=False):
     :param bool local: if True, the local variant of Editex is used
     :returns: normalized Editex distance
     :rtype: float
+
+    >>> dist_editex('cat', 'hat')
+    0.33333333333333331
+    >>> dist_editex('Niall', 'Neil')
+    0.20000000000000001
+    >>> dist_editex('aluminum', 'Catalan')
+    0.75
+    >>> dist_editex('ATCG', 'TAGC')
+    0.75
     """
     if src == tar:
         return 0
@@ -2598,6 +2616,15 @@ def sim_editex(src, tar, cost=(0, 1, 2), local=False):
     :param bool local: if True, the local variant of Editex is used
     :returns: normalized Editex similarity
     :rtype: float
+
+    >>> sim_editex('cat', 'hat')
+    0.66666666666666674
+    >>> sim_editex('Niall', 'Neil')
+    0.80000000000000004
+    >>> sim_editex('aluminum', 'Catalan')
+    0.25
+    >>> sim_editex('ATCG', 'TAGC')
+    0.25
     """
     return 1 - dist_editex(src, tar, cost, local)
 
