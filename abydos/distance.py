@@ -2686,6 +2686,15 @@ def sim(src, tar, method=sim_levenshtein):
         default)
     :returns: similarity according to the specified function
     :rtype: float
+
+    >>> sim('cat', 'hat')
+    0.66666666666666674
+    >>> sim('Niall', 'Neil')
+    0.40000000000000002
+    >>> sim('aluminum', 'Catalan')
+    0.125
+    >>> sim('ATCG', 'TAGC')
+    0.25
     """
     if hasattr(method, '__call__'):
         return method(src, tar)
@@ -2704,6 +2713,15 @@ def dist(src, tar, method=sim_levenshtein):
         a distance metric function.
     :returns: distance according to the specified function
     :rtype: float
+
+    >>> dist('cat', 'hat')
+    0.33333333333333326
+    >>> dist('Niall', 'Neil')
+    0.59999999999999998
+    >>> dist('aluminum', 'Catalan')
+    0.875
+    >>> dist('ATCG', 'TAGC')
+    0.75
     """
     if hasattr(method, '__call__'):
         return 1 - method(src, tar)
