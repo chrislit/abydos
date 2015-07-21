@@ -2331,6 +2331,15 @@ def sim_mlipns(src, tar, threshold=0.25, maxmismatches=2):
         default)
     :returns: MLIPNS similarity
     :rtype: float
+
+    >>> sim_mlipns('cat', 'hat')
+    1.0
+    >>> sim_mlipns('Niall', 'Neil')
+    0.0
+    >>> sim_mlipns('aluminum', 'Catalan')
+    0.0
+    >>> sim_mlipns('ATCG', 'TAGC')
+    0.0
     """
     if tar == src:
         return 1.0
@@ -2370,6 +2379,15 @@ def dist_mlipns(src, tar, threshold=0.25, maxmismatches=2):
         default)
     :returns: MLIPNS distance
     :rtype: float
+
+    >>> dist_mlipns('cat', 'hat')
+    0.0
+    >>> dist_mlipns('Niall', 'Neil')
+    1.0
+    >>> dist_mlipns('aluminum', 'Catalan')
+    1.0
+    >>> dist_mlipns('ATCG', 'TAGC')
+    1.0
     """
     return 1.0 - sim_mlipns(src, tar, threshold, maxmismatches)
 
