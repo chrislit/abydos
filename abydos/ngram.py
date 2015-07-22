@@ -49,6 +49,10 @@ class NGramCorpus(object):
         :param corpus: The Corpus from which to initialize the n-gram
             corpus. By default, this is None, which initializes an empty
             NGramCorpus. This can then be populated using NGramCorpus methods.
+
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> ngcorp = NGramCorpus(Corpus(tqbf))
         """
         self.ngcorpus = Counter()
 
@@ -69,6 +73,11 @@ class NGramCorpus(object):
         :param str bos: string to insert as an indicator of beginning of
             sentence
         :param str eos: string to insert as an indicator of end of sentence
+
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> ngcorp = NGramCorpus()
+        >>> ngcorp.corpus_importer(Corpus(tqbf))
         """
         if not corpus or not isinstance(corpus, Corpus):
             raise TypeError('Corpus argument of the Corpus class required.')
@@ -97,6 +106,14 @@ class NGramCorpus(object):
         :type ngram: list, tuple, or string
         :returns: The n-gram count
         :rtype: int
+
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> ngcorp = NGramCorpus(Corpus(tqbf))
+        >>> NGramCorpus(Corpus(tqbf)).get_count('the')
+        2
+        >>> NGramCorpus(Corpus(tqbf)).get_count('fox')
+        1
         """
         if not corpus:
             corpus = self.ngcorpus
@@ -151,6 +168,14 @@ class NGramCorpus(object):
         :param str term: The term for which to calculate tf
         :returns: The term frequency (tf)
         :rtype: float
+
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> ngcorp = NGramCorpus(Corpus(tqbf))
+        >>> NGramCorpus(Corpus(tqbf)).tf('the')
+        1.3010299956639813
+        >>> NGramCorpus(Corpus(tqbf)).tf('fox')
+        1.0
         """
         if ' ' in term:
             raise ValueError('tf can only calculate the term frequency of' +
