@@ -52,6 +52,10 @@ class Corpus(object):
             list) to filter out of the corpus text
         :param stop_words: A list of words (as a tuple, set, or list) to filter
             out of the corpus text
+
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> corp = Corpus(tqbf)
         """
         self.corpus = []
         self.doc_split = doc_split
@@ -80,6 +84,16 @@ class Corpus(object):
         :returns: the paragraphs in the corpus as a list of lists of lists
             of strs
         :rtype: list(list(list(str)))
+
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> corp = Corpus(tqbf)
+        >>> corp.docs()
+        [[['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
+        'dog.'], ['And', 'then', 'it', 'slept.'], ['And', 'the', 'dog', 'ran',
+        'off.']]]
+        >>> len(corp.docs())
+        1
         """
         return self.corpus
 
@@ -94,6 +108,16 @@ class Corpus(object):
         :returns: the paragraphs in the corpus as a list of lists of lists
             of strs
         :rtype: list(list(list(str)))
+
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> corp = Corpus(tqbf)
+        >>> corp.paras()
+        [[['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
+        'dog.'], ['And', 'then', 'it', 'slept.'], ['And', 'the', 'dog', 'ran',
+        'off.']]]
+        >>> len(corp.paras())
+        1
         """
         return self.docs()
 
@@ -104,6 +128,16 @@ class Corpus(object):
 
         :returns: the sentences in the corpus as a list of lists of strs
         :rtype: list(list(str))
+
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> corp = Corpus(tqbf)
+        >>> corp.sents()
+        [['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
+        'dog.'], ['And', 'then', 'it', 'slept.'], ['And', 'the', 'dog', 'ran',
+        'off.']]
+        >>> len(corp.sents())
+        3
         """
         return [words for sents in self.corpus for words in sents]
 
@@ -112,6 +146,16 @@ class Corpus(object):
 
         :returns: the words in the corpus as a list of strs
         :rtype: list(str)
+
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> corp = Corpus(tqbf)
+        >>> corp.words()
+        ['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
+        'dog.', 'And', 'then', 'it', 'slept.', 'And', 'the', 'dog', 'ran',
+        'off.']
+        >>> len(corp.words())
+        18
         """
         return [words for sents in self.sents() for words in sents]
 
@@ -123,6 +167,16 @@ class Corpus(object):
 
         :returns: the docs in the corpus as a list of list of strs
         :rtype: list(list(str))
+
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> corp = Corpus(tqbf)
+        >>> corp.docs_of_words()
+        [['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
+        'dog.', 'And', 'then', 'it', 'slept.', 'And', 'the', 'dog', 'ran',
+        'off.']]
+        >>> len(corp.docs_of_words())
+        1
         """
         return [[words for sents in doc for words in sents]
                 for doc in self.corpus]
@@ -135,6 +189,15 @@ class Corpus(object):
 
         :returns: the raw corpus
         :rtype: str
+
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> corp = Corpus(tqbf)
+        >>> corp.raw()
+        'The quick brown fox jumped over the lazy dog.\nAnd then it slept.\n/
+        And the dog ran off.'
+        >>> len(corp.raw())
+        85
         """
         doc_list = []
         for doc in self.corpus:
