@@ -4,8 +4,8 @@ python:
   #- pypy
   - 3.3
   - 3.4
-  - 3.5-dev
-  - nightly
+  #- 3.5-dev
+  #- nightly
   #- pypy3
 
 notifications:
