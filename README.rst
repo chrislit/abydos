@@ -75,7 +75,7 @@ To install Abydos from PyPI using pip::
 
    pip install abydos
 
-It should run on Python Python 2.7 and Python 3.3+
+It should run on Python 2.7 and Python 3.3+
 
 
 To build/install/unittest from source in Python 2::
