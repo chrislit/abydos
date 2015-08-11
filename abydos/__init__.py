@@ -25,3 +25,5 @@ research & experimentation.
 
 Further documentation to come...
 """
+__all__ = ['clustering', 'compression', 'corpus', 'distance', 'ngram',
+           'phones', 'phonetic', 'qgram', 'stats', 'stemmer']
