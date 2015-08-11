@@ -1,6 +1,6 @@
 [MESSAGES CONTROL]
 # I0011 Warning locally suppressed using disable-msg
-disable=locally-disabled,too-many-lines
+disable=locally-disabled,too-many-lines,undefined-all-variable
 
 [DESIGN]
 max-args=10
