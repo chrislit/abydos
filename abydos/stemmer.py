@@ -1767,7 +1767,7 @@ def lancaster(word):
 
     Description:
     The Lancaster Stemming Algorithm, described at:
-http://wayback.archive.org/web/20140724170659/http://www.comp.lancs.ac.uk/computing/research/stemming/Links/paice.htm
+    http://wayback.archive.org/web/20140724170659/http://www.comp.lancs.ac.uk/computing/research/stemming/Links/paice.htm
     """
     lancaster_rules = ('ai*2.', 'a*1.', 'bb1.', 'city3s.', 'ci2>', 'cn1t>',
                        'dd1.', 'dei3y>', 'deec2ss.', 'dee1.', 'de2>',
