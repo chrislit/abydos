@@ -1795,13 +1795,22 @@ def lancaster(word):
                         'zy1s.')
 
     _rule_table = []
-    _rule_index = {}
+    _rule_index = {'a': -1, 'b': -1, 'c': -1, 'd': -1, 'e': -1, 'f': -1,
+                   'g': -1, 'h': -1, 'i': -1, 'j': -1, 'k': -1, 'l': -1,
+                   'm': -1, 'n': -1, 'o': -1, 'p': -1, 'q': -1, 'r': -1,
+                   's': -1, 't': -1, 'u': -1, 'v': -1, 'w': -1, 'x': -1,
+                   'y': -1, 'z': -1}
 
-    def read_rules(stem_rules):
+    def read_rules(stem_rules=_lancaster_rules):
         """read_rules reads in stemming rules from a text file and enter them
         into _rule_table. _rule_index is set up to provide faster access to
         relevant rules.
         """
+        for rule in stem_rules:
+            _rule_table.append(rule)
+            if _rule_index[rule[0]] == -1:
+                _rule_index[rule[0]] = len(_rule_table)-1
+
 
     def stemmers(word):
         """stemmers takes the specified word and reduces it to a set by
