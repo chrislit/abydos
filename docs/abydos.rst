@@ -1,14 +1,6 @@
 abydos package
 ==============
 
-Module contents
----------------
-
-.. automodule:: abydos
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 Submodules
 ----------
 
@@ -96,6 +88,15 @@ abydos.util module
 ------------------
 
 .. automodule:: abydos.util
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: abydos
     :members:
     :undoc-members:
     :show-inheritance:
