@@ -32,21 +32,22 @@ import unicodedata
 from ._compat import _unicode, _long, _range
 from ._bmdata import BMDATA, L_NONE, L_ANY, L_ARABIC, L_CYRILLIC, \
     L_CZECH, L_DUTCH, L_ENGLISH, L_FRENCH, L_GERMAN, L_GREEK, L_GREEKLATIN, \
-    L_HEBREW, L_HUNGARIAN, L_ITALIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, \
-    L_RUSSIAN, L_SPANISH, L_TURKISH
+    L_HEBREW, L_HUNGARIAN, L_ITALIAN, L_LATVIAN, L_POLISH, L_PORTUGUESE, \
+    L_ROMANIAN, L_RUSSIAN, L_SPANISH, L_TURKISH
 
 _LANG_DICT = {'any': L_ANY, 'arabic': L_ARABIC, 'cyrillic': L_CYRILLIC,
               'czech': L_CZECH, 'dutch': L_DUTCH, 'english': L_ENGLISH,
               'french': L_FRENCH, 'german': L_GERMAN, 'greek': L_GREEK,
               'greeklatin': L_GREEKLATIN, 'hebrew': L_HEBREW,
               'hungarian': L_HUNGARIAN, 'italian': L_ITALIAN,
-              'polish': L_POLISH, 'portuguese': L_PORTUGUESE,
-              'romanian': L_ROMANIAN, 'russian': L_RUSSIAN,
-              'spanish': L_SPANISH, 'turkish': L_TURKISH}
+              'latvian': L_LATVIAN, 'polish': L_POLISH,
+              'portuguese': L_PORTUGUESE, 'romanian': L_ROMANIAN,
+              'russian': L_RUSSIAN, 'spanish': L_SPANISH, 'turkish': L_TURKISH}
 
-BMDATA['gen']['discards'] = ('da ', 'dal ', 'de ', 'del ', 'dela ', 'de la ',
-                             'della ', 'des ', 'di ', 'do ', 'dos ', 'du ',
-                             'van ', 'von ', 'd\'')
+BMDATA['gen']['discards'] = frozenset(['da ', 'dal ', 'de ', 'del ', 'dela ',
+                                       'de la ', 'della ', 'des ', 'di ',
+                                       'do ', 'dos ', 'du ', 'van ', 'von ',
+                                       'd\''])
 BMDATA['sep']['discards'] = frozenset(['al', 'el', 'da', 'dal', 'de', 'del',
                                        'dela', 'de la', 'della', 'des', 'di',
                                        'do', 'dos', 'du', 'van', 'von'])
@@ -548,8 +549,8 @@ def _bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
         include:
             "any", "arabic", "cyrillic", "czech", "dutch", "english",
             "french", "german", "greek", "greeklatin", "hebrew",
-            "hungarian", "italian", "polish", "portuguese","romanian",
-            "russian", "spanish", "turkish"
+            "hungarian", "italian", "latvian", "polish", "portuguese",
+            "romanian", "russian", "spanish", "turkish"
     :param str name_mode: the name mode of the algorithm: 'gen' (default),
         'ash' (Ashkenazi), or 'sep' (Sephardic)
     :param str match_mode: matching mode: 'approx' or 'exact'

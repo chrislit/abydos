@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2015 by Christopher C. Little.
+# Copyright 2014-2018 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -17,6 +17,17 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
+
+
+# This helper script converts BMPM code from PHP to Python.
+#
+# It assumes that the BMPM code is located at ../../bmpm (relative to this
+# directory in the abydos repository).
+# It reads the BMPM reference implementation and generates the file
+# ../abydos/_bmdata.py.
+# The file _bm.py may still need manual changes to be made.
+
+
 from __future__ import unicode_literals, print_function
 from os import listdir
 from os.path import isfile
@@ -25,6 +36,8 @@ import chardet
 import re
 import sys
 
+# The list of languages from BMPM to support (might need to be updated or
+# tuned as BMPM is updated)
 lang_tuple = ('any', 'arabic', 'cyrillic', 'czech', 'dutch', 'english',
               'french', 'german', 'greek', 'greeklatin', 'hebrew', 'hungarian',
               'italian', 'latvian', 'polish', 'portuguese', 'romanian',
@@ -41,8 +54,10 @@ tail_text = ''
 
 
 def c2u(name):
-    """Src:
-    http://stackoverflow.com/questions/1175208/elegant-python-function-to-convert-camelcase-to-camel-case
+    """Convert camelCase (used in BMPM's PHP code) to Python-standard snake_case
+
+    Src:
+    https://stackoverflow.com/questions/1175208/elegant-python-function-to-convert-camelcase-to-snake-case
     """
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
     s1 = re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
@@ -50,6 +65,8 @@ def c2u(name):
 
 
 def pythonize(line, fn='', subdir='gen'):
+    """Convert a line of BMPM code from PHP to Python
+    """
     global nl, array_seen
 
     if '$all' in line:
@@ -178,7 +195,7 @@ else:
 outfilename = '../abydos/_bmdata.py'
 outfile = codecs.open(outfilename, 'w', 'utf-8')
 
-outfile.write('# -*- coding: utf-8 -*-\n\n# Copyright 2014-2015 by \
+outfile.write('# -*- coding: utf-8 -*-\n\n# Copyright 2014-2018 by \
 Christopher C. Little.\n# This file is part of Abydos.\n#\n# This file is \
 based on Alexander Beider and Stephen P. Morse\'s implementation\n# of the \
 Beider-Morse Phonetic Matching (BMPM) System, available at\n# \
@@ -224,7 +241,7 @@ for s in subdirs:
             if infilename.startswith(pfx):
                 array_seen = False
                 infilepath = bmdir + s + '/' + infilename
-                infileenc = chardet.detect(open(infilepath).read())['encoding']
+                infileenc = chardet.detect(open(infilepath, 'rb').read())['encoding']
                 print(s + '/' + infilename)
                 infile = codecs.open(infilepath, 'r', infileenc)
                 if infilename.startswith('lang'):
