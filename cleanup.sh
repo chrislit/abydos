@@ -1,13 +1,13 @@
 #!/bin/sh
 
-sudo rm -rf ./abydos.egg-info
-sudo rm -rf ./dist
-sudo rm -rf ./build
-sudo rm -rf ./*.log
-sudo rm -rf ./.coverage
-sudo rm -rf */*.pyc
-sudo rm -rf */__pycache__
-sudo rm -rf *~
-sudo rm -rf .*~
-sudo rm -rf */*~
-sudo rm -rf */.*~
+rm -rf ./abydos.egg-info
+rm -rf ./dist
+rm -rf ./build
+rm -rf ./*.log
+rm -rf ./.coverage
+rm -rf */*.pyc
+rm -rf */__pycache__
+rm -rf *~
+rm -rf .*~
+rm -rf */*~
+rm -rf */.*~
