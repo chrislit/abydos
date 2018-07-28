@@ -28,6 +28,7 @@ if [ "$quick_mode" = "0" ]; then
 
     pylint --rcfile=pylint.rc abydos > pylint.log
     pycodestyle -v --statistics --exclude=.git,__pycache__,build,_bmdata.py,docs . > pycodestyle.log
+    bandit -r -v . > bandit.log
 
     ./badge_update.py
 fi
