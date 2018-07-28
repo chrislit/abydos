@@ -27,7 +27,7 @@ if [ "$quick_mode" = "0" ]; then
     nosetests .
 
     pylint --rcfile=pylint.rc abydos > pylint.log
-    pep8 -v --statistics --exclude=.git,__pycache__,build,_bmdata.py,docs . > pep8.log
+    pycodestyle -v --statistics --exclude=.git,__pycache__,build,_bmdata.py,docs . > pycodestyle.log
 
     ./badge_update.py
 fi
