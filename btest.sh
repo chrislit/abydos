@@ -24,7 +24,7 @@ python setup.py bdist_wheel
 python setup.py install
 
 if [ "$quick_mode" = "0" ]; then
-    nosetests -v --with-coverage --cover-erase --cover-html --cover-branches --cover-package=abydos .
+    nosetests .
 
     pylint --rcfile=pylint.rc abydos > pylint.log
     pep8 -v --statistics --exclude=.git,__pycache__,build,_bmdata.py,docs . > pep8.log
