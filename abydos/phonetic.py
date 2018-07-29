@@ -40,18 +40,22 @@ The phonetic module implements phonetic algorithms including:
     - Beider-Morse Phonetic Matching
 """
 
-from __future__ import unicode_literals
 from __future__ import division
-from ._compat import _unicode, _range
-from itertools import groupby
-from collections import Counter
+from __future__ import unicode_literals
+
 import re
 import unicodedata
+from collections import Counter
+from itertools import groupby
+
 from ._bm import _bmpm
+from ._compat import _range, _unicode
+
+_infinity = float('inf')
 
 
 def _delete_consecutive_repeats(word):
-    """Delete consecutive repeated characters
+    """Delete consecutive repeated characters in a word.
 
     :param str word: the word to transform
     :returns: word with consecutive repeating characters collapsed to
@@ -62,7 +66,7 @@ def _delete_consecutive_repeats(word):
 
 
 def russell_index(word):
-    """Russell Index (integer output)
+    """Return the Russell Index (integer output) of a word.
 
     This follows Robert C. Russell's Index algorithm, as described in
     US Patent 1,261,167 (1917)
@@ -107,7 +111,7 @@ def russell_index(word):
 
 
 def russell_index_num_to_alpha(num):
-    """Russell Index integer to alphabetic string
+    """Convert the Russell Index integer to an alphabetic string.
 
     This follows Robert C. Russell's Index algorithm, as described in
     US Patent 1,261,167 (1917)
@@ -133,7 +137,7 @@ def russell_index_num_to_alpha(num):
 
 
 def russell_index_alpha(word):
-    """Russell Index (alphabetic output)
+    """Return the Russell Index (alphabetic output) for the word.
 
     This follows Robert C. Russell's Index algorithm, as described in
     US Patent 1,261,167 (1917)
@@ -158,7 +162,7 @@ def russell_index_alpha(word):
 
 
 def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
-    """Soundex
+    """Return the Soundex code for a word.
 
     :param str word: the word to transform
     :param int maxlength: the length of the code returned (defaults to 4)
@@ -270,7 +274,7 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
 
 
 def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
-    """Daitch-Mokotoff Soundex
+    """Return the Daitch-Mokotoff Soundex code for a word.
 
     Returns values of a word as a set. A collection is necessary since there
     can be multiple values for a single word.
@@ -395,9 +399,9 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
     # Nothing to convert, return base case
     if not word:
         if zero_pad:
-            return set(['0'*maxlength])
+            return {'0'*maxlength}
         else:
-            return set(['0'])
+            return {'0'}
 
     # Reverse word if computing Reverse Soundex
     if reverse:
@@ -444,7 +448,7 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
 
 
 def koelner_phonetik(word):
-    """Kölner Phonetik (numeric output)
+    """Return the Kölner Phonetik (numeric output) code for a word.
 
     Based on the algorithm described at
     https://de.wikipedia.org/wiki/Kölner_Phonetik
@@ -471,15 +475,13 @@ def koelner_phonetik(word):
     """
     # pylint: disable=too-many-branches
     def _after(word, i, letters):
-        """Return True if word[i] follows one of the supplied letters
-        """
+        """Return True if word[i] follows one of the supplied letters."""
         if i > 0 and word[i-1] in letters:
             return True
         return False
 
     def _before(word, i, letters):
-        """Return True if word[i] precedes one of the supplied letters
-        """
+        """Return True if word[i] precedes one of the supplied letters."""
         if i+1 < len(word) and word[i+1] in letters:
             return True
         return False
@@ -555,7 +557,7 @@ def koelner_phonetik(word):
 
 
 def koelner_phonetik_num_to_alpha(num):
-    """Convert Kölner Phonetik from numeric to alphabetic
+    """Convert a Kölner Phonetik code from numeric to alphabetic.
 
     :param str num: a numeric Kölner Phonetik representation
     :returns: an alphabetic representation of the same word
@@ -575,7 +577,7 @@ def koelner_phonetik_num_to_alpha(num):
 
 
 def koelner_phonetik_alpha(word):
-    """Kölner Phonetik (alphabetic output)
+    """Return the Kölner Phonetik (alphabetic output) code for a word.
 
     :param str word: the word to transform
     :returns: the Kölner Phonetik value as an alphabetic string
@@ -594,9 +596,10 @@ def koelner_phonetik_alpha(word):
 
 
 def nysiis(word, maxlength=6):
-    """New York State Identification and Intelligence System (NYSIIS)
+    """Return the NYSIIS code for a word.
 
-    A description of the algorithm can be found at
+    A description of the New York State Identification and Intelligence System
+    algorithm can be found at
     https://en.wikipedia.org/wiki/New_York_State_Identification_and_Intelligence_System
 
     :param str word: the word to transform
@@ -700,10 +703,10 @@ def nysiis(word, maxlength=6):
 
 
 def mra(word):
-    """Western Airlines Surname Match Rating Algorithm
-    personal numeric identifier (PNI)
+    """Return the MRA personal numeric identifier (PNI) for a word.
 
-    A description of the algorithm can be found on page 18 of
+    A description of the Western Airlines Surname Match Rating Algorithm can
+    be found on page 18 of
     https://archive.org/details/accessingindivid00moor
 
     :param str word: the word to transform
@@ -731,8 +734,8 @@ def mra(word):
     return word
 
 
-def metaphone(word, maxlength=float('inf')):
-    """Metaphone
+def metaphone(word, maxlength=_infinity):
+    """Return the Metaphone code for a word.
 
     Based on Lawrence Philips' Pick BASIC code from 1990:
     http://aspell.net/metaphone/metaphone.basic
@@ -903,8 +906,8 @@ def metaphone(word, maxlength=float('inf')):
     return metaph
 
 
-def double_metaphone(word, maxlength=float('inf')):
-    """Double Metaphone
+def double_metaphone(word, maxlength=_infinity):
+    """Return the Double Metaphone code for a word.
 
     Based on Lawrence Philips' (Visual) C++ code from 1999:
     http://aspell.net/metaphone/dmetaph.cpp
@@ -936,15 +939,13 @@ def double_metaphone(word, maxlength=float('inf')):
     secondary = ''
 
     def _slavo_germanic():
-        """Returns True if the word appears to be Slavic or Germanic
-        """
+        """Return True if the word appears to be Slavic or Germanic."""
         if 'W' in word or 'K' in word or 'CZ' in word:
             return True
         return False
 
     def _metaph_add(pri, sec=''):
-        """Returns a new metaphone tuple with the supplied additional elements
-        """
+        """Return a new metaphone tuple with the supplied elements."""
         newpri = primary
         newsec = secondary
         if pri:
@@ -957,20 +958,17 @@ def double_metaphone(word, maxlength=float('inf')):
         return (newpri, newsec)
 
     def _is_vowel(pos):
-        """Returns true if the character at word[pos] is a vowel
-        """
+        """Return True if the character at word[pos] is a vowel."""
         if pos >= 0 and word[pos] in frozenset('AEIOUY'):
             return True
         return False
 
     def _get_at(pos):
-        """Returns the character at word[pos]
-        """
+        """Return the character at word[pos]."""
         return word[pos]
 
     def _string_at(pos, slen, substrings):
-        """Returns True if word[pos:pos+slen] is in substrings
-        """
+        """Return True if word[pos:pos+slen] is in substrings."""
         if pos < 0:
             return False
         return word[pos:pos+slen] in substrings
@@ -1645,7 +1643,7 @@ def double_metaphone(word, maxlength=float('inf')):
 
 
 def caverphone(word, version=2):
-    """Caverphone
+    """Return the Caverphone code for a word.
 
     A description of version 1 of the algorithm can be found at:
     http://caversham.otago.ac.nz/files/working/ctp060902.pdf
@@ -1786,7 +1784,7 @@ def caverphone(word, version=2):
 
 
 def alpha_sis(word, maxlength=14):
-    """IBM Alpha Search Inquiry System
+    """Return the IBM Alpha Search Inquiry System code for a word.
 
     Based on the algorithm described in "Accessing individual records from
     personal data files using non-unique identifiers" / Gwendolyn B. Moore,
@@ -1891,7 +1889,7 @@ def alpha_sis(word, maxlength=14):
 
 
 def fuzzy_soundex(word, maxlength=5, zero_pad=True):
-    """Fuzzy Soundex
+    """Return the Fuzzy Soundex code for a word.
 
     Fuzzy Soundex is an algorithm derived from Soundex, defined in:
     Holmes, David and M. Catherine McCabe. "Improving Precision and Recall for
@@ -1997,7 +1995,7 @@ def fuzzy_soundex(word, maxlength=5, zero_pad=True):
 
 
 def phonex(word, maxlength=4, zero_pad=True):
-    """Phonex
+    """Return the Phonex code for a word.
 
     Phonex is an algorithm derived from Soundex, defined in:
     Lait, A. J. and B. Randell. "An Assessment of Name Matching Algorithms".
@@ -2104,7 +2102,7 @@ def phonex(word, maxlength=4, zero_pad=True):
 
 
 def phonem(word):
-    """Phonem
+    """Return the Phonem code for a word.
 
     Phonem is defined in Wilde, Georg and Carsten Meyer. 1999. "Doppelgaenger
     gesucht - Ein Programm fuer kontextsensitive phonetische Textumwandlung."
@@ -2150,7 +2148,7 @@ def phonem(word):
 
 
 def phonix(word, maxlength=4, zero_pad=True):
-    """Phonix
+    """Return the Phonix code for a word.
 
     Phonix is a Soundex-like algorithm defined in:
     T.N. Gadd: PHONIX --- The Algorithm, Program 24/4, 1990, p.363-366.
@@ -2179,9 +2177,7 @@ def phonix(word, maxlength=4, zero_pad=True):
     """
     # pylint: disable=too-many-branches
     def _start_repl(word, src, tar, post=None):
-        """replace src with tar at the start of word
-        in the environment pre__post
-        """
+        r"""Replace src with tar at the start of word."""
         if post:
             for i in post:
                 if word.startswith(src+i):
@@ -2191,9 +2187,7 @@ def phonix(word, maxlength=4, zero_pad=True):
         return word
 
     def _end_repl(word, src, tar, pre=None):
-        """replace src with tar at the end of word
-        in the environment pre__post
-        """
+        r"""Replace src with tar at the end of word."""
         if pre:
             for i in pre:
                 if word.endswith(i+src):
@@ -2203,9 +2197,7 @@ def phonix(word, maxlength=4, zero_pad=True):
         return word
 
     def _mid_repl(word, src, tar, pre=None, post=None):
-        """replace src with tar in the middle of word
-        in the environment pre__post
-        """
+        r"""Replace src with tar in the middle of word."""
         if pre or post:
             if not pre:
                 return word[0] + _all_repl(word[1:], src, tar, pre, post)
@@ -2218,9 +2210,7 @@ def phonix(word, maxlength=4, zero_pad=True):
                     word[-1])
 
     def _all_repl(word, src, tar, pre=None, post=None):
-        """replace src with tar anywhere in word
-        in the environment pre__post
-        """
+        r"""Replace src with tar anywhere in word."""
         if pre or post:
             if post:
                 post = post
@@ -2368,7 +2358,7 @@ def phonix(word, maxlength=4, zero_pad=True):
 
 
 def sfinxbis(word, maxlength=None):
-    """SfinxBis
+    """Return the SfinxBis code for a word.
 
     SfinxBis is a Soundex-like algorithm defined in:
     http://www.swami.se/download/18.248ad5af12aa8136533800091/SfinxBis.pdf
@@ -2419,8 +2409,7 @@ def sfinxbis(word, maxlength=None):
                                        'VSAAAAÄCEEEEIIIINOOOOÖUUUYY'))
 
     def _foersvensker(ordet):
-        """Return Swedish-ized form of the word
-        """
+        """Return the Swedish-ized form of the word."""
         ordet = ordet.replace('STIERN', 'STJÄRN')
         ordet = ordet.replace('HIE', 'HJ')
         ordet = ordet.replace('SIÖ', 'SJÖ')
@@ -2451,8 +2440,7 @@ def sfinxbis(word, maxlength=None):
         return ordet
 
     def _koda_foersta_ljudet(ordet):
-        """Return word with the first sound coded
-        """
+        """Return the word with the first sound coded."""
         if ordet[0:1] in _mjuka_vokaler or ordet[0:1] in _harde_vokaler:
             ordet = '$' + ordet[1:]
         elif ordet[0:2] in ('DJ', 'GJ', 'HJ', 'LJ'):
@@ -2542,7 +2530,7 @@ def sfinxbis(word, maxlength=None):
 
 
 def phonet(word, mode=1, lang='de', trace=False):
-    """phonet
+    """Return the phonet code for a word.
 
     phonet was developed by Jörg Michael and documented in c't magazine
     vol. 25/1999, p. 252. It is a phonetic algorithm designed primarily for
@@ -3607,26 +3595,24 @@ def phonet(word, mode=1, lang='de', trace=False):
                                          'ÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ'))
 
     def _trinfo(text, rule, err_text, lang):
-        """Output debug information
-        """
+        """Output debug information."""
         if lang == 'none':
             _phonet_rules = _phonet_rules_no_lang
         else:
             _phonet_rules = _phonet_rules_german
 
-        from_rule = ('(NULL)' if _phonet_rules[rule] == None else
+        from_rule = ('(NULL)' if _phonet_rules[rule] is None else
                      _phonet_rules[rule])
-        to_rule1 = ('(NULL)' if (_phonet_rules[rule + 1] == None) else
+        to_rule1 = ('(NULL)' if (_phonet_rules[rule + 1] is None) else
                     _phonet_rules[rule + 1])
-        to_rule2 = ('(NULL)' if (_phonet_rules[rule + 2] == None) else
+        to_rule2 = ('(NULL)' if (_phonet_rules[rule + 2] is None) else
                     _phonet_rules[rule + 2])
         print('"{} {}:  "{}"{}"{}" {}'.format(text, ((rule / 3) + 1),
                                               from_rule, to_rule1, to_rule2,
                                               err_text))
 
     def _initialize_phonet(lang):
-        """Initialize phonet variables
-        """
+        """Initialize phonet variables."""
         if lang == 'none':
             _phonet_rules = _phonet_rules_no_lang
         else:
@@ -3699,8 +3685,7 @@ def phonet(word, mode=1, lang='de', trace=False):
                         rule = rule[1:]
 
     def _phonet(term, mode, lang, trace):
-        """Return the phonet coded form of a term
-        """
+        """Return the phonet coded form of a term."""
         if lang == 'none':
             _phonet_rules = _phonet_rules_no_lang
         else:
@@ -3902,7 +3887,7 @@ def phonet(word, mode=1, lang='de', trace=False):
 
                         # check continuation rules for src[i+matches]
                         if pos0 >= 0:
-                            while ((_phonet_rules[pos0] == None) or
+                            while ((_phonet_rules[pos0] is None) or
                                    (_phonet_rules[pos0][0] == char0)):
                                 if pos0 > end3:
                                     if start4 > 0:
@@ -3918,8 +3903,8 @@ def phonet(word, mode=1, lang='de', trace=False):
                                     # important
                                     break
 
-                                if (((_phonet_rules[pos0] == None) or
-                                     (_phonet_rules[pos0 + mode] == None))):
+                                if (((_phonet_rules[pos0] is None) or
+                                     (_phonet_rules[pos0 + mode] is None))):
                                     # no conversion rule available
                                     pos0 += 3
                                     continue
@@ -4007,7 +3992,7 @@ def phonet(word, mode=1, lang='de', trace=False):
 
                             # end of "while"
                             if ((priority0 >= priority) and
-                                ((_phonet_rules[pos0] != None) and
+                                ((_phonet_rules[pos0] is not None) and
                                  (_phonet_rules[pos0][0] == char0))):
 
                                 if trace:
@@ -4113,7 +4098,7 @@ def phonet(word, mode=1, lang='de', trace=False):
 
 
 def spfc(word):
-    """Standardized Phonetic Frequency Code (SPFC)
+    """Return the Standardized Phonetic Frequency Code (SPFC) of a word.
 
     Standardized Phonetic Frequency Code is roughly Soundex-like.
     This implementation is based on page 19-21 of
@@ -4141,7 +4126,6 @@ def spfc(word):
     >>> spfc(('R', 'Miller'))
     '65490'
     """
-
     _pf1 = dict(zip((ord(_) for _ in 'SZCKQVFPUWABLORDHIEMNXGJT'),
                     '0011112222334445556666777'))
     _pf2 = dict(zip((ord(_) for _ in
@@ -4155,8 +4139,7 @@ def spfc(word):
                       ('MN', 'N'))
 
     def _raise_word_ex():
-        """Raise an AttributeError
-        """
+        """Raise an AttributeError."""
         raise AttributeError('word attribute must be a string with a space ' +
                              'or period dividing the first and last names ' +
                              'or a tuple/list consisting of the first and ' +
@@ -4185,8 +4168,7 @@ def spfc(word):
     code = ''
 
     def steps_one_to_three(name):
-        """Performs the first three steps of SPFC
-        """
+        """Perform the first three steps of SPFC."""
         # filter out non A-Z
         name = ''.join(_ for _ in name if _ in
                        frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
@@ -4263,7 +4245,7 @@ def spfc(word):
 
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
-    """Beider-Morse Phonetic Matching algorithm
+    """Return the Beider-Morse Phonetic Matching algorithm code for a word.
 
     The Beider-Morse Phonetic Matching algorithm is described at:
     http://stevemorse.org/phonetics/bmpm.htm
@@ -4338,6 +4320,6 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
                  concat, filter_langs)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     import doctest
     doctest.testmod()
