@@ -23,20 +23,22 @@ functions for corpus statistics, language modeling, etc.
 """
 
 from __future__ import unicode_literals
+
 from math import log10
 
 
 class Corpus(object):
-    """The Corpus class
+    """Corpus class.
 
     Internally, this is a list of lists or lists. The corpus itself is a list
     of documents. Each document is an ordered list of sentences in those
     documents. And each sentence is an ordered list of words that make up that
     sentence.
     """
+
     def __init__(self, corpus_text='', doc_split='\n\n', sent_split='\n',
                  filter_chars='', stop_words=None):
-        """Corpus initializer
+        r"""Initialize Corpus.
 
         By default, when importing a corpus:
             - two consecutive newlines divide documents
@@ -76,7 +78,7 @@ class Corpus(object):
                 self.corpus.append(doc)
 
     def docs(self):
-        """Get the docs in the corpus
+        r"""Return the docs in the corpus.
 
         Each list within a doc represents the sentences in that doc, each of
         which is in turn a list of words within that sentence.
@@ -98,7 +100,7 @@ class Corpus(object):
         return self.corpus
 
     def paras(self):
-        """Get the paragraphs in the corpus
+        r"""Return the paragraphs in the corpus.
 
         Each list within a paragraph represents the sentences in that doc, each
         of which is in turn a list of words within that sentence.
@@ -122,7 +124,7 @@ class Corpus(object):
         return self.docs()
 
     def sents(self):
-        """Get the sentences in the corpus
+        r"""Return the sentences in the corpus.
 
         Each list within a sentence represents the words within that sentence.
 
@@ -142,7 +144,7 @@ class Corpus(object):
         return [words for sents in self.corpus for words in sents]
 
     def words(self):
-        """Get the words in the corpus as a single list
+        r"""Return the words in the corpus as a single list.
 
         :returns: the words in the corpus as a list of strs
         :rtype: list(str)
@@ -160,7 +162,7 @@ class Corpus(object):
         return [words for sents in self.sents() for words in sents]
 
     def docs_of_words(self):
-        """Get the docs in the corpus, with sentences flattened
+        r"""Return the docs in the corpus, with sentences flattened.
 
         Each list within the corpus represents all the words of that document.
         Thus the sentence level of lists has been flattened.
@@ -182,7 +184,7 @@ class Corpus(object):
                 for doc in self.corpus]
 
     def raw(self):
-        """Get the raw corpus
+        r"""Return the raw corpus.
 
         This is reconstructed by joining sub-components with the corpus' split
         characters
@@ -209,8 +211,7 @@ class Corpus(object):
         return self.doc_split.join(doc_list)
 
     def idf(self, term, transform=None):
-        """Calculates the Inverse Document Frequency (IDF) of a term in the
-        corpus.
+        """Calculate the Inverse Document Frequency of a term in the corpus.
 
         :param term: the term to calculate the IDF of
         :param transform: a function to apply to each document term before
