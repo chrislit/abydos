@@ -30,6 +30,7 @@ if [ "$quick_mode" = "0" ]; then
     pycodestyle -v --statistics --exclude=.git,__pycache__,build,_bmdata.py,docs . > pycodestyle.log
     bandit -r -v . > bandit.log
     pydocstyle -e -s -v --count > pydocstyle.log
+    flake8 . > flake8.log
 
     ./badge_update.py
 fi

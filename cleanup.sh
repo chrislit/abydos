@@ -1,5 +1,7 @@
 #!/bin/sh
 
+rm -rf ./cover
+rm -rf ./flake8
 rm -rf ./abydos.egg-info
 rm -rf ./dist
 rm -rf ./build
