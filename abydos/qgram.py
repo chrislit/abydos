@@ -23,8 +23,9 @@ The qgram module defines the QGrams multi-set class
 
 from __future__ import unicode_literals
 from __future__ import division
-from ._compat import _range
 from collections import Counter
+
+from ._compat import _range
 
 
 # pylint: disable=abstract-method

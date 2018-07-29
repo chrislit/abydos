@@ -55,18 +55,22 @@ If a sim_X function is supplied identical src & tar arguments, it is guaranteed
 to return 1; the corresponding dist_X function is guaranteed to return 0.
 """
 
-from __future__ import unicode_literals
 from __future__ import division
-from ._compat import _range, _unicode
-import numpy
+from __future__ import unicode_literals
+
 import sys
 import math
 from collections import defaultdict, Counter
+import unicodedata
+import codecs
+
+import numpy as np
+
+from ._compat import _range, _unicode
 from .qgram import QGrams
 from .phonetic import mra
-import codecs
 from .compression import ac_train, ac_encode, rle_encode
-import unicodedata
+
 try:
     import lzma
 except ImportError:  # pragma: no cover
@@ -134,16 +138,16 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
 
     if src == tar:
         return 0
-    if len(src) == 0:
+    if not src:
         return len(tar) * ins_cost
-    if len(tar) == 0:
+    if not tar:
         return len(src) * del_cost
 
     if 'dam' in mode:
         return damerau_levenshtein(src, tar, cost)
 
     # pylint: disable=no-member
-    d_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
+    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
     # pylint: enable=no-member
     for i in _range(len(src)+1):
         d_mat[i, 0] = i * del_cost
@@ -163,7 +167,7 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
                      src[i-1] == tar[j])):
                     d_mat[i+1, j+1] = min(d_mat[i+1, j+1],
                                           d_mat[i-1, j-1] + trans_cost  # trans
-                                          )
+                                         )
 
     return d_mat[len(src), len(tar)]
 
@@ -282,9 +286,9 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
 
     if src == tar:
         return 0
-    if len(src) == 0:
+    if not src:
         return len(tar) * ins_cost
-    if len(tar) == 0:
+    if not tar:
         return len(src) * del_cost
 
     if 2*trans_cost < ins_cost + del_cost:
@@ -293,7 +297,7 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
                          'an insert plus a delete.')
 
     # pylint: disable=no-member
-    d_mat = (numpy.zeros((len(src))*(len(tar)), dtype=numpy.int).
+    d_mat = (np.zeros((len(src))*(len(tar)), dtype=np.int).
              reshape((len(src), len(tar))))
     # pylint: enable=no-member
 
@@ -587,7 +591,7 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
 
     if src == tar:
         return 1.0
-    elif len(src) == 0 or len(tar) == 0:
+    elif not src or not tar:
         return 0.0
 
     if isinstance(src, Counter) and isinstance(tar, Counter):
@@ -603,20 +607,20 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     q_tar_mag = sum(q_tar.values())
     q_intersection_mag = sum((q_src & q_tar).values())
 
-    if len(q_src) == 0 or len(q_tar) == 0:
+    if not q_src or not q_tar:
         return 0.0
 
     if bias is None:
         return q_intersection_mag / (q_intersection_mag + alpha *
                                      (q_src_mag - q_intersection_mag) +
                                      beta * (q_tar_mag - q_intersection_mag))
-    else:
-        a_val = min(q_src_mag - q_intersection_mag,
-                    q_tar_mag - q_intersection_mag)
-        b_val = max(q_src_mag - q_intersection_mag,
-                    q_tar_mag - q_intersection_mag)
-        c_val = q_intersection_mag + bias
-        return c_val / (beta * (alpha * a_val + (1 - alpha) * b_val) + c_val)
+
+    a_val = min(q_src_mag - q_intersection_mag,
+                q_tar_mag - q_intersection_mag)
+    b_val = max(q_src_mag - q_intersection_mag,
+                q_tar_mag - q_intersection_mag)
+    c_val = q_intersection_mag + bias
+    return c_val / (beta * (alpha * a_val + (1 - alpha) * b_val) + c_val)
 
 
 def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
@@ -777,7 +781,7 @@ def sim_overlap(src, tar, qval=2):
     """
     if src == tar:
         return 1.0
-    elif len(src) == 0 or len(tar) == 0:
+    elif not src or not tar:
         return 0.0
 
     if isinstance(src, Counter) and isinstance(tar, Counter):
@@ -869,8 +873,8 @@ def tanimoto(src, tar, qval=2):
     coeff = sim_jaccard(src, tar, qval)
     if coeff != 0:
         return math.log(coeff, 2)
-    else:
-        return float('-inf')
+
+    return float('-inf')
 
 
 def sim_cosine(src, tar, qval=2):
@@ -981,7 +985,7 @@ def sim_strcmp95(src, tar, long_strings=False):
     if ying == yang:
         return 1.0
     # If either string is blank - return - added in Version 2
-    if len(ying) == 0 or len(yang) == 0:
+    if not ying or not yang:
         return 0.0
 
     adjwt = defaultdict(int)
@@ -1329,7 +1333,7 @@ def lcsseq(src, tar):
     'AC'
     """
     # pylint: disable=no-member
-    lengths = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
+    lengths = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
     # pylint: enable=no-member
 
     # row 0 and column 0 are initialized to 0 already
@@ -1377,7 +1381,7 @@ def sim_lcsseq(src, tar):
     """
     if src == tar:
         return 1.0
-    elif len(src) == 0 or len(tar) == 0:
+    elif not src or not tar:
         return 0.0
     return len(lcsseq(src, tar)) / max(len(src), len(tar))
 
@@ -1430,7 +1434,7 @@ def lcsstr(src, tar):
     'A'
     """
     # pylint: disable=no-member
-    lengths = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
+    lengths = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
     # pylint: enable=no-member
     longest, i_longest = 0, 0
     for i in _range(1, len(src)+1):
@@ -1466,7 +1470,7 @@ def sim_lcsstr(src, tar):
     """
     if src == tar:
         return 1.0
-    elif len(src) == 0 or len(tar) == 0:
+    elif not src or not tar:
         return 0.0
     return len(lcsstr(src, tar)) / max(len(src), len(tar))
 
@@ -1529,7 +1533,7 @@ def sim_ratcliff_obershelp(src, tar):
         strings src and tar
         """
         # pylint: disable=no-member
-        lengths = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
+        lengths = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
         # pylint: enable=no-member
         longest, src_longest, tar_longest = 0, 0, 0
         for i in _range(1, len(src)+1):
@@ -1564,7 +1568,7 @@ def sim_ratcliff_obershelp(src, tar):
 
     if src == tar:
         return 1.0
-    elif len(src) == 0 or len(tar) == 0:
+    elif not src or not tar:
         return 0.0
     return 2*_sstr_matches(src, tar)/(len(src)+len(tar))
 
@@ -1871,7 +1875,7 @@ def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
     q_src = sorted(QGrams(src).elements())
     q_tar = sorted(QGrams(tar).elements())
 
-    if len(q_src) == 0 or len(q_tar) == 0:
+    if not q_src or not q_tar:
         return 0.0
 
     sum_of_maxes = 0
@@ -1998,15 +2002,12 @@ def sim_matrix(src, tar, mat=None, mismatch_cost=0, match_cost=1,
     if src == tar:
         if mat and (src, src) in mat:
             return mat[(src, src)]
-        else:
-            return match_cost
-    else:
-        if mat and (src, tar) in mat:
-            return mat[(src, tar)]
-        elif symmetric and mat and (tar, src) in mat:
-            return mat[(tar, src)]
-        else:
-            return mismatch_cost
+        return match_cost
+    if mat and (src, tar) in mat:
+        return mat[(src, tar)]
+    elif symmetric and mat and (tar, src) in mat:
+        return mat[(tar, src)]
+    return mismatch_cost
 
 
 def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
@@ -2036,7 +2037,7 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
     0.0
     """
     # pylint: disable=no-member
-    d_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.float)
+    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
     # pylint: enable=no-member
 
     for i in _range(len(src)+1):
@@ -2076,7 +2077,7 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
     1.0
     """
     # pylint: disable=no-member
-    d_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.float)
+    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
     # pylint: enable=no-member
 
     for i in _range(len(src)+1):
@@ -2119,9 +2120,9 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
     2.0
     """
     # pylint: disable=no-member
-    d_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.float)
-    p_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.float)
-    q_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.float)
+    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
+    p_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
+    q_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
     # pylint: enable=no-member
 
     d_mat[0, 0] = 0
@@ -2175,7 +2176,7 @@ def sim_length(src, tar):
     """
     if src == tar:
         return 1.0
-    if len(src) == 0 or len(tar) == 0:
+    if not src or not tar:
         return 0.0
     return len(src)/len(tar) if len(src) < len(tar) else len(tar)/len(src)
 
@@ -2224,7 +2225,7 @@ def sim_prefix(src, tar):
     """
     if src == tar:
         return 1.0
-    if len(src) == 0 or len(tar) == 0:
+    if not src or not tar:
         return 0.0
     min_word, max_word = (src, tar) if len(src) < len(tar) else (tar, src)
     min_len = len(min_word)
@@ -2278,7 +2279,7 @@ def sim_suffix(src, tar):
     """
     if src == tar:
         return 1.0
-    if len(src) == 0 or len(tar) == 0:
+    if not src or not tar:
         return 0.0
     min_word, max_word = (src, tar) if len(src) < len(tar) else (tar, src)
     min_len = len(min_word)
@@ -2343,7 +2344,7 @@ def sim_mlipns(src, tar, threshold=0.25, maxmismatches=2):
     """
     if tar == src:
         return 1.0
-    if len(src) == 0 or len(tar) == 0:
+    if not src or not tar:
         return 0.0
 
     mismatches = 0
@@ -2413,9 +2414,9 @@ def bag(src, tar):
     """
     if tar == src:
         return 0
-    elif len(src) == 0:
+    elif not src:
         return len(tar)
-    elif len(tar) == 0:
+    elif not tar:
         return len(src)
 
     src_bag = Counter(src)
@@ -2443,7 +2444,7 @@ def dist_bag(src, tar):
     """
     if tar == src:
         return 0.0
-    if len(src) == 0 or len(tar) == 0:
+    if not src or not tar:
         return 1.0
 
     maxlen = max(len(src), len(tar))
@@ -2539,13 +2540,13 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
 
     if src == tar:
         return 0
-    if len(src) == 0:
+    if not src:
         return len(tar) * mismatch_cost
-    if len(tar) == 0:
+    if not tar:
         return len(src) * mismatch_cost
 
     # pylint: disable=no-member
-    d_mat = numpy.zeros((len(src)+1, len(tar)+1), dtype=numpy.int)
+    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
     # pylint: enable=no-member
     lens = len(src)
     lent = len(tar)
@@ -2648,7 +2649,7 @@ def sim_tfidf(src, tar, qval=2, docs_src=None, docs_tar=None):
     """
     if src == tar:
         return 1.0  # TODO: confirm correctness of this when docs are different
-    elif len(src) == 0 or len(tar) == 0:
+    elif not src or not tar:
         return 0.0
 
     if isinstance(src, Counter) and isinstance(tar, Counter):
@@ -2668,10 +2669,11 @@ def sim_tfidf(src, tar, qval=2, docs_src=None, docs_tar=None):
     else:
         q_docs = Counter(docs_src.strip().split())
 
-    if len(q_src) == 0 or len(q_tar) == 0:
+    if not q_src or not q_tar:
         return 0.0
 
     # TODO: finish implementation
+    return 0.5  # hardcoded to half
 
 ###############################################################################
 
