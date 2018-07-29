@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2015 by Christopher C. Little.
+# Copyright 2014-2018 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -124,15 +124,14 @@ class NGramCorpus(object):
             return corpus[None]
 
         # support strings or lists/tuples by splitting strings
-        if type(ngram) in frozenset((_unicode, str)):
+        if isinstance(ngram, (_unicode, str)):
             ngram = _unicode(ngram).split()
 
         # if ngram is not empty, check whether the next element is in the
         # corpus; if so, recurse--if not, return 0
         if ngram[0] in corpus:
             return self.get_count(ngram[1:], corpus[ngram[0]])
-        else:
-            return 0
+        return 0
 
     def _add_to_ngcorpus(self, corpus, words, count):
         """Builds up a corpus entry recursively
@@ -183,5 +182,4 @@ class NGramCorpus(object):
         tcount = self.get_count(term)
         if tcount == 0:
             return 0.0
-        else:
-            return 1 + log10(tcount)
+        return 1 + log10(tcount)

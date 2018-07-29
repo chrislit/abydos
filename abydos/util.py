@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2015 by Christopher C. Little.
+# Copyright 2014-2018 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -30,15 +30,18 @@ from __future__ import unicode_literals
 from __future__ import division
 import sys
 import random
-import numpy
 import math
 from operator import mul
+import numpy as np
 from ._compat import _unicode, _range, numeric_type, _long
+
 if sys.version_info[0] == 3:
     # pylint: disable=redefined-builtin
     from functools import reduce    # pragma: no cover
     # pylint: enable=redefined-builtin
 
+
+_NAN = float('-nan')
 
 def prod(nums):
     """Product
@@ -62,13 +65,13 @@ def prod(nums):
     return reduce(mul, nums, 1)
 
 
-def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
+def jitter(nums, factor=1, amount=_NAN, min_val=None, max_val=None,
            rfunc='normal'):
     """Jitter
 
     Adapted from R documentation as this is ported directly from the R code:
 
-    The result, say r, is r = x + numpy.random.uniform(-a, a) where n = len(x)
+    The result, say r, is r = x + np.random.uniform(-a, a) where n = len(x)
     and a is the amount argument (if specified).
 
     Let z = max(x) - min(x) (assuming the usual case). The amount a to be added
@@ -114,7 +117,7 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
     """
     if isinstance(nums, numeric_type):
         return jitter([nums])[0]
-    if len(nums) == 0:
+    if not nums:
         return []
     if sum(isinstance(i, numeric_type) for i in nums) != len(nums):
         raise AttributeError('All members of nums must be numeric.')
@@ -136,7 +139,7 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
     elif rng[1] > max_val:
         raise AttributeError('Maximum of nums is greater than max_val.')
 
-    if amount is None:
+    if math.isnan(amount):
         ndigits = int(3 - math.floor(math.log10(diff)))
         snums = sorted(set([round(i, ndigits) for i in nums]))
         if len(snums) == 1:
@@ -168,7 +171,7 @@ def jitter(nums, factor=1, amount=None, min_val=None, max_val=None,
         :rtype: float
         """
         # pylint: disable=no-member
-        return numpy.random.laplace(0, amount)
+        return np.random.laplace(0, amount)
         # pylint: enable=no-member
 
     def _rand_normal():
@@ -349,10 +352,7 @@ class Rational(object):
         """
         if not isinstance(other, Rational):
             other = Rational(other)
-        if self.p == other.p and self.q == other.q:
-            return True
-        else:
-            return False
+        return self.p == other.p and self.q == other.q
 
     def __ne__(self, other):
         """not-equal operator (!=)
@@ -666,8 +666,7 @@ class Rational(object):
         """
         if self.q == 1:
             return str(self.p)
-        else:
-            return '{}/{}'.format(self.p, self.q)
+        return '{}/{}'.format(self.p, self.q)
 
     def __repr__(self):
         """cast to a str representation

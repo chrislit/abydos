@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2015 by Christopher C. Little.
+# Copyright 2014-2018 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -23,8 +23,8 @@ The phones module implements ...
 
 from __future__ import unicode_literals
 from __future__ import division
-from ._compat import _unicode, _range
 import unicodedata
+from ._compat import _unicode, _range
 
 
 PHONETIC_FEATURES = {'t': 2783230754502126250,
@@ -593,7 +593,7 @@ def ipa_to_features(ipa):
     pos = 0
     ipa = unicodedata.normalize('NFD', _unicode(ipa.lower()))
 
-    maxsymlen = max(len(_) for _ in PHONETIC_FEATURES.keys())
+    maxsymlen = max(len(_) for _ in PHONETIC_FEATURES)
 
     while pos < len(ipa):
         found_match = False

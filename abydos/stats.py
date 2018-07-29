@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2015 by Christopher C. Little.
+# Copyright 2014-2018 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -63,9 +63,9 @@ And for calculating:
 from __future__ import unicode_literals
 from __future__ import division
 import math
+from collections import Counter
 from .util import prod
 from ._compat import _range
-from collections import Counter
 
 
 class ConfusionTable(object):
@@ -99,7 +99,7 @@ class ConfusionTable(object):
         >>> ct == ConfusionTable({'tp': 120, 'tn': 60, 'fp': 20, 'fn': 30})
         True
         """
-        if isinstance(tp, tuple) or isinstance(tp, list):
+        if isinstance(tp, (tuple, list)):
             if len(tp) == 4:
                 self._tp = tp[0]
                 self._tn = tp[1]
@@ -155,7 +155,7 @@ class ConfusionTable(object):
                  self._fp == other.false_pos() and
                  self._fn == other.false_neg())):
                 return True
-        elif isinstance(other, tuple) or isinstance(other, list):
+        elif isinstance(other, (tuple, list)):
             if ((self._tp == other[0] and self._tn == other[1] and
                  self._fp == other[2] and self._fn == other[3])):
                 return True
@@ -690,9 +690,8 @@ class ConfusionTable(object):
             return 0.0
         elif precision == recall:
             return precision
-        else:
-            return ((precision - recall) /
-                    (math.log(precision) - math.log(recall)))
+        return ((precision - recall) /
+                (math.log(precision) - math.log(recall)))
 
     def pr_imean(self):
         """identric (exponential) mean of precision & recall
@@ -1506,10 +1505,9 @@ def median(nums):
     if mag % 2:
         mag = int((mag-1)/2)
         return nums[mag]
-    else:
-        mag = int(mag/2)
-        med = (nums[mag-1]+nums[mag])/2
-        return med if not med.is_integer() else int(med)
+    mag = int(mag/2)
+    med = (nums[mag-1]+nums[mag])/2
+    return med if not med.is_integer() else int(med)
 
 
 def mode(nums):

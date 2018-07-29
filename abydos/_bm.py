@@ -456,8 +456,7 @@ def _bm_normalize_lang_attrs(text, strip):
         # means that the attributes were incompatible and there is no
         # alternative here
         return '[0]'
-    else:
-        return text + '[' + str(attrib) + ']'
+    return text + '[' + str(attrib) + ']'
 
 
 def _bm_apply_rule_if_compat(phonetic, target, language_arg):
@@ -525,8 +524,8 @@ def _bm_language_index_from_code(code, name_mode):
                 'ash' (Ashkenazi), or 'sep' (Sephardic)
     """
     if (code < 1 or
-        code > sum([_LANG_DICT[_] for _ in
-                    BMDATA[name_mode]['languages']])):  # code out of range
+            code > sum([_LANG_DICT[_] for _ in
+                        BMDATA[name_mode]['languages']])):  # code out of range
         return L_ANY
     if (code & (code - 1)) != 0:  # choice was more than one language; use any
         return L_ANY
