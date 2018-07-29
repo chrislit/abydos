@@ -147,6 +147,8 @@ def pythonize(line, fn='', subdir='gen'):
     if 'languagenames' in fn:
         line = line.replace('"', "'")
         line = line.replace("','", "', '")
+        if line and line[0] == "'":
+            line = ' '*14+line
 
     # fix upstream
     # line = line.replace('ë', 'ü')
@@ -179,7 +181,7 @@ def pythonize(line, fn='', subdir='gen'):
     if line:
         nl = False
         if array_seen and not (line[0] == '_' or line.startswith('BMDATA')):
-            line = ' '*5 + line
+            line = ' '*4 + line
         return line + '\n'
     elif not nl:
         nl = True
