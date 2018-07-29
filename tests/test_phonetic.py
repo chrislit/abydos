@@ -4272,7 +4272,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'abram abrom avram avrom obram obrom ovram ovrom' +
                          ' Ybram Ybrom abran abron obran obron')
         self.assertEqual(bmpm('Bendzin', '', 'gen', 'approx', False),
-                         'bnzn bndzn vndzn bntsn vntsn')
+                         'binzn bindzn vindzn bintsn vintsn')
         self.assertEqual(bmpm('abram', '', 'ash', 'approx', False),
                          'abram abrom avram avrom obram obrom ovram ovrom' +
                          ' Ybram Ybrom ombram ombrom imbram imbrom')
@@ -4308,16 +4308,25 @@ class BeiderMorseTestCases(unittest.TestCase):
         # tests of concat behavior
         self.assertEqual(bmpm('Rodham Clinton', concat=False),
                          'rodam rodom rYdam rYdom rodan rodon rodxam rodxom' +
-                         ' rodxan rodxon rudam rudom klnton klntun tzlnton' +
-                         ' tzlntun zlnton')
+                         ' rodxan rodxon rudam rudom klinton klnton klintun' +
+                         ' klntun tzlinton tzlnton tzlintun tzlntun zlinton' +
+                         ' zlnton')
         self.assertEqual(bmpm('Rodham Clinton', concat=True),
-                         'rodamklnton rodomklnton rodamklntun rodomklntun' +
-                         ' rodamtzlnton rodomtzlnton rodamtzlntun' +
-                         ' rodomtzlntun rodamzlnton rodomzlnton rodanklnton' +
-                         ' rodonklnton rodxamklnton rodxomklnton' +
-                         ' rodxanklnton rodxonklnton rudamklnton' +
-                         ' rudomklnton rudamklntun rudomklntun rudamtzlnton' +
-                         ' rudomtzlnton rudamtzlntun rudomtzlntun')
+                         'rodamklinton rodomklinton rodamklnton rodomklnton' +
+                         ' rodamklintun rodomklintun rodamklntun rodomklntun' +
+                         ' rodamtzlinton rodomtzlinton rodamtzlnton' +
+                         ' rodomtzlnton rodamtzlintun rodomtzlintun' +
+                         ' rodamtzlntun rodomtzlntun rodamzlinton' +
+                         ' rodomzlinton rodamzlnton rodomzlnton rodanklinton' +
+                         ' rodonklinton rodanklnton rodonklnton' +
+                         ' rodxamklinton rodxomklinton rodxamklnton' +
+                         ' rodxomklnton rodxanklinton rodxonklinton' +
+                         ' rodxanklnton rodxonklnton rudamklinton' +
+                         ' rudomklinton rudamklnton rudomklnton rudamklintun' +
+                         ' rudomklintun rudamklntun rudomklntun' +
+                         ' rudamtzlinton rudomtzlinton rudamtzlnton' +
+                         ' rudomtzlnton rudamtzlintun rudomtzlintun' +
+                         ' rudamtzlntun rudomtzlntun')
 
         # tests of name_mode values
         self.assertEqual(bmpm('bar Hayim', name_mode='ash'), 'Dm xDm')
@@ -4342,12 +4351,14 @@ class BeiderMorseTestCases(unittest.TestCase):
         # test that out-of-range langauge_arg results in L_ANY
         self.assertEqual(bmpm('Rodham Clinton', language_arg=2**32),
                          'rodam rodom rYdam rYdom rodan rodon rodxam rodxom' +
-                         ' rodxan rodxon rudam rudom klnton klntun tzlnton' +
-                         ' tzlntun zlnton')
+                         ' rodxan rodxon rudam rudom klinton klnton klintun' +
+                         ' klntun tzlinton tzlnton tzlintun tzlntun zlinton' +
+                         ' zlnton')
         self.assertEqual(bmpm('Rodham Clinton', language_arg=-4),
                          'rodam rodom rYdam rYdom rodan rodon rodxam rodxom' +
-                         ' rodxan rodxon rudam rudom klnton klntun tzlnton' +
-                         ' tzlntun zlnton')
+                         ' rodxan rodxon rudam rudom klinton klnton klintun' +
+                         ' klntun tzlinton tzlnton tzlintun tzlntun zlinton' +
+                         ' zlnton')
 
         # etc. (for code coverage)
         self.assertEqual(bmpm('van Damme', name_mode='sep'), 'dami mi dam m')
@@ -4467,7 +4478,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                          L_ENGLISH)
         self.assertEqual(_bm_language('Nuñez', 'gen'), L_SPANISH)
         self.assertEqual(_bm_language('Carvalho', 'gen'), L_PORTUGUESE)
-        self.assertEqual(_bm_language('Čapek', 'gen'), L_CZECH)
+        self.assertEqual(_bm_language('Čapek', 'gen'), L_CZECH | L_LATVIAN)
         self.assertEqual(_bm_language('Sjneijder', 'gen'), L_DUTCH)
         self.assertEqual(_bm_language('Klausewitz', 'gen'), L_GERMAN)
         self.assertEqual(_bm_language('Küçük', 'gen'), L_TURKISH)
