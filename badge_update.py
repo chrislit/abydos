@@ -19,7 +19,18 @@ def pylint_color(score):
     return badge_colors[-1]
 
 
-def pep8_color(score):
+def pycodestyle_color(score):
+    # These are the score cutoffs for each color above.
+    # I.e. score==0 -> brightgreen, down to 100 < score <= 200 -> orange
+    score_cutoffs = (0, 20, 50, 100, 200)
+    for i in range(len(score_cutoffs)):
+        if score <= score_cutoffs[i]:
+            return badge_colors[i]
+    # and score > 200 -> red
+    return badge_colors[-1]
+
+
+def flake8_color(score):
     # These are the score cutoffs for each color above.
     # I.e. score==0 -> brightgreen, down to 100 < score <= 200 -> orange
     score_cutoffs = (0, 20, 50, 100, 200)
@@ -36,24 +47,37 @@ if not os.path.isfile('./README.rst'):
 if not os.path.isfile('./pylint.log'):
     exit('Please direct Pylint output to pylint.log')
 pylint_text = open('pylint.log', 'r', encoding='utf-8').read()
-pylint_score = float(re.search('Your code has been rated at ([0-9\.]+)',
+pylint_score = float(re.search('Your code has been rated at (\-?[0-9\.]+)',
                                pylint_text).group(1))
 
-if not os.path.isfile('./pep8.log'):
-    exit('Please direct PEP8 output to pep8.log')
-pep8_text = open('pep8.log', 'r', encoding='utf-8').read()
-pep8_score = sum([int(n) for n in re.findall('\n([0-9]+)  +', pep8_text)])
+if not os.path.isfile('./pycodestyle.log'):
+    exit('Please direct pycodestyle output to pycodestyle.log')
+pycodestyle_text = open('pycodestyle.log', 'r', encoding='utf-8').read()
+pycodestyle_score = sum([int(n) for n in re.findall('\n([0-9]+)  +', pycodestyle_text)])
+
+if not os.path.isfile('./flake8.log'):
+    exit('Please direct flake8 output to flake8.log')
+flake8_score = int(open('flake8.log', 'r', encoding='utf-8').read().split()[-1])
 
 readme_text = open('README.rst', 'r', encoding='utf-8').read()
+
 prefix = 'https://img.shields.io/badge/Pylint-'
 readme_text = re.sub(prefix + '([0-9\.]+/10\-[a-z]+)',
                      prefix + str(pylint_score) + '/10-' +
                      pylint_color(pylint_score),
                      readme_text, 1)
-prefix = 'https://img.shields.io/badge/PEP8-'
+
+prefix = 'https://img.shields.io/badge/pycodestyle-'
 readme_text = re.sub(prefix + '([0-9\.]+-[a-z]+)',
-                     prefix + str(pep8_score) + '-' +
-                     pep8_color(pep8_score),
+                     prefix + str(pycodestyle_score) + '-' +
+                     pycodestyle_color(pycodestyle_score),
                      readme_text, 1)
+
+prefix = 'https://img.shields.io/badge/flake8-'
+readme_text = re.sub(prefix + '([0-9\.]+-[a-z]+)',
+                     prefix + str(flake8_score) + '-' +
+                     pycodestyle_color(flake8_score),
+                     readme_text, 1)
+
 with open('README.rst', 'w', encoding='utf-8') as f:
     f.write(readme_text)
