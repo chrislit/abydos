@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2015 by Christopher C. Little.
+# Copyright 2014-2018 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -309,9 +309,9 @@ def lovins(word):
     for suffix_len in _range(11, 0, -1):
         ending = word[-suffix_len:]
         if (ending in suffix and
-            len(word)-suffix_len >= 2 and
-            (suffix[ending] is None or
-             suffix[ending](word, suffix_len))):
+                len(word)-suffix_len >= 2 and
+                (suffix[ending] is None or
+                 suffix[ending](word, suffix_len))):
             word = word[:-suffix_len]
             break
 
@@ -320,40 +320,35 @@ def lovins(word):
         """
         if stem[-3:-2] in frozenset('aio'):
             return stem
-        else:
-            return stem[:-2]+'l'
+        return stem[:-2]+'l'
 
     def recode24(stem):
         """Lovins' conditional recode rule 24
         """
         if stem[-4:-3] == 's':
             return stem
-        else:
-            return stem[:-1]+'s'
+        return stem[:-1]+'s'
 
     def recode28(stem):
         """Lovins' conditional recode rule 28
         """
         if stem[-4:-3] in frozenset('pt'):
             return stem
-        else:
-            return stem[:-1]+'s'
+        return stem[:-1]+'s'
 
     def recode30(stem):
         """Lovins' conditional recode rule 30
         """
         if stem[-4:-3] == 'm':
             return stem
-        else:
-            return stem[:-1]+'s'
+        return stem[:-1]+'s'
 
     def recode32(stem):
         """Lovins' conditional recode rule 32
         """
         if stem[-3:-2] == 'n':
             return stem
-        else:
-            return stem[:-1]+'s'
+        return stem[:-1]+'s'
 
     if word[-2:] in frozenset(['bb', 'dd', 'gg', 'll', 'mm', 'nn', 'pp', 'rr',
                                'ss', 'tt']):
@@ -806,11 +801,11 @@ def porter2(word, early_english=False):
     # masking
     _r1_prefixes = ('commun', 'gener', 'arsen')
     _exception1dict = {  # special changes:
-                       'skis': 'ski', 'skies': 'sky', 'dying': 'die',
-                       'lying': 'lie', 'tying': 'tie',
-                       # special -LY cases:
-                       'idly': 'idl', 'gently': 'gentl', 'ugly': 'ugli',
-                       'early': 'earli', 'only': 'onli', 'singly': 'singl'}
+        'skis': 'ski', 'skies': 'sky', 'dying': 'die',
+        'lying': 'lie', 'tying': 'tie',
+        # special -LY cases:
+        'idly': 'idl', 'gently': 'gentl', 'ugly': 'ugli',
+        'early': 'earli', 'only': 'onli', 'singly': 'singl'}
     _exception1set = frozenset(['sky', 'news', 'howe', 'atlas', 'cosmos',
                                 'bias', 'andes'])
     _exception2set = frozenset(['inning', 'outing', 'canning', 'herring',
@@ -1035,9 +1030,9 @@ def porter2(word, early_english=False):
     # Step 5
     if word[-1] == 'e':
         if (len(word[r2_start:]) >= 1 or
-            (len(word[r1_start:]) >= 1 and
-             not _sb_ends_in_short_syllable(word[:-1], _vowels,
-                                            _codanonvowels))):
+                (len(word[r1_start:]) >= 1 and
+                 not _sb_ends_in_short_syllable(word[:-1], _vowels,
+                                                _codanonvowels))):
             word = word[:-1]
     elif word[-1] == 'l':
         if len(word[r2_start:]) >= 1 and word[-2] == 'l':
@@ -1678,7 +1673,7 @@ def caumanns(word):
     >>> caumanns('buchstabieren')
     'buchstabier'
     """
-    if not len(word):
+    if not word:
         return ''
 
     upper_initial = word[0].isupper()
@@ -1816,5 +1811,5 @@ def lancaster(word):
         """stemmers takes the specified word and reduces it to a set by
         referring to _rule_table
         """
-
-    return word
+        # TODO: This looks very incomplete.
+        return word
