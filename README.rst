@@ -53,7 +53,7 @@ Abydos
 
 |
 | Abydos NLP/IR library
-| Copyright 2014-2015 by Chris Little
+| Copyright 2014-2018 by Chris Little
 
 This library contains code I'm using for research, in particular dissertation research & experimentation.
 
