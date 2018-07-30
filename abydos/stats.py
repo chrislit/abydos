@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.stats
+r"""abydos.stats
 
 The stats module defines functions for calculating various statistical data
 about linguistic objects.
@@ -60,16 +60,17 @@ And for calculating:
     - mode
 """
 
-from __future__ import unicode_literals
-from __future__ import division
+from __future__ import division, unicode_literals
+
 import math
 from collections import Counter
-from .util import prod
+
 from ._compat import _range
+from .util import prod
 
 
 class ConfusionTable(object):
-    """ConfusionTable object
+    """ConfusionTable object.
 
     This object is initialized by passing either four integers (or a tuple of
     four integers) representing the squares of a confusion table:
@@ -78,10 +79,11 @@ class ConfusionTable(object):
     The object possesses methods for the calculation of various statistics
     based on the confusion table.
     """
+
     _tp, _tn, _fp, _fn = 0, 0, 0, 0
 
     def __init__(self, tp=0, tn=0, fp=0, fn=0):
-        """ConfusionTable constructor
+        """Initialize ConfusionTable.
 
         :param int tp: true positives (or a tuple, list, or dict); If a tuple
             or list is supplied, it must include 4 values in the order [tp, tn,
@@ -124,7 +126,7 @@ class ConfusionTable(object):
             self._fn = fn
 
     def __eq__(self, other):
-        """eqality operator (==)
+        """Perform eqality (==) comparison.
 
         Compares a ConfusionTable to another ConfusionTable or its equivalent
         in the form of a tuple, list, or dict.
@@ -166,7 +168,7 @@ class ConfusionTable(object):
         return False
 
     def __str__(self):
-        """cast to str
+        """Cast to str.
 
         :returns: a human-readable version of the confusion table
         :rtype: str
@@ -179,7 +181,7 @@ class ConfusionTable(object):
                 str(self._fp) + ', fn:' + str(self._fn))
 
     def tuple(self):
-        """cast to tuple
+        """Cast to tuple.
 
         :returns: the confusion table as a 4-tuple (tp, tn, fp, fn)
         :rtype: tuple
@@ -191,7 +193,7 @@ class ConfusionTable(object):
         return (self._tp, self._tn, self._fp, self._fn)
 
     def dict(self):
-        """cast to dict
+        """Cast to dict.
 
         :returns: the confusion table as a dict
         :rtype: dict
@@ -204,7 +206,7 @@ class ConfusionTable(object):
                 'fp': self._fp, 'fn': self._fn}
 
     def true_pos(self):
-        """true positives
+        """Return true positives.
 
         :returns: the true positives of the confusion table
         :rtype: int
@@ -216,7 +218,7 @@ class ConfusionTable(object):
         return self._tp
 
     def true_neg(self):
-        """true negatives
+        """Return true negatives.
 
         :returns: the true negatives of the confusion table
         :rtype: int
@@ -228,7 +230,7 @@ class ConfusionTable(object):
         return self._tn
 
     def false_pos(self):
-        """false positives
+        """Return false positives.
 
         :returns: the false positives of the confusion table
         :rtype: int
@@ -240,7 +242,7 @@ class ConfusionTable(object):
         return self._fp
 
     def false_neg(self):
-        """false negatives
+        """Return false negatives.
 
         :returns: the false negatives of the confusion table
         :rtype: int
@@ -252,7 +254,7 @@ class ConfusionTable(object):
         return self._fn
 
     def correct_pop(self):
-        """correct population
+        """Return correct population.
 
         :returns: the correct population of the confusion table
         :rtype: int
@@ -264,7 +266,7 @@ class ConfusionTable(object):
         return self._tp + self._tn
 
     def error_pop(self):
-        """error population
+        """Return error population.
 
         :returns: The error population of the confusion table
         :rtype: int
@@ -276,7 +278,7 @@ class ConfusionTable(object):
         return self._fp + self._fn
 
     def test_pos_pop(self):
-        """test positive population
+        """Return test positive population.
 
         :returns: The test positive population of the confusion table
         :rtype: int
@@ -288,7 +290,7 @@ class ConfusionTable(object):
         return self._tp + self._fp
 
     def test_neg_pop(self):
-        """test negative population
+        """Return test negative population.
 
         :returns: The test negative population of the confusion table
         :rtype: int
@@ -300,7 +302,7 @@ class ConfusionTable(object):
         return self._tn + self._fn
 
     def cond_pos_pop(self):
-        """condition positive population
+        """Return condition positive population.
 
         :returns: The condition positive population of the confusion table
         :rtype: int
@@ -312,7 +314,7 @@ class ConfusionTable(object):
         return self._tp + self._fn
 
     def cond_neg_pop(self):
-        """condition negative population
+        """Return condition negative population.
 
         :returns: The condition negative population of the confusion table
         :rtype: int
@@ -324,7 +326,7 @@ class ConfusionTable(object):
         return self._fp + self._tn
 
     def population(self):
-        """population (N)
+        """Return population, N.
 
         :returns: The population (N) of the confusion table
         :rtype: int
@@ -336,7 +338,7 @@ class ConfusionTable(object):
         return self._tp + self._tn + self._fp + self._fn
 
     def precision(self):
-        """precision
+        r"""Return precision.
 
         Precision is defined as :math:`\\frac{tp}{tp + fp}`
 
@@ -358,7 +360,7 @@ class ConfusionTable(object):
         return self._tp / (self._tp + self._fp)
 
     def precision_gain(self):
-        """gain in precision
+        r"""Return gain in precision.
 
         The gain in precision is defined as:
         :math:`G(precision) = \\frac{precision}{random~ precision}`
@@ -378,7 +380,7 @@ class ConfusionTable(object):
         return self.precision()/random_precision
 
     def recall(self):
-        """recall
+        r"""Return recall.
 
         Recall is defined as :math:`\\frac{tp}{tp + fn}`
 
@@ -402,7 +404,7 @@ class ConfusionTable(object):
         return self._tp / (self._tp + self._fn)
 
     def specificity(self):
-        """specificity
+        r"""Return specificity.
 
         Specificity is defined as :math:`\\frac{tn}{tn + fp}`
 
@@ -422,7 +424,7 @@ class ConfusionTable(object):
         return self._tn / (self._tn + self._fp)
 
     def npv(self):
-        """negative predictive value (NPV)
+        r"""Return negative predictive value (NPV).
 
         NPV is defined as :math:`\\frac{tn}{tn + fn}`
 
@@ -440,7 +442,7 @@ class ConfusionTable(object):
         return self._tn / (self._tn + self._fn)
 
     def fallout(self):
-        """fall-out
+        r"""Return fall-out.
 
         Fall-out is defined as :math:`\\frac{fp}{fp + tn}`
 
@@ -460,7 +462,7 @@ class ConfusionTable(object):
         return self._fp / (self._fp + self._tn)
 
     def fdr(self):
-        """false discovery rate (FDR)
+        r"""Return false discovery rate (FDR).
 
         False discovery rate is defined as :math:`\\frac{fp}{fp + tp}`
 
@@ -478,7 +480,7 @@ class ConfusionTable(object):
         return self._fp / (self._fp + self._tp)
 
     def accuracy(self):
-        """accuracy
+        r"""Return accuracy.
 
         Accuracy is defined as :math:`\\frac{tp + tn}{population}`
 
@@ -496,7 +498,7 @@ class ConfusionTable(object):
         return (self._tp + self._tn) / self.population()
 
     def accuracy_gain(self):
-        """gain in accuracy
+        r"""Return gain in accuracy.
 
         The gain in accuracy is defined as:
         :math:`G(accuracy) = \\frac{accuracy}{random~ accuracy}`
@@ -516,7 +518,7 @@ class ConfusionTable(object):
         return self.accuracy()/random_accuracy
 
     def balanced_accuracy(self):
-        """balanced accuracy
+        r"""Return balanced accuracy.
 
         Balanced accuracy is defined as
         :math:`\\frac{sensitivity + specificity}{2}`
@@ -533,7 +535,7 @@ class ConfusionTable(object):
         return 0.5 * (self.recall() + self.specificity())
 
     def informedness(self):
-        """informedness
+        """Return informedness.
 
         Informedness is defined as :math:`sensitivity + specificity - 1`.
 
@@ -556,7 +558,7 @@ class ConfusionTable(object):
         return self.recall() + self.specificity() - 1
 
     def markedness(self):
-        """markedness
+        """Return markedness.
 
         Markedness is defined as :math:`precision + npv - 1`
 
@@ -577,7 +579,7 @@ class ConfusionTable(object):
         return self.precision() + self.npv() - 1
 
     def pr_amean(self):
-        """arithmetic mean of precision & recall
+        r"""Return arithmetic mean of precision & recall.
 
         The arithmetic mean of precision and recall is defined as:
         :math:`\\frac{precision \\cdot recall}{2}`
@@ -595,7 +597,7 @@ class ConfusionTable(object):
         return amean((self.precision(), self.recall()))
 
     def pr_gmean(self):
-        """geometric mean of precision & recall
+        r"""Return geometric mean of precision & recall.
 
         The geometric mean of precision and recall is defined as:
         :math:`\\sqrt{precision \\cdot recall}`
@@ -613,7 +615,7 @@ class ConfusionTable(object):
         return gmean((self.precision(), self.recall()))
 
     def pr_hmean(self):
-        """harmonic mean of precision & recall
+        r"""Return harmonic mean of precision & recall.
 
         The harmonic mean of precision and recall is defined as:
         :math:`\\frac{2 \\cdot precision \\cdot recall}{precision + recall}`
@@ -630,7 +632,7 @@ class ConfusionTable(object):
         return hmean((self.precision(), self.recall()))
 
     def pr_qmean(self):
-        """quadratic mean of precision & recall
+        r"""Return quadratic mean of precision & recall.
 
         The quadratic mean of precision and recall is defined as:
         :math:`\\sqrt{\\frac{precision^{2} + recall^{2}}{2}}`
@@ -648,7 +650,7 @@ class ConfusionTable(object):
         return qmean((self.precision(), self.recall()))
 
     def pr_cmean(self):
-        """contraharmonic mean of precision & recall
+        r"""Return contraharmonic mean of precision & recall.
 
         The contraharmonic mean is:
         :math:`\\frac{precision^{2} + recall^{2}}{precision + recall}`
@@ -666,7 +668,7 @@ class ConfusionTable(object):
         return cmean((self.precision(), self.recall()))
 
     def pr_lmean(self):
-        """logarithmic mean of precision & recall
+        r"""Return logarithmic mean of precision & recall.
 
         The logarithmic mean is:
         0 if either precision or recall is 0,
@@ -694,7 +696,7 @@ class ConfusionTable(object):
                 (math.log(precision) - math.log(recall)))
 
     def pr_imean(self):
-        """identric (exponential) mean of precision & recall
+        r"""Return identric (exponential) mean of precision & recall.
 
         The identric mean is:
         precision if precision = recall,
@@ -714,7 +716,7 @@ class ConfusionTable(object):
         return imean((self.precision(), self.recall()))
 
     def pr_seiffert_mean(self):
-        """Seiffert's mean of precision & recall
+        r"""Return Seiffert's mean of precision & recall.
 
         Seiffert's mean of precision and recall is:
         :math:`\\frac{precision - recall}{4 \\cdot arctan
@@ -732,7 +734,7 @@ class ConfusionTable(object):
         return seiffert_mean((self.precision(), self.recall()))
 
     def pr_lehmer_mean(self, exp=2):
-        """Lehmer mean of precision & recall
+        r"""Return Lehmer mean of precision & recall.
 
         The Lehmer mean is:
         :math:`\\frac{precision^{exp} + recall^{exp}}
@@ -752,7 +754,7 @@ class ConfusionTable(object):
         return lehmer_mean((self.precision(), self.recall()), exp)
 
     def pr_heronian_mean(self):
-        """Heronian mean of precision & recall
+        r"""Return Heronian mean of precision & recall.
 
         The Heronian mean of precision and recall is defined as:
         :math:`\\frac{precision + \\sqrt{precision \\cdot recall} + recall}{3}`
@@ -769,7 +771,7 @@ class ConfusionTable(object):
         return heronian_mean((self.precision(), self.recall()))
 
     def pr_hoelder_mean(self, exp=2):
-        """Hölder (power/generalized) mean of precision & recall
+        r"""Return Hölder (power/generalized) mean of precision & recall.
 
         The power mean of precision and recall is defined as:
         :math:`\\frac{1}{2} \\cdot
@@ -790,7 +792,7 @@ class ConfusionTable(object):
         return hoelder_mean((self.precision(), self.recall()), exp)
 
     def pr_agmean(self):
-        """arithmetic-geometric mean of precision & recall
+        """Return arithmetic-geometric mean of precision & recall.
 
         Iterates between arithmetic & geometric means until they converge to
         a single value (rounded to 12 digits)
@@ -808,7 +810,7 @@ class ConfusionTable(object):
         return agmean((self.precision(), self.recall()))
 
     def pr_ghmean(self):
-        """geometric-harmonic mean of precision & recall
+        """Return geometric-harmonic mean of precision & recall.
 
         Iterates between geometric & harmonic means until they converge to
         a single value (rounded to 12 digits)
@@ -826,7 +828,7 @@ class ConfusionTable(object):
         return ghmean((self.precision(), self.recall()))
 
     def pr_aghmean(self):
-        """arithmetic-geometric-harmonic mean of precision & recall
+        """Return arithmetic-geometric-harmonic mean of precision & recall.
 
         Iterates over arithmetic, geometric, & harmonic means until they
         converge to a single value (rounded to 12 digits), following the
@@ -844,7 +846,7 @@ class ConfusionTable(object):
         return aghmean((self.precision(), self.recall()))
 
     def fbeta_score(self, beta=1):
-        """:math:`F_{\\beta}` score
+        r"""Return :math:`F_{\\beta}` score.
 
         :math:`F_{\\beta}` for a positive real value :math:`\\beta` "measures
         the effectiveness of retrieval with respect to a user who
@@ -875,7 +877,7 @@ class ConfusionTable(object):
                 precision * recall / ((beta**2 * precision) + recall))
 
     def f2_score(self):
-        """:math:`F_{2}`
+        """Return :math:`F_{2}`.
 
         The :math:`F_{2}` score emphasizes recall over precision in comparison
         to the :math:`F_{1}` score
@@ -892,7 +894,7 @@ class ConfusionTable(object):
         return self.fbeta_score(2)
 
     def fhalf_score(self):
-        """:math:`F_{0.5}` score
+        """Return :math:`F_{0.5}` score.
 
         The :math:`F_{0.5}` score emphasizes precision over recall in
         comparison to the :math:`F_{1}` score
@@ -909,7 +911,7 @@ class ConfusionTable(object):
         return self.fbeta_score(0.5)
 
     def e_score(self, beta=1):
-        """:math:`E`-score
+        """Return :math:`E`-score.
 
         This is Van Rijsbergen's effectiveness measure
 
@@ -925,7 +927,7 @@ class ConfusionTable(object):
         return 1-self.fbeta_score(beta)
 
     def f1_score(self):
-        """:math:`F_{1}` score
+        r"""Return :math:`F_{1}` score.
 
         :math:`F_{1}` score is the harmonic mean of precision and recall:
         :math:`2 \\cdot \\frac{precision \\cdot recall}{precision + recall}`
@@ -942,7 +944,7 @@ class ConfusionTable(object):
         return self.pr_hmean()
 
     def f_measure(self):
-        """:math:`F`-measure
+        r"""Return :math:`F`-measure.
 
         :math:`F`-measure is the harmonic mean of precision and recall:
         :math:`2 \\cdot \\frac{precision \\cdot recall}{precision + recall}`
@@ -959,7 +961,7 @@ class ConfusionTable(object):
         return self.pr_hmean()
 
     def g_measure(self):
-        """G-measure
+        r"""Return G-measure.
 
         :math:`G`-measure is the geometric mean of precision and recall:
         :math:`\\sqrt{precision \\cdot recall}`
@@ -981,7 +983,7 @@ class ConfusionTable(object):
         return self.pr_gmean()
 
     def mcc(self):
-        """Matthews correlation coefficient (MCC)
+        r"""Return Matthews correlation coefficient (MCC).
 
         The Matthews correlation coefficient is defined as:
         :math:`\\frac{(tp \\cdot tn) - (fp \\cdot fn)}
@@ -1007,7 +1009,7 @@ class ConfusionTable(object):
                           (self._tn + self._fp) * (self._tn + self._fn)))
 
     def significance(self):
-        """the significance (:math:`\\chi^{2}`)
+        r"""Return the significance, :math:`\\chi^{2}`.
 
         Significance is defined as:
         :math:`\\chi^{2} =
@@ -1034,7 +1036,7 @@ class ConfusionTable(object):
                  (self._tn + self._fp) * (self._tn + self._fn)))
 
     def kappa_statistic(self):
-        """κ statistic
+        r"""Return κ statistic.
 
         The κ statistic is defined as:
         :math:`\\kappa = \\frac{accuracy - random~ accuracy}
@@ -1063,7 +1065,7 @@ class ConfusionTable(object):
 
 
 def amean(nums):
-    """arithmetic mean
+    r"""Return arithmetic mean.
 
     The arithmetic mean is defined as:
     :math:`\\frac{\\sum{nums}}{|nums|}`
@@ -1085,7 +1087,7 @@ def amean(nums):
 
 
 def gmean(nums):
-    """geometric mean
+    r"""Return geometric mean.
 
     The geometric mean is defined as:
     :math:`\\sqrt[|nums|]{\\prod\\limits_{i} nums_{i}}`
@@ -1107,7 +1109,7 @@ def gmean(nums):
 
 
 def hmean(nums):
-    """harmonic mean
+    r"""Return harmonic mean.
 
     The harmonic mean is defined as:
     :math:`\\frac{|nums|}{\\sum\\limits_{i}\\frac{1}{nums_i}}`
@@ -1148,7 +1150,7 @@ def hmean(nums):
 
 
 def qmean(nums):
-    """quadratic mean
+    r"""Return quadratic mean.
 
     The quadratic mean of precision and recall is defined as:
     :math:`\\sqrt{\\sum\\limits_{i} \\frac{num_i^2}{|nums|}}`
@@ -1170,7 +1172,7 @@ def qmean(nums):
 
 
 def cmean(nums):
-    """contraharmonic mean
+    r"""Return contraharmonic mean.
 
     The contraharmonic mean is:
     :math:`\\frac{\\sum\\limits_i x_i^2}{\\sum\\limits_i x_i}`
@@ -1192,7 +1194,7 @@ def cmean(nums):
 
 
 def lmean(nums):
-    """logarithmic mean
+    r"""Return logarithmic mean.
 
     The logarithmic mean of an arbitrarily long series is defined by
     http://www.survo.fi/papers/logmean.pdf
@@ -1226,7 +1228,7 @@ def lmean(nums):
 
 
 def imean(nums):
-    """identric (exponential) mean
+    r"""Return identric (exponential) mean.
 
     The identric mean of two numbers x and y is:
     x if x = y
@@ -1258,7 +1260,7 @@ def imean(nums):
 
 
 def seiffert_mean(nums):
-    """Seiffert's mean
+    r"""Return Seiffert's mean.
 
     Seiffert's mean of two numbers x and y is:
     :math:`\\frac{x - y}{4 \\cdot arctan \\sqrt{\\frac{x}{y}} - \\pi}`
@@ -1288,7 +1290,7 @@ def seiffert_mean(nums):
 
 
 def lehmer_mean(nums, exp=2):
-    """Lehmer mean
+    r"""Return Lehmer mean.
 
     The Lehmer mean is:
     :math:`\\frac{\\sum\\limits_i{x_i^p}}{\\sum\\limits_i{x_i^(p-1)}}`
@@ -1311,7 +1313,7 @@ def lehmer_mean(nums, exp=2):
 
 
 def heronian_mean(nums):
-    """Heronian mean
+    r"""Return Heronian mean.
 
     The Heronian mean is:
     :math:`\\frac{\\sum\\limits_{i, j}\\sqrt{{x_i \\cdot x_j}}}
@@ -1343,7 +1345,7 @@ def heronian_mean(nums):
 
 
 def hoelder_mean(nums, exp=2):
-    """Hölder (power/generalized) mean
+    r"""Return Hölder (power/generalized) mean.
 
     The Hölder mean is defined as:
     :math:`\\sqrt[p]{\\frac{1}{|nums|} \\cdot \\sum\\limits_i{x_i^p}}`
@@ -1369,7 +1371,7 @@ def hoelder_mean(nums, exp=2):
 
 
 def agmean(nums):
-    """arithmetic-geometric mean
+    """Return arithmetic-geometric mean.
 
     Iterates between arithmetic & geometric means until they converge to
     a single value (rounded to 12 digits)
@@ -1396,7 +1398,7 @@ def agmean(nums):
 
 
 def ghmean(nums):
-    """geometric-harmonic mean
+    """Return geometric-harmonic mean.
 
     Iterates between geometric & harmonic means until they converge to
     a single value (rounded to 12 digits)
@@ -1428,7 +1430,7 @@ def ghmean(nums):
 
 
 def aghmean(nums):
-    """arithmetic-geometric-harmonic mean
+    """Return arithmetic-geometric-harmonic mean.
 
     Iterates over arithmetic, geometric, & harmonic means until they
     converge to a single value (rounded to 12 digits), following the
@@ -1460,7 +1462,7 @@ def aghmean(nums):
 
 
 def midrange(nums):
-    """midrange
+    """Return midrange.
 
     The midrange is the arithmetic mean of the maximum & minimum of a series.
 
@@ -1481,7 +1483,7 @@ def midrange(nums):
 
 
 def median(nums):
-    """median
+    """Return median.
 
     With numbers sorted by value, the median is the middle value (if there is
     an odd number of values) or the arithmetic mean of the two middle values
@@ -1511,7 +1513,7 @@ def median(nums):
 
 
 def mode(nums):
-    """mode
+    """Return mode.
 
     The mode of a series is the most common element of that series
 
