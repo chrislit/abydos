@@ -47,8 +47,8 @@ if not os.path.isfile('./README.rst'):
 if not os.path.isfile('./pylint.log'):
     exit('Please direct Pylint output to pylint.log')
 pylint_text = open('pylint.log', 'r', encoding='utf-8').read()
-pylint_score = float(re.search('Your code has been rated at (\-?[0-9\.]+)',
-                               pylint_text).group(1))
+pylint_score = max(float(re.search('Your code has been rated at (\-?[0-9\.]+)',
+                                   pylint_text).group(1)), 0.0)
 
 if not os.path.isfile('./pycodestyle.log'):
     exit('Please direct pycodestyle output to pycodestyle.log')
@@ -62,7 +62,7 @@ flake8_score = int(open('flake8.log', 'r', encoding='utf-8').read().split()[-1])
 readme_text = open('README.rst', 'r', encoding='utf-8').read()
 
 prefix = 'https://img.shields.io/badge/Pylint-'
-readme_text = re.sub(prefix + '([0-9\.]+/10\-[a-z]+)',
+readme_text = re.sub(prefix + '(\-?[0-9\.]+/10\-[a-z]+)',
                      prefix + str(pylint_score) + '/10-' +
                      pylint_color(pylint_score),
                      readme_text, 1)
