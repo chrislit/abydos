@@ -38,10 +38,9 @@ The CSV document is of the format
 Lines beginning with # are interpreted as comments
 """
 
-from __future__ import unicode_literals, print_function
-import sys
-import getopt
 import codecs
+import getopt
+import sys
 import unicodedata
 
 
@@ -211,7 +210,7 @@ def main(argv):
             line = line.strip().split(',')
             if '#' in line:
                 line = line[:line.find('#')]
-            symbol = unicode(line[0])
+            symbol = line[0]
             variant = int(line[1])
             segmental = bool(line[2])
             features = '0b' + ''.join([binarize(val) for val
@@ -230,9 +229,9 @@ def main(argv):
 
             if variant < 2:
                 if featint in checkset_f:
-                    print('Feature set ' + unicode(featint) +
+                    print('Feature set ' + featint +
                           ' appears in CSV for two primary IPA symbols: ' +
-                          symbol + ' and ' + unicode(checkdict[featint]))
+                          symbol + ' and ' + checkdict[featint])
                 else:
                     checkdict[featint] = symbol
                     checkset_f.add(featint)
