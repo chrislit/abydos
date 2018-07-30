@@ -58,18 +58,18 @@ to return 1; the corresponding dist_X function is guaranteed to return 0.
 from __future__ import division
 from __future__ import unicode_literals
 
-import sys
-import math
-from collections import defaultdict, Counter
-import unicodedata
 import codecs
+import math
+import sys
+import unicodedata
+from collections import Counter, defaultdict
 
 import numpy as np
 
 from ._compat import _range, _unicode
-from .qgram import QGrams
+from .compression import ac_encode, ac_train, rle_encode
 from .phonetic import mra
-from .compression import ac_train, ac_encode, rle_encode
+from .qgram import QGrams
 
 try:
     import lzma
@@ -80,7 +80,9 @@ except ImportError:  # pragma: no cover
 
 
 def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
-    """Levenshtein distance
+    """Return the Levenshtein distance between two strings.
+
+    Levenshtein distance
 
     This is the standard edit distance measure. Cf.
     https://en.wikipedia.org/wiki/Levenshtein_distance
@@ -165,15 +167,17 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
             if mode == 'osa':
                 if ((i+1 > 1 and j+1 > 1 and src[i] == tar[j-1] and
                      src[i-1] == tar[j])):
+                    # transposition
                     d_mat[i+1, j+1] = min(d_mat[i+1, j+1],
-                                          d_mat[i-1, j-1] + trans_cost  # trans
-                                         )
+                                          d_mat[i-1, j-1] + trans_cost)
 
     return d_mat[len(src), len(tar)]
 
 
 def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
-    """Levenshtein distance normalized to the interval [0, 1]
+    """Return the normalized Levenshtein distance between two strings.
+
+    Levenshtein distance normalized to the interval [0, 1]
 
     The Levenshtein distance is normalized by dividing the Levenshtein distance
     (calculated by any of the three supported methods) by the greater of
@@ -217,7 +221,9 @@ def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
 
 
 def sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
-    """Levenshtein similarity normalized to the interval [0, 1]
+    """Return the Levenshtein similarity of two strings.
+
+    Levenshtein similarity normalized to the interval [0, 1]
 
     Levenshtein similarity the complement of Levenshtein distance:
     :math:`sim_{Levenshtein} = 1 - dist_{Levenshtein}`
@@ -256,7 +262,9 @@ def sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
 
 
 def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
-    """Damerau-Levenshtein distance
+    """Return the Damerau-Levenshtein distance between two strings.
+
+    Damerau-Levenshtein distance
 
     This computes the Damerau-Levenshtein distance. Cf.
     https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
@@ -356,7 +364,9 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
 
 
 def dist_damerau(src, tar, cost=(1, 1, 1, 1)):
-    """Damerau-Levenshtein distance normalized to the interval [0, 1]
+    """Return the Damerau-Levenshtein similarity of two strings.
+
+    Damerau-Levenshtein distance normalized to the interval [0, 1]
 
     The Damerau-Levenshtein distance is normalized by dividing the
     Damerau-Levenshtein distance by the greater of
@@ -392,7 +402,9 @@ def dist_damerau(src, tar, cost=(1, 1, 1, 1)):
 
 
 def sim_damerau(src, tar, cost=(1, 1, 1, 1)):
-    """Levenshtein similarity normalized to the interval [0, 1]
+    """Return the Damerau-Levenshtein similarity of two strings.
+
+    Damerau-Levenshtein similarity normalized to the interval [0, 1]
 
     Damerau-Levenshtein similarity the complement of Damerau-Levenshtein
     distance:
@@ -421,7 +433,9 @@ def sim_damerau(src, tar, cost=(1, 1, 1, 1)):
 
 
 def hamming(src, tar, difflens=True):
-    """Hamming distance
+    """Return the Hamming distance between two strings.
+
+    Hamming distance
 
     Hamming distance equals the number of character positions at which two
     strings differ. For strings of unequal lengths, it is not normally defined.
@@ -463,7 +477,9 @@ def hamming(src, tar, difflens=True):
 
 
 def dist_hamming(src, tar, difflens=True):
-    """Hamming distance normalized to the interval [0, 1]
+    """Return the normalized Hamming distance between two strings.
+
+    Hamming distance normalized to the interval [0, 1]
 
     The Hamming distance is normalized by dividing it
     by the greater of the number of characters in src & tar (unless difflens is
@@ -497,7 +513,9 @@ def dist_hamming(src, tar, difflens=True):
 
 
 def sim_hamming(src, tar, difflens=True):
-    """Hamming similarity normalized to the interval [0, 1]
+    """Return the normalized Hamming similarity of two strings.
+
+    Hamming similarity normalized to the interval [0, 1]
 
     Hamming similarity is the complement of normalized Hamming distance:
     :math:`sim_{Hamming} = 1 - dist{Hamming}`
@@ -532,7 +550,9 @@ def sim_hamming(src, tar, difflens=True):
 
 
 def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
-    """Tversky index
+    r"""Return the Tversky index of two strings.
+
+    Tversky index
 
     The Tversky index is defined as:
     For two sets X and Y:
@@ -624,7 +644,9 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
 
 
 def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
-    """Tversky distance
+    """Return the Tverssky distance between two strings.
+
+    Tversky distance
 
     Tversky distance is the complement of the Tvesrsky index (similarity):
     :math:`dist_{Tversky} = 1-sim_{Tversky}`
@@ -657,7 +679,9 @@ def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
 
 
 def sim_dice(src, tar, qval=2):
-    """Sørensen–Dice coefficient
+    r"""Return the Sørensen–Dice coefficient of two strings.
+
+    Sørensen–Dice coefficient
 
     For two sets X and Y, the Sørensen–Dice coefficient is
     :math:`sim_{dice}(X, Y) = \\frac{2 \\cdot |X \\cap Y|}{|X| + |Y|}`
@@ -684,7 +708,9 @@ def sim_dice(src, tar, qval=2):
 
 
 def dist_dice(src, tar, qval=2):
-    """Sørensen–Dice distance
+    """Return the Sørensen–Dice distance between two strings.
+
+    Sørensen–Dice distance
 
     Sørensen–Dice distance is the complemenjt of the Sørensen–Dice coefficient:
     :math:`dist_{dice} = 1 - sim_{dice}`
@@ -708,7 +734,9 @@ def dist_dice(src, tar, qval=2):
 
 
 def sim_jaccard(src, tar, qval=2):
-    """Jaccard similarity coefficient
+    r"""Return the Jaccard similarity of two strings.
+
+    Jaccard similarity coefficient
 
     For two sets X and Y, the Jaccard similarity coefficient is
     :math:`sim_{jaccard}(X, Y) = \\frac{|X \\cap Y|}{|X \\cup Y|}`
@@ -735,7 +763,9 @@ def sim_jaccard(src, tar, qval=2):
 
 
 def dist_jaccard(src, tar, qval=2):
-    """Jaccard distance
+    """Return the Jaccard distance between two strings.
+
+    Jaccard distance
 
     Jaccard distance is the complement of the Jaccard similarity coefficient:
     :math:`dist_{Jaccard} = 1 - sim_{Jaccard}`
@@ -759,7 +789,9 @@ def dist_jaccard(src, tar, qval=2):
 
 
 def sim_overlap(src, tar, qval=2):
-    """overlap coefficient
+    r"""Return the overlap coefficient of two strings.
+
+    Overlap coefficient
 
     For two sets X and Y, the overlap coefficient is
     :math:`sim_{overlap}(X, Y) = \\frac{|X \\cap Y|}{min(|X|, |Y|)}`
@@ -801,7 +833,9 @@ def sim_overlap(src, tar, qval=2):
 
 
 def dist_overlap(src, tar, qval=2):
-    """overlap distance
+    """Return the overlap distance between two strings.
+
+    Overlap distance
 
     Overlap distance is the complement of the overlap coefficient:
     :math:`sim_{overlap} = 1 - dist_{overlap}`
@@ -825,7 +859,9 @@ def dist_overlap(src, tar, qval=2):
 
 
 def sim_tanimoto(src, tar, qval=2):
-    """Tanimoto similarity
+    r"""Return the Tanimoto similarity of two strings.
+
+    Tanimoto similarity
 
     For two sets X and Y, the Tanimoto similarity coefficient is
     :math:`sim_{Tanimoto}(X, Y) = \\frac{|X \\cap Y|}{|X \\cup Y|}`
@@ -851,7 +887,9 @@ def sim_tanimoto(src, tar, qval=2):
 
 
 def tanimoto(src, tar, qval=2):
-    """Tanimoto distance
+    """Return the Tanimoto distance between two strings.
+
+    Tanimoto distance
 
     Tanimoto distance is :math:`-log_{2}sim_{Tanimoto}`
 
@@ -878,7 +916,9 @@ def tanimoto(src, tar, qval=2):
 
 
 def sim_cosine(src, tar, qval=2):
-    """cosine similarity (Ochiai coefficient)
+    r"""Return the cosine similarity of two strings.
+
+    Cosine similarity (Ochiai coefficient)
 
     For two sets X and Y, the cosine similarity (Ochiai coefficient) is:
     :math:`sim_{cosine}(X, Y) = \\frac{|X \\cap Y|}{\\sqrt{|X| \\cdot |Y|}}`
@@ -920,7 +960,9 @@ def sim_cosine(src, tar, qval=2):
 
 
 def dist_cosine(src, tar, qval=2):
-    """cosine distance
+    """Return the cosine distance between two strings.
+
+    Cosine distance
 
     Cosine distance is the complement of cosine similarity:
     :math:`dist_{cosine} = 1 - sim_{cosine}`
@@ -944,7 +986,9 @@ def dist_cosine(src, tar, qval=2):
 
 
 def sim_strcmp95(src, tar, long_strings=False):
-    """strcmp95 similarity
+    """Return the strcmp95 similarity of two strings.
+
+    strcmp95 similarity
 
     This is a Python translation of the C code for strcmp95:
     http://web.archive.org/web/20110629121242/http://www.census.gov/geo/msb/stand/strcmp.c
@@ -975,8 +1019,7 @@ def sim_strcmp95(src, tar, long_strings=False):
     0.8333333333333334
     """
     def _in_range(char):
-        """Return True if char is in the range (0, 91)
-        """
+        """Return True if char is in the range (0, 91)."""
         return ord(char) > 0 and ord(char) < 91
 
     ying = src.strip().upper()
@@ -1090,7 +1133,9 @@ def sim_strcmp95(src, tar, long_strings=False):
 
 
 def dist_strcmp95(src, tar, long_strings=False):
-    """strcmp95 distance
+    """Return the strcmp95 distance between two strings.
+
+    strcmp95 distance
 
     strcmp95 distance is 1 - strcmp95 similarity
 
@@ -1117,7 +1162,9 @@ def dist_strcmp95(src, tar, long_strings=False):
 
 def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
                      boost_threshold=0.7, scaling_factor=0.1):
-    """Jaro(-Winkler) distance
+    """Return the Jaro or Jaro-Winkler similarity of two strings.
+
+    Jaro(-Winkler) distance
 
     This is Python based on the C code for strcmp95:
     http://web.archive.org/web/20110629121242/http://www.census.gov/geo/msb/stand/strcmp.c
@@ -1137,7 +1184,7 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
     The following arguments apply only when mode is 'winkler':
 
     :param bool long_strings: set to True to "Increase the probability of a
-1        match when the number of matched characters is large.  This option
+        match when the number of matched characters is large.  This option
         allows for a little more tolerance when the strings are large.  It is
         not an appropriate test when comparing fixed length fields such as
         phone and social security numbers."
@@ -1258,7 +1305,9 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
 
 def dist_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
                       boost_threshold=0.7, scaling_factor=0.1):
-    """Jaro(-Winkler) distance
+    """Return the Jaro or Jaro-Winkler distance between two strings.
+
+    Jaro(-Winkler) distance
 
     Jaro-Winkler distance is 1 - the Jaro-Winkler similarity
 
@@ -1310,7 +1359,9 @@ def dist_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
 
 
 def lcsseq(src, tar):
-    """longest common subsequence (LCSseq)
+    """Return the longest common subsequence of two strings.
+
+    Longest common subsequence (LCSseq)
 
     Based on the dynamic programming algorithm from
     http://rosettacode.org/wiki/Longest_common_subsequence#Dynamic_Programming_6
@@ -1345,7 +1396,7 @@ def lcsseq(src, tar):
                 lengths[i+1, j+1] = max(lengths[i+1, j], lengths[i, j+1])
 
     # read the substring out from the matrix
-    result = ""
+    result = ''
     i, j = len(src), len(tar)
     while i != 0 and j != 0:
         if lengths[i, j] == lengths[i-1, j]:
@@ -1353,7 +1404,6 @@ def lcsseq(src, tar):
         elif lengths[i, j] == lengths[i, j-1]:
             j -= 1
         else:
-            assert src[i-1] == tar[j-1]
             result = src[i-1] + result
             i -= 1
             j -= 1
@@ -1361,7 +1411,9 @@ def lcsseq(src, tar):
 
 
 def sim_lcsseq(src, tar):
-    """longest common subsequence similarity (:math:`sim_{LCSseq}`)
+    r"""Return the longest common subsequence similarity of two strings.
+
+    Longest common subsequence similarity (:math:`sim_{LCSseq}`)
 
     This employs the LCSseq function to derive a similarity metric:
     :math:`sim_{LCSseq}(s,t) = \\frac{|LCSseq(s,t)|}{max(|s|, |t|)}`
@@ -1387,7 +1439,9 @@ def sim_lcsseq(src, tar):
 
 
 def dist_lcsseq(src, tar):
-    """longest common subsequence distance (:math:`dist_{LCSseq}`)
+    """Return the longest common subsequence distance between two strings.
+
+    Longest common subsequence distance (:math:`dist_{LCSseq}`)
 
     This employs the LCSseq function to derive a similarity metric:
     :math:`dist_{LCSseq}(s,t) = 1 - sim_{LCSseq}(s,t)`
@@ -1409,7 +1463,9 @@ def dist_lcsseq(src, tar):
 
 
 def lcsstr(src, tar):
-    """longest common substring (LCSstr)
+    """Return the longest common substring of two strings.
+
+    Longest common substring (LCSstr)
 
     Based on the code from
     https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Longest_common_substring#Python
@@ -1450,7 +1506,9 @@ def lcsstr(src, tar):
 
 
 def sim_lcsstr(src, tar):
-    """longest common substring similarity (:math:`sim_{LCSstr}`)
+    r"""Return the longest common substring similarity of two strings.
+
+    Longest common substring similarity (:math:`sim_{LCSstr}`)
 
     This employs the LCS function to derive a similarity metric:
     :math:`sim_{LCSstr}(s,t) = \\frac{|LCSstr(s,t)|}{max(|s|, |t|)}`
@@ -1476,7 +1534,9 @@ def sim_lcsstr(src, tar):
 
 
 def dist_lcsstr(src, tar):
-    """longest common substring distance (:math:`dist_{LCSstr}`)
+    """Return the longest common substring distance between two strings.
+
+    Longest common substring distance (:math:`dist_{LCSstr}`)
 
     This employs the LCS function to derive a similarity metric:
     :math:`dist_{LCSstr}(s,t) = 1 - sim_{LCSstr}(s,t)`
@@ -1498,7 +1558,9 @@ def dist_lcsstr(src, tar):
 
 
 def sim_ratcliff_obershelp(src, tar):
-    """Ratcliff-Obershelp similarity
+    """Return the Ratcliff-Obershelp similarity of two strings.
+
+    Ratcliff-Obershelp similarity
 
     This follows the Ratcliff-Obershelp algorithm to derive a similarity
     measure:
@@ -1528,9 +1590,11 @@ def sim_ratcliff_obershelp(src, tar):
     0.5
     """
     def _lcsstr_stl(src, tar):
-        """Return the start position in the source string, start position in
+        """Return start positions & length for Ratcliff-Obershelp.
+
+        Return the start position in the source string, start position in
         the target string, and length of the longest common substring of
-        strings src and tar
+        strings src and tar.
         """
         # pylint: disable=no-member
         lengths = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
@@ -1549,9 +1613,9 @@ def sim_ratcliff_obershelp(src, tar):
         return (src_longest-longest, tar_longest-longest, longest)
 
     def _sstr_matches(src, tar):
-        """Return the sum of substring match lengths by following the
-        Ratcliff-Obershelp algorithm:
+        """Return the sum of substring match lengths.
 
+        This follows the Ratcliff-Obershelp algorithm:
              1. Find the length of the longest common substring in src & tar.
              2. Recurse on the strings to the left & right of each this
                  substring in src & tar.
@@ -1574,7 +1638,9 @@ def sim_ratcliff_obershelp(src, tar):
 
 
 def dist_ratcliff_obershelp(src, tar):
-    """Ratcliff-Obershelp distance
+    """Return the Ratcliff-Obershelp distance between two strings.
+
+    Ratcliff-Obershelp distance
 
     Ratcliff-Obsershelp distance the complement of Ratcliff-Obershelp
     similarity:
@@ -1597,7 +1663,9 @@ def dist_ratcliff_obershelp(src, tar):
 
 
 def mra_compare(src, tar):
-    """Western Airlines Surname Match Rating Algorithm comparison rating
+    """Return the MRA comparison rating of two strings.
+
+    Western Airlines Surname Match Rating Algorithm comparison rating
 
     A description of the algorithm can be found on page 18 of
     https://archive.org/details/accessingindivid00moor
@@ -1656,7 +1724,9 @@ def mra_compare(src, tar):
 
 
 def sim_mra(src, tar):
-    """normalized Match Rating Algorithm similarity
+    """Return the normalized MRA similarity of two strings.
+
+    Normalized Match Rating Algorithm similarity
 
     This is the MRA normalized to :math:`[0, 1]`, given that MRA itself is
     constrained to the range :math:`[0, 6]`.
@@ -1678,7 +1748,9 @@ def sim_mra(src, tar):
 
 
 def dist_mra(src, tar):
-    """normalized Match Rating Algorithm distance
+    """Return the normalized MRA distance between two strings.
+
+    Normalized Match Rating Algorithm distance
 
     MRA distance is the complement of MRA similarity:
     :math:`dist_{MRA} = 1 - sim_{MRA}`
@@ -1700,7 +1772,9 @@ def dist_mra(src, tar):
 
 
 def dist_compression(src, tar, compressor='bz2', probs=None):
-    """normalized compression distance (NCD)
+    """Return the normalized compression distance between two strings.
+
+    Normalized compression distance (NCD)
 
     Cf.
     https://en.wikipedia.org/wiki/Normalized_compression_distance#Normalized_compression_distance
@@ -1791,7 +1865,9 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
 
 
 def sim_compression(src, tar, compressor='bz2', probs=None):
-    """normalized compression similarity (NCS)
+    """Return the normalized compression similarity of two strings.
+
+    Normalized compression similarity (NCS)
 
     Normalized compression similarity is the complement of normalized
     compression distance:
@@ -1840,7 +1916,9 @@ def sim_compression(src, tar, compressor='bz2', probs=None):
 
 
 def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
-    """Monge-Elkan similarity
+    """Return the Monge-Elkan similarity of two strings.
+
+    Monge-Elkan similarity
 
     Monge-Elkan is defined in:
     Monge, Alvaro E. and Charles P. Elkan. 1996. "The field matching problem:
@@ -1893,7 +1971,9 @@ def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
 
 
 def dist_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
-    """Monge-Elkan distance
+    """Return the Monge-Elkan distance between two strings.
+
+    Monge-Elkan distance
 
     Monge-Elkan is defined in:
     Monge, Alvaro E. and Charles P. Elkan. 1996. "The field matching problem:
@@ -1926,7 +2006,9 @@ def dist_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
 
 
 def sim_ident(src, tar):
-    """identity similarity
+    """Return the identity similarity of two strings.
+
+    Identity similarity
 
     This is 1 if the two strings are identical, otherwise 0.
 
@@ -1943,7 +2025,9 @@ def sim_ident(src, tar):
 
 
 def dist_ident(src, tar):
-    """identity distance
+    """Return the identity distance between two strings.
+
+    Identity distance
 
     This is 0 if the two strings are identical, otherwise 1, i.e.
     :math:`dist_{identity} = 1 - sim_{identity}`
@@ -1962,7 +2046,9 @@ def dist_ident(src, tar):
 
 def sim_matrix(src, tar, mat=None, mismatch_cost=0, match_cost=1,
                symmetric=True, alphabet=None):
-    """matrix similarity
+    """Return the matrix similarity of two strings.
+
+    Matrix similarity
 
     With the default parameters, this is identical to sim_ident.
     It is possible for sim_matrix to return values outside of the range
@@ -2011,7 +2097,9 @@ def sim_matrix(src, tar, mat=None, mismatch_cost=0, match_cost=1,
 
 
 def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
-    """Needleman-Wunsch score
+    """Return the Needleman-Wunsch score of two strings.
+
+    Needleman-Wunsch score
 
     This is the standard edit distance measure.
 
@@ -2054,7 +2142,9 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
 
 
 def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
-    """Smith-Waterman score
+    """Return the Smith-Waterman score of two strings.
+
+    Smith-Waterman score
 
     This is the standard edit distance measure.
 
@@ -2094,7 +2184,9 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
 
 
 def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
-    """Gotoh score
+    """Return the Gotoh score of two strings.
+
+    Gotoh score
 
     Gotoh's algorithm is essentially Needleman-Wunsch with affine gap
     penalties:
@@ -2157,7 +2249,9 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
 
 
 def sim_length(src, tar):
-    """length similarity
+    """Return the length similarty of two strings.
+
+    Length similarity
 
     This is the ratio of the length of the shorter string to the longer.
 
@@ -2182,7 +2276,9 @@ def sim_length(src, tar):
 
 
 def dist_length(src, tar):
-    """length distance
+    """Return the length distance between two strings.
+
+    Length distance
 
     Length distance is the complement of length similarity:
     :math:`dist_{length} = 1 - sim_{length}`
@@ -2204,7 +2300,9 @@ def dist_length(src, tar):
 
 
 def sim_prefix(src, tar):
-    """prefix similarity
+    """Return the prefix similarty of two strings.
+
+    Prefix similarity
 
     Prefix similarity is the ratio of the length of the shorter term that
     exactly matches the longer term to the length of the shorter term,
@@ -2236,7 +2334,9 @@ def sim_prefix(src, tar):
 
 
 def dist_prefix(src, tar):
-    """prefix distance
+    """Return the prefix distance between two strings.
+
+    Prefix distance
 
     Prefix distance is the complement of prefix similarity:
     :math:`dist_{prefix} = 1 - sim_{prefix}`
@@ -2258,7 +2358,9 @@ def dist_prefix(src, tar):
 
 
 def sim_suffix(src, tar):
-    """suffix similarity
+    """Return the suffix similarity of two strings.
+
+    Suffix similarity
 
     Suffix similarity is the ratio of the length of the shorter term that
     exactly matches the longer term to the length of the shorter term,
@@ -2290,7 +2392,9 @@ def sim_suffix(src, tar):
 
 
 def dist_suffix(src, tar):
-    """suffix distance
+    """Return the suffix distance between two strings.
+
+    Suffix distance
 
     Suffix distance is the complement of suffix similarity:
     :math:`dist_{suffix} = 1 - sim_{suffix}`
@@ -2312,7 +2416,9 @@ def dist_suffix(src, tar):
 
 
 def sim_mlipns(src, tar, threshold=0.25, maxmismatches=2):
-    """Modified Language-Independent Product Name Search (MLIPNS)
+    """Return the MLIPNS similarity of two strings.
+
+    Modified Language-Independent Product Name Search (MLIPNS)
 
     The MLIPNS algorithm is described in Shannaq, Boumedyen A. N. and Victor V.
     Alexandrov. 2010. "Using Product Similarity for Adding Business." Global
@@ -2364,7 +2470,9 @@ def sim_mlipns(src, tar, threshold=0.25, maxmismatches=2):
 
 
 def dist_mlipns(src, tar, threshold=0.25, maxmismatches=2):
-    """Modified Language-Independent Product Name Search (MLIPNS)
+    """Return the MLIPNS distance between two strings.
+
+    Modified Language-Independent Product Name Search (MLIPNS)
 
     MLIPNS distance is the complement of MLIPNS similarity:
     :math:`dist_{MLIPNS} = 1 - sim_{MLIPNS}`
@@ -2394,7 +2502,9 @@ def dist_mlipns(src, tar, threshold=0.25, maxmismatches=2):
 
 
 def bag(src, tar):
-    """bag distance
+    """Return the bag distance between two strings.
+
+    Bag distance
 
     Bag distance is:
     :math:`max( |multiset(src)-multiset(tar)|, |multiset(tar)-multiset(src)| )`
@@ -2425,7 +2535,9 @@ def bag(src, tar):
 
 
 def dist_bag(src, tar):
-    """Return the normalized bag distance of two strings.
+    """Return the normalized bag distance between two strings.
+
+    Normalized bag distance
 
     Bag distance is normalized by dividing by :math:`max( |src|, |tar| )`.
 
@@ -2453,7 +2565,9 @@ def dist_bag(src, tar):
 
 
 def sim_bag(src, tar):
-    """normalized bag similarity
+    """Return the normalized bag similarity of two strings.
+
+    Normalized bag similarity
 
     Normalized bag similarity is the complement of normalized bag distance:
     :math:`sim_{bag} = 1 - dist_{bag}`
@@ -2475,7 +2589,9 @@ def sim_bag(src, tar):
 
 
 def editex(src, tar, cost=(0, 1, 2), local=False):
-    """Editex distance
+    """Return the Editex distance between two strings.
+
+    Editex distance
 
     As described on pages 3 & 4 of
     Zobel, Justin and Philip Dart. 1996. Phonetic string matching: Lessons from
@@ -2514,8 +2630,7 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
     all_letters = frozenset('AEIOUYBPCKQDTLRMNGJFVSXZ')
 
     def r_cost(ch1, ch2):
-        """Return r(a,b) according to Zobel & Dart's definition
-        """
+        """Return r(a,b) according to Zobel & Dart's definition."""
         if ch1 == ch2:
             return match_cost
         if ch1 in all_letters and ch2 in all_letters:
@@ -2525,8 +2640,7 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
         return mismatch_cost
 
     def d_cost(ch1, ch2):
-        """Return d(a,b) according to Zobel & Dart's definition
-        """
+        """Return d(a,b) according to Zobel & Dart's definition."""
         if ch1 != ch2 and (ch1 == 'H' or ch1 == 'W'):
             return group_cost
         return r_cost(ch1, ch2)
@@ -2569,7 +2683,9 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
 
 
 def dist_editex(src, tar, cost=(0, 1, 2), local=False):
-    """Editex distance normalized to the interval [0, 1]
+    """Return the normalized Editex distance between two strings.
+
+    Editex distance normalized to the interval [0, 1]
 
     The Editex distance is normalized by dividing the Editex distance
     (calculated by any of the three supported methods) by the greater of
@@ -2603,7 +2719,9 @@ def dist_editex(src, tar, cost=(0, 1, 2), local=False):
 
 
 def sim_editex(src, tar, cost=(0, 1, 2), local=False):
-    """Editex similarity normalized to the interval [0, 1]
+    """Return the normalized Editex similarity of two strings.
+
+    Editex similarity normalized to the interval [0, 1]
 
     The Editex similarity is the complement of Editex distance
     :math:`sim_{Editex} = 1 - dist_{Editex}`
@@ -2631,7 +2749,9 @@ def sim_editex(src, tar, cost=(0, 1, 2), local=False):
 
 
 def sim_tfidf(src, tar, qval=2, docs_src=None, docs_tar=None):
-    """TF-IDF similarity
+    """Return the TF-IDF similarity of two strings.
+
+    TF-IDF similarity
 
     This is chiefly based on the "Formal Definition of TF/IDF Distance" at:
     http://alias-i.com/lingpipe/docs/api/com/aliasi/spell/TfIdfDistance.html
@@ -2679,7 +2799,7 @@ def sim_tfidf(src, tar, qval=2, docs_src=None, docs_tar=None):
 
 
 def sim(src, tar, method=sim_levenshtein):
-    """generalized similarity
+    """Return a similarity of two strings.
 
     This is a generalized function for calling other similarity functions.
 
@@ -2698,14 +2818,14 @@ def sim(src, tar, method=sim_levenshtein):
     >>> sim('ATCG', 'TAGC')
     0.25
     """
-    if hasattr(method, '__call__'):
+    if callable(method):
         return method(src, tar)
     else:
         raise AttributeError('Unknown similarity function: ' + str(method))
 
 
 def dist(src, tar, method=sim_levenshtein):
-    """generalized distance
+    """Return a distance between two strings.
 
     This is a generalized function for calling other distance functions.
 
@@ -2725,7 +2845,7 @@ def dist(src, tar, method=sim_levenshtein):
     >>> dist('ATCG', 'TAGC')
     0.75
     """
-    if hasattr(method, '__call__'):
+    if callable(method):
         return 1 - method(src, tar)
     else:
         raise AttributeError('Unknown distance function: ' + str(method))
