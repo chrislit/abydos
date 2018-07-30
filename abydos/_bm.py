@@ -27,13 +27,15 @@ Phonentic Matching (BMPM) algorithm
 """
 
 from __future__ import unicode_literals
+
 import re
 import unicodedata
-from ._compat import _unicode, _long, _range
-from ._bmdata import BMDATA, L_NONE, L_ANY, L_ARABIC, L_CYRILLIC, \
-    L_CZECH, L_DUTCH, L_ENGLISH, L_FRENCH, L_GERMAN, L_GREEK, L_GREEKLATIN, \
-    L_HEBREW, L_HUNGARIAN, L_ITALIAN, L_LATVIAN, L_POLISH, L_PORTUGUESE, \
+
+from ._bmdata import BMDATA, L_ANY, L_ARABIC, L_CYRILLIC, L_CZECH, L_DUTCH, \
+    L_ENGLISH, L_FRENCH, L_GERMAN, L_GREEK, L_GREEKLATIN, L_HEBREW, \
+    L_HUNGARIAN, L_ITALIAN, L_LATVIAN, L_NONE, L_POLISH, L_PORTUGUESE, \
     L_ROMANIAN, L_RUSSIAN, L_SPANISH, L_TURKISH
+from ._compat import _long, _range, _unicode
 
 _LANG_DICT = {'any': L_ANY, 'arabic': L_ARABIC, 'cyrillic': L_CYRILLIC,
               'czech': L_CZECH, 'dutch': L_DUTCH, 'english': L_ENGLISH,
@@ -61,8 +63,7 @@ _PHONETIC_POS = 3
 
 
 def _bm_language(name, name_mode):
-    """Return the best guess language ID for the given word and set of language
-    choices
+    """Return the best guess language ID for the word and language choices.
 
     :param str name: the term to guess the language of
     :param str name_mode: the name mode of the algorithm: 'gen' (default),
@@ -70,11 +71,11 @@ def _bm_language(name, name_mode):
     """
     name = name.strip().lower()
     rules = BMDATA[name_mode]['language_rules']
-    all_langs = sum([_LANG_DICT[_] for _ in BMDATA[name_mode]['languages']])-1
+    all_langs = sum(_LANG_DICT[_] for _ in BMDATA[name_mode]['languages'])-1
     choices_remaining = all_langs
     for rule in rules:
         letters, languages, accept = rule
-        if re.search(letters, name) != None:
+        if re.search(letters, name) is not None:
             if accept:
                 choices_remaining &= languages
             else:
@@ -86,8 +87,9 @@ def _bm_language(name, name_mode):
 
 def _bm_redo_language(term, name_mode, rules, final_rules1, final_rules2,
                       concat):
-    """Using a split multi-work term, reassess the language of the terms and
-    call the phonetic encoder
+    """Reassess the language of the terms and call the phonetic encoder.
+
+    Uses a split multi-word term.
 
     :param str term: the term to encode via Beider-Morse
     :param str name_mode: the name mode of the algorithm: 'gen' (default),
@@ -106,7 +108,7 @@ def _bm_redo_language(term, name_mode, rules, final_rules1, final_rules2,
 
 def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
                  language_arg=0, concat=False):
-    """Return the Beider-Morse encoding(s) of a term
+    """Return the Beider-Morse encoding(s) of a term.
 
     Arguments:
     :param str term: the term to encode via Beider-Morse
@@ -240,7 +242,7 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
 
 
 def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
-    """Apply a set of final rules to the phonetic encoding
+    """Apply a set of final rules to the phonetic encoding.
 
     :param str phonetic: the term to which to apply the final rules
     :param tuple final_rules: the set of final phonetic transform regexps
@@ -332,7 +334,7 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
 
 
 def _bm_phonetic_number(phonetic):
-    """Remove bracketed text from the end of a string
+    """Remove bracketed text from the end of a string.
 
     :param str phonetic: a Beider-Morse phonetic encoding
     """
@@ -343,7 +345,7 @@ def _bm_phonetic_number(phonetic):
 
 
 def _bm_expand_alternates(phonetic):
-    """Expand phonetic alternates separated by |s
+    """Expand phonetic alternates separated by |s.
 
     :param str phonetic: a Beider-Morse phonetic encoding
     """
@@ -372,7 +374,7 @@ def _bm_expand_alternates(phonetic):
 
 
 def _bm_pnums_with_leading_space(phonetic):
-    """Join prefixes & suffixes in cases of alternate phonetic values
+    """Join prefixes & suffixes in cases of alternate phonetic values.
 
     :param str phonetic: a Beider-Morse phonetic encoding
     """
@@ -395,8 +397,10 @@ def _bm_pnums_with_leading_space(phonetic):
 
 
 def _bm_phonetic_numbers(phonetic):
-    """Split phonetic value on '-', run through
-    _bm_pnums_with_leading_space, and join with ' '
+    """Prepare & join phonetic numbers.
+
+    Split phonetic value on '-', run through _bm_pnums_with_leading_space,
+    and join with ' '
 
     :param str phonetic: a Beider-Morse phonetic encoding
     """
@@ -407,7 +411,7 @@ def _bm_phonetic_numbers(phonetic):
 
 
 def _bm_remove_dupes(phonetic):
-    """Remove duplicates from a phonetic encoding list
+    """Remove duplicates from a phonetic encoding list.
 
     :param str phonetic: a Beider-Morse phonetic encoding
     """
@@ -424,17 +428,16 @@ def _bm_remove_dupes(phonetic):
 
 
 def _bm_normalize_lang_attrs(text, strip):
-    """Remove embedded bracketed attributes and (potentially) bitwise-and them
-    together and add to the end
+    """Remove embedded bracketed attributes.
 
-    this is applied to a single alternative at a time -- not to a parenthisized
-        list
-
-    it removes all embedded bracketed attributes, logically-ands them together,
-        and places them at the end.
-
-    however if strip is true, this can indeed remove embedded bracketed
-        attributes from a parenthesized list
+    This (potentially) bitwise-ands bracketed attributes together and adds to
+    the end.
+    This is applied to a single alternative at a time -- not to a
+    parenthisized list.
+    It removes all embedded bracketed attributes, logically-ands them together,
+    and places them at the end.
+    However if strip is true, this can indeed remove embedded bracketed
+    attributes from a parenthesized list.
 
     :param str text: a Beider-Morse phonetic encoding (in progress)
     :param bool strip: remove the bracketed attributes (and throw away)
@@ -460,7 +463,7 @@ def _bm_normalize_lang_attrs(text, strip):
 
 
 def _bm_apply_rule_if_compat(phonetic, target, language_arg):
-    """Applies a phonetic regex if compatible
+    """Apply a phonetic regex if compatible.
 
     tests for compatible language rules
 
@@ -516,16 +519,18 @@ def _bm_apply_rule_if_compat(phonetic, target, language_arg):
 
 
 def _bm_language_index_from_code(code, name_mode):
-    """Return the index value for a language code (or l_any if more than one
-    is specified or the code is out of bounds)
+    """Return the index value for a language code.
+
+    This returns l_any if more than one code is specified or the code is out
+    of bounds.
 
     :param int code: the language code to interpret
     :param str name_mode: the name mode of the algorithm: 'gen' (default),
                 'ash' (Ashkenazi), or 'sep' (Sephardic)
     """
     if (code < 1 or
-            code > sum([_LANG_DICT[_] for _ in
-                        BMDATA[name_mode]['languages']])):  # code out of range
+            code > sum(_LANG_DICT[_] for _ in
+                       BMDATA[name_mode]['languages'])):  # code out of range
         return L_ANY
     if (code & (code - 1)) != 0:  # choice was more than one language; use any
         return L_ANY
@@ -534,8 +539,7 @@ def _bm_language_index_from_code(code, name_mode):
 
 def _bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
           concat=False, filter_langs=False):
-    """Return the Beider-Morse Phonetic Matching algorithm encoding(s) of a
-    term
+    """Return the Beider-Morse Phonetic Matching encoding(s) of a term.
 
     The Beider-Morse Phonetic Matching algorithm is described at:
     http://stevemorse.org/phonetics/bmpm.htm
@@ -567,7 +571,7 @@ def _bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
 
     # Translate the supplied language_arg value into an integer representing
     # a set of languages
-    all_langs = sum([_LANG_DICT[_] for _ in BMDATA[name_mode]['languages']])-1
+    all_langs = sum(_LANG_DICT[_] for _ in BMDATA[name_mode]['languages'])-1
     lang_choices = 0
     if isinstance(language_arg, (int, float, _long)):
         lang_choices = int(language_arg)

@@ -18,23 +18,29 @@
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 
+"""bm_php2py.py
 
-# This helper script converts BMPM code from PHP to Python.
-#
-# It assumes that the BMPM code is located at ../../bmpm (relative to this
-# directory in the abydos repository).
-# It reads the BMPM reference implementation and generates the file
-# ../abydos/_bmdata.py.
-# The file _bm.py may still need manual changes to be made.
+This helper script converts Beider-Morse Phonetic Matching Algorithm (BMPM)
+code from PHP to Python.
 
+It assumes that the BMPM code is located at ../../bmpm (relative to this
+directory in the abydos repository).
 
-from __future__ import unicode_literals, print_function
-from os import listdir
-from os.path import isfile
+It reads the BMPM reference implementation and generates the file
+../abydos/_bmdata.py.
+The file _bm.py may still need manual changes to be made after this script
+is run.
+"""
+
+from __future__ import print_function, unicode_literals
+
 import codecs
-import chardet
 import re
 import sys
+from os import listdir
+from os.path import isfile
+
+import chardet
 
 # The list of languages from BMPM to support (might need to be updated or
 # tuned as BMPM is updated)
@@ -42,7 +48,8 @@ lang_tuple = ('any', 'arabic', 'cyrillic', 'czech', 'dutch', 'english',
               'french', 'german', 'greek', 'greeklatin', 'hebrew', 'hungarian',
               'italian', 'latvian', 'polish', 'portuguese', 'romanian',
               'russian', 'spanish', 'turkish')
-lang_dict = dict()
+
+lang_dict = {}
 for i, l in enumerate(lang_tuple):
     lang_dict[l] = 2**i
 lang_dict['common'] = "'common'"
@@ -54,7 +61,7 @@ tail_text = ''
 
 
 def c2u(name):
-    """Convert camelCase (used in BMPM's PHP code) to Python-standard snake_case
+    """Convert camelCase (used in PHP) to Python-standard snake_case.
 
     Src:
     https://stackoverflow.com/questions/1175208/elegant-python-function-to-convert-camelcase-to-snake-case
@@ -65,8 +72,7 @@ def c2u(name):
 
 
 def pythonize(line, fn='', subdir='gen'):
-    """Convert a line of BMPM code from PHP to Python
-    """
+    """Convert a line of BMPM code from PHP to Python."""
     global nl, array_seen
 
     if '$all' in line:
@@ -92,14 +98,14 @@ def pythonize(line, fn='', subdir='gen'):
     line = re.sub('\$(approx|rules|exact)\[LanguageIndex\("([^"]+)", ' +
                   '\$languages\)\] = \$([a-zA-Z]+)',
                   lambda m: ("BMDATA['" + subdir + "']['" + m.group(1) +
-                             "'][L_" + m.group(2).upper() + "] = _" +
+                             "'][L_" + m.group(2).upper() + '] = _' +
                              subdir.upper() + '_' + c2u(m.group(3)).upper()),
                   line)
 
     line = re.sub('\$(approx|rules|exact|hebrew)([A-Za-z]+) = _merge' +
                   '\(\$([a-zA-Z]+), \$([a-zA-Z]+)\)',
                   lambda m: ("BMDATA['" + subdir + "']['" + m.group(1) +
-                             "'][L_" + c2u(m.group(2)).upper() + "] = _" +
+                             "'][L_" + c2u(m.group(2)).upper() + '] = _' +
                              subdir.upper() + '_' + c2u(m.group(3)).upper() +
                              ' + _' + subdir.upper() + '_' +
                              c2u(m.group(4)).upper()),
@@ -108,7 +114,7 @@ def pythonize(line, fn='', subdir='gen'):
     line = re.sub('\$(approx|rules|exact)\[LanguageIndex\("([^"]+)", ' +
                   '\$languages\)\] = _merge\(\$([a-zA-Z]+), \$([a-zA-Z]+)\)',
                   lambda m: ("BMDATA['" + subdir + "']['" + m.group(1) +
-                             "'][L_" + c2u(m.group(2)).upper() + "] = _" +
+                             "'][L_" + c2u(m.group(2)).upper() + '] = _' +
                              subdir.upper() + '_' + c2u(m.group(3)).upper() +
                              ' + _' + subdir.upper() + '_' +
                              c2u(m.group(4)).upper()),
@@ -130,7 +136,7 @@ def pythonize(line, fn='', subdir='gen'):
     line = re.sub('L_([A-Z]+)',
                   lambda m: str(lang_dict[m.group(1).lower()]),
                   line)
-    for i in range(4):
+    for _ in range(4):
         line = re.sub('([0-9]+) *\+ *([0-9]+)',
                       lambda m: str(int(m.group(1)) + int(m.group(2))),
                       line)
@@ -138,7 +144,7 @@ def pythonize(line, fn='', subdir='gen'):
     if fn == 'lang':
         if len(line.split(',')) >= 3:
             parts = line.split(',')
-            parts[0] = re.sub("/(.+?)/", r"\1", parts[0])
+            parts[0] = re.sub('/(.+?)/', r'\1', parts[0])
             # parts[1] = re.sub('\$', 'L_', parts[1])
             # parts[1] = re.sub(' *\+ *', '|', parts[1])
             parts[2] = parts[2].title()
@@ -162,6 +168,11 @@ def pythonize(line, fn='', subdir='gen'):
     else:
         code = line
 
+    code = code.rstrip()
+    comment = comment.strip()
+    if not re.match('^\s*$', code):
+        comment = '  ' + comment
+
     if '(' in code and ')' in code:
         prefix = code[:code.find('(')+1]
         suffix = code[code.rfind(')'):]
@@ -177,6 +188,7 @@ def pythonize(line, fn='', subdir='gen'):
         code = prefix + tuplecontent + suffix
 
     line = code + comment
+    line = re.sub('# *', '# ', line)
 
     if line:
         nl = False
@@ -188,6 +200,7 @@ def pythonize(line, fn='', subdir='gen'):
         return '\n'
     else:
         return ''
+
 
 if len(sys.argv) > 1:
     bmdir = sys.argv[1].rstrip('/') + '/'
@@ -221,16 +234,16 @@ for i, l in enumerate(lang_tuple):
     outfile.write('L_' + l.upper() + ' = 2**' + str(i) + '\n')
 outfile.write('\n\n')
 
-tail_text += '\nBMDATA = dict()\n'
+tail_text += '\nBMDATA = {}\n'
 
 subdirs = ('gen', 'sep', 'ash')
 
 for s in subdirs:
-    tail_text += '\nBMDATA[\'' + s + '\'] = dict()\n'
-    tail_text += 'BMDATA[\'' + s + '\'][\'approx\'] = dict()\n'
-    tail_text += 'BMDATA[\'' + s + '\'][\'exact\'] = dict()\n'
-    tail_text += 'BMDATA[\'' + s + '\'][\'rules\'] = dict()\n'
-    tail_text += 'BMDATA[\'' + s + '\'][\'hebrew\'] = dict()\n\n'
+    tail_text += '\nBMDATA[\'' + s + '\'] = {}\n'
+    tail_text += 'BMDATA[\'' + s + '\'][\'approx\'] = {}\n'
+    tail_text += 'BMDATA[\'' + s + '\'][\'exact\'] = {}\n'
+    tail_text += 'BMDATA[\'' + s + '\'][\'rules\'] = {}\n'
+    tail_text += 'BMDATA[\'' + s + '\'][\'hebrew\'] = {}\n\n'
     tail_text += ('BMDATA[\'' + s + '\'][\'language_rules\'] = _' + s.upper() +
                   '_LANGUAGE_RULES\n')
     tail_text += ('BMDATA[\'' + s + '\'][\'languages\'] = _' + s.upper() +
@@ -243,8 +256,9 @@ for s in subdirs:
             if infilename.startswith(pfx):
                 array_seen = False
                 infilepath = bmdir + s + '/' + infilename
-                infileenc = chardet.detect(open(infilepath, 'rb').read())['encoding']
-                print(s + '/' + infilename)
+                infileenc = chardet.detect(open(infilepath, 'rb')
+                                           .read())['encoding']
+                print(s + '/' + infilename)  # noqa: T001
                 infile = codecs.open(infilepath, 'r', infileenc)
                 if infilename.startswith('lang'):
                     tuplename = infilename[:-4]
@@ -280,12 +294,17 @@ outfilelines = codecs.open(outfilename, 'r', 'utf-8').readlines()
 outfile = codecs.open(outfilename, 'w', 'utf-8')
 nl = False
 fixlanguagesarray = False
+
+sep_lang = "('any', 'french', 'hebrew', 'italian', 'portuguese', 'spanish')"
+
 for line in outfilelines:
     line = line.rstrip()
     if line:
         if fixlanguagesarray:
             line = ' '+line.strip()
             fixlanguagesarray = False
+        if (len(line) > 79 or sep_lang in line):
+            line = line + '  # noqa: E501'
         outfile.write(line)
         if not line.endswith('='):
             outfile.write('\n')
