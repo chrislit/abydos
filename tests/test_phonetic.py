@@ -22,24 +22,27 @@ This module contains unit tests for abydos.phonetic
 """
 
 from __future__ import unicode_literals
-import unittest
+
+import codecs
+import math
 import os
 import random
-import math
-import codecs
-from abydos._compat import _unicode
-from abydos.phonetic import russell_index, russell_index_num_to_alpha, \
-    russell_index_alpha, soundex, dm_soundex, koelner_phonetik, \
-    koelner_phonetik_num_to_alpha, koelner_phonetik_alpha, nysiis, mra, \
-    metaphone, double_metaphone, caverphone, alpha_sis, fuzzy_soundex, \
-    phonex, phonem, phonix, sfinxbis, phonet, spfc, bmpm
-from abydos._bm import _bm_language, _bm_expand_alternates, \
-    _bm_remove_dupes, _bm_normalize_lang_attrs, _bm_phonetic_number, \
-    _bm_apply_rule_if_compat
+import unittest
+
+from abydos._bm import _bm_apply_rule_if_compat, _bm_expand_alternates, \
+    _bm_language, _bm_normalize_lang_attrs, _bm_phonetic_number, \
+    _bm_remove_dupes
 from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
     L_FRENCH, L_GERMAN, L_GREEK, L_GREEKLATIN, L_HEBREW, L_HUNGARIAN, \
     L_ITALIAN, L_LATVIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, L_SPANISH, \
     L_TURKISH
+from abydos._compat import _unicode
+from abydos.phonetic import alpha_sis, bmpm, caverphone, dm_soundex, \
+    double_metaphone, fuzzy_soundex, koelner_phonetik, \
+    koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, metaphone, mra, \
+    nysiis, phonem, phonet, phonex, phonix, russell_index, \
+    russell_index_alpha, russell_index_num_to_alpha, sfinxbis, soundex, spfc
+
 
 TESTDIR = os.path.dirname(__file__)
 
@@ -52,7 +55,9 @@ if not EXTREME_TEST and os.path.isfile(TESTDIR + '/EXTREME_TEST'):
 
 
 def one_in(inverse_probability):
-    """Return True if:
+    """Return whether to run a test.
+
+    Return True if:
         EXTREME_TEST is True
         OR
         (ALLOW_RANDOM is False
@@ -69,12 +74,14 @@ def one_in(inverse_probability):
 
 
 class RussellIndexTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.russell_index,
+    """Test Russel Index functions.
+
+    test cases for abydos.phonetic.russell_index,
     .russell_index_num_to_alpha, & .russell_index_alpha
     """
+
     def test_russel_index(self):
-        """test abydos.phonetic.russell_index
-        """
+        """Test abydos.phonetic.russell_index."""
         self.assertTrue(math.isnan(russell_index('')))
         self.assertTrue(math.isnan(russell_index('H')))
         self.assertEqual(russell_index('Hoppa'), 12)
@@ -93,8 +100,7 @@ class RussellIndexTestCases(unittest.TestCase):
         self.assertEqual(russell_index('Knack'), 3713)
 
     def test_russel_index_n2a(self):
-        """test abydos.phonetic.russell_index_num_to_alpha
-        """
+        """Test abydos.phonetic.russell_index_num_to_alpha."""
         self.assertEqual(russell_index_num_to_alpha(0), '')
         self.assertEqual(russell_index_num_to_alpha(''), '')
         self.assertEqual(russell_index_num_to_alpha(float('NaN')), '')
@@ -102,8 +108,7 @@ class RussellIndexTestCases(unittest.TestCase):
         self.assertEqual(russell_index_num_to_alpha('0123456789'), 'ABCDLMNR')
 
     def test_russel_index_alpha(self):
-        """test abydos.phonetic.russell_index_alpha
-        """
+        """Test abydos.phonetic.russell_index_alpha."""
         self.assertEqual(russell_index_alpha(''), '')
         self.assertEqual(russell_index_alpha('H'), '')
         self.assertEqual(russell_index_alpha('Hoppa'), 'AB')
@@ -123,11 +128,13 @@ class RussellIndexTestCases(unittest.TestCase):
 
 
 class SoundexTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.soundex & .dm_soundex
+    """Test Soundex functions.
+
+    test cases for abydos.phonetic.soundex & .dm_soundex
     """
+
     def test_soundex(self):
-        """test abydos.phonetic.soundex
-        """
+        """Test abydos.phonetic.soundex."""
         self.assertEqual(soundex(''), '0000')
 
         # https://archive.org/stream/accessingindivid00moor#page/14/mode/2up
@@ -205,8 +212,7 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(soundex('', maxlength=4, zero_pad=True), '0000')
 
     def test_soundex_special(self):
-        """test abydos.phonetic.soundex (special census variant method)
-        """
+        """Test abydos.phonetic.soundex (special census variant method)."""
         self.assertEqual(soundex('Ashcroft', var='special'), 'A226')
         self.assertEqual(soundex('Asicroft', var='special'), 'A226')
         self.assertEqual(soundex('AsWcroft', var='special'), 'A226')
@@ -214,155 +220,154 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(soundex('Rubin', var='special'), 'R150')
 
     def test_dm_soundex(self):
-        """test abydos.phonetic.dm_soundex (Daitchh-Mokotoff Soundex)
-        """
+        """Test abydos.phonetic.dm_soundex (Daitchh-Mokotoff Soundex)."""
         # D-M tests
-        self.assertEqual(soundex('', var='dm'), set(['000000']))
-        self.assertEqual(dm_soundex(''), set(['000000']))
+        self.assertEqual(soundex('', var='dm'), {'000000'})
+        self.assertEqual(dm_soundex(''), {'000000'})
 
         # http://www.avotaynu.com/soundex.htm
-        self.assertEqual(soundex('Augsburg', var='dm'), set(['054795']))
-        self.assertEqual(dm_soundex('Augsburg'), set(['054795']))
-        self.assertEqual(soundex('Breuer', var='dm'), set(['791900']))
-        self.assertEqual(dm_soundex('Breuer'), set(['791900']))
+        self.assertEqual(soundex('Augsburg', var='dm'), {'054795'})
+        self.assertEqual(dm_soundex('Augsburg'), {'054795'})
+        self.assertEqual(soundex('Breuer', var='dm'), {'791900'})
+        self.assertEqual(dm_soundex('Breuer'), {'791900'})
         self.assertEqual(soundex('Halberstadt', var='dm'),
-                         set(['587943', '587433']))
-        self.assertEqual(dm_soundex('Halberstadt'), set(['587943', '587433']))
-        self.assertEqual(soundex('Mannheim', var='dm'), set(['665600']))
-        self.assertEqual(dm_soundex('Mannheim'), set(['665600']))
+                         {'587943', '587433'})
+        self.assertEqual(dm_soundex('Halberstadt'), {'587943', '587433'})
+        self.assertEqual(soundex('Mannheim', var='dm'), {'665600'})
+        self.assertEqual(dm_soundex('Mannheim'), {'665600'})
         self.assertEqual(soundex('Chernowitz', var='dm'),
-                         set(['496740', '596740']))
-        self.assertEqual(dm_soundex('Chernowitz'), set(['496740', '596740']))
+                         {'496740', '596740'})
+        self.assertEqual(dm_soundex('Chernowitz'), {'496740', '596740'})
         self.assertEqual(soundex('Cherkassy', var='dm'),
-                         set(['495400', '595400']))
-        self.assertEqual(dm_soundex('Cherkassy'), set(['495400', '595400']))
-        self.assertEqual(soundex('Kleinman', var='dm'), set(['586660']))
-        self.assertEqual(dm_soundex('Kleinman'), set(['586660']))
-        self.assertEqual(soundex('Berlin', var='dm'), set(['798600']))
-        self.assertEqual(dm_soundex('Berlin'), set(['798600']))
+                         {'495400', '595400'})
+        self.assertEqual(dm_soundex('Cherkassy'), {'495400', '595400'})
+        self.assertEqual(soundex('Kleinman', var='dm'), {'586660'})
+        self.assertEqual(dm_soundex('Kleinman'), {'586660'})
+        self.assertEqual(soundex('Berlin', var='dm'), {'798600'})
+        self.assertEqual(dm_soundex('Berlin'), {'798600'})
 
         self.assertEqual(soundex('Ceniow', var='dm'),
-                         set(['467000', '567000']))
-        self.assertEqual(dm_soundex('Ceniow'), set(['467000', '567000']))
-        self.assertEqual(soundex('Tsenyuv', var='dm'), set(['467000']))
-        self.assertEqual(dm_soundex('Tsenyuv'), set(['467000']))
+                         {'467000', '567000'})
+        self.assertEqual(dm_soundex('Ceniow'), {'467000', '567000'})
+        self.assertEqual(soundex('Tsenyuv', var='dm'), {'467000'})
+        self.assertEqual(dm_soundex('Tsenyuv'), {'467000'})
         self.assertEqual(soundex('Holubica', var='dm'),
-                         set(['587400', '587500']))
-        self.assertEqual(dm_soundex('Holubica'), set(['587400', '587500']))
-        self.assertEqual(soundex('Golubitsa', var='dm'), set(['587400']))
-        self.assertEqual(dm_soundex('Golubitsa'), set(['587400']))
+                         {'587400', '587500'})
+        self.assertEqual(dm_soundex('Holubica'), {'587400', '587500'})
+        self.assertEqual(soundex('Golubitsa', var='dm'), {'587400'})
+        self.assertEqual(dm_soundex('Golubitsa'), {'587400'})
         self.assertEqual(soundex('Przemysl', var='dm'),
-                         set(['746480', '794648']))
-        self.assertEqual(dm_soundex('Przemysl'), set(['746480', '794648']))
-        self.assertEqual(soundex('Pshemeshil', var='dm'), set(['746480']))
-        self.assertEqual(dm_soundex('Pshemeshil'), set(['746480']))
+                         {'746480', '794648'})
+        self.assertEqual(dm_soundex('Przemysl'), {'746480', '794648'})
+        self.assertEqual(soundex('Pshemeshil', var='dm'), {'746480'})
+        self.assertEqual(dm_soundex('Pshemeshil'), {'746480'})
         self.assertEqual(soundex('Rosochowaciec', var='dm'),
-                         set(['944744', '945744', '944755', '944754', '944745',
-                              '945745', '945754', '945755']))
+                         {'944744', '945744', '944755', '944754', '944745',
+                          '945745', '945754', '945755'})
         self.assertEqual(dm_soundex('Rosochowaciec'),
-                         set(['944744', '945744', '944755', '944754', '944745',
-                              '945745', '945754', '945755']))
-        self.assertEqual(soundex('Rosokhovatsets', var='dm'), set(['945744']))
-        self.assertEqual(dm_soundex('Rosokhovatsets'), set(['945744']))
+                         {'944744', '945744', '944755', '944754', '944745',
+                          '945745', '945754', '945755'})
+        self.assertEqual(soundex('Rosokhovatsets', var='dm'), {'945744'})
+        self.assertEqual(dm_soundex('Rosokhovatsets'), {'945744'})
 
         # https://en.wikipedia.org/wiki/Daitch%E2%80%93Mokotoff_Soundex
         self.assertEqual(soundex('Peters', var='dm'),
-                         set(['739400', '734000']))
-        self.assertEqual(dm_soundex('Peters'), set(['739400', '734000']))
+                         {'739400', '734000'})
+        self.assertEqual(dm_soundex('Peters'), {'739400', '734000'})
         self.assertEqual(soundex('Peterson', var='dm'),
-                         set(['739460', '734600']))
-        self.assertEqual(dm_soundex('Peterson'), set(['739460', '734600']))
-        self.assertEqual(soundex('Moskowitz', var='dm'), set(['645740']))
-        self.assertEqual(dm_soundex('Moskowitz'), set(['645740']))
-        self.assertEqual(soundex('Moskovitz', var='dm'), set(['645740']))
-        self.assertEqual(dm_soundex('Moskovitz'), set(['645740']))
+                         {'739460', '734600'})
+        self.assertEqual(dm_soundex('Peterson'), {'739460', '734600'})
+        self.assertEqual(soundex('Moskowitz', var='dm'), {'645740'})
+        self.assertEqual(dm_soundex('Moskowitz'), {'645740'})
+        self.assertEqual(soundex('Moskovitz', var='dm'), {'645740'})
+        self.assertEqual(dm_soundex('Moskovitz'), {'645740'})
         self.assertEqual(soundex('Auerbach', var='dm'),
-                         set(['097500', '097400']))
-        self.assertEqual(dm_soundex('Auerbach'), set(['097500', '097400']))
+                         {'097500', '097400'})
+        self.assertEqual(dm_soundex('Auerbach'), {'097500', '097400'})
         self.assertEqual(soundex('Uhrbach', var='dm'),
-                         set(['097500', '097400']))
-        self.assertEqual(dm_soundex('Uhrbach'), set(['097500', '097400']))
+                         {'097500', '097400'})
+        self.assertEqual(dm_soundex('Uhrbach'), {'097500', '097400'})
         self.assertEqual(soundex('Jackson', var='dm'),
-                         set(['154600', '454600', '145460', '445460']))
+                         {'154600', '454600', '145460', '445460'})
         self.assertEqual(dm_soundex('Jackson'),
-                         set(['154600', '454600', '145460', '445460']))
+                         {'154600', '454600', '145460', '445460'})
         self.assertEqual(soundex('Jackson-Jackson', var='dm'),
-                         set(['154654', '454654', '145465', '445465',
-                              '154645', '454645', '145464', '445464',
-                              '154644', '454644']))
+                         {'154654', '454654', '145465', '445465',
+                          '154645', '454645', '145464', '445464',
+                          '154644', '454644'})
         self.assertEqual(dm_soundex('Jackson-Jackson'),
-                         set(['154654', '454654', '145465', '445465',
-                              '154645', '454645', '145464', '445464',
-                              '154644', '454644']))
+                         {'154654', '454654', '145465', '445465',
+                          '154645', '454645', '145464', '445464',
+                          '154644', '454644'})
 
         # http://www.jewishgen.org/infofiles/soundex.html
         self.assertEqual(soundex('OHRBACH', var='dm'),
-                         set(['097500', '097400']))
-        self.assertEqual(dm_soundex('OHRBACH'), set(['097500', '097400']))
-        self.assertEqual(soundex('LIPSHITZ', var='dm'), set(['874400']))
-        self.assertEqual(dm_soundex('LIPSHITZ'), set(['874400']))
+                         {'097500', '097400'})
+        self.assertEqual(dm_soundex('OHRBACH'), {'097500', '097400'})
+        self.assertEqual(soundex('LIPSHITZ', var='dm'), {'874400'})
+        self.assertEqual(dm_soundex('LIPSHITZ'), {'874400'})
         self.assertEqual(soundex('LIPPSZYC', var='dm'),
-                         set(['874400', '874500']))
-        self.assertEqual(dm_soundex('LIPPSZYC'), set(['874400', '874500']))
-        self.assertEqual(soundex('LEWINSKY', var='dm'), set(['876450']))
-        self.assertEqual(dm_soundex('LEWINSKY'), set(['876450']))
-        self.assertEqual(soundex('LEVINSKI', var='dm'), set(['876450']))
-        self.assertEqual(dm_soundex('LEVINSKI'), set(['876450']))
-        self.assertEqual(soundex('SZLAMAWICZ', var='dm'), set(['486740']))
-        self.assertEqual(dm_soundex('SZLAMAWICZ'), set(['486740']))
-        self.assertEqual(soundex('SHLAMOVITZ', var='dm'), set(['486740']))
-        self.assertEqual(dm_soundex('SHLAMOVITZ'), set(['486740']))
+                         {'874400', '874500'})
+        self.assertEqual(dm_soundex('LIPPSZYC'), {'874400', '874500'})
+        self.assertEqual(soundex('LEWINSKY', var='dm'), {'876450'})
+        self.assertEqual(dm_soundex('LEWINSKY'), {'876450'})
+        self.assertEqual(soundex('LEVINSKI', var='dm'), {'876450'})
+        self.assertEqual(dm_soundex('LEVINSKI'), {'876450'})
+        self.assertEqual(soundex('SZLAMAWICZ', var='dm'), {'486740'})
+        self.assertEqual(dm_soundex('SZLAMAWICZ'), {'486740'})
+        self.assertEqual(soundex('SHLAMOVITZ', var='dm'), {'486740'})
+        self.assertEqual(dm_soundex('SHLAMOVITZ'), {'486740'})
 
         # http://community.actian.com/wiki/OME_soundex_dm()
         self.assertEqual(soundex('Schwarzenegger', var='dm'),
-                         set(['479465', '474659']))
+                         {'479465', '474659'})
         self.assertEqual(dm_soundex('Schwarzenegger'),
-                         set(['479465', '474659']))
+                         {'479465', '474659'})
         self.assertEqual(soundex('Shwarzenegger', var='dm'),
-                         set(['479465', '474659']))
+                         {'479465', '474659'})
         self.assertEqual(dm_soundex('Shwarzenegger'),
-                         set(['479465', '474659']))
+                         {'479465', '474659'})
         self.assertEqual(soundex('Schwartsenegger', var='dm'),
-                         set(['479465']))
-        self.assertEqual(dm_soundex('Schwartsenegger'), set(['479465']))
+                         {'479465'})
+        self.assertEqual(dm_soundex('Schwartsenegger'), {'479465'})
 
         # reverse DM-Soundex
         self.assertEqual(soundex('Schwarzenegger', var='dm', reverse=True),
-                         set(['956497']))
+                         {'956497'})
         self.assertEqual(dm_soundex('Schwarzenegger', reverse=True),
-                         set(['956497']))
+                         {'956497'})
 
         # maxlength bounds tests
         self.assertEqual(dm_soundex('Niall', maxlength=float('inf')),
-                         set(['680000000000000000000000000000000000000000000' +
-                              '0000000000000000000']))
+                         {'68'+'0'*62})
         self.assertEqual(dm_soundex('Niall', maxlength=None),
-                         set(['680000000000000000000000000000000000000000000' +
-                              '0000000000000000000']))
-        self.assertEqual(dm_soundex('Niall', maxlength=0), set(['680000']))
+                         {'68'+'0'*62})
+        self.assertEqual(dm_soundex('Niall', maxlength=0), {'680000'})
 
         # zero_pad tests
         self.assertEqual(dm_soundex('Niall', maxlength=float('inf'),
-                                    zero_pad=False), set(['68']))
+                                    zero_pad=False), {'68'})
         self.assertEqual(dm_soundex('Niall', maxlength=None, zero_pad=False),
-                         set(['68']))
+                         {'68'})
         self.assertEqual(dm_soundex('Niall', maxlength=0, zero_pad=False),
-                         set(['68']))
+                         {'68'})
         self.assertEqual(dm_soundex('Niall', maxlength=0, zero_pad=True),
-                         set(['680000']))
+                         {'680000'})
         self.assertEqual(dm_soundex('', maxlength=6, zero_pad=False),
-                         set(['0']))
+                         {'0'})
         self.assertEqual(dm_soundex('', maxlength=6, zero_pad=True),
-                         set(['000000']))
+                         {'000000'})
 
 
 class KoelnerPhonetikTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.koelner_phonetik,
+    """Test Koelner Phonetic functions.
+
+    test cases for abydos.phonetic.koelner_phonetik,
     .koelner_phonetik_num_to_alpha, & .koelner_phonetik_alpha
     """
+
     def test_koelner_phonetik(self):
-        """test abydos.phonetic.koelner_phonetik
-        """
+        """Test abydos.phonetic.koelner_phonetik."""
         self.assertEqual(koelner_phonetik(''), '')
 
         # https://de.wikipedia.org/wiki/K%C3%B6lner_Phonetik
@@ -394,14 +399,12 @@ class KoelnerPhonetikTestCases(unittest.TestCase):
         self.assertEqual(koelner_phonetik('H'), '')
 
     def test_koelner_phonetik_n2a(self):
-        """test abydos.phonetic.koelner_phonetik_num_to_alpha
-        """
+        """Test abydos.phonetic.koelner_phonetik_num_to_alpha."""
         self.assertEqual(koelner_phonetik_num_to_alpha('0123456789'),
                          'APTFKLNRS')
 
     def test_koelner_phonetik_alpha(self):
-        """test abydos.phonetic.koelner_phonetik_alpha
-        """
+        """Test abydos.phonetic.koelner_phonetik_alpha."""
         self.assertEqual(koelner_phonetik_alpha('Müller-Lüdenscheidt'),
                          'NLRLTNST')
         self.assertEqual(koelner_phonetik_alpha('Wikipedia'), 'FKPT')
@@ -422,11 +425,13 @@ class KoelnerPhonetikTestCases(unittest.TestCase):
 
 
 class NysiisTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.nysiis
+    """Test NYSIIS functions.
+
+    test cases for abydos.phonetic.nysiis
     """
+
     def test_nysiis(self):
-        """test abydos.phonetic.nysiis
-        """
+        """Test abydos.phonetic.nysiis."""
         self.assertEqual(nysiis(''), '')
 
         # http://coryodaniel.com/index.php/2009/12/30/ruby-nysiis-implementation/
@@ -487,11 +492,13 @@ class NysiisTestCases(unittest.TestCase):
 
 
 class MraTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.mra
+    """Test MRA functions.
+
+    test cases for abydos.phonetic.mra
     """
+
     def test_mra(self):
-        """test abydos.phonetic.mra
-        """
+        """Test abydos.phonetic.mra."""
         self.assertEqual(mra(''), '')
 
         # https://en.wikipedia.org/wiki/Match_rating_approach
@@ -504,11 +511,13 @@ class MraTestCases(unittest.TestCase):
 
 
 class MetaphoneTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.metaphone
+    """Test Metaphone functions.
+
+    test cases for abydos.phonetic.metaphone
     """
+
     def test_metaphone(self):
-        """test abydos.phonetic.metaphone
-        """
+        """Test abydos.phonetic.metaphone."""
         self.assertEqual(metaphone(''), '')
         self.assertEqual(metaphone('...'), '')
 
@@ -569,7 +578,9 @@ class MetaphoneTestCases(unittest.TestCase):
 
 
 class DoubleMetaphoneTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.double_metaphone
+    """Test Double Metaphone functions.
+
+    test cases for abydos.phonetic.double_metaphone
 
     These test cases are copied from two sources:
     https://github.com/oubiwann/metaphone/blob/master/metaphone/tests/test_metaphone.py
@@ -617,9 +628,9 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
     of Double Metaphone that is Copyright 2001, Stephen Woodbridge and
     identified as 'freely distributable'
     """
+
     def test_double_metaphone(self):
-        """test abydos.phonetic.double_metaphone
-        """
+        """Test abydos.phonetic.double_metaphone."""
         # base case
         self.assertEqual(double_metaphone(''), ('', ''))
 
@@ -805,8 +816,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('Niall', maxlength=0), ('NL', ''))
 
     def test_double_metaphone_surnames(self):
-        """test abydos.phonetic.double_metaphone (surname data)
-        """
+        """Test abydos.phonetic.double_metaphone (surname data)."""
         self.assertEqual(double_metaphone(''), ('', ''))
         self.assertEqual(double_metaphone('ALLERTON'), ('ALRTN', ''))
         self.assertEqual(double_metaphone('Acton'), ('AKTN', ''))
@@ -2045,8 +2055,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('zhao'), ('J', ''))
 
     def test_double_metaphone_surnames4(self):
-        """test abydos.phonetic.double_metaphone (surname data, 4-letter codes)
-        """
+        """Test abydos.phonetic.double_metaphone (surname data, 4-letter)."""
         self.assertEqual(double_metaphone('', 4), ('', ''))
         self.assertEqual(double_metaphone('ALLERTON', 4), ('ALRT', ''))
         self.assertEqual(double_metaphone('Acton', 4), ('AKTN', ''))
@@ -3274,11 +3283,13 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
 
 
 class CaverphoneTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.caverphone
+    """Test Caverphone functions.
+
+    test cases for abydos.phonetic.caverphone
     """
+
     def test_caverphone2(self):
-        """test abydos.phonetic.caverphone (Caverphone 2)
-        """
+        """Test abydos.phonetic.caverphone (Caverphone 2)."""
         self.assertEqual(caverphone(''), '1111111111')
         self.assertEqual(caverphone('', 2), '1111111111')
         self.assertEqual(caverphone('', version=2), '1111111111')
@@ -3357,8 +3368,7 @@ class CaverphoneTestCases(unittest.TestCase):
         self.assertEqual(caverphone('gnu'), 'NA11111111')
 
     def test_caverphone2_php_testset(self):
-        """test abydos.phonetic.caverphone (PHP version testset)
-        """
+        """Test abydos.phonetic.caverphone (PHP version testset)."""
         # https://raw.githubusercontent.com/kiphughes/caverphone/master/unit_tests.php
         with open(TESTDIR + '/corpora/php_caverphone.csv') as php_testset:
             for php_line in php_testset:
@@ -3366,8 +3376,7 @@ class CaverphoneTestCases(unittest.TestCase):
                 self.assertEqual(caverphone(word), caver)
 
     def test_caverphone1(self):
-        """test abydos.phonetic.caverphone (Caverphone 1)
-        """
+        """Test abydos.phonetic.caverphone (Caverphone 1)."""
         self.assertEqual(caverphone('', 1), '111111')
         self.assertEqual(caverphone('', version=1), '111111')
 
@@ -3376,8 +3385,7 @@ class CaverphoneTestCases(unittest.TestCase):
         self.assertEqual(caverphone('Whittle', version=1), 'WTL111')
 
     def test_caversham(self):
-        """test using Caversham test set (SoundEx, Metaphone, & Caverphone)
-        """
+        """Test using Caversham test set (SoundEx, Metaphone, & Caverphone)."""
         with open(TESTDIR + '/corpora/variantNames.csv') as cav_testset:
             next(cav_testset)
             for cav_line in cav_testset:
@@ -3409,11 +3417,13 @@ class CaverphoneTestCases(unittest.TestCase):
 
 
 class AlphaSisTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.alpha_sis
+    """Test Alpha-SIS functions.
+
+    test cases for abydos.phonetic.alpha_sis
     """
+
     def test_alpha_sis(self):
-        """test abydos.phonetic.alpha_sis
-        """
+        """Test abydos.phonetic.alpha_sis."""
         self.assertEqual(alpha_sis('')[0], '00000000000000')
 
         self.assertEqual(alpha_sis('Rodgers')[0], '04740000000000')
@@ -3443,11 +3453,13 @@ class AlphaSisTestCases(unittest.TestCase):
 
 
 class FuzzySoundexTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.fuzzy_soundex
+    """Test Fuzzy Soundex functions.
+
+    test cases for abydos.phonetic.fuzzy_soundex
     """
+
     def test_fuzzy_soundex(self):
-        """test abydos.phonetic.fuzzy_soundex
-        """
+        """Test abydos.phonetic.fuzzy_soundex."""
         self.assertEqual(fuzzy_soundex(''), '00000')
         # http://wayback.archive.org/web/20100629121128/http://www.ir.iit.edu/publications/downloads/IEEESoundexV5.pdf
         self.assertEqual(fuzzy_soundex('Kristen'), 'K6935')
@@ -3505,11 +3517,13 @@ class FuzzySoundexTestCases(unittest.TestCase):
 
 
 class PhonexTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.phonex
+    """Test Phonex functions.
+
+    test cases for abydos.phonetic.phonex
     """
+
     def test_phonex(self):
-        """test abydos.phonetic.phonex
-        """
+        """Test abydos.phonetic.phonex."""
         self.assertEqual(phonex(''), '0000')
 
         # http://homepages.cs.ncl.ac.uk/brian.randell/Genealogy/NameMatching.pdf
@@ -3568,11 +3582,13 @@ class PhonexTestCases(unittest.TestCase):
 
 
 class PhonemTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.phonem
+    """Test Phonem functions.
+
+    test cases for abydos.phonetic.phonem
     """
+
     def test_phonem(self):
-        """test abydos.phonetic.phonem
-        """
+        """Test abydos.phonetic.phonem."""
         self.assertEqual(phonem(''), '')
 
         # http://phonetik.phil-fak.uni-koeln.de/fileadmin/home/ritters/Allgemeine_Dateien/Martin_Wilz.pdf
@@ -3598,11 +3614,13 @@ class PhonemTestCases(unittest.TestCase):
 
 
 class PhonixTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.phonix
+    """Test Phonix functions.
+
+    test cases for abydos.phonetic.phonix
     """
+
     def test_phonix(self):
-        """test abydos.phonetic.phonix
-        """
+        """Test abydos.phonetic.phonix."""
         self.assertEqual(phonix(''), '0000')
 
         # http://cpansearch.perl.org/src/MAROS/Text-Phonetic-2.05/t/007_phonix.t
@@ -3661,12 +3679,8 @@ class PhonixTestCases(unittest.TestCase):
         self.assertEqual(phonix('kristina'), 'K683')
 
         # maxlength bounds tests
-        self.assertEqual(phonix('Niall', maxlength=float('inf')),
-                         'N4000000000000000000000000000000000000000000000000' +
-                         '00000000000000')
-        self.assertEqual(phonix('Niall', maxlength=None),
-                         'N4000000000000000000000000000000000000000000000000' +
-                         '00000000000000')
+        self.assertEqual(phonix('Niall', maxlength=float('inf')), 'N4'+'0'*62)
+        self.assertEqual(phonix('Niall', maxlength=None), 'N4'+'0'*62)
         self.assertEqual(phonix('Niall', maxlength=0), 'N400')
 
         # zero_pad tests
@@ -3683,11 +3697,13 @@ class PhonixTestCases(unittest.TestCase):
 
 
 class SfinxBisTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.sfinxbis
+    """Test SfinxBis functions.
+
+    test cases for abydos.phonetic.sfinxbis
     """
+
     def test_sfinxbis(self):
-        """test abydos.phonetic.sfinxbis
-        """
+        """Test abydos.phonetic.sfinxbis."""
         self.assertEqual(sfinxbis(''), ('',))
 
         # http://www.swami.se/download/18.248ad5af12aa81365338000106/TestSfinx.txt
@@ -3908,11 +3924,13 @@ class SfinxBisTestCases(unittest.TestCase):
 
 
 class PhonetTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.phonet
+    """Test Phonet functions.
+
+    test cases for abydos.phonetic.phonet
     """
+
     def test_phonet_german(self):
-        """test abydos.phonetic.phonet (German)
-        """
+        """Test abydos.phonetic.phonet (German)."""
         self.assertEqual(phonet(''), '')
         self.assertEqual(phonet('', trace=True), '')
 
@@ -3981,8 +3999,7 @@ class PhonetTestCases(unittest.TestCase):
         self.assertEqual(phonet('Abendspaziergang', 1), 'ABENTSPAZIRGANK')
 
     def test_phonet_nolang(self):
-        """test abydos.phonetic.phonet (no language)
-        """
+        """Test abydos.phonetic.phonet (no language)."""
         self.assertEqual(phonet('', lang='none'), '')
 
         # https://code.google.com/p/phonet4java/source/browse/trunk/src/test/java/com/googlecode/phonet4java/Phonet1Test.java
@@ -4008,8 +4025,7 @@ class PhonetTestCases(unittest.TestCase):
         self.assertEqual(phonet('Krauße', 2, 'none', True), 'KRAUSE')
 
     def test_phonet_nachnamen(self):
-        """test abydos.phonetic.phonet (Nachnamen set)
-        """
+        """Test abydos.phonetic.phonet (Nachnamen set)."""
         if not ALLOW_RANDOM:
             return
         with codecs.open(TESTDIR + '/corpora/nachnamen.csv',
@@ -4025,8 +4041,7 @@ class PhonetTestCases(unittest.TestCase):
                         self.assertEqual(phonet(term, 2), ph2)
 
     def test_phonet_ngerman(self):
-        """test abydos.phonetic.phonet (ngerman set)
-        """
+        """Test abydos.phonetic.phonet (ngerman set)."""
         if not ALLOW_RANDOM:
             return
         with codecs.open(TESTDIR + '/corpora/ngerman.csv',
@@ -4043,11 +4058,13 @@ class PhonetTestCases(unittest.TestCase):
 
 
 class SPFCTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.spfc
+    """Test SPFC functions.
+
+    test cases for abydos.phonetic.spfc
     """
+
     def test_spfc(self):
-        """test abydos.phonetic.spfc
-        """
+        """Test abydos.phonetic.spfc."""
         self.assertEqual(spfc(''), '')
 
         # https://archive.org/stream/accessingindivid00moor#page/19/mode/1up
@@ -4081,10 +4098,14 @@ class SPFCTestCases(unittest.TestCase):
 
 
 class BeiderMorseTestCases(unittest.TestCase):
-    """test cases for abydos.phonetic.bmpm and abydos.bm.*
+    """Test BMPM functions.
+
+    test cases for abydos.phonetic.bmpm and abydos.bm.*
     """
+
     def test_bmpm(self):
-        """test abydos.phonetic.bmpm
+        """Test abydos.phonetic.bmpm.
+
         Most test cases from:
         http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/
 
@@ -4297,7 +4318,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                          ' fanhelzink banhelsink')
 
     def test_bmpm_misc(self):
-        """test abydos.phonetic.bmpm (miscellaneous tests)
+        """Test abydos.phonetic.bmpm (miscellaneous tests).
 
         The purpose of this test set is to achieve higher code coverage
         and to hit some of the test cases noted in the BMPM reference code.
@@ -4364,8 +4385,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(bmpm('van Damme', name_mode='sep'), 'dami mi dam m')
 
     def test_bmpm_nachnamen(self):
-        """test abydos.phonetic.bmpm (Nachnamen set)
-        """
+        """Test abydos.phonetic.bmpm (Nachnamen set)."""
         if not ALLOW_RANDOM:
             return
         with codecs.open(TESTDIR + '/corpora/nachnamen.bm.csv',
@@ -4381,8 +4401,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                     self.assertEqual(bmpm(nn_line[0]), nn_line[2])
 
     def test_bmpm_nachnamen_cc(self):
-        """test abydos.phonetic.bmpm (Nachnamen set, corner cases)
-        """
+        """Test abydos.phonetic.bmpm (Nachnamen set, corner cases)."""
         with codecs.open(TESTDIR + '/corpora/nachnamen.bm.cc.csv',
                          encoding='utf-8') as nachnamen_testset:
             next(nachnamen_testset)
@@ -4396,8 +4415,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                     self.assertEqual(bmpm(nn_line[0]), nn_line[2])
 
     def test_bmpm_uscensus2000(self):
-        """test abydos.phonetic.bmpm (US Census 2000 set)
-        """
+        """Test abydos.phonetic.bmpm (US Census 2000 set)."""
         if not ALLOW_RANDOM:
             return
         with open(TESTDIR + '/corpora/uscensus2000.bm.csv') as uscensus_ts:
@@ -4421,8 +4439,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                                           name_mode='sep'), cen_line[6])
 
     def test_bmpm_uscensus2000_cc(self):
-        """test abydos.phonetic.bmpm (US Census 2000 set, corner cases)
-        """
+        """Test abydos.phonetic.bmpm (US Census 2000 set, corner cases)."""
         with open(TESTDIR + '/corpora/uscensus2000.bm.cc.csv') as uscensus_ts:
             next(uscensus_ts)
             for cen_line in uscensus_ts:
@@ -4444,8 +4461,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                                           name_mode='sep'), cen_line[6])
 
     def test_bm_phonetic_number(self):
-        """test abydos.bm._bm_phonetic_number
-        """
+        """Test abydos.bm._bm_phonetic_number."""
         self.assertEqual(_bm_phonetic_number(''), '')
         self.assertEqual(_bm_phonetic_number('abcd'), 'abcd')
         self.assertEqual(_bm_phonetic_number('abcd[123]'), 'abcd')
@@ -4454,8 +4470,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(_bm_phonetic_number('abcd[[[123]]]'), 'abcd')
 
     def test_bm_apply_rule_if_compat(self):
-        """test abydos.bm._bm_apply_rule_if_compat
-        """
+        """Test abydos.bm._bm_apply_rule_if_compat."""
         self.assertEqual(_bm_apply_rule_if_compat('abc', 'def', 4), 'abcdef')
         self.assertEqual(_bm_apply_rule_if_compat('abc', 'def[6]', 4),
                          'abcdef[4]')
@@ -4468,7 +4483,8 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'abcdef[4]')
 
     def test_bm_language(self):
-        """test abydos.bm._bm_language
+        """Test abydos.bm._bm_language.
+
         Most test cases from:
         http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/LanguageGuessingTest.java?view=markup
         """
@@ -4493,8 +4509,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(_bm_language('átz', 'gen'), L_ANY)
 
     def test_bm_expand_alternates(self):
-        """test abydos.bm._bm_expand_alternates
-        """
+        """Test abydos.bm._bm_expand_alternates."""
         self.assertEqual(_bm_expand_alternates(''), '')
         self.assertEqual(_bm_expand_alternates('aa'), 'aa')
         self.assertEqual(_bm_expand_alternates('aa|bb'), 'aa|bb')
@@ -4514,8 +4529,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'ad[1]|bd[2]')
 
     def test_bm_remove_dupes(self):
-        """test abydos.bm._bm_remove_dupes
-        """
+        """Test abydos.bm._bm_remove_dupes."""
         self.assertEqual(_bm_remove_dupes(''), '')
         self.assertEqual(_bm_remove_dupes('aa'), 'aa')
         self.assertEqual(_bm_remove_dupes('aa|bb'), 'aa|bb')
@@ -4524,8 +4538,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(_bm_remove_dupes('bb|aa|bb|aa|bb'), 'bb|aa')
 
     def test_bm_normalize_lang_attrs(self):
-        """test abydos.bm._bm_normalize_language_attributes
-        """
+        """Test abydos.bm._bm_normalize_language_attributes."""
         self.assertEqual(_bm_normalize_lang_attrs('', False), '')
         self.assertEqual(_bm_normalize_lang_attrs('', True), '')
 

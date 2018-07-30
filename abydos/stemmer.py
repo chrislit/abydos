@@ -28,12 +28,16 @@ The stemmer module defines word stemmers including:
 """
 
 from __future__ import unicode_literals
+
 import unicodedata
+
 from ._compat import _range, _unicode
 
 
 def lovins(word):
-    """Lovins stemmer
+    """Return Lovins stem.
+
+    Lovins stemmer
 
     The Lovins stemmer is described in Julie Beth Lovins's article at:
     http://www.mt-archive.info/MT-1968-Lovins.pdf
@@ -55,74 +59,61 @@ def lovins(word):
     word = unicodedata.normalize('NFC', _unicode(word.lower()))
 
     def cond_b(word, suffix_len):
-        """Lovins' condition B
-        """
+        """Return Lovins' condition B."""
         return len(word)-suffix_len >= 3
 
     def cond_c(word, suffix_len):
-        """Lovins' condition C
-        """
+        """Return Lovins' condition C."""
         return len(word)-suffix_len >= 4
 
     def cond_d(word, suffix_len):
-        """Lovins' condition D
-        """
+        """Return Lovins' condition D."""
         return len(word)-suffix_len >= 5
 
     def cond_e(word, suffix_len):
-        """Lovins' condition E
-        """
+        """Return Lovins' condition E."""
         return word[-suffix_len-1] != 'e'
 
     def cond_f(word, suffix_len):
-        """Lovins' condition F
-        """
+        """Return Lovins' condition F."""
         return (len(word)-suffix_len >= 3 and
                 word[-suffix_len-1] != 'e')
 
     def cond_g(word, suffix_len):
-        """Lovins' condition G
-        """
+        """Return Lovins' condition G."""
         return (len(word)-suffix_len >= 3 and
                 word[-suffix_len-1] == 'f')
 
     def cond_h(word, suffix_len):
-        """Lovins' condition H
-        """
+        """Return Lovins' condition H."""
         return (word[-suffix_len-1] == 't' or
                 word[-suffix_len-2:-suffix_len] == 'll')
 
     def cond_i(word, suffix_len):
-        """Lovins' condition I
-        """
+        """Return Lovins' condition I."""
         return word[-suffix_len-1] not in frozenset('oe')
 
     def cond_j(word, suffix_len):
-        """Lovins' condition J
-        """
+        """Return Lovins' condition J."""
         return word[-suffix_len-1] not in frozenset('ae')
 
     def cond_k(word, suffix_len):
-        """Lovins' condition K
-        """
+        """Return Lovins' condition K."""
         return (len(word)-suffix_len >= 3 and
                 (word[-suffix_len-1] in frozenset('li') or
                  (word[-suffix_len-3] == 'u' and word[-suffix_len-1] == 'e')))
 
     def cond_l(word, suffix_len):
-        """Lovins' condition L
-        """
+        """Return Lovins' condition L."""
         return (word[-suffix_len-1] not in frozenset('uxs') or
                 word[-suffix_len-1] == 'os')
 
     def cond_m(word, suffix_len):
-        """Lovins' condition M
-        """
+        """Return Lovins' condition M."""
         return word[-suffix_len-1] not in frozenset('acem')
 
     def cond_n(word, suffix_len):
-        """Lovins' condition N
-        """
+        """Return Lovins' condition N."""
         if len(word)-suffix_len >= 3:
             if word[-suffix_len-3] == 's':
                 if len(word)-suffix_len >= 4:
@@ -132,88 +123,73 @@ def lovins(word):
         return False
 
     def cond_o(word, suffix_len):
-        """Lovins' condition O
-        """
+        """Return Lovins' condition O."""
         return word[-suffix_len-1] in frozenset('li')
 
     def cond_p(word, suffix_len):
-        """Lovins' condition P
-        """
+        """Return Lovins' condition P."""
         return word[-suffix_len-1] != 'c'
 
     def cond_q(word, suffix_len):
-        """Lovins' condition Q
-        """
+        """Return Lovins' condition Q."""
         return (len(word)-suffix_len >= 3 and
                 word[-suffix_len-1] not in frozenset('ln'))
 
     def cond_r(word, suffix_len):
-        """Lovins' condition R
-        """
+        """Return Lovins' condition R."""
         return word[-suffix_len-1] in frozenset('nr')
 
     def cond_s(word, suffix_len):
-        """Lovins' condition S
-        """
+        """Return Lovins' condition S."""
         return (word[-suffix_len-2:-suffix_len] == 'dr' or
                 (word[-suffix_len-1] == 't' and
                  word[-suffix_len-2:-suffix_len] != 'tt'))
 
     def cond_t(word, suffix_len):
-        """Lovins' condition T
-        """
+        """Return Lovins' condition T."""
         return (word[-suffix_len-1] in frozenset('st') and
                 word[-suffix_len-2:-suffix_len] != 'ot')
 
     def cond_u(word, suffix_len):
-        """Lovins' condition U
-        """
+        """Return Lovins' condition U."""
         return word[-suffix_len-1] in frozenset('lmnr')
 
     def cond_v(word, suffix_len):
-        """Lovins' condition V
-        """
+        """Return Lovins' condition V."""
         return word[-suffix_len-1] == 'c'
 
     def cond_w(word, suffix_len):
-        """Lovins' condition W
-        """
+        """Return Lovins' condition W."""
         return word[-suffix_len-1] not in frozenset('su')
 
     def cond_x(word, suffix_len):
-        """Lovins' condition X
-        """
+        """Return Lovins' condition X."""
         return (word[-suffix_len-1] in frozenset('li') or
                 (word[-suffix_len-3:-suffix_len] == 'u' and
                  word[-suffix_len-1] == 'e'))
 
     def cond_y(word, suffix_len):
-        """Lovins' condition Y
-        """
+        """Return Lovins' condition Y."""
         return word[-suffix_len-2:-suffix_len] == 'in'
 
     def cond_z(word, suffix_len):
-        """Lovins' condition Z
-        """
+        """Return Lovins' condition Z."""
         return word[-suffix_len-1] != 'f'
 
     def cond_aa(word, suffix_len):
-        """Lovins' condition AA
-        """
+        """Return Lovins' condition AA."""
         return (word[-suffix_len-1] in frozenset('dflt') or
                 word[-suffix_len-2:-suffix_len] in frozenset(['ph', 'th', 'er',
                                                               'or', 'es']))
 
     def cond_bb(word, suffix_len):
-        """Lovins' condition BB
-        """
+        """Return Lovins' condition BB."""
         return (len(word)-suffix_len >= 3 and
                 word[-suffix_len-3:-suffix_len] != 'met' and
                 word[-suffix_len-4:-suffix_len] != 'ryst')
 
     def cond_cc(word, suffix_len):
-        """Lovins' condition CC
-        """
+        """Return Lovins' condition CC."""
         return word[-suffix_len-1] == 'l'
 
     suffix = {'alistically': cond_b, 'arizability': None,
@@ -316,36 +292,31 @@ def lovins(word):
             break
 
     def recode9(stem):
-        """Lovins' conditional recode rule 9
-        """
+        """Return Lovins' conditional recode rule 9."""
         if stem[-3:-2] in frozenset('aio'):
             return stem
         return stem[:-2]+'l'
 
     def recode24(stem):
-        """Lovins' conditional recode rule 24
-        """
+        """Return Lovins' conditional recode rule 24."""
         if stem[-4:-3] == 's':
             return stem
         return stem[:-1]+'s'
 
     def recode28(stem):
-        """Lovins' conditional recode rule 28
-        """
+        """Return Lovins' conditional recode rule 28."""
         if stem[-4:-3] in frozenset('pt'):
             return stem
         return stem[:-1]+'s'
 
     def recode30(stem):
-        """Lovins' conditional recode rule 30
-        """
+        """Return Lovins' conditional recode rule 30."""
         if stem[-4:-3] == 'm':
             return stem
         return stem[:-1]+'s'
 
     def recode32(stem):
-        """Lovins' conditional recode rule 32
-        """
+        """Return Lovins' conditional recode rule 32."""
         if stem[-3:-2] == 'n':
             return stem
         return stem[:-1]+'s'
@@ -400,7 +371,7 @@ def lovins(word):
 
 
 def _m_degree(term, vowels):
-    """Porter helper function _m_degree
+    """Return Porter helper function _m_degree value.
 
     m-degree is equal to the number of V to C transitions
 
@@ -421,7 +392,7 @@ def _m_degree(term, vowels):
 
 
 def _sb_has_vowel(term, vowels):
-    """Porter helper function _sb_has_vowel
+    """Return Porter helper function _sb_has_vowel value.
 
     :param term: the word to scan for vowels
     :param vowels: the set of vowels in the language
@@ -435,7 +406,7 @@ def _sb_has_vowel(term, vowels):
 
 
 def _ends_in_doubled_cons(term, vowels):
-    """Porter helper function _ends_in_doubled_cons
+    """Return Porter helper function _ends_in_doubled_cons value.
 
     :param term: the word to check for a final doubled consonant
     :param vowels: the set of vowels in the language
@@ -448,7 +419,7 @@ def _ends_in_doubled_cons(term, vowels):
 
 
 def _ends_in_cvc(term, vowels):
-    """Porter helper function _ends_in_cvc
+    """Return Porter helper function _ends_in_cvc value.
 
     :param term: the word to scan for cvc
     :param vowels: the set of vowels in the language
@@ -464,7 +435,7 @@ def _ends_in_cvc(term, vowels):
 
 
 def porter(word, early_english=False):
-    """Porter stemmer
+    """Return Porter stem.
 
     The Porter stemmer is defined at:
     http://snowball.tartarus.org/algorithms/porter/stemmer.html
@@ -714,8 +685,7 @@ def porter(word, early_english=False):
 
 
 def _sb_r1(term, vowels, r1_prefixes=None):
-    """Return the R1 region, as defined in the Porter2 specification
-    """
+    """Return the R1 region, as defined in the Porter2 specification."""
     vowel_found = False
     if hasattr(r1_prefixes, '__iter__'):
         for prefix in r1_prefixes:
@@ -726,20 +696,20 @@ def _sb_r1(term, vowels, r1_prefixes=None):
         if not vowel_found and term[i] in vowels:
             vowel_found = True
         elif vowel_found and term[i] not in vowels:
-            return i+1
+            return i + 1
     return len(term)
 
 
 def _sb_r2(term, vowels, r1_prefixes=None):
-    """Return the R2 region, as defined in the Porter2 specification
-    """
+    """Return the R2 region, as defined in the Porter2 specification."""
     r1_start = _sb_r1(term, vowels, r1_prefixes)
     return r1_start + _sb_r1(term[r1_start:], vowels)
 
 
 def _sb_ends_in_short_syllable(term, vowels, codanonvowels):
-    """Return True iff term ends in a short syllable,
-    according to the Porter2 specification
+    """Return True iff term ends in a short syllable.
+
+    (...according to the Porter2 specification.)
 
     NB: This is akin to the CVC test from the Porter stemmer. The description
     is unfortunately poor/ambiguous.
@@ -757,8 +727,9 @@ def _sb_ends_in_short_syllable(term, vowels, codanonvowels):
 
 
 def _sb_short_word(term, vowels, codanonvowels, r1_prefixes=None):
-    """Return True iff term is a short word,
-    according to the Porter2 specification
+    """Return True iff term is a short word.
+
+    (...according to the Porter2 specification.)
     """
     if ((_sb_r1(term, vowels, r1_prefixes) == len(term) and
          _sb_ends_in_short_syllable(term, vowels, codanonvowels))):
@@ -767,7 +738,7 @@ def _sb_short_word(term, vowels, codanonvowels, r1_prefixes=None):
 
 
 def porter2(word, early_english=False):
-    """Porter2 (Snowball English) stemmer:
+    """Return the Porter2 (Snowball English) stem.
 
     The Porter2 (Snowball English) stemmer is defined at:
     http://snowball.tartarus.org/algorithms/english/stemmer.html
@@ -1047,7 +1018,7 @@ def porter2(word, early_english=False):
 
 
 def sb_german(word, alternate_vowels=False):
-    """Snowball German stemmer
+    """Return Snowball German stem.
 
     The Snowball German stemmer is defined at:
     http://snowball.tartarus.org/algorithms/german/stemmer.html
@@ -1181,7 +1152,7 @@ def sb_german(word, alternate_vowels=False):
 
 
 def sb_dutch(word):
-    """Snowball Dutch stemmer
+    """Return Snowball Dutch stem.
 
     The Snowball Dutch stemmer is defined at:
     http://snowball.tartarus.org/algorithms/dutch/stemmer.html
@@ -1203,8 +1174,7 @@ def sb_dutch(word):
     _not_s_endings = frozenset('aeiouyèj')
 
     def _undouble(word):
-        """Undouble endings -kk, -dd, and -tt
-        """
+        """Undouble endings -kk, -dd, and -tt."""
         if ((len(word) > 1 and word[-1] == word[-2] and
              word[-1] in frozenset('kdt'))):
             return word[:-1]
@@ -1306,7 +1276,7 @@ def sb_dutch(word):
 
 
 def sb_norwegian(word):
-    """Snowball Norwegian stemmer
+    """Return Snowball Norwegian stem.
 
     The Snowball Norwegian stemmer is defined at:
     http://snowball.tartarus.org/algorithms/norwegian/stemmer.html
@@ -1377,7 +1347,7 @@ def sb_norwegian(word):
 
 
 def sb_swedish(word):
-    """Snowball Swedish stemmer
+    """Return Snowball Swedish stem.
 
     The Snowball Swedish stemmer is defined at:
     http://snowball.tartarus.org/algorithms/swedish/stemmer.html
@@ -1444,7 +1414,7 @@ def sb_swedish(word):
 
 
 def sb_danish(word):
-    """Snowball Danish stemmer
+    """Return Snowball Danish stem.
 
     The Snowball Danish stemmer is defined at:
     http://snowball.tartarus.org/algorithms/danish/stemmer.html
@@ -1525,7 +1495,7 @@ def sb_danish(word):
 
 
 def clef_german(word):
-    """CLEF German stemmer
+    """Return CLEF German stem.
 
     The CLEF German stemmer is defined at:
     http://members.unine.ch/jacques.savoy/clef/germanStemmer.txt
@@ -1564,7 +1534,7 @@ def clef_german(word):
 
 
 def clef_german_plus(word):
-    """CLEF German stemmer plus
+    """Return 'CLEF German stemmer plus' stem.
 
     The CLEF German stemmer plus is defined at:
     http://members.unine.ch/jacques.savoy/clef/germanStemmerPlus.txt
@@ -1612,7 +1582,7 @@ def clef_german_plus(word):
 
 
 def clef_swedish(word):
-    """CLEF Swedish stemmer
+    """Return CLEF Swedish stem.
 
     The CLEF Swedish stemmer is defined at:
     http://members.unine.ch/jacques.savoy/clef/swedishStemmer.txt
@@ -1654,7 +1624,7 @@ def clef_swedish(word):
 
 
 def caumanns(word):
-    """Caumanns German stemmer
+    """Return Caumanns German stem.
 
     Jörg Caumanns' stemmer is described in his article at:
     http://edocs.fu-berlin.de/docs/servlets/MCRFileNodeServlet/FUDOCS_derivate_000000000350/tr-b-99-16.pdf
@@ -1740,7 +1710,7 @@ def caumanns(word):
 
 
 # def uealite(word):
-#     """UEA-Lite stemmer
+#     """Return UEA-Lite stem.
 #
 #     The UEA-Lite stemmer is defined in Marie-Claire Jenkins and Dan Smith's
 #     article at:
@@ -1754,7 +1724,9 @@ def caumanns(word):
 
 
 def lancaster(word):
-    """Implementation of the Lancaster Stemming Algorithm, developed by
+    """Return Lancaster stem.
+
+    Implementation of the Lancaster Stemming Algorithm, developed by
     Chris Paice, with the assistance of Gareth Husk
 
     Arguments:
@@ -1797,7 +1769,9 @@ def lancaster(word):
                    'y': -1, 'z': -1}
 
     def read_rules(stem_rules=_lancaster_rules):
-        """read_rules reads in stemming rules from a text file and enter them
+        """Read the rules table.
+
+        read_rules reads in stemming rules from a text file and enter them
         into _rule_table. _rule_index is set up to provide faster access to
         relevant rules.
         """
@@ -1806,9 +1780,10 @@ def lancaster(word):
             if _rule_index[rule[0]] == -1:
                 _rule_index[rule[0]] = len(_rule_table)-1
 
-
     def stemmers(word):
-        """stemmers takes the specified word and reduces it to a set by
+        """Reduce a word.
+
+        stemmers takes the specified word and reduces it to a set by
         referring to _rule_table
         """
         # TODO: This looks very incomplete.
