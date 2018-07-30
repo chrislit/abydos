@@ -45,20 +45,17 @@ import unicodedata
 
 
 def main(argv):
-    """Main conversion script
-    """
+    """Read input file and write to output."""
     first_col = 3
     last_col = -1
 
     def print_usage():
-        """Print usage statement
-        """
+        """Print usage statement."""
         print('features_csv_to_dict.py -i <inputfile> -o <outputfile>')
         sys.exit(2)
 
     def binarize(num):
-        """Replace 0, -1, 1, 2 with 00, 10, 01, 11
-        """
+        """Replace 0, -1, 1, 2 with 00, 10, 01, 11."""
         if num == '0':      # 0
             return '00'
         elif num == '-1':   # -
@@ -69,18 +66,17 @@ def main(argv):
             return '11'
 
     def init_termdicts():
-        """Initialize the terms dict
-        """
+        """Initialize the terms dict."""
         ifile = codecs.open('features_terms.csv', 'r', 'utf-8')
 
-        feature_mask = dict()
+        feature_mask = {}
         keyline = ifile.readline().strip().split(',')[first_col:last_col]
         mag = len(keyline)
         for i in range(len(keyline)):
             features = '0b' + ('00' * i) + '11' + ('00' * (mag - i - 1))
             feature_mask[keyline[i]] = int(features, 2)
 
-        termdict = dict()
+        termdict = {}
         for line in ifile:
             line = line.strip().rstrip(',')
             if '#' in line:
@@ -96,8 +92,10 @@ def main(argv):
         return termdict, feature_mask
 
     def check_terms(sym, features, name, termdict):
-        """Check each term of the phone name to confirm that it matches
-        the expected features implied by that feature
+        """Check terms.
+
+        Check each term of the phone name to confirm that it matches
+        the expected features implied by that feature.
         """
         if '#' in name:
             name = name[:name.find('#')].strip()
@@ -111,8 +109,10 @@ def main(argv):
                 print('Unknown term "' + term + '" in ' + name + ' : ' + sym)
 
     def check_entailments(sym, features, name, feature_mask):
-        """Check for necessary feature assignments (entailments)
-        For example, [+round] necessitates [+labial]
+        """Check entailments.
+
+        Check for necessary feature assignments (entailments)
+        For example, [+round] necessitates [+labial].
         """
         entailments = {'+labial': ('±round', '±protruded', '±compressed',
                                    '±labiodental'),
@@ -165,7 +165,7 @@ def main(argv):
                                   ' for feature ' + fname +
                                   ' and entailment ' + ename)
 
-    checkdict = dict()  # a mapping of symbol to feature
+    checkdict = {}  # a mapping of symbol to feature
     checkset_s = set()  # a set of the symbols seen
     checkset_f = set()  # a set of the feature values seen
 
@@ -174,15 +174,15 @@ def main(argv):
     ifile = ''
     ofile = ''
     try:
-        opts = getopt.getopt(argv, "hi:o:", ["ifile=", "ofile="])[0]
+        opts = getopt.getopt(argv, 'hi:o:', ['ifile=', 'ofile='])[0]
     except getopt.GetoptError:
         print_usage()
     for opt, arg in opts:
         if opt == '-h':
             print_usage()
-        elif opt in ("-i", "--ifile"):
+        elif opt in ('-i', '--ifile'):
             ifile = codecs.open(arg, 'r', 'utf-8')
-        elif opt in ("-o", "--ofile"):
+        elif opt in ('-o', '--ofile'):
             ofile = codecs.open(arg, 'w', 'utf-8')
     if not ifile:
         print_usage()
@@ -276,5 +276,5 @@ def main(argv):
         ofile.write(oline + '\n')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main(sys.argv[1:])
