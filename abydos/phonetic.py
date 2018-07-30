@@ -1219,7 +1219,8 @@ def double_metaphone(word, maxlength=_INFINITY):
                     if ((current > 2) and
                             (_get_at(current - 1) == 'U') and
                             (_string_at((current - 3), 1,
-                                        frozenset(['C', 'G', 'L', 'R', 'T'])))):
+                                        frozenset(['C', 'G', 'L', 'R',
+                                                   'T'])))):
                         (primary, secondary) = _metaph_add('F')
                     elif (current > 0) and _get_at(current - 1) != 'I':
                         (primary, secondary) = _metaph_add('K')
@@ -3676,9 +3677,9 @@ def phonet(word, mode=1, lang='de', trace=False):
                             phonet_hash_2[j, 0] = i
 
                         rule = rule[1:]
+
     def _phonet(term, mode, lang, trace):
-        """Return the phonet coded form of a term
-        """
+        """Return the phonet coded form of a term."""
         if lang == 'none':
             _phonet_rules = _phonet_rules_no_lang
         else:
@@ -3948,8 +3949,10 @@ def phonet(word, mode=1, lang='de', trace=False):
                                 if (not rule or
                                         # rule == '^' is not possible here
                                         ((rule[0] == '$') and not
-                                         src[i+matches0:i+matches0+1].isalpha() and
-                                         (src[i+matches0:i+matches0+1] != '.'))):
+                                         src[i+matches0:i+matches0+1]
+                                         .isalpha() and
+                                         (src[i+matches0:i+matches0+1]
+                                          != '.'))):
                                     if matches0 == matches:
                                         # this is only a partial string
                                         if trace:
@@ -3985,7 +3988,7 @@ def phonet(word, mode=1, lang='de', trace=False):
 
                             # end of "while"
                             if ((priority0 >= priority) and
-                                    ((_phonet_rules[pos0] != None) and
+                                    ((_phonet_rules[pos0] is not None) and
                                      (_phonet_rules[pos0][0] == char0))):
 
                                 if trace:

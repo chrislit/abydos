@@ -17,13 +17,13 @@ Abydos
    :target: https://landscape.io/github/chrislit/abydos/master
    :alt: Code Health
 
-.. image:: https://img.shields.io/badge/Pylint-9.84/10-green.svg
+.. image:: https://img.shields.io/badge/Pylint-9.82/10-green.svg
     :alt: Pylint Score
 
-.. image:: https://img.shields.io/badge/pycodestyle-6-green.svg
+.. image:: https://img.shields.io/badge/pycodestyle-0-brightgreen.svg
     :alt: pycodestyle Errors
 
-.. image:: https://img.shields.io/badge/flake8-1021-red.svg
+.. image:: https://img.shields.io/badge/flake8-836-red.svg
     :alt: flake8 Errors
 
 .. image:: https://img.shields.io/pypi/v/abydos.svg

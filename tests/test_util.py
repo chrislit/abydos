@@ -22,32 +22,33 @@ This module contains unit tests for abydos.util
 """
 
 from __future__ import unicode_literals
-from abydos._compat import _range, _long
-from abydos.util import prod, jitter, Rational
+
 import unittest
+
+from abydos._compat import _long, _range
+from abydos.util import Rational, jitter, prod
 
 
 class ProdTestCases(unittest.TestCase):
-    """test cases for abydos.util.prod
-    """
+    """Test cases for abydos.util.prod."""
+
     def test_prod(self):
-        """test abydos.util.prod
-        """
+        """Test abydos.util.prod."""
         self.assertEqual(prod([]), 1)
-        self.assertEqual(prod(tuple()), 1)
-        self.assertEqual(prod(set()), 1)
+        self.assertEqual(prod(()), 1)
+        self.assertEqual(prod({}), 1)
 
         self.assertEqual(prod([1, 1, 1, 1, 1]), 1)
         self.assertEqual(prod((1, 1, 1, 1, 1)), 1)
-        self.assertEqual(prod(set([1, 1, 1, 1, 1])), 1)
+        self.assertEqual(prod({1, 1, 1, 1, 1}), 1)
 
         self.assertEqual(prod([2, 2, 2, 2, 2]), 32)
         self.assertEqual(prod((2, 2, 2, 2, 2)), 32)
-        self.assertEqual(prod(set([2, 2, 2, 2, 2])), 2)
+        self.assertEqual(prod({2, 2, 2, 2, 2}), 2)
 
         self.assertEqual(prod([1, 2, 3, 4, 5]), 120)
         self.assertEqual(prod((1, 2, 3, 4, 5)), 120)
-        self.assertEqual(prod(set([1, 2, 3, 4, 5])), 120)
+        self.assertEqual(prod({1, 2, 3, 4, 5}), 120)
         self.assertEqual(prod(_range(1, 6)), 120)
         self.assertEqual(prod(list(_range(1, 6))), 120)
         self.assertEqual(prod(tuple(_range(1, 6))), 120)
@@ -60,13 +61,12 @@ class ProdTestCases(unittest.TestCase):
 
 
 class JitterTestCases(unittest.TestCase):
-    """test cases for abydos.util.jitter
-    """
+    """Test abydos.util.jitter."""
+
     def test_jitter(self):
-        """test abydos.util.jitter
-        """
+        """Test abydos.util.jitter."""
         self.assertEqual(jitter([]), [])
-        self.assertEqual(jitter(tuple()), [])
+        self.assertEqual(jitter(()), [])
         self.assertTrue(isinstance(jitter(5), float))
         self.assertTrue(isinstance(jitter([5]), list))
         self.assertEqual(len(jitter([1, 2, 3])), 3)
@@ -74,7 +74,7 @@ class JitterTestCases(unittest.TestCase):
         self.assertEqual(len(jitter([0, 0, 0, 0, 0])), 5)
         self.assertEqual(len(jitter((0, 0, 0, 0, 0))), 5)
         self.assertEqual(len(jitter([1, 1, 1, 1, 1], min_val=0, max_val=2)), 5)
-        self.assertEqual(len(jitter(set([1, 2, 3, 4, 5]))), 5)
+        self.assertEqual(len(jitter({1, 2, 3, 4, 5})), 5)
         self.assertEqual(len(jitter(_range(5))), 5)
         self.assertRaises(AttributeError, jitter, ['a'])
         self.assertRaises(AttributeError, jitter, [1, 2, 3, 'a', 4])
@@ -96,8 +96,8 @@ class JitterTestCases(unittest.TestCase):
 
 
 class RationalTestCases(unittest.TestCase):
-    """test cases for the abydos.util.Rational class
-    """
+    """Test abydos.util.Rational class."""
+
     half_1 = Rational('1/2')
     half_2 = Rational(1, 2)
     half_3 = Rational('0.5')
@@ -117,8 +117,7 @@ class RationalTestCases(unittest.TestCase):
     two = Rational(1, 0.5)
 
     def test_rational_init(self):
-        """test abydos.util.Rational constructor and getters
-        """
+        """Test abydos.util.Rational constructor and getters."""
         self.assertEqual(self.half_1, self.half_2)
         self.assertEqual(self.half_3, self.half_4)
         self.assertEqual(self.half_5, self.half_6)
@@ -141,8 +140,9 @@ class RationalTestCases(unittest.TestCase):
         self.assertRaises(AttributeError, Rational, 2, '1/2')
 
     def test_rational_helpers(self):
-        """test abydos.util.Rational helper functions
-        (_gcd & _simplify)
+        """Test abydos.util.Rational helper functions.
+
+        includes: _gcd & _simplify
         """
         # pylint: disable=protected-access
         self.assertEqual(Rational()._gcd(2, 7), 1)
@@ -173,8 +173,9 @@ class RationalTestCases(unittest.TestCase):
         self.assertEqual(Rational(2, 3), rat_twothirds)
 
     def test_rational_comparisons(self):
-        """test abydos.util.Rational comparison operators
-        (==, !=, <, <=, >, >=)
+        """Test abydos.util.Rational comparison operators.
+
+        includes: ==, !=, <, <=, >, >=
         """
         # ==
         self.assertTrue(self.half_1 == self.half_2)
@@ -255,8 +256,9 @@ class RationalTestCases(unittest.TestCase):
         self.assertTrue(4 >= self.sevenhalves)
 
     def test_rational_arithmetic(self):
-        """test abydos.util.Rational arithmetic operators
-        (negation, +, -, *, / (future & non), **, <<, >>)
+        """Test abydos.util.Rational arithmetic operators.
+
+        includes: negation, +, -, *, / (future & non), **, <<, >>
         """
         # negation
         self.assertEqual(Rational(1), -Rational(-1))
@@ -348,8 +350,9 @@ class RationalTestCases(unittest.TestCase):
         self.assertEqual(Rational(2, 5) >> 2, Rational(1, 10))
 
     def test_rational_casts(self):
-        """test abydos.util.Rational cast functions
-        (int, float, str, __repr__)
+        """Test abydos.util.Rational cast functions.
+
+        includes: int, float, str, __repr__
         """
         # int
         self.assertEqual(int(Rational(1, 4)), 0)

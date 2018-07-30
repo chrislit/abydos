@@ -26,16 +26,17 @@ for use within Abydos, including implementations of the following:
     - Run-Length Encoding encoder/decoder (rle_encode & rle_decode)
 """
 
-from __future__ import unicode_literals
-from __future__ import division
+from __future__ import division, unicode_literals
+
 from collections import Counter
 from itertools import groupby
+
+from ._compat import _long, _range, _unicode
 from .util import Rational
-from ._compat import _unicode, _long, _range
 
 
 def ac_train(text):
-    """Generate a probability dict from the provided text
+    r"""Generate a probability dict from the provided text.
 
     Text -> 0-order probability statistics as a dict
 
@@ -76,13 +77,13 @@ def ac_train(text):
         prob_range[char] = (prev, follow)
         prev = follow
         tot = tot + count
-    assert tot == tot_letters
+    # assert tot == tot_letters
 
     return prob_range
 
 
 def ac_encode(text, probs):
-    """Encode a text using arithmetic coding with the provided probabilities
+    """Encode a text using arithmetic coding with the provided probabilities.
 
     Text and the 0-order probability statistics -> longval, nbits
 
@@ -131,7 +132,7 @@ def ac_encode(text, probs):
 
 
 def ac_decode(longval, nbits, probs):
-    """Decode the number to a string using the given statistics
+    """Decode the number to a string using the given statistics.
 
     This is based on Andrew Dalke's public domain implementation:
     http://code.activestate.com/recipes/306626/
@@ -154,7 +155,7 @@ def ac_decode(longval, nbits, probs):
 
     char = '\x00'
     while True:
-        for (char, minval, maxval) in probs_items:
+        for (char, minval, maxval) in probs_items:  # noqa: B007
             if minval <= val < maxval:
                 break
 
@@ -167,7 +168,7 @@ def ac_decode(longval, nbits, probs):
 
 
 def bwt_encode(word, terminator='\0'):
-    """Return the Burrows-Wheeler transformed form of a word
+    r"""Return the Burrows-Wheeler transformed form of a word.
 
     The Burrows-Wheeler transform is an attempt at placing similar characters
     together to improve compression.
@@ -188,8 +189,9 @@ def bwt_encode(word, terminator='\0'):
     """
     if word:
         if terminator in word:
-            raise ValueError('Specified terminator, %s, already in word.' %
-                             (terminator if terminator != '\0' else '\\0'))
+            raise ValueError('Specified terminator, %s, already in word.'
+                             .format(terminator if
+                                     terminator != '\0' else '\\0'))
         else:
             word += terminator
             wordlist = sorted(word[i:] + word[:i] for i in _range(len(word)))
@@ -199,7 +201,7 @@ def bwt_encode(word, terminator='\0'):
 
 
 def bwt_decode(code, terminator='\0'):
-    """Return a word decoded from BWT form
+    r"""Return a word decoded from BWT form.
 
     The Burrows-Wheeler transform is an attempt at placing similar characters
     together to improve compression. This function reverses the transform.
@@ -220,13 +222,14 @@ def bwt_decode(code, terminator='\0'):
     """
     if code:
         if terminator not in code:
-            raise ValueError('Specified terminator, %s, absent from code.' %
-                             (terminator if terminator != '\0' else '\\0'))
+            raise ValueError('Specified terminator, %s, absent from code.'
+                             .format(terminator if
+                                     terminator != '\0' else '\\0'))
         else:
             wordlist = [''] * len(code)
             for i in _range(len(code)):
-                wordlist = sorted([code[i] + wordlist[i] for i in
-                                   _range(len(code))])
+                wordlist = sorted(code[i] + wordlist[i] for i in
+                                  _range(len(code)))
             rows = [w for w in wordlist if w[-1] == terminator][0]
             return rows.rstrip(terminator)
     else:
@@ -234,7 +237,7 @@ def bwt_decode(code, terminator='\0'):
 
 
 def rle_encode(text, use_bwt=True):
-    """Simple, crude run-length-encoding (RLE) encoder
+    r"""Perform encoding of run-length-encoding (RLE).
 
     Based on http://rosettacode.org/wiki/Run-length_encoding#Python
 
@@ -271,7 +274,7 @@ def rle_encode(text, use_bwt=True):
 
 
 def rle_decode(text, use_bwt=True):
-    """Simple, crude run-length-encoding (RLE) decoder
+    r"""Perform decoding of run-length-encoding (RLE).
 
     Based on http://rosettacode.org/wiki/Run-length_encoding#Python
 
