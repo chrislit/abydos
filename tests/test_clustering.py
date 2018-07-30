@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2015 by Christopher C. Little.
+# Copyright 2014-2018 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -22,12 +22,15 @@ This module contains unit tests for abydos.clustering
 """
 
 from __future__ import unicode_literals
-from abydos._compat import _range
+
 import unittest
-from abydos.clustering import fingerprint, qgram_fingerprint, \
-    phonetic_fingerprint, skeleton_key, omission_key, mean_pairwise_similarity
-import abydos.stats as stats
+
 import abydos.phonetic as phonetic
+import abydos.stats as stats
+from abydos._compat import _range
+from abydos.clustering import fingerprint, mean_pairwise_similarity, \
+    omission_key, phonetic_fingerprint, qgram_fingerprint, skeleton_key
+
 
 NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
          'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill', 'MacNeil',
@@ -39,10 +42,12 @@ NIALL_1WORD = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel',
 
 
 class FingerprintTestCases(unittest.TestCase):
-    """test cases for abydos.clustering.fingerprint,
-    abydos.clustering.qgram_fingerprint, and
+    """Test fingerprint functions.
+
+    abydos.clustering.fingerprint, abydos.clustering.qgram_fingerprint, &
     abydos.clustering.phonetic_fingerprint
     """
+
     _testset = ('À noite, vovô Kowalsky vê o ímã cair no pé do pingüim \
 queixoso e vovó põe açúcar no chá de tâmaras do jabuti feliz.', )
     _anssetw = ('a acucar cair cha de do e feliz ima jabuti kowalsky no noite \
@@ -53,15 +58,13 @@ xoyv', )
     _anssetq1 = ('abcdefghijklmnopqrstuvwxyz', )
 
     def test_fingerprint(self):
-        """test abydos.clustering.fingerprint
-        """
+        """Test abydos.clustering.fingerprint."""
         self.assertEqual(fingerprint(''), '')
         for i in _range(len(self._testset)):
             self.assertEqual(fingerprint(self._testset[i]), self._anssetw[i])
 
     def test_qgram_fingerprint(self):
-        """test abydos.clustering.qgram_fingerprint
-        """
+        """Test abydos.clustering.qgram_fingerprint."""
         self.assertEqual(qgram_fingerprint(''), '')
         for i in _range(len(self._testset)):
             self.assertEqual(qgram_fingerprint(self._testset[i], 1),
@@ -80,8 +83,7 @@ xoyv', )
             self.assertEqual(qgram_fingerprint(NIALL[i]), qgram_fp_niall[i])
 
     def test_phonetic_fingerprint(self):
-        """test abydos.clustering.phonetic_fingerprint
-        """
+        """Test abydos.clustering.phonetic_fingerprint."""
         self.assertEqual(phonetic_fingerprint(''), '')
 
         self.assertEqual(phonetic_fingerprint(' '.join(NIALL)),
@@ -96,12 +98,13 @@ xoyv', )
 
 
 class SPEEDCOPTestCases(unittest.TestCase):
-    """test cases for abydos.clustering.skeleton_key and
-    abydos.clustering.omission_key
+    """Test SPEEDCOP functions.
+
+    abydos.clustering.skeleton_key & abydos.clustering.omission_key
     """
+
     def test_skeleton_key(self):
-        """test abydos.clustering.skeleton_key
-        """
+        """Test abydos.clustering.skeleton_key."""
         self.assertEqual(skeleton_key(''), '')
 
         # http://dl.acm.org/citation.cfm?id=358048
@@ -118,8 +121,7 @@ class SPEEDCOPTestCases(unittest.TestCase):
         self.assertEqual(skeleton_key('chemically'), 'CHMLYEIA')
 
     def test_omission_key(self):
-        """test abydos.clustering.omission_key
-        """
+        """Test abydos.clustering.omission_key."""
         self.assertEqual(omission_key(''), '')
 
         # http://dl.acm.org/citation.cfm?id=358048
@@ -139,11 +141,13 @@ class SPEEDCOPTestCases(unittest.TestCase):
 
 
 class MPSTestCases(unittest.TestCase):
-    """test cases for abydos.clustering.mean_pairwise_similarity
+    """Test mean pairwise similarity functions.
+
+    abydos.clustering.mean_pairwise_similarity
     """
+
     def test_mean_pairwise_similarity(self):
-        """test abydos.clustering.mean_pairwise_similarity
-        """
+        """Test abydos.clustering.mean_pairwise_similarity."""
         self.assertEqual(mean_pairwise_similarity(NIALL), 0.29362587170180671)
         self.assertEqual(mean_pairwise_similarity(NIALL, symmetric=True),
                          0.2936258717018066)

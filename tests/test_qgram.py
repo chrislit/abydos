@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2015 by Christopher C. Little.
+# Copyright 2014-2018 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -22,16 +22,17 @@ This module contains unit tests for abydos.qgram
 """
 
 from __future__ import unicode_literals
+
 import unittest
+
 from abydos.qgram import QGrams
 
 
 class QgramTestCases(unittest.TestCase):
-    """test cases for abydos.qgram
-    """
+    """Test abydos.qgram."""
+
     def test_qgrams(self):
-        """test abydos.qgram.QGrams
-        """
+        """Test abydos.qgram.QGrams."""
         self.assertEqual(sorted(QGrams('').elements()), [])
         self.assertEqual(sorted(QGrams('a', 2).elements()), [])
         self.assertEqual(sorted(QGrams('NELSON', 0).elements()), [])
@@ -54,8 +55,7 @@ class QgramTestCases(unittest.TestCase):
                          sorted(['NE', 'EI', 'IL', 'LS', 'SE', 'EN']))
 
     def test_qgram_intersections(self):
-        """test abydos.qgram.QGrams intersections
-        """
+        """Test abydos.qgram.QGrams intersections."""
         self.assertEqual(sorted(QGrams('NELSON') & QGrams('')), [])
         self.assertEqual(sorted(QGrams('') & QGrams('NEILSEN')), [])
         self.assertEqual(sorted(QGrams('NELSON') & QGrams('NEILSEN')),
@@ -73,8 +73,7 @@ class QgramTestCases(unittest.TestCase):
                                 QGrams('LIAN', start_stop='')), [])
 
     def test_qgram_counts(self):
-        """test abydos.qgram.QGrams counts
-        """
+        """Test abydos.qgram.QGrams counts."""
         self.assertEqual(QGrams('').count(), 0)
         self.assertEqual(len(QGrams('').ordered_list), 0)
 

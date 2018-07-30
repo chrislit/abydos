@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2015 by Christopher C. Little.
+# Copyright 2014-2018 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -22,13 +22,15 @@ This module contains unit tests for abydos.corpus
 """
 
 from __future__ import unicode_literals
+
 import unittest
+
 from abydos.corpus import Corpus
 
 
 class CorpusTestCases(unittest.TestCase):
-    """test cases for abydos.corpus
-    """
+    """Test Corpus class."""
+
     sotu2015Sample = 'Mr. Speaker, Mr. Vice President, Members of Congress, my\
     fellow Americans:\n\nWe are 15 years into this new century.\n Fifteen\
     years that dawned with terror touching our shores; that unfolded with a\
@@ -69,8 +71,7 @@ class CorpusTestCases(unittest.TestCase):
     sotu2015Corpus = Corpus(sotu2015Sample, filter_chars='.?-;,:')
 
     def test_corpus(self):
-        """test abydos.corpus.Corpus
-        """
+        """Test abydos.corpus.Corpus."""
         # base cases
         self.assertEqual(Corpus().corpus, [])
         self.assertEqual(Corpus('').corpus, [])
@@ -154,8 +155,7 @@ class CorpusTestCases(unittest.TestCase):
                            ['fox', 'jumped', 'over', 'the', 'lazy', 'dog']]])
 
     def test_corpus_docs_sents_words(self):
-        """test abydos.corpus.docs, .sents, .words, .docs_of_words, .raw
-        """
+        """Test abydos.corpus.docs, .sents, .words, .docs_of_words, .raw."""
         doc_str = 'a b c d\n\ne f g\nh i j\nk'
         doc_corp = Corpus(doc_str)
 
@@ -179,17 +179,16 @@ class CorpusTestCases(unittest.TestCase):
                          doc_str)
 
     def test_corpus_idf(self):
-        """test abydos.corpus.idf
-        """
-        wikiIDFSample = 'this is a a sample\n\nthis is another another example\
+        """Test abydos.corpus.idf."""
+        wiki_idf_sample = 'this is a a sample\n\nthis is another another example\
         example example'
-        wikiIDFCorpus = Corpus(wikiIDFSample)
+        wiki_idf_corpus = Corpus(wiki_idf_sample)
 
-        self.assertAlmostEqual(wikiIDFCorpus.idf('this'), 0)
-        self.assertAlmostEqual(wikiIDFCorpus.idf('example'), 0.30102999566)
-        self.assertAlmostEqual(wikiIDFCorpus.idf('these'), float('inf'))
-        self.assertAlmostEqual(wikiIDFCorpus.idf('A'), float('inf'))
-        self.assertAlmostEqual(wikiIDFCorpus.idf('A', lambda w: w.upper()),
+        self.assertAlmostEqual(wiki_idf_corpus.idf('this'), 0)
+        self.assertAlmostEqual(wiki_idf_corpus.idf('example'), 0.30102999566)
+        self.assertAlmostEqual(wiki_idf_corpus.idf('these'), float('inf'))
+        self.assertAlmostEqual(wiki_idf_corpus.idf('A'), float('inf'))
+        self.assertAlmostEqual(wiki_idf_corpus.idf('A', lambda w: w.upper()),
                                0.30102999566)
 
 

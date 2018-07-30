@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2015 by Christopher C. Little.
+# Copyright 2014-2018 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -22,25 +22,29 @@ This module contains unit tests for abydos.stemmer
 """
 
 from __future__ import unicode_literals
-import unittest
-from abydos.stemmer import lovins, _m_degree, _sb_has_vowel, \
-    _ends_in_doubled_cons, _ends_in_cvc, porter, _sb_r1, _sb_r2, \
-    _sb_ends_in_short_syllable, _sb_short_word, porter2, sb_german, \
-    sb_dutch, sb_norwegian, sb_swedish, sb_danish, clef_german, \
-    clef_german_plus, clef_swedish, caumanns
-# uealite, lancaster,
-import os
+
 import codecs
+import os
+import unittest
+
+from abydos.stemmer import _ends_in_cvc, _ends_in_doubled_cons, _m_degree, \
+    _sb_ends_in_short_syllable, _sb_has_vowel, _sb_r1, _sb_r2, \
+    _sb_short_word, caumanns, clef_german, clef_german_plus, clef_swedish, \
+    lovins, porter, porter2, sb_danish, sb_dutch, sb_german, sb_norwegian, \
+    sb_swedish
+# uealite, lancaster,
 
 TESTDIR = os.path.dirname(__file__)
 
 
 class LovinsTestCases(unittest.TestCase):
-    """test cases for abydos.stemmer.lovins
+    """Test Lovins functions.
+
+    abydos.stemmer.lovins
     """
+
     def test_lovins(self):
-        """test abydos.stemmer.lovins
-        """
+        """Test abydos.stemmer.lovins."""
         # base case
         self.assertEqual(lovins(''), '')
 
@@ -82,7 +86,7 @@ class LovinsTestCases(unittest.TestCase):
         self.assertEqual(lovins('feminism'), 'fem')
 
     def test_lovins_snowball(self):
-        """test abydos.stemmer.lovins (Snowball testset)
+        """Test abydos.stemmer.lovins (Snowball testset).
 
         These test cases are from
         https://github.com/snowballstem/snowball-data/tree/master/lovins
@@ -99,13 +103,15 @@ class LovinsTestCases(unittest.TestCase):
 
 
 class PorterTestCases(unittest.TestCase):
-    """test cases for abydos.stemmer._m_degree, abydos.stemmer.porter
+    """Test Porter functions.
+
+    abydos.stemmer._m_degree, abydos.stemmer.porter,
     abydos.stemmer._sb_has_vowel, abydos.stemmer._ends_in_doubled_cons,
     & abydos.stemmer._ends_in_cvc
     """
+
     def test_m_degree(self):
-        """test abydos.stemmer._m_degree
-        """
+        """Test abydos.stemmer._m_degree."""
         _vowels = set('aeiouy')
         # base case
         self.assertEqual(_m_degree('', _vowels), 0)
@@ -130,8 +136,7 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(_m_degree('orrery', _vowels), 2)
 
     def test_has_vowel(self):
-        """test abydos.stemmer._has_vowel
-        """
+        """Test abydos.stemmer._has_vowel."""
         _vowels = set('aeiouy')
         # base case
         self.assertFalse(_sb_has_vowel('', _vowels))
@@ -159,8 +164,7 @@ class PorterTestCases(unittest.TestCase):
         self.assertFalse(_sb_has_vowel('pfY', _vowels))
 
     def test_ends_in_doubled_cons(self):
-        """test abydos.stemmer._ends_in_doubled_cons
-        """
+        """Test abydos.stemmer._ends_in_doubled_cons."""
         _vowels = set('aeiouy')
         # base case
         self.assertFalse(_ends_in_doubled_cons('', _vowels))
@@ -196,8 +200,7 @@ class PorterTestCases(unittest.TestCase):
         self.assertTrue(_ends_in_doubled_cons('bacc', _vowels))
 
     def test_ends_in_cvc(self):
-        """test abydos.stemmer._ends_in_cvc
-        """
+        """Test abydos.stemmer._ends_in_cvc."""
         _vowels = set('aeiouy')
         # base case
         self.assertFalse(_ends_in_cvc('', _vowels))
@@ -229,8 +232,7 @@ class PorterTestCases(unittest.TestCase):
         self.assertFalse(_ends_in_cvc('cray', _vowels))
 
     def test_porter(self):
-        """test abydos.stemmer.porter
-        """
+        """Test abydos.stemmer.porter."""
         # base case
         self.assertEqual(porter(''), '')
 
@@ -251,8 +253,7 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(porter('lical'), 'lical')
 
     def test_porter_early_english(self):
-        """test abydos.stemmer.porter (early English)
-        """
+        """Test abydos.stemmer.porter (early English)."""
         # base case
         self.assertEqual(porter('', early_english=True), '')
 
@@ -280,7 +281,7 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(porter('meth', early_english=True), 'meth')
 
     def test_porter_snowball(self):
-        """test abydos.stemmer.porter (Snowball testset)
+        """Test abydos.stemmer.porter (Snowball testset).
 
         These test cases are from
         http://snowball.tartarus.org/algorithms/porter/diffs.txt
@@ -296,13 +297,15 @@ class PorterTestCases(unittest.TestCase):
 
 
 class Porter2TestCases(unittest.TestCase):
-    """test cases for abydos.stemmer._sb_r1, abydos.stemmer._sb_r2,
+    """Test Porter2 functions.
+
+    abydos.stemmer._sb_r1, abydos.stemmer._sb_r2,
     abydos.stemmer._sb_ends_in_short_syllable, abydos.stemmer._sb_short_word,
     & abydos.stemmer.porter2
     """
+
     def test_sb_r1(self):
-        """test abydos.stemmer._sb_r1
-        """
+        """Test abydos.stemmer._sb_r1."""
         _vowels = set('aeiouy')
         # base case
         self.assertEqual(_sb_r1('', _vowels), 0)
@@ -316,8 +319,7 @@ class Porter2TestCases(unittest.TestCase):
         self.assertEqual(_sb_r1('eucharist', _vowels), 3)
 
     def test_sb_r2(self):
-        """test abydos.stemmer._sb_r2
-        """
+        """Test abydos.stemmer._sb_r2."""
         _vowels = set('aeiouy')
         # base case
         self.assertEqual(_sb_r2('', _vowels), 0)
@@ -331,8 +333,7 @@ class Porter2TestCases(unittest.TestCase):
         self.assertEqual(_sb_r2('eucharist', _vowels), 6)
 
     def test_sb_ends_in_short_syllable(self):
-        """test abydos.stemmer._sb_ends_in_short_syllable
-        """
+        """Test abydos.stemmer._sb_ends_in_short_syllable."""
         _vowels = set('aeiouy')
         _codanonvowels = set('bcdfghjklmnpqrstvz\'')
         # base case
@@ -369,8 +370,7 @@ class Porter2TestCases(unittest.TestCase):
                                                     _codanonvowels))
 
     def test_sb_short_word(self):
-        """test abydos.stemmer._sb_short_word
-        """
+        """Test abydos.stemmer._sb_short_word."""
         _vowels = set('aeiouy')
         _codanonvowels = set('bcdfghjklmnpqrstvz\'')
         # base case
@@ -386,8 +386,7 @@ class Porter2TestCases(unittest.TestCase):
         self.assertFalse(_sb_short_word('beds', _vowels, _codanonvowels))
 
     def test_porter2(self):
-        """test abydos.stemmer.porter2
-        """
+        """Test abydos.stemmer.porter2."""
         # base case
         self.assertEqual(porter2(''), '')
 
@@ -416,8 +415,7 @@ class Porter2TestCases(unittest.TestCase):
         self.assertEqual(porter2('livity'), 'liviti')
 
     def test_porter2_early_english(self):
-        """test abydos.stemmer.porter2 (early English)
-        """
+        """Test abydos.stemmer.porter2 (early English)."""
         # base case
         self.assertEqual(porter2('', early_english=True), '')
 
@@ -445,7 +443,7 @@ class Porter2TestCases(unittest.TestCase):
         self.assertEqual(porter2('meth', early_english=True), 'meth')
 
     def test_porter2_snowball(self):
-        """test abydos.stemmer.porter2 (Snowball testset)
+        """Test abydos.stemmer.porter2 (Snowball testset).
 
         These test cases are from
         http://snowball.tartarus.org/algorithms/english/diffs.txt
@@ -461,12 +459,15 @@ class Porter2TestCases(unittest.TestCase):
 
 
 class SnowballTestCases(unittest.TestCase):
-    """test cases for abydos.stemmer.sb_german, abydos.stemmer.sb_dutch,
+    """Test Snowball functions.
+
+    abydos.stemmer.sb_german, abydos.stemmer.sb_dutch,
     abydos.stemmer.sb_norwegian, abydos.stemmer.sb_swedish, &
     abydos.stemmer.sb_danish
     """
+
     def test_sb_german_snowball(self):
-        """test abydos.stemmer.sb_german (Snowball testset)
+        """Test abydos.stemmer.sb_german (Snowball testset).
 
         These test cases are from
         http://snowball.tartarus.org/algorithms/german/diffs.txt
@@ -488,8 +489,7 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_german('ikeit'), 'ikeit')
 
     def test_sb_german_snowball_alt(self):
-        """test abydos.stemmer.sb_german (alternate vowels)
-        """
+        """Test abydos.stemmer.sb_german (alternate vowels)."""
         # base case
         self.assertEqual(sb_german('', alternate_vowels=True), '')
 
@@ -540,7 +540,7 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_german('ueber'), 'ueb')
 
     def test_sb_dutch_snowball(self):
-        """test abydos.stemmer.sb_dutch (Snowball testset)
+        """Test abydos.stemmer.sb_dutch (Snowball testset).
 
         These test cases are from
         http://snowball.tartarus.org/algorithms/dutch/diffs.txt
@@ -562,7 +562,7 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_dutch('zondulielijk'), 'zondulie')
 
     def test_sb_norwegian_snowball(self):
-        """test abydos.stemmer.sb_norwegian (Snowball testset)
+        """Test abydos.stemmer.sb_norwegian (Snowball testset).
 
         These test cases are from
         http://snowball.tartarus.org/algorithms/norwegian/diffs.txt
@@ -581,7 +581,7 @@ class SnowballTestCases(unittest.TestCase):
                     self.assertEqual(sb_norwegian(word), stem.lower())
 
     def test_sb_swedish_snowball(self):
-        """test abydos.stemmer.sb_swedish (Snowball testset)
+        """Test abydos.stemmer.sb_swedish (Snowball testset).
 
         These test cases are from
         http://snowball.tartarus.org/algorithms/swedish/diffs.txt
@@ -600,7 +600,7 @@ class SnowballTestCases(unittest.TestCase):
                     self.assertEqual(sb_swedish(word), stem.lower())
 
     def test_sb_danish_snowball(self):
-        """test abydos.stemmer.sb_danish (Snowball testset)
+        """Test abydos.stemmer.sb_danish (Snowball testset).
 
         These test cases are from
         http://snowball.tartarus.org/algorithms/danish/diffs.txt
@@ -620,12 +620,14 @@ class SnowballTestCases(unittest.TestCase):
 
 
 class CLEFTestCases(unittest.TestCase):
-    """test cases for abydos.stemmer.clef_german,
-    abydos.stemmer.clef_german_plus, & abydos.stemmer.clef_swedish
+    """Test CLEF functions.
+
+    abydos.stemmer.clef_german, abydos.stemmer.clef_german_plus, &
+    abydos.stemmer.clef_swedish
     """
+
     def test_clef_german(self):
-        """test abydos.stemmer.clef_german
-        """
+        """Test abydos.stemmer.clef_german."""
         # base case
         self.assertEqual(clef_german(''), '')
 
@@ -655,8 +657,7 @@ class CLEFTestCases(unittest.TestCase):
         self.assertEqual(clef_german('kleinen'), 'klei')
 
     def test_clef_german_plus(self):
-        """test abydos.stemmer.clef_german_plus
-        """
+        """Test abydos.stemmer.clef_german_plus."""
         # base case
         self.assertEqual(clef_german_plus(''), '')
 
@@ -687,8 +688,7 @@ class CLEFTestCases(unittest.TestCase):
         self.assertEqual(clef_german_plus('Pfarrern'), 'pfarr')
 
     def test_clef_swedish(self):
-        """test abydos.stemmer.clef_swedish
-        """
+        """Test abydos.stemmer.clef_swedish."""
         # base case
         self.assertEqual(clef_swedish(''), '')
 
@@ -748,11 +748,13 @@ class CLEFTestCases(unittest.TestCase):
 
 
 class CaumannsTestCases(unittest.TestCase):
-    """test cases for abydos.stemmer.caumanns
+    """Test Caumanns functions.
+
+    abydos.stemmer.caumanns
     """
+
     def test_caumanns(self):
-        """test abydos.stemmer.caumanns
-        """
+        """Test abydos.stemmer.caumanns."""
         # base case
         self.assertEqual(caumanns(''), '')
 
@@ -777,7 +779,7 @@ class CaumannsTestCases(unittest.TestCase):
         self.assertEqual(caumanns('Matrizen'), 'matrix')
 
     def test_caumanns_lucene(self):
-        """test abydos.stemmer.caumanns (Lucene tests)
+        """Test abydos.stemmer.caumanns (Lucene tests).
 
         Based on tests from
         https://svn.apache.org/repos/asf/lucene.net/trunk/test/contrib/Analyzers/De/data.txt
@@ -837,21 +839,25 @@ class CaumannsTestCases(unittest.TestCase):
 
 
 # class UEALiteTestCases(unittest.TestCase):
-#     """test cases for abydos.stemmer.uealite
+#     """Test UEA-lite functions.
+#
+#     abydos.stemmer.uealite
 #     """
+#
 #     def test_uealite(self):
-#         """test abydos.stemmer.uealite
-#         """
+#         """Test abydos.stemmer.uealite."""
 #         # base case
 #         self.assertEqual(uealite(''), '')
-#
-#
+
+
 # class LancasterTestCases(unittest.TestCase):
-#     """test cases for abydos.stemmer.lancaster
+#     """Test Lancaster functions.
+#
+#     abydos.stemmer.lancaster
 #     """
+#
 #     def test_lancaster(self):
-#         """test abydos.stemmer.lancaster
-#         """
+#         """Test abydos.stemmer.lancaster."""
 #         # base case
 #         self.assertEqual(lancaster(''), '')
 #

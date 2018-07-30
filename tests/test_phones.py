@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2015 by Christopher C. Little.
+# Copyright 2014-2018 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -22,17 +22,18 @@ This module contains unit tests for abydos.phones
 """
 
 from __future__ import unicode_literals
+
 import unittest
-from abydos.phones import ipa_to_features, get_feature, cmp_features
 from math import isnan
+
+from abydos.phones import cmp_features, get_feature, ipa_to_features
 
 
 class IpaFeaturesTestCases(unittest.TestCase):
-    """test cases for abydos.phones.ipa_to_features
-    """
+    """Test abydos.phones.ipa_to_features."""
+
     def test_ipa_to_features(self):
-        """test abydos.phones.ipa_to_features
-        """
+        """Test abydos.phones.ipa_to_features."""
         self.assertEqual(ipa_to_features('medçen'),
                          [2709662981243185770,
                           1826957430176000426,
@@ -93,11 +94,10 @@ class IpaFeaturesTestCases(unittest.TestCase):
 
 
 class HasFeatureTestCases(unittest.TestCase):
-    """test cases for abydos.phones.get_feature
-    """
+    """Test abydos.phones.get_feature."""
+
     def test_ipa_to_features(self):
-        """test abydos.phones.get_feature
-        """
+        """Test abydos.phones.get_feature."""
         self.assertEqual(get_feature(ipa_to_features('medçen'), 'nasal'),
                          [1, -1, -1, -1, -1, 1])
         self.assertRaises(AttributeError, get_feature,
@@ -130,11 +130,10 @@ class HasFeatureTestCases(unittest.TestCase):
 
 
 class CmpFeaturesTestCases(unittest.TestCase):
-    """test cases for abydos.phones.cmp_features
-    """
+    """Test cases for abydos.phones.cmp_features."""
+
     def test_cmp_features(self):
-        """test abydos.phones.cmp_features
-        """
+        """Test abydos.phones.cmp_features."""
         # # negatives
         self.assertEqual(cmp_features(-1, 1826957425952336298), -1)
         self.assertEqual(cmp_features(1826957425952336298, -1), -1)
