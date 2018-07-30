@@ -21,8 +21,8 @@
 The qgram module defines the QGrams multi-set class
 """
 
-from __future__ import unicode_literals
-from __future__ import division
+from __future__ import division, unicode_literals
+
 from collections import Counter
 
 from ._compat import _range
@@ -30,19 +30,20 @@ from ._compat import _range
 
 # pylint: disable=abstract-method
 class QGrams(Counter):
-    """A q-gram class, which functions like a bag/multiset
+    """A q-gram class, which functions like a bag/multiset.
 
     A q-gram is here defined as all sequences of q characters. Q-grams are also
     known as k-grams and n-grams, but the term n-gram more typically refers to
     sequences of whitespace-delimited words in a string, where q-gram refers
     to sequences of characters in a word or string.
     """
+
     term = ''
     term_ss = ''
     ordered_list = []
 
     def __init__(self, term, qval=2, start_stop='$#'):
-        """Qgrams initializer
+        """Initialize QGrams.
 
         :param str word: a string to extract q-grams from
         :param int qval: the q-gram length (defaults to 2)
@@ -80,7 +81,7 @@ class QGrams(Counter):
         super(QGrams, self).__init__(self.ordered_list)
 
     def count(self):
-        """q-grams count
+        """Return q-grams count.
 
         :returns: the total count of q-grams in a QGrams object
         :rtype: int

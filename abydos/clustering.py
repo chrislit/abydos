@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2015 by Christopher C. Little.
+# Copyright 2014-2018 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -22,18 +22,19 @@ The clustering module implements clustering algorithms such as:
     - string fingerprinting
 """
 
-from __future__ import unicode_literals
-from __future__ import division
+from __future__ import division, unicode_literals
+
 import unicodedata
-from ._compat import _unicode, _range
+
+from ._compat import _range, _unicode
+from .distance import sim
 from .phonetic import double_metaphone
 from .qgram import QGrams
-from .distance import sim
 from .stats import hmean
 
 
 def fingerprint(phrase):
-    """String fingerprint
+    """Return string fingerprint.
 
     The fingerprint of a string is a string consisting of all of the unique
     words in a string, alphabetized & concatenated with intervening spaces
@@ -52,7 +53,7 @@ def fingerprint(phrase):
 
 
 def qgram_fingerprint(phrase, qval=2, start_stop=''):
-    """Q-Gram fingerprint
+    """Return Q-Gram fingerprint.
 
     A q-gram fingerprint is a string consisting of all of the unique q-grams
     in a string, alphabetized & concatenated.
@@ -80,7 +81,7 @@ def qgram_fingerprint(phrase, qval=2, start_stop=''):
 
 
 def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone, *args):
-    """Return the phonetic fingerprint of a phrase
+    """Return the phonetic fingerprint of a phrase.
 
     A phonetic fingerprint is identical to a standard string fingerprint, as
     implemented in abydos.clustering.fingerprint(), but performs the
@@ -115,7 +116,7 @@ def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone, *args):
 
 
 def skeleton_key(word):
-    """Skeleton key
+    """Return the skeleton key.
 
     The skeleton key of a word is defined in:
     Pollock, Joseph J. and Antonio Zamora. 1984. "Automatic Spelling Correction
@@ -157,7 +158,7 @@ def skeleton_key(word):
 
 
 def omission_key(word):
-    """Omission key
+    """Return the omission key.
 
     The omission key of a word is defined in:
     Pollock, Joseph J. and Antonio Zamora. 1984. "Automatic Spelling Correction
@@ -198,7 +199,7 @@ def omission_key(word):
 
 def mean_pairwise_similarity(collection, metric=sim,
                              meanfunc=hmean, symmetric=False):
-    """Mean pairwise similarity of a collection of strings
+    """Calculate the mean pairwise similarity of a collection of strings.
 
     Takes the mean of the pairwise similarity between each member of a
     collection, optionally in both directions (for asymmetric similarity
@@ -235,6 +236,6 @@ def mean_pairwise_similarity(collection, metric=sim,
             if symmetric:
                 pairwise_values.append(metric(collection[j], collection[i]))
 
-    if not hasattr(meanfunc, '__call__'):
+    if not callable(meanfunc):
         raise ValueError('meanfunc must be a function')
     return meanfunc(pairwise_values)

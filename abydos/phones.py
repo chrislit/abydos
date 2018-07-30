@@ -21,10 +21,11 @@
 The phones module implements ...
 """
 
-from __future__ import unicode_literals
-from __future__ import division
+from __future__ import division, unicode_literals
+
 import unicodedata
-from ._compat import _unicode, _range
+
+from ._compat import _range, _unicode
 
 
 PHONETIC_FEATURES = {'t': 2783230754502126250,
@@ -572,7 +573,7 @@ FEATURE_MASK = {'syllabic': 3458764513820540928,
 
 
 def ipa_to_features(ipa):
-    """IPA to features
+    """Convert IPA to features.
 
     This translates an IPA string of one or more phones to a list of ints
     representing the features of the string.
@@ -611,7 +612,7 @@ def ipa_to_features(ipa):
 
 
 def get_feature(vector, feature):
-    """Get feature
+    """Get a feature vector.
 
     This returns a list of ints, equal in length to the vector input,
         representing presence/absence/neutrality with respect to a particular
@@ -639,7 +640,6 @@ def get_feature(vector, feature):
     >>> get_feature(tails, 'coronal')
     [1, -1, 1, 1]
     """
-
     # :param bool binary: if False, -1, 0, & 1 represent -, 0, & +
     #           if True, only binary oppositions are allowed:
     #           0 & 1 represent - & + and 0s are mapped to -
@@ -680,7 +680,7 @@ def get_feature(vector, feature):
 
 
 def cmp_features(feat1, feat2):
-    """Compare features
+    """Compare features.
 
     This returns a number in the range [0, 1] representing a comparison of two
     feature bundles.

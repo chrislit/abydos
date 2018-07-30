@@ -22,15 +22,17 @@ The NGram class is a container for an n-gram corpus
 """
 
 from __future__ import unicode_literals
+
 import codecs
 from collections import Counter
 from math import log10
+
+from ._compat import _range, _unicode
 from .corpus import Corpus
-from ._compat import _unicode, _range
 
 
 class NGramCorpus(object):
-    """The NGramCorpus class
+    """The NGramCorpus class.
 
     Internally, this is a set of recursively embedded dicts, with n layers for
     a corpus of n-grams. E.g. for a trigram corpus, this will be a dict of
@@ -43,8 +45,9 @@ class NGramCorpus(object):
     the trigram frequency of 'colorless green ideas' would be the value stored
     in self.ngcorpus['colorless']['green']['ideas'][None].
     """
+
     def __init__(self, corpus=None):
-        """Corpus initializer
+        r"""Initialize Corpus.
 
         :param corpus: The Corpus from which to initialize the n-gram
             corpus. By default, this is None, which initializes an empty
@@ -65,7 +68,7 @@ class NGramCorpus(object):
                             'abydos.Corpus. ' + str(type(corpus)) + ' found.')
 
     def corpus_importer(self, corpus, n_val=1, bos='_START_', eos='_END_'):
-        """Fill in self.ngcorpus from a Corpus argument
+        r"""Fill in self.ngcorpus from a Corpus argument.
 
         :param Corpus corpus: The Corpus from which to initialize the n-gram
             corpus
@@ -99,7 +102,7 @@ class NGramCorpus(object):
                         self._add_to_ngcorpus(self.ngcorpus, sent[j:j+i], 1)
 
     def get_count(self, ngram, corpus=None):
-        """Get the count of an n-gram in the corpus
+        r"""Get the count of an n-gram in the corpus.
 
         :param ngram: The n-gram to retrieve the count of from the n-gram
             corpus
@@ -134,7 +137,7 @@ class NGramCorpus(object):
         return 0
 
     def _add_to_ngcorpus(self, corpus, words, count):
-        """Builds up a corpus entry recursively
+        """Build up a corpus entry recursively.
 
         :param Counter corpus:
         :param list words:
@@ -149,7 +152,7 @@ class NGramCorpus(object):
             self._add_to_ngcorpus(corpus[words[0]], words[1:], count)
 
     def gng_importer(self, corpus_file):
-        """Fill in self.ngcorpus from a Google NGram corpus file
+        """Fill in self.ngcorpus from a Google NGram corpus file.
 
         :param file corpus_file: The Google NGram file from which to
             initialize the n-gram corpus
@@ -162,7 +165,7 @@ class NGramCorpus(object):
                 self._add_to_ngcorpus(self.ngcorpus, words, int(line[2]))
 
     def tf(self, term):
-        """Term frequency
+        r"""Return term frequency.
 
         :param str term: The term for which to calculate tf
         :returns: The term frequency (tf)
