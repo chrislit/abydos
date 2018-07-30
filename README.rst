@@ -20,10 +20,10 @@ Abydos
 .. image:: https://img.shields.io/badge/Pylint-9.84/10-green.svg
     :alt: Pylint Score
 
-.. image:: https://img.shields.io/badge/pycodestyle-8-green.svg
+.. image:: https://img.shields.io/badge/pycodestyle-7-green.svg
     :alt: pycodestyle Errors
 
-.. image:: https://img.shields.io/badge/flake8-1578-red.svg
+.. image:: https://img.shields.io/badge/flake8-1570-red.svg
     :alt: flake8 Errors
 
 .. image:: https://img.shields.io/pypi/v/abydos.svg

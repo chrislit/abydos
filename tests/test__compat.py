@@ -22,17 +22,18 @@ This module contains unit tests for abydos._compat
 """
 
 from __future__ import unicode_literals
-import abydos._compat
-import unittest
+
 import sys
+import unittest
+
+import abydos._compat
 
 
 class CompatTestCases(unittest.TestCase):
-    """test cases for abydos._compat
-    """
+    """Test cases for abydos._compat."""
+
     def test__compat(self):
-        """test abydos._compat
-        """
+        """Test abydos._compat."""
         # pylint: disable=protected-access
         if sys.version_info[0] == 3:
             self.assertTrue(isinstance(abydos._compat._range(5), range))
@@ -46,6 +47,7 @@ class CompatTestCases(unittest.TestCase):
             self.assertTrue(isinstance(abydos._compat._unichr(0x2014),
                                        unicode))
         # pylint: enable=protected-access
+
 
 if __name__ == '__main__':
     unittest.main()
