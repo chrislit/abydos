@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test__compat
+"""abydos.tests.test__compat.
 
 This module contains unit tests for abydos._compat
 """

@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos._compat.py
+"""abydos._compat.py.
 
 The _compat module defines some variables to enable Python 2 and Python 3
 compatibility within a single codebase

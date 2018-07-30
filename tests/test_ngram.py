@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_ngram
+"""abydos.tests.test_ngram.
 
 This module contains unit tests for abydos.ngram
 """

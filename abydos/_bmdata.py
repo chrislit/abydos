@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos._bmdata
+"""abydos._bmdata.
 
 Behind-the-scenes constants, rules, etc. for the Beider-Morse Phonentic
 Matching (BMPM) algorithm

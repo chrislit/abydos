@@ -18,7 +18,7 @@
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 
-"""bm_php2py.py
+"""bm_php2py.py.
 
 This helper script converts Beider-Morse Phonetic Matching Algorithm (BMPM)
 code from PHP to Python.
@@ -223,7 +223,7 @@ ANY WARRANTY; without even the implied warranty of\n# MERCHANTABILITY or \
 FITNESS FOR A PARTICULAR PURPOSE. See the\n# GNU General Public License for \
 more details.\n#\n# You should have received a copy of the GNU General Public \
 License\n# along with Abydos. If not, see <http://www.gnu.org/licenses/>.\n\n\
-"""abydos._bmdata\n\nBehind-the-scenes constants, rules, etc. for the \
+"""abydos._bmdata.\n\nBehind-the-scenes constants, rules, etc. for the \
 Beider-Morse Phonentic\nMatching (BMPM) algorithm\n\nDO NOT EDIT - This \
 document is automatically generated from the reference\nimplementation in \
 PHP.\n"""\n# pylint: disable=line-too-long\n\nfrom __future__ \

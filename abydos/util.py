@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.util
+"""abydos.util.
 
 The util module defines various utility functions for other modules within
 Abydos, including:

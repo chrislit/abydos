@@ -17,6 +17,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
+"""badge_update.py.
+
+This updates the Pylint, pycodestyle, & flake8 badges in README.rst.
+"""
 
 import os.path
 import re

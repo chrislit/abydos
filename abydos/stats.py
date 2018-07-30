@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-r"""abydos.stats
+r"""abydos.stats.
 
 The stats module defines functions for calculating various statistical data
 about linguistic objects.

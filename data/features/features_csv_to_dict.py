@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""features_csv_to_dict.py
+"""features_csv_to_dict.py.
 
 This script converts a CSV document of feature values to a Python dict.
 

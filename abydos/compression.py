@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.compression
+"""abydos.compression.
 
 The compression module defines compression and compression-related functions
 for use within Abydos, including implementations of the following:

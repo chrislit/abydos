@@ -17,7 +17,7 @@
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
 
-"""abydos.tests
+"""abydos.tests.
 
 This module contains unit tests for Abydos
 """
