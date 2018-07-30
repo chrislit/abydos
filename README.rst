@@ -18,13 +18,16 @@ Abydos
    :alt: Code Health
 
 .. image:: https://img.shields.io/badge/Pylint-9.82/10-green.svg
-    :alt: Pylint Score
+   :target: #
+   :alt: Pylint Score
 
 .. image:: https://img.shields.io/badge/pycodestyle-0-brightgreen.svg
-    :alt: pycodestyle Errors
+   :target: #
+   :alt: pycodestyle Errors
 
 .. image:: https://img.shields.io/badge/flake8-61-yellow.svg
-    :alt: flake8 Errors
+   :target: #
+   :alt: flake8 Errors
 
 .. image:: https://img.shields.io/pypi/v/abydos.svg
     :target: https://pypi.python.org/pypi/abydos
