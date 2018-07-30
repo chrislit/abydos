@@ -180,7 +180,7 @@ class ConfusionTable(object):
         return ('tp:' + str(self._tp) + ', tn:' + str(self._tn) + ', fp:' +
                 str(self._fp) + ', fn:' + str(self._fn))
 
-    def tuple(self):
+    def to_tuple(self):
         """Cast to tuple.
 
         :returns: the confusion table as a 4-tuple (tp, tn, fp, fn)
@@ -192,7 +192,7 @@ class ConfusionTable(object):
         """
         return (self._tp, self._tn, self._fp, self._fn)
 
-    def dict(self):
+    def to_dict(self):
         """Cast to dict.
 
         :returns: the confusion table as a dict

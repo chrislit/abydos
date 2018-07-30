@@ -114,17 +114,17 @@ class ConstructorTestCases(unittest.TestCase):
 class CastTestCases(unittest.TestCase):
     """Test abydos.stats.ConfusionTable cast methods."""
 
-    def test_tuple(self):
-        """Test abydos.stats.ConfusionTable.tuple."""
-        self.assertIsInstance(SCALE_TABLE.tuple(), tuple)
-        self.assertEqual(SCALE_TABLE.tuple(), (1, 2, 3, 4))
-        self.assertEqual(list(SCALE_TABLE.tuple()), [1, 2, 3, 4])
+    def test_to_tuple(self):
+        """Test abydos.stats.ConfusionTable.to_tuple."""
+        self.assertIsInstance(SCALE_TABLE.to_tuple(), tuple)
+        self.assertEqual(SCALE_TABLE.to_tuple(), (1, 2, 3, 4))
+        self.assertEqual(list(SCALE_TABLE.to_tuple()), [1, 2, 3, 4])
 
-    def test_dict(self):
-        """Test abydos.stats.ConfusionTable.dict."""
-        self.assertIsInstance(SCALE_TABLE.dict(), dict)
-        self.assertEqual(SCALE_TABLE.dict(), {'tp': 1, 'tn': 2,
-                                              'fp': 3, 'fn': 4})
+    def test_to_dict(self):
+        """Test abydos.stats.ConfusionTable.to_dict."""
+        self.assertIsInstance(SCALE_TABLE.to_dict(), dict)
+        self.assertEqual(SCALE_TABLE.to_dict(), {'tp': 1, 'tn': 2,
+                                                 'fp': 3, 'fn': 4})
 
     def test_str(self):
         """Test abydos.stats.ConfusionTable._str_."""

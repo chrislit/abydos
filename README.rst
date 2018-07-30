@@ -23,7 +23,7 @@ Abydos
 .. image:: https://img.shields.io/badge/pycodestyle-0-brightgreen.svg
     :alt: pycodestyle Errors
 
-.. image:: https://img.shields.io/badge/flake8-348-red.svg
+.. image:: https://img.shields.io/badge/flake8-344-red.svg
     :alt: flake8 Errors
 
 .. image:: https://img.shields.io/pypi/v/abydos.svg
