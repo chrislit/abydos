@@ -916,7 +916,7 @@ def tanimoto(src, tar, qval=2):
     return float('-inf')
 
 
-def minkowski(src, tar, qval=2, pval=1):
+def minkowski(src, tar, qval=2, pval=1, normalize=False):
     """Return the Minkowski distance (:math:`L^p-norm`) of two strings.
 
     :param src:
@@ -925,24 +925,52 @@ def minkowski(src, tar, qval=2, pval=1):
     :param pval:
     :return:
     """
-    if src == tar:
-        return 1.0
-    if not src or not tar:
-        return 0.0
-
     q_src, q_tar = _get_qgrams(src, tar, qval)
     diffs = ((q_src - q_tar) + (q_tar - q_src)).values()
+
+    normalizer = 1
+    if normalize:
+        totals = (q_src + q_tar).values()
+        if p == 0:
+            normalizer = len(totals)
+        else:
+            normalizer = sum(_**pval for _ in totals)**(1 / pval)
+
     if p == float('inf'):
         # Chebyshev distance
-        return max(diffs)
+        return max(diffs)/normalizer
     elif p == 0:
         # This is the l_0 "norm" as developed by David Donoho
         return len(diffs)
     else:
-        return sum(_ ** pval for _ in diffs) ** (1 / pval)
+        return sum(_**pval for _ in diffs)**(1 / pval)/normalizer
 
 
-def manhattan(src, tar, qval=2):
+def dist_minkowski(src, tar, qval=2, pval=1):
+    """Return Minkowski distance of two strings, normalized to [0, 1].
+
+    :param src:
+    :param tar:
+    :param qval2:
+    :param pval:
+    :return:
+    """
+    return minkowski(src, tar, qval, pval, True)
+
+
+def sim_minkowski(src, tar, qval=2, pval=1):
+    """Return Minkowski similarity of two strings, normalized to [0, 1].
+
+    :param src:
+    :param tar:
+    :param qval2:
+    :param pval:
+    :return:
+    """
+    return 1-minkowski(src, tar, qval, pval, True)
+
+
+def manhattan(src, tar, qval=2, normalize=False):
     """Return the Manhattan distance between two strings.
 
     :param src:
@@ -950,10 +978,34 @@ def manhattan(src, tar, qval=2):
     :param qval:
     :return:
     """
-    return minkowski(src, tar, qval, 1)
+    return minkowski(src, tar, qval, 1, normalize)
 
 
-def euclidean(src, tar, qval=2):
+def dist_manhattan(src, tar, qval=2):
+    """Return the Manhattan distance between two strings, normalized to [0, 1].
+
+    This is identical to Canberra distance.
+
+    :param src:
+    :param tar:
+    :param qval:
+    :return:
+    """
+    return manhattan(src, tar, qval, 1, True)
+
+
+def sim_manhattan(src, tar, qval=2):
+    """Return the Manhattan similarity of two strings, normalized to [0, 1].
+
+    :param src:
+    :param tar:
+    :param qval:
+    :return:
+    """
+    return 1-manhattan(src, tar, qval, 1, True)
+
+
+def euclidean(src, tar, qval=2, normalize=False):
     """Return the Euclidean distance between two strings.
 
     :param src:
@@ -961,10 +1013,32 @@ def euclidean(src, tar, qval=2):
     :param qval:
     :return:
     """
-    return minkowski(src, tar, qval, 2)
+    return minkowski(src, tar, qval, 2, normalize)
 
 
-def chebyshev(src, tar, qval=2):
+def dist_euclidean(src, tar, qval=2):
+    """Return the Euclidean distance between two strings, normalized to [0, 1].
+
+    :param src:
+    :param tar:
+    :param qval:
+    :return:
+    """
+    return euclidean(src, tar, qval, True)
+
+
+def sim_euclidean(src, tar, qval=2):
+    """Return the Euclidean similarity of two strings, normalized to [0, 1].
+
+    :param src:
+    :param tar:
+    :param qval:
+    :return:
+    """
+    return 1-euclidean(src, tar, qval, True)
+
+
+def chebyshev(src, tar, qval=2, normalize=False):
     """Return the Chebyshev distance between two strings.
 
     :param src:
@@ -972,25 +1046,29 @@ def chebyshev(src, tar, qval=2):
     :param qval:
     :return:
     """
-    return minkowski(src, tar, qval, float('inf'))
+    return minkowski(src, tar, qval, float('inf'), normalize)
 
 
-def canberra(src, tar, qval=2):
-    """Return the Canberra distance between two strings.
+def dist_chebyshev(src, tar, qval=2):
+    """Return the Chebyshev distance between two strings, normalized to [0, 1].
 
     :param src:
     :param tar:
     :param qval:
     :return:
     """
-    if src == tar:
-        return 1.0
-    if not src or not tar:
-        return 0.0
+    return chebyshev(src, tar, qval, True)
 
-    q_src, q_tar = _get_qgrams(src, tar, qval)
-    diffs = ((q_src - q_tar) + (q_tar - q_src)).values()
-    return sum(diffs) / (sum(q_src.values()) + sum(q_tar.values()))
+
+def sim_chebyshev(src, tar, qval=2):
+    """Return the Chebyshev similarity of two strings, normalized to [0, 1].
+
+    :param src:
+    :param tar:
+    :param qval:
+    :return:
+    """
+    return 1 - chebyshev(src, tar, qval, True)
 
 
 def sim_cosine(src, tar, qval=2):
