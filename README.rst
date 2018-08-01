@@ -17,7 +17,7 @@ Abydos
    :target: https://landscape.io/github/chrislit/abydos/master
    :alt: Code Health
 
-.. image:: https://img.shields.io/badge/Pylint-9.82/10-green.svg
+.. image:: https://img.shields.io/badge/Pylint-9.81/10-green.svg
    :target: #
    :alt: Pylint Score
 
