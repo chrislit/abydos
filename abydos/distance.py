@@ -549,6 +549,23 @@ def sim_hamming(src, tar, difflens=True):
     return 1 - dist_hamming(src, tar, difflens)
 
 
+def _get_qgrams(src, tar, qval):
+    """Return the Q-Grams in src & tar.
+
+    :param str src, tar: two strings to be compared
+        (or QGrams/Counter objects)
+    :param int qval: the length of each q-gram; 0 or None for non-q-gram
+        version
+    :return: Q-Grams
+    """
+    if isinstance(src, Counter) and isinstance(tar, Counter):
+        return src, tar
+    elif qval and qval > 0:
+        return QGrams(src, qval), QGrams(tar, qval)
+    else:
+        return Counter(src.strip().split()), Counter(tar.strip().split())
+
+
 def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     r"""Return the Tversky index of two strings.
 
@@ -614,15 +631,7 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     elif not src or not tar:
         return 0.0
 
-    if isinstance(src, Counter) and isinstance(tar, Counter):
-        q_src = src
-        q_tar = tar
-    elif qval and qval > 0:
-        q_src = QGrams(src, qval)
-        q_tar = QGrams(tar, qval)
-    else:
-        q_src = Counter(src.strip().split())
-        q_tar = Counter(tar.strip().split())
+    q_src, q_tar = _get_qgrams(src, tar, qval)
     q_src_mag = sum(q_src.values())
     q_tar_mag = sum(q_tar.values())
     q_intersection_mag = sum((q_src & q_tar).values())
@@ -816,15 +825,7 @@ def sim_overlap(src, tar, qval=2):
     elif not src or not tar:
         return 0.0
 
-    if isinstance(src, Counter) and isinstance(tar, Counter):
-        q_src = src
-        q_tar = tar
-    elif qval and qval > 0:
-        q_src = QGrams(src, qval)
-        q_tar = QGrams(tar, qval)
-    else:
-        q_src = Counter(src.strip().split())
-        q_tar = Counter(tar.strip().split())
+    q_src, q_tar = _get_qgrams(src, tar, qval)
     q_src_mag = sum(q_src.values())
     q_tar_mag = sum(q_tar.values())
     q_intersection_mag = sum((q_src & q_tar).values())
@@ -943,15 +944,7 @@ def sim_cosine(src, tar, qval=2):
     if not src or not tar:
         return 0.0
 
-    if isinstance(src, Counter) and isinstance(tar, Counter):
-        q_src = src
-        q_tar = tar
-    elif qval and qval > 0:
-        q_src = QGrams(src, qval)
-        q_tar = QGrams(tar, qval)
-    else:
-        q_src = Counter(src.strip().split())
-        q_tar = Counter(tar.strip().split())
+    q_src, q_tar = _get_qgrams(src, tar, qval)
     q_src_mag = sum(q_src.values())
     q_tar_mag = sum(q_tar.values())
     q_intersection_mag = sum((q_src & q_tar).values())
@@ -2784,15 +2777,7 @@ def sim_tfidf(src, tar, qval=2, docs_src=None, docs_tar=None):
     elif not src or not tar:
         return 0.0
 
-    if isinstance(src, Counter) and isinstance(tar, Counter):
-        q_src = src
-        q_tar = tar
-    elif qval and qval > 0:
-        q_src = QGrams(src, qval)
-        q_tar = QGrams(tar, qval)
-    else:
-        q_src = Counter(src.strip().split())
-        q_tar = Counter(tar.strip().split())
+    q_src, q_tar = _get_qgrams(src, tar, qval)
 
     if isinstance(docs_src, Counter):
         q_docs = docs_src
