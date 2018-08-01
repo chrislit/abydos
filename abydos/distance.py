@@ -916,6 +916,83 @@ def tanimoto(src, tar, qval=2):
     return float('-inf')
 
 
+def minkowski(src, tar, qval=2, pval=1):
+    """Return the Minkowski distance (:math:`L^p-norm`) of two strings.
+
+    :param src:
+    :param tar:
+    :param qval:
+    :param pval:
+    :return:
+    """
+    if src == tar:
+        return 1.0
+    if not src or not tar:
+        return 0.0
+
+    q_src, q_tar = _get_qgrams(src, tar, qval)
+    diffs = ((q_src - q_tar) + (q_tar - q_src)).values()
+    if p == float('inf'):
+        # Chebyshev distance
+        return max(diffs)
+    elif p == 0:
+        # This is the l_0 "norm" as developed by David Donoho
+        return len(diffs)
+    else:
+        return sum(_ ** pval for _ in diffs) ** (1 / pval)
+
+
+def manhattan(src, tar, qval=2):
+    """Return the Manhattan distance between two strings.
+
+    :param src:
+    :param tar:
+    :param qval:
+    :return:
+    """
+    return minkowski(src, tar, qval, 1)
+
+
+def euclidean(src, tar, qval=2):
+    """Return the Euclidean distance between two strings.
+
+    :param src:
+    :param tar:
+    :param qval:
+    :return:
+    """
+    return minkowski(src, tar, qval, 2)
+
+
+def chebyshev(src, tar, qval=2):
+    """Return the Chebyshev distance between two strings.
+
+    :param src:
+    :param tar:
+    :param qval:
+    :return:
+    """
+    return minkowski(src, tar, qval, float('inf'))
+
+
+def canberra(src, tar, qval=2):
+    """Return the Canberra distance between two strings.
+
+    :param src:
+    :param tar:
+    :param qval:
+    :return:
+    """
+    if src == tar:
+        return 1.0
+    if not src or not tar:
+        return 0.0
+
+    q_src, q_tar = _get_qgrams(src, tar, qval)
+    diffs = ((q_src - q_tar) + (q_tar - q_src)).values()
+    return sum(diffs) / (sum(q_src.values()) + sum(q_tar.values()))
+
+
 def sim_cosine(src, tar, qval=2):
     r"""Return the cosine similarity of two strings.
 

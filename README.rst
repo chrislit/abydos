@@ -17,7 +17,7 @@ Abydos
    :target: https://landscape.io/github/chrislit/abydos/master
    :alt: Code Health
 
-.. image:: https://img.shields.io/badge/Pylint-9.81/10-green.svg
+.. image:: https://img.shields.io/badge/Pylint-9.79/10-green.svg
    :target: #
    :alt: Pylint Score
 
@@ -25,7 +25,7 @@ Abydos
    :target: #
    :alt: pycodestyle Errors
 
-.. image:: https://img.shields.io/badge/flake8-61-yellow.svg
+.. image:: https://img.shields.io/badge/flake8-63-yellow.svg
    :target: #
    :alt: flake8 Errors
 
