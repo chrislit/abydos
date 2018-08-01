@@ -1876,9 +1876,12 @@ class BagTestCases(unittest.TestCase):
         self.assertEqual(bag('', 'neilsen'), 7)
         self.assertEqual(bag('ab', 'a'), 1)
         self.assertEqual(bag('ab', 'c'), 2)
-        self.assertAlmostEqual(bag('nelson', 'neilsen'), 2)
-        self.assertAlmostEqual(bag('neilsen', 'nelson'), 2)
-        self.assertAlmostEqual(bag('niall', 'neal'), 2)
+        self.assertEqual(bag('nelson', 'neilsen'), 2)
+        self.assertEqual(bag('neilsen', 'nelson'), 2)
+        self.assertEqual(bag('niall', 'neal'), 2)
+        self.assertEqual(bag('aluminum', 'Catalan'), 5)
+        self.assertEqual(bag('abcdefg', 'hijklm'), 7)
+        self.assertEqual(bag('abcdefg', 'hijklmno'), 8)
 
     def test_sim_bag(self):
         """Test abydos.distance.sim_bag."""
@@ -1890,6 +1893,9 @@ class BagTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_bag('nelson', 'neilsen'), 5/7)
         self.assertAlmostEqual(sim_bag('neilsen', 'nelson'), 5/7)
         self.assertAlmostEqual(sim_bag('niall', 'neal'), 3/5)
+        self.assertAlmostEqual(sim_bag('aluminum', 'Catalan'), 3/8)
+        self.assertEqual(sim_bag('abcdefg', 'hijklm'), 0)
+        self.assertEqual(sim_bag('abcdefg', 'hijklmno'), 0)
 
     def test_dist_bag(self):
         """Test abydos.distance.dist_bag."""
@@ -1901,6 +1907,9 @@ class BagTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_bag('nelson', 'neilsen'), 2/7)
         self.assertAlmostEqual(dist_bag('neilsen', 'nelson'), 2/7)
         self.assertAlmostEqual(dist_bag('niall', 'neal'), 2/5)
+        self.assertAlmostEqual(dist_bag('aluminum', 'Catalan'), 5/8)
+        self.assertEqual(dist_bag('abcdefg', 'hijklm'), 1)
+        self.assertEqual(dist_bag('abcdefg', 'hijklmno'), 1)
 
 
 class EditexTestCases(unittest.TestCase):

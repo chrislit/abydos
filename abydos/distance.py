@@ -2506,7 +2506,14 @@ def bag(src, tar):
 
     Bag distance
 
-    Bag distance is:
+    Bag distance is proposed in Bartolini, Illaria, Paolo Ciaccia, and Marco
+    Patella. 2002. "String Matching with Metric Trees Using and Approximate
+    Distance. Proceedings of the 9th International Symposium on String
+    Processing and Information Retrieval, Lisbone, Portugal, September 2002.
+    271-283.
+    http://www-db.disi.unibo.it/research/papers/SPIRE02.pdf
+
+    It is defined as:
     :math:`max( |multiset(src)-multiset(tar)|, |multiset(tar)-multiset(src)| )`
 
     :param str src, tar: two strings to be compared
@@ -2518,9 +2525,13 @@ def bag(src, tar):
     >>> bag('Niall', 'Neil')
     2
     >>> bag('aluminum', 'Catalan')
-    3
+    5
     >>> bag('ATCG', 'TAGC')
     0
+    >>> bag('abcdefg', 'hijklm')
+    7
+    >>> bag('abcdefg', 'hijklmno')
+    8
     """
     if tar == src:
         return 0
@@ -2531,7 +2542,8 @@ def bag(src, tar):
 
     src_bag = Counter(src)
     tar_bag = Counter(tar)
-    return max(len(src_bag-tar_bag), len(tar_bag-src_bag))
+    return max(sum((src_bag-tar_bag).values()),
+               sum((tar_bag-src_bag).values()))
 
 
 def dist_bag(src, tar):
