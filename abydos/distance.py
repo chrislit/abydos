@@ -29,6 +29,10 @@ The distance module implements string edit distance functions including:
     - Jaccard similarity coefficient & distance
     - overlap similarity & distance
     - Tanimoto coefficient & distance
+    - Minkowski distance & similarity (incl. a [0, 1] normalized option)
+    - Manhattan distance & similarity (incl. a [0, 1] normalized option)
+    - Euclidean distance & similarity (incl. a [0, 1] normalized option)
+    - Chebyshev distance & similarity (incl. a [0, 1] normalized option)
     - cosine similarity & distance
     - Jaro distance
     - Jaro-Winkler distance (incl. the strcmp95 algorithm variant)
@@ -931,15 +935,15 @@ def minkowski(src, tar, qval=2, pval=1, normalize=False):
     normalizer = 1
     if normalize:
         totals = (q_src + q_tar).values()
-        if p == 0:
+        if pval == 0:
             normalizer = len(totals)
         else:
             normalizer = sum(_**pval for _ in totals)**(1 / pval)
 
-    if p == float('inf'):
+    if pval == float('inf'):
         # Chebyshev distance
         return max(diffs)/normalizer
-    elif p == 0:
+    elif pval == 0:
         # This is the l_0 "norm" as developed by David Donoho
         return len(diffs)
     else:
