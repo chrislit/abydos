@@ -9,8 +9,8 @@ Abydos
     :target: https://travis-ci.org/chrislit/abydos
     :alt: Build Status
 
-.. image:: https://coveralls.io/repos/chrislit/abydos/badge.svg
-    :target: https://coveralls.io/r/chrislit/abydos
+.. image:: https://coveralls.io/repos/github/chrislit/abydos/badge.svg?branch=master
+    :target: https://coveralls.io/github/chrislit/abydos?branch=master
     :alt: Coverage Status
 
 .. image:: https://codeclimate.com/github/chrislit/abydos/badges/gpa.svg
