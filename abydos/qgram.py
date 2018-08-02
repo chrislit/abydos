@@ -25,7 +25,7 @@ from __future__ import division, unicode_literals
 
 from collections import Counter
 
-from ._compat import _range
+from six.moves import range
 
 
 # pylint: disable=abstract-method
@@ -77,7 +77,7 @@ class QGrams(Counter):
         self.term_ss = term
 
         self.ordered_list = [term[i:i+qval] for i in
-                             _range(len(term)-(qval-1))]
+                             range(len(term)-(qval-1))]
         super(QGrams, self).__init__(self.ordered_list)
 
     def count(self):

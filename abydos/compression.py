@@ -31,8 +31,13 @@ from __future__ import division, unicode_literals
 from collections import Counter
 from itertools import groupby
 
-from ._compat import _long, _range, _unicode
+from six import PY3, text_type
+from six.moves import range
+
 from .util import Rational
+
+if PY3:
+    long = int
 
 
 def ac_train(text):
@@ -61,7 +66,7 @@ def ac_train(text):
     'z': (26/45, 3/5), 'b': (14/15, 43/45), 'k': (4/5, 37/45),
     'r': (4/9, 22/45), 'n': (11/15, 34/45), 'p': (32/45, 11/15)}
     """
-    text = _unicode(text)
+    text = text_type(text)
     if '\x00' in text:
         text = text.replace('\x00', ' ')
     counts = Counter(text)
@@ -102,7 +107,7 @@ def ac_encode(text, probs):
     >>> ac_encode('align', pr)
     (16720586181, 34)
     """
-    text = _unicode(text)
+    text = text_type(text)
     if '\x00' in text:
         text = text.replace('\x00', ' ')
     minval = Rational(0)
@@ -118,7 +123,7 @@ def ac_encode(text, probs):
     # gives me the minimum number of bits needed to resolve
     # down to the end-of-data character.
     delta = (maxval - minval) / 2
-    nbits = _long(0)
+    nbits = long(0)
     while delta < 1:
         nbits = nbits + 1
         delta <<= 1
@@ -148,7 +153,7 @@ def ac_decode(longval, nbits, probs):
     >>> ac_decode(16720586181, 34, pr)
     'align'
     """
-    val = Rational(longval, _long(1) << nbits)
+    val = Rational(longval, long(1) << nbits)
     letters = []
     probs_items = [(char, minval, maxval) for (char, (minval, maxval))
                    in probs.items()]
@@ -194,7 +199,7 @@ def bwt_encode(word, terminator='\0'):
                                      terminator != '\0' else '\\0'))
         else:
             word += terminator
-            wordlist = sorted(word[i:] + word[:i] for i in _range(len(word)))
+            wordlist = sorted(word[i:] + word[:i] for i in range(len(word)))
             return ''.join([w[-1] for w in wordlist])
     else:
         return terminator
@@ -227,9 +232,9 @@ def bwt_decode(code, terminator='\0'):
                                      terminator != '\0' else '\\0'))
         else:
             wordlist = [''] * len(code)
-            for i in _range(len(code)):
+            for i in range(len(code)):
                 wordlist = sorted(code[i] + wordlist[i] for i in
-                                  _range(len(code)))
+                                  range(len(code)))
             rows = [w for w in wordlist if w[-1] == terminator][0]
             return rows.rstrip(terminator)
     else:

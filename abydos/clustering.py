@@ -26,7 +26,9 @@ from __future__ import division, unicode_literals
 
 import unicodedata
 
-from ._compat import _range, _unicode
+from six import text_type
+from six.moves import range
+
 from .distance import sim
 from .phonetic import double_metaphone
 from .qgram import QGrams
@@ -46,7 +48,7 @@ def fingerprint(phrase):
     >>> fingerprint('The quick brown fox jumped over the lazy dog.')
     'brown dog fox jumped lazy over quick the'
     """
-    phrase = unicodedata.normalize('NFKD', _unicode(phrase.strip().lower()))
+    phrase = unicodedata.normalize('NFKD', text_type(phrase.strip().lower()))
     phrase = ''.join([c for c in phrase if c.isalnum() or c.isspace()])
     phrase = ' '.join(sorted(list(set(phrase.split()))))
     return phrase
@@ -73,7 +75,7 @@ def qgram_fingerprint(phrase, qval=2, start_stop=''):
     >>> qgram_fingerprint('Niall')
     'aliallni'
     """
-    phrase = unicodedata.normalize('NFKD', _unicode(phrase.strip().lower()))
+    phrase = unicodedata.normalize('NFKD', text_type(phrase.strip().lower()))
     phrase = ''.join(c for c in phrase if c.isalnum())
     phrase = QGrams(phrase, qval, start_stop)
     phrase = ''.join(sorted(phrase))
@@ -108,7 +110,7 @@ def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone, *args):
     phonetic = ''
     for word in phrase.split():
         word = phonetic_algorithm(word, *args)
-        if not isinstance(word, _unicode) and hasattr(word, '__iter__'):
+        if not isinstance(word, text_type) and hasattr(word, '__iter__'):
             word = word[0]
         phonetic += word + ' '
     phonetic = phonetic[:-1]
@@ -136,7 +138,7 @@ def skeleton_key(word):
     """
     _vowels = frozenset('AEIOU')
 
-    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = ''.join(c for c in word if c in
                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
 
@@ -178,7 +180,7 @@ def omission_key(word):
     """
     _consonants = tuple('JKQXZVWYBFMGPDHCLNTSR')
 
-    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = ''.join(c for c in word if c in
                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
 
@@ -230,8 +232,8 @@ def mean_pairwise_similarity(collection, metric=sim,
 
     pairwise_values = []
 
-    for i in _range(len(collection)):
-        for j in _range(i+1, len(collection)):
+    for i in range(len(collection)):
+        for j in range(i+1, len(collection)):
             pairwise_values.append(metric(collection[i], collection[j]))
             if symmetric:
                 pairwise_values.append(metric(collection[j], collection[i]))

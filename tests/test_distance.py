@@ -28,7 +28,6 @@ import os
 import unittest
 from difflib import SequenceMatcher
 
-from abydos._compat import _range
 from abydos.compression import ac_train
 from abydos.distance import bag, damerau_levenshtein, dist, dist_bag, \
     dist_compression, dist_cosine, dist_damerau, dist_dice, dist_editex, \
@@ -44,6 +43,8 @@ from abydos.distance import bag, damerau_levenshtein, dist, dist_bag, \
     sim_prefix, sim_ratcliff_obershelp, sim_strcmp95, sim_suffix, \
     sim_tanimoto, sim_tversky, smith_waterman, tanimoto
 from abydos.qgram import QGrams
+
+from six.moves import range
 
 TESTDIR = os.path.dirname(__file__)
 
@@ -1565,7 +1566,7 @@ class NeedlemanWunschTestCases(unittest.TestCase):
         """Test abydos.distance.needleman_wunsch (Nialls set)."""
         # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=2, skew=2)
         nw_vals = (5, 0, -2, 3, 1, 1, -2, -2, -1, -3, -3, -5, -3, -7, -7, -19)
-        for i in _range(len(NIALL)):
+        for i in range(len(NIALL)):
             self.assertEqual(needleman_wunsch(NIALL[0], NIALL[i], 2,
                                               _sim_nw), nw_vals[i])
 
@@ -1596,7 +1597,7 @@ class SmithWatermanTestCases(unittest.TestCase):
     def test_smith_waterman_nialls(self):
         """Test abydos.distance.smith_waterman (Nialls set)."""
         sw_vals = (5, 1, 1, 3, 2, 1, 1, 0, 0, 1, 1, 2, 2, 1, 0, 0)
-        for i in _range(len(NIALL)):
+        for i in range(len(NIALL)):
             self.assertEqual(smith_waterman(NIALL[0], NIALL[i], 2,
                                             _sim_nw), sw_vals[i])
 
@@ -1643,11 +1644,11 @@ class GotohTestCases(unittest.TestCase):
         """Test abydos.distance.gotoh (Nialls set)."""
         # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=2, skew=2)
         nw_vals = (5, 0, -2, 3, 1, 1, -2, -2, -1, -3, -3, -5, -3, -7, -7, -19)
-        for i in _range(len(NIALL)):
+        for i in range(len(NIALL)):
             self.assertEqual(gotoh(NIALL[0], NIALL[i], 2, 2, _sim_nw),
                              nw_vals[i])
         nw_vals2 = (5, 0, -2, 3, 1, 1, -2, -2, -1, -2, -3, -3, -2, -6, -6, -8)
-        for i in _range(len(NIALL)):
+        for i in range(len(NIALL)):
             self.assertEqual(gotoh(NIALL[0], NIALL[i], 2, 1, _sim_nw),
                              nw_vals2[i])
             self.assertGreaterEqual(gotoh(NIALL[0], NIALL[i], 2, 0.5, _sim_nw),

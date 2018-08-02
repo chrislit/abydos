@@ -36,13 +36,13 @@ from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
     L_FRENCH, L_GERMAN, L_GREEK, L_GREEKLATIN, L_HEBREW, L_HUNGARIAN, \
     L_ITALIAN, L_LATVIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, L_SPANISH, \
     L_TURKISH
-from abydos._compat import _unicode
 from abydos.phonetic import alpha_sis, bmpm, caverphone, dm_soundex, \
     double_metaphone, fuzzy_soundex, koelner_phonetik, \
     koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, metaphone, mra, \
     nysiis, phonem, phonet, phonex, phonix, russell_index, \
     russell_index_alpha, russell_index_num_to_alpha, sfinxbis, soundex, spfc
 
+from six import text_type
 
 TESTDIR = os.path.dirname(__file__)
 
@@ -4123,7 +4123,7 @@ class BeiderMorseTestCases(unittest.TestCase):
             for name_mode in ('gen', 'ash', 'sep'):
                 for match_mode in ('approx', 'exact'):
                     for concat in (False, True):
-                        if (isinstance(langs, _unicode) and
+                        if (isinstance(langs, text_type) and
                             ((name_mode == 'ash' and 'italian' in langs) or
                              (name_mode == 'sep' and 'english' in langs))):
                             self.assertRaises(ValueError, bmpm, '', langs,

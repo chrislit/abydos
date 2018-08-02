@@ -70,7 +70,9 @@ from collections import Counter, defaultdict
 
 import numpy as np
 
-from ._compat import _range, _unicode
+from six import text_type
+from six.moves import range
+
 from .compression import ac_encode, ac_train, rle_encode
 from .phonetic import mra
 from .qgram import QGrams
@@ -155,13 +157,13 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     # pylint: disable=no-member
     d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
     # pylint: enable=no-member
-    for i in _range(len(src)+1):
+    for i in range(len(src)+1):
         d_mat[i, 0] = i * del_cost
-    for j in _range(len(tar)+1):
+    for j in range(len(tar)+1):
         d_mat[0, j] = j * ins_cost
 
-    for i in _range(len(src)):
-        for j in _range(len(tar)):
+    for i in range(len(src)):
+        for j in range(len(tar)):
             d_mat[i+1, j+1] = min(
                 d_mat[i+1, j] + ins_cost,  # ins
                 d_mat[i, j+1] + del_cost,  # del
@@ -318,23 +320,23 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
 
     src_index_by_character = {}
     src_index_by_character[src[0]] = 0
-    for i in _range(1, len(src)):
+    for i in range(1, len(src)):
         del_distance = d_mat[i-1, 0] + del_cost
         ins_distance = (i+1) * del_cost + ins_cost
         match_distance = (i * del_cost +
                           (0 if src[i] == tar[0] else sub_cost))
         d_mat[i, 0] = min(del_distance, ins_distance, match_distance)
 
-    for j in _range(1, len(tar)):
+    for j in range(1, len(tar)):
         del_distance = (j+1) * ins_cost + del_cost
         ins_distance = d_mat[0, j-1] + ins_cost
         match_distance = (j * ins_cost +
                           (0 if src[0] == tar[j] else sub_cost))
         d_mat[0, j] = min(del_distance, ins_distance, match_distance)
 
-    for i in _range(1, len(src)):
+    for i in range(1, len(src)):
         max_src_letter_match_index = (0 if src[i] == tar[0] else -1)
-        for j in _range(1, len(tar)):
+        for j in range(1, len(tar)):
             candidate_swap_index = (-1 if tar[j] not in
                                     src_index_by_character else
                                     src_index_by_character[tar[j]])
@@ -1170,7 +1172,7 @@ def sim_strcmp95(src, tar, long_strings=False):
     >>> sim_strcmp95('ATCG', 'TAGC')
     0.8333333333333334
     """
-    def _in_range(char):
+    def _inrange(char):
         """Return True if char is in the range (0, 91)."""
         return ord(char) > 0 and ord(char) < 91
 
@@ -1216,10 +1218,10 @@ def sim_strcmp95(src, tar, long_strings=False):
     # Looking only within the search range, count and flag the matched pairs.
     num_com = 0
     yl1 = len(yang) - 1
-    for i in _range(len(ying)):
+    for i in range(len(ying)):
         lowlim = (i - search_range) if (i >= search_range) else 0
         hilim = (i + search_range) if ((i + search_range) <= yl1) else yl1
-        for j in _range(lowlim, hilim+1):
+        for j in range(lowlim, hilim+1):
             if (yang_flag[j] == 0) and (yang[j] == ying[i]):
                 yang_flag[j] = 1
                 ying_flag[i] = 1
@@ -1232,9 +1234,9 @@ def sim_strcmp95(src, tar, long_strings=False):
 
     # Count the number of transpositions
     k = n_trans = 0
-    for i in _range(len(ying)):
+    for i in range(len(ying)):
         if ying_flag[i] != 0:
-            for j in _range(k, len(yang)):
+            for j in range(k, len(yang)):
                 if yang_flag[j] != 0:
                     k = j + 1
                     break
@@ -1245,10 +1247,10 @@ def sim_strcmp95(src, tar, long_strings=False):
     # Adjust for similarities in unmatched characters
     n_simi = 0
     if minv > num_com:
-        for i in _range(len(ying)):
-            if ying_flag[i] == 0 and _in_range(ying[i]):
-                for j in _range(len(yang)):
-                    if yang_flag[j] == 0 and _in_range(yang[j]):
+        for i in range(len(ying)):
+            if ying_flag[i] == 0 and _inrange(ying[i]):
+                for j in range(len(yang)):
+                    if yang_flag[j] == 0 and _inrange(yang[j]):
                         if (ying[i], yang[j]) in adjwt:
                             n_simi += adjwt[(ying[i], yang[j])]
                             yang_flag[j] = 2
@@ -1402,10 +1404,10 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
     # Looking only within the search range, count and flag the matched pairs.
     num_com = 0
     yl1 = lent - 1
-    for i in _range(lens):
+    for i in range(lens):
         lowlim = (i - search_range) if (i >= search_range) else 0
         hilim = (i + search_range) if ((i + search_range) <= yl1) else yl1
-        for j in _range(lowlim, hilim+1):
+        for j in range(lowlim, hilim+1):
             if (tar_flag[j] == 0) and (tar[j] == src[i]):
                 tar_flag[j] = 1
                 src_flag[i] = 1
@@ -1418,9 +1420,9 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
 
     # Count the number of transpositions
     k = n_trans = 0
-    for i in _range(lens):
+    for i in range(lens):
         if src_flag[i] != 0:
-            for j in _range(k, lent):
+            for j in range(k, lent):
                 if tar_flag[j] != 0:
                     k = j + 1
                     break
@@ -1626,7 +1628,7 @@ def lcsstr(src, tar):
     Modifications include:
 
         - conversion to a numpy array in place of a list of lists
-        - conversion to Python 2/3-safe _range from xrange
+        - conversion to Python 2/3-safe range from xrange via six
 
     :param str src, tar: two strings to be compared
     :returns: the longes common substring
@@ -1645,8 +1647,8 @@ def lcsstr(src, tar):
     lengths = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
     # pylint: enable=no-member
     longest, i_longest = 0, 0
-    for i in _range(1, len(src)+1):
-        for j in _range(1, len(tar)+1):
+    for i in range(1, len(src)+1):
+        for j in range(1, len(tar)+1):
             if src[i-1] == tar[j-1]:
                 lengths[i, j] = lengths[i-1, j-1] + 1
                 if lengths[i, j] > longest:
@@ -1752,8 +1754,8 @@ def sim_ratcliff_obershelp(src, tar):
         lengths = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
         # pylint: enable=no-member
         longest, src_longest, tar_longest = 0, 0, 0
-        for i in _range(1, len(src)+1):
-            for j in _range(1, len(tar)+1):
+        for i in range(1, len(src)+1):
+            for j in range(1, len(tar)+1):
                 if src[i-1] == tar[j-1]:
                     lengths[i, j] = lengths[i-1, j-1] + 1
                     if lengths[i, j] > longest:
@@ -1855,11 +1857,11 @@ def mra_compare(src, tar):
     else:
         min_rating = 2
 
-    for _ in _range(2):
+    for _ in range(2):
         new_src = []
         new_tar = []
         minlen = min(len(src), len(tar))
-        for i in _range(minlen):
+        for i in range(minlen):
             if src[i] != tar[i]:
                 new_src.append(src[i])
                 new_tar.append(tar[i])
@@ -2280,12 +2282,12 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
     d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
     # pylint: enable=no-member
 
-    for i in _range(len(src)+1):
+    for i in range(len(src)+1):
         d_mat[i, 0] = -(i * gap_cost)
-    for j in _range(len(tar)+1):
+    for j in range(len(tar)+1):
         d_mat[0, j] = -(j * gap_cost)
-    for i in _range(1, len(src)+1):
-        for j in _range(1, len(tar)+1):
+    for i in range(1, len(src)+1):
+        for j in range(1, len(tar)+1):
             match = d_mat[i-1, j-1] + sim_func(src[i-1], tar[j-1])
             delete = d_mat[i-1, j] - gap_cost
             insert = d_mat[i, j-1] - gap_cost
@@ -2322,12 +2324,12 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
     d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
     # pylint: enable=no-member
 
-    for i in _range(len(src)+1):
+    for i in range(len(src)+1):
         d_mat[i, 0] = 0
-    for j in _range(len(tar)+1):
+    for j in range(len(tar)+1):
         d_mat[0, j] = 0
-    for i in _range(1, len(src)+1):
-        for j in _range(1, len(tar)+1):
+    for i in range(1, len(src)+1):
+        for j in range(1, len(tar)+1):
             match = d_mat[i-1, j-1] + sim_func(src[i-1], tar[j-1])
             delete = d_mat[i-1, j] - gap_cost
             insert = d_mat[i, j-1] - gap_cost
@@ -2372,19 +2374,19 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
     d_mat[0, 0] = 0
     p_mat[0, 0] = float('-inf')
     q_mat[0, 0] = float('-inf')
-    for i in _range(1, len(src)+1):
+    for i in range(1, len(src)+1):
         d_mat[i, 0] = float('-inf')
         p_mat[i, 0] = -gap_open - gap_ext*(i-1)
         q_mat[i, 0] = float('-inf')
         q_mat[i, 1] = -gap_open
-    for j in _range(1, len(tar)+1):
+    for j in range(1, len(tar)+1):
         d_mat[0, j] = float('-inf')
         p_mat[0, j] = float('-inf')
         p_mat[1, j] = -gap_open
         q_mat[0, j] = -gap_open - gap_ext*(j-1)
 
-    for i in _range(1, len(src)+1):
-        for j in _range(1, len(tar)+1):
+    for i in range(1, len(src)+1):
+        for j in range(1, len(tar)+1):
             sim_val = sim_func(src[i-1], tar[j-1])
             d_mat[i, j] = max(d_mat[i-1, j-1] + sim_val,
                               p_mat[i-1, j-1] + sim_val,
@@ -2479,7 +2481,7 @@ def sim_prefix(src, tar):
         return 0.0
     min_word, max_word = (src, tar) if len(src) < len(tar) else (tar, src)
     min_len = len(min_word)
-    for i in _range(min_len, 0, -1):
+    for i in range(min_len, 0, -1):
         if min_word[:i] == max_word[:i]:
             return i/min_len
     return 0.0
@@ -2537,7 +2539,7 @@ def sim_suffix(src, tar):
         return 0.0
     min_word, max_word = (src, tar) if len(src) < len(tar) else (tar, src)
     min_len = len(min_word)
-    for i in _range(min_len, 0, -1):
+    for i in range(min_len, 0, -1):
         if min_word[-i:] == max_word[-i:]:
             return i/min_len
     return 0.0
@@ -2810,8 +2812,8 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
         return r_cost(ch1, ch2)
 
     # convert both src & tar to NFKD normalized unicode
-    src = unicodedata.normalize('NFKD', _unicode(src.upper()))
-    tar = unicodedata.normalize('NFKD', _unicode(tar.upper()))
+    src = unicodedata.normalize('NFKD', text_type(src.upper()))
+    tar = unicodedata.normalize('NFKD', text_type(tar.upper()))
     # convert ß to SS (for Python2)
     src = src.replace('ß', 'SS')
     tar = tar.replace('ß', 'SS')
@@ -2832,13 +2834,13 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
     tar = ' '+tar
 
     if not local:
-        for i in _range(1, lens+1):
+        for i in range(1, lens+1):
             d_mat[i, 0] = d_mat[i-1, 0] + d_cost(src[i-1], src[i])
-    for j in _range(1, lent+1):
+    for j in range(1, lent+1):
         d_mat[0, j] = d_mat[0, j-1] + d_cost(tar[j-1], tar[j])
 
-    for i in _range(1, lens+1):
-        for j in _range(1, lent+1):
+    for i in range(1, lens+1):
+        for j in range(1, lent+1):
             d_mat[i, j] = min(d_mat[i-1, j] + d_cost(src[i-1], src[i]),
                               d_mat[i, j-1] + d_cost(tar[j-1], tar[j]),
                               d_mat[i-1, j-1] + r_cost(src[i], tar[j]))
