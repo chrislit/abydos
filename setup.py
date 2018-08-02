@@ -54,6 +54,8 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU General Public License v3 or later \
@@ -68,6 +70,6 @@ setup(
     long_description='\n\n'.join([readfile(f) for f in ('README.rst',
                                                         'HISTORY.rst',
                                                         'AUTHORS.rst')]),
-    install_requires=['numpy'],
+    install_requires=['numpy', 'six'],
     # extras_require = {'LZMA': ['pyliblzma']},
 )
