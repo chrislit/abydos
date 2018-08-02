@@ -27,7 +27,9 @@ import codecs
 from collections import Counter
 from math import log10
 
-from ._compat import _range, _unicode
+from six import text_type
+from six.moves import range
+
 from .corpus import Corpus
 
 
@@ -97,8 +99,8 @@ class NGramCorpus(object):
                     sent = [bos] + sent
                 if eos and eos != '':
                     sent = sent + [eos]
-                for i in _range(2, n_val+1):
-                    for j in _range(len(sent)-i+1):
+                for i in range(2, n_val+1):
+                    for j in range(len(sent)-i+1):
                         self._add_to_ngcorpus(self.ngcorpus, sent[j:j+i], 1)
 
     def get_count(self, ngram, corpus=None):
@@ -127,8 +129,8 @@ class NGramCorpus(object):
             return corpus[None]
 
         # support strings or lists/tuples by splitting strings
-        if isinstance(ngram, (_unicode, str)):
-            ngram = _unicode(ngram).split()
+        if isinstance(ngram, (text_type, str)):
+            ngram = text_type(ngram).split()
 
         # if ngram is not empty, check whether the next element is in the
         # corpus; if so, recurse--if not, return 0

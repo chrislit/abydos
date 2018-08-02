@@ -27,9 +27,10 @@ import unittest
 
 import abydos.phonetic as phonetic
 import abydos.stats as stats
-from abydos._compat import _range
 from abydos.clustering import fingerprint, mean_pairwise_similarity, \
     omission_key, phonetic_fingerprint, qgram_fingerprint, skeleton_key
+
+from six.moves import range
 
 
 NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
@@ -60,13 +61,13 @@ xoyv', )
     def test_fingerprint(self):
         """Test abydos.clustering.fingerprint."""
         self.assertEqual(fingerprint(''), '')
-        for i in _range(len(self._testset)):
+        for i in range(len(self._testset)):
             self.assertEqual(fingerprint(self._testset[i]), self._anssetw[i])
 
     def test_qgram_fingerprint(self):
         """Test abydos.clustering.qgram_fingerprint."""
         self.assertEqual(qgram_fingerprint(''), '')
-        for i in _range(len(self._testset)):
+        for i in range(len(self._testset)):
             self.assertEqual(qgram_fingerprint(self._testset[i], 1),
                              self._anssetq1[i])
             self.assertEqual(qgram_fingerprint(self._testset[i], 2),
@@ -79,7 +80,7 @@ xoyv', )
                           'elgeiglillni', 'elne', 'aleaknlene', 'eiilinllneui',
                           'eiilllneon', 'accneiilmane', 'accnellemane',
                           'acalchgiiaiglalllnninooi')
-        for i in _range(len(NIALL)):
+        for i in range(len(NIALL)):
             self.assertEqual(qgram_fingerprint(NIALL[i]), qgram_fp_niall[i])
 
     def test_phonetic_fingerprint(self):

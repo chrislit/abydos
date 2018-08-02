@@ -48,8 +48,10 @@ import unicodedata
 from collections import Counter
 from itertools import groupby
 
+from six import text_type
+from six.moves import range
+
 from ._bm import _bmpm
-from ._compat import _range, _unicode
 
 _INFINITY = float('inf')
 
@@ -88,7 +90,7 @@ def russell_index(word):
                                      'ABCDEFGIKLMNOPQRSTUVXYZ'),
                                     '12341231356712383412313'))
 
-    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = word.replace('GH', '')  # discard gh (rule 3)
     word = word.rstrip('SZ')  # discard /[sz]$/ (rule 3)
@@ -129,7 +131,7 @@ def russell_index_num_to_alpha(num):
     """
     _russell_num_translation = dict(zip((ord(_) for _ in '12345678'),
                                         'ABCDLMNR'))
-    num = ''.join(c for c in _unicode(num) if c in frozenset('12345678'))
+    num = ''.join(c for c in text_type(num) if c in frozenset('12345678'))
     if num:
         return num.translate(_russell_num_translation)
     return ''
@@ -234,7 +236,7 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
         maxlength = 64
 
     # uppercase, normalize, decompose, and filter non-A-Z out
-    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
@@ -388,7 +390,7 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
         maxlength = 64
 
     # uppercase, normalize, decompose, and filter non-A-Z
-    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
@@ -424,10 +426,10 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
 
                 # Build the code strings
                 if isinstance(dm_val, tuple):
-                    dms = [_ + _unicode(dm_val[0]) for _ in dms] \
-                            + [_ + _unicode(dm_val[1]) for _ in dms]
+                    dms = [_ + text_type(dm_val[0]) for _ in dms] \
+                            + [_ + text_type(dm_val[1]) for _ in dms]
                 else:
-                    dms = [_ + _unicode(dm_val) for _ in dms]
+                    dms = [_ + text_type(dm_val) for _ in dms]
                 pos += len(sstr)
                 break
 
@@ -486,7 +488,7 @@ def koelner_phonetik(word):
 
     sdx = ''
 
-    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
 
     word = word.replace('Ä', 'AE')
@@ -499,7 +501,7 @@ def koelner_phonetik(word):
     if not word:
         return sdx
 
-    for i in _range(len(word)):
+    for i in range(len(word)):
         if word[i] in _vowels:
             sdx += '0'
         elif word[i] == 'B':
@@ -568,7 +570,7 @@ def koelner_phonetik_num_to_alpha(num):
     """
     _koelner_num_translation = dict(zip((ord(_) for _ in '012345678'),
                                         'APTFKLNRS'))
-    num = ''.join(c for c in _unicode(num) if c in frozenset('012345678'))
+    num = ''.join(c for c in text_type(num) if c in frozenset('012345678'))
     return num.translate(_koelner_num_translation)
 
 
@@ -647,7 +649,7 @@ def nysiis(word, maxlength=6):
     key = word[0]
 
     skip = 0
-    for i in _range(1, len(word)):
+    for i in range(1, len(word)):
         if i >= len(word):
             continue
         elif skip:
@@ -784,7 +786,7 @@ def metaphone(word, maxlength=_INFINITY):
     # Convert to metaph
     elen = len(ename)-1
     metaph = ''
-    for i in _range(len(ename)):
+    for i in range(len(ename)):
         if len(metaph) >= maxlength:
             break
         if ((ename[i] not in frozenset('GT') and
@@ -1830,7 +1832,7 @@ def alpha_sis(word, maxlength=14):
 
     alpha = ['']
     pos = 0
-    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
@@ -1860,7 +1862,7 @@ def alpha_sis(word, maxlength=14):
             if word[pos:].startswith(k):
                 if isinstance(_alpha_sis_basic[k], tuple):
                     newalpha = []
-                    for i in _range(len(_alpha_sis_basic[k])):
+                    for i in range(len(_alpha_sis_basic[k])):
                         newalpha += [_ + _alpha_sis_basic[k][i] for _ in alpha]
                     alpha = newalpha
                 else:
@@ -1872,7 +1874,7 @@ def alpha_sis(word, maxlength=14):
             pos += 1
 
     # Trim doublets and placeholders
-    for i in _range(len(alpha)):
+    for i in range(len(alpha)):
         pos = 1
         while pos < len(alpha[i]):
             if alpha[i][pos] == alpha[i][pos-1]:
@@ -1913,7 +1915,7 @@ def fuzzy_soundex(word, maxlength=5, zero_pad=True):
                                            'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
                                           '0193017-07745501769301-7-9'))
 
-    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
 
     # Clamp maxlength to [4, 64]
@@ -2013,7 +2015,7 @@ def phonex(word, maxlength=4, zero_pad=True):
     >>> phonex('Smith')
     'S530'
     """
-    name = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    name = unicodedata.normalize('NFKD', text_type(word.upper()))
     name = name.replace('ß', 'SS')
 
     # Clamp maxlength to [4, 64]
@@ -2065,7 +2067,7 @@ def phonex(word, maxlength=4, zero_pad=True):
         name_code = last = name[0]
 
     # MODIFIED SOUNDEX CODE
-    for i in _range(1, len(name)):
+    for i in range(1, len(name)):
         code = '0'
         if name[i] in frozenset('BPFV'):
             code = '1'
@@ -2134,7 +2136,7 @@ def phonem(word):
                                     'ZKGQÇÑßFWPTÁÀÂÃÅÄÆÉÈÊËIJÌÍÎÏÜÝ§ÚÙÛÔÒÓÕØ'),
                                    'CCCCCNSVVBDAAAAAEEEEEEYYYYYYYYUUUUOOOOÖ'))
 
-    word = unicodedata.normalize('NFC', _unicode(word.upper()))
+    word = unicodedata.normalize('NFC', text_type(word.upper()))
     for i, j in _phonem_substitutions:
         word = word.replace(i, j)
     word = word.translate(_phonem_translation)
@@ -2324,7 +2326,7 @@ def phonix(word, maxlength=4, zero_pad=True):
 
     sdx = ''
 
-    word = unicodedata.normalize('NFKD', _unicode(word.upper()))
+    word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
@@ -2465,7 +2467,7 @@ def sfinxbis(word, maxlength=None):
         return ordet
 
     # Steg 1, Versaler
-    word = unicodedata.normalize('NFC', _unicode(word.upper()))
+    word = unicodedata.normalize('NFC', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = word.replace('-', ' ')
 
@@ -3624,13 +3626,13 @@ def phonet(word, mode=1, lang='de', trace=False):
             alpha_pos[j] = i + 2
             phonet_hash[j] = -1
 
-        for i in _range(26):
-            for j in _range(28):
+        for i in range(26):
+            for j in range(28):
                 phonet_hash_1[i, j] = -1
                 phonet_hash_2[i, j] = -1
 
         # for each phonetc rule
-        for i in _range(len(_phonet_rules)):
+        for i in range(len(_phonet_rules)):
             rule = _phonet_rules[i]
 
             if rule and i % 3 == 0:
@@ -4089,7 +4091,7 @@ def phonet(word, mode=1, lang='de', trace=False):
 
     _initialize_phonet(lang)
 
-    word = unicodedata.normalize('NFKC', _unicode(word))
+    word = unicodedata.normalize('NFKC', text_type(word))
     return _phonet(word, mode, lang, trace)
 
 
@@ -4144,7 +4146,7 @@ def spfc(word):
     if not word:
         return ''
 
-    if isinstance(word, (str, _unicode)):
+    if isinstance(word, (str, text_type)):
         names = word.split('.', 1)
         if len(names) != 2:
             names = word.split(' ', 1)
@@ -4157,9 +4159,9 @@ def spfc(word):
     else:
         _raise_word_ex()
 
-    names = [unicodedata.normalize('NFKD', _unicode(_.strip()
-                                                    .replace('ß', 'SS')
-                                                    .upper()))
+    names = [unicodedata.normalize('NFKD', text_type(_.strip()
+                                                     .replace('ß', 'SS')
+                                                     .upper()))
              for _ in names]
     code = ''
 
@@ -4229,7 +4231,7 @@ def spfc(word):
     # letter.
     # 8. The fifth digit is found in the same manner as the fourth using the
     # remaining characters of the name field if any.
-    for _ in _range(2):
+    for _ in range(2):
         if names[1]:
             code += names[1][0].translate(_pf2)
             names[1] = names[1][1:]

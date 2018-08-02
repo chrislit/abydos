@@ -65,7 +65,8 @@ from __future__ import division, unicode_literals
 import math
 from collections import Counter
 
-from ._compat import _range
+from six.moves import range
+
 from .util import prod
 
 
@@ -1136,7 +1137,7 @@ def hmean(nums):
     elif len(nums) == 1:
         return nums[0]
     else:
-        for i in _range(1, len(nums)):
+        for i in range(1, len(nums)):
             if nums[0] != nums[i]:
                 break
         else:
@@ -1218,9 +1219,9 @@ def lmean(nums):
     if len(nums) != len(set(nums)):
         raise AttributeError('No two values in the nums list may be equal.')
     rolling_sum = 0
-    for i in _range(len(nums)):
+    for i in range(len(nums)):
         rolling_prod = 1
-        for j in _range(len(nums)):
+        for j in range(len(nums)):
             if i != j:
                 rolling_prod *= (math.log(nums[i]/nums[j]))
         rolling_sum += nums[i]/rolling_prod
@@ -1335,8 +1336,8 @@ def heronian_mean(nums):
     """
     mag = len(nums)
     rolling_sum = 0
-    for i in _range(mag):
-        for j in _range(i, mag):
+    for i in range(mag):
+        for j in range(i, mag):
             if nums[i] == nums[j]:
                 rolling_sum += nums[i]
             else:

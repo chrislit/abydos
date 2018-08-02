@@ -31,18 +31,16 @@ from __future__ import division, unicode_literals
 
 import math
 import random
-import sys
 from operator import mul
 
 import numpy as np
 
-from ._compat import _long, _range, _unicode, numeric_type
+from six import PY3, integer_types, text_type
+from six.moves import range, reduce
 
-if sys.version_info[0] == 3:
-    # pylint: disable=redefined-builtin
-    from functools import reduce    # pragma: no cover
-    # pylint: enable=redefined-builtin
-
+numeric_types = integer_types + (complex, float)
+if PY3:
+    long = int
 
 _NAN = float('-nan')
 
@@ -119,11 +117,11 @@ def jitter(nums, factor=1, amount=_NAN, min_val=None, max_val=None,
     >>> jitter([i**2 for i in range(3)], min_val=0)
     [0.046097833594303306, 0.9419551458754979, 3.9414353766272496]
     """
-    if isinstance(nums, numeric_type):
+    if isinstance(nums, numeric_types):
         return jitter([nums])[0]
     if not nums:
         return []
-    if sum(isinstance(i, numeric_type) for i in nums) != len(nums):
+    if sum(isinstance(i, numeric_types) for i in nums) != len(nums):
         raise AttributeError('All members of nums must be numeric.')
 
     rng = (min(nums), max(nums))
@@ -208,7 +206,7 @@ def jitter(nums, factor=1, amount=_NAN, min_val=None, max_val=None,
     # Check that we haven't introduced values that exceed specified bounds
     # and aren't too far outside of normal
     # (This is an addition to the standard R algorithm)
-    for i in _range(len(newnums)):
+    for i in range(len(newnums)):
         while newnums[i] < min_val or newnums[i] > max_val:
             newnums[i] = (newnums[i] + _rand())  # pragma: no cover
 
@@ -227,8 +225,8 @@ class Rational(object):
     """
 
     # pylint: disable=invalid-name
-    p = _long(0)
-    q = _long(1)
+    p = long(0)
+    q = long(1)
 
     def __init__(self, p=0, q=1):
         """Construct a Rational object.
@@ -254,7 +252,7 @@ class Rational(object):
         2/5
         """
         # First try to interpret a string as a numeric value
-        if isinstance(p, (_unicode, str)):
+        if isinstance(p, (str, text_type)):
             # pylint: disable=maybe-no-member
             p = p.replace(' ', '')
             if '/' in p:
@@ -262,29 +260,29 @@ class Rational(object):
                 if '.' in q:
                     q = float(q)
                 else:
-                    q = _long(q)
+                    q = long(q)
             if '.' in p:
                 p = float(p)
             else:
-                p = _long(p)
+                p = long(p)
 
         # Then divide determine numeric values for p & q
-        if isinstance(p, (int, _long)) and isinstance(q, (int, _long)):
-            self.p = _long(p)
-            self.q = _long(q)
-        elif isinstance(p, float) and isinstance(q, (int, _long)):
+        if isinstance(p, integer_types) and isinstance(q, integer_types):
+            self.p = long(p)
+            self.q = long(q)
+        elif isinstance(p, float) and isinstance(q, integer_types):
             pfloat_p, pfloat_q = p.as_integer_ratio()
-            self.p = _long(pfloat_p)
-            self.q = _long(pfloat_q) * _long(q)
-        elif isinstance(p, (int, _long)) and isinstance(q, float):
+            self.p = long(pfloat_p)
+            self.q = long(pfloat_q) * long(q)
+        elif isinstance(p, integer_types) and isinstance(q, float):
             qfloat_p, qfloat_q = q.as_integer_ratio()
-            self.p = _long(p) * _long(qfloat_q)
-            self.q = _long(qfloat_p)
+            self.p = long(p) * long(qfloat_q)
+            self.q = long(qfloat_p)
         elif isinstance(p, float) and isinstance(q, float):
             pfloat_p, pfloat_q = p.as_integer_ratio()
             qfloat_p, qfloat_q = q.as_integer_ratio()
-            self.p = _long(pfloat_p) * _long(qfloat_q)
-            self.q = _long(pfloat_q) * _long(qfloat_p)
+            self.p = long(pfloat_p) * long(qfloat_q)
+            self.q = long(pfloat_q) * long(qfloat_p)
         else:
             raise AttributeError('Unsupported values, both p and q must be ' +
                                  'of type int, long, or float or p must be ' +

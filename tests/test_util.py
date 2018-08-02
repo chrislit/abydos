@@ -25,8 +25,14 @@ from __future__ import unicode_literals
 
 import unittest
 
-from abydos._compat import _long, _range
+from six import PY3
+
 from abydos.util import Rational, jitter, prod
+
+from six.moves import range
+
+if PY3:
+    long = int
 
 
 class ProdTestCases(unittest.TestCase):
@@ -49,15 +55,15 @@ class ProdTestCases(unittest.TestCase):
         self.assertEqual(prod([1, 2, 3, 4, 5]), 120)
         self.assertEqual(prod((1, 2, 3, 4, 5)), 120)
         self.assertEqual(prod({1, 2, 3, 4, 5}), 120)
-        self.assertEqual(prod(_range(1, 6)), 120)
-        self.assertEqual(prod(list(_range(1, 6))), 120)
-        self.assertEqual(prod(tuple(_range(1, 6))), 120)
-        self.assertEqual(prod(set(_range(1, 6))), 120)
+        self.assertEqual(prod(range(1, 6)), 120)
+        self.assertEqual(prod(list(range(1, 6))), 120)
+        self.assertEqual(prod(tuple(range(1, 6))), 120)
+        self.assertEqual(prod(set(range(1, 6))), 120)
 
-        self.assertEqual(prod(_range(6)), 0)
-        self.assertEqual(prod(list(_range(6))), 0)
-        self.assertEqual(prod(tuple(_range(6))), 0)
-        self.assertEqual(prod(set(_range(6))), 0)
+        self.assertEqual(prod(range(6)), 0)
+        self.assertEqual(prod(list(range(6))), 0)
+        self.assertEqual(prod(tuple(range(6))), 0)
+        self.assertEqual(prod(set(range(6))), 0)
 
 
 class JitterTestCases(unittest.TestCase):
@@ -75,7 +81,7 @@ class JitterTestCases(unittest.TestCase):
         self.assertEqual(len(jitter((0, 0, 0, 0, 0))), 5)
         self.assertEqual(len(jitter([1, 1, 1, 1, 1], min_val=0, max_val=2)), 5)
         self.assertEqual(len(jitter({1, 2, 3, 4, 5})), 5)
-        self.assertEqual(len(jitter(_range(5))), 5)
+        self.assertEqual(len(jitter(range(5))), 5)
         self.assertRaises(AttributeError, jitter, ['a'])
         self.assertRaises(AttributeError, jitter, [1, 2, 3, 'a', 4])
         self.assertRaises(AttributeError, jitter, [0, 0, 0, 'a', 0])
@@ -106,8 +112,8 @@ class RationalTestCases(unittest.TestCase):
     half_6 = Rational(0.25, 0.5)
     half_7 = Rational('1 / 2')
     half_8 = Rational('2.5 /5.0')
-    half_9 = Rational(_long(1), 2)
-    half_A = Rational(2.0, _long(4))
+    half_9 = Rational(long(1), 2)
+    half_A = Rational(2.0, long(4))
 
     third = Rational(1, 3)
     twosevenths = Rational(2, 7)

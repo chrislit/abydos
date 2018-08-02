@@ -25,7 +25,8 @@ from __future__ import division, unicode_literals
 
 import unicodedata
 
-from ._compat import _range, _unicode
+from six import text_type
+from six.moves import range
 
 
 PHONETIC_FEATURES = {'t': 2783230754502126250,
@@ -592,13 +593,13 @@ def ipa_to_features(ipa):
     """
     features = []
     pos = 0
-    ipa = unicodedata.normalize('NFD', _unicode(ipa.lower()))
+    ipa = unicodedata.normalize('NFD', text_type(ipa.lower()))
 
     maxsymlen = max(len(_) for _ in PHONETIC_FEATURES)
 
     while pos < len(ipa):
         found_match = False
-        for i in _range(maxsymlen, 0, -1):
+        for i in range(maxsymlen, 0, -1):
             if pos+i-1 <= len(ipa) and ipa[pos:pos+i] in PHONETIC_FEATURES:
                 features.append(PHONETIC_FEATURES[ipa[pos:pos+i]])
                 pos += i

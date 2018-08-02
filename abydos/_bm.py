@@ -31,11 +31,16 @@ from __future__ import unicode_literals
 import re
 import unicodedata
 
+from six import PY3, text_type
+from six.moves import range
+
 from ._bmdata import BMDATA, L_ANY, L_ARABIC, L_CYRILLIC, L_CZECH, L_DUTCH, \
     L_ENGLISH, L_FRENCH, L_GERMAN, L_GREEK, L_GREEKLATIN, L_HEBREW, \
     L_HUNGARIAN, L_ITALIAN, L_LATVIAN, L_NONE, L_POLISH, L_PORTUGUESE, \
     L_ROMANIAN, L_RUSSIAN, L_SPANISH, L_TURKISH
-from ._compat import _long, _range, _unicode
+
+if PY3:
+    long = int
 
 _LANG_DICT = {'any': L_ANY, 'arabic': L_ARABIC, 'cyrillic': L_CYRILLIC,
               'czech': L_CZECH, 'dutch': L_DUTCH, 'english': L_ENGLISH,
@@ -187,7 +192,7 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
     # apply language rules to map to phonetic alphabet
     phonetic = ''
     skip = 0
-    for i in _range(term_length):
+    for i in range(term_length):
         if skip:
             skip -= 1
             continue
@@ -259,7 +264,7 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
     phonetic = _bm_expand_alternates(phonetic)
     phonetic_array = phonetic.split('|')
 
-    for k in _range(len(phonetic_array)):
+    for k in range(len(phonetic_array)):
         phonetic = phonetic_array[k]
         phonetic2 = ''
         phoneticx = _bm_normalize_lang_attrs(phonetic, True)
@@ -362,7 +367,7 @@ def _bm_expand_alternates(phonetic):
     alt_array = alt_string.split('|')
     result = ''
 
-    for i in _range(len(alt_array)):
+    for i in range(len(alt_array)):
         alt = alt_array[i]
         alternate = _bm_expand_alternates(prefix+alt+suffix)
         if alternate != '' and alternate != '[0]':
@@ -419,7 +424,7 @@ def _bm_remove_dupes(phonetic):
     alt_array = alt_string.split('|')
 
     result = '|'
-    for i in _range(len(alt_array)):
+    for i in range(len(alt_array)):
         alt = alt_array[i]
         if alt and '|'+alt+'|' not in result:
             result += alt+'|'
@@ -449,7 +454,7 @@ def _bm_normalize_lang_attrs(text, strip):
         bracket_end = text.find(']', bracket_start)
         if bracket_end == -1:
             raise ValueError('No closing square bracket: text=(' +
-                             text + ') strip=(' + _unicode(strip) + ')')
+                             text + ') strip=(' + text_type(strip) + ')')
         attrib = attrib & int(text[bracket_start+1:bracket_end])
         text = text[:bracket_start] + text[bracket_end+1:]
 
@@ -496,7 +501,7 @@ def _bm_apply_rule_if_compat(phonetic, target, language_arg):
     candidate = ''
     found = False
 
-    for i in _range(len(candidate_array)):
+    for i in range(len(candidate_array)):
         this_candidate = candidate_array[i]
         if language_arg != 1:
             this_candidate = _bm_normalize_lang_attrs(this_candidate + '[' +
@@ -560,7 +565,7 @@ def _bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     :param bool concat: concatenation mode
     :param bool filter_langs: filter out incompatible languages
     """
-    word = unicodedata.normalize('NFC', _unicode(word.strip().lower()))
+    word = unicodedata.normalize('NFC', text_type(word.strip().lower()))
 
     name_mode = name_mode.strip().lower()[:3]
     if name_mode not in frozenset(['ash', 'sep', 'gen']):
@@ -573,10 +578,10 @@ def _bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     # a set of languages
     all_langs = sum(_LANG_DICT[_] for _ in BMDATA[name_mode]['languages'])-1
     lang_choices = 0
-    if isinstance(language_arg, (int, float, _long)):
+    if isinstance(language_arg, (int, float, long)):
         lang_choices = int(language_arg)
-    elif language_arg != '' and isinstance(language_arg, (_unicode, str)):
-        for lang in _unicode(language_arg).lower().split(','):
+    elif language_arg != '' and isinstance(language_arg, (text_type, str)):
+        for lang in text_type(language_arg).lower().split(','):
             if lang in _LANG_DICT and (_LANG_DICT[lang] & all_langs):
                 lang_choices += _LANG_DICT[lang]
             elif not filter_langs:

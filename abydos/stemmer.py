@@ -31,7 +31,8 @@ from __future__ import unicode_literals
 
 import unicodedata
 
-from ._compat import _range, _unicode
+from six import text_type
+from six.moves import range
 
 
 def lovins(word):
@@ -56,7 +57,7 @@ def lovins(word):
     # pylint: disable=too-many-branches, too-many-locals
 
     # lowercase, normalize, and compose
-    word = unicodedata.normalize('NFC', _unicode(word.lower()))
+    word = unicodedata.normalize('NFC', text_type(word.lower()))
 
     def cond_b(word, suffix_len):
         """Return Lovins' condition B."""
@@ -282,7 +283,7 @@ def lovins(word):
               'yl': cond_r, '\'s': None, 's\'': None, 'a': None,
               'e': None, 'i': None, 'o': None, 's': cond_w, 'y': cond_b}
 
-    for suffix_len in _range(11, 0, -1):
+    for suffix_len in range(11, 0, -1):
         ending = word[-suffix_len:]
         if (ending in suffix and
                 len(word)-suffix_len >= 2 and
@@ -459,7 +460,7 @@ def porter(word, early_english=False):
     # pylint: disable=too-many-branches
 
     # lowercase, normalize, and compose
-    word = unicodedata.normalize('NFC', _unicode(word.lower()))
+    word = unicodedata.normalize('NFC', text_type(word.lower()))
 
     # Return word if stem is shorter than 2
     if len(word) < 3:
@@ -469,7 +470,7 @@ def porter(word, early_english=False):
     # Re-map consonantal y to Y (Y will be C, y will be V)
     if word[0] == 'y':
         word = 'Y' + word[1:]
-    for i in _range(1, len(word)):
+    for i in range(1, len(word)):
         if word[i] == 'y' and word[i-1] in _vowels:
             word = word[:i] + 'Y' + word[i+1:]
 
@@ -677,7 +678,7 @@ def porter(word, early_english=False):
         word = word[:-1]
 
     # Change 'Y' back to 'y' if it survived stemming
-    for i in _range(len(word)):
+    for i in range(len(word)):
         if word[i] == 'Y':
             word = word[:i] + 'y' + word[i+1:]
 
@@ -692,7 +693,7 @@ def _sb_r1(term, vowels, r1_prefixes=None):
             if term[:len(prefix)] == prefix:
                 return len(prefix)
 
-    for i in _range(len(term)):
+    for i in range(len(term)):
         if not vowel_found and term[i] in vowels:
             vowel_found = True
         elif vowel_found and term[i] not in vowels:
@@ -783,7 +784,7 @@ def porter2(word, early_english=False):
                                 'earring', 'proceed', 'exceed', 'succeed'])
 
     # lowercase, normalize, and compose
-    word = unicodedata.normalize('NFC', _unicode(word.lower()))
+    word = unicodedata.normalize('NFC', text_type(word.lower()))
     # replace apostrophe-like characters with U+0027, per
     # http://snowball.tartarus.org/texts/apostrophe.html
     word = word.replace('’', '\'')
@@ -809,7 +810,7 @@ def porter2(word, early_english=False):
     # Re-map vocalic Y to y (Y will be C, y will be V)
     if word[0] == 'y':
         word = 'Y' + word[1:]
-    for i in _range(1, len(word)):
+    for i in range(1, len(word)):
         if word[i] == 'y' and word[i-1] in _vowels:
             word = word[:i] + 'Y' + word[i+1:]
 
@@ -1010,7 +1011,7 @@ def porter2(word, early_english=False):
             word = word[:-1]
 
     # Change 'Y' back to 'y' if it survived stemming
-    for i in _range(0, len(word)):
+    for i in range(0, len(word)):
         if word[i] == 'Y':
             word = word[:i] + 'y' + word[i+1:]
 
@@ -1047,7 +1048,7 @@ def sb_german(word, alternate_vowels=False):
     word = word.replace('ß', 'ss')
 
     if len(word) > 2:
-        for i in _range(2, len(word)):
+        for i in range(2, len(word)):
             if word[i] in _vowels and word[i-2] in _vowels:
                 if word[i-1] == 'u':
                     word = word[:i-1] + 'U' + word[i:]
@@ -1138,7 +1139,7 @@ def sb_german(word, alternate_vowels=False):
             word = word[:-2]
 
     # Change 'Y' and 'U' back to lowercase if survived stemming
-    for i in _range(0, len(word)):
+    for i in range(0, len(word)):
         if word[i] == 'Y':
             word = word[:i] + 'y' + word[i+1:]
         elif word[i] == 'U':
@@ -1181,11 +1182,11 @@ def sb_dutch(word):
         return word
 
     # lowercase, normalize, decompose, filter umlauts & acutes out, and compose
-    word = unicodedata.normalize('NFC', _unicode(word.lower()))
+    word = unicodedata.normalize('NFC', text_type(word.lower()))
     _accented = dict(zip((ord(_) for _ in 'äëïöüáéíóú'), 'aeiouaeiou'))
     word = word.translate(_accented)
 
-    for i in _range(len(word)):
+    for i in range(len(word)):
         if i == 0 and word[0] == 'y':
             word = 'Y' + word[1:]
         elif word[i] == 'y' and word[i-1] in _vowels:
@@ -1266,7 +1267,7 @@ def sb_dutch(word):
         word = word[:-2] + word[-1]
 
     # Change 'Y' and 'U' back to lowercase if survived stemming
-    for i in _range(0, len(word)):
+    for i in range(0, len(word)):
         if word[i] == 'Y':
             word = word[:i] + 'y' + word[i+1:]
         elif word[i] == 'I':
@@ -1296,7 +1297,7 @@ def sb_norwegian(word):
     _s_endings = frozenset('bcdfghjlmnoprtvyz')
 
     # lowercase, normalize, and compose
-    word = unicodedata.normalize('NFC', _unicode(word.lower()))
+    word = unicodedata.normalize('NFC', text_type(word.lower()))
 
     r1_start = min(max(3, _sb_r1(word, _vowels)), len(word))
 
@@ -1367,7 +1368,7 @@ def sb_swedish(word):
     _s_endings = frozenset('bcdfghjklmnoprtvy')
 
     # lowercase, normalize, and compose
-    word = unicodedata.normalize('NFC', _unicode(word.lower()))
+    word = unicodedata.normalize('NFC', text_type(word.lower()))
 
     r1_start = min(max(3, _sb_r1(word, _vowels)), len(word))
 
@@ -1434,7 +1435,7 @@ def sb_danish(word):
     _s_endings = frozenset('abcdfghjklmnoprtvyzå')
 
     # lowercase, normalize, and compose
-    word = unicodedata.normalize('NFC', _unicode(word.lower()))
+    word = unicodedata.normalize('NFC', text_type(word.lower()))
 
     r1_start = min(max(3, _sb_r1(word, _vowels)), len(word))
 
@@ -1512,7 +1513,7 @@ def clef_german(word):
     'buchstabier'
     """
     # lowercase, normalize, and compose
-    word = unicodedata.normalize('NFC', _unicode(word.lower()))
+    word = unicodedata.normalize('NFC', text_type(word.lower()))
 
     # remove umlauts
     _umlauts = dict(zip((ord(_) for _ in 'äöü'), 'aou'))
@@ -1553,7 +1554,7 @@ def clef_german_plus(word):
     _st_ending = frozenset('bdfghklmnt')
 
     # lowercase, normalize, and compose
-    word = unicodedata.normalize('NFC', _unicode(word.lower()))
+    word = unicodedata.normalize('NFC', text_type(word.lower()))
 
     # remove umlauts
     _accents = dict(zip((ord(_) for _ in 'äàáâöòóôïìíîüùúû'),
@@ -1647,7 +1648,7 @@ def caumanns(word):
         return ''
 
     upper_initial = word[0].isupper()
-    word = unicodedata.normalize('NFC', _unicode(word.lower()))
+    word = unicodedata.normalize('NFC', text_type(word.lower()))
 
     # # Part 2: Substitution
     # 1. Change umlauts to corresponding vowels & ß to ss
@@ -1657,7 +1658,7 @@ def caumanns(word):
 
     # 2. Change second of doubled characters to *
     newword = word[0]
-    for i in _range(1, len(word)):
+    for i in range(1, len(word)):
         if newword[i-1] == word[i]:
             newword += '*'
         else:
@@ -1700,7 +1701,7 @@ def caumanns(word):
 
     # Expand doubled
     word = ''.join([word[0]] + [word[i-1] if word[i] == '*' else word[i] for
-                                i in _range(1, len(word))])
+                                i in range(1, len(word))])
 
     # Finally, convert gege to ge
     if len(word) > 4:
