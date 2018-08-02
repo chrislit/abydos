@@ -6,6 +6,9 @@ python:
   - 3.4
   - 3.5
   - 3.6
+  - 3.7
+  - "3.6-dev"  # 3.6 development branch
+  - "3.7-dev"  # 3.7 development branch
   #- nightly
   #- pypy3
 
@@ -20,7 +23,7 @@ install:
  
 # Run test
 script:
-  - nosetests --verbose --with-coverage --cover-branches --cover-package=abydos --logging-level=INFO
+  - nosetests --with-coverage --cover-branches --cover-package=abydos --logging-level=INFO --processes=1
  
 # Calculate coverage
 after_success:
