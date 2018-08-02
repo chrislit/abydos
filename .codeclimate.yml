@@ -1,10 +1,21 @@
+---
 version: "2"
-languages:
-  Python: true
+plugins:
+  sonar-python:
+    enabled: true
+  fixme:
+    enabled: true
+  pep8:
+    enabled: true
+  pylint:
+    enabled: true
+    channel: "beta"
+  radon:
+    enabled: true
 exclude_patterns:
 - "tests/"
 - "data/"
 - "helpers/"
-- "docs/
+- "docs/"
 - "setup.py"
 - "badge_update.py"
