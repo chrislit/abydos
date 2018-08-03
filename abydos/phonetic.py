@@ -4313,6 +4313,11 @@ def statistics_canada(word, maxlength=4):
     :returns: the Statistics Canada name code value
     :rtype: str
     """
+    # uppercase, normalize, decompose, and filter non-A-Z out
+    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = word.replace('ß', 'SS')
+    word = ''.join(c for c in word if c in
+                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
     if not word:
         return ''
 
