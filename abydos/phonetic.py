@@ -593,15 +593,22 @@ def koelner_phonetik_alpha(word):
     return koelner_phonetik_num_to_alpha(koelner_phonetik(word))
 
 
-def nysiis(word, maxlength=6):
+def nysiis(word, maxlength=6, modified=False):
     """Return the NYSIIS code for a word.
 
     A description of the New York State Identification and Intelligence System
     algorithm can be found at
     https://en.wikipedia.org/wiki/New_York_State_Identification_and_Intelligence_System
 
+    The modified version of this algorithm is described in Appendix B of
+    Lynch, Billy T. and William L. Arends. `Selection of a Surname Coding
+    Procedure for the SRS Record Linkage System.` Statistical Reporting
+    Service, U.S. Department of Agriculture, Washington, D.C. February 1977.
+    https://naldc.nal.usda.gov/download/27833/PDF
+
     :param str word: the word to transform
     :param int maxlength: the maximum length (default 6) of the code to return
+    :param bool modified: indicates whether to use USDA modified NYSIIS
     :returns: the NYSIIS value
     :rtype: str
 
@@ -621,7 +628,7 @@ def nysiis(word, maxlength=6):
     if maxlength:
         maxlength = max(6, maxlength)
 
-    _vowels = frozenset('AEIOU')
+    _vowels = {'A', 'E', 'I', 'O', 'U'}
 
     word = ''.join(c for c in word.upper() if c.isalpha())
     word = word.replace('ß', 'SS')
@@ -630,21 +637,46 @@ def nysiis(word, maxlength=6):
     if not word:
         return ''
 
+    if modified:
+        original_first_char = word[0]
+
     if word[:3] == 'MAC':
         word = 'MCC'+word[3:]
-    if word[:2] == 'KN':
+    elif word[:2] == 'KN':
         word = 'NN'+word[2:]
-    if word[:1] == 'K':
+    elif word[:1] == 'K':
         word = 'C'+word[1:]
-    if word[:2] in frozenset(['PH', 'PF']):
+    elif word[:2] in {'PH', 'PF'}:
         word = 'FF'+word[2:]
-    if word[:3] == 'SCH':
+    elif word[:3] == 'SCH':
         word = 'SSS'+word[3:]
+    elif modified:
+        if word[:2] == 'WR':
+            word = 'RR'+word[2:]
+        elif word[:2] == 'RH':
+            word = 'RR'+word[2:]
+        elif word[:2] == 'DG':
+            word = 'GG'+word[2:]
+        elif word[:1] in _vowels:
+            word = 'A'+word[1:]
 
-    if word[-2:] == 'EE' or word[-2:] == 'IE':
+    if modified and word[-1] in {'S', 'Z'}:
+        word = word[:-1]
+
+    if word[-2:] == 'EE' or word[-2:] == 'IE' or (modified and
+                                                  word[-2:] == 'YE'):
         word = word[:-2]+'Y'
-    if word[-2:] in frozenset(['DT', 'RT', 'RD', 'NT', 'ND']):
+    elif word[-2:] in {'DT', 'RT', 'RD'}:
         word = word[:-2]+'D'
+    elif word[-2:] in {'NT', 'ND'}:
+        word = word[:-2]+('N' if modified else 'D')
+    elif modified:
+        if word[-2:] == 'IX':
+            word = word[:-2]+'ICK'
+        elif word[-2:] == 'EX':
+            word = word[:-2]+'ECK'
+        elif word[-2:] in {'JR', 'SR'}:
+            return 'ERROR'  # TODO: decide how best to return an error
 
     key = word[0]
 
@@ -660,6 +692,8 @@ def nysiis(word, maxlength=6):
             skip = 1
         elif word[i] in _vowels:
             word = word[:i] + 'A' + word[i+1:]
+        elif modified and i != len(word)-1 and word[i] == 'Y':
+            word = word[:i] + 'A' + word[i+1:]
         elif word[i] == 'Q':
             word = word[:i] + 'G' + word[i+1:]
         elif word[i] == 'Z':
@@ -670,11 +704,26 @@ def nysiis(word, maxlength=6):
             word = word[:i] + 'N' + word[i+2:]
         elif word[i] == 'K':
             word = word[:i] + 'C' + word[i+1:]
+        elif modified and i != len(word)-3 and word[i:i+3] == 'SCH':
+            word = word[:i] + 'SSA'
+            skip = 2
         elif word[i:i+3] == 'SCH':
             word = word[:i] + 'SSS' + word[i+3:]
             skip = 2
+        elif modified and i != len(word)-2 and word[i:i+2] == 'SH':
+            word = word[:i] + 'SA' + word[i+2:]
+            skip = 1
         elif word[i:i+2] == 'PH':
             word = word[:i] + 'FF' + word[i+2:]
+            skip = 1
+        elif modified and word[i:i+3] == 'GHT':
+            word = word[:i] + 'TTT' + word[i+3:]
+            skip = 2
+        elif modified and word[i:i+2] == 'DG':
+            word = word[:i] + 'GG' + word[i+2:]
+            skip = 1
+        elif modified and word[i:i+2] == 'WR':
+            word = word[:i] + 'RR' + word[i+2:]
             skip = 1
         elif word[i] == 'H' and (word[i-1] not in _vowels or
                                  word[i+1:i+2] not in _vowels):
@@ -693,6 +742,8 @@ def nysiis(word, maxlength=6):
         key = key[:-2] + 'Y'
     if key[-1:] == 'A':
         key = key[:-1]
+    if modified and word[0] == 'A':
+        word[0] = original_first_char
 
     if maxlength and maxlength < float('inf'):
         key = key[:maxlength]
