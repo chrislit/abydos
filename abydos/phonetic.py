@@ -4292,6 +4292,40 @@ def spfc(word):
     return code
 
 
+def statistics_canada(word, maxlength=4):
+    """Return the Statistics Canada code for a word.
+
+    The original description of this algorithm could not be located, and
+    may only have been specified in an unpublished TR. The coding does not
+    appear to be in use by Statistics Canada any longer. In its place, this is
+    an implementation of the "Census modified Statistics Canada name coding
+    procedure".
+
+    The modified version of this algorithm is described in Appendix B of
+    Lynch, Billy T. and William L. Arends. `Selection of a Surname Coding
+    Procedure for the SRS Record Linkage System.` Statistical Reporting
+    Service, U.S. Department of Agriculture, Washington, D.C. February 1977.
+    https://naldc.nal.usda.gov/download/27833/PDF
+
+    :param str word: the word to transform
+    :param int maxlength: the maximum length (default 6) of the code to return
+    :param bool modified: indicates whether to use USDA modified algorithm
+    :returns: the Statistics Canada name code value
+    :rtype: str
+    """
+    if not word:
+        return ''
+
+    code = word[1:]
+    for vowel in {'A', 'E', 'I', 'O', 'U', 'Y'}:
+           code = code.replace(vowel, '')
+    code = word[0]+code
+    code = _delete_consecutive_repeats(code)
+    code = code.replace(' ', '')
+
+    return code[:maxlength]
+
+
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
     """Return the Beider-Morse Phonetic Matching algorithm code for a word.
