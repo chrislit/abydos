@@ -129,9 +129,8 @@ def ac_encode(text, probs):
         delta <<= 1
     if nbits == 0:  # pragma: no cover
         return 0, 0
-    else:
-        # using -1 instead of /2
-        avg = (maxval + minval) << (nbits-1)
+    # using -1 instead of /2
+    avg = (maxval + minval) << (nbits-1)
     # Could return a rational instead ...
     return avg.p//avg.q, nbits  # the division truncation is deliberate
 
