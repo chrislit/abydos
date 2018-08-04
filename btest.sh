@@ -35,4 +35,4 @@ fi
 
 sphinx-apidoc -F -o docs abydos
 cd docs
-make html epub latexpdf >> /dev/null
+make html epub xelatexpdf >> /dev/null
