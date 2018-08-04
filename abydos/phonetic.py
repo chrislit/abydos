@@ -4424,11 +4424,11 @@ def roger_root(word, maxlength=5, zero_pad=True):
 
     # '*' is used to prevent combining by _delete_consecutive_repeats()
     _init_patterns = {4: {'TSCH': '06'},
-                      3: {'TSH': '06', 'SCH': '06'}
+                      3: {'TSH': '06', 'SCH': '06'},
                       2: {'CE': '0*0', 'CH': '06', 'CI': '0*0', 'CY': '0*0',
                           'DG': '07', 'GF': '08', 'GM': '03', 'GN': '02',
                           'KN': '02', 'PF': '08', 'PH': '08', 'PN': '02',
-                          'SH': '06', 'TS': '0*0', 'WR': '04'}
+                          'SH': '06', 'TS': '0*0', 'WR': '04'},
                       1: {'A': '1', 'B': '09', 'C': '07', 'D': '01', 'E': '1',
                           'F': '08', 'G': '07', 'H': '2', 'I': '1', 'J': '3',
                           'K': '07', 'L': '05', 'M': '03', 'N': '02', 'O': '1',
