@@ -195,9 +195,9 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     'S530'
 
 
-    >>> soundex('Christopher', maxlength=float('inf'))
+    >>> soundex('Christopher', maxlength=_INFINITY)
     'C623160000000000000000000000000000000000000000000000000000000000'
-    >>> soundex('Christopher', maxlength=float('inf'), zero_pad=False)
+    >>> soundex('Christopher', maxlength=_INFINITY, zero_pad=False)
     'C62316'
 
     >>> soundex('Christopher', reverse=True)
@@ -291,12 +291,6 @@ def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False):
                                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
                                         '01360240043788015936020505'))
 
-    # Require a maxlength of at least 4 and not more than 64
-    if maxlength is not None:
-        maxlength = min(max(4, maxlength), 64)
-    else:
-        maxlength = 64
-
     # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
@@ -312,10 +306,11 @@ def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False):
 
     sdx = sdx.replace('0', '')  # rule 1
 
-    if zero_pad:
-        sdx += ('0'*maxlength)  # rule 4
+    if maxlength and maxlength < _INFINITY:
+        sdx = sdx[:maxlength]
+        sdx += ('0' * maxlength)  # rule 4
 
-    return sdx[:maxlength]
+    return sdx
 
 
 def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
@@ -667,7 +662,7 @@ def nysiis(word, maxlength=6, modified=False):
     >>> nysiis('Schmidt')
     'SNAD'
 
-    >>> nysiis('Christopher', maxlength=float('inf'))
+    >>> nysiis('Christopher', maxlength=_INFINITY)
     'CRASTAFAR'
     """
     # Require a maxlength of at least 6
@@ -791,7 +786,7 @@ def nysiis(word, maxlength=6, modified=False):
     if modified and word[0] == 'A':
         word[0] = original_first_char
 
-    if maxlength and maxlength < float('inf'):
+    if maxlength and maxlength < _INFINITY:
         key = key[:maxlength]
 
     return key
@@ -1729,7 +1724,7 @@ def double_metaphone(word, maxlength=_INFINITY):
         else:
             current += 1
 
-    if maxlength and maxlength < float('inf'):
+    if maxlength and maxlength < _INFINITY:
         primary = primary[:maxlength]
         secondary = secondary[:maxlength]
     if primary == secondary:
@@ -2616,7 +2611,7 @@ def sfinxbis(word, maxlength=None):
                 zip((_[0:1] for _ in ordlista), rest)]
 
     # truncate, if maxlength is set
-    if maxlength and maxlength < float('inf'):
+    if maxlength and maxlength < _INFINITY:
         ordlista = [ordet[:maxlength] for ordet in ordlista]
 
     return tuple(ordlista)
@@ -4375,6 +4370,40 @@ def statistics_canada(word, maxlength=4):
     code = code.replace(' ', '')
 
     return code[:maxlength]
+
+
+def lein(word, maxlength=4, zero_pad=True):
+    """Return the Lein code for a word.
+
+    This is Lein name coding, based on
+    https://naldc-legacy.nal.usda.gov/naldc/download.xhtml?id=27833&content=PDF
+
+    :param word:
+    :param maxlength:
+    :param reverse:
+    :param zero_pad:
+    :return:
+    """
+    _lein_translation = dict(zip((ord(_) for _ in
+                                  'ABCDEFGHIJKLMNOPQRSTUVWXYZ '),
+                                 '045104500553220453510405050'))
+
+    # uppercase, normalize, decompose, and filter non-A-Z out
+    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = word.replace('ß', 'SS')
+    word = ''.join(c for c in word if c in
+                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
+
+    # apply the Lein algorithm
+    sdx = word[0] + word[1:].translate(_soundex_translation) # rule 1,4
+
+    sdx = sdx.replace('0', '')  # rule 2
+    sdx = _delete_consecutive_repeats(sdx)  # rule 3
+
+    if zero_pad:
+        sdx += ('0'*maxlength)  # rule 4
+
+    return sdx[:maxlength]
 
 
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
