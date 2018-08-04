@@ -17,15 +17,19 @@ Abydos
    :target: https://landscape.io/github/chrislit/abydos/master
    :alt: Code Health
 
-.. image:: https://img.shields.io/badge/Pylint-9.78/10-green.svg
+.. image:: https://snyk.io/test/github/chrislit/abydos/badge.svg?targetFile=requirements.txt
+    :target: https://snyk.io/test/github/chrislit/abydos?targetFile=requirements.txt
+    :alt: Known Vulnerabilities
+
+.. image:: https://img.shields.io/badge/Pylint-9.75/10-green.svg
    :target: #
    :alt: Pylint Score
 
-.. image:: https://img.shields.io/badge/pycodestyle-0-brightgreen.svg
+.. image:: https://img.shields.io/badge/pycodestyle-23-yellowgreen.svg
    :target: #
    :alt: pycodestyle Errors
 
-.. image:: https://img.shields.io/badge/flake8-48-yellowgreen.svg
+.. image:: https://img.shields.io/badge/flake8-44-yellowgreen.svg
    :target: #
    :alt: flake8 Errors
 
