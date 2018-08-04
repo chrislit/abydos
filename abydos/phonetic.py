@@ -228,6 +228,8 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     # Call the D-M Soundex function itself if requested
     if var == 'dm':
         return dm_soundex(word, maxlength, reverse, zero_pad)
+    elif var == 'refined'
+        return refined_soundex(word, maxlength, reverse, zero_pad)
 
     # Require a maxlength of at least 4 and not more than 64
     if maxlength is not None:
@@ -264,6 +266,50 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
         sdx = word[0] + sdx
     else:
         sdx = word[0] + sdx[1:]
+    sdx = sdx.replace('0', '')  # rule 1
+
+    if zero_pad:
+        sdx += ('0'*maxlength)  # rule 4
+
+    return sdx[:maxlength]
+
+
+def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False):
+    """Return the Refined Soundex code for a word.
+
+    This is Soundex, but with more character classes. It appears to have been
+    defined by the Apache Commons:
+    https://commons.apache.org/proper/commons-codec/apidocs/src-html/org/apache/commons/codec/language/RefinedSoundex.html
+
+    :param word:
+    :param maxlength:
+    :param reverse:
+    :param zero_pad:
+    :return:
+    """
+    _ref_soundex_translation = dict(zip((ord(_) for _ in
+                                         'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+                                        '01360240043788015936020505'))
+
+    # Require a maxlength of at least 4 and not more than 64
+    if maxlength is not None:
+        maxlength = min(max(4, maxlength), 64)
+    else:
+        maxlength = 64
+
+    # uppercase, normalize, decompose, and filter non-A-Z out
+    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = word.replace('ß', 'SS')
+    word = ''.join(c for c in word if c in
+                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
+
+    # Reverse word if computing Reverse Soundex
+    if reverse:
+        word = word[::-1]
+
+    # apply the Soundex algorithm
+    sdx = word.translate(_soundex_translation)
+
     sdx = sdx.replace('0', '')  # rule 1
 
     if zero_pad:
