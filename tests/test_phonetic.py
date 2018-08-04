@@ -38,9 +38,10 @@ from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
     L_TURKISH
 from abydos.phonetic import alpha_sis, bmpm, caverphone, dm_soundex, \
     double_metaphone, fuzzy_soundex, koelner_phonetik, \
-    koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, metaphone, mra, \
-    nysiis, phonem, phonet, phonex, phonix, russell_index, \
-    russell_index_alpha, russell_index_num_to_alpha, sfinxbis, soundex, spfc
+    koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, lein, metaphone, \
+    mra, nysiis, phonem, phonet, phonex, phonix, refined_soundex, roger_root, \
+    russell_index, russell_index_alpha, russell_index_num_to_alpha, sfinxbis, \
+    soundex, spfc, statistics_canada
 
 from six import text_type
 
@@ -130,7 +131,8 @@ class RussellIndexTestCases(unittest.TestCase):
 class SoundexTestCases(unittest.TestCase):
     """Test Soundex functions.
 
-    test cases for abydos.phonetic.soundex & .dm_soundex
+    test cases for abydos.phonetic.soundex, .refined_soundex,
+    & .dm_soundex
     """
 
     def test_soundex(self):
@@ -218,6 +220,99 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(soundex('AsWcroft', var='special'), 'A226')
         self.assertEqual(soundex('Rupert', var='special'), 'R163')
         self.assertEqual(soundex('Rubin', var='special'), 'R150')
+
+    def test_refined_soundex(self):
+        """Test abydos.phonetic.refined_soundex."""
+        # http://ntz-develop.blogspot.com/2011/03/phonetic-algorithms.html
+        self.assertEqual(refined_soundex('Braz'), 'B1905')
+        self.assertEqual(refined_soundex('Broz'), 'B1905')
+        self.assertEqual(refined_soundex('Caren'), 'C30908')
+        self.assertEqual(refined_soundex('Caron'), 'C30908')
+        self.assertEqual(refined_soundex('Carren'), 'C30908')
+        self.assertEqual(refined_soundex('Charon'), 'C30908')
+        self.assertEqual(refined_soundex('Corain'), 'C30908')
+        self.assertEqual(refined_soundex('Coram'), 'C30908')
+        self.assertEqual(refined_soundex('Corran'), 'C30908')
+        self.assertEqual(refined_soundex('Corrin'), 'C30908')
+        self.assertEqual(refined_soundex('Corwin'), 'C30908')
+        self.assertEqual(refined_soundex('Curran'), 'C30908')
+        self.assertEqual(refined_soundex('Curreen'), 'C30908')
+        self.assertEqual(refined_soundex('Currin'), 'C30908')
+        self.assertEqual(refined_soundex('Currom'), 'C30908')
+        self.assertEqual(refined_soundex('Currum'), 'C30908')
+        self.assertEqual(refined_soundex('Curwen'), 'C30908')
+        self.assertEqual(refined_soundex('Caren'), 'C30908')
+        self.assertEqual(refined_soundex('Caren'), 'C30908')
+        self.assertEqual(refined_soundex('Caren'), 'C30908')
+        self.assertEqual(refined_soundex('Caren'), 'C30908')
+        self.assertEqual(refined_soundex('Caren'), 'C30908')
+        self.assertEqual(refined_soundex('Caren'), 'C30908')
+        self.assertEqual(refined_soundex('Caren'), 'C30908')
+        self.assertEqual(refined_soundex('Hairs'), 'H093')
+        self.assertEqual(refined_soundex('Hark'), 'H093')
+        self.assertEqual(refined_soundex('Hars'), 'H093')
+        self.assertEqual(refined_soundex('Hayers'), 'H093')
+        self.assertEqual(refined_soundex('Heers'), 'H093')
+        self.assertEqual(refined_soundex('Hiers'), 'H093')
+        self.assertEqual(refined_soundex('Lambard'), 'L7081096')
+        self.assertEqual(refined_soundex('Lambart'), 'L7081096')
+        self.assertEqual(refined_soundex('Lambert'), 'L7081096')
+        self.assertEqual(refined_soundex('Lambird'), 'L7081096')
+        self.assertEqual(refined_soundex('Lampaert'), 'L7081096')
+        self.assertEqual(refined_soundex('Lampard'), 'L7081096')
+        self.assertEqual(refined_soundex('Lampart'), 'L7081096')
+        self.assertEqual(refined_soundex('Lamperd'), 'L7081096')
+        self.assertEqual(refined_soundex('Lampert'), 'L7081096')
+        self.assertEqual(refined_soundex('Lamport'), 'L7081096')
+        self.assertEqual(refined_soundex('Limbert'), 'L7081096')
+        self.assertEqual(refined_soundex('Lombard'), 'L7081096')
+        self.assertEqual(refined_soundex('Nolton'), 'N807608')
+        self.assertEqual(refined_soundex('Noulton'), 'N807608')
+
+        # http://trimc-nlp.blogspot.com/2015/03/the-soundex-algorithm.html
+        self.assertEqual(refined_soundex('Craig'), 'C3904')
+        self.assertEqual(refined_soundex('Crag'), 'C3904')
+        self.assertEqual(refined_soundex('Crejg'), 'C3904')
+        self.assertEqual(refined_soundex('Creig'), 'C3904')
+        self.assertEqual(refined_soundex('Craigg'), 'C3904')
+        self.assertEqual(refined_soundex('Craug'), 'C3904')
+        self.assertEqual(refined_soundex('Craiggg'), 'C3904')
+        self.assertEqual(refined_soundex('Creg'), 'C3904')
+        self.assertEqual(refined_soundex('Cregg'), 'C3904')
+        self.assertEqual(refined_soundex('Creag'), 'C3904')
+        self.assertEqual(refined_soundex('Greg'), 'C4904')
+        self.assertEqual(refined_soundex('Gregg'), 'C4904')
+        self.assertEqual(refined_soundex('Graig'), 'C4904')
+        self.assertEqual(refined_soundex('Greig'), 'C4904')
+        self.assertEqual(refined_soundex('Greggg'), 'C4904')
+        self.assertEqual(refined_soundex('Groeg'), 'C4904')
+        self.assertEqual(refined_soundex('Graj'), 'C4904')
+        self.assertEqual(refined_soundex('Grej'), 'C4904')
+        self.assertEqual(refined_soundex('Grreg'), 'C4904')
+        self.assertEqual(refined_soundex('Greag'), 'C4904')
+        self.assertEqual(refined_soundex('Grig'), 'C4904')
+        self.assertEqual(refined_soundex('Kregg'), 'K3904')
+        self.assertEqual(refined_soundex('Kraig'), 'K3904')
+        self.assertEqual(refined_soundex('Krag'), 'K3904')
+        self.assertEqual(refined_soundex('Kreig'), 'K3904')
+        self.assertEqual(refined_soundex('Krug'), 'K3904')
+        self.assertEqual(refined_soundex('Kreg'), 'K3904')
+        self.assertEqual(refined_soundex('Krieg'), 'K3904')
+        self.assertEqual(refined_soundex('Krijg'), 'K3904')
+
+        # Apache Commons test cases
+        # http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/RefinedSoundexTest.java?view=markup
+        self.assertEquals(refined_soundex('testing'), 'T6036084')
+        self.assertEquals(refined_soundex('TESTING'), 'T6036084')
+        self.assertEquals(refined_soundex('The'), 'T60')
+        self.assertEquals(refined_soundex('quick'), 'Q503')
+        self.assertEquals(refined_soundex('brown'), 'B1908')
+        self.assertEquals(refined_soundex('fox'), 'F205')
+        self.assertEquals(refined_soundex('jumped'), 'J408106')
+        self.assertEquals(refined_soundex('over'), 'O0209')
+        self.assertEquals(refined_soundex('the'), 'T60')
+        self.assertEquals(refined_soundex('lazy'), 'L7050')
+        self.assertEquals(refined_soundex('dogs'), 'D6043')
 
     def test_dm_soundex(self):
         """Test abydos.phonetic.dm_soundex (Daitchh-Mokotoff Soundex)."""
@@ -489,6 +584,77 @@ class NysiisTestCases(unittest.TestCase):
         self.assertEqual(nysiis('Niall', maxlength=float('inf')), 'NAL')
         self.assertEqual(nysiis('Niall', maxlength=None), 'NAL')
         self.assertEqual(nysiis('Niall', maxlength=0), 'NAL')
+
+    def test_modified_nysiis(self):
+        """Test abydos.phonetic.nysiis (modified version)."""
+        self.assertEqual(nysiis('', modified=True), '')
+
+        # https://naldc-legacy.nal.usda.gov/naldc/download.xhtml?id=27833&content=PDF
+        self.assertEqual(nysiis('Davis', modified=True),
+                         nysiis('Daves', modified=True))
+        self.assertEqual(nysiis('Davis', modified=True),
+                         nysiis('Davies', modified=True))
+        self.assertEqual(nysiis('Davis', modified=True),
+                         nysiis('Devies', modified=True))
+        self.assertEqual(nysiis('Davis', modified=True),
+                         nysiis('Divish', modified=True))
+        self.assertEqual(nysiis('Davis', modified=True),
+                         nysiis('Dove', modified=True))
+        self.assertEqual(nysiis('Davis', modified=True),
+                         nysiis('Devese', modified=True))
+        self.assertEqual(nysiis('Davis', modified=True),
+                         nysiis('Devies', modified=True))
+        self.assertEqual(nysiis('Davis', modified=True),
+                         nysiis('Devos', modified=True))
+
+        self.assertEqual(nysiis('Smith', modified=True),
+                         nysiis('Schmit', modified=True))
+        self.assertEqual(nysiis('Smith', modified=True),
+                         nysiis('Schmitt', modified=True))
+        self.assertEqual(nysiis('Smith', modified=True),
+                         nysiis('Schmitz', modified=True))
+        self.assertEqual(nysiis('Smith', modified=True),
+                         nysiis('Schmoutz', modified=True))
+        self.assertEqual(nysiis('Smith', modified=True),
+                         nysiis('Schnitt', modified=True))
+        self.assertEqual(nysiis('Smith', modified=True),
+                         nysiis('Smit', modified=True))
+        self.assertEqual(nysiis('Smith', modified=True),
+                         nysiis('Smite', modified=True))
+        self.assertEqual(nysiis('Smith', modified=True),
+                         nysiis('Smits', modified=True))
+        self.assertEqual(nysiis('Smith', modified=True),
+                         nysiis('Smoot', modified=True))
+        self.assertEqual(nysiis('Smith', modified=True),
+                         nysiis('Smuts', modified=True))
+        self.assertEqual(nysiis('Smith', modified=True),
+                         nysiis('Sneath', modified=True))
+        self.assertEqual(nysiis('Smith', modified=True),
+                         nysiis('Smyth', modified=True))
+        self.assertEqual(nysiis('Smith', modified=True),
+                         nysiis('Smithy', modified=True))
+        self.assertEqual(nysiis('Smith', modified=True),
+                         nysiis('Smithey', modified=True))
+
+        # Additional tests from @Yomguithereal's talisman
+        # https://github.com/Yomguithereal/talisman/blob/master/test/phonetics/nysiis.js
+        self.assertEqual(nysiis('Andrew', modified=True), 'ANDR')
+        self.assertEqual(nysiis('Robertson', modified=True), 'RABARTSAN')
+        self.assertEqual(nysiis('Nolan', modified=True), 'NALAN')
+        self.assertEqual(nysiis('Louis XVI', modified=True), 'LASXV')
+        self.assertEqual(nysiis('Case', modified=True), 'CAS')
+        self.assertEqual(nysiis('Mclaughlin', modified=True), 'MCLAGHLAN')
+        self.assertEqual(nysiis('Awale', modified=True), 'AL')
+        self.assertEqual(nysiis('Aegir', modified=True), 'AGAR')
+        self.assertEqual(nysiis('Lundgren', modified=True), 'LANGRAN')
+        self.assertEqual(nysiis('Philbert', modified=True), 'FALBAD')
+        self.assertEqual(nysiis('Harry', modified=True), 'HARY')
+        self.assertEqual(nysiis('Mackenzie', modified=True), 'MCANSY')
+
+        # maxlength bounds tests
+        self.assertEqual(nysiis('Niall', maxlength=float('inf'), modified=True), 'NAL')
+        self.assertEqual(nysiis('Niall', maxlength=None, modified=True), 'NAL')
+        self.assertEqual(nysiis('Niall', maxlength=0, modified=True), 'NAL')
 
 
 class MraTestCases(unittest.TestCase):
@@ -4095,6 +4261,232 @@ class SPFCTestCases(unittest.TestCase):
         self.assertEqual(spfc('James Wenders'), '27760')
         self.assertEqual(spfc('James Ventor'), '17760')
         self.assertEqual(spfc('þ þ'), '00')
+
+
+class StatisticsCanadaTestCases(unittest.TestCase):
+    """Test Statistics Canada functions.
+
+    test cases for abydos.phonetic.statistics_canada
+    """
+
+    def test_statistics_canada(self):
+        """Test abydos.phonetic.statistics_canada."""
+        self.assertEqual(statistics_canada(''), '')
+
+        # https://naldc-legacy.nal.usda.gov/naldc/download.xhtml?id=27833&content=PDF
+        self.assertEqual(statistics_canada('Davis'),
+                         statistics_canada('Daves'))
+        self.assertEqual(statistics_canada('Davis'),
+                         statistics_canada('Davies'))
+        self.assertEqual(statistics_canada('Davis'),
+                         statistics_canada('Devese'))
+        self.assertEqual(statistics_canada('Davis'),
+                         statistics_canada('Devies'))
+        self.assertEqual(statistics_canada('Davis'),
+                         statistics_canada('Devos'))
+
+        self.assertEqual(statistics_canada('Smith'),
+                         statistics_canada('Smathers'))
+        self.assertEqual(statistics_canada('Smith'),
+                         statistics_canada('Smithart'))
+        self.assertEqual(statistics_canada('Smith'),
+                         statistics_canada('Smithbower'))
+        self.assertEqual(statistics_canada('Smith'),
+                         statistics_canada('Smitherman'))
+        self.assertEqual(statistics_canada('Smith'),
+                         statistics_canada('Smithey'))
+        self.assertEqual(statistics_canada('Smith'),
+                         statistics_canada('Smithgall'))
+        self.assertEqual(statistics_canada('Smith'),
+                         statistics_canada('Smithingall'))
+        self.assertEqual(statistics_canada('Smith'),
+                         statistics_canada('Smithmyer'))
+        self.assertEqual(statistics_canada('Smith'),
+                         statistics_canada('Smithpeter'))
+        self.assertEqual(statistics_canada('Smith'),
+                         statistics_canada('Smithson'))
+        self.assertEqual(statistics_canada('Smith'),
+                         statistics_canada('Smithy'))
+        self.assertEqual(statistics_canada('Smith'),
+                         statistics_canada('Smotherman'))
+        self.assertEqual(statistics_canada('Smith'),
+                         statistics_canada('Smothers'))
+        self.assertEqual(statistics_canada('Smith'),
+                         statistics_canada('Smyth'))
+
+        # Additional tests from @Yomguithereal's talisman
+        # https://github.com/Yomguithereal/talisman/blob/master/test/phonetics/statcan.js
+        self.assertEqual(statistics_canada('Guillaume'), 'GLM')
+        self.assertEqual(statistics_canada('Arlène'), 'ARLN')
+        self.assertEqual(statistics_canada('Lüdenscheidt)', 'LDNS')
+
+
+class LeinTestCases(unittest.TestCase):
+    """Test Lein functions.
+
+    test cases for abydos.phonetic.lein
+    """
+
+    def test_lein(self):
+        """Test abydos.phonetic.lein."""
+        self.assertEqual(lein(''), '')
+
+        # https://naldc-legacy.nal.usda.gov/naldc/download.xhtml?id=27833&content=PDF
+        self.assertEqual(lein('Davis'), lein('Dubose'))
+        self.assertEqual(lein('Davis'), lein('Dubs'))
+        self.assertEqual(lein('Davis'), lein('Dubbs'))
+        self.assertEqual(lein('Davis'), lein('Doviak'))
+        self.assertEqual(lein('Davis'), lein('Dubke'))
+        self.assertEqual(lein('Davis'), lein('Dubus'))
+        self.assertEqual(lein('Davis'), lein('Dubois'))
+        self.assertEqual(lein('Davis'), lein('Duboise'))
+        self.assertEqual(lein('Davis'), lein('Doubek'))
+        self.assertEqual(lein('Davis'), lein('Defigh'))
+        self.assertEqual(lein('Davis'), lein('Defazio'))
+        self.assertEqual(lein('Davis'), lein('Debaca'))
+        self.assertEqual(lein('Davis'), lein('Dabbs'))
+        self.assertEqual(lein('Davis'), lein('Davies'))
+        self.assertEqual(lein('Davis'), lein('Dubukey'))
+        self.assertEqual(lein('Davis'), lein('Debus'))
+        self.assertEqual(lein('Davis'), lein('Debose'))
+        self.assertEqual(lein('Davis'), lein('Daves'))
+        self.assertEqual(lein('Davis'), lein('Dipiazza'))
+        self.assertEqual(lein('Davis'), lein('Dobbs'))
+        self.assertEqual(lein('Davis'), lein('Dobak'))
+        self.assertEqual(lein('Davis'), lein('Dobis'))
+        self.assertEqual(lein('Davis'), lein('Dobish'))
+        self.assertEqual(lein('Davis'), lein('Doepke'))
+        self.assertEqual(lein('Davis'), lein('Divish'))
+        self.assertEqual(lein('Davis'), lein('Dobosh'))
+        self.assertEqual(lein('Davis'), lein('Dupois'))
+        self.assertEqual(lein('Davis'), lein('Dufek'))
+        self.assertEqual(lein('Davis'), lein('Duffek'))
+        self.assertEqual(lein('Davis'), lein('Dupuis'))
+        self.assertEqual(lein('Davis'), lein('Dupas'))
+        self.assertEqual(lein('Davis'), lein('Devese'))
+        self.assertEqual(lein('Davis'), lein('Devos'))
+        self.assertEqual(lein('Davis'), lein('Deveaux'))
+        self.assertEqual(lein('Davis'), lein('Devies'))
+
+        self.assertEqual(lein('Smith'), lein('Sand'))
+        self.assertEqual(lein('Smith'), lein('Sandau'))
+        self.assertEqual(lein('Smith'), lein('Sande'))
+        self.assertEqual(lein('Smith'), lein('Sandia'))
+        self.assertEqual(lein('Smith'), lein('Sando'))
+        self.assertEqual(lein('Smith'), lein('Sandoe'))
+        self.assertEqual(lein('Smith'), lein('Sandy'))
+        self.assertEqual(lein('Smith'), lein('Santee'))
+        self.assertEqual(lein('Smith'), lein('Santi'))
+        self.assertEqual(lein('Smith'), lein('Santo'))
+        self.assertEqual(lein('Smith'), lein('Send'))
+        self.assertEqual(lein('Smith'), lein('Sennet'))
+        self.assertEqual(lein('Smith'), lein('Shemoit'))
+        self.assertEqual(lein('Smith'), lein('Shenot'))
+        self.assertEqual(lein('Smith'), lein('Shumate'))
+        self.assertEqual(lein('Smith'), lein('Simmet'))
+        self.assertEqual(lein('Smith'), lein('Simot'))
+        self.assertEqual(lein('Smith'), lein('Sineath'))
+        self.assertEqual(lein('Smith'), lein('Sinnott'))
+        self.assertEqual(lein('Smith'), lein('Sintay'))
+        self.assertEqual(lein('Smith'), lein('Smead'))
+        self.assertEqual(lein('Smith'), lein('Smeda'))
+        self.assertEqual(lein('Smith'), lein('Smit'))
+
+        # Additional tests from @Yomguithereal's talisman
+        # https://github.com/Yomguithereal/talisman/blob/master/test/phonetics/lein.js
+        self.assertEqual(statistics_canada('Guillaume'), 'G320')
+        self.assertEqual(statistics_canada('Arlène'), 'A332')
+        self.assertEqual(statistics_canada('Lüdenscheidt)', 'L125')
+
+
+class RogerRootTestCases(unittest.TestCase):
+    """Test Roger Root functions.
+
+    test cases for abydos.phonetic.roger_root
+    """
+
+    def test_roger_root(self):
+        """Test abydos.phonetic.roger_root."""
+        self.assertEqual(roger_root(''), '')
+
+        # https://naldc-legacy.nal.usda.gov/naldc/download.xhtml?id=27833&content=PDF
+        self.assertEqual(roger_root('BROWNER'), '09424')
+        self.assertEqual(roger_root('STANLEY'), '00125')
+        self.assertEqual(roger_root('CHALMAN'), '06532')
+        self.assertEqual(roger_root('CHING'), '06270')
+        self.assertEqual(roger_root('ANDERSON'), '12140')
+        self.assertEqual(roger_root('OVERSTREET'), '18401')
+        self.assertEqual(roger_root('HECKEL'), '27500')
+        self.assertEqual(roger_root('WYSZYNSKI'), '40207')
+        self.assertEqual(roger_root('WHITTED'), '41100')
+        self.assertEqual(roger_root('ONGOQO'), '12770')  # PDF had a typo?
+        self.assertEqual(roger_root('JOHNSON'), '32020')
+        self.assertEqual(roger_root('WILLIAMS'), '45300')
+        self.assertEqual(roger_root('SMITH'), '00310')
+        self.assertEqual(roger_root('JONES'), '32000')
+        self.assertEqual(roger_root('BROWN'), '09420')
+        self.assertEqual(roger_root('DAVIS'), '01800')
+        self.assertEqual(roger_root('JACKSON'), '37020')
+        self.assertEqual(roger_root('WILSON'), '45020')
+        self.assertEqual(roger_root('LEE'), '05000')
+        self.assertEqual(roger_root('THOMAS'), '01300')
+
+        self.assertEqual(roger_root('Davis'), roger_root('Defouw'))
+        self.assertEqual(roger_root('Davis'), roger_root('Dauphi'))
+        self.assertEqual(roger_root('Davis'), roger_root('Defazio'))
+        self.assertEqual(roger_root('Davis'), roger_root('Defay'))
+        self.assertEqual(roger_root('Davis'), roger_root('Davy'))
+        self.assertEqual(roger_root('Davis'), roger_root('Defee'))
+        self.assertEqual(roger_root('Davis'), roger_root('Dayhoff'))
+        self.assertEqual(roger_root('Davis'), roger_root('Davie'))
+        self.assertEqual(roger_root('Davis'), roger_root('Davey'))
+        self.assertEqual(roger_root('Davis'), roger_root('Davies'))
+        self.assertEqual(roger_root('Davis'), roger_root('Daves'))
+        self.assertEqual(roger_root('Davis'), roger_root('Deife'))
+        self.assertEqual(roger_root('Davis'), roger_root('Dehoff'))
+        self.assertEqual(roger_root('Davis'), roger_root('Devese'))
+        self.assertEqual(roger_root('Davis'), roger_root('Devoe'))
+        self.assertEqual(roger_root('Davis'), roger_root('Devee'))
+        self.assertEqual(roger_root('Davis'), roger_root('Devies'))
+        self.assertEqual(roger_root('Davis'), roger_root('Devos'))
+        self.assertEqual(roger_root('Davis'), roger_root('Dafoe'))
+        self.assertEqual(roger_root('Davis'), roger_root('Dove'))
+        self.assertEqual(roger_root('Davis'), roger_root('Duff'))
+        self.assertEqual(roger_root('Davis'), roger_root('Duffey'))
+        self.assertEqual(roger_root('Davis'), roger_root('Duffie'))
+        self.assertEqual(roger_root('Davis'), roger_root('Duffy'))
+        self.assertEqual(roger_root('Davis'), roger_root('Duyava'))
+        self.assertEqual(roger_root('Davis'), roger_root('Tafoya'))
+        self.assertEqual(roger_root('Davis'), roger_root('Tevis'))
+        self.assertEqual(roger_root('Davis'), roger_root('Tiffee'))
+        self.assertEqual(roger_root('Davis'), roger_root('Tivis'))
+        self.assertEqual(roger_root('Davis'), roger_root('Thevis'))
+        self.assertEqual(roger_root('Davis'), roger_root('Tovey'))
+        self.assertEqual(roger_root('Davis'), roger_root('Toeves'))
+        self.assertEqual(roger_root('Davis'), roger_root('Tuffs'))
+
+        self.assertEqual(roger_root('Smith'), roger_root('Samotid'))
+        self.assertEqual(roger_root('Smith'), roger_root('Simmet'))
+        self.assertEqual(roger_root('Smith'), roger_root('Simot'))
+        self.assertEqual(roger_root('Smith'), roger_root('Smead'))
+        self.assertEqual(roger_root('Smith'), roger_root('Smeda'))
+        self.assertEqual(roger_root('Smith'), roger_root('Smit'))
+        self.assertEqual(roger_root('Smith'), roger_root('Smite'))
+        self.assertEqual(roger_root('Smith'), roger_root('Smithe'))
+        self.assertEqual(roger_root('Smith'), roger_root('Smithey'))
+        self.assertEqual(roger_root('Smith'), roger_root('Smithson'))
+        self.assertEqual(roger_root('Smith'), roger_root('Smithy'))
+        self.assertEqual(roger_root('Smith'), roger_root('Smoot'))
+        self.assertEqual(roger_root('Smith'), roger_root('Smyth'))
+        self.assertEqual(roger_root('Smith'), roger_root('Szmodis'))
+        self.assertEqual(roger_root('Smith'), roger_root('Zemaitis'))
+        self.assertEqual(roger_root('Smith'), roger_root('Zmuda'))
+
+        # Additional tests from @Yomguithereal's talisman
+        # https://github.com/Yomguithereal/talisman/blob/master/test/phonetics/roger-root.js
+        self.assertEqual(roger_root('Guillaume'), '07530')
+        self.assertEqual(roger_root('Arlène'), '14520')
+        self.assertEqual(roger_root('Lüdenscheidt)', '05126')
 
 
 class BeiderMorseTestCases(unittest.TestCase):
