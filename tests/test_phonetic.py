@@ -589,7 +589,7 @@ class NysiisTestCases(unittest.TestCase):
         """Test abydos.phonetic.nysiis (modified version)."""
         self.assertEqual(nysiis('', modified=True), '')
 
-        # https://naldc-legacy.nal.usda.gov/naldc/download.xhtml?id=27833&content=PDF
+        # https://naldc.nal.usda.gov/download/27833/PDF
         self.assertEqual(nysiis('Davis', modified=True),
                          nysiis('Daves', modified=True))
         self.assertEqual(nysiis('Davis', modified=True),
@@ -4274,7 +4274,7 @@ class StatisticsCanadaTestCases(unittest.TestCase):
         """Test abydos.phonetic.statistics_canada."""
         self.assertEqual(statistics_canada(''), '')
 
-        # https://naldc-legacy.nal.usda.gov/naldc/download.xhtml?id=27833&content=PDF
+        # https://naldc.nal.usda.gov/download/27833/PDF
         self.assertEqual(statistics_canada('Davis'),
                          statistics_canada('Daves'))
         self.assertEqual(statistics_canada('Davis'),
@@ -4332,7 +4332,7 @@ class LeinTestCases(unittest.TestCase):
         """Test abydos.phonetic.lein."""
         self.assertEqual(lein(''), '')
 
-        # https://naldc-legacy.nal.usda.gov/naldc/download.xhtml?id=27833&content=PDF
+        # https://naldc.nal.usda.gov/download/27833/PDF
         self.assertEqual(lein('Davis'), lein('Dubose'))
         self.assertEqual(lein('Davis'), lein('Dubs'))
         self.assertEqual(lein('Davis'), lein('Dubbs'))
@@ -4410,7 +4410,7 @@ class RogerRootTestCases(unittest.TestCase):
         """Test abydos.phonetic.roger_root."""
         self.assertEqual(roger_root(''), '')
 
-        # https://naldc-legacy.nal.usda.gov/naldc/download.xhtml?id=27833&content=PDF
+        # https://naldc.nal.usda.gov/download/27833/PDF
         self.assertEqual(roger_root('BROWNER'), '09424')
         self.assertEqual(roger_root('STANLEY'), '00125')
         self.assertEqual(roger_root('CHALMAN'), '06532')
