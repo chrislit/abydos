@@ -228,7 +228,7 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     # Call the D-M Soundex function itself if requested
     if var == 'dm':
         return dm_soundex(word, maxlength, reverse, zero_pad)
-    elif var == 'refined'
+    elif var == 'refined':
         return refined_soundex(word, maxlength, reverse, zero_pad)
 
     # Require a maxlength of at least 4 and not more than 64
@@ -4380,7 +4380,6 @@ def lein(word, maxlength=4, zero_pad=True):
 
     :param word:
     :param maxlength:
-    :param reverse:
     :param zero_pad:
     :return:
     """
@@ -4404,6 +4403,80 @@ def lein(word, maxlength=4, zero_pad=True):
         sdx += ('0'*maxlength)  # rule 4
 
     return sdx[:maxlength]
+
+
+def roger_root(word, maxlength=5, zero_pad=True):
+    """Return the Roger Root code for a word.
+
+    This is Roger Root name coding, based on
+    https://naldc-legacy.nal.usda.gov/naldc/download.xhtml?id=27833&content=PDF
+
+    :param word:
+    :param maxlength:
+    :param zero_pad:
+    :return:
+    """
+    # uppercase, normalize, decompose, and filter non-A-Z out
+    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = word.replace('ß', 'SS')
+    word = ''.join(c for c in word if c in
+                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
+
+    # '*' is used to prevent combining by _delete_consecutive_repeats()
+    _init_patterns = {4: {'TSCH': '06'},
+                      3: {'TSH': '06', 'SCH': '06'}
+                      2: {'CE': '0*0', 'CH': '06', 'CI': '0*0', 'CY': '0*0',
+                          'DG': '07', 'GF': '08', 'GM': '03', 'GN': '02',
+                          'KN': '02', 'PF': '08', 'PH': '08', 'PN': '02',
+                          'SH': '06', 'TS': '0*0', 'WR': '04'}
+                      1: {'A': '1', 'B': '09', 'C': '07', 'D': '01', 'E': '1',
+                          'F': '08', 'G': '07', 'H': '2', 'I': '1', 'J': '3',
+                          'K': '07', 'L': '05', 'M': '03', 'N': '02', 'O': '1',
+                          'P': '09', 'Q': '07', 'R': '04', 'S': '0*0',
+                          'T': '01', 'U': '1', 'V': '08', 'W': '4', 'X': '07',
+                          'Y': '5', 'Z': '0*0'}}
+
+    _med_patterns = {4: {'TSCH': '6'},
+                     3: {'TSH': '6', 'SCH': '6'},
+                     2: {'CE': '0', 'CH': '6', 'CI': '0', 'CY': '0', 'DG': '7',
+                         'PH': '8', 'SH': '6', 'TS': '0'},
+                     1: {'B': '9', 'C': '7', 'D': '1', 'F': '8', 'G': '7',
+                         'J': '6', 'K': '7', 'L': '5', 'M': '3', 'N': '2',
+                         'P': '9', 'Q': '7', 'R': '4', 'S': '0', 'T': '1',
+                         'V': '8', 'X': '7', 'Z': '0',
+                         'A': '*', 'E': '*', 'H': '*', 'I': '*', 'O': '*',
+                         'U': '*', 'W': '*', 'Y': '*'}}
+
+    code = ''
+    pos = 0
+
+    # Do first digit(s) first
+    for n in range(4, 0, -1):
+        if word[:n] in _init_patterns[n]:
+            code = _init_patterns[n][word[:n]]
+            pos += n
+            break
+    else:
+        pos += 1  # Advance if nothing is recognized
+
+    # Then code subsequent digits
+    while pos < len(word):
+        for n in range(4, 0, -1):
+            if word[pos:pos+n] in _med_patterns[n]:
+                code += _med_patterns[n][word[pos:pos+n]]
+                pos += n
+                break
+        else:
+            pos += 1  # Advance if nothing is recognized
+
+    code = _delete_consecutive_repeats(code)
+    code = code.replace('*', '')
+
+    if zero_pad:
+        code += '0'*maxlength
+
+    return code[:maxlength]
+
 
 
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
