@@ -21,15 +21,15 @@ Abydos
     :target: https://snyk.io/test/github/chrislit/abydos?targetFile=requirements.txt
     :alt: Known Vulnerabilities
 
-.. image:: https://img.shields.io/badge/Pylint-9.75/10-green.svg
+.. image:: https://img.shields.io/badge/Pylint-9.78/10-green.svg
    :target: #
    :alt: Pylint Score
 
-.. image:: https://img.shields.io/badge/pycodestyle-23-yellowgreen.svg
+.. image:: https://img.shields.io/badge/pycodestyle-0-brightgreen.svg
    :target: #
    :alt: pycodestyle Errors
 
-.. image:: https://img.shields.io/badge/flake8-44-yellowgreen.svg
+.. image:: https://img.shields.io/badge/flake8-48-yellowgreen.svg
    :target: #
    :alt: flake8 Errors
 
