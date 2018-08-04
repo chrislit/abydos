@@ -4395,9 +4395,9 @@ class LeinTestCases(unittest.TestCase):
 
         # Additional tests from @Yomguithereal's talisman
         # https://github.com/Yomguithereal/talisman/blob/master/test/phonetics/lein.js
-        self.assertEqual(statistics_canada('Guillaume'), 'G320')
-        self.assertEqual(statistics_canada('Arlène'), 'A332')
-        self.assertEqual(statistics_canada('Lüdenscheidt'), 'L125')
+        self.assertEqual(lein('Guillaume'), 'G320')
+        self.assertEqual(lein('Arlène'), 'A332')
+        self.assertEqual(lein('Lüdenscheidt'), 'L125')
 
 
 class RogerRootTestCases(unittest.TestCase):

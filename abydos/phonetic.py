@@ -1824,7 +1824,7 @@ def caverphone(word, version=2):
         word = word.replace('3gh3', '3kh3')
         word = word.replace('gh', '22')
         word = word.replace('g', 'k')
-        word = re.sub(r's+', r'S', word)
+        word = re.sub(r's+', r'S', word)  # TODO: implement w/o re?
         word = re.sub(r't+', r'T', word)
         word = re.sub(r'p+', r'P', word)
         word = re.sub(r'k+', r'K', word)
@@ -4384,8 +4384,8 @@ def lein(word, maxlength=4, zero_pad=True):
     :return:
     """
     _lein_translation = dict(zip((ord(_) for _ in
-                                  'ABCDEFGHIJKLMNOPQRSTUVWXYZ '),
-                                 '045104500553220453510405050'))
+                                  'BCDFGJKLMNPQRSTVXZ'),
+                                 '451455532245351455'))
 
     # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicodedata.normalize('NFKD', text_type(word.upper()))
@@ -4396,16 +4396,15 @@ def lein(word, maxlength=4, zero_pad=True):
     if not word:
         return ''
 
-    # apply the Lein algorithm
-    sdx = word[0] + word[1:].translate(_lein_translation)  # rule 1,4
-
-    sdx = sdx.replace('0', '')  # rule 2
-    sdx = _delete_consecutive_repeats(sdx)  # rule 3
+    code = word[0]  # Rule 1
+    word = word[1:].translate(str.maketrans('', '', 'AEIOUYWH '))  # Rule 2
+    word = _delete_consecutive_repeats(word)  # Rule 3
+    code += word.translate(_lein_translation)  # Rule 4
 
     if zero_pad:
-        sdx += ('0'*maxlength)  # rule 4
+        code += ('0'*maxlength)  # Rule 4
 
-    return sdx[:maxlength]
+    return code[:maxlength]
 
 
 def roger_root(word, maxlength=5, zero_pad=True):
