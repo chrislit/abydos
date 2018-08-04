@@ -302,17 +302,17 @@ class SoundexTestCases(unittest.TestCase):
 
         # Apache Commons test cases
         # http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/RefinedSoundexTest.java?view=markup
-        self.assertEquals(refined_soundex('testing'), 'T6036084')
-        self.assertEquals(refined_soundex('TESTING'), 'T6036084')
-        self.assertEquals(refined_soundex('The'), 'T60')
-        self.assertEquals(refined_soundex('quick'), 'Q503')
-        self.assertEquals(refined_soundex('brown'), 'B1908')
-        self.assertEquals(refined_soundex('fox'), 'F205')
-        self.assertEquals(refined_soundex('jumped'), 'J408106')
-        self.assertEquals(refined_soundex('over'), 'O0209')
-        self.assertEquals(refined_soundex('the'), 'T60')
-        self.assertEquals(refined_soundex('lazy'), 'L7050')
-        self.assertEquals(refined_soundex('dogs'), 'D6043')
+        self.assertEqual(refined_soundex('testing'), 'T6036084')
+        self.assertEqual(refined_soundex('TESTING'), 'T6036084')
+        self.assertEqual(refined_soundex('The'), 'T60')
+        self.assertEqual(refined_soundex('quick'), 'Q503')
+        self.assertEqual(refined_soundex('brown'), 'B1908')
+        self.assertEqual(refined_soundex('fox'), 'F205')
+        self.assertEqual(refined_soundex('jumped'), 'J408106')
+        self.assertEqual(refined_soundex('over'), 'O0209')
+        self.assertEqual(refined_soundex('the'), 'T60')
+        self.assertEqual(refined_soundex('lazy'), 'L7050')
+        self.assertEqual(refined_soundex('dogs'), 'D6043')
 
     def test_dm_soundex(self):
         """Test abydos.phonetic.dm_soundex (Daitchh-Mokotoff Soundex)."""
@@ -652,7 +652,8 @@ class NysiisTestCases(unittest.TestCase):
         self.assertEqual(nysiis('Mackenzie', modified=True), 'MCANSY')
 
         # maxlength bounds tests
-        self.assertEqual(nysiis('Niall', maxlength=float('inf'), modified=True), 'NAL')
+        self.assertEqual(nysiis('Niall', maxlength=float('inf'),
+                                modified=True), 'NAL')
         self.assertEqual(nysiis('Niall', maxlength=None, modified=True), 'NAL')
         self.assertEqual(nysiis('Niall', maxlength=0, modified=True), 'NAL')
 

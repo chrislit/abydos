@@ -25,10 +25,9 @@ from __future__ import unicode_literals
 
 import unittest
 
-from six import PY3
-
 from abydos.util import Rational, jitter, prod
 
+from six import PY3
 from six.moves import range
 
 if PY3:

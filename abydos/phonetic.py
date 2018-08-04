@@ -302,7 +302,7 @@ def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False):
         word = word[::-1]
 
     # apply the Soundex algorithm
-    sdx = word.translate(_soundex_translation)
+    sdx = word.translate(_ref_soundex_translation)
 
     sdx = sdx.replace('0', '')  # rule 1
 
@@ -4364,7 +4364,7 @@ def statistics_canada(word, maxlength=4):
 
     code = word[1:]
     for vowel in {'A', 'E', 'I', 'O', 'U', 'Y'}:
-           code = code.replace(vowel, '')
+        code = code.replace(vowel, '')
     code = word[0]+code
     code = _delete_consecutive_repeats(code)
     code = code.replace(' ', '')
@@ -4393,8 +4393,11 @@ def lein(word, maxlength=4, zero_pad=True):
     word = ''.join(c for c in word if c in
                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
 
+    if not word:
+        return ''
+
     # apply the Lein algorithm
-    sdx = word[0] + word[1:].translate(_soundex_translation) # rule 1,4
+    sdx = word[0] + word[1:].translate(_lein_translation)  # rule 1,4
 
     sdx = sdx.replace('0', '')  # rule 2
     sdx = _delete_consecutive_repeats(sdx)  # rule 3
@@ -4421,6 +4424,9 @@ def roger_root(word, maxlength=5, zero_pad=True):
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
+
+    if not word:
+        return ''
 
     # '*' is used to prevent combining by _delete_consecutive_repeats()
     _init_patterns = {4: {'TSCH': '06'},
@@ -4476,7 +4482,6 @@ def roger_root(word, maxlength=5, zero_pad=True):
         code += '0'*maxlength
 
     return code[:maxlength]
-
 
 
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
