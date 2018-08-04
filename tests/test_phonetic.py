@@ -4318,7 +4318,7 @@ class StatisticsCanadaTestCases(unittest.TestCase):
         # https://github.com/Yomguithereal/talisman/blob/master/test/phonetics/statcan.js
         self.assertEqual(statistics_canada('Guillaume'), 'GLM')
         self.assertEqual(statistics_canada('Arlène'), 'ARLN')
-        self.assertEqual(statistics_canada('Lüdenscheidt)', 'LDNS')
+        self.assertEqual(statistics_canada('Lüdenscheidt'), 'LDNS')
 
 
 class LeinTestCases(unittest.TestCase):
@@ -4396,7 +4396,7 @@ class LeinTestCases(unittest.TestCase):
         # https://github.com/Yomguithereal/talisman/blob/master/test/phonetics/lein.js
         self.assertEqual(statistics_canada('Guillaume'), 'G320')
         self.assertEqual(statistics_canada('Arlène'), 'A332')
-        self.assertEqual(statistics_canada('Lüdenscheidt)', 'L125')
+        self.assertEqual(statistics_canada('Lüdenscheidt'), 'L125')
 
 
 class RogerRootTestCases(unittest.TestCase):
@@ -4486,7 +4486,7 @@ class RogerRootTestCases(unittest.TestCase):
         # https://github.com/Yomguithereal/talisman/blob/master/test/phonetics/roger-root.js
         self.assertEqual(roger_root('Guillaume'), '07530')
         self.assertEqual(roger_root('Arlène'), '14520')
-        self.assertEqual(roger_root('Lüdenscheidt)', '05126')
+        self.assertEqual(roger_root('Lüdenscheidt'), '05126')
 
 
 class BeiderMorseTestCases(unittest.TestCase):
