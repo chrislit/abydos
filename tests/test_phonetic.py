@@ -587,69 +587,110 @@ class NysiisTestCases(unittest.TestCase):
 
     def test_modified_nysiis(self):
         """Test abydos.phonetic.nysiis (modified version)."""
-        self.assertEqual(nysiis('', modified=True), '')
+        self.assertEqual(nysiis('', maxlength=float('inf'), modified=True), '')
 
         # https://naldc.nal.usda.gov/download/27833/PDF
-        self.assertEqual(nysiis('Davis', modified=True),
-                         nysiis('Daves', modified=True))
-        self.assertEqual(nysiis('Davis', modified=True),
-                         nysiis('Davies', modified=True))
-        self.assertEqual(nysiis('Davis', modified=True),
-                         nysiis('Devies', modified=True))
-        self.assertEqual(nysiis('Davis', modified=True),
-                         nysiis('Divish', modified=True))
-        self.assertEqual(nysiis('Davis', modified=True),
-                         nysiis('Dove', modified=True))
-        self.assertEqual(nysiis('Davis', modified=True),
-                         nysiis('Devese', modified=True))
-        self.assertEqual(nysiis('Davis', modified=True),
-                         nysiis('Devies', modified=True))
-        self.assertEqual(nysiis('Davis', modified=True),
-                         nysiis('Devos', modified=True))
+        # Some of these were... wrong... and have been corrected
+        self.assertEqual(nysiis('Daves', maxlength=8, modified=True), 'DAV')
+        self.assertEqual(nysiis('Davies', maxlength=8, modified=True), 'DAVY')
+        self.assertEqual(nysiis('Devies', maxlength=8, modified=True), 'DAFY')
+        self.assertEqual(nysiis('Divish', maxlength=8, modified=True), 'DAVAS')
+        self.assertEqual(nysiis('Dove', maxlength=8, modified=True), 'DAV')
+        self.assertEqual(nysiis('Devese', maxlength=8, modified=True), 'DAFAS')
+        self.assertEqual(nysiis('Devies', maxlength=8, modified=True), 'DAFY')
+        self.assertEqual(nysiis('Devos', maxlength=8, modified=True), 'DAF')
 
-        self.assertEqual(nysiis('Smith', modified=True),
-                         nysiis('Schmit', modified=True))
-        self.assertEqual(nysiis('Smith', modified=True),
-                         nysiis('Schmitt', modified=True))
-        self.assertEqual(nysiis('Smith', modified=True),
-                         nysiis('Schmitz', modified=True))
-        self.assertEqual(nysiis('Smith', modified=True),
-                         nysiis('Schmoutz', modified=True))
-        self.assertEqual(nysiis('Smith', modified=True),
-                         nysiis('Schnitt', modified=True))
-        self.assertEqual(nysiis('Smith', modified=True),
-                         nysiis('Smit', modified=True))
-        self.assertEqual(nysiis('Smith', modified=True),
-                         nysiis('Smite', modified=True))
-        self.assertEqual(nysiis('Smith', modified=True),
-                         nysiis('Smits', modified=True))
-        self.assertEqual(nysiis('Smith', modified=True),
-                         nysiis('Smoot', modified=True))
-        self.assertEqual(nysiis('Smith', modified=True),
-                         nysiis('Smuts', modified=True))
-        self.assertEqual(nysiis('Smith', modified=True),
-                         nysiis('Sneath', modified=True))
-        self.assertEqual(nysiis('Smith', modified=True),
-                         nysiis('Smyth', modified=True))
-        self.assertEqual(nysiis('Smith', modified=True),
-                         nysiis('Smithy', modified=True))
-        self.assertEqual(nysiis('Smith', modified=True),
-                         nysiis('Smithey', modified=True))
+        self.assertEqual(nysiis('Schmit', maxlength=8, modified=True), 'SNAT')
+        self.assertEqual(nysiis('Schmitt', maxlength=8, modified=True), 'SNAT')
+        self.assertEqual(nysiis('Schmitz', maxlength=8, modified=True), 'SNAT')
+        self.assertEqual(nysiis('Schmoutz', maxlength=8, modified=True),
+                         'SNAT')
+        self.assertEqual(nysiis('Schnitt', maxlength=8, modified=True), 'SNAT')
+        self.assertEqual(nysiis('Smit', maxlength=8, modified=True), 'SNAT')
+        self.assertEqual(nysiis('Smite', maxlength=8, modified=True), 'SNAT')
+        self.assertEqual(nysiis('Smits', maxlength=8, modified=True), 'SNAT')
+        self.assertEqual(nysiis('Smoot', maxlength=8, modified=True), 'SNAT')
+        self.assertEqual(nysiis('Smuts', maxlength=8, modified=True), 'SNAT')
+        self.assertEqual(nysiis('Sneath', maxlength=8, modified=True), 'SNAT')
+        self.assertEqual(nysiis('Smyth', maxlength=8, modified=True), 'SNAT')
+        self.assertEqual(nysiis('Smithy', maxlength=8, modified=True), 'SNATY')
+        self.assertEqual(nysiis('Smithey', maxlength=8, modified=True),
+                         'SNATY')
+
+        # http://www.dropby.com/NYSIISTextStrings.html
+        # Some of these have been altered since the above uses a different set
+        # of modifications.
+        self.assertEqual(nysiis('Edwards', maxlength=8, modified=True),
+                         'EDWAD')
+        self.assertEqual(nysiis('Perez', maxlength=8, modified=True), 'PAR')
+        self.assertEqual(nysiis('Macintosh', maxlength=8, modified=True),
+                         'MCANTAS')
+        self.assertEqual(nysiis('Phillipson', maxlength=8, modified=True),
+                         'FALAPSAN')
+        self.assertEqual(nysiis('Haddix', maxlength=8, modified=True), 'HADAC')
+        self.assertEqual(nysiis('Essex', maxlength=8, modified=True), 'ESAC')
+        self.assertEqual(nysiis('Moye', maxlength=8, modified=True), 'MY')
+        self.assertEqual(nysiis('McKee', maxlength=8, modified=True), 'MCY')
+        self.assertEqual(nysiis('Mackie', maxlength=8, modified=True), 'MCY')
+        self.assertEqual(nysiis('Heitschmidt', maxlength=8, modified=True),
+                         'HATSNAD')
+        self.assertEqual(nysiis('Bart', maxlength=8, modified=True), 'BAD')
+        self.assertEqual(nysiis('Hurd', maxlength=8, modified=True), 'HAD')
+        self.assertEqual(nysiis('Hunt', maxlength=8, modified=True), 'HAN')
+        self.assertEqual(nysiis('Westerlund', maxlength=8, modified=True),
+                         'WASTARLA')
+        self.assertEqual(nysiis('Evers', maxlength=8, modified=True), 'EVAR')
+        self.assertEqual(nysiis('Devito', maxlength=8, modified=True), 'DAFAT')
+        self.assertEqual(nysiis('Rawson', maxlength=8, modified=True), 'RASAN')
+        self.assertEqual(nysiis('Shoulders', maxlength=8, modified=True),
+                         'SALDAR')
+        self.assertEqual(nysiis('Leighton', maxlength=8, modified=True),
+                         'LATAN')
+        self.assertEqual(nysiis('Wooldridge', maxlength=8, modified=True),
+                         'WALDRAG')
+        self.assertEqual(nysiis('Oliphant', maxlength=8, modified=True),
+                         'OLAFAN')
+        self.assertEqual(nysiis('Hatchett', maxlength=8, modified=True),
+                         'HATCAT')
+        self.assertEqual(nysiis('McKnight', maxlength=8, modified=True),
+                         'MCNAT')
+        self.assertEqual(nysiis('Rickert', maxlength=8, modified=True),
+                         'RACAD')
+        self.assertEqual(nysiis('Bowman', maxlength=8, modified=True), 'BANAN')
+        self.assertEqual(nysiis('Vasquez', maxlength=8, modified=True), 'VASG')
+        self.assertEqual(nysiis('Bashaw', maxlength=8, modified=True), 'BAS')
+        self.assertEqual(nysiis('Schoenhoeft', maxlength=8, modified=True),
+                         'SANAFT')
+        self.assertEqual(nysiis('Heywood', maxlength=8, modified=True), 'HAD')
+        self.assertEqual(nysiis('Hayman', maxlength=8, modified=True), 'HANAN')
+        self.assertEqual(nysiis('Seawright', maxlength=8, modified=True),
+                         'SARAT')
+        self.assertEqual(nysiis('Kratzer', maxlength=8, modified=True),
+                         'CRATSAR')
+        self.assertEqual(nysiis('Canaday', maxlength=8, modified=True),
+                         'CANADY')
+        self.assertEqual(nysiis('Crepeau', maxlength=8, modified=True), 'CRAP')
 
         # Additional tests from @Yomguithereal's talisman
         # https://github.com/Yomguithereal/talisman/blob/master/test/phonetics/nysiis.js
-        self.assertEqual(nysiis('Andrew', modified=True), 'ANDR')
-        self.assertEqual(nysiis('Robertson', modified=True), 'RABARTSAN')
-        self.assertEqual(nysiis('Nolan', modified=True), 'NALAN')
-        self.assertEqual(nysiis('Louis XVI', modified=True), 'LASXV')
-        self.assertEqual(nysiis('Case', modified=True), 'CAS')
-        self.assertEqual(nysiis('Mclaughlin', modified=True), 'MCLAGHLAN')
-        self.assertEqual(nysiis('Awale', modified=True), 'AL')
-        self.assertEqual(nysiis('Aegir', modified=True), 'AGAR')
-        self.assertEqual(nysiis('Lundgren', modified=True), 'LANGRAN')
-        self.assertEqual(nysiis('Philbert', modified=True), 'FALBAD')
-        self.assertEqual(nysiis('Harry', modified=True), 'HARY')
-        self.assertEqual(nysiis('Mackenzie', modified=True), 'MCANSY')
+        self.assertEqual(nysiis('Andrew', maxlength=8, modified=True), 'ANDR')
+        self.assertEqual(nysiis('Robertson', maxlength=8, modified=True),
+                         'RABARTSA')
+        self.assertEqual(nysiis('Nolan', maxlength=8, modified=True), 'NALAN')
+        self.assertEqual(nysiis('Louis XVI', maxlength=8, modified=True),
+                         'LASXV')
+        self.assertEqual(nysiis('Case', maxlength=8, modified=True), 'CAS')
+        self.assertEqual(nysiis('Mclaughlin', maxlength=8, modified=True),
+                         'MCLAGLAN')
+        self.assertEqual(nysiis('Awale', maxlength=8, modified=True), 'AL')
+        self.assertEqual(nysiis('Aegir', maxlength=8, modified=True), 'AGAR')
+        self.assertEqual(nysiis('Lundgren', maxlength=8, modified=True),
+                         'LANGRAN')
+        self.assertEqual(nysiis('Philbert', maxlength=8, modified=True),
+                         'FALBAD')
+        self.assertEqual(nysiis('Harry', maxlength=8, modified=True), 'HARY')
+        self.assertEqual(nysiis('Mackenzie', maxlength=8, modified=True),
+                         'MCANSY')
 
         # maxlength bounds tests
         self.assertEqual(nysiis('Niall', maxlength=float('inf'),

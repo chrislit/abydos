@@ -745,14 +745,17 @@ def nysiis(word, maxlength=6, modified=False):
             word = word[:i] + 'N' + word[i+2:]
         elif word[i] == 'K':
             word = word[:i] + 'C' + word[i+1:]
-        elif modified and i != len(word)-3 and word[i:i+3] == 'SCH':
+        elif modified and i == len(word)-3 and word[i:i+3] == 'SCH':
             word = word[:i] + 'SSA'
             skip = 2
         elif word[i:i+3] == 'SCH':
             word = word[:i] + 'SSS' + word[i+3:]
             skip = 2
-        elif modified and i != len(word)-2 and word[i:i+2] == 'SH':
-            word = word[:i] + 'SA' + word[i+2:]
+        elif modified and i == len(word)-2 and word[i:i+2] == 'SH':
+            word = word[:i] + 'SA'
+            skip = 1
+        elif word[i:i+2] == 'SH':
+            word = word[:i] + 'SS' + word[i+2:]
             skip = 1
         elif word[i:i+2] == 'PH':
             word = word[:i] + 'FF' + word[i+2:]
@@ -783,8 +786,8 @@ def nysiis(word, maxlength=6, modified=False):
         key = key[:-2] + 'Y'
     if key[-1:] == 'A':
         key = key[:-1]
-    if modified and word[0] == 'A':
-        word[0] = original_first_char
+    if modified and key[0] == 'A':
+        key = original_first_char + key[1:]
 
     if maxlength and maxlength < _INFINITY:
         key = key[:maxlength]
