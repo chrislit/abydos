@@ -55,7 +55,76 @@ Abydos
 | Abydos NLP/IR library
 | Copyright 2014-2018 by Chris Little
 
-This library contains code I'm using for research, in particular dissertation research & experimentation.
+Abydos is a library of phonetic algorithms, string distance metrics, stemmers, and keyers, including:
+
+- Phonetic algorithms
+    - Robert C. Russell's Index
+    - American Soundex
+    - Refined Soundex
+    - Daitch-Mokotoff Soundex
+    - Kölner Phonetik
+    - NYSIIS
+    - Match Rating Algorithm
+    - Metaphone
+    - Double Metaphone
+    - Caverphone
+    - Alpha Search Inquiry System
+    - Fuzzy Soundex
+    - Phonex
+    - Phonem
+    - Phonix
+    - SfinxBis
+    - phonet
+    - Standardized Phonetic Frequency Code
+    - Statistics Canada
+    - Lein
+    - Roger Root
+    - Beider-Morse Phonetic Matching
+- String distance metrics
+    - Levenshtein distance (incl. a [0, 1] normalized variant)
+    - Optimal String Alignment distance (incl. a [0, 1] normalized variant)
+    - Levenshtein-Damerau distance (incl. a [0, 1] normalized variant)
+    - Hamming distance (incl. a [0, 1] normalized variant)
+    - Tversky index
+    - Sørensen–Dice coefficient & distance
+    - Jaccard similarity coefficient & distance
+    - overlap similarity & distance
+    - Tanimoto coefficient & distance
+    - Minkowski distance & similarity (incl. a [0, 1] normalized option)
+    - Manhattan distance & similarity (incl. a [0, 1] normalized option)
+    - Euclidean distance & similarity (incl. a [0, 1] normalized option)
+    - Chebyshev distance & similarity (incl. a [0, 1] normalized option)
+    - cosine similarity & distance
+    - Jaro distance
+    - Jaro-Winkler distance (incl. the strcmp95 algorithm variant)
+    - Longest common substring
+    - Ratcliff-Obershelp similarity & distance
+    - Match Rating Algorithm similarity
+    - Normalized Compression Distance (NCD) & similarity
+    - Monge-Elkan similarity & distance
+    - Matrix similarity
+    - Needleman-Wunsch score
+    - Smither-Waterman score
+    - Gotoh score
+    - Length similarity
+    - Prefix, Suffix, and Identity similarity & distance
+    - Modified Language-Independent Product Name Search (MLIPNS) similarity &
+      distance
+    - Bag distance (incl. a [0, 1] normalized variant)
+    - Editex distance (incl. a [0, 1] normalized variant)
+- Stemmers
+    - the Lovins stemmer
+    - the Porter and Porter2 (Snowball English) stemmers
+    - Snowball stemmers for German, Dutch, Norwegian, Swedish, and Danish
+    - CLEF German, German plus, and Swedish stemmers
+    - Caumann's German stemmer
+- Keyers
+    - string fingerprint
+    - q-gram fingerprint
+    - phonetic fingerprint
+    - skeleton key
+    - omission key
+
 
 Required:
 
