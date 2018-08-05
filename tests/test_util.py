@@ -21,11 +21,9 @@
 This module contains unit tests for abydos.util
 """
 
-from __future__ import unicode_literals
-
 import unittest
 
-from abydos.util import jitter, prod
+from abydos.util import prod
 
 from six.moves import range
 
@@ -59,41 +57,6 @@ class ProdTestCases(unittest.TestCase):
         self.assertEqual(prod(list(range(6))), 0)
         self.assertEqual(prod(tuple(range(6))), 0)
         self.assertEqual(prod(set(range(6))), 0)
-
-
-class JitterTestCases(unittest.TestCase):
-    """Test abydos.util.jitter."""
-
-    def test_jitter(self):
-        """Test abydos.util.jitter."""
-        self.assertEqual(jitter([]), [])
-        self.assertEqual(jitter(()), [])
-        self.assertTrue(isinstance(jitter(5), float))
-        self.assertTrue(isinstance(jitter([5]), list))
-        self.assertEqual(len(jitter([1, 2, 3])), 3)
-        self.assertEqual(len(jitter([0, 0, 0])), 3)
-        self.assertEqual(len(jitter([0, 0, 0, 0, 0])), 5)
-        self.assertEqual(len(jitter((0, 0, 0, 0, 0))), 5)
-        self.assertEqual(len(jitter([1, 1, 1, 1, 1], min_val=0, max_val=2)), 5)
-        self.assertEqual(len(jitter({1, 2, 3, 4, 5})), 5)
-        self.assertEqual(len(jitter(range(5))), 5)
-        self.assertRaises(AttributeError, jitter, ['a'])
-        self.assertRaises(AttributeError, jitter, [1, 2, 3, 'a', 4])
-        self.assertRaises(AttributeError, jitter, [0, 0, 0, 'a', 0])
-        self.assertRaises(AttributeError, jitter, [0, 1], min_val=0.5)
-        self.assertRaises(AttributeError, jitter, [0, 1], max_val=0.5)
-        self.assertEqual(len(jitter([0]*5, 1, 0)), 5)
-        self.assertEqual(len(jitter([0]*5, 1, 0.05)), 5)
-        self.assertEqual(len(jitter([0]*5, rfunc='uniform')), 5)
-        self.assertEqual(len(jitter([0]*5, rfunc='normal')), 5)
-        self.assertEqual(len(jitter([0]*5, rfunc='laplace')), 5)
-
-        # user-supplied function tests:
-        # terrible random function:
-        self.assertEqual(len(jitter([0]*5, rfunc=lambda x: x+0.1)), 5)
-        # imported Student's t-distribution
-        from numpy.random import standard_t
-        self.assertEqual(len(jitter([0]*5, rfunc=standard_t)), 5)
 
 
 if __name__ == '__main__':
