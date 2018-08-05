@@ -24,10 +24,10 @@ This module contains unit tests for abydos.compression
 from __future__ import unicode_literals
 
 import unittest
+from fractions import Fraction
 
 from abydos.compression import ac_decode, ac_encode, ac_train, \
     bwt_decode, bwt_encode, rle_decode, rle_encode
-from abydos.util import Rational
 
 
 class ArithmeticCoderTestCases(unittest.TestCase):
@@ -37,27 +37,27 @@ class ArithmeticCoderTestCases(unittest.TestCase):
              'Nele', 'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill',
              'MacNeil', 'MacNele', 'Niall Noígíallach')
 
-    niall_probs = {'a': (Rational(41, 57), Rational(91, 114)),
-                   ' ': (Rational(25, 114), Rational(7, 19)),
-                   'c': (Rational(97, 114), Rational(50, 57)),
-                   'e': (Rational(29, 57), Rational(73, 114)),
-                   "'": (Rational(56, 57), Rational(113, 114)),
-                   'g': (Rational(47, 57), Rational(97, 114)),
-                   '\x00': (Rational(113, 114), Rational(1, 1)),
-                   'i': (Rational(73, 114), Rational(41, 57)),
-                   'M': (Rational(17, 19), Rational(52, 57)),
-                   'K': (Rational(37, 38), Rational(56, 57)),
-                   'j': (Rational(50, 57), Rational(17, 19)),
-                   '\xed': (Rational(91, 114), Rational(47, 57)),
-                   'l': (Rational(0, 1), Rational(25, 114)),
-                   'o': (Rational(53, 57), Rational(107, 114)),
-                   'N': (Rational(7, 19), Rational(29, 57)),
-                   '\xe9': (Rational(52, 57), Rational(35, 38)),
-                   '\xe1': (Rational(35, 38), Rational(53, 57)),
-                   'U': (Rational(109, 114), Rational(55, 57)),
-                   'O': (Rational(55, 57), Rational(37, 38)),
-                   'h': (Rational(18, 19), Rational(109, 114)),
-                   'n': (Rational(107, 114), Rational(18, 19))}
+    niall_probs = {'a': (Fraction(41, 57), Fraction(91, 114)),
+                   ' ': (Fraction(25, 114), Fraction(7, 19)),
+                   'c': (Fraction(97, 114), Fraction(50, 57)),
+                   'e': (Fraction(29, 57), Fraction(73, 114)),
+                   "'": (Fraction(56, 57), Fraction(113, 114)),
+                   'g': (Fraction(47, 57), Fraction(97, 114)),
+                   '\x00': (Fraction(113, 114), Fraction(1, 1)),
+                   'i': (Fraction(73, 114), Fraction(41, 57)),
+                   'M': (Fraction(17, 19), Fraction(52, 57)),
+                   'K': (Fraction(37, 38), Fraction(56, 57)),
+                   'j': (Fraction(50, 57), Fraction(17, 19)),
+                   '\xed': (Fraction(91, 114), Fraction(47, 57)),
+                   'l': (Fraction(0, 1), Fraction(25, 114)),
+                   'o': (Fraction(53, 57), Fraction(107, 114)),
+                   'N': (Fraction(7, 19), Fraction(29, 57)),
+                   '\xe9': (Fraction(52, 57), Fraction(35, 38)),
+                   '\xe1': (Fraction(35, 38), Fraction(53, 57)),
+                   'U': (Fraction(109, 114), Fraction(55, 57)),
+                   'O': (Fraction(55, 57), Fraction(37, 38)),
+                   'h': (Fraction(18, 19), Fraction(109, 114)),
+                   'n': (Fraction(107, 114), Fraction(18, 19))}
 
     def test_ac_train(self):
         """Test abydos.compression.ac_train."""
