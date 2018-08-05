@@ -302,9 +302,8 @@ def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False):
         word = word[::-1]
 
     # apply the Soundex algorithm
-    sdx = word.translate(_ref_soundex_translation)
-
-    sdx = sdx.replace('0', '')  # rule 1
+    sdx = word[0] + word.translate(_ref_soundex_translation)
+    sdx = _delete_consecutive_repeats(sdx)
 
     if maxlength and maxlength < _INFINITY:
         sdx = sdx[:maxlength]
