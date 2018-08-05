@@ -44,8 +44,7 @@ The phonetic module implements phonetic algorithms including:
     - Beider-Morse Phonetic Matching
 """
 
-from __future__ import division
-from __future__ import unicode_literals
+from __future__ import division, unicode_literals
 
 import re
 import unicodedata
