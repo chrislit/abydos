@@ -41,6 +41,7 @@ The phonetic module implements phonetic algorithms including:
     - Statistics Canada
     - Lein
     - Roger Root
+    - Oxford Name Compression Algorithm (ONCA)
     - Beider-Morse Phonetic Matching
 """
 
@@ -4538,6 +4539,41 @@ def roger_root(word, maxlength=5, zero_pad=True):
         code += '0'*maxlength
 
     return code[:maxlength]
+
+
+def onca(word, maxlength=4, zero_pad=True):
+    """Return the Oxford Name Compression Algorithm (ONCA) code for a word.
+
+    This is the Oxford Name Compression Algorithm, based on:
+    Gill, Leicester E. 1997. "OX-LINK: The Oxford Medical Record Linkage
+    System." In ``Record Linkage Techniques -- 1997``. Arlington, VA. March
+    20--21, 1997.
+    https://nces.ed.gov/FCSM/pdf/RLT97.pdf
+
+    I can find no complete description of the "anglicised version of the NYSIIS
+    method" identified as the first step in this algorithm, so this is likely
+    not a correct implementation, in that it employs the standard NYSIIS
+    algorithm.
+
+    :param str word: the word to transform
+    :param int maxlength: the maximum length (default 5) of the code to return
+    :param bool zero_pad: pad the end of the return value with 0s to achieve a
+        maxlength string
+    :returns: the ONCA code
+    :rtype: str
+
+    >>> onca('Christopher')
+    'C623'
+    >>> onca('Niall')
+    'N400'
+    >>> onca('Smith')
+    'S530'
+    >>> onca('Schmidt')
+    'S530'
+    """
+    # In the most extreme case, 3 characters of NYSIIS input can be compressed
+    # to one character of output, so give it triple the maxlength.
+    return soundex(nysiis(word, maxlength=maxlength*3), maxlength)
 
 
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',

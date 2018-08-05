@@ -39,9 +39,9 @@ from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
 from abydos.phonetic import alpha_sis, bmpm, caverphone, dm_soundex, \
     double_metaphone, fuzzy_soundex, koelner_phonetik, \
     koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, lein, metaphone, \
-    mra, nysiis, phonem, phonet, phonex, phonix, refined_soundex, roger_root, \
-    russell_index, russell_index_alpha, russell_index_num_to_alpha, sfinxbis, \
-    soundex, spfc, statistics_canada
+    mra, nysiis, onca, phonem, phonet, phonex, phonix, refined_soundex, \
+    roger_root,  russell_index, russell_index_alpha, \
+    russell_index_num_to_alpha, sfinxbis, soundex, spfc, statistics_canada
 
 from six import text_type
 
@@ -4510,6 +4510,24 @@ class RogerRootTestCases(unittest.TestCase):
         self.assertEqual(roger_root('Guillaume'), '07530')
         self.assertEqual(roger_root('Arlène'), '14520')
         self.assertEqual(roger_root('Lüdenscheidt'), '05126')
+
+
+class ONCATestCases(unittest.TestCase):
+    """Test ONCA functions.
+
+    test cases for abydos.phonetic.onca
+    """
+
+    def test_onca(self):
+        """Test abydos.phonetic.onca."""
+        # https://nces.ed.gov/FCSM/pdf/RLT97.pdf
+        self.assertEqual(onca('HALL'), 'H400')
+        self.assertEqual(onca('SMITH'), 'S530')
+
+        # http://nchod.uhce.ox.ac.uk/NCHOD%20Oxford%20E5%20Report%201st%20Feb_VerAM2.pdf
+        self.assertEqual(onca('HAWTON'), 'H350')
+        self.assertEqual(onca('HORTON'), 'H635')
+        self.assertEqual(onca('HOUGHTON'), 'H235')
 
 
 class BeiderMorseTestCases(unittest.TestCase):
