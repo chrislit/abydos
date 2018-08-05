@@ -22,6 +22,7 @@ The phonetic module implements phonetic algorithms including:
 
     - Robert C. Russell's Index
     - American Soundex
+    - Refined Soundex
     - Daitch-Mokotoff Soundex
     - Kölner Phonetik
     - NYSIIS
@@ -37,6 +38,9 @@ The phonetic module implements phonetic algorithms including:
     - SfinxBis
     - phonet
     - Standardized Phonetic Frequency Code
+    - Statistics Canada
+    - Lein
+    - Roger Root
     - Beider-Morse Phonetic Matching
 """
 

@@ -19,7 +19,11 @@
 """abydos.clustering.
 
 The clustering module implements clustering algorithms such as:
-    - string fingerprinting
+    - string fingerprint
+    - q-gram fingerprint
+    - phonetic fingerprint
+    - skeleton key
+    - omission key
 """
 
 from __future__ import division, unicode_literals
