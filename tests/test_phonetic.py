@@ -4488,7 +4488,7 @@ class RogerRootTestCases(unittest.TestCase):
         self.assertEqual(roger_root('Toeves'), '01800')
         self.assertEqual(roger_root('Tuffs'), '01800')
 
-        self.assertEqual(roger_root('Samotid'), '00310')
+        self.assertEqual(roger_root('Samotid'), '00311')
         self.assertEqual(roger_root('Simmet'), '00310')
         self.assertEqual(roger_root('Simot'), '00310')
         self.assertEqual(roger_root('Smead'), '00310')
