@@ -281,11 +281,23 @@ def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False):
     defined by the Apache Commons:
     https://commons.apache.org/proper/commons-codec/apidocs/src-html/org/apache/commons/codec/language/RefinedSoundex.html
 
-    :param word:
-    :param maxlength:
-    :param reverse:
-    :param zero_pad:
-    :return:
+    :param word: the word to transform
+    :param maxlength: the length of the code returned (defaults to unlimited)
+    :param reverse: reverse the word before computing the selected Soundex
+        (defaults to False); This results in "Reverse Soundex"
+    :param zero_pad: pad the end of the return value with 0s to achieve a
+        maxlength string
+    :returns: the Refined Soundex value
+    :rtype: str
+
+    >>> refined_soundex('Christopher')
+    'C3090360109'
+    >>> refined_soundex('Niall')
+    'N807'
+    >>> refined_soundex('Smith')
+    'S38060'
+    >>> refined_soundex('Schmidt')
+    'S30806'
     """
     _ref_soundex_translation = dict(zip((ord(_) for _ in
                                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
@@ -663,6 +675,15 @@ def nysiis(word, maxlength=6, modified=False):
 
     >>> nysiis('Christopher', maxlength=_INFINITY)
     'CRASTAFAR'
+
+    >>> nysiis('Christopher', maxlength=8, modified=True)
+    'CRASTAFA'
+    >>> nysiis('Niall', maxlength=8, modified=True)
+    'NAL'
+    >>> nysiis('Smith', maxlength=8, modified=True)
+    'SNAT'
+    >>> nysiis('Schmidt', maxlength=8, modified=True)
+    'SNAD'
     """
     # Require a maxlength of at least 6
     if maxlength:
@@ -4355,6 +4376,15 @@ def statistics_canada(word, maxlength=4):
     :param bool modified: indicates whether to use USDA modified algorithm
     :returns: the Statistics Canada name code value
     :rtype: str
+
+    >>> statistics_canada('Christopher')
+    'CHRS'
+    >>> statistics_canada('Niall')
+    'NL'
+    >>> statistics_canada('Smith')
+    'SMTH'
+    >>> statistics_canada('Schmidt')
+    'SCHM'
     """
     # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicodedata.normalize('NFKD', text_type(word.upper()))
@@ -4380,10 +4410,21 @@ def lein(word, maxlength=4, zero_pad=True):
     This is Lein name coding, based on
     https://naldc-legacy.nal.usda.gov/naldc/download.xhtml?id=27833&content=PDF
 
-    :param word:
-    :param maxlength:
-    :param zero_pad:
-    :return:
+    :param str word: the word to transform
+    :param int maxlength: the maximum length (default 4) of the code to return
+    :param bool zero_pad: pad the end of the return value with 0s to achieve a
+        maxlength string
+    :returns: the Lein code
+    :rtype: str
+
+    >>> lein('Christopher')
+    'C351'
+    >>> lein('Niall')
+    'N300'
+    >>> lein('Smith')
+    'S210'
+    >>> lein('Schmidt')
+    'S521'
     """
     _lein_translation = dict(zip((ord(_) for _ in
                                   'BCDFGJKLMNPQRSTVXZ'),
@@ -4415,10 +4456,21 @@ def roger_root(word, maxlength=5, zero_pad=True):
     This is Roger Root name coding, based on
     https://naldc-legacy.nal.usda.gov/naldc/download.xhtml?id=27833&content=PDF
 
-    :param word:
-    :param maxlength:
-    :param zero_pad:
-    :return:
+    :param str word: the word to transform
+    :param int maxlength: the maximum length (default 5) of the code to return
+    :param bool zero_pad: pad the end of the return value with 0s to achieve a
+        maxlength string
+    :returns: the Roger Root code
+    :rtype: str
+
+    >>> roger_root('Christopher')
+    '06401'
+    >>> roger_root('Niall')
+    '02500'
+    >>> roger_root('Smith')
+    '00310'
+    >>> roger_root('Schmidt')
+    '06310'
     """
     # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicodedata.normalize('NFKD', text_type(word.upper()))
