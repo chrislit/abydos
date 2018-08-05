@@ -59,8 +59,7 @@ If a sim_X function is supplied identical src & tar arguments, it is guaranteed
 to return 1; the corresponding dist_X function is guaranteed to return 0.
 """
 
-from __future__ import division
-from __future__ import unicode_literals
+from __future__ import division, unicode_literals
 
 import codecs
 import math
