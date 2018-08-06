@@ -21,6 +21,22 @@ Abydos
     :target: https://snyk.io/test/github/chrislit/abydos?targetFile=requirements.txt
     :alt: Known Vulnerabilities
 
+.. image:: https://scrutinizer-ci.com/g/chrislit/abydos/badges/quality-score.png?b=master
+    :target: https://scrutinizer-ci.com/g/chrislit/abydos/?branch=master
+    :alt: Scrutinizer
+
+.. image:: https://ci.appveyor.com/api/projects/status/d3yw3d9r6c8ai63j/branch/master?svg=true
+    :target: https://ci.appveyor.com/project/chrislit/abydos
+    :alt: AppVeyor
+
+.. image:: https://api.codacy.com/project/badge/Grade/db79f2c31ea142fb9b5938abe87b0854
+    :target: https://www.codacy.com/app/chrislit/abydos?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=chrislit/abydos&amp;utm_campaign=Badge_Grade
+    :alt: Codacy
+
+.. image:: https://requires.io/github/chrislit/abydos/requirements.svg?branch=master
+    :target: https://requires.io/github/chrislit/abydos/requirements/?branch=master
+    :alt: Requirements Status
+
 .. image:: https://img.shields.io/badge/Pylint-9.77/10-green.svg
    :target: #
    :alt: Pylint Score
@@ -37,9 +53,33 @@ Abydos
     :target: https://pypi.python.org/pypi/abydos
     :alt: PyPI
 
+.. image:: 	https://img.shields.io/pypi/pyversions/abydos.svg
+    :target: https://pypi.python.org/pypi/abydos
+    :alt: PyPI versions
+
+.. image:: https://img.shields.io/conda/vn/conda-forge/abydos.svg
+    :target: #
+    :alt: conda-forge
+
+.. image:: 	https://img.shields.io/conda/dn/conda-forge/abydos.svg
+    :target: #
+    :alt: conda-forge downloads
+
+.. image:: https://img.shields.io/conda/pn/conda-forge/abydos.svg
+    :target: #
+    :alt: conda-forge platforms
+
 .. image:: https://readthedocs.org/projects/abydos/badge/?version=latest
     :target: https://abydos.readthedocs.org/en/latest/
     :alt: Documentation Status
+
+.. image:: https://badge.waffle.io/chrislit/abydos.svg?columns=all
+    :target: https://waffle.io/chrislit/abydos
+    :alt: 'Waffle.io - Columns and their card count'
+
+.. image:: https://img.shields.io/badge/License-GPL%20v3-blue.svg
+    :target: https://www.gnu.org/licenses/gpl-3.0
+    :alt: License: GPL v3
 
 .. image:: https://www.openhub.net/p/abydosnlp/widgets/project_thin_badge.gif
     :target: https://www.openhub.net/p/abydosnlp
