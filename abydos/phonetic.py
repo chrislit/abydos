@@ -4573,7 +4573,7 @@ def onca(word, maxlength=4, zero_pad=True):
     """
     # In the most extreme case, 3 characters of NYSIIS input can be compressed
     # to one character of output, so give it triple the maxlength.
-    return soundex(nysiis(word, maxlength=maxlength*3, zero_pad=zero_pad), maxlength, zero_pad=zero_pad)
+    return soundex(nysiis(word, maxlength=maxlength*3), maxlength, zero_pad=zero_pad)
 
 
 def eudex(word):
@@ -4709,10 +4709,7 @@ def eudex(word):
         0xff:0b11100101,  # ÿ
     }
 
-    _letters = 26
-    _letters_c1 = 33
-
-    _map_first(letter):
+    def _map_first(letter):
         """Map the first character in a word."""
         letter |= 32
 
