@@ -101,7 +101,9 @@ def russell_index(word):
 
     # translate according to Russell's mapping
     word = ''.join(c for c in word if c in
-                   frozenset('ABCDEFGIKLMNOPQRSTUVXYZ'))
+                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                    'Y', 'Z'})
     sdx = word.translate(_russell_translation)
 
     # remove any 1s after the first occurrence
@@ -245,7 +247,9 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
-                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
+                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                    'Y', 'Z'})
 
     # Nothing to convert, return base case
     if not word:
@@ -311,7 +315,9 @@ def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False):
     word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
-                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
+                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                    'Y', 'Z'})
 
     # Reverse word if computing Reverse Soundex
     if reverse:
@@ -449,7 +455,9 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
     word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
-                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
+                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                    'Y', 'Z'})
 
     # Nothing to convert, return base case
     if not word:
@@ -551,7 +559,9 @@ def koelner_phonetik(word):
     word = word.replace('Ö', 'OE')
     word = word.replace('Ü', 'UE')
     word = ''.join(c for c in word if c in
-                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
+                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                    'Y', 'Z'})
 
     # Nothing to convert, return base case
     if not word:
@@ -1793,12 +1803,13 @@ def caverphone(word, version=2):
     >>> caverphone('Schmidt', 1)
     'SKMT11'
     """
-    _vowels = frozenset('aeiou')
+    _vowels = {'a', 'e', 'i', 'o', 'u'}
 
     word = word.lower()
     word = ''.join(c for c in word if c in
-                   frozenset('abcdefghijklmnopqrstuvwxyz'))
-
+                   {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+                    'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+                    'y', 'z'})
     # the main replacemet algorithm
     if version != 1 and word[-1:] == 'e':
         word = word[:-1]
@@ -1954,7 +1965,9 @@ def alpha_sis(word, maxlength=14):
     word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
-                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
+                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                    'Y', 'Z'})
 
     # Clamp maxlength to [4, 64]
     if maxlength is not None:
@@ -2098,7 +2111,7 @@ def fuzzy_soundex(word, maxlength=5, zero_pad=True):
     # remove repeating characters
     sdx = _delete_consecutive_repeats(sdx)
 
-    if word[0] in frozenset('HWY'):
+    if word[0] in {'H', 'W', 'Y'}:
         sdx = word[0] + sdx
     else:
         sdx = word[0] + sdx[1:]
@@ -2448,7 +2461,9 @@ def phonix(word, maxlength=4, zero_pad=True):
     word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
-                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
+                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                    'Y', 'Z'})
     if word:
         for trans in _phonix_substitutions:
             word = trans[0](word, *trans[1:])
@@ -2510,10 +2525,13 @@ def sfinxbis(word, maxlength=None):
                    ' LA ', ' LE ', ' MAC ', ' MC ', ' VAN ', ' VON ', ' Y ',
                    ' S:T ')
 
-    _harde_vokaler = frozenset('AOUÅ')
-    _mjuka_vokaler = frozenset('EIYÄÖ')
-    _konsonanter = frozenset('BCDFGHJKLMNPQRSTVWXZ')
-    _alfabet = frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ')
+    _harde_vokaler = {'A', 'O', 'U', 'Å'}
+    _mjuka_vokaler = {'E', 'I', 'Y', 'Ä', 'Ö'}
+    _konsonanter = {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P',
+                    'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Z'}
+    _alfabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                'Y', 'Z', 'Ä', 'Å', 'Ö'}
 
     _sfinxbis_translation = dict(zip((ord(_) for _ in
                                       'BCDFGHJKLMNPQRSTVZAOUÅEIYÄÖ'),
@@ -4288,7 +4306,9 @@ def spfc(word):
         """Perform the first three steps of SPFC."""
         # filter out non A-Z
         name = ''.join(_ for _ in name if _ in
-                       frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
+                       {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                        'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                        'Y', 'Z'})
 
         # 1. In the field, convert DK to K, DT to T, SC to S, KN to N,
         # and MN to N
@@ -4394,7 +4414,9 @@ def statistics_canada(word, maxlength=4):
     word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
-                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
+                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                    'Y', 'Z'})
     if not word:
         return ''
 
@@ -4438,7 +4460,9 @@ def lein(word, maxlength=4, zero_pad=True):
     word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
-                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
+                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                    'Y', 'Z'})
 
     if not word:
         return ''
@@ -4480,7 +4504,9 @@ def roger_root(word, maxlength=5, zero_pad=True):
     word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
-                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
+                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                    'Y', 'Z'})
 
     if not word:
         return ''
