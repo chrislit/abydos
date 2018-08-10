@@ -137,7 +137,8 @@ def russell_index_num_to_alpha(num):
     """
     _russell_num_translation = dict(zip((ord(_) for _ in '12345678'),
                                         'ABCDLMNR'))
-    num = ''.join(c for c in text_type(num) if c in frozenset('12345678'))
+    num = ''.join(c for c in text_type(num) if c in {'1', '2', '3', '4', '5',
+                                                     '6', '7', '8'})
     if num:
         return num.translate(_russell_num_translation)
     return ''
@@ -442,7 +443,7 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
                   'Z': ('ZHDZH', 'ZDZH', 'ZSCH', 'ZDZ', 'ZHD', 'ZSH', 'ZD',
                         'ZH', 'ZS', 'Z')}
 
-    _vowels = frozenset('AEIJOUY')
+    _vowels = {'A', 'E', 'I', 'J', 'O', 'U', 'Y'}
     dms = ['']  # initialize empty code list
 
     # Require a maxlength of at least 6 and not more than 64
@@ -548,7 +549,7 @@ def koelner_phonetik(word):
             return True
         return False
 
-    _vowels = frozenset('AEIJYOU')
+    _vowels = {'A', 'E', 'I', 'J', 'O', 'U', 'Y'}
 
     sdx = ''
 
@@ -573,43 +574,44 @@ def koelner_phonetik(word):
         elif word[i] == 'B':
             sdx += '1'
         elif word[i] == 'P':
-            if _before(word, i, frozenset('H')):
+            if _before(word, i, {'H'}):
                 sdx += '3'
             else:
                 sdx += '1'
-        elif word[i] in frozenset('DT'):
-            if _before(word, i, frozenset('CSZ')):
+        elif word[i] in {'D', 'T'}:
+            if _before(word, i, {'C', 'S', 'Z'}):
                 sdx += '8'
             else:
                 sdx += '2'
-        elif word[i] in frozenset('FVW'):
+        elif word[i] in {'F', 'V', 'W'}:
             sdx += '3'
-        elif word[i] in frozenset('GKQ'):
+        elif word[i] in {'G', 'K', 'Q'}:
             sdx += '4'
         elif word[i] == 'C':
-            if _after(word, i, frozenset('SZ')):
+            if _after(word, i, {'S', 'Z'}):
                 sdx += '8'
             elif i == 0:
-                if _before(word, i, frozenset('AHKLOQRUX')):
+                if _before(word, i, {'A', 'H', 'K', 'L', 'O', 'Q', 'R', 'U',
+                                     'X'}):
                     sdx += '4'
                 else:
                     sdx += '8'
-            elif _before(word, i, frozenset('AHKOQUX')):
+            elif _before(word, i, {'A', 'H', 'K', 'O', 'Q', 'U', 'X'}):
                 sdx += '4'
             else:
                 sdx += '8'
         elif word[i] == 'X':
-            if _after(word, i, frozenset('CKQ')):
+            if _after(word, i, {'C', 'K', 'Q'}):
                 sdx += '8'
             else:
                 sdx += '48'
         elif word[i] == 'L':
             sdx += '5'
-        elif word[i] in frozenset('MN'):
+        elif word[i] in {'M', 'N'}:
             sdx += '6'
         elif word[i] == 'R':
             sdx += '7'
-        elif word[i] in frozenset('SZ'):
+        elif word[i] in {'S', 'Z'}:
             sdx += '8'
 
     sdx = _delete_consecutive_repeats(sdx)
@@ -636,7 +638,8 @@ def koelner_phonetik_num_to_alpha(num):
     """
     _koelner_num_translation = dict(zip((ord(_) for _ in '012345678'),
                                         'APTFKLNRS'))
-    num = ''.join(c for c in text_type(num) if c in frozenset('012345678'))
+    num = ''.join(c for c in text_type(num) if c in {'0', '1', '2', '3', '4',
+                                                     '5', '6', '7', '8'})
     return num.translate(_koelner_num_translation)
 
 
@@ -854,7 +857,7 @@ def mra(word):
     word = word.upper()
     word = word.replace('ß', 'SS')
     word = word[0]+''.join(c for c in word[1:] if
-                           c not in frozenset('AEIOU'))
+                           c not in {'A', 'E', 'I', 'O', 'U'})
     word = _delete_consecutive_repeats(word)
     if len(word) > 6:
         word = word[:3]+word[-3:]
@@ -888,9 +891,9 @@ def metaphone(word, maxlength=_INFINITY):
     'SKMTT'
     """
     # pylint: disable=too-many-branches
-    _vowels = frozenset('AEIOU')
-    _frontv = frozenset('EIY')
-    _varson = frozenset('CSPTG')
+    _vowels = {'A', 'E', 'I', 'O', 'U'}
+    _frontv = {'E', 'I', 'Y'}
+    _varson = {'C', 'G', 'P', 'S', 'T'}
 
     # Require a maxlength of at least 4
     if maxlength is not None:
@@ -918,7 +921,7 @@ def metaphone(word, maxlength=_INFINITY):
     for i in range(len(ename)):
         if len(metaph) >= maxlength:
             break
-        if ((ename[i] not in frozenset('GT') and
+        if ((ename[i] not in {'G', 'T'} and
              i > 0 and ename[i-1] == ename[i])):
             continue
 
@@ -980,7 +983,7 @@ def metaphone(word, maxlength=_INFINITY):
             else:
                 metaph += 'H'
 
-        elif ename[i] in frozenset('FJLMNR'):
+        elif ename[i] in {'F', 'J', 'L', 'M', 'N', 'R'}:
             metaph += ename[i]
 
         elif ename[i] == 'K':
@@ -1009,7 +1012,7 @@ def metaphone(word, maxlength=_INFINITY):
 
         elif ename[i] == 'T':
             if ((i > 0 and i+2 <= elen and ename[i+1] == 'I' and
-                 ename[i+2] in frozenset('OA'))):
+                 ename[i+2] in {'A', 'O'})):
                 metaph += 'X'
             elif ename[i+1:i+2] == 'H':
                 metaph += '0'
@@ -1086,7 +1089,7 @@ def double_metaphone(word, maxlength=_INFINITY):
 
     def _is_vowel(pos):
         """Return True if the character at word[pos] is a vowel."""
-        if pos >= 0 and word[pos] in frozenset('AEIOUY'):
+        if pos >= 0 and word[pos] in {'A', 'E', 'I', 'O', 'U', 'Y'}:
             return True
         return False
 
@@ -1126,7 +1129,7 @@ def double_metaphone(word, maxlength=_INFINITY):
         if current >= length:
             break
 
-        if _get_at(current) in frozenset('AEIOUY'):
+        if _get_at(current) in {'A', 'E', 'I', 'O', 'U', 'Y'}:
             if current == 0:
                 # All init vowels now map to 'A'
                 (primary, secondary) = _metaph_add('A')
@@ -2183,17 +2186,17 @@ def phonex(word, maxlength=4, zero_pad=True):
 
     if name:
         # Phonetic equivalents of first character
-        if name[0] in frozenset('AEIOUY'):
+        if name[0] in {'A', 'E', 'I', 'O', 'U', 'Y'}:
             name = 'A' + name[1:]
-        elif name[0] in frozenset('BP'):
+        elif name[0] in {'B', 'P'}:
             name = 'B' + name[1:]
-        elif name[0] in frozenset('VF'):
+        elif name[0] in {'V', 'F'}:
             name = 'F' + name[1:]
-        elif name[0] in frozenset('KQC'):
+        elif name[0] in {'C', 'K', 'Q'}:
             name = 'C' + name[1:]
-        elif name[0] in frozenset('JG'):
+        elif name[0] in {'G', 'J'}:
             name = 'G' + name[1:]
-        elif name[0] in frozenset('ZS'):
+        elif name[0] in {'S', 'Z'}:
             name = 'S' + name[1:]
 
         name_code = last = name[0]
@@ -2201,22 +2204,22 @@ def phonex(word, maxlength=4, zero_pad=True):
     # MODIFIED SOUNDEX CODE
     for i in range(1, len(name)):
         code = '0'
-        if name[i] in frozenset('BPFV'):
+        if name[i] in {'B', 'F', 'P', 'V'}:
             code = '1'
-        elif name[i] in frozenset('CSKGJQXZ'):
+        elif name[i] in {'C', 'G', 'J', 'K', 'Q', 'S', 'X', 'Z'}:
             code = '2'
-        elif name[i] in frozenset('DT'):
+        elif name[i] in {'D', 'T'}:
             if name[i+1:i+2] != 'C':
                 code = '3'
         elif name[i] == 'L':
-            if name[i+1:i+2] in frozenset('AEIOUY') or i+1 == len(name):
+            if name[i+1:i+2] in {'A', 'E', 'I', 'O', 'U', 'Y'} or i+1 == len(name):
                 code = '4'
-        elif name[i] in frozenset('MN'):
-            if name[i+1:i+2] in frozenset('DG'):
+        elif name[i] in {'M', 'N'}:
+            if name[i+1:i+2] in {'D', 'G'}:
                 name = name[:i+1] + name[i] + name[i+2:]
             code = '5'
         elif name[i] == 'R':
-            if name[i+1:i+2] in frozenset('AEIOUY') or i+1 == len(name):
+            if name[i+1:i+2] in {'A', 'E', 'I', 'O', 'U', 'Y'} or i+1 == len(name):
                 code = '6'
 
         if code != last and code != '0' and i != 0:
@@ -2274,7 +2277,8 @@ def phonem(word):
     word = word.translate(_phonem_translation)
 
     return ''.join(c for c in _delete_consecutive_repeats(word)
-                   if c in frozenset('ABCDLMNORSUVWXYÖ'))
+                   if c in {'A', 'B', 'C', 'D', 'L', 'M', 'N', 'O', 'R', 'S',
+                            'U', 'V', 'W', 'X', 'Y', 'Ö'})
 
 
 def phonix(word, maxlength=4, zero_pad=True):
@@ -2355,8 +2359,9 @@ def phonix(word, maxlength=4, zero_pad=True):
         else:
             return word.replace(src, tar)
 
-    _vow = frozenset('AEIOU')
-    _con = frozenset('BCDFGHJKLMNPQRSTVWXYZ')
+    _vow = {'A', 'E', 'I', 'O', 'U'}
+    _con = {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q',
+            'R', 'S', 'T', 'V', 'W', 'X', 'Y', 'Z'}
 
     _phonix_substitutions = ((_all_repl, 'DG', 'G'),
                              (_all_repl, 'CO', 'KO'),
@@ -2467,7 +2472,7 @@ def phonix(word, maxlength=4, zero_pad=True):
     if word:
         for trans in _phonix_substitutions:
             word = trans[0](word, *trans[1:])
-        if word[0] in frozenset('AEIOUY'):
+        if word[0] in {'A', 'E', 'I', 'O', 'U', 'Y'}:
             sdx = 'v' + word[1:].translate(_phonix_translation)
         else:
             sdx = word[0] + word[1:].translate(_phonix_translation)
@@ -3754,7 +3759,9 @@ def phonet(word, mode=1, lang='de', trace=False):
         phonet_hash[''] = -1
 
         # German and international umlauts
-        for j in frozenset('ÀÁÂÃÅÄÆÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ'):
+        for j in {'À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë',
+                  'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø',
+                  'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'Þ', 'ß', 'Œ', 'Š', 'Ÿ'}:
             alpha_pos[j] = 1
             phonet_hash[j] = -1
 
@@ -4322,7 +4329,7 @@ def spfc(word):
         # field.
         if name:
             name = name[0] + ''.join(_ for _ in name[1:] if _ not in
-                                     frozenset('AEIOUWHY'))
+                                     {'A', 'E', 'H', 'I', 'O', 'U', 'W', 'Y'})
         return name
 
     names = [steps_one_to_three(_) for _ in names]
