@@ -101,9 +101,8 @@ def russell_index(word):
 
     # translate according to Russell's mapping
     word = ''.join(c for c in word if c in
-                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-                    'Y', 'Z'})
+                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'I', 'K', 'L', 'M', 'N',
+                    'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'})
     sdx = word.translate(_russell_translation)
 
     # remove any 1s after the first occurrence
@@ -2049,15 +2048,15 @@ def fuzzy_soundex(word, maxlength=5, zero_pad=True):
             return '0' * maxlength
         return '0'
 
-    if word[:2] in frozenset(['CS', 'CZ', 'TS', 'TZ']):
+    if word[:2] in {'CS', 'CZ', 'TS', 'TZ'}:
         word = 'SS' + word[2:]
     elif word[:2] == 'GN':
         word = 'NN' + word[2:]
-    elif word[:2] in frozenset(['HR', 'WR']):
+    elif word[:2] in {'HR', 'WR'}:
         word = 'RR' + word[2:]
     elif word[:2] == 'HW':
         word = 'WW' + word[2:]
-    elif word[:2] in frozenset(['KN', 'NG']):
+    elif word[:2] in {'KN', 'NG'}:
         word = 'NN' + word[2:]
 
     if word[-2:] == 'CH':
@@ -4338,13 +4337,13 @@ def spfc(word):
         elif names[1][-3:] == 'STR':
             code += '9'
             names[1] = names[1][:-3]
-        elif names[1][-2:] in frozenset(['SR', 'TN', 'TD']):
+        elif names[1][-2:] in {'SR', 'TN', 'TD'}:
             code += '9'
             names[1] = names[1][:-2]
         elif names[1][-3:] == 'DRS':
             code += '7'
             names[1] = names[1][:-3]
-        elif names[1][-2:] in frozenset(['TR', 'MN']):
+        elif names[1][-2:] in {'TR', 'MN'}:
             code += '7'
             names[1] = names[1][:-2]
         else:
