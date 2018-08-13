@@ -51,14 +51,13 @@ _LANG_DICT = {'any': L_ANY, 'arabic': L_ARABIC, 'cyrillic': L_CYRILLIC,
               'portuguese': L_PORTUGUESE, 'romanian': L_ROMANIAN,
               'russian': L_RUSSIAN, 'spanish': L_SPANISH, 'turkish': L_TURKISH}
 
-BMDATA['gen']['discards'] = frozenset(['da ', 'dal ', 'de ', 'del ', 'dela ',
-                                       'de la ', 'della ', 'des ', 'di ',
-                                       'do ', 'dos ', 'du ', 'van ', 'von ',
-                                       'd\''])
-BMDATA['sep']['discards'] = frozenset(['al', 'el', 'da', 'dal', 'de', 'del',
-                                       'dela', 'de la', 'della', 'des', 'di',
-                                       'do', 'dos', 'du', 'van', 'von'])
-BMDATA['ash']['discards'] = frozenset(['bar', 'ben', 'da', 'de', 'van', 'von'])
+BMDATA['gen']['discards'] = {'da ', 'dal ', 'de ', 'del ', 'dela ', 'de la ',
+                             'della ', 'des ', 'di ', 'do ', 'dos ', 'du ',
+                             'van ', 'von ', 'd\''}
+BMDATA['sep']['discards'] = {'al', 'el', 'da', 'dal', 'de', 'del', 'dela',
+                             'de la', 'della', 'des', 'di', 'do', 'dos', 'du',
+                             'van', 'von'}
+BMDATA['ash']['discards'] = {'bar', 'ben', 'da', 'de', 'van', 'von'}
 
 # format of rules array
 _PATTERN_POS = 0
@@ -568,7 +567,7 @@ def _bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     word = unicodedata.normalize('NFC', text_type(word.strip().lower()))
 
     name_mode = name_mode.strip().lower()[:3]
-    if name_mode not in frozenset(['ash', 'sep', 'gen']):
+    if name_mode not in {'ash', 'sep', 'gen'}:
         name_mode = 'gen'
 
     if match_mode != 'exact':

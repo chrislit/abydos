@@ -1974,7 +1974,7 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
     if src == tar:
         return 0.0
 
-    if compressor not in frozenset(['arith', 'rle', 'bwtrle']):
+    if compressor not in {'arith', 'rle', 'bwtrle'}:
         src = src.encode('utf-8')
         tar = tar.encode('utf-8')
 
@@ -2002,7 +2002,7 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
         concat_comp2 = ac_encode(tar+src, probs)[1]
         return ((min(concat_comp, concat_comp2) - min(src_comp, tar_comp)) /
                 max(src_comp, tar_comp))
-    elif compressor in frozenset(['rle', 'bwtrle']):
+    elif compressor in {'rle', 'bwtrle'}:
         src_comp = rle_encode(src, (compressor == 'bwtrle'))
         tar_comp = rle_encode(tar, (compressor == 'bwtrle'))
         concat_comp = rle_encode(src+tar, (compressor == 'bwtrle'))
@@ -2788,11 +2788,19 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
     6
     """
     match_cost, group_cost, mismatch_cost = cost
-    letter_groups = (frozenset('AEIOUY'), frozenset('BP'), frozenset('CKQ'),
-                     frozenset('DT'), frozenset('LR'), frozenset('MN'),
-                     frozenset('GJ'), frozenset('FPV'), frozenset('SXZ'),
-                     frozenset('CSZ'))
-    all_letters = frozenset('AEIOUYBPCKQDTLRMNGJFVSXZ')
+    letter_groups = ({'A', 'E', 'I', 'O', 'U', 'Y'},
+                     {'B', 'P'},
+                     {'C', 'K', 'Q'},
+                     {'D', 'T'},
+                     {'L', 'R'},
+                     {'M', 'N'},
+                     {'G', 'J'},
+                     {'F', 'P', 'V'},
+                     {'S', 'X', 'Z'},
+                     {'C', 'S', 'Z'})
+    all_letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'I', 'J', 'K', 'L', 'M',
+                   'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'}
+
 
     def r_cost(ch1, ch2):
         """Return r(a,b) according to Zobel & Dart's definition."""

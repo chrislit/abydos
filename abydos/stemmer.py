@@ -92,26 +92,26 @@ def lovins(word):
 
     def cond_i(word, suffix_len):
         """Return Lovins' condition I."""
-        return word[-suffix_len-1] not in frozenset('oe')
+        return word[-suffix_len-1] not in {'e', 'o'}
 
     def cond_j(word, suffix_len):
         """Return Lovins' condition J."""
-        return word[-suffix_len-1] not in frozenset('ae')
+        return word[-suffix_len-1] not in {'a', 'e'}
 
     def cond_k(word, suffix_len):
         """Return Lovins' condition K."""
         return (len(word)-suffix_len >= 3 and
-                (word[-suffix_len-1] in frozenset('li') or
+                (word[-suffix_len-1] in {'i', 'l'} or
                  (word[-suffix_len-3] == 'u' and word[-suffix_len-1] == 'e')))
 
     def cond_l(word, suffix_len):
         """Return Lovins' condition L."""
-        return (word[-suffix_len-1] not in frozenset('uxs') or
+        return (word[-suffix_len-1] not in {'s', 'u', 'x'} or
                 word[-suffix_len-1] == 'os')
 
     def cond_m(word, suffix_len):
         """Return Lovins' condition M."""
-        return word[-suffix_len-1] not in frozenset('acem')
+        return word[-suffix_len-1] not in {'a', 'c', 'e', 'm'}
 
     def cond_n(word, suffix_len):
         """Return Lovins' condition N."""
@@ -125,7 +125,7 @@ def lovins(word):
 
     def cond_o(word, suffix_len):
         """Return Lovins' condition O."""
-        return word[-suffix_len-1] in frozenset('li')
+        return word[-suffix_len-1] in {'i', 'l'}
 
     def cond_p(word, suffix_len):
         """Return Lovins' condition P."""
@@ -134,11 +134,11 @@ def lovins(word):
     def cond_q(word, suffix_len):
         """Return Lovins' condition Q."""
         return (len(word)-suffix_len >= 3 and
-                word[-suffix_len-1] not in frozenset('ln'))
+                word[-suffix_len-1] not in {'l', 'n'}
 
     def cond_r(word, suffix_len):
         """Return Lovins' condition R."""
-        return word[-suffix_len-1] in frozenset('nr')
+        return word[-suffix_len-1] in {'n', 'r'}
 
     def cond_s(word, suffix_len):
         """Return Lovins' condition S."""
@@ -148,12 +148,12 @@ def lovins(word):
 
     def cond_t(word, suffix_len):
         """Return Lovins' condition T."""
-        return (word[-suffix_len-1] in frozenset('st') and
+        return (word[-suffix_len-1] in {'s', 't'} and
                 word[-suffix_len-2:-suffix_len] != 'ot')
 
     def cond_u(word, suffix_len):
         """Return Lovins' condition U."""
-        return word[-suffix_len-1] in frozenset('lmnr')
+        return word[-suffix_len-1] in {'l', 'm', 'n', 'r'}
 
     def cond_v(word, suffix_len):
         """Return Lovins' condition V."""
@@ -161,11 +161,11 @@ def lovins(word):
 
     def cond_w(word, suffix_len):
         """Return Lovins' condition W."""
-        return word[-suffix_len-1] not in frozenset('su')
+        return word[-suffix_len-1] not in {'s', 'u'}
 
     def cond_x(word, suffix_len):
         """Return Lovins' condition X."""
-        return (word[-suffix_len-1] in frozenset('li') or
+        return (word[-suffix_len-1] in {'i', 'l'} or
                 (word[-suffix_len-3:-suffix_len] == 'u' and
                  word[-suffix_len-1] == 'e'))
 
@@ -179,9 +179,9 @@ def lovins(word):
 
     def cond_aa(word, suffix_len):
         """Return Lovins' condition AA."""
-        return (word[-suffix_len-1] in frozenset('dflt') or
-                word[-suffix_len-2:-suffix_len] in frozenset(['ph', 'th', 'er',
-                                                              'or', 'es']))
+        return (word[-suffix_len-1] in {'d', 'f', 'l', 't'} or
+                word[-suffix_len-2:-suffix_len] in {'ph', 'th', 'er', 'or',
+                                                    'es'})
 
     def cond_bb(word, suffix_len):
         """Return Lovins' condition BB."""
@@ -294,7 +294,7 @@ def lovins(word):
 
     def recode9(stem):
         """Return Lovins' conditional recode rule 9."""
-        if stem[-3:-2] in frozenset('aio'):
+        if stem[-3:-2] in {'a', 'i', 'o'}:
             return stem
         return stem[:-2]+'l'
 
@@ -306,7 +306,7 @@ def lovins(word):
 
     def recode28(stem):
         """Return Lovins' conditional recode rule 28."""
-        if stem[-4:-3] in frozenset('pt'):
+        if stem[-4:-3] in {'p', 't'}:
             return stem
         return stem[:-1]+'s'
 
@@ -322,8 +322,8 @@ def lovins(word):
             return stem
         return stem[:-1]+'s'
 
-    if word[-2:] in frozenset(['bb', 'dd', 'gg', 'll', 'mm', 'nn', 'pp', 'rr',
-                               'ss', 'tt']):
+    if word[-2:] in {'bb', 'dd', 'gg', 'll', 'mm', 'nn', 'pp', 'rr', 'ss',
+                     'tt'}:
         word = word[:-1]
 
     recode = (('iev', 'ief'),
@@ -466,7 +466,7 @@ def porter(word, early_english=False):
     if len(word) < 3:
         return word
 
-    _vowels = frozenset('aeiouy')
+    _vowels = {'a', 'e', 'i', 'o', 'u', 'y'}
     # Re-map consonantal y to Y (Y will be C, y will be V)
     if word[0] == 'y':
         word = 'Y' + word[1:]
@@ -509,16 +509,16 @@ def porter(word, early_english=False):
                 step1b_flag = True
 
     if step1b_flag:
-        if word[-2:] in frozenset(['at', 'bl', 'iz']):
+        if word[-2:] in {'at', 'bl', 'iz'}:
             word += 'e'
         elif (_ends_in_doubled_cons(word, _vowels) and
-              word[-1] not in frozenset('lsz')):
+              word[-1] not in {'l', 's', 'z'}):
             word = word[:-1]
         elif _m_degree(word, _vowels) == 1 and _ends_in_cvc(word, _vowels):
             word += 'e'
 
     # Step 1c
-    if word[-1] in frozenset('Yy') and _sb_has_vowel(word[:-1], _vowels):
+    if word[-1] in {'Y', 'y'} and _sb_has_vowel(word[:-1], _vowels):
         word = word[:-1] + 'i'
 
     # Step 2
@@ -531,7 +531,7 @@ def porter(word, early_english=False):
                 if _m_degree(word[:-6], _vowels) > 0:
                     word = word[:-2]
         elif word[-2] == 'c':
-            if word[-4:] in frozenset(['enci', 'anci']):
+            if word[-4:] in {'enci', 'anci'}:
                 if _m_degree(word[:-4], _vowels) > 0:
                     word = word[:-1] + 'e'
         elif word[-2] == 'e':
@@ -572,7 +572,7 @@ def porter(word, early_english=False):
             if word[-5:] == 'alism':
                 if _m_degree(word[:-5], _vowels) > 0:
                     word = word[:-3]
-            elif word[-7:] in frozenset(['iveness', 'fulness', 'ousness']):
+            elif word[-7:] in {'iveness', 'fulness', 'ousness'}:
                 if _m_degree(word[:-7], _vowels) > 0:
                     word = word[:-4]
         elif word[-2] == 't':
@@ -593,7 +593,7 @@ def porter(word, early_english=False):
     elif word[-5:] == 'ative':
         if _m_degree(word[:-5], _vowels) > 0:
             word = word[:-5]
-    elif word[-5:] in frozenset(['alize', 'iciti']):
+    elif word[-5:] in {'alize', 'iciti'}:
         if _m_degree(word[:-5], _vowels) > 0:
             word = word[:-3]
     elif word[-4:] == 'ical':
@@ -640,7 +640,7 @@ def porter(word, early_english=False):
     elif word[-3:] == 'ent':
         if _m_degree(word[:-3], _vowels) > 1:
             word = word[:-3]
-    elif word[-4:] in frozenset(['sion', 'tion']):
+    elif word[-4:] in {'sion', 'tion'}:
         if _m_degree(word[:-3], _vowels) > 1:
             word = word[:-3]
     elif word[-2:] == 'ou':
@@ -763,11 +763,11 @@ def porter2(word, early_english=False):
     # pylint: disable=too-many-branches
     # pylint: disable=too-many-return-statements
 
-    _vowels = frozenset('aeiouy')
-    _codanonvowels = frozenset('bcdfghjklmnpqrstvz\'')
-    _doubles = frozenset(['bb', 'dd', 'ff', 'gg', 'mm', 'nn', 'pp', 'rr',
-                          'tt'])
-    _li = frozenset('cdeghkmnrt')
+    _vowels = {'a', 'e', 'i', 'o', 'u', 'y'}
+    _codanonvowels = {"'", 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm',
+                      'n', 'p', 'q', 'r', 's', 't', 'v', 'z'}
+    _doubles = {'bb', 'dd', 'ff', 'gg', 'mm', 'nn', 'pp', 'rr', 'tt'}
+    _li = {'c', 'd', 'e', 'g', 'h', 'k', 'm', 'n', 'r', 't'}
 
     # R1 prefixes should be in order from longest to shortest to prevent
     # masking
@@ -778,10 +778,10 @@ def porter2(word, early_english=False):
         # special -LY cases:
         'idly': 'idl', 'gently': 'gentl', 'ugly': 'ugli',
         'early': 'earli', 'only': 'onli', 'singly': 'singl'}
-    _exception1set = frozenset(['sky', 'news', 'howe', 'atlas', 'cosmos',
-                                'bias', 'andes'])
-    _exception2set = frozenset(['inning', 'outing', 'canning', 'herring',
-                                'earring', 'proceed', 'exceed', 'succeed'])
+    _exception1set = {'sky', 'news', 'howe', 'atlas', 'cosmos', 'bias',
+                      'andes'}
+    _exception2set = {'inning', 'outing', 'canning', 'herring', 'earring',
+                      'proceed', 'exceed', 'succeed'}
 
     # lowercase, normalize, and compose
     word = unicodedata.normalize('NFC', text_type(word.lower()))
@@ -831,12 +831,12 @@ def porter2(word, early_english=False):
     # Step 1a
     if word[-4:] == 'sses':
         word = word[:-2]
-    elif word[-3:] in frozenset(['ied', 'ies']):
+    elif word[-3:] in {'ied', 'ies'}:
         if len(word) > 4:
             word = word[:-2]
         else:
             word = word[:-1]
-    elif word[-2:] in frozenset(['us', 'ss']):
+    elif word[-2:] in {'us', 'ss'}:
         pass
     elif word[-1] == 's':
         if _sb_has_vowel(word[:-2], _vowels):
@@ -881,7 +881,7 @@ def porter2(word, early_english=False):
                 step1b_flag = True
 
     if step1b_flag:
-        if word[-2:] in frozenset(['at', 'bl', 'iz']):
+        if word[-2:] in {'at', 'bl', 'iz'}:
             word += 'e'
         elif word[-2:] in _doubles:
             word = word[:-1]
@@ -889,7 +889,7 @@ def porter2(word, early_english=False):
             word += 'e'
 
     # Step 1c
-    if ((len(word) > 2 and word[-1] in frozenset('Yy') and
+    if ((len(word) > 2 and word[-1] in {'Y', 'y'} and
          word[-2] not in _vowels)):
         word = word[:-1] + 'i'
 
@@ -902,7 +902,7 @@ def porter2(word, early_english=False):
             if len(word[r1_start:]) >= 6:
                 word = word[:-2]
     elif word[-2] == 'c':
-        if word[-4:] in frozenset(['enci', 'anci']):
+        if word[-4:] in {'enci', 'anci'}:
             if len(word[r1_start:]) >= 4:
                 word = word[:-1] + 'e'
     elif word[-2] == 'e':
@@ -918,7 +918,7 @@ def porter2(word, early_english=False):
         if word[-6:] == 'lessli':
             if len(word[r1_start:]) >= 6:
                 word = word[:-2]
-        elif word[-5:] in frozenset(['entli', 'fulli', 'ousli']):
+        elif word[-5:] in {'entli', 'fulli', 'ousli'}:
             if len(word[r1_start:]) >= 5:
                 word = word[:-2]
         elif word[-4:] == 'abli':
@@ -945,7 +945,7 @@ def porter2(word, early_english=False):
             if len(word[r1_start:]) >= 4:
                 word = word[:-2] + 'e'
     elif word[-2] == 's':
-        if word[-7:] in frozenset(['fulness', 'ousness', 'iveness']):
+        if word[-7:] in {'fulness', 'ousness', 'iveness'}:
             if len(word[r1_start:]) >= 7:
                 word = word[:-4]
         elif word[-5:] == 'alism':
@@ -969,7 +969,7 @@ def porter2(word, early_english=False):
     elif word[-6:] == 'tional':
         if len(word[r1_start:]) >= 6:
             word = word[:-2]
-    elif word[-5:] in frozenset(['alize', 'icate', 'iciti']):
+    elif word[-5:] in {'alize', 'icate', 'iciti'}:
         if len(word[r1_start:]) >= 5:
             word = word[:-3]
     elif word[-5:] == 'ative':
@@ -1039,9 +1039,9 @@ def sb_german(word, alternate_vowels=False):
     """
     # pylint: disable=too-many-branches
 
-    _vowels = frozenset('aeiouyäöü')
-    _s_endings = frozenset('bdfghklmnrt')
-    _st_endings = frozenset('bdfghklmnt')
+    _vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'ä', 'ö', 'ü'}
+    _s_endings = {'b', 'd', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 'r', 't'}
+    _st_endings = {'b', 'd', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 't'}
 
     # lowercase, normalize, and compose
     word = unicodedata.normalize('NFC', word.lower())
@@ -1115,10 +1115,10 @@ def sb_german(word, alternate_vowels=False):
     if word[-4:] == 'isch':
         if len(word[r2_start:]) >= 4 and word[-5] != 'e':
             word = word[:-4]
-    elif word[-4:] in frozenset(['lich', 'heit']):
+    elif word[-4:] in {'lich', 'heit'}:
         if len(word[r2_start:]) >= 4:
             word = word[:-4]
-            if ((word[-2:] in frozenset(['er', 'en']) and
+            if ((word[-2:] in {'er', 'en'} and
                  len(word[r1_start:]) >= 2)):
                 word = word[:-2]
     elif word[-4:] == 'keit':
@@ -1128,13 +1128,13 @@ def sb_german(word, alternate_vowels=False):
                 word = word[:-4]
             elif word[-2:] == 'ig' and len(word[r2_start:]) >= 2:
                 word = word[:-2]
-    elif word[-3:] in frozenset(['end', 'ung']):
+    elif word[-3:] in {'end', 'ung'}:
         if len(word[r2_start:]) >= 3:
             word = word[:-3]
             if ((word[-2:] == 'ig' and len(word[r2_start:]) >= 2 and
                  word[-3] != 'e')):
                 word = word[:-2]
-    elif word[-2:] in frozenset(['ig', 'ik']):
+    elif word[-2:] in {'ig', 'ik'}:
         if len(word[r2_start:]) >= 2 and word[-3] != 'e':
             word = word[:-2]
 
@@ -1171,13 +1171,13 @@ def sb_dutch(word):
     """
     # pylint: disable=too-many-branches
 
-    _vowels = frozenset('aeiouyè')
-    _not_s_endings = frozenset('aeiouyèj')
+    _vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'è'}
+    _not_s_endings = {'a', 'e', 'i', 'j', 'o', 'u', 'y', 'è'}
 
     def _undouble(word):
         """Undouble endings -kk, -dd, and -tt."""
         if ((len(word) > 1 and word[-1] == word[-2] and
-             word[-1] in frozenset('kdt'))):
+             word[-1] in {'d', 'k', 't'})):
             return word[:-1]
         return word
 
@@ -1261,7 +1261,7 @@ def sb_dutch(word):
 
     # Step 4
     if ((len(word) >= 4 and
-         word[-3] == word[-2] and word[-2] in frozenset('aeou') and
+         word[-3] == word[-2] and word[-2] in {'a', 'e', 'o', 'u'} and
          word[-4] not in _vowels and
          word[-1] not in _vowels and word[-1] != 'I')):
         word = word[:-2] + word[-1]
@@ -1293,9 +1293,9 @@ def sb_norwegian(word):
     >>> sb_norwegian('sikkerhet')
     'sikker'
     """
-    _vowels = frozenset('aeiouyæåø')
-    _s_endings = frozenset('bcdfghjlmnoprtvyz')
-
+    _vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'å', 'æ', 'ø'}
+    _s_endings = {'b', 'c', 'd', 'f', 'g', 'h', 'j', 'l', 'm', 'n', 'o', 'p',
+                  'r', 't', 'v', 'y', 'z'}
     # lowercase, normalize, and compose
     word = unicodedata.normalize('NFC', text_type(word.lower()))
 
@@ -1305,24 +1305,24 @@ def sb_norwegian(word):
     _r1 = word[r1_start:]
     if _r1[-7:] == 'hetenes':
         word = word[:-7]
-    elif _r1[-6:] in frozenset(['hetene', 'hetens']):
+    elif _r1[-6:] in {'hetene', 'hetens'}:
         word = word[:-6]
-    elif _r1[-5:] in frozenset(['heten', 'heter', 'endes']):
+    elif _r1[-5:] in {'heten', 'heter', 'endes'}:
         word = word[:-5]
-    elif _r1[-4:] in frozenset(['ande', 'ende', 'edes', 'enes', 'erte']):
+    elif _r1[-4:] in {'ande', 'ende', 'edes', 'enes', 'erte'}:
         if word[-4:] == 'erte':
             word = word[:-2]
         else:
             word = word[:-4]
-    elif _r1[-3:] in frozenset(['ede', 'ane', 'ene', 'ens', 'ers', 'ets',
-                                'het', 'ast', 'ert']):
+    elif _r1[-3:] in {'ede', 'ane', 'ene', 'ens', 'ers', 'ets', 'het', 'ast',
+                      'ert'}:
         if word[-3:] == 'ert':
             word = word[:-1]
         else:
             word = word[:-3]
-    elif _r1[-2:] in frozenset(['en', 'ar', 'er', 'as', 'es', 'et']):
+    elif _r1[-2:] in {'en', 'ar', 'er', 'as', 'es', 'et'}:
         word = word[:-2]
-    elif _r1[-1:] in frozenset('ae'):
+    elif _r1[-1:] in {'a', 'e'}:
         word = word[:-1]
     elif _r1[-1:] == 's':
         if (((len(word) > 1 and word[-2] in _s_endings) or
@@ -1330,16 +1330,16 @@ def sb_norwegian(word):
             word = word[:-1]
 
     # Step 2
-    if word[r1_start:][-2:] in frozenset(['dt', 'vt']):
+    if word[r1_start:][-2:] in {'dt', 'vt'}:
         word = word[:-1]
 
     # Step 3
     _r1 = word[r1_start:]
     if _r1[-7:] == 'hetslov':
         word = word[:-7]
-    elif _r1[-4:] in frozenset(['eleg', 'elig', 'elov', 'slov']):
+    elif _r1[-4:] in {'eleg', 'elig', 'elov', 'slov'}:
         word = word[:-4]
-    elif _r1[-3:] in frozenset(['leg', 'eig', 'lig', 'els', 'lov']):
+    elif _r1[-3:] in {'leg', 'eig', 'lig', 'els', 'lov'}:
         word = word[:-3]
     elif _r1[-2:] == 'ig':
         word = word[:-2]
@@ -1364,8 +1364,9 @@ def sb_swedish(word):
     >>> sb_swedish('visshet')
     'viss'
     """
-    _vowels = frozenset('aeiouyäåö')
-    _s_endings = frozenset('bcdfghjklmnoprtvy')
+    _vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'ä', 'å', 'ö'}
+    _s_endings =  {'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n',
+                   'o', 'p', 'r', 't', 'v', 'y'}
 
     # lowercase, normalize, and compose
     word = unicodedata.normalize('NFC', text_type(word.lower()))
@@ -1378,26 +1379,24 @@ def sb_swedish(word):
         word = word[:-7]
     elif _r1[-6:] == 'hetens':
         word = word[:-6]
-    elif _r1[-5:] in frozenset(['anden', 'heten', 'heter', 'arnas', 'ernas',
-                                'ornas', 'andes', 'arens', 'andet']):
+    elif _r1[-5:] in {'anden', 'heten', 'heter', 'arnas', 'ernas', 'ornas',
+                      'andes', 'arens', 'andet'}:
         word = word[:-5]
-    elif _r1[-4:] in frozenset(['arna', 'erna', 'orna', 'ande', 'arne', 'aste',
-                                'aren', 'ades', 'erns']):
+    elif _r1[-4:] in {'arna', 'erna', 'orna', 'ande', 'arne', 'aste', 'aren',
+                      'ades', 'erns']):
         word = word[:-4]
-    elif _r1[-3:] in frozenset(['ade', 'are', 'ern', 'ens', 'het', 'ast']):
+    elif _r1[-3:] in {'ade', 'are', 'ern', 'ens', 'het', 'ast'}:
         word = word[:-3]
-    elif _r1[-2:] in frozenset(['ad', 'en', 'ar', 'er', 'or', 'as', 'es',
-                                'at']):
+    elif _r1[-2:] in {'ad', 'en', 'ar', 'er', 'or', 'as', 'es', 'at'}:
         word = word[:-2]
-    elif _r1[-1:] in frozenset('ae'):
+    elif _r1[-1:] in {'a', 'e'}:
         word = word[:-1]
     elif _r1[-1:] == 's':
         if len(word) > 1 and word[-2] in _s_endings:
             word = word[:-1]
 
     # Step 2
-    if word[r1_start:][-2:] in frozenset(['dd', 'gd', 'nn', 'dt', 'gt', 'kt',
-                                          'tt']):
+    if word[r1_start:][-2:] in {'dd', 'gd', 'nn', 'dt', 'gt', 'kt', 'tt'}:
         word = word[:-1]
 
     # Step 3
@@ -1406,7 +1405,7 @@ def sb_swedish(word):
         word = word[:-1]
     elif _r1[-4:] == 'löst':
         word = word[:-1]
-    elif _r1[-3:] in frozenset(['lig', 'els']):
+    elif _r1[-3:] in {'lig', 'els'}:
         word = word[:-3]
     elif _r1[-2:] == 'ig':
         word = word[:-2]
@@ -1431,8 +1430,9 @@ def sb_danish(word):
     >>> sb_danish('sikkerhed')
     'sikker'
     """
-    _vowels = frozenset('aeiouyæåø')
-    _s_endings = frozenset('abcdfghjklmnoprtvyzå')
+    _vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'å', 'æ', 'ø'}
+    _s_endings =  {'a', 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n',
+                   'o', 'p', 'r', 't', 'v', 'y', 'z', 'å'}
 
     # lowercase, normalize, and compose
     word = unicodedata.normalize('NFC', text_type(word.lower()))
@@ -1443,17 +1443,17 @@ def sb_danish(word):
     _r1 = word[r1_start:]
     if _r1[-7:] == 'erendes':
         word = word[:-7]
-    elif _r1[-6:] in frozenset(['erende', 'hedens']):
+    elif _r1[-6:] in {'erende', 'hedens'}:
         word = word[:-6]
-    elif _r1[-5:] in frozenset(['ethed', 'erede', 'heden', 'heder', 'endes',
-                                'ernes', 'erens', 'erets']):
+    elif _r1[-5:] in {'ethed', 'erede', 'heden', 'heder', 'endes', 'ernes',
+                      'erens', 'erets'}:
         word = word[:-5]
-    elif _r1[-4:] in frozenset(['ered', 'ende', 'erne', 'eren', 'erer', 'heds',
-                                'enes', 'eres', 'eret']):
+    elif _r1[-4:] in {'ered', 'ende', 'erne', 'eren', 'erer', 'heds', 'enes',
+                      'eres', 'eret'}:
         word = word[:-4]
-    elif _r1[-3:] in frozenset(['hed', 'ene', 'ere', 'ens', 'ers', 'ets']):
+    elif _r1[-3:] in {'hed', 'ene', 'ere', 'ens', 'ers', 'ets'}:
         word = word[:-3]
-    elif _r1[-2:] in frozenset(['en', 'er', 'es', 'et']):
+    elif _r1[-2:] in {'en', 'er', 'es', 'et'}:
         word = word[:-2]
     elif _r1[-1:] == 'e':
         word = word[:-1]
@@ -1462,7 +1462,7 @@ def sb_danish(word):
             word = word[:-1]
 
     # Step 2
-    if word[r1_start:][-2:] in frozenset(['gd', 'dt', 'gt', 'kt']):
+    if word[r1_start:][-2:] in {'gd', 'dt', 'gt', 'kt'}:
         word = word[:-1]
 
     # Step 3
@@ -1476,7 +1476,7 @@ def sb_danish(word):
         repeat_step2 = True
     elif _r1[-4:] == 'løst':
         word = word[:-1]
-    elif _r1[-3:] in frozenset(['lig', 'els']):
+    elif _r1[-3:] in {'lig', 'els'}:
         word = word[:-3]
         repeat_step2 = True
     elif _r1[-2:] == 'ig':
@@ -1484,7 +1484,7 @@ def sb_danish(word):
         repeat_step2 = True
 
     if repeat_step2:
-        if word[r1_start:][-2:] in frozenset(['gd', 'dt', 'gt', 'kt']):
+        if word[r1_start:][-2:] in {'gd', 'dt', 'gt', 'kt'}:
             word = word[:-1]
 
     # Step 4
@@ -1527,9 +1527,9 @@ def clef_german(word):
             if word[-3:] == 'nen':
                 return word[:-3]
         if wlen > 4:
-            if word[-2:] in frozenset(['en', 'se', 'es', 'er']):
+            if word[-2:] in {'en', 'se', 'es', 'er'}:
                 return word[:-2]
-        if word[-1] in frozenset('nsre'):
+        if word[-1] in {'e', 'n', 'r', 's'}:
             return word[:-1]
     return word
 
@@ -1551,7 +1551,7 @@ def clef_german_plus(word):
     >>> clef_german_plus('buchstabieren')
     'buchstabi'
     """
-    _st_ending = frozenset('bdfghklmnt')
+    _st_ending = {'b', 'd', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 't'}
 
     # lowercase, normalize, and compose
     word = unicodedata.normalize('NFC', text_type(word.lower()))
@@ -1565,7 +1565,7 @@ def clef_german_plus(word):
     wlen = len(word)-1
     if wlen > 4 and word[-3:] == 'ern':
         word = word[:-3]
-    elif wlen > 3 and word[-2:] in frozenset(['em', 'en', 'er', 'es']):
+    elif wlen > 3 and word[-2:] in {'em', 'en', 'er', 'es'}:
         word = word[:-2]
     elif wlen > 2 and (word[-1] == 'e' or
                        (word[-1] == 's' and word[-2] in _st_ending)):
@@ -1575,7 +1575,7 @@ def clef_german_plus(word):
     wlen = len(word)-1
     if wlen > 4 and word[-3:] == 'est':
         word = word[:-3]
-    elif wlen > 3 and (word[-2:] in frozenset(['er', 'en']) or
+    elif wlen > 3 and (word[-2:] in {'er', 'en'} or
                        (word[-2:] == 'st' and word[-3] in _st_ending)):
         word = word[:-2]
 
@@ -1606,20 +1606,20 @@ def clef_swedish(word):
         wlen -= 1
 
     if wlen > 6:
-        if word[-5:] in frozenset(['elser', 'heten']):
+        if word[-5:] in {'elser', 'heten'}:
             return word[:-5]
     if wlen > 5:
-        if word[-4:] in frozenset(['arne', 'erna', 'ande', 'else', 'aste',
-                                   'orna', 'aren']):
+        if word[-4:] in {'arne', 'erna', 'ande', 'else', 'aste', 'orna',
+                         'aren'}:
             return word[:-4]
     if wlen > 4:
-        if word[-3:] in frozenset(['are', 'ast', 'het']):
+        if word[-3:] in {'are', 'ast', 'het'}:
             return word[:-3]
     if wlen > 3:
-        if word[-2:] in frozenset(['ar', 'er', 'or', 'en', 'at', 'te', 'et']):
+        if word[-2:] in {'ar', 'er', 'or', 'en', 'at', 'te', 'et'}:
             return word[:-2]
     if wlen > 2:
-        if word[-1] in frozenset('taen'):
+        if word[-1] in {'a', 'e', 'n', 't'}:
             return word[:-1]
     return word
 
@@ -1676,7 +1676,7 @@ def caumanns(word):
     # # Part 1: Recursive Context-Free Stripping
     # 1. Remove the following 7 suffixes recursively
     while len(word) > 3:
-        if (((len(word) > 4 and word[-2:] in frozenset(['em', 'er'])) or
+        if (((len(word) > 4 and word[-2:] in {'em', 'er'}) or
              (len(word) > 5 and word[-2:] == 'nd'))):
             word = word[:-2]
         elif ((word[-1] in {'e', 's', 'n'}) or

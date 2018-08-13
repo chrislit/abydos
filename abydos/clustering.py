@@ -140,12 +140,13 @@ def skeleton_key(word):
     >>> skeleton_key('Niall')
     'NLIA'
     """
-    _vowels = frozenset('AEIOU')
+    _vowels = {'A', 'E', 'I', 'O', 'U'}
 
     word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = ''.join(c for c in word if c in
-                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
-
+                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                    'Y', 'Z'})
     start = word[0:1]
     consonant_part = ''
     vowel_part = ''
@@ -182,11 +183,14 @@ def omission_key(word):
     >>> omission_key('Niall')
     'LNIA'
     """
-    _consonants = tuple('JKQXZVWYBFMGPDHCLNTSR')
+    _consonants = {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P',
+                   'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Y', 'Z'}
 
     word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = ''.join(c for c in word if c in
-                   frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
+                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                    'Y', 'Z'})
 
     key = ''
 
