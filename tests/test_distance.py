@@ -52,6 +52,9 @@ NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
          'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill', 'MacNeil',
          'MacNele', 'Niall Noígíallach')
 
+COLIN = ('Colin', 'Collin', 'Cullen', 'Cuilen', 'Cailean', 'MacCailean',
+         'Cuilén', 'Colle', 'Calum', 'Callum', 'Colinn', 'Colon', 'Colynn',
+         'Col', 'Cole', 'Nicolas', 'Nicholas', 'Cailean Mór Caimbeul')
 
 class LevenshteinTestCases(unittest.TestCase):
     """Test Levenshtein functions.
