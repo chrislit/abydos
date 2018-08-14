@@ -2196,14 +2196,16 @@ def phonex(word, maxlength=4, zero_pad=True):
             if name[i+1:i+2] != 'C':
                 code = '3'
         elif name[i] == 'L':
-            if name[i+1:i+2] in {'A', 'E', 'I', 'O', 'U', 'Y'} or i+1 == len(name):
+            if (name[i+1:i+2] in {'A', 'E', 'I', 'O', 'U', 'Y'} or
+                    i+1 == len(name)):
                 code = '4'
         elif name[i] in {'M', 'N'}:
             if name[i+1:i+2] in {'D', 'G'}:
                 name = name[:i+1] + name[i] + name[i+2:]
             code = '5'
         elif name[i] == 'R':
-            if name[i+1:i+2] in {'A', 'E', 'I', 'O', 'U', 'Y'} or i+1 == len(name):
+            if (name[i+1:i+2] in {'A', 'E', 'I', 'O', 'U', 'Y'} or
+                    i+1 == len(name)):
                 code = '6'
 
         if code != last and code != '0' and i != 0:
@@ -4297,9 +4299,9 @@ def spfc(word):
         """Perform the first three steps of SPFC."""
         # filter out non A-Z
         name = ''.join(_ for _ in name if _ in
-                       {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-                        'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-                        'Y', 'Z'})
+                       {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
+                        'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
+                        'W', 'X', 'Y', 'Z'})
 
         # 1. In the field, convert DK to K, DT to T, SC to S, KN to N,
         # and MN to N
@@ -4590,7 +4592,8 @@ def onca(word, maxlength=4, zero_pad=True):
     """
     # In the most extreme case, 3 characters of NYSIIS input can be compressed
     # to one character of output, so give it triple the maxlength.
-    return soundex(nysiis(word, maxlength=maxlength*3), maxlength, zero_pad=zero_pad)
+    return soundex(nysiis(word, maxlength=maxlength*3), maxlength,
+                   zero_pad=zero_pad)
 
 
 def eudex(word):
@@ -4601,129 +4604,129 @@ def eudex(word):
     :rtype: str
     """
     _phones = {
-        0x61:0,           # a
-        0x62:0b01001000,  # b
-        0x63:0b00001100,  # c
-        0x64:0b00011000,  # d
-        0x65:0,           # e
-        0x66:0b01000100,  # f
-        0x67:0b00001000,  # g
-        0x68:0b00000100,  # h
-        0x69:1,           # i
-        0x6a:0b00000101,  # j
-        0x6b:0b00001001,  # k
-        0x6c:0b10100000,  # l
-        0x6d:0b00000010,  # m
-        0x6e:0b00010010,  # n
-        0x6f:0,           # o
-        0x70:0b01001001,  # p
-        0x71:0b10101000,  # q
-        0x72:0b10100001,  # r
-        0x73:0b00010100,  # s
-        0x74:0b00011101,  # t
-        0x75:1,           # u
-        0x76:0b01000101,  # v
-        0x77:0b00000000,  # w
-        0x78:0b10000100,  # x
-        0x79:1,           # y
-        0x7a:0b10010100,  # z
+        0x61: 0,           # a
+        0x62: 0b01001000,  # b
+        0x63: 0b00001100,  # c
+        0x64: 0b00011000,  # d
+        0x65: 0,           # e
+        0x66: 0b01000100,  # f
+        0x67: 0b00001000,  # g
+        0x68: 0b00000100,  # h
+        0x69: 1,           # i
+        0x6a: 0b00000101,  # j
+        0x6b: 0b00001001,  # k
+        0x6c: 0b10100000,  # l
+        0x6d: 0b00000010,  # m
+        0x6e: 0b00010010,  # n
+        0x6f: 0,           # o
+        0x70: 0b01001001,  # p
+        0x71: 0b10101000,  # q
+        0x72: 0b10100001,  # r
+        0x73: 0b00010100,  # s
+        0x74: 0b00011101,  # t
+        0x75: 1,           # u
+        0x76: 0b01000101,  # v
+        0x77: 0b00000000,  # w
+        0x78: 0b10000100,  # x
+        0x79: 1,           # y
+        0x7a: 0b10010100,  # z
 
-        0xdf:0b00010101,  # ß
-        0xe0:0,           # à
-        0xe1:0,           # á
-        0xe2:0,           # â
-        0xe3:0,           # ã
-        0xe4:0,           # ä[æ]
-        0xe5:1,           # å[oː]
-        0xe6:0,           # æ[æ]
-        0xe7:0b10010101,  # ç[t͡ʃ]
-        0xe8:1,           # è
-        0xe9:1,           # é
-        0xea:1,           # ê
-        0xeb:1,           # ë
-        0xec:1,           # ì
-        0xed:1,           # í
-        0xee:1,           # î
-        0xef:1,           # ï
-        0xf0:0b00010101,  # ð[ð̠](represented as a non-plosive T)
-        0xf1:0b00010111,  # ñ[nj](represented as a combination of n and j)
-        0xf2:0,           # ò
-        0xf3:0,           # ó
-        0xf4:0,           # ô
-        0xf5:0,           # õ
-        0xf6:1,           # ö[ø]
-        0xf7:0b11111111,  # ÷
-        0xf8:1,           # ø[ø]
-        0xf9:1,           # ù
-        0xfa:1,           # ú
-        0xfb:1,           # û
-        0xfc:1,           # ü
-        0xfd:1,           # ý
-        0xfe:0b00010101,  # þ[ð̠](represented as a non-plosive T)
-        0xff:1,           # ÿ
+        0xdf: 0b00010101,  # ß
+        0xe0: 0,           # à
+        0xe1: 0,           # á
+        0xe2: 0,           # â
+        0xe3: 0,           # ã
+        0xe4: 0,           # ä[æ]
+        0xe5: 1,           # å[oː]
+        0xe6: 0,           # æ[æ]
+        0xe7: 0b10010101,  # ç[t͡ʃ]
+        0xe8: 1,           # è
+        0xe9: 1,           # é
+        0xea: 1,           # ê
+        0xeb: 1,           # ë
+        0xec: 1,           # ì
+        0xed: 1,           # í
+        0xee: 1,           # î
+        0xef: 1,           # ï
+        0xf0: 0b00010101,  # ð[ð̠](represented as a non-plosive T)
+        0xf1: 0b00010111,  # ñ[nj](represented as a combination of n and j)
+        0xf2: 0,           # ò
+        0xf3: 0,           # ó
+        0xf4: 0,           # ô
+        0xf5: 0,           # õ
+        0xf6: 1,           # ö[ø]
+        0xf7: 0b11111111,  # ÷
+        0xf8: 1,           # ø[ø]
+        0xf9: 1,           # ù
+        0xfa: 1,           # ú
+        0xfb: 1,           # û
+        0xfc: 1,           # ü
+        0xfd: 1,           # ý
+        0xfe: 0b00010101,  # þ[ð̠](represented as a non-plosive T)
+        0xff: 1,           # ÿ
     }
 
     _injective_phones = {
-        0x61:0b10000100,  # a*
-        0x62:0b00100100,  # b
-        0x63:0b00000110,  # c
-        0x64:0b00001100,  # d
-        0x65:0b11011000,  # e*
-        0x66:0b00100010,  # f
-        0x67:0b00000100,  # g
-        0x68:0b00000010,  # h
-        0x69:0b11111000,  # i*
-        0x6a:0b00000011,  # j
-        0x6b:0b00000101,  # k
-        0x6c:0b01010000,  # l
-        0x6d:0b00000001,  # m
-        0x6e:0b00001001,  # n
-        0x6f:0b10010100,  # o*
-        0x70:0b00100101,  # p
-        0x71:0b01010100,  # q
-        0x72:0b01010001,  # r
-        0x73:0b00001010,  # s
-        0x74:0b00001110,  # t
-        0x75:0b11100000,  # u*
-        0x76:0b00100011,  # v
-        0x77:0b00000000,  # w
-        0x78:0b01000010,  # x
-        0x79:0b11100100,  # y*
-        0x7a:0b01001010,  # z
+        0x61: 0b10000100,  # a*
+        0x62: 0b00100100,  # b
+        0x63: 0b00000110,  # c
+        0x64: 0b00001100,  # d
+        0x65: 0b11011000,  # e*
+        0x66: 0b00100010,  # f
+        0x67: 0b00000100,  # g
+        0x68: 0b00000010,  # h
+        0x69: 0b11111000,  # i*
+        0x6a: 0b00000011,  # j
+        0x6b: 0b00000101,  # k
+        0x6c: 0b01010000,  # l
+        0x6d: 0b00000001,  # m
+        0x6e: 0b00001001,  # n
+        0x6f: 0b10010100,  # o*
+        0x70: 0b00100101,  # p
+        0x71: 0b01010100,  # q
+        0x72: 0b01010001,  # r
+        0x73: 0b00001010,  # s
+        0x74: 0b00001110,  # t
+        0x75: 0b11100000,  # u*
+        0x76: 0b00100011,  # v
+        0x77: 0b00000000,  # w
+        0x78: 0b01000010,  # x
+        0x79: 0b11100100,  # y*
+        0x7a: 0b01001010,  # z
 
-        0xdf:0b00001011,  # ß
-        0xe0:0b10000101,  # à
-        0xe1:0b10000101,  # á
-        0xe2:0b10000000,  # â
-        0xe3:0b10000110,  # ã
-        0xe4:0b10100110,  # ä [æ]
-        0xe5:0b11000010,  # å [oː]
-        0xe6:0b10100111,  # æ [æ]
-        0xe7:0b01010100,  # ç [t͡ʃ]
-        0xe8:0b11011001,  # è
-        0xe9:0b11011001,  # é
-        0xea:0b11011001,  # ê
-        0xeb:0b11000110,  # ë [ə] or [œ]
-        0xec:0b11111001,  # ì
-        0xed:0b11111001,  # í
-        0xee:0b11111001,  # î
-        0xef:0b11111001,  # ï
-        0xf0:0b00001011,  # ð [ð̠] (represented as a non-plosive T)
-        0xf1:0b00001011,  # ñ [nj] (represented as a combination of n and j)
-        0xf2:0b10010101,  # ò
-        0xf3:0b10010101,  # ó
-        0xf4:0b10010101,  # ô
-        0xf5:0b10010101,  # õ
-        0xf6:0b11011100,  # ö [œ] or [ø]
-        0xf7:0b11111111,  # ÷
-        0xf8:0b11011101,  # ø [œ] or [ø]
-        0xf9:0b11100001,  # ù
-        0xfa:0b11100001,  # ú
-        0xfb:0b11100001,  # û
-        0xfc:0b11100101,  # ü
-        0xfd:0b11100101,  # ý
-        0xfe:0b00001011,  # þ [ð̠] (represented as a non-plosive T)
-        0xff:0b11100101,  # ÿ
+        0xdf: 0b00001011,  # ß
+        0xe0: 0b10000101,  # à
+        0xe1: 0b10000101,  # á
+        0xe2: 0b10000000,  # â
+        0xe3: 0b10000110,  # ã
+        0xe4: 0b10100110,  # ä [æ]
+        0xe5: 0b11000010,  # å [oː]
+        0xe6: 0b10100111,  # æ [æ]
+        0xe7: 0b01010100,  # ç [t͡ʃ]
+        0xe8: 0b11011001,  # è
+        0xe9: 0b11011001,  # é
+        0xea: 0b11011001,  # ê
+        0xeb: 0b11000110,  # ë [ə] or [œ]
+        0xec: 0b11111001,  # ì
+        0xed: 0b11111001,  # í
+        0xee: 0b11111001,  # î
+        0xef: 0b11111001,  # ï
+        0xf0: 0b00001011,  # ð [ð̠] (represented as a non-plosive T)
+        0xf1: 0b00001011,  # ñ [nj] (represented as a combination of n and j)
+        0xf2: 0b10010101,  # ò
+        0xf3: 0b10010101,  # ó
+        0xf4: 0b10010101,  # ô
+        0xf5: 0b10010101,  # õ
+        0xf6: 0b11011100,  # ö [œ] or [ø]
+        0xf7: 0b11111111,  # ÷
+        0xf8: 0b11011101,  # ø [œ] or [ø]
+        0xf9: 0b11100001,  # ù
+        0xfa: 0b11100001,  # ú
+        0xfb: 0b11100001,  # û
+        0xfc: 0b11100101,  # ü
+        0xfd: 0b11100101,  # ý
+        0xfe: 0b00001011,  # þ [ð̠] (represented as a non-plosive T)
+        0xff: 0b11100101,  # ÿ
     }
 
     def _map_first(letter):

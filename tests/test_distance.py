@@ -56,6 +56,7 @@ COLIN = ('Colin', 'Collin', 'Cullen', 'Cuilen', 'Cailean', 'MacCailean',
          'Cuilén', 'Colle', 'Calum', 'Callum', 'Colinn', 'Colon', 'Colynn',
          'Col', 'Cole', 'Nicolas', 'Nicholas', 'Cailean Mór Caimbeul')
 
+
 class LevenshteinTestCases(unittest.TestCase):
     """Test Levenshtein functions.
 

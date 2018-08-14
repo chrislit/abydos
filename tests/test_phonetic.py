@@ -4535,31 +4535,33 @@ class EudexTestCases(unittest.TestCase):
 
     test cases for abydos.phonetic.eudex
     """
+
     def test_eudex(self):
         """Test abydos.phonetic.eudex."""
-        # exact & mismatch cases from https://github.com/ticki/eudex/blob/master/src/tests.rs
-        self.assertEqual(eudex("JAva"), eudex("jAva"))
-        self.assertEqual(eudex("co!mputer"), eudex("computer"))
-        self.assertEqual(eudex("comp-uter"), eudex("computer"))
-        self.assertEqual(eudex("comp@u#te?r"), eudex("computer"))
-        self.assertEqual(eudex("lal"), eudex("lel"))
-        self.assertEqual(eudex("rindom"), eudex("ryndom"))
-        self.assertEqual(eudex("riiiindom"), eudex("ryyyyyndom"))
-        self.assertEqual(eudex("riyiyiiindom"), eudex("ryyyyyndom"))
-        self.assertEqual(eudex("triggered"), eudex("TRIGGERED"))
-        self.assertEqual(eudex("repert"), eudex("ropert"))
+        # exact & mismatch cases from
+        # https://github.com/ticki/eudex/blob/master/src/tests.rs
+        self.assertEqual(eudex('JAva'), eudex('jAva'))
+        self.assertEqual(eudex('co!mputer'), eudex('computer'))
+        self.assertEqual(eudex('comp-uter'), eudex('computer'))
+        self.assertEqual(eudex('comp@u#te?r'), eudex('computer'))
+        self.assertEqual(eudex('lal'), eudex('lel'))
+        self.assertEqual(eudex('rindom'), eudex('ryndom'))
+        self.assertEqual(eudex('riiiindom'), eudex('ryyyyyndom'))
+        self.assertEqual(eudex('riyiyiiindom'), eudex('ryyyyyndom'))
+        self.assertEqual(eudex('triggered'), eudex('TRIGGERED'))
+        self.assertEqual(eudex('repert'), eudex('ropert'))
 
-        self.assertNotEqual(eudex("reddit"), eudex("eddit"))
-        self.assertNotEqual(eudex("lol"), eudex("lulz"))
-        self.assertNotEqual(eudex("ijava"), eudex("java"))
-        self.assertNotEqual(eudex("jiva"), eudex("java"))
-        self.assertNotEqual(eudex("jesus"), eudex("iesus"))
-        self.assertNotEqual(eudex("aesus"), eudex("iesus"))
-        self.assertNotEqual(eudex("iesus"), eudex("yesus"))
-        self.assertNotEqual(eudex("rupirt"), eudex("ropert"))
-        self.assertNotEqual(eudex("ripert"), eudex("ropyrt"))
-        self.assertNotEqual(eudex("rrr"), eudex("rraaaa"))
-        self.assertNotEqual(eudex("randomal"), eudex("randomai"))
+        self.assertNotEqual(eudex('reddit'), eudex('eddit'))
+        self.assertNotEqual(eudex('lol'), eudex('lulz'))
+        self.assertNotEqual(eudex('ijava'), eudex('java'))
+        self.assertNotEqual(eudex('jiva'), eudex('java'))
+        self.assertNotEqual(eudex('jesus'), eudex('iesus'))
+        self.assertNotEqual(eudex('aesus'), eudex('iesus'))
+        self.assertNotEqual(eudex('iesus'), eudex('yesus'))
+        self.assertNotEqual(eudex('rupirt'), eudex('ropert'))
+        self.assertNotEqual(eudex('ripert'), eudex('ropyrt'))
+        self.assertNotEqual(eudex('rrr'), eudex('rraaaa'))
+        self.assertNotEqual(eudex('randomal'), eudex('randomai'))
 
 
 class BeiderMorseTestCases(unittest.TestCase):
