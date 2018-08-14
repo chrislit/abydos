@@ -183,8 +183,8 @@ def omission_key(word):
     >>> omission_key('Niall')
     'LNIA'
     """
-    _consonants = {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P',
-                   'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Y', 'Z'}
+    _consonants = ('J', 'K', 'Q', 'X', 'Z', 'V', 'W', 'Y', 'B', 'F', 'M', 'G',
+                   'P', 'D', 'H', 'C', 'L', 'N', 'T', 'S', 'R')
 
     word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = ''.join(c for c in word if c in
