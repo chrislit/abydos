@@ -119,6 +119,8 @@ Abydos is a library of phonetic algorithms, string distance metrics, stemmers, a
     - Statistics Canada
     - Lein
     - Roger Root
+    - Oxford Name Compression Algorithm (ONCA)
+    - Eudex phonetic hash
     - Beider-Morse Phonetic Matching
 - String distance metrics
     - Levenshtein distance (incl. a [0, 1] normalized variant)
