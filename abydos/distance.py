@@ -2801,7 +2801,6 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
     all_letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'I', 'J', 'K', 'L', 'M',
                    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'}
 
-
     def r_cost(ch1, ch2):
         """Return r(a,b) according to Zobel & Dart's definition."""
         if ch1 == ch2:

@@ -1365,8 +1365,8 @@ def sb_swedish(word):
     'viss'
     """
     _vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'ä', 'å', 'ö'}
-    _s_endings =  {'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n',
-                   'o', 'p', 'r', 't', 'v', 'y'}
+    _s_endings = {'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n',
+                  'o', 'p', 'r', 't', 'v', 'y'}
 
     # lowercase, normalize, and compose
     word = unicodedata.normalize('NFC', text_type(word.lower()))
@@ -1431,8 +1431,8 @@ def sb_danish(word):
     'sikker'
     """
     _vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'å', 'æ', 'ø'}
-    _s_endings =  {'a', 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n',
-                   'o', 'p', 'r', 't', 'v', 'y', 'z', 'å'}
+    _s_endings = {'a', 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n',
+                  'o', 'p', 'r', 't', 'v', 'y', 'z', 'å'}
 
     # lowercase, normalize, and compose
     word = unicodedata.normalize('NFC', text_type(word.lower()))
