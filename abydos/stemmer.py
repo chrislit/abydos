@@ -134,7 +134,7 @@ def lovins(word):
     def cond_q(word, suffix_len):
         """Return Lovins' condition Q."""
         return (len(word)-suffix_len >= 3 and
-                word[-suffix_len-1] not in {'l', 'n'}
+                word[-suffix_len-1] not in {'l', 'n'})
 
     def cond_r(word, suffix_len):
         """Return Lovins' condition R."""
@@ -1383,7 +1383,7 @@ def sb_swedish(word):
                       'andes', 'arens', 'andet'}:
         word = word[:-5]
     elif _r1[-4:] in {'arna', 'erna', 'orna', 'ande', 'arne', 'aste', 'aren',
-                      'ades', 'erns']):
+                      'ades', 'erns'}:
         word = word[:-4]
     elif _r1[-3:] in {'ade', 'are', 'ern', 'ens', 'het', 'ast'}:
         word = word[:-3]
