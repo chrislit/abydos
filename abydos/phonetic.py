@@ -4603,7 +4603,7 @@ def eudex(word):
     :returns: the eudex hash
     :rtype: str
     """
-    _phones = {
+    _trailing_phones = {
         0x61: 0,           # a
         0x62: 0b01001000,  # b
         0x63: 0b00001100,  # c
@@ -4666,7 +4666,7 @@ def eudex(word):
         0xff: 1,           # ÿ
     }
 
-    _injective_phones = {
+    _initial_phones = {
         0x61: 0b10000100,  # a*
         0x62: 0b00100100,  # b
         0x63: 0b00000110,  # c
@@ -4729,10 +4729,25 @@ def eudex(word):
         0xff: 0b11100101,  # ÿ
     }
 
-    def _map_first(letter):
-        """Map the first character in a word."""
-        letter |= 32
+    values = [_initial_phones[ord(word[0])]]
+    values += [_trailing_phones[ord(_)] for _ in word[1:]]
 
+    shifted_values = [_ >> 1 for _ in values]
+
+    new_values = [values[0]]
+    for n in range(1, len(shifted_values)):
+        if shifted_values[n] != shifted_values[n-1]:
+            new_values.append(values[n])
+
+    for _ in range(max(0, 8 - len(new_values))):
+        new_values.insert(1, 0)
+    new_values = new_values[:8]
+
+    value = 0
+    for pos, val in enumerate(new_values):
+        value += val << (7 - pos) * 8
+
+    return value
 
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
