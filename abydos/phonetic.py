@@ -42,6 +42,7 @@ The phonetic module implements phonetic algorithms including:
     - Lein
     - Roger Root
     - Oxford Name Compression Algorithm (ONCA)
+    - Eudex phonetic hash
     - Beider-Morse Phonetic Matching
 """
 
@@ -4597,7 +4598,15 @@ def onca(word, maxlength=4, zero_pad=True):
 
 
 def eudex(word):
-    """Return the eudex hash of a word.
+    """Return the eudex phonetic hash of a word.
+
+    This implementation of eudex phonetic hashing is based on the specification
+    (not the reference implementation) at:
+    Ticki. 2017. "Eudex: A blazingly fast phonetic reduction/hashing algorithm."
+    https://docs.rs/crate/eudex
+
+    Further details can be found at
+    http://ticki.github.io/blog/the-eudex-algorithm/
 
     :param str word: the word to transform
     :returns: the eudex hash
