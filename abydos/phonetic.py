@@ -4729,25 +4729,28 @@ def eudex(word):
         0xff: 0b11100101,  # ÿ
     }
 
+    # Perform initial eudex coding of each character
     values = [_initial_phones[ord(word[0])]]
-    values += [_trailing_phones[ord(_)] for _ in word[1:]]
+    values += [_trailing_phones[ord(char)] for char in word[1:]]
 
+    # Right-shift by one to determine if second instance should be skipped
     shifted_values = [_ >> 1 for _ in values]
-
-    new_values = [values[0]]
+    condensed_values = [values[0]]
     for n in range(1, len(shifted_values)):
         if shifted_values[n] != shifted_values[n-1]:
-            new_values.append(values[n])
+            condensed_values.append(values[n])
 
-    for _ in range(max(0, 8 - len(new_values))):
-        new_values.insert(1, 0)
-    new_values = new_values[:8]
+    # Add padding after first character & trim beyond 8
+    values = ([condensed_values[0]] + [0]*max(0, 8 - len(condensed_values)) +
+              condensed_values[1:8])
 
-    value = 0
-    for pos, val in enumerate(new_values):
-        value += val << (7 - pos) * 8
+    # Combine individual character values into eudex hash
+    hash_value = 0
+    for val in values:
+        hash_value = (hash_value << 8) | val
 
-    return value
+    return hash_value
+
 
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
