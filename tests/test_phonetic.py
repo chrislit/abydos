@@ -4563,6 +4563,13 @@ class EudexTestCases(unittest.TestCase):
         self.assertNotEqual(eudex('rrr'), eudex('rraaaa'))
         self.assertNotEqual(eudex('randomal'), eudex('randomai'))
 
+        # manually checked against algorithm
+        self.assertEqual(eudex('guillaume'), 288230383131034112)
+        self.assertEqual(eudex('niall'), 648518346341351840)
+        self.assertEqual(eudex('hello'), 144115188075896832)
+        self.assertEqual(eudex('christopher'), 433648490138894409)
+        self.assertEqual(eudex('colin'), 432345564238053650)
+
 
 class BeiderMorseTestCases(unittest.TestCase):
     """Test BMPM functions.
