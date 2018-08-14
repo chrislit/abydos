@@ -4597,7 +4597,7 @@ def onca(word, maxlength=4, zero_pad=True):
                    zero_pad=zero_pad)
 
 
-def eudex(word):
+def eudex(word, maxlength=8):
     """Return the eudex phonetic hash of a word.
 
     This implementation of eudex phonetic hashing is based on the specification
@@ -4609,6 +4609,7 @@ def eudex(word):
     http://ticki.github.io/blog/the-eudex-algorithm/
 
     :param str word: the word to transform
+    :param int maxlength: the length of the code returned (defaults to 8)
     :returns: the eudex hash
     :rtype: str
     """
@@ -4751,9 +4752,10 @@ def eudex(word):
         if shifted_values[n] != shifted_values[n-1]:
             condensed_values.append(values[n])
 
-    # Add padding after first character & trim beyond 8
-    values = ([condensed_values[0]] + [0]*max(0, 8 - len(condensed_values)) +
-              condensed_values[1:8])
+    # Add padding after first character & trim beyond maxlength
+    values = ([condensed_values[0]] +
+              [0]*max(0, maxlength - len(condensed_values)) +
+              condensed_values[1:maxlength])
 
     # Combine individual character values into eudex hash
     hash_value = 0
