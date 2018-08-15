@@ -3174,6 +3174,39 @@ def sift4_common(src, tar, max_offset=0, max_distance=0):
     return round(max(src_len, tar_len) - lcss + trans)
 
 
+def dist_sift4(src, tar, max_offset=0, max_distance=0):
+    """Return the normalized "common" Sift4 distance between two terms.
+
+    This is an approximation of edit distance, described in:
+    Zackwehdex, Siderite. 2014. "Super Fast and Accurate string distance
+    algorithm: Sift4."
+    https://siderite.blogspot.com/2014/11/super-fast-and-accurate-string-distance.html
+
+    :param str src, tar: two strings to be compared
+    :param max_offset: the number of characters to search for matching letters
+    :param max_distance: the distance at which to stop and exit
+    :return:
+    """
+    return (sift4_common(src, tar, max_offset, max_distance) /
+            (max(len(src), len(tar))))
+
+
+def sim_sift4(src, tar, max_offset=0, max_distance=0):
+    """Return the normalized "common" Sift4 similarity of two terms.
+
+    This is an approximation of edit distance, described in:
+    Zackwehdex, Siderite. 2014. "Super Fast and Accurate string distance
+    algorithm: Sift4."
+    https://siderite.blogspot.com/2014/11/super-fast-and-accurate-string-distance.html
+
+    :param str src, tar: two strings to be compared
+    :param max_offset: the number of characters to search for matching letters
+    :param max_distance: the distance at which to stop and exit
+    :return:
+    """
+    return 1-dist_sift4(src, tar, max_offset, max_distance)
+
+
 def sim_tfidf(src, tar, qval=2, docs_src=None, docs_tar=None):
     """Return the TF-IDF similarity of two strings.
 
