@@ -567,10 +567,9 @@ def _get_qgrams(src, tar, qval):
     """
     if isinstance(src, Counter) and isinstance(tar, Counter):
         return src, tar
-    elif qval and qval > 0:
+    if qval and qval > 0:
         return QGrams(src, qval), QGrams(tar, qval)
-    else:
-        return Counter(src.strip().split()), Counter(tar.strip().split())
+    return Counter(src.strip().split()), Counter(tar.strip().split())
 
 
 def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
@@ -946,11 +945,10 @@ def minkowski(src, tar, qval=2, pval=1, normalize=False):
     if pval == float('inf'):
         # Chebyshev distance
         return max(diffs)/normalizer
-    elif pval == 0:
+    if pval == 0:
         # This is the l_0 "norm" as developed by David Donoho
         return len(diffs)
-    else:
-        return sum(_**pval for _ in diffs)**(1 / pval)/normalizer
+    return sum(_**pval for _ in diffs)**(1 / pval)/normalizer
 
 
 def dist_minkowski(src, tar, qval=2, pval=1):
@@ -2922,7 +2920,8 @@ def sim_editex(src, tar, cost=(0, 1, 2), local=False):
     return 1 - dist_editex(src, tar, cost, local)
 
 
-def eudex_hamming(src, tar, weights='exponential', maxlength=8, normalized=False):
+def eudex_hamming(src, tar, weights='exponential', maxlength=8,
+                  normalized=False):
     """Calculate the Hamming distance between the Eudex hashes of two terms.
 
     If weights is set to None, a simple Hamming distance is calculated.
@@ -2947,10 +2946,10 @@ def eudex_hamming(src, tar, weights='exponential', maxlength=8, normalized=False
         Based on https://www.python-course.eu/generators.php
         Starts at Fibonacci number 3 (the second 1)
         """
-        a, b = 1, 2
+        num_a, num_b = 1, 2
         while True:
-            yield a
-            a, b = b, a + b
+            yield num_a
+            num_a, num_b = num_b, num_a + num_b
 
     def _gen_exponential(base=2):
         """Yield the next value in an exponential series of the base.
@@ -2958,10 +2957,10 @@ def eudex_hamming(src, tar, weights='exponential', maxlength=8, normalized=False
         Based on https://www.python-course.eu/generators.php
         Starts at base**0
         """
-        n = 0
+        exp = 0
         while True:
-            yield base ** n
-            n += 1
+            yield base ** exp
+            exp += 1
 
     # Calculate the eudex hashes and XOR them
     xored = eudex(src, maxlength=maxlength) ^ eudex(tar, maxlength=maxlength)
@@ -2996,7 +2995,7 @@ def eudex_hamming(src, tar, weights='exponential', maxlength=8, normalized=False
 
 
 def dist_eudex(src, tar, weights='exponential', maxlength=8):
-    """Calculate the normalized Hamming distance between the Eudex hashes of two terms.
+    """Return normalized Hamming distance between Eudex hashes of two terms.
 
     If weights is set to None, a simple Hamming distance is calculated.
     If weights is set to 'exponential', weight decays by powers of 2, as
@@ -3017,7 +3016,7 @@ def dist_eudex(src, tar, weights='exponential', maxlength=8):
 
 
 def sim_eudex(src, tar, weights='exponential', maxlength=8):
-    """Calculate the normalized Hamming similarity between the Eudex hashes of two terms.
+    """Return normalized Hamming similarity between Eudex hashes of two terms.
 
     If weights is set to None, a simple Hamming distance is calculated.
     If weights is set to 'exponential', weight decays by powers of 2, as

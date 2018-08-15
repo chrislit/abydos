@@ -4542,20 +4542,20 @@ def roger_root(word, maxlength=5, zero_pad=True):
     pos = 0
 
     # Do first digit(s) first
-    for n in range(4, 0, -1):
-        if word[:n] in _init_patterns[n]:
-            code = _init_patterns[n][word[:n]]
-            pos += n
+    for num in range(4, 0, -1):
+        if word[:num] in _init_patterns[num]:
+            code = _init_patterns[num][word[:num]]
+            pos += num
             break
     else:
         pos += 1  # Advance if nothing is recognized
 
     # Then code subsequent digits
     while pos < len(word):
-        for n in range(4, 0, -1):
-            if word[pos:pos+n] in _med_patterns[n]:
-                code += _med_patterns[n][word[pos:pos+n]]
-                pos += n
+        for num in range(4, 0, -1):
+            if word[pos:pos+num] in _med_patterns[num]:
+                code += _med_patterns[num][word[pos:pos+num]]
+                pos += num
                 break
         else:
             pos += 1  # Advance if nothing is recognized
@@ -4610,8 +4610,8 @@ def eudex(word, maxlength=8):
 
     This implementation of eudex phonetic hashing is based on the specification
     (not the reference implementation) at:
-    Ticki. 2017. "Eudex: A blazingly fast phonetic reduction/hashing algorithm."
-    https://docs.rs/crate/eudex
+    Ticki. 2017. "Eudex: A blazingly fast phonetic reduction/hashing
+    algorithm." https://docs.rs/crate/eudex
 
     Further details can be found at
     http://ticki.github.io/blog/the-eudex-algorithm/
