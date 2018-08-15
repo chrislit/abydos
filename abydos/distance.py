@@ -3037,15 +3037,13 @@ def sim_eudex(src, tar, weights='exponential', maxlength=8):
     return 1-dist_eudex(src, tar, weights, maxlength)
 
 
-def sift4(src, tar, max_offset=5):
-    """Return the Sift4 distance between two terms.
+def sift4_simplest(src, tar, max_offset=0):
+    """Return the "simplest" Sift4 distance between two terms.
 
     This is an approximation of edit distance, described in:
     Zackwehdex, Siderite. 2014. "Super Fast and Accurate string distance
     algorithm: Sift4."
     https://siderite.blogspot.com/2014/11/super-fast-and-accurate-string-distance.html
-
-    TODO: Currently this is the "Simplest Sift4". Need to implement extended version.
 
     :param str src, tar: two strings to be compared
     :param max_offset: the number of characters to search for matching letters
@@ -3087,6 +3085,7 @@ def sift4(src, tar, max_offset=5):
 
         src_cur += 1
         tar_cur += 1
+
     lcss += local_cs
     return round(max(src_len, tar_len) - lcss)
 
