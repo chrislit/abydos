@@ -48,7 +48,6 @@ The phonetic module implements phonetic algorithms including:
 
 from __future__ import division, unicode_literals
 
-import re
 import unicodedata
 from collections import Counter
 from itertools import groupby
@@ -1798,6 +1797,13 @@ def caverphone(word, version=2):
                    {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
                     'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
                     'y', 'z'})
+
+    def _squeeze_replace(word, char, new_char):
+        """Convert strings of char in word to one instance of new_char."""
+        while char * 2 in word:
+            word = word.replace(char * 2, char)
+        return word.replace(char, new_char)
+
     # the main replacemet algorithm
     if version != 1 and word[-1:] == 'e':
         word = word[:-1]
@@ -1850,13 +1856,15 @@ def caverphone(word, version=2):
         word = word.replace('3gh3', '3kh3')
         word = word.replace('gh', '22')
         word = word.replace('g', 'k')
-        word = re.sub(r's+', r'S', word)  # TODO: implement w/o re?
-        word = re.sub(r't+', r'T', word)
-        word = re.sub(r'p+', r'P', word)
-        word = re.sub(r'k+', r'K', word)
-        word = re.sub(r'f+', r'F', word)
-        word = re.sub(r'm+', r'M', word)
-        word = re.sub(r'n+', r'N', word)
+
+        word = _squeeze_replace(word, 's', 'S')
+        word = _squeeze_replace(word, 't', 'T')
+        word = _squeeze_replace(word, 'p', 'P')
+        word = _squeeze_replace(word, 'k', 'K')
+        word = _squeeze_replace(word, 'f', 'F')
+        word = _squeeze_replace(word, 'm', 'M')
+        word = _squeeze_replace(word, 'n', 'N')
+
         word = word.replace('w3', 'W3')
         if version == 1:
             word = word.replace('wy', 'Wy')
