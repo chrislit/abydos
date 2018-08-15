@@ -52,6 +52,7 @@ The distance module implements string edit distance functions including:
     - Bag distance (incl. a [0, 1] normalized variant)
     - Editex distance (incl. a [0, 1] normalized variant)
     - Eudex distances
+    - Sift4 distance
     - TF-IDF similarity
 
 Functions beginning with the prefixes 'sim' and 'dist' are guaranteed to be
@@ -3034,6 +3035,59 @@ def sim_eudex(src, tar, weights='exponential', maxlength=8):
     :return:
     """
     return 1-dist_eudex(src, tar, weights, maxlength)
+
+
+def sift4(src, tar, max_offset=5):
+    """Return the Sift4 distance between two terms.
+
+    This is an approximation of edit distance, described in:
+    Zackwehdex, Siderite. 2014. "Super Fast and Accurate string distance
+    algorithm: Sift4."
+    https://siderite.blogspot.com/2014/11/super-fast-and-accurate-string-distance.html
+
+    TODO: Currently this is the "Simplest Sift4". Need to implement extended version.
+
+    :param str src, tar: two strings to be compared
+    :param max_offset: the number of characters to search for matching letters
+    :return:
+    """
+    if not src:
+        return len(tar)
+
+    if not tar:
+        return len(src)
+
+    src_len = len(src)
+    tar_len = len(tar)
+
+    src_cur = 0
+    tar_cur = 0
+    lcss = 0
+    local_cs = 0
+
+    while (src_cur < src_len) and (tar_cur < tar_len):
+        if src[src_cur] == tar[tar_cur]:
+            local_cs += 1
+        else:
+            lcss += local_cs
+            local_cs = 0
+            if src_cur != tar_cur:
+                src_cur = tar_cur = max(src_cur, tar_cur)
+            for i in range(max_offset):
+                if (src_cur+i < src_len) and (src[src_cur+i] == tar[tar_cur]):
+                    src_cur += i
+                    local_cs += 1
+                    break
+                if (tar_cur+i < tar_len) and (src[src_cur] == tar[tar_cur+i]):
+                    tar_cur += i
+                    local_cs += 1
+                    break
+                if not ((src_cur+i < src_len) or (tar_cur+i < tar_len)):
+                    break
+        src_cur += 1
+        tar_cur += 1
+    lcss += local_cs
+    return round(max(src_len, tar_len) - lcss)
 
 
 def sim_tfidf(src, tar, qval=2, docs_src=None, docs_tar=None):
