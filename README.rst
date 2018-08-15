@@ -37,15 +37,15 @@ Abydos
     :target: https://requires.io/github/chrislit/abydos/requirements/?branch=master
     :alt: Requirements Status
 
-.. image:: https://img.shields.io/badge/Pylint-9.78/10-green.svg
+.. image:: https://img.shields.io/badge/Pylint-9.79/10-green.svg
    :target: #
    :alt: Pylint Score
 
-.. image:: https://img.shields.io/badge/pycodestyle-0-brightgreen.svg
+.. image:: https://img.shields.io/badge/pycodestyle-2-green.svg
    :target: #
    :alt: pycodestyle Errors
 
-.. image:: https://img.shields.io/badge/flake8-47-yellowgreen.svg
+.. image:: https://img.shields.io/badge/flake8-50-yellowgreen.svg
    :target: #
    :alt: flake8 Errors
 
