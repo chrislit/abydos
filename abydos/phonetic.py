@@ -2665,9 +2665,9 @@ def sfinxbis(word, maxlength=None):
 def phonet(word, mode=1, lang='de', trace=False):
     """Return the phonet code for a word.
 
-    phonet was developed by Jörg Michael and documented in c't magazine
-    vol. 25/1999, p. 252. It is a phonetic algorithm designed primarily for
-    German.
+    phonet ("Hannoveraner Phonetik") was developed by Jörg Michael and
+    documented in c't magazine vol. 25/1999, p. 252. It is a phonetic
+    algorithm designed primarily for German.
     Cf. http://www.heise.de/ct/ftp/99/25/252/
 
     This is a port of Jesper Zedlitz's code, which is licensed LGPL:
@@ -4772,6 +4772,119 @@ def eudex(word, maxlength=8):
 
     return hash_value
 
+
+def haase_phonetik(word):
+    """Return the Haase Phonetik (numeric output) code for a word.
+
+    Based on the algorithm described at
+    https://github.com/elastic/elasticsearch/blob/master/plugins/analysis-phonetic/src/main/java/org/elasticsearch/index/analysis/phonetic/HaasePhonetik.java
+
+    While the output code is numeric, it is still a str.
+
+    :param str word: the word to transform
+    :returns: the Haase Phonetik value as a numeric string
+    :rtype: str
+    """
+    def _after(word, i, letters):
+        """Return True if word[i] follows one of the supplied letters."""
+        if i > 0 and word[i-1] in letters:
+            return True
+        return False
+
+    def _before(word, i, letters):
+        """Return True if word[i] precedes one of the supplied letters."""
+        if i+1 < len(word) and word[i+1] in letters:
+            return True
+        return False
+
+    _vowels = {'A', 'E', 'I', 'J', 'O', 'U', 'Y'}
+
+    sdx = ''
+
+    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = word.replace('ß', 'SS')
+
+    word = word.replace('Ä', 'AE')
+    word = word.replace('Ö', 'OE')
+    word = word.replace('Ü', 'UE')
+    word = ''.join(c for c in word if c in
+                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                    'Y', 'Z'})
+
+    # Nothing to convert, return base case
+    if not word:
+        return sdx
+
+    word = word.replace('AUN', 'OWN')
+    word = word.replace('RB', 'RW')
+    word = word.replace('WSK', 'RSK')
+    if word[-1] == 'A':
+        word = word[:-1]+'AR'
+    if word[-1] == 'O':
+        word = word[:-1]+'OW'
+    word = word.replace('SCH', 'CH')
+    word = word.replace('GLI', 'LI')
+    if word[-3:] == 'EAU':
+        word = word[:-3]+'O'
+    if word[:2] == 'CH':
+        word = 'SCH'+word[2:]
+    word = word.replace('AUX', 'O')
+    word = word.replace('EUX', 'O')
+    word = word.replace('ILLE', 'I')
+
+    for i in range(len(word)):
+        if word[i] in _vowels:
+            sdx += '9'
+        elif word[i] == 'B':
+            sdx += '1'
+        elif word[i] == 'P':
+            if _before(word, i, {'H'}):
+                sdx += '3'
+            else:
+                sdx += '1'
+        elif word[i] in {'D', 'T'}:
+            if _before(word, i, {'C', 'S', 'Z'}):
+                sdx += '8'
+            else:
+                sdx += '2'
+        elif word[i] in {'F', 'V', 'W'}:
+            sdx += '3'
+        elif word[i] in {'G', 'K', 'Q'}:
+            sdx += '4'
+        elif word[i] == 'C':
+            if _after(word, i, {'S', 'Z'}):
+                sdx += '8'
+            elif i == 0:
+                if _before(word, i, {'A', 'H', 'K', 'L', 'O', 'Q', 'R', 'U',
+                                     'X'}):
+                    sdx += '4'
+                else:
+                    sdx += '8'
+            elif _before(word, i, {'A', 'H', 'K', 'O', 'Q', 'U', 'X'}):
+                sdx += '4'
+            else:
+                sdx += '8'
+        elif word[i] == 'X':
+            if _after(word, i, {'C', 'K', 'Q'}):
+                sdx += '8'
+            else:
+                sdx += '48'
+        elif word[i] == 'L':
+            sdx += '5'
+        elif word[i] in {'M', 'N'}:
+            sdx += '6'
+        elif word[i] == 'R':
+            sdx += '7'
+        elif word[i] in {'S', 'Z'}:
+            sdx += '8'
+
+    sdx = _delete_consecutive_repeats(sdx)
+
+    if sdx:
+        sdx = sdx[0] + sdx[1:].replace('9', '')
+
+    return sdx
 
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
