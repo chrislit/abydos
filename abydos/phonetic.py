@@ -4886,6 +4886,81 @@ def haase_phonetik(word):
 
     return sdx
 
+
+def reth_schek_phonetik(word):
+    """Return Reth-Schek Phonetik code for a word
+
+    This algorithm is proposed in:
+    von Reth, Hans-Peter and Schek, Hans-Jörg. 1977. "Eine Zugriffsmethode für
+    die phonetische Ähnlichkeitssuche." Heidelberg Scientific Center technical
+    reports 77.03.002. IBM Deutschland GmbH.
+
+    Since I couldn't secure a copy of that document (maybe I'll look for it
+    next time I'm in Germany), this implementation is based on what I could
+    glean from the implementations published by German Record Linkage
+    Center (www.record-linkage.de):
+    - Privacy-preserving Record Linkage (PPRL) (in R)
+    - Merge ToolBox (in Java)
+
+    Rules that are unclear:
+    - Should 'C' become 'G' or 'Z'? (PPRL has both, 'Z' rule blocked)
+    - Should 'CC' become 'G'? (PPRL has blocked 'CK' that may be typo)
+    - Should 'TUI' -> 'ZUI' rule exist? (PPRL has rule, but I can't
+        think of a German word with '-tui-' in it.)
+    - Should we really change 'SCH' -> 'CH' and then 'CH' -> 'SCH'?
+
+    :param word:
+    :return:
+    """
+    replacements = {3: {'AEH': 'E', 'IEH': 'I', 'OEH': 'OE', 'UEH': 'UE',
+                        'SCH': 'CH', 'ZIO': 'TIO', 'TIU': 'TIO', 'ZIU': 'TIO',
+                        'CHS': 'X', 'CKS': 'X', 'AEU': 'OI'},
+                    2: {'LL': 'L', 'AA': 'A', 'AH': 'A', 'BB': 'B', 'PP': 'B',
+                        'BP': 'B', 'PB': 'B', 'DD': 'D', 'DT': 'D', 'TT': 'D',
+                        'TH': 'D', 'EE': 'E', 'EH': 'E', 'AE': 'E', 'FF': 'F',
+                        'PH': 'F', 'KK': 'K', 'GG': 'G', 'GK': 'G', 'KG': 'G',
+                        'CK': 'G', 'CC': 'C', 'IE': 'I', 'IH': 'I', 'MM': 'M',
+                        'NN': 'N', 'OO': 'O', 'OH': 'O', 'SZ': 'S', 'UH': 'U',
+                        'GS': 'X', 'KS': 'X', 'TZ': 'Z', 'AY': 'AI',
+                        'EI': 'AI', 'EY': 'AI', 'EU': 'OI', 'RR': 'R',
+                        'SS': 'S', 'KW': 'QU'},
+                    1: {'P': 'B', 'T': 'D', 'V': 'F', 'W': 'F', 'C': 'G',
+                        'K': 'G', 'Y': 'I'}}
+
+    # Uppercase
+    word = word.upper()
+
+    # Replace umlauts/eszett
+    word = word.replace('Ä', 'AE')
+    word = word.replace('Ö', 'OE')
+    word = word.replace('Ü', 'UE')
+    word = word.replace('ß', 'SS')
+
+    # Main loop, using above replacements table
+    pos = 0
+    while pos < len(word):
+        for num in range(3, 0, -1):
+            if word[pos:pos+num] in replacements[num]:
+                word = word[:pos] + replacements[num][word[pos:pos+num]] + word[pos+num:]
+                pos += 1
+                break
+        else:
+            pos += 1  # Advance if nothing is recognized
+
+    # Change 'CH' back(?) to 'SCH'
+    word = word.replace('CH', 'SCH')
+
+    # Replace final sequences
+    if word[-2:] == 'ER':
+        word = word[:-2]+'R'
+    elif word[-2:] == 'EL':
+        word = word[:-2]+'L'
+    elif word[-1] == 'H':
+        word = word[:-1]
+
+    return word
+
+
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
     """Return the Beider-Morse Phonetic Matching algorithm code for a word.
