@@ -41,11 +41,11 @@ Abydos
    :target: #
    :alt: Pylint Score
 
-.. image:: https://img.shields.io/badge/pycodestyle-2-green.svg
+.. image:: https://img.shields.io/badge/pycodestyle-3-green.svg
    :target: #
    :alt: pycodestyle Errors
 
-.. image:: https://img.shields.io/badge/flake8-50-yellowgreen.svg
+.. image:: https://img.shields.io/badge/flake8-53-yellow.svg
    :target: #
    :alt: flake8 Errors
 
