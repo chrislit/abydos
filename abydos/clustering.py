@@ -29,6 +29,7 @@ The clustering module implements clustering algorithms such as:
 from __future__ import division, unicode_literals
 
 import unicodedata
+from collections import Counter
 
 from six import text_type
 from six.moves import range
@@ -205,6 +206,125 @@ def omission_key(word):
             key += char
 
     return key
+
+
+MOST_COMMON_LETTERS_EN = ('e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd',
+                          'l', 'c', 'u', 'm', 'w', 'f')
+
+
+def occurrence_fingerprint(word, n_bits=16,
+                           most_common=MOST_COMMON_LETTERS_EN):
+    """
+
+    :param word:
+    :param n_bits:
+    :param most_common:
+    :return:
+    """
+    word = set(word)
+    fingerprint = 0
+
+    for letter in most_common:
+        if letter in word:
+            fingerprint += 1
+        n_bits -= 1
+        if n_bits:
+            fingerprint <<= 1
+        else:
+            break
+    if n_bits:
+        fingerprint <<= n_bits
+    return fingerprint
+
+
+def occurrence_halved_fingerprint(word, n_bits=16,
+                                  most_common=MOST_COMMON_LETTERS_EN):
+    """
+
+    :param word:
+    :param n_bits:
+    :param most_common:
+    :return:
+    """
+    if n_bits % 2:
+        n_bits += 1
+
+    w_len = len(word)//2 + 1
+    w_1 = set(word[:w_len])
+    w_2 = set(word[w_len:])
+    fingerprint = 0
+
+    for letter in most_common:
+        if letter in w_1:
+            fingerprint += 1
+        fingerprint <<= 1
+        if letter in w_2:
+            fingerprint += 1
+        n_bits -= 2
+        if n_bits:
+            fingerprint <<= 1
+        else:
+            break
+    if n_bits:
+        fingerprint <<= n_bits
+    return fingerprint
+
+
+def count_fingerprint(word, n_bits=16,
+                           most_common=MOST_COMMON_LETTERS_EN):
+    """
+
+    :param word:
+    :param n_bits:
+    :param most_common:
+    :return:
+    """
+    if n_bits % 2:
+        n_bits += 1
+
+    word = Counter(word)
+    fingerprint = 0
+
+    for letter in most_common:
+        fingerprint += (word[letter] & 3)
+        n_bits -= 2
+        if n_bits:
+            fingerprint <= 2
+        else:
+            break
+    if n_bits:
+        fingerprint <<= n_bits
+    return fingerprint
+
+
+
+def position_fingerprint(word, n_bits=16,
+                         most_common=MOST_COMMON_LETTERS_EN,
+                         bits_per_letter=3):
+    """
+
+    :param word:
+    :param n_bits:
+    :param most_common:
+    :return:
+    """
+    position = {}
+    for pos, letter in enumerate(word):
+        if letter not in position and letter in most_common:
+            position[letter] = max(pos, 2**bits_per_letter-1)
+
+    fingerprint = 0
+    for letter in most_common:
+        fingerprint += min(position[letter], 2**n_bits-1)
+        n_bits -= bits_per_letter
+        if n_bits > 0:
+            fingerprint <<= min(bits_per_letter, n_bits)
+        else:
+            break
+
+    if n_bits:
+        fingerprint <<= n_bits
+    return fingerprint
 
 
 def mean_pairwise_similarity(collection, metric=sim,
