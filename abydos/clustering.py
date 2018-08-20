@@ -214,12 +214,18 @@ MOST_COMMON_LETTERS_EN = ('e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd',
 
 def occurrence_fingerprint(word, n_bits=16,
                            most_common=MOST_COMMON_LETTERS_EN):
-    """
+    """Return the occurrence fingerprint.
 
-    :param word:
-    :param n_bits:
-    :param most_common:
-    :return:
+    Based on the occurence fingerprint from:
+    Cisłak, Aleksander and Szymon Grabowski. "Lightweight Fingerprints for
+    Fast Approximate Keyword Matching Using Bitwise Operations."
+    http://arxiv.org/abs/1711.08475
+
+    :param word: the word to fingerprint
+    :param n_bits: number of bits in the fingerprint returned
+    :param most_common: the most common tokens in the target language
+    :return: the occurrence fingerprint
+    :rtype: int
     """
     word = set(word)
     fingerprint = 0
@@ -239,12 +245,18 @@ def occurrence_fingerprint(word, n_bits=16,
 
 def occurrence_halved_fingerprint(word, n_bits=16,
                                   most_common=MOST_COMMON_LETTERS_EN):
-    """
+    """Return the occurrence halved fingerprint.
 
-    :param word:
-    :param n_bits:
-    :param most_common:
-    :return:
+    Based on the occurence halved fingerprint from:
+    Cisłak, Aleksander and Szymon Grabowski. "Lightweight Fingerprints for
+    Fast Approximate Keyword Matching Using Bitwise Operations."
+    http://arxiv.org/abs/1711.08475
+
+    :param word: the word to fingerprint
+    :param n_bits: number of bits in the fingerprint returned
+    :param most_common: the most common tokens in the target language
+    :return: the occurrence halved fingerprint
+    :rtype: int
     """
     if n_bits % 2:
         n_bits += 1
@@ -271,13 +283,19 @@ def occurrence_halved_fingerprint(word, n_bits=16,
 
 
 def count_fingerprint(word, n_bits=16,
-                           most_common=MOST_COMMON_LETTERS_EN):
-    """
+                      most_common=MOST_COMMON_LETTERS_EN):
+    """Return the count fingerprint.
 
-    :param word:
-    :param n_bits:
-    :param most_common:
-    :return:
+    Based on the count fingerprint from:
+    Cisłak, Aleksander and Szymon Grabowski. "Lightweight Fingerprints for
+    Fast Approximate Keyword Matching Using Bitwise Operations."
+    http://arxiv.org/abs/1711.08475
+
+    :param word: the word to fingerprint
+    :param n_bits: number of bits in the fingerprint returned
+    :param most_common: the most common tokens in the target language
+    :return: the count fingerprint
+    :rtype: int
     """
     if n_bits % 2:
         n_bits += 1
@@ -301,12 +319,19 @@ def count_fingerprint(word, n_bits=16,
 def position_fingerprint(word, n_bits=16,
                          most_common=MOST_COMMON_LETTERS_EN,
                          bits_per_letter=3):
-    """
+    """Return the position fingerprint.
 
-    :param word:
-    :param n_bits:
-    :param most_common:
-    :return:
+    Based on the position fingerprint from:
+    Cisłak, Aleksander and Szymon Grabowski. "Lightweight Fingerprints for
+    Fast Approximate Keyword Matching Using Bitwise Operations."
+    http://arxiv.org/abs/1711.08475
+
+    :param word: the word to fingerprint
+    :param n_bits: number of bits in the fingerprint returned
+    :param most_common: the most common tokens in the target language
+    :param bits_per_letter: the bits to assign for letter position
+    :return: the position fingerprint
+    :rtype: int
     """
     position = {}
     for pos, letter in enumerate(word):
