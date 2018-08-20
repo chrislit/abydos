@@ -208,12 +208,13 @@ def omission_key(word):
     return key
 
 
-MOST_COMMON_LETTERS_EN = ('e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd',
+# most common letters, as defined in Cisłak & Grabowski
+MOST_COMMON_LETTERS_CG = ('e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd',
                           'l', 'c', 'u', 'm', 'w', 'f')
 
 
 def occurrence_fingerprint(word, n_bits=16,
-                           most_common=MOST_COMMON_LETTERS_EN):
+                           most_common=MOST_COMMON_LETTERS_CG):
     """Return the occurrence fingerprint.
 
     Based on the occurence fingerprint from:
@@ -238,13 +239,15 @@ def occurrence_fingerprint(word, n_bits=16,
             fingerprint <<= 1
         else:
             break
+
     if n_bits:
         fingerprint <<= n_bits
+
     return fingerprint
 
 
 def occurrence_halved_fingerprint(word, n_bits=16,
-                                  most_common=MOST_COMMON_LETTERS_EN):
+                                  most_common=MOST_COMMON_LETTERS_CG):
     """Return the occurrence halved fingerprint.
 
     Based on the occurence halved fingerprint from:
@@ -261,7 +264,7 @@ def occurrence_halved_fingerprint(word, n_bits=16,
     if n_bits % 2:
         n_bits += 1
 
-    w_len = len(word)//2 + 1
+    w_len = len(word)//2
     w_1 = set(word[:w_len])
     w_2 = set(word[w_len:])
     fingerprint = 0
@@ -277,13 +280,15 @@ def occurrence_halved_fingerprint(word, n_bits=16,
             fingerprint <<= 1
         else:
             break
+
     if n_bits:
         fingerprint <<= n_bits
+
     return fingerprint
 
 
 def count_fingerprint(word, n_bits=16,
-                      most_common=MOST_COMMON_LETTERS_EN):
+                      most_common=MOST_COMMON_LETTERS_CG):
     """Return the count fingerprint.
 
     Based on the count fingerprint from:
@@ -307,17 +312,18 @@ def count_fingerprint(word, n_bits=16,
         fingerprint += (word[letter] & 3)
         n_bits -= 2
         if n_bits:
-            fingerprint <= 2
+            fingerprint <<= 2
         else:
             break
+
     if n_bits:
         fingerprint <<= n_bits
+
     return fingerprint
 
 
-
 def position_fingerprint(word, n_bits=16,
-                         most_common=MOST_COMMON_LETTERS_EN,
+                         most_common=MOST_COMMON_LETTERS_CG,
                          bits_per_letter=3):
     """Return the position fingerprint.
 
@@ -336,19 +342,21 @@ def position_fingerprint(word, n_bits=16,
     position = {}
     for pos, letter in enumerate(word):
         if letter not in position and letter in most_common:
-            position[letter] = max(pos, 2**bits_per_letter-1)
+            position[letter] = min(pos, 2**bits_per_letter-1)
 
     fingerprint = 0
     for letter in most_common:
-        fingerprint += min(position[letter], 2**n_bits-1)
+        if letter in position:
+            fingerprint += min(position[letter], 2**n_bits-1)
         n_bits -= bits_per_letter
         if n_bits > 0:
             fingerprint <<= min(bits_per_letter, n_bits)
         else:
             break
 
-    if n_bits:
+    if n_bits > 0:
         fingerprint <<= n_bits
+
     return fingerprint
 
 
