@@ -4888,7 +4888,7 @@ def haase_phonetik(word):
 
 
 def reth_schek_phonetik(word):
-    """Return Reth-Schek Phonetik code for a word
+    """Return Reth-Schek Phonetik code for a word.
 
     This algorithm is proposed in:
     von Reth, Hans-Peter and Schek, Hans-Jörg. 1977. "Eine Zugriffsmethode für
@@ -4941,7 +4941,8 @@ def reth_schek_phonetik(word):
     while pos < len(word):
         for num in range(3, 0, -1):
             if word[pos:pos+num] in replacements[num]:
-                word = word[:pos] + replacements[num][word[pos:pos+num]] + word[pos+num:]
+                word = (word[:pos] + replacements[num][word[pos:pos+num]]
+                        + word[pos+num:])
                 pos += 1
                 break
         else:
