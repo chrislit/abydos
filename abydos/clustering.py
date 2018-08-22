@@ -207,11 +207,44 @@ def omission_key(word):
 
     return key
 
-
+# TODO: Dump all these to a data file.
 # most common letters, as defined in Cisłak & Grabowski
 MOST_COMMON_LETTERS_CG = ('e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd',
                           'l', 'c', 'u', 'm', 'w', 'f')
 
+# most common letters (case-folded to lowercase), as shown in Google Books
+# English n-grams, among letters a-z & digits 0-9
+MOST_COMMON_LETTERS_EN_LC = ('e', 't', 'a', 'i', 'o', 'n', 's', 'r', 'h', 'l',
+                             'd', 'c', 'u', 'm', 'f', 'p', 'g', 'y', 'w', 'b',
+                             'v', 'k', 'x', 'j', 'q', 'z', '1', '2', '0', '9',
+                             '3', '4', '8', '5', '6', '7')
+
+# most common letters, as shown in Google Books English n-grams, among letters
+# A-Z, a-z & digits 0-9
+MOST_COMMON_LETTERS = ('e', 't', 'a', 'o', 'i', 'n', 's', 'r', 'h', 'l', 'd',
+                       'c', 'u', 'm', 'f', 'p', 'g', 'y', 'w', 'b', 'v', 'k',
+                       'T', 'I', 'A', 'S', 'C', 'x', 'M', 'P', 'E', 'B', 'H',
+                       'R', 'N', 'D', 'L', 'F', 'W', 'O', 'q', 'G', 'z', 'j',
+                       'J', 'U', 'V', 'K', 'Y', '1', '2', '0', 'X', '9', 'Q',
+                       '3', 'Z', '4', '8', '5', '6', '7',)
+
+# most common letters (case-folded to lowercase), as shown in Google Books
+# German n-grams, among letters (a-z and umlauted vowels & eszett) & digits 0-9
+MOST_COMMON_LETTERS_DE = ('e', 'n', 'i', 'r', 's', 't', 'a', 'd', 'h', 'u',
+                          'l', 'g', 'c', 'o', 'm', 'b', 'f', 'w', 'k', 'z',
+                          'v', 'p', 'ü', 'ä', 'ß', 'ö', 'j', 'y', 'x', 'q',
+                          '1', '2', '3', '4', '0', '5', '6', '9', '8', '7')
+
+# most common letters (case-folded to lowercase), as shown in Google Books
+# German n-grams, among letters (A-Z, a-z, umlauted vowels & eszett) & digits
+# 0-9
+MOST_COMMON_LETTERS_DE_LC = ('e', 'n', 'i', 'r', 's', 't', 'a', 'd', 'h', 'u',
+                             'l', 'c', 'g', 'o', 'm', 'b', 'f', 'w', 'k', 'z',
+                             'v', 'p', 'ü', 'ä', 'S', 'A', 'D', 'B', 'E', 'G',
+                             'M', 'ß', 'V', 'K', 'ö', 'W', 'F', 'P', 'R', 'I',
+                             'H', 'L', 'T', 'N', 'Z', 'y', 'U', 'j', 'J', 'O',
+                             'C', 'x', 'q', 'Ü', 'Q', 'X', 'Ä', 'Ö', '1', '2',
+                             'Y', '3', '4', '0', '5', '6', '9', '8', '7')
 
 def occurrence_fingerprint(word, n_bits=16,
                            most_common=MOST_COMMON_LETTERS_CG):
