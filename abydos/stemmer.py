@@ -29,6 +29,7 @@ The stemmer module defines word stemmers including:
 
 from __future__ import unicode_literals
 
+import re
 import unicodedata
 
 from six import text_type
@@ -1710,18 +1711,281 @@ def caumanns(word):
     return word
 
 
-# def uealite(word):
-#     """Return UEA-Lite stem.
-#
-#     The UEA-Lite stemmer is defined in Marie-Claire Jenkins and Dan Smith's
-#     article at:
-# http://wayback.archive.org/web/20121012154211/http://www.uea.ac.uk/polopoly_fs/1.85493!stemmer25feb.pdf
-#
-#     :param word: the word to calculate the stem of
-#     :returns: word stem
-#     :rtype: str
-#     """
-#     return word
+def uealite(word, max_word_length=20, max_acro_length=8, return_rule_no=False):
+    """Return UEA-Lite stem.
+
+    The UEA-Lite stemmer is defined in Marie-Claire Jenkins and Dan Smith's
+    article at:
+    http://wayback.archive.org/web/20121012154211/http://www.uea.ac.uk/polopoly_fs/1.85493!stemmer25feb.pdf
+
+    :param word: the word to calculate the stem of
+    :returns: word stem
+    :rtype: str
+    """
+    problem_words = {'is', 'as', 'this', 'has', 'was', 'during'}
+
+    # rule table format:
+    # top-level dictionary: length-of-suffix: dict-of-rules
+    # dict-of-rules: suffix: (rule_no, suffix_length_to_delete,
+    #                         suffix_to_append)
+    rule_table = {7: {'titudes': (30, 1,),
+                      'fulness': (34, 4,),
+                      'ousness': (35, 4,),
+                      'eadings': (40.7, 4,),
+                      'oadings': (40.6, 4,),
+                      'ealings': (42.4, 4,),
+                      'ailings': (42.2, 4,),
+                      },
+                  6: {'aceous': (1, 6,),
+                      'aining': (24, 3,),
+                      'acting': (25, 3,),
+                      'ttings': (26, 5,),
+                      'viding': (27, 3, 'e'),
+                      'ssings': (37, 4,),
+                      'ulting': (38, 3,),
+                      'eading': (40.7, 3,),
+                      'oading': (40.6, 3,),
+                      'edings': (40.5, 4,),
+                      'ddings': (40.4, 4,),
+                      'ldings': (40.3, 4,),
+                      'rdings': (40.2, 4,),
+                      'ndings': (40.1, 4,),
+                      'llings': (41, 5,),
+                      'ealing': (42.4, 3,),
+                      'olings': (42.3, 4,),
+                      'ailing': (42.2, 3,),
+                      'elings': (42.1, 4,),
+                      'mmings': (44.3, 5,),
+                      'ngings': (45.2, 4,),
+                      'ggings': (45.1, 5,),
+                      'stings': (47, 4,),
+                      'etings': (48.4, 4,),
+                      'ntings': (48.2, 4,),
+                      'irings': (54.4, 4, 'e'),
+                      'urings': (54.3, 4, 'e'),
+                      'ncings': (54.2, 4, 'e'),
+                      'things': (58.1, 1,),
+                      },
+                  5: {'iases': (11.4, 2,),
+                      'ained': (13.6, 2,),
+                      'erned': (13.5, 2,),
+                      'ifted': (14, 2,),
+                      'ected': (15, 2,),
+                      'vided': (16, 1,),
+                      'erred': (19, 3,),
+                      'urred': (20.5, 3,),
+                      'lored': (20.4, 2,),
+                      'eared': (20.3, 2,),
+                      'tored': (20.2, 1,),
+                      'noted': (22.4, 1,),
+                      'leted': (22.3, 1,),
+                      'anges': (23, 1,),
+                      'tting': (26, 4,),
+                      'ulted': (32, 2,),
+                      'uming': (33, 3, 'e'),
+                      'rabed': (36.1, 1,),
+                      'rebed': (36.1, 1,),
+                      'ribed': (36.1, 1,),
+                      'robed': (36.1, 1,),
+                      'rubed': (36.1, 1,),
+                      'ssing': (37, 3,),
+                      'eding': (40.5, 3,),
+                      'dding': (40.4, 3,),
+                      'lding': (40.3, 3,),
+                      'rding': (40.2, 3,),
+                      'nding': (40.1, 3,),
+                      'dings': (40, 4, 'e'),
+                      'lling': (41, 4,),
+                      'oling': (42.3, 3,),
+                      'eling': (42.1, 3,),
+                      'lings': (42, 4, 'e'),
+                      'mming': (44.3, 4,),
+                      'rming': (44.2, 3,),
+                      'lming': (44.1, 3,),
+                      'mings': (44, 4, 'e'),
+                      'nging': (45.2, 3,),
+                      'gging': (45.1, 4,),
+                      'gings': (45, 4, 'e'),
+                      'aning': (46.6, 3,),
+                      'ening': (46.5, 3,),
+                      'gning': (46.4, 3,),
+                      'nning': (46.3, 4,),
+                      'oning': (46.2, 3,),
+                      'rning': (46.1, 3,),
+                      'sting': (47, 3,),
+                      'eting': (48.4, 3,),
+                      'pting': (48.3, 3,),
+                      'nting': (48.2, 3,),
+                      'cting': (48.1, 3,),
+                      'tings': (48, 4, 'e'),
+                      'iring': (54.4, 3, 'e'),
+                      'uring': (54.3, 3, 'e'),
+                      'ncing': (54.2, 3, 'e'),
+                      'sings': (54, 4, 'e'),
+                      'lling': (55, 3,),
+                      'ating': (57, 3, 'e'),
+                      'thing': (58.1, 0,),
+                      },
+                  4: {'eeds': (7, 1,),
+                      'uses': (11.3, 1,),
+                      'sses': (11.2, 2,)
+                      'eses': (11.1, 2, 'is'),
+                      'tled': (12.5, 1,),
+                      'pled': (12.4, 1,),
+                      'bled': (12.3, 1,),
+                      'eled': (12.2, 2,),
+                      'lled': (12.1, 2,),
+                      'ened': (13.7, 2,),
+                      'rned': (13.4, 2,),
+                      'nned': (13.3, 3,),
+                      'oned': (13.2, 2,),
+                      'gned': (13.1, 2,),
+                      'ered': (20.1, 2,),
+                      'reds': (20, 2,),
+                      'tted': (21, 3,),
+                      'uted': (22.2, 1,),
+                      'ated': (22.1, 1,),
+                      'ssed': (28, 2,),
+                      'umed': (31, 1,),
+                      'beds': (36, 3,),
+                      'ding': (40, 3, 'e'),
+                      'ling': (42, 3, 'e'),
+                      'nged': (43.2, 1,),
+                      'gged': (43.1, 3,),
+                      'ming': (44, 3, 'e'),
+                      'ging': (45, 3, 'e'),
+                      'ning': (46, 3, 'e'),
+                      'ting': (48, 3, 'e'),
+                      'ssed': (49, 2,),
+                      'lled': (53, 2,),
+                      'zing': (54.1, 3, 'e'),
+                      'sing': (54, 3, 'e'),
+                      'lves': (60.1, 3, 'f'),
+                      'aped': (61.3, 1,),
+                      'uded': (61.2, 1,),
+                      'oded': (61.1, 1,),
+                      'ated': (61, 1,),
+                      'ones': (63.6, 1,),
+                      'izes': (63.5, 1,),
+                      'ures': (63.4, 1,),
+                      'ines': (63.3, 1,),
+                      'ides': (63.2, 1,),
+                      },
+                  3: {'ces': (2, 1,),
+                      'sis': (4, 0,),
+                      'tis': (5, 0,),
+                      'eed': (7, 0,),
+                      'ued': (8, 1,),
+                      'ues': (9, 1,),
+                      'ees': (10, 0,),
+                      'ses': (11, 1,),
+                      'led': (12, 2,),
+                      'ned': (13, 1,),
+                      'ved': (17, 1,),
+                      'ced': (18, 1,),
+                      'red': (20, 1,),
+                      'ted': (22, 2,),
+                      'sed': (29, 1,),
+                      'bed': (36, 2,),
+                      'ged': (43, 1,),
+                      'les': (50, 1,),
+                      'tes': (51, 1,),
+                      'zed': (52, 1,),
+                      'ied': (56, 3, 'y'),
+                      'ies': (59, 3, 'y'),
+                      'ves': (60, 1,),
+                      'pes': (63.8, 1,),
+                      'mes': (63.7, 1,),
+                      'ges': (63.1, 1,),
+                      'ous': (65, 0,),
+                      'ums': (66, 0,),
+                      },
+                  2: {'cs': (3, 0,),
+                      'ss': (6, 0,),
+                      'es': (63, 2,),
+                      'is': (64, 2, 'e'),
+                      'us': (67, 0,),
+                      }}
+
+
+    def _stem_with_duplicate_character_check(word, del_length):
+        if word[-1] == 's':
+            del_length += 1
+        stemmed_word = word[:-del_length]
+        if re.match(r'.*(\w)\1$', word):
+            stemmed_word = stemmed_word[:-1]
+        return stemmed_word
+
+    def _stem(word):
+        stemmed_word = word
+        rule_no = 0
+
+        if word in problem_words:
+            return uealite(word, 90)
+        if len(word) > max_word_length:
+            return word, 95
+
+        if "'" in word:
+            if word[-2:] in {"'s", "'S"}:
+                stemmed_word = word[:-2]
+            if word[-1:] == "'":
+                stemmed_word = word[:-1]
+            stemmed_word = stemmed_word.replace("n't", 'not')
+            stemmed_word = stemmed_word.replace("'ve", 'have')
+            stemmed_word = stemmed_word.replace("'re", 'are')
+            stemmed_word = stemmed_word.replace("'m", 'am')
+            return stemmed_word, 94
+
+        if word.isdigit():
+            return word, 90.3
+        else:
+            hyphen = word.find('-')
+            if hyphen:
+                if word[:hyphen].isalpha() and word[hyphen+1:].isalpha():
+                    return word, 90.2
+                else:
+                    return word, 90.1
+            elif '_' in word:
+                return word, 90
+            elif word[-1] == 's' and word[:-1].isupper():
+                return word[:-1], 91.1
+            elif word.isupper():
+                return word, 91
+            elif re.match(r'^.*\p{Upper}.*\p{Upper}.*$'):
+                return word, 92
+            elif word[0].isupper():
+                return word, 92
+
+
+        for n in range(7, 1, -1):
+            if word[-n:] in rule_table[n]:
+                rule_no, del_length, add_str = rule_table[n][word[-n:]]
+                if del_length:
+                    stemmed_word = word[:-del_length]
+                if add_str:
+                    stemmed_word += add_str
+                break
+
+        if not rule_no:
+            if re.match(r'.*\w\wings?$', word): # rule 58
+                stemmed_word = _stem_with_duplicate_character_check(word, 3)
+                rule_no = 58
+            elif re.match(r'.*\w\weds?$', word): # rule 62
+                stemmed_word = _stem_with_duplicate_character_check(word, 2)
+                rule_no = 62
+            elif word[-1] == 's':  # rule 68
+                stemmed_word = word[:-1]
+                rule_no = 68
+
+        return stemmed_word, rule_no
+
+
+    stem, rule_no = _stem(word)
+    if return_rule_no:
+        return stem, rule_no
+    return stem
+
+
 
 
 def lancaster(word):
