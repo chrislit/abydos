@@ -1711,16 +1711,28 @@ def caumanns(word):
     return word
 
 
-def uealite(word, max_word_length=20, return_rule_no=False):
+def uealite(word, max_word_length=20, return_rule_no=False, var=None):
     """Return UEA-Lite stem.
 
-    The UEA-Lite stemmer is defined in Marie-Claire Jenkins and Dan Smith's
-    article at:
-    http://wayback.archive.org/web/20121012154211/http://www.uea.ac.uk/polopoly_fs/1.85493!stemmer25feb.pdf
+    The UEA-Lite stemmer is discussed in:
+    Jenkins, Marie-Claire and Dan Smith. 2005. "Conservative stemming for
+    search and indexing."
+    http://lemur.cmp.uea.ac.uk/Research/stemmer/stemmer25feb.pdf
+
+    This is chiefly based on the Java implementation of the algorithm, with
+    variants based on the Perl implementation and Jason Adams' Ruby port.
+
+    Java version: http://lemur.cmp.uea.ac.uk/Research/stemmer/UEAstem.java
+    Perl version: http://lemur.cmp.uea.ac.uk/Research/stemmer/UEAstem.pl
+    Ruby version: https://github.com/ealdent/uea-stemmer
 
     :param word: the word to calculate the stem of
+    :param max_word_length: the maximum word length allowed
+    :param return_rule_no: if True, returns the stem along with rule number
+    :param var: variant to use (set to 'Adams' to use Jason Adams' rules,
+                or 'Perl' to use the original Perl set of rules)
     :returns: word stem
-    :rtype: str
+    :rtype: str or tuple(str, int)
     """
     problem_words = {'is', 'as', 'this', 'has', 'was', 'during'}
 
