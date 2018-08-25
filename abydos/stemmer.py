@@ -1828,7 +1828,7 @@ def uealite(word, max_word_length=20, max_acro_length=8, return_rule_no=False):
                       },
                   4: {'eeds': (7, 1,),
                       'uses': (11.3, 1,),
-                      'sses': (11.2, 2,)
+                      'sses': (11.2, 2,),
                       'eses': (11.1, 2, 'is'),
                       'tled': (12.5, 1,),
                       'pled': (12.4, 1,),
