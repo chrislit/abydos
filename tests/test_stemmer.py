@@ -906,6 +906,12 @@ class UEALiteTestCases(unittest.TestCase):
         self.assertEqual(uealite('MREs'), 'MRE')
         self.assertEqual(uealite('USAED'), 'USAED')
 
+    def test_uealite_wsj_set(self):
+        """Test abydos.stemmer.uealite using the WSJ test set."""
+        with open(TESTDIR + '/corpora/uea-lite_wsj.csv') as wsj_testset:
+            for wsj_line in wsj_testset:
+                (word, uea, rule) = wsj_line.strip().split(',')
+                self.assertEqual(uealite(word), uea)
 
 # class LancasterTestCases(unittest.TestCase):
 #     """Test Lancaster functions.
