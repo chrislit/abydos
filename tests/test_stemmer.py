@@ -31,8 +31,8 @@ from abydos.stemmer import _ends_in_cvc, _ends_in_doubled_cons, _m_degree, \
     _sb_ends_in_short_syllable, _sb_has_vowel, _sb_r1, _sb_r2, \
     _sb_short_word, caumanns, clef_german, clef_german_plus, clef_swedish, \
     lovins, porter, porter2, sb_danish, sb_dutch, sb_german, sb_norwegian, \
-    sb_swedish
-# uealite, lancaster,
+    sb_swedish, uealite
+# lancaster,
 
 TESTDIR = os.path.dirname(__file__)
 
@@ -838,16 +838,73 @@ class CaumannsTestCases(unittest.TestCase):
         self.assertEqual(caumanns('xxxnd'), 'xxxnd')
 
 
-# class UEALiteTestCases(unittest.TestCase):
-#     """Test UEA-lite functions.
-#
-#     abydos.stemmer.uealite
-#     """
-#
-#     def test_uealite(self):
-#         """Test abydos.stemmer.uealite."""
-#         # base case
-#         self.assertEqual(uealite(''), '')
+class UEALiteTestCases(unittest.TestCase):
+    """Test UEA-lite functions.
+
+    abydos.stemmer.uealite
+    """
+    def test_uealite(self):
+        """Test abydos.stemmer.uealite."""
+        # base case
+        self.assertEqual(uealite(''), '')
+
+        # test cases copied from Ruby port
+        # https://github.com/ealdent/uea-stemmer/blob/master/test/uea_stemmer_test.rb
+        # These are corrected to match the Java version's output.
+        # "stem base words to just the base word"
+        self.assertEqual(uealite('man'), 'man')
+        self.assertEqual(uealite('happiness'), 'happiness')
+        # "stem theses as thesis but not bases as basis"
+        self.assertEqual(uealite('theses'), 'thesis')
+        self.assertNotEqual(uealite('bases'), 'basis')
+        # "stem preterite words ending in -ed without the -ed"
+        self.assertEqual(uealite('ordained'), 'ordain')
+        self.assertEqual(uealite('killed'), 'kill')
+        self.assertEqual(uealite('liked'), 'lik')  #
+        self.assertEqual(uealite('helped'), 'help')
+        self.assertEqual(uealite('scarred'), 'scarre')  #
+        self.assertEqual(uealite('invited'), 'invit')  #
+        self.assertEqual(uealite('exited'), 'exit')
+        self.assertEqual(uealite('debited'), 'debit')
+        self.assertEqual(uealite('smited'), 'smit')  #
+        # "stem progressive verbs and gerunds without the -ing"
+        self.assertEqual(uealite('running'), 'run')
+        self.assertEqual(uealite('settings'), 'set')
+        self.assertEqual(uealite('timing'), 'time')
+        self.assertEqual(uealite('dying'), 'dy')  #
+        self.assertEqual(uealite('harping'), 'harp')
+        self.assertEqual(uealite('charring'), 'charr')  #
+        # "not stem false progressive verbs such as 'sing'"
+        self.assertEqual(uealite('ring'), 'ring')
+        self.assertEqual(uealite('sing'), 'se')  #
+        self.assertEqual(uealite('bring'), 'br')  #
+        self.assertEqual(uealite('fling'), 'fle')  #
+        # "stem various plural nouns and 3rd-pres verbs without the -s/-es"
+        self.assertEqual(uealite('changes'), 'change')
+        self.assertEqual(uealite('deaths'), 'death')
+        self.assertEqual(uealite('shadows'), 'shadow')
+        self.assertEqual(uealite('flies'), 'fly')
+        self.assertEqual(uealite('things'), 'thing')
+        self.assertEqual(uealite('nothings'), 'nothing')
+        self.assertEqual(uealite('witches'), 'witch')
+        self.assertEqual(uealite('makes'), 'mak')  #
+        self.assertEqual(uealite('smokes'), 'smok')  #
+        self.assertEqual(uealite('does'), 'do')
+        # "stem various words with -des suffix"
+        self.assertEqual(uealite('abodes'), 'abod')  #
+        self.assertEqual(uealite('escapades'), 'escapad')  #
+        self.assertEqual(uealite('crusades'), 'crusad')  #
+        self.assertEqual(uealite('grades'), 'grad')  #
+        # "stem various words with -res suffix"
+        self.assertEqual(uealite('wires'), 'wir')  #
+        self.assertEqual(uealite('acres'), 'acr')  #
+        self.assertEqual(uealite('fires'), 'fir')  #
+        self.assertEqual(uealite('cares'), 'car')  #
+        # "stem acronyms when pluralized otherwise they should be left alone"
+        self.assertEqual(uealite('USA'), 'USA')
+        self.assertEqual(uealite('FLOSS'), 'FLOSS')
+        self.assertEqual(uealite('MREs'), 'MRE')
+        self.assertEqual(uealite('USAED'), 'USAED')
 
 
 # class LancasterTestCases(unittest.TestCase):
