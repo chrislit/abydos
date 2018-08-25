@@ -1711,7 +1711,7 @@ def caumanns(word):
     return word
 
 
-def uealite(word, max_word_length=20, max_acro_length=8, return_rule_no=False):
+def uealite(word, max_word_length=20, return_rule_no=False):
     """Return UEA-Lite stem.
 
     The UEA-Lite stemmer is defined in Marie-Claire Jenkins and Dan Smith's
@@ -1919,8 +1919,10 @@ def uealite(word, max_word_length=20, max_acro_length=8, return_rule_no=False):
         stemmed_word = word
         rule_no = 0
 
+        if not word:
+            return word, 0
         if word in problem_words:
-            return uealite(word, 90)
+            return word, 90
         if len(word) > max_word_length:
             return word, 95
 
