@@ -1758,7 +1758,7 @@ def uealite(word, max_word_length=20, return_rule_no=False, var=None):
                       'eading': (40.7, 3, None),
                       'oading': (40.6, 3, None),
                       'edings': (40.5, 4, None),
-                      'ddings': (40.4, 4, None),
+                      'ddings': (40.4, 5, None),
                       'ldings': (40.3, 4, None),
                       'rdings': (40.2, 4, None),
                       'ndings': (40.1, 4, None),
@@ -1801,8 +1801,9 @@ def uealite(word, max_word_length=20, return_rule_no=False, var=None):
                       'robed': (36.1, 1, None),
                       'rubed': (36.1, 1, None),
                       'ssing': (37, 3, None),
+                      'vings': (39, 4, 'e'),
                       'eding': (40.5, 3, None),
-                      'dding': (40.4, 3, None),
+                      'dding': (40.4, 4, None),
                       'lding': (40.3, 3, None),
                       'rding': (40.2, 3, None),
                       'nding': (40.1, 3, None),
@@ -1860,6 +1861,7 @@ def uealite(word, max_word_length=20, return_rule_no=False, var=None):
                       'ssed': (28, 2, None),
                       'umed': (31, 1, None),
                       'beds': (36, 3, None),
+                      'ving': (39, 3, 'e'),
                       'ding': (40, 3, 'e'),
                       'ling': (42, 3, 'e'),
                       'nged': (43.2, 1, None),
@@ -1889,7 +1891,7 @@ def uealite(word, max_word_length=20, return_rule_no=False, var=None):
                       'eed': (7, 0, None),
                       'ued': (8, 1, None),
                       'ues': (9, 1, None),
-                      'ees': (10, 0, None),
+                      'ees': (10, 1, None),
                       'ses': (11, 1, None),
                       'led': (12, 2, None),
                       'ned': (13, 1, None),
@@ -1923,7 +1925,7 @@ def uealite(word, max_word_length=20, return_rule_no=False, var=None):
         if word[-1] == 's':
             del_length += 1
         stemmed_word = word[:-del_length]
-        if re.match(r'.*(\w)\1$', word):
+        if re.match(r'.*(\w)\1$', stemmed_word):
             stemmed_word = stemmed_word[:-1]
         return stemmed_word
 

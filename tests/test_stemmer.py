@@ -873,7 +873,7 @@ class UEALiteTestCases(unittest.TestCase):
         self.assertEqual(uealite('timing'), 'time')
         self.assertEqual(uealite('dying'), 'dy')  #
         self.assertEqual(uealite('harping'), 'harp')
-        self.assertEqual(uealite('charring'), 'charr')  #
+        self.assertEqual(uealite('charring'), 'char')
         # "not stem false progressive verbs such as 'sing'"
         self.assertEqual(uealite('ring'), 'ring')
         self.assertEqual(uealite('sing'), 'se')  #
