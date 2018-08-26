@@ -162,14 +162,18 @@ Abydos is a library of phonetic algorithms, string distance metrics, stemmers, a
     - Snowball stemmers for German, Dutch, Norwegian, Swedish, and Danish
     - CLEF German, German plus, and Swedish stemmers
     - Caumann's German stemmer
-    - UEA-Lite stemmer
+    - UEA-Lite Stemmer
+    - Paice-Husk Stemmer
 - Keyers
     - string fingerprint
     - q-gram fingerprint
     - phonetic fingerprint
     - skeleton key
     - omission key
-
+    - Cisłak & Grabowski's occurrence fingerprint
+    - Cisłak & Grabowski's occurrence halved fingerprint
+    - Cisłak & Grabowski's count fingerprint
+    - Cisłak & Grabowski's position fingerprint
 
 Required:
 
