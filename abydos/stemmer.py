@@ -25,7 +25,8 @@ The stemmer module defines word stemmers including:
     - Snowball stemmers for German, Dutch, Norwegian, Swedish, and Danish
     - CLEF German, German plus, and Swedish stemmers
     - Caumann's German stemmer
-    - UEA-Lite stemmer
+    - UEA-Lite Stemmer
+    - Paice-Husk Stemmer
 """
 
 from __future__ import unicode_literals

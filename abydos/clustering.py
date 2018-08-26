@@ -24,6 +24,10 @@ The clustering module implements clustering algorithms such as:
     - phonetic fingerprint
     - skeleton key
     - omission key
+    - Cisłak & Grabowski's occurrence fingerprint
+    - Cisłak & Grabowski's occurrence halved fingerprint
+    - Cisłak & Grabowski's count fingerprint
+    - Cisłak & Grabowski's position fingerprint
 """
 
 from __future__ import division, unicode_literals
