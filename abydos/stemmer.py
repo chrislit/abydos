@@ -1711,7 +1711,8 @@ def caumanns(word):
     return word
 
 
-def uealite(word, max_word_length=20, return_rule_no=False, var=None):
+def uealite(word, max_word_length=20, max_acro_length=8, return_rule_no=False,
+            var=None):
     """Return UEA-Lite stem.
 
     The UEA-Lite stemmer is discussed in:
@@ -1933,9 +1934,37 @@ def uealite(word, max_word_length=20, return_rule_no=False, var=None):
                           4: ['eeds', 'reds', 'beds']}
         for del_len in perl_deletions:
             for term in perl_deletions[del_len]:
-                del perl_deletions[del_len][term]
+                del rule_table[del_len][term]
     elif var == 'Adams':
-        pass
+        adams_additions = {6: {'chited': (22.8, 1, None)},
+                           5: {'dying': (58.2, 4, 'ie'),
+                               'tying': (58.2, 4, 'ie'),
+                               'vited': (22.6, 1, None),
+                               'mited': (22.5, 1, None),
+                               'vided': (22.9, 1, None),
+                               'mided': (22.10, 1, None),
+                               'lying': (58.2, 4, 'ie'),
+                               'arred': (19.1, 3, None),
+                               },
+                           4: {'ited': (22.7, 2, None),
+                               'oked': (31.1, 1, None),
+                               'aked': (31.1, 1, None),
+                               'iked': (31.1, 1, None),
+                               'uked': (31.1, 1, None),
+                               'amed': (31, 1, None),
+                               'imed': (31, 1, None),
+                               'does': (31.2, 2, None),
+                               },
+                           3: {'oed': (31.3, 1, None),
+                               'oes': (31.2, 1, None),
+                               'kes': (63.1, 1, None),
+                               'des': (63.10, 1, None),
+                               'res': (63.9, 1, None),
+                               }}
+        for del_len in adams_additions:
+            for term in adams_additions[del_len]:
+                rule_table[del_len][term] = adams_additions[del_len][term]
+        problem_words.add('menses')
 
     def _stem_with_duplicate_character_check(word, del_length):
         if word[-1] == 's':
@@ -1953,7 +1982,7 @@ def uealite(word, max_word_length=20, return_rule_no=False, var=None):
             return word, 0
         if word in problem_words:
             return word, 90
-        if len(word) > max_word_length:
+        if max_word_length and len(word) > max_word_length:
             return word, 95
 
         if "'" in word:
@@ -1979,13 +2008,20 @@ def uealite(word, max_word_length=20, return_rule_no=False, var=None):
             elif '_' in word:
                 return word, 90
             elif word[-1] == 's' and word[:-1].isupper():
+                if var == 'Adams' and len(word)-1 > max_acro_length:
+                    return word, 96
                 return word[:-1], 91.1
             elif word.isupper():
+                if var == 'Adams' and len(word) > max_acro_length:
+                    return word, 96
                 return word, 91
             elif re.match(r'^.*[A-Z].*[A-Z].*$', word):
                 return word, 92
             elif word[0].isupper():
                 return word, 93
+            elif var == 'Adams' and re.match(r'^[a-z]{1}(|[rl])(ing|ed)$',
+                                             word):
+                return word, 97
 
         for n in range(7, 1, -1):
             if word[-n:] in rule_table[n]:
