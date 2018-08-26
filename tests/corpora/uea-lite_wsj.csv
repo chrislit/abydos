@@ -4,7 +4,7 @@ abandons,abandon,68
 abashed,abash,62
 abated,abate,22.1
 abates,abate,51
-abating,abate,48
+abating,abate,57
 abducted,abduct,22
 abetted,abet,21
 abetting,abet,26
@@ -33,7 +33,7 @@ abusing,abuse,54
 acccounting,acccount,48.2
 accelerated,accelerate,22.1
 accelerates,accelerate,51
-accelerating,accelerate,48
+accelerating,accelerate,57
 accents,accent,68
 accepted,accept,22
 accepting,accept,48.3
@@ -43,7 +43,7 @@ accessories,accessory,59
 accidents,accident,68
 acclaimed,acclaim,62
 accommodated,accommodate,22.1
-accommodating,accommodate,48
+accommodating,accommodate,57
 accommodations,accommodation,68
 accompanied,accompany,56
 accompanies,accompany,59
@@ -60,7 +60,7 @@ accountants,accountant,68
 accrued,accrue,8
 accrues,accrue,9
 accumulated,accumulate,22.1
-accumulating,accumulate,48
+accumulating,accumulate,57
 accusations,accusation,68
 accused,accuse,29
 accuses,accuse,11.3
@@ -130,7 +130,7 @@ adopted,adopt,22
 adopting,adopt,48.3
 adopts,adopt,68
 adorned,adorn,13.4
-ADRs,ADR,91
+ADRs,ADR,91.1
 adults,adult,68
 advanced,advance,18
 advances,advance,2
@@ -152,7 +152,7 @@ advisers,adviser,68
 advisories,advisory,59
 advocated,advocate,22.1
 advocates,advocate,51
-advocating,advocate,48
+advocating,advocate,57
 affairs,affair,68
 affected,affect,15
 affecting,affect,48.1
@@ -161,7 +161,7 @@ affections,affection,68
 affidavits,affidavit,68
 affiliated,affiliate,22.1
 affiliates,affiliate,51
-affiliating,affiliate,48
+affiliating,affiliate,57
 affinities,affinity,59
 affirmed,affirm,62
 affirming,affirm,44.2
@@ -180,7 +180,7 @@ agendas,agenda,68
 agents,agent,68
 aggravated,aggravate,22.1
 aggravates,aggravate,51
-aggravating,aggravate,48
+aggravating,aggravate,57
 aggregates,aggregate,51
 agitated,agitate,22.1
 agonizing,agonize,54.1
@@ -213,7 +213,7 @@ alerts,alert,68
 aliens,alien,68
 alienated,alienate,22.1
 alienates,alienate,51
-alienating,alienate,48
+alienating,alienate,57
 aligned,align,13.1
 allayed,allay,62
 allegations,allegation,68
@@ -221,12 +221,12 @@ alleged,allege,43
 alleges,allege,63.1
 alleging,allege,45
 allergies,allergy,59
-alleviating,alleviate,48
+alleviating,alleviate,57
 alleys,alley,68
 alliances,alliance,2
 alligators,alligator,68
 allocated,allocate,22.1
-allocating,allocate,48
+allocating,allocate,57
 allocations,allocation,68
 allotments,allotment,68
 allowed,allow,62
@@ -244,7 +244,7 @@ allying,ally,58
 altered,alter,20.1
 altering,alter,58
 alternates,alternate,51
-alternating,alternate,48
+alternating,alternate,57
 alternatives,alternative,60
 'm,am,94
 amahs,amah,68
@@ -310,7 +310,7 @@ anthers,anther,68
 antibodies,antibody,59
 anticipated,anticipate,22.1
 anticipates,anticipate,51
-anticipating,anticipate,48
+anticipating,anticipate,57
 antiquated,antiquate,22.1
 antiquities,antiquity,59
 anxieties,anxiety,59
@@ -348,7 +348,7 @@ appraised,appraise,29
 appraisers,appraiser,68
 appreciated,appreciate,22.1
 appreciates,appreciate,51
-appreciating,appreciate,48
+appreciating,appreciate,57
 apprehensions,apprehension,68
 apprised,apprise,29
 approached,approach,62
@@ -407,7 +407,7 @@ artillerists,artillerist,68
 artists,artist,68
 artworks,artwork,68
 ascending,ascend,40.1
-ascribed,ascribe,36
+ascribed,ascribe,36.1
 ashes,ash,63
 ashtrays,ashtray,68
 asked,ask,62
@@ -422,7 +422,7 @@ aspiring,aspire,54.4
 asses,ass,11.2
 assailed,assail,12
 assassinated,assassinate,22.1
-assassinating,assassinate,48
+assassinating,assassinate,57
 assassinations,assassination,68
 assaults,assault,68
 assemblages,assemblage,63.1
@@ -445,7 +445,7 @@ assists,assist,68
 assistants,assistant,68
 associated,associate,22.1
 associates,associate,51
-associating,associate,48
+associating,associate,57
 associations,association,68
 assorted,assort,22
 assumed,assume,31
@@ -515,7 +515,7 @@ autographs,autograph,68
 automakers,automaker,68
 automated,automate,22.1
 automates,automate,51
-automating,automate,48
+automating,automate,57
 automobiles,automobile,50
 autumns,autumn,68
 avenues,avenue,9
@@ -665,7 +665,7 @@ begging,beg,45.1
 begs,beg,68
 beggars,beggar,68
 beginning,begin,46.3
-beginnings,begin,46.3
+beginnings,begin,58
 begins,begin,68
 behaved,behave,17
 behaves,behave,60
@@ -794,7 +794,7 @@ blunders,blunder,68
 blunted,blunt,22
 blurred,blur,20.5
 blurring,blur,58
-BMWs,BMW,91
+BMWs,BMW,91.1
 boarding,board,40.2
 boards,board,68
 boardrooms,boardroom,68
@@ -910,7 +910,7 @@ brewed,brew,62
 brewing,brew,58
 brewers,brewer,68
 breweries,brewery,59
-bribed,bribe,36
+bribed,bribe,36.1
 bricks,brick,68
 bridges,bridge,63.1
 bridging,bridge,45
@@ -1027,7 +1027,7 @@ cables,cable,50
 cadets,cadet,68
 calculated,calculate,22.1
 calculates,calculate,51
-calculating,calculate,48
+calculating,calculate,57
 calculations,calculation,68
 calculators,calculator,68
 calves,calf,60.1
@@ -1071,7 +1071,7 @@ capitalizing,capitalize,54.1
 capitulated,capitulate,22.1
 capsules,capsule,50
 captioned,caption,13.2
-captivating,captivate,48
+captivating,captivate,57
 captives,captive,60
 captured,capture,20
 capturing,capture,54.3
@@ -1117,7 +1117,7 @@ casting,cast,47
 castings,cast,47
 casts,cast,68
 castigated,castigate,22.1
-castigating,castigate,48
+castigating,castigate,57
 castling,castle,42
 casualties,casualty,59
 cats,cat,68
@@ -1141,12 +1141,12 @@ cautions,caution,68
 caved,cave,17
 caves,cave,60
 caveats,caveat,68
-CDs,CD,91
+CDs,CD,91.1
 ceased,cease,29
 ceases,cease,11
 celebrated,celebrate,22.1
 celebrates,celebrate,51
-celebrating,celebrate,48
+celebrating,celebrate,57
 celebrations,celebration,68
 celebrities,celebrity,59
 cells,cell,68
@@ -1162,12 +1162,12 @@ centimeters,centimeter,68
 centralized,centralize,52
 centurions,centurion,68
 centuries,century,59
-CEOs,CEO,91
+CEOs,CEO,91.1
 cereals,cereal,68
 ceremonies,ceremony,59
 certificates,certificate,51
 certified,certify,56
-CFCs,CFC,91
+CFCs,CFC,91.1
 chained,chain,13.6
 chains,chain,68
 chairs,chair,68
@@ -1267,7 +1267,7 @@ circles,circle,50
 circuits,circuit,68
 circulars,circular,68
 circulated,circulate,22.1
-circulating,circulate,48
+circulating,circulate,57
 circulations,circulation,68
 circumstances,circumstance,2
 circumventing,circumvent,48.2
@@ -1372,7 +1372,7 @@ coins,coin,68
 coincides,coincide,63.2
 colas,cola,68
 collaborated,collaborate,22.1
-collaborating,collaborate,48
+collaborating,collaborate,57
 collaborators,collaborator,68
 collages,collage,63.1
 collapsed,collapse,29
@@ -1507,7 +1507,7 @@ conceived,conceive,17
 conceiving,conceive,39
 concentrated,concentrate,22.1
 concentrates,concentrate,51
-concentrating,concentrate,48
+concentrating,concentrate,57
 concentrations,concentration,68
 concepts,concept,68
 conceptions,conception,68
@@ -1556,7 +1556,7 @@ confirmed,confirm,62
 confirming,confirm,44.2
 confirms,confirm,68
 confiscated,confiscate,22.1
-confiscating,confiscate,48
+confiscating,confiscate,57
 conflicting,conflict,48.1
 conflicts,conflict,68
 conforming,conform,44.2
@@ -1570,8 +1570,8 @@ confuses,confuse,11.3
 confusing,confuse,54
 conglomerates,conglomerate,51
 congratulated,congratulate,22.1
-congratulating,congratulate,48
-Congress's,Congress,93
+congratulating,congratulate,57
+Congress's,Congress,94
 conjures,conjure,63.4
 connected,connect,15
 connecting,connect,48.1
@@ -1596,7 +1596,7 @@ consists,consist,68
 consoles,console,50
 consolidated,consolidate,22.1
 consolidates,consolidate,51
-consolidating,consolidate,48
+consolidating,consolidate,57
 consolidations,consolidation,68
 conspiracies,conspiracy,59
 conspirators,conspirator,68
@@ -1615,7 +1615,7 @@ constructed,construct,22
 constructing,construct,48.1
 constructions,construction,68
 construed,construe,8
-consulted,consult,22
+consulted,consult,32
 consulting,consult,38
 consultants,consultant,68
 consultations,consultation,68
@@ -1633,7 +1633,7 @@ containers,container,68
 contaminated,contaminate,22.1
 contemplated,contemplate,22.1
 contemplates,contemplate,51
-contemplating,contemplate,48
+contemplating,contemplate,57
 contemporaries,contemporary,59
 contended,contend,62
 contending,contend,40.1
@@ -1703,11 +1703,11 @@ cooling,cool,42.3
 cools,cool,68
 coolants,coolant,68
 cooperated,cooperate,22.1
-cooperating,cooperate,48
+cooperating,cooperate,57
 cooperatives,cooperative,60
 coordinated,coordinate,22.1
 coordinates,coordinate,51
-coordinating,coordinate,48
+coordinating,coordinate,57
 copiers,copier,68
 copied,copy,56
 copies,copy,59
@@ -1793,8 +1793,8 @@ covets,covet,68
 cows,cow,68
 cowards,coward,68
 cowboys,cowboy,68
-CPAs,CPA,91
-CRs,CR,91
+CPAs,CPA,91.1
+CRs,CR,91.1
 cracked,crack,62
 cracking,crack,58
 cracks,crack,68
@@ -1818,7 +1818,7 @@ creamed,cream,62
 creams,cream,68
 created,create,22.1
 creates,create,51
-creating,create,48
+creating,create,57
 creations,creation,68
 creators,creator,68
 creatures,creature,63.4
@@ -1879,11 +1879,11 @@ cuckoos,cuckoo,68
 cues,cue,9
 culminated,culminate,22.1
 culminates,culminate,51
-culminating,culminate,48
+culminating,culminate,57
 culprits,culprit,68
 cultivated,cultivate,22.1
 cultivates,cultivate,51
-cultivating,cultivate,48
+cultivating,cultivate,57
 cultures,culture,63.4
 cups,cup,68
 curators,curator,68
@@ -1919,7 +1919,7 @@ cycling,cycle,42
 cyclicals,cyclical,68
 cyclists,cyclist,68
 czars,czar,68
-Ds,D,91
+Ds,D,91.1
 dabs,dab,68
 dabbled,dabble,12.3
 dabbling,dabble,42
@@ -1944,7 +1944,7 @@ dashed,dash,62
 dashes,dash,63
 dated,date,22.1
 dates,date,51
-dating,date,48
+dating,date,57
 daughters,daughter,68
 daunted,daunt,22
 daunting,daunt,48.2
@@ -1966,16 +1966,16 @@ deaths,death,68
 debacles,debacle,50
 debated,debate,22.1
 debates,debate,51
-debating,debate,48
+debating,debate,57
 debentures,debenture,63.4
-debilitating,debilitate,48
+debilitating,debilitate,57
 debts,debt,68
 debtholders,debtholder,68
 debtors,debtor,68
 deceased,decease,29
 deceived,deceive,17
 decelerated,decelerate,22.1
-decelerating,decelerate,48
+decelerating,decelerate,57
 decentralized,decentralize,52
 decentralizing,decentralize,54.1
 decertified,decertify,56
@@ -2002,7 +2002,7 @@ decorators,decorator,68
 decreased,decrease,29
 decreases,decrease,11
 decreasing,decrease,54
-decribed,decribe,36
+decribed,decribe,36.1
 decried,decry,56
 decries,decry,59
 decrying,decry,58
@@ -2015,7 +2015,7 @@ deemed,deem,62
 deems,deem,68
 deepened,deepen,13.7
 deepening,deepen,46.5
-defaulted,default,22
+defaulted,default,32
 defaulting,default,38
 defaults,default,68
 defaulters,defaulter,68
@@ -2054,10 +2054,10 @@ delayed,delay,62
 delaying,delay,58
 delays,delay,68
 delegates,delegate,51
-delegating,delegate,48
+delegating,delegate,57
 deleted,delete,22.3
 deletions,deletion,68
-deliberating,deliberate,48
+deliberating,deliberate,57
 deliberations,deliberation,68
 delighted,delight,22
 delights,delight,68
@@ -2088,7 +2088,7 @@ demonized,demonize,52
 demonizing,demonize,54.1
 demonstrated,demonstrate,22.1
 demonstrates,demonstrate,51
-demonstrating,demonstrate,48
+demonstrating,demonstrate,57
 demonstrations,demonstration,68
 demonstrators,demonstrator,68
 demoralized,demoralize,52
@@ -2146,7 +2146,7 @@ descended,descend,62
 descending,descend,40.1
 descends,descend,68
 descents,descent,68
-described,describe,36
+described,describe,36.1
 descriptions,description,68
 deserted,desert,22
 deserts,desert,68
@@ -2157,7 +2157,7 @@ designed,design,13.1
 designing,design,46.4
 designs,design,68
 designated,designate,22.1
-designating,designate,48
+designating,designate,57
 designations,designation,68
 designees,designee,10
 designers,designer,68
@@ -2187,7 +2187,7 @@ deters,deter,68
 detergents,detergent,68
 deteriorated,deteriorate,22.1
 deteriorates,deteriorate,51
-deteriorating,deteriorate,48
+deteriorating,deteriorate,57
 determined,determine,13
 determines,determine,63.3
 determining,determine,46
@@ -2198,7 +2198,7 @@ detractors,detractor,68
 devaluations,devaluation,68
 devalued,devalue,8
 devastated,devastate,22.1
-devastating,devastate,48
+devastating,devastate,57
 developed,develop,62
 developing,develop,58
 develops,develop,68
@@ -2226,7 +2226,7 @@ dickered,dicker,20.1
 dickering,dicker,58
 dictated,dictate,22.1
 dictates,dictate,51
-dictating,dictate,48
+dictating,dictate,57
 dictators,dictator,68
 dictatorships,dictatorship,68
 dieting,diet,48.4
@@ -2235,7 +2235,7 @@ differs,differ,68
 differences,difference,2
 differentials,differential,68
 differentiated,differentiate,22.1
-differentiating,differentiate,48
+differentiating,differentiate,57
 difficulties,difficulty,59
 digging,dig,45.1
 digs,dig,68
@@ -2324,7 +2324,7 @@ discoveries,discovery,59
 discredited,discredit,22
 discrepancies,discrepancy,59
 discrepencies,discrepency,59
-discriminating,discriminate,48
+discriminating,discriminate,57
 discussed,discuss,28
 discussing,discuss,37
 discussions,discussion,68
@@ -2344,7 +2344,7 @@ dishwashers,dishwasher,68
 disinclined,disincline,13
 disinfectants,disinfectant,68
 disintegrated,disintegrate,22.1
-disintegrating,disintegrate,48
+disintegrating,disintegrate,57
 disinterested,disinterest,22
 disks,disk,68
 dislocations,dislocation,68
@@ -2391,14 +2391,14 @@ dissatisfied,dissatisfy,56
 dissected,dissect,15
 dissecting,dissect,48.1
 disseminated,disseminate,22.1
-disseminating,disseminate,48
+disseminating,disseminate,57
 dissented,dissent,22
 dissenting,dissent,48.2
 dissents,dissent,68
 dissenters,dissenter,68
 dissidents,dissident,68
 dissipated,dissipate,22.1
-dissociating,dissociate,48
+dissociating,dissociate,57
 dissolved,dissolve,17
 dissolving,dissolve,39
 distances,distance,2
@@ -2471,15 +2471,15 @@ dolphins,dolphin,68
 domes,dome,63.7
 dominated,dominate,22.1
 dominates,dominate,51
-dominating,dominate,48
+dominating,dominate,57
 domineering,domineer,58
 donned,don,13.3
 dons,don,68
 donated,donate,22.1
-donating,donate,48
+donating,donate,57
 donations,donation,68
 donors,donor,68
-don't-con-me,donot-con-me,90.2
+don't-con-me,donot-con-me,94
 doomed,doom,62
 doomsayers,doomsayer,68
 doors,door,68
@@ -2509,7 +2509,7 @@ drags,drag,68
 drained,drain,13.6
 draining,drain,24
 drains,drain,68
-DRAMs,DRAM,91
+DRAMs,DRAM,91.1
 dramas,drama,68
 dramatizations,dramatization,68
 drapes,drape,63.8
@@ -2563,7 +2563,7 @@ dummies,dummy,59
 dumped,dump,62
 dumping,dump,58
 dumps,dump,68
-Dunkin',Dunkin,93
+Dunkin',Dunkin,94
 dupes,dupe,63.8
 duplicated,duplicate,22.1
 duplications,duplication,68
@@ -2580,7 +2580,7 @@ earmarked,earmark,62
 earmarking,earmark,58
 earned,earn,13.4
 earning,earn,46.1
-earnings,earn,46.1
+earnings,earn,58
 earns,earn,68
 earners,earner,68
 earnigs,earnig,68
@@ -2606,7 +2606,7 @@ editions,edition,68
 editors,editor,68
 editorials,editorial,68
 educated,educate,22.1
-educating,educate,48
+educating,educate,57
 educations,education,68
 educators,educator,68
 effects,effect,68
@@ -2615,7 +2615,7 @@ efforts,effort,68
 eggs,egg,68
 egos,ego,68
 ejected,eject,15
-elaborating,elaborate,48
+elaborating,elaborate,57
 elapsed,elapse,29
 elbows,elbow,68
 elders,elder,68
@@ -2634,7 +2634,7 @@ elevations,elevation,68
 elevators,elevator,68
 eliminated,eliminate,22.1
 eliminates,eliminate,51
-eliminating,eliminate,48
+eliminating,eliminate,57
 elites,elite,51
 elitists,elitist,68
 eluded,elude,61.2
@@ -2680,7 +2680,7 @@ empowers,empower,68
 emptied,empty,56
 emptying,empty,58
 emulated,emulate,22.1
-emulating,emulate,48
+emulating,emulate,57
 enabled,enable,12.3
 enables,enable,50
 enabling,enable,42
@@ -2810,13 +2810,13 @@ errors,error,68
 erupted,erupt,22
 erupts,erupt,68
 escalated,escalate,22.1
-escalating,escalate,48
+escalating,escalate,57
 escalators,escalator,68
 escaped,escape,61.3
 eschewed,eschew,62
 escorts,escort,68
 escrowed,escrow,62
-ESPs,ESP,91
+ESPs,ESP,91.1
 essays,essay,68
 essentials,essential,68
 established,establish,62
@@ -2826,7 +2826,7 @@ establishments,establishment,68
 establshed,establsh,62
 estimated,estimate,22.1
 estimates,estimate,51
-estimating,estimate,48
+estimating,estimate,57
 estimators,estimator,68
 estranged,estrange,43.2
 euphemisms,euphemism,68
@@ -2834,7 +2834,7 @@ evacuated,evacuate,22.1
 evaders,evader,68
 evaluated,evaluate,22.1
 evaluates,evaluate,51
-evaluating,evaluate,48
+evaluating,evaluate,57
 evaluations,evaluation,68
 evangelists,evangelist,68
 evaporated,evaporate,22.1
@@ -2844,12 +2844,12 @@ evens,even,68
 events,event,68
 evidenced,evidence,18
 evinced,evince,18
-eviscerating,eviscerate,48
+eviscerating,eviscerate,57
 evolved,evolve,17
 evolving,evolve,39
 exacerbated,exacerbate,22.1
 exacerbates,exacerbate,51
-exacerbating,exacerbate,48
+exacerbating,exacerbate,57
 exaggerated,exaggerate,22.1
 exams,exam,68
 examinations,examination,68
@@ -2859,7 +2859,7 @@ examining,examine,46
 examiners,examiner,68
 examples,example,50
 excavated,excavate,22.1
-excavating,excavate,48
+excavating,excavate,57
 excavators,excavator,68
 exceeded,exceed,62
 exceeding,exceed,40.5
@@ -2900,14 +2900,14 @@ exhibited,exhibit,22
 exhibits,exhibit,68
 exhibitions,exhibition,68
 exhibitors,exhibitor,68
-exhilarating,exhilarate,48
+exhilarating,exhilarate,57
 existed,exist,22
 existing,exist,47
 exists,exist,68
 exited,exit,22
 exits,exit,68
 exonerated,exonerate,22.1
-exonerating,exonerate,48
+exonerating,exonerate,57
 exorcisms,exorcism,68
 expanded,expand,62
 expanding,expand,40.1
@@ -2982,7 +2982,7 @@ fabricators,fabricator,68
 faced,face,18
 faces,face,2
 facelifts,facelift,68
-facilitating,facilitate,48
+facilitating,facilitate,57
 facilities,facility,59
 facsimiles,facsimile,50
 facts,fact,68
@@ -3019,7 +3019,7 @@ farms,farm,68
 farmers,farmer,68
 farmsteads,farmstead,68
 fascinated,fascinate,22.1
-fascinating,fascinate,48
+fascinating,fascinate,57
 fascists,fascist,68
 fashioned,fashion,13.2
 fashions,fashion,68
@@ -3031,7 +3031,7 @@ fatalities,fatality,59
 fathers,father,68
 fattened,fatten,13.7
 fattening,fatten,46.5
-faulted,fault,22
+faulted,fault,32
 faults,fault,68
 faultlines,faultline,63.3
 favoring,favor,58
@@ -3204,7 +3204,7 @@ flows,flow,68
 flowers,flower,68
 fluctuated,fluctuate,22.1
 fluctuates,fluctuate,51
-fluctuating,fluctuate,48
+fluctuating,fluctuate,57
 fluctuations,fluctuation,68
 fluids,fluid,68
 flunking,flunk,58
@@ -3266,7 +3266,7 @@ formats,format,68
 formulas,formula,68
 formulated,formulate,22.1
 formulates,formulate,51
-formulating,formulate,48
+formulating,formulate,57
 formulations,formulation,68
 forwarding,forward,40.2
 forwards,forward,68
@@ -3331,7 +3331,7 @@ fronds,frond,68
 fronts,front,68
 fruits,fruit,68
 frustrated,frustrate,22.1
-frustrating,frustrate,48
+frustrating,frustrate,57
 frustrations,frustration,68
 fried,fry,56
 frying,fry,58
@@ -3416,7 +3416,7 @@ generalizations,generalization,68
 generalized,generalize,52
 generated,generate,22.1
 generates,generate,51
-generating,generate,48
+generating,generate,57
 generations,generation,68
 generators,generator,68
 gentleladies,gentlelady,59
@@ -3570,7 +3570,7 @@ gushes,gush,63
 guts,gut,68
 guys,guy,68
 gyrated,gyrate,22.1
-gyrating,gyrate,48
+gyrating,gyrate,57
 gyrations,gyration,68
 habits,habit,68
 habitats,habitat,68
@@ -3612,7 +3612,7 @@ hanging,hang,45.2
 hangs,hang,68
 happened,happen,13.7
 happening,happen,46.5
-happenings,happen,46.5
+happenings,happen,58
 happens,happen,68
 harangues,harangue,9
 harassed,harass,28
@@ -3648,8 +3648,8 @@ hawking,hawk,58
 hawks,hawk,68
 hawkers,hawker,68
 hazards,hazard,68
-HCFCs,HCFC,91
-HDTVs,HDTV,91
+HCFCs,HCFC,91.1
+HDTVs,HDTV,91.1
 his,he,64
 headed,head,62
 heading,head,40.7
@@ -3701,7 +3701,7 @@ hereabouts,hereabout,68
 herniated,herniate,22.1
 heroes,hero,63
 herons,heron,68
-hesitating,hesitate,48
+hesitating,hesitate,57
 hewed,hew,62
 hews,hew,68
 hides,hide,63.2
@@ -3812,7 +3812,7 @@ humans,human,68
 humanities,humanity,59
 humanizing,humanize,54.1
 humbled,humble,12.3
-humiliating,humiliate,48
+humiliating,humiliate,57
 hunched,hunch,62
 hunted,hunt,22
 hunting,hunt,48.2
@@ -3831,7 +3831,7 @@ hustlers,hustler,68
 hybrids,hybrid,68
 hyenas,hyena,68
 hypermarkets,hypermarket,68
-hyperventilating,hyperventilate,48
+hyperventilating,hyperventilate,57
 hypnotized,hypnotize,52
 hypocrites,hypocrite,51
 hypothesized,hypothesize,52
@@ -3861,7 +3861,7 @@ imagined,imagine,13
 imagining,imagine,46
 imbalances,imbalance,2
 imitated,imitate,22.1
-imitating,imitate,48
+imitating,imitate,57
 immersed,immerse,29
 immigrants,immigrant,68
 immigrated,immigrate,22.1
@@ -3923,12 +3923,12 @@ incongruities,incongruity,59
 inconsistencies,inconsistency,59
 incorporated,incorporate,22.1
 incorporates,incorporate,51
-incorporating,incorporate,48
+incorporating,incorporate,57
 increased,increase,29
 increases,increase,11
 increasing,increase,54
 increments,increment,68
-incriminating,incriminate,48
+incriminating,incriminate,57
 incumbents,incumbent,68
 incurred,incur,20.5
 incurring,incur,58
@@ -3940,7 +3940,7 @@ indexing,index,58
 indexers,indexer,68
 indicated,indicate,22.1
 indicates,indicate,51
-indicating,indicate,48
+indicating,indicate,57
 indications,indication,68
 indicators,indicator,68
 indicted,indict,22
@@ -3968,10 +3968,10 @@ inferred,infer,19
 inferences,inference,2
 infested,infest,22
 infiltrated,infiltrate,22.1
-infiltrating,infiltrate,48
+infiltrating,infiltrate,57
 inflated,inflate,22.1
 inflates,inflate,51
-inflating,inflate,48
+inflating,inflate,57
 inflicted,inflict,22
 inflows,inflow,68
 influenced,influence,18
@@ -3996,7 +3996,7 @@ inhibited,inhibit,22
 initialed,initial,12
 initials,initial,68
 initiated,initiate,22.1
-initiating,initiate,48
+initiating,initiate,57
 initiatiors,initiatior,68
 initiatives,initiative,60
 injected,inject,15
@@ -4013,7 +4013,7 @@ inks,ink,68
 inmates,inmate,51
 inns,inn,68
 innocents,innocent,68
-innoculating,innoculate,48
+innoculating,innoculate,57
 innovated,innovate,22.1
 innovations,innovation,68
 innovators,innovator,68
@@ -4028,7 +4028,7 @@ inserted,insert,22
 inserts,insert,68
 insiders,insider,68
 insights,insight,68
-insinuating,insinuate,48
+insinuating,insinuate,57
 insisted,insist,22
 insisting,insist,47
 insists,insist,68
@@ -4056,7 +4056,7 @@ instructions,instruction,68
 instructors,instructor,68
 instruments,instrument,68
 insulated,insulate,22.1
-insulating,insulate,48
+insulating,insulate,57
 insulins,insulin,68
 insulting,insult,38
 insured,insure,20
@@ -4065,7 +4065,7 @@ insuring,insure,54.3
 insurers,insurer,68
 insurgents,insurgent,68
 integrated,integrate,22.1
-integrating,integrate,48
+integrating,integrate,57
 intellectuals,intellectual,68
 intended,intend,62
 intends,intend,68
@@ -4109,7 +4109,7 @@ interviewed,interview,62
 interviewing,interview,58
 interviews,interview,68
 intimidated,intimidate,22.1
-intimidating,intimidate,48
+intimidating,intimidate,57
 intimidations,intimidation,68
 intones,intone,63.6
 intoxicated,intoxicate,22.1
@@ -4134,7 +4134,7 @@ investing,invest,47
 invests,invest,68
 investigated,investigate,22.1
 investigates,investigate,51
-investigating,investigate,48
+investigating,investigate,57
 investigations,investigation,68
 investigators,investigator,68
 investments,investment,68
@@ -4145,9 +4145,9 @@ inviting,invite,48
 invoices,invoice,2
 involved,involve,17
 involving,involve,39
-IOUs,IOU,91
-IPOs,IPO,91
-IRAs,IRA,91
+IOUs,IOU,91.1
+IPOs,IPO,91.1
+IRAs,IRA,91.1
 irked,irk,62
 irks,irk,68
 irons,iron,68
@@ -4353,7 +4353,7 @@ laying,lay,58
 lays,lay,68
 layers,layer,68
 layoffs,layoff,68
-LBOs,LBO,91
+LBOs,LBO,91.1
 les,le,50
 leaded,lead,62
 leading,lead,40.7
@@ -4388,7 +4388,7 @@ leftovers,leftover,68
 legs,leg,68
 legalizing,legalize,54.1
 legions,legion,68
-legislating,legislate,48
+legislating,legislate,57
 legislators,legislator,68
 legislatures,legislature,63.4
 legitimized,legitimize,52
@@ -4423,7 +4423,7 @@ liberalizations,liberalization,68
 liberalized,liberalize,52
 liberalizing,liberalize,54.1
 liberated,liberate,22.1
-liberating,liberate,48
+liberating,liberate,57
 libertarians,libertarian,68
 liberties,liberty,59
 librarians,librarian,68
@@ -4467,7 +4467,7 @@ liquefied,liquefy,56
 liquefies,liquefy,59
 liquids,liquid,68
 liquidated,liquidate,22.1
-liquidating,liquidate,48
+liquidating,liquidate,57
 liquified,liquify,56
 listed,list,22
 listing,list,47
@@ -4500,7 +4500,7 @@ locales,locale,50
 localities,locality,59
 localized,localize,52
 located,locate,22.1
-locating,locate,48
+locating,locate,57
 locations,location,68
 locked,lock,62
 locking,lock,58
@@ -4606,7 +4606,7 @@ managements,management,68
 managers,manager,68
 mandated,mandate,22.1
 mandates,mandate,51
-mandating,mandate,48
+mandating,mandate,57
 maneuvered,maneuver,20.1
 maneuvering,maneuver,58
 maneuverings,maneuver,58
@@ -4616,7 +4616,7 @@ manifestos,manifesto,68
 maninstays,maninstay,68
 manipulated,manipulate,22.1
 manipulates,manipulate,51
-manipulating,manipulate,48
+manipulating,manipulate,57
 manipulations,manipulation,68
 manipulators,manipulator,68
 mannered,manner,20.1
@@ -4675,7 +4675,7 @@ matches,match,63
 matching,match,58
 mated,mate,22.1
 mates,mate,51
-mating,mate,48
+mating,mate,57
 materials,material,68
 materialized,materialize,52
 materializes,materialize,63.5
@@ -4786,7 +4786,7 @@ minted,mint,22
 minting,mint,48.2
 mints,mint,68
 minutes,minute,51
-MIPs,MIP,91
+MIPs,MIP,91.1
 mired,mire,20
 mirroring,mirror,58
 mirrors,mirror,68
@@ -4823,7 +4823,7 @@ mistrials,mistrial,68
 misunderstandings,misunderstand,40.1
 misused,misuse,29
 mites,mite,51
-mitigating,mitigate,48
+mitigating,mitigate,57
 mixed,mix,62
 mixes,mix,63
 mixing,mix,58
@@ -4841,7 +4841,7 @@ models,model,68
 modems,modem,68
 moderated,moderate,22.1
 moderates,moderate,51
-moderating,moderate,48
+moderating,moderate,57
 modernized,modernize,52
 modernizing,modernize,54.1
 modifications,modification,68
@@ -4878,7 +4878,7 @@ mothers,mother,68
 motifs,motif,68
 motions,motion,68
 motivated,motivate,22.1
-motivating,motivate,48
+motivating,motivate,57
 motives,motive,60
 motors,motor,68
 motorcycles,motorcycle,50
@@ -4966,7 +4966,7 @@ negatives,negative,60
 neglected,neglect,15
 neglecting,neglect,48.1
 negotiated,negotiate,22.1
-negotiating,negotiate,48
+negotiating,negotiate,57
 negotiations,negotiation,68
 negotiators,negotiator,68
 neighbhorhoods,neighbhorhood,68
@@ -5082,7 +5082,7 @@ octogenarians,octogenarian,68
 odds,odd,68
 oddballs,oddball,68
 oddities,oddity,59
-O'Dwyer's,O'Dwyer,92
+O'Dwyer's,O'Dwyer,94
 oeufs,oeuf,68
 offending,offend,40.1
 offends,offend,68
@@ -5104,7 +5104,7 @@ ogling,ogle,42
 oils,oil,68
 olds,old,68
 olefins,olefin,68
-O'Linn's,O'Linn,92
+O'Linn's,O'Linn,94
 omens,omen,68
 omissions,omission,68
 omits,omit,68
@@ -5115,13 +5115,13 @@ oohs,ooh,68
 oozing,ooze,54.1
 opened,open,13.7
 opening,open,46.5
-openings,open,46.5
+openings,open,58
 opens,open,68
 openers,opener,68
 operas,opera,68
 operated,operate,22.1
 operates,operate,51
-operating,operate,48
+operating,operate,57
 operations,operation,68
 operatives,operative,60
 operators,operator,68
@@ -5142,7 +5142,7 @@ orchards,orchard,68
 orchardists,orchardist,68
 orchestras,orchestra,68
 orchestrated,orchestrate,22.1
-orchestrating,orchestrate,48
+orchestrating,orchestrate,57
 orchids,orchid,68
 ordained,ordain,13.6
 ordered,order,20.1
@@ -5159,7 +5159,7 @@ oriented,orient,22
 origins,origin,68
 originated,originate,22.1
 originates,originate,51
-originating,originate,48
+originating,originate,57
 originations,origination,68
 originators,originator,68
 ornaments,ornament,68
@@ -5247,9 +5247,9 @@ overshadowing,overshadow,58
 oversimplified,oversimplify,56
 oversized,oversize,52
 overstated,overstate,22.1
-overstating,overstate,48
+overstating,overstate,57
 overstrained,overstrain,13.6
-oversubscribed,oversubscribe,36
+oversubscribed,oversubscribe,36.1
 overtaxed,overtax,62
 overthrowing,overthrow,58
 overtures,overture,63.4
@@ -5263,7 +5263,7 @@ overwhelming,overwhelm,44.1
 overworking,overwork,58
 owns,own,68
 owners,owner,68
-PACs,PAC,91
+PACs,PAC,91.1
 pacemakers,pacemaker,68
 pacified,pacify,56
 packed,pack,62
@@ -5331,7 +5331,7 @@ parts,part,68
 participants,participant,68
 participated,participate,22.1
 participates,participate,51
-participating,participate,48
+participating,participate,57
 participations,participation,68
 particulars,particular,68
 partisans,partisan,68
@@ -5379,8 +5379,8 @@ payments,payment,68
 payoffs,payoff,68
 payouts,payout,68
 payrolls,payroll,68
-PCs,PC,91
-PCBs,PCB,91
+PCs,PC,91.1
+PCBs,PCB,91.1
 peas,pea,68
 peacemakers,peacemaker,68
 peaches,peach,63
@@ -5413,7 +5413,7 @@ penalizes,penalize,63.5
 penalties,penalty,59
 pencils,pencil,68
 penetrated,penetrate,22.1
-penetrating,penetrate,48
+penetrating,penetrate,57
 pennies,penny,59
 pensions,pension,68
 peopled,people,12.4
@@ -5440,13 +5440,13 @@ perishables,perishable,50
 perked,perk,62
 perks,perk,68
 permeated,permeate,22.1
-permeating,permeate,48
+permeating,permeate,57
 permits,permit,68
 permitted,permit,21
 permitting,permit,26
 perpetrated,perpetrate,22.1
 perpetuates,perpetuate,51
-perpetuating,perpetuate,48
+perpetuating,perpetuate,57
 perplexing,perplex,58
 persecuted,persecute,22.2
 persecuting,persecute,48
@@ -5633,7 +5633,7 @@ politicized,politicize,52
 polled,poll,12.1
 polls,poll,68
 pollinated,pollinate,22.1
-pollinating,pollinate,48
+pollinating,pollinate,57
 pollsters,pollster,68
 pollutants,pollutant,68
 polluted,pollute,22.2
@@ -5655,7 +5655,7 @@ popping,pop,58
 pops,pop,68
 popularized,popularize,52
 populated,populate,22.1
-populating,populate,48
+populating,populate,57
 populations,population,68
 porcelains,porcelain,68
 porches,porch,63
@@ -5723,7 +5723,7 @@ precedents,precedent,68
 precincts,precinct,68
 precipices,precipice,2
 precipitated,precipitate,22.1
-precipitating,precipitate,48
+precipitating,precipitate,57
 precluded,preclude,61.2
 predates,predate,51
 predators,predator,68
@@ -5754,7 +5754,7 @@ prepayments,prepayment,68
 prepositioning,preposition,46.2
 prerogatives,prerogative,60
 presages,presage,63.1
-prescribed,prescribe,36
+prescribed,prescribe,36.1
 prescriptions,prescription,68
 presented,present,22
 presenting,present,48.2
@@ -5861,7 +5861,7 @@ projecting,project,48.1
 projects,project,68
 projections,projection,68
 proliferated,proliferate,22.1
-proliferating,proliferate,48
+proliferating,proliferate,57
 promised,promise,29
 promises,promise,11
 promising,promise,54
@@ -6082,7 +6082,7 @@ rats,rat,68
 ratcheting,ratchet,48.4
 rated,rate,22.1
 rates,rate,51
-rating,rate,48
+rating,rate,57
 ratings,rate,48
 ratepayers,ratepayer,68
 ratified,ratify,56
@@ -6151,7 +6151,7 @@ rebounding,rebound,40.1
 rebounds,rebound,68
 rebuilding,rebuild,40.3
 recalculated,recalculate,22.1
-recalculating,recalculate,48
+recalculating,recalculate,57
 recalculations,recalculation,68
 recalled,recall,12.1
 recalls,recall,68
@@ -6285,7 +6285,7 @@ regrets,regret,68
 regretted,regret,21
 regulated,regulate,22.1
 regulates,regulate,51
-regulating,regulate,48
+regulating,regulate,57
 regulations,regulation,68
 regulators,regulator,68
 regummed,regum,62
@@ -6300,14 +6300,14 @@ reimburses,reimburse,11
 reimbursements,reimbursement,68
 reins,rein,68
 reincorporated,reincorporate,22.1
-reincorporating,reincorporate,48
+reincorporating,reincorporate,57
 reindicting,reindict,48.1
 reinforced,reinforce,18
 reinforces,reinforce,2
 reinforcements,reinforcement,68
 reinstalled,reinstall,12.1
 reinstated,reinstate,22.1
-reinstating,reinstate,48
+reinstating,reinstate,57
 reinstituting,reinstitute,48
 reinsurers,reinsurer,68
 reintegrated,reintegrate,22.1
@@ -6318,7 +6318,7 @@ reinvesting,reinvest,47
 reinvigorated,reinvigorate,22.1
 reiterated,reiterate,22.1
 reiterates,reiterate,51
-reiterating,reiterate,48
+reiterating,reiterate,57
 rejected,reject,15
 rejecting,reject,48.1
 rejects,reject,68
@@ -6327,7 +6327,7 @@ rekindling,rekindle,42
 relabeling,relabel,42.1
 related,relate,22.1
 relates,relate,51
-relating,relate,48
+relating,relate,57
 relations,relation,68
 relationships,relationship,68
 relatives,relative,60
@@ -6348,7 +6348,7 @@ relinquishing,relinquish,58
 relished,relish,62
 relishes,relish,63
 relocated,relocate,22.1
-relocating,relocate,48
+relocating,relocate,57
 relocations,relocation,68
 relied,rely,56
 relies,rely,59
@@ -6365,7 +6365,7 @@ remedies,remedy,59
 remembered,remember,20.1
 remembering,remember,58
 remembers,remember,68
-REMICs,REMIC,91
+REMICs,REMIC,91.1
 reminded,remind,62
 reminding,remind,40.1
 reminds,remind,68
@@ -6381,7 +6381,7 @@ rendering,render,58
 renderings,render,58
 reneging,renege,45
 renegotiated,renegotiate,22.1
-renegotiating,renegotiate,48
+renegotiating,renegotiate,57
 renewed,renew,62
 renewing,renew,58
 renews,renew,68
@@ -6389,7 +6389,7 @@ renewals,renewal,68
 renounced,renounce,18
 renouncing,renounce,54.2
 renovated,renovate,22.1
-renovating,renovate,48
+renovating,renovate,57
 rented,rent,22
 renting,rent,48.2
 rents,rent,68
@@ -6424,7 +6424,7 @@ replacements,replacement,68
 replays,replay,68
 replenished,replenish,62
 replicated,replicate,22.1
-replicating,replicate,48
+replicating,replicate,57
 replied,reply,56
 replies,reply,59
 reported,report,22
@@ -6519,7 +6519,7 @@ rests,rest,68
 restarted,restart,22
 restarters,restarter,68
 restated,restate,22.1
-restating,restate,48
+restating,restate,57
 restaurants,restaurant,68
 restrained,restrain,13.6
 restraining,restrain,24
@@ -6532,7 +6532,7 @@ restructured,restructure,20
 restructures,restructure,63.4
 restructuring,restructure,54.3
 restructurings,restructure,54.3
-resulted,result,22
+resulted,result,32
 resulting,result,38
 results,result,68
 resumed,resume,31
@@ -6542,14 +6542,14 @@ resurfaced,resurface,18
 resurging,resurge,45
 resurrected,resurrect,15
 resurrects,resurrect,68
-resuscitating,resuscitate,48
+resuscitating,resuscitate,57
 retailing,retail,42.2
 retails,retail,68
 retailers,retailer,68
 retained,retain,13.6
 retaining,retain,24
 retains,retain,68
-retaliating,retaliate,48
+retaliating,retaliate,57
 retarded,retard,62
 rethinking,rethink,58
 retired,retire,20
@@ -6580,7 +6580,7 @@ revelations,revelation,68
 revelers,reveler,68
 revenues,revenue,9
 reverberated,reverberate,22.1
-reverberating,reverberate,48
+reverberating,reverberate,57
 reverberations,reverberation,68
 reversals,reversal,68
 reversed,reverse,29
@@ -6690,7 +6690,7 @@ roses,rose,11
 rotted,rot,21
 rotting,rot,26
 rotated,rotate,22.1
-rotating,rotate,48
+rotating,rotate,57
 roughed,rough,62
 roughnecks,roughneck,68
 rounded,round,62
@@ -6736,7 +6736,7 @@ rusticated,rusticate,22.1
 rustling,rustle,42
 rustlings,rustle,42
 rustlers,rustler,68
-RVs,RV,91
+RVs,RV,91.1
 sabers,saber,68
 sacked,sack,62
 sacking,sack,58
@@ -6854,7 +6854,7 @@ screeched,screech,62
 screeching,screech,58
 screened,screen,13.7
 screening,screen,46.5
-screenings,screen,46.5
+screenings,screen,58
 screens,screen,68
 screenwriters,screenwriter,68
 screwed,screw,62
@@ -6884,7 +6884,7 @@ searched,search,62
 searches,search,63
 searching,search,58
 seasoned,season,13.2
-seasonings,season,46.2
+seasonings,season,58
 seasons,season,68
 seats,seat,68
 seconds,second,68
@@ -6940,7 +6940,7 @@ sentencing,sentence,54.2
 sentencings,sentence,54.2
 sentiments,sentiment,68
 separated,separate,22.1
-separating,separate,48
+separating,separate,57
 sequels,sequel,68
 sequestering,sequester,58
 sergeants,sergeant,68
@@ -7326,7 +7326,7 @@ specifying,specify,58
 specimens,specimen,68
 spectators,spectator,68
 speculated,speculate,22.1
-speculating,speculate,48
+speculating,speculate,57
 speculations,speculation,68
 speculators,speculator,68
 speeches,speech,63
@@ -7424,7 +7424,7 @@ stagewhispers,stagewhisper,68
 staggered,stagger,20.1
 staggering,stagger,58
 stagnated,stagnate,22.1
-stagnating,stagnate,48
+stagnating,stagnate,57
 stains,stain,68
 stairs,stair,68
 staircases,staircase,11
@@ -7455,7 +7455,7 @@ starving,starve,39
 stashed,stash,62
 stated,state,22.1
 states,state,51
-stating,state,48
+stating,state,57
 statements,statement,68
 stationed,station,13.2
 stations,station,68
@@ -7498,7 +7498,7 @@ stifles,stifle,50
 stifling,stifle,42
 stilts,stilt,68
 stimulated,stimulate,22.1
-stimulating,stimulate,48
+stimulating,stimulate,57
 stimulators,stimulator,68
 stinging,sting,45.2
 stingrays,stingray,68
@@ -7617,7 +7617,7 @@ subordinated,subordinate,22.1
 subordinates,subordinate,51
 subpoenaed,subpoena,62
 subpoenas,subpoena,68
-subscribed,subscribe,36
+subscribed,subscribe,36.1
 subscribers,subscriber,68
 subscriptions,subscription,68
 subsides,subside,63.2
@@ -7771,7 +7771,7 @@ synchronized,synchronize,52
 syndciated,syndciate,22.1
 syndicated,syndicate,22.1
 syndicates,syndicate,51
-syndicating,syndicate,48
+syndicating,syndicate,57
 syndications,syndication,68
 synergies,synergy,59
 syngeries,syngery,59
@@ -7893,7 +7893,7 @@ termed,term,62
 terms,term,68
 terminals,terminal,68
 terminated,terminate,22.1
-terminating,terminate,48
+terminating,terminate,57
 terminations,termination,68
 terrified,terrify,56
 terrifying,terrify,58
@@ -7972,7 +7972,7 @@ tides,tide,63.2
 tigers,tiger,68
 tightened,tighten,13.7
 tightening,tighten,46.5
-TIGRs,TIGR,91
+TIGRs,TIGR,91.1
 tiles,tile,50
 tilted,tilt,22
 tilts,tilt,68
@@ -8081,7 +8081,7 @@ transforms,transform,68
 transfusions,transfusion,68
 transistors,transistor,68
 translated,translate,22.1
-translating,translate,48
+translating,translate,57
 translations,translation,68
 transmissions,transmission,68
 transmitted,transmit,21
@@ -8145,7 +8145,7 @@ tripled,triple,12.4
 triples,triple,50
 tripling,triple,42
 triumphed,triumph,62
-TROs,TRO,91
+TROs,TRO,91.1
 troops,troop,68
 trotted,trot,21
 troubled,trouble,12.3
@@ -8196,7 +8196,7 @@ tusks,tusk,68
 tutoring,tutor,58
 tutorials,tutorial,68
 tuxedos,tuxedo,68
-TVs,TV,91
+TVs,TV,91.1
 tweaking,tweak,58
 twenties,twenty,59
 twiddling,twiddle,42
@@ -8212,8 +8212,8 @@ typewriters,typewriter,68
 typhoons,typhoon,68
 typified,typify,56
 typifies,typify,59
-Us,U,91
-UFOs,UFO,91
+Us,U,91.1
+UFOs,UFO,91.1
 ulcers,ulcer,68
 umbrellas,umbrella,68
 unanticipated,unanticipate,22.1
@@ -8248,7 +8248,7 @@ understaffs,understaff,68
 understanding,understand,40.1
 understands,understand,68
 understated,understate,22.1
-understating,understate,48
+understating,understate,57
 undertones,undertone,63.6
 underutilized,underutilize,52
 undervalued,undervalue,8
@@ -8307,7 +8307,7 @@ upped,up,62
 ups,up,68
 updated,update,22.1
 updates,update,51
-updating,update,48
+updating,update,57
 upgrading,upgrade,40
 upheavals,upheaval,68
 upholding,uphold,40.3
@@ -8333,14 +8333,14 @@ uttering,utter,58
 utterances,utterance,2
 vacancies,vacancy,59
 vacated,vacate,22.1
-vacating,vacate,48
+vacating,vacate,57
 vacationing,vacation,46.2
 vacations,vacation,68
 vacationers,vacationer,68
 vaccines,vaccine,63.3
 vagabonds,vagabond,68
 vagaries,vagary,59
-validating,validate,48
+validating,validate,57
 valuations,valuation,68
 valued,value,8
 values,value,9
@@ -8359,7 +8359,7 @@ vases,vase,11
 vassals,vassal,68
 vaults,vault,68
 vaunted,vaunt,22
-VCRs,VCR,91
+VCRs,VCR,91.1
 veering,veer,58
 vegetables,vegetable,50
 vegetarians,vegetarian,68
@@ -8387,7 +8387,7 @@ vetoing,veto,58
 vexed,vex,62
 vexing,vex,58
 viaducts,viaduct,68
-vibrating,vibrate,48
+vibrating,vibrate,57
 vicars,vicar,68
 vices,vice,2
 vicitims,vicitim,68
@@ -8414,7 +8414,7 @@ vineyards,vineyard,68
 vintages,vintage,63.1
 violated,violate,22.1
 violates,violate,51
-violating,violate,48
+violating,violate,57
 violations,violation,68
 virgins,virgin,68
 virtues,virtue,9
@@ -8482,7 +8482,7 @@ warmed,warm,62
 warming,warm,44.2
 warned,warn,13.4
 warning,warn,46.1
-warnings,warn,46.1
+warnings,warn,58
 warns,warn,68
 warped,warp,62
 warranted,warrant,22
@@ -8703,7 +8703,7 @@ zounds,zound,68
 s,,68
 's,,94
 'S,,94
-As,A,91
+As,A,91.1
 abacuses,abacuse,11.3
 acceded,acced,62
 accolades,accolad,63
@@ -8760,7 +8760,7 @@ barred,barre,20
 barricades,barricad,63
 beaming,beame,44
 beasties,beasty,59
-beating,beate,48
+beating,beate,57
 befuddled,befuddl,12
 begining,begine,46
 belated,belate,22.1
@@ -8783,7 +8783,7 @@ bloated,bloate,22.1
 bloodletting,bloodlet,26
 blooming,bloome,44
 booed,bo,62
-boating,boate,48
+boating,boate,57
 bodes,bod,63
 boiling,boile,42
 boned,bon,13.2
@@ -8829,7 +8829,7 @@ cafes,caf,63
 caked,cak,62
 calling,cal,41
 calories,calory,59
-C'mon,Camon,93
+C'mon,Camon,94
 campuses,campuse,11.3
 canvas,canva,68
 canvases,canvase,11
@@ -8853,7 +8853,7 @@ changing,chang,45.2
 chaos,chao,68
 charred,charre,20
 cheated,cheate,22.1
-cheating,cheate,48
+cheating,cheate,57
 cheeses,cheesis,11.1
 chided,chid,62
 chilling,chil,41
@@ -8873,13 +8873,13 @@ clouding,cloude,40
 clubbed,clubb,36
 coed,co,62
 coated,coate,22.1
-coating,coate,48
+coating,coate,57
 coatings,coate,48
 codes,cod,63
 coddled,coddl,12
 coincided,coincid,62
 coined,coine,13
-combating,combate,48
+combating,combate,57
 comforting,comforte,48
 compares,compar,63
 comparing,compar,58
@@ -8936,7 +8936,7 @@ decided,decid,62
 declares,declar,63
 declaring,declar,58
 defeated,defeate,22.1
-defeating,defeate,48
+defeating,defeate,57
 defrauded,defraude,61.2
 defrauding,defraude,40
 degraded,degrad,62
@@ -8983,7 +8983,7 @@ drifting,drifte,48
 drilling,dril,41
 drowned,drowne,13
 drugstores,drugstor,63
-drumbeating,drumbeate,48
+drumbeating,drumbeate,57
 dubbed,dubb,36
 duckling,duckle,42
 dunes,dun,63
@@ -9002,7 +9002,7 @@ earthmoving,earthmove,39
 earthquakes,earthquak,63
 earthshaking,earthshak,58
 easygoing,easygo,58
-eating,eate,48
+eating,eate,57
 editing,edite,48
 eked,ek,62
 electrodes,electrod,63
@@ -9086,7 +9086,7 @@ flings,fle,42
 fledgling,fledgle,42
 flirting,flirte,48
 floated,floate,22.1
-floating,floate,48
+floating,floate,57
 flooded,floode,61.1
 flooding,floode,40
 flouting,floute,48
@@ -9117,7 +9117,7 @@ glares,glar,63
 gleaming,gleame,44
 gleaned,gleane,13
 gloated,gloate,22.1
-gloating,gloate,48
+gloating,gloate,57
 goods,good,68
 grabbed,grabb,36
 grades,grad,63
@@ -9141,7 +9141,7 @@ headaches,headach,63
 heaped,heape,61.3
 heartstopping,heartstop,58
 heated,heate,22.1
-heating,heate,48
+heating,heate,57
 heckled,heckl,12
 herring,her,58
 highlighting,highlighte,48
@@ -9167,7 +9167,7 @@ hurting,hurte,48
 hustings,hust,47
 hyped,hyp,62
 hyping,hyp,58
-Is,I,91
+Is,I,91.1
 idled,idl,12
 ignited,ignit,22
 ignores,ignor,63
@@ -9180,7 +9180,7 @@ implores,implor,63
 imploring,implor,58
 importing,importe,48
 inning,in,46.3
-innings,in,46.3
+innings,in,58
 includes,includ,63
 indices,indice,2
 inducing,induc,58
@@ -9283,7 +9283,7 @@ monied,mony,56
 moonlighting,moonlighte,48
 mores,mor,63
 morning,morn,46.1
-mornings,morn,46.1
+mornings,morn,58
 mortgagebacked,mortgageback,62
 mothballing,mothbal,41
 movies,movy,59
@@ -9302,7 +9302,7 @@ niches,nich,63
 nicknamed,nicknam,62
 nightmares,nightmar,63
 noninstitutionalized,noninstitutionalize,52
-nonoperating,nonoperate,48
+nonoperating,nonoperate,57
 nonperforming,nonperform,44.2
 nonrecurring,nonrecur,58
 nonregulated,nonregulate,22.1
@@ -9330,7 +9330,7 @@ outskirts,outskirt,68
 overcrowding,overcrowde,40
 overhauling,overhaule,42
 overheated,overheate,22.1
-overheating,overheate,48
+overheating,overheate,57
 overseeing,overse,58
 overstaffed,overstaf,62
 owed,ow,62
@@ -9464,7 +9464,7 @@ renowned,renowne,13
 repaired,repaire,20
 repairing,repaire,54.4
 repeated,repeate,22.1
-repeating,repeate,48
+repeating,repeate,57
 replacing,replac,58
 reporting,reporte,48
 repossesed,repossese,29
@@ -9481,7 +9481,7 @@ restyled,restyl,12
 retaking,retak,58
 retires,retir,63
 retreated,retreate,22.1
-retreating,retreate,48
+retreating,retreate,57
 reunited,reunit,22
 revoked,revok,62
 revoking,revok,58
@@ -9513,7 +9513,7 @@ safekeeping,safekeep,58
 sapiens,sapien,68
 savored,savore,20
 scaled,scal,12
-scapegoating,scapegoate,48
+scapegoating,scapegoate,57
 scares,scar,63
 scaring,scar,58
 scarred,scarre,20
@@ -9532,7 +9532,7 @@ seeing,se,58
 sing,se,54
 sings,se,54
 seated,seate,22.1
-seating,seate,48
+seating,seate,57
 securites,securite,51
 seducing,seduc,58
 seeming,seeme,44
@@ -9677,7 +9677,7 @@ swing,sw,58
 swings,sw,58
 swathed,swath,62
 sweated,sweate,22.1
-sweating,sweate,48
+sweating,sweate,57
 sweepstakes,sweepstak,63
 swelling,swel,41
 swindled,swindl,12
@@ -9720,7 +9720,7 @@ tradedistorting,tradedistorte,48
 trafficking,traffick,58
 transporting,transporte,48
 treated,treate,22.1
-treating,treate,48
+treating,treate,57
 tribes,trib,63
 tubes,tub,63
 tunes,tun,63
@@ -9923,7 +9923,7 @@ watershed,watersh,62
 waterworks,waterwork,68
 weakling,weakle,42
 weaponsmaking,weaponsmak,58
-We've,Wehave,93
+We've,Wehave,94
 weighting,weighte,48
 weightings,weighte,48
 welcomed,welcom,62
