@@ -843,6 +843,7 @@ class UEALiteTestCases(unittest.TestCase):
 
     abydos.stemmer.uealite
     """
+
     def test_uealite(self):
         """Test abydos.stemmer.uealite."""
         # base case
@@ -911,7 +912,9 @@ class UEALiteTestCases(unittest.TestCase):
         with open(TESTDIR + '/corpora/uea-lite_wsj.csv') as wsj_testset:
             for wsj_line in wsj_testset:
                 (word, uea, rule) = wsj_line.strip().split(',')
-                self.assertEqual(uealite(word), uea)
+                self.assertEqual(uealite(word, return_rule_no=True),
+                                 (uea, float(rule)))
+
 
 # class LancasterTestCases(unittest.TestCase):
 #     """Test Lancaster functions.
@@ -937,6 +940,7 @@ class UEALiteTestCases(unittest.TestCase):
 #         # self.assertEqual(lancaster('string'), 'string')
 #         # self.assertEqual(lancaster('meant'), 'meant')
 #         # self.assertEqual(lancaster('cement'), 'cem')
+
 
 if __name__ == '__main__':
     unittest.main()
