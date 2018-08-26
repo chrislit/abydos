@@ -2763,7 +2763,7 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
     Zobel, Justin and Philip Dart. 1996. Phonetic string matching: Lessons from
     information retrieval. In: Proceedings of the ACM-SIGIR Conference on
     Research and Development in Information Retrieval, Zurich, Switzerland.
-    166–173. http://goanna.cs.rmit.edu.au/~jz/fulltext/sigir96.pdf
+    166–173. https://doi.org/10.1145/243199.243258
 
     The local variant is based on
     Ring, Nicholas and Alexandra L. Uitdenbogerd. 2009. Finding ‘Lucy in
