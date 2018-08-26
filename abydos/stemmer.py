@@ -1921,6 +1921,22 @@ def uealite(word, max_word_length=20, return_rule_no=False, var=None):
                       'us': (67, 0, None),
                       }}
 
+    if var == 'Perl':
+        perl_deletions = {7: ['eadings', 'oadings', 'ealings', 'ailings'],
+                          6: ['ttings', 'ssings', 'edings', 'ddings',
+                              'ldings', 'rdings', 'ndings', 'llings',
+                              'olings', 'elings', 'mmings', 'ngings',
+                              'ggings', 'stings', 'etings', 'ntings',
+                              'irings', 'urings', 'ncings', 'things'],
+                          5: ['vings', 'dings', 'lings', 'mings', 'gings',
+                              'tings', 'sings'],
+                          4: ['eeds', 'reds', 'beds']}
+        for del_len in perl_deletions:
+            for term in perl_deletions[del_len]:
+                del perl_deletions[del_len][term]
+    elif var == 'Adams':
+        pass
+
     def _stem_with_duplicate_character_check(word, del_length):
         if word[-1] == 's':
             del_length += 1
