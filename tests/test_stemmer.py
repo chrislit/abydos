@@ -30,9 +30,8 @@ import unittest
 from abydos.stemmer import _ends_in_cvc, _ends_in_doubled_cons, _m_degree, \
     _sb_ends_in_short_syllable, _sb_has_vowel, _sb_r1, _sb_r2, \
     _sb_short_word, caumanns, clef_german, clef_german_plus, clef_swedish, \
-    lovins, porter, porter2, sb_danish, sb_dutch, sb_german, sb_norwegian, \
-    sb_swedish, uealite
-# lancaster,
+    lovins, paice_husk, porter, porter2, sb_danish, sb_dutch, sb_german, \
+    sb_norwegian, sb_swedish, uealite
 
 TESTDIR = os.path.dirname(__file__)
 
@@ -974,30 +973,50 @@ class UEALiteTestCases(unittest.TestCase):
                                  (uea, float(rule)))
 
 
-# class LancasterTestCases(unittest.TestCase):
-#     """Test Lancaster functions.
-#
-#     abydos.stemmer.lancaster
-#     """
-#
-#     def test_lancaster(self):
-#         """Test abydos.stemmer.lancaster."""
-#         # base case
-#         self.assertEqual(lancaster(''), '')
-#
-#         # cases copied from
-#         # http://www.nltk.org/_modules/nltk/stem/lancaster.html
-#         # self.assertEqual(lancaster('maximum'), 'maxim')
-#         # self.assertEqual(lancaster('presumably'), 'presum')
-#         # self.assertEqual(lancaster('multiply'), 'multiply')
-#         # self.assertEqual(lancaster('provision'), 'provid')
-#         # self.assertEqual(lancaster('owed'), 'ow')
-#         # self.assertEqual(lancaster('ear'), 'ear')
-#         # self.assertEqual(lancaster('saying'), 'say')
-#         # self.assertEqual(lancaster('crying'), 'cry')
-#         # self.assertEqual(lancaster('string'), 'string')
-#         # self.assertEqual(lancaster('meant'), 'meant')
-#         # self.assertEqual(lancaster('cement'), 'cem')
+class PaiceHuskTestCases(unittest.TestCase):
+    """Test Paice-Husk functions.
+
+    abydos.stemmer.paice_husk
+    """
+
+    def test_paice_husk(self):
+        """Test abydos.stemmer.paice_husk."""
+        # base case
+        self.assertEqual(paice_husk(''), '')
+
+        # cases copied from
+        # https://doi.org/10.1145/101306.101310
+        self.assertEqual(paice_husk('maximum'), 'maxim')
+        self.assertEqual(paice_husk('presumably'), 'presum')
+        self.assertEqual(paice_husk('multiply'), 'multiply')
+        self.assertEqual(paice_husk('provision'), 'provid')
+        self.assertEqual(paice_husk('owed'), 'ow')
+        self.assertEqual(paice_husk('owing'), 'ow')
+        self.assertEqual(paice_husk('ear'), 'ear')
+        self.assertEqual(paice_husk('saying'), 'say')
+        self.assertEqual(paice_husk('crying'), 'cry')
+        self.assertEqual(paice_husk('string'), 'string')
+        self.assertEqual(paice_husk('meant'), 'meant')
+        self.assertEqual(paice_husk('cement'), 'cem')
+
+    def test_paice_husk_wsj_set(self):
+        """Test abydos.stemmer.uealite using the Hopper262 test set.
+
+        Source:
+        https://raw.githubusercontent.com/Hopper262/paice-husk-stemmer/master/wordlist.txt
+
+        The only correction made from stemmed values in the Hopper262 set/
+        implementations were:
+         - ymca : ymc -> ymca
+         - yttrium : yttr -> yttri
+         - ywca : ywc -> ywca
+        The Pascal reference implementation does not consider 'y' in initial
+        position to be a vowel.
+        """
+        with open(TESTDIR + '/corpora/paicehusk.csv') as hopper_testset:
+            for hopper_line in hopper_testset:
+                (word, stem) = hopper_line.strip().split(',')
+                self.assertEqual(paice_husk(word), stem)
 
 
 if __name__ == '__main__':

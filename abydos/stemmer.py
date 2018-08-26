@@ -1973,10 +1973,10 @@ def uealite(word, max_word_length=20, max_acro_length=8, return_rule_no=False,
         # Add additional problem word
         problem_words.add('menses')
 
-    def _stem_with_duplicate_character_check(word, del_length):
+    def _stem_with_duplicate_character_check(word, del_len):
         if word[-1] == 's':
-            del_length += 1
-        stemmed_word = word[:-del_length]
+            del_len += 1
+        stemmed_word = word[:-del_len]
         if re.match(r'.*(\w)\1$', stemmed_word):
             stemmed_word = stemmed_word[:-1]
         return stemmed_word
@@ -2032,9 +2032,11 @@ def uealite(word, max_word_length=20, max_acro_length=8, return_rule_no=False,
 
         for n in range(7, 1, -1):
             if word[-n:] in rule_table[n]:
-                rule_no, del_length, add_str = rule_table[n][word[-n:]]
-                if del_length:
-                    stemmed_word = word[:-del_length]
+                rule_no, del_len, add_str = rule_table[n][word[-n:]]
+                if del_len:
+                    stemmed_word = word[:-del_len]
+                else:
+                    stemmed_word = word
                 if add_str:
                     stemmed_word += add_str
                 break
@@ -2058,68 +2060,183 @@ def uealite(word, max_word_length=20, max_acro_length=8, return_rule_no=False,
     return stem
 
 
-def lancaster(word):
-    """Return Lancaster stem.
+def paice_husk(word):
+    """Return Paice-Husk stem.
 
-    Implementation of the Lancaster Stemming Algorithm, developed by
-    Chris Paice, with the assistance of Gareth Husk
+    Implementation of the Paice-Husk Stemmer, also known as the Lancaster
+    Stemmer, developed by Chris Paice, with the assistance of Gareth Husk
 
-    Arguments:
-    word -- the word to calculate the stem of
+    This is based on the algorithm's description in:
+    Paice, Chris D. 1990. "Another stemmer." ACM SIGIR Forum 24:3, Fall 1990.
+    56-61. doi:10.1145/101306.101310.
 
-    Description:
-    The Lancaster Stemming Algorithm, described at:
-    http://wayback.archive.org/web/20140826000545/http://www.comp.lancs.ac.uk/computing/research/stemming/Links/paice.htm
-
-    Based on the Paice & Husk's original Pascal reference implementation:
-    http://wayback.archive.org/web/20150104225538/http://www.comp.lancs.ac.uk/computing/research/stemming/Files/Pascal.zip
+    :param word: the word to calculate the stem of
+    :returns: word stem
+    :rtype: str
     """
-    _lancaster_rules = ('ai*2.', 'a*1.', 'bb1.', 'city3s.', 'ci2>', 'cn1t>',
-                        'dd1.', 'dei3y>', 'deec2ss.', 'dee1.', 'de2>',
-                        'dooh4>', 'e1>', 'feil1v.', 'fi2>', 'gni3>', 'gai3y.',
-                        'ga2>', 'gg1.', 'ht*2.', 'hsiug5ct.', 'hsi3>', 'i*1.',
-                        'i1y>', 'ji1d.', 'juf1s.', 'ju1d.', 'jo1d.', 'jeh1r.',
-                        'jrev1t.', 'jsim2t.', 'jn1d.', 'j1s.', 'lbaifi6.',
-                        'lbai4y.', 'lba3>', 'lbi3.', 'lib2l>', 'lc1.',
-                        'lufi4y.', 'luf3>', 'lu2.', 'lai3>', 'lau3>', 'la2>',
-                        'll1.', 'mui3.', 'mu*2.', 'msi3>', 'mm1.', 'nois4j>',
-                        'noix4ct.', 'noi3>', 'nai3>', 'na2>', 'nee0.', 'ne2>',
-                        'nn1.', 'pihs4>', 'pp1.', 're2>', 'rae0.', 'ra2.',
-                        'ro2>', 'ru2>', 'rr1.', 'rt1>', 'rei3y>', 'sei3y>',
-                        'sis2.', 'si2>', 'ssen4>', 'ss0.', 'suo3>', 'su*2.',
-                        's*1>', 's0.', 'tacilp4y.', 'ta2>', 'tnem4>', 'tne3>',
-                        'tna3>', 'tpir2b.', 'tpro2b.', 'tcud1.', 'tpmus2.',
-                        'tpec2iv.', 'tulo2v.', 'tsis0.', 'tsi3>', 'tt1.',
-                        'uqi3.', 'ugo1.', 'vis3j>', 'vie0.', 'vi2>', 'ylb1>',
-                        'yli3y>', 'ylp0.', 'yl2>', 'ygo1.', 'yhp1.', 'ymo1.',
-                        'ypo1.', 'yti3>', 'yte3>', 'ytl2.', 'yrtsi5.',
-                        'yra3>', 'yro3>', 'yfi3.', 'ycn2t>', 'yca3>', 'zi2>',
-                        'zy1s.')
+    rule_table = {6: {'ifiabl': (False, 6, None, True),
+                      'plicat': (False, 4, 'y', True)},
+                  5: {'guish': (False, 5, 'ct', True),
+                      'sumpt': (False, 2, None, True),
+                      'istry': (False, 5, None, True)},
+                  4: {'ytic': (False, 3, 's', True),
+                      'ceed': (False, 2, 'ss', True),
+                      'hood': (False, 4, None, False),
+                      'lief': (False, 1, 'v', True),
+                      'verj': (False, 1, 't', True),
+                      'misj': (False, 2, 't', True),
+                      'iabl': (False, 4, 'y', True),
+                      'iful': (False, 4, 'y', True),
+                      'sion': (False, 4, 'j', False),
+                      'xion': (False, 4, 'ct', True),
+                      'ship': (False, 4, None, False),
+                      'ness': (False, 4, None, False),
+                      'ment': (False, 4, None, False),
+                      'ript': (False, 2, 'b', True),
+                      'orpt': (False, 2, 'b', True),
+                      'duct': (False, 1, None, True),
+                      'cept': (False, 2, 'iv', True),
+                      'olut': (False, 2, 'v', True),
+                      'sist': (False, 0, None, True)},
+                  3: {'ied': (False, 3, 'y', False),
+                      'eed': (False, 1, None, True),
+                      'ing': (False, 3, None, False),
+                      'iag': (False, 3, 'y', True),
+                      'ish': (False, 3, None, False),
+                      'fuj': (False, 1, 's', True),
+                      'hej': (False, 1, 'r', True),
+                      'abl': (False, 3, None, False),
+                      'ibl': (False, 3, None, True),
+                      'bil': (False, 2, 'l', False),
+                      'ful': (False, 3, None, False),
+                      'ial': (False, 3, None, False),
+                      'ual': (False, 3, None, False),
+                      'ium': (False, 3, None, True),
+                      'ism': (False, 3, None, False),
+                      'ion': (False, 3, None, False),
+                      'ian': (False, 3, None, False),
+                      'een': (False, 0, None, True),
+                      'ear': (False, 0, None, True),
+                      'ier': (False, 3, 'y', False),
+                      'ies': (False, 3, 'y', False),
+                      'sis': (False, 2, None, True),
+                      'ous': (False, 3, None, False),
+                      'ent': (False, 3, None, False),
+                      'ant': (False, 3, None, False),
+                      'ist': (False, 3, None, False),
+                      'iqu': (False, 3, None, True),
+                      'ogu': (False, 1, None, True),
+                      'siv': (False, 3, 'j', False),
+                      'eiv': (False, 0, None, True),
+                      'bly': (False, 1, None, False),
+                      'ily': (False, 3, 'y', False),
+                      'ply': (False, 0, None, True),
+                      'ogy': (False, 1, None, True),
+                      'phy': (False, 1, None, True),
+                      'omy': (False, 1, None, True),
+                      'opy': (False, 1, None, True),
+                      'ity': (False, 3, None, False),
+                      'ety': (False, 3, None, False),
+                      'lty': (False, 2, None, True),
+                      'ary': (False, 3, None, False),
+                      'ory': (False, 3, None, False),
+                      'ify': (False, 3, None, True),
+                      'ncy': (False, 2, 't', False),
+                      'acy': (False, 3, None, False)},
+                  2: {'ia': (True, 2, None, True),
+                      'bb': (False, 1, None, True),
+                      'ic': (False, 2, None, False),
+                      'nc': (False, 1, 't', False),
+                      'dd': (False, 1, None, True),
+                      'ed': (False, 2, None, False),
+                      'if': (False, 2, None, False),
+                      'ag': (False, 2, None, False),
+                      'gg': (False, 1, None, True),
+                      'th': (True, 2, None, True),
+                      'ij': (False, 1, 'd', True),
+                      'uj': (False, 1, 'd', True),
+                      'oj': (False, 1, 'd', True),
+                      'nj': (False, 1, 'd', True),
+                      'cl': (False, 1, None, True),
+                      'ul': (False, 2, None, True),
+                      'al': (False, 2, None, False),
+                      'll': (False, 1, None, True),
+                      'um': (True, 2, None, True),
+                      'mm': (False, 1, None, True),
+                      'an': (False, 2, None, False),
+                      'en': (False, 2, None, False),
+                      'nn': (False, 1, None, True),
+                      'pp': (False, 1, None, True),
+                      'er': (False, 2, None, False),
+                      'ar': (False, 2, None, True),
+                      'or': (False, 2, None, False),
+                      'ur': (False, 2, None, False),
+                      'rr': (False, 1, None, True),
+                      'tr': (False, 1, None, False),
+                      'is': (False, 2, None, False),
+                      'ss': (False, 0, None, True),
+                      'us': (True, 2, None, True),
+                      'at': (False, 2, None, False),
+                      'tt': (False, 1, None, True),
+                      'iv': (False, 2, None, False),
+                      'ly': (False, 2, None, False),
+                      'iz': (False, 2, None, False),
+                      'yz': (False, 1, 's', True)},
+                  1: {'a': (True, 1, None, True),
+                      'e': (False, 1, None, False),
+                      'i': ((True, 1, None, True), (False, 1, 'y', False)),
+                      'j': (False, 1, 's', True),
+                      's': ((True, 1, None, False), (False, 0, None, True))}}
 
-    _rule_table = []
-    _rule_index = {'a': -1, 'b': -1, 'c': -1, 'd': -1, 'e': -1, 'f': -1,
-                   'g': -1, 'h': -1, 'i': -1, 'j': -1, 'k': -1, 'l': -1,
-                   'm': -1, 'n': -1, 'o': -1, 'p': -1, 'q': -1, 'r': -1,
-                   's': -1, 't': -1, 'u': -1, 'v': -1, 'w': -1, 'x': -1,
-                   'y': -1, 'z': -1}
+    def _has_vowel(word):
+        for char in word:
+            if char in {'a', 'e', 'i', 'o', 'u', 'y'}:
+                return True
+        return False
 
-    def read_rules(stem_rules=_lancaster_rules):
-        """Read the rules table.
+    def _acceptable(word):
+        if word and word[0] in {'a', 'e', 'i', 'o', 'u'}:
+            return len(word) > 1
+        return len(word) > 2 and _has_vowel(word[1:])
 
-        read_rules reads in stemming rules from a text file and enter them
-        into _rule_table. _rule_index is set up to provide faster access to
-        relevant rules.
-        """
-        for rule in stem_rules:
-            _rule_table.append(rule)
-            if _rule_index[rule[0]] == -1:
-                _rule_index[rule[0]] = len(_rule_table)-1
+    def _apply_rule(word, rule, intact):
+        old_word = word
+        only_intact, del_len, add_str, set_terminate = rule
+        # print(word, word[-n:], rule)
 
-    def stemmers(word):
-        """Reduce a word.
+        if (not only_intact) or (intact and only_intact):
+            if del_len:
+                word = word[:-del_len]
+            if add_str:
+                word += add_str
+        else:
+            return word, False, intact, terminate
 
-        stemmers takes the specified word and reduces it to a set by
-        referring to _rule_table
-        """
-        # TODO: This looks very incomplete.
-        return word
+        if _acceptable(word):
+            return word, True, False, set_terminate
+        else:
+            return old_word, False, intact, terminate
+
+    terminate = False
+    intact = True
+    while not terminate:
+        for n in range(6, 0, -1):
+            if word[-n:] in rule_table[n]:
+                accept = False
+                if len(rule_table[n][word[-n:]]) < 4:
+                    for rule in rule_table[n][word[-n:]]:
+                        (word, accept, intact,
+                         terminate) = _apply_rule(word, rule, intact)
+                        if accept:
+                            break
+                else:
+                    rule = rule_table[n][word[-n:]]
+                    (word, accept, intact,
+                     terminate) = _apply_rule(word, rule, intact)
+
+                if accept:
+                    break
+        else:
+            break
+
+    return word
