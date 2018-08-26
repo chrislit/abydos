@@ -1969,7 +1969,7 @@ def uealite(word, max_word_length=20, return_rule_no=False, var=None):
             elif re.match(r'^.*[A-Z].*[A-Z].*$', word):
                 return word, 92
             elif word[0].isupper():
-                return word, 92
+                return word, 93
 
         for n in range(7, 1, -1):
             if word[-n:] in rule_table[n]:
