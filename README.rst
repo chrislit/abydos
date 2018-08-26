@@ -121,6 +121,8 @@ Abydos is a library of phonetic algorithms, string distance metrics, stemmers, a
     - Roger Root
     - Oxford Name Compression Algorithm (ONCA)
     - Eudex phonetic hash
+    - Haase Phonetik
+    - Reth-Schek Phonetik
     - Beider-Morse Phonetic Matching
 - String distance metrics
     - Levenshtein distance (incl. a [0, 1] normalized variant)
@@ -160,6 +162,7 @@ Abydos is a library of phonetic algorithms, string distance metrics, stemmers, a
     - Snowball stemmers for German, Dutch, Norwegian, Swedish, and Danish
     - CLEF German, German plus, and Swedish stemmers
     - Caumann's German stemmer
+    - UEA-Lite stemmer
 - Keyers
     - string fingerprint
     - q-gram fingerprint

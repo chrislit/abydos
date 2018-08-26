@@ -43,6 +43,8 @@ The phonetic module implements phonetic algorithms including:
     - Roger Root
     - Oxford Name Compression Algorithm (ONCA)
     - Eudex phonetic hash
+    - Haase Phonetik
+    - Reth-Schek Phonetik
     - Beider-Morse Phonetic Matching
 """
 
