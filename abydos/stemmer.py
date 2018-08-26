@@ -1932,9 +1932,12 @@ def uealite(word, max_word_length=20, max_acro_length=8, return_rule_no=False,
                           5: ['vings', 'dings', 'lings', 'mings', 'gings',
                               'tings', 'sings'],
                           4: ['eeds', 'reds', 'beds']}
+
+        # Delete the above rules from rule_table
         for del_len in perl_deletions:
             for term in perl_deletions[del_len]:
                 del rule_table[del_len][term]
+
     elif var == 'Adams':
         adams_additions = {6: {'chited': (22.8, 1, None)},
                            5: {'dying': (58.2, 4, 'ie'),
@@ -1961,9 +1964,12 @@ def uealite(word, max_word_length=20, max_acro_length=8, return_rule_no=False,
                                'des': (63.10, 1, None),
                                'res': (63.9, 1, None),
                                }}
+
+        # Add the above additional rules to rule_table
         for del_len in adams_additions:
-            for term in adams_additions[del_len]:
-                rule_table[del_len][term] = adams_additions[del_len][term]
+            rule_table[del_len] = dict(rule_table[del_len],
+                                       **adams_additions[del_len])
+        # Add additional problem word
         problem_words.add('menses')
 
     def _stem_with_duplicate_character_check(word, del_length):
