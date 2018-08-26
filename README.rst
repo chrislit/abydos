@@ -37,6 +37,10 @@ Abydos
     :target: https://requires.io/github/chrislit/abydos/requirements/?branch=master
     :alt: Requirements Status
 
+.. image:: https://img.shields.io/librariesio/sourcerank/pypi/abydos.svg
+    :target: https://libraries.io/pypi/abydos
+    :alt: Libraries.io SourceRank
+
 .. image:: https://img.shields.io/badge/Pylint-9.76/10-green.svg
    :target: #
    :alt: Pylint Score
