@@ -54,7 +54,7 @@ import unicodedata
 from collections import Counter
 from itertools import groupby
 
-from six import text_type
+from six import PY3, text_type
 from six.moves import range
 
 from ._bm import _bmpm
@@ -4481,7 +4481,10 @@ def lein(word, maxlength=4, zero_pad=True):
         return ''
 
     code = word[0]  # Rule 1
-    word = word[1:].translate(str.maketrans('', '', 'AEIOUYWH '))  # Rule 2
+    if PY3:
+        word = word[1:].translate(str.maketrans('', '', 'AEIOUYWH '))  # Rule 2
+    else:
+        word = word[1:].translate(None, 'AEIOUYWH ')  # Rule 2
     word = _delete_consecutive_repeats(word)  # Rule 3
     code += word.translate(_lein_translation)  # Rule 4
 
