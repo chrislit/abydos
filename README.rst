@@ -25,6 +25,10 @@ Abydos
     :target: https://scrutinizer-ci.com/g/chrislit/abydos/?branch=master
     :alt: Scrutinizer
 
+.. image:: https://bestpractices.coreinfrastructure.org/projects/1598/badge
+    :target: https://bestpractices.coreinfrastructure.org/projects/1598
+    :alt: CII Best Practices
+
 .. image:: https://ci.appveyor.com/api/projects/status/d3yw3d9r6c8ai63j/branch/master?svg=true
     :target: https://ci.appveyor.com/project/chrislit/abydos
     :alt: AppVeyor
