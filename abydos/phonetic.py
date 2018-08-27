@@ -50,6 +50,7 @@ The phonetic module implements phonetic algorithms including:
 
 from __future__ import division, unicode_literals
 
+import re
 import unicodedata
 from collections import Counter
 from itertools import groupby
@@ -4978,18 +4979,60 @@ def reth_schek_phonetik(word):
 def fonem(word):
     """Return the FONEM code of a word
 
-    FONEM is a phonetic algorithm designed for French, defined in
+    FONEM is a phonetic algorithm designed for French (particularly surnames in
+    Saguenay, Canada), defined in:
     Bouchard, Gérard, Patrick Brard, and Yolande Lavoie. 1981. "FONEM: Un code
     de transcription phonétique pour la reconstitution automatique des
     familles saguenayennes." Population. 36(6). 1085--1103.
     https://doi.org/10.2307/1532326
     http://www.persee.fr/doc/pop_0032-4663_1981_num_36_6_17248
 
+    Guillaume Plique's Javascript implementation at
+    https://github.com/Yomguithereal/talisman/blob/master/src/phonetics/french/fonem.js
+    was also consulted for this implementation.
+
     :param str word: the word to transform
     :returns: the FONEM code
     :rtype: str
     """
-    pass
+    consonants = '[BCDFGHJKLMNPQRSTVWXZ]'
+    vowels = '[AEIOUY]'
+
+    # I don't see a sane way of doing this without regexps :(
+    rule_table = {
+        # Vowels & groups of vowels
+        'V-1':   (re.compile('E?AU'), 'O'),
+        'V-2,5': (re.compile('(E?AU|O)L[TX]$'), 'O'),
+        'V-3,4': (re.compile('AU[TX]$', 'EAUT$'), 'O'),
+        'V-6':   (re.compile('E?AUL?D$'), 'O'),
+        'V-7':   (re.compile(r'(?<!G)AY\$'), 'E$'),
+        'V-8':   (re.compile('EUX$'), 'EU'),
+        'V-9':   (re.compile('EY(?=$|[BCDFGHJKLMNPQRSTVWXZ])'), 'E'),
+        'V-10':  ('Y', 'I'),
+        'V-11':  (re.compile('(?<=[AEIOUY])I(?[AEIOUY])'), 'Y'),
+        'V-12':  (re.compile('(?<=[AEIOUY])ILL'), 'Y'),
+        'V-13':  (re.compile('OU(?=[AEOU]|I(?!LL))'), 'W'),
+        'V-14':  (re.compile(r'([AEIOUY])(?=\1)'), ''),
+        # Nasal vowels
+        'V-15':  (re.compile('[AE]M(?=[BCDFGHJKLMPQRSTVWXZ])(?!$)'), 'EN'),
+        'V-16':  (re.compile('OM(?=[BCDFGHJKLMPQRSTVWXZ])'), 'ON'),
+        'V-17':  (re.compile('OM(?=[BCDFGHJKLMNPQRSTVWXZ])'), 'EN'),
+        'V-18':  (re.compile('(AI[MN]|EIN)(?=[BCDFGHJKLMNPQRSTVWXZ]|$'), 'IN'),
+        'V-19':  (re.compile('B[OU]RNE?$'), 'BURN'),
+        'V-20':  (re.compile('(^IM|[BCDFGHJKLMNPQRSTVWXZ]IM[BCDFGHJKLMPQRSTVWXZ])'), 'IN'),
+
+    }
+
+    # normalize, upper-case, and filter non-French letters
+    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = word.translate({198: 'AE', 338: 'OE'})
+    word = ''.join(c for c in word if c in
+                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'I', 'K', 'L', 'M', 'N',
+                    'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'})
+
+
+
+    return word  # Strip markers before returning
 
 
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
