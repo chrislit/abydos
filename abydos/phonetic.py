@@ -4447,7 +4447,7 @@ def lein(word, maxlength=4, zero_pad=True):
     """Return the Lein code for a word.
 
     This is Lein name coding, based on
-    https://naldc-legacy.nal.usda.gov/naldc/download.xhtml?id=27833&content=PDF
+    https://naldc.nal.usda.gov/download/27833/PDF
 
     :param str word: the word to transform
     :param int maxlength: the maximum length (default 4) of the code to return
@@ -4495,7 +4495,7 @@ def roger_root(word, maxlength=5, zero_pad=True):
     """Return the Roger Root code for a word.
 
     This is Roger Root name coding, based on
-    https://naldc-legacy.nal.usda.gov/naldc/download.xhtml?id=27833&content=PDF
+    https://naldc.nal.usda.gov/download/27833/PDF
 
     :param str word: the word to transform
     :param int maxlength: the maximum length (default 5) of the code to return
