@@ -185,6 +185,8 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
           consonants but as vowels.
           Cf. http://creativyst.com/Doc/Articles/SoundEx1/SoundEx1.htm
         - 'dm' computes the Daitch-Mokotoff Soundex
+        - 'German' applies German rules, as shown at
+           http://www.nausa.uni-oldenburg.de/soundex.htm
 
     :param bool reverse: reverse the word before computing the selected Soundex
         (defaults to False); This results in "Reverse Soundex"
@@ -238,6 +240,13 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
         return dm_soundex(word, maxlength, reverse, zero_pad)
     elif var == 'refined':
         return refined_soundex(word, maxlength, reverse, zero_pad)
+    elif var == 'German':
+        _soundex_translation['H'] = 0
+        _soundex_translation['W'] = 0
+        # Although http://www.nausa.uni-oldenburg.de/soundex.htm
+        # also indicates that umlauted vowels should be decomposed
+        # to VE, this has no effect below since the umlauts are
+        # disposed of and all vowels become 0s.
 
     # Require a maxlength of at least 4 and not more than 64
     if maxlength is not None:
