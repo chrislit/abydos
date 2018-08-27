@@ -53,7 +53,7 @@ The distance module implements string edit distance functions including:
     - Editex distance (incl. a [0, 1] normalized variant)
     - Eudex distances
     - Sift4 distance
-    - TF-IDF similarity
+    - Baystat distance & similarity
 
 Functions beginning with the prefixes 'sim' and 'dist' are guaranteed to be
 in the range [0, 1], and sim_X = 1 - dist_X since the two are complements.

@@ -164,6 +164,9 @@ Abydos is a library of phonetic algorithms, string distance metrics, stemmers, a
       distance
     - Bag distance (incl. a [0, 1] normalized variant)
     - Editex distance (incl. a [0, 1] normalized variant)
+    - Eudex distances
+    - Sift4 distance
+    - Baystat distance & similarity
 - Stemmers
     - the Lovins stemmer
     - the Porter and Porter2 (Snowball English) stemmers
