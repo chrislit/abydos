@@ -1,14 +1,19 @@
+os:
+  - linux
+  - osx
+
 language: python
-python:
-  - 2.7
-  #- pypy
-  - 3.3
-  - 3.4
-  - 3.5
-  - 3.6
-  - "3.6-dev"  # 3.6 development branch
-  #- nightly
-  #- pypy3
+
+matrix:
+  include:
+    - python: 2.7
+    - python: 3.3
+    - python: 3.4
+    - python: 3.5
+    - python: 3.6
+    - python: 3.7
+      dist: xenial
+      sudo: true
 
 notifications:
   email: false
