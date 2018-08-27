@@ -3208,6 +3208,121 @@ def sim_sift4(src, tar, max_offset=0, max_distance=0):
     return 1-dist_sift4(src, tar, max_offset, max_distance)
 
 
+def sim_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
+    """Return the Baystat similarity.
+
+    Good results for shorter words are reported when setting min_ss_len to 1
+    and either left_ext OR right_ext to 1.
+
+    The Baystat similarity is defined in:
+    Fürnrohr, Michael, Birgit Rimmelspacher, and Tilman von Roncador. 2002.
+    "Zusammenführung von Datenbeständen ohne numerische Identifikatoren: ein
+    Verfahren im Rahmen der Testuntersuchungen zu einem registergestützten
+    Zensus." Bayern in Zahlen, 2002(7). 308--321.
+    https://www.statistik.bayern.de/medien/statistik/zensus/zusammenf__hrung_von_datenbest__nden_ohne_numerische_identifikatoren.pdf
+
+    This is ostensibly a port of the R module PPRL's implementation:
+    https://github.com/cran/PPRL/blob/master/src/MTB_Baystat.cpp
+    As such, this could be made more pythonic.
+
+    :param str src, tar: two strings to be compared
+    :param int min_ss_len: minimum substring length to be considered
+    :param int left_ext: left-side extension length
+    :param int right_ext: right-side extension length
+    :rtype: float
+    :return: the Baystat similarity
+    """
+    if src == tar:
+        return 1
+    if not src or not tar:
+        return 0
+
+    max_len = max(len(src), len(tar))
+
+    if not (min_ss_len and left_ext and right_ext):
+        # These can be set via arguments to the function. Otherwise they are
+        # set automatically based on values from the article.
+        if max_len >= 7:
+            min_ss_len = 2
+            left_ext = 2
+            right_ext = 2
+        else:
+            # The paper suggests that for short names, (exclusively) one or the
+            # other of left_ext and right_ext can be 1, with good results.
+            # I use 0 & 0 as the default in this case.
+            min_ss_len = 1
+            left_ext = 0
+            right_ext = 0
+
+    pos = 0
+    match_len = 0
+
+    while (True):
+        if pos + min_ss_len > len(src):
+            return match_len/max_len
+
+        hit_len = 0
+        ix = 1
+
+        substring = src[pos:pos + min_ss_len]
+        search_begin = pos - left_ext
+
+        if search_begin < 0:
+            search_begin = 0
+            left_ext_len = pos
+        else:
+            left_ext_len = left_ext
+
+        if pos + min_ss_len + right_ext >= len(tar):
+            right_ext_len = len(tar) - pos - min_ss_len
+        else:
+            right_ext_len = right_ext
+
+        if (search_begin + left_ext_len + min_ss_len + right_ext_len >
+                search_begin):
+            search_val = tar[search_begin:(search_begin + left_ext_len +
+                                           min_ss_len + right_ext_len)]
+        else:
+            search_val = ''
+
+        flagged_tar = ''
+        while substring in search_val and pos + ix <= len(src):
+            hit_len = len(substring)
+            flagged_tar = tar.replace(substring, '#'*hit_len)
+
+            if pos + min_ss_len + ix <= len(src):
+                substring = src[pos:pos + min_ss_len + ix]
+
+            if pos+min_ss_len + right_ext_len + 1 <= len(tar):
+                right_ext_len += 1
+
+            if (search_begin + left_ext_len + min_ss_len + right_ext_len <=
+                    len(tar)):
+                search_val = tar[search_begin:(search_begin + left_ext_len +
+                                               min_ss_len + right_ext_len)]
+
+            ix += 1
+
+        if hit_len > 0:
+            tar = flagged_tar
+
+        match_len += hit_len
+        pos += ix
+
+
+def dist_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
+    """Return the Baystat distance.
+
+    :param str src, tar: two strings to be compared
+    :param int min_ss_len: minimum substring length to be considered
+    :param int left_ext: left-side extension length
+    :param int right_ext: right-side extension length
+    :rtype: float
+    :return: the Baystat distance
+    """
+    return 1-sim_baystat(src, tar, min_ss_len, left_ext, right_ext)
+
+
 def sim_tfidf(src, tar, qval=2, docs_src=None, docs_tar=None):
     """Return the TF-IDF similarity of two strings.
 

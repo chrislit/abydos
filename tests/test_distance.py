@@ -30,14 +30,14 @@ from difflib import SequenceMatcher
 
 from abydos.compression import ac_train
 from abydos.distance import bag, damerau_levenshtein, dist, dist_bag, \
-    dist_compression, dist_cosine, dist_damerau, dist_dice, dist_editex, \
-    dist_hamming, dist_ident, dist_jaccard, dist_jaro_winkler, dist_lcsseq, \
-    dist_lcsstr, dist_length, dist_levenshtein, dist_mlipns, \
+    dist_baystat, dist_compression, dist_cosine, dist_damerau, dist_dice, \
+    dist_editex, dist_hamming, dist_ident, dist_jaccard, dist_jaro_winkler, \
+    dist_lcsseq,  dist_lcsstr, dist_length, dist_levenshtein, dist_mlipns, \
     dist_monge_elkan, dist_mra, dist_overlap, dist_prefix, \
     dist_ratcliff_obershelp, dist_strcmp95, dist_suffix, dist_tversky, \
     editex, gotoh, hamming, lcsseq, lcsstr, levenshtein, mra_compare, \
-    needleman_wunsch, sim, sim_bag, sim_compression, sim_cosine, sim_damerau, \
-    sim_dice, sim_editex, sim_hamming, sim_ident, sim_jaccard, \
+    needleman_wunsch, sim, sim_bag, sim_baystat, sim_compression, sim_cosine, \
+    sim_damerau, sim_dice, sim_editex, sim_hamming, sim_ident, sim_jaccard, \
     sim_jaro_winkler, sim_lcsseq, sim_lcsstr, sim_length, sim_levenshtein, \
     sim_matrix, sim_mlipns, sim_monge_elkan, sim_mra, sim_overlap, \
     sim_prefix, sim_ratcliff_obershelp, sim_strcmp95, sim_suffix, \
@@ -1976,6 +1976,57 @@ class EditexTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_editex('nelson', 'neilsen'), 2/14)
         self.assertAlmostEqual(dist_editex('neilsen', 'nelson'), 2/14)
         self.assertEqual(dist_editex('niall', 'neal'), 0.1)
+
+
+class BaystatTestCases(unittest.TestCase):
+    """Test Editex functions.
+
+    abydos.distance.sim_baystat & .dist_baystat
+    """
+
+    def test_sim_baystat(self):
+        """Test abydos.distance.sim_editex."""
+        # Base cases
+        self.assertEqual(sim_baystat('', ''), 1)
+        self.assertEqual(sim_baystat('Colin', ''), 0)
+        self.assertEqual(sim_baystat('Colin', 'Colin'), 1)
+
+        # Examples given in the paper
+        # https://www.statistik.bayern.de/medien/statistik/zensus/zusammenf__hrung_von_datenbest__nden_ohne_numerische_identifikatoren.pdf
+        self.assertAlmostEqual(sim_baystat('DRAKOMENA', 'DRAOMINA'), 7/9)
+        self.assertAlmostEqual(sim_baystat('RIEKI', 'RILKI'), 4/5)
+        self.assertAlmostEqual(sim_baystat('ATANASSIONI', 'ATANASIOU'), 8/11)
+        self.assertAlmostEqual(sim_baystat('LIESKOVSKY', 'LIESZKOVSZKY'),
+                               10/12)
+        self.assertAlmostEqual(sim_baystat('JEANETTE', 'JEANNETTE'), 8/9)
+        self.assertAlmostEqual(sim_baystat('JOHANNES', 'JOHAN'), 0.625)
+        self.assertAlmostEqual(sim_baystat('JOHANNES', 'HANS'), 0.375)
+        self.assertAlmostEqual(sim_baystat('JOHANNES', 'HANNES'), 0.75)
+        self.assertAlmostEqual(sim_baystat('ZIMMERMANN', 'SEMMERMANN'), 0.8)
+        self.assertAlmostEqual(sim_baystat('ZIMMERMANN', 'ZIMMERER'), 0.6)
+        self.assertAlmostEqual(sim_baystat('ZIMMERMANN', 'ZIMMER'), 0.6)
+
+    def test_dist_baystat(self):
+        """Test abydos.distance.dist_editex."""
+        # Base cases
+        self.assertEqual(dist_baystat('', ''), 0)
+        self.assertEqual(dist_baystat('Colin', ''), 1)
+        self.assertEqual(dist_baystat('Colin', 'Colin'), 0)
+
+        # Examples given in the paper
+        # https://www.statistik.bayern.de/medien/statistik/zensus/zusammenf__hrung_von_datenbest__nden_ohne_numerische_identifikatoren.pdf
+        self.assertAlmostEqual(dist_baystat('DRAKOMENA', 'DRAOMINA'), 2/9)
+        self.assertAlmostEqual(dist_baystat('RIEKI', 'RILKI'), 1/5)
+        self.assertAlmostEqual(dist_baystat('ATANASSIONI', 'ATANASIOU'), 3/11)
+        self.assertAlmostEqual(dist_baystat('LIESKOVSKY', 'LIESZKOVSZKY'),
+                               2/12)
+        self.assertAlmostEqual(dist_baystat('JEANETTE', 'JEANNETTE'), 1/9)
+        self.assertAlmostEqual(dist_baystat('JOHANNES', 'JOHAN'), 0.375)
+        self.assertAlmostEqual(dist_baystat('JOHANNES', 'HANS'), 0.625)
+        self.assertAlmostEqual(dist_baystat('JOHANNES', 'HANNES'), 0.25)
+        self.assertAlmostEqual(dist_baystat('ZIMMERMANN', 'SEMMERMANN'), 0.2)
+        self.assertAlmostEqual(dist_baystat('ZIMMERMANN', 'ZIMMERER'), 0.4)
+        self.assertAlmostEqual(dist_baystat('ZIMMERMANN', 'ZIMMER'), 0.4)
 
 
 class SimTFIDFTestCases(unittest.TestCase):
