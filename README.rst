@@ -133,19 +133,19 @@ Abydos is a library of phonetic algorithms, string distance metrics, stemmers, a
     - Reth-Schek Phonetik
     - Beider-Morse Phonetic Matching
 - String distance metrics
-    - Levenshtein distance (incl. a [0, 1] normalized variant)
-    - Optimal String Alignment distance (incl. a [0, 1] normalized variant)
-    - Levenshtein-Damerau distance (incl. a [0, 1] normalized variant)
-    - Hamming distance (incl. a [0, 1] normalized variant)
+    - Levenshtein distance
+    - Optimal String Alignment distance
+    - Levenshtein-Damerau distance
+    - Hamming distance
     - Tversky index
     - Sørensen–Dice coefficient & distance
     - Jaccard similarity coefficient & distance
     - overlap similarity & distance
     - Tanimoto coefficient & distance
-    - Minkowski distance & similarity (incl. a [0, 1] normalized option)
-    - Manhattan distance & similarity (incl. a [0, 1] normalized option)
-    - Euclidean distance & similarity (incl. a [0, 1] normalized option)
-    - Chebyshev distance & similarity (incl. a [0, 1] normalized option)
+    - Minkowski distance & similarity
+    - Manhattan distance & similarity
+    - Euclidean distance & similarity
+    - Chebyshev distance & similarity
     - cosine similarity & distance
     - Jaro distance
     - Jaro-Winkler distance (incl. the strcmp95 algorithm variant)
@@ -162,8 +162,8 @@ Abydos is a library of phonetic algorithms, string distance metrics, stemmers, a
     - Prefix, Suffix, and Identity similarity & distance
     - Modified Language-Independent Product Name Search (MLIPNS) similarity &
       distance
-    - Bag distance (incl. a [0, 1] normalized variant)
-    - Editex distance (incl. a [0, 1] normalized variant)
+    - Bag distance
+    - Editex distance
     - Eudex distances
     - Sift4 distance
     - Baystat distance & similarity
