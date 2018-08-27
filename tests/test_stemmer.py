@@ -965,7 +965,7 @@ class UEALiteTestCases(unittest.TestCase):
         self.assertEqual(uealite('USAED', var='Adams'), 'USAED')
 
     def test_uealite_wsj_set(self):
-        """Test abydos.stemmer.uealite using the WSJ test set."""
+        """Test abydos.stemmer.uealite (WSJ testset)."""
         with open(TESTDIR + '/corpora/uea-lite_wsj.csv') as wsj_testset:
             for wsj_line in wsj_testset:
                 (word, uea, rule) = wsj_line.strip().split(',')
@@ -999,8 +999,8 @@ class PaiceHuskTestCases(unittest.TestCase):
         self.assertEqual(paice_husk('meant'), 'meant')
         self.assertEqual(paice_husk('cement'), 'cem')
 
-    def test_paice_husk_wsj_set(self):
-        """Test abydos.stemmer.uealite using the Hopper262 test set.
+    def test_paice_husk_hopper_set(self):
+        """Test abydos.stemmer.paice_husk (Hopper262 testset).
 
         Source:
         https://raw.githubusercontent.com/Hopper262/paice-husk-stemmer/master/wordlist.txt
