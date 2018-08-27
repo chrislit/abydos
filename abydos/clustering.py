@@ -22,8 +22,8 @@ The clustering module implements clustering algorithms such as:
     - string fingerprint
     - q-gram fingerprint
     - phonetic fingerprint
-    - skeleton key
-    - omission key
+    - Pollock & Zomora's skeleton key
+    - Pollock & Zomora's omission key
     - Cisłak & Grabowski's occurrence fingerprint
     - Cisłak & Grabowski's occurrence halved fingerprint
     - Cisłak & Grabowski's count fingerprint
