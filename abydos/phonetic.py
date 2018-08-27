@@ -4975,6 +4975,23 @@ def reth_schek_phonetik(word):
     return word
 
 
+def fonem(word):
+    """Return the FONEM code of a word
+
+    FONEM is a phonetic algorithm designed for French, defined in
+    Bouchard, Gérard, Patrick Brard, and Yolande Lavoie. 1981. "FONEM: Un code
+    de transcription phonétique pour la reconstitution automatique des
+    familles saguenayennes." Population. 36(6). 1085--1103.
+    https://doi.org/10.2307/1532326
+    http://www.persee.fr/doc/pop_0032-4663_1981_num_36_6_17248
+
+    :param str word: the word to transform
+    :returns: the FONEM code
+    :rtype: str
+    """
+    pass
+
+
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
     """Return the Beider-Morse Phonetic Matching algorithm code for a word.
