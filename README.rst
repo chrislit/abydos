@@ -53,7 +53,7 @@ Abydos
    :target: #
    :alt: pycodestyle Errors
 
-.. image:: https://img.shields.io/badge/flake8-55-yellow.svg
+.. image:: https://img.shields.io/badge/flake8-56-yellow.svg
    :target: #
    :alt: flake8 Errors
 
@@ -169,6 +169,7 @@ Abydos is a library of phonetic algorithms, string distance metrics, stemmers, a
     - Eudex distances
     - Sift4 distance
     - Baystat distance & similarity
+    - Typo distance
 - Stemmers
     - the Lovins stemmer
     - the Porter and Porter2 (Snowball English) stemmers
