@@ -5098,6 +5098,49 @@ def fonem(word):
     return word
 
 
+def parmar_kumbharana(word):
+    """Return the Parmar-Kumbharana encoding of a word.
+
+    This is based on the phonetic algorithm proposed in
+    Parmar, Vimal P. and CK Kumbharana. 2014. "Study Existing Various Phonetic
+    Algorithms and Designing and Development of a working model for the New
+    Developed Algorithm and Comparison by implementing ti with Existing
+    Algorithm(s)." International Journal of Computer Applications. 98(19).
+    https://doi.org/10.5120/17295-7795
+
+    :param word:
+    :return:
+    """
+    rule_table = {4: {'OUGH': 'F'},
+                  3: {'DGE': 'J',
+                      'OUL': 'U',
+                      'GHT': 'T'},
+                  2: {'CE': 'S', 'CI': 'S', 'CY': 'S',
+                      'GE': 'J', 'GI': 'J', 'GY': 'J',
+                      'WR': 'R',
+                      'GN': 'N', 'KN': 'N', 'PN': 'N',
+                      'CK': 'K',
+                      'SH': 'S'}}
+    vowel_trans = {65: '', 69: '', 73: '', 79: '', 85: '', 89: ''}
+
+    word = word.upper()  # Rule 3
+    word = _delete_consecutive_repeats(word)  # Rule 4
+
+    # Rule 5
+    i = 0
+    while i < len(word):
+        for match_len in range(4, 1, -1):
+            if word[i:i+match_len] in rule_table[match_len]:
+                repl = rule_table[match_len][word[i:i+match_len]]
+                word = (word[:i] + repl + word[i+match_len:])
+                i += len(repl)
+        else:
+            i += 1
+
+    word = word[0]+word[1:].translate(vowel_trans)  # Rule 6
+    return word
+
+
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
     """Return the Beider-Morse Phonetic Matching algorithm code for a word.
