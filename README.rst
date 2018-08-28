@@ -45,7 +45,7 @@ Abydos
     :target: https://libraries.io/pypi/abydos
     :alt: Libraries.io SourceRank
 
-.. image:: https://img.shields.io/badge/Pylint-9.76/10-green.svg
+.. image:: https://img.shields.io/badge/Pylint-9.75/10-green.svg
    :target: #
    :alt: Pylint Score
 

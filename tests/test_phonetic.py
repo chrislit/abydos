@@ -39,8 +39,8 @@ from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
 from abydos.phonetic import alpha_sis, bmpm, caverphone, dm_soundex, \
     double_metaphone, eudex, fonem, fuzzy_soundex, koelner_phonetik, \
     koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, lein, metaphone, \
-    mra, nysiis, onca, phonem, phonet, phonex, phonix, refined_soundex, \
-    roger_root,  russell_index, russell_index_alpha, \
+    mra, nysiis, onca, parmar_kumbharana, phonem, phonet, phonex, phonix, \
+    refined_soundex, roger_root,  russell_index, russell_index_alpha, \
     russell_index_num_to_alpha, sfinxbis, soundex, spfc, statistics_canada
 
 from six import text_type
@@ -4711,6 +4711,76 @@ class FonemTestCases(unittest.TestCase):
         )
         for name, encoding in test_cases:
             self.assertEqual(fonem(name), encoding)
+
+
+class ParmarKumbharanaTestCases(unittest.TestCase):
+    """Test Parmar-Kumbharana functions.
+
+    test cases for abydos.phonetic.parmar_kumbharana
+    """
+
+    def test_parmar_kumbharana(self):
+        """Test abydos.phonetic.parmar_kumbharana."""
+        # Base cases
+        self.assertEqual(fonem(''), '')
+
+        # Test cases from Parmar & Kumbharana (2014)
+        test_cases = (
+            ('Week', 'WK'),
+            ('Weak', 'WK'),
+            ('Piece', 'PS'),
+            ('Peace', 'PS'),
+            ('Bed', 'BD'),
+            ('Bad', 'BD'),
+            ('Would', 'WD'),
+            ('Wood', 'WD'),
+            ('Sun', 'SN'),
+            ('Son', 'SN'),
+            ('Ship', 'SP'),
+            ('Sheep', 'SP'),
+            ('Later', 'LTR'),
+            ('Letter', 'LTR'),
+            ('Low', 'LW'),
+            ('Law', 'LW'),
+            ('She', 'S'),
+            ('See', 'S'),
+            ('Sea', 'S'),
+            ('Case', 'CS'),
+            ('Cash', 'CS'),
+            ('Of', 'OF'),
+            ('Off', 'OF'),
+            ('Live', 'LV'),
+            ('Leave', 'LV'),
+            ('Sign', 'SN'),
+            ('Sine', 'SN'),
+            ('Sin', 'SN'),
+            ('Seen', 'SN'),
+            ('By', 'B'),
+            ('Bye', 'B'),
+            ('Reach', 'RCH'),
+            ('Rich', 'RCH'),
+            ('Sort', 'SRT'),
+            ('Short', 'SRT'),
+            ('Center', 'SNTR'),
+            ('Centre', 'SNTR'),
+            ('Full', 'FL'),
+            ('Fool', 'FL'),
+            ('Then', 'THN'),
+            ('Than', 'THN'),
+            ('Fill', 'FL'),
+            ('Feel', 'FL'),
+            ('Two', 'TW'),
+            ('To', 'T'),
+            ('Too', 'T'),
+            ('Four', 'FR'),
+            ('For', 'FR'),
+            ('Mat', 'MT'),
+            ('Met', 'MT'),
+            ('Merry', 'MR'),
+            ('Marry', 'MR')
+        )
+        for word, encoding in test_cases:
+            self.assertEqual(parmar_kumbharana(word), encoding)
 
 
 class BeiderMorseTestCases(unittest.TestCase):
