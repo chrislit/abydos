@@ -37,7 +37,7 @@ from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
     L_ITALIAN, L_LATVIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, L_SPANISH, \
     L_TURKISH
 from abydos.phonetic import alpha_sis, bmpm, caverphone, dm_soundex, \
-    double_metaphone, eudex, fuzzy_soundex, koelner_phonetik, \
+    double_metaphone, eudex, fonem, fuzzy_soundex, koelner_phonetik, \
     koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, lein, metaphone, \
     mra, nysiis, onca, phonem, phonet, phonex, phonix, refined_soundex, \
     roger_root,  russell_index, russell_index_alpha, \
@@ -4569,6 +4569,148 @@ class EudexTestCases(unittest.TestCase):
         self.assertEqual(eudex('hello'), 144115188075896832)
         self.assertEqual(eudex('christopher'), 433648490138894409)
         self.assertEqual(eudex('colin'), 432345564238053650)
+
+
+class FonemTestCases(unittest.TestCase):
+    """Test FONEM functions.
+
+    test cases for abydos.phonetic.fonem
+    """
+
+    def test_fonem(self):
+        """Test abydos.phonetic.fonem."""
+        # Base cases
+        self.assertEqual(fonem(''), '')
+
+        # Test cases, mostly from the FONEM specification,
+        # but copied from Talisman:
+        # https://github.com/Yomguithereal/talisman/blob/master/test/phonetics/french/fonem.js
+        test_cases = (
+            ('BEAULAC', 'BOLAK'),
+            ('BAULAC', 'BOLAK'),
+            ('IMBEAULT', 'INBO'),
+            ('DUFAUT', 'DUFO'),
+            ('THIBOUTOT', 'TIBOUTOT'),
+            ('DEVAUX', 'DEVO'),
+            ('RONDEAUX', 'RONDO'),
+            ('BOURGAULX', 'BOURGO'),
+            ('PINCHAUD', 'PINCHO'),
+            ('PEDNAULD', 'PEDNO'),
+            ('MAZENOD', 'MASENOD'),
+            ('ARNOLD', 'ARNOL'),
+            ('BERTOLD', 'BERTOL'),
+            ('BELLAY', 'BELE'),
+            ('SANDAY', 'SENDE'),
+            ('GAY', 'GAI'),
+            ('FAYARD', 'FAYAR'),
+            ('LEMIEUX', 'LEMIEU'),
+            ('LHEUREUX', 'LEUREU'),
+            ('BELLEY', 'BELE'),
+            ('WELLEY', 'WELE'),
+            ('MEYER', 'MEYER'),
+            ('BOILY', 'BOILI'),
+            ('LOYSEAU', 'LOISO'),
+            ('MAYRAND', 'MAIREN'),
+            ('GUYON', 'GUYON'),
+            ('FAILLARD', 'FAYAR'),
+            ('FAIARD', 'FAYAR'),
+            ('MEIER', 'MEYER'),
+            ('MEILLER', 'MEYER'),
+            ('GUILLON', 'GUYON'),
+            ('LAVILLE', 'LAVILLE'),
+            ('COUET', 'CWET'),
+            ('EDOUARD', 'EDWAR'),
+            ('GIROUARD', 'JIRWAR'),
+            ('OZOUADE', 'OZWADE'),
+            ('BOUILLE', 'BOUYE'),
+            ('POUYEZ', 'POUYEZ'),
+            ('LEMEE', 'LEME'),
+            ('ABRAAM', 'ABRAM'),
+            ('ARCHEMBAULT', 'ARCHENBO'),
+            ('AMTHIME', 'ENTIME'),
+            ('ROMPRE', 'RONPRE'),
+            ('BOMSECOURS', 'BONSECOURS'),
+            ('BOULANGER', 'BOULENJER'),
+            ('TANCREDE', 'TENKREDE'),
+            ('BLAIN', 'BLIN'),
+            ('BLAINVILLE', 'BLINVILLE'),
+            ('MAINARD', 'MAINAR'),
+            ('RAIMOND', 'RAIMON'),
+            ('BLACKBORN', 'BLAKBURN'),
+            ('SEABOURNE', 'SEABURN'),
+            ('IMBO', 'INBO'),
+            ('RIMFRET', 'RINFRET'),
+            ('LEFEBVRE', 'LEFEVRE'),
+            ('MACE', 'MASSE'),
+            ('MACON', 'MACON'),
+            ('MARCELIN', 'MARSELIN'),
+            ('MARCEAU', 'MARSO'),
+            ('VINCELETTE', 'VINSELETE'),
+            ('FORCADE', 'FORCADE'),
+            ('CELINE', 'SELINE'),
+            ('CERAPHIN', 'SERAFIN'),
+            ('CAMILLE', 'KAMILLE'),
+            ('CAYETTE', 'KAYETE'),
+            ('CARINE', 'KARINE'),
+            ('LUC', 'LUK'),
+            ('LEBLANC', 'LEBLEN'),
+            ('VICTOR', 'VIKTOR'),
+            ('LACCOULINE', 'LAKOULINE'),
+            ('MACCIMILIEN', 'MAXIMILIEN'),
+            ('MAGELLA', 'MAJELA'),
+            ('GINETTE', 'JINETE'),
+            ('GANDET', 'GANDET'),
+            ('GEORGES', 'JORJES'),
+            ('GEOFFROID', 'JOFROID'),
+            ('PAGEAU', 'PAJO'),
+            ('GAGNION', 'GAGNON'),
+            ('MIGNIER', 'MIGNER'),
+            ('HALLEY', 'ALE'),
+            ('GAUTHIER', 'GOTIER'),
+            ('CHARTIER', 'CHARTIER'),
+            ('JEANNE', 'JANE'),
+            ('MACGREGOR', 'MACGREGOR'),
+            ('MACKAY', 'MACKE'),
+            ('MCNICOL', 'MACNICOL'),
+            ('MCNEIL', 'MACNEIL'),
+            ('PHANEUF', 'FANEUF'),
+            ('PHILIPPE', 'FILIPE'),
+            ('QUENNEVILLE', 'KENEVILLE'),
+            ('LAROCQUE', 'LAROKE'),
+            ('SCIPION', 'SIPION'),
+            ('ASCELIN', 'ASSELIN'),
+            ('VASCO', 'VASKO'),
+            ('PASCALINE', 'PASKALINE'),
+            ('ESHEMBACK', 'ECHENBAK'),
+            ('ASHED', 'ACHED'),
+            ('GRATIA', 'GRASSIA'),
+            ('PATRITIA', 'PATRISSIA'),
+            ('BERTIO', 'BERTIO'),
+            ('MATIEU', 'MATIEU'),
+            ('BERTIAUME', 'BERTIOME'),
+            ('MUNROW', 'MUNRO'),
+            ('BRANISLAW', 'BRANISLA'),
+            ('LOWMEN', 'LOMEN'),
+            ('ANDREW', 'ENDREW'),
+            ('EXCEL', 'EXEL'),
+            ('EXCERINE', 'EXERINE'),
+            ('EXSILDA', 'EXILDA'),
+            ('EXZELDA', 'EXELDA'),
+            ('CAZEAU', 'KASO'),
+            ('BRAZEAU', 'BRASO'),
+            ('FITZPATRICK', 'FITSPATRIK'),
+            ('SINGELAIS', 'ST-JELAIS'),
+            ('CINQMARS', 'ST-MARS'),
+            ('SAINT-AMAND', 'ST-AMEN'),
+            ('SAINTECROIX', 'STE-KROIX'),
+            ('ST-HILAIRE', 'ST-ILAIRE'),
+            ('STE-CROIX', 'STE-KROIX'),
+            ('LAVALLEE', 'LAVALE'),
+            ('CORINNE', 'KORINE'),
+            ('DUTILE', 'DUTILLE')
+        )
+        for name, encoding in test_cases:
+            self.assertEqual(fonem(name), encoding)
 
 
 class BeiderMorseTestCases(unittest.TestCase):
