@@ -131,6 +131,8 @@ Abydos is a library of phonetic algorithms, string distance metrics, stemmers, a
     - Eudex phonetic hash
     - Haase Phonetik
     - Reth-Schek Phonetik
+    - FONEM
+    - Parmar-Kumbharana
     - Beider-Morse Phonetic Matching
 - String distance metrics
     - Levenshtein distance
