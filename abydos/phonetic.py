@@ -4995,44 +4995,102 @@ def fonem(word):
     :returns: the FONEM code
     :rtype: str
     """
-    consonants = '[BCDFGHJKLMNPQRSTVWXZ]'
-    vowels = '[AEIOUY]'
-
     # I don't see a sane way of doing this without regexps :(
     rule_table = {
         # Vowels & groups of vowels
-        'V-1':   (re.compile('E?AU'), 'O'),
-        'V-2,5': (re.compile('(E?AU|O)L[TX]$'), 'O'),
-        'V-3,4': (re.compile('AU[TX]$', 'EAUT$'), 'O'),
-        'V-6':   (re.compile('E?AUL?D$'), 'O'),
-        'V-7':   (re.compile(r'(?<!G)AY\$'), 'E$'),
-        'V-8':   (re.compile('EUX$'), 'EU'),
-        'V-9':   (re.compile('EY(?=$|[BCDFGHJKLMNPQRSTVWXZ])'), 'E'),
-        'V-10':  ('Y', 'I'),
-        'V-11':  (re.compile('(?<=[AEIOUY])I(?[AEIOUY])'), 'Y'),
-        'V-12':  (re.compile('(?<=[AEIOUY])ILL'), 'Y'),
-        'V-13':  (re.compile('OU(?=[AEOU]|I(?!LL))'), 'W'),
-        'V-14':  (re.compile(r'([AEIOUY])(?=\1)'), ''),
+        'V-1':     (re.compile('E?AU'), 'O'),
+        'V-2,5':   (re.compile('(E?AU|O)L[TX]$'), 'O'),
+        'V-3,4':   (re.compile('AU[TX]$'), 'O'),
+        'V-6':     (re.compile('E?AUL?D$'), 'O'),
+        'V-7':     (re.compile(r'(?<!G)AY$'), 'E'),
+        'V-8':     (re.compile('EUX$'), 'EU'),
+        'V-9':     (re.compile('EY(?=$|[BCDFGHJKLMNPQRSTVWXZ])'), 'E'),
+        'V-10':    ('Y', 'I'),
+        'V-11':    (re.compile('(?<=[AEIOUY])I(?[AEIOUY])'), 'Y'),
+        'V-12':    (re.compile('(?<=[AEIOUY])ILL'), 'Y'),
+        'V-13':    (re.compile('OU(?=[AEOU]|I(?!LL))'), 'W'),
+        'V-14':    (re.compile(r'([AEIOUY])(?=\1)'), ''),
         # Nasal vowels
-        'V-15':  (re.compile('[AE]M(?=[BCDFGHJKLMPQRSTVWXZ])(?!$)'), 'EN'),
-        'V-16':  (re.compile('OM(?=[BCDFGHJKLMPQRSTVWXZ])'), 'ON'),
-        'V-17':  (re.compile('OM(?=[BCDFGHJKLMNPQRSTVWXZ])'), 'EN'),
-        'V-18':  (re.compile('(AI[MN]|EIN)(?=[BCDFGHJKLMNPQRSTVWXZ]|$'), 'IN'),
-        'V-19':  (re.compile('B[OU]RNE?$'), 'BURN'),
-        'V-20':  (re.compile('(^IM|[BCDFGHJKLMNPQRSTVWXZ]IM[BCDFGHJKLMPQRSTVWXZ])'), 'IN'),
-
+        'V-15':    (re.compile('[AE]M(?=[BCDFGHJKLMPQRSTVWXZ])(?!$)'), 'EN'),
+        'V-16':    (re.compile('OM(?=[BCDFGHJKLMPQRSTVWXZ])'), 'ON'),
+        'V-17':    (re.compile('OM(?=[BCDFGHJKLMNPQRSTVWXZ])'), 'EN'),
+        'V-18':    (re.compile('(AI[MN]|EIN)(?=[BCDFGHJKLMNPQRSTVWXZ]|$'), 'IN'),
+        'V-19':    (re.compile('B[OU]RNE?$'), 'BURN'),
+        'V-20':    (re.compile('(^IM|(?<=[BCDFGHJKLMNPQRSTVWXZ])IM(?=[BCDFGHJKLMPQRSTVWXZ]))'), 'IN'),
+        # Consonants and groups of consonants
+        'C-1':     ('BV', 'V'),
+        'C-2':     (re.compile('(?<=[AEIOUY])C(?=[EIY])'), 'SS'),
+        'C-3':     (re.compile('(?<=[BDFGHJKLMNPQRSTVWZ])C(?=[EIY])'), 'S'),
+        'C-4':     (re.compile('^C(?=[EIY])'), 'S'),
+        'C-5':     (re.compile('^C(?=[OUA])'), 'K'),
+        'C-6':     (re.compile('(?<=[AEIOUY])C$'), 'K'),
+        'C-7':     (re.compile('C(?=[BDFGJKLMNPQRSTVWXZ])'), 'K'),
+        'C-8':     (re.compile('CC(?=[AOU])'), 'K'),
+        'C-9':     (re.compile('CC(?=[EIY])'), 'X'),
+        'C-10':    (re.compile('G(?=[EIY])'), 'J'),
+        'C-11':    (re.compile('GA(?=I?[MN])'), 'G#'),
+        'C-12':    (re.compile('GE(O|AU)'), 'JO'),
+        'C-13':    (re.compile('GNI(?=[AEIOUY])'), 'GN'),
+        'C-14':    (re.compile('(?>![PCS])H'), ''),
+        'C-15':    ('JEA', 'JA'),
+        'C-16':    (re.compile('^MAC(?=[BCDFGHJKLMNPQRSTVWXZ])'), 'MA#'),
+        'C-17':    (re.compile('^MC'), 'MA#'),
+        'C-18':    ('PH', 'F'),
+        'C-19':    ('QU', 'K'),
+        'C-20':    (re.compile('^SC(?=[EIY])'), 'S'),
+        'C-21':    (re.compile('(?<=.)SC(?=[EIY])'), 'SS'),
+        'C-22':    (re.compile('(?<=.)SC(?=[AOU])'), 'SK'),
+        'C-23':    ('SH', 'CH'),
+        'C-24':    (re.compile('TIA$'), 'SSIA'),
+        'C-25':    (re.compile('(?<=[AIOUY])W'), ''),
+        'C-26':    (re.compile('X[CSZ]'), 'X'),
+        'C-27':    (re.compile('((?<=[AEIOUY])Z|(?<=[BCDFGHJKLMNPQRSTVWXZ])Z(?=[BCDFGHJKLMNPQRSTVWXZ])'), 'S'),
+        'C-28':    (re.compile(r'([BDFGHJKMNPQRTVWXZ])\1'), r'\1'),
+        'C-28a':   (re.compile('CC(?=[BCDFGHJKLMNPQRSTVWXZ]|$'), 'C'),
+        'C-28b':   (re.compile('(?<=[BCDFGHJKLMNPQRSTVWXZ]|^)SS'), 'S'),
+        'C-28bb':  (re.compile('SS(?=[BCDFGHJKLMNPQRSTVWXZ]|$)'), 'S'),
+        'C-28c':   (re.compile('(?<=[^I]|^)LL'), 'L'),
+        'C-28d':   (re.compile('ILE$'), 'ILLE'),
+        'C-29':    (re.compile('(ILS|[CS]H|[MN]P|R[CFKLNSX])$|([BCDFGHJKLMNPQRSTVWXZ])[BCDFGHJKLMNPQRSTVWXZ]$'), r'\1\2'),
+        'C-30,32': (re.compile('^(SA?INT?|SEI[NM]|CINQ?|ST)'), 'ST-'),
+        'C-31,33': (re.compile('^(SAINTE|STE)'), 'STE-'),
+        # Rules to circumvent masking
+        'C-34':    ('G#', 'GA'),
+        'C-35':    ('MA#', 'MAC')
     }
+    rule_order = [
+        'V-14', 'C-28', 'C-28a', 'C-28b', 'C-28bb', 'C-28c', 'C-28d',
+        'C-12', 'C-10',
+        'C-16', 'C-17', 'C-2', 'C-3', 'C-7',
+        'V-2,5', 'V-3,4', 'V-6',
+        'V-1', 'C-14',
+        'C-30,32', 'C-31,33',
+        'C-11', 'V-15', 'V-17', 'V-18',
+        'V-7', 'V-8', 'V-9', 'V-10', 'V-11', 'V-12', 'V-13', 'V-16',
+        'V-19', 'V-20',
+        'C-1', 'C-4', 'C-5', 'C-6', 'C-8', 'C-9', 'C-13', 'C-15',
+        'C-18', 'C-19', 'C-20', 'C-21', 'C-22', 'C-23', 'C-24',
+        'C-25', 'C-26', 'C-27',
+        'C-29',
+        'V-14', 'C-28', 'C-28a', 'C-28b', 'C-28bb', 'C-28c', 'C-28d',
+        'C-34', 'C-35'
+    ]
 
     # normalize, upper-case, and filter non-French letters
     word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = word.translate({198: 'AE', 338: 'OE'})
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'I', 'K', 'L', 'M', 'N',
-                    'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'})
+                    'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z', '-'})
 
+    for rule in rule_order:
+        regex, repl = rule_table[rule]
+        if isinstance(regex, text_type):
+            word.replace(regex, repl)
+        else:
+            word = re.sub(regex, repl)
 
-
-    return word  # Strip markers before returning
+    return word
 
 
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
