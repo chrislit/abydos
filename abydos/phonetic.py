@@ -45,6 +45,8 @@ The phonetic module implements phonetic algorithms including:
     - Eudex phonetic hash
     - Haase Phonetik
     - Reth-Schek Phonetik
+    - FONEM
+    - Parmar-Kumbharana
     - Beider-Morse Phonetic Matching
 """
 
