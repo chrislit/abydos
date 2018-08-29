@@ -55,7 +55,7 @@ from __future__ import division, unicode_literals
 import re
 import unicodedata
 from collections import Counter
-from itertools import groupby
+from itertools import groupby, product
 
 from six import text_type
 from six.moves import range
@@ -4789,11 +4789,14 @@ def eudex(word, maxlength=8):
     return hash_value
 
 
-def haase_phonetik(word):
+def haase_phonetik(word, primary_only=False):
     """Return the Haase Phonetik (numeric output) code for a word.
 
     Based on the algorithm described at
     https://github.com/elastic/elasticsearch/blob/master/plugins/analysis-phonetic/src/main/java/org/elasticsearch/index/analysis/phonetic/HaasePhonetik.java
+
+    Based on the original
+    Haase, Martin and Kai Heitmann. 2000. Die Erweiterte Kölner Phonetik.
 
     While the output code is numeric, it is still a str.
 
@@ -4815,8 +4818,6 @@ def haase_phonetik(word):
 
     _vowels = {'A', 'E', 'I', 'J', 'O', 'U', 'Y'}
 
-    sdx = ''
-
     word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
 
@@ -4830,77 +4831,99 @@ def haase_phonetik(word):
 
     # Nothing to convert, return base case
     if not word:
-        return sdx
+        return ''
 
-    word = word.replace('AUN', 'OWN')
-    word = word.replace('RB', 'RW')
-    word = word.replace('WSK', 'RSK')
-    if word[-1] == 'A':
-        word = word[:-1]+'AR'
-    if word[-1] == 'O':
-        word = word[:-1]+'OW'
-    word = word.replace('SCH', 'CH')
-    word = word.replace('GLI', 'LI')
-    if word[-3:] == 'EAU':
-        word = word[:-3]+'O'
-    if word[:2] == 'CH':
-        word = 'SCH'+word[2:]
-    word = word.replace('AUX', 'O')
-    word = word.replace('EUX', 'O')
-    word = word.replace('ILLE', 'I')
-
-    for i in range(len(word)):
-        if word[i] in _vowels:
-            sdx += '9'
-        elif word[i] == 'B':
-            sdx += '1'
-        elif word[i] == 'P':
-            if _before(word, i, {'H'}):
-                sdx += '3'
+    variants = []
+    if primary_only:
+        variants = [word]
+    else:
+        pos = 0
+        if word[:2] == 'CH':
+            variants.append(('CH', 'SCH'))
+            pos += 2
+        len_3_vars = {'OWN': 'AUN', 'WSK': 'RSK', 'SCH': 'CH', 'GLI': 'LI',
+                      'AUX': 'O', 'EUX': 'O'}
+        while pos < len(word):
+            if word[pos:pos+4] == 'ILLE':
+                variants.append(('ILLE', 'I'))
+                pos += 4
+            elif word[pos:pos+3] in len_3_vars:
+                variants.append((word[pos:pos+3], len_3_vars[word[pos:pos+3]]))
+                pos += 3
+            elif word[pos:pos+2] == 'RB':
+                variants.append(('RB', 'RW'))
+                pos += 2
+            elif len(word[pos:]) == 3 and word[pos:] == 'EAU':
+                variants.append(('EAU', 'O'))
+                pos += 3
+            elif len(word[pos:]) == 1 and word[pos:] in {'A', 'O'}:
+                if word[pos:] == 'O':
+                    variants.append(('O', 'OW'))
+                else:
+                    variants.append(('A', 'AR'))
+                pos += 1
             else:
+                variants.append((word[pos],))
+                pos += 1
+
+        variants = [''.join(letters) for letters in product(*variants)]
+
+    def _haase_code(word):
+        sdx = ''
+        for i in range(len(word)):
+            if word[i] in _vowels:
+                sdx += '9'
+            elif word[i] == 'B':
                 sdx += '1'
-        elif word[i] in {'D', 'T'}:
-            if _before(word, i, {'C', 'S', 'Z'}):
-                sdx += '8'
-            else:
-                sdx += '2'
-        elif word[i] in {'F', 'V', 'W'}:
-            sdx += '3'
-        elif word[i] in {'G', 'K', 'Q'}:
-            sdx += '4'
-        elif word[i] == 'C':
-            if _after(word, i, {'S', 'Z'}):
-                sdx += '8'
-            elif i == 0:
-                if _before(word, i, {'A', 'H', 'K', 'L', 'O', 'Q', 'R', 'U',
-                                     'X'}):
+            elif word[i] == 'P':
+                if _before(word, i, {'H'}):
+                    sdx += '3'
+                else:
+                    sdx += '1'
+            elif word[i] in {'D', 'T'}:
+                if _before(word, i, {'C', 'S', 'Z'}):
+                    sdx += '8'
+                else:
+                    sdx += '2'
+            elif word[i] in {'F', 'V', 'W'}:
+                sdx += '3'
+            elif word[i] in {'G', 'K', 'Q'}:
+                sdx += '4'
+            elif word[i] == 'C':
+                if _after(word, i, {'S', 'Z'}):
+                    sdx += '8'
+                elif i == 0:
+                    if _before(word, i, {'A', 'H', 'K', 'L', 'O', 'Q', 'R',
+                                         'U', 'X'}):
+                        sdx += '4'
+                    else:
+                        sdx += '8'
+                elif _before(word, i, {'A', 'H', 'K', 'O', 'Q', 'U', 'X'}):
                     sdx += '4'
                 else:
                     sdx += '8'
-            elif _before(word, i, {'A', 'H', 'K', 'O', 'Q', 'U', 'X'}):
-                sdx += '4'
-            else:
+            elif word[i] == 'X':
+                if _after(word, i, {'C', 'K', 'Q'}):
+                    sdx += '8'
+                else:
+                    sdx += '48'
+            elif word[i] == 'L':
+                sdx += '5'
+            elif word[i] in {'M', 'N'}:
+                sdx += '6'
+            elif word[i] == 'R':
+                sdx += '7'
+            elif word[i] in {'S', 'Z'}:
                 sdx += '8'
-        elif word[i] == 'X':
-            if _after(word, i, {'C', 'K', 'Q'}):
-                sdx += '8'
-            else:
-                sdx += '48'
-        elif word[i] == 'L':
-            sdx += '5'
-        elif word[i] in {'M', 'N'}:
-            sdx += '6'
-        elif word[i] == 'R':
-            sdx += '7'
-        elif word[i] in {'S', 'Z'}:
-            sdx += '8'
 
-    sdx = _delete_consecutive_repeats(sdx)
+        sdx = _delete_consecutive_repeats(sdx)
 
-    if sdx:
-        sdx = sdx[0] + sdx[1:].replace('9', '')
+        # if sdx:
+        #     sdx = sdx[0] + sdx[1:].replace('9', '')
 
-    return sdx
+        return sdx
+
+    return tuple(_haase_code(word) for word in variants)
 
 
 def reth_schek_phonetik(word):
