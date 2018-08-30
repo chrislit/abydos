@@ -3656,7 +3656,7 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
     )
 
     # Start with the basic code
-    toolcode = ['', '', '', '', '', '', '$', '', '$', '']
+    toolcode = ['0', '0', '0', '000', '00', '00', '$', '', '$', '']
 
     full_name = ' '.join((lname, fname))
 
@@ -3675,8 +3675,6 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
         toolcode[0] = '2'
     elif qual in qual_1:
         toolcode[0] = '1'
-    else:
-        toolcode[0] = '0'
 
     # Fill field 1 (punctuation)
     if '.' in full_name:
@@ -3686,8 +3684,6 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
             if punct in full_name:
                 toolcode[1] = '1'
                 break
-        else:
-            toolcode[1] = '0'
 
     # Fill field 2 (generation)
     gen_1 = ('the elder', ' sr.', ' sr', 'senior', 'der altere', 'il vecchio',
@@ -3707,8 +3703,6 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
                 toolcode[2] = '2'
                 elderyounger = gen
                 break
-        else:
-            toolcode[2] = '0'
 
     # do comma flip
     if normalize:
@@ -3736,7 +3730,7 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
         full_name = full_name.replace(char, '')
     for pos, char in enumerate(full_name):
         if char == '-' and full_name[pos - 1:pos + 2] != 'b-g':
-            full_name[pos] = ' '
+            full_name = full_name[:pos] + ' ' + full_name[pos + 1:]
 
     # Fill field 9 (search range)
     for letter in [_[0] for _ in full_name.split()]:
@@ -3811,7 +3805,7 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
                 if full_name[loc + len(extra)] not in toolcode[9]:
                     toolcode[9] += full_name[loc + len(string)]
 
-    return lname, fname, qual, ''.join(toolcode)
+    return lname, fname, ''.join(toolcode)
 
 
 
@@ -3862,8 +3856,8 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73, tests=2**11-1)
     tar_qual = tar_qual.strip().lower()
 
     # Create toolcodes
-    src_fn, src_ln, src_qual, src_tc = synoname_toolcode(src_fn, src_ln, src_qual)
-    tar_fn, tar_ln, tar_qual, tar_tc = synoname_toolcode(tar_fn, tar_ln, tar_qual)
+    src_fn, src_ln, src_tc = synoname_toolcode(src_fn, src_ln, src_qual)
+    tar_fn, tar_ln, tar_tc = synoname_toolcode(tar_fn, tar_ln, tar_qual)
 
     if tests & test_dict['exact'] and src[0]==tar[0] and src[1]==tar[1]:
         pass
