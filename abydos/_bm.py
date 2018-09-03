@@ -604,3 +604,8 @@ def _bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     result = _bm_phonetic_numbers(result)
 
     return result
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()

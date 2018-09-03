@@ -69,7 +69,7 @@ import math
 import sys
 import types
 import unicodedata
-from collections import Counter, defaultdict
+from collections import Counter, Iterable, defaultdict
 
 import numpy as np
 
@@ -77,6 +77,7 @@ from six import text_type
 from six.moves import range
 
 from .compression import ac_encode, ac_train, rle_encode
+from .fingerprint import synoname_toolcode
 from .phonetic import eudex, mra
 from .qgram import QGrams
 
@@ -3477,6 +3478,108 @@ def sim_typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5)):
     return 1 - dist_typo(src, tar, metric, cost)
 
 
+def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
+             tests=2**11-1):
+    """Return the Synoname similarity type of two words.
+
+    :param src:
+    :param tar:
+    :return:
+    """
+    punct = {'=', "'", '-', '|', '.', ' '}
+    test_dict = {val: n**2 for n, val in enumerate([
+        'exact', 'omission', 'substitution', 'transposition', 'punctuation',
+        'initials', 'extended', 'inclusion', 'no_first', 'word_approx',
+        'confusions', 'char_approx'])}
+    match_type_dict = {val: n for n, val in enumerate([
+        'exact', 'omission', 'substitution', 'transposition', 'punctuation',
+        'initials', 'extended', 'inclusion', 'no_first', 'word_approx',
+        'confusions', 'char_approx'], 1)}
+
+    if isinstance(tests, Iterable):
+        new_tests = 0
+        for term in tests:
+            if term in test_dict:
+                new_tests += test_dict[term]
+        tests = new_tests
+
+    if isinstance(src, tuple):
+        src_ln, src_fn, src_qual = src
+    else:
+        src_ln, src_fn, src_qual = src.split('#')[1:4]
+    if isinstance(tar, tuple):
+        tar_ln, tar_fn, tar_qual = tar
+    else:
+        tar_ln, tar_fn, tar_qual = tar.split('#')[1:4]
+
+    # 1. Preprocessing
+
+    # Lowercasing
+    src_fn = src_fn.strip().lower()
+    src_ln = src_ln.strip().lower()
+    src_qual = src_qual.strip().lower()
+
+    tar_fn = tar_fn.strip().lower()
+    tar_ln = tar_ln.strip().lower()
+    tar_qual = tar_qual.strip().lower()
+
+    # Create toolcodes
+    src_fn, src_ln, src_tc = synoname_toolcode(src_fn, src_ln, src_qual)
+    tar_fn, tar_ln, tar_tc = synoname_toolcode(tar_fn, tar_ln, tar_qual)
+
+    src_qualcode = int(src_tc[0])
+    src_punctcode = int(src_tc[1])
+    src_generation = int(src_tc[2])
+    src_romancode = int(src_tc[3:6])
+    src_len_first = int(src_tc[6:8])
+    src_len_last = int(src_tc[8:10])
+    src_tc = src_tc.split('#')
+    src_specials = src_tc[1]
+    src_search_range = src_tc[2]
+    src_len_specials = len(src_specials)
+
+    tar_qualcode = int(tar_tc[0])
+    tar_punctcode = int(tar_tc[1])
+    tar_generation = int(tar_tc[2])
+    tar_romancode = int(tar_tc[3:6])
+    tar_len_first = int(tar_tc[6:8])
+    tar_len_last = int(tar_tc[8:10])
+    tar_tc = tar_tc.split('#')
+    tar_specials = tar_tc[1]
+    tar_search_range = tar_tc[2]
+    tar_len_specials = len(tar_specials)
+
+    qual_conflict = src_qual != tar_qual
+    gen_conflict = (src_generation != tar_generation and
+                    (src_generation or tar_generation))
+    roman_conflict = (src_romancode != tar_romancode and
+                      (src_romancode or tar_romancode))
+
+    # approx_c
+    def approx_c():
+        if gen_conflict or roman_conflict:
+            return False, 0.0
+        full_name = ' '.join((tar_ln, tar_fn))
+        if full_name.startswith('master '):
+            full_name = full_name[len('master '):]
+            for intro in ['of the ', 'of ', 'known as the ', 'with the ',
+                          'with ']:
+                if full_name.startswith(intro):
+                    full_name = full_name[len(intro):]
+
+        # ca_ratio = simil(cap_full_name, full_name)
+        return ca_ratio >= char_approx_min, ca_ratio
+
+    def simil(src, tar):
+        return 100*sim_ratcliff_obershelp(src, tar)
+
+    approx_c_result, ca_ratio = approx_c()
+
+    if ca_ratio >= char_approx_min and ca_ratio >= 70:
+        if tests & test_dict['exact'] and src == tar:
+            return 1
+
+
 def sim_tfidf(src, tar, qval=2, docs_src=None, docs_tar=None):
     """Return the TF-IDF similarity of two strings.
 
@@ -3570,3 +3673,8 @@ def dist(src, tar, method=sim_levenshtein):
         return 1 - method(src, tar)
     else:
         raise AttributeError('Unknown distance function: ' + str(method))
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()

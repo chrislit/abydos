@@ -188,3 +188,8 @@ class NGramCorpus(object):
         if tcount == 0:
             return 0.0
         return 1 + log10(tcount)
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()

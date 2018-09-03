@@ -99,3 +99,8 @@ class QGrams(Counter):
         6
         """
         return sum(self.values())
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()
