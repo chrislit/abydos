@@ -3673,3 +3673,8 @@ def dist(src, tar, method=sim_levenshtein):
         return 1 - method(src, tar)
     else:
         raise AttributeError('Unknown distance function: ' + str(method))
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()

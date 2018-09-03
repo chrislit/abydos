@@ -236,3 +236,8 @@ class Corpus(object):
             return float('inf')
 
         return log10(len(docs)/docs_with_term)
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()
