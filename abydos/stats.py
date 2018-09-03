@@ -58,6 +58,8 @@ And for calculating:
     - midrange
     - median
     - mode
+    - variance
+    - standard deviation
 """
 
 from __future__ import division, unicode_literals
@@ -1528,6 +1530,29 @@ def mode(nums):
     2
     """
     return Counter(nums).most_common(1)[0][0]
+
+
+def var(nums, mean_func=amean, ddof=0):
+    """Calculate the variance.
+
+    :param nums:
+    :param mean_func:
+    :param ddof:
+    :return:
+    """
+    x_bar = mean_func(nums)
+    return sum((x - x_bar) ** 2 for x in nums) / (len(nums) - ddof)
+
+
+def std(nums, mean_func=amean, ddof=0):
+    """Return standard deviation
+
+    :param nums:
+    :param mean_func:
+    :param ddof:
+    :return:
+    """
+    return var(nums, mean_func, ddof)**0.5
 
 
 if __name__ == '__main__':
