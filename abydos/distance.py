@@ -2663,8 +2663,8 @@ def bag(src, tar):
 
     Bag distance is proposed in Bartolini, Illaria, Paolo Ciaccia, and Marco
     Patella. 2002. "String Matching with Metric Trees Using and Approximate
-    Distance. Proceedings of the 9th International Symposium on String
-    Processing and Information Retrieval, Lisbone, Portugal, September 2002.
+    Distance." Proceedings of the 9th International Symposium on String
+    Processing and Information Retrieval, Lisbon, Portugal, September 2002.
     271-283.
     http://www-db.disi.unibo.it/research/papers/SPIRE02.pdf
 
