@@ -27,11 +27,11 @@ from __future__ import division, unicode_literals
 from six.moves import range
 
 from .distance import sim
-from .stats import hmean
+from .stats import amean, hmean, std
 
 
 def mean_pairwise_similarity(collection, metric=sim,
-                             meanfunc=hmean, symmetric=False):
+                             mean_func=hmean, symmetric=False):
     """Calculate the mean pairwise similarity of a collection of strings.
 
     Takes the mean of the pairwise similarity between each member of a
@@ -40,7 +40,7 @@ def mean_pairwise_similarity(collection, metric=sim,
 
     :param list collection: a collection of terms or a string that can be split
     :param function metric: a similarity metric function
-    :param function mean: a mean function that takes a list of values and
+    :param function mean_func: a mean function that takes a list of values and
         returns a float
     :param bool symmetric: set to True if all pairwise similarities should be
         calculated in both directions
@@ -52,6 +52,9 @@ def mean_pairwise_similarity(collection, metric=sim,
     >>> mean_pairwise_similarity(['Niall', 'Neal', 'Neil'])
     0.54545454545454541
     """
+    if not callable(mean_func):
+        raise ValueError('mean_func must be a function')
+
     if hasattr(collection, 'split'):
         collection = collection.split()
     if not hasattr(collection, '__iter__'):
@@ -69,9 +72,55 @@ def mean_pairwise_similarity(collection, metric=sim,
             if symmetric:
                 pairwise_values.append(metric(collection[j], collection[i]))
 
-    if not callable(meanfunc):
-        raise ValueError('meanfunc must be a function')
-    return meanfunc(pairwise_values)
+    return mean_func(pairwise_values)
+
+
+def pairwise_similarity_statistics(src_collection, tar_collection, metric=sim,
+                                   mean_func=amean, symmetric=False):
+    """Calculate the mean pairwise similarity of a collection of strings.
+
+    Takes the mean of the pairwise similarity between each member of a
+    collection, optionally in both directions (for asymmetric similarity
+    metrics.
+
+    :param list src_collection: a collection of terms or a string that can be
+        split
+    :param list tar_collection: a collection of terms or a string that can be
+        split
+    :param function metric: a similarity metric function
+    :param function mean_func: a mean function that takes a list of values and
+        returns a float
+    :param bool symmetric: set to True if all pairwise similarities should be
+        calculated in both directions
+    :returns: the max, min, mean, and standard deviation of similarities
+    :rtype: str
+    """
+    if not callable(mean_func):
+        raise ValueError('mean_func must be a function')
+
+    if hasattr(src_collection, 'split'):
+        src_collection = src_collection.split()
+    if not hasattr(src_collection, '__iter__'):
+        raise ValueError('src_collection is neither a string nor iterable')
+
+    if hasattr(tar_collection, 'split'):
+        tar_collection = tar_collection.split()
+    if not hasattr(tar_collection, '__iter__'):
+        raise ValueError('tar_collection is neither a string nor iterable')
+
+    src_collection = list(src_collection)
+    tar_collection = list(tar_collection)
+
+    pairwise_values = []
+
+    for src in src_collection:
+        for tar in tar_collection:
+            pairwise_values.append(metric(src, tar))
+            if symmetric:
+                pairwise_values.append(metric(tar, src))
+
+    return (max(pairwise_values), min(pairwise_values),
+            mean_func(pairwise_values), std(pairwise_values, mean_func, 0))
 
 
 if __name__ == '__main__':

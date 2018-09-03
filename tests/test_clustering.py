@@ -49,19 +49,22 @@ class MPSTestCases(unittest.TestCase):
         self.assertEqual(mean_pairwise_similarity(NIALL), 0.29362587170180671)
         self.assertEqual(mean_pairwise_similarity(NIALL, symmetric=True),
                          0.2936258717018066)
-        self.assertEqual(mean_pairwise_similarity(NIALL, meanfunc=stats.hmean),
+        self.assertEqual(mean_pairwise_similarity(NIALL,
+                                                  mean_func=stats.hmean),
                          0.29362587170180671)
-        self.assertEqual(mean_pairwise_similarity(NIALL, meanfunc=stats.hmean,
+        self.assertEqual(mean_pairwise_similarity(NIALL, mean_func=stats.hmean,
                                                   symmetric=True),
                          0.2936258717018066)
-        self.assertEqual(mean_pairwise_similarity(NIALL, meanfunc=stats.gmean),
+        self.assertEqual(mean_pairwise_similarity(NIALL,
+                                                  mean_func=stats.gmean),
                          0.33747245800668441)
-        self.assertEqual(mean_pairwise_similarity(NIALL, meanfunc=stats.gmean,
+        self.assertEqual(mean_pairwise_similarity(NIALL, mean_func=stats.gmean,
                                                   symmetric=True),
                          0.33747245800668441)
-        self.assertEqual(mean_pairwise_similarity(NIALL, meanfunc=stats.amean),
+        self.assertEqual(mean_pairwise_similarity(NIALL,
+                                                  mean_func=stats.amean),
                          0.38009278711484601)
-        self.assertEqual(mean_pairwise_similarity(NIALL, meanfunc=stats.amean,
+        self.assertEqual(mean_pairwise_similarity(NIALL, mean_func=stats.amean,
                                                   symmetric=True),
                          0.38009278711484623)
 
@@ -71,19 +74,19 @@ class MPSTestCases(unittest.TestCase):
                          mean_pairwise_similarity(' '.join(NIALL_1WORD),
                                                   symmetric=True))
         self.assertEqual(mean_pairwise_similarity(NIALL_1WORD,
-                                                  meanfunc=stats.gmean),
+                                                  mean_func=stats.gmean),
                          mean_pairwise_similarity(' '.join(NIALL_1WORD),
-                                                  meanfunc=stats.gmean))
+                                                  mean_func=stats.gmean))
         self.assertEqual(mean_pairwise_similarity(NIALL_1WORD,
-                                                  meanfunc=stats.amean),
+                                                  mean_func=stats.amean),
                          mean_pairwise_similarity(' '.join(NIALL_1WORD),
-                                                  meanfunc=stats.amean))
+                                                  mean_func=stats.amean))
 
         self.assertRaises(ValueError, mean_pairwise_similarity, ['a b c'])
         self.assertRaises(ValueError, mean_pairwise_similarity, 'abc')
         self.assertRaises(ValueError, mean_pairwise_similarity, 0)
         self.assertRaises(ValueError, mean_pairwise_similarity, NIALL,
-                          meanfunc='imaginary')
+                          mean_func='imaginary')
 
         self.assertEqual(mean_pairwise_similarity(NIALL),
                          mean_pairwise_similarity(tuple(NIALL)))
