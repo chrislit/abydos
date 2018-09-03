@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2015 by Christopher C. Little.
+# Copyright 2014-2018 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -19,11 +19,6 @@
 """abydos.
 
 Abydos NLP/IR library by Christopher C. Little
-
-This library contains code I'm using for research, in particular dissertation
-research & experimentation.
-
-Further documentation to come...
 """
-__all__ = ['clustering', 'compression', 'corpus', 'distance', 'ngram',
-           'phones', 'phonetic', 'qgram', 'stats', 'stemmer']
+__all__ = ['clustering', 'compression', 'corpus', 'distance', 'fingerprint',
+           'ngram', 'phones', 'phonetic', 'qgram', 'stats', 'stemmer']
