@@ -3859,10 +3859,57 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73, tests=2**11-1)
     src_fn, src_ln, src_tc = synoname_toolcode(src_fn, src_ln, src_qual)
     tar_fn, tar_ln, tar_tc = synoname_toolcode(tar_fn, tar_ln, tar_qual)
 
-    if tests & test_dict['exact'] and src[0]==tar[0] and src[1]==tar[1]:
-        pass
+    src_qualcode = int(src_tc[0])
+    src_punctcode = int(src_tc[1])
+    src_generation = int(src_tc[2])
+    src_romancode = int(src_tc[3:6])
+    src_len_first = int(src_tc[6:8])
+    src_len_last = int(src_tc[8:10])
+    src_tc = src_tc.split('#')
+    src_specials = src_tc[1]
+    src_search_range = src_tc[2]
+    src_len_specials = len(src_specials)
+
+    tar_qualcode = int(tar_tc[0])
+    tar_punctcode = int(tar_tc[1])
+    tar_generation = int(tar_tc[2])
+    tar_romancode = int(tar_tc[3:6])
+    tar_len_first = int(tar_tc[6:8])
+    tar_len_last = int(tar_tc[8:10])
+    tar_tc = tar_tc.split('#')
+    tar_specials = tar_tc[1]
+    tar_search_range = tar_tc[2]
+    tar_len_specials = len(tar_specials)
+
+    qual_conflict = src_qual != tar_qual
+    gen_conflict = src_gen != tar_gen and (src_gen or tar_gen)
+    roman_conflict = src_roman != tar_roman and (src_roman or tar_roman)
+
+    # approx_c
+    def approx_c():
+        if gen_conflict or roman_conflict:
+            return False, 0.0
+        full_name = ' '.join((tar_ln, tar_fn))
+        if full_name.startswith('master '):
+            full_name = full_name[len('master '):]
+            for intro in ['of the ', 'of ', 'known as the ', 'with the ',
+                          'with ']:
+                if full_name.startswith(intro):
+                    full_name = full_name[len(intro):]
+
+        ca_ratio = simil(cap_full_name, full_name)
+        return ca_ratio >= char_approx_min, ca_ratio
+
+    def simil(src, tar):
+        return 100*sim_ratcliff_obershelp(src, tar)
 
 
+    approx_c_result, ca_ratio = approx_c()
+
+
+    if ca_ratio >= char_approx_min and ca_ratio >= 70:
+        if tests & test_dict['exact'] and src[0]==tar[0] and src[1]==tar[1]:
+            return 1
 
 
 def sim_tfidf(src, tar, qval=2, docs_src=None, docs_tar=None):
