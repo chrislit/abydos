@@ -69,15 +69,15 @@ import math
 import sys
 import types
 import unicodedata
-from collections import Counter, defaultdict, Iterable
+from collections import Counter, Iterable, defaultdict
 
 import numpy as np
 
 from six import text_type
 from six.moves import range
 
-from .fingerprint import synoname_toolcode
 from .compression import ac_encode, ac_train, rle_encode
+from .fingerprint import synoname_toolcode
 from .phonetic import eudex, mra
 from .qgram import QGrams
 
@@ -3478,19 +3478,20 @@ def sim_typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5)):
     return 1 - dist_typo(src, tar, metric, cost)
 
 
-def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73, tests=2**11-1):
-    """
+def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
+             tests=2**11-1):
+    """Return the Synoname similarity type of two words.
 
     :param src:
     :param tar:
     :return:
     """
     punct = {'=', "'", '-', '|', '.', ' '}
-    test_dict = {val:n**2 for n, val in enumerate([
+    test_dict = {val: n**2 for n, val in enumerate([
         'exact', 'omission', 'substitution', 'transposition', 'punctuation',
         'initials', 'extended', 'inclusion', 'no_first', 'word_approx',
         'confusions', 'char_approx'])}
-    match_type_dict = {val:n for n, val in enumerate([
+    match_type_dict = {val: n for n, val in enumerate([
         'exact', 'omission', 'substitution', 'transposition', 'punctuation',
         'initials', 'extended', 'inclusion', 'no_first', 'word_approx',
         'confusions', 'char_approx'], 1)}
@@ -3510,7 +3511,6 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73, tests=2**11-1)
         tar_ln, tar_fn, tar_qual = tar
     else:
         tar_ln, tar_fn, tar_qual = tar.split('#')[1:4]
-
 
     # 1. Preprocessing
 
@@ -3550,8 +3550,10 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73, tests=2**11-1)
     tar_len_specials = len(tar_specials)
 
     qual_conflict = src_qual != tar_qual
-    gen_conflict = src_gen != tar_gen and (src_gen or tar_gen)
-    roman_conflict = src_roman != tar_roman and (src_roman or tar_roman)
+    gen_conflict = (src_generation != tar_generation and
+                    (src_generation or tar_generation))
+    roman_conflict = (src_romancode != tar_romancode and
+                      (src_romancode or tar_romancode))
 
     # approx_c
     def approx_c():
@@ -3565,18 +3567,16 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73, tests=2**11-1)
                 if full_name.startswith(intro):
                     full_name = full_name[len(intro):]
 
-        ca_ratio = simil(cap_full_name, full_name)
+        # ca_ratio = simil(cap_full_name, full_name)
         return ca_ratio >= char_approx_min, ca_ratio
 
     def simil(src, tar):
         return 100*sim_ratcliff_obershelp(src, tar)
 
-
     approx_c_result, ca_ratio = approx_c()
 
-
     if ca_ratio >= char_approx_min and ca_ratio >= 70:
-        if tests & test_dict['exact'] and src[0]==tar[0] and src[1]==tar[1]:
+        if tests & test_dict['exact'] and src == tar:
             return 1
 
 
