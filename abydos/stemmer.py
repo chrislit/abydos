@@ -2241,3 +2241,8 @@ def paice_husk(word):
             break
 
     return word
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()

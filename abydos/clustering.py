@@ -72,3 +72,8 @@ def mean_pairwise_similarity(collection, metric=sim,
     if not callable(meanfunc):
         raise ValueError('meanfunc must be a function')
     return meanfunc(pairwise_values)
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()

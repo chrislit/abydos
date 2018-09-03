@@ -322,3 +322,8 @@ def rle_decode(text, use_bwt=True):
     if use_bwt:
         text = bwt_decode(text)
     return text
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()

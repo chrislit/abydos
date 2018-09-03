@@ -728,3 +728,8 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
                     toolcode[9] += full_name[loc + len(string)]
 
     return lname, fname, ''.join(toolcode)
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()

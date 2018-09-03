@@ -6808,3 +6808,8 @@ BMDATA['ash']['rules'][16384] = _ASH_RULES_POLISH
 BMDATA['ash']['rules'][65536] = _ASH_RULES_ROMANIAN
 BMDATA['ash']['rules'][131072] = _ASH_RULES_RUSSIAN
 BMDATA['ash']['rules'][262144] = _ASH_RULES_SPANISH
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()
