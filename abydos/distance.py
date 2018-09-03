@@ -76,7 +76,7 @@ import numpy as np
 from six import text_type
 from six.moves import range
 
-from .clustering import synoname_toolcode
+from .fingerprint import synoname_toolcode
 from .compression import ac_encode, ac_train, rle_encode
 from .phonetic import eudex, mra
 from .qgram import QGrams
