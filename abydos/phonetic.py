@@ -286,12 +286,13 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     return sdx[:maxlength]
 
 
-def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False):
+def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False,
+                    retain_vowels=False):
     """Return the Refined Soundex code for a word.
 
-    This is Soundex, but with more character classes. It appears to have been
-    defined by the Apache Commons:
-    https://commons.apache.org/proper/commons-codec/apidocs/src-html/org/apache/commons/codec/language/RefinedSoundex.html
+    This is Soundex, but with more character classes. It was defined by
+    Carolyn B. Boyce:
+    https://web.archive.org/web/20010513121003/http://www.bluepoof.com:80/Soundex/info2.html
 
     :param word: the word to transform
     :param maxlength: the length of the code returned (defaults to unlimited)
@@ -330,10 +331,14 @@ def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False):
     # apply the Soundex algorithm
     sdx = word[0] + word.translate(_ref_soundex_translation)
     sdx = _delete_consecutive_repeats(sdx)
+    if not retain_vowels:
+        sdx = sdx.replace('0', '')  # Delete vowels, H, W, Y
 
-    if maxlength and maxlength < _INFINITY:
-        sdx = sdx[:maxlength]
-        sdx += ('0' * maxlength)  # rule 4
+    if maxlength < _INFINITY:
+        if zero_pad:
+            sdx += ('0' * maxlength)
+        if maxlength:
+            sdx = sdx[:maxlength]
 
     return sdx
 
