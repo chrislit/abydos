@@ -300,6 +300,7 @@ def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False,
         (defaults to False); This results in "Reverse Soundex"
     :param zero_pad: pad the end of the return value with 0s to achieve a
         maxlength string
+    :param retain_vowels: retain vowels (as 0) in the resulting code
     :returns: the Refined Soundex value
     :rtype: str
 
