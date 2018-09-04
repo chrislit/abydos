@@ -187,7 +187,6 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
           retrospective re-analysis, in which h & w are not treated as blocking
           consonants but as vowels.
           Cf. http://creativyst.com/Doc/Articles/SoundEx1/SoundEx1.htm
-        - 'dm' computes the Daitch-Mokotoff Soundex
         - 'Census' follows the rules laid out in GIL 55 by the US Census,
           including coding prefixed and unprefixed versions of some names
 
@@ -224,25 +223,10 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     'A226'
     >>> soundex('Asicroft', var='special')
     'A226'
-
-    >>> soundex('Christopher', var='dm')
-    {'494379', '594379'}
-    >>> soundex('Niall', var='dm')
-    {'680000'}
-    >>> soundex('Smith', var='dm')
-    {'463000'}
-    >>> soundex('Schmidt', var='dm')
-    {'463000'}
     """
     _soundex_translation = dict(zip((ord(_) for _ in
                                      'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
                                     '01230129022455012623019202'))
-
-    # Call the D-M Soundex function itself if requested
-    if var == 'dm':
-        return dm_soundex(word, maxlength, reverse, zero_pad)
-    elif var == 'refined':
-        return refined_soundex(word, maxlength, reverse, zero_pad)
 
     # Require a maxlength of at least 4 and not more than 64
     if maxlength is not None:
