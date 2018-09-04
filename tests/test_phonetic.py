@@ -224,95 +224,229 @@ class SoundexTestCases(unittest.TestCase):
     def test_refined_soundex(self):
         """Test abydos.phonetic.refined_soundex."""
         # http://ntz-develop.blogspot.com/2011/03/phonetic-algorithms.html
-        self.assertEqual(refined_soundex('Braz'), 'B1905')
-        self.assertEqual(refined_soundex('Broz'), 'B1905')
-        self.assertEqual(refined_soundex('Caren'), 'C30908')
-        self.assertEqual(refined_soundex('Caron'), 'C30908')
-        self.assertEqual(refined_soundex('Carren'), 'C30908')
-        self.assertEqual(refined_soundex('Charon'), 'C30908')
-        self.assertEqual(refined_soundex('Corain'), 'C30908')
-        self.assertEqual(refined_soundex('Coram'), 'C30908')
-        self.assertEqual(refined_soundex('Corran'), 'C30908')
-        self.assertEqual(refined_soundex('Corrin'), 'C30908')
-        self.assertEqual(refined_soundex('Corwin'), 'C30908')
-        self.assertEqual(refined_soundex('Curran'), 'C30908')
-        self.assertEqual(refined_soundex('Curreen'), 'C30908')
-        self.assertEqual(refined_soundex('Currin'), 'C30908')
-        self.assertEqual(refined_soundex('Currom'), 'C30908')
-        self.assertEqual(refined_soundex('Currum'), 'C30908')
-        self.assertEqual(refined_soundex('Curwen'), 'C30908')
-        self.assertEqual(refined_soundex('Caren'), 'C30908')
-        self.assertEqual(refined_soundex('Caren'), 'C30908')
-        self.assertEqual(refined_soundex('Caren'), 'C30908')
-        self.assertEqual(refined_soundex('Caren'), 'C30908')
-        self.assertEqual(refined_soundex('Caren'), 'C30908')
-        self.assertEqual(refined_soundex('Caren'), 'C30908')
-        self.assertEqual(refined_soundex('Caren'), 'C30908')
-        self.assertEqual(refined_soundex('Hairs'), 'H093')
-        self.assertEqual(refined_soundex('Hark'), 'H093')
-        self.assertEqual(refined_soundex('Hars'), 'H093')
-        self.assertEqual(refined_soundex('Hayers'), 'H093')
-        self.assertEqual(refined_soundex('Heers'), 'H093')
-        self.assertEqual(refined_soundex('Hiers'), 'H093')
-        self.assertEqual(refined_soundex('Lambard'), 'L7081096')
-        self.assertEqual(refined_soundex('Lambart'), 'L7081096')
-        self.assertEqual(refined_soundex('Lambert'), 'L7081096')
-        self.assertEqual(refined_soundex('Lambird'), 'L7081096')
-        self.assertEqual(refined_soundex('Lampaert'), 'L7081096')
-        self.assertEqual(refined_soundex('Lampard'), 'L7081096')
-        self.assertEqual(refined_soundex('Lampart'), 'L7081096')
-        self.assertEqual(refined_soundex('Lamperd'), 'L7081096')
-        self.assertEqual(refined_soundex('Lampert'), 'L7081096')
-        self.assertEqual(refined_soundex('Lamport'), 'L7081096')
-        self.assertEqual(refined_soundex('Limbert'), 'L7081096')
-        self.assertEqual(refined_soundex('Lombard'), 'L7081096')
-        self.assertEqual(refined_soundex('Nolton'), 'N807608')
-        self.assertEqual(refined_soundex('Noulton'), 'N807608')
+        self.assertEqual(refined_soundex('Braz'), 'B195')
+        self.assertEqual(refined_soundex('Broz'), 'B195')
+        self.assertEqual(refined_soundex('Caren'), 'C398')
+        self.assertEqual(refined_soundex('Caron'), 'C398')
+        self.assertEqual(refined_soundex('Carren'), 'C398')
+        self.assertEqual(refined_soundex('Charon'), 'C398')
+        self.assertEqual(refined_soundex('Corain'), 'C398')
+        self.assertEqual(refined_soundex('Coram'), 'C398')
+        self.assertEqual(refined_soundex('Corran'), 'C398')
+        self.assertEqual(refined_soundex('Corrin'), 'C398')
+        self.assertEqual(refined_soundex('Corwin'), 'C398')
+        self.assertEqual(refined_soundex('Curran'), 'C398')
+        self.assertEqual(refined_soundex('Curreen'), 'C398')
+        self.assertEqual(refined_soundex('Currin'), 'C398')
+        self.assertEqual(refined_soundex('Currom'), 'C398')
+        self.assertEqual(refined_soundex('Currum'), 'C398')
+        self.assertEqual(refined_soundex('Curwen'), 'C398')
+        self.assertEqual(refined_soundex('Caren'), 'C398')
+        self.assertEqual(refined_soundex('Caren'), 'C398')
+        self.assertEqual(refined_soundex('Caren'), 'C398')
+        self.assertEqual(refined_soundex('Caren'), 'C398')
+        self.assertEqual(refined_soundex('Caren'), 'C398')
+        self.assertEqual(refined_soundex('Caren'), 'C398')
+        self.assertEqual(refined_soundex('Caren'), 'C398')
+        self.assertEqual(refined_soundex('Hairs'), 'H93')
+        self.assertEqual(refined_soundex('Hark'), 'H93')
+        self.assertEqual(refined_soundex('Hars'), 'H93')
+        self.assertEqual(refined_soundex('Hayers'), 'H93')
+        self.assertEqual(refined_soundex('Heers'), 'H93')
+        self.assertEqual(refined_soundex('Hiers'), 'H93')
+        self.assertEqual(refined_soundex('Lambard'), 'L78196')
+        self.assertEqual(refined_soundex('Lambart'), 'L78196')
+        self.assertEqual(refined_soundex('Lambert'), 'L78196')
+        self.assertEqual(refined_soundex('Lambird'), 'L78196')
+        self.assertEqual(refined_soundex('Lampaert'), 'L78196')
+        self.assertEqual(refined_soundex('Lampard'), 'L78196')
+        self.assertEqual(refined_soundex('Lampart'), 'L78196')
+        self.assertEqual(refined_soundex('Lamperd'), 'L78196')
+        self.assertEqual(refined_soundex('Lampert'), 'L78196')
+        self.assertEqual(refined_soundex('Lamport'), 'L78196')
+        self.assertEqual(refined_soundex('Limbert'), 'L78196')
+        self.assertEqual(refined_soundex('Lombard'), 'L78196')
+        self.assertEqual(refined_soundex('Nolton'), 'N8768')
+        self.assertEqual(refined_soundex('Noulton'), 'N8768')
 
         # http://trimc-nlp.blogspot.com/2015/03/the-soundex-algorithm.html
-        self.assertEqual(refined_soundex('Craig'), 'C3904')
-        self.assertEqual(refined_soundex('Crag'), 'C3904')
-        self.assertEqual(refined_soundex('Crejg'), 'C3904')
-        self.assertEqual(refined_soundex('Creig'), 'C3904')
-        self.assertEqual(refined_soundex('Craigg'), 'C3904')
-        self.assertEqual(refined_soundex('Craug'), 'C3904')
-        self.assertEqual(refined_soundex('Craiggg'), 'C3904')
-        self.assertEqual(refined_soundex('Creg'), 'C3904')
-        self.assertEqual(refined_soundex('Cregg'), 'C3904')
-        self.assertEqual(refined_soundex('Creag'), 'C3904')
-        self.assertEqual(refined_soundex('Greg'), 'G4904')
-        self.assertEqual(refined_soundex('Gregg'), 'G4904')
-        self.assertEqual(refined_soundex('Graig'), 'G4904')
-        self.assertEqual(refined_soundex('Greig'), 'G4904')
-        self.assertEqual(refined_soundex('Greggg'), 'G4904')
-        self.assertEqual(refined_soundex('Groeg'), 'G4904')
-        self.assertEqual(refined_soundex('Graj'), 'G4904')
-        self.assertEqual(refined_soundex('Grej'), 'G4904')
-        self.assertEqual(refined_soundex('Grreg'), 'G4904')
-        self.assertEqual(refined_soundex('Greag'), 'G4904')
-        self.assertEqual(refined_soundex('Grig'), 'G4904')
-        self.assertEqual(refined_soundex('Kregg'), 'K3904')
-        self.assertEqual(refined_soundex('Kraig'), 'K3904')
-        self.assertEqual(refined_soundex('Krag'), 'K3904')
-        self.assertEqual(refined_soundex('Kreig'), 'K3904')
-        self.assertEqual(refined_soundex('Krug'), 'K3904')
-        self.assertEqual(refined_soundex('Kreg'), 'K3904')
-        self.assertEqual(refined_soundex('Krieg'), 'K3904')
-        self.assertEqual(refined_soundex('Krijg'), 'K3904')
+        self.assertEqual(refined_soundex('Craig'), 'C394')
+        self.assertEqual(refined_soundex('Crag'), 'C394')
+        self.assertEqual(refined_soundex('Crejg'), 'C394')
+        self.assertEqual(refined_soundex('Creig'), 'C394')
+        self.assertEqual(refined_soundex('Craigg'), 'C394')
+        self.assertEqual(refined_soundex('Craug'), 'C394')
+        self.assertEqual(refined_soundex('Craiggg'), 'C394')
+        self.assertEqual(refined_soundex('Creg'), 'C394')
+        self.assertEqual(refined_soundex('Cregg'), 'C394')
+        self.assertEqual(refined_soundex('Creag'), 'C394')
+        self.assertEqual(refined_soundex('Greg'), 'G494')
+        self.assertEqual(refined_soundex('Gregg'), 'G494')
+        self.assertEqual(refined_soundex('Graig'), 'G494')
+        self.assertEqual(refined_soundex('Greig'), 'G494')
+        self.assertEqual(refined_soundex('Greggg'), 'G494')
+        self.assertEqual(refined_soundex('Groeg'), 'G494')
+        self.assertEqual(refined_soundex('Graj'), 'G494')
+        self.assertEqual(refined_soundex('Grej'), 'G494')
+        self.assertEqual(refined_soundex('Grreg'), 'G494')
+        self.assertEqual(refined_soundex('Greag'), 'G494')
+        self.assertEqual(refined_soundex('Grig'), 'G494')
+        self.assertEqual(refined_soundex('Kregg'), 'K394')
+        self.assertEqual(refined_soundex('Kraig'), 'K394')
+        self.assertEqual(refined_soundex('Krag'), 'K394')
+        self.assertEqual(refined_soundex('Kreig'), 'K394')
+        self.assertEqual(refined_soundex('Krug'), 'K394')
+        self.assertEqual(refined_soundex('Kreg'), 'K394')
+        self.assertEqual(refined_soundex('Krieg'), 'K394')
+        self.assertEqual(refined_soundex('Krijg'), 'K394')
 
         # Apache Commons test cases
         # http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/RefinedSoundexTest.java?view=markup
-        self.assertEqual(refined_soundex('testing'), 'T6036084')
-        self.assertEqual(refined_soundex('TESTING'), 'T6036084')
-        self.assertEqual(refined_soundex('The'), 'T60')
-        self.assertEqual(refined_soundex('quick'), 'Q503')
-        self.assertEqual(refined_soundex('brown'), 'B1908')
-        self.assertEqual(refined_soundex('fox'), 'F205')
-        self.assertEqual(refined_soundex('jumped'), 'J408106')
-        self.assertEqual(refined_soundex('over'), 'O0209')
-        self.assertEqual(refined_soundex('the'), 'T60')
-        self.assertEqual(refined_soundex('lazy'), 'L7050')
-        self.assertEqual(refined_soundex('dogs'), 'D6043')
+        self.assertEqual(refined_soundex('testing'), 'T63684')
+        self.assertEqual(refined_soundex('TESTING'), 'T63684')
+        self.assertEqual(refined_soundex('The'), 'T6')
+        self.assertEqual(refined_soundex('quick'), 'Q53')
+        self.assertEqual(refined_soundex('brown'), 'B198')
+        self.assertEqual(refined_soundex('fox'), 'F25')
+        self.assertEqual(refined_soundex('jumped'), 'J4816')
+        self.assertEqual(refined_soundex('over'), 'O29')
+        self.assertEqual(refined_soundex('the'), 'T6')
+        self.assertEqual(refined_soundex('lazy'), 'L75')
+        self.assertEqual(refined_soundex('dogs'), 'D643')
+
+        # Test with retain_vowels=True
+        # http://ntz-develop.blogspot.com/2011/03/phonetic-algorithms.html
+        self.assertEqual(refined_soundex('Braz', retain_vowels=True), 'B1905')
+        self.assertEqual(refined_soundex('Broz', retain_vowels=True), 'B1905')
+        self.assertEqual(refined_soundex('Caren', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Caron', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Carren', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Charon', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Corain', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Coram', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Corran', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Corrin', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Corwin', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Curran', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Curreen', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Currin', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Currom', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Currum', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Curwen', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Caren', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Caren', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Caren', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Caren', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Caren', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Caren', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Caren', retain_vowels=True),
+                         'C30908')
+        self.assertEqual(refined_soundex('Hairs', retain_vowels=True), 'H093')
+        self.assertEqual(refined_soundex('Hark', retain_vowels=True), 'H093')
+        self.assertEqual(refined_soundex('Hars', retain_vowels=True), 'H093')
+        self.assertEqual(refined_soundex('Hayers', retain_vowels=True), 'H093')
+        self.assertEqual(refined_soundex('Heers', retain_vowels=True), 'H093')
+        self.assertEqual(refined_soundex('Hiers', retain_vowels=True), 'H093')
+        self.assertEqual(refined_soundex('Lambard', retain_vowels=True),
+                         'L7081096')
+        self.assertEqual(refined_soundex('Lambart', retain_vowels=True),
+                         'L7081096')
+        self.assertEqual(refined_soundex('Lambert', retain_vowels=True),
+                         'L7081096')
+        self.assertEqual(refined_soundex('Lambird', retain_vowels=True),
+                         'L7081096')
+        self.assertEqual(refined_soundex('Lampaert', retain_vowels=True),
+                         'L7081096')
+        self.assertEqual(refined_soundex('Lampard', retain_vowels=True),
+                         'L7081096')
+        self.assertEqual(refined_soundex('Lampart', retain_vowels=True),
+                         'L7081096')
+        self.assertEqual(refined_soundex('Lamperd', retain_vowels=True),
+                         'L7081096')
+        self.assertEqual(refined_soundex('Lampert', retain_vowels=True),
+                         'L7081096')
+        self.assertEqual(refined_soundex('Lamport', retain_vowels=True),
+                         'L7081096')
+        self.assertEqual(refined_soundex('Limbert', retain_vowels=True),
+                         'L7081096')
+        self.assertEqual(refined_soundex('Lombard', retain_vowels=True),
+                         'L7081096')
+        self.assertEqual(refined_soundex('Nolton', retain_vowels=True),
+                         'N807608')
+        self.assertEqual(refined_soundex('Noulton', retain_vowels=True),
+                         'N807608')
+
+        # http://trimc-nlp.blogspot.com/2015/03/the-soundex-algorithm.html
+        self.assertEqual(refined_soundex('Craig', retain_vowels=True), 'C3904')
+        self.assertEqual(refined_soundex('Crag', retain_vowels=True), 'C3904')
+        self.assertEqual(refined_soundex('Crejg', retain_vowels=True), 'C3904')
+        self.assertEqual(refined_soundex('Creig', retain_vowels=True), 'C3904')
+        self.assertEqual(refined_soundex('Craigg', retain_vowels=True),
+                         'C3904')
+        self.assertEqual(refined_soundex('Craug', retain_vowels=True), 'C3904')
+        self.assertEqual(refined_soundex('Craiggg', retain_vowels=True),
+                         'C3904')
+        self.assertEqual(refined_soundex('Creg', retain_vowels=True), 'C3904')
+        self.assertEqual(refined_soundex('Cregg', retain_vowels=True), 'C3904')
+        self.assertEqual(refined_soundex('Creag', retain_vowels=True), 'C3904')
+        self.assertEqual(refined_soundex('Greg', retain_vowels=True), 'G4904')
+        self.assertEqual(refined_soundex('Gregg', retain_vowels=True), 'G4904')
+        self.assertEqual(refined_soundex('Graig', retain_vowels=True), 'G4904')
+        self.assertEqual(refined_soundex('Greig', retain_vowels=True), 'G4904')
+        self.assertEqual(refined_soundex('Greggg', retain_vowels=True),
+                         'G4904')
+        self.assertEqual(refined_soundex('Groeg', retain_vowels=True), 'G4904')
+        self.assertEqual(refined_soundex('Graj', retain_vowels=True), 'G4904')
+        self.assertEqual(refined_soundex('Grej', retain_vowels=True), 'G4904')
+        self.assertEqual(refined_soundex('Grreg', retain_vowels=True), 'G4904')
+        self.assertEqual(refined_soundex('Greag', retain_vowels=True), 'G4904')
+        self.assertEqual(refined_soundex('Grig', retain_vowels=True), 'G4904')
+        self.assertEqual(refined_soundex('Kregg', retain_vowels=True), 'K3904')
+        self.assertEqual(refined_soundex('Kraig', retain_vowels=True), 'K3904')
+        self.assertEqual(refined_soundex('Krag', retain_vowels=True), 'K3904')
+        self.assertEqual(refined_soundex('Kreig', retain_vowels=True), 'K3904')
+        self.assertEqual(refined_soundex('Krug', retain_vowels=True), 'K3904')
+        self.assertEqual(refined_soundex('Kreg', retain_vowels=True), 'K3904')
+        self.assertEqual(refined_soundex('Krieg', retain_vowels=True), 'K3904')
+        self.assertEqual(refined_soundex('Krijg', retain_vowels=True), 'K3904')
+
+        # Apache Commons test cases
+        # http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/RefinedSoundexTest.java?view=markup
+        self.assertEqual(refined_soundex('testing', retain_vowels=True),
+                         'T6036084')
+        self.assertEqual(refined_soundex('TESTING', retain_vowels=True),
+                         'T6036084')
+        self.assertEqual(refined_soundex('The', retain_vowels=True), 'T60')
+        self.assertEqual(refined_soundex('quick', retain_vowels=True), 'Q503')
+        self.assertEqual(refined_soundex('brown', retain_vowels=True), 'B1908')
+        self.assertEqual(refined_soundex('fox', retain_vowels=True), 'F205')
+        self.assertEqual(refined_soundex('jumped', retain_vowels=True),
+                         'J408106')
+        self.assertEqual(refined_soundex('over', retain_vowels=True), 'O0209')
+        self.assertEqual(refined_soundex('the', retain_vowels=True), 'T60')
+        self.assertEqual(refined_soundex('lazy', retain_vowels=True), 'L7050')
+        self.assertEqual(refined_soundex('dogs', retain_vowels=True), 'D6043')
 
     def test_dm_soundex(self):
         """Test abydos.phonetic.dm_soundex (Daitchh-Mokotoff Soundex)."""
