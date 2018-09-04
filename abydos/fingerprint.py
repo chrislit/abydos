@@ -41,13 +41,14 @@ from .phonetic import double_metaphone
 from .qgram import QGrams
 
 
-def fingerprint(phrase):
+def fingerprint(phrase, joiner=' '):
     """Return string fingerprint.
 
     The fingerprint of a string is a string consisting of all of the unique
-    words in a string, alphabetized & concatenated with intervening spaces
+    words in a string, alphabetized & concatenated with intervening joiners
 
     :param str phrase: the string from which to calculate the fingerprint
+    :param str joiner: the string that will be placed between each word
     :returns: the fingerprint of the phrase
     :rtype: str
 
@@ -56,11 +57,11 @@ def fingerprint(phrase):
     """
     phrase = unicodedata.normalize('NFKD', text_type(phrase.strip().lower()))
     phrase = ''.join([c for c in phrase if c.isalnum() or c.isspace()])
-    phrase = ' '.join(sorted(list(set(phrase.split()))))
+    phrase = joiner.join(sorted(list(set(phrase.split()))))
     return phrase
 
 
-def qgram_fingerprint(phrase, qval=2, start_stop=''):
+def qgram_fingerprint(phrase, qval=2, start_stop='', joiner=''):
     """Return Q-Gram fingerprint.
 
     A q-gram fingerprint is a string consisting of all of the unique q-grams
@@ -71,6 +72,7 @@ def qgram_fingerprint(phrase, qval=2, start_stop=''):
     :param int qval: the length of each q-gram (by default 2)
     :param str start_stop: the start & stop symbol(s) to concatenate on either
         end of the phrase, as defined in abydos.util.qgram()
+    :param str joiner: the string that will be placed between each word
     :returns: the q-gram fingerprint of the phrase
     :rtype: str
 
@@ -84,11 +86,12 @@ def qgram_fingerprint(phrase, qval=2, start_stop=''):
     phrase = unicodedata.normalize('NFKD', text_type(phrase.strip().lower()))
     phrase = ''.join(c for c in phrase if c.isalnum())
     phrase = QGrams(phrase, qval, start_stop)
-    phrase = ''.join(sorted(phrase))
+    phrase = joiner.join(sorted(phrase))
     return phrase
 
 
-def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone, *args):
+def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone,
+                         joiner=' ', *args):
     """Return the phonetic fingerprint of a phrase.
 
     A phonetic fingerprint is identical to a standard string fingerprint, as
@@ -102,6 +105,7 @@ def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone, *args):
         string and returns a string (presumably a phonetic representation of
         the original string) By default, this function uses
         abydos.phonetic.double_metaphone()
+    :param str joiner: the string that will be placed between each word
     :param args: additional arguments to pass to the phonetic algorithm,
         along with the phrase itself
     :returns: the phonetic fingerprint of the phrase
@@ -118,8 +122,8 @@ def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone, *args):
         word = phonetic_algorithm(word, *args)
         if not isinstance(word, text_type) and hasattr(word, '__iter__'):
             word = word[0]
-        phonetic += word + ' '
-    phonetic = phonetic[:-1]
+        phonetic += word + joiner
+    phonetic = phonetic[:-len(joiner)]
     return fingerprint(phonetic)
 
 
