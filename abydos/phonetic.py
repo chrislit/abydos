@@ -190,6 +190,8 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
         - 'dm' computes the Daitch-Mokotoff Soundex
         - 'German' applies German rules, as shown at
            http://www.nausa.uni-oldenburg.de/soundex.htm
+        - 'Census' follows the rules laid out in GIL 55 by the US Census,
+          including coding prefixed and unprefixed versions of some names
 
     :param bool reverse: reverse the word before computing the selected Soundex
         (defaults to False); This results in "Reverse Soundex"
@@ -260,6 +262,19 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
+
+    if var == 'Census':
+        # Should these prefixes be supplemented? (VANDE, DELA, VON)
+        if word[:3] in {'VAN', 'CON'} and len(word) > 4:
+            return (soundex(word, maxlength, 'American', reverse, zero_pad),
+                    soundex(word[3:], maxlength, 'American', reverse,
+                            zero_pad))
+        if word[:2] in {'DE', 'DI', 'LA', 'LE'} and len(word) > 3:
+            return (soundex(word, maxlength, 'American', reverse, zero_pad),
+                    soundex(word[2:], maxlength, 'American', reverse,
+                            zero_pad))
+        # Otherwise, proceed as usual (var='American' mode, ostensibly)
+
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
                     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
