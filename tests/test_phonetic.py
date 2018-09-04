@@ -449,7 +449,7 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(refined_soundex('dogs', retain_vowels=True), 'D6043')
 
     def test_dm_soundex(self):
-        """Test abydos.phonetic.dm_soundex (Daitchh-Mokotoff Soundex)."""
+        """Test abydos.phonetic.dm_soundex (Daitch-Mokotoff Soundex)."""
         # D-M tests
         self.assertEqual(dm_soundex(''), {'000000'})
 
