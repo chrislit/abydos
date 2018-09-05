@@ -559,19 +559,22 @@ def sim_hamming(src, tar, difflens=True):
     return 1 - dist_hamming(src, tar, difflens)
 
 
-def _get_qgrams(src, tar, qval):
+def _get_qgrams(src, tar, qval=None, skip=0):
     """Return the Q-Grams in src & tar.
 
     :param str src, tar: two strings to be compared
         (or QGrams/Counter objects)
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
         version
+    :param int skip: the number of characters to skip (only works when
+        src and tar are strings
     :return: Q-Grams
     """
     if isinstance(src, Counter) and isinstance(tar, Counter):
         return src, tar
     if qval and qval > 0:
-        return QGrams(src, qval), QGrams(tar, qval)
+        return (QGrams(src, qval, '$#', skip),
+                QGrams(tar, qval, '$#', skip))
     return Counter(src.strip().split()), Counter(tar.strip().split())
 
 

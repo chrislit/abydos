@@ -42,7 +42,7 @@ class QGrams(Counter):
     term_ss = ''
     ordered_list = []
 
-    def __init__(self, term, qval=2, start_stop='$#'):
+    def __init__(self, term, qval=2, start_stop='$#', skip=0):
         """Initialize QGrams.
 
         :param str word: a string to extract q-grams from
@@ -56,6 +56,7 @@ class QGrams(Counter):
             of the string before q-grams are calculated. (In the case that
             start_stop is only 1 character long, the same symbol will be used
             for both.)
+        :param int skip: the number of characters to skip
 
         >>> qg = QGrams('AATTATAT')
         >>> qg
@@ -76,8 +77,10 @@ class QGrams(Counter):
             term = start_stop[0]*(qval-1) + term + start_stop[-1]*(qval-1)
         self.term_ss = term
 
-        self.ordered_list = [term[i:i+qval] for i in
+        skip += 1
+        self.ordered_list = [term[i:i+(qval*skip):skip] for i in
                              range(len(term)-(qval-1))]
+
         super(QGrams, self).__init__(self.ordered_list)
 
     def count(self):
