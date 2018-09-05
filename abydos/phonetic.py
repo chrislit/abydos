@@ -5163,6 +5163,33 @@ def parmar_kumbharana(word):
     return word
 
 
+def davidson(lname, fname='.', omit_fname=False):
+    """Return Davidson's Consonant Code
+
+    This is based on the name compression system described in:
+    Davidson, Leon. 1962. "Retrieval of Misspelled Names in an Airline
+    Passenger Record System." Communications of the ACM. 5(3). 169--171.
+    https://dl.acm.org/citation.cfm?id=366913
+
+    :param str lname: Last name (or word) to be encoded
+    :param str fname: First name (optional), of which the first character is
+        included in the code.
+    :param str omit_fname: Set to True to completely omit the first character
+        of the first name
+    :return: Davidson's Consonant Code
+    """
+    trans = {65: '', 69: '', 73: '', 79: '', 85: '', 72: '', 87: '', 89: ''}
+
+    lname = lname.upper()
+    code = _delete_consecutive_repeats(lname[:1] + lname[1:].translate(trans))
+    code = code[:4] + (4-len(code))*' '
+
+    if not omit_fname:
+        code += fname[:1].upper()
+
+    return code
+
+
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
     """Return the Beider-Morse Phonetic Matching algorithm code for a word.
