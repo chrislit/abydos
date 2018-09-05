@@ -2682,7 +2682,7 @@ def phonet(word, mode=1, lang='de', trace=False):
     Cf. http://www.heise.de/ct/ftp/99/25/252/
 
     This is a port of Jesper Zedlitz's code, which is licensed LGPL:
-    https://code.google.com/p/phonet4java/source/browse/trunk/src/main/java/com/googlecode/phonet4java/Phonet.java
+    https://github.com/jze/phonet4java/blob/master/src/main/java/de/zedlitz/phonet4java/Phonet.java
 
     That is, in turn, based on Michael's C code, which is also licensed LGPL:
     ftp://ftp.heise.de/pub/ct/listings/phonet.zip
