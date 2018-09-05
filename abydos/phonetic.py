@@ -2242,12 +2242,13 @@ def phonex(word, maxlength=4, zero_pad=True):
 def phonem(word):
     """Return the Phonem code for a word.
 
-    Phonem is defined in Wilde, Georg and Carsten Meyer. 1999. "Doppelgaenger
-    gesucht - Ein Programm fuer kontextsensitive phonetische Textumwandlung."
-    ct Magazin fuer Computer & Technik 25/1999.
+    Phonem is defined in:
+    Wilde, Georg and Carsten Meyer. 1988. "Nicht wörtlich genommen,
+    'Schreibweisentolerante' Suchroutine in dBASE implementiert." c't Magazin
+    für Computer Technik. Oct. 1988. 126--131.
 
     This version is based on the Perl implementation documented at:
-    http://phonetik.phil-fak.uni-koeln.de/fileadmin/home/ritters/Allgemeine_Dateien/Martin_Wilz.pdf
+    http://ifl.phil-fak.uni-koeln.de/sites/linguistik/Phonetik/import/Phonetik_Files/Allgemeine_Dateien/Martin_Wilz.pdf
     It includes some enhancements presented in the Java port at:
     https://github.com/dcm4che/dcm4che/blob/master/dcm4che-soundex/src/main/java/org/dcm4che3/soundex/Phonem.java
 
