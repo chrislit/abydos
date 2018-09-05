@@ -1631,7 +1631,7 @@ def caumanns(word):
     """Return Caumanns German stem.
 
     Jörg Caumanns' stemmer is described in his article at:
-    http://edocs.fu-berlin.de/docs/servlets/MCRFileNodeServlet/FUDOCS_derivate_000000000350/tr-b-99-16.pdf
+    https://refubium.fu-berlin.de/bitstream/handle/fub188/18405/tr-b-99-16.pdf
 
     This implementation is based on the GermanStemFilter described at:
     http://www.evelix.ch/unternehmen/Blog/evelix/2013/11/11/inner-workings-of-the-german-analyzer-in-lucene
