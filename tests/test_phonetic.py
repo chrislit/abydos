@@ -36,12 +36,13 @@ from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
     L_FRENCH, L_GERMAN, L_GREEK, L_GREEKLATIN, L_HEBREW, L_HUNGARIAN, \
     L_ITALIAN, L_LATVIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, L_SPANISH, \
     L_TURKISH
-from abydos.phonetic import alpha_sis, bmpm, caverphone, dm_soundex, \
-    double_metaphone, eudex, fonem, fuzzy_soundex, koelner_phonetik, \
-    koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, lein, metaphone, \
-    mra, nysiis, onca, parmar_kumbharana, phonem, phonet, phonex, phonix, \
-    refined_soundex, roger_root,  russell_index, russell_index_alpha, \
-    russell_index_num_to_alpha, sfinxbis, soundex, spfc, statistics_canada
+from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
+    dm_soundex, double_metaphone, eudex, fonem, fuzzy_soundex, \
+    koelner_phonetik, koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, \
+    lein, metaphone, mra, nysiis, onca, parmar_kumbharana, phonem, phonet, \
+    phonex, phonix, refined_soundex, roger_root,  russell_index, \
+    russell_index_alpha, russell_index_num_to_alpha, sfinxbis, soundex, spfc, \
+    statistics_canada
 
 from six import text_type
 
@@ -4857,6 +4858,43 @@ class ParmarKumbharanaTestCases(unittest.TestCase):
         )
         for word, encoding in test_cases:
             self.assertEqual(parmar_kumbharana(word), encoding)
+
+
+class RobinsonTestCases(unittest.TestCase):
+    """Test Robinson functions.
+
+    test cases for abydos.phonetic.robinson
+    """
+
+    def test_robinson(self):
+        """Test abydos.phonetic.robinson."""
+        # Base cases
+        self.assertEqual(davidson('', omit_fname=True), '    ')
+        self.assertEqual(davidson(''), '    .')
+
+        # Test cases from Gadd (1988) "'Fisching fore werds': phonetic
+        # retrieval of written text in information systems." Program,
+        # 22(3). 222--237.
+        # doi:10.1108/eb046999
+        test_cases = (
+            ('WAIT', 'WT  '),
+            ('WEIGHT', 'WGT '),
+            ('KNIGHT', 'KNGT'),
+            ('NIGHT', 'NGT '),
+            ('NITE', 'NT  '),
+            ('GNOME', 'GNM '),
+            ('NOAM', 'NM  '),
+            ('SMIDT', 'SMDT'),
+            ('SMIT', 'SMT '),
+            ('SMITH', 'SMT '),
+            ('SCHMIT', 'SCMT'),
+            ('CRAFT', 'CRFT'),
+            ('KRAFT', 'KRFT'),
+            ('REES', 'RS  '),
+            ('REECE', 'RC  '),
+        )
+        for word, encoding in test_cases:
+            self.assertEqual(davidson(word, omit_fname=True), encoding)
 
 
 class BeiderMorseTestCases(unittest.TestCase):
