@@ -53,7 +53,7 @@ Abydos
    :target: #
    :alt: pycodestyle Errors
 
-.. image:: https://img.shields.io/badge/flake8-71-yellow.svg
+.. image:: https://img.shields.io/badge/flake8-72-yellow.svg
    :target: #
    :alt: flake8 Errors
 
@@ -133,6 +133,8 @@ Abydos is a library of phonetic algorithms, string distance metrics, stemmers, a
     - Reth-Schek Phonetik
     - FONEM
     - Parmar-Kumbharana
+    - Davidson's Consonant Code
+    - SoundD
     - Beider-Morse Phonetic Matching
 - String distance metrics
     - Levenshtein distance

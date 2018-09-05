@@ -47,6 +47,8 @@ The phonetic module implements phonetic algorithms including:
     - Reth-Schek Phonetik
     - FONEM
     - Parmar-Kumbharana
+    - Davidson's Consonant Code
+    - SoundD
     - Beider-Morse Phonetic Matching
 """
 
@@ -5188,6 +5190,51 @@ def davidson(lname, fname='.', omit_fname=False):
         code += fname[:1].upper()
 
     return code
+
+
+def sound_d(word, maxlength=4):
+    """Return the SoundD code.
+
+    SoundD is defined in
+    Varol, Cihan and Coskun Bayrak. 2012. "Hybrid Matching Algorithm for
+    Personal Names." Journal of Data and Information Quality, 3(4).
+    doi:10.1145/2348828.2348830
+
+    :param str word: the word to transform
+    :param int maxlength: the length of the code returned (defaults to 4)
+    :return:
+    """
+    _ref_soundd_translation = dict(zip((ord(_) for _ in
+                                        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+                                       '01230120022455012623010202'))
+
+    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = word.replace('ß', 'SS')
+    word = ''.join(c for c in word if c in
+                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                    'Y', 'Z'})
+
+    if word[:2] in {'KN', 'GN', 'PN', 'AC', 'WR'}:
+        word = word[1:]
+    elif word[:1] == 'X':
+        word = 'S'+word[1:]
+    elif word[:2] == 'WH':
+        word = 'W'+word[2:]
+
+    word = word.replace('DGE', '20').replace('DGI', '20').replace('GH', '0')
+
+    word = word.translate(_ref_soundd_translation)
+    word = _delete_consecutive_repeats(word)
+    word = word.replace('0', '')
+
+    if maxlength is not None:
+        if len(word) < maxlength:
+            word += '0' * (maxlength-len(word))
+        else:
+            word = word[:maxlength]
+
+    return word
 
 
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
