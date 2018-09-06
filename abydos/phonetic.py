@@ -5237,6 +5237,210 @@ def sound_d(word, maxlength=4):
     return word
 
 
+def pshp_soundex_last(lname, maxlength=4, german=False):
+    """Calculate the PSHP Soundex/Viewex Coding of a last name
+
+    This coding is based on Hershberg, Theodore, Alan Burstein, and Robert
+    Dockhorn. 1976. "Record Linkage." Historical Methods Newsletter.
+    9(2-3). 137--163. doi:10.1080/00182494.1976.10112639
+
+    Reference was also made to the German version of the same:
+    Hershberg, Theodore, Alan Burstein, and Robert Dockhorn. 1976. "Verkettung
+    von Daten: Record Linkage am Beispiel des Philadelphia Social History
+    Project." Moderne Stadtgeschichte. Stuttgart: Klett-Cotta, 1979.
+    http://nbn-resolving.de/urn:nbn:de:0168-ssoar-327824
+
+    A separate function, pshp_soundex_first() is used for first names and
+    wives' names.
+
+    :param lname: the last name to encode
+    :param german: set to True if the name is German (different rules apply)
+    :return:
+    """
+    lname = unicodedata.normalize('NFKD', text_type(lname.upper()))
+    lname = lname.replace('ß', 'SS')
+    lname = ''.join(c for c in lname if c in
+                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
+                     'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
+                     'W', 'X', 'Y', 'Z'})
+
+    # A. Prefix treatment
+    if lname[:3]=='VON' or lname[:3]=='VAN':
+        lname = lname[3:].strip()
+    if not german:
+        if lname[:3]=='MAC':       # This rule says "MC, MAC become 1"
+            lname = 'M'+lname[3:]  # I believe it meant to say they become M
+        elif lname[:2]=='MC':      # except in German data. It doesn't make
+            lname = 'M'+lname[2:]  # sense for them to become 1 (BPFV -> 1)
+                                   # or to apply outside German. Unfortunately,
+                                   # both articles have this error(?).
+
+    # The non-German-only rule to strip ' is unnecessary due to filtering
+
+    if lname[:1] in {'E', 'I', 'O', 'U'}:
+        lname = 'A' + lname[1:]
+    elif lname[:2] in {'GE', 'GI', 'GY'}:
+        lname = 'J' + lname[1:]
+    elif lname[:2] in {'CE', 'CI', 'CY'}:
+        lname = 'S' + lname[1:]
+    elif lname[:3] == 'CHR':
+        lname = 'K' + lname[1:]
+    elif lname[:1] == 'C' and lname[:2] != 'CH':
+        lname = 'K' + lname[1:]
+
+    if lname[:2] == 'KN':
+        lname = 'N' + lname[1:]
+    elif lname[:2] == 'PH':
+        lname = 'F' + lname[1:]
+    elif lname[:3] in {'WIE', 'WEI'}:
+        lname = 'V' + lname[1:]
+
+    if german and lname[:1] in {'W', 'M', 'Y', 'Z'}:
+        lname = {'W':'V', 'M':'N', 'Y':'J', 'Z':'S'}[lname[0]]+lname[1:]
+
+    code = lname[:1]
+
+    # B. Postfix treatment
+    if lname[-1:] == 'R':
+        lname = lname[:-1] + 'N'
+    elif lname[-2:] in {'SE', 'CE'}:
+        lname = lname[:-2]
+    if lname[-2:] == 'SS':
+        lname = lname[:-2]
+    elif lname[-1:] == 'S':
+        lname = lname[:-1]
+
+    if not german:
+        l5_repl = {'STOWN': 'SAWON', 'MPSON': 'MASON'}
+        l4_repl = {'NSEN': 'ASEN', 'MSON': 'ASON', 'STEN': 'SAEN',
+                   'STON': 'SAON'}
+        if lname[-5:] in l5_repl:
+            lname = lname[:-5] + l5_repl[lname[-5:]]
+        elif lname[-4:] in l4_repl:
+            lname = lname[:-4] + l4_repl[lname[-4:]]
+
+    if lname[-2:] in {'NG', 'ND'}:
+        lname = lname[:-1]
+    if not german and lname[-3:] in {'GAN', 'GEN'}:
+        lname = lname[:-3]+'A'+lname[-2:]
+
+    if german:
+        if lname[-3:] == 'TES':
+            lname = lname[:-3]
+        elif lname[-2:] == 'TS':
+            lname = lname[:-2]
+        if lname[-3:] == 'TZE':
+            lname = lname[:-3]
+        elif lname[-2:] == 'ZE':
+            lname = lname[:-2]
+        if lname[-1:] == 'Z':
+            lname = lname[:-1]
+        elif lname[-2:] == 'TE':
+            lname = lname[:-2]
+
+    lname = lname.replace('CK', 'C')
+    lname = lname.replace('SCH', 'S')
+    lname = lname.replace('DT', 'T')
+    lname = lname.replace('ND', 'N')
+    lname = lname.replace('NG', 'N')
+    lname = lname.replace('LM', 'M')
+    lname = lname.replace('MN', 'M')
+    lname = lname.replace('WIE', 'VIE')
+    lname = lname.replace('WEI', 'VEI')
+
+    # code for X & Y are unspecified, but presumably are 2 & 0
+    _pshp_translation = dict(zip((ord(_) for _ in
+                                  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+                                 '01230120022455012523010202'))
+
+    lname = lname.translate(_pshp_translation)
+    lname = _delete_consecutive_repeats(lname)
+
+    code += lname[1:]
+    code = code.replace('0', '')  # rule 1
+
+    if maxlength is not None:
+        if len(code) < maxlength:
+            code += '0' * (maxlength-len(code))
+        else:
+            code = code[:maxlength]
+
+    return code
+
+
+def pshp_soundex_first(fname, maxlength=4, german=False):
+    """Calculate the PSHP Soundex/Viewex Coding of a first name
+
+    This coding is based on Hershberg, Theodore, Alan Burstein, and Robert
+    Dockhorn. 1976. "Record Linkage." Historical Methods Newsletter.
+    9(2-3). 137--163. doi:10.1080/00182494.1976.10112639
+
+    Reference was also made to the German version of the same:
+    Hershberg, Theodore, Alan Burstein, and Robert Dockhorn. 1976. "Verkettung
+    von Daten: Record Linkage am Beispiel des Philadelphia Social History
+    Project." Moderne Stadtgeschichte. Stuttgart: Klett-Cotta, 1979.
+    http://nbn-resolving.de/urn:nbn:de:0168-ssoar-327824
+
+    A separate function, pshp_soundex_last() is used for last names.
+
+    :param fname: the first name or wife's name to encode
+    :param german: set to True if the name is German (different rules apply)
+    :return:
+    """
+    fname = unicodedata.normalize('NFKD', text_type(fname.upper()))
+    fname = fname.replace('ß', 'SS')
+    fname = ''.join(c for c in fname if c in
+                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
+                     'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
+                     'W', 'X', 'Y', 'Z'})
+
+    # A. Prefix treatment
+    if fname[:2] in {'GE', 'GI', 'GY'}:
+        fname = 'J' + fname[1:]
+    elif fname[:2] in {'CE', 'CI', 'CY'}:
+        fname = 'S' + fname[1:]
+    elif fname[:3] == 'CHR':
+        fname = 'K' + fname[1:]
+    elif fname[:1] == 'C' and fname[:2] != 'CH':
+        fname = 'K' + fname[1:]
+
+    if fname[:2] == 'KN':
+        fname = 'N' + fname[1:]
+    elif fname[:2] == 'PH':
+        fname = 'F' + fname[1:]
+    elif fname[:3] in {'WIE', 'WEI'}:
+        fname = 'V' + fname[1:]
+
+    if german and fname[:1] in {'W', 'M', 'Y', 'Z'}:
+        fname = {'W':'V', 'M':'N', 'Y':'J', 'Z':'S'}[fname[0]]+fname[1:]
+
+    code = fname[:1]
+
+    # code for Y unspecified, but presumably is 0
+    _pshp_translation = dict(zip((ord(_) for _ in
+                                  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+                                  '01230120022455012523010202'))
+
+    fname = fname.translate(_pshp_translation)
+    fname = _delete_consecutive_repeats(fname)
+
+    code += fname[1:]
+    syl_ptr = code.find('0')
+    syl2_ptr = code[syl_ptr].find('0')
+    if syl_ptr != -1 and syl2_ptr != -1 and syl2_ptr-syl_ptr > 1:
+        code = code[:syl_ptr+2]
+
+    code = code.replace('0', '')  # rule 1
+
+    if maxlength is not None:
+        if len(code) < maxlength:
+            code += '0' * (maxlength-len(code))
+        else:
+            code = code[:maxlength]
+
+    return code
+
+
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
     """Return the Beider-Morse Phonetic Matching algorithm code for a word.
