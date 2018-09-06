@@ -70,11 +70,14 @@ class QGrams(Counter):
         >>> qg
         QGrams({'TAT': 2, 'ATT': 1, 'TTA': 1, 'ATA': 1, 'AAT': 1})
         """
+        # Save the term itself
         self.term = term
         if len(term) < qval or qval < 1:
-            return
+            return  # TODO: Raise exception?
         if start_stop and qval > 1:
             term = start_stop[0]*(qval-1) + term + start_stop[-1]*(qval-1)
+
+        # Having appended start & stop symbols (or not), save the result
         self.term_ss = term
 
         skip += 1
