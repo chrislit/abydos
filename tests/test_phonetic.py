@@ -40,9 +40,9 @@ from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
     dm_soundex, double_metaphone, eudex, fonem, fuzzy_soundex, \
     koelner_phonetik, koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, \
     lein, metaphone, mra, nysiis, onca, parmar_kumbharana, phonem, phonet, \
-    phonex, phonix, refined_soundex, roger_root,  russell_index, \
-    russell_index_alpha, russell_index_num_to_alpha, sfinxbis, soundex, spfc, \
-    statistics_canada
+    phonex, phonix, pshp_soundex_first, refined_soundex, roger_root,  \
+    russell_index, russell_index_alpha, russell_index_num_to_alpha, sfinxbis, \
+    soundex, spfc, statistics_canada
 
 from six import text_type
 
@@ -4895,6 +4895,25 @@ class RobinsonTestCases(unittest.TestCase):
         )
         for word, encoding in test_cases:
             self.assertEqual(davidson(word, omit_fname=True), encoding)
+
+
+
+class PSHPSoundexTestCases(unittest.TestCase):
+    """Test PSHP Soundex functions.
+
+    test cases for abydos.phonetic.pshp_soundex_last & pshp_soundex_first
+    """
+
+    def test_pshp_soundex_first(self):
+        """Test abydos.phonetic.pshp_soundex_first."""
+        # Base case
+        self.assertEqual(pshp_soundex_first(''), '0000')
+
+        # Examples given in defining paper (Hershberg, et al. 1976)
+        self.assertEqual(pshp_soundex_first('JAMES'), 'J700')
+        self.assertEqual(pshp_soundex_first('JOHN'), 'J500')
+        self.assertEqual(pshp_soundex_first('PAT'), 'P700')
+        self.assertEqual(pshp_soundex_first('PETER'), 'P300')
 
 
 class BeiderMorseTestCases(unittest.TestCase):
