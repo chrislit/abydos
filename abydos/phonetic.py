@@ -5250,8 +5250,7 @@ def pshp_soundex_last(lname, maxlength=4, german=False):
     Project." Moderne Stadtgeschichte. Stuttgart: Klett-Cotta, 1979.
     http://nbn-resolving.de/urn:nbn:de:0168-ssoar-327824
 
-    A separate function, pshp_soundex_first() is used for first names and
-    wives' names.
+    A separate function, pshp_soundex_first() is used for first names.
 
     :param lname: the last name to encode
     :param german: set to True if the name is German (different rules apply)
@@ -5383,7 +5382,7 @@ def pshp_soundex_first(fname, maxlength=4, german=False):
 
     A separate function, pshp_soundex_last() is used for last names.
 
-    :param fname: the first name or wife's name to encode
+    :param fname: the first name to encode
     :param german: set to True if the name is German (different rules apply)
     :return:
     """
