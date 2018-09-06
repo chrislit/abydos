@@ -4897,7 +4897,6 @@ class RobinsonTestCases(unittest.TestCase):
             self.assertEqual(davidson(word, omit_fname=True), encoding)
 
 
-
 class PSHPSoundexTestCases(unittest.TestCase):
     """Test PSHP Soundex functions.
 

@@ -5166,7 +5166,7 @@ def parmar_kumbharana(word):
 
 
 def davidson(lname, fname='.', omit_fname=False):
-    """Return Davidson's Consonant Code
+    """Return Davidson's Consonant Code.
 
     This is based on the name compression system described in:
     Davidson, Leon. 1962. "Retrieval of Misspelled Names in an Airline
@@ -5238,7 +5238,7 @@ def sound_d(word, maxlength=4):
 
 
 def pshp_soundex_last(lname, maxlength=4, german=False):
-    """Calculate the PSHP Soundex/Viewex Coding of a last name
+    """Calculate the PSHP Soundex/Viewex Coding of a last name.
 
     This coding is based on Hershberg, Theodore, Alan Burstein, and Robert
     Dockhorn. 1976. "Record Linkage." Historical Methods Newsletter.
@@ -5264,15 +5264,19 @@ def pshp_soundex_last(lname, maxlength=4, german=False):
                      'W', 'X', 'Y', 'Z'})
 
     # A. Prefix treatment
-    if lname[:3]=='VON' or lname[:3]=='VAN':
+    if lname[:3] == 'VON' or lname[:3] == 'VAN':
         lname = lname[3:].strip()
+
+    # The rule implemented below says "MC, MAC become 1". I believe it meant to
+    # say they become M except in German data (where superscripted 1 indicates
+    # "except in German data"). It doesn't make sense for them to become 1
+    # (BPFV -> 1) or to apply outside German. Unfortunately, both articles have
+    # this error(?).
     if not german:
-        if lname[:3]=='MAC':       # This rule says "MC, MAC become 1"
-            lname = 'M'+lname[3:]  # I believe it meant to say they become M
-        elif lname[:2]=='MC':      # except in German data. It doesn't make
-            lname = 'M'+lname[2:]  # sense for them to become 1 (BPFV -> 1)
-                                   # or to apply outside German. Unfortunately,
-                                   # both articles have this error(?).
+        if lname[:3] == 'MAC':
+            lname = 'M'+lname[3:]
+        elif lname[:2] == 'MC':
+            lname = 'M'+lname[2:]
 
     # The non-German-only rule to strip ' is unnecessary due to filtering
 
@@ -5295,7 +5299,7 @@ def pshp_soundex_last(lname, maxlength=4, german=False):
         lname = 'V' + lname[1:]
 
     if german and lname[:1] in {'W', 'M', 'Y', 'Z'}:
-        lname = {'W':'V', 'M':'N', 'Y':'J', 'Z':'S'}[lname[0]]+lname[1:]
+        lname = {'W': 'V', 'M': 'N', 'Y': 'J', 'Z': 'S'}[lname[0]]+lname[1:]
 
     code = lname[:1]
 
@@ -5370,7 +5374,7 @@ def pshp_soundex_last(lname, maxlength=4, german=False):
 
 
 def pshp_soundex_first(fname, maxlength=4, german=False):
-    """Calculate the PSHP Soundex/Viewex Coding of a first name
+    """Calculate the PSHP Soundex/Viewex Coding of a first name.
 
     This coding is based on Hershberg, Theodore, Alan Burstein, and Robert
     Dockhorn. 1976. "Record Linkage." Historical Methods Newsletter.
@@ -5420,7 +5424,8 @@ def pshp_soundex_first(fname, maxlength=4, german=False):
             fname = 'V' + fname[1:]
 
         if german and fname[:1] in {'W', 'M', 'Y', 'Z'}:
-            fname = {'W':'V', 'M':'N', 'Y':'J', 'Z':'S'}[fname[0]]+fname[1:]
+            fname = ({'W': 'V', 'M': 'N', 'Y': 'J', 'Z': 'S'}[fname[0]] +
+                     fname[1:])
 
         code = fname[:1]
 
@@ -5428,7 +5433,7 @@ def pshp_soundex_first(fname, maxlength=4, german=False):
         # code for Y unspecified, but presumably is 0
         _pshp_translation = dict(zip((ord(_) for _ in
                                       'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-                                      '01230120022455012523010202'))
+                                     '01230120022455012523010202'))
 
         fname = fname.translate(_pshp_translation)
         fname = _delete_consecutive_repeats(fname)
