@@ -5337,6 +5337,7 @@ def pshp_soundex_last(lname, maxlength=4, german=False):
         elif lname[-2:] == 'TE':
             lname = lname[:-2]
 
+    # C. Infix Treatment
     lname = lname.replace('CK', 'C')
     lname = lname.replace('SCH', 'S')
     lname = lname.replace('DT', 'T')
@@ -5347,6 +5348,7 @@ def pshp_soundex_last(lname, maxlength=4, german=False):
     lname = lname.replace('WIE', 'VIE')
     lname = lname.replace('WEI', 'VEI')
 
+    # D. Soundexing
     # code for X & Y are unspecified, but presumably are 2 & 0
     _pshp_translation = dict(zip((ord(_) for _ in
                                   'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
@@ -5393,43 +5395,51 @@ def pshp_soundex_first(fname, maxlength=4, german=False):
                      'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
                      'W', 'X', 'Y', 'Z'})
 
-    # A. Prefix treatment
-    if fname[:2] in {'GE', 'GI', 'GY'}:
-        fname = 'J' + fname[1:]
-    elif fname[:2] in {'CE', 'CI', 'CY'}:
-        fname = 'S' + fname[1:]
-    elif fname[:3] == 'CHR':
-        fname = 'K' + fname[1:]
-    elif fname[:1] == 'C' and fname[:2] != 'CH':
-        fname = 'K' + fname[1:]
+    # special rules
+    if fname == 'JAMES':
+        code = 'J7'
+    elif fname == 'PAT':
+        code = 'P7'
 
-    if fname[:2] == 'KN':
-        fname = 'N' + fname[1:]
-    elif fname[:2] == 'PH':
-        fname = 'F' + fname[1:]
-    elif fname[:3] in {'WIE', 'WEI'}:
-        fname = 'V' + fname[1:]
+    else:
+        # A. Prefix treatment
+        if fname[:2] in {'GE', 'GI', 'GY'}:
+            fname = 'J' + fname[1:]
+        elif fname[:2] in {'CE', 'CI', 'CY'}:
+            fname = 'S' + fname[1:]
+        elif fname[:3] == 'CHR':
+            fname = 'K' + fname[1:]
+        elif fname[:1] == 'C' and fname[:2] != 'CH':
+            fname = 'K' + fname[1:]
 
-    if german and fname[:1] in {'W', 'M', 'Y', 'Z'}:
-        fname = {'W':'V', 'M':'N', 'Y':'J', 'Z':'S'}[fname[0]]+fname[1:]
+        if fname[:2] == 'KN':
+            fname = 'N' + fname[1:]
+        elif fname[:2] == 'PH':
+            fname = 'F' + fname[1:]
+        elif fname[:3] in {'WIE', 'WEI'}:
+            fname = 'V' + fname[1:]
 
-    code = fname[:1]
+        if german and fname[:1] in {'W', 'M', 'Y', 'Z'}:
+            fname = {'W':'V', 'M':'N', 'Y':'J', 'Z':'S'}[fname[0]]+fname[1:]
 
-    # code for Y unspecified, but presumably is 0
-    _pshp_translation = dict(zip((ord(_) for _ in
-                                  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-                                  '01230120022455012523010202'))
+        code = fname[:1]
 
-    fname = fname.translate(_pshp_translation)
-    fname = _delete_consecutive_repeats(fname)
+        # B. Soundex coding
+        # code for Y unspecified, but presumably is 0
+        _pshp_translation = dict(zip((ord(_) for _ in
+                                      'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+                                      '01230120022455012523010202'))
 
-    code += fname[1:]
-    syl_ptr = code.find('0')
-    syl2_ptr = code[syl_ptr].find('0')
-    if syl_ptr != -1 and syl2_ptr != -1 and syl2_ptr-syl_ptr > 1:
-        code = code[:syl_ptr+2]
+        fname = fname.translate(_pshp_translation)
+        fname = _delete_consecutive_repeats(fname)
+        print(fname)
+        code += fname[1:]
+        syl_ptr = code.find('0')
+        syl2_ptr = code[syl_ptr + 1:].find('0')
+        if syl_ptr != -1 and syl2_ptr != -1 and syl2_ptr - syl_ptr > -1:
+            code = code[:syl_ptr + 2]
 
-    code = code.replace('0', '')  # rule 1
+        code = code.replace('0', '')  # rule 1
 
     if maxlength is not None:
         if len(code) < maxlength:
