@@ -5455,7 +5455,7 @@ def pshp_soundex_first(fname, maxlength=4, german=False):
     return code
 
 
-def henry(word):
+def henry(word, maxlength=3):
     """Calculate the Henry code for a word.
 
     Henry coding is defined in:
@@ -5471,6 +5471,8 @@ def henry(word):
     _vows = {'A', 'E', 'I', 'O', 'U', 'Y'}
     _diph = {'AI': 'E', 'AY': 'E', 'EI': 'E', 'AU': 'O', 'OI': 'O', 'OU': 'O',
              'EU': 'U'}
+    _unaltered = {'B', 'D', 'F', 'J', 'K', 'L', 'M', 'N', 'R', 'T', 'V'}
+    _simple = {'W': 'V', 'X': 'S', 'V': 'S'}
 
     word = unicodedata.normalize('NFKD', text_type(word.upper()))
     word = ''.join(c for c in word if c in
@@ -5487,19 +5489,119 @@ def henry(word):
              (word[1:2] in _cons and word[2:3] not in _cons))):
             if word[0] == 'Y':
                 word = 'I'+word[1:]
+        # Ib2
         elif word[1:2] in {'M', 'N'} and word[2:3] in _cons:
             if word[0] == 'E':
                 word = 'A'+word[1:]
             elif word[0] in {'I', 'U', 'Y'}:
                 word = 'E'+word[1:]
+        # Ib3
         elif word[:2] in _diph:
             word = _diph[word[:2]]+word[2:]
+        # Ib4
         elif word[1:2] in _vows and word[0] == 'Y':
             word = 'I' + word[1:]
 
+    code = ''
 
+    # Rule II
+    for pos, char in enumerate(word):
+        next = char[pos+1:pos+2]
+        prev = char[pos-1:pos]
 
+        if skip:
+            skip -= 1
+        elif char in _vows:
+            code += char
+        # IIc
+        elif char == next:
+            skip = 1
+            code += char
+        elif word[pos:pos+2] in {'CQ', 'DT', 'SC'}:
+            skip = 1
+            code += word[pos+1]
+        # IId
+        elif char == 'H' and prev in _cons:
+            continue
+        elif char == 'S' and next in _cons:
+            continue
+        elif char in _cons-{'L', 'R'} and next in _cons-{'L', 'R'}:
+            continue
+        elif char == 'L' and next in {'M', 'N'}:
+            continue
+        elif char in {'M', 'N'} and prev in _vows and next in _cons:
+            continue
+        # IIa
+        elif char in _unaltered:
+            code += char
+        # IIb
+        elif char in _simple:
+            code += _simple[char]
+        elif char in {'C', 'G', 'P', 'Q', 'S'}:
+            if char == 'C':
+                if next in {'A', 'O', 'U', 'L', 'R'}:
+                    code += 'K'
+                elif next in {'E', 'I', 'Y'}:
+                    code += 'J'
+                elif next == 'H':
+                    if word[pos+2:pos+3] in _vows:
+                        code += 'C'
+                    elif word[pos+2:pos+3] in {'R', 'L'}:
+                        code += 'K'
+            elif char == 'G':
+                if next in {'A', 'O', 'U', 'L', 'R'}:
+                    code += 'G'
+                elif next in {'E', 'I', 'Y'}:
+                    code += 'J'
+                elif next == 'N':
+                    code += 'N'
+            elif char == 'P':
+                if next != 'H':
+                    code += 'P'
+                else:
+                    code += 'F'
+            elif char == 'Q':
+                if word[pos+1:pos+2] in {'UE', 'UI', 'UY'}:
+                    char += 'G'
+                elif word[pos + 1:pos + 2] in {'UA', 'UO'}:
+                    char += 'K'
+            elif char == 'S':
+                if word[pos:pos+6] == 'SAINTE':
+                    code += 'X'
+                    skip = 5
+                elif word[pos:pos+5] == 'SAINT':
+                    code += 'X'
+                    skip = 4
+                elif word[pos:pos+3] == 'STE':
+                    code += 'X'
+                    skip = 2
+                elif word[pos:pos+2] == 'ST':
+                    code += 'X'
+                    skip = 1
+                else:
+                    code += 'S'
+        else:  # this should not be possible
+            continue
 
+    # IIe1
+    if code[-4:] in {'AULT', 'EULT', 'OULT'}:
+        code = code[:-2]
+    elif code[-4:-3] in _vows and code[-3:] == 'MPS':
+        code = code[:-3]
+    elif code[-3:-2] in _vows and code[-2:] in {'MB', 'MP', 'ND', 'NS', 'NT'}:
+        code = code[:-2]
+    elif code[-2:-1] == 'R' and code[-1:] in _cons:
+        code = code[:-1]
+    # IIe2
+    elif code[-2:-1] in _vows and code[-1:] in {'D', 'M', 'N', 'S', 'T'}:
+        code = code[:-1]
+    elif code[-2:] == 'ER':
+        code = code[:-1]
+
+    if maxlength is not None:
+            code = code[:maxlength]
+
+    return code
 
 
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
