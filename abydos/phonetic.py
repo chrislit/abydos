@@ -5455,15 +5455,31 @@ def pshp_soundex_first(fname, maxlength=4, german=False):
     return code
 
 
-def henry(word, maxlength=3):
+def henry(word):
     """Calculate the Henry code for a word.
 
-    Henry coding is defined in:
+    Henry Code is defined in:
     Henry, Louis. 1976. "Projet de transcription phonétique des noms de
     famille." Annales de Démographie Historique, 1976. 201--214.
     https://www.persee.fr/doc/adh_0066-2062_1976_num_1976_1_1313
 
     :param word:
+    :return:
+    """
+    pass
+
+
+def henry_early(word, maxlength=3):
+    """Calculate the early version of the Henry code for a word.
+
+    The early version of Henry coding is given in:
+    Légaré, Jacques, Yolande Lavoie, and Hubert Charbonneau. 1972. "The Early
+    Canadian Population: Problems in Automatic Record Linkage." Canadian
+    Historical Review, 53(4). 427--442.
+    doi:10.3138/CHR-053-04-03
+
+    :param word:
+    :param int maxlength: the length of the code returned (defaults to 3)
     :return:
     """
     _cons = {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q',
@@ -5503,6 +5519,7 @@ def henry(word, maxlength=3):
             word = 'I' + word[1:]
 
     code = ''
+    skip = 0
 
     # Rule II
     for pos, char in enumerate(word):
@@ -5597,6 +5614,10 @@ def henry(word, maxlength=3):
         code = code[:-1]
     elif code[-2:] == 'ER':
         code = code[:-1]
+
+    # Drop non-initial vowels
+    code = code[:1]+code[1:].translate({65: '', 69: '', 73: '', 79: '', 85: '',
+                                        89: ''})
 
     if maxlength is not None:
             code = code[:maxlength]
