@@ -5455,6 +5455,53 @@ def pshp_soundex_first(fname, maxlength=4, german=False):
     return code
 
 
+def henry(word):
+    """Calculate the Henry code for a word.
+
+    Henry coding is defined in:
+    Henry, Louis. 1976. "Projet de transcription phonétique des noms de
+    famille." Annales de Démographie Historique, 1976. 201--214.
+    https://www.persee.fr/doc/adh_0066-2062_1976_num_1976_1_1313
+
+    :param word:
+    :return:
+    """
+    _cons = {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q',
+             'R', 'S', 'T', 'V', 'W', 'X', 'Z'}
+    _vows = {'A', 'E', 'I', 'O', 'U', 'Y'}
+    _diph = {'AI': 'E', 'AY': 'E', 'EI': 'E', 'AU': 'O', 'OI': 'O', 'OU': 'O',
+             'EU': 'U'}
+
+    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = ''.join(c for c in word if c in
+                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                    'Y', 'Z'})
+
+    # Rule Ia seems to be covered entirely in II
+
+    # Rule Ib
+    if word[0] in _vows:
+        # Ib1
+        if (((word[1:2] in _cons-{'M', 'N'} and word[2:3] in _cons) or
+             (word[1:2] in _cons and word[2:3] not in _cons))):
+            if word[0] == 'Y':
+                word = 'I'+word[1:]
+        elif word[1:2] in {'M', 'N'} and word[2:3] in _cons:
+            if word[0] == 'E':
+                word = 'A'+word[1:]
+            elif word[0] in {'I', 'U', 'Y'}:
+                word = 'E'+word[1:]
+        elif word[:2] in _diph:
+            word = _diph[word[:2]]+word[2:]
+        elif word[1:2] in _vows and word[0] == 'Y':
+            word = 'I' + word[1:]
+
+
+
+
+
+
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
     """Return the Beider-Morse Phonetic Matching algorithm code for a word.
