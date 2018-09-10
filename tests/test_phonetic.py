@@ -4915,6 +4915,45 @@ class PSHPSoundexTestCases(unittest.TestCase):
         self.assertEqual(pshp_soundex_first('PETER'), 'P300')
 
 
+class NorphoneTestCases(unittest.TestCase):
+    """Test Norphone functions.
+
+    test cases for abydos.phonetic.norphone
+    """
+
+    def test_norphone(self):
+        """Test abydos.phonetic.norphone."""
+        # Base case
+        self.assertEqual(norphone(''), '')
+
+        # Examples given at
+        # https://github.com/larsga/Duke/blob/master/duke-core/src/test/java/no/priv/garshol/duke/comparators/NorphoneComparatorTest.java
+        self.assertEqual(norphone('Aarestad'), norphone('\u00C5rrestad'))
+        self.assertEqual(norphone('Andreasen'), norphone('Andreassen'))
+        self.assertEqual(norphone('Arntsen'), norphone('Arntzen'))
+        self.assertEqual(norphone('Bache'), norphone('Bakke'))
+        self.assertEqual(norphone('Frank'), norphone('Franck'))
+        self.assertEqual(norphone('Christian'), norphone('Kristian'))
+        self.assertEqual(norphone('Kielland'), norphone('Kjelland'))
+        self.assertEqual(norphone('Krogh'), norphone('Krog'))
+        self.assertEqual(norphone('Krog'), norphone('Krohg'))
+        self.assertEqual(norphone('Jendal'), norphone('Jendahl'))
+        self.assertEqual(norphone('Jendal'), norphone('Hjendal'))
+        self.assertEqual(norphone('Jendal'), norphone('Gjendal'))
+        self.assertEqual(norphone('Vold'), norphone('Wold'))
+        self.assertEqual(norphone('Thomas'), norphone('Tomas'))
+        self.assertEqual(norphone('Aamodt'), norphone('Aamot'))
+        self.assertEqual(norphone('Aksel'), norphone('Axel'))
+        self.assertEqual(norphone('Kristoffersen'), norphone('Christophersen'))
+        self.assertEqual(norphone('Voll'), norphone('Vold'))
+        self.assertEqual(norphone('Granli'), norphone('Granlid'))
+        self.assertEqual(norphone('Gjever'), norphone('Giever'))
+        self.assertEqual(norphone('Sannerhaugen'), norphone('Sanderhaugen'))
+        self.assertEqual(norphone('Jahren'), norphone('Jaren'))
+        self.assertEqual(norphone('Amundsrud'), norphone('Amundsr\u00F8d'))
+        self.assertEqual(norphone('Karlson'), norphone('Carlson'))
+
+
 class BeiderMorseTestCases(unittest.TestCase):
     """Test BMPM functions.
 
