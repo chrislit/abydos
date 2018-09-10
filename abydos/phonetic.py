@@ -5625,6 +5625,105 @@ def henry_early(word, maxlength=3):
     return code
 
 
+def rosenfelder(word):
+    """Calculate Mark Rosenfelder's English pronunciation of a word.
+
+    This is based on the rule set/algorithm presented at
+    http://www.zompist.com/spell.html
+    """
+    # define constants
+    orth_vowels = {'a', 'e', 'i', 'o', 'u'}
+    vowels = {'@', 'u', 'ù', 'o', 'ë', 'ê', 'û', 'i', 'ä', 'â', 'ô', 'ö', 'e',
+              'ï', 'ü', 'î', 'a', 'ò'}
+    long_vowels = {'a': 'ä', 'e': 'ë', 'i': 'ï', 'o': 'ö', 'u': 'ü', 'ä': 'ä',
+                   'ë': 'ë', 'ï': 'ï', 'ö': 'ö', 'ü': 'ü', 'â': 'ä', 'ê': 'ë',
+                   'î': 'ï', 'ô': 'ö', 'û': 'ü', 'ù': 'ù', 'ò': 'ò', '@': '@'}
+    short_vowels = {'a': 'â', 'e': 'ê', 'i': 'î', 'o': 'ô', 'u': 'û', 'ä': 'â',
+                    'ë': 'ê', 'ï': 'î', 'ö': 'ô', 'ü': 'û', 'â': 'â', 'ê': 'ê',
+                    'î': 'î', 'ô': 'ô', 'û': 'û', 'ù': 'ù', 'ò': 'ò', '@': '@'}
+    a_vowels = {'a', 'â', 'ä'}
+    e_vowels = {'e', 'ê', 'ë'}
+    i_vowels = {'i', 'î', 'ï'}
+    o_vowels = {'o', 'ô', 'ö'}
+    non_a_vowels = {'e', 'i', 'o', 'u'}
+    front_vowels = {'e', 'i', 'y', 'ê', 'î'}
+    letters = {'l', 'y', 'w', 'ä', 'â', 'ô', 'e', 'ï', 'a', 'b', 'm', 'ç', 'f',
+               'ù', 'ê', 'ö', 'î', 'ñ', 'c', 'k', 'v', 'u', 'ë', 'û', 'p', 'x',
+               'z', 'j', 't', 's', 'ü', '$', 'ò', '@', 'n', 'o', 'r', 'i', 'q',
+               'd', 'g', 'h', '+'}
+    consonants = {'l', 'y', 'w', 'b', 'm', 'ç', 'f', 'ñ', 'c', 'k', 'v', 'p',
+                  'x', 'z', 'j', 't', 's', '$', 'n', 'r', 'q', 'd', 'g', 'h',
+                  '+'}
+    dental_stops = {'+', 'd', 't'}
+    liquids = {'l', 'r'}
+    nasals = {'m', 'n', 'ñ'}
+    dentals = {'+', 'd', 'n', 's', 't'}
+    p_cons = {'k', 'p', 't'}
+    b_cons = {'b', 'd', 'g'}
+    s_cons = {'$', '+', 'f', 's'}
+    z_cons = {'#', '+', 'v', 'z'}
+
+    # rule 1
+    for src, tar  in [('ch', 'ç'), ('sh', '$'), ('ph', 'f'), ('th', '+'),
+                      ('qu', 'kw'), ('wr', 'r'), ('who', 'ho'), ('wh', 'w'),
+                      ('xh', 'x')]:
+        word = word.replace(src, tar)
+
+    if word[:2] == 'rh':
+        word = 'r'+word[2:]
+
+    # rule 2
+    if word[:2] == 'ex' and word[2:3] in vowels:
+        word = 'egz'+word[2:]
+    word = word.replace('x', 'ks')
+
+    # rule 3
+    word = word.replace("'", '')
+
+    # rules 4-8
+    next = word.find('gh')
+    while next != -1:
+        if word[next+2:next+3] in vowels:
+            word = word[:next]+'g'+word[next+2:]
+        elif word[next-2:next-1] in consonants and word[next-1:next] in vowels:
+            word = word[:next-1]+long_vowels[word[next-1:next]]+word[next+2:]
+        elif word[next-2:next+3] in {'aught', 'ought'}:
+            word = word[:next-2]+'òt'+word[next+3:]
+        elif word[next-2:next+2] == 'ough':
+            word = word[:next-2]+'ö'+word[next+2:]
+        else:
+            word = word[:next]+word[next+2:]
+        next = word.find('gh')
+
+    # rule 9
+    if word[:2] in {'gn', 'kn', 'mn', 'pt', 'ps', 'tm'}:
+        word = word[1:]
+
+    # rule 10
+    if word[-1:] == 'y' and all(_ in consonants for _ in word[:-1]):
+        word = word[:-1]+'ï'
+
+    # rule 11
+    for src, tar in [('ey', 'ë'), ('ay', 'ä'), ('oy', 'öy')]:
+        word = word.replace(src, tar)
+
+    # rule 12
+    next = word.find('y')
+    while next != -1:
+        if word[next-1:next] not in vowels and word[next+1:next+2] not in vowels:
+            word = word[:next]+'i'+word[next+1:]
+        next = word.find('y', next+1)
+
+    # rule 13
+    if word[-1:] in vowels and word[-4:-1] == 'stl':
+        word = word[:-3]+word[-2:]
+
+    # rule 14
+    next
+
+    return word
+
+
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
     """Return the Beider-Morse Phonetic Matching algorithm code for a word.
