@@ -5804,8 +5804,8 @@ def norphone(word):
     return code
 
 
-def dolby(word):
-    """Return the Dolby compressed encoding of a name.
+def dolby(word, keep_vowels=False, vowel_char='*'):
+    """Return the Dolby Code of a name.
 
     This follows "A Spelling Equivalent Abbreviation Algorithm For Personal
     Names" from:
@@ -5842,12 +5842,17 @@ def dolby(word):
         pos -= 1
 
     # Rule 3
+    # Although the rule indicates "after the first letter", the test cases make
+    # it clear that these apply to the first letter also.
     word = word.replace('X', 'KS')
     word = word.replace('CE', 'SE')
     word = word.replace('CI', 'SI')
     word = word.replace('CY', 'SI')
 
-    pos = word.find('CH', 0)
+    # not in the rule set, but they seem to have intended it
+    word = word.replace('TCH', 'CH')
+
+    pos = word.find('CH', 1)
     while pos != -1:
         if word[pos-1:pos] not in _vowels:
             word = word[:pos]+'S'+word[pos+1:]
@@ -5855,23 +5860,26 @@ def dolby(word):
 
     word = word.replace('C', 'K')
     word = word.replace('Z', 'S')
+
     word = word.replace('WR', 'R')
     word = word.replace('DG', 'G')
     word = word.replace('QU', 'K')
     word = word.replace('T', 'D')
     word = word.replace('PH', 'F')
-    print(word)
+
     # Rule 4
+    # Although the rule indicates "after the first letter", the test cases make
+    # it clear that these apply to the first letter also.
     pos = word.find('K', 0)
     while pos != -1:
         if pos > 1 and word[pos-1:pos] not in _vowels | {'L', 'N', 'R'}:
             word = word[:pos-1]+word[pos:]
             pos -= 1
         pos = word.find('K', pos+1)
-    print(word)
+
     # Rule 5
     word = _delete_consecutive_repeats(word)
-    print(word)
+
     # Rule 6
     if word[:2] == 'PF':
         word = word[1:]
@@ -5883,14 +5891,14 @@ def dolby(word):
         else:
             word = word[:-2]+'G'
     word = word.replace('GH', '')
-    print(word)
+
     # Rules 7-9
     first = True
     code = ''
     for pos, char in enumerate(word):
         if char in _vowels:
-            if first:
-                code += '*'
+            if first or keep_vowels:
+                code += vowel_char
                 first = False
             else:
                 continue
@@ -5898,7 +5906,7 @@ def dolby(word):
             continue
         else:
             code += char
-    print(code)
+
     return code
 
 
