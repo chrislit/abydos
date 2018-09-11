@@ -39,8 +39,8 @@ from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
 from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
     dm_soundex, double_metaphone, eudex, fonem, fuzzy_soundex, \
     koelner_phonetik, koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, \
-    lein, metaphone, mra, nysiis, onca, parmar_kumbharana, phonem, phonet, \
-    phonex, phonix, pshp_soundex_first, refined_soundex, roger_root,  \
+    lein, metaphone, mra, norphone, nysiis, onca, parmar_kumbharana, phonem, \
+    phonet, phonex, phonix, pshp_soundex_first, refined_soundex, roger_root,  \
     russell_index, russell_index_alpha, russell_index_num_to_alpha, sfinxbis, \
     soundex, spfc, statistics_canada
 

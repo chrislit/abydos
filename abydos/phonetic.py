@@ -5724,6 +5724,92 @@ def rosenfelder(word):
     return word
 
 
+def norphone(word, enhanced=False):
+    """Return the Norphone code.
+
+    The reference implementation by Lars Marius Garshol is available at
+    https://github.com/larsga/Duke/blob/master/duke-core/src/main/java/no/priv/garshol/duke/comparators/NorphoneComparator.java
+
+    Norphone was designed for Norwegian, but this implementation has been
+    extended to support Swedish vowels as well.
+
+    :param word:
+    :param enhanced: If True, applies additional rules identified but not
+        implemented by Lars Marius Garshol
+    :return:
+    """
+    _vowels = {'A', 'E', 'I', 'O', 'U', 'Y', 'Å', 'Æ', 'Ø', 'Ä', 'Ö'}
+
+    replacements = {2: {'CH': 'K', 'CK': 'K', 'GH': 'K', 'GJ': 'J', 'HG': 'K',
+                        'HJ': 'J', 'HL': 'L', 'HR': 'R', 'KJ': 'X', 'KI': 'X',
+                        'LD': 'L', 'ND': 'N', 'PH': 'F', 'TH': 'T',},
+                    1: {'W': 'V', 'X': 'KS', 'Z': 'S'}}
+    enhanced_replacements = {4: {'SKEI': 'X'},
+                             3: {'SKJ': 'X', 'KEI': 'X'},
+                             2: {'SJ': 'X'},
+                             1: {'D': 'T', 'G': 'K'}}
+
+    word = word.upper()
+
+    if enhanced:
+        for length in enhanced_replacements:
+            if length not in replacements:
+                replacements[length] = {}
+            replacements[length] = dict(replacements[length],
+                                        **enhanced_replacements[length])
+
+    code = ''
+    skip = 0
+
+    if word[0:2] == 'AA':
+        code = 'Å'
+        skip = 2
+    elif word[0:2] == 'GI':
+        code = 'J'
+        skip = 2
+    elif enhanced:
+        if word[0:3] == 'SKY':
+            code = 'X'
+            skip = 3
+        elif word[0:2] == 'EI':
+            code = 'Æ'
+            skip = 2
+        elif word[0:2] == 'KY':
+            code = 'X'
+            skip = 2
+        elif word[:1] == 'C':
+            code = 'K'
+            skip = 1
+        elif word[:1] == 'Ä':
+            code = 'Æ'
+            skip = 1
+        elif word[:1] == 'Ö':
+            code = 'Ø'
+            skip = 1
+
+    if word[-2:] == 'DT':
+        word = word[:-1]
+
+    for pos, char in enumerate(word):
+        if skip:
+            skip -= 1
+        elif char in _vowels and word[pos+1:pos+2] == 'D':
+            skip = 1
+        else:
+            for length in sorted(replacements, reverse=True):
+                if word[pos:pos+length] in replacements[length]:
+                    code += replacements[length][word[pos:pos+length]]
+                    skip = length-1
+                    break
+            else:
+                if not pos or char not in _vowels:
+                    code += char
+
+    code = _delete_consecutive_repeats(code)
+
+    return code
+
+
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
     """Return the Beider-Morse Phonetic Matching algorithm code for a word.
