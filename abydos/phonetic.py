@@ -5804,6 +5804,104 @@ def norphone(word):
     return code
 
 
+def dolby(word):
+    """Return the Dolby compressed encoding of a name.
+
+    This follows "A Spelling Equivalent Abbreviation Algorithm For Personal
+    Names" from:
+    Dolby, James L. 1970. "An Algorithm for Variable-Length Proper-Name
+    Compression." Journal of Library Automation, 3(4).
+    doi:10.6017/ital.v3i4.5259
+
+    :param word:
+    :return:
+    """
+    _vowels = {'A', 'E', 'I', 'O', 'U', 'Y'}
+
+    # uppercase, normalize, decompose, and filter non-A-Z out
+    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = word.replace('ß', 'SS')
+    word = ''.join(c for c in word if c in
+                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                    'Y', 'Z'})
+
+    # Rule 1
+    if word[:3] in {'MCG', 'MAG', 'MAC'}:
+        word = 'MK'+word[3:]
+    elif word[:2] == 'MC':
+        word = 'MK'+word[2:]
+
+    # Rule 2
+    pos = len(word)-2
+    while pos > -1:
+        if word[pos:pos+2] in {'DT', 'LD', 'ND', 'NT', 'RC', 'RD', 'RT', 'SC',
+                               'SK', 'ST'}:
+            word = word[:pos+1]+word[pos+2:]
+            pos += 1
+        pos -= 1
+
+    # Rule 3
+    word = word.replace('X', 'KS')
+    word = word.replace('CE', 'SE')
+    word = word.replace('CI', 'SI')
+    word = word.replace('CY', 'SI')
+
+    pos = word.find('CH', 0)
+    while pos != -1:
+        if word[pos-1:pos] not in _vowels:
+            word = word[:pos]+'S'+word[pos+1:]
+        pos = word.find('CH', pos+1)
+
+    word = word.replace('C', 'K')
+    word = word.replace('Z', 'S')
+    word = word.replace('WR', 'R')
+    word = word.replace('DG', 'G')
+    word = word.replace('QU', 'K')
+    word = word.replace('T', 'D')
+    word = word.replace('PH', 'F')
+    print(word)
+    # Rule 4
+    pos = word.find('K', 0)
+    while pos != -1:
+        if pos > 1 and word[pos-1:pos] not in _vowels | {'L', 'N', 'R'}:
+            word = word[:pos-1]+word[pos:]
+            pos -= 1
+        pos = word.find('K', pos+1)
+    print(word)
+    # Rule 5
+    word = _delete_consecutive_repeats(word)
+    print(word)
+    # Rule 6
+    if word[:2] == 'PF':
+        word = word[1:]
+    if word[-2:] == 'PF':
+        word = word[:-1]
+    elif word[-2:] == 'GH':
+        if word[-3:-2] in _vowels:
+            word = word[:-2]+'F'
+        else:
+            word = word[:-2]+'G'
+    word = word.replace('GH', '')
+    print(word)
+    # Rules 7-9
+    first = True
+    code = ''
+    for pos, char in enumerate(word):
+        if char in _vowels:
+            if first:
+                code += '*'
+                first = False
+            else:
+                continue
+        elif pos > 0 and char in {'W', 'H'}:
+            continue
+        else:
+            code += char
+    print(code)
+    return code
+
+
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
     """Return the Beider-Morse Phonetic Matching algorithm code for a word.
