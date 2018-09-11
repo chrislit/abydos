@@ -4953,6 +4953,61 @@ class NorphoneTestCases(unittest.TestCase):
         self.assertEqual(norphone('Amundsrud'), norphone('Amundsr\u00F8d'))
         self.assertEqual(norphone('Karlson'), norphone('Carlson'))
 
+        # test cases by larsga (the algorithm's author) posted to Reddit
+        # https://www.reddit.com/r/norge/comments/vksb5/norphone_mitt_forslag_til_en_norsk_soundex_vel/
+        # modified, where necessary to match the "not implemented" rules
+        # and rule added after the Reddit post
+        reddit_tests = (('MKLSN', ('MICHALSEN', 'MIKKELSEN', 'MIKALSEN',
+                                   'MICHAELSEN', 'MIKAELSEN', 'MICKAELSEN',
+                                   'MICHELSEN', 'MIKELSEN')),
+                        ('BRKR', ('BERGER', 'BORGERUD', 'BURGER', 'BORGER',
+                                  'BORGAR', 'BIRGER', 'BRAGER', 'BERGERUD')),
+                        ('TMS', ('TOMMAS', 'THOMAS', 'THAMS', 'TOUMAS',
+                                 'THOMMAS', 'TIMMS', 'TOMAS', 'TUOMAS')),
+                        ('HLR', ('HOLER', 'HELLERUD', 'HALLRE', 'HOLLERUD',
+                                 'HILLER', 'HALLERUD', 'HOLLER', 'HALLER')),
+                        ('MS', ('MASS', 'MMS', 'MSS', 'MOES', 'MEZZO', 'MESA',
+                                'MESSE', 'MOSS')),
+                        ('HRST', ('HIRSTI', 'HAARSETH', 'HAARSTAD', 'HARSTAD',
+                                  'HARESTUA', 'HERSETH', 'HERSTAD',
+                                  'HERSTUA')),
+                        ('SVN', ('SWANN', 'SVENI', 'SWAN', 'SVEN', 'SVEIN',
+                                 'SVEEN', 'SVENN', 'SVANE')),
+                        ('SLT', ('SELTE', 'SALT', 'SALTE', 'SLOTT', 'SLAATTO',
+                                 'SLETT', 'SLETTA', 'SLETTE')),
+                        ('JNSN', ('JANSSEN', 'JANSEN', 'JENSEN', 'JONASSEN',
+                                  'JANSON', 'JONSON', 'JENSSEN', 'JONSSON')),
+                        ('ANRSN', ('ANDRESSEN', 'ANDERSSON', 'ANDRESEN',
+                                   'ANDREASSEN', 'ANDERSEN', 'ANDERSON',
+                                   'ANDORSEN', 'ANDERSSEN')),
+                        ('BRK', ('BREKKE', 'BORCH', 'BRAKKE', 'BORK', 'BRECKE',
+                                 'BROCH', 'BRICK', 'BRUK')),
+                        ('LN', ('LINDE', 'LENDE', 'LUND', 'LAND', 'LINDA',
+                                'LANDE', 'LIND', 'LUNDE')),
+                        ('SF', ('SOPHIE', 'SFE', 'SEFF', 'SEAFOOD', 'SOFIE',
+                                'SAFE', 'SOFI', 'SOPHIA')),
+                        ('BRST', ('BRUASET', 'BUERSTAD', 'BARSTAD', 'BAARSTAD',
+                                  'BRUSETH', 'BERSTAD', 'BORSTAD', 'BRUSTAD')),
+                        ('OLSN', ('OHLSSON', 'OLESEN', 'OLSSON', 'OLAUSSON',
+                                  'OLAUSEN', 'OLAUSSEN', 'OLSEN', 'OLSON')),
+                        ('MKL', ('MIKAEL', 'MICHELA', 'MEIKLE', 'MIKAL',
+                                 'MIKKEL', 'MICHEL', 'MICHAL', 'MICHAEL')),
+                        ('HR', ('HEIER', 'HAR', 'HEER', 'HARRY', 'HEIR',
+                                'HURRE', 'HERO', 'HUURRE')),
+                        ('VLM', ('VILLUM', 'WOLLUM', 'WILLIAM', 'WILLAM',
+                                 'WALLEM', 'WILLUM', 'VALUM', 'WILMO')),
+                        ('SNS', ('SYNNES', 'SINUS', 'SNUS', 'SNEIS', 'SANNES',
+                                 'SUNAAS', 'SUNNAAS', 'SAINES')),
+                        ('SNL', ('SANDAL', 'SANDAHL', 'SUNDEL', 'SANDLI',
+                                  'SUNNDAL', 'SANDELL', 'SANDLIE', 'SUNDAL')),
+                        ('VK', ('VEKA', 'VIKA', 'WIIK', 'WOK', 'WIKE', 'WEEK',
+                                'VIK', 'VIAK')),
+                        ('MTS', ('METSO', 'MOTHES', 'MATHIAS', 'MATHIS',
+                                 'MATTIS', 'MYTHES', 'METOS', 'MATS')))
+        for encoded, names in reddit_tests:
+            for name in names:
+                self.assertEqual(encoded, norphone(name))
+
 
 class BeiderMorseTestCases(unittest.TestCase):
     """Test BMPM functions.
