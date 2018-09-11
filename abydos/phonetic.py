@@ -5173,6 +5173,9 @@ def davidson(lname, fname='.', omit_fname=False):
     Passenger Record System." Communications of the ACM. 5(3). 169--171.
     https://dl.acm.org/citation.cfm?id=366913
 
+    Dolby (1970) identifies this as having been the name compression algorithm
+    used by SABRE.
+
     :param str lname: Last name (or word) to be encoded
     :param str fname: First name (optional), of which the first character is
         included in the code.
