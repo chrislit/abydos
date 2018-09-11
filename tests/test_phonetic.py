@@ -37,7 +37,7 @@ from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
     L_ITALIAN, L_LATVIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, L_SPANISH, \
     L_TURKISH
 from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
-    dm_soundex, double_metaphone, eudex, fonem, fuzzy_soundex, \
+    dm_soundex, dolby, double_metaphone, eudex, fonem, fuzzy_soundex, \
     koelner_phonetik, koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, \
     lein, metaphone, mra, norphone, nysiis, onca, parmar_kumbharana, phonem, \
     phonet, phonex, phonix, pshp_soundex_first, refined_soundex, roger_root,  \
@@ -5007,6 +5007,40 @@ class NorphoneTestCases(unittest.TestCase):
         for encoded, names in reddit_tests:
             for name in names:
                 self.assertEqual(encoded, norphone(name))
+
+
+class DolbyTestCases(unittest.TestCase):
+    """Test Dolby functions.
+
+    test cases for abydos.phonetic.dolby
+    """
+
+    def test_dolby(self):
+        """Test abydos.phonetic.dolby."""
+        # Base case
+        self.assertEqual(dolby(''), '')
+
+        # Tests from Dolby (1970) pp. 264--274
+        # https://ejournals.bc.edu/ojs/index.php/ital/article/download/5259/4734
+
+        test_cases = (('*BL', 'Abel', 'Abele', 'Abell', 'Able'),
+                      ('*BRMS', 'Abrahams', 'Abrams'),
+                      ('*BRMSN', 'Abrahamson', 'Abramson'),
+                      ('*D', 'Eddy', 'Eddie'),
+                      ('*DMNS', 'Edmonds', 'Edmunds'),
+                      ('*DMNSN', 'Edmondson', 'Edmundson'),
+                      ('*DMS', 'Adams', 'Addems'),
+                      ('*GN', 'Eagen', 'Egan', 'Eggen'),
+                      ('*GR', '!Jaeger', 'Yaeger', 'Yeager'),
+                      ('*KN', 'Aiken', 'Aikin', 'Aitken'),
+                      ('*KNS', 'Adkins', 'Akins'))
+        for tests in test_cases:
+            result, names = tests[0], tests[1:]
+            for name in names:
+                if name[0] == '!':
+                    self.assertNotEqual(result, dolby(name[1:]))
+                else:
+                    self.assertEqual(result, dolby(name))
 
 
 class BeiderMorseTestCases(unittest.TestCase):
