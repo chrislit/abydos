@@ -31,7 +31,7 @@ from abydos.stemmer import _ends_in_cvc, _ends_in_doubled_cons, _m_degree, \
     _sb_ends_in_short_syllable, _sb_has_vowel, _sb_r1, _sb_r2, \
     _sb_short_word, caumanns, clef_german, clef_german_plus, clef_swedish, \
     lovins, paice_husk, porter, porter2, sb_danish, sb_dutch, sb_german, \
-    sb_norwegian, sb_swedish, uealite
+    sb_norwegian, sb_swedish, schinke, uealite
 
 TESTDIR = os.path.dirname(__file__)
 
@@ -1018,6 +1018,25 @@ class PaiceHuskTestCases(unittest.TestCase):
                 (word, stem) = hopper_line.strip().split(',')
                 self.assertEqual(paice_husk(word), stem)
 
+
+class SchinkeTestCases(unittest.TestCase):
+    """Test Schinke functions.
+
+    abydos.stemmer.schinke
+    """
+
+    def test_schinke(self):
+        """Test abydos.stemmer.schinke.
+
+        These tests are copied from the Snowball testset at
+        http://snowball.tartarus.org/otherapps/schinke/schinke.tgz
+        """
+        with open(TESTDIR + '/corpora/schinke_sbl.csv') as schinke_testset:
+            for schinke_line in schinke_testset:
+                (word,noun,verb) = schinke_line.strip().split(',')
+                nv = schinke(word)
+                self.assertEqual(nv['n'], noun)
+                self.assertEqual(nv['v'], verb)
 
 if __name__ == '__main__':
     unittest.main()
