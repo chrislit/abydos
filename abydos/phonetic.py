@@ -49,6 +49,10 @@ The phonetic module implements phonetic algorithms including:
     - Parmar-Kumbharana
     - Davidson's Consonant Code
     - SoundD
+    - PSHP Soundex/Viewex Coding
+    - an early version of Henry Code
+    - Norphone
+    - Dolby Code
     - Beider-Morse Phonetic Matching
 """
 
@@ -5456,20 +5460,6 @@ def pshp_soundex_first(fname, maxlength=4, german=False):
             code = code[:maxlength]
 
     return code
-
-
-def henry(word):
-    """Calculate the Henry code for a word.
-
-    Henry Code is defined in:
-    Henry, Louis. 1976. "Projet de transcription phonétique des noms de
-    famille." Annales de Démographie Historique, 1976. 201--214.
-    https://www.persee.fr/doc/adh_0066-2062_1976_num_1976_1_1313
-
-    :param word:
-    :return:
-    """
-    pass
 
 
 def henry_early(word, maxlength=3):
