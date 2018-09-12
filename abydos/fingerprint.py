@@ -28,6 +28,7 @@ The clustering module implements clustering algorithms such as:
     - Cisłak & Grabowski's occurrence halved fingerprint
     - Cisłak & Grabowski's count fingerprint
     - Cisłak & Grabowski's position fingerprint
+    - Synoname Toolcode
 """
 
 from __future__ import division, unicode_literals

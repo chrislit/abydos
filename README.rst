@@ -135,6 +135,10 @@ Abydos is a library of phonetic algorithms, string distance metrics, stemmers, a
     - Parmar-Kumbharana
     - Davidson's Consonant Code
     - SoundD
+    - PSHP Soundex/Viewex Coding
+    - an early version of Henry Code
+    - Norphone
+    - Dolby Code
     - Beider-Morse Phonetic Matching
 - String distance metrics
     - Levenshtein distance
@@ -190,6 +194,7 @@ Abydos is a library of phonetic algorithms, string distance metrics, stemmers, a
     - Cisłak & Grabowski's occurrence halved fingerprint
     - Cisłak & Grabowski's count fingerprint
     - Cisłak & Grabowski's position fingerprint
+    - Synoname Toolcode
 
 Required:
 
