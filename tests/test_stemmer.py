@@ -1031,7 +1031,7 @@ class SchinkeTestCases(unittest.TestCase):
         These tests are copied from the Snowball testset at
         http://snowball.tartarus.org/otherapps/schinke/schinke.tgz
         """
-        with open(TESTDIR + '/corpora/schinke_sbl.csv') as schinke_testset:
+        with open(TESTDIR + '/corpora/snowball_schinke.csv') as schinke_testset:
             for schinke_line in schinke_testset:
                 (word,noun,verb) = schinke_line.strip().split(',')
                 nv = schinke(word)
