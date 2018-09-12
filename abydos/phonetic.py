@@ -5081,7 +5081,8 @@ def fonem(word):
         'C-28bb':  (re.compile('SS(?=[BCDFGHJKLMNPQRSTVWXZ]|$)'), 'S'),
         'C-28c':   (re.compile('((?<=[^I])|^)LL'), 'L'),
         'C-28d':   (re.compile('ILE$'), 'ILLE'),
-        'C-29':    (re.compile('(ILS|[CS]H|[MN]P|R[CFKLNSX])$|([BCDFGHJKLMNPQRSTVWXZ])[BCDFGHJKLMNPQRSTVWXZ]$'), r'\1\2'),
+        'C-29':    (re.compile('(ILS|[CS]H|[MN]P|R[CFKLNSX])$|([BCDFGHJKLMNPQRSTVWXZ])[BCDFGHJKLMNPQRSTVWXZ]$'),
+                    lambda m: (m.group(1) or '') + (m.group(2) or '')),
         'C-30,32': (re.compile('^(SA?INT?|SEI[NM]|CINQ?|ST)(?!E)-?'), 'ST-'),
         'C-31,33': (re.compile('^(SAINTE|STE)-?'), 'STE-'),
         # Rules to undo rule bleeding prevention in C-11, C-16, C-17
