@@ -2246,6 +2246,12 @@ def paice_husk(word):
 def schinke(word):
     """Return the stem of a word according to the Schinke stemmer.
 
+    Source:
+    Schinke, Robyn, Mark Greengrass, Alexander M. Robertson, and Peter Willett.
+    1996. "A Stemming Algorithm for Latin Text Databases." Journal of
+    Documentation, 52(2). 172--187.
+    doi:10.1108/eb026966
+
     :param word:
     :return:
     """
@@ -2262,13 +2268,14 @@ def schinke(word):
     keep_que = {'at', 'quo', 'ne', 'ita', 'abs', 'aps', 'abus', 'adae', 'adus',
                 'deni', 'de', 'sus', 'obli', 'perae', 'plenis', 'quando',
                 'quis', 'quae', 'cuius', 'cui', 'quem', 'quam', 'qua', 'qui',
-                'quorum', 'quarum', 'quibus', 'quos' 'quas', 'quotusquis',
-                'quous', 'ubi', 'undi', 'us', 'uter', 'uti' 'utro', 'utribi',
+                'quorum', 'quarum', 'quibus', 'quos', 'quas', 'quotusquis',
+                'quous', 'ubi', 'undi', 'us', 'uter', 'uti', 'utro', 'utribi',
                 'tor', 'co', 'conco', 'contor', 'detor', 'deco', 'exco',
                 'extor', 'obtor', 'optor', 'retor', 'reco', 'attor', 'inco',
                 'intor', 'praetor'}
     if word[-3:] == 'que':
-        if word[:-3] in keep_que:
+        # This diverges from the paper by also returning 'que' itself unstemmed
+        if word[:-3] in keep_que or word == 'que':
             return {'n': word, 'v': word}
         else:
             word = word[:-3]
@@ -2305,6 +2312,7 @@ def schinke(word):
                        1: {}}
     for endlen in range(6, 0, -1):
         if word[-endlen:] in v_endings_strip[endlen]:
+            addlen = 0
             if len(word)-2 >= endlen:
                 verb = word[:-endlen]
             else:
@@ -2313,12 +2321,17 @@ def schinke(word):
         if word[-endlen:] in v_endings_alter[endlen]:
             if word[-endlen:] in {'iuntur', 'erunt', 'untur', 'iunt', 'unt'}:
                 new_word = word[:-endlen]+'i'
+                addlen = 1
             elif word[-endlen:] in {'beris', 'bor', 'bo'}:
                 new_word = word[:-endlen]+'bi'
+                addlen = 2
             else:
                 new_word = word[:-endlen]+'eri'
+                addlen = 3
 
-            if len(new_word) >= 2:
+            # Technically this diverges from the paper by considering the
+            # length of the stem without the new suffix
+            if len(new_word) >= 2+addlen:
                 verb = new_word
             else:
                 verb = word
