@@ -5804,7 +5804,7 @@ def norphone(word):
     return code
 
 
-def dolby(word, keep_vowels=False, vowel_char='*'):
+def dolby(word, maxlength=None, keep_vowels=False, vowel_char='*'):
     """Return the Dolby Code of a name.
 
     This follows "A Spelling Equivalent Abbreviation Algorithm For Personal
@@ -5813,7 +5813,11 @@ def dolby(word, keep_vowels=False, vowel_char='*'):
     Compression." Journal of Library Automation, 3(4).
     doi:10.6017/ital.v3i4.5259
 
-    :param word:
+    :param word: the word to encode
+    :param maxlength: maximum length of the returned Dolby code -- this also
+        activates the fixed-length code mode
+    :param keep_vowels: if True, retains all vowel markers
+    :param vowel_char: the vowel marker character (default to *)
     :return:
     """
     _vowels = {'A', 'E', 'I', 'O', 'U', 'Y'}
@@ -5826,13 +5830,13 @@ def dolby(word, keep_vowels=False, vowel_char='*'):
                     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
                     'Y', 'Z'})
 
-    # Rule 1
+    # Rule 1 (FL2)
     if word[:3] in {'MCG', 'MAG', 'MAC'}:
         word = 'MK'+word[3:]
     elif word[:2] == 'MC':
         word = 'MK'+word[2:]
 
-    # Rule 2
+    # Rule 2 (FL3)
     pos = len(word)-2
     while pos > -1:
         if word[pos:pos+2] in {'DT', 'LD', 'ND', 'NT', 'RC', 'RD', 'RT', 'SC',
@@ -5841,7 +5845,7 @@ def dolby(word, keep_vowels=False, vowel_char='*'):
             pos += 1
         pos -= 1
 
-    # Rule 3
+    # Rule 3 (FL4)
     # Although the rule indicates "after the first letter", the test cases make
     # it clear that these apply to the first letter also.
     word = word.replace('X', 'KS')
@@ -5867,7 +5871,7 @@ def dolby(word, keep_vowels=False, vowel_char='*'):
     word = word.replace('T', 'D')
     word = word.replace('PH', 'F')
 
-    # Rule 4
+    # Rule 4 (FL5)
     # Although the rule indicates "after the first letter", the test cases make
     # it clear that these apply to the first letter also.
     pos = word.find('K', 0)
@@ -5877,10 +5881,14 @@ def dolby(word, keep_vowels=False, vowel_char='*'):
             pos -= 1
         pos = word.find('K', pos+1)
 
-    # Rule 5
+    # Rule FL6
+    if maxlength and word[-1:] == 'E':
+        word = word[:-1]
+
+    # Rule 5 (FL7)
     word = _delete_consecutive_repeats(word)
 
-    # Rule 6
+    # Rule 6 (FL8)
     if word[:2] == 'PF':
         word = word[1:]
     if word[-2:] == 'PF':
@@ -5892,20 +5900,51 @@ def dolby(word, keep_vowels=False, vowel_char='*'):
             word = word[:-2]+'G'
     word = word.replace('GH', '')
 
-    # Rules 7-9
-    first = True
+    # Rule FL9
+    if maxlength:
+        word = word.replace('V', 'F')
+
+    # Rules 7-9 (FL10-FL12)
+    first = 1 + (1 if maxlength else 0)
     code = ''
     for pos, char in enumerate(word):
         if char in _vowels:
             if first or keep_vowels:
                 code += vowel_char
-                first = False
+                first -= 1
             else:
                 continue
         elif pos > 0 and char in {'W', 'H'}:
             continue
         else:
             code += char
+
+    if maxlength:
+        # Rule FL13
+        if len(code) > maxlength and code[-1:] == 'S':
+            code = code[:-1]
+        if keep_vowels:
+            code = code[:maxlength]
+        else:
+            # Rule FL14
+            code = code[:maxlength + 2]
+            # Rule FL15
+            while len(code) > maxlength:
+                vowels = len(code) - maxlength
+                excess = vowels - 1
+                word = code
+                code = ''
+                for char in word:
+                    if char == vowel_char:
+                        if vowels:
+                            code += char
+                            vowels -= 1
+                    else:
+                        code += char
+                code = code[:maxlength + excess]
+
+        # Rule FL16
+        code += ' ' * (maxlength - len(code))
 
     return code
 
