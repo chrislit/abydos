@@ -2243,7 +2243,7 @@ def paice_husk(word):
     return word
 
 
-def schinke(word, modified=False):
+def schinke(word):
     """Return the stem of a word according to the Schinke stemmer.
 
     :param word:
@@ -2254,9 +2254,6 @@ def schinke(word, modified=False):
                    {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
                     'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
                     'y', 'z'})
-
-    noun = word
-    verb = word
 
     # Rule 2
     word = word.replace('j', 'i').replace('v', 'u')
@@ -2275,6 +2272,10 @@ def schinke(word, modified=False):
             return {'n': word, 'v': word}
         else:
             word = word[:-3]
+
+    # Base case will mean returning the words as is
+    noun = word
+    verb = word
 
     # Rule 4
     n_endings = {4: {'ibus'},
