@@ -5163,6 +5163,7 @@ def parmar_kumbharana(word):
                 repl = rule_table[match_len][word[i:i+match_len]]
                 word = (word[:i] + repl + word[i+match_len:])
                 i += len(repl)
+                break
         else:
             i += 1
 
