@@ -5526,7 +5526,7 @@ def henry_early(word, maxlength=3):
 
     # Rule II
     for pos, char in enumerate(word):
-        next = char[pos+1:pos+2]
+        nxch = char[pos+1:pos+2]
         prev = char[pos-1:pos]
 
         if skip:
@@ -5534,7 +5534,7 @@ def henry_early(word, maxlength=3):
         elif char in _vows:
             code += char
         # IIc
-        elif char == next:
+        elif char == nxch:
             skip = 1
             code += char
         elif word[pos:pos+2] in {'CQ', 'DT', 'SC'}:
@@ -5543,13 +5543,13 @@ def henry_early(word, maxlength=3):
         # IId
         elif char == 'H' and prev in _cons:
             continue
-        elif char == 'S' and next in _cons:
+        elif char == 'S' and nxch in _cons:
             continue
-        elif char in _cons-{'L', 'R'} and next in _cons-{'L', 'R'}:
+        elif char in _cons-{'L', 'R'} and nxch in _cons-{'L', 'R'}:
             continue
-        elif char == 'L' and next in {'M', 'N'}:
+        elif char == 'L' and nxch in {'M', 'N'}:
             continue
-        elif char in {'M', 'N'} and prev in _vows and next in _cons:
+        elif char in {'M', 'N'} and prev in _vows and nxch in _cons:
             continue
         # IIa
         elif char in _unaltered:
@@ -5559,24 +5559,24 @@ def henry_early(word, maxlength=3):
             code += _simple[char]
         elif char in {'C', 'G', 'P', 'Q', 'S'}:
             if char == 'C':
-                if next in {'A', 'O', 'U', 'L', 'R'}:
+                if nxch in {'A', 'O', 'U', 'L', 'R'}:
                     code += 'K'
-                elif next in {'E', 'I', 'Y'}:
+                elif nxch in {'E', 'I', 'Y'}:
                     code += 'J'
-                elif next == 'H':
+                elif nxch == 'H':
                     if word[pos+2:pos+3] in _vows:
                         code += 'C'
                     elif word[pos+2:pos+3] in {'R', 'L'}:
                         code += 'K'
             elif char == 'G':
-                if next in {'A', 'O', 'U', 'L', 'R'}:
+                if nxch in {'A', 'O', 'U', 'L', 'R'}:
                     code += 'G'
-                elif next in {'E', 'I', 'Y'}:
+                elif nxch in {'E', 'I', 'Y'}:
                     code += 'J'
-                elif next == 'N':
+                elif nxch == 'N':
                     code += 'N'
             elif char == 'P':
-                if next != 'H':
+                if nxch != 'H':
                     code += 'P'
                 else:
                     code += 'F'
@@ -5684,19 +5684,19 @@ def rosenfelder(word):
     word = word.replace("'", '')
 
     # rules 4-8
-    next = word.find('gh')
-    while next != -1:
-        if word[next+2:next+3] in vowels:
-            word = word[:next]+'g'+word[next+2:]
-        elif word[next-2:next-1] in consonants and word[next-1:next] in vowels:
-            word = word[:next-1]+long_vowels[word[next-1:next]]+word[next+2:]
-        elif word[next-2:next+3] in {'aught', 'ought'}:
-            word = word[:next-2]+'òt'+word[next+3:]
-        elif word[next-2:next+2] == 'ough':
-            word = word[:next-2]+'ö'+word[next+2:]
+    nxch = word.find('gh')
+    while nxch != -1:
+        if word[nxch+2:nxch+3] in vowels:
+            word = word[:nxch]+'g'+word[nxch+2:]
+        elif word[nxch-2:nxch-1] in consonants and word[nxch-1:nxch] in vowels:
+            word = word[:nxch-1]+long_vowels[word[nxch-1:nxch]]+word[nxch+2:]
+        elif word[nxch-2:nxch+3] in {'aught', 'ought'}:
+            word = word[:nxch-2]+'òt'+word[nxch+3:]
+        elif word[nxch-2:nxch+2] == 'ough':
+            word = word[:nxch-2]+'ö'+word[nxch+2:]
         else:
-            word = word[:next]+word[next+2:]
-        next = word.find('gh')
+            word = word[:nxch]+word[nxch+2:]
+        nxch = word.find('gh')
 
     # rule 9
     if word[:2] in {'gn', 'kn', 'mn', 'pt', 'ps', 'tm'}:
@@ -5711,18 +5711,18 @@ def rosenfelder(word):
         word = word.replace(src, tar)
 
     # rule 12
-    next = word.find('y')
-    while next != -1:
-        if word[next-1:next] not in vowels and word[next+1:next+2] not in vowels:
-            word = word[:next]+'i'+word[next+1:]
-        next = word.find('y', next+1)
+    nxch = word.find('y')
+    while nxch != -1:
+        if word[nxch-1:nxch] not in vowels and word[nxch+1:nxch+2] not in vowels:
+            word = word[:nxch]+'i'+word[nxch+1:]
+        nxch = word.find('y', nxch+1)
 
     # rule 13
     if word[-1:] in vowels and word[-4:-1] == 'stl':
         word = word[:-3]+word[-2:]
 
     # rule 14
-    next
+    nxch
 
     return word
 
