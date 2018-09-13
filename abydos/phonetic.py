@@ -5884,7 +5884,7 @@ def phonetic_spanish(word, maxlength=None):
     return sdx
 
 
-def spanish_metaphone(word, maxlength=6):
+def spanish_metaphone(word, maxlength=6, modified=False):
     """Return the Spanish Metaphone of a word.
 
     This is a quick rewrite of the Spanish Metaphone Algorithm, as presented at
@@ -5897,7 +5897,16 @@ def spanish_metaphone(word, maxlength=6):
     Turkey. 9--14.
     http://www.taln.upf.edu/pages/nlp4ita/pdfs/mosquera-nlp4ita2012.pdf
 
+    Modified version based on:
+    del Pilar Angeles, María and Noemi Bailón-Miguel. 2016. "Performance of
+    Spanish Encoding Functions during Record Linkage." DATA ANALYTICS 2016:
+    The Fifth International Conference on Data Analysis. 1--7
+    https://core.ac.uk/download/pdf/55855695.pdf#page=14
+
     :param word:
+    :param maxlength:
+    :param modified: Set to True to use del Pilar Angeles & Bailón-Miguel's
+        modified version of the algorithm
     :return:
     """
     def _is_vowel(pos):
@@ -5910,6 +5919,15 @@ def spanish_metaphone(word, maxlength=6):
 
     meta_key = ''
     pos = 0
+
+    # do some replacements for the modified version
+    if modified:
+        word = word.replace('MB', 'NB')
+        word = word.replace('MP', 'NP')
+        word = word.replace('BS', 'S')
+        if word[:2] == 'PS':
+            word = word[1:]
+
 
     # simple replacements
     word = word.replace('Á', 'A')
@@ -6009,6 +6027,10 @@ def spanish_metaphone(word, maxlength=6):
                         pos += 1
                 else:
                     pos += 1
+
+    # Final change from S to Z in modified version
+    if modified:
+        meta_key = meta_key.replace('S', 'Z')
 
     return meta_key
 
