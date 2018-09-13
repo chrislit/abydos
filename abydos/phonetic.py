@@ -6035,6 +6035,35 @@ def spanish_metaphone(word, maxlength=6, modified=False):
     return meta_key
 
 
+def metasoundex(word, language='en'):
+    """Return the MetaSoundex code for a word.
+
+    This is based on:
+    Koneru, Keerthi and Cihan Varol. 2017. "Privacy Preserving Record Linkeage
+    using MetaSoundex Algorithm." 2017 16th IEEE International Conference on
+    Machine Learning and Applications (ICMLA). 443--447.
+    doi:10.1109/ICMLA.2017.0-121
+
+
+
+    :param word:
+    :param language: either 'en' for English or 'es' for Spanish
+    :return:
+    """
+    _metasoundex_translation = dict(zip((ord(_) for _ in
+                                         'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+                                        '07430755015866075943077514'))
+
+    if language == 'es':
+        return phonetic_spanish(spanish_metaphone(word))
+
+    word = soundex(metaphone(word))
+    word = word[0].translate(_metasoundex_translation)+word[1:]
+
+    return word
+
+
+
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
     """Return the Beider-Morse Phonetic Matching algorithm code for a word.
