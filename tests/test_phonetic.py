@@ -42,7 +42,8 @@ from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
     lein, metaphone, mra, norphone, nysiis, onca, parmar_kumbharana, phonem, \
     phonet, phonetic_spanish, phonex, phonix, pshp_soundex_first, \
     refined_soundex, roger_root, russell_index, russell_index_alpha, \
-    russell_index_num_to_alpha, sfinxbis, soundex, spfc, statistics_canada
+    russell_index_num_to_alpha, sfinxbis, soundex, spanish_metaphone, spfc, \
+    statistics_canada
 
 from six import text_type
 
@@ -5593,6 +5594,88 @@ class PhoneticSpanishTestCases(unittest.TestCase):
         self.assertEqual(phonetic_spanish('Haya'), '25')
         self.assertEqual(phonetic_spanish('Cielo'), '45')
         self.assertEqual(phonetic_spanish('Sielo'), '45')
+
+
+class SpanishMetaphoneTestCases(unittest.TestCase):
+    """Test Spanish Metaphone functions.
+
+    test cases for abydos.phonetic.spanish_metaphone
+    """
+
+    def test_spanish_metaphone(self):
+        """Test abydos.phonetic.spanish_metaphone."""
+        # Base case
+        self.assertEqual(spanish_metaphone(''), '')
+
+        # Examples given in
+        # https://github.com/amsqr/Spanish-Metaphone/blob/master/phonetic_algorithms_es.py
+        self.assertEqual(spanish_metaphone('X'), 'X')
+        self.assertEqual(spanish_metaphone('xplosion'), 'EXPLSN')
+        self.assertEqual(spanish_metaphone('escalera'), 'ESKLR')
+        self.assertEqual(spanish_metaphone('scalera'), 'ESKLR')
+        self.assertEqual(spanish_metaphone('mi'), 'M')
+        self.assertEqual(spanish_metaphone('tu'), 'T')
+        self.assertEqual(spanish_metaphone('su'), 'S')
+        self.assertEqual(spanish_metaphone('te'), 'T')
+        self.assertEqual(spanish_metaphone('ochooomiiiillllllll'), 'OXMYY')
+        self.assertEqual(spanish_metaphone('complicado'), 'KMPLKD')
+        self.assertEqual(spanish_metaphone('ácaro'), 'AKR')
+        self.assertEqual(spanish_metaphone('ácido'), 'AZD')
+        self.assertEqual(spanish_metaphone('clown'), 'KLUN')
+        self.assertEqual(spanish_metaphone('down'), 'DUN')
+        self.assertEqual(spanish_metaphone('col'), 'KL')
+        self.assertEqual(spanish_metaphone('clon'), 'KLN')
+        self.assertEqual(spanish_metaphone('waterpolo'), 'UTRPL')
+        self.assertEqual(spanish_metaphone('aquino'), 'AKN')
+        self.assertEqual(spanish_metaphone('rebosar'), 'RVSR')
+        self.assertEqual(spanish_metaphone('rebozar'), 'RVZR')
+        self.assertEqual(spanish_metaphone('grajea'), 'GRJ')
+        self.assertEqual(spanish_metaphone('gragea'), 'GRJ')
+        self.assertEqual(spanish_metaphone('encima'), 'ENZM')
+        self.assertEqual(spanish_metaphone('enzima'), 'ENZM')
+        self.assertEqual(spanish_metaphone('alhamar'), 'ALAMR')
+        self.assertEqual(spanish_metaphone('abollar'), 'AVYR')
+        self.assertEqual(spanish_metaphone('aboyar'), 'AVYR')
+        self.assertEqual(spanish_metaphone('huevo'), 'UV')
+        self.assertEqual(spanish_metaphone('webo'), 'UV')
+        self.assertEqual(spanish_metaphone('macho'), 'MX')
+        self.assertEqual(spanish_metaphone('xocolate'), 'XKLT')
+        self.assertEqual(spanish_metaphone('chocolate'), 'XKLT')
+        self.assertEqual(spanish_metaphone('axioma'), 'AXM')
+        self.assertEqual(spanish_metaphone('abedul'), 'AVDL')
+        self.assertEqual(spanish_metaphone('a'), 'A')
+        self.assertEqual(spanish_metaphone('gengibre'), 'JNJVR')
+        self.assertEqual(spanish_metaphone('yema'), 'YM')
+        self.assertEqual(spanish_metaphone('wHISKY'), 'UISKY')
+        self.assertEqual(spanish_metaphone('google'), 'GGL')
+        self.assertEqual(spanish_metaphone('xilófono'), 'XLFN')
+        self.assertEqual(spanish_metaphone('web'), 'UV')
+        self.assertEqual(spanish_metaphone('guerra'), 'GRR')
+        self.assertEqual(spanish_metaphone('pingüino'), 'PNUN')
+        self.assertEqual(spanish_metaphone('si'), 'S')
+        self.assertEqual(spanish_metaphone('ke'), 'K')
+        self.assertEqual(spanish_metaphone('que'), 'K')
+        self.assertEqual(spanish_metaphone('tu'), 'T')
+        self.assertEqual(spanish_metaphone('gato'), 'GT')
+        self.assertEqual(spanish_metaphone('gitano'), 'JTN')
+        self.assertEqual(spanish_metaphone('queso'), 'KS')
+        self.assertEqual(spanish_metaphone('paquete'), 'PKT')
+        self.assertEqual(spanish_metaphone('cuco'), 'KK')
+        self.assertEqual(spanish_metaphone('perro'), 'PRR')
+        self.assertEqual(spanish_metaphone('pero'), 'PR')
+        self.assertEqual(spanish_metaphone('arrebato'), 'ARRVT')
+        self.assertEqual(spanish_metaphone('hola'), 'OL')
+        self.assertEqual(spanish_metaphone('zapato'), 'ZPT')
+        self.assertEqual(spanish_metaphone('españa'), 'ESPNY')
+        self.assertEqual(spanish_metaphone('garrulo'), 'GRRL')
+        self.assertEqual(spanish_metaphone('expansión'), 'EXPNSN')
+        self.assertEqual(spanish_metaphone('membrillo'), 'MMVRY')
+        self.assertEqual(spanish_metaphone('jamón'), 'JMN')
+        self.assertEqual(spanish_metaphone('risa'), 'RS')
+        self.assertEqual(spanish_metaphone('caricia'), 'KRZ')
+        self.assertEqual(spanish_metaphone('llaves'), 'YVS')
+        self.assertEqual(spanish_metaphone('paella'), 'PY')
+        self.assertEqual(spanish_metaphone('cerilla'), 'ZRY')
 
 
 class BeiderMorseTestCases(unittest.TestCase):
