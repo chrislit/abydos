@@ -40,9 +40,9 @@ from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
     dm_soundex, dolby, double_metaphone, eudex, fonem, fuzzy_soundex, \
     koelner_phonetik, koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, \
     lein, metaphone, mra, norphone, nysiis, onca, parmar_kumbharana, phonem, \
-    phonet, phonex, phonix, pshp_soundex_first, refined_soundex, roger_root,  \
-    russell_index, russell_index_alpha, russell_index_num_to_alpha, sfinxbis, \
-    soundex, spfc, statistics_canada
+    phonet, phonetic_spanish, phonex, phonix, pshp_soundex_first, \
+    refined_soundex, roger_root, russell_index, russell_index_alpha, \
+    russell_index_num_to_alpha, sfinxbis, soundex, spfc, statistics_canada
 
 from six import text_type
 
@@ -5573,6 +5573,26 @@ class DolbyTestCases(unittest.TestCase):
                     self.assertNotEqual(result, dolby(name[1:]))
                 else:
                     self.assertEqual(result, dolby(name))
+
+
+class PhoneticSpanishTestCases(unittest.TestCase):
+    """Test PhoneticSpanish functions.
+
+    test cases for abydos.phonetic.phonetic_spanish
+    """
+
+    def test_phonetic_spanish(self):
+        """Test abydos.phonetic.phonetic_spanish."""
+        # Base case
+        self.assertEqual(phonetic_spanish(''), '')
+
+        # Examples given in
+        self.assertEqual(phonetic_spanish('Giraldo'), '8953')
+        self.assertEqual(phonetic_spanish('Jiraldo'), '8953')
+        self.assertEqual(phonetic_spanish('Halla'), '25')
+        self.assertEqual(phonetic_spanish('Haya'), '25')
+        self.assertEqual(phonetic_spanish('Cielo'), '45')
+        self.assertEqual(phonetic_spanish('Sielo'), '45')
 
 
 class BeiderMorseTestCases(unittest.TestCase):
