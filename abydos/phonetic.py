@@ -5842,6 +5842,48 @@ def dolby(word, maxlength=None, keep_vowels=False, vowel_char='*'):
     return code
 
 
+def phonetic_spanish(word, maxlength=None):
+    """Return the PhoneticSpanish coding of word.
+
+    This follows the coding described in:
+    Amón, Iván, Francisco Moreno, and Jaime Echeverri. 2012. "Algoritmo
+    fonético para detección de cadenas de texto duplicadas en el idioma
+    español." Revista Ingenierías Universidad de Medellín, 11(20). 127--138.
+    ISSN:1692-3324
+
+    and:
+    del Pilar Angeles, María, Adrián Espino-Gamez, and Jonathan Gil-Moncada.
+    2015. "Comparison of a Modified Spanish Phonetic, Soundex, and Phonex
+    coding functions during data matching process." 2015 International
+    Conference on Informatics, Electronics Vision (ICIEV). 1--5.
+    doi:10.1109/ICIEV.2015.7334028
+
+    :param word:
+    :return:
+    """
+    _es_soundex_translation = dict(zip((ord(_) for _ in
+                                        'BCDFGHJKLMNPQRSTVXYZ'),
+                                       '14328287566079431454'))
+
+    # uppercase, normalize, and decompose, filter to A-Z minus vowels & W
+    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = ''.join(c for c in word if c in
+                   {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N',
+                    'P', 'Q', 'R', 'S', 'T', 'V', 'X', 'Y', 'Z'})
+
+    # merge repeated Ls & Rs
+    word = word.replace('LL', 'L')
+    word = word.replace('R', 'R')
+
+    # apply the Soundex algorithm
+    sdx = word.translate(_es_soundex_translation)
+
+    if maxlength:
+        sdx = sdx[:maxlength]
+
+    return sdx
+
+
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
     """Return the Beider-Morse Phonetic Matching algorithm code for a word.
