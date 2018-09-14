@@ -45,15 +45,15 @@ Abydos
     :target: https://libraries.io/pypi/abydos
     :alt: Libraries.io SourceRank
 
-.. image:: https://img.shields.io/badge/Pylint-9.71/10-green.svg
+.. image:: https://img.shields.io/badge/Pylint-9.69/10-green.svg
    :target: #
    :alt: Pylint Score
 
-.. image:: https://img.shields.io/badge/pycodestyle-24-yellowgreen.svg
+.. image:: https://img.shields.io/badge/pycodestyle-27-yellowgreen.svg
    :target: #
    :alt: pycodestyle Errors
 
-.. image:: https://img.shields.io/badge/flake8-99-yellow.svg
+.. image:: https://img.shields.io/badge/flake8-118-orange.svg
    :target: #
    :alt: flake8 Errors
 
@@ -139,6 +139,9 @@ Abydos is a library of phonetic algorithms, string distance metrics, stemmers, a
     - an early version of Henry Code
     - Norphone
     - Dolby Code
+    - Phonetic Spanish
+    - Spanish Metaphone
+    - MetaSoundex
     - Beider-Morse Phonetic Matching
 - String distance metrics
     - Levenshtein distance
@@ -184,7 +187,8 @@ Abydos is a library of phonetic algorithms, string distance metrics, stemmers, a
     - Caumann's German stemmer
     - UEA-Lite Stemmer
     - Paice-Husk Stemmer
-- Keyers
+    - Schinke Latin stemmer
+- String Fingerprints
     - string fingerprint
     - q-gram fingerprint
     - phonetic fingerprint
