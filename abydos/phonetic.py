@@ -4941,14 +4941,16 @@ def reth_schek_phonetik(word):
     next time I'm in Germany), this implementation is based on what I could
     glean from the implementations published by German Record Linkage
     Center (www.record-linkage.de):
+
     - Privacy-preserving Record Linkage (PPRL) (in R)
     - Merge ToolBox (in Java)
 
     Rules that are unclear:
+
     - Should 'C' become 'G' or 'Z'? (PPRL has both, 'Z' rule blocked)
     - Should 'CC' become 'G'? (PPRL has blocked 'CK' that may be typo)
     - Should 'TUI' -> 'ZUI' rule exist? (PPRL has rule, but I can't
-        think of a German word with '-tui-' in it.)
+      think of a German word with '-tui-' in it.)
     - Should we really change 'SCH' -> 'CH' and then 'CH' -> 'SCH'?
 
     :param word:
@@ -5710,7 +5712,7 @@ def dolby(word, maxlength=None, keep_vowels=False, vowel_char='*'):
     :param maxlength: maximum length of the returned Dolby code -- this also
         activates the fixed-length code mode
     :param keep_vowels: if True, retains all vowel markers
-    :param vowel_char: the vowel marker character (default to *)
+    :param vowel_char: the vowel marker character (default to \*)
     :return:
     """
     _vowels = {'A', 'E', 'I', 'O', 'U', 'Y'}
