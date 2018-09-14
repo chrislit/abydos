@@ -33,6 +33,6 @@ if [ "$quick_mode" = "0" ]; then
     ./badge_update.py
 fi
 
-sphinx-apidoc -F -o docs abydos
+sphinx-apidoc -e -f -M -o docs ./abydos
 cd docs
 make html epub xelatexpdf >> /dev/null
