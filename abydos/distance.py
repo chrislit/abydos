@@ -55,6 +55,7 @@ The distance module implements string edit distance functions including:
     - Sift4 distance
     - Baystat distance & similarity
     - Typo distance
+    - Indel distance
 
 Functions beginning with the prefixes 'sim' and 'dist' are guaranteed to be
 in the range [0, 1], and sim_X = 1 - dist_X since the two are complements.
@@ -3479,6 +3480,29 @@ def sim_typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5)):
     :return:
     """
     return 1 - dist_typo(src, tar, metric, cost)
+
+
+def dist_indel(src, tar):
+    """Return the indel distance between two strings.
+
+    This is equivalent to levenshtein distance, when only inserts and deletes
+    are possible.
+
+    :param str src, tar:
+    :return: indel distance
+    :rtype: float
+    """
+    return dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 9999, 9999))
+
+
+def sim_indel(src, tar):
+    """Return the indel similarity of two strings.
+
+    :param str src, tar:
+    :return: indel similarity
+    :rtype: float
+    """
+    return sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 9999, 9999))
 
 
 def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
