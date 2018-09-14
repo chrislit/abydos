@@ -2504,7 +2504,7 @@ def dist_prefix(src, tar):
     :returns: prefix distance
     :rtype: float
 
-        >>> dist_prefix('cat', 'hat')
+    >>> dist_prefix('cat', 'hat')
     1.0
     >>> dist_prefix('Niall', 'Neil')
     0.75
@@ -2930,15 +2930,15 @@ def eudex_hamming(src, tar, weights='exponential', maxlength=8,
                   normalized=False):
     """Calculate the Hamming distance between the Eudex hashes of two terms.
 
-    If weights is set to None, a simple Hamming distance is calculated.
-    If weights is set to 'exponential', weight decays by powers of 2, as
-         proposed in the eudex specification: https://github.com/ticki/eudex.
-    If weights is set to 'fibonacci', weight decays through the Fibonacci
-         series, as in the eudex reference implementation.
-    If weights is set to a callable function, this assumes it creates a
-         generator and the generator is used to populate a series of weights.
-    If weights is set to an iterable, the iterable's values should be integers
-         and will be used as the weights.
+    - If weights is set to None, a simple Hamming distance is calculated.
+    - If weights is set to 'exponential', weight decays by powers of 2, as
+      proposed in the eudex specification: https://github.com/ticki/eudex.
+    - If weights is set to 'fibonacci', weight decays through the Fibonacci
+      series, as in the eudex reference implementation.
+    - If weights is set to a callable function, this assumes it creates a
+      generator and the generator is used to populate a series of weights.
+    - If weights is set to an iterable, the iterable's values should be
+      integers and will be used as the weights.
 
     :param str src, tar: two strings to be compared
     :param iterable or generator function weights:
@@ -3002,15 +3002,15 @@ def eudex_hamming(src, tar, weights='exponential', maxlength=8,
 def dist_eudex(src, tar, weights='exponential', maxlength=8):
     """Return normalized Hamming distance between Eudex hashes of two terms.
 
-    If weights is set to None, a simple Hamming distance is calculated.
-    If weights is set to 'exponential', weight decays by powers of 2, as
-         proposed in the eudex specification: https://github.com/ticki/eudex.
-    If weights is set to 'fibonacci', weight decays through the Fibonacci
-         series, as in the eudex reference implementation.
-    If weights is set to a callable function, this assumes it creates a
-         generator and the generator is used to populate a series of weights.
-    If weights is set to an iterable, the iterable's values should be integers
-         and will be used as the weights.
+    - If weights is set to None, a simple Hamming distance is calculated.
+    - If weights is set to 'exponential', weight decays by powers of 2, as
+      proposed in the eudex specification: https://github.com/ticki/eudex.
+    - If weights is set to 'fibonacci', weight decays through the Fibonacci
+      series, as in the eudex reference implementation.
+    - If weights is set to a callable function, this assumes it creates a
+      generator and the generator is used to populate a series of weights.
+    - If weights is set to an iterable, the iterable's values should be
+      integers and will be used as the weights.
 
     :param str src, tar: two strings to be compared
     :param iterable or generator function weights:
@@ -3023,15 +3023,15 @@ def dist_eudex(src, tar, weights='exponential', maxlength=8):
 def sim_eudex(src, tar, weights='exponential', maxlength=8):
     """Return normalized Hamming similarity between Eudex hashes of two terms.
 
-    If weights is set to None, a simple Hamming distance is calculated.
-    If weights is set to 'exponential', weight decays by powers of 2, as
-         proposed in the eudex specification: https://github.com/ticki/eudex.
-    If weights is set to 'fibonacci', weight decays through the Fibonacci
-         series, as in the eudex reference implementation.
-    If weights is set to a callable function, this assumes it creates a
-         generator and the generator is used to populate a series of weights.
-    If weights is set to an iterable, the iterable's values should be integers
-         and will be used as the weights.
+    - If weights is set to None, a simple Hamming distance is calculated.
+    - If weights is set to 'exponential', weight decays by powers of 2, as
+      proposed in the eudex specification: https://github.com/ticki/eudex.
+    - If weights is set to 'fibonacci', weight decays through the Fibonacci
+      series, as in the eudex reference implementation.
+    - If weights is set to a callable function, this assumes it creates a
+      generator and the generator is used to populate a series of weights.
+    - If weights is set to an iterable, the iterable's values should be
+      integers and will be used as the weights.
 
     :param str src, tar: two strings to be compared
     :param iterable or generator function weights:
