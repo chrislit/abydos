@@ -1,18 +1,14 @@
 Welcome to Abydos's documentation!
 ==================================
 
-.. image:: ../abydos-small.png
-
-Contents:
-
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
+   :caption: Contents:
 
    intro
    tutorial
-   abydos
+   modules
    history
-
 
 Indices and tables
 ==================
