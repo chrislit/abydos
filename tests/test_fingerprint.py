@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import unittest
 
 import abydos.phonetic as phonetic
-from abydos.fingerprint import fingerprint, omission_key, \
+from abydos.fingerprint import str_fingerprint, omission_key, \
     phonetic_fingerprint, qgram_fingerprint, skeleton_key
 
 from six.moves import range
@@ -40,7 +40,7 @@ NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
 class FingerprintTestCases(unittest.TestCase):
     """Test fingerprint functions.
 
-    abydos.clustering.fingerprint, abydos.clustering.qgram_fingerprint, &
+    abydos.clustering.str_fingerprint, abydos.clustering.qgram_fingerprint, &
     abydos.clustering.phonetic_fingerprint
     """
 
@@ -53,11 +53,12 @@ ixizjakokylilsmamqngnoocoeoiojokoposovowpepipoqurarnsdsksotatetiucueuiutvevowa\
 xoyv', )
     _anssetq1 = ('abcdefghijklmnopqrstuvwxyz', )
 
-    def test_fingerprint(self):
-        """Test abydos.clustering.fingerprint."""
-        self.assertEqual(fingerprint(''), '')
+    def test_str_fingerprint(self):
+        """Test abydos.clustering.str_fingerprint."""
+        self.assertEqual(str_fingerprint(''), '')
         for i in range(len(self._testset)):
-            self.assertEqual(fingerprint(self._testset[i]), self._anssetw[i])
+            self.assertEqual(str_fingerprint(self._testset[i]),
+                             self._anssetw[i])
 
     def test_qgram_fingerprint(self):
         """Test abydos.clustering.qgram_fingerprint."""
