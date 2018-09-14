@@ -24,7 +24,7 @@ install:
  
 # Run test
 script:
-  - nosetests --verbose --with-coverage --cover-branches --cover-package=abydos --logging-level=INFO --processes=1 --process-timeout=60 --process-restartworker
+  - nosetests --verbose --with-coverage --cover-erase --cover-branches --cover-package=abydos --logging-level=INFO --process-timeout=60 --process-restartworker
  
 # Calculate coverage
 after_success:
