@@ -42,7 +42,7 @@ from .phonetic import double_metaphone
 from .qgram import QGrams
 
 
-def fingerprint(phrase, joiner=' '):
+def str_fingerprint(phrase, joiner=' '):
     """Return string fingerprint.
 
     The fingerprint of a string is a string consisting of all of the unique
@@ -53,7 +53,7 @@ def fingerprint(phrase, joiner=' '):
     :returns: the fingerprint of the phrase
     :rtype: str
 
-    >>> fingerprint('The quick brown fox jumped over the lazy dog.')
+    >>> str_fingerprint('The quick brown fox jumped over the lazy dog.')
     'brown dog fox jumped lazy over quick the'
     """
     phrase = unicodedata.normalize('NFKD', text_type(phrase.strip().lower()))
@@ -125,7 +125,7 @@ def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone,
             word = word[0]
         phonetic += word + joiner
     phonetic = phonetic[:-len(joiner)]
-    return fingerprint(phonetic)
+    return str_fingerprint(phonetic)
 
 
 def skeleton_key(word):
