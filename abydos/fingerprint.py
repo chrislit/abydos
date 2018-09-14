@@ -18,7 +18,7 @@
 
 """abydos.fingerprint.
 
-The clustering module implements clustering algorithms such as:
+The fingerprint module implements string fingerprints such as:
     - string fingerprint
     - q-gram fingerprint
     - phonetic fingerprint

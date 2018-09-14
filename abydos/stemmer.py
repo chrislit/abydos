@@ -27,6 +27,7 @@ The stemmer module defines word stemmers including:
     - Caumann's German stemmer
     - UEA-Lite Stemmer
     - Paice-Husk Stemmer
+    - Schinke Latin stemmer
 """
 
 from __future__ import unicode_literals
