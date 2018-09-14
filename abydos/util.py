@@ -22,8 +22,6 @@ The util module defines various utility functions for other modules within
 Abydos, including:
 
     - prod -- computes the product of a collection of numbers (akin to sum)
-    - jitter -- adds small random noise to each member of a list of numbers
-        (ported from R's jitter function)
 """
 
 from operator import mul

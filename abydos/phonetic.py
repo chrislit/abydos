@@ -53,6 +53,9 @@ The phonetic module implements phonetic algorithms including:
     - an early version of Henry Code
     - Norphone
     - Dolby Code
+    - Phonetic Spanish
+    - Spanish Metaphone
+    - MetaSoundex
     - Beider-Morse Phonetic Matching
 """
 
