@@ -103,7 +103,7 @@ Abydos
 | Abydos NLP/IR library
 | Copyright 2014-2018 by Chris Little
 
-Abydos is a library of phonetic algorithms, string distance metrics, stemmers, and keyers, including:
+Abydos is a library of phonetic algorithms, string distance measures & metrics, stemmers, and string fingerprinters including:
 
 - Phonetic algorithms
     - Robert C. Russell's Index
