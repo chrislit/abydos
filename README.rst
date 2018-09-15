@@ -189,6 +189,7 @@ Abydos is a library of phonetic algorithms, string distance metrics, stemmers, a
     - UEA-Lite Stemmer
     - Paice-Husk Stemmer
     - Schinke Latin stemmer
+    - S stemmer
 - String Fingerprints
     - string fingerprint
     - q-gram fingerprint
