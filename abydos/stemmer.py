@@ -28,6 +28,7 @@ The stemmer module defines word stemmers including:
     - UEA-Lite Stemmer
     - Paice-Husk Stemmer
     - Schinke Latin stemmer
+    - S stemmer
 """
 
 from __future__ import unicode_literals
@@ -2339,6 +2340,27 @@ def schinke(word):
             break
 
     return {'n': noun, 'v': verb}
+
+
+def s_stemmer(word):
+    """Return the S-stemmed form of a word.
+
+    The S stemmer is defined by:
+    Harman, Donna. 1991. "How Effective Is Suffixing?" Journal of the American
+    Society for Information Science, 42(1). 7--15.
+    doi:10.1002/(SICI)1097-4571(199101)42:1%3C7::AID-ASI2%3E3.0.CO;2-P
+
+    :param word:
+    :return:
+    """
+    lowered = word.lower()
+    if lowered[-3:] == 'ies' and lowered[-4:-3] not in {'e', 'a'}:
+        return word[:-3] + 'Y' if word[-1:].isupper() else 'y'
+    if lowered[-2:] == 'es' and lowered[-3:-2] not in {'a', 'e', 'o'}:
+        return word[:-1]
+    if lowered[-1:] == 's' and lowered[-2:-1] not in {'u', 's'}:
+        return word[:-1]
+    return word
 
 
 if __name__ == '__main__':
