@@ -21,7 +21,7 @@ r"""abydos.stats.
 The stats module defines functions for calculating various statistical data
 about linguistic objects.
 
-This includes the ConfusionTable object, which includes members cable of
+This includes the ConfusionTable object, which includes members capable of
 calculating the following data based on a confusion table:
 
     - population counts
