@@ -31,7 +31,7 @@ calculating the following data based on a confusion table:
     - various means of the precision & recall, including: arithmetic,
       geometric, harmonic, quadratic, logarithmic, contraharmonic,
       identric (exponential), & Hölder (power/generalized) means
-    - :math:`F_{\\beta}`-scores, :math:`E`-scores, :math:`G`-measures, along
+    - :math:`F_{\beta}`-scores, :math:`E`-scores, :math:`G`-measures, along
       with special functions for :math:`F_{1}`, :math:`F_{0.5}`, &
       :math:`F_{2}` scores
     - significance & Matthews correlation coefficient calculation
@@ -43,7 +43,7 @@ Functions are provided for calculating the following means:
     - harmonic
     - quadratic
     - contraharmonic
-    - logarithmic,
+    - logarithmic
     - identric (exponential)
     - Seiffert's
     - Lehmer
@@ -343,7 +343,7 @@ class ConfusionTable(object):
     def precision(self):
         r"""Return precision.
 
-        Precision is defined as :math:`\\frac{tp}{tp + fp}`
+        Precision is defined as :math:`\frac{tp}{tp + fp}`
 
         AKA positive predictive value (PPV)
 
@@ -366,7 +366,7 @@ class ConfusionTable(object):
         r"""Return gain in precision.
 
         The gain in precision is defined as:
-        :math:`G(precision) = \\frac{precision}{random~ precision}`
+        :math:`G(precision) = \frac{precision}{random~ precision}`
 
         Cf. https://en.wikipedia.org/wiki/Gain_(information_retrieval)
 
@@ -385,7 +385,7 @@ class ConfusionTable(object):
     def recall(self):
         r"""Return recall.
 
-        Recall is defined as :math:`\\frac{tp}{tp + fn}`
+        Recall is defined as :math:`\frac{tp}{tp + fn}`
 
         AKA sensitivity
 
@@ -409,7 +409,7 @@ class ConfusionTable(object):
     def specificity(self):
         r"""Return specificity.
 
-        Specificity is defined as :math:`\\frac{tn}{tn + fp}`
+        Specificity is defined as :math:`\frac{tn}{tn + fp}`
 
         AKA true negative rate (TNR)
 
@@ -429,7 +429,7 @@ class ConfusionTable(object):
     def npv(self):
         r"""Return negative predictive value (NPV).
 
-        NPV is defined as :math:`\\frac{tn}{tn + fn}`
+        NPV is defined as :math:`\frac{tn}{tn + fn}`
 
         Cf. https://en.wikipedia.org/wiki/Negative_predictive_value
 
@@ -447,7 +447,7 @@ class ConfusionTable(object):
     def fallout(self):
         r"""Return fall-out.
 
-        Fall-out is defined as :math:`\\frac{fp}{fp + tn}`
+        Fall-out is defined as :math:`\frac{fp}{fp + tn}`
 
         AKA false positive rate (FPR)
 
@@ -467,7 +467,7 @@ class ConfusionTable(object):
     def fdr(self):
         r"""Return false discovery rate (FDR).
 
-        False discovery rate is defined as :math:`\\frac{fp}{fp + tp}`
+        False discovery rate is defined as :math:`\frac{fp}{fp + tp}`
 
         Cf. https://en.wikipedia.org/wiki/False_discovery_rate
 
@@ -485,7 +485,7 @@ class ConfusionTable(object):
     def accuracy(self):
         r"""Return accuracy.
 
-        Accuracy is defined as :math:`\\frac{tp + tn}{population}`
+        Accuracy is defined as :math:`\frac{tp + tn}{population}`
 
         Cf. https://en.wikipedia.org/wiki/Accuracy
 
@@ -504,7 +504,7 @@ class ConfusionTable(object):
         r"""Return gain in accuracy.
 
         The gain in accuracy is defined as:
-        :math:`G(accuracy) = \\frac{accuracy}{random~ accuracy}`
+        :math:`G(accuracy) = \frac{accuracy}{random~ accuracy}`
 
         Cf. https://en.wikipedia.org/wiki/Gain_(information_retrieval)
 
@@ -524,7 +524,7 @@ class ConfusionTable(object):
         r"""Return balanced accuracy.
 
         Balanced accuracy is defined as
-        :math:`\\frac{sensitivity + specificity}{2}`
+        :math:`\frac{sensitivity + specificity}{2}`
 
         Cf. https://en.wikipedia.org/wiki/Accuracy
 
@@ -585,7 +585,7 @@ class ConfusionTable(object):
         r"""Return arithmetic mean of precision & recall.
 
         The arithmetic mean of precision and recall is defined as:
-        :math:`\\frac{precision \\cdot recall}{2}`
+        :math:`\frac{precision \cdot recall}{2}`
 
         Cf. https://en.wikipedia.org/wiki/Arithmetic_mean
 
@@ -603,7 +603,7 @@ class ConfusionTable(object):
         r"""Return geometric mean of precision & recall.
 
         The geometric mean of precision and recall is defined as:
-        :math:`\\sqrt{precision \\cdot recall}`
+        :math:`\sqrt{precision \cdot recall}`
 
         Cf. https://en.wikipedia.org/wiki/Geometric_mean
 
@@ -621,7 +621,7 @@ class ConfusionTable(object):
         r"""Return harmonic mean of precision & recall.
 
         The harmonic mean of precision and recall is defined as:
-        :math:`\\frac{2 \\cdot precision \\cdot recall}{precision + recall}`
+        :math:`\frac{2 \cdot precision \cdot recall}{precision + recall}`
 
         Cf. https://en.wikipedia.org/wiki/Harmonic_mean
 
@@ -638,7 +638,7 @@ class ConfusionTable(object):
         r"""Return quadratic mean of precision & recall.
 
         The quadratic mean of precision and recall is defined as:
-        :math:`\\sqrt{\\frac{precision^{2} + recall^{2}}{2}}`
+        :math:`\sqrt{\frac{precision^{2} + recall^{2}}{2}}`
 
         Cf. https://en.wikipedia.org/wiki/Quadratic_mean
 
@@ -656,7 +656,7 @@ class ConfusionTable(object):
         r"""Return contraharmonic mean of precision & recall.
 
         The contraharmonic mean is:
-        :math:`\\frac{precision^{2} + recall^{2}}{precision + recall}`
+        :math:`\frac{precision^{2} + recall^{2}}{precision + recall}`
 
         Cf. https://en.wikipedia.org/wiki/Contraharmonic_mean
 
@@ -676,7 +676,7 @@ class ConfusionTable(object):
         The logarithmic mean is:
         0 if either precision or recall is 0,
         the precision if they are equal,
-        otherwise :math:`\\frac{precision - recall}
+        otherwise :math:`\frac{precision - recall}
         {ln(precision) - ln(recall)}`
 
         Cf. https://en.wikipedia.org/wiki/Logarithmic_mean
@@ -703,8 +703,8 @@ class ConfusionTable(object):
 
         The identric mean is:
         precision if precision = recall,
-        otherwise :math:`\\frac{1}{e} \\cdot
-        \\sqrt[precision - recall]{\\frac{precision^{precision}}
+        otherwise :math:`\frac{1}{e} \cdot
+        \sqrt[precision - recall]{\frac{precision^{precision}}
         {recall^{recall}}}`
 
         Cf. https://en.wikipedia.org/wiki/Identric_mean
@@ -722,8 +722,8 @@ class ConfusionTable(object):
         r"""Return Seiffert's mean of precision & recall.
 
         Seiffert's mean of precision and recall is:
-        :math:`\\frac{precision - recall}{4 \\cdot arctan
-        \\sqrt{\\frac{precision}{recall}} - \\pi}`
+        :math:`\frac{precision - recall}{4 \cdot arctan
+        \sqrt{\frac{precision}{recall}} - \pi}`
 
         Cf. http://www.helsinki.fi/~hasto/pp/miaPreprint.pdf
 
@@ -740,7 +740,7 @@ class ConfusionTable(object):
         r"""Return Lehmer mean of precision & recall.
 
         The Lehmer mean is:
-        :math:`\\frac{precision^{exp} + recall^{exp}}
+        :math:`\frac{precision^{exp} + recall^{exp}}
         {precision^{exp-1} + recall^{exp-1}}`
 
         Cf. https://en.wikipedia.org/wiki/Lehmer_mean
@@ -760,7 +760,7 @@ class ConfusionTable(object):
         r"""Return Heronian mean of precision & recall.
 
         The Heronian mean of precision and recall is defined as:
-        :math:`\\frac{precision + \\sqrt{precision \\cdot recall} + recall}{3}`
+        :math:`\frac{precision + \sqrt{precision \cdot recall} + recall}{3}`
 
         Cf. https://en.wikipedia.org/wiki/Heronian_mean
 
@@ -777,9 +777,9 @@ class ConfusionTable(object):
         r"""Return Hölder (power/generalized) mean of precision & recall.
 
         The power mean of precision and recall is defined as:
-        :math:`\\frac{1}{2} \\cdot
-        \\sqrt[exp]{precision^{exp} + recall^{exp}}`
-        for :math:`exp \\ne 0`, and the geometric mean for :math:`exp = 0`
+        :math:`\frac{1}{2} \cdot
+        \sqrt[exp]{precision^{exp} + recall^{exp}}`
+        for :math:`exp \ne 0`, and the geometric mean for :math:`exp = 0`
 
         Cf. https://en.wikipedia.org/wiki/Generalized_mean
 
@@ -800,7 +800,7 @@ class ConfusionTable(object):
         Iterates between arithmetic & geometric means until they converge to
         a single value (rounded to 12 digits)
 
-        Cf. https://en.wikipedia.org/wiki/Arithmetic–geometric_mean
+        Cf. https://en.wikipedia.org/wiki/Arithmetic-geometric_mean
 
         :returns: The arithmetic-geometric mean of the confusion table's
             precision & recall
@@ -818,7 +818,7 @@ class ConfusionTable(object):
         Iterates between geometric & harmonic means until they converge to
         a single value (rounded to 12 digits)
 
-        Cf. https://en.wikipedia.org/wiki/Geometric–harmonic_mean
+        Cf. https://en.wikipedia.org/wiki/Geometric-harmonic_mean
 
         :returns: The geometric-harmonic mean of the confusion table's
             precision & recall
@@ -849,21 +849,21 @@ class ConfusionTable(object):
         return aghmean((self.precision(), self.recall()))
 
     def fbeta_score(self, beta=1):
-        r"""Return :math:`F_{\\beta}` score.
+        r"""Return :math:`F_{\beta}` score.
 
-        :math:`F_{\\beta}` for a positive real value :math:`\\beta` "measures
+        :math:`F_{\beta}` for a positive real value :math:`\beta` "measures
         the effectiveness of retrieval with respect to a user who
-        attaches :math:`\\beta` times as much importance to recall as
+        attaches :math:`\beta` times as much importance to recall as
         precision" (van Rijsbergen 1979)
 
-        :math:`F_{\\beta}` score is defined as:
-        :math:`(1 + \\beta^2) \\cdot \\frac{precision \\cdot recall}
-        {((\\beta^2 \\cdot precision) + recall)}`
+        :math:`F_{\beta}` score is defined as:
+        :math:`(1 + \beta^2) \cdot \frac{precision \cdot recall}
+        {((\beta^2 \cdot precision) + recall)}`
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
-        :params numeric beta: The :math:`\\beta` parameter in the above formula
-        :returns: The :math:`F_{\\beta}` of the confusion table
+        :params numeric beta: The :math:`\beta` parameter in the above formula
+        :returns: The :math:`F_{\beta}` of the confusion table
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
@@ -933,7 +933,7 @@ class ConfusionTable(object):
         r"""Return :math:`F_{1}` score.
 
         :math:`F_{1}` score is the harmonic mean of precision and recall:
-        :math:`2 \\cdot \\frac{precision \\cdot recall}{precision + recall}`
+        :math:`2 \cdot \frac{precision \cdot recall}{precision + recall}`
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
@@ -950,7 +950,7 @@ class ConfusionTable(object):
         r"""Return :math:`F`-measure.
 
         :math:`F`-measure is the harmonic mean of precision and recall:
-        :math:`2 \\cdot \\frac{precision \\cdot recall}{precision + recall}`
+        :math:`2 \cdot \frac{precision \cdot recall}{precision + recall}`
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
@@ -967,7 +967,7 @@ class ConfusionTable(object):
         r"""Return G-measure.
 
         :math:`G`-measure is the geometric mean of precision and recall:
-        :math:`\\sqrt{precision \\cdot recall}`
+        :math:`\sqrt{precision \cdot recall}`
 
         This is identical to the Fowlkes–Mallows (FM) index for two
         clusters.
@@ -989,8 +989,8 @@ class ConfusionTable(object):
         r"""Return Matthews correlation coefficient (MCC).
 
         The Matthews correlation coefficient is defined as:
-        :math:`\\frac{(tp \\cdot tn) - (fp \\cdot fn)}
-        {\\sqrt{(tp + fp)(tp + fn)(tn + fp)(tn + fn)}}`
+        :math:`\frac{(tp \cdot tn) - (fp \cdot fn)}
+        {\sqrt{(tp + fp)(tp + fn)(tn + fp)(tn + fn)}}`
 
         This is equivalent to the geometric mean of informedness and
         markedness, defined above.
@@ -1012,14 +1012,14 @@ class ConfusionTable(object):
                           (self._tn + self._fp) * (self._tn + self._fn)))
 
     def significance(self):
-        r"""Return the significance, :math:`\\chi^{2}`.
+        r"""Return the significance, :math:`\chi^{2}`.
 
         Significance is defined as:
-        :math:`\\chi^{2} =
-        \\frac{(tp \\cdot tn - fp \\cdot fn)^{2} (tp + tn + fp + fn)}
+        :math:`\chi^{2} =
+        \frac{(tp \cdot tn - fp \cdot fn)^{2} (tp + tn + fp + fn)}
         {((tp + fp)(tp + fn)(tn + fp)(tn + fn)}`
 
-        Also: :math:`\\chi^{2} = MCC^{2} \\cdot n`
+        Also: :math:`\chi^{2} = MCC^{2} \cdot n`
 
         Cf. https://en.wikipedia.org/wiki/Pearson%27s_chi-square_test
 
@@ -1042,7 +1042,7 @@ class ConfusionTable(object):
         r"""Return κ statistic.
 
         The κ statistic is defined as:
-        :math:`\\kappa = \\frac{accuracy - random~ accuracy}
+        :math:`\kappa = \frac{accuracy - random~ accuracy}
         {1 - random~ accuracy}`
 
         The κ statistic compares the performance of the classifier relative to
@@ -1071,7 +1071,7 @@ def amean(nums):
     r"""Return arithmetic mean.
 
     The arithmetic mean is defined as:
-    :math:`\\frac{\\sum{nums}}{|nums|}`
+    :math:`\frac{\sum{nums}}{|nums|}`
 
     Cf. https://en.wikipedia.org/wiki/Arithmetic_mean
 
@@ -1093,7 +1093,7 @@ def gmean(nums):
     r"""Return geometric mean.
 
     The geometric mean is defined as:
-    :math:`\\sqrt[|nums|]{\\prod\\limits_{i} nums_{i}}`
+    :math:`\sqrt[|nums|]{\prod\limits_{i} nums_{i}}`
 
     Cf. https://en.wikipedia.org/wiki/Geometric_mean
 
@@ -1115,7 +1115,7 @@ def hmean(nums):
     r"""Return harmonic mean.
 
     The harmonic mean is defined as:
-    :math:`\\frac{|nums|}{\\sum\\limits_{i}\\frac{1}{nums_i}}`
+    :math:`\frac{|nums|}{\sum\limits_{i}\frac{1}{nums_i}}`
 
     Following the behavior of Wolfram|Alpha:
     If one of the values in nums is 0, return 0.
@@ -1156,7 +1156,7 @@ def qmean(nums):
     r"""Return quadratic mean.
 
     The quadratic mean of precision and recall is defined as:
-    :math:`\\sqrt{\\sum\\limits_{i} \\frac{num_i^2}{|nums|}}`
+    :math:`\sqrt{\sum\limits_{i} \frac{num_i^2}{|nums|}}`
 
     Cf. https://en.wikipedia.org/wiki/Quadratic_mean
 
@@ -1178,7 +1178,7 @@ def cmean(nums):
     r"""Return contraharmonic mean.
 
     The contraharmonic mean is:
-    :math:`\\frac{\\sum\\limits_i x_i^2}{\\sum\\limits_i x_i}`
+    :math:`\frac{\sum\limits_i x_i^2}{\sum\limits_i x_i}`
 
     Cf. https://en.wikipedia.org/wiki/Contraharmonic_mean
 
@@ -1203,9 +1203,9 @@ def lmean(nums):
     http://www.survo.fi/papers/logmean.pdf
     as:
     :math:`L(x_1, x_2, ..., x_n) =
-    (n-1)! \\sum\\limits_{i=1}^n \\frac{x_i}
-    {\\prod\\limits_{\\substack{j = 1\\\\j \\ne i}}^n
-    ln \\frac{x_i}{x_j}}`
+    (n-1)! \sum\limits_{i=1}^n \frac{x_i}
+    {\prod\limits_{\substack{j = 1\\j \ne i}}^n
+    ln \frac{x_i}{x_j}}`
 
     Cf. https://en.wikipedia.org/wiki/Logarithmic_mean
 
@@ -1235,7 +1235,7 @@ def imean(nums):
 
     The identric mean of two numbers x and y is:
     x if x = y
-    otherwise :math:`\\frac{1}{e} \\sqrt[x-y]{\\frac{x^x}{y^y}}`
+    otherwise :math:`\frac{1}{e} \sqrt[x-y]{\frac{x^x}{y^y}}`
 
     Cf. https://en.wikipedia.org/wiki/Identric_mean
 
@@ -1266,7 +1266,7 @@ def seiffert_mean(nums):
     r"""Return Seiffert's mean.
 
     Seiffert's mean of two numbers x and y is:
-    :math:`\\frac{x - y}{4 \\cdot arctan \\sqrt{\\frac{x}{y}} - \\pi}`
+    :math:`\frac{x - y}{4 \cdot arctan \sqrt{\frac{x}{y}} - \pi}`
 
     Cf. http://www.helsinki.fi/~hasto/pp/miaPreprint.pdf
 
@@ -1296,7 +1296,7 @@ def lehmer_mean(nums, exp=2):
     r"""Return Lehmer mean.
 
     The Lehmer mean is:
-    :math:`\\frac{\\sum\\limits_i{x_i^p}}{\\sum\\limits_i{x_i^(p-1)}}`
+    :math:`\frac{\sum\limits_i{x_i^p}}{\sum\limits_i{x_i^(p-1)}}`
 
     Cf. https://en.wikipedia.org/wiki/Lehmer_mean
 
@@ -1319,9 +1319,9 @@ def heronian_mean(nums):
     r"""Return Heronian mean.
 
     The Heronian mean is:
-    :math:`\\frac{\\sum\\limits_{i, j}\\sqrt{{x_i \\cdot x_j}}}
-    {|nums| \\cdot \\frac{|nums| + 1}{2}}`
-    for :math:`j \\ge i`
+    :math:`\frac{\sum\limits_{i, j}\sqrt{{x_i \cdot x_j}}}
+    {|nums| \cdot \frac{|nums| + 1}{2}}`
+    for :math:`j \ge i`
 
     Cf. https://en.wikipedia.org/wiki/Heronian_mean
 
@@ -1351,8 +1351,8 @@ def hoelder_mean(nums, exp=2):
     r"""Return Hölder (power/generalized) mean.
 
     The Hölder mean is defined as:
-    :math:`\\sqrt[p]{\\frac{1}{|nums|} \\cdot \\sum\\limits_i{x_i^p}}`
-    for :math:`p \\ne 0`, and the geometric mean for :math:`p = 0`
+    :math:`\sqrt[p]{\frac{1}{|nums|} \cdot \sum\limits_i{x_i^p}}`
+    for :math:`p \ne 0`, and the geometric mean for :math:`p = 0`
 
     Cf. https://en.wikipedia.org/wiki/Generalized_mean
 
@@ -1378,7 +1378,7 @@ def agmean(nums):
 
     Iterates between arithmetic & geometric means until they converge to
     a single value (rounded to 12 digits)
-    Cf. https://en.wikipedia.org/wiki/Arithmetic–geometric_mean
+    Cf. https://en.wikipedia.org/wiki/Arithmetic-geometric_mean
 
     :param list nums: A series of numbers
     :returns: The arithmetic-geometric mean of nums
@@ -1405,7 +1405,7 @@ def ghmean(nums):
 
     Iterates between geometric & harmonic means until they converge to
     a single value (rounded to 12 digits)
-    Cf. https://en.wikipedia.org/wiki/Geometric–harmonic_mean
+    Cf. https://en.wikipedia.org/wiki/Geometric-harmonic_mean
 
     :param list nums: A series of numbers
     :returns: The geometric-harmonic mean of nums
