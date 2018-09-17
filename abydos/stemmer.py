@@ -45,8 +45,8 @@ def lovins(word):
 
     Lovins stemmer
 
-    The Lovins stemmer is described in Julie Beth Lovins's article at:
-    http://www.mt-archive.info/MT-1968-Lovins.pdf
+    The Lovins stemmer is described in Julie Beth Lovins's article
+    :cite:`Lovins:1968`.
 
     :param word: the word to stem
     :returns: word stem
@@ -443,8 +443,7 @@ def _ends_in_cvc(term, vowels):
 def porter(word, early_english=False):
     """Return Porter stem.
 
-    The Porter stemmer is defined at:
-    http://snowball.tartarus.org/algorithms/porter/stemmer.html
+    The Porter stemmer is described in :cite:`Porter:1980`.
 
     :param word: the word to calculate the stem of
     :param early_english: set to True in order to remove -eth & -est (2nd & 3rd
@@ -746,8 +745,7 @@ def _sb_short_word(term, vowels, codanonvowels, r1_prefixes=None):
 def porter2(word, early_english=False):
     """Return the Porter2 (Snowball English) stem.
 
-    The Porter2 (Snowball English) stemmer is defined at:
-    http://snowball.tartarus.org/algorithms/english/stemmer.html
+    The Porter2 (Snowball English) stemmer is defined in :cite:`Porter:2002`.
 
     :param word: the word to calculate the stem of
     :param early_english: set to True in order to remove -eth & -est (2nd & 3rd
@@ -1503,8 +1501,7 @@ def sb_danish(word):
 def clef_german(word):
     """Return CLEF German stem.
 
-    The CLEF German stemmer is defined at:
-    http://members.unine.ch/jacques.savoy/clef/germanStemmer.txt
+    The CLEF German stemmer is defined at :cite:`Savoy:2005`.
 
     :param word: the word to calculate the stem of
     :returns: word stem
@@ -1542,8 +1539,7 @@ def clef_german(word):
 def clef_german_plus(word):
     """Return 'CLEF German stemmer plus' stem.
 
-    The CLEF German stemmer plus is defined at:
-    http://members.unine.ch/jacques.savoy/clef/germanStemmerPlus.txt
+    The CLEF German stemmer plus is defined at :cite:`Savoy:2005`.
 
     :param word: the word to calculate the stem of
     :returns: word stem
@@ -1590,8 +1586,7 @@ def clef_german_plus(word):
 def clef_swedish(word):
     """Return CLEF Swedish stem.
 
-    The CLEF Swedish stemmer is defined at:
-    http://members.unine.ch/jacques.savoy/clef/swedishStemmer.txt
+    The CLEF Swedish stemmer is defined at :cite:`Savoy:2005`.
 
     :param word: the word to calculate the stem of
     :returns: word stem
@@ -1632,11 +1627,10 @@ def clef_swedish(word):
 def caumanns(word):
     """Return Caumanns German stem.
 
-    Jörg Caumanns' stemmer is described in his article at:
-    https://refubium.fu-berlin.de/bitstream/handle/fub188/18405/tr-b-99-16.pdf
+    Jörg Caumanns' stemmer is described in his article in :cite:`Caumanns:1999`.
 
-    This implementation is based on the GermanStemFilter described at:
-    http://www.evelix.ch/unternehmen/Blog/evelix/2013/11/11/inner-workings-of-the-german-analyzer-in-lucene
+    This implementation is based on the GermanStemFilter described at
+    :cite:`Lang:2013`.
 
     :param word: the word to calculate the stem of
     :returns: word stem
@@ -1719,17 +1713,14 @@ def uealite(word, max_word_length=20, max_acro_length=8, return_rule_no=False,
             var=None):
     """Return UEA-Lite stem.
 
-    The UEA-Lite stemmer is discussed in:
-    Jenkins, Marie-Claire and Dan Smith. 2005. "Conservative stemming for
-    search and indexing."
-    http://lemur.cmp.uea.ac.uk/Research/stemmer/stemmer25feb.pdf
+    The UEA-Lite stemmer is discussed in :cite:`Jenkins:2005`.
 
     This is chiefly based on the Java implementation of the algorithm, with
     variants based on the Perl implementation and Jason Adams' Ruby port.
 
-    Java version: http://lemur.cmp.uea.ac.uk/Research/stemmer/UEAstem.java
-    Perl version: http://lemur.cmp.uea.ac.uk/Research/stemmer/UEAstem.pl
-    Ruby version: https://github.com/ealdent/uea-stemmer
+    Java version: :cite:`Churchill:2005`
+    Perl version: :cite:`Jenkins:2005`
+    Ruby version: :cite:`Adams:2017`
 
     :param word: the word to calculate the stem of
     :param max_word_length: the maximum word length allowed
@@ -2069,9 +2060,7 @@ def paice_husk(word):
     Implementation of the Paice-Husk Stemmer, also known as the Lancaster
     Stemmer, developed by Chris Paice, with the assistance of Gareth Husk
 
-    This is based on the algorithm's description in:
-    Paice, Chris D. 1990. "Another stemmer." ACM SIGIR Forum 24:3, Fall 1990.
-    56-61. doi:10.1145/101306.101310.
+    This is based on the algorithm's description in :cite:`Paice:1990`.
 
     :param word: the word to calculate the stem of
     :returns: word stem
@@ -2248,11 +2237,7 @@ def paice_husk(word):
 def schinke(word):
     """Return the stem of a word according to the Schinke stemmer.
 
-    Source:
-    Schinke, Robyn, Mark Greengrass, Alexander M. Robertson, and Peter Willett.
-    1996. "A Stemming Algorithm for Latin Text Databases." Journal of
-    Documentation, 52(2). 172--187.
-    doi:10.1108/eb026966
+    This is defined in :cite:`Schinke:1996`.
 
     :param word:
     :return:
@@ -2345,10 +2330,7 @@ def schinke(word):
 def s_stemmer(word):
     """Return the S-stemmed form of a word.
 
-    The S stemmer is defined by:
-    Harman, Donna. 1991. "How Effective Is Suffixing?" Journal of the American
-    Society for Information Science, 42(1). 7--15.
-    doi:10.1002/(SICI)1097-4571(199101)42:1%3C7::AID-ASI2%3E3.0.CO;2-P
+    The S stemmer is defined in :cite:`Harman:1991`.
 
     :param word:
     :return:
