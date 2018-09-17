@@ -46,7 +46,8 @@ def str_fingerprint(phrase, joiner=' '):
     """Return string fingerprint.
 
     The fingerprint of a string is a string consisting of all of the unique
-    words in a string, alphabetized & concatenated with intervening joiners
+    words in a string, alphabetized & concatenated with intervening joiners.
+    This fingerprint is described at :cite:`OpenRefine:2012`.
 
     :param str phrase: the string from which to calculate the fingerprint
     :param str joiner: the string that will be placed between each word
@@ -66,7 +67,8 @@ def qgram_fingerprint(phrase, qval=2, start_stop='', joiner=''):
     """Return Q-Gram fingerprint.
 
     A q-gram fingerprint is a string consisting of all of the unique q-grams
-    in a string, alphabetized & concatenated.
+    in a string, alphabetized & concatenated. This fingerprint is described at
+    :cite:`OpenRefine:2012`.
 
     :param str phrase: the string from which to calculate the q-gram
         fingerprint
@@ -98,7 +100,8 @@ def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone,
     A phonetic fingerprint is identical to a standard string fingerprint, as
     implemented in abydos.clustering.fingerprint(), but performs the
     fingerprinting function after converting the string to its phonetic form,
-    as determined by some phonetic algorithm.
+    as determined by some phonetic algorithm. This fingerprint is described at
+    :cite:`OpenRefine:2012`.
 
     :param str phrase: the string from which to calculate the phonetic
         fingerprint

@@ -1050,7 +1050,7 @@ def metaphone(word, maxlength=_INFINITY):
 def double_metaphone(word, maxlength=_INFINITY):
     """Return the Double Metaphone code for a word.
 
-    Based on Lawrence Philips' (Visual) C++ code from 1999 cite:`Philips:2000`.
+    Based on Lawrence Philips' (Visual) C++ code from 1999 :cite:`Philips:2000`.
 
     :param word: the word to transform
     :param maxlength: the maximum length of the returned Double Metaphone codes
@@ -5636,7 +5636,7 @@ def dolby(word, maxlength=None, keep_vowels=False, vowel_char='*'):
     """Return the Dolby Code of a name.
 
     This follows "A Spelling Equivalent Abbreviation Algorithm For Personal
-    Names" from :cite:`Dolby:1970`.
+    Names" from :cite:`Dolby:1970` and :cite:`Cunningham:1969`.
 
     :param word: the word to encode
     :param maxlength: maximum length of the returned Dolby code -- this also

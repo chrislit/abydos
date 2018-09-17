@@ -27,8 +27,8 @@ Indices and tables
     :cited:
     :style: alpha
 
-.. rubric:: Further reading
+.. .. rubric:: Further reading
 
-.. bibliography:: abydos.bib
-    :notcited:
-    :style: alpha
+.. ..  bibliography:: abydos.bib
+..    :notcited:
+..    :style: alpha
