@@ -21,7 +21,7 @@ if [ "$clean" = "1" ]; then
     ./cleanup.sh
 fi
 
-if [ "docs_only" = "0" ]; then
+if [ "$docs_only" = "0" ]; then
     python setup.py build
 
     python setup.py sdist
