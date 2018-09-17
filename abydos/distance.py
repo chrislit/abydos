@@ -98,8 +98,8 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     :cite:`Levenshtein:1965,Levenshtein:1966`.
 
     Two additional variants: optimal string alignment (aka restricted
-    Damerau-Levenshtein distance) and the Damerau-Levenshtein
-    :cite:`Damerau:1964` distance are also supported.
+    Damerau-Levenshtein distance) :cite:`Boytsov:2011` and the
+    Damerau-Levenshtein :cite:`Damerau:1964` distance are also supported.
 
     The ordinary Levenshtein & Optimal String Alignment distance both
     employ the Wagner-Fischer dynamic programming algorithm
@@ -1111,8 +1111,8 @@ def sim_chebyshev(src, tar, qval=2):
 def sim_cosine(src, tar, qval=2):
     r"""Return the cosine similarity of two strings.
 
-    For two sets X and Y, the cosine similarity or Ochiai coefficient
-    :cite:`Ochiai:1957` is:
+    For two sets X and Y, the cosine similarity, Otsuka-Ochiai coefficient, or
+    Ochiai coefficient :cite:`Otsuka:1936,Ochiai:1957` is:
     :math:`sim_{cosine}(X, Y) = \\frac{|X \\cap Y|}{\\sqrt{|X| \\cdot |Y|}}`.
 
     :param str src, tar: two strings to be compared (or QGrams/Counter objects)
