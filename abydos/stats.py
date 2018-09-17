@@ -1521,7 +1521,7 @@ def median(nums):
 
 
 def mode(nums):
-    """Return mode.
+    """Return the mode.
 
     The mode of a series is the most common element of that series
 
@@ -1550,7 +1550,7 @@ def var(nums, mean_func=amean, ddof=0):
 
 
 def std(nums, mean_func=amean, ddof=0):
-    """Return standard deviation
+    """Return the standard deviation.
 
     :param nums:
     :param mean_func:

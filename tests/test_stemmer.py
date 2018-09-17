@@ -92,9 +92,9 @@ class LovinsTestCases(unittest.TestCase):
         """
         #  Snowball Lovins test set
         with codecs.open(TESTDIR+'/corpora/snowball_lovins.csv',
-                         encoding='utf-8') as snowball_testset:
-            next(snowball_testset)
-            for line in snowball_testset:
+                         encoding='utf-8') as snowball_ts:
+            next(snowball_ts)
+            for line in snowball_ts:
                 if line[0] != '#':
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
@@ -286,9 +286,9 @@ class PorterTestCases(unittest.TestCase):
         http://snowball.tartarus.org/algorithms/porter/diffs.txt
         """
         #  Snowball Porter test set
-        with open(TESTDIR+'/corpora/snowball_porter.csv') as snowball_testset:
-            next(snowball_testset)
-            for line in snowball_testset:
+        with open(TESTDIR+'/corpora/snowball_porter.csv') as snowball_ts:
+            next(snowball_ts)
+            for line in snowball_ts:
                 if line[0] != '#':
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
@@ -448,9 +448,9 @@ class Porter2TestCases(unittest.TestCase):
         http://snowball.tartarus.org/algorithms/english/diffs.txt
         """
         #  Snowball Porter test set
-        with open(TESTDIR+'/corpora/snowball_porter2.csv') as snowball_testset:
-            next(snowball_testset)
-            for line in snowball_testset:
+        with open(TESTDIR+'/corpora/snowball_porter2.csv') as snowball_ts:
+            next(snowball_ts)
+            for line in snowball_ts:
                 if line[0] != '#':
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
@@ -476,9 +476,9 @@ class SnowballTestCases(unittest.TestCase):
 
         #  Snowball German test set
         with codecs.open(TESTDIR+'/corpora/snowball_german.csv',
-                         encoding='utf-8') as snowball_testset:
-            next(snowball_testset)
-            for line in snowball_testset:
+                         encoding='utf-8') as snowball_ts:
+            next(snowball_ts)
+            for line in snowball_ts:
                 if line[0] != '#':
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
@@ -549,9 +549,9 @@ class SnowballTestCases(unittest.TestCase):
 
         #  Snowball Dutch test set
         with codecs.open(TESTDIR+'/corpora/snowball_dutch.csv',
-                         encoding='utf-8') as snowball_testset:
-            next(snowball_testset)
-            for line in snowball_testset:
+                         encoding='utf-8') as snowball_ts:
+            next(snowball_ts)
+            for line in snowball_ts:
                 if line[0] != '#':
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
@@ -571,9 +571,9 @@ class SnowballTestCases(unittest.TestCase):
 
         #  Snowball Norwegian test set
         with codecs.open(TESTDIR+'/corpora/snowball_norwegian.csv',
-                         encoding='utf-8') as snowball_testset:
-            next(snowball_testset)
-            for line in snowball_testset:
+                         encoding='utf-8') as snowball_ts:
+            next(snowball_ts)
+            for line in snowball_ts:
                 if line[0] != '#':
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
@@ -590,9 +590,9 @@ class SnowballTestCases(unittest.TestCase):
 
         #  Snowball Swedish test set
         with codecs.open(TESTDIR+'/corpora/snowball_swedish.csv',
-                         encoding='utf-8') as snowball_testset:
-            next(snowball_testset)
-            for line in snowball_testset:
+                         encoding='utf-8') as snowball_ts:
+            next(snowball_ts)
+            for line in snowball_ts:
                 if line[0] != '#':
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
@@ -609,9 +609,9 @@ class SnowballTestCases(unittest.TestCase):
 
         #  Snowball Danish test set
         with codecs.open(TESTDIR+'/corpora/snowball_danish.csv',
-                         encoding='utf-8') as snowball_testset:
-            next(snowball_testset)
-            for line in snowball_testset:
+                         encoding='utf-8') as snowball_ts:
+            next(snowball_ts)
+            for line in snowball_ts:
                 if line[0] != '#':
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
@@ -966,8 +966,8 @@ class UEALiteTestCases(unittest.TestCase):
 
     def test_uealite_wsj_set(self):
         """Test abydos.stemmer.uealite (WSJ testset)."""
-        with open(TESTDIR + '/corpora/uea-lite_wsj.csv') as wsj_testset:
-            for wsj_line in wsj_testset:
+        with open(TESTDIR + '/corpora/uea-lite_wsj.csv') as wsj_ts:
+            for wsj_line in wsj_ts:
                 (word, uea, rule) = wsj_line.strip().split(',')
                 self.assertEqual(uealite(word, return_rule_no=True),
                                  (uea, float(rule)))
@@ -1013,8 +1013,8 @@ class PaiceHuskTestCases(unittest.TestCase):
         The Pascal reference implementation does not consider 'y' in initial
         position to be a vowel.
         """
-        with open(TESTDIR + '/corpora/paicehusk.csv') as hopper_testset:
-            for hopper_line in hopper_testset:
+        with open(TESTDIR + '/corpora/paicehusk.csv') as hopper_ts:
+            for hopper_line in hopper_ts:
                 (word, stem) = hopper_line.strip().split(',')
                 self.assertEqual(paice_husk(word), stem)
 
@@ -1031,12 +1031,13 @@ class SchinkeTestCases(unittest.TestCase):
         These tests are copied from the Snowball testset at
         http://snowball.tartarus.org/otherapps/schinke/schinke.tgz
         """
-        with open(TESTDIR + '/corpora/snowball_schinke.csv') as schinke_testset:
-            for schinke_line in schinke_testset:
-                (word,noun,verb) = schinke_line.strip().split(',')
+        with open(TESTDIR + '/corpora/snowball_schinke.csv') as schinke_ts:
+            for schinke_line in schinke_ts:
+                word, noun, verb = schinke_line.strip().split(',')
                 nv = schinke(word)
                 self.assertEqual(nv['n'], noun)
                 self.assertEqual(nv['v'], verb)
+
 
 if __name__ == '__main__':
     unittest.main()

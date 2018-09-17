@@ -5000,7 +5000,7 @@ class NorphoneTestCases(unittest.TestCase):
                         ('SNS', ('SYNNES', 'SINUS', 'SNUS', 'SNEIS', 'SANNES',
                                  'SUNAAS', 'SUNNAAS', 'SAINES')),
                         ('SNL', ('SANDAL', 'SANDAHL', 'SUNDEL', 'SANDLI',
-                                  'SUNNDAL', 'SANDELL', 'SANDLIE', 'SUNDAL')),
+                                 'SUNNDAL', 'SANDELL', 'SANDLIE', 'SUNDAL')),
                         ('VK', ('VEKA', 'VIKA', 'WIIK', 'WOK', 'WIKE', 'WEEK',
                                 'VIK', 'VIAK')),
                         ('MTS', ('METSO', 'MOTHES', 'MATHIAS', 'MATHIS',

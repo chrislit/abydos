@@ -45,15 +45,15 @@ Abydos
     :target: https://libraries.io/pypi/abydos
     :alt: Libraries.io SourceRank
 
-.. image:: https://img.shields.io/badge/Pylint-9.69/10-green.svg
+.. image:: https://img.shields.io/badge/Pylint-9.72/10-green.svg
    :target: #
    :alt: Pylint Score
 
-.. image:: https://img.shields.io/badge/pycodestyle-27-yellowgreen.svg
+.. image:: https://img.shields.io/badge/pycodestyle-3-green.svg
    :target: #
    :alt: pycodestyle Errors
 
-.. image:: https://img.shields.io/badge/flake8-118-orange.svg
+.. image:: https://img.shields.io/badge/flake8-88-yellow.svg
    :target: #
    :alt: flake8 Errors
 

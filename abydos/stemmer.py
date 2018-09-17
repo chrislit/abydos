@@ -1627,7 +1627,8 @@ def clef_swedish(word):
 def caumanns(word):
     """Return Caumanns German stem.
 
-    Jörg Caumanns' stemmer is described in his article in :cite:`Caumanns:1999`.
+    Jörg Caumanns' stemmer is described in his article in
+    :cite:`Caumanns:1999`.
 
     This implementation is based on the GermanStemFilter described at
     :cite:`Lang:2013`.
@@ -2273,10 +2274,10 @@ def schinke(word):
 
     # Rule 4
     n_endings = {4: {'ibus'},
-               3: {'ius'},
-               2: {'is', 'nt', 'ae', 'os', 'am', 'ud', 'as', 'um', 'em', 'us',
-                   'es', 'ia'},
-               1: {'a', 'e', 'i', 'o', 'u'}}
+                 3: {'ius'},
+                 2: {'is', 'nt', 'ae', 'os', 'am', 'ud', 'as', 'um', 'em',
+                     'us', 'es', 'ia'},
+                 1: {'a', 'e', 'i', 'o', 'u'}}
     for endlen in range(4, 0, -1):
         if word[-endlen:] in n_endings[endlen]:
             if len(word)-2 >= endlen:
