@@ -49,6 +49,7 @@ Functions are provided for calculating the following means:
     - Lehmer
     - Heronian
     - Hölder (power/generalized)
+    - Stolkarsky
     - arithmetic-geometric
     - geometric-harmonic
     - arithmetic-geometric-harmonic
@@ -392,7 +393,9 @@ class ConfusionTable(object):
         AKA true positive rate (TPR)
 
         Cf. https://en.wikipedia.org/wiki/Precision_and_recall
+
         Cf. https://en.wikipedia.org/wiki/Sensitivity_(test)
+
         Cf. https://en.wikipedia.org/wiki/Information_retrieval#Recall
 
         :returns: The recall of the confusion table
@@ -1118,8 +1121,8 @@ def hmean(nums):
     :math:`\frac{|nums|}{\sum\limits_{i}\frac{1}{nums_i}}`
 
     Following the behavior of Wolfram|Alpha:
-    If one of the values in nums is 0, return 0.
-    If more than one value in nums is 0, return NaN.
+    - If one of the values in nums is 0, return 0.
+    - If more than one value in nums is 0, return NaN.
 
     Cf. https://en.wikipedia.org/wiki/Harmonic_mean
 
@@ -1377,7 +1380,8 @@ def agmean(nums):
     """Return arithmetic-geometric mean.
 
     Iterates between arithmetic & geometric means until they converge to
-    a single value (rounded to 12 digits)
+    a single value (rounded to 12 digits).
+
     Cf. https://en.wikipedia.org/wiki/Arithmetic-geometric_mean
 
     :param list nums: A series of numbers
@@ -1404,7 +1408,8 @@ def ghmean(nums):
     """Return geometric-harmonic mean.
 
     Iterates between geometric & harmonic means until they converge to
-    a single value (rounded to 12 digits)
+    a single value (rounded to 12 digits).
+
     Cf. https://en.wikipedia.org/wiki/Geometric-harmonic_mean
 
     :param list nums: A series of numbers
