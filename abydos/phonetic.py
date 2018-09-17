@@ -89,7 +89,7 @@ def russell_index(word):
     """Return the Russell Index (integer output) of a word.
 
     This follows Robert C. Russell's Index algorithm, as described in
-    US Patent 1,261,167 (1917)
+    :cite:`Russell:1917`.
 
     :param str word: the word to transform
     :returns: the Russell Index value
@@ -135,7 +135,7 @@ def russell_index_num_to_alpha(num):
     """Convert the Russell Index integer to an alphabetic string.
 
     This follows Robert C. Russell's Index algorithm, as described in
-    US Patent 1,261,167 (1917)
+    :cite:`Russell:1917`.
 
     :param int num: a Russell Index integer value
     :returns: the Russell Index as an alphabetic string
@@ -161,7 +161,7 @@ def russell_index_alpha(word):
     """Return the Russell Index (alphabetic output) for the word.
 
     This follows Robert C. Russell's Index algorithm, as described in
-    US Patent 1,261,167 (1917)
+    :cite:`Russell:1917`.
 
     :param str word: the word to transform
     :returns: the Russell Index value as an alphabetic string
@@ -190,14 +190,14 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
         'American'):
 
         - 'American' follows the American Soundex algorithm, as described at
-          http://www.archives.gov/publications/general-info-leaflets/55-census.html
-          and in Knuth(1998:394); this is also called Miracode
+          :cite:`US:2007` and in :cite:`Knuth:1998`; this is also called
+          Miracode
         - 'special' follows the rules from the 1880-1910 US Census
           retrospective re-analysis, in which h & w are not treated as blocking
-          consonants but as vowels.
-          Cf. http://creativyst.com/Doc/Articles/SoundEx1/SoundEx1.htm
-        - 'Census' follows the rules laid out in GIL 55 by the US Census,
-          including coding prefixed and unprefixed versions of some names
+          consonants but as vowels. Cf. :cite:`Repici:2013`.
+        - 'Census' follows the rules laid out in GIL 55 :cite:`US:1997` by the
+          US Census, including coding prefixed and unprefixed versions of some
+          names
 
     :param bool reverse: reverse the word before computing the selected Soundex
         (defaults to False); This results in "Reverse Soundex"
@@ -299,9 +299,8 @@ def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False,
                     retain_vowels=False):
     """Return the Refined Soundex code for a word.
 
-    This is Soundex, but with more character classes. It was defined by
-    Carolyn B. Boyce:
-    https://web.archive.org/web/20010513121003/http://www.bluepoof.com:80/Soundex/info2.html
+    This is Soundex, but with more character classes. It was defined at
+    :cite:`Boyce:1998`.
 
     :param word: the word to transform
     :param maxlength: the length of the code returned (defaults to unlimited)
@@ -356,8 +355,9 @@ def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False,
 def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
     """Return the Daitch-Mokotoff Soundex code for a word.
 
-    Returns values of a word as a set. A collection is necessary since there
-    can be multiple values for a single word.
+    Based on Daitch-Mokotoff Soundex :cite:`Mokotoff:1997`, this returns values
+    of a word as a set. A collection is necessary since there can be multiple
+    values for a single word.
 
     :param word: the word to transform
     :param maxlength: the length of the code returned (defaults to 6)
@@ -531,8 +531,7 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
 def koelner_phonetik(word):
     """Return the Kölner Phonetik (numeric output) code for a word.
 
-    Based on the algorithm described at
-    https://de.wikipedia.org/wiki/Kölner_Phonetik
+    Based on the algorithm defined by :cite:`Postel:1969`.
 
     While the output code is numeric, it is still a str because 0s can lead
     the code.
@@ -683,15 +682,11 @@ def koelner_phonetik_alpha(word):
 def nysiis(word, maxlength=6, modified=False):
     """Return the NYSIIS code for a word.
 
-    A description of the New York State Identification and Intelligence System
-    algorithm can be found at
-    https://en.wikipedia.org/wiki/New_York_State_Identification_and_Intelligence_System
+    The New York State Identification and Intelligence System algorithm is
+    defined in :cite:`Taft:1970`.
 
     The modified version of this algorithm is described in Appendix B of
-    Lynch, Billy T. and William L. Arends. `Selection of a Surname Coding
-    Procedure for the SRS Record Linkage System.` Statistical Reporting
-    Service, U.S. Department of Agriculture, Washington, D.C. February 1977.
-    https://naldc.nal.usda.gov/download/27833/PDF
+    :cite:`Lynch:1977`.
 
     :param str word: the word to transform
     :param int maxlength: the maximum length (default 6) of the code to return
@@ -854,8 +849,7 @@ def mra(word):
     """Return the MRA personal numeric identifier (PNI) for a word.
 
     A description of the Western Airlines Surname Match Rating Algorithm can
-    be found on page 18 of
-    https://archive.org/details/accessingindivid00moor
+    be found on page 18 of :cite:`Moore:1977`.
 
     :param str word: the word to transform
     :returns: the MRA PNI
@@ -885,11 +879,10 @@ def mra(word):
 def metaphone(word, maxlength=_INFINITY):
     """Return the Metaphone code for a word.
 
-    Based on Lawrence Philips' Pick BASIC code from 1990:
-    http://aspell.net/metaphone/metaphone.basic
+    Based on Lawrence Philips' Pick BASIC code from 1990 :cite:`Philips:1990`,
+    as described in :cite:`Philips:1990b`.
     This incorporates some corrections to the above code, particularly
-    some of those suggested by Michael Kuhn in:
-    http://aspell.net/metaphone/metaphone-kuhn.txt
+    some of those suggested by Michael Kuhn in :cite:`Kuhn:1995`.
 
     :param str word: the word to transform
     :param int maxlength: the maximum length of the returned Metaphone code
@@ -1057,8 +1050,7 @@ def metaphone(word, maxlength=_INFINITY):
 def double_metaphone(word, maxlength=_INFINITY):
     """Return the Double Metaphone code for a word.
 
-    Based on Lawrence Philips' (Visual) C++ code from 1999:
-    http://aspell.net/metaphone/dmetaph.cpp
+    Based on Lawrence Philips' (Visual) C++ code from 1999 cite:`Philips:2000`.
 
     :param word: the word to transform
     :param maxlength: the maximum length of the returned Double Metaphone codes
@@ -1779,11 +1771,11 @@ def double_metaphone(word, maxlength=_INFINITY):
 def caverphone(word, version=2):
     """Return the Caverphone code for a word.
 
-    A description of version 1 of the algorithm can be found at:
-    http://caversham.otago.ac.nz/files/working/ctp060902.pdf
+    A description of version 1 of the algorithm can be found in
+    :cite:`Hood:2002`.
 
-    A description of version 2 of the algorithm can be found at:
-    http://caversham.otago.ac.nz/files/working/ctp150804.pdf
+    A description of version 2 of the algorithm can be found in
+    :cite:`Hood:2004`.
 
     :param str word: the word to transform
     :param int version: the version of Caverphone to employ for encoding
@@ -1930,11 +1922,8 @@ def caverphone(word, version=2):
 def alpha_sis(word, maxlength=14):
     """Return the IBM Alpha Search Inquiry System code for a word.
 
-    Based on the algorithm described in "Accessing individual records from
-    personal data files using non-unique identifiers" / Gwendolyn B. Moore,
-    et al.; prepared for the Institute for Computer Sciences and Technology,
-    National Bureau of Standards, Washington, D.C (1977):
-    https://archive.org/stream/accessingindivid00moor#page/15/mode/1up
+    The Alpha Search Inquiry System code is defined in :cite:`IBM:1973`.
+    This implementation is based on the description in :cite:`Moore:1977`.
 
     A collection is necessary since there can be multiple values for a
     single word. But the collection must be ordered since the first value
@@ -2037,10 +2026,8 @@ def alpha_sis(word, maxlength=14):
 def fuzzy_soundex(word, maxlength=5, zero_pad=True):
     """Return the Fuzzy Soundex code for a word.
 
-    Fuzzy Soundex is an algorithm derived from Soundex, defined in:
-    Holmes, David and M. Catherine McCabe. "Improving Precision and Recall for
-    Soundex Retrieval."
-    http://wayback.archive.org/web/20100629121128/http://www.ir.iit.edu/publications/downloads/IEEESoundexV5.pdf
+    Fuzzy Soundex is an algorithm derived from Soundex, defined in
+    :cite:`Holmes:2002`.
 
     :param str word: the word to transform
     :param int maxlength: the length of the code returned (defaults to 4)
@@ -2142,9 +2129,7 @@ def fuzzy_soundex(word, maxlength=5, zero_pad=True):
 def phonex(word, maxlength=4, zero_pad=True):
     """Return the Phonex code for a word.
 
-    Phonex is an algorithm derived from Soundex, defined in:
-    Lait, A. J. and B. Randell. "An Assessment of Name Matching Algorithms".
-    http://homepages.cs.ncl.ac.uk/brian.randell/Genealogy/NameMatching.pdf
+    Phonex is an algorithm derived from Soundex, defined in :cite:`Lait:1996`.
 
     :param str word: the word to transform
     :param int maxlength: the length of the code returned (defaults to 4)
@@ -2251,15 +2236,12 @@ def phonex(word, maxlength=4, zero_pad=True):
 def phonem(word):
     """Return the Phonem code for a word.
 
-    Phonem is defined in:
-    Wilde, Georg and Carsten Meyer. 1988. "Nicht wörtlich genommen,
-    'Schreibweisentolerante' Suchroutine in dBASE implementiert." c't Magazin
-    für Computer Technik. Oct. 1988. 126--131.
+    Phonem is defined in :cite:`Wilde:1988`.
 
-    This version is based on the Perl implementation documented at:
-    http://ifl.phil-fak.uni-koeln.de/sites/linguistik/Phonetik/import/Phonetik_Files/Allgemeine_Dateien/Martin_Wilz.pdf
-    It includes some enhancements presented in the Java port at:
-    https://github.com/dcm4che/dcm4che/blob/master/dcm4che-soundex/src/main/java/org/dcm4che3/soundex/Phonem.java
+    This version is based on the Perl implementation documented at
+    :cite:`Wilz:2005`.
+    It includes some enhancements presented in the Java port at
+    :cite:`dcm4che:2011`.
 
     Phonem is intended chiefly for German names/words.
 
@@ -2299,14 +2281,12 @@ def phonem(word):
 def phonix(word, maxlength=4, zero_pad=True):
     """Return the Phonix code for a word.
 
-    Phonix is a Soundex-like algorithm defined in:
-    T.N. Gadd: PHONIX --- The Algorithm, Program 24/4, 1990, p.363-366.
+    Phonix is a Soundex-like algorithm defined in :cite:`Gadd:1990`.
 
-    This implementation is based on
-    http://cpansearch.perl.org/src/ULPFR/WAIT-1.800/soundex.c
-    http://cs.anu.edu.au/people/Peter.Christen/Febrl/febrl-0.4.01/encode.py
-    and
-    https://metacpan.org/pod/Text::Phonetic::Phonix
+    This implementation is based on:
+    - :cite:`Pfeifer:2000`
+    - :cite:`Christen:2011`
+    - :cite:`Kollar:2007`
 
     :param str word: the word to transform
     :param int maxlength: the length of the code returned (defaults to 4)
@@ -2510,11 +2490,9 @@ def phonix(word, maxlength=4, zero_pad=True):
 def sfinxbis(word, maxlength=None):
     """Return the SfinxBis code for a word.
 
-    SfinxBis is a Soundex-like algorithm defined in:
-    http://www.swami.se/download/18.248ad5af12aa8136533800091/SfinxBis.pdf
+    SfinxBis is a Soundex-like algorithm defined in :cite:`Axelsson:2009`.
 
-    This implementation follows the reference implementation:
-    http://www.swami.se/download/18.248ad5af12aa8136533800093/swamiSfinxBis.java.txt
+    This implementation follows the reference implementation: :cite:`Sjoo:2009`.
 
     SfinxBis is intended chiefly for Swedish names.
 
@@ -2686,15 +2664,13 @@ def phonet(word, mode=1, lang='de', trace=False):
     """Return the phonet code for a word.
 
     phonet ("Hannoveraner Phonetik") was developed by Jörg Michael and
-    documented in c't magazine vol. 25/1999, p. 252. It is a phonetic
-    algorithm designed primarily for German.
-    Cf. http://www.heise.de/ct/ftp/99/25/252/
+    documented in :cite:`Michael:1999`.
 
-    This is a port of Jesper Zedlitz's code, which is licensed LGPL:
-    https://github.com/jze/phonet4java/blob/master/src/main/java/de/zedlitz/phonet4java/Phonet.java
+    This is a port of Jesper Zedlitz's code, which is licensed LGPL
+    :cite:`Zedlitz:2015`.
 
-    That is, in turn, based on Michael's C code, which is also licensed LGPL:
-    ftp://ftp.heise.de/pub/ct/listings/phonet.zip
+    That is, in turn, based on Michael's C code, which is also licensed LGPL
+    :cite:`Michael:2007`.
 
     :param str word: the word to transform
     :param int mode: the ponet variant to employ (1 or 2)
@@ -4258,8 +4234,7 @@ def spfc(word):
     """Return the Standardized Phonetic Frequency Code (SPFC) of a word.
 
     Standardized Phonetic Frequency Code is roughly Soundex-like.
-    This implementation is based on page 19-21 of
-    https://archive.org/stream/accessingindivid00moor#page/19/mode/1up
+    This implementation is based on page 19-21 of :cite:`Moore:1977`.
 
     :param str word: the word to transform
     :returns: the SPFC value
@@ -4412,10 +4387,7 @@ def statistics_canada(word, maxlength=4):
     procedure".
 
     The modified version of this algorithm is described in Appendix B of
-    Lynch, Billy T. and William L. Arends. `Selection of a Surname Coding
-    Procedure for the SRS Record Linkage System.` Statistical Reporting
-    Service, U.S. Department of Agriculture, Washington, D.C. February 1977.
-    https://naldc.nal.usda.gov/download/27833/PDF
+     :cite:`Moore:1977`.
 
     :param str word: the word to transform
     :param int maxlength: the maximum length (default 6) of the code to return
@@ -4455,8 +4427,7 @@ def statistics_canada(word, maxlength=4):
 def lein(word, maxlength=4, zero_pad=True):
     """Return the Lein code for a word.
 
-    This is Lein name coding, based on
-    https://naldc.nal.usda.gov/download/27833/PDF
+    This is Lein name coding, described in :cite:`Moore:1977`.
 
     :param str word: the word to transform
     :param int maxlength: the maximum length (default 4) of the code to return
@@ -4505,8 +4476,7 @@ def lein(word, maxlength=4, zero_pad=True):
 def roger_root(word, maxlength=5, zero_pad=True):
     """Return the Roger Root code for a word.
 
-    This is Roger Root name coding, based on
-    https://naldc.nal.usda.gov/download/27833/PDF
+    This is Roger Root name coding, described in :cite:`Moore:1977`.
 
     :param str word: the word to transform
     :param int maxlength: the maximum length (default 5) of the code to return
@@ -4594,16 +4564,12 @@ def roger_root(word, maxlength=5, zero_pad=True):
 def onca(word, maxlength=4, zero_pad=True):
     """Return the Oxford Name Compression Algorithm (ONCA) code for a word.
 
-    This is the Oxford Name Compression Algorithm, based on:
-    Gill, Leicester E. 1997. "OX-LINK: The Oxford Medical Record Linkage
-    System." In ``Record Linkage Techniques -- 1997``. Arlington, VA. March
-    20--21, 1997.
-    https://nces.ed.gov/FCSM/pdf/RLT97.pdf
+    This is the Oxford Name Compression Algorithm, based on :cite:`Gill:1997`.
 
     I can find no complete description of the "anglicised version of the NYSIIS
     method" identified as the first step in this algorithm, so this is likely
-    not a correct implementation, in that it employs the standard NYSIIS
-    algorithm.
+    not a precisely correct implementation, in that it employs the standard
+    NYSIIS algorithm.
 
     :param str word: the word to transform
     :param int maxlength: the maximum length (default 5) of the code to return
@@ -4631,12 +4597,9 @@ def eudex(word, maxlength=8):
     """Return the eudex phonetic hash of a word.
 
     This implementation of eudex phonetic hashing is based on the specification
-    (not the reference implementation) at:
-    Ticki. 2017. "Eudex: A blazingly fast phonetic reduction/hashing
-    algorithm." https://docs.rs/crate/eudex
+    (not the reference implementation) at :cite:`Ticki:2016`.
 
-    Further details can be found at
-    http://ticki.github.io/blog/the-eudex-algorithm/
+    Further details can be found at :cite:`Ticki:2016b`.
 
     :param str word: the word to transform
     :param int maxlength: the length of the code returned (defaults to 8)
@@ -4798,13 +4761,11 @@ def eudex(word, maxlength=8):
 def haase_phonetik(word, primary_only=False):
     """Return the Haase Phonetik (numeric output) code for a word.
 
-    Based on the algorithm described at
-    https://github.com/elastic/elasticsearch/blob/master/plugins/analysis-phonetic/src/main/java/org/elasticsearch/index/analysis/phonetic/HaasePhonetik.java
+    Based on the algorithm described at :cite:`Prante:2015`.
 
-    Based on the original
-    Haase, Martin and Kai Heitmann. 2000. Die Erweiterte Kölner Phonetik.
+    Based on the original :cite:`Haase:2000`.
 
-    While the output code is numeric, it is still a str.
+    While the output code is numeric, it is nevertheless a str.
 
     :param str word: the word to transform
     :returns: the Haase Phonetik value as a numeric string
@@ -4935,18 +4896,15 @@ def haase_phonetik(word, primary_only=False):
 def reth_schek_phonetik(word):
     """Return Reth-Schek Phonetik code for a word.
 
-    This algorithm is proposed in:
-    von Reth, Hans-Peter and Schek, Hans-Jörg. 1977. "Eine Zugriffsmethode für
-    die phonetische Ähnlichkeitssuche." Heidelberg Scientific Center technical
-    reports 77.03.002. IBM Deutschland GmbH.
+    This algorithm is proposed in :cite:`Reth:1977`.
 
     Since I couldn't secure a copy of that document (maybe I'll look for it
     next time I'm in Germany), this implementation is based on what I could
     glean from the implementations published by German Record Linkage
     Center (www.record-linkage.de):
 
-    - Privacy-preserving Record Linkage (PPRL) (in R)
-    - Merge ToolBox (in Java)
+    - Privacy-preserving Record Linkage (PPRL) (in R) :cite:`Rukasz:2018`
+    - Merge ToolBox (in Java) :cite:`Schnell:2004`
 
     Rules that are unclear:
 
@@ -5013,14 +4971,9 @@ def fonem(word):
     """Return the FONEM code of a word.
 
     FONEM is a phonetic algorithm designed for French (particularly surnames in
-    Saguenay, Canada), defined in:
-    Bouchard, Gérard, Patrick Brard, and Yolande Lavoie. 1981. "FONEM: Un code
-    de transcription phonétique pour la reconstitution automatique des
-    familles saguenayennes." Population. 36(6). 1085--1103.
-    https://doi.org/10.2307/1532326
-    http://www.persee.fr/doc/pop_0032-4663_1981_num_36_6_17248
+    Saguenay, Canada), defined in :cite:`Bouchard:1981`.
 
-    Guillaume Plique's Javascript implementation at
+    Guillaume Plique's Javascript implementation :cite:`Plique:2018` at
     https://github.com/Yomguithereal/talisman/blob/master/src/phonetics/french/fonem.js
     was also consulted for this implementation.
 
@@ -5135,12 +5088,7 @@ def fonem(word):
 def parmar_kumbharana(word):
     """Return the Parmar-Kumbharana encoding of a word.
 
-    This is based on the phonetic algorithm proposed in
-    Parmar, Vimal P. and CK Kumbharana. 2014. "Study Existing Various Phonetic
-    Algorithms and Designing and Development of a working model for the New
-    Developed Algorithm and Comparison by implementing ti with Existing
-    Algorithm(s)." International Journal of Computer Applications. 98(19).
-    https://doi.org/10.5120/17295-7795
+    This is based on the phonetic algorithm proposed in :cite:`Parmar:2014`.
 
     :param word:
     :return:
@@ -5179,13 +5127,11 @@ def parmar_kumbharana(word):
 def davidson(lname, fname='.', omit_fname=False):
     """Return Davidson's Consonant Code.
 
-    This is based on the name compression system described in:
-    Davidson, Leon. 1962. "Retrieval of Misspelled Names in an Airline
-    Passenger Record System." Communications of the ACM. 5(3). 169--171.
-    https://dl.acm.org/citation.cfm?id=366913
+    This is based on the name compression system described in
+    :cite:`Davidson:1962`.
 
-    Dolby (1970) identifies this as having been the name compression algorithm
-    used by SABRE.
+    :cite:`Dolby:1970` identifies this as having been the name compression
+    algorithm used by SABRE.
 
     :param str lname: Last name (or word) to be encoded
     :param str fname: First name (optional), of which the first character is
@@ -5209,10 +5155,7 @@ def davidson(lname, fname='.', omit_fname=False):
 def sound_d(word, maxlength=4):
     """Return the SoundD code.
 
-    SoundD is defined in
-    Varol, Cihan and Coskun Bayrak. 2012. "Hybrid Matching Algorithm for
-    Personal Names." Journal of Data and Information Quality, 3(4).
-    doi:10.1145/2348828.2348830
+    SoundD is defined in :cite:`Varol:2012`.
 
     :param str word: the word to transform
     :param int maxlength: the length of the code returned (defaults to 4)
@@ -5254,15 +5197,10 @@ def sound_d(word, maxlength=4):
 def pshp_soundex_last(lname, maxlength=4, german=False):
     """Calculate the PSHP Soundex/Viewex Coding of a last name.
 
-    This coding is based on Hershberg, Theodore, Alan Burstein, and Robert
-    Dockhorn. 1976. "Record Linkage." Historical Methods Newsletter.
-    9(2-3). 137--163. doi:10.1080/00182494.1976.10112639
+    This coding is based on :cite:`Hershberg:1976`.
 
     Reference was also made to the German version of the same:
-    Hershberg, Theodore, Alan Burstein, and Robert Dockhorn. 1976. "Verkettung
-    von Daten: Record Linkage am Beispiel des Philadelphia Social History
-    Project." Moderne Stadtgeschichte. Stuttgart: Klett-Cotta, 1979.
-    http://nbn-resolving.de/urn:nbn:de:0168-ssoar-327824
+    :cite:`Hershberg:1979`.
 
     A separate function, pshp_soundex_first() is used for first names.
 
@@ -5390,15 +5328,10 @@ def pshp_soundex_last(lname, maxlength=4, german=False):
 def pshp_soundex_first(fname, maxlength=4, german=False):
     """Calculate the PSHP Soundex/Viewex Coding of a first name.
 
-    This coding is based on Hershberg, Theodore, Alan Burstein, and Robert
-    Dockhorn. 1976. "Record Linkage." Historical Methods Newsletter.
-    9(2-3). 137--163. doi:10.1080/00182494.1976.10112639
+    This coding is based on :cite:`Hershberg:1976`.
 
     Reference was also made to the German version of the same:
-    Hershberg, Theodore, Alan Burstein, and Robert Dockhorn. 1976. "Verkettung
-    von Daten: Record Linkage am Beispiel des Philadelphia Social History
-    Project." Moderne Stadtgeschichte. Stuttgart: Klett-Cotta, 1979.
-    http://nbn-resolving.de/urn:nbn:de:0168-ssoar-327824
+    :cite:`Hershberg:1979`.
 
     A separate function, pshp_soundex_last() is used for last names.
 
@@ -5472,11 +5405,8 @@ def pshp_soundex_first(fname, maxlength=4, german=False):
 def henry_early(word, maxlength=3):
     """Calculate the early version of the Henry code for a word.
 
-    The early version of Henry coding is given in:
-    Légaré, Jacques, Yolande Lavoie, and Hubert Charbonneau. 1972. "The Early
-    Canadian Population: Problems in Automatic Record Linkage." Canadian
-    Historical Review, 53(4). 427--442.
-    doi:10.3138/CHR-053-04-03
+    The early version of Henry coding is given in :cite:`Legare:1972`. This is
+    different from the later version defined in :cite:`Henry:1976`.
 
     :param word:
     :param int maxlength: the length of the code returned (defaults to 3)
@@ -5628,8 +5558,8 @@ def henry_early(word, maxlength=3):
 def norphone(word):
     """Return the Norphone code.
 
-    The reference implementation by Lars Marius Garshol is available at
-    https://github.com/larsga/Duke/blob/master/duke-core/src/main/java/no/priv/garshol/duke/comparators/NorphoneComparator.java
+    The reference implementation by Lars Marius Garshol is available in
+    :cite:`Garshol:2015`.
 
     Norphone was designed for Norwegian, but this implementation has been
     extended to support Swedish vowels as well. This function incorporates
@@ -5706,10 +5636,7 @@ def dolby(word, maxlength=None, keep_vowels=False, vowel_char='*'):
     """Return the Dolby Code of a name.
 
     This follows "A Spelling Equivalent Abbreviation Algorithm For Personal
-    Names" from:
-    Dolby, James L. 1970. "An Algorithm for Variable-Length Proper-Name
-    Compression." Journal of Library Automation, 3(4).
-    doi:10.6017/ital.v3i4.5259
+    Names" from :cite:`Dolby:1970`.
 
     :param word: the word to encode
     :param maxlength: maximum length of the returned Dolby code -- this also
@@ -5850,18 +5777,8 @@ def dolby(word, maxlength=None, keep_vowels=False, vowel_char='*'):
 def phonetic_spanish(word, maxlength=None):
     """Return the PhoneticSpanish coding of word.
 
-    This follows the coding described in:
-    Amón, Iván, Francisco Moreno, and Jaime Echeverri. 2012. "Algoritmo
-    fonético para detección de cadenas de texto duplicadas en el idioma
-    español." Revista Ingenierías Universidad de Medellín, 11(20). 127--138.
-    ISSN:1692-3324
-
-    and:
-    del Pilar Angeles, María, Adrián Espino-Gamez, and Jonathan Gil-Moncada.
-    2015. "Comparison of a Modified Spanish Phonetic, Soundex, and Phonex
-    coding functions during data matching process." 2015 International
-    Conference on Informatics, Electronics Vision (ICIEV). 1--5.
-    doi:10.1109/ICIEV.2015.7334028
+    This follows the coding described in :cite:`Amon:2012` and
+    :cite:`delPilarAngeles:2015`.
 
     :param word:
     :return:
@@ -5893,20 +5810,10 @@ def spanish_metaphone(word, maxlength=6, modified=False):
     """Return the Spanish Metaphone of a word.
 
     This is a quick rewrite of the Spanish Metaphone Algorithm, as presented at
-    https://github.com/amsqr/Spanish-Metaphone
+    https://github.com/amsqr/Spanish-Metaphone and discussed in
+    :cite:`Mosquera:2012`.
 
-    Mosquera, Alejandro, Elena Lloret, and Paloma Moreda. 2012. "Towards
-    Facilitating the Accessibility of Web 2.0 Texts through Text
-    Normalisation." Proceedings of the LREC workshop: Natural Language
-    Processing for Improving Textual Accessibility (NLP4ITA) ; Istanbul,
-    Turkey. 9--14.
-    http://www.taln.upf.edu/pages/nlp4ita/pdfs/mosquera-nlp4ita2012.pdf
-
-    Modified version based on:
-    del Pilar Angeles, María and Noemi Bailón-Miguel. 2016. "Performance of
-    Spanish Encoding Functions during Record Linkage." DATA ANALYTICS 2016:
-    The Fifth International Conference on Data Analysis. 1--7
-    https://core.ac.uk/download/pdf/55855695.pdf#page=14
+    Modified version based on :cite:`delPilarAngeles:2016`.
 
     :param word:
     :param maxlength:
@@ -6043,13 +5950,7 @@ def spanish_metaphone(word, maxlength=6, modified=False):
 def metasoundex(word, language='en'):
     """Return the MetaSoundex code for a word.
 
-    This is based on:
-    Koneru, Keerthi and Cihan Varol. 2017. "Privacy Preserving Record Linkeage
-    using MetaSoundex Algorithm." 2017 16th IEEE International Conference on
-    Machine Learning and Applications (ICMLA). 443--447.
-    doi:10.1109/ICMLA.2017.0-121
-
-
+    This is based on :cite:`Koneru:2017`.
 
     :param word:
     :param language: either 'en' for English or 'es' for Spanish
@@ -6073,10 +5974,9 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
     """Return the Beider-Morse Phonetic Matching algorithm code for a word.
 
-    The Beider-Morse Phonetic Matching algorithm is described at:
-    http://stevemorse.org/phonetics/bmpm.htm
-    The reference implementation is licensed under GPLv3 and available at:
-    http://stevemorse.org/phoneticinfo.htm
+    The Beider-Morse Phonetic Matching algorithm is described in
+    :cite:`Beider:2008`.
+    The reference implementation is licensed under GPLv3.
 
     :param str word: the word to transform
     :param str language_arg: the language of the term; supported values
