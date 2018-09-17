@@ -93,7 +93,6 @@ except ImportError:  # pragma: no cover
 def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     """Return the Levenshtein distance between two strings.
 
-
     This is the standard edit distance measure. Cf.
     :cite:`Levenshtein:1965,Levenshtein:1966`.
 
@@ -1060,7 +1059,7 @@ def sim_euclidean(src, tar, qval=2):
 
 
 def chebyshev(src, tar, qval=2, normalize=False):
-    """Return the Chebyshev distance between two strings.
+    r"""Return the Chebyshev distance between two strings.
 
     Euclidean distance is the chessboard distance,
     equivalent to Minkowski distance in :math:`L^\infty`-space.

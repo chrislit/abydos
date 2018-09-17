@@ -26,8 +26,8 @@ from __future__ import unicode_literals
 import unittest
 
 import abydos.phonetic as phonetic
-from abydos.fingerprint import str_fingerprint, omission_key, \
-    phonetic_fingerprint, qgram_fingerprint, skeleton_key
+from abydos.fingerprint import omission_key, phonetic_fingerprint, \
+    qgram_fingerprint, skeleton_key, str_fingerprint
 
 from six.moves import range
 

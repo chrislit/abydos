@@ -1050,7 +1050,8 @@ def metaphone(word, maxlength=_INFINITY):
 def double_metaphone(word, maxlength=_INFINITY):
     """Return the Double Metaphone code for a word.
 
-    Based on Lawrence Philips' (Visual) C++ code from 1999 :cite:`Philips:2000`.
+    Based on Lawrence Philips' (Visual) C++ code from 1999
+    :cite:`Philips:2000`.
 
     :param word: the word to transform
     :param maxlength: the maximum length of the returned Double Metaphone codes
@@ -2492,7 +2493,8 @@ def sfinxbis(word, maxlength=None):
 
     SfinxBis is a Soundex-like algorithm defined in :cite:`Axelsson:2009`.
 
-    This implementation follows the reference implementation: :cite:`Sjoo:2009`.
+    This implementation follows the reference implementation:
+    :cite:`Sjoo:2009`.
 
     SfinxBis is intended chiefly for Swedish names.
 
@@ -5633,7 +5635,7 @@ def norphone(word):
 
 
 def dolby(word, maxlength=None, keep_vowels=False, vowel_char='*'):
-    """Return the Dolby Code of a name.
+    r"""Return the Dolby Code of a name.
 
     This follows "A Spelling Equivalent Abbreviation Algorithm For Personal
     Names" from :cite:`Dolby:1970` and :cite:`Cunningham:1969`.
@@ -5840,7 +5842,6 @@ def spanish_metaphone(word, maxlength=6, modified=False):
         if word[:2] == 'PS':
             word = word[1:]
 
-
     # simple replacements
     word = word.replace('Á', 'A')
     word = word.replace('CH', 'X')
@@ -5865,11 +5866,12 @@ def spanish_metaphone(word, maxlength=6, modified=False):
         # if a vowel in pos 0, add to key
         if _is_vowel(pos) and pos == 0:
             meta_key += current_char
-            pos +=1
+            pos += 1
         # otherwise, do consonant rules
         else:
             # simple consonants (unmutated)
-            if current_char in {'D','F','J','K','M','N','P','T','V','L','Y'}:
+            if current_char in {'D', 'F', 'J', 'K', 'M', 'N', 'P', 'T', 'V',
+                                'L', 'Y'}:
                 meta_key += current_char
                 # skip doubled consonants
                 if word[pos+1:pos+2] == current_char:
@@ -5967,7 +5969,6 @@ def metasoundex(word, language='en'):
     word = word[0].translate(_metasoundex_translation)+word[1:]
 
     return word
-
 
 
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
