@@ -23,7 +23,7 @@ The phones module implements ...
 
 from __future__ import division, unicode_literals
 
-import unicodedata
+from unicodedata import normalize
 
 from six import text_type
 from six.moves import range
@@ -593,7 +593,7 @@ def ipa_to_features(ipa):
     """
     features = []
     pos = 0
-    ipa = unicodedata.normalize('NFD', text_type(ipa.lower()))
+    ipa = normalize('NFD', text_type(ipa.lower()))
 
     maxsymlen = max(len(_) for _ in PHONETIC_FEATURES)
 

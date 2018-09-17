@@ -33,8 +33,8 @@ The fingerprint module implements string fingerprints such as:
 
 from __future__ import division, unicode_literals
 
-import unicodedata
 from collections import Counter
+from unicodedata import normalize
 
 from six import text_type
 
@@ -57,7 +57,7 @@ def str_fingerprint(phrase, joiner=' '):
     >>> str_fingerprint('The quick brown fox jumped over the lazy dog.')
     'brown dog fox jumped lazy over quick the'
     """
-    phrase = unicodedata.normalize('NFKD', text_type(phrase.strip().lower()))
+    phrase = normalize('NFKD', text_type(phrase.strip().lower()))
     phrase = ''.join([c for c in phrase if c.isalnum() or c.isspace()])
     phrase = joiner.join(sorted(list(set(phrase.split()))))
     return phrase
@@ -86,7 +86,7 @@ def qgram_fingerprint(phrase, qval=2, start_stop='', joiner=''):
     >>> qgram_fingerprint('Niall')
     'aliallni'
     """
-    phrase = unicodedata.normalize('NFKD', text_type(phrase.strip().lower()))
+    phrase = normalize('NFKD', text_type(phrase.strip().lower()))
     phrase = ''.join(c for c in phrase if c.isalnum())
     phrase = QGrams(phrase, qval, start_stop)
     phrase = joiner.join(sorted(phrase))
@@ -149,7 +149,7 @@ def skeleton_key(word):
     """
     _vowels = {'A', 'E', 'I', 'O', 'U'}
 
-    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = normalize('NFKD', text_type(word.upper()))
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
                     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
@@ -190,7 +190,7 @@ def omission_key(word):
     _consonants = ('J', 'K', 'Q', 'X', 'Z', 'V', 'W', 'Y', 'B', 'F', 'M', 'G',
                    'P', 'D', 'H', 'C', 'L', 'N', 'T', 'S', 'R')
 
-    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = normalize('NFKD', text_type(word.upper()))
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
                     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',

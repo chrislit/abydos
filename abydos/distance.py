@@ -65,14 +65,16 @@ to return 1; the corresponding dist_X function is guaranteed to return 0.
 
 from __future__ import division, unicode_literals
 
-import codecs
-import math
-import sys
-import types
-import unicodedata
+from codecs import encode
 from collections import Counter, Iterable, defaultdict
+from math import log, sqrt
+from sys import maxsize, modules
+from types import GeneratorType
+from unicodedata import normalize
 
-import numpy as np
+from numpy import float32 as np_float32
+from numpy import int as np_int
+from numpy import zeros as np_zeros
 
 from six import text_type
 from six.moves import range
@@ -157,7 +159,7 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
         return damerau_levenshtein(src, tar, cost)
 
     # pylint: disable=no-member
-    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
+    d_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_int)
     # pylint: enable=no-member
     for i in range(len(src)+1):
         d_mat[i, 0] = i * del_cost
@@ -304,7 +306,7 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
                          'an insert plus a delete.')
 
     # pylint: disable=no-member
-    d_mat = (np.zeros((len(src))*(len(tar)), dtype=np.int).
+    d_mat = (np_zeros((len(src))*(len(tar)), dtype=np_int).
              reshape((len(src), len(tar))))
     # pylint: enable=no-member
 
@@ -353,7 +355,7 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
                                  del_cost + (j - j_swap - 1) * ins_cost +
                                  trans_cost)
             else:
-                swap_distance = sys.maxsize
+                swap_distance = maxsize
 
             d_mat[i, j] = min(del_distance, ins_distance,
                               match_distance, swap_distance)
@@ -887,7 +889,7 @@ def tanimoto(src, tar, qval=2):
     """
     coeff = sim_jaccard(src, tar, qval)
     if coeff != 0:
-        return math.log(coeff, 2)
+        return log(coeff, 2)
 
     return float('-inf')
 
@@ -1139,7 +1141,7 @@ def sim_cosine(src, tar, qval=2):
     q_tar_mag = sum(q_tar.values())
     q_intersection_mag = sum((q_src & q_tar).values())
 
-    return q_intersection_mag / math.sqrt(q_src_mag * q_tar_mag)
+    return q_intersection_mag / sqrt(q_src_mag * q_tar_mag)
 
 
 def dist_cosine(src, tar, qval=2):
@@ -1564,7 +1566,7 @@ def lcsseq(src, tar):
     'AC'
     """
     # pylint: disable=no-member
-    lengths = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
+    lengths = np_zeros((len(src)+1, len(tar)+1), dtype=np_int)
     # pylint: enable=no-member
 
     # row 0 and column 0 are initialized to 0 already
@@ -1671,7 +1673,7 @@ def lcsstr(src, tar):
     'A'
     """
     # pylint: disable=no-member
-    lengths = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
+    lengths = np_zeros((len(src)+1, len(tar)+1), dtype=np_int)
     # pylint: enable=no-member
     longest, i_longest = 0, 0
     for i in range(1, len(src)+1):
@@ -1776,7 +1778,7 @@ def sim_ratcliff_obershelp(src, tar):
         strings src and tar.
         """
         # pylint: disable=no-member
-        lengths = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
+        lengths = np_zeros((len(src)+1, len(tar)+1), dtype=np_int)
         # pylint: enable=no-member
         longest, src_longest, tar_longest = 0, 0, 0
         for i in range(1, len(src)+1):
@@ -1994,12 +1996,12 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
         tar = tar.encode('utf-8')
 
     if compressor == 'bz2':
-        src_comp = codecs.encode(src, 'bz2_codec')[15:]
-        tar_comp = codecs.encode(tar, 'bz2_codec')[15:]
-        concat_comp = codecs.encode(src+tar, 'bz2_codec')[15:]
-        concat_comp2 = codecs.encode(tar+src, 'bz2_codec')[15:]
+        src_comp = encode(src, 'bz2_codec')[15:]
+        tar_comp = encode(tar, 'bz2_codec')[15:]
+        concat_comp = encode(src+tar, 'bz2_codec')[15:]
+        concat_comp2 = encode(tar+src, 'bz2_codec')[15:]
     elif compressor == 'lzma':
-        if 'lzma' in sys.modules:
+        if 'lzma' in modules:
             src_comp = lzma.compress(src)[14:]
             tar_comp = lzma.compress(tar)[14:]
             concat_comp = lzma.compress(src+tar)[14:]
@@ -2023,10 +2025,10 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
         concat_comp = rle_encode(src+tar, (compressor == 'bwtrle'))
         concat_comp2 = rle_encode(tar+src, (compressor == 'bwtrle'))
     else:  # zlib
-        src_comp = codecs.encode(src, 'zlib_codec')[2:]
-        tar_comp = codecs.encode(tar, 'zlib_codec')[2:]
-        concat_comp = codecs.encode(src+tar, 'zlib_codec')[2:]
-        concat_comp2 = codecs.encode(tar+src, 'zlib_codec')[2:]
+        src_comp = encode(src, 'zlib_codec')[2:]
+        tar_comp = encode(tar, 'zlib_codec')[2:]
+        concat_comp = encode(src+tar, 'zlib_codec')[2:]
+        concat_comp2 = encode(tar+src, 'zlib_codec')[2:]
     return ((min(len(concat_comp), len(concat_comp2)) -
              min(len(src_comp), len(tar_comp))) /
             max(len(src_comp), len(tar_comp)))
@@ -2263,7 +2265,7 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
     0.0
     """
     # pylint: disable=no-member
-    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
+    d_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_float32)
     # pylint: enable=no-member
 
     for i in range(len(src)+1):
@@ -2303,7 +2305,7 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
     1.0
     """
     # pylint: disable=no-member
-    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
+    d_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_float32)
     # pylint: enable=no-member
 
     for i in range(len(src)+1):
@@ -2345,9 +2347,9 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
     2.0
     """
     # pylint: disable=no-member
-    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
-    p_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
-    q_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.float)
+    d_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_float32)
+    p_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_float32)
+    q_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_float32)
     # pylint: enable=no-member
 
     d_mat[0, 0] = 0
@@ -2755,8 +2757,8 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
         return r_cost(ch1, ch2)
 
     # convert both src & tar to NFKD normalized unicode
-    src = unicodedata.normalize('NFKD', text_type(src.upper()))
-    tar = unicodedata.normalize('NFKD', text_type(tar.upper()))
+    src = normalize('NFKD', text_type(src.upper()))
+    tar = normalize('NFKD', text_type(tar.upper()))
     # convert ß to SS (for Python2)
     src = src.replace('ß', 'SS')
     tar = tar.replace('ß', 'SS')
@@ -2769,7 +2771,7 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
         return len(src) * mismatch_cost
 
     # pylint: disable=no-member
-    d_mat = np.zeros((len(src)+1, len(tar)+1), dtype=np.int)
+    d_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_int)
     # pylint: enable=no-member
     lens = len(src)
     lent = len(tar)
@@ -2908,7 +2910,7 @@ def eudex_hamming(src, tar, weights='exponential', maxlength=8,
         weights = _gen_exponential()
     elif weights == 'fibonacci':
         weights = _gen_fibonacci()
-    if isinstance(weights, types.GeneratorType):
+    if isinstance(weights, GeneratorType):
         weights = [next(weights) for _ in range(maxlength)][::-1]
 
     # Sum the weighted hamming distance
@@ -3300,10 +3302,10 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5)):
         return abs(row1 - row2) + abs(col1 - col2)
 
     def _log_euclidean_keyboard_distance(char1, char2):
-        return math.log(1 + _euclidean_keyboard_distance(char1, char2))
+        return log(1 + _euclidean_keyboard_distance(char1, char2))
 
     def _log_manhattan_keyboard_distance(char1, char2):
-        return math.log(1 + _manhattan_keyboard_distance(char1, char2))
+        return log(1 + _manhattan_keyboard_distance(char1, char2))
 
     metric_dict = {'euclidean': _euclidean_keyboard_distance,
                    'manhattan': _manhattan_keyboard_distance,
@@ -3317,7 +3319,7 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5)):
                                _kb_array_for_char(char2)))
         return cost
 
-    d_mat = np.zeros((len(src) + 1, len(tar) + 1), dtype=np.float32)
+    d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
     for i in range(len(src) + 1):
         d_mat[i, 0] = i * del_cost
     for j in range(len(tar) + 1):

@@ -61,10 +61,10 @@ The phonetic module implements phonetic algorithms including:
 
 from __future__ import division, unicode_literals
 
-import re
-import unicodedata
 from collections import Counter
 from itertools import groupby, product
+from re import compile as re_compile
+from unicodedata import normalize
 
 from six import text_type
 from six.moves import range
@@ -108,7 +108,7 @@ def russell_index(word):
                                      'ABCDEFGIKLMNOPQRSTUVXYZ'),
                                     '12341231356712383412313'))
 
-    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = word.replace('GH', '')  # discard gh (rule 3)
     word = word.rstrip('SZ')  # discard /[sz]$/ (rule 3)
@@ -244,7 +244,7 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
         maxlength = 64
 
     # uppercase, normalize, decompose, and filter non-A-Z out
-    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
 
     if var == 'Census':
@@ -326,7 +326,7 @@ def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False,
                                         '01360240043788015936020505'))
 
     # uppercase, normalize, decompose, and filter non-A-Z out
-    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -471,7 +471,7 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
         maxlength = 64
 
     # uppercase, normalize, decompose, and filter non-A-Z
-    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -570,7 +570,7 @@ def koelner_phonetik(word):
 
     sdx = ''
 
-    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
 
     word = word.replace('Ä', 'AE')
@@ -1967,7 +1967,7 @@ def alpha_sis(word, maxlength=14):
 
     alpha = ['']
     pos = 0
-    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -2050,7 +2050,7 @@ def fuzzy_soundex(word, maxlength=5, zero_pad=True):
                                            'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
                                           '0193017-07745501769301-7-9'))
 
-    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
 
     # Clamp maxlength to [4, 64]
@@ -2148,7 +2148,7 @@ def phonex(word, maxlength=4, zero_pad=True):
     >>> phonex('Smith')
     'S530'
     """
-    name = unicodedata.normalize('NFKD', text_type(word.upper()))
+    name = normalize('NFKD', text_type(word.upper()))
     name = name.replace('ß', 'SS')
 
     # Clamp maxlength to [4, 64]
@@ -2269,7 +2269,7 @@ def phonem(word):
                                     'ZKGQÇÑßFWPTÁÀÂÃÅÄÆÉÈÊËIJÌÍÎÏÜÝ§ÚÙÛÔÒÓÕØ'),
                                    'CCCCCNSVVBDAAAAAEEEEEEYYYYYYYYUUUUOOOOÖ'))
 
-    word = unicodedata.normalize('NFC', text_type(word.upper()))
+    word = normalize('NFC', text_type(word.upper()))
     for i, j in _phonem_substitutions:
         word = word.replace(i, j)
     word = word.translate(_phonem_translation)
@@ -2459,7 +2459,7 @@ def phonix(word, maxlength=4, zero_pad=True):
 
     sdx = ''
 
-    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -2604,7 +2604,7 @@ def sfinxbis(word, maxlength=None):
         return ordet
 
     # Steg 1, Versaler
-    word = unicodedata.normalize('NFC', text_type(word.upper()))
+    word = normalize('NFC', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = word.replace('-', ' ')
 
@@ -4228,7 +4228,7 @@ def phonet(word, mode=1, lang='de', trace=False):
 
     _initialize_phonet(lang)
 
-    word = unicodedata.normalize('NFKC', text_type(word))
+    word = normalize('NFKC', text_type(word))
     return _phonet(word, mode, lang, trace)
 
 
@@ -4295,9 +4295,9 @@ def spfc(word):
     else:
         _raise_word_ex()
 
-    names = [unicodedata.normalize('NFKD', text_type(_.strip()
-                                                     .replace('ß', 'SS')
-                                                     .upper()))
+    names = [normalize('NFKD', text_type(_.strip()
+                                         .replace('ß', 'SS')
+                                         .upper()))
              for _ in names]
     code = ''
 
@@ -4407,7 +4407,7 @@ def statistics_canada(word, maxlength=4):
     'SCHM'
     """
     # uppercase, normalize, decompose, and filter non-A-Z out
-    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -4452,7 +4452,7 @@ def lein(word, maxlength=4, zero_pad=True):
                                  '451455532245351455'))
 
     # uppercase, normalize, decompose, and filter non-A-Z out
-    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -4497,7 +4497,7 @@ def roger_root(word, maxlength=5, zero_pad=True):
     '06310'
     """
     # uppercase, normalize, decompose, and filter non-A-Z out
-    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -4787,7 +4787,7 @@ def haase_phonetik(word, primary_only=False):
 
     _vowels = {'A', 'E', 'I', 'J', 'O', 'U', 'Y'}
 
-    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
 
     word = word.replace('Ä', 'AE')
@@ -4986,65 +4986,65 @@ def fonem(word):
     # I don't see a sane way of doing this without regexps :(
     rule_table = {
         # Vowels & groups of vowels
-        'V-1':     (re.compile('E?AU'), 'O'),
-        'V-2,5':   (re.compile('(E?AU|O)L[TX]$'), 'O'),
-        'V-3,4':   (re.compile('E?AU[TX]$'), 'O'),
-        'V-6':     (re.compile('E?AUL?D$'), 'O'),
-        'V-7':     (re.compile(r'(?<!G)AY$'), 'E'),
-        'V-8':     (re.compile('EUX$'), 'EU'),
-        'V-9':     (re.compile('EY(?=$|[BCDFGHJKLMNPQRSTVWXZ])'), 'E'),
+        'V-1':     (re_compile('E?AU'), 'O'),
+        'V-2,5':   (re_compile('(E?AU|O)L[TX]$'), 'O'),
+        'V-3,4':   (re_compile('E?AU[TX]$'), 'O'),
+        'V-6':     (re_compile('E?AUL?D$'), 'O'),
+        'V-7':     (re_compile(r'(?<!G)AY$'), 'E'),
+        'V-8':     (re_compile('EUX$'), 'EU'),
+        'V-9':     (re_compile('EY(?=$|[BCDFGHJKLMNPQRSTVWXZ])'), 'E'),
         'V-10':    ('Y', 'I'),
-        'V-11':    (re.compile('(?<=[AEIOUY])I(?=[AEIOUY])'), 'Y'),
-        'V-12':    (re.compile('(?<=[AEIOUY])ILL'), 'Y'),
-        'V-13':    (re.compile('OU(?=[AEOU]|I(?!LL))'), 'W'),
-        'V-14':    (re.compile(r'([AEIOUY])(?=\1)'), ''),
+        'V-11':    (re_compile('(?<=[AEIOUY])I(?=[AEIOUY])'), 'Y'),
+        'V-12':    (re_compile('(?<=[AEIOUY])ILL'), 'Y'),
+        'V-13':    (re_compile('OU(?=[AEOU]|I(?!LL))'), 'W'),
+        'V-14':    (re_compile(r'([AEIOUY])(?=\1)'), ''),
         # Nasal vowels
-        'V-15':    (re.compile('[AE]M(?=[BCDFGHJKLMPQRSTVWXZ])(?!$)'), 'EN'),
-        'V-16':    (re.compile('OM(?=[BCDFGHJKLMPQRSTVWXZ])'), 'ON'),
-        'V-17':    (re.compile('AN(?=[BCDFGHJKLMNPQRSTVWXZ])'), 'EN'),
-        'V-18':    (re.compile('(AI[MN]|EIN)(?=[BCDFGHJKLMNPQRSTVWXZ]|$)'),
+        'V-15':    (re_compile('[AE]M(?=[BCDFGHJKLMPQRSTVWXZ])(?!$)'), 'EN'),
+        'V-16':    (re_compile('OM(?=[BCDFGHJKLMPQRSTVWXZ])'), 'ON'),
+        'V-17':    (re_compile('AN(?=[BCDFGHJKLMNPQRSTVWXZ])'), 'EN'),
+        'V-18':    (re_compile('(AI[MN]|EIN)(?=[BCDFGHJKLMNPQRSTVWXZ]|$)'),
                     'IN'),
-        'V-19':    (re.compile('B(O|U|OU)RNE?$'), 'BURN'),
-        'V-20':    (re.compile('(^IM|(?<=[BCDFGHJKLMNPQRSTVWXZ])IM(?=[BCDFGHJKLMPQRSTVWXZ]))'),
+        'V-19':    (re_compile('B(O|U|OU)RNE?$'), 'BURN'),
+        'V-20':    (re_compile('(^IM|(?<=[BCDFGHJKLMNPQRSTVWXZ])IM(?=[BCDFGHJKLMPQRSTVWXZ]))'),
                     'IN'),
         # Consonants and groups of consonants
         'C-1':     ('BV', 'V'),
-        'C-2':     (re.compile('(?<=[AEIOUY])C(?=[EIY])'), 'SS'),
-        'C-3':     (re.compile('(?<=[BDFGHJKLMNPQRSTVWZ])C(?=[EIY])'), 'S'),
-        'C-4':     (re.compile('^C(?=[EIY])'), 'S'),
-        'C-5':     (re.compile('^C(?=[OUA])'), 'K'),
-        'C-6':     (re.compile('(?<=[AEIOUY])C$'), 'K'),
-        'C-7':     (re.compile('C(?=[BDFGJKLMNPQRSTVWXZ])'), 'K'),
-        'C-8':     (re.compile('CC(?=[AOU])'), 'K'),
-        'C-9':     (re.compile('CC(?=[EIY])'), 'X'),
-        'C-10':    (re.compile('G(?=[EIY])'), 'J'),
-        'C-11':    (re.compile('GA(?=I?[MN])'), 'G#'),
-        'C-12':    (re.compile('GE(O|AU)'), 'JO'),
-        'C-13':    (re.compile('GNI(?=[AEIOUY])'), 'GN'),
-        'C-14':    (re.compile('(?<![PCS])H'), ''),
+        'C-2':     (re_compile('(?<=[AEIOUY])C(?=[EIY])'), 'SS'),
+        'C-3':     (re_compile('(?<=[BDFGHJKLMNPQRSTVWZ])C(?=[EIY])'), 'S'),
+        'C-4':     (re_compile('^C(?=[EIY])'), 'S'),
+        'C-5':     (re_compile('^C(?=[OUA])'), 'K'),
+        'C-6':     (re_compile('(?<=[AEIOUY])C$'), 'K'),
+        'C-7':     (re_compile('C(?=[BDFGJKLMNPQRSTVWXZ])'), 'K'),
+        'C-8':     (re_compile('CC(?=[AOU])'), 'K'),
+        'C-9':     (re_compile('CC(?=[EIY])'), 'X'),
+        'C-10':    (re_compile('G(?=[EIY])'), 'J'),
+        'C-11':    (re_compile('GA(?=I?[MN])'), 'G#'),
+        'C-12':    (re_compile('GE(O|AU)'), 'JO'),
+        'C-13':    (re_compile('GNI(?=[AEIOUY])'), 'GN'),
+        'C-14':    (re_compile('(?<![PCS])H'), ''),
         'C-15':    ('JEA', 'JA'),
-        'C-16':    (re.compile('^MAC(?=[BCDFGHJKLMNPQRSTVWXZ])'), 'MA#'),
-        'C-17':    (re.compile('^MC'), 'MA#'),
+        'C-16':    (re_compile('^MAC(?=[BCDFGHJKLMNPQRSTVWXZ])'), 'MA#'),
+        'C-17':    (re_compile('^MC'), 'MA#'),
         'C-18':    ('PH', 'F'),
         'C-19':    ('QU', 'K'),
-        'C-20':    (re.compile('^SC(?=[EIY])'), 'S'),
-        'C-21':    (re.compile('(?<=.)SC(?=[EIY])'), 'SS'),
-        'C-22':    (re.compile('(?<=.)SC(?=[AOU])'), 'SK'),
+        'C-20':    (re_compile('^SC(?=[EIY])'), 'S'),
+        'C-21':    (re_compile('(?<=.)SC(?=[EIY])'), 'SS'),
+        'C-22':    (re_compile('(?<=.)SC(?=[AOU])'), 'SK'),
         'C-23':    ('SH', 'CH'),
-        'C-24':    (re.compile('TIA$'), 'SSIA'),
-        'C-25':    (re.compile('(?<=[AIOUY])W'), ''),
-        'C-26':    (re.compile('X[CSZ]'), 'X'),
-        'C-27':    (re.compile('(?<=[AEIOUY])Z|(?<=[BCDFGHJKLMNPQRSTVWXZ])Z(?=[BCDFGHJKLMNPQRSTVWXZ])'), 'S'),
-        'C-28':    (re.compile(r'([BDFGHJKMNPQRTVWXZ])\1'), r'\1'),
-        'C-28a':   (re.compile('CC(?=[BCDFGHJKLMNPQRSTVWXZ]|$)'), 'C'),
-        'C-28b':   (re.compile('((?<=[BCDFGHJKLMNPQRSTVWXZ])|^)SS'), 'S'),
-        'C-28bb':  (re.compile('SS(?=[BCDFGHJKLMNPQRSTVWXZ]|$)'), 'S'),
-        'C-28c':   (re.compile('((?<=[^I])|^)LL'), 'L'),
-        'C-28d':   (re.compile('ILE$'), 'ILLE'),
-        'C-29':    (re.compile('(ILS|[CS]H|[MN]P|R[CFKLNSX])$|([BCDFGHJKLMNPQRSTVWXZ])[BCDFGHJKLMNPQRSTVWXZ]$'),
+        'C-24':    (re_compile('TIA$'), 'SSIA'),
+        'C-25':    (re_compile('(?<=[AIOUY])W'), ''),
+        'C-26':    (re_compile('X[CSZ]'), 'X'),
+        'C-27':    (re_compile('(?<=[AEIOUY])Z|(?<=[BCDFGHJKLMNPQRSTVWXZ])Z(?=[BCDFGHJKLMNPQRSTVWXZ])'), 'S'),
+        'C-28':    (re_compile(r'([BDFGHJKMNPQRTVWXZ])\1'), r'\1'),
+        'C-28a':   (re_compile('CC(?=[BCDFGHJKLMNPQRSTVWXZ]|$)'), 'C'),
+        'C-28b':   (re_compile('((?<=[BCDFGHJKLMNPQRSTVWXZ])|^)SS'), 'S'),
+        'C-28bb':  (re_compile('SS(?=[BCDFGHJKLMNPQRSTVWXZ]|$)'), 'S'),
+        'C-28c':   (re_compile('((?<=[^I])|^)LL'), 'L'),
+        'C-28d':   (re_compile('ILE$'), 'ILLE'),
+        'C-29':    (re_compile('(ILS|[CS]H|[MN]P|R[CFKLNSX])$|([BCDFGHJKLMNPQRSTVWXZ])[BCDFGHJKLMNPQRSTVWXZ]$'),
                     lambda m: (m.group(1) or '') + (m.group(2) or '')),
-        'C-30,32': (re.compile('^(SA?INT?|SEI[NM]|CINQ?|ST)(?!E)-?'), 'ST-'),
-        'C-31,33': (re.compile('^(SAINTE|STE)-?'), 'STE-'),
+        'C-30,32': (re_compile('^(SA?INT?|SEI[NM]|CINQ?|ST)(?!E)-?'), 'ST-'),
+        'C-31,33': (re_compile('^(SAINTE|STE)-?'), 'STE-'),
         # Rules to undo rule bleeding prevention in C-11, C-16, C-17
         'C-34':    ('G#', 'GA'),
         'C-35':    ('MA#', 'MAC')
@@ -5069,7 +5069,7 @@ def fonem(word):
     ]
 
     # normalize, upper-case, and filter non-French letters
-    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = normalize('NFKD', text_type(word.upper()))
     word = word.translate({198: 'AE', 338: 'OE'})
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -5167,7 +5167,7 @@ def sound_d(word, maxlength=4):
                                         'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
                                        '01230120022455012623010202'))
 
-    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -5210,7 +5210,7 @@ def pshp_soundex_last(lname, maxlength=4, german=False):
     :param german: set to True if the name is German (different rules apply)
     :return:
     """
-    lname = unicodedata.normalize('NFKD', text_type(lname.upper()))
+    lname = normalize('NFKD', text_type(lname.upper()))
     lname = lname.replace('ß', 'SS')
     lname = ''.join(c for c in lname if c in
                     {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
@@ -5341,7 +5341,7 @@ def pshp_soundex_first(fname, maxlength=4, german=False):
     :param german: set to True if the name is German (different rules apply)
     :return:
     """
-    fname = unicodedata.normalize('NFKD', text_type(fname.upper()))
+    fname = normalize('NFKD', text_type(fname.upper()))
     fname = fname.replace('ß', 'SS')
     fname = ''.join(c for c in fname if c in
                     {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
@@ -5422,7 +5422,7 @@ def henry_early(word, maxlength=3):
     _unaltered = {'B', 'D', 'F', 'J', 'K', 'L', 'M', 'N', 'R', 'T', 'V'}
     _simple = {'W': 'V', 'X': 'S', 'V': 'S'}
 
-    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = normalize('NFKD', text_type(word.upper()))
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
                     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
@@ -5650,7 +5650,7 @@ def dolby(word, maxlength=None, keep_vowels=False, vowel_char='*'):
     _vowels = {'A', 'E', 'I', 'O', 'U', 'Y'}
 
     # uppercase, normalize, decompose, and filter non-A-Z out
-    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -5790,7 +5790,7 @@ def phonetic_spanish(word, maxlength=None):
                                        '14328287566079431454'))
 
     # uppercase, normalize, and decompose, filter to A-Z minus vowels & W
-    word = unicodedata.normalize('NFKD', text_type(word.upper()))
+    word = normalize('NFKD', text_type(word.upper()))
     word = ''.join(c for c in word if c in
                    {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N',
                     'P', 'Q', 'R', 'S', 'T', 'V', 'X', 'Y', 'Z'})
@@ -5829,7 +5829,7 @@ def spanish_metaphone(word, maxlength=6, modified=False):
             return True
         return False
 
-    word = unicodedata.normalize('NFC', text_type(word.upper()))
+    word = normalize('NFC', text_type(word.upper()))
 
     meta_key = ''
     pos = 0
