@@ -28,8 +28,8 @@ Phonentic Matching (BMPM) algorithm
 
 from __future__ import unicode_literals
 
-import re
-import unicodedata
+from re import search
+from unicodedata import normalize
 
 from six import PY3, text_type
 from six.moves import range
@@ -79,7 +79,7 @@ def _bm_language(name, name_mode):
     choices_remaining = all_langs
     for rule in rules:
         letters, languages, accept = rule
-        if re.search(letters, name) is not None:
+        if search(letters, name) is not None:
             if accept:
                 choices_remaining &= languages
             else:
@@ -213,12 +213,12 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
 
             # check that right context is satisfied
             if rcontext != '':
-                if not re.search(right, term[i+pattern_length:]):
+                if not search(right, term[i+pattern_length:]):
                     continue
 
             # check that left context is satisfied
             if lcontext != '':
-                if not re.search(left, term[:i]):
+                if not search(left, term[:i]):
                     continue
 
             # check for incompatible attributes
@@ -300,12 +300,12 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
 
                 # check that right context is satisfied
                 if rcontext != '':
-                    if not re.search(right, phoneticx[i + pattern_length:]):
+                    if not search(right, phoneticx[i + pattern_length:]):
                         continue
 
                 # check that left context is satisfied
                 if lcontext != '':
-                    if not re.search(left, phoneticx[:i]):
+                    if not search(left, phoneticx[:i]):
                         continue
 
                 # check for incompatible attributes
@@ -564,7 +564,7 @@ def _bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     :param bool concat: concatenation mode
     :param bool filter_langs: filter out incompatible languages
     """
-    word = unicodedata.normalize('NFC', text_type(word.strip().lower()))
+    word = normalize('NFC', text_type(word.strip().lower()))
 
     name_mode = name_mode.strip().lower()[:3]
     if name_mode not in {'ash', 'sep', 'gen'}:

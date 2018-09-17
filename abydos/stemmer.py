@@ -33,8 +33,8 @@ The stemmer module defines word stemmers including:
 
 from __future__ import unicode_literals
 
-import re
-import unicodedata
+from re import match as re_match
+from unicodedata import normalize
 
 from six import text_type
 from six.moves import range
@@ -62,7 +62,7 @@ def lovins(word):
     # pylint: disable=too-many-branches, too-many-locals
 
     # lowercase, normalize, and compose
-    word = unicodedata.normalize('NFC', text_type(word.lower()))
+    word = normalize('NFC', text_type(word.lower()))
 
     def cond_b(word, suffix_len):
         """Return Lovins' condition B."""
@@ -464,7 +464,7 @@ def porter(word, early_english=False):
     # pylint: disable=too-many-branches
 
     # lowercase, normalize, and compose
-    word = unicodedata.normalize('NFC', text_type(word.lower()))
+    word = normalize('NFC', text_type(word.lower()))
 
     # Return word if stem is shorter than 2
     if len(word) < 3:
@@ -787,7 +787,7 @@ def porter2(word, early_english=False):
                       'proceed', 'exceed', 'succeed'}
 
     # lowercase, normalize, and compose
-    word = unicodedata.normalize('NFC', text_type(word.lower()))
+    word = normalize('NFC', text_type(word.lower()))
     # replace apostrophe-like characters with U+0027, per
     # http://snowball.tartarus.org/texts/apostrophe.html
     word = word.replace('’', '\'')
@@ -1047,7 +1047,7 @@ def sb_german(word, alternate_vowels=False):
     _st_endings = {'b', 'd', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 't'}
 
     # lowercase, normalize, and compose
-    word = unicodedata.normalize('NFC', word.lower())
+    word = normalize('NFC', word.lower())
     word = word.replace('ß', 'ss')
 
     if len(word) > 2:
@@ -1185,7 +1185,7 @@ def sb_dutch(word):
         return word
 
     # lowercase, normalize, decompose, filter umlauts & acutes out, and compose
-    word = unicodedata.normalize('NFC', text_type(word.lower()))
+    word = normalize('NFC', text_type(word.lower()))
     _accented = dict(zip((ord(_) for _ in 'äëïöüáéíóú'), 'aeiouaeiou'))
     word = word.translate(_accented)
 
@@ -1300,7 +1300,7 @@ def sb_norwegian(word):
     _s_endings = {'b', 'c', 'd', 'f', 'g', 'h', 'j', 'l', 'm', 'n', 'o', 'p',
                   'r', 't', 'v', 'y', 'z'}
     # lowercase, normalize, and compose
-    word = unicodedata.normalize('NFC', text_type(word.lower()))
+    word = normalize('NFC', text_type(word.lower()))
 
     r1_start = min(max(3, _sb_r1(word, _vowels)), len(word))
 
@@ -1372,7 +1372,7 @@ def sb_swedish(word):
                   'o', 'p', 'r', 't', 'v', 'y'}
 
     # lowercase, normalize, and compose
-    word = unicodedata.normalize('NFC', text_type(word.lower()))
+    word = normalize('NFC', text_type(word.lower()))
 
     r1_start = min(max(3, _sb_r1(word, _vowels)), len(word))
 
@@ -1438,7 +1438,7 @@ def sb_danish(word):
                   'o', 'p', 'r', 't', 'v', 'y', 'z', 'å'}
 
     # lowercase, normalize, and compose
-    word = unicodedata.normalize('NFC', text_type(word.lower()))
+    word = normalize('NFC', text_type(word.lower()))
 
     r1_start = min(max(3, _sb_r1(word, _vowels)), len(word))
 
@@ -1515,7 +1515,7 @@ def clef_german(word):
     'buchstabier'
     """
     # lowercase, normalize, and compose
-    word = unicodedata.normalize('NFC', text_type(word.lower()))
+    word = normalize('NFC', text_type(word.lower()))
 
     # remove umlauts
     _umlauts = dict(zip((ord(_) for _ in 'äöü'), 'aou'))
@@ -1555,7 +1555,7 @@ def clef_german_plus(word):
     _st_ending = {'b', 'd', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 't'}
 
     # lowercase, normalize, and compose
-    word = unicodedata.normalize('NFC', text_type(word.lower()))
+    word = normalize('NFC', text_type(word.lower()))
 
     # remove umlauts
     _accents = dict(zip((ord(_) for _ in 'äàáâöòóôïìíîüùúû'),
@@ -1648,7 +1648,7 @@ def caumanns(word):
         return ''
 
     upper_initial = word[0].isupper()
-    word = unicodedata.normalize('NFC', text_type(word.lower()))
+    word = normalize('NFC', text_type(word.lower()))
 
     # # Part 2: Substitution
     # 1. Change umlauts to corresponding vowels & ß to ss
@@ -1972,7 +1972,7 @@ def uealite(word, max_word_length=20, max_acro_length=8, return_rule_no=False,
         if word[-1] == 's':
             del_len += 1
         stemmed_word = word[:-del_len]
-        if re.match(r'.*(\w)\1$', stemmed_word):
+        if re_match(r'.*(\w)\1$', stemmed_word):
             stemmed_word = stemmed_word[:-1]
         return stemmed_word
 
@@ -2017,11 +2017,11 @@ def uealite(word, max_word_length=20, max_acro_length=8, return_rule_no=False,
                 if var == 'Adams' and len(word) > max_acro_length:
                     return word, 96
                 return word, 91
-            elif re.match(r'^.*[A-Z].*[A-Z].*$', word):
+            elif re_match(r'^.*[A-Z].*[A-Z].*$', word):
                 return word, 92
             elif word[0].isupper():
                 return word, 93
-            elif var == 'Adams' and re.match(r'^[a-z]{1}(|[rl])(ing|ed)$',
+            elif var == 'Adams' and re_match(r'^[a-z]{1}(|[rl])(ing|ed)$',
                                              word):
                 return word, 97
 
@@ -2037,10 +2037,10 @@ def uealite(word, max_word_length=20, max_acro_length=8, return_rule_no=False,
                 break
 
         if not rule_no:
-            if re.match(r'.*\w\wings?$', word):  # rule 58
+            if re_match(r'.*\w\wings?$', word):  # rule 58
                 stemmed_word = _stem_with_duplicate_character_check(word, 3)
                 rule_no = 58
-            elif re.match(r'.*\w\weds?$', word):  # rule 62
+            elif re_match(r'.*\w\weds?$', word):  # rule 62
                 stemmed_word = _stem_with_duplicate_character_check(word, 2)
                 rule_no = 62
             elif word[-1] == 's':  # rule 68
@@ -2243,7 +2243,7 @@ def schinke(word):
     :param word:
     :return:
     """
-    word = unicodedata.normalize('NFKD', text_type(word.lower()))
+    word = normalize('NFKD', text_type(word.lower()))
     word = ''.join(c for c in word if c in
                    {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
                     'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
