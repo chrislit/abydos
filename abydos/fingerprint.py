@@ -131,10 +131,7 @@ def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone,
 def skeleton_key(word):
     """Return the skeleton key.
 
-    The skeleton key of a word is defined in:
-    Pollock, Joseph J. and Antonio Zamora. 1984. "Automatic Spelling Correction
-    in Scientific and Scholarly Text." Communications of the ACM, 27(4).
-    358--368. <http://dl.acm.org/citation.cfm?id=358048>
+    The skeleton key of a word is defined in :cite:`Pollock:1984`.
 
     :param str word: the word to transform into its skeleton key
     :returns: the skeleton key
@@ -174,10 +171,7 @@ def skeleton_key(word):
 def omission_key(word):
     """Return the omission key.
 
-    The omission key of a word is defined in:
-    Pollock, Joseph J. and Antonio Zamora. 1984. "Automatic Spelling Correction
-    in Scientific and Scholarly Text." Communications of the ACM, 27(4).
-    358--368. <http://dl.acm.org/citation.cfm?id=358048>
+    The omission key of a word is defined in :cite:`Pollock:1984`.
 
     :param str word: the word to transform into its omission key
     :returns: the omission key
@@ -258,10 +252,7 @@ def occurrence_fingerprint(word, n_bits=16,
                            most_common=MOST_COMMON_LETTERS_CG):
     """Return the occurrence fingerprint.
 
-    Based on the occurence fingerprint from:
-    Cisłak, Aleksander and Szymon Grabowski. "Lightweight Fingerprints for
-    Fast Approximate Keyword Matching Using Bitwise Operations."
-    http://arxiv.org/abs/1711.08475
+    Based on the occurence fingerprint from :cite:`Cislak:2017`.
 
     :param word: the word to fingerprint
     :param n_bits: number of bits in the fingerprint returned
@@ -291,10 +282,7 @@ def occurrence_halved_fingerprint(word, n_bits=16,
                                   most_common=MOST_COMMON_LETTERS_CG):
     """Return the occurrence halved fingerprint.
 
-    Based on the occurence halved fingerprint from:
-    Cisłak, Aleksander and Szymon Grabowski. "Lightweight Fingerprints for
-    Fast Approximate Keyword Matching Using Bitwise Operations."
-    http://arxiv.org/abs/1711.08475
+    Based on the occurence halved fingerprint from :cite:`Cislak:2017`.
 
     :param word: the word to fingerprint
     :param n_bits: number of bits in the fingerprint returned
@@ -332,10 +320,7 @@ def count_fingerprint(word, n_bits=16,
                       most_common=MOST_COMMON_LETTERS_CG):
     """Return the count fingerprint.
 
-    Based on the count fingerprint from:
-    Cisłak, Aleksander and Szymon Grabowski. "Lightweight Fingerprints for
-    Fast Approximate Keyword Matching Using Bitwise Operations."
-    http://arxiv.org/abs/1711.08475
+    Based on the count fingerprint from :cite:`Cislak:2017`.
 
     :param word: the word to fingerprint
     :param n_bits: number of bits in the fingerprint returned
@@ -368,10 +353,7 @@ def position_fingerprint(word, n_bits=16,
                          bits_per_letter=3):
     """Return the position fingerprint.
 
-    Based on the position fingerprint from:
-    Cisłak, Aleksander and Szymon Grabowski. "Lightweight Fingerprints for
-    Fast Approximate Keyword Matching Using Bitwise Operations."
-    http://arxiv.org/abs/1711.08475
+    Based on the position fingerprint from :cite:`Cislak:2017`.
 
     :param word: the word to fingerprint
     :param n_bits: number of bits in the fingerprint returned
@@ -403,6 +385,8 @@ def position_fingerprint(word, n_bits=16,
 
 def synoname_toolcode(lname, fname='', qual='', normalize=0):
     """Build the Synoname toolcode.
+
+    Cf. :cite:`Getty:1991,Gross:1991`.
 
     :param lname: last name
     :param fname: first name (can be blank)
