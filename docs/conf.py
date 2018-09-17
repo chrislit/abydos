@@ -43,7 +43,8 @@ extensions = [
     'sphinx.ext.imgconverter',
     'sphinx.ext.doctest',
     'sphinx.ext.coverage',
-    'sphinx.ext.napoleon'
+    'sphinx.ext.napoleon',
+    'sphinxcontrib.bibtex'
 ]
 
 # Add any paths that contain templates here, relative to this directory.

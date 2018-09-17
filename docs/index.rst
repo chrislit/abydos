@@ -16,3 +16,19 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+
+================
+  Bibliography
+================
+.. rubric:: References
+
+.. bibliography:: abydos.bib
+    :cited:
+    :style: alpha
+
+.. rubric:: Further reading
+
+.. bibliography:: abydos.bib
+    :notcited:
+    :style: alpha
