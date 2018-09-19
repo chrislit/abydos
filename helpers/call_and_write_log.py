@@ -26,7 +26,7 @@ The reason for this script to exist is as a workaround for tox
 not supporting writing to files, even though I want it to do that
 to maintain logs & create badges.
 """
-import os, sys
+import sys
 
 from subprocess import call
 
@@ -44,6 +44,4 @@ if len(sys.argv) > 1:
         sys.exit(const_ret if const_ret is not None else retval)
     with open(args[0]+'.log', 'w') as output:
         retval = call(args, stdout=output)
-    #os.system(' '.join(args) + ' > ' + args[0]+'.log')
     sys.exit(const_ret if const_ret is not None else retval)
-
