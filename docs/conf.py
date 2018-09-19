@@ -59,6 +59,9 @@ source_suffix = '.rst'
 # The master toctree document.
 master_doc = 'index'
 
+# Suppress some warnings
+suppress_warnings = ['epub.unknown_project_files']
+
 # General information about the project.
 project = 'abydos'
 copyright = '2018, Christopher C. Little'
