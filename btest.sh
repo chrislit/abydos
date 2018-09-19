@@ -32,7 +32,7 @@ if [ "$docs_only" = "0" ]; then
     if [ "$quick_mode" = "0" ]; then
 	nosetests .
 
-	pylint --rcfile=pylint.rc abydos > pylint.log
+	pylint --rcfile=setup.cfg abydos > pylint.log
 	pycodestyle . > pycodestyle.log
 	flake8 . > flake8.log
 
