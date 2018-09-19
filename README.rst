@@ -37,6 +37,10 @@ Abydos
     :target: https://www.codacy.com/app/chrislit/abydos?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=chrislit/abydos&amp;utm_campaign=Badge_Grade
     :alt: Codacy
 
+.. image:: https://www.codefactor.io/repository/github/chrislit/abydos/badge
+    :target: https://www.codefactor.io/repository/github/chrislit/abydos
+    :alt: CodeFactor
+
 .. image:: https://requires.io/github/chrislit/abydos/requirements.svg?branch=master
     :target: https://requires.io/github/chrislit/abydos/requirements/?branch=master
     :alt: Requirements Status
@@ -45,15 +49,15 @@ Abydos
     :target: https://libraries.io/pypi/abydos
     :alt: Libraries.io SourceRank
 
-.. image:: https://img.shields.io/badge/Pylint-9.71/10-green.svg
+.. image:: https://img.shields.io/badge/Pylint-9.59/10-green.svg
    :target: #
    :alt: Pylint Score
 
-.. image:: https://img.shields.io/badge/pycodestyle-3-green.svg
+.. image:: https://img.shields.io/badge/pycodestyle-52-yellow.svg
    :target: #
    :alt: pycodestyle Errors
 
-.. image:: https://img.shields.io/badge/flake8-88-yellow.svg
+.. image:: https://img.shields.io/badge/flake8-96-yellow.svg
    :target: #
    :alt: flake8 Errors
 
