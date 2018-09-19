@@ -33,7 +33,7 @@ if [ "$docs_only" = "0" ]; then
 	nosetests .
 
 	pylint --rcfile=pylint.rc abydos > pylint.log
-	pycodestyle -v --statistics --exclude=.git,__pycache__,build,dist,docs . > pycodestyle.log
+	pycodestyle . > pycodestyle.log
 	flake8 . > flake8.log
 
 	./badge_update.py
