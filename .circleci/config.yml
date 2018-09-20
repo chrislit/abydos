@@ -48,7 +48,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            nosetests
+            tox
 
       - store_artifacts:
           path: test-reports
