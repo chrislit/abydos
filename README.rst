@@ -3,7 +3,15 @@ Abydos
 
 .. image:: https://travis-ci.org/chrislit/abydos.svg
     :target: https://travis-ci.org/chrislit/abydos
-    :alt: Build Status
+    :alt: Travis-CI Build Status
+
+.. image:: https://circleci.com/gh/chrislit/abydos.svg?style=shield
+    :target: https://circleci.com/gh/chrislit/abydos
+    :alt: Circle-CI Build Status
+
+.. image:: https://ci.appveyor.com/api/projects/status/d3yw3d9r6c8ai63j/branch/master?svg=true
+    :target: https://ci.appveyor.com/project/chrislit/abydos
+    :alt: AppVeyor Build Status
 
 .. image:: https://coveralls.io/repos/github/chrislit/abydos/badge.svg?branch=master
     :target: https://coveralls.io/github/chrislit/abydos?branch=master
@@ -28,10 +36,6 @@ Abydos
 .. image:: https://bestpractices.coreinfrastructure.org/projects/1598/badge
     :target: https://bestpractices.coreinfrastructure.org/projects/1598
     :alt: CII Best Practices
-
-.. image:: https://ci.appveyor.com/api/projects/status/d3yw3d9r6c8ai63j/branch/master?svg=true
-    :target: https://ci.appveyor.com/project/chrislit/abydos
-    :alt: AppVeyor
 
 .. image:: https://api.codacy.com/project/badge/Grade/db79f2c31ea142fb9b5938abe87b0854
     :target: https://www.codacy.com/app/chrislit/abydos?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=chrislit/abydos&amp;utm_campaign=Badge_Grade
