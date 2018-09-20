@@ -45,19 +45,23 @@ Abydos
     :target: https://requires.io/github/chrislit/abydos/requirements/?branch=master
     :alt: Requirements Status
 
+.. image:: https://pyup.io/repos/github/chrislit/abydos/shield.svg
+     :target: https://pyup.io/repos/github/chrislit/abydos/
+     :alt: Updates
+
 .. image:: https://img.shields.io/librariesio/sourcerank/pypi/abydos.svg
     :target: https://libraries.io/pypi/abydos
     :alt: Libraries.io SourceRank
 
-.. image:: https://img.shields.io/badge/Pylint-9.59/10-green.svg
+.. image:: https://img.shields.io/badge/Pylint-9.56/10-green.svg
    :target: #
    :alt: Pylint Score
 
-.. image:: https://img.shields.io/badge/pycodestyle-52-yellow.svg
+.. image:: https://img.shields.io/badge/pycodestyle-49-yellowgreen.svg
    :target: #
    :alt: pycodestyle Errors
 
-.. image:: https://img.shields.io/badge/flake8-96-yellow.svg
+.. image:: https://img.shields.io/badge/flake8-92-yellow.svg
    :target: #
    :alt: flake8 Errors
 
@@ -209,46 +213,49 @@ Abydos is a library of phonetic algorithms, string distance measures & metrics, 
 Required:
 
 - Numpy
+- Six
 
 Recommended:
 
 - PylibLZMA   (Python 2 only--for LZMA compression string distance metric)
-
-Suggested for development, testing, & QA:
-
-- Nose        (for unit testing)
-- coverage.py (for code coverage checking)
-- Pylint      (for code quality checking)
-- PEP8        (for code quality checking)
 
 -----
 
 Installation
 ============
 
-To install Abydos from PyPI using pip::
+To install Abydos (master) from Github source::
+
+   git clone https://github.com/chrislit/abydos.git
+   cd abydos
+   python setup install
+
+If your default python command calls Python 2.7 but you want to install for
+Python 3, you may instead need to call::
+
+   python3 setup install
+
+
+To install Abydos (latest release) from PyPI using pip::
 
    pip install abydos
 
-It should run on Python 2.7 and Python 3.3+
+It should run on Python 2.7 and Python 3.3-3.7.
 
+Testing & Contributing
+======================
 
-To build/install/unittest from source in Python 2::
+To run the whole test-suite just call tox::
 
-    sudo python setup.py install
-    nosetests -v --with-coverage --cover-erase --cover-html --cover-branches --cover-package=abydos .
+    tox
 
-To build/install/unittest from source in Python 3::
+The tox setup has the following environments: py27, py36, pylint, pycodestyle,
+flake8, badges, docs. So if only want to generate documentation (in HTML, EPUB,
+& PDF formats), just call::
 
-    sudo python3 setup.py install
-    nosetests3 -v --with-coverage --cover-erase --cover-html --cover-branches --cover-package=abydos .
+    tox -e docs
 
-For pylint testing, run::
+In order to only run & generate Flake8 reports, call::
 
-    pylint --rcfile=pylint.rc abydos > pylint.log
+    tox -e flake8
 
-A simple shell script is also included, which will build,
-install, test, and code-quality check (with Pylint & PEP8)
-the package and build the documentations. To run it, execute::
-
-    ./btest.sh
