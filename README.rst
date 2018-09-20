@@ -210,19 +210,20 @@ Abydos is a library of phonetic algorithms, string distance measures & metrics, 
     - Cisłak & Grabowski's position fingerprint
     - Synoname Toolcode
 
-Required:
-
-- Numpy
-- Six
-
-Recommended:
-
-- PylibLZMA   (Python 2 only--for LZMA compression string distance metric)
-
 -----
 
 Installation
 ============
+
+Required libraries:
+
+- Numpy
+- Six
+
+Recommended libraries:
+
+- PylibLZMA   (Python 2 only--for LZMA compression string distance metric)
+
 
 To install Abydos (master) from Github source::
 
@@ -259,3 +260,5 @@ In order to only run & generate Flake8 reports, call::
 
     tox -e flake8
 
+Contributions such as bug reports, PRs, suggestions, desired new features, etc.
+are welcome through the Github Issues & Pull requests.
