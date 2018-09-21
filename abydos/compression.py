@@ -55,15 +55,33 @@ def ac_train(text):
     :rtype: dict
 
     >>> ac_train('the quick brown fox jumped over the lazy dog')
-    {'w': (29/45, 2/3), 'j': (37/45, 38/45), 'u': (16/45, 2/5),
-    'l': (7/9, 4/5), 'd': (8/15, 26/45), 'o': (8/45, 4/15),
-    'e': (4/15, 16/45), '\x00': (44/45, 1), 'q': (31/45, 32/45),
-    'f': (8/9, 41/45), 'a': (43/45, 44/45), 'g': (13/15, 8/9),
-    't': (2/5, 4/9), 'y': (3/5, 28/45), 'i': (38/45, 13/15),
-    'h': (22/45, 8/15), 'c': (41/45, 14/15), ' ': (0, 8/45),
-    'm': (34/45, 7/9), 'x': (28/45, 29/45), 'v': (2/3, 31/45),
-    'z': (26/45, 3/5), 'b': (14/15, 43/45), 'k': (4/5, 37/45),
-    'r': (4/9, 22/45), 'n': (11/15, 34/45), 'p': (32/45, 11/15)}
+    {' ': (Fraction(0, 1), Fraction(8, 45)),
+     'o': (Fraction(8, 45), Fraction(4, 15)),
+     'e': (Fraction(4, 15), Fraction(16, 45)),
+     'u': (Fraction(16, 45), Fraction(2, 5)),
+     't': (Fraction(2, 5), Fraction(4, 9)),
+     'r': (Fraction(4, 9), Fraction(22, 45)),
+     'h': (Fraction(22, 45), Fraction(8, 15)),
+     'd': (Fraction(8, 15), Fraction(26, 45)),
+     'z': (Fraction(26, 45), Fraction(3, 5)),
+     'y': (Fraction(3, 5), Fraction(28, 45)),
+     'x': (Fraction(28, 45), Fraction(29, 45)),
+     'w': (Fraction(29, 45), Fraction(2, 3)),
+     'v': (Fraction(2, 3), Fraction(31, 45)),
+     'q': (Fraction(31, 45), Fraction(32, 45)),
+     'p': (Fraction(32, 45), Fraction(11, 15)),
+     'n': (Fraction(11, 15), Fraction(34, 45)),
+     'm': (Fraction(34, 45), Fraction(7, 9)),
+     'l': (Fraction(7, 9), Fraction(4, 5)),
+     'k': (Fraction(4, 5), Fraction(37, 45)),
+     'j': (Fraction(37, 45), Fraction(38, 45)),
+     'i': (Fraction(38, 45), Fraction(13, 15)),
+     'g': (Fraction(13, 15), Fraction(8, 9)),
+     'f': (Fraction(8, 9), Fraction(41, 45)),
+     'c': (Fraction(41, 45), Fraction(14, 15)),
+     'b': (Fraction(14, 15), Fraction(43, 45)),
+     'a': (Fraction(43, 45), Fraction(44, 45)),
+     '\x00': (Fraction(44, 45), Fraction(1, 1))}
     """
     text = text_type(text)
     if '\x00' in text:
@@ -329,4 +347,4 @@ def rle_decode(text, use_bwt=True):
 
 if __name__ == '__main__':
     import doctest
-    doctest.testmod()
+    doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)
