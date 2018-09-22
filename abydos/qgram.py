@@ -60,7 +60,7 @@ class QGrams(Counter):
 
         >>> qg = QGrams('AATTATAT')
         >>> qg
-        QGrams({'AT': 3, 'TA': 2, 'TT': 1, '$A': 1, 'AA': 1, 'T#': 1})
+        QGrams({'AT': 3, 'TA': 2, '$A': 1, 'AA': 1, 'TT': 1, 'T#': 1})
 
         >>> qg = QGrams('AATTATAT', qval=1, start_stop='')
         >>> qg
@@ -68,7 +68,7 @@ class QGrams(Counter):
 
         >>> qg = QGrams('AATTATAT', qval=3, start_stop='')
         >>> qg
-        QGrams({'TAT': 2, 'ATT': 1, 'TTA': 1, 'ATA': 1, 'AAT': 1})
+        QGrams({'TAT': 2, 'AAT': 1, 'ATT': 1, 'TTA': 1, 'ATA': 1})
         """
         # Save the term itself
         self.term = term

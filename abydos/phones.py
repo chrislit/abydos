@@ -631,7 +631,7 @@ def get_feature(vector, feature):
         the feature
     :rtype: list(int)
 
-    tails = ipa_to_features('telz')
+    >>> tails = ipa_to_features('telz')
     >>> get_feature(tails, 'consonantal')
     [1, -1, 1, 1]
     >>> get_feature(tails, 'sonorant')
