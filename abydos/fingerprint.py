@@ -117,6 +117,7 @@ def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone,
 
     >>> phonetic_fingerprint('The quick brown fox jumped over the lazy dog.')
     '0 afr fks jmpt kk ls prn tk'
+    >>> from abydos.phonetic import soundex
     >>> phonetic_fingerprint('The quick brown fox jumped over the lazy dog.',
     ... phonetic_algorithm=soundex)
     'b650 d200 f200 j513 l200 o160 q200 t000'

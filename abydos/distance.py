@@ -212,10 +212,10 @@ def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     :returns: normalized Levenshtein distance
     :rtype: float
 
-    >>> dist_levenshtein('cat', 'hat')
-    0.33333333333333331
-    >>> dist_levenshtein('Niall', 'Neil')
-    0.59999999999999998
+    >>> round(dist_levenshtein('cat', 'hat'), 12)
+    0.333333333333
+    >>> round(dist_levenshtein('Niall', 'Neil'), 12)
+    0.6
     >>> dist_levenshtein('aluminum', 'Catalan')
     0.875
     >>> dist_levenshtein('ATCG', 'TAGC')
@@ -254,10 +254,10 @@ def sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     :returns: normalized Levenshtein similarity
     :rtype: float
 
-    >>> sim_levenshtein('cat', 'hat')
-    0.66666666666666674
-    >>> sim_levenshtein('Niall', 'Neil')
-    0.40000000000000002
+    >>> round(sim_levenshtein('cat', 'hat'), 12)
+    0.666666666667
+    >>> round(sim_levenshtein('Niall', 'Neil'), 12)
+    0.4
     >>> sim_levenshtein('aluminum', 'Catalan')
     0.125
     >>> sim_levenshtein('ATCG', 'TAGC')
@@ -386,10 +386,10 @@ def dist_damerau(src, tar, cost=(1, 1, 1, 1)):
     :returns: normalized Damerau-Levenshtein distance
     :rtype: float
 
-    >>> dist_damerau('cat', 'hat')
-    0.33333333333333331
-    >>> dist_damerau('Niall', 'Neil')
-    0.59999999999999998
+    >>> round(dist_damerau('cat', 'hat'), 12)
+    0.333333333333
+    >>> round(dist_damerau('Niall', 'Neil'), 12)
+    0.6
     >>> dist_damerau('aluminum', 'Catalan')
     0.875
     >>> dist_damerau('ATCG', 'TAGC')
@@ -419,10 +419,10 @@ def sim_damerau(src, tar, cost=(1, 1, 1, 1)):
     :returns: normalized Damerau-Levenshtein similarity
     :rtype: float
 
-    >>> sim_damerau('cat', 'hat')
-    0.66666666666666674
-    >>> sim_damerau('Niall', 'Neil')
-    0.40000000000000002
+    >>> round(sim_damerau('cat', 'hat'), 12)
+    0.666666666667
+    >>> round(sim_damerau('Niall', 'Neil'), 12)
+    0.4
     >>> sim_damerau('aluminum', 'Catalan')
     0.125
     >>> sim_damerau('ATCG', 'TAGC')
@@ -495,8 +495,8 @@ def dist_hamming(src, tar, difflens=True):
     :returns: normalized Hamming distance
     :rtype: float
 
-    >>> dist_hamming('cat', 'hat')
-    0.3333333333333333
+    >>> round(dist_hamming('cat', 'hat'), 12)
+    0.333333333333
     >>> dist_hamming('Niall', 'Neil')
     0.6
     >>> dist_hamming('aluminum', 'Catalan')
@@ -534,8 +534,8 @@ def sim_hamming(src, tar, difflens=True):
     :returns: normalized Hamming similarity
     :rtype: float
 
-    >>> sim_hamming('cat', 'hat')
-    0.6666666666666667
+    >>> round(sim_hamming('cat', 'hat'), 12)
+    0.666666666667
     >>> sim_hamming('Niall', 'Neil')
     0.4
     >>> sim_hamming('aluminum', 'Catalan')
@@ -1329,14 +1329,14 @@ def dist_strcmp95(src, tar, long_strings=False):
     :returns: strcmp95 distance
     :rtype: float
 
-    >>> dist_strcmp95('cat', 'hat')
-    0.22222222222222232
-    >>> dist_strcmp95('Niall', 'Neil')
-    0.15450000000000008
-    >>> dist_strcmp95('aluminum', 'Catalan')
-    0.34523809523809523
-    >>> dist_strcmp95('ATCG', 'TAGC')
-    0.16666666666666663
+    >>> round(dist_strcmp95('cat', 'hat'), 12)
+    0.222222222222
+    >>> round(dist_strcmp95('Niall', 'Neil'), 12)
+    0.1545
+    >>> round(dist_strcmp95('aluminum', 'Catalan'), 12)
+    0.345238095238
+    >>> round(dist_strcmp95('ATCG', 'TAGC'), 12)
+    0.166666666667
     """
     return 1 - sim_strcmp95(src, tar, long_strings)
 
@@ -1378,23 +1378,23 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
     :returns: Jaro or Jaro-Winkler similarity
     :rtype: float
 
-    >>> sim_jaro_winkler('cat', 'hat')
-    0.7777777777777777
-    >>> sim_jaro_winkler('Niall', 'Neil')
-    0.8049999999999999
-    >>> sim_jaro_winkler('aluminum', 'Catalan')
-    0.6011904761904762
-    >>> sim_jaro_winkler('ATCG', 'TAGC')
-    0.8333333333333334
+    >>> round(sim_jaro_winkler('cat', 'hat'), 12)
+    0.777777777778
+    >>> round(sim_jaro_winkler('Niall', 'Neil'), 12)
+    0.805
+    >>> round(sim_jaro_winkler('aluminum', 'Catalan'), 12)
+    0.60119047619
+    >>> round(sim_jaro_winkler('ATCG', 'TAGC'), 12)
+    0.833333333333
 
-    >>> sim_jaro_winkler('cat', 'hat', mode='jaro')
-    0.7777777777777777
-    >>> sim_jaro_winkler('Niall', 'Neil', mode='jaro')
-    0.7833333333333333
-    >>> sim_jaro_winkler('aluminum', 'Catalan', mode='jaro')
-    0.6011904761904762
-    >>> sim_jaro_winkler('ATCG', 'TAGC', mode='jaro')
-    0.8333333333333334
+    >>> round(sim_jaro_winkler('cat', 'hat', mode='jaro'), 12)
+    0.777777777778
+    >>> round(sim_jaro_winkler('Niall', 'Neil', mode='jaro'), 12)
+    0.783333333333
+    >>> round(sim_jaro_winkler('aluminum', 'Catalan', mode='jaro'), 12)
+    0.60119047619
+    >>> round(sim_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
+    0.833333333333
     """
     if mode == 'winkler':
         if boost_threshold > 1 or boost_threshold < 0:
@@ -1517,23 +1517,23 @@ def dist_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
     :returns: Jaro or Jaro-Winkler distance
     :rtype: float
 
-    >>> dist_jaro_winkler('cat', 'hat')
-    0.22222222222222232
-    >>> dist_jaro_winkler('Niall', 'Neil')
-    0.19500000000000006
-    >>> dist_jaro_winkler('aluminum', 'Catalan')
-    0.39880952380952384
-    >>> dist_jaro_winkler('ATCG', 'TAGC')
-    0.16666666666666663
+    >>> round(dist_jaro_winkler('cat', 'hat'), 12)
+    0.222222222222
+    >>> round(dist_jaro_winkler('Niall', 'Neil'), 12)
+    0.195
+    >>> round(dist_jaro_winkler('aluminum', 'Catalan'), 12)
+    0.39880952381
+    >>> round(dist_jaro_winkler('ATCG', 'TAGC'), 12)
+    0.166666666667
 
-    >>> dist_jaro_winkler('cat', 'hat', mode='jaro')
-    0.22222222222222232
-    >>> dist_jaro_winkler('Niall', 'Neil', mode='jaro')
-    0.21666666666666667
-    >>> dist_jaro_winkler('aluminum', 'Catalan', mode='jaro')
-    0.39880952380952384
-    >>> dist_jaro_winkler('ATCG', 'TAGC', mode='jaro')
-    0.16666666666666663
+    >>> round(dist_jaro_winkler('cat', 'hat', mode='jaro'), 12)
+    0.222222222222
+    >>> round(dist_jaro_winkler('Niall', 'Neil', mode='jaro'), 12)
+    0.216666666667
+    >>> round(dist_jaro_winkler('aluminum', 'Catalan', mode='jaro'), 12)
+    0.39880952381
+    >>> round(dist_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
+    0.166666666667
     """
     return 1 - sim_jaro_winkler(src, tar, qval, mode, long_strings,
                                 boost_threshold, scaling_factor)
@@ -1761,12 +1761,12 @@ def sim_ratcliff_obershelp(src, tar):
     :returns: Ratcliff-Obserhelp similarity
     :rtype: float
 
-    >>> sim_ratcliff_obershelp('cat', 'hat')
-    0.66666666666666663
-    >>> sim_ratcliff_obershelp('Niall', 'Neil')
-    0.66666666666666663
-    >>> sim_ratcliff_obershelp('aluminum', 'Catalan')
-    0.40000000000000002
+    >>> round(sim_ratcliff_obershelp('cat', 'hat'), 12)
+    0.666666666667
+    >>> round(sim_ratcliff_obershelp('Niall', 'Neil'), 12)
+    0.666666666667
+    >>> round(sim_ratcliff_obershelp('aluminum', 'Catalan'), 12)
+    0.4
     >>> sim_ratcliff_obershelp('ATCG', 'TAGC')
     0.5
     """
@@ -1829,12 +1829,12 @@ def dist_ratcliff_obershelp(src, tar):
     :returns: Ratcliffe-Obershelp distance
     :rtype: float
 
-    >>> dist_ratcliff_obershelp('cat', 'hat')
-    0.33333333333333337
-    >>> dist_ratcliff_obershelp('Niall', 'Neil')
-    0.33333333333333337
-    >>> dist_ratcliff_obershelp('aluminum', 'Catalan')
-    0.59999999999999998
+    >>> round(dist_ratcliff_obershelp('cat', 'hat'), 12)
+    0.333333333333
+    >>> round(dist_ratcliff_obershelp('Niall', 'Neil'), 12)
+    0.333333333333
+    >>> round(dist_ratcliff_obershelp('aluminum', 'Catalan'), 12)
+    0.6
     >>> dist_ratcliff_obershelp('ATCG', 'TAGC')
     0.5
     """
@@ -2103,10 +2103,10 @@ def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
 
     >>> sim_monge_elkan('cat', 'hat')
     0.75
-    >>> sim_monge_elkan('Niall', 'Neil')
-    0.66666666666666663
-    >>> sim_monge_elkan('aluminum', 'Catalan')
-    0.3888888888888889
+    >>> round(sim_monge_elkan('Niall', 'Neil'), 12)
+    0.666666666667
+    >>> round(sim_monge_elkan('aluminum', 'Catalan'), 12)
+    0.388888888889
     >>> sim_monge_elkan('ATCG', 'TAGC')
     0.5
     """
@@ -2147,10 +2147,10 @@ def dist_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
 
     >>> dist_monge_elkan('cat', 'hat')
     0.25
-    >>> dist_monge_elkan('Niall', 'Neil')
-    0.33333333333333337
-    >>> dist_monge_elkan('aluminum', 'Catalan')
-    0.61111111111111116
+    >>> round(dist_monge_elkan('Niall', 'Neil'), 12)
+    0.333333333333
+    >>> round(dist_monge_elkan('aluminum', 'Catalan'), 12)
+    0.611111111111
     >>> dist_monge_elkan('ATCG', 'TAGC')
     0.5
     """
@@ -2341,8 +2341,8 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
     2.0
     >>> gotoh('Niall', 'Neil')
     1.0
-    >>> gotoh('aluminum', 'Catalan')
-    -0.40000000000000002
+    >>> round(gotoh('aluminum', 'Catalan'), 12)
+    -0.4
     >>> gotoh('cat', 'hat')
     2.0
     """
@@ -2666,7 +2666,7 @@ def dist_bag(src, tar):
     >>> dist_bag('Niall', 'Neil')
     0.4
     >>> dist_bag('aluminum', 'Catalan')
-    0.375
+    0.625
     >>> dist_bag('ATCG', 'TAGC')
     0.0
     """
@@ -2690,12 +2690,12 @@ def sim_bag(src, tar):
     :returns: normalized bag similarity
     :rtype: float
 
-    >>> sim_bag('cat', 'hat')
-    0.6666666666666667
+    >>> round(sim_bag('cat', 'hat'), 12)
+    0.666666666667
     >>> sim_bag('Niall', 'Neil')
     0.6
     >>> sim_bag('aluminum', 'Catalan')
-    0.625
+    0.375
     >>> sim_bag('ATCG', 'TAGC')
     1.0
     """
@@ -2811,10 +2811,10 @@ def dist_editex(src, tar, cost=(0, 1, 2), local=False):
     :returns: normalized Editex distance
     :rtype: float
 
-    >>> dist_editex('cat', 'hat')
-    0.33333333333333331
-    >>> dist_editex('Niall', 'Neil')
-    0.20000000000000001
+    >>> round(dist_editex('cat', 'hat'), 12)
+    0.333333333333
+    >>> round(dist_editex('Niall', 'Neil'), 12)
+    0.2
     >>> dist_editex('aluminum', 'Catalan')
     0.75
     >>> dist_editex('ATCG', 'TAGC')
@@ -2841,10 +2841,10 @@ def sim_editex(src, tar, cost=(0, 1, 2), local=False):
     :returns: normalized Editex similarity
     :rtype: float
 
-    >>> sim_editex('cat', 'hat')
-    0.66666666666666674
-    >>> sim_editex('Niall', 'Neil')
-    0.80000000000000004
+    >>> round(sim_editex('cat', 'hat'), 12)
+    0.666666666667
+    >>> round(sim_editex('Niall', 'Neil'), 12)
+    0.8
     >>> sim_editex('aluminum', 'Catalan')
     0.25
     >>> sim_editex('ATCG', 'TAGC')
@@ -3563,10 +3563,10 @@ def sim(src, tar, method=sim_levenshtein):
     :returns: similarity according to the specified function
     :rtype: float
 
-    >>> sim('cat', 'hat')
-    0.66666666666666674
-    >>> sim('Niall', 'Neil')
-    0.40000000000000002
+    >>> round(sim('cat', 'hat'), 12)
+    0.666666666667
+    >>> round(sim('Niall', 'Neil'), 12)
+    0.4
     >>> sim('aluminum', 'Catalan')
     0.125
     >>> sim('ATCG', 'TAGC')
@@ -3590,10 +3590,10 @@ def dist(src, tar, method=sim_levenshtein):
     :returns: distance according to the specified function
     :rtype: float
 
-    >>> dist('cat', 'hat')
-    0.33333333333333326
-    >>> dist('Niall', 'Neil')
-    0.59999999999999998
+    >>> round(dist('cat', 'hat'), 12)
+    0.333333333333
+    >>> round(dist('Niall', 'Neil'), 12)
+    0.6
     >>> dist('aluminum', 'Catalan')
     0.875
     >>> dist('ATCG', 'TAGC')
