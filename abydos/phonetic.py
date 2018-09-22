@@ -313,13 +313,13 @@ def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False,
     :rtype: str
 
     >>> refined_soundex('Christopher')
-    'C3090360109'
+    'C393619'
     >>> refined_soundex('Niall')
-    'N807'
+    'N87'
     >>> refined_soundex('Smith')
-    'S38060'
+    'S386'
     >>> refined_soundex('Schmidt')
-    'S30806'
+    'S386'
     """
     _ref_soundex_translation = dict(zip((ord(_) for _ in
                                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
@@ -368,8 +368,8 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
     :returns: the Daitch-Mokotoff Soundex value
     :rtype: str
 
-    >>> dm_soundex('Christopher')
-    {'494379', '594379'}
+    >>> sorted(dm_soundex('Christopher'))
+    ['494379', '594379']
     >>> dm_soundex('Niall')
     {'680000'}
     >>> dm_soundex('Smith')
@@ -377,8 +377,8 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
     >>> dm_soundex('Schmidt')
     {'463000'}
 
-    >>> dm_soundex('The quick brown fox', maxlength=20, zero_pad=False)
-    {'35457976754', '3557976754'}
+    >>> sorted(dm_soundex('The quick brown fox', maxlength=20, zero_pad=False))
+    ['35457976754', '3557976754']
     """
     _dms_table = {'STCH': (2, 4, 4), 'DRZ': (4, 4, 4), 'ZH': (4, 4, 4),
                   'ZHDZH': (2, 4, 4), 'DZH': (4, 4, 4), 'DRS': (4, 4, 4),
@@ -4249,6 +4249,7 @@ def spfc(word):
     >>> spfc('Niall Smith')
     '01660'
     >>> spfc('Niall Schmidt')
+    '01660'
 
     >>> spfc('L.Smith')
     '01960'
