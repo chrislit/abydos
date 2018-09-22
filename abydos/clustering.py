@@ -47,10 +47,11 @@ def mean_pairwise_similarity(collection, metric=sim,
     :returns: the mean pairwise similarity of a collection of strings
     :rtype: str
 
-    >>> mean_pairwise_similarity(['Christopher', 'Kristof', 'Christobal'])
-    0.51980198019801982
-    >>> mean_pairwise_similarity(['Niall', 'Neal', 'Neil'])
-    0.54545454545454541
+    >>> round(mean_pairwise_similarity(['Christopher', 'Kristof',
+    ... 'Christobal']), 12)
+    0.519801980198
+    >>> round(mean_pairwise_similarity(['Niall', 'Neal', 'Neil']), 12)
+    0.545454545455
     """
     if not callable(mean_func):
         raise ValueError('mean_func must be a function')

@@ -195,9 +195,10 @@ class Corpus(object):
         >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
         >>> tqbf += 'And then it slept.\n And the dog ran off.'
         >>> corp = Corpus(tqbf)
-        >>> corp.raw()
-        'The quick brown fox jumped over the lazy dog.\nAnd then it slept.\n/
-        And the dog ran off.'
+        >>> print(corp.raw())
+        The quick brown fox jumped over the lazy dog.
+        And then it slept.
+        And the dog ran off.
         >>> len(corp.raw())
         85
         """
@@ -240,4 +241,4 @@ class Corpus(object):
 
 if __name__ == '__main__':
     import doctest
-    doctest.testmod()
+    doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)

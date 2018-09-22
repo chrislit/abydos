@@ -34,3 +34,6 @@ from .phonetic import *
 from .qgram import *
 from .stats import *
 from .stemmer import *
+
+if __name__ == '__main__':
+    pass

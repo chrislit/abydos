@@ -191,7 +191,7 @@ class ConfusionTable(object):
         :rtype: tuple
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        >>> ct.tuple()
+        >>> ct.to_tuple()
         (120, 60, 20, 30)
         """
         return (self._tp, self._tn, self._fp, self._fn)
@@ -203,8 +203,9 @@ class ConfusionTable(object):
         :rtype: dict
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        >>> ct.dict()
-        {'fp': 20, 'fn': 30, 'tn': 60, 'tp': 120}
+        >>> import pprint
+        >>> pprint.pprint(ct.to_dict())
+        {'fn': 30, 'fp': 20, 'tn': 60, 'tp': 120}
         """
         return {'tp': self._tp, 'tn': self._tn,
                 'fp': self._fp, 'fn': self._fn}
@@ -515,6 +516,7 @@ class ConfusionTable(object):
         :rtype: float
 
         >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.accuracy_gain()
         1.4325259515570934
         """
         if self.population() == 0:
