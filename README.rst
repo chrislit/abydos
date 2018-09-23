@@ -61,7 +61,7 @@ Abydos
    :target: #
    :alt: Pylint Score
 
-.. image:: https://img.shields.io/badge/pycodestyle-49-yellowgreen.svg
+.. image:: https://img.shields.io/badge/pycodestyle-52-yellow.svg
    :target: #
    :alt: pycodestyle Errors
 
