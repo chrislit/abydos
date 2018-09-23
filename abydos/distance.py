@@ -3416,7 +3416,6 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
     :return: Synoname value
     :rtype: int
     """
-    punct = {'=', "'", '-', '|', '.', ' '}
     test_dict = {val: n**2 for n, val in enumerate([
         'exact', 'omission', 'substitution', 'transposition', 'punctuation',
         'initials', 'extended', 'inclusion', 'no_first', 'word_approx',
@@ -3424,7 +3423,7 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
     match_type_dict = {val: n for n, val in enumerate([
         'exact', 'omission', 'substitution', 'transposition', 'punctuation',
         'initials', 'extended', 'inclusion', 'no_first', 'word_approx',
-        'confusions', 'char_approx'], 1)}
+        'confusions', 'char_approx', 'no_match'], 1)}
 
     if isinstance(tests, Iterable):
         new_tests = 0
@@ -3461,8 +3460,8 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
     src_punctcode = int(src_tc[1])
     src_generation = int(src_tc[2])
     src_romancode = int(src_tc[3:6])
-    src_len_first = int(src_tc[6:8])
-    src_len_last = int(src_tc[8:10])
+    src_len_fn = int(src_tc[6:8])
+    src_len_ln = int(src_tc[8:10])
     src_tc = src_tc.split('#')
     src_specials = src_tc[1]
     src_search_range = src_tc[2]
@@ -3472,8 +3471,8 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
     tar_punctcode = int(tar_tc[1])
     tar_generation = int(tar_tc[2])
     tar_romancode = int(tar_tc[3:6])
-    tar_len_first = int(tar_tc[6:8])
-    tar_len_last = int(tar_tc[8:10])
+    tar_len_fn = int(tar_tc[6:8])
+    tar_len_ln = int(tar_tc[8:10])
     tar_tc = tar_tc.split('#')
     tar_specials = tar_tc[1]
     tar_search_range = tar_tc[2]
@@ -3484,6 +3483,9 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
                     (src_generation or tar_generation))
     roman_conflict = (src_romancode != tar_romancode and
                       (src_romancode or tar_romancode))
+
+    ln_equal = src_ln == tar_ln
+    fn_equal = src_fn == tar_fn
 
     # approx_c
     def approx_c():
@@ -3503,11 +3505,76 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
     def simil(src, tar):
         return 100*sim_ratcliff_obershelp(src, tar)
 
+    def strip_punct(word):
+        stripped = ''
+        for char in word:
+            if char not in set(',-./:;"&\'()!{|}?$%*+<=>[\\]^_`~'):
+                stripped += char
+        return stripped.strip()
+
+
     approx_c_result, ca_ratio = approx_c()
 
-    if ca_ratio >= char_approx_min and ca_ratio >= 70:
-        if tests & test_dict['exact'] and src == tar:
-            return 1
+    if tests & test_dict['exact'] and fn_equal and ln_equal:
+        return match_type_dict['exact']
+    if tests & test_dict['omission']:
+        if (fn_equal and
+                levenshtein(src_ln, tar_ln, cost=(1, 1, 99, 99)) == 1):
+            if not roman_conflict:
+                return match_type_dict['omission']
+        elif (ln_equal and
+              levenshtein(src_fn, tar_fn, cost=(1, 1, 99, 99)) == 1):
+            return match_type_dict['omission']
+    if tests & test_dict['substitution']:
+        if (fn_equal and
+                levenshtein(src_ln, tar_ln, cost=(99, 99, 1, 99)) == 1):
+            return match_type_dict['substitution']
+        elif (ln_equal and
+              levenshtein(src_fn, tar_fn, cost=(99, 99, 1, 99)) == 1):
+            return match_type_dict['substitution']
+    if tests & test_dict['transposition']:
+        if (fn_equal and
+                levenshtein(src_ln, tar_ln, cost=(99, 99, 99, 1)) == 1):
+            return match_type_dict['transposition']
+        elif (ln_equal and
+              levenshtein(src_fn, tar_fn, cost=(99, 99, 99, 1)) == 1):
+            return match_type_dict['transposition']
+    if tests & test_dict['punctuation']:
+        np_src_fn = strip_punct(src_fn)
+        np_tar_fn = strip_punct(tar_fn)
+        np_src_ln = strip_punct(src_ln)
+        np_tar_ln = strip_punct(tar_ln)
+
+        if np_src_fn == np_tar_fn and np_src_ln == np_tar_ln:
+            return match_type_dict['punctuation']
+    if tests & test_dict['initials'] and ln_equal:
+        if src_fn or tar_fn:
+            src_initials = ''.join(_[0] for _ in src_fn.split())
+            tar_initials = ''.join(_[0] for _ in tar_fn.split())
+            if src_initials == tar_initials:
+                return match_type_dict['initials']
+            initial_diff = abs(len(src_initials)-len(tar_initials))
+            if (initial_diff and
+                    ((initial_diff == levenshtein(src_initials, tar_initials,
+                                                 cost=(1, 99, 99, 99))) or
+                     (initial_diff == levenshtein(tar_initials, src_initials,
+                                                  cost=(1, 99, 99, 99))))):
+                return match_type_dict['initials']
+    if tests & test_dict['extended']:
+        if src_ln[0] == tar_ln[0] and (src_ln.startswith(tar_ln) or
+                                       tar_ln.startswith(src_ln)):
+            if ((not src_len_fn and not tar_len_fn) or
+                    src_ln.startswith(tar_ln) or
+                    tar_ln.startswith(src_ln)) and not roman_conflict:
+                return match_type_dict['extended']
+    if tests & test_dict['inclusion'] and ln_equal:
+        if src_fn in tar_fn or tar_fn in src_ln:
+            return match_type_dict['inclusion']
+    if tests & test_dict['no_first'] and ln_equal:
+        if src_fn == '' or tar_fn == '':
+            return match_type_dict['no_first']
+
+    return match_type_dict['no_match']
 
 
 def sim_tfidf(src, tar, qval=2, docs_src=None, docs_tar=None):
