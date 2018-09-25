@@ -23,7 +23,7 @@ The qgram module defines the QGrams multi-set class
 
 from __future__ import division, unicode_literals
 
-from collections import Counter
+from collections import Counter, Iterable
 
 from six.moves import range
 
@@ -46,7 +46,8 @@ class QGrams(Counter):
         """Initialize QGrams.
 
         :param str word: a string to extract q-grams from
-        :param int qval: the q-gram length (defaults to 2)
+        :param int or iterable qval: the q-gram length (defaults to 2), can be
+            an integer, range object, or list
         :param str start_stop: a string of length >= 0 indicating start & stop
             symbols.
             If the string is '', q-grams will be calculated without start &
@@ -56,7 +57,8 @@ class QGrams(Counter):
             of the string before q-grams are calculated. (In the case that
             start_stop is only 1 character long, the same symbol will be used
             for both.)
-        :param int skip: the number of characters to skip
+        :param int or iterable skip: the number of characters to skip, can be
+            an integer, range object, or list
 
         >>> qg = QGrams('AATTATAT')
         >>> qg
@@ -72,17 +74,29 @@ class QGrams(Counter):
         """
         # Save the term itself
         self.term = term
-        if len(term) < qval or qval < 1:
-            return  # TODO: Raise exception?
-        if start_stop and qval > 1:
-            term = start_stop[0]*(qval-1) + term + start_stop[-1]*(qval-1)
+        self.ordered_list = []
 
-        # Having appended start & stop symbols (or not), save the result
-        self.term_ss = term
+        if not isinstance(qval, Iterable):
+            qval = (qval,)
+        if not isinstance(skip, Iterable):
+            skip = (skip,)
 
-        skip += 1
-        self.ordered_list = [term[i:i+(qval*skip):skip] for i in
-                             range(len(term)-(qval-1))]
+        for qval_i in qval:
+            for skip_i in skip:
+                if len(term) < qval_i or qval_i < 1:
+                    continue
+
+                if start_stop and qval_i > 1:
+                    term = start_stop[0]*(qval_i-1) + term + start_stop[-1]*(qval_i-1)
+
+                # Having appended start & stop symbols (or not), save the result
+                # but only for the longest valid qval_i
+                if len(term) > len(self.term_ss):
+                    self.term_ss = term
+
+                skip_i += 1
+                self.ordered_list += [term[i:i+(qval_i*skip_i):skip_i] for i in
+                                      range(len(term)-(qval_i-1))]
 
         super(QGrams, self).__init__(self.ordered_list)
 
