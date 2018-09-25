@@ -3736,7 +3736,7 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
         if ratio == 1 and tests & test_dict['confusions']:
             if ' '.join((src_fn, src_ln)) == ' '.join((tar_fn, tar_ln)):
                 return match_type_dict['confusions']
-        if ratio:
+        if ratio >= word_approx_min:
             return match_type_dict['word_approx']
     if tests & test_dict['char_approx']:
         if ca_ratio >= char_approx_min:
