@@ -5006,8 +5006,8 @@ def fonem(word):
         'V-18':    (re_compile('(AI[MN]|EIN)(?=[BCDFGHJKLMNPQRSTVWXZ]|$)'),
                     'IN'),
         'V-19':    (re_compile('B(O|U|OU)RNE?$'), 'BURN'),
-        'V-20':    (re_compile('(^IM|(?<=[BCDFGHJKLMNPQRSTVWXZ])IM(?=[BCDFGHJKLMPQRSTVWXZ]))'),
-                    'IN'),
+        'V-20':    (re_compile('(^IM|(?<=[BCDFGHJKLMNPQRSTVWXZ])' +
+                               'IM(?=[BCDFGHJKLMPQRSTVWXZ]))'), 'IN'),
         # Consonants and groups of consonants
         'C-1':     ('BV', 'V'),
         'C-2':     (re_compile('(?<=[AEIOUY])C(?=[EIY])'), 'SS'),
@@ -5035,14 +5035,16 @@ def fonem(word):
         'C-24':    (re_compile('TIA$'), 'SSIA'),
         'C-25':    (re_compile('(?<=[AIOUY])W'), ''),
         'C-26':    (re_compile('X[CSZ]'), 'X'),
-        'C-27':    (re_compile('(?<=[AEIOUY])Z|(?<=[BCDFGHJKLMNPQRSTVWXZ])Z(?=[BCDFGHJKLMNPQRSTVWXZ])'), 'S'),
+        'C-27':    (re_compile('(?<=[AEIOUY])Z|(?<=[BCDFGHJKLMNPQRSTVWXZ])' +
+                               'Z(?=[BCDFGHJKLMNPQRSTVWXZ])'), 'S'),
         'C-28':    (re_compile(r'([BDFGHJKMNPQRTVWXZ])\1'), r'\1'),
         'C-28a':   (re_compile('CC(?=[BCDFGHJKLMNPQRSTVWXZ]|$)'), 'C'),
         'C-28b':   (re_compile('((?<=[BCDFGHJKLMNPQRSTVWXZ])|^)SS'), 'S'),
         'C-28bb':  (re_compile('SS(?=[BCDFGHJKLMNPQRSTVWXZ]|$)'), 'S'),
         'C-28c':   (re_compile('((?<=[^I])|^)LL'), 'L'),
         'C-28d':   (re_compile('ILE$'), 'ILLE'),
-        'C-29':    (re_compile('(ILS|[CS]H|[MN]P|R[CFKLNSX])$|([BCDFGHJKLMNPQRSTVWXZ])[BCDFGHJKLMNPQRSTVWXZ]$'),
+        'C-29':    (re_compile('(ILS|[CS]H|[MN]P|R[CFKLNSX])$|([BCDFGHJKL' +
+                               'MNPQRSTVWXZ])[BCDFGHJKLMNPQRSTVWXZ]$'),
                     lambda m: (m.group(1) or '') + (m.group(2) or '')),
         'C-30,32': (re_compile('^(SA?INT?|SEI[NM]|CINQ?|ST)(?!E)-?'), 'ST-'),
         'C-31,33': (re_compile('^(SAINTE|STE)-?'), 'STE-'),

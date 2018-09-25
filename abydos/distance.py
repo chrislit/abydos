@@ -80,7 +80,7 @@ from six import text_type
 from six.moves import range
 
 from .compression import ac_encode, ac_train, rle_encode
-from .fingerprint import synoname_toolcode, _synoname_special_table
+from .fingerprint import _synoname_special_table, synoname_toolcode
 from .phonetic import eudex, mra
 from .qgram import QGrams
 
@@ -3267,8 +3267,7 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
          ('', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '|'),
          ('', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '"'),
          ('', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?'))
-    ),
-    'Dvorak': (
+    ), 'Dvorak': (
         (('`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '[', ']'),
          ('', '\'', ',', '.', 'p', 'y', 'f', 'g', 'c', 'r', 'l', '/', '=',
           '\\'),
@@ -3278,18 +3277,16 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
          ('', '"', '<', '>', 'P', 'Y', 'F', 'G', 'C', 'R', 'L', '?', '+', '|'),
          ('', 'A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S', '_'),
          ('', ':', 'Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z'))
-    ),
-    'AZERTY': (
-            (('²', '&', 'é', '"', '\'', '(', '-', 'è', '_', 'ç', 'à', ')', '='),
-             ('', 'a', 'z', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '', '$'),
-             ('', 'q', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'ù', '*'),
-             ('<', 'w', 'x', 'c', 'v', 'b', 'n', ',', ';', ':', '!')),
-            (('~', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '°', '+'),
-             ('', 'A', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '', '£'),
-             ('', 'Q', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'Ù', 'μ'),
-             ('>', 'W', 'X', 'C', 'V', 'B', 'N', '?', '.', '/', '§'))
-    ),
-    'QWERTZ': (
+    ), 'AZERTY': (
+        (('²', '&', 'é', '"', '\'', '(', '-', 'è', '_', 'ç', 'à', ')', '='),
+         ('', 'a', 'z', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '', '$'),
+         ('', 'q', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'ù', '*'),
+         ('<', 'w', 'x', 'c', 'v', 'b', 'n', ',', ';', ':', '!')),
+        (('~', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '°', '+'),
+         ('', 'A', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '', '£'),
+         ('', 'Q', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'Ù', 'μ'),
+         ('>', 'W', 'X', 'C', 'V', 'B', 'N', '?', '.', '/', '§'))
+    ), 'QWERTZ': (
         (('', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'ß', ''),
          ('', 'q', 'w', 'e', 'r', 't', 'z', 'u', 'i', 'o', 'p', ' ü', '+',
           '\\'),
@@ -3299,8 +3296,7 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
          ('', 'Q', 'W', 'E', 'R', 'T', 'Z', 'U', 'I', 'O', 'P', 'Ü', '*', ''),
          ('', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ö', 'Ä', '\''),
          ('>', 'Y', 'X', 'C', 'V', 'B', 'N', 'M', ';', ':', '_'))
-    )
-    }
+    )}
 
     keyboard = kbs[layout]
     lowercase = {item for sublist in keyboard[0] for item in sublist}
@@ -3450,10 +3446,16 @@ def _synoname_strip_punct(word):
     return stripped.strip()
 
 
-def synoname_word_approximation(src_ln, tar_ln, src_fn='', tar_fn='', features=None):
-    """
+def synoname_word_approximation(src_ln, tar_ln, src_fn='', tar_fn='',
+                                features=None):
+    """Return the Synoname word approximation score for two names.
 
-    :return:
+    :param str src_ln, tar_ln: last names of the source and target
+    :param str src_fn, tar_fn: first names of the source and target (optional)
+    :param features: a dict containing special features calculated via
+        fingerprint.synoname_toolcode() (optional)
+    :returns: The word approximation score
+    :rtype: float
     """
     if features is None:
         features = {}
@@ -3477,7 +3479,9 @@ def synoname_word_approximation(src_ln, tar_ln, src_fn='', tar_fn='', features=N
             full_tar1 = full_tar1[:1+len(_synoname_special_table[s_type][1])]
         elif s_pos == 'b':
             loc = full_tar1.find(' '+_synoname_special_table[s_type][1]+' ')+1
-            full_tar1 = full_tar1[:loc]+full_tar1[loc+len(_synoname_special_table[s_type][1]):]
+            full_tar1 = (full_tar1[:loc] +
+                         full_tar1[loc +
+                                   len(_synoname_special_table[s_type][1]):])
         elif s_pos == 'c':
             full_tar1 = full_tar1[1+len(_synoname_special_table[s_type][1]):]
 
@@ -3487,7 +3491,9 @@ def synoname_word_approximation(src_ln, tar_ln, src_fn='', tar_fn='', features=N
             full_src1 = full_src1[:1+len(_synoname_special_table[s_type][1])]
         elif s_pos == 'b':
             loc = full_src1.find(' '+_synoname_special_table[s_type][1]+' ')+1
-            full_src1 = full_src1[:loc]+full_src1[loc+len(_synoname_special_table[s_type][1]):]
+            full_src1 = (full_src1[:loc] +
+                         full_src1[loc +
+                                   len(_synoname_special_table[s_type][1]):])
         elif s_pos == 'c':
             full_src1 = full_src1[1+len(_synoname_special_table[s_type][1]):]
 
@@ -3496,16 +3502,20 @@ def synoname_word_approximation(src_ln, tar_ln, src_fn='', tar_fn='', features=N
         if s_pos == 'd':
             full_tar2 = full_tar2[len(_synoname_special_table[s_type][1]):]
         elif s_pos == 'X' and _synoname_special_table[s_type][1] in full_tar2:
-            loc = full_tar2.find(' ' + _synoname_special_table[s_type][1] + ' ') + 1
-            full_tar2 = full_tar2[:loc] + full_tar2[loc + len(_synoname_special_table[s_type][1]):]
+            loc = full_tar2.find(' '+_synoname_special_table[s_type][1]+' ')+1
+            full_tar2 = (full_tar2[:loc] +
+                         full_tar2[loc +
+                                   len(_synoname_special_table[s_type][1]):])
 
     full_src2 = full_tar1
     for s_type, s_pos in features['src_specials']:
         if s_pos == 'd':
             full_src2 = full_src2[len(_synoname_special_table[s_type][1]):]
         elif s_pos == 'X' and _synoname_special_table[s_type][1] in full_src2:
-            loc = full_src2.find(' ' + _synoname_special_table[s_type][1] + ' ') + 1
-            full_src2 = full_src2[:loc] + full_src2[loc + len(_synoname_special_table[s_type][1]):]
+            loc = full_src2.find(' '+_synoname_special_table[s_type][1]+' ')+1
+            full_src2 = (full_src2[:loc] +
+                         full_src2[loc +
+                                   len(_synoname_special_table[s_type][1]):])
 
     full_tar1 = _synoname_strip_punct(full_tar1)
     tar1_words = full_tar1.split()
@@ -3524,11 +3534,13 @@ def synoname_word_approximation(src_ln, tar_ln, src_fn='', tar_fn='', features=N
     src2_num_words = len(src2_words)
 
     # 2
-    if src1_num_words < 2 and src_len_specials == 0 and src2_num_words < 2 and tar_len_specials == 0:
+    if (src1_num_words < 2 and src_len_specials == 0 and src2_num_words < 2 and
+            tar_len_specials == 0):
         return 0
 
     # 4
-    if tar1_num_words == 1 and src1_num_words == 1 and tar1_words[0] == src1_words[0]:
+    if (tar1_num_words == 1 and src1_num_words == 1 and
+            tar1_words[0] == src1_words[0]):
         return 1
     if tar1_num_words < 2 and tar_len_specials == 0:
         return 0
@@ -3551,7 +3563,7 @@ def synoname_word_approximation(src_ln, tar_ln, src_fn='', tar_fn='', features=N
             for j, t_word in enumerate(tar1_words):
                 if s_word == t_word:
                     src1_words[i] = '@'
-                    tar1_words[i] = '@'
+                    tar1_words[j] = '@'
                     matches += 1
     w_ratio = matches/max(tar1_num_words, src1_num_words)
     if matches > 1 or (matches == 1 and
@@ -3560,7 +3572,8 @@ def synoname_word_approximation(src_ln, tar_ln, src_fn='', tar_fn='', features=N
         return w_ratio
 
     # 8
-    if tar2_num_words == 1 and src2_num_words == 1 and tar2_words[0] == src2_words[0]:
+    if (tar2_num_words == 1 and src2_num_words == 1 and
+            tar2_words[0] == src2_words[0]):
         return 1
     if tar2_num_words < 2 and tar_len_specials == 0:
         return 0
@@ -3586,7 +3599,7 @@ def synoname_word_approximation(src_ln, tar_ln, src_fn='', tar_fn='', features=N
             for j, t_word in enumerate(tar2_words):
                 if s_word == t_word:
                     src2_words[i] = '@'
-                    tar2_words[i] = '@'
+                    tar2_words[j] = '@'
                     matches += 1
     w_ratio = matches/max(tar2_num_words, src2_num_words)
     if matches > 1 or (matches == 1 and
@@ -3741,7 +3754,7 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
             initial_diff = abs(len(src_initials)-len(tar_initials))
             if (initial_diff and
                     ((initial_diff == levenshtein(src_initials, tar_initials,
-                                                 cost=(1, 99, 99, 99))) or
+                                                  cost=(1, 99, 99, 99))) or
                      (initial_diff == levenshtein(tar_initials, src_initials,
                                                   cost=(1, 99, 99, 99))))):
                 return match_type_dict['initials']

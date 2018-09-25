@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""call_and_write_log.py
+"""call_and_write_log.py.
 
 This helper script takes one argument, a call to pylint, pycodestyle,
 or flake8. It captures stdout and writes it to a log file.
@@ -27,7 +27,6 @@ not supporting writing to files, even though I want it to do that
 to maintain logs & create badges.
 """
 import sys
-
 from subprocess import call
 
 const_ret = None
@@ -43,5 +42,5 @@ if len(sys.argv) > 1:
     if args[0] not in {'pylint', 'pycodestyle', 'flake8'}:
         sys.exit(const_ret if const_ret is not None else retval)
     with open(args[0]+'.log', 'w') as output:
-        retval = call(args, stdout=output)
+        retval = call(args, stdout=output, shell=False)
     sys.exit(const_ret if const_ret is not None else retval)
