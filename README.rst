@@ -45,6 +45,10 @@ Abydos
     :target: https://www.codefactor.io/repository/github/chrislit/abydos
     :alt: CodeFactor
 
+.. image:: https://ebertapp.io/github/chrislit/abydos.svg
+    :target: https://ebertapp.io/github/chrislit/abydos
+    :alt: Ebert
+
 .. image:: https://requires.io/github/chrislit/abydos/requirements.svg?branch=master
     :target: https://requires.io/github/chrislit/abydos/requirements/?branch=master
     :alt: Requirements Status
