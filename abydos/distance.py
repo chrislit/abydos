@@ -3463,29 +3463,20 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
     src_fn, src_ln, src_tc = synoname_toolcode(src_fn, src_ln, src_qual)
     tar_fn, tar_ln, tar_tc = synoname_toolcode(tar_fn, tar_ln, tar_qual)
 
-    src_qualcode = int(src_tc[0])
-    src_punctcode = int(src_tc[1])
     src_generation = int(src_tc[2])
     src_romancode = int(src_tc[3:6])
     src_len_fn = int(src_tc[6:8])
-    src_len_ln = int(src_tc[8:10])
     src_tc = src_tc.split('#')
     src_specials = split_special(src_tc[1])
-    src_search_range = src_tc[2]
     src_len_specials = len(src_specials)
 
-    tar_qualcode = int(tar_tc[0])
-    tar_punctcode = int(tar_tc[1])
     tar_generation = int(tar_tc[2])
     tar_romancode = int(tar_tc[3:6])
     tar_len_fn = int(tar_tc[6:8])
-    tar_len_ln = int(tar_tc[8:10])
     tar_tc = tar_tc.split('#')
     tar_specials = split_special(tar_tc[1])
-    tar_search_range = tar_tc[2]
     tar_len_specials = len(tar_specials)
 
-    qual_conflict = src_qual != tar_qual
     gen_conflict = (src_generation != tar_generation and
                     (src_generation or tar_generation))
     roman_conflict = (src_romancode != tar_romancode and
