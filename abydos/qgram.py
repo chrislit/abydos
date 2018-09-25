@@ -87,10 +87,11 @@ class QGrams(Counter):
                     continue
 
                 if start_stop and qval_i > 1:
-                    term = start_stop[0]*(qval_i-1) + term + start_stop[-1]*(qval_i-1)
+                    term = (start_stop[0]*(qval_i-1) + term +
+                            start_stop[-1]*(qval_i-1))
 
-                # Having appended start & stop symbols (or not), save the result
-                # but only for the longest valid qval_i
+                # Having appended start & stop symbols (or not), save the
+                # result, but only for the longest valid qval_i
                 if len(term) > len(self.term_ss):
                     self.term_ss = term
 

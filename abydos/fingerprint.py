@@ -556,6 +556,7 @@ _synoname_special_table = (
     (False, 'y', '', 7)
 )
 
+
 def synoname_toolcode(lname, fname='', qual='', normalize=0):
     """Build the Synoname toolcode.
 
