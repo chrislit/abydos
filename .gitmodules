@@ -1,0 +1,3 @@
+[submodule "tests/regtests"]
+	path = tests/regtests
+	url = git@github.com:chrislit/abydos-regtests.git
