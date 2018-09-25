@@ -93,7 +93,7 @@ Abydos
     :target: https://abydos.readthedocs.org/en/latest/
     :alt: Documentation Status
 
-.. image:: https://badge.waffle.io/chrislit/abydos.svg?columns=all
+.. image:: https://badge.waffle.io/chrislit/abydos.svg?columns=To%20Do,In%20Progress
     :target: https://waffle.io/chrislit/abydos
     :alt: 'Waffle.io - Columns and their card count'
 
