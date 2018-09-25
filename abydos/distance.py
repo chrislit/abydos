@@ -3406,6 +3406,19 @@ def sim_indel(src, tar):
     return sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 9999, 9999))
 
 
+def _synoname_strip_punct(word):
+    """Return a word with punctuation stripped out.
+
+    :param word:
+    :return:
+    """
+    stripped = ''
+    for char in word:
+        if char not in set(',-./:;"&\'()!{|}?$%*+<=>[\\]^_`~'):
+            stripped += char
+    return stripped.strip()
+
+
 def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
              tests=2**11-1):
     """Return the Synoname similarity type of two words.
@@ -3498,7 +3511,6 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
                 if full_src.ssrctswith(intro):
                     full_src = full_src[len(intro):]
 
-
         full_tar = ' '.join((tar_ln, tar_fn))
         if full_tar.startswith('master '):
             full_tar = full_tar[len('master '):]
@@ -3552,19 +3564,19 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
                 loc = full_src2.find(' ' + _synoname_special_table[s_type][1] + ' ') + 1
                 full_src2 = full_src2[:loc] + full_src2[loc + len(_synoname_special_table[s_type][1]):]
 
-        full_tar1 = strip_punct(full_tar1)
+        full_tar1 = _synoname_strip_punct(full_tar1)
         tar1_words = full_tar1.split()
         tar1_num_words = len(tar1_words)
 
-        full_src1 = strip_punct(full_src1)
+        full_src1 = _synoname_strip_punct(full_src1)
         src1_words = full_src1.split()
         src1_num_words = len(src1_words)
 
-        full_tar2 = strip_punct(full_tar2)
+        full_tar2 = _synoname_strip_punct(full_tar2)
         tar2_words = full_tar2.split()
         tar2_num_words = len(tar2_words)
 
-        full_src2 = strip_punct(full_src2)
+        full_src2 = _synoname_strip_punct(full_src2)
         src2_words = full_src2.split()
         src2_num_words = len(src2_words)
 
@@ -3641,13 +3653,6 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
 
         return 0
 
-    def strip_punct(word):
-        stripped = ''
-        for char in word:
-            if char not in set(',-./:;"&\'()!{|}?$%*+<=>[\\]^_`~'):
-                stripped += char
-        return stripped.strip()
-
     approx_c_result, ca_ratio = approx_c()
 
     if tests & test_dict['exact'] and fn_equal and ln_equal:
@@ -3675,10 +3680,10 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
               levenshtein(src_fn, tar_fn, cost=(99, 99, 99, 1)) == 1):
             return match_type_dict['transposition']
     if tests & test_dict['punctuation']:
-        np_src_fn = strip_punct(src_fn)
-        np_tar_fn = strip_punct(tar_fn)
-        np_src_ln = strip_punct(src_ln)
-        np_tar_ln = strip_punct(tar_ln)
+        np_src_fn = _synoname_strip_punct(src_fn)
+        np_tar_fn = _synoname_strip_punct(tar_fn)
+        np_src_ln = _synoname_strip_punct(src_ln)
+        np_tar_ln = _synoname_strip_punct(tar_ln)
 
         if np_src_fn == np_tar_fn and np_src_ln == np_tar_ln:
             return match_type_dict['punctuation']
