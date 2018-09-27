@@ -82,15 +82,15 @@ Abydos
     :alt: PyPI versions
 
 .. image:: https://img.shields.io/conda/vn/conda-forge/abydos.svg
-    :target: #
+    :target: https://anaconda.org/conda-forge/abydos
     :alt: conda-forge
 
 .. image:: 	https://img.shields.io/conda/dn/conda-forge/abydos.svg
-    :target: #
+    :target: https://anaconda.org/conda-forge/abydos
     :alt: conda-forge downloads
 
 .. image:: https://img.shields.io/conda/pn/conda-forge/abydos.svg
-    :target: #
+    :target: https://anaconda.org/conda-forge/abydos
     :alt: conda-forge platforms
 
 .. image:: https://readthedocs.org/projects/abydos/badge/?version=latest
