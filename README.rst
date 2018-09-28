@@ -1,12 +1,12 @@
 Abydos
 ======
 
-.. image:: https://travis-ci.org/chrislit/abydos.svg
+.. image:: https://travis-ci.org/chrislit/abydos.svg?branch=master
     :target: https://travis-ci.org/chrislit/abydos
     :alt: Travis-CI Build Status
 
-.. image:: https://circleci.com/gh/chrislit/abydos.svg?style=shield
-    :target: https://circleci.com/gh/chrislit/abydos
+.. image:: https://circleci.com/gh/chrislit/abydos/tree/master.svg?style=shield
+    :target: https://circleci.com/gh/chrislit/abydos/tree/master
     :alt: Circle-CI Build Status
 
 .. image:: https://ci.appveyor.com/api/projects/status/d3yw3d9r6c8ai63j/branch/master?svg=true
