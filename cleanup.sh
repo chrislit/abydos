@@ -7,12 +7,12 @@ rm -rf ./dist
 rm -rf ./build
 rm -rf ./.tox
 rm -rf ./.mypy_cache
-rm -rf ./docs/_build/*
-rm -rf ./*.log
 rm -rf ./.coverage
-rm -rf */*.pyc
-rm -rf */__pycache__
-rm -rf *~
-rm -rf .*~
-rm -rf */*~
-rm -rf */.*~
+
+rm -rf ./docs/_build/*
+
+find . -type f -name '*~' -delete
+find . -type f -name '.*~' -delete
+find . -type f -name '*.pyc' -delete
+find . -type f -name '*.log' -delete
+find . -type d -name '__pycache__' -delete
