@@ -8,3 +8,5 @@ docs/_build/
 *.pyc
 *.log
 .coverage
+.idea/
+notebooks/.ipynb_checkpoints
