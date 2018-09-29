@@ -836,7 +836,7 @@ def nysiis(word, maxlength=6, modified=False):
         key = key[:-2] + 'Y'
     if key[-1:] == 'A':
         key = key[:-1]
-    if modified and key[0] == 'A':
+    if modified and key[:1] == 'A':
         key = original_first_char + key[1:]
 
     if maxlength and maxlength < _INFINITY:
@@ -5147,7 +5147,7 @@ def davidson(lname, fname='.', omit_fname=False):
     """
     trans = {65: '', 69: '', 73: '', 79: '', 85: '', 72: '', 87: '', 89: ''}
 
-    lname = lname.upper()
+    lname = text_type(lname.upper())
     code = _delete_consecutive_repeats(lname[:1] + lname[1:].translate(trans))
     code = code[:4] + (4-len(code))*' '
 
@@ -5389,7 +5389,7 @@ def pshp_soundex_first(fname, maxlength=4, german=False):
 
         fname = fname.translate(_pshp_translation)
         fname = _delete_consecutive_repeats(fname)
-        print(fname)
+
         code += fname[1:]
         syl_ptr = code.find('0')
         syl2_ptr = code[syl_ptr + 1:].find('0')
