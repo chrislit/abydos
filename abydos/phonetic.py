@@ -5150,7 +5150,7 @@ def davidson(lname, fname='.', omit_fname=False):
     """
     trans = {65: '', 69: '', 73: '', 79: '', 85: '', 72: '', 87: '', 89: ''}
 
-    lname = lname.upper()
+    lname = text_type(lname.upper())
     code = _delete_consecutive_repeats(lname[:1] + lname[1:].translate(trans))
     code = code[:4] + (4-len(code))*' '
 
