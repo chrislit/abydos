@@ -338,7 +338,7 @@ def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False,
         word = word[::-1]
 
     # apply the Soundex algorithm
-    sdx = word[0] + word.translate(_ref_soundex_translation)
+    sdx = word[:1] + word.translate(_ref_soundex_translation)
     sdx = _delete_consecutive_repeats(sdx)
     if not retain_vowels:
         sdx = sdx.replace('0', '')  # Delete vowels, H, W, Y
@@ -634,7 +634,7 @@ def koelner_phonetik(word):
     sdx = _delete_consecutive_repeats(sdx)
 
     if sdx:
-        sdx = sdx[0] + sdx[1:].replace('0', '')
+        sdx = sdx[:1] + sdx[1:].replace('0', '')
 
     return sdx
 
@@ -751,7 +751,7 @@ def nysiis(word, maxlength=6, modified=False):
         elif word[:1] in _vowels:
             word = 'A'+word[1:]
 
-    if modified and word[-1] in {'S', 'Z'}:
+    if modified and word[-1:] in {'S', 'Z'}:
         word = word[:-1]
 
     if word[-2:] == 'EE' or word[-2:] == 'IE' or (modified and
@@ -769,7 +769,7 @@ def nysiis(word, maxlength=6, modified=False):
         elif word[-2:] in {'JR', 'SR'}:
             return 'ERROR'  # TODO: decide how best to return an error
 
-    key = word[0]
+    key = word[:1]
 
     skip = 0
     for i in range(1, len(word)):
@@ -830,13 +830,13 @@ def nysiis(word, maxlength=6, modified=False):
 
     key = _delete_consecutive_repeats(key)
 
-    if key[-1] == 'S':
+    if key[-1:] == 'S':
         key = key[:-1]
     if key[-2:] == 'AY':
         key = key[:-2] + 'Y'
     if key[-1:] == 'A':
         key = key[:-1]
-    if modified and key[0] == 'A':
+    if modified and key[:1] == 'A':
         key = original_first_char + key[1:]
 
     if maxlength and maxlength < _INFINITY:
@@ -4737,6 +4737,9 @@ def eudex(word, maxlength=8):
     # Lowercase input & filter unknown characters
     word = ''.join(char for char in word.lower() if char in _initial_phones)
 
+    if not word:
+        word = '÷'
+
     # Perform initial eudex coding of each character
     values = [_initial_phones[word[0]]]
     values += [_trailing_phones[char] for char in word[1:]]
@@ -5389,7 +5392,7 @@ def pshp_soundex_first(fname, maxlength=4, german=False):
 
         fname = fname.translate(_pshp_translation)
         fname = _delete_consecutive_repeats(fname)
-        print(fname)
+
         code += fname[1:]
         syl_ptr = code.find('0')
         syl2_ptr = code[syl_ptr + 1:].find('0')
@@ -5430,6 +5433,9 @@ def henry_early(word, maxlength=3):
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
                     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
                     'Y', 'Z'})
+
+    if not word:
+        return ''
 
     # Rule Ia seems to be covered entirely in II
 
