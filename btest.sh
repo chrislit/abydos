@@ -35,6 +35,7 @@ if [ "$docs_only" = "0" ]; then
 	pylint --rcfile=setup.cfg abydos > pylint.log
 	pycodestyle . > pycodestyle.log
 	flake8 . > flake8.log
+	doc8 . > doc8.log
 
 	./badge_update.py
     fi

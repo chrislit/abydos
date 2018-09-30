@@ -39,7 +39,7 @@ if len(sys.argv) > 2:
 retval = 1
 if len(sys.argv) > 1:
     args = sys.argv[1].split()
-    if args[0] not in {'pylint', 'pycodestyle', 'flake8'}:
+    if args[0] not in {'pylint', 'pycodestyle', 'flake8', 'doc8'}:
         sys.exit(const_ret if const_ret is not None else retval)
     with open(args[0]+'.log', 'w') as output:
         retval = call(args, stdout=output, shell=False)
