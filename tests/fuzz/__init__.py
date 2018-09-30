@@ -24,9 +24,10 @@ This module contains fuzz tests for Abydos
 
 import random
 import unicodedata
+from string import printable
 
 from six import unichr
-from string import printable
+
 
 def random_char(below=0x10ffff, must_be=None):
     """Generate a random Unicode character below U+{below}."""
