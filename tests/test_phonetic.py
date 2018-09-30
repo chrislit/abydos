@@ -3658,7 +3658,10 @@ class CaverphoneTestCases(unittest.TestCase):
         # https://raw.githubusercontent.com/kiphughes/caverphone/master/unit_tests.php
         with open(TESTDIR + '/corpora/php_caverphone.csv') as php_testset:
             for php_line in php_testset:
-                (word, caver) = php_line.strip().split(',')
+                try:
+                    (word, caver) = php_line.strip().split(',')
+                except:
+                    self.fail(php_line)
                 self.assertEqual(caverphone(word), caver)
 
     def test_caverphone1(self):
