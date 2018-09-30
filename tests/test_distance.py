@@ -56,6 +56,14 @@ COLIN = ('Colin', 'Collin', 'Cullen', 'Cuilen', 'Cailean', 'MacCailean',
          'Cuilén', 'Colle', 'Calum', 'Callum', 'Colinn', 'Colon', 'Colynn',
          'Col', 'Cole', 'Nicolas', 'Nicholas', 'Cailean Mór Caimbeul')
 
+try:
+    import lzma
+    lzma_supported = True
+except ImportError:  # pragma: no cover
+    # If the system lacks the lzma library, that's fine, but lzma comrpession
+    # similarity won't be supported.
+    lzma_supported = False
+
 
 class LevenshteinTestCases(unittest.TestCase):
     """Test Levenshtein functions.
@@ -1291,7 +1299,8 @@ class CompressionTestCases(unittest.TestCase):
         """Test abydos.distance.dist_compression."""
         self.assertEqual(dist_compression('', ''), 0)
         self.assertEqual(dist_compression('', '', 'bzip2'), 0)
-        self.assertEqual(dist_compression('', '', 'lzma'), 0)
+        if lzma_supported:
+            self.assertEqual(dist_compression('', '', 'lzma'), 0)
         self.assertEqual(dist_compression('', '', 'zlib'), 0)
         self.assertEqual(dist_compression('', '', 'arith'), 0)
         self.assertEqual(dist_compression('', '', 'arith', self.arith_dict), 0)
@@ -1300,7 +1309,8 @@ class CompressionTestCases(unittest.TestCase):
 
         self.assertGreater(dist_compression('a', ''), 0)
         self.assertGreater(dist_compression('a', '', 'bzip2'), 0)
-        self.assertGreater(dist_compression('a', '', 'lzma'), 0)
+        if lzma_supported:
+            self.assertGreater(dist_compression('a', '', 'lzma'), 0)
         self.assertGreater(dist_compression('a', '', 'zlib'), 0)
         self.assertGreater(dist_compression('a', '', 'arith'), 0)
         self.assertGreater(dist_compression('a', '', 'arith', self.arith_dict),
@@ -1310,7 +1320,8 @@ class CompressionTestCases(unittest.TestCase):
 
         self.assertGreater(dist_compression('abcdefg', 'fg'), 0)
         self.assertGreater(dist_compression('abcdefg', 'fg', 'bzip2'), 0)
-        self.assertGreater(dist_compression('abcdefg', 'fg', 'lzma'), 0)
+        if lzma_supported:
+            self.assertGreater(dist_compression('abcdefg', 'fg', 'lzma'), 0)
         self.assertGreater(dist_compression('abcdefg', 'fg', 'zlib'), 0)
         self.assertGreater(dist_compression('abcdefg', 'fg', 'arith'), 0)
         self.assertGreater(dist_compression('abcdefg', 'fg', 'rle'), 0)
@@ -1359,7 +1370,8 @@ class CompressionTestCases(unittest.TestCase):
         """Test abydos.distance.sim_compression."""
         self.assertEqual(sim_compression('', ''), 1)
         self.assertEqual(sim_compression('', '', 'bzip2'), 1)
-        self.assertEqual(sim_compression('', '', 'lzma'), 1)
+        if lzma_supported:
+            self.assertEqual(sim_compression('', '', 'lzma'), 1)
         self.assertEqual(sim_compression('', '', 'zlib'), 1)
         self.assertEqual(sim_compression('', '', 'arith'), 1)
         self.assertEqual(sim_compression('', '', 'arith', self.arith_dict), 1)
@@ -1368,7 +1380,8 @@ class CompressionTestCases(unittest.TestCase):
 
         self.assertLess(sim_compression('a', ''), 1)
         self.assertLess(sim_compression('a', '', 'bzip2'), 1)
-        self.assertLess(sim_compression('a', '', 'lzma'), 1)
+        if lzma_supported:
+            self.assertLess(sim_compression('a', '', 'lzma'), 1)
         self.assertLess(sim_compression('a', '', 'zlib'), 1)
         self.assertLess(sim_compression('a', '', 'arith'), 1)
         self.assertLess(sim_compression('a', '', 'arith', self.arith_dict), 1)
@@ -1377,7 +1390,8 @@ class CompressionTestCases(unittest.TestCase):
 
         self.assertLess(sim_compression('abcdefg', 'fg'), 1)
         self.assertLess(sim_compression('abcdefg', 'fg', 'bzip2'), 1)
-        self.assertLess(sim_compression('abcdefg', 'fg', 'lzma'), 1)
+        if lzma_supported:
+            self.assertLess(sim_compression('abcdefg', 'fg', 'lzma'), 1)
         self.assertLess(sim_compression('abcdefg', 'fg', 'zlib'), 1)
         self.assertLess(sim_compression('abcdefg', 'fg', 'arith'), 1)
         self.assertLess(sim_compression('abcdefg', 'fg', 'rle'), 1)
