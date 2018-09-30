@@ -42,8 +42,8 @@ from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
     lein, metaphone, mra, norphone, nysiis, onca, parmar_kumbharana, phonem, \
     phonet, phonetic_spanish, phonex, phonix, pshp_soundex_first, \
     refined_soundex, roger_root, russell_index, russell_index_alpha, \
-    russell_index_num_to_alpha, sfinxbis, soundex, spanish_metaphone, spfc, \
-    statistics_canada
+    russell_index_num_to_alpha, sfinxbis, soundex, soundex_br, \
+    spanish_metaphone, spfc, statistics_canada
 
 from six import text_type
 
@@ -5726,6 +5726,32 @@ class SpanishMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(spanish_metaphone('Escalera', modified=True), 'EZKLR')
         self.assertEqual(spanish_metaphone('scalera'), 'ESKLR')
         self.assertEqual(spanish_metaphone('scalera', modified=True), 'EZKLR')
+
+
+class SoundexBRTestCases(unittest.TestCase):
+    """Test SoundexBR functions.
+
+    test cases for abydos.phonetic.soundex_br
+    """
+
+    def test_spanish_metaphone(self):
+        """Test abydos.phonetic.soundex_br."""
+        # Base case
+        self.assertEqual(soundex_br(''), '0000')
+
+        # Examples given at https://github.com/danielmarcelino/SoundexBR
+        self.assertEqual(soundex_br('Ana Karolina Kuhnen'), 'A526')
+        self.assertEqual(soundex_br('Ana Carolina Kuhnen'), 'A526')
+        self.assertEqual(soundex_br('Ana Karolina'), 'A526')
+        self.assertEqual(soundex_br('João Souza'), 'J220')
+        self.assertEqual(soundex_br('Dilma Vana Rousseff'), 'D451')
+        self.assertEqual(soundex_br('Dilma Rousef'), 'D456')
+        self.assertEqual(soundex_br('Aécio Neves'), 'A251')
+        self.assertEqual(soundex_br('Aecio Neves'), 'A251')
+        self.assertEqual(soundex_br('HILBERT'), 'I416')
+        self.assertEqual(soundex_br('Heilbronn'), 'E416')
+        self.assertEqual(soundex_br('Gauss'), 'G200')
+        self.assertEqual(soundex_br('Kant'), 'C530')
 
 
 class BeiderMorseTestCases(unittest.TestCase):

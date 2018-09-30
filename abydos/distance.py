@@ -56,6 +56,7 @@ The distance module implements string edit distance functions including:
     - Baystat distance & similarity
     - Typo distance
     - Indel distance
+    - Synoname
 
 Functions beginning with the prefixes 'sim' and 'dist' are guaranteed to be
 in the range [0, 1], and sim_X = 1 - dist_X since the two are complements.
