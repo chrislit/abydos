@@ -26,8 +26,6 @@ import os
 import random
 import unittest
 
-from string import printable
-
 from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
     dm_soundex, dolby, double_metaphone, eudex, fonem, fuzzy_soundex, \
     haase_phonetik, henry_early, koelner_phonetik, koelner_phonetik_alpha, \
@@ -38,10 +36,7 @@ from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
     russell_index_alpha, russell_index_num_to_alpha, sfinxbis, sound_d, \
     soundex, spanish_metaphone, spfc, statistics_canada
 
-import unicodedata
-
-from six import unichr
-
+from . import fuzz, random_char
 
 algorithms = {'russell_index': lambda name: russell_index(name),
               'russell_index_num_to_alpha':
@@ -203,37 +198,6 @@ class FuzzedWordsTestCases(unittest.TestCase):
             if line:
                 basewords.append(line)
 
-    def random_char(self, below=0x10ffff, must_be=None):
-        """Generate a random Unicode character below U+{below}."""
-        while True:
-            char = unichr(random.randint(0, below))
-            try:
-                name = unicodedata.name(char)
-                if must_be is None or must_be in name:
-                    return char
-            except ValueError:
-                pass
-
-    def fuzz(self, word, fuzziness=0.2):
-        """Fuzz a word with noise."""
-        while True:
-            new_word = []
-            for ch in word:
-                if random.random() > fuzziness:
-                    new_word.append(ch)
-                else:
-                    if random.random() > 0.5:
-                        new_word.append(random.choice(printable))
-                    elif random.random() > 0.8:
-                        new_word.append(unichr(random.randint(0, 0x10ffff)))
-                    else:
-                        new_word.append(unichr(random.randint(0, 0xffff)))
-                    if random.random() > 0.5:
-                        new_word.append(ch)
-            new_word = ''.join(new_word)
-            if new_word != word:
-                return new_word
-
     def fuzz_test_base(self):
         """Test each phonetic algorithm against the unfuzzed base words."""
         for algo in algorithms:
@@ -248,7 +212,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
     def fuzz_test_20pct(self):
         """Fuzz test phonetic algorithms against 20% fuzzed words."""
         for _ in range(100000):
-            fuzzed = self.fuzz(random.choice(self.basewords), fuzziness=0.2)
+            fuzzed = fuzz(random.choice(self.basewords), fuzziness=0.2)
             algs = random.choices(list(algorithms.keys()), k=5)
             for algo in algs:
                 try:
@@ -261,7 +225,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
     def fuzz_test_100pct(self):
         """Fuzz test phonetic algorithms against 100% fuzzed words."""
         for _ in range(100000):
-            fuzzed = self.fuzz(random.choice(self.basewords), fuzziness=1)
+            fuzzed = fuzz(random.choice(self.basewords), fuzziness=1)
             algs = random.choices(list(algorithms.keys()), k=5)
             for algo in algs:
                 try:
@@ -274,7 +238,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
     def fuzz_test_fuzz_bmp(self):
         """Fuzz test phonetic algorithms against BMP fuzz."""
         for _ in range(100000):
-            fuzzed = ''.join(self.random_char(0xffff) for _ in
+            fuzzed = ''.join(random_char(0xffff) for _ in
                              range(0, random.randint(8, 16)))
 
             algs = random.choices(list(algorithms.keys()), k=5)
@@ -288,7 +252,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
     def fuzz_test_fuzz_bmpsmp_letter(self):
         """Fuzz test phonetic algorithms against alphabetic BMP+SMP fuzz."""
         for _ in range(100000):
-            fuzzed = ''.join(self.random_char(0x1ffff, ' LETTER ') for _ in
+            fuzzed = ''.join(random_char(0x1ffff, ' LETTER ') for _ in
                              range(0, random.randint(8, 16)))
 
             algs = random.choices(list(algorithms.keys()), k=5)
@@ -302,7 +266,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
     def fuzz_test_fuzz_bmpsmp_latin(self):
         """Fuzz test phonetic algorithms against Latin BMP+SMP fuzz."""
         for _ in range(100000):
-            fuzzed = ''.join(self.random_char(0x1ffff, 'LATIN ') for _ in
+            fuzzed = ''.join(random_char(0x1ffff, 'LATIN ') for _ in
                              range(0, random.randint(8, 16)))
 
             algs = random.choices(list(algorithms.keys()), k=5)
@@ -316,7 +280,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
     def fuzz_test_fuzz_unicode(self):
         """Fuzz test phonetic algorithms against valid Unicode fuzz."""
         for _ in range(100000):
-            fuzzed = ''.join(self.random_char() for _ in
+            fuzzed = ''.join(random_char() for _ in
                              range(0, random.randint(8, 16)))
 
             algs = random.choices(list(algorithms.keys()), k=5)
