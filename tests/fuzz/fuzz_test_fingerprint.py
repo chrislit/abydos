@@ -54,7 +54,6 @@ algorithms = {'str_fingerprint': str_fingerprint,
 TESTDIR = os.path.dirname(__file__)
 
 EXTREME_TEST = False  # Set to True to test EVERY single case (NB: takes hours)
-ALLOW_RANDOM = True  # Set to False to skip all random tests
 
 if not EXTREME_TEST and os.path.isfile(TESTDIR + '/EXTREME_TEST'):
     # EXTREME_TEST file detected -- switching to EXTREME_TEST mode...
@@ -94,8 +93,9 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
 
 class FuzzedWordsTestCases(unittest.TestCase):
     """Test each fingerprint algorithm against the base words set."""
-
     basewords = []
+    reps = 100000 * (100 if EXTREME_TEST else 1)
+
     with codecs.open(TESTDIR + '/corpora/basewords.txt',
                      encoding='UTF-8') as basewords_file:
         for line in basewords_file:
@@ -115,9 +115,14 @@ class FuzzedWordsTestCases(unittest.TestCase):
 
     def fuzz_test_20pct(self):
         """Fuzz test fingerprint algorithms against 20% fuzzed words."""
-        for _ in range(100000):
+        for _ in range(self.reps):
             fuzzed = fuzz(random.choice(self.basewords), fuzziness=0.2)
-            algs = random.choices(list(algorithms.keys()), k=5)
+
+            if EXTREME_TEST:
+                algs = list(algorithms.keys())
+            else:
+                algs = random.choices(list(algorithms.keys()), k=5)
+
             for algo in algs:
                 try:
                     _ = algorithms[algo](fuzzed)
@@ -127,9 +132,14 @@ class FuzzedWordsTestCases(unittest.TestCase):
 
     def fuzz_test_100pct(self):
         """Fuzz test fingerprint algorithms against 100% fuzzed words."""
-        for _ in range(100000):
+        for _ in range(self.reps):
             fuzzed = fuzz(random.choice(self.basewords), fuzziness=1)
-            algs = random.choices(list(algorithms.keys()), k=5)
+
+            if EXTREME_TEST:
+                algs = list(algorithms.keys())
+            else:
+                algs = random.choices(list(algorithms.keys()), k=5)
+
             for algo in algs:
                 try:
                     _ = algorithms[algo](fuzzed)
@@ -139,11 +149,15 @@ class FuzzedWordsTestCases(unittest.TestCase):
 
     def fuzz_test_fuzz_bmp(self):
         """Fuzz test fingerprint algorithms against BMP fuzz."""
-        for _ in range(100000):
+        for _ in range(self.reps):
             fuzzed = ''.join(random_char(0xffff) for _ in
                              range(0, random.randint(8, 16)))
 
-            algs = random.choices(list(algorithms.keys()), k=5)
+            if EXTREME_TEST:
+                algs = list(algorithms.keys())
+            else:
+                algs = random.choices(list(algorithms.keys()), k=5)
+
             for algo in algs:
                 try:
                     _ = algorithms[algo](fuzzed)
@@ -153,11 +167,15 @@ class FuzzedWordsTestCases(unittest.TestCase):
 
     def fuzz_test_fuzz_bmpsmp_letter(self):
         """Fuzz test fingerprint algorithms against alphabetic BMP+SMP fuzz."""
-        for _ in range(100000):
+        for _ in range(self.reps):
             fuzzed = ''.join(random_char(0x1ffff, ' LETTER ') for _ in
                              range(0, random.randint(8, 16)))
 
-            algs = random.choices(list(algorithms.keys()), k=5)
+            if EXTREME_TEST:
+                algs = list(algorithms.keys())
+            else:
+                algs = random.choices(list(algorithms.keys()), k=5)
+
             for algo in algs:
                 try:
                     _ = algorithms[algo](fuzzed)
@@ -167,11 +185,15 @@ class FuzzedWordsTestCases(unittest.TestCase):
 
     def fuzz_test_fuzz_bmpsmp_latin(self):
         """Fuzz test fingerprint algorithms against Latin BMP+SMP fuzz."""
-        for _ in range(100000):
+        for _ in range(self.reps):
             fuzzed = ''.join(random_char(0x1ffff, 'LATIN ') for _ in
                              range(0, random.randint(8, 16)))
 
-            algs = random.choices(list(algorithms.keys()), k=5)
+            if EXTREME_TEST:
+                algs = list(algorithms.keys())
+            else:
+                algs = random.choices(list(algorithms.keys()), k=5)
+
             for algo in algs:
                 try:
                     _ = algorithms[algo](fuzzed)
@@ -181,11 +203,15 @@ class FuzzedWordsTestCases(unittest.TestCase):
 
     def fuzz_test_fuzz_unicode(self):
         """Fuzz test fingerprint algorithms against valid Unicode fuzz."""
-        for _ in range(100000):
+        for _ in range(self.reps):
             fuzzed = ''.join(random_char() for _ in
                              range(0, random.randint(8, 16)))
 
-            algs = random.choices(list(algorithms.keys()), k=5)
+            if EXTREME_TEST:
+                algs = list(algorithms.keys())
+            else:
+                algs = random.choices(list(algorithms.keys()), k=5)
+
             for algo in algs:
                 try:
                     _ = algorithms[algo](fuzzed)
