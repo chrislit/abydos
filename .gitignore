@@ -9,4 +9,6 @@ docs/_build/
 *.log
 .coverage
 .idea/
+.tox/
 notebooks/.ipynb_checkpoints
+notebooks/Untitled*
