@@ -169,9 +169,9 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
         with codecs.open(TESTDIR+'/corpora/blns.txt', encoding='UTF-8') as nsf:
             for line in nsf:
                 line = line[:-1]
-                if "Script Injection" in line:
+                if 'Script Injection' in line:
                     omit_section = True
-                if "SQL Injection" in line:
+                if 'SQL Injection' in line:
                     omit_section = False
                 if line and line[0] != '#':
                     bmpm_omit = omit_section | (len(line.split()) > 5)
@@ -181,7 +181,7 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
             for bmpm_omit, ns in blns:
                 try:
                     if not (bmpm_omit and 'bmpm' in algo):
-                        _ = algorithms[algo](ns)
+                        algorithms[algo](ns)
                 except Exception as inst:
                     self.fail('Exception "{}" thrown by {} for BLNS: {}'
                               .format(inst, algo, ns))
@@ -189,9 +189,10 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
 
 class FuzzedWordsTestCases(unittest.TestCase):
     """Test each phonetic algorithm against the base words set."""
-    basewords = []
+
     reps = 100000 * (100 if EXTREME_TEST else 1)
 
+    basewords = []
     with codecs.open(TESTDIR + '/corpora/basewords.txt',
                      encoding='UTF-8') as basewords_file:
         for line in basewords_file:
@@ -205,7 +206,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
             for word in self.basewords:
                 try:
                     if not ('bmpm' in algo and len(word) > 12):
-                        _ = algorithms[algo](word)
+                        algorithms[algo](word)
                 except Exception as inst:
                     self.fail('Exception "{}" thrown by {} for word: {}'
                               .format(inst, algo, word))
@@ -223,7 +224,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
             for algo in algs:
                 try:
                     if not ('bmpm' in algo and len(fuzzed) > 12):
-                        _ = algorithms[algo](fuzzed)
+                        algorithms[algo](fuzzed)
                 except Exception as inst:
                     self.fail('Exception "{}" thrown by {} for word: {}'
                               .format(inst, algo, fuzzed))
@@ -241,7 +242,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
             for algo in algs:
                 try:
                     if not ('bmpm' in algo and len(fuzzed) > 12):
-                        _ = algorithms[algo](fuzzed)
+                        algorithms[algo](fuzzed)
                 except Exception as inst:
                     self.fail('Exception "{}" thrown by {} for word: {}'
                               .format(inst, algo, fuzzed))
@@ -259,7 +260,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
 
             for algo in algs:
                 try:
-                    _ = algorithms[algo](fuzzed)
+                    algorithms[algo](fuzzed)
                 except Exception as inst:
                     self.fail('Exception "{}" thrown by {} for word: {}'
                               .format(inst, algo, fuzzed))
@@ -277,7 +278,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
 
             for algo in algs:
                 try:
-                    _ = algorithms[algo](fuzzed)
+                    algorithms[algo](fuzzed)
                 except Exception as inst:
                     self.fail('Exception "{}" thrown by {} for word: {}'
                               .format(inst, algo, fuzzed))
@@ -295,7 +296,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
 
             for algo in algs:
                 try:
-                    _ = algorithms[algo](fuzzed)
+                    algorithms[algo](fuzzed)
                 except Exception as inst:
                     self.fail('Exception "{}" thrown by {} for word: {}'
                               .format(inst, algo, fuzzed))
@@ -313,7 +314,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
 
             for algo in algs:
                 try:
-                    _ = algorithms[algo](fuzzed)
+                    algorithms[algo](fuzzed)
                 except Exception as inst:
                     self.fail('Exception "{}" thrown by {} for word: {}'
                               .format(inst, algo, fuzzed))
