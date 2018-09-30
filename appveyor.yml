@@ -45,7 +45,7 @@ install:
   - conda update -q conda
   - conda info -a
   - "conda create -q -n test-environment python=%PYTHON_VERSION% six numpy nose coverage"
-  - if %PYTHON_VERSION% == "2.7" (pip install pyliblzma)
+  - if "%PYTHON_VERSION%" == "2.7" (pip install pyliblzma)
   - activate test-environment
 
 test_script:
