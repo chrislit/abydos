@@ -388,7 +388,7 @@ def position_fingerprint(word, n_bits=16,
 
 
 _synoname_special_table = (
-    # Roman, string, extra, method
+    # Roman, match, extra, method
     (False, 'NONE', '', 0),
     (False, 'aine', '', 3),
     (False, 'also erroneously', '', 4),
@@ -668,12 +668,12 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
 
     # Fill fields 7 (specials) and 3 (roman numerals)
     for num, special in enumerate(_synoname_special_table):
-        roman, string, extra, method = special
+        roman, match, extra, method = special
         if method & method_dict['end']:
-            string_context = ' ' + string
-            loc = full_name.find(string_context)
-            if ((len(full_name) > len(string_context)) and
-                    (loc == len(full_name) - len(string_context))):
+            match_context = ' ' + match
+            loc = full_name.find(match_context)
+            if ((len(full_name) > len(match_context)) and
+                    (loc == len(full_name) - len(match_context))):
                 if roman:
                     if not any(abbr in fname for abbr in ('i.', 'v.', 'x.')):
                         full_name = full_name[:loc]
@@ -681,46 +681,46 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
                         if not toolcode[3]:
                             toolcode[3] = '{:03d}'.format(num)
                         if normalize == 2:
-                            fname, lname = roman_check(string, fname, lname)
+                            fname, lname = roman_check(match, fname, lname)
                 else:
                     full_name = full_name[:loc]
                     toolcode[7] += '{:03d}'.format(num) + 'a'
         if method & method_dict['middle']:
-            string_context = ' ' + string + ' '
-            loc = full_name.find(string_context)
+            match_context = ' ' + match + ' '
+            loc = full_name.find(match_context)
             if loc > 0:
                 if roman:
                     if not any(abbr in fname for abbr in ('i.', 'v.', 'x.')):
                         full_name = (full_name[:loc] +
-                                     full_name[loc + len(string) + 1:])
+                                     full_name[loc + len(match) + 1:])
                         toolcode[7] += '{:03d}'.format(num) + 'b'
                         if not toolcode[3]:
                             toolcode[3] = '{:03d}'.format(num)
                         if normalize == 2:
-                            fname, lname = roman_check(string, fname, lname)
+                            fname, lname = roman_check(match, fname, lname)
                 else:
                     full_name = (full_name[:loc] +
-                                 full_name[loc + len(string) + 1:])
+                                 full_name[loc + len(match) + 1:])
                     toolcode[7] += '{:03d}'.format(num) + 'b'
         if method & method_dict['beginning']:
-            string_context = string + ' '
-            loc = full_name.find(string_context)
+            match_context = match + ' '
+            loc = full_name.find(match_context)
             if loc == 0:
-                full_name = full_name[len(string) + 1:]
+                full_name = full_name[len(match) + 1:]
                 toolcode[7] += '{:03d}'.format(num) + 'c'
         if method & method_dict['beginning_no_space']:
-            loc = full_name.find(string)
+            loc = full_name.find(match)
             if loc == 0:
                 toolcode[7] += '{:03d}'.format(num) + 'd'
-                if full_name[len(string)] not in toolcode[9]:
-                    toolcode[9] += full_name[len(string)]
+                if full_name[:len(match)] not in toolcode[9]:
+                    toolcode[9] += full_name[:len(match)]
 
         if extra:
             loc = full_name.find(extra)
             if loc != -1:
                 toolcode[7] += '{:03d}'.format(num) + 'X'
-                if full_name[loc + len(extra)] not in toolcode[9]:
-                    toolcode[9] += full_name[loc + len(string)]
+                if full_name[loc:loc+len(extra)] not in toolcode[9]:
+                    toolcode[9] += full_name[loc:loc+len(match)]
 
     return lname, fname, ''.join(toolcode)
 
