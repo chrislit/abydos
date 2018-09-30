@@ -56,6 +56,7 @@ The phonetic module implements phonetic algorithms including:
     - Phonetic Spanish
     - Spanish Metaphone
     - MetaSoundex
+    - SoundexBR
     - Beider-Morse Phonetic Matching
 """
 
@@ -5988,7 +5989,7 @@ def soundex_br(word, maxlength=4, zero_pad=True):
     """
     _soundex_br_translation = dict(zip((ord(_) for _ in
                                         'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-                                       '01230120022455012623010202'))
+                                        '01230120022455012623010202'))
 
     word = normalize('NFKD', text_type(word.upper()))
     word = ''.join(c for c in word if c in
@@ -6006,11 +6007,14 @@ def soundex_br(word, maxlength=4, zero_pad=True):
         first = 'J'
     elif word[:1] == 'Y':
         first = 'I'
-    else:
-        first = word[1:2] if word[:1] == 'H' else word[:1]
+    elif word[:1] == 'H':
+        first = word[1:2]
         word = word[1:]
+    else:
+        first = word[:1]
 
     sdx = first + word[1:].translate(_soundex_br_translation)
+    sdx = _delete_consecutive_repeats(sdx)
     sdx = sdx.replace('0', '')
 
     if zero_pad:

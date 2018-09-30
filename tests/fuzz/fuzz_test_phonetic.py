@@ -34,7 +34,7 @@ from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
     phonetic_spanish, phonex, phonix, pshp_soundex_first, pshp_soundex_last, \
     refined_soundex, reth_schek_phonetik, roger_root, russell_index, \
     russell_index_alpha, russell_index_num_to_alpha, sfinxbis, sound_d, \
-    soundex, spanish_metaphone, spfc, statistics_canada
+    soundex, soundex_br, spanish_metaphone, spfc, statistics_canada
 
 from . import fuzz, random_char
 
@@ -136,6 +136,7 @@ algorithms = {'russell_index': lambda name: russell_index(name),
                   lambda name: spanish_metaphone(name, maxlength=4),
               'metasoundex': metasoundex,
               'metasoundex_es': lambda name: metasoundex(name, language='es'),
+              'soundex_br': soundex_br,
               'bmpm': bmpm,
               }
 
