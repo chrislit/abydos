@@ -5,9 +5,34 @@ environment:
     - PYTHON_VERSION: 2.7
       MINICONDA: C:\Miniconda
       PYTHON_ARCH: "32"
-    - PYTHON_VERSION: 3.4
-      MINICONDA: C:\Miniconda3
-      PYTHON_ARCH: "32"
+#    - PYTHON_VERSION: 3.4
+#      MINICONDA: C:\Miniconda34
+#      PYTHON_ARCH: "32"
+#    - PYTHON_VERSION: 3.5
+#      MINICONDA: C:\Miniconda35
+#      PYTHON_ARCH: "32"
+#    - PYTHON_VERSION: 3.6
+#      MINICONDA: C:\Miniconda36
+#      PYTHON_ARCH: "32"
+#    - PYTHON_VERSION: 3.7
+#      MINICONDA: C:\Miniconda37
+#      PYTHON_ARCH: "32"
+#
+#    - PYTHON_VERSION: 2.7
+#      MINICONDA: C:\Miniconda
+#      PYTHON_ARCH: "64"
+#    - PYTHON_VERSION: 3.4
+#      MINICONDA: C:\Miniconda34-x64
+#      PYTHON_ARCH: "64"
+#    - PYTHON_VERSION: 3.5
+#      MINICONDA: C:\Miniconda35-x64
+#      PYTHON_ARCH: "64"
+#    - PYTHON_VERSION: 3.6
+#      MINICONDA: C:\Miniconda36-x64
+#      PYTHON_ARCH: "64"
+#    - PYTHON_VERSION: 3.7
+#      MINICONDA: C:\Miniconda37-x64
+#      PYTHON_ARCH: "64"
 
 version: '1.0.{build}'
 
@@ -20,6 +45,7 @@ install:
   - conda update -q conda
   - conda info -a
   - "conda create -q -n test-environment python=%PYTHON_VERSION% six numpy nose coverage"
+  - if %PYTHON_VERSION% == "2.7" (pip install pyliblzma)
   - activate test-environment
 
 test_script:
