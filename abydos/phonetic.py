@@ -5980,6 +5980,45 @@ def metasoundex(word, language='en'):
     return word
 
 
+def soundex_br(word, maxlength=4, zero_pad=True):
+    """Return the SoundexBR encoding of a word.
+
+    :param word:
+    :return:
+    """
+    _soundex_br_translation = dict(zip((ord(_) for _ in
+                                        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+                                       '01230120022455012623010202'))
+
+    word = normalize('NFKD', text_type(word.upper()))
+    word = ''.join(c for c in word if c in
+                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                    'Y', 'Z'})
+
+    if word[:2] == 'WA':
+        first = 'V'
+    elif word[:1] == 'K' and word[1:2] in {'A', 'O', 'U'}:
+        first = 'C'
+    elif word[:1] == 'C' and word[1:2] in {'I', 'E'}:
+        first = 'S'
+    elif word[:1] == 'G' and word[1:2] in {'E', 'I'}:
+        first = 'J'
+    elif word[:1] == 'Y':
+        first = 'I'
+    else:
+        first = word[1:2] if word[:1] == 'H' else word[:1]
+        word = word[1:]
+
+    sdx = first + word[1:].translate(_soundex_br_translation)
+    sdx = sdx.replace('0', '')
+
+    if zero_pad:
+        sdx += ('0'*maxlength)
+
+    return sdx[:maxlength]
+
+
 def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
          concat=False, filter_langs=False):
     """Return the Beider-Morse Phonetic Matching algorithm code for a word.
