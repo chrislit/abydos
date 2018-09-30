@@ -196,7 +196,7 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
 class FuzzedWordsTestCases(unittest.TestCase):
     """Test each phonetic algorithm against the base words set."""
     basewords = []
-    with codecs.open(TESTDIR + '/corpora/blns.txt',
+    with codecs.open(TESTDIR + '/corpora/basewords.txt',
                      encoding='UTF-8') as basewords_file:
         for line in basewords_file:
             line = line[:-1]
