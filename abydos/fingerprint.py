@@ -719,8 +719,8 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
             loc = full_name.find(extra)
             if loc != -1:
                 toolcode[7] += '{:03d}'.format(num) + 'X'
-                if full_name[loc + len(extra)] not in toolcode[9]:
-                    toolcode[9] += full_name[loc + len(match)]
+                if full_name[loc:loc+len(extra)] not in toolcode[9]:
+                    toolcode[9] += full_name[loc:loc+len(match)]
 
     return lname, fname, ''.join(toolcode)
 
