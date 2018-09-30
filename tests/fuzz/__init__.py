@@ -26,7 +26,7 @@ import random
 import unicodedata
 
 from six import unichr
-
+from string import printable
 
 def random_char(below=0x10ffff, must_be=None):
     """Generate a random Unicode character below U+{below}."""
