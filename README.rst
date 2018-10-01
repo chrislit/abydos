@@ -61,7 +61,7 @@ Abydos
     :target: https://libraries.io/pypi/abydos
     :alt: Libraries.io SourceRank
 
-.. image:: https://img.shields.io/badge/Pylint-9.63/10-green.svg
+.. image:: https://img.shields.io/badge/Pylint-9.53/10-green.svg
    :target: #
    :alt: Pylint Score
 
@@ -69,7 +69,7 @@ Abydos
    :target: #
    :alt: pycodestyle Errors
 
-.. image:: https://img.shields.io/badge/flake8-93-yellow.svg
+.. image:: https://img.shields.io/badge/flake8-87-yellow.svg
    :target: #
    :alt: flake8 Errors
 
@@ -119,7 +119,8 @@ Abydos
 | Abydos NLP/IR library
 | Copyright 2014-2018 by Christopher C. Little
 
-Abydos is a library of phonetic algorithms, string distance measures & metrics, stemmers, and string fingerprinters including:
+Abydos is a library of phonetic algorithms, string distance measures & metrics,
+stemmers, and string fingerprinters including:
 
 - Phonetic algorithms
     - Robert C. Russell's Index
