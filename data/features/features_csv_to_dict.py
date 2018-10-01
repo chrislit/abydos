@@ -51,7 +51,8 @@ def main(argv):
 
     def print_usage():
         """Print usage statement."""
-        print('features_csv_to_dict.py -i <inputfile> -o <outputfile>')
+        sys.stdout.write('features_csv_to_dict.py -i <inputfile> ' +
+                         '[-o <outputfile>]\n')
         sys.exit(2)
 
     def binarize(num):
@@ -84,7 +85,6 @@ def main(argv):
             if line:
                 line = line.split(',')
                 term = line[last_col]
-                # print line[first_col:last_col]
                 features = '0b' + ''.join([binarize(val) for val
                                            in line[first_col:last_col]])
                 termdict[term] = int(features, 2)
@@ -102,11 +102,11 @@ def main(argv):
         for term in name.split():
             if term in termdict:
                 if termdict[term] & features != termdict[term]:
-                    # print termdict[term], features & termdict[term]
-                    print('Feature mismatch for term "' + term +
-                          '" in   ' + sym)
+                    sys.stdout.write('Feature mismatch for term "' + term +
+                                     '" in   ' + sym + '\n')
             else:
-                print('Unknown term "' + term + '" in ' + name + ' : ' + sym)
+                sys.stdout.write('Unknown term "' + term + '" in ' + name +
+                                 ' : ' + sym + '\n')
 
     def check_entailments(sym, features, name, feature_mask):
         """Check entailments.
@@ -156,14 +156,14 @@ def main(argv):
 
                     if ent[0] == '±':
                         if (features & efm) == 0:
-                            print('Incorrect entailment for ' + sym +
-                                  ' for feature ' + fname +
-                                  ' and entailment ' + ename)
+                            sys.stdout.write('Incorrect entailment for ' +
+                                             sym + ' for feature ' + fname +
+                                             ' and entailment ' + ename)
                     else:
                         if (features & efm) != efm:
-                            print('Incorrect entailment for ' + sym +
-                                  ' for feature ' + fname +
-                                  ' and entailment ' + ename)
+                            sys.stdout.write('Incorrect entailment for ' +
+                                             sym + ' for feature ' + fname +
+                                             ' and entailment ' + ename)
 
     checkdict = {}  # a mapping of symbol to feature
     checkset_s = set()  # a set of the symbols seen
@@ -189,9 +189,9 @@ def main(argv):
 
     oline = 'PHONETIC_FEATURES = {'
     if not ofile:
-        print(oline)
-    else:
-        ofile.write(oline + '\n')
+        ofile = sys.stdout
+
+    ofile.write(oline + '\n')
 
     keyline = ifile.readline().strip().split(',')[first_col:last_col]
     for line in ifile:
@@ -202,7 +202,6 @@ def main(argv):
 
         line = unicodedata.normalize('NFC', line)
 
-        oline = ''
         if not line or line.startswith('#'):
             oline = '                     '+line
 
@@ -223,15 +222,16 @@ def main(argv):
             check_terms(symbol, featint, name, termdict)
             check_entailments(symbol, featint, name, feature_mask)
             if symbol in checkset_s:
-                print('Symbol ' + symbol + ' appears twice in CSV.')
+                sys.stdout.write('Symbol ' + symbol +
+                                 ' appears twice in CSV.\n')
             else:
                 checkset_s.add(symbol)
 
             if variant < 2:
                 if featint in checkset_f:
-                    print('Feature set ' + featint +
-                          ' appears in CSV for two primary IPA symbols: ' +
-                          symbol + ' and ' + checkdict[featint])
+                    sys.stdout.write('Feature set ' + featint + ' appears in' +
+                                     ' CSV for two primary IPA symbols: ' +
+                                     symbol + ' and ' + checkdict[featint])
                 else:
                     checkdict[featint] = symbol
                     checkset_f.add(featint)
@@ -243,37 +243,17 @@ def main(argv):
                 oline = ''
 
         if oline:
-            if not ofile:
-                print(oline)
-            else:
-                ofile.write(oline + '\n')
+            ofile.write(oline + '\n')
 
-    oline = '                    }'
-    if not ofile:
-        print(oline)
-    else:
-        ofile.write(oline + '\n')
-
-    oline = '\nFEATURE_MASK = {'
-    if not ofile:
-        print(oline)
-    else:
-        ofile.write(oline + '\n')
+    ofile.write('                    }\n\nFEATURE_MASK = {')
 
     mag = len(keyline)
     for i in range(len(keyline)):
         features = int('0b' + ('00' * i) + '11' + ('00' * (mag - i - 1)), 2)
         oline = '                \'{}\': {},'.format(keyline[i], features)
-        if not ofile:
-            print(oline)
-        else:
-            ofile.write(oline + '\n')
-
-    oline = '               }'
-    if not ofile:
-        print(oline)
-    else:
         ofile.write(oline + '\n')
+
+    ofile.write('               }\n')
 
 
 if __name__ == '__main__':
