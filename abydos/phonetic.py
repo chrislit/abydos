@@ -782,7 +782,7 @@ def nysiis(word, maxlength=6, modified=False):
         elif word[-2:] == 'EX':
             word = word[:-2]+'ECK'
         elif word[-2:] in {'JR', 'SR'}:
-            return 'ERROR'  # TODO: decide how best to return an error
+            return 'ERROR'
 
     key = word[:1]
 

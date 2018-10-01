@@ -220,7 +220,6 @@ def omission_key(word):
     return key
 
 
-# TODO: Dump all these to a data file.
 # most common letters, as defined in Cisłak & Grabowski
 MOST_COMMON_LETTERS_CG = ('e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd',
                           'l', 'c', 'u', 'm', 'w', 'f')
