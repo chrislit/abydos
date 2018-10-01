@@ -4218,7 +4218,6 @@ class PhonetTestCases(unittest.TestCase):
     def test_phonet_german(self):
         """Test abydos.phonetic.phonet (German)."""
         self.assertEqual(phonet(''), '')
-        self.assertEqual(phonet('', trace=True), '')
 
         # https://code.google.com/p/phonet4java/source/browse/trunk/src/test/java/com/googlecode/phonet4java/Phonet1Test.java
         self.assertEqual(phonet('', 1), '')
@@ -4259,29 +4258,13 @@ class PhonetTestCases(unittest.TestCase):
         self.assertEqual(phonet('Kolodziej', 2), 'KULUTZI')
         self.assertEqual(phonet('Krauße', 2), 'KRAUZE')
 
-        self.assertEqual(phonet('', 2, trace=True), '')
-        self.assertEqual(phonet('Zedlitz', 2, trace=True), 'ZETLIZ')
-        self.assertEqual(phonet('Bremerhaven', 2, trace=True), 'BRENAFN')
-        self.assertEqual(phonet('Schönberg', 2, trace=True), 'ZÖNBAK')
-        self.assertEqual(phonet('Hamburger Hafen', 2, trace=True),
-                         'ANBURKA AFN')
-        self.assertEqual(phonet('Ziegler', 2, trace=True), 'ZIKLA')
-        self.assertEqual(phonet('Scherer', 2, trace=True), 'ZERA')
-        self.assertEqual(phonet('Jansen', 2, trace=True), 'IANZN')
-        self.assertEqual(phonet('Eberhardt', 2, trace=True), 'EBART')
-        self.assertEqual(phonet('Gottschalk', 2, trace=True), 'KUZALK')
-        self.assertEqual(phonet('Brückmann', 2, trace=True), 'BRIKNAN')
-        self.assertEqual(phonet('Blechschmidt', 2, trace=True), 'BLEKZNIT')
-        self.assertEqual(phonet('Kolodziej', 2, trace=True), 'KULUTZI')
-        self.assertEqual(phonet('Krauße', 2, trace=True), 'KRAUZE')
-
         # etc. (for code coverage)
-        self.assertEqual(phonet('Jesper', 1, trace=True), 'IESPA')
+        self.assertEqual(phonet('Jesper', 1), 'IESPA')
         self.assertEqual(phonet('Glacéhandschuh', 1), 'GLAZANSHU')
-        self.assertEqual(phonet('Blechschmidt', 1, trace=True), 'BLECHSHMIT')
+        self.assertEqual(phonet('Blechschmidt', 1), 'BLECHSHMIT')
         self.assertEqual(phonet('Burgdorf', 1), 'BURKDORF')
         self.assertEqual(phonet('Holzschuh', 1), 'HOLSHU')
-        self.assertEqual(phonet('Aachen', 1, trace=True), 'ACHN')
+        self.assertEqual(phonet('Aachen', 1), 'ACHN')
         self.assertEqual(phonet('Abendspaziergang', 1), 'ABENTSPAZIRGANK')
 
     def test_phonet_nolang(self):
@@ -4302,13 +4285,6 @@ class PhonetTestCases(unittest.TestCase):
         self.assertEqual(phonet('Schönberg', 2, 'none'), 'SCHOENBERG')
         self.assertEqual(phonet('Brückmann', 2, 'none'), 'BRUECKMAN')
         self.assertEqual(phonet('Krauße', 2, 'none'), 'KRAUSE')
-
-        self.assertEqual(phonet('', 2, 'none', True), '')
-        self.assertEqual(phonet('Zedlitz', 2, 'none', True), 'ZEDLITZ')
-        self.assertEqual(phonet('Bremerhaven', 2, 'none', True), 'BREMERHAVEN')
-        self.assertEqual(phonet('Schönberg', 2, 'none', True), 'SCHOENBERG')
-        self.assertEqual(phonet('Brückmann', 2, 'none', True), 'BRUECKMAN')
-        self.assertEqual(phonet('Krauße', 2, 'none', True), 'KRAUSE')
 
     def test_phonet_nachnamen(self):
         """Test abydos.phonetic.phonet (Nachnamen set)."""
