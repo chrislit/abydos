@@ -9,7 +9,7 @@ Abydos
     :target: https://circleci.com/gh/chrislit/abydos/tree/master
     :alt: Circle-CI Build Status
 
-.. image:: https://ci.appveyor.com/api/projects/status/d3yw3d9r6c8ai63j/branch/master?svg=true
+.. image:: https://ci.appveyor.com/api/projects/status/cwukqqsmogivcker/branch/master?svg=true
     :target: https://ci.appveyor.com/project/chrislit/abydos
     :alt: AppVeyor Build Status
 
