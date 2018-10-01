@@ -39,6 +39,11 @@ from unicodedata import normalize
 from six import text_type
 from six.moves import range
 
+__all__ = ['caumanns', 'clef_german', 'clef_german_plus', 'clef_swedish',
+           'lovins', 'paice_husk', 'porter', 'porter2', 's_stemmer',
+           'sb_danish', 'sb_dutch', 'sb_german', 'sb_norwegian', 'sb_swedish',
+           'schinke', 'uealite']
+
 
 def lovins(word):
     """Return Lovins stem.

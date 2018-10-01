@@ -39,6 +39,9 @@ from six.moves import range
 if PY3:
     long = int
 
+__all__ = ['ac_decode', 'ac_encode', 'ac_train', 'bwt_decode', 'bwt_encode',
+           'rle_decode', 'rle_encode']
+
 
 def ac_train(text):
     r"""Generate a probability dict from the provided text.

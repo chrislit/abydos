@@ -28,6 +28,8 @@ from operator import mul
 
 from six.moves import reduce
 
+__all__ = ['prod']
+
 
 def prod(nums):
     """Return the product of nums.

@@ -27,6 +27,8 @@ from collections import Counter, Iterable
 
 from six.moves import range
 
+__all__ = ['QGrams']
+
 
 # pylint: disable=abstract-method
 class QGrams(Counter):

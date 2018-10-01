@@ -29,6 +29,8 @@ from six.moves import range
 from .distance import sim
 from .stats import amean, hmean, std
 
+__all__ = ['mean_pairwise_similarity', 'pairwise_similarity_statistics']
+
 
 def mean_pairwise_similarity(collection, metric=sim,
                              mean_func=hmean, symmetric=False):

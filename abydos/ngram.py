@@ -32,6 +32,8 @@ from six.moves import range
 
 from .corpus import Corpus
 
+__all__ = ['NGramCorpus']
+
 
 class NGramCorpus(object):
     """The NGramCorpus class.

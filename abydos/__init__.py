@@ -20,8 +20,6 @@
 
 Abydos NLP/IR library by Christopher C. Little
 """
-__all__ = ['clustering', 'compression', 'corpus', 'distance', 'fingerprint',
-           'ngram', 'phones', 'phonetic', 'qgram', 'stats', 'stemmer']
 
 from .clustering import *
 from .compression import *
@@ -35,5 +33,5 @@ from .qgram import *
 from .stats import *
 from .stemmer import *
 
-if __name__ == '__main__':
-    pass
+__all__ = ['clustering', 'compression', 'corpus', 'distance', 'fingerprint',
+           'ngram', 'phones', 'phonetic', 'qgram', 'stats', 'stemmer']
