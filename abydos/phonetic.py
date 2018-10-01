@@ -57,6 +57,7 @@ The phonetic module implements phonetic algorithms including:
     - Spanish Metaphone
     - MetaSoundex
     - SoundexBR
+    - NRL English-to-phoneme
     - Beider-Morse Phonetic Matching
 """
 

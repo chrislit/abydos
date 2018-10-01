@@ -28,6 +28,8 @@ Release History
    - Phonetic Spanish
    - Spanish Metaphone
    - MetaSoundex
+   - SoundexBR
+   - NRL English-to-phoneme
 - New string fingerprints:
    - Cisłak & Grabowski's occurrence fingerprint
    - Cisłak & Grabowski's occurrence halved fingerprint
@@ -44,6 +46,7 @@ Release History
    - Baystat distance & similarity
    - Typo distance
    - Indel distance
+   - Synoname
 - New stemmers:
    - UEA-Lite Stemmer
    - Paice-Husk Stemmer

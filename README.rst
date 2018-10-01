@@ -61,15 +61,15 @@ Abydos
     :target: https://libraries.io/pypi/abydos
     :alt: Libraries.io SourceRank
 
-.. image:: https://img.shields.io/badge/Pylint-9.59/10-green.svg
+.. image:: https://img.shields.io/badge/Pylint-9.63/10-green.svg
    :target: #
    :alt: Pylint Score
 
-.. image:: https://img.shields.io/badge/pycodestyle-46-yellowgreen.svg
+.. image:: https://img.shields.io/badge/pycodestyle-0-brightgreen.svg
    :target: #
    :alt: pycodestyle Errors
 
-.. image:: https://img.shields.io/badge/flake8-73-yellow.svg
+.. image:: https://img.shields.io/badge/flake8-93-yellow.svg
    :target: #
    :alt: flake8 Errors
 
@@ -117,7 +117,7 @@ Abydos
 
 |
 | Abydos NLP/IR library
-| Copyright 2014-2018 by Chris Little
+| Copyright 2014-2018 by Christopher C. Little
 
 Abydos is a library of phonetic algorithms, string distance measures & metrics, stemmers, and string fingerprinters including:
 
@@ -158,6 +158,8 @@ Abydos is a library of phonetic algorithms, string distance measures & metrics, 
     - Phonetic Spanish
     - Spanish Metaphone
     - MetaSoundex
+    - SoundexBR
+    - NRL English-to-phoneme
     - Beider-Morse Phonetic Matching
 - String distance metrics
     - Levenshtein distance
@@ -196,6 +198,7 @@ Abydos is a library of phonetic algorithms, string distance measures & metrics, 
     - Baystat distance & similarity
     - Typo distance
     - Indel distance
+    - Synoname
 - Stemmers
     - the Lovins stemmer
     - the Porter and Porter2 (Snowball English) stemmers
@@ -235,7 +238,7 @@ Recommended libraries:
 
 To install Abydos (master) from Github source::
 
-   git clone https://github.com/chrislit/abydos.git
+   git clone https://github.com/chrislit/abydos.git --recursive
    cd abydos
    python setup install
 
