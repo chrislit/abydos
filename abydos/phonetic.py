@@ -2677,7 +2677,7 @@ def sfinxbis(word, maxlength=None):
     return tuple(ordlista)
 
 
-def phonet(word, mode=1, lang='de', trace=False):
+def phonet(word, mode=1, lang='de'):
     """Return the phonet code for a word.
 
     phonet ("Hannoveraner Phonetik") was developed by Jörg Michael and
@@ -2693,7 +2693,6 @@ def phonet(word, mode=1, lang='de', trace=False):
     :param int mode: the ponet variant to employ (1 or 2)
     :param str lang: 'de' (default) for German
             'none' for no language
-    :param bool trace: prints debugging info if True
     :returns: the phonet value
     :rtype: str
 
@@ -3740,23 +3739,6 @@ def phonet(word, mode=1, lang='de', trace=False):
                                          'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÅÄÆ' +
                                          'ÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ'))
 
-    def _trinfo(text, rule, err_text, lang):
-        """Output debug information."""
-        if lang == 'none':
-            _phonet_rules = _phonet_rules_no_lang
-        else:
-            _phonet_rules = _phonet_rules_german
-
-        from_rule = ('(NULL)' if _phonet_rules[rule] is None else
-                     _phonet_rules[rule])
-        to_rule1 = ('(NULL)' if (_phonet_rules[rule + 1] is None) else
-                    _phonet_rules[rule + 1])
-        to_rule2 = ('(NULL)' if (_phonet_rules[rule + 2] is None) else
-                    _phonet_rules[rule + 2])
-        print('"{} {}:  "{}"{}"{}" {}'.format(text, ((rule / 3) + 1),
-                                              from_rule, to_rule1, to_rule2,
-                                              err_text))
-
     def _initialize_phonet(lang):
         """Initialize phonet variables."""
         if lang == 'none':
@@ -3832,7 +3814,7 @@ def phonet(word, mode=1, lang='de', trace=False):
 
                         rule = rule[1:]
 
-    def _phonet(term, mode, lang, trace):
+    def _phonet(term, mode, lang):
         """Return the phonet coded form of a term."""
         if lang == 'none':
             _phonet_rules = _phonet_rules_no_lang
@@ -3857,10 +3839,6 @@ def phonet(word, mode=1, lang='de', trace=False):
 
         while i < len(src):
             char = src[i]
-
-            if trace:
-                print('\ncheck position {}:  src = "{}",  dest = "{}"'.format
-                      (j, src[i:], dest[:j]))
 
             pos = alpha_pos[char]
 
@@ -3922,9 +3900,6 @@ def phonet(word, mode=1, lang='de', trace=False):
                         # no conversion rule available
                         pos += 3
                         continue
-
-                    if trace:
-                        _trinfo('> rule no.', pos, 'is being checked', lang)
 
                     # check whole string
                     matches = 1  # number of matching letters
@@ -4057,10 +4032,6 @@ def phonet(word, mode=1, lang='de', trace=False):
                                     pos0 += 3
                                     continue
 
-                                if trace:
-                                    _trinfo('> > continuation rule no.', pos0,
-                                            'is being checked', lang)
-
                                 # check whole string
                                 matches0 = matches
                                 priority0 = 5
@@ -4109,34 +4080,16 @@ def phonet(word, mode=1, lang='de', trace=False):
                                           != '.'))):
                                     if matches0 == matches:
                                         # this is only a partial string
-                                        if trace:
-                                            _trinfo('> > continuation ' +
-                                                    'rule no.',
-                                                    pos0,
-                                                    'not used (too short)',
-                                                    lang)
-
                                         pos0 += 3
                                         continue
 
                                     if priority0 < priority:
                                         # priority is too low
-                                        if trace:
-                                            _trinfo('> > continuation ' +
-                                                    'rule no.',
-                                                    pos0,
-                                                    'not used (priority)',
-                                                    lang)
-
                                         pos0 += 3
                                         continue
 
                                     # continuation rule found
                                     break
-
-                                if trace:
-                                    _trinfo('> > continuation rule no.', pos0,
-                                            'not used', lang)
 
                                 pos0 += 3
 
@@ -4145,18 +4098,10 @@ def phonet(word, mode=1, lang='de', trace=False):
                                     ((_phonet_rules[pos0] is not None) and
                                      (_phonet_rules[pos0][0] == char0))):
 
-                                if trace:
-                                    _trinfo('> rule no.', pos, '', lang)
-                                    _trinfo('> not used because of ' +
-                                            'continuation', pos0, '', lang)
-
                                 pos += 3
                                 continue
 
                         # replace string
-                        if trace:
-                            _trinfo('Rule no.', pos, 'is applied', lang)
-
                         if ((_phonet_rules[pos] and
                              ('<' in _phonet_rules[pos][1:]))):
                             priority0 = 1
@@ -4244,7 +4189,7 @@ def phonet(word, mode=1, lang='de', trace=False):
     _initialize_phonet(lang)
 
     word = normalize('NFKC', text_type(word))
-    return _phonet(word, mode, lang, trace)
+    return _phonet(word, mode, lang)
 
 
 def spfc(word):
@@ -5103,7 +5048,6 @@ def fonem(word):
             word = word.replace(regex, repl)
         else:
             word = regex.sub(repl, word)
-        # print(rule, word)
 
     return word
 
