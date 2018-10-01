@@ -10,6 +10,7 @@ rm -rf ./.mypy_cache
 rm -rf ./.coverage
 
 rm -rf ./docs/_build/*
+rm -rf ./docs/abydos.bib.bak
 
 find . -type f -name '*~' -delete
 find . -type f -name '.*~' -delete
