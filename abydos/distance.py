@@ -3789,45 +3789,6 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
     return match_type_dict['no_match']
 
 
-def sim_tfidf(src, tar, qval=2, docs_src=None, docs_tar=None):
-    """Return the TF-IDF similarity of two strings.
-
-    TF-IDF similarity
-
-    This is chiefly based on the "Formal Definition of TF/IDF Distance" at:
-    http://alias-i.com/lingpipe/docs/api/com/aliasi/spell/TfIdfDistance.html
-
-    :param str src, tar: two strings to be compared (or QGrams/Counter objects)
-    :param int qval: the length of each q-gram; 0 or None for non-q-gram
-        version
-    :param Counter docs_src: a Counter object or string representing the
-        document corpus for the src string
-    :param Counter docs_tar: a Counter object or string representing the
-        document corpus for the tar string (or set to None to use the docs_src
-        for both)
-    :returns: TF-IDF similarity
-    :rtype: float
-    """
-    if src == tar:
-        return 1.0  # TODO: confirm correctness of this when docs are different
-    elif not src or not tar:
-        return 0.0
-
-    q_src, q_tar = _get_qgrams(src, tar, qval)
-
-    if isinstance(docs_src, Counter):
-        q_docs = docs_src
-    elif qval and qval > 0:
-        q_docs = QGrams(docs_src, qval)
-    else:
-        q_docs = Counter(docs_src.strip().split())
-
-    if not q_src or not q_tar:
-        return 0.0
-
-    # TODO: finish implementation
-    return 0.5  # hardcoded to half
-
 ###############################################################################
 
 
