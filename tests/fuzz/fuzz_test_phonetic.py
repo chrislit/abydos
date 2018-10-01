@@ -30,7 +30,7 @@ from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
     dm_soundex, dolby, double_metaphone, eudex, fonem, fuzzy_soundex, \
     haase_phonetik, henry_early, koelner_phonetik, koelner_phonetik_alpha, \
     koelner_phonetik_num_to_alpha, lein, metaphone, metasoundex, mra, \
-    norphone, nysiis, onca, parmar_kumbharana, phonem, phonet, \
+    norphone, nrl, nysiis, onca, parmar_kumbharana, phonem, phonet, \
     phonetic_spanish, phonex, phonix, pshp_soundex_first, pshp_soundex_last, \
     refined_soundex, reth_schek_phonetik, roger_root, russell_index, \
     russell_index_alpha, russell_index_num_to_alpha, sfinxbis, sound_d, \
@@ -137,6 +137,7 @@ algorithms = {'russell_index': lambda name: russell_index(name),
               'metasoundex': metasoundex,
               'metasoundex_es': lambda name: metasoundex(name, language='es'),
               'soundex_br': soundex_br,
+              'nrl': nrl,
               'bmpm': bmpm,
               }
 
