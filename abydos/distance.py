@@ -182,9 +182,7 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     if 'dam' in mode:
         return damerau_levenshtein(src, tar, cost)
 
-    # pylint: disable=no-member
     d_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_int)
-    # pylint: enable=no-member
     for i in range(len(src)+1):
         d_mat[i, 0] = i * del_cost
     for j in range(len(tar)+1):
@@ -329,10 +327,8 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
                          'transpositions must not be less than the cost of ' +
                          'an insert plus a delete.')
 
-    # pylint: disable=no-member
     d_mat = (np_zeros((len(src))*(len(tar)), dtype=np_int).
              reshape((len(src), len(tar))))
-    # pylint: enable=no-member
 
     if src[0] != tar[0]:
         d_mat[0, 0] = min(sub_cost, ins_cost + del_cost)
@@ -1589,9 +1585,7 @@ def lcsseq(src, tar):
     >>> lcsseq('ATCG', 'TAGC')
     'AC'
     """
-    # pylint: disable=no-member
     lengths = np_zeros((len(src)+1, len(tar)+1), dtype=np_int)
-    # pylint: enable=no-member
 
     # row 0 and column 0 are initialized to 0 already
     for i, src_char in enumerate(src):
@@ -1696,9 +1690,7 @@ def lcsstr(src, tar):
     >>> lcsstr('ATCG', 'TAGC')
     'A'
     """
-    # pylint: disable=no-member
     lengths = np_zeros((len(src)+1, len(tar)+1), dtype=np_int)
-    # pylint: enable=no-member
     longest, i_longest = 0, 0
     for i in range(1, len(src)+1):
         for j in range(1, len(tar)+1):
@@ -1801,9 +1793,7 @@ def sim_ratcliff_obershelp(src, tar):
         the target string, and length of the longest common substring of
         strings src and tar.
         """
-        # pylint: disable=no-member
         lengths = np_zeros((len(src)+1, len(tar)+1), dtype=np_int)
-        # pylint: enable=no-member
         longest, src_longest, tar_longest = 0, 0, 0
         for i in range(1, len(src)+1):
             for j in range(1, len(tar)+1):
@@ -2288,9 +2278,7 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
     >>> needleman_wunsch('ATCG', 'TAGC')
     0.0
     """
-    # pylint: disable=no-member
     d_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_float32)
-    # pylint: enable=no-member
 
     for i in range(len(src)+1):
         d_mat[i, 0] = -(i * gap_cost)
@@ -2328,9 +2316,7 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
     >>> smith_waterman('ATCG', 'TAGC')
     1.0
     """
-    # pylint: disable=no-member
     d_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_float32)
-    # pylint: enable=no-member
 
     for i in range(len(src)+1):
         d_mat[i, 0] = 0
@@ -2370,11 +2356,9 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
     >>> gotoh('cat', 'hat')
     2.0
     """
-    # pylint: disable=no-member
     d_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_float32)
     p_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_float32)
     q_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_float32)
-    # pylint: enable=no-member
 
     d_mat[0, 0] = 0
     p_mat[0, 0] = float('-inf')
@@ -2794,9 +2778,7 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
     if not tar:
         return len(src) * mismatch_cost
 
-    # pylint: disable=no-member
     d_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_int)
-    # pylint: enable=no-member
     lens = len(src)
     lent = len(tar)
     src = ' '+src

@@ -64,8 +64,6 @@ def lovins(word):
     >>> lovins('elusiveness')
     'elus'
     """
-    # pylint: disable=too-many-branches, too-many-locals
-
     # lowercase, normalize, and compose
     word = normalize('NFC', text_type(word.lower()))
 
@@ -466,8 +464,6 @@ def porter(word, early_english=False):
     >>> porter('eateth', early_english=True)
     'eat'
     """
-    # pylint: disable=too-many-branches
-
     # lowercase, normalize, and compose
     word = normalize('NFC', text_type(word.lower()))
 
@@ -768,9 +764,6 @@ def porter2(word, early_english=False):
     >>> porter2('eateth', early_english=True)
     'eat'
     """
-    # pylint: disable=too-many-branches
-    # pylint: disable=too-many-return-statements
-
     _vowels = {'a', 'e', 'i', 'o', 'u', 'y'}
     _codanonvowels = {"'", 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm',
                       'n', 'p', 'q', 'r', 's', 't', 'v', 'z'}
@@ -1045,8 +1038,6 @@ def sb_german(word, alternate_vowels=False):
     >>> sb_german('buchstabieren')
     'buchstabi'
     """
-    # pylint: disable=too-many-branches
-
     _vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'ä', 'ö', 'ü'}
     _s_endings = {'b', 'd', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 'r', 't'}
     _st_endings = {'b', 'd', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 't'}
@@ -1177,8 +1168,6 @@ def sb_dutch(word):
     >>> sb_dutch('ongrijpbaarheid')
     'ongrijp'
     """
-    # pylint: disable=too-many-branches
-
     _vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'è'}
     _not_s_endings = {'a', 'e', 'i', 'j', 'o', 'u', 'y', 'è'}
 
