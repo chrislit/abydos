@@ -26,8 +26,8 @@ from __future__ import unicode_literals
 import codecs
 import math
 import os
-import random
 import unittest
+from random import random
 
 from abydos._bm import _bm_apply_rule_if_compat, _bm_expand_alternates, \
     _bm_language, _bm_normalize_lang_attrs, _bm_phonetic_number, \
@@ -70,7 +70,7 @@ def one_in(inverse_probability):
     """
     if EXTREME_TEST:
         return True
-    elif ALLOW_RANDOM and random.random() * inverse_probability < 1:
+    elif ALLOW_RANDOM and random() * inverse_probability < 1:  # noqa: S311
         return True
     else:
         return False

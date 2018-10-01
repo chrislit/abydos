@@ -22,8 +22,8 @@
 This module contains fuzz tests for Abydos
 """
 
-import random
 import unicodedata
+from random import choice, randint, random
 from string import printable
 
 from six import unichr
@@ -32,7 +32,7 @@ from six import unichr
 def random_char(below=0x10ffff, must_be=None):
     """Generate a random Unicode character below U+{below}."""
     while True:
-        char = unichr(random.randint(0, below))
+        char = unichr(randint(0, below))  # noqa: S311
         try:
             name = unicodedata.name(char)
             if must_be is None or must_be in name:
@@ -46,16 +46,16 @@ def fuzz(word, fuzziness=0.2):
     while True:
         new_word = []
         for ch in word:
-            if random.random() > fuzziness:
+            if random() > fuzziness:  # noqa: S311
                 new_word.append(ch)
             else:
-                if random.random() > 0.5:
-                    new_word.append(random.choice(printable))
-                elif random.random() > 0.8:
-                    new_word.append(unichr(random.randint(0, 0x10ffff)))
+                if random() > 0.5:  # noqa: S311
+                    new_word.append(choice(printable))  # noqa: S311
+                elif random() > 0.8:  # noqa: S311
+                    new_word.append(unichr(randint(0, 0x10ffff)))  # noqa: S311
                 else:
-                    new_word.append(unichr(random.randint(0, 0xffff)))
-                if random.random() > 0.5:
+                    new_word.append(unichr(randint(0, 0xffff)))  # noqa: S311
+                if random() > 0.5:  # noqa: S311
                     new_word.append(ch)
         new_word = ''.join(new_word)
         if new_word != word:
