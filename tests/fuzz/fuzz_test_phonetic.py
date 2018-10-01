@@ -23,8 +23,8 @@ This module contains fuzz tests for abydos.phonetic
 
 import codecs
 import os
-import random
 import unittest
+from random import choice, choices, randint
 
 from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
     dm_soundex, dolby, double_metaphone, eudex, fonem, fuzzy_soundex, \
@@ -216,12 +216,12 @@ class FuzzedWordsTestCases(unittest.TestCase):
     def fuzz_test_20pct(self):
         """Fuzz test phonetic algorithms against 20% fuzzed words."""
         for _ in range(self.reps):
-            fuzzed = fuzz(random.choice(self.basewords), fuzziness=0.2)
+            fuzzed = fuzz(choice(self.basewords), fuzziness=0.2)  # noqa: S311
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = random.choices(list(algorithms.keys()), k=5)
+                algs = choices(list(algorithms.keys()), k=5)  # noqa: S311
 
             for algo in algs:
                 try:
@@ -234,12 +234,12 @@ class FuzzedWordsTestCases(unittest.TestCase):
     def fuzz_test_100pct(self):
         """Fuzz test phonetic algorithms against 100% fuzzed words."""
         for _ in range(self.reps):
-            fuzzed = fuzz(random.choice(self.basewords), fuzziness=1)
+            fuzzed = fuzz(choice(self.basewords), fuzziness=1)  # noqa: S311
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = random.choices(list(algorithms.keys()), k=5)
+                algs = choices(list(algorithms.keys()), k=5)  # noqa: S311
 
             for algo in algs:
                 try:
@@ -253,12 +253,12 @@ class FuzzedWordsTestCases(unittest.TestCase):
         """Fuzz test phonetic algorithms against BMP fuzz."""
         for _ in range(self.reps):
             fuzzed = ''.join(random_char(0xffff) for _ in
-                             range(0, random.randint(8, 16)))
+                             range(0, randint(8, 16)))  # noqa: S311
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = random.choices(list(algorithms.keys()), k=5)
+                algs = choices(list(algorithms.keys()), k=5)  # noqa: S311
 
             for algo in algs:
                 try:
@@ -271,12 +271,12 @@ class FuzzedWordsTestCases(unittest.TestCase):
         """Fuzz test phonetic algorithms against alphabetic BMP+SMP fuzz."""
         for _ in range(self.reps):
             fuzzed = ''.join(random_char(0x1ffff, ' LETTER ') for _ in
-                             range(0, random.randint(8, 16)))
+                             range(0, randint(8, 16)))  # noqa: S311
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = random.choices(list(algorithms.keys()), k=5)
+                algs = choices(list(algorithms.keys()), k=5)  # noqa: S311
 
             for algo in algs:
                 try:
@@ -289,12 +289,12 @@ class FuzzedWordsTestCases(unittest.TestCase):
         """Fuzz test phonetic algorithms against Latin BMP+SMP fuzz."""
         for _ in range(self.reps):
             fuzzed = ''.join(random_char(0x1ffff, 'LATIN ') for _ in
-                             range(0, random.randint(8, 16)))
+                             range(0, randint(8, 16)))  # noqa: S311
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = random.choices(list(algorithms.keys()), k=5)
+                algs = choices(list(algorithms.keys()), k=5)  # noqa: S311
 
             for algo in algs:
                 try:
@@ -307,12 +307,12 @@ class FuzzedWordsTestCases(unittest.TestCase):
         """Fuzz test phonetic algorithms against valid Unicode fuzz."""
         for _ in range(self.reps):
             fuzzed = ''.join(random_char() for _ in
-                             range(0, random.randint(8, 16)))
+                             range(0, randint(8, 16)))  # noqa: S311
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = random.choices(list(algorithms.keys()), k=5)
+                algs = choices(list(algorithms.keys()), k=5)  # noqa: S311
 
             for algo in algs:
                 try:
