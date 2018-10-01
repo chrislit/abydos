@@ -27,7 +27,7 @@ not supporting writing to files, even though I want it to do that
 to maintain logs & create badges.
 """
 import sys
-from subprocess import call
+from subprocess import call  # noqa: S404
 
 const_ret = None
 if len(sys.argv) > 2:
