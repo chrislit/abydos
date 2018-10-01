@@ -28,7 +28,6 @@ Matching (BMPM) algorithm
 DO NOT EDIT - This document is automatically generated from the reference
 implementation in PHP.
 """
-# pylint: disable=line-too-long
 
 from __future__ import unicode_literals
 

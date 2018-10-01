@@ -568,7 +568,6 @@ def koelner_phonetik(word):
     >>> koelner_phonetik('Zimmermann')
     '86766'
     """
-    # pylint: disable=too-many-branches
     def _after(word, i, letters):
         """Return True if word[i] follows one of the supplied letters."""
         if i > 0 and word[i-1] in letters:
@@ -916,7 +915,6 @@ def metaphone(word, maxlength=_INFINITY):
     >>> metaphone('Schmidt')
     'SKMTT'
     """
-    # pylint: disable=too-many-branches
     _vowels = {'A', 'E', 'I', 'O', 'U'}
     _frontv = {'E', 'I', 'Y'}
     _varson = {'C', 'G', 'P', 'S', 'T'}
@@ -1084,7 +1082,6 @@ def double_metaphone(word, maxlength=_INFINITY):
     >>> double_metaphone('Schmidt')
     ('XMT', 'SMT')
     """
-    # pylint: disable=too-many-branches
     # Require a maxlength of at least 4
     if maxlength is not None:
         maxlength = max(4, maxlength)
@@ -2320,7 +2317,6 @@ def phonix(word, maxlength=4, zero_pad=True):
     >>> phonix('Schmidt')
     'S530'
     """
-    # pylint: disable=too-many-branches
     def _start_repl(word, src, tar, post=None):
         r"""Replace src with tar at the start of word."""
         if post:
@@ -2723,8 +2719,6 @@ def phonet(word, mode=1, lang='de'):
     >>> phonet('Schmidt', lang='none')
     'SCHMIDT'
     """
-    # pylint: disable=too-many-branches
-
     _phonet_rules_no_lang = (  # separator chars
         '´', ' ', ' ',
         '"', ' ', ' ',

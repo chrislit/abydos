@@ -30,7 +30,6 @@ from six.moves import range
 __all__ = ['QGrams']
 
 
-# pylint: disable=abstract-method
 class QGrams(Counter):
     """A q-gram class, which functions like a bag/multiset.
 
