@@ -72,6 +72,11 @@ from six.moves import range
 
 from .util import prod
 
+__all__ = ['ConfusionTable', 'aghmean', 'agmean', 'amean', 'cmean', 'ghmean',
+           'gmean', 'heronian_mean', 'hmean', 'hoelder_mean', 'imean',
+           'lehmer_mean', 'lmean', 'median', 'midrange', 'mode', 'qmean',
+           'seiffert_mean', 'std', 'var']
+
 
 class ConfusionTable(object):
     """ConfusionTable object.

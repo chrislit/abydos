@@ -28,6 +28,9 @@ from unicodedata import normalize
 from six import text_type
 from six.moves import range
 
+__all__ = ['FEATURE_MASK', 'PHONETIC_FEATURES', 'cmp_features', 'get_feature',
+           'ipa_to_features']
+
 
 PHONETIC_FEATURES = {'t': 2783230754502126250,
                      't͇': 2783230754502126250,
