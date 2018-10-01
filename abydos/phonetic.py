@@ -6035,7 +6035,6 @@ def nrl(word):
     :param word:
     :return:
     """
-
     def to_regex(pattern, left=True):
         new_pattern = ''
         replacements = {'#': '[AEIOU]+',
@@ -6469,15 +6468,13 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
             - 'hebrew'
             - 'hungarian'
             - 'italian'
+            - 'latvian'
             - 'polish'
             - 'portuguese'
             - 'romanian'
             - 'russian'
             - 'spanish'
             - 'turkish'
-            - 'germandjsg'
-            - 'polishdjskp'
-            - 'russiandjsre'
 
     :param str name_mode: the name mode of the algorithm:
 
