@@ -12,3 +12,5 @@ docs/_build/
 .tox/
 notebooks/.ipynb_checkpoints
 notebooks/Untitled*
+docs/abydos.bib.bak
+
