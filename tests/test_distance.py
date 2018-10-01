@@ -25,6 +25,7 @@ from __future__ import division, unicode_literals
 
 import math
 import os
+import pkgutil
 import unittest
 from difflib import SequenceMatcher
 
@@ -56,13 +57,7 @@ COLIN = ('Colin', 'Collin', 'Cullen', 'Cuilen', 'Cailean', 'MacCailean',
          'Cuilén', 'Colle', 'Calum', 'Callum', 'Colinn', 'Colon', 'Colynn',
          'Col', 'Cole', 'Nicolas', 'Nicholas', 'Cailean Mór Caimbeul')
 
-try:
-    import lzma
-    lzma_supported = True
-except ImportError:  # pragma: no cover
-    # If the system lacks the lzma library, that's fine, but lzma comrpession
-    # similarity won't be supported.
-    lzma_supported = False
+lzma_supported = bool(pkgutil.find_loader('lzma'))
 
 
 class LevenshteinTestCases(unittest.TestCase):
