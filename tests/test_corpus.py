@@ -180,8 +180,8 @@ class CorpusTestCases(unittest.TestCase):
 
     def test_corpus_idf(self):
         """Test abydos.corpus.idf."""
-        wiki_idf_sample = 'this is a a sample\n\nthis is another another example\
-        example example'
+        wiki_idf_sample = 'this is a a sample\n\nthis is another another \
+        example example example'
         wiki_idf_corpus = Corpus(wiki_idf_sample)
 
         self.assertAlmostEqual(wiki_idf_corpus.idf('this'), 0)
