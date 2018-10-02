@@ -57,6 +57,8 @@ def mean_pairwise_similarity(collection, metric=sim,
     """
     if not callable(mean_func):
         raise ValueError('mean_func must be a function')
+    if not callable(metric):
+        raise ValueError('metric must be a function')
 
     if hasattr(collection, 'split'):
         collection = collection.split()
@@ -100,6 +102,8 @@ def pairwise_similarity_statistics(src_collection, tar_collection, metric=sim,
     """
     if not callable(mean_func):
         raise ValueError('mean_func must be a function')
+    if not callable(metric):
+        raise ValueError('metric must be a function')
 
     if hasattr(src_collection, 'split'):
         src_collection = src_collection.split()
