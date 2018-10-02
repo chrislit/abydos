@@ -87,23 +87,23 @@ def pythonize(line, fn='', subdir='gen'):
 
     line = re.sub('//+', '#', line)
     # line = re.sub('"\.\((\$.+?)\)\."', r'\1', line)
-    if line and re.search('array\("[^"]+?"\)', line):
+    if line and re.search(r'array\("[^"]+?"\)', line):
         # print("### " + line)
         line = ''
     line = line.replace('array', '')
-    line = re.sub('^\s*', '', line)
+    line = re.sub(r'^\s*', '', line)
     line = re.sub(';$', '', line)
     line = re.sub('^include_.+', '', line)
 
-    line = re.sub('\$(approx|rules|exact)\[LanguageIndex\("([^"]+)", ' +
-                  '\$languages\)\] = \$([a-zA-Z]+)',
+    line = re.sub(r'\$(approx|rules|exact)\[LanguageIndex\("([^"]+)", ' +
+                  r'\$languages\)\] = \$([a-zA-Z]+)',
                   lambda m: ("BMDATA['" + subdir + "']['" + m.group(1) +
                              "'][L_" + m.group(2).upper() + '] = _' +
                              subdir.upper() + '_' + c2u(m.group(3)).upper()),
                   line)
 
-    line = re.sub('\$(approx|rules|exact|hebrew)([A-Za-z]+) = _merge' +
-                  '\(\$([a-zA-Z]+), \$([a-zA-Z]+)\)',
+    line = re.sub(r'\$(approx|rules|exact|hebrew)([A-Za-z]+) = _merge' +
+                  r'\(\$([a-zA-Z]+), \$([a-zA-Z]+)\)',
                   lambda m: ("BMDATA['" + subdir + "']['" + m.group(1) +
                              "'][L_" + c2u(m.group(2)).upper() + '] = _' +
                              subdir.upper() + '_' + c2u(m.group(3)).upper() +
@@ -111,8 +111,8 @@ def pythonize(line, fn='', subdir='gen'):
                              c2u(m.group(4)).upper()),
                   line)
 
-    line = re.sub('\$(approx|rules|exact)\[LanguageIndex\("([^"]+)", ' +
-                  '\$languages\)\] = _merge\(\$([a-zA-Z]+), \$([a-zA-Z]+)\)',
+    line = re.sub(r'\$(approx|rules|exact)\[LanguageIndex\("([^"]+)", ' +
+                  r'\$languages\)\] = _merge\(\$([a-zA-Z]+), \$([a-zA-Z]+)\)',
                   lambda m: ("BMDATA['" + subdir + "']['" + m.group(1) +
                              "'][L_" + c2u(m.group(2)).upper() + '] = _' +
                              subdir.upper() + '_' + c2u(m.group(3)).upper() +
@@ -120,24 +120,24 @@ def pythonize(line, fn='', subdir='gen'):
                              c2u(m.group(4)).upper()),
                   line)
 
-    line = re.sub('^\$([a-zA-Z]+)',
+    line = re.sub(r'^\$([a-zA-Z]+)',
                   lambda m: '_' + s.upper() + '_' + c2u(m.group(1)).upper(),
                   line)
 
     for _ in range(len(lang_tuple)):
-        line = re.sub('($[a-zA-Z]+) *\+ *($[a-zA-Z]+)', r'\1\+\2', line)
+        line = re.sub(r'($[a-zA-Z]+) *\+ *($[a-zA-Z]+)', r'\1\+\2', line)
 
-    line = re.sub('\$([a-zA-Z]+)',
+    line = re.sub(r'\$([a-zA-Z]+)',
                   lambda m: ('L_' + m.group(1).upper() if m.group(1) in
                              lang_dict else '$' + m.group(1)),
                   line)
-    line = re.sub('\[\"\.\((L_[A-Z_\+]+)\)\.\"\]', r'[\1]', line)
+    line = re.sub(r'\[\"\.\((L_[A-Z_\+]+)\)\.\"\]', r'[\1]', line)
 
     line = re.sub('L_([A-Z]+)',
                   lambda m: str(lang_dict[m.group(1).lower()]),
                   line)
     for _ in range(4):
-        line = re.sub('([0-9]+) *\+ *([0-9]+)',
+        line = re.sub(r'([0-9]+) *\+ *([0-9]+)',
                       lambda m: str(int(m.group(1)) + int(m.group(2))),
                       line)
 
@@ -170,7 +170,7 @@ def pythonize(line, fn='', subdir='gen'):
 
     code = code.rstrip()
     comment = comment.strip()
-    if not re.match('^\s*$', code):
+    if not re.match(r'^\s*$', code):
         comment = '  ' + comment
 
     if '(' in code and ')' in code:
