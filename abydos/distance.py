@@ -88,7 +88,7 @@ from .qgram import QGrams
 
 try:
     import lzma
-except ImportError:  # pragma: no cover
+except ImportError:
     # If the system lacks the lzma library, that's fine, but lzma comrpession
     # similarity won't be supported.
     pass
@@ -2038,7 +2038,7 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
             tar_comp = lzma.compress(tar)[14:]
             concat_comp = lzma.compress(src+tar)[14:]
             concat_comp2 = lzma.compress(tar+src)[14:]
-        else:  # pragma: no cover
+        else:
             raise ValueError('Install the PylibLZMA module in order to use ' +
                              'lzma compression similarity')
     elif compressor == 'arith':
