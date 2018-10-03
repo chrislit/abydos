@@ -30,19 +30,25 @@ import unittest
 from difflib import SequenceMatcher
 
 from abydos.compression import ac_train
-from abydos.distance import bag, damerau_levenshtein, dist, dist_bag, \
-    dist_baystat, dist_compression, dist_cosine, dist_damerau, dist_dice, \
-    dist_editex, dist_hamming, dist_ident, dist_jaccard, dist_jaro_winkler, \
-    dist_lcsseq,  dist_lcsstr, dist_length, dist_levenshtein, dist_mlipns, \
+from abydos.distance import _synoname_strip_punct, bag, chebyshev, \
+    damerau_levenshtein, dist, dist_bag, dist_baystat, dist_chebyshev, \
+    dist_compression, dist_cosine, dist_damerau, dist_dice, dist_editex, \
+    dist_euclidean, dist_hamming, dist_ident, dist_indel, dist_jaccard, \
+    dist_jaro_winkler, dist_lcsseq,  dist_lcsstr, dist_length, \
+    dist_levenshtein, dist_manhattan, dist_minkowski, dist_mlipns, \
     dist_monge_elkan, dist_mra, dist_overlap, dist_prefix, \
-    dist_ratcliff_obershelp, dist_strcmp95, dist_suffix, dist_tversky, \
-    editex, gotoh, hamming, lcsseq, lcsstr, levenshtein, mra_compare, \
-    needleman_wunsch, sim, sim_bag, sim_baystat, sim_compression, sim_cosine, \
-    sim_damerau, sim_dice, sim_editex, sim_hamming, sim_ident, sim_jaccard, \
-    sim_jaro_winkler, sim_lcsseq, sim_lcsstr, sim_length, sim_levenshtein, \
-    sim_matrix, sim_mlipns, sim_monge_elkan, sim_mra, sim_overlap, \
-    sim_prefix, sim_ratcliff_obershelp, sim_strcmp95, sim_suffix, \
-    sim_tanimoto, sim_tversky, smith_waterman, tanimoto
+    dist_ratcliff_obershelp, dist_sift4, dist_strcmp95, dist_suffix, \
+    dist_tversky, dist_typo, dist_eudex, editex, euclidean, eudex_hamming, \
+    gotoh, hamming, lcsseq, lcsstr, levenshtein, manhattan, minkowski, \
+    mra_compare, needleman_wunsch, sift4_simplest, sift4_common, sim, \
+    sim_bag, sim_baystat, sim_chebyshev, sim_compression, sim_cosine, \
+    sim_damerau, sim_dice, sim_editex, sim_euclidean, sim_hamming, sim_ident, \
+    sim_indel, sim_jaccard, sim_jaro_winkler, sim_lcsseq, sim_lcsstr, \
+    sim_length, sim_levenshtein, sim_manhattan, sim_matrix, sim_minkowski, \
+    sim_mlipns, sim_monge_elkan, sim_mra, sim_overlap, sim_prefix, \
+    sim_ratcliff_obershelp, sim_sift4, sim_strcmp95, sim_suffix, \
+    sim_tanimoto, sim_tversky, sim_typo, sim_eudex, smith_waterman, \
+    synoname, synoname_word_approximation, tanimoto, typo
 from abydos.qgram import QGrams
 
 from six.moves import range
@@ -407,11 +413,11 @@ class TverskyIndexTestCases(unittest.TestCase):
                                            QGrams('neilsen')), 4/11)
 
         # non-q-gram tests
-        self.assertEqual(sim_tversky('', '', None), 1)
-        self.assertEqual(sim_tversky('the quick', '', None), 0)
-        self.assertEqual(sim_tversky('', 'the quick', None), 0)
-        self.assertAlmostEqual(sim_tversky(NONQ_FROM, NONQ_TO, None), 1/3)
-        self.assertAlmostEqual(sim_tversky(NONQ_TO, NONQ_FROM, None), 1/3)
+        self.assertEqual(sim_tversky('', '', 0), 1)
+        self.assertEqual(sim_tversky('the quick', '', 0), 0)
+        self.assertEqual(sim_tversky('', 'the quick', 0), 0)
+        self.assertAlmostEqual(sim_tversky(NONQ_FROM, NONQ_TO, 0), 1/3)
+        self.assertAlmostEqual(sim_tversky(NONQ_TO, NONQ_FROM, 0), 1/3)
 
     def test_dist_tversky(self):
         """Test abydos.distance.dist_tversky."""
@@ -456,11 +462,11 @@ class TverskyIndexTestCases(unittest.TestCase):
                                             QGrams('neilsen')), 7/11)
 
         # non-q-gram tests
-        self.assertEqual(dist_tversky('', '', None), 0)
-        self.assertEqual(dist_tversky('the quick', '', None), 1)
-        self.assertEqual(dist_tversky('', 'the quick', None), 1)
-        self.assertAlmostEqual(dist_tversky(NONQ_FROM, NONQ_TO, None), 2/3)
-        self.assertAlmostEqual(dist_tversky(NONQ_TO, NONQ_FROM, None), 2/3)
+        self.assertEqual(dist_tversky('', '', 0), 0)
+        self.assertEqual(dist_tversky('the quick', '', 0), 1)
+        self.assertEqual(dist_tversky('', 'the quick', 0), 1)
+        self.assertAlmostEqual(dist_tversky(NONQ_FROM, NONQ_TO, 0), 2/3)
+        self.assertAlmostEqual(dist_tversky(NONQ_TO, NONQ_FROM, 0), 2/3)
 
 
 class DiceTestCases(unittest.TestCase):
@@ -489,11 +495,11 @@ class DiceTestCases(unittest.TestCase):
                                8/15)
 
         # non-q-gram tests
-        self.assertEqual(sim_dice('', '', None), 1)
-        self.assertEqual(sim_dice('the quick', '', None), 0)
-        self.assertEqual(sim_dice('', 'the quick', None), 0)
-        self.assertAlmostEqual(sim_dice(NONQ_FROM, NONQ_TO, None), 1/2)
-        self.assertAlmostEqual(sim_dice(NONQ_TO, NONQ_FROM, None), 1/2)
+        self.assertEqual(sim_dice('', '', 0), 1)
+        self.assertEqual(sim_dice('the quick', '', 0), 0)
+        self.assertEqual(sim_dice('', 'the quick', 0), 0)
+        self.assertAlmostEqual(sim_dice(NONQ_FROM, NONQ_TO, 0), 1/2)
+        self.assertAlmostEqual(sim_dice(NONQ_TO, NONQ_FROM, 0), 1/2)
 
     def test_dist_dice(self):
         """Test abydos.distance.dist_dice."""
@@ -515,11 +521,11 @@ class DiceTestCases(unittest.TestCase):
                                7/15)
 
         # non-q-gram tests
-        self.assertEqual(dist_dice('', '', None), 0)
-        self.assertEqual(dist_dice('the quick', '', None), 1)
-        self.assertEqual(dist_dice('', 'the quick', None), 1)
-        self.assertAlmostEqual(dist_dice(NONQ_FROM, NONQ_TO, None), 1/2)
-        self.assertAlmostEqual(dist_dice(NONQ_TO, NONQ_FROM, None), 1/2)
+        self.assertEqual(dist_dice('', '', 0), 0)
+        self.assertEqual(dist_dice('the quick', '', 0), 1)
+        self.assertEqual(dist_dice('', 'the quick', 0), 1)
+        self.assertAlmostEqual(dist_dice(NONQ_FROM, NONQ_TO, 0), 1/2)
+        self.assertAlmostEqual(dist_dice(NONQ_TO, NONQ_FROM, 0), 1/2)
 
 
 class JaccardTestCases(unittest.TestCase):
@@ -548,11 +554,11 @@ class JaccardTestCases(unittest.TestCase):
                                            QGrams('neilsen')), 4/11)
 
         # non-q-gram tests
-        self.assertEqual(sim_jaccard('', '', None), 1)
-        self.assertEqual(sim_jaccard('the quick', '', None), 0)
-        self.assertEqual(sim_jaccard('', 'the quick', None), 0)
-        self.assertAlmostEqual(sim_jaccard(NONQ_FROM, NONQ_TO, None), 1/3)
-        self.assertAlmostEqual(sim_jaccard(NONQ_TO, NONQ_FROM, None), 1/3)
+        self.assertEqual(sim_jaccard('', '', 0), 1)
+        self.assertEqual(sim_jaccard('the quick', '', 0), 0)
+        self.assertEqual(sim_jaccard('', 'the quick', 0), 0)
+        self.assertAlmostEqual(sim_jaccard(NONQ_FROM, NONQ_TO, 0), 1/3)
+        self.assertAlmostEqual(sim_jaccard(NONQ_TO, NONQ_FROM, 0), 1/3)
 
     def test_dist_jaccard(self):
         """Test abydos.distance.dist_jaccard."""
@@ -574,11 +580,11 @@ class JaccardTestCases(unittest.TestCase):
                                             QGrams('neilsen')), 7/11)
 
         # non-q-gram tests
-        self.assertEqual(dist_jaccard('', '', None), 0)
-        self.assertEqual(dist_jaccard('the quick', '', None), 1)
-        self.assertEqual(dist_jaccard('', 'the quick', None), 1)
-        self.assertAlmostEqual(dist_jaccard(NONQ_FROM, NONQ_TO, None), 2/3)
-        self.assertAlmostEqual(dist_jaccard(NONQ_TO, NONQ_FROM, None), 2/3)
+        self.assertEqual(dist_jaccard('', '', 0), 0)
+        self.assertEqual(dist_jaccard('the quick', '', 0), 1)
+        self.assertEqual(dist_jaccard('', 'the quick', 0), 1)
+        self.assertAlmostEqual(dist_jaccard(NONQ_FROM, NONQ_TO, 0), 2/3)
+        self.assertAlmostEqual(dist_jaccard(NONQ_TO, NONQ_FROM, 0), 2/3)
 
 
 class OverlapTestCases(unittest.TestCase):
@@ -607,11 +613,11 @@ class OverlapTestCases(unittest.TestCase):
                                            QGrams('neilsen')), 4/7)
 
         # non-q-gram tests
-        self.assertEqual(sim_overlap('', '', None), 1)
-        self.assertEqual(sim_overlap('the quick', '', None), 0)
-        self.assertEqual(sim_overlap('', 'the quick', None), 0)
-        self.assertAlmostEqual(sim_overlap(NONQ_FROM, NONQ_TO, None), 4/7)
-        self.assertAlmostEqual(sim_overlap(NONQ_TO, NONQ_FROM, None), 4/7)
+        self.assertEqual(sim_overlap('', '', 0), 1)
+        self.assertEqual(sim_overlap('the quick', '', 0), 0)
+        self.assertEqual(sim_overlap('', 'the quick', 0), 0)
+        self.assertAlmostEqual(sim_overlap(NONQ_FROM, NONQ_TO, 0), 4/7)
+        self.assertAlmostEqual(sim_overlap(NONQ_TO, NONQ_FROM, 0), 4/7)
 
     def test_dist_overlap(self):
         """Test abydos.distance.dist_overlap."""
@@ -633,11 +639,11 @@ class OverlapTestCases(unittest.TestCase):
                                             QGrams('neilsen')), 3/7)
 
         # non-q-gram tests
-        self.assertEqual(dist_overlap('', '', None), 0)
-        self.assertEqual(dist_overlap('the quick', '', None), 1)
-        self.assertEqual(dist_overlap('', 'the quick', None), 1)
-        self.assertAlmostEqual(dist_overlap(NONQ_FROM, NONQ_TO, None), 3/7)
-        self.assertAlmostEqual(dist_overlap(NONQ_TO, NONQ_FROM, None), 3/7)
+        self.assertEqual(dist_overlap('', '', 0), 0)
+        self.assertEqual(dist_overlap('the quick', '', 0), 1)
+        self.assertEqual(dist_overlap('', 'the quick', 0), 1)
+        self.assertAlmostEqual(dist_overlap(NONQ_FROM, NONQ_TO, 0), 3/7)
+        self.assertAlmostEqual(dist_overlap(NONQ_TO, NONQ_FROM, 0), 3/7)
 
 
 class TanimotoTestCases(unittest.TestCase):
@@ -666,11 +672,11 @@ class TanimotoTestCases(unittest.TestCase):
                                             QGrams('neilsen')), 4/11)
 
         # non-q-gram tests
-        self.assertEqual(sim_tanimoto('', '', None), 1)
-        self.assertEqual(sim_tanimoto('the quick', '', None), 0)
-        self.assertEqual(sim_tanimoto('', 'the quick', None), 0)
-        self.assertAlmostEqual(sim_tanimoto(NONQ_FROM, NONQ_TO, None), 1/3)
-        self.assertAlmostEqual(sim_tanimoto(NONQ_TO, NONQ_FROM, None), 1/3)
+        self.assertEqual(sim_tanimoto('', '', 0), 1)
+        self.assertEqual(sim_tanimoto('the quick', '', 0), 0)
+        self.assertEqual(sim_tanimoto('', 'the quick', 0), 0)
+        self.assertAlmostEqual(sim_tanimoto(NONQ_FROM, NONQ_TO, 0), 1/3)
+        self.assertAlmostEqual(sim_tanimoto(NONQ_TO, NONQ_FROM, 0), 1/3)
 
     def test_tanimoto(self):
         """Test abydos.distance.tanimoto."""
@@ -695,13 +701,362 @@ class TanimotoTestCases(unittest.TestCase):
                                math.log(4/11, 2))
 
         # non-q-gram tests
-        self.assertEqual(tanimoto('', '', None), 0)
-        self.assertEqual(tanimoto('the quick', '', None), float('-inf'))
-        self.assertEqual(tanimoto('', 'the quick', None), float('-inf'))
-        self.assertAlmostEqual(tanimoto(NONQ_FROM, NONQ_TO, None),
+        self.assertEqual(tanimoto('', '', 0), 0)
+        self.assertEqual(tanimoto('the quick', '', 0), float('-inf'))
+        self.assertEqual(tanimoto('', 'the quick', 0), float('-inf'))
+        self.assertAlmostEqual(tanimoto(NONQ_FROM, NONQ_TO, 0),
                                math.log(1/3, 2))
-        self.assertAlmostEqual(tanimoto(NONQ_TO, NONQ_FROM, None),
+        self.assertAlmostEqual(tanimoto(NONQ_TO, NONQ_FROM, 0),
                                math.log(1/3, 2))
+
+
+class MinkowskiTestCases(unittest.TestCase):
+    """Test Minkowski functions.
+
+    abydos.distance.minkowski, sim_minkowski & .dist_minkowski
+    """
+
+    def test_minkowski(self):
+        """Test abydos.distance.minkowski."""
+        self.assertEqual(minkowski('', ''), 0)
+        self.assertEqual(minkowski('nelson', ''), 7)
+        self.assertEqual(minkowski('', 'neilsen'), 8)
+        self.assertAlmostEqual(minkowski('nelson', 'neilsen'), 7)
+
+        self.assertEqual(minkowski('', '', 2), 0)
+        self.assertEqual(minkowski('nelson', '', 2), 7)
+        self.assertEqual(minkowski('', 'neilsen', 2), 8)
+        self.assertAlmostEqual(minkowski('nelson', 'neilsen', 2), 7)
+
+        # supplied q-gram tests
+        self.assertEqual(minkowski(QGrams(''), QGrams('')), 0)
+        self.assertEqual(minkowski(QGrams('nelson'), QGrams('')), 7)
+        self.assertEqual(minkowski(QGrams(''), QGrams('neilsen')), 8)
+        self.assertAlmostEqual(minkowski(QGrams('nelson'),
+                                             QGrams('neilsen')), 7)
+
+        # non-q-gram tests
+        self.assertEqual(minkowski('', '', 0), 0)
+        self.assertEqual(minkowski('the quick', '', 0), 2)
+        self.assertEqual(minkowski('', 'the quick', 0), 2)
+        self.assertAlmostEqual(minkowski(NONQ_FROM, NONQ_TO, 0), 8)
+        self.assertAlmostEqual(minkowski(NONQ_TO, NONQ_FROM, 0), 8)
+
+    def test_sim_minkowski(self):
+        """Test abydos.distance.sim_minkowski."""
+        self.assertEqual(sim_minkowski('', ''), 1)
+        self.assertEqual(sim_minkowski('nelson', ''), 0)
+        self.assertEqual(sim_minkowski('', 'neilsen'), 0)
+        self.assertAlmostEqual(sim_minkowski('nelson', 'neilsen'), 8/15)
+
+        self.assertEqual(sim_minkowski('', '', 2), 1)
+        self.assertEqual(sim_minkowski('nelson', '', 2), 0)
+        self.assertEqual(sim_minkowski('', 'neilsen', 2), 0)
+        self.assertAlmostEqual(sim_minkowski('nelson', 'neilsen', 2), 8/15)
+
+        # supplied q-gram tests
+        self.assertEqual(sim_minkowski(QGrams(''), QGrams('')), 1)
+        self.assertEqual(sim_minkowski(QGrams('nelson'), QGrams('')), 0)
+        self.assertEqual(sim_minkowski(QGrams(''), QGrams('neilsen')), 0)
+        self.assertAlmostEqual(sim_minkowski(QGrams('nelson'),
+                                             QGrams('neilsen')), 8/15)
+
+        # non-q-gram tests
+        self.assertEqual(sim_minkowski('', '', 0), 1)
+        self.assertEqual(sim_minkowski('the quick', '', 0), 0)
+        self.assertEqual(sim_minkowski('', 'the quick', 0), 0)
+        self.assertAlmostEqual(sim_minkowski(NONQ_FROM, NONQ_TO, 0), 1/2)
+        self.assertAlmostEqual(sim_minkowski(NONQ_TO, NONQ_FROM, 0), 1/2)
+
+    def test_dist_minkowski(self):
+        """Test abydos.distance.dist_minkowski."""
+        self.assertEqual(dist_minkowski('', ''), 0)
+        self.assertEqual(dist_minkowski('nelson', ''), 1)
+        self.assertEqual(dist_minkowski('', 'neilsen'), 1)
+        self.assertAlmostEqual(dist_minkowski('nelson', 'neilsen'), 7/15)
+
+        self.assertEqual(dist_minkowski('', '', 2), 0)
+        self.assertEqual(dist_minkowski('nelson', '', 2), 1)
+        self.assertEqual(dist_minkowski('', 'neilsen', 2), 1)
+        self.assertAlmostEqual(dist_minkowski('nelson', 'neilsen', 2), 7/15)
+
+        # supplied q-gram tests
+        self.assertEqual(dist_minkowski(QGrams(''), QGrams('')), 0)
+        self.assertEqual(dist_minkowski(QGrams('nelson'), QGrams('')), 1)
+        self.assertEqual(dist_minkowski(QGrams(''), QGrams('neilsen')), 1)
+        self.assertAlmostEqual(dist_minkowski(QGrams('nelson'),
+                                              QGrams('neilsen')), 7/15)
+
+        # non-q-gram tests
+        self.assertEqual(dist_minkowski('', '', 0), 0)
+        self.assertEqual(dist_minkowski('the quick', '', 0), 1)
+        self.assertEqual(dist_minkowski('', 'the quick', 0), 1)
+        self.assertAlmostEqual(dist_minkowski(NONQ_FROM, NONQ_TO, 0), 1/2)
+        self.assertAlmostEqual(dist_minkowski(NONQ_TO, NONQ_FROM, 0), 1/2)
+
+
+class ManhattanTestCases(unittest.TestCase):
+    """Test Manhattan functions.
+
+    abydos.distance.manhattan, sim_manhattan & .dist_manhattan
+    """
+
+    def test_manhattan(self):
+        """Test abydos.distance.manhattan."""
+        self.assertEqual(manhattan('', ''), 0)
+        self.assertEqual(manhattan('nelson', ''), 7)
+        self.assertEqual(manhattan('', 'neilsen'), 8)
+        self.assertAlmostEqual(manhattan('nelson', 'neilsen'), 7)
+
+        self.assertEqual(manhattan('', '', 2), 0)
+        self.assertEqual(manhattan('nelson', '', 2), 7)
+        self.assertEqual(manhattan('', 'neilsen', 2), 8)
+        self.assertAlmostEqual(manhattan('nelson', 'neilsen', 2), 7)
+
+        # supplied q-gram tests
+        self.assertEqual(manhattan(QGrams(''), QGrams('')), 0)
+        self.assertEqual(manhattan(QGrams('nelson'), QGrams('')), 7)
+        self.assertEqual(manhattan(QGrams(''), QGrams('neilsen')), 8)
+        self.assertAlmostEqual(manhattan(QGrams('nelson'),
+                                             QGrams('neilsen')), 7)
+
+        # non-q-gram tests
+        self.assertEqual(manhattan('', '', 0), 0)
+        self.assertEqual(manhattan('the quick', '', 0), 2)
+        self.assertEqual(manhattan('', 'the quick', 0), 2)
+        self.assertAlmostEqual(manhattan(NONQ_FROM, NONQ_TO, 0), 8)
+        self.assertAlmostEqual(manhattan(NONQ_TO, NONQ_FROM, 0), 8)
+
+    def test_sim_manhattan(self):
+        """Test abydos.distance.sim_manhattan."""
+        self.assertEqual(sim_manhattan('', ''), 1)
+        self.assertEqual(sim_manhattan('nelson', ''), 0)
+        self.assertEqual(sim_manhattan('', 'neilsen'), 0)
+        self.assertAlmostEqual(sim_manhattan('nelson', 'neilsen'), 8/15)
+
+        self.assertEqual(sim_manhattan('', '', 2), 1)
+        self.assertEqual(sim_manhattan('nelson', '', 2), 0)
+        self.assertEqual(sim_manhattan('', 'neilsen', 2), 0)
+        self.assertAlmostEqual(sim_manhattan('nelson', 'neilsen', 2), 8/15)
+
+        # supplied q-gram tests
+        self.assertEqual(sim_manhattan(QGrams(''), QGrams('')), 1)
+        self.assertEqual(sim_manhattan(QGrams('nelson'), QGrams('')), 0)
+        self.assertEqual(sim_manhattan(QGrams(''), QGrams('neilsen')), 0)
+        self.assertAlmostEqual(sim_manhattan(QGrams('nelson'),
+                                             QGrams('neilsen')), 8/15)
+
+        # non-q-gram tests
+        self.assertEqual(sim_manhattan('', '', 0), 1)
+        self.assertEqual(sim_manhattan('the quick', '', 0), 0)
+        self.assertEqual(sim_manhattan('', 'the quick', 0), 0)
+        self.assertAlmostEqual(sim_manhattan(NONQ_FROM, NONQ_TO, 0), 1/2)
+        self.assertAlmostEqual(sim_manhattan(NONQ_TO, NONQ_FROM, 0), 1/2)
+
+    def test_dist_manhattan(self):
+        """Test abydos.distance.dist_manhattan."""
+        self.assertEqual(dist_manhattan('', ''), 0)
+        self.assertEqual(dist_manhattan('nelson', ''), 1)
+        self.assertEqual(dist_manhattan('', 'neilsen'), 1)
+        self.assertAlmostEqual(dist_manhattan('nelson', 'neilsen'), 7/15)
+
+        self.assertEqual(dist_manhattan('', '', 2), 0)
+        self.assertEqual(dist_manhattan('nelson', '', 2), 1)
+        self.assertEqual(dist_manhattan('', 'neilsen', 2), 1)
+        self.assertAlmostEqual(dist_manhattan('nelson', 'neilsen', 2), 7/15)
+
+        # supplied q-gram tests
+        self.assertEqual(dist_manhattan(QGrams(''), QGrams('')), 0)
+        self.assertEqual(dist_manhattan(QGrams('nelson'), QGrams('')), 1)
+        self.assertEqual(dist_manhattan(QGrams(''), QGrams('neilsen')), 1)
+        self.assertAlmostEqual(dist_manhattan(QGrams('nelson'),
+                                              QGrams('neilsen')), 7/15)
+
+        # non-q-gram tests
+        self.assertEqual(dist_manhattan('', '', 0), 0)
+        self.assertEqual(dist_manhattan('the quick', '', 0), 1)
+        self.assertEqual(dist_manhattan('', 'the quick', 0), 1)
+        self.assertAlmostEqual(dist_manhattan(NONQ_FROM, NONQ_TO, 0), 1/2)
+        self.assertAlmostEqual(dist_manhattan(NONQ_TO, NONQ_FROM, 0), 1/2)
+
+
+class EuclideanTestCases(unittest.TestCase):
+    """Test Euclidean functions.
+
+    abydos.distance.euclidean, sim_euclidean & .dist_euclidean
+    """
+    def test_euclidean(self):
+        """Test abydos.distance.euclidean."""
+        self.assertEqual(euclidean('', ''), 0)
+        self.assertEqual(euclidean('nelson', ''), 7**0.5)
+        self.assertEqual(euclidean('', 'neilsen'), 8**0.5)
+        self.assertAlmostEqual(euclidean('nelson', 'neilsen'), 7**0.5)
+
+        self.assertEqual(euclidean('', '', 2), 0)
+        self.assertEqual(euclidean('nelson', '', 2), 7**0.5)
+        self.assertEqual(euclidean('', 'neilsen', 2), 8**0.5)
+        self.assertAlmostEqual(euclidean('nelson', 'neilsen', 2), 7**0.5)
+
+        # supplied q-gram tests
+        self.assertEqual(euclidean(QGrams(''), QGrams('')), 0)
+        self.assertEqual(euclidean(QGrams('nelson'), QGrams('')), 7**0.5)
+        self.assertEqual(euclidean(QGrams(''), QGrams('neilsen')), 8**0.5)
+        self.assertAlmostEqual(euclidean(QGrams('nelson'),
+                                             QGrams('neilsen')), 7**0.5)
+
+        # non-q-gram tests
+        self.assertEqual(euclidean('', '', 0), 0)
+        self.assertEqual(euclidean('the quick', '', 0), 2**0.5)
+        self.assertEqual(euclidean('', 'the quick', 0), 2**0.5)
+        self.assertAlmostEqual(euclidean(NONQ_FROM, NONQ_TO, 0), 8**0.5)
+        self.assertAlmostEqual(euclidean(NONQ_TO, NONQ_FROM, 0), 8**0.5)
+
+    def test_sim_euclidean(self):
+        """Test abydos.distance.sim_euclidean."""
+        self.assertEqual(sim_euclidean('', ''), 1)
+        self.assertEqual(sim_euclidean('nelson', ''), 0)
+        self.assertEqual(sim_euclidean('', 'neilsen'), 0)
+        self.assertAlmostEqual(sim_euclidean('nelson', 'neilsen'),
+                               1-7**0.5/23**0.5)
+
+        self.assertEqual(sim_euclidean('', '', 2), 1)
+        self.assertEqual(sim_euclidean('nelson', '', 2), 0)
+        self.assertEqual(sim_euclidean('', 'neilsen', 2), 0)
+        self.assertAlmostEqual(sim_euclidean('nelson', 'neilsen', 2),
+                               1-7**0.5/23**0.5)
+
+        # supplied q-gram tests
+        self.assertEqual(sim_euclidean(QGrams(''), QGrams('')), 1)
+        self.assertEqual(sim_euclidean(QGrams('nelson'), QGrams('')), 0)
+        self.assertEqual(sim_euclidean(QGrams(''), QGrams('neilsen')), 0)
+        self.assertAlmostEqual(sim_euclidean(QGrams('nelson'),
+                                             QGrams('neilsen')),
+                               1-7**0.5/23**0.5)
+
+        # non-q-gram tests
+        self.assertEqual(sim_euclidean('', '', 0), 1)
+        self.assertEqual(sim_euclidean('the quick', '', 0), 0)
+        self.assertEqual(sim_euclidean('', 'the quick', 0), 0)
+        self.assertAlmostEqual(sim_euclidean(NONQ_FROM, NONQ_TO, 0),
+                               1-8**0.5/24**0.5)
+        self.assertAlmostEqual(sim_euclidean(NONQ_TO, NONQ_FROM, 0),
+                               1-8**0.5/24**0.5)
+
+    def test_dist_euclidean(self):
+        """Test abydos.distance.dist_euclidean."""
+        self.assertEqual(dist_euclidean('', ''), 0)
+        self.assertEqual(dist_euclidean('nelson', ''), 1)
+        self.assertEqual(dist_euclidean('', 'neilsen'), 1)
+        self.assertAlmostEqual(dist_euclidean('nelson', 'neilsen'),
+                               7**0.5 / 23**0.5)
+
+        self.assertEqual(dist_euclidean('', '', 2), 0)
+        self.assertEqual(dist_euclidean('nelson', '', 2), 1)
+        self.assertEqual(dist_euclidean('', 'neilsen', 2), 1)
+        self.assertAlmostEqual(dist_euclidean('nelson', 'neilsen', 2),
+                               7**0.5 / 23**0.5)
+
+        # supplied q-gram tests
+        self.assertEqual(dist_euclidean(QGrams(''), QGrams('')), 0)
+        self.assertEqual(dist_euclidean(QGrams('nelson'), QGrams('')), 1)
+        self.assertEqual(dist_euclidean(QGrams(''), QGrams('neilsen')), 1)
+        self.assertAlmostEqual(dist_euclidean(QGrams('nelson'),
+                                              QGrams('neilsen')),
+                               7**0.5 / 23**0.5)
+
+        # non-q-gram tests
+        self.assertEqual(dist_euclidean('', '', 0), 0)
+        self.assertEqual(dist_euclidean('the quick', '', 0), 1)
+        self.assertEqual(dist_euclidean('', 'the quick', 0), 1)
+        self.assertAlmostEqual(dist_euclidean(NONQ_FROM, NONQ_TO, 0),
+                               8**0.5/24**0.5)
+        self.assertAlmostEqual(dist_euclidean(NONQ_TO, NONQ_FROM, 0),
+                               8**0.5/24**0.5)
+
+
+class ChebyshevTestCases(unittest.TestCase):
+    """Test Chebyshev functions.
+
+    abydos.distance.chebyshev, sim_chebyshev & .dist_chebyshev
+    """
+
+    def test_chebyshev(self):
+        """Test abydos.distance.chebyshev."""
+        self.assertEqual(chebyshev('', ''), 0)
+        self.assertEqual(chebyshev('nelson', ''), 1)
+        self.assertEqual(chebyshev('', 'neilsen'), 1)
+        self.assertEqual(chebyshev('nelson', 'neilsen'), 1)
+
+        self.assertEqual(chebyshev('', '', 2), 0)
+        self.assertEqual(chebyshev('nelson', '', 2), 1)
+        self.assertEqual(chebyshev('', 'neilsen', 2), 1)
+        self.assertAlmostEqual(chebyshev('nelson', 'neilsen', 2), 1)
+
+        # supplied q-gram tests
+        self.assertEqual(chebyshev(QGrams(''), QGrams('')), 0)
+        self.assertEqual(chebyshev(QGrams('nelson'), QGrams('')), 1)
+        self.assertEqual(chebyshev(QGrams(''), QGrams('neilsen')), 1)
+        self.assertAlmostEqual(chebyshev(QGrams('nelson'),
+                                             QGrams('neilsen')), 1)
+
+        # non-q-gram tests
+        self.assertEqual(chebyshev('', '', 0), 0)
+        self.assertEqual(chebyshev('the quick', '', 0), 1)
+        self.assertEqual(chebyshev('', 'the quick', 0), 1)
+        self.assertAlmostEqual(chebyshev(NONQ_FROM, NONQ_TO, 0), 1)
+        self.assertAlmostEqual(chebyshev(NONQ_TO, NONQ_FROM, 0), 1)
+
+    def test_sim_chebyshev(self):
+        """Test abydos.distance.sim_chebyshev."""
+        self.assertEqual(sim_chebyshev('', ''), 1)
+        self.assertEqual(sim_chebyshev('nelson', ''), 0)
+        self.assertEqual(sim_chebyshev('', 'neilsen'), 0)
+        self.assertEqual(sim_chebyshev('nelson', 'neilsen'), 0)
+
+        self.assertEqual(sim_chebyshev('', '', 2), 1)
+        self.assertEqual(sim_chebyshev('nelson', '', 2), 0)
+        self.assertEqual(sim_chebyshev('', 'neilsen', 2), 0)
+        self.assertAlmostEqual(sim_chebyshev('nelson', 'neilsen', 2), 0)
+
+        # supplied q-gram tests
+        self.assertEqual(sim_chebyshev(QGrams(''), QGrams('')), 1)
+        self.assertEqual(sim_chebyshev(QGrams('nelson'), QGrams('')), 0)
+        self.assertEqual(sim_chebyshev(QGrams(''), QGrams('neilsen')), 0)
+        self.assertAlmostEqual(sim_chebyshev(QGrams('nelson'),
+                                             QGrams('neilsen')), 0)
+
+        # non-q-gram tests
+        self.assertEqual(sim_chebyshev('', '', 0), 1)
+        self.assertEqual(sim_chebyshev('the quick', '', 0), 0)
+        self.assertEqual(sim_chebyshev('', 'the quick', 0), 0)
+        self.assertAlmostEqual(sim_chebyshev(NONQ_FROM, NONQ_TO, 0), 0)
+        self.assertAlmostEqual(sim_chebyshev(NONQ_TO, NONQ_FROM, 0), 0)
+
+    def test_dist_chebyshev(self):
+        """Test abydos.distance.dist_chebyshev."""
+        self.assertEqual(dist_chebyshev('', ''), 0)
+        self.assertEqual(dist_chebyshev('nelson', ''), 1)
+        self.assertEqual(dist_chebyshev('', 'neilsen'), 1)
+        self.assertEqual(dist_chebyshev('nelson', 'neilsen'), 1)
+
+        self.assertEqual(dist_chebyshev('', '', 2), 0)
+        self.assertEqual(dist_chebyshev('nelson', '', 2), 1)
+        self.assertEqual(dist_chebyshev('', 'neilsen', 2), 1)
+        self.assertAlmostEqual(dist_chebyshev('nelson', 'neilsen', 2), 1)
+
+        # supplied q-gram tests
+        self.assertEqual(dist_chebyshev(QGrams(''), QGrams('')), 0)
+        self.assertEqual(dist_chebyshev(QGrams('nelson'), QGrams('')), 1)
+        self.assertEqual(dist_chebyshev(QGrams(''), QGrams('neilsen')), 1)
+        self.assertAlmostEqual(dist_chebyshev(QGrams('nelson'),
+                                              QGrams('neilsen')), 1)
+
+        # non-q-gram tests
+        self.assertEqual(dist_chebyshev('', '', 0), 0)
+        self.assertEqual(dist_chebyshev('the quick', '', 0), 1)
+        self.assertEqual(dist_chebyshev('', 'the quick', 0), 1)
+        self.assertAlmostEqual(dist_chebyshev(NONQ_FROM, NONQ_TO, 0), 1)
+        self.assertAlmostEqual(dist_chebyshev(NONQ_TO, NONQ_FROM, 0), 1)
 
 
 class CosineSimilarityTestCases(unittest.TestCase):
@@ -732,12 +1087,12 @@ class CosineSimilarityTestCases(unittest.TestCase):
                                4/math.sqrt(7*8))
 
         # non-q-gram tests
-        self.assertEqual(sim_cosine('', '', None), 1)
-        self.assertEqual(sim_cosine('the quick', '', None), 0)
-        self.assertEqual(sim_cosine('', 'the quick', None), 0)
-        self.assertAlmostEqual(sim_cosine(NONQ_FROM, NONQ_TO, None),
+        self.assertEqual(sim_cosine('', '', 0), 1)
+        self.assertEqual(sim_cosine('the quick', '', 0), 0)
+        self.assertEqual(sim_cosine('', 'the quick', 0), 0)
+        self.assertAlmostEqual(sim_cosine(NONQ_FROM, NONQ_TO, 0),
                                4/math.sqrt(9*7))
-        self.assertAlmostEqual(sim_cosine(NONQ_TO, NONQ_FROM, None),
+        self.assertAlmostEqual(sim_cosine(NONQ_TO, NONQ_FROM, 0),
                                4/math.sqrt(9*7))
 
     def test_dist_cosine(self):
@@ -763,12 +1118,12 @@ class CosineSimilarityTestCases(unittest.TestCase):
                                1-(4/math.sqrt(7*8)))
 
         # non-q-gram tests
-        self.assertEqual(dist_cosine('', '', None), 0)
-        self.assertEqual(dist_cosine('the quick', '', None), 1)
-        self.assertEqual(dist_cosine('', 'the quick', None), 1)
-        self.assertAlmostEqual(dist_cosine(NONQ_FROM, NONQ_TO, None),
+        self.assertEqual(dist_cosine('', '', 0), 0)
+        self.assertEqual(dist_cosine('the quick', '', 0), 1)
+        self.assertEqual(dist_cosine('', 'the quick', 0), 1)
+        self.assertAlmostEqual(dist_cosine(NONQ_FROM, NONQ_TO, 0),
                                1-4/math.sqrt(9*7))
-        self.assertAlmostEqual(dist_cosine(NONQ_TO, NONQ_FROM, None),
+        self.assertAlmostEqual(dist_cosine(NONQ_TO, NONQ_FROM, 0),
                                1-4/math.sqrt(9*7))
 
 
