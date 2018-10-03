@@ -88,7 +88,7 @@ from .qgram import QGrams
 
 try:
     import lzma
-except ImportError:
+except ImportError:  # pragma: no cover
     # If the system lacks the lzma library, that's fine, but lzma comrpession
     # similarity won't be supported.
     pass

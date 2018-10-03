@@ -26,6 +26,7 @@ from __future__ import division, unicode_literals
 import math
 import os
 import pkgutil
+import sys
 import unittest
 from difflib import SequenceMatcher
 
@@ -62,8 +63,6 @@ NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
 COLIN = ('Colin', 'Collin', 'Cullen', 'Cuilen', 'Cailean', 'MacCailean',
          'Cuilén', 'Colle', 'Calum', 'Callum', 'Colinn', 'Colon', 'Colynn',
          'Col', 'Cole', 'Nicolas', 'Nicholas', 'Cailean Mór Caimbeul')
-
-lzma_supported = bool(pkgutil.find_loader('lzma'))
 
 
 class LevenshteinTestCases(unittest.TestCase):
@@ -1649,8 +1648,6 @@ class CompressionTestCases(unittest.TestCase):
         """Test abydos.distance.dist_compression."""
         self.assertEqual(dist_compression('', ''), 0)
         self.assertEqual(dist_compression('', '', 'bzip2'), 0)
-        if lzma_supported:
-            self.assertEqual(dist_compression('', '', 'lzma'), 0)
         self.assertEqual(dist_compression('', '', 'zlib'), 0)
         self.assertEqual(dist_compression('', '', 'arith'), 0)
         self.assertEqual(dist_compression('', '', 'arith', self.arith_dict), 0)
@@ -1659,8 +1656,6 @@ class CompressionTestCases(unittest.TestCase):
 
         self.assertGreater(dist_compression('a', ''), 0)
         self.assertGreater(dist_compression('a', '', 'bzip2'), 0)
-        if lzma_supported:
-            self.assertGreater(dist_compression('a', '', 'lzma'), 0)
         self.assertGreater(dist_compression('a', '', 'zlib'), 0)
         self.assertGreater(dist_compression('a', '', 'arith'), 0)
         self.assertGreater(dist_compression('a', '', 'arith', self.arith_dict),
@@ -1670,8 +1665,6 @@ class CompressionTestCases(unittest.TestCase):
 
         self.assertGreater(dist_compression('abcdefg', 'fg'), 0)
         self.assertGreater(dist_compression('abcdefg', 'fg', 'bzip2'), 0)
-        if lzma_supported:
-            self.assertGreater(dist_compression('abcdefg', 'fg', 'lzma'), 0)
         self.assertGreater(dist_compression('abcdefg', 'fg', 'zlib'), 0)
         self.assertGreater(dist_compression('abcdefg', 'fg', 'arith'), 0)
         self.assertGreater(dist_compression('abcdefg', 'fg', 'rle'), 0)
@@ -1720,8 +1713,6 @@ class CompressionTestCases(unittest.TestCase):
         """Test abydos.distance.sim_compression."""
         self.assertEqual(sim_compression('', ''), 1)
         self.assertEqual(sim_compression('', '', 'bzip2'), 1)
-        if lzma_supported:
-            self.assertEqual(sim_compression('', '', 'lzma'), 1)
         self.assertEqual(sim_compression('', '', 'zlib'), 1)
         self.assertEqual(sim_compression('', '', 'arith'), 1)
         self.assertEqual(sim_compression('', '', 'arith', self.arith_dict), 1)
@@ -1730,8 +1721,6 @@ class CompressionTestCases(unittest.TestCase):
 
         self.assertLess(sim_compression('a', ''), 1)
         self.assertLess(sim_compression('a', '', 'bzip2'), 1)
-        if lzma_supported:
-            self.assertLess(sim_compression('a', '', 'lzma'), 1)
         self.assertLess(sim_compression('a', '', 'zlib'), 1)
         self.assertLess(sim_compression('a', '', 'arith'), 1)
         self.assertLess(sim_compression('a', '', 'arith', self.arith_dict), 1)
@@ -1740,8 +1729,6 @@ class CompressionTestCases(unittest.TestCase):
 
         self.assertLess(sim_compression('abcdefg', 'fg'), 1)
         self.assertLess(sim_compression('abcdefg', 'fg', 'bzip2'), 1)
-        if lzma_supported:
-            self.assertLess(sim_compression('abcdefg', 'fg', 'lzma'), 1)
         self.assertLess(sim_compression('abcdefg', 'fg', 'zlib'), 1)
         self.assertLess(sim_compression('abcdefg', 'fg', 'arith'), 1)
         self.assertLess(sim_compression('abcdefg', 'fg', 'rle'), 1)
@@ -1784,6 +1771,19 @@ class CompressionTestCases(unittest.TestCase):
                                0.42857142857)
         self.assertAlmostEqual(sim_compression('bananas', 'bananen', 'bwtrle'),
                                0.5)
+
+    def test_lzma(self):
+        """Test LZMA-related sim/dist functions."""
+        if bool(pkgutil.find_loader('lzma')):
+            self.assertEqual(dist_compression('', '', 'lzma'), 0)
+            self.assertGreater(dist_compression('a', '', 'lzma'), 0)
+            self.assertGreater(dist_compression('abcdefg', 'fg', 'lzma'), 0)
+            self.assertEqual(sim_compression('', '', 'lzma'), 1)
+            self.assertLess(sim_compression('a', '', 'lzma'), 1)
+            self.assertLess(sim_compression('abcdefg', 'fg', 'lzma'), 1)
+            del sys.modules['lzma']
+
+        self.assertRaises(ValueError, dist_compression, 'a', '', 'lzma')
 
 
 class MongeElkanTestCases(unittest.TestCase):
