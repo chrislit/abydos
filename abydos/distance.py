@@ -2981,7 +2981,7 @@ def sim_eudex(src, tar, weights='exponential', maxlength=8):
     return 1-dist_eudex(src, tar, weights, maxlength)
 
 
-def sift4_simplest(src, tar, max_offset=0):
+def sift4_simplest(src, tar, max_offset=5):
     """Return the "simplest" Sift4 distance between two terms.
 
     This is an approximation of edit distance, described in
@@ -3032,7 +3032,7 @@ def sift4_simplest(src, tar, max_offset=0):
     return round(max(src_len, tar_len) - lcss)
 
 
-def sift4_common(src, tar, max_offset=0, max_distance=0):
+def sift4_common(src, tar, max_offset=5, max_distance=0):
     """Return the "common" Sift4 distance between two terms.
 
     This is an approximation of edit distance, described in
