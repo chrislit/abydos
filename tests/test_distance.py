@@ -741,6 +741,28 @@ class MinkowskiTestCases(unittest.TestCase):
         self.assertAlmostEqual(minkowski(NONQ_FROM, NONQ_TO, 0), 8)
         self.assertAlmostEqual(minkowski(NONQ_TO, NONQ_FROM, 0), 8)
 
+        # test l_0 "norm"
+        self.assertEqual(minkowski('', '', 1, 0), 0)
+        self.assertEqual(minkowski('a', '', 1, 0), 1)
+        self.assertEqual(minkowski('a', 'b', 1, 0), 2)
+        self.assertEqual(minkowski('ab', 'b', 1, 0), 1)
+        self.assertEqual(minkowski('aab', 'b', 1, 0), 1)
+        self.assertEqual(minkowski('', '', 1, 0, True), 0)
+        self.assertEqual(minkowski('a', '', 1, 0, True), 1)
+        self.assertEqual(minkowski('a', 'b', 1, 0, True), 1)
+        self.assertEqual(minkowski('ab', 'b', 1, 0, True), 1/2)
+        self.assertEqual(minkowski('aab', 'b', 1, 0, True), 1/2)
+        self.assertEqual(minkowski('aaab', 'b', 1, 0, True), 1/2)
+        self.assertEqual(minkowski('aaab', 'ab', 1, 0, True), 1/2)
+
+        # test with alphabet
+        self.assertEqual(minkowski('ab', 'b', 1, alphabet=26), 1)
+        self.assertEqual(minkowski('ab', 'b', 1, normalize=True, alphabet=26),
+                         1/26)
+        self.assertEqual(minkowski('ab', 'b', 1, normalize=True,
+                                   alphabet='abcdefghijklmnopqrstuvwxyz'),
+                         1/26)
+
     def test_sim_minkowski(self):
         """Test abydos.distance.sim_minkowski."""
         self.assertEqual(sim_minkowski('', ''), 1)

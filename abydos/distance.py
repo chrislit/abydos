@@ -950,8 +950,7 @@ def minkowski(src, tar, qval=2, pval=1, normalize=False, alphabet=None):
         return max(diffs)/normalizer
     if pval == 0:
         # This is the l_0 "norm" as developed by David Donoho
-        return len(diffs)
-    print(diffs), print(normalizer)
+        return len(diffs)/normalizer
     return sum(_**pval for _ in diffs)**(1 / pval)/normalizer
 
 
