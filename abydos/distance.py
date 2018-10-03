@@ -3116,7 +3116,7 @@ def sift4_common(src, tar, max_offset=5, max_distance=0):
     return round(max(src_len, tar_len) - lcss + trans)
 
 
-def dist_sift4(src, tar, max_offset=0, max_distance=0):
+def dist_sift4(src, tar, max_offset=5, max_distance=0):
     """Return the normalized "common" Sift4 distance between two terms.
 
     This is Sift4 distance, normalized to [0, 1].
@@ -3127,10 +3127,10 @@ def dist_sift4(src, tar, max_offset=0, max_distance=0):
     :return:
     """
     return (sift4_common(src, tar, max_offset, max_distance) /
-            (max(len(src), len(tar))))
+            (max(len(src), len(tar), 1)))
 
 
-def sim_sift4(src, tar, max_offset=0, max_distance=0):
+def sim_sift4(src, tar, max_offset=5, max_distance=0):
     """Return the normalized "common" Sift4 similarity of two terms.
 
     Normalized Sift4 similarity is the complement of normalized Sift4 distance:
