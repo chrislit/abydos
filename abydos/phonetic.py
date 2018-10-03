@@ -507,7 +507,7 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
     while pos < len(word):
         # Iterate through _dms_order, which specifies the possible substrings
         # for which codes exist in the Daitch-Mokotoff coding
-        for sstr in _dms_order[word[pos]]:  # pragma: no branch
+        for sstr in _dms_order[word[pos]]:
             if word[pos:].startswith(sstr):
                 # Having determined a valid substring start, retrieve the code
                 dm_val = _dms_table[sstr]
@@ -4147,7 +4147,7 @@ def phonet(word, mode=1, lang='de'):
 
                             if ((_phonet_rules[pos] and
                                  '^^' in _phonet_rules[pos][1:])):
-                                if char:  # pragma: no branch
+                                if char:
                                     dest = (dest[0:j] + char +
                                             dest[min(len(dest), j + 1):])
                                     j += 1
