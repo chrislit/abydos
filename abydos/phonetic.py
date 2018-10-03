@@ -215,7 +215,8 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
           names
 
     :param bool reverse: reverse the word before computing the selected Soundex
-        (defaults to False); This results in "Reverse Soundex"
+        (defaults to False); This results in "Reverse Soundex", which is useful
+        for blocking in cases where the initial elements may be in error.
     :param bool zero_pad: pad the end of the return value with 0s to achieve a
         maxlength string
     :returns: the Soundex value
@@ -310,7 +311,7 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     return sdx[:maxlength]
 
 
-def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False,
+def refined_soundex(word, maxlength=_INFINITY, zero_pad=False,
                     retain_vowels=False):
     """Return the Refined Soundex code for a word.
 
@@ -319,8 +320,6 @@ def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False,
 
     :param word: the word to transform
     :param maxlength: the length of the code returned (defaults to unlimited)
-    :param reverse: reverse the word before computing the selected Soundex
-        (defaults to False); This results in "Reverse Soundex"
     :param zero_pad: pad the end of the return value with 0s to achieve a
         maxlength string
     :param retain_vowels: retain vowels (as 0) in the resulting code
@@ -348,10 +347,6 @@ def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False,
                     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
                     'Y', 'Z'})
 
-    # Reverse word if computing Reverse Soundex
-    if reverse:
-        word = word[::-1]
-
     # apply the Soundex algorithm
     sdx = word[:1] + word.translate(_ref_soundex_translation)
     sdx = _delete_consecutive_repeats(sdx)
@@ -367,7 +362,7 @@ def refined_soundex(word, maxlength=_INFINITY, reverse=False, zero_pad=False,
     return sdx
 
 
-def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
+def dm_soundex(word, maxlength=6, zero_pad=True):
     """Return the Daitch-Mokotoff Soundex code for a word.
 
     Based on Daitch-Mokotoff Soundex :cite:`Mokotoff:1997`, this returns values
@@ -376,8 +371,6 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
 
     :param word: the word to transform
     :param maxlength: the length of the code returned (defaults to 6)
-    :param reverse: reverse the word before computing the selected Soundex
-        (defaults to False); This results in "Reverse Soundex"
     :param zero_pad: pad the end of the return value with 0s to achieve a
         maxlength string
     :returns: the Daitch-Mokotoff Soundex value
@@ -498,10 +491,6 @@ def dm_soundex(word, maxlength=6, reverse=False, zero_pad=True):
         if zero_pad:
             return {'0'*maxlength}
         return {'0'}
-
-    # Reverse word if computing Reverse Soundex
-    if reverse:
-        word = word[::-1]
 
     pos = 0
     while pos < len(word):

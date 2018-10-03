@@ -506,10 +506,6 @@ class SoundexTestCases(unittest.TestCase):
                          {'479465', '474659'})
         self.assertEqual(dm_soundex('Schwartsenegger'), {'479465'})
 
-        # reverse DM-Soundex
-        self.assertEqual(dm_soundex('Schwarzenegger', reverse=True),
-                         {'956497'})
-
         # maxlength bounds tests
         self.assertEqual(dm_soundex('Niall', maxlength=float('inf')),
                          {'68'+'0'*62})
