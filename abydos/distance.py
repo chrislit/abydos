@@ -69,6 +69,7 @@ from __future__ import division, unicode_literals
 from codecs import encode
 from collections import Counter, Iterable, defaultdict
 from math import log, sqrt
+from numbers import Number
 from sys import maxsize, modules
 from types import GeneratorType
 from unicodedata import normalize
@@ -566,20 +567,19 @@ def sim_hamming(src, tar, difflens=True):
     return 1 - dist_hamming(src, tar, difflens)
 
 
-def _get_qgrams(src, tar, qval=None, skip=0):
+def _get_qgrams(src, tar, qval=0, skip=0):
     """Return the Q-Grams in src & tar.
 
     :param str src, tar: two strings to be compared
         (or QGrams/Counter objects)
-    :param int qval: the length of each q-gram; 0 or None for non-q-gram
-        version
+    :param int qval: the length of each q-gram; 0 for non-q-gram version
     :param int skip: the number of characters to skip (only works when
         src and tar are strings
     :return: Q-Grams
     """
     if isinstance(src, Counter) and isinstance(tar, Counter):
         return src, tar
-    if qval and qval > 0:
+    if qval > 0:
         return (QGrams(src, qval, '$#', skip),
                 QGrams(tar, qval, '$#', skip))
     return Counter(src.strip().split()), Counter(tar.strip().split())
@@ -914,7 +914,7 @@ def tanimoto(src, tar, qval=2):
     return float('-inf')
 
 
-def minkowski(src, tar, qval=2, pval=1, normalize=False):
+def minkowski(src, tar, qval=2, pval=1, normalize=False, alphabet=None):
     """Return the Minkowski distance (:math:`L^p-norm`) of two strings.
 
     The Minkowsky distance :cite:`Minkowski:1910` is a distance metric in
@@ -925,6 +925,7 @@ def minkowski(src, tar, qval=2, pval=1, normalize=False):
         version
     :param pval: the :math:`p`-value of the :math:`L^p`-space.
     :param normalize: normalizes to [0, 1] if True
+    :param collection or int alphabet: the values or size of the alphabet
     :returns: the Minkowski distance
     :rtype: float
     """
@@ -934,21 +935,27 @@ def minkowski(src, tar, qval=2, pval=1, normalize=False):
     normalizer = 1
     if normalize:
         totals = (q_src + q_tar).values()
-        if pval == 0:
+        if alphabet is not None:
+            normalizer = (alphabet if isinstance(alphabet, Number) else
+                          len(alphabet))
+        elif pval == 0:
             normalizer = len(totals)
         else:
             normalizer = sum(_**pval for _ in totals)**(1 / pval)
 
+    if len(diffs) == 0:
+        return 0.0
     if pval == float('inf'):
         # Chebyshev distance
         return max(diffs)/normalizer
     if pval == 0:
         # This is the l_0 "norm" as developed by David Donoho
         return len(diffs)
+    print(diffs), print(normalizer)
     return sum(_**pval for _ in diffs)**(1 / pval)/normalizer
 
 
-def dist_minkowski(src, tar, qval=2, pval=1):
+def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     """Return Minkowski distance of two strings, normalized to [0, 1].
 
     The normalized Minkowsky distance :cite:`Minkowski:1910` is a distance
@@ -958,13 +965,14 @@ def dist_minkowski(src, tar, qval=2, pval=1):
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
         version
     :param pval: the :math:`p`-value of the :math:`L^p`-space.
+    :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Minkowski distance
     :rtype: float
     """
-    return minkowski(src, tar, qval, pval, True)
+    return minkowski(src, tar, qval, pval, True, alphabet)
 
 
-def sim_minkowski(src, tar, qval=2, pval=1):
+def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     """Return Minkowski similarity of two strings, normalized to [0, 1].
 
     Minkowski similarity is the complement of Minkowski distance:
@@ -974,13 +982,14 @@ def sim_minkowski(src, tar, qval=2, pval=1):
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
         version
     :param pval: the :math:`p`-value of the :math:`L^p`-space.
+    :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Minkowski similarity
     :rtype: float
     """
-    return 1-minkowski(src, tar, qval, pval, True)
+    return 1-minkowski(src, tar, qval, pval, True, alphabet)
 
 
-def manhattan(src, tar, qval=2, normalize=False):
+def manhattan(src, tar, qval=2, normalize=False, alphabet=None):
     """Return the Manhattan distance between two strings.
 
     Manhattan distance is the city-block or taxi-cab distance, equivalent
@@ -991,13 +1000,14 @@ def manhattan(src, tar, qval=2, normalize=False):
         version
     :param pval: the :math:`p`-value of the :math:`L^p`-space.
     :param normalize: normalizes to [0, 1] if True
+    :param collection or int alphabet: the values or size of the alphabet
     :returns: the Manhattan distance
     :rtype: float
     """
-    return minkowski(src, tar, qval, 1, normalize)
+    return minkowski(src, tar, qval, 1, normalize, alphabet)
 
 
-def dist_manhattan(src, tar, qval=2):
+def dist_manhattan(src, tar, qval=2, alphabet=None):
     """Return the Manhattan distance between two strings, normalized to [0, 1].
 
     The normalized Manhattan distance is a distance
@@ -1009,13 +1019,14 @@ def dist_manhattan(src, tar, qval=2):
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
         version
     :param pval: the :math:`p`-value of the :math:`L^p`-space.
+    :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Manhattan distance
     :rtype: float
     """
-    return manhattan(src, tar, qval, 1, True)
+    return manhattan(src, tar, qval, True, alphabet)
 
 
-def sim_manhattan(src, tar, qval=2):
+def sim_manhattan(src, tar, qval=2, alphabet=None):
     """Return the Manhattan similarity of two strings, normalized to [0, 1].
 
     Manhattan similarity is the complement of Manhattan distance:
@@ -1025,13 +1036,14 @@ def sim_manhattan(src, tar, qval=2):
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
         version
     :param pval: the :math:`p`-value of the :math:`L^p`-space.
+    :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Manhattan similarity
     :rtype: float
     """
-    return 1-manhattan(src, tar, qval, 1, True)
+    return 1-manhattan(src, tar, qval, True, alphabet)
 
 
-def euclidean(src, tar, qval=2, normalize=False):
+def euclidean(src, tar, qval=2, normalize=False, alphabet=None):
     """Return the Euclidean distance between two strings.
 
     Euclidean distance is the straigh-line or as-the-crow-flies distance,
@@ -1042,13 +1054,14 @@ def euclidean(src, tar, qval=2, normalize=False):
         version
     :param pval: the :math:`p`-value of the :math:`L^p`-space.
     :param normalize: normalizes to [0, 1] if True
+    :param collection or int alphabet: the values or size of the alphabet
     :returns: the Euclidean distance
     :rtype: float
     """
-    return minkowski(src, tar, qval, 2, normalize)
+    return minkowski(src, tar, qval, 2, normalize, alphabet)
 
 
-def dist_euclidean(src, tar, qval=2):
+def dist_euclidean(src, tar, qval=2, alphabet=None):
     """Return the Euclidean distance between two strings, normalized to [0, 1].
 
     The normalized Euclidean distance is a distance
@@ -1058,13 +1071,14 @@ def dist_euclidean(src, tar, qval=2):
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
         version
     :param pval: the :math:`p`-value of the :math:`L^p`-space.
+    :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Euclidean distance
     :rtype: float
     """
-    return euclidean(src, tar, qval, True)
+    return euclidean(src, tar, qval, True, alphabet)
 
 
-def sim_euclidean(src, tar, qval=2):
+def sim_euclidean(src, tar, qval=2, alphabet=None):
     """Return the Euclidean similarity of two strings, normalized to [0, 1].
 
     Euclidean similarity is the complement of Euclidean distance:
@@ -1074,13 +1088,14 @@ def sim_euclidean(src, tar, qval=2):
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
         version
     :param pval: the :math:`p`-value of the :math:`L^p`-space.
+    :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Euclidean similarity
     :rtype: float
     """
-    return 1-euclidean(src, tar, qval, True)
+    return 1-euclidean(src, tar, qval, True, alphabet)
 
 
-def chebyshev(src, tar, qval=2, normalize=False):
+def chebyshev(src, tar, qval=2, normalize=False, alphabet=None):
     r"""Return the Chebyshev distance between two strings.
 
     Euclidean distance is the chessboard distance,
@@ -1091,13 +1106,14 @@ def chebyshev(src, tar, qval=2, normalize=False):
         version
     :param pval: the :math:`p`-value of the :math:`L^p`-space.
     :param normalize: normalizes to [0, 1] if True
+    :param collection or int alphabet: the values or size of the alphabet
     :returns: the Chebyshev distance
     :rtype: float
     """
-    return minkowski(src, tar, qval, float('inf'), normalize)
+    return minkowski(src, tar, qval, float('inf'), normalize, alphabet)
 
 
-def dist_chebyshev(src, tar, qval=2):
+def dist_chebyshev(src, tar, qval=2, alphabet=None):
     """Return the Chebyshev distance between two strings, normalized to [0, 1].
 
     The normalized Chebyshev distance :cite:`Minkowski:1910` is a distance
@@ -1107,13 +1123,14 @@ def dist_chebyshev(src, tar, qval=2):
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
         version
     :param pval: the :math:`p`-value of the :math:`L^p`-space.
+    :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Chebyshev distance
     :rtype: float
     """
-    return chebyshev(src, tar, qval, True)
+    return chebyshev(src, tar, qval, True, alphabet)
 
 
-def sim_chebyshev(src, tar, qval=2):
+def sim_chebyshev(src, tar, qval=2, alphabet=None):
     """Return the Chebyshev similarity of two strings, normalized to [0, 1].
 
     Chebyshev similarity is the complement of Chebyshev distance:
@@ -1123,10 +1140,11 @@ def sim_chebyshev(src, tar, qval=2):
     :param int qval: the length of each q-gram; 0 or None for non-q-gram
         version
     :param pval: the :math:`p`-value of the :math:`L^p`-space.
+    :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Chebyshev similarity
     :rtype: float
     """
-    return 1 - chebyshev(src, tar, qval, True)
+    return 1 - chebyshev(src, tar, qval, True, alphabet)
 
 
 def sim_cosine(src, tar, qval=2):
