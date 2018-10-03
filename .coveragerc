@@ -9,3 +9,12 @@ omit =
     */unittest2/*
     */tests/*
     */__init__.py
+parallel = True
+branch = True
+
+[report]
+exclude_lines =
+    if __name__ == .__main__.:
+    if PY3:
+omit =
+    abydos/__init__.py
