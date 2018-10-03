@@ -2923,7 +2923,11 @@ def eudex_hamming(src, tar, weights='exponential', maxlength=8,
 
     # Simple hamming distance (all bits are equal)
     if not weights:
-        return bin(xored).count('1')
+        binary = bin(xored)
+        dist = binary.count('1')
+        if normalized:
+            return dist/(len(binary)-2)
+        return dist
 
     # If weights is a function, it should create a generator,
     # which we now use to populate a list
