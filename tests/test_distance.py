@@ -2415,17 +2415,6 @@ class BaystatTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_baystat('ZIMMERMANN', 'ZIMMER'), 0.4)
 
 
-class SimTFIDFTestCases(unittest.TestCase):
-    """Test TF-IDF similarity functions.
-
-    abydos.distance.sim_tfidf
-    """
-
-    def test_sim(self):
-        """Test abydos.distance.sim_tfidf."""
-        pass
-
-
 class SimDistTestCases(unittest.TestCase):
     """Test generic sim & dist functions.
 
