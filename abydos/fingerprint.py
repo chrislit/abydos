@@ -586,6 +586,10 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
     method_dict = {'end': 1, 'middle': 2, 'beginning': 4,
                              'beginning_no_space': 8}
 
+    lname = lname.lower()
+    fname = fname.lower()
+    qual = qual.lower()
+
     # Start with the basic code
     toolcode = ['0', '0', '0', '000', '00', '00', '$', '', '$', '']
 
@@ -694,7 +698,7 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
                     if not any(abbr in fname for abbr in ('i.', 'v.', 'x.')):
                         full_name = full_name[:loc]
                         toolcode[7] += '{:03d}'.format(num) + 'a'
-                        if not toolcode[3]:
+                        if toolcode[3] == '000':
                             toolcode[3] = '{:03d}'.format(num)
                         if normalize == 2:
                             fname, lname = roman_check(match, fname, lname)
@@ -703,21 +707,23 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
                     toolcode[7] += '{:03d}'.format(num) + 'a'
         if method & method_dict['middle']:
             match_context = ' ' + match + ' '
-            loc = full_name.find(match_context)
-            if loc > 0:
-                if roman:
-                    if not any(abbr in fname for abbr in ('i.', 'v.', 'x.')):
+            loc = 0
+            while loc != -1:
+                loc = full_name.find(match_context, loc+1)
+                if loc > 0:
+                    if roman:
+                        if not any(abbr in fname for abbr in ('i.', 'v.', 'x.')):
+                            full_name = (full_name[:loc] +
+                                         full_name[loc + len(match) + 1:])
+                            toolcode[7] += '{:03d}'.format(num) + 'b'
+                            if toolcode[3] == '000':
+                                toolcode[3] = '{:03d}'.format(num)
+                            if normalize == 2:
+                                fname, lname = roman_check(match, fname, lname)
+                    else:
                         full_name = (full_name[:loc] +
                                      full_name[loc + len(match) + 1:])
                         toolcode[7] += '{:03d}'.format(num) + 'b'
-                        if not toolcode[3]:
-                            toolcode[3] = '{:03d}'.format(num)
-                        if normalize == 2:
-                            fname, lname = roman_check(match, fname, lname)
-                else:
-                    full_name = (full_name[:loc] +
-                                 full_name[loc + len(match) + 1:])
-                    toolcode[7] += '{:03d}'.format(num) + 'b'
         if method & method_dict['beginning']:
             match_context = match + ' '
             loc = full_name.find(match_context)
