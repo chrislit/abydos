@@ -57,14 +57,18 @@ xoyv', )
 
     def test_str_fingerprint(self):
         """Test abydos.clustering.str_fingerprint."""
+        # Base case
         self.assertEqual(str_fingerprint(''), '')
+
         for i in range(len(self._testset)):
             self.assertEqual(str_fingerprint(self._testset[i]),
                              self._anssetw[i])
 
     def test_qgram_fingerprint(self):
         """Test abydos.clustering.qgram_fingerprint."""
+        # Base case
         self.assertEqual(qgram_fingerprint(''), '')
+
         for i in range(len(self._testset)):
             self.assertEqual(qgram_fingerprint(self._testset[i], 1),
                              self._anssetq1[i])
@@ -83,6 +87,7 @@ xoyv', )
 
     def test_phonetic_fingerprint(self):
         """Test abydos.clustering.phonetic_fingerprint."""
+        # Base case
         self.assertEqual(phonetic_fingerprint(''), '')
 
         self.assertEqual(phonetic_fingerprint(' '.join(NIALL)),
@@ -104,6 +109,7 @@ class SPEEDCOPTestCases(unittest.TestCase):
 
     def test_skeleton_key(self):
         """Test abydos.clustering.skeleton_key."""
+        # Base case
         self.assertEqual(skeleton_key(''), '')
 
         # http://dl.acm.org/citation.cfm?id=358048
@@ -121,6 +127,7 @@ class SPEEDCOPTestCases(unittest.TestCase):
 
     def test_omission_key(self):
         """Test abydos.clustering.omission_key."""
+        # Base case
         self.assertEqual(omission_key(''), '')
 
         # http://dl.acm.org/citation.cfm?id=358048
@@ -148,18 +155,22 @@ class LightweightFingerprintsTestCases(unittest.TestCase):
 
     def test_occurrence_fingerprint(self):
         """Test abydos.occurrence_fingerprint."""
+        # Base case
         self.assertEqual(occurrence_fingerprint(''), 0)
 
     def test_occurrence_halved_fingerprint(self):
         """Test abydos.occurrence_fingerprint."""
+        # Base case
         self.assertEqual(occurrence_halved_fingerprint(''), 0)
 
     def test_count_fingerprint(self):
         """Test abydos.occurrence_fingerprint."""
+        # Base case
         self.assertEqual(count_fingerprint(''), 0)
 
     def test_position_fingerprint(self):
         """Test abydos.occurrence_fingerprint."""
+        # Base case
         self.assertEqual(position_fingerprint(''), 0)
 
 
@@ -171,6 +182,7 @@ class SynonameToolcodeTestCases(unittest.TestCase):
 
     def test_synoname_toolcode(self):
         """Test abydos.synoname_toolcode."""
+        # Base case
         self.assertEqual(synoname_toolcode(''), ('', '', '0000000000$$'))
 
 
