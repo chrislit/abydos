@@ -2713,6 +2713,68 @@ class BaystatTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_baystat('ZIMMERMANN', 'ZIMMER'), 0.4)
 
 
+class TypoTestCases(unittest.TestCase):
+    """Test Typo functions.
+
+    abydos.distance.typo, sim_typo & .dist_typo
+    """
+
+    def test_typo(self):
+        """Test abydos.distance.typo."""
+        # Base cases
+        self.assertEqual(typo('', ''), 0)
+
+    def test_sim_typo(self):
+        """Test abydos.distance.sim_typo."""
+        # Base cases
+        self.assertEqual(sim_typo('', ''), 1)
+
+    def test_dist_typo(self):
+        """Test abydos.distance.dist_typo."""
+        # Base cases
+        self.assertEqual(dist_typo('', ''), 0)
+
+
+class IndelTestCases(unittest.TestCase):
+    """Test indel functions.
+
+    abydos.distance.sim_indel & .dist_indel
+    """
+
+    def test_sim_indel(self):
+        """Test abydos.distance.sim_indel."""
+        # Base cases
+        self.assertEqual(sim_indel('', ''), 1)
+
+    def test_dist_indel(self):
+        """Test abydos.distance.dist_indel."""
+        # Base cases
+        self.assertEqual(dist_indel('', ''), 0)
+
+
+class SynonameTestCases(unittest.TestCase):
+    """Test Synoname functions.
+
+    abydos.distance._synoname_strip_punct, synoname_word_approximation, &
+    synoname
+    """
+
+    def test_synoname_strip_punct(self):
+        """Test abydos.distance._synoname_strip_punct."""
+        # Base cases
+        self.assertEqual(_synoname_strip_punct(''), '')
+
+    def test_synoname_word_approximation(self):
+        """Test abydos.distance.synoname_word_approximation."""
+        # Base cases
+        self.assertEqual(synoname_word_approximation('', ''), 0)
+
+    def test_synoname(self):
+        """Test abydos.distance.synoname."""
+        # Base cases
+        self.assertEqual(synoname('', ''), 1)
+
+
 class SimDistTestCases(unittest.TestCase):
     """Test generic sim & dist functions.
 
