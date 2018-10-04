@@ -3638,7 +3638,7 @@ def synoname_word_approximation(src_ln, tar_ln, src_fn='', tar_fn='',
 
 
 def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
-             tests=2**11-1):
+             tests=2**12-1):
     """Return the Synoname similarity type of two words.
 
     Cf. :cite:`Getty:1991,Gross:1991`
@@ -3647,7 +3647,7 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
     :return: Synoname value
     :rtype: int
     """
-    test_dict = {val: n**2 for n, val in enumerate([
+    test_dict = {val: 2**n for n, val in enumerate([
         'exact', 'omission', 'substitution', 'transposition', 'punctuation',
         'initials', 'extended', 'inclusion', 'no_first', 'word_approx',
         'confusions', 'char_approx'])}
@@ -3665,12 +3665,17 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
 
     if isinstance(src, tuple):
         src_ln, src_fn, src_qual = src
-    else:
+    elif '#' in src:
         src_ln, src_fn, src_qual = src.split('#')[1:4]
+    else:
+        src_ln, src_fn, src_qual = src, '', ''
+
     if isinstance(tar, tuple):
         tar_ln, tar_fn, tar_qual = tar
-    else:
+    elif '#' in tar:
         tar_ln, tar_fn, tar_qual = tar.split('#')[1:4]
+    else:
+        tar_ln, tar_fn, tar_qual = tar, '', ''
 
     def split_special(spec):
         spec_list = []
@@ -3697,13 +3702,13 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
     src_generation = int(src_tc[2])
     src_romancode = int(src_tc[3:6])
     src_len_fn = int(src_tc[6:8])
-    src_tc = src_tc.split('#')
+    src_tc = src_tc.split('$')
     src_specials = split_special(src_tc[1])
 
     tar_generation = int(tar_tc[2])
     tar_romancode = int(tar_tc[3:6])
     tar_len_fn = int(tar_tc[6:8])
-    tar_tc = tar_tc.split('#')
+    tar_tc = tar_tc.split('$')
     tar_specials = split_special(tar_tc[1])
 
     gen_conflict = (src_generation != tar_generation and
