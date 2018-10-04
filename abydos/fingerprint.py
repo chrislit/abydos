@@ -267,7 +267,8 @@ def occurrence_fingerprint(word, n_bits=16,
 
     :param word: the word to fingerprint
     :param n_bits: number of bits in the fingerprint returned
-    :param most_common: the most common tokens in the target language
+    :param most_common: the most common tokens in the target language,
+        ordered by frequency
     :return: the occurrence fingerprint
     :rtype: int
     """
@@ -283,7 +284,8 @@ def occurrence_fingerprint(word, n_bits=16,
         else:
             break
 
-    if n_bits:
+    n_bits -= 1
+    if n_bits > 0:
         fingerprint <<= n_bits
 
     return fingerprint
@@ -297,7 +299,8 @@ def occurrence_halved_fingerprint(word, n_bits=16,
 
     :param word: the word to fingerprint
     :param n_bits: number of bits in the fingerprint returned
-    :param most_common: the most common tokens in the target language
+    :param most_common: the most common tokens in the target language,
+        ordered by frequency
     :return: the occurrence halved fingerprint
     :rtype: int
     """
@@ -310,18 +313,18 @@ def occurrence_halved_fingerprint(word, n_bits=16,
     fingerprint = 0
 
     for letter in most_common:
-        if letter in w_1:
-            fingerprint += 1
-        fingerprint <<= 1
-        if letter in w_2:
-            fingerprint += 1
-        n_bits -= 2
         if n_bits:
             fingerprint <<= 1
+            if letter in w_1:
+                fingerprint += 1
+            fingerprint <<= 1
+            if letter in w_2:
+                fingerprint += 1
+            n_bits -= 2
         else:
             break
 
-    if n_bits:
+    if n_bits > 0:
         fingerprint <<= n_bits
 
     return fingerprint
@@ -335,7 +338,8 @@ def count_fingerprint(word, n_bits=16,
 
     :param word: the word to fingerprint
     :param n_bits: number of bits in the fingerprint returned
-    :param most_common: the most common tokens in the target language
+    :param most_common: the most common tokens in the target language,
+        ordered by frequency
     :return: the count fingerprint
     :rtype: int
     """
@@ -346,10 +350,10 @@ def count_fingerprint(word, n_bits=16,
     fingerprint = 0
 
     for letter in most_common:
-        fingerprint += (word[letter] & 3)
-        n_bits -= 2
         if n_bits:
             fingerprint <<= 2
+            fingerprint += (word[letter] & 3)
+            n_bits -= 2
         else:
             break
 
@@ -368,7 +372,8 @@ def position_fingerprint(word, n_bits=16,
 
     :param word: the word to fingerprint
     :param n_bits: number of bits in the fingerprint returned
-    :param most_common: the most common tokens in the target language
+    :param most_common: the most common tokens in the target language,
+        ordered by frequency
     :param bits_per_letter: the bits to assign for letter position
     :return: the position fingerprint
     :rtype: int
@@ -379,17 +384,21 @@ def position_fingerprint(word, n_bits=16,
             position[letter] = min(pos, 2**bits_per_letter-1)
 
     fingerprint = 0
+
     for letter in most_common:
-        if letter in position:
-            fingerprint += min(position[letter], 2**n_bits-1)
-        n_bits -= bits_per_letter
-        if n_bits > 0:
+        if n_bits:
             fingerprint <<= min(bits_per_letter, n_bits)
+            if letter in position:
+                fingerprint += min(position[letter], 2**n_bits-1)
+            else:
+                fingerprint += min(2**bits_per_letter-1, 2**n_bits-1)
+            n_bits -= min(bits_per_letter, n_bits)
         else:
             break
 
-    if n_bits > 0:
-        fingerprint <<= n_bits
+    for _ in range(n_bits):
+        fingerprint <<= 1
+        fingerprint += 1
 
     return fingerprint
 
