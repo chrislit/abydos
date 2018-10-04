@@ -40,8 +40,8 @@ NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
 class FingerprintTestCases(unittest.TestCase):
     """Test fingerprint functions.
 
-    abydos.clustering.str_fingerprint, abydos.clustering.qgram_fingerprint, &
-    abydos.clustering.phonetic_fingerprint
+    abydos.fingerprint.str_fingerprint, .qgram_fingerprint, &
+    .phonetic_fingerprint
     """
 
     _testset = ('À noite, vovô Kowalsky vê o ímã cair no pé do pingüim \
@@ -97,7 +97,7 @@ xoyv', )
 class SPEEDCOPTestCases(unittest.TestCase):
     """Test SPEEDCOP functions.
 
-    abydos.clustering.skeleton_key & abydos.clustering.omission_key
+    abydos.fingerprint.skeleton_key & .omission_key
     """
 
     def test_skeleton_key(self):
