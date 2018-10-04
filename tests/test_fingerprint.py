@@ -158,20 +158,74 @@ class LightweightFingerprintsTestCases(unittest.TestCase):
         # Base case
         self.assertEqual(occurrence_fingerprint(''), 0)
 
+        # https://arxiv.org/pdf/1711.08475.pdf
+        self.assertEqual(occurrence_fingerprint('instance'),
+                         0b1110111000010000)
+
+        self.assertEqual(occurrence_fingerprint('inst'),
+                         0b0100111000000000)
+        self.assertEqual(occurrence_fingerprint('instance', 15),
+                         0b111011100001000)
+        self.assertEqual(occurrence_fingerprint('instance', 32),
+                         0b11101110000100000000000000000000)
+        self.assertEqual(occurrence_fingerprint('instance', 64),
+                         0b11101110000100000000000000000000<<32)
+
     def test_occurrence_halved_fingerprint(self):
-        """Test abydos.occurrence_fingerprint."""
+        """Test abydos.occurrence_halved_fingerprint."""
         # Base case
         self.assertEqual(occurrence_halved_fingerprint(''), 0)
 
+        # https://arxiv.org/pdf/1711.08475.pdf
+        self.assertEqual(occurrence_halved_fingerprint('instance'),
+                         0b0110010010111000)
+
+        self.assertEqual(occurrence_halved_fingerprint('inst'),
+                         0b0001000010100100)
+        self.assertEqual(occurrence_halved_fingerprint('instance', 15),
+                         0b0110010010111000)
+        self.assertEqual(occurrence_halved_fingerprint('instance', 32),
+                         0b01100100101110000000000100000000)
+        self.assertEqual(occurrence_halved_fingerprint('instance', 64),
+                         0b01100100101110000000000100000000<<32)
+
+
     def test_count_fingerprint(self):
-        """Test abydos.occurrence_fingerprint."""
+        """Test abydos.count_fingerprint."""
         # Base case
         self.assertEqual(count_fingerprint(''), 0)
 
+        # https://arxiv.org/pdf/1711.08475.pdf
+        self.assertEqual(count_fingerprint('instance'),
+                         0b0101010001100100)
+
+        self.assertEqual(count_fingerprint('inst'),
+                         0b0001000001010100)
+        self.assertEqual(count_fingerprint('instance', 15),
+                         0b0101010001100100)
+        self.assertEqual(count_fingerprint('instance', 32),
+                         0b01010100011001000000000100000000)
+        self.assertEqual(count_fingerprint('instance', 64),
+                         0b01010100011001000000000100000000<<32)
+
     def test_position_fingerprint(self):
-        """Test abydos.occurrence_fingerprint."""
+        """Test abydos.position_fingerprint."""
         # Base case
-        self.assertEqual(position_fingerprint(''), 0)
+        self.assertEqual(position_fingerprint(''),
+                         0b1111111111111111)
+
+        # https://arxiv.org/pdf/1711.08475.pdf
+        self.assertEqual(position_fingerprint('instance'),
+                         0b1110111001110001)
+
+        self.assertEqual(position_fingerprint('instance'),
+                         0b1110111001110001)
+        self.assertEqual(position_fingerprint('instance', 15),
+                         0b111011100111000)
+        self.assertEqual(position_fingerprint('instance', 32),
+                         0b11101110011100000101011111111111)
+        self.assertEqual(position_fingerprint('instance', 64),
+                         0xee7057ffefffffff)
 
 
 class SynonameToolcodeTestCases(unittest.TestCase):
