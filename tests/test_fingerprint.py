@@ -26,8 +26,10 @@ from __future__ import unicode_literals
 import unittest
 
 import abydos.phonetic as phonetic
-from abydos.fingerprint import omission_key, phonetic_fingerprint, \
-    qgram_fingerprint, skeleton_key, str_fingerprint
+from abydos.fingerprint import count_fingerprint, occurrence_fingerprint, \
+    occurrence_halved_fingerprint, omission_key, phonetic_fingerprint, \
+    position_fingerprint, qgram_fingerprint, skeleton_key, str_fingerprint, \
+    synoname_toolcode
 
 from six.moves import range
 
@@ -135,6 +137,41 @@ class SPEEDCOPTestCases(unittest.TestCase):
         self.assertEqual(omission_key('caramel'), 'MCLRAE')
         self.assertEqual(omission_key('maceral'), 'MCLRAE')
         self.assertEqual(omission_key('lacrimal'), 'MCLRAI')
+
+
+class LightweightFingerprintsTestCases(unittest.TestCase):
+    """Test Cisłak & Grabowski lightweight fingerprint functions.
+
+    abydos.clustering.occurrence_fingerprint, .occurrence_halved_fingerprint,
+    .count_fingerprint, & .position_fingerprint
+    """
+
+    def test_occurrence_fingerprint(self):
+        """Test abydos.occurrence_fingerprint."""
+        self.assertEqual(occurrence_fingerprint(''), 0)
+
+    def test_occurrence_halved_fingerprint(self):
+        """Test abydos.occurrence_fingerprint."""
+        self.assertEqual(occurrence_halved_fingerprint(''), 0)
+
+    def test_count_fingerprint(self):
+        """Test abydos.occurrence_fingerprint."""
+        self.assertEqual(count_fingerprint(''), 0)
+
+    def test_position_fingerprint(self):
+        """Test abydos.occurrence_fingerprint."""
+        self.assertEqual(position_fingerprint(''), 0)
+
+
+class SynonameToolcodeTestCases(unittest.TestCase):
+    """Test Synoname Toolcode function.
+
+    abydps.fingerprint.synoname_toolcode
+    """
+
+    def test_synoname_toolcode(self):
+        """Test abydos.synoname_toolcode."""
+        self.assertEqual(synoname_toolcode(''), ('', '', '0000000000$$'))
 
 
 if __name__ == '__main__':
