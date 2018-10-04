@@ -239,6 +239,46 @@ class SynonameToolcodeTestCases(unittest.TestCase):
         # Base case
         self.assertEqual(synoname_toolcode(''), ('', '', '0000000000$$'))
 
+        # from Synoname demo
+        self.assertEqual(synoname_toolcode('angelico', 'fra'),
+                         ('angelico', 'fra', '0000000308$044a$af'))
+        self.assertEqual(synoname_toolcode('Aelst', 'Willem van', ''),
+                         ('aelst', 'willem van', '0000001005$143a$awv'))
+        self.assertEqual(synoname_toolcode('Afro', '', ''),
+                         ('afro', '', '0000000004$$a'))
+        self.assertEqual(synoname_toolcode('Afro', 'Basaldella', ''),
+                         ('afro', 'basaldella', '0000001004$$ab'))
+        self.assertEqual(synoname_toolcode('Albright', 'Ivan', ''),
+                         ('albright', 'ivan', '0000000408$$ai'))
+        self.assertEqual(synoname_toolcode('Antonello da Messina'),
+                         ('antonello da messina', '', '0000000020$022b$adm'))
+        self.assertEqual(synoname_toolcode('Albright', 'Ivan Le Lorraine', ''),
+                         ('albright', 'ivan le lorraine', '0000001608$067b$ail'))
+        self.assertEqual(synoname_toolcode('Bazille', 'Frederic', 'Attributed to'),
+                         ('bazille', 'frederic', '1000000807$$bf'))
+        self.assertEqual(synoname_toolcode('Bazille', 'Frederick', 'Attributed to'),
+                         ('bazille', 'frederick', '1000000907$$bf'))
+        self.assertEqual(synoname_toolcode('Beerstraaten', 'Jan Abrahamsz.', ''),
+                         ('beerstraaten', 'jan abrahamsz.', '0200001412$$bja'))
+        self.assertEqual(synoname_toolcode('Bonifacio di Pitati'),
+                         ('bonifacio di pitati', '', '0000000019$035b$bdp'))
+        self.assertEqual(synoname_toolcode('Breughel the Younger', 'Jan', ''),
+                         ('breughel the younger', 'jan', '0020000320$134b$btyj'))
+        self.assertEqual(synoname_toolcode('Brown', 'W. W.', ''),
+                         ('brown', 'w. w.', '0200000505$$bw'))
+        self.assertEqual(synoname_toolcode('Brueghel II (the Younger)', 'Jan', ''),
+                         ('brueghel ii (the younger)', 'jan', '0120490325$049b134b$bityj'))
+        self.assertEqual(synoname_toolcode('Brueghel II (the Younger)', 'Pieter', 'Workshop of'),
+                         ('brueghel ii (the younger)', 'pieter', '3120490625$049b134b$bityp'))
+        self.assertEqual(synoname_toolcode('Bugiardini', 'Guiliano di Piero di Simone', ''),
+                         ('bugiardini', 'guiliano di piero di simone', '0000002710$035b035b$bgdps'))
+        self.assertEqual(synoname_toolcode('Caravaggio', '', 'Follower of'),
+                         ('caravaggio', '', '3000000010$$c'))
+        self.assertEqual(synoname_toolcode('Caravaggio', 'Michelangelo Merisi da', 'Follower of'),
+                         ('caravaggio', 'michelangelo merisi da', '3000002210$022a$cmd'))
+        self.assertEqual(synoname_toolcode('Oost the Younger', 'Jacob van', ''),
+                         ('oost the younger', 'jacob van', '0020000916$134b143a$otyjv'))
+
 
 if __name__ == '__main__':
     unittest.main()
