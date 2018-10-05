@@ -2332,7 +2332,7 @@ def s_stemmer(word):
     """
     lowered = word.lower()
     if lowered[-3:] == 'ies' and lowered[-4:-3] not in {'e', 'a'}:
-        return word[:-3] + 'Y' if word[-1:].isupper() else 'y'
+        return word[:-3] + ('Y' if word[-1:].isupper() else 'y')
     if lowered[-2:] == 'es' and lowered[-3:-2] not in {'a', 'e', 'o'}:
         return word[:-1]
     if lowered[-1:] == 's' and lowered[-2:-1] not in {'u', 's'}:
