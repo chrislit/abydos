@@ -4624,6 +4624,28 @@ class RogerRootTestCases(unittest.TestCase):
         self.assertEqual(roger_root('Arlène'), '14520')
         self.assertEqual(roger_root('Lüdenscheidt'), '05126')
 
+        # no zero_pad
+        self.assertEqual(roger_root('BROWNER', zero_pad=False), '09424')
+        self.assertEqual(roger_root('STANLEY', zero_pad=False), '00125')
+        self.assertEqual(roger_root('CHALMAN', zero_pad=False), '06532')
+        self.assertEqual(roger_root('CHING', zero_pad=False), '0627')
+        self.assertEqual(roger_root('ANDERSON', zero_pad=False), '12140')
+        self.assertEqual(roger_root('OVERSTREET, zero_pad=False'), '18401')
+        self.assertEqual(roger_root('HECKEL', zero_pad=False), '275')
+        self.assertEqual(roger_root('WYSZYNSKI', zero_pad=False), '40207')
+        self.assertEqual(roger_root('WHITTED', zero_pad=False), '411')
+        self.assertEqual(roger_root('ONGOQO', zero_pad=False), '1277')
+        self.assertEqual(roger_root('JOHNSON', zero_pad=False), '3202')
+        self.assertEqual(roger_root('WILLIAMS', zero_pad=False), '4530')
+        self.assertEqual(roger_root('SMITH', zero_pad=False), '0031')
+        self.assertEqual(roger_root('JONES', zero_pad=False), '320')
+        self.assertEqual(roger_root('BROWN', zero_pad=False), '0942')
+        self.assertEqual(roger_root('DAVIS', zero_pad=False), '0180')
+        self.assertEqual(roger_root('JACKSON', zero_pad=False), '3702')
+        self.assertEqual(roger_root('WILSON', zero_pad=False), '4502')
+        self.assertEqual(roger_root('LEE', zero_pad=False), '05')
+        self.assertEqual(roger_root('THOMAS', zero_pad=False), '0130')
+
 
 class ONCATestCases(unittest.TestCase):
     """Test ONCA functions.
