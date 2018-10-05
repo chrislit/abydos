@@ -28,7 +28,7 @@ from math import isnan, sqrt
 
 from abydos.stats import ConfusionTable, aghmean, agmean, amean, cmean, \
     ghmean, gmean, heronian_mean, hmean, hoelder_mean, imean, lehmer_mean, \
-    lmean, median, midrange, mode, qmean, seiffert_mean
+    lmean, median, midrange, mode, qmean, seiffert_mean, std, var
 
 
 UNIT_TABLE = ConfusionTable(1, 1, 1, 1)
@@ -610,6 +610,7 @@ class MeansTestCases(unittest.TestCase):
         _one_to_five = [1, 2, 3, 4, 5]
         _onethreefive = [1, 1, 3, 5, 5]
         _floats = [0.5, 0.8, 0.1, 0.2, 0.25]
+        _has_inf = [0, 1, 2, float('inf')]
 
         self.assertAlmostEqual(amean(_ones), 1)
         self.assertAlmostEqual(amean(_zeros), 0)
@@ -716,6 +717,7 @@ class MeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(aghmean(_one_to_five), 2.5769530579812563)
         self.assertAlmostEqual(aghmean(_onethreefive), 2.3520502484275387)
         self.assertAlmostEqual(aghmean(_floats), 0.28841285333045547)
+        self.assertTrue(isnan(aghmean(_has_inf)))
 
         self.assertAlmostEqual(midrange(_ones), 1)
         self.assertAlmostEqual(midrange(_zeros), 0)
@@ -736,6 +738,15 @@ class MeansTestCases(unittest.TestCase):
         self.assertEqual(mode([1, 1, 2, 2, 2]), 2)
         self.assertEqual(mode([1, 5, 5, 2, 5, 2]), 5)
 
+        self.assertAlmostEqual(var(_ones), 0)
+        self.assertAlmostEqual(var(_zeros), 0)
+        self.assertAlmostEqual(var(_one_to_five), 2)
+        self.assertAlmostEqual(var(_onethreefive), 3.2)
+
+        self.assertAlmostEqual(std(_ones), 0)
+        self.assertAlmostEqual(std(_zeros), 0)
+        self.assertAlmostEqual(std(_one_to_five), 2**0.5)
+        self.assertAlmostEqual(std(_onethreefive), 3.2**0.5)
 
 if __name__ == '__main__':
     unittest.main()
