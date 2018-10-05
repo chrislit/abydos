@@ -748,5 +748,6 @@ class MeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(std(_one_to_five), 2**0.5)
         self.assertAlmostEqual(std(_onethreefive), 3.2**0.5)
 
+
 if __name__ == '__main__':
     unittest.main()

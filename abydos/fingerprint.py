@@ -713,7 +713,8 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
                 loc = full_name.find(match_context, loc+1)
                 if loc > 0:
                     if roman:
-                        if not any(abbr in fname for abbr in ('i.', 'v.', 'x.')):
+                        if not any(abbr in fname for abbr in
+                                   ('i.', 'v.', 'x.')):
                             full_name = (full_name[:loc] +
                                          full_name[loc + len(match) + 1:])
                             toolcode[7] += '{:03d}'.format(num) + 'b'
@@ -746,6 +747,7 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
                     toolcode[9] += full_name[loc:loc+len(match)]
 
     return lname, fname, ''.join(toolcode)
+
 
 if __name__ == '__main__':
     import doctest

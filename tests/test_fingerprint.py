@@ -169,7 +169,7 @@ class LightweightFingerprintsTestCases(unittest.TestCase):
         self.assertEqual(occurrence_fingerprint('instance', 32),
                          0b11101110000100000000000000000000)
         self.assertEqual(occurrence_fingerprint('instance', 64),
-                         0b11101110000100000000000000000000<<32)
+                         0b11101110000100000000000000000000 << 32)
 
     def test_occurrence_halved_fingerprint(self):
         """Test abydos.occurrence_halved_fingerprint."""
@@ -187,8 +187,7 @@ class LightweightFingerprintsTestCases(unittest.TestCase):
         self.assertEqual(occurrence_halved_fingerprint('instance', 32),
                          0b01100100101110000000000100000000)
         self.assertEqual(occurrence_halved_fingerprint('instance', 64),
-                         0b01100100101110000000000100000000<<32)
-
+                         0b01100100101110000000000100000000 << 32)
 
     def test_count_fingerprint(self):
         """Test abydos.count_fingerprint."""
@@ -206,7 +205,7 @@ class LightweightFingerprintsTestCases(unittest.TestCase):
         self.assertEqual(count_fingerprint('instance', 32),
                          0b01010100011001000000000100000000)
         self.assertEqual(count_fingerprint('instance', 64),
-                         0b01010100011001000000000100000000<<32)
+                         0b01010100011001000000000100000000 << 32)
 
     def test_position_fingerprint(self):
         """Test abydos.position_fingerprint."""
@@ -299,26 +298,27 @@ class SynonameToolcodeTestCases(unittest.TestCase):
                          ('cato the elder', '', '0110000014$133b$cte'))
         self.assertEqual(synoname_toolcode('Cato the Elder', normalize=2),
                          ('cato the elder', '', '0010000014$133b$cte'))
-        self.assertEqual(synoname_toolcode('Lorem ipsum dolor sit amet, '+
-                                           'consectetur adipiscing elit, sed '+
-                                           'do eiusmod tempor incididunt ut '+
-                                           'labore et dolore magna aliqua. '+
-                                           'Nulla aliquet porttitor lacus '+
-                                           'luctus accumsan tortor posuere. '+
-                                           'Egestas purus viverra accumsan '+
-                                           'in. Ultrices mi tempus imperdiet '+
-                                           'nulla malesuada pellentesque '+
-                                           'elit eget gravida. Proin libero '+
-                                           'nunc consequat interdum varius '+
-                                           'sit amet mattis vulputate. '+
-                                           'Mauris ultrices eros in cursus '+
-                                           'turpis massa tincidunt dui. '+
-                                           'Faucibus in ornare quam viverra '+
-                                           'orci sagittis eu volutpat odio. '+
-                                           'Enim blandit volutpat maecenas '+
-                                           'volutpat blandit aliquam etiam. '+
-                                           'Vel quam elementum pulvinar '+
-                                           'etiam. Duis ut diam quam nulla '+
+        self.assertEqual(synoname_toolcode('Lorem ipsum dolor sit amet, ' +
+                                           'consectetur adipiscing elit, ' +
+                                           'sed do eiusmod tempor ' +
+                                           'incididunt ut labore et dolore ' +
+                                           'magna aliqua. Nulla aliquet ' +
+                                           'porttitor lacus luctus accumsan ' +
+                                           'tortor posuere. Egestas purus ' +
+                                           'viverra accumsan in. Ultrices ' +
+                                           'mi tempus imperdiet nulla ' +
+                                           'malesuada pellentesque elit ' +
+                                           'eget gravida. Proin libero nunc ' +
+                                           'consequat interdum varius sit ' +
+                                           'amet mattis vulputate. Mauris ' +
+                                           'ultrices eros in cursus turpis ' +
+                                           'massa tincidunt dui. Faucibus ' +
+                                           'in ornare quam viverra orci ' +
+                                           'sagittis eu volutpat odio. Enim ' +
+                                           'blandit volutpat maecenas ' +
+                                           'volutpat blandit aliquam etiam. ' +
+                                           'Vel quam elementum pulvinar ' +
+                                           'etiam. Duis ut diam quam nulla ' +
                                            'porttitor massa id.',
                                            normalize=1)[2],
                          '02000060626$068d$lidsacetumnpvgflo')

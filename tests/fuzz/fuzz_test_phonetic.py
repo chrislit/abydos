@@ -24,7 +24,7 @@ This module contains fuzz tests for abydos.phonetic
 import codecs
 import os
 import unittest
-from random import choice, sample, randint
+from random import choice, randint, sample
 
 from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
     dm_soundex, dolby, double_metaphone, eudex, fonem, fuzzy_soundex, \

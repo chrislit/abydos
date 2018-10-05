@@ -34,22 +34,22 @@ from abydos.compression import ac_train
 from abydos.distance import _synoname_strip_punct, bag, chebyshev, \
     damerau_levenshtein, dist, dist_bag, dist_baystat, dist_chebyshev, \
     dist_compression, dist_cosine, dist_damerau, dist_dice, dist_editex, \
-    dist_euclidean, dist_hamming, dist_ident, dist_indel, dist_jaccard, \
-    dist_jaro_winkler, dist_lcsseq,  dist_lcsstr, dist_length, \
+    dist_euclidean, dist_eudex, dist_hamming, dist_ident, dist_indel, \
+    dist_jaccard, dist_jaro_winkler, dist_lcsseq, dist_lcsstr, dist_length, \
     dist_levenshtein, dist_manhattan, dist_minkowski, dist_mlipns, \
     dist_monge_elkan, dist_mra, dist_overlap, dist_prefix, \
     dist_ratcliff_obershelp, dist_sift4, dist_strcmp95, dist_suffix, \
-    dist_tversky, dist_typo, dist_eudex, editex, euclidean, eudex_hamming, \
-    gotoh, hamming, lcsseq, lcsstr, levenshtein, manhattan, minkowski, \
-    mra_compare, needleman_wunsch, sift4_simplest, sift4_common, sim, \
-    sim_bag, sim_baystat, sim_chebyshev, sim_compression, sim_cosine, \
-    sim_damerau, sim_dice, sim_editex, sim_euclidean, sim_hamming, sim_ident, \
+    dist_tversky, dist_typo, editex, euclidean, eudex_hamming, gotoh, \
+    hamming, lcsseq, lcsstr, levenshtein, manhattan, minkowski, mra_compare, \
+    needleman_wunsch, sift4_common, sift4_simplest, sim, sim_bag, \
+    sim_baystat, sim_chebyshev, sim_compression, sim_cosine, sim_damerau, \
+    sim_dice, sim_editex, sim_euclidean, sim_eudex, sim_hamming, sim_ident, \
     sim_indel, sim_jaccard, sim_jaro_winkler, sim_lcsseq, sim_lcsstr, \
     sim_length, sim_levenshtein, sim_manhattan, sim_matrix, sim_minkowski, \
     sim_mlipns, sim_monge_elkan, sim_mra, sim_overlap, sim_prefix, \
     sim_ratcliff_obershelp, sim_sift4, sim_strcmp95, sim_suffix, \
-    sim_tanimoto, sim_tversky, sim_typo, sim_eudex, smith_waterman, \
-    synoname, synoname_word_approximation, tanimoto, typo
+    sim_tanimoto, sim_tversky, sim_typo, smith_waterman, synoname, \
+    synoname_word_approximation, tanimoto, typo
 from abydos.qgram import QGrams
 
 from six.moves import range
@@ -732,7 +732,7 @@ class MinkowskiTestCases(unittest.TestCase):
         self.assertEqual(minkowski(QGrams('nelson'), QGrams('')), 7)
         self.assertEqual(minkowski(QGrams(''), QGrams('neilsen')), 8)
         self.assertAlmostEqual(minkowski(QGrams('nelson'),
-                                             QGrams('neilsen')), 7)
+                                         QGrams('neilsen')), 7)
 
         # non-q-gram tests
         self.assertEqual(minkowski('', '', 0), 0)
@@ -839,7 +839,7 @@ class ManhattanTestCases(unittest.TestCase):
         self.assertEqual(manhattan(QGrams('nelson'), QGrams('')), 7)
         self.assertEqual(manhattan(QGrams(''), QGrams('neilsen')), 8)
         self.assertAlmostEqual(manhattan(QGrams('nelson'),
-                                             QGrams('neilsen')), 7)
+                                         QGrams('neilsen')), 7)
 
         # non-q-gram tests
         self.assertEqual(manhattan('', '', 0), 0)
@@ -906,6 +906,7 @@ class EuclideanTestCases(unittest.TestCase):
 
     abydos.distance.euclidean, sim_euclidean & .dist_euclidean
     """
+
     def test_euclidean(self):
         """Test abydos.distance.euclidean."""
         self.assertEqual(euclidean('', ''), 0)
@@ -923,7 +924,7 @@ class EuclideanTestCases(unittest.TestCase):
         self.assertEqual(euclidean(QGrams('nelson'), QGrams('')), 7**0.5)
         self.assertEqual(euclidean(QGrams(''), QGrams('neilsen')), 8**0.5)
         self.assertAlmostEqual(euclidean(QGrams('nelson'),
-                                             QGrams('neilsen')), 7**0.5)
+                                         QGrams('neilsen')), 7**0.5)
 
         # non-q-gram tests
         self.assertEqual(euclidean('', '', 0), 0)
@@ -1018,7 +1019,7 @@ class ChebyshevTestCases(unittest.TestCase):
         self.assertEqual(chebyshev(QGrams('nelson'), QGrams('')), 1)
         self.assertEqual(chebyshev(QGrams(''), QGrams('neilsen')), 1)
         self.assertAlmostEqual(chebyshev(QGrams('nelson'),
-                                             QGrams('neilsen')), 1)
+                                         QGrams('neilsen')), 1)
 
         # non-q-gram tests
         self.assertEqual(chebyshev('', '', 0), 0)
@@ -2363,6 +2364,7 @@ class EditexTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_editex('neilsen', 'nelson'), 2/14)
         self.assertEqual(dist_editex('niall', 'neal'), 0.1)
 
+
 class EudexTestCases(unittest.TestCase):
     """Test Eudex distance functions.
 
@@ -2723,6 +2725,8 @@ class TypoTestCases(unittest.TestCase):
         """Test abydos.distance.typo."""
         # Base cases
         self.assertEqual(typo('', ''), 0)
+        self.assertEqual(typo('', 'typo'), 4)
+        self.assertEqual(typo('typo', ''), 4)
 
     def test_sim_typo(self):
         """Test abydos.distance.sim_typo."""
