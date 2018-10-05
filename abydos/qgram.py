@@ -84,12 +84,14 @@ class QGrams(Counter):
 
         for qval_i in qval:
             for skip_i in skip:
-                if len(term) < qval_i or qval_i < 1:
+                if len(self.term) < qval_i or qval_i < 1:
                     continue
 
                 if start_stop and qval_i > 1:
-                    term = (start_stop[0]*(qval_i-1) + term +
+                    term = (start_stop[0]*(qval_i-1) + self.term +
                             start_stop[-1]*(qval_i-1))
+                else:
+                    term = self.term
 
                 # Having appended start & stop symbols (or not), save the
                 # result, but only for the longest valid qval_i
