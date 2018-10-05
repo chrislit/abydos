@@ -26,9 +26,9 @@ from __future__ import unicode_literals
 import unittest
 
 import abydos.stats as stats
-from abydos.distance import sim_tanimoto
 from abydos.clustering import mean_pairwise_similarity, \
     pairwise_similarity_statistics
+from abydos.distance import sim_tanimoto
 
 
 NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
@@ -100,6 +100,7 @@ class MPSTestCases(unittest.TestCase):
                                mean_pairwise_similarity(sorted(NIALL)))
         self.assertAlmostEqual(mean_pairwise_similarity(NIALL),
                                mean_pairwise_similarity(set(NIALL)))
+
 
 class PSSTestCases(unittest.TestCase):
     """Test pairwise similarity statistics functions.
@@ -180,6 +181,7 @@ class PSSTestCases(unittest.TestCase):
                           NIALL, metric=None)
         self.assertRaises(ValueError, pairwise_similarity_statistics, 5, NIALL)
         self.assertRaises(ValueError, pairwise_similarity_statistics, NIALL, 5)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -24,7 +24,7 @@ This module contains fuzz tests for abydos.fingerprint
 import codecs
 import os
 import unittest
-from random import choice, sample, randint
+from random import choice, randint, sample
 
 from abydos.fingerprint import count_fingerprint, occurrence_fingerprint, \
     occurrence_halved_fingerprint, omission_key, phonetic_fingerprint, \

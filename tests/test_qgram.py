@@ -64,14 +64,14 @@ class QgramTestCases(unittest.TestCase):
         self.assertEqual(sorted(QGrams('NELSON', qval=range(3)).elements()),
                          sorted(['$N', 'E', 'EL', 'L', 'LS', 'N', 'N', 'N#',
                                  'NE', 'O', 'ON', 'S', 'SO']))
-        self.assertEqual(QGrams('NELSON', qval=(1,2)).count(), 13)
+        self.assertEqual(QGrams('NELSON', qval=(1, 2)).count(), 13)
 
         # skip=(1,2)
-        self.assertEqual(sorted(QGrams('NELSON', skip=(2,1,0)).elements()),
+        self.assertEqual(sorted(QGrams('NELSON', skip=(2, 1, 0)).elements()),
                          sorted(['$E', '$L', '$N', 'EL', 'EO', 'ES', 'LN',
                                  'LO', 'LS', 'N', 'N', 'N#', 'NE', 'NL', 'NS',
                                  'O', 'O#', 'ON', 'S#', 'SN', 'SO']))
-        self.assertEqual(sorted(QGrams('NELSON', skip=(2,1,0)).elements()),
+        self.assertEqual(sorted(QGrams('NELSON', skip=(2, 1, 0)).elements()),
                          sorted(['$E', '$L', '$N', 'EL', 'EO', 'ES', 'LN',
                                  'LO', 'LS', 'N', 'N', 'N#', 'NE', 'NL', 'NS',
                                  'O', 'O#', 'ON', 'S#', 'SN', 'SO']))
