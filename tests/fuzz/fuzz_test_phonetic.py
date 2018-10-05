@@ -24,7 +24,7 @@ This module contains fuzz tests for abydos.phonetic
 import codecs
 import os
 import unittest
-from random import choice, choices, randint
+from random import choice, sample, randint
 
 from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
     dm_soundex, dolby, double_metaphone, eudex, fonem, fuzzy_soundex, \
@@ -221,7 +221,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = choices(list(algorithms.keys()), k=5)  # noqa: S311
+                algs = sample(list(algorithms.keys()), k=5)  # noqa: S311
 
             for algo in algs:
                 try:
@@ -239,7 +239,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = choices(list(algorithms.keys()), k=5)  # noqa: S311
+                algs = sample(list(algorithms.keys()), k=5)  # noqa: S311
 
             for algo in algs:
                 try:
@@ -258,7 +258,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = choices(list(algorithms.keys()), k=5)  # noqa: S311
+                algs = sample(list(algorithms.keys()), k=5)  # noqa: S311
 
             for algo in algs:
                 try:
@@ -276,7 +276,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = choices(list(algorithms.keys()), k=5)  # noqa: S311
+                algs = sample(list(algorithms.keys()), k=5)  # noqa: S311
 
             for algo in algs:
                 try:
@@ -294,7 +294,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = choices(list(algorithms.keys()), k=5)  # noqa: S311
+                algs = sample(list(algorithms.keys()), k=5)  # noqa: S311
 
             for algo in algs:
                 try:
@@ -312,7 +312,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = choices(list(algorithms.keys()), k=5)  # noqa: S311
+                algs = sample(list(algorithms.keys()), k=5)  # noqa: S311
 
             for algo in algs:
                 try:
