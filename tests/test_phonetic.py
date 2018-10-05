@@ -41,7 +41,7 @@ from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
     koelner_phonetik, koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, \
     lein, metaphone, mra, norphone, nysiis, onca, parmar_kumbharana, phonem, \
     phonet, phonetic_spanish, phonex, phonix, pshp_soundex_first, \
-    refined_soundex, roger_root, russell_index, russell_index_alpha, \
+    refined_soundex, reth_schek_phonetik, roger_root, russell_index, russell_index_alpha, \
     russell_index_num_to_alpha, sfinxbis, soundex, soundex_br, \
     spanish_metaphone, spfc, statistics_canada
 
@@ -4747,6 +4747,50 @@ class HaasePhonetikTestCases(unittest.TestCase):
         self.assertEqual(haase_phonetik('addiscendae'), ('92989629',))
         self.assertEqual(haase_phonetik('kickx'), ('4948',))
         self.assertEqual(haase_phonetik('sanctionen'), ('896829696',))
+
+
+class RethSchekTestCases(unittest.TestCase):
+    """Test Reth-Schek Phonetik functions.
+
+    test cases for abydos.phonetic.reth_schek_phonetik
+    """
+
+    def test_reth_schek_phonetik(self):
+        """Test abydos.phonetic.reth_schek_phonetik."""
+        # Base cases
+        self.assertEqual(reth_schek_phonetik(''), '')
+
+        # equivalents
+        self.assertEqual(reth_schek_phonetik('Häschen'),
+                         reth_schek_phonetik('Haeschen'))
+        self.assertEqual(reth_schek_phonetik('Schloß'),
+                         reth_schek_phonetik('Schloss'))
+        self.assertEqual(reth_schek_phonetik('üben'),
+                         reth_schek_phonetik('ueben'))
+        self.assertEqual(reth_schek_phonetik('Eichörnchen'),
+                         reth_schek_phonetik('Eichoernchen'))
+
+        self.assertEqual(reth_schek_phonetik('Häschen'), 'HESCHEN')
+        self.assertEqual(reth_schek_phonetik('Eichörnchen'), 'AIGHOERNGHEN')
+        self.assertEqual(reth_schek_phonetik('Hexe'), 'HEXE')
+        self.assertEqual(reth_schek_phonetik('Chemie'), 'GHEMI')
+        self.assertEqual(reth_schek_phonetik('Brille'), 'BRILE')
+        self.assertEqual(reth_schek_phonetik('Brilleille'), 'BRILAILE')
+        self.assertEqual(reth_schek_phonetik('Niveau'), 'NIFEAU')
+        self.assertEqual(reth_schek_phonetik('Korb'), 'GORB')
+        self.assertEqual(reth_schek_phonetik('Heino'), 'HAINO')
+        self.assertEqual(reth_schek_phonetik('Nekka'), 'NEKA')
+        self.assertEqual(reth_schek_phonetik('Aleph'), 'ALEF')
+        self.assertEqual(reth_schek_phonetik('Aleppo'), 'ALEBO')
+        self.assertEqual(reth_schek_phonetik('Endzipfel'), 'ENDZIBFL')
+        self.assertEqual(reth_schek_phonetik('verbrandt'), 'FERBRAND')
+        self.assertEqual(reth_schek_phonetik('Cent'), 'GEND')
+        self.assertEqual(reth_schek_phonetik('addiscendae'), 'ADISGENDE')
+        self.assertEqual(reth_schek_phonetik('kickx'), 'GIGX')
+        self.assertEqual(reth_schek_phonetik('sanctionen'), 'SANGDIONEN')
+        self.assertEqual(reth_schek_phonetik('Kuh'), 'GU')
+        self.assertEqual(reth_schek_phonetik('lecker'), 'LEGR')
+        self.assertEqual(reth_schek_phonetik('rödlich'), 'ROEDLIG')
 
 
 class FonemTestCases(unittest.TestCase):
