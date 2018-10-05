@@ -40,9 +40,9 @@ from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
     dm_soundex, dolby, double_metaphone, eudex, fonem, fuzzy_soundex, haase_phonetik, \
     koelner_phonetik, koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, \
     lein, metaphone, mra, norphone, nysiis, onca, parmar_kumbharana, phonem, \
-    phonet, phonetic_spanish, phonex, phonix, pshp_soundex_first, \
+    phonet, phonetic_spanish, phonex, phonix, pshp_soundex_first, pshp_soundex_last, \
     refined_soundex, reth_schek_phonetik, roger_root, russell_index, russell_index_alpha, \
-    russell_index_num_to_alpha, sfinxbis, soundex, soundex_br, \
+    russell_index_num_to_alpha, sfinxbis, sound_d, soundex, soundex_br, \
     spanish_metaphone, spfc, statistics_canada
 
 from six import text_type
@@ -5042,11 +5042,77 @@ class DavidsonTestCases(unittest.TestCase):
             self.assertEqual(davidson(word, omit_fname=True), encoding)
 
 
+class SoundDTestCases(unittest.TestCase):
+    """Test class SoundD functions.
+
+    test cases for abydos.phonetic.sound_d
+    """
+
+    def test_sound_d(self):
+        """Test abydos.phonetic.sound_d."""
+        # Base cases
+        self.assertEqual(sound_d(''), '0000')
+        self.assertEqual(sound_d('', maxlength=6), '000000')
+
+        self.assertEqual(sound_d('knight'), '5300')
+        self.assertEqual(sound_d('accept'), '2130')
+        self.assertEqual(sound_d('pneuma'), '5500')
+        self.assertEqual(sound_d('ax'), '2000')
+        self.assertEqual(sound_d('wherever'), '6160')
+        self.assertEqual(sound_d('pox'), '1200')
+        self.assertEqual(sound_d('anywhere'), '5600')
+        self.assertEqual(sound_d('adenosine'), '3525')
+        self.assertEqual(sound_d('judge'), '2200')
+        self.assertEqual(sound_d('rough'), '6000')
+        self.assertEqual(sound_d('x-ray'), '2600')
+        self.assertEqual(sound_d('acetylcholine', maxlength=None), '234245')
+        self.assertEqual(sound_d('rough', maxlength=None), '6')
+
+
 class PSHPSoundexTestCases(unittest.TestCase):
     """Test PSHP Soundex functions.
 
     test cases for abydos.phonetic.pshp_soundex_last & pshp_soundex_first
     """
+
+    def test_pshp_soundex_last(self):
+        """Test abydos.phonetic.pshp_soundex_last."""
+        # Base case
+        self.assertEqual(pshp_soundex_last(''), '0000')
+
+        self.assertEqual(pshp_soundex_last('JAMES'), 'J500')
+        self.assertEqual(pshp_soundex_last('JOHN'), 'J500')
+        self.assertEqual(pshp_soundex_last('PAT'), 'P300')
+        self.assertEqual(pshp_soundex_last('PETER'), 'P350')
+
+        self.assertEqual(pshp_soundex_last('Smith'), 'S530')
+        self.assertEqual(pshp_soundex_last('van Damme'), 'D500')
+        self.assertEqual(pshp_soundex_last('MacNeil'), 'M400')
+        self.assertEqual(pshp_soundex_last('McNeil'), 'M400')
+        self.assertEqual(pshp_soundex_last('Edwards'), 'A353')
+        self.assertEqual(pshp_soundex_last('Gin'), 'J500')
+        self.assertEqual(pshp_soundex_last('Cillian'), 'S450')
+        self.assertEqual(pshp_soundex_last('Christopher'), 'K523')
+        self.assertEqual(pshp_soundex_last('Carme'), 'K500')
+        self.assertEqual(pshp_soundex_last('Knight'), 'N230')
+        self.assertEqual(pshp_soundex_last('Phillip'), 'F410')
+        self.assertEqual(pshp_soundex_last('Wein'), 'V500')
+        self.assertEqual(pshp_soundex_last('Wagner', german=True), 'V255')
+        self.assertEqual(pshp_soundex_last('Pence'), 'P500')
+        self.assertEqual(pshp_soundex_last('Less'), 'L000')
+        self.assertEqual(pshp_soundex_last('Simpson'), 'S525')
+        self.assertEqual(pshp_soundex_last('Samson'), 'S250')
+        self.assertEqual(pshp_soundex_last('Lang'), 'L500')
+        self.assertEqual(pshp_soundex_last('Hagan'), 'H500')
+        self.assertEqual(pshp_soundex_last('Cartes', german=True), 'K500')
+        self.assertEqual(pshp_soundex_last('Kats', german=True), 'K000')
+        self.assertEqual(pshp_soundex_last('Schultze', german=True), 'S400')
+        self.assertEqual(pshp_soundex_last('Alze', german=True), 'A400')
+        self.assertEqual(pshp_soundex_last('Galz', german=True), 'G400')
+        self.assertEqual(pshp_soundex_last('Alte', german=True), 'A400')
+        self.assertEqual(pshp_soundex_last('Alte', maxlength=None), 'A43')
+        self.assertEqual(pshp_soundex_last('Altemaier', maxlength=None),
+                         'A4355')
 
     def test_pshp_soundex_first(self):
         """Test abydos.phonetic.pshp_soundex_first."""
@@ -5058,6 +5124,21 @@ class PSHPSoundexTestCases(unittest.TestCase):
         self.assertEqual(pshp_soundex_first('JOHN'), 'J500')
         self.assertEqual(pshp_soundex_first('PAT'), 'P700')
         self.assertEqual(pshp_soundex_first('PETER'), 'P300')
+
+        # Additions for coverage
+        self.assertEqual(pshp_soundex_first('Giles'), 'J400')
+        self.assertEqual(pshp_soundex_first('Cy'), 'S000')
+        self.assertEqual(pshp_soundex_first('Chris'), 'K500')
+        self.assertEqual(pshp_soundex_first('Caleb'), 'K400')
+        self.assertEqual(pshp_soundex_first('Knabe'), 'N100')
+        self.assertEqual(pshp_soundex_first('Phil'), 'F400')
+        self.assertEqual(pshp_soundex_first('Wieland'), 'V400')
+        self.assertEqual(pshp_soundex_first('Wayne', german=True), 'V500')
+        self.assertEqual(pshp_soundex_first('Christopher', maxlength=None),
+                         'K5')
+        self.assertEqual(pshp_soundex_first('Asdaananndsjsjasd',
+                                            maxlength=None), 'A23553223')
+        self.assertEqual(pshp_soundex_first('Asdaananndsjsjasd'), 'A235')
 
 
 class NorphoneTestCases(unittest.TestCase):

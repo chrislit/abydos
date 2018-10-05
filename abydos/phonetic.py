@@ -5201,6 +5201,20 @@ def pshp_soundex_last(lname, maxlength=4, german=False):
     code = lname[:1]
 
     # B. Postfix treatment
+    if german:  # moved from end of postfix treatment due to blocking
+        if lname[-3:] == 'TES':
+            lname = lname[:-3]
+        elif lname[-2:] == 'TS':
+            lname = lname[:-2]
+        if lname[-3:] == 'TZE':
+            lname = lname[:-3]
+        elif lname[-2:] == 'ZE':
+            lname = lname[:-2]
+        if lname[-1:] == 'Z':
+            lname = lname[:-1]
+        elif lname[-2:] == 'TE':
+            lname = lname[:-2]
+
     if lname[-1:] == 'R':
         lname = lname[:-1] + 'N'
     elif lname[-2:] in {'SE', 'CE'}:
@@ -5223,20 +5237,6 @@ def pshp_soundex_last(lname, maxlength=4, german=False):
         lname = lname[:-1]
     if not german and lname[-3:] in {'GAN', 'GEN'}:
         lname = lname[:-3]+'A'+lname[-2:]
-
-    if german:
-        if lname[-3:] == 'TES':
-            lname = lname[:-3]
-        elif lname[-2:] == 'TS':
-            lname = lname[:-2]
-        if lname[-3:] == 'TZE':
-            lname = lname[:-3]
-        elif lname[-2:] == 'ZE':
-            lname = lname[:-2]
-        if lname[-1:] == 'Z':
-            lname = lname[:-1]
-        elif lname[-2:] == 'TE':
-            lname = lname[:-2]
 
     # C. Infix Treatment
     lname = lname.replace('CK', 'C')
