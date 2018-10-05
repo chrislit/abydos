@@ -5005,14 +5005,14 @@ class ParmarKumbharanaTestCases(unittest.TestCase):
             self.assertEqual(parmar_kumbharana(word), encoding)
 
 
-class RobinsonTestCases(unittest.TestCase):
-    """Test Robinson functions.
+class DavidsonTestCases(unittest.TestCase):
+    """Test class Davidson functions.
 
-    test cases for abydos.phonetic.robinson
+    test cases for abydos.phonetic.davidson
     """
 
-    def test_robinson(self):
-        """Test abydos.phonetic.robinson."""
+    def test_davidson(self):
+        """Test abydos.phonetic.davidson."""
         # Base cases
         self.assertEqual(davidson('', omit_fname=True), '    ')
         self.assertEqual(davidson(''), '    .')
