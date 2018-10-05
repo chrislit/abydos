@@ -653,9 +653,10 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
     if normalize == 2 and elderyounger:
         elderyounger_loc = fname.find(elderyounger)
         if elderyounger_loc != -1:
-            lname = lname + ' ' + elderyounger.strip()
-            fname = (fname[:elderyounger_loc].strip() + ' ' +
-                     fname[elderyounger_loc + len(elderyounger):])
+            lname = ' '.join((lname, elderyounger.strip()))
+            fname = ' '.join((fname[:elderyounger_loc].strip(),
+                              fname[elderyounger_loc +
+                                    len(elderyounger):])).strip()
 
     toolcode[4] = '{:02d}'.format(len(fname))
     toolcode[5] = '{:02d}'.format(len(lname))
@@ -678,9 +679,9 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
         """Move Roman numerals from first name to last."""
         loc = fname.find(numeral)
         if (loc != -1 and
-                (fname[loc + len(numeral)] in {' ', ','} or
-                 len(fname[loc:]) == len(numeral))):
-            lname += ' ' + numeral
+                (len(fname[loc:]) == len(numeral)) or
+                fname[loc+len(numeral)] in {' ', ','}):
+            lname = ' '.join((lname, numeral))
             fname = fname[:loc].strip()
             while fname[-1] in {' ', ','}:
                 fname = fname[:-1]
@@ -745,7 +746,6 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
                     toolcode[9] += full_name[loc:loc+len(match)]
 
     return lname, fname, ''.join(toolcode)
-
 
 if __name__ == '__main__':
     import doctest
