@@ -37,7 +37,7 @@ from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
     L_ITALIAN, L_LATVIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, L_SPANISH, \
     L_TURKISH
 from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
-    dm_soundex, dolby, double_metaphone, eudex, fonem, fuzzy_soundex, \
+    dm_soundex, dolby, double_metaphone, eudex, fonem, fuzzy_soundex, haase_phonetik, \
     koelner_phonetik, koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, \
     lein, metaphone, mra, norphone, nysiis, onca, parmar_kumbharana, phonem, \
     phonet, phonetic_spanish, phonex, phonix, pshp_soundex_first, \
@@ -4543,7 +4543,7 @@ class RogerRootTestCases(unittest.TestCase):
 
     def test_roger_root(self):
         """Test abydos.phonetic.roger_root."""
-        self.assertEqual(roger_root(''), '')
+        self.assertEqual(roger_root(''), '00000')
 
         # https://naldc.nal.usda.gov/download/27833/PDF
         self.assertEqual(roger_root('BROWNER'), '09424')
@@ -4704,6 +4704,49 @@ class EudexTestCases(unittest.TestCase):
         self.assertEqual(eudex('hello'), 144115188075896832)
         self.assertEqual(eudex('christopher'), 433648490138894409)
         self.assertEqual(eudex('colin'), 432345564238053650)
+
+
+class HaasePhonetikTestCases(unittest.TestCase):
+    """Test Haase Phonetik functions.
+
+    test cases for abydos.phonetic.haase_phonetik
+    """
+
+    def test_haase_phonetik(self):
+        """Test abydos.phonetic.haase_phonetik."""
+        # Base cases
+        self.assertEqual(haase_phonetik(''), ('',))
+
+        # equivalents
+        self.assertEqual(haase_phonetik('Häschen'), haase_phonetik('Haeschen'))
+        self.assertEqual(haase_phonetik('Schloß'), haase_phonetik('Schloss'))
+        self.assertEqual(haase_phonetik('üben'), haase_phonetik('ueben'))
+        self.assertEqual(haase_phonetik('Eichörnchen'),
+                         haase_phonetik('Eichoernchen'))
+
+        # coverage completion
+        self.assertEqual(haase_phonetik('Häschen'), ('9896', '9496'))
+        self.assertEqual(haase_phonetik('Häschen', primary_only=True),
+                         ('9896',))
+        self.assertEqual(haase_phonetik('Eichörnchen'), ('94976496',))
+        self.assertEqual(haase_phonetik('Hexe'), ('9489',))
+        self.assertEqual(haase_phonetik('Chemie'), ('4969', '8969'))
+
+        self.assertEqual(haase_phonetik('Brille'), ('17959', '179'))
+        self.assertEqual(haase_phonetik('Brilleille'),
+                         ('1795959', '17959', '179'))
+        self.assertEqual(haase_phonetik('Niveau'), ('6939',))
+        self.assertEqual(haase_phonetik('Korb'), ('4971', '4973'))
+        self.assertEqual(haase_phonetik('Heino'), ('969', '9693'))
+        self.assertEqual(haase_phonetik('Nekka'), ('6949', '69497'))
+        self.assertEqual(haase_phonetik('Aleph'), ('9593',))
+        self.assertEqual(haase_phonetik('Aleppo'), ('95919', '959193'))
+        self.assertEqual(haase_phonetik('Endzipfel'), ('96891395',))
+        self.assertEqual(haase_phonetik('verbrandt'), ('39717962', '39737962'))
+        self.assertEqual(haase_phonetik('Cent'), ('8962',))
+        self.assertEqual(haase_phonetik('addiscendae'), ('92989629',))
+        self.assertEqual(haase_phonetik('kickx'), ('4948',))
+        self.assertEqual(haase_phonetik('sanctionen'), ('896829696',))
 
 
 class FonemTestCases(unittest.TestCase):

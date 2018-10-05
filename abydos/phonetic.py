@@ -4447,9 +4447,6 @@ def roger_root(word, maxlength=5, zero_pad=True):
                     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
                     'Y', 'Z'})
 
-    if not word:
-        return ''
-
     # '*' is used to prevent combining by _delete_consecutive_repeats()
     _init_patterns = {4: {'TSCH': '06'},
                       3: {'TSH': '06', 'SCH': '06'},
@@ -4740,10 +4737,6 @@ def haase_phonetik(word, primary_only=False):
                     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
                     'Y', 'Z'})
 
-    # Nothing to convert, return base case
-    if not word:
-        return ''
-
     variants = []
     if primary_only:
         variants = [word]
@@ -4829,12 +4822,19 @@ def haase_phonetik(word, primary_only=False):
 
         sdx = _delete_consecutive_repeats(sdx)
 
-        # if sdx:
-        #     sdx = sdx[0] + sdx[1:].replace('9', '')
-
         return sdx
 
-    return tuple(_haase_code(word) for word in variants)
+    encoded = tuple(_haase_code(word) for word in variants)
+    if len(encoded) > 1:
+        encoded_set = set()
+        encoded_single = []
+        for code in encoded:
+            if code not in encoded_set:
+                encoded_set.add(code)
+                encoded_single.append(code)
+        return tuple(encoded_single)
+
+    return encoded
 
 
 def reth_schek_phonetik(word):
