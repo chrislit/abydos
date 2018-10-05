@@ -216,12 +216,20 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(soundex('', maxlength=4, zero_pad=True), '0000')
 
     def test_soundex_special(self):
-        """Test abydos.phonetic.soundex (special census variant method)."""
+        """Test abydos.phonetic.soundex (special 1880-1910 variant method)."""
         self.assertEqual(soundex('Ashcroft', var='special'), 'A226')
         self.assertEqual(soundex('Asicroft', var='special'), 'A226')
         self.assertEqual(soundex('AsWcroft', var='special'), 'A226')
         self.assertEqual(soundex('Rupert', var='special'), 'R163')
         self.assertEqual(soundex('Rubin', var='special'), 'R150')
+
+    def test_soundex_census(self):
+        """Test abydos.phonetic.soundex (Census variant method)."""
+        self.assertEqual(soundex('Vandeusen', var='Census'), ('V532', 'D250'))
+        self.assertEqual(soundex('van Deusen', var='Census'), ('V532', 'D250'))
+        self.assertEqual(soundex('McDonald', var='Census'), 'M235')
+        self.assertEqual(soundex('la Cruz', var='Census'), ('L262', 'C620'))
+        self.assertEqual(soundex('vanDamme', var='Census'), ('V535', 'D500'))
 
     def test_refined_soundex(self):
         """Test abydos.phonetic.refined_soundex."""
@@ -449,6 +457,48 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(refined_soundex('the', retain_vowels=True), 'T60')
         self.assertEqual(refined_soundex('lazy', retain_vowels=True), 'L7050')
         self.assertEqual(refined_soundex('dogs', retain_vowels=True), 'D6043')
+
+        # length tests
+        self.assertEqual(refined_soundex('testing', maxlength=4,
+                                         zero_pad=True), 'T636')
+        self.assertEqual(refined_soundex('TESTING', maxlength=4,
+                                         zero_pad=True), 'T636')
+        self.assertEqual(refined_soundex('The', maxlength=4, zero_pad=True),
+                         'T600')
+        self.assertEqual(refined_soundex('quick', maxlength=4, zero_pad=True),
+                         'Q530')
+        self.assertEqual(refined_soundex('brown', maxlength=4, zero_pad=True),
+                         'B198')
+        self.assertEqual(refined_soundex('fox', maxlength=4, zero_pad=True),
+                         'F250')
+        self.assertEqual(refined_soundex('jumped', maxlength=4, zero_pad=True),
+                         'J481')
+        self.assertEqual(refined_soundex('over', maxlength=4, zero_pad=True),
+                         'O290')
+        self.assertEqual(refined_soundex('the', maxlength=4, zero_pad=True),
+                         'T600')
+        self.assertEqual(refined_soundex('lazy', maxlength=4, zero_pad=True),
+                         'L750')
+        self.assertEqual(refined_soundex('dogs', maxlength=4, zero_pad=True),
+                         'D643')
+        self.assertEqual(refined_soundex('The', maxlength=4),
+                         'T6')
+        self.assertEqual(refined_soundex('quick', maxlength=4),
+                         'Q53')
+        self.assertEqual(refined_soundex('brown', maxlength=4),
+                         'B198')
+        self.assertEqual(refined_soundex('fox', maxlength=4),
+                         'F25')
+        self.assertEqual(refined_soundex('jumped', maxlength=4),
+                         'J481')
+        self.assertEqual(refined_soundex('over', maxlength=4),
+                         'O29')
+        self.assertEqual(refined_soundex('the', maxlength=4),
+                         'T6')
+        self.assertEqual(refined_soundex('lazy', maxlength=4),
+                         'L75')
+        self.assertEqual(refined_soundex('dogs', maxlength=4),
+                         'D643')
 
     def test_dm_soundex(self):
         """Test abydos.phonetic.dm_soundex (Daitch-Mokotoff Soundex)."""
@@ -771,6 +821,15 @@ class NysiisTestCases(unittest.TestCase):
                                 modified=True), 'NAL')
         self.assertEqual(nysiis('Niall', maxlength=None, modified=True), 'NAL')
         self.assertEqual(nysiis('Niall', maxlength=0, modified=True), 'NAL')
+
+        # coverage
+        self.assertEqual(nysiis('Sam Jr.', modified=True), 'ERROR')
+        self.assertEqual(nysiis('John Sr.', modified=True), 'ERROR')
+        self.assertEqual(nysiis('Wright', modified=True), 'RAT')
+        self.assertEqual(nysiis('Rhodes', modified=True), 'RAD')
+        self.assertEqual(nysiis('Dgagoda', modified=True), 'GAGAD')
+        self.assertEqual(nysiis('Bosch', modified=True), 'BAS')
+        self.assertEqual(nysiis('Schrader', modified=True), 'SRADAR')
 
 
 class MraTestCases(unittest.TestCase):
@@ -4470,6 +4529,10 @@ class LeinTestCases(unittest.TestCase):
         self.assertEqual(lein('Guillaume'), 'G320')
         self.assertEqual(lein('Arlène'), 'A332')
         self.assertEqual(lein('Lüdenscheidt'), 'L125')
+
+        # Coverage
+        self.assertEqual(lein('Lüdenscheidt', zero_pad=False), 'L125')
+        self.assertEqual(lein('Smith', zero_pad=False), 'S21')
 
 
 class RogerRootTestCases(unittest.TestCase):
