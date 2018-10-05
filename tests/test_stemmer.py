@@ -30,8 +30,8 @@ import unittest
 from abydos.stemmer import _ends_in_cvc, _ends_in_doubled_cons, _m_degree, \
     _sb_ends_in_short_syllable, _sb_has_vowel, _sb_r1, _sb_r2, \
     _sb_short_word, caumanns, clef_german, clef_german_plus, clef_swedish, \
-    lovins, paice_husk, porter, porter2, sb_danish, sb_dutch, sb_german, \
-    sb_norwegian, sb_swedish, schinke, uealite
+    lovins, paice_husk, porter, porter2, s_stemmer, sb_danish, sb_dutch, \
+    sb_german, sb_norwegian, sb_swedish, schinke, uealite
 
 TESTDIR = os.path.dirname(__file__)
 
@@ -964,6 +964,29 @@ class UEALiteTestCases(unittest.TestCase):
         self.assertEqual(uealite('MREs', var='Adams'), 'MRE')
         self.assertEqual(uealite('USAED', var='Adams'), 'USAED')
 
+        # Perl version tests
+        self.assertEqual(uealite('ragings'), 'rage')
+        self.assertEqual(uealite('ragings', var='Perl'), 'rag')
+
+        # complete coverage
+        self.assertEqual(uealite('was'), 'was')
+        self.assertEqual(uealite('during'), 'during')
+        self.assertEqual(uealite('abcdefghijklmnopqrstuvwxyz',
+                                 max_word_length=20),
+                         'abcdefghijklmnopqrstuvwxyz')
+        self.assertEqual(uealite('10'), '10')
+        self.assertEqual(uealite('top-ten'), 'top-ten')
+        self.assertEqual(uealite('top-10'), 'top-10')
+        self.assertEqual(uealite('top_ten'), 'top_ten')
+        self.assertEqual(uealite('ABCDEFGHIJKLMs', max_acro_length=8,
+                                 var='Adams'), 'ABCDEFGHIJKLMs')
+        self.assertEqual(uealite('ABCDEFGHIJKLM', max_acro_length=8,
+                                 var='Adams'), 'ABCDEFGHIJKLM')
+        self.assertEqual(uealite('abcDefGhij'), 'abcDefGhij')
+        self.assertEqual(uealite('Tophat'), 'Tophat')
+        self.assertEqual(uealite(''), '')
+        self.assertEqual(uealite(''), '')
+
     def test_uealite_wsj_set(self):
         """Test abydos.stemmer.uealite (WSJ testset)."""
         with open(TESTDIR + '/corpora/uea-lite_wsj.csv') as wsj_ts:
@@ -1037,6 +1060,36 @@ class SchinkeTestCases(unittest.TestCase):
                 nv = schinke(word)
                 self.assertEqual(nv['n'], noun)
                 self.assertEqual(nv['v'], verb)
+
+
+class SStemmerTestCases(unittest.TestCase):
+    """Test S-stemmer functions.
+
+    abydos.stemmer.s_stemmer
+    """
+
+    def test_schinke(self):
+        """Test abydos.stemmer.s_stemmer."""
+        # Base case
+        self.assertEqual(s_stemmer(''), '')
+
+        # Tests from Harman paper
+        self.assertEqual(s_stemmer('panels'), 'panel')
+        self.assertEqual(s_stemmer('subjected'), 'subjected')
+        self.assertEqual(s_stemmer('aerodynamics'), 'aerodynamic')
+        self.assertEqual(s_stemmer('heating'), 'heating')
+
+        # Additional tests to complete coverage
+        self.assertEqual(s_stemmer('dairies'), 'dairy')
+        self.assertEqual(s_stemmer('census'), 'census')
+        self.assertEqual(s_stemmer('boss'), 'boss')
+        self.assertEqual(s_stemmer('bosses'), 'bosse')
+        self.assertEqual(s_stemmer('raises'), 'raise')
+        self.assertEqual(s_stemmer('fees'), 'fee')
+        self.assertEqual(s_stemmer('attourneies'), 'attourneie')
+        self.assertEqual(s_stemmer('portemonnaies'), 'portemonnaie')
+        self.assertEqual(s_stemmer('foes'), 'foe')
+        self.assertEqual(s_stemmer('sundaes'), 'sundae')
 
 
 if __name__ == '__main__':
