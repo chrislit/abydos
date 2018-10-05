@@ -264,7 +264,7 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     word = word.replace('ß', 'SS')
 
     if var == 'Census':
-        # Should these prefixes be supplemented? (VANDE, DELA, VON)
+        # TODO: Should these prefixes be supplemented? (VANDE, DELA, VON)
         if word[:3] in {'VAN', 'CON'} and len(word) > 4:
             return (soundex(word, maxlength, 'American', reverse, zero_pad),
                     soundex(word[3:], maxlength, 'American', reverse,
@@ -356,8 +356,7 @@ def refined_soundex(word, maxlength=_INFINITY, zero_pad=False,
     if maxlength < _INFINITY:
         if zero_pad:
             sdx += ('0' * maxlength)
-        if maxlength:
-            sdx = sdx[:maxlength]
+        sdx = sdx[:maxlength]
 
     return sdx
 
