@@ -4484,8 +4484,6 @@ def roger_root(word, maxlength=5, zero_pad=True):
             code = _init_patterns[num][word[:num]]
             pos += num
             break
-    else:
-        pos += 1  # Advance if nothing is recognized
 
     # Then code subsequent digits
     while pos < len(word):
@@ -4494,8 +4492,6 @@ def roger_root(word, maxlength=5, zero_pad=True):
                 code += _med_patterns[num][word[pos:pos+num]]
                 pos += num
                 break
-        else:
-            pos += 1  # Advance if nothing is recognized
 
     code = _delete_consecutive_repeats(code)
     code = code.replace('*', '')
