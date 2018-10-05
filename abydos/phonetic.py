@@ -4905,7 +4905,7 @@ def reth_schek_phonetik(word):
         word = word[:-2]+'R'
     elif word[-2:] == 'EL':
         word = word[:-2]+'L'
-    elif word[-1] == 'H':
+    elif word[-1:] == 'H':
         word = word[:-1]
 
     return word
