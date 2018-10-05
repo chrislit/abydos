@@ -3444,20 +3444,23 @@ def dist_indel(src, tar):
     :return: indel distance
     :rtype: float
     """
-    return dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 9999, 9999))
+    if src == tar:
+        return 0
+    return (levenshtein(src, tar, mode='lev', cost=(1, 1, 9999, 9999)) /
+            (len(src) + len(tar)))
 
 
 def sim_indel(src, tar):
     """Return the indel similarity of two strings.
 
-    Normalized bag similarity is the complement of normalized bag distance:
-    :math:`sim_{bag} = 1 - dist_{bag}`
+    This is equivalent to levenshtein similarity, when only inserts and deletes
+    are possible.
 
     :param str src, tar: two strings to be compared
     :return: indel similarity
     :rtype: float
     """
-    return sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 9999, 9999))
+    return 1-dist_indel(src, tar)
 
 
 def _synoname_strip_punct(word):

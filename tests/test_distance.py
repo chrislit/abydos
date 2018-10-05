@@ -2749,11 +2749,31 @@ class IndelTestCases(unittest.TestCase):
         """Test abydos.distance.sim_indel."""
         # Base cases
         self.assertEqual(sim_indel('', ''), 1)
+        self.assertEqual(sim_indel('a', ''), 0)
+        self.assertEqual(sim_indel('', 'a'), 0)
+        self.assertEqual(sim_indel('abc', ''), 0)
+        self.assertEqual(sim_indel('', 'abc'), 0)
+        self.assertEqual(sim_indel('abcd', 'efgh'), 0)
+
+        self.assertAlmostEqual(sim_indel('Nigel', 'Niall'), 0.6)
+        self.assertAlmostEqual(sim_indel('Niall', 'Nigel'), 0.6)
+        self.assertAlmostEqual(sim_indel('Colin', 'Coiln'), 0.8)
+        self.assertAlmostEqual(sim_indel('Coiln', 'Colin'), 0.8)
 
     def test_dist_indel(self):
         """Test abydos.distance.dist_indel."""
         # Base cases
         self.assertEqual(dist_indel('', ''), 0)
+        self.assertEqual(dist_indel('a', ''), 1)
+        self.assertEqual(dist_indel('', 'a'), 1)
+        self.assertEqual(dist_indel('abc', ''), 1)
+        self.assertEqual(dist_indel('', 'abc'), 1)
+        self.assertEqual(dist_indel('abcd', 'efgh'), 1)
+
+        self.assertAlmostEqual(dist_indel('Nigel', 'Niall'), 0.4)
+        self.assertAlmostEqual(dist_indel('Niall', 'Nigel'), 0.4)
+        self.assertAlmostEqual(dist_indel('Colin', 'Coiln'), 0.2)
+        self.assertAlmostEqual(dist_indel('Coiln', 'Colin'), 0.2)
 
 
 class SynonameTestCases(unittest.TestCase):
