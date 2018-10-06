@@ -5879,6 +5879,18 @@ class DolbyTestCases(unittest.TestCase):
                 else:
                     self.assertEqual(result, dolby(name))
 
+        # Additional tests to improve coverage
+        self.assertEqual(dolby('Rune'), 'R*N')
+        self.assertEqual(dolby('Rune', keep_vowels=True), 'R*N*')
+        self.assertEqual(dolby('Rune', vowel_char=''), 'RN')
+        self.assertEqual(dolby('Rune', vowel_char='A'), 'RAN')
+        self.assertEqual(dolby('Rune', maxlength=2), 'R*')
+        self.assertEqual(dolby('Rune', maxlength=2), 'R*')
+        self.assertEqual(dolby('Wassermann', maxlength=4), 'W*SR')
+        self.assertEqual(dolby('Wassermanns', maxlength=4, keep_vowels=True),
+                         'W*S*')
+        self.assertEqual(dolby('Wassermanns'), 'W*SRMNS')
+
 
 class PhoneticSpanishTestCases(unittest.TestCase):
     """Test PhoneticSpanish functions.

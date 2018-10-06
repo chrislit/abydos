@@ -5685,8 +5685,6 @@ def dolby(word, maxlength=None, keep_vowels=False, vowel_char='*'):
             if first or keep_vowels:
                 code += vowel_char
                 first -= 1
-            else:
-                continue
         elif pos > 0 and char in {'W', 'H'}:
             continue
         else:
