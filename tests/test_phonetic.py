@@ -5250,6 +5250,14 @@ class NorphoneTestCases(unittest.TestCase):
         self.assertEqual(norphone('Amundsrud'), norphone('Amundsr\u00F8d'))
         self.assertEqual(norphone('Karlson'), norphone('Carlson'))
 
+        # Additional tests to increase coverage
+        self.assertEqual(norphone('Århus'), 'ÅRHS')
+        self.assertEqual(norphone('Skyrim'), 'XRM')
+        self.assertEqual(norphone('kyss'), 'XS')
+        self.assertEqual(norphone('Äthelwulf'), 'ÆTLVLF')
+        self.assertEqual(norphone('eit'), 'ÆT')
+        self.assertEqual(norphone('Öl'), 'ØL')
+
         # test cases by larsga (the algorithm's author) posted to Reddit
         # https://www.reddit.com/r/norge/comments/vksb5/norphone_mitt_forslag_til_en_norsk_soundex_vel/
         # modified, where necessary to match the "not implemented" rules
