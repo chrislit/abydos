@@ -38,7 +38,7 @@ from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
     L_TURKISH
 from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
     dm_soundex, dolby, double_metaphone, eudex, fonem, fuzzy_soundex, haase_phonetik, \
-    koelner_phonetik, koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, \
+    henry_early, koelner_phonetik, koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, \
     lein, metaphone, mra, norphone, nysiis, onca, parmar_kumbharana, phonem, \
     phonet, phonetic_spanish, phonex, phonix, pshp_soundex_first, pshp_soundex_last, \
     refined_soundex, reth_schek_phonetik, roger_root, russell_index, russell_index_alpha, \
@@ -5139,6 +5139,77 @@ class PSHPSoundexTestCases(unittest.TestCase):
         self.assertEqual(pshp_soundex_first('Asdaananndsjsjasd',
                                             maxlength=None), 'A23553223')
         self.assertEqual(pshp_soundex_first('Asdaananndsjsjasd'), 'A235')
+
+
+class HenryCodeTestCases(unittest.TestCase):
+    """Test Henry Code functions.
+
+    test cases for abydos.phonetic.henry_early
+    """
+
+    def test_henry_early(self):
+        """Test abydos.phonetic.henry_early."""
+        # Base case
+        self.assertEqual(henry_early(''), '')
+
+        # Examples from Legare 1972 paper
+        self.assertEqual(henry_early('Descarry'), 'DKR')
+        self.assertEqual(henry_early('Descaries'), 'DKR')
+        self.assertEqual(henry_early('Campo'), 'KP')
+        self.assertEqual(henry_early('Campot'), 'KP')
+        self.assertEqual(henry_early('Gausselin'), 'GSL')
+        self.assertEqual(henry_early('Gosselin'), 'GSL')
+        self.assertEqual(henry_early('Bergeron'), 'BRJ')
+        self.assertEqual(henry_early('Bergereau'), 'BRJ')
+        self.assertEqual(henry_early('Bosseron'), 'BSR')
+        self.assertEqual(henry_early('Cicire'), 'SSR')
+        self.assertEqual(henry_early('Lechevalier'), 'LCV')
+        self.assertEqual(henry_early('Chevalier'), 'CVL')
+        self.assertEqual(henry_early('Peloy'), 'PL')
+        self.assertEqual(henry_early('Beloy'), 'BL')
+        self.assertEqual(henry_early('Beret'), 'BR')
+        self.assertEqual(henry_early('Benet'), 'BN')
+        self.assertEqual(henry_early('Turcot'), 'TRK')
+        self.assertEqual(henry_early('Turgot'), 'TRG')
+        self.assertEqual(henry_early('Vigier'), 'VJ')
+        self.assertEqual(henry_early('Vigiere'), 'VJR')
+        self.assertEqual(henry_early('Dodin'), 'DD')
+        self.assertEqual(henry_early('Dodelin'), 'DDL')
+
+        # Tests to complete coverage
+        self.assertEqual(henry_early('Anil'), 'ANL')
+        self.assertEqual(henry_early('Emmanuel'), 'AMN')
+        self.assertEqual(henry_early('Ainu'), 'EN')
+        self.assertEqual(henry_early('Oeuf'), 'OF')
+        self.assertEqual(henry_early('Yves'), 'IV')
+        self.assertEqual(henry_early('Yo'), 'I')
+        self.assertEqual(henry_early('Umman'), 'EM')
+        self.assertEqual(henry_early('Omman'), 'OM')
+        self.assertEqual(henry_early('Zoe'), 'S')
+        self.assertEqual(henry_early('Beauchamp'), 'BCP')
+        self.assertEqual(henry_early('Chloe'), 'KL')
+        self.assertEqual(henry_early('Gerard'), 'JRR')
+        self.assertEqual(henry_early('Agnes'), 'ANN')
+        self.assertEqual(henry_early('Pinot'), 'PN')
+        self.assertEqual(henry_early('Philo'), 'FL')
+        self.assertEqual(henry_early('Quisling'), 'GL')
+        self.assertEqual(henry_early('Qualite'), 'KLT')
+        self.assertEqual(henry_early('Sainte-Marie'), 'XMR')
+        self.assertEqual(henry_early('Saint-Jean'), 'XJ')
+        self.assertEqual(henry_early('Ste-Marie'), 'XMR')
+        self.assertEqual(henry_early('St-Jean'), 'XJ')
+        self.assertEqual(henry_early('Cloe'), 'KL')
+        self.assertEqual(henry_early('Ahch-To'), 'AKT')
+        self.assertEqual(henry_early('Zdavros'), 'SDV')
+        self.assertEqual(henry_early('Sdavros'), 'DVR')
+        self.assertEqual(henry_early('Coulomb'), 'KLB')
+        self.assertEqual(henry_early('Calm'), 'K')
+        self.assertEqual(henry_early('Omnia'), 'ON')
+        self.assertEqual(henry_early('Ramps'), 'RPS')
+        self.assertEqual(henry_early('Renault'), 'RN')
+        self.assertEqual(henry_early('Czech'), 'CSK')
+        self.assertEqual(henry_early('Imran'), 'ER')
+        self.assertEqual(henry_early('Christopher', maxlength=None), 'KRXF')
 
 
 class NorphoneTestCases(unittest.TestCase):

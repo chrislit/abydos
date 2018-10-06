@@ -5362,8 +5362,8 @@ def henry_early(word, maxlength=3):
     _vows = {'A', 'E', 'I', 'O', 'U', 'Y'}
     _diph = {'AI': 'E', 'AY': 'E', 'EI': 'E', 'AU': 'O', 'OI': 'O', 'OU': 'O',
              'EU': 'U'}
-    _unaltered = {'B', 'D', 'F', 'J', 'K', 'L', 'M', 'N', 'R', 'T', 'V'}
-    _simple = {'W': 'V', 'X': 'S', 'V': 'S'}
+    # _unaltered = {'B', 'D', 'F', 'J', 'K', 'L', 'M', 'N', 'R', 'T', 'V'}
+    _simple = {'W': 'V', 'X': 'S', 'Z': 'S'}
 
     word = normalize('NFKD', text_type(word.upper()))
     word = ''.join(c for c in word if c in
@@ -5401,8 +5401,8 @@ def henry_early(word, maxlength=3):
 
     # Rule II
     for pos, char in enumerate(word):
-        nxch = char[pos+1:pos+2]
-        prev = char[pos-1:pos]
+        nxch = word[pos+1:pos+2]
+        prev = word[pos-1:pos]
 
         if skip:
             skip -= 1
@@ -5413,22 +5413,7 @@ def henry_early(word, maxlength=3):
             skip = 1
             code += char
         elif word[pos:pos+2] in {'CQ', 'DT', 'SC'}:
-            skip = 1
-            code += word[pos+1]
-        # IId
-        elif char == 'H' and prev in _cons:
             continue
-        elif char == 'S' and nxch in _cons:
-            continue
-        elif char in _cons-{'L', 'R'} and nxch in _cons-{'L', 'R'}:
-            continue
-        elif char == 'L' and nxch in {'M', 'N'}:
-            continue
-        elif char in {'M', 'N'} and prev in _vows and nxch in _cons:
-            continue
-        # IIa
-        elif char in _unaltered:
-            code += char
         # IIb
         elif char in _simple:
             code += _simple[char]
@@ -5437,12 +5422,14 @@ def henry_early(word, maxlength=3):
                 if nxch in {'A', 'O', 'U', 'L', 'R'}:
                     code += 'K'
                 elif nxch in {'E', 'I', 'Y'}:
-                    code += 'J'
+                    code += 'S'
                 elif nxch == 'H':
                     if word[pos+2:pos+3] in _vows:
                         code += 'C'
-                    elif word[pos+2:pos+3] in {'R', 'L'}:
+                    else:  # CHR, CHL, etc.
                         code += 'K'
+                else:
+                    code += 'C'
             elif char == 'G':
                 if nxch in {'A', 'O', 'U', 'L', 'R'}:
                     code += 'G'
@@ -5456,11 +5443,11 @@ def henry_early(word, maxlength=3):
                 else:
                     code += 'F'
             elif char == 'Q':
-                if word[pos+1:pos+2] in {'UE', 'UI', 'UY'}:
-                    char += 'G'
-                elif word[pos + 1:pos + 2] in {'UA', 'UO'}:
-                    char += 'K'
-            elif char == 'S':
+                if word[pos+1:pos+3] in {'UE', 'UI', 'UY'}:
+                    code += 'G'
+                else:  # QUA, QUO, etc.
+                    code += 'K'
+            else:  # S...
                 if word[pos:pos+6] == 'SAINTE':
                     code += 'X'
                     skip = 5
@@ -5473,18 +5460,31 @@ def henry_early(word, maxlength=3):
                 elif word[pos:pos+2] == 'ST':
                     code += 'X'
                     skip = 1
+                elif nxch in _cons:
+                    continue
                 else:
                     code += 'S'
-        else:  # this should not be possible
+        # IId
+        elif char == 'H' and prev in _cons:
             continue
+        elif char in _cons-{'L', 'R'} and nxch in _cons-{'L', 'R'}:
+            continue
+        elif char == 'L' and nxch in {'M', 'N'}:
+            continue
+        elif char in {'M', 'N'} and prev in _vows and nxch in _cons:
+            continue
+        # IIa
+        else:
+            code += char
 
     # IIe1
     if code[-4:] in {'AULT', 'EULT', 'OULT'}:
         code = code[:-2]
-    elif code[-4:-3] in _vows and code[-3:] == 'MPS':
-        code = code[:-3]
-    elif code[-3:-2] in _vows and code[-2:] in {'MB', 'MP', 'ND', 'NS', 'NT'}:
-        code = code[:-2]
+    # The following are blocked by rules above
+    # elif code[-4:-3] in _vows and code[-3:] == 'MPS':
+    #    code = code[:-3]
+    # elif code[-3:-2] in _vows and code[-2:] in {'MB', 'MP', 'ND', 'NS', 'NT'}:
+    #    code = code[:-2]
     elif code[-2:-1] == 'R' and code[-1:] in _cons:
         code = code[:-1]
     # IIe2
