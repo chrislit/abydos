@@ -5899,6 +5899,9 @@ class PhoneticSpanishTestCases(unittest.TestCase):
         self.assertEqual(phonetic_spanish('Cielo'), '45')
         self.assertEqual(phonetic_spanish('Sielo'), '45')
 
+        # Test to maximize coverage
+        self.assertEqual(phonetic_spanish('Giraldo', maxlength=2), '89')
+
 
 class SpanishMetaphoneTestCases(unittest.TestCase):
     """Test Spanish Metaphone functions.
