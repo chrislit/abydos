@@ -1301,7 +1301,7 @@ def sim_strcmp95(src, tar, long_strings=False):
     k = n_trans = 0
     for i in range(len(ying)):
         if ying_flag[i] != 0:
-            for j in range(k, len(yang)):
+            for j in range(k, len(yang)):  # pragma: no branch
                 if yang_flag[j] != 0:
                     k = j + 1
                     break
@@ -1487,7 +1487,7 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
     k = n_trans = 0
     for i in range(lens):
         if src_flag[i] != 0:
-            for j in range(k, lent):
+            for j in range(k, lent):  # pragma: no branch
                 if tar_flag[j] != 0:
                     k = j + 1
                     break
@@ -1508,8 +1508,7 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
         i = 0
         while (i < j) and (src[i] == tar[i]):
             i += 1
-        if i:
-            weight += i * scaling_factor * (1.0 - weight)
+        weight += i * scaling_factor * (1.0 - weight)
 
         # Optionally adjust for long strings.
 
