@@ -2774,9 +2774,11 @@ class TypoTestCases(unittest.TestCase):
                                1-(0.70710677/4))
         self.assertAlmostEqual(sim_typo('asdf', 'asdt', metric='manhattan'),
                                0.75)
-        self.assertAlmostEqual(sim_typo('asdf', 'asdt', metric='log-euclidean'),
+        self.assertAlmostEqual(sim_typo('asdf', 'asdt',
+                                        metric='log-euclidean'),
                                1-(0.4406868/4))
-        self.assertAlmostEqual(sim_typo('asdf', 'asdt', metric='log-manhattan'),
+        self.assertAlmostEqual(sim_typo('asdf', 'asdt',
+                                        metric='log-manhattan'),
                                1-(0.54930615/4))
 
     def test_dist_typo(self):
@@ -2794,10 +2796,10 @@ class TypoTestCases(unittest.TestCase):
                                0.70710677/4)
         self.assertAlmostEqual(dist_typo('asdf', 'asdt', metric='manhattan'),
                                0.25)
-        self.assertAlmostEqual(dist_typo('asdf', 'asdt', metric='log-euclidean'),
-                               0.4406868/4)
-        self.assertAlmostEqual(dist_typo('asdf', 'asdt', metric='log-manhattan'),
-                               0.54930615/4)
+        self.assertAlmostEqual(dist_typo('asdf', 'asdt',
+                                         metric='log-euclidean'), 0.4406868/4)
+        self.assertAlmostEqual(dist_typo('asdf', 'asdt',
+                                         metric='log-manhattan'), 0.54930615/4)
 
 
 class IndelTestCases(unittest.TestCase):
@@ -2989,6 +2991,7 @@ class SynonameTestCases(unittest.TestCase):
         self.assertEqual(synoname(('Brueghel', 'Pietter', ''),
                                   ('Bruegghel', 'Pieter', ''),
                                   ret_name=True), 'char_approx')
+
 
 class SimDistTestCases(unittest.TestCase):
     """Test generic sim & dist functions.
