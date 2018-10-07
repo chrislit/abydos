@@ -3226,10 +3226,11 @@ def sim_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
             if pos+min_ss_len + right_ext_len + 1 <= len(tar):
                 right_ext_len += 1
 
-            if (search_begin + left_ext_len + min_ss_len + right_ext_len <=
-                    len(tar)):
-                search_val = tar[search_begin:(search_begin + left_ext_len +
-                                               min_ss_len + right_ext_len)]
+            # The following is unnecessary, I think
+            # if (search_begin + left_ext_len + min_ss_len + right_ext_len <=
+            #         len(tar)):
+            search_val = tar[search_begin:(search_begin + left_ext_len +
+                                           min_ss_len + right_ext_len)]
 
             ix += 1
 

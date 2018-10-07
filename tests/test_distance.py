@@ -2703,6 +2703,11 @@ class BaystatTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_baystat('ZIMMERMANN', 'ZIMMERER'), 0.6)
         self.assertAlmostEqual(sim_baystat('ZIMMERMANN', 'ZIMMER'), 0.6)
 
+        # Tests to maximize coverage
+        self.assertAlmostEqual(sim_baystat('ZIMMERMANN', 'SEMMERMANN',
+                                           2, 2, 2), 0.8)
+        self.assertAlmostEqual(sim_baystat('ZIMMER', 'ZIMMERMANN'), 0.6)
+
     def test_dist_baystat(self):
         """Test abydos.distance.dist_editex."""
         # Base cases
