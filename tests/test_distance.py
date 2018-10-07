@@ -1177,6 +1177,17 @@ class JaroWinklerTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_strcmp95('MARTHA', 'MARHTA', True),
                                0.97083333)
 
+        # cover case where we don't boost, etc.
+        self.assertAlmostEqual(sim_strcmp95('A', 'ABCDEFGHIJK'), 69/99)
+        self.assertAlmostEqual(sim_strcmp95('A', 'ABCDEFGHIJK', True), 69 / 99)
+        self.assertAlmostEqual(sim_strcmp95('d', 'abcdefgh'), 0.708333333)
+        self.assertAlmostEqual(sim_strcmp95('d', 'abcdefgh', True),
+                               0.708333333)
+        self.assertAlmostEqual(sim_strcmp95('1', 'abc1efgh', True),
+                               0.708333333)
+        self.assertAlmostEqual(sim_strcmp95('12hundredths', '12hundred', True),
+                               0.916666667)
+
     def test_dist_strcmp95(self):
         """Test abydos.distance.dist_strcmp95."""
         self.assertEqual(dist_strcmp95('', ''), 0)
