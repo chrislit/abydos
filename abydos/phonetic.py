@@ -5747,7 +5747,7 @@ def phonetic_spanish(word, maxlength=None):
     sdx = word.translate(_es_soundex_translation)
 
     if maxlength:
-        sdx = sdx[:maxlength]
+        sdx = (sdx+('0'*maxlength))[:maxlength]
 
     return sdx
 
@@ -5893,20 +5893,20 @@ def spanish_metaphone(word, maxlength=6, modified=False):
     return meta_key
 
 
-def metasoundex(word, language='en'):
+def metasoundex(word, lang='en'):
     """Return the MetaSoundex code for a word.
 
     This is based on :cite:`Koneru:2017`.
 
     :param word:
-    :param language: either 'en' for English or 'es' for Spanish
+    :param lang: either 'en' for English or 'es' for Spanish
     :return:
     """
     _metasoundex_translation = dict(zip((ord(_) for _ in
                                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
                                         '07430755015866075943077514'))
 
-    if language == 'es':
+    if lang == 'es':
         return phonetic_spanish(spanish_metaphone(word))
 
     word = soundex(metaphone(word))
