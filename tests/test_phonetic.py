@@ -37,13 +37,14 @@ from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
     L_ITALIAN, L_LATVIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, L_SPANISH, \
     L_TURKISH
 from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
-    dm_soundex, dolby, double_metaphone, eudex, fonem, fuzzy_soundex, haase_phonetik, \
-    henry_early, koelner_phonetik, koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, \
-    lein, metaphone, metasoundex, mra, norphone, nrl, nysiis, onca, parmar_kumbharana, phonem, \
-    phonet, phonetic_spanish, phonex, phonix, pshp_soundex_first, pshp_soundex_last, \
-    refined_soundex, reth_schek_phonetik, roger_root, russell_index, russell_index_alpha, \
-    russell_index_num_to_alpha, sfinxbis, sound_d, soundex, soundex_br, \
-    spanish_metaphone, spfc, statistics_canada
+    dm_soundex, dolby, double_metaphone, eudex, fonem, fuzzy_soundex, \
+    haase_phonetik, henry_early, koelner_phonetik, koelner_phonetik_alpha, \
+    koelner_phonetik_num_to_alpha, lein, metaphone, metasoundex, mra, \
+    norphone, nrl, nysiis, onca, parmar_kumbharana, phonem, phonet, \
+    phonetic_spanish, phonex, phonix, pshp_soundex_first, pshp_soundex_last, \
+    refined_soundex, reth_schek_phonetik, roger_root, russell_index, \
+    russell_index_alpha, russell_index_num_to_alpha, sfinxbis, sound_d, \
+    soundex, soundex_br, spanish_metaphone, spfc, statistics_canada
 
 from six import text_type
 
