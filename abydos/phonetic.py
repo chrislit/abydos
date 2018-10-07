@@ -5483,7 +5483,8 @@ def henry_early(word, maxlength=3):
     # The following are blocked by rules above
     # elif code[-4:-3] in _vows and code[-3:] == 'MPS':
     #    code = code[:-3]
-    # elif code[-3:-2] in _vows and code[-2:] in {'MB', 'MP', 'ND', 'NS', 'NT'}:
+    # elif code[-3:-2] in _vows and code[-2:] in {'MB', 'MP', 'ND',
+    #                                             'NS', 'NT'}:
     #    code = code[:-2]
     elif code[-2:-1] == 'R' and code[-1:] in _cons:
         code = code[:-1]
