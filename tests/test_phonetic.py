@@ -39,7 +39,7 @@ from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
 from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
     dm_soundex, dolby, double_metaphone, eudex, fonem, fuzzy_soundex, haase_phonetik, \
     henry_early, koelner_phonetik, koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, \
-    lein, metaphone, mra, norphone, nysiis, onca, parmar_kumbharana, phonem, \
+    lein, metaphone, metasoundex, mra, norphone, nysiis, onca, parmar_kumbharana, phonem, \
     phonet, phonetic_spanish, phonex, phonix, pshp_soundex_first, pshp_soundex_last, \
     refined_soundex, reth_schek_phonetik, roger_root, russell_index, russell_index_alpha, \
     russell_index_num_to_alpha, sfinxbis, sound_d, soundex, soundex_br, \
@@ -6062,6 +6062,66 @@ class SpanishMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(spanish_metaphone('hjordis'), 'HJRDS')
 
 
+class MetaSoundexTestCases(unittest.TestCase):
+    """Test MetaSoundex functions.
+
+    test cases for abydos.phonetic.metasoundex
+    """
+
+    def test_metasoundex(self):
+        """Test abydos.phonetic.metasoundex."""
+        # Base cases
+        self.assertEqual(metasoundex(''), '0000')
+        self.assertEqual(metasoundex('', lang='en'), '0000')
+        self.assertEqual(metasoundex('', lang='es'), '')
+
+        # Top 10 Anglo surnames in US
+        self.assertEqual(metasoundex('Smith', lang='en'), '4500')
+        self.assertEqual(metasoundex('Johnson', lang='en'), '1525')
+        self.assertEqual(metasoundex('Williams', lang='en'), '7452')
+        self.assertEqual(metasoundex('Brown', lang='en'), '7650')
+        self.assertEqual(metasoundex('Jones', lang='en'), '1520')
+        self.assertEqual(metasoundex('Miller', lang='en'), '6460')
+        self.assertEqual(metasoundex('Davis', lang='en'), '3120')
+        self.assertEqual(metasoundex('Wilson', lang='en'), '7425')
+        self.assertEqual(metasoundex('Anderson', lang='en'), '0536')
+        self.assertEqual(metasoundex('Thomas', lang='en'), '6200')
+
+        self.assertEqual(metasoundex('Smith', lang='es'), '4632')
+        self.assertEqual(metasoundex('Johnson', lang='es'), '82646')
+        self.assertEqual(metasoundex('Williams', lang='es'), '564')
+        self.assertEqual(metasoundex('Brown', lang='es'), '196')
+        self.assertEqual(metasoundex('Jones', lang='es'), '864')
+        self.assertEqual(metasoundex('Miller', lang='es'), '659')
+        self.assertEqual(metasoundex('Davis', lang='es'), '314')
+        self.assertEqual(metasoundex('Wilson', lang='es'), '546')
+        self.assertEqual(metasoundex('Anderson', lang='es'), '63946')
+        self.assertEqual(metasoundex('Thomas', lang='es'), '364')
+
+        # Top 10 Mexican surnames
+        self.assertEqual(metasoundex('Hernández', lang='en'), '5653')
+        self.assertEqual(metasoundex('García', lang='en'), '5620')
+        self.assertEqual(metasoundex('Lòpez', lang='en'), '8120')
+        self.assertEqual(metasoundex('Martìnez', lang='en'), '6635')
+        self.assertEqual(metasoundex('Rodrìguez', lang='en'), '9362')
+        self.assertEqual(metasoundex('González', lang='en'), '5524')
+        self.assertEqual(metasoundex('Pérez', lang='en'), '7620')
+        self.assertEqual(metasoundex('Sánchez', lang='en'), '4520')
+        self.assertEqual(metasoundex('Gómez', lang='en'), '5520')
+        self.assertEqual(metasoundex('Flores', lang='en'), '7462')
+
+        self.assertEqual(metasoundex('Hernández', lang='es'), '96634')
+        self.assertEqual(metasoundex('García', lang='es'), '894')
+        self.assertEqual(metasoundex('Lòpez', lang='es'), '504')
+        self.assertEqual(metasoundex('Martìnez', lang='es'), '69364')
+        self.assertEqual(metasoundex('Rodrìguez', lang='es'), '93984')
+        self.assertEqual(metasoundex('González', lang='es'), '86454')
+        self.assertEqual(metasoundex('Pérez', lang='es'), '094')
+        self.assertEqual(metasoundex('Sánchez', lang='es'), '4644')
+        self.assertEqual(metasoundex('Gómez', lang='es'), '864')
+        self.assertEqual(metasoundex('Flores', lang='es'), '2594')
+
+
 class SoundexBRTestCases(unittest.TestCase):
     """Test SoundexBR functions.
 
@@ -6360,7 +6420,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                          'barDm borDm bYrDm varDm vorDm barDn borDn barxDm' +
                          ' borxDm varxDm vorxDm barxDn borxDn')
 
-        # test that out-of-range langauge_arg results in L_ANY
+        # test that out-of-range language_arg results in L_ANY
         self.assertEqual(bmpm('Rodham Clinton', language_arg=2**32),
                          'rodam rodom rYdam rYdom rodan rodon rodxam rodxom' +
                          ' rodxan rodxon rudam rudom klinton klnton klintun' +
