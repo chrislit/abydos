@@ -6147,6 +6147,13 @@ class SoundexBRTestCases(unittest.TestCase):
         self.assertEqual(soundex_br('Gauss'), 'G200')
         self.assertEqual(soundex_br('Kant'), 'C530')
 
+        # Tests to complete coverage
+        self.assertEqual(soundex_br('Wasser'), 'V260')
+        self.assertEqual(soundex_br('Cici'), 'S200')
+        self.assertEqual(soundex_br('Gerard'), 'J663')
+        self.assertEqual(soundex_br('Yglesias'), 'I242')
+        self.assertEqual(soundex_br('Cici', zero_pad=False), 'S2')
+
 
 class BeiderMorseTestCases(unittest.TestCase):
     """Test BMPM functions.
