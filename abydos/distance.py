@@ -3335,15 +3335,13 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
             return keyboard[0]
         elif char in uppercase:
             return keyboard[1]
-        else:
-            raise ValueError(char + ' not found in any keyboard layouts')
+        raise ValueError(char + ' not found in any keyboard layouts')
 
     def _get_char_coord(char, keyboard):
         """Return the row & column of char in the keyboard."""
-        for row in keyboard:
+        for row in keyboard:  # pragma: no branch
             if char in row:
                 return keyboard.index(row), row.index(char)
-        raise ValueError(char + ' not found in given keyboard layout')
 
     def _euclidean_keyboard_distance(char1, char2):
         row1, col1 = _get_char_coord(char1, _kb_array_for_char(char1))
