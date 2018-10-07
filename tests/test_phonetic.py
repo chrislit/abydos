@@ -6046,6 +6046,21 @@ class SpanishMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(spanish_metaphone('scalera'), 'ESKLR')
         self.assertEqual(spanish_metaphone('scalera', modified=True), 'EZKLR')
 
+        # terms from algorithm/source
+        self.assertEqual(spanish_metaphone('acción'), 'AXN')
+        self.assertEqual(spanish_metaphone('reacción'), 'RXN')
+        self.assertEqual(spanish_metaphone('cesar'), 'ZSR')
+        self.assertEqual(spanish_metaphone('cien'), 'ZN')
+        self.assertEqual(spanish_metaphone('cid'), 'ZD')
+        self.assertEqual(spanish_metaphone('conciencia'), 'KNZNZ')
+        self.assertEqual(spanish_metaphone('gente'), 'JNT')
+        self.assertEqual(spanish_metaphone('ecologia'), 'EKLJ')
+
+        # completing coverage
+        self.assertEqual(spanish_metaphone('hola'), 'OL')
+        self.assertEqual(spanish_metaphone('aqi'), 'AK')
+        self.assertEqual(spanish_metaphone('hjordis'), 'HJRDS')
+
 
 class SoundexBRTestCases(unittest.TestCase):
     """Test SoundexBR functions.
@@ -6053,7 +6068,7 @@ class SoundexBRTestCases(unittest.TestCase):
     test cases for abydos.phonetic.soundex_br
     """
 
-    def test_spanish_metaphone(self):
+    def test_soundex_br(self):
         """Test abydos.phonetic.soundex_br."""
         # Base case
         self.assertEqual(soundex_br(''), '0000')
