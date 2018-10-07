@@ -495,7 +495,7 @@ def dm_soundex(word, maxlength=6, zero_pad=True):
     while pos < len(word):
         # Iterate through _dms_order, which specifies the possible substrings
         # for which codes exist in the Daitch-Mokotoff coding
-        for sstr in _dms_order[word[pos]]:
+        for sstr in _dms_order[word[pos]]:  # pragma: no branch
             if word[pos:].startswith(sstr):
                 # Having determined a valid substring start, retrieve the code
                 dm_val = _dms_table[sstr]
@@ -4484,7 +4484,7 @@ def roger_root(word, maxlength=5, zero_pad=True):
 
     # Then code subsequent digits
     while pos < len(word):
-        for num in range(4, 0, -1):
+        for num in range(4, 0, -1):  # pragma: no branch
             if word[pos:pos+num] in _med_patterns[num]:
                 code += _med_patterns[num][word[pos:pos+num]]
                 pos += num
