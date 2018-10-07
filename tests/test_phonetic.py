@@ -850,6 +850,11 @@ class MraTestCases(unittest.TestCase):
         self.assertEqual(mra('Catherine'), 'CTHRN')
         self.assertEqual(mra('Kathryn'), 'KTHRYN')
 
+        # length checks
+        self.assertEqual(mra('Christopher'), 'CHRPHR')
+        self.assertEqual(mra('Dickensianistic'), 'DCKSTC')
+        self.assertEqual(mra('Acetylcholinesterase'), 'ACTTRS')
+
 
 class MetaphoneTestCases(unittest.TestCase):
     """Test Metaphone functions.
@@ -4673,6 +4678,10 @@ class EudexTestCases(unittest.TestCase):
 
     def test_eudex(self):
         """Test abydos.phonetic.eudex."""
+        # base cases
+        self.assertEqual(eudex(''), 18374686479671623680)
+        self.assertEqual(eudex(' '), 18374686479671623680)
+
         # exact & mismatch cases from
         # https://github.com/ticki/eudex/blob/master/src/tests.rs
         self.assertEqual(eudex('JAva'), eudex('jAva'))
