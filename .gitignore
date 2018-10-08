@@ -3,7 +3,6 @@ cover/
 dist/
 flake8/
 abydos.egg-info/
-docs/_build/
 .settings/
 *.pyc
 *.log
