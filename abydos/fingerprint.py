@@ -682,9 +682,8 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
                 (len(fname[loc:]) == len(numeral)) or
                 fname[loc+len(numeral)] in {' ', ','}):
             lname = ' '.join((lname, numeral))
-            fname = fname[:loc].strip()
-            while fname[-1] in {' ', ','}:
-                fname = fname[:-1]
+            fname = ' '.join((fname[:loc].strip(),
+                              fname[loc+len(numeral):].lstrip(' ,'))).rstrip()
         return fname, lname
 
     # Fill fields 7 (specials) and 3 (roman numerals)
@@ -743,8 +742,12 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
             loc = full_name.find(extra)
             if loc != -1:
                 toolcode[7] += '{:03d}'.format(num) + 'X'
-                if full_name[loc:loc+len(extra)] not in toolcode[9]:
-                    toolcode[9] += full_name[loc:loc+len(match)]
+                # Since extras are unique, we only look for each of them
+                # once, and they include otherwise impossible characters for
+                # this field, it's not possible for the following line to have
+                # ever been false.
+                # if full_name[loc:loc+len(extra)] not in toolcode[9]:
+                toolcode[9] += full_name[loc:loc+len(match)]
 
     return lname, fname, ''.join(toolcode)
 

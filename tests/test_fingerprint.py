@@ -333,12 +333,37 @@ class SynonameToolcodeTestCases(unittest.TestCase):
                          ('louis ii', 'jean', '0000490705$049a068d$ljilo'))
         self.assertEqual(synoname_toolcode('Louis', 'Jean II ', normalize=2),
                          ('louis ii', 'jean', '0000490805$049b068d$ljilo'))
+        self.assertEqual(synoname_toolcode('Louis', 'Jean II-', normalize=2),
+                         ('louis', 'jean ii-', '0100490805$049b068d$ljilo'))
         self.assertEqual(synoname_toolcode('Louis V.', 'Jean', normalize=2),
                          ('louis v.', 'jean', '0200000408$068d$lvjlo'))
         self.assertEqual(synoname_toolcode('Louis V.', 'Ste.-Jean Ste.',
                                            normalize=2),
                          ('louis v.', 'ste.-jean ste.',
                           '0200001408$068d127b127X$lvsjlo ste'))
+        self.assertEqual(synoname_toolcode('Louis IX', 'Jean III II',
+                                           normalize=2),
+                         ('louis ix iii ii', 'jean',
+                          '0000481108$048b049a056b068d$lijlo'))
+        self.assertEqual(synoname_toolcode('Louis IX', 'Jean II III',
+                                           normalize=2),
+                         ('louis ix iii ii', 'jean',
+                          '0000481108$048a049a056b068d$lijlo'))
+        self.assertEqual(synoname_toolcode('Louis IX', 'Jean II III',
+                                           normalize=1),
+                         ('louis ix', 'jean ii iii',
+                          '0000481108$048a049a056b068d$lijlo'))
+        self.assertEqual(synoname_toolcode('Lorem', 'Sainte-Sainte-Vincent'),
+                         ('lorem', 'sainte-sainte-vincent',
+                          '0100002105$068d110b$lsvlo'))
+        self.assertEqual(synoname_toolcode('Brueghel II', 'I. Jan',
+                                           normalize=2),
+                         ('brueghel ii', 'i. jan', '0200000611$$bij'))
+        self.assertEqual(synoname_toolcode('Brueghel', 'I. Jan II',
+                                       normalize=2),
+                         ('brueghel', 'i. jan ii', '0200000908$$bij'))
+        self.assertEqual(synoname_toolcode('Lorem', 'Laurent Ormond'),
+                         ('lorem', 'laurent ormond', '0000001405$068d$lo'))
 
 
 if __name__ == '__main__':
