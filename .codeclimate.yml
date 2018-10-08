@@ -7,7 +7,6 @@ plugins:
     enabled: true
   pylint:
     enabled: true
-    channel: "beta"
   radon:
     enabled: true
   duplication:
