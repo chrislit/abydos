@@ -2955,6 +2955,9 @@ class SynonameTestCases(unittest.TestCase):
         self.assertEqual(synoname(('Pereira', 'I. R.', ''),
                                   ('Pereira', 'Irene Rice', ''),
                                   ret_name=True), 'initials')
+        self.assertEqual(synoname(('Pereira', 'I.', ''),
+                                  ('Pereira', 'Irene Rice', ''),
+                                  ret_name=True), 'initials')
         self.assertNotEqual(synoname(('Pereira', 'I. R.', ''),
                                      ('Pereira', 'I. Smith', ''),
                                      ret_name=True), 'initials')

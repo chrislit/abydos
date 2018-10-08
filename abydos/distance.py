@@ -3797,6 +3797,25 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
         if (np_src_fn == np_tar_fn) and (np_src_ln == np_tar_ln):
             return fmt_retval(match_type_dict['punctuation'])
 
+    if tests & test_dict['initials'] and ln_equal:
+        if src_fn and tar_fn:
+            src_initials = _synoname_strip_punct(src_fn).split()
+            tar_initials = _synoname_strip_punct(tar_fn).split()
+            initials = bool((len(src_initials) == len(''.join(src_initials)))
+                            or
+                            (len(tar_initials) == len(''.join(tar_initials))))
+            if initials:
+                src_initials = ''.join(_[0] for _ in src_initials)
+                tar_initials = ''.join(_[0] for _ in tar_initials)
+                if src_initials == tar_initials:
+                    return fmt_retval(match_type_dict['initials'])
+                initial_diff = abs(len(src_initials)-len(tar_initials))
+                if (initial_diff and
+                        ((initial_diff == levenshtein(src_initials, tar_initials,
+                                                      cost=(1, 99, 99, 99))) or
+                         (initial_diff == levenshtein(tar_initials, src_initials,
+                                                      cost=(1, 99, 99, 99))))):
+                    return fmt_retval(match_type_dict['initials'])
     if tests & test_dict['extension']:
         if src_ln[1] == tar_ln[1] and (src_ln.startswith(tar_ln) or
                                        tar_ln.startswith(src_ln)):
@@ -3808,19 +3827,6 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
     if tests & test_dict['inclusion'] and ln_equal:
         if (src_fn and src_fn in tar_fn) or (tar_fn and tar_fn in src_ln):
             return fmt_retval(match_type_dict['inclusion'])
-    if tests & test_dict['initials'] and ln_equal:
-        if src_fn and tar_fn:
-            src_initials = ''.join(_[0] for _ in src_fn.split())
-            tar_initials = ''.join(_[0] for _ in tar_fn.split())
-            if src_initials == tar_initials:
-                return fmt_retval(match_type_dict['initials'])
-            initial_diff = abs(len(src_initials)-len(tar_initials))
-            if (initial_diff and
-                    ((initial_diff == levenshtein(src_initials, tar_initials,
-                                                  cost=(1, 99, 99, 99))) or
-                     (initial_diff == levenshtein(tar_initials, src_initials,
-                                                  cost=(1, 99, 99, 99))))):
-                return fmt_retval(match_type_dict['initials'])
     if tests & test_dict['no_first'] and ln_equal:
         if src_fn == '' or tar_fn == '':
             return fmt_retval(match_type_dict['no_first'])
