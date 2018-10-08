@@ -5,12 +5,12 @@ plugins:
     enabled: true
   fixme:
     enabled: true
-  pep8:
-    enabled: true
   pylint:
     enabled: true
     channel: "beta"
   radon:
+    enabled: true
+  duplication:
     enabled: true
 exclude_patterns:
 - "tests/"
