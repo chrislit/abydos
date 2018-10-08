@@ -135,7 +135,7 @@ algorithms = {'russell_index': lambda name: russell_index(name),
               'spanish_metaphone_ml4':
                   lambda name: spanish_metaphone(name, maxlength=4),
               'metasoundex': metasoundex,
-              'metasoundex_es': lambda name: metasoundex(name, language='es'),
+              'metasoundex_es': lambda name: metasoundex(name, lang='es'),
               'soundex_br': soundex_br,
               'nrl': nrl,
               'bmpm': bmpm,
