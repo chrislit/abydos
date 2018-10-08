@@ -13,6 +13,10 @@ Abydos
     :target: https://ci.appveyor.com/project/chrislit/abydos
     :alt: AppVeyor Build Status
 
+.. image:: https://semaphoreci.com/api/v1/chrislit/abydos/branches/master/shields_badge.svg
+    :target: https://semaphoreci.com/chrislit/abydos
+    :alt: Semaphore Build Status
+
 .. image:: https://coveralls.io/repos/github/chrislit/abydos/badge.svg?branch=master
     :target: https://coveralls.io/github/chrislit/abydos?branch=master
     :alt: Coverage Status
