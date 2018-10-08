@@ -2873,6 +2873,60 @@ class SynonameTestCases(unittest.TestCase):
                                                       'tar_specials':
                                                           [(35, 'b'),
                                                            (35, 'c')]}), 0)
+        self.assertEqual(synoname_word_approximation('louis ii', 'louis ii',
+                                                     'sr jean', 'sr  pierre',
+                                                     {'gen_conflict': False,
+                                                      'roman_conflict': False,
+                                                      'src_specials':
+                                                          [(49, 'b'),
+                                                           (68, 'd'),
+                                                           (121, 'b')],
+                                                      'tar_specials':
+                                                          [(49, 'b'),
+                                                           (68, 'd'),
+                                                           (121, 'b')]}), 0)
+        self.assertEqual(synoname_word_approximation('louis ii', 'louis ii',
+                                                     'il giovane', 'sr cadet',
+                                                     {'gen_conflict': False,
+                                                      'roman_conflict': False,
+                                                      'src_specials':
+                                                          [(46, 'a'),
+                                                           (49, 'b'),
+                                                           (52, 'a'),
+                                                           (68, 'd')],
+                                                      'tar_specials':
+                                                          [(8, 'a'),
+                                                           (49, 'b'),
+                                                           (68, 'd'),
+                                                           (121, 'a')]}), 1)
+        self.assertAlmostEqual(
+            synoname_word_approximation('louis ii', 'louis ii',
+                                        'ste.-geo ste.', 'ste.-jo ste.',
+                                        {'gen_conflict': False,
+                                         'roman_conflict': False,
+                                         'src_specials':
+                                             [(49, 'b'), (68, 'd'),
+                                              (127, 'b'), (127, 'X')],
+                                         'tar_specials':
+                                             [(49, 'b'), (68, 'd'),
+                                              (127, 'b'), (127, 'X')]}), 2/3)
+        self.assertAlmostEqual(
+            synoname_word_approximation('louis ii', 'louis',
+                                        'ste.-geo ste.', '',
+                                        {'gen_conflict': False,
+                                         'roman_conflict': False,
+                                         'src_specials':
+                                             [(49, 'b'), (68, 'd'),
+                                              (127, 'b'), (127, 'X')],
+                                         'tar_specials': []}), 0)
+        self.assertAlmostEqual(
+            synoname_word_approximation('lou ii', 'louis', 'louis iv', 'ste.',
+                                        {}), 0)
+        self.assertEqual(
+            synoname_word_approximation('ren', 'loren ste.', '', '',
+                                        {'tar_specials':
+                                             [(68, 'd'), (127, 'X')],
+                                         'src_specials': [(0, '')]}), 1)
 
     def test_synoname(self):
         """Test abydos.distance.synoname."""

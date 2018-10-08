@@ -3530,7 +3530,7 @@ def synoname_word_approximation(src_ln, tar_ln, src_fn='', tar_fn='',
         if s_type == 'd':
             full_tar2 = full_tar2[len(_synoname_special_table[s_pos][1]):]
         elif s_type == 'X' and _synoname_special_table[s_pos][1] in full_tar2:
-            loc = full_tar2.find(' '+_synoname_special_table[s_pos][1]+' ')+1
+            loc = full_tar2.find(' '+_synoname_special_table[s_pos][1])
             full_tar2 = (full_tar2[:loc] +
                          full_tar2[loc +
                                    len(_synoname_special_table[s_pos][1]):])
@@ -3540,7 +3540,7 @@ def synoname_word_approximation(src_ln, tar_ln, src_fn='', tar_fn='',
         if s_type == 'd':
             full_src2 = full_src2[len(_synoname_special_table[s_pos][1]):]
         elif s_type == 'X' and _synoname_special_table[s_pos][1] in full_src2:
-            loc = full_src2.find(' '+_synoname_special_table[s_pos][1]+' ')+1
+            loc = full_src2.find(' '+_synoname_special_table[s_pos][1])
             full_src2 = (full_src2[:loc] +
                          full_src2[loc +
                                    len(_synoname_special_table[s_pos][1]):])
