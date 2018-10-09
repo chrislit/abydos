@@ -757,9 +757,9 @@ class MinkowskiTestCases(unittest.TestCase):
 
         # test with alphabet
         self.assertEqual(minkowski('ab', 'b', 1, alphabet=26), 1)
-        self.assertEqual(minkowski('ab', 'b', 1, normalize=True, alphabet=26),
+        self.assertEqual(minkowski('ab', 'b', 1, normalized=True, alphabet=26),
                          1/26)
-        self.assertEqual(minkowski('ab', 'b', 1, normalize=True,
+        self.assertEqual(minkowski('ab', 'b', 1, normalized=True,
                                    alphabet='abcdefghijklmnopqrstuvwxyz'),
                          1/26)
 
