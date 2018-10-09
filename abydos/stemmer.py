@@ -68,61 +68,126 @@ def lovins(word):
     word = normalize('NFC', text_type(word.lower()))
 
     def cond_b(word, suffix_len):
-        """Return Lovins' condition B."""
+        """Return Lovins' condition B.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return len(word)-suffix_len >= 3
 
     def cond_c(word, suffix_len):
-        """Return Lovins' condition C."""
+        """Return Lovins' condition C.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return len(word)-suffix_len >= 4
 
     def cond_d(word, suffix_len):
-        """Return Lovins' condition D."""
+        """Return Lovins' condition D.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return len(word)-suffix_len >= 5
 
     def cond_e(word, suffix_len):
-        """Return Lovins' condition E."""
+        """Return Lovins' condition E.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return word[-suffix_len-1] != 'e'
 
     def cond_f(word, suffix_len):
-        """Return Lovins' condition F."""
+        """Return Lovins' condition F.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return (len(word)-suffix_len >= 3 and
                 word[-suffix_len-1] != 'e')
 
     def cond_g(word, suffix_len):
-        """Return Lovins' condition G."""
+        """Return Lovins' condition G.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return (len(word)-suffix_len >= 3 and
                 word[-suffix_len-1] == 'f')
 
     def cond_h(word, suffix_len):
-        """Return Lovins' condition H."""
+        """Return Lovins' condition H.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return (word[-suffix_len-1] == 't' or
                 word[-suffix_len-2:-suffix_len] == 'll')
 
     def cond_i(word, suffix_len):
-        """Return Lovins' condition I."""
+        """Return Lovins' condition I.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return word[-suffix_len-1] not in {'e', 'o'}
 
     def cond_j(word, suffix_len):
-        """Return Lovins' condition J."""
+        """Return Lovins' condition J.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return word[-suffix_len-1] not in {'a', 'e'}
 
     def cond_k(word, suffix_len):
-        """Return Lovins' condition K."""
+        """Return Lovins' condition K.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return (len(word)-suffix_len >= 3 and
                 (word[-suffix_len-1] in {'i', 'l'} or
                  (word[-suffix_len-3] == 'u' and word[-suffix_len-1] == 'e')))
 
     def cond_l(word, suffix_len):
-        """Return Lovins' condition L."""
+        """Return Lovins' condition L.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return (word[-suffix_len-1] not in {'s', 'u', 'x'} or
                 word[-suffix_len-1] == 'os')
 
     def cond_m(word, suffix_len):
-        """Return Lovins' condition M."""
+        """Return Lovins' condition M.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return word[-suffix_len-1] not in {'a', 'c', 'e', 'm'}
 
     def cond_n(word, suffix_len):
-        """Return Lovins' condition N."""
+        """Return Lovins' condition N.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         if len(word)-suffix_len >= 3:
             if word[-suffix_len-3] == 's':
                 if len(word)-suffix_len >= 4:
@@ -132,73 +197,148 @@ def lovins(word):
         return False
 
     def cond_o(word, suffix_len):
-        """Return Lovins' condition O."""
+        """Return Lovins' condition O.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return word[-suffix_len-1] in {'i', 'l'}
 
     def cond_p(word, suffix_len):
-        """Return Lovins' condition P."""
+        """Return Lovins' condition P.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return word[-suffix_len-1] != 'c'
 
     def cond_q(word, suffix_len):
-        """Return Lovins' condition Q."""
+        """Return Lovins' condition Q.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return (len(word)-suffix_len >= 3 and
                 word[-suffix_len-1] not in {'l', 'n'})
 
     def cond_r(word, suffix_len):
-        """Return Lovins' condition R."""
+        """Return Lovins' condition R.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return word[-suffix_len-1] in {'n', 'r'}
 
     def cond_s(word, suffix_len):
-        """Return Lovins' condition S."""
+        """Return Lovins' condition S.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return (word[-suffix_len-2:-suffix_len] == 'dr' or
                 (word[-suffix_len-1] == 't' and
                  word[-suffix_len-2:-suffix_len] != 'tt'))
 
     def cond_t(word, suffix_len):
-        """Return Lovins' condition T."""
+        """Return Lovins' condition T.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return (word[-suffix_len-1] in {'s', 't'} and
                 word[-suffix_len-2:-suffix_len] != 'ot')
 
     def cond_u(word, suffix_len):
-        """Return Lovins' condition U."""
+        """Return Lovins' condition U.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return word[-suffix_len-1] in {'l', 'm', 'n', 'r'}
 
     def cond_v(word, suffix_len):
-        """Return Lovins' condition V."""
+        """Return Lovins' condition V.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return word[-suffix_len-1] == 'c'
 
     def cond_w(word, suffix_len):
-        """Return Lovins' condition W."""
+        """Return Lovins' condition W.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return word[-suffix_len-1] not in {'s', 'u'}
 
     def cond_x(word, suffix_len):
-        """Return Lovins' condition X."""
+        """Return Lovins' condition X.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return (word[-suffix_len-1] in {'i', 'l'} or
                 (word[-suffix_len-3:-suffix_len] == 'u' and
                  word[-suffix_len-1] == 'e'))
 
     def cond_y(word, suffix_len):
-        """Return Lovins' condition Y."""
+        """Return Lovins' condition Y.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return word[-suffix_len-2:-suffix_len] == 'in'
 
     def cond_z(word, suffix_len):
-        """Return Lovins' condition Z."""
+        """Return Lovins' condition Z.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return word[-suffix_len-1] != 'f'
 
     def cond_aa(word, suffix_len):
-        """Return Lovins' condition AA."""
+        """Return Lovins' condition AA.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return (word[-suffix_len-1] in {'d', 'f', 'l', 't'} or
                 word[-suffix_len-2:-suffix_len] in {'ph', 'th', 'er', 'or',
                                                     'es'})
 
     def cond_bb(word, suffix_len):
-        """Return Lovins' condition BB."""
+        """Return Lovins' condition BB.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return (len(word)-suffix_len >= 3 and
                 word[-suffix_len-3:-suffix_len] != 'met' and
                 word[-suffix_len-4:-suffix_len] != 'ryst')
 
     def cond_cc(word, suffix_len):
-        """Return Lovins' condition CC."""
+        """Return Lovins' condition CC.
+
+        :param word: word to check
+        :param suffix_len: suffix length
+        :rtype: bool
+        """
         return word[-suffix_len-1] == 'l'
 
     suffix = {'alistically': cond_b, 'arizability': None,
@@ -2057,8 +2197,8 @@ def paice_husk(word):
 
     This is based on the algorithm's description in :cite:`Paice:1990`.
 
-    :param word: the word to calculate the stem of
-    :returns: word stem
+    :param word: the word to stem
+    :returns: the stemmed word
     :rtype: str
     """
     rule_table = {6: {'ifiabl': (False, 6, None, True),
@@ -2234,8 +2374,9 @@ def schinke(word):
 
     This is defined in :cite:`Schinke:1996`.
 
-    :param word:
-    :returns:
+    :param word: the word to stem
+    :returns: the stemmed word
+    :rtype: str
     """
     word = normalize('NFKD', text_type(word.lower()))
     word = ''.join(c for c in word if c in
@@ -2327,8 +2468,9 @@ def s_stemmer(word):
 
     The S stemmer is defined in :cite:`Harman:1991`.
 
-    :param word:
-    :returns:
+    :param word: the word to stem
+    :returns: the stemmed word
+    :rtype: str
     """
     lowered = word.lower()
     if lowered[-3:] == 'ies' and lowered[-4:-3] not in {'e', 'a'}:
