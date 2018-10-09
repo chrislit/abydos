@@ -224,7 +224,8 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
             # check for incompatible attributes
             candidate = _bm_apply_rule_if_compat(phonetic, rule[_PHONETIC_POS],
                                                  language_arg)
-            if candidate is not None:
+            # The below condition shouldn't ever be false
+            if candidate is not None:  # pragma: no branch
                 phonetic = candidate
                 found = True
                 break
@@ -312,7 +313,8 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
                 candidate = _bm_apply_rule_if_compat(phonetic2,
                                                      rule[_PHONETIC_POS],
                                                      language_arg)
-                if candidate is not None:
+                # The below condition shouldn't ever be false
+                if candidate is not None:  # pragma: no branch
                     phonetic2 = candidate
                     found = True
                     break

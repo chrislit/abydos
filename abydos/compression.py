@@ -146,7 +146,8 @@ def ac_encode(text, probs):
     while delta < 1:
         nbits = nbits + 1
         delta *= 2
-    if nbits == 0:
+    # The below condition shouldn't ever be false
+    if nbits == 0:  # pragma: no cover
         return 0, 0
     # using -1 instead of /2
     avg = (maxval + minval) * 2**(nbits-1)
