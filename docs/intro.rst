@@ -5,42 +5,6 @@
 Abydos
 ======
 
-.. image:: https://travis-ci.org/chrislit/abydos.svg
-    :target: https://travis-ci.org/chrislit/abydos
-    :alt: Build Status
-
-.. image:: https://coveralls.io/repos/github/chrislit/abydos/badge.svg?branch=master
-    :target: https://coveralls.io/github/chrislit/abydos?branch=master
-    :alt: Coverage Status
-
-.. image:: https://codeclimate.com/github/chrislit/abydos/badges/gpa.svg
-   :target: https://codeclimate.com/github/chrislit/abydos
-   :alt: Code Climate
-
-.. image:: https://landscape.io/github/chrislit/abydos/master/landscape.svg?style=flat
-   :target: https://landscape.io/github/chrislit/abydos/master
-   :alt: Code Health
-
-.. image:: https://img.shields.io/badge/Pylint-9.79/10-green.svg
-   :target: #
-   :alt: Pylint Score
-
-.. image:: https://img.shields.io/badge/pycodestyle-0-brightgreen.svg
-   :target: #
-   :alt: pycodestyle Errors
-
-.. image:: https://img.shields.io/badge/flake8-61-yellow.svg
-   :target: #
-   :alt: flake8 Errors
-
-.. image:: https://img.shields.io/pypi/v/abydos.svg
-    :target: https://pypi.python.org/pypi/abydos
-    :alt: PyPI
-
-.. image:: https://readthedocs.org/projects/abydos/badge/?version=latest
-    :target: https://abydos.readthedocs.org/en/latest/
-    :alt: Documentation Status
-
 |
 
 .. image:: https://raw.githubusercontent.com/chrislit/abydos/master/abydos-small.png
