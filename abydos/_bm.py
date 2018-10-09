@@ -114,7 +114,6 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
                  language_arg=0, concat=False):
     """Return the Beider-Morse encoding(s) of a term.
 
-    Arguments:
     :param str term: the term to encode via Beider-Morse
     :param str name_mode: the name mode of the algorithm: 'gen' (default),
         ash' (Ashkenazi), or 'sep' (Sephardic)

@@ -40,6 +40,7 @@ def prod(nums):
 
     :param nums: a collection (list, tuple, set, etc.) of numbers
     :returns: the product of a nums
+    :rtype: numeric
 
     >>> prod([1,1,1,1])
     1

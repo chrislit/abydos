@@ -1550,7 +1550,7 @@ def var(nums, mean_func=amean, ddof=0):
     :param nums:
     :param mean_func:
     :param ddof:
-    :return:
+    :returns:
     """
     x_bar = mean_func(nums)
     return sum((x - x_bar) ** 2 for x in nums) / (len(nums) - ddof)
@@ -1562,7 +1562,7 @@ def std(nums, mean_func=amean, ddof=0):
     :param nums:
     :param mean_func:
     :param ddof:
-    :return:
+    :returns:
     """
     return var(nums, mean_func, ddof)**0.5
 

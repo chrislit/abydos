@@ -2235,7 +2235,7 @@ def schinke(word):
     This is defined in :cite:`Schinke:1996`.
 
     :param word:
-    :return:
+    :returns:
     """
     word = normalize('NFKD', text_type(word.lower()))
     word = ''.join(c for c in word if c in
@@ -2328,7 +2328,7 @@ def s_stemmer(word):
     The S stemmer is defined in :cite:`Harman:1991`.
 
     :param word:
-    :return:
+    :returns:
     """
     lowered = word.lower()
     if lowered[-3:] == 'ies' and lowered[-4:-3] not in {'e', 'a'}:
