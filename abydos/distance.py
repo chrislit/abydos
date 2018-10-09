@@ -3813,10 +3813,12 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
                     return fmt_retval(match_type_dict['initials'])
                 initial_diff = abs(len(src_initials)-len(tar_initials))
                 if (initial_diff and
-                        ((initial_diff == levenshtein(src_initials, tar_initials,
-                                                      cost=(1, 99, 99, 99))) or
-                         (initial_diff == levenshtein(tar_initials, src_initials,
-                                                      cost=(1, 99, 99, 99))))):
+                        ((initial_diff ==
+                          levenshtein(src_initials, tar_initials,
+                                      cost=(1, 99, 99, 99))) or
+                         (initial_diff ==
+                          levenshtein(tar_initials, src_initials,
+                                      cost=(1, 99, 99, 99))))):
                     return fmt_retval(match_type_dict['initials'])
     if tests & test_dict['extension']:
         if src_ln[1] == tar_ln[1] and (src_ln.startswith(tar_ln) or

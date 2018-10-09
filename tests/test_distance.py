@@ -2924,8 +2924,8 @@ class SynonameTestCases(unittest.TestCase):
                                         {}), 0)
         self.assertEqual(
             synoname_word_approximation('ren', 'loren ste.', '', '',
-                                        {'tar_specials':
-                                             [(68, 'd'), (127, 'X')],
+                                        {'tar_specials': [(68, 'd'),
+                                                          (127, 'X')],
                                          'src_specials': [(0, '')]}), 1)
 
     def test_synoname(self):
