@@ -3603,7 +3603,9 @@ def synoname_word_approximation(src_ln, tar_ln, src_fn='', tar_fn='',
     if (tar2_num_words == 1 and src2_num_words == 1 and
             tar2_words[0] == src2_words[0]):
         return 1
-    if tar2_num_words < 2 and tar_len_specials == 0:
+    # I see no way that the following can be True if the equivalent in
+    # #4 was False.
+    if tar2_num_words < 2 and tar_len_specials == 0:  # pragma: no cover
         return 0
 
     # 9
