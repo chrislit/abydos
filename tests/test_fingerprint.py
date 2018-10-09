@@ -360,7 +360,7 @@ class SynonameToolcodeTestCases(unittest.TestCase):
                                            normalize=2),
                          ('brueghel ii', 'i. jan', '0200000611$$bij'))
         self.assertEqual(synoname_toolcode('Brueghel', 'I. Jan II',
-                                       normalize=2),
+                                           normalize=2),
                          ('brueghel', 'i. jan ii', '0200000908$$bij'))
         self.assertEqual(synoname_toolcode('Lorem', 'Laurent Ormond'),
                          ('lorem', 'laurent ormond', '0000001405$068d$lo'))
