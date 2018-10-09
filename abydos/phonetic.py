@@ -4859,7 +4859,7 @@ def reth_schek_phonetik(word):
     - Should we really change 'SCH' -> 'CH' and then 'CH' -> 'SCH'?
 
     :param word:
-    :return:
+    :returns:
     """
     replacements = {3: {'AEH': 'E', 'IEH': 'I', 'OEH': 'OE', 'UEH': 'UE',
                         'SCH': 'CH', 'ZIO': 'TIO', 'TIU': 'TIO', 'ZIU': 'TIO',
@@ -5036,7 +5036,7 @@ def parmar_kumbharana(word):
     This is based on the phonetic algorithm proposed in :cite:`Parmar:2014`.
 
     :param word:
-    :return:
+    :returns:
     """
     rule_table = {4: {'OUGH': 'F'},
                   3: {'DGE': 'J',
@@ -5083,7 +5083,7 @@ def davidson(lname, fname='.', omit_fname=False):
         included in the code.
     :param str omit_fname: Set to True to completely omit the first character
         of the first name
-    :return: Davidson's Consonant Code
+    :returns: Davidson's Consonant Code
     """
     trans = {65: '', 69: '', 73: '', 79: '', 85: '', 72: '', 87: '', 89: ''}
 
@@ -5104,7 +5104,7 @@ def sound_d(word, maxlength=4):
 
     :param str word: the word to transform
     :param int maxlength: the length of the code returned (defaults to 4)
-    :return:
+    :returns:
     """
     _ref_soundd_translation = dict(zip((ord(_) for _ in
                                         'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
@@ -5151,7 +5151,7 @@ def pshp_soundex_last(lname, maxlength=4, german=False):
 
     :param lname: the last name to encode
     :param german: set to True if the name is German (different rules apply)
-    :return:
+    :returns:
     """
     lname = normalize('NFKD', text_type(lname.upper()))
     lname = lname.replace('ß', 'SS')
@@ -5282,7 +5282,7 @@ def pshp_soundex_first(fname, maxlength=4, german=False):
 
     :param fname: the first name to encode
     :param german: set to True if the name is German (different rules apply)
-    :return:
+    :returns:
     """
     fname = normalize('NFKD', text_type(fname.upper()))
     fname = fname.replace('ß', 'SS')
@@ -5355,7 +5355,7 @@ def henry_early(word, maxlength=3):
 
     :param word:
     :param int maxlength: the length of the code returned (defaults to 3)
-    :return:
+    :returns:
     """
     _cons = {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q',
              'R', 'S', 'T', 'V', 'W', 'X', 'Z'}
@@ -5515,7 +5515,7 @@ def norphone(word):
     the "not implemented" rules from the above file's rule set.
 
     :param word:
-    :return:
+    :returns:
     """
     _vowels = {'A', 'E', 'I', 'O', 'U', 'Y', 'Å', 'Æ', 'Ø', 'Ä', 'Ö'}
 
@@ -5592,7 +5592,7 @@ def dolby(word, maxlength=None, keep_vowels=False, vowel_char='*'):
         activates the fixed-length code mode
     :param keep_vowels: if True, retains all vowel markers
     :param vowel_char: the vowel marker character (default to \*)
-    :return:
+    :returns:
     """
     _vowels = {'A', 'E', 'I', 'O', 'U', 'Y'}
 
@@ -5728,7 +5728,7 @@ def phonetic_spanish(word, maxlength=None):
     :cite:`delPilarAngeles:2015`.
 
     :param word:
-    :return:
+    :returns:
     """
     _es_soundex_translation = dict(zip((ord(_) for _ in
                                         'BCDFGHJKLMNPQRSTVXYZ'),
@@ -5766,7 +5766,7 @@ def spanish_metaphone(word, maxlength=6, modified=False):
     :param maxlength:
     :param modified: Set to True to use del Pilar Angeles & Bailón-Miguel's
         modified version of the algorithm
-    :return:
+    :returns:
     """
     def _is_vowel(pos):
         """Return True if the character at word[pos] is a vowel."""
@@ -5901,7 +5901,7 @@ def metasoundex(word, lang='en'):
 
     :param word:
     :param lang: either 'en' for English or 'es' for Spanish
-    :return:
+    :returns:
     """
     _metasoundex_translation = dict(zip((ord(_) for _ in
                                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
@@ -5922,7 +5922,7 @@ def soundex_br(word, maxlength=4, zero_pad=True):
     This is based on :cite:`Marcelino:2015`.
 
     :param word:
-    :return:
+    :returns:
     """
     _soundex_br_translation = dict(zip((ord(_) for _ in
                                         'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
@@ -5966,7 +5966,7 @@ def nrl(word):
     This is defined by :cite:`Elovitz:1976`.
 
     :param word:
-    :return:
+    :returns:
     """
     def to_regex(pattern, left=True):
         new_pattern = ''

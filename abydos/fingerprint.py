@@ -269,7 +269,7 @@ def occurrence_fingerprint(word, n_bits=16,
     :param n_bits: number of bits in the fingerprint returned
     :param most_common: the most common tokens in the target language,
         ordered by frequency
-    :return: the occurrence fingerprint
+    :returns: the occurrence fingerprint
     :rtype: int
     """
     word = set(word)
@@ -301,7 +301,7 @@ def occurrence_halved_fingerprint(word, n_bits=16,
     :param n_bits: number of bits in the fingerprint returned
     :param most_common: the most common tokens in the target language,
         ordered by frequency
-    :return: the occurrence halved fingerprint
+    :returns: the occurrence halved fingerprint
     :rtype: int
     """
     if n_bits % 2:
@@ -340,7 +340,7 @@ def count_fingerprint(word, n_bits=16,
     :param n_bits: number of bits in the fingerprint returned
     :param most_common: the most common tokens in the target language,
         ordered by frequency
-    :return: the count fingerprint
+    :returns: the count fingerprint
     :rtype: int
     """
     if n_bits % 2:
@@ -375,7 +375,7 @@ def position_fingerprint(word, n_bits=16,
     :param most_common: the most common tokens in the target language,
         ordered by frequency
     :param bits_per_letter: the bits to assign for letter position
-    :return: the position fingerprint
+    :returns: the position fingerprint
     :rtype: int
     """
     position = {}
@@ -581,7 +581,7 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
     :param lname: last name
     :param fname: first name (can be blank)
     :param qual: qualifier
-    :return:
+    :returns:
     """
     method_dict = {'end': 1, 'middle': 2, 'beginning': 4,
                              'beginning_no_space': 8}

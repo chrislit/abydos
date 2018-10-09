@@ -43,7 +43,7 @@ The distance module implements string edit distance functions including:
     - Monge-Elkan similarity & distance
     - Matrix similarity
     - Needleman-Wunsch score
-    - Smither-Waterman score
+    - Smith-Waterman score
     - Gotoh score
     - Length similarity
     - Prefix, Suffix, and Identity similarity & distance
@@ -462,7 +462,7 @@ def hamming(src, tar, difflens=True):
     strings' lengths and adds to this the difference in string lengths.
 
     :param str src, tar: two strings to be compared
-    :param bool allow_different_lengths:
+    :param bool difflens:
         If True (default), this returns the Hamming distance for those
         characters that have a matching character in both strings plus the
         difference in the strings' lengths. This is equivalent to extending
@@ -506,7 +506,7 @@ def dist_hamming(src, tar, difflens=True):
     The arguments are identical to those of the hamming() function.
 
     :param str src, tar: two strings to be compared
-    :param bool allow_different_lengths:
+    :param bool difflens:
         If True (default), this returns the Hamming distance for those
         characters that have a matching character in both strings plus the
         difference in the strings' lengths. This is equivalent to extending
@@ -545,7 +545,7 @@ def sim_hamming(src, tar, difflens=True):
     The arguments are identical to those of the hamming() function.
 
     :param str src, tar: two strings to be compared
-    :param bool allow_different_lengths:
+    :param bool difflens:
         If True (default), this returns the Hamming distance for those
         characters that have a matching character in both strings plus the
         difference in the strings' lengths. This is equivalent to extending
@@ -575,7 +575,8 @@ def _get_qgrams(src, tar, qval=0, skip=0):
     :param int qval: the length of each q-gram; 0 for non-q-gram version
     :param int skip: the number of characters to skip (only works when
         src and tar are strings
-    :return: Q-Grams
+    :returns: Q-Grams
+    :rtype: tuple of Counters
     """
     if isinstance(src, Counter) and isinstance(tar, Counter):
         return src, tar
@@ -917,7 +918,7 @@ def tanimoto(src, tar, qval=2):
 def minkowski(src, tar, qval=2, pval=1, normalize=False, alphabet=None):
     """Return the Minkowski distance (:math:`L^p-norm`) of two strings.
 
-    The Minkowsky distance :cite:`Minkowski:1910` is a distance metric in
+    The Minkowski distance :cite:`Minkowski:1910` is a distance metric in
     :math:`L^p-space`.
 
     :param str src, tar: two strings to be compared (or QGrams/Counter objects)
@@ -957,7 +958,7 @@ def minkowski(src, tar, qval=2, pval=1, normalize=False, alphabet=None):
 def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     """Return Minkowski distance of two strings, normalized to [0, 1].
 
-    The normalized Minkowsky distance :cite:`Minkowski:1910` is a distance
+    The normalized Minkowski distance :cite:`Minkowski:1910` is a distance
     metric in :math:`L^p-space`, normalized to [0, 1].
 
     :param str src, tar: two strings to be compared (or QGrams/Counter objects)
@@ -2894,7 +2895,8 @@ def eudex_hamming(src, tar, weights='exponential', maxlength=8,
     :param str src, tar: two strings to be compared
     :param iterable or generator function weights:
     :param maxlength: the number of characters to encode as a eudex hash
-    :return:
+    :returns: the Eudex Hamming distance
+    :rtype: int
     """
     def _gen_fibonacci():
         """Yield the next Fibonacci number.
@@ -2961,7 +2963,7 @@ def dist_eudex(src, tar, weights='exponential', maxlength=8):
     :param str src, tar: two strings to be compared
     :param iterable or generator function weights:
     :param maxlength: the number of characters to encode as a eudex hash
-    :return:
+    :returns:
     """
     return eudex_hamming(src, tar, weights, maxlength, True)
 
@@ -2975,7 +2977,7 @@ def sim_eudex(src, tar, weights='exponential', maxlength=8):
     :param str src, tar: two strings to be compared
     :param iterable or generator function weights:
     :param maxlength: the number of characters to encode as a eudex hash
-    :return:
+    :returns:
     """
     return 1-dist_eudex(src, tar, weights, maxlength)
 
@@ -2988,7 +2990,7 @@ def sift4_simplest(src, tar, max_offset=5):
 
     :param str src, tar: two strings to be compared
     :param max_offset: the number of characters to search for matching letters
-    :return:
+    :returns:
     """
     if not src:
         return len(tar)
@@ -3040,7 +3042,7 @@ def sift4_common(src, tar, max_offset=5, max_distance=0):
     :param str src, tar: two strings to be compared
     :param max_offset: the number of characters to search for matching letters
     :param max_distance: the distance at which to stop and exit
-    :return:
+    :returns:
     """
     if not src:
         return len(tar)
@@ -3123,7 +3125,7 @@ def dist_sift4(src, tar, max_offset=5, max_distance=0):
     :param str src, tar: two strings to be compared
     :param max_offset: the number of characters to search for matching letters
     :param max_distance: the distance at which to stop and exit
-    :return:
+    :returns:
     """
     return (sift4_common(src, tar, max_offset, max_distance) /
             (max(len(src), len(tar), 1)))
@@ -3138,7 +3140,7 @@ def sim_sift4(src, tar, max_offset=5, max_distance=0):
     :param str src, tar: two strings to be compared
     :param max_offset: the number of characters to search for matching letters
     :param max_distance: the distance at which to stop and exit
-    :return:
+    :returns:
     """
     return 1-dist_sift4(src, tar, max_offset, max_distance)
 
@@ -3160,7 +3162,7 @@ def sim_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
     :param int left_ext: left-side extension length
     :param int right_ext: right-side extension length
     :rtype: float
-    :return: the Baystat similarity
+    :returns: the Baystat similarity
     """
     if src == tar:
         return 1
@@ -3252,7 +3254,7 @@ def dist_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
     :param int left_ext: left-side extension length
     :param int right_ext: right-side extension length
     :rtype: float
-    :return: the Baystat distance
+    :returns: the Baystat distance
     """
     return 1-sim_baystat(src, tar, min_ss_len, left_ext, right_ext)
 
@@ -3272,7 +3274,7 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
         default: (1, 1, 0.5, 0.5)) The substitution & shift costs should be
         significantly less than the cost of an insertion & deletion unless
         a log metric is used.
-    :return: typo distance
+    :returns: typo distance
     :rtype: float
     """
     ins_cost, del_cost, sub_cost, shift_cost = cost
@@ -3402,7 +3404,7 @@ def dist_typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5)):
         default: (1, 1, 0.5, 0.5)) The substitution & shift costs should be
         significantly less than the cost of an insertion & deletion unless
         a log metric is used.
-    :return: normalized typo distance
+    :returns: normalized typo distance
     :rtype: float
     """
     if src == tar:
@@ -3426,7 +3428,7 @@ def sim_typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5)):
         default: (1, 1, 0.5, 0.5)) The substitution & shift costs should be
         significantly less than the cost of an insertion & deletion unless
         a log metric is used.
-    :return: normalized typo similarity
+    :returns: normalized typo similarity
     :rtype: float
     """
     return 1 - dist_typo(src, tar, metric, cost)
@@ -3439,7 +3441,7 @@ def dist_indel(src, tar):
     are possible.
 
     :param str src, tar: two strings to be compared
-    :return: indel distance
+    :returns: indel distance
     :rtype: float
     """
     if src == tar:
@@ -3455,7 +3457,7 @@ def sim_indel(src, tar):
     are possible.
 
     :param str src, tar: two strings to be compared
-    :return: indel similarity
+    :returns: indel similarity
     :rtype: float
     """
     return 1-dist_indel(src, tar)
@@ -3464,8 +3466,8 @@ def sim_indel(src, tar):
 def _synoname_strip_punct(word):
     """Return a word with punctuation stripped out.
 
-    :param word:
-    :return:
+    :param word: a word to strip punctuation from
+    :returns: 
     """
     stripped = ''
     for char in word:
@@ -3649,8 +3651,17 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
     :param str src, tar: two strings to be compared
     :param bool ret_name: return the name of the match type rather than the
         int value
-    :return: Synoname value
-    :rtype: int or str
+    :param float word_approx_min: the minimum word approximation value to
+        signal a 'word_approx' match
+    :param float char_approx_min: the minimum character approximation value to
+        signal a 'char_approx' match
+    :param int or Iterable tests: either an integer indicating tests to
+        perform or a list of test names to perform (defaults to performing all
+        tests)
+    :param bool ret_name: if True, returns the match name rather than its
+        integer equivalent
+    :returns: Synoname value
+    :rtype: int (or str if ret_name is True)
     """
     test_dict = {val: 2**n for n, val in enumerate([
         'exact', 'omission', 'substitution', 'transposition', 'punctuation',

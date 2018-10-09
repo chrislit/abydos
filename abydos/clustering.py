@@ -47,7 +47,7 @@ def mean_pairwise_similarity(collection, metric=sim,
     :param bool symmetric: set to True if all pairwise similarities should be
         calculated in both directions
     :returns: the mean pairwise similarity of a collection of strings
-    :rtype: str
+    :rtype: float
 
     >>> round(mean_pairwise_similarity(['Christopher', 'Kristof',
     ... 'Christobal']), 12)
@@ -82,11 +82,12 @@ def mean_pairwise_similarity(collection, metric=sim,
 
 def pairwise_similarity_statistics(src_collection, tar_collection, metric=sim,
                                    mean_func=amean, symmetric=False):
-    """Calculate the mean pairwise similarity of a collection of strings.
+    """Calculate the pairwise similarity statistics a collection of strings.
 
-    Takes the mean of the pairwise similarity between each member of a
-    collection, optionally in both directions (for asymmetric similarity
-    metrics.
+    Calculate pairwise similarities among members of two collections,
+    returning the maximum, minimum, mean (according to a supplied function,
+    arithmetic mean, by default), and (population) standard deviation
+    of those similarities.
 
     :param list src_collection: a collection of terms or a string that can be
         split
@@ -98,7 +99,11 @@ def pairwise_similarity_statistics(src_collection, tar_collection, metric=sim,
     :param bool symmetric: set to True if all pairwise similarities should be
         calculated in both directions
     :returns: the max, min, mean, and standard deviation of similarities
-    :rtype: str
+    :rtype: tuple
+
+    >>> tuple(round(_, 12) for _ in pairwise_similarity_statistics(
+    ... ['Christopher', 'Kristof', 'Christobal'], ['Niall', 'Neal', 'Neil']))
+    (0.2, 0.0, 0.118614718615, 0.075070477184)
     """
     if not callable(mean_func):
         raise ValueError('mean_func must be a function')
