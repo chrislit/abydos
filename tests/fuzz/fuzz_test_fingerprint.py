@@ -31,7 +31,7 @@ from abydos.fingerprint import count_fingerprint, occurrence_fingerprint, \
     position_fingerprint, qgram_fingerprint, skeleton_key, str_fingerprint, \
     synoname_toolcode
 
-from . import fuzz, random_char
+from . import _fuzz, _random_char
 
 algorithms = {'str_fingerprint': str_fingerprint,
               'qgram_fingerprint': qgram_fingerprint,
@@ -117,7 +117,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
     def fuzz_test_20pct(self):
         """Fuzz test fingerprint algorithms against 20% fuzzed words."""
         for _ in range(self.reps):
-            fuzzed = fuzz(choice(self.basewords), fuzziness=0.2)  # noqa: S311
+            fuzzed = _fuzz(choice(self.basewords), fuzziness=0.2)  # noqa: S311
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
@@ -134,7 +134,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
     def fuzz_test_100pct(self):
         """Fuzz test fingerprint algorithms against 100% fuzzed words."""
         for _ in range(self.reps):
-            fuzzed = fuzz(choice(self.basewords), fuzziness=1)  # noqa: S311
+            fuzzed = _fuzz(choice(self.basewords), fuzziness=1)  # noqa: S311
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
@@ -151,7 +151,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
     def fuzz_test_fuzz_bmp(self):
         """Fuzz test fingerprint algorithms against BMP fuzz."""
         for _ in range(self.reps):
-            fuzzed = ''.join(random_char(0xffff) for _ in
+            fuzzed = ''.join(_random_char(0xffff) for _ in
                              range(0, randint(8, 16)))  # noqa: S311
 
             if EXTREME_TEST:
@@ -169,7 +169,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
     def fuzz_test_fuzz_bmpsmp_letter(self):
         """Fuzz test fingerprint algorithms against alphabetic BMP+SMP fuzz."""
         for _ in range(self.reps):
-            fuzzed = ''.join(random_char(0x1ffff, ' LETTER ') for _ in
+            fuzzed = ''.join(_random_char(0x1ffff, ' LETTER ') for _ in
                              range(0, randint(8, 16)))  # noqa: S311
 
             if EXTREME_TEST:
@@ -187,7 +187,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
     def fuzz_test_fuzz_bmpsmp_latin(self):
         """Fuzz test fingerprint algorithms against Latin BMP+SMP fuzz."""
         for _ in range(self.reps):
-            fuzzed = ''.join(random_char(0x1ffff, 'LATIN ') for _ in
+            fuzzed = ''.join(_random_char(0x1ffff, 'LATIN ') for _ in
                              range(0, randint(8, 16)))  # noqa: S311
 
             if EXTREME_TEST:
@@ -205,7 +205,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
     def fuzz_test_fuzz_unicode(self):
         """Fuzz test fingerprint algorithms against valid Unicode fuzz."""
         for _ in range(self.reps):
-            fuzzed = ''.join(random_char() for _ in
+            fuzzed = ''.join(_random_char() for _ in
                              range(0, randint(8, 16)))  # noqa: S311
 
             if EXTREME_TEST:

@@ -29,7 +29,7 @@ from string import printable
 from six import unichr
 
 
-def random_char(below=0x10ffff, must_be=None):
+def _random_char(below=0x10ffff, must_be=None):
     """Generate a random Unicode character below U+{below}."""
     while True:
         char = unichr(randint(0, below))  # noqa: S311
@@ -41,7 +41,7 @@ def random_char(below=0x10ffff, must_be=None):
             pass
 
 
-def fuzz(word, fuzziness=0.2):
+def _fuzz(word, fuzziness=0.2):
     """Fuzz a word with noise."""
     while True:
         new_word = []

@@ -58,16 +58,20 @@ if not EXTREME_TEST and os.path.isfile(TESTDIR + '/EXTREME_TEST'):
     EXTREME_TEST = True
 
 
-def one_in(inverse_probability):
+def _one_in(inverse_probability):
     """Return whether to run a test.
 
     Return True if:
         EXTREME_TEST is True
         OR
-        (ALLOW_RANDOM is False
+        (ALLOW_RANDOM is True
         AND
-        random.random() * inverse_probability < 1
+        random.random() * inverse_probability < 1)
     Otherwise return False
+
+    :param int inverse_probability: the inverse of the probability
+    :returns: whether to run a test
+    :rtype: bool
     """
     if EXTREME_TEST:
         return True
@@ -4335,7 +4339,7 @@ class PhonetTestCases(unittest.TestCase):
                     nn_line = nn_line.strip().split(',')
                     # This test set is very large (~10000 entries)
                     # so let's just randomly select about 100 for testing
-                    if len(nn_line) >= 3 and one_in(100):
+                    if len(nn_line) >= 3 and _one_in(100):
                         (term, ph1, ph2) = nn_line
                         self.assertEqual(phonet(term, 1), ph1)
                         self.assertEqual(phonet(term, 2), ph2)
@@ -4351,7 +4355,7 @@ class PhonetTestCases(unittest.TestCase):
                     ng_line = ng_line.strip().split(',')
                     # This test set is very large (~3000000 entries)
                     # so let's just randomly select about 30 for testing
-                    if len(ng_line) >= 3 and one_in(10000):
+                    if len(ng_line) >= 3 and _one_in(10000):
                         (term, ph1, ph2) = ng_line
                         self.assertEqual(phonet(term, 1), ph1)
                         self.assertEqual(phonet(term, 2), ph2)
@@ -6760,7 +6764,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                 nn_line = nn_line.strip().split(',')
                 # This test set is very large (~10000 entries)
                 # so let's just randomly select about 20 for testing
-                if nn_line[0] != '#' and one_in(500):
+                if nn_line[0] != '#' and _one_in(500):
                     self.assertEqual(bmpm(nn_line[0], language_arg='german'),
                                      nn_line[1])
                     self.assertEqual(bmpm(nn_line[0]), nn_line[2])
@@ -6789,7 +6793,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                 cen_line = cen_line.strip().split(',')
                 # This test set is very large (~150000 entries)
                 # so let's just randomly select about 20 for testing
-                if cen_line[0] != '#' and one_in(7500):
+                if cen_line[0] != '#' and _one_in(7500):
                     self.assertEqual(bmpm(cen_line[0], match_mode='approx',
                                           name_mode='gen'), cen_line[1])
                     self.assertEqual(bmpm(cen_line[0], match_mode='approx',
@@ -6811,7 +6815,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                 cen_line = cen_line.strip().split(',')
                 # This test set is very large (~150000 entries)
                 # so let's just randomly select about 20 for testing
-                if cen_line[0] != '#' and one_in(10):
+                if cen_line[0] != '#' and _one_in(10):
                     self.assertEqual(bmpm(cen_line[0], match_mode='approx',
                                           name_mode='gen'), cen_line[1])
                     self.assertEqual(bmpm(cen_line[0], match_mode='approx',
