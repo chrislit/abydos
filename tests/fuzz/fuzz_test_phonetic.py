@@ -63,7 +63,7 @@ algorithms = {'russell_index': lambda name: russell_index(name),
               'nysiis': nysiis,
               'nysiis_modified': lambda name: nysiis(name, modified=True),
               'nysiis_ml_inf':
-                  lambda name: nysiis(name, max_length=float('inf')),
+                  lambda name: nysiis(name, max_length=-1),
               'mra': mra,
               'metaphone': metaphone,
               'double_metaphone':

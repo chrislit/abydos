@@ -67,14 +67,12 @@ from collections import Counter
 from itertools import groupby, product
 from re import compile as re_compile
 from re import match as re_match
-from unicodedata import normalize
+from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 from six.moves import range
 
 from ._bm import _bmpm
-
-_INFINITY = float('inf')
 
 __all__ = ['alpha_sis', 'bmpm', 'caverphone', 'davidson', 'dm_soundex',
            'dolby', 'double_metaphone', 'eudex', 'fonem', 'fuzzy_soundex',
@@ -123,7 +121,7 @@ def russell_index(word):
                                      'ABCDEFGIKLMNOPQRSTUVXYZ'),
                                     '12341231356712383412313'))
 
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = word.replace('GH', '')  # discard gh (rule 3)
     word = word.rstrip('SZ')  # discard /[sz]$/ (rule 3)
@@ -196,11 +194,11 @@ def russell_index_alpha(word):
     return ''
 
 
-def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
+def soundex(word, max_length=4, var='American', reverse=False, zero_pad=True):
     """Return the Soundex code for a word.
 
     :param str word: the word to transform
-    :param int maxlength: the length of the code returned (defaults to 4)
+    :param int max_length: the length of the code returned (defaults to 4)
     :param str var: the variant of the algorithm to employ (defaults to
         'American'):
 
@@ -218,7 +216,7 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
         (defaults to False); This results in "Reverse Soundex", which is useful
         for blocking in cases where the initial elements may be in error.
     :param bool zero_pad: pad the end of the return value with 0s to achieve a
-        maxlength string
+        max_length string
     :returns: the Soundex value
     :rtype: str
 
@@ -231,10 +229,9 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     >>> soundex('Schmidt')
     'S530'
 
-
-    >>> soundex('Christopher', maxlength=_INFINITY)
+    >>> soundex('Christopher', max_length=-1)
     'C623160000000000000000000000000000000000000000000000000000000000'
-    >>> soundex('Christopher', maxlength=_INFINITY, zero_pad=False)
+    >>> soundex('Christopher', max_length=-1, zero_pad=False)
     'C62316'
 
     >>> soundex('Christopher', reverse=True)
@@ -253,25 +250,25 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
                                      'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
                                     '01230129022455012623019202'))
 
-    # Require a maxlength of at least 4 and not more than 64
-    if maxlength is not None:
-        maxlength = min(max(4, maxlength), 64)
+    # Require a max_length of at least 4 and not more than 64
+    if max_length != -1:
+        max_length = min(max(4, max_length), 64)
     else:
-        maxlength = 64
+        max_length = 64
 
     # uppercase, normalize, decompose, and filter non-A-Z out
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
 
     if var == 'Census':
         # TODO: Should these prefixes be supplemented? (VANDE, DELA, VON)
         if word[:3] in {'VAN', 'CON'} and len(word) > 4:
-            return (soundex(word, maxlength, 'American', reverse, zero_pad),
-                    soundex(word[3:], maxlength, 'American', reverse,
+            return (soundex(word, max_length, 'American', reverse, zero_pad),
+                    soundex(word[3:], max_length, 'American', reverse,
                             zero_pad))
         if word[:2] in {'DE', 'DI', 'LA', 'LE'} and len(word) > 3:
-            return (soundex(word, maxlength, 'American', reverse, zero_pad),
-                    soundex(word[2:], maxlength, 'American', reverse,
+            return (soundex(word, max_length, 'American', reverse, zero_pad),
+                    soundex(word[2:], max_length, 'American', reverse,
                             zero_pad))
         # Otherwise, proceed as usual (var='American' mode, ostensibly)
 
@@ -283,7 +280,7 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     # Nothing to convert, return base case
     if not word:
         if zero_pad:
-            return '0'*maxlength
+            return '0'*max_length
         return '0'
 
     # Reverse word if computing Reverse Soundex
@@ -306,12 +303,12 @@ def soundex(word, maxlength=4, var='American', reverse=False, zero_pad=True):
     sdx = sdx.replace('0', '')  # rule 1
 
     if zero_pad:
-        sdx += ('0'*maxlength)  # rule 4
+        sdx += ('0'*max_length)  # rule 4
 
-    return sdx[:maxlength]
+    return sdx[:max_length]
 
 
-def refined_soundex(word, maxlength=_INFINITY, zero_pad=False,
+def refined_soundex(word, max_length=0, zero_pad=False,
                     retain_vowels=False):
     """Return the Refined Soundex code for a word.
 
@@ -319,9 +316,9 @@ def refined_soundex(word, maxlength=_INFINITY, zero_pad=False,
     :cite:`Boyce:1998`.
 
     :param word: the word to transform
-    :param maxlength: the length of the code returned (defaults to unlimited)
+    :param max_length: the length of the code returned (defaults to unlimited)
     :param zero_pad: pad the end of the return value with 0s to achieve a
-        maxlength string
+        max_length string
     :param retain_vowels: retain vowels (as 0) in the resulting code
     :returns: the Refined Soundex value
     :rtype: str
@@ -340,7 +337,7 @@ def refined_soundex(word, maxlength=_INFINITY, zero_pad=False,
                                         '01360240043788015936020505'))
 
     # uppercase, normalize, decompose, and filter non-A-Z out
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -353,15 +350,15 @@ def refined_soundex(word, maxlength=_INFINITY, zero_pad=False,
     if not retain_vowels:
         sdx = sdx.replace('0', '')  # Delete vowels, H, W, Y
 
-    if maxlength < _INFINITY:
+    if max_length > 0:
         if zero_pad:
-            sdx += ('0' * maxlength)
-        sdx = sdx[:maxlength]
+            sdx += ('0' * max_length)
+        sdx = sdx[:max_length]
 
     return sdx
 
 
-def dm_soundex(word, maxlength=6, zero_pad=True):
+def dm_soundex(word, max_length=6, zero_pad=True):
     """Return the Daitch-Mokotoff Soundex code for a word.
 
     Based on Daitch-Mokotoff Soundex :cite:`Mokotoff:1997`, this returns values
@@ -369,9 +366,9 @@ def dm_soundex(word, maxlength=6, zero_pad=True):
     values for a single word.
 
     :param word: the word to transform
-    :param maxlength: the length of the code returned (defaults to 6)
+    :param max_length: the length of the code returned (defaults to 6)
     :param zero_pad: pad the end of the return value with 0s to achieve a
-        maxlength string
+        max_length string
     :returns: the Daitch-Mokotoff Soundex value
     :rtype: str
 
@@ -384,7 +381,8 @@ def dm_soundex(word, maxlength=6, zero_pad=True):
     >>> dm_soundex('Schmidt')
     {'463000'}
 
-    >>> sorted(dm_soundex('The quick brown fox', maxlength=20, zero_pad=False))
+    >>> sorted(dm_soundex('The quick brown fox', max_length=20,
+    ... zero_pad=False))
     ['35457976754', '3557976754']
     """
     _dms_table = {'STCH': (2, 4, 4), 'DRZ': (4, 4, 4), 'ZH': (4, 4, 4),
@@ -471,14 +469,14 @@ def dm_soundex(word, maxlength=6, zero_pad=True):
     _vowels = {'A', 'E', 'I', 'J', 'O', 'U', 'Y'}
     dms = ['']  # initialize empty code list
 
-    # Require a maxlength of at least 6 and not more than 64
-    if maxlength is not None:
-        maxlength = min(max(6, maxlength), 64)
+    # Require a max_length of at least 6 and not more than 64
+    if max_length != -1:
+        max_length = min(max(6, max_length), 64)
     else:
-        maxlength = 64
+        max_length = 64
 
     # uppercase, normalize, decompose, and filter non-A-Z
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -488,7 +486,7 @@ def dm_soundex(word, maxlength=6, zero_pad=True):
     # Nothing to convert, return base case
     if not word:
         if zero_pad:
-            return {'0'*maxlength}
+            return {'0'*max_length}
         return {'0'}
 
     pos = 0
@@ -525,9 +523,9 @@ def dm_soundex(word, maxlength=6, zero_pad=True):
 
     # Trim codes and return set
     if zero_pad:
-        dms = ((_ + ('0'*maxlength))[:maxlength] for _ in dms)
+        dms = ((_ + ('0'*max_length))[:max_length] for _ in dms)
     else:
-        dms = (_[:maxlength] for _ in dms)
+        dms = (_[:max_length] for _ in dms)
     return set(dms)
 
 
@@ -572,7 +570,7 @@ def koelner_phonetik(word):
 
     sdx = ''
 
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
 
     word = word.replace('Ä', 'AE')
@@ -681,7 +679,7 @@ def koelner_phonetik_alpha(word):
     return koelner_phonetik_num_to_alpha(koelner_phonetik(word))
 
 
-def nysiis(word, maxlength=6, modified=False):
+def nysiis(word, max_length=6, modified=False):
     """Return the NYSIIS code for a word.
 
     The New York State Identification and Intelligence System algorithm is
@@ -691,7 +689,7 @@ def nysiis(word, maxlength=6, modified=False):
     :cite:`Lynch:1977`.
 
     :param str word: the word to transform
-    :param int maxlength: the maximum length (default 6) of the code to return
+    :param int max_length: the maximum length (default 6) of the code to return
     :param bool modified: indicates whether to use USDA modified NYSIIS
     :returns: the NYSIIS value
     :rtype: str
@@ -705,21 +703,21 @@ def nysiis(word, maxlength=6, modified=False):
     >>> nysiis('Schmidt')
     'SNAD'
 
-    >>> nysiis('Christopher', maxlength=_INFINITY)
+    >>> nysiis('Christopher', max_length=0)
     'CRASTAFAR'
 
-    >>> nysiis('Christopher', maxlength=8, modified=True)
+    >>> nysiis('Christopher', max_length=8, modified=True)
     'CRASTAFA'
-    >>> nysiis('Niall', maxlength=8, modified=True)
+    >>> nysiis('Niall', max_length=8, modified=True)
     'NAL'
-    >>> nysiis('Smith', maxlength=8, modified=True)
+    >>> nysiis('Smith', max_length=8, modified=True)
     'SNAT'
-    >>> nysiis('Schmidt', maxlength=8, modified=True)
+    >>> nysiis('Schmidt', max_length=8, modified=True)
     'SNAD'
     """
-    # Require a maxlength of at least 6
-    if maxlength:
-        maxlength = max(6, maxlength)
+    # Require a max_length of at least 6
+    if max_length:
+        max_length = max(6, max_length)
 
     _vowels = {'A', 'E', 'I', 'O', 'U'}
 
@@ -841,8 +839,8 @@ def nysiis(word, maxlength=6, modified=False):
     if modified and key[:1] == 'A':
         key = original_first_char + key[1:]
 
-    if maxlength and maxlength < _INFINITY:
-        key = key[:maxlength]
+    if max_length and max_length > 0:
+        key = key[:max_length]
 
     return key
 
@@ -878,7 +876,7 @@ def mra(word):
     return word
 
 
-def metaphone(word, maxlength=_INFINITY):
+def metaphone(word, max_length=-1):
     """Return the Metaphone code for a word.
 
     Based on Lawrence Philips' Pick BASIC code from 1990 :cite:`Philips:1990`,
@@ -887,9 +885,8 @@ def metaphone(word, maxlength=_INFINITY):
     some of those suggested by Michael Kuhn in :cite:`Kuhn:1995`.
 
     :param str word: the word to transform
-    :param int maxlength: the maximum length of the returned Metaphone code
-        (defaults to unlimited, but in Philips' original implementation
-        this was 4)
+    :param int max_length: the maximum length of the returned Metaphone code
+        (defaults to 64, but in Philips' original implementation this was 4)
     :returns: the Metaphone value
     :rtype: str
 
@@ -907,11 +904,11 @@ def metaphone(word, maxlength=_INFINITY):
     _frontv = {'E', 'I', 'Y'}
     _varson = {'C', 'G', 'P', 'S', 'T'}
 
-    # Require a maxlength of at least 4
-    if maxlength is not None:
-        maxlength = max(4, maxlength)
+    # Require a max_length of at least 4
+    if max_length != -1:
+        max_length = max(4, max_length)
     else:
-        maxlength = 64
+        max_length = 64
 
     # As in variable sound--those modified by adding an "h"
     ename = ''.join(c for c in word.upper() if c.isalnum())
@@ -931,7 +928,7 @@ def metaphone(word, maxlength=_INFINITY):
     elen = len(ename)-1
     metaph = ''
     for i in range(len(ename)):
-        if len(metaph) >= maxlength:
+        if len(metaph) >= max_length:
             break
         if ((ename[i] not in {'G', 'T'} and
              i > 0 and ename[i-1] == ename[i])):
@@ -1048,15 +1045,15 @@ def metaphone(word, maxlength=_INFINITY):
     return metaph
 
 
-def double_metaphone(word, maxlength=_INFINITY):
+def double_metaphone(word, max_length=-1):
     """Return the Double Metaphone code for a word.
 
     Based on Lawrence Philips' (Visual) C++ code from 1999
     :cite:`Philips:2000`.
 
     :param word: the word to transform
-    :param maxlength: the maximum length of the returned Double Metaphone codes
-        (defaults to unlimited, but in Philips' original implementation this
+    :param max_length: the maximum length of the returned Double Metaphone
+        codes (defaults to 64, but in Philips' original implementation this
         was 4)
     :returns: the Double Metaphone value(s)
     :rtype: tuple
@@ -1070,11 +1067,11 @@ def double_metaphone(word, maxlength=_INFINITY):
     >>> double_metaphone('Schmidt')
     ('XMT', 'SMT')
     """
-    # Require a maxlength of at least 4
-    if maxlength is not None:
-        maxlength = max(4, maxlength)
+    # Require a max_length of at least 4
+    if max_length != -1:
+        max_length = max(4, max_length)
     else:
-        maxlength = 64
+        max_length = 64
 
     primary = ''
     secondary = ''
@@ -1760,13 +1757,13 @@ def double_metaphone(word, maxlength=_INFINITY):
         else:
             current += 1
 
-    if maxlength and maxlength < _INFINITY:
-        primary = primary[:maxlength]
-        secondary = secondary[:maxlength]
+    if max_length > 0:
+        primary = primary[:max_length]
+        secondary = secondary[:max_length]
     if primary == secondary:
         secondary = ''
 
-    return (primary, secondary)
+    return primary, secondary
 
 
 def caverphone(word, version=2):
@@ -1920,7 +1917,7 @@ def caverphone(word, version=2):
     return word
 
 
-def alpha_sis(word, maxlength=14):
+def alpha_sis(word, max_length=14):
     """Return the IBM Alpha Search Inquiry System code for a word.
 
     The Alpha Search Inquiry System code is defined in :cite:`IBM:1973`.
@@ -1931,7 +1928,7 @@ def alpha_sis(word, maxlength=14):
     is the primary coding.
 
     :param str word: the word to transform
-    :param int maxlength: the length of the code returned (defaults to 14)
+    :param int max_length: the length of the code returned (defaults to 14)
     :returns: the Alpha SIS value
     :rtype: tuple
 
@@ -1967,18 +1964,18 @@ def alpha_sis(word, maxlength=14):
 
     alpha = ['']
     pos = 0
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
                     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
                     'Y', 'Z'})
 
-    # Clamp maxlength to [4, 64]
-    if maxlength is not None:
-        maxlength = min(max(4, maxlength), 64)
+    # Clamp max_length to [4, 64]
+    if max_length != -1:
+        max_length = min(max(4, max_length), 64)
     else:
-        maxlength = 64
+        max_length = 64
 
     # Do special processing for initial substrings
     for k in _alpha_sis_initials_order:
@@ -2020,20 +2017,20 @@ def alpha_sis(word, maxlength=14):
     alpha = (_.replace('_', '') for _ in alpha)
 
     # Trim codes and return tuple
-    alpha = ((_ + ('0'*maxlength))[:maxlength] for _ in alpha)
+    alpha = ((_ + ('0'*max_length))[:max_length] for _ in alpha)
     return tuple(alpha)
 
 
-def fuzzy_soundex(word, maxlength=5, zero_pad=True):
+def fuzzy_soundex(word, max_length=5, zero_pad=True):
     """Return the Fuzzy Soundex code for a word.
 
     Fuzzy Soundex is an algorithm derived from Soundex, defined in
     :cite:`Holmes:2002`.
 
     :param str word: the word to transform
-    :param int maxlength: the length of the code returned (defaults to 4)
+    :param int max_length: the length of the code returned (defaults to 4)
     :param bool zero_pad: pad the end of the return value with 0s to achieve
-        a maxlength string
+        a max_length string
     :returns: the Fuzzy Soundex value
     :rtype: str
 
@@ -2050,18 +2047,18 @@ def fuzzy_soundex(word, maxlength=5, zero_pad=True):
                                            'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
                                           '0193017-07745501769301-7-9'))
 
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
 
-    # Clamp maxlength to [4, 64]
-    if maxlength is not None:
-        maxlength = min(max(4, maxlength), 64)
+    # Clamp max_length to [4, 64]
+    if max_length != -1:
+        max_length = min(max(4, max_length), 64)
     else:
-        maxlength = 64
+        max_length = 64
 
     if not word:
         if zero_pad:
-            return '0' * maxlength
+            return '0' * max_length
         return '0'
 
     if word[:2] in {'CS', 'CZ', 'TS', 'TZ'}:
@@ -2122,20 +2119,20 @@ def fuzzy_soundex(word, maxlength=5, zero_pad=True):
     sdx = sdx.replace('0', '')
 
     if zero_pad:
-        sdx += ('0'*maxlength)
+        sdx += ('0'*max_length)
 
-    return sdx[:maxlength]
+    return sdx[:max_length]
 
 
-def phonex(word, maxlength=4, zero_pad=True):
+def phonex(word, max_length=4, zero_pad=True):
     """Return the Phonex code for a word.
 
     Phonex is an algorithm derived from Soundex, defined in :cite:`Lait:1996`.
 
     :param str word: the word to transform
-    :param int maxlength: the length of the code returned (defaults to 4)
+    :param int max_length: the length of the code returned (defaults to 4)
     :param bool zero_pad: pad the end of the return value with 0s to achieve
-        a maxlength string
+        a max_length string
     :returns: the Phonex value
     :rtype: str
 
@@ -2148,14 +2145,14 @@ def phonex(word, maxlength=4, zero_pad=True):
     >>> phonex('Smith')
     'S530'
     """
-    name = normalize('NFKD', text_type(word.upper()))
+    name = unicode_normalize('NFKD', text_type(word.upper()))
     name = name.replace('ß', 'SS')
 
-    # Clamp maxlength to [4, 64]
-    if maxlength is not None:
-        maxlength = min(max(4, maxlength), 64)
+    # Clamp max_length to [4, 64]
+    if max_length != -1:
+        max_length = min(max(4, max_length), 64)
     else:
-        maxlength = 64
+        max_length = 64
 
     name_code = last = ''
 
@@ -2228,10 +2225,10 @@ def phonex(word, maxlength=4, zero_pad=True):
         last = name_code[-1]
 
     if zero_pad:
-        name_code += '0' * maxlength
+        name_code += '0' * max_length
     if not name_code:
         name_code = '0'
-    return name_code[:maxlength]
+    return name_code[:max_length]
 
 
 def phonem(word):
@@ -2269,7 +2266,7 @@ def phonem(word):
                                     'ZKGQÇÑßFWPTÁÀÂÃÅÄÆÉÈÊËIJÌÍÎÏÜÝ§ÚÙÛÔÒÓÕØ'),
                                    'CCCCCNSVVBDAAAAAEEEEEEYYYYYYYYUUUUOOOOÖ'))
 
-    word = normalize('NFC', text_type(word.upper()))
+    word = unicode_normalize('NFC', text_type(word.upper()))
     for i, j in _phonem_substitutions:
         word = word.replace(i, j)
     word = word.translate(_phonem_translation)
@@ -2279,7 +2276,7 @@ def phonem(word):
                             'U', 'V', 'W', 'X', 'Y', 'Ö'})
 
 
-def phonix(word, maxlength=4, zero_pad=True):
+def phonix(word, max_length=4, zero_pad=True):
     """Return the Phonix code for a word.
 
     Phonix is a Soundex-like algorithm defined in :cite:`Gadd:1990`.
@@ -2290,9 +2287,9 @@ def phonix(word, maxlength=4, zero_pad=True):
     - :cite:`Kollar:2007`
 
     :param str word: the word to transform
-    :param int maxlength: the length of the code returned (defaults to 4)
+    :param int max_length: the length of the code returned (defaults to 4)
     :param bool zero_pad: pad the end of the return value with 0s to achieve
-        a maxlength string
+        a max_length string
     :returns: the Phonix value
     :rtype: str
 
@@ -2458,7 +2455,7 @@ def phonix(word, maxlength=4, zero_pad=True):
 
     sdx = ''
 
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -2474,20 +2471,20 @@ def phonix(word, maxlength=4, zero_pad=True):
         sdx = _delete_consecutive_repeats(sdx)
         sdx = sdx.replace('0', '')
 
-    # Clamp maxlength to [4, 64]
-    if maxlength is not None:
-        maxlength = min(max(4, maxlength), 64)
+    # Clamp max_length to [4, 64]
+    if max_length != -1:
+        max_length = min(max(4, max_length), 64)
     else:
-        maxlength = 64
+        max_length = 64
 
     if zero_pad:
-        sdx += '0' * maxlength
+        sdx += '0' * max_length
     if not sdx:
         sdx = '0'
-    return sdx[:maxlength]
+    return sdx[:max_length]
 
 
-def sfinxbis(word, maxlength=None):
+def sfinxbis(word, max_length=-1):
     """Return the SfinxBis code for a word.
 
     SfinxBis is a Soundex-like algorithm defined in :cite:`Axelsson:2009`.
@@ -2498,7 +2495,7 @@ def sfinxbis(word, maxlength=None):
     SfinxBis is intended chiefly for Swedish names.
 
     :param str word: the word to transform
-    :param int maxlength: the length of the code returned (defaults to
+    :param int max_length: the length of the code returned (defaults to
         unlimited)
     :returns: the SfinxBis value
     :rtype: tuple
@@ -2603,7 +2600,7 @@ def sfinxbis(word, maxlength=None):
         return ordet
 
     # Steg 1, Versaler
-    word = normalize('NFC', text_type(word.upper()))
+    word = unicode_normalize('NFC', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = word.replace('-', ' ')
 
@@ -2654,9 +2651,9 @@ def sfinxbis(word, maxlength=None):
     ordlista = [''.join(ordet) for ordet in
                 zip((_[0:1] for _ in ordlista), rest)]
 
-    # truncate, if maxlength is set
-    if maxlength and maxlength < _INFINITY:
-        ordlista = [ordet[:maxlength] for ordet in ordlista]
+    # truncate, if max_length is set
+    if max_length > 0:
+        ordlista = [ordet[:max_length] for ordet in ordlista]
 
     return tuple(ordlista)
 
@@ -4170,7 +4167,7 @@ def phonet(word, mode=1, lang='de'):
 
     _initialize_phonet(lang)
 
-    word = normalize('NFKC', text_type(word))
+    word = unicode_normalize('NFKC', text_type(word))
     return _phonet(word, mode, lang)
 
 
@@ -4238,9 +4235,9 @@ def spfc(word):
     else:
         _raise_word_ex()
 
-    names = [normalize('NFKD', text_type(_.strip()
-                                         .replace('ß', 'SS')
-                                         .upper()))
+    names = [unicode_normalize('NFKD', text_type(_.strip()
+                                                 .replace('ß', 'SS')
+                                                 .upper()))
              for _ in names]
     code = ''
 
@@ -4322,7 +4319,7 @@ def spfc(word):
     return code
 
 
-def statistics_canada(word, maxlength=4):
+def statistics_canada(word, max_length=4):
     """Return the Statistics Canada code for a word.
 
     The original description of this algorithm could not be located, and
@@ -4335,7 +4332,7 @@ def statistics_canada(word, maxlength=4):
      :cite:`Moore:1977`.
 
     :param str word: the word to transform
-    :param int maxlength: the maximum length (default 6) of the code to return
+    :param int max_length: the maximum length (default 6) of the code to return
     :param bool modified: indicates whether to use USDA modified algorithm
     :returns: the Statistics Canada name code value
     :rtype: str
@@ -4350,7 +4347,7 @@ def statistics_canada(word, maxlength=4):
     'SCHM'
     """
     # uppercase, normalize, decompose, and filter non-A-Z out
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -4366,18 +4363,18 @@ def statistics_canada(word, maxlength=4):
     code = _delete_consecutive_repeats(code)
     code = code.replace(' ', '')
 
-    return code[:maxlength]
+    return code[:max_length]
 
 
-def lein(word, maxlength=4, zero_pad=True):
+def lein(word, max_length=4, zero_pad=True):
     """Return the Lein code for a word.
 
     This is Lein name coding, described in :cite:`Moore:1977`.
 
     :param str word: the word to transform
-    :param int maxlength: the maximum length (default 4) of the code to return
+    :param int max_length: the maximum length (default 4) of the code to return
     :param bool zero_pad: pad the end of the return value with 0s to achieve a
-        maxlength string
+        max_length string
     :returns: the Lein code
     :rtype: str
 
@@ -4395,7 +4392,7 @@ def lein(word, maxlength=4, zero_pad=True):
                                  '451455532245351455'))
 
     # uppercase, normalize, decompose, and filter non-A-Z out
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -4413,20 +4410,20 @@ def lein(word, maxlength=4, zero_pad=True):
     code += word.translate(_lein_translation)  # Rule 4
 
     if zero_pad:
-        code += ('0'*maxlength)  # Rule 4
+        code += ('0'*max_length)  # Rule 4
 
-    return code[:maxlength]
+    return code[:max_length]
 
 
-def roger_root(word, maxlength=5, zero_pad=True):
+def roger_root(word, max_length=5, zero_pad=True):
     """Return the Roger Root code for a word.
 
     This is Roger Root name coding, described in :cite:`Moore:1977`.
 
     :param str word: the word to transform
-    :param int maxlength: the maximum length (default 5) of the code to return
+    :param int max_length: the maximum length (default 5) of the code to return
     :param bool zero_pad: pad the end of the return value with 0s to achieve a
-        maxlength string
+        max_length string
     :returns: the Roger Root code
     :rtype: str
 
@@ -4440,7 +4437,7 @@ def roger_root(word, maxlength=5, zero_pad=True):
     '06310'
     """
     # uppercase, normalize, decompose, and filter non-A-Z out
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -4494,12 +4491,12 @@ def roger_root(word, maxlength=5, zero_pad=True):
     code = code.replace('*', '')
 
     if zero_pad:
-        code += '0'*maxlength
+        code += '0'*max_length
 
-    return code[:maxlength]
+    return code[:max_length]
 
 
-def onca(word, maxlength=4, zero_pad=True):
+def onca(word, max_length=4, zero_pad=True):
     """Return the Oxford Name Compression Algorithm (ONCA) code for a word.
 
     This is the Oxford Name Compression Algorithm, based on :cite:`Gill:1997`.
@@ -4510,9 +4507,9 @@ def onca(word, maxlength=4, zero_pad=True):
     NYSIIS algorithm.
 
     :param str word: the word to transform
-    :param int maxlength: the maximum length (default 5) of the code to return
+    :param int max_length: the maximum length (default 5) of the code to return
     :param bool zero_pad: pad the end of the return value with 0s to achieve a
-        maxlength string
+        max_length string
     :returns: the ONCA code
     :rtype: str
 
@@ -4526,12 +4523,12 @@ def onca(word, maxlength=4, zero_pad=True):
     'S530'
     """
     # In the most extreme case, 3 characters of NYSIIS input can be compressed
-    # to one character of output, so give it triple the maxlength.
-    return soundex(nysiis(word, maxlength=maxlength*3), maxlength,
+    # to one character of output, so give it triple the max_length.
+    return soundex(nysiis(word, max_length=max_length*3), max_length,
                    zero_pad=zero_pad)
 
 
-def eudex(word, maxlength=8):
+def eudex(word, max_length=8):
     """Return the eudex phonetic hash of a word.
 
     This implementation of eudex phonetic hashing is based on the specification
@@ -4540,9 +4537,9 @@ def eudex(word, maxlength=8):
     Further details can be found at :cite:`Ticki:2016b`.
 
     :param str word: the word to transform
-    :param int maxlength: the length of the code returned (defaults to 8)
+    :param int max_length: the length of the code returned (defaults to 8)
     :returns: the eudex hash
-    :rtype: str
+    :rtype: int
     """
     _trailing_phones = {
         'a': 0,  # a
@@ -4686,10 +4683,10 @@ def eudex(word, maxlength=8):
         if shifted_values[n] != shifted_values[n-1]:
             condensed_values.append(values[n])
 
-    # Add padding after first character & trim beyond maxlength
+    # Add padding after first character & trim beyond max_length
     values = ([condensed_values[0]] +
-              [0]*max(0, maxlength - len(condensed_values)) +
-              condensed_values[1:maxlength])
+              [0]*max(0, max_length - len(condensed_values)) +
+              condensed_values[1:max_length])
 
     # Combine individual character values into eudex hash
     hash_value = 0
@@ -4726,7 +4723,7 @@ def haase_phonetik(word, primary_only=False):
 
     _vowels = {'A', 'E', 'I', 'J', 'O', 'U', 'Y'}
 
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
 
     word = word.replace('Ä', 'AE')
@@ -5013,7 +5010,7 @@ def fonem(word):
     ]
 
     # normalize, upper-case, and filter non-French letters
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.translate({198: 'AE', 338: 'OE'})
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -5081,9 +5078,10 @@ def davidson(lname, fname='.', omit_fname=False):
     :param str lname: Last name (or word) to be encoded
     :param str fname: First name (optional), of which the first character is
         included in the code.
-    :param str omit_fname: Set to True to completely omit the first character
+    :param bool omit_fname: Set to True to completely omit the first character
         of the first name
     :returns: Davidson's Consonant Code
+    :rtype: str
     """
     trans = {65: '', 69: '', 73: '', 79: '', 85: '', 72: '', 87: '', 89: ''}
 
@@ -5097,20 +5095,20 @@ def davidson(lname, fname='.', omit_fname=False):
     return code
 
 
-def sound_d(word, maxlength=4):
+def sound_d(word, max_length=4):
     """Return the SoundD code.
 
     SoundD is defined in :cite:`Varol:2012`.
 
     :param str word: the word to transform
-    :param int maxlength: the length of the code returned (defaults to 4)
+    :param int max_length: the length of the code returned (defaults to 4)
     :returns:
     """
     _ref_soundd_translation = dict(zip((ord(_) for _ in
                                         'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
                                        '01230120022455012623010202'))
 
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -5130,16 +5128,16 @@ def sound_d(word, maxlength=4):
     word = _delete_consecutive_repeats(word)
     word = word.replace('0', '')
 
-    if maxlength is not None:
-        if len(word) < maxlength:
-            word += '0' * (maxlength-len(word))
+    if max_length != -1:
+        if len(word) < max_length:
+            word += '0' * (max_length-len(word))
         else:
-            word = word[:maxlength]
+            word = word[:max_length]
 
     return word
 
 
-def pshp_soundex_last(lname, maxlength=4, german=False):
+def pshp_soundex_last(lname, max_length=4, german=False):
     """Calculate the PSHP Soundex/Viewex Coding of a last name.
 
     This coding is based on :cite:`Hershberg:1976`.
@@ -5153,7 +5151,7 @@ def pshp_soundex_last(lname, maxlength=4, german=False):
     :param german: set to True if the name is German (different rules apply)
     :returns:
     """
-    lname = normalize('NFKD', text_type(lname.upper()))
+    lname = unicode_normalize('NFKD', text_type(lname.upper()))
     lname = lname.replace('ß', 'SS')
     lname = ''.join(c for c in lname if c in
                     {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
@@ -5261,16 +5259,16 @@ def pshp_soundex_last(lname, maxlength=4, german=False):
     code += lname[1:]
     code = code.replace('0', '')  # rule 1
 
-    if maxlength is not None:
-        if len(code) < maxlength:
-            code += '0' * (maxlength-len(code))
+    if max_length != -1:
+        if len(code) < max_length:
+            code += '0' * (max_length-len(code))
         else:
-            code = code[:maxlength]
+            code = code[:max_length]
 
     return code
 
 
-def pshp_soundex_first(fname, maxlength=4, german=False):
+def pshp_soundex_first(fname, max_length=4, german=False):
     """Calculate the PSHP Soundex/Viewex Coding of a first name.
 
     This coding is based on :cite:`Hershberg:1976`.
@@ -5284,7 +5282,7 @@ def pshp_soundex_first(fname, maxlength=4, german=False):
     :param german: set to True if the name is German (different rules apply)
     :returns:
     """
-    fname = normalize('NFKD', text_type(fname.upper()))
+    fname = unicode_normalize('NFKD', text_type(fname.upper()))
     fname = fname.replace('ß', 'SS')
     fname = ''.join(c for c in fname if c in
                     {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
@@ -5338,23 +5336,23 @@ def pshp_soundex_first(fname, maxlength=4, german=False):
 
         code = code.replace('0', '')  # rule 1
 
-    if maxlength is not None:
-        if len(code) < maxlength:
-            code += '0' * (maxlength-len(code))
+    if max_length != -1:
+        if len(code) < max_length:
+            code += '0' * (max_length-len(code))
         else:
-            code = code[:maxlength]
+            code = code[:max_length]
 
     return code
 
 
-def henry_early(word, maxlength=3):
+def henry_early(word, max_length=3):
     """Calculate the early version of the Henry code for a word.
 
     The early version of Henry coding is given in :cite:`Legare:1972`. This is
     different from the later version defined in :cite:`Henry:1976`.
 
     :param word:
-    :param int maxlength: the length of the code returned (defaults to 3)
+    :param int max_length: the length of the code returned (defaults to 3)
     :returns:
     """
     _cons = {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q',
@@ -5365,7 +5363,7 @@ def henry_early(word, maxlength=3):
     # _unaltered = {'B', 'D', 'F', 'J', 'K', 'L', 'M', 'N', 'R', 'T', 'V'}
     _simple = {'W': 'V', 'X': 'S', 'Z': 'S'}
 
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
                     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
@@ -5498,8 +5496,8 @@ def henry_early(word, maxlength=3):
     code = code[:1]+code[1:].translate({65: '', 69: '', 73: '', 79: '', 85: '',
                                         89: ''})
 
-    if maxlength is not None:
-            code = code[:maxlength]
+    if max_length != -1:
+            code = code[:max_length]
 
     return code
 
@@ -5581,14 +5579,14 @@ def norphone(word):
     return code
 
 
-def dolby(word, maxlength=None, keep_vowels=False, vowel_char='*'):
+def dolby(word, max_length=None, keep_vowels=False, vowel_char='*'):
     r"""Return the Dolby Code of a name.
 
     This follows "A Spelling Equivalent Abbreviation Algorithm For Personal
     Names" from :cite:`Dolby:1970` and :cite:`Cunningham:1969`.
 
     :param word: the word to encode
-    :param maxlength: maximum length of the returned Dolby code -- this also
+    :param max_length: maximum length of the returned Dolby code -- this also
         activates the fixed-length code mode
     :param keep_vowels: if True, retains all vowel markers
     :param vowel_char: the vowel marker character (default to \*)
@@ -5597,7 +5595,7 @@ def dolby(word, maxlength=None, keep_vowels=False, vowel_char='*'):
     _vowels = {'A', 'E', 'I', 'O', 'U', 'Y'}
 
     # uppercase, normalize, decompose, and filter non-A-Z out
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -5656,7 +5654,7 @@ def dolby(word, maxlength=None, keep_vowels=False, vowel_char='*'):
         pos = word.find('K', pos+1)
 
     # Rule FL6
-    if maxlength and word[-1:] == 'E':
+    if max_length and word[-1:] == 'E':
         word = word[:-1]
 
     # Rule 5 (FL7)
@@ -5675,11 +5673,11 @@ def dolby(word, maxlength=None, keep_vowels=False, vowel_char='*'):
     word = word.replace('GH', '')
 
     # Rule FL9
-    if maxlength:
+    if max_length:
         word = word.replace('V', 'F')
 
     # Rules 7-9 (FL10-FL12)
-    first = 1 + (1 if maxlength else 0)
+    first = 1 + (1 if max_length else 0)
     code = ''
     for pos, char in enumerate(word):
         if char in _vowels:
@@ -5691,18 +5689,18 @@ def dolby(word, maxlength=None, keep_vowels=False, vowel_char='*'):
         else:
             code += char
 
-    if maxlength:
+    if max_length:
         # Rule FL13
-        if len(code) > maxlength and code[-1:] == 'S':
+        if len(code) > max_length and code[-1:] == 'S':
             code = code[:-1]
         if keep_vowels:
-            code = code[:maxlength]
+            code = code[:max_length]
         else:
             # Rule FL14
-            code = code[:maxlength + 2]
+            code = code[:max_length + 2]
             # Rule FL15
-            while len(code) > maxlength:
-                vowels = len(code) - maxlength
+            while len(code) > max_length:
+                vowels = len(code) - max_length
                 excess = vowels - 1
                 word = code
                 code = ''
@@ -5713,15 +5711,15 @@ def dolby(word, maxlength=None, keep_vowels=False, vowel_char='*'):
                             vowels -= 1
                     else:
                         code += char
-                code = code[:maxlength + excess]
+                code = code[:max_length + excess]
 
         # Rule FL16
-        code += ' ' * (maxlength - len(code))
+        code += ' ' * (max_length - len(code))
 
     return code
 
 
-def phonetic_spanish(word, maxlength=None):
+def phonetic_spanish(word, max_length=None):
     """Return the PhoneticSpanish coding of word.
 
     This follows the coding described in :cite:`Amon:2012` and
@@ -5735,7 +5733,7 @@ def phonetic_spanish(word, maxlength=None):
                                        '14328287566079431454'))
 
     # uppercase, normalize, and decompose, filter to A-Z minus vowels & W
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = ''.join(c for c in word if c in
                    {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N',
                     'P', 'Q', 'R', 'S', 'T', 'V', 'X', 'Y', 'Z'})
@@ -5747,13 +5745,13 @@ def phonetic_spanish(word, maxlength=None):
     # apply the Soundex algorithm
     sdx = word.translate(_es_soundex_translation)
 
-    if maxlength:
-        sdx = (sdx+('0'*maxlength))[:maxlength]
+    if max_length:
+        sdx = (sdx+('0'*max_length))[:max_length]
 
     return sdx
 
 
-def spanish_metaphone(word, maxlength=6, modified=False):
+def spanish_metaphone(word, max_length=6, modified=False):
     """Return the Spanish Metaphone of a word.
 
     This is a quick rewrite of the Spanish Metaphone Algorithm, as presented at
@@ -5763,7 +5761,7 @@ def spanish_metaphone(word, maxlength=6, modified=False):
     Modified version based on :cite:`delPilarAngeles:2016`.
 
     :param word:
-    :param maxlength:
+    :param max_length:
     :param modified: Set to True to use del Pilar Angeles & Bailón-Miguel's
         modified version of the algorithm
     :returns:
@@ -5774,7 +5772,7 @@ def spanish_metaphone(word, maxlength=6, modified=False):
             return True
         return False
 
-    word = normalize('NFC', text_type(word.upper()))
+    word = unicode_normalize('NFC', text_type(word.upper()))
 
     meta_key = ''
     pos = 0
@@ -5801,7 +5799,7 @@ def spanish_metaphone(word, maxlength=6, modified=False):
     word = word.replace('B', 'V')
     word = word.replace('LL', 'Y')
 
-    while len(meta_key) < maxlength:
+    while len(meta_key) < max_length:
         if pos >= len(word):
             break
 
@@ -5916,7 +5914,7 @@ def metasoundex(word, lang='en'):
     return word
 
 
-def soundex_br(word, maxlength=4, zero_pad=True):
+def soundex_br(word, max_length=4, zero_pad=True):
     """Return the SoundexBR encoding of a word.
 
     This is based on :cite:`Marcelino:2015`.
@@ -5928,7 +5926,7 @@ def soundex_br(word, maxlength=4, zero_pad=True):
                                         'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
                                        '01230120022455012623010202'))
 
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
                     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
@@ -5955,9 +5953,9 @@ def soundex_br(word, maxlength=4, zero_pad=True):
     sdx = sdx.replace('0', '')
 
     if zero_pad:
-        sdx += ('0'*maxlength)
+        sdx += ('0'*max_length)
 
-    return sdx[:maxlength]
+    return sdx[:max_length]
 
 
 def nrl(word):
