@@ -308,7 +308,7 @@ def soundex(word, max_length=4, var='American', reverse=False, zero_pad=True):
     return sdx[:max_length]
 
 
-def refined_soundex(word, max_length=0, zero_pad=False,
+def refined_soundex(word, max_length=-1, zero_pad=False,
                     retain_vowels=False):
     """Return the Refined Soundex code for a word.
 
@@ -433,23 +433,23 @@ def dm_soundex(word, max_length=6, zero_pad=True):
                   'RS': ((94, 4), (94, 4), (94, 4))}
 
     _dms_order = {'A': ('AI', 'AJ', 'AU', 'AY', 'A'),
-                  'B': ('B'),
+                  'B': ('B',),
                   'C': ('CHS', 'CSZ', 'CZS', 'CH', 'CK', 'CS', 'CZ', 'C'),
                   'D': ('DRS', 'DRZ', 'DSH', 'DSZ', 'DZH', 'DZS', 'DS', 'DT',
                         'DZ', 'D'),
                   'E': ('EI', 'EJ', 'EU', 'EY', 'E'),
                   'F': ('FB', 'F'),
-                  'G': ('G'),
-                  'H': ('H'),
+                  'G': ('G',),
+                  'H': ('H',),
                   'I': ('IA', 'IE', 'IO', 'IU', 'I'),
-                  'J': ('J'),
+                  'J': ('J',),
                   'K': ('KH', 'KS', 'K'),
-                  'L': ('L'),
+                  'L': ('L',),
                   'M': ('MN', 'M'),
                   'N': ('NM', 'N'),
                   'O': ('OI', 'OJ', 'OY', 'O'),
                   'P': ('PF', 'PH', 'P'),
-                  'Q': ('Q'),
+                  'Q': ('Q',),
                   'R': ('RS', 'RZ', 'R'),
                   'S': ('SCHTSCH', 'SCHTCH', 'SCHTSH', 'SHTCH', 'SHTSH',
                         'STSCH', 'SCHD', 'SCHT', 'SHCH', 'STCH', 'STRS',
@@ -459,10 +459,10 @@ def dm_soundex(word, max_length=6, zero_pad=True):
                         'TRZ', 'TSH', 'TSZ', 'TTS', 'TTZ', 'TZS', 'TC', 'TH',
                         'TS', 'TZ', 'T'),
                   'U': ('UE', 'UI', 'UJ', 'UY', 'U'),
-                  'V': ('V'),
-                  'W': ('W'),
-                  'X': ('X'),
-                  'Y': ('Y'),
+                  'V': ('V',),
+                  'W': ('W',),
+                  'X': ('X',),
+                  'Y': ('Y',),
                   'Z': ('ZHDZH', 'ZDZH', 'ZSCH', 'ZDZ', 'ZHD', 'ZSH', 'ZD',
                         'ZH', 'ZS', 'Z')}
 
@@ -554,17 +554,13 @@ def koelner_phonetik(word):
     >>> koelner_phonetik('Zimmermann')
     '86766'
     """
-    def _after(word, i, letters):
+    def _after(local_word, pos, letters):
         """Return True if word[i] follows one of the supplied letters."""
-        if i > 0 and word[i-1] in letters:
-            return True
-        return False
+        return pos > 0 and local_word[pos-1] in letters
 
-    def _before(word, i, letters):
+    def _before(local_word, pos, letters):
         """Return True if word[i] precedes one of the supplied letters."""
-        if i+1 < len(word) and word[i+1] in letters:
-            return True
-        return False
+        return pos+1 < len(local_word) and local_word[pos+1] in letters
 
     _vowels = {'A', 'E', 'I', 'J', 'O', 'U', 'Y'}
 
@@ -642,15 +638,16 @@ def koelner_phonetik(word):
 def koelner_phonetik_num_to_alpha(num):
     """Convert a Kölner Phonetik code from numeric to alphabetic.
 
-    :param str num: a numeric Kölner Phonetik representation
+    :param str num: a numeric Kölner Phonetik representation (can be a str or
+        an int)
     :returns: an alphabetic representation of the same word
     :rtype: str
 
-    >>> koelner_phonetik_num_to_alpha(862)
+    >>> koelner_phonetik_num_to_alpha('862')
     'SNT'
-    >>> koelner_phonetik_num_to_alpha(657)
+    >>> koelner_phonetik_num_to_alpha('657')
     'NLR'
-    >>> koelner_phonetik_num_to_alpha(86766)
+    >>> koelner_phonetik_num_to_alpha('86766')
     'SNRNN'
     """
     _koelner_num_translation = dict(zip((ord(_) for _ in '012345678'),
@@ -703,7 +700,7 @@ def nysiis(word, max_length=6, modified=False):
     >>> nysiis('Schmidt')
     'SNAD'
 
-    >>> nysiis('Christopher', max_length=0)
+    >>> nysiis('Christopher', max_length=-1)
     'CRASTAFAR'
 
     >>> nysiis('Christopher', max_length=8, modified=True)
@@ -716,7 +713,7 @@ def nysiis(word, max_length=6, modified=False):
     'SNAD'
     """
     # Require a max_length of at least 6
-    if max_length:
+    if max_length > -1:
         max_length = max(6, max_length)
 
     _vowels = {'A', 'E', 'I', 'O', 'U'}
@@ -728,8 +725,7 @@ def nysiis(word, max_length=6, modified=False):
     if not word:
         return ''
 
-    if modified:
-        original_first_char = word[0]
+    original_first_char = word[0]
 
     if word[:3] == 'MAC':
         word = 'MCC'+word[3:]
@@ -839,7 +835,7 @@ def nysiis(word, max_length=6, modified=False):
     if modified and key[:1] == 'A':
         key = original_first_char + key[1:]
 
-    if max_length and max_length > 0:
+    if max_length > 0:
         key = key[:max_length]
 
     return key
@@ -914,7 +910,7 @@ def metaphone(word, max_length=-1):
     ename = ''.join(c for c in word.upper() if c.isalnum())
     ename = ename.replace('ß', 'SS')
 
-    # Delete nonalphanumeric characters and make all caps
+    # Delete non-alphanumeric characters and make all caps
     if not ename:
         return ''
     if ename[0:2] in {'PN', 'AE', 'KN', 'GN', 'WR'}:
@@ -924,7 +920,7 @@ def metaphone(word, max_length=-1):
     elif ename[0:2] == 'WH':
         ename = 'W' + ename[2:]
 
-    # Convert to metaph
+    # Convert to metaphone
     elen = len(ename)-1
     metaph = ''
     for i in range(len(ename)):
@@ -1093,7 +1089,7 @@ def double_metaphone(word, max_length=-1):
                 newsec += sec
         else:
             newsec += pri
-        return (newpri, newsec)
+        return newpri, newsec
 
     def _is_vowel(pos):
         """Return True if the character at word[pos] is a vowel."""
@@ -1114,7 +1110,7 @@ def double_metaphone(word, max_length=-1):
     current = 0
     length = len(word)
     if length < 1:
-        return ('', '')
+        return '', ''
     last = length - 1
 
     word = word.upper()
@@ -1129,7 +1125,7 @@ def double_metaphone(word, max_length=-1):
 
     # Initial 'X' is pronounced 'Z' e.g. 'Xavier'
     if _get_at(0) == 'X':
-        (primary, secondary) = _metaph_add('S')  # 'Z' maps to 'S'
+        primary, secondary = _metaph_add('S')  # 'Z' maps to 'S'
         current += 1
 
     # Main loop
@@ -1140,13 +1136,13 @@ def double_metaphone(word, max_length=-1):
         if _get_at(current) in {'A', 'E', 'I', 'O', 'U', 'Y'}:
             if current == 0:
                 # All init vowels now map to 'A'
-                (primary, secondary) = _metaph_add('A')
+                primary, secondary = _metaph_add('A')
             current += 1
             continue
 
         elif _get_at(current) == 'B':
             # "-mb", e.g", "dumb", already skipped over...
-            (primary, secondary) = _metaph_add('P')
+            primary, secondary = _metaph_add('P')
             if _get_at(current + 1) == 'B':
                 current += 2
             else:
@@ -1154,7 +1150,7 @@ def double_metaphone(word, max_length=-1):
             continue
 
         elif _get_at(current) == 'Ç':
-            (primary, secondary) = _metaph_add('S')
+            primary, secondary = _metaph_add('S')
             current += 1
             continue
 
@@ -1166,26 +1162,26 @@ def double_metaphone(word, max_length=-1):
                      ((_get_at(current + 2) != 'E') or
                       _string_at((current - 2), 6,
                                  {'BACHER', 'MACHER'})))):
-                (primary, secondary) = _metaph_add('K')
+                primary, secondary = _metaph_add('K')
                 current += 2
                 continue
 
             # Special case 'caesar'
             elif current == 0 and _string_at(current, 6, {'CAESAR'}):
-                (primary, secondary) = _metaph_add('S')
+                primary, secondary = _metaph_add('S')
                 current += 2
                 continue
 
             # Italian 'chianti'
             elif _string_at(current, 4, {'CHIA'}):
-                (primary, secondary) = _metaph_add('K')
+                primary, secondary = _metaph_add('K')
                 current += 2
                 continue
 
             elif _string_at(current, 2, {'CH'}):
                 # Find 'Michael'
                 if current > 0 and _string_at(current, 4, {'CHAE'}):
-                    (primary, secondary) = _metaph_add('K', 'X')
+                    primary, secondary = _metaph_add('K', 'X')
                     current += 2
                     continue
 
@@ -1196,7 +1192,7 @@ def double_metaphone(word, max_length=-1):
                        _string_at((current + 1), 3,
                                   {'HOR', 'HYM', 'HIA', 'HEM'})) and
                       not _string_at(0, 5, {'CHORE'})):
-                    (primary, secondary) = _metaph_add('K')
+                    primary, secondary = _metaph_add('K')
                     current += 2
                     continue
 
@@ -1214,17 +1210,17 @@ def double_metaphone(word, max_length=-1):
                        _string_at((current + 2), 1,
                                   {'L', 'R', 'N', 'M', 'B', 'H', 'F', 'V', 'W',
                                    ' '}))):
-                    (primary, secondary) = _metaph_add('K')
+                    primary, secondary = _metaph_add('K')
 
                 else:
                     if current > 0:
                         if _string_at(0, 2, {'MC'}):
                             # e.g., "McHugh"
-                            (primary, secondary) = _metaph_add('K')
+                            primary, secondary = _metaph_add('K')
                         else:
-                            (primary, secondary) = _metaph_add('X', 'K')
+                            primary, secondary = _metaph_add('X', 'K')
                     else:
-                        (primary, secondary) = _metaph_add('X')
+                        primary, secondary = _metaph_add('X')
 
                 current += 2
                 continue
@@ -1232,13 +1228,13 @@ def double_metaphone(word, max_length=-1):
             # e.g, 'czerny'
             elif (_string_at(current, 2, {'CZ'}) and
                   not _string_at((current - 2), 4, {'WICZ'})):
-                (primary, secondary) = _metaph_add('S', 'X')
+                primary, secondary = _metaph_add('S', 'X')
                 current += 2
                 continue
 
             # e.g., 'focaccia'
             elif _string_at((current + 1), 3, {'CIA'}):
-                (primary, secondary) = _metaph_add('X')
+                primary, secondary = _metaph_add('X')
                 current += 3
 
             # double 'C', but not if e.g. 'McClellan'
@@ -1252,34 +1248,34 @@ def double_metaphone(word, max_length=-1):
                     if ((((current == 1) and _get_at(current - 1) == 'A') or
                          _string_at((current - 1), 5,
                                     {'UCCEE', 'UCCES'}))):
-                        (primary, secondary) = _metaph_add('KS')
+                        primary, secondary = _metaph_add('KS')
                     # 'bacci', 'bertucci', other italian
                     else:
-                        (primary, secondary) = _metaph_add('X')
+                        primary, secondary = _metaph_add('X')
                     current += 3
                     continue
                 else:  # Pierce's rule
-                    (primary, secondary) = _metaph_add('K')
+                    primary, secondary = _metaph_add('K')
                     current += 2
                     continue
 
             elif _string_at(current, 2, {'CK', 'CG', 'CQ'}):
-                (primary, secondary) = _metaph_add('K')
+                primary, secondary = _metaph_add('K')
                 current += 2
                 continue
 
             elif _string_at(current, 2, {'CI', 'CE', 'CY'}):
                 # Italian vs. English
                 if _string_at(current, 3, {'CIO', 'CIE', 'CIA'}):
-                    (primary, secondary) = _metaph_add('S', 'X')
+                    primary, secondary = _metaph_add('S', 'X')
                 else:
-                    (primary, secondary) = _metaph_add('S')
+                    primary, secondary = _metaph_add('S')
                 current += 2
                 continue
 
             # else
             else:
-                (primary, secondary) = _metaph_add('K')
+                primary, secondary = _metaph_add('K')
 
                 # name sent in 'mac caffrey', 'mac gregor
                 if _string_at((current + 1), 2, {' C', ' Q', ' G'}):
@@ -1296,23 +1292,23 @@ def double_metaphone(word, max_length=-1):
             if _string_at(current, 2, {'DG'}):
                 if _string_at((current + 2), 1, {'I', 'E', 'Y'}):
                     # e.g. 'edge'
-                    (primary, secondary) = _metaph_add('J')
+                    primary, secondary = _metaph_add('J')
                     current += 3
                     continue
                 else:
                     # e.g. 'edgar'
-                    (primary, secondary) = _metaph_add('TK')
+                    primary, secondary = _metaph_add('TK')
                     current += 2
                     continue
 
             elif _string_at(current, 2, {'DT', 'DD'}):
-                (primary, secondary) = _metaph_add('T')
+                primary, secondary = _metaph_add('T')
                 current += 2
                 continue
 
             # else
             else:
-                (primary, secondary) = _metaph_add('T')
+                primary, secondary = _metaph_add('T')
                 current += 1
                 continue
 
@@ -1321,22 +1317,22 @@ def double_metaphone(word, max_length=-1):
                 current += 2
             else:
                 current += 1
-            (primary, secondary) = _metaph_add('F')
+            primary, secondary = _metaph_add('F')
             continue
 
         elif _get_at(current) == 'G':
             if _get_at(current + 1) == 'H':
                 if (current > 0) and not _is_vowel(current - 1):
-                    (primary, secondary) = _metaph_add('K')
+                    primary, secondary = _metaph_add('K')
                     current += 2
                     continue
 
                 # 'ghislane', ghiradelli
                 elif current == 0:
                     if _get_at(current + 2) == 'I':
-                        (primary, secondary) = _metaph_add('J')
+                        primary, secondary = _metaph_add('J')
                     else:
-                        (primary, secondary) = _metaph_add('K')
+                        primary, secondary = _metaph_add('K')
                     current += 2
                     continue
 
@@ -1358,29 +1354,29 @@ def double_metaphone(word, max_length=-1):
                             (_get_at(current - 1) == 'U') and
                             (_string_at((current - 3), 1,
                                         {'C', 'G', 'L', 'R', 'T'}))):
-                        (primary, secondary) = _metaph_add('F')
+                        primary, secondary = _metaph_add('F')
                     elif (current > 0) and _get_at(current - 1) != 'I':
-                        (primary, secondary) = _metaph_add('K')
+                        primary, secondary = _metaph_add('K')
                     current += 2
                     continue
 
             elif _get_at(current + 1) == 'N':
                 if (current == 1) and _is_vowel(0) and not _slavo_germanic():
-                    (primary, secondary) = _metaph_add('KN', 'N')
+                    primary, secondary = _metaph_add('KN', 'N')
                 # not e.g. 'cagney'
                 elif (not _string_at((current + 2), 2, {'EY'}) and
                       (_get_at(current + 1) != 'Y') and
                       not _slavo_germanic()):
-                    (primary, secondary) = _metaph_add('N', 'KN')
+                    primary, secondary = _metaph_add('N', 'KN')
                 else:
-                    (primary, secondary) = _metaph_add('KN')
+                    primary, secondary = _metaph_add('KN')
                 current += 2
                 continue
 
             # 'tagliaro'
             elif (_string_at((current + 1), 2, {'LI'}) and
                   not _slavo_germanic()):
-                (primary, secondary) = _metaph_add('KL', 'L')
+                primary, secondary = _metaph_add('KL', 'L')
                 current += 2
                 continue
 
@@ -1390,7 +1386,7 @@ def double_metaphone(word, max_length=-1):
                    _string_at((current + 1), 2, {'ES', 'EP', 'EB', 'EL', 'EY',
                                                  'IB', 'IL', 'IN', 'IE', 'EI',
                                                  'ER'}))):
-                (primary, secondary) = _metaph_add('K', 'J')
+                primary, secondary = _metaph_add('K', 'J')
                 current += 2
                 continue
 
@@ -1400,7 +1396,7 @@ def double_metaphone(word, max_length=-1):
                   _string_at(0, 6, {'DANGER', 'RANGER', 'MANGER'}) and not
                   _string_at((current - 1), 1, {'E', 'I'}) and not
                   _string_at((current - 1), 3, {'RGY', 'OGY'})):
-                (primary, secondary) = _metaph_add('K', 'J')
+                primary, secondary = _metaph_add('K', 'J')
                 current += 2
                 continue
 
@@ -1411,11 +1407,11 @@ def double_metaphone(word, max_length=-1):
                 if (((_string_at(0, 4, {'VAN ', 'VON '}) or
                       _string_at(0, 3, {'SCH'})) or
                      _string_at((current + 1), 2, {'ET'}))):
-                    (primary, secondary) = _metaph_add('K')
+                    primary, secondary = _metaph_add('K')
                 elif _string_at((current + 1), 4, {'IER '}):
-                    (primary, secondary) = _metaph_add('J')
+                    primary, secondary = _metaph_add('J')
                 else:
-                    (primary, secondary) = _metaph_add('J', 'K')
+                    primary, secondary = _metaph_add('J', 'K')
                 current += 2
                 continue
 
@@ -1424,14 +1420,14 @@ def double_metaphone(word, max_length=-1):
                     current += 2
                 else:
                     current += 1
-                (primary, secondary) = _metaph_add('K')
+                primary, secondary = _metaph_add('K')
                 continue
 
         elif _get_at(current) == 'H':
             # only keep if first & before vowel or btw. 2 vowels
             if ((((current == 0) or _is_vowel(current - 1)) and
                  _is_vowel(current + 1))):
-                (primary, secondary) = _metaph_add('H')
+                primary, secondary = _metaph_add('H')
                 current += 2
             else:  # also takes care of 'HH'
                 current += 1
@@ -1442,27 +1438,27 @@ def double_metaphone(word, max_length=-1):
             if _string_at(current, 4, ['JOSE']) or _string_at(0, 4, {'SAN '}):
                 if ((((current == 0) and (_get_at(current + 4) == ' ')) or
                      _string_at(0, 4, ['SAN ']))):
-                    (primary, secondary) = _metaph_add('H')
+                    primary, secondary = _metaph_add('H')
                 else:
-                    (primary, secondary) = _metaph_add('J', 'H')
+                    primary, secondary = _metaph_add('J', 'H')
                 current += 1
                 continue
 
             elif (current == 0) and not _string_at(current, 4, {'JOSE'}):
                 # Yankelovich/Jankelowicz
-                (primary, secondary) = _metaph_add('J', 'A')
+                primary, secondary = _metaph_add('J', 'A')
             # Spanish pron. of e.g. 'bajador'
             elif (_is_vowel(current - 1) and
                   not _slavo_germanic() and
                   ((_get_at(current + 1) == 'A') or
                    (_get_at(current + 1) == 'O'))):
-                (primary, secondary) = _metaph_add('J', 'H')
+                primary, secondary = _metaph_add('J', 'H')
             elif current == last:
-                (primary, secondary) = _metaph_add('J', ' ')
+                primary, secondary = _metaph_add('J', ' ')
             elif (not _string_at((current + 1), 1,
                                  {'L', 'T', 'K', 'S', 'N', 'M', 'B', 'Z'}) and
                   not _string_at((current - 1), 1, {'S', 'K', 'L'})):
-                (primary, secondary) = _metaph_add('J')
+                primary, secondary = _metaph_add('J')
 
             if _get_at(current + 1) == 'J':  # it could happen!
                 current += 2
@@ -1475,7 +1471,7 @@ def double_metaphone(word, max_length=-1):
                 current += 2
             else:
                 current += 1
-            (primary, secondary) = _metaph_add('K')
+            primary, secondary = _metaph_add('K')
             continue
 
         elif _get_at(current) == 'L':
@@ -1486,13 +1482,13 @@ def double_metaphone(word, max_length=-1):
                         ((_string_at((last - 1), 2, {'AS', 'OS'}) or
                           _string_at(last, 1, {'A', 'O'})) and
                          _string_at((current - 1), 4, {'ALLE'}))):
-                    (primary, secondary) = _metaph_add('L', ' ')
+                    primary, secondary = _metaph_add('L', ' ')
                     current += 2
                     continue
                 current += 2
             else:
                 current += 1
-            (primary, secondary) = _metaph_add('L')
+            primary, secondary = _metaph_add('L')
             continue
 
         elif _get_at(current) == 'M':
@@ -1504,7 +1500,7 @@ def double_metaphone(word, max_length=-1):
                 current += 2
             else:
                 current += 1
-            (primary, secondary) = _metaph_add('M')
+            primary, secondary = _metaph_add('M')
             continue
 
         elif _get_at(current) == 'N':
@@ -1512,17 +1508,17 @@ def double_metaphone(word, max_length=-1):
                 current += 2
             else:
                 current += 1
-            (primary, secondary) = _metaph_add('N')
+            primary, secondary = _metaph_add('N')
             continue
 
         elif _get_at(current) == 'Ñ':
             current += 1
-            (primary, secondary) = _metaph_add('N')
+            primary, secondary = _metaph_add('N')
             continue
 
         elif _get_at(current) == 'P':
             if _get_at(current + 1) == 'H':
-                (primary, secondary) = _metaph_add('F')
+                primary, secondary = _metaph_add('F')
                 current += 2
                 continue
 
@@ -1531,7 +1527,7 @@ def double_metaphone(word, max_length=-1):
                 current += 2
             else:
                 current += 1
-            (primary, secondary) = _metaph_add('P')
+            primary, secondary = _metaph_add('P')
             continue
 
         elif _get_at(current) == 'Q':
@@ -1539,7 +1535,7 @@ def double_metaphone(word, max_length=-1):
                 current += 2
             else:
                 current += 1
-            (primary, secondary) = _metaph_add('K')
+            primary, secondary = _metaph_add('K')
             continue
 
         elif _get_at(current) == 'R':
@@ -1548,9 +1544,9 @@ def double_metaphone(word, max_length=-1):
                  not _slavo_germanic() and
                  _string_at((current - 2), 2, {'IE'}) and
                  not _string_at((current - 4), 2, {'ME', 'MA'}))):
-                (primary, secondary) = _metaph_add('', 'R')
+                primary, secondary = _metaph_add('', 'R')
             else:
-                (primary, secondary) = _metaph_add('R')
+                primary, secondary = _metaph_add('R')
 
             if _get_at(current + 1) == 'R':
                 current += 2
@@ -1566,7 +1562,7 @@ def double_metaphone(word, max_length=-1):
 
             # special case 'sugar-'
             elif (current == 0) and _string_at(current, 5, {'SUGAR'}):
-                (primary, secondary) = _metaph_add('X', 'S')
+                primary, secondary = _metaph_add('X', 'S')
                 current += 1
                 continue
 
@@ -1574,9 +1570,9 @@ def double_metaphone(word, max_length=-1):
                 # Germanic
                 if _string_at((current + 1), 4,
                               {'HEIM', 'HOEK', 'HOLM', 'HOLZ'}):
-                    (primary, secondary) = _metaph_add('S')
+                    primary, secondary = _metaph_add('S')
                 else:
-                    (primary, secondary) = _metaph_add('X')
+                    primary, secondary = _metaph_add('X')
                 current += 2
                 continue
 
@@ -1584,9 +1580,9 @@ def double_metaphone(word, max_length=-1):
             elif (_string_at(current, 3, {'SIO', 'SIA'}) or
                   _string_at(current, 4, {'SIAN'})):
                 if not _slavo_germanic():
-                    (primary, secondary) = _metaph_add('S', 'X')
+                    primary, secondary = _metaph_add('S', 'X')
                 else:
-                    (primary, secondary) = _metaph_add('S')
+                    primary, secondary = _metaph_add('S')
                 current += 3
                 continue
 
@@ -1597,7 +1593,7 @@ def double_metaphone(word, max_length=-1):
             elif (((current == 0) and
                    _string_at((current + 1), 1, {'M', 'N', 'L', 'W'})) or
                   _string_at((current + 1), 1, {'Z'})):
-                (primary, secondary) = _metaph_add('S', 'X')
+                primary, secondary = _metaph_add('S', 'X')
                 if _string_at((current + 1), 1, {'Z'}):
                     current += 2
                 else:
@@ -1612,28 +1608,28 @@ def double_metaphone(word, max_length=-1):
                                   {'OO', 'ER', 'EN', 'UY', 'ED', 'EM'}):
                         # 'schermerhorn', 'schenker'
                         if _string_at((current + 3), 2, {'ER', 'EN'}):
-                            (primary, secondary) = _metaph_add('X', 'SK')
+                            primary, secondary = _metaph_add('X', 'SK')
                         else:
-                            (primary, secondary) = _metaph_add('SK')
+                            primary, secondary = _metaph_add('SK')
                         current += 3
                         continue
                     else:
                         if (((current == 0) and not _is_vowel(3) and
                              (_get_at(3) != 'W'))):
-                            (primary, secondary) = _metaph_add('X', 'S')
+                            primary, secondary = _metaph_add('X', 'S')
                         else:
-                            (primary, secondary) = _metaph_add('X')
+                            primary, secondary = _metaph_add('X')
                         current += 3
                         continue
 
                 elif _string_at((current + 2), 1, {'I', 'E', 'Y'}):
-                    (primary, secondary) = _metaph_add('S')
+                    primary, secondary = _metaph_add('S')
                     current += 3
                     continue
 
                 # else
                 else:
-                    (primary, secondary) = _metaph_add('SK')
+                    primary, secondary = _metaph_add('SK')
                     current += 3
                     continue
 
@@ -1641,9 +1637,9 @@ def double_metaphone(word, max_length=-1):
                 # french e.g. 'resnais', 'artois'
                 if (current == last) and _string_at((current - 2), 2,
                                                     {'AI', 'OI'}):
-                    (primary, secondary) = _metaph_add('', 'S')
+                    primary, secondary = _metaph_add('', 'S')
                 else:
-                    (primary, secondary) = _metaph_add('S')
+                    primary, secondary = _metaph_add('S')
 
                 if _string_at((current + 1), 1, {'S', 'Z'}):
                     current += 2
@@ -1653,12 +1649,12 @@ def double_metaphone(word, max_length=-1):
 
         elif _get_at(current) == 'T':
             if _string_at(current, 4, {'TION'}):
-                (primary, secondary) = _metaph_add('X')
+                primary, secondary = _metaph_add('X')
                 current += 3
                 continue
 
             elif _string_at(current, 3, {'TIA', 'TCH'}):
-                (primary, secondary) = _metaph_add('X')
+                primary, secondary = _metaph_add('X')
                 current += 3
                 continue
 
@@ -1668,9 +1664,9 @@ def double_metaphone(word, max_length=-1):
                 if ((_string_at((current + 2), 2, {'OM', 'AM'}) or
                      _string_at(0, 4, {'VAN ', 'VON '}) or
                      _string_at(0, 3, {'SCH'}))):
-                    (primary, secondary) = _metaph_add('T')
+                    primary, secondary = _metaph_add('T')
                 else:
-                    (primary, secondary) = _metaph_add('0', 'T')
+                    primary, secondary = _metaph_add('0', 'T')
                 current += 2
                 continue
 
@@ -1678,7 +1674,7 @@ def double_metaphone(word, max_length=-1):
                 current += 2
             else:
                 current += 1
-            (primary, secondary) = _metaph_add('T')
+            primary, secondary = _metaph_add('T')
             continue
 
         elif _get_at(current) == 'V':
@@ -1686,35 +1682,35 @@ def double_metaphone(word, max_length=-1):
                 current += 2
             else:
                 current += 1
-            (primary, secondary) = _metaph_add('F')
+            primary, secondary = _metaph_add('F')
             continue
 
         elif _get_at(current) == 'W':
             # can also be in middle of word
             if _string_at(current, 2, {'WR'}):
-                (primary, secondary) = _metaph_add('R')
+                primary, secondary = _metaph_add('R')
                 current += 2
                 continue
             elif ((current == 0) and
                   (_is_vowel(current + 1) or _string_at(current, 2, {'WH'}))):
                 # Wasserman should match Vasserman
                 if _is_vowel(current + 1):
-                    (primary, secondary) = _metaph_add('A', 'F')
+                    primary, secondary = _metaph_add('A', 'F')
                 else:
                     # need Uomo to match Womo
-                    (primary, secondary) = _metaph_add('A')
+                    primary, secondary = _metaph_add('A')
 
             # Arnow should match Arnoff
             if ((((current == last) and _is_vowel(current - 1)) or
                  _string_at((current - 1), 5,
                             {'EWSKI', 'EWSKY', 'OWSKI', 'OWSKY'}) or
                  _string_at(0, 3, ['SCH']))):
-                (primary, secondary) = _metaph_add('', 'F')
+                primary, secondary = _metaph_add('', 'F')
                 current += 1
                 continue
             # Polish e.g. 'filipowicz'
             elif _string_at(current, 4, {'WICZ', 'WITZ'}):
-                (primary, secondary) = _metaph_add('TS', 'FX')
+                primary, secondary = _metaph_add('TS', 'FX')
                 current += 4
                 continue
             # else skip it
@@ -1727,7 +1723,7 @@ def double_metaphone(word, max_length=-1):
             if (not ((current == last) and
                      (_string_at((current - 3), 3, {'IAU', 'EAU'}) or
                       _string_at((current - 2), 2, {'AU', 'OU'})))):
-                (primary, secondary) = _metaph_add('KS')
+                primary, secondary = _metaph_add('KS')
 
             if _string_at((current + 1), 1, {'C', 'X'}):
                 current += 2
@@ -1738,15 +1734,15 @@ def double_metaphone(word, max_length=-1):
         elif _get_at(current) == 'Z':
             # Chinese Pinyin e.g. 'zhao'
             if _get_at(current + 1) == 'H':
-                (primary, secondary) = _metaph_add('J')
+                primary, secondary = _metaph_add('J')
                 current += 2
                 continue
             elif (_string_at((current + 1), 2, {'ZO', 'ZI', 'ZA'}) or
                   (_slavo_germanic() and ((current > 0) and
                                           _get_at(current - 1) != 'T'))):
-                (primary, secondary) = _metaph_add('S', 'TS')
+                primary, secondary = _metaph_add('S', 'TS')
             else:
-                (primary, secondary) = _metaph_add('S')
+                primary, secondary = _metaph_add('S')
 
             if _get_at(current + 1) == 'Z':
                 current += 2
@@ -1807,13 +1803,13 @@ def caverphone(word, version=2):
                     'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
                     'y', 'z'})
 
-    def _squeeze_replace(word, char, new_char):
+    def _squeeze_replace(local_word, char, new_char):
         """Convert strings of char in word to one instance of new_char."""
-        while char * 2 in word:
-            word = word.replace(char * 2, char)
-        return word.replace(char, new_char)
+        while char * 2 in local_word:
+            local_word = local_word.replace(char * 2, char)
+        return local_word.replace(char, new_char)
 
-    # the main replacemet algorithm
+    # the main replacement algorithm
     if version != 1 and word[-1:] == 'e':
         word = word[:-1]
     if word:
@@ -1991,7 +1987,7 @@ def alpha_sis(word, max_length=14):
     # Whether or not any special initial codes were encoded, iterate
     # through the length of the word in the main encoding loop
     while pos < len(word):
-        origpos = pos
+        orig_pos = pos
         for k in _alpha_sis_basic_order:
             if word[pos:].startswith(k):
                 if isinstance(_alpha_sis_basic[k], tuple):
@@ -2003,7 +1999,7 @@ def alpha_sis(word, max_length=14):
                     alpha = [_ + _alpha_sis_basic[k] for _ in alpha]
                 pos += len(k)
                 break
-        if pos == origpos:
+        if pos == orig_pos:
             alpha = [_ + '_' for _ in alpha]
             pos += 1
 
@@ -2196,7 +2192,7 @@ def phonex(word, max_length=4, zero_pad=True):
 
         name_code = last = name[0]
 
-    # MODIFIED SOUNDEX CODE
+    # Modified Soundex code
     for i in range(1, len(name)):
         code = '0'
         if name[i] in {'B', 'F', 'P', 'V'}:
@@ -2302,38 +2298,41 @@ def phonix(word, max_length=4, zero_pad=True):
     >>> phonix('Schmidt')
     'S530'
     """
-    def _start_repl(word, src, tar, post=None):
+    def _start_repl(local_word, src, tar, post=None):
         r"""Replace src with tar at the start of word."""
         if post:
             for i in post:
-                if word.startswith(src+i):
-                    return tar + word[len(src):]
-        elif word.startswith(src):
-            return tar + word[len(src):]
-        return word
+                if local_word.startswith(src+i):
+                    return tar + local_word[len(src):]
+        elif local_word.startswith(src):
+            return tar + local_word[len(src):]
+        return local_word
 
-    def _end_repl(word, src, tar, pre=None):
+    def _end_repl(local_word, src, tar, pre=None):
         r"""Replace src with tar at the end of word."""
         if pre:
             for i in pre:
-                if word.endswith(i+src):
-                    return word[:-len(src)] + tar
-        elif word.endswith(src):
-            return word[:-len(src)] + tar
-        return word
+                if local_word.endswith(i+src):
+                    return local_word[:-len(src)] + tar
+        elif local_word.endswith(src):
+            return local_word[:-len(src)] + tar
+        return local_word
 
-    def _mid_repl(word, src, tar, pre=None, post=None):
+    def _mid_repl(local_word, src, tar, pre=None, post=None):
         r"""Replace src with tar in the middle of word."""
         if pre or post:
             if not pre:
-                return word[0] + _all_repl(word[1:], src, tar, pre, post)
+                return local_word[0] + _all_repl(local_word[1:], src, tar, pre,
+                                                 post)
             elif not post:
-                return _all_repl(word[:-1], src, tar, pre, post) + word[-1]
-            return _all_repl(word, src, tar, pre, post)
-        return (word[0] + _all_repl(word[1:-1], src, tar, pre, post) +
-                word[-1])
+                return (_all_repl(local_word[:-1], src, tar, pre, post) +
+                        local_word[-1])
+            return _all_repl(local_word, src, tar, pre, post)
+        return (local_word[0] +
+                _all_repl(local_word[1:-1], src, tar, pre, post) +
+                local_word[-1])
 
-    def _all_repl(word, src, tar, pre=None, post=None):
+    def _all_repl(local_word, src, tar, pre=None, post=None):
         r"""Replace src with tar anywhere in word."""
         if pre or post:
             if post:
@@ -2346,10 +2345,10 @@ def phonix(word, max_length=4, zero_pad=True):
                 pre = frozenset(('',))
 
             for i, j in ((i, j) for i in pre for j in post):
-                word = word.replace(i+src+j, i+tar+j)
-            return word
+                local_word = local_word.replace(i+src+j, i+tar+j)
+            return local_word
         else:
-            return word.replace(src, tar)
+            return local_word.replace(src, tar)
 
     _vow = {'A', 'E', 'I', 'O', 'U'}
     _con = {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q',
@@ -2537,67 +2536,68 @@ def sfinxbis(word, max_length=-1):
                                         'WZÀÁÂÃÆÇÈÉÊËÌÍÎÏÑÒÓÔÕØÙÚÛÜÝ'),
                                        'VSAAAAÄCEEEEIIIINOOOOÖUUUYY'))
 
-    def _foersvensker(ordet):
+    def _foersvensker(lokal_ordet):
         """Return the Swedish-ized form of the word."""
-        ordet = ordet.replace('STIERN', 'STJÄRN')
-        ordet = ordet.replace('HIE', 'HJ')
-        ordet = ordet.replace('SIÖ', 'SJÖ')
-        ordet = ordet.replace('SCH', 'SH')
-        ordet = ordet.replace('QU', 'KV')
-        ordet = ordet.replace('IO', 'JO')
-        ordet = ordet.replace('PH', 'F')
+        lokal_ordet = lokal_ordet.replace('STIERN', 'STJÄRN')
+        lokal_ordet = lokal_ordet.replace('HIE', 'HJ')
+        lokal_ordet = lokal_ordet.replace('SIÖ', 'SJÖ')
+        lokal_ordet = lokal_ordet.replace('SCH', 'SH')
+        lokal_ordet = lokal_ordet.replace('QU', 'KV')
+        lokal_ordet = lokal_ordet.replace('IO', 'JO')
+        lokal_ordet = lokal_ordet.replace('PH', 'F')
 
         for i in _harde_vokaler:
-            ordet = ordet.replace(i+'Ü', i+'J')
-            ordet = ordet.replace(i+'Y', i+'J')
-            ordet = ordet.replace(i+'I', i+'J')
+            lokal_ordet = lokal_ordet.replace(i+'Ü', i+'J')
+            lokal_ordet = lokal_ordet.replace(i+'Y', i+'J')
+            lokal_ordet = lokal_ordet.replace(i+'I', i+'J')
         for i in _mjuka_vokaler:
-            ordet = ordet.replace(i+'Ü', i+'J')
-            ordet = ordet.replace(i+'Y', i+'J')
-            ordet = ordet.replace(i+'I', i+'J')
+            lokal_ordet = lokal_ordet.replace(i+'Ü', i+'J')
+            lokal_ordet = lokal_ordet.replace(i+'Y', i+'J')
+            lokal_ordet = lokal_ordet.replace(i+'I', i+'J')
 
-        if 'H' in ordet:
+        if 'H' in lokal_ordet:
             for i in _konsonanter:
-                ordet = ordet.replace('H'+i, i)
+                lokal_ordet = lokal_ordet.replace('H'+i, i)
 
-        ordet = ordet.translate(_sfinxbis_substitutions)
+        lokal_ordet = lokal_ordet.translate(_sfinxbis_substitutions)
 
-        ordet = ordet.replace('Ð', 'ETH')
-        ordet = ordet.replace('Þ', 'TH')
-        ordet = ordet.replace('ß', 'SS')
+        lokal_ordet = lokal_ordet.replace('Ð', 'ETH')
+        lokal_ordet = lokal_ordet.replace('Þ', 'TH')
+        lokal_ordet = lokal_ordet.replace('ß', 'SS')
 
-        return ordet
+        return lokal_ordet
 
-    def _koda_foersta_ljudet(ordet):
+    def _koda_foersta_ljudet(lokal_ordet):
         """Return the word with the first sound coded."""
-        if ordet[0:1] in _mjuka_vokaler or ordet[0:1] in _harde_vokaler:
-            ordet = '$' + ordet[1:]
-        elif ordet[0:2] in ('DJ', 'GJ', 'HJ', 'LJ'):
-            ordet = 'J' + ordet[2:]
-        elif ordet[0:1] == 'G' and ordet[1:2] in _mjuka_vokaler:
-            ordet = 'J' + ordet[1:]
-        elif ordet[0:1] == 'Q':
-            ordet = 'K' + ordet[1:]
-        elif (ordet[0:2] == 'CH' and
-              ordet[2:3] in frozenset(_mjuka_vokaler | _harde_vokaler)):
-            ordet = '#' + ordet[2:]
-        elif ordet[0:1] == 'C' and ordet[1:2] in _harde_vokaler:
-            ordet = 'K' + ordet[1:]
-        elif ordet[0:1] == 'C' and ordet[1:2] in _konsonanter:
-            ordet = 'K' + ordet[1:]
-        elif ordet[0:1] == 'X':
-            ordet = 'S' + ordet[1:]
-        elif ordet[0:1] == 'C' and ordet[1:2] in _mjuka_vokaler:
-            ordet = 'S' + ordet[1:]
-        elif ordet[0:3] in ('SKJ', 'STJ', 'SCH'):
-            ordet = '#' + ordet[3:]
-        elif ordet[0:2] in ('SH', 'KJ', 'TJ', 'SJ'):
-            ordet = '#' + ordet[2:]
-        elif ordet[0:2] == 'SK' and ordet[2:3] in _mjuka_vokaler:
-            ordet = '#' + ordet[2:]
-        elif ordet[0:1] == 'K' and ordet[1:2] in _mjuka_vokaler:
-            ordet = '#' + ordet[1:]
-        return ordet
+        if (lokal_ordet[0:1] in _mjuka_vokaler or
+                lokal_ordet[0:1] in _harde_vokaler):
+            lokal_ordet = '$' + lokal_ordet[1:]
+        elif lokal_ordet[0:2] in ('DJ', 'GJ', 'HJ', 'LJ'):
+            lokal_ordet = 'J' + lokal_ordet[2:]
+        elif lokal_ordet[0:1] == 'G' and lokal_ordet[1:2] in _mjuka_vokaler:
+            lokal_ordet = 'J' + lokal_ordet[1:]
+        elif lokal_ordet[0:1] == 'Q':
+            lokal_ordet = 'K' + lokal_ordet[1:]
+        elif (lokal_ordet[0:2] == 'CH' and
+              lokal_ordet[2:3] in frozenset(_mjuka_vokaler | _harde_vokaler)):
+            lokal_ordet = '#' + lokal_ordet[2:]
+        elif lokal_ordet[0:1] == 'C' and lokal_ordet[1:2] in _harde_vokaler:
+            lokal_ordet = 'K' + lokal_ordet[1:]
+        elif lokal_ordet[0:1] == 'C' and lokal_ordet[1:2] in _konsonanter:
+            lokal_ordet = 'K' + lokal_ordet[1:]
+        elif lokal_ordet[0:1] == 'X':
+            lokal_ordet = 'S' + lokal_ordet[1:]
+        elif lokal_ordet[0:1] == 'C' and lokal_ordet[1:2] in _mjuka_vokaler:
+            lokal_ordet = 'S' + lokal_ordet[1:]
+        elif lokal_ordet[0:3] in ('SKJ', 'STJ', 'SCH'):
+            lokal_ordet = '#' + lokal_ordet[3:]
+        elif lokal_ordet[0:2] in ('SH', 'KJ', 'TJ', 'SJ'):
+            lokal_ordet = '#' + lokal_ordet[2:]
+        elif lokal_ordet[0:2] == 'SK' and lokal_ordet[2:3] in _mjuka_vokaler:
+            lokal_ordet = '#' + lokal_ordet[2:]
+        elif lokal_ordet[0:1] == 'K' and lokal_ordet[1:2] in _mjuka_vokaler:
+            lokal_ordet = '#' + lokal_ordet[1:]
+        return lokal_ordet
 
     # Steg 1, Versaler
     word = unicode_normalize('NFC', text_type(word.upper()))
@@ -3718,9 +3718,9 @@ def phonet(word, mode=1, lang='de'):
                                          'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÅÄÆ' +
                                          'ÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ'))
 
-    def _initialize_phonet(lang):
+    def _initialize_phonet(local_lang):
         """Initialize phonet variables."""
-        if lang == 'none':
+        if local_lang == 'none':
             _phonet_rules = _phonet_rules_no_lang
         else:
             _phonet_rules = _phonet_rules_german
@@ -3793,9 +3793,9 @@ def phonet(word, mode=1, lang='de'):
 
                         rule = rule[1:]
 
-    def _phonet(term, mode, lang):
+    def _phonet(term, local_mode, local_lang):
         """Return the phonet coded form of a term."""
-        if lang == 'none':
+        if local_lang == 'none':
             _phonet_rules = _phonet_rules_no_lang
         else:
             _phonet_rules = _phonet_rules_german
@@ -3875,7 +3875,7 @@ def phonet(word, mode=1, lang='de'):
                         break
 
                     if (((_phonet_rules[pos] is None) or
-                         (_phonet_rules[pos + mode] is None))):
+                         (_phonet_rules[pos + local_mode] is None))):
                         # no conversion rule available
                         pos += 3
                         continue
@@ -4006,7 +4006,8 @@ def phonet(word, mode=1, lang='de'):
                                     break
 
                                 if (((_phonet_rules[pos0] is None) or
-                                     (_phonet_rules[pos0 + mode] is None))):
+                                     (_phonet_rules[pos0 + local_mode]
+                                      is None))):
                                     # no conversion rule available
                                     pos0 += 3
                                     continue
@@ -4087,7 +4088,7 @@ def phonet(word, mode=1, lang='de'):
                         else:
                             priority0 = 0
 
-                        rule = _phonet_rules[pos + mode]
+                        rule = _phonet_rules[pos + local_mode]
 
                         if (priority0 == 1) and (zeta == 0):
                             # rule with '<' is applied
@@ -4222,6 +4223,7 @@ def spfc(word):
     if not word:
         return ''
 
+    names = []
     if isinstance(word, (str, text_type)):
         names = word.split('.', 1)
         if len(names) != 2:
@@ -4332,8 +4334,7 @@ def statistics_canada(word, max_length=4):
      :cite:`Moore:1977`.
 
     :param str word: the word to transform
-    :param int max_length: the maximum length (default 6) of the code to return
-    :param bool modified: indicates whether to use USDA modified algorithm
+    :param int max_length: the maximum length (default 4) of the code to return
     :returns: the Statistics Canada name code value
     :rtype: str
 
@@ -4537,7 +4538,7 @@ def eudex(word, max_length=8):
     Further details can be found at :cite:`Ticki:2016b`.
 
     :param str word: the word to transform
-    :param int max_length: the length of the code returned (defaults to 8)
+    :param int max_length: the length in bits of the code returned (default 8)
     :returns: the eudex hash
     :rtype: int
     """
@@ -4706,18 +4707,19 @@ def haase_phonetik(word, primary_only=False):
     While the output code is numeric, it is nevertheless a str.
 
     :param str word: the word to transform
+    :param bool primary_only: if True, only the primary code is returned
     :returns: the Haase Phonetik value as a numeric string
-    :rtype: str
+    :rtype: tuple
     """
-    def _after(word, i, letters):
+    def _after(local_word, i, letters):
         """Return True if word[i] follows one of the supplied letters."""
-        if i > 0 and word[i-1] in letters:
+        if i > 0 and local_word[i-1] in letters:
             return True
         return False
 
-    def _before(word, i, letters):
+    def _before(local_word, i, letters):
         """Return True if word[i] precedes one of the supplied letters."""
-        if i+1 < len(word) and word[i+1] in letters:
+        if i+1 < len(local_word) and local_word[i+1] in letters:
             return True
         return False
 
@@ -4769,52 +4771,53 @@ def haase_phonetik(word, primary_only=False):
 
         variants = [''.join(letters) for letters in product(*variants)]
 
-    def _haase_code(word):
+    def _haase_code(local_word):
         sdx = ''
-        for i in range(len(word)):
-            if word[i] in _vowels:
+        for i in range(len(local_word)):
+            if local_word[i] in _vowels:
                 sdx += '9'
-            elif word[i] == 'B':
+            elif local_word[i] == 'B':
                 sdx += '1'
-            elif word[i] == 'P':
-                if _before(word, i, {'H'}):
+            elif local_word[i] == 'P':
+                if _before(local_word, i, {'H'}):
                     sdx += '3'
                 else:
                     sdx += '1'
-            elif word[i] in {'D', 'T'}:
-                if _before(word, i, {'C', 'S', 'Z'}):
+            elif local_word[i] in {'D', 'T'}:
+                if _before(local_word, i, {'C', 'S', 'Z'}):
                     sdx += '8'
                 else:
                     sdx += '2'
-            elif word[i] in {'F', 'V', 'W'}:
+            elif local_word[i] in {'F', 'V', 'W'}:
                 sdx += '3'
-            elif word[i] in {'G', 'K', 'Q'}:
+            elif local_word[i] in {'G', 'K', 'Q'}:
                 sdx += '4'
-            elif word[i] == 'C':
-                if _after(word, i, {'S', 'Z'}):
+            elif local_word[i] == 'C':
+                if _after(local_word, i, {'S', 'Z'}):
                     sdx += '8'
                 elif i == 0:
-                    if _before(word, i, {'A', 'H', 'K', 'L', 'O', 'Q', 'R',
-                                         'U', 'X'}):
+                    if _before(local_word, i, {'A', 'H', 'K', 'L', 'O', 'Q',
+                                               'R', 'U', 'X'}):
                         sdx += '4'
                     else:
                         sdx += '8'
-                elif _before(word, i, {'A', 'H', 'K', 'O', 'Q', 'U', 'X'}):
+                elif _before(local_word, i, {'A', 'H', 'K', 'O', 'Q', 'U',
+                                             'X'}):
                     sdx += '4'
                 else:
                     sdx += '8'
-            elif word[i] == 'X':
-                if _after(word, i, {'C', 'K', 'Q'}):
+            elif local_word[i] == 'X':
+                if _after(local_word, i, {'C', 'K', 'Q'}):
                     sdx += '8'
                 else:
                     sdx += '48'
-            elif word[i] == 'L':
+            elif local_word[i] == 'L':
                 sdx += '5'
-            elif word[i] in {'M', 'N'}:
+            elif local_word[i] in {'M', 'N'}:
                 sdx += '6'
-            elif word[i] == 'R':
+            elif local_word[i] == 'R':
                 sdx += '7'
-            elif word[i] in {'S', 'Z'}:
+            elif local_word[i] in {'S', 'Z'}:
                 sdx += '8'
 
         sdx = _delete_consecutive_repeats(sdx)
@@ -4855,8 +4858,9 @@ def reth_schek_phonetik(word):
       think of a German word with '-tui-' in it.)
     - Should we really change 'SCH' -> 'CH' and then 'CH' -> 'SCH'?
 
-    :param word:
-    :returns:
+    :param str word: the word to transform
+    :returns: the Reth-Schek Phonetik code
+    :rtype: str
     """
     replacements = {3: {'AEH': 'E', 'IEH': 'I', 'OEH': 'OE', 'UEH': 'UE',
                         'SCH': 'CH', 'ZIO': 'TIO', 'TIU': 'TIO', 'ZIU': 'TIO',
@@ -5032,8 +5036,9 @@ def parmar_kumbharana(word):
 
     This is based on the phonetic algorithm proposed in :cite:`Parmar:2014`.
 
-    :param word:
-    :returns:
+    :param str word: the word to transform
+    :returns: the Parmar-Kumbharana encoding
+    :rtype: str
     """
     rule_table = {4: {'OUGH': 'F'},
                   3: {'DGE': 'J',
@@ -5102,7 +5107,8 @@ def sound_d(word, max_length=4):
 
     :param str word: the word to transform
     :param int max_length: the length of the code returned (defaults to 4)
-    :returns:
+    :returns: the SoundD code
+    :rtype: str
     """
     _ref_soundd_translation = dict(zip((ord(_) for _ in
                                         'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
@@ -5147,9 +5153,12 @@ def pshp_soundex_last(lname, max_length=4, german=False):
 
     A separate function, pshp_soundex_first() is used for first names.
 
-    :param lname: the last name to encode
-    :param german: set to True if the name is German (different rules apply)
-    :returns:
+    :param str lname: the last name to encode
+    :param int max_length: the length of the code returned (defaults to 4)
+    :param bool german: set to True if the name is German (different rules
+        apply)
+    :returns: the PSHP Soundex/Viewex Coding
+    :rtype: str
     """
     lname = unicode_normalize('NFKD', text_type(lname.upper()))
     lname = lname.replace('ß', 'SS')
@@ -5278,9 +5287,12 @@ def pshp_soundex_first(fname, max_length=4, german=False):
 
     A separate function, pshp_soundex_last() is used for last names.
 
-    :param fname: the first name to encode
-    :param german: set to True if the name is German (different rules apply)
-    :returns:
+    :param str fname: the first name to encode
+    :param int max_length: the length of the code returned (defaults to 4)
+    :param bool german: set to True if the name is German (different rules
+        apply)
+    :returns: the PSHP Soundex/Viewex Coding
+    :rtype: str
     """
     fname = unicode_normalize('NFKD', text_type(fname.upper()))
     fname = fname.replace('ß', 'SS')
@@ -5351,9 +5363,10 @@ def henry_early(word, max_length=3):
     The early version of Henry coding is given in :cite:`Legare:1972`. This is
     different from the later version defined in :cite:`Henry:1976`.
 
-    :param word:
+    :param str word: the word to transform
     :param int max_length: the length of the code returned (defaults to 3)
-    :returns:
+    :returns: the early Henry code
+    :rtype: str
     """
     _cons = {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q',
              'R', 'S', 'T', 'V', 'W', 'X', 'Z'}
@@ -5512,8 +5525,9 @@ def norphone(word):
     extended to support Swedish vowels as well. This function incorporates
     the "not implemented" rules from the above file's rule set.
 
-    :param word:
-    :returns:
+    :param str word: the word to transform
+    :returns: the Norphone code
+    :rtype: str
     """
     _vowels = {'A', 'E', 'I', 'O', 'U', 'Y', 'Å', 'Æ', 'Ø', 'Ä', 'Ö'}
 
@@ -5579,7 +5593,7 @@ def norphone(word):
     return code
 
 
-def dolby(word, max_length=None, keep_vowels=False, vowel_char='*'):
+def dolby(word, max_length=-1, keep_vowels=False, vowel_char='*'):
     r"""Return the Dolby Code of a name.
 
     This follows "A Spelling Equivalent Abbreviation Algorithm For Personal
@@ -5587,10 +5601,11 @@ def dolby(word, max_length=None, keep_vowels=False, vowel_char='*'):
 
     :param word: the word to encode
     :param max_length: maximum length of the returned Dolby code -- this also
-        activates the fixed-length code mode
+        activates the fixed-length code mode if it is greater than 0
     :param keep_vowels: if True, retains all vowel markers
     :param vowel_char: the vowel marker character (default to \*)
-    :returns:
+    :returns: the Dolby Code
+    :rtype: str
     """
     _vowels = {'A', 'E', 'I', 'O', 'U', 'Y'}
 
@@ -5654,7 +5669,7 @@ def dolby(word, max_length=None, keep_vowels=False, vowel_char='*'):
         pos = word.find('K', pos+1)
 
     # Rule FL6
-    if max_length and word[-1:] == 'E':
+    if max_length > 0 and word[-1:] == 'E':
         word = word[:-1]
 
     # Rule 5 (FL7)
@@ -5673,11 +5688,11 @@ def dolby(word, max_length=None, keep_vowels=False, vowel_char='*'):
     word = word.replace('GH', '')
 
     # Rule FL9
-    if max_length:
+    if max_length > 0:
         word = word.replace('V', 'F')
 
     # Rules 7-9 (FL10-FL12)
-    first = 1 + (1 if max_length else 0)
+    first = 1 + (1 if max_length > 0 else 0)
     code = ''
     for pos, char in enumerate(word):
         if char in _vowels:
@@ -5689,7 +5704,7 @@ def dolby(word, max_length=None, keep_vowels=False, vowel_char='*'):
         else:
             code += char
 
-    if max_length:
+    if max_length > 0:
         # Rule FL13
         if len(code) > max_length and code[-1:] == 'S':
             code = code[:-1]
@@ -5719,14 +5734,17 @@ def dolby(word, max_length=None, keep_vowels=False, vowel_char='*'):
     return code
 
 
-def phonetic_spanish(word, max_length=None):
+def phonetic_spanish(word, max_length=-1):
     """Return the PhoneticSpanish coding of word.
 
     This follows the coding described in :cite:`Amon:2012` and
     :cite:`delPilarAngeles:2015`.
 
-    :param word:
-    :returns:
+    :param str word: the word to transform
+    :param int max_length: the length of the code returned (defaults to
+        unlimited)
+    :returns: the PhoneticSpanish code
+    :rtype: str
     """
     _es_soundex_translation = dict(zip((ord(_) for _ in
                                         'BCDFGHJKLMNPQRSTVXYZ'),
@@ -5745,7 +5763,7 @@ def phonetic_spanish(word, max_length=None):
     # apply the Soundex algorithm
     sdx = word.translate(_es_soundex_translation)
 
-    if max_length:
+    if max_length > 0:
         sdx = (sdx+('0'*max_length))[:max_length]
 
     return sdx
@@ -5760,17 +5778,17 @@ def spanish_metaphone(word, max_length=6, modified=False):
 
     Modified version based on :cite:`delPilarAngeles:2016`.
 
-    :param word:
-    :param max_length:
-    :param modified: Set to True to use del Pilar Angeles & Bailón-Miguel's
-        modified version of the algorithm
-    :returns:
+    :param str word: the word to transform
+    :param int max_length: the length of the code returned (defaults to 6)
+    :param bool modified: Set to True to use del Pilar Angeles &
+        Bailón-Miguel's modified version of the algorithm
+    :returns: the Spanish Metaphone code
+    :rtype: str
     """
-    def _is_vowel(pos):
-        """Return True if the character at word[pos] is a vowel."""
-        if pos < len(word) and word[pos] in {'A', 'E', 'I', 'O', 'U'}:
-            return True
-        return False
+    def _is_vowel(local_pos):
+        """Return True if the character at word[local_pos] is a vowel."""
+        return (local_pos < len(word) and
+                word[local_pos] in {'A', 'E', 'I', 'O', 'U'})
 
     word = unicode_normalize('NFC', text_type(word.upper()))
 
@@ -5895,11 +5913,13 @@ def spanish_metaphone(word, max_length=6, modified=False):
 def metasoundex(word, lang='en'):
     """Return the MetaSoundex code for a word.
 
-    This is based on :cite:`Koneru:2017`.
+    This is based on :cite:`Koneru:2017`. Only English ('en') and Spanish
+    ('es') languages are supported, as in the original.
 
-    :param word:
-    :param lang: either 'en' for English or 'es' for Spanish
-    :returns:
+    :param str word: the word to transform
+    :param str lang: either 'en' for English or 'es' for Spanish
+    :returns: the MetaSoundex code
+    :rtype: str
     """
     _metasoundex_translation = dict(zip((ord(_) for _ in
                                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
@@ -5919,8 +5939,12 @@ def soundex_br(word, max_length=4, zero_pad=True):
 
     This is based on :cite:`Marcelino:2015`.
 
-    :param word:
-    :returns:
+    :param str word: the word to transform
+    :param int max_length: the length of the code returned (defaults to 4)
+    :param bool zero_pad: pad the end of the return value with 0s to achieve a
+        max_length string
+    :returns: the SoundexBR code
+    :rtype: str
     """
     _soundex_br_translation = dict(zip((ord(_) for _ in
                                         'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
@@ -5963,10 +5987,11 @@ def nrl(word):
 
     This is defined by :cite:`Elovitz:1976`.
 
-    :param word:
-    :returns:
+    :param str word: the word to transform
+    :returns: the NRL phonetic encoding
+    :rtype: str
     """
-    def to_regex(pattern, left=True):
+    def to_regex(pattern, left_match=True):
         new_pattern = ''
         replacements = {'#': '[AEIOU]+',
                         ':': '[BCDFGHJKLMNPQRSTVWXYZ]*',
@@ -5979,7 +6004,7 @@ def nrl(word):
             new_pattern += (replacements[char] if char in replacements
                             else char)
 
-        if left:
+        if left_match:
             new_pattern += '$'
             if '^' not in pattern:
                 new_pattern = '^.*' + new_pattern
@@ -6358,9 +6383,9 @@ def nrl(word):
             left, match, right, out = rule
             if right_orig.startswith(match):
                 if left:
-                    l_pattern = to_regex(left, left=True)
+                    l_pattern = to_regex(left, left_match=True)
                 if right:
-                    r_pattern = to_regex(right, left=False)
+                    r_pattern = to_regex(right, left_match=False)
                 if ((not left or re_match(l_pattern, left_orig)) and
                         (not right or
                          re_match(r_pattern, right_orig[len(match):]))):
