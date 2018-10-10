@@ -53,7 +53,7 @@ class NGramCorpus(object):
     def __init__(self, corpus=None):
         r"""Initialize Corpus.
 
-        :param corpus: The Corpus from which to initialize the n-gram
+        :param Corpus corpus: The Corpus from which to initialize the n-gram
             corpus. By default, this is None, which initializes an empty
             NGramCorpus. This can then be populated using NGramCorpus methods.
 

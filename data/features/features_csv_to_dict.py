@@ -229,9 +229,10 @@ def main(argv):
 
             if variant < 2:
                 if featint in checkset_f:
-                    sys.stdout.write('Feature set ' + featint + ' appears in' +
-                                     ' CSV for two primary IPA symbols: ' +
-                                     symbol + ' and ' + checkdict[featint])
+                    sys.stdout.write('Feature set ' + str(featint) +
+                                     ' appears in CSV for two primary IPA ' +
+                                     'symbols: ' + symbol + ' and ' +
+                                     checkdict[featint])
                 else:
                     checkdict[featint] = symbol
                     checkset_f.add(featint)

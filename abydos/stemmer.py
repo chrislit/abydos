@@ -53,9 +53,9 @@ def lovins(word):
     The Lovins stemmer is described in Julie Beth Lovins's article
     :cite:`Lovins:1968`.
 
-    :param word: the word to stem
+    :param str word: the word to stem
     :returns: word stem
-    :rtype: string
+    :rtype: str
 
     >>> lovins('reading')
     'read'
@@ -70,8 +70,8 @@ def lovins(word):
     def cond_b(word, suffix_len):
         """Return Lovins' condition B.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return len(word)-suffix_len >= 3
@@ -79,8 +79,8 @@ def lovins(word):
     def cond_c(word, suffix_len):
         """Return Lovins' condition C.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return len(word)-suffix_len >= 4
@@ -88,8 +88,8 @@ def lovins(word):
     def cond_d(word, suffix_len):
         """Return Lovins' condition D.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return len(word)-suffix_len >= 5
@@ -97,8 +97,8 @@ def lovins(word):
     def cond_e(word, suffix_len):
         """Return Lovins' condition E.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return word[-suffix_len-1] != 'e'
@@ -106,8 +106,8 @@ def lovins(word):
     def cond_f(word, suffix_len):
         """Return Lovins' condition F.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return (len(word)-suffix_len >= 3 and
@@ -116,8 +116,8 @@ def lovins(word):
     def cond_g(word, suffix_len):
         """Return Lovins' condition G.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return (len(word)-suffix_len >= 3 and
@@ -126,8 +126,8 @@ def lovins(word):
     def cond_h(word, suffix_len):
         """Return Lovins' condition H.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return (word[-suffix_len-1] == 't' or
@@ -136,8 +136,8 @@ def lovins(word):
     def cond_i(word, suffix_len):
         """Return Lovins' condition I.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return word[-suffix_len-1] not in {'e', 'o'}
@@ -145,8 +145,8 @@ def lovins(word):
     def cond_j(word, suffix_len):
         """Return Lovins' condition J.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return word[-suffix_len-1] not in {'a', 'e'}
@@ -154,8 +154,8 @@ def lovins(word):
     def cond_k(word, suffix_len):
         """Return Lovins' condition K.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return (len(word)-suffix_len >= 3 and
@@ -165,8 +165,8 @@ def lovins(word):
     def cond_l(word, suffix_len):
         """Return Lovins' condition L.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return (word[-suffix_len-1] not in {'s', 'u', 'x'} or
@@ -175,8 +175,8 @@ def lovins(word):
     def cond_m(word, suffix_len):
         """Return Lovins' condition M.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return word[-suffix_len-1] not in {'a', 'c', 'e', 'm'}
@@ -184,8 +184,8 @@ def lovins(word):
     def cond_n(word, suffix_len):
         """Return Lovins' condition N.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         if len(word)-suffix_len >= 3:
@@ -199,8 +199,8 @@ def lovins(word):
     def cond_o(word, suffix_len):
         """Return Lovins' condition O.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return word[-suffix_len-1] in {'i', 'l'}
@@ -208,8 +208,8 @@ def lovins(word):
     def cond_p(word, suffix_len):
         """Return Lovins' condition P.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return word[-suffix_len-1] != 'c'
@@ -217,8 +217,8 @@ def lovins(word):
     def cond_q(word, suffix_len):
         """Return Lovins' condition Q.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return (len(word)-suffix_len >= 3 and
@@ -227,8 +227,8 @@ def lovins(word):
     def cond_r(word, suffix_len):
         """Return Lovins' condition R.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return word[-suffix_len-1] in {'n', 'r'}
@@ -236,8 +236,8 @@ def lovins(word):
     def cond_s(word, suffix_len):
         """Return Lovins' condition S.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return (word[-suffix_len-2:-suffix_len] == 'dr' or
@@ -247,8 +247,8 @@ def lovins(word):
     def cond_t(word, suffix_len):
         """Return Lovins' condition T.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return (word[-suffix_len-1] in {'s', 't'} and
@@ -257,8 +257,8 @@ def lovins(word):
     def cond_u(word, suffix_len):
         """Return Lovins' condition U.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return word[-suffix_len-1] in {'l', 'm', 'n', 'r'}
@@ -266,8 +266,8 @@ def lovins(word):
     def cond_v(word, suffix_len):
         """Return Lovins' condition V.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return word[-suffix_len-1] == 'c'
@@ -275,8 +275,8 @@ def lovins(word):
     def cond_w(word, suffix_len):
         """Return Lovins' condition W.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return word[-suffix_len-1] not in {'s', 'u'}
@@ -284,8 +284,8 @@ def lovins(word):
     def cond_x(word, suffix_len):
         """Return Lovins' condition X.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return (word[-suffix_len-1] in {'i', 'l'} or
@@ -295,8 +295,8 @@ def lovins(word):
     def cond_y(word, suffix_len):
         """Return Lovins' condition Y.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return word[-suffix_len-2:-suffix_len] == 'in'
@@ -304,8 +304,8 @@ def lovins(word):
     def cond_z(word, suffix_len):
         """Return Lovins' condition Z.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return word[-suffix_len-1] != 'f'
@@ -313,8 +313,8 @@ def lovins(word):
     def cond_aa(word, suffix_len):
         """Return Lovins' condition AA.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return (word[-suffix_len-1] in {'d', 'f', 'l', 't'} or
@@ -324,8 +324,8 @@ def lovins(word):
     def cond_bb(word, suffix_len):
         """Return Lovins' condition BB.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return (len(word)-suffix_len >= 3 and
@@ -335,8 +335,8 @@ def lovins(word):
     def cond_cc(word, suffix_len):
         """Return Lovins' condition CC.
 
-        :param word: word to check
-        :param suffix_len: suffix length
+        :param str word: word to check
+        :param int suffix_len: suffix length
         :rtype: bool
         """
         return word[-suffix_len-1] == 'l'
@@ -524,9 +524,10 @@ def _m_degree(term, vowels):
 
     m-degree is equal to the number of V to C transitions
 
-    :param term: the word for which to calculate the m-degree
-    :param vowels: the set of vowels in the language
+    :param str term: the word for which to calculate the m-degree
+    :param set vowels: the set of vowels in the language
     :returns: the m-degree as defined in the Porter stemmer definition
+    :rtype: int
     """
     mdeg = 0
     last_was_vowel = False
@@ -543,10 +544,11 @@ def _m_degree(term, vowels):
 def _sb_has_vowel(term, vowels):
     """Return Porter helper function _sb_has_vowel value.
 
-    :param term: the word to scan for vowels
-    :param vowels: the set of vowels in the language
+    :param str term: the word to scan for vowels
+    :param set vowels: the set of vowels in the language
     :returns: true iff a vowel exists in the term (as defined in the Porter
         stemmer definition)
+    :rtype: bool
     """
     for letter in term:
         if letter in vowels:
@@ -557,30 +559,28 @@ def _sb_has_vowel(term, vowels):
 def _ends_in_doubled_cons(term, vowels):
     """Return Porter helper function _ends_in_doubled_cons value.
 
-    :param term: the word to check for a final doubled consonant
-    :param vowels: the set of vowels in the language
+    :param str term: the word to check for a final doubled consonant
+    :param set vowels: the set of vowels in the language
     :returns: true iff the stem ends in a doubled consonant (as defined in the
         Porter stemmer definition)
+    :rtype: bool
     """
-    if len(term) > 1 and term[-1] not in vowels and term[-2] == term[-1]:
-        return True
-    return False
+    return len(term) > 1 and term[-1] not in vowels and term[-2] == term[-1]
 
 
 def _ends_in_cvc(term, vowels):
     """Return Porter helper function _ends_in_cvc value.
 
-    :param term: the word to scan for cvc
-    :param vowels: the set of vowels in the language
+    :param str term: the word to scan for cvc
+    :param set vowels: the set of vowels in the language
     :returns: true iff the stem ends in cvc (as defined in the Porter stemmer
         definition)
+    :rtype: bool
     """
-    if len(term) > 2 and (term[-1] not in vowels and
-                          term[-2] in vowels and
-                          term[-3] not in vowels and
-                          term[-1] not in tuple('wxY')):
-        return True
-    return False
+    return (len(term) > 2 and (term[-1] not in vowels and
+                               term[-2] in vowels and
+                               term[-3] not in vowels and
+                               term[-1] not in tuple('wxY')))
 
 
 def porter(word, early_english=False):
@@ -588,9 +588,9 @@ def porter(word, early_english=False):
 
     The Porter stemmer is described in :cite:`Porter:1980`.
 
-    :param word: the word to calculate the stem of
-    :param early_english: set to True in order to remove -eth & -est (2nd & 3rd
-        person singular verbal agreement suffixes)
+    :param str word: the word to calculate the stem of
+    :param bool early_english: set to True in order to remove -eth & -est
+        (2nd & 3rd person singular verbal agreement suffixes)
     :returns: word stem
     :rtype: str
 
@@ -888,9 +888,9 @@ def porter2(word, early_english=False):
 
     The Porter2 (Snowball English) stemmer is defined in :cite:`Porter:2002`.
 
-    :param word: the word to calculate the stem of
-    :param early_english: set to True in order to remove -eth & -est (2nd & 3rd
-        person singular verbal agreement suffixes)
+    :param str word: the word to calculate the stem of
+    :param bool early_english: set to True in order to remove -eth & -est
+        (2nd & 3rd person singular verbal agreement suffixes)
     :returns: word stem
     :rtype: str
 
@@ -1165,8 +1165,8 @@ def sb_german(word, alternate_vowels=False):
     The Snowball German stemmer is defined at:
     http://snowball.tartarus.org/algorithms/german/stemmer.html
 
-    :param word: the word to calculate the stem of
-    :param alternate_vowels: composes ae as ä, oe as ö, and ue as ü before
+    :param str word: the word to calculate the stem of
+    :param bool alternate_vowels: composes ae as ä, oe as ö, and ue as ü before
         running the algorithm
     :returns: word stem
     :rtype: str
@@ -1297,7 +1297,7 @@ def sb_dutch(word):
     The Snowball Dutch stemmer is defined at:
     http://snowball.tartarus.org/algorithms/dutch/stemmer.html
 
-    :param word: the word to calculate the stem of
+    :param str word: the word to calculate the stem of
     :returns: word stem
     :rtype: str
 
@@ -1419,7 +1419,7 @@ def sb_norwegian(word):
     The Snowball Norwegian stemmer is defined at:
     http://snowball.tartarus.org/algorithms/norwegian/stemmer.html
 
-    :param word: the word to calculate the stem of
+    :param str word: the word to calculate the stem of
     :returns: word stem
     :rtype: str
 
@@ -1490,7 +1490,7 @@ def sb_swedish(word):
     The Snowball Swedish stemmer is defined at:
     http://snowball.tartarus.org/algorithms/swedish/stemmer.html
 
-    :param word: the word to calculate the stem of
+    :param str word: the word to calculate the stem of
     :returns: word stem
     :rtype: str
 
@@ -1556,7 +1556,7 @@ def sb_danish(word):
     The Snowball Danish stemmer is defined at:
     http://snowball.tartarus.org/algorithms/danish/stemmer.html
 
-    :param word: the word to calculate the stem of
+    :param str word: the word to calculate the stem of
     :returns: word stem
     :rtype: str
 
@@ -1637,7 +1637,7 @@ def clef_german(word):
 
     The CLEF German stemmer is defined at :cite:`Savoy:2005`.
 
-    :param word: the word to calculate the stem of
+    :param str word: the word to calculate the stem of
     :returns: word stem
     :rtype: str
 
@@ -1675,7 +1675,7 @@ def clef_german_plus(word):
 
     The CLEF German stemmer plus is defined at :cite:`Savoy:2005`.
 
-    :param word: the word to calculate the stem of
+    :param str word: the word to calculate the stem of
     :returns: word stem
     :rtype: str
 
@@ -1722,7 +1722,7 @@ def clef_swedish(word):
 
     The CLEF Swedish stemmer is defined at :cite:`Savoy:2005`.
 
-    :param word: the word to calculate the stem of
+    :param str word: the word to calculate the stem of
     :returns: word stem
     :rtype: str
 
@@ -1767,7 +1767,7 @@ def caumanns(word):
     This implementation is based on the GermanStemFilter described at
     :cite:`Lang:2013`.
 
-    :param word: the word to calculate the stem of
+    :param str word: the word to calculate the stem of
     :returns: word stem
     :rtype: str
 
@@ -1791,13 +1791,13 @@ def caumanns(word):
     word = word.replace('ß', 'ss')
 
     # 2. Change second of doubled characters to *
-    newword = word[0]
+    new_word = word[0]
     for i in range(1, len(word)):
-        if newword[i-1] == word[i]:
-            newword += '*'
+        if new_word[i-1] == word[i]:
+            new_word += '*'
         else:
-            newword += word[i]
-    word = newword
+            new_word += word[i]
+    word = new_word
 
     # 3. Replace sch, ch, ei, ie with $, §, %, &
     word = word.replace('sch', '$')
@@ -1857,13 +1857,14 @@ def uealite(word, max_word_length=20, max_acro_length=8, return_rule_no=False,
     Perl version: :cite:`Jenkins:2005`
     Ruby version: :cite:`Adams:2017`
 
-    :param word: the word to calculate the stem of
-    :param max_word_length: the maximum word length allowed
-    :param return_rule_no: if True, returns the stem along with rule number
-    :param var: variant to use (set to 'Adams' to use Jason Adams' rules,
-                or 'Perl' to use the original Perl set of rules)
+    :param str word: the word to calculate the stem of
+    :param int max_word_length: the maximum word length allowed
+    :param bool return_rule_no: if True, returns the stem along with rule
+        number
+    :param str var: variant to use (set to 'Adams' to use Jason Adams' rules,
+        or 'Perl' to use the original Perl set of rules)
     :returns: word stem
-    :rtype: str or tuple(str, int)
+    :rtype: str or (str, int)
     """
     problem_words = {'is', 'as', 'this', 'has', 'was', 'during'}
 
@@ -2136,7 +2137,7 @@ def uealite(word, max_word_length=20, max_acro_length=8, return_rule_no=False,
             return word, 90.3
         else:
             hyphen = word.find('-')
-            if hyphen > 0 and hyphen < len(word):
+            if len(word) > hyphen > 0:
                 if word[:hyphen].isalpha() and word[hyphen+1:].isalpha():
                     return word, 90.2
                 else:
@@ -2197,7 +2198,7 @@ def paice_husk(word):
 
     This is based on the algorithm's description in :cite:`Paice:1990`.
 
-    :param word: the word to stem
+    :param str word: the word to stem
     :returns: the stemmed word
     :rtype: str
     """
@@ -2374,7 +2375,7 @@ def schinke(word):
 
     This is defined in :cite:`Schinke:1996`.
 
-    :param word: the word to stem
+    :param str word: the word to stem
     :returns: the stemmed word
     :rtype: str
     """
@@ -2468,7 +2469,7 @@ def s_stemmer(word):
 
     The S stemmer is defined in :cite:`Harman:1991`.
 
-    :param word: the word to stem
+    :param str word: the word to stem
     :returns: the stemmed word
     :rtype: str
     """
