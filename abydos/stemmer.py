@@ -24,7 +24,7 @@ The stemmer module defines word stemmers including:
     - the Porter and Porter2 (Snowball English) stemmers
     - Snowball stemmers for German, Dutch, Norwegian, Swedish, and Danish
     - CLEF German, German plus, and Swedish stemmers
-    - Caumann's German stemmer
+    - Caumanns German stemmer
     - UEA-Lite Stemmer
     - Paice-Husk Stemmer
     - Schinke Latin stemmer
