@@ -34,7 +34,7 @@ The fingerprint module implements string fingerprints such as:
 from __future__ import division, unicode_literals
 
 from collections import Counter
-from unicodedata import normalize
+from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
@@ -65,7 +65,7 @@ def str_fingerprint(phrase, joiner=' '):
     >>> str_fingerprint('The quick brown fox jumped over the lazy dog.')
     'brown dog fox jumped lazy over quick the'
     """
-    phrase = normalize('NFKD', text_type(phrase.strip().lower()))
+    phrase = unicode_normalize('NFKD', text_type(phrase.strip().lower()))
     phrase = ''.join([c for c in phrase if c.isalnum() or c.isspace()])
     phrase = joiner.join(sorted(list(set(phrase.split()))))
     return phrase
@@ -94,7 +94,7 @@ def qgram_fingerprint(phrase, qval=2, start_stop='', joiner=''):
     >>> qgram_fingerprint('Niall')
     'aliallni'
     """
-    phrase = normalize('NFKD', text_type(phrase.strip().lower()))
+    phrase = unicode_normalize('NFKD', text_type(phrase.strip().lower()))
     phrase = ''.join(c for c in phrase if c.isalnum())
     phrase = QGrams(phrase, qval, start_stop)
     phrase = joiner.join(sorted(phrase))
@@ -158,7 +158,7 @@ def skeleton_key(word):
     """
     _vowels = {'A', 'E', 'I', 'O', 'U'}
 
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
                     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
@@ -199,7 +199,7 @@ def omission_key(word):
     _consonants = ('J', 'K', 'Q', 'X', 'Z', 'V', 'W', 'Y', 'B', 'F', 'M', 'G',
                    'P', 'D', 'H', 'C', 'L', 'N', 'T', 'S', 'R')
 
-    word = normalize('NFKD', text_type(word.upper()))
+    word = unicode_normalize('NFKD', text_type(word.upper()))
     word = ''.join(c for c in word if c in
                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
                     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
@@ -263,11 +263,11 @@ def occurrence_fingerprint(word, n_bits=16,
                            most_common=MOST_COMMON_LETTERS_CG):
     """Return the occurrence fingerprint.
 
-    Based on the occurence fingerprint from :cite:`Cislak:2017`.
+    Based on the occurrence fingerprint from :cite:`Cislak:2017`.
 
-    :param word: the word to fingerprint
-    :param n_bits: number of bits in the fingerprint returned
-    :param most_common: the most common tokens in the target language,
+    :param str word: the word to fingerprint
+    :param int n_bits: number of bits in the fingerprint returned
+    :param list most_common: the most common tokens in the target language,
         ordered by frequency
     :returns: the occurrence fingerprint
     :rtype: int
@@ -295,11 +295,11 @@ def occurrence_halved_fingerprint(word, n_bits=16,
                                   most_common=MOST_COMMON_LETTERS_CG):
     """Return the occurrence halved fingerprint.
 
-    Based on the occurence halved fingerprint from :cite:`Cislak:2017`.
+    Based on the occurrence halved fingerprint from :cite:`Cislak:2017`.
 
-    :param word: the word to fingerprint
-    :param n_bits: number of bits in the fingerprint returned
-    :param most_common: the most common tokens in the target language,
+    :param str word: the word to fingerprint
+    :param int n_bits: number of bits in the fingerprint returned
+    :param list most_common: the most common tokens in the target language,
         ordered by frequency
     :returns: the occurrence halved fingerprint
     :rtype: int
@@ -336,9 +336,9 @@ def count_fingerprint(word, n_bits=16,
 
     Based on the count fingerprint from :cite:`Cislak:2017`.
 
-    :param word: the word to fingerprint
-    :param n_bits: number of bits in the fingerprint returned
-    :param most_common: the most common tokens in the target language,
+    :param str word: the word to fingerprint
+    :param int n_bits: number of bits in the fingerprint returned
+    :param list most_common: the most common tokens in the target language,
         ordered by frequency
     :returns: the count fingerprint
     :rtype: int
@@ -370,11 +370,11 @@ def position_fingerprint(word, n_bits=16,
 
     Based on the position fingerprint from :cite:`Cislak:2017`.
 
-    :param word: the word to fingerprint
-    :param n_bits: number of bits in the fingerprint returned
-    :param most_common: the most common tokens in the target language,
+    :param str word: the word to fingerprint
+    :param int n_bits: number of bits in the fingerprint returned
+    :param list most_common: the most common tokens in the target language,
         ordered by frequency
-    :param bits_per_letter: the bits to assign for letter position
+    :param int bits_per_letter: the bits to assign for letter position
     :returns: the position fingerprint
     :rtype: int
     """
@@ -578,10 +578,12 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
 
     Cf. :cite:`Getty:1991,Gross:1991`.
 
-    :param lname: last name
-    :param fname: first name (can be blank)
-    :param qual: qualifier
-    :returns:
+    :param str lname: last name
+    :param str fname: first name (can be blank)
+    :param str qual: qualifier
+    :param int normalize: normalization mode (0, 1, or 2)
+    :returns: the transformed last and first names and the synoname toolcode
+    :rtype: tuple
     """
     method_dict = {'end': 1, 'middle': 2, 'beginning': 4,
                              'beginning_no_space': 8}
