@@ -554,13 +554,13 @@ def koelner_phonetik(word):
     >>> koelner_phonetik('Zimmermann')
     '86766'
     """
-    def _after(local_word, pos, letters):
+    def _after(word, pos, letters):
         """Return True if word[i] follows one of the supplied letters."""
-        return pos > 0 and local_word[pos-1] in letters
+        return pos > 0 and word[pos-1] in letters
 
-    def _before(local_word, pos, letters):
+    def _before(word, pos, letters):
         """Return True if word[i] precedes one of the supplied letters."""
-        return pos+1 < len(local_word) and local_word[pos+1] in letters
+        return pos+1 < len(word) and word[pos+1] in letters
 
     _vowels = {'A', 'E', 'I', 'J', 'O', 'U', 'Y'}
 
@@ -1803,11 +1803,11 @@ def caverphone(word, version=2):
                     'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
                     'y', 'z'})
 
-    def _squeeze_replace(local_word, char, new_char):
+    def _squeeze_replace(word, char, new_char):
         """Convert strings of char in word to one instance of new_char."""
-        while char * 2 in local_word:
-            local_word = local_word.replace(char * 2, char)
-        return local_word.replace(char, new_char)
+        while char * 2 in word:
+            word = word.replace(char * 2, char)
+        return word.replace(char, new_char)
 
     # the main replacement algorithm
     if version != 1 and word[-1:] == 'e':
@@ -2298,41 +2298,40 @@ def phonix(word, max_length=4, zero_pad=True):
     >>> phonix('Schmidt')
     'S530'
     """
-    def _start_repl(local_word, src, tar, post=None):
+    def _start_repl(word, src, tar, post=None):
         r"""Replace src with tar at the start of word."""
         if post:
             for i in post:
-                if local_word.startswith(src+i):
-                    return tar + local_word[len(src):]
-        elif local_word.startswith(src):
-            return tar + local_word[len(src):]
-        return local_word
+                if word.startswith(src+i):
+                    return tar + word[len(src):]
+        elif word.startswith(src):
+            return tar + word[len(src):]
+        return word
 
-    def _end_repl(local_word, src, tar, pre=None):
+    def _end_repl(word, src, tar, pre=None):
         r"""Replace src with tar at the end of word."""
         if pre:
             for i in pre:
-                if local_word.endswith(i+src):
-                    return local_word[:-len(src)] + tar
-        elif local_word.endswith(src):
-            return local_word[:-len(src)] + tar
-        return local_word
+                if word.endswith(i+src):
+                    return word[:-len(src)] + tar
+        elif word.endswith(src):
+            return word[:-len(src)] + tar
+        return word
 
-    def _mid_repl(local_word, src, tar, pre=None, post=None):
+    def _mid_repl(word, src, tar, pre=None, post=None):
         r"""Replace src with tar in the middle of word."""
         if pre or post:
             if not pre:
-                return local_word[0] + _all_repl(local_word[1:], src, tar, pre,
-                                                 post)
+                return word[0] + _all_repl(word[1:], src, tar, pre, post)
             elif not post:
-                return (_all_repl(local_word[:-1], src, tar, pre, post) +
-                        local_word[-1])
-            return _all_repl(local_word, src, tar, pre, post)
-        return (local_word[0] +
-                _all_repl(local_word[1:-1], src, tar, pre, post) +
-                local_word[-1])
+                return (_all_repl(word[:-1], src, tar, pre, post) +
+                        word[-1])
+            return _all_repl(word, src, tar, pre, post)
+        return (word[0] +
+                _all_repl(word[1:-1], src, tar, pre, post) +
+                word[-1])
 
-    def _all_repl(local_word, src, tar, pre=None, post=None):
+    def _all_repl(word, src, tar, pre=None, post=None):
         r"""Replace src with tar anywhere in word."""
         if pre or post:
             if post:
@@ -2345,10 +2344,10 @@ def phonix(word, max_length=4, zero_pad=True):
                 pre = frozenset(('',))
 
             for i, j in ((i, j) for i in pre for j in post):
-                local_word = local_word.replace(i+src+j, i+tar+j)
-            return local_word
+                word = word.replace(i+src+j, i+tar+j)
+            return word
         else:
-            return local_word.replace(src, tar)
+            return word.replace(src, tar)
 
     _vow = {'A', 'E', 'I', 'O', 'U'}
     _con = {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q',
@@ -3718,9 +3717,9 @@ def phonet(word, mode=1, lang='de'):
                                          'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÅÄÆ' +
                                          'ÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ'))
 
-    def _initialize_phonet(local_lang):
+    def _initialize_phonet(lang):
         """Initialize phonet variables."""
-        if local_lang == 'none':
+        if lang == 'none':
             _phonet_rules = _phonet_rules_no_lang
         else:
             _phonet_rules = _phonet_rules_german
@@ -3793,9 +3792,9 @@ def phonet(word, mode=1, lang='de'):
 
                         rule = rule[1:]
 
-    def _phonet(term, local_mode, local_lang):
+    def _phonet(term, mode, lang):
         """Return the phonet coded form of a term."""
-        if local_lang == 'none':
+        if lang == 'none':
             _phonet_rules = _phonet_rules_no_lang
         else:
             _phonet_rules = _phonet_rules_german
@@ -3875,7 +3874,7 @@ def phonet(word, mode=1, lang='de'):
                         break
 
                     if (((_phonet_rules[pos] is None) or
-                         (_phonet_rules[pos + local_mode] is None))):
+                         (_phonet_rules[pos + mode] is None))):
                         # no conversion rule available
                         pos += 3
                         continue
@@ -4006,7 +4005,7 @@ def phonet(word, mode=1, lang='de'):
                                     break
 
                                 if (((_phonet_rules[pos0] is None) or
-                                     (_phonet_rules[pos0 + local_mode]
+                                     (_phonet_rules[pos0 + mode]
                                       is None))):
                                     # no conversion rule available
                                     pos0 += 3
@@ -4088,7 +4087,7 @@ def phonet(word, mode=1, lang='de'):
                         else:
                             priority0 = 0
 
-                        rule = _phonet_rules[pos + local_mode]
+                        rule = _phonet_rules[pos + mode]
 
                         if (priority0 == 1) and (zeta == 0):
                             # rule with '<' is applied
@@ -4711,15 +4710,15 @@ def haase_phonetik(word, primary_only=False):
     :returns: the Haase Phonetik value as a numeric string
     :rtype: tuple
     """
-    def _after(local_word, i, letters):
+    def _after(word, i, letters):
         """Return True if word[i] follows one of the supplied letters."""
-        if i > 0 and local_word[i-1] in letters:
+        if i > 0 and word[i-1] in letters:
             return True
         return False
 
-    def _before(local_word, i, letters):
+    def _before(word, i, letters):
         """Return True if word[i] precedes one of the supplied letters."""
-        if i+1 < len(local_word) and local_word[i+1] in letters:
+        if i+1 < len(word) and word[i+1] in letters:
             return True
         return False
 
@@ -4771,53 +4770,52 @@ def haase_phonetik(word, primary_only=False):
 
         variants = [''.join(letters) for letters in product(*variants)]
 
-    def _haase_code(local_word):
+    def _haase_code(word):
         sdx = ''
-        for i in range(len(local_word)):
-            if local_word[i] in _vowels:
+        for i in range(len(word)):
+            if word[i] in _vowels:
                 sdx += '9'
-            elif local_word[i] == 'B':
+            elif word[i] == 'B':
                 sdx += '1'
-            elif local_word[i] == 'P':
-                if _before(local_word, i, {'H'}):
+            elif word[i] == 'P':
+                if _before(word, i, {'H'}):
                     sdx += '3'
                 else:
                     sdx += '1'
-            elif local_word[i] in {'D', 'T'}:
-                if _before(local_word, i, {'C', 'S', 'Z'}):
+            elif word[i] in {'D', 'T'}:
+                if _before(word, i, {'C', 'S', 'Z'}):
                     sdx += '8'
                 else:
                     sdx += '2'
-            elif local_word[i] in {'F', 'V', 'W'}:
+            elif word[i] in {'F', 'V', 'W'}:
                 sdx += '3'
-            elif local_word[i] in {'G', 'K', 'Q'}:
+            elif word[i] in {'G', 'K', 'Q'}:
                 sdx += '4'
-            elif local_word[i] == 'C':
-                if _after(local_word, i, {'S', 'Z'}):
+            elif word[i] == 'C':
+                if _after(word, i, {'S', 'Z'}):
                     sdx += '8'
                 elif i == 0:
-                    if _before(local_word, i, {'A', 'H', 'K', 'L', 'O', 'Q',
-                                               'R', 'U', 'X'}):
+                    if _before(word, i, {'A', 'H', 'K', 'L', 'O', 'Q', 'R',
+                                         'U', 'X'}):
                         sdx += '4'
                     else:
                         sdx += '8'
-                elif _before(local_word, i, {'A', 'H', 'K', 'O', 'Q', 'U',
-                                             'X'}):
+                elif _before(word, i, {'A', 'H', 'K', 'O', 'Q', 'U', 'X'}):
                     sdx += '4'
                 else:
                     sdx += '8'
-            elif local_word[i] == 'X':
-                if _after(local_word, i, {'C', 'K', 'Q'}):
+            elif word[i] == 'X':
+                if _after(word, i, {'C', 'K', 'Q'}):
                     sdx += '8'
                 else:
                     sdx += '48'
-            elif local_word[i] == 'L':
+            elif word[i] == 'L':
                 sdx += '5'
-            elif local_word[i] in {'M', 'N'}:
+            elif word[i] in {'M', 'N'}:
                 sdx += '6'
-            elif local_word[i] == 'R':
+            elif word[i] == 'R':
                 sdx += '7'
-            elif local_word[i] in {'S', 'Z'}:
+            elif word[i] in {'S', 'Z'}:
                 sdx += '8'
 
         sdx = _delete_consecutive_repeats(sdx)
@@ -5785,10 +5783,10 @@ def spanish_metaphone(word, max_length=6, modified=False):
     :returns: the Spanish Metaphone code
     :rtype: str
     """
-    def _is_vowel(local_pos):
-        """Return True if the character at word[local_pos] is a vowel."""
-        return (local_pos < len(word) and
-                word[local_pos] in {'A', 'E', 'I', 'O', 'U'})
+    def _is_vowel(pos):
+        """Return True if the character at word[pos] is a vowel."""
+        return (pos < len(word) and
+                word[pos] in {'A', 'E', 'I', 'O', 'U'})
 
     word = unicode_normalize('NFC', text_type(word.upper()))
 

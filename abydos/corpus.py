@@ -47,15 +47,15 @@ class Corpus(object):
             - single newlines divide sentences
             - other whitespace divides words
 
-        :param corpus_text: the corpus text as a single string
-        :param doc_split: a character or string used to split corpus_text into
-            documents
-        :param sent_split: a character or string used to split documents into
-            sentences
-        :param filter_chars: A list of characters (as a string, tuple, set, or
-            list) to filter out of the corpus text
-        :param stop_words: A list of words (as a tuple, set, or list) to filter
-            out of the corpus text
+        :param str corpus_text: the corpus text as a single string
+        :param str doc_split: a character or string used to split corpus_text
+            into documents
+        :param str sent_split: a character or string used to split documents
+            into sentences
+        :param list filter_chars: A list of characters (as a string, tuple,
+            set, or list) to filter out of the corpus text
+        :param list stop_words: A list of words (as a tuple, set, or list) to
+            filter out of the corpus text
 
         >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
         >>> tqbf += 'And then it slept.\n And the dog ran off.'
@@ -87,7 +87,7 @@ class Corpus(object):
 
         :returns: the paragraphs in the corpus as a list of lists of lists
             of strs
-        :rtype: list(list(list(str)))
+        :rtype: [[[str]]]
 
         >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
         >>> tqbf += 'And then it slept.\n And the dog ran off.'
@@ -111,7 +111,7 @@ class Corpus(object):
 
         :returns: the paragraphs in the corpus as a list of lists of lists
             of strs
-        :rtype: list(list(list(str)))
+        :rtype: [[[str]]]
 
         >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
         >>> tqbf += 'And then it slept.\n And the dog ran off.'
@@ -131,7 +131,7 @@ class Corpus(object):
         Each list within a sentence represents the words within that sentence.
 
         :returns: the sentences in the corpus as a list of lists of strs
-        :rtype: list(list(str))
+        :rtype: [[str]]
 
         >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
         >>> tqbf += 'And then it slept.\n And the dog ran off.'
@@ -149,7 +149,7 @@ class Corpus(object):
         r"""Return the words in the corpus as a single list.
 
         :returns: the words in the corpus as a list of strs
-        :rtype: list(str)
+        :rtype: [str]
 
         >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
         >>> tqbf += 'And then it slept.\n And the dog ran off.'
@@ -170,7 +170,7 @@ class Corpus(object):
         Thus the sentence level of lists has been flattened.
 
         :returns: the docs in the corpus as a list of list of strs
-        :rtype: list(list(str))
+        :rtype: [[str]]
 
         >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
         >>> tqbf += 'And then it slept.\n And the dog ran off.'
@@ -216,9 +216,9 @@ class Corpus(object):
     def idf(self, term, transform=None):
         """Calculate the Inverse Document Frequency of a term in the corpus.
 
-        :param term: the term to calculate the IDF of
-        :param transform: a function to apply to each document term before
-            checking for the presence of term
+        :param str term: the term to calculate the IDF of
+        :param function transform: a function to apply to each document term
+            before checking for the presence of term
         :returns: the IDF
         :rtype: float
         """

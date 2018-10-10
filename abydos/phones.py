@@ -584,7 +584,7 @@ def ipa_to_features(ipa):
 
     :param str ipa: the IPA representation of a phone or series of phones
     :returns: a representation of the features of the input string
-    :rtype: list(int)
+    :rtype: [int]
 
     >>> ipa_to_features('mut')
     [2709662981243185770, 1825831513894594986, 2783230754502126250]
@@ -632,7 +632,7 @@ def get_feature(vector, feature):
         'continuant', 'strident', 'lateral', 'delayed_release', 'nasal'
     :returns: a list indicating presence/absence/neutrality with respect to
         the feature
-    :rtype: list(int)
+    :rtype: [int]
 
     >>> tails = ipa_to_features('telz')
     >>> get_feature(tails, 'consonantal')
@@ -697,7 +697,10 @@ def cmp_features(feat1, feat2):
 
     Otherwise, a float representing their similarity is returned.
 
-    :param int feat1, feat2: Two feature bundles to compare
+    :param int feat1: a feature bundle
+    :param int feat2: a feature bundle
+    :returns: a comparison of the feature bundles
+    :rtype: float
 
     >>> cmp_features(ipa_to_features('l')[0], ipa_to_features('l')[0])
     1.0

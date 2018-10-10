@@ -1819,18 +1819,18 @@ def sim_ratcliff_obershelp(src, tar):
     >>> sim_ratcliff_obershelp('ATCG', 'TAGC')
     0.5
     """
-    def _lcsstr_stl(local_src, local_tar):
+    def _lcsstr_stl(src, tar):
         """Return start positions & length for Ratcliff-Obershelp.
 
         Return the start position in the source string, start position in
         the target string, and length of the longest common substring of
         strings src and tar.
         """
-        lengths = np_zeros((len(local_src)+1, len(local_tar)+1), dtype=np_int)
+        lengths = np_zeros((len(src)+1, len(tar)+1), dtype=np_int)
         longest, src_longest, tar_longest = 0, 0, 0
-        for i in range(1, len(local_src)+1):
-            for j in range(1, len(local_tar)+1):
-                if local_src[i-1] == local_tar[j-1]:
+        for i in range(1, len(src)+1):
+            for j in range(1, len(tar)+1):
+                if src[i-1] == tar[j-1]:
                     lengths[i, j] = lengths[i-1, j-1] + 1
                     if lengths[i, j] > longest:
                         longest = lengths[i, j]
@@ -1840,7 +1840,7 @@ def sim_ratcliff_obershelp(src, tar):
                     lengths[i, j] = 0
         return src_longest-longest, tar_longest-longest, longest
 
-    def _sstr_matches(local_src, local_tar):
+    def _sstr_matches(src, tar):
         """Return the sum of substring match lengths.
 
         This follows the Ratcliff-Obershelp algorithm :cite:`Ratcliff:1988`:
@@ -1851,13 +1851,13 @@ def sim_ratcliff_obershelp(src, tar):
                  return 0.
              4. Return the sum.
         """
-        src_start, tar_start, length = _lcsstr_stl(local_src, local_tar)
+        src_start, tar_start, length = _lcsstr_stl(src, tar)
         if length == 0:
             return 0
-        return (_sstr_matches(local_src[:src_start], local_tar[:tar_start]) +
+        return (_sstr_matches(src[:src_start], tar[:tar_start]) +
                 length +
-                _sstr_matches(local_src[src_start+length:],
-                              local_tar[tar_start+length:]))
+                _sstr_matches(src[src_start+length:],
+                              tar[tar_start+length:]))
 
     if src == tar:
         return 1.0
@@ -3435,11 +3435,11 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
                    'log-manhattan': _log_manhattan_keyboard_distance}
 
     def substitution_cost(char1, char2):
-        local_cost = sub_cost
-        local_cost *= (metric_dict[metric](char1, char2) +
-                       shift_cost * (_kb_array_for_char(char1) !=
-                                     _kb_array_for_char(char2)))
-        return local_cost
+        cost = sub_cost
+        cost *= (metric_dict[metric](char1, char2) +
+                 shift_cost * (_kb_array_for_char(char1) !=
+                               _kb_array_for_char(char2)))
+        return cost
 
     d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
     for i in range(len(src) + 1):

@@ -1547,10 +1547,11 @@ def mode(nums):
 def var(nums, mean_func=amean, ddof=0):
     """Calculate the variance.
 
-    :param nums:
-    :param mean_func:
-    :param ddof:
-    :returns:
+    :param list nums: A series of numbers
+    :param function mean_func: A mean function (amean by default)
+    :param int ddof: The degrees of freedom (0 by default)
+    :returns: The variance of the values in the series
+    :rtype: float
     """
     x_bar = mean_func(nums)
     return sum((x - x_bar) ** 2 for x in nums) / (len(nums) - ddof)
@@ -1559,10 +1560,11 @@ def var(nums, mean_func=amean, ddof=0):
 def std(nums, mean_func=amean, ddof=0):
     """Return the standard deviation.
 
-    :param nums:
-    :param mean_func:
-    :param ddof:
-    :returns:
+    :param list nums: A series of numbers
+    :param function mean_func: A mean function (amean by default)
+    :param int ddof: The degrees of freedom (0 by default)
+    :returns: The standard deviation of the values in the series
+    :rtype: float
     """
     return var(nums, mean_func, ddof)**0.5
 
