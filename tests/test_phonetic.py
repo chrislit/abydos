@@ -192,10 +192,7 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(soundex('Christopher', 6), 'C62316')
 
         # max_length bounds tests
-        self.assertEqual(soundex('Niall', max_length=float('inf')),
-                         'N4000000000000000000000000000000000000000000000000' +
-                         '00000000000000')
-        self.assertEqual(soundex('Niall', max_length=None),
+        self.assertEqual(soundex('Niall', max_length=-1),
                          'N4000000000000000000000000000000000000000000000000' +
                          '00000000000000')
         self.assertEqual(soundex('Niall', max_length=0), 'N400')
@@ -207,10 +204,7 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(soundex('Knuth', reverse=True), 'H352')
 
         # zero_pad tests
-        self.assertEqual(soundex('Niall', max_length=float('inf'),
-                                 zero_pad=False), 'N4')
-        self.assertEqual(soundex('Niall', max_length=None,
-                                 zero_pad=False), 'N4')
+        self.assertEqual(soundex('Niall', max_length=-1, zero_pad=False), 'N4')
         self.assertEqual(soundex('Niall', max_length=0, zero_pad=False), 'N4')
         self.assertEqual(soundex('Niall', max_length=0, zero_pad=True), 'N400')
         self.assertEqual(soundex('', max_length=4, zero_pad=False), '0')
@@ -558,16 +552,11 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(dm_soundex('Schwartsenegger'), {'479465'})
 
         # max_length bounds tests
-        self.assertEqual(dm_soundex('Niall', max_length=float('inf')),
-                         {'68'+'0'*62})
-        self.assertEqual(dm_soundex('Niall', max_length=None),
-                         {'68'+'0'*62})
+        self.assertEqual(dm_soundex('Niall', max_length=-1), {'68'+'0'*62})
         self.assertEqual(dm_soundex('Niall', max_length=0), {'680000'})
 
         # zero_pad tests
-        self.assertEqual(dm_soundex('Niall', max_length=float('inf'),
-                                    zero_pad=False), {'68'})
-        self.assertEqual(dm_soundex('Niall', max_length=None, zero_pad=False),
+        self.assertEqual(dm_soundex('Niall', max_length=-1, zero_pad=False),
                          {'68'})
         self.assertEqual(dm_soundex('Niall', max_length=0, zero_pad=False),
                          {'68'})
@@ -706,13 +695,12 @@ class NysiisTestCases(unittest.TestCase):
         self.assertEqual(nysiis('Iraq'), 'IRAG')
 
         # max_length bounds tests
-        self.assertEqual(nysiis('Niall', max_length=float('inf')), 'NAL')
-        self.assertEqual(nysiis('Niall', max_length=None), 'NAL')
+        self.assertEqual(nysiis('Niall', max_length=-1), 'NAL')
         self.assertEqual(nysiis('Niall', max_length=0), 'NAL')
 
     def test_modified_nysiis(self):
         """Test abydos.phonetic.nysiis (modified version)."""
-        self.assertEqual(nysiis('', max_length=float('inf'), modified=True),
+        self.assertEqual(nysiis('', max_length=-1, modified=True),
                          '')
 
         # https://naldc.nal.usda.gov/download/27833/PDF
@@ -832,10 +820,7 @@ class NysiisTestCases(unittest.TestCase):
                          'MCANSY')
 
         # max_length bounds tests
-        self.assertEqual(nysiis('Niall', max_length=float('inf'),
-                                modified=True), 'NAL')
-        self.assertEqual(nysiis('Niall', max_length=None, modified=True),
-                         'NAL')
+        self.assertEqual(nysiis('Niall', max_length=-1, modified=True), 'NAL')
         self.assertEqual(nysiis('Niall', max_length=0, modified=True), 'NAL')
 
         # coverage
@@ -934,8 +919,7 @@ class MetaphoneTestCases(unittest.TestCase):
         self.assertEqual(metaphone('science'), 'SNS')
 
         # max_length bounds tests
-        self.assertEqual(metaphone('Niall', max_length=float('inf')), 'NL')
-        self.assertEqual(metaphone('Niall', max_length=None), 'NL')
+        self.assertEqual(metaphone('Niall', max_length=-1), 'NL')
         self.assertEqual(metaphone('Niall', max_length=0), 'NL')
 
 
@@ -1172,10 +1156,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('hej'), ('HJ', 'H'))
 
         # max_length bounds tests
-        self.assertEqual(double_metaphone('Niall', max_length=float('inf')),
-                         ('NL', ''))
-        self.assertEqual(double_metaphone('Niall', max_length=None),
-                         ('NL', ''))
+        self.assertEqual(double_metaphone('Niall', max_length=-1), ('NL', ''))
         self.assertEqual(double_metaphone('Niall', max_length=0), ('NL', ''))
 
     def test_double_metaphone_surnames(self):
@@ -3806,10 +3787,7 @@ class AlphaSisTestCases(unittest.TestCase):
         self.assertEqual(alpha_sis('Colalalier')[0], '07555400000000')
 
         # max_length bounds tests
-        self.assertEqual(alpha_sis('Niall', max_length=float('inf'))[0],
-                         '02500000000000000000000000000000000000000000000000' +
-                         '00000000000000')
-        self.assertEqual(alpha_sis('Niall', max_length=None)[0],
+        self.assertEqual(alpha_sis('Niall', max_length=-1)[0],
                          '02500000000000000000000000000000000000000000000000' +
                          '00000000000000')
         self.assertEqual(alpha_sis('Niall', max_length=0)[0], '0250')
@@ -3858,18 +3836,13 @@ class FuzzySoundexTestCases(unittest.TestCase):
         self.assertEqual(fuzzy_soundex('Hardt'), 'H6000')
 
         # max_length bounds tests
-        self.assertEqual(fuzzy_soundex('Niall', max_length=float('inf')),
-                         'N4000000000000000000000000000000000000000000000000' +
-                         '00000000000000')
-        self.assertEqual(fuzzy_soundex('Niall', max_length=None),
+        self.assertEqual(fuzzy_soundex('Niall', max_length=-1),
                          'N4000000000000000000000000000000000000000000000000' +
                          '00000000000000')
         self.assertEqual(fuzzy_soundex('Niall', max_length=0), 'N400')
 
         # zero_pad tests
-        self.assertEqual(fuzzy_soundex('Niall', max_length=float('inf'),
-                                       zero_pad=False), 'N4')
-        self.assertEqual(fuzzy_soundex('Niall', max_length=None,
+        self.assertEqual(fuzzy_soundex('Niall', max_length=-1,
                                        zero_pad=False), 'N4')
         self.assertEqual(fuzzy_soundex('Niall', max_length=0,
                                        zero_pad=False), 'N4')
@@ -3924,23 +3897,15 @@ class PhonexTestCases(unittest.TestCase):
         self.assertEqual(phonex('A-1'), 'A000')
 
         # max_length bounds tests
-        self.assertEqual(phonex('Niall', max_length=float('inf')),
-                         'N4000000000000000000000000000000000000000000000000' +
-                         '00000000000000')
-        self.assertEqual(phonex('Niall', max_length=None),
+        self.assertEqual(phonex('Niall', max_length=-1),
                          'N4000000000000000000000000000000000000000000000000' +
                          '00000000000000')
         self.assertEqual(phonex('Niall', max_length=0), 'N400')
 
         # zero_pad tests
-        self.assertEqual(phonex('Niall', max_length=float('inf'),
-                                zero_pad=False), 'N4')
-        self.assertEqual(phonex('Niall', max_length=None, zero_pad=False),
-                         'N4')
-        self.assertEqual(phonex('Niall', max_length=0, zero_pad=False),
-                         'N4')
-        self.assertEqual(phonex('Niall', max_length=0, zero_pad=True),
-                         'N400')
+        self.assertEqual(phonex('Niall', max_length=0, zero_pad=False), 'N4')
+        self.assertEqual(phonex('Niall', max_length=0, zero_pad=False), 'N4')
+        self.assertEqual(phonex('Niall', max_length=0, zero_pad=True), 'N400')
         self.assertEqual(phonex('', max_length=4, zero_pad=False), '0')
         self.assertEqual(phonex('', max_length=4, zero_pad=True), '0000')
 
@@ -4043,15 +4008,11 @@ class PhonixTestCases(unittest.TestCase):
         self.assertEqual(phonix('kristina'), 'K683')
 
         # max_length bounds tests
-        self.assertEqual(phonix('Niall', max_length=float('inf')), 'N4'+'0'*62)
-        self.assertEqual(phonix('Niall', max_length=None), 'N4'+'0'*62)
+        self.assertEqual(phonix('Niall', max_length=-1), 'N4'+'0'*62)
         self.assertEqual(phonix('Niall', max_length=0), 'N400')
 
         # zero_pad tests
-        self.assertEqual(phonix('Niall', max_length=float('inf'),
-                                zero_pad=False), 'N4')
-        self.assertEqual(phonix('Niall', max_length=None, zero_pad=False),
-                         'N4')
+        self.assertEqual(phonix('Niall', max_length=-1, zero_pad=False), 'N4')
         self.assertEqual(phonix('Niall', max_length=0, zero_pad=False),
                          'N4')
         self.assertEqual(phonix('Niall', max_length=0, zero_pad=True),
@@ -4282,8 +4243,7 @@ class SfinxBisTestCases(unittest.TestCase):
         self.assertEqual(sfinxbis('skil'), ('#4',))
 
         # max_length bounds tests
-        self.assertEqual(sfinxbis('Niall', max_length=float('inf')), ('N4',))
-        self.assertEqual(sfinxbis('Niall', max_length=None), ('N4',))
+        self.assertEqual(sfinxbis('Niall', max_length=-1), ('N4',))
         self.assertEqual(sfinxbis('Niall', max_length=0), ('N4',))
 
 
@@ -5092,8 +5052,8 @@ class SoundDTestCases(unittest.TestCase):
         self.assertEqual(sound_d('judge'), '2200')
         self.assertEqual(sound_d('rough'), '6000')
         self.assertEqual(sound_d('x-ray'), '2600')
-        self.assertEqual(sound_d('acetylcholine', max_length=None), '234245')
-        self.assertEqual(sound_d('rough', max_length=None), '6')
+        self.assertEqual(sound_d('acetylcholine', max_length=-1), '234245')
+        self.assertEqual(sound_d('rough', max_length=-1), '6')
 
 
 class PSHPSoundexTestCases(unittest.TestCase):
@@ -5137,8 +5097,8 @@ class PSHPSoundexTestCases(unittest.TestCase):
         self.assertEqual(pshp_soundex_last('Alze', german=True), 'A400')
         self.assertEqual(pshp_soundex_last('Galz', german=True), 'G400')
         self.assertEqual(pshp_soundex_last('Alte', german=True), 'A400')
-        self.assertEqual(pshp_soundex_last('Alte', max_length=None), 'A43')
-        self.assertEqual(pshp_soundex_last('Altemaier', max_length=None),
+        self.assertEqual(pshp_soundex_last('Alte', max_length=-1), 'A43')
+        self.assertEqual(pshp_soundex_last('Altemaier', max_length=-1),
                          'A4355')
 
     def test_pshp_soundex_first(self):
@@ -5161,10 +5121,10 @@ class PSHPSoundexTestCases(unittest.TestCase):
         self.assertEqual(pshp_soundex_first('Phil'), 'F400')
         self.assertEqual(pshp_soundex_first('Wieland'), 'V400')
         self.assertEqual(pshp_soundex_first('Wayne', german=True), 'V500')
-        self.assertEqual(pshp_soundex_first('Christopher', max_length=None),
+        self.assertEqual(pshp_soundex_first('Christopher', max_length=-1),
                          'K5')
         self.assertEqual(pshp_soundex_first('Asdaananndsjsjasd',
-                                            max_length=None), 'A23553223')
+                                            max_length=-1), 'A23553223')
         self.assertEqual(pshp_soundex_first('Asdaananndsjsjasd'), 'A235')
 
 
@@ -5236,7 +5196,7 @@ class HenryCodeTestCases(unittest.TestCase):
         self.assertEqual(henry_early('Renault'), 'RN')
         self.assertEqual(henry_early('Czech'), 'CSK')
         self.assertEqual(henry_early('Imran'), 'ER')
-        self.assertEqual(henry_early('Christopher', max_length=None), 'KRXF')
+        self.assertEqual(henry_early('Christopher', max_length=-1), 'KRXF')
 
 
 class NorphoneTestCases(unittest.TestCase):

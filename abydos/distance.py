@@ -72,7 +72,7 @@ from math import log, sqrt
 from numbers import Number
 from sys import maxsize, modules
 from types import GeneratorType
-from unicodedata import normalize
+from unicodedata import normalize as unicode_normalize
 
 from numpy import float32 as np_float32
 from numpy import int as np_int
@@ -89,9 +89,9 @@ from .qgram import QGrams
 try:
     import lzma
 except ImportError:  # pragma: no cover
-    # If the system lacks the lzma library, that's fine, but lzma comrpession
+    # If the system lacks the lzma library, that's fine, but lzma compression
     # similarity won't be supported.
-    pass
+    lzma = None
 
 __all__ = ['bag', 'chebyshev', 'damerau_levenshtein', 'dist', 'dist_bag',
            'dist_baystat', 'dist_chebyshev', 'dist_compression', 'dist_cosine',
@@ -338,8 +338,7 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
     if src[0] != tar[0]:
         d_mat[0, 0] = min(sub_cost, ins_cost + del_cost)
 
-    src_index_by_character = {}
-    src_index_by_character[src[0]] = 0
+    src_index_by_character = {src[0]: 0}
     for i in range(1, len(src)):
         del_distance = d_mat[i-1, 0] + del_cost
         ins_distance = (i+1) * del_cost + ins_cost
@@ -458,7 +457,7 @@ def sim_damerau(src, tar, cost=(1, 1, 1, 1)):
     return 1 - dist_damerau(src, tar, cost)
 
 
-def hamming(src, tar, difflens=True):
+def hamming(src, tar, diff_lens=True):
     """Return the Hamming distance between two strings.
 
     Hamming distance :cite:`Hamming:1950` equals the number of character
@@ -469,7 +468,7 @@ def hamming(src, tar, difflens=True):
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
-    :param bool difflens:
+    :param bool diff_lens:
         If True (default), this returns the Hamming distance for those
         characters that have a matching character in both strings plus the
         difference in the strings' lengths. This is equivalent to extending
@@ -488,33 +487,33 @@ def hamming(src, tar, difflens=True):
     >>> hamming('ATCG', 'TAGC')
     4
     """
-    if not difflens and len(src) != len(tar):
+    if not diff_lens and len(src) != len(tar):
         raise ValueError('Undefined for sequences of unequal length; set ' +
-                         'difflens to True for Hamming distance between ' +
+                         'diff_lens to True for Hamming distance between ' +
                          'strings of unequal lengths.')
 
     hdist = 0
-    if difflens:
+    if diff_lens:
         hdist += abs(len(src)-len(tar))
     hdist += sum(c1 != c2 for c1, c2 in zip(src, tar))
 
     return hdist
 
 
-def dist_hamming(src, tar, difflens=True):
+def dist_hamming(src, tar, diff_lens=True):
     """Return the normalized Hamming distance between two strings.
 
     Hamming distance normalized to the interval [0, 1].
 
     The Hamming distance is normalized by dividing it
-    by the greater of the number of characters in src & tar (unless difflens is
-    set to False, in which case an exception is raised).
+    by the greater of the number of characters in src & tar (unless diff_lens
+    is set to False, in which case an exception is raised).
 
     The arguments are identical to those of the hamming() function.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
-    :param bool difflens:
+    :param bool diff_lens:
         If True (default), this returns the Hamming distance for those
         characters that have a matching character in both strings plus the
         difference in the strings' lengths. This is equivalent to extending
@@ -535,10 +534,10 @@ def dist_hamming(src, tar, difflens=True):
     """
     if src == tar:
         return 0
-    return hamming(src, tar, difflens) / max(len(src), len(tar))
+    return hamming(src, tar, diff_lens) / max(len(src), len(tar))
 
 
-def sim_hamming(src, tar, difflens=True):
+def sim_hamming(src, tar, diff_lens=True):
     """Return the normalized Hamming similarity of two strings.
 
     Hamming similarity normalized to the interval [0, 1].
@@ -546,7 +545,7 @@ def sim_hamming(src, tar, difflens=True):
     Hamming similarity is the complement of normalized Hamming distance:
     :math:`sim_{Hamming} = 1 - dist{Hamming}`.
 
-    Provided that difflens==True, the Hamming similarity is identical to the
+    Provided that diff_lens==True, the Hamming similarity is identical to the
     Language-Independent Product Name Search (LIPNS) similarity score. For
     further information, see the sim_mlipns documentation.
 
@@ -554,7 +553,7 @@ def sim_hamming(src, tar, difflens=True):
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
-    :param bool difflens:
+    :param bool diff_lens:
         If True (default), this returns the Hamming distance for those
         characters that have a matching character in both strings plus the
         difference in the strings' lengths. This is equivalent to extending
@@ -573,7 +572,7 @@ def sim_hamming(src, tar, difflens=True):
     >>> sim_hamming('ATCG', 'TAGC')
     0.0
     """
-    return 1 - dist_hamming(src, tar, difflens)
+    return 1 - dist_hamming(src, tar, diff_lens)
 
 
 def _get_qgrams(src, tar, qval=0, skip=0):
@@ -628,10 +627,10 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
 
     :param str src: source string (or QGrams/Counter objects) for comparison
     :param str tar: target string (or QGrams/Counter objects) for comparison
-
     :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param float alpha, beta: two Tversky index parameters as indicated in the
-        description below
+    :param float alpha: Tversky index parameter as described above
+    :param float beta: Tversky index parameter as described above
+    :param float bias: The symmetric Tversky index bias parameter
     :returns: Tversky similarity
     :rtype: float
 
@@ -675,7 +674,7 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
 
 
 def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
-    """Return the Tverssky distance between two strings.
+    """Return the Tversky distance between two strings.
 
     Tversky distance is the complement of the Tvesrsky index (similarity):
     :math:`dist_{Tversky} = 1-sim_{Tversky}`.
@@ -684,8 +683,9 @@ def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     :param str tar: target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram
         version
-    :param float alpha, beta: two Tversky index parameters as indicated in the
-        description below
+    :param float alpha: the Tversky index's alpha parameter
+    :param float beta: the Tversky index's beta parameter
+    :param float bias: The symmetric Tversky index bias parameter
     :returns: Tversky distance
     :rtype: float
 
@@ -927,7 +927,7 @@ def tanimoto(src, tar, qval=2):
     return float('-inf')
 
 
-def minkowski(src, tar, qval=2, pval=1, normalize=False, alphabet=None):
+def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
     """Return the Minkowski distance (:math:`L^p-norm`) of two strings.
 
     The Minkowski distance :cite:`Minkowski:1910` is a distance metric in
@@ -937,7 +937,7 @@ def minkowski(src, tar, qval=2, pval=1, normalize=False, alphabet=None):
     :param str tar: target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
     :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
-    :param bool normalize: normalizes to [0, 1] if True
+    :param bool normalized: normalizes to [0, 1] if True
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the Minkowski distance
     :rtype: float
@@ -946,7 +946,7 @@ def minkowski(src, tar, qval=2, pval=1, normalize=False, alphabet=None):
     diffs = ((q_src - q_tar) + (q_tar - q_src)).values()
 
     normalizer = 1
-    if normalize:
+    if normalized:
         totals = (q_src + q_tar).values()
         if alphabet is not None:
             normalizer = (alphabet if isinstance(alphabet, Number) else
@@ -968,7 +968,7 @@ def minkowski(src, tar, qval=2, pval=1, normalize=False, alphabet=None):
 
 
 def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
-    """Return Minkowski distance of two strings, normalized to [0, 1].
+    """Return normalized Minkowski distance of two strings.
 
     The normalized Minkowski distance :cite:`Minkowski:1910` is a distance
     metric in :math:`L^p-space`, normalized to [0, 1].
@@ -985,7 +985,7 @@ def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
 
 
 def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
-    """Return Minkowski similarity of two strings, normalized to [0, 1].
+    """Return normalized Minkowski similarity of two strings.
 
     Minkowski similarity is the complement of Minkowski distance:
     :math:`sim_{Minkowski} = 1 - dist_{Minkowski}`.
@@ -1001,7 +1001,7 @@ def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     return 1-minkowski(src, tar, qval, pval, True, alphabet)
 
 
-def manhattan(src, tar, qval=2, normalize=False, alphabet=None):
+def manhattan(src, tar, qval=2, normalized=False, alphabet=None):
     """Return the Manhattan distance between two strings.
 
     Manhattan distance is the city-block or taxi-cab distance, equivalent
@@ -1010,17 +1010,16 @@ def manhattan(src, tar, qval=2, normalize=False, alphabet=None):
     :param str src: source string (or QGrams/Counter objects) for comparison
     :param str tar: target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
-    :param normalize: normalizes to [0, 1] if True
+    :param normalized: normalizes to [0, 1] if True
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the Manhattan distance
     :rtype: float
     """
-    return minkowski(src, tar, qval, 1, normalize, alphabet)
+    return minkowski(src, tar, qval, 1, normalized, alphabet)
 
 
 def dist_manhattan(src, tar, qval=2, alphabet=None):
-    """Return the Manhattan distance between two strings, normalized to [0, 1].
+    """Return the normalized Manhattan distance between two strings.
 
     The normalized Manhattan distance is a distance
     metric in :math:`L^1-space`, normalized to [0, 1].
@@ -1030,7 +1029,6 @@ def dist_manhattan(src, tar, qval=2, alphabet=None):
     :param str src: source string (or QGrams/Counter objects) for comparison
     :param str tar: target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Manhattan distance
     :rtype: float
@@ -1039,7 +1037,7 @@ def dist_manhattan(src, tar, qval=2, alphabet=None):
 
 
 def sim_manhattan(src, tar, qval=2, alphabet=None):
-    """Return the Manhattan similarity of two strings, normalized to [0, 1].
+    """Return the normalized Manhattan similarity of two strings.
 
     Manhattan similarity is the complement of Manhattan distance:
     :math:`sim_{Manhattan} = 1 - dist_{Manhattan}`.
@@ -1047,7 +1045,6 @@ def sim_manhattan(src, tar, qval=2, alphabet=None):
     :param str src: source string (or QGrams/Counter objects) for comparison
     :param str tar: target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Manhattan similarity
     :rtype: float
@@ -1055,7 +1052,7 @@ def sim_manhattan(src, tar, qval=2, alphabet=None):
     return 1-manhattan(src, tar, qval, True, alphabet)
 
 
-def euclidean(src, tar, qval=2, normalize=False, alphabet=None):
+def euclidean(src, tar, qval=2, normalized=False, alphabet=None):
     """Return the Euclidean distance between two strings.
 
     Euclidean distance is the straigh-line or as-the-crow-flies distance,
@@ -1064,17 +1061,16 @@ def euclidean(src, tar, qval=2, normalize=False, alphabet=None):
     :param str src: source string (or QGrams/Counter objects) for comparison
     :param str tar: target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
-    :param normalize: normalizes to [0, 1] if True
+    :param normalized: normalizes to [0, 1] if True
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the Euclidean distance
     :rtype: float
     """
-    return minkowski(src, tar, qval, 2, normalize, alphabet)
+    return minkowski(src, tar, qval, 2, normalized, alphabet)
 
 
 def dist_euclidean(src, tar, qval=2, alphabet=None):
-    """Return the Euclidean distance between two strings, normalized to [0, 1].
+    """Return the normalized Euclidean distance between two strings.
 
     The normalized Euclidean distance is a distance
     metric in :math:`L^2-space`, normalized to [0, 1].
@@ -1082,7 +1078,6 @@ def dist_euclidean(src, tar, qval=2, alphabet=None):
     :param str src: source string (or QGrams/Counter objects) for comparison
     :param str tar: target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Euclidean distance
     :rtype: float
@@ -1091,7 +1086,7 @@ def dist_euclidean(src, tar, qval=2, alphabet=None):
 
 
 def sim_euclidean(src, tar, qval=2, alphabet=None):
-    """Return the Euclidean similarity of two strings, normalized to [0, 1].
+    """Return the normalized Euclidean similarity of two strings.
 
     Euclidean similarity is the complement of Euclidean distance:
     :math:`sim_{Euclidean} = 1 - dist_{Euclidean}`.
@@ -1099,7 +1094,6 @@ def sim_euclidean(src, tar, qval=2, alphabet=None):
     :param str src: source string (or QGrams/Counter objects) for comparison
     :param str tar: target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Euclidean similarity
     :rtype: float
@@ -1107,34 +1101,32 @@ def sim_euclidean(src, tar, qval=2, alphabet=None):
     return 1-euclidean(src, tar, qval, True, alphabet)
 
 
-def chebyshev(src, tar, qval=2, normalize=False, alphabet=None):
+def chebyshev(src, tar, qval=2, normalized=False, alphabet=None):
     r"""Return the Chebyshev distance between two strings.
 
     Euclidean distance is the chessboard distance,
-    equivalent to Minkowski distance in :math:`L^\infty`-space.
+    equivalent to Minkowski distance in :math:`L^\infty-space`.
 
     :param str src: source string (or QGrams/Counter objects) for comparison
     :param str tar: target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
-    :param normalize: normalizes to [0, 1] if True
+    :param normalized: normalizes to [0, 1] if True
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the Chebyshev distance
     :rtype: float
     """
-    return minkowski(src, tar, qval, float('inf'), normalize, alphabet)
+    return minkowski(src, tar, qval, float('inf'), normalized, alphabet)
 
 
 def dist_chebyshev(src, tar, qval=2, alphabet=None):
-    """Return the Chebyshev distance between two strings, normalized to [0, 1].
+    r"""Return the normalized Chebyshev distance between two strings.
 
     The normalized Chebyshev distance :cite:`Minkowski:1910` is a distance
-    metric in :math:`L^p-space`, normalized to [0, 1].
+    metric in :math:`L^\infty-space`, normalized to [0, 1].
 
     :param str src: source string (or QGrams/Counter objects) for comparison
     :param str tar: target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Chebyshev distance
     :rtype: float
@@ -1143,7 +1135,7 @@ def dist_chebyshev(src, tar, qval=2, alphabet=None):
 
 
 def sim_chebyshev(src, tar, qval=2, alphabet=None):
-    """Return the Chebyshev similarity of two strings, normalized to [0, 1].
+    """Return the normalized Chebyshev similarity of two strings.
 
     Chebyshev similarity is the complement of Chebyshev distance:
     :math:`sim_{Chebyshev} = 1 - dist_{Chebyshev}`.
@@ -1151,7 +1143,6 @@ def sim_chebyshev(src, tar, qval=2, alphabet=None):
     :param str src: source string (or QGrams/Counter objects) for comparison
     :param str tar: target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Chebyshev similarity
     :rtype: float
@@ -1251,9 +1242,9 @@ def sim_strcmp95(src, tar, long_strings=False):
     >>> sim_strcmp95('ATCG', 'TAGC')
     0.8333333333333334
     """
-    def _inrange(char):
+    def _in_range(char):
         """Return True if char is in the range (0, 91)."""
-        return ord(char) > 0 and ord(char) < 91
+        return 91 > ord(char) > 0
 
     ying = src.strip().upper()
     yang = tar.strip().upper()
@@ -1298,9 +1289,9 @@ def sim_strcmp95(src, tar, long_strings=False):
     num_com = 0
     yl1 = len(yang) - 1
     for i in range(len(ying)):
-        lowlim = (i - search_range) if (i >= search_range) else 0
-        hilim = (i + search_range) if ((i + search_range) <= yl1) else yl1
-        for j in range(lowlim, hilim+1):
+        low_lim = (i - search_range) if (i >= search_range) else 0
+        hi_lim = (i + search_range) if ((i + search_range) <= yl1) else yl1
+        for j in range(low_lim, hi_lim+1):
             if (yang_flag[j] == 0) and (yang[j] == ying[i]):
                 yang_flag[j] = 1
                 ying_flag[i] = 1
@@ -1315,6 +1306,7 @@ def sim_strcmp95(src, tar, long_strings=False):
     k = n_trans = 0
     for i in range(len(ying)):
         if ying_flag[i] != 0:
+            j = 0
             for j in range(k, len(yang)):  # pragma: no branch
                 if yang_flag[j] != 0:
                     k = j + 1
@@ -1327,9 +1319,9 @@ def sim_strcmp95(src, tar, long_strings=False):
     n_simi = 0
     if minv > num_com:
         for i in range(len(ying)):
-            if ying_flag[i] == 0 and _inrange(ying[i]):
+            if ying_flag[i] == 0 and _in_range(ying[i]):
                 for j in range(len(yang)):
-                    if yang_flag[j] == 0 and _inrange(yang[j]):
+                    if yang_flag[j] == 0 and _in_range(yang[j]):
                         if (ying[i], yang[j]) in adjwt:
                             n_simi += adjwt[(ying[i], yang[j])]
                             yang_flag[j] = 2
@@ -1356,8 +1348,8 @@ def sim_strcmp95(src, tar, long_strings=False):
 
         # After agreeing beginning chars, at least two more must agree and
         # the agreeing characters must be > .5 of remaining characters.
-        if (((long_strings) and (minv > 4) and (num_com > i+1) and
-             (2*num_com >= minv+i))):
+        if (long_strings and (minv > 4) and (num_com > i+1) and
+                (2*num_com >= minv+i)):
             if not ying[0].isdigit():
                 weight += (1.0-weight) * ((num_com-i-1) /
                                           (len(ying)+len(yang)-i*2+2))
@@ -1486,9 +1478,9 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
     num_com = 0
     yl1 = lent - 1
     for i in range(lens):
-        lowlim = (i - search_range) if (i >= search_range) else 0
-        hilim = (i + search_range) if ((i + search_range) <= yl1) else yl1
-        for j in range(lowlim, hilim+1):
+        low_lim = (i - search_range) if (i >= search_range) else 0
+        hi_lim = (i + search_range) if ((i + search_range) <= yl1) else yl1
+        for j in range(low_lim, hi_lim+1):
             if (tar_flag[j] == 0) and (tar[j] == src[i]):
                 tar_flag[j] = 1
                 src_flag[i] = 1
@@ -1503,6 +1495,7 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
     k = n_trans = 0
     for i in range(lens):
         if src_flag[i] != 0:
+            j = 0
             for j in range(k, lent):  # pragma: no branch
                 if tar_flag[j] != 0:
                     k = j + 1
@@ -1530,8 +1523,8 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
 
         # After agreeing beginning chars, at least two more must agree and
         # the agreeing characters must be > .5 of remaining characters.
-        if (((long_strings) and (minv > 4) and (num_com > i+1) and
-             (2*num_com >= minv+i))):
+        if (long_strings and (minv > 4) and (num_com > i+1) and
+                (2*num_com >= minv+i)):
             weight += (1.0-weight) * ((num_com-i-1) / (lens+lent-i*2+2))
 
     return weight
@@ -1716,7 +1709,7 @@ def lcsstr(src, tar):
     :param str src: source string for comparison
     :param str tar: target string for comparison
     :returns: the longest common substring
-    :rtype: float
+    :rtype: str
 
     >>> lcsstr('cat', 'hat')
     'at'
@@ -1826,18 +1819,18 @@ def sim_ratcliff_obershelp(src, tar):
     >>> sim_ratcliff_obershelp('ATCG', 'TAGC')
     0.5
     """
-    def _lcsstr_stl(src, tar):
+    def _lcsstr_stl(local_src, local_tar):
         """Return start positions & length for Ratcliff-Obershelp.
 
         Return the start position in the source string, start position in
         the target string, and length of the longest common substring of
         strings src and tar.
         """
-        lengths = np_zeros((len(src)+1, len(tar)+1), dtype=np_int)
+        lengths = np_zeros((len(local_src)+1, len(local_tar)+1), dtype=np_int)
         longest, src_longest, tar_longest = 0, 0, 0
-        for i in range(1, len(src)+1):
-            for j in range(1, len(tar)+1):
-                if src[i-1] == tar[j-1]:
+        for i in range(1, len(local_src)+1):
+            for j in range(1, len(local_tar)+1):
+                if local_src[i-1] == local_tar[j-1]:
                     lengths[i, j] = lengths[i-1, j-1] + 1
                     if lengths[i, j] > longest:
                         longest = lengths[i, j]
@@ -1845,9 +1838,9 @@ def sim_ratcliff_obershelp(src, tar):
                         tar_longest = j
                 else:
                     lengths[i, j] = 0
-        return (src_longest-longest, tar_longest-longest, longest)
+        return src_longest-longest, tar_longest-longest, longest
 
-    def _sstr_matches(src, tar):
+    def _sstr_matches(local_src, local_tar):
         """Return the sum of substring match lengths.
 
         This follows the Ratcliff-Obershelp algorithm :cite:`Ratcliff:1988`:
@@ -1858,12 +1851,13 @@ def sim_ratcliff_obershelp(src, tar):
                  return 0.
              4. Return the sum.
         """
-        src_start, tar_start, length = _lcsstr_stl(src, tar)
+        src_start, tar_start, length = _lcsstr_stl(local_src, local_tar)
         if length == 0:
             return 0
-        return (_sstr_matches(src[:src_start], tar[:tar_start]) +
+        return (_sstr_matches(local_src[:src_start], local_tar[:tar_start]) +
                 length +
-                _sstr_matches(src[src_start+length:], tar[tar_start+length:]))
+                _sstr_matches(local_src[src_start+length:],
+                              local_tar[tar_start+length:]))
 
     if src == tar:
         return 1.0
@@ -1881,7 +1875,7 @@ def dist_ratcliff_obershelp(src, tar):
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
-    :returns: Ratcliffe-Obershelp distance
+    :returns: Ratcliff-Obershelp distance
     :rtype: float
 
     >>> round(dist_ratcliff_obershelp('cat', 'hat'), 12)
@@ -2157,7 +2151,7 @@ def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
-    :param function sim_func: the internal similarity metric to emply
+    :param function sim_func: the internal similarity metric to employ
     :param bool symmetric: return a symmetric similarity measure
     :returns: Monge-Elkan similarity
     :rtype: float
@@ -2202,7 +2196,7 @@ def dist_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
-    :param function sim_func: the internal similarity metric to emply
+    :param function sim_func: the internal similarity metric to employ
     :param bool symmetric: return a symmetric similarity measure
     :returns: Monge-Elkan distance
     :rtype: float
@@ -2319,7 +2313,7 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
     :param function sim_func: a function that returns the similarity of two
         characters (identity similarity by default)
     :returns: Needleman-Wunsch score
-    :rtype: int (in fact dependent on the gap_cost & return value of sim_func)
+    :rtype: float
 
     >>> needleman_wunsch('cat', 'hat')
     2.0
@@ -2358,7 +2352,7 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
     :param function sim_func: a function that returns the similarity of two
         characters (identity similarity by default)
     :returns: Smith-Waterman score
-    :rtype: int (in fact dependent on the gap_cost & return value of sim_func)
+    :rtype: float
 
     >>> smith_waterman('cat', 'hat')
     2.0
@@ -2398,8 +2392,7 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
     :param function sim_func: a function that returns the similarity of two
         characters (identity similarity by default)
     :returns: Gotoh score
-    :rtype: float (in fact dependent on the gap_cost & return value of
-        sim_func)
+    :rtype: float
 
     >>> gotoh('cat', 'hat')
     2.0
@@ -2446,7 +2439,7 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
 
 
 def sim_length(src, tar):
-    """Return the length similarty of two strings.
+    """Return the length similarity of two strings.
 
     Length similarity is the ratio of the length of the shorter string to the
     longer.
@@ -2496,7 +2489,7 @@ def dist_length(src, tar):
 
 
 def sim_prefix(src, tar):
-    """Return the prefix similarty of two strings.
+    """Return the prefix similarity of two strings.
 
     Prefix similarity is the ratio of the length of the shorter term that
     exactly matches the longer term to the length of the shorter term,
@@ -2607,7 +2600,7 @@ def dist_suffix(src, tar):
     return 1 - sim_suffix(src, tar)
 
 
-def sim_mlipns(src, tar, threshold=0.25, maxmismatches=2):
+def sim_mlipns(src, tar, threshold=0.25, max_mismatches=2):
     """Return the MLIPNS similarity of two strings.
 
     Modified Language-Independent Product Name Search (MLIPNS) is described in
@@ -2620,7 +2613,7 @@ def sim_mlipns(src, tar, threshold=0.25, maxmismatches=2):
     :param float threshold: a number [0, 1] indicating the maximum similarity
         score, below which the strings are considered 'similar' (0.25 by
         default)
-    :param int maxmismatches: a number indicating the allowable number of
+    :param int max_mismatches: a number indicating the allowable number of
         mismatches to remove before declaring two strings not similar (2 by
         default)
     :returns: MLIPNS similarity
@@ -2641,22 +2634,22 @@ def sim_mlipns(src, tar, threshold=0.25, maxmismatches=2):
         return 0.0
 
     mismatches = 0
-    ham = hamming(src, tar, difflens=True)
-    maxlen = max(len(src), len(tar))
-    while src and tar and mismatches <= maxmismatches:
-        if maxlen < 1 or (1-(maxlen-ham)/maxlen) <= threshold:
+    ham = hamming(src, tar, diff_lens=True)
+    max_length = max(len(src), len(tar))
+    while src and tar and mismatches <= max_mismatches:
+        if max_length < 1 or (1-(max_length-ham)/max_length) <= threshold:
             return 1.0
         else:
             mismatches += 1
             ham -= 1
-            maxlen -= 1
+            max_length -= 1
 
-    if maxlen < 1:
+    if max_length < 1:
         return 1.0
     return 0.0
 
 
-def dist_mlipns(src, tar, threshold=0.25, maxmismatches=2):
+def dist_mlipns(src, tar, threshold=0.25, max_mismatches=2):
     """Return the MLIPNS distance between two strings.
 
     MLIPNS distance is the complement of MLIPNS similarity:
@@ -2668,7 +2661,7 @@ def dist_mlipns(src, tar, threshold=0.25, maxmismatches=2):
     :param float threshold: a number [0, 1] indicating the maximum similarity
         score, below which the strings are considered 'similar' (0.25 by
         default)
-    :param int maxmismatches: a number indicating the allowable number of
+    :param int max_mismatches: a number indicating the allowable number of
         mismatches to remove before declaring two strings not similar (2 by
         default)
     :returns: MLIPNS distance
@@ -2683,7 +2676,7 @@ def dist_mlipns(src, tar, threshold=0.25, maxmismatches=2):
     >>> dist_mlipns('ATCG', 'TAGC')
     1.0
     """
-    return 1.0 - sim_mlipns(src, tar, threshold, maxmismatches)
+    return 1.0 - sim_mlipns(src, tar, threshold, max_mismatches)
 
 
 def bag(src, tar):
@@ -2747,9 +2740,9 @@ def dist_bag(src, tar):
     if not src or not tar:
         return 1.0
 
-    maxlen = max(len(src), len(tar))
+    max_length = max(len(src), len(tar))
 
-    return bag(src, tar)/maxlen
+    return bag(src, tar)/max_length
 
 
 def sim_bag(src, tar):
@@ -2831,8 +2824,8 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
         return r_cost(ch1, ch2)
 
     # convert both src & tar to NFKD normalized unicode
-    src = normalize('NFKD', text_type(src.upper()))
-    tar = normalize('NFKD', text_type(tar.upper()))
+    src = unicode_normalize('NFKD', text_type(src.upper()))
+    tar = unicode_normalize('NFKD', text_type(tar.upper()))
     # convert ß to SS (for Python2)
     src = src.replace('ß', 'SS')
     tar = tar.replace('ß', 'SS')
@@ -2927,7 +2920,7 @@ def sim_editex(src, tar, cost=(0, 1, 2), local=False):
     return 1 - dist_editex(src, tar, cost, local)
 
 
-def eudex_hamming(src, tar, weights='exponential', maxlength=8,
+def eudex_hamming(src, tar, weights='exponential', max_length=8,
                   normalized=False):
     """Calculate the Hamming distance between the Eudex hashes of two terms.
 
@@ -2947,7 +2940,8 @@ def eudex_hamming(src, tar, weights='exponential', maxlength=8,
     :param str tar: target string for comparison
     :param str, iterable, or generator function weights: the weights or weights
         generator function
-    :param maxlength: the number of characters to encode as a eudex hash
+    :param max_length: the number of characters to encode as a eudex hash
+    :param bool normalized: normalizes to [0, 1] if True
     :returns: the Eudex Hamming distance
     :rtype: int
     """
@@ -2956,6 +2950,9 @@ def eudex_hamming(src, tar, weights='exponential', maxlength=8,
 
         Based on https://www.python-course.eu/generators.php
         Starts at Fibonacci number 3 (the second 1)
+
+        :returns: the next Fibonacci number
+        :rtype: int
         """
         num_a, num_b = 1, 2
         while True:
@@ -2966,6 +2963,10 @@ def eudex_hamming(src, tar, weights='exponential', maxlength=8,
         """Yield the next value in an exponential series of the base.
 
         Starts at base**0
+
+        :param int base: the base to exponentiate
+        :returns: the next power of `base`
+        :rtype: int
         """
         exp = 0
         while True:
@@ -2973,15 +2974,16 @@ def eudex_hamming(src, tar, weights='exponential', maxlength=8,
             exp += 1
 
     # Calculate the eudex hashes and XOR them
-    xored = eudex(src, maxlength=maxlength) ^ eudex(tar, maxlength=maxlength)
+    xored = (eudex(src, max_length=max_length) ^
+             eudex(tar, max_length=max_length))
 
     # Simple hamming distance (all bits are equal)
     if not weights:
         binary = bin(xored)
-        dist = binary.count('1')
+        distance = binary.count('1')
         if normalized:
-            return dist/(len(binary)-2)
-        return dist
+            return distance/(len(binary)-2)
+        return distance
 
     # If weights is a function, it should create a generator,
     # which we now use to populate a list
@@ -2992,23 +2994,23 @@ def eudex_hamming(src, tar, weights='exponential', maxlength=8,
     elif weights == 'fibonacci':
         weights = _gen_fibonacci()
     if isinstance(weights, GeneratorType):
-        weights = [next(weights) for _ in range(maxlength)][::-1]
+        weights = [next(weights) for _ in range(max_length)][::-1]
 
     # Sum the weighted hamming distance
-    dist = 0
-    maxdist = 0
+    distance = 0
+    max_distance = 0
     while (xored or normalized) and weights:
-        maxdist += 8*weights[-1]
-        dist += bin(xored & 0xFF).count('1') * weights.pop()
+        max_distance += 8*weights[-1]
+        distance += bin(xored & 0xFF).count('1') * weights.pop()
         xored >>= 8
 
     if normalized:
-        dist /= maxdist
+        distance /= max_distance
 
-    return dist
+    return distance
 
 
-def dist_eudex(src, tar, weights='exponential', maxlength=8):
+def dist_eudex(src, tar, weights='exponential', max_length=8):
     """Return normalized Hamming distance between Eudex hashes of two terms.
 
     This is Eudex distance normalized to [0, 1].
@@ -3017,13 +3019,13 @@ def dist_eudex(src, tar, weights='exponential', maxlength=8):
     :param str tar: target string for comparison
     :param str, iterable, or generator function weights: the weights or weights
         generator function
-    :param maxlength: the number of characters to encode as a eudex hash
+    :param max_length: the number of characters to encode as a eudex hash
     :returns:
     """
-    return eudex_hamming(src, tar, weights, maxlength, True)
+    return eudex_hamming(src, tar, weights, max_length, True)
 
 
-def sim_eudex(src, tar, weights='exponential', maxlength=8):
+def sim_eudex(src, tar, weights='exponential', max_length=8):
     """Return normalized Hamming similarity between Eudex hashes of two terms.
 
     Normalized Eudex similarity is the complement of normalized Eudex distance:
@@ -3033,10 +3035,10 @@ def sim_eudex(src, tar, weights='exponential', maxlength=8):
     :param str tar: target string for comparison
     :param str, iterable, or generator function weights: the weights or weights
         generator function
-    :param maxlength: the number of characters to encode as a eudex hash
+    :param max_length: the number of characters to encode as a eudex hash
     :returns:
     """
-    return 1-dist_eudex(src, tar, weights, maxlength)
+    return 1-dist_eudex(src, tar, weights, max_length)
 
 
 def sift4_simplest(src, tar, max_offset=5):
@@ -3251,7 +3253,7 @@ def sim_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
     pos = 0
     match_len = 0
 
-    while (True):
+    while True:
         if pos + min_ss_len > len(src):
             return match_len/max_len
 
@@ -3338,6 +3340,8 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
         default: (1, 1, 0.5, 0.5)) The substitution & shift costs should be
         significantly less than the cost of an insertion & deletion unless
         a log metric is used.
+    :param str layout: name of the keyboard layout to use (Currently supported:
+        QWERTY, Dvorak, AZERTY, QWERTZ)
     :returns: typo distance
     :rtype: float
     """
@@ -3403,11 +3407,11 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
             return keyboard[1]
         raise ValueError(char + ' not found in any keyboard layouts')
 
-    def _get_char_coord(char, keyboard):
+    def _get_char_coord(char, kb_array):
         """Return the row & column of char in the keyboard."""
-        for row in keyboard:  # pragma: no branch
+        for row in kb_array:  # pragma: no branch
             if char in row:
-                return keyboard.index(row), row.index(char)
+                return kb_array.index(row), row.index(char)
 
     def _euclidean_keyboard_distance(char1, char2):
         row1, col1 = _get_char_coord(char1, _kb_array_for_char(char1))
@@ -3431,11 +3435,11 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
                    'log-manhattan': _log_manhattan_keyboard_distance}
 
     def substitution_cost(char1, char2):
-        cost = sub_cost
-        cost *= (metric_dict[metric](char1, char2) +
-                 shift_cost * (_kb_array_for_char(char1) !=
-                               _kb_array_for_char(char2)))
-        return cost
+        local_cost = sub_cost
+        local_cost *= (metric_dict[metric](char1, char2) +
+                       shift_cost * (_kb_array_for_char(char1) !=
+                                     _kb_array_for_char(char2)))
+        return local_cost
 
     d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
     for i in range(len(src) + 1):
@@ -3833,8 +3837,8 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
                 if full_tar.startswith(intro):
                     full_tar = full_tar[len(intro):]
 
-        ca_ratio = sim_ratcliff_obershelp(full_src, full_tar)
-        return ca_ratio >= char_approx_min, ca_ratio
+        loc_ratio = sim_ratcliff_obershelp(full_src, full_tar)
+        return loc_ratio >= char_approx_min, loc_ratio
 
     approx_c_result, ca_ratio = approx_c()
 

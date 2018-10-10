@@ -51,8 +51,10 @@ Release History
    - UEA-Lite Stemmer
    - Paice-Husk Stemmer
    - Schinke Latin stemmer
-- eliminated ._compat submodule in favor of six
-- transitioned from PEP8 to flake8, etc.
+- Eliminated ._compat submodule in favor of six
+- Transitioned from PEP8 to flake8, etc.
+- Phonetic algorithms now consistently use max_length=-1 to indicate that
+  there should be no length limit
 
 
 0.2.0 (2015-05-27)
