@@ -4450,7 +4450,7 @@ class LeinTestCases(unittest.TestCase):
 
     def test_lein(self):
         """Test abydos.phonetic.lein."""
-        self.assertEqual(lein(''), '')
+        self.assertEqual(lein(''), '0000')
 
         # https://naldc.nal.usda.gov/download/27833/PDF
         self.assertEqual(lein('Dubose'), 'D450')
