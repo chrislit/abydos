@@ -108,7 +108,7 @@ def main(argv):
                 sys.stdout.write('Unknown term "' + term + '" in ' + name +
                                  ' : ' + sym + '\n')
 
-    def check_entailments(sym, features, name, feature_mask):
+    def check_entailments(sym, features, feature_mask):
         """Check entailments.
 
         Check for necessary feature assignments (entailments)
@@ -134,8 +134,6 @@ def main(argv):
                        '+velaric_suction': ('-glottalic_suction',),
                        }
 
-        if '#' in name:
-            name = name[:name.find('#')].strip()
         for feature in entailments:
             fname = feature[1:]
             if feature[0] == '+':
@@ -220,7 +218,7 @@ def main(argv):
 
             featint = int(features, 2)
             check_terms(symbol, featint, name, termdict)
-            check_entailments(symbol, featint, name, feature_mask)
+            check_entailments(symbol, featint, feature_mask)
             if symbol in checkset_s:
                 sys.stdout.write('Symbol ' + symbol +
                                  ' appears twice in CSV.\n')
