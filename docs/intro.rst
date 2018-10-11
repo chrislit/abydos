@@ -71,7 +71,7 @@ stemmers, and string fingerprinters including:
     - Minkowski distance & similarity
     - Manhattan distance & similarity
     - Euclidean distance & similarity
-    - Chebyshev distance & similarity
+    - Chebyshev distance
     - cosine similarity & distance
     - Jaro distance
     - Jaro-Winkler distance (incl. the strcmp95 algorithm variant)
