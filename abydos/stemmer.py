@@ -1866,6 +1866,17 @@ def uealite(word, max_word_length=20, max_acro_length=8, return_rule_no=False,
         or 'Perl' to use the original Perl set of rules)
     :returns: word stem
     :rtype: str or (str, int)
+
+    >>> uealite('readings')
+    'read'
+    >>> uealite('insulted')
+    'insult'
+    >>> uealite('cussed')
+    'cuss'
+    >>> uealite('fancies')
+    'fancy'
+    >>> uealite('eroded')
+    'erode'
     """
     problem_words = {'is', 'as', 'this', 'has', 'was', 'during'}
 
@@ -2201,6 +2212,17 @@ def paice_husk(word):
     :param str word: the word to stem
     :returns: the stemmed word
     :rtype: str
+
+    >>> paice_husk('assumption')
+    'assum'
+    >>> paice_husk('verifiable')
+    'ver'
+    >>> paice_husk('fancies')
+    'fant'
+    >>> paice_husk('fanciful')
+    'fancy'
+    >>> paice_husk('torment')
+    'tor'
     """
     rule_table = {6: {'ifiabl': (False, 6, None, True),
                       'plicat': (False, 4, 'y', True)},
@@ -2376,8 +2398,19 @@ def schinke(word):
     This is defined in :cite:`Schinke:1996`.
 
     :param str word: the word to stem
-    :returns: the stemmed word
-    :rtype: str
+    :returns: a dict of the noun- and verb-stemmed word
+    :rtype: dict
+
+    >>> schinke('atque')
+    {'n': 'atque', 'v': 'atque'}
+    >>> schinke('census')
+    {'n': 'cens', 'v': 'censu'}
+    >>> schinke('virum')
+    {'n': 'uir', 'v': 'uiru'}
+    >>> schinke('populusque')
+    {'n': 'popul', 'v': 'populu'}
+    >>> schinke('senatus')
+    {'n': 'senat', 'v': 'senatu'}
     """
     word = normalize('NFKD', text_type(word.lower()))
     word = ''.join(c for c in word if c in
@@ -2471,6 +2504,17 @@ def s_stemmer(word):
     :param str word: the word to stem
     :returns: the stemmed word
     :rtype: str
+
+    >>> s_stemmer('summaries')
+    'summary'
+    >>> s_stemmer('summary')
+    'summary'
+    >>> s_stemmer('towers')
+    'tower'
+    >>> s_stemmer('reading')
+    'reading'
+    >>> s_stemmer('census')
+    'census'
     """
     lowered = word.lower()
     if lowered[-3:] == 'ies' and lowered[-4:-3] not in {'e', 'a'}:

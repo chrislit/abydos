@@ -271,6 +271,17 @@ def occurrence_fingerprint(word, n_bits=16,
         ordered by frequency
     :returns: the occurrence fingerprint
     :rtype: int
+
+    >>> bin(occurrence_fingerprint('hat'))
+    '0b110000100000000'
+    >>> bin(occurrence_fingerprint('niall'))
+    '0b10110000100000'
+    >>> bin(occurrence_fingerprint('colin'))
+    '0b1110000110000'
+    >>> bin(occurrence_fingerprint('atcg'))
+    '0b110000000010000'
+    >>> bin(occurrence_fingerprint('entreatment'))
+    '0b1110010010000100'
     """
     word = set(word)
     fingerprint = 0
@@ -303,6 +314,17 @@ def occurrence_halved_fingerprint(word, n_bits=16,
         ordered by frequency
     :returns: the occurrence halved fingerprint
     :rtype: int
+
+    >>> bin(occurrence_halved_fingerprint('hat'))
+    '0b1010000000010'
+    >>> bin(occurrence_halved_fingerprint('niall'))
+    '0b10010100000'
+    >>> bin(occurrence_halved_fingerprint('colin'))
+    '0b1001010000'
+    >>> bin(occurrence_halved_fingerprint('atcg'))
+    '0b10100000000000'
+    >>> bin(occurrence_halved_fingerprint('entreatment'))
+    '0b1111010000110000'
     """
     if n_bits % 2:
         n_bits += 1
@@ -342,6 +364,17 @@ def count_fingerprint(word, n_bits=16,
         ordered by frequency
     :returns: the count fingerprint
     :rtype: int
+
+    >>> bin(count_fingerprint('hat'))
+    '0b1010000000001'
+    >>> bin(count_fingerprint('niall'))
+    '0b10001010000'
+    >>> bin(count_fingerprint('colin'))
+    '0b101010000'
+    >>> bin(count_fingerprint('atcg'))
+    '0b1010000000000'
+    >>> bin(count_fingerprint('entreatment'))
+    '0b1111010000100000'
     """
     if n_bits % 2:
         n_bits += 1
@@ -377,6 +410,17 @@ def position_fingerprint(word, n_bits=16,
     :param int bits_per_letter: the bits to assign for letter position
     :returns: the position fingerprint
     :rtype: int
+
+    >>> bin(position_fingerprint('hat'))
+    '0b1110100011111111'
+    >>> bin(position_fingerprint('niall'))
+    '0b1111110101110010'
+    >>> bin(position_fingerprint('colin'))
+    '0b1111111110010111'
+    >>> bin(position_fingerprint('atcg'))
+    '0b1110010001111111'
+    >>> bin(position_fingerprint('entreatment'))
+    '0b101011111111'
     """
     position = {}
     for pos, letter in enumerate(word):
@@ -584,6 +628,22 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
     :param int normalize: normalization mode (0, 1, or 2)
     :returns: the transformed last and first names and the synoname toolcode
     :rtype: tuple
+
+    >>> synoname_toolcode('hat')
+    ('hat', '', '0000000003$$h')
+    >>> synoname_toolcode('niall')
+    ('niall', '', '0000000005$$n')
+    >>> synoname_toolcode('colin')
+    ('colin', '', '0000000005$$c')
+    >>> synoname_toolcode('atcg')
+    ('atcg', '', '0000000004$$a')
+    >>> synoname_toolcode('entreatment')
+    ('entreatment', '', '0000000011$$e')
+
+    >>> synoname_toolcode('Ste.-Marie', 'Count John II', normalize=2)
+    ('ste.-marie ii', 'count john', '0200491310$015b049a127c$smcji')
+    >>> synoname_toolcode('Michelangelo IV', '', 'Workshop of')
+    ('michelangelo iv', '', '3000550015$055b$mi')
     """
     method_dict = {'end': 1, 'middle': 2, 'beginning': 4,
                              'beginning_no_space': 8}
@@ -680,13 +740,13 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
     def roman_check(numeral, fname, lname):
         """Move Roman numerals from first name to last."""
         loc = fname.find(numeral)
-        if (loc != -1 and
-                (len(fname[loc:]) == len(numeral)) or
-                fname[loc+len(numeral)] in {' ', ','}):
+        if fname and (loc != -1 and
+                      (len(fname[loc:]) == len(numeral)) or
+                      fname[loc+len(numeral)] in {' ', ','}):
             lname = ' '.join((lname, numeral))
             fname = ' '.join((fname[:loc].strip(),
-                              fname[loc+len(numeral):].lstrip(' ,'))).rstrip()
-        return fname, lname
+                              fname[loc + len(numeral):].lstrip(' ,')))
+        return fname.strip(), lname.strip()
 
     # Fill fields 7 (specials) and 3 (roman numerals)
     for num, special in enumerate(_synoname_special_table):

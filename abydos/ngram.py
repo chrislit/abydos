@@ -142,12 +142,7 @@ class NGramCorpus(object):
         return 0
 
     def _add_to_ngcorpus(self, corpus, words, count):
-        """Build up a corpus entry recursively.
-
-        :param Counter corpus:
-        :param list words:
-        :param int count:
-        """
+        """Build up a corpus entry recursively."""
         if words[0] not in corpus:
             corpus[words[0]] = Counter()
 
