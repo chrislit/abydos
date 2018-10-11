@@ -115,7 +115,7 @@ __all__ = ['bag', 'chebyshev', 'damerau_levenshtein', 'dist', 'dist_bag',
            'sim_monge_elkan', 'sim_mra', 'sim_overlap', 'sim_prefix',
            'sim_ratcliff_obershelp', 'sim_sift4', 'sim_strcmp95', 'sim_suffix',
            'sim_tanimoto', 'sim_tversky', 'sim_typo', 'smith_waterman',
-           'synoname', 'synoname_word_approximation', 'tanimoto', 'typo']
+           'synoname', '_synoname_word_approximation', 'tanimoto', 'typo']
 
 
 def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
@@ -3011,6 +3011,43 @@ def eudex_hamming(src, tar, weights='exponential', max_length=8,
     :param bool normalized: normalizes to [0, 1] if True
     :returns: the Eudex Hamming distance
     :rtype: int
+
+    >>> eudex_hamming('cat', 'hat')
+    128
+    >>> eudex_hamming('Niall', 'Neil')
+    2
+    >>> eudex_hamming('Colin', 'Cuilen')
+    10
+    >>> eudex_hamming('ATCG', 'TAGC')
+    403
+
+    >>> eudex_hamming('cat', 'hat', weights='fibonacci')
+    34
+    >>> eudex_hamming('Niall', 'Neil', weights='fibonacci')
+    2
+    >>> eudex_hamming('Colin', 'Cuilen', weights='fibonacci')
+    7
+    >>> eudex_hamming('ATCG', 'TAGC', weights='fibonacci')
+    117
+
+    >>> eudex_hamming('cat', 'hat', weights=None)
+    1
+    >>> eudex_hamming('Niall', 'Neil', weights=None)
+    1
+    >>> eudex_hamming('Colin', 'Cuilen', weights=None)
+    2
+    >>> eudex_hamming('ATCG', 'TAGC', weights=None)
+    9
+
+    >>> # Using the OEIS A000142:
+    >>> eudex_hamming('cat', 'hat', [1, 1, 2, 6, 24, 120, 720, 5040])
+    1
+    >>> eudex_hamming('Niall', 'Neil', [1, 1, 2, 6, 24, 120, 720, 5040])
+    720
+    >>> eudex_hamming('Colin', 'Cuilen', [1, 1, 2, 6, 24, 120, 720, 5040])
+    744
+    >>> eudex_hamming('ATCG', 'TAGC', [1, 1, 2, 6, 24, 120, 720, 5040])
+    6243
     """
     def _gen_fibonacci():
         """Yield the next Fibonacci number.
@@ -3087,7 +3124,17 @@ def dist_eudex(src, tar, weights='exponential', max_length=8):
     :param str, iterable, or generator function weights: the weights or weights
         generator function
     :param max_length: the number of characters to encode as a eudex hash
-    :returns:
+    :returns: the normalized Eudex distance
+    :rtype: float
+
+    >>> round(dist_eudex('cat', 'hat'), 12)
+    0.062745098039
+    >>> round(dist_eudex('Niall', 'Neil'), 12)
+    0.000980392157
+    >>> round(dist_eudex('Colin', 'Cuilen'), 12)
+    0.004901960784
+    >>> round(dist_eudex('ATCG', 'TAGC'), 12)
+    0.197549019608
     """
     return eudex_hamming(src, tar, weights, max_length, True)
 
@@ -3103,7 +3150,17 @@ def sim_eudex(src, tar, weights='exponential', max_length=8):
     :param str, iterable, or generator function weights: the weights or weights
         generator function
     :param max_length: the number of characters to encode as a eudex hash
-    :returns:
+    :returns: the normalized Eudex similarity
+    :rtype: float
+
+    >>> round(sim_eudex('cat', 'hat'), 12)
+    0.937254901961
+    >>> round(sim_eudex('Niall', 'Neil'), 12)
+    0.999019607843
+    >>> round(sim_eudex('Colin', 'Cuilen'), 12)
+    0.995098039216
+    >>> round(sim_eudex('ATCG', 'TAGC'), 12)
+    0.802450980392
     """
     return 1-dist_eudex(src, tar, weights, max_length)
 
@@ -3117,7 +3174,17 @@ def sift4_simplest(src, tar, max_offset=5):
     :param str src: source string for comparison
     :param str tar: target string for comparison
     :param max_offset: the number of characters to search for matching letters
-    :returns:
+    :returns: the Sift4 distance according to the simplest formula
+    :rtype: int
+
+    >>> sift4_simplest('cat', 'hat')
+    1
+    >>> sift4_simplest('Niall', 'Neil')
+    2
+    >>> sift4_simplest('Colin', 'Cuilen')
+    3
+    >>> sift4_simplest('ATCG', 'TAGC')
+    2
     """
     if not src:
         return len(tar)
@@ -3170,7 +3237,17 @@ def sift4_common(src, tar, max_offset=5, max_distance=0):
     :param str tar: target string for comparison
     :param max_offset: the number of characters to search for matching letters
     :param max_distance: the distance at which to stop and exit
-    :returns:
+    :returns: the Sift4 distance according to the common formula
+    :rtype: int
+
+    >>> sift4_common('cat', 'hat')
+    1
+    >>> sift4_common('Niall', 'Neil')
+    2
+    >>> sift4_common('Colin', 'Cuilen')
+    3
+    >>> sift4_common('ATCG', 'TAGC')
+    2
     """
     if not src:
         return len(tar)
@@ -3254,7 +3331,17 @@ def dist_sift4(src, tar, max_offset=5, max_distance=0):
     :param str tar: target string for comparison
     :param max_offset: the number of characters to search for matching letters
     :param max_distance: the distance at which to stop and exit
-    :returns:
+    :returns: the normalized Sift4 distance
+    :rtype: float
+
+    >>> round(dist_sift4('cat', 'hat'), 12)
+    0.333333333333
+    >>> dist_sift4('Niall', 'Neil')
+    0.4
+    >>> dist_sift4('Colin', 'Cuilen')
+    0.5
+    >>> dist_sift4('ATCG', 'TAGC')
+    0.5
     """
     return (sift4_common(src, tar, max_offset, max_distance) /
             (max(len(src), len(tar), 1)))
@@ -3270,7 +3357,17 @@ def sim_sift4(src, tar, max_offset=5, max_distance=0):
     :param str tar: target string for comparison
     :param max_offset: the number of characters to search for matching letters
     :param max_distance: the distance at which to stop and exit
-    :returns:
+    :returns: the normalized Sift4 similarity
+    :rtype: float
+
+    >>> round(sim_sift4('cat', 'hat'), 12)
+    0.666666666667
+    >>> sim_sift4('Niall', 'Neil')
+    0.6
+    >>> sim_sift4('Colin', 'Cuilen')
+    0.5
+    >>> sim_sift4('ATCG', 'TAGC')
+    0.5
     """
     return 1-dist_sift4(src, tar, max_offset, max_distance)
 
@@ -3292,8 +3389,17 @@ def sim_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
     :param int min_ss_len: minimum substring length to be considered
     :param int left_ext: left-side extension length
     :param int right_ext: right-side extension length
-    :rtype: float
     :returns: the Baystat similarity
+    :rtype: float
+
+    >>> round(sim_baystat('cat', 'hat'), 12)
+    0.666666666667
+    >>> sim_baystat('Niall', 'Neil')
+    0.4
+    >>> round(sim_baystat('Colin', 'Cuilen'), 12)
+    0.166666666667
+    >>> sim_baystat('ATCG', 'TAGC')
+    0.0
     """
     if src == tar:
         return 1
@@ -3385,8 +3491,17 @@ def dist_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
     :param int min_ss_len: minimum substring length to be considered
     :param int left_ext: left-side extension length
     :param int right_ext: right-side extension length
-    :rtype: float
     :returns: the Baystat distance
+    :rtype: float
+
+    >>> round(dist_baystat('cat', 'hat'), 12)
+    0.333333333333
+    >>> dist_baystat('Niall', 'Neil')
+    0.6
+    >>> round(dist_baystat('Colin', 'Cuilen'), 12)
+    0.833333333333
+    >>> dist_baystat('ATCG', 'TAGC')
+    1.0
     """
     return 1-sim_baystat(src, tar, min_ss_len, left_ext, right_ext)
 
@@ -3411,6 +3526,33 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
         QWERTY, Dvorak, AZERTY, QWERTZ)
     :returns: typo distance
     :rtype: float
+
+    >>> typo('cat', 'hat')
+    1.5811388
+    >>> typo('Niall', 'Neil')
+    2.8251407
+    >>> typo('Colin', 'Cuilen')
+    3.4142137
+    >>> typo('ATCG', 'TAGC')
+    2.5
+
+    >>> typo('cat', 'hat', metric='manhattan')
+    2.0
+    >>> typo('Niall', 'Neil', metric='manhattan')
+    3.0
+    >>> typo('Colin', 'Cuilen', metric='manhattan')
+    3.5
+    >>> typo('ATCG', 'TAGC', metric='manhattan')
+    2.5
+
+    >>> typo('cat', 'hat', metric='log-manhattan')
+    0.804719
+    >>> typo('Niall', 'Neil', metric='log-manhattan')
+    2.2424533
+    >>> typo('Colin', 'Cuilen', metric='log-manhattan')
+    2.2424533
+    >>> typo('ATCG', 'TAGC', metric='log-manhattan')
+    2.3465736
     """
     ins_cost, del_cost, sub_cost, shift_cost = cost
 
@@ -3542,6 +3684,15 @@ def dist_typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5)):
         a log metric is used.
     :returns: normalized typo distance
     :rtype: float
+
+    >>> round(dist_typo('cat', 'hat'), 12)
+    0.527046283086
+    >>> round(dist_typo('Niall', 'Neil'), 12)
+    0.565028142929
+    >>> round(dist_typo('Colin', 'Cuilen'), 12)
+    0.569035609563
+    >>> dist_typo('ATCG', 'TAGC')
+    0.625
     """
     if src == tar:
         return 0
@@ -3567,6 +3718,15 @@ def sim_typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5)):
         a log metric is used.
     :returns: normalized typo similarity
     :rtype: float
+
+    >>> round(sim_typo('cat', 'hat'), 12)
+    0.472953716914
+    >>> round(sim_typo('Niall', 'Neil'), 12)
+    0.434971857071
+    >>> round(sim_typo('Colin', 'Cuilen'), 12)
+    0.430964390437
+    >>> sim_typo('ATCG', 'TAGC')
+    0.375
     """
     return 1 - dist_typo(src, tar, metric, cost)
 
@@ -3581,6 +3741,15 @@ def dist_indel(src, tar):
     :param str tar: target string for comparison
     :returns: indel distance
     :rtype: float
+
+    >>> round(dist_indel('cat', 'hat'), 12)
+    0.333333333333
+    >>> round(dist_indel('Niall', 'Neil'), 12)
+    0.333333333333
+    >>> round(dist_indel('Colin', 'Cuilen'), 12)
+    0.454545454545
+    >>> dist_indel('ATCG', 'TAGC')
+    0.5
     """
     if src == tar:
         return 0
@@ -3598,6 +3767,15 @@ def sim_indel(src, tar):
     :param str tar: target string for comparison
     :returns: indel similarity
     :rtype: float
+
+    >>> round(sim_indel('cat', 'hat'), 12)
+    0.666666666667
+    >>> round(sim_indel('Niall', 'Neil'), 12)
+    0.666666666667
+    >>> round(sim_indel('Colin', 'Cuilen'), 12)
+    0.545454545455
+    >>> sim_indel('ATCG', 'TAGC')
+    0.5
     """
     return 1-dist_indel(src, tar)
 
@@ -3607,6 +3785,9 @@ def _synoname_strip_punct(word):
 
     :param word: a word to strip punctuation from
     :returns: The word stripped of punctuation
+
+    >>> _synoname_strip_punct('AB;CD EF-GH$IJ')
+    'ABCD EFGHIJ'
     """
     stripped = ''
     for char in word:
@@ -3615,8 +3796,8 @@ def _synoname_strip_punct(word):
     return stripped.strip()
 
 
-def synoname_word_approximation(src_ln, tar_ln, src_fn='', tar_fn='',
-                                features=None):
+def _synoname_word_approximation(src_ln, tar_ln, src_fn='', tar_fn='',
+                                 features=None):
     """Return the Synoname word approximation score for two names.
 
     :param str src_ln: last name of the source
@@ -3627,6 +3808,10 @@ def synoname_word_approximation(src_ln, tar_ln, src_fn='', tar_fn='',
         fingerprint.synoname_toolcode() (optional)
     :returns: The word approximation score
     :rtype: float
+
+    >>> _synoname_word_approximation('Smith Waterman', 'Waterman',
+    ... 'Tom Joe Bob', 'Tom Joe')
+    0.6
     """
     if features is None:
         features = {}
@@ -3804,6 +3989,19 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
         integer equivalent
     :returns: Synoname value
     :rtype: int (or str if ret_name is True)
+
+    >>> synoname(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''))
+    2
+    >>> synoname(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''),
+    ... ret_name=True)
+    'omission'
+    >>> synoname(('Dore', 'Gustave', ''),
+    ... ('Dore', 'Paul Gustave Louis Christophe', ''),
+    ... ret_name=True)
+    'inclusion'
+    >>> synoname(('Pereira', 'I. R.', ''), ('Pereira', 'I. Smith', ''),
+    ... ret_name=True)
+    'word_approx'
     """
     test_dict = {val: 2**n for n, val in enumerate([
         'exact', 'omission', 'substitution', 'transposition', 'punctuation',
@@ -3988,11 +4186,11 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
         if src_fn == '' or tar_fn == '':
             return _fmt_retval(match_type_dict['no_first'])
     if tests & test_dict['word_approx']:
-        ratio = synoname_word_approximation(src_ln, tar_ln, src_fn, tar_fn,
-                                            {'gen_conflict': gen_conflict,
-                                             'roman_conflict': roman_conflict,
-                                             'src_specials': src_specials,
-                                             'tar_specials': tar_specials})
+        ratio = _synoname_word_approximation(src_ln, tar_ln, src_fn, tar_fn,
+                                             {'gen_conflict': gen_conflict,
+                                              'roman_conflict': roman_conflict,
+                                              'src_specials': src_specials,
+                                              'tar_specials': tar_specials})
         if ratio == 1 and tests & test_dict['confusions']:
             if (' '.join((src_fn, src_ln)).strip() ==
                     ' '.join((tar_fn, tar_ln)).strip()):
