@@ -214,13 +214,26 @@ class Corpus(object):
         return self.doc_split.join(doc_list)
 
     def idf(self, term, transform=None):
-        """Calculate the Inverse Document Frequency of a term in the corpus.
+        r"""Calculate the Inverse Document Frequency of a term in the corpus.
 
         :param str term: the term to calculate the IDF of
         :param function transform: a function to apply to each document term
             before checking for the presence of term
         :returns: the IDF
         :rtype: float
+
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n\n'
+        >>> tqbf += 'And then it slept.\n\n And the dog ran off.'
+        >>> corp = Corpus(tqbf)
+        >>> print(corp.docs())
+        [[['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
+        'dog.']],
+        [['And', 'then', 'it', 'slept.']],
+        [['And', 'the', 'dog', 'ran', 'off.']]]
+        >>> round(corp.idf('dog'), 10)
+        0.4771212547
+        >>> round(corp.idf('the'), 10)
+        0.1760912591
         """
         docs_with_term = 0
         docs = self.docs_of_words()
