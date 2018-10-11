@@ -1552,6 +1552,14 @@ def var(nums, mean_func=amean, ddof=0):
     :param int ddof: The degrees of freedom (0 by default)
     :returns: The variance of the values in the series
     :rtype: float
+
+
+    >>> var([1, 1, 1, 1])
+    0.0
+    >>> var([1, 2, 3, 4])
+    1.25
+    >>> round(var([1, 2, 3, 4], ddof=1), 12)
+    1.666666666667
     """
     x_bar = mean_func(nums)
     return sum((x - x_bar) ** 2 for x in nums) / (len(nums) - ddof)
@@ -1565,6 +1573,13 @@ def std(nums, mean_func=amean, ddof=0):
     :param int ddof: The degrees of freedom (0 by default)
     :returns: The standard deviation of the values in the series
     :rtype: float
+
+    >>> std([1, 1, 1, 1])
+    0.0
+    >>> round(std([1, 2, 3, 4]), 12)
+    1.11803398875
+    >>> round(std([1, 2, 3, 4], ddof=1), 12)
+    1.290994448736
     """
     return var(nums, mean_func, ddof)**0.5
 

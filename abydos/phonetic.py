@@ -94,6 +94,13 @@ def _delete_consecutive_repeats(word):
     :returns: word with consecutive repeating characters collapsed to
         a single instance
     :rtype: str
+
+    >>> _delete_consecutive_repeats('REDDEE')
+    'REDE'
+    >>> _delete_consecutive_repeats('AEIOU')
+    'AEIOU'
+    >>> _delete_consecutive_repeats('AAACCCTTTGGG')
+    'ACTG'
     """
     return ''.join(char for char, _ in groupby(word))
 
@@ -4541,6 +4548,17 @@ def eudex(word, max_length=8):
     :param int max_length: the length in bits of the code returned (default 8)
     :returns: the eudex hash
     :rtype: int
+
+    >>> eudex('Colin')
+    432345564238053650
+    >>> eudex('Christopher')
+    433648490138894409
+    >>> eudex('Niall')
+    648518346341351840
+    >>> eudex('Smith')
+    720575940412906756
+    >>> eudex('Schmidt')
+    720589151732307997
     """
     _trailing_phones = {
         'a': 0,  # a
@@ -4710,6 +4728,17 @@ def haase_phonetik(word, primary_only=False):
     :param bool primary_only: if True, only the primary code is returned
     :returns: the Haase Phonetik value as a numeric string
     :rtype: tuple
+
+    >>> haase_phonetik('Joachim')
+    ('9496',)
+    >>> haase_phonetik('Christoph')
+    ('4798293', '8798293')
+    >>> haase_phonetik('Jörg')
+    ('974',)
+    >>> haase_phonetik('Smith')
+    ('8692',)
+    >>> haase_phonetik('Schmidt')
+    ('8692', '4692')
     """
     def _after(word, i, letters):
         """Return True if word[i] follows one of the supplied letters."""
@@ -4860,6 +4889,17 @@ def reth_schek_phonetik(word):
     :param str word: the word to transform
     :returns: the Reth-Schek Phonetik code
     :rtype: str
+
+    >>> reth_schek_phonetik('Joachim')
+    'JOAGHIM'
+    >>> reth_schek_phonetik('Christoph')
+    'GHRISDOF'
+    >>> reth_schek_phonetik('Jörg')
+    'JOERG'
+    >>> reth_schek_phonetik('Smith')
+    'SMID'
+    >>> reth_schek_phonetik('Schmidt')
+    'SCHMID'
     """
     replacements = {3: {'AEH': 'E', 'IEH': 'I', 'OEH': 'OE', 'UEH': 'UE',
                         'SCH': 'CH', 'ZIO': 'TIO', 'TIU': 'TIO', 'ZIU': 'TIO',
@@ -4924,6 +4964,17 @@ def fonem(word):
     :param str word: the word to transform
     :returns: the FONEM code
     :rtype: str
+
+    >>> fonem('Marchand')
+    'MARCHEN'
+    >>> fonem('Beaulieu')
+    'BOLIEU'
+    >>> fonem('Beaumont')
+    'BOMON'
+    >>> fonem('Legrand')
+    'LEGREN'
+    >>> fonem('Pelletier')
+    'PELETIER'
     """
     # I don't see a sane way of doing this without regexps :(
     rule_table = {
@@ -5038,6 +5089,17 @@ def parmar_kumbharana(word):
     :param str word: the word to transform
     :returns: the Parmar-Kumbharana encoding
     :rtype: str
+
+    >>> parmar_kumbharana('Gough')
+    'GF'
+    >>> parmar_kumbharana('pneuma')
+    'NM'
+    >>> parmar_kumbharana('knight')
+    'NT'
+    >>> parmar_kumbharana('trice')
+    'TRS'
+    >>> parmar_kumbharana('judge')
+    'JJ'
     """
     rule_table = {4: {'OUGH': 'F'},
                   3: {'DGE': 'J',
@@ -5086,6 +5148,21 @@ def davidson(lname, fname='.', omit_fname=False):
         of the first name
     :returns: Davidson's Consonant Code
     :rtype: str
+
+    >>> davidson('Gough')
+    'G   .'
+    >>> davidson('pneuma')
+    'PNM .'
+    >>> davidson('knight')
+    'KNGT.'
+    >>> davidson('trice')
+    'TRC .'
+    >>> davidson('judge')
+    'JDG .'
+    >>> davidson('Smith', 'James')
+    'SMT J'
+    >>> davidson('Wasserman', 'Tabitha')
+    'WSRMT'
     """
     trans = {65: '', 69: '', 73: '', 79: '', 85: '', 72: '', 87: '', 89: ''}
 
@@ -5108,6 +5185,17 @@ def sound_d(word, max_length=4):
     :param int max_length: the length of the code returned (defaults to 4)
     :returns: the SoundD code
     :rtype: str
+
+    >>> sound_d('Gough')
+    '2000'
+    >>> sound_d('pneuma')
+    '5500'
+    >>> sound_d('knight')
+    '5300'
+    >>> sound_d('trice')
+    '3620'
+    >>> sound_d('judge')
+    '2200'
     """
     _ref_soundd_translation = dict(zip((ord(_) for _ in
                                         'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
@@ -5158,6 +5246,17 @@ def pshp_soundex_last(lname, max_length=4, german=False):
         apply)
     :returns: the PSHP Soundex/Viewex Coding
     :rtype: str
+
+    >>> pshp_soundex_last('Smith')
+    'S530'
+    >>> pshp_soundex_last('Waters')
+    'W350'
+    >>> pshp_soundex_last('James')
+    'J500'
+    >>> pshp_soundex_last('Schmidt')
+    'S530'
+    >>> pshp_soundex_last('Ashcroft')
+    'A225'
     """
     lname = unicode_normalize('NFKD', text_type(lname.upper()))
     lname = lname.replace('ß', 'SS')
@@ -5292,6 +5391,27 @@ def pshp_soundex_first(fname, max_length=4, german=False):
         apply)
     :returns: the PSHP Soundex/Viewex Coding
     :rtype: str
+
+    >>> pshp_soundex_first('Smith')
+    'S530'
+    >>> pshp_soundex_first('Waters')
+    'W352'
+    >>> pshp_soundex_first('James')
+    'J700'
+    >>> pshp_soundex_first('Schmidt')
+    'S500'
+    >>> pshp_soundex_first('Ashcroft')
+    'A220'
+    >>> pshp_soundex_first('John')
+    'J500'
+    >>> pshp_soundex_first('Colin')
+    'K400'
+    >>> pshp_soundex_first('Niall')
+    'N400'
+    >>> pshp_soundex_first('Sally')
+    'S400'
+    >>> pshp_soundex_first('Jane')
+    'J500'
     """
     fname = unicode_normalize('NFKD', text_type(fname.upper()))
     fname = fname.replace('ß', 'SS')
@@ -5366,6 +5486,17 @@ def henry_early(word, max_length=3):
     :param int max_length: the length of the code returned (defaults to 3)
     :returns: the early Henry code
     :rtype: str
+
+    >>> henry_early('Marchand')
+    'MRC'
+    >>> henry_early('Beaulieu')
+    'BL'
+    >>> henry_early('Beaumont')
+    'BM'
+    >>> henry_early('Legrand')
+    'LGR'
+    >>> henry_early('Pelletier')
+    'PLT'
     """
     _cons = {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q',
              'R', 'S', 'T', 'V', 'W', 'X', 'Z'}
@@ -5527,6 +5658,17 @@ def norphone(word):
     :param str word: the word to transform
     :returns: the Norphone code
     :rtype: str
+
+    >>> norphone('Hansen')
+    'HNSN'
+    >>> norphone('Larsen')
+    'LRSN'
+    >>> norphone('Aagaard')
+    'ÅKRT'
+    >>> norphone('Braaten')
+    'BRTN'
+    >>> norphone('Sandvik')
+    'SNVK'
     """
     _vowels = {'A', 'E', 'I', 'O', 'U', 'Y', 'Å', 'Æ', 'Ø', 'Ä', 'Ö'}
 
@@ -5605,6 +5747,48 @@ def dolby(word, max_length=-1, keep_vowels=False, vowel_char='*'):
     :param vowel_char: the vowel marker character (default to \*)
     :returns: the Dolby Code
     :rtype: str
+
+    >>> dolby('Hansen')
+    'H*NSN'
+    >>> dolby('Larsen')
+    'L*RSN'
+    >>> dolby('Aagaard')
+    '*GR'
+    >>> dolby('Braaten')
+    'BR*DN'
+    >>> dolby('Sandvik')
+    'S*NVK'
+    >>> dolby('Hansen', max_length=6)
+    'H*NS*N'
+    >>> dolby('Larsen', max_length=6)
+    'L*RS*N'
+    >>> dolby('Aagaard', max_length=6)
+    '*G*R  '
+    >>> dolby('Braaten', max_length=6)
+    'BR*D*N'
+    >>> dolby('Sandvik', max_length=6)
+    'S*NF*K'
+
+    >>> dolby('Smith')
+    'SM*D'
+    >>> dolby('Waters')
+    'W*DRS'
+    >>> dolby('James')
+    'J*MS'
+    >>> dolby('Schmidt')
+    'SM*D'
+    >>> dolby('Ashcroft')
+    '*SKRFD'
+    >>> dolby('Smith', max_length=6)
+    'SM*D  '
+    >>> dolby('Waters', max_length=6)
+    'W*D*RS'
+    >>> dolby('James', max_length=6)
+    'J*M*S '
+    >>> dolby('Schmidt', max_length=6)
+    'SM*D  '
+    >>> dolby('Ashcroft', max_length=6)
+    '*SKRFD'
     """
     _vowels = {'A', 'E', 'I', 'O', 'U', 'Y'}
 
@@ -5744,6 +5928,17 @@ def phonetic_spanish(word, max_length=-1):
         unlimited)
     :returns: the PhoneticSpanish code
     :rtype: str
+
+    >>> phonetic_spanish('Perez')
+    '094'
+    >>> phonetic_spanish('Martinez')
+    '69364'
+    >>> phonetic_spanish('Gutierrez')
+    '83994'
+    >>> phonetic_spanish('Santiago')
+    '4638'
+    >>> phonetic_spanish('Nicolás')
+    '6454'
     """
     _es_soundex_translation = dict(zip((ord(_) for _ in
                                         'BCDFGHJKLMNPQRSTVXYZ'),
@@ -5783,6 +5978,17 @@ def spanish_metaphone(word, max_length=6, modified=False):
         Bailón-Miguel's modified version of the algorithm
     :returns: the Spanish Metaphone code
     :rtype: str
+
+    >>> spanish_metaphone('Perez')
+    'PRZ'
+    >>> spanish_metaphone('Martinez')
+    'MRTNZ'
+    >>> spanish_metaphone('Gutierrez')
+    'GTRRZ'
+    >>> spanish_metaphone('Santiago')
+    'SNTG'
+    >>> spanish_metaphone('Nicolás')
+    'NKLS'
     """
     def _is_vowel(pos):
         """Return True if the character at word[pos] is a vowel."""
@@ -5919,6 +6125,27 @@ def metasoundex(word, lang='en'):
     :param str lang: either 'en' for English or 'es' for Spanish
     :returns: the MetaSoundex code
     :rtype: str
+
+    >>> metasoundex('Smith')
+    '4500'
+    >>> metasoundex('Waters')
+    '7362'
+    >>> metasoundex('James')
+    '1520'
+    >>> metasoundex('Schmidt')
+    '4530'
+    >>> metasoundex('Ashcroft')
+    '0261'
+    >>> metasoundex('Perez', lang='es')
+    '094'
+    >>> metasoundex('Martinez', lang='es')
+    '69364'
+    >>> metasoundex('Gutierrez', lang='es')
+    '83994'
+    >>> metasoundex('Santiago', lang='es')
+    '4638'
+    >>> metasoundex('Nicolás', lang='es')
+    '6754'
     """
     _metasoundex_translation = dict(zip((ord(_) for _ in
                                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
@@ -5944,6 +6171,19 @@ def soundex_br(word, max_length=4, zero_pad=True):
         max_length string
     :returns: the SoundexBR code
     :rtype: str
+
+    >>> soundex_br('Oliveira')
+    'O416'
+    >>> soundex_br('Almeida')
+    'A453'
+    >>> soundex_br('Barbosa')
+    'B612'
+    >>> soundex_br('Araújo')
+    'A620'
+    >>> soundex_br('Gonçalves')
+    'G524'
+    >>> soundex_br('Goncalves')
+    'G524'
     """
     _soundex_br_translation = dict(zip((ord(_) for _ in
                                         'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
@@ -5989,6 +6229,19 @@ def nrl(word):
     :param str word: the word to transform
     :returns: the NRL phonetic encoding
     :rtype: str
+
+    >>> nrl('the')
+    'DHAX'
+    >>> nrl('round')
+    'rAWnd'
+    >>> nrl('quick')
+    'kwIHk'
+    >>> nrl('eaten')
+    'IYtEHn'
+    >>> nrl('Smith')
+    'smIHTH'
+    >>> nrl('Larsen')
+    'lAArsEHn'
     """
     def _to_regex(pattern, left_match=True):
         new_pattern = ''
