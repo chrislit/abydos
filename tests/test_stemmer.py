@@ -27,6 +27,7 @@ import codecs
 import os
 import unittest
 
+# noinspection PyProtectedMember
 from abydos.stemmer import _ends_in_cvc, _ends_in_doubled_cons, _m_degree, \
     _sb_ends_in_short_syllable, _sb_has_vowel, _sb_r1, _sb_r2, \
     _sb_short_word, caumanns, clef_german, clef_german_plus, clef_swedish, \

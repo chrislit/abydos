@@ -40,6 +40,7 @@ import sys
 from os import listdir
 from os.path import isfile
 
+# noinspection PyPackageRequirements
 import chardet
 
 # The list of languages from BMPM to support (might need to be updated or
@@ -131,7 +132,7 @@ def pythonize(line, fn='', subdir='gen'):
                   lambda m: ('L_' + m.group(1).upper() if m.group(1) in
                              lang_dict else '$' + m.group(1)),
                   line)
-    line = re.sub(r'\[\"\.\((L_[A-Z_\+]+)\)\.\"\]', r'[\1]', line)
+    line = re.sub(r'\[\"\.\((L_[A-Z_+]+)\)\.\"\]', r'[\1]', line)
 
     line = re.sub('L_([A-Z]+)',
                   lambda m: str(lang_dict[m.group(1).lower()]),
@@ -159,7 +160,6 @@ def pythonize(line, fn='', subdir='gen'):
     # fix upstream
     # line = line.replace('ë', 'ü')
 
-    code = ''
     comment = ''
     if '#' in line:
         hashsign = line.find('#')
@@ -303,8 +303,8 @@ for line in outfilelines:
         if fixlanguagesarray:
             line = ' '+line.strip()
             fixlanguagesarray = False
-        if (len(line) > 79 or sep_lang in line):
-            line = line + '  # noqa: E501'
+        if len(line) > 79 or sep_lang in line:
+            line += '  # noqa: E501'
         outfile.write(line)
         if not line.endswith('='):
             outfile.write('\n')

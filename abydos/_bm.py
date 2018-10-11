@@ -319,7 +319,7 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
                     break
 
             if not found:
-                # character in name for which there is no subsitution in the
+                # character in name for which there is no substitution in the
                 # table
                 phonetic2 += phonetic[i]
                 pattern_length = 1
@@ -455,7 +455,7 @@ def _bm_normalize_lang_attrs(text, strip):
         if bracket_end == -1:
             raise ValueError('No closing square bracket: text=(' +
                              text + ') strip=(' + text_type(strip) + ')')
-        attrib = attrib & int(text[bracket_start+1:bracket_end])
+        attrib &= int(text[bracket_start+1:bracket_end])
         text = text[:bracket_start] + text[bracket_end+1:]
 
     if attrib == uninitialized or strip:
@@ -484,7 +484,7 @@ def _bm_apply_rule_if_compat(phonetic, target, language_arg):
 
     apply the rule
 
-    :param str phoentic: the Beider-Morse phonetic encoding (so far)
+    :param str phonetic: the Beider-Morse phonetic encoding (so far)
     :param str target: a proposed addition to the phonetic encoding
     :param int language_arg: an integer representing the target language of
         the phonetic encoding

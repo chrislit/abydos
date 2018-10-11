@@ -586,18 +586,18 @@ class StatisticalMeasureTestCases(unittest.TestCase):
 
     def test_kappa_statistic(self):
         """Test abydos.stats.ConfusionTable.kappa_statistic."""
-        def quick_kappa(acc, racc):
+        def _quick_kappa(acc, racc):
             return (acc-racc)/(1-racc)
 
         self.assertEqual(UNIT_TABLE.kappa_statistic(), 0)
         self.assertTrue(isnan(NULL_TABLE.kappa_statistic()))
         self.assertAlmostEqual(SCALE_TABLE.kappa_statistic(),
-                               quick_kappa((3/10), (1/2)))
+                               _quick_kappa((3/10), (1/2)))
         self.assertAlmostEqual(CATSNDOGS_TABLE.kappa_statistic(),
-                               quick_kappa((22/27), (436/27**2)))
+                               _quick_kappa((22/27), (436/27**2)))
         self.assertAlmostEqual(WORKED_EG_TABLE.kappa_statistic(),
-                               quick_kappa((184/203),
-                                           (((2000*1830)+6000)/2030**2)))
+                               _quick_kappa((184/203),
+                                            (((2000*1830)+6000)/2030**2)))
 
 
 class MeansTestCases(unittest.TestCase):

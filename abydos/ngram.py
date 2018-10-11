@@ -100,7 +100,7 @@ class NGramCorpus(object):
                 if bos and bos != '':
                     sent = [bos] + sent
                 if eos and eos != '':
-                    sent = sent + [eos]
+                    sent += [eos]
                 for i in range(2, n_val+1):
                     for j in range(len(sent)-i+1):
                         self._add_to_ngcorpus(self.ngcorpus, sent[j:j+i], 1)
@@ -108,8 +108,9 @@ class NGramCorpus(object):
     def get_count(self, ngram, corpus=None):
         r"""Get the count of an n-gram in the corpus.
 
-        :param ngram: The n-gram to retrieve the count of from the n-gram
+        :param str ngram: The n-gram to retrieve the count of from the n-gram
             corpus
+        :param Corpus corpus: The corpus
         :type ngram: list, tuple, or string
         :returns: The n-gram count
         :rtype: int

@@ -31,6 +31,7 @@ import unittest
 from difflib import SequenceMatcher
 
 from abydos.compression import ac_train
+# noinspection PyProtectedMember
 from abydos.distance import _synoname_strip_punct, bag, chebyshev, \
     damerau_levenshtein, dist, dist_bag, dist_baystat, dist_chebyshev, \
     dist_compression, dist_cosine, dist_damerau, dist_dice, dist_editex, \
