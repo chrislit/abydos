@@ -586,6 +586,9 @@ def _get_qgrams(src, tar, qval=0, skip=0):
         src and tar are strings
     :returns: Q-Grams
     :rtype: tuple of Counters
+
+    >>> _get_qgrams('AT', 'TT', qval=2)
+    (QGrams({'$A': 1, 'AT': 1, 'T#': 1}), QGrams({'$T': 1, 'TT': 1, 'T#': 1}))
     """
     if isinstance(src, Counter) and isinstance(tar, Counter):
         return src, tar
@@ -942,6 +945,15 @@ def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the Minkowski distance
     :rtype: float
+
+    >>> minkowski('cat', 'hat')
+    4.0
+    >>> minkowski('Niall', 'Neil')
+    7.0
+    >>> minkowski('Colin', 'Cuilen')
+    9.0
+    >>> minkowski('ATCG', 'TAGC')
+    10.0
     """
     q_src, q_tar = _get_qgrams(src, tar, qval)
     diffs = ((q_src - q_tar) + (q_tar - q_src)).values()
@@ -982,6 +994,15 @@ def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Minkowski distance
     :rtype: float
+
+    >>> dist_minkowski('cat', 'hat')
+    0.5
+    >>> round(dist_minkowski('Niall', 'Neil'), 12)
+    0.636363636364
+    >>> round(dist_minkowski('Colin', 'Cuilen'), 12)
+    0.692307692308
+    >>> dist_minkowski('ATCG', 'TAGC')
+    1.0
     """
     return minkowski(src, tar, qval, pval, True, alphabet)
 
@@ -999,6 +1020,15 @@ def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Minkowski similarity
     :rtype: float
+
+    >>> sim_minkowski('cat', 'hat')
+    0.5
+    >>> round(sim_minkowski('Niall', 'Neil'), 12)
+    0.363636363636
+    >>> round(sim_minkowski('Colin', 'Cuilen'), 12)
+    0.307692307692
+    >>> sim_minkowski('ATCG', 'TAGC')
+    0.0
     """
     return 1-minkowski(src, tar, qval, pval, True, alphabet)
 
@@ -1016,6 +1046,15 @@ def manhattan(src, tar, qval=2, normalized=False, alphabet=None):
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the Manhattan distance
     :rtype: float
+
+    >>> manhattan('cat', 'hat')
+    4.0
+    >>> manhattan('Niall', 'Neil')
+    7.0
+    >>> manhattan('Colin', 'Cuilen')
+    9.0
+    >>> manhattan('ATCG', 'TAGC')
+    10.0
     """
     return minkowski(src, tar, qval, 1, normalized, alphabet)
 
@@ -1034,6 +1073,15 @@ def dist_manhattan(src, tar, qval=2, alphabet=None):
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Manhattan distance
     :rtype: float
+
+    >>> dist_manhattan('cat', 'hat')
+    0.5
+    >>> round(dist_manhattan('Niall', 'Neil'), 12)
+    0.636363636364
+    >>> round(dist_manhattan('Colin', 'Cuilen'), 12)
+    0.692307692308
+    >>> dist_manhattan('ATCG', 'TAGC')
+    1.0
     """
     return manhattan(src, tar, qval, True, alphabet)
 
@@ -1050,6 +1098,15 @@ def sim_manhattan(src, tar, qval=2, alphabet=None):
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Manhattan similarity
     :rtype: float
+
+    >>> sim_manhattan('cat', 'hat')
+    0.5
+    >>> round(sim_manhattan('Niall', 'Neil'), 12)
+    0.363636363636
+    >>> round(sim_manhattan('Colin', 'Cuilen'), 12)
+    0.307692307692
+    >>> sim_manhattan('ATCG', 'TAGC')
+    0.0
     """
     return 1-manhattan(src, tar, qval, True, alphabet)
 
@@ -1067,6 +1124,15 @@ def euclidean(src, tar, qval=2, normalized=False, alphabet=None):
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the Euclidean distance
     :rtype: float
+
+    >>> euclidean('cat', 'hat')
+    2.0
+    >>> round(euclidean('Niall', 'Neil'), 12)
+    2.645751311065
+    >>> euclidean('Colin', 'Cuilen')
+    3.0
+    >>> round(euclidean('ATCG', 'TAGC'), 12)
+    3.162277660168
     """
     return minkowski(src, tar, qval, 2, normalized, alphabet)
 
@@ -1083,6 +1149,15 @@ def dist_euclidean(src, tar, qval=2, alphabet=None):
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Euclidean distance
     :rtype: float
+
+    >>> round(dist_euclidean('cat', 'hat'), 12)
+    0.57735026919
+    >>> round(dist_euclidean('Niall', 'Neil'), 12)
+    0.683130051064
+    >>> round(dist_euclidean('Colin', 'Cuilen'), 12)
+    0.727606875109
+    >>> dist_euclidean('ATCG', 'TAGC')
+    1.0
     """
     return euclidean(src, tar, qval, True, alphabet)
 
@@ -1099,6 +1174,15 @@ def sim_euclidean(src, tar, qval=2, alphabet=None):
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the normalized Euclidean similarity
     :rtype: float
+
+    >>> round(sim_euclidean('cat', 'hat'), 12)
+    0.42264973081
+    >>> round(sim_euclidean('Niall', 'Neil'), 12)
+    0.316869948936
+    >>> round(sim_euclidean('Colin', 'Cuilen'), 12)
+    0.272393124891
+    >>> sim_euclidean('ATCG', 'TAGC')
+    0.0
     """
     return 1-euclidean(src, tar, qval, True, alphabet)
 
@@ -1116,6 +1200,19 @@ def chebyshev(src, tar, qval=2, normalized=False, alphabet=None):
     :param collection or int alphabet: the values or size of the alphabet
     :returns: the Chebyshev distance
     :rtype: float
+
+    >>> chebyshev('cat', 'hat')
+    1.0
+    >>> chebyshev('Niall', 'Neil')
+    1.0
+    >>> chebyshev('Colin', 'Cuilen')
+    1.0
+    >>> chebyshev('ATCG', 'TAGC')
+    1.0
+    >>> chebyshev('ATCG', 'TAGC', qval=1)
+    0.0
+    >>> chebyshev('ATCGATTCGGAATTTC', 'TAGCATAATCGCCG', qval=1)
+    3.0
     """
     return minkowski(src, tar, qval, float('inf'), normalized, alphabet)
 
