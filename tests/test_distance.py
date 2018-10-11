@@ -32,25 +32,25 @@ from difflib import SequenceMatcher
 
 from abydos.compression import ac_train
 # noinspection PyProtectedMember
-from abydos.distance import _synoname_strip_punct, bag, chebyshev, \
-    damerau_levenshtein, dist, dist_bag, dist_baystat, dist_compression, \
-    dist_cosine, dist_damerau, dist_dice, dist_editex,  dist_euclidean, \
-    dist_eudex, dist_hamming, dist_ident, dist_indel, dist_jaccard, \
-    dist_jaro_winkler, dist_lcsseq, dist_lcsstr, dist_length, \
-    dist_levenshtein, dist_manhattan, dist_minkowski, dist_mlipns, \
-    dist_monge_elkan, dist_mra, dist_overlap, dist_prefix, \
-    dist_ratcliff_obershelp, dist_sift4, dist_strcmp95, dist_suffix, \
-    dist_tversky, dist_typo, editex, euclidean, eudex_hamming, gotoh, \
-    hamming, lcsseq, lcsstr, levenshtein, manhattan, minkowski, mra_compare, \
-    needleman_wunsch, sift4_common, sift4_simplest, sim, sim_bag, \
-    sim_baystat, sim_compression, sim_cosine, sim_damerau,  sim_dice, \
+from abydos.distance import _synoname_strip_punct, \
+    _synoname_word_approximation, bag, chebyshev, damerau_levenshtein, dist, \
+    dist_bag, dist_baystat, dist_compression, dist_cosine, dist_damerau, \
+    dist_dice, dist_editex, dist_euclidean, dist_eudex, dist_hamming, \
+    dist_ident, dist_indel, dist_jaccard, dist_jaro_winkler, dist_lcsseq, \
+    dist_lcsstr, dist_length, dist_levenshtein, dist_manhattan, \
+    dist_minkowski, dist_mlipns, dist_monge_elkan, dist_mra, dist_overlap, \
+    dist_prefix, dist_ratcliff_obershelp, dist_sift4, dist_strcmp95, \
+    dist_suffix, dist_tversky, dist_typo, editex, euclidean, eudex_hamming, \
+    gotoh, hamming, lcsseq, lcsstr, levenshtein, manhattan, minkowski, \
+    mra_compare, needleman_wunsch, sift4_common, sift4_simplest, sim, \
+    sim_bag, sim_baystat, sim_compression, sim_cosine, sim_damerau, sim_dice, \
     sim_editex, sim_euclidean, sim_eudex, sim_hamming, sim_ident, sim_indel, \
     sim_jaccard, sim_jaro_winkler, sim_lcsseq, sim_lcsstr, sim_length, \
     sim_levenshtein, sim_manhattan, sim_matrix, sim_minkowski, sim_mlipns, \
     sim_monge_elkan, sim_mra, sim_overlap, sim_prefix, \
     sim_ratcliff_obershelp, sim_sift4, sim_strcmp95, sim_suffix, \
-    sim_tanimoto, sim_tversky, sim_typo, smith_waterman, synoname, \
-    _synoname_word_approximation, tanimoto, typo
+    sim_tanimoto, sim_tversky, sim_typo, smith_waterman, synoname, tanimoto, \
+    typo
 from abydos.qgram import QGrams
 
 from six.moves import range
