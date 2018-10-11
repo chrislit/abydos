@@ -33,21 +33,21 @@ from difflib import SequenceMatcher
 from abydos.compression import ac_train
 # noinspection PyProtectedMember
 from abydos.distance import _synoname_strip_punct, bag, chebyshev, \
-    damerau_levenshtein, dist, dist_bag, dist_baystat, dist_chebyshev, \
-    dist_compression, dist_cosine, dist_damerau, dist_dice, dist_editex, \
-    dist_euclidean, dist_eudex, dist_hamming, dist_ident, dist_indel, \
-    dist_jaccard, dist_jaro_winkler, dist_lcsseq, dist_lcsstr, dist_length, \
+    damerau_levenshtein, dist, dist_bag, dist_baystat, dist_compression, \
+    dist_cosine, dist_damerau, dist_dice, dist_editex,  dist_euclidean, \
+    dist_eudex, dist_hamming, dist_ident, dist_indel, dist_jaccard, \
+    dist_jaro_winkler, dist_lcsseq, dist_lcsstr, dist_length, \
     dist_levenshtein, dist_manhattan, dist_minkowski, dist_mlipns, \
     dist_monge_elkan, dist_mra, dist_overlap, dist_prefix, \
     dist_ratcliff_obershelp, dist_sift4, dist_strcmp95, dist_suffix, \
     dist_tversky, dist_typo, editex, euclidean, eudex_hamming, gotoh, \
     hamming, lcsseq, lcsstr, levenshtein, manhattan, minkowski, mra_compare, \
     needleman_wunsch, sift4_common, sift4_simplest, sim, sim_bag, \
-    sim_baystat, sim_chebyshev, sim_compression, sim_cosine, sim_damerau, \
-    sim_dice, sim_editex, sim_euclidean, sim_eudex, sim_hamming, sim_ident, \
-    sim_indel, sim_jaccard, sim_jaro_winkler, sim_lcsseq, sim_lcsstr, \
-    sim_length, sim_levenshtein, sim_manhattan, sim_matrix, sim_minkowski, \
-    sim_mlipns, sim_monge_elkan, sim_mra, sim_overlap, sim_prefix, \
+    sim_baystat, sim_compression, sim_cosine, sim_damerau,  sim_dice, \
+    sim_editex, sim_euclidean, sim_eudex, sim_hamming, sim_ident, sim_indel, \
+    sim_jaccard, sim_jaro_winkler, sim_lcsseq, sim_lcsstr, sim_length, \
+    sim_levenshtein, sim_manhattan, sim_matrix, sim_minkowski, sim_mlipns, \
+    sim_monge_elkan, sim_mra, sim_overlap, sim_prefix, \
     sim_ratcliff_obershelp, sim_sift4, sim_strcmp95, sim_suffix, \
     sim_tanimoto, sim_tversky, sim_typo, smith_waterman, synoname, \
     synoname_word_approximation, tanimoto, typo
@@ -1028,58 +1028,6 @@ class ChebyshevTestCases(unittest.TestCase):
         self.assertEqual(chebyshev('', 'the quick', 0), 1)
         self.assertAlmostEqual(chebyshev(NONQ_FROM, NONQ_TO, 0), 1)
         self.assertAlmostEqual(chebyshev(NONQ_TO, NONQ_FROM, 0), 1)
-
-    def test_sim_chebyshev(self):
-        """Test abydos.distance.sim_chebyshev."""
-        self.assertEqual(sim_chebyshev('', ''), 1)
-        self.assertEqual(sim_chebyshev('nelson', ''), 0)
-        self.assertEqual(sim_chebyshev('', 'neilsen'), 0)
-        self.assertEqual(sim_chebyshev('nelson', 'neilsen'), 0)
-
-        self.assertEqual(sim_chebyshev('', '', 2), 1)
-        self.assertEqual(sim_chebyshev('nelson', '', 2), 0)
-        self.assertEqual(sim_chebyshev('', 'neilsen', 2), 0)
-        self.assertAlmostEqual(sim_chebyshev('nelson', 'neilsen', 2), 0)
-
-        # supplied q-gram tests
-        self.assertEqual(sim_chebyshev(QGrams(''), QGrams('')), 1)
-        self.assertEqual(sim_chebyshev(QGrams('nelson'), QGrams('')), 0)
-        self.assertEqual(sim_chebyshev(QGrams(''), QGrams('neilsen')), 0)
-        self.assertAlmostEqual(sim_chebyshev(QGrams('nelson'),
-                                             QGrams('neilsen')), 0)
-
-        # non-q-gram tests
-        self.assertEqual(sim_chebyshev('', '', 0), 1)
-        self.assertEqual(sim_chebyshev('the quick', '', 0), 0)
-        self.assertEqual(sim_chebyshev('', 'the quick', 0), 0)
-        self.assertAlmostEqual(sim_chebyshev(NONQ_FROM, NONQ_TO, 0), 0)
-        self.assertAlmostEqual(sim_chebyshev(NONQ_TO, NONQ_FROM, 0), 0)
-
-    def test_dist_chebyshev(self):
-        """Test abydos.distance.dist_chebyshev."""
-        self.assertEqual(dist_chebyshev('', ''), 0)
-        self.assertEqual(dist_chebyshev('nelson', ''), 1)
-        self.assertEqual(dist_chebyshev('', 'neilsen'), 1)
-        self.assertEqual(dist_chebyshev('nelson', 'neilsen'), 1)
-
-        self.assertEqual(dist_chebyshev('', '', 2), 0)
-        self.assertEqual(dist_chebyshev('nelson', '', 2), 1)
-        self.assertEqual(dist_chebyshev('', 'neilsen', 2), 1)
-        self.assertAlmostEqual(dist_chebyshev('nelson', 'neilsen', 2), 1)
-
-        # supplied q-gram tests
-        self.assertEqual(dist_chebyshev(QGrams(''), QGrams('')), 0)
-        self.assertEqual(dist_chebyshev(QGrams('nelson'), QGrams('')), 1)
-        self.assertEqual(dist_chebyshev(QGrams(''), QGrams('neilsen')), 1)
-        self.assertAlmostEqual(dist_chebyshev(QGrams('nelson'),
-                                              QGrams('neilsen')), 1)
-
-        # non-q-gram tests
-        self.assertEqual(dist_chebyshev('', '', 0), 0)
-        self.assertEqual(dist_chebyshev('the quick', '', 0), 1)
-        self.assertEqual(dist_chebyshev('', 'the quick', 0), 1)
-        self.assertAlmostEqual(dist_chebyshev(NONQ_FROM, NONQ_TO, 0), 1)
-        self.assertAlmostEqual(dist_chebyshev(NONQ_TO, NONQ_FROM, 0), 1)
 
 
 class CosineSimilarityTestCases(unittest.TestCase):
