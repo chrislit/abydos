@@ -46,7 +46,7 @@ class QGrams(Counter):
     def __init__(self, term, qval=2, start_stop='$#', skip=0):
         """Initialize QGrams.
 
-        :param str word: a string to extract q-grams from
+        :param str term: a string to extract q-grams from
         :param int or iterable qval: the q-gram length (defaults to 2), can be
             an integer, range object, or list
         :param str start_stop: a string of length >= 0 indicating start & stop

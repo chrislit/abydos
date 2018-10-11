@@ -63,6 +63,7 @@ suppress_warnings = ['epub.unknown_project_files']
 
 # General information about the project.
 project = 'abydos'
+# noinspection PyShadowingBuiltins
 copyright = '2018, Christopher C. Little'
 author = 'Christopher C. Little'
 
@@ -168,8 +169,6 @@ texinfo_documents = [
      author, 'abydos', 'One line description of project.',
      'Miscellaneous'),
 ]
-
-
 
 # -- Options for Epub output ----------------------------------------------
 

@@ -1859,6 +1859,7 @@ def uealite(word, max_word_length=20, max_acro_length=8, return_rule_no=False,
 
     :param str word: the word to calculate the stem of
     :param int max_word_length: the maximum word length allowed
+    :param int max_acro_length: the maximum acryonym length allowed
     :param bool return_rule_no: if True, returns the stem along with rule
         number
     :param str var: variant to use (set to 'Adams' to use Jason Adams' rules,
@@ -2156,8 +2157,7 @@ def uealite(word, max_word_length=20, max_acro_length=8, return_rule_no=False,
                 return word, 92
             elif word[0].isupper():
                 return word, 93
-            elif var == 'Adams' and re_match(r'^[a-z]{1}(|[rl])(ing|ed)$',
-                                             word):
+            elif var == 'Adams' and re_match(r'^[a-z](|[rl])(ing|ed)$', word):
                 return word, 97
 
         for n in range(7, 1, -1):
@@ -2436,7 +2436,6 @@ def schinke(word):
                        1: {}}
     for endlen in range(6, 0, -1):
         if word[-endlen:] in v_endings_strip[endlen]:
-            addlen = 0
             if len(word)-2 >= endlen:
                 verb = word[:-endlen]
             else:

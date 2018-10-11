@@ -1904,7 +1904,7 @@ def caverphone(word, version=2):
         word = word.replace('3', '')
 
     # pad with 1s, then extract the necessary length of code
-    word = word+'1'*10
+    word += '1'*10
     if version != 1:
         word = word[:10]
     else:
@@ -2616,6 +2616,7 @@ def sfinxbis(word, max_length=-1):
     # Steg 3, Ta bort dubbelteckning i början på namnet
     ordlista = [_delete_consecutive_repeats(ordet) for ordet in ordlista]
     if not ordlista:
+        # noinspection PyRedundantParentheses
         return ('',)
 
     # Steg 4, Försvenskning
@@ -5989,7 +5990,7 @@ def nrl(word):
     :returns: the NRL phonetic encoding
     :rtype: str
     """
-    def to_regex(pattern, left_match=True):
+    def _to_regex(pattern, left_match=True):
         new_pattern = ''
         replacements = {'#': '[AEIOU]+',
                         ':': '[BCDFGHJKLMNPQRSTVWXYZ]*',
@@ -6381,9 +6382,9 @@ def nrl(word):
             left, match, right, out = rule
             if right_orig.startswith(match):
                 if left:
-                    l_pattern = to_regex(left, left_match=True)
+                    l_pattern = _to_regex(left, left_match=True)
                 if right:
-                    r_pattern = to_regex(right, left_match=False)
+                    r_pattern = _to_regex(right, left_match=False)
                 if ((not left or re_match(l_pattern, left_orig)) and
                         (not right or
                          re_match(r_pattern, right_orig[len(match):]))):

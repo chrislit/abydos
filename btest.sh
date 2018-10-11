@@ -9,10 +9,10 @@ while [ "$1" != "" ]; do
         -q | --quick | -qc) quick_mode=1
     esac
     case $1 in
-	-c | --clean | -qc) clean=1
+    -c | --clean | -qc) clean=1
     esac
     case $1 in
-	-d | --docs) docs_only=1
+    -d | --docs) docs_only=1
     esac
     shift
 done
@@ -30,14 +30,14 @@ if [ "$docs_only" = "0" ]; then
     python setup.py install
 
     if [ "$quick_mode" = "0" ]; then
-	nosetests .
+    nosetests .
 
-	pylint --rcfile=setup.cfg abydos > pylint.log
-	pycodestyle . > pycodestyle.log
-	flake8 . > flake8.log
-	doc8 . > doc8.log
+    pylint --rcfile=setup.cfg abydos > pylint.log
+    pycodestyle . > pycodestyle.log
+    flake8 . > flake8.log
+    doc8 . > doc8.log
 
-	./badge_update.py
+    ./badge_update.py
     fi
 fi
 

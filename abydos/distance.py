@@ -82,6 +82,7 @@ from six import text_type
 from six.moves import range
 
 from .compression import ac_encode, ac_train, rle_encode
+# noinspection PyProtectedMember
 from .fingerprint import _synoname_special_table, synoname_toolcode
 from .phonetic import eudex, mra
 from .qgram import QGrams
@@ -949,6 +950,7 @@ def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
     if normalized:
         totals = (q_src + q_tar).values()
         if alphabet is not None:
+            # noinspection PyTypeChecker
             normalizer = (alphabet if isinstance(alphabet, Number) else
                           len(alphabet))
         elif pval == 0:
@@ -1313,7 +1315,7 @@ def sim_strcmp95(src, tar, long_strings=False):
                     break
             if ying[i] != yang[j]:
                 n_trans += 1
-    n_trans = n_trans // 2
+    n_trans //= 2
 
     # Adjust for similarities in unmatched characters
     n_simi = 0
@@ -1331,7 +1333,7 @@ def sim_strcmp95(src, tar, long_strings=False):
     # Main weight computation
     weight = num_sim / len(ying) + num_sim / len(yang) + \
         (num_com - n_trans) / num_com
-    weight = weight / 3.0
+    weight /= 3.0
 
     # Continue to boost the weight if the strings are similar
     if weight > 0.7:
@@ -1502,11 +1504,11 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
                     break
             if src[i] != tar[j]:
                 n_trans += 1
-    n_trans = n_trans // 2
+    n_trans //= 2
 
     # Main weight computation for Jaro distance
     weight = num_com / lens + num_com / lent + (num_com - n_trans) / num_com
-    weight = weight / 3.0
+    weight /= 3.0
 
     # Continue to boost the weight if the strings are similar
     # This is the Winkler portion of Jaro-Winkler distance
@@ -3434,7 +3436,7 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
                    'log-euclidean': _log_euclidean_keyboard_distance,
                    'log-manhattan': _log_manhattan_keyboard_distance}
 
-    def substitution_cost(char1, char2):
+    def _substitution_cost(char1, char2):
         cost = sub_cost
         cost *= (metric_dict[metric](char1, char2) +
                  shift_cost * (_kb_array_for_char(char1) !=
@@ -3452,7 +3454,7 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
             d_mat[i + 1, j + 1] = min(
                 d_mat[i + 1, j] + ins_cost,  # ins
                 d_mat[i, j + 1] + del_cost,  # del
-                d_mat[i, j] + (substitution_cost(src[i], tar[j])
+                d_mat[i, j] + (_substitution_cost(src[i], tar[j])
                                if src[i] != tar[j] else 0)  # sub/==
             )
 
@@ -3769,14 +3771,14 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
     else:
         tar_ln, tar_fn, tar_qual = tar, '', ''
 
-    def split_special(spec):
+    def _split_special(spec):
         spec_list = []
         while spec:
             spec_list.append((int(spec[:3]), spec[3:4]))
             spec = spec[4:]
         return spec_list
 
-    def fmt_retval(val):
+    def _fmt_retval(val):
         if ret_name:
             return match_name[val]
         return val
@@ -3800,13 +3802,13 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
     src_romancode = int(src_tc[3:6])
     src_len_fn = int(src_tc[6:8])
     src_tc = src_tc.split('$')
-    src_specials = split_special(src_tc[1])
+    src_specials = _split_special(src_tc[1])
 
     tar_generation = int(tar_tc[2])
     tar_romancode = int(tar_tc[3:6])
     tar_len_fn = int(tar_tc[6:8])
     tar_tc = tar_tc.split('$')
-    tar_specials = split_special(tar_tc[1])
+    tar_specials = _split_special(tar_tc[1])
 
     gen_conflict = ((src_generation != tar_generation) and
                     bool(src_generation or tar_generation))
@@ -3817,7 +3819,7 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
     fn_equal = src_fn == tar_fn
 
     # approx_c
-    def approx_c():
+    def _approx_c():
         if gen_conflict or roman_conflict:
             return False, 0
 
@@ -3840,34 +3842,34 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
         loc_ratio = sim_ratcliff_obershelp(full_src, full_tar)
         return loc_ratio >= char_approx_min, loc_ratio
 
-    approx_c_result, ca_ratio = approx_c()
+    approx_c_result, ca_ratio = _approx_c()
 
     if tests & test_dict['exact'] and fn_equal and ln_equal:
-        return fmt_retval(match_type_dict['exact'])
+        return _fmt_retval(match_type_dict['exact'])
     if tests & test_dict['omission']:
         if (fn_equal and
                 levenshtein(src_ln, tar_ln, cost=(1, 1, 99, 99)) == 1):
             if not roman_conflict:
-                return fmt_retval(match_type_dict['omission'])
+                return _fmt_retval(match_type_dict['omission'])
         elif (ln_equal and
               levenshtein(src_fn, tar_fn, cost=(1, 1, 99, 99)) == 1):
-            return fmt_retval(match_type_dict['omission'])
+            return _fmt_retval(match_type_dict['omission'])
     if tests & test_dict['substitution']:
         if (fn_equal and
                 levenshtein(src_ln, tar_ln, cost=(99, 99, 1, 99)) == 1):
-            return fmt_retval(match_type_dict['substitution'])
+            return _fmt_retval(match_type_dict['substitution'])
         elif (ln_equal and
               levenshtein(src_fn, tar_fn, cost=(99, 99, 1, 99)) == 1):
-            return fmt_retval(match_type_dict['substitution'])
+            return _fmt_retval(match_type_dict['substitution'])
     if tests & test_dict['transposition']:
         if (fn_equal and
                 (levenshtein(src_ln, tar_ln, mode='osa', cost=(99, 99, 99, 1))
                  == 1)):
-            return fmt_retval(match_type_dict['transposition'])
+            return _fmt_retval(match_type_dict['transposition'])
         elif (ln_equal and
               (levenshtein(src_fn, tar_fn, mode='osa', cost=(99, 99, 99, 1))
                == 1)):
-            return fmt_retval(match_type_dict['transposition'])
+            return _fmt_retval(match_type_dict['transposition'])
     if tests & test_dict['punctuation']:
         np_src_fn = _synoname_strip_punct(src_fn)
         np_tar_fn = _synoname_strip_punct(tar_fn)
@@ -3875,7 +3877,7 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
         np_tar_ln = _synoname_strip_punct(tar_ln)
 
         if (np_src_fn == np_tar_fn) and (np_src_ln == np_tar_ln):
-            return fmt_retval(match_type_dict['punctuation'])
+            return _fmt_retval(match_type_dict['punctuation'])
 
         np_src_fn = _synoname_strip_punct(src_fn.replace('-', ' '))
         np_tar_fn = _synoname_strip_punct(tar_fn.replace('-', ' '))
@@ -3883,7 +3885,7 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
         np_tar_ln = _synoname_strip_punct(tar_ln.replace('-', ' '))
 
         if (np_src_fn == np_tar_fn) and (np_src_ln == np_tar_ln):
-            return fmt_retval(match_type_dict['punctuation'])
+            return _fmt_retval(match_type_dict['punctuation'])
 
     if tests & test_dict['initials'] and ln_equal:
         if src_fn and tar_fn:
@@ -3896,7 +3898,7 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
                 src_initials = ''.join(_[0] for _ in src_initials)
                 tar_initials = ''.join(_[0] for _ in tar_initials)
                 if src_initials == tar_initials:
-                    return fmt_retval(match_type_dict['initials'])
+                    return _fmt_retval(match_type_dict['initials'])
                 initial_diff = abs(len(src_initials)-len(tar_initials))
                 if (initial_diff and
                         ((initial_diff ==
@@ -3905,7 +3907,7 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
                          (initial_diff ==
                           levenshtein(tar_initials, src_initials,
                                       cost=(1, 99, 99, 99))))):
-                    return fmt_retval(match_type_dict['initials'])
+                    return _fmt_retval(match_type_dict['initials'])
     if tests & test_dict['extension']:
         if src_ln[1] == tar_ln[1] and (src_ln.startswith(tar_ln) or
                                        tar_ln.startswith(src_ln)):
@@ -3913,13 +3915,13 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
                  (tar_fn and src_fn.startswith(tar_fn)) or
                  (src_fn and tar_fn.startswith(src_fn)))
                     and not roman_conflict):
-                return fmt_retval(match_type_dict['extension'])
+                return _fmt_retval(match_type_dict['extension'])
     if tests & test_dict['inclusion'] and ln_equal:
         if (src_fn and src_fn in tar_fn) or (tar_fn and tar_fn in src_ln):
-            return fmt_retval(match_type_dict['inclusion'])
+            return _fmt_retval(match_type_dict['inclusion'])
     if tests & test_dict['no_first'] and ln_equal:
         if src_fn == '' or tar_fn == '':
-            return fmt_retval(match_type_dict['no_first'])
+            return _fmt_retval(match_type_dict['no_first'])
     if tests & test_dict['word_approx']:
         ratio = synoname_word_approximation(src_ln, tar_ln, src_fn, tar_fn,
                                             {'gen_conflict': gen_conflict,
@@ -3929,13 +3931,13 @@ def synoname(src, tar, word_approx_min=0.3, char_approx_min=0.73,
         if ratio == 1 and tests & test_dict['confusions']:
             if (' '.join((src_fn, src_ln)).strip() ==
                     ' '.join((tar_fn, tar_ln)).strip()):
-                return fmt_retval(match_type_dict['confusions'])
+                return _fmt_retval(match_type_dict['confusions'])
         if ratio >= word_approx_min:
-            return fmt_retval(match_type_dict['word_approx'])
+            return _fmt_retval(match_type_dict['word_approx'])
     if tests & test_dict['char_approx']:
         if ca_ratio >= char_approx_min:
-            return fmt_retval(match_type_dict['char_approx'])
-    return fmt_retval(match_type_dict['no_match'])
+            return _fmt_retval(match_type_dict['char_approx'])
+    return _fmt_retval(match_type_dict['no_match'])
 
 
 ###############################################################################

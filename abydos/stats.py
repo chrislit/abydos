@@ -199,7 +199,7 @@ class ConfusionTable(object):
         >>> ct.to_tuple()
         (120, 60, 20, 30)
         """
-        return (self._tp, self._tn, self._fp, self._fn)
+        return self._tp, self._tn, self._fp, self._fn
 
     def to_dict(self):
         """Cast to dict.
@@ -1181,7 +1181,7 @@ def qmean(nums):
     >>> qmean([0, 5, 1000])
     577.3574860228857
     """
-    return (sum(i**2 for i in nums)/len(nums))**(0.5)
+    return (sum(i**2 for i in nums)/len(nums))**0.5
 
 
 def cmean(nums):
@@ -1353,7 +1353,7 @@ def heronian_mean(nums):
             if nums[i] == nums[j]:
                 rolling_sum += nums[i]
             else:
-                rolling_sum += (nums[i]*nums[j])**(0.5)
+                rolling_sum += (nums[i]*nums[j])**0.5
     return rolling_sum * 2 / (mag*(mag+1))
 
 
