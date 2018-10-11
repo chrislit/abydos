@@ -95,18 +95,18 @@ except ImportError:  # pragma: no cover
     lzma = None
 
 __all__ = ['bag', 'chebyshev', 'damerau_levenshtein', 'dist', 'dist_bag',
-           'dist_baystat', 'dist_chebyshev', 'dist_compression', 'dist_cosine',
-           'dist_damerau', 'dist_dice', 'dist_editex', 'dist_euclidean',
-           'dist_eudex', 'dist_hamming', 'dist_ident', 'dist_indel',
-           'dist_jaccard', 'dist_jaro_winkler', 'dist_lcsseq', 'dist_lcsstr',
-           'dist_length', 'dist_levenshtein', 'dist_manhattan',
-           'dist_minkowski', 'dist_mlipns', 'dist_monge_elkan', 'dist_mra',
+           'dist_baystat', 'dist_compression', 'dist_cosine', 'dist_damerau',
+           'dist_dice', 'dist_editex', 'dist_euclidean', 'dist_eudex',
+           'dist_hamming', 'dist_ident', 'dist_indel', 'dist_jaccard',
+           'dist_jaro_winkler', 'dist_lcsseq', 'dist_lcsstr', 'dist_length',
+           'dist_levenshtein', 'dist_manhattan', 'dist_minkowski',
+           'dist_mlipns', 'dist_monge_elkan', 'dist_mra',
            'dist_overlap', 'dist_prefix', 'dist_ratcliff_obershelp',
            'dist_sift4', 'dist_strcmp95', 'dist_suffix', 'dist_tversky',
            'dist_typo', 'editex', 'euclidean', 'eudex', 'eudex_hamming',
            'gotoh', 'hamming', 'lcsseq', 'lcsstr', 'levenshtein', 'manhattan',
            'minkowski', 'mra_compare', 'needleman_wunsch', 'sift4_common',
-           'sift4_simplest', 'sim', 'sim_bag', 'sim_baystat', 'sim_chebyshev',
+           'sift4_simplest', 'sim', 'sim_bag', 'sim_baystat',
            'sim_compression', 'sim_cosine', 'sim_damerau', 'sim_dice',
            'sim_editex', 'sim_euclidean', 'sim_eudex', 'sim_hamming',
            'sim_ident', 'sim_indel', 'sim_jaccard', 'sim_jaro_winkler',
@@ -1215,38 +1215,6 @@ def chebyshev(src, tar, qval=2, normalized=False, alphabet=None):
     3.0
     """
     return minkowski(src, tar, qval, float('inf'), normalized, alphabet)
-
-
-def dist_chebyshev(src, tar, qval=2, alphabet=None):
-    r"""Return the normalized Chebyshev distance between two strings.
-
-    The normalized Chebyshev distance :cite:`Minkowski:1910` is a distance
-    metric in :math:`L^\infty-space`, normalized to [0, 1].
-
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param collection or int alphabet: the values or size of the alphabet
-    :returns: the normalized Chebyshev distance
-    :rtype: float
-    """
-    return chebyshev(src, tar, qval, True, alphabet)
-
-
-def sim_chebyshev(src, tar, qval=2, alphabet=None):
-    """Return the normalized Chebyshev similarity of two strings.
-
-    Chebyshev similarity is the complement of Chebyshev distance:
-    :math:`sim_{Chebyshev} = 1 - dist_{Chebyshev}`.
-
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param collection or int alphabet: the values or size of the alphabet
-    :returns: the normalized Chebyshev similarity
-    :rtype: float
-    """
-    return 1 - chebyshev(src, tar, qval, True, alphabet)
 
 
 def sim_cosine(src, tar, qval=2):
