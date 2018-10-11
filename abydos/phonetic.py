@@ -373,7 +373,8 @@ def dm_soundex(word, max_length=6, zero_pad=True):
     values for a single word.
 
     :param word: the word to transform
-    :param max_length: the length of the code returned (defaults to 6)
+    :param max_length: the length of the code returned (defaults to 6; must be
+        between 6 and 64)
     :param zero_pad: pad the end of the return value with 0s to achieve a
         max_length string
     :returns: the Daitch-Mokotoff Soundex value
@@ -4407,10 +4408,7 @@ def lein(word, max_length=4, zero_pad=True):
                     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
                     'Y', 'Z'})
 
-    if not word:
-        return ''
-
-    code = word[0]  # Rule 1
+    code = word[:1]  # Rule 1
     word = word[1:].translate({32: None, 65: None, 69: None, 72: None,
                                73: None, 79: None, 85: None, 87: None,
                                89: None})  # Rule 2
