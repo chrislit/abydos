@@ -1,3 +1,4 @@
+abydos
 numpy
 pandas
 scikit-learn
