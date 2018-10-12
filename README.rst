@@ -102,7 +102,7 @@ Abydos
     :alt: Documentation Status
 
 .. image:: https://mybinder.org/badge.svg
-    :target: https://mybinder.org/v2/gh/chrislit/abydos/master?filepath=notebooks
+    :target: https://mybinder.org/v2/gh/chrislit/abydos/master?filepath=binder
     :alt: Binder
 
 .. image:: https://badge.waffle.io/chrislit/abydos.svg?columns=To%20Do,In%20Progress
