@@ -9,7 +9,7 @@ abydos.egg-info/
 .coverage
 .idea/
 .tox/
-notebooks/.ipynb_checkpoints
-notebooks/Untitled*
+binder/.ipynb_checkpoints
+binder/Untitled*
 docs/abydos.bib.bak
 
