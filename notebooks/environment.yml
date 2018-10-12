@@ -1,10 +1,14 @@
-name: python 3.6
+name: conda-env
 channels:
   - conda-forge
 dependencies:
-  - python=3.6
+  - python
   - numpy
+  - psutil
+  - toolz
   - matplotlib
+  - dill
   - pandas
-  - scikit-learn
-  - tensorflow
+  - partd
+  - bokeh
+  - dask
