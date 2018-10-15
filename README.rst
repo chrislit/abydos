@@ -66,15 +66,12 @@ Abydos
     :alt: Libraries.io SourceRank
 
 .. image:: https://img.shields.io/badge/Pylint-9.55/10-green.svg
-   :target: #
    :alt: Pylint Score
 
 .. image:: https://img.shields.io/badge/pycodestyle-0-brightgreen.svg
-   :target: #
    :alt: pycodestyle Errors
 
 .. image:: https://img.shields.io/badge/flake8-40-yellowgreen.svg
-   :target: #
    :alt: flake8 Errors
 
 .. image:: https://img.shields.io/pypi/v/abydos.svg
