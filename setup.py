@@ -38,7 +38,7 @@ def readfile(fn):
 setup(
     name='abydos',
     packages=find_packages(exclude=['tests*']),
-    version='0.2.90',
+    version='0.3.0',
     description='Abydos NLP/IR library',
     author='Christopher C. Little',
     author_email='chrisclittle+abydos@gmail.com',
@@ -56,6 +56,7 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU General Public License v3 or later \
