@@ -1,25 +1,26 @@
 Abydos
 ======
 
-+------------------+--------------------------------------------------------------------------+
-| CI Status        | |travis| |circle| |appveyor| |semaphore|                                 |
-+------------------+--------------------------------------------------------------------------+
-| Code Quality     | |codeclimate| |landscape| |scrutinizer| |codacy| |codefactor| |ebert|    |
-+------------------+--------------------------------------------------------------------------+
-| Dependencies     | |requires| |snyk| |pyup|                                                 |
-+------------------+--------------------------------------------------------------------------+
-| Test Coverage    | |coveralls|                                                              |
-+------------------+--------------------------------------------------------------------------+
-| Local Analysis   | |pylint| |pycodestyle| |flake8|                                          |
-+------------------+--------------------------------------------------------------------------+
-| Usage            | |docs| |mybinder| |license| |sourcerank| |zenodo|                        |
-+------------------+--------------------------------------------------------------------------+
-| Contribution     | |cii| |waffle| |openhub|                                                 |
-+------------------+--------------------------------------------------------------------------+
-| PyPI             | |pypi| |pypi-ver|                                                        |
-+------------------+--------------------------------------------------------------------------+
-| conda-forge      | |conda| |conda-dl| |conda-platforms|                                     |
-+------------------+--------------------------------------------------------------------------+
++------------------+----------------------------------------------------+
+| CI Status        | |travis| |circle| |appveyor| |semaphore|           |
++------------------+----------------------------------------------------+
+| Code Quality     | |codeclimate| |landscape| |scrutinizer|            |
+|                  | |codacy| |codefactor| |ebert|                      |
++------------------+----------------------------------------------------+
+| Dependencies     | |requires| |snyk| |pyup|                           |
++------------------+----------------------------------------------------+
+| Test Coverage    | |coveralls|                                        |
++------------------+----------------------------------------------------+
+| Local Analysis   | |pylint| |pycodestyle| |flake8|                    |
++------------------+----------------------------------------------------+
+| Usage            | |docs| |mybinder| |license| |sourcerank| |zenodo|  |
++------------------+----------------------------------------------------+
+| Contribution     | |cii| |waffle| |openhub|                           |
++------------------+----------------------------------------------------+
+| PyPI             | |pypi| |pypi-ver|                                  |
++------------------+----------------------------------------------------+
+| conda-forge      | |conda| |conda-dl| |conda-platforms|               |
++------------------+----------------------------------------------------+
 
 .. |travis| image:: https://travis-ci.org/chrislit/abydos.svg?branch=master
     :target: https://travis-ci.org/chrislit/abydos
@@ -64,7 +65,7 @@ Abydos
 .. |requires| image:: https://requires.io/github/chrislit/abydos/requirements.svg?branch=master
     :target: https://requires.io/github/chrislit/abydos/requirements/?branch=master
     :alt: Requirements Status
- 
+
 .. |snyk| image:: https://snyk.io/test/github/chrislit/abydos/badge.svg?targetFile=requirements.txt
     :target: https://snyk.io/test/github/chrislit/abydos?targetFile=requirements.txt
     :alt: Known Vulnerabilities
@@ -284,7 +285,7 @@ Python 3, you may instead need to call::
 To install Abydos (latest release) from PyPI using pip::
 
    pip install abydos
-   
+
 To install from `conda-forge <https://conda-forge.org/>`_::
 
    conda install abydos
