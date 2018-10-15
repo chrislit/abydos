@@ -149,6 +149,10 @@ To install Abydos (latest release) from PyPI using pip::
 
    pip install abydos
 
+To install from `conda-forge <https://conda-forge.org/>`_::
+
+   conda install abydos
+
 It should run on Python 2.7 and Python 3.3-3.7.
 
 Testing & Contributing
@@ -158,9 +162,10 @@ To run the whole test-suite just call tox::
 
     tox
 
-The tox setup has the following environments: py27, py36, pylint, pycodestyle,
-flake8, badges, docs. So if only want to generate documentation (in HTML, EPUB,
-& PDF formats), just call::
+The tox setup has the following environments: py27, py36, doctest,
+py27-regression, py36-regression, pylint, pycodestyle, flake8, doc8,
+badges, docs, py27-fuzz, & py36-fuzz. So if only want to generate documentation
+(in HTML, EPUB, & PDF formats), just call::
 
     tox -e docs
 

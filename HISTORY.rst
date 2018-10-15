@@ -1,7 +1,7 @@
 Release History
 ---------------
 
-0.3.0 (2018-10-01)
+0.3.0 (2018-10-15)
 ++++++++++++++++++
 
 - Fixed implementation of Bag distance
@@ -55,6 +55,7 @@ Release History
 - Transitioned from PEP8 to flake8, etc.
 - Phonetic algorithms now consistently use max_length=-1 to indicate that
   there should be no length limit
+- Added example notebooks in binder directory
 
 
 0.2.0 (2015-05-27)
