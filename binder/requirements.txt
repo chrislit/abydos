@@ -1,7 +1,7 @@
 abydos==0.2.0
 numpy==1.15.2
 pandas==0.23.4
-scikit-learn
+scikit-learn==0.20.0
 tensorflow
 keras
 nltk
