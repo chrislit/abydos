@@ -4,7 +4,7 @@ Abydos
 +------------------+----------------------------------------------------+
 | CI Status        | |travis| |circle| |appveyor| |semaphore|           |
 +------------------+----------------------------------------------------+
-| Code Quality     | |codeclimate| |landscape| |scrutinizer|            |
+| Code Quality     | |codeclimate| |scrutinizer|                        |
 |                  | |codacy| |codefactor| |ebert|                      |
 +------------------+----------------------------------------------------+
 | Dependencies     | |requires| |snyk| |pyup|                           |
@@ -41,10 +41,6 @@ Abydos
 .. |codeclimate| image:: https://codeclimate.com/github/chrislit/abydos/badges/gpa.svg
    :target: https://codeclimate.com/github/chrislit/abydos
    :alt: Code Climate
-
-.. |landscape| image:: https://landscape.io/github/chrislit/abydos/master/landscape.svg?style=flat
-   :target: https://landscape.io/github/chrislit/abydos/master
-   :alt: Code Health
 
 .. |scrutinizer| image:: https://scrutinizer-ci.com/g/chrislit/abydos/badges/quality-score.png?b=master
     :target: https://scrutinizer-ci.com/g/chrislit/abydos/?branch=master
