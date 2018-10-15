@@ -1,5 +1,5 @@
 abydos==0.2.0
-numpy
+numpy==1.15.2
 pandas
 scikit-learn
 tensorflow
