@@ -10,15 +10,15 @@ Abydos
 +------------------+--------------------------------------------------------------------------+
 | Test Coverage    | |coveralls|                                                              |
 +------------------+--------------------------------------------------------------------------+
-| PyPI             | |pypi| |pypi-ver|                                                        |
-+------------------+--------------------------------------------------------------------------+
-| conda-forge      | |conda| |conda-dl| |conda-platforms|                                     |
-+------------------+--------------------------------------------------------------------------+
 | Local Analysis   | |pylint| |pycodestyle| |flake8|                                          |
 +------------------+--------------------------------------------------------------------------+
 | Usage            | |docs| |mybinder| |license| |sourcerank|                                 |
 +------------------+--------------------------------------------------------------------------+
 | Contribution     | |cii| |waffle| |openhub|                                                 |
++------------------+--------------------------------------------------------------------------+
+| PyPI             | |pypi| |pypi-ver|                                                        |
++------------------+--------------------------------------------------------------------------+
+| conda-forge      | |conda| |conda-dl| |conda-platforms|                                     |
 +------------------+--------------------------------------------------------------------------+
 
 .. |travis| image:: https://travis-ci.org/chrislit/abydos.svg?branch=master
@@ -88,26 +88,6 @@ Abydos
 .. |flake8| image:: https://img.shields.io/badge/flake8-40-yellowgreen.svg
    :target: #
    :alt: flake8 Errors
-   
-.. |pypi| image:: https://img.shields.io/pypi/v/abydos.svg
-    :target: https://pypi.python.org/pypi/abydos
-    :alt: PyPI
-
-.. |pypi-ver| image:: 	https://img.shields.io/pypi/pyversions/abydos.svg
-    :target: https://pypi.python.org/pypi/abydos
-    :alt: PyPI versions
-
-.. |conda| image:: https://img.shields.io/conda/vn/conda-forge/abydos.svg
-    :target: https://anaconda.org/conda-forge/abydos
-    :alt: conda-forge
-
-.. |conda-dl| image:: 	https://img.shields.io/conda/dn/conda-forge/abydos.svg
-    :target: https://anaconda.org/conda-forge/abydos
-    :alt: conda-forge downloads
-
-.. |conda-platforms| image:: https://img.shields.io/conda/pn/conda-forge/abydos.svg
-    :target: https://anaconda.org/conda-forge/abydos
-    :alt: conda-forge platforms
 
 .. |docs| image:: https://readthedocs.org/projects/abydos/badge/?version=latest
     :target: https://abydos.readthedocs.org/en/latest/
@@ -136,6 +116,26 @@ Abydos
 .. |openhub| image:: https://www.openhub.net/p/abydosnlp/widgets/project_thin_badge.gif
     :target: https://www.openhub.net/p/abydosnlp
     :alt: OpenHUB
+
+.. |pypi| image:: https://img.shields.io/pypi/v/abydos.svg
+    :target: https://pypi.python.org/pypi/abydos
+    :alt: PyPI
+
+.. |pypi-ver| image:: 	https://img.shields.io/pypi/pyversions/abydos.svg
+    :target: https://pypi.python.org/pypi/abydos
+    :alt: PyPI versions
+
+.. |conda| image:: https://img.shields.io/conda/vn/conda-forge/abydos.svg
+    :target: https://anaconda.org/conda-forge/abydos
+    :alt: conda-forge
+
+.. |conda-dl| image:: 	https://img.shields.io/conda/dn/conda-forge/abydos.svg
+    :target: https://anaconda.org/conda-forge/abydos
+    :alt: conda-forge downloads
+
+.. |conda-platforms| image:: https://img.shields.io/conda/pn/conda-forge/abydos.svg
+    :target: https://anaconda.org/conda-forge/abydos
+    :alt: conda-forge platforms
 
 |
 
