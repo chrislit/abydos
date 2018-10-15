@@ -280,6 +280,10 @@ Python 3, you may instead need to call::
 To install Abydos (latest release) from PyPI using pip::
 
    pip install abydos
+   
+To install from `conda-forge <https://conda-forge.org/>`_::
+
+   conda install abydos
 
 It should run on Python 2.7 and Python 3.3-3.7.
 
