@@ -62,7 +62,7 @@ master_doc = 'index'
 suppress_warnings = ['epub.unknown_project_files']
 
 # General information about the project.
-project = 'abydos'
+project = 'Abydos'
 # noinspection PyShadowingBuiltins
 copyright = '2018, Christopher C. Little'
 author = 'Christopher C. Little'
@@ -144,7 +144,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'abydos.tex', 'abydos Documentation',
+    (master_doc, 'abydos.tex', 'Abydos Documentation',
      'Christopher C. Little', 'manual'),
 ]
 
@@ -154,7 +154,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'abydos', 'abydos Documentation',
+    (master_doc, 'abydos', 'Abydos Documentation',
      [author], 1)
 ]
 
@@ -165,7 +165,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'abydos', 'abydos Documentation',
+    (master_doc, 'abydos', 'Abydos Documentation',
      author, 'abydos', 'One line description of project.',
      'Miscellaneous'),
 ]
