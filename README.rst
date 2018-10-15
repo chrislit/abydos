@@ -1,26 +1,24 @@
 Abydos
 ======
 
-+------------------+----------------------------------------------------+
-| CI Status        | |travis| |circle| |appveyor| |semaphore|           |
-+------------------+----------------------------------------------------+
-| Code Quality     | |codeclimate| |scrutinizer|                        |
-|                  | |codacy| |codefactor| |ebert|                      |
-+------------------+----------------------------------------------------+
-| Dependencies     | |requires| |snyk| |pyup|                           |
-+------------------+----------------------------------------------------+
-| Test Coverage    | |coveralls|                                        |
-+------------------+----------------------------------------------------+
-| Local Analysis   | |pylint| |pycodestyle| |flake8|                    |
-+------------------+----------------------------------------------------+
-| Usage            | |docs| |mybinder| |license| |sourcerank| |zenodo|  |
-+------------------+----------------------------------------------------+
-| Contribution     | |cii| |waffle| |openhub|                           |
-+------------------+----------------------------------------------------+
-| PyPI             | |pypi| |pypi-ver|                                  |
-+------------------+----------------------------------------------------+
-| conda-forge      | |conda| |conda-dl| |conda-platforms|               |
-+------------------+----------------------------------------------------+
++------------------+------------------------------------------------------+
+| CI & Test Status | |travis| |circle| |appveyor| |semaphore| |coveralls| |
++------------------+------------------------------------------------------+
+| Code Quality     | |codeclimate| |scrutinizer|                          |
+|                  | |codacy| |codefactor| |ebert|                        |
++------------------+------------------------------------------------------+
+| Dependencies     | |requires| |snyk| |pyup|                             |
++------------------+------------------------------------------------------+
+| Local Analysis   | |pylint| |pycodestyle| |flake8|                      |
++------------------+------------------------------------------------------+
+| Usage            | |docs| |mybinder| |license| |sourcerank| |zenodo|    |
++------------------+------------------------------------------------------+
+| Contribution     | |cii| |waffle| |openhub|                             |
++------------------+------------------------------------------------------+
+| PyPI             | |pypi| |pypi-ver|                                    |
++------------------+------------------------------------------------------+
+| conda-forge      | |conda| |conda-dl| |conda-platforms|                 |
++------------------+------------------------------------------------------+
 
 .. |travis| image:: https://travis-ci.org/chrislit/abydos.svg?branch=master
     :target: https://travis-ci.org/chrislit/abydos
@@ -37,6 +35,10 @@ Abydos
 .. |semaphore| image:: https://semaphoreci.com/api/v1/chrislit/abydos/branches/master/shields_badge.svg
     :target: https://semaphoreci.com/chrislit/abydos
     :alt: Semaphore Build Status
+
+.. |coveralls| image:: https://coveralls.io/repos/github/chrislit/abydos/badge.svg?branch=master
+    :target: https://coveralls.io/github/chrislit/abydos?branch=master
+    :alt: Coverage Status
 
 .. |codeclimate| image:: https://codeclimate.com/github/chrislit/abydos/badges/gpa.svg
    :target: https://codeclimate.com/github/chrislit/abydos
@@ -70,10 +72,6 @@ Abydos
      :target: https://pyup.io/repos/github/chrislit/abydos/
      :alt: Updates
 
-.. |coveralls| image:: https://coveralls.io/repos/github/chrislit/abydos/badge.svg?branch=master
-    :target: https://coveralls.io/github/chrislit/abydos?branch=master
-    :alt: Coverage Status
-
 .. |pylint| image:: https://img.shields.io/badge/Pylint-9.55/10-green.svg
    :target: #
    :alt: Pylint Score
@@ -102,8 +100,8 @@ Abydos
     :target: https://libraries.io/pypi/abydos
     :alt: Libraries.io SourceRank
 
-.. |zenodo| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.1462285.svg
-   :target: https://doi.org/10.5281/zenodo.1462285
+.. |zenodo| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.1462443.svg
+   :target: https://doi.org/10.5281/zenodo.1462443
    :alt: Zenodo
 
 .. |cii| image:: https://bestpractices.coreinfrastructure.org/projects/1598/badge
