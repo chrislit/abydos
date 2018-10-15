@@ -1,4 +1,4 @@
-abydos
+abydos==0.2.0
 numpy
 pandas
 scikit-learn
