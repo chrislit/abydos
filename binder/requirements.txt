@@ -2,5 +2,6 @@ abydos
 numpy
 pandas
 scikit-learn
-tensorflow
+keras
 nltk
+
