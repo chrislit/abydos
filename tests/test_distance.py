@@ -30,7 +30,7 @@ import sys
 import unittest
 from difflib import SequenceMatcher
 
-from abydos.compression import ac_train
+from abydos.compression import arithmetic
 # noinspection PyProtectedMember
 from abydos.distance import _synoname_strip_punct, \
     _synoname_word_approximation, bag, chebyshev, damerau_levenshtein, dist, \
@@ -1625,7 +1625,7 @@ class CompressionTestCases(unittest.TestCase):
     abydos.distance.dist_compression & .sim_compression
     """
 
-    arith_dict = ac_train(' '.join(NIALL))
+    arith_dict = arithmetic.train(' '.join(NIALL))
 
     def test_dist_compression(self):
         """Test abydos.distance.dist_compression."""
