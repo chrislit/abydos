@@ -29,15 +29,6 @@ import os
 import unittest
 from random import random
 
-# noinspection PyProtectedMember
-from abydos._bm import _bm_apply_rule_if_compat, _bm_expand_alternates, \
-    _bm_language, _bm_normalize_lang_attrs, _bm_phonetic_number, \
-    _bm_remove_dupes
-# noinspection PyProtectedMember
-from abydos._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, L_ENGLISH, \
-    L_FRENCH, L_GERMAN, L_GREEK, L_GREEKLATIN, L_HEBREW, L_HUNGARIAN, \
-    L_ITALIAN, L_LATVIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, L_SPANISH, \
-    L_TURKISH
 from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
     dm_soundex, dolby, double_metaphone, eudex, fonem, fuzzy_soundex, \
     haase_phonetik, henry_early, koelner_phonetik, koelner_phonetik_alpha, \
@@ -47,6 +38,15 @@ from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
     refined_soundex, reth_schek_phonetik, roger_root, russell_index, \
     russell_index_alpha, russell_index_num_to_alpha, sfinxbis, sound_d, \
     soundex, soundex_br, spanish_metaphone, spfc, statistics_canada
+# noinspection PyProtectedMember
+from abydos.phonetic._bm import _bm_apply_rule_if_compat, \
+    _bm_expand_alternates, _bm_language, _bm_normalize_lang_attrs, \
+    _bm_phonetic_number, _bm_remove_dupes
+# noinspection PyProtectedMember
+from abydos.phonetic._bmdata import L_ANY, L_CYRILLIC, L_CZECH, L_DUTCH, \
+    L_ENGLISH, L_FRENCH, L_GERMAN, L_GREEK, L_GREEKLATIN, L_HEBREW, \
+    L_HUNGARIAN, L_ITALIAN, L_LATVIAN, L_POLISH, L_PORTUGUESE, L_ROMANIAN, \
+    L_SPANISH, L_TURKISH
 
 from six import text_type
 

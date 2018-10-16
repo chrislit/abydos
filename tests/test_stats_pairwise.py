@@ -26,10 +26,9 @@ from __future__ import unicode_literals
 import unittest
 
 import abydos.stats as stats
-from abydos.clustering import mean_pairwise_similarity, \
-    pairwise_similarity_statistics
 from abydos.distance import sim_tanimoto
-
+from abydos.stats.pairwise import mean_pairwise_similarity, \
+    pairwise_similarity_statistics
 
 NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
          'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill', 'MacNeil',

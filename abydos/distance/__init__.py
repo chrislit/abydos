@@ -81,11 +81,11 @@ from numpy import zeros as np_zeros
 from six import text_type
 from six.moves import range
 
-from .compression import ac_encode, ac_train, rle_encode
+from ..compression import ac_encode, ac_train, rle_encode
 # noinspection PyProtectedMember
-from .fingerprint import _synoname_special_table, synoname_toolcode
-from .phonetic import eudex, mra
-from .qgram import QGrams
+from ..fingerprint import _synoname_special_table, synoname_toolcode
+from ..phonetic import eudex, mra
+from ..tokenizer import QGrams
 
 try:
     import lzma
