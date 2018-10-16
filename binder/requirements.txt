@@ -1,7 +1,7 @@
-abydos
-numpy
-pandas
-scikit-learn
-tensorflow
-keras
-nltk
+abydos==0.3.0
+numpy==1.15.2
+pandas==0.23.4
+scikit-learn==0.20.0
+tensorflow==1.11.0
+keras==2.2.4
+nltk==3.3
