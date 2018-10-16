@@ -81,7 +81,7 @@ from numpy import zeros as np_zeros
 from six import text_type
 from six.moves import range
 
-from ..compression import ac_encode, ac_train, rle_encode
+from ..compression import arithmetic, rle
 # noinspection PyProtectedMember
 from ..fingerprint import _synoname_special_table, synoname_toolcode
 from ..phonetic import eudex, mra
@@ -2081,8 +2081,8 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
             - `bwtrle` -- Burrows-Wheeler transform followed by run-length
               encoding
 
-    :param dict probs: a dictionary trained with ac_train (for the arith
-        compressor only)
+    :param dict probs: a dictionary trained with arithmetic.train (for the
+        arith compressor only)
     :returns: compression distance
     :rtype: float
 
@@ -2132,18 +2132,18 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
     elif compressor == 'arith':
         if probs is None:
             # lacking a reasonable dictionary, train on the strings themselves
-            probs = ac_train(src+tar)
-        src_comp = ac_encode(src, probs)[1]
-        tar_comp = ac_encode(tar, probs)[1]
-        concat_comp = ac_encode(src+tar, probs)[1]
-        concat_comp2 = ac_encode(tar+src, probs)[1]
+            probs = arithmetic.train(src+tar)
+        src_comp = arithmetic.encode(src, probs)[1]
+        tar_comp = arithmetic.encode(tar, probs)[1]
+        concat_comp = arithmetic.encode(src+tar, probs)[1]
+        concat_comp2 = arithmetic.encode(tar+src, probs)[1]
         return ((min(concat_comp, concat_comp2) - min(src_comp, tar_comp)) /
                 max(src_comp, tar_comp))
     elif compressor in {'rle', 'bwtrle'}:
-        src_comp = rle_encode(src, (compressor == 'bwtrle'))
-        tar_comp = rle_encode(tar, (compressor == 'bwtrle'))
-        concat_comp = rle_encode(src+tar, (compressor == 'bwtrle'))
-        concat_comp2 = rle_encode(tar+src, (compressor == 'bwtrle'))
+        src_comp = rle.encode(src, (compressor == 'bwtrle'))
+        tar_comp = rle.encode(tar, (compressor == 'bwtrle'))
+        concat_comp = rle.encode(src+tar, (compressor == 'bwtrle'))
+        concat_comp2 = rle.encode(tar+src, (compressor == 'bwtrle'))
     else:  # zlib
         src_comp = encode(src, 'zlib_codec')[2:]
         tar_comp = encode(tar, 'zlib_codec')[2:]
@@ -2174,8 +2174,8 @@ def sim_compression(src, tar, compressor='bz2', probs=None):
             - `bwtrle` -- Burrows-Wheeler transform followed by run-length
               encoding
 
-    :param dict probs: a dictionary trained with ac_train (for the arith
-        compressor only)
+    :param dict probs: a dictionary trained with arithmetic.train (for the
+        arith compressor only)
     :returns: compression similarity
     :rtype: float
 

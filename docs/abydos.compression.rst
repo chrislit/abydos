@@ -6,3 +6,12 @@ abydos.compression package
     :undoc-members:
     :show-inheritance:
 
+Submodules
+----------
+
+.. toctree::
+
+   abydos.compression.arithmetic
+   abydos.compression.bwt
+   abydos.compression.rle
+

@@ -26,12 +26,11 @@ from __future__ import unicode_literals
 import unittest
 from fractions import Fraction
 
-from abydos.compression import ac_decode, ac_encode, ac_train, \
-    bwt_decode, bwt_encode, rle_decode, rle_encode
+from abydos.compression import arithmetic, bwt, rle
 
 
 class ArithmeticCoderTestCases(unittest.TestCase):
-    """Test abydos.compression.ac_train & .ac_encode."""
+    """Test abydos.compression.arithmetic.train & .arithmetic.encode."""
 
     NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel',
              'Nele', 'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill',
@@ -59,125 +58,136 @@ class ArithmeticCoderTestCases(unittest.TestCase):
                    'h': (Fraction(18, 19), Fraction(109, 114)),
                    'n': (Fraction(107, 114), Fraction(18, 19))}
 
-    def test_ac_train(self):
-        """Test abydos.compression.ac_train."""
-        self.assertEqual(ac_train(''), {'\x00': (0, 1)})
-        self.assertEqual(ac_train(' '.join(self.NIALL)), self.niall_probs)
-        self.assertEqual(ac_train(' '.join(sorted(self.NIALL))),
+    def test_arithmetic_train(self):
+        """Test abydos.compression.arithmetic.train."""
+        self.assertEqual(arithmetic.train(''), {'\x00': (0, 1)})
+        self.assertEqual(arithmetic.train(' '.join(self.NIALL)),
                          self.niall_probs)
-        self.assertEqual(ac_train(' '.join(self.NIALL)),
-                         ac_train(' '.join(sorted(self.NIALL))))
-        self.assertEqual(ac_train(' '.join(self.NIALL)),
-                         ac_train('\x00'.join(self.NIALL)))
+        self.assertEqual(arithmetic.train(' '.join(sorted(self.NIALL))),
+                         self.niall_probs)
+        self.assertEqual(arithmetic.train(' '.join(self.NIALL)),
+                         arithmetic.train(' '.join(sorted(self.NIALL))))
+        self.assertEqual(arithmetic.train(' '.join(self.NIALL)),
+                         arithmetic.train('\x00'.join(self.NIALL)))
 
-    def test_ac_encode(self):
-        """Test abydos.compression.ac_encode."""
-        self.assertEqual(ac_encode('', self.niall_probs), (254, 8))
-        self.assertEqual(ac_encode('a', self.niall_probs), (3268, 12))
-        self.assertEqual(ac_encode('Niall', self.niall_probs), (3911665, 23))
-        self.assertEqual(ac_encode('Ni\x00ll', self.niall_probs),
+    def test_arithmetic_encode(self):
+        """Test abydos.compression.arithmetic.encode."""
+        self.assertEqual(arithmetic.encode('', self.niall_probs), (254, 8))
+        self.assertEqual(arithmetic.encode('a', self.niall_probs), (3268, 12))
+        self.assertEqual(arithmetic.encode('Niall', self.niall_probs),
+                         (3911665, 23))
+        self.assertEqual(arithmetic.encode('Ni\x00ll', self.niall_probs),
                          (1932751, 22))
-        self.assertEqual(ac_encode('Niel', self.niall_probs), (486801, 20))
-        self.assertEqual(ac_encode('Mean', self.niall_probs), (243067161, 28))
-        self.assertEqual(ac_encode('Neil Noígíallach', self.niall_probs),
+        self.assertEqual(arithmetic.encode('Niel', self.niall_probs),
+                         (486801, 20))
+        self.assertEqual(arithmetic.encode('Mean', self.niall_probs),
+                         (243067161, 28))
+        self.assertEqual(arithmetic.encode('Neil Noígíallach',
+                                           self.niall_probs),
                          (2133315320471368785758, 72))
-        self.assertRaises(KeyError, ac_encode, 'NIALL', self.niall_probs)
-        self.assertEqual(ac_encode('', {'\x00': (0, 1)}), (1, 1))
+        self.assertRaises(KeyError, arithmetic.encode, 'NIALL',
+                          self.niall_probs)
+        self.assertEqual(arithmetic.encode('', {'\x00': (0, 1)}), (1, 1))
 
-    def test_ac_decode(self):
-        """Test abydos.compression.ac_decode."""
-        self.assertEqual(ac_decode(254, 8, self.niall_probs), '')
-        self.assertEqual(ac_decode(3268, 12, self.niall_probs), 'a')
-        self.assertEqual(ac_decode(3911665, 23, self.niall_probs), 'Niall')
-        self.assertEqual(ac_decode(1932751, 22, self.niall_probs), 'Ni ll')
-        self.assertEqual(ac_decode(486801, 20, self.niall_probs), 'Niel')
-        self.assertEqual(ac_decode(243067161, 28, self.niall_probs), 'Mean')
-        self.assertEqual(ac_decode(2133315320471368785758, 72,
-                                   self.niall_probs), 'Neil Noígíallach')
-        self.assertEqual(ac_decode(0, 0, {}), '')
-        self.assertEqual(ac_decode(1, 1, {'\x00': (0, 1)}), '')
+    def test_arithmetic_decode(self):
+        """Test abydos.compression.arithmetic.decode."""
+        self.assertEqual(arithmetic.decode(254, 8, self.niall_probs), '')
+        self.assertEqual(arithmetic.decode(3268, 12, self.niall_probs), 'a')
+        self.assertEqual(arithmetic.decode(3911665, 23, self.niall_probs),
+                         'Niall')
+        self.assertEqual(arithmetic.decode(1932751, 22, self.niall_probs),
+                         'Ni ll')
+        self.assertEqual(arithmetic.decode(486801, 20, self.niall_probs),
+                         'Niel')
+        self.assertEqual(arithmetic.decode(243067161, 28, self.niall_probs),
+                         'Mean')
+        self.assertEqual(arithmetic.decode(2133315320471368785758, 72,
+                                           self.niall_probs),
+                         'Neil Noígíallach')
+        self.assertEqual(arithmetic.decode(0, 0, {}), '')
+        self.assertEqual(arithmetic.decode(1, 1, {'\x00': (0, 1)}), '')
 
 
 class BWTTestCases(unittest.TestCase):
-    """Test abydos.compression.bwt and .bwt_decode."""
+    """Test abydos.compression.bwt.encode and .decode."""
 
-    def test_bwt(self):
-        """Test abydos.compression.bwt_encode."""
+    def test_bwt_encode(self):
+        """Test abydos.compression.bwt.encode."""
         # Examples from Wikipedia entry on BWT
-        self.assertEqual(bwt_encode(''), '\x00')
-        self.assertEqual(bwt_encode('^BANANA', '|'), 'BNN^AA|A')
-        self.assertEqual(bwt_encode('SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST' +
+        self.assertEqual(bwt.encode(''), '\x00')
+        self.assertEqual(bwt.encode('^BANANA', '|'), 'BNN^AA|A')
+        self.assertEqual(bwt.encode('SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST' +
                                     '.BOXES', '|'),
                          'TEXYDST.E.IXIXIXXSSMPPS.B..E.|.UESFXDIIOIIITS')
 
-        self.assertEqual(bwt_encode('aardvark', '$'), 'k$avrraad')
+        self.assertEqual(bwt.encode('aardvark', '$'), 'k$avrraad')
 
-        self.assertRaises(ValueError, bwt_encode, 'ABC$', '$')
-        self.assertRaises(ValueError, bwt_encode, 'ABC\0')
+        self.assertRaises(ValueError, bwt.encode, 'ABC$', '$')
+        self.assertRaises(ValueError, bwt.encode, 'ABC\0')
 
     def test_bwt_decode(self):
-        """Test abydos.compression.bwt_decode."""
-        self.assertEqual(bwt_decode(''), '')
-        self.assertEqual(bwt_decode('\x00'), '')
-        self.assertEqual(bwt_decode('BNN^AA|A', '|'), '^BANANA')
-        self.assertEqual(bwt_decode('TEXYDST.E.IXIXIXXSSMPPS.B..E.|.' +
+        """Test abydos.compression.bwt.decode."""
+        self.assertEqual(bwt.decode(''), '')
+        self.assertEqual(bwt.decode('\x00'), '')
+        self.assertEqual(bwt.decode('BNN^AA|A', '|'), '^BANANA')
+        self.assertEqual(bwt.decode('TEXYDST.E.IXIXIXXSSMPPS.B..E.|.' +
                                     'UESFXDIIOIIITS', '|'),
                          'SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES')
 
-        self.assertEqual(bwt_decode('k$avrraad', '$'), 'aardvark')
+        self.assertEqual(bwt.decode('k$avrraad', '$'), 'aardvark')
 
-        self.assertRaises(ValueError, bwt_decode, 'ABC', '$')
-        self.assertRaises(ValueError, bwt_decode, 'ABC')
+        self.assertRaises(ValueError, bwt.decode, 'ABC', '$')
+        self.assertRaises(ValueError, bwt.decode, 'ABC')
 
     def test_bwt_roundtripping(self):
-        """Test abydos.compression.bwt & .bwt_decode roundtripping."""
+        """Test abydos.compression.bwt.encode & .decode roundtripping."""
         for w in ('', 'Banana', 'The quick brown fox, etc.',
                   'it is better a chylde unborne than untaught',
                   'manners maketh man', 'בְּרֵאשִׁית, בָּרָא אֱלֹהִים',
                   'Ein Rückblick bietet sich folglich an.'):
-            self.assertEqual(bwt_decode(bwt_encode(w)), w)
-            self.assertEqual(bwt_decode(bwt_encode(w, '$'), '$'), w)
+            self.assertEqual(bwt.decode(bwt.encode(w)), w)
+            self.assertEqual(bwt.decode(bwt.encode(w, '$'), '$'), w)
 
 
 class RLETestCases(unittest.TestCase):
-    """Test abydos.compression.rle_encode & .rle_decode."""
+    """Test abydos.compression.rle.encode & .decode."""
 
     bws = 'WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWBWWWWWWWWWWWWWW'
 
     def test_rle_encode(self):
-        """Test abydos.compression.rle_encode."""
-        self.assertEqual(rle_encode('', False), '')
-        self.assertEqual(rle_encode(''), '\x00')
-        self.assertEqual(rle_encode('banana', False), 'banana')
-        self.assertEqual(rle_encode('banana'), 'annb\x00aa')
-        self.assertEqual(rle_encode(self.bws, False), '12WB12W3B24WB14W')
-        self.assertEqual(rle_encode(self.bws), 'WWBWWB45WB\x003WB10WB')
-        self.assertEqual(rle_encode('Schifffahrt', False), 'Schi3fahrt')
+        """Test abydos.compression.rle.encode."""
+        self.assertEqual(rle.encode('', False), '')
+        self.assertEqual(rle.encode(''), '\x00')
+        self.assertEqual(rle.encode('banana', False), 'banana')
+        self.assertEqual(rle.encode('banana'), 'annb\x00aa')
+        self.assertEqual(rle.encode(self.bws, False), '12WB12W3B24WB14W')
+        self.assertEqual(rle.encode(self.bws), 'WWBWWB45WB\x003WB10WB')
+        self.assertEqual(rle.encode('Schifffahrt', False), 'Schi3fahrt')
 
     def test_rle_decode(self):
-        """Test abydos.compression.rle_decode."""
-        self.assertEqual(rle_decode('', False), '')
-        self.assertEqual(rle_decode('\x00'), '')
-        self.assertEqual(rle_decode('banana', False), 'banana')
-        self.assertEqual(rle_decode('annb\x00aa'), 'banana')
-        self.assertEqual(rle_decode('12WB12W3B24WB14W', False), self.bws)
-        self.assertEqual(rle_decode('12W1B12W3B24W1B14W', False), self.bws)
-        self.assertEqual(rle_decode('WWBWWB45WB\x003WB10WB'), self.bws)
-        self.assertEqual(rle_decode('Schi3fahrt', False), 'Schifffahrt')
+        """Test abydos.compression.rle.decode."""
+        self.assertEqual(rle.decode('', False), '')
+        self.assertEqual(rle.decode('\x00'), '')
+        self.assertEqual(rle.decode('banana', False), 'banana')
+        self.assertEqual(rle.decode('annb\x00aa'), 'banana')
+        self.assertEqual(rle.decode('12WB12W3B24WB14W', False), self.bws)
+        self.assertEqual(rle.decode('12W1B12W3B24W1B14W', False), self.bws)
+        self.assertEqual(rle.decode('WWBWWB45WB\x003WB10WB'), self.bws)
+        self.assertEqual(rle.decode('Schi3fahrt', False), 'Schifffahrt')
 
     def test_rle_roundtripping(self):
-        """Test abydos.compression.rle_encode & .rle_decode roundtripping."""
-        self.assertEqual(rle_decode(rle_encode('', False), False), '')
-        self.assertEqual(rle_decode(rle_encode('')), '')
-        self.assertEqual(rle_decode(rle_encode('banana', False), False),
+        """Test abydos.compression.rle.encode & .decode roundtripping."""
+        self.assertEqual(rle.decode(rle.encode('', False), False), '')
+        self.assertEqual(rle.decode(rle.encode('')), '')
+        self.assertEqual(rle.decode(rle.encode('banana', False), False),
                          'banana')
-        self.assertEqual(rle_decode(rle_encode('banana')), 'banana')
-        self.assertEqual(rle_decode(rle_encode(self.bws, False), False),
+        self.assertEqual(rle.decode(rle.encode('banana')), 'banana')
+        self.assertEqual(rle.decode(rle.encode(self.bws, False), False),
                          self.bws)
-        self.assertEqual(rle_decode(rle_encode(self.bws)), self.bws)
-        self.assertEqual(rle_decode(rle_encode('Schifffahrt', False), False),
+        self.assertEqual(rle.decode(rle.encode(self.bws)), self.bws)
+        self.assertEqual(rle.decode(rle.encode('Schifffahrt', False), False),
                          'Schifffahrt')
-        self.assertEqual(rle_decode(rle_encode('Schifffahrt')), 'Schifffahrt')
+        self.assertEqual(rle.decode(rle.encode('Schifffahrt')), 'Schifffahrt')
 
 
 if __name__ == '__main__':
