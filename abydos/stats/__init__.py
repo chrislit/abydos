@@ -70,7 +70,7 @@ from collections import Counter
 
 from six.moves import range
 
-from .util import prod
+from ..util import prod
 
 __all__ = ['ConfusionTable', 'aghmean', 'agmean', 'amean', 'cmean', 'ghmean',
            'gmean', 'heronian_mean', 'hmean', 'hoelder_mean', 'imean',

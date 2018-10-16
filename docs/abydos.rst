@@ -6,21 +6,25 @@ abydos package
     :undoc-members:
     :show-inheritance:
 
+Subpackages
+-----------
+
+.. toctree::
+
+    abydos.compression
+    abydos.corpus
+    abydos.distance
+    abydos.fingerprint
+    abydos.phones
+    abydos.phonetic
+    abydos.stats
+    abydos.stemmer
+    abydos.tokenizer
+
 Submodules
 ----------
 
 .. toctree::
 
-   abydos.clustering
-   abydos.compression
-   abydos.corpus
-   abydos.distance
-   abydos.fingerprint
-   abydos.ngram
-   abydos.phones
-   abydos.phonetic
-   abydos.qgram
-   abydos.stats
-   abydos.stemmer
    abydos.util
 

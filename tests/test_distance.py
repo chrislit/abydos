@@ -51,7 +51,7 @@ from abydos.distance import _synoname_strip_punct, \
     sim_ratcliff_obershelp, sim_sift4, sim_strcmp95, sim_suffix, \
     sim_tanimoto, sim_tversky, sim_typo, smith_waterman, synoname, tanimoto, \
     typo
-from abydos.qgram import QGrams
+from abydos.tokenizer import QGrams
 
 from six.moves import range
 

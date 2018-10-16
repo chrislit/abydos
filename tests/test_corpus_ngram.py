@@ -28,7 +28,7 @@ import unittest
 from collections import Counter
 
 from abydos.corpus import Corpus
-from abydos.ngram import NGramCorpus
+from abydos.corpus.ngram import NGramCorpus
 
 
 class NGramCorpusTestCases(unittest.TestCase):

@@ -1,7 +1,8 @@
-abydos.clustering module
+abydos.tokenizer package
 ========================
 
-.. automodule:: abydos.clustering
+.. automodule:: abydos.tokenizer
     :members:
     :undoc-members:
     :show-inheritance:
+

@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import unittest
 
-from abydos.qgram import QGrams
+from abydos.tokenizer import QGrams
 
 
 class QgramTestCases(unittest.TestCase):

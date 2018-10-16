@@ -1,7 +1,15 @@
-abydos.corpus module
-====================
+abydos.corpus package
+=====================
 
 .. automodule:: abydos.corpus
     :members:
     :undoc-members:
     :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+
+   abydos.corpus.ngram
+

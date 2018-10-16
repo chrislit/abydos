@@ -1,8 +1,7 @@
-abydos.fingerprint package
+abydos.corpus.ngram module
 ==========================
 
-.. automodule:: abydos.fingerprint
+.. automodule:: abydos.corpus.ngram
     :members:
     :undoc-members:
     :show-inheritance:
-
