@@ -26,9 +26,10 @@ from __future__ import division, unicode_literals
 import unittest
 from math import isnan, sqrt
 
-from abydos.stats import ConfusionTable, aghmean, agmean, amean, cmean, \
+from abydos.stats import aghmean, agmean, amean, cmean, \
     ghmean, gmean, heronian_mean, hmean, hoelder_mean, imean, lehmer_mean, \
     lmean, median, midrange, mode, qmean, seiffert_mean, std, var
+from abydos.stats.confusion_table import ConfusionTable
 
 
 UNIT_TABLE = ConfusionTable(1, 1, 1, 1)

@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.ngram.
+"""abydos.corpus.ngram.
 
 The NGram class is a container for an n-gram corpus
 """
@@ -30,7 +30,7 @@ from math import log10
 from six import text_type
 from six.moves import range
 
-from . import Corpus
+from .corpus import Corpus
 
 __all__ = ['NGramCorpus']
 

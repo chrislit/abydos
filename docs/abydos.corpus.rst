@@ -11,5 +11,6 @@ Submodules
 
 .. toctree::
 
+   abydos.corpus.corpus
    abydos.corpus.ngram
 

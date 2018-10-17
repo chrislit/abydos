@@ -15,7 +15,6 @@ Subpackages
     abydos.corpus
     abydos.distance
     abydos.fingerprint
-    abydos.phones
     abydos.phonetic
     abydos.stats
     abydos.stemmer
@@ -26,5 +25,6 @@ Submodules
 
 .. toctree::
 
+   abydos.phones
    abydos.util
 
