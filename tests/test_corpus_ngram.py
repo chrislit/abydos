@@ -27,7 +27,7 @@ import os
 import unittest
 from collections import Counter
 
-from abydos.corpus import Corpus
+from abydos.corpus.corpus import Corpus
 from abydos.corpus.ngram import NGramCorpus
 
 
