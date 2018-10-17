@@ -94,7 +94,7 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
 class FuzzedWordsTestCases(unittest.TestCase):
     """Test each fingerprint algorithm against the base words set."""
 
-    reps = 100000 * (100 if EXTREME_TEST else 1)
+    reps = 1000 * (10000 if EXTREME_TEST else 1)
 
     basewords = []
     with codecs.open(TESTDIR + '/corpora/basewords.txt',
