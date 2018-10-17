@@ -38,8 +38,9 @@ from __future__ import division, unicode_literals
 
 import math
 
-from . import aghmean, agmean, amean, cmean, ghmean, gmean, heronian_mean,\
-    hmean, hoelder_mean, imean, lehmer_mean, qmean, seiffert_mean
+from .mean import aghmean, agmean, amean, cmean, ghmean, gmean, \
+    heronian_mean, hmean, hoelder_mean, imean, lehmer_mean, qmean, \
+    seiffert_mean
 
 __all__ = ['ConfusionTable']
 

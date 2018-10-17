@@ -12,5 +12,6 @@ Submodules
 .. toctree::
 
    abydos.stats.confusion_table
+   abydos.stats.mean
    abydos.stats.pairwise
 
