@@ -4213,7 +4213,7 @@ def sim(src, tar, method=sim_levenshtein):
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
-    :param function method: specifies the similarity metric (Levenshtein by
+    :param function method: specifies the similarity metric (sim_levenshtein by
         default)
     :returns: similarity according to the specified function
     :rtype: float
@@ -4240,7 +4240,7 @@ def dist(src, tar, method=sim_levenshtein):
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
-    :param function method: specifies the similarity metric (Levenshtein by
+    :param function method: specifies the similarity metric (sim_levenshtein by
         default) -- Note that this takes a similarity metric function, not
         a distance metric function.
     :returns: distance according to the specified function
