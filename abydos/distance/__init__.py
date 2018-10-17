@@ -85,7 +85,7 @@ from ..compression import arithmetic, rle
 # noinspection PyProtectedMember
 from ..fingerprint import _synoname_special_table, synoname_toolcode
 from ..phonetic import eudex, mra
-from ..tokenizer import QGrams
+from ..tokenizer.qgram import QGrams
 
 try:
     import lzma
