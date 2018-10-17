@@ -83,7 +83,7 @@ from six.moves import range
 
 from ..compression import arithmetic, rle
 # noinspection PyProtectedMember
-from ..fingerprint import _synoname_special_table, synoname_toolcode
+from ..fingerprint.synoname import _synoname_special_table, synoname_toolcode
 from ..phonetic import eudex, mra
 from ..tokenizer.qgram import QGrams
 
