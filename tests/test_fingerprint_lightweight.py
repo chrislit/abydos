@@ -55,7 +55,7 @@ class LightweightFingerprintsTestCases(unittest.TestCase):
                          0b11101110000100000000000000000000 << 32)
 
     def test_occurrence_halved_fingerprint(self):
-        """Test abydos.fingerprint.lightweight.occurrence_halved_fingerprint."""
+        """Test abydos.fingerprint.lightweight.occurrence_halved_fingerprint."""  # noqa: E501
         # Base case
         self.assertEqual(occurrence_halved_fingerprint(''), 0)
 
