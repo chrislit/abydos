@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import unittest
 
-import abydos.stats as stats
 from abydos.distance import sim_tanimoto
+from abydos.stats.mean import amean, gmean, hmean
 from abydos.stats.pairwise import mean_pairwise_similarity, \
     pairwise_similarity_statistics
 
@@ -42,30 +42,29 @@ NIALL_1WORD = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel',
 class MPSTestCases(unittest.TestCase):
     """Test mean pairwise similarity functions.
 
-    abydos.clustering.mean_pairwise_similarity
+    abydos.stats.pairwise.mean_pairwise_similarity
     """
 
     def test_mean_pairwise_similarity(self):
-        """Test abydos.clustering.mean_pairwise_similarity."""
+        """Test abydos.stats.pairwise.mean_pairwise_similarity."""
         self.assertEqual(mean_pairwise_similarity(NIALL), 0.29362587170180671)
         self.assertEqual(mean_pairwise_similarity(NIALL, symmetric=True),
                          0.2936258717018066)
-        self.assertEqual(mean_pairwise_similarity(NIALL,
-                                                  mean_func=stats.hmean),
+        self.assertEqual(mean_pairwise_similarity(NIALL, mean_func=hmean),
                          0.29362587170180671)
-        self.assertEqual(mean_pairwise_similarity(NIALL, mean_func=stats.hmean,
+        self.assertEqual(mean_pairwise_similarity(NIALL, mean_func=hmean,
                                                   symmetric=True),
                          0.2936258717018066)
         self.assertEqual(mean_pairwise_similarity(NIALL,
-                                                  mean_func=stats.gmean),
+                                                  mean_func=gmean),
                          0.33747245800668441)
-        self.assertEqual(mean_pairwise_similarity(NIALL, mean_func=stats.gmean,
+        self.assertEqual(mean_pairwise_similarity(NIALL, mean_func=gmean,
                                                   symmetric=True),
                          0.33747245800668441)
         self.assertEqual(mean_pairwise_similarity(NIALL,
-                                                  mean_func=stats.amean),
+                                                  mean_func=amean),
                          0.38009278711484601)
-        self.assertEqual(mean_pairwise_similarity(NIALL, mean_func=stats.amean,
+        self.assertEqual(mean_pairwise_similarity(NIALL, mean_func=amean,
                                                   symmetric=True),
                          0.38009278711484623)
 
@@ -75,13 +74,13 @@ class MPSTestCases(unittest.TestCase):
                          mean_pairwise_similarity(' '.join(NIALL_1WORD),
                                                   symmetric=True))
         self.assertEqual(mean_pairwise_similarity(NIALL_1WORD,
-                                                  mean_func=stats.gmean),
+                                                  mean_func=gmean),
                          mean_pairwise_similarity(' '.join(NIALL_1WORD),
-                                                  mean_func=stats.gmean))
+                                                  mean_func=gmean))
         self.assertEqual(mean_pairwise_similarity(NIALL_1WORD,
-                                                  mean_func=stats.amean),
+                                                  mean_func=amean),
                          mean_pairwise_similarity(' '.join(NIALL_1WORD),
-                                                  mean_func=stats.amean))
+                                                  mean_func=amean))
 
         self.assertRaises(ValueError, mean_pairwise_similarity, ['a b c'])
         self.assertRaises(ValueError, mean_pairwise_similarity, 'abc')
@@ -104,11 +103,11 @@ class MPSTestCases(unittest.TestCase):
 class PSSTestCases(unittest.TestCase):
     """Test pairwise similarity statistics functions.
 
-    abydos.clustering.pairwise_similarity_statistics
+    abydos.stats.pairwise.pairwise_similarity_statistics
     """
 
     def test_pairwise_similarity_statistics(self):
-        """Test abydos.clustering.pairwise_similarity_statistics."""
+        """Test abydos.stats.pairwise.pairwise_similarity_statistics."""
         (pw_max, pw_min, pw_mean,
          pw_std) = pairwise_similarity_statistics(NIALL, NIALL)
         self.assertAlmostEqual(pw_max, 1.0)
@@ -167,7 +166,7 @@ class PSSTestCases(unittest.TestCase):
         # Test using hmean'
         (pw_max, pw_min, pw_mean,
          pw_std) = pairwise_similarity_statistics(NIALL, NIALL,
-                                                  mean_func=stats.hmean)
+                                                  mean_func=hmean)
         self.assertAlmostEqual(pw_max, 1.0)
         self.assertAlmostEqual(pw_min, 0.11764705882352944)
         self.assertAlmostEqual(pw_mean, 0.30718771249150056)

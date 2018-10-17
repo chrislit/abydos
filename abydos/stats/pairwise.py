@@ -26,7 +26,7 @@ from __future__ import division, unicode_literals
 
 from six.moves import range
 
-from . import amean, hmean, std
+from .mean import amean, hmean, std
 from ..distance import sim
 
 __all__ = ['mean_pairwise_similarity', 'pairwise_similarity_statistics']
