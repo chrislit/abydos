@@ -39,7 +39,7 @@ from unicodedata import normalize as unicode_normalize
 from six import text_type
 
 from ..phonetic import double_metaphone
-from ..tokenizer import QGrams
+from ..tokenizer.qgram import QGrams
 
 __all__ = ['MOST_COMMON_LETTERS', 'MOST_COMMON_LETTERS_CG',
            'MOST_COMMON_LETTERS_DE', 'MOST_COMMON_LETTERS_DE_LC',
