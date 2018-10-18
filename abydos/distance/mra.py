@@ -26,7 +26,7 @@ from __future__ import division, unicode_literals
 
 from six.moves import range
 
-from ..phonetic import mra
+from ..phonetic.mra import mra
 
 
 __all__ = ['dist_mra', 'mra_compare', 'sim_mra']
