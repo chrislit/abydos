@@ -72,15 +72,15 @@ Abydos
      :target: https://pyup.io/repos/github/chrislit/abydos/
      :alt: Updates
 
-.. |pylint| image:: https://img.shields.io/badge/Pylint-9.52/10-green.svg
+.. |pylint| image:: https://img.shields.io/badge/Pylint-9.47/10-yellowgreen.svg
    :target: #
    :alt: Pylint Score
 
-.. |pycodestyle| image:: https://img.shields.io/badge/pycodestyle-1-green.svg
+.. |pycodestyle| image:: https://img.shields.io/badge/pycodestyle-0-brightgreen.svg
    :target: #
    :alt: pycodestyle Errors
 
-.. |flake8| image:: https://img.shields.io/badge/flake8-41-yellowgreen.svg
+.. |flake8| image:: https://img.shields.io/badge/flake8-40-yellowgreen.svg
    :target: #
    :alt: flake8 Errors
 

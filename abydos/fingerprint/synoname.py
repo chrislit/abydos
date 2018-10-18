@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2018 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 
 """abydos.fingerprint.
 
-The fingerprint.synoname module implement's the Synoname toolcode.
+The fingerprint.synoname module implements the Synoname toolcode.
 """
 
 from __future__ import unicode_literals
