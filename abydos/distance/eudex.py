@@ -27,7 +27,7 @@ from types import GeneratorType
 
 from six.moves import range
 
-from ..phonetic import eudex
+from ..phonetic.eudex import eudex
 
 __all__ = ['dist_eudex', 'eudex_hamming', 'sim_eudex']
 

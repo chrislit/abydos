@@ -26,15 +26,36 @@ import os
 import unittest
 from random import choice, randint, sample
 
-from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
-    dm_soundex, dolby, double_metaphone, eudex, fonem, fuzzy_soundex, \
-    haase_phonetik, henry_early, koelner_phonetik, koelner_phonetik_alpha, \
-    koelner_phonetik_num_to_alpha, lein, metaphone, metasoundex, mra, \
-    norphone, nrl, nysiis, onca, parmar_kumbharana, phonem, phonet, \
-    phonetic_spanish, phonex, phonix, pshp_soundex_first, pshp_soundex_last, \
-    refined_soundex, reth_schek_phonetik, roger_root, russell_index, \
-    russell_index_alpha, russell_index_num_to_alpha, sfinxbis, sound_d, \
-    soundex, soundex_br, spanish_metaphone, spfc, statistics_canada
+from abydos.phonetic.alpha_sis import alpha_sis
+from abydos.phonetic.bmpm import bmpm
+from abydos.phonetic.caverphone import caverphone
+from abydos.phonetic.davidson import davidson
+from abydos.phonetic.de import haase_phonetik, koelner_phonetik, \
+    koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, phonem, \
+    reth_schek_phonetik
+from abydos.phonetic.dm import dm_soundex
+from abydos.phonetic.dolby import dolby
+from abydos.phonetic.es import phonetic_spanish, spanish_metaphone
+from abydos.phonetic.eudex import eudex
+from abydos.phonetic.fr import fonem, henry_early
+from abydos.phonetic.hybrid import metasoundex, onca
+from abydos.phonetic.metaphone import double_metaphone, metaphone
+from abydos.phonetic.mra import mra
+from abydos.phonetic.nrl import nrl
+from abydos.phonetic.nysiis import nysiis
+from abydos.phonetic.parmar_kumbharana import parmar_kumbharana
+from abydos.phonetic.phonet import phonet
+from abydos.phonetic.pt import soundex_br
+from abydos.phonetic.roger_root import roger_root
+from abydos.phonetic.russell import russell_index, russell_index_alpha, \
+    russell_index_num_to_alpha
+from abydos.phonetic.sound_d import sound_d
+from abydos.phonetic.soundex import fuzzy_soundex, lein, phonex, phonix, \
+    pshp_soundex_first, pshp_soundex_last, refined_soundex, soundex
+from abydos.phonetic.spfc import spfc
+from abydos.phonetic.statistics_canada import statistics_canada
+from abydos.phonetic.sv import norphone, sfinxbis
+
 
 from . import _fuzz, _random_char
 

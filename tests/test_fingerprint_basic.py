@@ -25,7 +25,8 @@ from __future__ import unicode_literals
 
 import unittest
 
-import abydos.phonetic as phonetic
+from abydos.phonetic.phonet import phonet
+from abydos.phonetic.soundex import soundex
 from abydos.fingerprint.basic import phonetic_fingerprint, qgram_fingerprint, \
     str_fingerprint
 
@@ -90,12 +91,10 @@ xoyv', )
 
         self.assertEqual(phonetic_fingerprint(' '.join(NIALL)),
                          'a anl mknl njl nklk nl')
-        self.assertEqual(phonetic_fingerprint(' '.join(NIALL),
-                                              phonetic.phonet),
+        self.assertEqual(phonetic_fingerprint(' '.join(NIALL), phonet),
                          'knile makneil maknele neil nel nele nial nigeli ' +
                          'nigl nil noigialach oneil ui')
-        self.assertEqual(phonetic_fingerprint(' '.join(NIALL),
-                                              phonetic.soundex),
+        self.assertEqual(phonetic_fingerprint(' '.join(NIALL), soundex),
                          'k540 m254 n240 n242 n400 o540 u000')
 
 

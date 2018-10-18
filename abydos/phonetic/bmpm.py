@@ -20,10 +20,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos._bm.
+"""abydos.phonetic.bmpm.
 
-Helper functions and behind-the-scenes implementation of the Beider-Morse
-Phonentic Matching (BMPM) algorithm
+The phonetic.bmpm module implements the Beider-Morse Phonentic Matching (BMPM)
+algorithm.
 """
 
 from __future__ import unicode_literals
@@ -542,28 +542,75 @@ def _bm_language_index_from_code(code, name_mode):
     return code
 
 
-def _bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
-          concat=False, filter_langs=False):
+def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
+         concat=False, filter_langs=False):
     """Return the Beider-Morse Phonetic Matching encoding(s) of a term.
 
-    The Beider-Morse Phonetic Matching algorithm is described at:
-    http://stevemorse.org/phonetics/bmpm.htm
-    The reference implementation is licensed under GPLv3 and available at:
-    http://stevemorse.org/phoneticinfo.htm
+    The Beider-Morse Phonetic Matching algorithm is described in
+    :cite:`Beider:2008`.
+    The reference implementation is licensed under GPLv3.
 
-    :param str word: the term to which to apply the Beider-Morse Phonetic
-        Matching algorithm
+    :param str word: the word to transform
     :param str language_arg: the language of the term; supported values
         include:
-            "any", "arabic", "cyrillic", "czech", "dutch", "english",
-            "french", "german", "greek", "greeklatin", "hebrew",
-            "hungarian", "italian", "latvian", "polish", "portuguese",
-            "romanian", "russian", "spanish", "turkish"
-    :param str name_mode: the name mode of the algorithm: 'gen' (default),
-        'ash' (Ashkenazi), or 'sep' (Sephardic)
+
+            - 'any'
+            - 'arabic'
+            - 'cyrillic'
+            - 'czech'
+            - 'dutch'
+            - 'english'
+            - 'french'
+            - 'german'
+            - 'greek'
+            - 'greeklatin'
+            - 'hebrew'
+            - 'hungarian'
+            - 'italian'
+            - 'latvian'
+            - 'polish'
+            - 'portuguese'
+            - 'romanian'
+            - 'russian'
+            - 'spanish'
+            - 'turkish'
+
+    :param str name_mode: the name mode of the algorithm:
+
+            - 'gen' -- general (default)
+            - 'ash' -- Ashkenazi
+            - 'sep' -- Sephardic
+
     :param str match_mode: matching mode: 'approx' or 'exact'
     :param bool concat: concatenation mode
     :param bool filter_langs: filter out incompatible languages
+    :returns: the BMPM value(s)
+    :rtype: tuple
+
+    >>> bmpm('Christopher')
+    'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
+    xristYfir xristopi xritopir xritopi xristofi xritofir xritofi tzristopir
+    tzristofir zristopir zristopi zritopir zritopi zristofir zristofi zritofir
+    zritofi'
+    >>> bmpm('Niall')
+    'nial niol'
+    >>> bmpm('Smith')
+    'zmit'
+    >>> bmpm('Schmidt')
+    'zmit stzmit'
+
+    >>> bmpm('Christopher', language_arg='German')
+    'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
+    xristYfir'
+    >>> bmpm('Christopher', language_arg='English')
+    'tzristofir tzrQstofir tzristafir tzrQstafir xristofir xrQstofir xristafir
+    xrQstafir'
+    >>> bmpm('Christopher', language_arg='German', name_mode='ash')
+    'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
+    xristYfir'
+
+    >>> bmpm('Christopher', language_arg='German', match_mode='exact')
+    'xriStopher xriStofer xristopher xristofer'
     """
     word = normalize('NFC', text_type(word.strip().lower()))
 
