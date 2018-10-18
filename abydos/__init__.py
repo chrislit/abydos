@@ -21,5 +21,5 @@
 Abydos NLP/IR library by Christopher C. Little
 """
 
-__all__ = ['clustering', 'compression', 'corpus', 'distance', 'fingerprint',
-           'ngram', 'phones', 'phonetic', 'qgram', 'stats', 'stemmer']
+__all__ = ['compression', 'corpus', 'distance', 'fingerprint', 'phones',
+           'phonetic', 'stats', 'stemmer', 'tokenizer', 'util']
