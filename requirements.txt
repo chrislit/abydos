@@ -1,5 +1,5 @@
 # Library dependencies for the Python code.  You need to install these with
 # `pip install -r requirements.txt` before you can run this.
 
-numpy
+numpy==1.15.2
 six
