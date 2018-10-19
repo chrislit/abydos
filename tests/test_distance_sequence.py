@@ -23,7 +23,6 @@ This module contains unit tests for abydos.distance.sequence
 
 from __future__ import division, unicode_literals
 
-import os
 import unittest
 from difflib import SequenceMatcher
 
@@ -31,7 +30,7 @@ from abydos.distance.sequence import dist_lcsseq, dist_lcsstr, \
     dist_ratcliff_obershelp, lcsseq, lcsstr, sim_lcsseq, sim_lcsstr, \
     sim_ratcliff_obershelp
 
-TESTDIR = os.path.dirname(__file__)
+from . import TESTDIR
 
 
 class LcsseqTestCases(unittest.TestCase):

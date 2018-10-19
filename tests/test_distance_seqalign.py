@@ -30,9 +30,7 @@ from abydos.distance.seqalign import gotoh, needleman_wunsch, sim_matrix, \
 
 from six.moves import range
 
-NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
-         'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill', 'MacNeil',
-         'MacNele', 'Niall Noígíallach')
+from test_distance import NIALL
 
 
 def _sim_wikipedia(src, tar):

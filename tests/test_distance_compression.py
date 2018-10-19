@@ -30,13 +30,7 @@ import unittest
 from abydos.compression import arithmetic
 from abydos.distance.compression import dist_compression, sim_compression
 
-NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
-         'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill', 'MacNeil',
-         'MacNele', 'Niall Noígíallach')
-
-COLIN = ('Colin', 'Collin', 'Cullen', 'Cuilen', 'Cailean', 'MacCailean',
-         'Cuilén', 'Colle', 'Calum', 'Callum', 'Colinn', 'Colon', 'Colynn',
-         'Col', 'Cole', 'Nicolas', 'Nicholas', 'Cailean Mór Caimbeul')
+from test_distance import COLIN, NIALL
 
 
 class CompressionTestCases(unittest.TestCase):

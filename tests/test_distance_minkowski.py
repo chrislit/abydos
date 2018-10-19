@@ -30,9 +30,7 @@ from abydos.distance.minkowski import chebyshev, dist_euclidean, \
     sim_euclidean, sim_manhattan, sim_minkowski
 from abydos.tokenizer.qgram import QGrams
 
-
-NONQ_FROM = 'The quick brown fox jumped over the lazy dog.'
-NONQ_TO = 'That brown dog jumped over the fox.'
+from test_distance import NONQ_FROM, NONQ_TO
 
 
 class MinkowskiTestCases(unittest.TestCase):

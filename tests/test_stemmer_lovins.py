@@ -24,12 +24,11 @@ This module contains unit tests for abydos.stemmer.lovins
 from __future__ import unicode_literals
 
 import codecs
-import os
 import unittest
 
 from abydos.stemmer.lovins import lovins
 
-TESTDIR = os.path.dirname(__file__)
+from . import TESTDIR
 
 
 class LovinsTestCases(unittest.TestCase):

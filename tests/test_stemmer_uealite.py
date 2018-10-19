@@ -23,12 +23,11 @@ This module contains unit tests for abydos.stemmer.uealite
 
 from __future__ import unicode_literals
 
-import os
 import unittest
 
 from abydos.stemmer.uealite import uealite
 
-TESTDIR = os.path.dirname(__file__)
+from . import TESTDIR
 
 
 class UEALiteTestCases(unittest.TestCase):
