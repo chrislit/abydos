@@ -32,7 +32,7 @@ from abydos.fingerprint.basic import phonetic_fingerprint, qgram_fingerprint, \
 
 from six.moves import range
 
-from test_distance import NIALL
+from . import NIALL
 
 
 class FingerprintTestCases(unittest.TestCase):

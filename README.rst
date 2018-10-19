@@ -80,7 +80,7 @@ Abydos
    :target: #
    :alt: pycodestyle Errors
 
-.. |flake8| image:: https://img.shields.io/badge/flake8-55-yellow.svg
+.. |flake8| image:: https://img.shields.io/badge/flake8-56-yellow.svg
    :target: #
    :alt: flake8 Errors
 

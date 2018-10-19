@@ -22,6 +22,8 @@
 This module contains unit tests for Abydos
 """
 
+from __future__ import unicode_literals
+
 import os
 import unittest
 from random import random
@@ -57,6 +59,18 @@ def _one_in(inverse_probability):
         return True
     else:
         return False
+
+
+NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
+         'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill', 'MacNeil',
+         'MacNele', 'Niall Noígíallach')
+
+COLIN = ('Colin', 'Collin', 'Cullen', 'Cuilen', 'Cailean', 'MacCailean',
+         'Cuilén', 'Colle', 'Calum', 'Callum', 'Colinn', 'Colon', 'Colynn',
+         'Col', 'Cole', 'Nicolas', 'Nicholas', 'Cailean Mór Caimbeul')
+
+NONQ_FROM = 'The quick brown fox jumped over the lazy dog.'
+NONQ_TO = 'That brown dog jumped over the fox.'
 
 
 if __name__ == '__main__':

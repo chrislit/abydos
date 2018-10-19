@@ -29,18 +29,6 @@ from abydos.distance import dist, sim
 from abydos.distance.levenshtein import dist_levenshtein, sim_levenshtein
 
 
-NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
-         'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill', 'MacNeil',
-         'MacNele', 'Niall Noígíallach')
-
-COLIN = ('Colin', 'Collin', 'Cullen', 'Cuilen', 'Cailean', 'MacCailean',
-         'Cuilén', 'Colle', 'Calum', 'Callum', 'Colinn', 'Colon', 'Colynn',
-         'Col', 'Cole', 'Nicolas', 'Nicholas', 'Cailean Mór Caimbeul')
-
-NONQ_FROM = 'The quick brown fox jumped over the lazy dog.'
-NONQ_TO = 'That brown dog jumped over the fox.'
-
-
 class SimDistTestCases(unittest.TestCase):
     """Test generic sim & dist functions.
 
