@@ -28,7 +28,7 @@ import unittest
 
 from abydos.phonetic.phonet import phonet
 
-from . import ALLOW_RANDOM, TESTDIR, _one_in
+from .. import ALLOW_RANDOM, _corpus_file, _one_in
 
 
 class PhonetTestCases(unittest.TestCase):
@@ -112,7 +112,7 @@ class PhonetTestCases(unittest.TestCase):
         """Test abydos.phonetic.phonet (Nachnamen set)."""
         if not ALLOW_RANDOM:
             return
-        with codecs.open(TESTDIR + '/corpora/nachnamen.csv',
+        with codecs.open(_corpus_file('nachnamen.csv'),
                          encoding='utf-8') as nachnamen_testset:
             for nn_line in nachnamen_testset:
                 if nn_line[0] != '#':
@@ -128,7 +128,7 @@ class PhonetTestCases(unittest.TestCase):
         """Test abydos.phonetic.phonet (ngerman set)."""
         if not ALLOW_RANDOM:
             return
-        with codecs.open(TESTDIR + '/corpora/ngerman.csv',
+        with codecs.open(_corpus_file('ngerman.csv'),
                          encoding='utf-8') as ngerman_testset:
             for ng_line in ngerman_testset:
                 if ng_line[0] != '#':

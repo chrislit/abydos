@@ -28,7 +28,7 @@ import unittest
 
 from abydos.stemmer.lovins import lovins
 
-from . import TESTDIR
+from .. import _corpus_file
 
 
 class LovinsTestCases(unittest.TestCase):
@@ -86,7 +86,7 @@ class LovinsTestCases(unittest.TestCase):
         https://github.com/snowballstem/snowball-data/tree/master/lovins
         """
         #  Snowball Lovins test set
-        with codecs.open(TESTDIR+'/corpora/snowball_lovins.csv',
+        with codecs.open(_corpus_file('snowball_lovins.csv'),
                          encoding='utf-8') as snowball_ts:
             next(snowball_ts)
             for line in snowball_ts:

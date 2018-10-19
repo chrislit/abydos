@@ -32,7 +32,7 @@ from abydos.phonetic.soundex import soundex
 
 from six.moves import range
 
-from . import NIALL
+from .. import NIALL
 
 
 class FingerprintTestCases(unittest.TestCase):

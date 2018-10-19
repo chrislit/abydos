@@ -27,7 +27,7 @@ import unittest
 
 from abydos.stemmer.uealite import uealite
 
-from . import TESTDIR
+from .. import _corpus_file
 
 
 class UEALiteTestCases(unittest.TestCase):
@@ -182,7 +182,7 @@ class UEALiteTestCases(unittest.TestCase):
 
     def test_uealite_wsj_set(self):
         """Test abydos.stemmer.uealite (WSJ testset)."""
-        with open(TESTDIR + '/corpora/uea-lite_wsj.csv') as wsj_ts:
+        with open(_corpus_file('uea-lite_wsj.csv')) as wsj_ts:
             for wsj_line in wsj_ts:
                 (word, uea, rule) = wsj_line.strip().split(',')
                 self.assertEqual(uealite(word, return_rule_no=True),

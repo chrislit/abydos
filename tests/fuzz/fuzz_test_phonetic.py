@@ -55,7 +55,7 @@ from abydos.phonetic.spfc import spfc
 from abydos.phonetic.statistics_canada import statistics_canada
 from abydos.phonetic.sv import norphone, sfinxbis
 
-from . import EXTREME_TEST, TESTDIR, _fuzz, _random_char
+from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 
 algorithms = {'russell_index': lambda name: russell_index(name),
               'russell_index_num_to_alpha':
@@ -176,7 +176,7 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
         """Test each phonetic algorithm against the BLNS set."""
         blns = []
         omit_section = False
-        with codecs.open(TESTDIR+'/corpora/blns.txt', encoding='UTF-8') as nsf:
+        with codecs.open(_corpus_file('blns.txt'), encoding='UTF-8') as nsf:
             for line in nsf:
                 line = line[:-1]
                 if 'Script Injection' in line:
@@ -203,7 +203,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
     reps = 1000 * (10000 if EXTREME_TEST else 1)
 
     basewords = []
-    with codecs.open(TESTDIR + '/corpora/basewords.txt',
+    with codecs.open(_corpus_file('basewords.txt'),
                      encoding='UTF-8') as basewords_file:
         for line in basewords_file:
             line = line[:-1]

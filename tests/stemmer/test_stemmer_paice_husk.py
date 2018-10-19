@@ -27,7 +27,7 @@ import unittest
 
 from abydos.stemmer.paice_husk import paice_husk
 
-from . import TESTDIR
+from .. import _corpus_file
 
 
 class PaiceHuskTestCases(unittest.TestCase):
@@ -70,7 +70,7 @@ class PaiceHuskTestCases(unittest.TestCase):
         The Pascal reference implementation does not consider 'y' in initial
         position to be a vowel.
         """
-        with open(TESTDIR + '/corpora/paicehusk.csv') as hopper_ts:
+        with open(_corpus_file('paicehusk.csv')) as hopper_ts:
             for hopper_line in hopper_ts:
                 (word, stem) = hopper_line.strip().split(',')
                 self.assertEqual(paice_husk(word), stem)

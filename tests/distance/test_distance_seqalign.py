@@ -30,7 +30,7 @@ from abydos.distance.seqalign import gotoh, needleman_wunsch, sim_matrix, \
 
 from six.moves import range
 
-from . import NIALL
+from .. import NIALL
 
 
 def _sim_wikipedia(src, tar):
