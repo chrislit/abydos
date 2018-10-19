@@ -22,21 +22,40 @@ This module contains fuzz tests for abydos.phonetic
 """
 
 import codecs
-import os
 import unittest
 from random import choice, randint, sample
 
-from abydos.phonetic import alpha_sis, bmpm, caverphone, davidson, \
-    dm_soundex, dolby, double_metaphone, eudex, fonem, fuzzy_soundex, \
-    haase_phonetik, henry_early, koelner_phonetik, koelner_phonetik_alpha, \
-    koelner_phonetik_num_to_alpha, lein, metaphone, metasoundex, mra, \
-    norphone, nrl, nysiis, onca, parmar_kumbharana, phonem, phonet, \
-    phonetic_spanish, phonex, phonix, pshp_soundex_first, pshp_soundex_last, \
-    refined_soundex, reth_schek_phonetik, roger_root, russell_index, \
-    russell_index_alpha, russell_index_num_to_alpha, sfinxbis, sound_d, \
-    soundex, soundex_br, spanish_metaphone, spfc, statistics_canada
+from abydos.phonetic.alpha_sis import alpha_sis
+from abydos.phonetic.bmpm import bmpm
+from abydos.phonetic.caverphone import caverphone
+from abydos.phonetic.davidson import davidson
+from abydos.phonetic.de import haase_phonetik, koelner_phonetik, \
+    koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, phonem, \
+    reth_schek_phonetik
+from abydos.phonetic.dm import dm_soundex
+from abydos.phonetic.dolby import dolby
+from abydos.phonetic.es import phonetic_spanish, spanish_metaphone
+from abydos.phonetic.eudex import eudex
+from abydos.phonetic.fr import fonem, henry_early
+from abydos.phonetic.hybrid import metasoundex, onca
+from abydos.phonetic.metaphone import double_metaphone, metaphone
+from abydos.phonetic.mra import mra
+from abydos.phonetic.nrl import nrl
+from abydos.phonetic.nysiis import nysiis
+from abydos.phonetic.parmar_kumbharana import parmar_kumbharana
+from abydos.phonetic.phonet import phonet
+from abydos.phonetic.pt import soundex_br
+from abydos.phonetic.roger_root import roger_root
+from abydos.phonetic.russell import russell_index, russell_index_alpha, \
+    russell_index_num_to_alpha
+from abydos.phonetic.sound_d import sound_d
+from abydos.phonetic.soundex import fuzzy_soundex, lein, phonex, phonix, \
+    pshp_soundex_first, pshp_soundex_last, refined_soundex, soundex
+from abydos.phonetic.spfc import spfc
+from abydos.phonetic.statistics_canada import statistics_canada
+from abydos.phonetic.sv import norphone, sfinxbis
 
-from . import _fuzz, _random_char
+from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 
 algorithms = {'russell_index': lambda name: russell_index(name),
               'russell_index_num_to_alpha':
@@ -143,18 +162,6 @@ algorithms = {'russell_index': lambda name: russell_index(name),
               }
 
 
-TESTDIR = os.path.dirname(__file__)
-
-EXTREME_TEST = False  # Set to True to test EVERY single case (NB: takes hours)
-
-if not EXTREME_TEST and os.path.isfile(TESTDIR + '/EXTREME_TEST'):
-    # EXTREME_TEST file detected -- switching to EXTREME_TEST mode...
-    EXTREME_TEST = True
-if not EXTREME_TEST and os.path.isfile(TESTDIR + '/../EXTREME_TEST'):
-    # EXTREME_TEST file detected -- switching to EXTREME_TEST mode...
-    EXTREME_TEST = True
-
-
 class BigListOfNaughtyStringsTestCases(unittest.TestCase):
     """Test each phonetic algorithm against the BLNS set.
 
@@ -169,7 +176,7 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
         """Test each phonetic algorithm against the BLNS set."""
         blns = []
         omit_section = False
-        with codecs.open(TESTDIR+'/corpora/blns.txt', encoding='UTF-8') as nsf:
+        with codecs.open(_corpus_file('blns.txt'), encoding='UTF-8') as nsf:
             for line in nsf:
                 line = line[:-1]
                 if 'Script Injection' in line:
@@ -193,10 +200,10 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
 class FuzzedWordsTestCases(unittest.TestCase):
     """Test each phonetic algorithm against the base words set."""
 
-    reps = 100000 * (100 if EXTREME_TEST else 1)
+    reps = 1000 * (10000 if EXTREME_TEST else 1)
 
     basewords = []
-    with codecs.open(TESTDIR + '/corpora/basewords.txt',
+    with codecs.open(_corpus_file('basewords.txt'),
                      encoding='UTF-8') as basewords_file:
         for line in basewords_file:
             line = line[:-1]

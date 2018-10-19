@@ -22,11 +22,40 @@
 This module contains fuzz tests for Abydos
 """
 
+import os
 import unicodedata
 from random import choice, randint, random
 from string import printable
 
 from six import unichr
+
+from .. import EXTREME_TEST as SUPER_EXTREME_TEST
+from .. import _corpus_file as _super_corpus_file
+
+CORPORA = os.path.join(os.path.dirname(__file__), 'corpora')
+
+EXTREME_TEST = SUPER_EXTREME_TEST  # inherit setting from base tests
+EXTREME_TEST = False  # Set to True to test EVERY single case (NB: takes hours)
+
+
+if not EXTREME_TEST and os.path.isfile(os.path.join(os.path.dirname(__file__),
+                                                    'EXTREME_TEST')):
+    # EXTREME_TEST file detected -- switching to EXTREME_TEST mode...
+    EXTREME_TEST = True
+if not EXTREME_TEST and os.path.isfile(os.path.join(os.path.dirname(__file__),
+                                                    '..', 'EXTREME_TEST')):
+    # EXTREME_TEST file detected -- switching to EXTREME_TEST mode...
+    EXTREME_TEST = True
+
+
+def _corpus_file(name, corpora_dir=CORPORA):
+    """Return the path to a corpus file.
+
+    :param str name: corpus file
+    :param str corpora_dir: the directory containing the corpora
+    :return: path
+    """
+    return _super_corpus_file(name, corpora_dir)
 
 
 def _random_char(below=0x10ffff, must_be=None):

@@ -22,16 +22,17 @@ This module contains fuzz tests for abydos.fingerprint
 """
 
 import codecs
-import os
 import unittest
 from random import choice, randint, sample
 
-from abydos.fingerprint import count_fingerprint, occurrence_fingerprint, \
-    occurrence_halved_fingerprint, omission_key, phonetic_fingerprint, \
-    position_fingerprint, qgram_fingerprint, skeleton_key, str_fingerprint, \
-    synoname_toolcode
+from abydos.fingerprint.basic import phonetic_fingerprint, qgram_fingerprint, \
+    str_fingerprint
+from abydos.fingerprint.lightweight import count_fingerprint, \
+    occurrence_fingerprint, occurrence_halved_fingerprint, position_fingerprint
+from abydos.fingerprint.speedcop import omission_key, skeleton_key
+from abydos.fingerprint.synoname import synoname_toolcode
 
-from . import _fuzz, _random_char
+from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 
 algorithms = {'str_fingerprint': str_fingerprint,
               'qgram_fingerprint': qgram_fingerprint,
@@ -51,17 +52,6 @@ algorithms = {'str_fingerprint': str_fingerprint,
               'synoname_toolcode_2name':
                   lambda name: synoname_toolcode(name, name)}
 
-TESTDIR = os.path.dirname(__file__)
-
-EXTREME_TEST = False  # Set to True to test EVERY single case (NB: takes hours)
-
-if not EXTREME_TEST and os.path.isfile(TESTDIR + '/EXTREME_TEST'):
-    # EXTREME_TEST file detected -- switching to EXTREME_TEST mode...
-    EXTREME_TEST = True
-if not EXTREME_TEST and os.path.isfile(TESTDIR + '/../EXTREME_TEST'):
-    # EXTREME_TEST file detected -- switching to EXTREME_TEST mode...
-    EXTREME_TEST = True
-
 
 class BigListOfNaughtyStringsTestCases(unittest.TestCase):
     """Test each fingerprint algorithm against the BLNS set.
@@ -76,7 +66,7 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
     def test_blns(self):
         """Test each fingerprint algorithm against the BLNS set."""
         blns = []
-        with codecs.open(TESTDIR+'/corpora/blns.txt', encoding='UTF-8') as nsf:
+        with codecs.open(_corpus_file('blns.txt'), encoding='UTF-8') as nsf:
             for line in nsf:
                 line = line[:-1]
                 if line and line[0] != '#':
@@ -94,10 +84,10 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
 class FuzzedWordsTestCases(unittest.TestCase):
     """Test each fingerprint algorithm against the base words set."""
 
-    reps = 100000 * (100 if EXTREME_TEST else 1)
+    reps = 1000 * (10000 if EXTREME_TEST else 1)
 
     basewords = []
-    with codecs.open(TESTDIR + '/corpora/basewords.txt',
+    with codecs.open(_corpus_file('basewords.txt'),
                      encoding='UTF-8') as basewords_file:
         for line in basewords_file:
             line = line[:-1]
