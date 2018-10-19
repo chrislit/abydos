@@ -22,11 +22,23 @@
 This module contains fuzz tests for Abydos
 """
 
+import os
 import unicodedata
 from random import choice, randint, random
 from string import printable
 
 from six import unichr
+
+TESTDIR = os.path.dirname(__file__)
+
+EXTREME_TEST = False  # Set to True to test EVERY single case (NB: takes hours)
+
+if not EXTREME_TEST and os.path.isfile(TESTDIR + '/EXTREME_TEST'):
+    # EXTREME_TEST file detected -- switching to EXTREME_TEST mode...
+    EXTREME_TEST = True
+if not EXTREME_TEST and os.path.isfile(TESTDIR + '/../EXTREME_TEST'):
+    # EXTREME_TEST file detected -- switching to EXTREME_TEST mode...
+    EXTREME_TEST = True
 
 
 def _random_char(below=0x10ffff, must_be=None):

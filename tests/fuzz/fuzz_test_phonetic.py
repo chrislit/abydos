@@ -56,8 +56,7 @@ from abydos.phonetic.spfc import spfc
 from abydos.phonetic.statistics_canada import statistics_canada
 from abydos.phonetic.sv import norphone, sfinxbis
 
-
-from . import _fuzz, _random_char
+from . import _fuzz, _random_char, EXTREME_TEST, TESTDIR
 
 algorithms = {'russell_index': lambda name: russell_index(name),
               'russell_index_num_to_alpha':
@@ -162,18 +161,6 @@ algorithms = {'russell_index': lambda name: russell_index(name),
               'nrl': nrl,
               'bmpm': bmpm,
               }
-
-
-TESTDIR = os.path.dirname(__file__)
-
-EXTREME_TEST = False  # Set to True to test EVERY single case (NB: takes hours)
-
-if not EXTREME_TEST and os.path.isfile(TESTDIR + '/EXTREME_TEST'):
-    # EXTREME_TEST file detected -- switching to EXTREME_TEST mode...
-    EXTREME_TEST = True
-if not EXTREME_TEST and os.path.isfile(TESTDIR + '/../EXTREME_TEST'):
-    # EXTREME_TEST file detected -- switching to EXTREME_TEST mode...
-    EXTREME_TEST = True
 
 
 class BigListOfNaughtyStringsTestCases(unittest.TestCase):
