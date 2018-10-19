@@ -30,7 +30,7 @@ from abydos.distance.minkowski import chebyshev, dist_euclidean, \
     sim_euclidean, sim_manhattan, sim_minkowski
 from abydos.tokenizer.qgram import QGrams
 
-from test_distance import NONQ_FROM, NONQ_TO
+from . import NONQ_FROM, NONQ_TO
 
 
 class MinkowskiTestCases(unittest.TestCase):

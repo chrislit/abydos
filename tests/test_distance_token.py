@@ -32,7 +32,7 @@ from abydos.distance.token import bag, dist_bag, dist_cosine, dist_dice, \
     sim_tanimoto, sim_tversky, tanimoto
 from abydos.tokenizer.qgram import QGrams
 
-from test_distance import NONQ_FROM, NONQ_TO
+from . import NONQ_FROM, NONQ_TO
 
 
 class TverskyIndexTestCases(unittest.TestCase):
