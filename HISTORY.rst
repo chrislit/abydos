@@ -1,6 +1,12 @@
 Release History
 ---------------
 
+0.3.5 (2018-10-20)
+++++++++++++++++++
+
+- Refactored library and tests into smaller modules
+- Minor bug fixes
+
 0.3.0 (2018-10-15)
 ++++++++++++++++++
 
