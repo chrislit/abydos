@@ -39,7 +39,7 @@ from abydos.phonetic.bmpm import _bm_apply_rule_if_compat, \
 
 from six import text_type
 
-from . import ALLOW_RANDOM, TESTDIR, _one_in
+from .. import ALLOW_RANDOM, _corpus_file, _one_in
 
 
 class BeiderMorseTestCases(unittest.TestCase):
@@ -333,7 +333,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         """Test abydos.phonetic.bmpm.bmpm (Nachnamen set)."""
         if not ALLOW_RANDOM:
             return
-        with codecs.open(TESTDIR + '/corpora/nachnamen.bm.csv',
+        with codecs.open(_corpus_file('nachnamen.bm.csv'),
                          encoding='utf-8') as nachnamen_testset:
             next(nachnamen_testset)
             for nn_line in nachnamen_testset:
@@ -347,7 +347,7 @@ class BeiderMorseTestCases(unittest.TestCase):
 
     def test_bmpm_nachnamen_cc(self):
         """Test abydos.phonetic.bmpm.bmpm (Nachnamen, corner cases)."""
-        with codecs.open(TESTDIR + '/corpora/nachnamen.bm.cc.csv',
+        with codecs.open(_corpus_file('nachnamen.bm.cc.csv'),
                          encoding='utf-8') as nachnamen_testset:
             next(nachnamen_testset)
             for nn_line in nachnamen_testset:
@@ -363,7 +363,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         """Test abydos.phonetic.bmpm.bmpm (US Census 2000 set)."""
         if not ALLOW_RANDOM:
             return
-        with open(TESTDIR + '/corpora/uscensus2000.bm.csv') as uscensus_ts:
+        with open(_corpus_file('uscensus2000.bm.csv')) as uscensus_ts:
             next(uscensus_ts)
             for cen_line in uscensus_ts:
                 cen_line = cen_line.strip().split(',')
@@ -385,7 +385,7 @@ class BeiderMorseTestCases(unittest.TestCase):
 
     def test_bmpm_uscensus2000_cc(self):
         """Test abydos.phonetic.bmpm.bmpm (US Census 2000, corner cases)."""
-        with open(TESTDIR + '/corpora/uscensus2000.bm.cc.csv') as uscensus_ts:
+        with open(_corpus_file('uscensus2000.bm.cc.csv')) as uscensus_ts:
             next(uscensus_ts)
             for cen_line in uscensus_ts:
                 cen_line = cen_line.strip().split(',')

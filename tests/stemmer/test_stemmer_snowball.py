@@ -31,7 +31,7 @@ from abydos.stemmer.snowball import _ends_in_cvc, _ends_in_doubled_cons, \
     _sb_short_word, porter, porter2, sb_danish, sb_dutch, sb_german, \
     sb_norwegian, sb_swedish
 
-from . import TESTDIR
+from .. import _corpus_file
 
 
 class PorterTestCases(unittest.TestCase):
@@ -219,7 +219,7 @@ class PorterTestCases(unittest.TestCase):
         http://snowball.tartarus.org/algorithms/porter/diffs.txt
         """
         #  Snowball Porter test set
-        with open(TESTDIR+'/corpora/snowball_porter.csv') as snowball_ts:
+        with open(_corpus_file('snowball_porter.csv')) as snowball_ts:
             next(snowball_ts)
             for line in snowball_ts:
                 if line[0] != '#':
@@ -381,7 +381,7 @@ class Porter2TestCases(unittest.TestCase):
         http://snowball.tartarus.org/algorithms/english/diffs.txt
         """
         #  Snowball Porter test set
-        with open(TESTDIR+'/corpora/snowball_porter2.csv') as snowball_ts:
+        with open(_corpus_file('snowball_porter2.csv')) as snowball_ts:
             next(snowball_ts)
             for line in snowball_ts:
                 if line[0] != '#':
@@ -408,7 +408,7 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_german(''), '')
 
         #  Snowball German test set
-        with codecs.open(TESTDIR+'/corpora/snowball_german.csv',
+        with codecs.open(_corpus_file('snowball_german.csv'),
                          encoding='utf-8') as snowball_ts:
             next(snowball_ts)
             for line in snowball_ts:
@@ -481,7 +481,7 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_dutch(''), '')
 
         #  Snowball Dutch test set
-        with codecs.open(TESTDIR+'/corpora/snowball_dutch.csv',
+        with codecs.open(_corpus_file('snowball_dutch.csv'),
                          encoding='utf-8') as snowball_ts:
             next(snowball_ts)
             for line in snowball_ts:
@@ -503,7 +503,7 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_norwegian(''), '')
 
         #  Snowball Norwegian test set
-        with codecs.open(TESTDIR+'/corpora/snowball_norwegian.csv',
+        with codecs.open(_corpus_file('snowball_norwegian.csv'),
                          encoding='utf-8') as snowball_ts:
             next(snowball_ts)
             for line in snowball_ts:
@@ -522,7 +522,7 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_swedish(''), '')
 
         #  Snowball Swedish test set
-        with codecs.open(TESTDIR+'/corpora/snowball_swedish.csv',
+        with codecs.open(_corpus_file('snowball_swedish.csv'),
                          encoding='utf-8') as snowball_ts:
             next(snowball_ts)
             for line in snowball_ts:
@@ -541,7 +541,7 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_danish(''), '')
 
         #  Snowball Danish test set
-        with codecs.open(TESTDIR+'/corpora/snowball_danish.csv',
+        with codecs.open(_corpus_file('snowball_danish.csv'),
                          encoding='utf-8') as snowball_ts:
             next(snowball_ts)
             for line in snowball_ts:

@@ -29,7 +29,7 @@ from abydos.phonetic.caverphone import caverphone
 from abydos.phonetic.metaphone import metaphone
 from abydos.phonetic.soundex import soundex
 
-from . import TESTDIR
+from .. import _corpus_file
 
 
 class CaverphoneTestCases(unittest.TestCase):
@@ -120,7 +120,7 @@ class CaverphoneTestCases(unittest.TestCase):
     def test_caverphone2_php_testset(self):
         """Test abydos.phonetic.caverphone (PHP version testset)."""
         # https://raw.githubusercontent.com/kiphughes/caverphone/master/unit_tests.php
-        with open(TESTDIR + '/corpora/php_caverphone.csv') as php_testset:
+        with open(_corpus_file('php_caverphone.csv')) as php_testset:
             for php_line in php_testset:
                 (word, caver) = php_line.strip().split(',')
                 self.assertEqual(caverphone(word), caver)
@@ -136,7 +136,7 @@ class CaverphoneTestCases(unittest.TestCase):
 
     def test_caversham(self):
         """Test using Caversham test set (SoundEx, Metaphone, & Caverphone)."""
-        with open(TESTDIR + '/corpora/variantNames.csv') as cav_testset:
+        with open(_corpus_file('variantNames.csv')) as cav_testset:
             next(cav_testset)
             for cav_line in cav_testset:
                 (name1, soundex1, metaphone1, caverphone1,

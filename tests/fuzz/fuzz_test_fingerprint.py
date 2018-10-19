@@ -32,7 +32,7 @@ from abydos.fingerprint.lightweight import count_fingerprint, \
 from abydos.fingerprint.speedcop import omission_key, skeleton_key
 from abydos.fingerprint.synoname import synoname_toolcode
 
-from . import EXTREME_TEST, TESTDIR, _fuzz, _random_char
+from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 
 algorithms = {'str_fingerprint': str_fingerprint,
               'qgram_fingerprint': qgram_fingerprint,
@@ -66,7 +66,7 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
     def test_blns(self):
         """Test each fingerprint algorithm against the BLNS set."""
         blns = []
-        with codecs.open(TESTDIR+'/corpora/blns.txt', encoding='UTF-8') as nsf:
+        with codecs.open(_corpus_file('blns.txt'), encoding='UTF-8') as nsf:
             for line in nsf:
                 line = line[:-1]
                 if line and line[0] != '#':
@@ -87,7 +87,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
     reps = 1000 * (10000 if EXTREME_TEST else 1)
 
     basewords = []
-    with codecs.open(TESTDIR + '/corpora/basewords.txt',
+    with codecs.open(_corpus_file('basewords.txt'),
                      encoding='UTF-8') as basewords_file:
         for line in basewords_file:
             line = line[:-1]

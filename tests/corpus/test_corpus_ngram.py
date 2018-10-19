@@ -29,18 +29,18 @@ from collections import Counter
 from abydos.corpus.corpus import Corpus
 from abydos.corpus.ngram import NGramCorpus
 
-from . import TESTDIR
+from .. import _corpus_file
 
 
 class NGramCorpusTestCases(unittest.TestCase):
     """Test abydos.corpus.ngram.NGramCorpus."""
 
     simple_corpus = NGramCorpus()
-    simple_corpus.gng_importer(TESTDIR+'/corpora/simple-ngrams.txt')
+    simple_corpus.gng_importer(_corpus_file('simple-ngrams.txt'))
 
     double_corpus = NGramCorpus()
-    double_corpus.gng_importer(TESTDIR+'/corpora/simple-ngrams.txt')
-    double_corpus.gng_importer(TESTDIR+'/corpora/simple-ngrams.txt')
+    double_corpus.gng_importer(_corpus_file('simple-ngrams.txt'))
+    double_corpus.gng_importer(_corpus_file('simple-ngrams.txt'))
 
     sotu2015Sample = 'Mr. Speaker, Mr. Vice President, Members of Congress, my\
     fellow Americans:\n\nWe are 15 years into this new century.\n Fifteen\

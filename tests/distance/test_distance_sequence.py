@@ -30,7 +30,7 @@ from abydos.distance.sequence import dist_lcsseq, dist_lcsstr, \
     dist_ratcliff_obershelp, lcsseq, lcsstr, sim_lcsseq, sim_lcsstr, \
     sim_ratcliff_obershelp
 
-from . import TESTDIR
+from .. import _corpus_file
 
 
 class LcsseqTestCases(unittest.TestCase):
@@ -301,7 +301,7 @@ class RatcliffObershelpTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_ratcliff_obershelp('abefglmo', 'abcefglmn'),
                                0.8235294117647058)
 
-        with open(TESTDIR+'/corpora/variantNames.csv') as cav_testset:
+        with open(_corpus_file('variantNames.csv')) as cav_testset:
             next(cav_testset)
             for line in cav_testset:
                 line = line.strip().split(',')
@@ -310,7 +310,7 @@ class RatcliffObershelpTestCases(unittest.TestCase):
                                        SequenceMatcher(None, word1,
                                                        word2).ratio())
 
-        with open(TESTDIR+'/corpora/wikipediaCommonMisspellings.csv') as missp:
+        with open(_corpus_file('wikipediaCommonMisspellings.csv')) as missp:
             next(missp)
             for line in missp:
                 line = line.strip().upper()
