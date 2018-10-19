@@ -32,7 +32,7 @@ from abydos.fingerprint.lightweight import count_fingerprint, \
 from abydos.fingerprint.speedcop import omission_key, skeleton_key
 from abydos.fingerprint.synoname import synoname_toolcode
 
-from . import _fuzz, _random_char, EXTREME_TEST, TESTDIR
+from . import EXTREME_TEST, TESTDIR, _fuzz, _random_char
 
 algorithms = {'str_fingerprint': str_fingerprint,
               'qgram_fingerprint': qgram_fingerprint,
