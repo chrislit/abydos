@@ -25,10 +25,10 @@ from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.phonet import phonet
-from abydos.phonetic.soundex import soundex
 from abydos.fingerprint.basic import phonetic_fingerprint, qgram_fingerprint, \
     str_fingerprint
+from abydos.phonetic.phonet import phonet
+from abydos.phonetic.soundex import soundex
 
 from six.moves import range
 

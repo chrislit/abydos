@@ -22,7 +22,6 @@ This module contains fuzz tests for abydos.phonetic
 """
 
 import codecs
-import os
 import unittest
 from random import choice, randint, sample
 
@@ -56,7 +55,7 @@ from abydos.phonetic.spfc import spfc
 from abydos.phonetic.statistics_canada import statistics_canada
 from abydos.phonetic.sv import norphone, sfinxbis
 
-from . import _fuzz, _random_char, EXTREME_TEST, TESTDIR
+from . import EXTREME_TEST, TESTDIR, _fuzz, _random_char
 
 algorithms = {'russell_index': lambda name: russell_index(name),
               'russell_index_num_to_alpha':

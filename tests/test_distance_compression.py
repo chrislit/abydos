@@ -30,7 +30,7 @@ import unittest
 from abydos.compression import arithmetic
 from abydos.distance.compression import dist_compression, sim_compression
 
-from . import COLIN, NIALL
+from . import NIALL
 
 
 class CompressionTestCases(unittest.TestCase):
