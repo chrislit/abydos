@@ -20,6 +20,7 @@
 
 The fingerprint.basic module implements string fingerprints described at
 :cite:`OpenRefine:2012`:
+
     - string fingerprint
     - q-gram fingerprint
     - phonetic fingerprint

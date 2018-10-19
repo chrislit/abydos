@@ -20,6 +20,7 @@
 
 The distance.jaro module implements distance metrics based on
 :cite:`Jaro:1989` and subsequent works:
+
     - Jaro distance
     - Jaro-Winkler distance
     - the strcmp95 algorithm variant of Jaro-Winkler distance

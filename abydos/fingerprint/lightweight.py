@@ -20,6 +20,7 @@
 
 The fingerprint.lightweight module implements string fingerprints developed
 by Cisłak & Grabowski in :cite:`Cislak:2017`:
+
     - occurrence fingerprint
     - occurrence halved fingerprint
     - count fingerprint

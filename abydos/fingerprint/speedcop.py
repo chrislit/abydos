@@ -20,6 +20,7 @@
 
 The fingerprint.speedcop module implements string fingerprints developed by
 Pollock & Zomora in :cite:`Pollock:1984`:
+
     - skeleton key
     - omission key
 """
