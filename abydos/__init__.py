@@ -21,17 +21,5 @@
 Abydos NLP/IR library by Christopher C. Little
 """
 
-from .clustering import *   # noqa: F403
-from .compression import *  # noqa: F403
-from .corpus import *       # noqa: F403
-from .distance import *     # noqa: F403
-from .fingerprint import *  # noqa: F403
-from .ngram import *        # noqa: F403
-from .phones import *       # noqa: F403
-from .phonetic import *     # noqa: F403
-from .qgram import *        # noqa: F403
-from .stats import *        # noqa: F403
-from .stemmer import *      # noqa: F403
-
-__all__ = ['clustering', 'compression', 'corpus', 'distance', 'fingerprint',
-           'ngram', 'phones', 'phonetic', 'qgram', 'stats', 'stemmer']
+__all__ = ['compression', 'corpus', 'distance', 'fingerprint', 'phones',
+           'phonetic', 'stats', 'stemmer', 'tokenizer', 'util']
