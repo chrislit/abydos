@@ -28,13 +28,11 @@ from fractions import Fraction
 
 from abydos.compression import arithmetic, bwt, rle
 
+from . import NIALL
+
 
 class ArithmeticCoderTestCases(unittest.TestCase):
     """Test abydos.compression.arithmetic.train & .arithmetic.encode."""
-
-    NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel',
-             'Nele', 'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill',
-             'MacNeil', 'MacNele', 'Niall Noígíallach')
 
     niall_probs = {'a': (Fraction(41, 57), Fraction(91, 114)),
                    ' ': (Fraction(25, 114), Fraction(7, 19)),
@@ -61,14 +59,14 @@ class ArithmeticCoderTestCases(unittest.TestCase):
     def test_arithmetic_train(self):
         """Test abydos.compression.arithmetic.train."""
         self.assertEqual(arithmetic.train(''), {'\x00': (0, 1)})
-        self.assertEqual(arithmetic.train(' '.join(self.NIALL)),
+        self.assertEqual(arithmetic.train(' '.join(NIALL)),
                          self.niall_probs)
-        self.assertEqual(arithmetic.train(' '.join(sorted(self.NIALL))),
+        self.assertEqual(arithmetic.train(' '.join(sorted(NIALL))),
                          self.niall_probs)
-        self.assertEqual(arithmetic.train(' '.join(self.NIALL)),
-                         arithmetic.train(' '.join(sorted(self.NIALL))))
-        self.assertEqual(arithmetic.train(' '.join(self.NIALL)),
-                         arithmetic.train('\x00'.join(self.NIALL)))
+        self.assertEqual(arithmetic.train(' '.join(NIALL)),
+                         arithmetic.train(' '.join(sorted(NIALL))))
+        self.assertEqual(arithmetic.train(' '.join(NIALL)),
+                         arithmetic.train('\x00'.join(NIALL)))
 
     def test_arithmetic_encode(self):
         """Test abydos.compression.arithmetic.encode."""
