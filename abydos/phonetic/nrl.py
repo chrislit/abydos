@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.nrl
+"""abydos.phonetic.nrl.
 
 The phonetic.nrl module implements NRL English-to-phoneme algorithm.
 """

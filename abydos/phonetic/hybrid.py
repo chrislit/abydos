@@ -26,10 +26,10 @@ The phonetic.hybrid module implements hybrid phonetic algorithms:
 
 from __future__ import unicode_literals
 
+from .es import phonetic_spanish, spanish_metaphone
 from .metaphone import metaphone
 from .nysiis import nysiis
 from .soundex import soundex
-from .es import phonetic_spanish, spanish_metaphone
 
 __all__ = ['metasoundex', 'onca']
 

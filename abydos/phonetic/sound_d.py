@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.sound_d
+"""abydos.phonetic.sound_d.
 
 The phonetic.sound_d module implements the SoundD phonetic algorithm.
 """
