@@ -170,7 +170,7 @@ class CompressionTestCases(unittest.TestCase):
                                0.5)
 
     def test_lzma(self):
-        """Test LZMA-related sim/dist functions."""
+        """Test abydos.distance.sim_compression LZMA-related functions."""
         if bool(pkgutil.find_loader('lzma')):
             self.assertEqual(dist_compression('', '', 'lzma'), 0)
             self.assertGreater(dist_compression('a', '', 'lzma'), 0)
