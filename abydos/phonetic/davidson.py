@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.davidson
+"""abydos.phonetic.davidson.
 
 The phonetic.davidson module implements Davidson's Consonant Code.
 """
