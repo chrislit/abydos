@@ -71,7 +71,7 @@ class CorpusTestCases(unittest.TestCase):
     sotu2015Corpus = Corpus(sotu2015Sample, filter_chars='.?-;,:')
 
     def test_corpus(self):
-        """Test abydos.corpus.Corpus."""
+        """Test abydos.corpus.corpus.Corpus."""
         # base cases
         self.assertEqual(Corpus().corpus, [])
         self.assertEqual(Corpus('').corpus, [])
@@ -155,7 +155,7 @@ class CorpusTestCases(unittest.TestCase):
                            ['fox', 'jumped', 'over', 'the', 'lazy', 'dog']]])
 
     def test_corpus_docs_sents_words(self):
-        """Test abydos.corpus.docs, .sents, .words, .docs_of_words, .raw."""
+        """Test abydos.corpus.corpus.docs, .sents, .words, .docs_of_words, .raw."""  # noqa: E501
         doc_str = 'a b c d\n\ne f g\nh i j\nk'
         doc_corp = Corpus(doc_str)
 
@@ -179,7 +179,7 @@ class CorpusTestCases(unittest.TestCase):
                          doc_str)
 
     def test_corpus_idf(self):
-        """Test abydos.corpus.idf."""
+        """Test abydos.corpus.corpus.idf."""
         wiki_idf_sample = 'this is a a sample\n\nthis is another another \
         example example example'
         wiki_idf_corpus = Corpus(wiki_idf_sample)
