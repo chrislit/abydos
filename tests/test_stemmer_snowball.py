@@ -24,7 +24,6 @@ This module contains unit tests for abydos.stemmer.snowball
 from __future__ import unicode_literals
 
 import codecs
-import os
 import unittest
 
 from abydos.stemmer.snowball import _ends_in_cvc, _ends_in_doubled_cons, \
@@ -32,7 +31,7 @@ from abydos.stemmer.snowball import _ends_in_cvc, _ends_in_doubled_cons, \
     _sb_short_word, porter, porter2, sb_danish, sb_dutch, sb_german, \
     sb_norwegian, sb_swedish
 
-TESTDIR = os.path.dirname(__file__)
+from . import TESTDIR
 
 
 class PorterTestCases(unittest.TestCase):

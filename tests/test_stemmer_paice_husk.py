@@ -23,12 +23,11 @@ This module contains unit tests for abydos.stemmer.paice_husk
 
 from __future__ import unicode_literals
 
-import os
 import unittest
 
 from abydos.stemmer.paice_husk import paice_husk
 
-TESTDIR = os.path.dirname(__file__)
+from . import TESTDIR
 
 
 class PaiceHuskTestCases(unittest.TestCase):

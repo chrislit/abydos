@@ -37,6 +37,9 @@ COLIN = ('Colin', 'Collin', 'Cullen', 'Cuilen', 'Cailean', 'MacCailean',
          'Cuilén', 'Colle', 'Calum', 'Callum', 'Colinn', 'Colon', 'Colynn',
          'Col', 'Cole', 'Nicolas', 'Nicholas', 'Cailean Mór Caimbeul')
 
+NONQ_FROM = 'The quick brown fox jumped over the lazy dog.'
+NONQ_TO = 'That brown dog jumped over the fox.'
+
 
 class SimDistTestCases(unittest.TestCase):
     """Test generic sim & dist functions.

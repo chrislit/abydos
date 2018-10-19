@@ -78,7 +78,7 @@ def parmar_kumbharana(word):
         else:
             i += 1
 
-    word = word[0]+word[1:].translate(vowel_trans)  # Rule 6
+    word = word[:1]+word[1:].translate(vowel_trans)  # Rule 6
     return word
 
 

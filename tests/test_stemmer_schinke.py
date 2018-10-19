@@ -23,12 +23,11 @@ This module contains unit tests for abydos.stemmer.schinke
 
 from __future__ import unicode_literals
 
-import os
 import unittest
 
 from abydos.stemmer.schinke import schinke
 
-TESTDIR = os.path.dirname(__file__)
+from . import TESTDIR
 
 
 class SchinkeTestCases(unittest.TestCase):

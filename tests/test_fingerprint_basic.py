@@ -32,10 +32,7 @@ from abydos.fingerprint.basic import phonetic_fingerprint, qgram_fingerprint, \
 
 from six.moves import range
 
-
-NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
-         'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill', 'MacNeil',
-         'MacNele', 'Niall Noígíallach')
+from test_distance import NIALL
 
 
 class FingerprintTestCases(unittest.TestCase):
