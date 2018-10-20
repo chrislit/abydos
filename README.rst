@@ -1,3 +1,5 @@
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fchrislit%2Fabydos.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fchrislit%2Fabydos?ref=badge_shield)
+
 Abydos
 ======
 
@@ -306,3 +308,6 @@ In order to only run & generate Flake8 reports, call::
 
 Contributions such as bug reports, PRs, suggestions, desired new features, etc.
 are welcome through the Github Issues & Pull requests.
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fchrislit%2Fabydos.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fchrislit%2Fabydos?ref=badge_large)
