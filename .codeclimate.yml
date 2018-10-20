@@ -11,6 +11,10 @@ plugins:
     enabled: true
   duplication:
     enabled: true
+  git-legal:
+    enabled: true
+  shellcheck:
+    enabled: true
 exclude_patterns:
 - "tests/"
 - "data/"
@@ -18,3 +22,4 @@ exclude_patterns:
 - "docs/"
 - "setup.py"
 - "badge_update.py"
+- "_bmdata.py"
