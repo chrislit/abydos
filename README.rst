@@ -72,7 +72,7 @@ Abydos
      :target: https://pyup.io/repos/github/chrislit/abydos/
      :alt: Updates
 
-.. |pylint| image:: https://img.shields.io/badge/Pylint-9.5/10-green.svg
+.. |pylint| image:: https://img.shields.io/badge/Pylint-9.44/10-yellowgreen.svg
    :target: #
    :alt: Pylint Score
 
