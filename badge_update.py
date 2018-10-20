@@ -69,7 +69,7 @@ if not os.path.isfile('./README.rst'):
     exit('README.rst file missing.')
 
 if not os.path.isfile('./pylint.log'):
-    exit('Please direct Pylint output to pylint.log')
+    exit('Please direct Pylint output to pylint.log...')
 pylint_text = open('pylint.log', 'r', encoding='utf-8').read()
 pylint_score = max(float(re.search('Your code has been rated at' +
                                    r' (-?[0-9\.]+)',
