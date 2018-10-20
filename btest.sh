@@ -43,4 +43,4 @@ fi
 
 sphinx-apidoc -e -f -M -o docs ./abydos
 cd docs
-make html epub xelatexpdf >> /dev/null
+make html epub xelatexpdf >> /dev/null 2> /dev/null
