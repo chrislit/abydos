@@ -67,11 +67,11 @@ def caverphone(word, version=2):
                     'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
                     'y', 'z'})
 
-    def _squeeze_replace(word, char, new_char):
+    def _squeeze_replace(word, char):
         """Convert strings of char in word to one instance of new_char."""
         while char * 2 in word:
             word = word.replace(char * 2, char)
-        return word.replace(char, new_char)
+        return word.replace(char, char.upper())
 
     # the main replacement algorithm
     if version != 1 and word[-1:] == 'e':
@@ -91,30 +91,16 @@ def caverphone(word, version=2):
             word = '2n'+word[2:]
         if word[-2:] == 'mb':
             word = word[:-1]+'2'
-        word = word.replace('cq', '2q')
-        word = word.replace('ci', 'si')
-        word = word.replace('ce', 'se')
-        word = word.replace('cy', 'sy')
-        word = word.replace('tch', '2ch')
-        word = word.replace('c', 'k')
-        word = word.replace('q', 'k')
-        word = word.replace('x', 'k')
-        word = word.replace('v', 'f')
-        word = word.replace('dg', '2g')
-        word = word.replace('tio', 'sio')
-        word = word.replace('tia', 'sia')
-        word = word.replace('d', 't')
-        word = word.replace('ph', 'fh')
-        word = word.replace('b', 'p')
-        word = word.replace('sh', 's2')
-        word = word.replace('z', 's')
+        for src, tar in (('cq', '2q'), ('ci', 'si'), ('ce', 'se'),
+                         ('cy', 'sy'), ('tch', '2ch'), ('c', 'k'), ('q', 'k'),
+                         ('x', 'k'), ('v', 'f'), ('dg', '2g'), ('tio', 'sio'),
+                         ('tia', 'sia'), ('d', 't'), ('ph', 'fh'), ('b', 'p'),
+                         ('sh', 's2'), ('z', 's')):
+            word = word.replace(src, tar)
         if word[0] in _vowels:
             word = 'A'+word[1:]
-        word = word.replace('a', '3')
-        word = word.replace('e', '3')
-        word = word.replace('i', '3')
-        word = word.replace('o', '3')
-        word = word.replace('u', '3')
+        for vowel in 'aeiou':
+            word = word.replace(vowel, '3')
         if version != 1:
             word = word.replace('j', 'y')
             if word[:2] == 'y3':
@@ -122,17 +108,11 @@ def caverphone(word, version=2):
             if word[:1] == 'y':
                 word = 'A'+word[1:]
             word = word.replace('y', '3')
-        word = word.replace('3gh3', '3kh3')
-        word = word.replace('gh', '22')
-        word = word.replace('g', 'k')
+        for src, tar in (('3gh3', '3kh3'), ('gh', '22'), ('g', 'k')):
+            word = word.replace(src, tar)
 
-        word = _squeeze_replace(word, 's', 'S')
-        word = _squeeze_replace(word, 't', 'T')
-        word = _squeeze_replace(word, 'p', 'P')
-        word = _squeeze_replace(word, 'k', 'K')
-        word = _squeeze_replace(word, 'f', 'F')
-        word = _squeeze_replace(word, 'm', 'M')
-        word = _squeeze_replace(word, 'n', 'N')
+        for char in 'stpkfmn':
+            word = _squeeze_replace(word, char)
 
         word = word.replace('w3', 'W3')
         if version == 1:
