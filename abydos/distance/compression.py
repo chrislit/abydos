@@ -38,6 +38,51 @@ except ImportError:  # pragma: no cover
 __all__ = ['dist_compression', 'sim_compression']
 
 
+def dist_ncd_arith(src, tar, probs=None):
+    """Return the NCD between two strings using arithmetic coding.
+
+    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    :param str src: source string for comparison
+    :param str tar: target string for comparison
+    :param dict probs: a dictionary trained with arithmetic.train (for the
+        arith compressor only)
+    :returns: compression distance
+    :rtype: float
+    """
+    if src == tar:
+        return 0.0
+
+    src = src.encode('utf-8')
+    tar = tar.encode('utf-8')
+
+    if probs is None:
+        # lacking a reasonable dictionary, train on the strings themselves
+        probs = arithmetic.train(src + tar)
+    src_comp = arithmetic.encode(src, probs)[1]
+    tar_comp = arithmetic.encode(tar, probs)[1]
+    concat_comp = arithmetic.encode(src + tar, probs)[1]
+    concat_comp2 = arithmetic.encode(tar + src, probs)[1]
+
+    return ((min(concat_comp, concat_comp2) - min(src_comp, tar_comp)) /
+            max(src_comp, tar_comp))
+
+
+def sim_ncd_arith(src, tar, probs=None):
+    """Return the NCD similarity between two strings using arithmetic coding.
+
+    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    :param str src: source string for comparison
+    :param str tar: target string for comparison
+    :param dict probs: a dictionary trained with arithmetic.train (for the
+        arith compressor only)
+    :returns: compression distance
+    :rtype: float
+    """
+    return 1-dist_ncd_arith(src, tar, probs)
+
+
 def dist_compression(src, tar, compressor='bz2', probs=None):
     """Return the normalized compression distance between two strings.
 
@@ -86,7 +131,7 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
     if src == tar:
         return 0.0
 
-    if compressor not in {'arith', 'rle', 'bwtrle'}:
+    if compressor not in {'rle', 'bwtrle'}:
         src = src.encode('utf-8')
         tar = tar.encode('utf-8')
 
@@ -104,16 +149,6 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
         else:
             raise ValueError('Install the PylibLZMA module in order to use ' +
                              'lzma compression similarity')
-    elif compressor == 'arith':
-        if probs is None:
-            # lacking a reasonable dictionary, train on the strings themselves
-            probs = arithmetic.train(src+tar)
-        src_comp = arithmetic.encode(src, probs)[1]
-        tar_comp = arithmetic.encode(tar, probs)[1]
-        concat_comp = arithmetic.encode(src+tar, probs)[1]
-        concat_comp2 = arithmetic.encode(tar+src, probs)[1]
-        return ((min(concat_comp, concat_comp2) - min(src_comp, tar_comp)) /
-                max(src_comp, tar_comp))
     elif compressor in {'rle', 'bwtrle'}:
         src_comp = rle.encode(src, (compressor == 'bwtrle'))
         tar_comp = rle.encode(tar, (compressor == 'bwtrle'))
