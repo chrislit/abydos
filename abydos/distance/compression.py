@@ -111,7 +111,7 @@ def dist_ncd_rle(src, tar, use_bwt=False):
             max(len(src_comp), len(tar_comp)))
 
 
-def sim_ncd_rle(src, tar, probs=None):
+def sim_ncd_rle(src, tar, use_bwt=False):
     """Return the NCD similarity between two strings using RLE.
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
@@ -123,7 +123,33 @@ def sim_ncd_rle(src, tar, probs=None):
     :returns: compression distance
     :rtype: float
     """
-    return 1 - dist_ncd_rle(src, tar, probs)
+    return 1 - dist_ncd_rle(src, tar, use_bwt)
+
+
+def dist_ncd_bwtrle(src, tar):
+    """Return the NCD between two strings using BWT plus RLE.
+
+    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    :param str src: source string for comparison
+    :param str tar: target string for comparison
+    :returns: compression distance
+    :rtype: float
+    """
+    return dist_ncd_rle(src, tar, True)
+
+
+def sim_ncd_bwtrle(src, tar):
+    """Return the NCD similarity between two strings using BWT plus RLE.
+
+    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    :param str src: source string for comparison
+    :param str tar: target string for comparison
+    :returns: compression distance
+    :rtype: float
+    """
+    return 1 - dist_ncd_bwtrle(src, tar)
 
 
 def dist_compression(src, tar, compressor='bz2', probs=None):
@@ -174,10 +200,6 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
     if src == tar:
         return 0.0
 
-    if compressor not in {'bwtrle'}:
-        src = src.encode('utf-8')
-        tar = tar.encode('utf-8')
-
     if compressor == 'bz2':
         src_comp = encode(src, 'bz2_codec')[15:]
         tar_comp = encode(tar, 'bz2_codec')[15:]
@@ -192,11 +214,6 @@ def dist_compression(src, tar, compressor='bz2', probs=None):
         else:
             raise ValueError('Install the PylibLZMA module in order to use ' +
                              'lzma compression similarity')
-    elif compressor in {'bwtrle'}:
-        src_comp = rle.encode(src, (compressor == 'bwtrle'))
-        tar_comp = rle.encode(tar, (compressor == 'bwtrle'))
-        concat_comp = rle.encode(src+tar, (compressor == 'bwtrle'))
-        concat_comp2 = rle.encode(tar+src, (compressor == 'bwtrle'))
     else:  # zlib
         src_comp = encode(src, 'zlib_codec')[2:]
         tar_comp = encode(tar, 'zlib_codec')[2:]
