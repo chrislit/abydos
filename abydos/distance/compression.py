@@ -35,7 +35,10 @@ except ImportError:  # pragma: no cover
     # similarity won't be supported.
     lzma = None
 
-__all__ = ['dist_compression', 'sim_compression']
+__all__ = ['dist_ncd_arith', 'dist_ncd_bwtrle', 'dist_ncd_bz2',
+           'dist_ncd_lzma', 'dist_ncd_rle', 'dist_ncd_zlib', 'sim_ncd_arith',
+           'sim_ncd_bwtrle', 'sim_ncd_bz2', 'sim_ncd_lzma', 'sim_ncd_rle',
+           'sim_ncd_zlib']
 
 
 def dist_ncd_arith(src, tar, probs=None):
@@ -49,6 +52,9 @@ def dist_ncd_arith(src, tar, probs=None):
         arith compressor only)
     :returns: compression distance
     :rtype: float
+
+    >>> dist_ncd_arith('Niall', 'Neil')
+    0.6875
     """
     if src == tar:
         return 0.0
@@ -77,8 +83,11 @@ def sim_ncd_arith(src, tar, probs=None):
     :param str tar: target string for comparison
     :param dict probs: a dictionary trained with arithmetic.train (for the
         arith compressor only)
-    :returns: compression distance
+    :returns: compression similarity
     :rtype: float
+
+    >>> sim_ncd_arith('Niall', 'Neil')
+    0.3125
     """
     return 1-dist_ncd_arith(src, tar, probs)
 
@@ -94,6 +103,9 @@ def dist_ncd_rle(src, tar, use_bwt=False):
         before RLE encoding
     :returns: compression distance
     :rtype: float
+
+    >>> dist_ncd_rle('Niall', 'Neil')
+    1.0
     """
     if src == tar:
         return 0.0
@@ -120,8 +132,11 @@ def sim_ncd_rle(src, tar, use_bwt=False):
     :param str tar: target string for comparison
     :param bool use_bwt: boolean indicating whether to perform BWT encoding
         before RLE encoding
-    :returns: compression distance
+    :returns: compression similarity
     :rtype: float
+
+    >>> sim_ncd_rle('Niall', 'Neil')
+    0.0
     """
     return 1 - dist_ncd_rle(src, tar, use_bwt)
 
@@ -135,6 +150,9 @@ def dist_ncd_bwtrle(src, tar):
     :param str tar: target string for comparison
     :returns: compression distance
     :rtype: float
+
+    >>> dist_ncd_bwtrle('Niall', 'Neil')
+    0.8333333333333334
     """
     return dist_ncd_rle(src, tar, True)
 
@@ -146,132 +164,155 @@ def sim_ncd_bwtrle(src, tar):
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
-    :returns: compression distance
+    :returns: compression similarity
     :rtype: float
+
+    >>> sim_ncd_bwtrle('Niall', 'Neil')
+    0.16666666666666663
     """
     return 1 - dist_ncd_bwtrle(src, tar)
 
 
-def dist_compression(src, tar, compressor='bz2', probs=None):
-    """Return the normalized compression distance between two strings.
+def dist_ncd_zlib(src, tar):
+    """Return the NCD between two strings using zlib compression.
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
-    :param str compressor: a compression scheme to use for the similarity
-        calculation, from the following:
-
-            - `zlib` -- standard zlib/gzip
-            - `bz2` -- bzip2 (default)
-            - `lzma` -- Lempel–Ziv–Markov chain algorithm
-            - `arith` -- arithmetic coding
-            - `rle` -- run-length encoding
-            - `bwtrle` -- Burrows-Wheeler transform followed by run-length
-              encoding
-
-    :param dict probs: a dictionary trained with arithmetic.train (for the
-        arith compressor only)
     :returns: compression distance
     :rtype: float
 
-    >>> dist_compression('cat', 'hat')
-    0.08
-    >>> dist_compression('Niall', 'Neil')
-    0.037037037037037035
-    >>> dist_compression('aluminum', 'Catalan')
-    0.20689655172413793
-    >>> dist_compression('ATCG', 'TAGC')
-    0.037037037037037035
-
-    >>> dist_compression('Niall', 'Neil', compressor='zlib')
+    >>> dist_ncd_zlib('Niall', 'Neil')
     0.45454545454545453
-    >>> dist_compression('Niall', 'Neil', compressor='bz2')
-    0.037037037037037035
-    >>> dist_compression('Niall', 'Neil', compressor='lzma')
-    0.16
-    >>> dist_compression('Niall', 'Neil', compressor='arith')
-    0.6875
-    >>> dist_compression('Niall', 'Neil', compressor='rle')
-    1.0
-    >>> dist_compression('Niall', 'Neil', compressor='bwtrle')
-    0.8333333333333334
     """
     if src == tar:
         return 0.0
 
-    if compressor == 'bz2':
-        src_comp = encode(src, 'bz2_codec')[15:]
-        tar_comp = encode(tar, 'bz2_codec')[15:]
-        concat_comp = encode(src+tar, 'bz2_codec')[15:]
-        concat_comp2 = encode(tar+src, 'bz2_codec')[15:]
-    elif compressor == 'lzma':
-        if 'lzma' in modules:
-            src_comp = lzma.compress(src)[14:]
-            tar_comp = lzma.compress(tar)[14:]
-            concat_comp = lzma.compress(src+tar)[14:]
-            concat_comp2 = lzma.compress(tar+src)[14:]
-        else:
-            raise ValueError('Install the PylibLZMA module in order to use ' +
-                             'lzma compression similarity')
-    else:  # zlib
-        src_comp = encode(src, 'zlib_codec')[2:]
-        tar_comp = encode(tar, 'zlib_codec')[2:]
-        concat_comp = encode(src+tar, 'zlib_codec')[2:]
-        concat_comp2 = encode(tar+src, 'zlib_codec')[2:]
+    src_comp = encode(src, 'zlib_codec')[2:]
+    tar_comp = encode(tar, 'zlib_codec')[2:]
+    concat_comp = encode(src + tar, 'zlib_codec')[2:]
+    concat_comp2 = encode(tar + src, 'zlib_codec')[2:]
+
     return ((min(len(concat_comp), len(concat_comp2)) -
              min(len(src_comp), len(tar_comp))) /
             max(len(src_comp), len(tar_comp)))
 
 
-def sim_compression(src, tar, compressor='bz2', probs=None):
-    """Return the normalized compression similarity of two strings.
+def sim_ncd_zlib(src, tar):
+    """Return the NCD similarity between two strings using zlib compression.
 
-    Normalized compression similarity is the complement of normalized
-    compression distance:
-    :math:`sim_{NCS} = 1 - dist_{NCD}`.
+    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
-    :param str compressor: a compression scheme to use for the similarity
-        calculation:
-
-            - `zlib` -- standard zlib/gzip
-            - `bz2` -- bzip2 (default)
-            - `lzma` -- Lempel–Ziv–Markov chain algorithm
-            - `arith` -- arithmetic coding
-            - `rle` -- run-length encoding
-            - `bwtrle` -- Burrows-Wheeler transform followed by run-length
-              encoding
-
-    :param dict probs: a dictionary trained with arithmetic.train (for the
-        arith compressor only)
     :returns: compression similarity
     :rtype: float
 
-    >>> sim_compression('cat', 'hat')
-    0.92
-    >>> sim_compression('Niall', 'Neil')
-    0.962962962962963
-    >>> sim_compression('aluminum', 'Catalan')
-    0.7931034482758621
-    >>> sim_compression('ATCG', 'TAGC')
-    0.962962962962963
-
-    >>> sim_compression('Niall', 'Neil', compressor='zlib')
+    >>> sim_ncd_zlib('Niall', 'Neil')
     0.5454545454545454
-    >>> sim_compression('Niall', 'Neil', compressor='bz2')
-    0.962962962962963
-    >>> sim_compression('Niall', 'Neil', compressor='lzma')
-    0.84
-    >>> sim_compression('Niall', 'Neil', compressor='arith')
-    0.3125
-    >>> sim_compression('Niall', 'Neil', compressor='rle')
-    0.0
-    >>> sim_compression('Niall', 'Neil', compressor='bwtrle')
-    0.16666666666666663
     """
-    return 1 - dist_compression(src, tar, compressor, probs)
+    return 1 - dist_ncd_zlib(src, tar)
+
+
+def dist_ncd_bz2(src, tar):
+    """Return the NCD between two strings using bz2 compression.
+
+    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    :param str src: source string for comparison
+    :param str tar: target string for comparison
+    :returns: compression distance
+    :rtype: float
+
+    >>> dist_ncd_bz2('cat', 'hat')
+    0.08
+    >>> dist_ncd_bz2('aluminum', 'Catalan')
+    0.20689655172413793
+    >>> dist_ncd_bz2('ATCG', 'TAGC')
+    0.037037037037037035
+    >>> dist_ncd_bz2('Niall', 'Neil')
+    0.037037037037037035
+    """
+    if src == tar:
+        return 0.0
+
+    src_comp = encode(src, 'bz2_codec')[2:]
+    tar_comp = encode(tar, 'bz2_codec')[2:]
+    concat_comp = encode(src + tar, 'bz2_codec')[2:]
+    concat_comp2 = encode(tar + src, 'bz2_codec')[2:]
+
+    return ((min(len(concat_comp), len(concat_comp2)) -
+             min(len(src_comp), len(tar_comp))) /
+            max(len(src_comp), len(tar_comp)))
+
+
+def sim_ncd_bz2(src, tar):
+    """Return the NCD similarity between two strings using bz2 compression.
+
+    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    :param str src: source string for comparison
+    :param str tar: target string for comparison
+    :returns: compression similarity
+    :rtype: float
+
+    >>> sim_ncd_bz2('cat', 'hat')
+    0.92
+    >>> sim_ncd_bz2('aluminum', 'Catalan')
+    0.7931034482758621
+    >>> sim_ncd_bz2('ATCG', 'TAGC')
+    0.962962962962963
+    >>> sim_ncd_bz2('Niall', 'Neil')
+    0.962962962962963
+    """
+    return 1 - dist_ncd_bz2(src, tar)
+
+
+def dist_ncd_lzma(src, tar):
+    """Return the NCD between two strings using lzma compression.
+
+    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    :param str src: source string for comparison
+    :param str tar: target string for comparison
+    :returns: compression distance
+    :rtype: float
+
+    >>> dist_ncd_lzma('Niall', 'Neil')
+    0.16
+    """
+    if src == tar:
+        return 0.0
+
+    if 'lzma' in modules:
+        src_comp = lzma.compress(src)[14:]
+        tar_comp = lzma.compress(tar)[14:]
+        concat_comp = lzma.compress(src + tar)[14:]
+        concat_comp2 = lzma.compress(tar + src)[14:]
+    else:
+        raise ValueError('Install the PylibLZMA module in order to use lzma ' +
+                         'compression similarity')
+
+    return ((min(len(concat_comp), len(concat_comp2)) -
+             min(len(src_comp), len(tar_comp))) /
+            max(len(src_comp), len(tar_comp)))
+
+
+def sim_ncd_lzma(src, tar):
+    """Return the NCD similarity between two strings using lzma compression.
+
+    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    :param str src: source string for comparison
+    :param str tar: target string for comparison
+    :returns: compression similarity
+    :rtype: float
+
+    >>> sim_ncd_lzma('Niall', 'Neil')
+    0.84
+    """
+    return 1 - dist_ncd_lzma(src, tar)
 
 
 if __name__ == '__main__':
