@@ -110,16 +110,6 @@ class CompressionTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_ncd_rle('aaa', 'bbaaa'), 0.5)
         self.assertAlmostEqual(dist_ncd_rle('abb', 'bbba'), 1/3)
 
-    def test_dist_ncd_lzma(self):
-        """Test abydos.distance.compression.dist_ncd_lzma."""
-        if bool(pkgutil.find_loader('lzma')):
-            self.assertEqual(dist_ncd_lzma('', ''), 0)
-            self.assertGreater(dist_ncd_lzma('a', ''), 0)
-            self.assertGreater(dist_ncd_lzma('abcdefg', 'fg'), 0)
-            del sys.modules['lzma']
-
-        self.assertRaises(ValueError, dist_ncd_lzma, 'a', '')
-
     def test_sim_ncd_bz2(self):
         """Test abydos.distance.compression.sim_ncd_bz2."""
         self.assertEqual(sim_ncd_bz2('', ''), 1)
@@ -181,11 +171,15 @@ class CompressionTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_ncd_bwtrle('bananas', 'bananen'), 0.5)
 
     def test_sim_ncd_lzma(self):
-        """Test abydos.distance.compression.sim_ncd_lzma."""
+        """Test abydos.distance.compression.dist_ncd_lzma & .sim_ncd_lzma."""
         if bool(pkgutil.find_loader('lzma')):
             self.assertEqual(sim_ncd_lzma('', ''), 1)
             self.assertLess(sim_ncd_lzma('a', ''), 1)
             self.assertLess(sim_ncd_lzma('abcdefg', 'fg'), 1)
+
+            self.assertEqual(dist_ncd_lzma('', ''), 0)
+            self.assertGreater(dist_ncd_lzma('a', ''), 0)
+            self.assertGreater(dist_ncd_lzma('abcdefg', 'fg'), 0)
             del sys.modules['lzma']
 
         self.assertRaises(ValueError, sim_ncd_lzma, 'a', '')

@@ -59,9 +59,6 @@ def dist_ncd_arith(src, tar, probs=None):
     if src == tar:
         return 0.0
 
-    src = src.encode('utf-8')
-    tar = tar.encode('utf-8')
-
     if probs is None:
         # lacking a reasonable dictionary, train on the strings themselves
         probs = arithmetic.train(src + tar)
@@ -109,9 +106,6 @@ def dist_ncd_rle(src, tar, use_bwt=False):
     """
     if src == tar:
         return 0.0
-
-    src = src.encode('utf-8')
-    tar = tar.encode('utf-8')
 
     src_comp = rle.encode(src, use_bwt)
     tar_comp = rle.encode(tar, use_bwt)
@@ -189,6 +183,9 @@ def dist_ncd_zlib(src, tar):
     if src == tar:
         return 0.0
 
+    src = src.encode('utf-8')
+    tar = tar.encode('utf-8')
+
     src_comp = encode(src, 'zlib_codec')[2:]
     tar_comp = encode(tar, 'zlib_codec')[2:]
     concat_comp = encode(src + tar, 'zlib_codec')[2:]
@@ -237,6 +234,9 @@ def dist_ncd_bz2(src, tar):
     if src == tar:
         return 0.0
 
+    src = src.encode('utf-8')
+    tar = tar.encode('utf-8')
+
     src_comp = encode(src, 'bz2_codec')[2:]
     tar_comp = encode(tar, 'bz2_codec')[2:]
     concat_comp = encode(src + tar, 'bz2_codec')[2:]
@@ -284,6 +284,9 @@ def dist_ncd_lzma(src, tar):
     """
     if src == tar:
         return 0.0
+
+    src = src.encode('utf-8')
+    tar = tar.encode('utf-8')
 
     if 'lzma' in modules:
         src_comp = lzma.compress(src)[14:]
