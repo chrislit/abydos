@@ -24,7 +24,6 @@ The distance.compression module implements compression distance measures.
 from __future__ import division, unicode_literals
 
 from codecs import encode
-from sys import modules
 
 from ..compression import arithmetic, rle
 
@@ -342,12 +341,12 @@ def dist_ncd_lzma(src, tar):
     src = src.encode('utf-8')
     tar = tar.encode('utf-8')
 
-    if 'lzma' in modules:
+    if lzma is not None:
         src_comp = lzma.compress(src)[14:]
         tar_comp = lzma.compress(tar)[14:]
         concat_comp = lzma.compress(src + tar)[14:]
         concat_comp2 = lzma.compress(tar + src)[14:]
-    else:
+    else:  # pragma: no cover
         raise ValueError('Install the PylibLZMA module in order to use lzma ' +
                          'compression similarity')
 

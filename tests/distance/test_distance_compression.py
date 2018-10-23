@@ -23,8 +23,6 @@ This module contains unit tests for abydos.distance.compression
 
 from __future__ import division, unicode_literals
 
-import pkgutil
-import sys
 import unittest
 
 from abydos.compression import arithmetic
@@ -33,6 +31,13 @@ from abydos.distance.compression import dist_ncd_arith, dist_ncd_bwtrle, \
     sim_ncd_bwtrle, sim_ncd_bz2, sim_ncd_lzma, sim_ncd_rle, sim_ncd_zlib
 
 from .. import NIALL
+
+try:
+    import lzma
+except ImportError:  # pragma: no cover
+    # If the system lacks the lzma library, that's fine, but lzma compression
+    # similarity won't be supported.
+    lzma = None
 
 
 class CompressionTestCases(unittest.TestCase):
@@ -172,7 +177,7 @@ class CompressionTestCases(unittest.TestCase):
 
     def test_sim_ncd_lzma(self):
         """Test abydos.distance.compression.dist_ncd_lzma & .sim_ncd_lzma."""
-        if bool(pkgutil.find_loader('lzma')):
+        if lzma is not None:
             self.assertEqual(sim_ncd_lzma('', ''), 1)
             self.assertLess(sim_ncd_lzma('a', ''), 1)
             self.assertLess(sim_ncd_lzma('abcdefg', 'fg'), 1)
@@ -180,9 +185,6 @@ class CompressionTestCases(unittest.TestCase):
             self.assertEqual(dist_ncd_lzma('', ''), 0)
             self.assertGreater(dist_ncd_lzma('a', ''), 0)
             self.assertGreater(dist_ncd_lzma('abcdefg', 'fg'), 0)
-            del sys.modules['lzma']
-
-        self.assertRaises(ValueError, sim_ncd_lzma, 'a', '')
 
 
 if __name__ == '__main__':
