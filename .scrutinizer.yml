@@ -6,41 +6,27 @@ checks:
         classes_valid_slots: true
         basic_missing_reversed_argument: true
 
-imports:
-  - python
-
 build:
-  environment:
-    python: 3.6
-
-  tests:
-      before:
-          - 'pip install coverage'
-      override:
-          - command: 'nosetests'
-      coverage:
-          file: '.coverage'
-          config_file: '.coveragerc'
-          format: 'py-cc'
-
-  nodes:
-    analysis:
-      tests:
-        override:
-            - py-scrutinizer-run
-
-    coverage:
-      before:
-      - 'pip install coverage'
-      override:
-      - command: pylint-run
-        use_website_config: false
-        coverage:
-            file: '.coverage'
-            config_file: '.coveragerc'
-            format: 'py-cc'
-
-    tests: true
+    environment:
+      python: 3.6.3
+    nodes:
+        analysis:
+            project_setup:
+                override:
+                    - 'true'
+            tests:
+                before:
+                    - 'pip install coverage'
+                override:
+                    - py-scrutinizer-run
+                    -
+                        command: pylint-run
+                        use_website_config: false
+                        coverage:
+                            file: '.coverage'
+                            config_file: '.coveragerc'
+                            format: 'py-cc'
+        tests: true
 filter:
     excluded_paths:
         - 'tests/*'
