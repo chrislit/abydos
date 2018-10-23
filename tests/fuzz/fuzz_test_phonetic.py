@@ -57,105 +57,105 @@ from abydos.phonetic.sv import norphone, sfinxbis
 
 from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 
-algorithms = {'russell_index': lambda name: russell_index(name),
+algorithms = {'russell_index': lambda _: russell_index(_),
               'russell_index_num_to_alpha':
-                  lambda name: russell_index_num_to_alpha(russell_index(name)),
+                  lambda _: russell_index_num_to_alpha(russell_index(_)),
               'russell_index_alpha': russell_index_alpha,
               'soundex': soundex,
-              'reverse_soundex': lambda name: soundex(name, reverse=True),
+              'reverse_soundex': lambda _: soundex(_, reverse=True),
               'soundex_0pad_ml6':
-                  lambda name: soundex(name, zero_pad=True, max_length=6),
-              'soundex_special': lambda name: soundex(name, var='special'),
-              'soundex_census': lambda name: soundex(name, var='Census'),
+                  lambda _: soundex(_, zero_pad=True, max_length=6),
+              'soundex_special': lambda _: soundex(_, var='special'),
+              'soundex_census': lambda _: soundex(_, var='Census'),
               'refined_soundex': refined_soundex,
               'refined_soundex_vowels':
-                  lambda name: refined_soundex(name, retain_vowels=True),
+                  lambda _: refined_soundex(_, retain_vowels=True),
               'refined_soundex_0pad_ml6':
-                  lambda name:
-                  refined_soundex(name, zero_pad=True, max_length=6),
-              'dm_soundex': lambda name: dm_soundex(name),
+                  lambda _:
+                  refined_soundex(_, zero_pad=True, max_length=6),
+              'dm_soundex': lambda _: dm_soundex(_),
               'koelner_phonetik': koelner_phonetik,
               'koelner_phonetik_num_to_alpha':
-                  lambda name:
-                  koelner_phonetik_num_to_alpha(koelner_phonetik(name)),
+                  lambda _:
+                  koelner_phonetik_num_to_alpha(koelner_phonetik(_)),
               'koelner_phonetik_alpha': koelner_phonetik_alpha,
               'nysiis': nysiis,
-              'nysiis_modified': lambda name: nysiis(name, modified=True),
+              'nysiis_modified': lambda _: nysiis(_, modified=True),
               'nysiis_ml_inf':
-                  lambda name: nysiis(name, max_length=-1),
+                  lambda _: nysiis(_, max_length=-1),
               'mra': mra,
               'metaphone': metaphone,
               'double_metaphone':
-                  lambda name: double_metaphone(name),
-              'caverphone_1': lambda name: caverphone(name, version=1),
+                  lambda _: double_metaphone(_),
+              'caverphone_1': lambda _: caverphone(_, version=1),
               'caverphone_2': caverphone,
-              'alpha_sis': lambda name: alpha_sis(name),
+              'alpha_sis': lambda _: alpha_sis(_),
               'fuzzy_soundex': fuzzy_soundex,
               'fuzzy_soundex_0pad_ml8':
-                  lambda name:
-                  fuzzy_soundex(name, max_length=8, zero_pad=True),
+                  lambda _:
+                  fuzzy_soundex(_, max_length=8, zero_pad=True),
               'phonex': phonex,
               'phonex_0pad_ml6':
-                  lambda name: phonex(name, max_length=6, zero_pad=True),
+                  lambda _: phonex(_, max_length=6, zero_pad=True),
               'phonem': phonem,
               'phonix': phonix,
               'phonix_0pad_ml6':
-                  lambda name: phonix(name, max_length=6, zero_pad=True),
-              'sfinxbis': lambda name: sfinxbis(name),
-              'sfinxbis_ml6': lambda name: sfinxbis(name, max_length=6),
+                  lambda _: phonix(_, max_length=6, zero_pad=True),
+              'sfinxbis': lambda _: sfinxbis(_),
+              'sfinxbis_ml6': lambda _: sfinxbis(_, max_length=6),
               'phonet_1': phonet,
-              'phonet_2': lambda name: phonet(name, mode=2),
-              'phonet_1_none': lambda name: phonet(name, lang='none'),
-              'phonet_2_none': lambda name: phonet(name, mode=2, lang='none'),
-              'spfc': lambda name: spfc(' '.join((name, name))),
+              'phonet_2': lambda _: phonet(_, mode=2),
+              'phonet_1_none': lambda _: phonet(_, lang='none'),
+              'phonet_2_none': lambda _: phonet(_, mode=2, lang='none'),
+              'spfc': lambda _: spfc(' '.join((_, _))),
               'statistics_canada': statistics_canada,
               'statistics_canada_ml8':
-                  lambda name: statistics_canada(name, max_length=8),
+                  lambda _: statistics_canada(_, max_length=8),
               'lein': lein,
               'lein_nopad_ml8':
-                  lambda name: lein(name, max_length=8, zero_pad=False),
+                  lambda _: lein(_, max_length=8, zero_pad=False),
               'roger_root': roger_root,
               'roger_root_nopad_ml8':
-                  lambda name: roger_root(name, max_length=8, zero_pad=False),
+                  lambda _: roger_root(_, max_length=8, zero_pad=False),
               'onca': onca,
               'onca_nopad_ml8':
-                  lambda name: onca(name, max_length=8, zero_pad=False),
-              'eudex': lambda name: eudex(name),
-              'haase_phonetik': lambda name: haase_phonetik(name),
+                  lambda _: onca(_, max_length=8, zero_pad=False),
+              'eudex': lambda _: eudex(_),
+              'haase_phonetik': lambda _: haase_phonetik(_),
               'haase_phonetik_primary':
-                  lambda name: haase_phonetik(name, primary_only=True)[:1],
+                  lambda _: haase_phonetik(_, primary_only=True)[:1],
               'reth_schek_phonetik': reth_schek_phonetik,
               'fonem': fonem,
               'parmar_kumbharana': parmar_kumbharana,
               'davidson': davidson,
               'sound_d': sound_d,
-              'sound_d_ml8': lambda name: sound_d(name, max_length=8),
+              'sound_d_ml8': lambda _: sound_d(_, max_length=8),
               'pshp_soundex_last': pshp_soundex_last,
               'pshp_soundex_last_german':
-                  lambda name: pshp_soundex_last(name, german=True),
+                  lambda _: pshp_soundex_last(_, german=True),
               'pshp_soundex_last_ml8':
-                  lambda name: pshp_soundex_last(name, max_length=8),
+                  lambda _: pshp_soundex_last(_, max_length=8),
               'pshp_soundex_first': pshp_soundex_first,
               'pshp_soundex_first_german':
-                  lambda name: pshp_soundex_first(name, german=True),
+                  lambda _: pshp_soundex_first(_, german=True),
               'pshp_soundex_first_ml8':
-                  lambda name: pshp_soundex_first(name, max_length=8),
+                  lambda _: pshp_soundex_first(_, max_length=8),
               'henry_early': henry_early,
-              'henry_early_ml8': lambda name: henry_early(name, max_length=8),
+              'henry_early_ml8': lambda _: henry_early(_, max_length=8),
               'norphone': norphone,
               'dolby': dolby,
-              'dolby_ml4': lambda name: dolby(name, max_length=4),
-              'dolby_vowels': lambda name: dolby(name, keep_vowels=True),
+              'dolby_ml4': lambda _: dolby(_, max_length=4),
+              'dolby_vowels': lambda _: dolby(_, keep_vowels=True),
               'phonetic_spanish': phonetic_spanish,
               'phonetic_spanish_ml4':
-                  lambda name: phonetic_spanish(name, max_length=4),
+                  lambda _: phonetic_spanish(_, max_length=4),
               'spanish_metaphone': spanish_metaphone,
               'spanish_metaphone_modified':
-                  lambda name: spanish_metaphone(name, modified=True),
+                  lambda _: spanish_metaphone(_, modified=True),
               'spanish_metaphone_ml4':
-                  lambda name: spanish_metaphone(name, max_length=4),
+                  lambda _: spanish_metaphone(_, max_length=4),
               'metasoundex': metasoundex,
-              'metasoundex_es': lambda name: metasoundex(name, lang='es'),
+              'metasoundex_es': lambda _: metasoundex(_, lang='es'),
               'soundex_br': soundex_br,
               'nrl': nrl,
               'bmpm': bmpm,

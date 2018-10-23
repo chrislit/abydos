@@ -37,10 +37,10 @@ from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 algorithms = {'str_fingerprint': str_fingerprint,
               'qgram_fingerprint': qgram_fingerprint,
               'qgram_fingerprint_3':
-                  lambda name: qgram_fingerprint(name, qval=3),
+                  lambda _: qgram_fingerprint(_, qval=3),
               'qgram_fingerprint_ssj':
-                  lambda name:
-                  qgram_fingerprint(name, start_stop='$#', joiner=' '),
+                  lambda _:
+                  qgram_fingerprint(_, start_stop='$#', joiner=' '),
               'phonetic_fingerprint': phonetic_fingerprint,
               'skeleton_key': skeleton_key,
               'omission_key': omission_key,
@@ -50,7 +50,7 @@ algorithms = {'str_fingerprint': str_fingerprint,
               'position_fingerprint': position_fingerprint,
               'synoname_toolcode': synoname_toolcode,
               'synoname_toolcode_2name':
-                  lambda name: synoname_toolcode(name, name)}
+                  lambda _: synoname_toolcode(_, _)}
 
 
 class BigListOfNaughtyStringsTestCases(unittest.TestCase):
