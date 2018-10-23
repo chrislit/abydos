@@ -42,5 +42,5 @@ if [ "$docs_only" = "0" ]; then
 fi
 
 sphinx-apidoc -e -f -M -o docs ./abydos
-cd docs
+cd docs || exit
 make html epub xelatexpdf >> /dev/null 2> /dev/null
