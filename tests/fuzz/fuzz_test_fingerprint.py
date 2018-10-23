@@ -107,12 +107,12 @@ class FuzzedWordsTestCases(unittest.TestCase):
     def fuzz_test_20pct(self):
         """Fuzz test fingerprint algorithms against 20% fuzzed words."""
         for _ in range(self.reps):
-            fuzzed = _fuzz(choice(self.basewords), fuzziness=0.2)  # noqa: S311
+            fuzzed = _fuzz(choice(self.basewords), fuzziness=0.2)
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = sample(list(algorithms.keys()), k=5)  # noqa: S311
+                algs = sample(list(algorithms.keys()), k=5)
 
             for algo in algs:
                 try:
@@ -124,12 +124,12 @@ class FuzzedWordsTestCases(unittest.TestCase):
     def fuzz_test_100pct(self):
         """Fuzz test fingerprint algorithms against 100% fuzzed words."""
         for _ in range(self.reps):
-            fuzzed = _fuzz(choice(self.basewords), fuzziness=1)  # noqa: S311
+            fuzzed = _fuzz(choice(self.basewords), fuzziness=1)
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = sample(list(algorithms.keys()), k=5)  # noqa: S311
+                algs = sample(list(algorithms.keys()), k=5)
 
             for algo in algs:
                 try:
@@ -142,12 +142,12 @@ class FuzzedWordsTestCases(unittest.TestCase):
         """Fuzz test fingerprint algorithms against BMP fuzz."""
         for _ in range(self.reps):
             fuzzed = ''.join(_random_char(0xffff) for _ in
-                             range(0, randint(8, 16)))  # noqa: S311
+                             range(0, randint(8, 16)))
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = sample(list(algorithms.keys()), k=5)  # noqa: S311
+                algs = sample(list(algorithms.keys()), k=5)
 
             for algo in algs:
                 try:
@@ -160,12 +160,12 @@ class FuzzedWordsTestCases(unittest.TestCase):
         """Fuzz test fingerprint algorithms against alphabetic BMP+SMP fuzz."""
         for _ in range(self.reps):
             fuzzed = ''.join(_random_char(0x1ffff, ' LETTER ') for _ in
-                             range(0, randint(8, 16)))  # noqa: S311
+                             range(0, randint(8, 16)))
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = sample(list(algorithms.keys()), k=5)  # noqa: S311
+                algs = sample(list(algorithms.keys()), k=5)
 
             for algo in algs:
                 try:
@@ -178,12 +178,12 @@ class FuzzedWordsTestCases(unittest.TestCase):
         """Fuzz test fingerprint algorithms against Latin BMP+SMP fuzz."""
         for _ in range(self.reps):
             fuzzed = ''.join(_random_char(0x1ffff, 'LATIN ') for _ in
-                             range(0, randint(8, 16)))  # noqa: S311
+                             range(0, randint(8, 16)))
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = sample(list(algorithms.keys()), k=5)  # noqa: S311
+                algs = sample(list(algorithms.keys()), k=5)
 
             for algo in algs:
                 try:
@@ -196,12 +196,12 @@ class FuzzedWordsTestCases(unittest.TestCase):
         """Fuzz test fingerprint algorithms against valid Unicode fuzz."""
         for _ in range(self.reps):
             fuzzed = ''.join(_random_char() for _ in
-                             range(0, randint(8, 16)))  # noqa: S311
+                             range(0, randint(8, 16)))
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = sample(list(algorithms.keys()), k=5)  # noqa: S311
+                algs = sample(list(algorithms.keys()), k=5)
 
             for algo in algs:
                 try:

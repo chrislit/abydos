@@ -57,7 +57,7 @@ from abydos.phonetic.sv import norphone, sfinxbis
 
 from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 
-algorithms = {'russell_index': lambda _: russell_index(_),
+algorithms = {'russell_index': russell_index,
               'russell_index_num_to_alpha':
                   lambda _: russell_index_num_to_alpha(russell_index(_)),
               'russell_index_alpha': russell_index_alpha,
@@ -71,29 +71,24 @@ algorithms = {'russell_index': lambda _: russell_index(_),
               'refined_soundex_vowels':
                   lambda _: refined_soundex(_, retain_vowels=True),
               'refined_soundex_0pad_ml6':
-                  lambda _:
-                  refined_soundex(_, zero_pad=True, max_length=6),
-              'dm_soundex': lambda _: dm_soundex(_),
+                  lambda _: refined_soundex(_, zero_pad=True, max_length=6),
+              'dm_soundex': dm_soundex,
               'koelner_phonetik': koelner_phonetik,
               'koelner_phonetik_num_to_alpha':
-                  lambda _:
-                  koelner_phonetik_num_to_alpha(koelner_phonetik(_)),
+                  lambda _: koelner_phonetik_num_to_alpha(koelner_phonetik(_)),
               'koelner_phonetik_alpha': koelner_phonetik_alpha,
               'nysiis': nysiis,
               'nysiis_modified': lambda _: nysiis(_, modified=True),
-              'nysiis_ml_inf':
-                  lambda _: nysiis(_, max_length=-1),
+              'nysiis_ml_inf': lambda _: nysiis(_, max_length=-1),
               'mra': mra,
               'metaphone': metaphone,
-              'double_metaphone':
-                  lambda _: double_metaphone(_),
+              'double_metaphone': double_metaphone,
               'caverphone_1': lambda _: caverphone(_, version=1),
               'caverphone_2': caverphone,
-              'alpha_sis': lambda _: alpha_sis(_),
+              'alpha_sis': alpha_sis,
               'fuzzy_soundex': fuzzy_soundex,
               'fuzzy_soundex_0pad_ml8':
-                  lambda _:
-                  fuzzy_soundex(_, max_length=8, zero_pad=True),
+                  lambda _: fuzzy_soundex(_, max_length=8, zero_pad=True),
               'phonex': phonex,
               'phonex_0pad_ml6':
                   lambda _: phonex(_, max_length=6, zero_pad=True),
@@ -101,7 +96,7 @@ algorithms = {'russell_index': lambda _: russell_index(_),
               'phonix': phonix,
               'phonix_0pad_ml6':
                   lambda _: phonix(_, max_length=6, zero_pad=True),
-              'sfinxbis': lambda _: sfinxbis(_),
+              'sfinxbis': sfinxbis,
               'sfinxbis_ml6': lambda _: sfinxbis(_, max_length=6),
               'phonet_1': phonet,
               'phonet_2': lambda _: phonet(_, mode=2),
@@ -120,8 +115,8 @@ algorithms = {'russell_index': lambda _: russell_index(_),
               'onca': onca,
               'onca_nopad_ml8':
                   lambda _: onca(_, max_length=8, zero_pad=False),
-              'eudex': lambda _: eudex(_),
-              'haase_phonetik': lambda _: haase_phonetik(_),
+              'eudex': eudex,
+              'haase_phonetik': haase_phonetik,
               'haase_phonetik_primary':
                   lambda _: haase_phonetik(_, primary_only=True)[:1],
               'reth_schek_phonetik': reth_schek_phonetik,
@@ -224,12 +219,12 @@ class FuzzedWordsTestCases(unittest.TestCase):
     def fuzz_test_20pct(self):
         """Fuzz test phonetic algorithms against 20% fuzzed words."""
         for _ in range(self.reps):
-            fuzzed = _fuzz(choice(self.basewords), fuzziness=0.2)  # noqa: S311
+            fuzzed = _fuzz(choice(self.basewords), fuzziness=0.2)
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = sample(list(algorithms.keys()), k=5)  # noqa: S311
+                algs = sample(list(algorithms.keys()), k=5)
 
             for algo in algs:
                 try:
@@ -242,12 +237,12 @@ class FuzzedWordsTestCases(unittest.TestCase):
     def fuzz_test_100pct(self):
         """Fuzz test phonetic algorithms against 100% fuzzed words."""
         for _ in range(self.reps):
-            fuzzed = _fuzz(choice(self.basewords), fuzziness=1)  # noqa: S311
+            fuzzed = _fuzz(choice(self.basewords), fuzziness=1)
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = sample(list(algorithms.keys()), k=5)  # noqa: S311
+                algs = sample(list(algorithms.keys()), k=5)
 
             for algo in algs:
                 try:
@@ -261,12 +256,12 @@ class FuzzedWordsTestCases(unittest.TestCase):
         """Fuzz test phonetic algorithms against BMP fuzz."""
         for _ in range(self.reps):
             fuzzed = ''.join(_random_char(0xffff) for _ in
-                             range(0, randint(8, 16)))  # noqa: S311
+                             range(0, randint(8, 16)))
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = sample(list(algorithms.keys()), k=5)  # noqa: S311
+                algs = sample(list(algorithms.keys()), k=5)
 
             for algo in algs:
                 try:
@@ -279,12 +274,12 @@ class FuzzedWordsTestCases(unittest.TestCase):
         """Fuzz test phonetic algorithms against alphabetic BMP+SMP fuzz."""
         for _ in range(self.reps):
             fuzzed = ''.join(_random_char(0x1ffff, ' LETTER ') for _ in
-                             range(0, randint(8, 16)))  # noqa: S311
+                             range(0, randint(8, 16)))
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = sample(list(algorithms.keys()), k=5)  # noqa: S311
+                algs = sample(list(algorithms.keys()), k=5)
 
             for algo in algs:
                 try:
@@ -297,12 +292,12 @@ class FuzzedWordsTestCases(unittest.TestCase):
         """Fuzz test phonetic algorithms against Latin BMP+SMP fuzz."""
         for _ in range(self.reps):
             fuzzed = ''.join(_random_char(0x1ffff, 'LATIN ') for _ in
-                             range(0, randint(8, 16)))  # noqa: S311
+                             range(0, randint(8, 16)))
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = sample(list(algorithms.keys()), k=5)  # noqa: S311
+                algs = sample(list(algorithms.keys()), k=5)
 
             for algo in algs:
                 try:
@@ -315,12 +310,12 @@ class FuzzedWordsTestCases(unittest.TestCase):
         """Fuzz test phonetic algorithms against valid Unicode fuzz."""
         for _ in range(self.reps):
             fuzzed = ''.join(_random_char() for _ in
-                             range(0, randint(8, 16)))  # noqa: S311
+                             range(0, randint(8, 16)))
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
             else:
-                algs = sample(list(algorithms.keys()), k=5)  # noqa: S311
+                algs = sample(list(algorithms.keys()), k=5)
 
             for algo in algs:
                 try:
