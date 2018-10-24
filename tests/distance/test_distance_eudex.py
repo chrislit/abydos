@@ -38,38 +38,31 @@ class EudexTestCases(unittest.TestCase):
 
     def test_eudex_hamming(self):
         """Test abydos.distance.eudex_hamming."""
+
+        def _yield_1():
+            while True:
+                yield 1
+
         # Base cases
         self.assertEqual(eudex_hamming('', ''), 0)
         self.assertEqual(eudex_hamming('', '', None), 0)
         self.assertEqual(eudex_hamming('', '', 'fibonacci'), 0)
         self.assertEqual(eudex_hamming('', '', [10, 1, 1, 1]), 0)
-        self.assertEqual(
-            eudex_hamming('', '', lambda: [(yield 1) for _ in range(10)]), 0
-        )
+        self.assertEqual(eudex_hamming('', '', _yield_1), 0)
         self.assertEqual(eudex_hamming('', '', normalized=True), 0)
 
         self.assertEqual(eudex_hamming('Niall', 'Niall'), 0)
         self.assertEqual(eudex_hamming('Niall', 'Niall', None), 0)
         self.assertEqual(eudex_hamming('Niall', 'Niall', 'fibonacci'), 0)
         self.assertEqual(eudex_hamming('Niall', 'Niall', [10, 1, 1, 1]), 0)
-        self.assertEqual(
-            eudex_hamming(
-                'Niall', 'Niall', lambda: [(yield 1) for _ in range(10)]
-            ),
-            0,
-        )
+        self.assertEqual(eudex_hamming('Niall', 'Niall', _yield_1), 0)
         self.assertEqual(eudex_hamming('Niall', 'Niall', normalized=True), 0)
 
         self.assertEqual(eudex_hamming('Niall', 'Neil'), 2)
         self.assertEqual(eudex_hamming('Niall', 'Neil', None), 1)
         self.assertEqual(eudex_hamming('Niall', 'Neil', 'fibonacci'), 2)
         self.assertEqual(eudex_hamming('Niall', 'Neil', [10, 1, 1, 1]), 1)
-        self.assertEqual(
-            eudex_hamming(
-                'Niall', 'Neil', lambda: [(yield 1) for _ in range(10)]
-            ),
-            1,
-        )
+        self.assertEqual(eudex_hamming('Niall', 'Neil', _yield_1), 1)
         self.assertAlmostEqual(
             eudex_hamming('Niall', 'Neil', normalized=True), 0.00098039
         )
@@ -78,12 +71,7 @@ class EudexTestCases(unittest.TestCase):
         self.assertEqual(eudex_hamming('Niall', 'Colin', None), 10)
         self.assertEqual(eudex_hamming('Niall', 'Colin', 'fibonacci'), 146)
         self.assertEqual(eudex_hamming('Niall', 'Colin', [10, 1, 1, 1]), 6)
-        self.assertEqual(
-            eudex_hamming(
-                'Niall', 'Colin', lambda: [(yield 1) for _ in range(10)]
-            ),
-            10,
-        )
+        self.assertEqual(eudex_hamming('Niall', 'Colin', _yield_1), 10)
         self.assertAlmostEqual(
             eudex_hamming('Niall', 'Colin', normalized=True), 0.25686274
         )
