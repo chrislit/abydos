@@ -32,26 +32,26 @@ implementation in PHP.
 from __future__ import unicode_literals
 
 L_NONE = 0
-L_ANY = 2**0
-L_ARABIC = 2**1
-L_CYRILLIC = 2**2
-L_CZECH = 2**3
-L_DUTCH = 2**4
-L_ENGLISH = 2**5
-L_FRENCH = 2**6
-L_GERMAN = 2**7
-L_GREEK = 2**8
-L_GREEKLATIN = 2**9
-L_HEBREW = 2**10
-L_HUNGARIAN = 2**11
-L_ITALIAN = 2**12
-L_LATVIAN = 2**13
-L_POLISH = 2**14
-L_PORTUGUESE = 2**15
-L_ROMANIAN = 2**16
-L_RUSSIAN = 2**17
-L_SPANISH = 2**18
-L_TURKISH = 2**19
+L_ANY = 2 ** 0
+L_ARABIC = 2 ** 1
+L_CYRILLIC = 2 ** 2
+L_CZECH = 2 ** 3
+L_DUTCH = 2 ** 4
+L_ENGLISH = 2 ** 5
+L_FRENCH = 2 ** 6
+L_GERMAN = 2 ** 7
+L_GREEK = 2 ** 8
+L_GREEKLATIN = 2 ** 9
+L_HEBREW = 2 ** 10
+L_HUNGARIAN = 2 ** 11
+L_ITALIAN = 2 ** 12
+L_LATVIAN = 2 ** 13
+L_POLISH = 2 ** 14
+L_PORTUGUESE = 2 ** 15
+L_ROMANIAN = 2 ** 16
+L_RUSSIAN = 2 ** 17
+L_SPANISH = 2 ** 18
+L_TURKISH = 2 ** 19
 
 # gen/approxany.php
 
@@ -65,21 +65,17 @@ _GEN_APPROX_ANY = (
     # "ALL" DIPHTHONGS are interchangeable BETWEEN THEM and with monophthongs of which they are composed ("D" means "diphthong")  # noqa: E501
     # {a,o} are totally interchangeable if non-stressed; in German "a/o" can actually be from "ä/ö" (that are equivalent to "e")  # noqa: E501
     # {i,e} are interchangeable if non-stressed, while in German "u" can actually be from "ü" (that is equivalent to "i")  # noqa: E501
-
     ('mb', '', '', '(mb|b[512])'),
     ('mp', '', '', '(mp|b[512])'),
     ('ng', '', '', '(ng|g[512])'),
-
     ('B', '', '[fktSs]', '(p|f[262144])'),
     ('B', '', 'p', ''),
     ('B', '', '$', '(p|f[262144])'),
     ('V', '', '[pktSs]', '(f|p[262144])'),
     ('V', '', 'f', ''),
     ('V', '', '$', '(f|p[262144])'),
-
     ('B', '', '', '(b|v[262144])'),
     ('V', '', '', '(v|b[262144])'),
-
     # French word-final and word-part-final letters
     ('t', '', '$', '(t|[64])'),
     ('g', 'n', '$', '(g|[64])'),
@@ -90,7 +86,6 @@ _GEN_APPROX_ANY = (
     ('t', '[aeiouAEIOU]', '[^aeiouAEIOU]', '(t|[64])'),  # Petitjean
     ('s', '[aeiouAEIOU]', '[^aeiouAEIOU]', '(s|[64])'),  # Groslot, Grosleau
     # ("p","[aeiouAEIOU]","[^aeiouAEIOU]","(p|[64])"),
-
     ('I', '[aeiouAEIBFOUQY]', '', 'i'),
     ('I', '', '[^aeiouAEBFIOU]e', '(Q[128]|i|D[32])'),  # "line"
     ('I', '', '$', 'i'),
@@ -100,20 +95,20 @@ _GEN_APPROX_ANY = (
     ('sIts', '', '$', '(sits|sQts[128])'),
     ('Its', '', '$', 'its'),
     ('I', '', '', '(Q[128]|i)'),
-
     ('lEE', '[bdfgkmnprsStvzZ]', '', '(li|il[32])'),  # Apple = Appel
     ('rEE', '[bdfgkmnprsStvzZ]', '', '(ri|ir[32])'),
-    ('lE', '[bdfgkmnprsStvzZ]', '', '(li|il[32]|lY[128])'),  # Applebaum < Appelbaum  # noqa: E501
+    (
+        'lE',
+        '[bdfgkmnprsStvzZ]',
+        '',
+        '(li|il[32]|lY[128])',
+    ),  # Applebaum < Appelbaum  # noqa: E501
     ('rE', '[bdfgkmnprsStvzZ]', '', '(ri|ir[32]|rY[128])'),
-
     ('EE', '', '', '(i|)'),
-
     ('ea', '', '', '(D|a|i)'),
-
     ('au', '', '', '(D|a|u)'),
     ('ou', '', '', '(D|o|u)'),
     ('eu', '', '', '(D|e|u)'),
-
     ('ai', '', '', '(D|a|i)'),
     ('Ai', '', '', '(D|a|i)'),
     ('oi', '', '', '(D|o|i)'),
@@ -122,37 +117,40 @@ _GEN_APPROX_ANY = (
     ('Ui', '', '', '(D|u|i)'),
     ('ei', '', '', '(D|i)'),
     ('Ei', '', '', '(D|i)'),
-
     ('iA', '', '$', '(ia|io)'),
     ('iA', '', '', '(ia|io|iY[128])'),
     ('A', '', '[^aeiouAEBFIOU]e', '(a|o|Y[128]|D[32])'),  # "plane"
-
-    ('E', 'i[^aeiouAEIOU]', '', '(i|Y[128]|[32])'),  # Wineberg (vineberg/vajneberg) --> vajnberg  # noqa: E501
-    ('E', 'a[^aeiouAEIOU]', '', '(i|Y[128]|[32])'),  # Shaneberg (shaneberg/shejneberg) --> shejnberg  # noqa: E501
-
+    (
+        'E',
+        'i[^aeiouAEIOU]',
+        '',
+        '(i|Y[128]|[32])',
+    ),  # Wineberg (vineberg/vajneberg) --> vajnberg  # noqa: E501
+    (
+        'E',
+        'a[^aeiouAEIOU]',
+        '',
+        '(i|Y[128]|[32])',
+    ),  # Shaneberg (shaneberg/shejneberg) --> shejnberg  # noqa: E501
     ('E', '', '[fklmnprst]$', 'i'),
     ('E', '', 'ts$', 'i'),
     ('E', '', '$', 'i'),
     ('E', '[DaoiuAOIUQY]', '', 'i'),
     ('E', '', '[aoAOQY]', 'i'),
     ('E', '', '', '(i|Y[128])'),
-
     ('P', '', '', '(o|u)'),
-
     ('O', '', '[fklmnprstv]$', 'o'),
     ('O', '', 'ts$', 'o'),
     ('O', '', '$', 'o'),
     ('O', '[oeiuQY]', '', 'o'),
     ('O', '', '', '(o|Y[128])'),
     ('O', '', '', 'o'),
-
     ('A', '', '[fklmnprst]$', '(a|o)'),
     ('A', '', 'ts$', '(a|o)'),
     ('A', '', '$', '(a|o)'),
     ('A', '[oeiuQY]', '', '(a|o)'),
     ('A', '', '', '(a|o|Y[128])'),
     ('A', '', '', '(a|o)'),
-
     ('U', '', '$', 'u'),
     ('U', '[DoiuQY]', '', 'u'),
     ('U', '', '[^k]$', 'u'),
@@ -162,21 +160,17 @@ _GEN_APPROX_ANY = (
     ('Uts', '', '$', 'uts'),
     ('U', '', '', '(u|Q[128])'),
     ('U', '', '', 'u'),
-
     ('e', '', '[fklmnprstv]$', 'i'),
     ('e', '', 'ts$', 'i'),
     ('e', '', '$', 'i'),
     ('e', '[DaoiuAOIUQY]', '', 'i'),
     ('e', '', '[aoAOQY]', 'i'),
     ('e', '', '', '(i|Y[128])'),
-
     ('a', '', '', '(a|o)'),
-
-    )
+)
 
 # gen/approxarabic.php
 _GEN_APPROX_ARABIC = (
-
     ('1a', '', '', '(D|a)'),
     ('1i', '', '', '(D|i|e)'),
     ('1u', '', '', '(D|u|o)'),
@@ -186,40 +180,33 @@ _GEN_APPROX_ARABIC = (
     ('i', '', '', '(i|e)'),
     ('p', '', '$', 'p'),
     ('p', '', '', '(p|b)'),
-
-    )
+)
 
 # gen/approxcommon.php
 
 # GENERIC
 
 _GEN_APPROX_COMMON = (
-
     # DUTCH
     ('van', '^', '[bp]', '(vam|)'),
     ('van', '^', '', '(van|)'),
-
     # REGRESSIVE ASSIMILATION OF CONSONANTS
     ('n', '', '[bp]', 'm'),
-
     # PECULIARITY OF "h"
     ('h', '', '', ''),
     ('H', '', '', '(x|)'),
-
     # "e" and "i" ARE TO BE OMITTED BEFORE (SYLLABIC) n & l: Halperin=Halpern; Frankel = Frankl, Finkelstein = Finklstein  # noqa: E501
     # but Andersen & Anderson should match
     ('sen', '[rmnl]', '$', '(zn|zon)'),
     ('sen', '', '$', '(sn|son)'),
     ('sEn', '[rmnl]', '$', '(zn|zon)'),
     ('sEn', '', '$', '(sn|son)'),
-
     ('e', '[BbdfgklmnprsStvzZ]', '[ln]$', ''),
     ('i', '[BbdfgklmnprsStvzZ]', '[ln]$', ''),
     ('E', '[BbdfgklmnprsStvzZ]', '[ln]$', ''),
     ('I', '[BbdfgklmnprsStvzZ]', '[ln]$', ''),
     ('Q', '[BbdfgklmnprsStvzZ]', '[ln]$', ''),
     ('Y', '[BbdfgklmnprsStvzZ]', '[ln]$', ''),
-
     ('e', '[bdfgklmnprsStvzZ]', '[ln][bdfgklmnprsStvzZ]', '(e|)'),
     ('i', '[bdfgklmnprsStvzZ]', '[ln][bdfgklmnprsStvzZ]', '(i|)'),
     ('E', '[bdfgklmnprsStvzZ]', '[ln][bdfgklmnprsStvzZ]', '(E|)'),
@@ -232,151 +219,134 @@ _GEN_APPROX_COMMON = (
     # ("I", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
     # ("Q", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
     # ("Y", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
-
-    ('lEs', '', '', '(lEs|lz)'),  # Applebaum < Appelbaum (English + blend English-something forms as Finklestein)  # noqa: E501
-    ('lE', '[bdfgkmnprStvzZ]', '', '(lE|l)'),  # Applebaum < Appelbaum (English + blend English-something forms as Finklestein)  # noqa: E501
-
+    (
+        'lEs',
+        '',
+        '',
+        '(lEs|lz)',
+    ),  # Applebaum < Appelbaum (English + blend English-something forms as Finklestein)  # noqa: E501
+    (
+        'lE',
+        '[bdfgkmnprStvzZ]',
+        '',
+        '(lE|l)',
+    ),  # Applebaum < Appelbaum (English + blend English-something forms as Finklestein)  # noqa: E501
     # SIMPLIFICATION: (TRIPHTHONGS & DIPHTHONGS) -> ONE GENERIC DIPHTHONG "D"
     ('aue', '', '', 'D'),
     ('oue', '', '', 'D'),
-
     ('AvE', '', '', '(D|AvE)'),
     ('Ave', '', '', '(D|Ave)'),
     ('avE', '', '', '(D|avE)'),
     ('ave', '', '', '(D|ave)'),
-
     ('OvE', '', '', '(D|OvE)'),
     ('Ove', '', '', '(D|Ove)'),
     ('ovE', '', '', '(D|ovE)'),
     ('ove', '', '', '(D|ove)'),
-
     ('ea', '', '', '(D|ea)'),
     ('EA', '', '', '(D|EA)'),
     ('Ea', '', '', '(D|Ea)'),
     ('eA', '', '', '(D|eA)'),
-
     ('aji', '', '', 'D'),
     ('ajI', '', '', 'D'),
     ('aje', '', '', 'D'),
     ('ajE', '', '', 'D'),
-
     ('Aji', '', '', 'D'),
     ('AjI', '', '', 'D'),
     ('Aje', '', '', 'D'),
     ('AjE', '', '', 'D'),
-
     ('oji', '', '', 'D'),
     ('ojI', '', '', 'D'),
     ('oje', '', '', 'D'),
     ('ojE', '', '', 'D'),
-
     ('Oji', '', '', 'D'),
     ('OjI', '', '', 'D'),
     ('Oje', '', '', 'D'),
     ('OjE', '', '', 'D'),
-
     ('eji', '', '', 'D'),
     ('ejI', '', '', 'D'),
     ('eje', '', '', 'D'),
     ('ejE', '', '', 'D'),
-
     ('Eji', '', '', 'D'),
     ('EjI', '', '', 'D'),
     ('Eje', '', '', 'D'),
     ('EjE', '', '', 'D'),
-
     ('uji', '', '', 'D'),
     ('ujI', '', '', 'D'),
     ('uje', '', '', 'D'),
     ('ujE', '', '', 'D'),
-
     ('Uji', '', '', 'D'),
     ('UjI', '', '', 'D'),
     ('Uje', '', '', 'D'),
     ('UjE', '', '', 'D'),
-
     ('iji', '', '', 'D'),
     ('ijI', '', '', 'D'),
     ('ije', '', '', 'D'),
     ('ijE', '', '', 'D'),
-
     ('Iji', '', '', 'D'),
     ('IjI', '', '', 'D'),
     ('Ije', '', '', 'D'),
     ('IjE', '', '', 'D'),
-
     ('aja', '', '', 'D'),
     ('ajA', '', '', 'D'),
     ('ajo', '', '', 'D'),
     ('ajO', '', '', 'D'),
     ('aju', '', '', 'D'),
     ('ajU', '', '', 'D'),
-
     ('Aja', '', '', 'D'),
     ('AjA', '', '', 'D'),
     ('Ajo', '', '', 'D'),
     ('AjO', '', '', 'D'),
     ('Aju', '', '', 'D'),
     ('AjU', '', '', 'D'),
-
     ('oja', '', '', 'D'),
     ('ojA', '', '', 'D'),
     ('ojo', '', '', 'D'),
     ('ojO', '', '', 'D'),
     ('Aju', '', '', 'D'),
     ('AjU', '', '', 'D'),
-
     ('Oja', '', '', 'D'),
     ('OjA', '', '', 'D'),
     ('Ojo', '', '', 'D'),
     ('OjO', '', '', 'D'),
     ('Aju', '', '', 'D'),
     ('AjU', '', '', 'D'),
-
     ('eja', '', '', 'D'),
     ('ejA', '', '', 'D'),
     ('ejo', '', '', 'D'),
     ('ejO', '', '', 'D'),
     ('Aju', '', '', 'D'),
     ('AjU', '', '', 'D'),
-
     ('Eja', '', '', 'D'),
     ('EjA', '', '', 'D'),
     ('Ejo', '', '', 'D'),
     ('EjO', '', '', 'D'),
     ('Aju', '', '', 'D'),
     ('AjU', '', '', 'D'),
-
     ('uja', '', '', 'D'),
     ('ujA', '', '', 'D'),
     ('ujo', '', '', 'D'),
     ('ujO', '', '', 'D'),
     ('Aju', '', '', 'D'),
     ('AjU', '', '', 'D'),
-
     ('Uja', '', '', 'D'),
     ('UjA', '', '', 'D'),
     ('Ujo', '', '', 'D'),
     ('UjO', '', '', 'D'),
     ('Aju', '', '', 'D'),
     ('AjU', '', '', 'D'),
-
     ('ija', '', '', 'D'),
     ('ijA', '', '', 'D'),
     ('ijo', '', '', 'D'),
     ('ijO', '', '', 'D'),
     ('Aju', '', '', 'D'),
     ('AjU', '', '', 'D'),
-
     ('Ija', '', '', 'D'),
     ('IjA', '', '', 'D'),
     ('Ijo', '', '', 'D'),
     ('IjO', '', '', 'D'),
     ('Aju', '', '', 'D'),
     ('AjU', '', '', 'D'),
-
     ('j', '', '', 'i'),
-
     # lander = lender = lÃ¤nder
     ('lYndEr', '', '$', 'lYnder'),
     ('lander', '', '$', 'lYnder'),
@@ -387,7 +357,6 @@ _GEN_APPROX_COMMON = (
     ('lEndEr', '', '$', 'lYnder'),
     ('lendEr', '', '$', 'lYnder'),
     ('lEnder', '', '$', 'lYnder'),
-
     # burg = berg
     ('burk', '', '$', '(burk|berk)'),
     ('bUrk', '', '$', '(burk|berk)'),
@@ -397,24 +366,20 @@ _GEN_APPROX_COMMON = (
     ('BUrk', '', '$', '(burk|berk)'),
     ('Burg', '', '$', '(burk|berk)'),
     ('BUrg', '', '$', '(burk|berk)'),
-
     # CONSONANTS {z & Z; s & S} are approximately interchangeable
     ('s', '', '[rmnl]', 'z'),
     ('S', '', '[rmnl]', 'z'),
     ('s', '[rmnl]', '', 'z'),
     ('S', '[rmnl]', '', 'z'),
-
     ('dS', '', '$', 'S'),
     ('dZ', '', '$', 'S'),
     ('Z', '', '$', 'S'),
     ('S', '', '$', '(S|s)'),
     ('z', '', '$', '(S|s)'),
-
     ('S', '', '', 's'),
     ('dZ', '', '', 'z'),
     ('Z', '', '', 'z'),
-
-    )
+)
 
 # gen/approxcyrillic.php
 # this file uses the same rules as approxrussian.php
@@ -428,7 +393,6 @@ _GEN_APPROX_COMMON = (
 
 # gen/approxenglish.php
 _GEN_APPROX_ENGLISH = (
-
     # VOWELS
     ('I', '', '[^aEIeiou]e', '(Q|i|D)'),  # like in "five"
     ('I', '', '$', 'i'),
@@ -439,28 +403,27 @@ _GEN_APPROX_ENGLISH = (
     ('sIts', '', '$', '(sits|sQts)'),
     ('Its', '', '$', 'its'),
     ('I', '', '', '(i|Q)'),
-
     ('lE', '[bdfgkmnprsStvzZ]', '', '(il|li|lY)'),  # Applebaum < Appelbaum
-
     ('au', '', '', '(D|a|u)'),
     ('ou', '', '', '(D|o|u)'),
     ('ai', '', '', '(D|a|i)'),
     ('oi', '', '', '(D|o|i)'),
     ('ui', '', '', '(D|u|i)'),
-
-    ('E', 'D[^aeiEIou]', '', '(i|)'),  # Weinberg, Shaneberg (shaneberg/shejneberg) --> shejnberg  # noqa: E501
+    (
+        'E',
+        'D[^aeiEIou]',
+        '',
+        '(i|)',
+    ),  # Weinberg, Shaneberg (shaneberg/shejneberg) --> shejnberg  # noqa: E501
     ('e', 'D[^aeiEIou]', '', '(i|)'),
-
     ('e', '', '', 'i'),
     ('E', '', '[fklmnprsStv]$', 'i'),
     ('E', '', 'ts$', 'i'),
     ('E', '[DaoiEuQY]', '', 'i'),
     ('E', '', '[aoQY]', 'i'),
     ('E', '', '', '(Y|i)'),
-
     ('a', '', '', '(a|o)'),
-
-    )
+)
 
 # gen/approxfrench.php
 # GENERAL
@@ -470,16 +433,13 @@ _GEN_APPROX_FRENCH = (
     ('ai', '', '', '(D|a|i)'),
     ('oi', '', '', '(D|o|i)'),
     ('ui', '', '', '(D|u|i)'),
-
     ('a', '', '', '(a|o)'),
     ('e', '', '', 'i'),
-
-    )
+)
 
 # gen/approxgerman.php
 
 _GEN_APPROX_GERMAN = (
-
     ('I', '', '$', 'i'),
     ('I', '[aeiAEIOUouQY]', '', 'i'),
     ('I', '', '[^k]$', 'i'),
@@ -488,7 +448,6 @@ _GEN_APPROX_GERMAN = (
     ('sIts', '', '$', '(sits|sQts)'),
     ('Its', '', '$', 'its'),
     ('I', '', '', '(Q|i)'),
-
     ('AU', '', '', '(D|a|u)'),
     ('aU', '', '', '(D|a|u)'),
     ('Au', '', '', '(D|a|u)'),
@@ -503,30 +462,24 @@ _GEN_APPROX_GERMAN = (
     ('Oi', '', '', '(D|o|i)'),
     ('ui', '', '', '(D|u|i)'),
     ('Ui', '', '', '(D|u|i)'),
-
     ('e', '', '', 'i'),
-
     ('E', '', '[fklmnprst]$', 'i'),
     ('E', '', 'ts$', 'i'),
     ('E', '', '$', 'i'),
     ('E', '[DaoAOUiuQY]', '', 'i'),
     ('E', '', '[aoAOQY]', 'i'),
     ('E', '', '', '(Y|i)'),
-
     ('O', '', '$', 'o'),
     ('O', '', '[fklmnprst]$', 'o'),
     ('O', '', 'ts$', 'o'),
     ('O', '[aoAOUeiuQY]', '', 'o'),
     ('O', '', '', '(o|Y)'),
-
     ('a', '', '', '(a|o)'),
-
     ('A', '', '$', '(a|o)'),
     ('A', '', '[fklmnprst]$', '(a|o)'),
     ('A', '', 'ts$', '(a|o)'),
     ('A', '[aoeOUiuQY]', '', '(a|o)'),
     ('A', '', '', '(a|o|Y)'),
-
     ('U', '', '$', 'u'),
     ('U', '[DaoiuUQY]', '', 'u'),
     ('U', '', '[^k]$', 'u'),
@@ -535,22 +488,17 @@ _GEN_APPROX_GERMAN = (
     ('sUts', '', '$', '(suts|sQts)'),
     ('Uts', '', '$', 'uts'),
     ('U', '', '', '(u|Q)'),
-
-    )
+)
 
 # gen/approxgreek.php
 
 # this file uses the same rules as approxfrench.php
 
 # gen/approxgreeklatin.php
-_GEN_APPROX_GREEKLATIN = (
-    ('N', '', '', ''),
-
-    )
+_GEN_APPROX_GREEKLATIN = (('N', '', '', ''),)
 
 # gen/approxhebrew.php
-_GEN_APPROX_HEBREW = (
-    )
+_GEN_APPROX_HEBREW = ()
 
 # gen/approxhungarian.php
 
@@ -564,7 +512,6 @@ _GEN_APPROX_HEBREW = (
 
 # gen/approxpolish.php
 _GEN_APPROX_POLISH = (
-
     ('aiB', '', '[bp]', '(D|Dm)'),
     ('oiB', '', '[bp]', '(D|Dm)'),
     ('uiB', '', '[bp]', '(D|Dm)'),
@@ -572,7 +519,6 @@ _GEN_APPROX_POLISH = (
     ('EiB', '', '[bp]', '(D|Dm)'),
     ('iiB', '', '[bp]', '(D|Dm)'),
     ('IiB', '', '[bp]', '(D|Dm)'),
-
     ('aiB', '', '[dgkstvz]', '(D|Dn)'),
     ('oiB', '', '[dgkstvz]', '(D|Dn)'),
     ('uiB', '', '[dgkstvz]', '(D|Dn)'),
@@ -580,11 +526,9 @@ _GEN_APPROX_POLISH = (
     ('EiB', '', '[dgkstvz]', '(D|Dn)'),
     ('iiB', '', '[dgkstvz]', '(D|Dn)'),
     ('IiB', '', '[dgkstvz]', '(D|Dn)'),
-
     ('B', '', '[bp]', '(o|om|im)'),
     ('B', '', '[dgkstvz]', '(o|on|in)'),
     ('B', '', '', 'o'),
-
     ('aiF', '', '[bp]', '(D|Dm)'),
     ('oiF', '', '[bp]', '(D|Dm)'),
     ('uiF', '', '[bp]', '(D|Dm)'),
@@ -592,7 +536,6 @@ _GEN_APPROX_POLISH = (
     ('EiF', '', '[bp]', '(D|Dm)'),
     ('iiF', '', '[bp]', '(D|Dm)'),
     ('IiF', '', '[bp]', '(D|Dm)'),
-
     ('aiF', '', '[dgkstvz]', '(D|Dn)'),
     ('oiF', '', '[dgkstvz]', '(D|Dn)'),
     ('uiF', '', '[dgkstvz]', '(D|Dn)'),
@@ -600,13 +543,10 @@ _GEN_APPROX_POLISH = (
     ('EiF', '', '[dgkstvz]', '(D|Dn)'),
     ('iiF', '', '[dgkstvz]', '(D|Dn)'),
     ('IiF', '', '[dgkstvz]', '(D|Dn)'),
-
     ('F', '', '[bp]', '(i|im|om)'),
     ('F', '', '[dgkstvz]', '(i|in|on)'),
     ('F', '', '', 'i'),
-
     ('P', '', '', '(o|u)'),
-
     ('I', '', '$', 'i'),
     ('I', '', '[^k]$', 'i'),
     ('Ik', '[lr]', '$', '(ik|Qk)'),
@@ -615,24 +555,20 @@ _GEN_APPROX_POLISH = (
     ('Its', '', '$', 'its'),
     ('I', '[aeiAEBFIou]', '', 'i'),
     ('I', '', '', '(i|Q)'),
-
     ('au', '', '', '(D|a|u)'),
     ('ou', '', '', '(D|o|u)'),
     ('ai', '', '', '(D|a|i)'),
     ('oi', '', '', '(D|o|i)'),
     ('ui', '', '', '(D|u|i)'),
-
     ('a', '', '', '(a|o)'),
     ('e', '', '', 'i'),
-
     ('E', '', '[fklmnprst]$', 'i'),
     ('E', '', 'ts$', 'i'),
     ('E', '', '$', 'i'),
     ('E', '[DaoiuQ]', '', 'i'),
     ('E', '', '[aoQ]', 'i'),
     ('E', '', '', '(Y|i)'),
-
-    )
+)
 
 # gen/approxportuguese.php
 
@@ -644,7 +580,6 @@ _GEN_APPROX_POLISH = (
 # gen/approxrussian.php
 
 _GEN_APPROX_RUSSIAN = (
-
     # VOWELS
     ('I', '', '$', 'i'),
     ('I', '', '[^k]$', 'i'),
@@ -654,38 +589,29 @@ _GEN_APPROX_RUSSIAN = (
     ('Its', '', '$', 'its'),
     ('I', '[aeiEIou]', '', 'i'),
     ('I', '', '', '(i|Q)'),
-
     ('au', '', '', '(D|a|u)'),
     ('ou', '', '', '(D|o|u)'),
     ('ai', '', '', '(D|a|i)'),
     ('oi', '', '', '(D|o|i)'),
     ('ui', '', '', '(D|u|i)'),
-
     ('om', '', '[bp]', '(om|im)'),
     ('on', '', '[dgkstvz]', '(on|in)'),
     ('em', '', '[bp]', '(im|om)'),
     ('en', '', '[dgkstvz]', '(in|on)'),
     ('Em', '', '[bp]', '(im|Ym|om)'),
     ('En', '', '[dgkstvz]', '(in|Yn|on)'),
-
     ('a', '', '', '(a|o)'),
     ('e', '', '', 'i'),
-
     ('E', '', '[fklmnprsStv]$', 'i'),
     ('E', '', 'ts$', 'i'),
     ('E', '[DaoiuQ]', '', 'i'),
     ('E', '', '[aoQ]', 'i'),
     ('E', '', '', '(Y|i)'),
-
-    )
+)
 
 # gen/approxspanish.php
 
-_GEN_APPROX_SPANISH = (
-    ('B', '', '', '(b|v)'),
-    ('V', '', '', '(b|v)'),
-
-    )
+_GEN_APPROX_SPANISH = (('B', '', '', '(b|v)'), ('V', '', '', '(b|v)'))
 
 # gen/approxturkish.php
 # this file uses the same rules as approxfrench.php
@@ -698,76 +624,62 @@ _GEN_APPROX_SPANISH = (
 # but a, e, i, o, u should not create any new variant
 _GEN_EXACT_ANY = (
     ('EE', '', '$', 'e'),
-
     ('A', '', '', 'a'),
     ('E', '', '', 'e'),
     ('I', '', '', 'i'),
     ('O', '', '', 'o'),
     ('P', '', '', 'o'),
     ('U', '', '', 'u'),
-
     ('B', '', '[fktSs]', 'p'),
     ('B', '', 'p', ''),
     ('B', '', '$', 'p'),
     ('V', '', '[pktSs]', 'f'),
     ('V', '', 'f', ''),
     ('V', '', '$', 'f'),
-
     ('B', '', '', 'b'),
     ('V', '', '', 'v'),
-
-    )
+)
 
 # gen/exactapproxcommon.php
 # GENERAL
 _GEN_EXACT_APPROX_COMMON = (
     ('h', '', '$', ''),
-
     # VOICED - UNVOICED CONSONANTS
     ('b', '', '[fktSs]', 'p'),
     ('b', '', 'p', ''),
     ('b', '', '$', 'p'),
     ('p', '', '[vgdZz]', 'b'),  # Ashk: "v" excluded (everythere)
     ('p', '', 'b', ''),
-
     ('v', '', '[pktSs]', 'f'),
     ('v', '', 'f', ''),
     ('v', '', '$', 'f'),
     ('f', '', '[vbgdZz]', 'v'),
     ('f', '', 'v', ''),
-
     ('g', '', '[pftSs]', 'k'),
     ('g', '', 'k', ''),
     ('g', '', '$', 'k'),
     ('k', '', '[vbdZz]', 'g'),
     ('k', '', 'g', ''),
-
     ('d', '', '[pfkSs]', 't'),
     ('d', '', 't', ''),
     ('d', '', '$', 't'),
     ('t', '', '[vbgZz]', 'd'),
     ('t', '', 'd', ''),
-
     ('s', '', 'dZ', ''),
     ('s', '', 'tS', ''),
-
     ('z', '', '[pfkSt]', 's'),
     ('z', '', '[sSzZ]', ''),
     ('s', '', '[sSzZ]', ''),
     ('Z', '', '[sSzZ]', ''),
     ('S', '', '[sSzZ]', ''),
-
     # SIMPLIFICATION OF CONSONANT CLUSTERS
     ('jnm', '', '', 'jm'),
-
     # DOUBLE --> SINGLE
     ('ji', '^', '', 'i'),
     ('jI', '^', '', 'I'),
-
     ('a', '', '[aA]', ''),
     ('a', 'A', '', ''),
     ('A', '', 'A', ''),
-
     ('b', '', 'b', ''),
     ('d', '', 'd', ''),
     ('f', '', 'f', ''),
@@ -783,34 +695,27 @@ _GEN_EXACT_APPROX_COMMON = (
     ('v', '', 'v', ''),
     ('z', '', 'z', '')
     # do not put name of file here since it always gets merged into another file  # noqa: E501
-    )
+)
 
 # gen/exactarabic.php
-_GEN_EXACT_ARABIC = (
-
-    ('1', '', '', ''),
-
-    )
+_GEN_EXACT_ARABIC = (('1', '', '', ''),)
 
 # gen/exactcommon.php
 # GENERAL
 
 _GEN_EXACT_COMMON = (
     ('H', '', '', ''),
-
     # VOICED - UNVOICED CONSONANTS
     ('s', '[^t]', '[bgZd]', 'z'),
     ('Z', '', '[pfkst]', 'S'),
     ('Z', '', '$', 'S'),
     ('S', '', '[bgzd]', 'Z'),
     ('z', '', '$', 's'),
-
     ('ji', '[aAoOeEiIuU]', '', 'j'),
     ('jI', '[aAoOeEiIuU]', '', 'j'),
     ('je', '[aAoOeEiIuU]', '', 'j'),
     ('jE', '[aAoOeEiIuU]', '', 'j'),
-
-    )
+)
 
 # gen/exactcyrillic.php
 # this file uses the same rules as exactrussian.php
@@ -819,95 +724,63 @@ _GEN_EXACT_COMMON = (
 # this file uses the same rules as exactrussian.php
 
 # gen/exactdutch.php
-_GEN_EXACT_DUTCH = (
-
-    )
+_GEN_EXACT_DUTCH = ()
 
 # gen/exactenglish.php
 # this file uses the same rules as exactrussian.php
 
 # gen/exactfrench.php
 # GENERAL
-_GEN_EXACT_FRENCH = (
-
-    )
+_GEN_EXACT_FRENCH = ()
 
 # gen/exactgerman.php
 # this file uses the same rules as exactany.php
 
 # gen/exactgreek.php
-_GEN_EXACT_GREEK = (
-
-    )
+_GEN_EXACT_GREEK = ()
 
 # gen/exactgreeklatin.php
-_GEN_EXACT_GREEKLATIN = (
-
-    ('N', '', '', 'n'),
-
-    )
+_GEN_EXACT_GREEKLATIN = (('N', '', '', 'n'),)
 
 # gen/exacthebrew.php
-_GEN_EXACT_HEBREW = (
-    )
+_GEN_EXACT_HEBREW = ()
 
 # gen/exacthungarian.php
 # this file uses the same rules as exactrussian.php
 
 # gen/exactitalian.php
 # GENERAL
-_GEN_EXACT_ITALIAN = (
-
-    )
+_GEN_EXACT_ITALIAN = ()
 
 # gen/exactlatvian.php
 # GENERAL
-_GEN_EXACT_LATVIAN = (
-
-    )
+_GEN_EXACT_LATVIAN = ()
 
 # gen/exactpolish.php
 _GEN_EXACT_POLISH = (
-
     ('B', '', '', 'a'),
     ('F', '', '', 'e'),
     ('P', '', '', 'o'),
-
     ('E', '', '', 'e'),
     ('I', '', '', 'i'),
-
-    )
+)
 
 # gen/exactportuguese.php
 # GENERAL
-_GEN_EXACT_PORTUGUESE = (
-
-    )
+_GEN_EXACT_PORTUGUESE = ()
 
 # gen/exactromanian.php
 # this file uses the same rules as exactrussian.php
 
 # gen/exactrussian.php
-_GEN_EXACT_RUSSIAN = (
-
-    ('E', '', '', 'e'),
-    ('I', '', '', 'i'),
-
-    )
+_GEN_EXACT_RUSSIAN = (('E', '', '', 'e'), ('I', '', '', 'i'))
 
 # gen/exactspanish.php
 # GENERAL
-_GEN_EXACT_SPANISH = (
-
-    ('B', '', '', 'b'),
-    ('V', '', '', 'v'),
-
-    )
+_GEN_EXACT_SPANISH = (('B', '', '', 'b'), ('V', '', '', 'v'))
 
 # gen/exactturkish.php
-_GEN_EXACT_TURKISH = (
-
-    )
+_GEN_EXACT_TURKISH = ()
 
 # gen/hebrewcommon.php
 # GENERAL
@@ -922,7 +795,6 @@ _GEN_HEBREW_COMMON = (
     ('B', '', '', '(b|v)'),  # Spanish "b"
     ('V', '', '', 'v'),  # Spanish "v"
     ('EE', '', '', '(1|)'),  # final "e" (english & french)
-
     ('ja', '', '', 'i'),
     ('jA', '', '', 'i'),
     ('je', '', '', 'i'),
@@ -931,54 +803,45 @@ _GEN_HEBREW_COMMON = (
     ('Aj', '', '', 'i'),
     ('I', '', '', 'i'),
     ('j', '', '', 'i'),
-
     ('a', '^', '', '1'),
     ('A', '^', '', '1'),
     ('e', '^', '', '1'),
     ('E', '^', '', '1'),
     ('Y', '^', '', '1'),
-
     ('a', '', '$', '1'),
     ('A', '', '$', '1'),
     ('e', '', '$', '1'),
     ('E', '', '$', '1'),
     ('Y', '', '$', '1'),
-
     ('a', '', '', ''),
     ('A', '', '', ''),
     ('e', '', '', ''),
     ('E', '', '', ''),
     ('Y', '', '', ''),
-
     ('oj', '^', '', '(u|vi)'),
     ('Oj', '^', '', '(u|vi)'),
     ('uj', '^', '', '(u|vi)'),
     ('Uj', '^', '', '(u|vi)'),
-
     ('oj', '', '', 'u'),
     ('Oj', '', '', 'u'),
     ('uj', '', '', 'u'),
     ('Uj', '', '', 'u'),
-
     ('ou', '^', '', '(u|v|1)'),
     ('o', '^', '', '(u|v|1)'),
     ('O', '^', '', '(u|v|1)'),
     ('P', '^', '', '(u|v|1)'),
     ('U', '^', '', '(u|v|1)'),
     ('u', '^', '', '(u|v|1)'),
-
     ('o', '', '$', '(u|1)'),
     ('O', '', '$', '(u|1)'),
     ('P', '', '$', '(u|1)'),
     ('u', '', '$', '(u|1)'),
     ('U', '', '$', '(u|1)'),
-
     ('ou', '', '', 'u'),
     ('o', '', '', 'u'),
     ('O', '', '', 'u'),
     ('P', '', '', 'u'),
     ('U', '', '', 'u'),
-
     ('VV', '', '', 'u'),  # alef/ayin + vov from ruleshebrew
     ('V', '', '', 'v'),  # tsvey-vov from ruleshebrew;; only Ashkenazic
     ('L', '^', '', '1'),  # alef/ayin from  ruleshebrew
@@ -988,27 +851,22 @@ _GEN_HEBREW_COMMON = (
     ('WW', '', '', 'u'),  # vav-yod from  ruleshebrew
     ('W', '^', '', '(u|v)'),  # vav from  ruleshebrew
     ('W', '', '', 'u'),  # vav from  ruleshebrew
-
     # ("g","","","(g|Z)"),
     # ("z","","","(z|Z)"),
     # ("d","","","(d|dZ)"),
-
     ('TB', '^', '', 't'),  # tav from ruleshebrew
     ('TB', '', '', '(t|s)'),  # tav from ruleshebrew; s is only Ashkenazic
     ('T', '', '', 't'),  # tet from  ruleshebrew
-
     # ("k","","","(k|x)"),
     # ("x","","","(k|x)"),
     ('K', '', '', 'k'),  # kof and initial kaf from ruleshebrew
     ('X', '', '', 'x'),  # khet and final kaf from ruleshebrew
-
     ('H', '^', '', '(x|1)'),
     ('H', '', '$', '(x|1)'),
     ('H', '', '', '(x|)'),
     ('h', '^', '', '1'),
     ('h', '', '', ''),
-
-    )
+)
 
 # gen/lang.php
 # GENERIC
@@ -1025,7 +883,6 @@ _GEN_HEBREW_COMMON = (
 # if "pattern" matches and acceptance is false, name is not in any of the languages indicated  # noqa: E501
 
 _GEN_LANGUAGE_RULES = (
-
     # 1. following are rules to accept the language
     # 1.1 Special letter combinations
     ('^o’', 32, True),
@@ -1110,7 +967,6 @@ _GEN_LANGUAGE_RULES = (
     ('^zs', 2048, True),
     ('^wl', 16384, True),
     ('^wr', 16560, True),
-
     ('gy$', 2048, True),
     ('gy[aeou]', 2048, True),
     ('gy', 133696, True),
@@ -1118,11 +974,9 @@ _GEN_LANGUAGE_RULES = (
     ('gu[ei]', 294976, True),
     ('gu[ao]', 294912, True),
     ('gi[aou]', 4608, True),
-
     ('ly', 150016, True),
     ('ny', 412160, True),
     ('ty', 150016, True),
-
     # 1.2 special characters
     ('ā', 8192, True),
     ('ć', 16384, True),
@@ -1149,9 +1003,7 @@ _GEN_LANGUAGE_RULES = (
     ('ź', 16384, True),
     ('ž', 8200, True),
     ('ż', 16384, True),
-
     ('ß', 128, True),
-
     ('ä', 128, True),
     ('á', 297480, True),
     ('â', 98368, True),
@@ -1179,7 +1031,6 @@ _GEN_LANGUAGE_RULES = (
     ('ù', 64, True),
     ('ů', 8, True),
     ('ý', 520, True),
-
     # Every Cyrillic word has at least one Cyrillic vowel (аёеоиуыэюя)
     ('а', 4, True),
     ('ё', 4, True),
@@ -1191,7 +1042,6 @@ _GEN_LANGUAGE_RULES = (
     ('э', 4, True),
     ('ю', 4, True),
     ('я', 4, True),
-
     # Every Greek word has at least one Greek vowel
     ('α', 256, True),
     ('ε', 256, True),
@@ -1200,7 +1050,6 @@ _GEN_LANGUAGE_RULES = (
     ('ο', 256, True),
     ('υ', 256, True),
     ('ω', 256, True),
-
     # Arabic (only initial)
     ('ا', 2, True),  # alif (isol + init)
     ('ب', 2, True),  # ba'
@@ -1230,14 +1079,12 @@ _GEN_LANGUAGE_RULES = (
     ('ه', 2, True),  # ha'
     ('و', 2, True),  # waw (isol + init)
     ('ي', 2, True),  # ya'
-
     ('آ', 2, True),  # alif madda
     ('إ', 2, True),  # alif + diacritic
     ('أ', 2, True),  # alif + hamza
     ('ؤ', 2, True),  # waw + hamza
     ('ئ', 2, True),  # ya' + hamza
     # ("لا‎", 2, True), # ligature l+a
-
     # Hebrew
     ('א', 1024, True),
     ('ב', 1024, True),
@@ -1261,9 +1108,7 @@ _GEN_LANGUAGE_RULES = (
     ('ר', 1024, True),
     ('ש', 1024, True),
     ('ת', 1024, True),
-
     # 2. following are rules to reject the language
-
     # Every Latin character word has at least one Latin vowel
     ('a', 1286, False),
     ('o', 1286, False),
@@ -1271,7 +1116,6 @@ _GEN_LANGUAGE_RULES = (
     ('i', 1286, False),
     ('y', 75030, False),
     ('u', 1286, False),
-
     ('j', 4096, False),
     ('j[^aoeiuy]', 295488, False),
     ('g', 8, False),
@@ -1280,10 +1124,17 @@ _GEN_LANGUAGE_RULES = (
     ('v', 16384, False),
     ('w', 993864, False),
     ('x', 534552, False),  # polish excluded from the list
-
     ('dj', 786432, False),
-    ('v[^aoeiu]', 128, False),  # in german, "v" can be found before a vowel only  # noqa: E501
-    ('y[^aoeiu]', 128, False),  # in german, "y" usually appears only in the last position; sometimes before a vowel  # noqa: E501
+    (
+        'v[^aoeiu]',
+        128,
+        False,
+    ),  # in german, "v" can be found before a vowel only  # noqa: E501
+    (
+        'y[^aoeiu]',
+        128,
+        False,
+    ),  # in german, "y" usually appears only in the last position; sometimes before a vowel  # noqa: E501
     ('c[^aohk]', 128, False),
     ('dzi', 524512, False),
     ('ou', 128, False),
@@ -1307,14 +1158,32 @@ _GEN_LANGUAGE_RULES = (
     ('son$', 128, False),
     ('sc[ei]', 64, False),
     ('sch', 280640, False),
-    ('^h', 131072, False)
-
-    )
+    ('^h', 131072, False),
+)
 
 # gen/languagenames.php
-_GEN_LANGUAGES = ('any', 'arabic', 'cyrillic', 'czech', 'dutch', 'english', 'french', 'german', 'greek',  # noqa: E501
-                  'greeklatin', 'hebrew', 'hungarian', 'italian', 'latvian', 'polish', 'portuguese',  # noqa: E501
-                  'romanian', 'russian', 'spanish', 'turkish')
+_GEN_LANGUAGES = (
+    'any',
+    'arabic',
+    'cyrillic',
+    'czech',
+    'dutch',
+    'english',
+    'french',
+    'german',
+    'greek',  # noqa: E501
+    'greeklatin',
+    'hebrew',
+    'hungarian',
+    'italian',
+    'latvian',
+    'polish',
+    'portuguese',  # noqa: E501
+    'romanian',
+    'russian',
+    'spanish',
+    'turkish',
+)
 
 # gen/rulesany.php
 # format of each entry rule in the table
@@ -1333,7 +1202,6 @@ _GEN_LANGUAGES = ('any', 'arabic', 'cyrillic', 'czech', 'dutch', 'english', 'fre
 
 # GENERIC
 _GEN_RULES_ANY = (
-
     # CONVERTING FEMININE TO MASCULINE
     ('yna', '', '$', '(in[131072]|ina)'),
     ('ina', '', '$', '(in[131072]|ina)'),
@@ -1346,7 +1214,6 @@ _GEN_RULES_ANY = (
     ('aia', '', '$', '(aja|i[131072])'),
     ('aja', '', '$', '(aja|i[131072])'),
     ('aya', '', '$', '(aja|i[131072])'),
-
     ('lowa', '', '$', '(lova|lof[16384]|l[16384]|el[16384])'),
     ('kowa', '', '$', '(kova|kof[16384]|k[16384]|ek[16384])'),
     ('owa', '', '$', '(ova|of[16384]|)'),
@@ -1358,79 +1225,60 @@ _GEN_RULES_ANY = (
     ('ówna', '', '$', ''),  # polish
     ('á', '', '$', '(a|i[8])'),
     ('a', '', '$', '(a|i[16392])'),
-
     # CONSONANTS
     ('pf', '', '', '(pf|p|f)'),
     ('que', '', '$', '(k[64]|ke|kve)'),
     ('qu', '', '', '(kv|k)'),
-
     ('m', '', '[bfpv]', '(m|n)'),
     ('m', '[aeiouy]', '[aeiouy]', 'm'),
     ('m', '[aeiouy]', '', '(m|n[32832])'),  # nasal
-
     ('ly', '', '[au]', 'l'),
     ('li', '', '[au]', 'l'),
     ('lio', '', '', '(lo|le[131072])'),
     ('lyo', '', '', '(lo|le[131072])'),
     # ("ll","","","(l|J[262144])"),  # Disabled Argentinian rule
     ('lt', 'u', '$', '(lt|[64])'),
-
     ('v', '^', '', '(v|f[128]|b[262144])'),
-
     ('ex', '', '[aáuiíoóeéêy]', '(ez[32768]|eS[32768]|eks|egz)'),
     ('ex', '', '[cs]', '(e[32768]|ek)'),
     ('x', 'u', '$', '(ks|[64])'),
-
     ('ck', '', '', '(k|tsk[16392])'),
     ('cz', '', '', '(tS|tsz[8])'),  # Polish
-
     # Proceccing of "h" in various combinations
     ('rh', '^', '', 'r'),
     ('dh', '^', '', 'd'),
     ('bh', '^', '', 'b'),
-
     ('ph', '', '', '(ph|f)'),
     ('kh', '', '', '(x[131104]|kh)'),
-
     ('lh', '', '', '(lh|l[32768])'),
     ('nh', '', '', '(nh|nj[32768])'),
-
     ('ssch', '', '', 'S'),  # german
     ('chsch', '', '', 'xS'),  # german
     ('tsch', '', '', 'tS'),  # german
-
     # ("desch","^","","deS"),
     # ("desh","^","","(dES|de[64])"),
     # ("des","^","[^aeiouy]","(dEs|de[64])"),
-
     ('sch', '[aeiouy]', '[ei]', '(S|StS[131072]|sk[69632])'),
     ('sch', '[aeiouy]', '', '(S|StS[131072])'),
     ('sch', '', '[ei]', '(sk[69632]|S|StS[131072])'),
     ('sch', '', '', '(S|StS[131072])'),
     ('ssh', '', '', 'S'),
-
     ('sh', '', '[äöü]', 'sh'),  # german
     ('sh', '', '[aeiou]', '(S[131104]|sh)'),
     ('sh', '', '', 'S'),
-
     ('zh', '', '', '(Z[131104]|zh|tsh[128])'),
-
     ('chs', '', '', '(ks[128]|xs|tSs[131104])'),
     ('ch', '', '[ei]', '(x|tS[393248]|k[69632]|S[32832])'),
     ('ch', '', '', '(x|tS[393248]|S[32832])'),
-
     ('th', '^', '', 't'),  # english+german+greeklatin
     ('th', '', '[äöüaeiou]', '(t[672]|th)'),
     ('th', '', '', 't'),  # english+german+greeklatin
-
     ('gh', '', '[ei]', '(g[70144]|gh)'),
-
     ('ouh', '', '[aioe]', '(v[64]|uh)'),
     ('uh', '', '[aioe]', '(v|uh)'),
     ('h', '', '$', ''),
     ('h', '[aeiouyäöü]', '', ''),  # 128
     ('h', '^', '', '(h|x[66048]|H[381024])'),
-
     # Processing of "ci", "ce" & "cy"
     ('cia', '', '', '(tSa[16384]|tsa)'),  # Polish
     ('cią', '', '[bp]', '(tSom|tsom)'),  # Polish
@@ -1440,13 +1288,16 @@ _GEN_RULES_ANY = (
     ('cie', '', '', '(tSe[16384]|tse)'),  # Polish
     ('cio', '', '', '(tSo[16384]|tso)'),  # Polish
     ('ciu', '', '', '(tSu[16384]|tsu)'),  # Polish
-
-    ('sci', '', '$', '(Si[4096]|stsi[16392]|dZi[524288]|tSi[81920]|tS[65536]|si)'),  # noqa: E501
+    (
+        'sci',
+        '',
+        '$',
+        '(Si[4096]|stsi[16392]|dZi[524288]|tSi[81920]|tS[65536]|si)',
+    ),  # noqa: E501
     ('sc', '', '[ei]', '(S[4096]|sts[16392]|dZ[524288]|tS[81920]|s)'),
     ('ci', '', '$', '(tsi[16392]|dZi[524288]|tSi[81920]|tS[65536]|si)'),
     ('cy', '', '', '(si|tsi[16384])'),
     ('c', '', '[ei]', '(ts[16392]|dZ[524288]|tS[81920]|k[512]|s)'),
-
     # Processing of "s"
     ('sç', '', '[aeiou]', '(s|stS[524288])'),
     ('ssz', '', '', 'S'),  # polish
@@ -1461,46 +1312,37 @@ _GEN_RULES_ANY = (
     ('sj', '^', '', 'S'),  # dutch
     ('sj', '', '$', 'S'),  # dutch
     ('sj', '', '', '(sj|S[16]|sx[262144]|sZ[589824])'),
-
     ('sia', '', '', '(Sa[16384]|sa[16384]|sja)'),
     ('sią', '', '[bp]', '(Som[16384]|som)'),  # polish
     ('sią', '', '', '(Son[16384]|son)'),  # polish
     ('się', '', '[bp]', '(Sem[16384]|sem)'),  # polish
     ('się', '', '', '(Sen[16384]|sen)'),  # polish
     ('sie', '', '', '(se|sje|Se[16384]|zi[128])'),
-
     ('sio', '', '', '(So[16384]|so)'),
     ('siu', '', '', '(Su[16384]|sju)'),
-
     ('si', '[äöüaáuiíoóeéêy]', '', '(Si[16384]|si|zi[37056])'),
     ('si', '', '', '(Si[16384]|si|zi[128])'),
     ('s', '[aáuiíoóeéêy]', '[aáuíoóeéêy]', '(s|z[37056])'),
     ('s', '', '[aeouäöü]', '(s|z[128])'),
     ('s', '[aeiouy]', '[dglmnrv]', '(s|z|Z[32768]|[64])'),  # Groslot
     ('s', '', '[dglmnrv]', '(s|z|Z[32768])'),
-
     # Processing of "g"
     ('gue', '', '$', '(k[64]|gve)'),  # portuguese+spanish
     ('gu', '', '[ei]', '(g[64]|gv[294912])'),  # portuguese+spanish
     ('gu', '', '[ao]', 'gv'),  # portuguese+spanish
     ('guy', '', '', 'gi'),  # french
-
     ('gli', '', '', '(glI|l[4096])'),
     ('gni', '', '', '(gnI|ni[4160])'),
     ('gn', '', '[aeou]', '(n[4160]|nj[4160]|gn)'),
-
     ('ggie', '', '', '(je[512]|dZe)'),  # dZ is Italian
     ('ggi', '', '[aou]', '(j[512]|dZ)'),  # dZ is Italian
-
     ('ggi', '[yaeiou]', '[aou]', '(gI|dZ[4096]|j[512])'),
     ('gge', '[yaeiou]', '', '(gE|xe[262144]|gZe[32832]|dZe[331808]|je[512])'),
     ('ggi', '[yaeiou]', '', '(gI|xi[262144]|gZi[32832]|dZi[331808]|i[512])'),
     ('ggi', '', '[aou]', '(gI|dZ[4096]|j[512])'),
-
     ('gie', '', '$', '(ge|gi[128]|ji[64]|dZe[4096])'),
     ('gie', '', '', '(ge|gi[128]|dZe[4096]|je[512])'),
     ('gi', '', '[aou]', '(i[512]|dZ)'),  # dZ is Italian
-
     ('ge', '[yaeiou]', '', '(gE|xe[262144]|Ze[32832]|dZe[331808])'),
     ('gi', '[yaeiou]', '', '(gI|xi[262144]|Zi[32832]|dZi[331808])'),
     ('ge', '', '', '(gE|xe[262144]|hE[131072]|je[512]|Ze[32832]|dZe[331808])'),
@@ -1509,19 +1351,15 @@ _GEN_RULES_ANY = (
     ('gy', '', '', '(gi|d[2048])'),
     ('g', '[yaeiou]', '[aouyei]', 'g'),
     ('g', '', '[aouei]', '(g|h[131072])'),
-
     # Processing of "j"
     ('ij', '', '', '(i|ej[16]|ix[262144]|iZ[622656])'),
     ('j', '', '[aoeiuy]', '(j|dZ[32]|x[262144]|Z[622656])'),
-
     # Processing of "z"
     ('rz', 't', '', '(S[16384]|r)'),  # polish
     ('rz', '', '', '(rz|rts[128]|Z[16384]|r[16384]|rZ[16384])'),
-
     ('tz', '', '$', '(ts|tS[160])'),
     ('tz', '^', '', '(ts[131232]|tS[160])'),
     ('tz', '', '', '(ts[131232]|tz)'),
-
     ('zia', '', '[bcdgkpstwzż]', '(Za[16384]|za[16384]|zja)'),
     ('zia', '', '', '(Za[16384]|zja)'),
     ('zią', '', '[bp]', '(Zom[16384]|zom)'),  # polish
@@ -1533,16 +1371,18 @@ _GEN_RULES_ANY = (
     ('zio', '', '', '(Zo[16384]|zo)'),
     ('ziu', '', '', '(Zu[16384]|zju)'),
     ('zi', '', '', '(Zi[16384]|zi|tsi[128]|dzi[4096]|tsi[4096]|si[262144])'),
-
-    ('z', '', '$', '(s|ts[128]|ts[4096]|S[32768])'),  # ts It, s/S/Z Port, s in Sp, z Fr  # noqa: E501
+    (
+        'z',
+        '',
+        '$',
+        '(s|ts[128]|ts[4096]|S[32768])',
+    ),  # ts It, s/S/Z Port, s in Sp, z Fr  # noqa: E501
     ('z', '', '[bdgv]', '(z|dz[4096]|Z[32768])'),  # dz It, Z/z Port, z Sp & Fr
     ('z', '', '[ptckf]', '(s|ts[4096]|S[32768])'),  # ts It, s/S/z Port, z/s Sp
-
     # VOWELS
     ('aue', '', '', 'aue'),
     ('oue', '', '', '(oue|ve[64])'),
     ('eau', '', '', 'o'),  # French
-
     ('ae', '', '', '(Y[128]|aje[131072]|ae)'),
     ('ai', '', '', 'aj'),
     ('au', '', '', '(au|o[64])'),
@@ -1584,13 +1424,10 @@ _GEN_RULES_ANY = (
     ('yo', '', '', '(jo|e[131072])'),
     ('yu', '', '', 'ju'),
     ('yy', '', '$', 'i'),  # russian
-
     ('i', '[áóéê]', '', 'j'),
     ('y', '[áóéê]', '', 'j'),
-
     ('e', '^', '', '(e|je[131072])'),
     ('e', '', '$', '(e|EE[96])'),
-
     # LANGUAGE SPECIFIC CHARACTERS
     ('ą', '', '[bp]', 'om'),  # polish
     ('ą', '', '', 'on'),  # polish
@@ -1646,13 +1483,10 @@ _GEN_RULES_ANY = (
     ('ż', '', '', 'Z'),  # polish
     ('ź', '', '', '(Z[16384]|z)'),
     ('ž', '', '', 'Z'),  # czech + latvian
-
     ('ß', '', '', 's'),  # german
     ('\'', '', '', ''),  # russian
     ('"', '', '', ''),  # russian
-
     ('o', '', '[bcćdgklłmnńrsśtwzźż]', '(O|P[16384])'),
-
     # LATIN ALPHABET
     ('a', '', '', 'A'),
     ('b', '', '', 'B'),
@@ -1680,102 +1514,77 @@ _GEN_RULES_ANY = (
     ('w', '', '', '(v|w[48])'),
     ('x', '', '', '(ks|gz|S[294912])'),  # S/ks Port & Sp, gz Sp, It only ks
     ('y', '', '', 'i'),
-    ('z', '', '', '(z|ts[128]|dz[4096]|ts[4096]|s[262144])'),  # ts/dz It, z Port & Fr, z/s Sp  # noqa: E501
-
-    )
+    (
+        'z',
+        '',
+        '',
+        '(z|ts[128]|dz[4096]|ts[4096]|s[262144])',
+    ),  # ts/dz It, z Port & Fr, z/s Sp  # noqa: E501
+)
 
 # gen/rulesarabic.php
 
 # General
 _GEN_RULES_ARABIC = (
-
     ('ا', '', '', 'a'),  # alif isol & init
-
     ('ب', '', '$', 'b'),
     ('ب', '', '', 'b1'),  # ba' isol
-
     ('ت', '', '$', 't'),
     ('ت', '', '', 't1'),  # ta' isol
-
     ('ث', '', '$', 't'),
     ('ث', '', '', 't1'),  # tha' isol
-
     ('ج', '', '$', '(dZ|Z)'),
     ('ج', '', '', '(dZ1|Z1)'),  # jim isol
-
     ('ح', '^', '', '1'),
     ('ح', '', '$', '1'),
     ('ح', '', '', '(h1|1)'),  # h.a' isol
-
     ('خ', '', '$', 'x'),
     ('خ', '', '', 'x1'),  # kha' isol
-
     ('د', '', '$', 'd'),
     ('د', '', '', 'd1'),  # dal isol & init
-
     ('ذ', '', '$', 'd'),
     ('ذ', '', '', 'd1'),  # dhal isol & init
-
     ('ر', '', '$', 'r'),
     ('ر', '', '', 'r1'),  # ra' isol & init
-
     ('ز', '', '$', 'z'),
     ('ز', '', '', 'z1'),  # za' isol & init
-
     ('س', '', '$', 's'),
     ('س', '', '', 's1'),  # sin isol
-
     ('ش', '', '$', 'S'),
     ('ش', '', '', 'S1'),  # shin isol
-
     ('ص', '', '$', 's'),
     ('ص', '', '', 's1'),  # s.ad isol
-
     ('ض', '', '$', 'd'),
     ('ض', '', '', 'd1'),  # d.ad isol
-
     ('ط', '', '$', 't'),
     ('ط', '', '', 't1'),  # t.a' isol
-
     ('ظ', '', '$', 'z'),
     ('ظ', '', '', 'z1'),  # z.a' isol
-
     ('ع', '^', '', '1'),
     ('ع', '', '$', '1'),
     ('ع', '', '', '(h1|1)'),  # ayin isol
-
     ('غ', '', '$', 'g'),
     ('غ', '', '', 'g1'),  # ghayin isol
-
     ('ف', '', '$', 'f'),
     ('ف', '', '', 'f1'),  # fa' isol
-
     ('ق', '', '$', 'k'),
     ('ق', '', '', 'k1'),  # qaf isol
-
     ('ك', '', '$', 'k'),
     ('ك', '', '', 'k1'),  # kaf isol
-
     ('ل', '', '$', 'l'),
     ('ل', '', '', 'l1'),  # lam isol
-
     ('م', '', '$', 'm'),
     ('م', '', '', 'm1'),  # mim isol
-
     ('ن', '', '$', 'n'),
     ('ن', '', '', 'n1'),  # nun isol
-
     ('ه', '^', '', '1'),
     ('ه', '', '$', '1'),
     ('ه', '', '', '(h1|1)'),  # h isol
-
     ('و', '', '$', '(u|v)'),
     ('و', '', '', '(u|v1)'),  # waw, isol + init
-
     ('ي‎', '', '$', '(i|j)'),
     ('ي‎', '', '', '(i|j1)'),  # ya' isol
-
-    )
+)
 
 # gen/rulescyrillic.php
 
@@ -1792,7 +1601,6 @@ _GEN_RULES_CYRILLIC = (
     ('зие', '', '', 'ze'),
     ('зио', '', '', 'zo'),
     ('с', '', 'с', ''),
-
     ('гауз', '', '$', 'haus'),
     ('гаус', '', '$', 'haus'),
     ('гольц', '', '$', 'holts'),
@@ -1804,13 +1612,11 @@ _GEN_RULES_CYRILLIC = (
     ('гин', '', '$', 'gin'),
     ('г', '(й|ё|я|ю|ы|а|е|о|и|у)', '(а|е|о|и|у)', 'g'),
     ('г', '', '(а|е|о|и|у)', '(g|h)'),
-
     ('ля', '', '', 'la'),
     ('лю', '', '', 'lu'),
     ('лё', '', '', '(le|lo)'),
     ('лио', '', '', '(le|lo)'),
     ('ле', '', '', '(lE|lo)'),
-
     ('ийе', '', '', 'je'),
     ('ие', '', '', 'je'),
     ('ыйе', '', '', 'je'),
@@ -1819,16 +1625,13 @@ _GEN_RULES_CYRILLIC = (
     ('ый', '', '(а|о|у)', 'j'),
     ('ий', '', '$', 'i'),
     ('ый', '', '$', 'i'),
-
     ('ей', '^', '', '(jej|ej)'),
     ('е', '(а|е|о|у)', '', 'je'),
     ('е', '^', '', 'je'),
     ('эй', '', '', 'ej'),
     ('ей', '', '', 'ej'),
-
     ('ауе', '', '', 'aue'),
     ('ауэ', '', '', 'aue'),
-
     ('а', '', '', 'a'),
     ('б', '', '', 'b'),
     ('в', '', '', 'v'),
@@ -1862,8 +1665,7 @@ _GEN_RULES_CYRILLIC = (
     ('э', '', '', 'E'),
     ('ю', '', '', 'ju'),
     ('я', '', '', 'ja'),
-
-    )
+)
 
 # gen/rulesczech.php
 
@@ -1874,7 +1676,6 @@ _GEN_RULES_CZECH = (
     ('ei', '', '', '(ej|aj)'),
     ('i', '[aou]', '', 'j'),
     ('i', '', '[aeou]', 'j'),
-
     ('č', '', '', 'tS'),
     ('š', '', '', 'S'),
     ('ž', '', '', 'Z'),
@@ -1882,7 +1683,6 @@ _GEN_RULES_CZECH = (
     ('ť', '', '', '(t|tj)'),
     ('ď', '', '', '(d|dj)'),
     ('ř', '', '', '(r|rZ)'),
-
     ('á', '', '', 'a'),
     ('é', '', '', 'e'),
     ('í', '', '', 'i'),
@@ -1891,7 +1691,6 @@ _GEN_RULES_CZECH = (
     ('ý', '', '', 'i'),
     ('ě', '', '', '(e|je)'),
     ('ů', '', '', 'u'),
-
     # LATIN ALPHABET
     ('a', '', '', 'a'),
     ('b', '', '', 'b'),
@@ -1919,13 +1718,11 @@ _GEN_RULES_CZECH = (
     ('x', '', '', 'ks'),
     ('y', '', '', 'i'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # gen/rulesdutch.php
 
 _GEN_RULES_DUTCH = (
-
     # CONSONANTS
     ('ssj', '', '', 'S'),
     ('sj', '', '', 'S'),
@@ -1940,7 +1737,6 @@ _GEN_RULES_DUTCH = (
     ('th', '', '', 't'),  # German
     ('ss', '', '', 's'),
     ('h', '[aeiouy]', '', ''),
-
     # VOWELS
     ('aue', '', '', 'aue'),
     ('ou', '', '', 'au'),
@@ -1954,12 +1750,10 @@ _GEN_RULES_DUTCH = (
     ('ij', '', '', 'ej'),
     ('ui', '', '', '(Y|uj)'),
     ('ei', '', '', '(ej|aj)'),  # Dutch ej
-
     ('i', '', '[aou]', 'j'),
     ('y', '', '[aeou]', 'j'),
     ('i', '[aou]', '', 'j'),
     ('y', '[aeou]', '', 'j'),
-
     # LATIN ALPHABET
     ('a', '', '', 'a'),
     ('b', '', '', 'b'),
@@ -1987,14 +1781,12 @@ _GEN_RULES_DUTCH = (
     ('x', '', '', 'ks'),
     ('y', '', '', 'i'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # gen/rulesenglish.php
 
 # GENERAL
 _GEN_RULES_ENGLISH = (
-
     # CONSONANTS
     ('’', '', '', ''),  # O’Neill
     ('\'', '', '', ''),  # O’Neill
@@ -2006,7 +1798,6 @@ _GEN_RULES_ENGLISH = (
     ('cc', '', '[iey]', 'ks'),  # success, accent
     ('c', '', 'c', ''),
     ('c', '', '[iey]', 's'),  # circle
-
     ('gh', '^', '', 'g'),  # ghost
     ('gh', '', '', '(g|f|w)'),  # burgh | tough | bough
     ('gn', '', '', '(gn|n)'),
@@ -2019,11 +1810,9 @@ _GEN_RULES_ENGLISH = (
     ('sh', '', '', 'S'),
     ('who', '^', '', 'hu'),
     ('wh', '^', '', 'w'),
-
     ('h', '', '$', ''),  # hard to find an example that isn't in a name
     ('h', '', '[^aeiou]', ''),  # hard to find an example that isn't in a name
     ('h', '^', '', 'H'),
-
     ('kn', '^', '', 'n'),  # knight
     ('mb', '', '$', 'm'),
     ('ng', '', '$', '(N|ng)'),
@@ -2034,7 +1823,6 @@ _GEN_RULES_ENGLISH = (
     ('tio', '', '', 'So'),
     ('wr', '^', '', 'r'),
     ('x', '^', '', 'z'),
-
     # VOWELS
     ('y', '^', '', 'j'),
     ('y', '^', '[aeiouy]', 'j'),
@@ -2060,8 +1848,12 @@ _GEN_RULES_ENGLISH = (
     ('oy', '', '', 'oj'),  # boy
     ('o', '', '[^aeiou]e', 'ou'),  # rode
     ('u', '', '[^aeiou]e', '(ju|u)'),  # cute | flute
-    ('u', '', 'r', '(e|u)'),  # turn -- Morse disagrees, feels it should go to E  # noqa: E501
-
+    (
+        'u',
+        '',
+        'r',
+        '(e|u)',
+    ),  # turn -- Morse disagrees, feels it should go to E  # noqa: E501
     # LATIN ALPHABET
     ('a', '', '', '(e|o|a)'),  # hat | call | part
     ('b', '', '', 'b'),
@@ -2085,18 +1877,21 @@ _GEN_RULES_ENGLISH = (
     ('t', '', '', 't'),
     ('u', '', '', '(u|a)'),  # put
     ('v', '', '', 'v'),
-    ('w', '', '', '(w|v)'),  # the variant "v" is for spellings coming from German/Polish  # noqa: E501
+    (
+        'w',
+        '',
+        '',
+        '(w|v)',
+    ),  # the variant "v" is for spellings coming from German/Polish  # noqa: E501
     ('x', '', '', 'ks'),
     ('y', '', '', 'i'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # gen/rulesfrench.php
 
 # GENERAL
 _GEN_RULES_FRENCH = (
-
     # CONSONANTS
     ('lt', 'u', '$', '(lt|)'),  # Renault
     ('c', 'n', '$', '(k|)'),  # Tronc
@@ -2107,26 +1902,25 @@ _GEN_RULES_FRENCH = (
     ('r', 'e', '$', '(r|)'),  # Barbier
     ('t', '', '$', '(t|)'),  # Murat, Constant
     ('z', '', '$', '(s|)'),
-
     ('ds', '', '$', '(ds|)'),
     ('ps', '', '$', '(ps|)'),  # Champs
     ('rs', 'e', '$', '(rs|)'),
     ('ts', '', '$', '(ts|)'),
     ('s', '', '$', '(s|)'),  # Denis
-
     ('x', 'u', '$', '(ks|)'),  # Arnoux
-
-    ('s', '[aeéèêiou]', '[^aeéèêiou]', '(s|)'),  # Deschamps, Malesherbes, Groslot  # noqa: E501
+    (
+        's',
+        '[aeéèêiou]',
+        '[^aeéèêiou]',
+        '(s|)',
+    ),  # Deschamps, Malesherbes, Groslot  # noqa: E501
     ('t', '[aeéèêiou]', '[^aeéèêiou]', '(t|)'),  # Petitjean
-
     ('kh', '', '', 'x'),  # foreign
     ('ph', '', '', 'f'),
-
     ('ç', '', '', 's'),
     ('x', '', '', 'ks'),
     ('ch', '', '', 'S'),
     ('c', '', '[eiyéèê]', 's'),
-
     ('gn', '', '', '(n|gn)'),
     ('g', '', '[eiy]', 'Z'),
     ('gue', '', '$', 'k'),
@@ -2137,13 +1931,10 @@ _GEN_RULES_FRENCH = (
     ('qu', '', '', 'k'),
     ('s', '[aeiouyéèê]', '[aeiouyéèê]', 'z'),
     ('h', '[bdgt]', '', ''),  # translit from Arabic
-
     ('m', '[aeiouy]', '[aeiouy]', 'm'),
     ('m', '[aeiouy]', '', '(m|n)'),  # nasal
-
     ('ou', '', '[aeio]', 'v'),
     ('u', '', '[aeio]', 'v'),
-
     # VOWELS
     ('aue', '', '', 'aue'),
     ('eau', '', '', 'o'),
@@ -2165,7 +1956,6 @@ _GEN_RULES_FRENCH = (
     ('e', '', '$', '(e|)'),
     ('i', '', '[aou]', 'j'),
     ('y', '', '[aoeu]', 'j'),
-
     # LATIN ALPHABET
     ('a', '', '', 'a'),
     ('b', '', '', 'b'),
@@ -2192,14 +1982,12 @@ _GEN_RULES_FRENCH = (
     ('w', '', '', 'v'),
     ('y', '', '', 'i'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # gen/rulesgerman.php
 
 # GENERIC
 _GEN_RULES_GERMAN = (
-
     # CONSONANTS
     ('ewitsch', '', '$', 'evitS'),
     ('owitsch', '', '$', 'ovitS'),
@@ -2210,16 +1998,13 @@ _GEN_RULES_GERMAN = (
     ('ssch', '', '', 'S'),
     ('chsch', '', '', 'xS'),
     ('sch', '', '', 'S'),
-
     ('ziu', '', '', 'tsu'),
     ('zia', '', '', 'tsa'),
     ('zio', '', '', 'tso'),
-
     ('chs', '', '', 'ks'),
     ('ch', '', '', 'x'),
     ('ck', '', '', 'k'),
     ('c', '', '[eiy]', 'ts'),
-
     ('sp', '^', '', 'Sp'),
     ('st', '^', '', 'St'),
     ('ssp', '', '', '(Sp|sp)'),
@@ -2229,7 +2014,6 @@ _GEN_RULES_GERMAN = (
     ('pf', '', '', '(pf|p|f)'),
     ('ph', '', '', '(ph|f)'),
     ('qu', '', '', 'kv'),
-
     ('ewitz', '', '$', '(evits|evitS)'),
     ('ewiz', '', '$', '(evits|evitS)'),
     ('evitz', '', '$', '(evits|evitS)'),
@@ -2243,7 +2027,6 @@ _GEN_RULES_GERMAN = (
     ('vitz', '', '$', '(vits|vitS)'),
     ('viz', '', '$', '(vits|vitS)'),
     ('tz', '', '', 'ts'),
-
     ('thal', '', '$', 'tal'),
     ('th', '^', '', 't'),
     ('th', '', '[äöüaeiou]', '(t|th)'),
@@ -2251,12 +2034,10 @@ _GEN_RULES_GERMAN = (
     ('rh', '^', '', 'r'),
     ('h', '[aeiouyäöü]', '', ''),
     ('h', '^', '', 'H'),
-
     ('ss', '', '', 's'),
     ('s', '', '[äöüaeiouy]', '(z|s)'),
     ('s', '[aeiouyäöüj]', '[aeiouyäöü]', 'z'),
     ('ß', '', '', 's'),
-
     # VOWELS
     ('ij', '', '$', 'i'),
     ('aue', '', '', 'aue'),
@@ -2274,14 +2055,12 @@ _GEN_RULES_GERMAN = (
     ('ie', '', '', 'I'),
     ('i', '', '[aou]', 'j'),
     ('y', '', '[aoeu]', 'j'),
-
     # FOREIGN LETTERs
     ('ñ', '', '', 'n'),
     ('ã', '', '', 'a'),
     ('ő', '', '', 'o'),
     ('ű', '', '', 'u'),
     ('ç', '', '', 's'),
-
     # LATIN ALPHABET
     ('a', '', '', 'A'),
     ('b', '', '', 'b'),
@@ -2309,31 +2088,42 @@ _GEN_RULES_GERMAN = (
     ('x', '', '', 'ks'),
     ('y', '', '', 'i'),
     ('z', '', '', 'ts'),
-
-    )
+)
 
 # gen/rulesgreek.php
 
 _GEN_RULES_GREEK = (
-
-    ('αυ', '', '$', 'af'),  # "av" before vowels and voiced consonants, "af" elsewhere  # noqa: E501
+    (
+        'αυ',
+        '',
+        '$',
+        'af',
+    ),  # "av" before vowels and voiced consonants, "af" elsewhere  # noqa: E501
     ('αυ', '', '(κ|π|σ|τ|φ|θ|χ|ψ)', 'af'),
     ('αυ', '', '', 'av'),
-    ('ευ', '', '$', 'ef'),  # "ev" before vowels and voiced consonants, "ef" elsewhere  # noqa: E501
+    (
+        'ευ',
+        '',
+        '$',
+        'ef',
+    ),  # "ev" before vowels and voiced consonants, "ef" elsewhere  # noqa: E501
     ('ευ', '', '(κ|π|σ|τ|φ|θ|χ|ψ)', 'ef'),
     ('ευ', '', '', 'ev'),
-    ('ηυ', '', '$', 'if'),  # "iv" before vowels and voiced consonants, "if" elsewhere  # noqa: E501
+    (
+        'ηυ',
+        '',
+        '$',
+        'if',
+    ),  # "iv" before vowels and voiced consonants, "if" elsewhere  # noqa: E501
     ('ηυ', '', '(κ|π|σ|τ|φ|θ|χ|ψ)', 'if'),
     ('ηυ', '', '', 'iv'),
     ('ου', '', '', 'u'),  # [u:]
-
     ('αι', '', '', 'aj'),  # modern [e]
     ('ει', '', '', 'ej'),  # modern [i]
     ('οι', '', '', 'oj'),  # modern [i]
     ('ωι', '', '', 'oj'),
     ('ηι', '', '', 'ej'),
     ('υι', '', '', 'i'),  # modern Greek "i"
-
     ('γγ', '(ε|ι|η|α|ο|ω|υ)', '(ε|ι|η)', '(nj|j)'),
     ('γγ', '', '(ε|ι|η)', 'j'),
     ('γγ', '(ε|ι|η|α|ο|ω|υ)', '', '(ng|g)'),
@@ -2347,11 +2137,9 @@ _GEN_RULES_GREEK = (
     ('γι', '', '', '(gi|i)'),
     ('γε', '', '(α|ο|ω|υ)', 'j'),
     ('γε', '', '', '(ge|je)'),
-
     ('κζ', '', '', 'gz'),
     ('τζ', '', '', 'dz'),
     ('σ', '', '(β|γ|δ|μ|ν|ρ)', 'z'),
-
     ('μβ', '', '', '(mb|b)'),
     ('μπ', '^', '', 'b'),
     ('μπ', '(ε|ι|η|α|ο|ω|υ)', '', 'mb'),
@@ -2359,7 +2147,6 @@ _GEN_RULES_GREEK = (
     ('ντ', '^', '', 'd'),
     ('ντ', '(ε|ι|η|α|ο|ω|υ)', '', '(nd|nt)'),  # Greek is "nd"
     ('ντ', '', '', '(nt|d)'),  # Greek is "d" after any consonant
-
     ('ά', '', '', 'a'),
     ('έ', '', '', 'e'),
     ('ή', '', '', '(i|e)'),
@@ -2370,7 +2157,6 @@ _GEN_RULES_GREEK = (
     ('ΰ', '', '', '(Q|i|u)'),
     ('ϋ', '', '', '(Q|i|u)'),
     ('ϊ', '', '', 'j'),
-
     ('α', '', '', 'a'),
     ('β', '', '', '(v|b)'),  # modern "v", old "b"
     ('γ', '', '', 'g'),
@@ -2396,13 +2182,11 @@ _GEN_RULES_GREEK = (
     ('χ', '', '', 'x'),
     ('ψ', '', '', 'ps'),
     ('ω', '', '', 'o'),
-
-    )
+)
 
 # gen/rulesgreeklatin.php
 
 _GEN_RULES_GREEKLATIN = (
-
     ('au', '', '$', 'af'),
     ('au', '', '[kpstfh]', 'af'),
     ('au', '', '', 'av'),
@@ -2410,7 +2194,6 @@ _GEN_RULES_GREEKLATIN = (
     ('eu', '', '[kpstfh]', 'ef'),
     ('eu', '', '', 'ev'),
     ('ou', '', '', 'u'),
-
     ('gge', '[aeiouy]', '', '(nje|je)'),  # aggelopoulos
     ('ggi', '[aeiouy]', '[aou]', '(nj|j)'),
     ('ggi', '[aeiouy]', '', '(ni|i)'),
@@ -2443,15 +2226,18 @@ _GEN_RULES_GREEKLATIN = (
     ('gi', '', '', '(gi|i)'),  # what about Pantazis = Pantagis ???
     ('ge', '', '[aouy]', 'j'),
     ('ge', '', '', '(je|ge)'),
-    ('ng', '', '', 'Ng'),  # fragakis = fraggakis = frangakis; angel = agel = aggel  # noqa: E501
-
+    (
+        'ng',
+        '',
+        '',
+        'Ng',
+    ),  # fragakis = fraggakis = frangakis; angel = agel = aggel  # noqa: E501
     ('i', '', '[aeou]', 'j'),
     ('i', '[aeou]', '', 'j'),
     ('y', '', '[aeou]', 'j'),
     ('y', '[aeou]', '', 'j'),
     ('yi', '', '[aeou]', 'j'),
     ('yi', '', '', 'i'),
-
     ('ch', '', '', 'x'),
     ('kh', '', '', 'x'),
     ('dh', '', '', 'd'),  # actually as "th" in English "that"
@@ -2461,7 +2247,6 @@ _GEN_RULES_GREEKLATIN = (
     ('kz', '', '', 'gz'),
     ('tz', '', '', 'dz'),
     ('s', '', '[bgdmnr]', 'z'),
-
     ('mb', '', '', '(mb|b)'),  # Liberis = Limperis = Limberis
     ('mp', '^', '', 'b'),
     ('mp', '[aeiouy]', '', 'mp'),
@@ -2469,7 +2254,6 @@ _GEN_RULES_GREEKLATIN = (
     ('nt', '^', '', 'd'),
     ('nt', '[aeiouy]', '', '(nd|nt)'),  # Greek "nd"
     ('nt', '', '', '(nt|d)'),  # Greek "d" after any consonant
-
     ('á', '', '', 'a'),
     ('é', '', '', 'e'),
     ('í', '', '', 'i'),
@@ -2477,7 +2261,6 @@ _GEN_RULES_GREEKLATIN = (
     ('óu', '', '', 'u'),
     ('ú', '', '', 'u'),
     ('ý', '', '', '(i|Q|u)'),  # [ü]
-
     ('a', '', '', 'a'),
     ('b', '', '', '(b|v)'),  # beta: modern "v", old "b"
     ('c', '', '', 'k'),
@@ -2487,7 +2270,12 @@ _GEN_RULES_GREEKLATIN = (
     ('g', '', '', 'g'),
     ('h', '', '', 'x'),
     ('i', '', '', 'i'),
-    ('j', '', '', '(j|Z)'),  # Panajotti = Panaiotti; Louijos = Louizos; Pantajis = Pantazis = Pantagis  # noqa: E501
+    (
+        'j',
+        '',
+        '',
+        '(j|Z)',
+    ),  # Panajotti = Panaiotti; Louijos = Louizos; Pantajis = Pantazis = Pantagis  # noqa: E501
     ('k', '', '', 'k'),
     ('l', '', '', 'l'),
     ('m', '', '', 'm'),
@@ -2504,31 +2292,25 @@ _GEN_RULES_GREEKLATIN = (
     ('x', '', '', 'ks'),
     ('y', '', '', '(i|Q|u)'),  # [ü]
     ('z', '', '', 'z'),
-
-    )
+)
 
 # gen/ruleshebrew.php
 
 # General = Ashkenazic
 _GEN_RULES_HEBREW = (
-
     ('אי', '', '', 'i'),
     ('עי', '', '', 'i'),
     ('עו', '', '', 'VV'),
     ('או', '', '', 'VV'),
-
     ('ג׳', '', '', 'Z'),
     ('ד׳', '', '', 'dZ'),
-
     ('א', '', '', 'L'),
     ('ב', '', '', 'b'),
     ('ג', '', '', 'g'),
     ('ד', '', '', 'd'),
-
     ('ה', '^', '', '1'),
     ('ה', '', '$', '1'),
     ('ה', '', '', ''),
-
     ('וו', '', '', 'V'),
     ('וי', '', '', 'WW'),
     ('ו', '', '', 'W'),
@@ -2555,26 +2337,21 @@ _GEN_RULES_HEBREW = (
     ('ר', '', '', 'r'),
     ('ש', '', '', 's'),
     ('ת', '', '', 'TB'),  # only Ashkenazic
-
-    )
+)
 
 # gen/ruleshungarian.php
 
 # GENERAL
 _GEN_RULES_HUNGARIAN = (
-
     # CONSONANTS
     ('sz', '', '', 's'),
     ('zs', '', '', 'Z'),
     ('cs', '', '', 'tS'),
-
     ('ay', '', '', '(oj|aj)'),
     ('ai', '', '', '(oj|aj)'),
     ('aj', '', '', '(oj|aj)'),
-
     ('ei', '', '', '(aj|ej)'),  # German element
     ('ey', '', '', '(aj|ej)'),  # German element
-
     ('y', '[áo]', '', 'j'),
     ('i', '[áo]', '', 'j'),
     ('ee', '', '', '(ej|e)'),
@@ -2588,7 +2365,6 @@ _GEN_RULES_HUNGARIAN = (
     ('ty', '', '', '(t|ti)'),
     ('qu', '', '', '(ku|kv)'),
     ('h', '', '$', ''),
-
     # SPECIAL VOWELS
     ('á', '', '', 'a'),
     ('é', '', '', 'e'),
@@ -2599,7 +2375,6 @@ _GEN_RULES_HUNGARIAN = (
     ('ő', '', '', 'Y'),
     ('ü', '', '', 'Q'),
     ('ű', '', '', 'Q'),
-
     # LATIN ALPHABET
     ('a', '', '', 'a'),
     ('b', '', '', 'b'),
@@ -2627,45 +2402,37 @@ _GEN_RULES_HUNGARIAN = (
     ('x', '', '', 'ks'),
     ('y', '', '', 'i'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # gen/rulesitalian.php
 
 _GEN_RULES_ITALIAN = (
     ('kh', '', '', 'x'),  # foreign
-
     ('gli', '', '', '(l|gli)'),
     ('gn', '', '[aeou]', '(n|nj|gn)'),
     ('gni', '', '', '(ni|gni)'),
-
     ('gi', '', '[aeou]', 'dZ'),
     ('gg', '', '[ei]', 'dZ'),
     ('g', '', '[ei]', 'dZ'),
     ('h', '[bdgt]', '', 'g'),  # gh is It; others from Arabic translit
     ('h', '', '$', ''),  # foreign
-
     ('ci', '', '[aeou]', 'tS'),
     ('ch', '', '[ei]', 'k'),
     ('sc', '', '[ei]', 'S'),
     ('cc', '', '[ei]', 'tS'),
     ('c', '', '[ei]', 'tS'),
     ('s', '[aeiou]', '[aeiou]', 'z'),
-
     ('i', '[aeou]', '', 'j'),
     ('i', '', '[aeou]', 'j'),
     ('y', '[aeou]', '', 'j'),  # foreign
     ('y', '', '[aeou]', 'j'),  # foreign
-
     ('qu', '', '', 'k'),
     ('uo', '', '', '(vo|o)'),
     ('u', '', '[aei]', 'v'),
-
     ('è', '', '', 'e'),
     ('é', '', '', 'e'),
     ('ò', '', '', 'o'),
     ('ó', '', '', 'o'),
-
     # LATIN ALPHABET
     ('a', '', '', 'a'),
     ('b', '', '', 'b'),
@@ -2693,14 +2460,12 @@ _GEN_RULES_ITALIAN = (
     ('x', '', '', 'ks'),  # foreign
     ('y', '', '', 'i'),  # foreign
     ('z', '', '', '(ts|dz)'),
-
-    )
+)
 
 # gen/ruleslatvian.php
 
 # GENERAL
 _GEN_RULES_LATVIAN = (
-
     # CONSONANTS
     ('č', '', '', 'tS'),
     ('ģ', '', '', '(d|dj)'),
@@ -2711,13 +2476,11 @@ _GEN_RULES_LATVIAN = (
     ('š', '', '', 'S'),
     ('ņ', '', '', '(n|nj)'),
     ('ž', '', '', 'Z'),
-
     # SPECIAL VOWELS
     ('ā', '', '', 'a'),
     ('ē', '', '', 'e'),
     ('ī', '', '', 'i'),
     ('ū', '', '', 'u'),
-
     # DIPHTONGS
     # ("ai","","","(D|ai)"),
     ('ai', '', '', 'aj'),
@@ -2732,7 +2495,6 @@ _GEN_RULES_LATVIAN = (
     ('o', '', '', 'o'),
     # ("ui","","","(D|ui)"),
     ('ui', '', '', 'uj'),
-
     # LATIN ALPHABET
     ('a', '', '', 'a'),
     ('b', '', '', 'b'),
@@ -2755,14 +2517,12 @@ _GEN_RULES_LATVIAN = (
     ('u', '', '', 'u'),
     ('v', '', '', 'v'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # gen/rulespolish.php
 
 # GENERIC
 _GEN_RULES_POLISH = (
-
     # CONVERTING FEMININE TO MASCULINE
     ('ska', '', '$', 'ski'),
     ('cka', '', '$', 'tski'),
@@ -2776,7 +2536,6 @@ _GEN_RULES_POLISH = (
     ('kówna', '', '$', '(k|ek)'),
     ('ówna', '', '$', ''),
     ('a', '', '$', '(a|i)'),
-
     # CONSONANTS
     ('czy', '', '', 'tSi'),
     ('cze', '', '[bcdgkpstwzż]', '(tSe|tSF)'),
@@ -2792,7 +2551,6 @@ _GEN_RULES_POLISH = (
     ('icz', '', '', 'itS'),
     ('cz', '', '', 'tS'),
     ('ch', '', '', 'x'),
-
     ('cia', '', '[bcdgkpstwzż]', '(tSB|tsB)'),
     ('cia', '', '', '(tSa|tsa)'),
     ('cią', '', '[bp]', '(tSom|tsom)'),
@@ -2805,7 +2563,6 @@ _GEN_RULES_POLISH = (
     ('ciu', '', '', '(tSu|tsu)'),
     ('ci', '', '', '(tSi|tsI)'),
     ('ć', '', '', '(tS|ts)'),
-
     ('ssz', '', '', 'S'),
     ('sz', '', '', 'S'),
     ('sia', '', '[bcdgkpstwzż]', '(SB|sB|sja)'),
@@ -2820,7 +2577,6 @@ _GEN_RULES_POLISH = (
     ('siu', '', '', '(Su|sju)'),
     ('si', '', '', '(Si|sI)'),
     ('ś', '', '', '(S|s)'),
-
     ('zia', '', '[bcdgkpstwzż]', '(ZB|zB|zja)'),
     ('zia', '', '', '(Za|zja)'),
     ('zią', '', '[bp]', '(Zom|zom)'),
@@ -2832,7 +2588,6 @@ _GEN_RULES_POLISH = (
     ('zio', '', '', '(Zo|zo)'),
     ('ziu', '', '', '(Zu|zju)'),
     ('zi', '', '', '(Zi|zI)'),
-
     ('że', '', '[bcdgkpstwzż]', '(Ze|ZF)'),
     ('że', '', '[bcdgkpstwzż]', '(Ze|ZF|ze|zF)'),
     ('że', '', '', 'Ze'),
@@ -2841,67 +2596,55 @@ _GEN_RULES_POLISH = (
     ('źi', '', '', '(Zi|zi)'),
     ('ż', '', '', 'Z'),
     ('ź', '', '', '(Z|z)'),
-
     ('rze', 't', '', '(Se|re)'),
     ('rze', '', '', '(Ze|re|rZe)'),
     ('rzy', 't', '', '(Si|ri)'),
     ('rzy', '', '', '(Zi|ri|rZi)'),
     ('rz', 't', '', '(S|r)'),
     ('rz', '', '', '(Z|r|rZ)'),
-
     ('lio', '', '', '(lo|le)'),
     ('ł', '', '', 'l'),
     ('ń', '', '', 'n'),
     ('qu', '', '', 'k'),
     ('s', '', 's', ''),
-
     # VOWELS
     ('ó', '', '', '(u|o)'),
     ('ą', '', '[bp]', 'om'),
     ('ę', '', '[bp]', 'em'),
     ('ą', '', '', 'on'),
     ('ę', '', '', 'en'),
-
     ('ije', '', '', 'je'),
     ('yje', '', '', 'je'),
     ('iie', '', '', 'je'),
     ('yie', '', '', 'je'),
     ('iye', '', '', 'je'),
     ('yye', '', '', 'je'),
-
     ('ij', '', '[aou]', 'j'),
     ('yj', '', '[aou]', 'j'),
     ('ii', '', '[aou]', 'j'),
     ('yi', '', '[aou]', 'j'),
     ('iy', '', '[aou]', 'j'),
     ('yy', '', '[aou]', 'j'),
-
     ('rie', '', '', 'rje'),
     ('die', '', '', 'dje'),
     ('tie', '', '', 'tje'),
     ('ie', '', '[bcdgkpstwzż]', 'F'),
     ('ie', '', '', 'e'),
-
     ('aue', '', '', 'aue'),
     ('au', '', '', 'au'),
-
     ('ei', '', '', 'aj'),
     ('ey', '', '', 'aj'),
     ('ej', '', '', 'aj'),
-
     ('ai', '', '', 'aj'),
     ('ay', '', '', 'aj'),
     ('aj', '', '', 'aj'),
-
     ('i', '[aeou]', '', 'j'),
     ('y', '[aeou]', '', 'j'),
     ('i', '', '[aou]', 'j'),
     ('y', '', '[aeou]', 'j'),
-
     ('a', '', '[bcdgkpstwzż]', 'B'),
     ('e', '', '[bcdgkpstwzż]', '(E|F)'),
     ('o', '', '[bcćdgklłmnńrsśtwzźż]', 'P'),
-
     # LATIN ALPHABET
     ('a', '', '', 'a'),
     ('b', '', '', 'b'),
@@ -2929,8 +2672,7 @@ _GEN_RULES_POLISH = (
     ('x', '', '', 'ks'),
     ('y', '', '', 'I'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # gen/rulesportuguese.php
 
@@ -2943,44 +2685,45 @@ _GEN_RULES_PORTUGUESE = (
     ('ç', '', '', 's'),
     ('c', '', '[ei]', 's'),
     # ("c","","[aou]","(k|C)"),
-
     ('s', '^', '', 's'),
     ('s', '[aáuiíoóeéêy]', '[aáuiíoóeéêy]', 'z'),
     ('s', '', '[dglmnrv]', '(Z|S)'),  # Z is Brazil
-
     ('z', '', '$', '(Z|s|S)'),  # s and S in Brazil
     ('z', '', '[bdgv]', '(Z|z)'),  # Z in Brazil
     ('z', '', '[ptckf]', '(s|S|z)'),  # s and S in Brazil
-
     ('gu', '', '[eiu]', 'g'),
     ('gu', '', '[ao]', 'gv'),
     ('g', '', '[ei]', 'Z'),
     ('qu', '', '[eiu]', 'k'),
     ('qu', '', '[ao]', 'kv'),
-
     ('uo', '', '', '(vo|o|u)'),
     ('u', '', '[aei]', 'v'),
-
     ('lh', '', '', 'l'),
     ('nh', '', '', 'nj'),
     ('h', '[bdgt]', '', ''),  # translit. from Arabic
     ('h', '', '$', ''),  # foreign
-
     ('ex', '', '[aáuiíoóeéêy]', '(ez|eS|eks)'),  # ez in Brazil
     ('ex', '', '[cs]', 'e'),
-
     ('y', '[aáuiíoóeéê]', '', 'j'),
     ('y', '', '[aeiíou]', 'j'),
-    ('m', '', '[bcdfglnprstv]', '(m|n)'),  # maybe to add a rule for m/n before a consonant that disappears [preceeding vowel becomes nasalized]  # noqa: E501
-    ('m', '', '$', '(m|n)'),  # maybe to add a rule for final m/n that disappears [preceeding vowel becomes nasalized]  # noqa: E501
-
+    (
+        'm',
+        '',
+        '[bcdfglnprstv]',
+        '(m|n)',
+    ),  # maybe to add a rule for m/n before a consonant that disappears [preceeding vowel becomes nasalized]  # noqa: E501
+    (
+        'm',
+        '',
+        '$',
+        '(m|n)',
+    ),  # maybe to add a rule for final m/n that disappears [preceeding vowel becomes nasalized]  # noqa: E501
     ('ão', '', '', '(au|an|on)'),
     ('ãe', '', '', '(aj|an)'),
     ('ãi', '', '', '(aj|an)'),
     ('õe', '', '', '(oj|on)'),
     ('i', '[aáuoóeéê]', '', 'j'),
     ('i', '', '[aeou]', 'j'),
-
     ('â', '', '', 'a'),
     ('à', '', '', 'a'),
     ('á', '', '', 'a'),
@@ -2993,9 +2736,7 @@ _GEN_RULES_PORTUGUESE = (
     ('õ', '', '', '(o|on)'),
     ('ú', '', '', 'u'),
     ('ü', '', '', 'u'),
-
     ('aue', '', '', 'aue'),
-
     # LATIN ALPHABET
     ('a', '', '', 'a'),
     ('b', '', '', 'b'),
@@ -3023,8 +2764,7 @@ _GEN_RULES_PORTUGUESE = (
     ('x', '', '', '(S|ks)'),
     ('y', '', '', 'i'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # gen/rulesromanian.php
 
@@ -3034,22 +2774,18 @@ _GEN_RULES_ROMANIAN = (
     ('ci', '', '', '(tSi|tS)'),
     ('ch', '', '[ei]', 'k'),
     ('ch', '', '', 'x'),  # foreign
-
     ('gi', '', '', '(dZi|dZ)'),
     ('g', '', '[ei]', 'dZ'),
     ('gh', '', '', 'g'),
-
     ('i', '[aeou]', '', 'j'),
     ('i', '', '[aeou]', 'j'),
     ('ţ', '', '', 'ts'),
     ('ş', '', '', 'S'),
     ('qu', '', '', 'k'),
-
     ('î', '', '', 'i'),
     ('ea', '', '', 'ja'),
     ('ă', '', '', '(e|a)'),
     ('aue', '', '', 'aue'),
-
     # LATIN ALPHABET
     ('a', '', '', 'a'),
     ('b', '', '', 'b'),
@@ -3077,8 +2813,7 @@ _GEN_RULES_ROMANIAN = (
     ('x', '', '', 'ks'),
     ('y', '', '', 'i'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # gen/rulesrussian.php
 
@@ -3094,7 +2829,6 @@ _GEN_RULES_RUSSIAN = (
     ('aia', '', '$', '(aja|i)'),
     ('aja', '', '$', '(aja|i)'),
     ('aya', '', '$', '(aja|i)'),
-
     # SPECIAL CONSONANTS
     ('tsya', '', '', 'tsa'),
     ('tsyu', '', '', 'tsu'),
@@ -3112,14 +2846,12 @@ _GEN_RULES_RUSSIAN = (
     ('syo', '', '', 'so'),
     ('zye', '', '', 'ze'),
     ('zyo', '', '', 'zo'),
-
     ('ger', '', '$', 'ger'),
     ('gen', '', '$', 'gen'),
     ('gin', '', '$', 'gin'),
     ('gg', '', '', 'g'),
     ('g', '[jaeoiuy]', '[aeoiu]', 'g'),
     ('g', '', '[aeoiu]', '(g|h)'),
-
     ('kh', '', '', 'x'),
     ('ch', '', '', '(tS|x)'),
     ('sch', '', '', '(StS|S)'),
@@ -3131,7 +2863,6 @@ _GEN_RULES_RUSSIAN = (
     ('c', '', '[iey]', 's'),
     ('qu', '', '', '(kv|k)'),
     ('s', '', 's', ''),
-
     # SPECIAL VOWELS
     ('lya', '', '', 'la'),
     ('lyu', '', '', 'lu'),
@@ -3142,7 +2873,6 @@ _GEN_RULES_RUSSIAN = (
     ('le', '', '', '(lo|lE)'),  # not in DJSRE
     ('lyo', '', '', '(lo|le)'),  # not in DJSRE
     ('lio', '', '', '(lo|le)'),
-
     ('ije', '', '', 'je'),
     ('ie', '', '', 'je'),
     ('iye', '', '', 'je'),
@@ -3151,37 +2881,31 @@ _GEN_RULES_RUSSIAN = (
     ('ye', '', '', 'je'),
     ('yye', '', '', 'je'),
     ('yie', '', '', 'je'),
-
     ('ij', '', '[aou]', 'j'),
     ('iy', '', '[aou]', 'j'),
     ('ii', '', '[aou]', 'j'),
     ('yj', '', '[aou]', 'j'),
     ('yy', '', '[aou]', 'j'),
     ('yi', '', '[aou]', 'j'),
-
     ('io', '', '', '(jo|e)'),
     ('i', '', '[au]', 'j'),
     ('i', '[aeou]', '', 'j'),
     ('yo', '', '', '(jo|e)'),
     ('y', '', '[au]', 'j'),
     ('y', '[aeiou]', '', 'j'),
-
     ('ii', '', '$', 'i'),
     ('iy', '', '$', 'i'),
     ('yy', '', '$', 'i'),
     ('yi', '', '$', 'i'),
     ('yj', '', '$', 'i'),
     ('ij', '', '$', 'i'),
-
     ('e', '^', '', '(je|E)'),
     ('ee', '', '', '(aje|i)'),
     ('e', '[aou]', '', 'je'),
     ('oo', '', '', '(oo|u)'),
     ('\'', '', '', ''),
     ('"', '', '', ''),
-
     ('aue', '', '', 'aue'),
-
     # LATIN ALPHABET
     ('a', '', '', 'a'),
     ('b', '', '', 'b'),
@@ -3209,21 +2933,17 @@ _GEN_RULES_RUSSIAN = (
     ('x', '', '', 'ks'),
     ('y', '', '', 'I'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # gen/rulesspanish.php
 
 # GENERAL
 _GEN_RULES_SPANISH = (
-
     # Includes both Spanish (Castillian) & Catalan
-
     # CONSONANTS
     ('ñ', '', '', '(n|nj)'),
     ('ny', '', '', 'nj'),  # Catalan
     ('ç', '', '', 's'),  # Catalan
-
     ('ig', '[aeiou]', '', '(tS|ig)'),  # tS is Catalan
     ('ix', '[aeiou]', '', 'S'),  # Catalan
     ('tx', '', '', 'tS'),  # Catalan
@@ -3241,10 +2961,8 @@ _GEN_RULES_SPANISH = (
     ('gu', '', '[ei]', '(g|gv)'),  # "gv" because "u" can actually be "ü"
     ('g', '', '[ei]', '(x|g|dZ)'),  # "g" only for foreign words; dZ is Catalan
     ('qu', '', '', 'k'),
-
     ('uo', '', '', '(vo|o)'),
     ('u', '', '[aei]', 'v'),
-
     # SPECIAL VOWELS
     ('ü', '', '', 'v'),
     ('á', '', '', 'a'),
@@ -3255,7 +2973,6 @@ _GEN_RULES_SPANISH = (
     ('à', '', '', 'a'),  # Catalan
     ('è', '', '', 'e'),  # Catalan
     ('ò', '', '', 'o'),  # Catalan
-
     # LATIN ALPHABET
     ('a', '', '', 'a'),
     ('b', '', '', 'B'),
@@ -3282,9 +2999,13 @@ _GEN_RULES_SPANISH = (
     ('w', '', '', 'v'),  # foreign words
     ('x', '', '', '(ks|gz|S)'),  # ks is Spanish, all are Catalan
     ('y', '', '', '(i|j)'),
-    ('z', '', '', '(z|s)'),  # as "c" befoire "e" or "i", in Spain it is like unvoiced English "th"  # noqa: E501
-
-    )
+    (
+        'z',
+        '',
+        '',
+        '(z|s)',
+    ),  # as "c" befoire "e" or "i", in Spain it is like unvoiced English "th"  # noqa: E501
+)
 
 # gen/rulesturkish.php
 
@@ -3295,7 +3016,6 @@ _GEN_RULES_TURKISH = (
     ('ü', '', '', 'Q'),
     ('ö', '', '', 'Y'),
     ('ı', '', '', '(e|i|)'),  # as "e" in English "label"
-
     ('a', '', '', 'a'),
     ('b', '', '', 'b'),
     ('c', '', '', 'dZ'),
@@ -3322,17 +3042,12 @@ _GEN_RULES_TURKISH = (
     ('x', '', '', 'ks'),  # foreign words
     ('y', '', '', 'j'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # sep/approxany.php
 
 # SEPHARDIC
-_SEP_APPROX_ANY = (
-
-    ('E', '', '', ''),  # Final French "e"
-
-    )
+_SEP_APPROX_ANY = (('E', '', '', ''),)  # Final French "e"
 
 # sep/approxcommon.php
 # Sephardic
@@ -3341,18 +3056,15 @@ _SEP_APPROX_COMMON = (
     ('bens', '^', '', '(binz|s)'),
     ('benS', '^', '', '(binz|s)'),
     ('ben', '^', '', '(bin|)'),
-
     ('abens', '^', '', '(abinz|binz|s)'),
     ('abenS', '^', '', '(abinz|binz|s)'),
     ('aben', '^', '', '(abin|bin|)'),
-
     ('els', '^', '', '(ilz|alz|s)'),
     ('elS', '^', '', '(ilz|alz|s)'),
     ('el', '^', '', '(il|al|)'),
     ('als', '^', '', '(alz|s)'),
     ('alS', '^', '', '(alz|s)'),
     ('al', '^', '', '(al|)'),
-
     # ("dels", "^", "", "(dilz|s)"),
     # ("delS", "^", "", "(dilz|s)"),
     ('del', '^', '', '(dil|)'),
@@ -3363,26 +3075,25 @@ _SEP_APPROX_COMMON = (
     # ("des", "^", "", "(dis|dAs|)"),
     # ("di", "^", "", "(di|)"),
     # ("dos", "^", "", "(das|dus|)"),
-
     ('oa', '', '', '(va|a|D)'),
     ('oe', '', '', '(vi|D)'),
     ('ae', '', '', 'D'),
-
     # ("s", "", "$", "(s|)"), # Attia(s)
     # ("C", "", "", "s"),  # "c" could actually be "ç"
-
     ('n', '', '[bp]', 'm'),
-
-    ('h', '', '', '(|h|f)'),  # sound "h" (absent) can be expressed via /x/, Cojab in Spanish = Kohab ; Hakim = Fakim  # noqa: E501
+    (
+        'h',
+        '',
+        '',
+        '(|h|f)',
+    ),  # sound "h" (absent) can be expressed via /x/, Cojab in Spanish = Kohab ; Hakim = Fakim  # noqa: E501
     ('x', '', '', 'h'),
-
     # DIPHTHONGS ARE APPROXIMATELY equivalent
     ('aja', '^', '', '(Da|ia)'),
     ('aje', '^', '', '(Di|Da|i|ia)'),
     ('aji', '^', '', '(Di|i)'),
     ('ajo', '^', '', '(Du|Da|iu|ia)'),
     ('aju', '^', '', '(Du|iu)'),
-
     ('aj', '', '', 'D'),
     ('ej', '', '', 'D'),
     ('oj', '', '', 'D'),
@@ -3390,62 +3101,46 @@ _SEP_APPROX_COMMON = (
     ('au', '', '', 'D'),
     ('eu', '', '', 'D'),
     ('ou', '', '', 'D'),
-
     ('a', '^', '', '(a|)'),  # Arabic
-
     ('ja', '^', '', 'ia'),
     ('je', '^', '', 'i'),
     ('jo', '^', '', '(iu|ia)'),
     ('ju', '^', '', 'iu'),
-
     ('ja', '', '', 'a'),
     ('je', '', '', 'i'),
     ('ji', '', '', 'i'),
     ('jo', '', '', 'u'),
     ('ju', '', '', 'u'),
-
     ('j', '', '', 'i'),
-
     # CONSONANTS {z & Z & dZ; s & S} are approximately interchangeable
     ('s', '', '[rmnl]', 'z'),
     ('S', '', '[rmnl]', 'z'),
     ('s', '[rmnl]', '', 'z'),
     ('S', '[rmnl]', '', 'z'),
-
     ('dS', '', '$', 'S'),
     ('dZ', '', '$', 'S'),
     ('Z', '', '$', 'S'),
     ('S', '', '$', '(S|s)'),
     ('z', '', '$', '(S|s)'),
-
     ('S', '', '', 's'),
     ('dZ', '', '', 'z'),
     ('Z', '', '', 'z'),
-
     ('i', '', '$', '(i|)'),  # often in Arabic
     ('e', '', '', 'i'),
-
     ('o', '', '$', '(a|u)'),
     ('o', '', '', 'u'),
-
     # special character to deal correctly in Hebrew match
     ('B', '', '', 'b'),
     ('V', '', '', 'v'),
-
     # Arabic
     ('p', '^', '', 'b'),
-
-    )
+)
 
 # sep/approxfrench.php
-_SEP_APPROX_FRENCH = (
-
-    )
+_SEP_APPROX_FRENCH = ()
 
 # sep/approxhebrew.php
-_SEP_APPROX_HEBREW = (
-
-    )
+_SEP_APPROX_HEBREW = ()
 
 # sep/approxitalian.php
 
@@ -3458,57 +3153,44 @@ _SEP_APPROX_HEBREW = (
 # this file uses the same rules as approxfrench.php
 
 # sep/exactany.php
-_SEP_EXACT_ANY = (
-
-    ('E', '', '', 'e'),  # final French "e"
-
-    )
+_SEP_EXACT_ANY = (('E', '', '', 'e'),)  # final French "e"
 
 # sep/exactapproxcommon.php
 # Sephardic
 _SEP_EXACT_APPROX_COMMON = (
     ('h', '', '$', ''),
-
     # VOICED - UNVOICED CONSONANTS
     ('b', '', '[fktSs]', 'p'),
     ('b', '', 'p', ''),
     ('b', '', '$', 'p'),
     ('p', '', '[vgdZz]', 'b'),
     ('p', '', 'b', ''),
-
     ('v', '', '[pktSs]', 'f'),
     ('v', '', 'f', ''),
     ('v', '', '$', 'f'),
     ('f', '', '[vbgdZz]', 'v'),
     ('f', '', 'v', ''),
-
     ('g', '', '[pftSs]', 'k'),
     ('g', '', 'k', ''),
     ('g', '', '$', 'k'),
     ('k', '', '[vbdZz]', 'g'),
     ('k', '', 'g', ''),
-
     ('d', '', '[pfkSs]', 't'),
     ('d', '', 't', ''),
     ('d', '', '$', 't'),
     ('t', '', '[vbgZz]', 'd'),
     ('t', '', 'd', ''),
-
     ('s', '', 'dZ', ''),
     ('s', '', 'tS', ''),
-
     ('z', '', '[pfkSt]', 's'),
     ('z', '', '[sSzZ]', ''),
     ('s', '', '[sSzZ]', ''),
     ('Z', '', '[sSzZ]', ''),
     ('S', '', '[sSzZ]', ''),
-
     # SIMPLIFICATION OF CONSONANT CLUSTERS
     ('nm', '', '', 'm'),
-
     # DOUBLE --> SINGLE
     ('ji', '^', '', 'i'),
-
     ('a', '', 'a', ''),
     ('b', '', 'b', ''),
     ('d', '', 'd', ''),
@@ -3527,9 +3209,8 @@ _SEP_EXACT_APPROX_COMMON = (
     ('u', '', 'u', ''),
     ('v', '', 'v', ''),
     ('z', '', 'z', '')
-
     # do not put name of file here since it always gets merged into another file  # noqa: E501
-    )
+)
 
 # sep/exactcommon.php
 # Sephardic
@@ -3537,92 +3218,68 @@ _SEP_EXACT_APPROX_COMMON = (
 _SEP_EXACT_COMMON = (
     ('h', '', '', ''),
     # ("C","","","k"),  # c that can actually be ç
-
     # VOICED - UNVOICED CONSONANTS
     ('s', '[^t]', '[bgZd]', 'z'),
     ('Z', '', '[pfkst]', 'S'),
     ('Z', '', '$', 'S'),
     ('S', '', '[bgzd]', 'Z'),
     ('z', '', '$', 's'),
-
     # special character to deal correctly in Hebrew match
     ('B', '', '', 'b'),
     ('V', '', '', 'v'),
-
-    )
+)
 
 # sep/exactfrench.php
 # Sephardic
-_SEP_EXACT_FRENCH = (
-
-    )
+_SEP_EXACT_FRENCH = ()
 
 # sep/exacthebrew.php
-_SEP_EXACT_HEBREW = (
-
-    )
+_SEP_EXACT_HEBREW = ()
 
 # sep/exactitalian.php
 # Sephardic
-_SEP_EXACT_ITALIAN = (
-
-    )
+_SEP_EXACT_ITALIAN = ()
 
 # sep/exactportuguese.php
 # Sephardic
-_SEP_EXACT_PORTUGUESE = (
-
-    )
+_SEP_EXACT_PORTUGUESE = ()
 
 # sep/exactspanish.php
 # Sephardic
-_SEP_EXACT_SPANISH = (
-
-    )
+_SEP_EXACT_SPANISH = ()
 
 # sep/hebrewcommon.php
 # Sephardic
 
 _SEP_HEBREW_COMMON = (
-
     ('E', '', '', ''),  # final French "e": only in Sephardic
-
     ('ts', '', '', 'C'),  # for not confusion Gutes [=guts] and Guts [=guc]
     ('tS', '', '', 'C'),  # same reason
     ('S', '', '', 's'),
     ('p', '', '', 'f'),
     ('b', '^', '', 'b'),
     ('b', '', '', '(b|v)'),
-
     ('ja', '', '', 'i'),
     ('je', '', '', 'i'),
     ('aj', '', '', 'i'),
     ('j', '', '', 'i'),
-
     ('a', '^', '', '1'),
     ('e', '^', '', '1'),
     ('a', '', '$', '1'),
     ('e', '', '$', '1'),
-
     ('a', '', '', ''),
     ('e', '', '', ''),
-
     ('oj', '^', '', '(u|vi)'),
     ('uj', '^', '', '(u|vi)'),
-
     ('oj', '', '', 'u'),
     ('uj', '', '', 'u'),
-
     ('ou', '^', '', '(u|v|1)'),
     ('o', '^', '', '(u|v|1)'),
     ('u', '^', '', '(u|v|1)'),
-
     ('o', '', '$', '(u|1)'),
     ('u', '', '$', '(u|1)'),
-
     ('ou', '', '', 'u'),
     ('o', '', '', 'u'),
-
     ('VV', '', '', 'u'),  # alef/ayin + vov from ruleshebrew
     ('L', '^', '', '1'),  # alef/ayin from  ruleshebrew
     ('L', '', '$', '1'),  # alef/ayin from  ruleshebrew
@@ -3631,35 +3288,28 @@ _SEP_HEBREW_COMMON = (
     ('WW', '', '', 'u'),  # vav-yod from  ruleshebrew
     ('W', '^', '', '(u|v)'),  # vav from  ruleshebrew
     ('W', '', '', 'u'),  # vav from  ruleshebrew
-
     # ("g","","","(g|Z)"),
     # ("z","","","(z|Z)"),
     # ("d","","","(d|dZ)"),
-
     ('T', '', '', 't'),  # tet from  ruleshebrew
-
     # ("k","","","(k|x)"),
     # ("x","","","(k|x)"),
     ('K', '', '', 'k'),  # kof and initial kaf from ruleshebrew
     ('X', '', '', 'x'),  # khet and final kaf from ruleshebrew
-
     # special for Spanish initial B/V
     ('B', '', '', 'v'),
     ('V', '', '', 'b'),
-
     ('H', '^', '', '(x|1)'),
     ('H', '', '$', '(x|1)'),
     ('H', '', '', '(x|)'),
     ('h', '^', '', '1'),
     ('h', '', '', ''),
-
-    )
+)
 
 # sep/lang.php
 # SEPHARDIC
 
 _SEP_LANGUAGE_RULES = (
-
     # 1. following are rules to accept the language
     # 1.1 Special letter combinations
     ('eau', 64, True),
@@ -3669,20 +3319,16 @@ _SEP_LANGUAGE_RULES = (
     ('tj', 262144, True),
     ('gy', 64, True),
     ('guy', 64, True),
-
     ('sh', 294912, True),  # English, but no sign for /sh/ in these languages
-
     ('lh', 32768, True),
     ('nh', 32768, True),
     ('ny', 262144, True),
-
     ('gue', 262208, True),
     ('gui', 262208, True),
     ('gia', 4096, True),
     ('gie', 4096, True),
     ('gio', 4096, True),
     ('giu', 4096, True),
-
     # 1.2 special characters
     ('ñ', 262144, True),
     ('â', 32832, True),
@@ -3698,7 +3344,6 @@ _SEP_LANGUAGE_RULES = (
     ('ú', 294912, True),
     ('ù', 64, True),
     ('ü', 294912, True),
-
     # Hebrew
     ('א', 1024, True),
     ('ב', 1024, True),
@@ -3722,9 +3367,7 @@ _SEP_LANGUAGE_RULES = (
     ('ר', 1024, True),
     ('ש', 1024, True),
     ('ת', 1024, True),
-
     # 2. following are rules to reject the language
-
     # Every Latin character word has at least one Latin vowel
     ('a', 1024, False),
     ('o', 1024, False),
@@ -3732,7 +3375,6 @@ _SEP_LANGUAGE_RULES = (
     ('i', 1024, False),
     ('y', 1024, False),
     ('u', 1024, False),
-
     ('kh', 262144, False),
     ('gua', 4096, False),
     ('guo', 4096, False),
@@ -3745,12 +3387,18 @@ _SEP_LANGUAGE_RULES = (
     ('sce', 64, False),
     ('sci', 64, False),
     ('ó', 64, False),
-    ('è', 32768, False)
-
-    )
+    ('è', 32768, False),
+)
 
 # sep/languagenames.php
-_SEP_LANGUAGES = ('any', 'french', 'hebrew', 'italian', 'portuguese', 'spanish')  # noqa: E501
+_SEP_LANGUAGES = (
+    'any',
+    'french',
+    'hebrew',
+    'italian',
+    'portuguese',
+    'spanish',
+)  # noqa: E501
 
 # sep/rulesany.php
 # SEPHARDIC: INCORPORATES Portuguese + Italian + Spanish(+Catalan) + French
@@ -3759,7 +3407,6 @@ _SEP_RULES_ANY = (
     ('ph', '', '', 'f'),  # foreign
     ('sh', '', '', 'S'),  # foreign
     ('kh', '', '', 'x'),  # foreign
-
     ('gli', '', '', '(gli|l[4096])'),
     ('gni', '', '', '(gni|ni[4160])'),
     ('gn', '', '[aeou]', '(n[4160]|nj[4160]|gn)'),
@@ -3769,85 +3416,77 @@ _SEP_RULES_ANY = (
     ('th', '', '', 't'),  # translit. from Arabic
     ('lh', '', '', 'l'),  # Port
     ('nh', '', '', 'nj'),  # Port
-
     ('ig', '[aeiou]', '', '(ig|tS[262144])'),
     ('ix', '[aeiou]', '', 'S'),  # Sp
     ('tx', '', '', 'tS'),  # Sp
     ('tj', '', '$', 'tS'),  # Sp
     ('tj', '', '', 'dZ'),  # Sp
     ('tg', '', '', '(tg|dZ[262144])'),
-
     ('gi', '', '[aeou]', 'dZ'),  # italian
     ('g', '', 'y', 'Z'),  # french
     ('gg', '', '[ei]', '(gZ[32832]|dZ[266240]|x[262144])'),
     ('g', '', '[ei]', '(Z[32832]|dZ[266240]|x[262144])'),
-
     ('guy', '', '', 'gi'),
     ('gue', '', '$', '(k[64]|ge)'),
     ('gu', '', '[ei]', '(g|gv)'),  # not It
     ('gu', '', '[ao]', 'gv'),  # not It
-
     ('ñ', '', '', '(n|nj)'),
     ('ny', '', '', 'nj'),
-
     ('sc', '', '[ei]', '(s|S[4096])'),
     ('sç', '', '[aeiou]', 's'),  # not It
     ('ss', '', '', 's'),
     ('ç', '', '', 's'),  # not It
-
     ('ch', '', '[ei]', '(k[4096]|S[32832]|tS[262144]|dZ[262144])'),
     ('ch', '', '', '(S|tS[262144]|dZ[262144])'),
-
     ('ci', '', '[aeou]', '(tS[4096]|si)'),
     ('cc', '', '[eiyéèê]', '(tS[4096]|ks[294976])'),
     ('c', '', '[eiyéèê]', '(tS[4096]|s[294976])'),
     # ("c","","[aou]","(k|C[294912])"), # "C" means that the actual letter could be "ç" (cedille omitted)  # noqa: E501
-
     ('s', '^', '', 's'),
     ('s', '[aáuiíoóeéêy]', '[aáuiíoóeéêy]', '(s[262144]|z[36928])'),
     ('s', '', '[dglmnrv]', '(z|Z[32768])'),
-
-    ('z', '', '$', '(s|ts[4096]|S[32768])'),  # ts It, s/S/Z Port, s in Sp, z Fr  # noqa: E501
+    (
+        'z',
+        '',
+        '$',
+        '(s|ts[4096]|S[32768])',
+    ),  # ts It, s/S/Z Port, s in Sp, z Fr  # noqa: E501
     ('z', '', '[bdgv]', '(z|dz[4096]|Z[32768])'),  # dz It, Z/z Port, z Sp & Fr
     ('z', '', '[ptckf]', '(s|ts[4096]|S[32768])'),  # ts It, s/S/z Port, z/s Sp
-    ('z', '', '', '(z|dz[4096]|ts[4096]|s[262144])'),  # ts/dz It, z Port & Fr, z/s Sp  # noqa: E501
-
+    (
+        'z',
+        '',
+        '',
+        '(z|dz[4096]|ts[4096]|s[262144])',
+    ),  # ts/dz It, z Port & Fr, z/s Sp  # noqa: E501
     ('que', '', '$', '(k[64]|ke)'),
     ('qu', '', '[eiu]', 'k'),
     ('qu', '', '[ao]', '(kv|k)'),  # k is It
-
     ('ex', '', '[aáuiíoóeéêy]', '(ez[32768]|eS[32768]|eks|egz)'),
     ('ex', '', '[cs]', '(e[32768]|ek)'),
-
     ('m', '', '[cdglnrst]', '(m|n[32768])'),
     ('m', '', '[bfpv]', '(m|n[294912])'),
     ('m', '', '$', '(m|n[32768])'),
-
     ('b', '^', '', '(b|V[262144])'),
     ('v', '^', '', '(v|B[262144])'),
-
     # VOWELS
     ('eau', '', '', 'o'),  # Fr
-
     ('ouh', '', '[aioe]', '(v[64]|uh)'),
     ('uh', '', '[aioe]', '(v|uh)'),
     ('ou', '', '[aioe]', 'v'),  # french
     ('uo', '', '', '(vo|o)'),
     ('u', '', '[aie]', 'v'),
-
     ('i', '[aáuoóeéê]', '', 'j'),
     ('i', '', '[aeou]', 'j'),
     ('y', '[aáuiíoóeéê]', '', 'j'),
     ('y', '', '[aeiíou]', 'j'),
     ('e', '', '$', '(e|E[64])'),
-
     ('ão', '', '', '(au|an)'),  # Port
     ('ãe', '', '', '(aj|an)'),  # Port
     ('ãi', '', '', '(aj|an)'),  # Port
     ('õe', '', '', '(oj|on)'),  # Port
     ('où', '', '', 'u'),  # Fr
     ('ou', '', '', '(ou|u[64])'),
-
     ('â', '', '', 'a'),  # Port & Fr
     ('à', '', '', 'a'),  # Port
     ('á', '', '', 'a'),  # Port & Sp
@@ -3863,7 +3502,6 @@ _SEP_RULES_ANY = (
     ('ò', '', '', 'o'),  # Sp & It
     ('ú', '', '', 'u'),  # Port & Sp
     ('ü', '', '', 'u'),  # Port & Sp
-
     # LATIN ALPHABET
     ('a', '', '', 'a'),
     ('b', '', '', '(b|v[262144])'),
@@ -3891,18 +3529,15 @@ _SEP_RULES_ANY = (
     ('x', '', '', '(ks|gz|S[294912])'),  # S/ks Port & Sp, gz Sp, It only ks
     ('y', '', '', 'i'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # sep/rulesfrench.php
 
 # Sephardic
 _SEP_RULES_FRENCH = (
-
     # CONSONANTS
     ('kh', '', '', 'x'),  # foreign
     ('ph', '', '', 'f'),
-
     ('ç', '', '', 's'),
     ('x', '', '', 'ks'),
     ('ch', '', '', 'S'),
@@ -3926,7 +3561,6 @@ _SEP_RULES_FRENCH = (
     ('ou', '', '[aeio]', 'v'),
     ('uo', '', '', '(vo|o)'),
     ('u', '', '[aeio]', 'v'),
-
     # VOWELS
     ('aue', '', '', 'aue'),
     ('eau', '', '', 'o'),
@@ -3949,7 +3583,6 @@ _SEP_RULES_FRENCH = (
     ('i', '', '[aou]', 'j'),
     ('y', '', '[aoeu]', 'j'),
     ('y', '', '', 'i'),
-
     # TRIVIAL
     ('a', '', '', 'a'),
     ('b', '', '', 'b'),
@@ -3971,31 +3604,25 @@ _SEP_RULES_FRENCH = (
     ('u', '', '', 'u'),
     ('v', '', '', 'v'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # sep/ruleshebrew.php
 
 # Sephardic
 _SEP_RULES_HEBREW = (
-
     ('אי', '', '', 'i'),
     ('עי', '', '', 'i'),
     ('עו', '', '', 'VV'),
     ('או', '', '', 'VV'),
-
     ('ג׳', '', '', 'Z'),
     ('ד׳', '', '', 'dZ'),
-
     ('א', '', '', 'L'),
     ('ב', '', '', 'b'),
     ('ג', '', '', 'g'),
     ('ד', '', '', 'd'),
-
     ('ה', '^', '', '1'),
     ('ה', '', '$', '1'),
     ('ה', '', '', ''),
-
     ('וו', '', '', 'V'),
     ('וי', '', '', 'WW'),
     ('ו', '', '', 'W'),
@@ -4022,44 +3649,36 @@ _SEP_RULES_HEBREW = (
     ('ר', '', '', 'r'),
     ('ש', '', '', 's'),
     ('ת', '', '', 'T'),  # Special for Sephardim
-
-    )
+)
 
 # sep/rulesitalian.php
 
 _SEP_RULES_ITALIAN = (
     ('kh', '', '', 'x'),  # foreign
-
     ('gli', '', '', '(l|gli)'),
     ('gn', '', '[aeou]', '(n|nj|gn)'),
     ('gni', '', '', '(ni|gni)'),
-
     ('gi', '', '[aeou]', 'dZ'),
     ('gg', '', '[ei]', 'dZ'),
     ('g', '', '[ei]', 'dZ'),
     ('h', '[bdgt]', '', 'g'),  # gh is It; others from Arabic translit
-
     ('ci', '', '[aeou]', 'tS'),
     ('ch', '', '[ei]', 'k'),
     ('sc', '', '[ei]', 'S'),
     ('cc', '', '[ei]', 'tS'),
     ('c', '', '[ei]', 'tS'),
     ('s', '[aeiou]', '[aeiou]', 'z'),
-
     ('i', '[aeou]', '', 'j'),
     ('i', '', '[aeou]', 'j'),
     ('y', '[aeou]', '', 'j'),  # foreign
     ('y', '', '[aeou]', 'j'),  # foreign
-
     ('qu', '', '', 'k'),
     ('uo', '', '', '(vo|o)'),
     ('u', '', '[aei]', 'v'),
-
     ('è', '', '', 'e'),
     ('é', '', '', 'e'),
     ('ò', '', '', 'o'),
     ('ó', '', '', 'o'),
-
     # LATIN ALPHABET
     ('a', '', '', 'a'),
     ('b', '', '', 'b'),
@@ -4087,8 +3706,7 @@ _SEP_RULES_ITALIAN = (
     ('x', '', '', 'ks'),  # foreign
     ('y', '', '', 'i'),  # foreign
     ('z', '', '', '(ts|dz)'),
-
-    )
+)
 
 # sep/rulesportuguese.php
 
@@ -4101,43 +3719,44 @@ _SEP_RULES_PORTUGUESE = (
     ('ç', '', '', 's'),
     ('c', '', '[ei]', 's'),
     # ("c","","[aou]","(k|C)"),
-
     ('s', '^', '', 's'),
     ('s', '[aáuiíoóeéêy]', '[aáuiíoóeéêy]', 'z'),
     ('s', '', '[dglmnrv]', '(Z|S)'),  # Z is Brazil
-
     ('z', '', '$', '(Z|s|S)'),  # s and S in Brazil
     ('z', '', '[bdgv]', '(Z|z)'),  # Z in Brazil
     ('z', '', '[ptckf]', '(s|S|z)'),  # s and S in Brazil
-
     ('gu', '', '[eiu]', 'g'),
     ('gu', '', '[ao]', 'gv'),
     ('g', '', '[ei]', 'Z'),
     ('qu', '', '[eiu]', 'k'),
     ('qu', '', '[ao]', 'kv'),
-
     ('uo', '', '', '(vo|o|u)'),
     ('u', '', '[aei]', 'v'),
-
     ('lh', '', '', 'l'),
     ('nh', '', '', 'nj'),
     ('h', '[bdgt]', '', ''),  # translit. from Arabic
-
     ('ex', '', '[aáuiíoóeéêy]', '(ez|eS|eks)'),  # ez in Brazil
     ('ex', '', '[cs]', 'e'),
-
     ('y', '[aáuiíoóeéê]', '', 'j'),
     ('y', '', '[aeiíou]', 'j'),
-    ('m', '', '[bcdfglnprstv]', '(m|n)'),  # maybe to add a rule for m/n before a consonant that disappears [preceeding vowel becomes nasalized]  # noqa: E501
-    ('m', '', '$', '(m|n)'),  # maybe to add a rule for final m/n that disappears [preceeding vowel becomes nasalized]  # noqa: E501
-
+    (
+        'm',
+        '',
+        '[bcdfglnprstv]',
+        '(m|n)',
+    ),  # maybe to add a rule for m/n before a consonant that disappears [preceeding vowel becomes nasalized]  # noqa: E501
+    (
+        'm',
+        '',
+        '$',
+        '(m|n)',
+    ),  # maybe to add a rule for final m/n that disappears [preceeding vowel becomes nasalized]  # noqa: E501
     ('ão', '', '', '(au|an|on)'),
     ('ãe', '', '', '(aj|an)'),
     ('ãi', '', '', '(aj|an)'),
     ('õe', '', '', '(oj|on)'),
     ('i', '[aáuoóeéê]', '', 'j'),
     ('i', '', '[aeou]', 'j'),
-
     ('â', '', '', 'a'),
     ('à', '', '', 'a'),
     ('á', '', '', 'a'),
@@ -4150,9 +3769,7 @@ _SEP_RULES_PORTUGUESE = (
     ('õ', '', '', '(o|on)'),
     ('ú', '', '', 'u'),
     ('ü', '', '', 'u'),
-
     ('aue', '', '', 'aue'),
-
     # LATIN ALPHABET
     ('a', '', '', 'a'),
     ('b', '', '', 'b'),
@@ -4180,21 +3797,17 @@ _SEP_RULES_PORTUGUESE = (
     ('x', '', '', '(S|ks)'),
     ('y', '', '', 'i'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # sep/rulesspanish.php
 
 # Sephardic
 _SEP_RULES_SPANISH = (
-
     # Includes both Spanish (Castillian) & Catalan
-
     # CONSONANTS
     ('ñ', '', '', '(n|nj)'),
     ('ny', '', '', 'nj'),  # Catalan
     ('ç', '', '', 's'),  # Catalan
-
     ('ig', '[aeiou]', '', '(tS|ig)'),  # tS is Catalan
     ('ix', '[aeiou]', '', 'S'),  # Catalan
     ('tx', '', '', 'tS'),  # Catalan
@@ -4204,37 +3817,32 @@ _SEP_RULES_SPANISH = (
     ('ch', '', '', '(tS|dZ)'),  # dZ is typical for Argentina
     ('bh', '', '', 'b'),  # translit. from Arabic
     ('h', '[dgt]', '', ''),  # translit. from Arabic
-
     ('j', '', '', '(x|Z)'),  # Z is Catalan
     ('x', '', '', '(ks|gz|S)'),  # ks is Spanish, all are Catalan
-
     # ("ll","","","(l|Z)"), # Z is typical for Argentina, only Ashkenazic
     ('w', '', '', 'v'),  # foreign words
-
     ('v', '^', '', '(B|v)'),
     ('b', '^', '', '(b|V)'),
     ('v', '', '', '(b|v)'),
     ('b', '', '', '(b|v)'),
     ('m', '', '[bpvf]', '(m|n)'),
-
     ('c', '', '[ei]', 's'),
     # ("c","","[aou]","(k|C)"),
     ('c', '', '', 'k'),
-
-    ('z', '', '', '(z|s)'),  # as "c" befoire "e" or "i", in Spain it is like unvoiced English "th"  # noqa: E501
-
+    (
+        'z',
+        '',
+        '',
+        '(z|s)',
+    ),  # as "c" befoire "e" or "i", in Spain it is like unvoiced English "th"  # noqa: E501
     ('gu', '', '[ei]', '(g|gv)'),  # "gv" because "u" can actually be "ü"
     ('g', '', '[ei]', '(x|g|dZ)'),  # "g" only for foreign words; dZ is Catalan
-
     ('qu', '', '', 'k'),
     ('q', '', '', 'k'),
-
     ('uo', '', '', '(vo|o)'),
     ('u', '', '[aei]', 'v'),
-
     # ("y","","","(i|j|S|Z)"), # S or Z are peculiar to South America; only Ashkenazic  # noqa: E501
     ('y', '', '', '(i|j)'),
-
     # VOWELS
     ('ü', '', '', 'v'),
     ('á', '', '', 'a'),
@@ -4245,7 +3853,6 @@ _SEP_RULES_SPANISH = (
     ('à', '', '', 'a'),  # Catalan
     ('è', '', '', 'e'),  # Catalan
     ('ò', '', '', 'o'),  # Catalan
-
     # TRIVIAL
     ('a', '', '', 'a'),
     ('d', '', '', 'd'),
@@ -4264,8 +3871,7 @@ _SEP_RULES_SPANISH = (
     ('s', '', '', 's'),
     ('t', '', '', 't'),
     ('u', '', '', 'u'),
-
-    )
+)
 
 # ash/approxany.php
 
@@ -4275,16 +3881,18 @@ _SEP_RULES_SPANISH = (
 # Q = ü ; Y = ä = ö
 # H = initial "H" in German/English
 _ASH_APPROX_ANY = (
-
     # CONSONANTS
     ('b', '', '', '(b|v[262144])'),
-    ('J', '', '', 'z'),  # Argentina Spanish: "ll" = /Z/, but approximately /Z/ = /z/  # noqa: E501
-
+    (
+        'J',
+        '',
+        '',
+        'z',
+    ),  # Argentina Spanish: "ll" = /Z/, but approximately /Z/ = /z/  # noqa: E501
     # VOWELS
     # "ALL" DIPHTHONGS are interchangeable BETWEEN THEM and with monophthongs of which they are composed ("D" means "diphthong")  # noqa: E501
     # {a,o} are totally interchangeable if non-stressed; in German "a/o" can actually be from "ä/ö" (that are equivalent to "e")  # noqa: E501
     # {i,e} are interchangeable if non-stressed, while in German "u" can actually be from "ü" (that is equivalent to "i")  # noqa: E501
-
     ('aiB', '', '[bp]', '(D|Dm)'),
     ('AiB', '', '[bp]', '(D|Dm)'),
     ('oiB', '', '[bp]', '(D|Dm)'),
@@ -4295,7 +3903,6 @@ _ASH_APPROX_ANY = (
     ('EiB', '', '[bp]', '(D|Dm)'),
     ('iiB', '', '[bp]', '(D|Dm)'),
     ('IiB', '', '[bp]', '(D|Dm)'),
-
     ('aiB', '', '[dgkstvz]', '(D|Dn)'),
     ('AiB', '', '[dgkstvz]', '(D|Dn)'),
     ('oiB', '', '[dgkstvz]', '(D|Dn)'),
@@ -4306,11 +3913,9 @@ _ASH_APPROX_ANY = (
     ('EiB', '', '[dgkstvz]', '(D|Dn)'),
     ('iiB', '', '[dgkstvz]', '(D|Dn)'),
     ('IiB', '', '[dgkstvz]', '(D|Dn)'),
-
     ('B', '', '[bp]', '(o|om[16384]|im[16384])'),
     ('B', '', '[dgkstvz]', '(a|o|on[16384]|in[16384])'),
     ('B', '', '', '(a|o)'),
-
     ('aiF', '', '[bp]', '(D|Dm)'),
     ('AiF', '', '[bp]', '(D|Dm)'),
     ('oiF', '', '[bp]', '(D|Dm)'),
@@ -4321,7 +3926,6 @@ _ASH_APPROX_ANY = (
     ('EiF', '', '[bp]', '(D|Dm)'),
     ('iiF', '', '[bp]', '(D|Dm)'),
     ('IiF', '', '[bp]', '(D|Dm)'),
-
     ('aiF', '', '[dgkstvz]', '(D|Dn)'),
     ('AiF', '', '[dgkstvz]', '(D|Dn)'),
     ('oiF', '', '[dgkstvz]', '(D|Dn)'),
@@ -4332,13 +3936,10 @@ _ASH_APPROX_ANY = (
     ('EiF', '', '[dgkstvz]', '(D|Dn)'),
     ('iiF', '', '[dgkstvz]', '(D|Dn)'),
     ('IiF', '', '[dgkstvz]', '(D|Dn)'),
-
     ('F', '', '[bp]', '(i|im[16384]|om[16384])'),
     ('F', '', '[dgkstvz]', '(i|in[16384]|on[16384])'),
     ('F', '', '', 'i'),
-
     ('P', '', '', '(o|u)'),
-
     ('I', '[aeiouAEIBFOUQY]', '', 'i'),
     ('I', '', '[^aeiouAEBFIOU]e', '(Q[128]|i|D[32])'),  # "line"
     ('I', '', '$', 'i'),
@@ -4348,13 +3949,15 @@ _ASH_APPROX_ANY = (
     ('sIts', '', '$', '(sits|sQts[128])'),
     ('Its', '', '$', 'its'),
     ('I', '', '', '(Q[128]|i)'),
-
     ('lE', '[bdfgkmnprsStvzZ]', '$', '(li|il[32])'),  # Apple < Appel
-    ('lE', '[bdfgkmnprsStvzZ]', '', '(li|il[32]|lY[128])'),  # Applebaum < Appelbaum  # noqa: E501
-
+    (
+        'lE',
+        '[bdfgkmnprsStvzZ]',
+        '',
+        '(li|il[32]|lY[128])',
+    ),  # Applebaum < Appelbaum  # noqa: E501
     ('au', '', '', '(D|a|u)'),
     ('ou', '', '', '(D|o|u)'),
-
     ('ai', '', '', '(D|a|i)'),
     ('Ai', '', '', '(D|a|i)'),
     ('oi', '', '', '(D|o|i)'),
@@ -4363,72 +3966,68 @@ _ASH_APPROX_ANY = (
     ('Ui', '', '', '(D|u|i)'),
     ('ei', '', '', '(D|i)'),
     ('Ei', '', '', '(D|i)'),
-
     ('iA', '', '$', '(ia|io)'),
     ('iA', '', '', '(ia|io|iY[128])'),
     ('A', '', '[^aeiouAEBFIOU]e', '(a|o|Y[128]|D[32])'),  # "plane"
-
-    ('E', 'i[^aeiouAEIOU]', '', '(i|Y[128]|[32])'),  # Wineberg (vineberg/vajneberg) --> vajnberg  # noqa: E501
-    ('E', 'a[^aeiouAEIOU]', '', '(i|Y[128]|[32])'),  # Shaneberg (shaneberg/shejneberg) --> shejnberg  # noqa: E501
-
+    (
+        'E',
+        'i[^aeiouAEIOU]',
+        '',
+        '(i|Y[128]|[32])',
+    ),  # Wineberg (vineberg/vajneberg) --> vajnberg  # noqa: E501
+    (
+        'E',
+        'a[^aeiouAEIOU]',
+        '',
+        '(i|Y[128]|[32])',
+    ),  # Shaneberg (shaneberg/shejneberg) --> shejnberg  # noqa: E501
     ('e', '', '[fklmnprstv]$', 'i'),
     ('e', '', 'ts$', 'i'),
     ('e', '', '$', 'i'),
     ('e', '[DaoiuAOIUQY]', '', 'i'),
     ('e', '', '[aoAOQY]', 'i'),
     ('e', '', '', '(i|Y[128])'),
-
     ('E', '', '[fklmnprst]$', 'i'),
     ('E', '', 'ts$', 'i'),
     ('E', '', '$', 'i'),
     ('E', '[DaoiuAOIUQY]', '', 'i'),
     ('E', '', '[aoAOQY]', 'i'),
     ('E', '', '', '(i|Y[128])'),
-
     ('a', '', '', '(a|o)'),
-
     ('O', '', '[fklmnprstv]$', 'o'),
     ('O', '', 'ts$', 'o'),
     ('O', '', '$', 'o'),
     ('O', '[oeiuQY]', '', 'o'),
     ('O', '', '', '(o|Y[128])'),
-
     ('A', '', '[fklmnprst]$', '(a|o)'),
     ('A', '', 'ts$', '(a|o)'),
     ('A', '', '$', '(a|o)'),
     ('A', '[oeiuQY]', '', '(a|o)'),
     ('A', '', '', '(a|o|Y[128])'),
-
     ('U', '', '$', 'u'),
     ('U', '[DoiuQY]', '', 'u'),
     ('U', '', '[^k]$', 'u'),
     ('Uk', '[lr]', '$', '(uk|Qk[128])'),
     ('Uk', '', '$', 'uk'),
-
     ('sUts', '', '$', '(suts|sQts[128])'),
     ('Uts', '', '$', 'uts'),
     ('U', '', '', '(u|Q[128])'),
-
-    )
+)
 
 # ash/approxcommon.php
 # Ashkenazic
 
 _ASH_APPROX_COMMON = (
-
     # REGRESSIVE ASSIMILATION OF CONSONANTS
     ('n', '', '[bp]', 'm'),
-
     # PECULIARITY OF "h"
     ('h', '', '', ''),
     ('H', '', '', '(x|)'),
-
     # POLISH OGONEK IMPOSSIBLE
     ('F', '', '[bdgkpstvzZ]h', 'e'),
     ('F', '', '[bdgkpstvzZ]x', 'e'),
     ('B', '', '[bdgkpstvzZ]h', 'a'),
     ('B', '', '[bdgkpstvzZ]x', 'a'),
-
     # "e" and "i" ARE TO BE OMITTED BEFORE (SYLLABIC) n & l: Halperin=Halpern; Frankel = Frankl, Finkelstein = Finklstein  # noqa: E501
     ('e', '[bdfgklmnprsStvzZ]', '[ln]$', ''),
     ('i', '[bdfgklmnprsStvzZ]', '[ln]$', ''),
@@ -4437,7 +4036,6 @@ _ASH_APPROX_COMMON = (
     ('F', '[bdfgklmnprsStvzZ]', '[ln]$', ''),
     ('Q', '[bdfgklmnprsStvzZ]', '[ln]$', ''),
     ('Y', '[bdfgklmnprsStvzZ]', '[ln]$', ''),
-
     ('e', '[bdfgklmnprsStvzZ]', '[ln][bdfgklmnprsStvzZ]', '(e|)'),
     ('i', '[bdfgklmnprsStvzZ]', '[ln][bdfgklmnprsStvzZ]', '(i|)'),
     ('E', '[bdfgklmnprsStvzZ]', '[ln][bdfgklmnprsStvzZ]', '(E|)'),
@@ -4445,151 +4043,134 @@ _ASH_APPROX_COMMON = (
     ('F', '[bdfgklmnprsStvzZ]', '[ln][bdfgklmnprsStvzZ]', '(F|)'),
     ('Q', '[bdfgklmnprsStvzZ]', '[ln][bdfgklmnprsStvzZ]', '(Q|)'),
     ('Y', '[bdfgklmnprsStvzZ]', '[ln][bdfgklmnprsStvzZ]', '(Y|)'),
-
-    ('lEs', '', '', '(lEs|lz)'),  # Applebaum < Appelbaum (English + blend English-something forms as Finklestein)  # noqa: E501
-    ('lE', '[bdfgkmnprStvzZ]', '', '(lE|l)'),  # Applebaum < Appelbaum (English + blend English-something forms as Finklestein)  # noqa: E501
-
+    (
+        'lEs',
+        '',
+        '',
+        '(lEs|lz)',
+    ),  # Applebaum < Appelbaum (English + blend English-something forms as Finklestein)  # noqa: E501
+    (
+        'lE',
+        '[bdfgkmnprStvzZ]',
+        '',
+        '(lE|l)',
+    ),  # Applebaum < Appelbaum (English + blend English-something forms as Finklestein)  # noqa: E501
     # SIMPLIFICATION: (TRIPHTHONGS & DIPHTHONGS) -> ONE GENERIC DIPHTHONG "D"
     ('aue', '', '', 'D'),
     ('oue', '', '', 'D'),
-
     ('AvE', '', '', '(D|AvE)'),
     ('Ave', '', '', '(D|Ave)'),
     ('avE', '', '', '(D|avE)'),
     ('ave', '', '', '(D|ave)'),
-
     ('OvE', '', '', '(D|OvE)'),
     ('Ove', '', '', '(D|Ove)'),
     ('ovE', '', '', '(D|ovE)'),
     ('ove', '', '', '(D|ove)'),
-
     ('ea', '', '', '(D|ea)'),
     ('EA', '', '', '(D|EA)'),
     ('Ea', '', '', '(D|Ea)'),
     ('eA', '', '', '(D|eA)'),
-
     ('aji', '', '', 'D'),
     ('ajI', '', '', 'D'),
     ('aje', '', '', 'D'),
     ('ajE', '', '', 'D'),
-
     ('Aji', '', '', 'D'),
     ('AjI', '', '', 'D'),
     ('Aje', '', '', 'D'),
     ('AjE', '', '', 'D'),
-
     ('oji', '', '', 'D'),
     ('ojI', '', '', 'D'),
     ('oje', '', '', 'D'),
     ('ojE', '', '', 'D'),
-
     ('Oji', '', '', 'D'),
     ('OjI', '', '', 'D'),
     ('Oje', '', '', 'D'),
     ('OjE', '', '', 'D'),
-
     ('eji', '', '', 'D'),
     ('ejI', '', '', 'D'),
     ('eje', '', '', 'D'),
     ('ejE', '', '', 'D'),
-
     ('Eji', '', '', 'D'),
     ('EjI', '', '', 'D'),
     ('Eje', '', '', 'D'),
     ('EjE', '', '', 'D'),
-
     ('uji', '', '', 'D'),
     ('ujI', '', '', 'D'),
     ('uje', '', '', 'D'),
     ('ujE', '', '', 'D'),
-
     ('Uji', '', '', 'D'),
     ('UjI', '', '', 'D'),
     ('Uje', '', '', 'D'),
     ('UjE', '', '', 'D'),
-
     ('iji', '', '', 'D'),
     ('ijI', '', '', 'D'),
     ('ije', '', '', 'D'),
     ('ijE', '', '', 'D'),
-
     ('Iji', '', '', 'D'),
     ('IjI', '', '', 'D'),
     ('Ije', '', '', 'D'),
     ('IjE', '', '', 'D'),
-
     ('aja', '', '', 'D'),
     ('ajA', '', '', 'D'),
     ('ajo', '', '', 'D'),
     ('ajO', '', '', 'D'),
     ('aju', '', '', 'D'),
     ('ajU', '', '', 'D'),
-
     ('Aja', '', '', 'D'),
     ('AjA', '', '', 'D'),
     ('Ajo', '', '', 'D'),
     ('AjO', '', '', 'D'),
     ('Aju', '', '', 'D'),
     ('AjU', '', '', 'D'),
-
     ('oja', '', '', 'D'),
     ('ojA', '', '', 'D'),
     ('ojo', '', '', 'D'),
     ('ojO', '', '', 'D'),
     ('Aju', '', '', 'D'),
     ('AjU', '', '', 'D'),
-
     ('Oja', '', '', 'D'),
     ('OjA', '', '', 'D'),
     ('Ojo', '', '', 'D'),
     ('OjO', '', '', 'D'),
     ('Aju', '', '', 'D'),
     ('AjU', '', '', 'D'),
-
     ('eja', '', '', 'D'),
     ('ejA', '', '', 'D'),
     ('ejo', '', '', 'D'),
     ('ejO', '', '', 'D'),
     ('Aju', '', '', 'D'),
     ('AjU', '', '', 'D'),
-
     ('Eja', '', '', 'D'),
     ('EjA', '', '', 'D'),
     ('Ejo', '', '', 'D'),
     ('EjO', '', '', 'D'),
     ('Aju', '', '', 'D'),
     ('AjU', '', '', 'D'),
-
     ('uja', '', '', 'D'),
     ('ujA', '', '', 'D'),
     ('ujo', '', '', 'D'),
     ('ujO', '', '', 'D'),
     ('Aju', '', '', 'D'),
     ('AjU', '', '', 'D'),
-
     ('Uja', '', '', 'D'),
     ('UjA', '', '', 'D'),
     ('Ujo', '', '', 'D'),
     ('UjO', '', '', 'D'),
     ('Aju', '', '', 'D'),
     ('AjU', '', '', 'D'),
-
     ('ija', '', '', 'D'),
     ('ijA', '', '', 'D'),
     ('ijo', '', '', 'D'),
     ('ijO', '', '', 'D'),
     ('Aju', '', '', 'D'),
     ('AjU', '', '', 'D'),
-
     ('Ija', '', '', 'D'),
     ('IjA', '', '', 'D'),
     ('Ijo', '', '', 'D'),
     ('IjO', '', '', 'D'),
     ('Aju', '', '', 'D'),
     ('AjU', '', '', 'D'),
-
     ('j', '', '', 'i'),
-
     # lander = lender = lÃ¤nder
     ('lYndEr', '', '$', 'lYnder'),
     ('lander', '', '$', 'lYnder'),
@@ -4600,30 +4181,25 @@ _ASH_APPROX_COMMON = (
     ('lEndEr', '', '$', 'lYnder'),
     ('lendEr', '', '$', 'lYnder'),
     ('lEnder', '', '$', 'lYnder'),
-
     # burg = berg
     ('bUrk', '', '$', '(burk|berk)'),
     ('burk', '', '$', '(burk|berk)'),
     ('bUrg', '', '$', '(burk|berk)'),
     ('burg', '', '$', '(burk|berk)'),
-
     # CONSONANTS {z & Z; s & S} are approximately interchangeable
     ('s', '', '[rmnl]', 'z'),
     ('S', '', '[rmnl]', 'z'),
     ('s', '[rmnl]', '', 'z'),
     ('S', '[rmnl]', '', 'z'),
-
     ('dS', '', '$', 'S'),
     ('dZ', '', '$', 'S'),
     ('Z', '', '$', 'S'),
     ('S', '', '$', '(S|s)'),
     ('z', '', '$', '(S|s)'),
-
     ('S', '', '', 's'),
     ('dZ', '', '', 'z'),
     ('Z', '', '', 'z'),
-
-    )
+)
 
 # ash/approxcyrillic.php
 # this file uses the same rules as approxrussian.php
@@ -4631,7 +4207,6 @@ _ASH_APPROX_COMMON = (
 # ash/approxenglish.php
 
 _ASH_APPROX_ENGLISH = (
-
     # VOWELS
     ('I', '', '[^aEIeiou]e', '(Q|i|D)'),  # like in "five"
     ('I', '', '$', 'i'),
@@ -4642,34 +4217,32 @@ _ASH_APPROX_ENGLISH = (
     ('sIts', '', '$', '(sits|sQts)'),
     ('Its', '', '$', 'its'),
     ('I', '', '', '(i|Q)'),
-
     ('lE', '[bdfgkmnprsStvzZ]', '', '(il|li|lY)'),  # Applebaum < Appelbaum
-
     ('au', '', '', '(D|a|u)'),
     ('ou', '', '', '(D|o|u)'),
     ('ai', '', '', '(D|a|i)'),
     ('oi', '', '', '(D|o|i)'),
     ('ui', '', '', '(D|u|i)'),
-
-    ('E', 'D[^aeiEIou]', '', '(i|)'),  # Weinberg, Shaneberg (shaneberg/shejneberg) --> shejnberg  # noqa: E501
+    (
+        'E',
+        'D[^aeiEIou]',
+        '',
+        '(i|)',
+    ),  # Weinberg, Shaneberg (shaneberg/shejneberg) --> shejnberg  # noqa: E501
     ('e', 'D[^aeiEIou]', '', '(i|)'),
-
     ('e', '', '', 'i'),
     ('E', '', '[fklmnprsStv]$', 'i'),
     ('E', '', 'ts$', 'i'),
     ('E', '[DaoiEuQY]', '', 'i'),
     ('E', '', '[aoQY]', 'i'),
     ('E', '', '', '(Y|i)'),
-
     ('a', '', '', '(a|o)'),
-
-    )
+)
 
 # ash/approxfrench.php
 # THE LINES BELOW WERE VALID FOR ASHKENAZIM
 
 _ASH_APPROX_FRENCH = (
-
     ('I', '', '$', 'i'),
     ('I', '[aEIeiou]', '', 'i'),
     ('I', '', '[^k]$', 'i'),
@@ -4678,28 +4251,23 @@ _ASH_APPROX_FRENCH = (
     ('sIts', '', '$', '(sits|sQts)'),
     ('Its', '', '$', 'its'),
     ('I', '', '', '(i|Q)'),
-
     ('au', '', '', '(D|a|u)'),
     ('ou', '', '', '(D|o|u)'),
     ('ai', '', '', '(D|a|i)'),
     ('oi', '', '', '(D|o|i)'),
     ('ui', '', '', '(D|u|i)'),
-
     ('a', '', '', '(a|o)'),
     ('e', '', '', 'i'),
-
     ('E', '', '[fklmnprsStv]$', 'i'),
     ('E', '', 'ts$', 'i'),
     ('E', '[aoiuQ]', '', 'i'),
     ('E', '', '[aoQ]', 'i'),
     ('E', '', '', '(Y|i)'),
-
-    )
+)
 
 # ash/approxgerman.php
 
 _ASH_APPROX_GERMAN = (
-
     ('I', '', '$', 'i'),
     ('I', '[aeiAEIOUouQY]', '', 'i'),
     ('I', '', '[^k]$', 'i'),
@@ -4708,7 +4276,6 @@ _ASH_APPROX_GERMAN = (
     ('sIts', '', '$', '(sits|sQts)'),
     ('Its', '', '$', 'its'),
     ('I', '', '', '(Q|i)'),
-
     ('AU', '', '', '(D|a|u)'),
     ('aU', '', '', '(D|a|u)'),
     ('Au', '', '', '(D|a|u)'),
@@ -4723,30 +4290,24 @@ _ASH_APPROX_GERMAN = (
     ('Oi', '', '', '(D|o|i)'),
     ('ui', '', '', '(D|u|i)'),
     ('Ui', '', '', '(D|u|i)'),
-
     ('e', '', '', 'i'),
-
     ('E', '', '[fklmnprst]$', 'i'),
     ('E', '', 'ts$', 'i'),
     ('E', '', '$', 'i'),
     ('E', '[DaoAOUiuQY]', '', 'i'),
     ('E', '', '[aoAOQY]', 'i'),
     ('E', '', '', '(Y|i)'),
-
     ('O', '', '$', 'o'),
     ('O', '', '[fklmnprst]$', 'o'),
     ('O', '', 'ts$', 'o'),
     ('O', '[aoAOUeiuQY]', '', 'o'),
     ('O', '', '', '(o|Y)'),
-
     ('a', '', '', '(a|o)'),
-
     ('A', '', '$', '(a|o)'),
     ('A', '', '[fklmnprst]$', '(a|o)'),
     ('A', '', 'ts$', '(a|o)'),
     ('A', '[aoeOUiuQY]', '', '(a|o)'),
     ('A', '', '', '(a|o|Y)'),
-
     ('U', '', '$', 'u'),
     ('U', '[DaoiuUQY]', '', 'u'),
     ('U', '', '[^k]$', 'u'),
@@ -4755,13 +4316,11 @@ _ASH_APPROX_GERMAN = (
     ('sUts', '', '$', '(suts|sQts)'),
     ('Uts', '', '$', 'uts'),
     ('U', '', '', '(u|Q)'),
-
-    )
+)
 
 # ash/approxhebrew.php
 
-_ASH_APPROX_HEBREW = (
-    )
+_ASH_APPROX_HEBREW = ()
 
 # ash/approxhungarian.php
 
@@ -4769,7 +4328,6 @@ _ASH_APPROX_HEBREW = (
 
 # ash/approxpolish.php
 _ASH_APPROX_POLISH = (
-
     ('aiB', '', '[bp]', '(D|Dm)'),
     ('oiB', '', '[bp]', '(D|Dm)'),
     ('uiB', '', '[bp]', '(D|Dm)'),
@@ -4777,7 +4335,6 @@ _ASH_APPROX_POLISH = (
     ('EiB', '', '[bp]', '(D|Dm)'),
     ('iiB', '', '[bp]', '(D|Dm)'),
     ('IiB', '', '[bp]', '(D|Dm)'),
-
     ('aiB', '', '[dgkstvz]', '(D|Dn)'),
     ('oiB', '', '[dgkstvz]', '(D|Dn)'),
     ('uiB', '', '[dgkstvz]', '(D|Dn)'),
@@ -4785,11 +4342,9 @@ _ASH_APPROX_POLISH = (
     ('EiB', '', '[dgkstvz]', '(D|Dn)'),
     ('iiB', '', '[dgkstvz]', '(D|Dn)'),
     ('IiB', '', '[dgkstvz]', '(D|Dn)'),
-
     ('B', '', '[bp]', '(o|om|im)'),
     ('B', '', '[dgkstvz]', '(o|on|in)'),
     ('B', '', '', 'o'),
-
     ('aiF', '', '[bp]', '(D|Dm)'),
     ('oiF', '', '[bp]', '(D|Dm)'),
     ('uiF', '', '[bp]', '(D|Dm)'),
@@ -4797,7 +4352,6 @@ _ASH_APPROX_POLISH = (
     ('EiF', '', '[bp]', '(D|Dm)'),
     ('iiF', '', '[bp]', '(D|Dm)'),
     ('IiF', '', '[bp]', '(D|Dm)'),
-
     ('aiF', '', '[dgkstvz]', '(D|Dn)'),
     ('oiF', '', '[dgkstvz]', '(D|Dn)'),
     ('uiF', '', '[dgkstvz]', '(D|Dn)'),
@@ -4805,13 +4359,10 @@ _ASH_APPROX_POLISH = (
     ('EiF', '', '[dgkstvz]', '(D|Dn)'),
     ('iiF', '', '[dgkstvz]', '(D|Dn)'),
     ('IiF', '', '[dgkstvz]', '(D|Dn)'),
-
     ('F', '', '[bp]', '(i|im|om)'),
     ('F', '', '[dgkstvz]', '(i|in|on)'),
     ('F', '', '', 'i'),
-
     ('P', '', '', '(o|u)'),
-
     ('I', '', '$', 'i'),
     ('I', '', '[^k]$', 'i'),
     ('Ik', '[lr]', '$', '(ik|Qk)'),
@@ -4820,24 +4371,20 @@ _ASH_APPROX_POLISH = (
     ('Its', '', '$', 'its'),
     ('I', '[aeiAEBFIou]', '', 'i'),
     ('I', '', '', '(i|Q)'),
-
     ('au', '', '', '(D|a|u)'),
     ('ou', '', '', '(D|o|u)'),
     ('ai', '', '', '(D|a|i)'),
     ('oi', '', '', '(D|o|i)'),
     ('ui', '', '', '(D|u|i)'),
-
     ('a', '', '', '(a|o)'),
     ('e', '', '', 'i'),
-
     ('E', '', '[fklmnprst]$', 'i'),
     ('E', '', 'ts$', 'i'),
     ('E', '', '$', 'i'),
     ('E', '[DaoiuQ]', '', 'i'),
     ('E', '', '[aoQ]', 'i'),
     ('E', '', '', '(Y|i)'),
-
-    )
+)
 
 # ash/approxromanian.php
 
@@ -4846,7 +4393,6 @@ _ASH_APPROX_POLISH = (
 # ash/approxrussian.php
 
 _ASH_APPROX_RUSSIAN = (
-
     # VOWELS
     ('I', '', '$', 'i'),
     ('I', '', '[^k]$', 'i'),
@@ -4856,30 +4402,25 @@ _ASH_APPROX_RUSSIAN = (
     ('Its', '', '$', 'its'),
     ('I', '[aeiEIou]', '', 'i'),
     ('I', '', '', '(i|Q)'),
-
     ('au', '', '', '(D|a|u)'),
     ('ou', '', '', '(D|o|u)'),
     ('ai', '', '', '(D|a|i)'),
     ('oi', '', '', '(D|o|i)'),
     ('ui', '', '', '(D|u|i)'),
-
     ('om', '', '[bp]', '(om|im)'),
     ('on', '', '[dgkstvz]', '(on|in)'),
     ('em', '', '[bp]', '(im|om)'),
     ('en', '', '[dgkstvz]', '(in|on)'),
     ('Em', '', '[bp]', '(im|Ym|om)'),
     ('En', '', '[dgkstvz]', '(in|Yn|on)'),
-
     ('a', '', '', '(a|o)'),
     ('e', '', '', 'i'),
-
     ('E', '', '[fklmnprsStv]$', 'i'),
     ('E', '', 'ts$', 'i'),
     ('E', '[DaoiuQ]', '', 'i'),
     ('E', '', '[aoQ]', 'i'),
     ('E', '', '', '(Y|i)'),
-
-    )
+)
 
 # ash/approxspanish.php
 
@@ -4911,23 +4452,18 @@ _ASH_APPROX_RUSSIAN = (
 _ASH_EXACT_ANY = (
     ('A', '', '', 'a'),
     ('B', '', '', 'a'),
-
     ('E', '', '', 'e'),
     ('F', '', '', 'e'),
-
     ('I', '', '', 'i'),
     ('O', '', '', 'o'),
     ('P', '', '', 'o'),
     ('U', '', '', 'u'),
-
     ('J', '', '', 'l'),
-
-    )
+)
 
 # ash/exactapproxcommon.php
 # Ashkenazic
 _ASH_EXACT_APPROX_COMMON = (
-
     ('h', '', '$', ''),
     # VOICED - UNVOICED CONSONANTS
     ('b', '', '[fktSs]', 'p'),
@@ -4935,48 +4471,37 @@ _ASH_EXACT_APPROX_COMMON = (
     ('b', '', '$', 'p'),
     ('p', '', '[gdZz]', 'b'),
     ('p', '', 'b', ''),
-
     ('v', '', '[pktSs]', 'f'),
     ('v', '', 'f', ''),
     ('v', '', '$', 'f'),
     ('f', '', '[bgdZz]', 'v'),
     ('f', '', 'v', ''),
-
     ('g', '', '[pftSs]', 'k'),
     ('g', '', 'k', ''),
     ('g', '', '$', 'k'),
     ('k', '', '[bdZz]', 'g'),
     ('k', '', 'g', ''),
-
     ('d', '', '[pfkSs]', 't'),
     ('d', '', 't', ''),
     ('d', '', '$', 't'),
     ('t', '', '[bgZz]', 'd'),
     ('t', '', 'd', ''),
-
     ('s', '', 'dZ', ''),
     ('s', '', 'tS', ''),
-
     ('z', '', '[pfkSt]', 's'),
     ('z', '', '[sSzZ]', ''),
     ('s', '', '[sSzZ]', ''),
     ('Z', '', '[sSzZ]', ''),
     ('S', '', '[sSzZ]', ''),
-
     # SIMPLIFICATION OF CONSONANT CLUSTERS
-
     ('jnm', '', '', 'jm'),
-
     # DOUBLE --> SINGLE
-
     ('ji', '^', '', 'i'),
     ('jI', '^', '', 'I'),
-
     ('a', '', '[aAB]', ''),
     ('a', '[AB]', '', ''),
     ('A', '', 'A', ''),
     ('B', '', 'B', ''),
-
     ('b', '', 'b', ''),
     ('d', '', 'd', ''),
     ('f', '', 'f', ''),
@@ -4990,30 +4515,25 @@ _ASH_EXACT_APPROX_COMMON = (
     ('t', '', 't', ''),
     ('v', '', 'v', ''),
     ('z', '', 'z', '')
-
     # do not put name of file here since it always gets merged into another file  # noqa: E501
-    )
+)
 
 # ash/exactcommon.php
 # Ashkenazic
 
 _ASH_EXACT_COMMON = (
     ('H', '', '', 'h'),
-
     # VOICED - UNVOICED CONSONANTS
-
     ('s', '[^t]', '[bgZd]', 'z'),
     ('Z', '', '[pfkst]', 'S'),
     ('Z', '', '$', 'S'),
     ('S', '', '[bgzd]', 'Z'),
     ('z', '', '$', 's'),
-
     ('ji', '[aAoOeEiIuU]', '', 'j'),
     ('jI', '[aAoOeEiIuU]', '', 'j'),
     ('je', '[aAoOeEiIuU]', '', 'j'),
     ('jE', '[aAoOeEiIuU]', '', 'j'),
-
-    )
+)
 
 # ash/exactcyrillic.php
 # this file uses the same rules as exactrussian.php
@@ -5029,34 +4549,25 @@ _ASH_EXACT_COMMON = (
 # this file uses the same rules as exactany.php
 
 # ash/exacthebrew.php
-_ASH_EXACT_HEBREW = (
-    )
+_ASH_EXACT_HEBREW = ()
 
 # ash/exacthungarian.php
 # this file uses the same rules as exactrussian.php
 
 # ash/exactpolish.php
 _ASH_EXACT_POLISH = (
-
     ('B', '', '', 'a'),
     ('F', '', '', 'e'),
     ('P', '', '', 'o'),
-
     ('E', '', '', 'e'),
     ('I', '', '', 'i'),
-
-    )
+)
 
 # ash/exactromanian.php
 # this file uses the same rules as exactrussian.php
 
 # ash/exactrussian.php
-_ASH_EXACT_RUSSIAN = (
-
-    ('E', '', '', 'e'),
-    ('I', '', '', 'i'),
-
-    )
+_ASH_EXACT_RUSSIAN = (('E', '', '', 'e'), ('I', '', '', 'i'))
 
 # ash/exactspanish.php
 # this Ashkenazic file uses the same rules as exactrussian.php
@@ -5065,7 +4576,6 @@ _ASH_EXACT_RUSSIAN = (
 # Ashkenazic
 
 _ASH_HEBREW_COMMON = (
-
     ('ts', '', '', 'C'),  # for not confusion Gutes [=guts] and Guts [=guc]
     ('tS', '', '', 'C'),  # same reason
     ('S', '', '', 's'),
@@ -5073,7 +4583,6 @@ _ASH_HEBREW_COMMON = (
     ('b', '^', '', 'b'),
     ('b', '', '', '(b|v)'),
     ('J', '', '', 'l'),
-
     ('ja', '', '', 'i'),
     ('jA', '', '', 'i'),
     ('jB', '', '', 'i'),
@@ -5087,7 +4596,6 @@ _ASH_HEBREW_COMMON = (
     ('I', '', '', 'i'),
     ('Q', '', '', 'i'),
     ('j', '', '', 'i'),
-
     ('a', '^', '', '1'),
     ('A', '^', '', '1'),
     ('B', '^', '', '1'),
@@ -5095,7 +4603,6 @@ _ASH_HEBREW_COMMON = (
     ('E', '^', '', '1'),
     ('F', '^', '', '1'),
     ('Y', '^', '', '1'),
-
     ('a', '', '$', '1'),
     ('A', '', '$', '1'),
     ('B', '', '$', '1'),
@@ -5103,7 +4610,6 @@ _ASH_HEBREW_COMMON = (
     ('E', '', '$', '1'),
     ('F', '', '$', '1'),
     ('Y', '', '$', '1'),
-
     ('a', '', '', ''),
     ('A', '', '', ''),
     ('B', '', '', ''),
@@ -5111,36 +4617,30 @@ _ASH_HEBREW_COMMON = (
     ('E', '', '', ''),
     ('F', '', '', ''),
     ('Y', '', '', ''),
-
     ('oj', '^', '', '(u|vi)'),
     ('Oj', '^', '', '(u|vi)'),
     ('uj', '^', '', '(u|vi)'),
     ('Uj', '^', '', '(u|vi)'),
-
     ('oj', '', '', 'u'),
     ('Oj', '', '', 'u'),
     ('uj', '', '', 'u'),
     ('Uj', '', '', 'u'),
-
     ('ou', '^', '', '(u|v|1)'),
     ('o', '^', '', '(u|v|1)'),
     ('O', '^', '', '(u|v|1)'),
     ('P', '^', '', '(u|v|1)'),
     ('U', '^', '', '(u|v|1)'),
     ('u', '^', '', '(u|v|1)'),
-
     ('o', '', '$', '(u|1)'),
     ('O', '', '$', '(u|1)'),
     ('P', '', '$', '(u|1)'),
     ('u', '', '$', '(u|1)'),
     ('U', '', '$', '(u|1)'),
-
     ('ou', '', '', 'u'),
     ('o', '', '', 'u'),
     ('O', '', '', 'u'),
     ('P', '', '', 'u'),
     ('U', '', '', 'u'),
-
     ('VV', '', '', 'u'),  # alef/ayin + vov from ruleshebrew
     ('V', '', '', 'v'),  # tsvey-vov from ruleshebrew;; only Ashkenazic
     ('L', '^', '', '1'),  # alef/ayin from ruleshebrew
@@ -5150,28 +4650,23 @@ _ASH_HEBREW_COMMON = (
     ('WW', '', '', 'u'),  # vav-yod from ruleshebrew
     ('W', '^', '', '(u|v)'),  # vav from ruleshebrew
     ('W', '', '', 'u'),  # vav from ruleshebrew
-
     # ("g","","","(g|Z)"),
     # ("z","","","(z|Z)"),
     # ("d","","","(d|dZ)"),
-
     ('TB', '^', '', 't'),  # tav from ruleshebrew; only Ashkenazic
     ('TB', '', '$', 's'),  # tav from ruleshebrew; only Ashkenazic
     ('TB', '', '', '(t|s)'),  # tav from ruleshebrew; only Ashkenazic
     ('T', '', '', 't'),  # tet from ruleshebrew
-
     # ("k","","","(k|x)"),
     # ("x","","","(k|x)"),
     ('K', '', '', 'k'),  # kof and initial kaf from ruleshebrew
     ('X', '', '', 'x'),  # khet and final kaf from ruleshebrew
-
     ('H', '^', '', '(x|1)'),
     ('H', '', '$', '(x|1)'),
     ('H', '', '', '(x|)'),
     ('h', '^', '', '1'),
     ('h', '', '', ''),
-
-    )
+)
 
 # ash/lang.php
 # ASHKENAZIC
@@ -5188,7 +4683,6 @@ _ASH_HEBREW_COMMON = (
 # if "pattern" matches and acceptance is false, name is not in any of the languages indicated  # noqa: E501
 
 _ASH_LANGUAGE_RULES = (
-
     # 1. following are rules to accept the language
     # 1.1 Special letter combinations
     ('zh', 147616, True),
@@ -5270,14 +4764,12 @@ _ASH_LANGUAGE_RULES = (
     ('^zs', 2048, True),
     ('^wl', 16384, True),
     ('^wr', 16544, True),
-
     ('gy$', 2048, True),
     ('gy[aeou]', 2048, True),
     ('gy', 133120, True),
     ('ly', 149504, True),
     ('ny', 149504, True),
     ('ty', 149504, True),
-
     # 1.2 special characters
     ('â', 65600, True),
     ('ă', 65536, True),
@@ -5308,9 +4800,7 @@ _ASH_LANGUAGE_RULES = (
     ('ú', 264192, True),
     ('ź', 16384, True),
     ('ż', 16384, True),
-
     ('ß', 128, True),
-
     # Every Cyrillic word has at least one Cyrillic vowel (аёеоиуыэюя)
     ('а', 4, True),
     ('ё', 4, True),
@@ -5322,7 +4812,6 @@ _ASH_LANGUAGE_RULES = (
     ('э', 4, True),
     ('ю', 4, True),
     ('я', 4, True),
-
     # Hebrew
     ('א', 1024, True),
     ('ב', 1024, True),
@@ -5346,9 +4835,7 @@ _ASH_LANGUAGE_RULES = (
     ('ר', 1024, True),
     ('ש', 1024, True),
     ('ת', 1024, True),
-
     # 2. following are rules to reject the language
-
     # Every Latin character word has at least one Latin vowel
     ('a', 1028, False),
     ('o', 1028, False),
@@ -5356,9 +4843,16 @@ _ASH_LANGUAGE_RULES = (
     ('i', 1028, False),
     ('y', 66564, False),
     ('u', 1028, False),
-
-    ('v[^aoeiuäüö]', 128, False),  # in german, "v" can be found before a vowel only  # noqa: E501
-    ('y[^aoeiu]', 128, False),  # in german, "y" usually appears only in the last position; sometimes before a vowel  # noqa: E501
+    (
+        'v[^aoeiuäüö]',
+        128,
+        False,
+    ),  # in german, "v" can be found before a vowel only  # noqa: E501
+    (
+        'y[^aoeiu]',
+        128,
+        False,
+    ),  # in german, "y" usually appears only in the last position; sometimes before a vowel  # noqa: E501
     ('c[^aohk]', 128, False),
     ('dzi', 224, False),
     ('ou', 128, False),
@@ -5375,18 +4869,27 @@ _ASH_LANGUAGE_RULES = (
     ('gie', 327744, False),
     ('q', 215040, False),
     ('sch', 280640, False),
-    ('^h', 131072, False)
-
-    )
+    ('^h', 131072, False),
+)
 
 # ash/languagenames.php
-_ASH_LANGUAGES = ('any', 'cyrillic', 'english', 'french', 'german', 'hebrew',
-                  'hungarian', 'polish', 'romanian', 'russian', 'spanish')
+_ASH_LANGUAGES = (
+    'any',
+    'cyrillic',
+    'english',
+    'french',
+    'german',
+    'hebrew',
+    'hungarian',
+    'polish',
+    'romanian',
+    'russian',
+    'spanish',
+)
 
 # ash/rulesany.php
 # ASHKENAZIC
 _ASH_RULES_ANY = (
-
     # CONVERTING FEMININE TO MASCULINE
     ('yna', '', '$', '(in[131072]|ina)'),
     ('ina', '', '$', '(in[131072]|ina)'),
@@ -5397,7 +4900,6 @@ _ASH_RULES_ANY = (
     ('aia', '', '$', '(aja|i[131072])'),
     ('aja', '', '$', '(aja|i[131072])'),
     ('aya', '', '$', '(aja|i[131072])'),
-
     ('lowa', '', '$', '(lova|lof[16384]|l[16384]|el[16384])'),
     ('kowa', '', '$', '(kova|kof[16384]|k[16384]|ek[16384])'),
     ('owa', '', '$', '(ova|of[16384]|)'),
@@ -5407,38 +4909,26 @@ _ASH_RULES_ANY = (
     ('lówna', '', '$', '(l|el[16384])'),  # polish
     ('kówna', '', '$', '(k|ek[16384])'),  # polish
     ('ówna', '', '$', ''),  # polish
-
     ('a', '', '$', '(a|i[16384])'),
-
     # CONSONANTS  (integrated: German, Polish, Russian, Romanian and English)
-
     ('rh', '^', '', 'r'),
     ('ssch', '', '', 'S'),
     ('chsch', '', '', 'xS'),
     ('tsch', '', '', 'tS'),
-
     ('sch', '', '[ei]', '(sk[65536]|S|StS[131072])'),  # german
     ('sch', '', '', '(S|StS[131072])'),  # german
-
     ('ssh', '', '', 'S'),
-
     ('sh', '', '[äöü]', 'sh'),  # german
     ('sh', '', '[aeiou]', '(S[131104]|sh)'),
     ('sh', '', '', 'S'),  # russian+english
-
     ('kh', '', '', '(x[131104]|kh)'),
-
     ('chs', '', '', '(ks[128]|xs|tSs[131104])'),
-
     # French "ch" is currently disabled
     # ("ch","","[ei]","(x|tS|k[65536]|S[64])"),
     # ("ch","","","(x|tS[131104]|S[64])"),
-
     ('ch', '', '[ei]', '(x|k[65536]|tS[131104])'),
     ('ch', '', '', '(x|tS[131104])'),
-
     ('ck', '', '', '(k|tsk[16384])'),
-
     ('czy', '', '', 'tSi'),
     ('cze', '', '[bcdgkpstwzż]', '(tSe|tSF)'),
     ('ciewicz', '', '', '(tsevitS|tSevitS)'),
@@ -5452,7 +4942,6 @@ _ASH_RULES_ANY = (
     ('owicz', '', '', 'ovitS'),
     ('icz', '', '', 'itS'),
     ('cz', '', '', 'tS'),  # Polish
-
     ('cia', '', '[bcdgkpstwzż]', '(tSB[16384]|tsB)'),
     ('cia', '', '', '(tSa[16384]|tsa)'),
     ('cią', '', '[bp]', '(tSom[16384]|tsom)'),
@@ -5463,22 +4952,23 @@ _ASH_RULES_ANY = (
     ('cie', '', '', '(tSe[16384]|tse)'),
     ('cio', '', '', '(tSo[16384]|tso)'),
     ('ciu', '', '', '(tSu[16384]|tsu)'),
-
     ('ci', '', '$', '(tsi[16384]|tSi[81920]|tS[65536]|si)'),
     ('ci', '', '', '(tsi[16384]|tSi[81920]|si)'),
     ('ce', '', '[bcdgkpstwzż]', '(tsF[16384]|tSe[81920]|se)'),
     ('ce', '', '', '(tSe[81920]|tse[16384]|se)'),
     ('cy', '', '', '(si|tsi[16384])'),
-
     ('ssz', '', '', 'S'),  # Polish
-    ('sz', '', '', 'S'),  # Polish; actually could also be Hungarian /s/, disabled here  # noqa: E501
-
+    (
+        'sz',
+        '',
+        '',
+        'S',
+    ),  # Polish; actually could also be Hungarian /s/, disabled here  # noqa: E501
     ('ssp', '', '', '(Sp[128]|sp)'),
     ('sp', '', '', '(Sp[128]|sp)'),
     ('sst', '', '', '(St[128]|st)'),
     ('st', '', '', '(St[128]|st)'),
     ('ss', '', '', 's'),
-
     ('sia', '', '[bcdgkpstwzż]', '(SB[16384]|sB[16384]|sja)'),
     ('sia', '', '', '(Sa[16384]|sja)'),
     ('sią', '', '[bp]', '(Som[16384]|som)'),
@@ -5491,12 +4981,10 @@ _ASH_RULES_ANY = (
     ('siu', '', '', '(Su[16384]|sju)'),
     ('si', '', '', '(Si[16384]|si|zi[128])'),
     ('s', '', '[aeiouäöü]', '(s|z[128])'),
-
     ('gue', '', '', 'ge'),
     ('gui', '', '', 'gi'),
     ('guy', '', '', 'gi'),
     ('gh', '', '[ei]', '(g[65536]|gh)'),
-
     ('gauz', '', '$', 'haus'),
     ('gaus', '', '$', 'haus'),
     ('gol\'ts', '', '$', 'holts'),
@@ -5515,11 +5003,9 @@ _ASH_RULES_ANY = (
     ('geimer', '', '$', 'hajmer'),
     ('geim', '', '$', 'hajm'),
     ('gof', '', '$', 'hof'),
-
     ('ger', '', '$', 'ger'),
     ('gen', '', '$', 'gen'),
     ('gin', '', '$', 'gin'),
-
     ('gie', '', '$', '(ge|gi[128]|ji[64])'),
     ('gie', '', '', 'ge'),
     ('ge', '[yaeiou]', '', '(gE|xe[262144]|dZe[65568])'),
@@ -5530,38 +5016,29 @@ _ASH_RULES_ANY = (
     ('gy', '', '', '(gi|d[2048])'),
     ('g', '[jyaeiou]', '[aouyei]', 'g'),
     ('g', '', '[aouei]', '(g|h[131072])'),
-
     ('ej', '', '', '(aj|eZ[65600]|ex[262144])'),
     ('ej', '', '', 'aj'),
-
     ('ly', '', '[au]', 'l'),
     ('li', '', '[au]', 'l'),
     ('lj', '', '[au]', 'l'),
     ('lio', '', '', '(lo|le[131072])'),
     ('lyo', '', '', '(lo|le[131072])'),
     ('ll', '', '', '(l|J[262144])'),
-
     ('j', '', '[aoeiuy]', '(j|dZ[32]|x[262144]|Z[65600])'),
     ('j', '', '', '(j|x[262144])'),
-
     ('pf', '', '', '(pf|p|f)'),
     ('ph', '', '', '(ph|f)'),
-
     ('qu', '', '', '(kv[128]|k)'),
-
     ('rze', 't', '', '(Se[16384]|re)'),  # polish
     ('rze', '', '', '(rze|rtsE[128]|Ze[16384]|re[16384]|rZe[16384])'),
     ('rzy', 't', '', '(Si[16384]|ri)'),  # polish
     ('rzy', '', '', '(Zi[16384]|ri[16384]|rZi)'),
     ('rz', 't', '', '(S[16384]|r)'),  # polish
     ('rz', '', '', '(rz|rts[128]|Z[16384]|r[16384]|rZ[16384])'),  # polish
-
     ('tz', '', '$', '(ts|tS[160])'),
     ('tz', '^', '', '(ts|tS[160])'),
     ('tz', '', '', '(ts[131232]|tz)'),
-
     ('zh', '', '', '(Z|zh[16384]|tsh[128])'),
-
     ('zia', '', '[bcdgkpstwzż]', '(ZB[16384]|zB[16384]|zja)'),
     ('zia', '', '', '(Za[16384]|zja)'),
     ('zią', '', '[bp]', '(Zom[16384]|zom)'),
@@ -5573,61 +5050,48 @@ _ASH_RULES_ANY = (
     ('zio', '', '', '(Zo[16384]|zo)'),
     ('ziu', '', '', '(Zu[16384]|zju)'),
     ('zi', '', '', '(Zi[16384]|zi|tsi[128])'),
-
     ('thal', '', '$', 'tal'),
     ('th', '^', '', 't'),
     ('th', '', '[aeiou]', '(t[128]|th)'),
     ('th', '', '', 't'),  # german
     ('vogel', '', '', '(vogel|fogel[128])'),
     ('v', '^', '', '(v|f[128])'),
-
     ('h', '[aeiouyäöü]', '', ''),  # german
     ('h', '', '', '(h|x[81920])'),
     ('h', '^', '', '(h|H[160])'),  # H can be exact "h" or approximate "kh"
-
     # VOWELS
     ('yi', ' ', '', 'i'),
     ('ii', '', ' ', 'i'),
     ('iy', '', ' ', 'i'),
     ('yy', '', ' ', 'i'),
-
     # ("e","","$","(e|)"),  # French & English rule disabled except for final -ine  # noqa: E501
     ('e', 'in', '$', '(e|[64])'),
     ('yj', '', '$', 'i'),  # russian
     ('ij', '', '$', 'i'),  # russian
-
     ('aue', '', '', 'aue'),
     ('oue', '', '', 'oue'),
-
     ('au', '', '', '(au|o[64])'),
     ('ou', '', '', '(ou|u[64])'),
-
     ('ue', '', '', '(Q|uje[131072])'),
     ('ae', '', '', '(Y[128]|aje[131072]|ae)'),
     ('oe', '', '', '(Y[128]|oje[131072]|oe)'),
     ('ee', '', '', '(i[32]|aje[131072]|e)'),
-
     ('ei', '', '', 'aj'),
     ('ey', '', '', 'aj'),
     ('eu', '', '', '(aj[128]|oj[128]|eu)'),
-
     ('i', '[aou]', '', 'j'),
     ('y', '[aou]', '', 'j'),
-
     ('ie', '', '[bcdgkpstwzż]', '(i[128]|e[16384]|ije[131072]|je)'),
     ('ie', '', '', '(i[128]|e[16384]|ije[131072]|je)'),
     ('ye', '', '', '(je|ije[131072])'),
-
     ('i', '', '[au]', 'j'),
     ('y', '', '[au]', 'j'),
     ('io', '', '', '(jo|e[131072])'),
     ('yo', '', '', '(jo|e[131072])'),
-
     ('ea', '', '', '(ea|ja[65536])'),
     ('e', '^', '', '(e|je[131072])'),
     ('oo', '', '', '(u[32]|o)'),
     ('uu', '', '', 'u'),
-
     # LANGUAGE SPECIFIC CHARACTERS
     ('ć', '', '', '(tS[16384]|ts)'),  # polish
     ('ł', '', '', 'l'),  # polish
@@ -5638,9 +5102,7 @@ _ASH_RULES_ANY = (
     ('ţ', '', '', 'ts'),  # romanian
     ('ż', '', '', 'Z'),  # polish
     ('ź', '', '', '(Z[16384]|z)'),  # polish
-
     ('où', '', '', 'u'),  # french
-
     ('ą', '', '[bp]', 'om'),  # polish
     ('ą', '', '', 'on'),  # polish
     ('ä', '', '', '(Y|e)'),  # german
@@ -5662,15 +5124,12 @@ _ASH_RULES_ANY = (
     ('ü', '', '', 'Q'),
     ('ú', '', '', 'u'),
     ('ű', '', '', 'Q'),  # hungarian
-
     ('ß', '', '', 's'),  # german
     ('\'', '', '', ''),
     ('"', '', '', ''),
-
     ('a', '', '[bcdgkpstwzż]', '(A|B[16384])'),
     ('e', '', '[bcdgkpstwzż]', '(E|F[16384])'),
     ('o', '', '[bcćdgklłmnńrsśtwzźż]', '(O|P[16384])'),
-
     # LATIN ALPHABET
     ('a', '', '', 'A'),
     ('b', '', '', 'b'),
@@ -5698,13 +5157,11 @@ _ASH_RULES_ANY = (
     ('x', '', '', 'ks'),
     ('y', '', '', 'i'),
     ('z', '', '', '(ts[128]|z)'),
-
-    )
+)
 
 # ash/rulescyrillic.php
 
 _ASH_RULES_CYRILLIC = (
-
     ('ця', '', '', 'tsa'),
     ('цю', '', '', 'tsu'),
     ('циа', '', '', 'tsa'),
@@ -5715,7 +5172,6 @@ _ASH_RULES_CYRILLIC = (
     ('сио', '', '', 'so'),
     ('зие', '', '', 'ze'),
     ('зио', '', '', 'zo'),
-
     ('гауз', '', '$', 'haus'),
     ('гаус', '', '$', 'haus'),
     ('гольц', '', '$', 'holts'),
@@ -5727,34 +5183,27 @@ _ASH_RULES_CYRILLIC = (
     ('гин', '', '$', 'gin'),
     ('г', '(й|ё|я|ю|ы|а|е|о|и|у)', '(а|е|о|и|у)', 'g'),
     ('г', '', '(а|е|о|и|у)', '(g|h)'),
-
     ('ля', '', '', 'la'),
     ('лю', '', '', 'lu'),
     ('лё', '', '', '(le|lo)'),
     ('лио', '', '', '(le|lo)'),
     ('ле', '', '', '(lE|lo)'),
-
     ('ийе', '', '', 'je'),
     ('ие', '', '', 'je'),
     ('ыйе', '', '', 'je'),
     ('ые', '', '', 'je'),
     ('ий', '', '(а|о|у)', 'j'),
     ('ый', '', '(а|о|у)', 'j'),
-
     ('ий', '', '$', 'i'),
     ('ый', '', '$', 'i'),
-
     ('ё', '', '', '(e|jo)'),
-
     ('ей', '^', '', '(jaj|aj)'),
     ('е', '(а|е|о|у)', '', 'je'),
     ('е', '^', '', 'je'),
     ('эй', '', '', 'aj'),
     ('ей', '', '', 'aj'),
-
     ('ауе', '', '', 'aue'),
     ('ауэ', '', '', 'aue'),
-
     ('а', '', '', 'a'),
     ('б', '', '', 'b'),
     ('в', '', '', 'v'),
@@ -5788,13 +5237,11 @@ _ASH_RULES_CYRILLIC = (
     ('э', '', '', 'E'),
     ('ю', '', '', 'ju'),
     ('я', '', '', 'ja'),
-
-    )
+)
 
 # ash/rulesenglish.php
 
 _ASH_RULES_ENGLISH = (
-
     # CONSONANTS
     ('tch', '', '', 'tS'),
     ('ch', '', '', '(tS|x)'),
@@ -5815,12 +5262,10 @@ _ASH_RULES_ENGLISH = (
     ('sh', '', '', 'S'),
     ('who', '^', '', 'hu'),
     ('wh', '^', '', 'w'),
-
     ('h', '', '$', ''),  # hard to find an example that isn't in a name
     ('h', '', '[^aeiou]', ''),  # hard to find an example that isn't in a name
     ('h', '^', '', 'H'),
     ('h', '', '', 'h'),
-
     ('j', '', '', 'dZ'),
     ('kn', '^', '', 'n'),  # knight
     ('mb', '', '$', 'm'),
@@ -5832,10 +5277,14 @@ _ASH_RULES_ENGLISH = (
     ('tia', '', '', '(So|Sa)'),
     ('tio', '', '', 'So'),
     ('wr', '^', '', 'r'),
-    ('w', '', '', '(w|v)'),  # the variant "v" is for spellings coming from German/Polish  # noqa: E501
+    (
+        'w',
+        '',
+        '',
+        '(w|v)',
+    ),  # the variant "v" is for spellings coming from German/Polish  # noqa: E501
     ('x', '^', '', 'z'),
     ('x', '', '', 'ks'),
-
     # VOWELS
     ('yi', ' ', '', 'i'),
     ('y', '^', '[aeiouy]', 'j'),
@@ -5864,10 +5313,14 @@ _ASH_RULES_ENGLISH = (
     ('o', '', '[^aeiou]e', 'ou'),  # rode
     ('o', '', '', '(o|a)'),  # hot -- Morse disagrees, feels it should go to 9
     ('u', '', '[^aeiou]e', '(ju|u)'),  # cute | flute
-    ('u', '', 'r', '(e|u)'),  # turn -- Morse disagrees, feels it should go to E  # noqa: E501
+    (
+        'u',
+        '',
+        'r',
+        '(e|u)',
+    ),  # turn -- Morse disagrees, feels it should go to E  # noqa: E501
     ('u', '', '', '(u|a)'),  # put
     ('y', '', '', 'i'),
-
     # TRIVIAL
     ('b', '', '', 'b'),
     ('d', '', '', 'd'),
@@ -5883,18 +5336,15 @@ _ASH_RULES_ENGLISH = (
     ('t', '', '', 't'),
     ('v', '', '', 'v'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # ash/rulesfrench.php
 
 # Ashkenazic
 _ASH_RULES_FRENCH = (
-
     # CONSONANTS
     ('kh', '', '', 'x'),  # foreign
     ('ph', '', '', 'f'),
-
     ('ç', '', '', 's'),
     ('x', '', '', 'ks'),
     ('ch', '', '', 'S'),
@@ -5918,7 +5368,6 @@ _ASH_RULES_FRENCH = (
     ('ou', '', '[aeio]', 'v'),
     ('uo', '', '', '(vo|o)'),
     ('u', '', '[aeio]', 'v'),
-
     # VOWELS
     ('aue', '', '', 'aue'),
     ('eau', '', '', 'o'),
@@ -5944,7 +5393,6 @@ _ASH_RULES_FRENCH = (
     ('ii', '', '', 'i'),
     ('yy', '', '', 'i'),
     ('y', '', '', 'i'),
-
     # TRIVIAL
     ('a', '', '', 'a'),
     ('b', '', '', 'b'),
@@ -5966,19 +5414,16 @@ _ASH_RULES_FRENCH = (
     ('u', '', '', 'u'),
     ('v', '', '', 'v'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # ash/rulesgerman.php
 
 # Ashkenazic
 _ASH_RULES_GERMAN = (
-
     # CONSONANTS
     ('ziu', '', '', 'tsu'),
     ('zia', '', '', 'tsa'),
     ('zio', '', '', 'tso'),
-
     ('ssch', '', '', 'S'),
     ('chsch', '', '', 'xS'),
     ('ewitsch', '', '$', 'evitS'),
@@ -5988,12 +5433,10 @@ _ASH_RULES_GERMAN = (
     ('witsch', '', '$', 'vitS'),
     ('vitsch', '', '$', 'vitS'),
     ('sch', '', '', 'S'),
-
     ('chs', '', '', 'ks'),
     ('ch', '', '', 'x'),
     ('ck', '', '', 'k'),
     ('c', '', '[eiy]', 'ts'),
-
     ('sp', '^', '', 'Sp'),
     ('st', '^', '', 'St'),
     ('ssp', '', '', '(Sp|sp)'),
@@ -6003,7 +5446,6 @@ _ASH_RULES_GERMAN = (
     ('pf', '', '', '(pf|p|f)'),
     ('ph', '', '', '(ph|f)'),
     ('qu', '', '', 'kv'),
-
     ('ewitz', '', '$', '(evits|evitS)'),
     ('ewiz', '', '$', '(evits|evitS)'),
     ('evitz', '', '$', '(evits|evitS)'),
@@ -6017,7 +5459,6 @@ _ASH_RULES_GERMAN = (
     ('vitz', '', '$', '(vits|vitS)'),
     ('viz', '', '$', '(vits|vitS)'),
     ('tz', '', '', 'ts'),
-
     ('thal', '', '$', 'tal'),
     ('th', '^', '', 't'),
     ('th', '', '[äöüaeiou]', '(t|th)'),
@@ -6025,12 +5466,10 @@ _ASH_RULES_GERMAN = (
     ('rh', '^', '', 'r'),
     ('h', '[aeiouyäöü]', '', ''),
     ('h', '^', '', 'H'),
-
     ('ss', '', '', 's'),
     ('s', '', '[äöüaeiouy]', '(z|s)'),
     ('s', '[aeiouyäöüj]', '[aeiouyäöü]', 'z'),
     ('ß', '', '', 's'),
-
     # VOWELS
     ('ij', '', '$', 'i'),
     ('aue', '', '', 'aue'),
@@ -6048,14 +5487,12 @@ _ASH_RULES_GERMAN = (
     ('ie', '', '', 'I'),
     ('i', '', '[aou]', 'j'),
     ('y', '', '[aoeu]', 'j'),
-
     # FOREIGN LETTERs
     ('ñ', '', '', 'n'),
     ('ã', '', '', 'a'),
     ('ő', '', '', 'o'),
     ('ű', '', '', 'u'),
     ('ç', '', '', 's'),
-
     # ALPHABET
     ('a', '', '', 'A'),
     ('b', '', '', 'b'),
@@ -6083,31 +5520,25 @@ _ASH_RULES_GERMAN = (
     ('x', '', '', 'ks'),
     ('y', '', '', 'i'),
     ('z', '', '', 'ts'),
-
-    )
+)
 
 # ash/ruleshebrew.php
 
 # Ashkenazic
 _ASH_RULES_HEBREW = (
-
     ('אי', '', '', 'i'),
     ('עי', '', '', 'i'),
     ('עו', '', '', 'VV'),
     ('או', '', '', 'VV'),
-
     ('ג׳', '', '', 'Z'),
     ('ד׳', '', '', 'dZ'),
-
     ('א', '', '', 'L'),
     ('ב', '', '', 'b'),
     ('ג', '', '', 'g'),
     ('ד', '', '', 'd'),
-
     ('ה', '^', '', '1'),
     ('ה', '', '$', '1'),
     ('ה', '', '', ''),
-
     ('וו', '', '', 'V'),
     ('וי', '', '', 'WW'),
     ('ו', '', '', 'W'),
@@ -6134,26 +5565,21 @@ _ASH_RULES_HEBREW = (
     ('ר', '', '', 'r'),
     ('ש', '', '', 's'),
     ('ת', '', '', 'TB'),  # only Ashkenazic
-
-    )
+)
 
 # ash/ruleshungarian.php
 
 # ASHKENAZIC
 _ASH_RULES_HUNGARIAN = (
-
     # CONSONANTS
     ('sz', '', '', 's'),
     ('zs', '', '', 'Z'),
     ('cs', '', '', 'tS'),
-
     ('ay', '', '', '(oj|aj)'),
     ('ai', '', '', '(oj|aj)'),
     ('aj', '', '', '(oj|aj)'),
-
     ('ei', '', '', 'aj'),  # German element
     ('ey', '', '', 'aj'),  # German element
-
     ('y', '[áo]', '', 'j'),
     ('i', '[áo]', '', 'j'),
     ('ee', '', '', '(aj|e)'),  # actually ej
@@ -6165,10 +5591,8 @@ _ASH_RULES_HUNGARIAN = (
     ('ny', '', '', '(n|ni)'),
     ('ty', '', '[aeouáéóúüöőű]', 'tj'),
     ('ty', '', '', '(t|ti)'),
-
     ('qu', '', '', '(ku|kv)'),
     ('h', '', '$', ''),
-
     # VOWELS
     ('á', '', '', 'a'),
     ('é', '', '', 'e'),
@@ -6179,7 +5603,6 @@ _ASH_RULES_HUNGARIAN = (
     ('ú', '', '', 'u'),
     ('ü', '', '', 'Q'),
     ('ű', '', '', 'Q'),
-
     # LATIN ALPHABET
     ('a', '', '', 'a'),
     ('b', '', '', 'b'),
@@ -6207,14 +5630,12 @@ _ASH_RULES_HUNGARIAN = (
     ('x', '', '', 'ks'),
     ('y', '', '', 'i'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # ash/rulespolish.php
 
 # Ashkenazic
 _ASH_RULES_POLISH = (
-
     # CONVERTING FEMININE TO MASCULINE
     ('ska', '', '$', 'ski'),
     ('cka', '', '$', 'tski'),
@@ -6228,7 +5649,6 @@ _ASH_RULES_POLISH = (
     ('kówna', '', '$', '(k|ek)'),
     ('ówna', '', '$', ''),
     ('a', '', '$', '(a|i)'),
-
     # CONSONANTS
     ('czy', '', '', 'tSi'),
     ('cze', '', '[bcdgkpstwzż]', '(tSe|tSF)'),
@@ -6244,7 +5664,6 @@ _ASH_RULES_POLISH = (
     ('icz', '', '', 'itS'),
     ('cz', '', '', 'tS'),
     ('ch', '', '', 'x'),
-
     ('cia', '', '[bcdgkpstwzż]', '(tSB|tsB)'),
     ('cia', '', '', '(tSa|tsa)'),
     ('cią', '', '[bp]', '(tSom|tsom)'),
@@ -6257,7 +5676,6 @@ _ASH_RULES_POLISH = (
     ('ciu', '', '', '(tSu|tsu)'),
     ('ci', '', '', '(tSi|tsI)'),
     ('ć', '', '', '(tS|ts)'),
-
     ('ssz', '', '', 'S'),
     ('sz', '', '', 'S'),
     ('sia', '', '[bcdgkpstwzż]', '(SB|sB|sja)'),
@@ -6272,7 +5690,6 @@ _ASH_RULES_POLISH = (
     ('siu', '', '', '(Su|sju)'),
     ('si', '', '', '(Si|sI)'),
     ('ś', '', '', '(S|s)'),
-
     ('zia', '', '[bcdgkpstwzż]', '(ZB|zB|zja)'),
     ('zia', '', '', '(Za|zja)'),
     ('zią', '', '[bp]', '(Zom|zom)'),
@@ -6284,7 +5701,6 @@ _ASH_RULES_POLISH = (
     ('zio', '', '', '(Zo|zo)'),
     ('ziu', '', '', '(Zu|zju)'),
     ('zi', '', '', '(Zi|zI)'),
-
     ('że', '', '[bcdgkpstwzż]', '(Ze|ZF)'),
     ('że', '', '[bcdgkpstwzż]', '(Ze|ZF|ze|zF)'),
     ('że', '', '', 'Ze'),
@@ -6293,67 +5709,55 @@ _ASH_RULES_POLISH = (
     ('źi', '', '', '(Zi|zi)'),
     ('ż', '', '', 'Z'),
     ('ź', '', '', '(Z|z)'),
-
     ('rze', 't', '', '(Se|re)'),
     ('rze', '', '', '(Ze|re|rZe)'),
     ('rzy', 't', '', '(Si|ri)'),
     ('rzy', '', '', '(Zi|ri|rZi)'),
     ('rz', 't', '', '(S|r)'),
     ('rz', '', '', '(Z|r|rZ)'),
-
     ('lio', '', '', '(lo|le)'),
     ('ł', '', '', 'l'),
     ('ń', '', '', 'n'),
     ('qu', '', '', 'k'),
     ('s', '', 's', ''),
-
     # VOWELS
     ('ó', '', '', '(u|o)'),
     ('ą', '', '[bp]', 'om'),
     ('ę', '', '[bp]', 'em'),
     ('ą', '', '', 'on'),
     ('ę', '', '', 'en'),
-
     ('ije', '', '', 'je'),
     ('yje', '', '', 'je'),
     ('iie', '', '', 'je'),
     ('yie', '', '', 'je'),
     ('iye', '', '', 'je'),
     ('yye', '', '', 'je'),
-
     ('ij', '', '[aou]', 'j'),
     ('yj', '', '[aou]', 'j'),
     ('ii', '', '[aou]', 'j'),
     ('yi', '', '[aou]', 'j'),
     ('iy', '', '[aou]', 'j'),
     ('yy', '', '[aou]', 'j'),
-
     ('rie', '', '', 'rje'),
     ('die', '', '', 'dje'),
     ('tie', '', '', 'tje'),
     ('ie', '', '[bcdgkpstwzż]', 'F'),
     ('ie', '', '', 'e'),
-
     ('aue', '', '', 'aue'),
     ('au', '', '', 'au'),
-
     ('ei', '', '', 'aj'),
     ('ey', '', '', 'aj'),
     ('ej', '', '', 'aj'),
-
     ('ai', '', '', 'aj'),
     ('ay', '', '', 'aj'),
     ('aj', '', '', 'aj'),
-
     ('i', '[ou]', '', 'j'),
     ('y', '[ou]', '', 'j'),
     ('i', '', '[aou]', 'j'),
     ('y', '', '[aeou]', 'j'),
-
     ('a', '', '[bcdgkpstwzż]', 'B'),
     ('e', '', '[bcdgkpstwzż]', '(E|F)'),
     ('o', '', '[bcćdgklłmnńrsśtwzźż]', 'P'),
-
     # ALPHABET
     ('a', '', '', 'a'),
     ('b', '', '', 'b'),
@@ -6381,43 +5785,35 @@ _ASH_RULES_POLISH = (
     ('x', '', '', 'ks'),
     ('y', '', '', 'I'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # ash/rulesromanian.php
 
 _ASH_RULES_ROMANIAN = (
-
     ('j', '', '', 'Z'),
-
     ('ce', '', '', 'tSe'),
     ('ci', '', '', '(tSi|tS)'),
     ('ch', '', '[ei]', 'k'),
     ('ch', '', '', 'x'),  # foreign
     ('c', '', '', 'k'),
-
     ('gi', '', '', '(dZi|dZ)'),
     ('g', '', '[ei]', 'dZ'),
     ('gh', '', '', 'g'),
-
     ('ei', '', '', 'aj'),
     ('i', '[aou]', '', 'j'),
     ('i', '', '[aeou]', 'j'),
     ('ţ', '', '', 'ts'),
     ('ş', '', '', 'S'),
     ('h', '', '', '(x|h)'),
-
     ('qu', '', '', 'k'),
     ('q', '', '', 'k'),
     ('w', '', '', 'v'),
     ('x', '', '', 'ks'),
     ('y', '', '', 'i'),
-
     ('î', '', '', 'i'),
     ('ea', '', '', 'ja'),
     ('ă', '', '', '(e|a)'),
     ('aue', '', '', 'aue'),
-
     ('a', '', '', 'a'),
     ('b', '', '', 'b'),
     ('d', '', '', 'd'),
@@ -6437,13 +5833,11 @@ _ASH_RULES_ROMANIAN = (
     ('u', '', '', 'u'),
     ('v', '', '', 'v'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # ash/rulesrussian.php
 
 _ASH_RULES_RUSSIAN = (
-
     # CONVERTING FEMININE TO MASCULINE
     ('yna', '', '$', '(in|ina)'),
     ('ina', '', '$', '(in|ina)'),
@@ -6454,7 +5848,6 @@ _ASH_RULES_RUSSIAN = (
     ('aia', '', '$', '(aja|i)'),
     ('aja', '', '$', '(aja|i)'),
     ('aya', '', '$', '(aja|i)'),
-
     # SPECIFIC CONSONANTS
     ('tsya', '', '', 'tsa'),
     ('tsyu', '', '', 'tsu'),
@@ -6472,7 +5865,6 @@ _ASH_RULES_RUSSIAN = (
     ('syo', '', '', 'so'),
     ('zye', '', '', 'ze'),
     ('zyo', '', '', 'zo'),
-
     ('gauz', '', '$', 'haus'),
     ('gaus', '', '$', 'haus'),
     ('gol\'ts', '', '$', 'holts'),
@@ -6496,9 +5888,13 @@ _ASH_RULES_RUSSIAN = (
     ('gg', '', '', 'g'),
     ('g', '[jaeoiuy]', '[aeoiu]', 'g'),
     ('g', '', '[aeoiu]', '(g|h)'),
-
     ('kh', '', '', 'x'),
-    ('ch', '', '', '(tS|x)'),  # in DJSRE the rule is simpler: ("ch","","","tS")  # noqa: E501
+    (
+        'ch',
+        '',
+        '',
+        '(tS|x)',
+    ),  # in DJSRE the rule is simpler: ("ch","","","tS")  # noqa: E501
     ('sch', '', '', '(StS|S)'),
     ('ssh', '', '', 'S'),
     ('sh', '', '', 'S'),
@@ -6510,10 +5906,8 @@ _ASH_RULES_RUSSIAN = (
     ('qu', '', '', '(kv|k)'),  # not in DJSRE
     ('q', '', '', 'k'),  # not in DJSRE
     ('s', '', 's', ''),
-
     ('w', '', '', 'v'),  # not in DJSRE
     ('x', '', '', 'ks'),  # not in DJSRE
-
     # SPECIFIC VOWELS
     ('lya', '', '', 'la'),
     ('lyu', '', '', 'lu'),
@@ -6524,7 +5918,6 @@ _ASH_RULES_RUSSIAN = (
     ('le', '', '', '(lo|lE)'),  # not in DJSRE
     ('lyo', '', '', '(lo|le)'),  # not in DJSRE
     ('lio', '', '', '(lo|le)'),
-
     ('ije', '', '', 'je'),
     ('ie', '', '', 'je'),
     ('iye', '', '', 'je'),
@@ -6533,14 +5926,12 @@ _ASH_RULES_RUSSIAN = (
     ('ye', '', '', 'je'),
     ('yye', '', '', 'je'),
     ('yie', '', '', 'je'),
-
     ('ij', '', '[aou]', 'j'),
     ('iy', '', '[aou]', 'j'),
     ('ii', '', '[aou]', 'j'),
     ('yj', '', '[aou]', 'j'),
     ('yy', '', '[aou]', 'j'),
     ('yi', '', '[aou]', 'j'),
-
     ('io', '', '', '(jo|e)'),
     ('i', '', '[au]', 'j'),
     ('i', '[aou]', '', 'j'),  # not in DJSRE
@@ -6550,24 +5941,30 @@ _ASH_RULES_RUSSIAN = (
     ('yo', '', '', '(jo|e)'),  # not in DJSRE
     ('y', '', '[au]', 'j'),
     ('y', '[aiou]', '', 'j'),  # not in DJSRE
-
     ('ii', '', ' ', 'i'),  # not in DJSRE
     ('iy', '', ' ', 'i'),  # not in DJSRE
     ('yy', '', ' ', 'i'),  # not in DJSRE
     ('yi', '', ' ', 'i'),  # not in DJSRE
     ('yj', '', '$', 'i'),
     ('ij', '', '$', 'i'),
-
-    ('e', '^', '', '(je|E)'),  # in DJSRE the rule is simpler: ("e","^","","je")  # noqa: E501
-    ('ee', '', '', '(aje|i)'),  # in DJSRE the rule is simpler: ("ee","","","(eje|aje)")  # noqa: E501
+    (
+        'e',
+        '^',
+        '',
+        '(je|E)',
+    ),  # in DJSRE the rule is simpler: ("e","^","","je")  # noqa: E501
+    (
+        'ee',
+        '',
+        '',
+        '(aje|i)',
+    ),  # in DJSRE the rule is simpler: ("ee","","","(eje|aje)")  # noqa: E501
     ('e', '[aou]', '', 'je'),
     ('y', '', '', 'I'),
     ('oo', '', '', '(oo|u)'),  # not in DJSRE
     ('\'', '', '', ''),
     ('"', '', '', ''),
-
     ('aue', '', '', 'aue'),
-
     # TRIVIAL
     ('a', '', '', 'a'),
     ('b', '', '', 'b'),
@@ -6590,46 +5987,44 @@ _ASH_RULES_RUSSIAN = (
     ('u', '', '', 'u'),
     ('v', '', '', 'v'),
     ('z', '', '', 'z'),
-
-    )
+)
 
 # ash/rulesspanish.php
 
 # Ashkenazic = Argentina
 _ASH_RULES_SPANISH = (
-
     # CONSONANTS
     ('ñ', '', '', '(n|nj)'),
-
     ('ch', '', '', '(tS|dZ)'),  # dZ is typical for Argentina
     ('h', '[bdgt]', '', ''),  # translit. from Arabic
     ('h', '', '$', ''),  # foreign
-
     ('j', '', '', 'x'),
     ('x', '', '', 'ks'),
     ('ll', '', '', '(l|Z)'),  # Z is typical for Argentina, only Ashkenazic
     ('w', '', '', 'v'),  # foreign words
-
     ('v', '', '', '(b|v)'),
     ('b', '', '', '(b|v)'),
     ('m', '', '[bpvf]', '(m|n)'),
-
     ('c', '', '[ei]', 's'),
     ('c', '', '', 'k'),
-
-    ('z', '', '', '(z|s)'),  # as "c" befoire "e" or "i", in Spain it is like unvoiced English "th"  # noqa: E501
-
+    (
+        'z',
+        '',
+        '',
+        '(z|s)',
+    ),  # as "c" befoire "e" or "i", in Spain it is like unvoiced English "th"  # noqa: E501
     ('gu', '', '[ei]', '(g|gv)'),  # "gv" because "u" can actually be "ü"
     ('g', '', '[ei]', '(x|g)'),  # "g" only for foreign words
-
     ('qu', '', '', 'k'),
     ('q', '', '', 'k'),
-
     ('uo', '', '', '(vo|o)'),
     ('u', '', '[aei]', 'v'),
-
-    ('y', '', '', '(i|j|S|Z)'),  # S or Z are peculiar to South America; only Ashkenazic  # noqa: E501
-
+    (
+        'y',
+        '',
+        '',
+        '(i|j|S|Z)',
+    ),  # S or Z are peculiar to South America; only Ashkenazic  # noqa: E501
     # VOWELS
     ('ü', '', '', 'v'),
     ('á', '', '', 'a'),
@@ -6637,7 +6032,6 @@ _ASH_RULES_SPANISH = (
     ('í', '', '', 'i'),
     ('ó', '', '', 'o'),
     ('ú', '', '', 'u'),
-
     # TRIVIAL
     ('a', '', '', 'a'),
     ('d', '', '', 'd'),
@@ -6656,8 +6050,7 @@ _ASH_RULES_SPANISH = (
     ('s', '', '', 's'),
     ('t', '', '', 't'),
     ('u', '', '', 'u'),
-
-    )
+)
 
 BMDATA = {}
 
@@ -6671,7 +6064,9 @@ BMDATA['gen']['language_rules'] = _GEN_LANGUAGE_RULES
 BMDATA['gen']['languages'] = _GEN_LANGUAGES
 BMDATA['gen']['approx'][1] = _GEN_APPROX_ANY
 BMDATA['gen']['approx'][2] = _GEN_APPROX_ARABIC
-BMDATA['gen']['approx']['common'] = _GEN_EXACT_APPROX_COMMON + _GEN_APPROX_COMMON  # noqa: E501
+BMDATA['gen']['approx']['common'] = (
+    _GEN_EXACT_APPROX_COMMON + _GEN_APPROX_COMMON
+)  # noqa: E501
 BMDATA['gen']['approx'][4] = _GEN_APPROX_RUSSIAN
 BMDATA['gen']['approx'][8] = _GEN_APPROX_FRENCH
 BMDATA['gen']['approx'][16] = _GEN_APPROX_FRENCH
@@ -6711,7 +6106,9 @@ BMDATA['gen']['exact'][65536] = _GEN_EXACT_RUSSIAN
 BMDATA['gen']['exact'][131072] = _GEN_EXACT_RUSSIAN
 BMDATA['gen']['exact'][262144] = _GEN_EXACT_SPANISH
 BMDATA['gen']['exact'][524288] = _GEN_EXACT_TURKISH
-BMDATA['gen']['hebrew']['common'] = _GEN_EXACT_APPROX_COMMON + _GEN_HEBREW_COMMON  # noqa: E501
+BMDATA['gen']['hebrew']['common'] = (
+    _GEN_EXACT_APPROX_COMMON + _GEN_HEBREW_COMMON
+)  # noqa: E501
 BMDATA['gen']['rules'][1] = _GEN_RULES_ANY
 BMDATA['gen']['rules'][2] = _GEN_RULES_ARABIC
 BMDATA['gen']['rules'][4] = _GEN_RULES_CYRILLIC
@@ -6742,7 +6139,9 @@ BMDATA['sep']['hebrew'] = {}
 BMDATA['sep']['language_rules'] = _SEP_LANGUAGE_RULES
 BMDATA['sep']['languages'] = _SEP_LANGUAGES
 BMDATA['sep']['approx'][1] = _SEP_APPROX_ANY
-BMDATA['sep']['approx']['common'] = _SEP_EXACT_APPROX_COMMON + _SEP_APPROX_COMMON  # noqa: E501
+BMDATA['sep']['approx']['common'] = (
+    _SEP_EXACT_APPROX_COMMON + _SEP_APPROX_COMMON
+)  # noqa: E501
 BMDATA['sep']['approx'][64] = _SEP_APPROX_FRENCH
 BMDATA['sep']['approx'][1024] = _SEP_APPROX_HEBREW
 BMDATA['sep']['approx'][4096] = _SEP_APPROX_FRENCH
@@ -6755,7 +6154,9 @@ BMDATA['sep']['exact'][1024] = _SEP_EXACT_HEBREW
 BMDATA['sep']['exact'][4096] = _SEP_EXACT_ITALIAN
 BMDATA['sep']['exact'][32768] = _SEP_EXACT_PORTUGUESE
 BMDATA['sep']['exact'][262144] = _SEP_EXACT_SPANISH
-BMDATA['sep']['hebrew']['common'] = _SEP_EXACT_APPROX_COMMON + _SEP_HEBREW_COMMON  # noqa: E501
+BMDATA['sep']['hebrew']['common'] = (
+    _SEP_EXACT_APPROX_COMMON + _SEP_HEBREW_COMMON
+)  # noqa: E501
 BMDATA['sep']['rules'][1] = _SEP_RULES_ANY
 BMDATA['sep']['rules'][64] = _SEP_RULES_FRENCH
 BMDATA['sep']['rules'][1024] = _SEP_RULES_HEBREW
@@ -6772,7 +6173,9 @@ BMDATA['ash']['hebrew'] = {}
 BMDATA['ash']['language_rules'] = _ASH_LANGUAGE_RULES
 BMDATA['ash']['languages'] = _ASH_LANGUAGES
 BMDATA['ash']['approx'][1] = _ASH_APPROX_ANY
-BMDATA['ash']['approx']['common'] = _ASH_EXACT_APPROX_COMMON + _ASH_APPROX_COMMON  # noqa: E501
+BMDATA['ash']['approx']['common'] = (
+    _ASH_EXACT_APPROX_COMMON + _ASH_APPROX_COMMON
+)  # noqa: E501
 BMDATA['ash']['approx'][4] = _ASH_APPROX_RUSSIAN
 BMDATA['ash']['approx'][32] = _ASH_APPROX_ENGLISH
 BMDATA['ash']['approx'][64] = _ASH_APPROX_FRENCH
@@ -6795,7 +6198,9 @@ BMDATA['ash']['exact'][16384] = _ASH_EXACT_POLISH
 BMDATA['ash']['exact'][65536] = _ASH_EXACT_RUSSIAN
 BMDATA['ash']['exact'][131072] = _ASH_EXACT_RUSSIAN
 BMDATA['ash']['exact'][262144] = _ASH_EXACT_RUSSIAN
-BMDATA['ash']['hebrew']['common'] = _ASH_EXACT_APPROX_COMMON + _ASH_HEBREW_COMMON  # noqa: E501
+BMDATA['ash']['hebrew']['common'] = (
+    _ASH_EXACT_APPROX_COMMON + _ASH_HEBREW_COMMON
+)  # noqa: E501
 BMDATA['ash']['rules'][1] = _ASH_RULES_ANY
 BMDATA['ash']['rules'][4] = _ASH_RULES_CYRILLIC
 BMDATA['ash']['rules'][32] = _ASH_RULES_ENGLISH
@@ -6811,4 +6216,5 @@ BMDATA['ash']['rules'][262144] = _ASH_RULES_SPANISH
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

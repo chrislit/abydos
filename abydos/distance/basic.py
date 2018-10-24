@@ -31,8 +31,16 @@ from __future__ import division, unicode_literals
 
 from six.moves import range
 
-__all__ = ['dist_ident', 'dist_length', 'dist_prefix', 'dist_suffix',
-           'sim_ident', 'sim_length', 'sim_prefix', 'sim_suffix']
+__all__ = [
+    'dist_ident',
+    'dist_length',
+    'dist_prefix',
+    'dist_suffix',
+    'sim_ident',
+    'sim_length',
+    'sim_prefix',
+    'sim_suffix',
+]
 
 
 def sim_ident(src, tar):
@@ -96,7 +104,7 @@ def sim_length(src, tar):
         return 1.0
     if not src or not tar:
         return 0.0
-    return len(src)/len(tar) if len(src) < len(tar) else len(tar)/len(src)
+    return len(src) / len(tar) if len(src) < len(tar) else len(tar) / len(src)
 
 
 def dist_length(src, tar):
@@ -151,7 +159,7 @@ def sim_prefix(src, tar):
     min_len = len(min_word)
     for i in range(min_len, 0, -1):
         if min_word[:i] == max_word[:i]:
-            return i/min_len
+            return i / min_len
     return 0.0
 
 
@@ -207,7 +215,7 @@ def sim_suffix(src, tar):
     min_len = len(min_word)
     for i in range(min_len, 0, -1):
         if min_word[-i:] == max_word[-i:]:
-            return i/min_len
+            return i / min_len
     return 0.0
 
 
@@ -236,4 +244,5 @@ def dist_suffix(src, tar):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

@@ -88,8 +88,11 @@ class QGrams(Counter):
                     continue
 
                 if start_stop and qval_i > 1:
-                    term = (start_stop[0]*(qval_i-1) + self.term +
-                            start_stop[-1]*(qval_i-1))
+                    term = (
+                        start_stop[0] * (qval_i - 1)
+                        + self.term
+                        + start_stop[-1] * (qval_i - 1)
+                    )
                 else:
                     term = self.term
 
@@ -99,8 +102,10 @@ class QGrams(Counter):
                     self.term_ss = term
 
                 skip_i += 1
-                self.ordered_list += [term[i:i+(qval_i*skip_i):skip_i] for i in
-                                      range(len(term)-(qval_i-1))]
+                self.ordered_list += [
+                    term[i : i + (qval_i * skip_i) : skip_i]
+                    for i in range(len(term) - (qval_i - 1))
+                ]
 
         super(QGrams, self).__init__(self.ordered_list)
 
@@ -127,4 +132,5 @@ class QGrams(Counter):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

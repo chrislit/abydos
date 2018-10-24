@@ -33,9 +33,18 @@ from numbers import Number
 from . import _get_qgrams
 
 
-__all__ = ['chebyshev', 'dist_euclidean', 'dist_manhattan', 'dist_minkowski',
-           'euclidean', 'manhattan', 'minkowski', 'sim_euclidean',
-           'sim_manhattan', 'sim_minkowski']
+__all__ = [
+    'chebyshev',
+    'dist_euclidean',
+    'dist_manhattan',
+    'dist_minkowski',
+    'euclidean',
+    'manhattan',
+    'minkowski',
+    'sim_euclidean',
+    'sim_manhattan',
+    'sim_minkowski',
+]
 
 
 def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
@@ -70,22 +79,23 @@ def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
         totals = (q_src + q_tar).values()
         if alphabet is not None:
             # noinspection PyTypeChecker
-            normalizer = (alphabet if isinstance(alphabet, Number) else
-                          len(alphabet))
+            normalizer = (
+                alphabet if isinstance(alphabet, Number) else len(alphabet)
+            )
         elif pval == 0:
             normalizer = len(totals)
         else:
-            normalizer = sum(_**pval for _ in totals)**(1 / pval)
+            normalizer = sum(_ ** pval for _ in totals) ** (1 / pval)
 
     if len(diffs) == 0:
         return 0.0
     if pval == float('inf'):
         # Chebyshev distance
-        return max(diffs)/normalizer
+        return max(diffs) / normalizer
     if pval == 0:
         # This is the l_0 "norm" as developed by David Donoho
-        return len(diffs)/normalizer
-    return sum(_**pval for _ in diffs)**(1 / pval)/normalizer
+        return len(diffs) / normalizer
+    return sum(_ ** pval for _ in diffs) ** (1 / pval) / normalizer
 
 
 def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
@@ -137,7 +147,7 @@ def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     >>> sim_minkowski('ATCG', 'TAGC')
     0.0
     """
-    return 1-minkowski(src, tar, qval, pval, True, alphabet)
+    return 1 - minkowski(src, tar, qval, pval, True, alphabet)
 
 
 def manhattan(src, tar, qval=2, normalized=False, alphabet=None):
@@ -215,7 +225,7 @@ def sim_manhattan(src, tar, qval=2, alphabet=None):
     >>> sim_manhattan('ATCG', 'TAGC')
     0.0
     """
-    return 1-manhattan(src, tar, qval, True, alphabet)
+    return 1 - manhattan(src, tar, qval, True, alphabet)
 
 
 def euclidean(src, tar, qval=2, normalized=False, alphabet=None):
@@ -291,7 +301,7 @@ def sim_euclidean(src, tar, qval=2, alphabet=None):
     >>> sim_euclidean('ATCG', 'TAGC')
     0.0
     """
-    return 1-euclidean(src, tar, qval, True, alphabet)
+    return 1 - euclidean(src, tar, qval, True, alphabet)
 
 
 def chebyshev(src, tar, qval=2, normalized=False, alphabet=None):
@@ -326,4 +336,5 @@ def chebyshev(src, tar, qval=2, normalized=False, alphabet=None):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

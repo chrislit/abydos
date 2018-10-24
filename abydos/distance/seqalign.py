@@ -39,8 +39,15 @@ from .basic import sim_ident
 __all__ = ['gotoh', 'needleman_wunsch', 'sim_matrix', 'smith_waterman']
 
 
-def sim_matrix(src, tar, mat=None, mismatch_cost=0, match_cost=1,
-               symmetric=True, alphabet=None):
+def sim_matrix(
+    src,
+    tar,
+    mat=None,
+    mismatch_cost=0,
+    match_cost=1,
+    symmetric=True,
+    alphabet=None,
+):
     """Return the matrix similarity of two strings.
 
     With the default parameters, this is identical to sim_ident.
@@ -113,19 +120,19 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
     >>> needleman_wunsch('ATCG', 'TAGC')
     0.0
     """
-    d_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_float32)
+    d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
 
-    for i in range(len(src)+1):
+    for i in range(len(src) + 1):
         d_mat[i, 0] = -(i * gap_cost)
-    for j in range(len(tar)+1):
+    for j in range(len(tar) + 1):
         d_mat[0, j] = -(j * gap_cost)
-    for i in range(1, len(src)+1):
-        for j in range(1, len(tar)+1):
-            match = d_mat[i-1, j-1] + sim_func(src[i-1], tar[j-1])
-            delete = d_mat[i-1, j] - gap_cost
-            insert = d_mat[i, j-1] - gap_cost
+    for i in range(1, len(src) + 1):
+        for j in range(1, len(tar) + 1):
+            match = d_mat[i - 1, j - 1] + sim_func(src[i - 1], tar[j - 1])
+            delete = d_mat[i - 1, j] - gap_cost
+            insert = d_mat[i, j - 1] - gap_cost
             d_mat[i, j] = max(match, delete, insert)
-    return d_mat[d_mat.shape[0]-1, d_mat.shape[1]-1]
+    return d_mat[d_mat.shape[0] - 1, d_mat.shape[1] - 1]
 
 
 def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
@@ -152,19 +159,19 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
     >>> smith_waterman('ATCG', 'TAGC')
     1.0
     """
-    d_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_float32)
+    d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
 
-    for i in range(len(src)+1):
+    for i in range(len(src) + 1):
         d_mat[i, 0] = 0
-    for j in range(len(tar)+1):
+    for j in range(len(tar) + 1):
         d_mat[0, j] = 0
-    for i in range(1, len(src)+1):
-        for j in range(1, len(tar)+1):
-            match = d_mat[i-1, j-1] + sim_func(src[i-1], tar[j-1])
-            delete = d_mat[i-1, j] - gap_cost
-            insert = d_mat[i, j-1] - gap_cost
+    for i in range(1, len(src) + 1):
+        for j in range(1, len(tar) + 1):
+            match = d_mat[i - 1, j - 1] + sim_func(src[i - 1], tar[j - 1])
+            delete = d_mat[i - 1, j] - gap_cost
+            insert = d_mat[i, j - 1] - gap_cost
             d_mat[i, j] = max(0, match, delete, insert)
-    return d_mat[d_mat.shape[0]-1, d_mat.shape[1]-1]
+    return d_mat[d_mat.shape[0] - 1, d_mat.shape[1] - 1]
 
 
 def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
@@ -192,36 +199,40 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
     >>> gotoh('cat', 'hat')
     2.0
     """
-    d_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_float32)
-    p_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_float32)
-    q_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_float32)
+    d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
+    p_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
+    q_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
 
     d_mat[0, 0] = 0
     p_mat[0, 0] = float('-inf')
     q_mat[0, 0] = float('-inf')
-    for i in range(1, len(src)+1):
+    for i in range(1, len(src) + 1):
         d_mat[i, 0] = float('-inf')
-        p_mat[i, 0] = -gap_open - gap_ext*(i-1)
+        p_mat[i, 0] = -gap_open - gap_ext * (i - 1)
         q_mat[i, 0] = float('-inf')
         q_mat[i, 1] = -gap_open
-    for j in range(1, len(tar)+1):
+    for j in range(1, len(tar) + 1):
         d_mat[0, j] = float('-inf')
         p_mat[0, j] = float('-inf')
         p_mat[1, j] = -gap_open
-        q_mat[0, j] = -gap_open - gap_ext*(j-1)
+        q_mat[0, j] = -gap_open - gap_ext * (j - 1)
 
-    for i in range(1, len(src)+1):
-        for j in range(1, len(tar)+1):
-            sim_val = sim_func(src[i-1], tar[j-1])
-            d_mat[i, j] = max(d_mat[i-1, j-1] + sim_val,
-                              p_mat[i-1, j-1] + sim_val,
-                              q_mat[i-1, j-1] + sim_val)
+    for i in range(1, len(src) + 1):
+        for j in range(1, len(tar) + 1):
+            sim_val = sim_func(src[i - 1], tar[j - 1])
+            d_mat[i, j] = max(
+                d_mat[i - 1, j - 1] + sim_val,
+                p_mat[i - 1, j - 1] + sim_val,
+                q_mat[i - 1, j - 1] + sim_val,
+            )
 
-            p_mat[i, j] = max(d_mat[i-1, j] - gap_open,
-                              p_mat[i-1, j] - gap_ext)
+            p_mat[i, j] = max(
+                d_mat[i - 1, j] - gap_open, p_mat[i - 1, j] - gap_ext
+            )
 
-            q_mat[i, j] = max(d_mat[i, j-1] - gap_open,
-                              q_mat[i, j-1] - gap_ext)
+            q_mat[i, j] = max(
+                d_mat[i, j - 1] - gap_open, q_mat[i, j - 1] - gap_ext
+            )
 
     i, j = (n - 1 for n in d_mat.shape)
     return max(d_mat[i, j], p_mat[i, j], q_mat[i, j])
@@ -229,4 +240,5 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

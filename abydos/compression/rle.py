@@ -66,8 +66,10 @@ def encode(text, use_bwt=True):
         text = bwt.encode(text)
     if text:
         text = ((len(list(g)), k) for k, g in groupby(text))
-        text = ((str(n) + k if n > 2 else (k if n == 1 else 2*k)) for
-                n, k in text)
+        text = (
+            (str(n) + k if n > 2 else (k if n == 1 else 2 * k))
+            for n, k in text
+        )
     return ''.join(text)
 
 
@@ -107,7 +109,7 @@ def decode(text, use_bwt=True):
     for letter in list(text):
         if not letter.isdigit():
             if mult:
-                decoded.append(int(mult)*letter)
+                decoded.append(int(mult) * letter)
                 mult = ''
             else:
                 decoded.append(letter)
@@ -122,4 +124,5 @@ def decode(text, use_bwt=True):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

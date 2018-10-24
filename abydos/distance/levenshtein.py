@@ -37,9 +37,16 @@ from numpy import zeros as np_zeros
 from six.moves import range
 
 
-__all__ = ['damerau_levenshtein', 'dist_damerau', 'dist_indel',
-           'dist_levenshtein', 'levenshtein', 'sim_damerau', 'sim_indel',
-           'sim_levenshtein']
+__all__ = [
+    'damerau_levenshtein',
+    'dist_damerau',
+    'dist_indel',
+    'dist_levenshtein',
+    'levenshtein',
+    'sim_damerau',
+    'sim_indel',
+    'sim_levenshtein',
+]
 
 
 def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
@@ -109,26 +116,31 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     if 'dam' in mode:
         return damerau_levenshtein(src, tar, cost)
 
-    d_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_int)
-    for i in range(len(src)+1):
+    d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
+    for i in range(len(src) + 1):
         d_mat[i, 0] = i * del_cost
-    for j in range(len(tar)+1):
+    for j in range(len(tar) + 1):
         d_mat[0, j] = j * ins_cost
 
     for i in range(len(src)):
         for j in range(len(tar)):
-            d_mat[i+1, j+1] = min(
-                d_mat[i+1, j] + ins_cost,  # ins
-                d_mat[i, j+1] + del_cost,  # del
-                d_mat[i, j] + (sub_cost if src[i] != tar[j] else 0)  # sub/==
+            d_mat[i + 1, j + 1] = min(
+                d_mat[i + 1, j] + ins_cost,  # ins
+                d_mat[i, j + 1] + del_cost,  # del
+                d_mat[i, j] + (sub_cost if src[i] != tar[j] else 0),  # sub/==
             )
 
             if mode == 'osa':
-                if ((i+1 > 1 and j+1 > 1 and src[i] == tar[j-1] and
-                     src[i-1] == tar[j])):
+                if (
+                    i + 1 > 1
+                    and j + 1 > 1
+                    and src[i] == tar[j - 1]
+                    and src[i - 1] == tar[j]
+                ):
                     # transposition
-                    d_mat[i+1, j+1] = min(d_mat[i+1, j+1],
-                                          d_mat[i-1, j-1] + trans_cost)
+                    d_mat[i + 1, j + 1] = min(
+                        d_mat[i + 1, j + 1], d_mat[i - 1, j - 1] + trans_cost
+                    )
 
     return d_mat[len(src), len(tar)]
 
@@ -174,8 +186,9 @@ def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     if src == tar:
         return 0
     ins_cost, del_cost = cost[:2]
-    return (levenshtein(src, tar, mode, cost) /
-            (max(len(src)*del_cost, len(tar)*ins_cost)))
+    return levenshtein(src, tar, mode, cost) / (
+        max(len(src) * del_cost, len(tar) * ins_cost)
+    )
 
 
 def sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
@@ -252,42 +265,45 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
     if not tar:
         return len(src) * del_cost
 
-    if 2*trans_cost < ins_cost + del_cost:
-        raise ValueError('Unsupported cost assignment; the cost of two ' +
-                         'transpositions must not be less than the cost of ' +
-                         'an insert plus a delete.')
+    if 2 * trans_cost < ins_cost + del_cost:
+        raise ValueError(
+            'Unsupported cost assignment; the cost of two '
+            + 'transpositions must not be less than the cost of '
+            + 'an insert plus a delete.'
+        )
 
-    d_mat = (np_zeros((len(src))*(len(tar)), dtype=np_int).
-             reshape((len(src), len(tar))))
+    d_mat = np_zeros((len(src)) * (len(tar)), dtype=np_int).reshape(
+        (len(src), len(tar))
+    )
 
     if src[0] != tar[0]:
         d_mat[0, 0] = min(sub_cost, ins_cost + del_cost)
 
     src_index_by_character = {src[0]: 0}
     for i in range(1, len(src)):
-        del_distance = d_mat[i-1, 0] + del_cost
-        ins_distance = (i+1) * del_cost + ins_cost
-        match_distance = (i * del_cost +
-                          (0 if src[i] == tar[0] else sub_cost))
+        del_distance = d_mat[i - 1, 0] + del_cost
+        ins_distance = (i + 1) * del_cost + ins_cost
+        match_distance = i * del_cost + (0 if src[i] == tar[0] else sub_cost)
         d_mat[i, 0] = min(del_distance, ins_distance, match_distance)
 
     for j in range(1, len(tar)):
-        del_distance = (j+1) * ins_cost + del_cost
-        ins_distance = d_mat[0, j-1] + ins_cost
-        match_distance = (j * ins_cost +
-                          (0 if src[0] == tar[j] else sub_cost))
+        del_distance = (j + 1) * ins_cost + del_cost
+        ins_distance = d_mat[0, j - 1] + ins_cost
+        match_distance = j * ins_cost + (0 if src[0] == tar[j] else sub_cost)
         d_mat[0, j] = min(del_distance, ins_distance, match_distance)
 
     for i in range(1, len(src)):
-        max_src_letter_match_index = (0 if src[i] == tar[0] else -1)
+        max_src_letter_match_index = 0 if src[i] == tar[0] else -1
         for j in range(1, len(tar)):
-            candidate_swap_index = (-1 if tar[j] not in
-                                    src_index_by_character else
-                                    src_index_by_character[tar[j]])
+            candidate_swap_index = (
+                -1
+                if tar[j] not in src_index_by_character
+                else src_index_by_character[tar[j]]
+            )
             j_swap = max_src_letter_match_index
-            del_distance = d_mat[i-1, j] + del_cost
-            ins_distance = d_mat[i, j-1] + ins_cost
-            match_distance = d_mat[i-1, j-1]
+            del_distance = d_mat[i - 1, j] + del_cost
+            ins_distance = d_mat[i, j - 1] + ins_cost
+            match_distance = d_mat[i - 1, j - 1]
             if src[i] != tar[j]:
                 match_distance += sub_cost
             else:
@@ -299,18 +315,24 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
                 if i_swap == 0 and j_swap == 0:
                     pre_swap_cost = 0
                 else:
-                    pre_swap_cost = d_mat[max(0, i_swap-1), max(0, j_swap-1)]
-                swap_distance = (pre_swap_cost + (i - i_swap - 1) *
-                                 del_cost + (j - j_swap - 1) * ins_cost +
-                                 trans_cost)
+                    pre_swap_cost = d_mat[
+                        max(0, i_swap - 1), max(0, j_swap - 1)
+                    ]
+                swap_distance = (
+                    pre_swap_cost
+                    + (i - i_swap - 1) * del_cost
+                    + (j - j_swap - 1) * ins_cost
+                    + trans_cost
+                )
             else:
                 swap_distance = maxsize
 
-            d_mat[i, j] = min(del_distance, ins_distance,
-                              match_distance, swap_distance)
+            d_mat[i, j] = min(
+                del_distance, ins_distance, match_distance, swap_distance
+            )
         src_index_by_character[src[i]] = i
 
-    return d_mat[len(src)-1, len(tar)-1]
+    return d_mat[len(src) - 1, len(tar) - 1]
 
 
 def dist_damerau(src, tar, cost=(1, 1, 1, 1)):
@@ -348,8 +370,9 @@ def dist_damerau(src, tar, cost=(1, 1, 1, 1)):
     if src == tar:
         return 0
     ins_cost, del_cost = cost[:2]
-    return (damerau_levenshtein(src, tar, cost) /
-            (max(len(src)*del_cost, len(tar)*ins_cost)))
+    return damerau_levenshtein(src, tar, cost) / (
+        max(len(src) * del_cost, len(tar) * ins_cost)
+    )
 
 
 def sim_damerau(src, tar, cost=(1, 1, 1, 1)):
@@ -427,8 +450,7 @@ def dist_indel(src, tar):
     """
     if src == tar:
         return 0
-    return (indel(src, tar) /
-            (len(src) + len(tar)))
+    return indel(src, tar) / (len(src) + len(tar))
 
 
 def sim_indel(src, tar):
@@ -451,9 +473,10 @@ def sim_indel(src, tar):
     >>> sim_indel('ATCG', 'TAGC')
     0.5
     """
-    return 1-dist_indel(src, tar)
+    return 1 - dist_indel(src, tar)
 
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

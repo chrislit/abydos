@@ -35,8 +35,12 @@ from six.moves import range
 from ..tokenizer.qgram import QGrams
 
 
-__all__ = ['dist_jaro_winkler', 'dist_strcmp95', 'sim_jaro_winkler',
-           'sim_strcmp95']
+__all__ = [
+    'dist_jaro_winkler',
+    'dist_strcmp95',
+    'sim_jaro_winkler',
+    'sim_strcmp95',
+]
 
 
 def sim_strcmp95(src, tar, long_strings=False):
@@ -72,6 +76,7 @@ def sim_strcmp95(src, tar, long_strings=False):
     >>> sim_strcmp95('ATCG', 'TAGC')
     0.8333333333333334
     """
+
     def _in_range(char):
         """Return True if char is in the range (0, 91)."""
         return 91 > ord(char) > 0
@@ -87,12 +92,42 @@ def sim_strcmp95(src, tar, long_strings=False):
 
     adjwt = defaultdict(int)
     sp_mx = (
-        ('A', 'E'), ('A', 'I'), ('A', 'O'), ('A', 'U'), ('B', 'V'), ('E', 'I'),
-        ('E', 'O'), ('E', 'U'), ('I', 'O'), ('I', 'U'), ('O', 'U'), ('I', 'Y'),
-        ('E', 'Y'), ('C', 'G'), ('E', 'F'), ('W', 'U'), ('W', 'V'), ('X', 'K'),
-        ('S', 'Z'), ('X', 'S'), ('Q', 'C'), ('U', 'V'), ('M', 'N'), ('L', 'I'),
-        ('Q', 'O'), ('P', 'R'), ('I', 'J'), ('2', 'Z'), ('5', 'S'), ('8', 'B'),
-        ('1', 'I'), ('1', 'L'), ('0', 'O'), ('0', 'Q'), ('C', 'K'), ('G', 'J')
+        ('A', 'E'),
+        ('A', 'I'),
+        ('A', 'O'),
+        ('A', 'U'),
+        ('B', 'V'),
+        ('E', 'I'),
+        ('E', 'O'),
+        ('E', 'U'),
+        ('I', 'O'),
+        ('I', 'U'),
+        ('O', 'U'),
+        ('I', 'Y'),
+        ('E', 'Y'),
+        ('C', 'G'),
+        ('E', 'F'),
+        ('W', 'U'),
+        ('W', 'V'),
+        ('X', 'K'),
+        ('S', 'Z'),
+        ('X', 'S'),
+        ('Q', 'C'),
+        ('U', 'V'),
+        ('M', 'N'),
+        ('L', 'I'),
+        ('Q', 'O'),
+        ('P', 'R'),
+        ('I', 'J'),
+        ('2', 'Z'),
+        ('5', 'S'),
+        ('8', 'B'),
+        ('1', 'I'),
+        ('1', 'L'),
+        ('0', 'O'),
+        ('0', 'Q'),
+        ('C', 'K'),
+        ('G', 'J'),
     )
 
     # Initialize the adjwt array on the first call to the function only.
@@ -121,7 +156,7 @@ def sim_strcmp95(src, tar, long_strings=False):
     for i in range(len(ying)):
         low_lim = (i - search_range) if (i >= search_range) else 0
         hi_lim = (i + search_range) if ((i + search_range) <= yl1) else yl1
-        for j in range(low_lim, hi_lim+1):
+        for j in range(low_lim, hi_lim + 1):
             if (yang_flag[j] == 0) and (yang[j] == ying[i]):
                 yang_flag[j] = 1
                 ying_flag[i] = 1
@@ -156,11 +191,14 @@ def sim_strcmp95(src, tar, long_strings=False):
                             n_simi += adjwt[(ying[i], yang[j])]
                             yang_flag[j] = 2
                             break
-    num_sim = n_simi/10.0 + num_com
+    num_sim = n_simi / 10.0 + num_com
 
     # Main weight computation
-    weight = num_sim / len(ying) + num_sim / len(yang) + \
-        (num_com - n_trans) / num_com
+    weight = (
+        num_sim / len(ying)
+        + num_sim / len(yang)
+        + (num_com - n_trans) / num_com
+    )
     weight /= 3.0
 
     # Continue to boost the weight if the strings are similar
@@ -178,11 +216,16 @@ def sim_strcmp95(src, tar, long_strings=False):
 
         # After agreeing beginning chars, at least two more must agree and
         # the agreeing characters must be > .5 of remaining characters.
-        if (long_strings and (minv > 4) and (num_com > i+1) and
-                (2*num_com >= minv+i)):
+        if (
+            long_strings
+            and (minv > 4)
+            and (num_com > i + 1)
+            and (2 * num_com >= minv + i)
+        ):
             if not ying[0].isdigit():
-                weight += (1.0-weight) * ((num_com-i-1) /
-                                          (len(ying)+len(yang)-i*2+2))
+                weight += (1.0 - weight) * (
+                    (num_com - i - 1) / (len(ying) + len(yang) - i * 2 + 2)
+                )
 
     return weight
 
@@ -215,8 +258,15 @@ def dist_strcmp95(src, tar, long_strings=False):
     return 1 - sim_strcmp95(src, tar, long_strings)
 
 
-def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
-                     boost_threshold=0.7, scaling_factor=0.1):
+def sim_jaro_winkler(
+    src,
+    tar,
+    qval=1,
+    mode='winkler',
+    long_strings=False,
+    boost_threshold=0.7,
+    scaling_factor=0.1,
+):
     """Return the Jaro or Jaro-Winkler similarity of two strings.
 
     Jaro(-Winkler) distance is a string edit distance initially proposed by
@@ -273,11 +323,15 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
     """
     if mode == 'winkler':
         if boost_threshold > 1 or boost_threshold < 0:
-            raise ValueError('Unsupported boost_threshold assignment; ' +
-                             'boost_threshold must be between 0 and 1.')
+            raise ValueError(
+                'Unsupported boost_threshold assignment; '
+                + 'boost_threshold must be between 0 and 1.'
+            )
         if scaling_factor > 0.25 or scaling_factor < 0:
-            raise ValueError('Unsupported scaling_factor assignment; ' +
-                             'scaling_factor must be between 0 and 0.25.')
+            raise ValueError(
+                'Unsupported scaling_factor assignment; '
+                + 'scaling_factor must be between 0 and 0.25.'
+            )
 
     if src == tar:
         return 1.0
@@ -302,7 +356,7 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
     # Zero out the flags
     src_flag = [0] * search_range
     tar_flag = [0] * search_range
-    search_range = max(0, search_range//2 - 1)
+    search_range = max(0, search_range // 2 - 1)
 
     # Looking only within the search range, count and flag the matched pairs.
     num_com = 0
@@ -310,7 +364,7 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
     for i in range(lens):
         low_lim = (i - search_range) if (i >= search_range) else 0
         hi_lim = (i + search_range) if ((i + search_range) <= yl1) else yl1
-        for j in range(low_lim, hi_lim+1):
+        for j in range(low_lim, hi_lim + 1):
             if (tar_flag[j] == 0) and (tar[j] == src[i]):
                 tar_flag[j] = 1
                 src_flag[i] = 1
@@ -353,15 +407,28 @@ def sim_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
 
         # After agreeing beginning chars, at least two more must agree and
         # the agreeing characters must be > .5 of remaining characters.
-        if (long_strings and (minv > 4) and (num_com > i+1) and
-                (2*num_com >= minv+i)):
-            weight += (1.0-weight) * ((num_com-i-1) / (lens+lent-i*2+2))
+        if (
+            long_strings
+            and (minv > 4)
+            and (num_com > i + 1)
+            and (2 * num_com >= minv + i)
+        ):
+            weight += (1.0 - weight) * (
+                (num_com - i - 1) / (lens + lent - i * 2 + 2)
+            )
 
     return weight
 
 
-def dist_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
-                      boost_threshold=0.7, scaling_factor=0.1):
+def dist_jaro_winkler(
+    src,
+    tar,
+    qval=1,
+    mode='winkler',
+    long_strings=False,
+    boost_threshold=0.7,
+    scaling_factor=0.1,
+):
     """Return the Jaro or Jaro-Winkler distance between two strings.
 
     Jaro(-Winkler) similarity is the complement of Jaro(-Winkler) distance:
@@ -411,10 +478,12 @@ def dist_jaro_winkler(src, tar, qval=1, mode='winkler', long_strings=False,
     >>> round(dist_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
     0.166666666667
     """
-    return 1 - sim_jaro_winkler(src, tar, qval, mode, long_strings,
-                                boost_threshold, scaling_factor)
+    return 1 - sim_jaro_winkler(
+        src, tar, qval, mode, long_strings, boost_threshold, scaling_factor
+    )
 
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

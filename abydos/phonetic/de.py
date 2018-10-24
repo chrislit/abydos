@@ -37,9 +37,14 @@ from six.moves import range
 
 from . import _delete_consecutive_repeats
 
-__all__ = ['haase_phonetik', 'koelner_phonetik',
-           'koelner_phonetik_alpha', 'koelner_phonetik_num_to_alpha',
-           'phonem', 'reth_schek_phonetik']
+__all__ = [
+    'haase_phonetik',
+    'koelner_phonetik',
+    'koelner_phonetik_alpha',
+    'koelner_phonetik_num_to_alpha',
+    'phonem',
+    'reth_schek_phonetik',
+]
 
 
 def koelner_phonetik(word):
@@ -67,13 +72,14 @@ def koelner_phonetik(word):
     >>> koelner_phonetik('Zimmermann')
     '86766'
     """
+
     def _after(word, pos, letters):
         """Return True if word[i] follows one of the supplied letters."""
-        return pos > 0 and word[pos-1] in letters
+        return pos > 0 and word[pos - 1] in letters
 
     def _before(word, pos, letters):
         """Return True if word[i] precedes one of the supplied letters."""
-        return pos+1 < len(word) and word[pos+1] in letters
+        return pos + 1 < len(word) and word[pos + 1] in letters
 
     _vowels = {'A', 'E', 'I', 'J', 'O', 'U', 'Y'}
 
@@ -85,10 +91,39 @@ def koelner_phonetik(word):
     word = word.replace('Ä', 'AE')
     word = word.replace('Ö', 'OE')
     word = word.replace('Ü', 'UE')
-    word = ''.join(c for c in word if c in
-                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-                    'Y', 'Z'})
+    word = ''.join(
+        c
+        for c in word
+        if c
+        in {
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J',
+            'K',
+            'L',
+            'M',
+            'N',
+            'O',
+            'P',
+            'Q',
+            'R',
+            'S',
+            'T',
+            'U',
+            'V',
+            'W',
+            'X',
+            'Y',
+            'Z',
+        }
+    )
 
     # Nothing to convert, return base case
     if not word:
@@ -117,8 +152,9 @@ def koelner_phonetik(word):
             if _after(word, i, {'S', 'Z'}):
                 sdx += '8'
             elif i == 0:
-                if _before(word, i, {'A', 'H', 'K', 'L', 'O', 'Q', 'R', 'U',
-                                     'X'}):
+                if _before(
+                    word, i, {'A', 'H', 'K', 'L', 'O', 'Q', 'R', 'U', 'X'}
+                ):
                     sdx += '4'
                 else:
                     sdx += '8'
@@ -163,10 +199,14 @@ def koelner_phonetik_num_to_alpha(num):
     >>> koelner_phonetik_num_to_alpha('86766')
     'SNRNN'
     """
-    _koelner_num_translation = dict(zip((ord(_) for _ in '012345678'),
-                                        'APTFKLNRS'))
-    num = ''.join(c for c in text_type(num) if c in {'0', '1', '2', '3', '4',
-                                                     '5', '6', '7', '8'})
+    _koelner_num_translation = dict(
+        zip((ord(_) for _ in '012345678'), 'APTFKLNRS')
+    )
+    num = ''.join(
+        c
+        for c in text_type(num)
+        if c in {'0', '1', '2', '3', '4', '5', '6', '7', '8'}
+    )
     return num.translate(_koelner_num_translation)
 
 
@@ -214,24 +254,60 @@ def phonem(word):
     >>> phonem('Schmidt')
     'CMYD'
     """
-    _phonem_substitutions = (('SC', 'C'), ('SZ', 'C'), ('CZ', 'C'),
-                             ('TZ', 'C'), ('TS', 'C'), ('KS', 'X'),
-                             ('PF', 'V'), ('QU', 'KW'), ('PH', 'V'),
-                             ('UE', 'Y'), ('AE', 'E'), ('OE', 'Ö'),
-                             ('EI', 'AY'), ('EY', 'AY'), ('EU', 'OY'),
-                             ('AU', 'A§'), ('OU', '§'))
-    _phonem_translation = dict(zip((ord(_) for _ in
-                                    'ZKGQÇÑßFWPTÁÀÂÃÅÄÆÉÈÊËIJÌÍÎÏÜÝ§ÚÙÛÔÒÓÕØ'),
-                                   'CCCCCNSVVBDAAAAAEEEEEEYYYYYYYYUUUUOOOOÖ'))
+    _phonem_substitutions = (
+        ('SC', 'C'),
+        ('SZ', 'C'),
+        ('CZ', 'C'),
+        ('TZ', 'C'),
+        ('TS', 'C'),
+        ('KS', 'X'),
+        ('PF', 'V'),
+        ('QU', 'KW'),
+        ('PH', 'V'),
+        ('UE', 'Y'),
+        ('AE', 'E'),
+        ('OE', 'Ö'),
+        ('EI', 'AY'),
+        ('EY', 'AY'),
+        ('EU', 'OY'),
+        ('AU', 'A§'),
+        ('OU', '§'),
+    )
+    _phonem_translation = dict(
+        zip(
+            (ord(_) for _ in 'ZKGQÇÑßFWPTÁÀÂÃÅÄÆÉÈÊËIJÌÍÎÏÜÝ§ÚÙÛÔÒÓÕØ'),
+            'CCCCCNSVVBDAAAAAEEEEEEYYYYYYYYUUUUOOOOÖ',
+        )
+    )
 
     word = unicode_normalize('NFC', text_type(word.upper()))
     for i, j in _phonem_substitutions:
         word = word.replace(i, j)
     word = word.translate(_phonem_translation)
 
-    return ''.join(c for c in _delete_consecutive_repeats(word)
-                   if c in {'A', 'B', 'C', 'D', 'L', 'M', 'N', 'O', 'R', 'S',
-                            'U', 'V', 'W', 'X', 'Y', 'Ö'})
+    return ''.join(
+        c
+        for c in _delete_consecutive_repeats(word)
+        if c
+        in {
+            'A',
+            'B',
+            'C',
+            'D',
+            'L',
+            'M',
+            'N',
+            'O',
+            'R',
+            'S',
+            'U',
+            'V',
+            'W',
+            'X',
+            'Y',
+            'Ö',
+        }
+    )
 
 
 def haase_phonetik(word, primary_only=False):
@@ -259,15 +335,16 @@ def haase_phonetik(word, primary_only=False):
     >>> haase_phonetik('Schmidt')
     ('8692', '4692')
     """
+
     def _after(word, i, letters):
         """Return True if word[i] follows one of the supplied letters."""
-        if i > 0 and word[i-1] in letters:
+        if i > 0 and word[i - 1] in letters:
             return True
         return False
 
     def _before(word, i, letters):
         """Return True if word[i] precedes one of the supplied letters."""
-        if i+1 < len(word) and word[i+1] in letters:
+        if i + 1 < len(word) and word[i + 1] in letters:
             return True
         return False
 
@@ -279,10 +356,39 @@ def haase_phonetik(word, primary_only=False):
     word = word.replace('Ä', 'AE')
     word = word.replace('Ö', 'OE')
     word = word.replace('Ü', 'UE')
-    word = ''.join(c for c in word if c in
-                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-                    'Y', 'Z'})
+    word = ''.join(
+        c
+        for c in word
+        if c
+        in {
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J',
+            'K',
+            'L',
+            'M',
+            'N',
+            'O',
+            'P',
+            'Q',
+            'R',
+            'S',
+            'T',
+            'U',
+            'V',
+            'W',
+            'X',
+            'Y',
+            'Z',
+        }
+    )
 
     variants = []
     if primary_only:
@@ -292,16 +398,24 @@ def haase_phonetik(word, primary_only=False):
         if word[:2] == 'CH':
             variants.append(('CH', 'SCH'))
             pos += 2
-        len_3_vars = {'OWN': 'AUN', 'WSK': 'RSK', 'SCH': 'CH', 'GLI': 'LI',
-                      'AUX': 'O', 'EUX': 'O'}
+        len_3_vars = {
+            'OWN': 'AUN',
+            'WSK': 'RSK',
+            'SCH': 'CH',
+            'GLI': 'LI',
+            'AUX': 'O',
+            'EUX': 'O',
+        }
         while pos < len(word):
-            if word[pos:pos+4] == 'ILLE':
+            if word[pos : pos + 4] == 'ILLE':
                 variants.append(('ILLE', 'I'))
                 pos += 4
-            elif word[pos:pos+3] in len_3_vars:
-                variants.append((word[pos:pos+3], len_3_vars[word[pos:pos+3]]))
+            elif word[pos : pos + 3] in len_3_vars:
+                variants.append(
+                    (word[pos : pos + 3], len_3_vars[word[pos : pos + 3]])
+                )
                 pos += 3
-            elif word[pos:pos+2] == 'RB':
+            elif word[pos : pos + 2] == 'RB':
                 variants.append(('RB', 'RW'))
                 pos += 2
             elif len(word[pos:]) == 3 and word[pos:] == 'EAU':
@@ -344,8 +458,9 @@ def haase_phonetik(word, primary_only=False):
                 if _after(word, i, {'S', 'Z'}):
                     sdx += '8'
                 elif i == 0:
-                    if _before(word, i, {'A', 'H', 'K', 'L', 'O', 'Q', 'R',
-                                         'U', 'X'}):
+                    if _before(
+                        word, i, {'A', 'H', 'K', 'L', 'O', 'Q', 'R', 'U', 'X'}
+                    ):
                         sdx += '4'
                     else:
                         sdx += '8'
@@ -420,20 +535,72 @@ def reth_schek_phonetik(word):
     >>> reth_schek_phonetik('Schmidt')
     'SCHMID'
     """
-    replacements = {3: {'AEH': 'E', 'IEH': 'I', 'OEH': 'OE', 'UEH': 'UE',
-                        'SCH': 'CH', 'ZIO': 'TIO', 'TIU': 'TIO', 'ZIU': 'TIO',
-                        'CHS': 'X', 'CKS': 'X', 'AEU': 'OI'},
-                    2: {'LL': 'L', 'AA': 'A', 'AH': 'A', 'BB': 'B', 'PP': 'B',
-                        'BP': 'B', 'PB': 'B', 'DD': 'D', 'DT': 'D', 'TT': 'D',
-                        'TH': 'D', 'EE': 'E', 'EH': 'E', 'AE': 'E', 'FF': 'F',
-                        'PH': 'F', 'KK': 'K', 'GG': 'G', 'GK': 'G', 'KG': 'G',
-                        'CK': 'G', 'CC': 'C', 'IE': 'I', 'IH': 'I', 'MM': 'M',
-                        'NN': 'N', 'OO': 'O', 'OH': 'O', 'SZ': 'S', 'UH': 'U',
-                        'GS': 'X', 'KS': 'X', 'TZ': 'Z', 'AY': 'AI',
-                        'EI': 'AI', 'EY': 'AI', 'EU': 'OI', 'RR': 'R',
-                        'SS': 'S', 'KW': 'QU'},
-                    1: {'P': 'B', 'T': 'D', 'V': 'F', 'W': 'F', 'C': 'G',
-                        'K': 'G', 'Y': 'I'}}
+    replacements = {
+        3: {
+            'AEH': 'E',
+            'IEH': 'I',
+            'OEH': 'OE',
+            'UEH': 'UE',
+            'SCH': 'CH',
+            'ZIO': 'TIO',
+            'TIU': 'TIO',
+            'ZIU': 'TIO',
+            'CHS': 'X',
+            'CKS': 'X',
+            'AEU': 'OI',
+        },
+        2: {
+            'LL': 'L',
+            'AA': 'A',
+            'AH': 'A',
+            'BB': 'B',
+            'PP': 'B',
+            'BP': 'B',
+            'PB': 'B',
+            'DD': 'D',
+            'DT': 'D',
+            'TT': 'D',
+            'TH': 'D',
+            'EE': 'E',
+            'EH': 'E',
+            'AE': 'E',
+            'FF': 'F',
+            'PH': 'F',
+            'KK': 'K',
+            'GG': 'G',
+            'GK': 'G',
+            'KG': 'G',
+            'CK': 'G',
+            'CC': 'C',
+            'IE': 'I',
+            'IH': 'I',
+            'MM': 'M',
+            'NN': 'N',
+            'OO': 'O',
+            'OH': 'O',
+            'SZ': 'S',
+            'UH': 'U',
+            'GS': 'X',
+            'KS': 'X',
+            'TZ': 'Z',
+            'AY': 'AI',
+            'EI': 'AI',
+            'EY': 'AI',
+            'EU': 'OI',
+            'RR': 'R',
+            'SS': 'S',
+            'KW': 'QU',
+        },
+        1: {
+            'P': 'B',
+            'T': 'D',
+            'V': 'F',
+            'W': 'F',
+            'C': 'G',
+            'K': 'G',
+            'Y': 'I',
+        },
+    }
 
     # Uppercase
     word = word.upper()
@@ -448,9 +615,12 @@ def reth_schek_phonetik(word):
     pos = 0
     while pos < len(word):
         for num in range(3, 0, -1):
-            if word[pos:pos+num] in replacements[num]:
-                word = (word[:pos] + replacements[num][word[pos:pos+num]]
-                        + word[pos+num:])
+            if word[pos : pos + num] in replacements[num]:
+                word = (
+                    word[:pos]
+                    + replacements[num][word[pos : pos + num]]
+                    + word[pos + num :]
+                )
                 pos += 1
                 break
         else:
@@ -461,9 +631,9 @@ def reth_schek_phonetik(word):
 
     # Replace final sequences
     if word[-2:] == 'ER':
-        word = word[:-2]+'R'
+        word = word[:-2] + 'R'
     elif word[-2:] == 'EL':
-        word = word[:-2]+'L'
+        word = word[:-2] + 'L'
     elif word[-1:] == 'H':
         word = word[:-1]
 
@@ -472,4 +642,5 @@ def reth_schek_phonetik(word):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

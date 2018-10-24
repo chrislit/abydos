@@ -145,16 +145,19 @@ class SpanishMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(spanish_metaphone('Empeorar'), 'EMPRR')
         self.assertEqual(spanish_metaphone('Empeorar', modified=True), 'ENPRR')
         self.assertEqual(spanish_metaphone('Embotellar'), 'EMVTYR')
-        self.assertEqual(spanish_metaphone('Embotellar', modified=True),
-                         'ENVTYR')
+        self.assertEqual(
+            spanish_metaphone('Embotellar', modified=True), 'ENVTYR'
+        )
         self.assertEqual(spanish_metaphone('Hoy'), 'OY')
         self.assertEqual(spanish_metaphone('Hoy', modified=True), 'OY')
         self.assertEqual(spanish_metaphone('Xochimilco'), 'XXMLK')
-        self.assertEqual(spanish_metaphone('Xochimilco', modified=True),
-                         'XXMLK')
+        self.assertEqual(
+            spanish_metaphone('Xochimilco', modified=True), 'XXMLK'
+        )
         self.assertEqual(spanish_metaphone('Psiquiatra'), 'PSKTR')
-        self.assertEqual(spanish_metaphone('Psiquiatra', modified=True),
-                         'ZKTR')
+        self.assertEqual(
+            spanish_metaphone('Psiquiatra', modified=True), 'ZKTR'
+        )
         self.assertEqual(spanish_metaphone('siquiatra'), 'SKTR')
         self.assertEqual(spanish_metaphone('siquiatra', modified=True), 'ZKTR')
         self.assertEqual(spanish_metaphone('Obscuro'), 'OVSKR')
@@ -168,11 +171,13 @@ class SpanishMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(spanish_metaphone('Conbate'), 'KNVT')
         self.assertEqual(spanish_metaphone('Conbate', modified=True), 'KNVT')
         self.assertEqual(spanish_metaphone('Comportar'), 'KMPRTR')
-        self.assertEqual(spanish_metaphone('Comportar', modified=True),
-                         'KNPRTR')
+        self.assertEqual(
+            spanish_metaphone('Comportar', modified=True), 'KNPRTR'
+        )
         self.assertEqual(spanish_metaphone('Conportar'), 'KNPRTR')
-        self.assertEqual(spanish_metaphone('Conportar', modified=True),
-                         'KNPRTR')
+        self.assertEqual(
+            spanish_metaphone('Conportar', modified=True), 'KNPRTR'
+        )
         self.assertEqual(spanish_metaphone('Zapato'), 'ZPT')
         self.assertEqual(spanish_metaphone('Zapato', modified=True), 'ZPT')
         self.assertEqual(spanish_metaphone('Sapato'), 'SPT')

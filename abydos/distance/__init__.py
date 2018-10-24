@@ -74,9 +74,21 @@ from .levenshtein import sim_levenshtein
 from ..tokenizer.qgram import QGrams
 
 
-__all__ = ['basic', 'baystat', 'compression', 'dist', 'editex', 'hamming',
-           'jaro', 'levenshtein', 'minkowski', 'sift4', 'sim', 'synoname',
-           'typo']
+__all__ = [
+    'basic',
+    'baystat',
+    'compression',
+    'dist',
+    'editex',
+    'hamming',
+    'jaro',
+    'levenshtein',
+    'minkowski',
+    'sift4',
+    'sim',
+    'synoname',
+    'typo',
+]
 
 
 def _get_qgrams(src, tar, qval=0, skip=0):
@@ -96,8 +108,7 @@ def _get_qgrams(src, tar, qval=0, skip=0):
     if isinstance(src, Counter) and isinstance(tar, Counter):
         return src, tar
     if qval > 0:
-        return (QGrams(src, qval, '$#', skip),
-                QGrams(tar, qval, '$#', skip))
+        return (QGrams(src, qval, '$#', skip), QGrams(tar, qval, '$#', skip))
     return Counter(src.strip().split()), Counter(tar.strip().split())
 
 
@@ -158,4 +169,5 @@ def dist(src, tar, method=sim_levenshtein):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

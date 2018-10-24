@@ -34,10 +34,20 @@ except ImportError:  # pragma: no cover
     # similarity won't be supported.
     lzma = None
 
-__all__ = ['dist_ncd_arith', 'dist_ncd_bwtrle', 'dist_ncd_bz2',
-           'dist_ncd_lzma', 'dist_ncd_rle', 'dist_ncd_zlib', 'sim_ncd_arith',
-           'sim_ncd_bwtrle', 'sim_ncd_bz2', 'sim_ncd_lzma', 'sim_ncd_rle',
-           'sim_ncd_zlib']
+__all__ = [
+    'dist_ncd_arith',
+    'dist_ncd_bwtrle',
+    'dist_ncd_bz2',
+    'dist_ncd_lzma',
+    'dist_ncd_rle',
+    'dist_ncd_zlib',
+    'sim_ncd_arith',
+    'sim_ncd_bwtrle',
+    'sim_ncd_bz2',
+    'sim_ncd_lzma',
+    'sim_ncd_rle',
+    'sim_ncd_zlib',
+]
 
 
 def dist_ncd_arith(src, tar, probs=None):
@@ -72,8 +82,9 @@ def dist_ncd_arith(src, tar, probs=None):
     concat_comp = arithmetic.encode(src + tar, probs)[1]
     concat_comp2 = arithmetic.encode(tar + src, probs)[1]
 
-    return ((min(concat_comp, concat_comp2) - min(src_comp, tar_comp)) /
-            max(src_comp, tar_comp))
+    return (min(concat_comp, concat_comp2) - min(src_comp, tar_comp)) / max(
+        src_comp, tar_comp
+    )
 
 
 def sim_ncd_arith(src, tar, probs=None):
@@ -97,7 +108,7 @@ def sim_ncd_arith(src, tar, probs=None):
     >>> sim_ncd_arith('ATCG', 'TAGC')
     0.3076923076923077
     """
-    return 1-dist_ncd_arith(src, tar, probs)
+    return 1 - dist_ncd_arith(src, tar, probs)
 
 
 def dist_ncd_rle(src, tar, use_bwt=False):
@@ -129,9 +140,10 @@ def dist_ncd_rle(src, tar, use_bwt=False):
     concat_comp = rle.encode(src + tar, use_bwt)
     concat_comp2 = rle.encode(tar + src, use_bwt)
 
-    return ((min(len(concat_comp), len(concat_comp2)) -
-             min(len(src_comp), len(tar_comp))) /
-            max(len(src_comp), len(tar_comp)))
+    return (
+        min(len(concat_comp), len(concat_comp2))
+        - min(len(src_comp), len(tar_comp))
+    ) / max(len(src_comp), len(tar_comp))
 
 
 def sim_ncd_rle(src, tar, use_bwt=False):
@@ -232,9 +244,10 @@ def dist_ncd_zlib(src, tar):
     concat_comp = encode(src + tar, 'zlib_codec')[2:]
     concat_comp2 = encode(tar + src, 'zlib_codec')[2:]
 
-    return ((min(len(concat_comp), len(concat_comp2)) -
-             min(len(src_comp), len(tar_comp))) /
-            max(len(src_comp), len(tar_comp)))
+    return (
+        min(len(concat_comp), len(concat_comp2))
+        - min(len(src_comp), len(tar_comp))
+    ) / max(len(src_comp), len(tar_comp))
 
 
 def sim_ncd_zlib(src, tar):
@@ -289,9 +302,10 @@ def dist_ncd_bz2(src, tar):
     concat_comp = encode(src + tar, 'bz2_codec')[15:]
     concat_comp2 = encode(tar + src, 'bz2_codec')[15:]
 
-    return ((min(len(concat_comp), len(concat_comp2)) -
-             min(len(src_comp), len(tar_comp))) /
-            max(len(src_comp), len(tar_comp)))
+    return (
+        min(len(concat_comp), len(concat_comp2))
+        - min(len(src_comp), len(tar_comp))
+    ) / max(len(src_comp), len(tar_comp))
 
 
 def sim_ncd_bz2(src, tar):
@@ -347,12 +361,15 @@ def dist_ncd_lzma(src, tar):
         concat_comp = lzma.compress(src + tar)[14:]
         concat_comp2 = lzma.compress(tar + src)[14:]
     else:  # pragma: no cover
-        raise ValueError('Install the PylibLZMA module in order to use lzma ' +
-                         'compression similarity')
+        raise ValueError(
+            'Install the PylibLZMA module in order to use lzma '
+            + 'compression similarity'
+        )
 
-    return ((min(len(concat_comp), len(concat_comp2)) -
-             min(len(src_comp), len(tar_comp))) /
-            max(len(src_comp), len(tar_comp)))
+    return (
+        min(len(concat_comp), len(concat_comp2))
+        - min(len(src_comp), len(tar_comp))
+    ) / max(len(src_comp), len(tar_comp))
 
 
 def sim_ncd_lzma(src, tar):
@@ -379,4 +396,5 @@ def sim_ncd_lzma(src, tar):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

@@ -43,8 +43,16 @@ from six.moves import range
 
 from . import _delete_consecutive_repeats
 
-__all__ = ['fuzzy_soundex', 'lein', 'phonex', 'phonix', 'pshp_soundex_first',
-           'pshp_soundex_last', 'refined_soundex', 'soundex']
+__all__ = [
+    'fuzzy_soundex',
+    'lein',
+    'phonex',
+    'phonix',
+    'pshp_soundex_first',
+    'pshp_soundex_last',
+    'refined_soundex',
+    'soundex',
+]
 
 
 def soundex(word, max_length=4, var='American', reverse=False, zero_pad=True):
@@ -99,9 +107,12 @@ def soundex(word, max_length=4, var='American', reverse=False, zero_pad=True):
     >>> soundex('Asicroft', var='special')
     'A226'
     """
-    _soundex_translation = dict(zip((ord(_) for _ in
-                                     'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-                                    '01230129022455012623019202'))
+    _soundex_translation = dict(
+        zip(
+            (ord(_) for _ in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            '01230129022455012623019202',
+        )
+    )
 
     # Require a max_length of at least 4 and not more than 64
     if max_length != -1:
@@ -116,24 +127,55 @@ def soundex(word, max_length=4, var='American', reverse=False, zero_pad=True):
     if var == 'Census':
         # TODO: Should these prefixes be supplemented? (VANDE, DELA, VON)
         if word[:3] in {'VAN', 'CON'} and len(word) > 4:
-            return (soundex(word, max_length, 'American', reverse, zero_pad),
-                    soundex(word[3:], max_length, 'American', reverse,
-                            zero_pad))
+            return (
+                soundex(word, max_length, 'American', reverse, zero_pad),
+                soundex(word[3:], max_length, 'American', reverse, zero_pad),
+            )
         if word[:2] in {'DE', 'DI', 'LA', 'LE'} and len(word) > 3:
-            return (soundex(word, max_length, 'American', reverse, zero_pad),
-                    soundex(word[2:], max_length, 'American', reverse,
-                            zero_pad))
+            return (
+                soundex(word, max_length, 'American', reverse, zero_pad),
+                soundex(word[2:], max_length, 'American', reverse, zero_pad),
+            )
         # Otherwise, proceed as usual (var='American' mode, ostensibly)
 
-    word = ''.join(c for c in word if c in
-                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-                    'Y', 'Z'})
+    word = ''.join(
+        c
+        for c in word
+        if c
+        in {
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J',
+            'K',
+            'L',
+            'M',
+            'N',
+            'O',
+            'P',
+            'Q',
+            'R',
+            'S',
+            'T',
+            'U',
+            'V',
+            'W',
+            'X',
+            'Y',
+            'Z',
+        }
+    )
 
     # Nothing to convert, return base case
     if not word:
         if zero_pad:
-            return '0'*max_length
+            return '0' * max_length
         return '0'
 
     # Reverse word if computing Reverse Soundex
@@ -156,13 +198,12 @@ def soundex(word, max_length=4, var='American', reverse=False, zero_pad=True):
     sdx = sdx.replace('0', '')  # rule 1
 
     if zero_pad:
-        sdx += ('0'*max_length)  # rule 4
+        sdx += '0' * max_length  # rule 4
 
     return sdx[:max_length]
 
 
-def refined_soundex(word, max_length=-1, zero_pad=False,
-                    retain_vowels=False):
+def refined_soundex(word, max_length=-1, zero_pad=False, retain_vowels=False):
     """Return the Refined Soundex code for a word.
 
     This is Soundex, but with more character classes. It was defined at
@@ -185,17 +226,49 @@ def refined_soundex(word, max_length=-1, zero_pad=False,
     >>> refined_soundex('Schmidt')
     'S386'
     """
-    _ref_soundex_translation = dict(zip((ord(_) for _ in
-                                         'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-                                        '01360240043788015936020505'))
+    _ref_soundex_translation = dict(
+        zip(
+            (ord(_) for _ in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            '01360240043788015936020505',
+        )
+    )
 
     # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
-    word = ''.join(c for c in word if c in
-                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-                    'Y', 'Z'})
+    word = ''.join(
+        c
+        for c in word
+        if c
+        in {
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J',
+            'K',
+            'L',
+            'M',
+            'N',
+            'O',
+            'P',
+            'Q',
+            'R',
+            'S',
+            'T',
+            'U',
+            'V',
+            'W',
+            'X',
+            'Y',
+            'Z',
+        }
+    )
 
     # apply the Soundex algorithm
     sdx = word[:1] + word.translate(_ref_soundex_translation)
@@ -205,7 +278,7 @@ def refined_soundex(word, max_length=-1, zero_pad=False,
 
     if max_length > 0:
         if zero_pad:
-            sdx += ('0' * max_length)
+            sdx += '0' * max_length
         sdx = sdx[:max_length]
 
     return sdx
@@ -233,9 +306,12 @@ def fuzzy_soundex(word, max_length=5, zero_pad=True):
     >>> fuzzy_soundex('Smith')
     'S5300'
     """
-    _fuzzy_soundex_translation = dict(zip((ord(_) for _ in
-                                           'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-                                          '0193017-07745501769301-7-9'))
+    _fuzzy_soundex_translation = dict(
+        zip(
+            (ord(_) for _ in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            '0193017-07745501769301-7-9',
+        )
+    )
 
     word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
@@ -309,7 +385,7 @@ def fuzzy_soundex(word, max_length=5, zero_pad=True):
     sdx = sdx.replace('0', '')
 
     if zero_pad:
-        sdx += ('0'*max_length)
+        sdx += '0' * max_length
 
     return sdx[:max_length]
 
@@ -394,19 +470,31 @@ def phonex(word, max_length=4, zero_pad=True):
         elif name[i] in {'C', 'G', 'J', 'K', 'Q', 'S', 'X', 'Z'}:
             code = '2'
         elif name[i] in {'D', 'T'}:
-            if name[i+1:i+2] != 'C':
+            if name[i + 1 : i + 2] != 'C':
                 code = '3'
         elif name[i] == 'L':
-            if (name[i+1:i+2] in {'A', 'E', 'I', 'O', 'U', 'Y'} or
-                    i+1 == len(name)):
+            if name[i + 1 : i + 2] in {
+                'A',
+                'E',
+                'I',
+                'O',
+                'U',
+                'Y',
+            } or i + 1 == len(name):
                 code = '4'
         elif name[i] in {'M', 'N'}:
-            if name[i+1:i+2] in {'D', 'G'}:
-                name = name[:i+1] + name[i] + name[i+2:]
+            if name[i + 1 : i + 2] in {'D', 'G'}:
+                name = name[: i + 1] + name[i] + name[i + 2 :]
             code = '5'
         elif name[i] == 'R':
-            if (name[i+1:i+2] in {'A', 'E', 'I', 'O', 'U', 'Y'} or
-                    i+1 == len(name)):
+            if name[i + 1 : i + 2] in {
+                'A',
+                'E',
+                'I',
+                'O',
+                'U',
+                'Y',
+            } or i + 1 == len(name):
                 code = '6'
 
         if code != last and code != '0' and i != 0:
@@ -447,24 +535,25 @@ def phonix(word, max_length=4, zero_pad=True):
     >>> phonix('Schmidt')
     'S530'
     """
+
     def _start_repl(word, src, tar, post=None):
         r"""Replace src with tar at the start of word."""
         if post:
             for i in post:
-                if word.startswith(src+i):
-                    return tar + word[len(src):]
+                if word.startswith(src + i):
+                    return tar + word[len(src) :]
         elif word.startswith(src):
-            return tar + word[len(src):]
+            return tar + word[len(src) :]
         return word
 
     def _end_repl(word, src, tar, pre=None):
         r"""Replace src with tar at the end of word."""
         if pre:
             for i in pre:
-                if word.endswith(i+src):
-                    return word[:-len(src)] + tar
+                if word.endswith(i + src):
+                    return word[: -len(src)] + tar
         elif word.endswith(src):
-            return word[:-len(src)] + tar
+            return word[: -len(src)] + tar
         return word
 
     def _mid_repl(word, src, tar, pre=None, post=None):
@@ -473,12 +562,9 @@ def phonix(word, max_length=4, zero_pad=True):
             if not pre:
                 return word[0] + _all_repl(word[1:], src, tar, pre, post)
             elif not post:
-                return (_all_repl(word[:-1], src, tar, pre, post) +
-                        word[-1])
+                return _all_repl(word[:-1], src, tar, pre, post) + word[-1]
             return _all_repl(word, src, tar, pre, post)
-        return (word[0] +
-                _all_repl(word[1:-1], src, tar, pre, post) +
-                word[-1])
+        return word[0] + _all_repl(word[1:-1], src, tar, pre, post) + word[-1]
 
     def _all_repl(word, src, tar, pre=None, post=None):
         r"""Replace src with tar anywhere in word."""
@@ -493,121 +579,176 @@ def phonix(word, max_length=4, zero_pad=True):
                 pre = frozenset(('',))
 
             for i, j in ((i, j) for i in pre for j in post):
-                word = word.replace(i+src+j, i+tar+j)
+                word = word.replace(i + src + j, i + tar + j)
             return word
         else:
             return word.replace(src, tar)
 
     _vow = {'A', 'E', 'I', 'O', 'U'}
-    _con = {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q',
-            'R', 'S', 'T', 'V', 'W', 'X', 'Y', 'Z'}
+    _con = {
+        'B',
+        'C',
+        'D',
+        'F',
+        'G',
+        'H',
+        'J',
+        'K',
+        'L',
+        'M',
+        'N',
+        'P',
+        'Q',
+        'R',
+        'S',
+        'T',
+        'V',
+        'W',
+        'X',
+        'Y',
+        'Z',
+    }
 
-    _phonix_substitutions = ((_all_repl, 'DG', 'G'),
-                             (_all_repl, 'CO', 'KO'),
-                             (_all_repl, 'CA', 'KA'),
-                             (_all_repl, 'CU', 'KU'),
-                             (_all_repl, 'CY', 'SI'),
-                             (_all_repl, 'CI', 'SI'),
-                             (_all_repl, 'CE', 'SE'),
-                             (_start_repl, 'CL', 'KL', _vow),
-                             (_all_repl, 'CK', 'K'),
-                             (_end_repl, 'GC', 'K'),
-                             (_end_repl, 'JC', 'K'),
-                             (_start_repl, 'CHR', 'KR', _vow),
-                             (_start_repl, 'CR', 'KR', _vow),
-                             (_start_repl, 'WR', 'R'),
-                             (_all_repl, 'NC', 'NK'),
-                             (_all_repl, 'CT', 'KT'),
-                             (_all_repl, 'PH', 'F'),
-                             (_all_repl, 'AA', 'AR'),
-                             (_all_repl, 'SCH', 'SH'),
-                             (_all_repl, 'BTL', 'TL'),
-                             (_all_repl, 'GHT', 'T'),
-                             (_all_repl, 'AUGH', 'ARF'),
-                             (_mid_repl, 'LJ', 'LD', _vow, _vow),
-                             (_all_repl, 'LOUGH', 'LOW'),
-                             (_start_repl, 'Q', 'KW'),
-                             (_start_repl, 'KN', 'N'),
-                             (_end_repl, 'GN', 'N'),
-                             (_all_repl, 'GHN', 'N'),
-                             (_end_repl, 'GNE', 'N'),
-                             (_all_repl, 'GHNE', 'NE'),
-                             (_end_repl, 'GNES', 'NS'),
-                             (_start_repl, 'GN', 'N'),
-                             (_mid_repl, 'GN', 'N', None, _con),
-                             (_end_repl, 'GN', 'N'),
-                             (_start_repl, 'PS', 'S'),
-                             (_start_repl, 'PT', 'T'),
-                             (_start_repl, 'CZ', 'C'),
-                             (_mid_repl, 'WZ', 'Z', _vow),
-                             (_mid_repl, 'CZ', 'CH'),
-                             (_all_repl, 'LZ', 'LSH'),
-                             (_all_repl, 'RZ', 'RSH'),
-                             (_mid_repl, 'Z', 'S', None, _vow),
-                             (_all_repl, 'ZZ', 'TS'),
-                             (_mid_repl, 'Z', 'TS', _con),
-                             (_all_repl, 'HROUG', 'REW'),
-                             (_all_repl, 'OUGH', 'OF'),
-                             (_mid_repl, 'Q', 'KW', _vow, _vow),
-                             (_mid_repl, 'J', 'Y', _vow, _vow),
-                             (_start_repl, 'YJ', 'Y', _vow),
-                             (_start_repl, 'GH', 'G'),
-                             (_end_repl, 'GH', 'E', _vow),
-                             (_start_repl, 'CY', 'S'),
-                             (_all_repl, 'NX', 'NKS'),
-                             (_start_repl, 'PF', 'F'),
-                             (_end_repl, 'DT', 'T'),
-                             (_end_repl, 'TL', 'TIL'),
-                             (_end_repl, 'DL', 'DIL'),
-                             (_all_repl, 'YTH', 'ITH'),
-                             (_start_repl, 'TJ', 'CH', _vow),
-                             (_start_repl, 'TSJ', 'CH', _vow),
-                             (_start_repl, 'TS', 'T', _vow),
-                             (_all_repl, 'TCH', 'CH'),
-                             (_mid_repl, 'WSK', 'VSKIE', _vow),
-                             (_end_repl, 'WSK', 'VSKIE', _vow),
-                             (_start_repl, 'MN', 'N', _vow),
-                             (_start_repl, 'PN', 'N', _vow),
-                             (_mid_repl, 'STL', 'SL', _vow),
-                             (_end_repl, 'STL', 'SL', _vow),
-                             (_end_repl, 'TNT', 'ENT'),
-                             (_end_repl, 'EAUX', 'OH'),
-                             (_all_repl, 'EXCI', 'ECS'),
-                             (_all_repl, 'X', 'ECS'),
-                             (_end_repl, 'NED', 'ND'),
-                             (_all_repl, 'JR', 'DR'),
-                             (_end_repl, 'EE', 'EA'),
-                             (_all_repl, 'ZS', 'S'),
-                             (_mid_repl, 'R', 'AH', _vow, _con),
-                             (_end_repl, 'R', 'AH', _vow),
-                             (_mid_repl, 'HR', 'AH', _vow, _con),
-                             (_end_repl, 'HR', 'AH', _vow),
-                             (_end_repl, 'HR', 'AH', _vow),
-                             (_end_repl, 'RE', 'AR'),
-                             (_end_repl, 'R', 'AH', _vow),
-                             (_all_repl, 'LLE', 'LE'),
-                             (_end_repl, 'LE', 'ILE', _con),
-                             (_end_repl, 'LES', 'ILES', _con),
-                             (_end_repl, 'E', ''),
-                             (_end_repl, 'ES', 'S'),
-                             (_end_repl, 'SS', 'AS', _vow),
-                             (_end_repl, 'MB', 'M', _vow),
-                             (_all_repl, 'MPTS', 'MPS'),
-                             (_all_repl, 'MPS', 'MS'),
-                             (_all_repl, 'MPT', 'MT'))
+    _phonix_substitutions = (
+        (_all_repl, 'DG', 'G'),
+        (_all_repl, 'CO', 'KO'),
+        (_all_repl, 'CA', 'KA'),
+        (_all_repl, 'CU', 'KU'),
+        (_all_repl, 'CY', 'SI'),
+        (_all_repl, 'CI', 'SI'),
+        (_all_repl, 'CE', 'SE'),
+        (_start_repl, 'CL', 'KL', _vow),
+        (_all_repl, 'CK', 'K'),
+        (_end_repl, 'GC', 'K'),
+        (_end_repl, 'JC', 'K'),
+        (_start_repl, 'CHR', 'KR', _vow),
+        (_start_repl, 'CR', 'KR', _vow),
+        (_start_repl, 'WR', 'R'),
+        (_all_repl, 'NC', 'NK'),
+        (_all_repl, 'CT', 'KT'),
+        (_all_repl, 'PH', 'F'),
+        (_all_repl, 'AA', 'AR'),
+        (_all_repl, 'SCH', 'SH'),
+        (_all_repl, 'BTL', 'TL'),
+        (_all_repl, 'GHT', 'T'),
+        (_all_repl, 'AUGH', 'ARF'),
+        (_mid_repl, 'LJ', 'LD', _vow, _vow),
+        (_all_repl, 'LOUGH', 'LOW'),
+        (_start_repl, 'Q', 'KW'),
+        (_start_repl, 'KN', 'N'),
+        (_end_repl, 'GN', 'N'),
+        (_all_repl, 'GHN', 'N'),
+        (_end_repl, 'GNE', 'N'),
+        (_all_repl, 'GHNE', 'NE'),
+        (_end_repl, 'GNES', 'NS'),
+        (_start_repl, 'GN', 'N'),
+        (_mid_repl, 'GN', 'N', None, _con),
+        (_end_repl, 'GN', 'N'),
+        (_start_repl, 'PS', 'S'),
+        (_start_repl, 'PT', 'T'),
+        (_start_repl, 'CZ', 'C'),
+        (_mid_repl, 'WZ', 'Z', _vow),
+        (_mid_repl, 'CZ', 'CH'),
+        (_all_repl, 'LZ', 'LSH'),
+        (_all_repl, 'RZ', 'RSH'),
+        (_mid_repl, 'Z', 'S', None, _vow),
+        (_all_repl, 'ZZ', 'TS'),
+        (_mid_repl, 'Z', 'TS', _con),
+        (_all_repl, 'HROUG', 'REW'),
+        (_all_repl, 'OUGH', 'OF'),
+        (_mid_repl, 'Q', 'KW', _vow, _vow),
+        (_mid_repl, 'J', 'Y', _vow, _vow),
+        (_start_repl, 'YJ', 'Y', _vow),
+        (_start_repl, 'GH', 'G'),
+        (_end_repl, 'GH', 'E', _vow),
+        (_start_repl, 'CY', 'S'),
+        (_all_repl, 'NX', 'NKS'),
+        (_start_repl, 'PF', 'F'),
+        (_end_repl, 'DT', 'T'),
+        (_end_repl, 'TL', 'TIL'),
+        (_end_repl, 'DL', 'DIL'),
+        (_all_repl, 'YTH', 'ITH'),
+        (_start_repl, 'TJ', 'CH', _vow),
+        (_start_repl, 'TSJ', 'CH', _vow),
+        (_start_repl, 'TS', 'T', _vow),
+        (_all_repl, 'TCH', 'CH'),
+        (_mid_repl, 'WSK', 'VSKIE', _vow),
+        (_end_repl, 'WSK', 'VSKIE', _vow),
+        (_start_repl, 'MN', 'N', _vow),
+        (_start_repl, 'PN', 'N', _vow),
+        (_mid_repl, 'STL', 'SL', _vow),
+        (_end_repl, 'STL', 'SL', _vow),
+        (_end_repl, 'TNT', 'ENT'),
+        (_end_repl, 'EAUX', 'OH'),
+        (_all_repl, 'EXCI', 'ECS'),
+        (_all_repl, 'X', 'ECS'),
+        (_end_repl, 'NED', 'ND'),
+        (_all_repl, 'JR', 'DR'),
+        (_end_repl, 'EE', 'EA'),
+        (_all_repl, 'ZS', 'S'),
+        (_mid_repl, 'R', 'AH', _vow, _con),
+        (_end_repl, 'R', 'AH', _vow),
+        (_mid_repl, 'HR', 'AH', _vow, _con),
+        (_end_repl, 'HR', 'AH', _vow),
+        (_end_repl, 'HR', 'AH', _vow),
+        (_end_repl, 'RE', 'AR'),
+        (_end_repl, 'R', 'AH', _vow),
+        (_all_repl, 'LLE', 'LE'),
+        (_end_repl, 'LE', 'ILE', _con),
+        (_end_repl, 'LES', 'ILES', _con),
+        (_end_repl, 'E', ''),
+        (_end_repl, 'ES', 'S'),
+        (_end_repl, 'SS', 'AS', _vow),
+        (_end_repl, 'MB', 'M', _vow),
+        (_all_repl, 'MPTS', 'MPS'),
+        (_all_repl, 'MPS', 'MS'),
+        (_all_repl, 'MPT', 'MT'),
+    )
 
-    _phonix_translation = dict(zip((ord(_) for _ in
-                                    'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-                                   '01230720022455012683070808'))
+    _phonix_translation = dict(
+        zip(
+            (ord(_) for _ in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            '01230720022455012683070808',
+        )
+    )
 
     sdx = ''
 
     word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
-    word = ''.join(c for c in word if c in
-                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-                    'Y', 'Z'})
+    word = ''.join(
+        c
+        for c in word
+        if c
+        in {
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J',
+            'K',
+            'L',
+            'M',
+            'N',
+            'O',
+            'P',
+            'Q',
+            'R',
+            'S',
+            'T',
+            'U',
+            'V',
+            'W',
+            'X',
+            'Y',
+            'Z',
+        }
+    )
     if word:
         for trans in _phonix_substitutions:
             word = trans[0](word, *trans[1:])
@@ -652,27 +793,66 @@ def lein(word, max_length=4, zero_pad=True):
     >>> lein('Schmidt')
     'S521'
     """
-    _lein_translation = dict(zip((ord(_) for _ in
-                                  'BCDFGJKLMNPQRSTVXZ'),
-                                 '451455532245351455'))
+    _lein_translation = dict(
+        zip((ord(_) for _ in 'BCDFGJKLMNPQRSTVXZ'), '451455532245351455')
+    )
 
     # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
-    word = ''.join(c for c in word if c in
-                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-                    'Y', 'Z'})
+    word = ''.join(
+        c
+        for c in word
+        if c
+        in {
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J',
+            'K',
+            'L',
+            'M',
+            'N',
+            'O',
+            'P',
+            'Q',
+            'R',
+            'S',
+            'T',
+            'U',
+            'V',
+            'W',
+            'X',
+            'Y',
+            'Z',
+        }
+    )
 
     code = word[:1]  # Rule 1
-    word = word[1:].translate({32: None, 65: None, 69: None, 72: None,
-                               73: None, 79: None, 85: None, 87: None,
-                               89: None})  # Rule 2
+    word = word[1:].translate(
+        {
+            32: None,
+            65: None,
+            69: None,
+            72: None,
+            73: None,
+            79: None,
+            85: None,
+            87: None,
+            89: None,
+        }
+    )  # Rule 2
     word = _delete_consecutive_repeats(word)  # Rule 3
     code += word.translate(_lein_translation)  # Rule 4
 
     if zero_pad:
-        code += ('0'*max_length)  # Rule 4
+        code += '0' * max_length  # Rule 4
 
     return code[:max_length]
 
@@ -707,10 +887,39 @@ def pshp_soundex_last(lname, max_length=4, german=False):
     """
     lname = unicode_normalize('NFKD', text_type(lname.upper()))
     lname = lname.replace('ß', 'SS')
-    lname = ''.join(c for c in lname if c in
-                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
-                     'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
-                     'W', 'X', 'Y', 'Z'})
+    lname = ''.join(
+        c
+        for c in lname
+        if c
+        in {
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J',
+            'K',
+            'L',
+            'M',
+            'N',
+            'O',
+            'P',
+            'Q',
+            'R',
+            'S',
+            'T',
+            'U',
+            'V',
+            'W',
+            'X',
+            'Y',
+            'Z',
+        }
+    )
 
     # A. Prefix treatment
     if lname[:3] == 'VON' or lname[:3] == 'VAN':
@@ -723,9 +932,9 @@ def pshp_soundex_last(lname, max_length=4, german=False):
     # this error(?).
     if not german:
         if lname[:3] == 'MAC':
-            lname = 'M'+lname[3:]
+            lname = 'M' + lname[3:]
         elif lname[:2] == 'MC':
-            lname = 'M'+lname[2:]
+            lname = 'M' + lname[2:]
 
     # The non-German-only rule to strip ' is unnecessary due to filtering
 
@@ -748,7 +957,7 @@ def pshp_soundex_last(lname, max_length=4, german=False):
         lname = 'V' + lname[1:]
 
     if german and lname[:1] in {'W', 'M', 'Y', 'Z'}:
-        lname = {'W': 'V', 'M': 'N', 'Y': 'J', 'Z': 'S'}[lname[0]]+lname[1:]
+        lname = {'W': 'V', 'M': 'N', 'Y': 'J', 'Z': 'S'}[lname[0]] + lname[1:]
 
     code = lname[:1]
 
@@ -778,8 +987,12 @@ def pshp_soundex_last(lname, max_length=4, german=False):
 
     if not german:
         l5_repl = {'STOWN': 'SAWON', 'MPSON': 'MASON'}
-        l4_repl = {'NSEN': 'ASEN', 'MSON': 'ASON', 'STEN': 'SAEN',
-                   'STON': 'SAON'}
+        l4_repl = {
+            'NSEN': 'ASEN',
+            'MSON': 'ASON',
+            'STEN': 'SAEN',
+            'STON': 'SAON',
+        }
         if lname[-5:] in l5_repl:
             lname = lname[:-5] + l5_repl[lname[-5:]]
         elif lname[-4:] in l4_repl:
@@ -788,7 +1001,7 @@ def pshp_soundex_last(lname, max_length=4, german=False):
     if lname[-2:] in {'NG', 'ND'}:
         lname = lname[:-1]
     if not german and lname[-3:] in {'GAN', 'GEN'}:
-        lname = lname[:-3]+'A'+lname[-2:]
+        lname = lname[:-3] + 'A' + lname[-2:]
 
     # C. Infix Treatment
     lname = lname.replace('CK', 'C')
@@ -803,9 +1016,12 @@ def pshp_soundex_last(lname, max_length=4, german=False):
 
     # D. Soundexing
     # code for X & Y are unspecified, but presumably are 2 & 0
-    _pshp_translation = dict(zip((ord(_) for _ in
-                                  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-                                 '01230120022455012523010202'))
+    _pshp_translation = dict(
+        zip(
+            (ord(_) for _ in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            '01230120022455012523010202',
+        )
+    )
 
     lname = lname.translate(_pshp_translation)
     lname = _delete_consecutive_repeats(lname)
@@ -815,7 +1031,7 @@ def pshp_soundex_last(lname, max_length=4, german=False):
 
     if max_length != -1:
         if len(code) < max_length:
-            code += '0' * (max_length-len(code))
+            code += '0' * (max_length - len(code))
         else:
             code = code[:max_length]
 
@@ -862,10 +1078,39 @@ def pshp_soundex_first(fname, max_length=4, german=False):
     """
     fname = unicode_normalize('NFKD', text_type(fname.upper()))
     fname = fname.replace('ß', 'SS')
-    fname = ''.join(c for c in fname if c in
-                    {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
-                     'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
-                     'W', 'X', 'Y', 'Z'})
+    fname = ''.join(
+        c
+        for c in fname
+        if c
+        in {
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J',
+            'K',
+            'L',
+            'M',
+            'N',
+            'O',
+            'P',
+            'Q',
+            'R',
+            'S',
+            'T',
+            'U',
+            'V',
+            'W',
+            'X',
+            'Y',
+            'Z',
+        }
+    )
 
     # special rules
     if fname == 'JAMES':
@@ -892,31 +1137,35 @@ def pshp_soundex_first(fname, max_length=4, german=False):
             fname = 'V' + fname[1:]
 
         if german and fname[:1] in {'W', 'M', 'Y', 'Z'}:
-            fname = ({'W': 'V', 'M': 'N', 'Y': 'J', 'Z': 'S'}[fname[0]] +
-                     fname[1:])
+            fname = {'W': 'V', 'M': 'N', 'Y': 'J', 'Z': 'S'}[fname[0]] + fname[
+                1:
+            ]
 
         code = fname[:1]
 
         # B. Soundex coding
         # code for Y unspecified, but presumably is 0
-        _pshp_translation = dict(zip((ord(_) for _ in
-                                      'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-                                     '01230120022455012523010202'))
+        _pshp_translation = dict(
+            zip(
+                (ord(_) for _ in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+                '01230120022455012523010202',
+            )
+        )
 
         fname = fname.translate(_pshp_translation)
         fname = _delete_consecutive_repeats(fname)
 
         code += fname[1:]
         syl_ptr = code.find('0')
-        syl2_ptr = code[syl_ptr + 1:].find('0')
+        syl2_ptr = code[syl_ptr + 1 :].find('0')
         if syl_ptr != -1 and syl2_ptr != -1 and syl2_ptr - syl_ptr > -1:
-            code = code[:syl_ptr + 2]
+            code = code[: syl_ptr + 2]
 
         code = code.replace('0', '')  # rule 1
 
     if max_length != -1:
         if len(code) < max_length:
-            code += '0' * (max_length-len(code))
+            code += '0' * (max_length - len(code))
         else:
             code = code[:max_length]
 
@@ -925,4 +1174,5 @@ def pshp_soundex_first(fname, max_length=4, german=False):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

@@ -62,8 +62,9 @@ class RLETestCases(unittest.TestCase):
         self.assertEqual(decode(encode('banana')), 'banana')
         self.assertEqual(decode(encode(self.bws, False), False), self.bws)
         self.assertEqual(decode(encode(self.bws)), self.bws)
-        self.assertEqual(decode(encode('Schifffahrt', False), False),
-                         'Schifffahrt')
+        self.assertEqual(
+            decode(encode('Schifffahrt', False), False), 'Schifffahrt'
+        )
         self.assertEqual(decode(encode('Schifffahrt')), 'Schifffahrt')
 
 

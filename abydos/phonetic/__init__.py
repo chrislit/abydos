@@ -65,10 +65,33 @@ from __future__ import unicode_literals
 
 from itertools import groupby
 
-__all__ = ['alpha_sis', 'bmpm', 'caverphone', 'davidson', 'de', 'dm', 'dolby',
-           'es', 'eudex', 'fr', 'hybrid', 'metaphone', 'mra', 'nrl', 'nysiis',
-           'parmar_kumbharana', 'phonet', 'pt', 'roger_root', 'russell',
-           'sound_d', 'soundex', 'spfc', 'statistics_canada', 'sv']
+__all__ = [
+    'alpha_sis',
+    'bmpm',
+    'caverphone',
+    'davidson',
+    'de',
+    'dm',
+    'dolby',
+    'es',
+    'eudex',
+    'fr',
+    'hybrid',
+    'metaphone',
+    'mra',
+    'nrl',
+    'nysiis',
+    'parmar_kumbharana',
+    'phonet',
+    'pt',
+    'roger_root',
+    'russell',
+    'sound_d',
+    'soundex',
+    'spfc',
+    'statistics_canada',
+    'sv',
+]
 
 
 def _delete_consecutive_repeats(word):
@@ -91,4 +114,5 @@ def _delete_consecutive_repeats(word):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

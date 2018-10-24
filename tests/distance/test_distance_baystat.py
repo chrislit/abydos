@@ -43,12 +43,13 @@ class BaystatTestCases(unittest.TestCase):
 
         # Examples given in the paper
         # https://www.statistik.bayern.de/medien/statistik/zensus/zusammenf__hrung_von_datenbest__nden_ohne_numerische_identifikatoren.pdf
-        self.assertAlmostEqual(sim_baystat('DRAKOMENA', 'DRAOMINA'), 7/9)
-        self.assertAlmostEqual(sim_baystat('RIEKI', 'RILKI'), 4/5)
-        self.assertAlmostEqual(sim_baystat('ATANASSIONI', 'ATANASIOU'), 8/11)
-        self.assertAlmostEqual(sim_baystat('LIESKOVSKY', 'LIESZKOVSZKY'),
-                               10/12)
-        self.assertAlmostEqual(sim_baystat('JEANETTE', 'JEANNETTE'), 8/9)
+        self.assertAlmostEqual(sim_baystat('DRAKOMENA', 'DRAOMINA'), 7 / 9)
+        self.assertAlmostEqual(sim_baystat('RIEKI', 'RILKI'), 4 / 5)
+        self.assertAlmostEqual(sim_baystat('ATANASSIONI', 'ATANASIOU'), 8 / 11)
+        self.assertAlmostEqual(
+            sim_baystat('LIESKOVSKY', 'LIESZKOVSZKY'), 10 / 12
+        )
+        self.assertAlmostEqual(sim_baystat('JEANETTE', 'JEANNETTE'), 8 / 9)
         self.assertAlmostEqual(sim_baystat('JOHANNES', 'JOHAN'), 0.625)
         self.assertAlmostEqual(sim_baystat('JOHANNES', 'HANS'), 0.375)
         self.assertAlmostEqual(sim_baystat('JOHANNES', 'HANNES'), 0.75)
@@ -57,8 +58,9 @@ class BaystatTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_baystat('ZIMMERMANN', 'ZIMMER'), 0.6)
 
         # Tests to maximize coverage
-        self.assertAlmostEqual(sim_baystat('ZIMMERMANN', 'SEMMERMANN',
-                                           2, 2, 2), 0.8)
+        self.assertAlmostEqual(
+            sim_baystat('ZIMMERMANN', 'SEMMERMANN', 2, 2, 2), 0.8
+        )
         self.assertAlmostEqual(sim_baystat('ZIMMER', 'ZIMMERMANN'), 0.6)
 
     def test_dist_baystat(self):
@@ -70,12 +72,15 @@ class BaystatTestCases(unittest.TestCase):
 
         # Examples given in the paper
         # https://www.statistik.bayern.de/medien/statistik/zensus/zusammenf__hrung_von_datenbest__nden_ohne_numerische_identifikatoren.pdf
-        self.assertAlmostEqual(dist_baystat('DRAKOMENA', 'DRAOMINA'), 2/9)
-        self.assertAlmostEqual(dist_baystat('RIEKI', 'RILKI'), 1/5)
-        self.assertAlmostEqual(dist_baystat('ATANASSIONI', 'ATANASIOU'), 3/11)
-        self.assertAlmostEqual(dist_baystat('LIESKOVSKY', 'LIESZKOVSZKY'),
-                               2/12)
-        self.assertAlmostEqual(dist_baystat('JEANETTE', 'JEANNETTE'), 1/9)
+        self.assertAlmostEqual(dist_baystat('DRAKOMENA', 'DRAOMINA'), 2 / 9)
+        self.assertAlmostEqual(dist_baystat('RIEKI', 'RILKI'), 1 / 5)
+        self.assertAlmostEqual(
+            dist_baystat('ATANASSIONI', 'ATANASIOU'), 3 / 11
+        )
+        self.assertAlmostEqual(
+            dist_baystat('LIESKOVSKY', 'LIESZKOVSZKY'), 2 / 12
+        )
+        self.assertAlmostEqual(dist_baystat('JEANETTE', 'JEANNETTE'), 1 / 9)
         self.assertAlmostEqual(dist_baystat('JOHANNES', 'JOHAN'), 0.375)
         self.assertAlmostEqual(dist_baystat('JOHANNES', 'HANS'), 0.625)
         self.assertAlmostEqual(dist_baystat('JOHANNES', 'HANNES'), 0.25)

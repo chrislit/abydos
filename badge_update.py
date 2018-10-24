@@ -25,8 +25,14 @@ This updates the Pylint, pycodestyle, & flake8 badges in README.rst.
 import os.path
 import re
 
-BADGE_COLORS = ('brightgreen', 'green', 'yellowgreen', 'yellow',
-                'orange', 'red')
+BADGE_COLORS = (
+    'brightgreen',
+    'green',
+    'yellowgreen',
+    'yellow',
+    'orange',
+    'red',
+)
 
 
 def pylint_color(score):
@@ -72,9 +78,14 @@ if __name__ == '__main__':
     if not os.path.isfile('./pylint.log'):
         exit('Please direct Pylint output to pylint.log')
     pylint_text = open('pylint.log', 'r', encoding='utf-8').read()
-    pylint_score = max(float(re.search('Your code has been rated at' +
-                                       r' (-?[0-9\.]+)',
-                                       pylint_text).group(1)), 0.0)
+    pylint_score = max(
+        float(
+            re.search(
+                'Your code has been rated at' + r' (-?[0-9\.]+)', pylint_text
+            ).group(1)
+        ),
+        0.0,
+    )
 
     # if not os.path.isfile('./pycodestyle.log'):
     #     exit('Please direct pycodestyle output to pycodestyle.log')
@@ -84,16 +95,19 @@ if __name__ == '__main__':
 
     if not os.path.isfile('./flake8.log'):
         exit('Please direct flake8 output to flake8.log')
-    flake8_score = int(open('flake8.log', 'r', encoding='utf-8').read()
-                       .split()[-1])
+    flake8_score = int(
+        open('flake8.log', 'r', encoding='utf-8').read().split()[-1]
+    )
 
     readme_text = open('README.rst', 'r', encoding='utf-8').read()
 
     prefix = 'https://img.shields.io/badge/Pylint-'
-    readme_text = re.sub(prefix + r'(-?[0-9\.]+/10-[a-z]+)',
-                         prefix + str(pylint_score) + '/10-' +
-                         pylint_color(pylint_score),
-                         readme_text, 1)
+    readme_text = re.sub(
+        prefix + r'(-?[0-9\.]+/10-[a-z]+)',
+        prefix + str(pylint_score) + '/10-' + pylint_color(pylint_score),
+        readme_text,
+        1,
+    )
 
     # prefix = 'https://img.shields.io/badge/pycodestyle-'
     # readme_text = re.sub(prefix + r'([0-9\.]+-[a-z]+)',
@@ -102,10 +116,12 @@ if __name__ == '__main__':
     #                      readme_text, 1)
 
     prefix = 'https://img.shields.io/badge/flake8-'
-    readme_text = re.sub(prefix + r'([0-9\.]+-[a-z]+)',
-                         prefix + str(flake8_score) + '-' +
-                         flake8_color(flake8_score),
-                         readme_text, 1)
+    readme_text = re.sub(
+        prefix + r'([0-9\.]+-[a-z]+)',
+        prefix + str(flake8_score) + '-' + flake8_color(flake8_score),
+        readme_text,
+        1,
+    )
 
     with open('README.rst', 'w', encoding='utf-8') as f:
         f.write(readme_text)

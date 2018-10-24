@@ -56,10 +56,27 @@ from six.moves import range
 
 from ..util import prod
 
-__all__ = ['aghmean', 'agmean', 'amean', 'cmean', 'ghmean', 'gmean',
-           'heronian_mean', 'hmean', 'hoelder_mean', 'imean', 'lehmer_mean',
-           'lmean', 'median', 'midrange', 'mode', 'qmean', 'seiffert_mean',
-           'std', 'var']
+__all__ = [
+    'aghmean',
+    'agmean',
+    'amean',
+    'cmean',
+    'ghmean',
+    'gmean',
+    'heronian_mean',
+    'hmean',
+    'hoelder_mean',
+    'imean',
+    'lehmer_mean',
+    'lmean',
+    'median',
+    'midrange',
+    'mode',
+    'qmean',
+    'seiffert_mean',
+    'std',
+    'var',
+]
 
 
 def amean(nums):
@@ -81,7 +98,7 @@ def amean(nums):
     >>> amean([0, 5, 1000])
     335.0
     """
-    return sum(nums)/len(nums)
+    return sum(nums) / len(nums)
 
 
 def gmean(nums):
@@ -103,7 +120,7 @@ def gmean(nums):
     >>> gmean([0, 5, 1000])
     0.0
     """
-    return prod(nums)**(1/len(nums))
+    return prod(nums) ** (1 / len(nums))
 
 
 def hmean(nums):
@@ -144,7 +161,7 @@ def hmean(nums):
         if nums.count(0) > 1:
             return float('nan')
         return 0
-    return len(nums)/sum(1/i for i in nums)
+    return len(nums) / sum(1 / i for i in nums)
 
 
 def qmean(nums):
@@ -166,7 +183,7 @@ def qmean(nums):
     >>> qmean([0, 5, 1000])
     577.3574860228857
     """
-    return (sum(i**2 for i in nums)/len(nums))**0.5
+    return (sum(i ** 2 for i in nums) / len(nums)) ** 0.5
 
 
 def cmean(nums):
@@ -188,7 +205,7 @@ def cmean(nums):
     >>> cmean([0, 5, 1000])
     995.0497512437811
     """
-    return sum(x**2 for x in nums)/sum(nums)
+    return sum(x ** 2 for x in nums) / sum(nums)
 
 
 def lmean(nums):
@@ -220,9 +237,9 @@ def lmean(nums):
         rolling_prod = 1
         for j in range(len(nums)):
             if i != j:
-                rolling_prod *= (math.log(nums[i]/nums[j]))
-        rolling_sum += nums[i]/rolling_prod
-    return math.factorial(len(nums)-1) * rolling_sum
+                rolling_prod *= math.log(nums[i] / nums[j])
+        rolling_sum += nums[i] / rolling_prod
+    return math.factorial(len(nums) - 1) * rolling_sum
 
 
 def imean(nums):
@@ -253,8 +270,9 @@ def imean(nums):
         return float('NaN')
     elif nums[0] == nums[1]:
         return nums[0]
-    return ((1/math.e) *
-            (nums[0]**nums[0]/nums[1]**nums[1])**(1/(nums[0]-nums[1])))
+    return (1 / math.e) * (nums[0] ** nums[0] / nums[1] ** nums[1]) ** (
+        1 / (nums[0] - nums[1])
+    )
 
 
 def seiffert_mean(nums):
@@ -282,9 +300,11 @@ def seiffert_mean(nums):
         return nums[0]
     if len(nums) > 2:
         raise AttributeError('seiffert_mean supports no more than two values')
-    if nums[0]+nums[1] == 0 or nums[0]-nums[1] == 0:
+    if nums[0] + nums[1] == 0 or nums[0] - nums[1] == 0:
         return float('NaN')
-    return (nums[0]-nums[1])/(2*math.asin((nums[0]-nums[1])/(nums[0]+nums[1])))
+    return (nums[0] - nums[1]) / (
+        2 * math.asin((nums[0] - nums[1]) / (nums[0] + nums[1]))
+    )
 
 
 def lehmer_mean(nums, exp=2):
@@ -307,7 +327,7 @@ def lehmer_mean(nums, exp=2):
     >>> lehmer_mean([0, 5, 1000])
     995.0497512437811
     """
-    return sum(x**exp for x in nums)/sum(x**(exp-1) for x in nums)
+    return sum(x ** exp for x in nums) / sum(x ** (exp - 1) for x in nums)
 
 
 def heronian_mean(nums):
@@ -338,8 +358,8 @@ def heronian_mean(nums):
             if nums[i] == nums[j]:
                 rolling_sum += nums[i]
             else:
-                rolling_sum += (nums[i]*nums[j])**0.5
-    return rolling_sum * 2 / (mag*(mag+1))
+                rolling_sum += (nums[i] * nums[j]) ** 0.5
+    return rolling_sum * 2 / (mag * (mag + 1))
 
 
 def hoelder_mean(nums, exp=2):
@@ -365,7 +385,7 @@ def hoelder_mean(nums, exp=2):
     """
     if exp == 0:
         return gmean(nums)
-    return ((1/len(nums)) * sum(i**exp for i in nums))**(1/exp)
+    return ((1 / len(nums)) * sum(i ** exp for i in nums)) ** (1 / exp)
 
 
 def agmean(nums):
@@ -392,7 +412,7 @@ def agmean(nums):
     if math.isnan(m_a) or math.isnan(m_g):
         return float('nan')
     while round(m_a, 12) != round(m_g, 12):
-        m_a, m_g = (m_a+m_g)/2, (m_a*m_g)**(1/2)
+        m_a, m_g = (m_a + m_g) / 2, (m_a * m_g) ** (1 / 2)
     return m_a
 
 
@@ -425,7 +445,7 @@ def ghmean(nums):
     if math.isnan(m_g) or math.isnan(m_h):
         return float('nan')
     while round(m_h, 12) != round(m_g, 12):
-        m_g, m_h = (m_g*m_h)**(1/2), (2*m_g*m_h)/(m_g+m_h)
+        m_g, m_h = (m_g * m_h) ** (1 / 2), (2 * m_g * m_h) / (m_g + m_h)
     return m_g
 
 
@@ -453,11 +473,14 @@ def aghmean(nums):
     m_h = hmean(nums)
     if math.isnan(m_a) or math.isnan(m_g) or math.isnan(m_h):
         return float('nan')
-    while (round(m_a, 12) != round(m_g, 12) and
-           round(m_g, 12) != round(m_h, 12)):
-        m_a, m_g, m_h = ((m_a+m_g+m_h)/3,
-                         (m_a*m_g*m_h)**(1/3),
-                         3/(1/m_a+1/m_g+1/m_h))
+    while round(m_a, 12) != round(m_g, 12) and round(m_g, 12) != round(
+        m_h, 12
+    ):
+        m_a, m_g, m_h = (
+            (m_a + m_g + m_h) / 3,
+            (m_a * m_g * m_h) ** (1 / 3),
+            3 / (1 / m_a + 1 / m_g + 1 / m_h),
+        )
     return m_a
 
 
@@ -479,7 +502,7 @@ def midrange(nums):
     >>> midrange([1, 2, 1000, 3])
     500.5
     """
-    return 0.5*(max(nums)+min(nums))
+    return 0.5 * (max(nums) + min(nums))
 
 
 def median(nums):
@@ -505,10 +528,10 @@ def median(nums):
     nums = sorted(nums)
     mag = len(nums)
     if mag % 2:
-        mag = int((mag-1)/2)
+        mag = int((mag - 1) / 2)
         return nums[mag]
-    mag = int(mag/2)
-    med = (nums[mag-1]+nums[mag])/2
+    mag = int(mag / 2)
+    med = (nums[mag - 1] + nums[mag]) / 2
     return med if not med.is_integer() else int(med)
 
 
@@ -566,9 +589,10 @@ def std(nums, mean_func=amean, ddof=0):
     >>> round(std([1, 2, 3, 4], ddof=1), 12)
     1.290994448736
     """
-    return var(nums, mean_func, ddof)**0.5
+    return var(nums, mean_func, ddof) ** 0.5
 
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

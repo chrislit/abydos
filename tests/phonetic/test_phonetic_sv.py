@@ -51,8 +51,7 @@ class SfinxBisTestCases(unittest.TestCase):
         self.assertEqual(sfinxbis('de Los Santos'), ('S538',))
         self.assertEqual(sfinxbis('del Rosario'), ('R862',))
         self.assertEqual(sfinxbis('Den Boer'), ('B6',))
-        self.assertEqual(sfinxbis('Der de Kazinczy'),
-                         ('D6', 'K8528',))  # wrong
+        self.assertEqual(sfinxbis('Der de Kazinczy'), ('D6', 'K8528'))  # wrong
         self.assertEqual(sfinxbis('des Rieux'), ('R28',))
         self.assertEqual(sfinxbis('Di Luca'), ('L2',))
         self.assertEqual(sfinxbis('Do Rosario'), ('R862',))
@@ -91,21 +90,25 @@ class SfinxBisTestCases(unittest.TestCase):
         self.assertEqual(sfinxbis('de Oliveira e Silva'), ('$4726', 'S47'))
         self.assertEqual(sfinxbis('de Alfaro y Gómez'), ('$476', 'G58'))
         self.assertEqual(sfinxbis('Arjaliès-de la Lande'), ('$6248', 'L53'))
-        self.assertEqual(sfinxbis('Dominicus van den Bussche'),
-                         ('D5528', 'B8'))
-        self.assertEqual(sfinxbis('Edebol Eeg-Olofsson'),
-                         ('$314', '$2', '$4785'))
+        self.assertEqual(
+            sfinxbis('Dominicus van den Bussche'), ('D5528', 'B8')
+        )
+        self.assertEqual(
+            sfinxbis('Edebol Eeg-Olofsson'), ('$314', '$2', '$4785')
+        )
         self.assertEqual(sfinxbis('Jonsson-Blomqvist'), ('J585', 'B452783'))
         self.assertEqual(sfinxbis('Kiviniemi Birgersson'), ('#755', 'B62685'))
-        self.assertEqual(sfinxbis('Massena Serpa dos Santos'),
-                         ('M85', 'S61', 'S538'))
+        self.assertEqual(
+            sfinxbis('Massena Serpa dos Santos'), ('M85', 'S61', 'S538')
+        )
         self.assertEqual(sfinxbis('S:t Clair Renard'), ('K426', 'R563'))
         self.assertEqual(sfinxbis('Skoog H Andersson'), ('S22', 'H', '$53685'))
         self.assertEqual(sfinxbis('von Post-Skagegård'), ('P83', 'S22263'))
         self.assertEqual(sfinxbis('von Zur-Mühlen'), ('S6', 'M45'))
         self.assertEqual(sfinxbis('Waltå O:son'), ('V43', '$85'))
-        self.assertEqual(sfinxbis('Zardán Gómez de la Torre'),
-                         ('S635', 'G58', 'T6'))
+        self.assertEqual(
+            sfinxbis('Zardán Gómez de la Torre'), ('S635', 'G58', 'T6')
+        )
         self.assertEqual(sfinxbis('af Jochnick'), ('J252',))
         self.assertEqual(sfinxbis('af Ioscnick'), ('J8252',))
         self.assertEqual(sfinxbis('Aabakken'), ('$125',))
@@ -304,53 +307,285 @@ class NorphoneTestCases(unittest.TestCase):
         # https://www.reddit.com/r/norge/comments/vksb5/norphone_mitt_forslag_til_en_norsk_soundex_vel/
         # modified, where necessary to match the "not implemented" rules
         # and rule added after the Reddit post
-        reddit_tests = (('MKLSN', ('MICHALSEN', 'MIKKELSEN', 'MIKALSEN',
-                                   'MICHAELSEN', 'MIKAELSEN', 'MICKAELSEN',
-                                   'MICHELSEN', 'MIKELSEN')),
-                        ('BRKR', ('BERGER', 'BORGERUD', 'BURGER', 'BORGER',
-                                  'BORGAR', 'BIRGER', 'BRAGER', 'BERGERUD')),
-                        ('TMS', ('TOMMAS', 'THOMAS', 'THAMS', 'TOUMAS',
-                                 'THOMMAS', 'TIMMS', 'TOMAS', 'TUOMAS')),
-                        ('HLR', ('HOLER', 'HELLERUD', 'HALLRE', 'HOLLERUD',
-                                 'HILLER', 'HALLERUD', 'HOLLER', 'HALLER')),
-                        ('MS', ('MASS', 'MMS', 'MSS', 'MOES', 'MEZZO', 'MESA',
-                                'MESSE', 'MOSS')),
-                        ('HRST', ('HIRSTI', 'HAARSETH', 'HAARSTAD', 'HARSTAD',
-                                  'HARESTUA', 'HERSETH', 'HERSTAD',
-                                  'HERSTUA')),
-                        ('SVN', ('SWANN', 'SVENI', 'SWAN', 'SVEN', 'SVEIN',
-                                 'SVEEN', 'SVENN', 'SVANE')),
-                        ('SLT', ('SELTE', 'SALT', 'SALTE', 'SLOTT', 'SLAATTO',
-                                 'SLETT', 'SLETTA', 'SLETTE')),
-                        ('JNSN', ('JANSSEN', 'JANSEN', 'JENSEN', 'JONASSEN',
-                                  'JANSON', 'JONSON', 'JENSSEN', 'JONSSON')),
-                        ('ANRSN', ('ANDRESSEN', 'ANDERSSON', 'ANDRESEN',
-                                   'ANDREASSEN', 'ANDERSEN', 'ANDERSON',
-                                   'ANDORSEN', 'ANDERSSEN')),
-                        ('BRK', ('BREKKE', 'BORCH', 'BRAKKE', 'BORK', 'BRECKE',
-                                 'BROCH', 'BRICK', 'BRUK')),
-                        ('LN', ('LINDE', 'LENDE', 'LUND', 'LAND', 'LINDA',
-                                'LANDE', 'LIND', 'LUNDE')),
-                        ('SF', ('SOPHIE', 'SFE', 'SEFF', 'SEAFOOD', 'SOFIE',
-                                'SAFE', 'SOFI', 'SOPHIA')),
-                        ('BRST', ('BRUASET', 'BUERSTAD', 'BARSTAD', 'BAARSTAD',
-                                  'BRUSETH', 'BERSTAD', 'BORSTAD', 'BRUSTAD')),
-                        ('OLSN', ('OHLSSON', 'OLESEN', 'OLSSON', 'OLAUSSON',
-                                  'OLAUSEN', 'OLAUSSEN', 'OLSEN', 'OLSON')),
-                        ('MKL', ('MIKAEL', 'MICHELA', 'MEIKLE', 'MIKAL',
-                                 'MIKKEL', 'MICHEL', 'MICHAL', 'MICHAEL')),
-                        ('HR', ('HEIER', 'HAR', 'HEER', 'HARRY', 'HEIR',
-                                'HURRE', 'HERO', 'HUURRE')),
-                        ('VLM', ('VILLUM', 'WOLLUM', 'WILLIAM', 'WILLAM',
-                                 'WALLEM', 'WILLUM', 'VALUM', 'WILMO')),
-                        ('SNS', ('SYNNES', 'SINUS', 'SNUS', 'SNEIS', 'SANNES',
-                                 'SUNAAS', 'SUNNAAS', 'SAINES')),
-                        ('SNL', ('SANDAL', 'SANDAHL', 'SUNDEL', 'SANDLI',
-                                 'SUNNDAL', 'SANDELL', 'SANDLIE', 'SUNDAL')),
-                        ('VK', ('VEKA', 'VIKA', 'WIIK', 'WOK', 'WIKE', 'WEEK',
-                                'VIK', 'VIAK')),
-                        ('MTS', ('METSO', 'MOTHES', 'MATHIAS', 'MATHIS',
-                                 'MATTIS', 'MYTHES', 'METOS', 'MATS')))
+        reddit_tests = (
+            (
+                'MKLSN',
+                (
+                    'MICHALSEN',
+                    'MIKKELSEN',
+                    'MIKALSEN',
+                    'MICHAELSEN',
+                    'MIKAELSEN',
+                    'MICKAELSEN',
+                    'MICHELSEN',
+                    'MIKELSEN',
+                ),
+            ),
+            (
+                'BRKR',
+                (
+                    'BERGER',
+                    'BORGERUD',
+                    'BURGER',
+                    'BORGER',
+                    'BORGAR',
+                    'BIRGER',
+                    'BRAGER',
+                    'BERGERUD',
+                ),
+            ),
+            (
+                'TMS',
+                (
+                    'TOMMAS',
+                    'THOMAS',
+                    'THAMS',
+                    'TOUMAS',
+                    'THOMMAS',
+                    'TIMMS',
+                    'TOMAS',
+                    'TUOMAS',
+                ),
+            ),
+            (
+                'HLR',
+                (
+                    'HOLER',
+                    'HELLERUD',
+                    'HALLRE',
+                    'HOLLERUD',
+                    'HILLER',
+                    'HALLERUD',
+                    'HOLLER',
+                    'HALLER',
+                ),
+            ),
+            (
+                'MS',
+                (
+                    'MASS',
+                    'MMS',
+                    'MSS',
+                    'MOES',
+                    'MEZZO',
+                    'MESA',
+                    'MESSE',
+                    'MOSS',
+                ),
+            ),
+            (
+                'HRST',
+                (
+                    'HIRSTI',
+                    'HAARSETH',
+                    'HAARSTAD',
+                    'HARSTAD',
+                    'HARESTUA',
+                    'HERSETH',
+                    'HERSTAD',
+                    'HERSTUA',
+                ),
+            ),
+            (
+                'SVN',
+                (
+                    'SWANN',
+                    'SVENI',
+                    'SWAN',
+                    'SVEN',
+                    'SVEIN',
+                    'SVEEN',
+                    'SVENN',
+                    'SVANE',
+                ),
+            ),
+            (
+                'SLT',
+                (
+                    'SELTE',
+                    'SALT',
+                    'SALTE',
+                    'SLOTT',
+                    'SLAATTO',
+                    'SLETT',
+                    'SLETTA',
+                    'SLETTE',
+                ),
+            ),
+            (
+                'JNSN',
+                (
+                    'JANSSEN',
+                    'JANSEN',
+                    'JENSEN',
+                    'JONASSEN',
+                    'JANSON',
+                    'JONSON',
+                    'JENSSEN',
+                    'JONSSON',
+                ),
+            ),
+            (
+                'ANRSN',
+                (
+                    'ANDRESSEN',
+                    'ANDERSSON',
+                    'ANDRESEN',
+                    'ANDREASSEN',
+                    'ANDERSEN',
+                    'ANDERSON',
+                    'ANDORSEN',
+                    'ANDERSSEN',
+                ),
+            ),
+            (
+                'BRK',
+                (
+                    'BREKKE',
+                    'BORCH',
+                    'BRAKKE',
+                    'BORK',
+                    'BRECKE',
+                    'BROCH',
+                    'BRICK',
+                    'BRUK',
+                ),
+            ),
+            (
+                'LN',
+                (
+                    'LINDE',
+                    'LENDE',
+                    'LUND',
+                    'LAND',
+                    'LINDA',
+                    'LANDE',
+                    'LIND',
+                    'LUNDE',
+                ),
+            ),
+            (
+                'SF',
+                (
+                    'SOPHIE',
+                    'SFE',
+                    'SEFF',
+                    'SEAFOOD',
+                    'SOFIE',
+                    'SAFE',
+                    'SOFI',
+                    'SOPHIA',
+                ),
+            ),
+            (
+                'BRST',
+                (
+                    'BRUASET',
+                    'BUERSTAD',
+                    'BARSTAD',
+                    'BAARSTAD',
+                    'BRUSETH',
+                    'BERSTAD',
+                    'BORSTAD',
+                    'BRUSTAD',
+                ),
+            ),
+            (
+                'OLSN',
+                (
+                    'OHLSSON',
+                    'OLESEN',
+                    'OLSSON',
+                    'OLAUSSON',
+                    'OLAUSEN',
+                    'OLAUSSEN',
+                    'OLSEN',
+                    'OLSON',
+                ),
+            ),
+            (
+                'MKL',
+                (
+                    'MIKAEL',
+                    'MICHELA',
+                    'MEIKLE',
+                    'MIKAL',
+                    'MIKKEL',
+                    'MICHEL',
+                    'MICHAL',
+                    'MICHAEL',
+                ),
+            ),
+            (
+                'HR',
+                (
+                    'HEIER',
+                    'HAR',
+                    'HEER',
+                    'HARRY',
+                    'HEIR',
+                    'HURRE',
+                    'HERO',
+                    'HUURRE',
+                ),
+            ),
+            (
+                'VLM',
+                (
+                    'VILLUM',
+                    'WOLLUM',
+                    'WILLIAM',
+                    'WILLAM',
+                    'WALLEM',
+                    'WILLUM',
+                    'VALUM',
+                    'WILMO',
+                ),
+            ),
+            (
+                'SNS',
+                (
+                    'SYNNES',
+                    'SINUS',
+                    'SNUS',
+                    'SNEIS',
+                    'SANNES',
+                    'SUNAAS',
+                    'SUNNAAS',
+                    'SAINES',
+                ),
+            ),
+            (
+                'SNL',
+                (
+                    'SANDAL',
+                    'SANDAHL',
+                    'SUNDEL',
+                    'SANDLI',
+                    'SUNNDAL',
+                    'SANDELL',
+                    'SANDLIE',
+                    'SUNDAL',
+                ),
+            ),
+            (
+                'VK',
+                ('VEKA', 'VIKA', 'WIIK', 'WOK', 'WIKE', 'WEEK', 'VIK', 'VIAK'),
+            ),
+            (
+                'MTS',
+                (
+                    'METSO',
+                    'MOTHES',
+                    'MATHIAS',
+                    'MATHIS',
+                    'MATTIS',
+                    'MYTHES',
+                    'METOS',
+                    'MATS',
+                ),
+            ),
+        )
         for encoded, names in reddit_tests:
             for name in names:
                 self.assertEqual(encoded, norphone(name))

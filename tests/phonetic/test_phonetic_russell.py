@@ -26,8 +26,11 @@ from __future__ import unicode_literals
 import math
 import unittest
 
-from abydos.phonetic.russell import russell_index, russell_index_alpha, \
-    russell_index_num_to_alpha
+from abydos.phonetic.russell import (
+    russell_index,
+    russell_index_alpha,
+    russell_index_num_to_alpha,
+)
 
 
 class RussellIndexTestCases(unittest.TestCase):

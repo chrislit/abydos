@@ -25,9 +25,14 @@ from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.de import haase_phonetik, koelner_phonetik, \
-    koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, phonem, \
-    reth_schek_phonetik
+from abydos.phonetic.de import (
+    haase_phonetik,
+    koelner_phonetik,
+    koelner_phonetik_alpha,
+    koelner_phonetik_num_to_alpha,
+    phonem,
+    reth_schek_phonetik,
+)
 
 
 class KoelnerPhonetikTestCases(unittest.TestCase):
@@ -71,13 +76,15 @@ class KoelnerPhonetikTestCases(unittest.TestCase):
 
     def test_koelner_phonetik_n2a(self):
         """Test abydos.phonetic.koelner_phonetik_num_to_alpha."""
-        self.assertEqual(koelner_phonetik_num_to_alpha('0123456789'),
-                         'APTFKLNRS')
+        self.assertEqual(
+            koelner_phonetik_num_to_alpha('0123456789'), 'APTFKLNRS'
+        )
 
     def test_koelner_phonetik_alpha(self):
         """Test abydos.phonetic.koelner_phonetik_alpha."""
-        self.assertEqual(koelner_phonetik_alpha('Müller-Lüdenscheidt'),
-                         'NLRLTNST')
+        self.assertEqual(
+            koelner_phonetik_alpha('Müller-Lüdenscheidt'), 'NLRLTNST'
+        )
         self.assertEqual(koelner_phonetik_alpha('Wikipedia'), 'FKPT')
         self.assertEqual(koelner_phonetik_alpha('Breschnew'), 'PRSNF')
         self.assertEqual(koelner_phonetik_alpha('Müller'), 'NLR')
@@ -142,20 +149,23 @@ class HaasePhonetikTestCases(unittest.TestCase):
         self.assertEqual(haase_phonetik('Häschen'), haase_phonetik('Haeschen'))
         self.assertEqual(haase_phonetik('Schloß'), haase_phonetik('Schloss'))
         self.assertEqual(haase_phonetik('üben'), haase_phonetik('ueben'))
-        self.assertEqual(haase_phonetik('Eichörnchen'),
-                         haase_phonetik('Eichoernchen'))
+        self.assertEqual(
+            haase_phonetik('Eichörnchen'), haase_phonetik('Eichoernchen')
+        )
 
         # coverage completion
         self.assertEqual(haase_phonetik('Häschen'), ('9896', '9496'))
-        self.assertEqual(haase_phonetik('Häschen', primary_only=True),
-                         ('9896',))
+        self.assertEqual(
+            haase_phonetik('Häschen', primary_only=True), ('9896',)
+        )
         self.assertEqual(haase_phonetik('Eichörnchen'), ('94976496',))
         self.assertEqual(haase_phonetik('Hexe'), ('9489',))
         self.assertEqual(haase_phonetik('Chemie'), ('4969', '8969'))
 
         self.assertEqual(haase_phonetik('Brille'), ('17959', '179'))
-        self.assertEqual(haase_phonetik('Brilleille'),
-                         ('1795959', '17959', '179'))
+        self.assertEqual(
+            haase_phonetik('Brilleille'), ('1795959', '17959', '179')
+        )
         self.assertEqual(haase_phonetik('Niveau'), ('6939',))
         self.assertEqual(haase_phonetik('Korb'), ('4971', '4973'))
         self.assertEqual(haase_phonetik('Heino'), ('969', '9693'))
@@ -182,14 +192,19 @@ class RethSchekTestCases(unittest.TestCase):
         self.assertEqual(reth_schek_phonetik(''), '')
 
         # equivalents
-        self.assertEqual(reth_schek_phonetik('Häschen'),
-                         reth_schek_phonetik('Haeschen'))
-        self.assertEqual(reth_schek_phonetik('Schloß'),
-                         reth_schek_phonetik('Schloss'))
-        self.assertEqual(reth_schek_phonetik('üben'),
-                         reth_schek_phonetik('ueben'))
-        self.assertEqual(reth_schek_phonetik('Eichörnchen'),
-                         reth_schek_phonetik('Eichoernchen'))
+        self.assertEqual(
+            reth_schek_phonetik('Häschen'), reth_schek_phonetik('Haeschen')
+        )
+        self.assertEqual(
+            reth_schek_phonetik('Schloß'), reth_schek_phonetik('Schloss')
+        )
+        self.assertEqual(
+            reth_schek_phonetik('üben'), reth_schek_phonetik('ueben')
+        )
+        self.assertEqual(
+            reth_schek_phonetik('Eichörnchen'),
+            reth_schek_phonetik('Eichoernchen'),
+        )
 
         self.assertEqual(reth_schek_phonetik('Häschen'), 'HESCHEN')
         self.assertEqual(reth_schek_phonetik('Eichörnchen'), 'AIGHOERNGHEN')

@@ -26,9 +26,27 @@ from __future__ import division, unicode_literals
 import unittest
 from math import isnan
 
-from abydos.stats.mean import aghmean, agmean, amean, cmean, \
-    ghmean, gmean, heronian_mean, hmean, hoelder_mean, imean, lehmer_mean, \
-    lmean, median, midrange, mode, qmean, seiffert_mean, std, var
+from abydos.stats.mean import (
+    aghmean,
+    agmean,
+    amean,
+    cmean,
+    ghmean,
+    gmean,
+    heronian_mean,
+    hmean,
+    hoelder_mean,
+    imean,
+    lehmer_mean,
+    lmean,
+    median,
+    midrange,
+    mode,
+    qmean,
+    seiffert_mean,
+    std,
+    var,
+)
 
 
 class MeansTestCases(unittest.TestCase):
@@ -124,39 +142,47 @@ class MeansTestCases(unittest.TestCase):
         self.assertRaises(AttributeError, seiffert_mean, self._onethreefive)
         self.assertRaises(AttributeError, seiffert_mean, self._floats)
         self.assertAlmostEqual(seiffert_mean(self._onetwo), 1.4712939827611637)
-        self.assertAlmostEqual(seiffert_mean(self._2floats),
-                               0.36782349569029094)
+        self.assertAlmostEqual(
+            seiffert_mean(self._2floats), 0.36782349569029094
+        )
         self.assertEqual(seiffert_mean([1]), 1)
         self.assertEqual(seiffert_mean([0.05]), 0.05)
 
     def test_means_lehmer_mean(self):
         """Test abydos.stats.mean.lehmer_mean."""
         self.assertAlmostEqual(lehmer_mean(self._ones), 1)
-        self.assertAlmostEqual(lehmer_mean(self._one_to_five),
-                               3.6666666666666665)
-        self.assertAlmostEqual(lehmer_mean(self._onethreefive),
-                               4.066666666666666)
+        self.assertAlmostEqual(
+            lehmer_mean(self._one_to_five), 3.6666666666666665
+        )
+        self.assertAlmostEqual(
+            lehmer_mean(self._onethreefive), 4.066666666666666
+        )
         self.assertAlmostEqual(lehmer_mean(self._floats), 0.5418918918918919)
 
     def test_means_heronian_mean(self):
         """Test abydos.stats.mean.heronian_mean."""
         self.assertAlmostEqual(heronian_mean(self._ones), 1)
         self.assertAlmostEqual(heronian_mean(self._zeros), 0)
-        self.assertAlmostEqual(heronian_mean(self._one_to_five),
-                               2.8421165194322837)
-        self.assertAlmostEqual(heronian_mean(self._onethreefive),
-                               2.7436226811701165)
-        self.assertAlmostEqual(heronian_mean(self._floats),
-                               0.33526945542427006)
+        self.assertAlmostEqual(
+            heronian_mean(self._one_to_five), 2.8421165194322837
+        )
+        self.assertAlmostEqual(
+            heronian_mean(self._onethreefive), 2.7436226811701165
+        )
+        self.assertAlmostEqual(
+            heronian_mean(self._floats), 0.33526945542427006
+        )
 
     def test_means_hoelder_mean(self):
         """Test abydos.stats.mean.hoelder_mean."""
         self.assertAlmostEqual(hoelder_mean(self._ones), 1)
         self.assertAlmostEqual(hoelder_mean(self._zeros), 0)
-        self.assertAlmostEqual(hoelder_mean(self._one_to_five),
-                               3.3166247903554)
-        self.assertAlmostEqual(hoelder_mean(self._onethreefive),
-                               3.492849839314596)
+        self.assertAlmostEqual(
+            hoelder_mean(self._one_to_five), 3.3166247903554
+        )
+        self.assertAlmostEqual(
+            hoelder_mean(self._onethreefive), 3.492849839314596
+        )
         self.assertAlmostEqual(hoelder_mean(self._floats), 0.4477722635447623)
 
     def test_means_agmean(self):
@@ -218,8 +244,8 @@ class MeansTestCases(unittest.TestCase):
         """Test abydos.stats.mean.std."""
         self.assertAlmostEqual(std(self._ones), 0)
         self.assertAlmostEqual(std(self._zeros), 0)
-        self.assertAlmostEqual(std(self._one_to_five), 2**0.5)
-        self.assertAlmostEqual(std(self._onethreefive), 3.2**0.5)
+        self.assertAlmostEqual(std(self._one_to_five), 2 ** 0.5)
+        self.assertAlmostEqual(std(self._onethreefive), 3.2 ** 0.5)
 
 
 if __name__ == '__main__':

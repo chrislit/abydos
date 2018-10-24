@@ -112,8 +112,9 @@ class PhonetTestCases(unittest.TestCase):
         """Test abydos.phonetic.phonet (Nachnamen set)."""
         if not ALLOW_RANDOM:
             return
-        with codecs.open(_corpus_file('nachnamen.csv'),
-                         encoding='utf-8') as nachnamen_testset:
+        with codecs.open(
+            _corpus_file('nachnamen.csv'), encoding='utf-8'
+        ) as nachnamen_testset:
             for nn_line in nachnamen_testset:
                 if nn_line[0] != '#':
                     nn_line = nn_line.strip().split(',')
@@ -128,8 +129,9 @@ class PhonetTestCases(unittest.TestCase):
         """Test abydos.phonetic.phonet (ngerman set)."""
         if not ALLOW_RANDOM:
             return
-        with codecs.open(_corpus_file('ngerman.csv'),
-                         encoding='utf-8') as ngerman_testset:
+        with codecs.open(
+            _corpus_file('ngerman.csv'), encoding='utf-8'
+        ) as ngerman_testset:
             for ng_line in ngerman_testset:
                 if ng_line[0] != '#':
                     ng_line = ng_line.strip().split(',')

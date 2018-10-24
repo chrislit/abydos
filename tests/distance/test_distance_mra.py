@@ -61,13 +61,13 @@ class MraTestCases(unittest.TestCase):
         self.assertEqual(sim_mra('', 'abcdefg'), 0)
 
         # https://en.wikipedia.org/wiki/Match_rating_approach
-        self.assertEqual(sim_mra('Byrne', 'Boern'), 5/6)
-        self.assertEqual(sim_mra('Smith', 'Smyth'), 5/6)
-        self.assertEqual(sim_mra('Catherine', 'Kathryn'), 4/6)
+        self.assertEqual(sim_mra('Byrne', 'Boern'), 5 / 6)
+        self.assertEqual(sim_mra('Smith', 'Smyth'), 5 / 6)
+        self.assertEqual(sim_mra('Catherine', 'Kathryn'), 4 / 6)
 
         self.assertEqual(sim_mra('ab', 'abcdefgh'), 0)
-        self.assertEqual(sim_mra('ab', 'ac'), 5/6)
-        self.assertEqual(sim_mra('abcdefik', 'abcdefgh'), 3/6)
+        self.assertEqual(sim_mra('ab', 'ac'), 5 / 6)
+        self.assertEqual(sim_mra('abcdefik', 'abcdefgh'), 3 / 6)
         self.assertEqual(sim_mra('xyz', 'abc'), 0)
 
     def test_dist_mra(self):
@@ -79,13 +79,13 @@ class MraTestCases(unittest.TestCase):
         self.assertEqual(dist_mra('', 'abcdefg'), 1)
 
         # https://en.wikipedia.org/wiki/Match_rating_approach
-        self.assertAlmostEqual(dist_mra('Byrne', 'Boern'), 1/6)
-        self.assertAlmostEqual(dist_mra('Smith', 'Smyth'), 1/6)
-        self.assertAlmostEqual(dist_mra('Catherine', 'Kathryn'), 2/6)
+        self.assertAlmostEqual(dist_mra('Byrne', 'Boern'), 1 / 6)
+        self.assertAlmostEqual(dist_mra('Smith', 'Smyth'), 1 / 6)
+        self.assertAlmostEqual(dist_mra('Catherine', 'Kathryn'), 2 / 6)
 
         self.assertEqual(dist_mra('ab', 'abcdefgh'), 1)
-        self.assertAlmostEqual(dist_mra('ab', 'ac'), 1/6)
-        self.assertAlmostEqual(dist_mra('abcdefik', 'abcdefgh'), 3/6)
+        self.assertAlmostEqual(dist_mra('ab', 'ac'), 1 / 6)
+        self.assertAlmostEqual(dist_mra('abcdefik', 'abcdefgh'), 3 / 6)
         self.assertEqual(dist_mra('xyz', 'abc'), 1)
 
 

@@ -164,7 +164,7 @@ class FonemTestCases(unittest.TestCase):
             ('STE-CROIX', 'STE-KROIX'),
             ('LAVALLEE', 'LAVALE'),
             ('CORINNE', 'KORINE'),
-            ('DUTILE', 'DUTILLE')
+            ('DUTILE', 'DUTILLE'),
         )
         for name, encoding in test_cases:
             self.assertEqual(fonem(name), encoding)

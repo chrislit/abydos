@@ -19,6 +19,7 @@
 #
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath('..'))
 
 
@@ -43,7 +44,7 @@ extensions = [
     'sphinx.ext.doctest',
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
-    'sphinxcontrib.bibtex'
+    'sphinxcontrib.bibtex',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -126,15 +127,12 @@ latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     #
     # 'papersize': 'letterpaper',
-
     # The font size ('10pt', '11pt' or '12pt').
     #
     # 'pointsize': '10pt',
-
     # Additional stuff for the LaTeX preamble.
     #
     # 'preamble': '',
-
     # Latex figure (float) alignment
     #
     # 'figure_align': 'htbp',
@@ -144,8 +142,13 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'abydos.tex', 'Abydos Documentation',
-     'Christopher C. Little', 'manual'),
+    (
+        master_doc,
+        'abydos.tex',
+        'Abydos Documentation',
+        'Christopher C. Little',
+        'manual',
+    )
 ]
 
 
@@ -153,10 +156,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    (master_doc, 'abydos', 'Abydos Documentation',
-     [author], 1)
-]
+man_pages = [(master_doc, 'abydos', 'Abydos Documentation', [author], 1)]
 
 
 # -- Options for Texinfo output -------------------------------------------
@@ -165,9 +165,15 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'abydos', 'Abydos Documentation',
-     author, 'abydos', 'One line description of project.',
-     'Miscellaneous'),
+    (
+        master_doc,
+        'abydos',
+        'Abydos Documentation',
+        author,
+        'abydos',
+        'One line description of project.',
+        'Miscellaneous',
+    )
 ]
 
 # -- Options for Epub output ----------------------------------------------
@@ -189,5 +195,3 @@ epub_copyright = copyright
 
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
-
-

@@ -38,8 +38,14 @@ class Corpus(object):
     sentence.
     """
 
-    def __init__(self, corpus_text='', doc_split='\n\n', sent_split='\n',
-                 filter_chars='', stop_words=None):
+    def __init__(
+        self,
+        corpus_text='',
+        doc_split='\n\n',
+        sent_split='\n',
+        filter_chars='',
+        stop_words=None,
+    ):
         r"""Initialize Corpus.
 
         By default, when importing a corpus:
@@ -182,8 +188,9 @@ class Corpus(object):
         >>> len(corp.docs_of_words())
         1
         """
-        return [[words for sents in doc for words in sents]
-                for doc in self.corpus]
+        return [
+            [words for sents in doc for words in sents] for doc in self.corpus
+        ]
 
     def raw(self):
         r"""Return the raw corpus.
@@ -251,9 +258,10 @@ class Corpus(object):
         if docs_with_term == 0:
             return float('inf')
 
-        return log10(len(docs)/docs_with_term)
+        return log10(len(docs) / docs_with_term)
 
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)

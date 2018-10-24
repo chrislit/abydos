@@ -25,9 +25,18 @@ from __future__ import division, unicode_literals
 
 import unittest
 
-from abydos.distance.minkowski import chebyshev, dist_euclidean, \
-    dist_manhattan, dist_minkowski, euclidean, manhattan, minkowski, \
-    sim_euclidean, sim_manhattan, sim_minkowski
+from abydos.distance.minkowski import (
+    chebyshev,
+    dist_euclidean,
+    dist_manhattan,
+    dist_minkowski,
+    euclidean,
+    manhattan,
+    minkowski,
+    sim_euclidean,
+    sim_manhattan,
+    sim_minkowski,
+)
 from abydos.tokenizer.qgram import QGrams
 
 from .. import NONQ_FROM, NONQ_TO
@@ -55,8 +64,9 @@ class MinkowskiTestCases(unittest.TestCase):
         self.assertEqual(minkowski(QGrams(''), QGrams('')), 0)
         self.assertEqual(minkowski(QGrams('nelson'), QGrams('')), 7)
         self.assertEqual(minkowski(QGrams(''), QGrams('neilsen')), 8)
-        self.assertAlmostEqual(minkowski(QGrams('nelson'),
-                                         QGrams('neilsen')), 7)
+        self.assertAlmostEqual(
+            minkowski(QGrams('nelson'), QGrams('neilsen')), 7
+        )
 
         # non-q-gram tests
         self.assertEqual(minkowski('', '', 0), 0)
@@ -74,70 +84,80 @@ class MinkowskiTestCases(unittest.TestCase):
         self.assertEqual(minkowski('', '', 1, 0, True), 0)
         self.assertEqual(minkowski('a', '', 1, 0, True), 1)
         self.assertEqual(minkowski('a', 'b', 1, 0, True), 1)
-        self.assertEqual(minkowski('ab', 'b', 1, 0, True), 1/2)
-        self.assertEqual(minkowski('aab', 'b', 1, 0, True), 1/2)
-        self.assertEqual(minkowski('aaab', 'b', 1, 0, True), 1/2)
-        self.assertEqual(minkowski('aaab', 'ab', 1, 0, True), 1/2)
+        self.assertEqual(minkowski('ab', 'b', 1, 0, True), 1 / 2)
+        self.assertEqual(minkowski('aab', 'b', 1, 0, True), 1 / 2)
+        self.assertEqual(minkowski('aaab', 'b', 1, 0, True), 1 / 2)
+        self.assertEqual(minkowski('aaab', 'ab', 1, 0, True), 1 / 2)
 
         # test with alphabet
         self.assertEqual(minkowski('ab', 'b', 1, alphabet=26), 1)
-        self.assertEqual(minkowski('ab', 'b', 1, normalized=True, alphabet=26),
-                         1/26)
-        self.assertEqual(minkowski('ab', 'b', 1, normalized=True,
-                                   alphabet='abcdefghijklmnopqrstuvwxyz'),
-                         1/26)
+        self.assertEqual(
+            minkowski('ab', 'b', 1, normalized=True, alphabet=26), 1 / 26
+        )
+        self.assertEqual(
+            minkowski(
+                'ab',
+                'b',
+                1,
+                normalized=True,
+                alphabet='abcdefghijklmnopqrstuvwxyz',
+            ),
+            1 / 26,
+        )
 
     def test_sim_minkowski(self):
         """Test abydos.distance.sim_minkowski."""
         self.assertEqual(sim_minkowski('', ''), 1)
         self.assertEqual(sim_minkowski('nelson', ''), 0)
         self.assertEqual(sim_minkowski('', 'neilsen'), 0)
-        self.assertAlmostEqual(sim_minkowski('nelson', 'neilsen'), 8/15)
+        self.assertAlmostEqual(sim_minkowski('nelson', 'neilsen'), 8 / 15)
 
         self.assertEqual(sim_minkowski('', '', 2), 1)
         self.assertEqual(sim_minkowski('nelson', '', 2), 0)
         self.assertEqual(sim_minkowski('', 'neilsen', 2), 0)
-        self.assertAlmostEqual(sim_minkowski('nelson', 'neilsen', 2), 8/15)
+        self.assertAlmostEqual(sim_minkowski('nelson', 'neilsen', 2), 8 / 15)
 
         # supplied q-gram tests
         self.assertEqual(sim_minkowski(QGrams(''), QGrams('')), 1)
         self.assertEqual(sim_minkowski(QGrams('nelson'), QGrams('')), 0)
         self.assertEqual(sim_minkowski(QGrams(''), QGrams('neilsen')), 0)
-        self.assertAlmostEqual(sim_minkowski(QGrams('nelson'),
-                                             QGrams('neilsen')), 8/15)
+        self.assertAlmostEqual(
+            sim_minkowski(QGrams('nelson'), QGrams('neilsen')), 8 / 15
+        )
 
         # non-q-gram tests
         self.assertEqual(sim_minkowski('', '', 0), 1)
         self.assertEqual(sim_minkowski('the quick', '', 0), 0)
         self.assertEqual(sim_minkowski('', 'the quick', 0), 0)
-        self.assertAlmostEqual(sim_minkowski(NONQ_FROM, NONQ_TO, 0), 1/2)
-        self.assertAlmostEqual(sim_minkowski(NONQ_TO, NONQ_FROM, 0), 1/2)
+        self.assertAlmostEqual(sim_minkowski(NONQ_FROM, NONQ_TO, 0), 1 / 2)
+        self.assertAlmostEqual(sim_minkowski(NONQ_TO, NONQ_FROM, 0), 1 / 2)
 
     def test_dist_minkowski(self):
         """Test abydos.distance.dist_minkowski."""
         self.assertEqual(dist_minkowski('', ''), 0)
         self.assertEqual(dist_minkowski('nelson', ''), 1)
         self.assertEqual(dist_minkowski('', 'neilsen'), 1)
-        self.assertAlmostEqual(dist_minkowski('nelson', 'neilsen'), 7/15)
+        self.assertAlmostEqual(dist_minkowski('nelson', 'neilsen'), 7 / 15)
 
         self.assertEqual(dist_minkowski('', '', 2), 0)
         self.assertEqual(dist_minkowski('nelson', '', 2), 1)
         self.assertEqual(dist_minkowski('', 'neilsen', 2), 1)
-        self.assertAlmostEqual(dist_minkowski('nelson', 'neilsen', 2), 7/15)
+        self.assertAlmostEqual(dist_minkowski('nelson', 'neilsen', 2), 7 / 15)
 
         # supplied q-gram tests
         self.assertEqual(dist_minkowski(QGrams(''), QGrams('')), 0)
         self.assertEqual(dist_minkowski(QGrams('nelson'), QGrams('')), 1)
         self.assertEqual(dist_minkowski(QGrams(''), QGrams('neilsen')), 1)
-        self.assertAlmostEqual(dist_minkowski(QGrams('nelson'),
-                                              QGrams('neilsen')), 7/15)
+        self.assertAlmostEqual(
+            dist_minkowski(QGrams('nelson'), QGrams('neilsen')), 7 / 15
+        )
 
         # non-q-gram tests
         self.assertEqual(dist_minkowski('', '', 0), 0)
         self.assertEqual(dist_minkowski('the quick', '', 0), 1)
         self.assertEqual(dist_minkowski('', 'the quick', 0), 1)
-        self.assertAlmostEqual(dist_minkowski(NONQ_FROM, NONQ_TO, 0), 1/2)
-        self.assertAlmostEqual(dist_minkowski(NONQ_TO, NONQ_FROM, 0), 1/2)
+        self.assertAlmostEqual(dist_minkowski(NONQ_FROM, NONQ_TO, 0), 1 / 2)
+        self.assertAlmostEqual(dist_minkowski(NONQ_TO, NONQ_FROM, 0), 1 / 2)
 
 
 class ManhattanTestCases(unittest.TestCase):
@@ -162,8 +182,9 @@ class ManhattanTestCases(unittest.TestCase):
         self.assertEqual(manhattan(QGrams(''), QGrams('')), 0)
         self.assertEqual(manhattan(QGrams('nelson'), QGrams('')), 7)
         self.assertEqual(manhattan(QGrams(''), QGrams('neilsen')), 8)
-        self.assertAlmostEqual(manhattan(QGrams('nelson'),
-                                         QGrams('neilsen')), 7)
+        self.assertAlmostEqual(
+            manhattan(QGrams('nelson'), QGrams('neilsen')), 7
+        )
 
         # non-q-gram tests
         self.assertEqual(manhattan('', '', 0), 0)
@@ -177,52 +198,54 @@ class ManhattanTestCases(unittest.TestCase):
         self.assertEqual(sim_manhattan('', ''), 1)
         self.assertEqual(sim_manhattan('nelson', ''), 0)
         self.assertEqual(sim_manhattan('', 'neilsen'), 0)
-        self.assertAlmostEqual(sim_manhattan('nelson', 'neilsen'), 8/15)
+        self.assertAlmostEqual(sim_manhattan('nelson', 'neilsen'), 8 / 15)
 
         self.assertEqual(sim_manhattan('', '', 2), 1)
         self.assertEqual(sim_manhattan('nelson', '', 2), 0)
         self.assertEqual(sim_manhattan('', 'neilsen', 2), 0)
-        self.assertAlmostEqual(sim_manhattan('nelson', 'neilsen', 2), 8/15)
+        self.assertAlmostEqual(sim_manhattan('nelson', 'neilsen', 2), 8 / 15)
 
         # supplied q-gram tests
         self.assertEqual(sim_manhattan(QGrams(''), QGrams('')), 1)
         self.assertEqual(sim_manhattan(QGrams('nelson'), QGrams('')), 0)
         self.assertEqual(sim_manhattan(QGrams(''), QGrams('neilsen')), 0)
-        self.assertAlmostEqual(sim_manhattan(QGrams('nelson'),
-                                             QGrams('neilsen')), 8/15)
+        self.assertAlmostEqual(
+            sim_manhattan(QGrams('nelson'), QGrams('neilsen')), 8 / 15
+        )
 
         # non-q-gram tests
         self.assertEqual(sim_manhattan('', '', 0), 1)
         self.assertEqual(sim_manhattan('the quick', '', 0), 0)
         self.assertEqual(sim_manhattan('', 'the quick', 0), 0)
-        self.assertAlmostEqual(sim_manhattan(NONQ_FROM, NONQ_TO, 0), 1/2)
-        self.assertAlmostEqual(sim_manhattan(NONQ_TO, NONQ_FROM, 0), 1/2)
+        self.assertAlmostEqual(sim_manhattan(NONQ_FROM, NONQ_TO, 0), 1 / 2)
+        self.assertAlmostEqual(sim_manhattan(NONQ_TO, NONQ_FROM, 0), 1 / 2)
 
     def test_dist_manhattan(self):
         """Test abydos.distance.dist_manhattan."""
         self.assertEqual(dist_manhattan('', ''), 0)
         self.assertEqual(dist_manhattan('nelson', ''), 1)
         self.assertEqual(dist_manhattan('', 'neilsen'), 1)
-        self.assertAlmostEqual(dist_manhattan('nelson', 'neilsen'), 7/15)
+        self.assertAlmostEqual(dist_manhattan('nelson', 'neilsen'), 7 / 15)
 
         self.assertEqual(dist_manhattan('', '', 2), 0)
         self.assertEqual(dist_manhattan('nelson', '', 2), 1)
         self.assertEqual(dist_manhattan('', 'neilsen', 2), 1)
-        self.assertAlmostEqual(dist_manhattan('nelson', 'neilsen', 2), 7/15)
+        self.assertAlmostEqual(dist_manhattan('nelson', 'neilsen', 2), 7 / 15)
 
         # supplied q-gram tests
         self.assertEqual(dist_manhattan(QGrams(''), QGrams('')), 0)
         self.assertEqual(dist_manhattan(QGrams('nelson'), QGrams('')), 1)
         self.assertEqual(dist_manhattan(QGrams(''), QGrams('neilsen')), 1)
-        self.assertAlmostEqual(dist_manhattan(QGrams('nelson'),
-                                              QGrams('neilsen')), 7/15)
+        self.assertAlmostEqual(
+            dist_manhattan(QGrams('nelson'), QGrams('neilsen')), 7 / 15
+        )
 
         # non-q-gram tests
         self.assertEqual(dist_manhattan('', '', 0), 0)
         self.assertEqual(dist_manhattan('the quick', '', 0), 1)
         self.assertEqual(dist_manhattan('', 'the quick', 0), 1)
-        self.assertAlmostEqual(dist_manhattan(NONQ_FROM, NONQ_TO, 0), 1/2)
-        self.assertAlmostEqual(dist_manhattan(NONQ_TO, NONQ_FROM, 0), 1/2)
+        self.assertAlmostEqual(dist_manhattan(NONQ_FROM, NONQ_TO, 0), 1 / 2)
+        self.assertAlmostEqual(dist_manhattan(NONQ_TO, NONQ_FROM, 0), 1 / 2)
 
 
 class EuclideanTestCases(unittest.TestCase):
@@ -234,90 +257,101 @@ class EuclideanTestCases(unittest.TestCase):
     def test_euclidean(self):
         """Test abydos.distance.euclidean."""
         self.assertEqual(euclidean('', ''), 0)
-        self.assertEqual(euclidean('nelson', ''), 7**0.5)
-        self.assertEqual(euclidean('', 'neilsen'), 8**0.5)
-        self.assertAlmostEqual(euclidean('nelson', 'neilsen'), 7**0.5)
+        self.assertEqual(euclidean('nelson', ''), 7 ** 0.5)
+        self.assertEqual(euclidean('', 'neilsen'), 8 ** 0.5)
+        self.assertAlmostEqual(euclidean('nelson', 'neilsen'), 7 ** 0.5)
 
         self.assertEqual(euclidean('', '', 2), 0)
-        self.assertEqual(euclidean('nelson', '', 2), 7**0.5)
-        self.assertEqual(euclidean('', 'neilsen', 2), 8**0.5)
-        self.assertAlmostEqual(euclidean('nelson', 'neilsen', 2), 7**0.5)
+        self.assertEqual(euclidean('nelson', '', 2), 7 ** 0.5)
+        self.assertEqual(euclidean('', 'neilsen', 2), 8 ** 0.5)
+        self.assertAlmostEqual(euclidean('nelson', 'neilsen', 2), 7 ** 0.5)
 
         # supplied q-gram tests
         self.assertEqual(euclidean(QGrams(''), QGrams('')), 0)
-        self.assertEqual(euclidean(QGrams('nelson'), QGrams('')), 7**0.5)
-        self.assertEqual(euclidean(QGrams(''), QGrams('neilsen')), 8**0.5)
-        self.assertAlmostEqual(euclidean(QGrams('nelson'),
-                                         QGrams('neilsen')), 7**0.5)
+        self.assertEqual(euclidean(QGrams('nelson'), QGrams('')), 7 ** 0.5)
+        self.assertEqual(euclidean(QGrams(''), QGrams('neilsen')), 8 ** 0.5)
+        self.assertAlmostEqual(
+            euclidean(QGrams('nelson'), QGrams('neilsen')), 7 ** 0.5
+        )
 
         # non-q-gram tests
         self.assertEqual(euclidean('', '', 0), 0)
-        self.assertEqual(euclidean('the quick', '', 0), 2**0.5)
-        self.assertEqual(euclidean('', 'the quick', 0), 2**0.5)
-        self.assertAlmostEqual(euclidean(NONQ_FROM, NONQ_TO, 0), 8**0.5)
-        self.assertAlmostEqual(euclidean(NONQ_TO, NONQ_FROM, 0), 8**0.5)
+        self.assertEqual(euclidean('the quick', '', 0), 2 ** 0.5)
+        self.assertEqual(euclidean('', 'the quick', 0), 2 ** 0.5)
+        self.assertAlmostEqual(euclidean(NONQ_FROM, NONQ_TO, 0), 8 ** 0.5)
+        self.assertAlmostEqual(euclidean(NONQ_TO, NONQ_FROM, 0), 8 ** 0.5)
 
     def test_sim_euclidean(self):
         """Test abydos.distance.sim_euclidean."""
         self.assertEqual(sim_euclidean('', ''), 1)
         self.assertEqual(sim_euclidean('nelson', ''), 0)
         self.assertEqual(sim_euclidean('', 'neilsen'), 0)
-        self.assertAlmostEqual(sim_euclidean('nelson', 'neilsen'),
-                               1-7**0.5/23**0.5)
+        self.assertAlmostEqual(
+            sim_euclidean('nelson', 'neilsen'), 1 - 7 ** 0.5 / 23 ** 0.5
+        )
 
         self.assertEqual(sim_euclidean('', '', 2), 1)
         self.assertEqual(sim_euclidean('nelson', '', 2), 0)
         self.assertEqual(sim_euclidean('', 'neilsen', 2), 0)
-        self.assertAlmostEqual(sim_euclidean('nelson', 'neilsen', 2),
-                               1-7**0.5/23**0.5)
+        self.assertAlmostEqual(
+            sim_euclidean('nelson', 'neilsen', 2), 1 - 7 ** 0.5 / 23 ** 0.5
+        )
 
         # supplied q-gram tests
         self.assertEqual(sim_euclidean(QGrams(''), QGrams('')), 1)
         self.assertEqual(sim_euclidean(QGrams('nelson'), QGrams('')), 0)
         self.assertEqual(sim_euclidean(QGrams(''), QGrams('neilsen')), 0)
-        self.assertAlmostEqual(sim_euclidean(QGrams('nelson'),
-                                             QGrams('neilsen')),
-                               1-7**0.5/23**0.5)
+        self.assertAlmostEqual(
+            sim_euclidean(QGrams('nelson'), QGrams('neilsen')),
+            1 - 7 ** 0.5 / 23 ** 0.5,
+        )
 
         # non-q-gram tests
         self.assertEqual(sim_euclidean('', '', 0), 1)
         self.assertEqual(sim_euclidean('the quick', '', 0), 0)
         self.assertEqual(sim_euclidean('', 'the quick', 0), 0)
-        self.assertAlmostEqual(sim_euclidean(NONQ_FROM, NONQ_TO, 0),
-                               1-8**0.5/24**0.5)
-        self.assertAlmostEqual(sim_euclidean(NONQ_TO, NONQ_FROM, 0),
-                               1-8**0.5/24**0.5)
+        self.assertAlmostEqual(
+            sim_euclidean(NONQ_FROM, NONQ_TO, 0), 1 - 8 ** 0.5 / 24 ** 0.5
+        )
+        self.assertAlmostEqual(
+            sim_euclidean(NONQ_TO, NONQ_FROM, 0), 1 - 8 ** 0.5 / 24 ** 0.5
+        )
 
     def test_dist_euclidean(self):
         """Test abydos.distance.dist_euclidean."""
         self.assertEqual(dist_euclidean('', ''), 0)
         self.assertEqual(dist_euclidean('nelson', ''), 1)
         self.assertEqual(dist_euclidean('', 'neilsen'), 1)
-        self.assertAlmostEqual(dist_euclidean('nelson', 'neilsen'),
-                               7**0.5 / 23**0.5)
+        self.assertAlmostEqual(
+            dist_euclidean('nelson', 'neilsen'), 7 ** 0.5 / 23 ** 0.5
+        )
 
         self.assertEqual(dist_euclidean('', '', 2), 0)
         self.assertEqual(dist_euclidean('nelson', '', 2), 1)
         self.assertEqual(dist_euclidean('', 'neilsen', 2), 1)
-        self.assertAlmostEqual(dist_euclidean('nelson', 'neilsen', 2),
-                               7**0.5 / 23**0.5)
+        self.assertAlmostEqual(
+            dist_euclidean('nelson', 'neilsen', 2), 7 ** 0.5 / 23 ** 0.5
+        )
 
         # supplied q-gram tests
         self.assertEqual(dist_euclidean(QGrams(''), QGrams('')), 0)
         self.assertEqual(dist_euclidean(QGrams('nelson'), QGrams('')), 1)
         self.assertEqual(dist_euclidean(QGrams(''), QGrams('neilsen')), 1)
-        self.assertAlmostEqual(dist_euclidean(QGrams('nelson'),
-                                              QGrams('neilsen')),
-                               7**0.5 / 23**0.5)
+        self.assertAlmostEqual(
+            dist_euclidean(QGrams('nelson'), QGrams('neilsen')),
+            7 ** 0.5 / 23 ** 0.5,
+        )
 
         # non-q-gram tests
         self.assertEqual(dist_euclidean('', '', 0), 0)
         self.assertEqual(dist_euclidean('the quick', '', 0), 1)
         self.assertEqual(dist_euclidean('', 'the quick', 0), 1)
-        self.assertAlmostEqual(dist_euclidean(NONQ_FROM, NONQ_TO, 0),
-                               8**0.5/24**0.5)
-        self.assertAlmostEqual(dist_euclidean(NONQ_TO, NONQ_FROM, 0),
-                               8**0.5/24**0.5)
+        self.assertAlmostEqual(
+            dist_euclidean(NONQ_FROM, NONQ_TO, 0), 8 ** 0.5 / 24 ** 0.5
+        )
+        self.assertAlmostEqual(
+            dist_euclidean(NONQ_TO, NONQ_FROM, 0), 8 ** 0.5 / 24 ** 0.5
+        )
 
 
 class ChebyshevTestCases(unittest.TestCase):
@@ -342,8 +376,9 @@ class ChebyshevTestCases(unittest.TestCase):
         self.assertEqual(chebyshev(QGrams(''), QGrams('')), 0)
         self.assertEqual(chebyshev(QGrams('nelson'), QGrams('')), 1)
         self.assertEqual(chebyshev(QGrams(''), QGrams('neilsen')), 1)
-        self.assertAlmostEqual(chebyshev(QGrams('nelson'),
-                                         QGrams('neilsen')), 1)
+        self.assertAlmostEqual(
+            chebyshev(QGrams('nelson'), QGrams('neilsen')), 1
+        )
 
         # non-q-gram tests
         self.assertEqual(chebyshev('', '', 0), 0)

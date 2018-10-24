@@ -86,8 +86,9 @@ class LovinsTestCases(unittest.TestCase):
         https://github.com/snowballstem/snowball-data/tree/master/lovins
         """
         #  Snowball Lovins test set
-        with codecs.open(_corpus_file('snowball_lovins.csv'),
-                         encoding='utf-8') as snowball_ts:
+        with codecs.open(
+            _corpus_file('snowball_lovins.csv'), encoding='utf-8'
+        ) as snowball_ts:
             next(snowball_ts)
             for line in snowball_ts:
                 if line[0] != '#':

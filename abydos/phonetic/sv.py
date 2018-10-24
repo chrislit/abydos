@@ -66,28 +66,108 @@ def sfinxbis(word, max_length=-1):
     >>> sfinxbis('Sjöberg')
     ('#162',)
     """
-    adelstitler = (' DE LA ', ' DE LAS ', ' DE LOS ', ' VAN DE ', ' VAN DEN ',
-                   ' VAN DER ', ' VON DEM ', ' VON DER ',
-                   ' AF ', ' AV ', ' DA ', ' DE ', ' DEL ', ' DEN ', ' DES ',
-                   ' DI ', ' DO ', ' DON ', ' DOS ', ' DU ', ' E ', ' IN ',
-                   ' LA ', ' LE ', ' MAC ', ' MC ', ' VAN ', ' VON ', ' Y ',
-                   ' S:T ')
+    adelstitler = (
+        ' DE LA ',
+        ' DE LAS ',
+        ' DE LOS ',
+        ' VAN DE ',
+        ' VAN DEN ',
+        ' VAN DER ',
+        ' VON DEM ',
+        ' VON DER ',
+        ' AF ',
+        ' AV ',
+        ' DA ',
+        ' DE ',
+        ' DEL ',
+        ' DEN ',
+        ' DES ',
+        ' DI ',
+        ' DO ',
+        ' DON ',
+        ' DOS ',
+        ' DU ',
+        ' E ',
+        ' IN ',
+        ' LA ',
+        ' LE ',
+        ' MAC ',
+        ' MC ',
+        ' VAN ',
+        ' VON ',
+        ' Y ',
+        ' S:T ',
+    )
 
     _harde_vokaler = {'A', 'O', 'U', 'Å'}
     _mjuka_vokaler = {'E', 'I', 'Y', 'Ä', 'Ö'}
-    _konsonanter = {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P',
-                    'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Z'}
-    _alfabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-                'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-                'Y', 'Z', 'Ä', 'Å', 'Ö'}
+    _konsonanter = {
+        'B',
+        'C',
+        'D',
+        'F',
+        'G',
+        'H',
+        'J',
+        'K',
+        'L',
+        'M',
+        'N',
+        'P',
+        'Q',
+        'R',
+        'S',
+        'T',
+        'V',
+        'W',
+        'X',
+        'Z',
+    }
+    _alfabet = {
+        'A',
+        'B',
+        'C',
+        'D',
+        'E',
+        'F',
+        'G',
+        'H',
+        'I',
+        'J',
+        'K',
+        'L',
+        'M',
+        'N',
+        'O',
+        'P',
+        'Q',
+        'R',
+        'S',
+        'T',
+        'U',
+        'V',
+        'W',
+        'X',
+        'Y',
+        'Z',
+        'Ä',
+        'Å',
+        'Ö',
+    }
 
-    _sfinxbis_translation = dict(zip((ord(_) for _ in
-                                      'BCDFGHJKLMNPQRSTVZAOUÅEIYÄÖ'),
-                                     '123729224551268378999999999'))
+    _sfinxbis_translation = dict(
+        zip(
+            (ord(_) for _ in 'BCDFGHJKLMNPQRSTVZAOUÅEIYÄÖ'),
+            '123729224551268378999999999',
+        )
+    )
 
-    _sfinxbis_substitutions = dict(zip((ord(_) for _ in
-                                        'WZÀÁÂÃÆÇÈÉÊËÌÍÎÏÑÒÓÔÕØÙÚÛÜÝ'),
-                                       'VSAAAAÄCEEEEIIIINOOOOÖUUUYY'))
+    _sfinxbis_substitutions = dict(
+        zip(
+            (ord(_) for _ in 'WZÀÁÂÃÆÇÈÉÊËÌÍÎÏÑÒÓÔÕØÙÚÛÜÝ'),
+            'VSAAAAÄCEEEEIIIINOOOOÖUUUYY',
+        )
+    )
 
     def _foersvensker(lokal_ordet):
         """Return the Swedish-ized form of the word."""
@@ -100,17 +180,17 @@ def sfinxbis(word, max_length=-1):
         lokal_ordet = lokal_ordet.replace('PH', 'F')
 
         for i in _harde_vokaler:
-            lokal_ordet = lokal_ordet.replace(i+'Ü', i+'J')
-            lokal_ordet = lokal_ordet.replace(i+'Y', i+'J')
-            lokal_ordet = lokal_ordet.replace(i+'I', i+'J')
+            lokal_ordet = lokal_ordet.replace(i + 'Ü', i + 'J')
+            lokal_ordet = lokal_ordet.replace(i + 'Y', i + 'J')
+            lokal_ordet = lokal_ordet.replace(i + 'I', i + 'J')
         for i in _mjuka_vokaler:
-            lokal_ordet = lokal_ordet.replace(i+'Ü', i+'J')
-            lokal_ordet = lokal_ordet.replace(i+'Y', i+'J')
-            lokal_ordet = lokal_ordet.replace(i+'I', i+'J')
+            lokal_ordet = lokal_ordet.replace(i + 'Ü', i + 'J')
+            lokal_ordet = lokal_ordet.replace(i + 'Y', i + 'J')
+            lokal_ordet = lokal_ordet.replace(i + 'I', i + 'J')
 
         if 'H' in lokal_ordet:
             for i in _konsonanter:
-                lokal_ordet = lokal_ordet.replace('H'+i, i)
+                lokal_ordet = lokal_ordet.replace('H' + i, i)
 
         lokal_ordet = lokal_ordet.translate(_sfinxbis_substitutions)
 
@@ -122,8 +202,10 @@ def sfinxbis(word, max_length=-1):
 
     def _koda_foersta_ljudet(lokal_ordet):
         """Return the word with the first sound coded."""
-        if (lokal_ordet[0:1] in _mjuka_vokaler or
-                lokal_ordet[0:1] in _harde_vokaler):
+        if (
+            lokal_ordet[0:1] in _mjuka_vokaler
+            or lokal_ordet[0:1] in _harde_vokaler
+        ):
             lokal_ordet = '$' + lokal_ordet[1:]
         elif lokal_ordet[0:2] in ('DJ', 'GJ', 'HJ', 'LJ'):
             lokal_ordet = 'J' + lokal_ordet[2:]
@@ -131,8 +213,9 @@ def sfinxbis(word, max_length=-1):
             lokal_ordet = 'J' + lokal_ordet[1:]
         elif lokal_ordet[0:1] == 'Q':
             lokal_ordet = 'K' + lokal_ordet[1:]
-        elif (lokal_ordet[0:2] == 'CH' and
-              lokal_ordet[2:3] in frozenset(_mjuka_vokaler | _harde_vokaler)):
+        elif lokal_ordet[0:2] == 'CH' and lokal_ordet[2:3] in frozenset(
+            _mjuka_vokaler | _harde_vokaler
+        ):
             lokal_ordet = '#' + lokal_ordet[2:]
         elif lokal_ordet[0:1] == 'C' and lokal_ordet[1:2] in _harde_vokaler:
             lokal_ordet = 'K' + lokal_ordet[1:]
@@ -162,7 +245,7 @@ def sfinxbis(word, max_length=-1):
         while adelstitel in word:
             word = word.replace(adelstitel, ' ')
         if word.startswith(adelstitel[1:]):
-            word = word[len(adelstitel)-1:]
+            word = word[len(adelstitel) - 1 :]
 
     # Split word into tokens
     ordlista = word.split()
@@ -177,8 +260,9 @@ def sfinxbis(word, max_length=-1):
     ordlista = [_foersvensker(ordet) for ordet in ordlista]
 
     # Steg 5, Ta bort alla tecken som inte är A-Ö (65-90,196,197,214)
-    ordlista = [''.join(c for c in ordet if c in _alfabet)
-                for ordet in ordlista]
+    ordlista = [
+        ''.join(c for c in ordet if c in _alfabet) for ordet in ordlista
+    ]
 
     # Steg 6, Koda första ljudet
     ordlista = [_koda_foersta_ljudet(ordet) for ordet in ordlista]
@@ -192,7 +276,7 @@ def sfinxbis(word, max_length=-1):
 
     # Steg 9, Koda resten till en sifferkod
     for vokal in _mjuka_vokaler:
-        rest = [ordet.replace('C'+vokal, '8'+vokal) for ordet in rest]
+        rest = [ordet.replace('C' + vokal, '8' + vokal) for ordet in rest]
     rest = [ordet.translate(_sfinxbis_translation) for ordet in rest]
 
     # Steg 10, Ta bort intilliggande dubbletter
@@ -202,8 +286,9 @@ def sfinxbis(word, max_length=-1):
     rest = [ordet.replace('9', '') for ordet in rest]
 
     # Steg 12, Sätt ihop delarna igen
-    ordlista = [''.join(ordet) for ordet in
-                zip((_[0:1] for _ in ordlista), rest)]
+    ordlista = [
+        ''.join(ordet) for ordet in zip((_[0:1] for _ in ordlista), rest)
+    ]
 
     # truncate, if max_length is set
     if max_length > 0:
@@ -239,12 +324,28 @@ def norphone(word):
     """
     _vowels = {'A', 'E', 'I', 'O', 'U', 'Y', 'Å', 'Æ', 'Ø', 'Ä', 'Ö'}
 
-    replacements = {4: {'SKEI': 'X'},
-                    3: {'SKJ': 'X', 'KEI': 'X'},
-                    2: {'CH': 'K', 'CK': 'K', 'GJ': 'J', 'GH': 'K', 'HG': 'K',
-                        'HJ': 'J', 'HL': 'L', 'HR': 'R', 'KJ': 'X', 'KI': 'X',
-                        'LD': 'L', 'ND': 'N', 'PH': 'F', 'TH': 'T', 'SJ': 'X'},
-                    1: {'W': 'V', 'X': 'KS', 'Z': 'S', 'D': 'T', 'G': 'K'}}
+    replacements = {
+        4: {'SKEI': 'X'},
+        3: {'SKJ': 'X', 'KEI': 'X'},
+        2: {
+            'CH': 'K',
+            'CK': 'K',
+            'GJ': 'J',
+            'GH': 'K',
+            'HG': 'K',
+            'HJ': 'J',
+            'HL': 'L',
+            'HR': 'R',
+            'KJ': 'X',
+            'KI': 'X',
+            'LD': 'L',
+            'ND': 'N',
+            'PH': 'F',
+            'TH': 'T',
+            'SJ': 'X',
+        },
+        1: {'W': 'V', 'X': 'KS', 'Z': 'S', 'D': 'T', 'G': 'K'},
+    }
 
     word = word.upper()
 
@@ -277,7 +378,7 @@ def norphone(word):
         skip = 1
 
     if word[-2:] == 'DT':
-        word = word[:-2]+'T'
+        word = word[:-2] + 'T'
     # Though the rules indicate this rule applies in all positions, the
     # reference implementation indicates it applies only in final position.
     elif word[-2:-1] in _vowels and word[-1:] == 'D':
@@ -288,9 +389,9 @@ def norphone(word):
             skip -= 1
         else:
             for length in sorted(replacements, reverse=True):
-                if word[pos:pos+length] in replacements[length]:
-                    code += replacements[length][word[pos:pos+length]]
-                    skip = length-1
+                if word[pos : pos + length] in replacements[length]:
+                    code += replacements[length][word[pos : pos + length]]
+                    skip = length - 1
                     break
             else:
                 if not pos or char not in _vowels:
@@ -303,4 +404,5 @@ def norphone(word):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

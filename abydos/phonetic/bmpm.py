@@ -34,29 +34,92 @@ from unicodedata import normalize
 from six import PY3, text_type
 from six.moves import range
 
-from ._bmdata import BMDATA, L_ANY, L_ARABIC, L_CYRILLIC, L_CZECH, L_DUTCH, \
-    L_ENGLISH, L_FRENCH, L_GERMAN, L_GREEK, L_GREEKLATIN, L_HEBREW, \
-    L_HUNGARIAN, L_ITALIAN, L_LATVIAN, L_NONE, L_POLISH, L_PORTUGUESE, \
-    L_ROMANIAN, L_RUSSIAN, L_SPANISH, L_TURKISH
+from ._bmdata import (
+    BMDATA,
+    L_ANY,
+    L_ARABIC,
+    L_CYRILLIC,
+    L_CZECH,
+    L_DUTCH,
+    L_ENGLISH,
+    L_FRENCH,
+    L_GERMAN,
+    L_GREEK,
+    L_GREEKLATIN,
+    L_HEBREW,
+    L_HUNGARIAN,
+    L_ITALIAN,
+    L_LATVIAN,
+    L_NONE,
+    L_POLISH,
+    L_PORTUGUESE,
+    L_ROMANIAN,
+    L_RUSSIAN,
+    L_SPANISH,
+    L_TURKISH,
+)
 
 if PY3:
     long = int
 
-_LANG_DICT = {'any': L_ANY, 'arabic': L_ARABIC, 'cyrillic': L_CYRILLIC,
-              'czech': L_CZECH, 'dutch': L_DUTCH, 'english': L_ENGLISH,
-              'french': L_FRENCH, 'german': L_GERMAN, 'greek': L_GREEK,
-              'greeklatin': L_GREEKLATIN, 'hebrew': L_HEBREW,
-              'hungarian': L_HUNGARIAN, 'italian': L_ITALIAN,
-              'latvian': L_LATVIAN, 'polish': L_POLISH,
-              'portuguese': L_PORTUGUESE, 'romanian': L_ROMANIAN,
-              'russian': L_RUSSIAN, 'spanish': L_SPANISH, 'turkish': L_TURKISH}
+_LANG_DICT = {
+    'any': L_ANY,
+    'arabic': L_ARABIC,
+    'cyrillic': L_CYRILLIC,
+    'czech': L_CZECH,
+    'dutch': L_DUTCH,
+    'english': L_ENGLISH,
+    'french': L_FRENCH,
+    'german': L_GERMAN,
+    'greek': L_GREEK,
+    'greeklatin': L_GREEKLATIN,
+    'hebrew': L_HEBREW,
+    'hungarian': L_HUNGARIAN,
+    'italian': L_ITALIAN,
+    'latvian': L_LATVIAN,
+    'polish': L_POLISH,
+    'portuguese': L_PORTUGUESE,
+    'romanian': L_ROMANIAN,
+    'russian': L_RUSSIAN,
+    'spanish': L_SPANISH,
+    'turkish': L_TURKISH,
+}
 
-BMDATA['gen']['discards'] = {'da ', 'dal ', 'de ', 'del ', 'dela ', 'de la ',
-                             'della ', 'des ', 'di ', 'do ', 'dos ', 'du ',
-                             'van ', 'von ', 'd\''}
-BMDATA['sep']['discards'] = {'al', 'el', 'da', 'dal', 'de', 'del', 'dela',
-                             'de la', 'della', 'des', 'di', 'do', 'dos', 'du',
-                             'van', 'von'}
+BMDATA['gen']['discards'] = {
+    'da ',
+    'dal ',
+    'de ',
+    'del ',
+    'dela ',
+    'de la ',
+    'della ',
+    'des ',
+    'di ',
+    'do ',
+    'dos ',
+    'du ',
+    'van ',
+    'von ',
+    'd\'',
+}
+BMDATA['sep']['discards'] = {
+    'al',
+    'el',
+    'da',
+    'dal',
+    'de',
+    'del',
+    'dela',
+    'de la',
+    'della',
+    'des',
+    'di',
+    'do',
+    'dos',
+    'du',
+    'van',
+    'von',
+}
 BMDATA['ash']['discards'] = {'bar', 'ben', 'da', 'de', 'van', 'von'}
 
 # format of rules array
@@ -75,7 +138,7 @@ def _bm_language(name, name_mode):
     """
     name = name.strip().lower()
     rules = BMDATA[name_mode]['language_rules']
-    all_langs = sum(_LANG_DICT[_] for _ in BMDATA[name_mode]['languages'])-1
+    all_langs = sum(_LANG_DICT[_] for _ in BMDATA[name_mode]['languages']) - 1
     choices_remaining = all_langs
     for rule in rules:
         letters, languages, accept = rule
@@ -83,14 +146,15 @@ def _bm_language(name, name_mode):
             if accept:
                 choices_remaining &= languages
             else:
-                choices_remaining &= (~languages) % (all_langs+1)
+                choices_remaining &= (~languages) % (all_langs + 1)
     if choices_remaining == L_NONE:
         choices_remaining = L_ANY
     return choices_remaining
 
 
-def _bm_redo_language(term, name_mode, rules, final_rules1, final_rules2,
-                      concat):
+def _bm_redo_language(
+    term, name_mode, rules, final_rules1, final_rules2, concat
+):
     """Reassess the language of the terms and call the phonetic encoder.
 
     Uses a split multi-word term.
@@ -106,12 +170,26 @@ def _bm_redo_language(term, name_mode, rules, final_rules1, final_rules2,
     :param bool concat: a flag to indicate concatenation
     """
     language_arg = _bm_language(term, name_mode)
-    return _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
-                        language_arg, concat)
+    return _bm_phonetic(
+        term,
+        name_mode,
+        rules,
+        final_rules1,
+        final_rules2,
+        language_arg,
+        concat,
+    )
 
 
-def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
-                 language_arg=0, concat=False):
+def _bm_phonetic(
+    term,
+    name_mode,
+    rules,
+    final_rules1,
+    final_rules2,
+    language_arg=0,
+    concat=False,
+):
     """Return the Beider-Morse encoding(s) of a term.
 
     :param str term: the term to encode via Beider-Morse
@@ -132,15 +210,27 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
         # discard and concatenate certain words if at the start of the name
         for pfx in BMDATA['gen']['discards']:
             if term.startswith(pfx):
-                remainder = term[len(pfx):]
-                combined = pfx[:-1]+remainder
-                result = (_bm_redo_language(remainder, name_mode, rules,
-                                            final_rules1, final_rules2,
-                                            concat) +
-                          '-' +
-                          _bm_redo_language(combined, name_mode, rules,
-                                            final_rules1, final_rules2,
-                                            concat))
+                remainder = term[len(pfx) :]
+                combined = pfx[:-1] + remainder
+                result = (
+                    _bm_redo_language(
+                        remainder,
+                        name_mode,
+                        rules,
+                        final_rules1,
+                        final_rules2,
+                        concat,
+                    )
+                    + '-'
+                    + _bm_redo_language(
+                        combined,
+                        name_mode,
+                        rules,
+                        final_rules1,
+                        final_rules2,
+                        concat,
+                    )
+                )
                 return result
 
     words = term.split()  # create array of the individual words in the name
@@ -157,7 +247,7 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
         # this is a bug, but I won't try to fix it now
 
         for word in words:
-            word = word[word.rfind('\'')+1:]
+            word = word[word.rfind('\'') + 1 :]
             if word not in BMDATA['sep']['discards']:
                 words2.append(word)
 
@@ -179,10 +269,14 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
     else:
         # encode each word in a multi-word name separately
         # (normally used for approx matches)
-        result = '-'.join([_bm_redo_language(w, name_mode, rules,
-                                             final_rules1, final_rules2,
-                                             concat)
-                           for w in words2])
+        result = '-'.join(
+            [
+                _bm_redo_language(
+                    w, name_mode, rules, final_rules1, final_rules2, concat
+                )
+                for w in words2
+            ]
+        )
         return result
 
     term_length = len(term)
@@ -203,16 +297,17 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
 
             # check to see if next sequence in input matches the string in the
             # rule
-            if (((pattern_length > term_length - i) or
-                 (term[i:i+pattern_length] != pattern))):  # no match
+            if (pattern_length > term_length - i) or (
+                term[i : i + pattern_length] != pattern
+            ):  # no match
                 continue
 
-            right = '^'+rcontext
-            left = lcontext+'$'
+            right = '^' + rcontext
+            left = lcontext + '$'
 
             # check that right context is satisfied
             if rcontext != '':
-                if not search(right, term[i+pattern_length:]):
+                if not search(right, term[i + pattern_length :]):
                     continue
 
             # check that left context is satisfied
@@ -221,8 +316,9 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
                     continue
 
             # check for incompatible attributes
-            candidate = _bm_apply_rule_if_compat(phonetic, rule[_PHONETIC_POS],
-                                                 language_arg)
+            candidate = _bm_apply_rule_if_compat(
+                phonetic, rule[_PHONETIC_POS], language_arg
+            )
             # The below condition shouldn't ever be false
             if candidate is not None:  # pragma: no branch
                 phonetic = candidate
@@ -231,16 +327,18 @@ def _bm_phonetic(term, name_mode, rules, final_rules1, final_rules2,
 
         if not found:  # character in name that is not in table -- e.g., space
             pattern_length = 1
-        skip = pattern_length-1
+        skip = pattern_length - 1
 
     # apply final rules on phonetic-alphabet,
     # doing a substitution of certain characters
-    phonetic = _bm_apply_final_rules(phonetic, final_rules1, language_arg,
-                                     False)  # apply common rules
+    phonetic = _bm_apply_final_rules(
+        phonetic, final_rules1, language_arg, False
+    )  # apply common rules
     # final_rules1 are the common approx rules,
     # final_rules2 are approx rules for specific language
-    phonetic = _bm_apply_final_rules(phonetic, final_rules2, language_arg,
-                                     True)  # apply lang specific rules
+    phonetic = _bm_apply_final_rules(
+        phonetic, final_rules2, language_arg, True
+    )  # apply lang specific rules
 
     return phonetic
 
@@ -289,18 +387,19 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
                 lcontext = rule[_LCONTEXT_POS]
                 rcontext = rule[_RCONTEXT_POS]
 
-                right = '^'+rcontext
-                left = lcontext+'$'
+                right = '^' + rcontext
+                left = lcontext + '$'
 
                 # check to see if next sequence in phonetic matches the string
                 # in the rule
-                if (((pattern_length > len(phoneticx) - i) or
-                     phoneticx[i:i+pattern_length] != pattern)):
+                if (pattern_length > len(phoneticx) - i) or phoneticx[
+                    i : i + pattern_length
+                ] != pattern:
                     continue
 
                 # check that right context is satisfied
                 if rcontext != '':
-                    if not search(right, phoneticx[i + pattern_length:]):
+                    if not search(right, phoneticx[i + pattern_length :]):
                         continue
 
                 # check that left context is satisfied
@@ -309,9 +408,9 @@ def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
                         continue
 
                 # check for incompatible attributes
-                candidate = _bm_apply_rule_if_compat(phonetic2,
-                                                     rule[_PHONETIC_POS],
-                                                     language_arg)
+                candidate = _bm_apply_rule_if_compat(
+                    phonetic2, rule[_PHONETIC_POS], language_arg
+                )
                 # The below condition shouldn't ever be false
                 if candidate is not None:  # pragma: no branch
                     phonetic2 = candidate
@@ -344,7 +443,7 @@ def _bm_phonetic_number(phonetic):
     :param str phonetic: a Beider-Morse phonetic encoding
     """
     if '[' in phonetic:
-        return phonetic[:phonetic.find('[')]
+        return phonetic[: phonetic.find('[')]
 
     return phonetic  # experimental !!!!
 
@@ -369,7 +468,7 @@ def _bm_expand_alternates(phonetic):
 
     for i in range(len(alt_array)):
         alt = alt_array[i]
-        alternate = _bm_expand_alternates(prefix+alt+suffix)
+        alternate = _bm_expand_alternates(prefix + alt + suffix)
         if alternate != '' and alternate != '[0]':
             if result != '':
                 result += '|'
@@ -396,7 +495,7 @@ def _bm_pnums_with_leading_space(phonetic):
     alt_array = alt_string.split('|')
     result = ''
     for alt in alt_array:
-        result += _bm_pnums_with_leading_space(prefix+alt+suffix)
+        result += _bm_pnums_with_leading_space(prefix + alt + suffix)
 
     return result
 
@@ -410,8 +509,9 @@ def _bm_phonetic_numbers(phonetic):
     :param str phonetic: a Beider-Morse phonetic encoding
     """
     phonetic_array = phonetic.split('-')  # for names with spaces in them
-    result = ' '.join([_bm_pnums_with_leading_space(i)[1:] for i in
-                       phonetic_array])
+    result = ' '.join(
+        [_bm_pnums_with_leading_space(i)[1:] for i in phonetic_array]
+    )
     return result
 
 
@@ -426,8 +526,8 @@ def _bm_remove_dupes(phonetic):
     result = '|'
     for i in range(len(alt_array)):
         alt = alt_array[i]
-        if alt and '|'+alt+'|' not in result:
-            result += alt+'|'
+        if alt and '|' + alt + '|' not in result:
+            result += alt + '|'
 
     return result[1:-1]  # remove leading and trailing |
 
@@ -453,10 +553,15 @@ def _bm_normalize_lang_attrs(text, strip):
         bracket_start = text.find('[')
         bracket_end = text.find(']', bracket_start)
         if bracket_end == -1:
-            raise ValueError('No closing square bracket: text=(' +
-                             text + ') strip=(' + text_type(strip) + ')')
-        attrib &= int(text[bracket_start+1:bracket_end])
-        text = text[:bracket_start] + text[bracket_end+1:]
+            raise ValueError(
+                'No closing square bracket: text=('
+                + text
+                + ') strip=('
+                + text_type(strip)
+                + ')'
+            )
+        attrib &= int(text[bracket_start + 1 : bracket_end])
+        text = text[:bracket_start] + text[bracket_end + 1 :]
 
     if attrib == uninitialized or strip:
         return text
@@ -504,9 +609,9 @@ def _bm_apply_rule_if_compat(phonetic, target, language_arg):
     for i in range(len(candidate_array)):
         this_candidate = candidate_array[i]
         if language_arg != 1:
-            this_candidate = _bm_normalize_lang_attrs(this_candidate + '[' +
-                                                      str(language_arg) + ']',
-                                                      False)
+            this_candidate = _bm_normalize_lang_attrs(
+                this_candidate + '[' + str(language_arg) + ']', False
+            )
         if this_candidate != '[0]':
             found = True
             if candidate:
@@ -519,7 +624,7 @@ def _bm_apply_rule_if_compat(phonetic, target, language_arg):
 
     # return the result of applying the rule
     if '|' in candidate:
-        candidate = '('+candidate+')'
+        candidate = '(' + candidate + ')'
     return candidate
 
 
@@ -533,17 +638,23 @@ def _bm_language_index_from_code(code, name_mode):
     :param str name_mode: the name mode of the algorithm: 'gen' (default),
                 'ash' (Ashkenazi), or 'sep' (Sephardic)
     """
-    if (code < 1 or
-            code > sum(_LANG_DICT[_] for _ in
-                       BMDATA[name_mode]['languages'])):  # code out of range
+    if code < 1 or code > sum(
+        _LANG_DICT[_] for _ in BMDATA[name_mode]['languages']
+    ):  # code out of range
         return L_ANY
     if (code & (code - 1)) != 0:  # choice was more than one language; use any
         return L_ANY
     return code
 
 
-def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
-         concat=False, filter_langs=False):
+def bmpm(
+    word,
+    language_arg=0,
+    name_mode='gen',
+    match_mode='approx',
+    concat=False,
+    filter_langs=False,
+):
     """Return the Beider-Morse Phonetic Matching encoding(s) of a term.
 
     The Beider-Morse Phonetic Matching algorithm is described in
@@ -623,7 +734,7 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
 
     # Translate the supplied language_arg value into an integer representing
     # a set of languages
-    all_langs = sum(_LANG_DICT[_] for _ in BMDATA[name_mode]['languages'])-1
+    all_langs = sum(_LANG_DICT[_] for _ in BMDATA[name_mode]['languages']) - 1
     lang_choices = 0
     if isinstance(language_arg, (int, float, long)):
         lang_choices = int(language_arg)
@@ -632,8 +743,9 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
             if lang in _LANG_DICT and (_LANG_DICT[lang] & all_langs):
                 lang_choices += _LANG_DICT[lang]
             elif not filter_langs:
-                raise ValueError('Unknown \'' + name_mode + '\' language: \'' +
-                                 lang + '\'')
+                raise ValueError(
+                    'Unknown \'' + name_mode + '\' language: \'' + lang + '\''
+                )
 
     # Language choices are either all incompatible with the name mode or
     # no choices were given, so try to autodetect
@@ -647,8 +759,15 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
     final_rules1 = BMDATA[name_mode][match_mode]['common']
     final_rules2 = BMDATA[name_mode][match_mode][language_arg2]
 
-    result = _bm_phonetic(word, name_mode, rules, final_rules1,
-                          final_rules2, language_arg, concat)
+    result = _bm_phonetic(
+        word,
+        name_mode,
+        rules,
+        final_rules1,
+        final_rules2,
+        language_arg,
+        concat,
+    )
     result = _bm_phonetic_numbers(result)
 
     return result
@@ -656,4 +775,5 @@ def bmpm(word, language_arg=0, name_mode='gen', match_mode='approx',
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

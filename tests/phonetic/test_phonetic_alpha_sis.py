@@ -55,9 +55,11 @@ class AlphaSisTestCases(unittest.TestCase):
         self.assertEqual(alpha_sis('Colalalier')[0], '07555400000000')
 
         # max_length bounds tests
-        self.assertEqual(alpha_sis('Niall', max_length=-1)[0],
-                         '02500000000000000000000000000000000000000000000000' +
-                         '00000000000000')
+        self.assertEqual(
+            alpha_sis('Niall', max_length=-1)[0],
+            '02500000000000000000000000000000000000000000000000'
+            + '00000000000000',
+        )
         self.assertEqual(alpha_sis('Niall', max_length=0)[0], '0250')
 
 

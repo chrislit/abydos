@@ -36,9 +36,10 @@ class BWTTestCases(unittest.TestCase):
         # Examples from Wikipedia entry on BWT
         self.assertEqual(encode(''), '\x00')
         self.assertEqual(encode('^BANANA', '|'), 'BNN^AA|A')
-        self.assertEqual(encode('SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES',
-                                '|'),
-                         'TEXYDST.E.IXIXIXXSSMPPS.B..E.|.UESFXDIIOIIITS')
+        self.assertEqual(
+            encode('SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES', '|'),
+            'TEXYDST.E.IXIXIXXSSMPPS.B..E.|.UESFXDIIOIIITS',
+        )
 
         self.assertEqual(encode('aardvark', '$'), 'k$avrraad')
 
@@ -50,9 +51,10 @@ class BWTTestCases(unittest.TestCase):
         self.assertEqual(decode(''), '')
         self.assertEqual(decode('\x00'), '')
         self.assertEqual(decode('BNN^AA|A', '|'), '^BANANA')
-        self.assertEqual(decode('TEXYDST.E.IXIXIXXSSMPPS.B..E.|.' +
-                                'UESFXDIIOIIITS', '|'),
-                         'SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES')
+        self.assertEqual(
+            decode('TEXYDST.E.IXIXIXXSSMPPS.B..E.|.' + 'UESFXDIIOIIITS', '|'),
+            'SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES',
+        )
 
         self.assertEqual(decode('k$avrraad', '$'), 'aardvark')
 
@@ -61,10 +63,15 @@ class BWTTestCases(unittest.TestCase):
 
     def test_bwt_roundtripping(self):
         """Test abydos.compression.bwt.encode & .decode roundtripping."""
-        for w in ('', 'Banana', 'The quick brown fox, etc.',
-                  'it is better a chylde unborne than untaught',
-                  'manners maketh man', 'בְּרֵאשִׁית, בָּרָא אֱלֹהִים',
-                  'Ein Rückblick bietet sich folglich an.'):
+        for w in (
+            '',
+            'Banana',
+            'The quick brown fox, etc.',
+            'it is better a chylde unborne than untaught',
+            'manners maketh man',
+            'בְּרֵאשִׁית, בָּרָא אֱלֹהִים',
+            'Ein Rückblick bietet sich folglich an.',
+        ):
             self.assertEqual(decode(encode(w)), w)
             self.assertEqual(decode(encode(w, '$'), '$'), w)
 

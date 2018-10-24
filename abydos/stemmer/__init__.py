@@ -33,10 +33,19 @@ The stemmer module defines word stemmers including:
 
 from __future__ import unicode_literals
 
-__all__ = ['caumanns', 'clef', 'lovins', 'paice_husk', 's_stemmer', 'snowball',
-           'schinke', 'uealite']
+__all__ = [
+    'caumanns',
+    'clef',
+    'lovins',
+    'paice_husk',
+    's_stemmer',
+    'snowball',
+    'schinke',
+    'uealite',
+]
 
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

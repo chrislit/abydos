@@ -26,10 +26,23 @@ from __future__ import unicode_literals
 import codecs
 import unittest
 
-from abydos.stemmer.snowball import _ends_in_cvc, _ends_in_doubled_cons, \
-    _m_degree, _sb_ends_in_short_syllable, _sb_has_vowel, _sb_r1, _sb_r2, \
-    _sb_short_word, porter, porter2, sb_danish, sb_dutch, sb_german, \
-    sb_norwegian, sb_swedish
+from abydos.stemmer.snowball import (
+    _ends_in_cvc,
+    _ends_in_doubled_cons,
+    _m_degree,
+    _sb_ends_in_short_syllable,
+    _sb_has_vowel,
+    _sb_r1,
+    _sb_r2,
+    _sb_short_word,
+    porter,
+    porter2,
+    sb_danish,
+    sb_dutch,
+    sb_german,
+    sb_norwegian,
+    sb_swedish,
+)
 
 from .. import _corpus_file
 
@@ -105,8 +118,9 @@ class PorterTestCases(unittest.TestCase):
         self.assertFalse(_ends_in_doubled_cons('b', _vowels))
         self.assertFalse(_ends_in_doubled_cons('c', _vowels))
         self.assertFalse(_ends_in_doubled_cons('bc', _vowels))
-        self.assertFalse(_ends_in_doubled_cons('bcdfghjklmnpqrstvwxYz',
-                                               _vowels))
+        self.assertFalse(
+            _ends_in_doubled_cons('bcdfghjklmnpqrstvwxYz', _vowels)
+        )
         self.assertFalse(_ends_in_doubled_cons('Y', _vowels))
         self.assertFalse(_ends_in_doubled_cons('a', _vowels))
         self.assertFalse(_ends_in_doubled_cons('e', _vowels))
@@ -269,37 +283,50 @@ class Porter2TestCases(unittest.TestCase):
         _vowels = set('aeiouy')
         _codanonvowels = set('bcdfghjklmnpqrstvz\'')
         # base case
-        self.assertFalse(_sb_ends_in_short_syllable('', _vowels,
-                                                    _codanonvowels))
+        self.assertFalse(
+            _sb_ends_in_short_syllable('', _vowels, _codanonvowels)
+        )
 
         # examples from
         # http://snowball.tartarus.org/algorithms/english/stemmer.html
-        self.assertTrue(_sb_ends_in_short_syllable('rap', _vowels,
-                                                   _codanonvowels))
-        self.assertTrue(_sb_ends_in_short_syllable('trap', _vowels,
-                                                   _codanonvowels))
-        self.assertTrue(_sb_ends_in_short_syllable('entrap', _vowels,
-                                                   _codanonvowels))
-        self.assertTrue(_sb_ends_in_short_syllable('ow', _vowels,
-                                                   _codanonvowels))
-        self.assertTrue(_sb_ends_in_short_syllable('on', _vowels,
-                                                   _codanonvowels))
-        self.assertTrue(_sb_ends_in_short_syllable('at', _vowels,
-                                                   _codanonvowels))
-        self.assertFalse(_sb_ends_in_short_syllable('uproot', _vowels,
-                                                    _codanonvowels))
-        self.assertFalse(_sb_ends_in_short_syllable('uproot', _vowels,
-                                                    _codanonvowels))
-        self.assertFalse(_sb_ends_in_short_syllable('bestow', _vowels,
-                                                    _codanonvowels))
-        self.assertFalse(_sb_ends_in_short_syllable('disturb', _vowels,
-                                                    _codanonvowels))
+        self.assertTrue(
+            _sb_ends_in_short_syllable('rap', _vowels, _codanonvowels)
+        )
+        self.assertTrue(
+            _sb_ends_in_short_syllable('trap', _vowels, _codanonvowels)
+        )
+        self.assertTrue(
+            _sb_ends_in_short_syllable('entrap', _vowels, _codanonvowels)
+        )
+        self.assertTrue(
+            _sb_ends_in_short_syllable('ow', _vowels, _codanonvowels)
+        )
+        self.assertTrue(
+            _sb_ends_in_short_syllable('on', _vowels, _codanonvowels)
+        )
+        self.assertTrue(
+            _sb_ends_in_short_syllable('at', _vowels, _codanonvowels)
+        )
+        self.assertFalse(
+            _sb_ends_in_short_syllable('uproot', _vowels, _codanonvowels)
+        )
+        self.assertFalse(
+            _sb_ends_in_short_syllable('uproot', _vowels, _codanonvowels)
+        )
+        self.assertFalse(
+            _sb_ends_in_short_syllable('bestow', _vowels, _codanonvowels)
+        )
+        self.assertFalse(
+            _sb_ends_in_short_syllable('disturb', _vowels, _codanonvowels)
+        )
 
         # missed branch test cases
-        self.assertFalse(_sb_ends_in_short_syllable('d', _vowels,
-                                                    _codanonvowels))
-        self.assertFalse(_sb_ends_in_short_syllable('a', _vowels,
-                                                    _codanonvowels))
+        self.assertFalse(
+            _sb_ends_in_short_syllable('d', _vowels, _codanonvowels)
+        )
+        self.assertFalse(
+            _sb_ends_in_short_syllable('a', _vowels, _codanonvowels)
+        )
 
     def test_sb_short_word(self):
         """Test abydos.stemmer._sb_short_word."""
@@ -408,8 +435,9 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_german(''), '')
 
         #  Snowball German test set
-        with codecs.open(_corpus_file('snowball_german.csv'),
-                         encoding='utf-8') as snowball_ts:
+        with codecs.open(
+            _corpus_file('snowball_german.csv'), encoding='utf-8'
+        ) as snowball_ts:
             next(snowball_ts)
             for line in snowball_ts:
                 if line[0] != '#':
@@ -426,18 +454,22 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_german('', alternate_vowels=True), '')
 
         # dämmerung,dammer
-        self.assertEqual(sb_german('dämmerung', alternate_vowels=True),
-                         'dammer')
-        self.assertEqual(sb_german('daemmerung', alternate_vowels=True),
-                         'dammer')
+        self.assertEqual(
+            sb_german('dämmerung', alternate_vowels=True), 'dammer'
+        )
+        self.assertEqual(
+            sb_german('daemmerung', alternate_vowels=True), 'dammer'
+        )
         self.assertEqual(sb_german('dämmerung'), 'dammer')
         self.assertEqual(sb_german('daemmerung'), 'daemmer')
 
         # brötchen,brotch
-        self.assertEqual(sb_german('brötchen', alternate_vowels=True),
-                         'brotch')
-        self.assertEqual(sb_german('broetchen', alternate_vowels=True),
-                         'brotch')
+        self.assertEqual(
+            sb_german('brötchen', alternate_vowels=True), 'brotch'
+        )
+        self.assertEqual(
+            sb_german('broetchen', alternate_vowels=True), 'brotch'
+        )
         self.assertEqual(sb_german('brötchen'), 'brotch')
         self.assertEqual(sb_german('broetchen'), 'broetch')
 
@@ -481,8 +513,9 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_dutch(''), '')
 
         #  Snowball Dutch test set
-        with codecs.open(_corpus_file('snowball_dutch.csv'),
-                         encoding='utf-8') as snowball_ts:
+        with codecs.open(
+            _corpus_file('snowball_dutch.csv'), encoding='utf-8'
+        ) as snowball_ts:
             next(snowball_ts)
             for line in snowball_ts:
                 if line[0] != '#':
@@ -503,8 +536,9 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_norwegian(''), '')
 
         #  Snowball Norwegian test set
-        with codecs.open(_corpus_file('snowball_norwegian.csv'),
-                         encoding='utf-8') as snowball_ts:
+        with codecs.open(
+            _corpus_file('snowball_norwegian.csv'), encoding='utf-8'
+        ) as snowball_ts:
             next(snowball_ts)
             for line in snowball_ts:
                 if line[0] != '#':
@@ -522,8 +556,9 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_swedish(''), '')
 
         #  Snowball Swedish test set
-        with codecs.open(_corpus_file('snowball_swedish.csv'),
-                         encoding='utf-8') as snowball_ts:
+        with codecs.open(
+            _corpus_file('snowball_swedish.csv'), encoding='utf-8'
+        ) as snowball_ts:
             next(snowball_ts)
             for line in snowball_ts:
                 if line[0] != '#':
@@ -541,8 +576,9 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(sb_danish(''), '')
 
         #  Snowball Danish test set
-        with codecs.open(_corpus_file('snowball_danish.csv'),
-                         encoding='utf-8') as snowball_ts:
+        with codecs.open(
+            _corpus_file('snowball_danish.csv'), encoding='utf-8'
+        ) as snowball_ts:
             next(snowball_ts)
             for line in snowball_ts:
                 if line[0] != '#':

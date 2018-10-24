@@ -167,16 +167,18 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
     def _log_manhattan_keyboard_distance(char1, char2):
         return log(1 + _manhattan_keyboard_distance(char1, char2))
 
-    metric_dict = {'euclidean': _euclidean_keyboard_distance,
-                   'manhattan': _manhattan_keyboard_distance,
-                   'log-euclidean': _log_euclidean_keyboard_distance,
-                   'log-manhattan': _log_manhattan_keyboard_distance}
+    metric_dict = {
+        'euclidean': _euclidean_keyboard_distance,
+        'manhattan': _manhattan_keyboard_distance,
+        'log-euclidean': _log_euclidean_keyboard_distance,
+        'log-manhattan': _log_manhattan_keyboard_distance,
+    }
 
     def _substitution_cost(char1, char2):
         cost = sub_cost
-        cost *= (metric_dict[metric](char1, char2) +
-                 shift_cost * (_kb_array_for_char(char1) !=
-                               _kb_array_for_char(char2)))
+        cost *= metric_dict[metric](char1, char2) + shift_cost * (
+            _kb_array_for_char(char1) != _kb_array_for_char(char2)
+        )
         return cost
 
     d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
@@ -190,8 +192,12 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
             d_mat[i + 1, j + 1] = min(
                 d_mat[i + 1, j] + ins_cost,  # ins
                 d_mat[i, j + 1] + del_cost,  # del
-                d_mat[i, j] + (_substitution_cost(src[i], tar[j])
-                               if src[i] != tar[j] else 0)  # sub/==
+                d_mat[i, j]
+                + (
+                    _substitution_cost(src[i], tar[j])
+                    if src[i] != tar[j]
+                    else 0
+                ),  # sub/==
             )
 
     return d_mat[len(src), len(tar)]
@@ -226,8 +232,9 @@ def dist_typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5)):
     if src == tar:
         return 0
     ins_cost, del_cost = cost[:2]
-    return (typo(src, tar, metric, cost) /
-            (max(len(src)*del_cost, len(tar)*ins_cost)))
+    return typo(src, tar, metric, cost) / (
+        max(len(src) * del_cost, len(tar) * ins_cost)
+    )
 
 
 def sim_typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5)):
@@ -262,4 +269,5 @@ def sim_typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5)):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()
