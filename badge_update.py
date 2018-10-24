@@ -41,16 +41,16 @@ def pylint_color(score):
     return BADGE_COLORS[-1]
 
 
-def pycodestyle_color(score):
-    """Return pycodestyle badge color."""
-    # These are the score cutoffs for each color above.
-    # I.e. score==0 -> brightgreen, down to 100 < score <= 200 -> orange
-    score_cutoffs = (0, 20, 50, 100, 200)
-    for i in range(len(score_cutoffs)):
-        if score <= score_cutoffs[i]:
-            return BADGE_COLORS[i]
-    # and score > 200 -> red
-    return BADGE_COLORS[-1]
+# def pycodestyle_color(score):
+#     """Return pycodestyle badge color."""
+#     # These are the score cutoffs for each color above.
+#     # I.e. score==0 -> brightgreen, down to 100 < score <= 200 -> orange
+#     score_cutoffs = (0, 20, 50, 100, 200)
+#     for i in range(len(score_cutoffs)):
+#         if score <= score_cutoffs[i]:
+#             return BADGE_COLORS[i]
+#     # and score > 200 -> red
+#     return BADGE_COLORS[-1]
 
 
 def flake8_color(score):
@@ -76,11 +76,11 @@ if __name__ == '__main__':
                                        r' (-?[0-9\.]+)',
                                        pylint_text).group(1)), 0.0)
 
-    if not os.path.isfile('./pycodestyle.log'):
-        exit('Please direct pycodestyle output to pycodestyle.log')
-    pycodestyle_text = open('pycodestyle.log', 'r', encoding='utf-8').read()
-    pycodestyle_score = sum(int(n) for n in re.findall(r'\n([0-9]+) +',
-                                                       pycodestyle_text))
+    # if not os.path.isfile('./pycodestyle.log'):
+    #     exit('Please direct pycodestyle output to pycodestyle.log')
+    # pycodestyle_text = open('pycodestyle.log', 'r', encoding='utf-8').read()
+    # pycodestyle_score = sum(int(n) for n in re.findall(r'\n([0-9]+) +',
+    #                                                    pycodestyle_text))
 
     if not os.path.isfile('./flake8.log'):
         exit('Please direct flake8 output to flake8.log')
@@ -95,11 +95,11 @@ if __name__ == '__main__':
                          pylint_color(pylint_score),
                          readme_text, 1)
 
-    prefix = 'https://img.shields.io/badge/pycodestyle-'
-    readme_text = re.sub(prefix + r'([0-9\.]+-[a-z]+)',
-                         prefix + str(pycodestyle_score) + '-' +
-                         pycodestyle_color(pycodestyle_score),
-                         readme_text, 1)
+    # prefix = 'https://img.shields.io/badge/pycodestyle-'
+    # readme_text = re.sub(prefix + r'([0-9\.]+-[a-z]+)',
+    #                      prefix + str(pycodestyle_score) + '-' +
+    #                      pycodestyle_color(pycodestyle_score),
+    #                      readme_text, 1)
 
     prefix = 'https://img.shields.io/badge/flake8-'
     readme_text = re.sub(prefix + r'([0-9\.]+-[a-z]+)',
