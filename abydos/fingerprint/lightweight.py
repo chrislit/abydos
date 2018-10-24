@@ -37,6 +37,7 @@ __all__ = ['MOST_COMMON_LETTERS', 'MOST_COMMON_LETTERS_CG',
            'occurrence_fingerprint', 'occurrence_halved_fingerprint',
            'position_fingerprint']
 
+# fmt: off
 # most common letters, as defined in Cisłak & Grabowski
 MOST_COMMON_LETTERS_CG = ('e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd',
                           'l', 'c', 'u', 'm', 'w', 'f')
@@ -74,6 +75,7 @@ MOST_COMMON_LETTERS_DE_LC = ('e', 'n', 'i', 'r', 's', 't', 'a', 'd', 'h', 'u',
                              'H', 'L', 'T', 'N', 'Z', 'y', 'U', 'j', 'J', 'O',
                              'C', 'x', 'q', 'Ü', 'Q', 'X', 'Ä', 'Ö', '1', '2',
                              'Y', '3', '4', '0', '5', '6', '9', '8', '7')
+# fmt: on
 
 
 def occurrence_fingerprint(word, n_bits=16,
