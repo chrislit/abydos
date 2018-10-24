@@ -90,6 +90,7 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
     if not tar:
         return len(src) * del_cost
 
+    # fmt: off
     kbs = {'QWERTY': (
         (('`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='),
          ('', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']',
@@ -130,6 +131,7 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
          ('', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ö', 'Ä', '\''),
          ('>', 'Y', 'X', 'C', 'V', 'B', 'N', 'M', ';', ':', '_'))
     )}
+    # fmt: on
 
     keyboard = kbs[layout]
     lowercase = {item for sublist in keyboard[0] for item in sublist}
