@@ -9,7 +9,7 @@ Abydos
 +------------------+------------------------------------------------------+
 | Dependencies     | |requires| |snyk| |pyup| |fossa|                     |
 +------------------+------------------------------------------------------+
-| Local Analysis   | |pylint| |pycodestyle| |flake8|                      |
+| Local Analysis   | |pylint| |flake8| |black|                            |
 +------------------+------------------------------------------------------+
 | Usage            | |docs| |mybinder| |license| |sourcerank| |zenodo|    |
 +------------------+------------------------------------------------------+
@@ -80,13 +80,13 @@ Abydos
    :target: #
    :alt: Pylint Score
 
-.. |pycodestyle| image:: https://img.shields.io/badge/pycodestyle-0-brightgreen.svg
-   :target: #
-   :alt: pycodestyle Errors
-
 .. |flake8| image:: https://img.shields.io/badge/flake8-3-green.svg
    :target: #
    :alt: flake8 Errors
+
+.. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :target: https://github.com/ambv/black
+   :alt: black
 
 .. |docs| image:: https://readthedocs.org/projects/abydos/badge/?version=latest
     :target: https://abydos.readthedocs.org/en/latest/

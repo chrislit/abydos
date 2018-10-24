@@ -22,6 +22,8 @@ if [ "$clean" = "1" ]; then
 fi
 
 if [ "$docs_only" = "0" ]; then
+    black .
+
     python setup.py build
 
     python setup.py sdist
@@ -33,7 +35,7 @@ if [ "$docs_only" = "0" ]; then
     nosetests .
 
     pylint --rcfile=setup.cfg abydos > pylint.log
-    pycodestyle . > pycodestyle.log
+    # pycodestyle . > pycodestyle.log
     flake8 . > flake8.log
     doc8 . > doc8.log
 
