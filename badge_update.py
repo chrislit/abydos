@@ -104,7 +104,7 @@ if __name__ == '__main__':
     prefix = 'https://img.shields.io/badge/flake8-'
     readme_text = re.sub(prefix + r'([0-9\.]+-[a-z]+)',
                          prefix + str(flake8_score) + '-' +
-                         pycodestyle_color(flake8_score),
+                         flake8_color(flake8_score),
                          readme_text, 1)
 
     with open('README.rst', 'w', encoding='utf-8') as f:
