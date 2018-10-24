@@ -56,35 +56,152 @@ def alpha_sis(word, max_length=14):
     >>> alpha_sis('Schmidt')
     ('06310000000000',)
     """
-    _alpha_sis_initials = {'GF': '08', 'GM': '03', 'GN': '02', 'KN': '02',
-                           'PF': '08', 'PN': '02', 'PS': '00', 'WR': '04',
-                           'A': '1', 'E': '1', 'H': '2', 'I': '1', 'J': '3',
-                           'O': '1', 'U': '1', 'W': '4', 'Y': '5'}
-    _alpha_sis_initials_order = ('GF', 'GM', 'GN', 'KN', 'PF', 'PN', 'PS',
-                                 'WR', 'A', 'E', 'H', 'I', 'J', 'O', 'U', 'W',
-                                 'Y')
-    _alpha_sis_basic = {'SCH': '6', 'CZ': ('70', '6', '0'),
-                        'CH': ('6', '70', '0'), 'CK': ('7', '6'),
-                        'DS': ('0', '10'), 'DZ': ('0', '10'),
-                        'TS': ('0', '10'), 'TZ': ('0', '10'), 'CI': '0',
-                        'CY': '0', 'CE': '0', 'SH': '6', 'DG': '7', 'PH': '8',
-                        'C': ('7', '6'), 'K': ('7', '6'), 'Z': '0', 'S': '0',
-                        'D': '1', 'T': '1', 'N': '2', 'M': '3', 'R': '4',
-                        'L': '5', 'J': '6', 'G': '7', 'Q': '7', 'X': '7',
-                        'F': '8', 'V': '8', 'B': '9', 'P': '9'}
-    _alpha_sis_basic_order = ('SCH', 'CZ', 'CH', 'CK', 'DS', 'DZ', 'TS', 'TZ',
-                              'CI', 'CY', 'CE', 'SH', 'DG', 'PH', 'C', 'K',
-                              'Z', 'S', 'D', 'T', 'N', 'M', 'R', 'L', 'J', 'C',
-                              'G', 'K', 'Q', 'X', 'F', 'V', 'B', 'P')
+    _alpha_sis_initials = {
+        'GF': '08',
+        'GM': '03',
+        'GN': '02',
+        'KN': '02',
+        'PF': '08',
+        'PN': '02',
+        'PS': '00',
+        'WR': '04',
+        'A': '1',
+        'E': '1',
+        'H': '2',
+        'I': '1',
+        'J': '3',
+        'O': '1',
+        'U': '1',
+        'W': '4',
+        'Y': '5',
+    }
+    _alpha_sis_initials_order = (
+        'GF',
+        'GM',
+        'GN',
+        'KN',
+        'PF',
+        'PN',
+        'PS',
+        'WR',
+        'A',
+        'E',
+        'H',
+        'I',
+        'J',
+        'O',
+        'U',
+        'W',
+        'Y',
+    )
+    _alpha_sis_basic = {
+        'SCH': '6',
+        'CZ': ('70', '6', '0'),
+        'CH': ('6', '70', '0'),
+        'CK': ('7', '6'),
+        'DS': ('0', '10'),
+        'DZ': ('0', '10'),
+        'TS': ('0', '10'),
+        'TZ': ('0', '10'),
+        'CI': '0',
+        'CY': '0',
+        'CE': '0',
+        'SH': '6',
+        'DG': '7',
+        'PH': '8',
+        'C': ('7', '6'),
+        'K': ('7', '6'),
+        'Z': '0',
+        'S': '0',
+        'D': '1',
+        'T': '1',
+        'N': '2',
+        'M': '3',
+        'R': '4',
+        'L': '5',
+        'J': '6',
+        'G': '7',
+        'Q': '7',
+        'X': '7',
+        'F': '8',
+        'V': '8',
+        'B': '9',
+        'P': '9',
+    }
+    _alpha_sis_basic_order = (
+        'SCH',
+        'CZ',
+        'CH',
+        'CK',
+        'DS',
+        'DZ',
+        'TS',
+        'TZ',
+        'CI',
+        'CY',
+        'CE',
+        'SH',
+        'DG',
+        'PH',
+        'C',
+        'K',
+        'Z',
+        'S',
+        'D',
+        'T',
+        'N',
+        'M',
+        'R',
+        'L',
+        'J',
+        'C',
+        'G',
+        'K',
+        'Q',
+        'X',
+        'F',
+        'V',
+        'B',
+        'P',
+    )
 
     alpha = ['']
     pos = 0
     word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
-    word = ''.join(c for c in word if c in
-                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-                    'Y', 'Z'})
+    word = ''.join(
+        c
+        for c in word
+        if c
+        in {
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J',
+            'K',
+            'L',
+            'M',
+            'N',
+            'O',
+            'P',
+            'Q',
+            'R',
+            'S',
+            'T',
+            'U',
+            'V',
+            'W',
+            'X',
+            'Y',
+            'Z',
+        }
+    )
 
     # Clamp max_length to [4, 64]
     if max_length != -1:
@@ -126,16 +243,17 @@ def alpha_sis(word, max_length=14):
     for i in range(len(alpha)):
         pos = 1
         while pos < len(alpha[i]):
-            if alpha[i][pos] == alpha[i][pos-1]:
-                alpha[i] = alpha[i][:pos]+alpha[i][pos+1:]
+            if alpha[i][pos] == alpha[i][pos - 1]:
+                alpha[i] = alpha[i][:pos] + alpha[i][pos + 1 :]
             pos += 1
     alpha = (_.replace('_', '') for _ in alpha)
 
     # Trim codes and return tuple
-    alpha = ((_ + ('0'*max_length))[:max_length] for _ in alpha)
+    alpha = ((_ + ('0' * max_length))[:max_length] for _ in alpha)
     return tuple(alpha)
 
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

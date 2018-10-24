@@ -25,8 +25,12 @@ from __future__ import division, unicode_literals
 
 import unittest
 
-from abydos.distance.sift4 import dist_sift4, sift4_common, sift4_simplest, \
-    sim_sift4
+from abydos.distance.sift4 import (
+    dist_sift4,
+    sift4_common,
+    sift4_simplest,
+    sim_sift4,
+)
 
 
 class Sift4TestCases(unittest.TestCase):
@@ -70,13 +74,22 @@ class Sift4TestCases(unittest.TestCase):
 
         # Tests copied from
         # https://github.com/tdebatty/java-string-similarity/blob/master/src/test/java/info/debatty/java/stringsimilarity/experimental/Sift4Test.java
-        self.assertEqual(sift4_simplest('This is the first string',
-                                        'And this is another string', 5), 13)
-        self.assertEqual(sift4_simplest('Lorem ipsum dolor sit amet, ' +
-                                        'consectetur adipiscing elit.',
-                                        'Amet Lorm ispum dolor sit amet, ' +
-                                        'consetetur adixxxpiscing elit.',
-                                        10), 20)
+        self.assertEqual(
+            sift4_simplest(
+                'This is the first string', 'And this is another string', 5
+            ),
+            13,
+        )
+        self.assertEqual(
+            sift4_simplest(
+                'Lorem ipsum dolor sit amet, '
+                + 'consectetur adipiscing elit.',
+                'Amet Lorm ispum dolor sit amet, '
+                + 'consetetur adixxxpiscing elit.',
+                10,
+            ),
+            20,
+        )
 
     def test_sift4_common(self):
         """Test abydos.distance.sift4_common."""
@@ -113,13 +126,22 @@ class Sift4TestCases(unittest.TestCase):
 
         # Tests copied from
         # https://github.com/tdebatty/java-string-similarity/blob/master/src/test/java/info/debatty/java/stringsimilarity/experimental/Sift4Test.java
-        self.assertEqual(sift4_common('This is the first string',
-                                      'And this is another string', 5), 11)
-        self.assertEqual(sift4_common('Lorem ipsum dolor sit amet, ' +
-                                      'consectetur adipiscing elit.',
-                                      'Amet Lorm ispum dolor sit amet, ' +
-                                      'consetetur adixxxpiscing elit.',
-                                      10), 12)
+        self.assertEqual(
+            sift4_common(
+                'This is the first string', 'And this is another string', 5
+            ),
+            11,
+        )
+        self.assertEqual(
+            sift4_common(
+                'Lorem ipsum dolor sit amet, '
+                + 'consectetur adipiscing elit.',
+                'Amet Lorm ispum dolor sit amet, '
+                + 'consetetur adixxxpiscing elit.',
+                10,
+            ),
+            12,
+        )
 
         # cases with max_distance
         self.assertEqual(sift4_common('example', 'samples', 5, 5), 5)
@@ -141,22 +163,25 @@ class Sift4TestCases(unittest.TestCase):
         self.assertEqual(dist_sift4('abc', 'abc'), 0)
 
         self.assertEqual(dist_sift4('a', 'ab'), 0.5)
-        self.assertEqual(dist_sift4('ac', 'abc'), 1/3)
-        self.assertAlmostEqual(dist_sift4('abcdefg', 'xabxcdxxefxgx'),
-                               0.538461538)
+        self.assertEqual(dist_sift4('ac', 'abc'), 1 / 3)
+        self.assertAlmostEqual(
+            dist_sift4('abcdefg', 'xabxcdxxefxgx'), 0.538461538
+        )
 
         self.assertEqual(dist_sift4('ab', 'b'), 0.5)
         self.assertEqual(dist_sift4('ab', 'a'), 0.5)
-        self.assertEqual(dist_sift4('abc', 'ac'), 1/3)
-        self.assertAlmostEqual(dist_sift4('xabxcdxxefxgx', 'abcdefg'),
-                               0.538461538)
+        self.assertEqual(dist_sift4('abc', 'ac'), 1 / 3)
+        self.assertAlmostEqual(
+            dist_sift4('xabxcdxxefxgx', 'abcdefg'), 0.538461538
+        )
 
         self.assertEqual(dist_sift4('a', 'b'), 1)
         self.assertEqual(dist_sift4('ab', 'ac'), 0.5)
         self.assertEqual(dist_sift4('ac', 'bc'), 0.5)
-        self.assertEqual(dist_sift4('abc', 'axc'), 1/3)
-        self.assertAlmostEqual(dist_sift4('xabxcdxxefxgx', '1ab2cd34ef5g6'),
-                               0.461538461)
+        self.assertEqual(dist_sift4('abc', 'axc'), 1 / 3)
+        self.assertAlmostEqual(
+            dist_sift4('xabxcdxxefxgx', '1ab2cd34ef5g6'), 0.461538461
+        )
 
         self.assertAlmostEqual(dist_sift4('example', 'samples'), 0.285714285)
         self.assertAlmostEqual(dist_sift4('sturgeon', 'urgently'), 0.375)
@@ -165,21 +190,31 @@ class Sift4TestCases(unittest.TestCase):
 
         # Tests copied from
         # https://github.com/tdebatty/java-string-similarity/blob/master/src/test/java/info/debatty/java/stringsimilarity/experimental/Sift4Test.java
-        self.assertAlmostEqual(dist_sift4('This is the first string',
-                                          'And this is another string',
-                                          5), 0.423076923)
-        self.assertAlmostEqual(dist_sift4('Lorem ipsum dolor sit amet, ' +
-                                          'consectetur adipiscing elit.',
-                                          'Amet Lorm ispum dolor sit amet, ' +
-                                          'consetetur adixxxpiscing elit.',
-                                          10), 0.193548387)
+        self.assertAlmostEqual(
+            dist_sift4(
+                'This is the first string', 'And this is another string', 5
+            ),
+            0.423076923,
+        )
+        self.assertAlmostEqual(
+            dist_sift4(
+                'Lorem ipsum dolor sit amet, '
+                + 'consectetur adipiscing elit.',
+                'Amet Lorm ispum dolor sit amet, '
+                + 'consetetur adixxxpiscing elit.',
+                10,
+            ),
+            0.193548387,
+        )
 
         # cases with max_distance
-        self.assertAlmostEqual(dist_sift4('example', 'samples', 5, 5),
-                               0.714285714)
+        self.assertAlmostEqual(
+            dist_sift4('example', 'samples', 5, 5), 0.714285714
+        )
         self.assertAlmostEqual(dist_sift4('sturgeon', 'urgently', 5, 5), 0.625)
-        self.assertAlmostEqual(dist_sift4('levenshtein', 'frankenstein', 5, 5),
-                               0.416666666)
+        self.assertAlmostEqual(
+            dist_sift4('levenshtein', 'frankenstein', 5, 5), 0.416666666
+        )
         self.assertAlmostEqual(dist_sift4('distance', 'difference', 5, 5), 0.5)
 
     def test_sim_sift4(self):
@@ -196,22 +231,25 @@ class Sift4TestCases(unittest.TestCase):
         self.assertEqual(sim_sift4('abc', 'abc'), 1)
 
         self.assertEqual(sim_sift4('a', 'ab'), 0.5)
-        self.assertAlmostEqual(sim_sift4('ac', 'abc'), 2/3)
-        self.assertAlmostEqual(sim_sift4('abcdefg', 'xabxcdxxefxgx'),
-                               0.461538461)
+        self.assertAlmostEqual(sim_sift4('ac', 'abc'), 2 / 3)
+        self.assertAlmostEqual(
+            sim_sift4('abcdefg', 'xabxcdxxefxgx'), 0.461538461
+        )
 
         self.assertEqual(sim_sift4('ab', 'b'), 0.5)
         self.assertEqual(sim_sift4('ab', 'a'), 0.5)
-        self.assertAlmostEqual(sim_sift4('abc', 'ac'), 2/3)
-        self.assertAlmostEqual(sim_sift4('xabxcdxxefxgx', 'abcdefg'),
-                               0.461538461)
+        self.assertAlmostEqual(sim_sift4('abc', 'ac'), 2 / 3)
+        self.assertAlmostEqual(
+            sim_sift4('xabxcdxxefxgx', 'abcdefg'), 0.461538461
+        )
 
         self.assertEqual(sim_sift4('a', 'b'), 0)
         self.assertEqual(sim_sift4('ab', 'ac'), 0.5)
         self.assertEqual(sim_sift4('ac', 'bc'), 0.5)
-        self.assertAlmostEqual(sim_sift4('abc', 'axc'), 2/3)
-        self.assertAlmostEqual(sim_sift4('xabxcdxxefxgx', '1ab2cd34ef5g6'),
-                               0.538461538)
+        self.assertAlmostEqual(sim_sift4('abc', 'axc'), 2 / 3)
+        self.assertAlmostEqual(
+            sim_sift4('xabxcdxxefxgx', '1ab2cd34ef5g6'), 0.538461538
+        )
 
         self.assertAlmostEqual(sim_sift4('example', 'samples'), 0.714285714)
         self.assertAlmostEqual(sim_sift4('sturgeon', 'urgently'), 0.625)
@@ -220,21 +258,31 @@ class Sift4TestCases(unittest.TestCase):
 
         # Tests copied from
         # https://github.com/tdebatty/java-string-similarity/blob/master/src/test/java/info/debatty/java/stringsimilarity/experimental/Sift4Test.java
-        self.assertAlmostEqual(sim_sift4('This is the first string',
-                                         'And this is another string',
-                                         5), 0.576923077)
-        self.assertAlmostEqual(sim_sift4('Lorem ipsum dolor sit amet, ' +
-                                         'consectetur adipiscing elit.',
-                                         'Amet Lorm ispum dolor sit amet, ' +
-                                         'consetetur adixxxpiscing elit.',
-                                         10), 0.806451613)
+        self.assertAlmostEqual(
+            sim_sift4(
+                'This is the first string', 'And this is another string', 5
+            ),
+            0.576923077,
+        )
+        self.assertAlmostEqual(
+            sim_sift4(
+                'Lorem ipsum dolor sit amet, '
+                + 'consectetur adipiscing elit.',
+                'Amet Lorm ispum dolor sit amet, '
+                + 'consetetur adixxxpiscing elit.',
+                10,
+            ),
+            0.806451613,
+        )
 
         # cases with max_distance
-        self.assertAlmostEqual(sim_sift4('example', 'samples', 5, 5),
-                               0.285714286)
+        self.assertAlmostEqual(
+            sim_sift4('example', 'samples', 5, 5), 0.285714286
+        )
         self.assertAlmostEqual(sim_sift4('sturgeon', 'urgently', 5, 5), 0.375)
-        self.assertAlmostEqual(sim_sift4('levenshtein', 'frankenstein', 5, 5),
-                               0.583333333)
+        self.assertAlmostEqual(
+            sim_sift4('levenshtein', 'frankenstein', 5, 5), 0.583333333
+        )
         self.assertAlmostEqual(sim_sift4('distance', 'difference', 5, 5), 0.5)
 
 

@@ -53,23 +53,55 @@ def sound_d(word, max_length=4):
     >>> sound_d('judge')
     '2200'
     """
-    _ref_soundd_translation = dict(zip((ord(_) for _ in
-                                        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-                                       '01230120022455012623010202'))
+    _ref_soundd_translation = dict(
+        zip(
+            (ord(_) for _ in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            '01230120022455012623010202',
+        )
+    )
 
     word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
-    word = ''.join(c for c in word if c in
-                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-                    'Y', 'Z'})
+    word = ''.join(
+        c
+        for c in word
+        if c
+        in {
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J',
+            'K',
+            'L',
+            'M',
+            'N',
+            'O',
+            'P',
+            'Q',
+            'R',
+            'S',
+            'T',
+            'U',
+            'V',
+            'W',
+            'X',
+            'Y',
+            'Z',
+        }
+    )
 
     if word[:2] in {'KN', 'GN', 'PN', 'AC', 'WR'}:
         word = word[1:]
     elif word[:1] == 'X':
-        word = 'S'+word[1:]
+        word = 'S' + word[1:]
     elif word[:2] == 'WH':
-        word = 'W'+word[2:]
+        word = 'W' + word[2:]
 
     word = word.replace('DGE', '20').replace('DGI', '20').replace('GH', '0')
 
@@ -79,7 +111,7 @@ def sound_d(word, max_length=4):
 
     if max_length != -1:
         if len(word) < max_length:
-            word += '0' * (max_length-len(word))
+            word += '0' * (max_length - len(word))
         else:
             word = word[:max_length]
 
@@ -88,4 +120,5 @@ def sound_d(word, max_length=4):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

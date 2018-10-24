@@ -29,4 +29,5 @@ __all__ = ['confusion_table', 'mean', 'pairwise']
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

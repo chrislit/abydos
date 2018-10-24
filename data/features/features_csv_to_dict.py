@@ -51,19 +51,20 @@ def main(argv):
 
     def print_usage():
         """Print usage statement."""
-        sys.stdout.write('features_csv_to_dict.py -i <inputfile> ' +
-                         '[-o <outputfile>]\n')
+        sys.stdout.write(
+            'features_csv_to_dict.py -i <inputfile> ' + '[-o <outputfile>]\n'
+        )
         sys.exit(2)
 
     def binarize(num):
         """Replace 0, -1, 1, 2 with 00, 10, 01, 11."""
-        if num == '0':      # 0
+        if num == '0':  # 0
             return '00'
-        elif num == '-1':   # -
+        elif num == '-1':  # -
             return '10'
-        elif num == '1':    # +
+        elif num == '1':  # +
             return '01'
-        elif num == '2':    # ± (segmental) or copy from base (non-segmental)
+        elif num == '2':  # ± (segmental) or copy from base (non-segmental)
             return '11'
 
     def init_termdicts():
@@ -81,12 +82,13 @@ def main(argv):
         for line in ifile:
             line = line.strip().rstrip(',')
             if '#' in line:
-                line = line[:line.find('#')].strip()
+                line = line[: line.find('#')].strip()
             if line:
                 line = line.split(',')
                 term = line[last_col]
-                features = '0b' + ''.join([binarize(val) for val
-                                           in line[first_col:last_col]])
+                features = '0b' + ''.join(
+                    [binarize(val) for val in line[first_col:last_col]]
+                )
                 termdict[term] = int(features, 2)
 
         return termdict, feature_mask
@@ -98,15 +100,27 @@ def main(argv):
         the expected features implied by that feature.
         """
         if '#' in name:
-            name = name[:name.find('#')].strip()
+            name = name[: name.find('#')].strip()
         for term in name.split():
             if term in termdict:
                 if termdict[term] & features != termdict[term]:
-                    sys.stdout.write('Feature mismatch for term "' + term +
-                                     '" in   ' + sym + '\n')
+                    sys.stdout.write(
+                        'Feature mismatch for term "'
+                        + term
+                        + '" in   '
+                        + sym
+                        + '\n'
+                    )
             else:
-                sys.stdout.write('Unknown term "' + term + '" in ' + name +
-                                 ' : ' + sym + '\n')
+                sys.stdout.write(
+                    'Unknown term "'
+                    + term
+                    + '" in '
+                    + name
+                    + ' : '
+                    + sym
+                    + '\n'
+                )
 
     def check_entailments(sym, features, feature_mask):
         """Check entailments.
@@ -114,25 +128,20 @@ def main(argv):
         Check for necessary feature assignments (entailments)
         For example, [+round] necessitates [+labial].
         """
-        entailments = {'+labial': ('±round', '±protruded', '±compressed',
-                                   '±labiodental'),
-                       '-labial': ('0round', '0protruded', '0compressed',
-                                   '0labiodental'),
-                       '+coronal': ('±anterior', '±distributed'),
-                       '-coronal': ('0anterior', '0distributed'),
-                       '+dorsal': ('±high', '±low', '±front', '±back',
-                                   '±tense'),
-                       '-dorsal': ('0high', '0low', '0front', '0back',
-                                   '0tense'),
-                       '+pharyngeal': ('±atr', '±rtr'),
-                       '-pharyngeal': ('0atr', '0rtr'),
-
-                       '+protruded': ('+labial', '+round', '-compressed'),
-                       '+compressed': ('+labial', '+round', '-protruded'),
-
-                       '+glottalic_suction': ('-velaric_suction',),
-                       '+velaric_suction': ('-glottalic_suction',),
-                       }
+        entailments = {
+            '+labial': ('±round', '±protruded', '±compressed', '±labiodental'),
+            '-labial': ('0round', '0protruded', '0compressed', '0labiodental'),
+            '+coronal': ('±anterior', '±distributed'),
+            '-coronal': ('0anterior', '0distributed'),
+            '+dorsal': ('±high', '±low', '±front', '±back', '±tense'),
+            '-dorsal': ('0high', '0low', '0front', '0back', '0tense'),
+            '+pharyngeal': ('±atr', '±rtr'),
+            '-pharyngeal': ('0atr', '0rtr'),
+            '+protruded': ('+labial', '+round', '-compressed'),
+            '+compressed': ('+labial', '+round', '-protruded'),
+            '+glottalic_suction': ('-velaric_suction',),
+            '+velaric_suction': ('-glottalic_suction',),
+        }
 
         for feature in entailments:
             fname = feature[1:]
@@ -154,14 +163,24 @@ def main(argv):
 
                     if ent[0] == '±':
                         if (features & efm) == 0:
-                            sys.stdout.write('Incorrect entailment for ' +
-                                             sym + ' for feature ' + fname +
-                                             ' and entailment ' + ename)
+                            sys.stdout.write(
+                                'Incorrect entailment for '
+                                + sym
+                                + ' for feature '
+                                + fname
+                                + ' and entailment '
+                                + ename
+                            )
                     else:
                         if (features & efm) != efm:
-                            sys.stdout.write('Incorrect entailment for ' +
-                                             sym + ' for feature ' + fname +
-                                             ' and entailment ' + ename)
+                            sys.stdout.write(
+                                'Incorrect entailment for '
+                                + sym
+                                + ' for feature '
+                                + fname
+                                + ' and entailment '
+                                + ename
+                            )
 
     checkdict = {}  # a mapping of symbol to feature
     checkset_s = set()  # a set of the symbols seen
@@ -201,17 +220,18 @@ def main(argv):
         line = unicodedata.normalize('NFC', line)
 
         if not line or line.startswith('#'):
-            oline = '                     '+line
+            oline = '                     ' + line
 
         else:
             line = line.strip().split(',')
             if '#' in line:
-                line = line[:line.find('#')]
+                line = line[: line.find('#')]
             symbol = line[0]
             variant = int(line[1])
             segmental = bool(line[2])
-            features = '0b' + ''.join([binarize(val) for val
-                                       in line[first_col:last_col]])
+            features = '0b' + ''.join(
+                [binarize(val) for val in line[first_col:last_col]]
+            )
             name = line[-1].strip()
             if not segmental:
                 features = '-' + features
@@ -220,24 +240,31 @@ def main(argv):
             check_terms(symbol, featint, name, termdict)
             check_entailments(symbol, featint, feature_mask)
             if symbol in checkset_s:
-                sys.stdout.write('Symbol ' + symbol +
-                                 ' appears twice in CSV.\n')
+                sys.stdout.write(
+                    'Symbol ' + symbol + ' appears twice in CSV.\n'
+                )
             else:
                 checkset_s.add(symbol)
 
             if variant < 2:
                 if featint in checkset_f:
-                    sys.stdout.write('Feature set ' + str(featint) +
-                                     ' appears in CSV for two primary IPA ' +
-                                     'symbols: ' + symbol + ' and ' +
-                                     checkdict[featint])
+                    sys.stdout.write(
+                        'Feature set '
+                        + str(featint)
+                        + ' appears in CSV for two primary IPA '
+                        + 'symbols: '
+                        + symbol
+                        + ' and '
+                        + checkdict[featint]
+                    )
                 else:
                     checkdict[featint] = symbol
                     checkset_f.add(featint)
 
             if variant < 5:
-                oline = '                     \'{}\': {},'.format(symbol,
-                                                                  featint)
+                oline = '                     \'{}\': {},'.format(
+                    symbol, featint
+                )
             else:
                 oline = ''
 

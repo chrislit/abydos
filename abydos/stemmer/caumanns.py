@@ -66,7 +66,7 @@ def caumanns(word):
     # 2. Change second of doubled characters to *
     new_word = word[0]
     for i in range(1, len(word)):
-        if new_word[i-1] == word[i]:
+        if new_word[i - 1] == word[i]:
             new_word += '*'
         else:
             new_word += word[i]
@@ -83,11 +83,13 @@ def caumanns(word):
     # # Part 1: Recursive Context-Free Stripping
     # 1. Remove the following 7 suffixes recursively
     while len(word) > 3:
-        if (((len(word) > 4 and word[-2:] in {'em', 'er'}) or
-             (len(word) > 5 and word[-2:] == 'nd'))):
+        if (len(word) > 4 and word[-2:] in {'em', 'er'}) or (
+            len(word) > 5 and word[-2:] == 'nd'
+        ):
             word = word[:-2]
-        elif ((word[-1] in {'e', 's', 'n'}) or
-              (not upper_initial and word[-1] in {'t', '!'})):
+        elif (word[-1] in {'e', 's', 'n'}) or (
+            not upper_initial and word[-1] in {'t', '!'}
+        ):
             word = word[:-1]
         else:
             break
@@ -107,8 +109,13 @@ def caumanns(word):
     word = word.replace('!', 'st')
 
     # Expand doubled
-    word = ''.join([word[0]] + [word[i-1] if word[i] == '*' else word[i] for
-                                i in range(1, len(word))])
+    word = ''.join(
+        [word[0]]
+        + [
+            word[i - 1] if word[i] == '*' else word[i]
+            for i in range(1, len(word))
+        ]
+    )
 
     # Finally, convert gege to ge
     if len(word) > 4:
@@ -119,4 +126,5 @@ def caumanns(word):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

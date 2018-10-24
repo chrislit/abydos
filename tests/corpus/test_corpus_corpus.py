@@ -83,100 +83,159 @@ class CorpusTestCases(unittest.TestCase):
         # one document/one sentence
         self.assertEqual(Corpus('a').corpus, [[['a']]])
         self.assertEqual(Corpus('ab ab').corpus, [[['ab', 'ab']]])
-        self.assertEqual(Corpus('abc def ghi').corpus,
-                         [[['abc', 'def', 'ghi']]])
+        self.assertEqual(
+            Corpus('abc def ghi').corpus, [[['abc', 'def', 'ghi']]]
+        )
 
         # multiple documents (one sentence each)
-        self.assertEqual(Corpus('abc\n\ndef ghi').corpus,
-                         [[['abc']], [['def', 'ghi']]])
-        self.assertEqual(Corpus('abc\n\ndef ghi\n\n').corpus,
-                         [[['abc']], [['def', 'ghi']]])
-        self.assertEqual(Corpus('\n\nabc\r\n\ndef ghi\n\n').corpus,
-                         [[['abc']], [['def', 'ghi']]])
+        self.assertEqual(
+            Corpus('abc\n\ndef ghi').corpus, [[['abc']], [['def', 'ghi']]]
+        )
+        self.assertEqual(
+            Corpus('abc\n\ndef ghi\n\n').corpus, [[['abc']], [['def', 'ghi']]]
+        )
+        self.assertEqual(
+            Corpus('\n\nabc\r\n\ndef ghi\n\n').corpus,
+            [[['abc']], [['def', 'ghi']]],
+        )
 
         # one document (multiple sentences each)
-        self.assertEqual(Corpus('abc\n def ghi').corpus,
-                         [[['abc'], ['def', 'ghi']]])
-        self.assertEqual(Corpus('abc\n def ghi\n').corpus,
-                         [[['abc'], ['def', 'ghi']]])
-        self.assertEqual(Corpus('\nabc\n def ghi\n').corpus,
-                         [[['abc'], ['def', 'ghi']]])
+        self.assertEqual(
+            Corpus('abc\n def ghi').corpus, [[['abc'], ['def', 'ghi']]]
+        )
+        self.assertEqual(
+            Corpus('abc\n def ghi\n').corpus, [[['abc'], ['def', 'ghi']]]
+        )
+        self.assertEqual(
+            Corpus('\nabc\n def ghi\n').corpus, [[['abc'], ['def', 'ghi']]]
+        )
 
         # multiple documents (multiple sentences each)
-        self.assertEqual(Corpus('abc\n abc def\n\n\ndef ghi\n jkl\n').corpus,
-                         [[['abc'], ['abc', 'def']],
-                          [['def', 'ghi'], ['jkl']]])
+        self.assertEqual(
+            Corpus('abc\n abc def\n\n\ndef ghi\n jkl\n').corpus,
+            [[['abc'], ['abc', 'def']], [['def', 'ghi'], ['jkl']]],
+        )
 
         # sentence(s) with ignorables
-        self.assertEqual(Corpus('abc\nd-ef ghi\n', filter_chars='.-').corpus,
-                         [[['abc'], ['def', 'ghi']]])
-        self.assertEqual(Corpus('abc\n\n\nd-ef ghi\n\n\n',
-                                filter_chars='.-').corpus,
-                         [[['abc']], [['def', 'ghi']]])
-        self.assertEqual(Corpus('\n\nabc\r\n\ndef ghi.\n\n' +
-                                'a b c d e f g.\n\n\n',
-                                filter_chars='.-').corpus,
-                         [[['abc']], [['def', 'ghi']],
-                          [['a', 'b', 'c', 'd', 'e', 'f', 'g']]])
+        self.assertEqual(
+            Corpus('abc\nd-ef ghi\n', filter_chars='.-').corpus,
+            [[['abc'], ['def', 'ghi']]],
+        )
+        self.assertEqual(
+            Corpus('abc\n\n\nd-ef ghi\n\n\n', filter_chars='.-').corpus,
+            [[['abc']], [['def', 'ghi']]],
+        )
+        self.assertEqual(
+            Corpus(
+                '\n\nabc\r\n\ndef ghi.\n\n' + 'a b c d e f g.\n\n\n',
+                filter_chars='.-',
+            ).corpus,
+            [
+                [['abc']],
+                [['def', 'ghi']],
+                [['a', 'b', 'c', 'd', 'e', 'f', 'g']],
+            ],
+        )
 
         # sentences with stopword removal
-        self.assertEqual(Corpus('The quick brown fox jumped over the lazy dog',
-                                stop_words=('The', 'the')).corpus,
-                         [[['quick', 'brown', 'fox', 'jumped', 'over', 'lazy',
-                            'dog']]])
-        self.assertEqual(Corpus('a ab abc def',
-                                stop_words=('A', 'a')).corpus,
-                         [[['ab', 'abc', 'def']]])
+        self.assertEqual(
+            Corpus(
+                'The quick brown fox jumped over the lazy dog',
+                stop_words=('The', 'the'),
+            ).corpus,
+            [[['quick', 'brown', 'fox', 'jumped', 'over', 'lazy', 'dog']]],
+        )
+        self.assertEqual(
+            Corpus('a ab abc def', stop_words=('A', 'a')).corpus,
+            [[['ab', 'abc', 'def']]],
+        )
 
         # alternate document divider
-        self.assertEqual(Corpus('The quick brown@ fox jumped over@' +
-                                'the lazy dog', doc_split='@').corpus,
-                         [[['The', 'quick', 'brown']],
-                          [['fox', 'jumped', 'over']],
-                          [['the', 'lazy', 'dog']]])
+        self.assertEqual(
+            Corpus(
+                'The quick brown@ fox jumped over@' + 'the lazy dog',
+                doc_split='@',
+            ).corpus,
+            [
+                [['The', 'quick', 'brown']],
+                [['fox', 'jumped', 'over']],
+                [['the', 'lazy', 'dog']],
+            ],
+        )
 
         # alternate sentence divider
-        self.assertEqual(Corpus('The quick brown$ fox jumped over$' +
-                                'the lazy dog', sent_split='$').corpus,
-                         [[['The', 'quick', 'brown'],
-                           ['fox', 'jumped', 'over'],
-                           ['the', 'lazy', 'dog']]])
-        self.assertEqual(Corpus('The quick brown$ fox jumped over@' +
-                                'the lazy dog', doc_split='@',
-                                sent_split='$').corpus,
-                         [[['The', 'quick', 'brown'],
-                           ['fox', 'jumped', 'over']],
-                          [['the', 'lazy', 'dog']]])
-        self.assertEqual(Corpus('<BOS> The quick brown <EOS>' +
-                                '<BOS> fox jumped over the lazy dog <EOS>',
-                                sent_split='<BOS>',
-                                stop_words=['<EOS>']).corpus,
-                         [[['The', 'quick', 'brown'],
-                           ['fox', 'jumped', 'over', 'the', 'lazy', 'dog']]])
+        self.assertEqual(
+            Corpus(
+                'The quick brown$ fox jumped over$' + 'the lazy dog',
+                sent_split='$',
+            ).corpus,
+            [
+                [
+                    ['The', 'quick', 'brown'],
+                    ['fox', 'jumped', 'over'],
+                    ['the', 'lazy', 'dog'],
+                ]
+            ],
+        )
+        self.assertEqual(
+            Corpus(
+                'The quick brown$ fox jumped over@' + 'the lazy dog',
+                doc_split='@',
+                sent_split='$',
+            ).corpus,
+            [
+                [['The', 'quick', 'brown'], ['fox', 'jumped', 'over']],
+                [['the', 'lazy', 'dog']],
+            ],
+        )
+        self.assertEqual(
+            Corpus(
+                '<BOS> The quick brown <EOS>'
+                + '<BOS> fox jumped over the lazy dog <EOS>',
+                sent_split='<BOS>',
+                stop_words=['<EOS>'],
+            ).corpus,
+            [
+                [
+                    ['The', 'quick', 'brown'],
+                    ['fox', 'jumped', 'over', 'the', 'lazy', 'dog'],
+                ]
+            ],
+        )
 
     def test_corpus_docs_sents_words(self):
         """Test abydos.corpus.corpus.docs, .sents, .words, .docs_of_words, .raw."""  # noqa: E501
         doc_str = 'a b c d\n\ne f g\nh i j\nk'
         doc_corp = Corpus(doc_str)
 
-        self.assertEqual(doc_corp.docs(),
-                         [[['a', 'b', 'c', 'd']],
-                          [['e', 'f', 'g'], ['h', 'i', 'j'], ['k']]])
-        self.assertEqual(doc_corp.paras(),
-                         [[['a', 'b', 'c', 'd']],
-                          [['e', 'f', 'g'], ['h', 'i', 'j'], ['k']]])
-        self.assertEqual(doc_corp.sents(),
-                         [['a', 'b', 'c', 'd'], ['e', 'f', 'g'],
-                          ['h', 'i', 'j'], ['k']])
-        self.assertEqual(doc_corp.words(),
-                         ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-                          'k'])
+        self.assertEqual(
+            doc_corp.docs(),
+            [
+                [['a', 'b', 'c', 'd']],
+                [['e', 'f', 'g'], ['h', 'i', 'j'], ['k']],
+            ],
+        )
+        self.assertEqual(
+            doc_corp.paras(),
+            [
+                [['a', 'b', 'c', 'd']],
+                [['e', 'f', 'g'], ['h', 'i', 'j'], ['k']],
+            ],
+        )
+        self.assertEqual(
+            doc_corp.sents(),
+            [['a', 'b', 'c', 'd'], ['e', 'f', 'g'], ['h', 'i', 'j'], ['k']],
+        )
+        self.assertEqual(
+            doc_corp.words(),
+            ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'],
+        )
 
-        self.assertEqual(doc_corp.docs_of_words(),
-                         [['a', 'b', 'c', 'd'],
-                          ['e', 'f', 'g', 'h', 'i', 'j', 'k']])
-        self.assertEqual(doc_corp.raw(),
-                         doc_str)
+        self.assertEqual(
+            doc_corp.docs_of_words(),
+            [['a', 'b', 'c', 'd'], ['e', 'f', 'g', 'h', 'i', 'j', 'k']],
+        )
+        self.assertEqual(doc_corp.raw(), doc_str)
 
     def test_corpus_idf(self):
         """Test abydos.corpus.corpus.idf."""
@@ -188,8 +247,9 @@ class CorpusTestCases(unittest.TestCase):
         self.assertAlmostEqual(wiki_idf_corpus.idf('example'), 0.30102999566)
         self.assertAlmostEqual(wiki_idf_corpus.idf('these'), float('inf'))
         self.assertAlmostEqual(wiki_idf_corpus.idf('A'), float('inf'))
-        self.assertAlmostEqual(wiki_idf_corpus.idf('A', lambda w: w.upper()),
-                               0.30102999566)
+        self.assertAlmostEqual(
+            wiki_idf_corpus.idf('A', lambda w: w.upper()), 0.30102999566
+        )
 
 
 if __name__ == '__main__':

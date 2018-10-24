@@ -77,32 +77,39 @@ def metaphone(word, max_length=-1):
         ename = 'W' + ename[2:]
 
     # Convert to metaphone
-    elen = len(ename)-1
+    elen = len(ename) - 1
     metaph = ''
     for i in range(len(ename)):
         if len(metaph) >= max_length:
             break
-        if ((ename[i] not in {'G', 'T'} and
-             i > 0 and ename[i-1] == ename[i])):
+        if ename[i] not in {'G', 'T'} and i > 0 and ename[i - 1] == ename[i]:
             continue
 
         if ename[i] in _vowels and i == 0:
             metaph = ename[i]
 
         elif ename[i] == 'B':
-            if i != elen or ename[i-1] != 'M':
+            if i != elen or ename[i - 1] != 'M':
                 metaph += ename[i]
 
         elif ename[i] == 'C':
-            if not (i > 0 and ename[i-1] == 'S' and ename[i+1:i+2] in _frontv):
-                if ename[i+1:i+3] == 'IA':
+            if not (
+                i > 0
+                and ename[i - 1] == 'S'
+                and ename[i + 1 : i + 2] in _frontv
+            ):
+                if ename[i + 1 : i + 3] == 'IA':
                     metaph += 'X'
-                elif ename[i+1:i+2] in _frontv:
+                elif ename[i + 1 : i + 2] in _frontv:
                     metaph += 'S'
-                elif i > 0 and ename[i-1:i+2] == 'SCH':
+                elif i > 0 and ename[i - 1 : i + 2] == 'SCH':
                     metaph += 'K'
-                elif ename[i+1:i+2] == 'H':
-                    if i == 0 and i+1 < elen and ename[i+2:i+3] not in _vowels:
+                elif ename[i + 1 : i + 2] == 'H':
+                    if (
+                        i == 0
+                        and i + 1 < elen
+                        and ename[i + 2 : i + 3] not in _vowels
+                    ):
                         metaph += 'K'
                     else:
                         metaph += 'X'
@@ -110,25 +117,32 @@ def metaphone(word, max_length=-1):
                     metaph += 'K'
 
         elif ename[i] == 'D':
-            if ename[i+1:i+2] == 'G' and ename[i+2:i+3] in _frontv:
+            if ename[i + 1 : i + 2] == 'G' and ename[i + 2 : i + 3] in _frontv:
                 metaph += 'J'
             else:
                 metaph += 'T'
 
         elif ename[i] == 'G':
-            if ename[i+1:i+2] == 'H' and not (i+1 == elen or
-                                              ename[i+2:i+3] not in _vowels):
+            if ename[i + 1 : i + 2] == 'H' and not (
+                i + 1 == elen or ename[i + 2 : i + 3] not in _vowels
+            ):
                 continue
-            elif i > 0 and ((i+1 == elen and ename[i+1] == 'N') or
-                            (i+3 == elen and ename[i+1:i+4] == 'NED')):
+            elif i > 0 and (
+                (i + 1 == elen and ename[i + 1] == 'N')
+                or (i + 3 == elen and ename[i + 1 : i + 4] == 'NED')
+            ):
                 continue
-            elif (i-1 > 0 and i+1 <= elen and ename[i-1] == 'D' and
-                  ename[i+1] in _frontv):
+            elif (
+                i - 1 > 0
+                and i + 1 <= elen
+                and ename[i - 1] == 'D'
+                and ename[i + 1] in _frontv
+            ):
                 continue
-            elif ename[i+1:i+2] == 'G':
+            elif ename[i + 1 : i + 2] == 'G':
                 continue
-            elif ename[i+1:i+2] in _frontv:
-                if i == 0 or ename[i-1] != 'G':
+            elif ename[i + 1 : i + 2] in _frontv:
+                if i == 0 or ename[i - 1] != 'G':
                     metaph += 'J'
                 else:
                     metaph += 'K'
@@ -136,10 +150,13 @@ def metaphone(word, max_length=-1):
                 metaph += 'K'
 
         elif ename[i] == 'H':
-            if ((i > 0 and ename[i-1] in _vowels and
-                 ename[i+1:i+2] not in _vowels)):
+            if (
+                i > 0
+                and ename[i - 1] in _vowels
+                and ename[i + 1 : i + 2] not in _vowels
+            ):
                 continue
-            elif i > 0 and ename[i-1] in _varson:
+            elif i > 0 and ename[i - 1] in _varson:
                 continue
             else:
                 metaph += 'H'
@@ -148,13 +165,13 @@ def metaphone(word, max_length=-1):
             metaph += ename[i]
 
         elif ename[i] == 'K':
-            if i > 0 and ename[i-1] == 'C':
+            if i > 0 and ename[i - 1] == 'C':
                 continue
             else:
                 metaph += 'K'
 
         elif ename[i] == 'P':
-            if ename[i+1:i+2] == 'H':
+            if ename[i + 1 : i + 2] == 'H':
                 metaph += 'F'
             else:
                 metaph += 'P'
@@ -163,29 +180,37 @@ def metaphone(word, max_length=-1):
             metaph += 'K'
 
         elif ename[i] == 'S':
-            if ((i > 0 and i+2 <= elen and ename[i+1] == 'I' and
-                 ename[i+2] in 'OA')):
+            if (
+                i > 0
+                and i + 2 <= elen
+                and ename[i + 1] == 'I'
+                and ename[i + 2] in 'OA'
+            ):
                 metaph += 'X'
-            elif ename[i+1:i+2] == 'H':
+            elif ename[i + 1 : i + 2] == 'H':
                 metaph += 'X'
             else:
                 metaph += 'S'
 
         elif ename[i] == 'T':
-            if ((i > 0 and i+2 <= elen and ename[i+1] == 'I' and
-                 ename[i+2] in {'A', 'O'})):
+            if (
+                i > 0
+                and i + 2 <= elen
+                and ename[i + 1] == 'I'
+                and ename[i + 2] in {'A', 'O'}
+            ):
                 metaph += 'X'
-            elif ename[i+1:i+2] == 'H':
+            elif ename[i + 1 : i + 2] == 'H':
                 metaph += '0'
-            elif ename[i+1:i+3] != 'CH':
-                if ename[i-1:i] != 'T':
+            elif ename[i + 1 : i + 3] != 'CH':
+                if ename[i - 1 : i] != 'T':
                     metaph += 'T'
 
         elif ename[i] == 'V':
             metaph += 'F'
 
         elif ename[i] in 'WY':
-            if ename[i+1:i+2] in _vowels:
+            if ename[i + 1 : i + 2] in _vowels:
                 metaph += ename[i]
 
         elif ename[i] == 'X':
@@ -261,7 +286,7 @@ def double_metaphone(word, max_length=-1):
         """Return True if word[pos:pos+slen] is in substrings."""
         if pos < 0:
             return False
-        return word[pos:pos+slen] in substrings
+        return word[pos : pos + slen] in substrings
 
     current = 0
     length = len(word)
@@ -312,12 +337,18 @@ def double_metaphone(word, max_length=-1):
 
         elif _get_at(current) == 'C':
             # Various Germanic
-            if (current > 1 and not _is_vowel(current - 2) and
-                    _string_at((current - 1), 3, {'ACH'}) and
-                    ((_get_at(current + 2) != 'I') and
-                     ((_get_at(current + 2) != 'E') or
-                      _string_at((current - 2), 6,
-                                 {'BACHER', 'MACHER'})))):
+            if (
+                current > 1
+                and not _is_vowel(current - 2)
+                and _string_at((current - 1), 3, {'ACH'})
+                and (
+                    (_get_at(current + 2) != 'I')
+                    and (
+                        (_get_at(current + 2) != 'E')
+                        or _string_at((current - 2), 6, {'BACHER', 'MACHER'})
+                    )
+                )
+            ):
                 primary, secondary = _metaph_add('K')
                 current += 2
                 continue
@@ -342,30 +373,46 @@ def double_metaphone(word, max_length=-1):
                     continue
 
                 # Greek roots e.g. 'chemistry', 'chorus'
-                elif (current == 0 and
-                      (_string_at((current + 1), 5,
-                                  {'HARAC', 'HARIS'}) or
-                       _string_at((current + 1), 3,
-                                  {'HOR', 'HYM', 'HIA', 'HEM'})) and
-                      not _string_at(0, 5, {'CHORE'})):
+                elif (
+                    current == 0
+                    and (
+                        _string_at((current + 1), 5, {'HARAC', 'HARIS'})
+                        or _string_at(
+                            (current + 1), 3, {'HOR', 'HYM', 'HIA', 'HEM'}
+                        )
+                    )
+                    and not _string_at(0, 5, {'CHORE'})
+                ):
                     primary, secondary = _metaph_add('K')
                     current += 2
                     continue
 
                 # Germanic, Greek, or otherwise 'ch' for 'kh' sound
-                elif ((_string_at(0, 4, {'VAN ', 'VON '}) or
-                       _string_at(0, 3, {'SCH'})) or
-                      # 'architect but not 'arch', 'orchestra', 'orchid'
-                      _string_at((current - 2), 6,
-                                 {'ORCHES', 'ARCHIT', 'ORCHID'}) or
-                      _string_at((current + 2), 1, {'T', 'S'}) or
-                      ((_string_at((current - 1), 1,
-                                   {'A', 'O', 'U', 'E'}) or
-                        (current == 0)) and
-                       # e.g., 'wachtler', 'wechsler', but not 'tichner'
-                       _string_at((current + 2), 1,
-                                  {'L', 'R', 'N', 'M', 'B', 'H', 'F', 'V', 'W',
-                                   ' '}))):
+                elif (
+                    (
+                        _string_at(0, 4, {'VAN ', 'VON '})
+                        or _string_at(0, 3, {'SCH'})
+                    )
+                    or
+                    # 'architect but not 'arch', 'orchestra', 'orchid'
+                    _string_at(
+                        (current - 2), 6, {'ORCHES', 'ARCHIT', 'ORCHID'}
+                    )
+                    or _string_at((current + 2), 1, {'T', 'S'})
+                    or (
+                        (
+                            _string_at((current - 1), 1, {'A', 'O', 'U', 'E'})
+                            or (current == 0)
+                        )
+                        and
+                        # e.g., 'wachtler', 'wechsler', but not 'tichner'
+                        _string_at(
+                            (current + 2),
+                            1,
+                            {'L', 'R', 'N', 'M', 'B', 'H', 'F', 'V', 'W', ' '},
+                        )
+                    )
+                ):
                     primary, secondary = _metaph_add('K')
 
                 else:
@@ -382,8 +429,9 @@ def double_metaphone(word, max_length=-1):
                 continue
 
             # e.g, 'czerny'
-            elif (_string_at(current, 2, {'CZ'}) and
-                  not _string_at((current - 2), 4, {'WICZ'})):
+            elif _string_at(current, 2, {'CZ'}) and not _string_at(
+                (current - 2), 4, {'WICZ'}
+            ):
                 primary, secondary = _metaph_add('S', 'X')
                 current += 2
                 continue
@@ -394,16 +442,17 @@ def double_metaphone(word, max_length=-1):
                 current += 3
 
             # double 'C', but not if e.g. 'McClellan'
-            elif (_string_at(current, 2, {'CC'}) and
-                  not ((current == 1) and (_get_at(0) == 'M'))):
+            elif _string_at(current, 2, {'CC'}) and not (
+                (current == 1) and (_get_at(0) == 'M')
+            ):
                 # 'bellocchio' but not 'bacchus'
-                if ((_string_at((current + 2), 1,
-                                {'I', 'E', 'H'}) and
-                     not _string_at((current + 2), 2, ['HU']))):
+                if _string_at(
+                    (current + 2), 1, {'I', 'E', 'H'}
+                ) and not _string_at((current + 2), 2, ['HU']):
                     # 'accident', 'accede' 'succeed'
-                    if ((((current == 1) and _get_at(current - 1) == 'A') or
-                         _string_at((current - 1), 5,
-                                    {'UCCEE', 'UCCES'}))):
+                    if (
+                        (current == 1) and _get_at(current - 1) == 'A'
+                    ) or _string_at((current - 1), 5, {'UCCEE', 'UCCES'}):
                         primary, secondary = _metaph_add('KS')
                     # 'bacci', 'bertucci', other italian
                     else:
@@ -436,9 +485,9 @@ def double_metaphone(word, max_length=-1):
                 # name sent in 'mac caffrey', 'mac gregor
                 if _string_at((current + 1), 2, {' C', ' Q', ' G'}):
                     current += 3
-                elif (_string_at((current + 1), 1,
-                                 {'C', 'K', 'Q'}) and
-                      not _string_at((current + 1), 2, {'CE', 'CI'})):
+                elif _string_at(
+                    (current + 1), 1, {'C', 'K', 'Q'}
+                ) and not _string_at((current + 1), 2, {'CE', 'CI'}):
                     current += 2
                 else:
                     current += 1
@@ -493,23 +542,38 @@ def double_metaphone(word, max_length=-1):
                     continue
 
                 # Parker's rule (with some further refinements) - e.g., 'hugh'
-                elif (((current > 1) and
-                       _string_at((current - 2), 1, {'B', 'H', 'D'})) or
-                      # e.g., 'bough'
-                      ((current > 2) and
-                       _string_at((current - 3), 1, {'B', 'H', 'D'})) or
-                      # e.g., 'broughton'
-                      ((current > 3) and
-                       _string_at((current - 4), 1, {'B', 'H'}))):
+                elif (
+                    (
+                        (current > 1)
+                        and _string_at((current - 2), 1, {'B', 'H', 'D'})
+                    )
+                    or
+                    # e.g., 'bough'
+                    (
+                        (current > 2)
+                        and _string_at((current - 3), 1, {'B', 'H', 'D'})
+                    )
+                    or
+                    # e.g., 'broughton'
+                    (
+                        (current > 3)
+                        and _string_at((current - 4), 1, {'B', 'H'})
+                    )
+                ):
                     current += 2
                     continue
                 else:
                     # e.g. 'laugh', 'McLaughlin', 'cough',
                     #      'gough', 'rough', 'tough'
-                    if ((current > 2) and
-                            (_get_at(current - 1) == 'U') and
-                            (_string_at((current - 3), 1,
-                                        {'C', 'G', 'L', 'R', 'T'}))):
+                    if (
+                        (current > 2)
+                        and (_get_at(current - 1) == 'U')
+                        and (
+                            _string_at(
+                                (current - 3), 1, {'C', 'G', 'L', 'R', 'T'}
+                            )
+                        )
+                    ):
                         primary, secondary = _metaph_add('F')
                     elif (current > 0) and _get_at(current - 1) != 'I':
                         primary, secondary = _metaph_add('K')
@@ -520,9 +584,11 @@ def double_metaphone(word, max_length=-1):
                 if (current == 1) and _is_vowel(0) and not _slavo_germanic():
                     primary, secondary = _metaph_add('KN', 'N')
                 # not e.g. 'cagney'
-                elif (not _string_at((current + 2), 2, {'EY'}) and
-                      (_get_at(current + 1) != 'Y') and
-                      not _slavo_germanic()):
+                elif (
+                    not _string_at((current + 2), 2, {'EY'})
+                    and (_get_at(current + 1) != 'Y')
+                    and not _slavo_germanic()
+                ):
                     primary, secondary = _metaph_add('N', 'KN')
                 else:
                     primary, secondary = _metaph_add('KN')
@@ -530,39 +596,61 @@ def double_metaphone(word, max_length=-1):
                 continue
 
             # 'tagliaro'
-            elif (_string_at((current + 1), 2, {'LI'}) and
-                  not _slavo_germanic()):
+            elif (
+                _string_at((current + 1), 2, {'LI'}) and not _slavo_germanic()
+            ):
                 primary, secondary = _metaph_add('KL', 'L')
                 current += 2
                 continue
 
             # -ges-, -gep-, -gel-, -gie- at beginning
-            elif ((current == 0) and
-                  ((_get_at(current + 1) == 'Y') or
-                   _string_at((current + 1), 2, {'ES', 'EP', 'EB', 'EL', 'EY',
-                                                 'IB', 'IL', 'IN', 'IE', 'EI',
-                                                 'ER'}))):
+            elif (current == 0) and (
+                (_get_at(current + 1) == 'Y')
+                or _string_at(
+                    (current + 1),
+                    2,
+                    {
+                        'ES',
+                        'EP',
+                        'EB',
+                        'EL',
+                        'EY',
+                        'IB',
+                        'IL',
+                        'IN',
+                        'IE',
+                        'EI',
+                        'ER',
+                    },
+                )
+            ):
                 primary, secondary = _metaph_add('K', 'J')
                 current += 2
                 continue
 
             #  -ger-,  -gy-
-            elif ((_string_at((current + 1), 2, {'ER'}) or
-                   (_get_at(current + 1) == 'Y')) and not
-                  _string_at(0, 6, {'DANGER', 'RANGER', 'MANGER'}) and not
-                  _string_at((current - 1), 1, {'E', 'I'}) and not
-                  _string_at((current - 1), 3, {'RGY', 'OGY'})):
+            elif (
+                (
+                    _string_at((current + 1), 2, {'ER'})
+                    or (_get_at(current + 1) == 'Y')
+                )
+                and not _string_at(0, 6, {'DANGER', 'RANGER', 'MANGER'})
+                and not _string_at((current - 1), 1, {'E', 'I'})
+                and not _string_at((current - 1), 3, {'RGY', 'OGY'})
+            ):
                 primary, secondary = _metaph_add('K', 'J')
                 current += 2
                 continue
 
             #  italian e.g, 'biaggi'
-            elif (_string_at((current + 1), 1, {'E', 'I', 'Y'}) or
-                  _string_at((current - 1), 4, {'AGGI', 'OGGI'})):
+            elif _string_at((current + 1), 1, {'E', 'I', 'Y'}) or _string_at(
+                (current - 1), 4, {'AGGI', 'OGGI'}
+            ):
                 # obvious germanic
-                if (((_string_at(0, 4, {'VAN ', 'VON '}) or
-                      _string_at(0, 3, {'SCH'})) or
-                     _string_at((current + 1), 2, {'ET'}))):
+                if (
+                    _string_at(0, 4, {'VAN ', 'VON '})
+                    or _string_at(0, 3, {'SCH'})
+                ) or _string_at((current + 1), 2, {'ET'}):
                     primary, secondary = _metaph_add('K')
                 elif _string_at((current + 1), 4, {'IER '}):
                     primary, secondary = _metaph_add('J')
@@ -581,8 +669,9 @@ def double_metaphone(word, max_length=-1):
 
         elif _get_at(current) == 'H':
             # only keep if first & before vowel or btw. 2 vowels
-            if ((((current == 0) or _is_vowel(current - 1)) and
-                 _is_vowel(current + 1))):
+            if ((current == 0) or _is_vowel(current - 1)) and _is_vowel(
+                current + 1
+            ):
                 primary, secondary = _metaph_add('H')
                 current += 2
             else:  # also takes care of 'HH'
@@ -592,8 +681,9 @@ def double_metaphone(word, max_length=-1):
         elif _get_at(current) == 'J':
             # obvious spanish, 'jose', 'san jacinto'
             if _string_at(current, 4, ['JOSE']) or _string_at(0, 4, {'SAN '}):
-                if ((((current == 0) and (_get_at(current + 4) == ' ')) or
-                     _string_at(0, 4, ['SAN ']))):
+                if (
+                    (current == 0) and (_get_at(current + 4) == ' ')
+                ) or _string_at(0, 4, ['SAN ']):
                     primary, secondary = _metaph_add('H')
                 else:
                     primary, secondary = _metaph_add('J', 'H')
@@ -604,16 +694,20 @@ def double_metaphone(word, max_length=-1):
                 # Yankelovich/Jankelowicz
                 primary, secondary = _metaph_add('J', 'A')
             # Spanish pron. of e.g. 'bajador'
-            elif (_is_vowel(current - 1) and
-                  not _slavo_germanic() and
-                  ((_get_at(current + 1) == 'A') or
-                   (_get_at(current + 1) == 'O'))):
+            elif (
+                _is_vowel(current - 1)
+                and not _slavo_germanic()
+                and (
+                    (_get_at(current + 1) == 'A')
+                    or (_get_at(current + 1) == 'O')
+                )
+            ):
                 primary, secondary = _metaph_add('J', 'H')
             elif current == last:
                 primary, secondary = _metaph_add('J', ' ')
-            elif (not _string_at((current + 1), 1,
-                                 {'L', 'T', 'K', 'S', 'N', 'M', 'B', 'Z'}) and
-                  not _string_at((current - 1), 1, {'S', 'K', 'L'})):
+            elif not _string_at(
+                (current + 1), 1, {'L', 'T', 'K', 'S', 'N', 'M', 'B', 'Z'}
+            ) and not _string_at((current - 1), 1, {'S', 'K', 'L'}):
                 primary, secondary = _metaph_add('J')
 
             if _get_at(current + 1) == 'J':  # it could happen!
@@ -633,11 +727,16 @@ def double_metaphone(word, max_length=-1):
         elif _get_at(current) == 'L':
             if _get_at(current + 1) == 'L':
                 # Spanish e.g. 'cabrillo', 'gallegos'
-                if (((current == (length - 3)) and
-                     _string_at((current - 1), 4, {'ILLO', 'ILLA', 'ALLE'})) or
-                        ((_string_at((last - 1), 2, {'AS', 'OS'}) or
-                          _string_at(last, 1, {'A', 'O'})) and
-                         _string_at((current - 1), 4, {'ALLE'}))):
+                if (
+                    (current == (length - 3))
+                    and _string_at((current - 1), 4, {'ILLO', 'ILLA', 'ALLE'})
+                ) or (
+                    (
+                        _string_at((last - 1), 2, {'AS', 'OS'})
+                        or _string_at(last, 1, {'A', 'O'})
+                    )
+                    and _string_at((current - 1), 4, {'ALLE'})
+                ):
                     primary, secondary = _metaph_add('L', ' ')
                     current += 2
                     continue
@@ -648,11 +747,18 @@ def double_metaphone(word, max_length=-1):
             continue
 
         elif _get_at(current) == 'M':
-            if (((_string_at((current - 1), 3, {'UMB'}) and
-                  (((current + 1) == last) or
-                   _string_at((current + 2), 2, {'ER'}))) or
-                 # 'dumb', 'thumb'
-                 (_get_at(current + 1) == 'M'))):
+            if (
+                (
+                    _string_at((current - 1), 3, {'UMB'})
+                    and (
+                        ((current + 1) == last)
+                        or _string_at((current + 2), 2, {'ER'})
+                    )
+                )
+                or
+                # 'dumb', 'thumb'
+                (_get_at(current + 1) == 'M')
+            ):
                 current += 2
             else:
                 current += 1
@@ -696,10 +802,12 @@ def double_metaphone(word, max_length=-1):
 
         elif _get_at(current) == 'R':
             # french e.g. 'rogier', but exclude 'hochmeier'
-            if (((current == last) and
-                 not _slavo_germanic() and
-                 _string_at((current - 2), 2, {'IE'}) and
-                 not _string_at((current - 4), 2, {'ME', 'MA'}))):
+            if (
+                (current == last)
+                and not _slavo_germanic()
+                and _string_at((current - 2), 2, {'IE'})
+                and not _string_at((current - 4), 2, {'ME', 'MA'})
+            ):
                 primary, secondary = _metaph_add('', 'R')
             else:
                 primary, secondary = _metaph_add('R')
@@ -724,8 +832,9 @@ def double_metaphone(word, max_length=-1):
 
             elif _string_at(current, 2, {'SH'}):
                 # Germanic
-                if _string_at((current + 1), 4,
-                              {'HEIM', 'HOEK', 'HOLM', 'HOLZ'}):
+                if _string_at(
+                    (current + 1), 4, {'HEIM', 'HOEK', 'HOLM', 'HOLZ'}
+                ):
                     primary, secondary = _metaph_add('S')
                 else:
                     primary, secondary = _metaph_add('X')
@@ -733,8 +842,9 @@ def double_metaphone(word, max_length=-1):
                 continue
 
             # Italian & Armenian
-            elif (_string_at(current, 3, {'SIO', 'SIA'}) or
-                  _string_at(current, 4, {'SIAN'})):
+            elif _string_at(current, 3, {'SIO', 'SIA'}) or _string_at(
+                current, 4, {'SIAN'}
+            ):
                 if not _slavo_germanic():
                     primary, secondary = _metaph_add('S', 'X')
                 else:
@@ -746,9 +856,10 @@ def double_metaphone(word, max_length=-1):
             #                               'snider' match 'schneider'
             # also, -sz- in Slavic language although in Hungarian it is
             #       pronounced 's'
-            elif (((current == 0) and
-                   _string_at((current + 1), 1, {'M', 'N', 'L', 'W'})) or
-                  _string_at((current + 1), 1, {'Z'})):
+            elif (
+                (current == 0)
+                and _string_at((current + 1), 1, {'M', 'N', 'L', 'W'})
+            ) or _string_at((current + 1), 1, {'Z'}):
                 primary, secondary = _metaph_add('S', 'X')
                 if _string_at((current + 1), 1, {'Z'}):
                     current += 2
@@ -760,8 +871,9 @@ def double_metaphone(word, max_length=-1):
                 # Schlesinger's rule
                 if _get_at(current + 2) == 'H':
                     # dutch origin, e.g. 'school', 'schooner'
-                    if _string_at((current + 3), 2,
-                                  {'OO', 'ER', 'EN', 'UY', 'ED', 'EM'}):
+                    if _string_at(
+                        (current + 3), 2, {'OO', 'ER', 'EN', 'UY', 'ED', 'EM'}
+                    ):
                         # 'schermerhorn', 'schenker'
                         if _string_at((current + 3), 2, {'ER', 'EN'}):
                             primary, secondary = _metaph_add('X', 'SK')
@@ -770,8 +882,11 @@ def double_metaphone(word, max_length=-1):
                         current += 3
                         continue
                     else:
-                        if (((current == 0) and not _is_vowel(3) and
-                             (_get_at(3) != 'W'))):
+                        if (
+                            (current == 0)
+                            and not _is_vowel(3)
+                            and (_get_at(3) != 'W')
+                        ):
                             primary, secondary = _metaph_add('X', 'S')
                         else:
                             primary, secondary = _metaph_add('X')
@@ -791,8 +906,9 @@ def double_metaphone(word, max_length=-1):
 
             else:
                 # french e.g. 'resnais', 'artois'
-                if (current == last) and _string_at((current - 2), 2,
-                                                    {'AI', 'OI'}):
+                if (current == last) and _string_at(
+                    (current - 2), 2, {'AI', 'OI'}
+                ):
                     primary, secondary = _metaph_add('', 'S')
                 else:
                     primary, secondary = _metaph_add('S')
@@ -814,12 +930,15 @@ def double_metaphone(word, max_length=-1):
                 current += 3
                 continue
 
-            elif (_string_at(current, 2, {'TH'}) or
-                  _string_at(current, 3, {'TTH'})):
+            elif _string_at(current, 2, {'TH'}) or _string_at(
+                current, 3, {'TTH'}
+            ):
                 # special case 'thomas', 'thames' or germanic
-                if ((_string_at((current + 2), 2, {'OM', 'AM'}) or
-                     _string_at(0, 4, {'VAN ', 'VON '}) or
-                     _string_at(0, 3, {'SCH'}))):
+                if (
+                    _string_at((current + 2), 2, {'OM', 'AM'})
+                    or _string_at(0, 4, {'VAN ', 'VON '})
+                    or _string_at(0, 3, {'SCH'})
+                ):
                     primary, secondary = _metaph_add('T')
                 else:
                     primary, secondary = _metaph_add('0', 'T')
@@ -847,8 +966,9 @@ def double_metaphone(word, max_length=-1):
                 primary, secondary = _metaph_add('R')
                 current += 2
                 continue
-            elif ((current == 0) and
-                  (_is_vowel(current + 1) or _string_at(current, 2, {'WH'}))):
+            elif (current == 0) and (
+                _is_vowel(current + 1) or _string_at(current, 2, {'WH'})
+            ):
                 # Wasserman should match Vasserman
                 if _is_vowel(current + 1):
                     primary, secondary = _metaph_add('A', 'F')
@@ -857,10 +977,13 @@ def double_metaphone(word, max_length=-1):
                     primary, secondary = _metaph_add('A')
 
             # Arnow should match Arnoff
-            if ((((current == last) and _is_vowel(current - 1)) or
-                 _string_at((current - 1), 5,
-                            {'EWSKI', 'EWSKY', 'OWSKI', 'OWSKY'}) or
-                 _string_at(0, 3, ['SCH']))):
+            if (
+                ((current == last) and _is_vowel(current - 1))
+                or _string_at(
+                    (current - 1), 5, {'EWSKI', 'EWSKY', 'OWSKI', 'OWSKY'}
+                )
+                or _string_at(0, 3, ['SCH'])
+            ):
                 primary, secondary = _metaph_add('', 'F')
                 current += 1
                 continue
@@ -876,9 +999,13 @@ def double_metaphone(word, max_length=-1):
 
         elif _get_at(current) == 'X':
             # French e.g. breaux
-            if (not ((current == last) and
-                     (_string_at((current - 3), 3, {'IAU', 'EAU'}) or
-                      _string_at((current - 2), 2, {'AU', 'OU'})))):
+            if not (
+                (current == last)
+                and (
+                    _string_at((current - 3), 3, {'IAU', 'EAU'})
+                    or _string_at((current - 2), 2, {'AU', 'OU'})
+                )
+            ):
                 primary, secondary = _metaph_add('KS')
 
             if _string_at((current + 1), 1, {'C', 'X'}):
@@ -893,9 +1020,10 @@ def double_metaphone(word, max_length=-1):
                 primary, secondary = _metaph_add('J')
                 current += 2
                 continue
-            elif (_string_at((current + 1), 2, {'ZO', 'ZI', 'ZA'}) or
-                  (_slavo_germanic() and ((current > 0) and
-                                          _get_at(current - 1) != 'T'))):
+            elif _string_at((current + 1), 2, {'ZO', 'ZI', 'ZA'}) or (
+                _slavo_germanic()
+                and ((current > 0) and _get_at(current - 1) != 'T')
+            ):
                 primary, secondary = _metaph_add('S', 'TS')
             else:
                 primary, secondary = _metaph_add('S')
@@ -920,4 +1048,5 @@ def double_metaphone(word, max_length=-1):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

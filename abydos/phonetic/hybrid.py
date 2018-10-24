@@ -62,8 +62,9 @@ def onca(word, max_length=4, zero_pad=True):
     """
     # In the most extreme case, 3 characters of NYSIIS input can be compressed
     # to one character of output, so give it triple the max_length.
-    return soundex(nysiis(word, max_length=max_length*3), max_length,
-                   zero_pad=zero_pad)
+    return soundex(
+        nysiis(word, max_length=max_length * 3), max_length, zero_pad=zero_pad
+    )
 
 
 def metasoundex(word, lang='en'):
@@ -98,19 +99,23 @@ def metasoundex(word, lang='en'):
     >>> metasoundex('Nicolás', lang='es')
     '6754'
     """
-    _metasoundex_translation = dict(zip((ord(_) for _ in
-                                         'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-                                        '07430755015866075943077514'))
+    _metasoundex_translation = dict(
+        zip(
+            (ord(_) for _ in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            '07430755015866075943077514',
+        )
+    )
 
     if lang == 'es':
         return phonetic_spanish(spanish_metaphone(word))
 
     word = soundex(metaphone(word))
-    word = word[0].translate(_metasoundex_translation)+word[1:]
+    word = word[0].translate(_metasoundex_translation) + word[1:]
 
     return word
 
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

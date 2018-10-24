@@ -59,7 +59,7 @@ def mra_compare(src, tar):
     src = list(mra(src))
     tar = list(mra(tar))
 
-    if abs(len(src)-len(tar)) > 2:
+    if abs(len(src) - len(tar)) > 2:
         return 0
 
     length_sum = len(src) + len(tar)
@@ -80,8 +80,8 @@ def mra_compare(src, tar):
             if src[i] != tar[i]:
                 new_src.append(src[i])
                 new_tar.append(tar[i])
-        src = new_src+src[minlen:]
-        tar = new_tar+tar[minlen:]
+        src = new_src + src[minlen:]
+        tar = new_tar + tar[minlen:]
         src.reverse()
         tar.reverse()
 
@@ -112,7 +112,7 @@ def sim_mra(src, tar):
     >>> sim_mra('ATCG', 'TAGC')
     0.8333333333333334
     """
-    return mra_compare(src, tar)/6
+    return mra_compare(src, tar) / 6
 
 
 def dist_mra(src, tar):
@@ -140,4 +140,5 @@ def dist_mra(src, tar):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

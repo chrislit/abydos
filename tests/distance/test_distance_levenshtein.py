@@ -25,9 +25,16 @@ from __future__ import division, unicode_literals
 
 import unittest
 
-from abydos.distance.levenshtein import damerau_levenshtein, dist_damerau, \
-    dist_indel, dist_levenshtein, levenshtein, sim_damerau, sim_indel, \
-    sim_levenshtein
+from abydos.distance.levenshtein import (
+    damerau_levenshtein,
+    dist_damerau,
+    dist_indel,
+    dist_levenshtein,
+    levenshtein,
+    sim_damerau,
+    sim_indel,
+    sim_levenshtein,
+)
 
 
 class LevenshteinTestCases(unittest.TestCase):
@@ -93,36 +100,47 @@ class LevenshteinTestCases(unittest.TestCase):
         self.assertEqual(levenshtein('a', 'b', 'lev', cost=(10, 10, 5, 10)), 5)
         self.assertEqual(levenshtein('a', 'b', 'osa', cost=(10, 10, 5, 10)), 5)
         self.assertEqual(levenshtein('a', 'b', 'dam', cost=(10, 10, 5, 10)), 5)
-        self.assertEqual(levenshtein('ac', 'bc', 'lev',
-                                     cost=(10, 10, 5, 10)), 5)
-        self.assertEqual(levenshtein('ac', 'bc', 'osa',
-                                     cost=(10, 10, 5, 10)), 5)
-        self.assertEqual(levenshtein('ac', 'bc', 'dam',
-                                     cost=(10, 10, 5, 10)), 5)
+        self.assertEqual(
+            levenshtein('ac', 'bc', 'lev', cost=(10, 10, 5, 10)), 5
+        )
+        self.assertEqual(
+            levenshtein('ac', 'bc', 'osa', cost=(10, 10, 5, 10)), 5
+        )
+        self.assertEqual(
+            levenshtein('ac', 'bc', 'dam', cost=(10, 10, 5, 10)), 5
+        )
 
         # test cost of transpose
-        self.assertEqual(levenshtein('ab', 'ba', 'lev',
-                                     cost=(10, 10, 10, 5)), 20)
-        self.assertEqual(levenshtein('ab', 'ba', 'osa',
-                                     cost=(10, 10, 10, 5)), 5)
-        self.assertEqual(levenshtein('ab', 'ba', 'dam',
-                                     cost=(5, 5, 10, 5)), 5)
-        self.assertEqual(levenshtein('abc', 'bac', 'lev',
-                                     cost=(10, 10, 10, 5)), 20)
-        self.assertEqual(levenshtein('abc', 'bac', 'osa',
-                                     cost=(10, 10, 10, 5)), 5)
-        self.assertEqual(levenshtein('abc', 'bac', 'dam',
-                                     cost=(5, 5, 10, 5)), 5)
-        self.assertEqual(levenshtein('cab', 'cba', 'lev',
-                                     cost=(10, 10, 10, 5)), 20)
-        self.assertEqual(levenshtein('cab', 'cba', 'osa',
-                                     cost=(10, 10, 10, 5)), 5)
-        self.assertEqual(levenshtein('cab', 'cba', 'dam',
-                                     cost=(5, 5, 10, 5)), 5)
+        self.assertEqual(
+            levenshtein('ab', 'ba', 'lev', cost=(10, 10, 10, 5)), 20
+        )
+        self.assertEqual(
+            levenshtein('ab', 'ba', 'osa', cost=(10, 10, 10, 5)), 5
+        )
+        self.assertEqual(levenshtein('ab', 'ba', 'dam', cost=(5, 5, 10, 5)), 5)
+        self.assertEqual(
+            levenshtein('abc', 'bac', 'lev', cost=(10, 10, 10, 5)), 20
+        )
+        self.assertEqual(
+            levenshtein('abc', 'bac', 'osa', cost=(10, 10, 10, 5)), 5
+        )
+        self.assertEqual(
+            levenshtein('abc', 'bac', 'dam', cost=(5, 5, 10, 5)), 5
+        )
+        self.assertEqual(
+            levenshtein('cab', 'cba', 'lev', cost=(10, 10, 10, 5)), 20
+        )
+        self.assertEqual(
+            levenshtein('cab', 'cba', 'osa', cost=(10, 10, 10, 5)), 5
+        )
+        self.assertEqual(
+            levenshtein('cab', 'cba', 'dam', cost=(5, 5, 10, 5)), 5
+        )
 
         # test exception
-        self.assertRaises(ValueError, levenshtein, 'ab', 'ba', 'dam',
-                          cost=(10, 10, 10, 5))
+        self.assertRaises(
+            ValueError, levenshtein, 'ab', 'ba', 'dam', cost=(10, 10, 10, 5)
+        )
 
     def test_dist_levenshtein(self):
         """Test abydos.distance.dist_levenshtein."""
@@ -134,9 +152,9 @@ class LevenshteinTestCases(unittest.TestCase):
         self.assertEqual(dist_levenshtein('', 'ab'), 1)
         self.assertEqual(dist_levenshtein('a', 'c'), 1)
 
-        self.assertAlmostEqual(dist_levenshtein('abc', 'ac'), 1/3)
-        self.assertAlmostEqual(dist_levenshtein('abbc', 'ac'), 1/2)
-        self.assertAlmostEqual(dist_levenshtein('abbc', 'abc'), 1/4)
+        self.assertAlmostEqual(dist_levenshtein('abc', 'ac'), 1 / 3)
+        self.assertAlmostEqual(dist_levenshtein('abbc', 'ac'), 1 / 2)
+        self.assertAlmostEqual(dist_levenshtein('abbc', 'abc'), 1 / 4)
 
     def test_sim_levenshtein(self):
         """Test abydos.distance.sim_levenshtein."""
@@ -148,9 +166,9 @@ class LevenshteinTestCases(unittest.TestCase):
         self.assertEqual(sim_levenshtein('', 'ab'), 0)
         self.assertEqual(sim_levenshtein('a', 'c'), 0)
 
-        self.assertAlmostEqual(sim_levenshtein('abc', 'ac'), 2/3)
-        self.assertAlmostEqual(sim_levenshtein('abbc', 'ac'), 1/2)
-        self.assertAlmostEqual(sim_levenshtein('abbc', 'abc'), 3/4)
+        self.assertAlmostEqual(sim_levenshtein('abc', 'ac'), 2 / 3)
+        self.assertAlmostEqual(sim_levenshtein('abbc', 'ac'), 1 / 2)
+        self.assertAlmostEqual(sim_levenshtein('abbc', 'abc'), 3 / 4)
 
 
 class DamerauLevenshteinTestCases(unittest.TestCase):
@@ -165,23 +183,31 @@ class DamerauLevenshteinTestCases(unittest.TestCase):
         self.assertEqual(damerau_levenshtein('CA', 'CA'), 0)
         self.assertEqual(damerau_levenshtein('CA', 'ABC'), 2)
         self.assertEqual(damerau_levenshtein('', 'b', cost=(5, 7, 10, 10)), 5)
-        self.assertEqual(damerau_levenshtein('a', 'ab', cost=(5, 7, 10, 10)),
-                         5)
+        self.assertEqual(
+            damerau_levenshtein('a', 'ab', cost=(5, 7, 10, 10)), 5
+        )
         self.assertEqual(damerau_levenshtein('b', '', cost=(5, 7, 10, 10)), 7)
-        self.assertEqual(damerau_levenshtein('ab', 'a', cost=(5, 7, 10, 10)),
-                         7)
-        self.assertEqual(damerau_levenshtein('a', 'b', cost=(10, 10, 5, 10)),
-                         5)
-        self.assertEqual(damerau_levenshtein('ac', 'bc',
-                                             cost=(10, 10, 5, 10)), 5)
-        self.assertEqual(damerau_levenshtein('ab', 'ba',
-                                             cost=(5, 5, 10, 5)), 5)
-        self.assertEqual(damerau_levenshtein('abc', 'bac',
-                                             cost=(5, 5, 10, 5)), 5)
-        self.assertEqual(damerau_levenshtein('cab', 'cba',
-                                             cost=(5, 5, 10, 5)), 5)
-        self.assertRaises(ValueError, damerau_levenshtein, 'ab', 'ba',
-                          cost=(10, 10, 10, 5))
+        self.assertEqual(
+            damerau_levenshtein('ab', 'a', cost=(5, 7, 10, 10)), 7
+        )
+        self.assertEqual(
+            damerau_levenshtein('a', 'b', cost=(10, 10, 5, 10)), 5
+        )
+        self.assertEqual(
+            damerau_levenshtein('ac', 'bc', cost=(10, 10, 5, 10)), 5
+        )
+        self.assertEqual(
+            damerau_levenshtein('ab', 'ba', cost=(5, 5, 10, 5)), 5
+        )
+        self.assertEqual(
+            damerau_levenshtein('abc', 'bac', cost=(5, 5, 10, 5)), 5
+        )
+        self.assertEqual(
+            damerau_levenshtein('cab', 'cba', cost=(5, 5, 10, 5)), 5
+        )
+        self.assertRaises(
+            ValueError, damerau_levenshtein, 'ab', 'ba', cost=(10, 10, 10, 5)
+        )
 
     def test_dist_damerau(self):
         """Test abydos.distance.dist_damerau."""
@@ -193,29 +219,37 @@ class DamerauLevenshteinTestCases(unittest.TestCase):
         self.assertEqual(dist_damerau('', 'ab'), 1)
         self.assertEqual(dist_damerau('a', 'c'), 1)
 
-        self.assertAlmostEqual(dist_damerau('abc', 'ac'), 1/3)
-        self.assertAlmostEqual(dist_damerau('abbc', 'ac'), 1/2)
-        self.assertAlmostEqual(dist_damerau('abbc', 'abc'), 1/4)
+        self.assertAlmostEqual(dist_damerau('abc', 'ac'), 1 / 3)
+        self.assertAlmostEqual(dist_damerau('abbc', 'ac'), 1 / 2)
+        self.assertAlmostEqual(dist_damerau('abbc', 'abc'), 1 / 4)
 
-        self.assertAlmostEqual(dist_damerau('CA', 'ABC'), 2/3)
+        self.assertAlmostEqual(dist_damerau('CA', 'ABC'), 2 / 3)
         self.assertAlmostEqual(dist_damerau('', 'b', cost=(5, 7, 10, 10)), 1)
-        self.assertAlmostEqual(dist_damerau('a', 'ab',
-                                            cost=(5, 7, 10, 10)), 1/2)
+        self.assertAlmostEqual(
+            dist_damerau('a', 'ab', cost=(5, 7, 10, 10)), 1 / 2
+        )
         self.assertAlmostEqual(dist_damerau('b', '', cost=(5, 7, 10, 10)), 1)
-        self.assertAlmostEqual(dist_damerau('ab', 'a',
-                                            cost=(5, 7, 10, 10)), 1/2)
-        self.assertAlmostEqual(dist_damerau('a', 'b',
-                                            cost=(10, 10, 5, 10)), 1/2)
-        self.assertAlmostEqual(dist_damerau('ac', 'bc',
-                                            cost=(10, 10, 5, 10)), 1/4)
-        self.assertAlmostEqual(dist_damerau('ab', 'ba',
-                                            cost=(5, 5, 10, 5)), 1/2)
-        self.assertAlmostEqual(dist_damerau('abc', 'bac',
-                                            cost=(5, 5, 10, 5)), 1/3)
-        self.assertAlmostEqual(dist_damerau('cab', 'cba',
-                                            cost=(5, 5, 10, 5)), 1/3)
-        self.assertRaises(ValueError, dist_damerau, 'ab', 'ba',
-                          cost=(10, 10, 10, 5))
+        self.assertAlmostEqual(
+            dist_damerau('ab', 'a', cost=(5, 7, 10, 10)), 1 / 2
+        )
+        self.assertAlmostEqual(
+            dist_damerau('a', 'b', cost=(10, 10, 5, 10)), 1 / 2
+        )
+        self.assertAlmostEqual(
+            dist_damerau('ac', 'bc', cost=(10, 10, 5, 10)), 1 / 4
+        )
+        self.assertAlmostEqual(
+            dist_damerau('ab', 'ba', cost=(5, 5, 10, 5)), 1 / 2
+        )
+        self.assertAlmostEqual(
+            dist_damerau('abc', 'bac', cost=(5, 5, 10, 5)), 1 / 3
+        )
+        self.assertAlmostEqual(
+            dist_damerau('cab', 'cba', cost=(5, 5, 10, 5)), 1 / 3
+        )
+        self.assertRaises(
+            ValueError, dist_damerau, 'ab', 'ba', cost=(10, 10, 10, 5)
+        )
 
     def test_sim_damerau(self):
         """Test abydos.distance.sim_damerau."""
@@ -227,29 +261,37 @@ class DamerauLevenshteinTestCases(unittest.TestCase):
         self.assertEqual(sim_damerau('', 'ab'), 0)
         self.assertEqual(sim_damerau('a', 'c'), 0)
 
-        self.assertAlmostEqual(sim_damerau('abc', 'ac'), 2/3)
-        self.assertAlmostEqual(sim_damerau('abbc', 'ac'), 1/2)
-        self.assertAlmostEqual(sim_damerau('abbc', 'abc'), 3/4)
+        self.assertAlmostEqual(sim_damerau('abc', 'ac'), 2 / 3)
+        self.assertAlmostEqual(sim_damerau('abbc', 'ac'), 1 / 2)
+        self.assertAlmostEqual(sim_damerau('abbc', 'abc'), 3 / 4)
 
-        self.assertAlmostEqual(sim_damerau('CA', 'ABC'), 1/3)
+        self.assertAlmostEqual(sim_damerau('CA', 'ABC'), 1 / 3)
         self.assertAlmostEqual(sim_damerau('', 'b', cost=(5, 7, 10, 10)), 0)
-        self.assertAlmostEqual(sim_damerau('a', 'ab', cost=(5, 7, 10, 10)),
-                               1/2)
+        self.assertAlmostEqual(
+            sim_damerau('a', 'ab', cost=(5, 7, 10, 10)), 1 / 2
+        )
         self.assertAlmostEqual(sim_damerau('b', '', cost=(5, 7, 10, 10)), 0)
-        self.assertAlmostEqual(sim_damerau('ab', 'a', cost=(5, 7, 10, 10)),
-                               1/2)
-        self.assertAlmostEqual(sim_damerau('a', 'b', cost=(10, 10, 5, 10)),
-                               1/2)
-        self.assertAlmostEqual(sim_damerau('ac', 'bc',
-                                           cost=(10, 10, 5, 10)), 3/4)
-        self.assertAlmostEqual(sim_damerau('ab', 'ba',
-                                           cost=(5, 5, 10, 5)), 1/2)
-        self.assertAlmostEqual(sim_damerau('abc', 'bac',
-                                           cost=(5, 5, 10, 5)), 2/3)
-        self.assertAlmostEqual(sim_damerau('cab', 'cba',
-                                           cost=(5, 5, 10, 5)), 2/3)
-        self.assertRaises(ValueError, sim_damerau, 'ab', 'ba',
-                          cost=(10, 10, 10, 5))
+        self.assertAlmostEqual(
+            sim_damerau('ab', 'a', cost=(5, 7, 10, 10)), 1 / 2
+        )
+        self.assertAlmostEqual(
+            sim_damerau('a', 'b', cost=(10, 10, 5, 10)), 1 / 2
+        )
+        self.assertAlmostEqual(
+            sim_damerau('ac', 'bc', cost=(10, 10, 5, 10)), 3 / 4
+        )
+        self.assertAlmostEqual(
+            sim_damerau('ab', 'ba', cost=(5, 5, 10, 5)), 1 / 2
+        )
+        self.assertAlmostEqual(
+            sim_damerau('abc', 'bac', cost=(5, 5, 10, 5)), 2 / 3
+        )
+        self.assertAlmostEqual(
+            sim_damerau('cab', 'cba', cost=(5, 5, 10, 5)), 2 / 3
+        )
+        self.assertRaises(
+            ValueError, sim_damerau, 'ab', 'ba', cost=(10, 10, 10, 5)
+        )
 
 
 class IndelTestCases(unittest.TestCase):

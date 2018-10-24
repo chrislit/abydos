@@ -37,14 +37,16 @@ class SimDistTestCases(unittest.TestCase):
 
     def test_sim(self):
         """Test abydos.distance.sim."""
-        self.assertEqual(sim('Niall', 'Nigel'),
-                         sim_levenshtein('Niall', 'Nigel'))
+        self.assertEqual(
+            sim('Niall', 'Nigel'), sim_levenshtein('Niall', 'Nigel')
+        )
         self.assertRaises(AttributeError, sim, 'abc', 'abc', 0)
 
     def test_dist(self):
         """Test abydos.distance.dist."""
-        self.assertEqual(dist('Niall', 'Nigel'),
-                         dist_levenshtein('Niall', 'Nigel'))
+        self.assertEqual(
+            dist('Niall', 'Nigel'), dist_levenshtein('Niall', 'Nigel')
+        )
         self.assertRaises(AttributeError, dist, 'abc', 'abc', 0)
 
 

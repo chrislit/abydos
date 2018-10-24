@@ -66,7 +66,7 @@ def davidson(lname, fname='.', omit_fname=False):
 
     lname = text_type(lname.upper())
     code = _delete_consecutive_repeats(lname[:1] + lname[1:].translate(trans))
-    code = code[:4] + (4-len(code))*' '
+    code = code[:4] + (4 - len(code)) * ' '
 
     if not omit_fname:
         code += fname[:1].upper()
@@ -76,4 +76,5 @@ def davidson(lname, fname='.', omit_fname=False):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

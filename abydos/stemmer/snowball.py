@@ -36,8 +36,15 @@ from unicodedata import normalize
 from six import text_type
 from six.moves import range
 
-__all__ = ['porter', 'porter2', 'sb_danish', 'sb_dutch', 'sb_german',
-           'sb_norwegian', 'sb_swedish']
+__all__ = [
+    'porter',
+    'porter2',
+    'sb_danish',
+    'sb_dutch',
+    'sb_german',
+    'sb_norwegian',
+    'sb_swedish',
+]
 
 
 def _m_degree(term, vowels):
@@ -98,10 +105,12 @@ def _ends_in_cvc(term, vowels):
         definition)
     :rtype: bool
     """
-    return (len(term) > 2 and (term[-1] not in vowels and
-                               term[-2] in vowels and
-                               term[-3] not in vowels and
-                               term[-1] not in tuple('wxY')))
+    return len(term) > 2 and (
+        term[-1] not in vowels
+        and term[-2] in vowels
+        and term[-3] not in vowels
+        and term[-1] not in tuple('wxY')
+    )
 
 
 def porter(word, early_english=False):
@@ -137,8 +146,8 @@ def porter(word, early_english=False):
     if word[0] == 'y':
         word = 'Y' + word[1:]
     for i in range(1, len(word)):
-        if word[i] == 'y' and word[i-1] in _vowels:
-            word = word[:i] + 'Y' + word[i+1:]
+        if word[i] == 'y' and word[i - 1] in _vowels:
+            word = word[:i] + 'Y' + word[i + 1 :]
 
     # Step 1a
     if word[-1] == 's':
@@ -177,8 +186,11 @@ def porter(word, early_english=False):
     if step1b_flag:
         if word[-2:] in {'at', 'bl', 'iz'}:
             word += 'e'
-        elif (_ends_in_doubled_cons(word, _vowels) and
-              word[-1] not in {'l', 's', 'z'}):
+        elif _ends_in_doubled_cons(word, _vowels) and word[-1] not in {
+            'l',
+            's',
+            'z',
+        }:
             word = word[:-1]
         elif _m_degree(word, _vowels) == 1 and _ends_in_cvc(word, _vowels):
             word += 'e'
@@ -335,8 +347,9 @@ def porter(word, early_english=False):
     if word[-1] == 'e':
         if _m_degree(word[:-1], _vowels) > 1:
             word = word[:-1]
-        elif (_m_degree(word[:-1], _vowels) == 1 and
-              not _ends_in_cvc(word[:-1], _vowels)):
+        elif _m_degree(word[:-1], _vowels) == 1 and not _ends_in_cvc(
+            word[:-1], _vowels
+        ):
             word = word[:-1]
 
     # Step 5b
@@ -346,7 +359,7 @@ def porter(word, early_english=False):
     # Change 'Y' back to 'y' if it survived stemming
     for i in range(len(word)):
         if word[i] == 'Y':
-            word = word[:i] + 'y' + word[i+1:]
+            word = word[:i] + 'y' + word[i + 1 :]
 
     return word
 
@@ -356,7 +369,7 @@ def _sb_r1(term, vowels, r1_prefixes=None):
     vowel_found = False
     if hasattr(r1_prefixes, '__iter__'):
         for prefix in r1_prefixes:
-            if term[:len(prefix)] == prefix:
+            if term[: len(prefix)] == prefix:
                 return len(prefix)
 
     for i in range(len(term)):
@@ -387,8 +400,11 @@ def _sb_ends_in_short_syllable(term, vowels, codanonvowels):
         if term[-2] in vowels and term[-1] not in vowels:
             return True
     elif len(term) >= 3:
-        if ((term[-3] not in vowels and term[-2] in vowels and
-             term[-1] in codanonvowels)):
+        if (
+            term[-3] not in vowels
+            and term[-2] in vowels
+            and term[-1] in codanonvowels
+        ):
             return True
     return False
 
@@ -398,8 +414,9 @@ def _sb_short_word(term, vowels, codanonvowels, r1_prefixes=None):
 
     (...according to the Porter2 specification.)
     """
-    if ((_sb_r1(term, vowels, r1_prefixes) == len(term) and
-         _sb_ends_in_short_syllable(term, vowels, codanonvowels))):
+    if _sb_r1(term, vowels, r1_prefixes) == len(
+        term
+    ) and _sb_ends_in_short_syllable(term, vowels, codanonvowels):
         return True
     return False
 
@@ -426,8 +443,27 @@ def porter2(word, early_english=False):
     'eat'
     """
     _vowels = {'a', 'e', 'i', 'o', 'u', 'y'}
-    _codanonvowels = {"'", 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm',
-                      'n', 'p', 'q', 'r', 's', 't', 'v', 'z'}
+    _codanonvowels = {
+        "'",
+        'b',
+        'c',
+        'd',
+        'f',
+        'g',
+        'h',
+        'j',
+        'k',
+        'l',
+        'm',
+        'n',
+        'p',
+        'q',
+        'r',
+        's',
+        't',
+        'v',
+        'z',
+    }
     _doubles = {'bb', 'dd', 'ff', 'gg', 'mm', 'nn', 'pp', 'rr', 'tt'}
     _li = {'c', 'd', 'e', 'g', 'h', 'k', 'm', 'n', 'r', 't'}
 
@@ -435,15 +471,38 @@ def porter2(word, early_english=False):
     # masking
     _r1_prefixes = ('commun', 'gener', 'arsen')
     _exception1dict = {  # special changes:
-        'skis': 'ski', 'skies': 'sky', 'dying': 'die',
-        'lying': 'lie', 'tying': 'tie',
+        'skis': 'ski',
+        'skies': 'sky',
+        'dying': 'die',
+        'lying': 'lie',
+        'tying': 'tie',
         # special -LY cases:
-        'idly': 'idl', 'gently': 'gentl', 'ugly': 'ugli',
-        'early': 'earli', 'only': 'onli', 'singly': 'singl'}
-    _exception1set = {'sky', 'news', 'howe', 'atlas', 'cosmos', 'bias',
-                      'andes'}
-    _exception2set = {'inning', 'outing', 'canning', 'herring', 'earring',
-                      'proceed', 'exceed', 'succeed'}
+        'idly': 'idl',
+        'gently': 'gentl',
+        'ugly': 'ugli',
+        'early': 'earli',
+        'only': 'onli',
+        'singly': 'singl',
+    }
+    _exception1set = {
+        'sky',
+        'news',
+        'howe',
+        'atlas',
+        'cosmos',
+        'bias',
+        'andes',
+    }
+    _exception2set = {
+        'inning',
+        'outing',
+        'canning',
+        'herring',
+        'earring',
+        'proceed',
+        'exceed',
+        'succeed',
+    }
 
     # lowercase, normalize, and compose
     word = normalize('NFC', text_type(word.lower()))
@@ -473,8 +532,8 @@ def porter2(word, early_english=False):
     if word[0] == 'y':
         word = 'Y' + word[1:]
     for i in range(1, len(word)):
-        if word[i] == 'y' and word[i-1] in _vowels:
-            word = word[:i] + 'Y' + word[i+1:]
+        if word[i] == 'y' and word[i - 1] in _vowels:
+            word = word[:i] + 'Y' + word[i + 1 :]
 
     r1_start = _sb_r1(word, _vowels, _r1_prefixes)
     r2_start = _sb_r2(word, _vowels, _r1_prefixes)
@@ -551,8 +610,7 @@ def porter2(word, early_english=False):
             word += 'e'
 
     # Step 1c
-    if ((len(word) > 2 and word[-1] in {'Y', 'y'} and
-         word[-2] not in _vowels)):
+    if len(word) > 2 and word[-1] in {'Y', 'y'} and word[-2] not in _vowels:
         word = word[:-1] + 'i'
 
     # Step 2
@@ -573,8 +631,7 @@ def porter2(word, early_english=False):
                 word = word[:-1]
     elif word[-2] == 'g':
         if word[-3:] == 'ogi':
-            if ((r1_start >= 1 and len(word[r1_start:]) >= 3 and
-                 word[-4] == 'l')):
+            if r1_start >= 1 and len(word[r1_start:]) >= 3 and word[-4] == 'l':
                 word = word[:-1]
     elif word[-2] == 'l':
         if word[-6:] == 'lessli':
@@ -593,8 +650,7 @@ def porter2(word, early_english=False):
             if len(word[r1_start:]) >= 3:
                 word = word[:-1] + 'e'
         elif word[-2:] == 'li':
-            if ((r1_start >= 1 and len(word[r1_start:]) >= 2 and
-                 word[-3] in _li)):
+            if r1_start >= 1 and len(word[r1_start:]) >= 2 and word[-3] in _li:
                 word = word[:-2]
     elif word[-2] == 'o':
         if word[-7:] == 'ization':
@@ -648,25 +704,46 @@ def porter2(word, early_english=False):
             word = word[:-3]
 
     # Step 4
-    for suffix in ('ement', 'ance', 'ence', 'able', 'ible', 'ment', 'ant',
-                   'ent', 'ism', 'ate', 'iti', 'ous', 'ive', 'ize', 'al', 'er',
-                   'ic'):
-        if word[-len(suffix):] == suffix:
+    for suffix in (
+        'ement',
+        'ance',
+        'ence',
+        'able',
+        'ible',
+        'ment',
+        'ant',
+        'ent',
+        'ism',
+        'ate',
+        'iti',
+        'ous',
+        'ive',
+        'ize',
+        'al',
+        'er',
+        'ic',
+    ):
+        if word[-len(suffix) :] == suffix:
             if len(word[r2_start:]) >= len(suffix):
-                word = word[:-len(suffix)]
+                word = word[: -len(suffix)]
             break
     else:
         if word[-3:] == 'ion':
-            if ((len(word[r2_start:]) >= 3 and len(word) >= 4 and
-                 word[-4] in tuple('st'))):
+            if (
+                len(word[r2_start:]) >= 3
+                and len(word) >= 4
+                and word[-4] in tuple('st')
+            ):
                 word = word[:-3]
 
     # Step 5
     if word[-1] == 'e':
-        if (len(word[r2_start:]) >= 1 or
-                (len(word[r1_start:]) >= 1 and
-                 not _sb_ends_in_short_syllable(word[:-1], _vowels,
-                                                _codanonvowels))):
+        if len(word[r2_start:]) >= 1 or (
+            len(word[r1_start:]) >= 1
+            and not _sb_ends_in_short_syllable(
+                word[:-1], _vowels, _codanonvowels
+            )
+        ):
             word = word[:-1]
     elif word[-1] == 'l':
         if len(word[r2_start:]) >= 1 and word[-2] == 'l':
@@ -675,7 +752,7 @@ def porter2(word, early_english=False):
     # Change 'Y' back to 'y' if it survived stemming
     for i in range(0, len(word)):
         if word[i] == 'Y':
-            word = word[:i] + 'y' + word[i+1:]
+            word = word[:i] + 'y' + word[i + 1 :]
 
     return word
 
@@ -709,11 +786,11 @@ def sb_german(word, alternate_vowels=False):
 
     if len(word) > 2:
         for i in range(2, len(word)):
-            if word[i] in _vowels and word[i-2] in _vowels:
-                if word[i-1] == 'u':
-                    word = word[:i-1] + 'U' + word[i:]
-                elif word[i-1] == 'y':
-                    word = word[:i-1] + 'Y' + word[i:]
+            if word[i] in _vowels and word[i - 2] in _vowels:
+                if word[i - 1] == 'u':
+                    word = word[: i - 1] + 'U' + word[i:]
+                elif word[i - 1] == 'y':
+                    word = word[: i - 1] + 'Y' + word[i:]
 
     if alternate_vowels:
         word = word.replace('ae', 'ä')
@@ -749,8 +826,11 @@ def sb_german(word, alternate_vowels=False):
             word = word[:-1]
             niss_flag = True
     elif word[-1:] == 's':
-        if ((len(word[r1_start:]) >= 1 and len(word) >= 2 and
-             word[-2] in _s_endings)):
+        if (
+            len(word[r1_start:]) >= 1
+            and len(word) >= 2
+            and word[-2] in _s_endings
+        ):
             word = word[:-1]
 
     if niss_flag and word[-4:] == 'niss':
@@ -767,8 +847,11 @@ def sb_german(word, alternate_vowels=False):
         if len(word[r1_start:]) >= 2:
             word = word[:-2]
     elif word[-2:] == 'st':
-        if ((len(word[r1_start:]) >= 2 and len(word) >= 6 and
-             word[-3] in _st_endings)):
+        if (
+            len(word[r1_start:]) >= 2
+            and len(word) >= 6
+            and word[-3] in _st_endings
+        ):
             word = word[:-2]
 
     # Step 3
@@ -778,8 +861,7 @@ def sb_german(word, alternate_vowels=False):
     elif word[-4:] in {'lich', 'heit'}:
         if len(word[r2_start:]) >= 4:
             word = word[:-4]
-            if ((word[-2:] in {'er', 'en'} and
-                 len(word[r1_start:]) >= 2)):
+            if word[-2:] in {'er', 'en'} and len(word[r1_start:]) >= 2:
                 word = word[:-2]
     elif word[-4:] == 'keit':
         if len(word[r2_start:]) >= 4:
@@ -791,8 +873,11 @@ def sb_german(word, alternate_vowels=False):
     elif word[-3:] in {'end', 'ung'}:
         if len(word[r2_start:]) >= 3:
             word = word[:-3]
-            if ((word[-2:] == 'ig' and len(word[r2_start:]) >= 2 and
-                 word[-3] != 'e')):
+            if (
+                word[-2:] == 'ig'
+                and len(word[r2_start:]) >= 2
+                and word[-3] != 'e'
+            ):
                 word = word[:-2]
     elif word[-2:] in {'ig', 'ik'}:
         if len(word[r2_start:]) >= 2 and word[-3] != 'e':
@@ -801,9 +886,9 @@ def sb_german(word, alternate_vowels=False):
     # Change 'Y' and 'U' back to lowercase if survived stemming
     for i in range(0, len(word)):
         if word[i] == 'Y':
-            word = word[:i] + 'y' + word[i+1:]
+            word = word[:i] + 'y' + word[i + 1 :]
         elif word[i] == 'U':
-            word = word[:i] + 'u' + word[i+1:]
+            word = word[:i] + 'u' + word[i + 1 :]
 
     # Remove umlauts
     _umlauts = dict(zip((ord(_) for _ in 'äöü'), 'aou'))
@@ -834,8 +919,11 @@ def sb_dutch(word):
 
     def _undouble(word):
         """Undouble endings -kk, -dd, and -tt."""
-        if ((len(word) > 1 and word[-1] == word[-2] and
-             word[-1] in {'d', 'k', 't'})):
+        if (
+            len(word) > 1
+            and word[-1] == word[-2]
+            and word[-1] in {'d', 'k', 't'}
+        ):
             return word[:-1]
         return word
 
@@ -847,11 +935,15 @@ def sb_dutch(word):
     for i in range(len(word)):
         if i == 0 and word[0] == 'y':
             word = 'Y' + word[1:]
-        elif word[i] == 'y' and word[i-1] in _vowels:
-            word = word[:i] + 'Y' + word[i+1:]
-        elif (word[i] == 'i' and word[i-1] in _vowels and i+1 < len(word) and
-              word[i+1] in _vowels):
-            word = word[:i] + 'I' + word[i+1:]
+        elif word[i] == 'y' and word[i - 1] in _vowels:
+            word = word[:i] + 'Y' + word[i + 1 :]
+        elif (
+            word[i] == 'i'
+            and word[i - 1] in _vowels
+            and i + 1 < len(word)
+            and word[i + 1] in _vowels
+        ):
+            word = word[:i] + 'I' + word[i + 1 :]
 
     r1_start = max(3, _sb_r1(word, _vowels))
     r2_start = _sb_r2(word, _vowels)
@@ -861,12 +953,14 @@ def sb_dutch(word):
         if len(word[r1_start:]) >= 5:
             word = word[:-3] + 'id'
     elif word[-3:] == 'ene':
-        if ((len(word[r1_start:]) >= 3 and
-             (word[-4] not in _vowels and word[-6:-3] != 'gem'))):
+        if len(word[r1_start:]) >= 3 and (
+            word[-4] not in _vowels and word[-6:-3] != 'gem'
+        ):
             word = _undouble(word[:-3])
     elif word[-2:] == 'en':
-        if ((len(word[r1_start:]) >= 2 and
-             (word[-3] not in _vowels and word[-5:-2] != 'gem'))):
+        if len(word[r1_start:]) >= 2 and (
+            word[-3] not in _vowels and word[-5:-2] != 'gem'
+        ):
             word = _undouble(word[:-2])
     elif word[-2:] == 'se':
         if len(word[r1_start:]) >= 2 and word[-3] not in _not_s_endings:
@@ -887,8 +981,9 @@ def sb_dutch(word):
         if len(word[r2_start:]) >= 4 and word[-5] != 'c':
             word = word[:-4]
             if word[-2:] == 'en':
-                if ((len(word[r1_start:]) >= 2 and
-                     (word[-3] not in _vowels and word[-5:-2] != 'gem'))):
+                if len(word[r1_start:]) >= 2 and (
+                    word[-3] not in _vowels and word[-5:-2] != 'gem'
+                ):
                     word = _undouble(word[:-2])
 
     # Step 3b
@@ -905,8 +1000,11 @@ def sb_dutch(word):
     elif word[-3:] in ('end', 'ing'):
         if len(word[r2_start:]) >= 3:
             word = word[:-3]
-            if ((word[-2:] == 'ig' and len(word[r2_start:]) >= 2 and
-                 word[-3] != 'e')):
+            if (
+                word[-2:] == 'ig'
+                and len(word[r2_start:]) >= 2
+                and word[-3] != 'e'
+            ):
                 word = word[:-2]
             else:
                 word = _undouble(word)
@@ -918,18 +1016,22 @@ def sb_dutch(word):
             word = word[:-2]
 
     # Step 4
-    if ((len(word) >= 4 and
-         word[-3] == word[-2] and word[-2] in {'a', 'e', 'o', 'u'} and
-         word[-4] not in _vowels and
-         word[-1] not in _vowels and word[-1] != 'I')):
+    if (
+        len(word) >= 4
+        and word[-3] == word[-2]
+        and word[-2] in {'a', 'e', 'o', 'u'}
+        and word[-4] not in _vowels
+        and word[-1] not in _vowels
+        and word[-1] != 'I'
+    ):
         word = word[:-2] + word[-1]
 
     # Change 'Y' and 'U' back to lowercase if survived stemming
     for i in range(0, len(word)):
         if word[i] == 'Y':
-            word = word[:i] + 'y' + word[i+1:]
+            word = word[:i] + 'y' + word[i + 1 :]
         elif word[i] == 'I':
-            word = word[:i] + 'i' + word[i+1:]
+            word = word[:i] + 'i' + word[i + 1 :]
 
     return word
 
@@ -952,8 +1054,25 @@ def sb_norwegian(word):
     'sikker'
     """
     _vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'å', 'æ', 'ø'}
-    _s_endings = {'b', 'c', 'd', 'f', 'g', 'h', 'j', 'l', 'm', 'n', 'o', 'p',
-                  'r', 't', 'v', 'y', 'z'}
+    _s_endings = {
+        'b',
+        'c',
+        'd',
+        'f',
+        'g',
+        'h',
+        'j',
+        'l',
+        'm',
+        'n',
+        'o',
+        'p',
+        'r',
+        't',
+        'v',
+        'y',
+        'z',
+    }
     # lowercase, normalize, and compose
     word = normalize('NFC', text_type(word.lower()))
 
@@ -972,8 +1091,17 @@ def sb_norwegian(word):
             word = word[:-2]
         else:
             word = word[:-4]
-    elif _r1[-3:] in {'ede', 'ane', 'ene', 'ens', 'ers', 'ets', 'het', 'ast',
-                      'ert'}:
+    elif _r1[-3:] in {
+        'ede',
+        'ane',
+        'ene',
+        'ens',
+        'ers',
+        'ets',
+        'het',
+        'ast',
+        'ert',
+    }:
         if word[-3:] == 'ert':
             word = word[:-1]
         else:
@@ -983,8 +1111,9 @@ def sb_norwegian(word):
     elif _r1[-1:] in {'a', 'e'}:
         word = word[:-1]
     elif _r1[-1:] == 's':
-        if (((len(word) > 1 and word[-2] in _s_endings) or
-             (len(word) > 2 and word[-2] == 'k' and word[-3] not in _vowels))):
+        if (len(word) > 1 and word[-2] in _s_endings) or (
+            len(word) > 2 and word[-2] == 'k' and word[-3] not in _vowels
+        ):
             word = word[:-1]
 
     # Step 2
@@ -1023,8 +1152,25 @@ def sb_swedish(word):
     'viss'
     """
     _vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'ä', 'å', 'ö'}
-    _s_endings = {'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n',
-                  'o', 'p', 'r', 't', 'v', 'y'}
+    _s_endings = {
+        'b',
+        'c',
+        'd',
+        'f',
+        'g',
+        'h',
+        'j',
+        'k',
+        'l',
+        'm',
+        'n',
+        'o',
+        'p',
+        'r',
+        't',
+        'v',
+        'y',
+    }
 
     # lowercase, normalize, and compose
     word = normalize('NFC', text_type(word.lower()))
@@ -1037,11 +1183,29 @@ def sb_swedish(word):
         word = word[:-7]
     elif _r1[-6:] == 'hetens':
         word = word[:-6]
-    elif _r1[-5:] in {'anden', 'heten', 'heter', 'arnas', 'ernas', 'ornas',
-                      'andes', 'arens', 'andet'}:
+    elif _r1[-5:] in {
+        'anden',
+        'heten',
+        'heter',
+        'arnas',
+        'ernas',
+        'ornas',
+        'andes',
+        'arens',
+        'andet',
+    }:
         word = word[:-5]
-    elif _r1[-4:] in {'arna', 'erna', 'orna', 'ande', 'arne', 'aste', 'aren',
-                      'ades', 'erns'}:
+    elif _r1[-4:] in {
+        'arna',
+        'erna',
+        'orna',
+        'ande',
+        'arne',
+        'aste',
+        'aren',
+        'ades',
+        'erns',
+    }:
         word = word[:-4]
     elif _r1[-3:] in {'ade', 'are', 'ern', 'ens', 'het', 'ast'}:
         word = word[:-3]
@@ -1089,8 +1253,28 @@ def sb_danish(word):
     'sikker'
     """
     _vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'å', 'æ', 'ø'}
-    _s_endings = {'a', 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n',
-                  'o', 'p', 'r', 't', 'v', 'y', 'z', 'å'}
+    _s_endings = {
+        'a',
+        'b',
+        'c',
+        'd',
+        'f',
+        'g',
+        'h',
+        'j',
+        'k',
+        'l',
+        'm',
+        'n',
+        'o',
+        'p',
+        'r',
+        't',
+        'v',
+        'y',
+        'z',
+        'å',
+    }
 
     # lowercase, normalize, and compose
     word = normalize('NFC', text_type(word.lower()))
@@ -1103,11 +1287,28 @@ def sb_danish(word):
         word = word[:-7]
     elif _r1[-6:] in {'erende', 'hedens'}:
         word = word[:-6]
-    elif _r1[-5:] in {'ethed', 'erede', 'heden', 'heder', 'endes', 'ernes',
-                      'erens', 'erets'}:
+    elif _r1[-5:] in {
+        'ethed',
+        'erede',
+        'heden',
+        'heder',
+        'endes',
+        'ernes',
+        'erens',
+        'erets',
+    }:
         word = word[:-5]
-    elif _r1[-4:] in {'ered', 'ende', 'erne', 'eren', 'erer', 'heds', 'enes',
-                      'eres', 'eret'}:
+    elif _r1[-4:] in {
+        'ered',
+        'ende',
+        'erne',
+        'eren',
+        'erer',
+        'heds',
+        'enes',
+        'eres',
+        'eret',
+    }:
         word = word[:-4]
     elif _r1[-3:] in {'hed', 'ene', 'ere', 'ens', 'ers', 'ets'}:
         word = word[:-3]
@@ -1146,8 +1347,12 @@ def sb_danish(word):
             word = word[:-1]
 
     # Step 4
-    if ((len(word[r1_start:]) >= 1 and len(word) >= 2 and
-         word[-1] == word[-2] and word[-1] not in _vowels)):
+    if (
+        len(word[r1_start:]) >= 1
+        and len(word) >= 2
+        and word[-1] == word[-2]
+        and word[-1] not in _vowels
+    ):
         word = word[:-1]
 
     return word
@@ -1155,4 +1360,5 @@ def sb_danish(word):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

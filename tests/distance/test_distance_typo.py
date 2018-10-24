@@ -45,14 +45,16 @@ class TypoTestCases(unittest.TestCase):
         self.assertEqual(typo('asdf', 'ASDF'), 1)
         self.assertEqual(typo('asdf', 'qsdf'), 0.5)
 
-        self.assertAlmostEqual(typo('asdf', 'asdt', metric='euclidean'),
-                               0.70710677)
-        self.assertAlmostEqual(typo('asdf', 'asdt', metric='manhattan'),
-                               1)
-        self.assertAlmostEqual(typo('asdf', 'asdt', metric='log-euclidean'),
-                               0.4406868)
-        self.assertAlmostEqual(typo('asdf', 'asdt', metric='log-manhattan'),
-                               0.54930615)
+        self.assertAlmostEqual(
+            typo('asdf', 'asdt', metric='euclidean'), 0.70710677
+        )
+        self.assertAlmostEqual(typo('asdf', 'asdt', metric='manhattan'), 1)
+        self.assertAlmostEqual(
+            typo('asdf', 'asdt', metric='log-euclidean'), 0.4406868
+        )
+        self.assertAlmostEqual(
+            typo('asdf', 'asdt', metric='log-manhattan'), 0.54930615
+        )
 
         self.assertRaises(ValueError, typo, 'asdf', 'Ösdf')
 
@@ -67,16 +69,20 @@ class TypoTestCases(unittest.TestCase):
         self.assertEqual(sim_typo('asdf', 'ASDF'), 0.75)
         self.assertEqual(sim_typo('asdf', 'qsdf'), 0.875)
 
-        self.assertAlmostEqual(sim_typo('asdf', 'asdt', metric='euclidean'),
-                               1-(0.70710677/4))
-        self.assertAlmostEqual(sim_typo('asdf', 'asdt', metric='manhattan'),
-                               0.75)
-        self.assertAlmostEqual(sim_typo('asdf', 'asdt',
-                                        metric='log-euclidean'),
-                               1-(0.4406868/4))
-        self.assertAlmostEqual(sim_typo('asdf', 'asdt',
-                                        metric='log-manhattan'),
-                               1-(0.54930615/4))
+        self.assertAlmostEqual(
+            sim_typo('asdf', 'asdt', metric='euclidean'), 1 - (0.70710677 / 4)
+        )
+        self.assertAlmostEqual(
+            sim_typo('asdf', 'asdt', metric='manhattan'), 0.75
+        )
+        self.assertAlmostEqual(
+            sim_typo('asdf', 'asdt', metric='log-euclidean'),
+            1 - (0.4406868 / 4),
+        )
+        self.assertAlmostEqual(
+            sim_typo('asdf', 'asdt', metric='log-manhattan'),
+            1 - (0.54930615 / 4),
+        )
 
     def test_dist_typo(self):
         """Test abydos.distance.dist_typo."""
@@ -89,14 +95,18 @@ class TypoTestCases(unittest.TestCase):
         self.assertEqual(dist_typo('asdf', 'ASDF'), 0.25)
         self.assertEqual(dist_typo('asdf', 'qsdf'), 0.125)
 
-        self.assertAlmostEqual(dist_typo('asdf', 'asdt', metric='euclidean'),
-                               0.70710677/4)
-        self.assertAlmostEqual(dist_typo('asdf', 'asdt', metric='manhattan'),
-                               0.25)
-        self.assertAlmostEqual(dist_typo('asdf', 'asdt',
-                                         metric='log-euclidean'), 0.4406868/4)
-        self.assertAlmostEqual(dist_typo('asdf', 'asdt',
-                                         metric='log-manhattan'), 0.54930615/4)
+        self.assertAlmostEqual(
+            dist_typo('asdf', 'asdt', metric='euclidean'), 0.70710677 / 4
+        )
+        self.assertAlmostEqual(
+            dist_typo('asdf', 'asdt', metric='manhattan'), 0.25
+        )
+        self.assertAlmostEqual(
+            dist_typo('asdf', 'asdt', metric='log-euclidean'), 0.4406868 / 4
+        )
+        self.assertAlmostEqual(
+            dist_typo('asdf', 'asdt', metric='log-manhattan'), 0.54930615 / 4
+        )
 
 
 if __name__ == '__main__':

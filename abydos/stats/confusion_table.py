@@ -38,9 +38,21 @@ from __future__ import division, unicode_literals
 
 import math
 
-from .mean import aghmean, agmean, amean, cmean, ghmean, gmean, \
-    heronian_mean, hmean, hoelder_mean, imean, lehmer_mean, qmean, \
-    seiffert_mean
+from .mean import (
+    aghmean,
+    agmean,
+    amean,
+    cmean,
+    ghmean,
+    gmean,
+    heronian_mean,
+    hmean,
+    hoelder_mean,
+    imean,
+    lehmer_mean,
+    qmean,
+    seiffert_mean,
+)
 
 __all__ = ['ConfusionTable']
 
@@ -84,8 +96,10 @@ class ConfusionTable(object):
                 self._fp = tp[2]
                 self._fn = tp[3]
             else:
-                raise AttributeError('ConfusionTable requires a 4-tuple ' +
-                                     'when being created from a tuple.')
+                raise AttributeError(
+                    'ConfusionTable requires a 4-tuple '
+                    + 'when being created from a tuple.'
+                )
         elif isinstance(tp, dict):
             if 'tp' in tp:
                 self._tp = tp['tp']
@@ -128,18 +142,28 @@ class ConfusionTable(object):
         if isinstance(other, ConfusionTable):
             if id(self) == id(other):
                 return True
-            if ((self._tp == other.true_pos() and
-                 self._tn == other.true_neg() and
-                 self._fp == other.false_pos() and
-                 self._fn == other.false_neg())):
+            if (
+                self._tp == other.true_pos()
+                and self._tn == other.true_neg()
+                and self._fp == other.false_pos()
+                and self._fn == other.false_neg()
+            ):
                 return True
         elif isinstance(other, (tuple, list)):
-            if ((self._tp == other[0] and self._tn == other[1] and
-                 self._fp == other[2] and self._fn == other[3])):
+            if (
+                self._tp == other[0]
+                and self._tn == other[1]
+                and self._fp == other[2]
+                and self._fn == other[3]
+            ):
                 return True
         elif isinstance(other, dict):
-            if ((self._tp == other['tp'] and self._tn == other['tn'] and
-                 self._fp == other['fp'] and self._fn == other['fn'])):
+            if (
+                self._tp == other['tp']
+                and self._tn == other['tn']
+                and self._fp == other['fp']
+                and self._fn == other['fn']
+            ):
                 return True
         return False
 
@@ -153,8 +177,16 @@ class ConfusionTable(object):
         >>> str(ct)
         'tp:120, tn:60, fp:20, fn:30'
         """
-        return ('tp:' + str(self._tp) + ', tn:' + str(self._tn) + ', fp:' +
-                str(self._fp) + ', fn:' + str(self._fn))
+        return (
+            'tp:'
+            + str(self._tp)
+            + ', tn:'
+            + str(self._tn)
+            + ', fp:'
+            + str(self._fp)
+            + ', fn:'
+            + str(self._fn)
+        )
 
     def to_tuple(self):
         """Cast to tuple.
@@ -179,8 +211,7 @@ class ConfusionTable(object):
         >>> pprint.pprint(ct.to_dict())
         {'fn': 30, 'fp': 20, 'tn': 60, 'tp': 120}
         """
-        return {'tp': self._tp, 'tn': self._tn,
-                'fp': self._fp, 'fn': self._fn}
+        return {'tp': self._tp, 'tn': self._tn, 'fp': self._fp, 'fn': self._fn}
 
     def true_pos(self):
         """Return true positives.
@@ -353,8 +384,8 @@ class ConfusionTable(object):
         """
         if self.population() == 0:
             return float('NaN')
-        random_precision = self.cond_pos_pop()/self.population()
-        return self.precision()/random_precision
+        random_precision = self.cond_pos_pop() / self.population()
+        return self.precision() / random_precision
 
     def recall(self):
         r"""Return recall.
@@ -493,9 +524,10 @@ class ConfusionTable(object):
         """
         if self.population() == 0:
             return float('NaN')
-        random_accuracy = ((self.cond_pos_pop()/self.population())**2 +
-                           (self.cond_neg_pop()/self.population())**2)
-        return self.accuracy()/random_accuracy
+        random_accuracy = (self.cond_pos_pop() / self.population()) ** 2 + (
+            self.cond_neg_pop() / self.population()
+        ) ** 2
+        return self.accuracy() / random_accuracy
 
     def balanced_accuracy(self):
         r"""Return balanced accuracy.
@@ -672,8 +704,7 @@ class ConfusionTable(object):
             return 0.0
         elif precision == recall:
             return precision
-        return ((precision - recall) /
-                (math.log(precision) - math.log(recall)))
+        return (precision - recall) / (math.log(precision) - math.log(recall))
 
     def pr_imean(self):
         r"""Return identric (exponential) mean of precision & recall.
@@ -853,8 +884,12 @@ class ConfusionTable(object):
             raise AttributeError('Beta must be a positive real value.')
         precision = self.precision()
         recall = self.recall()
-        return ((1 + beta**2) *
-                precision * recall / ((beta**2 * precision) + recall))
+        return (
+            (1 + beta ** 2)
+            * precision
+            * recall
+            / ((beta ** 2 * precision) + recall)
+        )
 
     def f2_score(self):
         """Return :math:`F_{2}`.
@@ -906,7 +941,7 @@ class ConfusionTable(object):
         >>> ct.e_score()
         0.17241379310344818
         """
-        return 1-self.fbeta_score(beta)
+        return 1 - self.fbeta_score(beta)
 
     def f1_score(self):
         r"""Return :math:`F_{1}` score.
@@ -983,12 +1018,21 @@ class ConfusionTable(object):
         >>> ct.mcc()
         0.5367450401216932
         """
-        if (((self._tp + self._fp) * (self._tp + self._fn) *
-             (self._tn + self._fp) * (self._tn + self._fn))) == 0:
+        if (
+            (
+                (self._tp + self._fp)
+                * (self._tp + self._fn)
+                * (self._tn + self._fp)
+                * (self._tn + self._fn)
+            )
+        ) == 0:
             return float('NaN')
-        return (((self._tp * self._tn) - (self._fp * self._fn)) /
-                math.sqrt((self._tp + self._fp) * (self._tp + self._fn) *
-                          (self._tn + self._fp) * (self._tn + self._fn)))
+        return ((self._tp * self._tn) - (self._fp * self._fn)) / math.sqrt(
+            (self._tp + self._fp)
+            * (self._tp + self._fn)
+            * (self._tn + self._fp)
+            * (self._tn + self._fn)
+        )
 
     def significance(self):
         r"""Return the significance, :math:`\chi^{2}`.
@@ -1009,13 +1053,24 @@ class ConfusionTable(object):
         >>> ct.significance()
         66.26190476190476
         """
-        if (((self._tp + self._fp) * (self._tp + self._fn) *
-             (self._tn + self._fp) * (self._tn + self._fn))) == 0:
+        if (
+            (
+                (self._tp + self._fp)
+                * (self._tp + self._fn)
+                * (self._tn + self._fp)
+                * (self._tn + self._fn)
+            )
+        ) == 0:
             return float('NaN')
-        return (((self._tp * self._tn - self._fp * self._fn)**2 *
-                 (self._tp + self._tn + self._fp + self._fn)) /
-                ((self._tp + self._fp) * (self._tp + self._fn) *
-                 (self._tn + self._fp) * (self._tn + self._fn)))
+        return (
+            (self._tp * self._tn - self._fp * self._fn) ** 2
+            * (self._tp + self._tn + self._fp + self._fn)
+        ) / (
+            (self._tp + self._fp)
+            * (self._tp + self._fn)
+            * (self._tn + self._fp)
+            * (self._tn + self._fn)
+        )
 
     def kappa_statistic(self):
         r"""Return κ statistic.
@@ -1038,14 +1093,14 @@ class ConfusionTable(object):
         """
         if self.population() == 0:
             return float('NaN')
-        random_accuracy = (((self._tn + self._fp) *
-                            (self._tn + self._fn) +
-                            (self._fn + self._tp) *
-                            (self._fp + self._tp)) /
-                           self.population()**2)
-        return (self.accuracy()-random_accuracy) / (1-random_accuracy)
+        random_accuracy = (
+            (self._tn + self._fp) * (self._tn + self._fn)
+            + (self._fn + self._tp) * (self._fp + self._tp)
+        ) / self.population() ** 2
+        return (self.accuracy() - random_accuracy) / (1 - random_accuracy)
 
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

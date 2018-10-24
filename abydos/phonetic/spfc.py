@@ -63,24 +63,41 @@ def spfc(word):
     >>> spfc(('R', 'Miller'))
     '65490'
     """
-    _pf1 = dict(zip((ord(_) for _ in 'SZCKQVFPUWABLORDHIEMNXGJT'),
-                    '0011112222334445556666777'))
-    _pf2 = dict(zip((ord(_) for _ in
-                     'SZCKQFPXABORDHIMNGJTUVWEL'),
-                    '0011122233445556677788899'))
-    _pf3 = dict(zip((ord(_) for _ in
-                     'BCKQVDTFLPGJXMNRSZAEHIOUWY'),
-                    '00000112223334456677777777'))
+    _pf1 = dict(
+        zip(
+            (ord(_) for _ in 'SZCKQVFPUWABLORDHIEMNXGJT'),
+            '0011112222334445556666777',
+        )
+    )
+    _pf2 = dict(
+        zip(
+            (ord(_) for _ in 'SZCKQFPXABORDHIMNGJTUVWEL'),
+            '0011122233445556677788899',
+        )
+    )
+    _pf3 = dict(
+        zip(
+            (ord(_) for _ in 'BCKQVDTFLPGJXMNRSZAEHIOUWY'),
+            '00000112223334456677777777',
+        )
+    )
 
-    _substitutions = (('DK', 'K'), ('DT', 'T'), ('SC', 'S'), ('KN', 'N'),
-                      ('MN', 'N'))
+    _substitutions = (
+        ('DK', 'K'),
+        ('DT', 'T'),
+        ('SC', 'S'),
+        ('KN', 'N'),
+        ('MN', 'N'),
+    )
 
     def _raise_word_ex():
         """Raise an AttributeError."""
-        raise AttributeError('word attribute must be a string with a space ' +
-                             'or period dividing the first and last names ' +
-                             'or a tuple/list consisting of the first and ' +
-                             'last names')
+        raise AttributeError(
+            'word attribute must be a string with a space '
+            + 'or period dividing the first and last names '
+            + 'or a tuple/list consisting of the first and '
+            + 'last names'
+        )
 
     if not word:
         return ''
@@ -99,19 +116,50 @@ def spfc(word):
     else:
         _raise_word_ex()
 
-    names = [unicode_normalize('NFKD', text_type(_.strip()
-                                                 .replace('ß', 'SS')
-                                                 .upper()))
-             for _ in names]
+    names = [
+        unicode_normalize(
+            'NFKD', text_type(_.strip().replace('ß', 'SS').upper())
+        )
+        for _ in names
+    ]
     code = ''
 
     def steps_one_to_three(name):
         """Perform the first three steps of SPFC."""
         # filter out non A-Z
-        name = ''.join(_ for _ in name if _ in
-                       {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
-                        'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
-                        'W', 'X', 'Y', 'Z'})
+        name = ''.join(
+            _
+            for _ in name
+            if _
+            in {
+                'A',
+                'B',
+                'C',
+                'D',
+                'E',
+                'F',
+                'G',
+                'H',
+                'I',
+                'J',
+                'K',
+                'L',
+                'M',
+                'N',
+                'O',
+                'P',
+                'Q',
+                'R',
+                'S',
+                'T',
+                'U',
+                'V',
+                'W',
+                'X',
+                'Y',
+                'Z',
+            }
+        )
 
         # 1. In the field, convert DK to K, DT to T, SC to S, KN to N,
         # and MN to N
@@ -124,8 +172,11 @@ def spfc(word):
         # 3. Remove vowels, W, H, and Y, but keep the first letter in the name
         # field.
         if name:
-            name = name[0] + ''.join(_ for _ in name[1:] if _ not in
-                                     {'A', 'E', 'H', 'I', 'O', 'U', 'W', 'Y'})
+            name = name[0] + ''.join(
+                _
+                for _ in name[1:]
+                if _ not in {'A', 'E', 'H', 'I', 'O', 'U', 'W', 'Y'}
+            )
         return name
 
     names = [steps_one_to_three(_) for _ in names]
@@ -185,4 +236,5 @@ def spfc(word):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

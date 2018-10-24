@@ -32,8 +32,9 @@ from ..distance import sim
 __all__ = ['mean_pairwise_similarity', 'pairwise_similarity_statistics']
 
 
-def mean_pairwise_similarity(collection, metric=sim,
-                             mean_func=hmean, symmetric=False):
+def mean_pairwise_similarity(
+    collection, metric=sim, mean_func=hmean, symmetric=False
+):
     """Calculate the mean pairwise similarity of a collection of strings.
 
     Takes the mean of the pairwise similarity between each member of a
@@ -72,7 +73,7 @@ def mean_pairwise_similarity(collection, metric=sim,
     pairwise_values = []
 
     for i in range(len(collection)):
-        for j in range(i+1, len(collection)):
+        for j in range(i + 1, len(collection)):
             pairwise_values.append(metric(collection[i], collection[j]))
             if symmetric:
                 pairwise_values.append(metric(collection[j], collection[i]))
@@ -80,8 +81,13 @@ def mean_pairwise_similarity(collection, metric=sim,
     return mean_func(pairwise_values)
 
 
-def pairwise_similarity_statistics(src_collection, tar_collection, metric=sim,
-                                   mean_func=amean, symmetric=False):
+def pairwise_similarity_statistics(
+    src_collection,
+    tar_collection,
+    metric=sim,
+    mean_func=amean,
+    symmetric=False,
+):
     """Calculate the pairwise similarity statistics a collection of strings.
 
     Calculate pairwise similarities among members of two collections,
@@ -131,10 +137,15 @@ def pairwise_similarity_statistics(src_collection, tar_collection, metric=sim,
             if symmetric:
                 pairwise_values.append(metric(tar, src))
 
-    return (max(pairwise_values), min(pairwise_values),
-            mean_func(pairwise_values), std(pairwise_values, mean_func, 0))
+    return (
+        max(pairwise_values),
+        min(pairwise_values),
+        mean_func(pairwise_values),
+        std(pairwise_values, mean_func, 0),
+    )
 
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

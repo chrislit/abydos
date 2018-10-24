@@ -40,10 +40,25 @@ from . import _get_qgrams
 from .levenshtein import sim_levenshtein
 from ..tokenizer.qgram import QGrams
 
-__all__ = ['bag', 'dist_bag', 'dist_cosine', 'dist_dice', 'dist_jaccard',
-           'dist_monge_elkan', 'dist_overlap', 'dist_tversky', 'sim_bag',
-           'sim_cosine', 'sim_dice', 'sim_jaccard', 'sim_monge_elkan',
-           'sim_overlap', 'sim_tanimoto', 'sim_tversky', 'tanimoto']
+__all__ = [
+    'bag',
+    'dist_bag',
+    'dist_cosine',
+    'dist_dice',
+    'dist_jaccard',
+    'dist_monge_elkan',
+    'dist_overlap',
+    'dist_tversky',
+    'sim_bag',
+    'sim_cosine',
+    'sim_dice',
+    'sim_jaccard',
+    'sim_monge_elkan',
+    'sim_overlap',
+    'sim_tanimoto',
+    'sim_tversky',
+    'tanimoto',
+]
 
 
 def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
@@ -96,8 +111,10 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     0.0
     """
     if alpha < 0 or beta < 0:
-        raise ValueError('Unsupported weight assignment; alpha and beta ' +
-                         'must be greater than or equal to 0.')
+        raise ValueError(
+            'Unsupported weight assignment; alpha and beta '
+            + 'must be greater than or equal to 0.'
+        )
 
     if src == tar:
         return 1.0
@@ -113,14 +130,14 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
         return 0.0
 
     if bias is None:
-        return q_intersection_mag / (q_intersection_mag + alpha *
-                                     (q_src_mag - q_intersection_mag) +
-                                     beta * (q_tar_mag - q_intersection_mag))
+        return q_intersection_mag / (
+            q_intersection_mag
+            + alpha * (q_src_mag - q_intersection_mag)
+            + beta * (q_tar_mag - q_intersection_mag)
+        )
 
-    a_val = min(q_src_mag - q_intersection_mag,
-                q_tar_mag - q_intersection_mag)
-    b_val = max(q_src_mag - q_intersection_mag,
-                q_tar_mag - q_intersection_mag)
+    a_val = min(q_src_mag - q_intersection_mag, q_tar_mag - q_intersection_mag)
+    b_val = max(q_src_mag - q_intersection_mag, q_tar_mag - q_intersection_mag)
     c_val = q_intersection_mag + bias
     return c_val / (beta * (alpha * a_val + (1 - alpha) * b_val) + c_val)
 
@@ -471,8 +488,9 @@ def bag(src, tar):
 
     src_bag = Counter(src)
     tar_bag = Counter(tar)
-    return max(sum((src_bag-tar_bag).values()),
-               sum((tar_bag-src_bag).values()))
+    return max(
+        sum((src_bag - tar_bag).values()), sum((tar_bag - src_bag).values())
+    )
 
 
 def dist_bag(src, tar):
@@ -501,7 +519,7 @@ def dist_bag(src, tar):
 
     max_length = max(len(src), len(tar))
 
-    return bag(src, tar)/max_length
+    return bag(src, tar) / max_length
 
 
 def sim_bag(src, tar):
@@ -524,7 +542,7 @@ def sim_bag(src, tar):
     >>> sim_bag('ATCG', 'TAGC')
     1.0
     """
-    return 1-dist_bag(src, tar)
+    return 1 - dist_bag(src, tar)
 
 
 def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
@@ -573,7 +591,7 @@ def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
     sim_em = sum_of_maxes / len(q_src)
 
     if symmetric:
-        sim_em = (sim_em + sim_monge_elkan(tar, src, sim_func, False))/2
+        sim_em = (sim_em + sim_monge_elkan(tar, src, sim_func, False)) / 2
 
     return sim_em
 
@@ -605,4 +623,5 @@ def dist_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

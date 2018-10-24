@@ -57,15 +57,39 @@ def phonetic_spanish(word, max_length=-1):
     >>> phonetic_spanish('Nicolás')
     '6454'
     """
-    _es_soundex_translation = dict(zip((ord(_) for _ in
-                                        'BCDFGHJKLMNPQRSTVXYZ'),
-                                       '14328287566079431454'))
+    _es_soundex_translation = dict(
+        zip((ord(_) for _ in 'BCDFGHJKLMNPQRSTVXYZ'), '14328287566079431454')
+    )
 
     # uppercase, normalize, and decompose, filter to A-Z minus vowels & W
     word = unicode_normalize('NFKD', text_type(word.upper()))
-    word = ''.join(c for c in word if c in
-                   {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N',
-                    'P', 'Q', 'R', 'S', 'T', 'V', 'X', 'Y', 'Z'})
+    word = ''.join(
+        c
+        for c in word
+        if c
+        in {
+            'B',
+            'C',
+            'D',
+            'F',
+            'G',
+            'H',
+            'J',
+            'K',
+            'L',
+            'M',
+            'N',
+            'P',
+            'Q',
+            'R',
+            'S',
+            'T',
+            'V',
+            'X',
+            'Y',
+            'Z',
+        }
+    )
 
     # merge repeated Ls & Rs
     word = word.replace('LL', 'L')
@@ -75,7 +99,7 @@ def phonetic_spanish(word, max_length=-1):
     sdx = word.translate(_es_soundex_translation)
 
     if max_length > 0:
-        sdx = (sdx+('0'*max_length))[:max_length]
+        sdx = (sdx + ('0' * max_length))[:max_length]
 
     return sdx
 
@@ -107,10 +131,10 @@ def spanish_metaphone(word, max_length=6, modified=False):
     >>> spanish_metaphone('Nicolás')
     'NKLS'
     """
+
     def _is_vowel(pos):
         """Return True if the character at word[pos] is a vowel."""
-        return (pos < len(word) and
-                word[pos] in {'A', 'E', 'I', 'O', 'U'})
+        return pos < len(word) and word[pos] in {'A', 'E', 'I', 'O', 'U'}
 
     word = unicode_normalize('NFC', text_type(word.upper()))
 
@@ -153,22 +177,33 @@ def spanish_metaphone(word, max_length=6, modified=False):
         # otherwise, do consonant rules
         else:
             # simple consonants (unmutated)
-            if current_char in {'D', 'F', 'J', 'K', 'M', 'N', 'P', 'T', 'V',
-                                'L', 'Y'}:
+            if current_char in {
+                'D',
+                'F',
+                'J',
+                'K',
+                'M',
+                'N',
+                'P',
+                'T',
+                'V',
+                'L',
+                'Y',
+            }:
                 meta_key += current_char
                 # skip doubled consonants
-                if word[pos+1:pos+2] == current_char:
+                if word[pos + 1 : pos + 2] == current_char:
                     pos += 2
                 else:
                     pos += 1
             else:
                 if current_char == 'C':
                     # special case 'acción', 'reacción',etc.
-                    if word[pos+1:pos+2] == 'C':
+                    if word[pos + 1 : pos + 2] == 'C':
                         meta_key += 'X'
                         pos += 2
                     # special case 'cesar', 'cien', 'cid', 'conciencia'
-                    elif word[pos+1:pos+2] in {'E', 'I'}:
+                    elif word[pos + 1 : pos + 2] in {'E', 'I'}:
                         meta_key += 'Z'
                         pos += 2
                     # base case
@@ -177,7 +212,7 @@ def spanish_metaphone(word, max_length=6, modified=False):
                         pos += 1
                 elif current_char == 'G':
                     # special case 'gente', 'ecologia',etc
-                    if word[pos + 1:pos + 2] in {'E', 'I'}:
+                    if word[pos + 1 : pos + 2] in {'E', 'I'}:
                         meta_key += 'J'
                         pos += 2
                     # base case
@@ -187,14 +222,14 @@ def spanish_metaphone(word, max_length=6, modified=False):
                 elif current_char == 'H':
                     # since the letter 'H' is silent in Spanish,
                     # set the meta key to the vowel after the letter 'H'
-                    if _is_vowel(pos+1):
-                        meta_key += word[pos+1]
+                    if _is_vowel(pos + 1):
+                        meta_key += word[pos + 1]
                         pos += 2
                     else:
                         meta_key += 'H'
                         pos += 1
                 elif current_char == 'Q':
-                    if word[pos+1:pos+2] == 'U':
+                    if word[pos + 1 : pos + 2] == 'U':
                         pos += 2
                     else:
                         pos += 1
@@ -206,7 +241,7 @@ def spanish_metaphone(word, max_length=6, modified=False):
                     meta_key += 'R'
                     pos += 1
                 elif current_char == 'S':
-                    if not _is_vowel(pos+1) and pos == 0:
+                    if not _is_vowel(pos + 1) and pos == 0:
                         meta_key += 'ES'
                         pos += 1
                     else:
@@ -216,7 +251,7 @@ def spanish_metaphone(word, max_length=6, modified=False):
                     meta_key += 'Z'
                     pos += 1
                 elif current_char == 'X':
-                    if len(word) > 1 and pos == 0 and not _is_vowel(pos+1):
+                    if len(word) > 1 and pos == 0 and not _is_vowel(pos + 1):
                         meta_key += 'EX'
                         pos += 1
                     else:
@@ -234,4 +269,5 @@ def spanish_metaphone(word, max_length=6, modified=False):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

@@ -192,7 +192,7 @@ _synoname_special_table = (
     (True, 'xv', '', 3),
     (True, 'xx', '', 3),
     (True, 'x', '', 3),
-    (False, 'y', '', 7)
+    (False, 'y', '', 7),
 )
 
 
@@ -224,8 +224,12 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
     >>> synoname_toolcode('Michelangelo IV', '', 'Workshop of')
     ('michelangelo iv', '', '3000550015$055b$mi')
     """
-    method_dict = {'end': 1, 'middle': 2, 'beginning': 4,
-                             'beginning_no_space': 8}
+    method_dict = {
+        'end': 1,
+        'middle': 2,
+        'beginning': 4,
+        'beginning_no_space': 8,
+    }
 
     lname = lname.lower()
     fname = fname.lower()
@@ -237,13 +241,29 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
     full_name = ' '.join((lname, fname))
 
     # Fill field 0 (qualifier)
-    qual_3 = {'adaptation after', 'after', 'assistant of', 'assistants of',
-              'circle of', 'follower of', 'imitator of', 'in the style of',
-              'manner of', 'pupil of', 'school of', 'studio of',
-              'style of', 'workshop of'}
+    qual_3 = {
+        'adaptation after',
+        'after',
+        'assistant of',
+        'assistants of',
+        'circle of',
+        'follower of',
+        'imitator of',
+        'in the style of',
+        'manner of',
+        'pupil of',
+        'school of',
+        'studio of',
+        'style of',
+        'workshop of',
+    }
     qual_2 = {'copy after', 'copy after?', 'copy of'}
-    qual_1 = {'ascribed to', 'attributed to or copy after',
-              'attributed to', 'possibly'}
+    qual_1 = {
+        'ascribed to',
+        'attributed to or copy after',
+        'attributed to',
+        'possibly',
+    }
 
     if qual in qual_3:
         toolcode[0] = '3'
@@ -262,10 +282,31 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
                 break
 
     # Fill field 2 (generation)
-    gen_1 = ('the elder', ' sr.', ' sr', 'senior', 'der altere', 'il vecchio',
-             "l'aine", 'p.re', 'padre', 'seniore', 'vecchia', 'vecchio')
-    gen_2 = (' jr.', ' jr', 'der jungere', 'il giovane', 'giovane', 'juniore',
-             'junior', 'le jeune', 'the younger')
+    gen_1 = (
+        'the elder',
+        ' sr.',
+        ' sr',
+        'senior',
+        'der altere',
+        'il vecchio',
+        "l'aine",
+        'p.re',
+        'padre',
+        'seniore',
+        'vecchia',
+        'vecchio',
+    )
+    gen_2 = (
+        ' jr.',
+        ' jr',
+        'der jungere',
+        'il giovane',
+        'giovane',
+        'juniore',
+        'junior',
+        'le jeune',
+        'the younger',
+    )
 
     elderyounger = ''  # save elder/younger for possible movement later
     for gen in gen_1:
@@ -284,7 +325,7 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
     if normalize:
         comma = lname.find(',')
         if comma != -1:
-            lname_end = lname[comma + 1:]
+            lname_end = lname[comma + 1 :]
             while lname_end[0] in {' ', ','}:
                 lname_end = lname_end[1:]
             fname = lname_end + ' ' + fname
@@ -295,9 +336,12 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
         elderyounger_loc = fname.find(elderyounger)
         if elderyounger_loc != -1:
             lname = ' '.join((lname, elderyounger.strip()))
-            fname = ' '.join((fname[:elderyounger_loc].strip(),
-                              fname[elderyounger_loc +
-                                    len(elderyounger):])).strip()
+            fname = ' '.join(
+                (
+                    fname[:elderyounger_loc].strip(),
+                    fname[elderyounger_loc + len(elderyounger) :],
+                )
+            ).strip()
 
     toolcode[4] = '{:02d}'.format(len(fname))
     toolcode[5] = '{:02d}'.format(len(lname))
@@ -306,8 +350,8 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
     for char in ',/:;"&()!{|}?$%*+<=>[\\]^_`~':
         full_name = full_name.replace(char, '')
     for pos, char in enumerate(full_name):
-        if char == '-' and full_name[pos - 1:pos + 2] != 'b-g':
-            full_name = full_name[:pos] + ' ' + full_name[pos + 1:]
+        if char == '-' and full_name[pos - 1 : pos + 2] != 'b-g':
+            full_name = full_name[:pos] + ' ' + full_name[pos + 1 :]
 
     # Fill field 9 (search range)
     for letter in [_[0] for _ in full_name.split()]:
@@ -319,12 +363,15 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
     def roman_check(numeral, fname, lname):
         """Move Roman numerals from first name to last."""
         loc = fname.find(numeral)
-        if fname and (loc != -1 and
-                      (len(fname[loc:]) == len(numeral)) or
-                      fname[loc+len(numeral)] in {' ', ','}):
+        if fname and (
+            loc != -1
+            and (len(fname[loc:]) == len(numeral))
+            or fname[loc + len(numeral)] in {' ', ','}
+        ):
             lname = ' '.join((lname, numeral))
-            fname = ' '.join((fname[:loc].strip(),
-                              fname[loc + len(numeral):].lstrip(' ,')))
+            fname = ' '.join(
+                (fname[:loc].strip(), fname[loc + len(numeral) :].lstrip(' ,'))
+            )
         return fname.strip(), lname.strip()
 
     # Fill fields 7 (specials) and 3 (roman numerals)
@@ -333,8 +380,9 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
         if method & method_dict['end']:
             match_context = ' ' + match
             loc = full_name.find(match_context)
-            if ((len(full_name) > len(match_context)) and
-                    (loc == len(full_name) - len(match_context))):
+            if (len(full_name) > len(match_context)) and (
+                loc == len(full_name) - len(match_context)
+            ):
                 if roman:
                     if not any(abbr in fname for abbr in ('i.', 'v.', 'x.')):
                         full_name = full_name[:loc]
@@ -350,34 +398,38 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
             match_context = ' ' + match + ' '
             loc = 0
             while loc != -1:
-                loc = full_name.find(match_context, loc+1)
+                loc = full_name.find(match_context, loc + 1)
                 if loc > 0:
                     if roman:
-                        if not any(abbr in fname for abbr in
-                                   ('i.', 'v.', 'x.')):
-                            full_name = (full_name[:loc] +
-                                         full_name[loc + len(match) + 1:])
+                        if not any(
+                            abbr in fname for abbr in ('i.', 'v.', 'x.')
+                        ):
+                            full_name = (
+                                full_name[:loc]
+                                + full_name[loc + len(match) + 1 :]
+                            )
                             toolcode[7] += '{:03d}'.format(num) + 'b'
                             if toolcode[3] == '000':
                                 toolcode[3] = '{:03d}'.format(num)
                             if normalize == 2:
                                 fname, lname = roman_check(match, fname, lname)
                     else:
-                        full_name = (full_name[:loc] +
-                                     full_name[loc + len(match) + 1:])
+                        full_name = (
+                            full_name[:loc] + full_name[loc + len(match) + 1 :]
+                        )
                         toolcode[7] += '{:03d}'.format(num) + 'b'
         if method & method_dict['beginning']:
             match_context = match + ' '
             loc = full_name.find(match_context)
             if loc == 0:
-                full_name = full_name[len(match) + 1:]
+                full_name = full_name[len(match) + 1 :]
                 toolcode[7] += '{:03d}'.format(num) + 'c'
         if method & method_dict['beginning_no_space']:
             loc = full_name.find(match)
             if loc == 0:
                 toolcode[7] += '{:03d}'.format(num) + 'd'
-                if full_name[:len(match)] not in toolcode[9]:
-                    toolcode[9] += full_name[:len(match)]
+                if full_name[: len(match)] not in toolcode[9]:
+                    toolcode[9] += full_name[: len(match)]
 
         if extra:
             loc = full_name.find(extra)
@@ -388,11 +440,12 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
                 # this field, it's not possible for the following line to have
                 # ever been false.
                 # if full_name[loc:loc+len(extra)] not in toolcode[9]:
-                toolcode[9] += full_name[loc:loc+len(match)]
+                toolcode[9] += full_name[loc : loc + len(match)]
 
     return lname, fname, ''.join(toolcode)
 
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

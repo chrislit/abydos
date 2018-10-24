@@ -31,11 +31,17 @@ from __future__ import unicode_literals
 
 from collections import Counter
 
-__all__ = ['MOST_COMMON_LETTERS', 'MOST_COMMON_LETTERS_CG',
-           'MOST_COMMON_LETTERS_DE', 'MOST_COMMON_LETTERS_DE_LC',
-           'MOST_COMMON_LETTERS_EN_LC', 'count_fingerprint',
-           'occurrence_fingerprint', 'occurrence_halved_fingerprint',
-           'position_fingerprint']
+__all__ = [
+    'MOST_COMMON_LETTERS',
+    'MOST_COMMON_LETTERS_CG',
+    'MOST_COMMON_LETTERS_DE',
+    'MOST_COMMON_LETTERS_DE_LC',
+    'MOST_COMMON_LETTERS_EN_LC',
+    'count_fingerprint',
+    'occurrence_fingerprint',
+    'occurrence_halved_fingerprint',
+    'position_fingerprint',
+]
 
 # fmt: off
 # most common letters, as defined in Cisłak & Grabowski
@@ -78,8 +84,9 @@ MOST_COMMON_LETTERS_DE_LC = ('e', 'n', 'i', 'r', 's', 't', 'a', 'd', 'h', 'u',
 # fmt: on
 
 
-def occurrence_fingerprint(word, n_bits=16,
-                           most_common=MOST_COMMON_LETTERS_CG):
+def occurrence_fingerprint(
+    word, n_bits=16, most_common=MOST_COMMON_LETTERS_CG
+):
     """Return the occurrence fingerprint.
 
     Based on the occurrence fingerprint from :cite:`Cislak:2017`.
@@ -121,8 +128,9 @@ def occurrence_fingerprint(word, n_bits=16,
     return fingerprint
 
 
-def occurrence_halved_fingerprint(word, n_bits=16,
-                                  most_common=MOST_COMMON_LETTERS_CG):
+def occurrence_halved_fingerprint(
+    word, n_bits=16, most_common=MOST_COMMON_LETTERS_CG
+):
     """Return the occurrence halved fingerprint.
 
     Based on the occurrence halved fingerprint from :cite:`Cislak:2017`.
@@ -148,7 +156,7 @@ def occurrence_halved_fingerprint(word, n_bits=16,
     if n_bits % 2:
         n_bits += 1
 
-    w_len = len(word)//2
+    w_len = len(word) // 2
     w_1 = set(word[:w_len])
     w_2 = set(word[w_len:])
     fingerprint = 0
@@ -171,8 +179,7 @@ def occurrence_halved_fingerprint(word, n_bits=16,
     return fingerprint
 
 
-def count_fingerprint(word, n_bits=16,
-                      most_common=MOST_COMMON_LETTERS_CG):
+def count_fingerprint(word, n_bits=16, most_common=MOST_COMMON_LETTERS_CG):
     """Return the count fingerprint.
 
     Based on the count fingerprint from :cite:`Cislak:2017`.
@@ -204,7 +211,7 @@ def count_fingerprint(word, n_bits=16,
     for letter in most_common:
         if n_bits:
             fingerprint <<= 2
-            fingerprint += (word[letter] & 3)
+            fingerprint += word[letter] & 3
             n_bits -= 2
         else:
             break
@@ -215,9 +222,9 @@ def count_fingerprint(word, n_bits=16,
     return fingerprint
 
 
-def position_fingerprint(word, n_bits=16,
-                         most_common=MOST_COMMON_LETTERS_CG,
-                         bits_per_letter=3):
+def position_fingerprint(
+    word, n_bits=16, most_common=MOST_COMMON_LETTERS_CG, bits_per_letter=3
+):
     """Return the position fingerprint.
 
     Based on the position fingerprint from :cite:`Cislak:2017`.
@@ -244,7 +251,7 @@ def position_fingerprint(word, n_bits=16,
     position = {}
     for pos, letter in enumerate(word):
         if letter not in position and letter in most_common:
-            position[letter] = min(pos, 2**bits_per_letter-1)
+            position[letter] = min(pos, 2 ** bits_per_letter - 1)
 
     fingerprint = 0
 
@@ -252,9 +259,9 @@ def position_fingerprint(word, n_bits=16,
         if n_bits:
             fingerprint <<= min(bits_per_letter, n_bits)
             if letter in position:
-                fingerprint += min(position[letter], 2**n_bits-1)
+                fingerprint += min(position[letter], 2 ** n_bits - 1)
             else:
-                fingerprint += min(2**bits_per_letter-1, 2**n_bits-1)
+                fingerprint += min(2 ** bits_per_letter - 1, 2 ** n_bits - 1)
             n_bits -= min(bits_per_letter, n_bits)
         else:
             break
@@ -268,4 +275,5 @@ def position_fingerprint(word, n_bits=16,
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

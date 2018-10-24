@@ -52,14 +52,16 @@ def mra(word):
         return word
     word = word.upper()
     word = word.replace('ß', 'SS')
-    word = word[0]+''.join(c for c in word[1:] if
-                           c not in {'A', 'E', 'I', 'O', 'U'})
+    word = word[0] + ''.join(
+        c for c in word[1:] if c not in {'A', 'E', 'I', 'O', 'U'}
+    )
     word = _delete_consecutive_repeats(word)
     if len(word) > 6:
-        word = word[:3]+word[-3:]
+        word = word[:3] + word[-3:]
     return word
 
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

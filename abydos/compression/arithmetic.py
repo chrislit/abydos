@@ -88,8 +88,9 @@ def train(text):
     tot = 0
     prob_range = {}
     prev = Fraction(0)
-    for char, count in sorted(counts.items(), key=lambda x: (x[1], x[0]),
-                              reverse=True):
+    for char, count in sorted(
+        counts.items(), key=lambda x: (x[1], x[0]), reverse=True
+    ):
         follow = Fraction(tot + count, tot_letters)
         prob_range[char] = (prev, follow)
         prev = follow
@@ -143,10 +144,10 @@ def encode(text, probs):
     if nbits == 0:  # pragma: no cover
         return 0, 0
     # using -1 instead of /2
-    avg = (maxval + minval) * 2**(nbits-1)
+    avg = (maxval + minval) * 2 ** (nbits - 1)
     # Could return a rational instead ...
     # the division truncation is deliberate
-    return avg.numerator//avg.denominator, nbits
+    return avg.numerator // avg.denominator, nbits
 
 
 def decode(longval, nbits, probs):
@@ -168,8 +169,9 @@ def decode(longval, nbits, probs):
     """
     val = Fraction(longval, long(1) << nbits)
     letters = []
-    probs_items = [(char, minval, maxval) for (char, (minval, maxval))
-                   in probs.items()]
+    probs_items = [
+        (char, minval, maxval) for (char, (minval, maxval)) in probs.items()
+    ]
 
     char = '\x00'
     while True:
@@ -181,10 +183,11 @@ def decode(longval, nbits, probs):
             break
         letters.append(char)
         delta = maxval - minval
-        val = (val - minval)/delta
+        val = (val - minval) / delta
     return ''.join(letters)
 
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)

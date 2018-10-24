@@ -44,8 +44,15 @@ setup(
     author_email='chrisclittle+abydos@gmail.com',
     url='https://github.com/chrislit/abydos',
     download_url='https://github.com/chrislit/abydos/archive/master.zip',
-    keywords=['nlp', 'ai', 'ir', 'language', 'linguistics',
-              'phonetic algorithms', 'string distance'],
+    keywords=[
+        'nlp',
+        'ai',
+        'ir',
+        'language',
+        'linguistics',
+        'phonetic algorithms',
+        'string distance',
+    ],
     license='GPLv3+',
     classifiers=[
         'Programming Language :: Python',
@@ -66,11 +73,11 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Text Processing :: Indexing',
         'Topic :: Text Processing :: Linguistic',
-        'Natural Language :: English'
+        'Natural Language :: English',
     ],
-    long_description='\n\n'.join([readfile(f) for f in ('README.rst',
-                                                        'HISTORY.rst',
-                                                        'AUTHORS.rst')]),
+    long_description='\n\n'.join(
+        [readfile(f) for f in ('README.rst', 'HISTORY.rst', 'AUTHORS.rst')]
+    ),
     install_requires=['numpy', 'six'],
     # extras_require = {'LZMA': ['pyliblzma']},
 )

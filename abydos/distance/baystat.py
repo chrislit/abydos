@@ -82,12 +82,12 @@ def sim_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
 
     while True:
         if pos + min_ss_len > len(src):
-            return match_len/max_len
+            return match_len / max_len
 
         hit_len = 0
         ix = 1
 
-        substring = src[pos:pos + min_ss_len]
+        substring = src[pos : pos + min_ss_len]
         search_begin = pos - left_ext
 
         if search_begin < 0:
@@ -101,29 +101,37 @@ def sim_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
         else:
             right_ext_len = right_ext
 
-        if (search_begin + left_ext_len + min_ss_len + right_ext_len >
-                search_begin):
-            search_val = tar[search_begin:(search_begin + left_ext_len +
-                                           min_ss_len + right_ext_len)]
+        if (
+            search_begin + left_ext_len + min_ss_len + right_ext_len
+            > search_begin
+        ):
+            search_val = tar[
+                search_begin : (
+                    search_begin + left_ext_len + min_ss_len + right_ext_len
+                )
+            ]
         else:
             search_val = ''
 
         flagged_tar = ''
         while substring in search_val and pos + ix <= len(src):
             hit_len = len(substring)
-            flagged_tar = tar.replace(substring, '#'*hit_len)
+            flagged_tar = tar.replace(substring, '#' * hit_len)
 
             if pos + min_ss_len + ix <= len(src):
-                substring = src[pos:pos + min_ss_len + ix]
+                substring = src[pos : pos + min_ss_len + ix]
 
-            if pos+min_ss_len + right_ext_len + 1 <= len(tar):
+            if pos + min_ss_len + right_ext_len + 1 <= len(tar):
                 right_ext_len += 1
 
             # The following is unnecessary, I think
             # if (search_begin + left_ext_len + min_ss_len + right_ext_len <=
             #         len(tar)):
-            search_val = tar[search_begin:(search_begin + left_ext_len +
-                                           min_ss_len + right_ext_len)]
+            search_val = tar[
+                search_begin : (
+                    search_begin + left_ext_len + min_ss_len + right_ext_len
+                )
+            ]
 
             ix += 1
 
@@ -157,9 +165,10 @@ def dist_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
     >>> dist_baystat('ATCG', 'TAGC')
     1.0
     """
-    return 1-sim_baystat(src, tar, min_ss_len, left_ext, right_ext)
+    return 1 - sim_baystat(src, tar, min_ss_len, left_ext, right_ext)
 
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

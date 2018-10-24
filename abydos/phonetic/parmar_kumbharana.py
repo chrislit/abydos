@@ -51,16 +51,24 @@ def parmar_kumbharana(word):
     >>> parmar_kumbharana('judge')
     'JJ'
     """
-    rule_table = {4: {'OUGH': 'F'},
-                  3: {'DGE': 'J',
-                      'OUL': 'U',
-                      'GHT': 'T'},
-                  2: {'CE': 'S', 'CI': 'S', 'CY': 'S',
-                      'GE': 'J', 'GI': 'J', 'GY': 'J',
-                      'WR': 'R',
-                      'GN': 'N', 'KN': 'N', 'PN': 'N',
-                      'CK': 'K',
-                      'SH': 'S'}}
+    rule_table = {
+        4: {'OUGH': 'F'},
+        3: {'DGE': 'J', 'OUL': 'U', 'GHT': 'T'},
+        2: {
+            'CE': 'S',
+            'CI': 'S',
+            'CY': 'S',
+            'GE': 'J',
+            'GI': 'J',
+            'GY': 'J',
+            'WR': 'R',
+            'GN': 'N',
+            'KN': 'N',
+            'PN': 'N',
+            'CK': 'K',
+            'SH': 'S',
+        },
+    }
     vowel_trans = {65: '', 69: '', 73: '', 79: '', 85: '', 89: ''}
 
     word = word.upper()  # Rule 3
@@ -70,18 +78,19 @@ def parmar_kumbharana(word):
     i = 0
     while i < len(word):
         for match_len in range(4, 1, -1):
-            if word[i:i+match_len] in rule_table[match_len]:
-                repl = rule_table[match_len][word[i:i+match_len]]
-                word = (word[:i] + repl + word[i+match_len:])
+            if word[i : i + match_len] in rule_table[match_len]:
+                repl = rule_table[match_len][word[i : i + match_len]]
+                word = word[:i] + repl + word[i + match_len :]
                 i += len(repl)
                 break
         else:
             i += 1
 
-    word = word[:1]+word[1:].translate(vowel_trans)  # Rule 6
+    word = word[:1] + word[1:].translate(vowel_trans)  # Rule 6
     return word
 
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

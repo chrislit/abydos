@@ -164,17 +164,22 @@ class UEALiteTestCases(unittest.TestCase):
         # complete coverage
         self.assertEqual(uealite('was'), 'was')
         self.assertEqual(uealite('during'), 'during')
-        self.assertEqual(uealite('abcdefghijklmnopqrstuvwxyz',
-                                 max_word_length=20),
-                         'abcdefghijklmnopqrstuvwxyz')
+        self.assertEqual(
+            uealite('abcdefghijklmnopqrstuvwxyz', max_word_length=20),
+            'abcdefghijklmnopqrstuvwxyz',
+        )
         self.assertEqual(uealite('10'), '10')
         self.assertEqual(uealite('top-ten'), 'top-ten')
         self.assertEqual(uealite('top-10'), 'top-10')
         self.assertEqual(uealite('top_ten'), 'top_ten')
-        self.assertEqual(uealite('ABCDEFGHIJKLMs', max_acro_length=8,
-                                 var='Adams'), 'ABCDEFGHIJKLMs')
-        self.assertEqual(uealite('ABCDEFGHIJKLM', max_acro_length=8,
-                                 var='Adams'), 'ABCDEFGHIJKLM')
+        self.assertEqual(
+            uealite('ABCDEFGHIJKLMs', max_acro_length=8, var='Adams'),
+            'ABCDEFGHIJKLMs',
+        )
+        self.assertEqual(
+            uealite('ABCDEFGHIJKLM', max_acro_length=8, var='Adams'),
+            'ABCDEFGHIJKLM',
+        )
         self.assertEqual(uealite('abcDefGhij'), 'abcDefGhij')
         self.assertEqual(uealite('Tophat'), 'Tophat')
         self.assertEqual(uealite(''), '')
@@ -185,8 +190,9 @@ class UEALiteTestCases(unittest.TestCase):
         with open(_corpus_file('uea-lite_wsj.csv')) as wsj_ts:
             for wsj_line in wsj_ts:
                 (word, uea, rule) = wsj_line.strip().split(',')
-                self.assertEqual(uealite(word, return_rule_no=True),
-                                 (uea, float(rule)))
+                self.assertEqual(
+                    uealite(word, return_rule_no=True), (uea, float(rule))
+                )
 
 
 if __name__ == '__main__':

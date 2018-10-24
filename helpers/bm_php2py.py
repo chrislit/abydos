@@ -45,14 +45,32 @@ import chardet
 
 # The list of languages from BMPM to support (might need to be updated or
 # tuned as BMPM is updated)
-lang_tuple = ('any', 'arabic', 'cyrillic', 'czech', 'dutch', 'english',
-              'french', 'german', 'greek', 'greeklatin', 'hebrew', 'hungarian',
-              'italian', 'latvian', 'polish', 'portuguese', 'romanian',
-              'russian', 'spanish', 'turkish')
+lang_tuple = (
+    'any',
+    'arabic',
+    'cyrillic',
+    'czech',
+    'dutch',
+    'english',
+    'french',
+    'german',
+    'greek',
+    'greeklatin',
+    'hebrew',
+    'hungarian',
+    'italian',
+    'latvian',
+    'polish',
+    'portuguese',
+    'romanian',
+    'russian',
+    'spanish',
+    'turkish',
+)
 
 lang_dict = {}
 for i, l in enumerate(lang_tuple):
-    lang_dict[l] = 2**i
+    lang_dict[l] = 2 ** i
 lang_dict['common'] = "'common'"
 
 nl = False
@@ -96,51 +114,97 @@ def pythonize(line, fn='', subdir='gen'):
     line = re.sub(';$', '', line)
     line = re.sub('^include_.+', '', line)
 
-    line = re.sub(r'\$(approx|rules|exact)\[LanguageIndex\("([^"]+)", ' +
-                  r'\$languages\)\] = \$([a-zA-Z]+)',
-                  lambda m: ("BMDATA['" + subdir + "']['" + m.group(1) +
-                             "'][L_" + m.group(2).upper() + '] = _' +
-                             subdir.upper() + '_' + c2u(m.group(3)).upper()),
-                  line)
+    line = re.sub(
+        r'\$(approx|rules|exact)\[LanguageIndex\("([^"]+)", '
+        + r'\$languages\)\] = \$([a-zA-Z]+)',
+        lambda m: (
+            "BMDATA['"
+            + subdir
+            + "']['"
+            + m.group(1)
+            + "'][L_"
+            + m.group(2).upper()
+            + '] = _'
+            + subdir.upper()
+            + '_'
+            + c2u(m.group(3)).upper()
+        ),
+        line,
+    )
 
-    line = re.sub(r'\$(approx|rules|exact|hebrew)([A-Za-z]+) = _merge' +
-                  r'\(\$([a-zA-Z]+), \$([a-zA-Z]+)\)',
-                  lambda m: ("BMDATA['" + subdir + "']['" + m.group(1) +
-                             "'][L_" + c2u(m.group(2)).upper() + '] = _' +
-                             subdir.upper() + '_' + c2u(m.group(3)).upper() +
-                             ' + _' + subdir.upper() + '_' +
-                             c2u(m.group(4)).upper()),
-                  line)
+    line = re.sub(
+        r'\$(approx|rules|exact|hebrew)([A-Za-z]+) = _merge'
+        + r'\(\$([a-zA-Z]+), \$([a-zA-Z]+)\)',
+        lambda m: (
+            "BMDATA['"
+            + subdir
+            + "']['"
+            + m.group(1)
+            + "'][L_"
+            + c2u(m.group(2)).upper()
+            + '] = _'
+            + subdir.upper()
+            + '_'
+            + c2u(m.group(3)).upper()
+            + ' + _'
+            + subdir.upper()
+            + '_'
+            + c2u(m.group(4)).upper()
+        ),
+        line,
+    )
 
-    line = re.sub(r'\$(approx|rules|exact)\[LanguageIndex\("([^"]+)", ' +
-                  r'\$languages\)\] = _merge\(\$([a-zA-Z]+), \$([a-zA-Z]+)\)',
-                  lambda m: ("BMDATA['" + subdir + "']['" + m.group(1) +
-                             "'][L_" + c2u(m.group(2)).upper() + '] = _' +
-                             subdir.upper() + '_' + c2u(m.group(3)).upper() +
-                             ' + _' + subdir.upper() + '_' +
-                             c2u(m.group(4)).upper()),
-                  line)
+    line = re.sub(
+        r'\$(approx|rules|exact)\[LanguageIndex\("([^"]+)", '
+        + r'\$languages\)\] = _merge\(\$([a-zA-Z]+), \$([a-zA-Z]+)\)',
+        lambda m: (
+            "BMDATA['"
+            + subdir
+            + "']['"
+            + m.group(1)
+            + "'][L_"
+            + c2u(m.group(2)).upper()
+            + '] = _'
+            + subdir.upper()
+            + '_'
+            + c2u(m.group(3)).upper()
+            + ' + _'
+            + subdir.upper()
+            + '_'
+            + c2u(m.group(4)).upper()
+        ),
+        line,
+    )
 
-    line = re.sub(r'^\$([a-zA-Z]+)',
-                  lambda m: '_' + s.upper() + '_' + c2u(m.group(1)).upper(),
-                  line)
+    line = re.sub(
+        r'^\$([a-zA-Z]+)',
+        lambda m: '_' + s.upper() + '_' + c2u(m.group(1)).upper(),
+        line,
+    )
 
     for _ in range(len(lang_tuple)):
         line = re.sub(r'($[a-zA-Z]+) *\+ *($[a-zA-Z]+)', r'\1\+\2', line)
 
-    line = re.sub(r'\$([a-zA-Z]+)',
-                  lambda m: ('L_' + m.group(1).upper() if m.group(1) in
-                             lang_dict else '$' + m.group(1)),
-                  line)
+    line = re.sub(
+        r'\$([a-zA-Z]+)',
+        lambda m: (
+            'L_' + m.group(1).upper()
+            if m.group(1) in lang_dict
+            else '$' + m.group(1)
+        ),
+        line,
+    )
     line = re.sub(r'\[\"\.\((L_[A-Z_+]+)\)\.\"\]', r'[\1]', line)
 
-    line = re.sub('L_([A-Z]+)',
-                  lambda m: str(lang_dict[m.group(1).lower()]),
-                  line)
+    line = re.sub(
+        'L_([A-Z]+)', lambda m: str(lang_dict[m.group(1).lower()]), line
+    )
     for _ in range(4):
-        line = re.sub(r'([0-9]+) *\+ *([0-9]+)',
-                      lambda m: str(int(m.group(1)) + int(m.group(2))),
-                      line)
+        line = re.sub(
+            r'([0-9]+) *\+ *([0-9]+)',
+            lambda m: str(int(m.group(1)) + int(m.group(2))),
+            line,
+        )
 
     if fn == 'lang':
         if len(line.split(',')) >= 3:
@@ -155,7 +219,7 @@ def pythonize(line, fn='', subdir='gen'):
         line = line.replace('"', "'")
         line = line.replace("','", "', '")
         if line and line[0] == "'":
-            line = ' '*14+line
+            line = ' ' * 14 + line
 
     # fix upstream
     # line = line.replace('ë', 'ü')
@@ -174,9 +238,9 @@ def pythonize(line, fn='', subdir='gen'):
         comment = '  ' + comment
 
     if '(' in code and ')' in code:
-        prefix = code[:code.find('(')+1]
-        suffix = code[code.rfind(')'):]
-        tuplecontent = code[len(prefix):len(code)-len(suffix)]
+        prefix = code[: code.find('(') + 1]
+        suffix = code[code.rfind(')') :]
+        tuplecontent = code[len(prefix) : len(code) - len(suffix)]
 
         elts = tuplecontent.split(',')
         for i in range(len(elts)):
@@ -193,7 +257,7 @@ def pythonize(line, fn='', subdir='gen'):
     if line:
         nl = False
         if array_seen and not (line[0] == '_' or line.startswith('BMDATA')):
-            line = ' '*4 + line
+            line = ' ' * 4 + line
         return line + '\n'
     elif not nl:
         nl = True
@@ -210,7 +274,8 @@ else:
 outfilename = '../abydos/_bmdata.py'
 outfile = codecs.open(outfilename, 'w', 'utf-8')
 
-outfile.write('# -*- coding: utf-8 -*-\n\n# Copyright 2014-2018 by \
+outfile.write(
+    '# -*- coding: utf-8 -*-\n\n# Copyright 2014-2018 by \
 Christopher C. Little.\n# This file is part of Abydos.\n#\n# This file is \
 based on Alexander Beider and Stephen P. Morse\'s implementation\n# of the \
 Beider-Morse Phonetic Matching (BMPM) System, available at\n# \
@@ -227,7 +292,8 @@ License\n# along with Abydos. If not, see <http://www.gnu.org/licenses/>.\n\n\
 Beider-Morse Phonentic\nMatching (BMPM) algorithm\n\nDO NOT EDIT - This \
 document is automatically generated from the reference\nimplementation in \
 PHP.\n"""\n# pylint: disable=line-too-long\n\nfrom __future__ \
-import unicode_literals\n\n')
+import unicode_literals\n\n'
+)
 
 outfile.write('L_NONE = 0\n')
 for i, l in enumerate(lang_tuple):
@@ -244,26 +310,36 @@ for s in subdirs:
     tail_text += 'BMDATA[\'' + s + '\'][\'exact\'] = {}\n'
     tail_text += 'BMDATA[\'' + s + '\'][\'rules\'] = {}\n'
     tail_text += 'BMDATA[\'' + s + '\'][\'hebrew\'] = {}\n\n'
-    tail_text += ('BMDATA[\'' + s + '\'][\'language_rules\'] = _' + s.upper() +
-                  '_LANGUAGE_RULES\n')
-    tail_text += ('BMDATA[\'' + s + '\'][\'languages\'] = _' + s.upper() +
-                  '_LANGUAGES\n')
+    tail_text += (
+        'BMDATA[\''
+        + s
+        + '\'][\'language_rules\'] = _'
+        + s.upper()
+        + '_LANGUAGE_RULES\n'
+    )
+    tail_text += (
+        'BMDATA[\'' + s + '\'][\'languages\'] = _' + s.upper() + '_LANGUAGES\n'
+    )
 
-    phps = [f for f in sorted(listdir(bmdir + s + '/')) if
-            (isfile(bmdir + s + '/' + f) and f.endswith('.php'))]
+    phps = [
+        f
+        for f in sorted(listdir(bmdir + s + '/'))
+        if (isfile(bmdir + s + '/' + f) and f.endswith('.php'))
+    ]
     for infilename in phps:
         for pfx in ('rules', 'approx', 'exact', 'hebrew', 'language', 'lang'):
             if infilename.startswith(pfx):
                 array_seen = False
                 infilepath = bmdir + s + '/' + infilename
-                infileenc = chardet.detect(open(infilepath, 'rb')
-                                           .read())['encoding']
+                infileenc = chardet.detect(open(infilepath, 'rb').read())[
+                    'encoding'
+                ]
                 print(s + '/' + infilename)  # noqa: T001
                 infile = codecs.open(infilepath, 'r', infileenc)
                 if infilename.startswith('lang'):
                     tuplename = infilename[:-4]
                 else:
-                    tuplename = pfx + '_' + infilename[len(pfx):-4]
+                    tuplename = pfx + '_' + infilename[len(pfx) : -4]
                 # indent = len(tuplename) + 21
 
                 outfile.write('# ' + s + '/' + infilename + '\n')
@@ -301,7 +377,7 @@ for line in outfilelines:
     line = line.rstrip()
     if line:
         if fixlanguagesarray:
-            line = ' '+line.strip()
+            line = ' ' + line.strip()
             fixlanguagesarray = False
         if len(line) > 79 or sep_lang in line:
             line += '  # noqa: E501'

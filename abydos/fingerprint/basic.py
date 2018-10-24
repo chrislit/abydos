@@ -89,8 +89,9 @@ def qgram_fingerprint(phrase, qval=2, start_stop='', joiner=''):
     return phrase
 
 
-def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone,
-                         joiner=' ', *args):
+def phonetic_fingerprint(
+    phrase, phonetic_algorithm=double_metaphone, joiner=' ', *args
+):
     """Return the phonetic fingerprint of a phrase.
 
     A phonetic fingerprint is identical to a standard string fingerprint, as
@@ -124,10 +125,11 @@ def phonetic_fingerprint(phrase, phonetic_algorithm=double_metaphone,
         if not isinstance(word, text_type) and hasattr(word, '__iter__'):
             word = word[0]
         phonetic += word + joiner
-    phonetic = phonetic[:-len(joiner)]
+    phonetic = phonetic[: -len(joiner)]
     return str_fingerprint(phonetic)
 
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

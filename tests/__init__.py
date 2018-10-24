@@ -33,18 +33,51 @@ CORPORA = os.path.join(os.path.dirname(__file__), 'corpora')
 EXTREME_TEST = False  # Set to True to test EVERY single case (NB: takes hours)
 ALLOW_RANDOM = True  # Set to False to skip all random tests
 
-if not EXTREME_TEST and os.path.isfile(os.path.join(os.path.dirname(__file__),
-                                                    'EXTREME_TEST')):
+if not EXTREME_TEST and os.path.isfile(
+    os.path.join(os.path.dirname(__file__), 'EXTREME_TEST')
+):
     # EXTREME_TEST file detected -- switching to EXTREME_TEST mode...
     EXTREME_TEST = True
 
-NIALL = ('Niall', 'Neal', 'Neil', 'Njall', 'Njáll', 'Nigel', 'Neel', 'Nele',
-         'Nigelli', 'Nel', 'Kneale', 'Uí Néill', 'O\'Neill', 'MacNeil',
-         'MacNele', 'Niall Noígíallach')
+NIALL = (
+    'Niall',
+    'Neal',
+    'Neil',
+    'Njall',
+    'Njáll',
+    'Nigel',
+    'Neel',
+    'Nele',
+    'Nigelli',
+    'Nel',
+    'Kneale',
+    'Uí Néill',
+    'O\'Neill',
+    'MacNeil',
+    'MacNele',
+    'Niall Noígíallach',
+)
 
-COLIN = ('Colin', 'Collin', 'Cullen', 'Cuilen', 'Cailean', 'MacCailean',
-         'Cuilén', 'Colle', 'Calum', 'Callum', 'Colinn', 'Colon', 'Colynn',
-         'Col', 'Cole', 'Nicolas', 'Nicholas', 'Cailean Mór Caimbeul')
+COLIN = (
+    'Colin',
+    'Collin',
+    'Cullen',
+    'Cuilen',
+    'Cailean',
+    'MacCailean',
+    'Cuilén',
+    'Colle',
+    'Calum',
+    'Callum',
+    'Colinn',
+    'Colon',
+    'Colynn',
+    'Col',
+    'Cole',
+    'Nicolas',
+    'Nicholas',
+    'Cailean Mór Caimbeul',
+)
 
 NONQ_FROM = 'The quick brown fox jumped over the lazy dog.'
 NONQ_TO = 'That brown dog jumped over the fox.'

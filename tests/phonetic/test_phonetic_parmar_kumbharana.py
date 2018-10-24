@@ -92,7 +92,7 @@ class ParmarKumbharanaTestCases(unittest.TestCase):
             ('Mat', 'MT'),
             ('Met', 'MT'),
             ('Merry', 'MR'),
-            ('Marry', 'MR')
+            ('Marry', 'MR'),
         )
         for word, encoding in test_cases:
             self.assertEqual(parmar_kumbharana(word), encoding)

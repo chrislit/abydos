@@ -32,8 +32,9 @@ from ..phonetic.eudex import eudex
 __all__ = ['dist_eudex', 'eudex_hamming', 'sim_eudex']
 
 
-def eudex_hamming(src, tar, weights='exponential', max_length=8,
-                  normalized=False):
+def eudex_hamming(
+    src, tar, weights='exponential', max_length=8, normalized=False
+):
     """Calculate the Hamming distance between the Eudex hashes of two terms.
 
     Cf. :cite:`Ticki:2016`.
@@ -94,6 +95,7 @@ def eudex_hamming(src, tar, weights='exponential', max_length=8,
     >>> eudex_hamming('ATCG', 'TAGC', [1, 1, 2, 6, 24, 120, 720, 5040])
     6243
     """
+
     def _gen_fibonacci():
         """Yield the next Fibonacci number.
 
@@ -123,15 +125,16 @@ def eudex_hamming(src, tar, weights='exponential', max_length=8,
             exp += 1
 
     # Calculate the eudex hashes and XOR them
-    xored = (eudex(src, max_length=max_length) ^
-             eudex(tar, max_length=max_length))
+    xored = eudex(src, max_length=max_length) ^ eudex(
+        tar, max_length=max_length
+    )
 
     # Simple hamming distance (all bits are equal)
     if not weights:
         binary = bin(xored)
         distance = binary.count('1')
         if normalized:
-            return distance/(len(binary)-2)
+            return distance / (len(binary) - 2)
         return distance
 
     # If weights is a function, it should create a generator,
@@ -149,7 +152,7 @@ def eudex_hamming(src, tar, weights='exponential', max_length=8,
     distance = 0
     max_distance = 0
     while (xored or normalized) and weights:
-        max_distance += 8*weights[-1]
+        max_distance += 8 * weights[-1]
         distance += bin(xored & 0xFF).count('1') * weights.pop()
         xored >>= 8
 
@@ -207,9 +210,10 @@ def sim_eudex(src, tar, weights='exponential', max_length=8):
     >>> round(sim_eudex('ATCG', 'TAGC'), 12)
     0.802450980392
     """
-    return 1-dist_eudex(src, tar, weights, max_length)
+    return 1 - dist_eudex(src, tar, weights, max_length)
 
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

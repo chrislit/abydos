@@ -79,7 +79,6 @@ def eudex(word, max_length=8):
         'x': 0b10000100,  # x
         'y': 1,  # y
         'z': 0b10010100,  # z
-
         'ß': 0b00010101,  # ß
         'à': 0,  # à
         'á': 0,  # á
@@ -142,7 +141,6 @@ def eudex(word, max_length=8):
         'x': 0b01000010,  # x
         'y': 0b11100100,  # y*
         'z': 0b01001010,  # z
-
         'ß': 0b00001011,  # ß
         'à': 0b10000101,  # à
         'á': 0b10000101,  # á
@@ -191,13 +189,15 @@ def eudex(word, max_length=8):
     shifted_values = [_ >> 1 for _ in values]
     condensed_values = [values[0]]
     for n in range(1, len(shifted_values)):
-        if shifted_values[n] != shifted_values[n-1]:
+        if shifted_values[n] != shifted_values[n - 1]:
             condensed_values.append(values[n])
 
     # Add padding after first character & trim beyond max_length
-    values = ([condensed_values[0]] +
-              [0]*max(0, max_length - len(condensed_values)) +
-              condensed_values[1:max_length])
+    values = (
+        [condensed_values[0]]
+        + [0] * max(0, max_length - len(condensed_values))
+        + condensed_values[1:max_length]
+    )
 
     # Combine individual character values into eudex hash
     hash_value = 0
@@ -209,4 +209,5 @@ def eudex(word, max_length=8):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

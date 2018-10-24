@@ -60,15 +60,47 @@ def soundex_br(word, max_length=4, zero_pad=True):
     >>> soundex_br('Goncalves')
     'G524'
     """
-    _soundex_br_translation = dict(zip((ord(_) for _ in
-                                        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-                                       '01230120022455012623010202'))
+    _soundex_br_translation = dict(
+        zip(
+            (ord(_) for _ in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            '01230120022455012623010202',
+        )
+    )
 
     word = unicode_normalize('NFKD', text_type(word.upper()))
-    word = ''.join(c for c in word if c in
-                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-                    'Y', 'Z'})
+    word = ''.join(
+        c
+        for c in word
+        if c
+        in {
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J',
+            'K',
+            'L',
+            'M',
+            'N',
+            'O',
+            'P',
+            'Q',
+            'R',
+            'S',
+            'T',
+            'U',
+            'V',
+            'W',
+            'X',
+            'Y',
+            'Z',
+        }
+    )
 
     if word[:2] == 'WA':
         first = 'V'
@@ -91,11 +123,12 @@ def soundex_br(word, max_length=4, zero_pad=True):
     sdx = sdx.replace('0', '')
 
     if zero_pad:
-        sdx += ('0'*max_length)
+        sdx += '0' * max_length
 
     return sdx[:max_length]
 
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

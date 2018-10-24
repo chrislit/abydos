@@ -51,9 +51,11 @@ def encode(word, terminator='\0'):
     """
     if word:
         if terminator in word:
-            raise ValueError('Specified terminator, %s, already in word.'
-                             .format(terminator if
-                                     terminator != '\0' else '\\0'))
+            raise ValueError(
+                'Specified terminator, %s, already in word.'.format(
+                    terminator if terminator != '\0' else '\\0'
+                )
+            )
         else:
             word += terminator
             wordlist = sorted(word[i:] + word[:i] for i in range(len(word)))
@@ -84,14 +86,17 @@ def decode(code, terminator='\0'):
     """
     if code:
         if terminator not in code:
-            raise ValueError('Specified terminator, %s, absent from code.'
-                             .format(terminator if
-                                     terminator != '\0' else '\\0'))
+            raise ValueError(
+                'Specified terminator, %s, absent from code.'.format(
+                    terminator if terminator != '\0' else '\\0'
+                )
+            )
         else:
             wordlist = [''] * len(code)
             for i in range(len(code)):
-                wordlist = sorted(code[i] + wordlist[i] for i in
-                                  range(len(code)))
+                wordlist = sorted(
+                    code[i] + wordlist[i] for i in range(len(code))
+                )
             rows = [w for w in wordlist if w[-1] == terminator][0]
             return rows.rstrip(terminator)
     else:
@@ -100,4 +105,5 @@ def decode(code, terminator='\0'):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

@@ -74,13 +74,17 @@ def sift4_simplest(src, tar, max_offset=5):
             if src_cur != tar_cur:
                 src_cur = tar_cur = max(src_cur, tar_cur)
             for i in range(max_offset):
-                if not ((src_cur+i < src_len) or (tar_cur+i < tar_len)):
+                if not ((src_cur + i < src_len) or (tar_cur + i < tar_len)):
                     break
-                if (src_cur+i < src_len) and (src[src_cur+i] == tar[tar_cur]):
+                if (src_cur + i < src_len) and (
+                    src[src_cur + i] == tar[tar_cur]
+                ):
                     src_cur += i
                     local_cs += 1
                     break
-                if (tar_cur+i < tar_len) and (src[src_cur] == tar[tar_cur+i]):
+                if (tar_cur + i < tar_len) and (
+                    src[src_cur] == tar[tar_cur + i]
+                ):
                     tar_cur += i
                     local_cs += 1
                     break
@@ -138,8 +142,9 @@ def sift4_common(src, tar, max_offset=5, max_distance=0):
             while i < len(offset_arr):
                 ofs = offset_arr[i]
                 if src_cur <= ofs['src_cur'] or tar_cur <= ofs['tar_cur']:
-                    is_trans = (abs(tar_cur-src_cur) >=
-                                abs(ofs['tar_cur']-ofs['src_cur']))
+                    is_trans = abs(tar_cur - src_cur) >= abs(
+                        ofs['tar_cur'] - ofs['src_cur']
+                    )
                     if is_trans:
                         trans += 1
                     elif not ofs['trans']:
@@ -151,23 +156,28 @@ def sift4_common(src, tar, max_offset=5, max_distance=0):
                 else:
                     i += 1
 
-            offset_arr.append({'src_cur': src_cur, 'tar_cur': tar_cur,
-                               'trans': is_trans})
+            offset_arr.append(
+                {'src_cur': src_cur, 'tar_cur': tar_cur, 'trans': is_trans}
+            )
         else:
             lcss += local_cs
             local_cs = 0
             if src_cur != tar_cur:
                 src_cur = tar_cur = min(src_cur, tar_cur)
             for i in range(max_offset):
-                if not ((src_cur+i < src_len) or (tar_cur+i < tar_len)):
+                if not ((src_cur + i < src_len) or (tar_cur + i < tar_len)):
                     break
-                if (src_cur+i < src_len) and (src[src_cur+i] == tar[tar_cur]):
-                    src_cur += i-1
+                if (src_cur + i < src_len) and (
+                    src[src_cur + i] == tar[tar_cur]
+                ):
+                    src_cur += i - 1
                     tar_cur -= 1
                     break
-                if (tar_cur+i < tar_len) and (src[src_cur] == tar[tar_cur+i]):
+                if (tar_cur + i < tar_len) and (
+                    src[src_cur] == tar[tar_cur + i]
+                ):
                     src_cur -= 1
-                    tar_cur += i-1
+                    tar_cur += i - 1
                     break
 
         src_cur += 1
@@ -208,8 +218,9 @@ def dist_sift4(src, tar, max_offset=5, max_distance=0):
     >>> dist_sift4('ATCG', 'TAGC')
     0.5
     """
-    return (sift4_common(src, tar, max_offset, max_distance) /
-            (max(len(src), len(tar), 1)))
+    return sift4_common(src, tar, max_offset, max_distance) / (
+        max(len(src), len(tar), 1)
+    )
 
 
 def sim_sift4(src, tar, max_offset=5, max_distance=0):
@@ -234,9 +245,10 @@ def sim_sift4(src, tar, max_offset=5, max_distance=0):
     >>> sim_sift4('ATCG', 'TAGC')
     0.5
     """
-    return 1-dist_sift4(src, tar, max_offset, max_distance)
+    return 1 - dist_sift4(src, tar, max_offset, max_distance)
 
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

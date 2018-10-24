@@ -55,9 +55,19 @@ class DMSoundexTestCases(unittest.TestCase):
         self.assertEqual(dm_soundex('Golubitsa'), {'587400'})
         self.assertEqual(dm_soundex('Przemysl'), {'746480', '794648'})
         self.assertEqual(dm_soundex('Pshemeshil'), {'746480'})
-        self.assertEqual(dm_soundex('Rosochowaciec'),
-                         {'944744', '945744', '944755', '944754', '944745',
-                          '945745', '945754', '945755'})
+        self.assertEqual(
+            dm_soundex('Rosochowaciec'),
+            {
+                '944744',
+                '945744',
+                '944755',
+                '944754',
+                '944745',
+                '945745',
+                '945754',
+                '945755',
+            },
+        )
         self.assertEqual(dm_soundex('Rosokhovatsets'), {'945744'})
 
         # https://en.wikipedia.org/wiki/Daitch%E2%80%93Mokotoff_Soundex
@@ -67,12 +77,24 @@ class DMSoundexTestCases(unittest.TestCase):
         self.assertEqual(dm_soundex('Moskovitz'), {'645740'})
         self.assertEqual(dm_soundex('Auerbach'), {'097500', '097400'})
         self.assertEqual(dm_soundex('Uhrbach'), {'097500', '097400'})
-        self.assertEqual(dm_soundex('Jackson'),
-                         {'154600', '454600', '145460', '445460'})
-        self.assertEqual(dm_soundex('Jackson-Jackson'),
-                         {'154654', '454654', '145465', '445465',
-                          '154645', '454645', '145464', '445464',
-                          '154644', '454644'})
+        self.assertEqual(
+            dm_soundex('Jackson'), {'154600', '454600', '145460', '445460'}
+        )
+        self.assertEqual(
+            dm_soundex('Jackson-Jackson'),
+            {
+                '154654',
+                '454654',
+                '145465',
+                '445465',
+                '154645',
+                '454645',
+                '145464',
+                '445464',
+                '154644',
+                '454644',
+            },
+        )
 
         # http://www.jewishgen.org/infofiles/soundex.html
         self.assertEqual(dm_soundex('OHRBACH'), {'097500', '097400'})
@@ -84,27 +106,28 @@ class DMSoundexTestCases(unittest.TestCase):
         self.assertEqual(dm_soundex('SHLAMOVITZ'), {'486740'})
 
         # http://community.actian.com/wiki/OME_soundex_dm()
-        self.assertEqual(dm_soundex('Schwarzenegger'),
-                         {'479465', '474659'})
-        self.assertEqual(dm_soundex('Shwarzenegger'),
-                         {'479465', '474659'})
+        self.assertEqual(dm_soundex('Schwarzenegger'), {'479465', '474659'})
+        self.assertEqual(dm_soundex('Shwarzenegger'), {'479465', '474659'})
         self.assertEqual(dm_soundex('Schwartsenegger'), {'479465'})
 
         # max_length bounds tests
-        self.assertEqual(dm_soundex('Niall', max_length=-1), {'68'+'0'*62})
+        self.assertEqual(dm_soundex('Niall', max_length=-1), {'68' + '0' * 62})
         self.assertEqual(dm_soundex('Niall', max_length=0), {'680000'})
 
         # zero_pad tests
-        self.assertEqual(dm_soundex('Niall', max_length=-1, zero_pad=False),
-                         {'68'})
-        self.assertEqual(dm_soundex('Niall', max_length=0, zero_pad=False),
-                         {'68'})
-        self.assertEqual(dm_soundex('Niall', max_length=0, zero_pad=True),
-                         {'680000'})
-        self.assertEqual(dm_soundex('', max_length=6, zero_pad=False),
-                         {'0'})
-        self.assertEqual(dm_soundex('', max_length=6, zero_pad=True),
-                         {'000000'})
+        self.assertEqual(
+            dm_soundex('Niall', max_length=-1, zero_pad=False), {'68'}
+        )
+        self.assertEqual(
+            dm_soundex('Niall', max_length=0, zero_pad=False), {'68'}
+        )
+        self.assertEqual(
+            dm_soundex('Niall', max_length=0, zero_pad=True), {'680000'}
+        )
+        self.assertEqual(dm_soundex('', max_length=6, zero_pad=False), {'0'})
+        self.assertEqual(
+            dm_soundex('', max_length=6, zero_pad=True), {'000000'}
+        )
 
 
 if __name__ == '__main__':

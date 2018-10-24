@@ -53,10 +53,39 @@ def skeleton_key(word):
     _vowels = {'A', 'E', 'I', 'O', 'U'}
 
     word = unicode_normalize('NFKD', text_type(word.upper()))
-    word = ''.join(c for c in word if c in
-                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-                    'Y', 'Z'})
+    word = ''.join(
+        c
+        for c in word
+        if c
+        in {
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J',
+            'K',
+            'L',
+            'M',
+            'N',
+            'O',
+            'P',
+            'Q',
+            'R',
+            'S',
+            'T',
+            'U',
+            'V',
+            'W',
+            'X',
+            'Y',
+            'Z',
+        }
+    )
     start = word[0:1]
     consonant_part = ''
     vowel_part = ''
@@ -90,14 +119,64 @@ def omission_key(word):
     >>> omission_key('Niall')
     'LNIA'
     """
-    _consonants = ('J', 'K', 'Q', 'X', 'Z', 'V', 'W', 'Y', 'B', 'F', 'M', 'G',
-                   'P', 'D', 'H', 'C', 'L', 'N', 'T', 'S', 'R')
+    _consonants = (
+        'J',
+        'K',
+        'Q',
+        'X',
+        'Z',
+        'V',
+        'W',
+        'Y',
+        'B',
+        'F',
+        'M',
+        'G',
+        'P',
+        'D',
+        'H',
+        'C',
+        'L',
+        'N',
+        'T',
+        'S',
+        'R',
+    )
 
     word = unicode_normalize('NFKD', text_type(word.upper()))
-    word = ''.join(c for c in word if c in
-                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-                    'Y', 'Z'})
+    word = ''.join(
+        c
+        for c in word
+        if c
+        in {
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J',
+            'K',
+            'L',
+            'M',
+            'N',
+            'O',
+            'P',
+            'Q',
+            'R',
+            'S',
+            'T',
+            'U',
+            'V',
+            'W',
+            'X',
+            'Y',
+            'Z',
+        }
+    )
 
     key = ''
 
@@ -116,4 +195,5 @@ def omission_key(word):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

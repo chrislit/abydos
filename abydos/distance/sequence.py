@@ -31,8 +31,16 @@ from numpy import zeros as np_zeros
 from six.moves import range
 
 
-__all__ = ['dist_lcsseq', 'dist_lcsstr', 'dist_ratcliff_obershelp', 'lcsseq',
-           'lcsstr', 'sim_lcsseq', 'sim_lcsstr', 'sim_ratcliff_obershelp']
+__all__ = [
+    'dist_lcsseq',
+    'dist_lcsstr',
+    'dist_ratcliff_obershelp',
+    'lcsseq',
+    'lcsstr',
+    'sim_lcsseq',
+    'sim_lcsstr',
+    'sim_ratcliff_obershelp',
+]
 
 
 def lcsseq(src, tar):
@@ -62,26 +70,28 @@ def lcsseq(src, tar):
     >>> lcsseq('ATCG', 'TAGC')
     'AC'
     """
-    lengths = np_zeros((len(src)+1, len(tar)+1), dtype=np_int)
+    lengths = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
 
     # row 0 and column 0 are initialized to 0 already
     for i, src_char in enumerate(src):
         for j, tar_char in enumerate(tar):
             if src_char == tar_char:
-                lengths[i+1, j+1] = lengths[i, j] + 1
+                lengths[i + 1, j + 1] = lengths[i, j] + 1
             else:
-                lengths[i+1, j+1] = max(lengths[i+1, j], lengths[i, j+1])
+                lengths[i + 1, j + 1] = max(
+                    lengths[i + 1, j], lengths[i, j + 1]
+                )
 
     # read the substring out from the matrix
     result = ''
     i, j = len(src), len(tar)
     while i != 0 and j != 0:
-        if lengths[i, j] == lengths[i-1, j]:
+        if lengths[i, j] == lengths[i - 1, j]:
             i -= 1
-        elif lengths[i, j] == lengths[i, j-1]:
+        elif lengths[i, j] == lengths[i, j - 1]:
             j -= 1
         else:
-            result = src[i-1] + result
+            result = src[i - 1] + result
             i -= 1
             j -= 1
     return result
@@ -170,18 +180,18 @@ def lcsstr(src, tar):
     >>> lcsstr('ATCG', 'TAGC')
     'A'
     """
-    lengths = np_zeros((len(src)+1, len(tar)+1), dtype=np_int)
+    lengths = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
     longest, i_longest = 0, 0
-    for i in range(1, len(src)+1):
-        for j in range(1, len(tar)+1):
-            if src[i-1] == tar[j-1]:
-                lengths[i, j] = lengths[i-1, j-1] + 1
+    for i in range(1, len(src) + 1):
+        for j in range(1, len(tar) + 1):
+            if src[i - 1] == tar[j - 1]:
+                lengths[i, j] = lengths[i - 1, j - 1] + 1
                 if lengths[i, j] > longest:
                     longest = lengths[i, j]
                     i_longest = i
             else:
                 lengths[i, j] = 0
-    return src[i_longest - longest:i_longest]
+    return src[i_longest - longest : i_longest]
 
 
 def sim_lcsstr(src, tar):
@@ -269,6 +279,7 @@ def sim_ratcliff_obershelp(src, tar):
     >>> sim_ratcliff_obershelp('ATCG', 'TAGC')
     0.5
     """
+
     def _lcsstr_stl(src, tar):
         """Return start positions & length for Ratcliff-Obershelp.
 
@@ -276,19 +287,19 @@ def sim_ratcliff_obershelp(src, tar):
         the target string, and length of the longest common substring of
         strings src and tar.
         """
-        lengths = np_zeros((len(src)+1, len(tar)+1), dtype=np_int)
+        lengths = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
         longest, src_longest, tar_longest = 0, 0, 0
-        for i in range(1, len(src)+1):
-            for j in range(1, len(tar)+1):
-                if src[i-1] == tar[j-1]:
-                    lengths[i, j] = lengths[i-1, j-1] + 1
+        for i in range(1, len(src) + 1):
+            for j in range(1, len(tar) + 1):
+                if src[i - 1] == tar[j - 1]:
+                    lengths[i, j] = lengths[i - 1, j - 1] + 1
                     if lengths[i, j] > longest:
                         longest = lengths[i, j]
                         src_longest = i
                         tar_longest = j
                 else:
                     lengths[i, j] = 0
-        return src_longest-longest, tar_longest-longest, longest
+        return src_longest - longest, tar_longest - longest, longest
 
     def _sstr_matches(src, tar):
         """Return the sum of substring match lengths.
@@ -304,16 +315,19 @@ def sim_ratcliff_obershelp(src, tar):
         src_start, tar_start, length = _lcsstr_stl(src, tar)
         if length == 0:
             return 0
-        return (_sstr_matches(src[:src_start], tar[:tar_start]) +
-                length +
-                _sstr_matches(src[src_start+length:],
-                              tar[tar_start+length:]))
+        return (
+            _sstr_matches(src[:src_start], tar[:tar_start])
+            + length
+            + _sstr_matches(
+                src[src_start + length :], tar[tar_start + length :]
+            )
+        )
 
     if src == tar:
         return 1.0
     elif not src or not tar:
         return 0.0
-    return 2*_sstr_matches(src, tar)/(len(src)+len(tar))
+    return 2 * _sstr_matches(src, tar) / (len(src) + len(tar))
 
 
 def dist_ratcliff_obershelp(src, tar):
@@ -342,4 +356,5 @@ def dist_ratcliff_obershelp(src, tar):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

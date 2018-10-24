@@ -60,7 +60,7 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return len(word)-suffix_len >= 3
+        return len(word) - suffix_len >= 3
 
     def cond_c(word, suffix_len):
         """Return Lovins' condition C.
@@ -69,7 +69,7 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return len(word)-suffix_len >= 4
+        return len(word) - suffix_len >= 4
 
     def cond_d(word, suffix_len):
         """Return Lovins' condition D.
@@ -78,7 +78,7 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return len(word)-suffix_len >= 5
+        return len(word) - suffix_len >= 5
 
     def cond_e(word, suffix_len):
         """Return Lovins' condition E.
@@ -87,7 +87,7 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return word[-suffix_len-1] != 'e'
+        return word[-suffix_len - 1] != 'e'
 
     def cond_f(word, suffix_len):
         """Return Lovins' condition F.
@@ -96,8 +96,7 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return (len(word)-suffix_len >= 3 and
-                word[-suffix_len-1] != 'e')
+        return len(word) - suffix_len >= 3 and word[-suffix_len - 1] != 'e'
 
     def cond_g(word, suffix_len):
         """Return Lovins' condition G.
@@ -106,8 +105,7 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return (len(word)-suffix_len >= 3 and
-                word[-suffix_len-1] == 'f')
+        return len(word) - suffix_len >= 3 and word[-suffix_len - 1] == 'f'
 
     def cond_h(word, suffix_len):
         """Return Lovins' condition H.
@@ -116,8 +114,10 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return (word[-suffix_len-1] == 't' or
-                word[-suffix_len-2:-suffix_len] == 'll')
+        return (
+            word[-suffix_len - 1] == 't'
+            or word[-suffix_len - 2 : -suffix_len] == 'll'
+        )
 
     def cond_i(word, suffix_len):
         """Return Lovins' condition I.
@@ -126,7 +126,7 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return word[-suffix_len-1] not in {'e', 'o'}
+        return word[-suffix_len - 1] not in {'e', 'o'}
 
     def cond_j(word, suffix_len):
         """Return Lovins' condition J.
@@ -135,7 +135,7 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return word[-suffix_len-1] not in {'a', 'e'}
+        return word[-suffix_len - 1] not in {'a', 'e'}
 
     def cond_k(word, suffix_len):
         """Return Lovins' condition K.
@@ -144,9 +144,10 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return (len(word)-suffix_len >= 3 and
-                (word[-suffix_len-1] in {'i', 'l'} or
-                 (word[-suffix_len-3] == 'u' and word[-suffix_len-1] == 'e')))
+        return len(word) - suffix_len >= 3 and (
+            word[-suffix_len - 1] in {'i', 'l'}
+            or (word[-suffix_len - 3] == 'u' and word[-suffix_len - 1] == 'e')
+        )
 
     def cond_l(word, suffix_len):
         """Return Lovins' condition L.
@@ -155,8 +156,10 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return (word[-suffix_len-1] not in {'s', 'u', 'x'} or
-                word[-suffix_len-1] == 'os')
+        return (
+            word[-suffix_len - 1] not in {'s', 'u', 'x'}
+            or word[-suffix_len - 1] == 'os'
+        )
 
     def cond_m(word, suffix_len):
         """Return Lovins' condition M.
@@ -165,7 +168,7 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return word[-suffix_len-1] not in {'a', 'c', 'e', 'm'}
+        return word[-suffix_len - 1] not in {'a', 'c', 'e', 'm'}
 
     def cond_n(word, suffix_len):
         """Return Lovins' condition N.
@@ -174,9 +177,9 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        if len(word)-suffix_len >= 3:
-            if word[-suffix_len-3] == 's':
-                if len(word)-suffix_len >= 4:
+        if len(word) - suffix_len >= 3:
+            if word[-suffix_len - 3] == 's':
+                if len(word) - suffix_len >= 4:
                     return True
             else:
                 return True
@@ -189,7 +192,7 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return word[-suffix_len-1] in {'i', 'l'}
+        return word[-suffix_len - 1] in {'i', 'l'}
 
     def cond_p(word, suffix_len):
         """Return Lovins' condition P.
@@ -198,7 +201,7 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return word[-suffix_len-1] != 'c'
+        return word[-suffix_len - 1] != 'c'
 
     def cond_q(word, suffix_len):
         """Return Lovins' condition Q.
@@ -207,8 +210,10 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return (len(word)-suffix_len >= 3 and
-                word[-suffix_len-1] not in {'l', 'n'})
+        return len(word) - suffix_len >= 3 and word[-suffix_len - 1] not in {
+            'l',
+            'n',
+        }
 
     def cond_r(word, suffix_len):
         """Return Lovins' condition R.
@@ -217,7 +222,7 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return word[-suffix_len-1] in {'n', 'r'}
+        return word[-suffix_len - 1] in {'n', 'r'}
 
     def cond_s(word, suffix_len):
         """Return Lovins' condition S.
@@ -226,9 +231,10 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return (word[-suffix_len-2:-suffix_len] == 'dr' or
-                (word[-suffix_len-1] == 't' and
-                 word[-suffix_len-2:-suffix_len] != 'tt'))
+        return word[-suffix_len - 2 : -suffix_len] == 'dr' or (
+            word[-suffix_len - 1] == 't'
+            and word[-suffix_len - 2 : -suffix_len] != 'tt'
+        )
 
     def cond_t(word, suffix_len):
         """Return Lovins' condition T.
@@ -237,8 +243,10 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return (word[-suffix_len-1] in {'s', 't'} and
-                word[-suffix_len-2:-suffix_len] != 'ot')
+        return (
+            word[-suffix_len - 1] in {'s', 't'}
+            and word[-suffix_len - 2 : -suffix_len] != 'ot'
+        )
 
     def cond_u(word, suffix_len):
         """Return Lovins' condition U.
@@ -247,7 +255,7 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return word[-suffix_len-1] in {'l', 'm', 'n', 'r'}
+        return word[-suffix_len - 1] in {'l', 'm', 'n', 'r'}
 
     def cond_v(word, suffix_len):
         """Return Lovins' condition V.
@@ -256,7 +264,7 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return word[-suffix_len-1] == 'c'
+        return word[-suffix_len - 1] == 'c'
 
     def cond_w(word, suffix_len):
         """Return Lovins' condition W.
@@ -265,7 +273,7 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return word[-suffix_len-1] not in {'s', 'u'}
+        return word[-suffix_len - 1] not in {'s', 'u'}
 
     def cond_x(word, suffix_len):
         """Return Lovins' condition X.
@@ -274,9 +282,10 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return (word[-suffix_len-1] in {'i', 'l'} or
-                (word[-suffix_len-3:-suffix_len] == 'u' and
-                 word[-suffix_len-1] == 'e'))
+        return word[-suffix_len - 1] in {'i', 'l'} or (
+            word[-suffix_len - 3 : -suffix_len] == 'u'
+            and word[-suffix_len - 1] == 'e'
+        )
 
     def cond_y(word, suffix_len):
         """Return Lovins' condition Y.
@@ -285,7 +294,7 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return word[-suffix_len-2:-suffix_len] == 'in'
+        return word[-suffix_len - 2 : -suffix_len] == 'in'
 
     def cond_z(word, suffix_len):
         """Return Lovins' condition Z.
@@ -294,7 +303,7 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return word[-suffix_len-1] != 'f'
+        return word[-suffix_len - 1] != 'f'
 
     def cond_aa(word, suffix_len):
         """Return Lovins' condition AA.
@@ -303,9 +312,9 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return (word[-suffix_len-1] in {'d', 'f', 'l', 't'} or
-                word[-suffix_len-2:-suffix_len] in {'ph', 'th', 'er', 'or',
-                                                    'es'})
+        return word[-suffix_len - 1] in {'d', 'f', 'l', 't'} or word[
+            -suffix_len - 2 : -suffix_len
+        ] in {'ph', 'th', 'er', 'or', 'es'}
 
     def cond_bb(word, suffix_len):
         """Return Lovins' condition BB.
@@ -314,9 +323,11 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return (len(word)-suffix_len >= 3 and
-                word[-suffix_len-3:-suffix_len] != 'met' and
-                word[-suffix_len-4:-suffix_len] != 'ryst')
+        return (
+            len(word) - suffix_len >= 3
+            and word[-suffix_len - 3 : -suffix_len] != 'met'
+            and word[-suffix_len - 4 : -suffix_len] != 'ryst'
+        )
 
     def cond_cc(word, suffix_len):
         """Return Lovins' condition CC.
@@ -325,104 +336,312 @@ def lovins(word):
         :param int suffix_len: suffix length
         :rtype: bool
         """
-        return word[-suffix_len-1] == 'l'
+        return word[-suffix_len - 1] == 'l'
 
-    suffix = {'alistically': cond_b, 'arizability': None,
-              'izationally': cond_b, 'antialness': None,
-              'arisations': None, 'arizations': None, 'entialness': None,
-              'allically': cond_c, 'antaneous': None, 'antiality': None,
-              'arisation': None, 'arization': None, 'ationally': cond_b,
-              'ativeness': None, 'eableness': cond_e, 'entations': None,
-              'entiality': None, 'entialize': None, 'entiation': None,
-              'ionalness': None, 'istically': None, 'itousness': None,
-              'izability': None, 'izational': None, 'ableness': None,
-              'arizable': None, 'entation': None, 'entially': None,
-              'eousness': None, 'ibleness': None, 'icalness': None,
-              'ionalism': None, 'ionality': None, 'ionalize': None,
-              'iousness': None, 'izations': None, 'lessness': None,
-              'ability': None, 'aically': None, 'alistic': cond_b,
-              'alities': None, 'ariness': cond_e, 'aristic': None,
-              'arizing': None, 'ateness': None, 'atingly': None,
-              'ational': cond_b, 'atively': None, 'ativism': None,
-              'elihood': cond_e, 'encible': None, 'entally': None,
-              'entials': None, 'entiate': None, 'entness': None,
-              'fulness': None, 'ibility': None, 'icalism': None,
-              'icalist': None, 'icality': None, 'icalize': None,
-              'ication': cond_g, 'icianry': None, 'ination': None,
-              'ingness': None, 'ionally': None, 'isation': None,
-              'ishness': None, 'istical': None, 'iteness': None,
-              'iveness': None, 'ivistic': None, 'ivities': None,
-              'ization': cond_f, 'izement': None, 'oidally': None,
-              'ousness': None, 'aceous': None, 'acious': cond_b,
-              'action': cond_g, 'alness': None, 'ancial': None,
-              'ancies': None, 'ancing': cond_b, 'ariser': None,
-              'arized': None, 'arizer': None, 'atable': None,
-              'ations': cond_b, 'atives': None, 'eature': cond_z,
-              'efully': None, 'encies': None, 'encing': None,
-              'ential': None, 'enting': cond_c, 'entist': None,
-              'eously': None, 'ialist': None, 'iality': None,
-              'ialize': None, 'ically': None, 'icance': None,
-              'icians': None, 'icists': None, 'ifully': None,
-              'ionals': None, 'ionate': cond_d, 'ioning': None,
-              'ionist': None, 'iously': None, 'istics': None,
-              'izable': cond_e, 'lessly': None, 'nesses': None,
-              'oidism': None, 'acies': None, 'acity': None,
-              'aging': cond_b, 'aical': None, 'alist': None,
-              'alism': cond_b, 'ality': None, 'alize': None,
-              'allic': cond_bb, 'anced': cond_b, 'ances': cond_b,
-              'antic': cond_c, 'arial': None, 'aries': None,
-              'arily': None, 'arity': cond_b, 'arize': None,
-              'aroid': None, 'ately': None, 'ating': cond_i,
-              'ation': cond_b, 'ative': None, 'ators': None,
-              'atory': None, 'ature': cond_e, 'early': cond_y,
-              'ehood': None, 'eless': None, 'elity': None,
-              'ement': None, 'enced': None, 'ences': None,
-              'eness': cond_e, 'ening': cond_e, 'ental': None,
-              'ented': cond_c, 'ently': None, 'fully': None,
-              'ially': None, 'icant': None, 'ician': None,
-              'icide': None, 'icism': None, 'icist': None,
-              'icity': None, 'idine': cond_i, 'iedly': None,
-              'ihood': None, 'inate': None, 'iness': None,
-              'ingly': cond_b, 'inism': cond_j, 'inity': cond_cc,
-              'ional': None, 'ioned': None, 'ished': None,
-              'istic': None, 'ities': None, 'itous': None,
-              'ively': None, 'ivity': None, 'izers': cond_f,
-              'izing': cond_f, 'oidal': None, 'oides': None,
-              'otide': None, 'ously': None, 'able': None, 'ably': None,
-              'ages': cond_b, 'ally': cond_b, 'ance': cond_b, 'ancy': cond_b,
-              'ants': cond_b, 'aric': None, 'arly': cond_k, 'ated': cond_i,
-              'ates': None, 'atic': cond_b, 'ator': None, 'ealy': cond_y,
-              'edly': cond_e, 'eful': None, 'eity': None, 'ence': None,
-              'ency': None, 'ened': cond_e, 'enly': cond_e, 'eous': None,
-              'hood': None, 'ials': None, 'ians': None, 'ible': None,
-              'ibly': None, 'ical': None, 'ides': cond_l, 'iers': None,
-              'iful': None, 'ines': cond_m, 'ings': cond_n, 'ions': cond_b,
-              'ious': None, 'isms': cond_b, 'ists': None, 'itic': cond_h,
-              'ized': cond_f, 'izer': cond_f, 'less': None, 'lily': None,
-              'ness': None, 'ogen': None, 'ward': None, 'wise': None,
-              'ying': cond_b, 'yish': None, 'acy': None, 'age': cond_b,
-              'aic': None, 'als': cond_bb, 'ant': cond_b, 'ars': cond_o,
-              'ary': cond_f, 'ata': None, 'ate': None, 'eal': cond_y,
-              'ear': cond_y, 'ely': cond_e, 'ene': cond_e, 'ent': cond_c,
-              'ery': cond_e, 'ese': None, 'ful': None, 'ial': None,
-              'ian': None, 'ics': None, 'ide': cond_l, 'ied': None,
-              'ier': None, 'ies': cond_p, 'ily': None, 'ine': cond_m,
-              'ing': cond_n, 'ion': cond_q, 'ish': cond_c, 'ism': cond_b,
-              'ist': None, 'ite': cond_aa, 'ity': None, 'ium': None,
-              'ive': None, 'ize': cond_f, 'oid': None, 'one': cond_r,
-              'ous': None, 'ae': None, 'al': cond_bb, 'ar': cond_x,
-              'as': cond_b, 'ed': cond_e, 'en': cond_f, 'es': cond_e,
-              'ia': None, 'ic': None, 'is': None, 'ly': cond_b,
-              'on': cond_s, 'or': cond_t, 'um': cond_u, 'us': cond_v,
-              'yl': cond_r, '\'s': None, 's\'': None, 'a': None,
-              'e': None, 'i': None, 'o': None, 's': cond_w, 'y': cond_b}
+    suffix = {
+        'alistically': cond_b,
+        'arizability': None,
+        'izationally': cond_b,
+        'antialness': None,
+        'arisations': None,
+        'arizations': None,
+        'entialness': None,
+        'allically': cond_c,
+        'antaneous': None,
+        'antiality': None,
+        'arisation': None,
+        'arization': None,
+        'ationally': cond_b,
+        'ativeness': None,
+        'eableness': cond_e,
+        'entations': None,
+        'entiality': None,
+        'entialize': None,
+        'entiation': None,
+        'ionalness': None,
+        'istically': None,
+        'itousness': None,
+        'izability': None,
+        'izational': None,
+        'ableness': None,
+        'arizable': None,
+        'entation': None,
+        'entially': None,
+        'eousness': None,
+        'ibleness': None,
+        'icalness': None,
+        'ionalism': None,
+        'ionality': None,
+        'ionalize': None,
+        'iousness': None,
+        'izations': None,
+        'lessness': None,
+        'ability': None,
+        'aically': None,
+        'alistic': cond_b,
+        'alities': None,
+        'ariness': cond_e,
+        'aristic': None,
+        'arizing': None,
+        'ateness': None,
+        'atingly': None,
+        'ational': cond_b,
+        'atively': None,
+        'ativism': None,
+        'elihood': cond_e,
+        'encible': None,
+        'entally': None,
+        'entials': None,
+        'entiate': None,
+        'entness': None,
+        'fulness': None,
+        'ibility': None,
+        'icalism': None,
+        'icalist': None,
+        'icality': None,
+        'icalize': None,
+        'ication': cond_g,
+        'icianry': None,
+        'ination': None,
+        'ingness': None,
+        'ionally': None,
+        'isation': None,
+        'ishness': None,
+        'istical': None,
+        'iteness': None,
+        'iveness': None,
+        'ivistic': None,
+        'ivities': None,
+        'ization': cond_f,
+        'izement': None,
+        'oidally': None,
+        'ousness': None,
+        'aceous': None,
+        'acious': cond_b,
+        'action': cond_g,
+        'alness': None,
+        'ancial': None,
+        'ancies': None,
+        'ancing': cond_b,
+        'ariser': None,
+        'arized': None,
+        'arizer': None,
+        'atable': None,
+        'ations': cond_b,
+        'atives': None,
+        'eature': cond_z,
+        'efully': None,
+        'encies': None,
+        'encing': None,
+        'ential': None,
+        'enting': cond_c,
+        'entist': None,
+        'eously': None,
+        'ialist': None,
+        'iality': None,
+        'ialize': None,
+        'ically': None,
+        'icance': None,
+        'icians': None,
+        'icists': None,
+        'ifully': None,
+        'ionals': None,
+        'ionate': cond_d,
+        'ioning': None,
+        'ionist': None,
+        'iously': None,
+        'istics': None,
+        'izable': cond_e,
+        'lessly': None,
+        'nesses': None,
+        'oidism': None,
+        'acies': None,
+        'acity': None,
+        'aging': cond_b,
+        'aical': None,
+        'alist': None,
+        'alism': cond_b,
+        'ality': None,
+        'alize': None,
+        'allic': cond_bb,
+        'anced': cond_b,
+        'ances': cond_b,
+        'antic': cond_c,
+        'arial': None,
+        'aries': None,
+        'arily': None,
+        'arity': cond_b,
+        'arize': None,
+        'aroid': None,
+        'ately': None,
+        'ating': cond_i,
+        'ation': cond_b,
+        'ative': None,
+        'ators': None,
+        'atory': None,
+        'ature': cond_e,
+        'early': cond_y,
+        'ehood': None,
+        'eless': None,
+        'elity': None,
+        'ement': None,
+        'enced': None,
+        'ences': None,
+        'eness': cond_e,
+        'ening': cond_e,
+        'ental': None,
+        'ented': cond_c,
+        'ently': None,
+        'fully': None,
+        'ially': None,
+        'icant': None,
+        'ician': None,
+        'icide': None,
+        'icism': None,
+        'icist': None,
+        'icity': None,
+        'idine': cond_i,
+        'iedly': None,
+        'ihood': None,
+        'inate': None,
+        'iness': None,
+        'ingly': cond_b,
+        'inism': cond_j,
+        'inity': cond_cc,
+        'ional': None,
+        'ioned': None,
+        'ished': None,
+        'istic': None,
+        'ities': None,
+        'itous': None,
+        'ively': None,
+        'ivity': None,
+        'izers': cond_f,
+        'izing': cond_f,
+        'oidal': None,
+        'oides': None,
+        'otide': None,
+        'ously': None,
+        'able': None,
+        'ably': None,
+        'ages': cond_b,
+        'ally': cond_b,
+        'ance': cond_b,
+        'ancy': cond_b,
+        'ants': cond_b,
+        'aric': None,
+        'arly': cond_k,
+        'ated': cond_i,
+        'ates': None,
+        'atic': cond_b,
+        'ator': None,
+        'ealy': cond_y,
+        'edly': cond_e,
+        'eful': None,
+        'eity': None,
+        'ence': None,
+        'ency': None,
+        'ened': cond_e,
+        'enly': cond_e,
+        'eous': None,
+        'hood': None,
+        'ials': None,
+        'ians': None,
+        'ible': None,
+        'ibly': None,
+        'ical': None,
+        'ides': cond_l,
+        'iers': None,
+        'iful': None,
+        'ines': cond_m,
+        'ings': cond_n,
+        'ions': cond_b,
+        'ious': None,
+        'isms': cond_b,
+        'ists': None,
+        'itic': cond_h,
+        'ized': cond_f,
+        'izer': cond_f,
+        'less': None,
+        'lily': None,
+        'ness': None,
+        'ogen': None,
+        'ward': None,
+        'wise': None,
+        'ying': cond_b,
+        'yish': None,
+        'acy': None,
+        'age': cond_b,
+        'aic': None,
+        'als': cond_bb,
+        'ant': cond_b,
+        'ars': cond_o,
+        'ary': cond_f,
+        'ata': None,
+        'ate': None,
+        'eal': cond_y,
+        'ear': cond_y,
+        'ely': cond_e,
+        'ene': cond_e,
+        'ent': cond_c,
+        'ery': cond_e,
+        'ese': None,
+        'ful': None,
+        'ial': None,
+        'ian': None,
+        'ics': None,
+        'ide': cond_l,
+        'ied': None,
+        'ier': None,
+        'ies': cond_p,
+        'ily': None,
+        'ine': cond_m,
+        'ing': cond_n,
+        'ion': cond_q,
+        'ish': cond_c,
+        'ism': cond_b,
+        'ist': None,
+        'ite': cond_aa,
+        'ity': None,
+        'ium': None,
+        'ive': None,
+        'ize': cond_f,
+        'oid': None,
+        'one': cond_r,
+        'ous': None,
+        'ae': None,
+        'al': cond_bb,
+        'ar': cond_x,
+        'as': cond_b,
+        'ed': cond_e,
+        'en': cond_f,
+        'es': cond_e,
+        'ia': None,
+        'ic': None,
+        'is': None,
+        'ly': cond_b,
+        'on': cond_s,
+        'or': cond_t,
+        'um': cond_u,
+        'us': cond_v,
+        'yl': cond_r,
+        '\'s': None,
+        's\'': None,
+        'a': None,
+        'e': None,
+        'i': None,
+        'o': None,
+        's': cond_w,
+        'y': cond_b,
+    }
 
     for suffix_len in range(11, 0, -1):
         ending = word[-suffix_len:]
-        if (ending in suffix and
-                len(word)-suffix_len >= 2 and
-                (suffix[ending] is None or
-                 suffix[ending](word, suffix_len))):
+        if (
+            ending in suffix
+            and len(word) - suffix_len >= 2
+            and (suffix[ending] is None or suffix[ending](word, suffix_len))
+        ):
             word = word[:-suffix_len]
             break
 
@@ -430,81 +649,94 @@ def lovins(word):
         """Return Lovins' conditional recode rule 9."""
         if stem[-3:-2] in {'a', 'i', 'o'}:
             return stem
-        return stem[:-2]+'l'
+        return stem[:-2] + 'l'
 
     def recode24(stem):
         """Return Lovins' conditional recode rule 24."""
         if stem[-4:-3] == 's':
             return stem
-        return stem[:-1]+'s'
+        return stem[:-1] + 's'
 
     def recode28(stem):
         """Return Lovins' conditional recode rule 28."""
         if stem[-4:-3] in {'p', 't'}:
             return stem
-        return stem[:-1]+'s'
+        return stem[:-1] + 's'
 
     def recode30(stem):
         """Return Lovins' conditional recode rule 30."""
         if stem[-4:-3] == 'm':
             return stem
-        return stem[:-1]+'s'
+        return stem[:-1] + 's'
 
     def recode32(stem):
         """Return Lovins' conditional recode rule 32."""
         if stem[-3:-2] == 'n':
             return stem
-        return stem[:-1]+'s'
+        return stem[:-1] + 's'
 
-    if word[-2:] in {'bb', 'dd', 'gg', 'll', 'mm', 'nn', 'pp', 'rr', 'ss',
-                     'tt'}:
+    if word[-2:] in {
+        'bb',
+        'dd',
+        'gg',
+        'll',
+        'mm',
+        'nn',
+        'pp',
+        'rr',
+        'ss',
+        'tt',
+    }:
         word = word[:-1]
 
-    recode = (('iev', 'ief'),
-              ('uct', 'uc'),
-              ('umpt', 'um'),
-              ('rpt', 'rb'),
-              ('urs', 'ur'),
-              ('istr', 'ister'),
-              ('metr', 'meter'),
-              ('olv', 'olut'),
-              ('ul', recode9),
-              ('bex', 'bic'),
-              ('dex', 'dic'),
-              ('pex', 'pic'),
-              ('tex', 'tic'),
-              ('ax', 'ac'),
-              ('ex', 'ec'),
-              ('ix', 'ic'),
-              ('lux', 'luc'),
-              ('uad', 'uas'),
-              ('vad', 'vas'),
-              ('cid', 'cis'),
-              ('lid', 'lis'),
-              ('erid', 'eris'),
-              ('pand', 'pans'),
-              ('end', recode24),
-              ('ond', 'ons'),
-              ('lud', 'lus'),
-              ('rud', 'rus'),
-              ('her', recode28),
-              ('mit', 'mis'),
-              ('ent', recode30),
-              ('ert', 'ers'),
-              ('et', recode32),
-              ('yt', 'ys'),
-              ('yz', 'ys'))
+    recode = (
+        ('iev', 'ief'),
+        ('uct', 'uc'),
+        ('umpt', 'um'),
+        ('rpt', 'rb'),
+        ('urs', 'ur'),
+        ('istr', 'ister'),
+        ('metr', 'meter'),
+        ('olv', 'olut'),
+        ('ul', recode9),
+        ('bex', 'bic'),
+        ('dex', 'dic'),
+        ('pex', 'pic'),
+        ('tex', 'tic'),
+        ('ax', 'ac'),
+        ('ex', 'ec'),
+        ('ix', 'ic'),
+        ('lux', 'luc'),
+        ('uad', 'uas'),
+        ('vad', 'vas'),
+        ('cid', 'cis'),
+        ('lid', 'lis'),
+        ('erid', 'eris'),
+        ('pand', 'pans'),
+        ('end', recode24),
+        ('ond', 'ons'),
+        ('lud', 'lus'),
+        ('rud', 'rus'),
+        ('her', recode28),
+        ('mit', 'mis'),
+        ('ent', recode30),
+        ('ert', 'ers'),
+        ('et', recode32),
+        ('yt', 'ys'),
+        ('yz', 'ys'),
+    )
 
     for ending, replacement in recode:
         if word.endswith(ending):
             if callable(replacement):
                 word = replacement(word)
             else:
-                word = word[:-len(ending)] + replacement
+                word = word[: -len(ending)] + replacement
 
     return word
 
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

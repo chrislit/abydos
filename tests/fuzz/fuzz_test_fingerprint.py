@@ -25,32 +25,39 @@ import codecs
 import unittest
 from random import choice, randint, sample
 
-from abydos.fingerprint.basic import phonetic_fingerprint, qgram_fingerprint, \
-    str_fingerprint
-from abydos.fingerprint.lightweight import count_fingerprint, \
-    occurrence_fingerprint, occurrence_halved_fingerprint, position_fingerprint
+from abydos.fingerprint.basic import (
+    phonetic_fingerprint,
+    qgram_fingerprint,
+    str_fingerprint,
+)
+from abydos.fingerprint.lightweight import (
+    count_fingerprint,
+    occurrence_fingerprint,
+    occurrence_halved_fingerprint,
+    position_fingerprint,
+)
 from abydos.fingerprint.speedcop import omission_key, skeleton_key
 from abydos.fingerprint.synoname import synoname_toolcode
 
 from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 
-algorithms = {'str_fingerprint': str_fingerprint,
-              'qgram_fingerprint': qgram_fingerprint,
-              'qgram_fingerprint_3':
-                  lambda _: qgram_fingerprint(_, qval=3),
-              'qgram_fingerprint_ssj':
-                  lambda _:
-                  qgram_fingerprint(_, start_stop='$#', joiner=' '),
-              'phonetic_fingerprint': phonetic_fingerprint,
-              'skeleton_key': skeleton_key,
-              'omission_key': omission_key,
-              'occurrence_fingerprint': occurrence_fingerprint,
-              'occurrence_halved_fingerprint': occurrence_halved_fingerprint,
-              'count_fingerprint': count_fingerprint,
-              'position_fingerprint': position_fingerprint,
-              'synoname_toolcode': synoname_toolcode,
-              'synoname_toolcode_2name':
-                  lambda _: synoname_toolcode(_, _)}
+algorithms = {
+    'str_fingerprint': str_fingerprint,
+    'qgram_fingerprint': qgram_fingerprint,
+    'qgram_fingerprint_3': lambda _: qgram_fingerprint(_, qval=3),
+    'qgram_fingerprint_ssj': lambda _: qgram_fingerprint(
+        _, start_stop='$#', joiner=' '
+    ),
+    'phonetic_fingerprint': phonetic_fingerprint,
+    'skeleton_key': skeleton_key,
+    'omission_key': omission_key,
+    'occurrence_fingerprint': occurrence_fingerprint,
+    'occurrence_halved_fingerprint': occurrence_halved_fingerprint,
+    'count_fingerprint': count_fingerprint,
+    'position_fingerprint': position_fingerprint,
+    'synoname_toolcode': synoname_toolcode,
+    'synoname_toolcode_2name': lambda _: synoname_toolcode(_, _),
+}
 
 
 class BigListOfNaughtyStringsTestCases(unittest.TestCase):
@@ -77,8 +84,11 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
                 try:
                     algorithms[algo](ns)
                 except Exception as inst:
-                    self.fail('Exception "{}" thrown by {} for BLNS: {}'
-                              .format(inst, algo, ns))
+                    self.fail(
+                        'Exception "{}" thrown by {} for BLNS: {}'.format(
+                            inst, algo, ns
+                        )
+                    )
 
 
 class FuzzedWordsTestCases(unittest.TestCase):
@@ -87,8 +97,9 @@ class FuzzedWordsTestCases(unittest.TestCase):
     reps = 1000 * (10000 if EXTREME_TEST else 1)
 
     basewords = []
-    with codecs.open(_corpus_file('basewords.txt'),
-                     encoding='UTF-8') as basewords_file:
+    with codecs.open(
+        _corpus_file('basewords.txt'), encoding='UTF-8'
+    ) as basewords_file:
         for line in basewords_file:
             line = line[:-1]
             if line:
@@ -101,8 +112,11 @@ class FuzzedWordsTestCases(unittest.TestCase):
                 try:
                     algorithms[algo](word)
                 except Exception as inst:
-                    self.fail('Exception "{}" thrown by {} for word: {}'
-                              .format(inst, algo, word))
+                    self.fail(
+                        'Exception "{}" thrown by {} for word: {}'.format(
+                            inst, algo, word
+                        )
+                    )
 
     def fuzz_test_20pct(self):
         """Fuzz test fingerprint algorithms against 20% fuzzed words."""
@@ -118,8 +132,11 @@ class FuzzedWordsTestCases(unittest.TestCase):
                 try:
                     algorithms[algo](fuzzed)
                 except Exception as inst:
-                    self.fail('Exception "{}" thrown by {} for word: {}'
-                              .format(inst, algo, fuzzed))
+                    self.fail(
+                        'Exception "{}" thrown by {} for word: {}'.format(
+                            inst, algo, fuzzed
+                        )
+                    )
 
     def fuzz_test_100pct(self):
         """Fuzz test fingerprint algorithms against 100% fuzzed words."""
@@ -135,14 +152,18 @@ class FuzzedWordsTestCases(unittest.TestCase):
                 try:
                     algorithms[algo](fuzzed)
                 except Exception as inst:
-                    self.fail('Exception "{}" thrown by {} for word: {}'
-                              .format(inst, algo, fuzzed))
+                    self.fail(
+                        'Exception "{}" thrown by {} for word: {}'.format(
+                            inst, algo, fuzzed
+                        )
+                    )
 
     def fuzz_test_fuzz_bmp(self):
         """Fuzz test fingerprint algorithms against BMP fuzz."""
         for _ in range(self.reps):
-            fuzzed = ''.join(_random_char(0xffff) for _ in
-                             range(0, randint(8, 16)))
+            fuzzed = ''.join(
+                _random_char(0xFFFF) for _ in range(0, randint(8, 16))
+            )
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
@@ -153,14 +174,19 @@ class FuzzedWordsTestCases(unittest.TestCase):
                 try:
                     algorithms[algo](fuzzed)
                 except Exception as inst:
-                    self.fail('Exception "{}" thrown by {} for word: {}'
-                              .format(inst, algo, fuzzed))
+                    self.fail(
+                        'Exception "{}" thrown by {} for word: {}'.format(
+                            inst, algo, fuzzed
+                        )
+                    )
 
     def fuzz_test_fuzz_bmpsmp_letter(self):
         """Fuzz test fingerprint algorithms against alphabetic BMP+SMP fuzz."""
         for _ in range(self.reps):
-            fuzzed = ''.join(_random_char(0x1ffff, ' LETTER ') for _ in
-                             range(0, randint(8, 16)))
+            fuzzed = ''.join(
+                _random_char(0x1FFFF, ' LETTER ')
+                for _ in range(0, randint(8, 16))
+            )
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
@@ -171,14 +197,19 @@ class FuzzedWordsTestCases(unittest.TestCase):
                 try:
                     algorithms[algo](fuzzed)
                 except Exception as inst:
-                    self.fail('Exception "{}" thrown by {} for word: {}'
-                              .format(inst, algo, fuzzed))
+                    self.fail(
+                        'Exception "{}" thrown by {} for word: {}'.format(
+                            inst, algo, fuzzed
+                        )
+                    )
 
     def fuzz_test_fuzz_bmpsmp_latin(self):
         """Fuzz test fingerprint algorithms against Latin BMP+SMP fuzz."""
         for _ in range(self.reps):
-            fuzzed = ''.join(_random_char(0x1ffff, 'LATIN ') for _ in
-                             range(0, randint(8, 16)))
+            fuzzed = ''.join(
+                _random_char(0x1FFFF, 'LATIN ')
+                for _ in range(0, randint(8, 16))
+            )
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
@@ -189,14 +220,16 @@ class FuzzedWordsTestCases(unittest.TestCase):
                 try:
                     algorithms[algo](fuzzed)
                 except Exception as inst:
-                    self.fail('Exception "{}" thrown by {} for word: {}'
-                              .format(inst, algo, fuzzed))
+                    self.fail(
+                        'Exception "{}" thrown by {} for word: {}'.format(
+                            inst, algo, fuzzed
+                        )
+                    )
 
     def fuzz_test_fuzz_unicode(self):
         """Fuzz test fingerprint algorithms against valid Unicode fuzz."""
         for _ in range(self.reps):
-            fuzzed = ''.join(_random_char() for _ in
-                             range(0, randint(8, 16)))
+            fuzzed = ''.join(_random_char() for _ in range(0, randint(8, 16)))
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
@@ -207,8 +240,11 @@ class FuzzedWordsTestCases(unittest.TestCase):
                 try:
                     algorithms[algo](fuzzed)
                 except Exception as inst:
-                    self.fail('Exception "{}" thrown by {} for word: {}'
-                              .format(inst, algo, fuzzed))
+                    self.fail(
+                        'Exception "{}" thrown by {} for word: {}'.format(
+                            inst, algo, fuzzed
+                        )
+                    )
 
 
 if __name__ == '__main__':

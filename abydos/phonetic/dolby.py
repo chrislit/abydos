@@ -93,23 +93,62 @@ def dolby(word, max_length=-1, keep_vowels=False, vowel_char='*'):
     # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
-    word = ''.join(c for c in word if c in
-                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-                    'Y', 'Z'})
+    word = ''.join(
+        c
+        for c in word
+        if c
+        in {
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J',
+            'K',
+            'L',
+            'M',
+            'N',
+            'O',
+            'P',
+            'Q',
+            'R',
+            'S',
+            'T',
+            'U',
+            'V',
+            'W',
+            'X',
+            'Y',
+            'Z',
+        }
+    )
 
     # Rule 1 (FL2)
     if word[:3] in {'MCG', 'MAG', 'MAC'}:
-        word = 'MK'+word[3:]
+        word = 'MK' + word[3:]
     elif word[:2] == 'MC':
-        word = 'MK'+word[2:]
+        word = 'MK' + word[2:]
 
     # Rule 2 (FL3)
-    pos = len(word)-2
+    pos = len(word) - 2
     while pos > -1:
-        if word[pos:pos+2] in {'DT', 'LD', 'ND', 'NT', 'RC', 'RD', 'RT', 'SC',
-                               'SK', 'ST'}:
-            word = word[:pos+1]+word[pos+2:]
+        if word[pos : pos + 2] in {
+            'DT',
+            'LD',
+            'ND',
+            'NT',
+            'RC',
+            'RD',
+            'RT',
+            'SC',
+            'SK',
+            'ST',
+        }:
+            word = word[: pos + 1] + word[pos + 2 :]
             pos += 1
         pos -= 1
 
@@ -126,9 +165,9 @@ def dolby(word, max_length=-1, keep_vowels=False, vowel_char='*'):
 
     pos = word.find('CH', 1)
     while pos != -1:
-        if word[pos-1:pos] not in _vowels:
-            word = word[:pos]+'S'+word[pos+1:]
-        pos = word.find('CH', pos+1)
+        if word[pos - 1 : pos] not in _vowels:
+            word = word[:pos] + 'S' + word[pos + 1 :]
+        pos = word.find('CH', pos + 1)
 
     word = word.replace('C', 'K')
     word = word.replace('Z', 'S')
@@ -144,10 +183,10 @@ def dolby(word, max_length=-1, keep_vowels=False, vowel_char='*'):
     # it clear that these apply to the first letter also.
     pos = word.find('K', 0)
     while pos != -1:
-        if pos > 1 and word[pos-1:pos] not in _vowels | {'L', 'N', 'R'}:
-            word = word[:pos-1]+word[pos:]
+        if pos > 1 and word[pos - 1 : pos] not in _vowels | {'L', 'N', 'R'}:
+            word = word[: pos - 1] + word[pos:]
             pos -= 1
-        pos = word.find('K', pos+1)
+        pos = word.find('K', pos + 1)
 
     # Rule FL6
     if max_length > 0 and word[-1:] == 'E':
@@ -163,9 +202,9 @@ def dolby(word, max_length=-1, keep_vowels=False, vowel_char='*'):
         word = word[:-1]
     elif word[-2:] == 'GH':
         if word[-3:-2] in _vowels:
-            word = word[:-2]+'F'
+            word = word[:-2] + 'F'
         else:
-            word = word[:-2]+'G'
+            word = word[:-2] + 'G'
     word = word.replace('GH', '')
 
     # Rule FL9
@@ -193,7 +232,7 @@ def dolby(word, max_length=-1, keep_vowels=False, vowel_char='*'):
             code = code[:max_length]
         else:
             # Rule FL14
-            code = code[:max_length + 2]
+            code = code[: max_length + 2]
             # Rule FL15
             while len(code) > max_length:
                 vowels = len(code) - max_length
@@ -207,7 +246,7 @@ def dolby(word, max_length=-1, keep_vowels=False, vowel_char='*'):
                             vowels -= 1
                     else:
                         code += char
-                code = code[:max_length + excess]
+                code = code[: max_length + excess]
 
         # Rule FL16
         code += ' ' * (max_length - len(code))
@@ -217,4 +256,5 @@ def dolby(word, max_length=-1, keep_vowels=False, vowel_char='*'):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

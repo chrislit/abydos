@@ -73,8 +73,8 @@ class EditexTestCases(unittest.TestCase):
         self.assertEqual(sim_editex('', 'neilsen'), 0)
         self.assertEqual(sim_editex('ab', 'a'), 0.5)
         self.assertEqual(sim_editex('ab', 'c'), 0)
-        self.assertAlmostEqual(sim_editex('nelson', 'neilsen'), 12/14)
-        self.assertAlmostEqual(sim_editex('neilsen', 'nelson'), 12/14)
+        self.assertAlmostEqual(sim_editex('nelson', 'neilsen'), 12 / 14)
+        self.assertAlmostEqual(sim_editex('neilsen', 'nelson'), 12 / 14)
         self.assertEqual(sim_editex('niall', 'neal'), 0.9)
 
     def test_dist_editex(self):
@@ -84,8 +84,8 @@ class EditexTestCases(unittest.TestCase):
         self.assertEqual(dist_editex('', 'neilsen'), 1)
         self.assertEqual(dist_editex('ab', 'a'), 0.5)
         self.assertEqual(dist_editex('ab', 'c'), 1)
-        self.assertAlmostEqual(dist_editex('nelson', 'neilsen'), 2/14)
-        self.assertAlmostEqual(dist_editex('neilsen', 'nelson'), 2/14)
+        self.assertAlmostEqual(dist_editex('nelson', 'neilsen'), 2 / 14)
+        self.assertAlmostEqual(dist_editex('neilsen', 'nelson'), 2 / 14)
         self.assertEqual(dist_editex('niall', 'neal'), 0.1)
 
 

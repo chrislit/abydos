@@ -25,8 +25,13 @@ from __future__ import division, unicode_literals
 
 import unittest
 
-from abydos.distance.hamming import dist_hamming, dist_mlipns, hamming, \
-    sim_hamming, sim_mlipns
+from abydos.distance.hamming import (
+    dist_hamming,
+    dist_mlipns,
+    hamming,
+    sim_hamming,
+    sim_mlipns,
+)
 
 
 class HammingTestCases(unittest.TestCase):
@@ -69,19 +74,19 @@ class HammingTestCases(unittest.TestCase):
         self.assertEqual(dist_hamming('a', 'a', False), 0)
         self.assertEqual(dist_hamming('a', 'b'), 1)
         self.assertEqual(dist_hamming('a', 'b', False), 1)
-        self.assertAlmostEqual(dist_hamming('abc', 'cba'), 2/3)
-        self.assertAlmostEqual(dist_hamming('abc', 'cba', False), 2/3)
+        self.assertAlmostEqual(dist_hamming('abc', 'cba'), 2 / 3)
+        self.assertAlmostEqual(dist_hamming('abc', 'cba', False), 2 / 3)
         self.assertEqual(dist_hamming('abc', ''), 1)
-        self.assertAlmostEqual(dist_hamming('bb', 'cbab'), 3/4)
+        self.assertAlmostEqual(dist_hamming('bb', 'cbab'), 3 / 4)
 
         # test exception
         self.assertRaises(ValueError, dist_hamming, 'ab', 'a', False)
 
         # https://en.wikipedia.org/wiki/Hamming_distance
-        self.assertAlmostEqual(dist_hamming('karolin', 'kathrin'), 3/7)
-        self.assertAlmostEqual(dist_hamming('karolin', 'kerstin'), 3/7)
-        self.assertAlmostEqual(dist_hamming('1011101', '1001001'), 2/7)
-        self.assertAlmostEqual(dist_hamming('2173896', '2233796'), 3/7)
+        self.assertAlmostEqual(dist_hamming('karolin', 'kathrin'), 3 / 7)
+        self.assertAlmostEqual(dist_hamming('karolin', 'kerstin'), 3 / 7)
+        self.assertAlmostEqual(dist_hamming('1011101', '1001001'), 2 / 7)
+        self.assertAlmostEqual(dist_hamming('2173896', '2233796'), 3 / 7)
 
     def test_sim_hamming(self):
         """Test abydos.distance.sim_hamming."""
@@ -93,19 +98,19 @@ class HammingTestCases(unittest.TestCase):
         self.assertEqual(sim_hamming('a', 'a', False), 1)
         self.assertEqual(sim_hamming('a', 'b'), 0)
         self.assertEqual(sim_hamming('a', 'b', False), 0)
-        self.assertAlmostEqual(sim_hamming('abc', 'cba'), 1/3)
-        self.assertAlmostEqual(sim_hamming('abc', 'cba', False), 1/3)
+        self.assertAlmostEqual(sim_hamming('abc', 'cba'), 1 / 3)
+        self.assertAlmostEqual(sim_hamming('abc', 'cba', False), 1 / 3)
         self.assertEqual(sim_hamming('abc', ''), 0)
-        self.assertAlmostEqual(sim_hamming('bb', 'cbab'), 1/4)
+        self.assertAlmostEqual(sim_hamming('bb', 'cbab'), 1 / 4)
 
         # test exception
         self.assertRaises(ValueError, sim_hamming, 'ab', 'a', False)
 
         # https://en.wikipedia.org/wiki/Hamming_distance
-        self.assertAlmostEqual(sim_hamming('karolin', 'kathrin'), 4/7)
-        self.assertAlmostEqual(sim_hamming('karolin', 'kerstin'), 4/7)
-        self.assertAlmostEqual(sim_hamming('1011101', '1001001'), 5/7)
-        self.assertAlmostEqual(sim_hamming('2173896', '2233796'), 4/7)
+        self.assertAlmostEqual(sim_hamming('karolin', 'kathrin'), 4 / 7)
+        self.assertAlmostEqual(sim_hamming('karolin', 'kerstin'), 4 / 7)
+        self.assertAlmostEqual(sim_hamming('1011101', '1001001'), 5 / 7)
+        self.assertAlmostEqual(sim_hamming('2173896', '2233796'), 4 / 7)
 
 
 class MLIPNSTestCases(unittest.TestCase):

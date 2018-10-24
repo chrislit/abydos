@@ -68,8 +68,12 @@ class NGramCorpus(object):
         elif isinstance(corpus, Corpus):
             self.corpus_importer(corpus)
         else:
-            raise TypeError('Corpus argument must be None or of type ' +
-                            'abydos.Corpus. ' + str(type(corpus)) + ' found.')
+            raise TypeError(
+                'Corpus argument must be None or of type '
+                + 'abydos.Corpus. '
+                + str(type(corpus))
+                + ' found.'
+            )
 
     def corpus_importer(self, corpus, n_val=1, bos='_START_', eos='_END_'):
         r"""Fill in self.ngcorpus from a Corpus argument.
@@ -101,9 +105,11 @@ class NGramCorpus(object):
                     sent = [bos] + sent
                 if eos and eos != '':
                     sent += [eos]
-                for i in range(2, n_val+1):
-                    for j in range(len(sent)-i+1):
-                        self._add_to_ngcorpus(self.ngcorpus, sent[j:j+i], 1)
+                for i in range(2, n_val + 1):
+                    for j in range(len(sent) - i + 1):
+                        self._add_to_ngcorpus(
+                            self.ngcorpus, sent[j : j + i], 1
+                        )
 
     def get_count(self, ngram, corpus=None):
         r"""Get the count of an n-gram in the corpus.
@@ -180,8 +186,10 @@ class NGramCorpus(object):
         1.0
         """
         if ' ' in term:
-            raise ValueError('tf can only calculate the term frequency of' +
-                             'individual words')
+            raise ValueError(
+                'tf can only calculate the term frequency of'
+                + 'individual words'
+            )
         tcount = self.get_count(term)
         if tcount == 0:
             return 0.0
@@ -190,4 +198,5 @@ class NGramCorpus(object):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

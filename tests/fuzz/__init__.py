@@ -38,12 +38,14 @@ EXTREME_TEST = SUPER_EXTREME_TEST  # inherit setting from base tests
 EXTREME_TEST = False  # Set to True to test EVERY single case (NB: takes hours)
 
 
-if not EXTREME_TEST and os.path.isfile(os.path.join(os.path.dirname(__file__),
-                                                    'EXTREME_TEST')):
+if not EXTREME_TEST and os.path.isfile(
+    os.path.join(os.path.dirname(__file__), 'EXTREME_TEST')
+):
     # EXTREME_TEST file detected -- switching to EXTREME_TEST mode...
     EXTREME_TEST = True
-if not EXTREME_TEST and os.path.isfile(os.path.join(os.path.dirname(__file__),
-                                                    '..', 'EXTREME_TEST')):
+if not EXTREME_TEST and os.path.isfile(
+    os.path.join(os.path.dirname(__file__), '..', 'EXTREME_TEST')
+):
     # EXTREME_TEST file detected -- switching to EXTREME_TEST mode...
     EXTREME_TEST = True
 
@@ -58,7 +60,7 @@ def _corpus_file(name, corpora_dir=CORPORA):
     return _super_corpus_file(name, corpora_dir)
 
 
-def _random_char(below=0x10ffff, must_be=None):
+def _random_char(below=0x10FFFF, must_be=None):
     """Generate a random Unicode character below U+{below}."""
     while True:
         char = unichr(randint(0, below))  # noqa: S311
@@ -81,9 +83,9 @@ def _fuzz(word, fuzziness=0.2):
                 if random() > 0.5:  # noqa: S311
                     new_word.append(choice(printable))  # noqa: S311
                 elif random() > 0.8:  # noqa: S311
-                    new_word.append(unichr(randint(0, 0x10ffff)))  # noqa: S311
+                    new_word.append(unichr(randint(0, 0x10FFFF)))  # noqa: S311
                 else:
-                    new_word.append(unichr(randint(0, 0xffff)))  # noqa: S311
+                    new_word.append(unichr(randint(0, 0xFFFF)))  # noqa: S311
                 if random() > 0.5:  # noqa: S311
                     new_word.append(ch)
         new_word = ''.join(new_word)

@@ -60,18 +60,44 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
     6
     """
     match_cost, group_cost, mismatch_cost = cost
-    letter_groups = ({'A', 'E', 'I', 'O', 'U', 'Y'},
-                     {'B', 'P'},
-                     {'C', 'K', 'Q'},
-                     {'D', 'T'},
-                     {'L', 'R'},
-                     {'M', 'N'},
-                     {'G', 'J'},
-                     {'F', 'P', 'V'},
-                     {'S', 'X', 'Z'},
-                     {'C', 'S', 'Z'})
-    all_letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'I', 'J', 'K', 'L', 'M',
-                   'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'}
+    letter_groups = (
+        {'A', 'E', 'I', 'O', 'U', 'Y'},
+        {'B', 'P'},
+        {'C', 'K', 'Q'},
+        {'D', 'T'},
+        {'L', 'R'},
+        {'M', 'N'},
+        {'G', 'J'},
+        {'F', 'P', 'V'},
+        {'S', 'X', 'Z'},
+        {'C', 'S', 'Z'},
+    )
+    all_letters = {
+        'A',
+        'B',
+        'C',
+        'D',
+        'E',
+        'F',
+        'G',
+        'I',
+        'J',
+        'K',
+        'L',
+        'M',
+        'N',
+        'O',
+        'P',
+        'Q',
+        'R',
+        'S',
+        'T',
+        'U',
+        'V',
+        'X',
+        'Y',
+        'Z',
+    }
 
     def r_cost(ch1, ch2):
         """Return r(a,b) according to Zobel & Dart's definition."""
@@ -103,23 +129,25 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
     if not tar:
         return len(src) * mismatch_cost
 
-    d_mat = np_zeros((len(src)+1, len(tar)+1), dtype=np_int)
+    d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
     lens = len(src)
     lent = len(tar)
-    src = ' '+src
-    tar = ' '+tar
+    src = ' ' + src
+    tar = ' ' + tar
 
     if not local:
-        for i in range(1, lens+1):
-            d_mat[i, 0] = d_mat[i-1, 0] + d_cost(src[i-1], src[i])
-    for j in range(1, lent+1):
-        d_mat[0, j] = d_mat[0, j-1] + d_cost(tar[j-1], tar[j])
+        for i in range(1, lens + 1):
+            d_mat[i, 0] = d_mat[i - 1, 0] + d_cost(src[i - 1], src[i])
+    for j in range(1, lent + 1):
+        d_mat[0, j] = d_mat[0, j - 1] + d_cost(tar[j - 1], tar[j])
 
-    for i in range(1, lens+1):
-        for j in range(1, lent+1):
-            d_mat[i, j] = min(d_mat[i-1, j] + d_cost(src[i-1], src[i]),
-                              d_mat[i, j-1] + d_cost(tar[j-1], tar[j]),
-                              d_mat[i-1, j-1] + r_cost(src[i], tar[j]))
+    for i in range(1, lens + 1):
+        for j in range(1, lent + 1):
+            d_mat[i, j] = min(
+                d_mat[i - 1, j] + d_cost(src[i - 1], src[i]),
+                d_mat[i, j - 1] + d_cost(tar[j - 1], tar[j]),
+                d_mat[i - 1, j - 1] + r_cost(src[i], tar[j]),
+            )
 
     return d_mat[lens, lent]
 
@@ -155,8 +183,9 @@ def dist_editex(src, tar, cost=(0, 1, 2), local=False):
     if src == tar:
         return 0
     mismatch_cost = cost[2]
-    return (editex(src, tar, cost, local) /
-            (max(len(src)*mismatch_cost, len(tar)*mismatch_cost)))
+    return editex(src, tar, cost, local) / (
+        max(len(src) * mismatch_cost, len(tar) * mismatch_cost)
+    )
 
 
 def sim_editex(src, tar, cost=(0, 1, 2), local=False):
@@ -188,4 +217,5 @@ def sim_editex(src, tar, cost=(0, 1, 2), local=False):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

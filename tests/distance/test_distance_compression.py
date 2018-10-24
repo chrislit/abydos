@@ -26,9 +26,20 @@ from __future__ import division, unicode_literals
 import unittest
 
 from abydos.compression import arithmetic
-from abydos.distance.compression import dist_ncd_arith, dist_ncd_bwtrle, \
-    dist_ncd_bz2, dist_ncd_lzma, dist_ncd_rle, dist_ncd_zlib, sim_ncd_arith, \
-    sim_ncd_bwtrle, sim_ncd_bz2, sim_ncd_lzma, sim_ncd_rle, sim_ncd_zlib
+from abydos.distance.compression import (
+    dist_ncd_arith,
+    dist_ncd_bwtrle,
+    dist_ncd_bz2,
+    dist_ncd_lzma,
+    dist_ncd_rle,
+    dist_ncd_zlib,
+    sim_ncd_arith,
+    sim_ncd_bwtrle,
+    sim_ncd_bz2,
+    sim_ncd_lzma,
+    sim_ncd_rle,
+    sim_ncd_zlib,
+)
 
 from .. import NIALL
 
@@ -71,22 +82,22 @@ class CompressionTestCases(unittest.TestCase):
         self.assertGreater(dist_ncd_arith('a', '', self.arith_dict), 0)
         self.assertGreater(dist_ncd_arith('abcdefg', 'fg'), 0)
 
-        self.assertAlmostEqual(dist_ncd_arith('Niall', 'Neil',
-                                              self.arith_dict),
-                               0.608695652173913)
-        self.assertAlmostEqual(dist_ncd_arith('Neil', 'Niall',
-                                              self.arith_dict),
-                               0.608695652173913)
-        self.assertAlmostEqual(dist_ncd_arith('Niall', 'Neil'),
-                               0.6875)
-        self.assertAlmostEqual(dist_ncd_arith('Neil', 'Niall'),
-                               0.6875)
-        self.assertAlmostEqual(dist_ncd_arith('Njáll', 'Njall',
-                                              self.arith_dict),
-                               0.714285714285714)
-        self.assertAlmostEqual(dist_ncd_arith('Njall', 'Njáll',
-                                              self.arith_dict),
-                               0.714285714285714)
+        self.assertAlmostEqual(
+            dist_ncd_arith('Niall', 'Neil', self.arith_dict), 0.608695652173913
+        )
+        self.assertAlmostEqual(
+            dist_ncd_arith('Neil', 'Niall', self.arith_dict), 0.608695652173913
+        )
+        self.assertAlmostEqual(dist_ncd_arith('Niall', 'Neil'), 0.6875)
+        self.assertAlmostEqual(dist_ncd_arith('Neil', 'Niall'), 0.6875)
+        self.assertAlmostEqual(
+            dist_ncd_arith('Njáll', 'Njall', self.arith_dict),
+            0.714285714285714,
+        )
+        self.assertAlmostEqual(
+            dist_ncd_arith('Njall', 'Njáll', self.arith_dict),
+            0.714285714285714,
+        )
         self.assertAlmostEqual(dist_ncd_arith('Njáll', 'Njall'), 0.75)
         self.assertAlmostEqual(dist_ncd_arith('Njall', 'Njáll'), 0.75)
 
@@ -99,8 +110,9 @@ class CompressionTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_ncd_bwtrle('abc', 'abc'), 0)
         self.assertAlmostEqual(dist_ncd_bwtrle('abc', 'def'), 0.75)
 
-        self.assertAlmostEqual(dist_ncd_bwtrle('banana', 'banane'),
-                               0.57142857142)
+        self.assertAlmostEqual(
+            dist_ncd_bwtrle('banana', 'banane'), 0.57142857142
+        )
         self.assertAlmostEqual(dist_ncd_bwtrle('bananas', 'bananen'), 0.5)
 
     def test_dist_ncd_rle(self):
@@ -113,7 +125,7 @@ class CompressionTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_ncd_rle('abc', 'def'), 1)
 
         self.assertAlmostEqual(dist_ncd_rle('aaa', 'bbaaa'), 0.5)
-        self.assertAlmostEqual(dist_ncd_rle('abb', 'bbba'), 1/3)
+        self.assertAlmostEqual(dist_ncd_rle('abb', 'bbba'), 1 / 3)
 
     def test_sim_ncd_bz2(self):
         """Test abydos.distance.compression.sim_ncd_bz2."""
@@ -135,18 +147,20 @@ class CompressionTestCases(unittest.TestCase):
         self.assertLess(sim_ncd_arith('a', '', self.arith_dict), 1)
         self.assertLess(sim_ncd_arith('abcdefg', 'fg'), 1)
 
-        self.assertAlmostEqual(sim_ncd_arith('Niall', 'Neil', self.arith_dict),
-                               0.3913043478260869)
-        self.assertAlmostEqual(sim_ncd_arith('Neil', 'Niall', self.arith_dict),
-                               0.3913043478260869)
+        self.assertAlmostEqual(
+            sim_ncd_arith('Niall', 'Neil', self.arith_dict), 0.3913043478260869
+        )
+        self.assertAlmostEqual(
+            sim_ncd_arith('Neil', 'Niall', self.arith_dict), 0.3913043478260869
+        )
         self.assertAlmostEqual(sim_ncd_arith('Niall', 'Neil'), 0.3125)
         self.assertAlmostEqual(sim_ncd_arith('Neil', 'Niall'), 0.3125)
-        self.assertAlmostEqual(sim_ncd_arith('Njáll', 'Njall',
-                                             self.arith_dict),
-                               0.285714285714285)
-        self.assertAlmostEqual(sim_ncd_arith('Njall', 'Njáll',
-                                             self.arith_dict),
-                               0.285714285714285)
+        self.assertAlmostEqual(
+            sim_ncd_arith('Njáll', 'Njall', self.arith_dict), 0.285714285714285
+        )
+        self.assertAlmostEqual(
+            sim_ncd_arith('Njall', 'Njáll', self.arith_dict), 0.285714285714285
+        )
         self.assertAlmostEqual(sim_ncd_arith('Njáll', 'Njall'), 0.25)
         self.assertAlmostEqual(sim_ncd_arith('Njall', 'Njáll'), 0.25)
 
@@ -160,7 +174,7 @@ class CompressionTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_ncd_rle('abc', 'def'), 0)
 
         self.assertAlmostEqual(sim_ncd_rle('aaa', 'bbaaa'), 0.5)
-        self.assertAlmostEqual(sim_ncd_rle('abb', 'bbba'), 2/3)
+        self.assertAlmostEqual(sim_ncd_rle('abb', 'bbba'), 2 / 3)
 
     def test_sim_ncd_bwtrle(self):
         """Test abydos.distance.sim_ncd_bwtrle."""
@@ -171,8 +185,9 @@ class CompressionTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_ncd_bwtrle('abc', 'abc'), 1)
         self.assertAlmostEqual(sim_ncd_bwtrle('abc', 'def'), 0.25)
 
-        self.assertAlmostEqual(sim_ncd_bwtrle('banana', 'banane'),
-                               0.42857142857)
+        self.assertAlmostEqual(
+            sim_ncd_bwtrle('banana', 'banane'), 0.42857142857
+        )
         self.assertAlmostEqual(sim_ncd_bwtrle('bananas', 'bananen'), 0.5)
 
     def test_sim_ncd_lzma(self):

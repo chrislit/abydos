@@ -23,8 +23,13 @@ The distance.hamming module implements Hamming and related distance functions.
 
 from __future__ import division, unicode_literals
 
-__all__ = ['dist_hamming', 'dist_mlipns', 'hamming', 'sim_hamming',
-           'sim_mlipns']
+__all__ = [
+    'dist_hamming',
+    'dist_mlipns',
+    'hamming',
+    'sim_hamming',
+    'sim_mlipns',
+]
 
 
 def hamming(src, tar, diff_lens=True):
@@ -58,13 +63,15 @@ def hamming(src, tar, diff_lens=True):
     4
     """
     if not diff_lens and len(src) != len(tar):
-        raise ValueError('Undefined for sequences of unequal length; set ' +
-                         'diff_lens to True for Hamming distance between ' +
-                         'strings of unequal lengths.')
+        raise ValueError(
+            'Undefined for sequences of unequal length; set '
+            + 'diff_lens to True for Hamming distance between '
+            + 'strings of unequal lengths.'
+        )
 
     hdist = 0
     if diff_lens:
-        hdist += abs(len(src)-len(tar))
+        hdist += abs(len(src) - len(tar))
     hdist += sum(c1 != c2 for c1, c2 in zip(src, tar))
 
     return hdist
@@ -182,7 +189,10 @@ def sim_mlipns(src, tar, threshold=0.25, max_mismatches=2):
     ham = hamming(src, tar, diff_lens=True)
     max_length = max(len(src), len(tar))
     while src and tar and mismatches <= max_mismatches:
-        if max_length < 1 or (1-(max_length-ham)/max_length) <= threshold:
+        if (
+            max_length < 1
+            or (1 - (max_length - ham) / max_length) <= threshold
+        ):
             return 1.0
         else:
             mismatches += 1
@@ -226,4 +236,5 @@ def dist_mlipns(src, tar, threshold=0.25, max_mismatches=2):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

@@ -62,17 +62,46 @@ def statistics_canada(word, max_length=4):
     # uppercase, normalize, decompose, and filter non-A-Z out
     word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
-    word = ''.join(c for c in word if c in
-                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-                    'Y', 'Z'})
+    word = ''.join(
+        c
+        for c in word
+        if c
+        in {
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J',
+            'K',
+            'L',
+            'M',
+            'N',
+            'O',
+            'P',
+            'Q',
+            'R',
+            'S',
+            'T',
+            'U',
+            'V',
+            'W',
+            'X',
+            'Y',
+            'Z',
+        }
+    )
     if not word:
         return ''
 
     code = word[1:]
     for vowel in {'A', 'E', 'I', 'O', 'U', 'Y'}:
         code = code.replace(vowel, '')
-    code = word[0]+code
+    code = word[0] + code
     code = _delete_consecutive_repeats(code)
     code = code.replace(' ', '')
 
@@ -81,4 +110,5 @@ def statistics_canada(word, max_length=4):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

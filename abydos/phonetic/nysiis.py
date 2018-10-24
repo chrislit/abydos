@@ -83,40 +83,43 @@ def nysiis(word, max_length=6, modified=False):
     original_first_char = word[0]
 
     if word[:3] == 'MAC':
-        word = 'MCC'+word[3:]
+        word = 'MCC' + word[3:]
     elif word[:2] == 'KN':
-        word = 'NN'+word[2:]
+        word = 'NN' + word[2:]
     elif word[:1] == 'K':
-        word = 'C'+word[1:]
+        word = 'C' + word[1:]
     elif word[:2] in {'PH', 'PF'}:
-        word = 'FF'+word[2:]
+        word = 'FF' + word[2:]
     elif word[:3] == 'SCH':
-        word = 'SSS'+word[3:]
+        word = 'SSS' + word[3:]
     elif modified:
         if word[:2] == 'WR':
-            word = 'RR'+word[2:]
+            word = 'RR' + word[2:]
         elif word[:2] == 'RH':
-            word = 'RR'+word[2:]
+            word = 'RR' + word[2:]
         elif word[:2] == 'DG':
-            word = 'GG'+word[2:]
+            word = 'GG' + word[2:]
         elif word[:1] in _vowels:
-            word = 'A'+word[1:]
+            word = 'A' + word[1:]
 
     if modified and word[-1:] in {'S', 'Z'}:
         word = word[:-1]
 
-    if word[-2:] == 'EE' or word[-2:] == 'IE' or (modified and
-                                                  word[-2:] == 'YE'):
-        word = word[:-2]+'Y'
+    if (
+        word[-2:] == 'EE'
+        or word[-2:] == 'IE'
+        or (modified and word[-2:] == 'YE')
+    ):
+        word = word[:-2] + 'Y'
     elif word[-2:] in {'DT', 'RT', 'RD'}:
-        word = word[:-2]+'D'
+        word = word[:-2] + 'D'
     elif word[-2:] in {'NT', 'ND'}:
-        word = word[:-2]+('N' if modified else 'D')
+        word = word[:-2] + ('N' if modified else 'D')
     elif modified:
         if word[-2:] == 'IX':
-            word = word[:-2]+'ICK'
+            word = word[:-2] + 'ICK'
         elif word[-2:] == 'EX':
-            word = word[:-2]+'ECK'
+            word = word[:-2] + 'ECK'
         elif word[-2:] in {'JR', 'SR'}:
             return 'ERROR'
 
@@ -129,55 +132,56 @@ def nysiis(word, max_length=6, modified=False):
         elif skip:
             skip -= 1
             continue
-        elif word[i:i+2] == 'EV':
-            word = word[:i] + 'AF' + word[i+2:]
+        elif word[i : i + 2] == 'EV':
+            word = word[:i] + 'AF' + word[i + 2 :]
             skip = 1
         elif word[i] in _vowels:
-            word = word[:i] + 'A' + word[i+1:]
-        elif modified and i != len(word)-1 and word[i] == 'Y':
-            word = word[:i] + 'A' + word[i+1:]
+            word = word[:i] + 'A' + word[i + 1 :]
+        elif modified and i != len(word) - 1 and word[i] == 'Y':
+            word = word[:i] + 'A' + word[i + 1 :]
         elif word[i] == 'Q':
-            word = word[:i] + 'G' + word[i+1:]
+            word = word[:i] + 'G' + word[i + 1 :]
         elif word[i] == 'Z':
-            word = word[:i] + 'S' + word[i+1:]
+            word = word[:i] + 'S' + word[i + 1 :]
         elif word[i] == 'M':
-            word = word[:i] + 'N' + word[i+1:]
-        elif word[i:i+2] == 'KN':
-            word = word[:i] + 'N' + word[i+2:]
+            word = word[:i] + 'N' + word[i + 1 :]
+        elif word[i : i + 2] == 'KN':
+            word = word[:i] + 'N' + word[i + 2 :]
         elif word[i] == 'K':
-            word = word[:i] + 'C' + word[i+1:]
-        elif modified and i == len(word)-3 and word[i:i+3] == 'SCH':
+            word = word[:i] + 'C' + word[i + 1 :]
+        elif modified and i == len(word) - 3 and word[i : i + 3] == 'SCH':
             word = word[:i] + 'SSA'
             skip = 2
-        elif word[i:i+3] == 'SCH':
-            word = word[:i] + 'SSS' + word[i+3:]
+        elif word[i : i + 3] == 'SCH':
+            word = word[:i] + 'SSS' + word[i + 3 :]
             skip = 2
-        elif modified and i == len(word)-2 and word[i:i+2] == 'SH':
+        elif modified and i == len(word) - 2 and word[i : i + 2] == 'SH':
             word = word[:i] + 'SA'
             skip = 1
-        elif word[i:i+2] == 'SH':
-            word = word[:i] + 'SS' + word[i+2:]
+        elif word[i : i + 2] == 'SH':
+            word = word[:i] + 'SS' + word[i + 2 :]
             skip = 1
-        elif word[i:i+2] == 'PH':
-            word = word[:i] + 'FF' + word[i+2:]
+        elif word[i : i + 2] == 'PH':
+            word = word[:i] + 'FF' + word[i + 2 :]
             skip = 1
-        elif modified and word[i:i+3] == 'GHT':
-            word = word[:i] + 'TTT' + word[i+3:]
+        elif modified and word[i : i + 3] == 'GHT':
+            word = word[:i] + 'TTT' + word[i + 3 :]
             skip = 2
-        elif modified and word[i:i+2] == 'DG':
-            word = word[:i] + 'GG' + word[i+2:]
+        elif modified and word[i : i + 2] == 'DG':
+            word = word[:i] + 'GG' + word[i + 2 :]
             skip = 1
-        elif modified and word[i:i+2] == 'WR':
-            word = word[:i] + 'RR' + word[i+2:]
+        elif modified and word[i : i + 2] == 'WR':
+            word = word[:i] + 'RR' + word[i + 2 :]
             skip = 1
-        elif word[i] == 'H' and (word[i-1] not in _vowels or
-                                 word[i+1:i+2] not in _vowels):
-            word = word[:i] + word[i-1] + word[i+1:]
-        elif word[i] == 'W' and word[i-1] in _vowels:
-            word = word[:i] + word[i-1] + word[i+1:]
+        elif word[i] == 'H' and (
+            word[i - 1] not in _vowels or word[i + 1 : i + 2] not in _vowels
+        ):
+            word = word[:i] + word[i - 1] + word[i + 1 :]
+        elif word[i] == 'W' and word[i - 1] in _vowels:
+            word = word[:i] + word[i - 1] + word[i + 1 :]
 
-        if word[i:i+skip+1] != key[-1:]:
-            key += word[i:i+skip+1]
+        if word[i : i + skip + 1] != key[-1:]:
+            key += word[i : i + skip + 1]
 
     key = _delete_consecutive_repeats(key)
 
@@ -198,4 +202,5 @@ def nysiis(word, max_length=6, modified=False):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

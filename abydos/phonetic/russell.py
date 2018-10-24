@@ -29,8 +29,11 @@ from six import text_type
 
 from . import _delete_consecutive_repeats
 
-__all__ = ['russell_index', 'russell_index_alpha',
-           'russell_index_num_to_alpha']
+__all__ = [
+    'russell_index',
+    'russell_index_alpha',
+    'russell_index_num_to_alpha',
+]
 
 
 def russell_index(word):
@@ -52,9 +55,12 @@ def russell_index(word):
     >>> russell_index('Schmidt')
     3614
     """
-    _russell_translation = dict(zip((ord(_) for _ in
-                                     'ABCDEFGIKLMNOPQRSTUVXYZ'),
-                                    '12341231356712383412313'))
+    _russell_translation = dict(
+        zip(
+            (ord(_) for _ in 'ABCDEFGIKLMNOPQRSTUVXYZ'),
+            '12341231356712383412313',
+        )
+    )
 
     word = unicode_normalize('NFKD', text_type(word.upper()))
     word = word.replace('ß', 'SS')
@@ -62,13 +68,40 @@ def russell_index(word):
     word = word.rstrip('SZ')  # discard /[sz]$/ (rule 3)
 
     # translate according to Russell's mapping
-    word = ''.join(c for c in word if c in
-                   {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'I', 'K', 'L', 'M', 'N',
-                    'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'})
+    word = ''.join(
+        c
+        for c in word
+        if c
+        in {
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'I',
+            'K',
+            'L',
+            'M',
+            'N',
+            'O',
+            'P',
+            'Q',
+            'R',
+            'S',
+            'T',
+            'U',
+            'V',
+            'X',
+            'Y',
+            'Z',
+        }
+    )
     sdx = word.translate(_russell_translation)
 
     # remove any 1s after the first occurrence
-    one = sdx.find('1')+1
+    one = sdx.find('1') + 1
     if one:
         sdx = sdx[:one] + ''.join(c for c in sdx[one:] if c != '1')
 
@@ -96,10 +129,14 @@ def russell_index_num_to_alpha(num):
     >>> russell_index_num_to_alpha(3614)
     'CMAD'
     """
-    _russell_num_translation = dict(zip((ord(_) for _ in '12345678'),
-                                        'ABCDLMNR'))
-    num = ''.join(c for c in text_type(num) if c in {'1', '2', '3', '4', '5',
-                                                     '6', '7', '8'})
+    _russell_num_translation = dict(
+        zip((ord(_) for _ in '12345678'), 'ABCDLMNR')
+    )
+    num = ''.join(
+        c
+        for c in text_type(num)
+        if c in {'1', '2', '3', '4', '5', '6', '7', '8'}
+    )
     if num:
         return num.translate(_russell_num_translation)
     return ''
@@ -131,4 +168,5 @@ def russell_index_alpha(word):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

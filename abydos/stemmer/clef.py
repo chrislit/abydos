@@ -58,7 +58,7 @@ def clef_german(word):
     word = word.translate(_umlauts)
 
     # remove plurals
-    wlen = len(word)-1
+    wlen = len(word) - 1
 
     if wlen > 3:
         if wlen > 5:
@@ -94,26 +94,30 @@ def clef_german_plus(word):
     word = normalize('NFC', text_type(word.lower()))
 
     # remove umlauts
-    _accents = dict(zip((ord(_) for _ in 'äàáâöòóôïìíîüùúû'),
-                        'aaaaooooiiiiuuuu'))
+    _accents = dict(
+        zip((ord(_) for _ in 'äàáâöòóôïìíîüùúû'), 'aaaaooooiiiiuuuu')
+    )
     word = word.translate(_accents)
 
     # Step 1
-    wlen = len(word)-1
+    wlen = len(word) - 1
     if wlen > 4 and word[-3:] == 'ern':
         word = word[:-3]
     elif wlen > 3 and word[-2:] in {'em', 'en', 'er', 'es'}:
         word = word[:-2]
-    elif wlen > 2 and (word[-1] == 'e' or
-                       (word[-1] == 's' and word[-2] in _st_ending)):
+    elif wlen > 2 and (
+        word[-1] == 'e' or (word[-1] == 's' and word[-2] in _st_ending)
+    ):
         word = word[:-1]
 
     # Step 2
-    wlen = len(word)-1
+    wlen = len(word) - 1
     if wlen > 4 and word[-3:] == 'est':
         word = word[:-3]
-    elif wlen > 3 and (word[-2:] in {'er', 'en'} or
-                       (word[-2:] == 'st' and word[-3] in _st_ending)):
+    elif wlen > 3 and (
+        word[-2:] in {'er', 'en'}
+        or (word[-2:] == 'st' and word[-3] in _st_ending)
+    ):
         word = word[:-2]
 
     return word
@@ -135,7 +139,7 @@ def clef_swedish(word):
     >>> clef_swedish('visshet')
     'viss'
     """
-    wlen = len(word)-1
+    wlen = len(word) - 1
 
     if wlen > 3 and word[-1] == 's':
         word = word[:-1]
@@ -145,8 +149,15 @@ def clef_swedish(word):
         if word[-5:] in {'elser', 'heten'}:
             return word[:-5]
     if wlen > 5:
-        if word[-4:] in {'arne', 'erna', 'ande', 'else', 'aste', 'orna',
-                         'aren'}:
+        if word[-4:] in {
+            'arne',
+            'erna',
+            'ande',
+            'else',
+            'aste',
+            'orna',
+            'aren',
+        }:
             return word[:-4]
     if wlen > 4:
         if word[-3:] in {'are', 'ast', 'het'}:
@@ -162,4 +173,5 @@ def clef_swedish(word):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()
