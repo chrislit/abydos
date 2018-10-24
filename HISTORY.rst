@@ -1,10 +1,12 @@
 Release History
 ---------------
 
-0.3.5 (2018-10-20)
+0.3.5 (2018-10-25)
 ++++++++++++++++++
 
 - Refactored library and tests into smaller modules
+- Broke compression distances (NCD)  out into separate functions
+- Adopted Black code style
 - Minor bug fixes
 
 0.3.0 (2018-10-15)
