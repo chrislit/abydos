@@ -80,6 +80,7 @@ def phonet(word, mode=1, lang='de'):
     'SCHMIDT'
     """
     _phonet_rules_no_lang = (  # separator chars
+        # fmt: off
         '´', ' ', ' ',
         '"', ' ', ' ',
         '`$', '', '',
@@ -134,9 +135,13 @@ def phonet(word, mode=1, lang='de'):
         'O´^', 'O', 'O',
         'O\'^', 'O', 'O',
         'VAN DEN ^', 'VANDEN', 'VANDEN',
-        None, None, None)
+        None, None, None
+        # fmt: on
+    )
+
 
     _phonet_rules_german = (  # separator chars
+        # fmt: off
         '´', ' ', ' ',
         '"', ' ', ' ',
         '`$', '', '',
@@ -1079,7 +1084,9 @@ def phonet(word, mode=1, lang='de'):
         'ZY9^', 'ZÜ', None,
         'ZYK3$', 'ZIK', None,
         'Z(VW)7^', 'SW', None,
-        None, None, None)
+        None, None, None
+        # fmt: on
+    )
 
     phonet_hash = Counter()
     alpha_pos = Counter()
