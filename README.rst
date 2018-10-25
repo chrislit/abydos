@@ -4,8 +4,7 @@ Abydos
 +------------------+------------------------------------------------------+
 | CI & Test Status | |travis| |circle| |appveyor| |semaphore| |coveralls| |
 +------------------+------------------------------------------------------+
-| Code Quality     | |codeclimate| |scrutinizer|                          |
-|                  | |codacy| |codefactor| |ebert|                        |
+| Code Quality     | |codeclimate| |scrutinizer| |codacy| |codefactor|    |
 +------------------+------------------------------------------------------+
 | Dependencies     | |requires| |snyk| |pyup| |fossa|                     |
 +------------------+------------------------------------------------------+
@@ -55,10 +54,6 @@ Abydos
 .. |codefactor| image:: https://www.codefactor.io/repository/github/chrislit/abydos/badge
     :target: https://www.codefactor.io/repository/github/chrislit/abydos
     :alt: CodeFactor
-
-.. |ebert| image:: https://ebertapp.io/github/chrislit/abydos.svg
-    :target: https://ebertapp.io/github/chrislit/abydos
-    :alt: Ebert
 
 .. |requires| image:: https://requires.io/github/chrislit/abydos/requirements.svg?branch=master
     :target: https://requires.io/github/chrislit/abydos/requirements/?branch=master
