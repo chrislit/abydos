@@ -20,6 +20,7 @@
 
 Abydos NLP/IR library by Christopher C. Little
 """
+__version__ = '0.3.5'
 
 __all__ = [
     'compression',
