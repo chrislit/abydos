@@ -32,7 +32,10 @@ keywords = [
     "string distance",
 ]
 include = [
-    "*.rst",
+    "AUTHORS.rst",
+    "CODE_OF_CONDUCT.rst",
+    "CODING_STANDARDS.rst",
+    "HISTORY.rst",
     "abydos.png"
 ]
 classifiers = [
