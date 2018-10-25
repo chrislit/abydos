@@ -24,6 +24,8 @@ setuptools configuration file for Abydos
 from codecs import open
 from os import path
 
+from abydos import __version__
+
 from setuptools import find_packages, setup
 
 HERE = path.abspath(path.dirname(__file__))
@@ -39,7 +41,7 @@ if __name__ == '__main__':
     setup(
         name='abydos',
         packages=find_packages(exclude=['tests*']),
-        version='0.3.5',
+        version=__version__,
         description='Abydos NLP/IR library',
         author='Christopher C. Little',
         author_email='chrisclittle+abydos@gmail.com',
