@@ -35,49 +35,53 @@ def readfile(fn):
         return f.read()
 
 
-setup(
-    name='abydos',
-    packages=find_packages(exclude=['tests*']),
-    version='0.3.5',
-    description='Abydos NLP/IR library',
-    author='Christopher C. Little',
-    author_email='chrisclittle+abydos@gmail.com',
-    url='https://github.com/chrislit/abydos',
-    download_url='https://github.com/chrislit/abydos/archive/master.zip',
-    keywords=[
-        'nlp',
-        'ai',
-        'ir',
-        'language',
-        'linguistics',
-        'phonetic algorithms',
-        'string distance',
-    ],
-    license='GPLv3+',
-    classifiers=[
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Development Status :: 4 - Beta',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: GNU General Public License v3 or later \
-(GPLv3+)',
-        'Operating System :: OS Independent',
-        'Topic :: Scientific/Engineering :: Artificial Intelligence',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-        'Topic :: Text Processing :: Indexing',
-        'Topic :: Text Processing :: Linguistic',
-        'Natural Language :: English',
-    ],
-    long_description='\n\n'.join(
-        [readfile(f) for f in ('README.rst', 'HISTORY.rst', 'AUTHORS.rst')]
-    ),
-    install_requires=['numpy', 'six'],
-    # extras_require = {'LZMA': ['pyliblzma']},
-)
+if __name__ == "__main__":
+    setup(
+        name='abydos',
+        packages=find_packages(exclude=['tests*']),
+        version='0.3.5',
+        description='Abydos NLP/IR library',
+        author='Christopher C. Little',
+        author_email='chrisclittle+abydos@gmail.com',
+        url='https://github.com/chrislit/abydos',
+        download_url='https://github.com/chrislit/abydos/archive/master.zip',
+        keywords=[
+            'nlp',
+            'ai',
+            'ir',
+            'language',
+            'linguistics',
+            'phonetic algorithms',
+            'string distance',
+        ],
+        license='GPLv3+',
+        classifiers=[
+            'Programming Language :: Python',
+            'Programming Language :: Python :: 2',
+            'Programming Language :: Python :: 2.7',
+            'Programming Language :: Python :: 3',
+            'Programming Language :: Python :: 3.3',
+            'Programming Language :: Python :: 3.4',
+            'Programming Language :: Python :: 3.5',
+            'Programming Language :: Python :: 3.6',
+            'Programming Language :: Python :: 3.7',
+            'Development Status :: 4 - Beta',
+            'Intended Audience :: Developers',
+            'License :: OSI Approved :: GNU General Public License v3 or \
+            later (GPLv3+)',
+            'Operating System :: OS Independent',
+            'Topic :: Scientific/Engineering :: Artificial Intelligence',
+            'Topic :: Software Development :: Libraries :: Python Modules',
+            'Topic :: Text Processing :: Indexing',
+            'Topic :: Text Processing :: Linguistic',
+            'Natural Language :: English',
+        ],
+        long_description='\n\n'.join(
+            [readfile(f) for f in ('README.rst', 'HISTORY.rst', 'AUTHORS.rst')]
+        ),
+        install_requires=['numpy', 'six'],
+        extras_require=
+        {':python_version >= "2.7" and python_version < "2.8"':
+             ['pyliblzma>=0.5.3,<0.6.0']},
+        python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*',
+    )
