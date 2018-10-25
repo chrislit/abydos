@@ -27,8 +27,6 @@ import unittest
 
 from abydos.distance.eudex import dist_eudex, eudex_hamming, sim_eudex
 
-from six.moves import range
-
 
 class EudexTestCases(unittest.TestCase):
     """Test Eudex distance functions.
