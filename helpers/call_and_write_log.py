@@ -20,11 +20,15 @@
 """call_and_write_log.py.
 
 This helper script takes one argument, a call to pylint, pycodestyle,
-or flake8. It captures stdout and writes it to a log file.
+flake8, or doc8. It captures stdout and writes it to a log file.
 
 The reason for this script to exist is as a workaround for tox
 not supporting writing to files, even though I want it to do that
 to maintain logs & create badges.
+
+Although this isn't a terribly secure script, it's only used in development and
+not included as part of the distributed Abydos package itself. Accordingly,
+I'm suppressing security warnings from flake8.
 """
 import sys
 from subprocess import call  # noqa: S404
@@ -42,5 +46,5 @@ if len(sys.argv) > 1:
     if args[0] not in {'pylint', 'pycodestyle', 'flake8', 'doc8'}:
         sys.exit(const_ret if const_ret is not None else retval)
     with open(args[0] + '.log', 'w') as output:
-        retval = call(args, stdout=output, shell=False)
+        retval = call(args, stdout=output, shell=False)  # noqa: S603
     sys.exit(const_ret if const_ret is not None else retval)

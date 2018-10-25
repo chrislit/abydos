@@ -35,7 +35,7 @@ def readfile(fn):
         return f.read()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     setup(
         name='abydos',
         packages=find_packages(exclude=['tests*']),
