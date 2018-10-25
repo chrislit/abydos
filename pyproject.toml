@@ -11,3 +11,91 @@ exclude = '''
   | dist
 )/
 '''
+
+[tool.poetry]
+name = "abydos"
+version = "0.3.5"
+description = "Abydos NLP/IR library"
+license = "GPL-3.0+"
+authors = [
+    "Christopher C. Little <chrisclittle+abydos@gmail.com>"
+]
+readme = "README.rst"
+homepage = "https://github.com/chrislit/abydos"
+repository = "https://github.com/chrislit/abydos"
+documentation = "https://abydos.readthedocs.io/"
+keywords = [
+    "nlp",
+    "ir",
+    "linguistics",
+    "phonetic algorithms",
+    "string distance",
+]
+include = [
+    "*.rst",
+    "abydos.png"
+]
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 2",
+    "Programming Language :: Python :: 2.7",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.3",
+    "Programming Language :: Python :: 3.4",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing :: Indexing",
+    "Topic :: Text Processing :: Linguistic",
+    "Natural Language :: English",
+]
+
+[tool.poetry.dependencies]
+python = "~2.7 || >=3.3"
+
+numpy = "^1.9"
+six = "^1.7"
+
+pyliblzma = { version = "^0.5.3", python = "~2.7" }
+
+#[tool.xx.poetry.dev-dependencies]
+#python = ">= 3.6"
+#
+#tox = "*"
+#black = "*"
+#nose = "*"
+#coverage = "*"
+#flake8 = "*"
+#flake8-mutable = "*"
+#flake8-bandit = "*"
+#flake8-blind-except = "*"
+#flake8-bugbear = "*"
+#flake8-comprehensions = "*"
+#flake8-docstrings = "*"
+#pydocstyle = "*"
+#flake8-print = "*"
+#flake8-todo = "*"
+#flake8_builtins = "*"
+#flake8_coding = "*"
+#flake8_copyright = "*"
+#flake8_deprecated = "*"
+#flake8_pep3101 = "*"
+#flake8_quotes = "*"
+#flake8_self = "*"
+#flake8-import-order = "*"
+#flake8-mypy = "*"
+#mccabe = "*"
+#pep8-naming = "*"
+#pyflakes = "*"
+#flake8-html = "*"
+#radon = "*"
+#doc8 = "*"
+#sphinx = "*"
+#sphinxcontrib-bibtex = "*"
+#sphinx_rtd_theme = "*"
