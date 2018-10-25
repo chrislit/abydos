@@ -8,6 +8,8 @@ Release History
 - Broke compression distances (NCD)  out into separate functions
 - Adopted Black code style
 - Minor bug fixes
+- Added pyproject.toml to use Poetry for packaging (but will continue using
+  setuptools and setup.py for the present)
 
 0.3.0 (2018-10-15)
 ++++++++++++++++++
