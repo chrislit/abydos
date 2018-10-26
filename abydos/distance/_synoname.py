@@ -25,8 +25,8 @@ from __future__ import division, unicode_literals
 
 from collections import Iterable
 
-from .levenshtein import levenshtein
-from .sequence import sim_ratcliff_obershelp
+from ._levenshtein import levenshtein
+from ._sequence import sim_ratcliff_obershelp
 
 # noinspection PyProtectedMember
 from ..fingerprint.synoname import _synoname_special_table, synoname_toolcode

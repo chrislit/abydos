@@ -30,7 +30,7 @@ from __future__ import division, unicode_literals
 
 from numbers import Number
 
-from . import _get_qgrams
+from ._util import _get_qgrams
 
 
 __all__ = [

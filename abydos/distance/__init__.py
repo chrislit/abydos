@@ -64,52 +64,123 @@ If a sim_X function is supplied identical src & tar arguments, it is guaranteed
 to return 1; the corresponding dist_X function is guaranteed to return 0.
 """
 
-from __future__ import division, unicode_literals
+from __future__ import unicode_literals
 
-
-from collections import Counter
-
-from .hamming import hamming
-from .levenshtein import sim_levenshtein
-from ..tokenizer.qgram import QGrams
-
+from ._basic import dist_ident, dist_length, dist_prefix, dist_suffix, sim_ident, sim_length, sim_prefix, sim_suffix
+from ._baystat import dist_baystat, sim_baystat
+from ._compression import dist_ncd_arith, dist_ncd_bwtrle, dist_ncd_bz2, dist_ncd_lzma, dist_ncd_rle, dist_ncd_zlib, sim_ncd_arith, sim_ncd_bwtrle, sim_ncd_bz2, sim_ncd_lzma, sim_ncd_rle, sim_ncd_zlib
+from ._editex import dist_editex, editex, sim_editex
+from ._eudex import dist_eudex, eudex_hamming, sim_eudex
+from ._hamming import dist_hamming, dist_mlipns, hamming, sim_hamming, sim_mlipns
+from ._jaro import dist_jaro_winkler, dist_strcmp95, sim_jaro_winkler, sim_strcmp95
+from ._levenshtein import damerau_levenshtein, dist_damerau, dist_indel, dist_levenshtein, levenshtein, sim_damerau, sim_indel, sim_levenshtein
+from ._minkowski import chebyshev, dist_euclidean, dist_manhattan, dist_minkowski, euclidean, manhattan, minkowski, sim_euclidean, sim_manhattan, sim_minkowski
+from ._mra import dist_mra, mra_compare, sim_mra
+from ._seqalign import gotoh, needleman_wunsch, sim_matrix, smith_waterman
+from ._sequence import dist_lcsseq, dist_lcsstr, dist_ratcliff_obershelp, lcsseq, lcsstr, sim_lcsseq, sim_lcsstr, sim_ratcliff_obershelp
+from ._sift4 import dist_sift4, sift4_common, sift4_simplest, sim_sift4
+from ._synoname import synoname
+from ._token import bag, dist_bag, dist_cosine, dist_dice, dist_jaccard, dist_monge_elkan, dist_overlap, dist_tversky, sim_bag, sim_cosine, sim_dice, sim_jaccard, sim_monge_elkan, sim_overlap, sim_tanimoto, sim_tversky, tanimoto
+from ._typo import dist_typo, sim_typo, typo
+from ._util import _get_qgrams
 
 __all__ = [
-    'basic',
-    'baystat',
-    'compression',
-    'dist',
+    'dist_ident',
+    'dist_length',
+    'dist_prefix',
+    'dist_suffix',
+    'sim_ident',
+    'sim_length',
+    'sim_prefix',
+    'sim_suffix',
+    'dist_baystat',
+    'sim_baystat',
+    'dist_ncd_arith',
+    'dist_ncd_bwtrle',
+    'dist_ncd_bz2',
+    'dist_ncd_lzma',
+    'dist_ncd_rle',
+    'dist_ncd_zlib',
+    'sim_ncd_arith',
+    'sim_ncd_bwtrle',
+    'sim_ncd_bz2',
+    'sim_ncd_lzma',
+    'sim_ncd_rle',
+    'sim_ncd_zlib',
+    'dist_editex',
     'editex',
+    'sim_editex',
+    'dist_eudex',
+    'eudex_hamming',
+    'sim_eudex',
+    'dist_hamming',
+    'dist_mlipns',
     'hamming',
-    'jaro',
+    'sim_hamming',
+    'sim_mlipns',
+    'dist_jaro_winkler',
+    'dist_strcmp95',
+    'sim_jaro_winkler',
+    'sim_strcmp95',
+    'damerau_levenshtein',
+    'dist_damerau',
+    'dist_indel',
+    'dist_levenshtein',
     'levenshtein',
+    'sim_damerau',
+    'sim_indel',
+    'sim_levenshtein',
+    'chebyshev',
+    'dist_euclidean',
+    'dist_manhattan',
+    'dist_minkowski',
+    'euclidean',
+    'manhattan',
     'minkowski',
-    'sift4',
-    'sim',
+    'sim_euclidean',
+    'sim_manhattan',
+    'sim_minkowski',
+    'dist_mra',
+    'mra_compare',
+    'sim_mra',
+    'gotoh',
+    'needleman_wunsch',
+    'sim_matrix',
+    'smith_waterman',
+    'dist_lcsseq',
+    'dist_lcsstr',
+    'dist_ratcliff_obershelp',
+    'lcsseq',
+    'lcsstr',
+    'sim_lcsseq',
+    'sim_lcsstr',
+    'sim_ratcliff_obershelp',
+    'dist_sift4',
+    'sift4_common',
+    'sift4_simplest',
+    'sim_sift4',
     'synoname',
-    'typo',
+    'bag',
+    'dist_bag',
+    'dist_cosine',
+    'dist_dice',
+    'dist_jaccard',
+    'dist_monge_elkan',
+    'dist_overlap',
+    'dist_tversky',
+    'sim_bag',
+    'sim_cosine',
+    'sim_dice',
+    'sim_jaccard',
+    'sim_monge_elkan',
+    'sim_overlap',
+    'sim_tanimoto',
+    'sim_tversky',
+    'tanimoto',
+    'dist_typo',
+    'sim_typo',
+    'typo'
 ]
-
-
-def _get_qgrams(src, tar, qval=0, skip=0):
-    """Return the Q-Grams in src & tar.
-
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param int skip: the number of characters to skip (only works when
-        src and tar are strings
-    :returns: Q-Grams
-    :rtype: tuple of Counters
-
-    >>> _get_qgrams('AT', 'TT', qval=2)
-    (QGrams({'$A': 1, 'AT': 1, 'T#': 1}), QGrams({'$T': 1, 'TT': 1, 'T#': 1}))
-    """
-    if isinstance(src, Counter) and isinstance(tar, Counter):
-        return src, tar
-    if qval > 0:
-        return (QGrams(src, qval, '$#', skip), QGrams(tar, qval, '$#', skip))
-    return Counter(src.strip().split()), Counter(tar.strip().split())
 
 
 def sim(src, tar, method=sim_levenshtein):

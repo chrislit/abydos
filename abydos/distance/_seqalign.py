@@ -34,7 +34,7 @@ from numpy import zeros as np_zeros
 
 from six.moves import range
 
-from .basic import sim_ident
+from ._basic import sim_ident
 
 __all__ = ['gotoh', 'needleman_wunsch', 'sim_matrix', 'smith_waterman']
 
