@@ -15,16 +15,10 @@ Subpackages
     abydos.corpus
     abydos.distance
     abydos.fingerprint
+    abydos.phones
     abydos.phonetic
     abydos.stats
     abydos.stemmer
     abydos.tokenizer
-
-Submodules
-----------
-
-.. toctree::
-
-   abydos.phones
-   abydos.util
+    abydos.util
 

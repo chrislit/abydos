@@ -6,10 +6,3 @@ abydos.tokenizer package
     :undoc-members:
     :show-inheritance:
 
-Submodules
-----------
-
-.. toctree::
-
-   abydos.tokenizer.qgram
-
