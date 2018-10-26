@@ -24,7 +24,9 @@ The tokenizer package includes tokenizers such as:
 
 from __future__ import unicode_literals
 
-__all__ = ['qgram']
+from ._qgram import QGrams
+
+__all__ = ['QGrams']
 
 
 if __name__ == '__main__':

@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tokenizer.qgram.
+"""abydos.tokenizer._qgram.
 
-The qgram module defines the QGrams multi-set class
+The tokenizer._qgram module defines the QGrams multi-set class
 """
 
 from __future__ import division, unicode_literals
