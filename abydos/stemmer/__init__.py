@@ -39,23 +39,34 @@ from ._lovins import lovins
 from ._paice_husk import paice_husk
 from ._s_stemmer import s_stemmer
 from ._schinke import schinke
-from ._snowball import porter, porter2, sb_danish, sb_dutch, sb_german, sb_norwegian, sb_swedish
+from ._snowball import (
+    porter,
+    porter2,
+    sb_danish,
+    sb_dutch,
+    sb_german,
+    sb_norwegian,
+    sb_swedish,
+)
 from ._uealite import uealite
 
-__all__ = ['caumanns',
-           'clef_german', 'clef_german_plus', 'clef_swedish',
-           'lovins',
-           'paice_husk',
-           's_stemmer',
-           'schinke',
-           'porter',
-           'porter2',
-           'sb_danish',
-           'sb_dutch',
-           'sb_german',
-           'sb_norwegian',
-           'sb_swedish',
-           'uealite'
+__all__ = [
+    'caumanns',
+    'clef_german',
+    'clef_german_plus',
+    'clef_swedish',
+    'lovins',
+    'paice_husk',
+    's_stemmer',
+    'schinke',
+    'porter',
+    'porter2',
+    'sb_danish',
+    'sb_dutch',
+    'sb_german',
+    'sb_norwegian',
+    'sb_swedish',
+    'uealite',
 ]
 
 

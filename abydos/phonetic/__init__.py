@@ -67,7 +67,14 @@ from ._alpha_sis import alpha_sis
 from ._bmpm import bmpm
 from ._caverphone import caverphone
 from ._davidson import davidson
-from ._de import haase_phonetik, koelner_phonetik, koelner_phonetik_alpha, koelner_phonetik_num_to_alpha, phonem, reth_schek_phonetik
+from ._de import (
+    haase_phonetik,
+    koelner_phonetik,
+    koelner_phonetik_alpha,
+    koelner_phonetik_num_to_alpha,
+    phonem,
+    reth_schek_phonetik,
+)
 from ._dm import dm_soundex
 from ._dolby import dolby
 from ._es import phonetic_spanish, spanish_metaphone
@@ -82,28 +89,55 @@ from ._parmar_kumbharana import parmar_kumbharana
 from ._phonet import phonet
 from ._pt import soundex_br
 from ._roger_root import roger_root
-from ._russell import russell_index, russell_index_alpha, russell_index_num_to_alpha
+from ._russell import (
+    russell_index,
+    russell_index_alpha,
+    russell_index_num_to_alpha,
+)
 from ._sound_d import sound_d
-from ._soundex import fuzzy_soundex, lein, phonex, phonix, pshp_soundex_first, pshp_soundex_last, refined_soundex, soundex
+from ._soundex import (
+    fuzzy_soundex,
+    lein,
+    phonex,
+    phonix,
+    pshp_soundex_first,
+    pshp_soundex_last,
+    refined_soundex,
+    soundex,
+)
 from ._spfc import spfc
 from ._statistics_canada import statistics_canada
 from ._sv import norphone, sfinxbis
 
 __all__ = [
-    'alpha_sis', 'bmpm', 'caverphone', 'davidson',
+    'alpha_sis',
+    'bmpm',
+    'caverphone',
+    'davidson',
     'haase_phonetik',
     'koelner_phonetik',
     'koelner_phonetik_alpha',
     'koelner_phonetik_num_to_alpha',
     'phonem',
     'reth_schek_phonetik',
-    'dm_soundex', 'dolby',
-    'phonetic_spanish', 'spanish_metaphone',
+    'dm_soundex',
+    'dolby',
+    'phonetic_spanish',
+    'spanish_metaphone',
     'eudex',
-    'fonem', 'henry_early',
-    'metasoundex', 'onca',
-    'double_metaphone', 'metaphone',
-    'mra', 'nrl', 'nysiis', 'parmar_kumbharana', 'phonet', 'soundex_br', 'roger_root',
+    'fonem',
+    'henry_early',
+    'metasoundex',
+    'onca',
+    'double_metaphone',
+    'metaphone',
+    'mra',
+    'nrl',
+    'nysiis',
+    'parmar_kumbharana',
+    'phonet',
+    'soundex_br',
+    'roger_root',
     'russell_index',
     'russell_index_alpha',
     'russell_index_num_to_alpha',
@@ -116,8 +150,10 @@ __all__ = [
     'pshp_soundex_last',
     'refined_soundex',
     'soundex',
-    'spfc', 'statistics_canada',
-    'norphone', 'sfinxbis'
+    'spfc',
+    'statistics_canada',
+    'norphone',
+    'sfinxbis',
 ]
 
 

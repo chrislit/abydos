@@ -25,12 +25,7 @@ from __future__ import division, unicode_literals
 
 import unittest
 
-from abydos.distance import (
-    gotoh,
-    needleman_wunsch,
-    sim_matrix,
-    smith_waterman,
-)
+from abydos.distance import gotoh, needleman_wunsch, sim_matrix, smith_waterman
 
 from six.moves import range
 

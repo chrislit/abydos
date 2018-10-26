@@ -66,14 +66,18 @@ class ArithmeticCoderTestCases(unittest.TestCase):
         self.assertEqual(
             ac_train(' '.join(NIALL)), ac_train(' '.join(sorted(NIALL)))
         )
-        self.assertEqual(ac_train(' '.join(NIALL)), ac_train('\x00'.join(NIALL)))
+        self.assertEqual(
+            ac_train(' '.join(NIALL)), ac_train('\x00'.join(NIALL))
+        )
 
     def test_arithmetic_encode(self):
         """Test abydos.compression._arithmetic.encode."""
         self.assertEqual(ac_encode('', self.niall_probs), (254, 8))
         self.assertEqual(ac_encode('a', self.niall_probs), (3268, 12))
         self.assertEqual(ac_encode('Niall', self.niall_probs), (3911665, 23))
-        self.assertEqual(ac_encode('Ni\x00ll', self.niall_probs), (1932751, 22))
+        self.assertEqual(
+            ac_encode('Ni\x00ll', self.niall_probs), (1932751, 22)
+        )
         self.assertEqual(ac_encode('Niel', self.niall_probs), (486801, 20))
         self.assertEqual(ac_encode('Mean', self.niall_probs), (243067161, 28))
         self.assertEqual(

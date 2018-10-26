@@ -35,6 +35,7 @@ from abydos.stemmer.snowball import (
     sb_norwegian,
     sb_swedish,
 )
+
 # noinspection PyProtectedMember
 from abydos.stemmer._snowball import (
     _ends_in_cvc,

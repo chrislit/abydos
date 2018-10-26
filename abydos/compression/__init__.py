@@ -32,9 +32,15 @@ from ._arithmetic import ac_decode, ac_encode, ac_train
 from ._bwt import bwt_decode, bwt_encode
 from ._rle import rle_decode, rle_encode
 
-__all__ = ['ac_decode', 'ac_encode', 'ac_train',
-           'bwt_decode', 'bwt_encode',
-           'rle_decode', 'rle_encode']
+__all__ = [
+    'ac_decode',
+    'ac_encode',
+    'ac_train',
+    'bwt_decode',
+    'bwt_encode',
+    'rle_decode',
+    'rle_encode',
+]
 
 
 if __name__ == '__main__':

@@ -69,7 +69,7 @@ from abydos.phonetic import (
     spfc,
     statistics_canada,
     norphone,
-    sfinxbis
+    sfinxbis,
 )
 
 from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char

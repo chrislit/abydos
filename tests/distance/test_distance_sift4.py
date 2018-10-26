@@ -25,12 +25,7 @@ from __future__ import division, unicode_literals
 
 import unittest
 
-from abydos.distance import (
-    dist_sift4,
-    sift4_common,
-    sift4_simplest,
-    sim_sift4,
-)
+from abydos.distance import dist_sift4, sift4_common, sift4_simplest, sim_sift4
 
 
 class Sift4TestCases(unittest.TestCase):

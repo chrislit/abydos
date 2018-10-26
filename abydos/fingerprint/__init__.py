@@ -34,21 +34,37 @@ The fingerprint module implements string fingerprints such as:
 from __future__ import unicode_literals
 
 from ._basic import phonetic_fingerprint, qgram_fingerprint, str_fingerprint
-from ._lightweight import MOST_COMMON_LETTERS, MOST_COMMON_LETTERS_CG, MOST_COMMON_LETTERS_DE, MOST_COMMON_LETTERS_DE_LC, MOST_COMMON_LETTERS_EN_LC, count_fingerprint, occurrence_fingerprint, occurrence_halved_fingerprint, position_fingerprint
+from ._lightweight import (
+    MOST_COMMON_LETTERS,
+    MOST_COMMON_LETTERS_CG,
+    MOST_COMMON_LETTERS_DE,
+    MOST_COMMON_LETTERS_DE_LC,
+    MOST_COMMON_LETTERS_EN_LC,
+    count_fingerprint,
+    occurrence_fingerprint,
+    occurrence_halved_fingerprint,
+    position_fingerprint,
+)
 from ._speedcop import omission_key, skeleton_key
 from ._synoname import synoname_toolcode
 
-__all__ = ['phonetic_fingerprint', 'qgram_fingerprint', 'str_fingerprint',
-           'MOST_COMMON_LETTERS',
-           'MOST_COMMON_LETTERS_CG',
-           'MOST_COMMON_LETTERS_DE',
-           'MOST_COMMON_LETTERS_DE_LC',
-           'MOST_COMMON_LETTERS_EN_LC',
-           'count_fingerprint',
-           'occurrence_fingerprint',
-           'occurrence_halved_fingerprint',
-           'position_fingerprint',
-           'omission_key', 'skeleton_key', 'synoname_toolcode']
+__all__ = [
+    'phonetic_fingerprint',
+    'qgram_fingerprint',
+    'str_fingerprint',
+    'MOST_COMMON_LETTERS',
+    'MOST_COMMON_LETTERS_CG',
+    'MOST_COMMON_LETTERS_DE',
+    'MOST_COMMON_LETTERS_DE_LC',
+    'MOST_COMMON_LETTERS_EN_LC',
+    'count_fingerprint',
+    'occurrence_fingerprint',
+    'occurrence_halved_fingerprint',
+    'position_fingerprint',
+    'omission_key',
+    'skeleton_key',
+    'synoname_toolcode',
+]
 
 
 if __name__ == '__main__':
