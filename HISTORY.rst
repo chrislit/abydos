@@ -5,6 +5,8 @@ Release History
 0.3.5 (2018-10-25) *cantankerous carl*
 ++++++++++++++++++++++++++++++++++++++
 
+doi:10.5281/zenodo.1463204
+
 Version 0.3.5 focuses on refactoring the whole project. Although the API
 changes massively (which is not a violation of SemVer, since this is still
 well below version 1.0.0), essentially no new features are added (bugfixes
@@ -22,6 +24,8 @@ Changes:
 
 0.3.0 (2018-10-15) *carl*
 +++++++++++++++++++++++++
+
+doi:10.5281/zenodo.1462443
 
 Version 0.3.0 focuses on additional phonetic algorithms, but does add numerous
 distance measures, fingerprints, and even a few stemmers. Another focus was
