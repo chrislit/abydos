@@ -26,15 +26,15 @@ import unittest
 from random import choice, randint, sample
 
 from abydos.fingerprint import (
-    phonetic_fingerprint,
-    qgram_fingerprint,
-    str_fingerprint,
     count_fingerprint,
     occurrence_fingerprint,
     occurrence_halved_fingerprint,
-    position_fingerprint,
     omission_key,
+    phonetic_fingerprint,
+    position_fingerprint,
+    qgram_fingerprint,
     skeleton_key,
+    str_fingerprint,
     synoname_toolcode,
 )
 
