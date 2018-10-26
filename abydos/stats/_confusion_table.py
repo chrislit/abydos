@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-r"""abydos.stats.confusion_table.
+r"""abydos.stats._confusion_table.
 
 This includes the ConfusionTable object, which includes members capable of
 calculating the following data based on a confusion table:
@@ -38,7 +38,7 @@ from __future__ import division, unicode_literals
 
 import math
 
-from .mean import (
+from ._mean import (
     aghmean,
     agmean,
     amean,

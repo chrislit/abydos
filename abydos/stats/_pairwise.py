@@ -16,17 +16,19 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.clustering.
+"""abydos.stats._pairwise.
 
-The clustering module implements clustering algorithms such as:
+The stats._pairwise module implements pairwise statistical algorithms such as:
+
     - mean pair-wise similarity
+    - pairwise similarity statistics
 """
 
 from __future__ import division, unicode_literals
 
 from six.moves import range
 
-from .mean import amean, hmean, std
+from ._mean import amean, hmean, std
 from ..distance import sim
 
 __all__ = ['mean_pairwise_similarity', 'pairwise_similarity_statistics']
