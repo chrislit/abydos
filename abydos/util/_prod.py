@@ -16,19 +16,42 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.util.
+"""abydos.util._prod
 
-The util module defines various utility functions for other modules within
-Abydos, including:
-
-    - prod -- computes the product of a collection of numbers (akin to sum)
+The util._prod module defines prod, which computes the product of a collection
+of numbers (akin to sum, but for product).
 """
 
 from __future__ import unicode_literals
 
-from ._prod import prod
+from operator import mul
+
+from six.moves import reduce
 
 __all__ = ['prod']
+
+
+def prod(nums):
+    """Return the product of nums.
+
+    The product is Π(nums).
+
+    Cf. https://en.wikipedia.org/wiki/Product_(mathematics)
+
+    :param nums: a collection (list, tuple, set, etc.) of numbers
+    :returns: the product of a nums
+    :rtype: numeric
+
+    >>> prod([1,1,1,1])
+    1
+    >>> prod((2,4,8))
+    64
+    >>> prod({1,2,3,4})
+    24
+    >>> prod(2**i for i in range(5))
+    1024
+    """
+    return reduce(mul, nums, 1)
 
 
 if __name__ == '__main__':
