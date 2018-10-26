@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.dm.
+"""abydos.phonetic._dm.
 
-The phonetic.dm module implements Daitch-Mokotoff Soundex.
+The phonetic._dm module implements Daitch-Mokotoff Soundex.
 """
 
 from __future__ import unicode_literals
@@ -27,7 +27,7 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from . import _delete_consecutive_repeats
+from ._util import _delete_consecutive_repeats
 
 __all__ = ['dm_soundex']
 

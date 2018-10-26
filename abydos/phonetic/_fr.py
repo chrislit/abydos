@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.fr.
+"""abydos.phonetic._fr.
 
-The phonetic.fr module implements phonetic algorithms intended for French,
+The phonetic._fr module implements phonetic algorithms intended for French,
 including:
 
     - FONEM

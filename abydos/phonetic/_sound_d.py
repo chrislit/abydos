@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.sound_d.
+"""abydos.phonetic._sound_d.
 
-The phonetic.sound_d module implements the SoundD phonetic algorithm.
+The phonetic._sound_d module implements the SoundD phonetic algorithm.
 """
 
 from __future__ import unicode_literals
@@ -27,7 +27,7 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from . import _delete_consecutive_repeats
+from ._util import _delete_consecutive_repeats
 
 __all__ = ['sound_d']
 

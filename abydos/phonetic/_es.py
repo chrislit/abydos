@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.es.
+"""abydos.phonetic._es.
 
-The phonetic.es module implements phonetic algorithms intended for Spanish,
+The phonetic._es module implements phonetic algorithms intended for Spanish,
 including:
 
     - Phonetic Spanish

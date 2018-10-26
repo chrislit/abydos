@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.de.
+"""abydos.phonetic._de.
 
-The phonetic.de module implements the Kölner Phonetik and related
+The phonetic._de module implements the Kölner Phonetik and related
 algorithms for German:
 
     - Kölner Phonetik
@@ -35,7 +35,7 @@ from unicodedata import normalize as unicode_normalize
 from six import text_type
 from six.moves import range
 
-from . import _delete_consecutive_repeats
+from ._util import _delete_consecutive_repeats
 
 __all__ = [
     'haase_phonetik',

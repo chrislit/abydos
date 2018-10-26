@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.soundex.
+"""abydos.phonetic._soundex.
 
-The phonetic.soundex module implements phonetic algorithms that are generally
+The phonetic._soundex module implements phonetic algorithms that are generally
 Soundex-like, including:
 
     - American Soundex
@@ -41,7 +41,7 @@ from unicodedata import normalize as unicode_normalize
 from six import text_type
 from six.moves import range
 
-from . import _delete_consecutive_repeats
+from ._util import _delete_consecutive_repeats
 
 __all__ = [
     'fuzzy_soundex',

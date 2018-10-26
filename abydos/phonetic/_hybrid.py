@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.hybrid.
+"""abydos.phonetic._hybrid.
 
-The phonetic.hybrid module implements hybrid phonetic algorithms:
+The phonetic._hybrid module implements hybrid phonetic algorithms:
 
     - Oxford Name Compression Algorithm (ONCA)
     - MetaSoundex
@@ -26,10 +26,10 @@ The phonetic.hybrid module implements hybrid phonetic algorithms:
 
 from __future__ import unicode_literals
 
-from .es import phonetic_spanish, spanish_metaphone
-from .metaphone import metaphone
-from .nysiis import nysiis
-from .soundex import soundex
+from ._es import phonetic_spanish, spanish_metaphone
+from ._metaphone import metaphone
+from ._nysiis import nysiis
+from ._soundex import soundex
 
 __all__ = ['metasoundex', 'onca']
 

@@ -16,10 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.statistics_canada.
+"""abydos.phonetic._statistics_canada.
 
-The phonetic.statistics_canada module implements the Statistics Canada phonetic
-encoding.
+The phonetic._statistics_canada module implements the Statistics Canada
+phonetic encoding.
 """
 
 from __future__ import unicode_literals
@@ -28,7 +28,7 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from . import _delete_consecutive_repeats
+from ._util import _delete_consecutive_repeats
 
 __all__ = ['statistics_canada']
 

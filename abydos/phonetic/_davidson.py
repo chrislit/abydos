@@ -16,16 +16,16 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.davidson.
+"""abydos.phonetic._davidson.
 
-The phonetic.davidson module implements Davidson's Consonant Code.
+The phonetic._davidson module implements Davidson's Consonant Code.
 """
 
 from __future__ import unicode_literals
 
 from six import text_type
 
-from . import _delete_consecutive_repeats
+from ._util import _delete_consecutive_repeats
 
 __all__ = ['davidson']
 

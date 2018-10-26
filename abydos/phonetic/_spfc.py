@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.spfc.
+"""abydos.phonetic._spfc.
 
-The phonetic.spfc module implements the Standardized Phonetic Frequency Code
+The phonetic._spfc module implements the Standardized Phonetic Frequency Code
 (SPFC) algorithm.
 """
 
@@ -29,7 +29,7 @@ from unicodedata import normalize as unicode_normalize
 from six import text_type
 from six.moves import range
 
-from . import _delete_consecutive_repeats
+from ._util import _delete_consecutive_repeats
 
 __all__ = ['spfc']
 
