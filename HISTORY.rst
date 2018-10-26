@@ -1,18 +1,34 @@
 Release History
 ---------------
 
-0.3.5 (2018-10-25)
-++++++++++++++++++
+
+0.3.5 (2018-10-25) *cantankerous carl*
+++++++++++++++++++++++++++++++++++++++
+
+Version 0.3.5 focuses on refactoring the whole project. Although the API
+changes massively (which is not a violation of SemVer, since this is still
+well below version 1.0.0), essentially no new features are added (bugfixes
+aside).
+
+Changes:
 
 - Refactored library and tests into smaller modules
-- Broke compression distances (NCD)  out into separate functions
+- Broke compression distances (NCD) out into separate functions
 - Adopted Black code style
-- Minor bug fixes
 - Added pyproject.toml to use Poetry for packaging (but will continue using
   setuptools and setup.py for the present)
+- Minor bug fixes
 
-0.3.0 (2018-10-15)
-++++++++++++++++++
+
+0.3.0 (2018-10-15) *carl*
++++++++++++++++++++++++++
+
+Version 0.3.0 focuses on additional phonetic algorithms, but does add numerous
+distance measures, fingerprints, and even a few stemmers. Another focus was
+getting everything to build again (including docs) and to move to more
+standard modern tools (flake8, tox, etc.).
+
+Changes:
 
 - Fixed implementation of Bag distance
 - Updated BMPM to version 3.10
@@ -68,8 +84,8 @@ Release History
 - Added example notebooks in binder directory
 
 
-0.2.0 (2015-05-27)
-++++++++++++++++++
+0.2.0 (2015-05-27) *berthold*
++++++++++++++++++++++++++++++
 
 - Added Caumanns' German stemmer
 - Added Lovins' English stemmer
@@ -77,7 +93,7 @@ Release History
 - Added Sphinx documentation
 
 
-0.1.1 (2015-05-12)
-++++++++++++++++++
+0.1.1 (2015-05-12) *albrecht*
++++++++++++++++++++++++++++++
 
 - First Beta release to PyPI
