@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.stemmer.uealite.
+"""abydos.stemmer._uealite.
 
-The stemmer.uealite module defines the UEA-Lite Stemmer.
+The stemmer._uealite module defines the UEA-Lite Stemmer.
 """
 
 from __future__ import unicode_literals

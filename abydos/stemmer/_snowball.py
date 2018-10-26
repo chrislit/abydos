@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.stemmer.snowball.
+"""abydos.stemmer._snowball.
 
-The stemmer.snowball module defines the stemmers:
+The stemmer._snowball module defines the stemmers:
 
     - Porter
     - Porter2 (Snowball English)

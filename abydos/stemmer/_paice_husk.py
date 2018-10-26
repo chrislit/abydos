@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.stemmer.paice_husk.
+"""abydos.stemmer._paice_husk.
 
-The stemmer.paice_husk module defines the Paice-Husk Stemmer
+The stemmer._paice_husk module defines the Paice-Husk Stemmer
 """
 
 from __future__ import unicode_literals

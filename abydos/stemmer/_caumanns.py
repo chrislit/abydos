@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.stemmer.caumanns.
+"""abydos.stemmer._caumanns.
 
-The stemmer.caumanns module defines the Caumanns German stemmer.
+The stemmer._caumanns module defines the Caumanns German stemmer.
 """
 
 from __future__ import unicode_literals
