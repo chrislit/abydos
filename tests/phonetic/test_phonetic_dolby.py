@@ -18,24 +18,24 @@
 
 """abydos.tests.phonetic.test_phonetic_dolby.
 
-This module contains unit tests for abydos.phonetic.dolby
+This module contains unit tests for abydos.phonetic._dolby
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.dolby import dolby
+from abydos.phonetic import dolby
 
 
 class DolbyTestCases(unittest.TestCase):
     """Test Dolby functions.
 
-    test cases for abydos.phonetic.dolby.dolby
+    test cases for abydos.phonetic._dolby.dolby
     """
 
     def test_dolby(self):
-        """Test abydos.phonetic.dolby.dolby."""
+        """Test abydos.phonetic._dolby.dolby."""
         # Base case
         self.assertEqual(dolby(''), '')
 

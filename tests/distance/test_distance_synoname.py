@@ -18,36 +18,34 @@
 
 """abydos.tests.distance.test_distance_synoname.
 
-This module contains unit tests for abydos.distance.synoname
+This module contains unit tests for abydos.distance._synoname
 """
 
 from __future__ import division, unicode_literals
 
 import unittest
 
-from abydos.distance.synoname import (
-    _synoname_strip_punct,
-    _synoname_word_approximation,
-    synoname,
-)
+from abydos.distance import synoname
+# noinspection PyProtectedMember
+from abydos.distance._synoname import _synoname_strip_punct, _synoname_word_approximation
 
 
 class SynonameTestCases(unittest.TestCase):
     """Test Synoname functions.
 
-    abydos.distance.synoname._synoname_strip_punct,
+    abydos.distance._synoname._synoname_strip_punct,
     _synoname_word_approximation, & synoname
     """
 
     def test_synoname_strip_punct(self):
-        """Test abydos.distance.synoname._synoname_strip_punct."""
+        """Test abydos.distance._synoname._synoname_strip_punct."""
         # Base cases
         self.assertEqual(_synoname_strip_punct(''), '')
         self.assertEqual(_synoname_strip_punct('abcdefg'), 'abcdefg')
         self.assertEqual(_synoname_strip_punct('a\'b-c,d!e:f%g'), 'abcdefg')
 
     def test_synoname_word_approximation(self):
-        """Test abydos.distance.synoname._synoname_word_approximation."""
+        """Test abydos.distance._synoname._synoname_word_approximation."""
         # Base cases
         self.assertEqual(_synoname_word_approximation('', ''), 0)
 
@@ -181,7 +179,7 @@ class SynonameTestCases(unittest.TestCase):
         )
 
     def test_synoname(self):
-        """Test abydos.distance.synoname.synoname."""
+        """Test abydos.distance._synoname.synoname."""
         # Base cases
         self.assertEqual(synoname('', ''), 1)
         self.assertEqual(synoname('', '', tests=['exact']), 1)

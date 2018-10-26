@@ -18,24 +18,24 @@
 
 """abydos.tests.stemmer.test_stemmer_clef.
 
-This module contains unit tests for abydos.stemmer.clef
+This module contains unit tests for abydos.stemmer._clef
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.stemmer.clef import clef_german, clef_german_plus, clef_swedish
+from abydos.stemmer import clef_german, clef_german_plus, clef_swedish
 
 
 class CLEFTestCases(unittest.TestCase):
     """Test CLEF functions.
 
-    abydos.stemmer.clef.clef_german, .clef_german_plus, & .clef_swedish
+    abydos.stemmer._clef.clef_german, .clef_german_plus, & .clef_swedish
     """
 
     def test_clef_german(self):
-        """Test abydos.stemmer.clef.clef_german."""
+        """Test abydos.stemmer._clef.clef_german."""
         # base case
         self.assertEqual(clef_german(''), '')
 
@@ -65,7 +65,7 @@ class CLEFTestCases(unittest.TestCase):
         self.assertEqual(clef_german('kleinen'), 'klei')
 
     def test_clef_german_plus(self):
-        """Test abydos.stemmer.clef.clef_german_plus."""
+        """Test abydos.stemmer._clef.clef_german_plus."""
         # base case
         self.assertEqual(clef_german_plus(''), '')
 
@@ -96,7 +96,7 @@ class CLEFTestCases(unittest.TestCase):
         self.assertEqual(clef_german_plus('Pfarrern'), 'pfarr')
 
     def test_clef_swedish(self):
-        """Test abydos.stemmer.clef.clef_swedish."""
+        """Test abydos.stemmer._clef.clef_swedish."""
         # base case
         self.assertEqual(clef_swedish(''), '')
 

@@ -18,24 +18,24 @@
 
 """abydos.tests.phonetic.test_phonetic_mra.
 
-This module contains unit tests for abydos.phonetic.mra
+This module contains unit tests for abydos.phonetic._mra
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.mra import mra
+from abydos.phonetic import mra
 
 
 class MraTestCases(unittest.TestCase):
     """Test MRA functions.
 
-    test cases for abydos.phonetic.mra.mra
+    test cases for abydos.phonetic._mra.mra
     """
 
     def test_mra(self):
-        """Test abydos.phonetic.mra.mra."""
+        """Test abydos.phonetic._mra.mra."""
         self.assertEqual(mra(''), '')
 
         # https://en.wikipedia.org/wiki/Match_rating_approach

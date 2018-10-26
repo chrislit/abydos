@@ -18,24 +18,24 @@
 
 """abydos.tests.phonetic.test_phonetic_eudex.
 
-This module contains unit tests for abydos.phonetic.eudex
+This module contains unit tests for abydos.phonetic._eudex
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.eudex import eudex
+from abydos.phonetic import eudex
 
 
 class EudexTestCases(unittest.TestCase):
     """Test eudex functions.
 
-    test cases for abydos.phonetic.eudex.eudex
+    test cases for abydos.phonetic._eudex.eudex
     """
 
     def test_eudex(self):
-        """Test abydos.phonetic.eudex.eudex."""
+        """Test abydos.phonetic._eudex.eudex."""
         # base cases
         self.assertEqual(eudex(''), 18374686479671623680)
         self.assertEqual(eudex(' '), 18374686479671623680)

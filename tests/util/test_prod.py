@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_util.
+"""abydos.tests.util.test_prod.
 
-This module contains unit tests for abydos.util
+This module contains unit tests for abydos.util._prod
 """
 
 import unittest
@@ -29,10 +29,10 @@ from six.moves import range
 
 
 class ProdTestCases(unittest.TestCase):
-    """Test cases for abydos.util.prod."""
+    """Test cases for abydos.util._prod."""
 
     def test_prod(self):
-        """Test abydos.util.prod."""
+        """Test abydos.util._prod.prod."""
         self.assertEqual(prod([]), 1)
         self.assertEqual(prod(()), 1)
         self.assertEqual(prod({}), 1)

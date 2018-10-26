@@ -18,24 +18,24 @@
 
 """abydos.tests.phonetic.test_phonetic_nrl.
 
-This module contains unit tests for abydos.phonetic.nrl
+This module contains unit tests for abydos.phonetic._nrl
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.nrl import nrl
+from abydos.phonetic import nrl
 
 
 class NRLTestCases(unittest.TestCase):
     """Test Naval Research Laboratory phonetic encoding functions.
 
-    test cases for abydos.phonetic.nrl.nrl
+    test cases for abydos.phonetic._nrl.nrl
     """
 
     def test_nrl(self):
-        """Test abydos.phonetic.nrl.nrl."""
+        """Test abydos.phonetic._nrl.nrl."""
         # Base case
         self.assertEqual(nrl(''), '')
 

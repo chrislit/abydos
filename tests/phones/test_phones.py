@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phones.
+"""abydos.tests.phones.test_phones.
 
-This module contains unit tests for abydos.phones
+This module contains unit tests for abydos.phones._phones.
 """
 
 from __future__ import unicode_literals
@@ -30,10 +30,10 @@ from abydos.phones import cmp_features, get_feature, ipa_to_features
 
 
 class IpaFeaturesTestCases(unittest.TestCase):
-    """Test abydos.phones.ipa_to_features."""
+    """Test abydos.phones._phones.ipa_to_features."""
 
     def test_ipa_to_features(self):
-        """Test abydos.phones.ipa_to_features."""
+        """Test abydos.phones._phones.ipa_to_features."""
         self.assertEqual(
             ipa_to_features('medçen'),
             [
@@ -122,10 +122,10 @@ class IpaFeaturesTestCases(unittest.TestCase):
 
 
 class HasFeatureTestCases(unittest.TestCase):
-    """Test abydos.phones.get_feature."""
+    """Test abydos.phones._phones.get_feature."""
 
     def test_ipa_to_features(self):
-        """Test abydos.phones.get_feature."""
+        """Test abydos.phones._phones.get_feature."""
         self.assertEqual(
             get_feature(ipa_to_features('medçen'), 'nasal'),
             [1, -1, -1, -1, -1, 1],
@@ -177,10 +177,10 @@ class HasFeatureTestCases(unittest.TestCase):
 
 
 class CmpFeaturesTestCases(unittest.TestCase):
-    """Test cases for abydos.phones.cmp_features."""
+    """Test cases for abydos.phones._phones.cmp_features."""
 
     def test_cmp_features(self):
-        """Test abydos.phones.cmp_features."""
+        """Test abydos.phones._phones.cmp_features."""
         # # negatives
         self.assertEqual(cmp_features(-1, 1826957425952336298), -1)
         self.assertEqual(cmp_features(1826957425952336298, -1), -1)

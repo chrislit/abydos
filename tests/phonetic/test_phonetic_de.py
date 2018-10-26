@@ -18,14 +18,14 @@
 
 """abydos.tests.phonetic.test_phonetic_de.
 
-This module contains unit tests for abydos.phonetic.de
+This module contains unit tests for abydos.phonetic._de
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.de import (
+from abydos.phonetic import (
     haase_phonetik,
     koelner_phonetik,
     koelner_phonetik_alpha,
@@ -38,7 +38,7 @@ from abydos.phonetic.de import (
 class KoelnerPhonetikTestCases(unittest.TestCase):
     """Test Koelner Phonetic functions.
 
-    test cases for abydos.phonetic.de.koelner_phonetik,
+    test cases for abydos.phonetic._de.koelner_phonetik,
     .koelner_phonetik_num_to_alpha, & .koelner_phonetik_alpha
     """
 
@@ -75,13 +75,13 @@ class KoelnerPhonetikTestCases(unittest.TestCase):
         self.assertEqual(koelner_phonetik('H'), '')
 
     def test_koelner_phonetik_n2a(self):
-        """Test abydos.phonetic.de.koelner_phonetik_num_to_alpha."""
+        """Test abydos.phonetic._de.koelner_phonetik_num_to_alpha."""
         self.assertEqual(
             koelner_phonetik_num_to_alpha('0123456789'), 'APTFKLNRS'
         )
 
     def test_koelner_phonetik_alpha(self):
-        """Test abydos.phonetic.de.koelner_phonetik_alpha."""
+        """Test abydos.phonetic._de.koelner_phonetik_alpha."""
         self.assertEqual(
             koelner_phonetik_alpha('Müller-Lüdenscheidt'), 'NLRLTNST'
         )
@@ -105,11 +105,11 @@ class KoelnerPhonetikTestCases(unittest.TestCase):
 class PhonemTestCases(unittest.TestCase):
     """Test Phonem functions.
 
-    test cases for abydos.phonetic.de.phonem
+    test cases for abydos.phonetic._de.phonem
     """
 
     def test_phonem(self):
-        """Test abydos.phonetic.de.phonem."""
+        """Test abydos.phonetic._de.phonem."""
         self.assertEqual(phonem(''), '')
 
         # http://phonetik.phil-fak.uni-koeln.de/fileadmin/home/ritters/Allgemeine_Dateien/Martin_Wilz.pdf
@@ -137,11 +137,11 @@ class PhonemTestCases(unittest.TestCase):
 class HaasePhonetikTestCases(unittest.TestCase):
     """Test Haase Phonetik functions.
 
-    test cases for abydos.phonetic.de.haase_phonetik
+    test cases for abydos.phonetic._de.haase_phonetik
     """
 
     def test_haase_phonetik(self):
-        """Test abydos.phonetic.de.haase_phonetik."""
+        """Test abydos.phonetic._de.haase_phonetik."""
         # Base cases
         self.assertEqual(haase_phonetik(''), ('',))
 
@@ -183,11 +183,11 @@ class HaasePhonetikTestCases(unittest.TestCase):
 class RethSchekTestCases(unittest.TestCase):
     """Test Reth-Schek Phonetik functions.
 
-    test cases for abydos.phonetic.de.reth_schek_phonetik
+    test cases for abydos.phonetic._de.reth_schek_phonetik
     """
 
     def test_reth_schek_phonetik(self):
-        """Test abydos.phonetic.de.reth_schek_phonetik."""
+        """Test abydos.phonetic._de.reth_schek_phonetik."""
         # Base cases
         self.assertEqual(reth_schek_phonetik(''), '')
 

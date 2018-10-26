@@ -18,24 +18,24 @@
 
 """abydos.tests.stemmer.test_stemmer_s_stemmer.
 
-This module contains unit tests for abydos.stemmer
+This module contains unit tests for abydos.stemmer._s_stemmer
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.stemmer.s_stemmer import s_stemmer
+from abydos.stemmer import s_stemmer
 
 
 class SStemmerTestCases(unittest.TestCase):
     """Test S-stemmer functions.
 
-    abydos.stemmer.s_stemmer.s_stemmer
+    abydos.stemmer._s_stemmer.s_stemmer
     """
 
     def test_s_stemmer(self):
-        """Test abydos.stemmer.s_stemmer.s_stemmer."""
+        """Test abydos.stemmer._s_stemmer.s_stemmer."""
         # Base case
         self.assertEqual(s_stemmer(''), '')
 

@@ -18,14 +18,14 @@
 
 """abydos.tests.fingerprint.test_fingerprint_lightweight.
 
-This module contains unit tests for abydos.fingerprint.lightweight
+This module contains unit tests for abydos.fingerprint._lightweight
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.fingerprint.lightweight import (
+from abydos.fingerprint import (
     count_fingerprint,
     occurrence_fingerprint,
     occurrence_halved_fingerprint,
@@ -36,12 +36,12 @@ from abydos.fingerprint.lightweight import (
 class LightweightFingerprintsTestCases(unittest.TestCase):
     """Test Cisłak & Grabowski lightweight fingerprint functions.
 
-    abydos.fingerprint.lightweight.occurrence_fingerprint,
+    abydos.fingerprint._lightweight.occurrence_fingerprint,
     .occurrence_halved_fingerprint, .count_fingerprint, & .position_fingerprint
     """
 
     def test_occurrence_fingerprint(self):
-        """Test abydos.fingerprint.lightweight.occurrence_fingerprint."""
+        """Test abydos.fingerprint._lightweight.occurrence_fingerprint."""
         # Base case
         self.assertEqual(occurrence_fingerprint(''), 0)
 
@@ -64,7 +64,7 @@ class LightweightFingerprintsTestCases(unittest.TestCase):
         )
 
     def test_occurrence_halved_fingerprint(self):
-        """Test abydos.fingerprint.lightweight.occurrence_halved_fingerprint."""  # noqa: E501
+        """Test abydos.fingerprint._lightweight.occurrence_halved_fingerprint."""  # noqa: E501
         # Base case
         self.assertEqual(occurrence_halved_fingerprint(''), 0)
 
@@ -89,7 +89,7 @@ class LightweightFingerprintsTestCases(unittest.TestCase):
         )
 
     def test_count_fingerprint(self):
-        """Test abydos.fingerprint.lightweight.count_fingerprint."""
+        """Test abydos.fingerprint._lightweight.count_fingerprint."""
         # Base case
         self.assertEqual(count_fingerprint(''), 0)
 
@@ -108,7 +108,7 @@ class LightweightFingerprintsTestCases(unittest.TestCase):
         )
 
     def test_position_fingerprint(self):
-        """Test abydos.fingerprint.lightweight.position_fingerprint."""
+        """Test abydos.fingerprint._lightweight.position_fingerprint."""
         # Base case
         self.assertEqual(position_fingerprint(''), 0b1111111111111111)
 

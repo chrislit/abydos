@@ -18,24 +18,24 @@
 
 """abydos.tests.phonetic.test_phonetic_es.
 
-This module contains unit tests for abydos.phonetic.es
+This module contains unit tests for abydos.phonetic._es
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.es import phonetic_spanish, spanish_metaphone
+from abydos.phonetic import phonetic_spanish, spanish_metaphone
 
 
 class PhoneticSpanishTestCases(unittest.TestCase):
     """Test PhoneticSpanish functions.
 
-    test cases for abydos.phonetic.es.phonetic_spanish
+    test cases for abydos.phonetic._es.phonetic_spanish
     """
 
     def test_phonetic_spanish(self):
-        """Test abydos.phonetic.es.phonetic_spanish."""
+        """Test abydos.phonetic._es.phonetic_spanish."""
         # Base case
         self.assertEqual(phonetic_spanish(''), '')
 
@@ -54,11 +54,11 @@ class PhoneticSpanishTestCases(unittest.TestCase):
 class SpanishMetaphoneTestCases(unittest.TestCase):
     """Test Spanish Metaphone functions.
 
-    test cases for abydos.phonetic.es.spanish_metaphone
+    test cases for abydos.phonetic._es.spanish_metaphone
     """
 
     def test_spanish_metaphone(self):
-        """Test abydos.phonetic.es.spanish_metaphone."""
+        """Test abydos.phonetic._es.spanish_metaphone."""
         # Base case
         self.assertEqual(spanish_metaphone(''), '')
 

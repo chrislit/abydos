@@ -18,24 +18,24 @@
 
 """abydos.tests.phonetic.test_phonetic_sound_d.
 
-This module contains unit tests for abydos.phonetic.sound_d
+This module contains unit tests for abydos.phonetic._sound_d
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.sound_d import sound_d
+from abydos.phonetic import sound_d
 
 
 class SoundDTestCases(unittest.TestCase):
     """Test class SoundD functions.
 
-    test cases for abydos.phonetic.sound_d.sound_d
+    test cases for abydos.phonetic._sound_d.sound_d
     """
 
     def test_sound_d(self):
-        """Test abydos.phonetic.sound_d.sound_d."""
+        """Test abydos.phonetic._sound_d.sound_d."""
         # Base cases
         self.assertEqual(sound_d(''), '0000')
         self.assertEqual(sound_d('', max_length=6), '000000')

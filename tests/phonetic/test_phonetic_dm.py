@@ -18,24 +18,24 @@
 
 """abydos.tests.phonetic.test_phonetic_dm.
 
-This module contains unit tests for abydos.phonetic.dm
+This module contains unit tests for abydos.phonetic._dm
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.dm import dm_soundex
+from abydos.phonetic import dm_soundex
 
 
 class DMSoundexTestCases(unittest.TestCase):
     """Test Daitch-Mokotoff Soundex functions.
 
-    test cases for abydos.phonetic.dm.dm_soundex
+    test cases for abydos.phonetic._dm.dm_soundex
     """
 
     def test_dm_soundex(self):
-        """Test abydos.phonetic.dm.dm_soundex (Daitch-Mokotoff Soundex)."""
+        """Test abydos.phonetic._dm.dm_soundex (Daitch-Mokotoff Soundex)."""
         # D-M tests
         self.assertEqual(dm_soundex(''), {'000000'})
 

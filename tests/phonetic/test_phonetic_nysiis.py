@@ -18,24 +18,24 @@
 
 """abydos.tests.phonetic.test_phonetic_nysiis.
 
-This module contains unit tests for abydos.phonetic.nysiis
+This module contains unit tests for abydos.phonetic._nysiis
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.nysiis import nysiis
+from abydos.phonetic import nysiis
 
 
 class NysiisTestCases(unittest.TestCase):
     """Test NYSIIS functions.
 
-    test cases for abydos.phonetic.nysiis.nysiis
+    test cases for abydos.phonetic._nysiis.nysiis
     """
 
     def test_nysiis(self):
-        """Test abydos.phonetic.nysiis.nysiis."""
+        """Test abydos.phonetic._nysiis.nysiis."""
         self.assertEqual(nysiis(''), '')
 
         # http://coryodaniel.com/index.php/2009/12/30/ruby-nysiis-implementation/
@@ -94,7 +94,7 @@ class NysiisTestCases(unittest.TestCase):
         self.assertEqual(nysiis('Niall', max_length=0), 'NAL')
 
     def test_modified_nysiis(self):
-        """Test abydos.phonetic.nysiis.nysiis (modified version)."""
+        """Test abydos.phonetic._nysiis.nysiis (modified version)."""
         self.assertEqual(nysiis('', max_length=-1, modified=True), '')
 
         # https://naldc.nal.usda.gov/download/27833/PDF

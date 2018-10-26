@@ -18,7 +18,7 @@
 
 """abydos.tests.distance.test_distance_token.
 
-This module contains unit tests for abydos.distance.token
+This module contains unit tests for abydos.distance._token
 """
 
 from __future__ import division, unicode_literals
@@ -26,7 +26,7 @@ from __future__ import division, unicode_literals
 import math
 import unittest
 
-from abydos.distance.token import (
+from abydos.distance import (
     bag,
     dist_bag,
     dist_cosine,
@@ -53,11 +53,11 @@ from .. import NONQ_FROM, NONQ_TO
 class TverskyIndexTestCases(unittest.TestCase):
     """Test Tversky functions.
 
-    abydos.distance.token.sim_tversky & .dist_tversky
+    abydos.distance._token.sim_tversky & .dist_tversky
     """
 
     def test_sim_tversky(self):
-        """Test abydos.distance.token.sim_tversky."""
+        """Test abydos.distance._token.sim_tversky."""
         self.assertEqual(sim_tversky('', ''), 1)
         self.assertEqual(sim_tversky('nelson', ''), 0)
         self.assertEqual(sim_tversky('', 'neilsen'), 0)
@@ -111,7 +111,7 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_tversky(NONQ_TO, NONQ_FROM, 0), 1 / 3)
 
     def test_dist_tversky(self):
-        """Test abydos.distance.token.dist_tversky."""
+        """Test abydos.distance._token.dist_tversky."""
         self.assertEqual(dist_tversky('', ''), 0)
         self.assertEqual(dist_tversky('nelson', ''), 1)
         self.assertEqual(dist_tversky('', 'neilsen'), 1)
@@ -172,7 +172,7 @@ class DiceTestCases(unittest.TestCase):
     """
 
     def test_sim_dice(self):
-        """Test abydos.distance.token.sim_dice."""
+        """Test abydos.distance._token.sim_dice."""
         self.assertEqual(sim_dice('', ''), 1)
         self.assertEqual(sim_dice('nelson', ''), 0)
         self.assertEqual(sim_dice('', 'neilsen'), 0)
@@ -199,7 +199,7 @@ class DiceTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_dice(NONQ_TO, NONQ_FROM, 0), 1 / 2)
 
     def test_dist_dice(self):
-        """Test abydos.distance.token.dist_dice."""
+        """Test abydos.distance._token.dist_dice."""
         self.assertEqual(dist_dice('', ''), 0)
         self.assertEqual(dist_dice('nelson', ''), 1)
         self.assertEqual(dist_dice('', 'neilsen'), 1)
@@ -229,11 +229,11 @@ class DiceTestCases(unittest.TestCase):
 class JaccardTestCases(unittest.TestCase):
     """Test Jaccard functions.
 
-    abydos.distance.token.sim_jaccard & .dist_jaccard
+    abydos.distance._token.sim_jaccard & .dist_jaccard
     """
 
     def test_sim_jaccard(self):
-        """Test abydos.distance.token.sim_jaccard."""
+        """Test abydos.distance._token.sim_jaccard."""
         self.assertEqual(sim_jaccard('', ''), 1)
         self.assertEqual(sim_jaccard('nelson', ''), 0)
         self.assertEqual(sim_jaccard('', 'neilsen'), 0)
@@ -260,7 +260,7 @@ class JaccardTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_jaccard(NONQ_TO, NONQ_FROM, 0), 1 / 3)
 
     def test_dist_jaccard(self):
-        """Test abydos.distance.token.dist_jaccard."""
+        """Test abydos.distance._token.dist_jaccard."""
         self.assertEqual(dist_jaccard('', ''), 0)
         self.assertEqual(dist_jaccard('nelson', ''), 1)
         self.assertEqual(dist_jaccard('', 'neilsen'), 1)
@@ -290,11 +290,11 @@ class JaccardTestCases(unittest.TestCase):
 class OverlapTestCases(unittest.TestCase):
     """Test overlap functions.
 
-    abydos.distance.token.sim_overlap & .dist_overlap
+    abydos.distance._token.sim_overlap & .dist_overlap
     """
 
     def test_sim_overlap(self):
-        """Test abydos.distance.token.sim_overlap."""
+        """Test abydos.distance._token.sim_overlap."""
         self.assertEqual(sim_overlap('', ''), 1)
         self.assertEqual(sim_overlap('nelson', ''), 0)
         self.assertEqual(sim_overlap('', 'neilsen'), 0)
@@ -321,7 +321,7 @@ class OverlapTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_overlap(NONQ_TO, NONQ_FROM, 0), 4 / 7)
 
     def test_dist_overlap(self):
-        """Test abydos.distance.token.dist_overlap."""
+        """Test abydos.distance._token.dist_overlap."""
         self.assertEqual(dist_overlap('', ''), 0)
         self.assertEqual(dist_overlap('nelson', ''), 1)
         self.assertEqual(dist_overlap('', 'neilsen'), 1)
@@ -351,11 +351,11 @@ class OverlapTestCases(unittest.TestCase):
 class TanimotoTestCases(unittest.TestCase):
     """Test Tanimoto functions.
 
-    abydos.distance.token.sim_tanimoto & .tanimoto
+    abydos.distance._token.sim_tanimoto & .tanimoto
     """
 
     def test_tanimoto_coeff(self):
-        """Test abydos.distance.token.sim_tanimoto."""
+        """Test abydos.distance._token.sim_tanimoto."""
         self.assertEqual(sim_tanimoto('', ''), 1)
         self.assertEqual(sim_tanimoto('nelson', ''), 0)
         self.assertEqual(sim_tanimoto('', 'neilsen'), 0)
@@ -382,7 +382,7 @@ class TanimotoTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_tanimoto(NONQ_TO, NONQ_FROM, 0), 1 / 3)
 
     def test_tanimoto(self):
-        """Test abydos.distance.token.tanimoto."""
+        """Test abydos.distance._token.tanimoto."""
         self.assertEqual(tanimoto('', ''), 0)
         self.assertEqual(tanimoto('nelson', ''), float('-inf'))
         self.assertEqual(tanimoto('', 'neilsen'), float('-inf'))
@@ -422,11 +422,11 @@ class TanimotoTestCases(unittest.TestCase):
 class CosineSimilarityTestCases(unittest.TestCase):
     """Test cosine similarity functions.
 
-    abydos.distance.token.sim_cosine & .dist_cosine
+    abydos.distance._token.sim_cosine & .dist_cosine
     """
 
     def test_sim_cosine(self):
-        """Test abydos.distance.token.sim_cosine."""
+        """Test abydos.distance._token.sim_cosine."""
         self.assertEqual(sim_cosine('', ''), 1)
         self.assertEqual(sim_cosine('nelson', ''), 0)
         self.assertEqual(sim_cosine('', 'neilsen'), 0)
@@ -462,7 +462,7 @@ class CosineSimilarityTestCases(unittest.TestCase):
         )
 
     def test_dist_cosine(self):
-        """Test abydos.distance.token.dist_cosine."""
+        """Test abydos.distance._token.dist_cosine."""
         self.assertEqual(dist_cosine('', ''), 0)
         self.assertEqual(dist_cosine('nelson', ''), 1)
         self.assertEqual(dist_cosine('', 'neilsen'), 1)
@@ -501,11 +501,11 @@ class CosineSimilarityTestCases(unittest.TestCase):
 class MongeElkanTestCases(unittest.TestCase):
     """Test Monge-Elkan functions.
 
-    abydos.distance.token.sim_monge_elkan & .dist_monge_elkan
+    abydos.distance._token.sim_monge_elkan & .dist_monge_elkan
     """
 
     def test_sim_monge_elkan(self):
-        """Test abydos.distance.token.sim_monge_elkan."""
+        """Test abydos.distance._token.sim_monge_elkan."""
         self.assertEqual(sim_monge_elkan('', ''), 1)
         self.assertEqual(sim_monge_elkan('', 'a'), 0)
         self.assertEqual(sim_monge_elkan('a', 'a'), 1)
@@ -529,7 +529,7 @@ class MongeElkanTestCases(unittest.TestCase):
         )
 
     def test_dist_monge_elkan(self):
-        """Test abydos.distance.token.dist_monge_elkan."""
+        """Test abydos.distance._token.dist_monge_elkan."""
         self.assertEqual(dist_monge_elkan('', ''), 0)
         self.assertEqual(dist_monge_elkan('', 'a'), 1)
 
@@ -555,11 +555,11 @@ class MongeElkanTestCases(unittest.TestCase):
 class BagTestCases(unittest.TestCase):
     """Test bag similarity functions.
 
-    abydos.distance.token.bag, .sim_bag & .dist_bag
+    abydos.distance._token.bag, .sim_bag & .dist_bag
     """
 
     def test_bag(self):
-        """Test abydos.distance.token.bag."""
+        """Test abydos.distance._token.bag."""
         self.assertEqual(bag('', ''), 0)
         self.assertEqual(bag('nelson', ''), 6)
         self.assertEqual(bag('', 'neilsen'), 7)
@@ -573,7 +573,7 @@ class BagTestCases(unittest.TestCase):
         self.assertEqual(bag('abcdefg', 'hijklmno'), 8)
 
     def test_sim_bag(self):
-        """Test abydos.distance.token.sim_bag."""
+        """Test abydos.distance._token.sim_bag."""
         self.assertEqual(sim_bag('', ''), 1)
         self.assertEqual(sim_bag('nelson', ''), 0)
         self.assertEqual(sim_bag('', 'neilsen'), 0)
@@ -587,7 +587,7 @@ class BagTestCases(unittest.TestCase):
         self.assertEqual(sim_bag('abcdefg', 'hijklmno'), 0)
 
     def test_dist_bag(self):
-        """Test abydos.distance.token.dist_bag."""
+        """Test abydos.distance._token.dist_bag."""
         self.assertEqual(dist_bag('', ''), 0)
         self.assertEqual(dist_bag('nelson', ''), 1)
         self.assertEqual(dist_bag('', 'neilsen'), 1)

@@ -18,14 +18,14 @@
 
 """abydos.tests.stemmer.test_stemmer_paice_husk.
 
-This module contains unit tests for abydos.stemmer.paice_husk
+This module contains unit tests for abydos.stemmer._paice_husk
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.stemmer.paice_husk import paice_husk
+from abydos.stemmer import paice_husk
 
 from .. import _corpus_file
 
@@ -33,11 +33,11 @@ from .. import _corpus_file
 class PaiceHuskTestCases(unittest.TestCase):
     """Test Paice-Husk functions.
 
-    abydos.stemmer.paice_husk.paice_husk
+    abydos.stemmer._paice_husk.paice_husk
     """
 
     def test_paice_husk(self):
-        """Test abydos.stemmer.paice_husk.paice_husk."""
+        """Test abydos.stemmer._paice_husk.paice_husk."""
         # base case
         self.assertEqual(paice_husk(''), '')
 
@@ -57,7 +57,7 @@ class PaiceHuskTestCases(unittest.TestCase):
         self.assertEqual(paice_husk('cement'), 'cem')
 
     def test_paice_husk_hopper_set(self):
-        """Test abydos.stemmer.paice_husk.paice_husk (Hopper262 testset).
+        """Test abydos.stemmer._paice_husk.paice_husk (Hopper262 testset).
 
         Source:
         https://raw.githubusercontent.com/Hopper262/paice-husk-stemmer/master/wordlist.txt

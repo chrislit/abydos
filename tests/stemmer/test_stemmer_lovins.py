@@ -18,7 +18,7 @@
 
 """abydos.tests.stemmer.test_stemmer_lovins.
 
-This module contains unit tests for abydos.stemmer.lovins
+This module contains unit tests for abydos.stemmer._lovins
 """
 
 from __future__ import unicode_literals
@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import codecs
 import unittest
 
-from abydos.stemmer.lovins import lovins
+from abydos.stemmer import lovins
 
 from .. import _corpus_file
 
@@ -34,11 +34,11 @@ from .. import _corpus_file
 class LovinsTestCases(unittest.TestCase):
     """Test Lovins functions.
 
-    abydos.stemmer.lovins.lovins
+    abydos.stemmer._lovins.lovins
     """
 
     def test_lovins(self):
-        """Test abydos.stemmer.lovins.lovins."""
+        """Test abydos.stemmer._lovins.lovins."""
         # base case
         self.assertEqual(lovins(''), '')
 
@@ -80,7 +80,7 @@ class LovinsTestCases(unittest.TestCase):
         self.assertEqual(lovins('feminism'), 'fem')
 
     def test_lovins_snowball(self):
-        """Test abydos.stemmer.lovins.lovins (Snowball testset).
+        """Test abydos.stemmer._lovins.lovins (Snowball testset).
 
         These test cases are from
         https://github.com/snowballstem/snowball-data/tree/master/lovins

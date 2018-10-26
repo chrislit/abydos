@@ -18,24 +18,24 @@
 
 """abydos.tests.phonetic.test_phonetic_spfc.
 
-This module contains unit tests for abydos.phonetic.spfc
+This module contains unit tests for abydos.phonetic._spfc
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.spfc import spfc
+from abydos.phonetic import spfc
 
 
 class SPFCTestCases(unittest.TestCase):
     """Test SPFC functions.
 
-    test cases for abydos.phonetic.spfc.spfc
+    test cases for abydos.phonetic._spfc.spfc
     """
 
     def test_spfc(self):
-        """Test abydos.phonetic.spfc.spfc."""
+        """Test abydos.phonetic._spfc.spfc."""
         self.assertEqual(spfc(''), '')
 
         # https://archive.org/stream/accessingindivid00moor#page/19/mode/1up

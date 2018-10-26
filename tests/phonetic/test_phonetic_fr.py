@@ -18,24 +18,24 @@
 
 """abydos.tests.phonetic.test_phonetic_fr.
 
-This module contains unit tests for abydos.phonetic.fr
+This module contains unit tests for abydos.phonetic._fr
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.fr import fonem, henry_early
+from abydos.phonetic import fonem, henry_early
 
 
 class FonemTestCases(unittest.TestCase):
     """Test FONEM functions.
 
-    test cases for abydos.phonetic.fr.fonem
+    test cases for abydos.phonetic._fr.fonem
     """
 
     def test_fonem(self):
-        """Test abydos.phonetic.fr.fonem."""
+        """Test abydos.phonetic._fr.fonem."""
         # Base cases
         self.assertEqual(fonem(''), '')
 
@@ -173,11 +173,11 @@ class FonemTestCases(unittest.TestCase):
 class HenryCodeTestCases(unittest.TestCase):
     """Test Henry Code functions.
 
-    test cases for abydos.phonetic.fr.henry_early
+    test cases for abydos.phonetic._fr.henry_early
     """
 
     def test_henry_early(self):
-        """Test abydos.phonetic.fr.henry_early."""
+        """Test abydos.phonetic._fr.henry_early."""
         # Base case
         self.assertEqual(henry_early(''), '')
 

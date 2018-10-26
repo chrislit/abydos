@@ -18,7 +18,7 @@
 
 """abydos.tests.distance.test_distance_sequence.
 
-This module contains unit tests for abydos.distance.sequence
+This module contains unit tests for abydos.distance._sequence
 """
 
 from __future__ import division, unicode_literals
@@ -26,7 +26,7 @@ from __future__ import division, unicode_literals
 import unittest
 from difflib import SequenceMatcher
 
-from abydos.distance.sequence import (
+from abydos.distance import (
     dist_lcsseq,
     dist_lcsstr,
     dist_ratcliff_obershelp,
@@ -43,11 +43,11 @@ from .. import _corpus_file
 class LcsseqTestCases(unittest.TestCase):
     """Test LCSseq functions.
 
-    abydos.distance.sequence.lcsseq, .sim_lcsseq, & .dist_lcsseq
+    abydos.distance._sequence.lcsseq, .sim_lcsseq, & .dist_lcsseq
     """
 
     def test_lcsseq(self):
-        """Test abydos.distance.sequence.lcsseq."""
+        """Test abydos.distance._sequence.lcsseq."""
         self.assertEqual(lcsseq('', ''), '')
         self.assertEqual(lcsseq('A', ''), '')
         self.assertEqual(lcsseq('', 'A'), '')
@@ -82,7 +82,7 @@ class LcsseqTestCases(unittest.TestCase):
         self.assertEqual(lcsseq('ccc', 'bcbb'), 'c')
 
     def test_sim_lcsseq(self):
-        """Test abydos.distance.sequence.sim_lcsseq."""
+        """Test abydos.distance._sequence.sim_lcsseq."""
         self.assertEqual(sim_lcsseq('', ''), 1)
         self.assertEqual(sim_lcsseq('A', ''), 0)
         self.assertEqual(sim_lcsseq('', 'A'), 0)
@@ -119,7 +119,7 @@ class LcsseqTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_lcsseq('ccc', 'bcbb'), 1 / 4)
 
     def test_dist_lcsseq(self):
-        """Test abydos.distance.sequence.dist_lcsseq."""
+        """Test abydos.distance._sequence.dist_lcsseq."""
         self.assertEqual(dist_lcsseq('', ''), 0)
         self.assertEqual(dist_lcsseq('A', ''), 1)
         self.assertEqual(dist_lcsseq('', 'A'), 1)
@@ -159,11 +159,11 @@ class LcsseqTestCases(unittest.TestCase):
 class LcsstrTestCases(unittest.TestCase):
     """Test LCSstr functions.
 
-    abydos.distance.sequence.lcsstr, .sim_lcsstr, & .dist_lcsstr
+    abydos.distance._sequence.lcsstr, .sim_lcsstr, & .dist_lcsstr
     """
 
     def test_lcsstr(self):
-        """Test abydos.distance.sequence.lcsstr."""
+        """Test abydos.distance._sequence.lcsstr."""
         self.assertEqual(lcsstr('', ''), '')
         self.assertEqual(lcsstr('A', ''), '')
         self.assertEqual(lcsstr('', 'A'), '')
@@ -214,7 +214,7 @@ ACTGCCTGGGAAAAGATCGGCAGCCACGGTGGCGAGTATGGCGCCGAGGCCGT',
         )
 
     def test_sim_lcsstr(self):
-        """Test abydos.distance.sequence.sim_lcsstr."""
+        """Test abydos.distance._sequence.sim_lcsstr."""
         self.assertEqual(sim_lcsstr('', ''), 1)
         self.assertEqual(sim_lcsstr('A', ''), 0)
         self.assertEqual(sim_lcsstr('', 'A'), 0)
@@ -251,7 +251,7 @@ ACTGCCTGGGAAAAGATCGGCAGCCACGGTGGCGAGTATGGCGCCGAGGCCGT',
         self.assertAlmostEqual(sim_lcsstr('ccc', 'bcbb'), 1 / 4)
 
     def test_dist_lcsstr(self):
-        """Test abydos.distance.sequence.dist_lcsstr."""
+        """Test abydos.distance._sequence.dist_lcsstr."""
         self.assertEqual(dist_lcsstr('', ''), 0)
         self.assertEqual(dist_lcsstr('A', ''), 1)
         self.assertEqual(dist_lcsstr('', 'A'), 1)
@@ -291,12 +291,12 @@ ACTGCCTGGGAAAAGATCGGCAGCCACGGTGGCGAGTATGGCGCCGAGGCCGT',
 class RatcliffObershelpTestCases(unittest.TestCase):
     """Test Ratcliff-Obserhelp functions.
 
-    abydos.distance.sequence.sim_ratcliff_obershelp, &
-    abydos.distance.sequence.dist_ratcliff_obershelp
+    abydos.distance._sequence.sim_ratcliff_obershelp, &
+    abydos.distance._sequence.dist_ratcliff_obershelp
     """
 
     def test_sim_ratcliff_obershelp(self):
-        """Test abydos.distance.sequence.sim_ratcliff_obershelp."""
+        """Test abydos.distance._sequence.sim_ratcliff_obershelp."""
         # https://github.com/rockymadden/stringmetric/blob/master/core/src/test/scala/com/rockymadden/stringmetric/similarity/RatcliffObershelpMetricSpec.scala
         self.assertEqual(sim_ratcliff_obershelp('', ''), 1)
         self.assertEqual(sim_ratcliff_obershelp('abc', ''), 0)
@@ -357,7 +357,7 @@ class RatcliffObershelpTestCases(unittest.TestCase):
                 )
 
     def test_dist_ratcliff_obershelp(self):
-        """Test abydos.distance.sequence.dist_ratcliff_obershelp."""
+        """Test abydos.distance._sequence.dist_ratcliff_obershelp."""
         # https://github.com/rockymadden/stringmetric/blob/master/core/src/test/scala/com/rockymadden/stringmetric/similarity/RatcliffObershelpMetricSpec.scala
         self.assertEqual(dist_ratcliff_obershelp('', ''), 0)
         self.assertEqual(dist_ratcliff_obershelp('abc', ''), 1)

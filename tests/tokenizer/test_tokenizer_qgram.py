@@ -18,21 +18,21 @@
 
 """abydos.tests.tokenizer.test_tokenizer_qgram.
 
-This module contains unit tests for abydos.tokenizer.qgram
+This module contains unit tests for abydos.tokenizer._qgram
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.tokenizer.qgram import QGrams
+from abydos.tokenizer import QGrams
 
 
 class QgramTestCases(unittest.TestCase):
-    """Test abydos.tokenizer.qgram."""
+    """Test abydos.tokenizer._qgram."""
 
     def test_qgrams(self):
-        """Test abydos.tokenizer.qgram.QGrams."""
+        """Test abydos.tokenizer._qgram.QGrams."""
         self.assertEqual(sorted(QGrams('').elements()), [])
         self.assertEqual(sorted(QGrams('a', 2).elements()), [])
         self.assertEqual(sorted(QGrams('NELSON', 0).elements()), [])
@@ -213,7 +213,7 @@ class QgramTestCases(unittest.TestCase):
         self.assertEqual(QGrams('NELSON', skip=(0, 1, 2)).count(), 21)
 
     def test_qgram_intersections(self):
-        """Test abydos.tokenizer.qgram.QGrams intersections."""
+        """Test abydos.tokenizer._qgram.QGrams intersections."""
         self.assertEqual(sorted(QGrams('NELSON') & QGrams('')), [])
         self.assertEqual(sorted(QGrams('') & QGrams('NEILSEN')), [])
         self.assertEqual(
@@ -247,7 +247,7 @@ class QgramTestCases(unittest.TestCase):
         )
 
     def test_qgram_counts(self):
-        """Test abydos.tokenizer.qgram.QGrams counts."""
+        """Test abydos.tokenizer._qgram.QGrams counts."""
         self.assertEqual(QGrams('').count(), 0)
         self.assertEqual(len(QGrams('').ordered_list), 0)
 

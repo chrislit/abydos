@@ -18,51 +18,51 @@
 
 """abydos.tests.compression.test_compression_bwt.
 
-This module contains unit tests for abydos.compression.bwt
+This module contains unit tests for abydos.compression._bwt
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.compression.bwt import decode, encode
+from abydos.compression import bwt_decode, bwt_encode
 
 
 class BWTTestCases(unittest.TestCase):
-    """Test abydos.compression.bwt.encode and .decode."""
+    """Test abydos.compression._bwt.bwt_encode and bwt_decode."""
 
     def test_bwt_encode(self):
-        """Test abydos.compression.bwt.encode."""
+        """Test abydos.compression._bwt.bwt_encode."""
         # Examples from Wikipedia entry on BWT
-        self.assertEqual(encode(''), '\x00')
-        self.assertEqual(encode('^BANANA', '|'), 'BNN^AA|A')
+        self.assertEqual(bwt_encode(''), '\x00')
+        self.assertEqual(bwt_encode('^BANANA', '|'), 'BNN^AA|A')
         self.assertEqual(
-            encode('SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES', '|'),
+            bwt_encode('SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES', '|'),
             'TEXYDST.E.IXIXIXXSSMPPS.B..E.|.UESFXDIIOIIITS',
         )
 
-        self.assertEqual(encode('aardvark', '$'), 'k$avrraad')
+        self.assertEqual(bwt_encode('aardvark', '$'), 'k$avrraad')
 
-        self.assertRaises(ValueError, encode, 'ABC$', '$')
-        self.assertRaises(ValueError, encode, 'ABC\0')
+        self.assertRaises(ValueError, bwt_encode, 'ABC$', '$')
+        self.assertRaises(ValueError, bwt_encode, 'ABC\0')
 
     def test_bwt_decode(self):
-        """Test abydos.compression.bwt.decode."""
-        self.assertEqual(decode(''), '')
-        self.assertEqual(decode('\x00'), '')
-        self.assertEqual(decode('BNN^AA|A', '|'), '^BANANA')
+        """Test abydos.compression._bwt.bwt_decode."""
+        self.assertEqual(bwt_decode(''), '')
+        self.assertEqual(bwt_decode('\x00'), '')
+        self.assertEqual(bwt_decode('BNN^AA|A', '|'), '^BANANA')
         self.assertEqual(
-            decode('TEXYDST.E.IXIXIXXSSMPPS.B..E.|.' + 'UESFXDIIOIIITS', '|'),
+            bwt_decode('TEXYDST.E.IXIXIXXSSMPPS.B..E.|.' + 'UESFXDIIOIIITS', '|'),
             'SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES',
         )
 
-        self.assertEqual(decode('k$avrraad', '$'), 'aardvark')
+        self.assertEqual(bwt_decode('k$avrraad', '$'), 'aardvark')
 
-        self.assertRaises(ValueError, decode, 'ABC', '$')
-        self.assertRaises(ValueError, decode, 'ABC')
+        self.assertRaises(ValueError, bwt_decode, 'ABC', '$')
+        self.assertRaises(ValueError, bwt_decode, 'ABC')
 
     def test_bwt_roundtripping(self):
-        """Test abydos.compression.bwt.encode & .decode roundtripping."""
+        """Test abydos.compression._bwt.bwt_encode & .bwt_decode roundtripping."""  # noqa: E501
         for w in (
             '',
             'Banana',
@@ -72,8 +72,8 @@ class BWTTestCases(unittest.TestCase):
             'בְּרֵאשִׁית, בָּרָא אֱלֹהִים',
             'Ein Rückblick bietet sich folglich an.',
         ):
-            self.assertEqual(decode(encode(w)), w)
-            self.assertEqual(decode(encode(w, '$'), '$'), w)
+            self.assertEqual(bwt_decode(bwt_encode(w)), w)
+            self.assertEqual(bwt_decode(bwt_encode(w, '$'), '$'), w)
 
 
 if __name__ == '__main__':
