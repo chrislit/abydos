@@ -24,7 +24,6 @@ functions, along with Ratcliff-Obershelp similarity & distance.
 
 from __future__ import division, unicode_literals
 
-
 from numpy import int as np_int
 from numpy import zeros as np_zeros
 
