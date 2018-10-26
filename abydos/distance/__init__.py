@@ -162,7 +162,6 @@ from ._token import (
     tanimoto,
 )
 from ._typo import dist_typo, sim_typo, typo
-from ._util import _get_qgrams
 
 __all__ = [
     'sim',
