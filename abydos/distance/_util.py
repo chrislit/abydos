@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 from collections import Counter
 
-from ..tokenizer.qgram import QGrams
+from ..tokenizer import QGrams
 
 
 def _get_qgrams(src, tar, qval=0, skip=0):

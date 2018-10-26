@@ -45,7 +45,7 @@ from abydos.distance import (
     sim_tversky,
     tanimoto,
 )
-from abydos.tokenizer.qgram import QGrams
+from abydos.tokenizer import QGrams
 
 from .. import NONQ_FROM, NONQ_TO
 

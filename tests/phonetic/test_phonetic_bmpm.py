@@ -26,6 +26,8 @@ from __future__ import unicode_literals
 import codecs
 import unittest
 
+from abydos.phonetic import bmpm
+
 # noinspection PyProtectedMember
 from abydos.phonetic._bmdata import (
     L_ANY,
@@ -49,14 +51,13 @@ from abydos.phonetic._bmdata import (
 )
 
 # noinspection PyProtectedMember
-from abydos.phonetic.bmpm import (
+from abydos.phonetic._bmpm import (
     _bm_apply_rule_if_compat,
     _bm_expand_alternates,
     _bm_language,
     _bm_normalize_lang_attrs,
     _bm_phonetic_number,
     _bm_remove_dupes,
-    bmpm,
 )
 
 

@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import codecs
 import unittest
 
-from abydos.stemmer.snowball import (
+from abydos.stemmer import (
     porter,
     porter2,
     sb_danish,

@@ -32,7 +32,7 @@ from collections import defaultdict
 
 from six.moves import range
 
-from ..tokenizer.qgram import QGrams
+from ..tokenizer import QGrams
 
 
 __all__ = [
