@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.fingerprint.speedcop.
+"""abydos.fingerprint._speedcop.
 
 The fingerprint.speedcop module implements string fingerprints developed by
 Pollock & Zomora in :cite:`Pollock:1984`:

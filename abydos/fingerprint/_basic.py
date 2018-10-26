@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.fingerprint.basic.
+"""abydos.fingerprint._basic.
 
 The fingerprint.basic module implements string fingerprints described at
 :cite:`OpenRefine:2012`:
@@ -32,8 +32,8 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ..phonetic.metaphone import double_metaphone
-from ..tokenizer.qgram import QGrams
+from ..phonetic import double_metaphone
+from ..tokenizer import QGrams
 
 __all__ = ['phonetic_fingerprint', 'qgram_fingerprint', 'str_fingerprint']
 
