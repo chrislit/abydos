@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_distance.
+"""abydos.tests.distance.test_distance_levenshtein.
 
 This module contains unit tests for abydos.distance
 """
@@ -40,11 +40,12 @@ from abydos.distance.levenshtein import (
 class LevenshteinTestCases(unittest.TestCase):
     """Test Levenshtein functions.
 
-    abydos.distance.levenshtein, .dist_levenshtein, & .sim_levenshtein
+    abydos.distance.levenshtein.levenshtein, .dist_levenshtein, &
+    .sim_levenshtein
     """
 
     def test_levenshtein(self):
-        """Test abydos.distance.levenshtein."""
+        """Test abydos.distance.levenshtein.levenshtein."""
         self.assertEqual(levenshtein('', ''), 0)
 
         # http://oldfashionedsoftware.com/tag/levenshtein-distance/
@@ -143,7 +144,7 @@ class LevenshteinTestCases(unittest.TestCase):
         )
 
     def test_dist_levenshtein(self):
-        """Test abydos.distance.dist_levenshtein."""
+        """Test abydos.distance.levenshtein.dist_levenshtein."""
         self.assertEqual(dist_levenshtein('', ''), 0)
 
         self.assertEqual(dist_levenshtein('a', 'a'), 0)
@@ -157,7 +158,7 @@ class LevenshteinTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_levenshtein('abbc', 'abc'), 1 / 4)
 
     def test_sim_levenshtein(self):
-        """Test abydos.distance.sim_levenshtein."""
+        """Test abydos.distance.levenshtein.sim_levenshtein."""
         self.assertEqual(sim_levenshtein('', ''), 1)
 
         self.assertEqual(sim_levenshtein('a', 'a'), 1)
@@ -174,11 +175,11 @@ class LevenshteinTestCases(unittest.TestCase):
 class DamerauLevenshteinTestCases(unittest.TestCase):
     """Test Damerau-Levenshtein functions.
 
-    abydos.distance.damerau, .dist_damerau, & .sim_damerau
+    abydos.distance.levenshtein.damerau, .dist_damerau, & .sim_damerau
     """
 
     def test_damerau_levenshtein(self):
-        """Test abydos.distance.damerau_levenshtein."""
+        """Test abydos.distance.levenshtein.damerau_levenshtein."""
         self.assertEqual(damerau_levenshtein('', ''), 0)
         self.assertEqual(damerau_levenshtein('CA', 'CA'), 0)
         self.assertEqual(damerau_levenshtein('CA', 'ABC'), 2)
@@ -210,7 +211,7 @@ class DamerauLevenshteinTestCases(unittest.TestCase):
         )
 
     def test_dist_damerau(self):
-        """Test abydos.distance.dist_damerau."""
+        """Test abydos.distance.levenshtein.dist_damerau."""
         self.assertEqual(dist_damerau('', ''), 0)
 
         self.assertEqual(dist_damerau('a', 'a'), 0)
@@ -252,7 +253,7 @@ class DamerauLevenshteinTestCases(unittest.TestCase):
         )
 
     def test_sim_damerau(self):
-        """Test abydos.distance.sim_damerau."""
+        """Test abydos.distance.levenshtein.sim_damerau."""
         self.assertEqual(sim_damerau('', ''), 1)
 
         self.assertEqual(sim_damerau('a', 'a'), 1)
@@ -297,11 +298,11 @@ class DamerauLevenshteinTestCases(unittest.TestCase):
 class IndelTestCases(unittest.TestCase):
     """Test indel functions.
 
-    abydos.distance.sim_indel & .dist_indel
+    abydos.distance.levenshtein.sim_indel & .dist_indel
     """
 
     def test_sim_indel(self):
-        """Test abydos.distance.sim_indel."""
+        """Test abydos.distance.levenshtein.sim_indel."""
         # Base cases
         self.assertEqual(sim_indel('', ''), 1)
         self.assertEqual(sim_indel('a', ''), 0)
@@ -316,7 +317,7 @@ class IndelTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_indel('Coiln', 'Colin'), 0.8)
 
     def test_dist_indel(self):
-        """Test abydos.distance.dist_indel."""
+        """Test abydos.distance.levenshtein.dist_indel."""
         # Base cases
         self.assertEqual(dist_indel('', ''), 0)
         self.assertEqual(dist_indel('a', ''), 1)

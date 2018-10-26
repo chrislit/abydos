@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_stats.
+"""abydos.tests.stats.test_stats_mean.
 
-This module contains unit tests for abydos.stats
+This module contains unit tests for abydos.stats.mean
 """
 
 from __future__ import division, unicode_literals

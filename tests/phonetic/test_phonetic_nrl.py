@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_nrl.
+"""abydos.tests.phonetic.test_phonetic_nrl.
 
 This module contains unit tests for abydos.phonetic.nrl
 """
@@ -31,11 +31,11 @@ from abydos.phonetic.nrl import nrl
 class NRLTestCases(unittest.TestCase):
     """Test Naval Research Laboratory phonetic encoding functions.
 
-    test cases for abydos.phonetic.nrl
+    test cases for abydos.phonetic.nrl.nrl
     """
 
     def test_nrl(self):
-        """Test abydos.phonetic.nrl."""
+        """Test abydos.phonetic.nrl.nrl."""
         # Base case
         self.assertEqual(nrl(''), '')
 

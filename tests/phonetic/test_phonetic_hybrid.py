@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_hybrid.
+"""abydos.tests.phonetic.test_phonetic_hybrid.
 
 This module contains unit tests for abydos.phonetic.hybrid
 """
@@ -31,11 +31,11 @@ from abydos.phonetic.hybrid import metasoundex, onca
 class ONCATestCases(unittest.TestCase):
     """Test ONCA functions.
 
-    test cases for abydos.phonetic.onca
+    test cases for abydos.phonetic.hybrid.onca
     """
 
     def test_onca(self):
-        """Test abydos.phonetic.onca."""
+        """Test abydos.phonetic.hybrid.onca."""
         # https://nces.ed.gov/FCSM/pdf/RLT97.pdf
         self.assertEqual(onca('HALL'), 'H400')
         self.assertEqual(onca('SMITH'), 'S530')
@@ -49,11 +49,11 @@ class ONCATestCases(unittest.TestCase):
 class MetaSoundexTestCases(unittest.TestCase):
     """Test MetaSoundex functions.
 
-    test cases for abydos.phonetic.metasoundex
+    test cases for abydos.phonetic.hybrid.metasoundex
     """
 
     def test_metasoundex(self):
-        """Test abydos.phonetic.metasoundex."""
+        """Test abydos.phonetic.hybrid.metasoundex."""
         # Base cases
         self.assertEqual(metasoundex(''), '0000')
         self.assertEqual(metasoundex('', lang='en'), '0000')

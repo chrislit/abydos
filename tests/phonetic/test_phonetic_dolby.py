@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_dolby.
+"""abydos.tests.phonetic.test_phonetic_dolby.
 
 This module contains unit tests for abydos.phonetic.dolby
 """
@@ -31,11 +31,11 @@ from abydos.phonetic.dolby import dolby
 class DolbyTestCases(unittest.TestCase):
     """Test Dolby functions.
 
-    test cases for abydos.phonetic.dolby
+    test cases for abydos.phonetic.dolby.dolby
     """
 
     def test_dolby(self):
-        """Test abydos.phonetic.dolby."""
+        """Test abydos.phonetic.dolby.dolby."""
         # Base case
         self.assertEqual(dolby(''), '')
 

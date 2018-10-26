@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_spfc.
+"""abydos.tests.phonetic.test_phonetic_spfc.
 
 This module contains unit tests for abydos.phonetic.spfc
 """
@@ -31,11 +31,11 @@ from abydos.phonetic.spfc import spfc
 class SPFCTestCases(unittest.TestCase):
     """Test SPFC functions.
 
-    test cases for abydos.phonetic.spfc
+    test cases for abydos.phonetic.spfc.spfc
     """
 
     def test_spfc(self):
-        """Test abydos.phonetic.spfc."""
+        """Test abydos.phonetic.spfc.spfc."""
         self.assertEqual(spfc(''), '')
 
         # https://archive.org/stream/accessingindivid00moor#page/19/mode/1up

@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_stemmer_caumanns.
+"""abydos.tests.stemmer.test_stemmer_caumanns.
 
 This module contains unit tests for abydos.stemmer.caumanns
 """
@@ -35,7 +35,7 @@ class CaumannsTestCases(unittest.TestCase):
     """
 
     def test_caumanns(self):
-        """Test abydos.stemmer.caumanns."""
+        """Test abydos.stemmer.caumanns.caumanns."""
         # base case
         self.assertEqual(caumanns(''), '')
 
@@ -60,7 +60,7 @@ class CaumannsTestCases(unittest.TestCase):
         self.assertEqual(caumanns('Matrizen'), 'matrix')
 
     def test_caumanns_lucene(self):
-        """Test abydos.stemmer.caumanns (Lucene tests).
+        """Test abydos.stemmer.caumanns.caumanns (Lucene tests).
 
         Based on tests from
         https://svn.apache.org/repos/asf/lucene.net/trunk/test/contrib/Analyzers/De/data.txt

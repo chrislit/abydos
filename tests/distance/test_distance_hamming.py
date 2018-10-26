@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_distance_hamming.
+"""abydos.tests.distance.test_distance_hamming.
 
 This module contains unit tests for abydos.distance.hamming
 """
@@ -41,7 +41,7 @@ class HammingTestCases(unittest.TestCase):
     """
 
     def test_hamming(self):
-        """Test abydos.distance.hamming."""
+        """Test abydos.distance.hamming.hamming."""
         self.assertEqual(hamming('', ''), 0)
         self.assertEqual(hamming('', '', False), 0)
 
@@ -65,7 +65,7 @@ class HammingTestCases(unittest.TestCase):
         self.assertEqual(hamming('2173896', '2233796'), 3)
 
     def test_dist_hamming(self):
-        """Test abydos.distance.dist_hamming."""
+        """Test abydos.distance.hamming.dist_hamming."""
         self.assertEqual(dist_hamming('', ''), 0)
         self.assertEqual(dist_hamming('', '', False), 0)
 
@@ -89,7 +89,7 @@ class HammingTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_hamming('2173896', '2233796'), 3 / 7)
 
     def test_sim_hamming(self):
-        """Test abydos.distance.sim_hamming."""
+        """Test abydos.distance.hamming.sim_hamming."""
         self.assertEqual(sim_hamming('', ''), 1)
         self.assertEqual(sim_hamming('', '', False), 1)
 
@@ -116,11 +116,11 @@ class HammingTestCases(unittest.TestCase):
 class MLIPNSTestCases(unittest.TestCase):
     """Test MLIPNS functions.
 
-    abydos.distance.sim_mlipns & .dist_mlipns
+    abydos.distance.hamming.sim_mlipns & .dist_mlipns
     """
 
     def test_sim_mlipns(self):
-        """Test abydos.distance.sim_mlipns."""
+        """Test abydos.distance.hamming.sim_mlipns."""
         self.assertEqual(sim_mlipns('', ''), 1)
         self.assertEqual(sim_mlipns('a', ''), 0)
         self.assertEqual(sim_mlipns('', 'a'), 0)
@@ -134,7 +134,7 @@ class MLIPNSTestCases(unittest.TestCase):
         self.assertEqual(sim_mlipns('ato', 'Tam'), 1)
 
     def test_dist_mlipns(self):
-        """Test abydos.distance.dist_mlipns."""
+        """Test abydos.distance.hamming.dist_mlipns."""
         self.assertEqual(dist_mlipns('', ''), 0)
         self.assertEqual(dist_mlipns('a', ''), 1)
         self.assertEqual(dist_mlipns('', 'a'), 1)

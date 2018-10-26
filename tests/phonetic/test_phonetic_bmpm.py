@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_bmpm.
+"""abydos.tests.phonetic.test_phonetic_bmpm.
 
 This module contains unit tests for abydos.phonetic.bmpm
 """
@@ -68,7 +68,9 @@ from .. import ALLOW_RANDOM, _corpus_file, _one_in
 class BeiderMorseTestCases(unittest.TestCase):
     """Test BMPM functions.
 
-    test cases for abydos.phonetic.bmpm
+    test cases for abydos.phonetic.bmpm, _phonetic_number,
+    _bm_apply_rule_if_compat, _bm_language, _bm_expand_alternates,
+    _bm_remove_dupes, _bm_normalize_lang_attrs
     """
 
     def test_bmpm(self):

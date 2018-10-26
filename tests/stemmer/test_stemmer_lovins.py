@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_stemmer_lovins.
+"""abydos.tests.stemmer.test_stemmer_lovins.
 
 This module contains unit tests for abydos.stemmer.lovins
 """
@@ -34,11 +34,11 @@ from .. import _corpus_file
 class LovinsTestCases(unittest.TestCase):
     """Test Lovins functions.
 
-    abydos.stemmer.lovins
+    abydos.stemmer.lovins.lovins
     """
 
     def test_lovins(self):
-        """Test abydos.stemmer.lovins."""
+        """Test abydos.stemmer.lovins.lovins."""
         # base case
         self.assertEqual(lovins(''), '')
 
@@ -80,7 +80,7 @@ class LovinsTestCases(unittest.TestCase):
         self.assertEqual(lovins('feminism'), 'fem')
 
     def test_lovins_snowball(self):
-        """Test abydos.stemmer.lovins (Snowball testset).
+        """Test abydos.stemmer.lovins.lovins (Snowball testset).
 
         These test cases are from
         https://github.com/snowballstem/snowball-data/tree/master/lovins

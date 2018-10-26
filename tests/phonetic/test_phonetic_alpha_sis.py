@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_alpha_sis.
+"""abydos.tests.phonetic.test_phonetic_alpha_sis.
 
 This module contains unit tests for abydos.phonetic.alpha_sis
 """
@@ -35,7 +35,7 @@ class AlphaSisTestCases(unittest.TestCase):
     """
 
     def test_alpha_sis(self):
-        """Test abydos.phonetic.alpha_sis."""
+        """Test abydos.phonetic.alpha_sis.alpha_sis."""
         self.assertEqual(alpha_sis('')[0], '00000000000000')
 
         self.assertEqual(alpha_sis('Rodgers')[0], '04740000000000')

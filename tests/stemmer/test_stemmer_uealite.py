@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_stemmer_uealite.
+"""abydos.tests.stemmer.test_stemmer_uealite.
 
 This module contains unit tests for abydos.stemmer.uealite
 """
@@ -33,11 +33,11 @@ from .. import _corpus_file
 class UEALiteTestCases(unittest.TestCase):
     """Test UEA-lite functions.
 
-    abydos.stemmer.uealite
+    abydos.stemmer.uealite.uealite
     """
 
     def test_uealite(self):
-        """Test abydos.stemmer.uealite."""
+        """Test abydos.stemmer.uealite.uealite."""
         # base case
         self.assertEqual(uealite(''), '')
 
@@ -186,7 +186,7 @@ class UEALiteTestCases(unittest.TestCase):
         self.assertEqual(uealite(''), '')
 
     def test_uealite_wsj_set(self):
-        """Test abydos.stemmer.uealite (WSJ testset)."""
+        """Test abydos.stemmer.uealite.uealite (WSJ testset)."""
         with open(_corpus_file('uea-lite_wsj.csv')) as wsj_ts:
             for wsj_line in wsj_ts:
                 (word, uea, rule) = wsj_line.strip().split(',')

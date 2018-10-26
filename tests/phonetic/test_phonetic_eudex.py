@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_eudex.
+"""abydos.tests.phonetic.test_phonetic_eudex.
 
 This module contains unit tests for abydos.phonetic.eudex
 """
@@ -31,11 +31,11 @@ from abydos.phonetic.eudex import eudex
 class EudexTestCases(unittest.TestCase):
     """Test eudex functions.
 
-    test cases for abydos.phonetic.eudex
+    test cases for abydos.phonetic.eudex.eudex
     """
 
     def test_eudex(self):
-        """Test abydos.phonetic.eudex."""
+        """Test abydos.phonetic.eudex.eudex."""
         # base cases
         self.assertEqual(eudex(''), 18374686479671623680)
         self.assertEqual(eudex(' '), 18374686479671623680)

@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_fingerprint_speedcop.
+"""abydos.tests.fingerprint.test_fingerprint_speedcop.
 
 This module contains unit tests for abydos.fingerprint.speedcop
 """

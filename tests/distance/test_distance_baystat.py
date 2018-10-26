@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_distance.baystat.
+"""abydos.tests.distance.test_distance_baystat.
 
 This module contains unit tests for abydos.distance.baystat
 """
@@ -31,11 +31,11 @@ from abydos.distance.baystat import dist_baystat, sim_baystat
 class BaystatTestCases(unittest.TestCase):
     """Test Baystat functions.
 
-    abydos.distance.sim_baystat & .dist_baystat
+    abydos.distance.baystat.sim_baystat & .dist_baystat
     """
 
     def test_sim_baystat(self):
-        """Test abydos.distance.sim_editex."""
+        """Test abydos.distance.baystat.sim_baystat."""
         # Base cases
         self.assertEqual(sim_baystat('', ''), 1)
         self.assertEqual(sim_baystat('Colin', ''), 0)
@@ -64,7 +64,7 @@ class BaystatTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_baystat('ZIMMER', 'ZIMMERMANN'), 0.6)
 
     def test_dist_baystat(self):
-        """Test abydos.distance.dist_editex."""
+        """Test abydos.distance.baystat.dist_baystat."""
         # Base cases
         self.assertEqual(dist_baystat('', ''), 0)
         self.assertEqual(dist_baystat('Colin', ''), 1)

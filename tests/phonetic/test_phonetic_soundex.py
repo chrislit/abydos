@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_soundex.
+"""abydos.tests.phonetic.test_phonetic_soundex.
 
 This module contains unit tests for abydos.phonetic.soundex
 """
@@ -40,11 +40,11 @@ from abydos.phonetic.soundex import (
 class SoundexTestCases(unittest.TestCase):
     """Test Soundex functions.
 
-    test cases for abydos.phonetic.soundex, .refined_soundex
+    test cases for abydos.phonetic.soundex.soundex, .refined_soundex
     """
 
     def test_soundex(self):
-        """Test abydos.phonetic.soundex."""
+        """Test abydos.phonetic.soundex.soundex."""
         self.assertEqual(soundex(''), '0000')
 
         # https://archive.org/stream/accessingindivid00moor#page/14/mode/2up
@@ -118,7 +118,7 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(soundex('', max_length=4, zero_pad=True), '0000')
 
     def test_soundex_special(self):
-        """Test abydos.phonetic.soundex (special 1880-1910 variant method)."""
+        """Test abydos.phonetic.soundex.soundex (special 1880-1910 variant method)."""  # noqa: E501
         self.assertEqual(soundex('Ashcroft', var='special'), 'A226')
         self.assertEqual(soundex('Asicroft', var='special'), 'A226')
         self.assertEqual(soundex('AsWcroft', var='special'), 'A226')
@@ -126,7 +126,7 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(soundex('Rubin', var='special'), 'R150')
 
     def test_soundex_census(self):
-        """Test abydos.phonetic.soundex (Census variant method)."""
+        """Test abydos.phonetic.soundex.soundex (Census variant method)."""
         self.assertEqual(soundex('Vandeusen', var='Census'), ('V532', 'D250'))
         self.assertEqual(soundex('van Deusen', var='Census'), ('V532', 'D250'))
         self.assertEqual(soundex('McDonald', var='Census'), 'M235')
@@ -134,7 +134,7 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(soundex('vanDamme', var='Census'), ('V535', 'D500'))
 
     def test_refined_soundex(self):
-        """Test abydos.phonetic.refined_soundex."""
+        """Test abydos.phonetic.soundex.refined_soundex."""
         # http://ntz-develop.blogspot.com/2011/03/phonetic-algorithms.html
         self.assertEqual(refined_soundex('Braz'), 'B195')
         self.assertEqual(refined_soundex('Broz'), 'B195')
@@ -450,11 +450,11 @@ class SoundexTestCases(unittest.TestCase):
 class FuzzySoundexTestCases(unittest.TestCase):
     """Test Fuzzy Soundex functions.
 
-    test cases for abydos.phonetic.fuzzy_soundex
+    test cases for abydos.phonetic.soundex.fuzzy_soundex
     """
 
     def test_fuzzy_soundex(self):
-        """Test abydos.phonetic.fuzzy_soundex."""
+        """Test abydos.phonetic.soundex.fuzzy_soundex."""
         self.assertEqual(fuzzy_soundex(''), '00000')
         # http://wayback.archive.org/web/20100629121128/http://www.ir.iit.edu/publications/downloads/IEEESoundexV5.pdf
         self.assertEqual(fuzzy_soundex('Kristen'), 'K6935')
@@ -516,11 +516,11 @@ class FuzzySoundexTestCases(unittest.TestCase):
 class PhonexTestCases(unittest.TestCase):
     """Test Phonex functions.
 
-    test cases for abydos.phonetic.phonex
+    test cases for abydos.phonetic.soundex.phonex
     """
 
     def test_phonex(self):
-        """Test abydos.phonetic.phonex."""
+        """Test abydos.phonetic.soundex.phonex."""
         self.assertEqual(phonex(''), '0000')
 
         # http://homepages.cs.ncl.ac.uk/brian.randell/Genealogy/NameMatching.pdf
@@ -575,11 +575,11 @@ class PhonexTestCases(unittest.TestCase):
 class PhonixTestCases(unittest.TestCase):
     """Test Phonix functions.
 
-    test cases for abydos.phonetic.phonix
+    test cases for abydos.phonetic.soundex.phonix
     """
 
     def test_phonix(self):
-        """Test abydos.phonetic.phonix."""
+        """Test abydos.phonetic.soundex.phonix."""
         self.assertEqual(phonix(''), '0000')
 
         # http://cpansearch.perl.org/src/MAROS/Text-Phonetic-2.05/t/007_phonix.t
@@ -652,11 +652,11 @@ class PhonixTestCases(unittest.TestCase):
 class LeinTestCases(unittest.TestCase):
     """Test Lein functions.
 
-    test cases for abydos.phonetic.lein
+    test cases for abydos.phonetic.soundex.lein
     """
 
     def test_lein(self):
-        """Test abydos.phonetic.lein."""
+        """Test abydos.phonetic.soundex.lein."""
         self.assertEqual(lein(''), '0000')
 
         # https://naldc.nal.usda.gov/download/27833/PDF
@@ -734,11 +734,12 @@ class LeinTestCases(unittest.TestCase):
 class PSHPSoundexTestCases(unittest.TestCase):
     """Test PSHP Soundex functions.
 
-    test cases for abydos.phonetic.pshp_soundex_last & pshp_soundex_first
+    test cases for abydos.phonetic.soundex.pshp_soundex_last &
+    pshp_soundex_first
     """
 
     def test_pshp_soundex_last(self):
-        """Test abydos.phonetic.pshp_soundex_last."""
+        """Test abydos.phonetic.soundex.pshp_soundex_last."""
         # Base case
         self.assertEqual(pshp_soundex_last(''), '0000')
 
@@ -778,7 +779,7 @@ class PSHPSoundexTestCases(unittest.TestCase):
         )
 
     def test_pshp_soundex_first(self):
-        """Test abydos.phonetic.pshp_soundex_first."""
+        """Test abydos.phonetic.soundex.pshp_soundex_first."""
         # Base case
         self.assertEqual(pshp_soundex_first(''), '0000')
 

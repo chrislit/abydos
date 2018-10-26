@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_davidson.
+"""abydos.tests.phonetic.test_phonetic_davidson.
 
 This module contains unit tests for abydos.phonetic.davidson
 """
@@ -31,11 +31,11 @@ from abydos.phonetic.davidson import davidson
 class DavidsonTestCases(unittest.TestCase):
     """Test class Davidson functions.
 
-    test cases for abydos.phonetic.davidson
+    test cases for abydos.phonetic.davidson.davidson
     """
 
     def test_davidson(self):
-        """Test abydos.phonetic.davidson."""
+        """Test abydos.phonetic.davidson.davidson."""
         # Base cases
         self.assertEqual(davidson('', omit_fname=True), '    ')
         self.assertEqual(davidson(''), '    .')

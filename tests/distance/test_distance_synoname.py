@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_distance.synoname.
+"""abydos.tests.distance.test_distance_synoname.
 
 This module contains unit tests for abydos.distance.synoname
 """
@@ -35,19 +35,19 @@ from abydos.distance.synoname import (
 class SynonameTestCases(unittest.TestCase):
     """Test Synoname functions.
 
-    abydos.distance._synoname_strip_punct, _synoname_word_approximation, &
-    synoname
+    abydos.distance.synoname._synoname_strip_punct,
+    _synoname_word_approximation, & synoname
     """
 
     def test_synoname_strip_punct(self):
-        """Test abydos.distance._synoname_strip_punct."""
+        """Test abydos.distance.synoname._synoname_strip_punct."""
         # Base cases
         self.assertEqual(_synoname_strip_punct(''), '')
         self.assertEqual(_synoname_strip_punct('abcdefg'), 'abcdefg')
         self.assertEqual(_synoname_strip_punct('a\'b-c,d!e:f%g'), 'abcdefg')
 
     def test_synoname_word_approximation(self):
-        """Test abydos.distance._synoname_word_approximation."""
+        """Test abydos.distance.synoname._synoname_word_approximation."""
         # Base cases
         self.assertEqual(_synoname_word_approximation('', ''), 0)
 
@@ -181,7 +181,7 @@ class SynonameTestCases(unittest.TestCase):
         )
 
     def test_synoname(self):
-        """Test abydos.distance.synoname."""
+        """Test abydos.distance.synoname.synoname."""
         # Base cases
         self.assertEqual(synoname('', ''), 1)
         self.assertEqual(synoname('', '', tests=['exact']), 1)

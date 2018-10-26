@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_pt.
+"""abydos.tests.phonetic.test_phonetic_pt.
 
 This module contains unit tests for abydos.phonetic.pt
 """
@@ -31,11 +31,11 @@ from abydos.phonetic.pt import soundex_br
 class SoundexBRTestCases(unittest.TestCase):
     """Test SoundexBR functions.
 
-    test cases for abydos.phonetic.soundex_br
+    test cases for abydos.phonetic.pt.soundex_br
     """
 
     def test_soundex_br(self):
-        """Test abydos.phonetic.soundex_br."""
+        """Test abydos.phonetic.pt.soundex_br."""
         # Base case
         self.assertEqual(soundex_br(''), '0000')
 

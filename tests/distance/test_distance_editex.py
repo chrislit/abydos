@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_distance.editex.
+"""abydos.tests.distance.test_distance_editex.
 
 This module contains unit tests for abydos.distance.editex
 """
@@ -35,7 +35,7 @@ class EditexTestCases(unittest.TestCase):
     """
 
     def test_editex(self):
-        """Test abydos.distance.editex."""
+        """Test abydos.distance.editex.editex."""
         self.assertEqual(editex('', ''), 0)
         self.assertEqual(editex('nelson', ''), 12)
         self.assertEqual(editex('', 'neilsen'), 14)
@@ -51,7 +51,7 @@ class EditexTestCases(unittest.TestCase):
         self.assertEqual(editex('nihl', 'neal'), 3)
 
     def test_editex_local(self):
-        """Test abydos.distance.editex (local variant)."""
+        """Test abydos.distance.editex.editex (local variant)."""
         self.assertEqual(editex('', '', local=True), 0)
         self.assertEqual(editex('nelson', '', local=True), 12)
         self.assertEqual(editex('', 'neilsen', local=True), 14)
@@ -67,7 +67,7 @@ class EditexTestCases(unittest.TestCase):
         self.assertEqual(editex('nihl', 'neal', local=True), 3)
 
     def test_sim_editex(self):
-        """Test abydos.distance.sim_editex."""
+        """Test abydos.distance.editex.sim_editex."""
         self.assertEqual(sim_editex('', ''), 1)
         self.assertEqual(sim_editex('nelson', ''), 0)
         self.assertEqual(sim_editex('', 'neilsen'), 0)
@@ -78,7 +78,7 @@ class EditexTestCases(unittest.TestCase):
         self.assertEqual(sim_editex('niall', 'neal'), 0.9)
 
     def test_dist_editex(self):
-        """Test abydos.distance.dist_editex."""
+        """Test abydos.distance.editex.dist_editex."""
         self.assertEqual(dist_editex('', ''), 0)
         self.assertEqual(dist_editex('nelson', ''), 1)
         self.assertEqual(dist_editex('', 'neilsen'), 1)

@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_distance.minkowski.
+"""abydos.tests.distance.test_distance_minkowski.
 
 This module contains unit tests for abydos.distance.minkowski
 """
@@ -45,11 +45,11 @@ from .. import NONQ_FROM, NONQ_TO
 class MinkowskiTestCases(unittest.TestCase):
     """Test Minkowski functions.
 
-    abydos.distance.minkowski, sim_minkowski & .dist_minkowski
+    abydos.distance.minkowski.minkowski, sim_minkowski & .dist_minkowski
     """
 
     def test_minkowski(self):
-        """Test abydos.distance.minkowski."""
+        """Test abydos.distance.minkowski.minkowski."""
         self.assertEqual(minkowski('', ''), 0)
         self.assertEqual(minkowski('nelson', ''), 7)
         self.assertEqual(minkowski('', 'neilsen'), 8)
@@ -106,7 +106,7 @@ class MinkowskiTestCases(unittest.TestCase):
         )
 
     def test_sim_minkowski(self):
-        """Test abydos.distance.sim_minkowski."""
+        """Test abydos.distance.minkowski.sim_minkowski."""
         self.assertEqual(sim_minkowski('', ''), 1)
         self.assertEqual(sim_minkowski('nelson', ''), 0)
         self.assertEqual(sim_minkowski('', 'neilsen'), 0)
@@ -133,7 +133,7 @@ class MinkowskiTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_minkowski(NONQ_TO, NONQ_FROM, 0), 1 / 2)
 
     def test_dist_minkowski(self):
-        """Test abydos.distance.dist_minkowski."""
+        """Test abydos.distance.minkowski.dist_minkowski."""
         self.assertEqual(dist_minkowski('', ''), 0)
         self.assertEqual(dist_minkowski('nelson', ''), 1)
         self.assertEqual(dist_minkowski('', 'neilsen'), 1)
@@ -163,11 +163,11 @@ class MinkowskiTestCases(unittest.TestCase):
 class ManhattanTestCases(unittest.TestCase):
     """Test Manhattan functions.
 
-    abydos.distance.manhattan, sim_manhattan & .dist_manhattan
+    abydos.distance.minkowski.manhattan, sim_manhattan & .dist_manhattan
     """
 
     def test_manhattan(self):
-        """Test abydos.distance.manhattan."""
+        """Test abydos.distance.minkowski.manhattan."""
         self.assertEqual(manhattan('', ''), 0)
         self.assertEqual(manhattan('nelson', ''), 7)
         self.assertEqual(manhattan('', 'neilsen'), 8)
@@ -194,7 +194,7 @@ class ManhattanTestCases(unittest.TestCase):
         self.assertAlmostEqual(manhattan(NONQ_TO, NONQ_FROM, 0), 8)
 
     def test_sim_manhattan(self):
-        """Test abydos.distance.sim_manhattan."""
+        """Test abydos.distance.minkowski.sim_manhattan."""
         self.assertEqual(sim_manhattan('', ''), 1)
         self.assertEqual(sim_manhattan('nelson', ''), 0)
         self.assertEqual(sim_manhattan('', 'neilsen'), 0)
@@ -221,7 +221,7 @@ class ManhattanTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_manhattan(NONQ_TO, NONQ_FROM, 0), 1 / 2)
 
     def test_dist_manhattan(self):
-        """Test abydos.distance.dist_manhattan."""
+        """Test abydos.distance.minkowski.dist_manhattan."""
         self.assertEqual(dist_manhattan('', ''), 0)
         self.assertEqual(dist_manhattan('nelson', ''), 1)
         self.assertEqual(dist_manhattan('', 'neilsen'), 1)
@@ -251,11 +251,11 @@ class ManhattanTestCases(unittest.TestCase):
 class EuclideanTestCases(unittest.TestCase):
     """Test Euclidean functions.
 
-    abydos.distance.euclidean, sim_euclidean & .dist_euclidean
+    abydos.distance.minkowski.euclidean, sim_euclidean & .dist_euclidean
     """
 
     def test_euclidean(self):
-        """Test abydos.distance.euclidean."""
+        """Test abydos.distance.minkowski.euclidean."""
         self.assertEqual(euclidean('', ''), 0)
         self.assertEqual(euclidean('nelson', ''), 7 ** 0.5)
         self.assertEqual(euclidean('', 'neilsen'), 8 ** 0.5)
@@ -282,7 +282,7 @@ class EuclideanTestCases(unittest.TestCase):
         self.assertAlmostEqual(euclidean(NONQ_TO, NONQ_FROM, 0), 8 ** 0.5)
 
     def test_sim_euclidean(self):
-        """Test abydos.distance.sim_euclidean."""
+        """Test abydos.distance.minkowski.sim_euclidean."""
         self.assertEqual(sim_euclidean('', ''), 1)
         self.assertEqual(sim_euclidean('nelson', ''), 0)
         self.assertEqual(sim_euclidean('', 'neilsen'), 0)
@@ -318,7 +318,7 @@ class EuclideanTestCases(unittest.TestCase):
         )
 
     def test_dist_euclidean(self):
-        """Test abydos.distance.dist_euclidean."""
+        """Test abydos.distance.minkowski.dist_euclidean."""
         self.assertEqual(dist_euclidean('', ''), 0)
         self.assertEqual(dist_euclidean('nelson', ''), 1)
         self.assertEqual(dist_euclidean('', 'neilsen'), 1)
@@ -357,11 +357,11 @@ class EuclideanTestCases(unittest.TestCase):
 class ChebyshevTestCases(unittest.TestCase):
     """Test Chebyshev functions.
 
-    abydos.distance.chebyshev, sim_chebyshev & .dist_chebyshev
+    abydos.distance.minkowski.chebyshev, sim_chebyshev & .dist_chebyshev
     """
 
     def test_chebyshev(self):
-        """Test abydos.distance.chebyshev."""
+        """Test abydos.distance.minkowski.chebyshev."""
         self.assertEqual(chebyshev('', ''), 0)
         self.assertEqual(chebyshev('nelson', ''), 1)
         self.assertEqual(chebyshev('', 'neilsen'), 1)

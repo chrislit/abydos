@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_corpus_corpus.
+"""abydos.tests.corpus.test_corpus_corpus.
 
 This module contains unit tests for abydos.corpus.corpus
 """
