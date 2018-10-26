@@ -23,7 +23,10 @@ The corpus package includes basic and n-gram corpus classes.
 
 from __future__ import unicode_literals
 
-__all__ = ['corpus', 'ngram']
+from ._corpus import Corpus
+from ._ngram import NGramCorpus
+
+__all__ = ['Corpus', 'NGramCorpus']
 
 
 if __name__ == '__main__':

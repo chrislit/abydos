@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.corpus.corpus.
+"""abydos.corpus._corpus.
 
 The Corpus class is a container for linguistic corpora and includes various
 functions for corpus statistics, language modeling, etc.
