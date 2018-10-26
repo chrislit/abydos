@@ -18,8 +18,8 @@
 
 """abydos.phonetic._parmar_kumbharana.
 
-The phonetic._parmar_kumbharana module implements the Parmar-Kumbharana phonetic
-algorithm.
+The phonetic._parmar_kumbharana module implements the Parmar-Kumbharana
+phonetic algorithm.
 """
 
 from __future__ import unicode_literals

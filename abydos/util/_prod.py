@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.util._prod
+"""abydos.util._prod.
 
 The util._prod module defines prod, which computes the product of a collection
 of numbers (akin to sum, but for product).
