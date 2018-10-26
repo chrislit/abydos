@@ -25,7 +25,7 @@ from __future__ import division, unicode_literals
 
 from codecs import encode
 
-from ..compression import arithmetic, rle
+from ..compression import ac_encode, ac_train, rle_encode
 
 try:
     import lzma
@@ -76,11 +76,11 @@ def dist_ncd_arith(src, tar, probs=None):
 
     if probs is None:
         # lacking a reasonable dictionary, train on the strings themselves
-        probs = arithmetic.train(src + tar)
-    src_comp = arithmetic.encode(src, probs)[1]
-    tar_comp = arithmetic.encode(tar, probs)[1]
-    concat_comp = arithmetic.encode(src + tar, probs)[1]
-    concat_comp2 = arithmetic.encode(tar + src, probs)[1]
+        probs = ac_train(src + tar)
+    src_comp = ac_encode(src, probs)[1]
+    tar_comp = ac_encode(tar, probs)[1]
+    concat_comp = ac_encode(src + tar, probs)[1]
+    concat_comp2 = ac_encode(tar + src, probs)[1]
 
     return (min(concat_comp, concat_comp2) - min(src_comp, tar_comp)) / max(
         src_comp, tar_comp
@@ -94,7 +94,7 @@ def sim_ncd_arith(src, tar, probs=None):
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
-    :param dict probs: a dictionary trained with arithmetic.train (for the
+    :param dict probs: a dictionary trained with ac_train (for the
         arith compressor only)
     :returns: compression similarity
     :rtype: float
@@ -135,10 +135,10 @@ def dist_ncd_rle(src, tar, use_bwt=False):
     if src == tar:
         return 0.0
 
-    src_comp = rle.encode(src, use_bwt)
-    tar_comp = rle.encode(tar, use_bwt)
-    concat_comp = rle.encode(src + tar, use_bwt)
-    concat_comp2 = rle.encode(tar + src, use_bwt)
+    src_comp = rle_encode(src, use_bwt)
+    tar_comp = rle_encode(tar, use_bwt)
+    concat_comp = rle_encode(src + tar, use_bwt)
+    concat_comp2 = rle_encode(tar + src, use_bwt)
 
     return (
         min(len(concat_comp), len(concat_comp2))

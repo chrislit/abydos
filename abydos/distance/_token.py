@@ -38,7 +38,7 @@ from math import log, sqrt
 
 from ._levenshtein import sim_levenshtein
 from ._util import _get_qgrams
-from ..tokenizer.qgram import QGrams
+from ..tokenizer import QGrams
 
 __all__ = [
     'bag',

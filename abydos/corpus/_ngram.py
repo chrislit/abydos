@@ -30,7 +30,7 @@ from math import log10
 from six import text_type
 from six.moves import range
 
-from .corpus import Corpus
+from ._corpus import Corpus
 
 __all__ = ['NGramCorpus']
 
