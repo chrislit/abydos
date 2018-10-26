@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.compression.arithmetic.
+"""abydos.compression._arithmetic.
 
 arithmetic coding functions
 """
@@ -32,10 +32,10 @@ from six import PY3, text_type
 if PY3:
     long = int
 
-__all__ = ['decode', 'encode', 'train']
+__all__ = ['ac_decode', 'ac_encode', 'ac_train']
 
 
-def train(text):
+def ac_train(text):
     r"""Generate a probability dict from the provided text.
 
     Text -> 0-order probability statistics as a dict
@@ -49,7 +49,7 @@ def train(text):
     :returns: a probability dict
     :rtype: dict
 
-    >>> train('the quick brown fox jumped over the lazy dog')
+    >>> ac_train('the quick brown fox jumped over the lazy dog')
     {' ': (Fraction(0, 1), Fraction(8, 45)),
      'o': (Fraction(8, 45), Fraction(4, 15)),
      'e': (Fraction(4, 15), Fraction(16, 45)),
@@ -100,7 +100,7 @@ def train(text):
     return prob_range
 
 
-def encode(text, probs):
+def ac_encode(text, probs):
     """Encode a text using arithmetic coding with the provided probabilities.
 
     Text and the 0-order probability statistics -> longval, nbits
@@ -116,8 +116,8 @@ def encode(text, probs):
     :returns: The arithmetically coded text
     :rtype: tuple
 
-    >>> pr = train('the quick brown fox jumped over the lazy dog')
-    >>> encode('align', pr)
+    >>> pr = ac_train('the quick brown fox jumped over the lazy dog')
+    >>> ac_encode('align', pr)
     (16720586181, 34)
     """
     text = text_type(text)
@@ -150,7 +150,7 @@ def encode(text, probs):
     return avg.numerator // avg.denominator, nbits
 
 
-def decode(longval, nbits, probs):
+def ac_decode(longval, nbits, probs):
     """Decode the number to a string using the given statistics.
 
     This is based on Andrew Dalke's public domain implementation
@@ -163,8 +163,8 @@ def decode(longval, nbits, probs):
     :returns: The arithmetically decoded text
     :rtype: str
 
-    >>> pr = train('the quick brown fox jumped over the lazy dog')
-    >>> decode(16720586181, 34, pr)
+    >>> pr = ac_train('the quick brown fox jumped over the lazy dog')
+    >>> ac_decode(16720586181, 34, pr)
     'align'
     """
     val = Fraction(longval, long(1) << nbits)
