@@ -18,24 +18,24 @@
 
 """abydos.tests.distance.test_distance_editex.
 
-This module contains unit tests for abydos.distance.editex
+This module contains unit tests for abydos.distance._editex
 """
 
 from __future__ import division, unicode_literals
 
 import unittest
 
-from abydos.distance.editex import dist_editex, editex, sim_editex
+from abydos.distance import dist_editex, editex, sim_editex
 
 
 class EditexTestCases(unittest.TestCase):
     """Test Editex functions.
 
-    abydos.distance.editex, .sim_editex & .dist_editex
+    abydos.distance._editex.editex, .sim_editex & .dist_editex
     """
 
     def test_editex(self):
-        """Test abydos.distance.editex.editex."""
+        """Test abydos.distance._editex.editex."""
         self.assertEqual(editex('', ''), 0)
         self.assertEqual(editex('nelson', ''), 12)
         self.assertEqual(editex('', 'neilsen'), 14)
@@ -51,7 +51,7 @@ class EditexTestCases(unittest.TestCase):
         self.assertEqual(editex('nihl', 'neal'), 3)
 
     def test_editex_local(self):
-        """Test abydos.distance.editex.editex (local variant)."""
+        """Test abydos.distance._editex.editex (local variant)."""
         self.assertEqual(editex('', '', local=True), 0)
         self.assertEqual(editex('nelson', '', local=True), 12)
         self.assertEqual(editex('', 'neilsen', local=True), 14)
@@ -67,7 +67,7 @@ class EditexTestCases(unittest.TestCase):
         self.assertEqual(editex('nihl', 'neal', local=True), 3)
 
     def test_sim_editex(self):
-        """Test abydos.distance.editex.sim_editex."""
+        """Test abydos.distance._editex.sim_editex."""
         self.assertEqual(sim_editex('', ''), 1)
         self.assertEqual(sim_editex('nelson', ''), 0)
         self.assertEqual(sim_editex('', 'neilsen'), 0)
@@ -78,7 +78,7 @@ class EditexTestCases(unittest.TestCase):
         self.assertEqual(sim_editex('niall', 'neal'), 0.9)
 
     def test_dist_editex(self):
-        """Test abydos.distance.editex.dist_editex."""
+        """Test abydos.distance._editex.dist_editex."""
         self.assertEqual(dist_editex('', ''), 0)
         self.assertEqual(dist_editex('nelson', ''), 1)
         self.assertEqual(dist_editex('', 'neilsen'), 1)

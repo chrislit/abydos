@@ -18,20 +18,19 @@
 
 """abydos.tests.fingerprint.test_fingerprint_basic.
 
-This module contains unit tests for abydos.fingerprint.basic
+This module contains unit tests for abydos.fingerprint._basic
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.fingerprint.basic import (
+from abydos.fingerprint import (
     phonetic_fingerprint,
     qgram_fingerprint,
     str_fingerprint,
 )
-from abydos.phonetic.phonet import phonet
-from abydos.phonetic.soundex import soundex
+from abydos.phonetic import phonet, soundex
 
 from six.moves import range
 
@@ -41,7 +40,7 @@ from .. import NIALL
 class FingerprintTestCases(unittest.TestCase):
     """Test basic fingerprint functions.
 
-    abydos.fingerprint.basic.str_fingerprint, .qgram_fingerprint, &
+    abydos.fingerprint._basic.str_fingerprint, .qgram_fingerprint, &
     .phonetic_fingerprint
     """
 
@@ -61,7 +60,7 @@ xoyv',
     _anssetq1 = ('abcdefghijklmnopqrstuvwxyz',)
 
     def test_str_fingerprint(self):
-        """Test abydos.fingerprint.basic.str_fingerprint."""
+        """Test abydos.fingerprint._basic.str_fingerprint."""
         # Base case
         self.assertEqual(str_fingerprint(''), '')
 
@@ -71,7 +70,7 @@ xoyv',
             )
 
     def test_qgram_fingerprint(self):
-        """Test abydos.fingerprint.basic.qgram_fingerprint."""
+        """Test abydos.fingerprint._basic.qgram_fingerprint."""
         # Base case
         self.assertEqual(qgram_fingerprint(''), '')
 
@@ -108,7 +107,7 @@ xoyv',
             self.assertEqual(qgram_fingerprint(NIALL[i]), qgram_fp_niall[i])
 
     def test_phonetic_fingerprint(self):
-        """Test abydos.fingerprint.basic.phonetic_fingerprint."""
+        """Test abydos.fingerprint._basic.phonetic_fingerprint."""
         # Base case
         self.assertEqual(phonetic_fingerprint(''), '')
 

@@ -18,24 +18,24 @@
 
 """abydos.tests.stemmer.test_stemmer_caumanns.
 
-This module contains unit tests for abydos.stemmer.caumanns
+This module contains unit tests for abydos.stemmer._caumanns
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.stemmer.caumanns import caumanns
+from abydos.stemmer import caumanns
 
 
 class CaumannsTestCases(unittest.TestCase):
     """Test Caumanns functions.
 
-    abydos.stemmer.caumanns
+    abydos.stemmer._caumanns
     """
 
     def test_caumanns(self):
-        """Test abydos.stemmer.caumanns.caumanns."""
+        """Test abydos.stemmer._caumanns.caumanns."""
         # base case
         self.assertEqual(caumanns(''), '')
 
@@ -60,7 +60,7 @@ class CaumannsTestCases(unittest.TestCase):
         self.assertEqual(caumanns('Matrizen'), 'matrix')
 
     def test_caumanns_lucene(self):
-        """Test abydos.stemmer.caumanns.caumanns (Lucene tests).
+        """Test abydos.stemmer._caumanns.caumanns (Lucene tests).
 
         Based on tests from
         https://svn.apache.org/repos/asf/lucene.net/trunk/test/contrib/Analyzers/De/data.txt

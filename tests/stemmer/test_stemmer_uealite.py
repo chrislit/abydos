@@ -18,14 +18,14 @@
 
 """abydos.tests.stemmer.test_stemmer_uealite.
 
-This module contains unit tests for abydos.stemmer.uealite
+This module contains unit tests for abydos.stemmer._uealite
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.stemmer.uealite import uealite
+from abydos.stemmer import uealite
 
 from .. import _corpus_file
 
@@ -33,11 +33,11 @@ from .. import _corpus_file
 class UEALiteTestCases(unittest.TestCase):
     """Test UEA-lite functions.
 
-    abydos.stemmer.uealite.uealite
+    abydos.stemmer._uealite.uealite
     """
 
     def test_uealite(self):
-        """Test abydos.stemmer.uealite.uealite."""
+        """Test abydos.stemmer._uealite.uealite."""
         # base case
         self.assertEqual(uealite(''), '')
 
@@ -186,7 +186,7 @@ class UEALiteTestCases(unittest.TestCase):
         self.assertEqual(uealite(''), '')
 
     def test_uealite_wsj_set(self):
-        """Test abydos.stemmer.uealite.uealite (WSJ testset)."""
+        """Test abydos.stemmer._uealite.uealite (WSJ testset)."""
         with open(_corpus_file('uea-lite_wsj.csv')) as wsj_ts:
             for wsj_line in wsj_ts:
                 (word, uea, rule) = wsj_line.strip().split(',')

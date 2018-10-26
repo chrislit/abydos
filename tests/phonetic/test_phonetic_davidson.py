@@ -18,24 +18,24 @@
 
 """abydos.tests.phonetic.test_phonetic_davidson.
 
-This module contains unit tests for abydos.phonetic.davidson
+This module contains unit tests for abydos.phonetic._davidson
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.davidson import davidson
+from abydos.phonetic import davidson
 
 
 class DavidsonTestCases(unittest.TestCase):
     """Test class Davidson functions.
 
-    test cases for abydos.phonetic.davidson.davidson
+    test cases for abydos.phonetic._davidson.davidson
     """
 
     def test_davidson(self):
-        """Test abydos.phonetic.davidson.davidson."""
+        """Test abydos.phonetic._davidson.davidson."""
         # Base cases
         self.assertEqual(davidson('', omit_fname=True), '    ')
         self.assertEqual(davidson(''), '    .')

@@ -18,24 +18,24 @@
 
 """abydos.tests.fingerprint.test_fingerprint_speedcop.
 
-This module contains unit tests for abydos.fingerprint.speedcop
+This module contains unit tests for abydos.fingerprint._speedcop
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.fingerprint.speedcop import omission_key, skeleton_key
+from abydos.fingerprint import omission_key, skeleton_key
 
 
 class SPEEDCOPTestCases(unittest.TestCase):
     """Test SPEEDCOP functions.
 
-    abydos.fingerprint.speedcop.skeleton_key & .omission_key
+    abydos.fingerprint._speedcop.skeleton_key & .omission_key
     """
 
     def test_skeleton_key(self):
-        """Test abydos.fingerprint.speedcop.skeleton_key."""
+        """Test abydos.fingerprint._speedcop.skeleton_key."""
         # Base case
         self.assertEqual(skeleton_key(''), '')
 
@@ -53,7 +53,7 @@ class SPEEDCOPTestCases(unittest.TestCase):
         self.assertEqual(skeleton_key('chemically'), 'CHMLYEIA')
 
     def test_omission_key(self):
-        """Test abydos.fingerprint.speedcop.omission_key."""
+        """Test abydos.fingerprint._speedcop.omission_key."""
         # Base case
         self.assertEqual(omission_key(''), '')
 

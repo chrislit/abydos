@@ -18,24 +18,24 @@
 
 """abydos.tests.phonetic.test_phonetic_alpha_sis.
 
-This module contains unit tests for abydos.phonetic.alpha_sis
+This module contains unit tests for abydos.phonetic._alpha_sis
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.alpha_sis import alpha_sis
+from abydos.phonetic import alpha_sis
 
 
 class AlphaSisTestCases(unittest.TestCase):
     """Test Alpha-SIS functions.
 
-    test cases for abydos.phonetic.alpha_sis
+    test cases for abydos.phonetic._alpha_sis
     """
 
     def test_alpha_sis(self):
-        """Test abydos.phonetic.alpha_sis.alpha_sis."""
+        """Test abydos.phonetic._alpha_sis.alpha_sis."""
         self.assertEqual(alpha_sis('')[0], '00000000000000')
 
         self.assertEqual(alpha_sis('Rodgers')[0], '04740000000000')

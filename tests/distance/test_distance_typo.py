@@ -18,24 +18,24 @@
 
 """abydos.tests.distance.test_distance_typo.
 
-This module contains unit tests for abydos.distance.typo
+This module contains unit tests for abydos.distance._typo
 """
 
 from __future__ import division, unicode_literals
 
 import unittest
 
-from abydos.distance.typo import dist_typo, sim_typo, typo
+from abydos.distance import dist_typo, sim_typo, typo
 
 
 class TypoTestCases(unittest.TestCase):
     """Test Typo functions.
 
-    abydos.distance.typo.typo, sim_typo & .dist_typo
+    abydos.distance._typo.typo, sim_typo & .dist_typo
     """
 
     def test_typo(self):
-        """Test abydos.distance.typo.typo."""
+        """Test abydos.distance._typo.typo."""
         # Base cases
         self.assertEqual(typo('', ''), 0)
         self.assertEqual(typo('', 'typo'), 4)
@@ -59,7 +59,7 @@ class TypoTestCases(unittest.TestCase):
         self.assertRaises(ValueError, typo, 'asdf', 'Ösdf')
 
     def test_sim_typo(self):
-        """Test abydos.distance.typo.sim_typo."""
+        """Test abydos.distance._typo.sim_typo."""
         # Base cases
         self.assertEqual(sim_typo('', ''), 1)
         self.assertEqual(sim_typo('', 'typo'), 0)
@@ -85,7 +85,7 @@ class TypoTestCases(unittest.TestCase):
         )
 
     def test_dist_typo(self):
-        """Test abydos.distance.typo.dist_typo."""
+        """Test abydos.distance._typo.dist_typo."""
         # Base cases
         self.assertEqual(dist_typo('', ''), 0)
         self.assertEqual(dist_typo('', 'typo'), 1)

@@ -16,38 +16,15 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.stemmer.test_stemmer_schinke.
 
-This module contains unit tests for abydos.stemmer._schinke
+"""abydos.tests.util.
+
+This module contains unit tests for abydos.util
 """
 
 from __future__ import unicode_literals
 
 import unittest
-
-from abydos.stemmer import schinke
-
-from .. import _corpus_file
-
-
-class SchinkeTestCases(unittest.TestCase):
-    """Test Schinke functions.
-
-    abydos.stemmer._schinke.schinke
-    """
-
-    def test_schinke(self):
-        """Test abydos.stemmer._schinke.schinke.
-
-        These tests are copied from the Snowball testset at
-        http://snowball.tartarus.org/otherapps/schinke/schinke.tgz
-        """
-        with open(_corpus_file('snowball_schinke.csv')) as schinke_ts:
-            for schinke_line in schinke_ts:
-                word, noun, verb = schinke_line.strip().split(',')
-                nv = schinke(word)
-                self.assertEqual(nv['n'], noun)
-                self.assertEqual(nv['v'], verb)
 
 
 if __name__ == '__main__':

@@ -18,24 +18,24 @@
 
 """abydos.tests.phonetic.test_phonetic_roger_root.
 
-This module contains unit tests for abydos.phonetic.roger_root
+This module contains unit tests for abydos.phonetic._roger_root
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.roger_root import roger_root
+from abydos.phonetic import roger_root
 
 
 class RogerRootTestCases(unittest.TestCase):
     """Test Roger Root functions.
 
-    test cases for abydos.phonetic.roger_root.roger_root
+    test cases for abydos.phonetic._roger_root.roger_root
     """
 
     def test_roger_root(self):
-        """Test abydos.phonetic.roger_root.roger_root."""
+        """Test abydos.phonetic._roger_root.roger_root."""
         self.assertEqual(roger_root(''), '00000')
 
         # https://naldc.nal.usda.gov/download/27833/PDF

@@ -18,14 +18,14 @@
 
 """abydos.tests.distance.test_distance_jaro.
 
-This module contains unit tests for abydos.distance.jaro
+This module contains unit tests for abydos.distance._jaro
 """
 
 from __future__ import division, unicode_literals
 
 import unittest
 
-from abydos.distance.jaro import (
+from abydos.distance import (
     dist_jaro_winkler,
     dist_strcmp95,
     sim_jaro_winkler,
@@ -36,12 +36,12 @@ from abydos.distance.jaro import (
 class JaroWinklerTestCases(unittest.TestCase):
     """Test Jaro(-Winkler) functions.
 
-    abydos.distance.sim_strcmp95, .dist_strcmp95, .sim_jaro_winkler, &
+    abydos.distance._jaro.sim_strcmp95, .dist_strcmp95, .sim_jaro_winkler, &
     .dist_jaro_winkler
     """
 
     def test_sim_strcmp95(self):
-        """Test abydos.distance.jaro.sim_strcmp95."""
+        """Test abydos.distance._jaro.sim_strcmp95."""
         self.assertEqual(sim_strcmp95('', ''), 1)
         self.assertEqual(sim_strcmp95('MARTHA', ''), 0)
         self.assertEqual(sim_strcmp95('', 'MARTHA'), 0)
@@ -79,7 +79,7 @@ class JaroWinklerTestCases(unittest.TestCase):
         )
 
     def test_dist_strcmp95(self):
-        """Test abydos.distance.jaro.dist_strcmp95."""
+        """Test abydos.distance._jaro.dist_strcmp95."""
         self.assertEqual(dist_strcmp95('', ''), 0)
         self.assertEqual(dist_strcmp95('MARTHA', ''), 1)
         self.assertEqual(dist_strcmp95('', 'MARTHA'), 1)
@@ -92,7 +92,7 @@ class JaroWinklerTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_strcmp95('ABCD', 'EFGH'), 1.0)
 
     def test_sim_jaro_winkler(self):
-        """Test abydos.distance.jaro.sim_jaro_winkler."""
+        """Test abydos.distance._jaro.sim_jaro_winkler."""
         self.assertEqual(sim_jaro_winkler('', '', mode='jaro'), 1)
         self.assertEqual(sim_jaro_winkler('', '', mode='winkler'), 1)
         self.assertEqual(sim_jaro_winkler('MARTHA', '', mode='jaro'), 0)
@@ -164,7 +164,7 @@ class JaroWinklerTestCases(unittest.TestCase):
         )
 
     def test_dist_jaro_winkler(self):
-        """Test abydos.distance.jaro.dist_jaro_winkler."""
+        """Test abydos.distance._jaro.dist_jaro_winkler."""
         self.assertEqual(dist_jaro_winkler('', '', mode='jaro'), 0)
         self.assertEqual(dist_jaro_winkler('', '', mode='winkler'), 0)
         self.assertEqual(dist_jaro_winkler('MARTHA', '', mode='jaro'), 1)

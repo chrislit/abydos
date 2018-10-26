@@ -25,19 +25,18 @@ import codecs
 import unittest
 from random import choice, randint, sample
 
-from abydos.fingerprint.basic import (
+from abydos.fingerprint import (
     phonetic_fingerprint,
     qgram_fingerprint,
     str_fingerprint,
-)
-from abydos.fingerprint.lightweight import (
     count_fingerprint,
     occurrence_fingerprint,
     occurrence_halved_fingerprint,
     position_fingerprint,
+    omission_key,
+    skeleton_key,
+    synoname_toolcode
 )
-from abydos.fingerprint.speedcop import omission_key, skeleton_key
-from abydos.fingerprint.synoname import synoname_toolcode
 
 from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 

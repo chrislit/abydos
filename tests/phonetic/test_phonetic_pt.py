@@ -18,24 +18,24 @@
 
 """abydos.tests.phonetic.test_phonetic_pt.
 
-This module contains unit tests for abydos.phonetic.pt
+This module contains unit tests for abydos.phonetic._pt
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.pt import soundex_br
+from abydos.phonetic import soundex_br
 
 
 class SoundexBRTestCases(unittest.TestCase):
     """Test SoundexBR functions.
 
-    test cases for abydos.phonetic.pt.soundex_br
+    test cases for abydos.phonetic._pt.soundex_br
     """
 
     def test_soundex_br(self):
-        """Test abydos.phonetic.pt.soundex_br."""
+        """Test abydos.phonetic._pt.soundex_br."""
         # Base case
         self.assertEqual(soundex_br(''), '0000')
 

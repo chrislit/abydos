@@ -18,7 +18,7 @@
 
 """abydos.tests.phonetic.test_phonetic_russell.
 
-This module contains unit tests for abydos.phonetic.russell
+This module contains unit tests for abydos.phonetic._russell
 """
 
 from __future__ import unicode_literals
@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import math
 import unittest
 
-from abydos.phonetic.russell import (
+from abydos.phonetic import (
     russell_index,
     russell_index_alpha,
     russell_index_num_to_alpha,
@@ -36,12 +36,12 @@ from abydos.phonetic.russell import (
 class RussellIndexTestCases(unittest.TestCase):
     """Test Russel Index functions.
 
-    test cases for abydos.phonetic.russell.russell_index,
+    test cases for abydos.phonetic._russell.russell_index,
     .russell_index_num_to_alpha, & .russell_index_alpha
     """
 
     def test_russel_index(self):
-        """Test abydos.phonetic.russell.russell_index."""
+        """Test abydos.phonetic._russell.russell_index."""
         self.assertTrue(math.isnan(russell_index('')))
         self.assertTrue(math.isnan(russell_index('H')))
         self.assertEqual(russell_index('Hoppa'), 12)
@@ -60,7 +60,7 @@ class RussellIndexTestCases(unittest.TestCase):
         self.assertEqual(russell_index('Knack'), 3713)
 
     def test_russel_index_n2a(self):
-        """Test abydos.phonetic.russell.russell_index_num_to_alpha."""
+        """Test abydos.phonetic._russell.russell_index_num_to_alpha."""
         self.assertEqual(russell_index_num_to_alpha(0), '')
         self.assertEqual(russell_index_num_to_alpha(''), '')
         self.assertEqual(russell_index_num_to_alpha(float('NaN')), '')
@@ -68,7 +68,7 @@ class RussellIndexTestCases(unittest.TestCase):
         self.assertEqual(russell_index_num_to_alpha('0123456789'), 'ABCDLMNR')
 
     def test_russel_index_alpha(self):
-        """Test abydos.phonetic.russell.russell_index_alpha."""
+        """Test abydos.phonetic._russell.russell_index_alpha."""
         self.assertEqual(russell_index_alpha(''), '')
         self.assertEqual(russell_index_alpha('H'), '')
         self.assertEqual(russell_index_alpha('Hoppa'), 'AB')

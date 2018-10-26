@@ -18,24 +18,24 @@
 
 """abydos.tests.fingerprint.test_fingerprint_synoname.
 
-This module contains unit tests for abydos.fingerprint.synoname
+This module contains unit tests for abydos.fingerprint._synoname
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.fingerprint.synoname import synoname_toolcode
+from abydos.fingerprint import synoname_toolcode
 
 
 class SynonameToolcodeTestCases(unittest.TestCase):
     """Test Synoname Toolcode function.
 
-    abydos.fingerprint.synoname.synoname_toolcode
+    abydos.fingerprint._synoname.synoname_toolcode
     """
 
     def test_synoname_toolcode(self):
-        """Test abydos.fingerprint.synoname.synoname_toolcode."""
+        """Test abydos.fingerprint._synoname.synoname_toolcode."""
         # Base case
         self.assertEqual(synoname_toolcode(''), ('', '', '0000000000$$'))
 

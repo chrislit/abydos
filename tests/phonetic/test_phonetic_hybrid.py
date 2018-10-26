@@ -18,24 +18,24 @@
 
 """abydos.tests.phonetic.test_phonetic_hybrid.
 
-This module contains unit tests for abydos.phonetic.hybrid
+This module contains unit tests for abydos.phonetic._hybrid
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.hybrid import metasoundex, onca
+from abydos.phonetic import metasoundex, onca
 
 
 class ONCATestCases(unittest.TestCase):
     """Test ONCA functions.
 
-    test cases for abydos.phonetic.hybrid.onca
+    test cases for abydos.phonetic._hybrid.onca
     """
 
     def test_onca(self):
-        """Test abydos.phonetic.hybrid.onca."""
+        """Test abydos.phonetic._hybrid.onca."""
         # https://nces.ed.gov/FCSM/pdf/RLT97.pdf
         self.assertEqual(onca('HALL'), 'H400')
         self.assertEqual(onca('SMITH'), 'S530')
@@ -49,11 +49,11 @@ class ONCATestCases(unittest.TestCase):
 class MetaSoundexTestCases(unittest.TestCase):
     """Test MetaSoundex functions.
 
-    test cases for abydos.phonetic.hybrid.metasoundex
+    test cases for abydos.phonetic._hybrid.metasoundex
     """
 
     def test_metasoundex(self):
-        """Test abydos.phonetic.hybrid.metasoundex."""
+        """Test abydos.phonetic._hybrid.metasoundex."""
         # Base cases
         self.assertEqual(metasoundex(''), '0000')
         self.assertEqual(metasoundex('', lang='en'), '0000')

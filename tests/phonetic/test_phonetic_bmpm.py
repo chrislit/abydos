@@ -18,7 +18,7 @@
 
 """abydos.tests.phonetic.test_phonetic_bmpm.
 
-This module contains unit tests for abydos.phonetic.bmpm
+This module contains unit tests for abydos.phonetic._bmpm
 """
 
 from __future__ import unicode_literals
@@ -68,13 +68,13 @@ from .. import ALLOW_RANDOM, _corpus_file, _one_in
 class BeiderMorseTestCases(unittest.TestCase):
     """Test BMPM functions.
 
-    test cases for abydos.phonetic.bmpm, _phonetic_number,
-    _bm_apply_rule_if_compat, _bm_language, _bm_expand_alternates,
-    _bm_remove_dupes, _bm_normalize_lang_attrs
+    test cases for abydos.phonetic._bmpm.bmpm, ._phonetic_number,
+    ._bm_apply_rule_if_compat, ._bm_language, ._bm_expand_alternates,
+    ._bm_remove_dupes, ._bm_normalize_lang_attrs
     """
 
     def test_bmpm(self):
-        """Test abydos.phonetic.bmpm.bmpm.
+        """Test abydos.phonetic._bmpm.bmpm.
 
         Most test cases from:
         http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/
@@ -444,7 +444,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         )
 
     def test_bmpm_misc(self):
-        """Test abydos.phonetic.bmpm.bmpm (miscellaneous tests).
+        """Test abydos.phonetic._bmpm.bmpm (miscellaneous tests).
 
         The purpose of this test set is to achieve higher code coverage
         and to hit some of the test cases noted in the BMPM reference code.
@@ -529,7 +529,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(bmpm('van Damme', name_mode='sep'), 'dami mi dam m')
 
     def test_bmpm_nachnamen(self):
-        """Test abydos.phonetic.bmpm.bmpm (Nachnamen set)."""
+        """Test abydos.phonetic._bmpm.bmpm (Nachnamen set)."""
         if not ALLOW_RANDOM:
             return
         with codecs.open(
@@ -547,7 +547,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                     self.assertEqual(bmpm(nn_line[0]), nn_line[2])
 
     def test_bmpm_nachnamen_cc(self):
-        """Test abydos.phonetic.bmpm.bmpm (Nachnamen, corner cases)."""
+        """Test abydos.phonetic._bmpm.bmpm (Nachnamen, corner cases)."""
         with codecs.open(
             _corpus_file('nachnamen.bm.cc.csv'), encoding='utf-8'
         ) as nachnamen_testset:
@@ -563,7 +563,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                     self.assertEqual(bmpm(nn_line[0]), nn_line[2])
 
     def test_bmpm_uscensus2000(self):
-        """Test abydos.phonetic.bmpm.bmpm (US Census 2000 set)."""
+        """Test abydos.phonetic._bmpm.bmpm (US Census 2000 set)."""
         if not ALLOW_RANDOM:
             return
         with open(_corpus_file('uscensus2000.bm.csv')) as uscensus_ts:
@@ -605,7 +605,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                     )
 
     def test_bmpm_uscensus2000_cc(self):
-        """Test abydos.phonetic.bmpm.bmpm (US Census 2000, corner cases)."""
+        """Test abydos.phonetic._bmpm.bmpm (US Census 2000, corner cases)."""
         with open(_corpus_file('uscensus2000.bm.cc.csv')) as uscensus_ts:
             next(uscensus_ts)
             for cen_line in uscensus_ts:
@@ -645,7 +645,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                     )
 
     def test_bm_phonetic_number(self):
-        """Test abydos.phonetic.bmpm._bm_phonetic_number."""
+        """Test abydos.phonetic._bmpm._bm_phonetic_number."""
         self.assertEqual(_bm_phonetic_number(''), '')
         self.assertEqual(_bm_phonetic_number('abcd'), 'abcd')
         self.assertEqual(_bm_phonetic_number('abcd[123]'), 'abcd')
@@ -654,7 +654,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(_bm_phonetic_number('abcd[[[123]]]'), 'abcd')
 
     def test_bm_apply_rule_if_compat(self):
-        """Test abydos.phonetic.bmpm._bm_apply_rule_if_compat."""
+        """Test abydos.phonetic._bmpm._bm_apply_rule_if_compat."""
         self.assertEqual(_bm_apply_rule_if_compat('abc', 'def', 4), 'abcdef')
         self.assertEqual(
             _bm_apply_rule_if_compat('abc', 'def[6]', 4), 'abcdef[4]'
@@ -670,7 +670,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         )
 
     def test_bm_language(self):
-        """Test abydos.phonetic.bmpm._bm_language.
+        """Test abydos.phonetic._bmpm._bm_language.
 
         Most test cases from:
         http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/LanguageGuessingTest.java?view=markup
@@ -697,7 +697,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(_bm_language('átz', 'gen'), L_ANY)
 
     def test_bm_expand_alternates(self):
-        """Test abydos.phonetic.bmpm._bm_expand_alternates."""
+        """Test abydos.phonetic._bmpm._bm_expand_alternates."""
         self.assertEqual(_bm_expand_alternates(''), '')
         self.assertEqual(_bm_expand_alternates('aa'), 'aa')
         self.assertEqual(_bm_expand_alternates('aa|bb'), 'aa|bb')
@@ -722,7 +722,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         )
 
     def test_bm_remove_dupes(self):
-        """Test abydos.phonetic.bmpm._bm_remove_dupes."""
+        """Test abydos.phonetic._bmpm._bm_remove_dupes."""
         self.assertEqual(_bm_remove_dupes(''), '')
         self.assertEqual(_bm_remove_dupes('aa'), 'aa')
         self.assertEqual(_bm_remove_dupes('aa|bb'), 'aa|bb')
@@ -731,7 +731,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(_bm_remove_dupes('bb|aa|bb|aa|bb'), 'bb|aa')
 
     def test_bm_normalize_lang_attrs(self):
-        """Test abydos.phonetic.bmpm._bm_normalize_language_attributes."""
+        """Test abydos.phonetic._bmpm._bm_normalize_language_attributes."""
         self.assertEqual(_bm_normalize_lang_attrs('', False), '')
         self.assertEqual(_bm_normalize_lang_attrs('', True), '')
 

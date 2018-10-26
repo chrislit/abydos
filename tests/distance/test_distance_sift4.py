@@ -18,14 +18,14 @@
 
 """abydos.tests.distance.test_distance_sift4.
 
-This module contains unit tests for abydos.distance.sift4
+This module contains unit tests for abydos.distance._sift4
 """
 
 from __future__ import division, unicode_literals
 
 import unittest
 
-from abydos.distance.sift4 import (
+from abydos.distance import (
     dist_sift4,
     sift4_common,
     sift4_simplest,
@@ -36,11 +36,11 @@ from abydos.distance.sift4 import (
 class Sift4TestCases(unittest.TestCase):
     """Test Sift4 functions.
 
-    abydos.distance.sift4.sift4_simplest, sift4_common, sim_sift4, & sim_sift4
+    abydos.distance._sift4.sift4_simplest, sift4_common, sim_sift4, & sim_sift4
     """
 
     def test_sift4_simplest(self):
-        """Test abydos.distance.sift4.sift4_simplest."""
+        """Test abydos.distance._sift4.sift4_simplest."""
         # tests copied from Lukas Benedix's post at
         # https://siderite.blogspot.com/2014/11/super-fast-and-accurate-string-distance.html
         self.assertEqual(sift4_simplest('', ''), 0)
@@ -92,7 +92,7 @@ class Sift4TestCases(unittest.TestCase):
         )
 
     def test_sift4_common(self):
-        """Test abydos.distance.sift4.sift4_common."""
+        """Test abydos.distance._sift4.sift4_common."""
         # tests copied from Lukas Benedix's post at
         # https://siderite.blogspot.com/2014/11/super-fast-and-accurate-string-distance.html
         self.assertEqual(sift4_common('', ''), 0)
@@ -150,7 +150,7 @@ class Sift4TestCases(unittest.TestCase):
         self.assertEqual(sift4_common('distance', 'difference', 5, 5), 5)
 
     def test_dist_sift4(self):
-        """Test abydos.distance.sift4.dist_sift4."""
+        """Test abydos.distance._sift4.dist_sift4."""
         # tests copied from Lukas Benedix's post at
         # https://siderite.blogspot.com/2014/11/super-fast-and-accurate-string-distance.html
         self.assertEqual(dist_sift4('', ''), 0)
@@ -218,7 +218,7 @@ class Sift4TestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_sift4('distance', 'difference', 5, 5), 0.5)
 
     def test_sim_sift4(self):
-        """Test abydos.distance.sift4.sim_sift4."""
+        """Test abydos.distance._sift4.sim_sift4."""
         # tests copied from Lukas Benedix's post at
         # https://siderite.blogspot.com/2014/11/super-fast-and-accurate-string-distance.html
         self.assertEqual(sim_sift4('', ''), 1)

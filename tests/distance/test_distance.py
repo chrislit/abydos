@@ -26,7 +26,7 @@ from __future__ import division, unicode_literals
 import unittest
 
 from abydos.distance import dist, sim
-from abydos.distance.levenshtein import dist_levenshtein, sim_levenshtein
+from abydos.distance import dist_levenshtein, sim_levenshtein
 
 
 class SimDistTestCases(unittest.TestCase):

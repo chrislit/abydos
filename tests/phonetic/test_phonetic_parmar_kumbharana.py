@@ -18,24 +18,24 @@
 
 """abydos.tests.phonetic.test_phonetic_parmar_kumbharana.
 
-This module contains unit tests for abydos.phonetic.parmar_kumbharana
+This module contains unit tests for abydos.phonetic._parmar_kumbharana
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.parmar_kumbharana import parmar_kumbharana
+from abydos.phonetic import parmar_kumbharana
 
 
 class ParmarKumbharanaTestCases(unittest.TestCase):
     """Test Parmar-Kumbharana functions.
 
-    test cases for abydos.phonetic.parmar_kumbharana.parmar_kumbharana
+    test cases for abydos.phonetic._parmar_kumbharana.parmar_kumbharana
     """
 
     def test_parmar_kumbharana(self):
-        """Test abydos.phonetic.parmar_kumbharana.parmar_kumbharana."""
+        """Test abydos.phonetic._parmar_kumbharana.parmar_kumbharana."""
         # Base cases
         self.assertEqual(parmar_kumbharana(''), '')
 

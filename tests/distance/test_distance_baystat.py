@@ -18,24 +18,24 @@
 
 """abydos.tests.distance.test_distance_baystat.
 
-This module contains unit tests for abydos.distance.baystat
+This module contains unit tests for abydos.distance._baystat
 """
 
 from __future__ import division, unicode_literals
 
 import unittest
 
-from abydos.distance.baystat import dist_baystat, sim_baystat
+from abydos.distance import dist_baystat, sim_baystat
 
 
 class BaystatTestCases(unittest.TestCase):
     """Test Baystat functions.
 
-    abydos.distance.baystat.sim_baystat & .dist_baystat
+    abydos.distance._baystat.sim_baystat & .dist_baystat
     """
 
     def test_sim_baystat(self):
-        """Test abydos.distance.baystat.sim_baystat."""
+        """Test abydos.distance._baystat.sim_baystat."""
         # Base cases
         self.assertEqual(sim_baystat('', ''), 1)
         self.assertEqual(sim_baystat('Colin', ''), 0)
@@ -64,7 +64,7 @@ class BaystatTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_baystat('ZIMMER', 'ZIMMERMANN'), 0.6)
 
     def test_dist_baystat(self):
-        """Test abydos.distance.baystat.dist_baystat."""
+        """Test abydos.distance._baystat.dist_baystat."""
         # Base cases
         self.assertEqual(dist_baystat('', ''), 0)
         self.assertEqual(dist_baystat('Colin', ''), 1)

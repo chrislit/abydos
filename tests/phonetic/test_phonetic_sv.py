@@ -18,24 +18,24 @@
 
 """abydos.tests.phonetic.test_phonetic_sv.
 
-This module contains unit tests for abydos.phonetic.sv
+This module contains unit tests for abydos.phonetic._sv
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.phonetic.sv import norphone, sfinxbis
+from abydos.phonetic import norphone, sfinxbis
 
 
 class SfinxBisTestCases(unittest.TestCase):
     """Test SfinxBis functions.
 
-    test cases for abydos.phonetic.sv.sfinxbis
+    test cases for abydos.phonetic._sv.sfinxbis
     """
 
     def test_sfinxbis(self):
-        """Test abydos.phonetic.sv.sfinxbis."""
+        """Test abydos.phonetic._sv.sfinxbis."""
         self.assertEqual(sfinxbis(''), ('',))
 
         # http://www.swami.se/download/18.248ad5af12aa81365338000106/TestSfinx.txt
@@ -260,11 +260,11 @@ class SfinxBisTestCases(unittest.TestCase):
 class NorphoneTestCases(unittest.TestCase):
     """Test Norphone functions.
 
-    test cases for abydos.phonetic.sv.norphone
+    test cases for abydos.phonetic._sv.norphone
     """
 
     def test_norphone(self):
-        """Test abydos.phonetic.sv.norphone."""
+        """Test abydos.phonetic._sv.norphone."""
         # Base case
         self.assertEqual(norphone(''), '')
 
