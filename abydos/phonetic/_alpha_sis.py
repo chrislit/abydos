@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.alpha_sis.
+"""abydos.phonetic._alpha_sis.
 
-The phonetic.alpha_sis module implements IBM's Alpha Search Inquiry System
+The phonetic._alpha_sis module implements IBM's Alpha Search Inquiry System
 coding.
 """
 

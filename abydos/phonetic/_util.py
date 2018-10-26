@@ -16,49 +16,34 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic._mra.
+"""abydos.phonetic._util.
 
-The phonetic._mra module implements the MRA personal numeric identifier (PNI).
+The phonetic._util module implements _delete_consecutive_repeats.
 """
 
 from __future__ import unicode_literals
 
+from itertools import groupby
 
-from ._util import _delete_consecutive_repeats
-
-__all__ = ['mra']
+__all__ = ['_delete_consecutive_repeats']
 
 
-def mra(word):
-    """Return the MRA personal numeric identifier (PNI) for a word.
-
-    A description of the Western Airlines Surname Match Rating Algorithm can
-    be found on page 18 of :cite:`Moore:1977`.
+def _delete_consecutive_repeats(word):
+    """Delete consecutive repeated characters in a word.
 
     :param str word: the word to transform
-    :returns: the MRA PNI
+    :returns: word with consecutive repeating characters collapsed to
+        a single instance
     :rtype: str
 
-    >>> mra('Christopher')
-    'CHRPHR'
-    >>> mra('Niall')
-    'NL'
-    >>> mra('Smith')
-    'SMTH'
-    >>> mra('Schmidt')
-    'SCHMDT'
+    >>> _delete_consecutive_repeats('REDDEE')
+    'REDE'
+    >>> _delete_consecutive_repeats('AEIOU')
+    'AEIOU'
+    >>> _delete_consecutive_repeats('AAACCCTTTGGG')
+    'ACTG'
     """
-    if not word:
-        return word
-    word = word.upper()
-    word = word.replace('ß', 'SS')
-    word = word[0] + ''.join(
-        c for c in word[1:] if c not in {'A', 'E', 'I', 'O', 'U'}
-    )
-    word = _delete_consecutive_repeats(word)
-    if len(word) > 6:
-        word = word[:3] + word[-3:]
-    return word
+    return ''.join(char for char, _ in groupby(word))
 
 
 if __name__ == '__main__':

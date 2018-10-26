@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.sv.
+"""abydos.phonetic._sv.
 
-The phonetic.sv module implements phonetic algorithms for Scandinavian names
+The phonetic._sv module implements phonetic algorithms for Scandinavian names
 & languages (currently Swedish & Norwegian), including:
 
     - SfinxBis
@@ -31,7 +31,7 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from . import _delete_consecutive_repeats
+from ._util import _delete_consecutive_repeats
 
 __all__ = ['norphone', 'sfinxbis']
 

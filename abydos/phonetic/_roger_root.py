@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.roger_root.
+"""abydos.phonetic._roger_root.
 
-The phonetic.roger_root module implements the Roger Root phonetic algorithm.
+The phonetic._roger_root module implements the Roger Root phonetic algorithm.
 """
 
 from __future__ import unicode_literals
@@ -28,7 +28,7 @@ from unicodedata import normalize as unicode_normalize
 from six import text_type
 from six.moves import range
 
-from . import _delete_consecutive_repeats
+from ._util import _delete_consecutive_repeats
 
 __all__ = ['roger_root']
 

@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.eudex.
+"""abydos.phonetic._eudex.
 
-The phonetic.eudex module implements the Eudex phonetic hash.
+The phonetic._eudex module implements the Eudex phonetic hash.
 """
 
 from __future__ import unicode_literals

@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.nrl.
+"""abydos.phonetic._nrl.
 
-The phonetic.nrl module implements NRL English-to-phoneme algorithm.
+The phonetic._nrl module implements NRL English-to-phoneme algorithm.
 """
 
 from __future__ import unicode_literals

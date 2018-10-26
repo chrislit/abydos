@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.phonet.
+"""abydos.phonetic._phonet.
 
-The phonetic.phonet module implements phonet algorithm (a.k.a. Hannoveraner
+The phonetic._phonet module implements phonet algorithm (a.k.a. Hannoveraner
 Phonetik), intended chiefly for German.
 """
 

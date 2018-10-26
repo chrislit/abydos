@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.pt.
+"""abydos.phonetic._pt.
 
-The phonetic.pt module implements phonetic algorithms intended for Portuguese,
+The phonetic._pt module implements phonetic algorithms intended for Portuguese,
 including:
 
     - SoundexBR
@@ -30,7 +30,7 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from . import _delete_consecutive_repeats
+from ._util import _delete_consecutive_repeats
 
 __all__ = ['soundex_br']
 

@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic.metaphone.
+"""abydos.phonetic._metaphone.
 
-The phonetic.metaphone module implements Metaphone and Double Metaphone.
+The phonetic._metaphone module implements Metaphone and Double Metaphone.
 """
 
 from __future__ import unicode_literals
