@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_caverphone.
+"""abydos.tests.phonetic.test_phonetic_caverphone.
 
 This module contains unit tests for abydos.phonetic.caverphone
 """
@@ -35,11 +35,11 @@ from .. import _corpus_file
 class CaverphoneTestCases(unittest.TestCase):
     """Test Caverphone functions.
 
-    test cases for abydos.phonetic.caverphone
+    test cases for abydos.phonetic.caverphone.caverphone
     """
 
     def test_caverphone2(self):
-        """Test abydos.phonetic.caverphone (Caverphone 2)."""
+        """Test abydos.phonetic.caverphone.caverphone (Caverphone 2)."""
         self.assertEqual(caverphone(''), '1111111111')
         self.assertEqual(caverphone('', 2), '1111111111')
         self.assertEqual(caverphone('', version=2), '1111111111')
@@ -304,7 +304,7 @@ class CaverphoneTestCases(unittest.TestCase):
         self.assertEqual(caverphone('gnu'), 'NA11111111')
 
     def test_caverphone2_php_testset(self):
-        """Test abydos.phonetic.caverphone (PHP version testset)."""
+        """Test abydos.phonetic.caverphone.caverphone (PHP version testset)."""
         # https://raw.githubusercontent.com/kiphughes/caverphone/master/unit_tests.php
         with open(_corpus_file('php_caverphone.csv')) as php_testset:
             for php_line in php_testset:
@@ -312,7 +312,7 @@ class CaverphoneTestCases(unittest.TestCase):
                 self.assertEqual(caverphone(word), caver)
 
     def test_caverphone1(self):
-        """Test abydos.phonetic.caverphone (Caverphone 1)."""
+        """Test abydos.phonetic.caverphone.caverphone (Caverphone 1)."""
         self.assertEqual(caverphone('', 1), '111111')
         self.assertEqual(caverphone('', version=1), '111111')
 

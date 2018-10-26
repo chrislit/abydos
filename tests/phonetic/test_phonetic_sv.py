@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_sv.
+"""abydos.tests.phonetic.test_phonetic_sv.
 
 This module contains unit tests for abydos.phonetic.sv
 """
@@ -31,11 +31,11 @@ from abydos.phonetic.sv import norphone, sfinxbis
 class SfinxBisTestCases(unittest.TestCase):
     """Test SfinxBis functions.
 
-    test cases for abydos.phonetic.sfinxbis
+    test cases for abydos.phonetic.sv.sfinxbis
     """
 
     def test_sfinxbis(self):
-        """Test abydos.phonetic.sfinxbis."""
+        """Test abydos.phonetic.sv.sfinxbis."""
         self.assertEqual(sfinxbis(''), ('',))
 
         # http://www.swami.se/download/18.248ad5af12aa81365338000106/TestSfinx.txt
@@ -260,11 +260,11 @@ class SfinxBisTestCases(unittest.TestCase):
 class NorphoneTestCases(unittest.TestCase):
     """Test Norphone functions.
 
-    test cases for abydos.phonetic.norphone
+    test cases for abydos.phonetic.sv.norphone
     """
 
     def test_norphone(self):
-        """Test abydos.phonetic.norphone."""
+        """Test abydos.phonetic.sv.norphone."""
         # Base case
         self.assertEqual(norphone(''), '')
 

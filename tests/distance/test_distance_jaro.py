@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_distance.jaro.
+"""abydos.tests.distance.test_distance_jaro.
 
 This module contains unit tests for abydos.distance.jaro
 """
@@ -41,7 +41,7 @@ class JaroWinklerTestCases(unittest.TestCase):
     """
 
     def test_sim_strcmp95(self):
-        """Test abydos.distance.sim_strcmp95."""
+        """Test abydos.distance.jaro.sim_strcmp95."""
         self.assertEqual(sim_strcmp95('', ''), 1)
         self.assertEqual(sim_strcmp95('MARTHA', ''), 0)
         self.assertEqual(sim_strcmp95('', 'MARTHA'), 0)
@@ -79,7 +79,7 @@ class JaroWinklerTestCases(unittest.TestCase):
         )
 
     def test_dist_strcmp95(self):
-        """Test abydos.distance.dist_strcmp95."""
+        """Test abydos.distance.jaro.dist_strcmp95."""
         self.assertEqual(dist_strcmp95('', ''), 0)
         self.assertEqual(dist_strcmp95('MARTHA', ''), 1)
         self.assertEqual(dist_strcmp95('', 'MARTHA'), 1)
@@ -92,7 +92,7 @@ class JaroWinklerTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_strcmp95('ABCD', 'EFGH'), 1.0)
 
     def test_sim_jaro_winkler(self):
-        """Test abydos.distance.sim_jaro_winkler."""
+        """Test abydos.distance.jaro.sim_jaro_winkler."""
         self.assertEqual(sim_jaro_winkler('', '', mode='jaro'), 1)
         self.assertEqual(sim_jaro_winkler('', '', mode='winkler'), 1)
         self.assertEqual(sim_jaro_winkler('MARTHA', '', mode='jaro'), 0)
@@ -164,7 +164,7 @@ class JaroWinklerTestCases(unittest.TestCase):
         )
 
     def test_dist_jaro_winkler(self):
-        """Test abydos.distance.dist_jaro_winkler."""
+        """Test abydos.distance.jaro.dist_jaro_winkler."""
         self.assertEqual(dist_jaro_winkler('', '', mode='jaro'), 0)
         self.assertEqual(dist_jaro_winkler('', '', mode='winkler'), 0)
         self.assertEqual(dist_jaro_winkler('MARTHA', '', mode='jaro'), 1)

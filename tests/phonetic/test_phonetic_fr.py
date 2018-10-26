@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_fr.
+"""abydos.tests.phonetic.test_phonetic_fr.
 
 This module contains unit tests for abydos.phonetic.fr
 """
@@ -31,11 +31,11 @@ from abydos.phonetic.fr import fonem, henry_early
 class FonemTestCases(unittest.TestCase):
     """Test FONEM functions.
 
-    test cases for abydos.phonetic.fonem
+    test cases for abydos.phonetic.fr.fonem
     """
 
     def test_fonem(self):
-        """Test abydos.phonetic.fonem."""
+        """Test abydos.phonetic.fr.fonem."""
         # Base cases
         self.assertEqual(fonem(''), '')
 
@@ -173,11 +173,11 @@ class FonemTestCases(unittest.TestCase):
 class HenryCodeTestCases(unittest.TestCase):
     """Test Henry Code functions.
 
-    test cases for abydos.phonetic.henry_early
+    test cases for abydos.phonetic.fr.henry_early
     """
 
     def test_henry_early(self):
-        """Test abydos.phonetic.henry_early."""
+        """Test abydos.phonetic.fr.henry_early."""
         # Base case
         self.assertEqual(henry_early(''), '')
 

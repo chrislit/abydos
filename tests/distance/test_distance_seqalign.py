@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_distance.seqalign.
+"""abydos.tests.distance.test_distance_seqalign.
 
 This module contains unit tests for abydos.distance.seqalign
 """
@@ -66,11 +66,11 @@ def _sim_nw(src, tar):
 class MatrixSimTestCases(unittest.TestCase):
     """Test matrix similarity functions.
 
-    abydos.distance.sim_matrix
+    abydos.distance.seqalign.sim_matrix
     """
 
     def test_sim_matrix(self):
-        """Test abydos.distance.sim_matrix."""
+        """Test abydos.distance.seqalign.sim_matrix."""
         self.assertEqual(sim_matrix('', ''), 1)
         self.assertEqual(sim_matrix('', 'a'), 0)
         self.assertEqual(sim_matrix('a', ''), 0)
@@ -96,11 +96,11 @@ class MatrixSimTestCases(unittest.TestCase):
 class NeedlemanWunschTestCases(unittest.TestCase):
     """Test Needleman-Wunsch functions.
 
-    abydos.distance.needleman_wunsch
+    abydos.distance.seqalign.needleman_wunsch
     """
 
     def test_needleman_wunsch(self):
-        """Test abydos.distance.needleman_wunsch."""
+        """Test abydos.distance.seqalign.needleman_wunsch."""
         self.assertEqual(needleman_wunsch('', ''), 0)
 
         # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
@@ -121,7 +121,7 @@ class NeedlemanWunschTestCases(unittest.TestCase):
         )
 
     def test_needleman_wunsch_nialls(self):
-        """Test abydos.distance.needleman_wunsch (Nialls set)."""
+        """Test abydos.distance.seqalign.needleman_wunsch (Nialls set)."""
         # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=2, skew=2)
         nw_vals = (5, 0, -2, 3, 1, 1, -2, -2, -1, -3, -3, -5, -3, -7, -7, -19)
         for i in range(len(NIALL)):
@@ -133,11 +133,11 @@ class NeedlemanWunschTestCases(unittest.TestCase):
 class SmithWatermanTestCases(unittest.TestCase):
     """Test Smith-Waterman functions.
 
-    abydos.distance.smith_waterman
+    abydos.distance.seqalign.smith_waterman
     """
 
     def test_smith_waterman(self):
-        """Test abydos.distance.smith_waterman."""
+        """Test abydos.distance.seqalign.smith_waterman."""
         self.assertEqual(smith_waterman('', ''), 0)
 
         # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
@@ -157,7 +157,7 @@ class SmithWatermanTestCases(unittest.TestCase):
         )
 
     def test_smith_waterman_nialls(self):
-        """Test abydos.distance.smith_waterman (Nialls set)."""
+        """Test abydos.distance.seqalign.smith_waterman (Nialls set)."""
         sw_vals = (5, 1, 1, 3, 2, 1, 1, 0, 0, 1, 1, 2, 2, 1, 0, 0)
         for i in range(len(NIALL)):
             self.assertEqual(
@@ -168,11 +168,11 @@ class SmithWatermanTestCases(unittest.TestCase):
 class GotohTestCases(unittest.TestCase):
     """Test Gotoh functions.
 
-    abydos.distance.gotoh
+    abydos.distance.seqalign.gotoh
     """
 
     def test_gotoh(self):
-        """Test abydos.distance.needleman_wunsch_affine."""
+        """Test abydos.distance.seqalign.gotoh."""
         self.assertEqual(gotoh('', ''), 0)
 
         # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
@@ -207,7 +207,7 @@ class GotohTestCases(unittest.TestCase):
         )
 
     def test_gotoh_nialls(self):
-        """Test abydos.distance.gotoh (Nialls set)."""
+        """Test abydos.distance.seqalign.gotoh (Nialls set)."""
         # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=2, skew=2)
         nw_vals = (5, 0, -2, 3, 1, 1, -2, -2, -1, -3, -3, -5, -3, -7, -7, -19)
         for i in range(len(NIALL)):

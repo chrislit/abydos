@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_mra.
+"""abydos.tests.phonetic.test_phonetic_mra.
 
 This module contains unit tests for abydos.phonetic.mra
 """
@@ -31,11 +31,11 @@ from abydos.phonetic.mra import mra
 class MraTestCases(unittest.TestCase):
     """Test MRA functions.
 
-    test cases for abydos.phonetic.mra
+    test cases for abydos.phonetic.mra.mra
     """
 
     def test_mra(self):
-        """Test abydos.phonetic.mra."""
+        """Test abydos.phonetic.mra.mra."""
         self.assertEqual(mra(''), '')
 
         # https://en.wikipedia.org/wiki/Match_rating_approach

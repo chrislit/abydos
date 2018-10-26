@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_sound_d.
+"""abydos.tests.phonetic.test_phonetic_sound_d.
 
 This module contains unit tests for abydos.phonetic.sound_d
 """
@@ -31,11 +31,11 @@ from abydos.phonetic.sound_d import sound_d
 class SoundDTestCases(unittest.TestCase):
     """Test class SoundD functions.
 
-    test cases for abydos.phonetic.sound_d
+    test cases for abydos.phonetic.sound_d.sound_d
     """
 
     def test_sound_d(self):
-        """Test abydos.phonetic.sound_d."""
+        """Test abydos.phonetic.sound_d.sound_d."""
         # Base cases
         self.assertEqual(sound_d(''), '0000')
         self.assertEqual(sound_d('', max_length=6), '000000')

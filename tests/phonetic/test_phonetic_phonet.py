@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_phonet.
+"""abydos.tests.phonetic.test_phonetic_phonet.
 
 This module contains unit tests for abydos.phonetic.phonet
 """
@@ -34,11 +34,11 @@ from .. import ALLOW_RANDOM, _corpus_file, _one_in
 class PhonetTestCases(unittest.TestCase):
     """Test Phonet functions.
 
-    test cases for abydos.phonetic.phonet
+    test cases for abydos.phonetic.phonet.phonet
     """
 
     def test_phonet_german(self):
-        """Test abydos.phonetic.phonet (German)."""
+        """Test abydos.phonetic.phonet.phonet (German)."""
         self.assertEqual(phonet(''), '')
 
         # https://code.google.com/p/phonet4java/source/browse/trunk/src/test/java/com/googlecode/phonet4java/Phonet1Test.java
@@ -90,7 +90,7 @@ class PhonetTestCases(unittest.TestCase):
         self.assertEqual(phonet('Abendspaziergang', 1), 'ABENTSPAZIRGANK')
 
     def test_phonet_nolang(self):
-        """Test abydos.phonetic.phonet (no language)."""
+        """Test abydos.phonetic.phonet.phonet (no language)."""
         self.assertEqual(phonet('', lang='none'), '')
 
         # https://code.google.com/p/phonet4java/source/browse/trunk/src/test/java/com/googlecode/phonet4java/Phonet1Test.java
@@ -109,7 +109,7 @@ class PhonetTestCases(unittest.TestCase):
         self.assertEqual(phonet('Krauße', 2, 'none'), 'KRAUSE')
 
     def test_phonet_nachnamen(self):
-        """Test abydos.phonetic.phonet (Nachnamen set)."""
+        """Test abydos.phonetic.phonet.phonet (Nachnamen set)."""
         if not ALLOW_RANDOM:
             return
         with codecs.open(
@@ -126,7 +126,7 @@ class PhonetTestCases(unittest.TestCase):
                         self.assertEqual(phonet(term, 2), ph2)
 
     def test_phonet_ngerman(self):
-        """Test abydos.phonetic.phonet (ngerman set)."""
+        """Test abydos.phonetic.phonet.phonet (ngerman set)."""
         if not ALLOW_RANDOM:
             return
         with codecs.open(

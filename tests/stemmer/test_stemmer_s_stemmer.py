@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_stemmer.
+"""abydos.tests.stemmer.test_stemmer_s_stemmer.
 
 This module contains unit tests for abydos.stemmer
 """
@@ -31,11 +31,11 @@ from abydos.stemmer.s_stemmer import s_stemmer
 class SStemmerTestCases(unittest.TestCase):
     """Test S-stemmer functions.
 
-    abydos.stemmer.s_stemmer
+    abydos.stemmer.s_stemmer.s_stemmer
     """
 
     def test_s_stemmer(self):
-        """Test abydos.stemmer.s_stemmer."""
+        """Test abydos.stemmer.s_stemmer.s_stemmer."""
         # Base case
         self.assertEqual(s_stemmer(''), '')
 

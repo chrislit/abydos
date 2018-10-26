@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_dm.
+"""abydos.tests.phonetic.test_phonetic_dm.
 
 This module contains unit tests for abydos.phonetic.dm
 """
@@ -31,11 +31,11 @@ from abydos.phonetic.dm import dm_soundex
 class DMSoundexTestCases(unittest.TestCase):
     """Test Daitch-Mokotoff Soundex functions.
 
-    test cases for abydos.phonetic.dm_soundex
+    test cases for abydos.phonetic.dm.dm_soundex
     """
 
     def test_dm_soundex(self):
-        """Test abydos.phonetic.dm_soundex (Daitch-Mokotoff Soundex)."""
+        """Test abydos.phonetic.dm.dm_soundex (Daitch-Mokotoff Soundex)."""
         # D-M tests
         self.assertEqual(dm_soundex(''), {'000000'})
 

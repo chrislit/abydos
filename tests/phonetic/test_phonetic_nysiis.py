@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_nysiis.
+"""abydos.tests.phonetic.test_phonetic_nysiis.
 
 This module contains unit tests for abydos.phonetic.nysiis
 """
@@ -31,11 +31,11 @@ from abydos.phonetic.nysiis import nysiis
 class NysiisTestCases(unittest.TestCase):
     """Test NYSIIS functions.
 
-    test cases for abydos.phonetic.nysiis
+    test cases for abydos.phonetic.nysiis.nysiis
     """
 
     def test_nysiis(self):
-        """Test abydos.phonetic.nysiis."""
+        """Test abydos.phonetic.nysiis.nysiis."""
         self.assertEqual(nysiis(''), '')
 
         # http://coryodaniel.com/index.php/2009/12/30/ruby-nysiis-implementation/
@@ -94,7 +94,7 @@ class NysiisTestCases(unittest.TestCase):
         self.assertEqual(nysiis('Niall', max_length=0), 'NAL')
 
     def test_modified_nysiis(self):
-        """Test abydos.phonetic.nysiis (modified version)."""
+        """Test abydos.phonetic.nysiis.nysiis (modified version)."""
         self.assertEqual(nysiis('', max_length=-1, modified=True), '')
 
         # https://naldc.nal.usda.gov/download/27833/PDF

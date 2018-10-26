@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_statistics_canada.
+"""abydos.tests.phonetic.test_phonetic_statistics_canada.
 
 This module contains unit tests for abydos.phonetic.statistics_canada
 """
@@ -31,11 +31,11 @@ from abydos.phonetic.statistics_canada import statistics_canada
 class StatisticsCanadaTestCases(unittest.TestCase):
     """Test Statistics Canada functions.
 
-    test cases for abydos.phonetic.statistics_canada
+    test cases for abydos.phonetic.statistics_canada.statistics_canada
     """
 
     def test_statistics_canada(self):
-        """Test abydos.phonetic.statistics_canada."""
+        """Test abydos.phonetic.statistics_canada.statistics_canada."""
         self.assertEqual(statistics_canada(''), '')
 
         # https://naldc.nal.usda.gov/download/27833/PDF

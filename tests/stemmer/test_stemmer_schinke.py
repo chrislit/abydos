@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_stemmer_schinke.
+"""abydos.tests.stemmer.test_stemmer_schinke.
 
 This module contains unit tests for abydos.stemmer.schinke
 """
@@ -33,11 +33,11 @@ from .. import _corpus_file
 class SchinkeTestCases(unittest.TestCase):
     """Test Schinke functions.
 
-    abydos.stemmer.schinke
+    abydos.stemmer.schinke.schinke
     """
 
     def test_schinke(self):
-        """Test abydos.stemmer.schinke.
+        """Test abydos.stemmer.schinke.schinke.
 
         These tests are copied from the Snowball testset at
         http://snowball.tartarus.org/otherapps/schinke/schinke.tgz

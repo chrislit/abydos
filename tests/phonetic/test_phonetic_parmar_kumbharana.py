@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_parmar_kumbharana.
+"""abydos.tests.phonetic.test_phonetic_parmar_kumbharana.
 
 This module contains unit tests for abydos.phonetic.parmar_kumbharana
 """
@@ -31,11 +31,11 @@ from abydos.phonetic.parmar_kumbharana import parmar_kumbharana
 class ParmarKumbharanaTestCases(unittest.TestCase):
     """Test Parmar-Kumbharana functions.
 
-    test cases for abydos.phonetic.parmar_kumbharana
+    test cases for abydos.phonetic.parmar_kumbharana.parmar_kumbharana
     """
 
     def test_parmar_kumbharana(self):
-        """Test abydos.phonetic.parmar_kumbharana."""
+        """Test abydos.phonetic.parmar_kumbharana.parmar_kumbharana."""
         # Base cases
         self.assertEqual(parmar_kumbharana(''), '')
 

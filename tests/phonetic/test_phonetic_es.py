@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_es.
+"""abydos.tests.phonetic.test_phonetic_es.
 
 This module contains unit tests for abydos.phonetic.es
 """
@@ -31,11 +31,11 @@ from abydos.phonetic.es import phonetic_spanish, spanish_metaphone
 class PhoneticSpanishTestCases(unittest.TestCase):
     """Test PhoneticSpanish functions.
 
-    test cases for abydos.phonetic.phonetic_spanish
+    test cases for abydos.phonetic.es.phonetic_spanish
     """
 
     def test_phonetic_spanish(self):
-        """Test abydos.phonetic.phonetic_spanish."""
+        """Test abydos.phonetic.es.phonetic_spanish."""
         # Base case
         self.assertEqual(phonetic_spanish(''), '')
 
@@ -54,11 +54,11 @@ class PhoneticSpanishTestCases(unittest.TestCase):
 class SpanishMetaphoneTestCases(unittest.TestCase):
     """Test Spanish Metaphone functions.
 
-    test cases for abydos.phonetic.spanish_metaphone
+    test cases for abydos.phonetic.es.spanish_metaphone
     """
 
     def test_spanish_metaphone(self):
-        """Test abydos.phonetic.spanish_metaphone."""
+        """Test abydos.phonetic.es.spanish_metaphone."""
         # Base case
         self.assertEqual(spanish_metaphone(''), '')
 

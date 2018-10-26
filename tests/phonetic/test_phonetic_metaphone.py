@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_phonetic_metaphone.
+"""abydos.tests.phonetic.test_phonetic_metaphone.
 
 This module contains unit tests for abydos.phonetic.metaphone
 """
@@ -31,11 +31,11 @@ from abydos.phonetic.metaphone import double_metaphone, metaphone
 class MetaphoneTestCases(unittest.TestCase):
     """Test Metaphone functions.
 
-    test cases for abydos.phonetic.metaphone
+    test cases for abydos.phonetic.metaphone.metaphone
     """
 
     def test_metaphone(self):
-        """Test abydos.phonetic.metaphone."""
+        """Test abydos.phonetic.metaphone.metaphone."""
         self.assertEqual(metaphone(''), '')
         self.assertEqual(metaphone('...'), '')
 
@@ -97,7 +97,7 @@ class MetaphoneTestCases(unittest.TestCase):
 class DoubleMetaphoneTestCases(unittest.TestCase):
     """Test Double Metaphone functions.
 
-    test cases for abydos.phonetic.double_metaphone
+    test cases for abydos.phonetic.metaphone.double_metaphone
 
     These test cases are copied from two sources:
     https://github.com/oubiwann/metaphone/blob/master/metaphone/tests/test_metaphone.py
@@ -147,7 +147,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
     """
 
     def test_double_metaphone(self):
-        """Test abydos.phonetic.double_metaphone."""
+        """Test abydos.phonetic.metaphone.double_metaphone."""
         # base case
         self.assertEqual(double_metaphone(''), ('', ''))
 
@@ -343,7 +343,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('Niall', max_length=0), ('NL', ''))
 
     def test_double_metaphone_surnames(self):
-        """Test abydos.phonetic.double_metaphone (surname data)."""
+        """Test abydos.phonetic.metaphone.double_metaphone (surname data)."""
         self.assertEqual(double_metaphone(''), ('', ''))
         self.assertEqual(double_metaphone('ALLERTON'), ('ALRTN', ''))
         self.assertEqual(double_metaphone('Acton'), ('AKTN', ''))
@@ -1600,7 +1600,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(double_metaphone('zhao'), ('J', ''))
 
     def test_double_metaphone_surnames4(self):
-        """Test abydos.phonetic.double_metaphone (surname data, 4-letter)."""
+        """Test abydos.phonetic.metaphone.double_metaphone (surname data, 4-letter)."""  # noqa: E501
         self.assertEqual(double_metaphone('', 4), ('', ''))
         self.assertEqual(double_metaphone('ALLERTON', 4), ('ALRT', ''))
         self.assertEqual(double_metaphone('Acton', 4), ('AKTN', ''))

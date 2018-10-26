@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_stemmer_clef.
+"""abydos.tests.stemmer.test_stemmer_clef.
 
 This module contains unit tests for abydos.stemmer.clef
 """
@@ -31,12 +31,11 @@ from abydos.stemmer.clef import clef_german, clef_german_plus, clef_swedish
 class CLEFTestCases(unittest.TestCase):
     """Test CLEF functions.
 
-    abydos.stemmer.clef_german, abydos.stemmer.clef_german_plus, &
-    abydos.stemmer.clef_swedish
+    abydos.stemmer.clef.clef_german, .clef_german_plus, & .clef_swedish
     """
 
     def test_clef_german(self):
-        """Test abydos.stemmer.clef_german."""
+        """Test abydos.stemmer.clef.clef_german."""
         # base case
         self.assertEqual(clef_german(''), '')
 
@@ -66,7 +65,7 @@ class CLEFTestCases(unittest.TestCase):
         self.assertEqual(clef_german('kleinen'), 'klei')
 
     def test_clef_german_plus(self):
-        """Test abydos.stemmer.clef_german_plus."""
+        """Test abydos.stemmer.clef.clef_german_plus."""
         # base case
         self.assertEqual(clef_german_plus(''), '')
 
@@ -97,7 +96,7 @@ class CLEFTestCases(unittest.TestCase):
         self.assertEqual(clef_german_plus('Pfarrern'), 'pfarr')
 
     def test_clef_swedish(self):
-        """Test abydos.stemmer.clef_swedish."""
+        """Test abydos.stemmer.clef.clef_swedish."""
         # base case
         self.assertEqual(clef_swedish(''), '')
 

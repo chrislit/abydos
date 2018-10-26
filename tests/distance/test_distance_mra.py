@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_distance.mra.
+"""abydos.tests.distance.test_distance_mra.
 
 This module contains unit tests for abydos.distance.mra
 """
@@ -31,11 +31,11 @@ from abydos.distance.mra import dist_mra, mra_compare, sim_mra
 class MraTestCases(unittest.TestCase):
     """Test MRA functions.
 
-    abydos.distance.mra_compare, .sim_mra & .dist_mra
+    abydos.distance.mra.mra_compare, .sim_mra & .dist_mra
     """
 
     def test_mra_compare(self):
-        """Test abydos.distance.mra_compare."""
+        """Test abydos.distance.mra.mra_compare."""
         self.assertEqual(mra_compare('', ''), 6)
         self.assertEqual(mra_compare('a', 'a'), 6)
         self.assertEqual(mra_compare('abcdefg', 'abcdefg'), 6)
@@ -53,7 +53,7 @@ class MraTestCases(unittest.TestCase):
         self.assertEqual(mra_compare('xyz', 'abc'), 0)
 
     def test_sim_mra(self):
-        """Test abydos.distance.sim_mra."""
+        """Test abydos.distance.mra.sim_mra."""
         self.assertEqual(sim_mra('', ''), 1)
         self.assertEqual(sim_mra('a', 'a'), 1)
         self.assertEqual(sim_mra('abcdefg', 'abcdefg'), 1)
@@ -71,7 +71,7 @@ class MraTestCases(unittest.TestCase):
         self.assertEqual(sim_mra('xyz', 'abc'), 0)
 
     def test_dist_mra(self):
-        """Test abydos.distance.dist_mra."""
+        """Test abydos.distance.mra.dist_mra."""
         self.assertEqual(dist_mra('', ''), 0)
         self.assertEqual(dist_mra('a', 'a'), 0)
         self.assertEqual(dist_mra('abcdefg', 'abcdefg'), 0)

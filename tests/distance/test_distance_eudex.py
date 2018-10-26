@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_distance.eudex.
+"""abydos.tests.distance.test_distance_eudex.
 
 This module contains unit tests for abydos.distance.eudex
 """
@@ -31,11 +31,11 @@ from abydos.distance.eudex import dist_eudex, eudex_hamming, sim_eudex
 class EudexTestCases(unittest.TestCase):
     """Test Eudex distance functions.
 
-    abydos.distance.eudex_hamming, dist_eudex, & sim_eudex
+    abydos.distance.eudex.eudex_hamming, dist_eudex, & sim_eudex
     """
 
     def test_eudex_hamming(self):
-        """Test abydos.distance.eudex_hamming."""
+        """Test abydos.distance.eudex.eudex_hamming."""
 
         def _yield_1():
             while True:
@@ -75,7 +75,7 @@ class EudexTestCases(unittest.TestCase):
         )
 
     def test_dist_eudex(self):
-        """Test abydos.distance.dist_eudex."""
+        """Test abydos.distance.eudex.dist_eudex."""
         # Base cases
         self.assertEqual(dist_eudex('', ''), 0)
         self.assertEqual(dist_eudex('', '', None), 0)
@@ -98,7 +98,7 @@ class EudexTestCases(unittest.TestCase):
         )
 
     def test_sim_eudex(self):
-        """Test abydos.distance.sim_eudex."""
+        """Test abydos.distance.eudex.sim_eudex."""
         # Base cases
         self.assertEqual(sim_eudex('', ''), 1)
         self.assertEqual(sim_eudex('', '', None), 1)

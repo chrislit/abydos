@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_distance.compression.
+"""abydos.tests.distance.test_distance_compression.
 
 This module contains unit tests for abydos.distance.compression
 """
@@ -102,7 +102,7 @@ class CompressionTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_ncd_arith('Njall', 'Njáll'), 0.75)
 
     def test_dist_ncd_bwtrle(self):
-        """Test abydos.distance..compression.dist_ncd_bwtrle."""
+        """Test abydos.distance.compression.dist_ncd_bwtrle."""
         self.assertEqual(dist_ncd_bwtrle('', ''), 0)
         self.assertGreater(dist_ncd_bwtrle('a', ''), 0)
         self.assertGreater(dist_ncd_bwtrle('abcdefg', 'fg'), 0)
@@ -116,7 +116,7 @@ class CompressionTestCases(unittest.TestCase):
         self.assertAlmostEqual(dist_ncd_bwtrle('bananas', 'bananen'), 0.5)
 
     def test_dist_ncd_rle(self):
-        """Test abydos.distance..compression.dist_ncd_rle."""
+        """Test abydos.distance.compression.dist_ncd_rle."""
         self.assertEqual(dist_ncd_rle('', ''), 0)
         self.assertGreater(dist_ncd_rle('a', ''), 0)
         self.assertGreater(dist_ncd_rle('abcdefg', 'fg'), 0)
@@ -165,7 +165,7 @@ class CompressionTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_ncd_arith('Njall', 'Njáll'), 0.25)
 
     def test_sim_ncd_rle(self):
-        """Test abydos.distance.sim_ncd_rle."""
+        """Test abydos.distance.compression.sim_ncd_rle."""
         self.assertEqual(sim_ncd_rle('', ''), 1)
         self.assertLess(sim_ncd_rle('a', ''), 1)
         self.assertLess(sim_ncd_rle('abcdefg', 'fg'), 1)
@@ -177,7 +177,7 @@ class CompressionTestCases(unittest.TestCase):
         self.assertAlmostEqual(sim_ncd_rle('abb', 'bbba'), 2 / 3)
 
     def test_sim_ncd_bwtrle(self):
-        """Test abydos.distance.sim_ncd_bwtrle."""
+        """Test abydos.distance.compression.sim_ncd_bwtrle."""
         self.assertEqual(sim_ncd_bwtrle('', ''), 1)
         self.assertLess(sim_ncd_bwtrle('a', ''), 1)
         self.assertLess(sim_ncd_bwtrle('abcdefg', 'fg'), 1)

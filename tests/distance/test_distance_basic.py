@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.test_distance.basic.
+"""abydos.tests.distance.test_distance_basic.
 
 This module contains unit tests for abydos.distance.basic
 """
@@ -40,11 +40,11 @@ from abydos.distance.basic import (
 class IdentityTestCases(unittest.TestCase):
     """Test identity similarity functions.
 
-    abydos.distance.sim_ident & .dist_ident
+    abydos.distance.basic.sim_ident & .dist_ident
     """
 
     def test_sim_ident(self):
-        """Test abydos.distance.sim_ident."""
+        """Test abydos.distance.basic.sim_ident."""
         self.assertEqual(sim_ident('', ''), 1)
         self.assertEqual(sim_ident('', 'a'), 0)
         self.assertEqual(sim_ident('a', ''), 0)
@@ -54,7 +54,7 @@ class IdentityTestCases(unittest.TestCase):
         self.assertEqual(sim_ident('abc', 'cba'), 0)
 
     def test_dist_ident(self):
-        """Test abydos.distance.dist_ident."""
+        """Test abydos.distance.basic.dist_ident."""
         self.assertEqual(dist_ident('', ''), 0)
         self.assertEqual(dist_ident('', 'a'), 1)
         self.assertEqual(dist_ident('a', ''), 1)
@@ -67,11 +67,11 @@ class IdentityTestCases(unittest.TestCase):
 class LengthTestCases(unittest.TestCase):
     """Test length similarity functions.
 
-    abydos.distance.sim_length & .dist_length
+    abydos.distance.basic.sim_length & .dist_length
     """
 
     def test_sim_ident(self):
-        """Test abydos.distance.sim_length."""
+        """Test abydos.distance.basic.sim_length."""
         self.assertEqual(sim_length('', ''), 1)
         self.assertEqual(sim_length('', 'a'), 0)
         self.assertEqual(sim_length('a', ''), 0)
@@ -85,7 +85,7 @@ class LengthTestCases(unittest.TestCase):
         self.assertEqual(sim_length('abcd', 'ba'), 0.5)
 
     def test_dist_ident(self):
-        """Test abydos.distance.dist_length."""
+        """Test abydos.distance.basic.dist_length."""
         self.assertEqual(dist_length('', ''), 0)
         self.assertEqual(dist_length('', 'a'), 1)
         self.assertEqual(dist_length('a', ''), 1)
@@ -102,11 +102,11 @@ class LengthTestCases(unittest.TestCase):
 class PrefixTestCases(unittest.TestCase):
     """Test prefix similarity functions.
 
-    abydos.distance.sim_prefix & .dist_prefix
+    abydos.distance.basic.sim_prefix & .dist_prefix
     """
 
     def test_sim_prefix(self):
-        """Test abydos.distance.sim_prefix."""
+        """Test abydos.distance.basic.sim_prefix."""
         self.assertEqual(sim_prefix('', ''), 1)
         self.assertEqual(sim_prefix('a', ''), 0)
         self.assertEqual(sim_prefix('', 'a'), 0)
@@ -137,7 +137,7 @@ class PrefixTestCases(unittest.TestCase):
         self.assertEqual(sim_prefix('xxxxaa', 'yyyaa'), 0)
 
     def test_dist_prefix(self):
-        """Test abydos.distance.dist_prefix."""
+        """Test abydos.distance.basic.dist_prefix."""
         self.assertEqual(dist_prefix('', ''), 0)
         self.assertEqual(dist_prefix('a', ''), 1)
         self.assertEqual(dist_prefix('', 'a'), 1)
@@ -171,11 +171,11 @@ class PrefixTestCases(unittest.TestCase):
 class SuffixTestCases(unittest.TestCase):
     """Test suffix similarity functions.
 
-    abydos.distance.sim_suffix & .dist_suffix
+    abydos.distance.basic.sim_suffix & .dist_suffix
     """
 
     def test_sim_suffix(self):
-        """Test abydos.distance.sim_suffix."""
+        """Test abydos.distance.basic.sim_suffix."""
         self.assertEqual(sim_suffix('', ''), 1)
         self.assertEqual(sim_suffix('a', ''), 0)
         self.assertEqual(sim_suffix('', 'a'), 0)
@@ -206,7 +206,7 @@ class SuffixTestCases(unittest.TestCase):
         self.assertEqual(sim_suffix('xxxxaa', 'yyyaa'), 2 / 5)
 
     def test_dist_suffix(self):
-        """Test abydos.distance.dist_suffix."""
+        """Test abydos.distance.basic.dist_suffix."""
         self.assertEqual(dist_suffix('', ''), 0)
         self.assertEqual(dist_suffix('a', ''), 1)
         self.assertEqual(dist_suffix('', 'a'), 1)
