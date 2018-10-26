@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.compression.bwt.
+"""abydos.compression._bwt.
 
 Burrows-Wheeler transform encoder/decoder (bwt_encode & bwt_decode)
 """
@@ -26,10 +26,10 @@ from __future__ import unicode_literals
 from six.moves import range
 
 
-__all__ = ['decode', 'encode']
+__all__ = ['bwt_decode', 'bwt_encode']
 
 
-def encode(word, terminator='\0'):
+def bwt_encode(word, terminator='\0'):
     r"""Return the Burrows-Wheeler transformed form of a word.
 
     The Burrows-Wheeler transform is an attempt at placing similar characters
@@ -42,11 +42,11 @@ def encode(word, terminator='\0'):
     :returns: word encoded by BWT
     :rtype: str
 
-    >>> encode('align')
+    >>> bwt_encode('align')
     'n\x00ilag'
-    >>> encode('banana')
+    >>> bwt_encode('banana')
     'annb\x00aa'
-    >>> encode('banana', '@')
+    >>> bwt_encode('banana', '@')
     'annb@aa'
     """
     if word:
@@ -64,7 +64,7 @@ def encode(word, terminator='\0'):
         return terminator
 
 
-def decode(code, terminator='\0'):
+def bwt_decode(code, terminator='\0'):
     r"""Return a word decoded from BWT form.
 
     The Burrows-Wheeler transform is an attempt at placing similar characters
@@ -77,11 +77,11 @@ def decode(code, terminator='\0'):
     :returns: word decoded by BWT
     :rtype: str
 
-    >>> decode('n\x00ilag')
+    >>> bwt_decode('n\x00ilag')
     'align'
-    >>> decode('annb\x00aa')
+    >>> bwt_decode('annb\x00aa')
     'banana'
-    >>> decode('annb@aa', '@')
+    >>> bwt_decode('annb@aa', '@')
     'banana'
     """
     if code:

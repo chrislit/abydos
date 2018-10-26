@@ -16,22 +16,22 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.compression.rle.
+"""abydos.compression._rle.
 
-Run-Length Encoding encoder/decoder
+Run-Length Encoding encoder/decoder (rle_encoder & rle_decoder)
 """
 
 from __future__ import unicode_literals
 
 from itertools import groupby
 
-from . import bwt
+from ._bwt import bwt_decode, bwt_encode
 
 
-__all__ = ['decode', 'encode']
+__all__ = ['rle_decode', 'rle_encode']
 
 
-def encode(text, use_bwt=True):
+def rle_encode(text, use_bwt=True):
     r"""Perform encoding of run-length-encoding (RLE).
 
     Cf. :cite:`Robinson:1967`.
@@ -47,23 +47,23 @@ def encode(text, use_bwt=True):
     :returns: word decoded by BWT
     :rtype: str
 
-    >>> encode('align')
+    >>> rle_encode('align')
     'n\x00ilag'
-    >>> encode('align', use_bwt=False)
+    >>> rle_encode('align', use_bwt=False)
     'align'
 
-    >>> encode('banana')
+    >>> rle_encode('banana')
     'annb\x00aa'
-    >>> encode('banana', use_bwt=False)
+    >>> rle_encode('banana', use_bwt=False)
     'banana'
 
-    >>> encode('aaabaabababa')
+    >>> rle_encode('aaabaabababa')
     'ab\x00abbab5a'
-    >>> encode('aaabaabababa', False)
+    >>> rle_encode('aaabaabababa', False)
     '3abaabababa'
     """
     if use_bwt:
-        text = bwt.encode(text)
+        text = bwt_encode(text)
     if text:
         text = ((len(list(g)), k) for k, g in groupby(text))
         text = (
@@ -73,7 +73,7 @@ def encode(text, use_bwt=True):
     return ''.join(text)
 
 
-def decode(text, use_bwt=True):
+def rle_decode(text, use_bwt=True):
     r"""Perform decoding of run-length-encoding (RLE).
 
     Cf. :cite:`Robinson:1967`.
@@ -89,19 +89,19 @@ def decode(text, use_bwt=True):
     :returns: word decoded by BWT
     :rtype: str
 
-    >>> decode('n\x00ilag')
+    >>> rle_decode('n\x00ilag')
     'align'
-    >>> decode('align', use_bwt=False)
+    >>> rle_decode('align', use_bwt=False)
     'align'
 
-    >>> decode('annb\x00aa')
+    >>> rle_decode('annb\x00aa')
     'banana'
-    >>> decode('banana', use_bwt=False)
+    >>> rle_decode('banana', use_bwt=False)
     'banana'
 
-    >>> decode('ab\x00abbab5a')
+    >>> rle_decode('ab\x00abbab5a')
     'aaabaabababa'
-    >>> decode('3abaabababa', False)
+    >>> rle_decode('3abaabababa', False)
     'aaabaabababa'
     """
     mult = ''
@@ -118,7 +118,7 @@ def decode(text, use_bwt=True):
 
     text = ''.join(decoded)
     if use_bwt:
-        text = bwt.decode(text)
+        text = bwt_decode(text)
     return text
 
 
