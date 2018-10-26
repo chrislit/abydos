@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.stemmer.clef.
+"""abydos.stemmer._clef.
 
-The stemmer.clef module defines CLEF stemmers for:
+The stemmer._clef module defines CLEF stemmers for:
 
     - German
     - German plus

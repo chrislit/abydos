@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.stemmer.schinke.
+"""abydos.stemmer._schinke.
 
 The stemmer.schinke module defines the Schinke Latin stemmer.
 """

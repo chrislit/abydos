@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.stemmer.lovins.
+"""abydos.stemmer._lovins.
 
-The stemmer.lovins module implements the Lovins stemmer.
+The stemmer._lovins module implements the Lovins stemmer.
 """
 
 from __future__ import unicode_literals
