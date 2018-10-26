@@ -6,13 +6,3 @@ abydos.fingerprint package
     :undoc-members:
     :show-inheritance:
 
-Submodules
-----------
-
-.. toctree::
-
-   abydos.fingerprint.basic
-   abydos.fingerprint.lightweight
-   abydos.fingerprint.speedcop
-   abydos.fingerprint.synoname
-

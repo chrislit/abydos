@@ -6,12 +6,3 @@ abydos.stats package
     :undoc-members:
     :show-inheritance:
 
-Submodules
-----------
-
-.. toctree::
-
-   abydos.stats.confusion_table
-   abydos.stats.mean
-   abydos.stats.pairwise
-

@@ -6,11 +6,3 @@ abydos.corpus package
     :undoc-members:
     :show-inheritance:
 
-Submodules
-----------
-
-.. toctree::
-
-   abydos.corpus.corpus
-   abydos.corpus.ngram
-
