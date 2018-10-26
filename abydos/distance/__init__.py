@@ -84,7 +84,7 @@ from ._token import bag, dist_bag, dist_cosine, dist_dice, dist_jaccard, dist_mo
 from ._typo import dist_typo, sim_typo, typo
 from ._util import _get_qgrams
 
-__all__ = [
+__all__ = ['sim', 'dist',
     'dist_ident',
     'dist_length',
     'dist_prefix',
