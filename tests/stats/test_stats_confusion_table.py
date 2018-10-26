@@ -451,7 +451,7 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertEqual(VERY_POOR_TABLE.pr_heronian_mean(), 0)
 
     def test_pr_hoelder_mean(self):
-        """Test abydos.stats._confusion_table.ConfusionTable.pr_hoelder_mean."""
+        """Test abydos.stats._confusion_table.ConfusionTable.pr_hoelder_mean."""  # noqa: E501
         self.assertEqual(UNIT_TABLE.pr_hoelder_mean(), 0.5)
         self.assertTrue(isnan(NULL_TABLE.pr_hoelder_mean()))
         self.assertAlmostEqual(
@@ -640,7 +640,7 @@ class StatisticalMeasureTestCases(unittest.TestCase):
         )
 
     def test_kappa_statistic(self):
-        """Test abydos.stats._confusion_table.ConfusionTable.kappa_statistic."""
+        """Test abydos.stats._confusion_table.ConfusionTable.kappa_statistic."""  # noqa: E501
 
         def _quick_kappa(acc, racc):
             return (acc - racc) / (1 - racc)
