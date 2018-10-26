@@ -2,15 +2,15 @@ Release History
 ---------------
 
 
-0.3.5 (2018-10-25) *cantankerous carl*
+0.3.5 (2018-10-26) *cantankerous carl*
 ++++++++++++++++++++++++++++++++++++++
 
 doi:10.5281/zenodo.1463204
 
-Version 0.3.5 focuses on refactoring the whole project. Although the API
-changes massively (which is not a violation of SemVer, since this is still
-well below version 1.0.0), essentially no new features are added (bugfixes
-aside).
+Version 0.3.5 focuses on refactoring the whole project. The API itself remains
+largely the same as in previous versions, but underlyingly modules have been
+split up. Essentially no new features are added (bugfixes aside) in this
+version.
 
 Changes:
 
