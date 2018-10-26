@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.fingerprint.lightweight.
+"""abydos.fingerprint._lightweight.
 
 The fingerprint.lightweight module implements string fingerprints developed
 by Cisłak & Grabowski in :cite:`Cislak:2017`:
