@@ -29,7 +29,7 @@ from ._levenshtein import levenshtein
 from ._sequence import sim_ratcliff_obershelp
 
 # noinspection PyProtectedMember
-from ..fingerprint.synoname import _synoname_special_table, synoname_toolcode
+from ..fingerprint._synoname import _synoname_special_table, synoname_toolcode
 
 __all__ = ['synoname']
 
