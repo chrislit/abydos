@@ -25,10 +25,32 @@ about linguistic objects.
 from __future__ import division, unicode_literals
 
 from ._confusion_table import ConfusionTable
-from ._mean import aghmean, agmean, amean, cmean, ghmean, gmean, heronian_mean, hmean, hoelder_mean, imean, lehmer_mean, lmean, median, midrange, mode, qmean, seiffert_mean, std, var
+from ._mean import (
+    aghmean,
+    agmean,
+    amean,
+    cmean,
+    ghmean,
+    gmean,
+    heronian_mean,
+    hmean,
+    hoelder_mean,
+    imean,
+    lehmer_mean,
+    lmean,
+    median,
+    midrange,
+    mode,
+    qmean,
+    seiffert_mean,
+    std,
+    var,
+)
 from ._pairwise import mean_pairwise_similarity, pairwise_similarity_statistics
 
-__all__ = ['ConfusionTable', 'aghmean',
+__all__ = [
+    'ConfusionTable',
+    'aghmean',
     'agmean',
     'amean',
     'cmean',
@@ -46,7 +68,10 @@ __all__ = ['ConfusionTable', 'aghmean',
     'qmean',
     'seiffert_mean',
     'std',
-    'var', 'mean_pairwise_similarity', 'pairwise_similarity_statistics']
+    'var',
+    'mean_pairwise_similarity',
+    'pairwise_similarity_statistics',
+]
 
 
 if __name__ == '__main__':

@@ -52,7 +52,7 @@ class BWTTestCases(unittest.TestCase):
         self.assertEqual(bwt_decode('\x00'), '')
         self.assertEqual(bwt_decode('BNN^AA|A', '|'), '^BANANA')
         self.assertEqual(
-            bwt_decode('TEXYDST.E.IXIXIXXSSMPPS.B..E.|.' + 'UESFXDIIOIIITS', '|'),
+            bwt_decode('TEXYDST.E.IXIXIXXSSMPPS.B..E.|.UESFXDIIOIIITS', '|'),
             'SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES',
         )
 

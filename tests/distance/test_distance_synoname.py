@@ -26,8 +26,12 @@ from __future__ import division, unicode_literals
 import unittest
 
 from abydos.distance import synoname
+
 # noinspection PyProtectedMember
-from abydos.distance._synoname import _synoname_strip_punct, _synoname_word_approximation
+from abydos.distance._synoname import (
+    _synoname_strip_punct,
+    _synoname_word_approximation,
+)
 
 
 class SynonameTestCases(unittest.TestCase):

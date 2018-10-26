@@ -26,7 +26,13 @@ from __future__ import unicode_literals
 import unittest
 
 from abydos.distance import sim_tanimoto
-from abydos.stats import amean, gmean, hmean, mean_pairwise_similarity, pairwise_similarity_statistics
+from abydos.stats import (
+    amean,
+    gmean,
+    hmean,
+    mean_pairwise_similarity,
+    pairwise_similarity_statistics,
+)
 
 NIALL = (
     'Niall',

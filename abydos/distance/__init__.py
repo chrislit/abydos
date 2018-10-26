@@ -66,25 +66,107 @@ to return 1; the corresponding dist_X function is guaranteed to return 0.
 
 from __future__ import unicode_literals
 
-from ._basic import dist_ident, dist_length, dist_prefix, dist_suffix, sim_ident, sim_length, sim_prefix, sim_suffix
+from ._basic import (
+    dist_ident,
+    dist_length,
+    dist_prefix,
+    dist_suffix,
+    sim_ident,
+    sim_length,
+    sim_prefix,
+    sim_suffix,
+)
 from ._baystat import dist_baystat, sim_baystat
-from ._compression import dist_ncd_arith, dist_ncd_bwtrle, dist_ncd_bz2, dist_ncd_lzma, dist_ncd_rle, dist_ncd_zlib, sim_ncd_arith, sim_ncd_bwtrle, sim_ncd_bz2, sim_ncd_lzma, sim_ncd_rle, sim_ncd_zlib
+from ._compression import (
+    dist_ncd_arith,
+    dist_ncd_bwtrle,
+    dist_ncd_bz2,
+    dist_ncd_lzma,
+    dist_ncd_rle,
+    dist_ncd_zlib,
+    sim_ncd_arith,
+    sim_ncd_bwtrle,
+    sim_ncd_bz2,
+    sim_ncd_lzma,
+    sim_ncd_rle,
+    sim_ncd_zlib,
+)
 from ._editex import dist_editex, editex, sim_editex
 from ._eudex import dist_eudex, eudex_hamming, sim_eudex
-from ._hamming import dist_hamming, dist_mlipns, hamming, sim_hamming, sim_mlipns
-from ._jaro import dist_jaro_winkler, dist_strcmp95, sim_jaro_winkler, sim_strcmp95
-from ._levenshtein import damerau_levenshtein, dist_damerau, dist_indel, dist_levenshtein, levenshtein, sim_damerau, sim_indel, sim_levenshtein
-from ._minkowski import chebyshev, dist_euclidean, dist_manhattan, dist_minkowski, euclidean, manhattan, minkowski, sim_euclidean, sim_manhattan, sim_minkowski
+from ._hamming import (
+    dist_hamming,
+    dist_mlipns,
+    hamming,
+    sim_hamming,
+    sim_mlipns,
+)
+from ._jaro import (
+    dist_jaro_winkler,
+    dist_strcmp95,
+    sim_jaro_winkler,
+    sim_strcmp95,
+)
+from ._levenshtein import (
+    damerau_levenshtein,
+    dist_damerau,
+    dist_indel,
+    dist_levenshtein,
+    levenshtein,
+    sim_damerau,
+    sim_indel,
+    sim_levenshtein,
+)
+from ._minkowski import (
+    chebyshev,
+    dist_euclidean,
+    dist_manhattan,
+    dist_minkowski,
+    euclidean,
+    manhattan,
+    minkowski,
+    sim_euclidean,
+    sim_manhattan,
+    sim_minkowski,
+)
 from ._mra import dist_mra, mra_compare, sim_mra
 from ._seqalign import gotoh, needleman_wunsch, sim_matrix, smith_waterman
-from ._sequence import dist_lcsseq, dist_lcsstr, dist_ratcliff_obershelp, lcsseq, lcsstr, sim_lcsseq, sim_lcsstr, sim_ratcliff_obershelp
+from ._sequence import (
+    dist_lcsseq,
+    dist_lcsstr,
+    dist_ratcliff_obershelp,
+    lcsseq,
+    lcsstr,
+    sim_lcsseq,
+    sim_lcsstr,
+    sim_ratcliff_obershelp,
+)
 from ._sift4 import dist_sift4, sift4_common, sift4_simplest, sim_sift4
 from ._synoname import synoname
-from ._token import bag, dist_bag, dist_cosine, dist_dice, dist_jaccard, dist_monge_elkan, dist_overlap, dist_tversky, sim_bag, sim_cosine, sim_dice, sim_jaccard, sim_monge_elkan, sim_overlap, sim_tanimoto, sim_tversky, tanimoto
+from ._token import (
+    bag,
+    dist_bag,
+    dist_cosine,
+    dist_dice,
+    dist_jaccard,
+    dist_monge_elkan,
+    dist_overlap,
+    dist_tversky,
+    sim_bag,
+    sim_cosine,
+    sim_dice,
+    sim_jaccard,
+    sim_monge_elkan,
+    sim_overlap,
+    sim_tanimoto,
+    sim_tversky,
+    tanimoto,
+)
 from ._typo import dist_typo, sim_typo, typo
 from ._util import _get_qgrams
 
-__all__ = ['sim', 'dist',
+__all__ = [
+    'sim',
+    'dist',
     'dist_ident',
     'dist_length',
     'dist_prefix',
@@ -179,7 +261,7 @@ __all__ = ['sim', 'dist',
     'tanimoto',
     'dist_typo',
     'sim_typo',
-    'typo'
+    'typo',
 ]
 
 
