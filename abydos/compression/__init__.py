@@ -33,13 +33,13 @@ from ._bwt import bwt_decode, bwt_encode
 from ._rle import rle_decode, rle_encode
 
 __all__ = [
-    'ac_decode',
-    'ac_encode',
-    'ac_train',
     'bwt_decode',
     'bwt_encode',
     'rle_decode',
     'rle_encode',
+    'ac_decode',
+    'ac_encode',
+    'ac_train',
 ]
 
 
