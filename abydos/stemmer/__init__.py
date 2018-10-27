@@ -51,13 +51,11 @@ from ._snowball import (
 from ._uealite import uealite
 
 __all__ = [
-    'caumanns',
-    'clef_german',
-    'clef_german_plus',
-    'clef_swedish',
     'lovins',
     'paice_husk',
+    'uealite',
     's_stemmer',
+    'caumanns',
     'schinke',
     'porter',
     'porter2',
@@ -66,7 +64,9 @@ __all__ = [
     'sb_german',
     'sb_norwegian',
     'sb_swedish',
-    'uealite',
+    'clef_german',
+    'clef_german_plus',
+    'clef_swedish',
 ]
 
 

@@ -49,9 +49,11 @@ from ._speedcop import omission_key, skeleton_key
 from ._synoname import synoname_toolcode
 
 __all__ = [
-    'phonetic_fingerprint',
-    'qgram_fingerprint',
     'str_fingerprint',
+    'qgram_fingerprint',
+    'phonetic_fingerprint',
+    'omission_key',
+    'skeleton_key',
     'MOST_COMMON_LETTERS',
     'MOST_COMMON_LETTERS_CG',
     'MOST_COMMON_LETTERS_DE',
@@ -61,8 +63,6 @@ __all__ = [
     'occurrence_fingerprint',
     'occurrence_halved_fingerprint',
     'position_fingerprint',
-    'omission_key',
-    'skeleton_key',
     'synoname_toolcode',
 ]
 
