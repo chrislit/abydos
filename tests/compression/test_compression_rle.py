@@ -34,7 +34,7 @@ class RLETestCases(unittest.TestCase):
     bws = 'WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWBWWWWWWWWWWWWWW'
 
     def test_rle_encode(self):
-        """Test abydos.compression.rle.encode."""
+        """Test abydos.compression._rle.encode."""
         self.assertEqual(rle_encode('', False), '')
         self.assertEqual(rle_encode(''), '\x00')
         self.assertEqual(rle_encode('banana', False), 'banana')
@@ -44,7 +44,7 @@ class RLETestCases(unittest.TestCase):
         self.assertEqual(rle_encode('Schifffahrt', False), 'Schi3fahrt')
 
     def test_rle_decode(self):
-        """Test abydos.compression.rle.decode."""
+        """Test abydos.compression._rle.decode."""
         self.assertEqual(rle_decode('', False), '')
         self.assertEqual(rle_decode('\x00'), '')
         self.assertEqual(rle_decode('banana', False), 'banana')
@@ -55,7 +55,7 @@ class RLETestCases(unittest.TestCase):
         self.assertEqual(rle_decode('Schi3fahrt', False), 'Schifffahrt')
 
     def test_rle_roundtripping(self):
-        """Test abydos.compression.rle.encode & .decode roundtripping."""
+        """Test abydos.compression._rle.encode & .decode roundtripping."""
         self.assertEqual(rle_decode(rle_encode('', False), False), '')
         self.assertEqual(rle_decode(rle_encode('')), '')
         self.assertEqual(
