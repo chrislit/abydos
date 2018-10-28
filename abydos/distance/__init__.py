@@ -210,7 +210,7 @@ __all__ = [
     'sim_monge_elkan',
     'needleman_wunsch',
     'smith_waterman',
-    'needleman_wunsch',
+    'gotoh',
     'sim_matrix',
     'lcsseq',
     'dist_lcsseq',
