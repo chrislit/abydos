@@ -2,7 +2,7 @@ Release History
 ---------------
 
 
-0.3.5 (2018-10-26) *cantankerous carl*
+0.3.5 (2018-10-31) *cantankerous carl*
 ++++++++++++++++++++++++++++++++++++++
 
 doi:10.5281/zenodo.1463204
