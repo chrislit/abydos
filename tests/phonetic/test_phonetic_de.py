@@ -43,7 +43,7 @@ class KoelnerPhonetikTestCases(unittest.TestCase):
     """
 
     def test_koelner_phonetik(self):
-        """Test abydos.phonetic.de.koelner_phonetik."""
+        """Test abydos.phonetic._de.koelner_phonetik."""
         self.assertEqual(koelner_phonetik(''), '')
 
         # https://de.wikipedia.org/wiki/K%C3%B6lner_Phonetik
