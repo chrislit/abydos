@@ -44,7 +44,7 @@ def rle_encode(text, use_bwt=True):
     :param str text: a text string to encode
     :param bool use_bwt: boolean indicating whether to perform BWT encoding
         before RLE encoding
-    :returns: word decoded by BWT
+    :returns: word decoded by RLE
     :rtype: str
 
     >>> rle_encode('align')
@@ -86,7 +86,7 @@ def rle_decode(text, use_bwt=True):
     :param str text: a text string to decode
     :param bool use_bwt: boolean indicating whether to perform BWT decoding
         after RLE decoding
-    :returns: word decoded by BWT
+    :returns: word decoded by RLE
     :rtype: str
 
     >>> rle_decode('n\x00ilag')
