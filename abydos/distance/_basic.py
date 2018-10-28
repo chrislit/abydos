@@ -31,22 +31,50 @@ from __future__ import division, unicode_literals
 
 from six.moves import range
 
+from ._util import AbstractDistance
+
 __all__ = [
+    'Ident',
     'dist_ident',
-    'dist_length',
-    'dist_prefix',
-    'dist_suffix',
     'sim_ident',
+    'Length',
+    'dist_length',
     'sim_length',
+    'Prefix',
+    'dist_prefix',
     'sim_prefix',
+    'Suffix',
+    'dist_suffix',
     'sim_suffix',
 ]
+
+
+class Ident(AbstractDistance):
+    """Identity distance and similarity."""
+
+    def sim(self, src, tar):
+        """Return the identity similarity of two strings.
+
+        Identity similarity is 1 if the two strings are identical, otherwise 0.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: identity similarity
+        :rtype: float
+
+        >>> cmp = Ident()
+        >>> cmp.sim('cat', 'hat')
+        0
+        >>> cmp.sim('cat', 'cat')
+        1
+        """
+        return 1.0 if src == tar else 0.0
 
 
 def sim_ident(src, tar):
     """Return the identity similarity of two strings.
 
-    Identity similarity is 1 if the two strings are identical, otherwise 0.
+    This is a wrapper for :py:meth:`Ident.sim`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -58,14 +86,13 @@ def sim_ident(src, tar):
     >>> sim_ident('cat', 'cat')
     1
     """
-    return int(src == tar)
+    return Ident().sim(src, tar)
 
 
 def dist_ident(src, tar):
     """Return the identity distance between two strings.
 
-    This is 0 if the two strings are identical, otherwise 1, i.e.
-    :math:`dist_{identity} = 1 - sim_{identity}`.
+    This is a wrapper for :py:meth:`Ident.dist`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -77,14 +104,44 @@ def dist_ident(src, tar):
     >>> dist_ident('cat', 'cat')
     0
     """
-    return 1 - sim_ident(src, tar)
+    return Ident().dist(src, tar)
+
+
+class Length(AbstractDistance):
+    """Length similarity and distance."""
+
+    def sim(self, src, tar):
+        """Return the length similarity of two strings.
+
+        Length similarity is the ratio of the length of the shorter string to the
+        longer.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: length similarity
+        :rtype: float
+
+        >>> cmp = Length()
+        >>> cmp.sim('cat', 'hat')
+        1.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.8
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.875
+        >>> cmp.sim('ATCG', 'TAGC')
+        1.0
+        """
+        if src == tar:
+            return 1.0
+        if not src or not tar:
+            return 0.0
+        return len(src) / len(tar) if len(src) < len(tar) else len(tar) / len(src)
 
 
 def sim_length(src, tar):
     """Return the length similarity of two strings.
 
-    Length similarity is the ratio of the length of the shorter string to the
-    longer.
+    This is a wrapper for :py:meth:`Length.sim`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -100,18 +157,13 @@ def sim_length(src, tar):
     >>> sim_length('ATCG', 'TAGC')
     1.0
     """
-    if src == tar:
-        return 1.0
-    if not src or not tar:
-        return 0.0
-    return len(src) / len(tar) if len(src) < len(tar) else len(tar) / len(src)
+    return Length().sim(src, tar)
 
 
 def dist_length(src, tar):
     """Return the length distance between two strings.
 
-    Length distance is the complement of length similarity:
-    :math:`dist_{length} = 1 - sim_{length}`.
+    This is a wrapper for :py:meth:`Length.dist`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -127,15 +179,50 @@ def dist_length(src, tar):
     >>> dist_length('ATCG', 'TAGC')
     0.0
     """
-    return 1 - sim_length(src, tar)
+    return Length().dist(src, tar)
+
+
+class Prefix(AbstractDistance):
+    """Prefix similiarity and distance."""
+
+    def sim(self, src, tar):
+        """Return the prefix similarity of two strings.
+
+        Prefix similarity is the ratio of the length of the shorter term that
+        exactly matches the longer term to the length of the shorter term,
+        beginning at the start of both terms.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: prefix similarity
+        :rtype: float
+
+        >>> cmp = Prefix()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.25
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+        """
+        if src == tar:
+            return 1.0
+        if not src or not tar:
+            return 0.0
+        min_word, max_word = (src, tar) if len(src) < len(tar) else (tar, src)
+        min_len = len(min_word)
+        for i in range(min_len, 0, -1):
+            if min_word[:i] == max_word[:i]:
+                return i / min_len
+        return 0.0
 
 
 def sim_prefix(src, tar):
     """Return the prefix similarity of two strings.
 
-    Prefix similarity is the ratio of the length of the shorter term that
-    exactly matches the longer term to the length of the shorter term,
-    beginning at the start of both terms.
+    This is a wrapper for :py:meth:`Prefix.sim`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -151,23 +238,13 @@ def sim_prefix(src, tar):
     >>> sim_prefix('ATCG', 'TAGC')
     0.0
     """
-    if src == tar:
-        return 1.0
-    if not src or not tar:
-        return 0.0
-    min_word, max_word = (src, tar) if len(src) < len(tar) else (tar, src)
-    min_len = len(min_word)
-    for i in range(min_len, 0, -1):
-        if min_word[:i] == max_word[:i]:
-            return i / min_len
-    return 0.0
+    return Prefix().sim(src, tar)
 
 
 def dist_prefix(src, tar):
     """Return the prefix distance between two strings.
 
-    Prefix distance is the complement of prefix similarity:
-    :math:`dist_{prefix} = 1 - sim_{prefix}`.
+    This is a wrapper for :py:meth:`Prefix.dist`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -183,15 +260,49 @@ def dist_prefix(src, tar):
     >>> dist_prefix('ATCG', 'TAGC')
     1.0
     """
-    return 1 - sim_prefix(src, tar)
+    return Prefix().dist(src, tar)
+
+
+class Suffix(AbstractDistance):
+    """Suffix similarity and distance."""
+
+    def sim(self, src, tar):
+        """Return the suffix similarity of two strings.
+
+        Suffix similarity is the ratio of the length of the shorter term that
+        exactly matches the longer term to the length of the shorter term,
+        beginning at the end of both terms.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: suffix similarity
+        :rtype: float
+
+        >>> sim_suffix('cat', 'hat')
+        0.6666666666666666
+        >>> sim_suffix('Niall', 'Neil')
+        0.25
+        >>> sim_suffix('aluminum', 'Catalan')
+        0.0
+        >>> sim_suffix('ATCG', 'TAGC')
+        0.0
+        """
+        if src == tar:
+            return 1.0
+        if not src or not tar:
+            return 0.0
+        min_word, max_word = (src, tar) if len(src) < len(tar) else (tar, src)
+        min_len = len(min_word)
+        for i in range(min_len, 0, -1):
+            if min_word[-i:] == max_word[-i:]:
+                return i / min_len
+        return 0.0
 
 
 def sim_suffix(src, tar):
     """Return the suffix similarity of two strings.
 
-    Suffix similarity is the ratio of the length of the shorter term that
-    exactly matches the longer term to the length of the shorter term,
-    beginning at the end of both terms.
+    This is a wrapper for :py:meth:`Suffix.sim`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -207,23 +318,13 @@ def sim_suffix(src, tar):
     >>> sim_suffix('ATCG', 'TAGC')
     0.0
     """
-    if src == tar:
-        return 1.0
-    if not src or not tar:
-        return 0.0
-    min_word, max_word = (src, tar) if len(src) < len(tar) else (tar, src)
-    min_len = len(min_word)
-    for i in range(min_len, 0, -1):
-        if min_word[-i:] == max_word[-i:]:
-            return i / min_len
-    return 0.0
+    return Suffix().sim(src, tar)
 
 
 def dist_suffix(src, tar):
     """Return the suffix distance between two strings.
 
-    Suffix distance is the complement of suffix similarity:
-    :math:`dist_{suffix} = 1 - sim_{suffix}`.
+    This is a wrapper for :py:meth:`Suffix.dist`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -239,7 +340,7 @@ def dist_suffix(src, tar):
     >>> dist_suffix('ATCG', 'TAGC')
     1.0
     """
-    return 1 - sim_suffix(src, tar)
+    return Suffix().dist(src, tar)
 
 
 if __name__ == '__main__':

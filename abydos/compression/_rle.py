@@ -18,21 +18,21 @@
 
 """abydos.compression._rle.
 
-Run-Length Encoding encoder/decoder (rle_encoder & rle_decoder)
+Run-Length Encoding encoder/decoder
 """
 
 from __future__ import unicode_literals
 
 from itertools import groupby
 
-from ._bwt import bwt_decode, bwt_encode
+from ._bwt import BWT
 
 
-__all__ = ['rle_decode', 'rle_encode']
+__all__ = ['RLE', 'rle_decode', 'rle_encode']
 
 
-def rle_encode(text, use_bwt=True):
-    r"""Perform encoding of run-length-encoding (RLE).
+class RLE(object):
+    """Run-Length Encoding.
 
     Cf. :cite:`Robinson:1967`.
 
@@ -40,11 +40,86 @@ def rle_encode(text, use_bwt=True):
     :cite:`rosettacode:2018`. This is licensed GFDL 1.2.
 
     Digits 0-9 cannot be in text.
+    """
+    def encode(self, text):
+        r"""Perform encoding of run-length-encoding (RLE).
+
+        :param str text: a text string to encode
+        :returns: word decoded by RLE
+        :rtype: str
+
+        >>> rle = RLE()
+        >>> rle.encode('align')
+        'n\x00ilag'
+        >>> rle.encode('align', use_bwt=False)
+        'align'
+
+        >>> rle.encode('banana')
+        'annb\x00aa'
+        >>> rle.encode('banana', use_bwt=False)
+        'banana'
+
+        >>> rle.encode('aaabaabababa')
+        'ab\x00abbab5a'
+        >>> rle.encode('aaabaabababa', False)
+        '3abaabababa'
+        """
+        if text:
+            text = ((len(list(g)), k) for k, g in groupby(text))
+            text = (
+                (str(n) + k if n > 2 else (k if n == 1 else 2 * k))
+                for n, k in text
+            )
+        return ''.join(text)
+
+    def decode(self, text):
+        r"""Perform decoding of run-length-encoding (RLE).
+
+        :param str text: a text string to decode
+        :returns: word decoded by RLE
+        :rtype: str
+
+        >>> rle = RLE()
+        >>> rle.decode('n\x00ilag')
+        'align'
+        >>> rle.decode('align', use_bwt=False)
+        'align'
+
+        >>> rle.decode('annb\x00aa')
+        'banana'
+        >>> rle.decode('banana', use_bwt=False)
+        'banana'
+
+        >>> rle.decode('ab\x00abbab5a')
+        'aaabaabababa'
+        >>> rle.decode('3abaabababa', False)
+        'aaabaabababa'
+        """
+        mult = ''
+        decoded = []
+        for letter in list(text):
+            if not letter.isdigit():
+                if mult:
+                    decoded.append(int(mult) * letter)
+                    mult = ''
+                else:
+                    decoded.append(letter)
+            else:
+                mult += letter
+
+        text = ''.join(decoded)
+        return text
+
+
+def rle_encode(text, use_bwt=True):
+    r"""Perform encoding of run-length-encoding (RLE).
+
+    This is a wrapper for :py:meth:`RLE.encode`.
 
     :param str text: a text string to encode
     :param bool use_bwt: boolean indicating whether to perform BWT encoding
         before RLE encoding
-    :returns: word decoded by BWT
+    :returns: word decoded by RLE
     :rtype: str
 
     >>> rle_encode('align')
@@ -63,30 +138,19 @@ def rle_encode(text, use_bwt=True):
     '3abaabababa'
     """
     if use_bwt:
-        text = bwt_encode(text)
-    if text:
-        text = ((len(list(g)), k) for k, g in groupby(text))
-        text = (
-            (str(n) + k if n > 2 else (k if n == 1 else 2 * k))
-            for n, k in text
-        )
-    return ''.join(text)
+        text = BWT().encode(text)
+    return RLE().encode(text)
 
 
 def rle_decode(text, use_bwt=True):
     r"""Perform decoding of run-length-encoding (RLE).
 
-    Cf. :cite:`Robinson:1967`.
-
-    Based on http://rosettacode.org/wiki/Run-length_encoding#Python
-    :cite:`rosettacode:2018`. This is licensed GFDL 1.2.
-
-    Digits 0-9 cannot have been in the original text.
+    This is a wrapper for :py:meth:`RLE.decode`.
 
     :param str text: a text string to decode
     :param bool use_bwt: boolean indicating whether to perform BWT decoding
         after RLE decoding
-    :returns: word decoded by BWT
+    :returns: word decoded by RLE
     :rtype: str
 
     >>> rle_decode('n\x00ilag')
@@ -104,21 +168,9 @@ def rle_decode(text, use_bwt=True):
     >>> rle_decode('3abaabababa', False)
     'aaabaabababa'
     """
-    mult = ''
-    decoded = []
-    for letter in list(text):
-        if not letter.isdigit():
-            if mult:
-                decoded.append(int(mult) * letter)
-                mult = ''
-            else:
-                decoded.append(letter)
-        else:
-            mult += letter
-
-    text = ''.join(decoded)
+    text = RLE().decode(text)
     if use_bwt:
-        text = bwt_decode(text)
+        text = BWT().decode(text)
     return text
 
 
