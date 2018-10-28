@@ -25,7 +25,8 @@ from __future__ import division, unicode_literals
 
 from codecs import encode
 
-from ..compression import ac_encode, ac_train, rle_encode
+from ._util import AbstractDistance
+from ..compression import Arithmetic, BWT, RLE
 
 try:
     import lzma
@@ -35,30 +36,83 @@ except ImportError:  # pragma: no cover
     lzma = None
 
 __all__ = [
-    'dist_ncd_arith',
-    'dist_ncd_bwtrle',
-    'dist_ncd_bz2',
-    'dist_ncd_lzma',
-    'dist_ncd_rle',
+    'NCDzlib',
     'dist_ncd_zlib',
-    'sim_ncd_arith',
-    'sim_ncd_bwtrle',
-    'sim_ncd_bz2',
-    'sim_ncd_lzma',
-    'sim_ncd_rle',
     'sim_ncd_zlib',
+    'NCDbz2',
+    'dist_ncd_bz2',
+    'sim_ncd_bz2',
+    'NCDlzma',
+    'dist_ncd_lzma',
+    'sim_ncd_lzma',
+    'NCDbwtrle',
+    'dist_ncd_bwtrle',
+    'sim_ncd_bwtrle',
+    'NCDrle',
+    'dist_ncd_rle',
+    'sim_ncd_rle',
+    'NCDarith',
+    'dist_ncd_arith',
+    'sim_ncd_arith',
 ]
+
+
+class NCDarith(AbstractDistance):
+    """Normalized Compression Distance using Arithmetic Coding.
+
+    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+    """
+    _coder = None
+
+    def __init__(self):
+        self._coder = Arithmetic()
+
+    def dist(self, src, tar, probs=None):
+        """Return the NCD between two strings using arithmetic coding.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :param dict probs: a dictionary trained with :py:meth:`Arithmetic.train`
+        :returns: compression distance
+        :rtype: float
+
+        >>> cmp = NCDarith()
+        >>> cmp.dist('cat', 'hat')
+        0.5454545454545454
+        >>> cmp.dist('Niall', 'Neil')
+        0.6875
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.8275862068965517
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.6923076923076923
+        """
+        if src == tar:
+            return 0.0
+
+        if probs is None:
+            # lacking a reasonable dictionary, train on the strings themselves
+            self._coder.train(src + tar)
+        else:
+            self._coder.set_probs(probs)
+
+        src_comp = self._coder.encode(src)[1]
+        tar_comp = self._coder.encode(tar)[1]
+        concat_comp = self._coder.encode(src + tar)[1]
+        concat_comp2 = self._coder.encode(tar + src)[1]
+
+        return (min(concat_comp, concat_comp2) - min(src_comp, tar_comp)) / max(
+            src_comp, tar_comp
+        )
 
 
 def dist_ncd_arith(src, tar, probs=None):
     """Return the NCD between two strings using arithmetic coding.
 
-    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+    This is a wrapper for :py:meth:`NCDarith.dist`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
-    :param dict probs: a dictionary trained with arithmetic.train (for the
-        arith compressor only)
+    :param dict probs: a dictionary trained with :py:meth:`Arithmetic.train`
     :returns: compression distance
     :rtype: float
 
@@ -71,31 +125,17 @@ def dist_ncd_arith(src, tar, probs=None):
     >>> dist_ncd_arith('ATCG', 'TAGC')
     0.6923076923076923
     """
-    if src == tar:
-        return 0.0
-
-    if probs is None:
-        # lacking a reasonable dictionary, train on the strings themselves
-        probs = ac_train(src + tar)
-    src_comp = ac_encode(src, probs)[1]
-    tar_comp = ac_encode(tar, probs)[1]
-    concat_comp = ac_encode(src + tar, probs)[1]
-    concat_comp2 = ac_encode(tar + src, probs)[1]
-
-    return (min(concat_comp, concat_comp2) - min(src_comp, tar_comp)) / max(
-        src_comp, tar_comp
-    )
+    return NCDarith().dist(src, tar, probs)
 
 
 def sim_ncd_arith(src, tar, probs=None):
     """Return the NCD similarity between two strings using arithmetic coding.
 
-    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+    This is a wrapper for :py:meth:`NCDarith.sim`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
-    :param dict probs: a dictionary trained with ac_train (for the
-        arith compressor only)
+    :param dict probs: a dictionary trained with :py:meth:`Arithmetic.train`
     :returns: compression similarity
     :rtype: float
 
@@ -108,18 +148,55 @@ def sim_ncd_arith(src, tar, probs=None):
     >>> sim_ncd_arith('ATCG', 'TAGC')
     0.3076923076923077
     """
-    return 1 - dist_ncd_arith(src, tar, probs)
+    return NCDarith().sim(src, tar, probs)
 
 
-def dist_ncd_rle(src, tar, use_bwt=False):
-    """Return the NCD between two strings using RLE.
+class NCDrle(AbstractDistance):
+    """Normalized Compression Distance using RLE.
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+    """
+    _rle = RLE()
+
+    def dist(self, src, tar):
+        """Return the NCD between two strings using RLE.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: compression distance
+        :rtype: float
+
+        >>> cmp = NCDrle()
+        >>> cmp.dist('cat', 'hat')
+        1.0
+        >>> cmp.dist('Niall', 'Neil')
+        1.0
+        >>> cmp.dist('aluminum', 'Catalan')
+        1.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        1.0
+        """
+        if src == tar:
+            return 0.0
+
+        src_comp = self._rle.encode(src)
+        tar_comp = self._rle.encode(tar)
+        concat_comp = self._rle.encode(src + tar)
+        concat_comp2 = self._rle.encode(tar + src)
+
+        return (
+                       min(len(concat_comp), len(concat_comp2))
+                       - min(len(src_comp), len(tar_comp))
+               ) / max(len(src_comp), len(tar_comp))
+
+
+def dist_ncd_rle(src, tar):
+    """Return the NCD between two strings using RLE.
+
+    This is a wrapper for :py:meth:`NCDrle.dist`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
-    :param bool use_bwt: boolean indicating whether to perform BWT encoding
-        before RLE encoding
     :returns: compression distance
     :rtype: float
 
@@ -132,29 +209,16 @@ def dist_ncd_rle(src, tar, use_bwt=False):
     >>> dist_ncd_rle('ATCG', 'TAGC')
     1.0
     """
-    if src == tar:
-        return 0.0
-
-    src_comp = rle_encode(src, use_bwt)
-    tar_comp = rle_encode(tar, use_bwt)
-    concat_comp = rle_encode(src + tar, use_bwt)
-    concat_comp2 = rle_encode(tar + src, use_bwt)
-
-    return (
-        min(len(concat_comp), len(concat_comp2))
-        - min(len(src_comp), len(tar_comp))
-    ) / max(len(src_comp), len(tar_comp))
+    return NCDrle().dist(src, tar)
 
 
-def sim_ncd_rle(src, tar, use_bwt=False):
+def sim_ncd_rle(src, tar):
     """Return the NCD similarity between two strings using RLE.
 
-    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+    This is a wrapper for :py:meth:`NCDrle.sim`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
-    :param bool use_bwt: boolean indicating whether to perform BWT encoding
-        before RLE encoding
     :returns: compression similarity
     :rtype: float
 
@@ -167,13 +231,51 @@ def sim_ncd_rle(src, tar, use_bwt=False):
     >>> sim_ncd_rle('ATCG', 'TAGC')
     0.0
     """
-    return 1 - dist_ncd_rle(src, tar, use_bwt)
+    return NCDrle().sim(src, tar)
+
+
+class NCDbwtrle(NCDrle):
+    """Normalized Compression Distance using BWT plus RLE.
+
+    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+    """
+    _bwt = BWT()
+
+    def dist(self, src, tar):
+        """Return the NCD between two strings using BWT plus RLE.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: compression distance
+        :rtype: float
+
+        >>> dist_ncd_bwtrle('cat', 'hat')
+        0.75
+        >>> dist_ncd_bwtrle('Niall', 'Neil')
+        0.8333333333333334
+        >>> dist_ncd_bwtrle('aluminum', 'Catalan')
+        1.0
+        >>> dist_ncd_bwtrle('ATCG', 'TAGC')
+        0.8
+        """
+        if src == tar:
+            return 0.0
+
+        src_comp = self._rle.encode(self._bwt.encode(src))
+        tar_comp = self._rle.encode(self._bwt.encode(tar))
+        concat_comp = self._rle.encode(self._bwt.encode(src + tar))
+        concat_comp2 = self._rle.encode(self._bwt.encode(tar + src))
+
+        return (
+                       min(len(concat_comp), len(concat_comp2))
+                       - min(len(src_comp), len(tar_comp))
+               ) / max(len(src_comp), len(tar_comp))
 
 
 def dist_ncd_bwtrle(src, tar):
     """Return the NCD between two strings using BWT plus RLE.
 
-    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+    This is a wrapper for :py:meth:`NCDbwtrle.dist`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -189,13 +291,13 @@ def dist_ncd_bwtrle(src, tar):
     >>> dist_ncd_bwtrle('ATCG', 'TAGC')
     0.8
     """
-    return dist_ncd_rle(src, tar, True)
+    return NCDbwtrle().dist(src, tar)
 
 
 def sim_ncd_bwtrle(src, tar):
     """Return the NCD similarity between two strings using BWT plus RLE.
 
-    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+    This is a wrapper for :py:meth:`NCDbwtrle.sim`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -211,13 +313,56 @@ def sim_ncd_bwtrle(src, tar):
     >>> sim_ncd_bwtrle('ATCG', 'TAGC')
     0.19999999999999996
     """
-    return 1 - dist_ncd_bwtrle(src, tar)
+    return NCDbwtrle().sim(src, tar)
+
+
+class NCDzlib(AbstractDistance):
+    """Normalized Compression Distance using zlib compression.
+
+    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    TODO: Use Compression objects instead of calling codecs.encode
+    """
+
+    def dist(self, src, tar):
+        """Return the NCD between two strings using zlib compression.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: compression distance
+        :rtype: float
+
+        >>> cmp = NCDzlib()
+        >>> cmp.dist('cat', 'hat')
+        0.3333333333333333
+        >>> cmp.dist('Niall', 'Neil')
+        0.45454545454545453
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.5714285714285714
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.4
+        """
+        if src == tar:
+            return 0.0
+
+        src = src.encode('utf-8')
+        tar = tar.encode('utf-8')
+
+        src_comp = encode(src, 'zlib_codec')[2:]
+        tar_comp = encode(tar, 'zlib_codec')[2:]
+        concat_comp = encode(src + tar, 'zlib_codec')[2:]
+        concat_comp2 = encode(tar + src, 'zlib_codec')[2:]
+
+        return (
+                       min(len(concat_comp), len(concat_comp2))
+                       - min(len(src_comp), len(tar_comp))
+               ) / max(len(src_comp), len(tar_comp))
 
 
 def dist_ncd_zlib(src, tar):
     """Return the NCD between two strings using zlib compression.
 
-    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+    This is a wrapper for :py:meth:`NCDzlib.dist`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -233,27 +378,13 @@ def dist_ncd_zlib(src, tar):
     >>> dist_ncd_zlib('ATCG', 'TAGC')
     0.4
     """
-    if src == tar:
-        return 0.0
-
-    src = src.encode('utf-8')
-    tar = tar.encode('utf-8')
-
-    src_comp = encode(src, 'zlib_codec')[2:]
-    tar_comp = encode(tar, 'zlib_codec')[2:]
-    concat_comp = encode(src + tar, 'zlib_codec')[2:]
-    concat_comp2 = encode(tar + src, 'zlib_codec')[2:]
-
-    return (
-        min(len(concat_comp), len(concat_comp2))
-        - min(len(src_comp), len(tar_comp))
-    ) / max(len(src_comp), len(tar_comp))
+    return NCDzlib().dist(src, tar)
 
 
 def sim_ncd_zlib(src, tar):
     """Return the NCD similarity between two strings using zlib compression.
 
-    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+    This is a wrapper for :py:meth:`NCDzlib.sim`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -269,13 +400,56 @@ def sim_ncd_zlib(src, tar):
     >>> sim_ncd_zlib('ATCG', 'TAGC')
     0.6
     """
-    return 1 - dist_ncd_zlib(src, tar)
+    return NCDzlib().sim(src, tar)
+
+
+class NCDbz2(AbstractDistance):
+    """Normalized Compression Distance using bz2 compression.
+
+    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    TODO: Use Compression objects instead of calling codecs.encode
+    """
+
+    def dist(self, src, tar):
+        """Return the NCD between two strings using bz2 compression.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: compression distance
+        :rtype: float
+
+        >>> cmp = NCDbz2()
+        >>> cmp.dist('cat', 'hat')
+        0.08
+        >>> cmp.dist('Niall', 'Neil')
+        0.037037037037037035
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.20689655172413793
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.037037037037037035
+        """
+        if src == tar:
+            return 0.0
+
+        src = src.encode('utf-8')
+        tar = tar.encode('utf-8')
+
+        src_comp = encode(src, 'bz2_codec')[15:]
+        tar_comp = encode(tar, 'bz2_codec')[15:]
+        concat_comp = encode(src + tar, 'bz2_codec')[15:]
+        concat_comp2 = encode(tar + src, 'bz2_codec')[15:]
+
+        return (
+                       min(len(concat_comp), len(concat_comp2))
+                       - min(len(src_comp), len(tar_comp))
+               ) / max(len(src_comp), len(tar_comp))
 
 
 def dist_ncd_bz2(src, tar):
     """Return the NCD between two strings using bz2 compression.
 
-    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+    This is a wrapper for :py:meth:`NCDbz2.dist`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -291,27 +465,13 @@ def dist_ncd_bz2(src, tar):
     >>> dist_ncd_bz2('ATCG', 'TAGC')
     0.037037037037037035
     """
-    if src == tar:
-        return 0.0
-
-    src = src.encode('utf-8')
-    tar = tar.encode('utf-8')
-
-    src_comp = encode(src, 'bz2_codec')[15:]
-    tar_comp = encode(tar, 'bz2_codec')[15:]
-    concat_comp = encode(src + tar, 'bz2_codec')[15:]
-    concat_comp2 = encode(tar + src, 'bz2_codec')[15:]
-
-    return (
-        min(len(concat_comp), len(concat_comp2))
-        - min(len(src_comp), len(tar_comp))
-    ) / max(len(src_comp), len(tar_comp))
+    return NCDbz2().dist(src, tar)
 
 
 def sim_ncd_bz2(src, tar):
     """Return the NCD similarity between two strings using bz2 compression.
 
-    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+    This is a wrapper for :py:meth:`NCDbz2.sim`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -327,13 +487,61 @@ def sim_ncd_bz2(src, tar):
     >>> sim_ncd_bz2('ATCG', 'TAGC')
     0.962962962962963
     """
-    return 1 - dist_ncd_bz2(src, tar)
+    return NCDbz2().sim(src, tar)
+
+
+class NCDlzma(AbstractDistance):
+    """Normalized Compression Distance using lzma compression.
+
+    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    TODO: Use Compression objects instead of calling lzma.compress
+    """
+
+    def dist(self, src, tar):
+        """Return the NCD between two strings using lzma compression.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: compression distance
+        :rtype: float
+
+        >>> cmp = NCDlzma()
+        >>> cmp.dist('cat', 'hat')
+        0.08695652173913043
+        >>> cmp.dist('Niall', 'Neil')
+        0.16
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.16
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.08695652173913043
+        """
+        if src == tar:
+            return 0.0
+
+        src = src.encode('utf-8')
+        tar = tar.encode('utf-8')
+
+        if lzma is not None:
+            src_comp = lzma.compress(src)[14:]
+            tar_comp = lzma.compress(tar)[14:]
+            concat_comp = lzma.compress(src + tar)[14:]
+            concat_comp2 = lzma.compress(tar + src)[14:]
+        else:  # pragma: no cover
+            raise ValueError(
+                'Install the PylibLZMA module in order to use lzma compression similarity'
+            )
+
+        return (
+                       min(len(concat_comp), len(concat_comp2))
+                       - min(len(src_comp), len(tar_comp))
+               ) / max(len(src_comp), len(tar_comp))
 
 
 def dist_ncd_lzma(src, tar):
     """Return the NCD between two strings using lzma compression.
 
-    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+    This is a wrapper for :py:meth:`NCDlzma.dist`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -349,33 +557,13 @@ def dist_ncd_lzma(src, tar):
     >>> dist_ncd_lzma('ATCG', 'TAGC')
     0.08695652173913043
     """
-    if src == tar:
-        return 0.0
-
-    src = src.encode('utf-8')
-    tar = tar.encode('utf-8')
-
-    if lzma is not None:
-        src_comp = lzma.compress(src)[14:]
-        tar_comp = lzma.compress(tar)[14:]
-        concat_comp = lzma.compress(src + tar)[14:]
-        concat_comp2 = lzma.compress(tar + src)[14:]
-    else:  # pragma: no cover
-        raise ValueError(
-            'Install the PylibLZMA module in order to use lzma '
-            + 'compression similarity'
-        )
-
-    return (
-        min(len(concat_comp), len(concat_comp2))
-        - min(len(src_comp), len(tar_comp))
-    ) / max(len(src_comp), len(tar_comp))
+    return NCDlzma().dist(src, tar)
 
 
 def sim_ncd_lzma(src, tar):
     """Return the NCD similarity between two strings using lzma compression.
 
-    Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+    This is a wrapper for :py:meth:`NCDlzma.sim`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -391,7 +579,7 @@ def sim_ncd_lzma(src, tar):
     >>> sim_ncd_lzma('ATCG', 'TAGC')
     0.9130434782608696
     """
-    return 1 - dist_ncd_lzma(src, tar)
+    return NCDlzma().sim(src, tar)
 
 
 if __name__ == '__main__':

@@ -28,15 +28,18 @@ for use within Abydos, including implementations of the following:
 
 from __future__ import unicode_literals
 
-from ._arithmetic import ac_decode, ac_encode, ac_train
-from ._bwt import bwt_decode, bwt_encode
-from ._rle import rle_decode, rle_encode
+from ._arithmetic import Arithmetic, ac_decode, ac_encode, ac_train
+from ._bwt import BWT, bwt_decode, bwt_encode
+from ._rle import RLE, rle_decode, rle_encode
 
 __all__ = [
+    'BWT',
     'bwt_decode',
     'bwt_encode',
+    'RLE',
     'rle_decode',
     'rle_encode',
+    'Arithmetic',
     'ac_decode',
     'ac_encode',
     'ac_train',
