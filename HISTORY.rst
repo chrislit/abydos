@@ -2,6 +2,14 @@ Release History
 ---------------
 
 
+0.3.6 (2018-11-xx) *classy carl*
+++++++++++++++++++++++++++++++++
+
+doi:
+
+Version 0.3.6 encapsultes most functions into classes.
+
+
 0.3.5 (2018-10-31) *cantankerous carl*
 ++++++++++++++++++++++++++++++++++++++
 
