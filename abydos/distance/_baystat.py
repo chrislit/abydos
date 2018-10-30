@@ -23,12 +23,12 @@ The distance.baystat module implements Baystat similarity.
 
 from __future__ import division, unicode_literals
 
-from ._util import AbstractDistance
+from ._util import Distance
 
 __all__ = ['Baystat', 'dist_baystat', 'sim_baystat']
 
 
-class Baystat(AbstractDistance):
+class Baystat(Distance):
     """Baystat similarity and distance.
 
     Good results for shorter words are reported when setting min_ss_len to 1
@@ -147,6 +147,32 @@ class Baystat(AbstractDistance):
 
             match_len += hit_len
             pos += ix
+
+    def dist_baystat(self, src, tar, min_ss_len=None, left_ext=None, right_ext=None):
+        """Return the Baystat distance.
+
+        Normalized Baystat similarity is the complement of normalized Baystat
+        distance: :math:`sim_{Baystat} = 1 - dist_{Baystat}`.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :param int min_ss_len: minimum substring length to be considered
+        :param int left_ext: left-side extension length
+        :param int right_ext: right-side extension length
+        :returns: the Baystat distance
+        :rtype: float
+
+        >>> cmp = Baystat()
+        >>> round(cmp.dist('cat', 'hat'), 12)
+        0.333333333333
+        >>> cmp.dist('Niall', 'Neil')
+        0.6
+        >>> round(cmp.dist('Colin', 'Cuilen'), 12)
+        0.833333333333
+        >>> cmp.dist('ATCG', 'TAGC')
+        1.0
+        """
+        return super().dist(src, tar, min_ss_len, left_ext, right_ext)
 
 
 def sim_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
