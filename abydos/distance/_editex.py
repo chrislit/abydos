@@ -31,12 +31,10 @@ from numpy import zeros as np_zeros
 from six import text_type
 from six.moves import range
 
-from ._util import AbstractDistance
-
 __all__ = ['Editex', 'dist_editex', 'editex', 'sim_editex']
 
 
-class Editex(AbstractDistance):
+class Editex(object):
     """Editex.
 
     As described on pages 3 & 4 of :cite:`Zobel:1996`.
@@ -166,6 +164,33 @@ class Editex(AbstractDistance):
         return self.editex(src, tar, cost, local) / (
             max(len(src) * mismatch_cost, len(tar) * mismatch_cost)
         )
+
+    def sim(self, src, tar, cost=(0, 1, 2), local=False):
+        """Return the normalized Editex similarity of two strings.
+
+        The Editex similarity is the complement of Editex distance:
+        :math:`sim_{Editex} = 1 - dist_{Editex}`.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :param tuple cost: a 3-tuple representing the cost of the four possible
+            edits:
+            match, same-group, and mismatch respectively (by default: (0, 1, 2))
+        :param bool local: if True, the local variant of Editex is used
+        :returns: normalized Editex similarity
+        :rtype: float
+
+        >>> cmp = Editex()
+        >>> round(cmp.sim('cat', 'hat'), 12)
+        0.666666666667
+        >>> round(cmp.sim('Niall', 'Neil'), 12)
+        0.8
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.25
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.25
+        """
+        return 1.0-self.dist(src, tar, cost, local)
 
 
 def editex(src, tar, cost=(0, 1, 2), local=False):

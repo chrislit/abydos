@@ -23,12 +23,10 @@ The distance.baystat module implements Baystat similarity.
 
 from __future__ import division, unicode_literals
 
-from ._util import Distance
-
 __all__ = ['Baystat', 'dist_baystat', 'sim_baystat']
 
 
-class Baystat(Distance):
+class Baystat(object):
     """Baystat similarity and distance.
 
     Good results for shorter words are reported when setting min_ss_len to 1
@@ -148,7 +146,7 @@ class Baystat(Distance):
             match_len += hit_len
             pos += ix
 
-    def dist_baystat(self, src, tar, min_ss_len=None, left_ext=None, right_ext=None):
+    def dist(self, src, tar, min_ss_len=None, left_ext=None, right_ext=None):
         """Return the Baystat distance.
 
         Normalized Baystat similarity is the complement of normalized Baystat
@@ -172,7 +170,7 @@ class Baystat(Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         1.0
         """
-        return super().dist(src, tar, min_ss_len, left_ext, right_ext)
+        return 1-self.sim(src, tar, min_ss_len, left_ext, right_ext)
 
 
 def sim_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
