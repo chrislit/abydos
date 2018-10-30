@@ -24,6 +24,8 @@ The distance.hamming module implements Hamming and related distance functions.
 from __future__ import division, unicode_literals
 
 __all__ = [
+    'Hamming',
+    'MLIPNS',
     'dist_hamming',
     'dist_mlipns',
     'hamming',
@@ -32,14 +34,133 @@ __all__ = [
 ]
 
 
-def hamming(src, tar, diff_lens=True):
-    """Return the Hamming distance between two strings.
+class Hamming(object):
+    """Hamming distance.
 
     Hamming distance :cite:`Hamming:1950` equals the number of character
     positions at which two strings differ. For strings of unequal lengths,
     it is not normally defined. By default, this implementation calculates the
     Hamming distance of the first n characters where n is the lesser of the two
     strings' lengths and adds to this the difference in string lengths.
+    """
+
+    def hamming(self, src, tar, diff_lens=True):
+        """Return the Hamming distance between two strings.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :param bool diff_lens:
+            If True (default), this returns the Hamming distance for those
+            characters that have a matching character in both strings plus the
+            difference in the strings' lengths. This is equivalent to extending
+            the shorter string with obligatorily non-matching characters.
+            If False, an exception is raised in the case of strings of unequal
+            lengths.
+        :returns: the Hamming distance between src & tar
+        :rtype: int
+
+        >>> cmp = Hamming()
+        >>> cmp.hamming('cat', 'hat')
+        1
+        >>> cmp.hamming('Niall', 'Neil')
+        3
+        >>> cmp.hamming('aluminum', 'Catalan')
+        8
+        >>> cmp.hamming('ATCG', 'TAGC')
+        4
+        """
+        if not diff_lens and len(src) != len(tar):
+            raise ValueError(
+                'Undefined for sequences of unequal length; set diff_lens to True for Hamming distance between strings of unequal lengths.'
+            )
+
+        hdist = 0
+        if diff_lens:
+            hdist += abs(len(src) - len(tar))
+        hdist += sum(c1 != c2 for c1, c2 in zip(src, tar))
+
+        return hdist
+
+    def dist(self, src, tar, diff_lens=True):
+        """Return the normalized Hamming distance between two strings.
+
+        Hamming distance normalized to the interval [0, 1].
+
+        The Hamming distance is normalized by dividing it
+        by the greater of the number of characters in src & tar (unless diff_lens
+        is set to False, in which case an exception is raised).
+
+        The arguments are identical to those of the hamming() function.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :param bool diff_lens:
+            If True (default), this returns the Hamming distance for those
+            characters that have a matching character in both strings plus the
+            difference in the strings' lengths. This is equivalent to extending
+            the shorter string with obligatorily non-matching characters.
+            If False, an exception is raised in the case of strings of unequal
+            lengths.
+        :returns: normalized Hamming distance
+        :rtype: float
+
+        >>> cmp = Hamming()
+        >>> round(cmp.dist('cat', 'hat'), 12)
+        0.333333333333
+        >>> cmp.dist('Niall', 'Neil')
+        0.6
+        >>> cmp.dist('aluminum', 'Catalan')
+        1.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        1.0
+        """
+        if src == tar:
+            return 0.0
+        return self.hamming(src, tar, diff_lens) / max(len(src), len(tar))
+
+    def sim(self, src, tar, diff_lens=True):
+        """Return the normalized Hamming similarity of two strings.
+
+        Hamming similarity normalized to the interval [0, 1].
+
+        Hamming similarity is the complement of normalized Hamming distance:
+        :math:`sim_{Hamming} = 1 - dist{Hamming}`.
+
+        Provided that diff_lens==True, the Hamming similarity is identical to the
+        Language-Independent Product Name Search (LIPNS) similarity score. For
+        further information, see the sim_mlipns documentation.
+
+        The arguments are identical to those of the hamming() function.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :param bool diff_lens:
+            If True (default), this returns the Hamming distance for those
+            characters that have a matching character in both strings plus the
+            difference in the strings' lengths. This is equivalent to extending
+            the shorter string with obligatorily non-matching characters.
+            If False, an exception is raised in the case of strings of unequal
+            lengths.
+        :returns: normalized Hamming similarity
+        :rtype: float
+
+        >>> cmp = Hamming()
+        >>> round(cmp.sim('cat', 'hat'), 12)
+        0.666666666667
+        >>> cmp.sim('Niall', 'Neil')
+        0.4
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+        """
+        return 1.0 - self.dist(src, tar, diff_lens)
+
+
+def hamming(src, tar, diff_lens=True):
+    """Return the Hamming distance between two strings.
+
+    This is a wrapper for :py:meth:`Hamming.hamming`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -62,31 +183,13 @@ def hamming(src, tar, diff_lens=True):
     >>> hamming('ATCG', 'TAGC')
     4
     """
-    if not diff_lens and len(src) != len(tar):
-        raise ValueError(
-            'Undefined for sequences of unequal length; set '
-            + 'diff_lens to True for Hamming distance between '
-            + 'strings of unequal lengths.'
-        )
-
-    hdist = 0
-    if diff_lens:
-        hdist += abs(len(src) - len(tar))
-    hdist += sum(c1 != c2 for c1, c2 in zip(src, tar))
-
-    return hdist
+    return Hamming().hamming(src, tar, diff_lens)
 
 
 def dist_hamming(src, tar, diff_lens=True):
     """Return the normalized Hamming distance between two strings.
 
-    Hamming distance normalized to the interval [0, 1].
-
-    The Hamming distance is normalized by dividing it
-    by the greater of the number of characters in src & tar (unless diff_lens
-    is set to False, in which case an exception is raised).
-
-    The arguments are identical to those of the hamming() function.
+    This is a wrapper for :py:meth:`Hamming.dist`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -109,24 +212,13 @@ def dist_hamming(src, tar, diff_lens=True):
     >>> dist_hamming('ATCG', 'TAGC')
     1.0
     """
-    if src == tar:
-        return 0
-    return hamming(src, tar, diff_lens) / max(len(src), len(tar))
+    return Hamming().dist(src, tar, diff_lens)
 
 
 def sim_hamming(src, tar, diff_lens=True):
     """Return the normalized Hamming similarity of two strings.
 
-    Hamming similarity normalized to the interval [0, 1].
-
-    Hamming similarity is the complement of normalized Hamming distance:
-    :math:`sim_{Hamming} = 1 - dist{Hamming}`.
-
-    Provided that diff_lens==True, the Hamming similarity is identical to the
-    Language-Independent Product Name Search (LIPNS) similarity score. For
-    further information, see the sim_mlipns documentation.
-
-    The arguments are identical to those of the hamming() function.
+    This is a wrapper for :py:meth:`Hamming.sim`
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -149,16 +241,94 @@ def sim_hamming(src, tar, diff_lens=True):
     >>> sim_hamming('ATCG', 'TAGC')
     0.0
     """
-    return 1 - dist_hamming(src, tar, diff_lens)
+    return Hamming().sim(src, tar, diff_lens)
 
-
-def sim_mlipns(src, tar, threshold=0.25, max_mismatches=2):
-    """Return the MLIPNS similarity of two strings.
+class MLIPNS(object):
+    """MLIPNS similarity.
 
     Modified Language-Independent Product Name Search (MLIPNS) is described in
     :cite:`Shannaq:2010`. This function returns only 1.0 (similar) or 0.0
     (not similar). LIPNS similarity is identical to normalized Hamming
     similarity.
+    """
+    def sim(self, src, tar, threshold=0.25, max_mismatches=2):
+        """Return the MLIPNS similarity of two strings.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :param float threshold: a number [0, 1] indicating the maximum similarity
+            score, below which the strings are considered 'similar' (0.25 by
+            default)
+        :param int max_mismatches: a number indicating the allowable number of
+            mismatches to remove before declaring two strings not similar (2 by
+            default)
+        :returns: MLIPNS similarity
+        :rtype: float
+
+        >>> sim_mlipns('cat', 'hat')
+        1.0
+        >>> sim_mlipns('Niall', 'Neil')
+        0.0
+        >>> sim_mlipns('aluminum', 'Catalan')
+        0.0
+        >>> sim_mlipns('ATCG', 'TAGC')
+        0.0
+        """
+        if tar == src:
+            return 1.0
+        if not src or not tar:
+            return 0.0
+
+        mismatches = 0
+        ham = hamming(src, tar, diff_lens=True)
+        max_length = max(len(src), len(tar))
+        while src and tar and mismatches <= max_mismatches:
+            if (
+                max_length < 1
+                or (1 - (max_length - ham) / max_length) <= threshold
+            ):
+                return 1.0
+            else:
+                mismatches += 1
+                ham -= 1
+                max_length -= 1
+
+        if max_length < 1:
+            return 1.0
+        return 0.0
+
+    def dist(self, src, tar, threshold=0.25, max_mismatches=2):
+        """Return the MLIPNS distance between two strings.
+
+        MLIPNS distance is the complement of MLIPNS similarity:
+        :math:`dist_{MLIPNS} = 1 - sim_{MLIPNS}`. This function returns only 0.0
+        (distant) or 1.0 (not distant).
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :param float threshold: a number [0, 1] indicating the maximum similarity
+            score, below which the strings are considered 'similar' (0.25 by
+            default)
+        :param int max_mismatches: a number indicating the allowable number of
+            mismatches to remove before declaring two strings not similar (2 by
+            default)
+        :returns: MLIPNS distance
+        :rtype: float
+
+        >>> dist_mlipns('cat', 'hat')
+        0.0
+        >>> dist_mlipns('Niall', 'Neil')
+        1.0
+        >>> dist_mlipns('aluminum', 'Catalan')
+        1.0
+        >>> dist_mlipns('ATCG', 'TAGC')
+        1.0
+        """
+        return 1.0 - self.sim(src, tar, threshold, max_mismatches)
+
+
+def sim_mlipns(src, tar, threshold=0.25, max_mismatches=2):
+    """Return the MLIPNS similarity of two strings.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -180,28 +350,7 @@ def sim_mlipns(src, tar, threshold=0.25, max_mismatches=2):
     >>> sim_mlipns('ATCG', 'TAGC')
     0.0
     """
-    if tar == src:
-        return 1.0
-    if not src or not tar:
-        return 0.0
-
-    mismatches = 0
-    ham = hamming(src, tar, diff_lens=True)
-    max_length = max(len(src), len(tar))
-    while src and tar and mismatches <= max_mismatches:
-        if (
-            max_length < 1
-            or (1 - (max_length - ham) / max_length) <= threshold
-        ):
-            return 1.0
-        else:
-            mismatches += 1
-            ham -= 1
-            max_length -= 1
-
-    if max_length < 1:
-        return 1.0
-    return 0.0
+    return MLIPNS().sim(src, tar, threshold, max_mismatches)
 
 
 def dist_mlipns(src, tar, threshold=0.25, max_mismatches=2):
@@ -231,7 +380,7 @@ def dist_mlipns(src, tar, threshold=0.25, max_mismatches=2):
     >>> dist_mlipns('ATCG', 'TAGC')
     1.0
     """
-    return 1.0 - sim_mlipns(src, tar, threshold, max_mismatches)
+    return MLIPNS().dist(src, tar, threshold, max_mismatches)
 
 
 if __name__ == '__main__':
