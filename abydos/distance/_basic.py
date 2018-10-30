@@ -31,8 +31,6 @@ from __future__ import division, unicode_literals
 
 from six.moves import range
 
-from ._util import Distance
-
 __all__ = [
     'Ident',
     'dist_ident',
@@ -49,7 +47,7 @@ __all__ = [
 ]
 
 
-class Ident(Distance):
+class Ident(object):
     """Identity distance and similarity."""
 
     def sim(self, src, tar):
@@ -86,7 +84,7 @@ class Ident(Distance):
         >>> cmp.dist('cat', 'cat')
         0
         """
-        return super().dist(src, tar)
+        return 1.0-self.sim(src, tar)
 
 
 def sim_ident(src, tar):
@@ -125,7 +123,7 @@ def dist_ident(src, tar):
     return Ident().dist(src, tar)
 
 
-class Length(Distance):
+class Length(object):
     """Length similarity and distance."""
 
     def sim(self, src, tar):
@@ -176,7 +174,7 @@ class Length(Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         0.0
         """
-        return super().dist(src, tar)
+        return 1.0-self.sim(src, tar)
 
 
 def sim_length(src, tar):
@@ -223,7 +221,7 @@ def dist_length(src, tar):
     return Length().dist(src, tar)
 
 
-class Prefix(Distance):
+class Prefix(object):
     """Prefix similiarity and distance."""
 
     def sim(self, src, tar):
@@ -280,7 +278,7 @@ class Prefix(Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         1.0
         """
-        return super().dist(src, tar)
+        return 1.0-self.sim(src, tar)
 
 
 def sim_prefix(src, tar):
@@ -327,7 +325,7 @@ def dist_prefix(src, tar):
     return Prefix().dist(src, tar)
 
 
-class Suffix(Distance):
+class Suffix(object):
     """Suffix similarity and distance."""
 
     def sim(self, src, tar):
@@ -384,7 +382,7 @@ class Suffix(Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         1.0
         """
-        return super().dist(src, tar)
+        return 1.0-self.sim(src, tar)
 
 
 def sim_suffix(src, tar):

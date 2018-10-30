@@ -25,7 +25,6 @@ from __future__ import division, unicode_literals
 
 from codecs import encode
 
-from ._util import AbstractDistance
 from ..compression import Arithmetic, BWT, RLE
 
 try:
@@ -57,7 +56,7 @@ __all__ = [
 ]
 
 
-class NCDarith(AbstractDistance):
+class NCDarith(object):
     """Normalized Compression Distance using Arithmetic Coding.
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
@@ -103,6 +102,27 @@ class NCDarith(AbstractDistance):
         return (min(concat_comp, concat_comp2) - min(src_comp, tar_comp)) / max(
             src_comp, tar_comp
         )
+
+    def sim(self, src, tar, probs=None):
+        """Return the NCD similarity between two strings using arithmetic coding.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :param dict probs: a dictionary trained with :py:meth:`Arithmetic.train`
+        :returns: compression similarity
+        :rtype: float
+
+        >>> cmp = NCDarith()
+        >>> cmp.sim('cat', 'hat')
+        0.4545454545454546
+        >>> cmp.sim('Niall', 'Neil')
+        0.3125
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.1724137931034483
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.3076923076923077
+        """
+        return 1.0-self.dist(src, tar, probs)
 
 
 def dist_ncd_arith(src, tar, probs=None):
@@ -151,7 +171,7 @@ def sim_ncd_arith(src, tar, probs=None):
     return NCDarith().sim(src, tar, probs)
 
 
-class NCDrle(AbstractDistance):
+class NCDrle(object):
     """Normalized Compression Distance using RLE.
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
@@ -188,6 +208,26 @@ class NCDrle(AbstractDistance):
                        min(len(concat_comp), len(concat_comp2))
                        - min(len(src_comp), len(tar_comp))
                ) / max(len(src_comp), len(tar_comp))
+
+    def sim(self, src, tar):
+        """Return the NCD similarity between two strings using RLE.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: compression similarity
+        :rtype: float
+
+        >>> cmp = NCDrle()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+        """
+        return 1.0-self.dist(src, tar)
 
 
 def dist_ncd_rle(src, tar):
@@ -249,13 +289,14 @@ class NCDbwtrle(NCDrle):
         :returns: compression distance
         :rtype: float
 
-        >>> dist_ncd_bwtrle('cat', 'hat')
+        >>> cmp = NCDbwtrle()
+        >>> cmp.dist('cat', 'hat')
         0.75
-        >>> dist_ncd_bwtrle('Niall', 'Neil')
+        >>> cmp.dist('Niall', 'Neil')
         0.8333333333333334
-        >>> dist_ncd_bwtrle('aluminum', 'Catalan')
+        >>> cmp.dist('aluminum', 'Catalan')
         1.0
-        >>> dist_ncd_bwtrle('ATCG', 'TAGC')
+        >>> cmp.dist('ATCG', 'TAGC')
         0.8
         """
         if src == tar:
@@ -270,6 +311,26 @@ class NCDbwtrle(NCDrle):
                        min(len(concat_comp), len(concat_comp2))
                        - min(len(src_comp), len(tar_comp))
                ) / max(len(src_comp), len(tar_comp))
+
+    def sim(self, src, tar):
+        """Return the NCD similarity between two strings using BWT plus RLE.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: compression similarity
+        :rtype: float
+
+        >>> cmp = NCDbwtrle()
+        >>> cmp.sim('cat', 'hat')
+        0.25
+        >>> cmp.sim('Niall', 'Neil')
+        0.16666666666666663
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.19999999999999996
+        """
+        return 1.0-self.dist(src, tar)
 
 
 def dist_ncd_bwtrle(src, tar):
@@ -316,7 +377,7 @@ def sim_ncd_bwtrle(src, tar):
     return NCDbwtrle().sim(src, tar)
 
 
-class NCDzlib(AbstractDistance):
+class NCDzlib(object):
     """Normalized Compression Distance using zlib compression.
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
@@ -357,6 +418,26 @@ class NCDzlib(AbstractDistance):
                        min(len(concat_comp), len(concat_comp2))
                        - min(len(src_comp), len(tar_comp))
                ) / max(len(src_comp), len(tar_comp))
+
+    def sim(self, src, tar):
+        """Return the NCD similarity between two strings using zlib compression.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: compression similarity
+        :rtype: float
+
+        >> cmp = NCDzlib()
+        >>> cmp.sim('cat', 'hat')
+        0.6666666666666667
+        >>> cmp.sim('Niall', 'Neil')
+        0.5454545454545454
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.4285714285714286
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.6
+        """
+        return 1.0-self.dist(src, tar)
 
 
 def dist_ncd_zlib(src, tar):
@@ -403,7 +484,7 @@ def sim_ncd_zlib(src, tar):
     return NCDzlib().sim(src, tar)
 
 
-class NCDbz2(AbstractDistance):
+class NCDbz2(object):
     """Normalized Compression Distance using bz2 compression.
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
@@ -444,6 +525,26 @@ class NCDbz2(AbstractDistance):
                        min(len(concat_comp), len(concat_comp2))
                        - min(len(src_comp), len(tar_comp))
                ) / max(len(src_comp), len(tar_comp))
+
+    def sim(self, src, tar):
+        """Return the NCD similarity between two strings using bz2 compression.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: compression similarity
+        :rtype: float
+
+        >>> cmp = NCDbz2()
+        >>> cmp.sim('cat', 'hat')
+        0.92
+        >>> cmp.sim('Niall', 'Neil')
+        0.962962962962963
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.7931034482758621
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.962962962962963
+        """
+        return 1.0-self.dist(src, tar)
 
 
 def dist_ncd_bz2(src, tar):
@@ -490,7 +591,7 @@ def sim_ncd_bz2(src, tar):
     return NCDbz2().sim(src, tar)
 
 
-class NCDlzma(AbstractDistance):
+class NCDlzma(object):
     """Normalized Compression Distance using lzma compression.
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
@@ -536,6 +637,26 @@ class NCDlzma(AbstractDistance):
                        min(len(concat_comp), len(concat_comp2))
                        - min(len(src_comp), len(tar_comp))
                ) / max(len(src_comp), len(tar_comp))
+
+    def sim(self, src, tar):
+        """Return the NCD similarity between two strings using lzma compression.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: compression similarity
+        :rtype: float
+
+        >>> cmp = NCDlzma()
+        >>> cmp.sim('cat', 'hat')
+        0.9130434782608696
+        >>> cmp.sim('Niall', 'Neil')
+        0.84
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.84
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.9130434782608696
+        """
+        return 1-self.dist(src, tar)
 
 
 def dist_ncd_lzma(src, tar):

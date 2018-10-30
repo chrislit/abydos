@@ -49,19 +49,6 @@ def _get_qgrams(src, tar, qval=0, skip=0):
     return Counter(src.strip().split()), Counter(tar.strip().split())
 
 
-class AbstractDistance(object):
-    """Abstract Distance class
-
-    This simply defines that dist=1-sim and(xor) sim=1-dist
-    for subclasses.
-    """
-    def dist(self, src, tar, *args, **kwargs):
-        return 1.0 - self.sim(src, tar, *args, **kwargs)
-
-    def sim(self, src, tar, *args, **kwargs):
-        return 1.0 - self.dist(src, tar, *args, **kwargs)
-
-
 if __name__ == '__main__':
     import doctest
 
