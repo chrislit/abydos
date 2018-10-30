@@ -78,29 +78,29 @@ class LevenshteinTestCases(unittest.TestCase):
         self.assertEqual(levenshtein('java was neat', 'scala is great'), 7)
 
         # https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
-        self.assertEqual(levenshtein('CA', 'ABC', 'dam'), 2)
+        self.assertEqual(damerau_levenshtein('CA', 'ABC'), 2)
         self.assertEqual(levenshtein('CA', 'ABC', 'osa'), 3)
 
         # test cost of insert
         self.assertEqual(levenshtein('', 'b', 'lev', cost=(5, 7, 10, 10)), 5)
         self.assertEqual(levenshtein('', 'b', 'osa', cost=(5, 7, 10, 10)), 5)
-        self.assertEqual(levenshtein('', 'b', 'dam', cost=(5, 7, 10, 10)), 5)
+        self.assertEqual(damerau_levenshtein('', 'b', cost=(5, 7, 10, 10)), 5)
         self.assertEqual(levenshtein('a', 'ab', 'lev', cost=(5, 7, 10, 10)), 5)
         self.assertEqual(levenshtein('a', 'ab', 'osa', cost=(5, 7, 10, 10)), 5)
-        self.assertEqual(levenshtein('a', 'ab', 'dam', cost=(5, 7, 10, 10)), 5)
+        self.assertEqual(damerau_levenshtein('a', 'ab', cost=(5, 7, 10, 10)), 5)
 
         # test cost of delete
         self.assertEqual(levenshtein('b', '', 'lev', cost=(5, 7, 10, 10)), 7)
         self.assertEqual(levenshtein('b', '', 'osa', cost=(5, 7, 10, 10)), 7)
-        self.assertEqual(levenshtein('b', '', 'dam', cost=(5, 7, 10, 10)), 7)
+        self.assertEqual(damerau_levenshtein('b', '', cost=(5, 7, 10, 10)), 7)
         self.assertEqual(levenshtein('ab', 'a', 'lev', cost=(5, 7, 10, 10)), 7)
         self.assertEqual(levenshtein('ab', 'a', 'osa', cost=(5, 7, 10, 10)), 7)
-        self.assertEqual(levenshtein('ab', 'a', 'dam', cost=(5, 7, 10, 10)), 7)
+        self.assertEqual(damerau_levenshtein('ab', 'a', cost=(5, 7, 10, 10)), 7)
 
         # test cost of substitute
         self.assertEqual(levenshtein('a', 'b', 'lev', cost=(10, 10, 5, 10)), 5)
         self.assertEqual(levenshtein('a', 'b', 'osa', cost=(10, 10, 5, 10)), 5)
-        self.assertEqual(levenshtein('a', 'b', 'dam', cost=(10, 10, 5, 10)), 5)
+        self.assertEqual(damerau_levenshtein('a', 'b', cost=(10, 10, 5, 10)), 5)
         self.assertEqual(
             levenshtein('ac', 'bc', 'lev', cost=(10, 10, 5, 10)), 5
         )
@@ -108,7 +108,7 @@ class LevenshteinTestCases(unittest.TestCase):
             levenshtein('ac', 'bc', 'osa', cost=(10, 10, 5, 10)), 5
         )
         self.assertEqual(
-            levenshtein('ac', 'bc', 'dam', cost=(10, 10, 5, 10)), 5
+            damerau_levenshtein('ac', 'bc', cost=(10, 10, 5, 10)), 5
         )
 
         # test cost of transpose
@@ -118,7 +118,7 @@ class LevenshteinTestCases(unittest.TestCase):
         self.assertEqual(
             levenshtein('ab', 'ba', 'osa', cost=(10, 10, 10, 5)), 5
         )
-        self.assertEqual(levenshtein('ab', 'ba', 'dam', cost=(5, 5, 10, 5)), 5)
+        self.assertEqual(damerau_levenshtein('ab', 'ba', cost=(5, 5, 10, 5)), 5)
         self.assertEqual(
             levenshtein('abc', 'bac', 'lev', cost=(10, 10, 10, 5)), 20
         )
@@ -126,7 +126,7 @@ class LevenshteinTestCases(unittest.TestCase):
             levenshtein('abc', 'bac', 'osa', cost=(10, 10, 10, 5)), 5
         )
         self.assertEqual(
-            levenshtein('abc', 'bac', 'dam', cost=(5, 5, 10, 5)), 5
+            damerau_levenshtein('abc', 'bac', cost=(5, 5, 10, 5)), 5
         )
         self.assertEqual(
             levenshtein('cab', 'cba', 'lev', cost=(10, 10, 10, 5)), 20
@@ -135,12 +135,12 @@ class LevenshteinTestCases(unittest.TestCase):
             levenshtein('cab', 'cba', 'osa', cost=(10, 10, 10, 5)), 5
         )
         self.assertEqual(
-            levenshtein('cab', 'cba', 'dam', cost=(5, 5, 10, 5)), 5
+            damerau_levenshtein('cab', 'cba', cost=(5, 5, 10, 5)), 5
         )
 
         # test exception
         self.assertRaises(
-            ValueError, levenshtein, 'ab', 'ba', 'dam', cost=(10, 10, 10, 5)
+            ValueError, damerau_levenshtein, 'ab', 'ba', cost=(10, 10, 10, 5)
         )
 
     def test_dist_levenshtein(self):
