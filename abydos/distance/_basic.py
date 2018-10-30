@@ -31,7 +31,7 @@ from __future__ import division, unicode_literals
 
 from six.moves import range
 
-from ._util import AbstractDistance
+from ._util import Distance
 
 __all__ = [
     'Ident',
@@ -49,7 +49,7 @@ __all__ = [
 ]
 
 
-class Ident(AbstractDistance):
+class Ident(Distance):
     """Identity distance and similarity."""
 
     def sim(self, src, tar):
@@ -69,6 +69,24 @@ class Ident(AbstractDistance):
         1
         """
         return 1.0 if src == tar else 0.0
+
+    def dist(self, src, tar):
+        """Return the identity distance between two strings.
+
+        Identity distance is 0 if the two strings are identical, otherwise 1.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: identity distance
+        :rtype: int
+
+        >>> cmp = Ident()
+        >>> cmp.dist('cat', 'hat')
+        1
+        >>> cmp.dist('cat', 'cat')
+        0
+        """
+        return super().dist(src, tar)
 
 
 def sim_ident(src, tar):
@@ -107,7 +125,7 @@ def dist_ident(src, tar):
     return Ident().dist(src, tar)
 
 
-class Length(AbstractDistance):
+class Length(Distance):
     """Length similarity and distance."""
 
     def sim(self, src, tar):
@@ -136,6 +154,29 @@ class Length(AbstractDistance):
         if not src or not tar:
             return 0.0
         return len(src) / len(tar) if len(src) < len(tar) else len(tar) / len(src)
+
+    def dist(self, src, tar):
+        """Return the length distance between two strings.
+
+        Length distance is the complement of length similarity:
+        :math:`dist_{length} = 1 - sim_{length}`.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: length distance
+        :rtype: float
+
+        >>> cmp = Length()
+        >>> cmp.dist('cat', 'hat')
+        0.0
+        >>> cmp.dist('Niall', 'Neil')
+        0.19999999999999996
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.125
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.0
+        """
+        return super().dist(src, tar)
 
 
 def sim_length(src, tar):
@@ -182,7 +223,7 @@ def dist_length(src, tar):
     return Length().dist(src, tar)
 
 
-class Prefix(AbstractDistance):
+class Prefix(Distance):
     """Prefix similiarity and distance."""
 
     def sim(self, src, tar):
@@ -217,6 +258,29 @@ class Prefix(AbstractDistance):
             if min_word[:i] == max_word[:i]:
                 return i / min_len
         return 0.0
+
+    def dist(self, src, tar):
+        """Return the prefix distance between two strings.
+
+        Prefix distance is the complement of prefix similarity:
+        :math:`dist_{prefix} = 1 - sim_{prefix}`.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: prefix distance
+        :rtype: float
+
+        >>> cmp = Prefix()
+        >>> cmp.dist('cat', 'hat')
+        1.0
+        >>> cmp.dist('Niall', 'Neil')
+        0.75
+        >>> cmp.dist('aluminum', 'Catalan')
+        1.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        1.0
+        """
+        return super().dist(src, tar)
 
 
 def sim_prefix(src, tar):
@@ -263,7 +327,7 @@ def dist_prefix(src, tar):
     return Prefix().dist(src, tar)
 
 
-class Suffix(AbstractDistance):
+class Suffix(Distance):
     """Suffix similarity and distance."""
 
     def sim(self, src, tar):
@@ -278,13 +342,14 @@ class Suffix(AbstractDistance):
         :returns: suffix similarity
         :rtype: float
 
-        >>> sim_suffix('cat', 'hat')
+        >>> cmp = Suffix()
+        >>> cmp.sim('cat', 'hat')
         0.6666666666666666
-        >>> sim_suffix('Niall', 'Neil')
+        >>> cmp.sim('Niall', 'Neil')
         0.25
-        >>> sim_suffix('aluminum', 'Catalan')
+        >>> cmp.sim('aluminum', 'Catalan')
         0.0
-        >>> sim_suffix('ATCG', 'TAGC')
+        >>> cmp.sim('ATCG', 'TAGC')
         0.0
         """
         if src == tar:
@@ -297,6 +362,29 @@ class Suffix(AbstractDistance):
             if min_word[-i:] == max_word[-i:]:
                 return i / min_len
         return 0.0
+
+    def dist(self, src, tar):
+        """Return the suffix distance between two strings.
+
+        Suffix distance is the complement of suffix similarity:
+        :math:`dist_{suffix} = 1 - sim_{suffix}`.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: suffix distance
+        :rtype: float
+
+        >>> cmp = Suffix()
+        >>> cmp.dist('cat', 'hat')
+        0.33333333333333337
+        >>> cmp.dist('Niall', 'Neil')
+        0.75
+        >>> cmp.dist('aluminum', 'Catalan')
+        1.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        1.0
+        """
+        return super().dist(src, tar)
 
 
 def sim_suffix(src, tar):
