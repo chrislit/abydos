@@ -29,14 +29,122 @@ from six.moves import range
 from ..phonetic import mra
 
 
-__all__ = ['dist_mra', 'mra_compare', 'sim_mra']
+__all__ = ['MRA', 'dist_mra', 'mra_compare', 'sim_mra']
+
+
+class MRA(object):
+    """Match Rating Algorithm comparison rating.
+
+    The Western Airlines Surname Match Rating Algorithm comparison rating, as
+    presented on page 18 of :cite:`Moore:1977`.
+    """
+    def mra_compare(self, src, tar):
+        """Return the MRA comparison rating of two strings.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: MRA comparison rating
+        :rtype: int
+
+        >>> cmp = MRA()
+        >>> cmp.mra_compare('cat', 'hat')
+        5
+        >>> cmp.mra_compare('Niall', 'Neil')
+        6
+        >>> cmp.mra_compare('aluminum', 'Catalan')
+        0
+        >>> cmp.mra_compare('ATCG', 'TAGC')
+        5
+        """
+        if src == tar:
+            return 6
+        if src == '' or tar == '':
+            return 0
+        src = list(mra(src))
+        tar = list(mra(tar))
+
+        if abs(len(src) - len(tar)) > 2:
+            return 0
+
+        length_sum = len(src) + len(tar)
+        if length_sum < 5:
+            min_rating = 5
+        elif length_sum < 8:
+            min_rating = 4
+        elif length_sum < 12:
+            min_rating = 3
+        else:
+            min_rating = 2
+
+        for _ in range(2):
+            new_src = []
+            new_tar = []
+            minlen = min(len(src), len(tar))
+            for i in range(minlen):
+                if src[i] != tar[i]:
+                    new_src.append(src[i])
+                    new_tar.append(tar[i])
+            src = new_src + src[minlen:]
+            tar = new_tar + tar[minlen:]
+            src.reverse()
+            tar.reverse()
+
+        similarity = 6 - max(len(src), len(tar))
+
+        if similarity >= min_rating:
+            return similarity
+        return 0
+
+    def sim(self, src, tar):
+        """Return the normalized MRA similarity of two strings.
+
+        This is the MRA normalized to :math:`[0, 1]`, given that MRA itself is
+        constrained to the range :math:`[0, 6]`.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: normalized MRA similarity
+        :rtype: float
+
+        >>> cmp = MRA()
+        >>> cmp.sim('cat', 'hat')
+        0.8333333333333334
+        >>> cmp.sim('Niall', 'Neil')
+        1.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.8333333333333334
+        """
+        return mra_compare(src, tar) / 6
+
+    def dist(self, src, tar):
+        """Return the normalized MRA distance between two strings.
+
+        MRA distance is the complement of MRA similarity:
+        :math:`dist_{MRA} = 1 - sim_{MRA}`.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: normalized MRA distance
+        :rtype: float
+
+        >>> cmp.dist('cat', 'hat')
+        0.16666666666666663
+        >>> cmp.dist('Niall', 'Neil')
+        0.0
+        >>> cmp.dist('aluminum', 'Catalan')
+        1.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.16666666666666663
+        """
+        return 1.0 - sim_mra(src, tar)
 
 
 def mra_compare(src, tar):
     """Return the MRA comparison rating of two strings.
 
-    The Western Airlines Surname Match Rating Algorithm comparison rating, as
-    presented on page 18 of :cite:`Moore:1977`.
+    This is a wrapper for :py:meth:`MRA.mra_compare`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -52,51 +160,13 @@ def mra_compare(src, tar):
     >>> mra_compare('ATCG', 'TAGC')
     5
     """
-    if src == tar:
-        return 6
-    if src == '' or tar == '':
-        return 0
-    src = list(mra(src))
-    tar = list(mra(tar))
-
-    if abs(len(src) - len(tar)) > 2:
-        return 0
-
-    length_sum = len(src) + len(tar)
-    if length_sum < 5:
-        min_rating = 5
-    elif length_sum < 8:
-        min_rating = 4
-    elif length_sum < 12:
-        min_rating = 3
-    else:
-        min_rating = 2
-
-    for _ in range(2):
-        new_src = []
-        new_tar = []
-        minlen = min(len(src), len(tar))
-        for i in range(minlen):
-            if src[i] != tar[i]:
-                new_src.append(src[i])
-                new_tar.append(tar[i])
-        src = new_src + src[minlen:]
-        tar = new_tar + tar[minlen:]
-        src.reverse()
-        tar.reverse()
-
-    similarity = 6 - max(len(src), len(tar))
-
-    if similarity >= min_rating:
-        return similarity
-    return 0
+    return MRA().mra_compare(src, tar)
 
 
 def sim_mra(src, tar):
     """Return the normalized MRA similarity of two strings.
 
-    This is the MRA normalized to :math:`[0, 1]`, given that MRA itself is
-    constrained to the range :math:`[0, 6]`.
+    This is a wrapper for :py:meth:`MRA.sim`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -112,14 +182,13 @@ def sim_mra(src, tar):
     >>> sim_mra('ATCG', 'TAGC')
     0.8333333333333334
     """
-    return mra_compare(src, tar) / 6
+    return MRA().sim(src, tar)
 
 
 def dist_mra(src, tar):
     """Return the normalized MRA distance between two strings.
 
-    MRA distance is the complement of MRA similarity:
-    :math:`dist_{MRA} = 1 - sim_{MRA}`.
+    This is a wrapper for :py:meth:`MRA.dist`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -135,7 +204,7 @@ def dist_mra(src, tar):
     >>> dist_mra('ATCG', 'TAGC')
     0.16666666666666663
     """
-    return 1 - sim_mra(src, tar)
+    return MRA().dist(src, tar)
 
 
 if __name__ == '__main__':
