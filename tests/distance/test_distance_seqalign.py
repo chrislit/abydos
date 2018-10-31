@@ -25,7 +25,7 @@ from __future__ import division, unicode_literals
 
 import unittest
 
-from abydos.distance import gotoh, needleman_wunsch, sim_matrix, smith_waterman
+from abydos.distance import NeedlemanWunsch, gotoh, needleman_wunsch, smith_waterman
 
 from six.moves import range
 
@@ -50,7 +50,7 @@ def _sim_wikipedia(src, tar):
         ('G', 'T'): -3,
         ('C', 'T'): 0,
     }
-    return sim_matrix(src, tar, nw_matrix, symmetric=True, alphabet='CGAT')
+    return NeedlemanWunsch.sim_matrix(src, tar, nw_matrix, symmetric=True, alphabet='CGAT')
 
 
 def _sim_nw(src, tar):
@@ -66,13 +66,13 @@ class MatrixSimTestCases(unittest.TestCase):
 
     def test_sim_matrix(self):
         """Test abydos.distance._seqalign.sim_matrix."""
-        self.assertEqual(sim_matrix('', ''), 1)
-        self.assertEqual(sim_matrix('', 'a'), 0)
-        self.assertEqual(sim_matrix('a', ''), 0)
-        self.assertEqual(sim_matrix('a', 'a'), 1)
-        self.assertEqual(sim_matrix('abcd', 'abcd'), 1)
-        self.assertEqual(sim_matrix('abcd', 'dcba'), 0)
-        self.assertEqual(sim_matrix('abc', 'cba'), 0)
+        self.assertEqual(NeedlemanWunsch.sim_matrix('', ''), 1)
+        self.assertEqual(NeedlemanWunsch.sim_matrix('', 'a'), 0)
+        self.assertEqual(NeedlemanWunsch.sim_matrix('a', ''), 0)
+        self.assertEqual(NeedlemanWunsch.sim_matrix('a', 'a'), 1)
+        self.assertEqual(NeedlemanWunsch.sim_matrix('abcd', 'abcd'), 1)
+        self.assertEqual(NeedlemanWunsch.sim_matrix('abcd', 'dcba'), 0)
+        self.assertEqual(NeedlemanWunsch.sim_matrix('abc', 'cba'), 0)
 
         # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
         self.assertEqual(_sim_wikipedia('A', 'C'), -3)
@@ -83,9 +83,9 @@ class MatrixSimTestCases(unittest.TestCase):
         self.assertEqual(_sim_wikipedia('A', 'G'), -1)
         self.assertEqual(_sim_wikipedia('C', 'T'), 0)
 
-        self.assertRaises(ValueError, sim_matrix, 'abc', 'cba', alphabet='ab')
-        self.assertRaises(ValueError, sim_matrix, 'abc', 'ba', alphabet='ab')
-        self.assertRaises(ValueError, sim_matrix, 'ab', 'cba', alphabet='ab')
+        self.assertRaises(ValueError, NeedlemanWunsch.sim_matrix, 'abc', 'cba', alphabet='ab')
+        self.assertRaises(ValueError, NeedlemanWunsch.sim_matrix, 'abc', 'ba', alphabet='ab')
+        self.assertRaises(ValueError, NeedlemanWunsch.sim_matrix, 'ab', 'cba', alphabet='ab')
 
 
 class NeedlemanWunschTestCases(unittest.TestCase):
