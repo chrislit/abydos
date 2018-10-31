@@ -80,7 +80,7 @@ from ._basic import (
     sim_prefix,
     sim_suffix,
 )
-from ._baystat import dist_baystat, sim_baystat
+from ._baystat import Baystat, dist_baystat, sim_baystat
 from ._compression import (
     NCDarith,
     NCDbwtrle,
@@ -104,6 +104,8 @@ from ._compression import (
 from ._editex import Editex, dist_editex, editex, sim_editex
 from ._eudex import Eudex, dist_eudex, eudex_hamming, sim_eudex
 from ._hamming import (
+    Hamming,
+    MLIPNS,
     dist_hamming,
     dist_mlipns,
     hamming,
@@ -111,12 +113,17 @@ from ._hamming import (
     sim_mlipns,
 )
 from ._jaro import (
+    JaroWinkler,
+    Strcmp95,
     dist_jaro_winkler,
     dist_strcmp95,
     sim_jaro_winkler,
     sim_strcmp95,
 )
 from ._levenshtein import (
+    DamerauLevenshtein,
+    Indel,
+    Levenshtein,
     damerau_levenshtein,
     dist_damerau,
     dist_indel,
@@ -127,6 +134,10 @@ from ._levenshtein import (
     sim_levenshtein,
 )
 from ._minkowski import (
+    Chebyshev,
+    Euclidean,
+    Manhattan,
+    Minkowski,
     chebyshev,
     dist_euclidean,
     dist_manhattan,
@@ -138,9 +149,12 @@ from ._minkowski import (
     sim_manhattan,
     sim_minkowski,
 )
-from ._mra import dist_mra, mra_compare, sim_mra
-from ._seqalign import gotoh, needleman_wunsch, sim_matrix, smith_waterman
+from ._mra import MRA, dist_mra, mra_compare, sim_mra
+from ._seqalign import Gotoh, NeedlemanWunsch, SmithWaterman, gotoh, needleman_wunsch, smith_waterman
 from ._sequence import (
+    # LCSseq,
+    # LCSstr,
+    # RatcliffObershelp,
     dist_lcsseq,
     dist_lcsstr,
     dist_ratcliff_obershelp,
@@ -150,9 +164,27 @@ from ._sequence import (
     sim_lcsstr,
     sim_ratcliff_obershelp,
 )
-from ._sift4 import dist_sift4, sift4_common, sift4_simplest, sim_sift4
-from ._synoname import synoname
+from ._sift4 import (
+    # Sift4Common,
+    # Sift4Simplest,
+    dist_sift4,
+    sift4_common,
+    sift4_simplest,
+    sim_sift4
+)
+from ._synoname import (
+    # Synoname,
+    synoname
+)
 from ._token import (
+    # Bag,
+    # Cosine,
+    # Dice,
+    # Jaccard,
+    # MongeElkan,
+    # Overlap,
+    # Tanimoto,
+    # Tversky,
     bag,
     dist_bag,
     dist_cosine,
@@ -171,35 +203,50 @@ from ._token import (
     sim_tversky,
     tanimoto,
 )
-from ._typo import dist_typo, sim_typo, typo
+from ._typo import (
+    # Typo,
+    dist_typo,
+    sim_typo,
+    typo
+)
 
 __all__ = [
     'sim',
     'dist',
+    'Levenshtein',
     'levenshtein',
     'dist_levenshtein',
     'sim_levenshtein',
+    'DamerauLevenshtein',
     'damerau_levenshtein',
     'dist_damerau',
     'sim_damerau',
+    'Indel',
     'dist_indel',
     'sim_indel',
+    'Hamming',
     'hamming',
     'dist_hamming',
     'sim_hamming',
+    'JaroWinkler',
     'dist_jaro_winkler',
     'sim_jaro_winkler',
+    'Strcmp95',
     'dist_strcmp95',
     'sim_strcmp95',
+    'Minkowski',
     'minkowski',
     'dist_minkowski',
     'sim_minkowski',
+    'Manhattan',
     'manhattan',
     'dist_manhattan',
     'sim_manhattan',
+    'Euclidean',
     'euclidean',
     'dist_euclidean',
     'sim_euclidean',
+    'Chebyshev',
     'chebyshev',
     'dist_tversky',
     'sim_tversky',
@@ -213,21 +260,28 @@ __all__ = [
     'sim_tanimoto',
     'dist_cosine',
     'sim_cosine',
+    'Bag',
     'bag',
     'dist_bag',
     'sim_bag',
+    'MongeElkan',
     'dist_monge_elkan',
     'sim_monge_elkan',
+    'NeedlemanWunsch',
     'needleman_wunsch',
+    'SmithWaterman',
     'smith_waterman',
+    'Gotoh',
     'gotoh',
-    'sim_matrix',
+    'LCSseq',
     'lcsseq',
     'dist_lcsseq',
     'sim_lcsseq',
+    'LCSstr',
     'lcsstr',
     'dist_lcsstr',
     'sim_lcsstr',
+    'RatcliffObershelp',
     'dist_ratcliff_obershelp',
     'sim_ratcliff_obershelp',
     'Ident',
@@ -260,6 +314,7 @@ __all__ = [
     'NCDarith',
     'dist_ncd_arith',
     'sim_ncd_arith',
+    'MRA',
     'mra_compare',
     'dist_mra',
     'sim_mra',
@@ -267,6 +322,7 @@ __all__ = [
     'editex',
     'dist_editex',
     'sim_editex',
+    'MLIPNS',
     'dist_mlipns',
     'sim_mlipns',
     'Baystat',
@@ -276,13 +332,17 @@ __all__ = [
     'eudex_hamming',
     'dist_eudex',
     'sim_eudex',
+    'Sift4Common',
+    'Sift4Simplest',
     'sift4_common',
     'sift4_simplest',
     'dist_sift4',
     'sim_sift4',
+    'Typo',
     'typo',
     'dist_typo',
     'sim_typo',
+    'Synoname',
     'synoname',
 ]
 
