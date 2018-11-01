@@ -25,7 +25,12 @@ from __future__ import division, unicode_literals
 
 import unittest
 
-from abydos.distance import NeedlemanWunsch, gotoh, needleman_wunsch, smith_waterman
+from abydos.distance import (
+    NeedlemanWunsch,
+    gotoh,
+    needleman_wunsch,
+    smith_waterman,
+)
 
 from six.moves import range
 
@@ -50,7 +55,9 @@ def _sim_wikipedia(src, tar):
         ('G', 'T'): -3,
         ('C', 'T'): 0,
     }
-    return NeedlemanWunsch.sim_matrix(src, tar, nw_matrix, symmetric=True, alphabet='CGAT')
+    return NeedlemanWunsch.sim_matrix(
+        src, tar, nw_matrix, symmetric=True, alphabet='CGAT'
+    )
 
 
 def _sim_nw(src, tar):
@@ -83,9 +90,15 @@ class MatrixSimTestCases(unittest.TestCase):
         self.assertEqual(_sim_wikipedia('A', 'G'), -1)
         self.assertEqual(_sim_wikipedia('C', 'T'), 0)
 
-        self.assertRaises(ValueError, NeedlemanWunsch.sim_matrix, 'abc', 'cba', alphabet='ab')
-        self.assertRaises(ValueError, NeedlemanWunsch.sim_matrix, 'abc', 'ba', alphabet='ab')
-        self.assertRaises(ValueError, NeedlemanWunsch.sim_matrix, 'ab', 'cba', alphabet='ab')
+        self.assertRaises(
+            ValueError, NeedlemanWunsch.sim_matrix, 'abc', 'cba', alphabet='ab'
+        )
+        self.assertRaises(
+            ValueError, NeedlemanWunsch.sim_matrix, 'abc', 'ba', alphabet='ab'
+        )
+        self.assertRaises(
+            ValueError, NeedlemanWunsch.sim_matrix, 'ab', 'cba', alphabet='ab'
+        )
 
 
 class NeedlemanWunschTestCases(unittest.TestCase):

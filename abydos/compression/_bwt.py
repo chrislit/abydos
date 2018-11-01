@@ -71,7 +71,9 @@ class BWT(object):
                 )
             else:
                 word += self.terminator
-                wordlist = sorted(word[i:] + word[:i] for i in range(len(word)))
+                wordlist = sorted(
+                    word[i:] + word[:i] for i in range(len(word))
+                )
                 return ''.join([w[-1] for w in wordlist])
         else:
             return self.terminator

@@ -42,6 +42,7 @@ class Typo(Distance):
     this was copied from that module. Compared to the original, this supports
     different metrics for substitution.
     """
+
     # fmt: off
     _keyboard = {'QWERTY': (
         (('`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='),
@@ -85,7 +86,14 @@ class Typo(Distance):
     )}
     # fmt: on
 
-    def dist_abs(self, src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
+    def dist_abs(
+        self,
+        src,
+        tar,
+        metric='euclidean',
+        cost=(1, 1, 0.5, 0.5),
+        layout='QWERTY',
+    ):
         """Return the typo distance between two strings.
 
         :param str src: source string for comparison
@@ -208,7 +216,14 @@ class Typo(Distance):
 
         return d_mat[len(src), len(tar)]
 
-    def dist(self, src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
+    def dist(
+        self,
+        src,
+        tar,
+        metric='euclidean',
+        cost=(1, 1, 0.5, 0.5),
+        layout='QWERTY',
+    ):
         """Return the normalized typo distance between two strings.
 
         This is typo distance, normalized to [0, 1].
@@ -242,7 +257,7 @@ class Typo(Distance):
         ins_cost, del_cost = cost[:2]
         return self.dist_abs(src, tar, metric, cost, layout) / (
             max(len(src) * del_cost, len(tar) * ins_cost)
-    )
+        )
 
 
 def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
@@ -294,7 +309,9 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
     return Typo().dist_abs(src, tar, metric, cost, layout)
 
 
-def dist_typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
+def dist_typo(
+    src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'
+):
     """Return the normalized typo distance between two strings.
 
     This is a wrapper for :py:meth:`Typo.dist`.
@@ -325,7 +342,9 @@ def dist_typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERT
     return Typo().dist(src, tar, metric, cost, layout)
 
 
-def sim_typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
+def sim_typo(
+    src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'
+):
     """Return the normalized typo similarity between two strings.
 
     This is a wrapper for :py:meth:`Typo.sim`.

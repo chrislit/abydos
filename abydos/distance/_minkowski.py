@@ -58,7 +58,10 @@ class Minkowski(Distance):
     The Minkowski distance :cite:`Minkowski:1910` is a distance metric in
     :math:`L^p-space`.
     """
-    def dist_abs(self, src, tar, qval=2, pval=1, normalized=False, alphabet=None):
+
+    def dist_abs(
+        self, src, tar, qval=2, pval=1, normalized=False, alphabet=None
+    ):
         """Return the Minkowski distance (:math:`L^p-norm`) of two strings.
 
         :param str src: source string (or QGrams/Counter objects) for comparison
@@ -215,6 +218,7 @@ class Manhattan(Minkowski):
     Manhattan distance is the city-block or taxi-cab distance, equivalent
     to Minkowski distance in :math:`L^1`-space.
     """
+
     def dist_abs(self, src, tar, qval=2, normalized=False, alphabet=None):
         """Return the Manhattan distance between two strings.
 
@@ -236,7 +240,9 @@ class Manhattan(Minkowski):
         >>> cmp.dist_abs('ATCG', 'TAGC')
         10.0
         """
-        return super(self.__class__, self).dist_abs(src, tar, qval, 1, normalized, alphabet)
+        return super(self.__class__, self).dist_abs(
+            src, tar, qval, 1, normalized, alphabet
+        )
 
     def dist(self, src, tar, qval=2, alphabet=None):
         """Return the normalized Manhattan distance between two strings.
@@ -345,6 +351,7 @@ class Euclidean(Minkowski):
     Euclidean distance is the straigh-line or as-the-crow-flies distance,
     equivalent to Minkowski distance in :math:`L^2`-space.
     """
+
     def dist_abs(self, src, tar, qval=2, normalized=False, alphabet=None):
         """Return the Euclidean distance between two strings.
 
@@ -366,7 +373,9 @@ class Euclidean(Minkowski):
         >>> round(cmp.dist_abs('ATCG', 'TAGC'), 12)
         3.162277660168
         """
-        return super(self.__class__, self).dist_abs(src, tar, qval, 2, normalized, alphabet)
+        return super(self.__class__, self).dist_abs(
+            src, tar, qval, 2, normalized, alphabet
+        )
 
     def dist(self, src, tar, qval=2, alphabet=None):
         """Return the normalized Euclidean distance between two strings.
@@ -473,6 +482,7 @@ class Chebyshev(Minkowski):
     Euclidean distance is the chessboard distance,
     equivalent to Minkowski distance in :math:`L^\infty-space`.
     """
+
     def dist_abs(self, src, tar, qval=2, normalized=False, alphabet=None):
         r"""Return the Chebyshev distance between two strings.
 
@@ -498,7 +508,9 @@ class Chebyshev(Minkowski):
         >>> cmp.dist_abs('ATCGATTCGGAATTTC', 'TAGCATAATCGCCG', qval=1)
         3.0
         """
-        return super(self.__class__, self).dist_abs(src, tar, qval, float('inf'), normalized, alphabet)
+        return super(self.__class__, self).dist_abs(
+            src, tar, qval, float('inf'), normalized, alphabet
+        )
 
     def sim(self):
         raise Exception('Method disabled for Chebyshev distance.')

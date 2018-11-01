@@ -207,6 +207,7 @@ def sim_hamming(src, tar, diff_lens=True):
     """
     return Hamming().sim(src, tar, diff_lens)
 
+
 class MLIPNS(Distance):
     """MLIPNS similarity.
 
@@ -215,6 +216,7 @@ class MLIPNS(Distance):
     (not similar). LIPNS similarity is identical to normalized Hamming
     similarity.
     """
+
     def sim(self, src, tar, threshold=0.25, max_mismatches=2):
         """Return the MLIPNS similarity of two strings.
 

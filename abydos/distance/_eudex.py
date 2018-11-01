@@ -39,6 +39,7 @@ class Eudex(Distance):
 
     Cf. :cite:`Ticki:2016`.
     """
+
     def dist_abs(
         self, src, tar, weights='exponential', max_length=8, normalized=False
     ):
@@ -195,7 +196,7 @@ class Eudex(Distance):
 
 
 def eudex_hamming(
-        src, tar, weights='exponential', max_length=8, normalized=False
+    src, tar, weights='exponential', max_length=8, normalized=False
 ):
     """Calculate the Hamming distance between the Eudex hashes of two terms.
 

@@ -23,9 +23,11 @@ The distance._distance module implements abstract class Distance.
 
 from __future__ import unicode_literals
 
+
 class Distance(object):
     """Abstract Distance class.
     """
+
     def sim(self, src, tar, *args, **kwargs):
         """
 
@@ -35,7 +37,7 @@ class Distance(object):
         :param kwargs:
         :return:
         """
-        return 1.0-self.dist(src, tar, *args, **kwargs)
+        return 1.0 - self.dist(src, tar, *args, **kwargs)
 
     def dist(self, src, tar, *args, **kwargs):
         """
@@ -46,7 +48,7 @@ class Distance(object):
         :param kwargs:
         :return:
         """
-        return 1.0-self.sim(src, tar, *args, **kwargs)
+        return 1.0 - self.sim(src, tar, *args, **kwargs)
 
 
 if __name__ == '__main__':

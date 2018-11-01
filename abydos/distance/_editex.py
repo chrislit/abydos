@@ -43,15 +43,18 @@ class Editex(Distance):
 
     The local variant is based on :cite:`Ring:2009`.
     """
-    _letter_groups = (frozenset('AEIOUY'),
-                      frozenset('BP'),
-                      frozenset('CKQ'),
-                      frozenset('DT'),
-                      frozenset('LR'),
-                      frozenset('MN'),
-                      frozenset('GJ'),
-                      frozenset('FPV'),
-                      frozenset('SXZ'))
+
+    _letter_groups = (
+        frozenset('AEIOUY'),
+        frozenset('BP'),
+        frozenset('CKQ'),
+        frozenset('DT'),
+        frozenset('LR'),
+        frozenset('MN'),
+        frozenset('GJ'),
+        frozenset('FPV'),
+        frozenset('SXZ'),
+    )
 
     _all_letters = frozenset('ABCDEFGIJKLMNOPQRSTUVXYZ')
 

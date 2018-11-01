@@ -63,6 +63,7 @@ class NCDarith(Distance):
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
     """
+
     _coder = None
 
     def __init__(self):
@@ -101,9 +102,9 @@ class NCDarith(Distance):
         concat_comp = self._coder.encode(src + tar)[1]
         concat_comp2 = self._coder.encode(tar + src)[1]
 
-        return (min(concat_comp, concat_comp2) - min(src_comp, tar_comp)) / max(
-            src_comp, tar_comp
-        )
+        return (
+            min(concat_comp, concat_comp2) - min(src_comp, tar_comp)
+        ) / max(src_comp, tar_comp)
 
 
 def dist_ncd_arith(src, tar, probs=None):
@@ -157,6 +158,7 @@ class NCDrle(Distance):
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
     """
+
     _rle = RLE()
 
     def dist(self, src, tar):
@@ -186,9 +188,9 @@ class NCDrle(Distance):
         concat_comp2 = self._rle.encode(tar + src)
 
         return (
-                       min(len(concat_comp), len(concat_comp2))
-                       - min(len(src_comp), len(tar_comp))
-               ) / max(len(src_comp), len(tar_comp))
+            min(len(concat_comp), len(concat_comp2))
+            - min(len(src_comp), len(tar_comp))
+        ) / max(len(src_comp), len(tar_comp))
 
 
 def dist_ncd_rle(src, tar):
@@ -240,6 +242,7 @@ class NCDbwtrle(NCDrle):
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
     """
+
     _bwt = BWT()
 
     def dist(self, src, tar):
@@ -269,9 +272,9 @@ class NCDbwtrle(NCDrle):
         concat_comp2 = self._rle.encode(self._bwt.encode(tar + src))
 
         return (
-                       min(len(concat_comp), len(concat_comp2))
-                       - min(len(src_comp), len(tar_comp))
-               ) / max(len(src_comp), len(tar_comp))
+            min(len(concat_comp), len(concat_comp2))
+            - min(len(src_comp), len(tar_comp))
+        ) / max(len(src_comp), len(tar_comp))
 
 
 def dist_ncd_bwtrle(src, tar):
@@ -356,9 +359,9 @@ class NCDzlib(Distance):
         concat_comp2 = encode(tar + src, 'zlib_codec')[2:]
 
         return (
-                       min(len(concat_comp), len(concat_comp2))
-                       - min(len(src_comp), len(tar_comp))
-               ) / max(len(src_comp), len(tar_comp))
+            min(len(concat_comp), len(concat_comp2))
+            - min(len(src_comp), len(tar_comp))
+        ) / max(len(src_comp), len(tar_comp))
 
 
 def dist_ncd_zlib(src, tar):
@@ -443,9 +446,9 @@ class NCDbz2(Distance):
         concat_comp2 = encode(tar + src, 'bz2_codec')[15:]
 
         return (
-                       min(len(concat_comp), len(concat_comp2))
-                       - min(len(src_comp), len(tar_comp))
-               ) / max(len(src_comp), len(tar_comp))
+            min(len(concat_comp), len(concat_comp2))
+            - min(len(src_comp), len(tar_comp))
+        ) / max(len(src_comp), len(tar_comp))
 
 
 def dist_ncd_bz2(src, tar):
@@ -535,9 +538,9 @@ class NCDlzma(Distance):
             )
 
         return (
-                       min(len(concat_comp), len(concat_comp2))
-                       - min(len(src_comp), len(tar_comp))
-               ) / max(len(src_comp), len(tar_comp))
+            min(len(concat_comp), len(concat_comp2))
+            - min(len(src_comp), len(tar_comp))
+        ) / max(len(src_comp), len(tar_comp))
 
 
 def dist_ncd_lzma(src, tar):

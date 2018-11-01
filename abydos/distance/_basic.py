@@ -135,7 +135,9 @@ class Length(Distance):
             return 1.0
         if not src or not tar:
             return 0.0
-        return len(src) / len(tar) if len(src) < len(tar) else len(tar) / len(src)
+        return (
+            len(src) / len(tar) if len(src) < len(tar) else len(tar) / len(src)
+        )
 
 
 def sim_length(src, tar):

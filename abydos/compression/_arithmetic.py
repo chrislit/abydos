@@ -41,6 +41,7 @@ class Arithmetic(object):
     This is based on Andrew Dalke's public domain implementation
     :cite:`Dalke:2005`. It has been ported to use the fractions.Fraction class.
     """
+
     _probs = {}
 
     def __init__(self, text=None):
@@ -182,7 +183,8 @@ class Arithmetic(object):
         letters = []
 
         probs_items = [
-            (char, minval, maxval) for (char, (minval, maxval)) in self._probs.items()
+            (char, minval, maxval)
+            for (char, (minval, maxval)) in self._probs.items()
         ]
 
         char = '\x00'
