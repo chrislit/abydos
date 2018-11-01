@@ -51,7 +51,8 @@ class NeedlemanWunsch(Distance):
     """Needleman-Wunsch score.
 
     The Needleman-Wunsch score :cite:`Needleman:1970` is a standard edit
-    distance measure."""
+    distance measure.
+    """
 
     @staticmethod
     def sim_matrix(
@@ -72,18 +73,18 @@ class NeedlemanWunsch(Distance):
 
         :param str src: source string for comparison
         :param str tar: target string for comparison
-        :param dict mat: a dict mapping tuples to costs; the tuples are (src, tar)
-            pairs of symbols from the alphabet parameter
-        :param float mismatch_cost: the value returned if (src, tar) is absent from
-            mat when src does not equal tar
-        :param float match_cost: the value returned if (src, tar) is absent from
-            mat when src equals tar
+        :param dict mat: a dict mapping tuples to costs; the tuples are
+            (src, tar) pairs of symbols from the alphabet parameter
+        :param float mismatch_cost: the value returned if (src, tar) is absent
+            from mat when src does not equal tar
+        :param float match_cost: the value returned if (src, tar) is absent
+            from mat when src equals tar
         :param bool symmetric: True if the cost of src not matching tar is
-            identical to the cost of tar not matching src; in this case, the values
-            in mat need only contain (src, tar) or (tar, src), not both
+            identical to the cost of tar not matching src; in this case, the
+            values in mat need only contain (src, tar) or (tar, src), not both
         :param str alphabet: a collection of tokens from which src and tar are
-            drawn; if this is defined a ValueError is raised if either tar or src
-            is not found in alphabet
+            drawn; if this is defined a ValueError is raised if either tar or
+            src is not found in alphabet
         :returns: matrix similarity
         :rtype: float
 

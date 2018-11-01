@@ -64,8 +64,8 @@ class Editex(Distance):
         :param str src: source string for comparison
         :param str tar: target string for comparison
         :param tuple cost: a 3-tuple representing the cost of the four possible
-            edits:
-            match, same-group, and mismatch respectively (by default: (0, 1, 2))
+            edits: match, same-group, and mismatch respectively (by default:
+            (0, 1, 2))
         :param bool local: if True, the local variant of Editex is used
         :returns: Editex distance
         :rtype: int
@@ -147,8 +147,8 @@ class Editex(Distance):
         :param str src: source string for comparison
         :param str tar: target string for comparison
         :param tuple cost: a 3-tuple representing the cost of the four possible
-            edits:
-            match, same-group, and mismatch respectively (by default: (0, 1, 2))
+            edits: match, same-group, and mismatch respectively (by default:
+            (0, 1, 2))
         :param bool local: if True, the local variant of Editex is used
         :returns: normalized Editex distance
         :rtype: float

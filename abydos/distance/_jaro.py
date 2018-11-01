@@ -32,8 +32,8 @@ from collections import defaultdict
 
 from six.moves import range
 
-from ..tokenizer import QGrams
 from ._distance import Distance
+from ..tokenizer import QGrams
 
 __all__ = [
     'JaroWinkler',
@@ -106,9 +106,9 @@ class Strcmp95(Distance):
         :param str tar: target string for comparison
         :param bool long_strings: set to True to "Increase the probability of a
             match when the number of matched characters is large.  This option
-            allows for a little more tolerance when the strings are large. It is
-            not an appropriate test when comparing fixed length fields such as
-            phone and social security numbers."
+            allows for a little more tolerance when the strings are large. It
+            is not an appropriate test when comparing fixed length fields such
+            as phone and social security numbers."
         :returns: strcmp95 similarity
         :rtype: float
 
@@ -158,7 +158,8 @@ class Strcmp95(Distance):
         yang_flag = [0] * search_range
         search_range = max(0, search_range // 2 - 1)
 
-        # Looking only within the search range, count and flag the matched pairs.
+        # Looking only within the search range,
+        # count and flag the matched pairs.
         num_com = 0
         yl1 = len(yang) - 1
         for i in range(len(ying)):
@@ -318,26 +319,27 @@ class JaroWinkler(Distance):
 
         :param str src: source string for comparison
         :param str tar: target string for comparison
-        :param int qval: the length of each q-gram (defaults to 1: character-wise
-            matching)
+        :param int qval: the length of each q-gram (defaults to 1:
+            character-wise matching)
         :param str mode: indicates which variant of this distance metric to
             compute:
 
-                - 'winkler' -- computes the Jaro-Winkler distance (default) which
-                  increases the score for matches near the start of the word
+                - 'winkler' -- computes the Jaro-Winkler distance (default)
+                  which increases the score for matches near the start of the
+                  word
                 - 'jaro' -- computes the Jaro distance
 
         The following arguments apply only when mode is 'winkler':
 
         :param bool long_strings: set to True to "Increase the probability of a
             match when the number of matched characters is large.  This option
-            allows for a little more tolerance when the strings are large.  It is
-            not an appropriate test when comparing fixed length fields such as
-            phone and social security numbers."
+            allows for a little more tolerance when the strings are large.  It
+            is not an appropriate test when comparing fixed length fields such
+            as phone and social security numbers."
         :param float boost_threshold: a value between 0 and 1, below which the
             Winkler boost is not applied (defaults to 0.7)
-        :param float scaling_factor: a value between 0 and 0.25, indicating by how
-            much to boost scores for matching prefixes (defaults to 0.1)
+        :param float scaling_factor: a value between 0 and 0.25, indicating by
+            how much to boost scores for matching prefixes (defaults to 0.1)
 
         :returns: Jaro or Jaro-Winkler similarity
         :rtype: float
@@ -397,7 +399,8 @@ class JaroWinkler(Distance):
         tar_flag = [0] * search_range
         search_range = max(0, search_range // 2 - 1)
 
-        # Looking only within the search range, count and flag the matched pairs.
+        # Looking only within the search range,
+        # count and flag the matched pairs.
         num_com = 0
         yl1 = lent - 1
         for i in range(lens):

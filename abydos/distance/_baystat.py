@@ -70,16 +70,16 @@ class Baystat(Distance):
         max_len = max(len(src), len(tar))
 
         if not (min_ss_len and left_ext and right_ext):
-            # These can be set via arguments to the function. Otherwise they are
-            # set automatically based on values from the article.
+            # These can be set via arguments to the function. Otherwise they
+            # are set automatically based on values from the article.
             if max_len >= 7:
                 min_ss_len = 2
                 left_ext = 2
                 right_ext = 2
             else:
-                # The paper suggests that for short names, (exclusively) one or the
-                # other of left_ext and right_ext can be 1, with good results.
-                # I use 0 & 0 as the default in this case.
+                # The paper suggests that for short names, (exclusively) one or
+                # the other of left_ext and right_ext can be 1, with good
+                # results. I use 0 & 0 as the default in this case.
                 min_ss_len = 1
                 left_ext = 0
                 right_ext = 0
@@ -135,8 +135,8 @@ class Baystat(Distance):
                     right_ext_len += 1
 
                 # The following is unnecessary, I think
-                # if (search_begin + left_ext_len + min_ss_len + right_ext_len <=
-                #         len(tar)):
+                # if (search_begin + left_ext_len + min_ss_len + right_ext_len
+                #     <= len(tar)):
                 search_val = tar[
                     search_begin : (
                         search_begin

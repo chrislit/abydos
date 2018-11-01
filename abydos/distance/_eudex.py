@@ -27,9 +27,8 @@ from types import GeneratorType
 
 from six.moves import range
 
-from ..phonetic import eudex
-
 from ._distance import Distance
+from ..phonetic import eudex
 
 __all__ = ['Eudex', 'dist_eudex', 'eudex_hamming', 'sim_eudex']
 
@@ -58,8 +57,8 @@ class Eudex(Distance):
 
         :param str src: source string for comparison
         :param str tar: target string for comparison
-        :param str, iterable, or generator function weights: the weights or weights
-            generator function
+        :param str, iterable, or generator function weights: the weights or
+            weights generator function
         :param max_length: the number of characters to encode as a eudex hash
         :param bool normalized: normalizes to [0, 1] if True
         :returns: the Eudex Hamming distance
@@ -176,8 +175,8 @@ class Eudex(Distance):
 
         :param str src: source string for comparison
         :param str tar: target string for comparison
-        :param str, iterable, or generator function weights: the weights or weights
-            generator function
+        :param str, iterable, or generator function weights: the weights or
+            weights generator function
         :param max_length: the number of characters to encode as a eudex hash
         :returns: the normalized Eudex distance
         :rtype: float

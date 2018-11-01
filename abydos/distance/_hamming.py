@@ -73,7 +73,9 @@ class Hamming(Distance):
         """
         if not diff_lens and len(src) != len(tar):
             raise ValueError(
-                'Undefined for sequences of unequal length; set diff_lens to True for Hamming distance between strings of unequal lengths.'
+                'Undefined for sequences of unequal length; set diff_lens ' +
+                'to True for Hamming distance between strings of unequal ' +
+                'lengths.'
             )
 
         hdist = 0
@@ -89,8 +91,8 @@ class Hamming(Distance):
         Hamming distance normalized to the interval [0, 1].
 
         The Hamming distance is normalized by dividing it
-        by the greater of the number of characters in src & tar (unless diff_lens
-        is set to False, in which case an exception is raised).
+        by the greater of the number of characters in src & tar (unless
+        diff_lens is set to False, in which case an exception is raised).
 
         The arguments are identical to those of the hamming() function.
 
@@ -222,9 +224,9 @@ class MLIPNS(Distance):
 
         :param str src: source string for comparison
         :param str tar: target string for comparison
-        :param float threshold: a number [0, 1] indicating the maximum similarity
-            score, below which the strings are considered 'similar' (0.25 by
-            default)
+        :param float threshold: a number [0, 1] indicating the maximum
+            similarity score, below which the strings are considered 'similar'
+            (0.25 by default)
         :param int max_mismatches: a number indicating the allowable number of
             mismatches to remove before declaring two strings not similar (2 by
             default)

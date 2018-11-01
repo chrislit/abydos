@@ -75,7 +75,8 @@ class Levenshtein(Distance):
 
         :param str src: source string for comparison
         :param str tar: target string for comparison
-        :param str mode: specifies a mode for computing the Levenshtein distance:
+        :param str mode: specifies a mode for computing the Levenshtein
+            distance:
 
             - 'lev' (default) computes the ordinary Levenshtein distance,
               in which edits may include inserts, deletes, and substitutions
@@ -154,16 +155,17 @@ class Levenshtein(Distance):
     def dist(self, src, tar, mode='lev', cost=(1, 1, 1, 1)):
         """Return the normalized Levenshtein distance between two strings.
 
-        The Levenshtein distance is normalized by dividing the Levenshtein distance
-        (calculated by any of the three supported methods) by the greater of
-        the number of characters in src times the cost of a delete and
-        the number of characters in tar times the cost of an insert.
+        The Levenshtein distance is normalized by dividing the Levenshtein
+        distance (calculated by any of the three supported methods) by the
+        greater of the number of characters in src times the cost of a delete
+        and the number of characters in tar times the cost of an insert.
         For the case in which all operations have :math:`cost = 1`, this is
         equivalent to the greater of the length of the two strings src & tar.
 
         :param str src: source string for comparison
         :param str tar: target string for comparison
-        :param str mode: specifies a mode for computing the Levenshtein distance:
+        :param str mode: specifies a mode for computing the Levenshtein
+            distance:
 
             - 'lev' (default) computes the ordinary Levenshtein distance,
               in which edits may include inserts, deletes, and substitutions
@@ -352,7 +354,8 @@ class DamerauLevenshtein(Distance):
 
         if 2 * trans_cost < ins_cost + del_cost:
             raise ValueError(
-                'Unsupported cost assignment; the cost of two transpositions must not be less than the cost of an insert plus a delete.'
+                'Unsupported cost assignment; the cost of two transpositions' +
+                'must not be less than the cost of an insert plus a delete.'
             )
 
         d_mat = np_zeros((len(src)) * (len(tar)), dtype=np_int).reshape(
@@ -583,8 +586,8 @@ class Indel(Distance):
     def dist(self, src, tar):
         """Return the normalized indel distance between two strings.
 
-        This is equivalent to normalized Levenshtein distance, when only inserts
-        and deletes are possible.
+        This is equivalent to normalized Levenshtein distance, when only
+        inserts and deletes are possible.
 
         :param str src: source string for comparison
         :param str tar: target string for comparison

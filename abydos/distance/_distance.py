@@ -25,11 +25,10 @@ from __future__ import unicode_literals
 
 
 class Distance(object):
-    """Abstract Distance class.
-    """
+    """Abstract Distance class."""
 
     def sim(self, src, tar, *args, **kwargs):
-        """
+        """Return similarity.
 
         :param src:
         :param tar:
@@ -40,7 +39,7 @@ class Distance(object):
         return 1.0 - self.dist(src, tar, *args, **kwargs)
 
     def dist(self, src, tar, *args, **kwargs):
-        """
+        """Return distance.
 
         :param src:
         :param tar:

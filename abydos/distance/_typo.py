@@ -105,8 +105,8 @@ class Typo(Distance):
             default: (1, 1, 0.5, 0.5)) The substitution & shift costs should be
             significantly less than the cost of an insertion & deletion unless
             a log metric is used.
-        :param str layout: name of the keyboard layout to use (Currently supported:
-            QWERTY, Dvorak, AZERTY, QWERTZ)
+        :param str layout: name of the keyboard layout to use (Currently
+            supported: QWERTY, Dvorak, AZERTY, QWERTZ)
         :returns: typo distance
         :rtype: float
 
@@ -237,8 +237,8 @@ class Typo(Distance):
             default: (1, 1, 0.5, 0.5)) The substitution & shift costs should be
             significantly less than the cost of an insertion & deletion unless
             a log metric is used.
-        :param str layout: name of the keyboard layout to use (Currently supported:
-            QWERTY, Dvorak, AZERTY, QWERTZ)
+        :param str layout: name of the keyboard layout to use (Currently
+            supported: QWERTY, Dvorak, AZERTY, QWERTZ)
         :returns: normalized typo distance
         :rtype: float
 

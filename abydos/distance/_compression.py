@@ -25,9 +25,8 @@ from __future__ import division, unicode_literals
 
 from codecs import encode
 
-from ..compression import Arithmetic, BWT, RLE
-
 from ._distance import Distance
+from ..compression import Arithmetic, BWT, RLE
 
 try:
     import lzma
@@ -67,6 +66,7 @@ class NCDarith(Distance):
     _coder = None
 
     def __init__(self):
+        """Initialize the arithmetic coder object."""
         self._coder = Arithmetic()
 
     def dist(self, src, tar, probs=None):
@@ -74,7 +74,8 @@ class NCDarith(Distance):
 
         :param str src: source string for comparison
         :param str tar: target string for comparison
-        :param dict probs: a dictionary trained with :py:meth:`Arithmetic.train`
+        :param dict probs: a dictionary trained with
+            :py:meth:`Arithmetic.train`
         :returns: compression distance
         :rtype: float
 
@@ -534,7 +535,7 @@ class NCDlzma(Distance):
             concat_comp2 = lzma.compress(tar + src)[14:]
         else:  # pragma: no cover
             raise ValueError(
-                'Install the PylibLZMA module in order to use lzma compression similarity'
+                'Install the PylibLZMA module in order to use lzma'
             )
 
         return (
