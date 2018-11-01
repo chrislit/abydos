@@ -40,7 +40,9 @@ class SynonameTestCases(unittest.TestCase):
         # Base cases
         self.assertEqual(Synoname._synoname_strip_punct(''), '')
         self.assertEqual(Synoname._synoname_strip_punct('abcdefg'), 'abcdefg')
-        self.assertEqual(Synoname._synoname_strip_punct('a\'b-c,d!e:f%g'), 'abcdefg')
+        self.assertEqual(
+            Synoname._synoname_strip_punct('a\'b-c,d!e:f%g'), 'abcdefg'
+        )
 
     def test_synoname_word_approximation(self):
         """Test abydos.distance._synoname._synoname_word_approximation."""

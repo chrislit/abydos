@@ -59,6 +59,7 @@ class Strcmp95(Distance):
     limited to uppercase ASCII characters, so it is appropriate to American
     names, but not much else.
     """
+
     _sp_mx = (
         ('A', 'E'),
         ('A', 'I'),
@@ -302,6 +303,7 @@ class JaroWinkler(Distance):
     :cite:`Winkler:1994`. The above file is a US Government publication and,
     accordingly, in the public domain.
     """
+
     def sim(
         self,
         src,
@@ -426,7 +428,9 @@ class JaroWinkler(Distance):
         n_trans //= 2
 
         # Main weight computation for Jaro distance
-        weight = num_com / lens + num_com / lent + (num_com - n_trans) / num_com
+        weight = (
+            num_com / lens + num_com / lent + (num_com - n_trans) / num_com
+        )
         weight /= 3.0
 
         # Continue to boost the weight if the strings are similar
@@ -514,7 +518,9 @@ def sim_jaro_winkler(
     >>> round(sim_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
     0.833333333333
     """
-    return JaroWinkler().sim(src, tar, qval, mode, long_strings, boost_threshold, scaling_factor)
+    return JaroWinkler().sim(
+        src, tar, qval, mode, long_strings, boost_threshold, scaling_factor
+    )
 
 
 def dist_jaro_winkler(
@@ -574,7 +580,9 @@ def dist_jaro_winkler(
     >>> round(dist_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
     0.166666666667
     """
-    return JaroWinkler().dist(src, tar, qval, mode, long_strings, boost_threshold, scaling_factor)
+    return JaroWinkler().dist(
+        src, tar, qval, mode, long_strings, boost_threshold, scaling_factor
+    )
 
 
 if __name__ == '__main__':

@@ -34,11 +34,13 @@ from ._distance import Distance
 
 __all__ = ['Synoname', 'synoname']
 
+
 class Synoname(object):
     """Synoname.
 
     Cf. :cite:`Getty:1991,Gross:1991`
     """
+
     @staticmethod
     def _synoname_strip_punct(word):
         """Return a word with punctuation stripped out.
@@ -99,7 +101,9 @@ class Synoname(object):
                 ]
             elif s_type == 'b':
                 loc = (
-                    full_tar1.find(' ' + _synoname_special_table[s_pos][1] + ' ')
+                    full_tar1.find(
+                        ' ' + _synoname_special_table[s_pos][1] + ' '
+                    )
                     + 1
                 )
                 full_tar1 = (
@@ -107,7 +111,9 @@ class Synoname(object):
                     + full_tar1[loc + len(_synoname_special_table[s_pos][1]) :]
                 )
             elif s_type == 'c':
-                full_tar1 = full_tar1[1 + len(_synoname_special_table[s_pos][1]) :]
+                full_tar1 = full_tar1[
+                    1 + len(_synoname_special_table[s_pos][1]) :
+                ]
 
         full_src1 = ' '.join((src_ln, src_fn)).replace('-', ' ').strip()
         for s_pos, s_type in features['src_specials']:
@@ -117,7 +123,9 @@ class Synoname(object):
                 ]
             elif s_type == 'b':
                 loc = (
-                    full_src1.find(' ' + _synoname_special_table[s_pos][1] + ' ')
+                    full_src1.find(
+                        ' ' + _synoname_special_table[s_pos][1] + ' '
+                    )
                     + 1
                 )
                 full_src1 = (
@@ -125,13 +133,18 @@ class Synoname(object):
                     + full_src1[loc + len(_synoname_special_table[s_pos][1]) :]
                 )
             elif s_type == 'c':
-                full_src1 = full_src1[1 + len(_synoname_special_table[s_pos][1]) :]
+                full_src1 = full_src1[
+                    1 + len(_synoname_special_table[s_pos][1]) :
+                ]
 
         full_tar2 = full_tar1
         for s_pos, s_type in features['tar_specials']:
             if s_type == 'd':
                 full_tar2 = full_tar2[len(_synoname_special_table[s_pos][1]) :]
-            elif s_type == 'X' and _synoname_special_table[s_pos][1] in full_tar2:
+            elif (
+                s_type == 'X'
+                and _synoname_special_table[s_pos][1] in full_tar2
+            ):
                 loc = full_tar2.find(' ' + _synoname_special_table[s_pos][1])
                 full_tar2 = (
                     full_tar2[:loc]
@@ -142,7 +155,10 @@ class Synoname(object):
         for s_pos, s_type in features['src_specials']:
             if s_type == 'd':
                 full_src2 = full_src2[len(_synoname_special_table[s_pos][1]) :]
-            elif s_type == 'X' and _synoname_special_table[s_pos][1] in full_src2:
+            elif (
+                s_type == 'X'
+                and _synoname_special_table[s_pos][1] in full_src2
+            ):
                 loc = full_src2.find(' ' + _synoname_special_table[s_pos][1])
                 full_src2 = (
                     full_src2[:loc]
@@ -445,27 +461,37 @@ class Synoname(object):
         if tests & test_dict['exact'] and fn_equal and ln_equal:
             return _fmt_retval(match_type_dict['exact'])
         if tests & test_dict['omission']:
-            if fn_equal and levenshtein(src_ln, tar_ln, cost=(1, 1, 99, 99)) == 1:
+            if (
+                fn_equal
+                and levenshtein(src_ln, tar_ln, cost=(1, 1, 99, 99)) == 1
+            ):
                 if not roman_conflict:
                     return _fmt_retval(match_type_dict['omission'])
             elif (
-                ln_equal and levenshtein(src_fn, tar_fn, cost=(1, 1, 99, 99)) == 1
+                ln_equal
+                and levenshtein(src_fn, tar_fn, cost=(1, 1, 99, 99)) == 1
             ):
                 return _fmt_retval(match_type_dict['omission'])
         if tests & test_dict['substitution']:
-            if fn_equal and levenshtein(src_ln, tar_ln, cost=(99, 99, 1, 99)) == 1:
+            if (
+                fn_equal
+                and levenshtein(src_ln, tar_ln, cost=(99, 99, 1, 99)) == 1
+            ):
                 return _fmt_retval(match_type_dict['substitution'])
             elif (
-                ln_equal and levenshtein(src_fn, tar_fn, cost=(99, 99, 1, 99)) == 1
+                ln_equal
+                and levenshtein(src_fn, tar_fn, cost=(99, 99, 1, 99)) == 1
             ):
                 return _fmt_retval(match_type_dict['substitution'])
         if tests & test_dict['transposition']:
             if fn_equal and (
-                levenshtein(src_ln, tar_ln, mode='osa', cost=(99, 99, 99, 1)) == 1
+                levenshtein(src_ln, tar_ln, mode='osa', cost=(99, 99, 99, 1))
+                == 1
             ):
                 return _fmt_retval(match_type_dict['transposition'])
             elif ln_equal and (
-                levenshtein(src_fn, tar_fn, mode='osa', cost=(99, 99, 99, 1)) == 1
+                levenshtein(src_fn, tar_fn, mode='osa', cost=(99, 99, 99, 1))
+                == 1
             ):
                 return _fmt_retval(match_type_dict['transposition'])
         if tests & test_dict['punctuation']:
@@ -477,10 +503,18 @@ class Synoname(object):
             if (np_src_fn == np_tar_fn) and (np_src_ln == np_tar_ln):
                 return _fmt_retval(match_type_dict['punctuation'])
 
-            np_src_fn = Synoname._synoname_strip_punct(src_fn.replace('-', ' '))
-            np_tar_fn = Synoname._synoname_strip_punct(tar_fn.replace('-', ' '))
-            np_src_ln = Synoname._synoname_strip_punct(src_ln.replace('-', ' '))
-            np_tar_ln = Synoname._synoname_strip_punct(tar_ln.replace('-', ' '))
+            np_src_fn = Synoname._synoname_strip_punct(
+                src_fn.replace('-', ' ')
+            )
+            np_tar_fn = Synoname._synoname_strip_punct(
+                tar_fn.replace('-', ' ')
+            )
+            np_src_ln = Synoname._synoname_strip_punct(
+                src_ln.replace('-', ' ')
+            )
+            np_tar_ln = Synoname._synoname_strip_punct(
+                tar_ln.replace('-', ' ')
+            )
 
             if (np_src_fn == np_tar_fn) and (np_src_ln == np_tar_ln):
                 return _fmt_retval(match_type_dict['punctuation'])
@@ -503,13 +537,17 @@ class Synoname(object):
                         (
                             initial_diff
                             == levenshtein(
-                                src_initials, tar_initials, cost=(1, 99, 99, 99)
+                                src_initials,
+                                tar_initials,
+                                cost=(1, 99, 99, 99),
                             )
                         )
                         or (
                             initial_diff
                             == levenshtein(
-                                tar_initials, src_initials, cost=(1, 99, 99, 99)
+                                tar_initials,
+                                src_initials,
+                                cost=(1, 99, 99, 99),
                             )
                         )
                     ):
@@ -558,12 +596,12 @@ class Synoname(object):
 
 
 def synoname(
-        src,
-        tar,
-        word_approx_min=0.3,
-        char_approx_min=0.73,
-        tests=2 ** 12 - 1,
-        ret_name=False,
+    src,
+    tar,
+    word_approx_min=0.3,
+    char_approx_min=0.73,
+    tests=2 ** 12 - 1,
+    ret_name=False,
 ):
     """Return the Synoname similarity type of two words.
 
@@ -598,8 +636,9 @@ def synoname(
     ... ret_name=True)
     'word_approx'
     """
-    return Synoname().synoname(src, tar, word_approx_min, char_approx_min,
-                               tests, ret_name)
+    return Synoname().synoname(
+        src, tar, word_approx_min, char_approx_min, tests, ret_name
+    )
 
 
 if __name__ == '__main__':

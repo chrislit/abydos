@@ -69,6 +69,7 @@ class Levenshtein(Distance):
     Levenshtein edit distance ordinarily has unit insertion, deletion, and
     substitution costs.
     """
+
     def dist_abs(self, src, tar, mode='lev', cost=(1, 1, 1, 1)):
         """Return the Levenshtein distance between two strings.
 
@@ -131,7 +132,8 @@ class Levenshtein(Distance):
                 d_mat[i + 1, j + 1] = min(
                     d_mat[i + 1, j] + ins_cost,  # ins
                     d_mat[i, j + 1] + del_cost,  # del
-                    d_mat[i, j] + (sub_cost if src[i] != tar[j] else 0),  # sub/==
+                    d_mat[i, j]
+                    + (sub_cost if src[i] != tar[j] else 0),  # sub/==
                 )
 
                 if mode == 'osa':
@@ -143,7 +145,8 @@ class Levenshtein(Distance):
                     ):
                         # transposition
                         d_mat[i + 1, j + 1] = min(
-                            d_mat[i + 1, j + 1], d_mat[i - 1, j - 1] + trans_cost
+                            d_mat[i + 1, j + 1],
+                            d_mat[i - 1, j - 1] + trans_cost,
                         )
 
         return d_mat[len(src), len(tar)]
@@ -315,6 +318,7 @@ class DamerauLevenshtein(Distance):
     :cite:`Stern:2014`, under the MIT license:
     https://github.com/KevinStern/software-and-algorithms/blob/master/src/main/java/blogspot/software_and_algorithms/stern_library/string/DamerauLevenshteinAlgorithm.java
     """
+
     def dist_abs(self, src, tar, cost=(1, 1, 1, 1)):
         """Return the Damerau-Levenshtein distance between two strings.
 
@@ -362,13 +366,17 @@ class DamerauLevenshtein(Distance):
         for i in range(1, len(src)):
             del_distance = d_mat[i - 1, 0] + del_cost
             ins_distance = (i + 1) * del_cost + ins_cost
-            match_distance = i * del_cost + (0 if src[i] == tar[0] else sub_cost)
+            match_distance = i * del_cost + (
+                0 if src[i] == tar[0] else sub_cost
+            )
             d_mat[i, 0] = min(del_distance, ins_distance, match_distance)
 
         for j in range(1, len(tar)):
             del_distance = (j + 1) * ins_cost + del_cost
             ins_distance = d_mat[0, j - 1] + ins_cost
-            match_distance = j * ins_cost + (0 if src[0] == tar[j] else sub_cost)
+            match_distance = j * ins_cost + (
+                0 if src[0] == tar[j] else sub_cost
+            )
             d_mat[0, j] = min(del_distance, ins_distance, match_distance)
 
         for i in range(1, len(src)):
@@ -549,6 +557,7 @@ class Indel(Distance):
     This is equivalent to Levenshtein distance, when only inserts and deletes
     are possible.
     """
+
     lev = Levenshtein()
 
     def dist_abs(self, src, tar):

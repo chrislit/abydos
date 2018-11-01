@@ -114,7 +114,10 @@ class Baystat(Distance):
             ):
                 search_val = tar[
                     search_begin : (
-                        search_begin + left_ext_len + min_ss_len + right_ext_len
+                        search_begin
+                        + left_ext_len
+                        + min_ss_len
+                        + right_ext_len
                     )
                 ]
             else:
@@ -136,7 +139,10 @@ class Baystat(Distance):
                 #         len(tar)):
                 search_val = tar[
                     search_begin : (
-                        search_begin + left_ext_len + min_ss_len + right_ext_len
+                        search_begin
+                        + left_ext_len
+                        + min_ss_len
+                        + right_ext_len
                     )
                 ]
 

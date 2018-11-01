@@ -39,6 +39,7 @@ class MRA(Distance):
     The Western Airlines Surname Match Rating Algorithm comparison rating, as
     presented on page 18 of :cite:`Moore:1977`.
     """
+
     def dist_abs(self, src, tar):
         """Return the MRA comparison rating of two strings.
 

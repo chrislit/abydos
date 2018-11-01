@@ -28,7 +28,14 @@ from six.moves import range
 
 from ._distance import Distance
 
-__all__ = ['Sift4', 'Sift4Simplest', 'dist_sift4', 'sift4_common', 'sift4_simplest', 'sim_sift4']
+__all__ = [
+    'Sift4',
+    'Sift4Simplest',
+    'dist_sift4',
+    'sift4_common',
+    'sift4_simplest',
+    'sim_sift4',
+]
 
 
 class Sift4(Distance):
@@ -37,6 +44,7 @@ class Sift4(Distance):
     This is an approximation of edit distance, described in
     :cite:`Zackwehdex:2014`.
     """
+
     def dist_abs(self, src, tar, max_offset=5, max_distance=0):
         """Return the "common" Sift4 distance between two terms.
 
@@ -104,7 +112,9 @@ class Sift4(Distance):
                 if src_cur != tar_cur:
                     src_cur = tar_cur = min(src_cur, tar_cur)
                 for i in range(max_offset):
-                    if not ((src_cur + i < src_len) or (tar_cur + i < tar_len)):
+                    if not (
+                        (src_cur + i < src_len) or (tar_cur + i < tar_len)
+                    ):
                         break
                     if (src_cur + i < src_len) and (
                         src[src_cur + i] == tar[tar_cur]
@@ -242,6 +252,7 @@ class Sift4Simplest(Sift4):
     This is an approximation of edit distance, described in
     :cite:`Zackwehdex:2014`.
     """
+
     def dist_abs(self, src, tar, max_offset=5):
         """Return the "simplest" Sift4 distance between two terms.
 
@@ -283,7 +294,9 @@ class Sift4Simplest(Sift4):
                 if src_cur != tar_cur:
                     src_cur = tar_cur = max(src_cur, tar_cur)
                 for i in range(max_offset):
-                    if not ((src_cur + i < src_len) or (tar_cur + i < tar_len)):
+                    if not (
+                        (src_cur + i < src_len) or (tar_cur + i < tar_len)
+                    ):
                         break
                     if (src_cur + i < src_len) and (
                         src[src_cur + i] == tar[tar_cur]

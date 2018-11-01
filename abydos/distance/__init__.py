@@ -150,7 +150,14 @@ from ._minkowski import (
     sim_minkowski,
 )
 from ._mra import MRA, dist_mra, mra_compare, sim_mra
-from ._seqalign import Gotoh, NeedlemanWunsch, SmithWaterman, gotoh, needleman_wunsch, smith_waterman
+from ._seqalign import (
+    Gotoh,
+    NeedlemanWunsch,
+    SmithWaterman,
+    gotoh,
+    needleman_wunsch,
+    smith_waterman,
+)
 from ._sequence import (
     LCSseq,
     LCSstr,
@@ -170,12 +177,9 @@ from ._sift4 import (
     dist_sift4,
     sift4_common,
     sift4_simplest,
-    sim_sift4
+    sim_sift4,
 )
-from ._synoname import (
-    Synoname,
-    synoname
-)
+from ._synoname import Synoname, synoname
 from ._token import (
     Bag,
     Cosine,
@@ -201,12 +205,7 @@ from ._token import (
     sim_tversky,
     tanimoto,
 )
-from ._typo import (
-    Typo,
-    dist_typo,
-    sim_typo,
-    typo
-)
+from ._typo import Typo, dist_typo, sim_typo, typo
 
 __all__ = [
     'sim',

@@ -41,6 +41,7 @@ class RLE(object):
 
     Digits 0-9 cannot be in text.
     """
+
     def encode(self, text):
         r"""Perform encoding of run-length-encoding (RLE).
 

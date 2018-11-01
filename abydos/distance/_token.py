@@ -66,6 +66,7 @@ __all__ = [
     'tanimoto',
 ]
 
+
 class Tversky(Distance):
     r"""Tversky index.
 
@@ -97,6 +98,7 @@ class Tversky(Distance):
     The symmetric variant is defined in :cite:`Jiminez:2013`. This is activated
     by specifying a bias parameter.
     """
+
     def sim(self, src, tar, qval=2, alpha=1, beta=1, bias=None):
         """Return the Tversky index of two strings.
 
@@ -145,8 +147,12 @@ class Tversky(Distance):
                 + beta * (q_tar_mag - q_intersection_mag)
             )
 
-        a_val = min(q_src_mag - q_intersection_mag, q_tar_mag - q_intersection_mag)
-        b_val = max(q_src_mag - q_intersection_mag, q_tar_mag - q_intersection_mag)
+        a_val = min(
+            q_src_mag - q_intersection_mag, q_tar_mag - q_intersection_mag
+        )
+        b_val = max(
+            q_src_mag - q_intersection_mag, q_tar_mag - q_intersection_mag
+        )
         c_val = q_intersection_mag + bias
         return c_val / (beta * (alpha * a_val + (1 - alpha) * b_val) + c_val)
 
@@ -215,6 +221,7 @@ class Dice(Tversky):
     :cite:`Tanimoto:1958` and the Tversky index :cite:`Tversky:1977` for
     :math:`\\alpha = \\beta = 0.5`.
     """
+
     def sim(self, src, tar, qval=2):
         r"""Return the Sørensen–Dice coefficient of two strings.
 
@@ -298,6 +305,7 @@ class Jaccard(Tversky):
     and the Tversky index :cite:`Tversky:1977` for
     :math:`\\alpha = \\beta = 1`.
     """
+
     def sim(self, src, tar, qval=2):
         r"""Return the Jaccard similarity of two strings.
 
@@ -426,6 +434,7 @@ class Overlap(Distance):
     Szymkiewicz-Simpson coefficient, is
     :math:`sim_{overlap}(X, Y) = \\frac{|X \\cap Y|}{min(|X|, |Y|)}`.
     """
+
     def sim(self, src, tar, qval=2):
         r"""Return the overlap coefficient of two strings.
 
@@ -511,6 +520,7 @@ class Cosine(Distance):
     Ochiai coefficient :cite:`Otsuka:1936,Ochiai:1957` is:
     :math:`sim_{cosine}(X, Y) = \\frac{|X \\cap Y|}{\\sqrt{|X| \\cdot |Y|}}`.
     """
+
     def sim(self, src, tar, qval=2):
         r"""Return the cosine similarity of two strings.
 
@@ -594,6 +604,7 @@ class Bag(Distance):
     Bag distance is proposed in :cite:`Bartolini:2002`. It is defined as:
     :math:`max(|multiset(src)-multiset(tar)|, |multiset(tar)-multiset(src)|)`.
     """
+
     def dist_abs(self, src, tar):
         """Return the bag distance between two strings.
 
@@ -626,7 +637,8 @@ class Bag(Distance):
         src_bag = Counter(src)
         tar_bag = Counter(tar)
         return max(
-            sum((src_bag - tar_bag).values()), sum((tar_bag - src_bag).values())
+            sum((src_bag - tar_bag).values()),
+            sum((tar_bag - src_bag).values()),
         )
 
     def dist(self, src, tar):
@@ -682,6 +694,7 @@ def bag(src, tar):
     """
     return Bag().dist_abs(src, tar)
 
+
 def dist_bag(src, tar):
     """Return the normalized bag distance between two strings.
 
@@ -702,6 +715,7 @@ def dist_bag(src, tar):
     0.0
     """
     return Bag().dist(src, tar)
+
 
 def sim_bag(src, tar):
     """Return the normalized bag similarity of two strings.
@@ -738,6 +752,7 @@ class MongeElkan(Distance):
     :math:`sim_{Monge-Elkan}(src, tar)` and :math:`sim_{Monge-Elkan}(tar, src)`
     are both calculated and then averaged).
     """
+
     def sim(self, src, tar, sim_func=sim_levenshtein, symmetric=False):
         """Return the Monge-Elkan similarity of two strings.
 
@@ -780,6 +795,7 @@ class MongeElkan(Distance):
 
         return sim_em
 
+
 def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
     """Return the Monge-Elkan similarity of two strings.
 
@@ -802,6 +818,7 @@ def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
     0.5
     """
     return MongeElkan().sim(src, tar, sim_func, symmetric)
+
 
 def dist_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
     """Return the Monge-Elkan distance between two strings.

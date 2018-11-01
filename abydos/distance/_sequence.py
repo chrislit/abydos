@@ -52,6 +52,7 @@ class LCSseq(Distance):
     Longest common subsequence (LCSseq) is the longest subsequence of
     characters that two strings have in common.
     """
+
     def lcsseq(self, src, tar):
         """Return the longest common subsequence of two strings.
 
@@ -203,6 +204,7 @@ class LCSstr(Distance):
     """Longest common substring.
 
     """
+
     def lcsstr(self, src, tar):
         """Return the longest common substring of two strings.
 
@@ -358,6 +360,7 @@ class RatcliffObershelp(Distance):
     Cf.
     http://www.drdobbs.com/database/pattern-matching-the-gestalt-approach/184407970
     """
+
     def sim(self, src, tar):
         """Return the Ratcliff-Obershelp similarity of two strings.
 

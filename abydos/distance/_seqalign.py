@@ -37,8 +37,14 @@ from six.moves import range
 from ._basic import sim_ident
 from ._distance import Distance
 
-__all__ = ['Gotoh', 'NeedlemanWunsch', 'SmithWaterman', 'gotoh',
-           'needleman_wunsch', 'smith_waterman']
+__all__ = [
+    'Gotoh',
+    'NeedlemanWunsch',
+    'SmithWaterman',
+    'gotoh',
+    'needleman_wunsch',
+    'smith_waterman',
+]
 
 
 class NeedlemanWunsch(Distance):
@@ -46,6 +52,7 @@ class NeedlemanWunsch(Distance):
 
     The Needleman-Wunsch score :cite:`Needleman:1970` is a standard edit
     distance measure."""
+
     @staticmethod
     def sim_matrix(
         src,
@@ -172,6 +179,7 @@ class SmithWaterman(NeedlemanWunsch):
     measure, differing from Needleman-Wunsch in that it focuses on local
     alignment and disallows negative scores.
     """
+
     def dist_abs(self, src, tar, gap_cost=1, sim_func=sim_ident):
         """Return the Smith-Waterman score of two strings.
 
@@ -239,6 +247,7 @@ class Gotoh(NeedlemanWunsch):
     The Gotoh score :cite:`Gotoh:1982` is essentially Needleman-Wunsch with
     affine gap penalties.
     """
+
     def dist_abs(self, src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
         """Return the Gotoh score of two strings.
 
