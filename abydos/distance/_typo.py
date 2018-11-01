@@ -102,31 +102,32 @@ class Typo(Distance):
         :returns: typo distance
         :rtype: float
 
-        >>> typo('cat', 'hat')
+        >>> cmp = Typo()
+        >>> cmp.dist_abs('cat', 'hat')
         1.5811388
-        >>> typo('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         2.8251407
-        >>> typo('Colin', 'Cuilen')
+        >>> cmp.dist_abs('Colin', 'Cuilen')
         3.4142137
-        >>> typo('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         2.5
 
-        >>> typo('cat', 'hat', metric='manhattan')
+        >>> cmp.dist_abs('cat', 'hat', metric='manhattan')
         2.0
-        >>> typo('Niall', 'Neil', metric='manhattan')
+        >>> cmp.dist_abs('Niall', 'Neil', metric='manhattan')
         3.0
-        >>> typo('Colin', 'Cuilen', metric='manhattan')
+        >>> cmp.dist_abs('Colin', 'Cuilen', metric='manhattan')
         3.5
-        >>> typo('ATCG', 'TAGC', metric='manhattan')
+        >>> cmp.dist_abs('ATCG', 'TAGC', metric='manhattan')
         2.5
 
-        >>> typo('cat', 'hat', metric='log-manhattan')
+        >>> cmp.dist_abs('cat', 'hat', metric='log-manhattan')
         0.804719
-        >>> typo('Niall', 'Neil', metric='log-manhattan')
+        >>> cmp.dist_abs('Niall', 'Neil', metric='log-manhattan')
         2.2424533
-        >>> typo('Colin', 'Cuilen', metric='log-manhattan')
+        >>> cmp.dist_abs('Colin', 'Cuilen', metric='log-manhattan')
         2.2424533
-        >>> typo('ATCG', 'TAGC', metric='log-manhattan')
+        >>> cmp.dist_abs('ATCG', 'TAGC', metric='log-manhattan')
         2.3465736
         """
         ins_cost, del_cost, sub_cost, shift_cost = cost
@@ -226,13 +227,14 @@ class Typo(Distance):
         :returns: normalized typo distance
         :rtype: float
 
-        >>> round(dist_typo('cat', 'hat'), 12)
+        >>> cmp = Typo()
+        >>> round(cmp.dist('cat', 'hat'), 12)
         0.527046283086
-        >>> round(dist_typo('Niall', 'Neil'), 12)
+        >>> round(cmp.dist('Niall', 'Neil'), 12)
         0.565028142929
-        >>> round(dist_typo('Colin', 'Cuilen'), 12)
+        >>> round(cmp.dist('Colin', 'Cuilen'), 12)
         0.569035609563
-        >>> dist_typo('ATCG', 'TAGC')
+        >>> cmp.dist('ATCG', 'TAGC')
         0.625
         """
         if src == tar:

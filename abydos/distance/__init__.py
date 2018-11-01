@@ -177,14 +177,13 @@ from ._synoname import (
     synoname
 )
 from ._token import (
-    # Bag,
-    # Cosine,
-    # Dice,
-    # Jaccard,
-    # MongeElkan,
-    # Overlap,
-    # Tanimoto,
-    # Tversky,
+    Bag,
+    Cosine,
+    Dice,
+    Jaccard,
+    MongeElkan,
+    Overlap,
+    Tversky,
     bag,
     dist_bag,
     dist_cosine,
@@ -199,12 +198,11 @@ from ._token import (
     sim_jaccard,
     sim_monge_elkan,
     sim_overlap,
-    sim_tanimoto,
     sim_tversky,
     tanimoto,
 )
 from ._typo import (
-    # Typo,
+    Typo,
     dist_typo,
     sim_typo,
     typo
@@ -257,7 +255,6 @@ __all__ = [
     'dist_overlap',
     'sim_overlap',
     'tanimoto',
-    'sim_tanimoto',
     'dist_cosine',
     'sim_cosine',
     'Bag',
@@ -332,7 +329,7 @@ __all__ = [
     'eudex_hamming',
     'dist_eudex',
     'sim_eudex',
-    'Sift4Common',
+    'Sift4',
     'Sift4Simplest',
     'sift4_common',
     'sift4_simplest',

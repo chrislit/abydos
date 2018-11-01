@@ -41,7 +41,6 @@ from abydos.distance import (
     sim_jaccard,
     sim_monge_elkan,
     sim_overlap,
-    sim_tanimoto,
     sim_tversky,
     tanimoto,
 )
@@ -351,35 +350,8 @@ class OverlapTestCases(unittest.TestCase):
 class TanimotoTestCases(unittest.TestCase):
     """Test Tanimoto functions.
 
-    abydos.distance._token.sim_tanimoto & .tanimoto
+    abydos.distance._token.tanimoto
     """
-
-    def test_tanimoto_coeff(self):
-        """Test abydos.distance._token.sim_tanimoto."""
-        self.assertEqual(sim_tanimoto('', ''), 1)
-        self.assertEqual(sim_tanimoto('nelson', ''), 0)
-        self.assertEqual(sim_tanimoto('', 'neilsen'), 0)
-        self.assertAlmostEqual(sim_tanimoto('nelson', 'neilsen'), 4 / 11)
-
-        self.assertEqual(sim_tanimoto('', '', 2), 1)
-        self.assertEqual(sim_tanimoto('nelson', '', 2), 0)
-        self.assertEqual(sim_tanimoto('', 'neilsen', 2), 0)
-        self.assertAlmostEqual(sim_tanimoto('nelson', 'neilsen', 2), 4 / 11)
-
-        # supplied q-gram tests
-        self.assertEqual(sim_tanimoto(QGrams(''), QGrams('')), 1)
-        self.assertEqual(sim_tanimoto(QGrams('nelson'), QGrams('')), 0)
-        self.assertEqual(sim_tanimoto(QGrams(''), QGrams('neilsen')), 0)
-        self.assertAlmostEqual(
-            sim_tanimoto(QGrams('nelson'), QGrams('neilsen')), 4 / 11
-        )
-
-        # non-q-gram tests
-        self.assertEqual(sim_tanimoto('', '', 0), 1)
-        self.assertEqual(sim_tanimoto('the quick', '', 0), 0)
-        self.assertEqual(sim_tanimoto('', 'the quick', 0), 0)
-        self.assertAlmostEqual(sim_tanimoto(NONQ_FROM, NONQ_TO, 0), 1 / 3)
-        self.assertAlmostEqual(sim_tanimoto(NONQ_TO, NONQ_FROM, 0), 1 / 3)
 
     def test_tanimoto(self):
         """Test abydos.distance._token.tanimoto."""
