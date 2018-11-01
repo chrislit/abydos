@@ -165,7 +165,7 @@ from ._sequence import (
     sim_ratcliff_obershelp,
 )
 from ._sift4 import (
-    Sift4Common,
+    Sift4,
     Sift4Simplest,
     dist_sift4,
     sift4_common,
@@ -173,7 +173,7 @@ from ._sift4 import (
     sim_sift4
 )
 from ._synoname import (
-    # Synoname,
+    Synoname,
     synoname
 )
 from ._token import (
