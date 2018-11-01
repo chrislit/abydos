@@ -25,13 +25,7 @@ from __future__ import division, unicode_literals
 
 import unittest
 
-from abydos.distance import synoname
-
-# noinspection PyProtectedMember
-from abydos.distance._synoname import (
-    _synoname_strip_punct,
-    _synoname_word_approximation,
-)
+from abydos.distance import Synoname, synoname
 
 
 class SynonameTestCases(unittest.TestCase):
@@ -44,17 +38,17 @@ class SynonameTestCases(unittest.TestCase):
     def test_synoname_strip_punct(self):
         """Test abydos.distance._synoname._synoname_strip_punct."""
         # Base cases
-        self.assertEqual(_synoname_strip_punct(''), '')
-        self.assertEqual(_synoname_strip_punct('abcdefg'), 'abcdefg')
-        self.assertEqual(_synoname_strip_punct('a\'b-c,d!e:f%g'), 'abcdefg')
+        self.assertEqual(Synoname._synoname_strip_punct(''), '')
+        self.assertEqual(Synoname._synoname_strip_punct('abcdefg'), 'abcdefg')
+        self.assertEqual(Synoname._synoname_strip_punct('a\'b-c,d!e:f%g'), 'abcdefg')
 
     def test_synoname_word_approximation(self):
         """Test abydos.distance._synoname._synoname_word_approximation."""
         # Base cases
-        self.assertEqual(_synoname_word_approximation('', ''), 0)
+        self.assertEqual(Synoname._synoname_word_approximation('', ''), 0)
 
         self.assertEqual(
-            _synoname_word_approximation(
+            Synoname._synoname_word_approximation(
                 'di Domenico di Bonaventura',
                 'di Tomme di Nuto',
                 'Cosimo',
@@ -63,7 +57,7 @@ class SynonameTestCases(unittest.TestCase):
             0.4,
         )
         self.assertEqual(
-            _synoname_word_approximation(
+            Synoname._synoname_word_approximation(
                 'Antonello da Messina',
                 'Messina',
                 '',
@@ -78,7 +72,7 @@ class SynonameTestCases(unittest.TestCase):
             0,
         )
         self.assertEqual(
-            _synoname_word_approximation(
+            Synoname._synoname_word_approximation(
                 'louis ii',
                 'louis ii',
                 'sr jean',
@@ -93,7 +87,7 @@ class SynonameTestCases(unittest.TestCase):
             0,
         )
         self.assertEqual(
-            _synoname_word_approximation(
+            Synoname._synoname_word_approximation(
                 'louis ii',
                 'louis ii',
                 'il giovane',
@@ -118,7 +112,7 @@ class SynonameTestCases(unittest.TestCase):
             1,
         )
         self.assertAlmostEqual(
-            _synoname_word_approximation(
+            Synoname._synoname_word_approximation(
                 'louis ii',
                 'louis ii',
                 'ste.-geo ste.',
@@ -143,7 +137,7 @@ class SynonameTestCases(unittest.TestCase):
             2 / 3,
         )
         self.assertAlmostEqual(
-            _synoname_word_approximation(
+            Synoname._synoname_word_approximation(
                 'louis ii',
                 'louis',
                 'ste.-geo ste.',
@@ -163,13 +157,13 @@ class SynonameTestCases(unittest.TestCase):
             0,
         )
         self.assertAlmostEqual(
-            _synoname_word_approximation(
+            Synoname._synoname_word_approximation(
                 'lou ii', 'louis', 'louis iv', 'ste.', {}
             ),
             0,
         )
         self.assertEqual(
-            _synoname_word_approximation(
+            Synoname._synoname_word_approximation(
                 'ren',
                 'loren ste.',
                 '',
