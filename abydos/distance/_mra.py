@@ -28,17 +28,18 @@ from six.moves import range
 
 from ..phonetic import mra
 
+from ._distance import Distance
 
 __all__ = ['MRA', 'dist_mra', 'mra_compare', 'sim_mra']
 
 
-class MRA(object):
+class MRA(Distance):
     """Match Rating Algorithm comparison rating.
 
     The Western Airlines Surname Match Rating Algorithm comparison rating, as
     presented on page 18 of :cite:`Moore:1977`.
     """
-    def mra_compare(self, src, tar):
+    def dist_abs(self, src, tar):
         """Return the MRA comparison rating of two strings.
 
         :param str src: source string for comparison
@@ -47,13 +48,13 @@ class MRA(object):
         :rtype: int
 
         >>> cmp = MRA()
-        >>> cmp.mra_compare('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         5
-        >>> cmp.mra_compare('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         6
-        >>> cmp.mra_compare('aluminum', 'Catalan')
+        >>> cmp.dist_abs('aluminum', 'Catalan')
         0
-        >>> cmp.mra_compare('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         5
         """
         if src == tar:
@@ -118,33 +119,11 @@ class MRA(object):
         """
         return mra_compare(src, tar) / 6
 
-    def dist(self, src, tar):
-        """Return the normalized MRA distance between two strings.
-
-        MRA distance is the complement of MRA similarity:
-        :math:`dist_{MRA} = 1 - sim_{MRA}`.
-
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
-        :returns: normalized MRA distance
-        :rtype: float
-
-        >>> cmp.dist('cat', 'hat')
-        0.16666666666666663
-        >>> cmp.dist('Niall', 'Neil')
-        0.0
-        >>> cmp.dist('aluminum', 'Catalan')
-        1.0
-        >>> cmp.dist('ATCG', 'TAGC')
-        0.16666666666666663
-        """
-        return 1.0 - sim_mra(src, tar)
-
 
 def mra_compare(src, tar):
     """Return the MRA comparison rating of two strings.
 
-    This is a wrapper for :py:meth:`MRA.mra_compare`.
+    This is a wrapper for :py:meth:`MRA.dist_abs`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -160,7 +139,7 @@ def mra_compare(src, tar):
     >>> mra_compare('ATCG', 'TAGC')
     5
     """
-    return MRA().mra_compare(src, tar)
+    return MRA().dist_abs(src, tar)
 
 
 def sim_mra(src, tar):

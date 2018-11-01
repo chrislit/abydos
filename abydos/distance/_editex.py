@@ -31,10 +31,12 @@ from numpy import zeros as np_zeros
 from six import text_type
 from six.moves import range
 
+from ._distance import Distance
+
 __all__ = ['Editex', 'dist_editex', 'editex', 'sim_editex']
 
 
-class Editex(object):
+class Editex(Distance):
     """Editex.
 
     As described on pages 3 & 4 of :cite:`Zobel:1996`.
@@ -53,7 +55,7 @@ class Editex(object):
 
     _all_letters = frozenset('ABCDEFGIJKLMNOPQRSTUVXYZ')
 
-    def editex(self, src, tar, cost=(0, 1, 2), local=False):
+    def dist_abs(self, src, tar, cost=(0, 1, 2), local=False):
         """Return the Editex distance between two strings.
 
         :param str src: source string for comparison
@@ -66,13 +68,13 @@ class Editex(object):
         :rtype: int
 
         >>> cmp = Editex()
-        >>> cmp.editex('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         2
-        >>> cmp.editex('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         2
-        >>> cmp.editex('aluminum', 'Catalan')
+        >>> cmp.dist_abs('aluminum', 'Catalan')
         12
-        >>> cmp.editex('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         6
         """
         match_cost, group_cost, mismatch_cost = cost
@@ -161,36 +163,9 @@ class Editex(object):
         if src == tar:
             return 0.0
         mismatch_cost = cost[2]
-        return self.editex(src, tar, cost, local) / (
+        return self.dist_abs(src, tar, cost, local) / (
             max(len(src) * mismatch_cost, len(tar) * mismatch_cost)
         )
-
-    def sim(self, src, tar, cost=(0, 1, 2), local=False):
-        """Return the normalized Editex similarity of two strings.
-
-        The Editex similarity is the complement of Editex distance:
-        :math:`sim_{Editex} = 1 - dist_{Editex}`.
-
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
-        :param tuple cost: a 3-tuple representing the cost of the four possible
-            edits:
-            match, same-group, and mismatch respectively (by default: (0, 1, 2))
-        :param bool local: if True, the local variant of Editex is used
-        :returns: normalized Editex similarity
-        :rtype: float
-
-        >>> cmp = Editex()
-        >>> round(cmp.sim('cat', 'hat'), 12)
-        0.666666666667
-        >>> round(cmp.sim('Niall', 'Neil'), 12)
-        0.8
-        >>> cmp.sim('aluminum', 'Catalan')
-        0.25
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.25
-        """
-        return 1.0-self.dist(src, tar, cost, local)
 
 
 def editex(src, tar, cost=(0, 1, 2), local=False):
@@ -214,7 +189,7 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
     >>> editex('ATCG', 'TAGC')
     6
     """
-    return Editex().editex(src, tar, cost, local)
+    return Editex().dist_abs(src, tar, cost, local)
 
 
 def dist_editex(src, tar, cost=(0, 1, 2), local=False):

@@ -30,6 +30,7 @@ from ._sequence import sim_ratcliff_obershelp
 
 # noinspection PyProtectedMember
 from ..fingerprint._synoname import _synoname_special_table, synoname_toolcode
+from ._distance import Distance
 
 __all__ = ['synoname']
 

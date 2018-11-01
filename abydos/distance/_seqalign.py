@@ -35,12 +35,13 @@ from numpy import zeros as np_zeros
 from six.moves import range
 
 from ._basic import sim_ident
+from ._distance import Distance
 
 __all__ = ['Gotoh', 'NeedlemanWunsch', 'SmithWaterman', 'gotoh',
            'needleman_wunsch', 'smith_waterman']
 
 
-class NeedlemanWunsch(object):
+class NeedlemanWunsch(Distance):
     """Needleman-Wunsch score.
 
     The Needleman-Wunsch score :cite:`Needleman:1970` is a standard edit
@@ -115,13 +116,13 @@ class NeedlemanWunsch(object):
         :rtype: float
 
         >>> cmp = NeedlemanWunsch()
-        >>> cmp.needleman_wunsch('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         2.0
-        >>> cmp.needleman_wunsch('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         1.0
-        >>> cmp.needleman_wunsch('aluminum', 'Catalan')
+        >>> cmp.dist_abs('aluminum', 'Catalan')
         -1.0
-        >>> cmp.needleman_wunsch('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         0.0
         """
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
@@ -182,13 +183,14 @@ class SmithWaterman(NeedlemanWunsch):
         :returns: Smith-Waterman score
         :rtype: float
 
-        >>> smith_waterman('cat', 'hat')
+        >>> cmp = SmithWaterman()
+        >>> cmp.dist_abs('cat', 'hat')
         2.0
-        >>> smith_waterman('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         1.0
-        >>> smith_waterman('aluminum', 'Catalan')
+        >>> cmp.dist_abs('aluminum', 'Catalan')
         0.0
-        >>> smith_waterman('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         1.0
         """
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
@@ -250,13 +252,14 @@ class Gotoh(NeedlemanWunsch):
         :returns: Gotoh score
         :rtype: float
 
-        >>> gotoh('cat', 'hat')
+        >>> cmp = Gotoh()
+        >>> cmp.dist_abs('cat', 'hat')
         2.0
-        >>> gotoh('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         1.0
-        >>> round(gotoh('aluminum', 'Catalan'), 12)
+        >>> round(cmp.dist_abs('aluminum', 'Catalan'), 12)
         -0.4
-        >>> gotoh('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         2.0
         """
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
