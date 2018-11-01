@@ -40,6 +40,7 @@ class BWT(object):
     terminator = '\0'
 
     def __init__(self, terminator=None):
+        """Initialize BWT object with terminator symbol."""
         if terminator is not None:
             self.terminator = terminator
 
@@ -47,8 +48,8 @@ class BWT(object):
         r"""Return the Burrows-Wheeler transformed form of a word.
 
         :param str word: the word to transform using BWT
-        :param str terminator: a character to add to word to signal the end of the
-            string
+        :param str terminator: a character to add to word to signal the end of
+            the string
         :returns: word encoded by BWT
         :rtype: str
 
@@ -82,8 +83,8 @@ class BWT(object):
         r"""Return a word decoded from BWT form.
 
         :param str code: the word to transform from BWT form
-        :param str terminator: a character added to word to signal the end of the
-            string
+        :param str terminator: a character added to word to signal the end of
+            the string
         :returns: word decoded by BWT
         :rtype: str
 

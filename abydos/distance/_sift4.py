@@ -50,7 +50,8 @@ class Sift4(Distance):
 
         :param str src: source string for comparison
         :param str tar: target string for comparison
-        :param max_offset: the number of characters to search for matching letters
+        :param max_offset: the number of characters to search for matching
+            letters
         :param max_distance: the distance at which to stop and exit
         :returns: the Sift4 distance according to the common formula
         :rtype: int
@@ -152,7 +153,8 @@ class Sift4(Distance):
 
         :param str src: source string for comparison
         :param str tar: target string for comparison
-        :param max_offset: the number of characters to search for matching letters
+        :param max_offset: the number of characters to search for matching
+            letters
         :param max_distance: the distance at which to stop and exit
         :returns: the normalized Sift4 distance
         :rtype: float
@@ -258,7 +260,8 @@ class Sift4Simplest(Sift4):
 
         :param str src: source string for comparison
         :param str tar: target string for comparison
-        :param max_offset: the number of characters to search for matching letters
+        :param max_offset: the number of characters to search for matching
+            letters
         :returns: the Sift4 distance according to the simplest formula
         :rtype: int
 

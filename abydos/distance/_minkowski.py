@@ -30,9 +30,8 @@ from __future__ import division, unicode_literals
 
 from numbers import Number
 
-from ._util import _get_qgrams
-
 from ._distance import Distance
+from ._util import _get_qgrams
 
 __all__ = [
     'Chebyshev',
@@ -64,8 +63,10 @@ class Minkowski(Distance):
     ):
         """Return the Minkowski distance (:math:`L^p-norm`) of two strings.
 
-        :param str src: source string (or QGrams/Counter objects) for comparison
-        :param str tar: target string (or QGrams/Counter objects) for comparison
+        :param str src: source string (or QGrams/Counter objects) for
+            comparison
+        :param str tar: target string (or QGrams/Counter objects) for
+            comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
         :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
         :param bool normalized: normalizes to [0, 1] if True
@@ -115,8 +116,10 @@ class Minkowski(Distance):
         The normalized Minkowski distance :cite:`Minkowski:1910` is a distance
         metric in :math:`L^p-space`, normalized to [0, 1].
 
-        :param str src: source string (or QGrams/Counter objects) for comparison
-        :param str tar: target string (or QGrams/Counter objects) for comparison
+        :param str src: source string (or QGrams/Counter objects) for
+            comparison
+        :param str tar: target string (or QGrams/Counter objects) for
+            comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
         :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
         :param collection or int alphabet: the values or size of the alphabet
@@ -222,8 +225,10 @@ class Manhattan(Minkowski):
     def dist_abs(self, src, tar, qval=2, normalized=False, alphabet=None):
         """Return the Manhattan distance between two strings.
 
-        :param str src: source string (or QGrams/Counter objects) for comparison
-        :param str tar: target string (or QGrams/Counter objects) for comparison
+        :param str src: source string (or QGrams/Counter objects) for
+            comparison
+        :param str tar: target string (or QGrams/Counter objects) for
+            comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
         :param normalized: normalizes to [0, 1] if True
         :param collection or int alphabet: the values or size of the alphabet
@@ -252,8 +257,10 @@ class Manhattan(Minkowski):
 
         This is identical to Canberra distance.
 
-        :param str src: source string (or QGrams/Counter objects) for comparison
-        :param str tar: target string (or QGrams/Counter objects) for comparison
+        :param str src: source string (or QGrams/Counter objects) for
+            comparison
+        :param str tar: target string (or QGrams/Counter objects) for
+            comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
         :param collection or int alphabet: the values or size of the alphabet
         :returns: the normalized Manhattan distance
@@ -355,8 +362,10 @@ class Euclidean(Minkowski):
     def dist_abs(self, src, tar, qval=2, normalized=False, alphabet=None):
         """Return the Euclidean distance between two strings.
 
-        :param str src: source string (or QGrams/Counter objects) for comparison
-        :param str tar: target string (or QGrams/Counter objects) for comparison
+        :param str src: source string (or QGrams/Counter objects) for
+            comparison
+        :param str tar: target string (or QGrams/Counter objects) for
+            comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
         :param normalized: normalizes to [0, 1] if True
         :param collection or int alphabet: the values or size of the alphabet
@@ -383,8 +392,10 @@ class Euclidean(Minkowski):
         The normalized Euclidean distance is a distance
         metric in :math:`L^2-space`, normalized to [0, 1].
 
-        :param str src: source string (or QGrams/Counter objects) for comparison
-        :param str tar: target string (or QGrams/Counter objects) for comparison
+        :param str src: source string (or QGrams/Counter objects) for
+            comparison
+        :param str tar: target string (or QGrams/Counter objects) for
+            comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
         :param collection or int alphabet: the values or size of the alphabet
         :returns: the normalized Euclidean distance
@@ -477,7 +488,7 @@ def sim_euclidean(src, tar, qval=2, alphabet=None):
 
 
 class Chebyshev(Minkowski):
-    """Chebyshev distance.
+    r"""Chebyshev distance.
 
     Euclidean distance is the chessboard distance,
     equivalent to Minkowski distance in :math:`L^\infty-space`.
@@ -486,8 +497,10 @@ class Chebyshev(Minkowski):
     def dist_abs(self, src, tar, qval=2, normalized=False, alphabet=None):
         r"""Return the Chebyshev distance between two strings.
 
-        :param str src: source string (or QGrams/Counter objects) for comparison
-        :param str tar: target string (or QGrams/Counter objects) for comparison
+        :param str src: source string (or QGrams/Counter objects) for
+            comparison
+        :param str tar: target string (or QGrams/Counter objects) for
+            comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
         :param normalized: normalizes to [0, 1] if True
         :param collection or int alphabet: the values or size of the alphabet

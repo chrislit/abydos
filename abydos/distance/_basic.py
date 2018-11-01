@@ -113,8 +113,8 @@ class Length(Distance):
     def sim(self, src, tar):
         """Return the length similarity of two strings.
 
-        Length similarity is the ratio of the length of the shorter string to the
-        longer.
+        Length similarity is the ratio of the length of the shorter string to
+        the longer.
 
         :param str src: source string for comparison
         :param str tar: target string for comparison

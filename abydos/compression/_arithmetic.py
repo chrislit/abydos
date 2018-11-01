@@ -45,6 +45,7 @@ class Arithmetic(object):
     _probs = {}
 
     def __init__(self, text=None):
+        """Initialize arithmetic coder object."""
         if text is not None:
             self.train(text)
 

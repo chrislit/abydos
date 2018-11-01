@@ -47,7 +47,7 @@ __all__ = [
 
 
 class LCSseq(Distance):
-    """Longest common subsequence
+    """Longest common subsequence.
 
     Longest common subsequence (LCSseq) is the longest subsequence of
     characters that two strings have in common.
@@ -201,9 +201,7 @@ def dist_lcsseq(src, tar):
 
 
 class LCSstr(Distance):
-    """Longest common substring.
-
-    """
+    """Longest common substring."""
 
     def lcsstr(self, src, tar):
         """Return the longest common substring of two strings.
@@ -404,8 +402,10 @@ class RatcliffObershelp(Distance):
         def _sstr_matches(src, tar):
             """Return the sum of substring match lengths.
 
-            This follows the Ratcliff-Obershelp algorithm :cite:`Ratcliff:1988`:
-                 1. Find the length of the longest common substring in src & tar.
+            This follows the Ratcliff-Obershelp algorithm
+            :cite:`Ratcliff:1988`:
+                 1. Find the length of the longest common substring in src &
+                     tar.
                  2. Recurse on the strings to the left & right of each this
                      substring in src & tar.
                  3. Base case is a 0 length common substring, in which case,

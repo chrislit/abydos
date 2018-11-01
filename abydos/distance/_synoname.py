@@ -30,7 +30,6 @@ from ._sequence import sim_ratcliff_obershelp
 
 # noinspection PyProtectedMember
 from ..fingerprint._synoname import _synoname_special_table, synoname_toolcode
-from ._distance import Distance
 
 __all__ = ['Synoname', 'synoname']
 
@@ -292,11 +291,11 @@ class Synoname(object):
             int value
         :param float word_approx_min: the minimum word approximation value to
             signal a 'word_approx' match
-        :param float char_approx_min: the minimum character approximation value to
-            signal a 'char_approx' match
+        :param float char_approx_min: the minimum character approximation value
+            to signal a 'char_approx' match
         :param int or Iterable tests: either an integer indicating tests to
-            perform or a list of test names to perform (defaults to performing all
-            tests)
+            perform or a list of test names to perform (defaults to performing
+            all tests)
         :param bool ret_name: if True, returns the match name rather than its
             integer equivalent
         :returns: Synoname value

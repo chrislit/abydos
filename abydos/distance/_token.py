@@ -102,8 +102,10 @@ class Tversky(Distance):
     def sim(self, src, tar, qval=2, alpha=1, beta=1, bias=None):
         """Return the Tversky index of two strings.
 
-        :param str src: source string (or QGrams/Counter objects) for comparison
-        :param str tar: target string (or QGrams/Counter objects) for comparison
+        :param str src: source string (or QGrams/Counter objects) for
+            comparison
+        :param str tar: target string (or QGrams/Counter objects) for
+            comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
         :param float alpha: Tversky index parameter as described above
         :param float beta: Tversky index parameter as described above
@@ -158,7 +160,7 @@ class Tversky(Distance):
 
 
 def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
-    r"""Return the Tversky index of two strings.
+    """Return the Tversky index of two strings.
 
     This is a wrapper for :py:meth:`Tversky.sim`.
 
@@ -211,7 +213,7 @@ def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
 
 
 class Dice(Tversky):
-    """Sørensen–Dice coefficient.
+    r"""Sørensen–Dice coefficient.
 
     For two sets X and Y, the Sørensen–Dice coefficient
     :cite:`Dice:1945,Sorensen:1948` is
@@ -223,10 +225,12 @@ class Dice(Tversky):
     """
 
     def sim(self, src, tar, qval=2):
-        r"""Return the Sørensen–Dice coefficient of two strings.
+        """Return the Sørensen–Dice coefficient of two strings.
 
-        :param str src: source string (or QGrams/Counter objects) for comparison
-        :param str tar: target string (or QGrams/Counter objects) for comparison
+        :param str src: source string (or QGrams/Counter objects) for
+            comparison
+        :param str tar: target string (or QGrams/Counter objects) for
+            comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram
             version
         :returns: Sørensen–Dice similarity
@@ -246,7 +250,7 @@ class Dice(Tversky):
 
 
 def sim_dice(src, tar, qval=2):
-    r"""Return the Sørensen–Dice coefficient of two strings.
+    """Return the Sørensen–Dice coefficient of two strings.
 
     This is a wrapper for :py:meth:`Dice.sim`.
 
@@ -294,7 +298,7 @@ def dist_dice(src, tar, qval=2):
 
 
 class Jaccard(Tversky):
-    """Jaccard similarity.
+    r"""Jaccard similarity.
 
     For two sets X and Y, the Jaccard similarity coefficient
     :cite:`Jaccard:1901` is :math:`sim_{jaccard}(X, Y) =
@@ -309,8 +313,10 @@ class Jaccard(Tversky):
     def sim(self, src, tar, qval=2):
         r"""Return the Jaccard similarity of two strings.
 
-        :param str src: source string (or QGrams/Counter objects) for comparison
-        :param str tar: target string (or QGrams/Counter objects) for comparison
+        :param str src: source string (or QGrams/Counter objects) for
+            comparison
+        :param str tar: target string (or QGrams/Counter objects) for
+            comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram
             version
         :returns: Jaccard similarity
@@ -331,10 +337,13 @@ class Jaccard(Tversky):
     def tanimoto_coeff(self, src, tar, qval=2):
         """Return the Tanimoto distance between two strings.
 
-        Tanimoto distance :cite:`Tanimoto:1958` is :math:`-log_{2}sim_{Tanimoto}`.
+        Tanimoto distance :cite:`Tanimoto:1958` is
+        :math:`-log_{2}sim_{Tanimoto}`.
 
-        :param str src: source string (or QGrams/Counter objects) for comparison
-        :param str tar: target string (or QGrams/Counter objects) for comparison
+        :param str src: source string (or QGrams/Counter objects) for
+            comparison
+        :param str tar: target string (or QGrams/Counter objects) for
+            comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
         :returns: Tanimoto distance
         :rtype: float
@@ -357,7 +366,7 @@ class Jaccard(Tversky):
 
 
 def sim_jaccard(src, tar, qval=2):
-    r"""Return the Jaccard similarity of two strings.
+    """Return the Jaccard similarity of two strings.
 
     This is a wrapper for :py:meth:`Jaccard.sim`.
 
@@ -406,7 +415,8 @@ def dist_jaccard(src, tar, qval=2):
 def tanimoto(src, tar, qval=2):
     """Return the Tanimoto coefficient of two strings.
 
-    The Tanimoto coefficient :cite:`Tanimoto:1958` is :math:`-log_{2}sim_{Tanimoto}`.
+    The Tanimoto coefficient :cite:`Tanimoto:1958` is
+    :math:`-log_{2}sim_{Tanimoto}`.
 
     :param str src: source string (or QGrams/Counter objects) for comparison
     :param str tar: target string (or QGrams/Counter objects) for comparison
@@ -427,7 +437,7 @@ def tanimoto(src, tar, qval=2):
 
 
 class Overlap(Distance):
-    """Overlap coefficient.
+    r"""Overlap coefficient.
 
     For two sets X and Y, the overlap coefficient
     :cite:`Szymkiewicz:1934,Simpson:1949`, also called the
@@ -438,8 +448,10 @@ class Overlap(Distance):
     def sim(self, src, tar, qval=2):
         r"""Return the overlap coefficient of two strings.
 
-        :param str src: source string (or QGrams/Counter objects) for comparison
-        :param str tar: target string (or QGrams/Counter objects) for comparison
+        :param str src: source string (or QGrams/Counter objects) for
+            comparison
+        :param str tar: target string (or QGrams/Counter objects) for
+            comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
         :returns: overlap similarity
         :rtype: float
@@ -514,7 +526,7 @@ def dist_overlap(src, tar, qval=2):
 
 
 class Cosine(Distance):
-    """Cosine similarity.
+    r"""Cosine similarity.
 
     For two sets X and Y, the cosine similarity, Otsuka-Ochiai coefficient, or
     Ochiai coefficient :cite:`Otsuka:1936,Ochiai:1957` is:
@@ -524,8 +536,10 @@ class Cosine(Distance):
     def sim(self, src, tar, qval=2):
         r"""Return the cosine similarity of two strings.
 
-        :param str src: source string (or QGrams/Counter objects) for comparison
-        :param str tar: target string (or QGrams/Counter objects) for comparison
+        :param str src: source string (or QGrams/Counter objects) for
+            comparison
+        :param str tar: target string (or QGrams/Counter objects) for
+            comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
         :returns: cosine similarity
         :rtype: float
@@ -599,7 +613,7 @@ def dist_cosine(src, tar, qval=2):
 
 
 class Bag(Distance):
-    """Bag distance
+    """Bag distance.
 
     Bag distance is proposed in :cite:`Bartolini:2002`. It is defined as:
     :math:`max(|multiset(src)-multiset(tar)|, |multiset(tar)-multiset(src)|)`.
