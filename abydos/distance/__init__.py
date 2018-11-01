@@ -152,9 +152,9 @@ from ._minkowski import (
 from ._mra import MRA, dist_mra, mra_compare, sim_mra
 from ._seqalign import Gotoh, NeedlemanWunsch, SmithWaterman, gotoh, needleman_wunsch, smith_waterman
 from ._sequence import (
-    # LCSseq,
-    # LCSstr,
-    # RatcliffObershelp,
+    LCSseq,
+    LCSstr,
+    RatcliffObershelp,
     dist_lcsseq,
     dist_lcsstr,
     dist_ratcliff_obershelp,
@@ -165,8 +165,8 @@ from ._sequence import (
     sim_ratcliff_obershelp,
 )
 from ._sift4 import (
-    # Sift4Common,
-    # Sift4Simplest,
+    Sift4Common,
+    Sift4Simplest,
     dist_sift4,
     sift4_common,
     sift4_simplest,

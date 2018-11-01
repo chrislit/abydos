@@ -32,6 +32,9 @@ from six.moves import range
 from ._distance import Distance
 
 __all__ = [
+    'LCSseq',
+    'LCSstr',
+    'RatcliffObershelp',
     'dist_lcsseq',
     'dist_lcsstr',
     'dist_ratcliff_obershelp',
@@ -43,18 +46,97 @@ __all__ = [
 ]
 
 
-def lcsseq(src, tar):
-    """Return the longest common subsequence of two strings.
+class LCSseq(Distance):
+    """Longest common subsequence
 
     Longest common subsequence (LCSseq) is the longest subsequence of
     characters that two strings have in common.
+    """
+    def lcsseq(self, src, tar):
+        """Return the longest common subsequence of two strings.
 
-    Based on the dynamic programming algorithm from
-    http://rosettacode.org/wiki/Longest_common_subsequence#Dynamic_Programming_6
-    :cite:`rosettacode:2018b`. This is licensed GFDL 1.2.
+        Based on the dynamic programming algorithm from
+        http://rosettacode.org/wiki/Longest_common_subsequence#Dynamic_Programming_6
+        :cite:`rosettacode:2018b`. This is licensed GFDL 1.2.
 
-    Modifications include:
-        conversion to a numpy array in place of a list of lists
+        Modifications include:
+            conversion to a numpy array in place of a list of lists
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: the longest common subsequence
+        :rtype: str
+
+        >>> sseq = LCSseq()
+        >>> sseq.lcsseq('cat', 'hat')
+        'at'
+        >>> sseq.lcsseq('Niall', 'Neil')
+        'Nil'
+        >>> sseq.lcsseq('aluminum', 'Catalan')
+        'aln'
+        >>> sseq.lcsseq('ATCG', 'TAGC')
+        'AC'
+        """
+        lengths = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
+
+        # row 0 and column 0 are initialized to 0 already
+        for i, src_char in enumerate(src):
+            for j, tar_char in enumerate(tar):
+                if src_char == tar_char:
+                    lengths[i + 1, j + 1] = lengths[i, j] + 1
+                else:
+                    lengths[i + 1, j + 1] = max(
+                        lengths[i + 1, j], lengths[i, j + 1]
+                    )
+
+        # read the substring out from the matrix
+        result = ''
+        i, j = len(src), len(tar)
+        while i != 0 and j != 0:
+            if lengths[i, j] == lengths[i - 1, j]:
+                i -= 1
+            elif lengths[i, j] == lengths[i, j - 1]:
+                j -= 1
+            else:
+                result = src[i - 1] + result
+                i -= 1
+                j -= 1
+        return result
+
+    def sim(self, src, tar):
+        r"""Return the longest common subsequence similarity of two strings.
+
+        Longest common subsequence similarity (:math:`sim_{LCSseq}`).
+
+        This employs the LCSseq function to derive a similarity metric:
+        :math:`sim_{LCSseq}(s,t) = \\frac{|LCSseq(s,t)|}{max(|s|, |t|)}`
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: LCSseq similarity
+        :rtype: float
+
+        >>> sseq = LCSseq()
+        >>> sseq.sim('cat', 'hat')
+        0.6666666666666666
+        >>> sseq.sim('Niall', 'Neil')
+        0.6
+        >>> sseq.sim('aluminum', 'Catalan')
+        0.375
+        >>> sseq.sim('ATCG', 'TAGC')
+        0.5
+        """
+        if src == tar:
+            return 1.0
+        elif not src or not tar:
+            return 0.0
+        return len(self.lcsseq(src, tar)) / max(len(src), len(tar))
+
+
+def lcsseq(src, tar):
+    """Return the longest common subsequence of two strings.
+
+    This is a wrapper for :py:meth:`LCSseq.lcsseq`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -70,40 +152,13 @@ def lcsseq(src, tar):
     >>> lcsseq('ATCG', 'TAGC')
     'AC'
     """
-    lengths = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
-
-    # row 0 and column 0 are initialized to 0 already
-    for i, src_char in enumerate(src):
-        for j, tar_char in enumerate(tar):
-            if src_char == tar_char:
-                lengths[i + 1, j + 1] = lengths[i, j] + 1
-            else:
-                lengths[i + 1, j + 1] = max(
-                    lengths[i + 1, j], lengths[i, j + 1]
-                )
-
-    # read the substring out from the matrix
-    result = ''
-    i, j = len(src), len(tar)
-    while i != 0 and j != 0:
-        if lengths[i, j] == lengths[i - 1, j]:
-            i -= 1
-        elif lengths[i, j] == lengths[i, j - 1]:
-            j -= 1
-        else:
-            result = src[i - 1] + result
-            i -= 1
-            j -= 1
-    return result
+    return LCSseq().lcsseq(src, tar)
 
 
 def sim_lcsseq(src, tar):
     r"""Return the longest common subsequence similarity of two strings.
 
-    Longest common subsequence similarity (:math:`sim_{LCSseq}`).
-
-    This employs the LCSseq function to derive a similarity metric:
-    :math:`sim_{LCSseq}(s,t) = \\frac{|LCSseq(s,t)|}{max(|s|, |t|)}`
+    This is a wrapper for :py:meth:`LCSseq.sim`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -119,20 +174,13 @@ def sim_lcsseq(src, tar):
     >>> sim_lcsseq('ATCG', 'TAGC')
     0.5
     """
-    if src == tar:
-        return 1.0
-    elif not src or not tar:
-        return 0.0
-    return len(lcsseq(src, tar)) / max(len(src), len(tar))
+    return LCSseq().sim(src, tar)
 
 
 def dist_lcsseq(src, tar):
     """Return the longest common subsequence distance between two strings.
 
-    Longest common subsequence distance (:math:`dist_{LCSseq}`).
-
-    This employs the LCSseq function to derive a similarity metric:
-    :math:`dist_{LCSseq}(s,t) = 1 - sim_{LCSseq}(s,t)`
+    This is a wrapper for :py:meth:`LCSseq.dist`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -148,23 +196,89 @@ def dist_lcsseq(src, tar):
     >>> dist_lcsseq('ATCG', 'TAGC')
     0.5
     """
-    return 1 - sim_lcsseq(src, tar)
+    return LCSseq().dist(src, tar)
+
+
+class LCSstr(Distance):
+    """Longest common substring.
+
+    """
+    def lcsstr(self, src, tar):
+        """Return the longest common substring of two strings.
+
+        Longest common substring (LCSstr).
+
+        Based on the code from
+        https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Longest_common_substring#Python
+        :cite:`Wikibooks:2018`.
+        This is licensed Creative Commons: Attribution-ShareAlike 3.0.
+
+        Modifications include:
+
+            - conversion to a numpy array in place of a list of lists
+            - conversion to Python 2/3-safe range from xrange via six
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: the longest common substring
+        :rtype: str
+
+        >>> sstr = LCSstr()
+        >>> sstr.lcsstr('cat', 'hat')
+        'at'
+        >>> sstr.lcsstr('Niall', 'Neil')
+        'N'
+        >>> sstr.lcsstr('aluminum', 'Catalan')
+        'al'
+        >>> sstr.lcsstr('ATCG', 'TAGC')
+        'A'
+        """
+        lengths = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
+        longest, i_longest = 0, 0
+        for i in range(1, len(src) + 1):
+            for j in range(1, len(tar) + 1):
+                if src[i - 1] == tar[j - 1]:
+                    lengths[i, j] = lengths[i - 1, j - 1] + 1
+                    if lengths[i, j] > longest:
+                        longest = lengths[i, j]
+                        i_longest = i
+                else:
+                    lengths[i, j] = 0
+        return src[i_longest - longest : i_longest]
+
+    def sim(self, src, tar):
+        r"""Return the longest common substring similarity of two strings.
+
+        Longest common substring similarity (:math:`sim_{LCSstr}`).
+
+        This employs the LCS function to derive a similarity metric:
+        :math:`sim_{LCSstr}(s,t) = \\frac{|LCSstr(s,t)|}{max(|s|, |t|)}`
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: LCSstr similarity
+        :rtype: float
+
+        >>> sim_lcsstr('cat', 'hat')
+        0.6666666666666666
+        >>> sim_lcsstr('Niall', 'Neil')
+        0.2
+        >>> sim_lcsstr('aluminum', 'Catalan')
+        0.25
+        >>> sim_lcsstr('ATCG', 'TAGC')
+        0.25
+        """
+        if src == tar:
+            return 1.0
+        elif not src or not tar:
+            return 0.0
+        return len(self.lcsstr(src, tar)) / max(len(src), len(tar))
 
 
 def lcsstr(src, tar):
     """Return the longest common substring of two strings.
 
-    Longest common substring (LCSstr).
-
-    Based on the code from
-    https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Longest_common_substring#Python
-    :cite:`Wikibooks:2018`.
-    This is licensed Creative Commons: Attribution-ShareAlike 3.0.
-
-    Modifications include:
-
-        - conversion to a numpy array in place of a list of lists
-        - conversion to Python 2/3-safe range from xrange via six
+    This is a wrapper for :py:meth:`LCSstr.lcsstr`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -180,27 +294,13 @@ def lcsstr(src, tar):
     >>> lcsstr('ATCG', 'TAGC')
     'A'
     """
-    lengths = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
-    longest, i_longest = 0, 0
-    for i in range(1, len(src) + 1):
-        for j in range(1, len(tar) + 1):
-            if src[i - 1] == tar[j - 1]:
-                lengths[i, j] = lengths[i - 1, j - 1] + 1
-                if lengths[i, j] > longest:
-                    longest = lengths[i, j]
-                    i_longest = i
-            else:
-                lengths[i, j] = 0
-    return src[i_longest - longest : i_longest]
+    return LCSstr().lcsstr(src, tar)
 
 
 def sim_lcsstr(src, tar):
-    r"""Return the longest common substring similarity of two strings.
+    """Return the longest common substring similarity of two strings.
 
-    Longest common substring similarity (:math:`sim_{LCSstr}`).
-
-    This employs the LCS function to derive a similarity metric:
-    :math:`sim_{LCSstr}(s,t) = \\frac{|LCSstr(s,t)|}{max(|s|, |t|)}`
+    This is a wrapper for :py:meth:`LCSstr.sim`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -216,20 +316,13 @@ def sim_lcsstr(src, tar):
     >>> sim_lcsstr('ATCG', 'TAGC')
     0.25
     """
-    if src == tar:
-        return 1.0
-    elif not src or not tar:
-        return 0.0
-    return len(lcsstr(src, tar)) / max(len(src), len(tar))
+    return LCSstr().sim(src, tar)
 
 
 def dist_lcsstr(src, tar):
     """Return the longest common substring distance between two strings.
 
-    Longest common substring distance (:math:`dist_{LCSstr}`).
-
-    This employs the LCS function to derive a similarity metric:
-    :math:`dist_{LCSstr}(s,t) = 1 - sim_{LCSstr}(s,t)`
+    This is a wrapper for :py:meth:`LCSstr.dist`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -245,11 +338,11 @@ def dist_lcsstr(src, tar):
     >>> dist_lcsstr('ATCG', 'TAGC')
     0.75
     """
-    return 1 - sim_lcsstr(src, tar)
+    return LCSstr().dist(src, tar)
 
 
-def sim_ratcliff_obershelp(src, tar):
-    """Return the Ratcliff-Obershelp similarity of two strings.
+class RatcliffObershelp(Distance):
+    """Ratcliff-Obershelp similarity.
 
     This follows the Ratcliff-Obershelp algorithm :cite:`Ratcliff:1988` to
     derive a similarity measure:
@@ -264,6 +357,80 @@ def sim_ratcliff_obershelp(src, tar):
 
     Cf.
     http://www.drdobbs.com/database/pattern-matching-the-gestalt-approach/184407970
+    """
+    def sim(self, src, tar):
+        """Return the Ratcliff-Obershelp similarity of two strings.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :returns: Ratcliff-Obershelp similarity
+        :rtype: float
+
+        >>> cmp = RatcliffObershelp()
+        >>> round(cmp.sim('cat', 'hat'), 12)
+        0.666666666667
+        >>> round(cmp.sim('Niall', 'Neil'), 12)
+        0.666666666667
+        >>> round(cmp.sim('aluminum', 'Catalan'), 12)
+        0.4
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.5
+        """
+
+        def _lcsstr_stl(src, tar):
+            """Return start positions & length for Ratcliff-Obershelp.
+
+            Return the start position in the source string, start position in
+            the target string, and length of the longest common substring of
+            strings src and tar.
+            """
+            lengths = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
+            longest, src_longest, tar_longest = 0, 0, 0
+            for i in range(1, len(src) + 1):
+                for j in range(1, len(tar) + 1):
+                    if src[i - 1] == tar[j - 1]:
+                        lengths[i, j] = lengths[i - 1, j - 1] + 1
+                        if lengths[i, j] > longest:
+                            longest = lengths[i, j]
+                            src_longest = i
+                            tar_longest = j
+                    else:
+                        lengths[i, j] = 0
+            return src_longest - longest, tar_longest - longest, longest
+
+        def _sstr_matches(src, tar):
+            """Return the sum of substring match lengths.
+
+            This follows the Ratcliff-Obershelp algorithm :cite:`Ratcliff:1988`:
+                 1. Find the length of the longest common substring in src & tar.
+                 2. Recurse on the strings to the left & right of each this
+                     substring in src & tar.
+                 3. Base case is a 0 length common substring, in which case,
+                     return 0.
+                 4. Return the sum.
+            """
+            src_start, tar_start, length = _lcsstr_stl(src, tar)
+            if length == 0:
+                return 0
+            return (
+                _sstr_matches(src[:src_start], tar[:tar_start])
+                + length
+                + _sstr_matches(
+                    src[src_start + length :], tar[tar_start + length :]
+                )
+            )
+
+        if src == tar:
+            return 1.0
+        elif not src or not tar:
+            return 0.0
+        return 2 * _sstr_matches(src, tar) / (len(src) + len(tar))
+
+
+def sim_ratcliff_obershelp(src, tar):
+    """Return the Ratcliff-Obershelp similarity of two strings.
+
+    This is a wrapper for :py:meth:`RatcliffObershelp.sim`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -279,63 +446,13 @@ def sim_ratcliff_obershelp(src, tar):
     >>> sim_ratcliff_obershelp('ATCG', 'TAGC')
     0.5
     """
-
-    def _lcsstr_stl(src, tar):
-        """Return start positions & length for Ratcliff-Obershelp.
-
-        Return the start position in the source string, start position in
-        the target string, and length of the longest common substring of
-        strings src and tar.
-        """
-        lengths = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
-        longest, src_longest, tar_longest = 0, 0, 0
-        for i in range(1, len(src) + 1):
-            for j in range(1, len(tar) + 1):
-                if src[i - 1] == tar[j - 1]:
-                    lengths[i, j] = lengths[i - 1, j - 1] + 1
-                    if lengths[i, j] > longest:
-                        longest = lengths[i, j]
-                        src_longest = i
-                        tar_longest = j
-                else:
-                    lengths[i, j] = 0
-        return src_longest - longest, tar_longest - longest, longest
-
-    def _sstr_matches(src, tar):
-        """Return the sum of substring match lengths.
-
-        This follows the Ratcliff-Obershelp algorithm :cite:`Ratcliff:1988`:
-             1. Find the length of the longest common substring in src & tar.
-             2. Recurse on the strings to the left & right of each this
-                 substring in src & tar.
-             3. Base case is a 0 length common substring, in which case,
-                 return 0.
-             4. Return the sum.
-        """
-        src_start, tar_start, length = _lcsstr_stl(src, tar)
-        if length == 0:
-            return 0
-        return (
-            _sstr_matches(src[:src_start], tar[:tar_start])
-            + length
-            + _sstr_matches(
-                src[src_start + length :], tar[tar_start + length :]
-            )
-        )
-
-    if src == tar:
-        return 1.0
-    elif not src or not tar:
-        return 0.0
-    return 2 * _sstr_matches(src, tar) / (len(src) + len(tar))
+    return RatcliffObershelp().sim(src, tar)
 
 
 def dist_ratcliff_obershelp(src, tar):
     """Return the Ratcliff-Obershelp distance between two strings.
 
-    Ratcliff-Obsershelp distance the complement of Ratcliff-Obershelp
-    similarity:
-    :math:`dist_{Ratcliff-Obershelp} = 1 - sim_{Ratcliff-Obershelp}`.
+    This is a wrapper for :py:meth:`RatcliffObershelp.dist`.
 
     :param str src: source string for comparison
     :param str tar: target string for comparison
@@ -351,7 +468,7 @@ def dist_ratcliff_obershelp(src, tar):
     >>> dist_ratcliff_obershelp('ATCG', 'TAGC')
     0.5
     """
-    return 1 - sim_ratcliff_obershelp(src, tar)
+    return RatcliffObershelp().dist(src, tar)
 
 
 if __name__ == '__main__':
