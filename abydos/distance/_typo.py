@@ -30,6 +30,8 @@ from numpy import zeros as np_zeros
 
 from six.moves import range
 
+from ._distance import Distance
+
 __all__ = ['dist_typo', 'sim_typo', 'typo']
 
 

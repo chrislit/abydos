@@ -36,6 +36,7 @@ from __future__ import division, unicode_literals
 from collections import Counter
 from math import log, sqrt
 
+from ._distance import Distance
 from ._levenshtein import sim_levenshtein
 from ._util import _get_qgrams
 from ..tokenizer import QGrams

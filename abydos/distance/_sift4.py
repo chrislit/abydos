@@ -26,6 +26,7 @@ from __future__ import division, unicode_literals
 
 from six.moves import range
 
+from ._distance import Distance
 
 __all__ = ['dist_sift4', 'sift4_common', 'sift4_simplest', 'sim_sift4']
 

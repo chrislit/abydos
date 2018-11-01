@@ -29,15 +29,17 @@ from six.moves import range
 
 from ..phonetic import eudex
 
+from ._distance import Distance
+
 __all__ = ['Eudex', 'dist_eudex', 'eudex_hamming', 'sim_eudex']
 
 
-class Eudex(object):
+class Eudex(Distance):
     """Distance between the Eudex hashes of two terms.
 
     Cf. :cite:`Ticki:2016`.
     """
-    def eudex_hamming(
+    def dist_abs(
         self, src, tar, weights='exponential', max_length=8, normalized=False
     ):
         """Calculate the Hamming distance between the Eudex hashes of two terms.
@@ -63,41 +65,41 @@ class Eudex(object):
         :rtype: int
 
         >>> cmp = Eudex()
-        >>> cmp.eudex_hamming('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         128
-        >>> cmp.eudex_hamming('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         2
-        >>> cmp.eudex_hamming('Colin', 'Cuilen')
+        >>> cmp.dist_abs('Colin', 'Cuilen')
         10
-        >>> cmp.eudex_hamming('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         403
 
-        >>> cmp.eudex_hamming('cat', 'hat', weights='fibonacci')
+        >>> cmp.dist_abs('cat', 'hat', weights='fibonacci')
         34
-        >>> cmp.eudex_hamming('Niall', 'Neil', weights='fibonacci')
+        >>> cmp.dist_abs('Niall', 'Neil', weights='fibonacci')
         2
-        >>> cmp.eudex_hamming('Colin', 'Cuilen', weights='fibonacci')
+        >>> cmp.dist_abs('Colin', 'Cuilen', weights='fibonacci')
         7
-        >>> cmp.eudex_hamming('ATCG', 'TAGC', weights='fibonacci')
+        >>> cmp.dist_abs('ATCG', 'TAGC', weights='fibonacci')
         117
 
-        >>> cmp.eudex_hamming('cat', 'hat', weights=None)
+        >>> cmp.dist_abs('cat', 'hat', weights=None)
         1
-        >>> cmp.eudex_hamming('Niall', 'Neil', weights=None)
+        >>> cmp.dist_abs('Niall', 'Neil', weights=None)
         1
-        >>> cmp.eudex_hamming('Colin', 'Cuilen', weights=None)
+        >>> cmp.dist_abs('Colin', 'Cuilen', weights=None)
         2
-        >>> cmp.eudex_hamming('ATCG', 'TAGC', weights=None)
+        >>> cmp.dist_abs('ATCG', 'TAGC', weights=None)
         9
 
         >>> # Using the OEIS A000142:
-        >>> cmp.eudex_hamming('cat', 'hat', [1, 1, 2, 6, 24, 120, 720, 5040])
+        >>> cmp.dist_abs('cat', 'hat', [1, 1, 2, 6, 24, 120, 720, 5040])
         1
-        >>> cmp.eudex_hamming('Niall', 'Neil', [1, 1, 2, 6, 24, 120, 720, 5040])
+        >>> cmp.dist_abs('Niall', 'Neil', [1, 1, 2, 6, 24, 120, 720, 5040])
         720
-        >>> cmp.eudex_hamming('Colin', 'Cuilen', [1, 1, 2, 6, 24, 120, 720, 5040])
+        >>> cmp.dist_abs('Colin', 'Cuilen', [1, 1, 2, 6, 24, 120, 720, 5040])
         744
-        >>> cmp.eudex_hamming('ATCG', 'TAGC', [1, 1, 2, 6, 24, 120, 720, 5040])
+        >>> cmp.dist_abs('ATCG', 'TAGC', [1, 1, 2, 6, 24, 120, 720, 5040])
         6243
         """
 
@@ -189,33 +191,8 @@ class Eudex(object):
         >>> round(cmp.dist_eudex('ATCG', 'TAGC'), 12)
         0.197549019608
         """
-        return self.eudex_hamming(src, tar, weights, max_length, True)
+        return self.dist_abs(src, tar, weights, max_length, True)
 
-    def sim(self, src, tar, weights='exponential', max_length=8):
-        """Return normalized Hamming similarity between Eudex hashes of two terms.
-
-        Normalized Eudex similarity is the complement of normalized Eudex distance:
-        :math:`sim_{Eudex} = 1 - dist_{Eudex}`.
-
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
-        :param str, iterable, or generator function weights: the weights or weights
-            generator function
-        :param max_length: the number of characters to encode as a eudex hash
-        :returns: the normalized Eudex similarity
-        :rtype: float
-
-        >>> cmp = Eudex()
-        >>> round(cmp.sim('cat', 'hat'), 12)
-        0.937254901961
-        >>> round(cmp.sim('Niall', 'Neil'), 12)
-        0.999019607843
-        >>> round(cmp.sim('Colin', 'Cuilen'), 12)
-        0.995098039216
-        >>> round(cmp.sim('ATCG', 'TAGC'), 12)
-        0.802450980392
-        """
-        return 1.0-self.dist(src, tar, weights, max_length)
 
 def eudex_hamming(
         src, tar, weights='exponential', max_length=8, normalized=False
@@ -270,7 +247,7 @@ def eudex_hamming(
     >>> eudex_hamming('ATCG', 'TAGC', [1, 1, 2, 6, 24, 120, 720, 5040])
     6243
     """
-    return Eudex().eudex_hamming(src, tar, weights, max_length, normalized)
+    return Eudex().dist_abs(src, tar, weights, max_length, normalized)
 
 
 def dist_eudex(src, tar, weights='exponential', max_length=8):

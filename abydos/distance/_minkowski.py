@@ -32,6 +32,7 @@ from numbers import Number
 
 from ._util import _get_qgrams
 
+from ._distance import Distance
 
 __all__ = [
     'Chebyshev',
@@ -50,13 +51,14 @@ __all__ = [
     'sim_minkowski',
 ]
 
-class Minkowski(object):
+
+class Minkowski(Distance):
     """Minkowski distance.
 
     The Minkowski distance :cite:`Minkowski:1910` is a distance metric in
     :math:`L^p-space`.
     """
-    def minkowski(self, src, tar, qval=2, pval=1, normalized=False, alphabet=None):
+    def dist_abs(self, src, tar, qval=2, pval=1, normalized=False, alphabet=None):
         """Return the Minkowski distance (:math:`L^p-norm`) of two strings.
 
         :param str src: source string (or QGrams/Counter objects) for comparison
@@ -69,13 +71,13 @@ class Minkowski(object):
         :rtype: float
 
         >>> cmp = Minkowski()
-        >>> cmp.minkowski('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         4.0
-        >>> cmp.minkowski('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         7.0
-        >>> cmp.minkowski('Colin', 'Cuilen')
+        >>> cmp.dist_abs('Colin', 'Cuilen')
         9.0
-        >>> cmp.minkowski('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         10.0
         """
         q_src, q_tar = _get_qgrams(src, tar, qval)
@@ -128,39 +130,13 @@ class Minkowski(object):
         >>> cmp.dist('ATCG', 'TAGC')
         1.0
         """
-        return self.minkowski(src, tar, qval, pval, True, alphabet)
-
-    def sim(self, src, tar, qval=2, pval=1, alphabet=None):
-        """Return normalized Minkowski similarity of two strings.
-
-        Minkowski similarity is the complement of Minkowski distance:
-        :math:`sim_{Minkowski} = 1 - dist_{Minkowski}`.
-
-        :param str src: source string (or QGrams/Counter objects) for comparison
-        :param str tar: target string (or QGrams/Counter objects) for comparison
-        :param int qval: the length of each q-gram; 0 for non-q-gram version
-        :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
-        :param collection or int alphabet: the values or size of the alphabet
-        :returns: the normalized Minkowski similarity
-        :rtype: float
-
-        >>> cmp = Minkowski()
-        >>> cmp.sim('cat', 'hat')
-        0.5
-        >>> round(cmp.sim('Niall', 'Neil'), 12)
-        0.363636363636
-        >>> round(cmp.sim('Colin', 'Cuilen'), 12)
-        0.307692307692
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.0
-        """
-        return 1.0 - self.dist(src, tar, qval, pval, alphabet)
+        return self.dist_abs(src, tar, qval, pval, True, alphabet)
 
 
 def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
     """Return the Minkowski distance (:math:`L^p-norm`) of two strings.
 
-    This is a wrapper for :py:meth:`Minkowski.minkowski`.
+    This is a wrapper for :py:meth:`Minkowski.dist_abs`.
 
     :param str src: source string (or QGrams/Counter objects) for comparison
     :param str tar: target string (or QGrams/Counter objects) for comparison
@@ -180,7 +156,7 @@ def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
     >>> minkowski('ATCG', 'TAGC')
     10.0
     """
-    return Minkowski().minkowski(src, tar, qval, pval, normalized, alphabet)
+    return Minkowski().dist_abs(src, tar, qval, pval, normalized, alphabet)
 
 
 def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
@@ -205,7 +181,7 @@ def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     >>> dist_minkowski('ATCG', 'TAGC')
     1.0
     """
-    return minkowski(src, tar, qval, pval, True, alphabet)
+    return Minkowski().dist(src, tar, qval, pval, alphabet)
 
 
 def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
@@ -230,7 +206,7 @@ def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     >>> sim_minkowski('ATCG', 'TAGC')
     0.0
     """
-    return 1.0 - minkowski(src, tar, qval, pval, True, alphabet)
+    return Minkowski().sim(src, tar, qval, pval, alphabet)
 
 
 class Manhattan(Minkowski):
@@ -239,7 +215,7 @@ class Manhattan(Minkowski):
     Manhattan distance is the city-block or taxi-cab distance, equivalent
     to Minkowski distance in :math:`L^1`-space.
     """
-    def manhattan(self, src, tar, qval=2, normalized=False, alphabet=None):
+    def dist_abs(self, src, tar, qval=2, normalized=False, alphabet=None):
         """Return the Manhattan distance between two strings.
 
         :param str src: source string (or QGrams/Counter objects) for comparison
@@ -251,22 +227,22 @@ class Manhattan(Minkowski):
         :rtype: float
 
         >>> cmp = Manhattan()
-        >>> cmp.manhattan('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         4.0
-        >>> cmp.manhattan('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         7.0
-        >>> cmp.manhattan('Colin', 'Cuilen')
+        >>> cmp.dist_abs('Colin', 'Cuilen')
         9.0
-        >>> cmp.manhattan('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         10.0
         """
-        return self.minkowski(src, tar, qval, 1, normalized, alphabet)
+        return super(self.__class__, self).dist_abs(src, tar, qval, 1, normalized, alphabet)
 
     def dist(self, src, tar, qval=2, alphabet=None):
         """Return the normalized Manhattan distance between two strings.
 
-        The normalized Manhattan distance is a distance
-        metric in :math:`L^1-space`, normalized to [0, 1].
+        The normalized Manhattan distance is a distance metric in
+        :math:`L^1-space`, normalized to [0, 1].
 
         This is identical to Canberra distance.
 
@@ -287,38 +263,13 @@ class Manhattan(Minkowski):
         >>> cmp.dist('ATCG', 'TAGC')
         1.0
         """
-        return self.manhattan(src, tar, qval, True, alphabet)
-
-    def sim(self, src, tar, qval=2, alphabet=None):
-        """Return the normalized Manhattan similarity of two strings.
-
-        Manhattan similarity is the complement of Manhattan distance:
-        :math:`sim_{Manhattan} = 1 - dist_{Manhattan}`.
-
-        :param str src: source string (or QGrams/Counter objects) for comparison
-        :param str tar: target string (or QGrams/Counter objects) for comparison
-        :param int qval: the length of each q-gram; 0 for non-q-gram version
-        :param collection or int alphabet: the values or size of the alphabet
-        :returns: the normalized Manhattan similarity
-        :rtype: float
-
-        >>> cmp = Manhattan()
-        >>> cmp.sim('cat', 'hat')
-        0.5
-        >>> round(cmp.sim('Niall', 'Neil'), 12)
-        0.363636363636
-        >>> round(cmp.sim('Colin', 'Cuilen'), 12)
-        0.307692307692
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.0
-        """
-        return 1.0 - self.dist(src, tar, qval, alphabet)
+        return self.dist_abs(src, tar, qval, True, alphabet)
 
 
 def manhattan(src, tar, qval=2, normalized=False, alphabet=None):
     """Return the Manhattan distance between two strings.
 
-    This is a wrapper for :py:meth:`Manhattan.manhattan`.
+    This is a wrapper for :py:meth:`Manhattan.dist_abs`.
 
     :param str src: source string (or QGrams/Counter objects) for comparison
     :param str tar: target string (or QGrams/Counter objects) for comparison
@@ -337,7 +288,7 @@ def manhattan(src, tar, qval=2, normalized=False, alphabet=None):
     >>> manhattan('ATCG', 'TAGC')
     10.0
     """
-    return Manhattan().manhattan(src, tar, qval, normalized, alphabet)
+    return Manhattan().dist_abs(src, tar, qval, normalized, alphabet)
 
 
 def dist_manhattan(src, tar, qval=2, alphabet=None):
@@ -394,7 +345,7 @@ class Euclidean(Minkowski):
     Euclidean distance is the straigh-line or as-the-crow-flies distance,
     equivalent to Minkowski distance in :math:`L^2`-space.
     """
-    def euclidean(self, src, tar, qval=2, normalized=False, alphabet=None):
+    def dist_abs(self, src, tar, qval=2, normalized=False, alphabet=None):
         """Return the Euclidean distance between two strings.
 
         :param str src: source string (or QGrams/Counter objects) for comparison
@@ -406,16 +357,16 @@ class Euclidean(Minkowski):
         :rtype: float
 
         >>> cmp = Euclidean()
-        >>> cmp.euclidean('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         2.0
-        >>> round(cmp.euclidean('Niall', 'Neil'), 12)
+        >>> round(cmp.dist_abs('Niall', 'Neil'), 12)
         2.645751311065
-        >>> cmp.euclidean('Colin', 'Cuilen')
+        >>> cmp.dist_abs('Colin', 'Cuilen')
         3.0
-        >>> round(cmp.euclidean('ATCG', 'TAGC'), 12)
+        >>> round(cmp.dist_abs('ATCG', 'TAGC'), 12)
         3.162277660168
         """
-        return self.minkowski(src, tar, qval, 2, normalized, alphabet)
+        return super(self.__class__, self).dist_abs(src, tar, qval, 2, normalized, alphabet)
 
     def dist(self, src, tar, qval=2, alphabet=None):
         """Return the normalized Euclidean distance between two strings.
@@ -440,38 +391,13 @@ class Euclidean(Minkowski):
         >>> cmp.dist('ATCG', 'TAGC')
         1.0
         """
-        return self.euclidean(src, tar, qval, True, alphabet)
-
-    def sim(self, src, tar, qval=2, alphabet=None):
-        """Return the normalized Euclidean similarity of two strings.
-
-        Euclidean similarity is the complement of Euclidean distance:
-        :math:`sim_{Euclidean} = 1 - dist_{Euclidean}`.
-
-        :param str src: source string (or QGrams/Counter objects) for comparison
-        :param str tar: target string (or QGrams/Counter objects) for comparison
-        :param int qval: the length of each q-gram; 0 for non-q-gram version
-        :param collection or int alphabet: the values or size of the alphabet
-        :returns: the normalized Euclidean similarity
-        :rtype: float
-
-        >>> cmp = Euclidean()
-        >>> round(cmp.sim('cat', 'hat'), 12)
-        0.42264973081
-        >>> round(cmp.sim('Niall', 'Neil'), 12)
-        0.316869948936
-        >>> round(cmp.sim('Colin', 'Cuilen'), 12)
-        0.272393124891
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.0
-        """
-        return 1.0 - self.dist(src, tar, qval, alphabet)
+        return self.dist_abs(src, tar, qval, True, alphabet)
 
 
 def euclidean(src, tar, qval=2, normalized=False, alphabet=None):
     """Return the Euclidean distance between two strings.
 
-    This is a wrapper for :py:meth:`Euclidean.euclidean`.
+    This is a wrapper for :py:meth:`Euclidean.dist_abs`.
 
     :param str src: source string (or QGrams/Counter objects) for comparison
     :param str tar: target string (or QGrams/Counter objects) for comparison
@@ -490,7 +416,7 @@ def euclidean(src, tar, qval=2, normalized=False, alphabet=None):
     >>> round(euclidean('ATCG', 'TAGC'), 12)
     3.162277660168
     """
-    return minkowski(src, tar, qval, 2, normalized, alphabet)
+    return Euclidean().dist_abs(src, tar, qval, normalized, alphabet)
 
 
 def dist_euclidean(src, tar, qval=2, alphabet=None):
@@ -514,7 +440,7 @@ def dist_euclidean(src, tar, qval=2, alphabet=None):
     >>> dist_euclidean('ATCG', 'TAGC')
     1.0
     """
-    return euclidean(src, tar, qval, True, alphabet)
+    return Euclidean().dist(src, tar, qval, alphabet)
 
 
 def sim_euclidean(src, tar, qval=2, alphabet=None):
@@ -538,7 +464,7 @@ def sim_euclidean(src, tar, qval=2, alphabet=None):
     >>> sim_euclidean('ATCG', 'TAGC')
     0.0
     """
-    return 1.0 - euclidean(src, tar, qval, True, alphabet)
+    return Euclidean().sim(src, tar, qval, alphabet)
 
 
 class Chebyshev(Minkowski):
@@ -547,7 +473,7 @@ class Chebyshev(Minkowski):
     Euclidean distance is the chessboard distance,
     equivalent to Minkowski distance in :math:`L^\infty-space`.
     """
-    def chebyshev(self, src, tar, qval=2, normalized=False, alphabet=None):
+    def dist_abs(self, src, tar, qval=2, normalized=False, alphabet=None):
         r"""Return the Chebyshev distance between two strings.
 
         :param str src: source string (or QGrams/Counter objects) for comparison
@@ -559,26 +485,32 @@ class Chebyshev(Minkowski):
         :rtype: float
 
         >>> cmp = Chebyshev()
-        >>> cmp.chebyshev('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         1.0
-        >>> cmp.chebyshev('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         1.0
-        >>> cmp.chebyshev('Colin', 'Cuilen')
+        >>> cmp.dist_abs('Colin', 'Cuilen')
         1.0
-        >>> cmp.chebyshev('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         1.0
-        >>> cmp.chebyshev('ATCG', 'TAGC', qval=1)
+        >>> cmp.dist_abs('ATCG', 'TAGC', qval=1)
         0.0
-        >>> cmp.chebyshev('ATCGATTCGGAATTTC', 'TAGCATAATCGCCG', qval=1)
+        >>> cmp.dist_abs('ATCGATTCGGAATTTC', 'TAGCATAATCGCCG', qval=1)
         3.0
         """
-        return self.minkowski(src, tar, qval, float('inf'), normalized, alphabet)
+        return super(self.__class__, self).dist_abs(src, tar, qval, float('inf'), normalized, alphabet)
+
+    def sim(self):
+        raise Exception('Method disabled for Chebyshev distance.')
+
+    def dist(self):
+        raise Exception('Method disabled for Chebyshev distance.')
 
 
 def chebyshev(src, tar, qval=2, normalized=False, alphabet=None):
     r"""Return the Chebyshev distance between two strings.
 
-    This is a wrapper for the :py:meth:`Chebyshev.chebyshev`.
+    This is a wrapper for the :py:meth:`Chebyshev.dist_abs`.
 
     :param str src: source string (or QGrams/Counter objects) for comparison
     :param str tar: target string (or QGrams/Counter objects) for comparison
@@ -601,7 +533,7 @@ def chebyshev(src, tar, qval=2, normalized=False, alphabet=None):
     >>> chebyshev('ATCGATTCGGAATTTC', 'TAGCATAATCGCCG', qval=1)
     3.0
     """
-    return Chebyshev().chebyshev(src, tar, qval, normalized, alphabet)
+    return Chebyshev().dist_abs(src, tar, qval, normalized, alphabet)
 
 
 if __name__ == '__main__':

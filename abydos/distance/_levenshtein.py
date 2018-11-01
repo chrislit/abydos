@@ -36,6 +36,7 @@ from numpy import zeros as np_zeros
 
 from six.moves import range
 
+from ._distance import Distance
 
 __all__ = [
     'DamerauLevenshtein',
@@ -52,7 +53,7 @@ __all__ = [
 ]
 
 
-class Levenshtein(object):
+class Levenshtein(Distance):
     """Levenshtein distance.
 
     This is the standard edit distance measure. Cf.
@@ -68,7 +69,7 @@ class Levenshtein(object):
     Levenshtein edit distance ordinarily has unit insertion, deletion, and
     substitution costs.
     """
-    def levenshtein(self, src, tar, mode='lev', cost=(1, 1, 1, 1)):
+    def dist_abs(self, src, tar, mode='lev', cost=(1, 1, 1, 1)):
         """Return the Levenshtein distance between two strings.
 
         :param str src: source string for comparison
@@ -91,23 +92,23 @@ class Levenshtein(object):
         :rtype: int (may return a float if cost has float values)
 
         >>> cmp = Levenshtein()
-        >>> cmp.levenshtein('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         1
-        >>> cmp.levenshtein('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         3
-        >>> cmp.levenshtein('aluminum', 'Catalan')
+        >>> cmp.dist_abs('aluminum', 'Catalan')
         7
-        >>> cmp.levenshtein('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         3
 
-        >>> cmp.levenshtein('ATCG', 'TAGC', mode='osa')
+        >>> cmp.dist_abs('ATCG', 'TAGC', mode='osa')
         2
-        >>> cmp.levenshtein('ACTG', 'TAGC', mode='osa')
+        >>> cmp.dist_abs('ACTG', 'TAGC', mode='osa')
         4
 
-        >>> cmp.levenshtein('ATCG', 'TAGC', mode='dam')
+        >>> cmp.dist_abs('ATCG', 'TAGC', mode='dam')
         2
-        >>> cmp.levenshtein('ACTG', 'TAGC', mode='dam')
+        >>> cmp.dist_abs('ACTG', 'TAGC', mode='dam')
         3
         """
         ins_cost, del_cost, sub_cost, trans_cost = cost
@@ -190,42 +191,6 @@ class Levenshtein(object):
             max(len(src) * del_cost, len(tar) * ins_cost)
         )
 
-    def sim(self, src, tar, mode='lev', cost=(1, 1, 1, 1)):
-        """Return the Levenshtein similarity of two strings.
-
-        Normalized Levenshtein similarity is the complement of normalized
-        Levenshtein distance:
-        :math:`sim_{Levenshtein} = 1 - dist_{Levenshtein}`.
-
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
-        :param str mode: specifies a mode for computing the Levenshtein distance:
-
-                - 'lev' (default) computes the ordinary Levenshtein distance,
-                  in which edits may include inserts, deletes, and substitutions
-                - 'osa' computes the Optimal String Alignment distance, in which
-                  edits may include inserts, deletes, substitutions, and
-                  transpositions but substrings may only be edited once
-
-        :param tuple cost: a 4-tuple representing the cost of the four possible
-            edits:
-            inserts, deletes, substitutions, and transpositions, respectively
-            (by default: (1, 1, 1, 1))
-        :returns: normalized Levenshtein similarity
-        :rtype: float
-
-        >>> cmp = Levenshtein()
-        >>> round(cmp.sim('cat', 'hat'), 12)
-        0.666666666667
-        >>> round(cmp.sim('Niall', 'Neil'), 12)
-        0.4
-        >>> cmp.sim('aluminum', 'Catalan')
-        0.125
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.25
-        """
-        return 1 - self.dist(src, tar, mode, cost)
-
 
 def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     """Return the Levenshtein distance between two strings.
@@ -265,7 +230,7 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     >>> levenshtein('ACTG', 'TAGC', mode='dam')
     3
     """
-    return Levenshtein().levenshtein(src, tar, mode, cost)
+    return Levenshtein().dist_abs(src, tar, mode, cost)
 
 
 def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
@@ -342,7 +307,7 @@ def sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     return Levenshtein().sim(src, tar, mode, cost)
 
 
-class DamerauLevenshtein(object):
+class DamerauLevenshtein(Distance):
     """Damerau-Levenshtein distance.
 
     This computes the Damerau-Levenshtein distance :cite:`Damerau:1964`.
@@ -350,7 +315,7 @@ class DamerauLevenshtein(object):
     :cite:`Stern:2014`, under the MIT license:
     https://github.com/KevinStern/software-and-algorithms/blob/master/src/main/java/blogspot/software_and_algorithms/stern_library/string/DamerauLevenshteinAlgorithm.java
     """
-    def damerau_levenshtein(self, src, tar, cost=(1, 1, 1, 1)):
+    def dist_abs(self, src, tar, cost=(1, 1, 1, 1)):
         """Return the Damerau-Levenshtein distance between two strings.
 
         :param str src: source string for comparison
@@ -363,13 +328,13 @@ class DamerauLevenshtein(object):
         :rtype: int (may return a float if cost has float values)
 
         >>> cmp = DamerauLevenshtein()
-        >>> cmp.damerau_levenshtein('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         1
-        >>> cmp.damerau_levenshtein('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         3
-        >>> cmp.damerau_levenshtein('aluminum', 'Catalan')
+        >>> cmp.dist_abs('aluminum', 'Catalan')
         7
-        >>> cmp.damerau_levenshtein('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         2
         """
         ins_cost, del_cost, sub_cost, trans_cost = cost
@@ -484,39 +449,9 @@ class DamerauLevenshtein(object):
         if src == tar:
             return 0.0
         ins_cost, del_cost = cost[:2]
-        return self.damerau_levenshtein(src, tar, cost) / (
+        return self.dist_abs(src, tar, cost) / (
             max(len(src) * del_cost, len(tar) * ins_cost)
         )
-
-    def sim(self, src, tar, cost=(1, 1, 1, 1)):
-        """Return the Damerau-Levenshtein similarity of two strings.
-
-        Normalized Damerau-Levenshtein similarity the complement of normalized
-        Damerau-Levenshtein distance:
-        :math:`sim_{Damerau} = 1 - dist_{Damerau}`.
-
-        The arguments are identical to those of the levenshtein() function.
-
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
-        :param tuple cost: a 4-tuple representing the cost of the four possible
-            edits:
-            inserts, deletes, substitutions, and transpositions, respectively
-            (by default: (1, 1, 1, 1))
-        :returns: normalized Damerau-Levenshtein similarity
-        :rtype: float
-
-        >>> cmp = DamerauLevenshtein()
-        >>> round(cmp.sim('cat', 'hat'), 12)
-        0.666666666667
-        >>> round(cmp.sim('Niall', 'Neil'), 12)
-        0.4
-        >>> cmp.sim('aluminum', 'Catalan')
-        0.125
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.5
-        """
-        return 1.0 - self.dist(src, tar, cost)
 
 
 def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
@@ -540,7 +475,7 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
     >>> damerau_levenshtein('ATCG', 'TAGC')
     2
     """
-    return DamerauLevenshtein().damerau_levenshtein(src, tar, cost)
+    return DamerauLevenshtein().dist_abs(src, tar, cost)
 
 
 def dist_damerau(src, tar, cost=(1, 1, 1, 1)):
@@ -608,7 +543,7 @@ def sim_damerau(src, tar, cost=(1, 1, 1, 1)):
     return DamerauLevenshtein().sim(src, tar, cost)
 
 
-class Indel(object):
+class Indel(Distance):
     """Indel distance.
 
     This is equivalent to Levenshtein distance, when only inserts and deletes
@@ -616,7 +551,7 @@ class Indel(object):
     """
     lev = Levenshtein()
 
-    def indel(self, src, tar):
+    def dist_abs(self, src, tar):
         """Return the indel distance between two strings.
 
         :param str src: source string for comparison
@@ -625,16 +560,16 @@ class Indel(object):
         :rtype: int
 
         >>> cmp = Indel()
-        >>> cmp.indel('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         2
-        >>> cmp.indel('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         3
-        >>> cmp.indel('Colin', 'Cuilen')
+        >>> cmp.dist_abs('Colin', 'Cuilen')
         5
-        >>> cmp.indel('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         4
         """
-        return self.lev.levenshtein(src, tar, mode='lev', cost=(1, 1, 9999, 9999))
+        return self.lev.dist_abs(src, tar, mode='lev', cost=(1, 1, 9999, 9999))
 
     def dist(self, src, tar):
         """Return the normalized indel distance between two strings.
@@ -659,30 +594,7 @@ class Indel(object):
         """
         if src == tar:
             return 0.0
-        return self.indel(src, tar) / (len(src) + len(tar))
-
-    def sim(self, src, tar):
-        """Return the normalized indel similarity of two strings.
-
-        This is equivalent to normalized Levenshtein similarity, when only inserts
-        and deletes are possible.
-
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
-        :returns: indel similarity
-        :rtype: float
-
-        >>> cmp = Indel()
-        >>> round(cmp.sim_indel('cat', 'hat'), 12)
-        0.666666666667
-        >>> round(cmp.sim_indel('Niall', 'Neil'), 12)
-        0.666666666667
-        >>> round(cmp.sim_indel('Colin', 'Cuilen'), 12)
-        0.545454545455
-        >>> cmp.sim_indel('ATCG', 'TAGC')
-        0.5
-        """
-        return 1.0 - self.dist(src, tar)
+        return self.dist_abs(src, tar) / (len(src) + len(tar))
 
 
 def indel(src, tar):
@@ -702,7 +614,7 @@ def indel(src, tar):
     >>> indel('ATCG', 'TAGC')
     4
     """
-    return Indel().indel(src, tar)
+    return Indel().dist_abs(src, tar)
 
 
 def dist_indel(src, tar):

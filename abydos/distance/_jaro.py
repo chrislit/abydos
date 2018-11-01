@@ -33,7 +33,7 @@ from collections import defaultdict
 from six.moves import range
 
 from ..tokenizer import QGrams
-
+from ._distance import Distance
 
 __all__ = [
     'JaroWinkler',
@@ -45,7 +45,7 @@ __all__ = [
 ]
 
 
-class Strcmp95(object):
+class Strcmp95(Distance):
     """Strcmp95.
 
     This is a Python translation of the C code for strcmp95:
@@ -236,34 +236,6 @@ class Strcmp95(object):
 
         return weight
 
-    def dist(self, src, tar, long_strings=False):
-        """Return the strcmp95 distance between two strings.
-
-        strcmp95 distance is the complement of strcmp95 similarity:
-        :math:`dist_{strcmp95} = 1 - sim_{strcmp95}`.
-
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
-        :param bool long_strings: set to True to "Increase the probability of a
-            match when the number of matched characters is large.  This option
-            allows for a little more tolerance when the strings are large. It is
-            not an appropriate test when comparing fixed length fields such as
-            phone and social security numbers."
-        :returns: strcmp95 distance
-        :rtype: float
-
-        >>> cmp = Strcmp95()
-        >>> round(cmp.dist('cat', 'hat'), 12)
-        0.222222222222
-        >>> round(cmp.dist('Niall', 'Neil'), 12)
-        0.1545
-        >>> round(cmp.dist('aluminum', 'Catalan'), 12)
-        0.345238095238
-        >>> round(cmp.dist('ATCG', 'TAGC'), 12)
-        0.166666666667
-        """
-        return 1.0 - self.sim(src, tar, long_strings)
-
 
 def sim_strcmp95(src, tar, long_strings=False):
     """Return the strcmp95 similarity of two strings.
@@ -319,7 +291,7 @@ def dist_strcmp95(src, tar, long_strings=False):
     return Strcmp95().dist(src, tar, long_strings)
 
 
-class JaroWinkler(object):
+class JaroWinkler(Distance):
     """Jaro-Winkler distance.
 
     Jaro(-Winkler) distance is a string edit distance initially proposed by
@@ -483,69 +455,6 @@ class JaroWinkler(object):
                 )
 
         return weight
-
-    def dist(
-        self,
-        src,
-        tar,
-        qval=1,
-        mode='winkler',
-        long_strings=False,
-        boost_threshold=0.7,
-        scaling_factor=0.1,
-    ):
-        """Return the Jaro or Jaro-Winkler distance between two strings.
-
-        Jaro(-Winkler) similarity is the complement of Jaro(-Winkler) distance:
-        :math:`sim_{Jaro(-Winkler)} = 1 - dist_{Jaro(-Winkler)}`.
-
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
-        :param int qval: the length of each q-gram (defaults to 1: character-wise
-            matching)
-        :param str mode: indicates which variant of this distance metric to
-            compute:
-
-                - 'winkler' -- computes the Jaro-Winkler distance (default) which
-                  increases the score for matches near the start of the word
-                - 'jaro' -- computes the Jaro distance
-
-        The following arguments apply only when mode is 'winkler':
-
-        :param bool long_strings: set to True to "Increase the probability of a
-            match when the number of matched characters is large.  This option
-            allows for a little more tolerance when the strings are large.  It is
-            not an appropriate test when comparing fixed length fields such as
-            phone and social security numbers."
-        :param float boost_threshold: a value between 0 and 1, below which the
-            Winkler boost is not applied (defaults to 0.7)
-        :param float scaling_factor: a value between 0 and 0.25, indicating by how
-            much to boost scores for matching prefixes (defaults to 0.1)
-
-        :returns: Jaro or Jaro-Winkler distance
-        :rtype: float
-
-        >>> round(dist_jaro_winkler('cat', 'hat'), 12)
-        0.222222222222
-        >>> round(dist_jaro_winkler('Niall', 'Neil'), 12)
-        0.195
-        >>> round(dist_jaro_winkler('aluminum', 'Catalan'), 12)
-        0.39880952381
-        >>> round(dist_jaro_winkler('ATCG', 'TAGC'), 12)
-        0.166666666667
-
-        >>> round(dist_jaro_winkler('cat', 'hat', mode='jaro'), 12)
-        0.222222222222
-        >>> round(dist_jaro_winkler('Niall', 'Neil', mode='jaro'), 12)
-        0.216666666667
-        >>> round(dist_jaro_winkler('aluminum', 'Catalan', mode='jaro'), 12)
-        0.39880952381
-        >>> round(dist_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
-        0.166666666667
-        """
-        return 1 - self.sim(
-            src, tar, qval, mode, long_strings, boost_threshold, scaling_factor
-        )
 
 
 def sim_jaro_winkler(
