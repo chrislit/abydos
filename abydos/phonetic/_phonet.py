@@ -30,6 +30,8 @@ from unicodedata import normalize as unicode_normalize
 from six import text_type
 from six.moves import range
 
+from ._phonetic import Phonetic
+
 __all__ = ['phonet']
 
 

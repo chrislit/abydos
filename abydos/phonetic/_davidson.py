@@ -25,9 +25,59 @@ from __future__ import unicode_literals
 
 from six import text_type
 
-from ._util import _delete_consecutive_repeats
+from ._phonetic import Phonetic
 
-__all__ = ['davidson']
+__all__ = ['Davidson', 'davidson']
+
+
+class Davidson(Phonetic):
+    """Davidson Consonant Code.
+
+    This is based on the name compression system described in
+    :cite:`Davidson:1962`.
+
+    :cite:`Dolby:1970` identifies this as having been the name compression
+    algorithm used by SABRE.
+    """
+    _trans = {65: '', 69: '', 73: '', 79: '', 85: '', 72: '', 87: '', 89: ''}
+
+    def encode(self, lname, fname='.', omit_fname=False):
+        """Return Davidson's Consonant Code.
+
+        :param str lname: Last name (or word) to be encoded
+        :param str fname: First name (optional), of which the first character
+            is included in the code.
+        :param bool omit_fname: Set to True to completely omit the first
+            character of the first name
+        :returns: Davidson's Consonant Code
+        :rtype: str
+
+        >>> dvd = Davidson()
+        >>> dvd.encode('Gough')
+        'G   .'
+        >>> dvd.encode('pneuma')
+        'PNM .'
+        >>> dvd.encode('knight')
+        'KNGT.'
+        >>> dvd.encode('trice')
+        'TRC .'
+        >>> dvd.encode('judge')
+        'JDG .'
+        >>> dvd.encode('Smith', 'James')
+        'SMT J'
+        >>> dvd.encode('Wasserman', 'Tabitha')
+        'WSRMT'
+        """
+        lname = text_type(lname.upper())
+        code = self._delete_consecutive_repeats(
+            lname[:1] + lname[1:].translate(self._trans)
+        )
+        code = code[:4] + (4 - len(code)) * ' '
+
+        if not omit_fname:
+            code += fname[:1].upper()
+
+        return code
 
 
 def davidson(lname, fname='.', omit_fname=False):
@@ -62,16 +112,7 @@ def davidson(lname, fname='.', omit_fname=False):
     >>> davidson('Wasserman', 'Tabitha')
     'WSRMT'
     """
-    trans = {65: '', 69: '', 73: '', 79: '', 85: '', 72: '', 87: '', 89: ''}
-
-    lname = text_type(lname.upper())
-    code = _delete_consecutive_repeats(lname[:1] + lname[1:].translate(trans))
-    code = code[:4] + (4 - len(code)) * ' '
-
-    if not omit_fname:
-        code += fname[:1].upper()
-
-    return code
+    return Davidson().encode(lname, fname, omit_fname)
 
 
 if __name__ == '__main__':

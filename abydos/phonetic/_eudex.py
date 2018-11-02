@@ -25,6 +25,8 @@ from __future__ import unicode_literals
 
 from six.moves import range
 
+from ._phonetic import Phonetic
+
 __all__ = ['eudex']
 
 

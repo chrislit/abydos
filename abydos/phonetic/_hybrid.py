@@ -29,6 +29,7 @@ from __future__ import unicode_literals
 from ._es import phonetic_spanish, spanish_metaphone
 from ._metaphone import metaphone
 from ._nysiis import nysiis
+from ._phonetic import Phonetic
 from ._soundex import soundex
 
 __all__ = ['metasoundex', 'onca']

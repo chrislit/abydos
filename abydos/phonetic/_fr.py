@@ -32,6 +32,8 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
+from ._phonetic import Phonetic
+
 __all__ = ['fonem', 'henry_early']
 
 
