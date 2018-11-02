@@ -31,6 +31,8 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
+from ._phonetic import Phonetic
+
 __all__ = ['phonetic_spanish', 'spanish_metaphone']
 
 

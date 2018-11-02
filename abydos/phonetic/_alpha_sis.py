@@ -178,7 +178,7 @@ class AlphaSIS(Phonetic):
             c
             for c in word
             if c
-            in self.alphabet_set
+            in self._uc_set
         )
 
         # Clamp max_length to [4, 64]
@@ -251,6 +251,7 @@ def alpha_sis(word, max_length=14):
     ('06310000000000',)
     """
     return AlphaSIS().encode(word, max_length)
+
 
 if __name__ == '__main__':
     import doctest

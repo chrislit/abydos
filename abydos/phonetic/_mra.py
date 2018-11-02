@@ -23,8 +23,7 @@ The phonetic._mra module implements the MRA personal numeric identifier (PNI).
 
 from __future__ import unicode_literals
 
-
-from ._util import _delete_consecutive_repeats
+from ._phonetic import Phonetic
 
 __all__ = ['mra']
 

@@ -25,6 +25,8 @@ from __future__ import unicode_literals
 
 from re import match as re_match
 
+from ._phonetic import Phonetic
+
 __all__ = ['nrl']
 
 

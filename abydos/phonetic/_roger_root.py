@@ -28,7 +28,7 @@ from unicodedata import normalize as unicode_normalize
 from six import text_type
 from six.moves import range
 
-from ._util import _delete_consecutive_repeats
+from ._phonetic import Phonetic
 
 __all__ = ['roger_root']
 

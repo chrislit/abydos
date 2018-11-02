@@ -23,11 +23,33 @@ The phonetic._phonetic module implements abstract class Phonetic.
 
 from __future__ import unicode_literals
 
+from itertools import groupby
+
 
 class Phonetic(object):
     """Abstract Phonetic class."""
 
-    alphabet_set = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    _uc_set = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    _lc_set = set('abcdefghijklmnopqrstuvwxyz')
+    _uc_v_set = set('AEIOU')
+    _lc_v_set = set('aeiou')
+
+    def _delete_consecutive_repeats(self, word):
+        """Delete consecutive repeated characters in a word.
+
+        :param str word: the word to transform
+        :returns: word with consecutive repeating characters collapsed to
+            a single instance
+        :rtype: str
+
+        >>> _delete_consecutive_repeats('REDDEE')
+        'REDE'
+        >>> _delete_consecutive_repeats('AEIOU')
+        'AEIOU'
+        >>> _delete_consecutive_repeats('AAACCCTTTGGG')
+        'ACTG'
+        """
+        return ''.join(char for char, _ in groupby(word))
 
 
 if __name__ == '__main__':
