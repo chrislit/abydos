@@ -35,15 +35,46 @@ from six import text_type
 from ..phonetic import double_metaphone
 from ..tokenizer import QGrams
 
-__all__ = ['phonetic_fingerprint', 'qgram_fingerprint', 'str_fingerprint']
+__all__ = [
+    'PhoneticFingerprint',
+    'QGramFingerprint',
+    'StringFingerprint',
+    'phonetic_fingerprint',
+    'qgram_fingerprint',
+    'str_fingerprint',
+]
+
+
+class StringFingerprint(object):
+    """String Fingerprint.
+
+    The fingerprint of a string is a string consisting of all of the unique
+    words in a string, alphabetized & concatenated with intervening joiners.
+    This fingerprint is described at :cite:`OpenRefine:2012`.
+    """
+
+    def str_fingerprint(self, phrase, joiner=' '):
+        """Return string fingerprint.
+
+        :param str phrase: the string from which to calculate the fingerprint
+        :param str joiner: the string that will be placed between each word
+        :returns: the fingerprint of the phrase
+        :rtype: str
+
+        >>> sf = StringFingerprint()
+        >>> sf.fingerprint('The quick brown fox jumped over the lazy dog.')
+        'brown dog fox jumped lazy over quick the'
+        """
+        phrase = unicode_normalize('NFKD', text_type(phrase.strip().lower()))
+        phrase = ''.join([c for c in phrase if c.isalnum() or c.isspace()])
+        phrase = joiner.join(sorted(list(set(phrase.split()))))
+        return phrase
 
 
 def str_fingerprint(phrase, joiner=' '):
     """Return string fingerprint.
 
-    The fingerprint of a string is a string consisting of all of the unique
-    words in a string, alphabetized & concatenated with intervening joiners.
-    This fingerprint is described at :cite:`OpenRefine:2012`.
+    This is a wrapper for :py:meth:`StringFingerprint.fingerprint`.
 
     :param str phrase: the string from which to calculate the fingerprint
     :param str joiner: the string that will be placed between each word
@@ -53,18 +84,48 @@ def str_fingerprint(phrase, joiner=' '):
     >>> str_fingerprint('The quick brown fox jumped over the lazy dog.')
     'brown dog fox jumped lazy over quick the'
     """
-    phrase = unicode_normalize('NFKD', text_type(phrase.strip().lower()))
-    phrase = ''.join([c for c in phrase if c.isalnum() or c.isspace()])
-    phrase = joiner.join(sorted(list(set(phrase.split()))))
-    return phrase
+    return StringFingerprint().fingerprint(phrase, joiner)
+
+
+class QGramFingerprint(object):
+    """Q-Gram Fingerprint.
+
+    A q-gram fingerprint is a string consisting of all of the unique q-grams
+    in a string, alphabetized & concatenated. This fingerprint is described at
+    :cite:`OpenRefine:2012`.
+    """
+
+    def fingerprint(self, phrase, qval=2, start_stop='', joiner=''):
+        """Return Q-Gram fingerprint.
+
+        :param str phrase: the string from which to calculate the q-gram
+            fingerprint
+        :param int qval: the length of each q-gram (by default 2)
+        :param str start_stop: the start & stop symbol(s) to concatenate on
+            either end of the phrase, as defined in abydos.util.qgram()
+        :param str joiner: the string that will be placed between each word
+        :returns: the q-gram fingerprint of the phrase
+        :rtype: str
+
+        >>> qf = QGramFingerprint()
+        >>> qf.fingerprint('The quick brown fox jumped over the lazy dog.')
+        'azbrckdoedeleqerfoheicjukblampnfogovowoxpequrortthuiumvewnxjydzy'
+        >>> qf.fingerprint('Christopher')
+        'cherhehrisopphristto'
+        >>> qf.fingerprint('Niall')
+        'aliallni'
+        """
+        phrase = unicode_normalize('NFKD', text_type(phrase.strip().lower()))
+        phrase = ''.join(c for c in phrase if c.isalnum())
+        phrase = QGrams(phrase, qval, start_stop)
+        phrase = joiner.join(sorted(phrase))
+        return phrase
 
 
 def qgram_fingerprint(phrase, qval=2, start_stop='', joiner=''):
     """Return Q-Gram fingerprint.
 
-    A q-gram fingerprint is a string consisting of all of the unique q-grams
-    in a string, alphabetized & concatenated. This fingerprint is described at
-    :cite:`OpenRefine:2012`.
+    This is a wrapper for :py:meth:`QGramFingerprint.fingerprint`.
 
     :param str phrase: the string from which to calculate the q-gram
         fingerprint
@@ -82,23 +143,65 @@ def qgram_fingerprint(phrase, qval=2, start_stop='', joiner=''):
     >>> qgram_fingerprint('Niall')
     'aliallni'
     """
-    phrase = unicode_normalize('NFKD', text_type(phrase.strip().lower()))
-    phrase = ''.join(c for c in phrase if c.isalnum())
-    phrase = QGrams(phrase, qval, start_stop)
-    phrase = joiner.join(sorted(phrase))
-    return phrase
+    return QGramFingerprint().fingerprint(phrase, qval, start_stop, joiner)
 
 
-def phonetic_fingerprint(
-    phrase, phonetic_algorithm=double_metaphone, joiner=' ', *args
-):
-    """Return the phonetic fingerprint of a phrase.
+class PhoneticFingerprint(StringFingerprint):
+    """Phonetic Fingerprint.
 
     A phonetic fingerprint is identical to a standard string fingerprint, as
     implemented in abydos.clustering.fingerprint(), but performs the
     fingerprinting function after converting the string to its phonetic form,
     as determined by some phonetic algorithm. This fingerprint is described at
     :cite:`OpenRefine:2012`.
+    """
+
+    def fingerprint(
+        self,
+        phrase,
+        phonetic_algorithm=double_metaphone,
+        joiner=' ',
+        *args,
+        **kwargs
+    ):
+        """Return the phonetic fingerprint of a phrase.
+
+        :param str phrase: the string from which to calculate the phonetic
+            fingerprint
+        :param function phonetic_algorithm: a phonetic algorithm that takes a
+            string and returns a string (presumably a phonetic representation
+            of the original string) By default, this function uses
+            :py:meth:`abydos.phonetic.double_metaphone`.
+        :param str joiner: the string that will be placed between each word
+        :param args: additional arguments to pass to the phonetic algorithm,
+            along with the phrase itself
+        :returns: the phonetic fingerprint of the phrase
+        :rtype: str
+
+        >>> pf = PhoneticFingerprint()
+        >>> pf.fingerprint('The quick brown fox jumped over the lazy dog.')
+        '0 afr fks jmpt kk ls prn tk'
+        >>> from abydos.phonetic import soundex
+        >>> pf.fingerprint('The quick brown fox jumped over the lazy dog.',
+        ... phonetic_algorithm=soundex)
+        'b650 d200 f200 j513 l200 o160 q200 t000'
+        """
+        phonetic = ''
+        for word in phrase.split():
+            word = phonetic_algorithm(word, *args, **kwargs)
+            if not isinstance(word, text_type) and hasattr(word, '__iter__'):
+                word = word[0]
+            phonetic += word + joiner
+        phonetic = phonetic[: -len(joiner)]
+        return super(self.__class__, self).fingerprint(phonetic)
+
+
+def phonetic_fingerprint(
+    phrase, phonetic_algorithm=double_metaphone, joiner=' ', *args, **kwargs
+):
+    """Return the phonetic fingerprint of a phrase.
+
+    This is a wrapper for :py:meth:`PhoneticFingerprint.fingerprint`.
 
     :param str phrase: the string from which to calculate the phonetic
         fingerprint
@@ -119,14 +222,9 @@ def phonetic_fingerprint(
     ... phonetic_algorithm=soundex)
     'b650 d200 f200 j513 l200 o160 q200 t000'
     """
-    phonetic = ''
-    for word in phrase.split():
-        word = phonetic_algorithm(word, *args)
-        if not isinstance(word, text_type) and hasattr(word, '__iter__'):
-            word = word[0]
-        phonetic += word + joiner
-    phonetic = phonetic[: -len(joiner)]
-    return str_fingerprint(phonetic)
+    return PhoneticFingerprint().fingerprint(
+        phrase, phonetic_algorithm, joiner, *args, **kwargs
+    )
 
 
 if __name__ == '__main__':
