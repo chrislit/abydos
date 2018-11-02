@@ -29,7 +29,7 @@ from ._levenshtein import levenshtein
 from ._sequence import sim_ratcliff_obershelp
 
 # noinspection PyProtectedMember
-from ..fingerprint._synoname import _synoname_special_table, synoname_toolcode
+from ..fingerprint._synoname import SynonameToolcode
 
 __all__ = ['Synoname', 'synoname']
 
@@ -40,8 +40,46 @@ class Synoname(object):
     Cf. :cite:`Getty:1991,Gross:1991`
     """
 
-    @staticmethod
-    def _synoname_strip_punct(word):
+    stc = SynonameToolcode()
+
+    test_dict = {
+        val: 2 ** n
+        for n, val in enumerate(
+            (
+                'exact',
+                'omission',
+                'substitution',
+                'transposition',
+                'punctuation',
+                'initials',
+                'extension',
+                'inclusion',
+                'no_first',
+                'word_approx',
+                'confusions',
+                'char_approx',
+            )
+        )
+    }
+    match_name = (
+        '',
+        'exact',
+        'omission',
+        'substitution',
+        'transposition',
+        'punctuation',
+        'initials',
+        'extension',
+        'inclusion',
+        'no_first',
+        'word_approx',
+        'confusions',
+        'char_approx',
+        'no_match',
+    )
+    match_type_dict = {val: n for n, val in enumerate(match_name)}
+
+    def _synoname_strip_punct(self, word):
         """Return a word with punctuation stripped out.
 
         :param word: a word to strip punctuation from
@@ -56,9 +94,8 @@ class Synoname(object):
                 stripped += char
         return stripped.strip()
 
-    @staticmethod
     def _synoname_word_approximation(
-        src_ln, tar_ln, src_fn='', tar_fn='', features=None
+        self, src_ln, tar_ln, src_fn='', tar_fn='', features=None
     ):
         """Return the Synoname word approximation score for two names.
 
@@ -66,8 +103,8 @@ class Synoname(object):
         :param str tar_ln: last name of the target
         :param str src_fn: first name of the source (optional)
         :param str tar_fn: first name of the target (optional)
-        :param features: a dict containing special features calculated via
-            fingerprint.synoname_toolcode() (optional)
+        :param features: a dict containing special features calculated using
+            fingerprint.SynonameToolcode (optional)
         :returns: The word approximation score
         :rtype: float
 
@@ -96,87 +133,103 @@ class Synoname(object):
         for s_pos, s_type in features['tar_specials']:
             if s_type == 'a':
                 full_tar1 = full_tar1[
-                    : -(1 + len(_synoname_special_table[s_pos][1]))
+                    : -(1 + len(self.stc.synoname_special_table[s_pos][1]))
                 ]
             elif s_type == 'b':
                 loc = (
                     full_tar1.find(
-                        ' ' + _synoname_special_table[s_pos][1] + ' '
+                        ' ' + self.stc.synoname_special_table[s_pos][1] + ' '
                     )
                     + 1
                 )
                 full_tar1 = (
                     full_tar1[:loc]
-                    + full_tar1[loc + len(_synoname_special_table[s_pos][1]) :]
+                    + full_tar1[
+                        loc + len(self.stc.synoname_special_table[s_pos][1]) :
+                    ]
                 )
             elif s_type == 'c':
                 full_tar1 = full_tar1[
-                    1 + len(_synoname_special_table[s_pos][1]) :
+                    1 + len(self.stc.synoname_special_table[s_pos][1]) :
                 ]
 
         full_src1 = ' '.join((src_ln, src_fn)).replace('-', ' ').strip()
         for s_pos, s_type in features['src_specials']:
             if s_type == 'a':
                 full_src1 = full_src1[
-                    : -(1 + len(_synoname_special_table[s_pos][1]))
+                    : -(1 + len(self.stc.synoname_special_table[s_pos][1]))
                 ]
             elif s_type == 'b':
                 loc = (
                     full_src1.find(
-                        ' ' + _synoname_special_table[s_pos][1] + ' '
+                        ' ' + self.stc.synoname_special_table[s_pos][1] + ' '
                     )
                     + 1
                 )
                 full_src1 = (
                     full_src1[:loc]
-                    + full_src1[loc + len(_synoname_special_table[s_pos][1]) :]
+                    + full_src1[
+                        loc + len(self.stc.synoname_special_table[s_pos][1]) :
+                    ]
                 )
             elif s_type == 'c':
                 full_src1 = full_src1[
-                    1 + len(_synoname_special_table[s_pos][1]) :
+                    1 + len(self.stc.synoname_special_table[s_pos][1]) :
                 ]
 
         full_tar2 = full_tar1
         for s_pos, s_type in features['tar_specials']:
             if s_type == 'd':
-                full_tar2 = full_tar2[len(_synoname_special_table[s_pos][1]) :]
+                full_tar2 = full_tar2[
+                    len(self.stc.synoname_special_table[s_pos][1]) :
+                ]
             elif (
                 s_type == 'X'
-                and _synoname_special_table[s_pos][1] in full_tar2
+                and self.stc.synoname_special_table[s_pos][1] in full_tar2
             ):
-                loc = full_tar2.find(' ' + _synoname_special_table[s_pos][1])
+                loc = full_tar2.find(
+                    ' ' + self.stc.synoname_special_table[s_pos][1]
+                )
                 full_tar2 = (
                     full_tar2[:loc]
-                    + full_tar2[loc + len(_synoname_special_table[s_pos][1]) :]
+                    + full_tar2[
+                        loc + len(self.stc.synoname_special_table[s_pos][1]) :
+                    ]
                 )
 
         full_src2 = full_src1
         for s_pos, s_type in features['src_specials']:
             if s_type == 'd':
-                full_src2 = full_src2[len(_synoname_special_table[s_pos][1]) :]
+                full_src2 = full_src2[
+                    len(self.stc.synoname_special_table[s_pos][1]) :
+                ]
             elif (
                 s_type == 'X'
-                and _synoname_special_table[s_pos][1] in full_src2
+                and self.stc.synoname_special_table[s_pos][1] in full_src2
             ):
-                loc = full_src2.find(' ' + _synoname_special_table[s_pos][1])
+                loc = full_src2.find(
+                    ' ' + self.stc.synoname_special_table[s_pos][1]
+                )
                 full_src2 = (
                     full_src2[:loc]
-                    + full_src2[loc + len(_synoname_special_table[s_pos][1]) :]
+                    + full_src2[
+                        loc + len(self.stc.synoname_special_table[s_pos][1]) :
+                    ]
                 )
 
-        full_tar1 = Synoname._synoname_strip_punct(full_tar1)
+        full_tar1 = self._synoname_strip_punct(full_tar1)
         tar1_words = full_tar1.split()
         tar1_num_words = len(tar1_words)
 
-        full_src1 = Synoname._synoname_strip_punct(full_src1)
+        full_src1 = self._synoname_strip_punct(full_src1)
         src1_words = full_src1.split()
         src1_num_words = len(src1_words)
 
-        full_tar2 = Synoname._synoname_strip_punct(full_tar2)
+        full_tar2 = self._synoname_strip_punct(full_tar2)
         tar2_words = full_tar2.split()
         tar2_num_words = len(tar2_words)
 
-        full_src2 = Synoname._synoname_strip_punct(full_src2)
+        full_src2 = self._synoname_strip_punct(full_src2)
         src2_words = full_src2.split()
         src2_num_words = len(src2_words)
 
@@ -314,48 +367,11 @@ class Synoname(object):
         ... ret_name=True)
         'word_approx'
         """
-        test_dict = {
-            val: 2 ** n
-            for n, val in enumerate(
-                [
-                    'exact',
-                    'omission',
-                    'substitution',
-                    'transposition',
-                    'punctuation',
-                    'initials',
-                    'extension',
-                    'inclusion',
-                    'no_first',
-                    'word_approx',
-                    'confusions',
-                    'char_approx',
-                ]
-            )
-        }
-        match_name = [
-            '',
-            'exact',
-            'omission',
-            'substitution',
-            'transposition',
-            'punctuation',
-            'initials',
-            'extension',
-            'inclusion',
-            'no_first',
-            'word_approx',
-            'confusions',
-            'char_approx',
-            'no_match',
-        ]
-        match_type_dict = {val: n for n, val in enumerate(match_name)}
-
         if isinstance(tests, Iterable):
             new_tests = 0
             for term in tests:
-                if term in test_dict:
-                    new_tests += test_dict[term]
+                if term in self.test_dict:
+                    new_tests += self.test_dict[term]
             tests = new_tests
 
         if isinstance(src, tuple):
@@ -381,7 +397,7 @@ class Synoname(object):
 
         def _fmt_retval(val):
             if ret_name:
-                return match_name[val]
+                return self.match_name[val]
             return val
 
         # 1. Preprocessing
@@ -396,8 +412,8 @@ class Synoname(object):
         tar_qual = tar_qual.strip().lower()
 
         # Create toolcodes
-        src_ln, src_fn, src_tc = synoname_toolcode(src_ln, src_fn, src_qual)
-        tar_ln, tar_fn, tar_tc = synoname_toolcode(tar_ln, tar_fn, tar_qual)
+        src_ln, src_fn, src_tc = self.stc.fingerprint(src_ln, src_fn, src_qual)
+        tar_ln, tar_fn, tar_tc = self.stc.fingerprint(tar_ln, tar_fn, tar_qual)
 
         src_generation = int(src_tc[2])
         src_romancode = int(src_tc[3:6])
@@ -457,71 +473,63 @@ class Synoname(object):
 
         approx_c_result, ca_ratio = _approx_c()
 
-        if tests & test_dict['exact'] and fn_equal and ln_equal:
-            return _fmt_retval(match_type_dict['exact'])
-        if tests & test_dict['omission']:
+        if tests & self.test_dict['exact'] and fn_equal and ln_equal:
+            return _fmt_retval(self.match_type_dict['exact'])
+        if tests & self.test_dict['omission']:
             if (
                 fn_equal
                 and levenshtein(src_ln, tar_ln, cost=(1, 1, 99, 99)) == 1
             ):
                 if not roman_conflict:
-                    return _fmt_retval(match_type_dict['omission'])
+                    return _fmt_retval(self.match_type_dict['omission'])
             elif (
                 ln_equal
                 and levenshtein(src_fn, tar_fn, cost=(1, 1, 99, 99)) == 1
             ):
-                return _fmt_retval(match_type_dict['omission'])
-        if tests & test_dict['substitution']:
+                return _fmt_retval(self.match_type_dict['omission'])
+        if tests & self.test_dict['substitution']:
             if (
                 fn_equal
                 and levenshtein(src_ln, tar_ln, cost=(99, 99, 1, 99)) == 1
             ):
-                return _fmt_retval(match_type_dict['substitution'])
+                return _fmt_retval(self.match_type_dict['substitution'])
             elif (
                 ln_equal
                 and levenshtein(src_fn, tar_fn, cost=(99, 99, 1, 99)) == 1
             ):
-                return _fmt_retval(match_type_dict['substitution'])
-        if tests & test_dict['transposition']:
+                return _fmt_retval(self.match_type_dict['substitution'])
+        if tests & self.test_dict['transposition']:
             if fn_equal and (
                 levenshtein(src_ln, tar_ln, mode='osa', cost=(99, 99, 99, 1))
                 == 1
             ):
-                return _fmt_retval(match_type_dict['transposition'])
+                return _fmt_retval(self.match_type_dict['transposition'])
             elif ln_equal and (
                 levenshtein(src_fn, tar_fn, mode='osa', cost=(99, 99, 99, 1))
                 == 1
             ):
-                return _fmt_retval(match_type_dict['transposition'])
-        if tests & test_dict['punctuation']:
-            np_src_fn = Synoname._synoname_strip_punct(src_fn)
-            np_tar_fn = Synoname._synoname_strip_punct(tar_fn)
-            np_src_ln = Synoname._synoname_strip_punct(src_ln)
-            np_tar_ln = Synoname._synoname_strip_punct(tar_ln)
+                return _fmt_retval(self.match_type_dict['transposition'])
+        if tests & self.test_dict['punctuation']:
+            np_src_fn = self._synoname_strip_punct(src_fn)
+            np_tar_fn = self._synoname_strip_punct(tar_fn)
+            np_src_ln = self._synoname_strip_punct(src_ln)
+            np_tar_ln = self._synoname_strip_punct(tar_ln)
 
             if (np_src_fn == np_tar_fn) and (np_src_ln == np_tar_ln):
-                return _fmt_retval(match_type_dict['punctuation'])
+                return _fmt_retval(self.match_type_dict['punctuation'])
 
-            np_src_fn = Synoname._synoname_strip_punct(
-                src_fn.replace('-', ' ')
-            )
-            np_tar_fn = Synoname._synoname_strip_punct(
-                tar_fn.replace('-', ' ')
-            )
-            np_src_ln = Synoname._synoname_strip_punct(
-                src_ln.replace('-', ' ')
-            )
-            np_tar_ln = Synoname._synoname_strip_punct(
-                tar_ln.replace('-', ' ')
-            )
+            np_src_fn = self._synoname_strip_punct(src_fn.replace('-', ' '))
+            np_tar_fn = self._synoname_strip_punct(tar_fn.replace('-', ' '))
+            np_src_ln = self._synoname_strip_punct(src_ln.replace('-', ' '))
+            np_tar_ln = self._synoname_strip_punct(tar_ln.replace('-', ' '))
 
             if (np_src_fn == np_tar_fn) and (np_src_ln == np_tar_ln):
-                return _fmt_retval(match_type_dict['punctuation'])
+                return _fmt_retval(self.match_type_dict['punctuation'])
 
-        if tests & test_dict['initials'] and ln_equal:
+        if tests & self.test_dict['initials'] and ln_equal:
             if src_fn and tar_fn:
-                src_initials = Synoname._synoname_strip_punct(src_fn).split()
-                tar_initials = Synoname._synoname_strip_punct(tar_fn).split()
+                src_initials = self._synoname_strip_punct(src_fn).split()
+                tar_initials = self._synoname_strip_punct(tar_fn).split()
                 initials = bool(
                     (len(src_initials) == len(''.join(src_initials)))
                     or (len(tar_initials) == len(''.join(tar_initials)))
@@ -530,7 +538,7 @@ class Synoname(object):
                     src_initials = ''.join(_[0] for _ in src_initials)
                     tar_initials = ''.join(_[0] for _ in tar_initials)
                     if src_initials == tar_initials:
-                        return _fmt_retval(match_type_dict['initials'])
+                        return _fmt_retval(self.match_type_dict['initials'])
                     initial_diff = abs(len(src_initials) - len(tar_initials))
                     if initial_diff and (
                         (
@@ -550,8 +558,8 @@ class Synoname(object):
                             )
                         )
                     ):
-                        return _fmt_retval(match_type_dict['initials'])
-        if tests & test_dict['extension']:
+                        return _fmt_retval(self.match_type_dict['initials'])
+        if tests & self.test_dict['extension']:
             if src_ln[1] == tar_ln[1] and (
                 src_ln.startswith(tar_ln) or tar_ln.startswith(src_ln)
             ):
@@ -560,15 +568,15 @@ class Synoname(object):
                     or (tar_fn and src_fn.startswith(tar_fn))
                     or (src_fn and tar_fn.startswith(src_fn))
                 ) and not roman_conflict:
-                    return _fmt_retval(match_type_dict['extension'])
-        if tests & test_dict['inclusion'] and ln_equal:
+                    return _fmt_retval(self.match_type_dict['extension'])
+        if tests & self.test_dict['inclusion'] and ln_equal:
             if (src_fn and src_fn in tar_fn) or (tar_fn and tar_fn in src_ln):
-                return _fmt_retval(match_type_dict['inclusion'])
-        if tests & test_dict['no_first'] and ln_equal:
+                return _fmt_retval(self.match_type_dict['inclusion'])
+        if tests & self.test_dict['no_first'] and ln_equal:
             if src_fn == '' or tar_fn == '':
-                return _fmt_retval(match_type_dict['no_first'])
-        if tests & test_dict['word_approx']:
-            ratio = Synoname._synoname_word_approximation(
+                return _fmt_retval(self.match_type_dict['no_first'])
+        if tests & self.test_dict['word_approx']:
+            ratio = self._synoname_word_approximation(
                 src_ln,
                 tar_ln,
                 src_fn,
@@ -580,18 +588,18 @@ class Synoname(object):
                     'tar_specials': tar_specials,
                 },
             )
-            if ratio == 1 and tests & test_dict['confusions']:
+            if ratio == 1 and tests & self.test_dict['confusions']:
                 if (
                     ' '.join((src_fn, src_ln)).strip()
                     == ' '.join((tar_fn, tar_ln)).strip()
                 ):
-                    return _fmt_retval(match_type_dict['confusions'])
+                    return _fmt_retval(self.match_type_dict['confusions'])
             if ratio >= word_approx_min:
-                return _fmt_retval(match_type_dict['word_approx'])
-        if tests & test_dict['char_approx']:
+                return _fmt_retval(self.match_type_dict['word_approx'])
+        if tests & self.test_dict['char_approx']:
             if ca_ratio >= char_approx_min:
-                return _fmt_retval(match_type_dict['char_approx'])
-        return _fmt_retval(match_type_dict['no_match'])
+                return _fmt_retval(self.match_type_dict['char_approx'])
+        return _fmt_retval(self.match_type_dict['no_match'])
 
 
 def synoname(

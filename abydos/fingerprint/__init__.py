@@ -33,8 +33,19 @@ The fingerprint module implements string fingerprints such as:
 
 from __future__ import unicode_literals
 
-from ._basic import phonetic_fingerprint, qgram_fingerprint, str_fingerprint
+from ._basic import (
+    PhoneticFingerprint,
+    QGramFingerprint,
+    StringFingerprint,
+    phonetic_fingerprint,
+    qgram_fingerprint,
+    str_fingerprint,
+)
 from ._lightweight import (
+    Count,
+    Occurrence,
+    OccurrenceHalved,
+    Position,
     MOST_COMMON_LETTERS,
     MOST_COMMON_LETTERS_CG,
     MOST_COMMON_LETTERS_DE,
@@ -45,24 +56,34 @@ from ._lightweight import (
     occurrence_halved_fingerprint,
     position_fingerprint,
 )
-from ._speedcop import omission_key, skeleton_key
-from ._synoname import synoname_toolcode
+from ._speedcop import OmissionKey, SkeletonKey, omission_key, skeleton_key
+from ._synoname import SynonameToolcode, synoname_toolcode
 
 __all__ = [
+    'StringFingerprint',
     'str_fingerprint',
+    'QGramFingerprint',
     'qgram_fingerprint',
+    'PhoneticFingerprint',
     'phonetic_fingerprint',
+    'OmissionKey',
     'omission_key',
+    'SkeletonKey',
     'skeleton_key',
     'MOST_COMMON_LETTERS',
     'MOST_COMMON_LETTERS_CG',
     'MOST_COMMON_LETTERS_DE',
     'MOST_COMMON_LETTERS_DE_LC',
     'MOST_COMMON_LETTERS_EN_LC',
-    'count_fingerprint',
+    'Occurrence',
     'occurrence_fingerprint',
+    'OccurrenceHalved',
     'occurrence_halved_fingerprint',
+    'Count',
+    'count_fingerprint',
+    'Position',
     'position_fingerprint',
+    'SynonameToolcode',
     'synoname_toolcode',
 ]
 

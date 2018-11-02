@@ -31,13 +31,54 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-__all__ = ['omission_key', 'skeleton_key']
+__all__ = ['OmissionKey', 'SkeletonKey', 'omission_key', 'skeleton_key']
+
+
+class SkeletonKey(object):
+    """Skeleton Key.
+
+    The skeleton key of a word is defined in :cite:`Pollock:1984`.
+    """
+
+    _vowels = set('AEIOU')
+    _letters = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+
+    def fingerprint(self, word):
+        """Return the skeleton key.
+
+        :param str word: the word to transform into its skeleton key
+        :returns: the skeleton key
+        :rtype: str
+
+        >>> sk = SkeletonKey()
+        >>> sk.fingerprint('The quick brown fox jumped over the lazy dog.')
+        'THQCKBRWNFXJMPDVLZYGEUIOA'
+        >>> sk.fingerprint('Christopher')
+        'CHRSTPIOE'
+        >>> sk.fingerprint('Niall')
+        'NLIA'
+        """
+        word = unicode_normalize('NFKD', text_type(word.upper()))
+        word = ''.join(c for c in word if c in self._letters)
+        start = word[0:1]
+        consonant_part = ''
+        vowel_part = ''
+
+        # add consonants & vowels to to separate strings
+        # (omitting the first char & duplicates)
+        for char in word[1:]:
+            if char != start:
+                if char in self._vowels:
+                    if char not in vowel_part:
+                        vowel_part += char
+                elif char not in consonant_part:
+                    consonant_part += char
+        # return the first char followed by consonants followed by vowels
+        return start + consonant_part + vowel_part
 
 
 def skeleton_key(word):
     """Return the skeleton key.
-
-    The skeleton key of a word is defined in :cite:`Pollock:1984`.
 
     :param str word: the word to transform into its skeleton key
     :returns: the skeleton key
@@ -50,63 +91,55 @@ def skeleton_key(word):
     >>> skeleton_key('Niall')
     'NLIA'
     """
-    _vowels = {'A', 'E', 'I', 'O', 'U'}
+    return SkeletonKey().fingerprint(word)
 
-    word = unicode_normalize('NFKD', text_type(word.upper()))
-    word = ''.join(
-        c
-        for c in word
-        if c
-        in {
-            'A',
-            'B',
-            'C',
-            'D',
-            'E',
-            'F',
-            'G',
-            'H',
-            'I',
-            'J',
-            'K',
-            'L',
-            'M',
-            'N',
-            'O',
-            'P',
-            'Q',
-            'R',
-            'S',
-            'T',
-            'U',
-            'V',
-            'W',
-            'X',
-            'Y',
-            'Z',
-        }
-    )
-    start = word[0:1]
-    consonant_part = ''
-    vowel_part = ''
 
-    # add consonants & vowels to to separate strings
-    # (omitting the first char & duplicates)
-    for char in word[1:]:
-        if char != start:
-            if char in _vowels:
-                if char not in vowel_part:
-                    vowel_part += char
-            elif char not in consonant_part:
-                consonant_part += char
-    # return the first char followed by consonants followed by vowels
-    return start + consonant_part + vowel_part
+class OmissionKey(object):
+    """Omission Key.
+
+    The omission key of a word is defined in :cite:`Pollock:1984`.
+    """
+
+    _consonants = tuple('JKQXZVWYBFMGPDHCLNTSR')
+    _letters = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+
+    def fingerprint(self, word):
+        """Return the omission key.
+
+        :param str word: the word to transform into its omission key
+        :returns: the omission key
+        :rtype: str
+
+        >>> ok = OmissionKey()
+        >>> ok.fingerprint('The quick brown fox jumped over the lazy dog.')
+        'JKQXZVWYBFMGPDHCLNTREUIOA'
+        >>> ok.fingerprint('Christopher')
+        'PHCTSRIOE'
+        >>> ok.fingerprint('Niall')
+        'LNIA'
+        """
+        word = unicode_normalize('NFKD', text_type(word.upper()))
+        word = ''.join(c for c in word if c in self._letters)
+
+        key = ''
+
+        # add consonants in order supplied by _consonants (no duplicates)
+        for char in self._consonants:
+            if char in word:
+                key += char
+
+        # add vowels in order they appeared in the word (no duplicates)
+        for char in word:
+            if char not in self._consonants and char not in key:
+                key += char
+
+        return key
 
 
 def omission_key(word):
     """Return the omission key.
 
-    The omission key of a word is defined in :cite:`Pollock:1984`.
+    This is a wrapper for :py:meth:`OmissionKey.fingerprint`.
 
     :param str word: the word to transform into its omission key
     :returns: the omission key
@@ -119,78 +152,7 @@ def omission_key(word):
     >>> omission_key('Niall')
     'LNIA'
     """
-    _consonants = (
-        'J',
-        'K',
-        'Q',
-        'X',
-        'Z',
-        'V',
-        'W',
-        'Y',
-        'B',
-        'F',
-        'M',
-        'G',
-        'P',
-        'D',
-        'H',
-        'C',
-        'L',
-        'N',
-        'T',
-        'S',
-        'R',
-    )
-
-    word = unicode_normalize('NFKD', text_type(word.upper()))
-    word = ''.join(
-        c
-        for c in word
-        if c
-        in {
-            'A',
-            'B',
-            'C',
-            'D',
-            'E',
-            'F',
-            'G',
-            'H',
-            'I',
-            'J',
-            'K',
-            'L',
-            'M',
-            'N',
-            'O',
-            'P',
-            'Q',
-            'R',
-            'S',
-            'T',
-            'U',
-            'V',
-            'W',
-            'X',
-            'Y',
-            'Z',
-        }
-    )
-
-    key = ''
-
-    # add consonants in order supplied by _consonants (no duplicates)
-    for char in _consonants:
-        if char in word:
-            key += char
-
-    # add vowels in order they appeared in the word (no duplicates)
-    for char in word:
-        if char not in _consonants and char not in key:
-            key += char
-
-    return key
+    return OmissionKey().fingerprint(word)
 
 
 if __name__ == '__main__':
