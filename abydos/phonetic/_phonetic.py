@@ -16,38 +16,18 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._distance.
+"""abydos.phonetic._phonetic.
 
-The distance._distance module implements abstract class Distance.
+The phonetic._phonetic module implements abstract class Phonetic.
 """
 
 from __future__ import unicode_literals
 
 
-class Distance(object):
-    """Abstract Distance class."""
+class Phonetic(object):
+    """Abstract Phonetic class."""
 
-    def sim(self, src, tar, *args, **kwargs):
-        """Return similarity.
-
-        :param src:
-        :param tar:
-        :param args:
-        :param kwargs:
-        :return:
-        """
-        return 1.0 - self.dist(src, tar, *args, **kwargs)
-
-    def dist(self, src, tar, *args, **kwargs):
-        """Return distance.
-
-        :param src:
-        :param tar:
-        :param args:
-        :param kwargs:
-        :return:
-        """
-        return 1.0 - self.sim(src, tar, *args, **kwargs)
+    alphabet_set = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
 
 
 if __name__ == '__main__':

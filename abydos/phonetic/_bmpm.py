@@ -58,8 +58,9 @@ from ._bmdata import (
     L_SPANISH,
     L_TURKISH,
 )
+from ._phonetic import Phonetic
 
-__all__ = ['bmpm']
+__all__ = ['BeiderMorse', 'bmpm']
 
 if PY3:
     long = int
@@ -131,537 +132,655 @@ _RCONTEXT_POS = 2
 _PHONETIC_POS = 3
 
 
-def _bm_language(name, name_mode):
-    """Return the best guess language ID for the word and language choices.
+class BeiderMorse(Phonetic):
+    """Beider-Morse Phonetic Matching.
 
-    :param str name: the term to guess the language of
-    :param str name_mode: the name mode of the algorithm: 'gen' (default),
-                'ash' (Ashkenazi), or 'sep' (Sephardic)
+    The Beider-Morse Phonetic Matching algorithm is described in
+    :cite:`Beider:2008`.
+    The reference implementation is licensed under GPLv3.
     """
-    name = name.strip().lower()
-    rules = BMDATA[name_mode]['language_rules']
-    all_langs = sum(_LANG_DICT[_] for _ in BMDATA[name_mode]['languages']) - 1
-    choices_remaining = all_langs
-    for rule in rules:
-        letters, languages, accept = rule
-        if search(letters, name) is not None:
-            if accept:
-                choices_remaining &= languages
-            else:
-                choices_remaining &= (~languages) % (all_langs + 1)
-    if choices_remaining == L_NONE:
-        choices_remaining = L_ANY
-    return choices_remaining
+    def _language(self, name, name_mode):
+        """Return the best guess language ID for the word and language choices.
 
+        :param str name: the term to guess the language of
+        :param str name_mode: the name mode of the algorithm: 'gen' (default),
+                    'ash' (Ashkenazi), or 'sep' (Sephardic)
+        """
+        name = name.strip().lower()
+        rules = BMDATA[name_mode]['language_rules']
+        all_langs = sum(_LANG_DICT[_] for _ in BMDATA[name_mode]['languages']) - 1
+        choices_remaining = all_langs
+        for rule in rules:
+            letters, languages, accept = rule
+            if search(letters, name) is not None:
+                if accept:
+                    choices_remaining &= languages
+                else:
+                    choices_remaining &= (~languages) % (all_langs + 1)
+        if choices_remaining == L_NONE:
+            choices_remaining = L_ANY
+        return choices_remaining
 
-def _bm_redo_language(
-    term, name_mode, rules, final_rules1, final_rules2, concat
-):
-    """Reassess the language of the terms and call the phonetic encoder.
+    def _redo_language(
+        self, term, name_mode, rules, final_rules1, final_rules2, concat
+    ):
+        """Reassess the language of the terms and call the phonetic encoder.
 
-    Uses a split multi-word term.
+        Uses a split multi-word term.
 
-    :param str term: the term to encode via Beider-Morse
-    :param str name_mode: the name mode of the algorithm: 'gen' (default),
-        'ash' (Ashkenazi), or 'sep' (Sephardic)
-    :param tuple rules: the set of initial phonetic transform regexps
-    :param tuple final_rules1: the common set of final phonetic transform
-        regexps
-    :param tuple final_rules2: the specific set of final phonetic transform
-        regexps
-    :param bool concat: a flag to indicate concatenation
-    """
-    language_arg = _bm_language(term, name_mode)
-    return _bm_phonetic(
+        :param str term: the term to encode via Beider-Morse
+        :param str name_mode: the name mode of the algorithm: 'gen' (default),
+            'ash' (Ashkenazi), or 'sep' (Sephardic)
+        :param tuple rules: the set of initial phonetic transform regexps
+        :param tuple final_rules1: the common set of final phonetic transform
+            regexps
+        :param tuple final_rules2: the specific set of final phonetic transform
+            regexps
+        :param bool concat: a flag to indicate concatenation
+        """
+        language_arg = self._language(term, name_mode)
+        return self._phonetic(
+            term,
+            name_mode,
+            rules,
+            final_rules1,
+            final_rules2,
+            language_arg,
+            concat,
+        )
+
+    def _phonetic(
+        self,
         term,
         name_mode,
         rules,
         final_rules1,
         final_rules2,
-        language_arg,
-        concat,
-    )
+        language_arg=0,
+        concat=False,
+    ):
+        """Return the Beider-Morse encoding(s) of a term.
 
+        :param str term: the term to encode via Beider-Morse
+        :param str name_mode: the name mode of the algorithm: 'gen' (default),
+            ash' (Ashkenazi), or 'sep' (Sephardic)
+        :param tuple rules: the set of initial phonetic transform regexps
+        :param tuple final_rules1: the common set of final phonetic transform
+            regexps
+        :param tuple final_rules2: the specific set of final phonetic transform
+            regexps
+        :param int language_arg: an integer representing the target language of the
+            phonetic encoding
+        :param bool concat: a flag to indicate concatenation
+        """
+        term = term.replace('-', ' ').strip()
 
-def _bm_phonetic(
-    term,
-    name_mode,
-    rules,
-    final_rules1,
-    final_rules2,
-    language_arg=0,
-    concat=False,
-):
-    """Return the Beider-Morse encoding(s) of a term.
-
-    :param str term: the term to encode via Beider-Morse
-    :param str name_mode: the name mode of the algorithm: 'gen' (default),
-        ash' (Ashkenazi), or 'sep' (Sephardic)
-    :param tuple rules: the set of initial phonetic transform regexps
-    :param tuple final_rules1: the common set of final phonetic transform
-        regexps
-    :param tuple final_rules2: the specific set of final phonetic transform
-        regexps
-    :param int language_arg: an integer representing the target language of the
-        phonetic encoding
-    :param bool concat: a flag to indicate concatenation
-    """
-    term = term.replace('-', ' ').strip()
-
-    if name_mode == 'gen':  # generic case
-        # discard and concatenate certain words if at the start of the name
-        for pfx in BMDATA['gen']['discards']:
-            if term.startswith(pfx):
-                remainder = term[len(pfx) :]
-                combined = pfx[:-1] + remainder
-                result = (
-                    _bm_redo_language(
-                        remainder,
-                        name_mode,
-                        rules,
-                        final_rules1,
-                        final_rules2,
-                        concat,
+        if name_mode == 'gen':  # generic case
+            # discard and concatenate certain words if at the start of the name
+            for pfx in BMDATA['gen']['discards']:
+                if term.startswith(pfx):
+                    remainder = term[len(pfx) :]
+                    combined = pfx[:-1] + remainder
+                    result = (
+                        self._redo_language(
+                            remainder,
+                            name_mode,
+                            rules,
+                            final_rules1,
+                            final_rules2,
+                            concat,
+                        )
+                        + '-'
+                        + self._redo_language(
+                            combined,
+                            name_mode,
+                            rules,
+                            final_rules1,
+                            final_rules2,
+                            concat,
+                        )
                     )
-                    + '-'
-                    + _bm_redo_language(
-                        combined,
-                        name_mode,
-                        rules,
-                        final_rules1,
-                        final_rules2,
-                        concat,
-                    )
-                )
-                return result
+                    return result
 
-    words = term.split()  # create array of the individual words in the name
-    words2 = []
+        words = term.split()  # create array of the individual words in the name
+        words2 = []
 
-    if name_mode == 'sep':  # Sephardic case
-        # for each word in the name, delete portions of word preceding
-        # apostrophe
-        # ex: d'avila d'aguilar --> avila aguilar
-        # also discard certain words in the name
+        if name_mode == 'sep':  # Sephardic case
+            # for each word in the name, delete portions of word preceding
+            # apostrophe
+            # ex: d'avila d'aguilar --> avila aguilar
+            # also discard certain words in the name
 
-        # note that we can never get a match on "de la" because we are checking
-        # single words below
-        # this is a bug, but I won't try to fix it now
+            # note that we can never get a match on "de la" because we are checking
+            # single words below
+            # this is a bug, but I won't try to fix it now
 
-        for word in words:
-            word = word[word.rfind('\'') + 1 :]
-            if word not in BMDATA['sep']['discards']:
-                words2.append(word)
+            for word in words:
+                word = word[word.rfind('\'') + 1 :]
+                if word not in BMDATA['sep']['discards']:
+                    words2.append(word)
 
-    elif name_mode == 'ash':  # Ashkenazic case
-        # discard certain words if at the start of the name
-        if len(words) > 1 and words[0] in BMDATA['ash']['discards']:
-            words2 = words[1:]
+        elif name_mode == 'ash':  # Ashkenazic case
+            # discard certain words if at the start of the name
+            if len(words) > 1 and words[0] in BMDATA['ash']['discards']:
+                words2 = words[1:]
+            else:
+                words2 = list(words)
         else:
             words2 = list(words)
-    else:
-        words2 = list(words)
 
-    if concat:
-        # concatenate the separate words of a multi-word name
-        # (normally used for exact matches)
-        term = ' '.join(words2)
-    elif len(words2) == 1:  # not a multi-word name
-        term = words2[0]
-    else:
-        # encode each word in a multi-word name separately
-        # (normally used for approx matches)
-        result = '-'.join(
-            [
-                _bm_redo_language(
-                    w, name_mode, rules, final_rules1, final_rules2, concat
-                )
-                for w in words2
-            ]
-        )
-        return result
-
-    term_length = len(term)
-
-    # apply language rules to map to phonetic alphabet
-    phonetic = ''
-    skip = 0
-    for i in range(term_length):
-        if skip:
-            skip -= 1
-            continue
-        found = False
-        for rule in rules:
-            pattern = rule[_PATTERN_POS]
-            pattern_length = len(pattern)
-            lcontext = rule[_LCONTEXT_POS]
-            rcontext = rule[_RCONTEXT_POS]
-
-            # check to see if next sequence in input matches the string in the
-            # rule
-            if (pattern_length > term_length - i) or (
-                term[i : i + pattern_length] != pattern
-            ):  # no match
-                continue
-
-            right = '^' + rcontext
-            left = lcontext + '$'
-
-            # check that right context is satisfied
-            if rcontext != '':
-                if not search(right, term[i + pattern_length :]):
-                    continue
-
-            # check that left context is satisfied
-            if lcontext != '':
-                if not search(left, term[:i]):
-                    continue
-
-            # check for incompatible attributes
-            candidate = _bm_apply_rule_if_compat(
-                phonetic, rule[_PHONETIC_POS], language_arg
+        if concat:
+            # concatenate the separate words of a multi-word name
+            # (normally used for exact matches)
+            term = ' '.join(words2)
+        elif len(words2) == 1:  # not a multi-word name
+            term = words2[0]
+        else:
+            # encode each word in a multi-word name separately
+            # (normally used for approx matches)
+            result = '-'.join(
+                [
+                    self._redo_language(
+                        w, name_mode, rules, final_rules1, final_rules2, concat
+                    )
+                    for w in words2
+                ]
             )
-            # The below condition shouldn't ever be false
-            if candidate is not None:  # pragma: no branch
-                phonetic = candidate
-                found = True
-                break
+            return result
 
-        if not found:  # character in name that is not in table -- e.g., space
-            pattern_length = 1
-        skip = pattern_length - 1
+        term_length = len(term)
 
-    # apply final rules on phonetic-alphabet,
-    # doing a substitution of certain characters
-    phonetic = _bm_apply_final_rules(
-        phonetic, final_rules1, language_arg, False
-    )  # apply common rules
-    # final_rules1 are the common approx rules,
-    # final_rules2 are approx rules for specific language
-    phonetic = _bm_apply_final_rules(
-        phonetic, final_rules2, language_arg, True
-    )  # apply lang specific rules
-
-    return phonetic
-
-
-def _bm_apply_final_rules(phonetic, final_rules, language_arg, strip):
-    """Apply a set of final rules to the phonetic encoding.
-
-    :param str phonetic: the term to which to apply the final rules
-    :param tuple final_rules: the set of final phonetic transform regexps
-    :param int language_arg: an integer representing the target language of the
-        phonetic encoding
-    :param bool strip: flag to indicate whether to normalize the language
-        attributes
-    """
-    # optimization to save time
-    if not final_rules:
-        return phonetic
-
-    # expand the result
-    phonetic = _bm_expand_alternates(phonetic)
-    phonetic_array = phonetic.split('|')
-
-    for k in range(len(phonetic_array)):
-        phonetic = phonetic_array[k]
-        phonetic2 = ''
-        phoneticx = _bm_normalize_lang_attrs(phonetic, True)
-
-        i = 0
-        while i < len(phonetic):
-            found = False
-
-            if phonetic[i] == '[':  # skip over language attribute
-                attrib_start = i
-                i += 1
-                while True:
-                    if phonetic[i] == ']':
-                        i += 1
-                        phonetic2 += phonetic[attrib_start:i]
-                        break
-                    i += 1
+        # apply language rules to map to phonetic alphabet
+        phonetic = ''
+        skip = 0
+        for i in range(term_length):
+            if skip:
+                skip -= 1
                 continue
-
-            for rule in final_rules:
+            found = False
+            for rule in rules:
                 pattern = rule[_PATTERN_POS]
                 pattern_length = len(pattern)
                 lcontext = rule[_LCONTEXT_POS]
                 rcontext = rule[_RCONTEXT_POS]
 
+                # check to see if next sequence in input matches the string in the
+                # rule
+                if (pattern_length > term_length - i) or (
+                    term[i : i + pattern_length] != pattern
+                ):  # no match
+                    continue
+
                 right = '^' + rcontext
                 left = lcontext + '$'
 
-                # check to see if next sequence in phonetic matches the string
-                # in the rule
-                if (pattern_length > len(phoneticx) - i) or phoneticx[
-                    i : i + pattern_length
-                ] != pattern:
-                    continue
-
                 # check that right context is satisfied
                 if rcontext != '':
-                    if not search(right, phoneticx[i + pattern_length :]):
+                    if not search(right, term[i + pattern_length :]):
                         continue
 
                 # check that left context is satisfied
                 if lcontext != '':
-                    if not search(left, phoneticx[:i]):
+                    if not search(left, term[:i]):
                         continue
 
                 # check for incompatible attributes
-                candidate = _bm_apply_rule_if_compat(
-                    phonetic2, rule[_PHONETIC_POS], language_arg
+                candidate = self._apply_rule_if_compat(
+                    phonetic, rule[_PHONETIC_POS], language_arg
                 )
                 # The below condition shouldn't ever be false
                 if candidate is not None:  # pragma: no branch
-                    phonetic2 = candidate
+                    phonetic = candidate
                     found = True
                     break
 
-            if not found:
-                # character in name for which there is no substitution in the
-                # table
-                phonetic2 += phonetic[i]
+            if not found:  # character in name that is not in table -- e.g., space
                 pattern_length = 1
+            skip = pattern_length - 1
 
-            i += pattern_length
+        # apply final rules on phonetic-alphabet,
+        # doing a substitution of certain characters
+        phonetic = self._apply_final_rules(
+            phonetic, final_rules1, language_arg, False
+        )  # apply common rules
+        # final_rules1 are the common approx rules,
+        # final_rules2 are approx rules for specific language
+        phonetic = self._apply_final_rules(
+            phonetic, final_rules2, language_arg, True
+        )  # apply lang specific rules
 
-        phonetic_array[k] = _bm_expand_alternates(phonetic2)
+        return phonetic
 
-    phonetic = '|'.join(phonetic_array)
-    if strip:
-        phonetic = _bm_normalize_lang_attrs(phonetic, True)
+    def _apply_final_rules(self, phonetic, final_rules, language_arg, strip):
+        """Apply a set of final rules to the phonetic encoding.
 
-    if '|' in phonetic:
-        phonetic = '(' + _bm_remove_dupes(phonetic) + ')'
+        :param str phonetic: the term to which to apply the final rules
+        :param tuple final_rules: the set of final phonetic transform regexps
+        :param int language_arg: an integer representing the target language of the
+            phonetic encoding
+        :param bool strip: flag to indicate whether to normalize the language
+            attributes
+        """
+        # optimization to save time
+        if not final_rules:
+            return phonetic
 
-    return phonetic
+        # expand the result
+        phonetic = self._expand_alternates(phonetic)
+        phonetic_array = phonetic.split('|')
 
+        for k in range(len(phonetic_array)):
+            phonetic = phonetic_array[k]
+            phonetic2 = ''
+            phoneticx = self._normalize_lang_attrs(phonetic, True)
 
-def _bm_phonetic_number(phonetic):
-    """Remove bracketed text from the end of a string.
+            i = 0
+            while i < len(phonetic):
+                found = False
 
-    :param str phonetic: a Beider-Morse phonetic encoding
-    """
-    if '[' in phonetic:
-        return phonetic[: phonetic.find('[')]
+                if phonetic[i] == '[':  # skip over language attribute
+                    attrib_start = i
+                    i += 1
+                    while True:
+                        if phonetic[i] == ']':
+                            i += 1
+                            phonetic2 += phonetic[attrib_start:i]
+                            break
+                        i += 1
+                    continue
 
-    return phonetic  # experimental !!!!
+                for rule in final_rules:
+                    pattern = rule[_PATTERN_POS]
+                    pattern_length = len(pattern)
+                    lcontext = rule[_LCONTEXT_POS]
+                    rcontext = rule[_RCONTEXT_POS]
 
+                    right = '^' + rcontext
+                    left = lcontext + '$'
 
-def _bm_expand_alternates(phonetic):
-    """Expand phonetic alternates separated by |s.
+                    # check to see if next sequence in phonetic matches the string
+                    # in the rule
+                    if (pattern_length > len(phoneticx) - i) or phoneticx[
+                        i : i + pattern_length
+                    ] != pattern:
+                        continue
 
-    :param str phonetic: a Beider-Morse phonetic encoding
-    """
-    alt_start = phonetic.find('(')
-    if alt_start == -1:
-        return _bm_normalize_lang_attrs(phonetic, False)
+                    # check that right context is satisfied
+                    if rcontext != '':
+                        if not search(right, phoneticx[i + pattern_length :]):
+                            continue
 
-    prefix = phonetic[:alt_start]
-    alt_start += 1  # get past the (
-    alt_end = phonetic.find(')', alt_start)
-    alt_string = phonetic[alt_start:alt_end]
-    alt_end += 1  # get past the )
-    suffix = phonetic[alt_end:]
-    alt_array = alt_string.split('|')
-    result = ''
+                    # check that left context is satisfied
+                    if lcontext != '':
+                        if not search(left, phoneticx[:i]):
+                            continue
 
-    for i in range(len(alt_array)):
-        alt = alt_array[i]
-        alternate = _bm_expand_alternates(prefix + alt + suffix)
-        if alternate != '' and alternate != '[0]':
-            if result != '':
-                result += '|'
-            result += alternate
+                    # check for incompatible attributes
+                    candidate = self._apply_rule_if_compat(
+                        phonetic2, rule[_PHONETIC_POS], language_arg
+                    )
+                    # The below condition shouldn't ever be false
+                    if candidate is not None:  # pragma: no branch
+                        phonetic2 = candidate
+                        found = True
+                        break
 
-    return result
+                if not found:
+                    # character in name for which there is no substitution in the
+                    # table
+                    phonetic2 += phonetic[i]
+                    pattern_length = 1
 
+                i += pattern_length
 
-def _bm_pnums_with_leading_space(phonetic):
-    """Join prefixes & suffixes in cases of alternate phonetic values.
+            phonetic_array[k] = self._expand_alternates(phonetic2)
 
-    :param str phonetic: a Beider-Morse phonetic encoding
-    """
-    alt_start = phonetic.find('(')
-    if alt_start == -1:
-        return ' ' + _bm_phonetic_number(phonetic)
+        phonetic = '|'.join(phonetic_array)
+        if strip:
+            phonetic = self._normalize_lang_attrs(phonetic, True)
 
-    prefix = phonetic[:alt_start]
-    alt_start += 1  # get past the (
-    alt_end = phonetic.find(')', alt_start)
-    alt_string = phonetic[alt_start:alt_end]
-    alt_end += 1  # get past the )
-    suffix = phonetic[alt_end:]
-    alt_array = alt_string.split('|')
-    result = ''
-    for alt in alt_array:
-        result += _bm_pnums_with_leading_space(prefix + alt + suffix)
+        if '|' in phonetic:
+            phonetic = '(' + self._remove_dupes(phonetic) + ')'
 
-    return result
+        return phonetic
 
+    def _phonetic_number(self, phonetic):
+        """Remove bracketed text from the end of a string.
 
-def _bm_phonetic_numbers(phonetic):
-    """Prepare & join phonetic numbers.
+        :param str phonetic: a Beider-Morse phonetic encoding
+        """
+        if '[' in phonetic:
+            return phonetic[: phonetic.find('[')]
 
-    Split phonetic value on '-', run through _bm_pnums_with_leading_space,
-    and join with ' '
+        return phonetic  # experimental !!!!
 
-    :param str phonetic: a Beider-Morse phonetic encoding
-    """
-    phonetic_array = phonetic.split('-')  # for names with spaces in them
-    result = ' '.join(
-        [_bm_pnums_with_leading_space(i)[1:] for i in phonetic_array]
-    )
-    return result
+    def _expand_alternates(self, phonetic):
+        """Expand phonetic alternates separated by |s.
 
+        :param str phonetic: a Beider-Morse phonetic encoding
+        """
+        alt_start = phonetic.find('(')
+        if alt_start == -1:
+            return self._normalize_lang_attrs(phonetic, False)
 
-def _bm_remove_dupes(phonetic):
-    """Remove duplicates from a phonetic encoding list.
+        prefix = phonetic[:alt_start]
+        alt_start += 1  # get past the (
+        alt_end = phonetic.find(')', alt_start)
+        alt_string = phonetic[alt_start:alt_end]
+        alt_end += 1  # get past the )
+        suffix = phonetic[alt_end:]
+        alt_array = alt_string.split('|')
+        result = ''
 
-    :param str phonetic: a Beider-Morse phonetic encoding
-    """
-    alt_string = phonetic
-    alt_array = alt_string.split('|')
+        for i in range(len(alt_array)):
+            alt = alt_array[i]
+            alternate = self._expand_alternates(prefix + alt + suffix)
+            if alternate != '' and alternate != '[0]':
+                if result != '':
+                    result += '|'
+                result += alternate
 
-    result = '|'
-    for i in range(len(alt_array)):
-        alt = alt_array[i]
-        if alt and '|' + alt + '|' not in result:
-            result += alt + '|'
+        return result
 
-    return result[1:-1]  # remove leading and trailing |
+    def _pnums_with_leading_space(self, phonetic):
+        """Join prefixes & suffixes in cases of alternate phonetic values.
 
+        :param str phonetic: a Beider-Morse phonetic encoding
+        """
+        alt_start = phonetic.find('(')
+        if alt_start == -1:
+            return ' ' + self._phonetic_number(phonetic)
 
-def _bm_normalize_lang_attrs(text, strip):
-    """Remove embedded bracketed attributes.
+        prefix = phonetic[:alt_start]
+        alt_start += 1  # get past the (
+        alt_end = phonetic.find(')', alt_start)
+        alt_string = phonetic[alt_start:alt_end]
+        alt_end += 1  # get past the )
+        suffix = phonetic[alt_end:]
+        alt_array = alt_string.split('|')
+        result = ''
+        for alt in alt_array:
+            result += self._pnums_with_leading_space(prefix + alt + suffix)
 
-    This (potentially) bitwise-ands bracketed attributes together and adds to
-    the end.
-    This is applied to a single alternative at a time -- not to a
-    parenthisized list.
-    It removes all embedded bracketed attributes, logically-ands them together,
-    and places them at the end.
-    However if strip is true, this can indeed remove embedded bracketed
-    attributes from a parenthesized list.
+        return result
 
-    :param str text: a Beider-Morse phonetic encoding (in progress)
-    :param bool strip: remove the bracketed attributes (and throw away)
-    """
-    uninitialized = -1  # all 1's
-    attrib = uninitialized
-    while '[' in text:
-        bracket_start = text.find('[')
-        bracket_end = text.find(']', bracket_start)
-        if bracket_end == -1:
-            raise ValueError(
-                'No closing square bracket: text=('
-                + text
-                + ') strip=('
-                + text_type(strip)
-                + ')'
-            )
-        attrib &= int(text[bracket_start + 1 : bracket_end])
-        text = text[:bracket_start] + text[bracket_end + 1 :]
+    def _phonetic_numbers(self, phonetic):
+        """Prepare & join phonetic numbers.
 
-    if attrib == uninitialized or strip:
-        return text
-    elif attrib == 0:
-        # means that the attributes were incompatible and there is no
-        # alternative here
-        return '[0]'
-    return text + '[' + str(attrib) + ']'
+        Split phonetic value on '-', run through _pnums_with_leading_space,
+        and join with ' '
 
+        :param str phonetic: a Beider-Morse phonetic encoding
+        """
+        phonetic_array = phonetic.split('-')  # for names with spaces in them
+        result = ' '.join(
+            [self._pnums_with_leading_space(i)[1:] for i in phonetic_array]
+        )
+        return result
 
-def _bm_apply_rule_if_compat(phonetic, target, language_arg):
-    """Apply a phonetic regex if compatible.
+    def _remove_dupes(self, phonetic):
+        """Remove duplicates from a phonetic encoding list.
 
-    tests for compatible language rules
+        :param str phonetic: a Beider-Morse phonetic encoding
+        """
+        alt_string = phonetic
+        alt_array = alt_string.split('|')
 
-    to do so, apply the rule, expand the results, and detect alternatives with
-        incompatible attributes
+        result = '|'
+        for i in range(len(alt_array)):
+            alt = alt_array[i]
+            if alt and '|' + alt + '|' not in result:
+                result += alt + '|'
 
-    then drop each alternative that has incompatible attributes and keep those
-        that are compatible
+        return result[1:-1]  # remove leading and trailing |
 
-    if there are no compatible alternatives left, return false
+    def _normalize_lang_attrs(self, text, strip):
+        """Remove embedded bracketed attributes.
 
-    otherwise return the compatible alternatives
+        This (potentially) bitwise-ands bracketed attributes together and adds to
+        the end.
+        This is applied to a single alternative at a time -- not to a
+        parenthisized list.
+        It removes all embedded bracketed attributes, logically-ands them together,
+        and places them at the end.
+        However if strip is true, this can indeed remove embedded bracketed
+        attributes from a parenthesized list.
 
-    apply the rule
+        :param str text: a Beider-Morse phonetic encoding (in progress)
+        :param bool strip: remove the bracketed attributes (and throw away)
+        """
+        uninitialized = -1  # all 1's
+        attrib = uninitialized
+        while '[' in text:
+            bracket_start = text.find('[')
+            bracket_end = text.find(']', bracket_start)
+            if bracket_end == -1:
+                raise ValueError(
+                    'No closing square bracket: text=('
+                    + text
+                    + ') strip=('
+                    + text_type(strip)
+                    + ')'
+                )
+            attrib &= int(text[bracket_start + 1 : bracket_end])
+            text = text[:bracket_start] + text[bracket_end + 1 :]
 
-    :param str phonetic: the Beider-Morse phonetic encoding (so far)
-    :param str target: a proposed addition to the phonetic encoding
-    :param int language_arg: an integer representing the target language of
-        the phonetic encoding
-    """
-    candidate = phonetic + target
-    if '[' not in candidate:  # no attributes so we need test no further
+        if attrib == uninitialized or strip:
+            return text
+        elif attrib == 0:
+            # means that the attributes were incompatible and there is no
+            # alternative here
+            return '[0]'
+        return text + '[' + str(attrib) + ']'
+
+    def _apply_rule_if_compat(self, phonetic, target, language_arg):
+        """Apply a phonetic regex if compatible.
+
+        tests for compatible language rules
+
+        to do so, apply the rule, expand the results, and detect alternatives with
+            incompatible attributes
+
+        then drop each alternative that has incompatible attributes and keep those
+            that are compatible
+
+        if there are no compatible alternatives left, return false
+
+        otherwise return the compatible alternatives
+
+        apply the rule
+
+        :param str phonetic: the Beider-Morse phonetic encoding (so far)
+        :param str target: a proposed addition to the phonetic encoding
+        :param int language_arg: an integer representing the target language of
+            the phonetic encoding
+        """
+        candidate = phonetic + target
+        if '[' not in candidate:  # no attributes so we need test no further
+            return candidate
+
+        # expand the result, converting incompatible attributes to [0]
+        candidate = self._expand_alternates(candidate)
+        candidate_array = candidate.split('|')
+
+        # drop each alternative that has incompatible attributes
+        candidate = ''
+        found = False
+
+        for i in range(len(candidate_array)):
+            this_candidate = candidate_array[i]
+            if language_arg != 1:
+                this_candidate = self._normalize_lang_attrs(
+                    this_candidate + '[' + str(language_arg) + ']', False
+                )
+            if this_candidate != '[0]':
+                found = True
+                if candidate:
+                    candidate += '|'
+                candidate += this_candidate
+
+        # return false if no compatible alternatives remain
+        if not found:
+            return None
+
+        # return the result of applying the rule
+        if '|' in candidate:
+            candidate = '(' + candidate + ')'
         return candidate
 
-    # expand the result, converting incompatible attributes to [0]
-    candidate = _bm_expand_alternates(candidate)
-    candidate_array = candidate.split('|')
+    def _language_index_from_code(self, code, name_mode):
+        """Return the index value for a language code.
 
-    # drop each alternative that has incompatible attributes
-    candidate = ''
-    found = False
+        This returns l_any if more than one code is specified or the code is out
+        of bounds.
 
-    for i in range(len(candidate_array)):
-        this_candidate = candidate_array[i]
-        if language_arg != 1:
-            this_candidate = _bm_normalize_lang_attrs(
-                this_candidate + '[' + str(language_arg) + ']', False
-            )
-        if this_candidate != '[0]':
-            found = True
-            if candidate:
-                candidate += '|'
-            candidate += this_candidate
+        :param int code: the language code to interpret
+        :param str name_mode: the name mode of the algorithm: 'gen' (default),
+                    'ash' (Ashkenazi), or 'sep' (Sephardic)
+        """
+        if code < 1 or code > sum(
+            _LANG_DICT[_] for _ in BMDATA[name_mode]['languages']
+        ):  # code out of range
+            return L_ANY
+        if (code & (code - 1)) != 0:  # choice was more than one language; use any
+            return L_ANY
+        return code
 
-    # return false if no compatible alternatives remain
-    if not found:
-        return None
+    def encode(
+        self,
+        word,
+        language_arg=0,
+        name_mode='gen',
+        match_mode='approx',
+        concat=False,
+        filter_langs=False,
+    ):
+        """Return the Beider-Morse Phonetic Matching encoding(s) of a term.
 
-    # return the result of applying the rule
-    if '|' in candidate:
-        candidate = '(' + candidate + ')'
-    return candidate
+        :param str word: the word to transform
+        :param str language_arg: the language of the term; supported values
+            include:
 
+                - 'any'
+                - 'arabic'
+                - 'cyrillic'
+                - 'czech'
+                - 'dutch'
+                - 'english'
+                - 'french'
+                - 'german'
+                - 'greek'
+                - 'greeklatin'
+                - 'hebrew'
+                - 'hungarian'
+                - 'italian'
+                - 'latvian'
+                - 'polish'
+                - 'portuguese'
+                - 'romanian'
+                - 'russian'
+                - 'spanish'
+                - 'turkish'
 
-def _bm_language_index_from_code(code, name_mode):
-    """Return the index value for a language code.
+        :param str name_mode: the name mode of the algorithm:
 
-    This returns l_any if more than one code is specified or the code is out
-    of bounds.
+                - 'gen' -- general (default)
+                - 'ash' -- Ashkenazi
+                - 'sep' -- Sephardic
 
-    :param int code: the language code to interpret
-    :param str name_mode: the name mode of the algorithm: 'gen' (default),
-                'ash' (Ashkenazi), or 'sep' (Sephardic)
-    """
-    if code < 1 or code > sum(
-        _LANG_DICT[_] for _ in BMDATA[name_mode]['languages']
-    ):  # code out of range
-        return L_ANY
-    if (code & (code - 1)) != 0:  # choice was more than one language; use any
-        return L_ANY
-    return code
+        :param str match_mode: matching mode: 'approx' or 'exact'
+        :param bool concat: concatenation mode
+        :param bool filter_langs: filter out incompatible languages
+        :returns: the BMPM value(s)
+        :rtype: tuple
+
+        >>> cdr = BeiderMorse()
+        >>> cdr.encode('Christopher')
+        'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
+        xristYfir xristopi xritopir xritopi xristofi xritofir xritofi tzristopir
+        tzristofir zristopir zristopi zritopir zritopi zristofir zristofi zritofir
+        zritofi'
+        >>> cdr.encode('Niall')
+        'nial niol'
+        >>> cdr.encode('Smith')
+        'zmit'
+        >>> cdr.encode('Schmidt')
+        'zmit stzmit'
+
+        >>> cdr.encode('Christopher', language_arg='German')
+        'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
+        xristYfir'
+        >>> cdr.encode('Christopher', language_arg='English')
+        'tzristofir tzrQstofir tzristafir tzrQstafir xristofir xrQstofir xristafir
+        xrQstafir'
+        >>> cdr.encode('Christopher', language_arg='German', name_mode='ash')
+        'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
+        xristYfir'
+
+        >>> cdr.encode('Christopher', language_arg='German', match_mode='exact')
+        'xriStopher xriStofer xristopher xristofer'
+        """
+        word = normalize('NFC', text_type(word.strip().lower()))
+
+        name_mode = name_mode.strip().lower()[:3]
+        if name_mode not in {'ash', 'sep', 'gen'}:
+            name_mode = 'gen'
+
+        if match_mode != 'exact':
+            match_mode = 'approx'
+
+        # Translate the supplied language_arg value into an integer representing
+        # a set of languages
+        all_langs = sum(_LANG_DICT[_] for _ in BMDATA[name_mode]['languages']) - 1
+        lang_choices = 0
+        if isinstance(language_arg, (int, float, long)):
+            lang_choices = int(language_arg)
+        elif language_arg != '' and isinstance(language_arg, (text_type, str)):
+            for lang in text_type(language_arg).lower().split(','):
+                if lang in _LANG_DICT and (_LANG_DICT[lang] & all_langs):
+                    lang_choices += _LANG_DICT[lang]
+                elif not filter_langs:
+                    raise ValueError(
+                        'Unknown \'' + name_mode + '\' language: \'' + lang + '\''
+                    )
+
+        # Language choices are either all incompatible with the name mode or
+        # no choices were given, so try to autodetect
+        if lang_choices == 0:
+            language_arg = self._language(word, name_mode)
+        else:
+            language_arg = lang_choices
+        language_arg2 = self._language_index_from_code(language_arg, name_mode)
+
+        rules = BMDATA[name_mode]['rules'][language_arg2]
+        final_rules1 = BMDATA[name_mode][match_mode]['common']
+        final_rules2 = BMDATA[name_mode][match_mode][language_arg2]
+
+        result = self._phonetic(
+            word,
+            name_mode,
+            rules,
+            final_rules1,
+            final_rules2,
+            language_arg,
+            concat,
+        )
+        result = self._phonetic_numbers(result)
+
+        return result
 
 
 def bmpm(
-    word,
-    language_arg=0,
-    name_mode='gen',
-    match_mode='approx',
-    concat=False,
-    filter_langs=False,
+        word,
+        language_arg=0,
+        name_mode='gen',
+        match_mode='approx',
+        concat=False,
+        filter_langs=False,
 ):
     """Return the Beider-Morse Phonetic Matching encoding(s) of a term.
 
-    The Beider-Morse Phonetic Matching algorithm is described in
-    :cite:`Beider:2008`.
-    The reference implementation is licensed under GPLv3.
+    This is a wrapper for :py:meth:`BeiderMorse.encode`.
 
     :param str word: the word to transform
     :param str language_arg: the language of the term; supported values
@@ -725,55 +844,7 @@ def bmpm(
     >>> bmpm('Christopher', language_arg='German', match_mode='exact')
     'xriStopher xriStofer xristopher xristofer'
     """
-    word = normalize('NFC', text_type(word.strip().lower()))
-
-    name_mode = name_mode.strip().lower()[:3]
-    if name_mode not in {'ash', 'sep', 'gen'}:
-        name_mode = 'gen'
-
-    if match_mode != 'exact':
-        match_mode = 'approx'
-
-    # Translate the supplied language_arg value into an integer representing
-    # a set of languages
-    all_langs = sum(_LANG_DICT[_] for _ in BMDATA[name_mode]['languages']) - 1
-    lang_choices = 0
-    if isinstance(language_arg, (int, float, long)):
-        lang_choices = int(language_arg)
-    elif language_arg != '' and isinstance(language_arg, (text_type, str)):
-        for lang in text_type(language_arg).lower().split(','):
-            if lang in _LANG_DICT and (_LANG_DICT[lang] & all_langs):
-                lang_choices += _LANG_DICT[lang]
-            elif not filter_langs:
-                raise ValueError(
-                    'Unknown \'' + name_mode + '\' language: \'' + lang + '\''
-                )
-
-    # Language choices are either all incompatible with the name mode or
-    # no choices were given, so try to autodetect
-    if lang_choices == 0:
-        language_arg = _bm_language(word, name_mode)
-    else:
-        language_arg = lang_choices
-    language_arg2 = _bm_language_index_from_code(language_arg, name_mode)
-
-    rules = BMDATA[name_mode]['rules'][language_arg2]
-    final_rules1 = BMDATA[name_mode][match_mode]['common']
-    final_rules2 = BMDATA[name_mode][match_mode][language_arg2]
-
-    result = _bm_phonetic(
-        word,
-        name_mode,
-        rules,
-        final_rules1,
-        final_rules2,
-        language_arg,
-        concat,
-    )
-    result = _bm_phonetic_numbers(result)
-
-    return result
-
+    return BeiderMorse().encode(word, language_arg, name_mode, match_mode, concat, filter_langs)
 
 if __name__ == '__main__':
     import doctest
