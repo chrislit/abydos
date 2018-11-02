@@ -354,8 +354,8 @@ class DamerauLevenshtein(Distance):
 
         if 2 * trans_cost < ins_cost + del_cost:
             raise ValueError(
-                'Unsupported cost assignment; the cost of two transpositions' +
-                'must not be less than the cost of an insert plus a delete.'
+                'Unsupported cost assignment; the cost of two transpositions'
+                + 'must not be less than the cost of an insert plus a delete.'
             )
 
         d_mat = np_zeros((len(src)) * (len(tar)), dtype=np_int).reshape(
