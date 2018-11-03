@@ -45,7 +45,7 @@ class SoundD(Phonetic):
         )
     )
 
-    def sound_d(self, word, max_length=4):
+    def encode(self, word, max_length=4):
         """Return the SoundD code.
 
         :param str word: the word to transform

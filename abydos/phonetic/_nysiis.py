@@ -41,11 +41,12 @@ class NYSIIS(Phonetic):
     :cite:`Lynch:1977`.
     """
 
-    def nysiis(self, word, max_length=6, modified=False):
+    def encode(self, word, max_length=6, modified=False):
         """Return the NYSIIS code for a word.
 
         :param str word: the word to transform
-        :param int max_length: the maximum length (default 6) of the code to return
+        :param int max_length: the maximum length (default 6) of the code to
+            return
         :param bool modified: indicates whether to use USDA modified NYSIIS
         :returns: the NYSIIS value
         :rtype: str

@@ -46,7 +46,7 @@ class StatisticsCanada(Phonetic):
     :cite:`Moore:1977`.
     """
 
-    def statistics_canada(self, word, max_length=4):
+    def encode(self, word, max_length=4):
         """Return the Statistics Canada code for a word.
 
         :param str word: the word to transform

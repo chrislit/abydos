@@ -64,7 +64,7 @@ The phonetic module implements phonetic algorithms including:
 from __future__ import unicode_literals
 
 from ._alpha_sis import alpha_sis
-from ._bmpm import bmpm
+from ._bmpm import BeiderMorse, bmpm
 from ._caverphone import caverphone
 from ._davidson import davidson
 from ._de import (
@@ -110,6 +110,7 @@ from ._statistics_canada import statistics_canada
 from ._sv import norphone, sfinxbis
 
 __all__ = [
+    'BeiderMorse',
     'russell_index',
     'russell_index_num_to_alpha',
     'russell_index_alpha',

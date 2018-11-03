@@ -44,6 +44,8 @@ class RussellIndex(Phonetic):
     :cite:`Russell:1917`.
     """
 
+    _uc_set = set('ABCDEFGIKLMNOPQRSTUVXYZ')
+
     _trans = dict(
         zip(
             (ord(_) for _ in 'ABCDEFGIKLMNOPQRSTUVXYZ'),

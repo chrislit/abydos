@@ -150,7 +150,7 @@ class SfinxBis(Phonetic):
         )
     )
 
-    def sfinxbis(self, word, max_length=-1):
+    def encode(self, word, max_length=-1):
         """Return the SfinxBis code for a word.
 
         :param str word: the word to transform
