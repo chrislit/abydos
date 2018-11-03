@@ -34,11 +34,11 @@ from six import text_type
 
 from ._phonetic import Phonetic
 
-__all__ = ['fonem', 'henry_early']
+__all__ = ['FONEM', 'HenryEarly', 'fonem', 'henry_early']
 
 
-def fonem(word):
-    """Return the FONEM code of a word.
+class FONEM(Phonetic):
+    """FONEM.
 
     FONEM is a phonetic algorithm designed for French (particularly surnames in
     Saguenay, Canada), defined in :cite:`Bouchard:1981`.
@@ -46,24 +46,10 @@ def fonem(word):
     Guillaume Plique's Javascript implementation :cite:`Plique:2018` at
     https://github.com/Yomguithereal/talisman/blob/master/src/phonetics/french/fonem.js
     was also consulted for this implementation.
-
-    :param str word: the word to transform
-    :returns: the FONEM code
-    :rtype: str
-
-    >>> fonem('Marchand')
-    'MARCHEN'
-    >>> fonem('Beaulieu')
-    'BOLIEU'
-    >>> fonem('Beaumont')
-    'BOMON'
-    >>> fonem('Legrand')
-    'LEGREN'
-    >>> fonem('Pelletier')
-    'PELETIER'
     """
+
     # I don't see a sane way of doing this without regexps :(
-    rule_table = {
+    _rule_table = {
         # Vowels & groups of vowels
         'V-1': (re_compile('E?AU'), 'O'),
         'V-2,5': (re_compile('(E?AU|O)L[TX]$'), 'O'),
@@ -143,7 +129,7 @@ def fonem(word):
         'C-34': ('G#', 'GA'),
         'C-35': ('MA#', 'MAC'),
     }
-    rule_order = [
+    _rule_order = (
         'V-14',
         'C-28',
         'C-28a',
@@ -207,61 +193,263 @@ def fonem(word):
         'C-28d',
         'C-34',
         'C-35',
-    ]
-
-    # normalize, upper-case, and filter non-French letters
-    word = unicode_normalize('NFKD', text_type(word.upper()))
-    word = word.translate({198: 'AE', 338: 'OE'})
-    word = ''.join(
-        c
-        for c in word
-        if c
-        in {
-            'A',
-            'B',
-            'C',
-            'D',
-            'E',
-            'F',
-            'G',
-            'H',
-            'I',
-            'J',
-            'K',
-            'L',
-            'M',
-            'N',
-            'O',
-            'P',
-            'Q',
-            'R',
-            'S',
-            'T',
-            'U',
-            'V',
-            'W',
-            'X',
-            'Y',
-            'Z',
-            '-',
-        }
     )
 
-    for rule in rule_order:
-        regex, repl = rule_table[rule]
-        if isinstance(regex, text_type):
-            word = word.replace(regex, repl)
-        else:
-            word = regex.sub(repl, word)
+    _uc_set = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ-')
 
-    return word
+    def encode(self, word):
+        """Return the FONEM code of a word.
+
+        :param str word: the word to transform
+        :returns: the FONEM code
+        :rtype: str
+
+        >>> pe = FONEM()
+        >>> pe.encode('Marchand')
+        'MARCHEN'
+        >>> pe.encode('Beaulieu')
+        'BOLIEU'
+        >>> pe.encode('Beaumont')
+        'BOMON'
+        >>> pe.encode('Legrand')
+        'LEGREN'
+        >>> pe.encode('Pelletier')
+        'PELETIER'
+        """
+        # normalize, upper-case, and filter non-French letters
+        word = unicode_normalize('NFKD', text_type(word.upper()))
+        word = word.translate({198: 'AE', 338: 'OE'})
+        word = ''.join(c for c in word if c in self._uc_set)
+
+        for rule in self._rule_order:
+            regex, repl = self._rule_table[rule]
+            if isinstance(regex, text_type):
+                word = word.replace(regex, repl)
+            else:
+                word = regex.sub(repl, word)
+
+        return word
+
+
+def fonem(word):
+    """Return the FONEM code of a word.
+
+    This is a wrapper for :py:meth:`FONEM.encode`.
+
+    :param str word: the word to transform
+    :returns: the FONEM code
+    :rtype: str
+
+    >>> fonem('Marchand')
+    'MARCHEN'
+    >>> fonem('Beaulieu')
+    'BOLIEU'
+    >>> fonem('Beaumont')
+    'BOMON'
+    >>> fonem('Legrand')
+    'LEGREN'
+    >>> fonem('Pelletier')
+    'PELETIER'
+    """
+    return FONEM().encode(word)
+
+
+class HenryEarly(Phonetic):
+    """Henry code, early version.
+
+    The early version of Henry coding is given in :cite:`Legare:1972`. This is
+    different from the later version defined in :cite:`Henry:1976`.
+    """
+
+    _uc_c_set = set('BCDFGHJKLMNPQRSTVWXZ')
+    _diph = {
+        'AI': 'E',
+        'AY': 'E',
+        'EI': 'E',
+        'AU': 'O',
+        'OI': 'O',
+        'OU': 'O',
+        'EU': 'U',
+    }
+    _simple = {'W': 'V', 'X': 'S', 'Z': 'S'}
+
+    def encode(self, word, max_length=3):
+        """Calculate the early version of the Henry code for a word.
+
+        :param str word: the word to transform
+        :param int max_length: the length of the code returned (defaults to 3)
+        :returns: the early Henry code
+        :rtype: str
+
+        >>> henry_early('Marchand')
+        'MRC'
+        >>> henry_early('Beaulieu')
+        'BL'
+        >>> henry_early('Beaumont')
+        'BM'
+        >>> henry_early('Legrand')
+        'LGR'
+        >>> henry_early('Pelletier')
+        'PLT'
+        """
+        word = unicode_normalize('NFKD', text_type(word.upper()))
+        word = ''.join(c for c in word if c in self._uc_set)
+
+        if not word:
+            return ''
+
+        # Rule Ia seems to be covered entirely in II
+
+        # Rule Ib
+        if word[0] in self._uc_vy_set:
+            # Ib1
+            if (
+                word[1:2] in self._uc_c_set - {'M', 'N'}
+                and word[2:3] in self._uc_c_set
+            ) or (
+                word[1:2] in self._uc_c_set and word[2:3] not in self._uc_c_set
+            ):
+                if word[0] == 'Y':
+                    word = 'I' + word[1:]
+            # Ib2
+            elif word[1:2] in {'M', 'N'} and word[2:3] in self._uc_c_set:
+                if word[0] == 'E':
+                    word = 'A' + word[1:]
+                elif word[0] in {'I', 'U', 'Y'}:
+                    word = 'E' + word[1:]
+            # Ib3
+            elif word[:2] in self._diph:
+                word = self._diph[word[:2]] + word[2:]
+            # Ib4
+            elif word[1:2] in self._vows and word[0] == 'Y':
+                word = 'I' + word[1:]
+
+        code = ''
+        skip = 0
+
+        # Rule II
+        for pos, char in enumerate(word):
+            nxch = word[pos + 1 : pos + 2]
+            prev = word[pos - 1 : pos]
+
+            if skip:
+                skip -= 1
+            elif char in self._uc_vy_set:
+                code += char
+            # IIc
+            elif char == nxch:
+                skip = 1
+                code += char
+            elif word[pos : pos + 2] in {'CQ', 'DT', 'SC'}:
+                continue
+            # IIb
+            elif char in self._simple:
+                code += self._simple[char]
+            elif char in {'C', 'G', 'P', 'Q', 'S'}:
+                if char == 'C':
+                    if nxch in {'A', 'O', 'U', 'L', 'R'}:
+                        code += 'K'
+                    elif nxch in {'E', 'I', 'Y'}:
+                        code += 'S'
+                    elif nxch == 'H':
+                        if word[pos + 2 : pos + 3] in self._uc_vy_set:
+                            code += 'C'
+                        else:  # CHR, CHL, etc.
+                            code += 'K'
+                    else:
+                        code += 'C'
+                elif char == 'G':
+                    if nxch in {'A', 'O', 'U', 'L', 'R'}:
+                        code += 'G'
+                    elif nxch in {'E', 'I', 'Y'}:
+                        code += 'J'
+                    elif nxch == 'N':
+                        code += 'N'
+                elif char == 'P':
+                    if nxch != 'H':
+                        code += 'P'
+                    else:
+                        code += 'F'
+                elif char == 'Q':
+                    if word[pos + 1 : pos + 3] in {'UE', 'UI', 'UY'}:
+                        code += 'G'
+                    else:  # QUA, QUO, etc.
+                        code += 'K'
+                else:  # S...
+                    if word[pos : pos + 6] == 'SAINTE':
+                        code += 'X'
+                        skip = 5
+                    elif word[pos : pos + 5] == 'SAINT':
+                        code += 'X'
+                        skip = 4
+                    elif word[pos : pos + 3] == 'STE':
+                        code += 'X'
+                        skip = 2
+                    elif word[pos : pos + 2] == 'ST':
+                        code += 'X'
+                        skip = 1
+                    elif nxch in self._uc_c_set:
+                        continue
+                    else:
+                        code += 'S'
+            # IId
+            elif char == 'H' and prev in self._uc_c_set:
+                continue
+            elif char in self._uc_c_set - {
+                'L',
+                'R',
+            } and nxch in self._uc_c_set - {'L', 'R'}:
+                continue
+            elif char == 'L' and nxch in {'M', 'N'}:
+                continue
+            elif (
+                char in {'M', 'N'}
+                and prev in self._uc_vy_set
+                and nxch in self._uc_c_set
+            ):
+                continue
+            # IIa
+            else:
+                code += char
+
+        # IIe1
+        if code[-4:] in {'AULT', 'EULT', 'OULT'}:
+            code = code[:-2]
+        # The following are blocked by rules above
+        # elif code[-4:-3] in _vows and code[-3:] == 'MPS':
+        #    code = code[:-3]
+        # elif code[-3:-2] in _vows and code[-2:] in {'MB', 'MP', 'ND',
+        #                                             'NS', 'NT'}:
+        #    code = code[:-2]
+        elif code[-2:-1] == 'R' and code[-1:] in self._uc_c_set:
+            code = code[:-1]
+        # IIe2
+        elif code[-2:-1] in self._uc_vy_set and code[-1:] in {
+            'D',
+            'M',
+            'N',
+            'S',
+            'T',
+        }:
+            code = code[:-1]
+        elif code[-2:] == 'ER':
+            code = code[:-1]
+
+        # Drop non-initial vowels
+        code = code[:1] + code[1:].translate(
+            {65: '', 69: '', 73: '', 79: '', 85: '', 89: ''}
+        )
+
+        if max_length != -1:
+            code = code[:max_length]
+
+        return code
 
 
 def henry_early(word, max_length=3):
     """Calculate the early version of the Henry code for a word.
 
-    The early version of Henry coding is given in :cite:`Legare:1972`. This is
-    different from the later version defined in :cite:`Henry:1976`.
+    This is a wrapper for :py:meth:`HenryEarly.encode`.
 
     :param str word: the word to transform
     :param int max_length: the length of the code returned (defaults to 3)
@@ -279,209 +467,7 @@ def henry_early(word, max_length=3):
     >>> henry_early('Pelletier')
     'PLT'
     """
-    _cons = {
-        'B',
-        'C',
-        'D',
-        'F',
-        'G',
-        'H',
-        'J',
-        'K',
-        'L',
-        'M',
-        'N',
-        'P',
-        'Q',
-        'R',
-        'S',
-        'T',
-        'V',
-        'W',
-        'X',
-        'Z',
-    }
-    _vows = {'A', 'E', 'I', 'O', 'U', 'Y'}
-    _diph = {
-        'AI': 'E',
-        'AY': 'E',
-        'EI': 'E',
-        'AU': 'O',
-        'OI': 'O',
-        'OU': 'O',
-        'EU': 'U',
-    }
-    # _unaltered = {'B', 'D', 'F', 'J', 'K', 'L', 'M', 'N', 'R', 'T', 'V'}
-    _simple = {'W': 'V', 'X': 'S', 'Z': 'S'}
-
-    word = unicode_normalize('NFKD', text_type(word.upper()))
-    word = ''.join(
-        c
-        for c in word
-        if c
-        in {
-            'A',
-            'B',
-            'C',
-            'D',
-            'E',
-            'F',
-            'G',
-            'H',
-            'I',
-            'J',
-            'K',
-            'L',
-            'M',
-            'N',
-            'O',
-            'P',
-            'Q',
-            'R',
-            'S',
-            'T',
-            'U',
-            'V',
-            'W',
-            'X',
-            'Y',
-            'Z',
-        }
-    )
-
-    if not word:
-        return ''
-
-    # Rule Ia seems to be covered entirely in II
-
-    # Rule Ib
-    if word[0] in _vows:
-        # Ib1
-        if (word[1:2] in _cons - {'M', 'N'} and word[2:3] in _cons) or (
-            word[1:2] in _cons and word[2:3] not in _cons
-        ):
-            if word[0] == 'Y':
-                word = 'I' + word[1:]
-        # Ib2
-        elif word[1:2] in {'M', 'N'} and word[2:3] in _cons:
-            if word[0] == 'E':
-                word = 'A' + word[1:]
-            elif word[0] in {'I', 'U', 'Y'}:
-                word = 'E' + word[1:]
-        # Ib3
-        elif word[:2] in _diph:
-            word = _diph[word[:2]] + word[2:]
-        # Ib4
-        elif word[1:2] in _vows and word[0] == 'Y':
-            word = 'I' + word[1:]
-
-    code = ''
-    skip = 0
-
-    # Rule II
-    for pos, char in enumerate(word):
-        nxch = word[pos + 1 : pos + 2]
-        prev = word[pos - 1 : pos]
-
-        if skip:
-            skip -= 1
-        elif char in _vows:
-            code += char
-        # IIc
-        elif char == nxch:
-            skip = 1
-            code += char
-        elif word[pos : pos + 2] in {'CQ', 'DT', 'SC'}:
-            continue
-        # IIb
-        elif char in _simple:
-            code += _simple[char]
-        elif char in {'C', 'G', 'P', 'Q', 'S'}:
-            if char == 'C':
-                if nxch in {'A', 'O', 'U', 'L', 'R'}:
-                    code += 'K'
-                elif nxch in {'E', 'I', 'Y'}:
-                    code += 'S'
-                elif nxch == 'H':
-                    if word[pos + 2 : pos + 3] in _vows:
-                        code += 'C'
-                    else:  # CHR, CHL, etc.
-                        code += 'K'
-                else:
-                    code += 'C'
-            elif char == 'G':
-                if nxch in {'A', 'O', 'U', 'L', 'R'}:
-                    code += 'G'
-                elif nxch in {'E', 'I', 'Y'}:
-                    code += 'J'
-                elif nxch == 'N':
-                    code += 'N'
-            elif char == 'P':
-                if nxch != 'H':
-                    code += 'P'
-                else:
-                    code += 'F'
-            elif char == 'Q':
-                if word[pos + 1 : pos + 3] in {'UE', 'UI', 'UY'}:
-                    code += 'G'
-                else:  # QUA, QUO, etc.
-                    code += 'K'
-            else:  # S...
-                if word[pos : pos + 6] == 'SAINTE':
-                    code += 'X'
-                    skip = 5
-                elif word[pos : pos + 5] == 'SAINT':
-                    code += 'X'
-                    skip = 4
-                elif word[pos : pos + 3] == 'STE':
-                    code += 'X'
-                    skip = 2
-                elif word[pos : pos + 2] == 'ST':
-                    code += 'X'
-                    skip = 1
-                elif nxch in _cons:
-                    continue
-                else:
-                    code += 'S'
-        # IId
-        elif char == 'H' and prev in _cons:
-            continue
-        elif char in _cons - {'L', 'R'} and nxch in _cons - {'L', 'R'}:
-            continue
-        elif char == 'L' and nxch in {'M', 'N'}:
-            continue
-        elif char in {'M', 'N'} and prev in _vows and nxch in _cons:
-            continue
-        # IIa
-        else:
-            code += char
-
-    # IIe1
-    if code[-4:] in {'AULT', 'EULT', 'OULT'}:
-        code = code[:-2]
-    # The following are blocked by rules above
-    # elif code[-4:-3] in _vows and code[-3:] == 'MPS':
-    #    code = code[:-3]
-    # elif code[-3:-2] in _vows and code[-2:] in {'MB', 'MP', 'ND',
-    #                                             'NS', 'NT'}:
-    #    code = code[:-2]
-    elif code[-2:-1] == 'R' and code[-1:] in _cons:
-        code = code[:-1]
-    # IIe2
-    elif code[-2:-1] in _vows and code[-1:] in {'D', 'M', 'N', 'S', 'T'}:
-        code = code[:-1]
-    elif code[-2:] == 'ER':
-        code = code[:-1]
-
-    # Drop non-initial vowels
-    code = code[:1] + code[1:].translate(
-        {65: '', 69: '', 73: '', 79: '', 85: '', 89: ''}
-    )
-
-    if max_length != -1:
-        code = code[:max_length]
-
-    return code
+    return HenryEarly().encode(word, max_length)
 
 
 if __name__ == '__main__':

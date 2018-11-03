@@ -37,6 +37,7 @@ class Caverphone(Phonetic):
     A description of version 2 of the algorithm can be found in
     :cite:`Hood:2004`.
     """
+
     def encode(self, word, version=2):
         """Return the Caverphone code for a word.
 
@@ -46,32 +47,27 @@ class Caverphone(Phonetic):
         :returns: the Caverphone value
         :rtype: str
 
-        >>> cav = Caverphone()
-        >>> cav.encode('Christopher')
+        >>> pe = Caverphone()
+        >>> pe.encode('Christopher')
         'KRSTFA1111'
-        >>> cav.encode('Niall')
+        >>> pe.encode('Niall')
         'NA11111111'
-        >>> cav.encode('Smith')
+        >>> pe.encode('Smith')
         'SMT1111111'
-        >>> cav.encode('Schmidt')
+        >>> pe.encode('Schmidt')
         'SKMT111111'
 
-        >>> cav.encode('Christopher', 1)
+        >>> pe.encode('Christopher', 1)
         'KRSTF1'
-        >>> cav.encode('Niall', 1)
+        >>> pe.encode('Niall', 1)
         'N11111'
-        >>> cav.encode('Smith', 1)
+        >>> pe.encode('Smith', 1)
         'SMT111'
-        >>> cav.encode('Schmidt', 1)
+        >>> pe.encode('Schmidt', 1)
         'SKMT11'
         """
         word = word.lower()
-        word = ''.join(
-            c
-            for c in word
-            if c
-            in self._lc_set
-        )
+        word = ''.join(c for c in word if c in self._lc_set)
 
         def _squeeze_replace(word, char):
             """Convert strings of char in word to one instance of new_char."""
@@ -207,6 +203,7 @@ def caverphone(word, version=2):
     'SKMT11'
     """
     return Caverphone().encode(word, version)
+
 
 if __name__ == '__main__':
     import doctest

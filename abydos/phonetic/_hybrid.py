@@ -26,17 +26,17 @@ The phonetic._hybrid module implements hybrid phonetic algorithms:
 
 from __future__ import unicode_literals
 
-from ._es import phonetic_spanish, spanish_metaphone
-from ._metaphone import metaphone
-from ._nysiis import nysiis
+from ._es import PhoneticSpanish, SpanishMetaphone
+from ._metaphone import Metaphone
+from ._nysiis import NYSIIS
 from ._phonetic import Phonetic
-from ._soundex import soundex
+from ._soundex import Soundex
 
-__all__ = ['metasoundex', 'onca']
+__all__ = ['MetaSoundex', 'ONCA', 'metasoundex', 'onca']
 
 
-def onca(word, max_length=4, zero_pad=True):
-    """Return the Oxford Name Compression Algorithm (ONCA) code for a word.
+class ONCA(Phonetic):
+    """Oxford Name Compression Algorithm (ONCA).
 
     This is the Oxford Name Compression Algorithm, based on :cite:`Gill:1997`.
 
@@ -44,6 +44,46 @@ def onca(word, max_length=4, zero_pad=True):
     method" identified as the first step in this algorithm, so this is likely
     not a precisely correct implementation, in that it employs the standard
     NYSIIS algorithm.
+    """
+
+    _nysiis = NYSIIS()
+    _soundex = Soundex()
+
+    def encode(self, word, max_length=4, zero_pad=True):
+        """Return the Oxford Name Compression Algorithm (ONCA) code for a word.
+
+        :param str word: the word to transform
+        :param int max_length: the maximum length (default 5) of the code to
+            return
+        :param bool zero_pad: pad the end of the return value with 0s to
+            achieve a max_length string
+        :returns: the ONCA code
+        :rtype: str
+
+        >>> pe = ONCA()
+        >>> pe.encode('Christopher')
+        'C623'
+        >>> pe.encode('Niall')
+        'N400'
+        >>> pe.encode('Smith')
+        'S530'
+        >>> pe.encode('Schmidt')
+        'S530'
+        """
+        # In the most extreme case, 3 characters of NYSIIS input can be
+        # compressed to one character of output, so give it triple the
+        # max_length.
+        return self._soundex.encode(
+            self._nysiis.encode(word, max_length=max_length * 3),
+            max_length,
+            zero_pad=zero_pad,
+        )
+
+
+def onca(word, max_length=4, zero_pad=True):
+    """Return the Oxford Name Compression Algorithm (ONCA) code for a word.
+
+    This is a wrapper for :py:meth:`ONCA.encode`.
 
     :param str word: the word to transform
     :param int max_length: the maximum length (default 5) of the code to return
@@ -61,18 +101,70 @@ def onca(word, max_length=4, zero_pad=True):
     >>> onca('Schmidt')
     'S530'
     """
-    # In the most extreme case, 3 characters of NYSIIS input can be compressed
-    # to one character of output, so give it triple the max_length.
-    return soundex(
-        nysiis(word, max_length=max_length * 3), max_length, zero_pad=zero_pad
+    return ONCA().encode(word, max_length, zero_pad)
+
+
+class MetaSoundex(Phonetic):
+    """MetaSoundex.
+
+    This is based on :cite:`Koneru:2017`. Only English ('en') and Spanish
+    ('es') languages are supported, as in the original.
+    """
+
+    _trans = dict(
+        zip(
+            (ord(_) for _ in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            '07430755015866075943077514',
+        )
     )
+    _phonetic_spanish = PhoneticSpanish()
+    _spanish_metaphone = SpanishMetaphone()
+    _metaphone = Metaphone()
+
+    def metasoundex(self, word, lang='en'):
+        """Return the MetaSoundex code for a word.
+
+        :param str word: the word to transform
+        :param str lang: either 'en' for English or 'es' for Spanish
+        :returns: the MetaSoundex code
+        :rtype: str
+
+        >>> pe = MetaSoundex()
+        >>> pe.encode('Smith')
+        '4500'
+        >>> pe.encode('Waters')
+        '7362'
+        >>> pe.encode('James')
+        '1520'
+        >>> pe.encode('Schmidt')
+        '4530'
+        >>> pe.encode('Ashcroft')
+        '0261'
+        >>> pe.encode('Perez', lang='es')
+        '094'
+        >>> pe.encode('Martinez', lang='es')
+        '69364'
+        >>> pe.encode('Gutierrez', lang='es')
+        '83994'
+        >>> pe.encode('Santiago', lang='es')
+        '4638'
+        >>> pe.encode('Nicolás', lang='es')
+        '6754'
+        """
+        if lang == 'es':
+            return self._phonetic_spanish.encode(
+                self._spanish_metaphone.encode(word)
+            )
+
+        word = self._soundex.encode(self._metaphone.encode(word))
+        word = word[0].translate(self._trans) + word[1:]
+        return word
 
 
 def metasoundex(word, lang='en'):
     """Return the MetaSoundex code for a word.
 
-    This is based on :cite:`Koneru:2017`. Only English ('en') and Spanish
-    ('es') languages are supported, as in the original.
+    This is a wrapper for :py:meth:`MetaSoundex.encode`.
 
     :param str word: the word to transform
     :param str lang: either 'en' for English or 'es' for Spanish
@@ -100,20 +192,7 @@ def metasoundex(word, lang='en'):
     >>> metasoundex('Nicolás', lang='es')
     '6754'
     """
-    _metasoundex_translation = dict(
-        zip(
-            (ord(_) for _ in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-            '07430755015866075943077514',
-        )
-    )
-
-    if lang == 'es':
-        return phonetic_spanish(spanish_metaphone(word))
-
-    word = soundex(metaphone(word))
-    word = word[0].translate(_metasoundex_translation) + word[1:]
-
-    return word
+    return MetaSoundex().encode(word, lang)
 
 
 if __name__ == '__main__':

@@ -30,11 +30,11 @@ from six import text_type
 
 from ._phonetic import Phonetic
 
-__all__ = ['statistics_canada']
+__all__ = ['StatisticsCanada', 'statistics_canada']
 
 
-def statistics_canada(word, max_length=4):
-    """Return the Statistics Canada code for a word.
+class StatisticsCanada(Phonetic):
+    """Statistics Canada code.
 
     The original description of this algorithm could not be located, and
     may only have been specified in an unpublished TR. The coding does not
@@ -43,7 +43,49 @@ def statistics_canada(word, max_length=4):
     procedure".
 
     The modified version of this algorithm is described in Appendix B of
-     :cite:`Moore:1977`.
+    :cite:`Moore:1977`.
+    """
+
+    def statistics_canada(self, word, max_length=4):
+        """Return the Statistics Canada code for a word.
+
+        :param str word: the word to transform
+        :param int max_length: the maximum length (default 4) of the code to
+            return
+        :returns: the Statistics Canada name code value
+        :rtype: str
+
+        >>> pe = StatisticsCanada()
+        >>> pe.encode('Christopher')
+        'CHRS'
+        >>> pe.encode('Niall')
+        'NL'
+        >>> pe.encode('Smith')
+        'SMTH'
+        >>> pe.encode('Schmidt')
+        'SCHM'
+        """
+        # uppercase, normalize, decompose, and filter non-A-Z out
+        word = unicode_normalize('NFKD', text_type(word.upper()))
+        word = word.replace('ß', 'SS')
+        word = ''.join(c for c in word if c in self._uc_set)
+        if not word:
+            return ''
+
+        code = word[1:]
+        for vowel in self._uc_vy_set:
+            code = code.replace(vowel, '')
+        code = word[0] + code
+        code = self._delete_consecutive_repeats(code)
+        code = code.replace(' ', '')
+
+        return code[:max_length]
+
+
+def statistics_canada(word, max_length=4):
+    """Return the Statistics Canada code for a word.
+
+    This is a wraper for :py:meth:`StatisticsCanada.encode`.
 
     :param str word: the word to transform
     :param int max_length: the maximum length (default 4) of the code to return
@@ -59,53 +101,7 @@ def statistics_canada(word, max_length=4):
     >>> statistics_canada('Schmidt')
     'SCHM'
     """
-    # uppercase, normalize, decompose, and filter non-A-Z out
-    word = unicode_normalize('NFKD', text_type(word.upper()))
-    word = word.replace('ß', 'SS')
-    word = ''.join(
-        c
-        for c in word
-        if c
-        in {
-            'A',
-            'B',
-            'C',
-            'D',
-            'E',
-            'F',
-            'G',
-            'H',
-            'I',
-            'J',
-            'K',
-            'L',
-            'M',
-            'N',
-            'O',
-            'P',
-            'Q',
-            'R',
-            'S',
-            'T',
-            'U',
-            'V',
-            'W',
-            'X',
-            'Y',
-            'Z',
-        }
-    )
-    if not word:
-        return ''
-
-    code = word[1:]
-    for vowel in {'A', 'E', 'I', 'O', 'U', 'Y'}:
-        code = code.replace(vowel, '')
-    code = word[0] + code
-    code = _delete_consecutive_repeats(code)
-    code = code.replace(' ', '')
-
-    return code[:max_length]
+    return StatisticsCanada().encode(word, max_length)
 
 
 if __name__ == '__main__':

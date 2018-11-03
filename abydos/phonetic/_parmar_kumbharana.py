@@ -28,30 +28,16 @@ from six.moves import range
 
 from ._phonetic import Phonetic
 
-__all__ = ['parmar_kumbharana']
+__all__ = ['ParmarKumbharana', 'parmar_kumbharana']
 
 
-def parmar_kumbharana(word):
-    """Return the Parmar-Kumbharana encoding of a word.
+class ParmarKumbharana(Phonetic):
+    """Parmar-Kumbharana code.
 
     This is based on the phonetic algorithm proposed in :cite:`Parmar:2014`.
-
-    :param str word: the word to transform
-    :returns: the Parmar-Kumbharana encoding
-    :rtype: str
-
-    >>> parmar_kumbharana('Gough')
-    'GF'
-    >>> parmar_kumbharana('pneuma')
-    'NM'
-    >>> parmar_kumbharana('knight')
-    'NT'
-    >>> parmar_kumbharana('trice')
-    'TRS'
-    >>> parmar_kumbharana('judge')
-    'JJ'
     """
-    rule_table = {
+
+    _rules = {
         4: {'OUGH': 'F'},
         3: {'DGE': 'J', 'OUL': 'U', 'GHT': 'T'},
         2: {
@@ -69,25 +55,67 @@ def parmar_kumbharana(word):
             'SH': 'S',
         },
     }
-    vowel_trans = {65: '', 69: '', 73: '', 79: '', 85: '', 89: ''}
+    _del_trans = {65: '', 69: '', 73: '', 79: '', 85: '', 89: ''}
 
-    word = word.upper()  # Rule 3
-    word = _delete_consecutive_repeats(word)  # Rule 4
+    def parmar_kumbharana(self, word):
+        """Return the Parmar-Kumbharana encoding of a word.
 
-    # Rule 5
-    i = 0
-    while i < len(word):
-        for match_len in range(4, 1, -1):
-            if word[i : i + match_len] in rule_table[match_len]:
-                repl = rule_table[match_len][word[i : i + match_len]]
-                word = word[:i] + repl + word[i + match_len :]
-                i += len(repl)
-                break
-        else:
-            i += 1
+        :param str word: the word to transform
+        :returns: the Parmar-Kumbharana encoding
+        :rtype: str
 
-    word = word[:1] + word[1:].translate(vowel_trans)  # Rule 6
-    return word
+        >>> pe = ParmarKumbharana()
+        >>> pe.encode('Gough')
+        'GF'
+        >>> pe.encode('pneuma')
+        'NM'
+        >>> pe.encode('knight')
+        'NT'
+        >>> pe.encode('trice')
+        'TRS'
+        >>> pe.encode('judge')
+        'JJ'
+        """
+        word = word.upper()  # Rule 3
+        word = self._delete_consecutive_repeats(word)  # Rule 4
+
+        # Rule 5
+        i = 0
+        while i < len(word):
+            for match_len in range(4, 1, -1):
+                if word[i : i + match_len] in self._rules[match_len]:
+                    repl = self._rules[match_len][word[i : i + match_len]]
+                    word = word[:i] + repl + word[i + match_len :]
+                    i += len(repl)
+                    break
+            else:
+                i += 1
+
+        word = word[:1] + word[1:].translate(self._del_trans)  # Rule 6
+        return word
+
+
+def parmar_kumbharana(word):
+    """Return the Parmar-Kumbharana encoding of a word.
+
+    This is a wrapper for :py:meth:`ParmarKumbharana.encode`.
+
+    :param str word: the word to transform
+    :returns: the Parmar-Kumbharana encoding
+    :rtype: str
+
+    >>> parmar_kumbharana('Gough')
+    'GF'
+    >>> parmar_kumbharana('pneuma')
+    'NM'
+    >>> parmar_kumbharana('knight')
+    'NT'
+    >>> parmar_kumbharana('trice')
+    'TRS'
+    >>> parmar_kumbharana('judge')
+    'JJ'
+    """
+    return ParmarKumbharana.encode(word)
 
 
 if __name__ == '__main__':

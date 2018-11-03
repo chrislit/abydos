@@ -33,6 +33,8 @@ class Phonetic(object):
     _lc_set = set('abcdefghijklmnopqrstuvwxyz')
     _uc_v_set = set('AEIOU')
     _lc_v_set = set('aeiou')
+    _uc_vy_set = set('AEIOUY')
+    _lc_vy_set = set('aeiouy')
 
     def _delete_consecutive_repeats(self, word):
         """Delete consecutive repeated characters in a word.
@@ -50,6 +52,22 @@ class Phonetic(object):
         'ACTG'
         """
         return ''.join(char for char, _ in groupby(word))
+
+    def encode(self, word):
+        """Generic encode method.
+
+        :param word:
+        :return:
+        """
+        pass
+
+    def encode_alpha(self, word):
+        """Generic encode_alpha method.
+
+        :param word:
+        :return:
+        """
+        return self.encode(word)
 
 
 if __name__ == '__main__':
