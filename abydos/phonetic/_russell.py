@@ -30,17 +30,119 @@ from six import text_type
 from ._phonetic import Phonetic
 
 __all__ = [
+    'RussellIndex',
     'russell_index',
     'russell_index_alpha',
     'russell_index_num_to_alpha',
 ]
 
 
-def russell_index(word):
-    """Return the Russell Index (integer output) of a word.
+class RussellIndex(Phonetic):
+    """Russell Index.
 
     This follows Robert C. Russell's Index algorithm, as described in
     :cite:`Russell:1917`.
+    """
+
+    _trans = dict(
+        zip(
+            (ord(_) for _ in 'ABCDEFGIKLMNOPQRSTUVXYZ'),
+            '12341231356712383412313',
+        )
+    )
+    _num_trans = dict(zip((ord(_) for _ in '12345678'), 'ABCDLMNR'))
+
+    _num_set = set('12345678')
+
+    def encode(self, word):
+        """Return the Russell Index (integer output) of a word.
+
+        :param str word: the word to transform
+        :returns: the Russell Index value
+        :rtype: int
+
+        >>> pe = RussellIndex()
+        >>> pe.encode('Christopher')
+        3813428
+        >>> pe.encode('Niall')
+        715
+        >>> pe.encode('Smith')
+        3614
+        >>> pe.encode('Schmidt')
+        3614
+        """
+        word = unicode_normalize('NFKD', text_type(word.upper()))
+        word = word.replace('ß', 'SS')
+        word = word.replace('GH', '')  # discard gh (rule 3)
+        word = word.rstrip('SZ')  # discard /[sz]$/ (rule 3)
+
+        # translate according to Russell's mapping
+        word = ''.join(c for c in word if c in self._uc_set)
+        sdx = word.translate(self._trans)
+
+        # remove any 1s after the first occurrence
+        one = sdx.find('1') + 1
+        if one:
+            sdx = sdx[:one] + ''.join(c for c in sdx[one:] if c != '1')
+
+        # remove repeating characters
+        sdx = self._delete_consecutive_repeats(sdx)
+
+        # return as an int
+        return int(sdx) if sdx else float('NaN')
+
+    def _to_alpha(self, num):
+        """Convert the Russell Index integer to an alphabetic string.
+
+        This follows Robert C. Russell's Index algorithm, as described in
+        :cite:`Russell:1917`.
+
+        :param int num: a Russell Index integer value
+        :returns: the Russell Index as an alphabetic string
+        :rtype: str
+
+        >>> pe = RussellIndex()
+        >>> pe._to_alpha(3813428)
+        'CRACDBR'
+        >>> pe._to_alpha(715)
+        'NAL'
+        >>> pe._to_alpha(3614)
+        'CMAD'
+        """
+        num = ''.join(c for c in text_type(num) if c in self._num_set)
+        if num:
+            return num.translate(self._num_trans)
+        return ''
+
+    def encode_alpha(self, word):
+        """Return the Russell Index (alphabetic output) for the word.
+
+        This follows Robert C. Russell's Index algorithm, as described in
+        :cite:`Russell:1917`.
+
+        :param str word: the word to transform
+        :returns: the Russell Index value as an alphabetic string
+        :rtype: str
+
+        >>> pe = RussellIndex()
+        >>> pe.encode_alpha('Christopher')
+        'CRACDBR'
+        >>> pe.encode_alpha('Niall')
+        'NAL'
+        >>> pe.encode_alpha('Smith')
+        'CMAD'
+        >>> pe.encode_alpha('Schmidt')
+        'CMAD'
+        """
+        if word:
+            return self._to_alpha(self.encode(word))
+        return ''
+
+
+def russell_index(word):
+    """Return the Russell Index (integer output) of a word.
+
+    This is a wrapper for :py:meth:`RussellIndex.encode`.
 
     :param str word: the word to transform
     :returns: the Russell Index value
@@ -55,68 +157,13 @@ def russell_index(word):
     >>> russell_index('Schmidt')
     3614
     """
-    _russell_translation = dict(
-        zip(
-            (ord(_) for _ in 'ABCDEFGIKLMNOPQRSTUVXYZ'),
-            '12341231356712383412313',
-        )
-    )
-
-    word = unicode_normalize('NFKD', text_type(word.upper()))
-    word = word.replace('ß', 'SS')
-    word = word.replace('GH', '')  # discard gh (rule 3)
-    word = word.rstrip('SZ')  # discard /[sz]$/ (rule 3)
-
-    # translate according to Russell's mapping
-    word = ''.join(
-        c
-        for c in word
-        if c
-        in {
-            'A',
-            'B',
-            'C',
-            'D',
-            'E',
-            'F',
-            'G',
-            'I',
-            'K',
-            'L',
-            'M',
-            'N',
-            'O',
-            'P',
-            'Q',
-            'R',
-            'S',
-            'T',
-            'U',
-            'V',
-            'X',
-            'Y',
-            'Z',
-        }
-    )
-    sdx = word.translate(_russell_translation)
-
-    # remove any 1s after the first occurrence
-    one = sdx.find('1') + 1
-    if one:
-        sdx = sdx[:one] + ''.join(c for c in sdx[one:] if c != '1')
-
-    # remove repeating characters
-    sdx = _delete_consecutive_repeats(sdx)
-
-    # return as an int
-    return int(sdx) if sdx else float('NaN')
+    return RussellIndex().encode(word)
 
 
 def russell_index_num_to_alpha(num):
     """Convert the Russell Index integer to an alphabetic string.
 
-    This follows Robert C. Russell's Index algorithm, as described in
-    :cite:`Russell:1917`.
+    This is a wrapper for :py:meth:`RussellIndex._to_alpha`.
 
     :param int num: a Russell Index integer value
     :returns: the Russell Index as an alphabetic string
@@ -129,24 +176,13 @@ def russell_index_num_to_alpha(num):
     >>> russell_index_num_to_alpha(3614)
     'CMAD'
     """
-    _russell_num_translation = dict(
-        zip((ord(_) for _ in '12345678'), 'ABCDLMNR')
-    )
-    num = ''.join(
-        c
-        for c in text_type(num)
-        if c in {'1', '2', '3', '4', '5', '6', '7', '8'}
-    )
-    if num:
-        return num.translate(_russell_num_translation)
-    return ''
+    return RussellIndex()._to_alpha(num)
 
 
 def russell_index_alpha(word):
     """Return the Russell Index (alphabetic output) for the word.
 
-    This follows Robert C. Russell's Index algorithm, as described in
-    :cite:`Russell:1917`.
+    This is a wrapper for :py:meth:`RussellIndex.encode_alpha`.
 
     :param str word: the word to transform
     :returns: the Russell Index value as an alphabetic string
@@ -161,9 +197,7 @@ def russell_index_alpha(word):
     >>> russell_index_alpha('Schmidt')
     'CMAD'
     """
-    if word:
-        return russell_index_num_to_alpha(russell_index(word))
-    return ''
+    return RussellIndex().encode_alpha(word)
 
 
 if __name__ == '__main__':

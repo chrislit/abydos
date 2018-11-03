@@ -139,6 +139,7 @@ class BeiderMorse(Phonetic):
     :cite:`Beider:2008`.
     The reference implementation is licensed under GPLv3.
     """
+
     def _language(self, name, name_mode):
         """Return the best guess language ID for the word and language choices.
 
@@ -148,7 +149,9 @@ class BeiderMorse(Phonetic):
         """
         name = name.strip().lower()
         rules = BMDATA[name_mode]['language_rules']
-        all_langs = sum(_LANG_DICT[_] for _ in BMDATA[name_mode]['languages']) - 1
+        all_langs = (
+            sum(_LANG_DICT[_] for _ in BMDATA[name_mode]['languages']) - 1
+        )
         choices_remaining = all_langs
         for rule in rules:
             letters, languages, accept = rule
@@ -209,8 +212,8 @@ class BeiderMorse(Phonetic):
             regexps
         :param tuple final_rules2: the specific set of final phonetic transform
             regexps
-        :param int language_arg: an integer representing the target language of the
-            phonetic encoding
+        :param int language_arg: an integer representing the target language of
+            the phonetic encoding
         :param bool concat: a flag to indicate concatenation
         """
         term = term.replace('-', ' ').strip()
@@ -242,7 +245,9 @@ class BeiderMorse(Phonetic):
                     )
                     return result
 
-        words = term.split()  # create array of the individual words in the name
+        words = (
+            term.split()
+        )  # create array of the individual words in the name
         words2 = []
 
         if name_mode == 'sep':  # Sephardic case
@@ -251,8 +256,8 @@ class BeiderMorse(Phonetic):
             # ex: d'avila d'aguilar --> avila aguilar
             # also discard certain words in the name
 
-            # note that we can never get a match on "de la" because we are checking
-            # single words below
+            # note that we can never get a match on "de la" because we are
+            # checking single words below
             # this is a bug, but I won't try to fix it now
 
             for word in words:
@@ -304,8 +309,8 @@ class BeiderMorse(Phonetic):
                 lcontext = rule[_LCONTEXT_POS]
                 rcontext = rule[_RCONTEXT_POS]
 
-                # check to see if next sequence in input matches the string in the
-                # rule
+                # check to see if next sequence in input matches the string in
+                # the rule
                 if (pattern_length > term_length - i) or (
                     term[i : i + pattern_length] != pattern
                 ):  # no match
@@ -334,7 +339,9 @@ class BeiderMorse(Phonetic):
                     found = True
                     break
 
-            if not found:  # character in name that is not in table -- e.g., space
+            if (
+                not found
+            ):  # character in name that is not in table -- e.g., space
                 pattern_length = 1
             skip = pattern_length - 1
 
@@ -356,8 +363,8 @@ class BeiderMorse(Phonetic):
 
         :param str phonetic: the term to which to apply the final rules
         :param tuple final_rules: the set of final phonetic transform regexps
-        :param int language_arg: an integer representing the target language of the
-            phonetic encoding
+        :param int language_arg: an integer representing the target language of
+            the phonetic encoding
         :param bool strip: flag to indicate whether to normalize the language
             attributes
         """
@@ -398,8 +405,8 @@ class BeiderMorse(Phonetic):
                     right = '^' + rcontext
                     left = lcontext + '$'
 
-                    # check to see if next sequence in phonetic matches the string
-                    # in the rule
+                    # check to see if next sequence in phonetic matches the
+                    # string in the rule
                     if (pattern_length > len(phoneticx) - i) or phoneticx[
                         i : i + pattern_length
                     ] != pattern:
@@ -426,8 +433,8 @@ class BeiderMorse(Phonetic):
                         break
 
                 if not found:
-                    # character in name for which there is no substitution in the
-                    # table
+                    # character in name for which there is no substitution in
+                    # the table
                     phonetic2 += phonetic[i]
                     pattern_length = 1
 
@@ -537,12 +544,12 @@ class BeiderMorse(Phonetic):
     def _normalize_lang_attrs(self, text, strip):
         """Remove embedded bracketed attributes.
 
-        This (potentially) bitwise-ands bracketed attributes together and adds to
-        the end.
+        This (potentially) bitwise-ands bracketed attributes together and adds
+        to the end.
         This is applied to a single alternative at a time -- not to a
         parenthisized list.
-        It removes all embedded bracketed attributes, logically-ands them together,
-        and places them at the end.
+        It removes all embedded bracketed attributes, logically-ands them
+        together, and places them at the end.
         However if strip is true, this can indeed remove embedded bracketed
         attributes from a parenthesized list.
 
@@ -578,11 +585,11 @@ class BeiderMorse(Phonetic):
 
         tests for compatible language rules
 
-        to do so, apply the rule, expand the results, and detect alternatives with
-            incompatible attributes
+        to do so, apply the rule, expand the results, and detect alternatives
+            with incompatible attributes
 
-        then drop each alternative that has incompatible attributes and keep those
-            that are compatible
+        then drop each alternative that has incompatible attributes and keep
+            those that are compatible
 
         if there are no compatible alternatives left, return false
 
@@ -631,8 +638,8 @@ class BeiderMorse(Phonetic):
     def _language_index_from_code(self, code, name_mode):
         """Return the index value for a language code.
 
-        This returns l_any if more than one code is specified or the code is out
-        of bounds.
+        This returns l_any if more than one code is specified or the code is
+        out of bounds.
 
         :param int code: the language code to interpret
         :param str name_mode: the name mode of the algorithm: 'gen' (default),
@@ -642,7 +649,9 @@ class BeiderMorse(Phonetic):
             _LANG_DICT[_] for _ in BMDATA[name_mode]['languages']
         ):  # code out of range
             return L_ANY
-        if (code & (code - 1)) != 0:  # choice was more than one language; use any
+        if (
+            code & (code - 1)
+        ) != 0:  # choice was more than one language; use any
             return L_ANY
         return code
 
@@ -694,30 +703,30 @@ class BeiderMorse(Phonetic):
         :returns: the BMPM value(s)
         :rtype: tuple
 
-        >>> cdr = BeiderMorse()
-        >>> cdr.encode('Christopher')
+        >>> pe = BeiderMorse()
+        >>> pe.encode('Christopher')
         'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
-        xristYfir xristopi xritopir xritopi xristofi xritofir xritofi tzristopir
-        tzristofir zristopir zristopi zritopir zritopi zristofir zristofi zritofir
-        zritofi'
-        >>> cdr.encode('Niall')
+        xristYfir xristopi xritopir xritopi xristofi xritofir xritofi
+        tzristopir tzristofir zristopir zristopi zritopir zritopi zristofir
+        zristofi zritofir zritofi'
+        >>> pe.encode('Niall')
         'nial niol'
-        >>> cdr.encode('Smith')
+        >>> pe.encode('Smith')
         'zmit'
-        >>> cdr.encode('Schmidt')
+        >>> pe.encode('Schmidt')
         'zmit stzmit'
 
-        >>> cdr.encode('Christopher', language_arg='German')
+        >>> pe.encode('Christopher', language_arg='German')
         'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
         xristYfir'
-        >>> cdr.encode('Christopher', language_arg='English')
-        'tzristofir tzrQstofir tzristafir tzrQstafir xristofir xrQstofir xristafir
-        xrQstafir'
-        >>> cdr.encode('Christopher', language_arg='German', name_mode='ash')
+        >>> pe.encode('Christopher', language_arg='English')
+        'tzristofir tzrQstofir tzristafir tzrQstafir xristofir xrQstofir
+        xristafir xrQstafir'
+        >>> pe.encode('Christopher', language_arg='German', name_mode='ash')
         'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
         xristYfir'
 
-        >>> cdr.encode('Christopher', language_arg='German', match_mode='exact')
+        >>> pe.encode('Christopher', language_arg='German', match_mode='exact')
         'xriStopher xriStofer xristopher xristofer'
         """
         word = normalize('NFC', text_type(word.strip().lower()))
@@ -729,9 +738,11 @@ class BeiderMorse(Phonetic):
         if match_mode != 'exact':
             match_mode = 'approx'
 
-        # Translate the supplied language_arg value into an integer representing
-        # a set of languages
-        all_langs = sum(_LANG_DICT[_] for _ in BMDATA[name_mode]['languages']) - 1
+        # Translate the supplied language_arg value into an integer
+        # representing a set of languages
+        all_langs = (
+            sum(_LANG_DICT[_] for _ in BMDATA[name_mode]['languages']) - 1
+        )
         lang_choices = 0
         if isinstance(language_arg, (int, float, long)):
             lang_choices = int(language_arg)
@@ -741,7 +752,11 @@ class BeiderMorse(Phonetic):
                     lang_choices += _LANG_DICT[lang]
                 elif not filter_langs:
                     raise ValueError(
-                        'Unknown \'' + name_mode + '\' language: \'' + lang + '\''
+                        'Unknown \''
+                        + name_mode
+                        + '\' language: \''
+                        + lang
+                        + '\''
                     )
 
         # Language choices are either all incompatible with the name mode or
@@ -771,12 +786,12 @@ class BeiderMorse(Phonetic):
 
 
 def bmpm(
-        word,
-        language_arg=0,
-        name_mode='gen',
-        match_mode='approx',
-        concat=False,
-        filter_langs=False,
+    word,
+    language_arg=0,
+    name_mode='gen',
+    match_mode='approx',
+    concat=False,
+    filter_langs=False,
 ):
     """Return the Beider-Morse Phonetic Matching encoding(s) of a term.
 
@@ -844,7 +859,10 @@ def bmpm(
     >>> bmpm('Christopher', language_arg='German', match_mode='exact')
     'xriStopher xriStofer xristopher xristofer'
     """
-    return BeiderMorse().encode(word, language_arg, name_mode, match_mode, concat, filter_langs)
+    return BeiderMorse().encode(
+        word, language_arg, name_mode, match_mode, concat, filter_langs
+    )
+
 
 if __name__ == '__main__':
     import doctest

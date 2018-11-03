@@ -36,10 +36,11 @@ __all__ = ['AlphaSIS', 'alpha_sis']
 
 class AlphaSIS(Phonetic):
     """Alpha-SIS.
-    
+
     The Alpha Search Inquiry System code is defined in :cite:`IBM:1973`.
     This implementation is based on the description in :cite:`Moore:1977`.
     """
+
     _alpha_sis_initials = {
         'GF': '08',
         'GM': '03',
@@ -161,25 +162,21 @@ class AlphaSIS(Phonetic):
         :returns: the Alpha SIS value
         :rtype: tuple
 
-        >>> alpha_sis('Christopher')
+        >>> pe = AlphaSIS()
+        >>> pe.encode('Christopher')
         ('06401840000000', '07040184000000', '04018400000000')
-        >>> alpha_sis('Niall')
+        >>> pe.encode('Niall')
         ('02500000000000',)
-        >>> alpha_sis('Smith')
+        >>> pe.encode('Smith')
         ('03100000000000',)
-        >>> alpha_sis('Schmidt')
+        >>> pe.encode('Schmidt')
         ('06310000000000',)
         """
         alpha = ['']
         pos = 0
         word = unicode_normalize('NFKD', text_type(word.upper()))
         word = word.replace('ß', 'SS')
-        word = ''.join(
-            c
-            for c in word
-            if c
-            in self._uc_set
-        )
+        word = ''.join(c for c in word if c in self._uc_set)
 
         # Clamp max_length to [4, 64]
         if max_length != -1:
@@ -207,7 +204,9 @@ class AlphaSIS(Phonetic):
                     if isinstance(self._alpha_sis_basic[k], tuple):
                         newalpha = []
                         for i in range(len(self._alpha_sis_basic[k])):
-                            newalpha += [_ + self._alpha_sis_basic[k][i] for _ in alpha]
+                            newalpha += [
+                                _ + self._alpha_sis_basic[k][i] for _ in alpha
+                            ]
                         alpha = newalpha
                     else:
                         alpha = [_ + self._alpha_sis_basic[k] for _ in alpha]

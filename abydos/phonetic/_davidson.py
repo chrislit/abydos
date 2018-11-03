@@ -39,6 +39,7 @@ class Davidson(Phonetic):
     :cite:`Dolby:1970` identifies this as having been the name compression
     algorithm used by SABRE.
     """
+
     _trans = {65: '', 69: '', 73: '', 79: '', 85: '', 72: '', 87: '', 89: ''}
 
     def encode(self, lname, fname='.', omit_fname=False):
@@ -52,20 +53,20 @@ class Davidson(Phonetic):
         :returns: Davidson's Consonant Code
         :rtype: str
 
-        >>> dvd = Davidson()
-        >>> dvd.encode('Gough')
+        >>> pe = Davidson()
+        >>> pe.encode('Gough')
         'G   .'
-        >>> dvd.encode('pneuma')
+        >>> pe.encode('pneuma')
         'PNM .'
-        >>> dvd.encode('knight')
+        >>> pe.encode('knight')
         'KNGT.'
-        >>> dvd.encode('trice')
+        >>> pe.encode('trice')
         'TRC .'
-        >>> dvd.encode('judge')
+        >>> pe.encode('judge')
         'JDG .'
-        >>> dvd.encode('Smith', 'James')
+        >>> pe.encode('Smith', 'James')
         'SMT J'
-        >>> dvd.encode('Wasserman', 'Tabitha')
+        >>> pe.encode('Wasserman', 'Tabitha')
         'WSRMT'
         """
         lname = text_type(lname.upper())
@@ -83,11 +84,7 @@ class Davidson(Phonetic):
 def davidson(lname, fname='.', omit_fname=False):
     """Return Davidson's Consonant Code.
 
-    This is based on the name compression system described in
-    :cite:`Davidson:1962`.
-
-    :cite:`Dolby:1970` identifies this as having been the name compression
-    algorithm used by SABRE.
+    This is a wrapper for :py:meth:`Davidson.encode`.
 
     :param str lname: Last name (or word) to be encoded
     :param str fname: First name (optional), of which the first character is

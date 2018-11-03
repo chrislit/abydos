@@ -30,66 +30,14 @@ from six.moves import range
 
 from ._phonetic import Phonetic
 
-__all__ = ['roger_root']
+__all__ = ['RogerRoot', 'roger_root']
 
 
-def roger_root(word, max_length=5, zero_pad=True):
-    """Return the Roger Root code for a word.
+class RogerRoot(Phonetic):
+    """Roger Root code.
 
     This is Roger Root name coding, described in :cite:`Moore:1977`.
-
-    :param str word: the word to transform
-    :param int max_length: the maximum length (default 5) of the code to return
-    :param bool zero_pad: pad the end of the return value with 0s to achieve a
-        max_length string
-    :returns: the Roger Root code
-    :rtype: str
-
-    >>> roger_root('Christopher')
-    '06401'
-    >>> roger_root('Niall')
-    '02500'
-    >>> roger_root('Smith')
-    '00310'
-    >>> roger_root('Schmidt')
-    '06310'
     """
-    # uppercase, normalize, decompose, and filter non-A-Z out
-    word = unicode_normalize('NFKD', text_type(word.upper()))
-    word = word.replace('ß', 'SS')
-    word = ''.join(
-        c
-        for c in word
-        if c
-        in {
-            'A',
-            'B',
-            'C',
-            'D',
-            'E',
-            'F',
-            'G',
-            'H',
-            'I',
-            'J',
-            'K',
-            'L',
-            'M',
-            'N',
-            'O',
-            'P',
-            'Q',
-            'R',
-            'S',
-            'T',
-            'U',
-            'V',
-            'W',
-            'X',
-            'Y',
-            'Z',
-        }
-    )
 
     # '*' is used to prevent combining by _delete_consecutive_repeats()
     _init_patterns = {
@@ -185,31 +133,80 @@ def roger_root(word, max_length=5, zero_pad=True):
         },
     }
 
-    code = ''
-    pos = 0
+    def roger_root(self, word, max_length=5, zero_pad=True):
+        """Return the Roger Root code for a word.
 
-    # Do first digit(s) first
-    for num in range(4, 0, -1):
-        if word[:num] in _init_patterns[num]:
-            code = _init_patterns[num][word[:num]]
-            pos += num
-            break
+        :param str word: the word to transform
+        :param int max_length: the maximum length (default 5) of the code to
+            return
+        :param bool zero_pad: pad the end of the return value with 0s to
+            achieve a max_length string
+        :returns: the Roger Root code
+        :rtype: str
 
-    # Then code subsequent digits
-    while pos < len(word):
-        for num in range(4, 0, -1):  # pragma: no branch
-            if word[pos : pos + num] in _med_patterns[num]:
-                code += _med_patterns[num][word[pos : pos + num]]
+        >>> roger_root('Christopher')
+        '06401'
+        >>> roger_root('Niall')
+        '02500'
+        >>> roger_root('Smith')
+        '00310'
+        >>> roger_root('Schmidt')
+        '06310'
+        """
+        # uppercase, normalize, decompose, and filter non-A-Z out
+        word = unicode_normalize('NFKD', text_type(word.upper()))
+        word = word.replace('ß', 'SS')
+        word = ''.join(c for c in word if c in self._uc_set)
+
+        code = ''
+        pos = 0
+
+        # Do first digit(s) first
+        for num in range(4, 0, -1):
+            if word[:num] in self._init_patterns[num]:
+                code = self._init_patterns[num][word[:num]]
                 pos += num
                 break
 
-    code = _delete_consecutive_repeats(code)
-    code = code.replace('*', '')
+        # Then code subsequent digits
+        while pos < len(word):
+            for num in range(4, 0, -1):  # pragma: no branch
+                if word[pos : pos + num] in self._med_patterns[num]:
+                    code += self._med_patterns[num][word[pos : pos + num]]
+                    pos += num
+                    break
 
-    if zero_pad:
-        code += '0' * max_length
+        code = self._delete_consecutive_repeats(code)
+        code = code.replace('*', '')
 
-    return code[:max_length]
+        if zero_pad:
+            code += '0' * max_length
+
+        return code[:max_length]
+
+
+def roger_root(word, max_length=5, zero_pad=True):
+    """Return the Roger Root code for a word.
+
+    This is a wrapper for :py:meth:`RogerRoot.encode`.
+
+    :param str word: the word to transform
+    :param int max_length: the maximum length (default 5) of the code to return
+    :param bool zero_pad: pad the end of the return value with 0s to achieve a
+        max_length string
+    :returns: the Roger Root code
+    :rtype: str
+
+    >>> roger_root('Christopher')
+    '06401'
+    >>> roger_root('Niall')
+    '02500'
+    >>> roger_root('Smith')
+    '00310'
+    >>> roger_root('Schmidt')
+    '06310'
+    """
+    return RogerRoot().encode(word, max_length, zero_pad)
 
 
 if __name__ == '__main__':
