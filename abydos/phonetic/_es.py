@@ -127,7 +127,7 @@ class SpanishMetaphone(Phonetic):
     Modified version based on :cite:`delPilarAngeles:2016`.
     """
 
-    def spanish_metaphone(self, word, max_length=6, modified=False):
+    def encode(self, word, max_length=6, modified=False):
         """Return the Spanish Metaphone of a word.
 
         :param str word: the word to transform

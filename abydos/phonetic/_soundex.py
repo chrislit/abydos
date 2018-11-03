@@ -627,160 +627,100 @@ class Phonix(Phonetic):
 
     _uc_c_set = Phonetic._uc_set - Phonetic._uc_v_set
 
-    @staticmethod
-    def _start_repl(word, src, tar, post=None):
-        """Replace src with tar at the start of word."""
-        if post:
-            for i in post:
-                if word.startswith(src + i):
-                    return tar + word[len(src) :]
-        elif word.startswith(src):
-            return tar + word[len(src) :]
-        return word
-
-    @staticmethod
-    def _end_repl(word, src, tar, pre=None):
-        """Replace src with tar at the end of word."""
-        if pre:
-            for i in pre:
-                if word.endswith(i + src):
-                    return word[: -len(src)] + tar
-        elif word.endswith(src):
-            return word[: -len(src)] + tar
-        return word
-
-    @staticmethod
-    def _mid_repl(word, src, tar, pre=None, post=None):
-        """Replace src with tar in the middle of word."""
-        if pre or post:
-            if not pre:
-                return word[0] + Phonix._all_repl(
-                    word[1:], src, tar, pre, post
-                )
-            elif not post:
-                return (
-                    Phonix._all_repl(word[:-1], src, tar, pre, post) + word[-1]
-                )
-            return Phonix._all_repl(word, src, tar, pre, post)
-        return (
-            word[0]
-            + Phonix._all_repl(word[1:-1], src, tar, pre, post)
-            + word[-1]
-        )
-
-    @staticmethod
-    def _all_repl(word, src, tar, pre=None, post=None):
-        """Replace src with tar anywhere in word."""
-        if pre or post:
-            if post:
-                post = post
-            else:
-                post = frozenset(('',))
-            if pre:
-                pre = pre
-            else:
-                pre = frozenset(('',))
-
-            for i, j in ((i, j) for i in pre for j in post):
-                word = word.replace(i + src + j, i + tar + j)
-            return word
-        else:
-            return word.replace(src, tar)
-
     _substitutions = (
-        (_all_repl, 'DG', 'G'),
-        (_all_repl, 'CO', 'KO'),
-        (_all_repl, 'CA', 'KA'),
-        (_all_repl, 'CU', 'KU'),
-        (_all_repl, 'CY', 'SI'),
-        (_all_repl, 'CI', 'SI'),
-        (_all_repl, 'CE', 'SE'),
-        (_start_repl, 'CL', 'KL', Phonetic._uc_v_set),
-        (_all_repl, 'CK', 'K'),
-        (_end_repl, 'GC', 'K'),
-        (_end_repl, 'JC', 'K'),
-        (_start_repl, 'CHR', 'KR', Phonetic._uc_v_set),
-        (_start_repl, 'CR', 'KR', Phonetic._uc_v_set),
-        (_start_repl, 'WR', 'R'),
-        (_all_repl, 'NC', 'NK'),
-        (_all_repl, 'CT', 'KT'),
-        (_all_repl, 'PH', 'F'),
-        (_all_repl, 'AA', 'AR'),
-        (_all_repl, 'SCH', 'SH'),
-        (_all_repl, 'BTL', 'TL'),
-        (_all_repl, 'GHT', 'T'),
-        (_all_repl, 'AUGH', 'ARF'),
-        (_mid_repl, 'LJ', 'LD', Phonetic._uc_v_set, Phonetic._uc_v_set),
-        (_all_repl, 'LOUGH', 'LOW'),
-        (_start_repl, 'Q', 'KW'),
-        (_start_repl, 'KN', 'N'),
-        (_end_repl, 'GN', 'N'),
-        (_all_repl, 'GHN', 'N'),
-        (_end_repl, 'GNE', 'N'),
-        (_all_repl, 'GHNE', 'NE'),
-        (_end_repl, 'GNES', 'NS'),
-        (_start_repl, 'GN', 'N'),
-        (_mid_repl, 'GN', 'N', None, _uc_c_set),
-        (_end_repl, 'GN', 'N'),
-        (_start_repl, 'PS', 'S'),
-        (_start_repl, 'PT', 'T'),
-        (_start_repl, 'CZ', 'C'),
-        (_mid_repl, 'WZ', 'Z', Phonetic._uc_v_set),
-        (_mid_repl, 'CZ', 'CH'),
-        (_all_repl, 'LZ', 'LSH'),
-        (_all_repl, 'RZ', 'RSH'),
-        (_mid_repl, 'Z', 'S', None, Phonetic._uc_v_set),
-        (_all_repl, 'ZZ', 'TS'),
-        (_mid_repl, 'Z', 'TS', _uc_c_set),
-        (_all_repl, 'HROUG', 'REW'),
-        (_all_repl, 'OUGH', 'OF'),
-        (_mid_repl, 'Q', 'KW', Phonetic._uc_v_set, Phonetic._uc_v_set),
-        (_mid_repl, 'J', 'Y', Phonetic._uc_v_set, Phonetic._uc_v_set),
-        (_start_repl, 'YJ', 'Y', Phonetic._uc_v_set),
-        (_start_repl, 'GH', 'G'),
-        (_end_repl, 'GH', 'E', Phonetic._uc_v_set),
-        (_start_repl, 'CY', 'S'),
-        (_all_repl, 'NX', 'NKS'),
-        (_start_repl, 'PF', 'F'),
-        (_end_repl, 'DT', 'T'),
-        (_end_repl, 'TL', 'TIL'),
-        (_end_repl, 'DL', 'DIL'),
-        (_all_repl, 'YTH', 'ITH'),
-        (_start_repl, 'TJ', 'CH', Phonetic._uc_v_set),
-        (_start_repl, 'TSJ', 'CH', Phonetic._uc_v_set),
-        (_start_repl, 'TS', 'T', Phonetic._uc_v_set),
-        (_all_repl, 'TCH', 'CH'),
-        (_mid_repl, 'WSK', 'VSKIE', Phonetic._uc_v_set),
-        (_end_repl, 'WSK', 'VSKIE', Phonetic._uc_v_set),
-        (_start_repl, 'MN', 'N', Phonetic._uc_v_set),
-        (_start_repl, 'PN', 'N', Phonetic._uc_v_set),
-        (_mid_repl, 'STL', 'SL', Phonetic._uc_v_set),
-        (_end_repl, 'STL', 'SL', Phonetic._uc_v_set),
-        (_end_repl, 'TNT', 'ENT'),
-        (_end_repl, 'EAUX', 'OH'),
-        (_all_repl, 'EXCI', 'ECS'),
-        (_all_repl, 'X', 'ECS'),
-        (_end_repl, 'NED', 'ND'),
-        (_all_repl, 'JR', 'DR'),
-        (_end_repl, 'EE', 'EA'),
-        (_all_repl, 'ZS', 'S'),
-        (_mid_repl, 'R', 'AH', Phonetic._uc_v_set, _uc_c_set),
-        (_end_repl, 'R', 'AH', Phonetic._uc_v_set),
-        (_mid_repl, 'HR', 'AH', Phonetic._uc_v_set, _uc_c_set),
-        (_end_repl, 'HR', 'AH', Phonetic._uc_v_set),
-        (_end_repl, 'HR', 'AH', Phonetic._uc_v_set),
-        (_end_repl, 'RE', 'AR'),
-        (_end_repl, 'R', 'AH', Phonetic._uc_v_set),
-        (_all_repl, 'LLE', 'LE'),
-        (_end_repl, 'LE', 'ILE', _uc_c_set),
-        (_end_repl, 'LES', 'ILES', _uc_c_set),
-        (_end_repl, 'E', ''),
-        (_end_repl, 'ES', 'S'),
-        (_end_repl, 'SS', 'AS', Phonetic._uc_v_set),
-        (_end_repl, 'MB', 'M', Phonetic._uc_v_set),
-        (_all_repl, 'MPTS', 'MPS'),
-        (_all_repl, 'MPS', 'MS'),
-        (_all_repl, 'MPT', 'MT'),
+        (3, 'DG', 'G'),
+        (3, 'CO', 'KO'),
+        (3, 'CA', 'KA'),
+        (3, 'CU', 'KU'),
+        (3, 'CY', 'SI'),
+        (3, 'CI', 'SI'),
+        (3, 'CE', 'SE'),
+        (0, 'CL', 'KL', Phonetic._uc_v_set),
+        (3, 'CK', 'K'),
+        (1, 'GC', 'K'),
+        (1, 'JC', 'K'),
+        (0, 'CHR', 'KR', Phonetic._uc_v_set),
+        (0, 'CR', 'KR', Phonetic._uc_v_set),
+        (0, 'WR', 'R'),
+        (3, 'NC', 'NK'),
+        (3, 'CT', 'KT'),
+        (3, 'PH', 'F'),
+        (3, 'AA', 'AR'),
+        (3, 'SCH', 'SH'),
+        (3, 'BTL', 'TL'),
+        (3, 'GHT', 'T'),
+        (3, 'AUGH', 'ARF'),
+        (2, 'LJ', 'LD', Phonetic._uc_v_set, Phonetic._uc_v_set),
+        (3, 'LOUGH', 'LOW'),
+        (0, 'Q', 'KW'),
+        (0, 'KN', 'N'),
+        (1, 'GN', 'N'),
+        (3, 'GHN', 'N'),
+        (1, 'GNE', 'N'),
+        (3, 'GHNE', 'NE'),
+        (1, 'GNES', 'NS'),
+        (0, 'GN', 'N'),
+        (2, 'GN', 'N', None, _uc_c_set),
+        (1, 'GN', 'N'),
+        (0, 'PS', 'S'),
+        (0, 'PT', 'T'),
+        (0, 'CZ', 'C'),
+        (2, 'WZ', 'Z', Phonetic._uc_v_set),
+        (2, 'CZ', 'CH'),
+        (3, 'LZ', 'LSH'),
+        (3, 'RZ', 'RSH'),
+        (2, 'Z', 'S', None, Phonetic._uc_v_set),
+        (3, 'ZZ', 'TS'),
+        (2, 'Z', 'TS', _uc_c_set),
+        (3, 'HROUG', 'REW'),
+        (3, 'OUGH', 'OF'),
+        (2, 'Q', 'KW', Phonetic._uc_v_set, Phonetic._uc_v_set),
+        (2, 'J', 'Y', Phonetic._uc_v_set, Phonetic._uc_v_set),
+        (0, 'YJ', 'Y', Phonetic._uc_v_set),
+        (0, 'GH', 'G'),
+        (1, 'GH', 'E', Phonetic._uc_v_set),
+        (0, 'CY', 'S'),
+        (3, 'NX', 'NKS'),
+        (0, 'PF', 'F'),
+        (1, 'DT', 'T'),
+        (1, 'TL', 'TIL'),
+        (1, 'DL', 'DIL'),
+        (3, 'YTH', 'ITH'),
+        (0, 'TJ', 'CH', Phonetic._uc_v_set),
+        (0, 'TSJ', 'CH', Phonetic._uc_v_set),
+        (0, 'TS', 'T', Phonetic._uc_v_set),
+        (3, 'TCH', 'CH'),
+        (2, 'WSK', 'VSKIE', Phonetic._uc_v_set),
+        (1, 'WSK', 'VSKIE', Phonetic._uc_v_set),
+        (0, 'MN', 'N', Phonetic._uc_v_set),
+        (0, 'PN', 'N', Phonetic._uc_v_set),
+        (2, 'STL', 'SL', Phonetic._uc_v_set),
+        (1, 'STL', 'SL', Phonetic._uc_v_set),
+        (1, 'TNT', 'ENT'),
+        (1, 'EAUX', 'OH'),
+        (3, 'EXCI', 'ECS'),
+        (3, 'X', 'ECS'),
+        (1, 'NED', 'ND'),
+        (3, 'JR', 'DR'),
+        (1, 'EE', 'EA'),
+        (3, 'ZS', 'S'),
+        (2, 'R', 'AH', Phonetic._uc_v_set, _uc_c_set),
+        (1, 'R', 'AH', Phonetic._uc_v_set),
+        (2, 'HR', 'AH', Phonetic._uc_v_set, _uc_c_set),
+        (1, 'HR', 'AH', Phonetic._uc_v_set),
+        (1, 'HR', 'AH', Phonetic._uc_v_set),
+        (1, 'RE', 'AR'),
+        (1, 'R', 'AH', Phonetic._uc_v_set),
+        (3, 'LLE', 'LE'),
+        (1, 'LE', 'ILE', _uc_c_set),
+        (1, 'LES', 'ILES', _uc_c_set),
+        (1, 'E', ''),
+        (1, 'ES', 'S'),
+        (1, 'SS', 'AS', Phonetic._uc_v_set),
+        (1, 'MB', 'M', Phonetic._uc_v_set),
+        (3, 'MPTS', 'MPS'),
+        (3, 'MPS', 'MS'),
+        (3, 'MPT', 'MT'),
     )
 
     _trans = dict(
@@ -810,6 +750,59 @@ class Phonix(Phonetic):
         >>> pe.encode('Schmidt')
         'S530'
         """
+
+        def _start_repl(word, src, tar, post=None):
+            """Replace src with tar at the start of word."""
+            if post:
+                for i in post:
+                    if word.startswith(src + i):
+                        return tar + word[len(src) :]
+            elif word.startswith(src):
+                return tar + word[len(src) :]
+            return word
+
+        def _end_repl(word, src, tar, pre=None):
+            """Replace src with tar at the end of word."""
+            if pre:
+                for i in pre:
+                    if word.endswith(i + src):
+                        return word[: -len(src)] + tar
+            elif word.endswith(src):
+                return word[: -len(src)] + tar
+            return word
+
+        def _mid_repl(word, src, tar, pre=None, post=None):
+            """Replace src with tar in the middle of word."""
+            if pre or post:
+                if not pre:
+                    return word[0] + _all_repl(word[1:], src, tar, pre, post)
+                elif not post:
+                    return _all_repl(word[:-1], src, tar, pre, post) + word[-1]
+                return _all_repl(word, src, tar, pre, post)
+            return (
+                word[0] + _all_repl(word[1:-1], src, tar, pre, post) + word[-1]
+            )
+
+        def _all_repl(word, src, tar, pre=None, post=None):
+            """Replace src with tar anywhere in word."""
+            if pre or post:
+                if post:
+                    post = post
+                else:
+                    post = frozenset(('',))
+                if pre:
+                    pre = pre
+                else:
+                    pre = frozenset(('',))
+
+                for i, j in ((i, j) for i in pre for j in post):
+                    word = word.replace(i + src + j, i + tar + j)
+                return word
+            else:
+                return word.replace(src, tar)
+
+        repl_at = (_start_repl, _end_repl, _mid_repl, _all_repl)
+
         sdx = ''
 
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -817,8 +810,8 @@ class Phonix(Phonetic):
         word = ''.join(c for c in word if c in self._uc_set)
         if word:
             for trans in self._substitutions:
-                word = trans[0](word, *trans[1:])
-            if word[0] in {'A', 'E', 'I', 'O', 'U', 'Y'}:
+                word = repl_at[trans[0]](word, *trans[1:])
+            if word[0] in self._uc_vy_set:
                 sdx = 'v' + word[1:].translate(self._trans)
             else:
                 sdx = word[0] + word[1:].translate(self._trans)

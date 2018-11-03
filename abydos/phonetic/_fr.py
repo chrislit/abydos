@@ -321,7 +321,7 @@ class HenryEarly(Phonetic):
             elif word[:2] in self._diph:
                 word = self._diph[word[:2]] + word[2:]
             # Ib4
-            elif word[1:2] in self._vows and word[0] == 'Y':
+            elif word[1:2] in self._uc_vy_set and word[0] == 'Y':
                 word = 'I' + word[1:]
 
         code = ''

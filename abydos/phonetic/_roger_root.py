@@ -133,7 +133,7 @@ class RogerRoot(Phonetic):
         },
     }
 
-    def roger_root(self, word, max_length=5, zero_pad=True):
+    def encode(self, word, max_length=5, zero_pad=True):
         """Return the Roger Root code for a word.
 
         :param str word: the word to transform

@@ -53,7 +53,7 @@ class StringFingerprint(object):
     This fingerprint is described at :cite:`OpenRefine:2012`.
     """
 
-    def str_fingerprint(self, phrase, joiner=' '):
+    def fingerprint(self, phrase, joiner=' '):
         """Return string fingerprint.
 
         :param str phrase: the string from which to calculate the fingerprint

@@ -57,7 +57,7 @@ class ParmarKumbharana(Phonetic):
     }
     _del_trans = {65: '', 69: '', 73: '', 79: '', 85: '', 89: ''}
 
-    def parmar_kumbharana(self, word):
+    def encode(self, word):
         """Return the Parmar-Kumbharana encoding of a word.
 
         :param str word: the word to transform
@@ -115,7 +115,7 @@ def parmar_kumbharana(word):
     >>> parmar_kumbharana('judge')
     'JJ'
     """
-    return ParmarKumbharana.encode(word)
+    return ParmarKumbharana().encode(word)
 
 
 if __name__ == '__main__':

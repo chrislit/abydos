@@ -120,8 +120,9 @@ class MetaSoundex(Phonetic):
     _phonetic_spanish = PhoneticSpanish()
     _spanish_metaphone = SpanishMetaphone()
     _metaphone = Metaphone()
+    _soundex = Soundex()
 
-    def metasoundex(self, word, lang='en'):
+    def encode(self, word, lang='en'):
         """Return the MetaSoundex code for a word.
 
         :param str word: the word to transform
