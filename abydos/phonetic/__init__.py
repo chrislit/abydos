@@ -63,11 +63,15 @@ The phonetic module implements phonetic algorithms including:
 
 from __future__ import unicode_literals
 
-from ._alpha_sis import alpha_sis
+from ._alpha_sis import AlphaSIS, alpha_sis
 from ._bmpm import BeiderMorse, bmpm
-from ._caverphone import caverphone
-from ._davidson import davidson
+from ._caverphone import Caverphone, caverphone
+from ._davidson import Davidson, davidson
 from ._de import (
+    Haase,
+    Koelner,
+    Phonem,
+    RethSchek,
     haase_phonetik,
     koelner_phonetik,
     koelner_phonetik_alpha,
@@ -75,27 +79,36 @@ from ._de import (
     phonem,
     reth_schek_phonetik,
 )
-from ._dm import dm_soundex
-from ._dolby import dolby
-from ._es import phonetic_spanish, spanish_metaphone
-from ._eudex import eudex
-from ._fr import fonem, henry_early
-from ._hybrid import metasoundex, onca
-from ._metaphone import double_metaphone, metaphone
-from ._mra import mra
-from ._nrl import nrl
-from ._nysiis import nysiis
-from ._parmar_kumbharana import parmar_kumbharana
-from ._phonet import phonet
-from ._pt import soundex_br
-from ._roger_root import roger_root
+from ._dm import DaitchMokotoff, dm_soundex
+from ._dolby import Dolby, dolby
+from ._es import PhoneticSpanish, SpanishMetaphone, phonetic_spanish, spanish_metaphone
+from ._eudex import Eudex, eudex
+from ._fr import FONEM, HenryEarly, fonem, henry_early
+from ._hybrid import MetaSoundex, ONCA, metasoundex, onca
+from ._metaphone import DoubleMetaphone, Metaphone, double_metaphone, metaphone
+from ._mra import MRA, mra
+from ._nrl import NRL, nrl
+from ._nysiis import NYSIIS, nysiis
+from ._parmar_kumbharana import ParmarKumbharana, parmar_kumbharana
+from ._phonet import Phonet, phonet
+from ._pt import SoundexBR, soundex_br
+from ._roger_root import RogerRoot, roger_root
 from ._russell import (
+    RussellIndex,
     russell_index,
     russell_index_alpha,
     russell_index_num_to_alpha,
 )
-from ._sound_d import sound_d
+from ._sound_d import SoundD, sound_d
 from ._soundex import (
+    FuzzySoundex,
+    Lein,
+    Phonex,
+    Phonix,
+    PSHPSoundexFirst,
+    PSHPSoundexLast,
+    RefinedSoundex,
+    Soundex,
     fuzzy_soundex,
     lein,
     phonex,
@@ -105,55 +118,94 @@ from ._soundex import (
     refined_soundex,
     soundex,
 )
-from ._spfc import spfc
-from ._statistics_canada import statistics_canada
-from ._sv import norphone, sfinxbis
+from ._spfc import SPFC, spfc
+from ._statistics_canada import StatisticsCanada, statistics_canada
+from ._sv import Norphone, SfinxBis, norphone, sfinxbis
 
 __all__ = [
-    'BeiderMorse',
+    'RussellIndex',
     'russell_index',
     'russell_index_num_to_alpha',
     'russell_index_alpha',
+    'Soundex',
     'soundex',
+    'RefinedSoundex',
     'refined_soundex',
+    'DaitchMokotoff',
     'dm_soundex',
+    'FuzzySoundex',
     'fuzzy_soundex',
+    'Lein',
     'lein',
+    'Phonex',
     'phonex',
+    'Phonix',
     'phonix',
+    'PSHPSoundexFirst',
     'pshp_soundex_first',
+    'PSHPSoundexLast',
     'pshp_soundex_last',
+    'NYSIIS',
     'nysiis',
+    'MRA',
     'mra',
+    'Caverphone',
     'caverphone',
+    'AlphaSIS',
     'alpha_sis',
+    'Davidson',
     'davidson',
+    'Dolby',
     'dolby',
+    'SPFC',
     'spfc',
+    'RogerRoot',
     'roger_root',
+    'StatisticsCanada',
     'statistics_canada',
+    'SoundD',
     'sound_d',
+    'ParmarKumbharana',
     'parmar_kumbharana',
+    'Metaphone',
     'metaphone',
+    'DoubleMetaphone',
     'double_metaphone',
+    'Eudex',
     'eudex',
+    'BeiderMorse',
     'bmpm',
+    'NRL',
     'nrl',
+    'MetaSoundex',
     'metasoundex',
+    'ONCA',
     'onca',
+    'FONEM',
     'fonem',
+    'HenryEarly',
     'henry_early',
+    'Koelner',
     'koelner_phonetik',
     'koelner_phonetik_num_to_alpha',
     'koelner_phonetik_alpha',
+    'Haase',
     'haase_phonetik',
+    'RethSchek',
     'reth_schek_phonetik',
+    'Phonem',
     'phonem',
+    'Phonet',
     'phonet',
+    'SoundexBR',
     'soundex_br',
+    'PhoneticSpanish',
     'phonetic_spanish',
+    'SpanishMetaphone',
     'spanish_metaphone',
+    'SfinxBis',
     'sfinxbis',
+    'Norphone',
     'norphone',
 ]
 

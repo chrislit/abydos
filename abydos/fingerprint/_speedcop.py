@@ -31,10 +31,12 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
+from ._fingerprint import Fingerprint
+
 __all__ = ['OmissionKey', 'SkeletonKey', 'omission_key', 'skeleton_key']
 
 
-class SkeletonKey(object):
+class SkeletonKey(Fingerprint):
     """Skeleton Key.
 
     The skeleton key of a word is defined in :cite:`Pollock:1984`.
@@ -94,7 +96,7 @@ def skeleton_key(word):
     return SkeletonKey().fingerprint(word)
 
 
-class OmissionKey(object):
+class OmissionKey(Fingerprint):
     """Omission Key.
 
     The omission key of a word is defined in :cite:`Pollock:1984`.
