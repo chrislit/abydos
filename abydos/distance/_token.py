@@ -35,9 +35,8 @@ from __future__ import division, unicode_literals
 from collections import Counter
 from math import log, sqrt
 
-from ._distance import Distance
+from ._distance import Distance, TokenDistance
 from ._levenshtein import sim_levenshtein
-from ._util import _get_qgrams
 from ..tokenizer import QGrams
 
 __all__ = [
@@ -67,7 +66,7 @@ __all__ = [
 ]
 
 
-class Tversky(Distance):
+class Tversky(TokenDistance):
     r"""Tversky index.
 
     The Tversky index :cite:`Tversky:1977` is defined as:
@@ -134,7 +133,7 @@ class Tversky(Distance):
         elif not src or not tar:
             return 0.0
 
-        q_src, q_tar = _get_qgrams(src, tar, qval)
+        q_src, q_tar = self._get_qgrams(src, tar, qval)
         q_src_mag = sum(q_src.values())
         q_tar_mag = sum(q_tar.values())
         q_intersection_mag = sum((q_src & q_tar).values())
@@ -436,7 +435,7 @@ def tanimoto(src, tar, qval=2):
     return Jaccard().tanimoto_coeff(src, tar, qval)
 
 
-class Overlap(Distance):
+class Overlap(TokenDistance):
     r"""Overlap coefficient.
 
     For two sets X and Y, the overlap coefficient
@@ -471,7 +470,7 @@ class Overlap(Distance):
         elif not src or not tar:
             return 0.0
 
-        q_src, q_tar = _get_qgrams(src, tar, qval)
+        q_src, q_tar = self._get_qgrams(src, tar, qval)
         q_src_mag = sum(q_src.values())
         q_tar_mag = sum(q_tar.values())
         q_intersection_mag = sum((q_src & q_tar).values())
@@ -525,7 +524,7 @@ def dist_overlap(src, tar, qval=2):
     return Overlap().dist(src, tar, qval)
 
 
-class Cosine(Distance):
+class Cosine(TokenDistance):
     r"""Cosine similarity.
 
     For two sets X and Y, the cosine similarity, Otsuka-Ochiai coefficient, or
@@ -559,7 +558,7 @@ class Cosine(Distance):
         if not src or not tar:
             return 0.0
 
-        q_src, q_tar = _get_qgrams(src, tar, qval)
+        q_src, q_tar = self._get_qgrams(src, tar, qval)
         q_src_mag = sum(q_src.values())
         q_tar_mag = sum(q_tar.values())
         q_intersection_mag = sum((q_src & q_tar).values())
@@ -612,7 +611,7 @@ def dist_cosine(src, tar, qval=2):
     return Cosine().dist(src, tar, qval)
 
 
-class Bag(Distance):
+class Bag(TokenDistance):
     """Bag distance.
 
     Bag distance is proposed in :cite:`Bartolini:2002`. It is defined as:

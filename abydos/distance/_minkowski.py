@@ -30,8 +30,7 @@ from __future__ import division, unicode_literals
 
 from numbers import Number
 
-from ._distance import Distance
-from ._util import _get_qgrams
+from ._distance import TokenDistance
 
 __all__ = [
     'Chebyshev',
@@ -51,7 +50,7 @@ __all__ = [
 ]
 
 
-class Minkowski(Distance):
+class Minkowski(TokenDistance):
     """Minkowski distance.
 
     The Minkowski distance :cite:`Minkowski:1910` is a distance metric in
@@ -84,7 +83,7 @@ class Minkowski(Distance):
         >>> cmp.dist_abs('ATCG', 'TAGC')
         10.0
         """
-        q_src, q_tar = _get_qgrams(src, tar, qval)
+        q_src, q_tar = self._get_qgrams(src, tar, qval)
         diffs = ((q_src - q_tar) + (q_tar - q_src)).values()
 
         normalizer = 1
@@ -525,10 +524,12 @@ class Chebyshev(Minkowski):
             src, tar, qval, float('inf'), normalized, alphabet
         )
 
-    def sim(self):
+    def sim(self, *args, **kwargs):
+        """Raise exception when called."""
         raise Exception('Method disabled for Chebyshev distance.')
 
-    def dist(self):
+    def dist(self, *args, **kwargs):
+        """Raise exception when called."""
         raise Exception('Method disabled for Chebyshev distance.')
 
 

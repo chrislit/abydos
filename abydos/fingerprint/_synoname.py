@@ -23,11 +23,12 @@ The fingerprint.synoname module implements the Synoname toolcode.
 
 from __future__ import unicode_literals
 
+from ._fingerprint import Fingerprint
 
 __all__ = ['SynonameToolcode', 'synoname_toolcode']
 
 
-class SynonameToolcode(object):
+class SynonameToolcode(Fingerprint):
     """Synoname Toolcode.
 
     Cf. :cite:`Getty:1991,Gross:1991`.

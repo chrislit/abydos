@@ -34,6 +34,7 @@ from six import text_type
 
 from ..phonetic import double_metaphone
 from ..tokenizer import QGrams
+from ._fingerprint import Fingerprint
 
 __all__ = [
     'PhoneticFingerprint',
@@ -45,7 +46,7 @@ __all__ = [
 ]
 
 
-class StringFingerprint(object):
+class StringFingerprint(Fingerprint):
     """String Fingerprint.
 
     The fingerprint of a string is a string consisting of all of the unique
@@ -87,7 +88,7 @@ def str_fingerprint(phrase, joiner=' '):
     return StringFingerprint().fingerprint(phrase, joiner)
 
 
-class QGramFingerprint(object):
+class QGramFingerprint(Fingerprint):
     """Q-Gram Fingerprint.
 
     A q-gram fingerprint is a string consisting of all of the unique q-grams

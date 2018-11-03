@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import unittest
 
-from abydos.distance import sim_tanimoto
+from abydos.distance import sim_jaccard
 from abydos.stats import (
     amean,
     gmean,
@@ -213,7 +213,7 @@ class PSSTestCases(unittest.TestCase):
 
         # Test with a set metric
         (pw_max, pw_min, pw_mean, pw_std) = pairwise_similarity_statistics(
-            NIALL, NIALL, metric=sim_tanimoto
+            NIALL, NIALL, metric=sim_jaccard
         )
         self.assertAlmostEqual(pw_max, 1.0)
         self.assertAlmostEqual(pw_min, 0.0)

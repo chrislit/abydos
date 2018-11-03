@@ -31,6 +31,8 @@ from __future__ import unicode_literals
 
 from collections import Counter
 
+from ._fingerprint import Fingerprint
+
 __all__ = [
     'MOST_COMMON_LETTERS',
     'MOST_COMMON_LETTERS_CG',
@@ -84,7 +86,7 @@ MOST_COMMON_LETTERS_DE_LC = ('e', 'n', 'i', 'r', 's', 't', 'a', 'd', 'h', 'u',
 # fmt: on
 
 
-class Occurrence(object):
+class Occurrence(Fingerprint):
     """Occurrence Fingerprint.
 
     Based on the occurrence fingerprint from :cite:`Cislak:2017`.
@@ -159,7 +161,7 @@ def occurrence_fingerprint(
     return Occurrence().fingerprint(word, n_bits, most_common)
 
 
-class OccurrenceHalved(object):
+class OccurrenceHalved(Fingerprint):
     """Occurrence Halved Fingerprint.
 
     Based on the occurrence halved fingerprint from :cite:`Cislak:2017`.
@@ -243,7 +245,7 @@ def occurrence_halved_fingerprint(
     return OccurrenceHalved().fingerprint(word, n_bits, most_common)
 
 
-class Count(object):
+class Count(Fingerprint):
     """Count Fingerprint.
 
     Based on the count fingerprint from :cite:`Cislak:2017`.
@@ -317,7 +319,7 @@ def count_fingerprint(word, n_bits=16, most_common=MOST_COMMON_LETTERS_CG):
     return Count().fingerprint(word, n_bits, most_common)
 
 
-class Position(object):
+class Position(Fingerprint):
     """Position Fingerprint.
 
     Based on the position fingerprint from :cite:`Cislak:2017`.

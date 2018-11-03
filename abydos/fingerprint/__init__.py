@@ -43,14 +43,14 @@ from ._basic import (
 )
 from ._lightweight import (
     Count,
-    Occurrence,
-    OccurrenceHalved,
-    Position,
     MOST_COMMON_LETTERS,
     MOST_COMMON_LETTERS_CG,
     MOST_COMMON_LETTERS_DE,
     MOST_COMMON_LETTERS_DE_LC,
     MOST_COMMON_LETTERS_EN_LC,
+    Occurrence,
+    OccurrenceHalved,
+    Position,
     count_fingerprint,
     occurrence_fingerprint,
     occurrence_halved_fingerprint,

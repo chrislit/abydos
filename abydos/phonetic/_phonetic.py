@@ -54,17 +54,17 @@ class Phonetic(object):
         return ''.join(char for char, _ in groupby(word))
 
     def encode(self, word):
-        """Generic encode method.
+        """Encode phonetically.
 
-        :param word:
+        :param word: word to encode
         :return:
         """
         pass
 
     def encode_alpha(self, word):
-        """Generic encode_alpha method.
+        """Encode phonetically using alphabetic characters.
 
-        :param word:
+        :param word: word to encode
         :return:
         """
         return self.encode(word)

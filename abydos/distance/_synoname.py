@@ -30,11 +30,12 @@ from ._sequence import sim_ratcliff_obershelp
 
 # noinspection PyProtectedMember
 from ..fingerprint._synoname import SynonameToolcode
+from ._distance import Distance
 
 __all__ = ['Synoname', 'synoname']
 
 
-class Synoname(object):
+class Synoname(Distance):
     """Synoname.
 
     Cf. :cite:`Getty:1991,Gross:1991`
@@ -327,7 +328,7 @@ class Synoname(object):
 
         return 0
 
-    def synoname(
+    def dist_abs(
         self,
         src,
         tar,
@@ -601,6 +602,35 @@ class Synoname(object):
                 return _fmt_retval(self.match_type_dict['char_approx'])
         return _fmt_retval(self.match_type_dict['no_match'])
 
+    def dist(
+        self,
+        src,
+        tar,
+        word_approx_min=0.3,
+        char_approx_min=0.73,
+        tests=2 ** 12 - 1,
+        ret_name=False,
+    ):
+        """Return the normalized Synoname distance between two words.
+
+        :param str src: source string for comparison
+        :param str tar: target string for comparison
+        :param bool ret_name: return the name of the match type rather than the
+            int value
+        :param float word_approx_min: the minimum word approximation value to
+            signal a 'word_approx' match
+        :param float char_approx_min: the minimum character approximation value
+            to signal a 'char_approx' match
+        :param int or Iterable tests: either an integer indicating tests to
+            perform or a list of test names to perform (defaults to performing
+            all tests)
+        :param bool ret_name: if True, returns the match name rather than its
+            integer equivalent
+        :returns: Synoname value
+        :rtype: int (or str if ret_name is True)
+        """
+        return synoname(src, tar, word_approx_min, char_approx_min, tests, ret_name)/14
+
 
 def synoname(
     src,
@@ -643,7 +673,7 @@ def synoname(
     ... ret_name=True)
     'word_approx'
     """
-    return Synoname().synoname(
+    return Synoname().dist_abs(
         src, tar, word_approx_min, char_approx_min, tests, ret_name
     )
 
