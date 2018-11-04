@@ -64,9 +64,9 @@ class Ident(Distance):
 
         >>> cmp = Ident()
         >>> cmp.sim('cat', 'hat')
-        0
+        0.0
         >>> cmp.sim('cat', 'cat')
-        1
+        1.0
         """
         return 1.0 if src == tar else 0.0
 
@@ -82,9 +82,9 @@ def sim_ident(src, tar):
     :rtype: int
 
     >>> sim_ident('cat', 'hat')
-    0
+    0.0
     >>> sim_ident('cat', 'cat')
-    1
+    1.0
     """
     return Ident().sim(src, tar)
 
@@ -100,9 +100,9 @@ def dist_ident(src, tar):
     :rtype: int
 
     >>> dist_ident('cat', 'hat')
-    1
+    1.0
     >>> dist_ident('cat', 'cat')
-    0
+    0.0
     """
     return Ident().dist(src, tar)
 

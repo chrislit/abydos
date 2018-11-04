@@ -44,11 +44,12 @@ class Phonetic(object):
             a single instance
         :rtype: str
 
-        >>> _delete_consecutive_repeats('REDDEE')
+        >>> pe = Phonetic()
+        >>> pe._delete_consecutive_repeats('REDDEE')
         'REDE'
-        >>> _delete_consecutive_repeats('AEIOU')
+        >>> pe._delete_consecutive_repeats('AEIOU')
         'AEIOU'
-        >>> _delete_consecutive_repeats('AAACCCTTTGGG')
+        >>> pe._delete_consecutive_repeats('AAACCCTTTGGG')
         'ACTG'
         """
         return ''.join(char for char, _ in groupby(word))

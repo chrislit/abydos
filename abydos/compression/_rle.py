@@ -50,19 +50,20 @@ class RLE(object):
         :rtype: str
 
         >>> rle = RLE()
-        >>> rle.encode('align')
+        >>> bwt = BWT()
+        >>> rle.encode(bwt.encode('align'))
         'n\x00ilag'
-        >>> rle.encode('align', use_bwt=False)
+        >>> rle.encode('align')
         'align'
 
-        >>> rle.encode('banana')
+        >>> rle.encode(bwt.encode('banana'))
         'annb\x00aa'
-        >>> rle.encode('banana', use_bwt=False)
+        >>> rle.encode('banana')
         'banana'
 
-        >>> rle.encode('aaabaabababa')
+        >>> rle.encode(bwt.encode('aaabaabababa'))
         'ab\x00abbab5a'
-        >>> rle.encode('aaabaabababa', False)
+        >>> rle.encode('aaabaabababa')
         '3abaabababa'
         """
         if text:
@@ -81,19 +82,20 @@ class RLE(object):
         :rtype: str
 
         >>> rle = RLE()
-        >>> rle.decode('n\x00ilag')
+        >>> bwt = BWT()
+        >>> bwt.decode(rle.decode('n\x00ilag'))
         'align'
-        >>> rle.decode('align', use_bwt=False)
+        >>> rle.decode('align')
         'align'
 
-        >>> rle.decode('annb\x00aa')
+        >>> bwt.decode(rle.decode('annb\x00aa'))
         'banana'
-        >>> rle.decode('banana', use_bwt=False)
+        >>> rle.decode('banana')
         'banana'
 
-        >>> rle.decode('ab\x00abbab5a')
+        >>> bwt.decode(rle.decode('ab\x00abbab5a'))
         'aaabaabababa'
-        >>> rle.decode('3abaabababa', False)
+        >>> rle.decode('3abaabababa')
         'aaabaabababa'
         """
         mult = ''
