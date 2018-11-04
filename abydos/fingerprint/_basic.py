@@ -32,9 +32,9 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
+from ._fingerprint import Fingerprint
 from ..phonetic import double_metaphone
 from ..tokenizer import QGrams
-from ._fingerprint import Fingerprint
 
 __all__ = [
     'PhoneticFingerprint',

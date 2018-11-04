@@ -83,7 +83,8 @@ class TokenDistance(Distance):
 
         >>> pe = TokenDistance()
         >>> pe._get_qgrams('AT', 'TT', qval=2)
-        (QGrams({'$A': 1, 'AT': 1, 'T#': 1}), QGrams({'$T': 1, 'TT': 1, 'T#': 1}))
+        (QGrams({'$A': 1, 'AT': 1, 'T#': 1}),
+         QGrams({'$T': 1, 'TT': 1, 'T#': 1}))
         """
         if isinstance(src, Counter) and isinstance(tar, Counter):
             return src, tar

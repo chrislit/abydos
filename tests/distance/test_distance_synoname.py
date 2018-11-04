@@ -40,10 +40,13 @@ class SynonameTestCases(unittest.TestCase):
         synoname = Synoname()
 
         # Base cases
-        self.assertEqual(synoname._synoname_strip_punct(''), '')
-        self.assertEqual(synoname._synoname_strip_punct('abcdefg'), 'abcdefg')
+        self.assertEqual(synoname._synoname_strip_punct(''), '')  # noqa: SF01
         self.assertEqual(
-            synoname._synoname_strip_punct('a\'b-c,d!e:f%g'), 'abcdefg'
+            synoname._synoname_strip_punct('abcdefg'), 'abcdefg'  # noqa: SF01
+        )
+        self.assertEqual(
+            synoname._synoname_strip_punct('a\'b-c,d!e:f%g'),  # noqa: SF01
+            'abcdefg',
         )
 
     def test_synoname_word_approximation(self):
@@ -51,10 +54,12 @@ class SynonameTestCases(unittest.TestCase):
         synoname = Synoname()
 
         # Base cases
-        self.assertEqual(synoname._synoname_word_approximation('', ''), 0)
+        self.assertEqual(
+            synoname._synoname_word_approximation('', ''), 0  # noqa: SF01
+        )
 
         self.assertEqual(
-            synoname._synoname_word_approximation(
+            synoname._synoname_word_approximation(  # noqa: SF01
                 'di Domenico di Bonaventura',
                 'di Tomme di Nuto',
                 'Cosimo',
@@ -63,7 +68,7 @@ class SynonameTestCases(unittest.TestCase):
             0.4,
         )
         self.assertEqual(
-            synoname._synoname_word_approximation(
+            synoname._synoname_word_approximation(  # noqa: SF01
                 'Antonello da Messina',
                 'Messina',
                 '',
@@ -78,7 +83,7 @@ class SynonameTestCases(unittest.TestCase):
             0,
         )
         self.assertEqual(
-            synoname._synoname_word_approximation(
+            synoname._synoname_word_approximation(  # noqa: SF01
                 'louis ii',
                 'louis ii',
                 'sr jean',
@@ -93,7 +98,7 @@ class SynonameTestCases(unittest.TestCase):
             0,
         )
         self.assertEqual(
-            synoname._synoname_word_approximation(
+            synoname._synoname_word_approximation(  # noqa: SF01
                 'louis ii',
                 'louis ii',
                 'il giovane',
@@ -118,7 +123,7 @@ class SynonameTestCases(unittest.TestCase):
             1,
         )
         self.assertAlmostEqual(
-            synoname._synoname_word_approximation(
+            synoname._synoname_word_approximation(  # noqa: SF01
                 'louis ii',
                 'louis ii',
                 'ste.-geo ste.',
@@ -143,7 +148,7 @@ class SynonameTestCases(unittest.TestCase):
             2 / 3,
         )
         self.assertAlmostEqual(
-            synoname._synoname_word_approximation(
+            synoname._synoname_word_approximation(  # noqa: SF01
                 'louis ii',
                 'louis',
                 'ste.-geo ste.',
@@ -163,13 +168,13 @@ class SynonameTestCases(unittest.TestCase):
             0,
         )
         self.assertAlmostEqual(
-            synoname._synoname_word_approximation(
+            synoname._synoname_word_approximation(  # noqa: SF01
                 'lou ii', 'louis', 'louis iv', 'ste.', {}
             ),
             0,
         )
         self.assertEqual(
-            synoname._synoname_word_approximation(
+            synoname._synoname_word_approximation(  # noqa: SF01
                 'ren',
                 'loren ste.',
                 '',
