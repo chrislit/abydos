@@ -66,13 +66,13 @@ class CompressionTestCases(unittest.TestCase):
         """Test abydos.distance._compression.dist_ncd_bz2."""
         self.assertEqual(dist_ncd_bz2('', ''), 0)
         self.assertGreater(dist_ncd_bz2('a', ''), 0)
-        self.assertGreater(dist_ncd_bz2('abcdefg', 'fg'), 0)
+        self.assertAlmostEqual(dist_ncd_bz2('abcdefg', 'fg'), 0.15625)
 
     def test_dist_ncd_zlib(self):
         """Test abydos.distance._compression.dist_ncd_zlib."""
         self.assertEqual(dist_ncd_zlib('', ''), 0)
         self.assertGreater(dist_ncd_zlib('a', ''), 0)
-        self.assertGreater(dist_ncd_zlib('abcdefg', 'fg'), 0)
+        self.assertAlmostEqual(dist_ncd_zlib('abcdefg', 'fg'), 0.5384615384615)
 
     def test_dist_ncd_arith(self):
         """Test abydos.distance._compression.dist_ncd_arith."""
@@ -131,13 +131,13 @@ class CompressionTestCases(unittest.TestCase):
         """Test abydos.distance._compression.sim_ncd_bz2."""
         self.assertEqual(sim_ncd_bz2('', ''), 1)
         self.assertLess(sim_ncd_bz2('a', ''), 1)
-        self.assertLess(sim_ncd_bz2('abcdefg', 'fg'), 1)
+        self.assertAlmostEqual(sim_ncd_bz2('abcdefg', 'fg'), 0.84375)
 
     def test_sim_ncd_zlib(self):
         """Test abydos.distance._compression.sim_ncd_zlib."""
         self.assertEqual(sim_ncd_zlib('', ''), 1)
         self.assertLess(sim_ncd_zlib('a', ''), 1)
-        self.assertLess(sim_ncd_zlib('abcdefg', 'fg'), 1)
+        self.assertAlmostEqual(sim_ncd_zlib('abcdefg', 'fg'), 0.46153846153846)
 
     def test_sim_ncd_arith(self):
         """Test abydos.distance._compression.sim_ncd_arith."""
