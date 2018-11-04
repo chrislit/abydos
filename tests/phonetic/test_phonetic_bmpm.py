@@ -638,35 +638,52 @@ class BeiderMorseTestCases(unittest.TestCase):
 
     def test_phonetic_number(self):
         """Test abydos.phonetic._bmpm._phonetic_number."""
-        self.assertEqual(self.pe._phonetic_number(''), '')
-        self.assertEqual(self.pe._phonetic_number('abcd'), 'abcd')
-        self.assertEqual(self.pe._phonetic_number('abcd[123]'), 'abcd')
-        self.assertEqual(self.pe._phonetic_number('abcd[123'), 'abcd')
-        self.assertEqual(self.pe._phonetic_number('abcd['), 'abcd')
-        self.assertEqual(self.pe._phonetic_number('abcd[[[123]]]'), 'abcd')
+        self.assertEqual(self.pe._phonetic_number(''), '')  # noqa: SF01
+        self.assertEqual(
+            self.pe._phonetic_number('abcd'), 'abcd'  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._phonetic_number('abcd[123]'), 'abcd'  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._phonetic_number('abcd[123'), 'abcd'  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._phonetic_number('abcd['), 'abcd'  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._phonetic_number('abcd[[[123]]]'), 'abcd'  # noqa: SF01
+        )
 
     def test_apply_rule_if_compat(self):
         """Test abydos.phonetic._bmpm._apply_rule_if_compat."""
         self.assertEqual(
-            self.pe._apply_rule_if_compat('abc', 'def', 4), 'abcdef'
+            self.pe._apply_rule_if_compat('abc', 'def', 4),  # noqa: SF01
+            'abcdef',
         )
         self.assertEqual(
-            self.pe._apply_rule_if_compat('abc', 'def[6]', 4), 'abcdef[4]'
+            self.pe._apply_rule_if_compat('abc', 'def[6]', 4),  # noqa: SF01
+            'abcdef[4]',
         )
         self.assertEqual(
-            self.pe._apply_rule_if_compat('abc', 'def[4]', 4), 'abcdef[4]'
+            self.pe._apply_rule_if_compat('abc', 'def[4]', 4),  # noqa: SF01
+            'abcdef[4]',
         )
         self.assertEqual(
-            self.pe._apply_rule_if_compat('abc', 'def[0]', 4), None
+            self.pe._apply_rule_if_compat('abc', 'def[0]', 4),  # noqa: SF01
+            None,
         )
         self.assertEqual(
-            self.pe._apply_rule_if_compat('abc', 'def[8]', 4), None
+            self.pe._apply_rule_if_compat('abc', 'def[8]', 4),  # noqa: SF01
+            None,
         )
         self.assertEqual(
-            self.pe._apply_rule_if_compat('abc', 'def', 1), 'abcdef'
+            self.pe._apply_rule_if_compat('abc', 'def', 1),  # noqa: SF01
+            'abcdef',
         )
         self.assertEqual(
-            self.pe._apply_rule_if_compat('abc', 'def[4]', 1), 'abcdef[4]'
+            self.pe._apply_rule_if_compat('abc', 'def[4]', 1),  # noqa: SF01
+            'abcdef[4]',
         )
 
     def test_language(self):
@@ -675,109 +692,186 @@ class BeiderMorseTestCases(unittest.TestCase):
         Most test cases from:
         http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/LanguageGuessingTest.java?view=markup
         """
-        self.assertEqual(self.pe._language('Renault', 'gen'), L_FRENCH)
-        self.assertEqual(self.pe._language('Mickiewicz', 'gen'), L_POLISH)
         self.assertEqual(
-            self.pe._language('Thompson', 'gen') & L_ENGLISH, L_ENGLISH
+            self.pe._language('Renault', 'gen'), L_FRENCH  # noqa: SF01
         )
-        self.assertEqual(self.pe._language('Nuñez', 'gen'), L_SPANISH)
-        self.assertEqual(self.pe._language('Carvalho', 'gen'), L_PORTUGUESE)
         self.assertEqual(
-            self.pe._language('Čapek', 'gen'), L_CZECH | L_LATVIAN
+            self.pe._language('Mickiewicz', 'gen'), L_POLISH  # noqa: SF01
         )
-        self.assertEqual(self.pe._language('Sjneijder', 'gen'), L_DUTCH)
-        self.assertEqual(self.pe._language('Klausewitz', 'gen'), L_GERMAN)
-        self.assertEqual(self.pe._language('Küçük', 'gen'), L_TURKISH)
-        self.assertEqual(self.pe._language('Giacometti', 'gen'), L_ITALIAN)
-        self.assertEqual(self.pe._language('Nagy', 'gen'), L_HUNGARIAN)
-        self.assertEqual(self.pe._language('Ceauşescu', 'gen'), L_ROMANIAN)
         self.assertEqual(
-            self.pe._language('Angelopoulos', 'gen'), L_GREEKLATIN
+            self.pe._language('Thompson', 'gen') & L_ENGLISH,  # noqa: SF01
+            L_ENGLISH,
         )
-        self.assertEqual(self.pe._language('Αγγελόπουλος', 'gen'), L_GREEK)
-        self.assertEqual(self.pe._language('Пушкин', 'gen'), L_CYRILLIC)
-        self.assertEqual(self.pe._language('כהן', 'gen'), L_HEBREW)
-        self.assertEqual(self.pe._language('ácz', 'gen'), L_ANY)
-        self.assertEqual(self.pe._language('átz', 'gen'), L_ANY)
+        self.assertEqual(
+            self.pe._language('Nuñez', 'gen'), L_SPANISH  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._language('Carvalho', 'gen'), L_PORTUGUESE  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._language('Čapek', 'gen'),  # noqa: SF01
+            L_CZECH | L_LATVIAN,
+        )
+        self.assertEqual(
+            self.pe._language('Sjneijder', 'gen'), L_DUTCH  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._language('Klausewitz', 'gen'), L_GERMAN  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._language('Küçük', 'gen'), L_TURKISH  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._language('Giacometti', 'gen'), L_ITALIAN  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._language('Nagy', 'gen'), L_HUNGARIAN  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._language('Ceauşescu', 'gen'), L_ROMANIAN  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._language('Angelopoulos', 'gen'),  # noqa: SF01
+            L_GREEKLATIN,
+        )
+        self.assertEqual(
+            self.pe._language('Αγγελόπουλος', 'gen'), L_GREEK  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._language('Пушкин', 'gen'), L_CYRILLIC  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._language('כהן', 'gen'), L_HEBREW  # noqa: SF01
+        )
+        self.assertEqual(self.pe._language('ácz', 'gen'), L_ANY)  # noqa: SF01
+        self.assertEqual(self.pe._language('átz', 'gen'), L_ANY)  # noqa: SF01
 
     def test_expand_alternates(self):
         """Test abydos.phonetic._bmpm._expand_alternates."""
-        self.assertEqual(self.pe._expand_alternates(''), '')
-        self.assertEqual(self.pe._expand_alternates('aa'), 'aa')
-        self.assertEqual(self.pe._expand_alternates('aa|bb'), 'aa|bb')
-        self.assertEqual(self.pe._expand_alternates('aa|aa'), 'aa|aa')
-
-        self.assertEqual(self.pe._expand_alternates('(aa)(bb)'), 'aabb')
-        self.assertEqual(self.pe._expand_alternates('(aa)(bb[0])'), '')
-        self.assertEqual(self.pe._expand_alternates('(aa)(bb[4])'), 'aabb[4]')
-        self.assertEqual(self.pe._expand_alternates('(aa[0])(bb)'), '')
-        self.assertEqual(self.pe._expand_alternates('(aa[4])(bb)'), 'aabb[4]')
+        self.assertEqual(self.pe._expand_alternates(''), '')  # noqa: SF01
+        self.assertEqual(self.pe._expand_alternates('aa'), 'aa')  # noqa: SF01
+        self.assertEqual(
+            self.pe._expand_alternates('aa|bb'), 'aa|bb'  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._expand_alternates('aa|aa'), 'aa|aa'  # noqa: SF01
+        )
 
         self.assertEqual(
-            self.pe._expand_alternates('(a|b|c)(a|b|c)'),
+            self.pe._expand_alternates('(aa)(bb)'), 'aabb'  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._expand_alternates('(aa)(bb[0])'), ''  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._expand_alternates('(aa)(bb[4])'), 'aabb[4]'  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._expand_alternates('(aa[0])(bb)'), ''  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._expand_alternates('(aa[4])(bb)'), 'aabb[4]'  # noqa: SF01
+        )
+
+        self.assertEqual(
+            self.pe._expand_alternates('(a|b|c)(a|b|c)'),  # noqa: SF01
             'aa|ab|ac|ba|bb|bc|ca|cb|cc',
         )
         self.assertEqual(
-            self.pe._expand_alternates('(a[1]|b[2])(c|d)'),
+            self.pe._expand_alternates('(a[1]|b[2])(c|d)'),  # noqa: SF01
             'ac[1]|ad[1]|bc[2]|bd[2]',
         )
         self.assertEqual(
-            self.pe._expand_alternates('(a[1]|b[2])(c[4]|d)'), 'ad[1]|bd[2]'
+            self.pe._expand_alternates('(a[1]|b[2])(c[4]|d)'),  # noqa: SF01
+            'ad[1]|bd[2]',
         )
 
     def test_remove_dupes(self):
         """Test abydos.phonetic._bmpm._remove_dupes."""
-        self.assertEqual(self.pe._remove_dupes(''), '')
-        self.assertEqual(self.pe._remove_dupes('aa'), 'aa')
-        self.assertEqual(self.pe._remove_dupes('aa|bb'), 'aa|bb')
-        self.assertEqual(self.pe._remove_dupes('aa|aa'), 'aa')
-        self.assertEqual(self.pe._remove_dupes('aa|aa|aa|bb|aa'), 'aa|bb')
-        self.assertEqual(self.pe._remove_dupes('bb|aa|bb|aa|bb'), 'bb|aa')
+        self.assertEqual(self.pe._remove_dupes(''), '')  # noqa: SF01
+        self.assertEqual(self.pe._remove_dupes('aa'), 'aa')  # noqa: SF01
+        self.assertEqual(self.pe._remove_dupes('aa|bb'), 'aa|bb')  # noqa: SF01
+        self.assertEqual(self.pe._remove_dupes('aa|aa'), 'aa')  # noqa: SF01
+        self.assertEqual(
+            self.pe._remove_dupes('aa|aa|aa|bb|aa'), 'aa|bb'  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._remove_dupes('bb|aa|bb|aa|bb'), 'bb|aa'  # noqa: SF01
+        )
 
     def test_normalize_lang_attrs(self):
         """Test abydos.phonetic._bmpm._normalize_language_attributes."""
-        self.assertEqual(self.pe._normalize_lang_attrs('', False), '')
-        self.assertEqual(self.pe._normalize_lang_attrs('', True), '')
+        self.assertEqual(
+            self.pe._normalize_lang_attrs('', False), ''  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pe._normalize_lang_attrs('', True), ''  # noqa: SF01
+        )
 
         self.assertRaises(
-            ValueError, self.pe._normalize_lang_attrs, 'a[1', False
+            ValueError,
+            self.pe._normalize_lang_attrs,  # noqa: SF01
+            'a[1',
+            False,
         )
         self.assertRaises(
-            ValueError, self.pe._normalize_lang_attrs, 'a[1', True
+            ValueError,
+            self.pe._normalize_lang_attrs,  # noqa: SF01
+            'a[1',
+            True,
         )
 
-        self.assertEqual(self.pe._normalize_lang_attrs('abc', False), 'abc')
-        self.assertEqual(self.pe._normalize_lang_attrs('abc[0]', False), '[0]')
         self.assertEqual(
-            self.pe._normalize_lang_attrs('abc[2]', False), 'abc[2]'
+            self.pe._normalize_lang_attrs('abc', False), 'abc'  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('abc[2][4]', False), '[0]'
+            self.pe._normalize_lang_attrs('abc[0]', False), '[0]'  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('abc[2][6]', False), 'abc[2]'
+            self.pe._normalize_lang_attrs('abc[2]', False),  # noqa: SF01
+            'abc[2]',
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('ab[2]c[4]', False), '[0]'
+            self.pe._normalize_lang_attrs('abc[2][4]', False),  # noqa: SF01
+            '[0]',
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('ab[2]c[6]', False), 'abc[2]'
+            self.pe._normalize_lang_attrs('abc[2][6]', False),  # noqa: SF01
+            'abc[2]',
+        )
+        self.assertEqual(
+            self.pe._normalize_lang_attrs('ab[2]c[4]', False),  # noqa: SF01
+            '[0]',
+        )
+        self.assertEqual(
+            self.pe._normalize_lang_attrs('ab[2]c[6]', False),  # noqa: SF01
+            'abc[2]',
         )
 
-        self.assertEqual(self.pe._normalize_lang_attrs('abc', True), 'abc')
-        self.assertEqual(self.pe._normalize_lang_attrs('abc[0]', True), 'abc')
-        self.assertEqual(self.pe._normalize_lang_attrs('abc[2]', True), 'abc')
         self.assertEqual(
-            self.pe._normalize_lang_attrs('abc[2][4]', True), 'abc'
+            self.pe._normalize_lang_attrs('abc', True), 'abc'  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('abc[2][6]', True), 'abc'
+            self.pe._normalize_lang_attrs('abc[0]', True), 'abc'  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('ab[2]c[4]', True), 'abc'
+            self.pe._normalize_lang_attrs('abc[2]', True), 'abc'  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('ab[2]c[6]', True), 'abc'
+            self.pe._normalize_lang_attrs('abc[2][4]', True),  # noqa: SF01
+            'abc',
+        )
+        self.assertEqual(
+            self.pe._normalize_lang_attrs('abc[2][6]', True),  # noqa: SF01
+            'abc',
+        )
+        self.assertEqual(
+            self.pe._normalize_lang_attrs('ab[2]c[4]', True),  # noqa: SF01
+            'abc',
+        )
+        self.assertEqual(
+            self.pe._normalize_lang_attrs('ab[2]c[6]', True),  # noqa: SF01
+            'abc',
         )
 
 

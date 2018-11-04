@@ -25,12 +25,12 @@ from __future__ import division, unicode_literals
 
 from collections import Iterable
 
+from ._distance import Distance
 from ._levenshtein import levenshtein
 from ._sequence import sim_ratcliff_obershelp
 
 # noinspection PyProtectedMember
 from ..fingerprint._synoname import SynonameToolcode
-from ._distance import Distance
 
 __all__ = ['Synoname', 'synoname']
 

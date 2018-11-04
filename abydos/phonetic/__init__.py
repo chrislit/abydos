@@ -108,10 +108,10 @@ from ._sound_d import SoundD, sound_d
 from ._soundex import (
     FuzzySoundex,
     Lein,
-    Phonex,
-    Phonix,
     PSHPSoundexFirst,
     PSHPSoundexLast,
+    Phonex,
+    Phonix,
     RefinedSoundex,
     Soundex,
     fuzzy_soundex,
