@@ -37,14 +37,7 @@ class BWT(object):
     Cf. :cite:`Burrows:1994`.
     """
 
-    terminator = '\0'
-
-    def __init__(self, terminator=None):
-        """Initialize BWT object with terminator symbol."""
-        if terminator is not None:
-            self.terminator = terminator
-
-    def encode(self, word, terminator=None):
+    def encode(self, word, terminator='\0'):
         r"""Return the Burrows-Wheeler transformed form of a word.
 
         :param str word: the word to transform using BWT
@@ -61,25 +54,23 @@ class BWT(object):
         >>> bwt.encode('banana', '@')
         'annb@aa'
         """
-        if terminator is not None:
-            self.terminator = '\0'
         if word:
-            if self.terminator in word:
+            if terminator in word:
                 raise ValueError(
-                    'Specified terminator, %s, already in word.'.format(
-                        self.terminator if self.terminator != '\0' else '\\0'
+                    'Specified terminator, {}, already in word.'.format(
+                        terminator if terminator != '\0' else '\\0'
                     )
                 )
             else:
-                word += self.terminator
+                word += terminator
                 wordlist = sorted(
                     word[i:] + word[:i] for i in range(len(word))
                 )
                 return ''.join([w[-1] for w in wordlist])
         else:
-            return self.terminator
+            return terminator
 
-    def decode(self, code, terminator=None):
+    def decode(self, code, terminator='\0'):
         r"""Return a word decoded from BWT form.
 
         :param str code: the word to transform from BWT form
@@ -96,13 +87,11 @@ class BWT(object):
         >>> bwt.decode('annb@aa', '@')
         'banana'
         """
-        if terminator is not None:
-            self.terminator = '\0'
         if code:
-            if self.terminator not in code:
+            if terminator not in code:
                 raise ValueError(
-                    'Specified terminator, %s, absent from code.'.format(
-                        self.terminator if self.terminator != '\0' else '\\0'
+                    'Specified terminator, {}, absent from code.'.format(
+                        terminator if terminator != '\0' else '\\0'
                     )
                 )
             else:
@@ -111,8 +100,8 @@ class BWT(object):
                     wordlist = sorted(
                         code[i] + wordlist[i] for i in range(len(code))
                     )
-                rows = [w for w in wordlist if w[-1] == self.terminator][0]
-                return rows.rstrip(self.terminator)
+                rows = [w for w in wordlist if w[-1] == terminator][0]
+                return rows.rstrip(terminator)
         else:
             return ''
 
@@ -135,7 +124,7 @@ def bwt_encode(word, terminator='\0'):
     >>> bwt_encode('banana', '@')
     'annb@aa'
     """
-    return BWT(terminator).encode(word)
+    return BWT().encode(word, terminator)
 
 
 def bwt_decode(code, terminator='\0'):
@@ -156,7 +145,7 @@ def bwt_decode(code, terminator='\0'):
     >>> bwt_decode('annb@aa', '@')
     'banana'
     """
-    return BWT(terminator).decode(code)
+    return BWT().decode(code, terminator)
 
 
 if __name__ == '__main__':

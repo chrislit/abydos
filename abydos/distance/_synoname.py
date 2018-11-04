@@ -86,7 +86,8 @@ class Synoname(Distance):
         :param word: a word to strip punctuation from
         :returns: The word stripped of punctuation
 
-        >>> _synoname_strip_punct('AB;CD EF-GH$IJ')
+        >>> pe = Synoname()
+        >>> pe._synoname_strip_punct('AB;CD EF-GH$IJ')
         'ABCD EFGHIJ'
         """
         stripped = ''
@@ -109,7 +110,8 @@ class Synoname(Distance):
         :returns: The word approximation score
         :rtype: float
 
-        >>> _synoname_word_approximation('Smith Waterman', 'Waterman',
+        >>> pe = Synoname()
+        >>> pe._synoname_word_approximation('Smith Waterman', 'Waterman',
         ... 'Tom Joe Bob', 'Tom Joe')
         0.6
         """
@@ -629,7 +631,12 @@ class Synoname(Distance):
         :returns: Synoname value
         :rtype: int (or str if ret_name is True)
         """
-        return synoname(src, tar, word_approx_min, char_approx_min, tests, ret_name)/14
+        return (
+            synoname(
+                src, tar, word_approx_min, char_approx_min, tests, ret_name
+            )
+            / 14
+        )
 
 
 def synoname(

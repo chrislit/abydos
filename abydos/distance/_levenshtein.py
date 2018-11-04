@@ -107,11 +107,6 @@ class Levenshtein(Distance):
         2
         >>> cmp.dist_abs('ACTG', 'TAGC', mode='osa')
         4
-
-        >>> cmp.dist_abs('ATCG', 'TAGC', mode='dam')
-        2
-        >>> cmp.dist_abs('ACTG', 'TAGC', mode='dam')
-        3
         """
         ins_cost, del_cost, sub_cost, trans_cost = cost
 
@@ -229,11 +224,6 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     2
     >>> levenshtein('ACTG', 'TAGC', mode='osa')
     4
-
-    >>> levenshtein('ATCG', 'TAGC', mode='dam')
-    2
-    >>> levenshtein('ACTG', 'TAGC', mode='dam')
-    3
     """
     return Levenshtein().dist_abs(src, tar, mode, cost)
 
@@ -595,13 +585,13 @@ class Indel(Distance):
         :rtype: float
 
         >>> cmp = Indel()
-        >>> round(cmp.dist_indel('cat', 'hat'), 12)
+        >>> round(cmp.dist('cat', 'hat'), 12)
         0.333333333333
-        >>> round(cmp.dist_indel('Niall', 'Neil'), 12)
+        >>> round(cmp.dist('Niall', 'Neil'), 12)
         0.333333333333
-        >>> round(cmp.dist_indel('Colin', 'Cuilen'), 12)
+        >>> round(cmp.dist('Colin', 'Cuilen'), 12)
         0.454545454545
-        >>> cmp.dist_indel('ATCG', 'TAGC')
+        >>> cmp.dist('ATCG', 'TAGC')
         0.5
         """
         if src == tar:

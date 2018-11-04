@@ -81,7 +81,12 @@ from ._de import (
 )
 from ._dm import DaitchMokotoff, dm_soundex
 from ._dolby import Dolby, dolby
-from ._es import PhoneticSpanish, SpanishMetaphone, phonetic_spanish, spanish_metaphone
+from ._es import (
+    PhoneticSpanish,
+    SpanishMetaphone,
+    phonetic_spanish,
+    spanish_metaphone,
+)
 from ._eudex import Eudex, eudex
 from ._fr import FONEM, HenryEarly, fonem, henry_early
 from ._hybrid import MetaSoundex, ONCA, metasoundex, onca

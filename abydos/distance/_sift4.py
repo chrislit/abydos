@@ -56,7 +56,7 @@ class Sift4(Distance):
         :returns: the Sift4 distance according to the common formula
         :rtype: int
 
-        >>> cmp = Sift()
+        >>> cmp = Sift4()
         >>> cmp.dist_abs('cat', 'hat')
         1
         >>> cmp.dist_abs('Niall', 'Neil')
@@ -159,7 +159,7 @@ class Sift4(Distance):
         :returns: the normalized Sift4 distance
         :rtype: float
 
-        >>> cmp = Sift()
+        >>> cmp = Sift4()
         >>> round(cmp.dist('cat', 'hat'), 12)
         0.333333333333
         >>> cmp.dist('Niall', 'Neil')
@@ -265,13 +265,14 @@ class Sift4Simplest(Sift4):
         :returns: the Sift4 distance according to the simplest formula
         :rtype: int
 
-        >>> sift4_simplest('cat', 'hat')
+        >>> cmp = Sift4Simplest()
+        >>> cmp.dist_abs('cat', 'hat')
         1
-        >>> sift4_simplest('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         2
-        >>> sift4_simplest('Colin', 'Cuilen')
+        >>> cmp.dist_abs('Colin', 'Cuilen')
         3
-        >>> sift4_simplest('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         2
         """
         if not src:

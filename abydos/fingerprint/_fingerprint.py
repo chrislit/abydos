@@ -36,7 +36,6 @@ class Fingerprint(object):
         pass
 
 
-
 if __name__ == '__main__':
     import doctest
 

@@ -88,9 +88,9 @@ class NeedlemanWunsch(Distance):
         :returns: matrix similarity
         :rtype: float
 
-        >>> sim_matrix('cat', 'hat')
+        >>> NeedlemanWunsch.sim_matrix('cat', 'hat')
         0
-        >>> sim_matrix('hat', 'hat')
+        >>> NeedlemanWunsch.sim_matrix('hat', 'hat')
         1
         """
         if alphabet:

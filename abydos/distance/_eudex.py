@@ -182,13 +182,13 @@ class Eudex(Distance):
         :rtype: float
 
         >>> cmp = Eudex()
-        >>> round(cmp.dist_eudex('cat', 'hat'), 12)
+        >>> round(cmp.dist('cat', 'hat'), 12)
         0.062745098039
-        >>> round(cmp.dist_eudex('Niall', 'Neil'), 12)
+        >>> round(cmp.dist('Niall', 'Neil'), 12)
         0.000980392157
-        >>> round(cmp.dist_eudex('Colin', 'Cuilen'), 12)
+        >>> round(cmp.dist('Colin', 'Cuilen'), 12)
         0.004901960784
-        >>> round(cmp.dist_eudex('ATCG', 'TAGC'), 12)
+        >>> round(cmp.dist('ATCG', 'TAGC'), 12)
         0.197549019608
         """
         return self.dist_abs(src, tar, weights, max_length, True)
