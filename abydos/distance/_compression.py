@@ -446,13 +446,13 @@ class NCDbz2(Distance):
 
         >>> cmp = NCDbz2()
         >>> cmp.dist('cat', 'hat')
-        0.08
+        0.06666666666666667
         >>> cmp.dist('Niall', 'Neil')
-        0.037037037037037035
+        0.03125
         >>> cmp.dist('aluminum', 'Catalan')
-        0.20689655172413793
+        0.17647058823529413
         >>> cmp.dist('ATCG', 'TAGC')
-        0.037037037037037035
+        0.03125
         """
         if src == tar:
             return 0.0
@@ -460,11 +460,10 @@ class NCDbz2(Distance):
         src = src.encode('utf-8')
         tar = tar.encode('utf-8')
 
-        # TODO: 15 should be 10
-        src_comp = bz2.compress(src, self._level)[15:]
-        tar_comp = bz2.compress(tar, self._level)[15:]
-        concat_comp = bz2.compress(src + tar, self._level)[15:]
-        concat_comp2 = bz2.compress(tar + src, self._level)[15:]
+        src_comp = bz2.compress(src, self._level)[10:]
+        tar_comp = bz2.compress(tar, self._level)[10:]
+        concat_comp = bz2.compress(src + tar, self._level)[10:]
+        concat_comp2 = bz2.compress(tar + src, self._level)[10:]
 
         return (
             min(len(concat_comp), len(concat_comp2))
@@ -483,13 +482,13 @@ def dist_ncd_bz2(src, tar):
     :rtype: float
 
     >>> dist_ncd_bz2('cat', 'hat')
-    0.08
+    0.06666666666666667
     >>> dist_ncd_bz2('Niall', 'Neil')
-    0.037037037037037035
+    0.03125
     >>> dist_ncd_bz2('aluminum', 'Catalan')
-    0.20689655172413793
+    0.17647058823529413
     >>> dist_ncd_bz2('ATCG', 'TAGC')
-    0.037037037037037035
+    0.03125
     """
     return NCDbz2().dist(src, tar)
 
@@ -505,13 +504,13 @@ def sim_ncd_bz2(src, tar):
     :rtype: float
 
     >>> sim_ncd_bz2('cat', 'hat')
-    0.92
+    0.9333333333333333
     >>> sim_ncd_bz2('Niall', 'Neil')
-    0.962962962962963
+    0.96875
     >>> sim_ncd_bz2('aluminum', 'Catalan')
-    0.7931034482758621
+    0.8235294117647058
     >>> sim_ncd_bz2('ATCG', 'TAGC')
-    0.962962962962963
+    0.96875
     """
     return NCDbz2().sim(src, tar)
 
