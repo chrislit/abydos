@@ -23,7 +23,8 @@ The distance.compression module implements compression distance measures.
 
 from __future__ import division, unicode_literals
 
-from codecs import encode
+import bz2
+import zlib
 
 from ._distance import Distance
 from ..compression import Arithmetic, BWT, RLE
@@ -326,9 +327,16 @@ class NCDzlib(Distance):
     """Normalized Compression Distance using zlib compression.
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
-
-    TODO: Use Compression objects instead of calling codecs.encode
     """
+
+    _compressor = None
+
+    def __init__(self, level=zlib.Z_DEFAULT_COMPRESSION):
+        """Initialize zlib compressor.
+
+        :param level: The compression level (0 to 9)
+        """
+        self._compressor = zlib.compressobj(level)
 
     def dist(self, src, tar):
         """Return the NCD between two strings using zlib compression.
@@ -354,10 +362,14 @@ class NCDzlib(Distance):
         src = src.encode('utf-8')
         tar = tar.encode('utf-8')
 
-        src_comp = encode(src, 'zlib_codec')[2:]
-        tar_comp = encode(tar, 'zlib_codec')[2:]
-        concat_comp = encode(src + tar, 'zlib_codec')[2:]
-        concat_comp2 = encode(tar + src, 'zlib_codec')[2:]
+        self._compressor.compress(src)
+        src_comp = self._compressor.flush(zlib.Z_FULL_FLUSH)
+        self._compressor.compress(tar)
+        tar_comp = self._compressor.flush(zlib.Z_FULL_FLUSH)
+        self._compressor.compress(src + tar)
+        concat_comp = self._compressor.flush(zlib.Z_FULL_FLUSH)
+        self._compressor.compress(tar + src)
+        concat_comp2 = self._compressor.flush(zlib.Z_FULL_FLUSH)
 
         return (
             min(len(concat_comp), len(concat_comp2))
@@ -413,9 +425,16 @@ class NCDbz2(Distance):
     """Normalized Compression Distance using bz2 compression.
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
-
-    TODO: Use Compression objects instead of calling codecs.encode
     """
+
+    _level = 9
+
+    def __init__(self, level=9):
+        """Initialize zlib compressor.
+
+        :param level: The compression level (0 to 9)
+        """
+        self._level = level
 
     def dist(self, src, tar):
         """Return the NCD between two strings using bz2 compression.
@@ -441,10 +460,11 @@ class NCDbz2(Distance):
         src = src.encode('utf-8')
         tar = tar.encode('utf-8')
 
-        src_comp = encode(src, 'bz2_codec')[15:]
-        tar_comp = encode(tar, 'bz2_codec')[15:]
-        concat_comp = encode(src + tar, 'bz2_codec')[15:]
-        concat_comp2 = encode(tar + src, 'bz2_codec')[15:]
+        # TODO: 15 should be 10
+        src_comp = bz2.compress(src, self._level)[15:]
+        tar_comp = bz2.compress(tar, self._level)[15:]
+        concat_comp = bz2.compress(src + tar, self._level)[15:]
+        concat_comp2 = bz2.compress(tar + src, self._level)[15:]
 
         return (
             min(len(concat_comp), len(concat_comp2))
@@ -500,8 +520,6 @@ class NCDlzma(Distance):
     """Normalized Compression Distance using lzma compression.
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
-
-    TODO: Use Compression objects instead of calling lzma.compress
     """
 
     def dist(self, src, tar):
