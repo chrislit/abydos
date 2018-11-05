@@ -45,26 +45,30 @@ class RLE(object):
     def encode(self, text):
         r"""Perform encoding of run-length-encoding (RLE).
 
-        :param str text: a text string to encode
-        :returns: word decoded by RLE
-        :rtype: str
+        Args:
+            text (str): A text string to encode
 
-        >>> rle = RLE()
-        >>> bwt = BWT()
-        >>> rle.encode(bwt.encode('align'))
-        'n\x00ilag'
-        >>> rle.encode('align')
-        'align'
+        Returns:
+            str: Word decoded by RLE
 
-        >>> rle.encode(bwt.encode('banana'))
-        'annb\x00aa'
-        >>> rle.encode('banana')
-        'banana'
+        Examples:
+            >>> rle = RLE()
+            >>> bwt = BWT()
+            >>> rle.encode(bwt.encode('align'))
+            'n\x00ilag'
+            >>> rle.encode('align')
+            'align'
 
-        >>> rle.encode(bwt.encode('aaabaabababa'))
-        'ab\x00abbab5a'
-        >>> rle.encode('aaabaabababa')
-        '3abaabababa'
+            >>> rle.encode(bwt.encode('banana'))
+            'annb\x00aa'
+            >>> rle.encode('banana')
+            'banana'
+
+            >>> rle.encode(bwt.encode('aaabaabababa'))
+            'ab\x00abbab5a'
+            >>> rle.encode('aaabaabababa')
+            '3abaabababa'
+
         """
         if text:
             text = ((len(list(g)), k) for k, g in groupby(text))
@@ -77,10 +81,13 @@ class RLE(object):
     def decode(self, text):
         r"""Perform decoding of run-length-encoding (RLE).
 
-        :param str text: a text string to decode
-        :returns: word decoded by RLE
-        :rtype: str
+        Args:
+            text (str): A text string to decode
 
+        Returns:
+            str: word decoded by RLE
+
+        Examples:
         >>> rle = RLE()
         >>> bwt = BWT()
         >>> bwt.decode(rle.decode('n\x00ilag'))
@@ -97,6 +104,7 @@ class RLE(object):
         'aaabaabababa'
         >>> rle.decode('3abaabababa')
         'aaabaabababa'
+
         """
         mult = ''
         decoded = []
@@ -119,26 +127,30 @@ def rle_encode(text, use_bwt=True):
 
     This is a wrapper for :py:meth:`RLE.encode`.
 
-    :param str text: a text string to encode
-    :param bool use_bwt: boolean indicating whether to perform BWT encoding
-        before RLE encoding
-    :returns: word decoded by RLE
-    :rtype: str
+    Args:
+        text (str): A text string to encode
+        use_bwt (bool): Indicats whether to perform BWT encoding before RLE
+            encoding
 
-    >>> rle_encode('align')
-    'n\x00ilag'
-    >>> rle_encode('align', use_bwt=False)
-    'align'
+    Returns:
+        str: Word decoded by RLE
 
-    >>> rle_encode('banana')
-    'annb\x00aa'
-    >>> rle_encode('banana', use_bwt=False)
-    'banana'
+    Examples:
+        >>> rle_encode('align')
+        'n\x00ilag'
+        >>> rle_encode('align', use_bwt=False)
+        'align'
 
-    >>> rle_encode('aaabaabababa')
-    'ab\x00abbab5a'
-    >>> rle_encode('aaabaabababa', False)
-    '3abaabababa'
+        >>> rle_encode('banana')
+        'annb\x00aa'
+        >>> rle_encode('banana', use_bwt=False)
+        'banana'
+
+        >>> rle_encode('aaabaabababa')
+        'ab\x00abbab5a'
+        >>> rle_encode('aaabaabababa', False)
+        '3abaabababa'
+
     """
     if use_bwt:
         text = BWT().encode(text)
@@ -150,26 +162,30 @@ def rle_decode(text, use_bwt=True):
 
     This is a wrapper for :py:meth:`RLE.decode`.
 
-    :param str text: a text string to decode
-    :param bool use_bwt: boolean indicating whether to perform BWT decoding
-        after RLE decoding
-    :returns: word decoded by RLE
-    :rtype: str
+    Args:
+        text (str): A text string to decode
+        use_bwt (bool): Indicates whether to perform BWT decoding after RLE
+            decoding
 
-    >>> rle_decode('n\x00ilag')
-    'align'
-    >>> rle_decode('align', use_bwt=False)
-    'align'
+    Returns:
+        str: Word decoded by RLE
 
-    >>> rle_decode('annb\x00aa')
-    'banana'
-    >>> rle_decode('banana', use_bwt=False)
-    'banana'
+    Examples:
+        >>> rle_decode('n\x00ilag')
+        'align'
+        >>> rle_decode('align', use_bwt=False)
+        'align'
 
-    >>> rle_decode('ab\x00abbab5a')
-    'aaabaabababa'
-    >>> rle_decode('3abaabababa', False)
-    'aaabaabababa'
+        >>> rle_decode('annb\x00aa')
+        'banana'
+        >>> rle_decode('banana', use_bwt=False)
+        'banana'
+
+        >>> rle_decode('ab\x00abbab5a')
+        'aaabaabababa'
+        >>> rle_decode('3abaabababa', False)
+        'aaabaabababa'
+
     """
     text = RLE().decode(text)
     if use_bwt:
