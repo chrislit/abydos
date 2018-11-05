@@ -33,13 +33,27 @@ The stemmer module defines word stemmers including:
 
 from __future__ import unicode_literals
 
-from ._caumanns import caumanns
-from ._clef import clef_german, clef_german_plus, clef_swedish
-from ._lovins import lovins
-from ._paice_husk import paice_husk
-from ._s_stemmer import s_stemmer
-from ._schinke import schinke
+from ._caumanns import Caumanns, caumanns
+from ._clef import (
+    CLEFGerman,
+    CLEFGermanPlus,
+    CLEFSwedish,
+    clef_german,
+    clef_german_plus,
+    clef_swedish,
+)
+from ._lovins import Lovins, lovins
+from ._paice_husk import PaiceHusk, paice_husk
+from ._s_stemmer import SStemmer, s_stemmer
+from ._schinke import Schinke, schinke
 from ._snowball import (
+    Porter,
+    Porter2,
+    SnowballDanish,
+    SnowballDutch,
+    SnowballGerman,
+    SnowballNorwegian,
+    SnowballSwedish,
     porter,
     porter2,
     sb_danish,
@@ -48,24 +62,40 @@ from ._snowball import (
     sb_norwegian,
     sb_swedish,
 )
-from ._uealite import uealite
+from ._uealite import UEALite, uealite
 
 __all__ = [
+    'Lovins',
     'lovins',
+    'PaiceHusk',
     'paice_husk',
+    'UEALite',
     'uealite',
+    'SStemmer',
     's_stemmer',
+    'Caumanns',
     'caumanns',
+    'Schinke',
     'schinke',
+    'Porter',
     'porter',
+    'Porter2',
     'porter2',
+    'SnowballDanish',
     'sb_danish',
+    'SnowballDutch',
     'sb_dutch',
+    'SnowballGerman',
     'sb_german',
+    'SnowballNorwegian',
     'sb_norwegian',
+    'SnowballSwedish',
     'sb_swedish',
+    'CLEFGerman',
     'clef_german',
+    'CLEFGermanPlus',
     'clef_german_plus',
+    'CLEFSwedish',
     'clef_swedish',
 ]
 

@@ -23,13 +23,50 @@ The stemmer._s_stemmer module defines S stemmer.
 
 from __future__ import unicode_literals
 
-__all__ = ['s_stemmer']
+from ._stemmer import Stemmer
+
+__all__ = ['SStemmer', 's_stemmer']
+
+
+class SStemmer(Stemmer):
+    """S-stemmer.
+
+    The S stemmer is defined in :cite:`Harman:1991`.
+    """
+
+    def stem(self, word):
+        """Return the S-stemmed form of a word.
+
+        :param str word: the word to stem
+        :returns: the stemmed word
+        :rtype: str
+
+        >>> stmr = SStemmer()
+        >>> stmr.stem('summaries')
+        'summary'
+        >>> stmr.stem('summary')
+        'summary'
+        >>> stmr.stem('towers')
+        'tower'
+        >>> stmr.stem('reading')
+        'reading'
+        >>> stmr.stem('census')
+        'census'
+        """
+        lowered = word.lower()
+        if lowered[-3:] == 'ies' and lowered[-4:-3] not in {'e', 'a'}:
+            return word[:-3] + ('Y' if word[-1:].isupper() else 'y')
+        if lowered[-2:] == 'es' and lowered[-3:-2] not in {'a', 'e', 'o'}:
+            return word[:-1]
+        if lowered[-1:] == 's' and lowered[-2:-1] not in {'u', 's'}:
+            return word[:-1]
+        return word
 
 
 def s_stemmer(word):
     """Return the S-stemmed form of a word.
 
-    The S stemmer is defined in :cite:`Harman:1991`.
+    This is a wrapper for :py:meth:`SStemmer.stem`.
 
     :param str word: the word to stem
     :returns: the stemmed word
@@ -46,14 +83,7 @@ def s_stemmer(word):
     >>> s_stemmer('census')
     'census'
     """
-    lowered = word.lower()
-    if lowered[-3:] == 'ies' and lowered[-4:-3] not in {'e', 'a'}:
-        return word[:-3] + ('Y' if word[-1:].isupper() else 'y')
-    if lowered[-2:] == 'es' and lowered[-3:-2] not in {'a', 'e', 'o'}:
-        return word[:-1]
-    if lowered[-1:] == 's' and lowered[-2:-1] not in {'u', 's'}:
-        return word[:-1]
-    return word
+    return SStemmer().stem(word)
 
 
 if __name__ == '__main__':
