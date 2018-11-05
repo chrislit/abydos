@@ -49,8 +49,9 @@ class Hamming(Distance):
     def dist_abs(self, src, tar, diff_lens=True):
         """Return the Hamming distance between two strings.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param bool diff_lens:
             If True (default), this returns the Hamming distance for those
             characters that have a matching character in both strings plus the
@@ -58,6 +59,7 @@ class Hamming(Distance):
             the shorter string with obligatorily non-matching characters.
             If False, an exception is raised in the case of strings of unequal
             lengths.
+
         :returns: the Hamming distance between src & tar
         :rtype: int
 
@@ -96,8 +98,9 @@ class Hamming(Distance):
 
         The arguments are identical to those of the hamming() function.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param bool diff_lens:
             If True (default), this returns the Hamming distance for those
             characters that have a matching character in both strings plus the
@@ -105,6 +108,7 @@ class Hamming(Distance):
             the shorter string with obligatorily non-matching characters.
             If False, an exception is raised in the case of strings of unequal
             lengths.
+
         :returns: normalized Hamming distance
         :rtype: float
 
@@ -128,8 +132,9 @@ def hamming(src, tar, diff_lens=True):
 
     This is a wrapper for :py:meth:`Hamming.hamming`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param bool diff_lens:
         If True (default), this returns the Hamming distance for those
         characters that have a matching character in both strings plus the
@@ -137,6 +142,7 @@ def hamming(src, tar, diff_lens=True):
         the shorter string with obligatorily non-matching characters.
         If False, an exception is raised in the case of strings of unequal
         lengths.
+
     :returns: the Hamming distance between src & tar
     :rtype: int
 
@@ -157,8 +163,9 @@ def dist_hamming(src, tar, diff_lens=True):
 
     This is a wrapper for :py:meth:`Hamming.dist`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param bool diff_lens:
         If True (default), this returns the Hamming distance for those
         characters that have a matching character in both strings plus the
@@ -166,6 +173,7 @@ def dist_hamming(src, tar, diff_lens=True):
         the shorter string with obligatorily non-matching characters.
         If False, an exception is raised in the case of strings of unequal
         lengths.
+
     :returns: normalized Hamming distance
     :rtype: float
 
@@ -186,8 +194,9 @@ def sim_hamming(src, tar, diff_lens=True):
 
     This is a wrapper for :py:meth:`Hamming.sim`
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param bool diff_lens:
         If True (default), this returns the Hamming distance for those
         characters that have a matching character in both strings plus the
@@ -195,6 +204,7 @@ def sim_hamming(src, tar, diff_lens=True):
         the shorter string with obligatorily non-matching characters.
         If False, an exception is raised in the case of strings of unequal
         lengths.
+
     :returns: normalized Hamming similarity
     :rtype: float
 
@@ -222,14 +232,16 @@ class MLIPNS(Distance):
     def sim(self, src, tar, threshold=0.25, max_mismatches=2):
         """Return the MLIPNS similarity of two strings.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param float threshold: a number [0, 1] indicating the maximum
             similarity score, below which the strings are considered 'similar'
             (0.25 by default)
         :param int max_mismatches: a number indicating the allowable number of
             mismatches to remove before declaring two strings not similar (2 by
             default)
+
         :returns: MLIPNS similarity
         :rtype: float
 
@@ -269,14 +281,16 @@ class MLIPNS(Distance):
 def sim_mlipns(src, tar, threshold=0.25, max_mismatches=2):
     """Return the MLIPNS similarity of two strings.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param float threshold: a number [0, 1] indicating the maximum similarity
         score, below which the strings are considered 'similar' (0.25 by
         default)
     :param int max_mismatches: a number indicating the allowable number of
         mismatches to remove before declaring two strings not similar (2 by
         default)
+
     :returns: MLIPNS similarity
     :rtype: float
 
@@ -299,14 +313,16 @@ def dist_mlipns(src, tar, threshold=0.25, max_mismatches=2):
     :math:`dist_{MLIPNS} = 1 - sim_{MLIPNS}`. This function returns only 0.0
     (distant) or 1.0 (not distant).
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param float threshold: a number [0, 1] indicating the maximum similarity
         score, below which the strings are considered 'similar' (0.25 by
         default)
     :param int max_mismatches: a number indicating the allowable number of
         mismatches to remove before declaring two strings not similar (2 by
         default)
+
     :returns: MLIPNS distance
     :rtype: float
 

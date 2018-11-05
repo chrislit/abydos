@@ -62,10 +62,9 @@ class Minkowski(TokenDistance):
     ):
         """Return the Minkowski distance (:math:`L^p-norm`) of two strings.
 
-        :param str src: source string (or QGrams/Counter objects) for
-            comparison
-        :param str tar: target string (or QGrams/Counter objects) for
-            comparison
+        Args:
+            src (str): Source string (or QGrams/Counter objects) for comparison
+            tar (str): Target string (or QGrams/Counter objects) for comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
         :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
         :param bool normalized: normalizes to [0, 1] if True
@@ -115,13 +114,13 @@ class Minkowski(TokenDistance):
         The normalized Minkowski distance :cite:`Minkowski:1910` is a distance
         metric in :math:`L^p-space`, normalized to [0, 1].
 
-        :param str src: source string (or QGrams/Counter objects) for
-            comparison
-        :param str tar: target string (or QGrams/Counter objects) for
-            comparison
+        Args:
+            src (str): Source string (or QGrams/Counter objects) for comparison
+            tar (str): Target string (or QGrams/Counter objects) for comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
         :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
         :param collection or int alphabet: the values or size of the alphabet
+
         :returns: the normalized Minkowski distance
         :rtype: float
 
@@ -143,12 +142,14 @@ def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
 
     This is a wrapper for :py:meth:`Minkowski.dist_abs`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
     :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
     :param bool normalized: normalizes to [0, 1] if True
     :param collection or int alphabet: the values or size of the alphabet
+
     :returns: the Minkowski distance
     :rtype: float
 
@@ -169,11 +170,13 @@ def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
 
     This is a wrapper for :py:meth:`Minkowski.dist`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
     :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
     :param collection or int alphabet: the values or size of the alphabet
+
     :returns: the normalized Minkowski distance
     :rtype: float
 
@@ -194,11 +197,13 @@ def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
 
     This is a wrapper for :py:meth:`Minkowski.sim`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
     :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
     :param collection or int alphabet: the values or size of the alphabet
+
     :returns: the normalized Minkowski similarity
     :rtype: float
 
@@ -224,13 +229,13 @@ class Manhattan(Minkowski):
     def dist_abs(self, src, tar, qval=2, normalized=False, alphabet=None):
         """Return the Manhattan distance between two strings.
 
-        :param str src: source string (or QGrams/Counter objects) for
-            comparison
-        :param str tar: target string (or QGrams/Counter objects) for
-            comparison
+        Args:
+            src (str): Source string (or QGrams/Counter objects) for comparison
+            tar (str): Target string (or QGrams/Counter objects) for comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
         :param normalized: normalizes to [0, 1] if True
         :param collection or int alphabet: the values or size of the alphabet
+
         :returns: the Manhattan distance
         :rtype: float
 
@@ -256,12 +261,11 @@ class Manhattan(Minkowski):
 
         This is identical to Canberra distance.
 
-        :param str src: source string (or QGrams/Counter objects) for
-            comparison
-        :param str tar: target string (or QGrams/Counter objects) for
-            comparison
-        :param int qval: the length of each q-gram; 0 for non-q-gram version
+        Args:
+            src (str): Source string (or QGrams/Counter objects) for comparison
+            tar (str): Target string (or QGrams/Counter objects) for comparison        :param int qval: the length of each q-gram; 0 for non-q-gram version
         :param collection or int alphabet: the values or size of the alphabet
+
         :returns: the normalized Manhattan distance
         :rtype: float
 
@@ -283,11 +287,13 @@ def manhattan(src, tar, qval=2, normalized=False, alphabet=None):
 
     This is a wrapper for :py:meth:`Manhattan.dist_abs`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
     :param normalized: normalizes to [0, 1] if True
     :param collection or int alphabet: the values or size of the alphabet
+
     :returns: the Manhattan distance
     :rtype: float
 
@@ -308,10 +314,12 @@ def dist_manhattan(src, tar, qval=2, alphabet=None):
 
     This is a wrapper for :py:meth:`Manhattan.dist`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
     :param collection or int alphabet: the values or size of the alphabet
+
     :returns: the normalized Manhattan distance
     :rtype: float
 
@@ -332,10 +340,12 @@ def sim_manhattan(src, tar, qval=2, alphabet=None):
 
     This is a wrapper for :py:meth:`Manhattan.sim`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
     :param collection or int alphabet: the values or size of the alphabet
+
     :returns: the normalized Manhattan similarity
     :rtype: float
 
@@ -361,13 +371,13 @@ class Euclidean(Minkowski):
     def dist_abs(self, src, tar, qval=2, normalized=False, alphabet=None):
         """Return the Euclidean distance between two strings.
 
-        :param str src: source string (or QGrams/Counter objects) for
-            comparison
-        :param str tar: target string (or QGrams/Counter objects) for
-            comparison
+        Args:
+            src (str): Source string (or QGrams/Counter objects) for comparison
+            tar (str): Target string (or QGrams/Counter objects) for comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
         :param normalized: normalizes to [0, 1] if True
         :param collection or int alphabet: the values or size of the alphabet
+
         :returns: the Euclidean distance
         :rtype: float
 
@@ -391,12 +401,12 @@ class Euclidean(Minkowski):
         The normalized Euclidean distance is a distance
         metric in :math:`L^2-space`, normalized to [0, 1].
 
-        :param str src: source string (or QGrams/Counter objects) for
-            comparison
-        :param str tar: target string (or QGrams/Counter objects) for
-            comparison
+        Args:
+            src (str): Source string (or QGrams/Counter objects) for comparison
+            tar (str): Target string (or QGrams/Counter objects) for comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
         :param collection or int alphabet: the values or size of the alphabet
+
         :returns: the normalized Euclidean distance
         :rtype: float
 
@@ -418,11 +428,13 @@ def euclidean(src, tar, qval=2, normalized=False, alphabet=None):
 
     This is a wrapper for :py:meth:`Euclidean.dist_abs`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
     :param normalized: normalizes to [0, 1] if True
     :param collection or int alphabet: the values or size of the alphabet
+
     :returns: the Euclidean distance
     :rtype: float
 
@@ -443,10 +455,12 @@ def dist_euclidean(src, tar, qval=2, alphabet=None):
 
     This is a wrapper for :py:meth:`Euclidean.dist`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
     :param collection or int alphabet: the values or size of the alphabet
+
     :returns: the normalized Euclidean distance
     :rtype: float
 
@@ -467,10 +481,12 @@ def sim_euclidean(src, tar, qval=2, alphabet=None):
 
     This is a wrapper for :py:meth:`Euclidean.sim`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
     :param collection or int alphabet: the values or size of the alphabet
+
     :returns: the normalized Euclidean similarity
     :rtype: float
 
@@ -496,13 +512,13 @@ class Chebyshev(Minkowski):
     def dist_abs(self, src, tar, qval=2, normalized=False, alphabet=None):
         r"""Return the Chebyshev distance between two strings.
 
-        :param str src: source string (or QGrams/Counter objects) for
-            comparison
-        :param str tar: target string (or QGrams/Counter objects) for
-            comparison
+        Args:
+            src (str): Source string (or QGrams/Counter objects) for comparison
+            tar (str): Target string (or QGrams/Counter objects) for comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
         :param normalized: normalizes to [0, 1] if True
         :param collection or int alphabet: the values or size of the alphabet
+
         :returns: the Chebyshev distance
         :rtype: float
 

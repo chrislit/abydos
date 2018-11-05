@@ -341,8 +341,9 @@ class Synoname(Distance):
     ):
         """Return the Synoname similarity type of two words.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param bool ret_name: return the name of the match type rather than the
             int value
         :param float word_approx_min: the minimum word approximation value to
@@ -354,6 +355,7 @@ class Synoname(Distance):
             all tests)
         :param bool ret_name: if True, returns the match name rather than its
             integer equivalent
+
         :returns: Synoname value
         :rtype: int (or str if ret_name is True)
 
@@ -615,8 +617,9 @@ class Synoname(Distance):
     ):
         """Return the normalized Synoname distance between two words.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param bool ret_name: return the name of the match type rather than the
             int value
         :param float word_approx_min: the minimum word approximation value to
@@ -628,6 +631,7 @@ class Synoname(Distance):
             all tests)
         :param bool ret_name: if True, returns the match name rather than its
             integer equivalent
+
         :returns: Synoname value
         :rtype: int (or str if ret_name is True)
         """
@@ -651,8 +655,9 @@ def synoname(
 
     This is a wrapper for :py:meth:`Synoname.synoname`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param bool ret_name: return the name of the match type rather than the
         int value
     :param float word_approx_min: the minimum word approximation value to
@@ -664,6 +669,7 @@ def synoname(
         tests)
     :param bool ret_name: if True, returns the match name rather than its
         integer equivalent
+
     :returns: Synoname value
     :rtype: int (or str if ret_name is True)
 

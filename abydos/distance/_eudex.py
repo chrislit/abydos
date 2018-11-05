@@ -55,12 +55,14 @@ class Eudex(Distance):
         - If set to an iterable, the iterable's values should be integers and
           will be used as the weights.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param str, iterable, or generator function weights: the weights or
             weights generator function
         :param max_length: the number of characters to encode as a eudex hash
         :param bool normalized: normalizes to [0, 1] if True
+
         :returns: the Eudex Hamming distance
         :rtype: int
 
@@ -173,11 +175,13 @@ class Eudex(Distance):
 
         This is Eudex distance normalized to [0, 1].
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param str, iterable, or generator function weights: the weights or
             weights generator function
         :param max_length: the number of characters to encode as a eudex hash
+
         :returns: the normalized Eudex distance
         :rtype: float
 
@@ -201,12 +205,14 @@ def eudex_hamming(
 
     This is a wrapper for :py:meth:`Eudex.eudex_hamming`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param str, iterable, or generator function weights: the weights or weights
         generator function
     :param max_length: the number of characters to encode as a eudex hash
     :param bool normalized: normalizes to [0, 1] if True
+
     :returns: the Eudex Hamming distance
     :rtype: int
 
@@ -255,11 +261,13 @@ def dist_eudex(src, tar, weights='exponential', max_length=8):
 
     This is a wrapper for :py:meth:`Eudex.dist`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param str, iterable, or generator function weights: the weights or weights
         generator function
     :param max_length: the number of characters to encode as a eudex hash
+
     :returns: the normalized Eudex distance
     :rtype: float
 
@@ -280,11 +288,13 @@ def sim_eudex(src, tar, weights='exponential', max_length=8):
 
     This is a wrapper for :py:meth:`Eudex.sim`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param str, iterable, or generator function weights: the weights or weights
         generator function
     :param max_length: the number of characters to encode as a eudex hash
+
     :returns: the normalized Eudex similarity
     :rtype: float
 

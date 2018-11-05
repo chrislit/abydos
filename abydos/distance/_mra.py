@@ -42,8 +42,10 @@ class MRA(Distance):
     def dist_abs(self, src, tar):
         """Return the MRA comparison rating of two strings.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
+
         :returns: MRA comparison rating
         :rtype: int
 
@@ -102,8 +104,10 @@ class MRA(Distance):
         This is the MRA normalized to :math:`[0, 1]`, given that MRA itself is
         constrained to the range :math:`[0, 6]`.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
+
         :returns: normalized MRA similarity
         :rtype: float
 
@@ -125,8 +129,10 @@ def mra_compare(src, tar):
 
     This is a wrapper for :py:meth:`MRA.dist_abs`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: MRA comparison rating
     :rtype: int
 
@@ -147,8 +153,10 @@ def sim_mra(src, tar):
 
     This is a wrapper for :py:meth:`MRA.sim`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: normalized MRA similarity
     :rtype: float
 
@@ -169,8 +177,10 @@ def dist_mra(src, tar):
 
     This is a wrapper for :py:meth:`MRA.dist`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: normalized MRA distance
     :rtype: float
 

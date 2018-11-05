@@ -34,8 +34,9 @@ class Distance(object):
     def sim(self, src, tar, *args, **kwargs):
         """Return similarity.
 
-        :param src:
-        :param tar:
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param args:
         :param kwargs:
         :return:
@@ -45,8 +46,9 @@ class Distance(object):
     def dist(self, src, tar, *args, **kwargs):
         """Return distance.
 
-        :param src:
-        :param tar:
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param args:
         :param kwargs:
         :return:
@@ -56,8 +58,9 @@ class Distance(object):
     def dist_abs(self, src, tar, *args, **kwargs):
         """Return absolute distance.
 
-        :param src:
-        :param tar:
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param args:
         :param kwargs:
         :return:

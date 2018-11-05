@@ -102,13 +102,15 @@ class Strcmp95(Distance):
     def sim(self, src, tar, long_strings=False):
         """Return the strcmp95 similarity of two strings.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param bool long_strings: set to True to "Increase the probability of a
             match when the number of matched characters is large.  This option
             allows for a little more tolerance when the strings are large. It
             is not an appropriate test when comparing fixed length fields such
             as phone and social security numbers."
+
         :returns: strcmp95 similarity
         :rtype: float
 
@@ -244,13 +246,15 @@ def sim_strcmp95(src, tar, long_strings=False):
 
     This is a wrapper for :py:meth:`Strcmp95.sim`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param bool long_strings: set to True to "Increase the probability of a
         match when the number of matched characters is large.  This option
         allows for a little more tolerance when the strings are large. It is
         not an appropriate test when comparing fixed length fields such as
         phone and social security numbers."
+
     :returns: strcmp95 similarity
     :rtype: float
 
@@ -271,13 +275,15 @@ def dist_strcmp95(src, tar, long_strings=False):
 
     This is a wrapper for :py:meth:`Strcmp95.dist`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param bool long_strings: set to True to "Increase the probability of a
         match when the number of matched characters is large.  This option
         allows for a little more tolerance when the strings are large. It is
         not an appropriate test when comparing fixed length fields such as
         phone and social security numbers."
+
     :returns: strcmp95 distance
     :rtype: float
 
@@ -317,8 +323,9 @@ class JaroWinkler(Distance):
     ):
         """Return the Jaro or Jaro-Winkler similarity of two strings.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param int qval: the length of each q-gram (defaults to 1:
             character-wise matching)
         :param str mode: indicates which variant of this distance metric to
@@ -477,8 +484,9 @@ def sim_jaro_winkler(
 
     This is a wrapper for :py:meth:`JaroWinkler.sim`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param int qval: the length of each q-gram (defaults to 1: character-wise
         matching)
     :param str mode: indicates which variant of this distance metric to
@@ -539,8 +547,9 @@ def dist_jaro_winkler(
 
     This is a wrapper for :py:meth:`JaroWinkler.dist`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param int qval: the length of each q-gram (defaults to 1: character-wise
         matching)
     :param str mode: indicates which variant of this distance metric to

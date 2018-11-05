@@ -353,21 +353,27 @@ def sim(src, tar, method=sim_levenshtein):
 
     This is a generalized function for calling other similarity functions.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
-    :param function method: specifies the similarity metric (sim_levenshtein by
-        default)
-    :returns: similarity according to the specified function
-    :rtype: float
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+        method (function): Specifies the similarity metric
+            (:py:function:`sim_levenshtein` by default)
 
-    >>> round(sim('cat', 'hat'), 12)
-    0.666666666667
-    >>> round(sim('Niall', 'Neil'), 12)
-    0.4
-    >>> sim('aluminum', 'Catalan')
-    0.125
-    >>> sim('ATCG', 'TAGC')
-    0.25
+    Returns:
+        float: Similarity according to the specified function
+
+    Raises:
+        AttributeError: Unknown distance function
+
+    Examples:
+        >>> round(sim('cat', 'hat'), 12)
+        0.666666666667
+        >>> round(sim('Niall', 'Neil'), 12)
+        0.4
+        >>> sim('aluminum', 'Catalan')
+        0.125
+        >>> sim('ATCG', 'TAGC')
+        0.25
     """
     if callable(method):
         return method(src, tar)
@@ -380,22 +386,29 @@ def dist(src, tar, method=sim_levenshtein):
 
     This is a generalized function for calling other distance functions.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
-    :param function method: specifies the similarity metric (sim_levenshtein by
-        default) -- Note that this takes a similarity metric function, not
-        a distance metric function.
-    :returns: distance according to the specified function
-    :rtype: float
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+        method (function): Specifies the similarity metric
+            (:py:function:`sim_levenshtein` by default) -- Note that this takes
+            a similarity metric function, not a distance metric function.
 
-    >>> round(dist('cat', 'hat'), 12)
-    0.333333333333
-    >>> round(dist('Niall', 'Neil'), 12)
-    0.6
-    >>> dist('aluminum', 'Catalan')
-    0.875
-    >>> dist('ATCG', 'TAGC')
-    0.75
+    Returns:
+        float: distance according to the specified function
+
+    Raises:
+        AttributeError: Unknown distance function
+
+    Examples:
+        >>> round(dist('cat', 'hat'), 12)
+        0.333333333333
+        >>> round(dist('Niall', 'Neil'), 12)
+        0.6
+        >>> dist('aluminum', 'Catalan')
+        0.875
+        >>> dist('ATCG', 'TAGC')
+        0.75
+
     """
     if callable(method):
         return 1 - method(src, tar)
