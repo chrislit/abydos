@@ -31,13 +31,66 @@ from unicodedata import normalize
 
 from six import text_type
 
-__all__ = ['clef_german', 'clef_german_plus', 'clef_swedish']
+from ._stemmer import Stemmer
+
+__all__ = [
+    'CLEFGerman',
+    'CLEFGermanPlus',
+    'CLEFSwedish',
+    'clef_german',
+    'clef_german_plus',
+    'clef_swedish',
+]
+
+
+class CLEFGerman(Stemmer):
+    """CLEF German stemmer.
+
+    The CLEF German stemmer is defined at :cite:`Savoy:2005`.
+    """
+
+    _umlauts = dict(zip((ord(_) for _ in 'äöü'), 'aou'))
+
+    def stem(self, word):
+        """Return CLEF German stem.
+
+        :param str word: the word to calculate the stem of
+        :returns: word stem
+        :rtype: str
+
+        >>> stmr = CLEFGerman()
+        >>> stmr.stem('lesen')
+        'lese'
+        >>> stmr.stem('graues')
+        'grau'
+        >>> stmr.stem('buchstabieren')
+        'buchstabier'
+        """
+        # lowercase, normalize, and compose
+        word = normalize('NFC', text_type(word.lower()))
+
+        # remove umlauts
+        word = word.translate(self._umlauts)
+
+        # remove plurals
+        wlen = len(word) - 1
+
+        if wlen > 3:
+            if wlen > 5:
+                if word[-3:] == 'nen':
+                    return word[:-3]
+            if wlen > 4:
+                if word[-2:] in {'en', 'se', 'es', 'er'}:
+                    return word[:-2]
+            if word[-1] in {'e', 'n', 'r', 's'}:
+                return word[:-1]
+        return word
 
 
 def clef_german(word):
     """Return CLEF German stem.
 
-    The CLEF German stemmer is defined at :cite:`Savoy:2005`.
+    This is a wrapper for :py:meth:`CLEFGerman.stem`.
 
     :param str word: the word to calculate the stem of
     :returns: word stem
@@ -50,37 +103,77 @@ def clef_german(word):
     >>> clef_german('buchstabieren')
     'buchstabier'
     """
-    # lowercase, normalize, and compose
-    word = normalize('NFC', text_type(word.lower()))
+    return CLEFGerman().stem(word)
 
-    # remove umlauts
-    _umlauts = dict(zip((ord(_) for _ in 'äöü'), 'aou'))
-    word = word.translate(_umlauts)
 
-    # remove plurals
-    wlen = len(word) - 1
+class CLEFGermanPlus(Stemmer):
+    """CLEF German stemmer plus.
 
-    if wlen > 3:
-        if wlen > 5:
-            if word[-3:] == 'nen':
-                return word[:-3]
-        if wlen > 4:
-            if word[-2:] in {'en', 'se', 'es', 'er'}:
-                return word[:-2]
-        if word[-1] in {'e', 'n', 'r', 's'}:
-            return word[:-1]
-    return word
+    The CLEF German stemmer plus is defined at :cite:`Savoy:2005`.
+    """
+
+    _st_ending = {'b', 'd', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 't'}
+
+    _accents = dict(
+        zip((ord(_) for _ in 'äàáâöòóôïìíîüùúû'), 'aaaaooooiiiiuuuu')
+    )
+
+    def stem(self, word):
+        """Return 'CLEF German stemmer plus' stem.
+
+        :param str word: the word to calculate the stem of
+        :returns: word stem
+        :rtype: str
+
+        >>> stmr = CLEFGermanPlus()
+        >>> clef_german_plus('lesen')
+        'les'
+        >>> clef_german_plus('graues')
+        'grau'
+        >>> clef_german_plus('buchstabieren')
+        'buchstabi'
+        """
+        # lowercase, normalize, and compose
+        word = normalize('NFC', text_type(word.lower()))
+
+        # remove umlauts
+        word = word.translate(self._accents)
+
+        # Step 1
+        wlen = len(word) - 1
+        if wlen > 4 and word[-3:] == 'ern':
+            word = word[:-3]
+        elif wlen > 3 and word[-2:] in {'em', 'en', 'er', 'es'}:
+            word = word[:-2]
+        elif wlen > 2 and (
+            word[-1] == 'e'
+            or (word[-1] == 's' and word[-2] in self._st_ending)
+        ):
+            word = word[:-1]
+
+        # Step 2
+        wlen = len(word) - 1
+        if wlen > 4 and word[-3:] == 'est':
+            word = word[:-3]
+        elif wlen > 3 and (
+            word[-2:] in {'er', 'en'}
+            or (word[-2:] == 'st' and word[-3] in self._st_ending)
+        ):
+            word = word[:-2]
+
+        return word
 
 
 def clef_german_plus(word):
     """Return 'CLEF German stemmer plus' stem.
 
-    The CLEF German stemmer plus is defined at :cite:`Savoy:2005`.
+    This is a wrapper for :py:meth:`CLEFGermanPlus.stem`.
 
     :param str word: the word to calculate the stem of
     :returns: word stem
     :rtype: str
 
+    >>> stmr = CLEFGermanPlus()
     >>> clef_german_plus('lesen')
     'les'
     >>> clef_german_plus('graues')
@@ -88,45 +181,65 @@ def clef_german_plus(word):
     >>> clef_german_plus('buchstabieren')
     'buchstabi'
     """
-    _st_ending = {'b', 'd', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 't'}
+    return CLEFGermanPlus().stem(word)
 
-    # lowercase, normalize, and compose
-    word = normalize('NFC', text_type(word.lower()))
 
-    # remove umlauts
-    _accents = dict(
-        zip((ord(_) for _ in 'äàáâöòóôïìíîüùúû'), 'aaaaooooiiiiuuuu')
-    )
-    word = word.translate(_accents)
+class CLEFSwedish(Stemmer):
+    """CLEF Swedish stemmer.
 
-    # Step 1
-    wlen = len(word) - 1
-    if wlen > 4 and word[-3:] == 'ern':
-        word = word[:-3]
-    elif wlen > 3 and word[-2:] in {'em', 'en', 'er', 'es'}:
-        word = word[:-2]
-    elif wlen > 2 and (
-        word[-1] == 'e' or (word[-1] == 's' and word[-2] in _st_ending)
-    ):
-        word = word[:-1]
+    The CLEF Swedish stemmer is defined at :cite:`Savoy:2005`.
+    """
 
-    # Step 2
-    wlen = len(word) - 1
-    if wlen > 4 and word[-3:] == 'est':
-        word = word[:-3]
-    elif wlen > 3 and (
-        word[-2:] in {'er', 'en'}
-        or (word[-2:] == 'st' and word[-3] in _st_ending)
-    ):
-        word = word[:-2]
+    def stem(self, word):
+        """Return CLEF Swedish stem.
 
-    return word
+        :param str word: the word to calculate the stem of
+        :returns: word stem
+        :rtype: str
+
+        >>> clef_swedish('undervisa')
+        'undervis'
+        >>> clef_swedish('suspension')
+        'suspensio'
+        >>> clef_swedish('visshet')
+        'viss'
+        """
+        wlen = len(word) - 1
+
+        if wlen > 3 and word[-1] == 's':
+            word = word[:-1]
+            wlen -= 1
+
+        if wlen > 6:
+            if word[-5:] in {'elser', 'heten'}:
+                return word[:-5]
+        if wlen > 5:
+            if word[-4:] in {
+                'arne',
+                'erna',
+                'ande',
+                'else',
+                'aste',
+                'orna',
+                'aren',
+            }:
+                return word[:-4]
+        if wlen > 4:
+            if word[-3:] in {'are', 'ast', 'het'}:
+                return word[:-3]
+        if wlen > 3:
+            if word[-2:] in {'ar', 'er', 'or', 'en', 'at', 'te', 'et'}:
+                return word[:-2]
+        if wlen > 2:
+            if word[-1] in {'a', 'e', 'n', 't'}:
+                return word[:-1]
+        return word
 
 
 def clef_swedish(word):
     """Return CLEF Swedish stem.
 
-    The CLEF Swedish stemmer is defined at :cite:`Savoy:2005`.
+    This is a wrapper for :py:meth:`CLEFSwedish.stem`.
 
     :param str word: the word to calculate the stem of
     :returns: word stem
@@ -139,36 +252,7 @@ def clef_swedish(word):
     >>> clef_swedish('visshet')
     'viss'
     """
-    wlen = len(word) - 1
-
-    if wlen > 3 and word[-1] == 's':
-        word = word[:-1]
-        wlen -= 1
-
-    if wlen > 6:
-        if word[-5:] in {'elser', 'heten'}:
-            return word[:-5]
-    if wlen > 5:
-        if word[-4:] in {
-            'arne',
-            'erna',
-            'ande',
-            'else',
-            'aste',
-            'orna',
-            'aren',
-        }:
-            return word[:-4]
-    if wlen > 4:
-        if word[-3:] in {'are', 'ast', 'het'}:
-            return word[:-3]
-    if wlen > 3:
-        if word[-2:] in {'ar', 'er', 'or', 'en', 'at', 'te', 'et'}:
-            return word[:-2]
-    if wlen > 2:
-        if word[-1] in {'a', 'e', 'n', 't'}:
-            return word[:-1]
-    return word
+    return CLEFSwedish().stem(word)
 
 
 if __name__ == '__main__':

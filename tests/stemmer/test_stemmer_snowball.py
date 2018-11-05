@@ -27,6 +27,7 @@ import codecs
 import unittest
 
 from abydos.stemmer import (
+    Porter,
     porter,
     porter2,
     sb_danish,
@@ -37,16 +38,7 @@ from abydos.stemmer import (
 )
 
 # noinspection PyProtectedMember
-from abydos.stemmer._snowball import (
-    _ends_in_cvc,
-    _ends_in_doubled_cons,
-    _m_degree,
-    _sb_ends_in_short_syllable,
-    _sb_has_vowel,
-    _sb_r1,
-    _sb_r2,
-    _sb_short_word,
-)
+from abydos.stemmer._snowball import Snowball
 
 from .. import _corpus_file
 
@@ -54,131 +46,143 @@ from .. import _corpus_file
 class PorterTestCases(unittest.TestCase):
     """Test Porter functions.
 
-    abydos.stemmer._snowball._m_degree, .porter, ._sb_has_vowel,
+    abydos.stemmer._snowball.Porter._m_degree, .porter, ._has_vowel,
     ._ends_in_doubled_cons, & ._ends_in_cvc
     """
 
     def test_m_degree(self):
-        """Test abydos.stemmer._snowball._m_degree."""
-        _vowels = set('aeiouy')
+        """Test abydos.stemmer._snowball.Porter._m_degree."""
+        stmr = Porter()
+        stmr._vowels = set('aeiouy')  # noqa: SF01
+
         # base case
-        self.assertEqual(_m_degree('', _vowels), 0)
+        self.assertEqual(stmr._m_degree(''), 0)  # noqa: SF01
 
         # m==0
-        self.assertEqual(_m_degree('tr', _vowels), 0)
-        self.assertEqual(_m_degree('ee', _vowels), 0)
-        self.assertEqual(_m_degree('tree', _vowels), 0)
-        self.assertEqual(_m_degree('y', _vowels), 0)
-        self.assertEqual(_m_degree('by', _vowels), 0)
+        self.assertEqual(stmr._m_degree('tr'), 0)  # noqa: SF01
+        self.assertEqual(stmr._m_degree('ee'), 0)  # noqa: SF01
+        self.assertEqual(stmr._m_degree('tree'), 0)  # noqa: SF01
+        self.assertEqual(stmr._m_degree('y'), 0)  # noqa: SF01
+        self.assertEqual(stmr._m_degree('by'), 0)  # noqa: SF01
 
         # m==1
-        self.assertEqual(_m_degree('trouble', _vowels), 1)
-        self.assertEqual(_m_degree('oats', _vowels), 1)
-        self.assertEqual(_m_degree('trees', _vowels), 1)
-        self.assertEqual(_m_degree('ivy', _vowels), 1)
+        self.assertEqual(stmr._m_degree('trouble'), 1)  # noqa: SF01
+        self.assertEqual(stmr._m_degree('oats'), 1)  # noqa: SF01
+        self.assertEqual(stmr._m_degree('trees'), 1)  # noqa: SF01
+        self.assertEqual(stmr._m_degree('ivy'), 1)  # noqa: SF01
 
         # m==2
-        self.assertEqual(_m_degree('troubles', _vowels), 2)
-        self.assertEqual(_m_degree('private', _vowels), 2)
-        self.assertEqual(_m_degree('oaten', _vowels), 2)
-        self.assertEqual(_m_degree('orrery', _vowels), 2)
+        self.assertEqual(stmr._m_degree('troubles'), 2)  # noqa: SF01
+        self.assertEqual(stmr._m_degree('private'), 2)  # noqa: SF01
+        self.assertEqual(stmr._m_degree('oaten'), 2)  # noqa: SF01
+        self.assertEqual(stmr._m_degree('orrery'), 2)  # noqa: SF01
 
     def test_has_vowel(self):
-        """Test abydos.stemmer._snowball._has_vowel."""
-        _vowels = set('aeiouy')
+        """Test abydos.stemmer._snowball.Porter._has_vowel."""
+        stmr = Porter()
+        stmr._vowels = set('aeiouy')  # noqa: SF01
+
         # base case
-        self.assertFalse(_sb_has_vowel('', _vowels))
+        self.assertFalse(stmr._has_vowel(''))  # noqa: SF01
 
         # False cases
-        self.assertFalse(_sb_has_vowel('b', _vowels))
-        self.assertFalse(_sb_has_vowel('c', _vowels))
-        self.assertFalse(_sb_has_vowel('bc', _vowels))
-        self.assertFalse(_sb_has_vowel('bcdfghjklmnpqrstvwxYz', _vowels))
-        self.assertFalse(_sb_has_vowel('Y', _vowels))
+        self.assertFalse(stmr._has_vowel('b'))  # noqa: SF01
+        self.assertFalse(stmr._has_vowel('c'))  # noqa: SF01
+        self.assertFalse(stmr._has_vowel('bc'))  # noqa: SF01
+        self.assertFalse(
+            stmr._has_vowel('bcdfghjklmnpqrstvwxYz')  # noqa: SF01
+        )
+        self.assertFalse(stmr._has_vowel('Y'))  # noqa: SF01
 
         # True cases
-        self.assertTrue(_sb_has_vowel('a', _vowels))
-        self.assertTrue(_sb_has_vowel('e', _vowels))
-        self.assertTrue(_sb_has_vowel('ae', _vowels))
-        self.assertTrue(_sb_has_vowel('aeiouy', _vowels))
-        self.assertTrue(_sb_has_vowel('y', _vowels))
+        self.assertTrue(stmr._has_vowel('a'))  # noqa: SF01
+        self.assertTrue(stmr._has_vowel('e'))  # noqa: SF01
+        self.assertTrue(stmr._has_vowel('ae'))  # noqa: SF01
+        self.assertTrue(stmr._has_vowel('aeiouy'))  # noqa: SF01
+        self.assertTrue(stmr._has_vowel('y'))  # noqa: SF01
 
-        self.assertTrue(_sb_has_vowel('ade', _vowels))
-        self.assertTrue(_sb_has_vowel('cad', _vowels))
-        self.assertTrue(_sb_has_vowel('add', _vowels))
-        self.assertTrue(_sb_has_vowel('phi', _vowels))
-        self.assertTrue(_sb_has_vowel('pfy', _vowels))
+        self.assertTrue(stmr._has_vowel('ade'))  # noqa: SF01
+        self.assertTrue(stmr._has_vowel('cad'))  # noqa: SF01
+        self.assertTrue(stmr._has_vowel('add'))  # noqa: SF01
+        self.assertTrue(stmr._has_vowel('phi'))  # noqa: SF01
+        self.assertTrue(stmr._has_vowel('pfy'))  # noqa: SF01
 
-        self.assertFalse(_sb_has_vowel('pfY', _vowels))
+        self.assertFalse(stmr._has_vowel('pfY'))  # noqa: SF01
 
     def test_ends_in_doubled_cons(self):
-        """Test abydos.stemmer._snowball._ends_in_doubled_cons."""
-        _vowels = set('aeiouy')
+        """Test abydos.stemmer._snowball.Porter._ends_in_doubled_cons."""
+        stmr = Porter()
+        stmr._vowels = set('aeiouy')  # noqa: SF01
+
         # base case
-        self.assertFalse(_ends_in_doubled_cons('', _vowels))
+        self.assertFalse(stmr._ends_in_doubled_cons(''))  # noqa: SF01
 
         # False cases
-        self.assertFalse(_ends_in_doubled_cons('b', _vowels))
-        self.assertFalse(_ends_in_doubled_cons('c', _vowels))
-        self.assertFalse(_ends_in_doubled_cons('bc', _vowels))
+        self.assertFalse(stmr._ends_in_doubled_cons('b'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_doubled_cons('c'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_doubled_cons('bc'))  # noqa: SF01
         self.assertFalse(
-            _ends_in_doubled_cons('bcdfghjklmnpqrstvwxYz', _vowels)
+            stmr._ends_in_doubled_cons('bcdfghjklmnpqrstvwxYz')  # noqa: SF01
         )
-        self.assertFalse(_ends_in_doubled_cons('Y', _vowels))
-        self.assertFalse(_ends_in_doubled_cons('a', _vowels))
-        self.assertFalse(_ends_in_doubled_cons('e', _vowels))
-        self.assertFalse(_ends_in_doubled_cons('ae', _vowels))
-        self.assertFalse(_ends_in_doubled_cons('aeiouy', _vowels))
-        self.assertFalse(_ends_in_doubled_cons('y', _vowels))
-        self.assertFalse(_ends_in_doubled_cons('ade', _vowels))
-        self.assertFalse(_ends_in_doubled_cons('cad', _vowels))
-        self.assertFalse(_ends_in_doubled_cons('phi', _vowels))
-        self.assertFalse(_ends_in_doubled_cons('pfy', _vowels))
-        self.assertFalse(_ends_in_doubled_cons('faddy', _vowels))
-        self.assertFalse(_ends_in_doubled_cons('aiii', _vowels))
-        self.assertFalse(_ends_in_doubled_cons('ayyy', _vowels))
+        self.assertFalse(stmr._ends_in_doubled_cons('Y'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_doubled_cons('a'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_doubled_cons('e'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_doubled_cons('ae'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_doubled_cons('aeiouy'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_doubled_cons('y'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_doubled_cons('ade'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_doubled_cons('cad'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_doubled_cons('phi'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_doubled_cons('pfy'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_doubled_cons('faddy'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_doubled_cons('aiii'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_doubled_cons('ayyy'))  # noqa: SF01
 
         # True cases
-        self.assertTrue(_ends_in_doubled_cons('add', _vowels))
-        self.assertTrue(_ends_in_doubled_cons('fadd', _vowels))
-        self.assertTrue(_ends_in_doubled_cons('fadddd', _vowels))
-        self.assertTrue(_ends_in_doubled_cons('raYY', _vowels))
-        self.assertTrue(_ends_in_doubled_cons('doll', _vowels))
-        self.assertTrue(_ends_in_doubled_cons('parr', _vowels))
-        self.assertTrue(_ends_in_doubled_cons('parrr', _vowels))
-        self.assertTrue(_ends_in_doubled_cons('bacc', _vowels))
+        self.assertTrue(stmr._ends_in_doubled_cons('add'))  # noqa: SF01
+        self.assertTrue(stmr._ends_in_doubled_cons('fadd'))  # noqa: SF01
+        self.assertTrue(stmr._ends_in_doubled_cons('fadddd'))  # noqa: SF01
+        self.assertTrue(stmr._ends_in_doubled_cons('raYY'))  # noqa: SF01
+        self.assertTrue(stmr._ends_in_doubled_cons('doll'))  # noqa: SF01
+        self.assertTrue(stmr._ends_in_doubled_cons('parr'))  # noqa: SF01
+        self.assertTrue(stmr._ends_in_doubled_cons('parrr'))  # noqa: SF01
+        self.assertTrue(stmr._ends_in_doubled_cons('bacc'))  # noqa: SF01
 
     def test_ends_in_cvc(self):
-        """Test abydos.stemmer._snowball._ends_in_cvc."""
-        _vowels = set('aeiouy')
+        """Test abydos.stemmer._snowball.Porter._ends_in_cvc."""
+        stmr = Porter()
+        stmr._vowels = set('aeiouy')  # noqa: SF01
+
         # base case
-        self.assertFalse(_ends_in_cvc('', _vowels))
+        self.assertFalse(stmr._ends_in_cvc(''))  # noqa: SF01
 
         # False cases
-        self.assertFalse(_ends_in_cvc('b', _vowels))
-        self.assertFalse(_ends_in_cvc('c', _vowels))
-        self.assertFalse(_ends_in_cvc('bc', _vowels))
-        self.assertFalse(_ends_in_cvc('bcdfghjklmnpqrstvwxYz', _vowels))
-        self.assertFalse(_ends_in_cvc('YYY', _vowels))
-        self.assertFalse(_ends_in_cvc('ddd', _vowels))
-        self.assertFalse(_ends_in_cvc('faaf', _vowels))
-        self.assertFalse(_ends_in_cvc('rare', _vowels))
-        self.assertFalse(_ends_in_cvc('rhy', _vowels))
+        self.assertFalse(stmr._ends_in_cvc('b'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_cvc('c'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_cvc('bc'))  # noqa: SF01
+        self.assertFalse(
+            stmr._ends_in_cvc('bcdfghjklmnpqrstvwxYz')  # noqa: SF01
+        )
+        self.assertFalse(stmr._ends_in_cvc('YYY'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_cvc('ddd'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_cvc('faaf'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_cvc('rare'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_cvc('rhy'))  # noqa: SF01
 
         # True cases
-        self.assertTrue(_ends_in_cvc('dad', _vowels))
-        self.assertTrue(_ends_in_cvc('phad', _vowels))
-        self.assertTrue(_ends_in_cvc('faded', _vowels))
-        self.assertTrue(_ends_in_cvc('maYor', _vowels))
-        self.assertTrue(_ends_in_cvc('enlil', _vowels))
-        self.assertTrue(_ends_in_cvc('parer', _vowels))
-        self.assertTrue(_ends_in_cvc('padres', _vowels))
-        self.assertTrue(_ends_in_cvc('bacyc', _vowels))
+        self.assertTrue(stmr._ends_in_cvc('dad'))  # noqa: SF01
+        self.assertTrue(stmr._ends_in_cvc('phad'))  # noqa: SF01
+        self.assertTrue(stmr._ends_in_cvc('faded'))  # noqa: SF01
+        self.assertTrue(stmr._ends_in_cvc('maYor'))  # noqa: SF01
+        self.assertTrue(stmr._ends_in_cvc('enlil'))  # noqa: SF01
+        self.assertTrue(stmr._ends_in_cvc('parer'))  # noqa: SF01
+        self.assertTrue(stmr._ends_in_cvc('padres'))  # noqa: SF01
+        self.assertTrue(stmr._ends_in_cvc('bacyc'))  # noqa: SF01
 
         # Special case for W, X, & Y
-        self.assertFalse(_ends_in_cvc('craw', _vowels))
-        self.assertFalse(_ends_in_cvc('max', _vowels))
-        self.assertFalse(_ends_in_cvc('cray', _vowels))
+        self.assertFalse(stmr._ends_in_cvc('craw'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_cvc('max'))  # noqa: SF01
+        self.assertFalse(stmr._ends_in_cvc('cray'))  # noqa: SF01
 
     def test_porter(self):
         """Test abydos.stemmer._snowball.porter."""
@@ -248,103 +252,128 @@ class PorterTestCases(unittest.TestCase):
 class Porter2TestCases(unittest.TestCase):
     """Test Porter2 functions.
 
-    abydos.stemmer._snowball._sb_r1, ._sb_r2, ._sb_ends_in_short_syllable,
-    ._sb_short_word, & .porter2
+    abydos.stemmer._snowball.Snowball._sb_has_vowels, _sb_r1, ._sb_r2,
+    ._sb_ends_in_short_syllable, ._sb_short_word, &
+    abydos.stemmer._snowball.porter2
     """
 
-    def test_sb_r1(self):
-        """Test abydos.stemmer._snowball._sb_r1."""
-        _vowels = set('aeiouy')
+    def test_has_vowel(self):
+        """Test abydos.stemmer._snowball.Snowball._has_vowel."""
+        stmr = Snowball()
+        stmr._vowels = set('aeiouy')  # noqa: SF01
+
         # base case
-        self.assertEqual(_sb_r1('', _vowels), 0)
+        self.assertFalse(stmr._sb_has_vowel(''))  # noqa: SF01
+
+        # False cases
+        self.assertFalse(stmr._sb_has_vowel('b'))  # noqa: SF01
+        self.assertFalse(stmr._sb_has_vowel('c'))  # noqa: SF01
+        self.assertFalse(stmr._sb_has_vowel('bc'))  # noqa: SF01
+        self.assertFalse(
+            stmr._sb_has_vowel('bcdfghjklmnpqrstvwxYz')  # noqa: SF01
+        )
+        self.assertFalse(stmr._sb_has_vowel('Y'))  # noqa: SF01
+
+        # True cases
+        self.assertTrue(stmr._sb_has_vowel('a'))  # noqa: SF01
+        self.assertTrue(stmr._sb_has_vowel('e'))  # noqa: SF01
+        self.assertTrue(stmr._sb_has_vowel('ae'))  # noqa: SF01
+        self.assertTrue(stmr._sb_has_vowel('aeiouy'))  # noqa: SF01
+        self.assertTrue(stmr._sb_has_vowel('y'))  # noqa: SF01
+
+        self.assertTrue(stmr._sb_has_vowel('ade'))  # noqa: SF01
+        self.assertTrue(stmr._sb_has_vowel('cad'))  # noqa: SF01
+        self.assertTrue(stmr._sb_has_vowel('add'))  # noqa: SF01
+        self.assertTrue(stmr._sb_has_vowel('phi'))  # noqa: SF01
+        self.assertTrue(stmr._sb_has_vowel('pfy'))  # noqa: SF01
+
+        self.assertFalse(stmr._sb_has_vowel('pfY'))  # noqa: SF01
+
+    def test_sb_r1(self):
+        """Test abydos.stemmer._snowball.Snowball._sb_r1."""
+        stmr = Snowball()
+        stmr._vowels = set('aeiouy')  # noqa: SF01
+
+        # base case
+        self.assertEqual(stmr._sb_r1(''), 0)  # noqa: SF01
 
         # examples from http://snowball.tartarus.org/texts/r1r2.html
-        self.assertEqual(_sb_r1('beautiful', _vowels), 5)
-        self.assertEqual(_sb_r1('beauty', _vowels), 5)
-        self.assertEqual(_sb_r1('beau', _vowels), 4)
-        self.assertEqual(_sb_r1('animadversion', _vowels), 2)
-        self.assertEqual(_sb_r1('sprinkled', _vowels), 5)
-        self.assertEqual(_sb_r1('eucharist', _vowels), 3)
+        self.assertEqual(stmr._sb_r1('beautiful'), 5)  # noqa: SF01
+        self.assertEqual(stmr._sb_r1('beauty'), 5)  # noqa: SF01
+        self.assertEqual(stmr._sb_r1('beau'), 4)  # noqa: SF01
+        self.assertEqual(stmr._sb_r1('animadversion'), 2)  # noqa: SF01
+        self.assertEqual(stmr._sb_r1('sprinkled'), 5)  # noqa: SF01
+        self.assertEqual(stmr._sb_r1('eucharist'), 3)  # noqa: SF01
 
     def test_sb_r2(self):
-        """Test abydos.stemmer._snowball._sb_r2."""
-        _vowels = set('aeiouy')
+        """Test abydos.stemmer._snowball.Snowball._sb_r2."""
+        stmr = Snowball()
+        stmr._vowels = set('aeiouy')  # noqa: SF01
+
         # base case
-        self.assertEqual(_sb_r2('', _vowels), 0)
+        self.assertEqual(stmr._sb_r2(''), 0)  # noqa: SF01
 
         # examples from http://snowball.tartarus.org/texts/r1r2.html
-        self.assertEqual(_sb_r2('beautiful', _vowels), 7)
-        self.assertEqual(_sb_r2('beauty', _vowels), 6)
-        self.assertEqual(_sb_r2('beau', _vowels), 4)
-        self.assertEqual(_sb_r2('animadversion', _vowels), 4)
-        self.assertEqual(_sb_r2('sprinkled', _vowels), 9)
-        self.assertEqual(_sb_r2('eucharist', _vowels), 6)
+        self.assertEqual(stmr._sb_r2('beautiful'), 7)  # noqa: SF01
+        self.assertEqual(stmr._sb_r2('beauty'), 6)  # noqa: SF01
+        self.assertEqual(stmr._sb_r2('beau'), 4)  # noqa: SF01
+        self.assertEqual(stmr._sb_r2('animadversion'), 4)  # noqa: SF01
+        self.assertEqual(stmr._sb_r2('sprinkled'), 9)  # noqa: SF01
+        self.assertEqual(stmr._sb_r2('eucharist'), 6)  # noqa: SF01
 
     def test_sb_ends_in_short_syllable(self):
-        """Test abydos.stemmer._snowball._sb_ends_in_short_syllable."""
-        _vowels = set('aeiouy')
-        _codanonvowels = set('bcdfghjklmnpqrstvz\'')
+        """Test abydos.stemmer._snowball.Snowball._sb_ends_in_short_syllable."""  # noqa: E501
+        stmr = Snowball()
+        stmr._vowels = set('aeiouy')  # noqa: SF01
+        stmr._codanonvowels = set('bcdfghjklmnpqrstvz\'')  # noqa: SF01
+
         # base case
-        self.assertFalse(
-            _sb_ends_in_short_syllable('', _vowels, _codanonvowels)
-        )
+        self.assertFalse(stmr._sb_ends_in_short_syllable(''))  # noqa: SF01
 
         # examples from
         # http://snowball.tartarus.org/algorithms/english/stemmer.html
+        self.assertTrue(stmr._sb_ends_in_short_syllable('rap'))  # noqa: SF01
+        self.assertTrue(stmr._sb_ends_in_short_syllable('trap'))  # noqa: SF01
         self.assertTrue(
-            _sb_ends_in_short_syllable('rap', _vowels, _codanonvowels)
+            stmr._sb_ends_in_short_syllable('entrap')  # noqa: SF01
         )
-        self.assertTrue(
-            _sb_ends_in_short_syllable('trap', _vowels, _codanonvowels)
-        )
-        self.assertTrue(
-            _sb_ends_in_short_syllable('entrap', _vowels, _codanonvowels)
-        )
-        self.assertTrue(
-            _sb_ends_in_short_syllable('ow', _vowels, _codanonvowels)
-        )
-        self.assertTrue(
-            _sb_ends_in_short_syllable('on', _vowels, _codanonvowels)
-        )
-        self.assertTrue(
-            _sb_ends_in_short_syllable('at', _vowels, _codanonvowels)
+        self.assertTrue(stmr._sb_ends_in_short_syllable('ow'))  # noqa: SF01
+        self.assertTrue(stmr._sb_ends_in_short_syllable('on'))  # noqa: SF01
+        self.assertTrue(stmr._sb_ends_in_short_syllable('at'))  # noqa: SF01
+        self.assertFalse(
+            stmr._sb_ends_in_short_syllable('uproot')  # noqa: SF01
         )
         self.assertFalse(
-            _sb_ends_in_short_syllable('uproot', _vowels, _codanonvowels)
+            stmr._sb_ends_in_short_syllable('uproot')  # noqa: SF01
         )
         self.assertFalse(
-            _sb_ends_in_short_syllable('uproot', _vowels, _codanonvowels)
+            stmr._sb_ends_in_short_syllable('bestow')  # noqa: SF01
         )
         self.assertFalse(
-            _sb_ends_in_short_syllable('bestow', _vowels, _codanonvowels)
-        )
-        self.assertFalse(
-            _sb_ends_in_short_syllable('disturb', _vowels, _codanonvowels)
+            stmr._sb_ends_in_short_syllable('disturb')  # noqa: SF01
         )
 
         # missed branch test cases
-        self.assertFalse(
-            _sb_ends_in_short_syllable('d', _vowels, _codanonvowels)
-        )
-        self.assertFalse(
-            _sb_ends_in_short_syllable('a', _vowels, _codanonvowels)
-        )
+        self.assertFalse(stmr._sb_ends_in_short_syllable('d'))  # noqa: SF01
+        self.assertFalse(stmr._sb_ends_in_short_syllable('a'))  # noqa: SF01
 
     def test_sb_short_word(self):
-        """Test abydos.stemmer._snowball._sb_short_word."""
-        _vowels = set('aeiouy')
-        _codanonvowels = set('bcdfghjklmnpqrstvz\'')
+        """Test abydos.stemmer._snowball.Snowball._sb_short_word."""
+        stmr = Snowball()
+        stmr._vowels = set('aeiouy')  # noqa: SF01
+        stmr._codanonvowels = set('bcdfghjklmnpqrstvz\'')  # noqa: SF01
+
         # base case
-        self.assertFalse(_sb_short_word('', _vowels, _codanonvowels))
+        self.assertFalse(stmr._sb_short_word(''))  # noqa: SF01
 
         # examples from
         # http://snowball.tartarus.org/algorithms/english/stemmer.html
-        self.assertTrue(_sb_short_word('bed', _vowels, _codanonvowels))
-        self.assertTrue(_sb_short_word('shed', _vowels, _codanonvowels))
-        self.assertTrue(_sb_short_word('shred', _vowels, _codanonvowels))
-        self.assertFalse(_sb_short_word('bead', _vowels, _codanonvowels))
-        self.assertFalse(_sb_short_word('embed', _vowels, _codanonvowels))
-        self.assertFalse(_sb_short_word('beds', _vowels, _codanonvowels))
+        self.assertTrue(stmr._sb_short_word('bed'))  # noqa: SF01
+        self.assertTrue(stmr._sb_short_word('shed'))  # noqa: SF01
+        self.assertTrue(stmr._sb_short_word('shred'))  # noqa: SF01
+        self.assertFalse(stmr._sb_short_word('bead'))  # noqa: SF01
+        self.assertFalse(stmr._sb_short_word('embed'))  # noqa: SF01
+        self.assertFalse(stmr._sb_short_word('beds'))  # noqa: SF01
 
     def test_porter2(self):
         """Test abydos.stemmer._snowball.porter2."""
