@@ -14,7 +14,7 @@ Abydos
 +------------------+------------------------------------------------------+
 | Contribution     | |cii| |waffle| |openhub|                             |
 +------------------+------------------------------------------------------+
-| PyPI             | |pypi| |pypi-ver|                                    |
+| PyPI             | |pypi| |pypi-dl| |pypi-ver|                          |
 +------------------+------------------------------------------------------+
 | conda-forge      | |conda| |conda-dl| |conda-platforms|                 |
 +------------------+------------------------------------------------------+
@@ -119,7 +119,11 @@ Abydos
     :target: https://pypi.python.org/pypi/abydos
     :alt: PyPI
 
-.. |pypi-ver| image:: 	https://img.shields.io/pypi/pyversions/abydos.svg
+.. |pypi-dl| image:: https://img.shields.io/pypi/dm/abydos.svg
+    :target: https://pypi.python.org/pypi/abydos
+    :alt: PyPI downloads/month
+
+.. |pypi-ver| image:: https://img.shields.io/pypi/pyversions/abydos.svg
     :target: https://pypi.python.org/pypi/abydos
     :alt: PyPI versions
 
