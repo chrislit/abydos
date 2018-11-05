@@ -48,11 +48,13 @@ class Sift4(Distance):
     def dist_abs(self, src, tar, max_offset=5, max_distance=0):
         """Return the "common" Sift4 distance between two terms.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param max_offset: the number of characters to search for matching
             letters
         :param max_distance: the distance at which to stop and exit
+
         :returns: the Sift4 distance according to the common formula
         :rtype: int
 
@@ -151,11 +153,13 @@ class Sift4(Distance):
 
         This is Sift4 distance, normalized to [0, 1].
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param max_offset: the number of characters to search for matching
             letters
         :param max_distance: the distance at which to stop and exit
+
         :returns: the normalized Sift4 distance
         :rtype: float
 
@@ -180,10 +184,12 @@ def sift4_common(src, tar, max_offset=5, max_distance=0):
     This is an approximation of edit distance, described in
     :cite:`Zackwehdex:2014`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param max_offset: the number of characters to search for matching letters
     :param max_distance: the distance at which to stop and exit
+
     :returns: the Sift4 distance according to the common formula
     :rtype: int
 
@@ -204,10 +210,12 @@ def dist_sift4(src, tar, max_offset=5, max_distance=0):
 
     This is Sift4 distance, normalized to [0, 1].
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param max_offset: the number of characters to search for matching letters
     :param max_distance: the distance at which to stop and exit
+
     :returns: the normalized Sift4 distance
     :rtype: float
 
@@ -229,10 +237,12 @@ def sim_sift4(src, tar, max_offset=5, max_distance=0):
     Normalized Sift4 similarity is the complement of normalized Sift4 distance:
     :math:`sim_{Sift4} = 1 - dist_{Sift4}`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param max_offset: the number of characters to search for matching letters
     :param max_distance: the distance at which to stop and exit
+
     :returns: the normalized Sift4 similarity
     :rtype: float
 
@@ -258,10 +268,12 @@ class Sift4Simplest(Sift4):
     def dist_abs(self, src, tar, max_offset=5):
         """Return the "simplest" Sift4 distance between two terms.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param max_offset: the number of characters to search for matching
             letters
+
         :returns: the Sift4 distance according to the simplest formula
         :rtype: int
 
@@ -325,9 +337,11 @@ class Sift4Simplest(Sift4):
 def sift4_simplest(src, tar, max_offset=5):
     """Return the "simplest" Sift4 distance between two terms.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param max_offset: the number of characters to search for matching letters
+
     :returns: the Sift4 distance according to the simplest formula
     :rtype: int
 

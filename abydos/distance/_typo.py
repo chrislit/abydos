@@ -96,8 +96,9 @@ class Typo(Distance):
     ):
         """Return the typo distance between two strings.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param str metric: supported values include: 'euclidean', 'manhattan',
               'log-euclidean', and 'log-manhattan'
         :param tuple cost: a 4-tuple representing the cost of the four possible
@@ -228,8 +229,9 @@ class Typo(Distance):
 
         This is typo distance, normalized to [0, 1].
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param str metric: supported values include: 'euclidean', 'manhattan',
               'log-euclidean', and 'log-manhattan'
         :param tuple cost: a 4-tuple representing the cost of the four possible
@@ -239,6 +241,7 @@ class Typo(Distance):
             a log metric is used.
         :param str layout: name of the keyboard layout to use (Currently
             supported: QWERTY, Dvorak, AZERTY, QWERTZ)
+
         :returns: normalized typo distance
         :rtype: float
 
@@ -265,8 +268,9 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
 
     This is a wrapper for :py:meth:`Typo.typo`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param str metric: supported values include: 'euclidean', 'manhattan',
           'log-euclidean', and 'log-manhattan'
     :param tuple cost: a 4-tuple representing the cost of the four possible
@@ -276,6 +280,7 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
         a log metric is used.
     :param str layout: name of the keyboard layout to use (Currently supported:
         QWERTY, Dvorak, AZERTY, QWERTZ)
+
     :returns: typo distance
     :rtype: float
 
@@ -316,8 +321,9 @@ def dist_typo(
 
     This is a wrapper for :py:meth:`Typo.dist`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param str metric: supported values include: 'euclidean', 'manhattan',
           'log-euclidean', and 'log-manhattan'
     :param tuple cost: a 4-tuple representing the cost of the four possible
@@ -327,6 +333,7 @@ def dist_typo(
         a log metric is used.
     :param str layout: name of the keyboard layout to use (Currently supported:
         QWERTY, Dvorak, AZERTY, QWERTZ)
+
     :returns: normalized typo distance
     :rtype: float
 
@@ -349,8 +356,9 @@ def sim_typo(
 
     This is a wrapper for :py:meth:`Typo.sim`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param str metric: supported values include: 'euclidean', 'manhattan',
           'log-euclidean', and 'log-manhattan'
     :param tuple cost: a 4-tuple representing the cost of the four possible
@@ -360,6 +368,7 @@ def sim_typo(
         a log metric is used.
     :param str layout: name of the keyboard layout to use (Currently supported:
         QWERTY, Dvorak, AZERTY, QWERTZ)
+
     :returns: normalized typo similarity
     :rtype: float
 

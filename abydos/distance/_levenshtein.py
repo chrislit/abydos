@@ -73,8 +73,9 @@ class Levenshtein(Distance):
     def dist_abs(self, src, tar, mode='lev', cost=(1, 1, 1, 1)):
         """Return the Levenshtein distance between two strings.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param str mode: specifies a mode for computing the Levenshtein
             distance:
 
@@ -157,8 +158,9 @@ class Levenshtein(Distance):
         For the case in which all operations have :math:`cost = 1`, this is
         equivalent to the greater of the length of the two strings src & tar.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param str mode: specifies a mode for computing the Levenshtein
             distance:
 
@@ -195,8 +197,9 @@ class Levenshtein(Distance):
 def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     """Return the Levenshtein distance between two strings.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param str mode: specifies a mode for computing the Levenshtein distance:
 
         - 'lev' (default) computes the ordinary Levenshtein distance,
@@ -238,8 +241,9 @@ def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     For the case in which all operations have :math:`cost = 1`, this is
     equivalent to the greater of the length of the two strings src & tar.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param str mode: specifies a mode for computing the Levenshtein distance:
 
         - 'lev' (default) computes the ordinary Levenshtein distance,
@@ -273,8 +277,9 @@ def sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     Levenshtein distance:
     :math:`sim_{Levenshtein} = 1 - dist_{Levenshtein}`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param str mode: specifies a mode for computing the Levenshtein distance:
 
             - 'lev' (default) computes the ordinary Levenshtein distance,
@@ -314,8 +319,9 @@ class DamerauLevenshtein(Distance):
     def dist_abs(self, src, tar, cost=(1, 1, 1, 1)):
         """Return the Damerau-Levenshtein distance between two strings.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param tuple cost: a 4-tuple representing the cost of the four possible
             edits:
             inserts, deletes, substitutions, and transpositions, respectively
@@ -428,8 +434,9 @@ class DamerauLevenshtein(Distance):
 
         The arguments are identical to those of the levenshtein() function.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param tuple cost: a 4-tuple representing the cost of the four possible
             edits:
             inserts, deletes, substitutions, and transpositions, respectively
@@ -458,8 +465,9 @@ class DamerauLevenshtein(Distance):
 def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
     """Return the Damerau-Levenshtein distance between two strings.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param tuple cost: a 4-tuple representing the cost of the four possible
         edits:
         inserts, deletes, substitutions, and transpositions, respectively
@@ -493,8 +501,9 @@ def dist_damerau(src, tar, cost=(1, 1, 1, 1)):
 
     The arguments are identical to those of the levenshtein() function.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param tuple cost: a 4-tuple representing the cost of the four possible
         edits:
         inserts, deletes, substitutions, and transpositions, respectively
@@ -523,8 +532,9 @@ def sim_damerau(src, tar, cost=(1, 1, 1, 1)):
 
     The arguments are identical to those of the levenshtein() function.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param tuple cost: a 4-tuple representing the cost of the four possible
         edits:
         inserts, deletes, substitutions, and transpositions, respectively
@@ -556,8 +566,10 @@ class Indel(Distance):
     def dist_abs(self, src, tar):
         """Return the indel distance between two strings.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
+
         :returns: indel distance
         :rtype: int
 
@@ -579,8 +591,10 @@ class Indel(Distance):
         This is equivalent to normalized Levenshtein distance, when only
         inserts and deletes are possible.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
+
         :returns: indel distance
         :rtype: float
 
@@ -602,8 +616,10 @@ class Indel(Distance):
 def indel(src, tar):
     """Return the indel distance between two strings.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: indel distance
     :rtype: int
 
@@ -625,8 +641,10 @@ def dist_indel(src, tar):
     This is equivalent to normalized Levenshtein distance, when only inserts
     and deletes are possible.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: indel distance
     :rtype: float
 
@@ -648,8 +666,10 @@ def sim_indel(src, tar):
     This is equivalent to normalized Levenshtein similarity, when only inserts
     and deletes are possible.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: indel similarity
     :rtype: float
 

@@ -63,8 +63,10 @@ class LCSseq(Distance):
         Modifications include:
             conversion to a numpy array in place of a list of lists
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
+
         :returns: the longest common subsequence
         :rtype: str
 
@@ -112,8 +114,10 @@ class LCSseq(Distance):
         This employs the LCSseq function to derive a similarity metric:
         :math:`sim_{LCSseq}(s,t) = \\frac{|LCSseq(s,t)|}{max(|s|, |t|)}`
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
+
         :returns: LCSseq similarity
         :rtype: float
 
@@ -139,8 +143,10 @@ def lcsseq(src, tar):
 
     This is a wrapper for :py:meth:`LCSseq.lcsseq`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: the longest common subsequence
     :rtype: str
 
@@ -161,8 +167,10 @@ def sim_lcsseq(src, tar):
 
     This is a wrapper for :py:meth:`LCSseq.sim`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: LCSseq similarity
     :rtype: float
 
@@ -183,8 +191,10 @@ def dist_lcsseq(src, tar):
 
     This is a wrapper for :py:meth:`LCSseq.dist`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: LCSseq distance
     :rtype: float
 
@@ -218,8 +228,10 @@ class LCSstr(Distance):
             - conversion to a numpy array in place of a list of lists
             - conversion to Python 2/3-safe range from xrange via six
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
+
         :returns: the longest common substring
         :rtype: str
 
@@ -254,8 +266,10 @@ class LCSstr(Distance):
         This employs the LCS function to derive a similarity metric:
         :math:`sim_{LCSstr}(s,t) = \\frac{|LCSstr(s,t)|}{max(|s|, |t|)}`
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
+
         :returns: LCSstr similarity
         :rtype: float
 
@@ -280,8 +294,10 @@ def lcsstr(src, tar):
 
     This is a wrapper for :py:meth:`LCSstr.lcsstr`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: the longest common substring
     :rtype: str
 
@@ -302,8 +318,10 @@ def sim_lcsstr(src, tar):
 
     This is a wrapper for :py:meth:`LCSstr.sim`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: LCSstr similarity
     :rtype: float
 
@@ -324,8 +342,10 @@ def dist_lcsstr(src, tar):
 
     This is a wrapper for :py:meth:`LCSstr.dist`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: LCSstr distance
     :rtype: float
 
@@ -362,8 +382,10 @@ class RatcliffObershelp(Distance):
     def sim(self, src, tar):
         """Return the Ratcliff-Obershelp similarity of two strings.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
+
         :returns: Ratcliff-Obershelp similarity
         :rtype: float
 
@@ -435,8 +457,10 @@ def sim_ratcliff_obershelp(src, tar):
 
     This is a wrapper for :py:meth:`RatcliffObershelp.sim`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: Ratcliff-Obershelp similarity
     :rtype: float
 
@@ -457,8 +481,10 @@ def dist_ratcliff_obershelp(src, tar):
 
     This is a wrapper for :py:meth:`RatcliffObershelp.dist`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: Ratcliff-Obershelp distance
     :rtype: float
 

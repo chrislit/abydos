@@ -44,11 +44,13 @@ class Baystat(Distance):
     def sim(self, src, tar, min_ss_len=None, left_ext=None, right_ext=None):
         """Return the Baystat similarity.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param int min_ss_len: minimum substring length to be considered
         :param int left_ext: left-side extension length
         :param int right_ext: right-side extension length
+
         :returns: the Baystat similarity
         :rtype: float
 
@@ -160,8 +162,9 @@ def sim_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
 
     This is a wrapper for :py:meth:`Baystat.sim`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param int min_ss_len: minimum substring length to be considered
     :param int left_ext: left-side extension length
     :param int right_ext: right-side extension length
@@ -185,8 +188,9 @@ def dist_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
 
     This is a wrapper for :py:meth:`Baystat.dist`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param int min_ss_len: minimum substring length to be considered
     :param int left_ext: left-side extension length
     :param int right_ext: right-side extension length

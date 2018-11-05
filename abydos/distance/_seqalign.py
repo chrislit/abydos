@@ -71,8 +71,9 @@ class NeedlemanWunsch(Distance):
         :math:`[0, 1]`, if values outside that range are present in mat,
         mismatch_cost, or match_cost.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param dict mat: a dict mapping tuples to costs; the tuples are
             (src, tar) pairs of symbols from the alphabet parameter
         :param float mismatch_cost: the value returned if (src, tar) is absent
@@ -85,6 +86,7 @@ class NeedlemanWunsch(Distance):
         :param str alphabet: a collection of tokens from which src and tar are
             drawn; if this is defined a ValueError is raised if either tar or
             src is not found in alphabet
+
         :returns: matrix similarity
         :rtype: float
 
@@ -115,11 +117,13 @@ class NeedlemanWunsch(Distance):
     def dist_abs(self, src, tar, gap_cost=1, sim_func=sim_ident):
         """Return the Needleman-Wunsch score of two strings.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param float gap_cost: the cost of an alignment gap (1 by default)
         :param function sim_func: a function that returns the similarity of two
             characters (identity similarity by default)
+
         :returns: Needleman-Wunsch score
         :rtype: float
 
@@ -153,11 +157,13 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
 
     This is a wrapper for :py:meth:`NeedlemanWunsch.dist_abs`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param float gap_cost: the cost of an alignment gap (1 by default)
     :param function sim_func: a function that returns the similarity of two
         characters (identity similarity by default)
+
     :returns: Needleman-Wunsch score
     :rtype: float
 
@@ -184,11 +190,13 @@ class SmithWaterman(NeedlemanWunsch):
     def dist_abs(self, src, tar, gap_cost=1, sim_func=sim_ident):
         """Return the Smith-Waterman score of two strings.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param float gap_cost: the cost of an alignment gap (1 by default)
         :param function sim_func: a function that returns the similarity of two
             characters (identity similarity by default)
+
         :returns: Smith-Waterman score
         :rtype: float
 
@@ -222,11 +230,13 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
 
     This is a wrapper for :py:meth:`SmithWaterman.dist_abs`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param float gap_cost: the cost of an alignment gap (1 by default)
     :param function sim_func: a function that returns the similarity of two
         characters (identity similarity by default)
+
     :returns: Smith-Waterman score
     :rtype: float
 
@@ -252,13 +262,15 @@ class Gotoh(NeedlemanWunsch):
     def dist_abs(self, src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
         """Return the Gotoh score of two strings.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param float gap_open: the cost of an open alignment gap (1 by default)
         :param float gap_ext: the cost of an alignment gap extension (0.4 by
             default)
         :param function sim_func: a function that returns the similarity of two
             characters (identity similarity by default)
+
         :returns: Gotoh score
         :rtype: float
 
@@ -316,13 +328,15 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
 
     This is a wrapper for :py:meth:`Gotoh.dist_abs`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param float gap_open: the cost of an open alignment gap (1 by default)
     :param float gap_ext: the cost of an alignment gap extension (0.4 by
         default)
     :param function sim_func: a function that returns the similarity of two
         characters (identity similarity by default)
+
     :returns: Gotoh score
     :rtype: float
 

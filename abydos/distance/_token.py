@@ -101,14 +101,14 @@ class Tversky(TokenDistance):
     def sim(self, src, tar, qval=2, alpha=1, beta=1, bias=None):
         """Return the Tversky index of two strings.
 
-        :param str src: source string (or QGrams/Counter objects) for
-            comparison
-        :param str tar: target string (or QGrams/Counter objects) for
-            comparison
+        Args:
+            src (str): Source string (or QGrams/Counter objects) for comparison
+            tar (str): Target string (or QGrams/Counter objects) for comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
         :param float alpha: Tversky index parameter as described above
         :param float beta: Tversky index parameter as described above
         :param float bias: The symmetric Tversky index bias parameter
+
         :returns: Tversky similarity
         :rtype: float
 
@@ -163,12 +163,14 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
 
     This is a wrapper for :py:meth:`Tversky.sim`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
     :param float alpha: Tversky index parameter as described above
     :param float beta: Tversky index parameter as described above
     :param float bias: The symmetric Tversky index bias parameter
+
     :returns: Tversky similarity
     :rtype: float
 
@@ -189,13 +191,15 @@ def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
 
     This is a wrapper for :py:meth:`Tversky.dist`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram
         version
     :param float alpha: the Tversky index's alpha parameter
     :param float beta: the Tversky index's beta parameter
     :param float bias: The symmetric Tversky index bias parameter
+
     :returns: Tversky distance
     :rtype: float
 
@@ -226,12 +230,12 @@ class Dice(Tversky):
     def sim(self, src, tar, qval=2):
         """Return the Sørensen–Dice coefficient of two strings.
 
-        :param str src: source string (or QGrams/Counter objects) for
-            comparison
-        :param str tar: target string (or QGrams/Counter objects) for
-            comparison
+        Args:
+            src (str): Source string (or QGrams/Counter objects) for comparison
+            tar (str): Target string (or QGrams/Counter objects) for comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram
             version
+
         :returns: Sørensen–Dice similarity
         :rtype: float
 
@@ -253,10 +257,12 @@ def sim_dice(src, tar, qval=2):
 
     This is a wrapper for :py:meth:`Dice.sim`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram
         version
+
     :returns: Sørensen–Dice similarity
     :rtype: float
 
@@ -277,10 +283,12 @@ def dist_dice(src, tar, qval=2):
 
     This is a wrapper for :py:meth:`Dice.dist`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram
         version
+
     :returns: Sørensen–Dice distance
     :rtype: float
 
@@ -312,12 +320,12 @@ class Jaccard(Tversky):
     def sim(self, src, tar, qval=2):
         r"""Return the Jaccard similarity of two strings.
 
-        :param str src: source string (or QGrams/Counter objects) for
-            comparison
-        :param str tar: target string (or QGrams/Counter objects) for
-            comparison
+        Args:
+            src (str): Source string (or QGrams/Counter objects) for comparison
+            tar (str): Target string (or QGrams/Counter objects) for comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram
             version
+
         :returns: Jaccard similarity
         :rtype: float
 
@@ -339,11 +347,11 @@ class Jaccard(Tversky):
         Tanimoto distance :cite:`Tanimoto:1958` is
         :math:`-log_{2}sim_{Tanimoto}`.
 
-        :param str src: source string (or QGrams/Counter objects) for
-            comparison
-        :param str tar: target string (or QGrams/Counter objects) for
-            comparison
+        Args:
+            src (str): Source string (or QGrams/Counter objects) for comparison
+            tar (str): Target string (or QGrams/Counter objects) for comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
+
         :returns: Tanimoto distance
         :rtype: float
 
@@ -369,10 +377,12 @@ def sim_jaccard(src, tar, qval=2):
 
     This is a wrapper for :py:meth:`Jaccard.sim`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram
         version
+
     :returns: Jaccard similarity
     :rtype: float
 
@@ -393,9 +403,11 @@ def dist_jaccard(src, tar, qval=2):
 
     This is a wrapper for :py:meth:`Jaccard.dist`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
+
     :returns: Jaccard distance
     :rtype: float
 
@@ -417,9 +429,11 @@ def tanimoto(src, tar, qval=2):
     The Tanimoto coefficient :cite:`Tanimoto:1958` is
     :math:`-log_{2}sim_{Tanimoto}`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
+
     :returns: Tanimoto distance
     :rtype: float
 
@@ -447,11 +461,11 @@ class Overlap(TokenDistance):
     def sim(self, src, tar, qval=2):
         r"""Return the overlap coefficient of two strings.
 
-        :param str src: source string (or QGrams/Counter objects) for
-            comparison
-        :param str tar: target string (or QGrams/Counter objects) for
-            comparison
+        Args:
+            src (str): Source string (or QGrams/Counter objects) for comparison
+            tar (str): Target string (or QGrams/Counter objects) for comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
+
         :returns: overlap similarity
         :rtype: float
 
@@ -483,9 +497,11 @@ def sim_overlap(src, tar, qval=2):
 
     This is a wrapper for :py:meth:`Overlap.sim`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
+
     :returns: overlap similarity
     :rtype: float
 
@@ -506,9 +522,11 @@ def dist_overlap(src, tar, qval=2):
 
     This is a wrapper for :py:meth:`Overlap.dist`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
+
     :returns: overlap distance
     :rtype: float
 
@@ -535,11 +553,11 @@ class Cosine(TokenDistance):
     def sim(self, src, tar, qval=2):
         r"""Return the cosine similarity of two strings.
 
-        :param str src: source string (or QGrams/Counter objects) for
-            comparison
-        :param str tar: target string (or QGrams/Counter objects) for
-            comparison
+        Args:
+            src (str): Source string (or QGrams/Counter objects) for comparison
+            tar (str): Target string (or QGrams/Counter objects) for comparison
         :param int qval: the length of each q-gram; 0 for non-q-gram version
+
         :returns: cosine similarity
         :rtype: float
 
@@ -569,9 +587,11 @@ class Cosine(TokenDistance):
 def sim_cosine(src, tar, qval=2):
     r"""Return the cosine similarity of two strings.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
+
     :returns: cosine similarity
     :rtype: float
 
@@ -593,9 +613,11 @@ def dist_cosine(src, tar, qval=2):
     Cosine distance is the complement of cosine similarity:
     :math:`dist_{cosine} = 1 - sim_{cosine}`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
     :param int qval: the length of each q-gram; 0 for non-q-gram version
+
     :returns: cosine distance
     :rtype: float
 
@@ -621,8 +643,10 @@ class Bag(TokenDistance):
     def dist_abs(self, src, tar):
         """Return the bag distance between two strings.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
+
         :returns: bag distance
         :rtype: int
 
@@ -659,8 +683,10 @@ class Bag(TokenDistance):
 
         Bag distance is normalized by dividing by :math:`max( |src|, |tar| )`.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
+
         :returns: normalized bag distance
         :rtype: float
 
@@ -687,8 +713,10 @@ class Bag(TokenDistance):
 def bag(src, tar):
     """Return the bag distance between two strings.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: bag distance
     :rtype: int
 
@@ -713,8 +741,10 @@ def dist_bag(src, tar):
 
     Bag distance is normalized by dividing by :math:`max( |src|, |tar| )`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: normalized bag distance
     :rtype: float
 
@@ -736,8 +766,10 @@ def sim_bag(src, tar):
     Normalized bag similarity is the complement of normalized bag distance:
     :math:`sim_{bag} = 1 - dist_{bag}`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: normalized bag similarity
     :rtype: float
 
@@ -769,10 +801,12 @@ class MongeElkan(Distance):
     def sim(self, src, tar, sim_func=sim_levenshtein, symmetric=False):
         """Return the Monge-Elkan similarity of two strings.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param function sim_func: the internal similarity metric to employ
         :param bool symmetric: return a symmetric similarity measure
+
         :returns: Monge-Elkan similarity
         :rtype: float
 
@@ -814,10 +848,12 @@ def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
 
     This is a wrapper for :py:meth:`MongeElkan.sim`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param function sim_func: the internal similarity metric to employ
     :param bool symmetric: return a symmetric similarity measure
+
     :returns: Monge-Elkan similarity
     :rtype: float
 
@@ -838,10 +874,12 @@ def dist_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
 
     This is a wrapper for :py:meth:`MongeElkan.dist`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param function sim_func: the internal similarity metric to employ
     :param bool symmetric: return a symmetric similarity measure
+
     :returns: Monge-Elkan distance
     :rtype: float
 

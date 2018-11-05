@@ -61,12 +61,14 @@ class Editex(Distance):
     def dist_abs(self, src, tar, cost=(0, 1, 2), local=False):
         """Return the Editex distance between two strings.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param tuple cost: a 3-tuple representing the cost of the four possible
             edits: match, same-group, and mismatch respectively (by default:
             (0, 1, 2))
         :param bool local: if True, the local variant of Editex is used
+
         :returns: Editex distance
         :rtype: int
 
@@ -144,12 +146,14 @@ class Editex(Distance):
         For the case in which all operations have :math:`cost = 1`, this is
         equivalent to the greater of the length of the two strings src & tar.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param tuple cost: a 3-tuple representing the cost of the four possible
             edits: match, same-group, and mismatch respectively (by default:
             (0, 1, 2))
         :param bool local: if True, the local variant of Editex is used
+
         :returns: normalized Editex distance
         :rtype: float
 
@@ -174,12 +178,14 @@ class Editex(Distance):
 def editex(src, tar, cost=(0, 1, 2), local=False):
     """Return the Editex distance between two strings.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param tuple cost: a 3-tuple representing the cost of the four possible
         edits:
         match, same-group, and mismatch respectively (by default: (0, 1, 2))
     :param bool local: if True, the local variant of Editex is used
+
     :returns: Editex distance
     :rtype: int
 
@@ -200,12 +206,14 @@ def dist_editex(src, tar, cost=(0, 1, 2), local=False):
 
     This is a wrapper for :py:meth:`Editex.dist`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param tuple cost: a 3-tuple representing the cost of the four possible
         edits:
         match, same-group, and mismatch respectively (by default: (0, 1, 2))
     :param bool local: if True, the local variant of Editex is used
+
     :returns: normalized Editex distance
     :rtype: float
 
@@ -226,14 +234,17 @@ def sim_editex(src, tar, cost=(0, 1, 2), local=False):
 
     This is a wrapper for :py:meth:`Editex.sim`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param tuple cost: a 3-tuple representing the cost of the four possible
         edits:
         match, same-group, and mismatch respectively (by default: (0, 1, 2))
     :param bool local: if True, the local variant of Editex is used
+
     :returns: normalized Editex similarity
     :rtype: float
+
     >>> round(sim_editex('cat', 'hat'), 12)
     0.666666666667
     >>> round(sim_editex('Niall', 'Neil'), 12)

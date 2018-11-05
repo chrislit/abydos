@@ -73,10 +73,12 @@ class NCDarith(Distance):
     def dist(self, src, tar, probs=None):
         """Return the NCD between two strings using arithmetic coding.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
         :param dict probs: a dictionary trained with
             :py:meth:`Arithmetic.train`
+
         :returns: compression distance
         :rtype: float
 
@@ -114,9 +116,11 @@ def dist_ncd_arith(src, tar, probs=None):
 
     This is a wrapper for :py:meth:`NCDarith.dist`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param dict probs: a dictionary trained with :py:meth:`Arithmetic.train`
+
     :returns: compression distance
     :rtype: float
 
@@ -137,9 +141,11 @@ def sim_ncd_arith(src, tar, probs=None):
 
     This is a wrapper for :py:meth:`NCDarith.sim`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
     :param dict probs: a dictionary trained with :py:meth:`Arithmetic.train`
+
     :returns: compression similarity
     :rtype: float
 
@@ -166,8 +172,10 @@ class NCDrle(Distance):
     def dist(self, src, tar):
         """Return the NCD between two strings using RLE.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
+
         :returns: compression distance
         :rtype: float
 
@@ -200,8 +208,10 @@ def dist_ncd_rle(src, tar):
 
     This is a wrapper for :py:meth:`NCDrle.dist`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: compression distance
     :rtype: float
 
@@ -222,8 +232,10 @@ def sim_ncd_rle(src, tar):
 
     This is a wrapper for :py:meth:`NCDrle.sim`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: compression similarity
     :rtype: float
 
@@ -250,8 +262,10 @@ class NCDbwtrle(NCDrle):
     def dist(self, src, tar):
         """Return the NCD between two strings using BWT plus RLE.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
+
         :returns: compression distance
         :rtype: float
 
@@ -284,8 +298,10 @@ def dist_ncd_bwtrle(src, tar):
 
     This is a wrapper for :py:meth:`NCDbwtrle.dist`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: compression distance
     :rtype: float
 
@@ -306,8 +322,10 @@ def sim_ncd_bwtrle(src, tar):
 
     This is a wrapper for :py:meth:`NCDbwtrle.sim`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: compression similarity
     :rtype: float
 
@@ -341,8 +359,10 @@ class NCDzlib(Distance):
     def dist(self, src, tar):
         """Return the NCD between two strings using zlib compression.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
+
         :returns: compression distance
         :rtype: float
 
@@ -382,8 +402,10 @@ def dist_ncd_zlib(src, tar):
 
     This is a wrapper for :py:meth:`NCDzlib.dist`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: compression distance
     :rtype: float
 
@@ -404,8 +426,10 @@ def sim_ncd_zlib(src, tar):
 
     This is a wrapper for :py:meth:`NCDzlib.sim`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: compression similarity
     :rtype: float
 
@@ -439,8 +463,10 @@ class NCDbz2(Distance):
     def dist(self, src, tar):
         """Return the NCD between two strings using bz2 compression.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
+
         :returns: compression distance
         :rtype: float
 
@@ -476,8 +502,10 @@ def dist_ncd_bz2(src, tar):
 
     This is a wrapper for :py:meth:`NCDbz2.dist`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: compression distance
     :rtype: float
 
@@ -498,8 +526,10 @@ def sim_ncd_bz2(src, tar):
 
     This is a wrapper for :py:meth:`NCDbz2.sim`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: compression similarity
     :rtype: float
 
@@ -524,8 +554,10 @@ class NCDlzma(Distance):
     def dist(self, src, tar):
         """Return the NCD between two strings using lzma compression.
 
-        :param str src: source string for comparison
-        :param str tar: target string for comparison
+        Args:
+            src (str): Source string for comparison
+            tar (str): Target string for comparison
+
         :returns: compression distance
         :rtype: float
 
@@ -566,8 +598,10 @@ def dist_ncd_lzma(src, tar):
 
     This is a wrapper for :py:meth:`NCDlzma.dist`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: compression distance
     :rtype: float
 
@@ -588,8 +622,10 @@ def sim_ncd_lzma(src, tar):
 
     This is a wrapper for :py:meth:`NCDlzma.sim`.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
+    Args:
+        src (str): Source string for comparison
+        tar (str): Target string for comparison
+
     :returns: compression similarity
     :rtype: float
 
