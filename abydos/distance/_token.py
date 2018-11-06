@@ -104,23 +104,25 @@ class Tversky(TokenDistance):
         Args:
             src (str): Source string (or QGrams/Counter objects) for comparison
             tar (str): Target string (or QGrams/Counter objects) for comparison
-        :param int qval: the length of each q-gram; 0 for non-q-gram version
-        :param float alpha: Tversky index parameter as described above
-        :param float beta: Tversky index parameter as described above
-        :param float bias: The symmetric Tversky index bias parameter
+            qval (int): The length of each q-gram; 0 for non-q-gram version
+            alpha (float): Tversky index parameter as described above
+            beta (float): Tversky index parameter as described above
+            bias (float): The symmetric Tversky index bias parameter
 
-        :returns: Tversky similarity
-        :rtype: float
+        Returns:
+            float: Tversky similarity
 
-        >>> cmp = Tversky()
-        >>> cmp.sim('cat', 'hat')
-        0.3333333333333333
-        >>> cmp.sim('Niall', 'Neil')
-        0.2222222222222222
-        >>> cmp.sim('aluminum', 'Catalan')
-        0.0625
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        Examples:
+            >>> cmp = Tversky()
+            >>> cmp.sim('cat', 'hat')
+            0.3333333333333333
+            >>> cmp.sim('Niall', 'Neil')
+            0.2222222222222222
+            >>> cmp.sim('aluminum', 'Catalan')
+            0.0625
+            >>> cmp.sim('ATCG', 'TAGC')
+            0.0
+
         """
         if alpha < 0 or beta < 0:
             raise ValueError(
@@ -166,22 +168,24 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param float alpha: Tversky index parameter as described above
-    :param float beta: Tversky index parameter as described above
-    :param float bias: The symmetric Tversky index bias parameter
+        qval (int): The length of each q-gram; 0 for non-q-gram version
+        alpha (float): Tversky index parameter as described above
+        beta (float): Tversky index parameter as described above
+        bias (float): The symmetric Tversky index bias parameter
 
-    :returns: Tversky similarity
-    :rtype: float
+    Returns:
+        float: Tversky similarity
 
-    >>> sim_tversky('cat', 'hat')
-    0.3333333333333333
-    >>> sim_tversky('Niall', 'Neil')
-    0.2222222222222222
-    >>> sim_tversky('aluminum', 'Catalan')
-    0.0625
-    >>> sim_tversky('ATCG', 'TAGC')
-    0.0
+    Examples:
+        >>> sim_tversky('cat', 'hat')
+        0.3333333333333333
+        >>> sim_tversky('Niall', 'Neil')
+        0.2222222222222222
+        >>> sim_tversky('aluminum', 'Catalan')
+        0.0625
+        >>> sim_tversky('ATCG', 'TAGC')
+        0.0
+
     """
     return Tversky().sim(src, tar, qval, alpha, beta, bias)
 
@@ -194,23 +198,24 @@ def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram
-        version
-    :param float alpha: the Tversky index's alpha parameter
-    :param float beta: the Tversky index's beta parameter
-    :param float bias: The symmetric Tversky index bias parameter
+        qval (int): The length of each q-gram; 0 for non-q-gram version
+        alpha (float): Tversky index parameter as described above
+        beta (float): Tversky index parameter as described above
+        bias (float): The symmetric Tversky index bias parameter
 
-    :returns: Tversky distance
-    :rtype: float
+    Returns:
+        float: Tversky distance
 
-    >>> dist_tversky('cat', 'hat')
-    0.6666666666666667
-    >>> dist_tversky('Niall', 'Neil')
-    0.7777777777777778
-    >>> dist_tversky('aluminum', 'Catalan')
-    0.9375
-    >>> dist_tversky('ATCG', 'TAGC')
-    1.0
+    Examples:
+        >>> dist_tversky('cat', 'hat')
+        0.6666666666666667
+        >>> dist_tversky('Niall', 'Neil')
+        0.7777777777777778
+        >>> dist_tversky('aluminum', 'Catalan')
+        0.9375
+        >>> dist_tversky('ATCG', 'TAGC')
+        1.0
+
     """
     return Tversky().dist(src, tar, qval, alpha, beta, bias)
 
@@ -233,21 +238,22 @@ class Dice(Tversky):
         Args:
             src (str): Source string (or QGrams/Counter objects) for comparison
             tar (str): Target string (or QGrams/Counter objects) for comparison
-        :param int qval: the length of each q-gram; 0 for non-q-gram
-            version
+            qval (int): The length of each q-gram; 0 for non-q-gram version
 
-        :returns: Sørensen–Dice similarity
-        :rtype: float
+        Returns:
+            float: Sørensen–Dice similarity
 
-        >>> cmp = Dice()
-        >>> cmp.sim('cat', 'hat')
-        0.5
-        >>> cmp.sim('Niall', 'Neil')
-        0.36363636363636365
-        >>> cmp.sim('aluminum', 'Catalan')
-        0.11764705882352941
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        Examples:
+            >>> cmp = Dice()
+            >>> cmp.sim('cat', 'hat')
+            0.5
+            >>> cmp.sim('Niall', 'Neil')
+            0.36363636363636365
+            >>> cmp.sim('aluminum', 'Catalan')
+            0.11764705882352941
+            >>> cmp.sim('ATCG', 'TAGC')
+            0.0
+
         """
         return super(self.__class__, self).sim(src, tar, qval, 0.5, 0.5)
 
@@ -260,20 +266,21 @@ def sim_dice(src, tar, qval=2):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram
-        version
+        qval (int): The length of each q-gram; 0 for non-q-gram version
 
-    :returns: Sørensen–Dice similarity
-    :rtype: float
+    Returns:
+        float: Sørensen–Dice similarity
 
-    >>> sim_dice('cat', 'hat')
-    0.5
-    >>> sim_dice('Niall', 'Neil')
-    0.36363636363636365
-    >>> sim_dice('aluminum', 'Catalan')
-    0.11764705882352941
-    >>> sim_dice('ATCG', 'TAGC')
-    0.0
+    Examples:
+        >>> sim_dice('cat', 'hat')
+        0.5
+        >>> sim_dice('Niall', 'Neil')
+        0.36363636363636365
+        >>> sim_dice('aluminum', 'Catalan')
+        0.11764705882352941
+        >>> sim_dice('ATCG', 'TAGC')
+        0.0
+
     """
     return Dice().sim(src, tar, qval)
 
@@ -286,20 +293,21 @@ def dist_dice(src, tar, qval=2):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram
-        version
+        qval (int): The length of each q-gram; 0 for non-q-gram version
 
-    :returns: Sørensen–Dice distance
-    :rtype: float
+    Returns:
+        float: Sørensen–Dice distance
 
-    >>> dist_dice('cat', 'hat')
-    0.5
-    >>> dist_dice('Niall', 'Neil')
-    0.6363636363636364
-    >>> dist_dice('aluminum', 'Catalan')
-    0.8823529411764706
-    >>> dist_dice('ATCG', 'TAGC')
-    1.0
+    Examples:
+        >>> dist_dice('cat', 'hat')
+        0.5
+        >>> dist_dice('Niall', 'Neil')
+        0.6363636363636364
+        >>> dist_dice('aluminum', 'Catalan')
+        0.8823529411764706
+        >>> dist_dice('ATCG', 'TAGC')
+        1.0
+
     """
     return Dice().dist(src, tar, qval)
 
@@ -323,21 +331,22 @@ class Jaccard(Tversky):
         Args:
             src (str): Source string (or QGrams/Counter objects) for comparison
             tar (str): Target string (or QGrams/Counter objects) for comparison
-        :param int qval: the length of each q-gram; 0 for non-q-gram
-            version
+            qval (int): The length of each q-gram; 0 for non-q-gram version
 
-        :returns: Jaccard similarity
-        :rtype: float
+        Returns:
+            float: Jaccard similarity
 
-        >>> cmp = Jaccard()
-        >>> cmp.sim('cat', 'hat')
-        0.3333333333333333
-        >>> cmp.sim('Niall', 'Neil')
-        0.2222222222222222
-        >>> cmp.sim('aluminum', 'Catalan')
-        0.0625
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        Examples:
+            >>> cmp = Jaccard()
+            >>> cmp.sim('cat', 'hat')
+            0.3333333333333333
+            >>> cmp.sim('Niall', 'Neil')
+            0.2222222222222222
+            >>> cmp.sim('aluminum', 'Catalan')
+            0.0625
+            >>> cmp.sim('ATCG', 'TAGC')
+            0.0
+
         """
         return super(self.__class__, self).sim(src, tar, qval, 1, 1)
 
@@ -350,20 +359,22 @@ class Jaccard(Tversky):
         Args:
             src (str): Source string (or QGrams/Counter objects) for comparison
             tar (str): Target string (or QGrams/Counter objects) for comparison
-        :param int qval: the length of each q-gram; 0 for non-q-gram version
+            qval (int): The length of each q-gram; 0 for non-q-gram version
 
-        :returns: Tanimoto distance
-        :rtype: float
+        Returns:
+            float: Tanimoto distance
 
-        >>> cmp = Jaccard()
-        >>> cmp.tanimoto_coeff('cat', 'hat')
-        -1.5849625007211563
-        >>> cmp.tanimoto_coeff('Niall', 'Neil')
-        -2.1699250014423126
-        >>> cmp.tanimoto_coeff('aluminum', 'Catalan')
-        -4.0
-        >>> cmp.tanimoto_coeff('ATCG', 'TAGC')
-        -inf
+        Examples:
+            >>> cmp = Jaccard()
+            >>> cmp.tanimoto_coeff('cat', 'hat')
+            -1.5849625007211563
+            >>> cmp.tanimoto_coeff('Niall', 'Neil')
+            -2.1699250014423126
+            >>> cmp.tanimoto_coeff('aluminum', 'Catalan')
+            -4.0
+            >>> cmp.tanimoto_coeff('ATCG', 'TAGC')
+            -inf
+
         """
         coeff = self.sim(src, tar, qval)
         if coeff != 0:
@@ -380,20 +391,21 @@ def sim_jaccard(src, tar, qval=2):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram
-        version
+        qval (int): The length of each q-gram; 0 for non-q-gram version
 
-    :returns: Jaccard similarity
-    :rtype: float
+    Returns:
+        float: Jaccard similarity
 
-    >>> sim_jaccard('cat', 'hat')
-    0.3333333333333333
-    >>> sim_jaccard('Niall', 'Neil')
-    0.2222222222222222
-    >>> sim_jaccard('aluminum', 'Catalan')
-    0.0625
-    >>> sim_jaccard('ATCG', 'TAGC')
-    0.0
+    Examples:
+        >>> sim_jaccard('cat', 'hat')
+        0.3333333333333333
+        >>> sim_jaccard('Niall', 'Neil')
+        0.2222222222222222
+        >>> sim_jaccard('aluminum', 'Catalan')
+        0.0625
+        >>> sim_jaccard('ATCG', 'TAGC')
+        0.0
+
     """
     return Jaccard().sim(src, tar, qval)
 
@@ -406,19 +418,21 @@ def dist_jaccard(src, tar, qval=2):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
+        qval (int): The length of each q-gram; 0 for non-q-gram version
 
-    :returns: Jaccard distance
-    :rtype: float
+    Returns:
+        float: Jaccard distance
 
-    >>> dist_jaccard('cat', 'hat')
-    0.6666666666666667
-    >>> dist_jaccard('Niall', 'Neil')
-    0.7777777777777778
-    >>> dist_jaccard('aluminum', 'Catalan')
-    0.9375
-    >>> dist_jaccard('ATCG', 'TAGC')
-    1.0
+    Examples:
+        >>> dist_jaccard('cat', 'hat')
+        0.6666666666666667
+        >>> dist_jaccard('Niall', 'Neil')
+        0.7777777777777778
+        >>> dist_jaccard('aluminum', 'Catalan')
+        0.9375
+        >>> dist_jaccard('ATCG', 'TAGC')
+        1.0
+
     """
     return Jaccard().dist(src, tar, qval)
 
@@ -432,19 +446,21 @@ def tanimoto(src, tar, qval=2):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
+        qval (int): The length of each q-gram; 0 for non-q-gram version
 
-    :returns: Tanimoto distance
-    :rtype: float
+    Returns:
+        float: Tanimoto distance
 
-    >>> tanimoto('cat', 'hat')
-    -1.5849625007211563
-    >>> tanimoto('Niall', 'Neil')
-    -2.1699250014423126
-    >>> tanimoto('aluminum', 'Catalan')
-    -4.0
-    >>> tanimoto('ATCG', 'TAGC')
-    -inf
+    Examples:
+        >>> tanimoto('cat', 'hat')
+        -1.5849625007211563
+        >>> tanimoto('Niall', 'Neil')
+        -2.1699250014423126
+        >>> tanimoto('aluminum', 'Catalan')
+        -4.0
+        >>> tanimoto('ATCG', 'TAGC')
+        -inf
+
     """
     return Jaccard().tanimoto_coeff(src, tar, qval)
 
@@ -464,20 +480,22 @@ class Overlap(TokenDistance):
         Args:
             src (str): Source string (or QGrams/Counter objects) for comparison
             tar (str): Target string (or QGrams/Counter objects) for comparison
-        :param int qval: the length of each q-gram; 0 for non-q-gram version
+            qval (int): The length of each q-gram; 0 for non-q-gram version
 
-        :returns: overlap similarity
-        :rtype: float
+        Returns:
+            float: Overlap similarity
 
-        >>> cmp = Overlap()
-        >>> cmp.sim('cat', 'hat')
-        0.5
-        >>> cmp.sim('Niall', 'Neil')
-        0.4
-        >>> cmp.sim('aluminum', 'Catalan')
-        0.125
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        Examples:
+            >>> cmp = Overlap()
+            >>> cmp.sim('cat', 'hat')
+            0.5
+            >>> cmp.sim('Niall', 'Neil')
+            0.4
+            >>> cmp.sim('aluminum', 'Catalan')
+            0.125
+            >>> cmp.sim('ATCG', 'TAGC')
+            0.0
+
         """
         if src == tar:
             return 1.0
@@ -500,19 +518,21 @@ def sim_overlap(src, tar, qval=2):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
+        qval (int): The length of each q-gram; 0 for non-q-gram version
 
-    :returns: overlap similarity
-    :rtype: float
+    Returns:
+        float: Overlap similarity
 
-    >>> sim_overlap('cat', 'hat')
-    0.5
-    >>> sim_overlap('Niall', 'Neil')
-    0.4
-    >>> sim_overlap('aluminum', 'Catalan')
-    0.125
-    >>> sim_overlap('ATCG', 'TAGC')
-    0.0
+    Examples:
+        >>> sim_overlap('cat', 'hat')
+        0.5
+        >>> sim_overlap('Niall', 'Neil')
+        0.4
+        >>> sim_overlap('aluminum', 'Catalan')
+        0.125
+        >>> sim_overlap('ATCG', 'TAGC')
+        0.0
+
     """
     return Overlap().sim(src, tar, qval)
 
@@ -525,19 +545,21 @@ def dist_overlap(src, tar, qval=2):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
+        qval (int): The length of each q-gram; 0 for non-q-gram version
 
-    :returns: overlap distance
-    :rtype: float
+    Returns:
+        float: Overlap distance
 
-    >>> dist_overlap('cat', 'hat')
-    0.5
-    >>> dist_overlap('Niall', 'Neil')
-    0.6
-    >>> dist_overlap('aluminum', 'Catalan')
-    0.875
-    >>> dist_overlap('ATCG', 'TAGC')
-    1.0
+    Examples:
+        >>> dist_overlap('cat', 'hat')
+        0.5
+        >>> dist_overlap('Niall', 'Neil')
+        0.6
+        >>> dist_overlap('aluminum', 'Catalan')
+        0.875
+        >>> dist_overlap('ATCG', 'TAGC')
+        1.0
+
     """
     return Overlap().dist(src, tar, qval)
 
@@ -556,20 +578,22 @@ class Cosine(TokenDistance):
         Args:
             src (str): Source string (or QGrams/Counter objects) for comparison
             tar (str): Target string (or QGrams/Counter objects) for comparison
-        :param int qval: the length of each q-gram; 0 for non-q-gram version
+            qval (int): The length of each q-gram; 0 for non-q-gram version
 
-        :returns: cosine similarity
-        :rtype: float
+        Returns:
+            float: Cosine similarity
 
-        >>> cmp = Cosine()
-        >>> cmp.sim('cat', 'hat')
-        0.5
-        >>> cmp.sim('Niall', 'Neil')
-        0.3651483716701107
-        >>> cmp.sim('aluminum', 'Catalan')
-        0.11785113019775793
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        Examples:
+            >>> cmp = Cosine()
+            >>> cmp.sim('cat', 'hat')
+            0.5
+            >>> cmp.sim('Niall', 'Neil')
+            0.3651483716701107
+            >>> cmp.sim('aluminum', 'Catalan')
+            0.11785113019775793
+            >>> cmp.sim('ATCG', 'TAGC')
+            0.0
+
         """
         if src == tar:
             return 1.0
@@ -590,19 +614,21 @@ def sim_cosine(src, tar, qval=2):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
+        qval (int): The length of each q-gram; 0 for non-q-gram version
 
-    :returns: cosine similarity
-    :rtype: float
+    Returns:
+        float: Cosine similarity
 
-    >>> sim_cosine('cat', 'hat')
-    0.5
-    >>> sim_cosine('Niall', 'Neil')
-    0.3651483716701107
-    >>> sim_cosine('aluminum', 'Catalan')
-    0.11785113019775793
-    >>> sim_cosine('ATCG', 'TAGC')
-    0.0
+    Examples:
+        >>> sim_cosine('cat', 'hat')
+        0.5
+        >>> sim_cosine('Niall', 'Neil')
+        0.3651483716701107
+        >>> sim_cosine('aluminum', 'Catalan')
+        0.11785113019775793
+        >>> sim_cosine('ATCG', 'TAGC')
+        0.0
+
     """
     return Cosine().sim(src, tar, qval)
 
@@ -616,19 +642,21 @@ def dist_cosine(src, tar, qval=2):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
+        qval (int): The length of each q-gram; 0 for non-q-gram version
 
-    :returns: cosine distance
-    :rtype: float
+    Returns:
+        float: Cosine distance
 
-    >>> dist_cosine('cat', 'hat')
-    0.5
-    >>> dist_cosine('Niall', 'Neil')
-    0.6348516283298893
-    >>> dist_cosine('aluminum', 'Catalan')
-    0.882148869802242
-    >>> dist_cosine('ATCG', 'TAGC')
-    1.0
+    Examples:
+        >>> dist_cosine('cat', 'hat')
+        0.5
+        >>> dist_cosine('Niall', 'Neil')
+        0.6348516283298893
+        >>> dist_cosine('aluminum', 'Catalan')
+        0.882148869802242
+        >>> dist_cosine('ATCG', 'TAGC')
+        1.0
+
     """
     return Cosine().dist(src, tar, qval)
 
@@ -647,22 +675,24 @@ class Bag(TokenDistance):
             src (str): Source string for comparison
             tar (str): Target string for comparison
 
-        :returns: bag distance
-        :rtype: int
+        Returns:
+            int: Bag distance
 
-        >>> cmp = Bag()
-        >>> cmp.dist_abs('cat', 'hat')
-        1
-        >>> cmp.dist_abs('Niall', 'Neil')
-        2
-        >>> cmp.dist_abs('aluminum', 'Catalan')
-        5
-        >>> cmp.dist_abs('ATCG', 'TAGC')
-        0
-        >>> cmp.dist_abs('abcdefg', 'hijklm')
-        7
-        >>> cmp.dist_abs('abcdefg', 'hijklmno')
-        8
+        Examples:
+            >>> cmp = Bag()
+            >>> cmp.dist_abs('cat', 'hat')
+            1
+            >>> cmp.dist_abs('Niall', 'Neil')
+            2
+            >>> cmp.dist_abs('aluminum', 'Catalan')
+            5
+            >>> cmp.dist_abs('ATCG', 'TAGC')
+            0
+            >>> cmp.dist_abs('abcdefg', 'hijklm')
+            7
+            >>> cmp.dist_abs('abcdefg', 'hijklmno')
+            8
+
         """
         if tar == src:
             return 0
@@ -687,18 +717,20 @@ class Bag(TokenDistance):
             src (str): Source string for comparison
             tar (str): Target string for comparison
 
-        :returns: normalized bag distance
-        :rtype: float
+        Returns:
+            float: Normalized bag distance
 
-        >>> cmp = Bag()
-        >>> cmp.dist('cat', 'hat')
-        0.3333333333333333
-        >>> cmp.dist('Niall', 'Neil')
-        0.4
-        >>> cmp.dist('aluminum', 'Catalan')
-        0.625
-        >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        Examples:
+            >>> cmp = Bag()
+            >>> cmp.dist('cat', 'hat')
+            0.3333333333333333
+            >>> cmp.dist('Niall', 'Neil')
+            0.4
+            >>> cmp.dist('aluminum', 'Catalan')
+            0.625
+            >>> cmp.dist('ATCG', 'TAGC')
+            0.0
+
         """
         if tar == src:
             return 0.0
@@ -717,21 +749,23 @@ def bag(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: bag distance
-    :rtype: int
+    Returns:
+        int: Bag distance
 
-    >>> bag('cat', 'hat')
-    1
-    >>> bag('Niall', 'Neil')
-    2
-    >>> bag('aluminum', 'Catalan')
-    5
-    >>> bag('ATCG', 'TAGC')
-    0
-    >>> bag('abcdefg', 'hijklm')
-    7
-    >>> bag('abcdefg', 'hijklmno')
-    8
+    Examples:
+        >>> bag('cat', 'hat')
+        1
+        >>> bag('Niall', 'Neil')
+        2
+        >>> bag('aluminum', 'Catalan')
+        5
+        >>> bag('ATCG', 'TAGC')
+        0
+        >>> bag('abcdefg', 'hijklm')
+        7
+        >>> bag('abcdefg', 'hijklmno')
+        8
+
     """
     return Bag().dist_abs(src, tar)
 
@@ -745,17 +779,19 @@ def dist_bag(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: normalized bag distance
-    :rtype: float
+    Returns:
+        float: Normalized bag distance
 
-    >>> dist_bag('cat', 'hat')
-    0.3333333333333333
-    >>> dist_bag('Niall', 'Neil')
-    0.4
-    >>> dist_bag('aluminum', 'Catalan')
-    0.625
-    >>> dist_bag('ATCG', 'TAGC')
-    0.0
+    Examples:
+        >>> dist_bag('cat', 'hat')
+        0.3333333333333333
+        >>> dist_bag('Niall', 'Neil')
+        0.4
+        >>> dist_bag('aluminum', 'Catalan')
+        0.625
+        >>> dist_bag('ATCG', 'TAGC')
+        0.0
+
     """
     return Bag().dist(src, tar)
 
@@ -770,17 +806,19 @@ def sim_bag(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: normalized bag similarity
-    :rtype: float
+    Returns:
+        float: Normalized bag similarity
 
-    >>> round(sim_bag('cat', 'hat'), 12)
-    0.666666666667
-    >>> sim_bag('Niall', 'Neil')
-    0.6
-    >>> sim_bag('aluminum', 'Catalan')
-    0.375
-    >>> sim_bag('ATCG', 'TAGC')
-    1.0
+    Examples:
+        >>> round(sim_bag('cat', 'hat'), 12)
+        0.666666666667
+        >>> sim_bag('Niall', 'Neil')
+        0.6
+        >>> sim_bag('aluminum', 'Catalan')
+        0.375
+        >>> sim_bag('ATCG', 'TAGC')
+        1.0
+
     """
     return Bag().sim(src, tar)
 
@@ -804,21 +842,23 @@ class MongeElkan(Distance):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-        :param function sim_func: the internal similarity metric to employ
-        :param bool symmetric: return a symmetric similarity measure
+            sim_func (function): the internal similarity metric to employ
+            symmetric (bool): return a symmetric similarity measure
 
-        :returns: Monge-Elkan similarity
-        :rtype: float
+        Returns:
+            float: Monge-Elkan similarity
 
-        >>> cmp = MongeElkan()
-        >>> cmp.sim('cat', 'hat')
-        0.75
-        >>> round(cmp.sim('Niall', 'Neil'), 12)
-        0.666666666667
-        >>> round(cmp.sim('aluminum', 'Catalan'), 12)
-        0.388888888889
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.5
+        Examples:
+            >>> cmp = MongeElkan()
+            >>> cmp.sim('cat', 'hat')
+            0.75
+            >>> round(cmp.sim('Niall', 'Neil'), 12)
+            0.666666666667
+            >>> round(cmp.sim('aluminum', 'Catalan'), 12)
+            0.388888888889
+            >>> cmp.sim('ATCG', 'TAGC')
+            0.5
+
         """
         if src == tar:
             return 1.0
@@ -851,20 +891,22 @@ def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param function sim_func: the internal similarity metric to employ
-    :param bool symmetric: return a symmetric similarity measure
+        sim_func (function): the internal similarity metric to employ
+        symmetric (bool): return a symmetric similarity measure
 
-    :returns: Monge-Elkan similarity
-    :rtype: float
+    Returns:
+        float: Monge-Elkan similarity
 
-    >>> sim_monge_elkan('cat', 'hat')
-    0.75
-    >>> round(sim_monge_elkan('Niall', 'Neil'), 12)
-    0.666666666667
-    >>> round(sim_monge_elkan('aluminum', 'Catalan'), 12)
-    0.388888888889
-    >>> sim_monge_elkan('ATCG', 'TAGC')
-    0.5
+    Examples:
+        >>> sim_monge_elkan('cat', 'hat')
+        0.75
+        >>> round(sim_monge_elkan('Niall', 'Neil'), 12)
+        0.666666666667
+        >>> round(sim_monge_elkan('aluminum', 'Catalan'), 12)
+        0.388888888889
+        >>> sim_monge_elkan('ATCG', 'TAGC')
+        0.5
+
     """
     return MongeElkan().sim(src, tar, sim_func, symmetric)
 
@@ -877,20 +919,22 @@ def dist_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param function sim_func: the internal similarity metric to employ
-    :param bool symmetric: return a symmetric similarity measure
+        sim_func (function): the internal similarity metric to employ
+        symmetric (bool): return a symmetric similarity measure
 
-    :returns: Monge-Elkan distance
-    :rtype: float
+    Returns:
+        float: Monge-Elkan distance
 
-    >>> dist_monge_elkan('cat', 'hat')
-    0.25
-    >>> round(dist_monge_elkan('Niall', 'Neil'), 12)
-    0.333333333333
-    >>> round(dist_monge_elkan('aluminum', 'Catalan'), 12)
-    0.611111111111
-    >>> dist_monge_elkan('ATCG', 'TAGC')
-    0.5
+    Examples:
+        >>> dist_monge_elkan('cat', 'hat')
+        0.25
+        >>> round(dist_monge_elkan('Niall', 'Neil'), 12)
+        0.333333333333
+        >>> round(dist_monge_elkan('aluminum', 'Catalan'), 12)
+        0.611111111111
+        >>> dist_monge_elkan('ATCG', 'TAGC')
+        0.5
+
     """
     return MongeElkan().dist(src, tar, sim_func, symmetric)
 

@@ -74,26 +74,29 @@ class NeedlemanWunsch(Distance):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-        :param dict mat: a dict mapping tuples to costs; the tuples are
-            (src, tar) pairs of symbols from the alphabet parameter
-        :param float mismatch_cost: the value returned if (src, tar) is absent
-            from mat when src does not equal tar
-        :param float match_cost: the value returned if (src, tar) is absent
-            from mat when src equals tar
-        :param bool symmetric: True if the cost of src not matching tar is
-            identical to the cost of tar not matching src; in this case, the
-            values in mat need only contain (src, tar) or (tar, src), not both
-        :param str alphabet: a collection of tokens from which src and tar are
-            drawn; if this is defined a ValueError is raised if either tar or
-            src is not found in alphabet
+            mat (dict): A dict mapping tuples to costs; the tuples are (src,
+                tar) pairs of symbols from the alphabet parameter
+            mismatch_cost (float): the value returned if (src, tar) is absent
+                from mat when src does not equal tar
+            match_cost (float): the value returned if (src, tar) is absent from
+                mat when src equals tar
+            symmetric (bool): True if the cost of src not matching tar is
+                identical to the cost of tar not matching src; in this case,
+                the values in mat need only contain (src, tar) or (tar, src),
+                not both
+            alphabet (str): a collection of tokens from which src and tar are
+                drawn; if this is defined a ValueError is raised if either tar
+                or src is not found in alphabet
 
-        :returns: matrix similarity
-        :rtype: float
+        Returns:
+            float: Matrix similarity
 
-        >>> NeedlemanWunsch.sim_matrix('cat', 'hat')
-        0
-        >>> NeedlemanWunsch.sim_matrix('hat', 'hat')
-        1
+        Examples:
+            >>> NeedlemanWunsch.sim_matrix('cat', 'hat')
+            0
+            >>> NeedlemanWunsch.sim_matrix('hat', 'hat')
+            1
+
         """
         if alphabet:
             alphabet = tuple(alphabet)
@@ -120,22 +123,24 @@ class NeedlemanWunsch(Distance):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-        :param float gap_cost: the cost of an alignment gap (1 by default)
-        :param function sim_func: a function that returns the similarity of two
-            characters (identity similarity by default)
+            gap_cost (float): the cost of an alignment gap (1 by default)
+            sim_func (function): a function that returns the similarity of two
+                characters (identity similarity by default)
 
-        :returns: Needleman-Wunsch score
-        :rtype: float
+        Returns:
+            float: Needleman-Wunsch score
 
-        >>> cmp = NeedlemanWunsch()
-        >>> cmp.dist_abs('cat', 'hat')
-        2.0
-        >>> cmp.dist_abs('Niall', 'Neil')
-        1.0
-        >>> cmp.dist_abs('aluminum', 'Catalan')
-        -1.0
-        >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        Examples:
+            >>> cmp = NeedlemanWunsch()
+            >>> cmp.dist_abs('cat', 'hat')
+            2.0
+            >>> cmp.dist_abs('Niall', 'Neil')
+            1.0
+            >>> cmp.dist_abs('aluminum', 'Catalan')
+            -1.0
+            >>> cmp.dist_abs('ATCG', 'TAGC')
+            0.0
+
         """
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
 
@@ -160,21 +165,23 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param float gap_cost: the cost of an alignment gap (1 by default)
-    :param function sim_func: a function that returns the similarity of two
-        characters (identity similarity by default)
+        gap_cost (float): the cost of an alignment gap (1 by default)
+        sim_func (function): a function that returns the similarity of two
+            characters (identity similarity by default)
 
-    :returns: Needleman-Wunsch score
-    :rtype: float
+    Returns:
+        float: Needleman-Wunsch score
 
-    >>> needleman_wunsch('cat', 'hat')
-    2.0
-    >>> needleman_wunsch('Niall', 'Neil')
-    1.0
-    >>> needleman_wunsch('aluminum', 'Catalan')
-    -1.0
-    >>> needleman_wunsch('ATCG', 'TAGC')
-    0.0
+    Examples:
+        >>> needleman_wunsch('cat', 'hat')
+        2.0
+        >>> needleman_wunsch('Niall', 'Neil')
+        1.0
+        >>> needleman_wunsch('aluminum', 'Catalan')
+        -1.0
+        >>> needleman_wunsch('ATCG', 'TAGC')
+        0.0
+
     """
     return NeedlemanWunsch().dist_abs(src, tar, gap_cost, sim_func)
 
@@ -193,22 +200,24 @@ class SmithWaterman(NeedlemanWunsch):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-        :param float gap_cost: the cost of an alignment gap (1 by default)
-        :param function sim_func: a function that returns the similarity of two
-            characters (identity similarity by default)
+            gap_cost (float): the cost of an alignment gap (1 by default)
+            sim_func (function): a function that returns the similarity of two
+                characters (identity similarity by default)
 
-        :returns: Smith-Waterman score
-        :rtype: float
+        Returns:
+            float: Smith-Waterman score
 
-        >>> cmp = SmithWaterman()
-        >>> cmp.dist_abs('cat', 'hat')
-        2.0
-        >>> cmp.dist_abs('Niall', 'Neil')
-        1.0
-        >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
-        >>> cmp.dist_abs('ATCG', 'TAGC')
-        1.0
+        Examples:
+            >>> cmp = SmithWaterman()
+            >>> cmp.dist_abs('cat', 'hat')
+            2.0
+            >>> cmp.dist_abs('Niall', 'Neil')
+            1.0
+            >>> cmp.dist_abs('aluminum', 'Catalan')
+            0.0
+            >>> cmp.dist_abs('ATCG', 'TAGC')
+            1.0
+
         """
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
 
@@ -233,21 +242,22 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param float gap_cost: the cost of an alignment gap (1 by default)
-    :param function sim_func: a function that returns the similarity of two
-        characters (identity similarity by default)
+        gap_cost (float): the cost of an alignment gap (1 by default)
+        sim_func (function): a function that returns the similarity of two
+            characters (identity similarity by default)
 
-    :returns: Smith-Waterman score
-    :rtype: float
+    Returns:
+        float: Smith-Waterman score
 
-    >>> smith_waterman('cat', 'hat')
-    2.0
-    >>> smith_waterman('Niall', 'Neil')
-    1.0
-    >>> smith_waterman('aluminum', 'Catalan')
-    0.0
-    >>> smith_waterman('ATCG', 'TAGC')
-    1.0
+    Examples:
+        >>> smith_waterman('cat', 'hat')
+        2.0
+        >>> smith_waterman('Niall', 'Neil')
+        1.0
+        >>> smith_waterman('aluminum', 'Catalan')
+        0.0
+        >>> smith_waterman('ATCG', 'TAGC')
+        1.0
     """
     return SmithWaterman().dist_abs(src, tar, gap_cost, sim_func)
 
@@ -265,24 +275,26 @@ class Gotoh(NeedlemanWunsch):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-        :param float gap_open: the cost of an open alignment gap (1 by default)
-        :param float gap_ext: the cost of an alignment gap extension (0.4 by
-            default)
-        :param function sim_func: a function that returns the similarity of two
-            characters (identity similarity by default)
+            gap_open (float): the cost of an open alignment gap (1 by default)
+            gap_ext (float): the cost of an alignment gap extension (0.4 by
+                default)
+            sim_func (function): a function that returns the similarity of two
+                characters (identity similarity by default)
 
-        :returns: Gotoh score
-        :rtype: float
+        Returns:
+            float: Gotoh score
 
-        >>> cmp = Gotoh()
-        >>> cmp.dist_abs('cat', 'hat')
-        2.0
-        >>> cmp.dist_abs('Niall', 'Neil')
-        1.0
-        >>> round(cmp.dist_abs('aluminum', 'Catalan'), 12)
-        -0.4
-        >>> cmp.dist_abs('cat', 'hat')
-        2.0
+        Examples:
+            >>> cmp = Gotoh()
+            >>> cmp.dist_abs('cat', 'hat')
+            2.0
+            >>> cmp.dist_abs('Niall', 'Neil')
+            1.0
+            >>> round(cmp.dist_abs('aluminum', 'Catalan'), 12)
+            -0.4
+            >>> cmp.dist_abs('cat', 'hat')
+            2.0
+
         """
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
         p_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
@@ -331,23 +343,25 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param float gap_open: the cost of an open alignment gap (1 by default)
-    :param float gap_ext: the cost of an alignment gap extension (0.4 by
-        default)
-    :param function sim_func: a function that returns the similarity of two
-        characters (identity similarity by default)
+        gap_open (float): the cost of an open alignment gap (1 by default)
+        gap_ext (float): the cost of an alignment gap extension (0.4 by
+            default)
+        sim_func (function): a function that returns the similarity of two
+            characters (identity similarity by default)
 
-    :returns: Gotoh score
-    :rtype: float
+    Returns:
+        float: Gotoh score
 
-    >>> gotoh('cat', 'hat')
-    2.0
-    >>> gotoh('Niall', 'Neil')
-    1.0
-    >>> round(gotoh('aluminum', 'Catalan'), 12)
-    -0.4
-    >>> gotoh('cat', 'hat')
-    2.0
+    Examples:
+        >>> gotoh('cat', 'hat')
+        2.0
+        >>> gotoh('Niall', 'Neil')
+        1.0
+        >>> round(gotoh('aluminum', 'Catalan'), 12)
+        -0.4
+        >>> gotoh('cat', 'hat')
+        2.0
+
     """
     return Gotoh().dist_abs(src, tar, gap_open, gap_ext, sim_func)
 

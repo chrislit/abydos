@@ -47,22 +47,24 @@ class Baystat(Distance):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-        :param int min_ss_len: minimum substring length to be considered
-        :param int left_ext: left-side extension length
-        :param int right_ext: right-side extension length
+            min_ss_len (int): Minimum substring length to be considered
+            left_ext (int): Left-side extension length
+            right_ext (int): Right-side extension length
 
-        :returns: the Baystat similarity
-        :rtype: float
+        Returns:
+            float: The Baystat similarity
 
-        >>> cmp = Baystat()
-        >>> round(cmp.sim('cat', 'hat'), 12)
-        0.666666666667
-        >>> cmp.sim('Niall', 'Neil')
-        0.4
-        >>> round(cmp.sim('Colin', 'Cuilen'), 12)
-        0.166666666667
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        Examples:
+            >>> cmp = Baystat()
+            >>> round(cmp.sim('cat', 'hat'), 12)
+            0.666666666667
+            >>> cmp.sim('Niall', 'Neil')
+            0.4
+            >>> round(cmp.sim('Colin', 'Cuilen'), 12)
+            0.166666666667
+            >>> cmp.sim('ATCG', 'TAGC')
+            0.0
+
         """
         if src == tar:
             return 1.0
@@ -165,20 +167,23 @@ def sim_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param int min_ss_len: minimum substring length to be considered
-    :param int left_ext: left-side extension length
-    :param int right_ext: right-side extension length
-    :returns: the Baystat similarity
-    :rtype: float
+        min_ss_len (int): Minimum substring length to be considered
+        left_ext (int): Left-side extension length
+        right_ext (int): Right-side extension length
 
-    >>> round(sim_baystat('cat', 'hat'), 12)
-    0.666666666667
-    >>> sim_baystat('Niall', 'Neil')
-    0.4
-    >>> round(sim_baystat('Colin', 'Cuilen'), 12)
-    0.166666666667
-    >>> sim_baystat('ATCG', 'TAGC')
-    0.0
+    Returns:
+        float: The Baystat similarity
+
+    Examples:
+        >>> round(sim_baystat('cat', 'hat'), 12)
+        0.666666666667
+        >>> sim_baystat('Niall', 'Neil')
+        0.4
+        >>> round(sim_baystat('Colin', 'Cuilen'), 12)
+        0.166666666667
+        >>> sim_baystat('ATCG', 'TAGC')
+        0.0
+
     """
     return Baystat().sim(src, tar, min_ss_len, left_ext, right_ext)
 
@@ -191,20 +196,23 @@ def dist_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param int min_ss_len: minimum substring length to be considered
-    :param int left_ext: left-side extension length
-    :param int right_ext: right-side extension length
-    :returns: the Baystat distance
-    :rtype: float
+        min_ss_len (int): Minimum substring length to be considered
+        left_ext (int): Left-side extension length
+        right_ext (int): Right-side extension length
 
-    >>> round(dist_baystat('cat', 'hat'), 12)
-    0.333333333333
-    >>> dist_baystat('Niall', 'Neil')
-    0.6
-    >>> round(dist_baystat('Colin', 'Cuilen'), 12)
-    0.833333333333
-    >>> dist_baystat('ATCG', 'TAGC')
-    1.0
+    Returns:
+        float: The Baystat distance
+
+    Examples:
+        >>> round(dist_baystat('cat', 'hat'), 12)
+        0.333333333333
+        >>> dist_baystat('Niall', 'Neil')
+        0.6
+        >>> round(dist_baystat('Colin', 'Cuilen'), 12)
+        0.833333333333
+        >>> dist_baystat('ATCG', 'TAGC')
+        1.0
+
     """
     return Baystat().dist(src, tar, min_ss_len, left_ext, right_ext)
 

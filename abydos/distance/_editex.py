@@ -64,23 +64,25 @@ class Editex(Distance):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-        :param tuple cost: a 3-tuple representing the cost of the four possible
-            edits: match, same-group, and mismatch respectively (by default:
-            (0, 1, 2))
-        :param bool local: if True, the local variant of Editex is used
+            cost (tuple): A 3-tuple representing the cost of the four possible
+                edits: match, same-group, and mismatch respectively (by
+                default: (0, 1, 2))
+            local (bool): If True, the local variant of Editex is used
 
-        :returns: Editex distance
-        :rtype: int
+        Returns:
+            int: Editex distance
 
-        >>> cmp = Editex()
-        >>> cmp.dist_abs('cat', 'hat')
-        2
-        >>> cmp.dist_abs('Niall', 'Neil')
-        2
-        >>> cmp.dist_abs('aluminum', 'Catalan')
-        12
-        >>> cmp.dist_abs('ATCG', 'TAGC')
-        6
+        Examples:
+            >>> cmp = Editex()
+            >>> cmp.dist_abs('cat', 'hat')
+            2
+            >>> cmp.dist_abs('Niall', 'Neil')
+            2
+            >>> cmp.dist_abs('aluminum', 'Catalan')
+            12
+            >>> cmp.dist_abs('ATCG', 'TAGC')
+            6
+
         """
         match_cost, group_cost, mismatch_cost = cost
 
@@ -149,23 +151,25 @@ class Editex(Distance):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-        :param tuple cost: a 3-tuple representing the cost of the four possible
-            edits: match, same-group, and mismatch respectively (by default:
-            (0, 1, 2))
-        :param bool local: if True, the local variant of Editex is used
+            cost (tuple): A 3-tuple representing the cost of the four possible
+                edits: match, same-group, and mismatch respectively (by
+                default: (0, 1, 2))
+            local (bool): If True, the local variant of Editex is used
 
-        :returns: normalized Editex distance
-        :rtype: float
+        Returns:
+            int: Normalized Editex distance
 
-        >>> cmp = Editex()
-        >>> round(cmp.dist('cat', 'hat'), 12)
-        0.333333333333
-        >>> round(cmp.dist('Niall', 'Neil'), 12)
-        0.2
-        >>> cmp.dist('aluminum', 'Catalan')
-        0.75
-        >>> cmp.dist('ATCG', 'TAGC')
-        0.75
+        Examples:
+            >>> cmp = Editex()
+            >>> round(cmp.dist('cat', 'hat'), 12)
+            0.333333333333
+            >>> round(cmp.dist('Niall', 'Neil'), 12)
+            0.2
+            >>> cmp.dist('aluminum', 'Catalan')
+            0.75
+            >>> cmp.dist('ATCG', 'TAGC')
+            0.75
+
         """
         if src == tar:
             return 0.0
@@ -181,22 +185,24 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param tuple cost: a 3-tuple representing the cost of the four possible
-        edits:
-        match, same-group, and mismatch respectively (by default: (0, 1, 2))
-    :param bool local: if True, the local variant of Editex is used
+        cost (tuple): A 3-tuple representing the cost of the four possible
+            edits: match, same-group, and mismatch respectively (by
+            default: (0, 1, 2))
+        local (bool): If True, the local variant of Editex is used
 
-    :returns: Editex distance
-    :rtype: int
+    Returns:
+        int: Editex distance
 
-    >>> editex('cat', 'hat')
-    2
-    >>> editex('Niall', 'Neil')
-    2
-    >>> editex('aluminum', 'Catalan')
-    12
-    >>> editex('ATCG', 'TAGC')
-    6
+    Examples:
+        >>> editex('cat', 'hat')
+        2
+        >>> editex('Niall', 'Neil')
+        2
+        >>> editex('aluminum', 'Catalan')
+        12
+        >>> editex('ATCG', 'TAGC')
+        6
+
     """
     return Editex().dist_abs(src, tar, cost, local)
 
@@ -204,27 +210,27 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
 def dist_editex(src, tar, cost=(0, 1, 2), local=False):
     """Return the normalized Editex distance between two strings.
 
-    This is a wrapper for :py:meth:`Editex.dist`.
-
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param tuple cost: a 3-tuple representing the cost of the four possible
-        edits:
-        match, same-group, and mismatch respectively (by default: (0, 1, 2))
-    :param bool local: if True, the local variant of Editex is used
+        cost (tuple): A 3-tuple representing the cost of the four possible
+            edits: match, same-group, and mismatch respectively (by
+            default: (0, 1, 2))
+        local (bool): If True, the local variant of Editex is used
 
-    :returns: normalized Editex distance
-    :rtype: float
+    Returns:
+        int: Normalized Editex distance
 
-    >>> round(dist_editex('cat', 'hat'), 12)
-    0.333333333333
-    >>> round(dist_editex('Niall', 'Neil'), 12)
-    0.2
-    >>> dist_editex('aluminum', 'Catalan')
-    0.75
-    >>> dist_editex('ATCG', 'TAGC')
-    0.75
+    Examples:
+        >>> round(dist_editex('cat', 'hat'), 12)
+        0.333333333333
+        >>> round(dist_editex('Niall', 'Neil'), 12)
+        0.2
+        >>> dist_editex('aluminum', 'Catalan')
+        0.75
+        >>> dist_editex('ATCG', 'TAGC')
+        0.75
+
     """
     return Editex().dist(src, tar, cost, local)
 
@@ -234,25 +240,27 @@ def sim_editex(src, tar, cost=(0, 1, 2), local=False):
 
     This is a wrapper for :py:meth:`Editex.sim`.
 
-    Args:
+     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param tuple cost: a 3-tuple representing the cost of the four possible
-        edits:
-        match, same-group, and mismatch respectively (by default: (0, 1, 2))
-    :param bool local: if True, the local variant of Editex is used
+        cost (tuple): A 3-tuple representing the cost of the four possible
+            edits: match, same-group, and mismatch respectively (by
+            default: (0, 1, 2))
+        local (bool): If True, the local variant of Editex is used
 
-    :returns: normalized Editex similarity
-    :rtype: float
+    Returns:
+        int: Normalized Editex similarity
 
-    >>> round(sim_editex('cat', 'hat'), 12)
-    0.666666666667
-    >>> round(sim_editex('Niall', 'Neil'), 12)
-    0.8
-    >>> sim_editex('aluminum', 'Catalan')
-    0.25
-    >>> sim_editex('ATCG', 'TAGC')
-    0.25
+    Examples:
+        >>> round(sim_editex('cat', 'hat'), 12)
+        0.666666666667
+        >>> round(sim_editex('Niall', 'Neil'), 12)
+        0.8
+        >>> sim_editex('aluminum', 'Catalan')
+        0.25
+        >>> sim_editex('ATCG', 'TAGC')
+        0.25
+
     """
     return Editex().sim(src, tar, cost, local)
 

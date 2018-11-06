@@ -67,18 +67,20 @@ class LCSseq(Distance):
             src (str): Source string for comparison
             tar (str): Target string for comparison
 
-        :returns: the longest common subsequence
-        :rtype: str
+        Returns:
+            str: The longest common subsequence
 
-        >>> sseq = LCSseq()
-        >>> sseq.lcsseq('cat', 'hat')
-        'at'
-        >>> sseq.lcsseq('Niall', 'Neil')
-        'Nil'
-        >>> sseq.lcsseq('aluminum', 'Catalan')
-        'aln'
-        >>> sseq.lcsseq('ATCG', 'TAGC')
-        'AC'
+        Examples:
+            >>> sseq = LCSseq()
+            >>> sseq.lcsseq('cat', 'hat')
+            'at'
+            >>> sseq.lcsseq('Niall', 'Neil')
+            'Nil'
+            >>> sseq.lcsseq('aluminum', 'Catalan')
+            'aln'
+            >>> sseq.lcsseq('ATCG', 'TAGC')
+            'AC'
+
         """
         lengths = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
 
@@ -118,18 +120,20 @@ class LCSseq(Distance):
             src (str): Source string for comparison
             tar (str): Target string for comparison
 
-        :returns: LCSseq similarity
-        :rtype: float
+        Returns:
+            float: LCSseq similarity
 
-        >>> sseq = LCSseq()
-        >>> sseq.sim('cat', 'hat')
-        0.6666666666666666
-        >>> sseq.sim('Niall', 'Neil')
-        0.6
-        >>> sseq.sim('aluminum', 'Catalan')
-        0.375
-        >>> sseq.sim('ATCG', 'TAGC')
-        0.5
+        Examples:
+            >>> sseq = LCSseq()
+            >>> sseq.sim('cat', 'hat')
+            0.6666666666666666
+            >>> sseq.sim('Niall', 'Neil')
+            0.6
+            >>> sseq.sim('aluminum', 'Catalan')
+            0.375
+            >>> sseq.sim('ATCG', 'TAGC')
+            0.5
+
         """
         if src == tar:
             return 1.0
@@ -147,17 +151,19 @@ def lcsseq(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: the longest common subsequence
-    :rtype: str
+    Returns:
+        str: The longest common subsequence
 
-    >>> lcsseq('cat', 'hat')
-    'at'
-    >>> lcsseq('Niall', 'Neil')
-    'Nil'
-    >>> lcsseq('aluminum', 'Catalan')
-    'aln'
-    >>> lcsseq('ATCG', 'TAGC')
-    'AC'
+    Examples:
+        >>> lcsseq('cat', 'hat')
+        'at'
+        >>> lcsseq('Niall', 'Neil')
+        'Nil'
+        >>> lcsseq('aluminum', 'Catalan')
+        'aln'
+        >>> lcsseq('ATCG', 'TAGC')
+        'AC'
+
     """
     return LCSseq().lcsseq(src, tar)
 
@@ -171,17 +177,19 @@ def sim_lcsseq(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: LCSseq similarity
-    :rtype: float
+    Returns:
+        float: LCSseq similarity
 
-    >>> sim_lcsseq('cat', 'hat')
-    0.6666666666666666
-    >>> sim_lcsseq('Niall', 'Neil')
-    0.6
-    >>> sim_lcsseq('aluminum', 'Catalan')
-    0.375
-    >>> sim_lcsseq('ATCG', 'TAGC')
-    0.5
+    Examples:
+        >>> sim_lcsseq('cat', 'hat')
+        0.6666666666666666
+        >>> sim_lcsseq('Niall', 'Neil')
+        0.6
+        >>> sim_lcsseq('aluminum', 'Catalan')
+        0.375
+        >>> sim_lcsseq('ATCG', 'TAGC')
+        0.5
+
     """
     return LCSseq().sim(src, tar)
 
@@ -195,17 +203,19 @@ def dist_lcsseq(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: LCSseq distance
-    :rtype: float
+    Returns:
+        float: LCSseq distance
 
-    >>> dist_lcsseq('cat', 'hat')
-    0.33333333333333337
-    >>> dist_lcsseq('Niall', 'Neil')
-    0.4
-    >>> dist_lcsseq('aluminum', 'Catalan')
-    0.625
-    >>> dist_lcsseq('ATCG', 'TAGC')
-    0.5
+    Examples:
+        >>> dist_lcsseq('cat', 'hat')
+        0.33333333333333337
+        >>> dist_lcsseq('Niall', 'Neil')
+        0.4
+        >>> dist_lcsseq('aluminum', 'Catalan')
+        0.625
+        >>> dist_lcsseq('ATCG', 'TAGC')
+        0.5
+
     """
     return LCSseq().dist(src, tar)
 
@@ -232,18 +242,20 @@ class LCSstr(Distance):
             src (str): Source string for comparison
             tar (str): Target string for comparison
 
-        :returns: the longest common substring
-        :rtype: str
+        Returns:
+            str: The longest common substring
 
-        >>> sstr = LCSstr()
-        >>> sstr.lcsstr('cat', 'hat')
-        'at'
-        >>> sstr.lcsstr('Niall', 'Neil')
-        'N'
-        >>> sstr.lcsstr('aluminum', 'Catalan')
-        'al'
-        >>> sstr.lcsstr('ATCG', 'TAGC')
-        'A'
+        Examples:
+            >>> sstr = LCSstr()
+            >>> sstr.lcsstr('cat', 'hat')
+            'at'
+            >>> sstr.lcsstr('Niall', 'Neil')
+            'N'
+            >>> sstr.lcsstr('aluminum', 'Catalan')
+            'al'
+            >>> sstr.lcsstr('ATCG', 'TAGC')
+            'A'
+
         """
         lengths = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
         longest, i_longest = 0, 0
@@ -270,17 +282,19 @@ class LCSstr(Distance):
             src (str): Source string for comparison
             tar (str): Target string for comparison
 
-        :returns: LCSstr similarity
-        :rtype: float
+        Returns:
+            float: LCSstr similarity
 
-        >>> sim_lcsstr('cat', 'hat')
-        0.6666666666666666
-        >>> sim_lcsstr('Niall', 'Neil')
-        0.2
-        >>> sim_lcsstr('aluminum', 'Catalan')
-        0.25
-        >>> sim_lcsstr('ATCG', 'TAGC')
-        0.25
+        Examples:
+            >>> sim_lcsstr('cat', 'hat')
+            0.6666666666666666
+            >>> sim_lcsstr('Niall', 'Neil')
+            0.2
+            >>> sim_lcsstr('aluminum', 'Catalan')
+            0.25
+            >>> sim_lcsstr('ATCG', 'TAGC')
+            0.25
+
         """
         if src == tar:
             return 1.0
@@ -298,17 +312,19 @@ def lcsstr(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: the longest common substring
-    :rtype: str
+    Returns:
+        str: The longest common substring
 
-    >>> lcsstr('cat', 'hat')
-    'at'
-    >>> lcsstr('Niall', 'Neil')
-    'N'
-    >>> lcsstr('aluminum', 'Catalan')
-    'al'
-    >>> lcsstr('ATCG', 'TAGC')
-    'A'
+    Examples:
+        >>> lcsstr('cat', 'hat')
+        'at'
+        >>> lcsstr('Niall', 'Neil')
+        'N'
+        >>> lcsstr('aluminum', 'Catalan')
+        'al'
+        >>> lcsstr('ATCG', 'TAGC')
+        'A'
+
     """
     return LCSstr().lcsstr(src, tar)
 
@@ -322,17 +338,19 @@ def sim_lcsstr(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: LCSstr similarity
-    :rtype: float
+    Returns:
+        float: LCSstr similarity
 
-    >>> sim_lcsstr('cat', 'hat')
-    0.6666666666666666
-    >>> sim_lcsstr('Niall', 'Neil')
-    0.2
-    >>> sim_lcsstr('aluminum', 'Catalan')
-    0.25
-    >>> sim_lcsstr('ATCG', 'TAGC')
-    0.25
+    Examples:
+        >>> sim_lcsstr('cat', 'hat')
+        0.6666666666666666
+        >>> sim_lcsstr('Niall', 'Neil')
+        0.2
+        >>> sim_lcsstr('aluminum', 'Catalan')
+        0.25
+        >>> sim_lcsstr('ATCG', 'TAGC')
+        0.25
+
     """
     return LCSstr().sim(src, tar)
 
@@ -346,17 +364,19 @@ def dist_lcsstr(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: LCSstr distance
-    :rtype: float
+    Returns:
+        float: LCSstr distance
 
-    >>> dist_lcsstr('cat', 'hat')
-    0.33333333333333337
-    >>> dist_lcsstr('Niall', 'Neil')
-    0.8
-    >>> dist_lcsstr('aluminum', 'Catalan')
-    0.75
-    >>> dist_lcsstr('ATCG', 'TAGC')
-    0.75
+    Examples:
+        >>> dist_lcsstr('cat', 'hat')
+        0.33333333333333337
+        >>> dist_lcsstr('Niall', 'Neil')
+        0.8
+        >>> dist_lcsstr('aluminum', 'Catalan')
+        0.75
+        >>> dist_lcsstr('ATCG', 'TAGC')
+        0.75
+
     """
     return LCSstr().dist(src, tar)
 
@@ -386,18 +406,20 @@ class RatcliffObershelp(Distance):
             src (str): Source string for comparison
             tar (str): Target string for comparison
 
-        :returns: Ratcliff-Obershelp similarity
-        :rtype: float
+        Returns:
+            float: Ratcliff-Obershelp similarity
 
-        >>> cmp = RatcliffObershelp()
-        >>> round(cmp.sim('cat', 'hat'), 12)
-        0.666666666667
-        >>> round(cmp.sim('Niall', 'Neil'), 12)
-        0.666666666667
-        >>> round(cmp.sim('aluminum', 'Catalan'), 12)
-        0.4
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.5
+        Examples:
+            >>> cmp = RatcliffObershelp()
+            >>> round(cmp.sim('cat', 'hat'), 12)
+            0.666666666667
+            >>> round(cmp.sim('Niall', 'Neil'), 12)
+            0.666666666667
+            >>> round(cmp.sim('aluminum', 'Catalan'), 12)
+            0.4
+            >>> cmp.sim('ATCG', 'TAGC')
+            0.5
+
         """
 
         def _lcsstr_stl(src, tar):
@@ -461,17 +483,19 @@ def sim_ratcliff_obershelp(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: Ratcliff-Obershelp similarity
-    :rtype: float
+    Returns:
+        float: Ratcliff-Obershelp similarity
 
-    >>> round(sim_ratcliff_obershelp('cat', 'hat'), 12)
-    0.666666666667
-    >>> round(sim_ratcliff_obershelp('Niall', 'Neil'), 12)
-    0.666666666667
-    >>> round(sim_ratcliff_obershelp('aluminum', 'Catalan'), 12)
-    0.4
-    >>> sim_ratcliff_obershelp('ATCG', 'TAGC')
-    0.5
+    Examples:
+        >>> round(sim_ratcliff_obershelp('cat', 'hat'), 12)
+        0.666666666667
+        >>> round(sim_ratcliff_obershelp('Niall', 'Neil'), 12)
+        0.666666666667
+        >>> round(sim_ratcliff_obershelp('aluminum', 'Catalan'), 12)
+        0.4
+        >>> sim_ratcliff_obershelp('ATCG', 'TAGC')
+        0.5
+
     """
     return RatcliffObershelp().sim(src, tar)
 
@@ -485,17 +509,20 @@ def dist_ratcliff_obershelp(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: Ratcliff-Obershelp distance
-    :rtype: float
+    Returns:
+        float: Ratcliff-Obershelp distance
 
-    >>> round(dist_ratcliff_obershelp('cat', 'hat'), 12)
-    0.333333333333
-    >>> round(dist_ratcliff_obershelp('Niall', 'Neil'), 12)
-    0.333333333333
-    >>> round(dist_ratcliff_obershelp('aluminum', 'Catalan'), 12)
-    0.6
-    >>> dist_ratcliff_obershelp('ATCG', 'TAGC')
-    0.5
+
+    Examples:
+        >>> round(dist_ratcliff_obershelp('cat', 'hat'), 12)
+        0.333333333333
+        >>> round(dist_ratcliff_obershelp('Niall', 'Neil'), 12)
+        0.333333333333
+        >>> round(dist_ratcliff_obershelp('aluminum', 'Catalan'), 12)
+        0.6
+        >>> dist_ratcliff_obershelp('ATCG', 'TAGC')
+        0.5
+
     """
     return RatcliffObershelp().dist(src, tar)
 

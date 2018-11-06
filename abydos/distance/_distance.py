@@ -37,9 +37,11 @@ class Distance(object):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-        :param args:
-        :param kwargs:
-        :return:
+            *args: Variable length argument list.
+            **kwargs: Arbitrary keyword arguments.
+
+        Returns:
+            Similarity
         """
         return 1.0 - self.dist(src, tar, *args, **kwargs)
 
@@ -49,9 +51,11 @@ class Distance(object):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-        :param args:
-        :param kwargs:
-        :return:
+            *args: Variable length argument list.
+            **kwargs: Arbitrary keyword arguments.
+
+        Returns:
+            Distance
         """
         return 1.0 - self.sim(src, tar, *args, **kwargs)
 
@@ -61,9 +65,11 @@ class Distance(object):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-        :param args:
-        :param kwargs:
-        :return:
+            *args: Variable length argument list.
+            **kwargs: Arbitrary keyword arguments.
+
+        Returns:
+            Absolute distance
         """
         return self.dist(src, tar, *args, **kwargs)
 
@@ -74,20 +80,22 @@ class TokenDistance(Distance):
     def _get_qgrams(self, src, tar, qval=0, skip=0):
         """Return the Q-Grams in src & tar.
 
-        :param str src: source string (or QGrams/Counter objects) for
-            comparison
-        :param str tar: target string (or QGrams/Counter objects) for
-            comparison
-        :param int qval: the length of each q-gram; 0 for non-q-gram version
-        :param int skip: the number of characters to skip (only works when
-            src and tar are strings
-        :returns: Q-Grams
-        :rtype: tuple of Counters
+        Args:
+            src (str): Source string (or QGrams/Counter objects) for comparison
+            tar (str): Target string (or QGrams/Counter objects) for comparison
+            qval (int): The length of each q-gram; 0 for non-q-gram version
+            skip (int): the number of characters to skip (only works when src
+                and tar are strings
 
-        >>> pe = TokenDistance()
-        >>> pe._get_qgrams('AT', 'TT', qval=2)
-        (QGrams({'$A': 1, 'AT': 1, 'T#': 1}),
-         QGrams({'$T': 1, 'TT': 1, 'T#': 1}))
+        Returns:
+            tuple of Counters: Q-Grams
+
+        Examples:
+            >>> pe = TokenDistance()
+            >>> pe._get_qgrams('AT', 'TT', qval=2)
+            (QGrams({'$A': 1, 'AT': 1, 'T#': 1}),
+             QGrams({'$T': 1, 'TT': 1, 'T#': 1}))
+
         """
         if isinstance(src, Counter) and isinstance(tar, Counter):
             return src, tar

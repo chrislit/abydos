@@ -65,22 +65,25 @@ class Minkowski(TokenDistance):
         Args:
             src (str): Source string (or QGrams/Counter objects) for comparison
             tar (str): Target string (or QGrams/Counter objects) for comparison
-        :param int qval: the length of each q-gram; 0 for non-q-gram version
-        :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
-        :param bool normalized: normalizes to [0, 1] if True
-        :param collection or int alphabet: the values or size of the alphabet
-        :returns: the Minkowski distance
-        :rtype: float
+            qval (int): The length of each q-gram; 0 for non-q-gram version
+            pval (int or float): The :math:`p`-value of the :math:`L^p`-space
+            normalized (bool): Normalizes to [0, 1] if True
+            alphabet (collection or int): The values or size of the alphabet
 
-        >>> cmp = Minkowski()
-        >>> cmp.dist_abs('cat', 'hat')
-        4.0
-        >>> cmp.dist_abs('Niall', 'Neil')
-        7.0
-        >>> cmp.dist_abs('Colin', 'Cuilen')
-        9.0
-        >>> cmp.dist_abs('ATCG', 'TAGC')
-        10.0
+        Returns:
+            float: The Minkowski distance
+
+        Examples:
+            >>> cmp = Minkowski()
+            >>> cmp.dist_abs('cat', 'hat')
+            4.0
+            >>> cmp.dist_abs('Niall', 'Neil')
+            7.0
+            >>> cmp.dist_abs('Colin', 'Cuilen')
+            9.0
+            >>> cmp.dist_abs('ATCG', 'TAGC')
+            10.0
+
         """
         q_src, q_tar = self._get_qgrams(src, tar, qval)
         diffs = ((q_src - q_tar) + (q_tar - q_src)).values()
@@ -117,22 +120,24 @@ class Minkowski(TokenDistance):
         Args:
             src (str): Source string (or QGrams/Counter objects) for comparison
             tar (str): Target string (or QGrams/Counter objects) for comparison
-        :param int qval: the length of each q-gram; 0 for non-q-gram version
-        :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
-        :param collection or int alphabet: the values or size of the alphabet
+            qval (int): The length of each q-gram; 0 for non-q-gram version
+            pval (int or float): The :math:`p`-value of the :math:`L^p`-space
+            alphabet (collection or int): The values or size of the alphabet
 
-        :returns: the normalized Minkowski distance
-        :rtype: float
+        Returns:
+            float: The normalized Minkowski distance
 
-        >>> cmp = Minkowski()
-        >>> cmp.dist('cat', 'hat')
-        0.5
-        >>> round(cmp.dist('Niall', 'Neil'), 12)
-        0.636363636364
-        >>> round(cmp.dist('Colin', 'Cuilen'), 12)
-        0.692307692308
-        >>> cmp.dist('ATCG', 'TAGC')
-        1.0
+        Examples:
+            >>> cmp = Minkowski()
+            >>> cmp.dist('cat', 'hat')
+            0.5
+            >>> round(cmp.dist('Niall', 'Neil'), 12)
+            0.636363636364
+            >>> round(cmp.dist('Colin', 'Cuilen'), 12)
+            0.692307692308
+            >>> cmp.dist('ATCG', 'TAGC')
+            1.0
+
         """
         return self.dist_abs(src, tar, qval, pval, True, alphabet)
 
@@ -145,22 +150,24 @@ def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
-    :param bool normalized: normalizes to [0, 1] if True
-    :param collection or int alphabet: the values or size of the alphabet
+        qval (int): The length of each q-gram; 0 for non-q-gram version
+        pval (int or float): The :math:`p`-value of the :math:`L^p`-space
+        normalized (bool): Normalizes to [0, 1] if True
+        alphabet (collection or int): The values or size of the alphabet
 
-    :returns: the Minkowski distance
-    :rtype: float
+    Returns:
+        float: The Minkowski distance
 
-    >>> minkowski('cat', 'hat')
-    4.0
-    >>> minkowski('Niall', 'Neil')
-    7.0
-    >>> minkowski('Colin', 'Cuilen')
-    9.0
-    >>> minkowski('ATCG', 'TAGC')
-    10.0
+    Examples:
+        >>> minkowski('cat', 'hat')
+        4.0
+        >>> minkowski('Niall', 'Neil')
+        7.0
+        >>> minkowski('Colin', 'Cuilen')
+        9.0
+        >>> minkowski('ATCG', 'TAGC')
+        10.0
+
     """
     return Minkowski().dist_abs(src, tar, qval, pval, normalized, alphabet)
 
@@ -173,21 +180,23 @@ def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
-    :param collection or int alphabet: the values or size of the alphabet
+        qval (int): The length of each q-gram; 0 for non-q-gram version
+        pval (int or float): The :math:`p`-value of the :math:`L^p`-space
+        alphabet (collection or int): The values or size of the alphabet
 
-    :returns: the normalized Minkowski distance
-    :rtype: float
+    Returns:
+        float: The normalized Minkowski distance
 
-    >>> dist_minkowski('cat', 'hat')
-    0.5
-    >>> round(dist_minkowski('Niall', 'Neil'), 12)
-    0.636363636364
-    >>> round(dist_minkowski('Colin', 'Cuilen'), 12)
-    0.692307692308
-    >>> dist_minkowski('ATCG', 'TAGC')
-    1.0
+    Examples:
+        >>> dist_minkowski('cat', 'hat')
+        0.5
+        >>> round(dist_minkowski('Niall', 'Neil'), 12)
+        0.636363636364
+        >>> round(dist_minkowski('Colin', 'Cuilen'), 12)
+        0.692307692308
+        >>> dist_minkowski('ATCG', 'TAGC')
+        1.0
+
     """
     return Minkowski().dist(src, tar, qval, pval, alphabet)
 
@@ -200,21 +209,23 @@ def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param int or float pval: the :math:`p`-value of the :math:`L^p`-space.
-    :param collection or int alphabet: the values or size of the alphabet
+        qval (int): The length of each q-gram; 0 for non-q-gram version
+        pval (int or float): The :math:`p`-value of the :math:`L^p`-space
+        alphabet (collection or int): The values or size of the alphabet
 
-    :returns: the normalized Minkowski similarity
-    :rtype: float
+    Returns:
+        float: The normalized Minkowski similarity
 
-    >>> sim_minkowski('cat', 'hat')
-    0.5
-    >>> round(sim_minkowski('Niall', 'Neil'), 12)
-    0.363636363636
-    >>> round(sim_minkowski('Colin', 'Cuilen'), 12)
-    0.307692307692
-    >>> sim_minkowski('ATCG', 'TAGC')
-    0.0
+    Examples:
+        >>> sim_minkowski('cat', 'hat')
+        0.5
+        >>> round(sim_minkowski('Niall', 'Neil'), 12)
+        0.363636363636
+        >>> round(sim_minkowski('Colin', 'Cuilen'), 12)
+        0.307692307692
+        >>> sim_minkowski('ATCG', 'TAGC')
+        0.0
+
     """
     return Minkowski().sim(src, tar, qval, pval, alphabet)
 
@@ -232,22 +243,24 @@ class Manhattan(Minkowski):
         Args:
             src (str): Source string (or QGrams/Counter objects) for comparison
             tar (str): Target string (or QGrams/Counter objects) for comparison
-        :param int qval: the length of each q-gram; 0 for non-q-gram version
-        :param normalized: normalizes to [0, 1] if True
-        :param collection or int alphabet: the values or size of the alphabet
+            qval (int): The length of each q-gram; 0 for non-q-gram version
+            normalized (bool): Normalizes to [0, 1] if True
+            alphabet (collection or int): The values or size of the alphabet
 
-        :returns: the Manhattan distance
-        :rtype: float
+        Returns:
+            float: The Manhattan distance
 
-        >>> cmp = Manhattan()
-        >>> cmp.dist_abs('cat', 'hat')
-        4.0
-        >>> cmp.dist_abs('Niall', 'Neil')
-        7.0
-        >>> cmp.dist_abs('Colin', 'Cuilen')
-        9.0
-        >>> cmp.dist_abs('ATCG', 'TAGC')
-        10.0
+        Examples:
+            >>> cmp = Manhattan()
+            >>> cmp.dist_abs('cat', 'hat')
+            4.0
+            >>> cmp.dist_abs('Niall', 'Neil')
+            7.0
+            >>> cmp.dist_abs('Colin', 'Cuilen')
+            9.0
+            >>> cmp.dist_abs('ATCG', 'TAGC')
+            10.0
+
         """
         return super(self.__class__, self).dist_abs(
             src, tar, qval, 1, normalized, alphabet
@@ -263,21 +276,24 @@ class Manhattan(Minkowski):
 
         Args:
             src (str): Source string (or QGrams/Counter objects) for comparison
-            tar (str): Target string (or QGrams/Counter objects) for comparison        :param int qval: the length of each q-gram; 0 for non-q-gram version
-        :param collection or int alphabet: the values or size of the alphabet
+            tar (str): Target string (or QGrams/Counter objects) for comparison
+            qval (int): The length of each q-gram; 0 for non-q-gram version
+            alphabet (collection or int): The values or size of the alphabet
 
-        :returns: the normalized Manhattan distance
-        :rtype: float
+        Returns:
+            float: The normalized Manhattan distance
 
-        >>> cmp = Manhattan()
-        >>> cmp.dist('cat', 'hat')
-        0.5
-        >>> round(cmp.dist('Niall', 'Neil'), 12)
-        0.636363636364
-        >>> round(cmp.dist('Colin', 'Cuilen'), 12)
-        0.692307692308
-        >>> cmp.dist('ATCG', 'TAGC')
-        1.0
+        Examples:
+            >>> cmp = Manhattan()
+            >>> cmp.dist('cat', 'hat')
+            0.5
+            >>> round(cmp.dist('Niall', 'Neil'), 12)
+            0.636363636364
+            >>> round(cmp.dist('Colin', 'Cuilen'), 12)
+            0.692307692308
+            >>> cmp.dist('ATCG', 'TAGC')
+            1.0
+
         """
         return self.dist_abs(src, tar, qval, True, alphabet)
 
@@ -290,21 +306,23 @@ def manhattan(src, tar, qval=2, normalized=False, alphabet=None):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param normalized: normalizes to [0, 1] if True
-    :param collection or int alphabet: the values or size of the alphabet
+        qval (int): The length of each q-gram; 0 for non-q-gram version
+        normalized (bool): Normalizes to [0, 1] if True
+        alphabet (collection or int): The values or size of the alphabet
 
-    :returns: the Manhattan distance
-    :rtype: float
+    Returns:
+        float: The Manhattan distance
 
-    >>> manhattan('cat', 'hat')
-    4.0
-    >>> manhattan('Niall', 'Neil')
-    7.0
-    >>> manhattan('Colin', 'Cuilen')
-    9.0
-    >>> manhattan('ATCG', 'TAGC')
-    10.0
+    Examples:
+        >>> manhattan('cat', 'hat')
+        4.0
+        >>> manhattan('Niall', 'Neil')
+        7.0
+        >>> manhattan('Colin', 'Cuilen')
+        9.0
+        >>> manhattan('ATCG', 'TAGC')
+        10.0
+
     """
     return Manhattan().dist_abs(src, tar, qval, normalized, alphabet)
 
@@ -317,20 +335,22 @@ def dist_manhattan(src, tar, qval=2, alphabet=None):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param collection or int alphabet: the values or size of the alphabet
+        qval (int): The length of each q-gram; 0 for non-q-gram version
+        alphabet (collection or int): The values or size of the alphabet
 
-    :returns: the normalized Manhattan distance
-    :rtype: float
+    Returns:
+        float: The normalized Manhattan distance
 
-    >>> dist_manhattan('cat', 'hat')
-    0.5
-    >>> round(dist_manhattan('Niall', 'Neil'), 12)
-    0.636363636364
-    >>> round(dist_manhattan('Colin', 'Cuilen'), 12)
-    0.692307692308
-    >>> dist_manhattan('ATCG', 'TAGC')
-    1.0
+    Examples:
+        >>> dist_manhattan('cat', 'hat')
+        0.5
+        >>> round(dist_manhattan('Niall', 'Neil'), 12)
+        0.636363636364
+        >>> round(dist_manhattan('Colin', 'Cuilen'), 12)
+        0.692307692308
+        >>> dist_manhattan('ATCG', 'TAGC')
+        1.0
+
     """
     return Manhattan().dist(src, tar, qval, alphabet)
 
@@ -343,20 +363,22 @@ def sim_manhattan(src, tar, qval=2, alphabet=None):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param collection or int alphabet: the values or size of the alphabet
+        qval (int): The length of each q-gram; 0 for non-q-gram version
+        alphabet (collection or int): The values or size of the alphabet
 
-    :returns: the normalized Manhattan similarity
-    :rtype: float
+    Returns:
+        float: The normalized Manhattan similarity
 
-    >>> sim_manhattan('cat', 'hat')
-    0.5
-    >>> round(sim_manhattan('Niall', 'Neil'), 12)
-    0.363636363636
-    >>> round(sim_manhattan('Colin', 'Cuilen'), 12)
-    0.307692307692
-    >>> sim_manhattan('ATCG', 'TAGC')
-    0.0
+    Examples:
+        >>> sim_manhattan('cat', 'hat')
+        0.5
+        >>> round(sim_manhattan('Niall', 'Neil'), 12)
+        0.363636363636
+        >>> round(sim_manhattan('Colin', 'Cuilen'), 12)
+        0.307692307692
+        >>> sim_manhattan('ATCG', 'TAGC')
+        0.0
+
     """
     return Manhattan().sim(src, tar, qval, alphabet)
 
@@ -371,25 +393,27 @@ class Euclidean(Minkowski):
     def dist_abs(self, src, tar, qval=2, normalized=False, alphabet=None):
         """Return the Euclidean distance between two strings.
 
-        Args:
-            src (str): Source string (or QGrams/Counter objects) for comparison
-            tar (str): Target string (or QGrams/Counter objects) for comparison
-        :param int qval: the length of each q-gram; 0 for non-q-gram version
-        :param normalized: normalizes to [0, 1] if True
-        :param collection or int alphabet: the values or size of the alphabet
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
+        qval (int): The length of each q-gram; 0 for non-q-gram version
+        normalized (bool): Normalizes to [0, 1] if True
+        alphabet (collection or int): The values or size of the alphabet
 
-        :returns: the Euclidean distance
-        :rtype: float
+    Returns:
+        float: The Euclidean distance
 
-        >>> cmp = Euclidean()
-        >>> cmp.dist_abs('cat', 'hat')
-        2.0
-        >>> round(cmp.dist_abs('Niall', 'Neil'), 12)
-        2.645751311065
-        >>> cmp.dist_abs('Colin', 'Cuilen')
-        3.0
-        >>> round(cmp.dist_abs('ATCG', 'TAGC'), 12)
-        3.162277660168
+        Examples:
+            >>> cmp = Euclidean()
+            >>> cmp.dist_abs('cat', 'hat')
+            2.0
+            >>> round(cmp.dist_abs('Niall', 'Neil'), 12)
+            2.645751311065
+            >>> cmp.dist_abs('Colin', 'Cuilen')
+            3.0
+            >>> round(cmp.dist_abs('ATCG', 'TAGC'), 12)
+            3.162277660168
+
         """
         return super(self.__class__, self).dist_abs(
             src, tar, qval, 2, normalized, alphabet
@@ -404,21 +428,23 @@ class Euclidean(Minkowski):
         Args:
             src (str): Source string (or QGrams/Counter objects) for comparison
             tar (str): Target string (or QGrams/Counter objects) for comparison
-        :param int qval: the length of each q-gram; 0 for non-q-gram version
-        :param collection or int alphabet: the values or size of the alphabet
+            qval (int): The length of each q-gram; 0 for non-q-gram version
+            alphabet (collection or int): The values or size of the alphabet
 
-        :returns: the normalized Euclidean distance
-        :rtype: float
+        Returns:
+            float: The normalized Euclidean distance
 
-        >>> cmp = Euclidean()
-        >>> round(cmp.dist('cat', 'hat'), 12)
-        0.57735026919
-        >>> round(cmp.dist('Niall', 'Neil'), 12)
-        0.683130051064
-        >>> round(cmp.dist('Colin', 'Cuilen'), 12)
-        0.727606875109
-        >>> cmp.dist('ATCG', 'TAGC')
-        1.0
+        Examples:
+            >>> cmp = Euclidean()
+            >>> round(cmp.dist('cat', 'hat'), 12)
+            0.57735026919
+            >>> round(cmp.dist('Niall', 'Neil'), 12)
+            0.683130051064
+            >>> round(cmp.dist('Colin', 'Cuilen'), 12)
+            0.727606875109
+            >>> cmp.dist('ATCG', 'TAGC')
+            1.0
+
         """
         return self.dist_abs(src, tar, qval, True, alphabet)
 
@@ -431,21 +457,23 @@ def euclidean(src, tar, qval=2, normalized=False, alphabet=None):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param normalized: normalizes to [0, 1] if True
-    :param collection or int alphabet: the values or size of the alphabet
+        qval (int): The length of each q-gram; 0 for non-q-gram version
+        normalized (bool): Normalizes to [0, 1] if True
+        alphabet (collection or int): The values or size of the alphabet
 
-    :returns: the Euclidean distance
-    :rtype: float
+    Returns:
+        float: The Euclidean distance
 
-    >>> euclidean('cat', 'hat')
-    2.0
-    >>> round(euclidean('Niall', 'Neil'), 12)
-    2.645751311065
-    >>> euclidean('Colin', 'Cuilen')
-    3.0
-    >>> round(euclidean('ATCG', 'TAGC'), 12)
-    3.162277660168
+    Examples:
+        >>> euclidean('cat', 'hat')
+        2.0
+        >>> round(euclidean('Niall', 'Neil'), 12)
+        2.645751311065
+        >>> euclidean('Colin', 'Cuilen')
+        3.0
+        >>> round(euclidean('ATCG', 'TAGC'), 12)
+        3.162277660168
+
     """
     return Euclidean().dist_abs(src, tar, qval, normalized, alphabet)
 
@@ -458,20 +486,22 @@ def dist_euclidean(src, tar, qval=2, alphabet=None):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param collection or int alphabet: the values or size of the alphabet
+        qval (int): The length of each q-gram; 0 for non-q-gram version
+        alphabet (collection or int): The values or size of the alphabet
 
-    :returns: the normalized Euclidean distance
-    :rtype: float
+    Returns:
+        float: The normalized Euclidean distance
 
-    >>> round(dist_euclidean('cat', 'hat'), 12)
-    0.57735026919
-    >>> round(dist_euclidean('Niall', 'Neil'), 12)
-    0.683130051064
-    >>> round(dist_euclidean('Colin', 'Cuilen'), 12)
-    0.727606875109
-    >>> dist_euclidean('ATCG', 'TAGC')
-    1.0
+    Examples:
+        >>> round(dist_euclidean('cat', 'hat'), 12)
+        0.57735026919
+        >>> round(dist_euclidean('Niall', 'Neil'), 12)
+        0.683130051064
+        >>> round(dist_euclidean('Colin', 'Cuilen'), 12)
+        0.727606875109
+        >>> dist_euclidean('ATCG', 'TAGC')
+        1.0
+
     """
     return Euclidean().dist(src, tar, qval, alphabet)
 
@@ -484,20 +514,22 @@ def sim_euclidean(src, tar, qval=2, alphabet=None):
     Args:
         src (str): Source string (or QGrams/Counter objects) for comparison
         tar (str): Target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param collection or int alphabet: the values or size of the alphabet
+        qval (int): The length of each q-gram; 0 for non-q-gram version
+        alphabet (collection or int): The values or size of the alphabet
 
-    :returns: the normalized Euclidean similarity
-    :rtype: float
+    Returns:
+        float: The normalized Euclidean similarity
 
-    >>> round(sim_euclidean('cat', 'hat'), 12)
-    0.42264973081
-    >>> round(sim_euclidean('Niall', 'Neil'), 12)
-    0.316869948936
-    >>> round(sim_euclidean('Colin', 'Cuilen'), 12)
-    0.272393124891
-    >>> sim_euclidean('ATCG', 'TAGC')
-    0.0
+    Examples:
+        >>> round(sim_euclidean('cat', 'hat'), 12)
+        0.42264973081
+        >>> round(sim_euclidean('Niall', 'Neil'), 12)
+        0.316869948936
+        >>> round(sim_euclidean('Colin', 'Cuilen'), 12)
+        0.272393124891
+        >>> sim_euclidean('ATCG', 'TAGC')
+        0.0
+
     """
     return Euclidean().sim(src, tar, qval, alphabet)
 
@@ -509,35 +541,36 @@ class Chebyshev(Minkowski):
     equivalent to Minkowski distance in :math:`L^\infty-space`.
     """
 
-    def dist_abs(self, src, tar, qval=2, normalized=False, alphabet=None):
+    def dist_abs(self, src, tar, qval=2, alphabet=None):
         r"""Return the Chebyshev distance between two strings.
 
         Args:
             src (str): Source string (or QGrams/Counter objects) for comparison
             tar (str): Target string (or QGrams/Counter objects) for comparison
-        :param int qval: the length of each q-gram; 0 for non-q-gram version
-        :param normalized: normalizes to [0, 1] if True
-        :param collection or int alphabet: the values or size of the alphabet
+            qval (int): The length of each q-gram; 0 for non-q-gram version
+            alphabet (collection or int): The values or size of the alphabet
 
-        :returns: the Chebyshev distance
-        :rtype: float
+        Returns:
+            float: The Chebyshev distance
 
-        >>> cmp = Chebyshev()
-        >>> cmp.dist_abs('cat', 'hat')
-        1.0
-        >>> cmp.dist_abs('Niall', 'Neil')
-        1.0
-        >>> cmp.dist_abs('Colin', 'Cuilen')
-        1.0
-        >>> cmp.dist_abs('ATCG', 'TAGC')
-        1.0
-        >>> cmp.dist_abs('ATCG', 'TAGC', qval=1)
-        0.0
-        >>> cmp.dist_abs('ATCGATTCGGAATTTC', 'TAGCATAATCGCCG', qval=1)
-        3.0
+        Examples:
+            >>> cmp = Chebyshev()
+            >>> cmp.dist_abs('cat', 'hat')
+            1.0
+            >>> cmp.dist_abs('Niall', 'Neil')
+            1.0
+            >>> cmp.dist_abs('Colin', 'Cuilen')
+            1.0
+            >>> cmp.dist_abs('ATCG', 'TAGC')
+            1.0
+            >>> cmp.dist_abs('ATCG', 'TAGC', qval=1)
+            0.0
+            >>> cmp.dist_abs('ATCGATTCGGAATTTC', 'TAGCATAATCGCCG', qval=1)
+            3.0
+
         """
         return super(self.__class__, self).dist_abs(
-            src, tar, qval, float('inf'), normalized, alphabet
+            src, tar, qval, float('inf'), False, alphabet
         )
 
     def sim(self, *args, **kwargs):
@@ -549,33 +582,36 @@ class Chebyshev(Minkowski):
         raise Exception('Method disabled for Chebyshev distance.')
 
 
-def chebyshev(src, tar, qval=2, normalized=False, alphabet=None):
+def chebyshev(src, tar, qval=2, alphabet=None):
     r"""Return the Chebyshev distance between two strings.
 
     This is a wrapper for the :py:meth:`Chebyshev.dist_abs`.
 
-    :param str src: source string (or QGrams/Counter objects) for comparison
-    :param str tar: target string (or QGrams/Counter objects) for comparison
-    :param int qval: the length of each q-gram; 0 for non-q-gram version
-    :param normalized: normalizes to [0, 1] if True
-    :param collection or int alphabet: the values or size of the alphabet
-    :returns: the Chebyshev distance
-    :rtype: float
+    Args:
+        src (str): Source string (or QGrams/Counter objects) for comparison
+        tar (str): Target string (or QGrams/Counter objects) for comparison
+        qval (int): The length of each q-gram; 0 for non-q-gram version
+        alphabet (collection or int): The values or size of the alphabet
 
-    >>> chebyshev('cat', 'hat')
-    1.0
-    >>> chebyshev('Niall', 'Neil')
-    1.0
-    >>> chebyshev('Colin', 'Cuilen')
-    1.0
-    >>> chebyshev('ATCG', 'TAGC')
-    1.0
-    >>> chebyshev('ATCG', 'TAGC', qval=1)
-    0.0
-    >>> chebyshev('ATCGATTCGGAATTTC', 'TAGCATAATCGCCG', qval=1)
-    3.0
+    Returns:
+        float: The Chebyshev distance
+
+    Examples:
+        >>> chebyshev('cat', 'hat')
+        1.0
+        >>> chebyshev('Niall', 'Neil')
+        1.0
+        >>> chebyshev('Colin', 'Cuilen')
+        1.0
+        >>> chebyshev('ATCG', 'TAGC')
+        1.0
+        >>> chebyshev('ATCG', 'TAGC', qval=1)
+        0.0
+        >>> chebyshev('ATCGATTCGGAATTTC', 'TAGCATAATCGCCG', qval=1)
+        3.0
+
     """
-    return Chebyshev().dist_abs(src, tar, qval, normalized, alphabet)
+    return Chebyshev().dist_abs(src, tar, qval, alphabet)
 
 
 if __name__ == '__main__':
