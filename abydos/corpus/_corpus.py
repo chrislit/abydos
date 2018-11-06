@@ -242,6 +242,7 @@ class Corpus(object):
             term (str): The term to calculate the IDF of
             transform (function): a function to apply to each document term
                 before checking for the presence of term
+
         Returns:
             float: The IDF
 

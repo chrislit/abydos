@@ -30,8 +30,8 @@ class Fingerprint(object):
     def fingerprint(self, word):
         """Fingerprint string.
 
-        :param word: word to fingerprint
-        :return:
+        Args:
+            word (str): Word to fingerprint
         """
         pass
 
