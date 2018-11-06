@@ -374,6 +374,7 @@ def sim(src, tar, method=sim_levenshtein):
         0.125
         >>> sim('ATCG', 'TAGC')
         0.25
+
     """
     if callable(method):
         return method(src, tar)

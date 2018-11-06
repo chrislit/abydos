@@ -112,6 +112,10 @@ class Tversky(TokenDistance):
         Returns:
             float: Tversky similarity
 
+        Raises:
+            ValueError: Unsupported weight assignment; alpha and beta must be
+                greater than or equal to 0.
+
         Examples:
             >>> cmp = Tversky()
             >>> cmp.sim('cat', 'hat')

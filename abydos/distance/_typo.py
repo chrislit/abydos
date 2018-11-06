@@ -112,6 +112,9 @@ class Typo(Distance):
         Returns:
             float: Typo distance
 
+        Raises:
+            ValueError: char not found in any keyboard layouts
+
         Examples:
             >>> cmp = Typo()
             >>> cmp.dist_abs('cat', 'hat')
@@ -166,6 +169,7 @@ class Typo(Distance):
 
             Raises:
                 ValueError: char not found in any keyboard layouts
+
             """
             if char in lowercase:
                 return keyboard[0]
@@ -181,7 +185,16 @@ class Typo(Distance):
             return cost
 
         def _get_char_coord(char, kb_array):
-            """Return the row & column of char in the keyboard."""
+            """Return the row & column of char in the keyboard.
+
+            Args:
+                char (str): The character to search for
+                kb_array (tuple of tuples): The array of key positions
+
+            Returns:
+                tuple: The row & column of the key
+
+            """
             for row in kb_array:  # pragma: no branch
                 if char in row:
                     return kb_array.index(row), row.index(char)

@@ -122,6 +122,7 @@ class Synoname(Distance):
             >>> pe._synoname_word_approximation('Smith Waterman', 'Waterman',
             ... 'Tom Joe Bob', 'Tom Joe')
             0.6
+
         """
         if features is None:
             features = {}
@@ -637,6 +638,7 @@ class Synoname(Distance):
 
         Returns:
             float: Normalized Synoname distance
+
         """
         return (
             synoname(src, tar, word_approx_min, char_approx_min, tests, False)
@@ -664,7 +666,7 @@ def synoname(
         char_approx_min (float): the minimum character approximation value to
             signal a 'char_approx' match
         tests (int or Iterable): either an integer indicating tests to perform
-            or a list of test names to perform (defaults to performing all\
+            or a list of test names to perform (defaults to performing all
             tests)
         ret_name (bool): If True, returns the match name rather than its
             integer equivalent

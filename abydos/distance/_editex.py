@@ -87,7 +87,16 @@ class Editex(Distance):
         match_cost, group_cost, mismatch_cost = cost
 
         def r_cost(ch1, ch2):
-            """Return r(a,b) according to Zobel & Dart's definition."""
+            """Return r(a,b) according to Zobel & Dart's definition.
+
+            Args:
+                ch1 (str): The first character to compare
+                ch2 (str): The second character to compare
+
+            Returns:
+                int: r(a,b) according to Zobel & Dart's definition
+
+            """
             if ch1 == ch2:
                 return match_cost
             if ch1 in self._all_letters and ch2 in self._all_letters:
@@ -97,7 +106,16 @@ class Editex(Distance):
             return mismatch_cost
 
         def d_cost(ch1, ch2):
-            """Return d(a,b) according to Zobel & Dart's definition."""
+            """Return d(a,b) according to Zobel & Dart's definition.
+
+            Args:
+                ch1 (str): The first character to compare
+                ch2 (str): The second character to compare
+
+            Returns:
+                int: d(a,b) according to Zobel & Dart's definition
+
+            """
             if ch1 != ch2 and (ch1 == 'H' or ch1 == 'W'):
                 return group_cost
             return r_cost(ch1, ch2)

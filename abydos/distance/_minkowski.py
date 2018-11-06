@@ -393,15 +393,15 @@ class Euclidean(Minkowski):
     def dist_abs(self, src, tar, qval=2, normalized=False, alphabet=None):
         """Return the Euclidean distance between two strings.
 
-    Args:
-        src (str): Source string (or QGrams/Counter objects) for comparison
-        tar (str): Target string (or QGrams/Counter objects) for comparison
-        qval (int): The length of each q-gram; 0 for non-q-gram version
-        normalized (bool): Normalizes to [0, 1] if True
-        alphabet (collection or int): The values or size of the alphabet
+        Args:
+            src (str): Source string (or QGrams/Counter objects) for comparison
+            tar (str): Target string (or QGrams/Counter objects) for comparison
+            qval (int): The length of each q-gram; 0 for non-q-gram version
+            normalized (bool): Normalizes to [0, 1] if True
+            alphabet (collection or int): The values or size of the alphabet
 
-    Returns:
-        float: The Euclidean distance
+        Returns:
+            float: The Euclidean distance
 
         Examples:
             >>> cmp = Euclidean()
@@ -574,11 +574,29 @@ class Chebyshev(Minkowski):
         )
 
     def sim(self, *args, **kwargs):
-        """Raise exception when called."""
+        """Raise exception when called.
+
+        Args:
+            *args: Variable length argument list
+            **kwargs: Arbitrary keyword arguments
+
+        Raises:
+            Exception: Method disabled for Chebyshev distance
+
+        """
         raise Exception('Method disabled for Chebyshev distance.')
 
     def dist(self, *args, **kwargs):
-        """Raise exception when called."""
+        """Raise exception when called.
+
+        Args:
+            *args: Variable length argument list
+            **kwargs: Arbitrary keyword arguments
+
+        Raises:
+            Exception: Method disabled for Chebyshev distance
+
+        """
         raise Exception('Method disabled for Chebyshev distance.')
 
 

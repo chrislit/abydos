@@ -91,6 +91,10 @@ class NeedlemanWunsch(Distance):
         Returns:
             float: Matrix similarity
 
+        Raises:
+            ValueError: src value not in alphabet
+            ValueError: tar value not in alphabet
+
         Examples:
             >>> NeedlemanWunsch.sim_matrix('cat', 'hat')
             0
@@ -258,6 +262,7 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
         0.0
         >>> smith_waterman('ATCG', 'TAGC')
         1.0
+
     """
     return SmithWaterman().dist_abs(src, tar, gap_cost, sim_func)
 

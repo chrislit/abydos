@@ -57,7 +57,7 @@ class LCSseq(Distance):
         """Return the longest common subsequence of two strings.
 
         Based on the dynamic programming algorithm from
-        http://rosettacode.org/wiki/Longest_common_subsequence#Dynamic_Programming_6
+        http://rosettacode.org/wiki/Longest_common_subsequence
         :cite:`rosettacode:2018b`. This is licensed GFDL 1.2.
 
         Modifications include:
@@ -229,7 +229,7 @@ class LCSstr(Distance):
         Longest common substring (LCSstr).
 
         Based on the code from
-        https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Longest_common_substring#Python
+        https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Longest_common_substring
         :cite:`Wikibooks:2018`.
         This is licensed Creative Commons: Attribution-ShareAlike 3.0.
 
@@ -425,9 +425,15 @@ class RatcliffObershelp(Distance):
         def _lcsstr_stl(src, tar):
             """Return start positions & length for Ratcliff-Obershelp.
 
-            Return the start position in the source string, start position in
-            the target string, and length of the longest common substring of
-            strings src and tar.
+            Args:
+                src (str): Source string for comparison
+                tar (str): Target string for comparison
+
+            Returns:
+                 tuple: The start position in the source string, start position
+                    in the target string, and length of the longest common
+                    substring of strings src and tar.
+
             """
             lengths = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
             longest, src_longest, tar_longest = 0, 0, 0
@@ -455,6 +461,14 @@ class RatcliffObershelp(Distance):
                  3. Base case is a 0 length common substring, in which case,
                      return 0.
                  4. Return the sum.
+
+            Args:
+                src (str): Source string for comparison
+                tar (str): Target string for comparison
+
+            Returns:
+                int: Sum of substring match lengths
+
             """
             src_start, tar_start, length = _lcsstr_stl(src, tar)
             if length == 0:
