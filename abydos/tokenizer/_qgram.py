@@ -46,32 +46,35 @@ class QGrams(Counter):
     def __init__(self, term, qval=2, start_stop='$#', skip=0):
         """Initialize QGrams.
 
-        :param str term: a string to extract q-grams from
-        :param int or iterable qval: the q-gram length (defaults to 2), can be
-            an integer, range object, or list
-        :param str start_stop: a string of length >= 0 indicating start & stop
-            symbols.
-            If the string is '', q-grams will be calculated without start &
-            stop symbols appended to each end.
-            Otherwise, the first character of start_stop will pad the beginning
-            of the string and the last character of start_stop will pad the end
-            of the string before q-grams are calculated. (In the case that
-            start_stop is only 1 character long, the same symbol will be used
-            for both.)
-        :param int or iterable skip: the number of characters to skip, can be
-            an integer, range object, or list
+        Args:
+            term (str): a string to extract q-grams from
+            qval (int or Iterable): the q-gram length (defaults to 2), can be
+                an integer, range object, or list
+            start_stop (str): a string of length >= 0 indicating start & stop
+                symbols.
+                If the string is '', q-grams will be calculated without start &
+                stop symbols appended to each end.
+                Otherwise, the first character of start_stop will pad the
+                beginning of the string and the last character of start_stop
+                will pad the end of the string before q-grams are calculated.
+                (In the case that start_stop is only 1 character long, the same
+                symbol will be used for both.)
+            skip (int or Iterable): the number of characters to skip, can be
+                an integer, range object, or list
 
-        >>> qg = QGrams('AATTATAT')
-        >>> qg
-        QGrams({'AT': 3, 'TA': 2, '$A': 1, 'AA': 1, 'TT': 1, 'T#': 1})
+        Exampls:
+            >>> qg = QGrams('AATTATAT', start_stop='$@')
+            >>> qg
+            QGrams({'AT': 3, 'TA': 2, '$A': 1, 'AA': 1, 'TT': 1, 'T@': 1})
 
-        >>> qg = QGrams('AATTATAT', qval=1, start_stop='')
-        >>> qg
-        QGrams({'A': 4, 'T': 4})
+            >>> qg = QGrams('AATTATAT', qval=1, start_stop='')
+            >>> qg
+            QGrams({'A': 4, 'T': 4})
 
-        >>> qg = QGrams('AATTATAT', qval=3, start_stop='')
-        >>> qg
-        QGrams({'TAT': 2, 'AAT': 1, 'ATT': 1, 'TTA': 1, 'ATA': 1})
+            >>> qg = QGrams('AATTATAT', qval=3, start_stop='')
+            >>> qg
+            QGrams({'TAT': 2, 'AAT': 1, 'ATT': 1, 'TTA': 1, 'ATA': 1})
+
         """
         # Save the term itself
         self.term = term
@@ -112,20 +115,22 @@ class QGrams(Counter):
     def count(self):
         """Return q-grams count.
 
-        :returns: the total count of q-grams in a QGrams object
-        :rtype: int
+        Returns:
+            int: The total count of q-grams in a QGrams object
 
-        >>> qg = QGrams('AATTATAT')
-        >>> qg.count()
-        9
+        Examples:
+            >>> qg = QGrams('AATTATAT')
+            >>> qg.count()
+            9
 
-        >>> qg = QGrams('AATTATAT', qval=1, start_stop='')
-        >>> qg.count()
-        8
+            >>> qg = QGrams('AATTATAT', qval=1, start_stop='')
+            >>> qg.count()
+            8
 
-        >>> qg = QGrams('AATTATAT', qval=3, start_stop='')
-        >>> qg.count()
-        6
+            >>> qg = QGrams('AATTATAT', qval=3, start_stop='')
+            >>> qg.count()
+            6
+
         """
         return sum(self.values())
 

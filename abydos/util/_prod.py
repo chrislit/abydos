@@ -38,18 +38,22 @@ def prod(nums):
 
     Cf. https://en.wikipedia.org/wiki/Product_(mathematics)
 
-    :param nums: a collection (list, tuple, set, etc.) of numbers
-    :returns: the product of a nums
-    :rtype: numeric
+    Args:
+        nums (list): A collection (list, tuple, set, etc.) of numbers
 
-    >>> prod([1,1,1,1])
-    1
-    >>> prod((2,4,8))
-    64
-    >>> prod({1,2,3,4})
-    24
-    >>> prod(2**i for i in range(5))
-    1024
+    Returns:
+        numeric: The product of a nums
+
+    Examples:
+        >>> prod([1,1,1,1])
+        1
+        >>> prod((2,4,8))
+        64
+        >>> prod({1,2,3,4})
+        24
+        >>> prod(2**i for i in range(5))
+        1024
+
     """
     return reduce(mul, nums, 1)
 
