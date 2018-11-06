@@ -105,28 +105,38 @@ class Strcmp95(Distance):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-        :param bool long_strings: set to True to "Increase the probability of a
-            match when the number of matched characters is large.  This option
-            allows for a little more tolerance when the strings are large. It
-            is not an appropriate test when comparing fixed length fields such
-            as phone and social security numbers."
+            long_strings (bool): Set to True to increase the probability of a
+                match when the number of matched characters is large. This
+                option allows for a little more tolerance when the strings are
+                large. It is not an appropriate test when comparing fixed
+                length fields such as phone and social security numbers.
 
-        :returns: strcmp95 similarity
-        :rtype: float
+        Returns:
+            float: Strcmp95 similarity
 
-        >>> cmp = Strcmp95()
-        >>> cmp.sim('cat', 'hat')
-        0.7777777777777777
-        >>> cmp.sim('Niall', 'Neil')
-        0.8454999999999999
-        >>> cmp.sim('aluminum', 'Catalan')
-        0.6547619047619048
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.8333333333333334
+        Examples:
+            >>> cmp = Strcmp95()
+            >>> cmp.sim('cat', 'hat')
+            0.7777777777777777
+            >>> cmp.sim('Niall', 'Neil')
+            0.8454999999999999
+            >>> cmp.sim('aluminum', 'Catalan')
+            0.6547619047619048
+            >>> cmp.sim('ATCG', 'TAGC')
+            0.8333333333333334
+
         """
 
         def _in_range(char):
-            """Return True if char is in the range (0, 91)."""
+            """Return True if char is in the range (0, 91).
+
+            Args:
+                char (str): The character to check
+
+            Returns:
+                bool: True if char is in the range (0, 91)
+
+            """
             return 91 > ord(char) > 0
 
         ying = src.strip().upper()
@@ -249,23 +259,25 @@ def sim_strcmp95(src, tar, long_strings=False):
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param bool long_strings: set to True to "Increase the probability of a
-        match when the number of matched characters is large.  This option
-        allows for a little more tolerance when the strings are large. It is
-        not an appropriate test when comparing fixed length fields such as
-        phone and social security numbers."
+        long_strings (bool): Set to True to increase the probability of a
+            match when the number of matched characters is large. This option
+            allows for a little more tolerance when the strings are large. It
+            is not an appropriate test when comparing fixed length fields such
+            as phone and social security numbers.
 
-    :returns: strcmp95 similarity
-    :rtype: float
+    Returns:
+        float: strcmp95 similarity
 
-    >>> sim_strcmp95('cat', 'hat')
-    0.7777777777777777
-    >>> sim_strcmp95('Niall', 'Neil')
-    0.8454999999999999
-    >>> sim_strcmp95('aluminum', 'Catalan')
-    0.6547619047619048
-    >>> sim_strcmp95('ATCG', 'TAGC')
-    0.8333333333333334
+    Examples:
+        >>> sim_strcmp95('cat', 'hat')
+        0.7777777777777777
+        >>> sim_strcmp95('Niall', 'Neil')
+        0.8454999999999999
+        >>> sim_strcmp95('aluminum', 'Catalan')
+        0.6547619047619048
+        >>> sim_strcmp95('ATCG', 'TAGC')
+        0.8333333333333334
+
     """
     return Strcmp95().sim(src, tar, long_strings)
 
@@ -278,23 +290,25 @@ def dist_strcmp95(src, tar, long_strings=False):
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param bool long_strings: set to True to "Increase the probability of a
-        match when the number of matched characters is large.  This option
-        allows for a little more tolerance when the strings are large. It is
-        not an appropriate test when comparing fixed length fields such as
-        phone and social security numbers."
+        long_strings (bool): Set to True to increase the probability of a
+            match when the number of matched characters is large. This option
+            allows for a little more tolerance when the strings are large. It
+            is not an appropriate test when comparing fixed length fields such
+            as phone and social security numbers.
 
-    :returns: strcmp95 distance
-    :rtype: float
+    Returns:
+        float: strcmp95 distance
 
-    >>> round(dist_strcmp95('cat', 'hat'), 12)
-    0.222222222222
-    >>> round(dist_strcmp95('Niall', 'Neil'), 12)
-    0.1545
-    >>> round(dist_strcmp95('aluminum', 'Catalan'), 12)
-    0.345238095238
-    >>> round(dist_strcmp95('ATCG', 'TAGC'), 12)
-    0.166666666667
+    Examples:
+        >>> round(dist_strcmp95('cat', 'hat'), 12)
+        0.222222222222
+        >>> round(dist_strcmp95('Niall', 'Neil'), 12)
+        0.1545
+        >>> round(dist_strcmp95('aluminum', 'Catalan'), 12)
+        0.345238095238
+        >>> round(dist_strcmp95('ATCG', 'TAGC'), 12)
+        0.166666666667
+
     """
     return Strcmp95().dist(src, tar, long_strings)
 
@@ -326,48 +340,55 @@ class JaroWinkler(Distance):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-        :param int qval: the length of each q-gram (defaults to 1:
-            character-wise matching)
-        :param str mode: indicates which variant of this distance metric to
-            compute:
+            qval (int): The length of each q-gram (defaults to 1:
+                character-wise matching)
+            mode (str): Indicates which variant of this distance metric to
+                compute:
+                    - ``winkler`` -- computes the Jaro-Winkler distance
+                      (default) which increases the score for matches near the
+                      start of the word
+                    - ``jaro`` -- computes the Jaro distance
+            long_strings (bool): Set to True to "Increase the probability of a
+                match when the number of matched characters is large. This
+                option allows for a little more tolerance when the strings are
+                large. It is not an appropriate test when comparing fixed
+                length fields such as phone and social security numbers."
+                (Used in 'winkler' mode only.)
+            boost_threshold (float): A value between 0 and 1, below which the
+                Winkler boost is not applied (defaults to 0.7). (Used in
+                'winkler' mode only.)
+            scaling_factor (float): A value between 0 and 0.25, indicating by
+                how much to boost scores for matching prefixes (defaults to
+                0.1). (Used in 'winkler' mode only.)
 
-                - 'winkler' -- computes the Jaro-Winkler distance (default)
-                  which increases the score for matches near the start of the
-                  word
-                - 'jaro' -- computes the Jaro distance
+        Returns:
+            float: Jaro or Jaro-Winkler similarity
 
-        The following arguments apply only when mode is 'winkler':
+        Raises:
+            ValueError: Unsupported boost_threshold assignment; boost_threshold
+                must be between 0 and 1.
+            ValueError: Unsupported scaling_factor assignment; scaling_factor
+                must be between 0 and 0.25.'
 
-        :param bool long_strings: set to True to "Increase the probability of a
-            match when the number of matched characters is large.  This option
-            allows for a little more tolerance when the strings are large.  It
-            is not an appropriate test when comparing fixed length fields such
-            as phone and social security numbers."
-        :param float boost_threshold: a value between 0 and 1, below which the
-            Winkler boost is not applied (defaults to 0.7)
-        :param float scaling_factor: a value between 0 and 0.25, indicating by
-            how much to boost scores for matching prefixes (defaults to 0.1)
+        Examples:
+            >>> round(sim_jaro_winkler('cat', 'hat'), 12)
+            0.777777777778
+            >>> round(sim_jaro_winkler('Niall', 'Neil'), 12)
+            0.805
+            >>> round(sim_jaro_winkler('aluminum', 'Catalan'), 12)
+            0.60119047619
+            >>> round(sim_jaro_winkler('ATCG', 'TAGC'), 12)
+            0.833333333333
 
-        :returns: Jaro or Jaro-Winkler similarity
-        :rtype: float
+            >>> round(sim_jaro_winkler('cat', 'hat', mode='jaro'), 12)
+            0.777777777778
+            >>> round(sim_jaro_winkler('Niall', 'Neil', mode='jaro'), 12)
+            0.783333333333
+            >>> round(sim_jaro_winkler('aluminum', 'Catalan', mode='jaro'), 12)
+            0.60119047619
+            >>> round(sim_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
+            0.833333333333
 
-        >>> round(sim_jaro_winkler('cat', 'hat'), 12)
-        0.777777777778
-        >>> round(sim_jaro_winkler('Niall', 'Neil'), 12)
-        0.805
-        >>> round(sim_jaro_winkler('aluminum', 'Catalan'), 12)
-        0.60119047619
-        >>> round(sim_jaro_winkler('ATCG', 'TAGC'), 12)
-        0.833333333333
-
-        >>> round(sim_jaro_winkler('cat', 'hat', mode='jaro'), 12)
-        0.777777777778
-        >>> round(sim_jaro_winkler('Niall', 'Neil', mode='jaro'), 12)
-        0.783333333333
-        >>> round(sim_jaro_winkler('aluminum', 'Catalan', mode='jaro'), 12)
-        0.60119047619
-        >>> round(sim_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
-        0.833333333333
         """
         if mode == 'winkler':
             if boost_threshold > 1 or boost_threshold < 0:
@@ -487,47 +508,49 @@ def sim_jaro_winkler(
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param int qval: the length of each q-gram (defaults to 1: character-wise
-        matching)
-    :param str mode: indicates which variant of this distance metric to
-        compute:
+        qval (int): The length of each q-gram (defaults to 1:
+            character-wise matching)
+        mode (str): Indicates which variant of this distance metric to
+            compute:
+                - ``winkler`` -- computes the Jaro-Winkler distance (default)
+                  which increases the score for matches near the start of the
+                  word
+                - ``jaro`` -- computes the Jaro distance
+        long_strings (bool): Set to True to "Increase the probability of a
+            match when the number of matched characters is large. This option
+            allows for a little more tolerance when the strings are large. It
+            is not an appropriate test when comparing fixedlength fields such
+            as phone and social security numbers." (Used in 'winkler' mode
+            only.)
+        boost_threshold (float): A value between 0 and 1, below which the
+            Winkler boost is not applied (defaults to 0.7). (Used in 'winkler'
+            mode only.)
+        scaling_factor (float): A value between 0 and 0.25, indicating by how
+            much to boost scores for matching prefixes (defaults to 0.1). (Used
+            in 'winkler' mode only.)
 
-            - 'winkler' -- computes the Jaro-Winkler distance (default) which
-              increases the score for matches near the start of the word
-            - 'jaro' -- computes the Jaro distance
+    Returns:
+        float: Jaro or Jaro-Winkler similarity
 
-    The following arguments apply only when mode is 'winkler':
+    Examples:
+        >>> round(sim_jaro_winkler('cat', 'hat'), 12)
+        0.777777777778
+        >>> round(sim_jaro_winkler('Niall', 'Neil'), 12)
+        0.805
+        >>> round(sim_jaro_winkler('aluminum', 'Catalan'), 12)
+        0.60119047619
+        >>> round(sim_jaro_winkler('ATCG', 'TAGC'), 12)
+        0.833333333333
 
-    :param bool long_strings: set to True to "Increase the probability of a
-        match when the number of matched characters is large.  This option
-        allows for a little more tolerance when the strings are large.  It is
-        not an appropriate test when comparing fixed length fields such as
-        phone and social security numbers."
-    :param float boost_threshold: a value between 0 and 1, below which the
-        Winkler boost is not applied (defaults to 0.7)
-    :param float scaling_factor: a value between 0 and 0.25, indicating by how
-        much to boost scores for matching prefixes (defaults to 0.1)
+        >>> round(sim_jaro_winkler('cat', 'hat', mode='jaro'), 12)
+        0.777777777778
+        >>> round(sim_jaro_winkler('Niall', 'Neil', mode='jaro'), 12)
+        0.783333333333
+        >>> round(sim_jaro_winkler('aluminum', 'Catalan', mode='jaro'), 12)
+        0.60119047619
+        >>> round(sim_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
+        0.833333333333
 
-    :returns: Jaro or Jaro-Winkler similarity
-    :rtype: float
-
-    >>> round(sim_jaro_winkler('cat', 'hat'), 12)
-    0.777777777778
-    >>> round(sim_jaro_winkler('Niall', 'Neil'), 12)
-    0.805
-    >>> round(sim_jaro_winkler('aluminum', 'Catalan'), 12)
-    0.60119047619
-    >>> round(sim_jaro_winkler('ATCG', 'TAGC'), 12)
-    0.833333333333
-
-    >>> round(sim_jaro_winkler('cat', 'hat', mode='jaro'), 12)
-    0.777777777778
-    >>> round(sim_jaro_winkler('Niall', 'Neil', mode='jaro'), 12)
-    0.783333333333
-    >>> round(sim_jaro_winkler('aluminum', 'Catalan', mode='jaro'), 12)
-    0.60119047619
-    >>> round(sim_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
-    0.833333333333
     """
     return JaroWinkler().sim(
         src, tar, qval, mode, long_strings, boost_threshold, scaling_factor
@@ -550,47 +573,49 @@ def dist_jaro_winkler(
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param int qval: the length of each q-gram (defaults to 1: character-wise
-        matching)
-    :param str mode: indicates which variant of this distance metric to
-        compute:
+        qval (int): The length of each q-gram (defaults to 1:
+            character-wise matching)
+        mode (str): Indicates which variant of this distance metric to
+            compute:
+                - ``winkler`` -- computes the Jaro-Winkler distance (default)
+                  which increases the score for matches near the start of the
+                  word
+                - ``jaro`` -- computes the Jaro distance
+        long_strings (bool): Set to True to "Increase the probability of a
+            match when the number of matched characters is large. This option
+            allows for a little more tolerance when the strings are large. It
+            is not an appropriate test when comparing fixedlength fields such
+            as phone and social security numbers." (Used in 'winkler' mode
+            only.)
+        boost_threshold (float): A value between 0 and 1, below which the
+            Winkler boost is not applied (defaults to 0.7). (Used in 'winkler'
+            mode only.)
+        scaling_factor (float): A value between 0 and 0.25, indicating by how
+            much to boost scores for matching prefixes (defaults to 0.1). (Used
+            in 'winkler' mode only.)
 
-            - 'winkler' -- computes the Jaro-Winkler distance (default) which
-              increases the score for matches near the start of the word
-            - 'jaro' -- computes the Jaro distance
+    Returns:
+        float: Jaro or Jaro-Winkler distance
 
-    The following arguments apply only when mode is 'winkler':
+    Examples:
+        >>> round(dist_jaro_winkler('cat', 'hat'), 12)
+        0.222222222222
+        >>> round(dist_jaro_winkler('Niall', 'Neil'), 12)
+        0.195
+        >>> round(dist_jaro_winkler('aluminum', 'Catalan'), 12)
+        0.39880952381
+        >>> round(dist_jaro_winkler('ATCG', 'TAGC'), 12)
+        0.166666666667
 
-    :param bool long_strings: set to True to "Increase the probability of a
-        match when the number of matched characters is large.  This option
-        allows for a little more tolerance when the strings are large.  It is
-        not an appropriate test when comparing fixed length fields such as
-        phone and social security numbers."
-    :param float boost_threshold: a value between 0 and 1, below which the
-        Winkler boost is not applied (defaults to 0.7)
-    :param float scaling_factor: a value between 0 and 0.25, indicating by how
-        much to boost scores for matching prefixes (defaults to 0.1)
+        >>> round(dist_jaro_winkler('cat', 'hat', mode='jaro'), 12)
+        0.222222222222
+        >>> round(dist_jaro_winkler('Niall', 'Neil', mode='jaro'), 12)
+        0.216666666667
+        >>> round(dist_jaro_winkler('aluminum', 'Catalan', mode='jaro'), 12)
+        0.39880952381
+        >>> round(dist_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
+        0.166666666667
 
-    :returns: Jaro or Jaro-Winkler distance
-    :rtype: float
-
-    >>> round(dist_jaro_winkler('cat', 'hat'), 12)
-    0.222222222222
-    >>> round(dist_jaro_winkler('Niall', 'Neil'), 12)
-    0.195
-    >>> round(dist_jaro_winkler('aluminum', 'Catalan'), 12)
-    0.39880952381
-    >>> round(dist_jaro_winkler('ATCG', 'TAGC'), 12)
-    0.166666666667
-
-    >>> round(dist_jaro_winkler('cat', 'hat', mode='jaro'), 12)
-    0.222222222222
-    >>> round(dist_jaro_winkler('Niall', 'Neil', mode='jaro'), 12)
-    0.216666666667
-    >>> round(dist_jaro_winkler('aluminum', 'Catalan', mode='jaro'), 12)
-    0.39880952381
-    >>> round(dist_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
-    0.166666666667
     """
     return JaroWinkler().dist(
         src, tar, qval, mode, long_strings, boost_threshold, scaling_factor

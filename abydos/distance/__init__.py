@@ -357,7 +357,7 @@ def sim(src, tar, method=sim_levenshtein):
         src (str): Source string for comparison
         tar (str): Target string for comparison
         method (function): Specifies the similarity metric
-            (:py:function:`sim_levenshtein` by default)
+            (:py:func:`sim_levenshtein` by default)
 
     Returns:
         float: Similarity according to the specified function
@@ -390,7 +390,7 @@ def dist(src, tar, method=sim_levenshtein):
         src (str): Source string for comparison
         tar (str): Target string for comparison
         method (function): Specifies the similarity metric
-            (:py:function:`sim_levenshtein` by default) -- Note that this takes
+            (:py:func:`sim_levenshtein` by default) -- Note that this takes
             a similarity metric function, not a distance metric function.
 
     Returns:

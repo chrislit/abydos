@@ -76,21 +76,22 @@ class NCDarith(Distance):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-        :param dict probs: a dictionary trained with
-            :py:meth:`Arithmetic.train`
+            probs (dict): A dictionary trained with :py:meth:`Arithmetic.train`
 
-        :returns: compression distance
-        :rtype: float
+        Returns:
+            float: Compression distance
 
-        >>> cmp = NCDarith()
-        >>> cmp.dist('cat', 'hat')
-        0.5454545454545454
-        >>> cmp.dist('Niall', 'Neil')
-        0.6875
-        >>> cmp.dist('aluminum', 'Catalan')
-        0.8275862068965517
-        >>> cmp.dist('ATCG', 'TAGC')
-        0.6923076923076923
+        Examples:
+            >>> cmp = NCDarith()
+            >>> cmp.dist('cat', 'hat')
+            0.5454545454545454
+            >>> cmp.dist('Niall', 'Neil')
+            0.6875
+            >>> cmp.dist('aluminum', 'Catalan')
+            0.8275862068965517
+            >>> cmp.dist('ATCG', 'TAGC')
+            0.6923076923076923
+
         """
         if src == tar:
             return 0.0
@@ -119,19 +120,21 @@ def dist_ncd_arith(src, tar, probs=None):
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param dict probs: a dictionary trained with :py:meth:`Arithmetic.train`
+        probs (dict): A dictionary trained with :py:meth:`Arithmetic.train`
 
-    :returns: compression distance
-    :rtype: float
+    Returns:
+        float: Compression distance
 
-    >>> dist_ncd_arith('cat', 'hat')
-    0.5454545454545454
-    >>> dist_ncd_arith('Niall', 'Neil')
-    0.6875
-    >>> dist_ncd_arith('aluminum', 'Catalan')
-    0.8275862068965517
-    >>> dist_ncd_arith('ATCG', 'TAGC')
-    0.6923076923076923
+    Examples:
+        >>> dist_ncd_arith('cat', 'hat')
+        0.5454545454545454
+        >>> dist_ncd_arith('Niall', 'Neil')
+        0.6875
+        >>> dist_ncd_arith('aluminum', 'Catalan')
+        0.8275862068965517
+        >>> dist_ncd_arith('ATCG', 'TAGC')
+        0.6923076923076923
+
     """
     return NCDarith().dist(src, tar, probs)
 
@@ -144,19 +147,21 @@ def sim_ncd_arith(src, tar, probs=None):
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param dict probs: a dictionary trained with :py:meth:`Arithmetic.train`
+        probs (dict): A dictionary trained with :py:meth:`Arithmetic.train`
 
-    :returns: compression similarity
-    :rtype: float
+    Returns:
+        float: Compression similarity
 
-    >>> sim_ncd_arith('cat', 'hat')
-    0.4545454545454546
-    >>> sim_ncd_arith('Niall', 'Neil')
-    0.3125
-    >>> sim_ncd_arith('aluminum', 'Catalan')
-    0.1724137931034483
-    >>> sim_ncd_arith('ATCG', 'TAGC')
-    0.3076923076923077
+    Examples:
+        >>> sim_ncd_arith('cat', 'hat')
+        0.4545454545454546
+        >>> sim_ncd_arith('Niall', 'Neil')
+        0.3125
+        >>> sim_ncd_arith('aluminum', 'Catalan')
+        0.1724137931034483
+        >>> sim_ncd_arith('ATCG', 'TAGC')
+        0.3076923076923077
+
     """
     return NCDarith().sim(src, tar, probs)
 
@@ -176,18 +181,20 @@ class NCDrle(Distance):
             src (str): Source string for comparison
             tar (str): Target string for comparison
 
-        :returns: compression distance
-        :rtype: float
+        Returns:
+            float: Compression distance
 
-        >>> cmp = NCDrle()
-        >>> cmp.dist('cat', 'hat')
-        1.0
-        >>> cmp.dist('Niall', 'Neil')
-        1.0
-        >>> cmp.dist('aluminum', 'Catalan')
-        1.0
-        >>> cmp.dist('ATCG', 'TAGC')
-        1.0
+        Examples:
+            >>> cmp = NCDrle()
+            >>> cmp.dist('cat', 'hat')
+            1.0
+            >>> cmp.dist('Niall', 'Neil')
+            1.0
+            >>> cmp.dist('aluminum', 'Catalan')
+            1.0
+            >>> cmp.dist('ATCG', 'TAGC')
+            1.0
+
         """
         if src == tar:
             return 0.0
@@ -212,17 +219,19 @@ def dist_ncd_rle(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: compression distance
-    :rtype: float
+    Returns:
+        float: Compression distance
 
-    >>> dist_ncd_rle('cat', 'hat')
-    1.0
-    >>> dist_ncd_rle('Niall', 'Neil')
-    1.0
-    >>> dist_ncd_rle('aluminum', 'Catalan')
-    1.0
-    >>> dist_ncd_rle('ATCG', 'TAGC')
-    1.0
+    Examples:
+        >>> dist_ncd_rle('cat', 'hat')
+        1.0
+        >>> dist_ncd_rle('Niall', 'Neil')
+        1.0
+        >>> dist_ncd_rle('aluminum', 'Catalan')
+        1.0
+        >>> dist_ncd_rle('ATCG', 'TAGC')
+        1.0
+
     """
     return NCDrle().dist(src, tar)
 
@@ -236,17 +245,19 @@ def sim_ncd_rle(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: compression similarity
-    :rtype: float
+    Returns:
+        float: Compression similarity
 
-    >>> sim_ncd_rle('cat', 'hat')
-    0.0
-    >>> sim_ncd_rle('Niall', 'Neil')
-    0.0
-    >>> sim_ncd_rle('aluminum', 'Catalan')
-    0.0
-    >>> sim_ncd_rle('ATCG', 'TAGC')
-    0.0
+    Examples:
+        >>> sim_ncd_rle('cat', 'hat')
+        0.0
+        >>> sim_ncd_rle('Niall', 'Neil')
+        0.0
+        >>> sim_ncd_rle('aluminum', 'Catalan')
+        0.0
+        >>> sim_ncd_rle('ATCG', 'TAGC')
+        0.0
+
     """
     return NCDrle().sim(src, tar)
 
@@ -266,18 +277,20 @@ class NCDbwtrle(NCDrle):
             src (str): Source string for comparison
             tar (str): Target string for comparison
 
-        :returns: compression distance
-        :rtype: float
+        Returns:
+            float: Compression distance
 
-        >>> cmp = NCDbwtrle()
-        >>> cmp.dist('cat', 'hat')
-        0.75
-        >>> cmp.dist('Niall', 'Neil')
-        0.8333333333333334
-        >>> cmp.dist('aluminum', 'Catalan')
-        1.0
-        >>> cmp.dist('ATCG', 'TAGC')
-        0.8
+        Examples:
+            >>> cmp = NCDbwtrle()
+            >>> cmp.dist('cat', 'hat')
+            0.75
+            >>> cmp.dist('Niall', 'Neil')
+            0.8333333333333334
+            >>> cmp.dist('aluminum', 'Catalan')
+            1.0
+            >>> cmp.dist('ATCG', 'TAGC')
+            0.8
+
         """
         if src == tar:
             return 0.0
@@ -302,17 +315,19 @@ def dist_ncd_bwtrle(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: compression distance
-    :rtype: float
+    Returns:
+        float: Compression distance
 
-    >>> dist_ncd_bwtrle('cat', 'hat')
-    0.75
-    >>> dist_ncd_bwtrle('Niall', 'Neil')
-    0.8333333333333334
-    >>> dist_ncd_bwtrle('aluminum', 'Catalan')
-    1.0
-    >>> dist_ncd_bwtrle('ATCG', 'TAGC')
-    0.8
+    Examples:
+        >>> dist_ncd_bwtrle('cat', 'hat')
+        0.75
+        >>> dist_ncd_bwtrle('Niall', 'Neil')
+        0.8333333333333334
+        >>> dist_ncd_bwtrle('aluminum', 'Catalan')
+        1.0
+        >>> dist_ncd_bwtrle('ATCG', 'TAGC')
+        0.8
+
     """
     return NCDbwtrle().dist(src, tar)
 
@@ -326,17 +341,19 @@ def sim_ncd_bwtrle(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: compression similarity
-    :rtype: float
+    Returns:
+        float: Compression similarity
 
-    >>> sim_ncd_bwtrle('cat', 'hat')
-    0.25
-    >>> sim_ncd_bwtrle('Niall', 'Neil')
-    0.16666666666666663
-    >>> sim_ncd_bwtrle('aluminum', 'Catalan')
-    0.0
-    >>> sim_ncd_bwtrle('ATCG', 'TAGC')
-    0.19999999999999996
+    Examples:
+        >>> sim_ncd_bwtrle('cat', 'hat')
+        0.25
+        >>> sim_ncd_bwtrle('Niall', 'Neil')
+        0.16666666666666663
+        >>> sim_ncd_bwtrle('aluminum', 'Catalan')
+        0.0
+        >>> sim_ncd_bwtrle('ATCG', 'TAGC')
+        0.19999999999999996
+
     """
     return NCDbwtrle().sim(src, tar)
 
@@ -352,7 +369,8 @@ class NCDzlib(Distance):
     def __init__(self, level=zlib.Z_DEFAULT_COMPRESSION):
         """Initialize zlib compressor.
 
-        :param level: The compression level (0 to 9)
+        Args:
+            level (int): The compression level (0 to 9)
         """
         self._compressor = zlib.compressobj(level)
 
@@ -363,18 +381,20 @@ class NCDzlib(Distance):
             src (str): Source string for comparison
             tar (str): Target string for comparison
 
-        :returns: compression distance
-        :rtype: float
+        Returns:
+            float: Compression distance
 
-        >>> cmp = NCDzlib()
-        >>> cmp.dist('cat', 'hat')
-        0.3333333333333333
-        >>> cmp.dist('Niall', 'Neil')
-        0.45454545454545453
-        >>> cmp.dist('aluminum', 'Catalan')
-        0.5714285714285714
-        >>> cmp.dist('ATCG', 'TAGC')
-        0.4
+        Examples:
+            >>> cmp = NCDzlib()
+            >>> cmp.dist('cat', 'hat')
+            0.3333333333333333
+            >>> cmp.dist('Niall', 'Neil')
+            0.45454545454545453
+            >>> cmp.dist('aluminum', 'Catalan')
+            0.5714285714285714
+            >>> cmp.dist('ATCG', 'TAGC')
+            0.4
+
         """
         if src == tar:
             return 0.0
@@ -406,17 +426,19 @@ def dist_ncd_zlib(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: compression distance
-    :rtype: float
+    Returns:
+        float: Compression distance
 
-    >>> dist_ncd_zlib('cat', 'hat')
-    0.3333333333333333
-    >>> dist_ncd_zlib('Niall', 'Neil')
-    0.45454545454545453
-    >>> dist_ncd_zlib('aluminum', 'Catalan')
-    0.5714285714285714
-    >>> dist_ncd_zlib('ATCG', 'TAGC')
-    0.4
+    Examples:
+        >>> dist_ncd_zlib('cat', 'hat')
+        0.3333333333333333
+        >>> dist_ncd_zlib('Niall', 'Neil')
+        0.45454545454545453
+        >>> dist_ncd_zlib('aluminum', 'Catalan')
+        0.5714285714285714
+        >>> dist_ncd_zlib('ATCG', 'TAGC')
+        0.4
+
     """
     return NCDzlib().dist(src, tar)
 
@@ -430,17 +452,19 @@ def sim_ncd_zlib(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: compression similarity
-    :rtype: float
+    Returns:
+        float: Compression similarity
 
-    >>> sim_ncd_zlib('cat', 'hat')
-    0.6666666666666667
-    >>> sim_ncd_zlib('Niall', 'Neil')
-    0.5454545454545454
-    >>> sim_ncd_zlib('aluminum', 'Catalan')
-    0.4285714285714286
-    >>> sim_ncd_zlib('ATCG', 'TAGC')
-    0.6
+    Examples:
+        >>> sim_ncd_zlib('cat', 'hat')
+        0.6666666666666667
+        >>> sim_ncd_zlib('Niall', 'Neil')
+        0.5454545454545454
+        >>> sim_ncd_zlib('aluminum', 'Catalan')
+        0.4285714285714286
+        >>> sim_ncd_zlib('ATCG', 'TAGC')
+        0.6
+
     """
     return NCDzlib().sim(src, tar)
 
@@ -456,7 +480,8 @@ class NCDbz2(Distance):
     def __init__(self, level=9):
         """Initialize zlib compressor.
 
-        :param level: The compression level (0 to 9)
+        Args:
+            level (int): The compression level (0 to 9)
         """
         self._level = level
 
@@ -467,18 +492,20 @@ class NCDbz2(Distance):
             src (str): Source string for comparison
             tar (str): Target string for comparison
 
-        :returns: compression distance
-        :rtype: float
+        Returns:
+            float: Compression distance
 
-        >>> cmp = NCDbz2()
-        >>> cmp.dist('cat', 'hat')
-        0.06666666666666667
-        >>> cmp.dist('Niall', 'Neil')
-        0.03125
-        >>> cmp.dist('aluminum', 'Catalan')
-        0.17647058823529413
-        >>> cmp.dist('ATCG', 'TAGC')
-        0.03125
+        Examples:
+            >>> cmp = NCDbz2()
+            >>> cmp.dist('cat', 'hat')
+            0.06666666666666667
+            >>> cmp.dist('Niall', 'Neil')
+            0.03125
+            >>> cmp.dist('aluminum', 'Catalan')
+            0.17647058823529413
+            >>> cmp.dist('ATCG', 'TAGC')
+            0.03125
+
         """
         if src == tar:
             return 0.0
@@ -506,17 +533,19 @@ def dist_ncd_bz2(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: compression distance
-    :rtype: float
+    Returns:
+        float: Compression distance
 
-    >>> dist_ncd_bz2('cat', 'hat')
-    0.06666666666666667
-    >>> dist_ncd_bz2('Niall', 'Neil')
-    0.03125
-    >>> dist_ncd_bz2('aluminum', 'Catalan')
-    0.17647058823529413
-    >>> dist_ncd_bz2('ATCG', 'TAGC')
-    0.03125
+    Examples:
+        >>> dist_ncd_bz2('cat', 'hat')
+        0.06666666666666667
+        >>> dist_ncd_bz2('Niall', 'Neil')
+        0.03125
+        >>> dist_ncd_bz2('aluminum', 'Catalan')
+        0.17647058823529413
+        >>> dist_ncd_bz2('ATCG', 'TAGC')
+        0.03125
+
     """
     return NCDbz2().dist(src, tar)
 
@@ -530,17 +559,19 @@ def sim_ncd_bz2(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: compression similarity
-    :rtype: float
+    Returns:
+        float: Compression similarity
 
-    >>> sim_ncd_bz2('cat', 'hat')
-    0.9333333333333333
-    >>> sim_ncd_bz2('Niall', 'Neil')
-    0.96875
-    >>> sim_ncd_bz2('aluminum', 'Catalan')
-    0.8235294117647058
-    >>> sim_ncd_bz2('ATCG', 'TAGC')
-    0.96875
+    Examples:
+        >>> sim_ncd_bz2('cat', 'hat')
+        0.9333333333333333
+        >>> sim_ncd_bz2('Niall', 'Neil')
+        0.96875
+        >>> sim_ncd_bz2('aluminum', 'Catalan')
+        0.8235294117647058
+        >>> sim_ncd_bz2('ATCG', 'TAGC')
+        0.96875
+
     """
     return NCDbz2().sim(src, tar)
 
@@ -558,18 +589,23 @@ class NCDlzma(Distance):
             src (str): Source string for comparison
             tar (str): Target string for comparison
 
-        :returns: compression distance
-        :rtype: float
+        Returns:
+            float: Compression distance
 
-        >>> cmp = NCDlzma()
-        >>> cmp.dist('cat', 'hat')
-        0.08695652173913043
-        >>> cmp.dist('Niall', 'Neil')
-        0.16
-        >>> cmp.dist('aluminum', 'Catalan')
-        0.16
-        >>> cmp.dist('ATCG', 'TAGC')
-        0.08695652173913043
+        Raises:
+            ValueError: Install the PylibLZMA module in order to use lzma
+
+        Examples:
+            >>> cmp = NCDlzma()
+            >>> cmp.dist('cat', 'hat')
+            0.08695652173913043
+            >>> cmp.dist('Niall', 'Neil')
+            0.16
+            >>> cmp.dist('aluminum', 'Catalan')
+            0.16
+            >>> cmp.dist('ATCG', 'TAGC')
+            0.08695652173913043
+
         """
         if src == tar:
             return 0.0
@@ -602,17 +638,19 @@ def dist_ncd_lzma(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: compression distance
-    :rtype: float
+    Returns:
+        float: Compression distance
 
-    >>> dist_ncd_lzma('cat', 'hat')
-    0.08695652173913043
-    >>> dist_ncd_lzma('Niall', 'Neil')
-    0.16
-    >>> dist_ncd_lzma('aluminum', 'Catalan')
-    0.16
-    >>> dist_ncd_lzma('ATCG', 'TAGC')
-    0.08695652173913043
+    Examples:
+        >>> dist_ncd_lzma('cat', 'hat')
+        0.08695652173913043
+        >>> dist_ncd_lzma('Niall', 'Neil')
+        0.16
+        >>> dist_ncd_lzma('aluminum', 'Catalan')
+        0.16
+        >>> dist_ncd_lzma('ATCG', 'TAGC')
+        0.08695652173913043
+
     """
     return NCDlzma().dist(src, tar)
 
@@ -626,17 +664,19 @@ def sim_ncd_lzma(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: compression similarity
-    :rtype: float
+    Returns:
+        float: Compression similarity
 
-    >>> sim_ncd_lzma('cat', 'hat')
-    0.9130434782608696
-    >>> sim_ncd_lzma('Niall', 'Neil')
-    0.84
-    >>> sim_ncd_lzma('aluminum', 'Catalan')
-    0.84
-    >>> sim_ncd_lzma('ATCG', 'TAGC')
-    0.9130434782608696
+    Examples:
+        >>> sim_ncd_lzma('cat', 'hat')
+        0.9130434782608696
+        >>> sim_ncd_lzma('Niall', 'Neil')
+        0.84
+        >>> sim_ncd_lzma('aluminum', 'Catalan')
+        0.84
+        >>> sim_ncd_lzma('ATCG', 'TAGC')
+        0.9130434782608696
+
     """
     return NCDlzma().sim(src, tar)
 

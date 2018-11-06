@@ -46,18 +46,20 @@ class MRA(Distance):
             src (str): Source string for comparison
             tar (str): Target string for comparison
 
-        :returns: MRA comparison rating
-        :rtype: int
+        Returns:
+            int: MRA comparison rating
 
-        >>> cmp = MRA()
-        >>> cmp.dist_abs('cat', 'hat')
-        5
-        >>> cmp.dist_abs('Niall', 'Neil')
-        6
-        >>> cmp.dist_abs('aluminum', 'Catalan')
-        0
-        >>> cmp.dist_abs('ATCG', 'TAGC')
-        5
+        Examples:
+            >>> cmp = MRA()
+            >>> cmp.dist_abs('cat', 'hat')
+            5
+            >>> cmp.dist_abs('Niall', 'Neil')
+            6
+            >>> cmp.dist_abs('aluminum', 'Catalan')
+            0
+            >>> cmp.dist_abs('ATCG', 'TAGC')
+            5
+
         """
         if src == tar:
             return 6
@@ -108,18 +110,20 @@ class MRA(Distance):
             src (str): Source string for comparison
             tar (str): Target string for comparison
 
-        :returns: normalized MRA similarity
-        :rtype: float
+        Returns:
+            float: Normalized MRA similarity
 
-        >>> cmp = MRA()
-        >>> cmp.sim('cat', 'hat')
-        0.8333333333333334
-        >>> cmp.sim('Niall', 'Neil')
-        1.0
-        >>> cmp.sim('aluminum', 'Catalan')
-        0.0
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.8333333333333334
+        Examples:
+            >>> cmp = MRA()
+            >>> cmp.sim('cat', 'hat')
+            0.8333333333333334
+            >>> cmp.sim('Niall', 'Neil')
+            1.0
+            >>> cmp.sim('aluminum', 'Catalan')
+            0.0
+            >>> cmp.sim('ATCG', 'TAGC')
+            0.8333333333333334
+
         """
         return mra_compare(src, tar) / 6
 
@@ -133,17 +137,19 @@ def mra_compare(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: MRA comparison rating
-    :rtype: int
+    Returns:
+        int: MRA comparison rating
 
-    >>> mra_compare('cat', 'hat')
-    5
-    >>> mra_compare('Niall', 'Neil')
-    6
-    >>> mra_compare('aluminum', 'Catalan')
-    0
-    >>> mra_compare('ATCG', 'TAGC')
-    5
+    Examples:
+        >>> mra_compare('cat', 'hat')
+        5
+        >>> mra_compare('Niall', 'Neil')
+        6
+        >>> mra_compare('aluminum', 'Catalan')
+        0
+        >>> mra_compare('ATCG', 'TAGC')
+        5
+
     """
     return MRA().dist_abs(src, tar)
 
@@ -157,17 +163,19 @@ def sim_mra(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: normalized MRA similarity
-    :rtype: float
+    Returns:
+        float: Normalized MRA similarity
 
-    >>> sim_mra('cat', 'hat')
-    0.8333333333333334
-    >>> sim_mra('Niall', 'Neil')
-    1.0
-    >>> sim_mra('aluminum', 'Catalan')
-    0.0
-    >>> sim_mra('ATCG', 'TAGC')
-    0.8333333333333334
+    Examples:
+        >>> sim_mra('cat', 'hat')
+        0.8333333333333334
+        >>> sim_mra('Niall', 'Neil')
+        1.0
+        >>> sim_mra('aluminum', 'Catalan')
+        0.0
+        >>> sim_mra('ATCG', 'TAGC')
+        0.8333333333333334
+
     """
     return MRA().sim(src, tar)
 
@@ -181,17 +189,19 @@ def dist_mra(src, tar):
         src (str): Source string for comparison
         tar (str): Target string for comparison
 
-    :returns: normalized MRA distance
-    :rtype: float
+    Returns:
+        float: Normalized MRA distance
 
-    >>> dist_mra('cat', 'hat')
-    0.16666666666666663
-    >>> dist_mra('Niall', 'Neil')
-    0.0
-    >>> dist_mra('aluminum', 'Catalan')
-    1.0
-    >>> dist_mra('ATCG', 'TAGC')
-    0.16666666666666663
+    Examples:
+        >>> dist_mra('cat', 'hat')
+        0.16666666666666663
+        >>> dist_mra('Niall', 'Neil')
+        0.0
+        >>> dist_mra('aluminum', 'Catalan')
+        1.0
+        >>> dist_mra('ATCG', 'TAGC')
+        0.16666666666666663
+
     """
     return MRA().dist(src, tar)
 

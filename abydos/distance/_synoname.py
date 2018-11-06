@@ -83,12 +83,17 @@ class Synoname(Distance):
     def _synoname_strip_punct(self, word):
         """Return a word with punctuation stripped out.
 
-        :param word: a word to strip punctuation from
-        :returns: The word stripped of punctuation
+        Args:
+            word (str): a word to strip punctuation from
 
-        >>> pe = Synoname()
-        >>> pe._synoname_strip_punct('AB;CD EF-GH$IJ')
-        'ABCD EFGHIJ'
+        Returns:
+            str: The word stripped of punctuation
+
+        Examples:
+            >>> pe = Synoname()
+            >>> pe._synoname_strip_punct('AB;CD EF-GH$IJ')
+            'ABCD EFGHIJ'
+
         """
         stripped = ''
         for char in word:
@@ -101,19 +106,22 @@ class Synoname(Distance):
     ):
         """Return the Synoname word approximation score for two names.
 
-        :param str src_ln: last name of the source
-        :param str tar_ln: last name of the target
-        :param str src_fn: first name of the source (optional)
-        :param str tar_fn: first name of the target (optional)
-        :param features: a dict containing special features calculated using
-            fingerprint.SynonameToolcode (optional)
-        :returns: The word approximation score
-        :rtype: float
+        Args:
+            src_ln (str): Last name of the source
+            tar_ln (str): Last name of the target
+            src_fn (str): First name of the source (optional)
+            tar_fn (str): First name of the target (optional)
+            features (dict): A dict containing special features calculated
+                using :py:class:`fingerprint.SynonameToolcode` (optional)
 
-        >>> pe = Synoname()
-        >>> pe._synoname_word_approximation('Smith Waterman', 'Waterman',
-        ... 'Tom Joe Bob', 'Tom Joe')
-        0.6
+        Returns:
+            float: The word approximation score
+
+        Examples:
+            >>> pe = Synoname()
+            >>> pe._synoname_word_approximation('Smith Waterman', 'Waterman',
+            ... 'Tom Joe Bob', 'Tom Joe')
+            0.6
         """
         if features is None:
             features = {}
@@ -344,33 +352,33 @@ class Synoname(Distance):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-        :param bool ret_name: return the name of the match type rather than the
-            int value
-        :param float word_approx_min: the minimum word approximation value to
-            signal a 'word_approx' match
-        :param float char_approx_min: the minimum character approximation value
-            to signal a 'char_approx' match
-        :param int or Iterable tests: either an integer indicating tests to
-            perform or a list of test names to perform (defaults to performing
-            all tests)
-        :param bool ret_name: if True, returns the match name rather than its
-            integer equivalent
+            word_approx_min (float): the minimum word approximation value to
+                signal a 'word_approx' match
+            char_approx_min (float): the minimum character approximation value
+                to signal a 'char_approx' match
+            tests (int or Iterable): either an integer indicating tests to
+                perform or a list of test names to perform (defaults to
+                performing all tests)
+            ret_name (bool): If True, returns the match name rather than its
+                integer equivalent
 
-        :returns: Synoname value
-        :rtype: int (or str if ret_name is True)
+        Returns:
+            int (or str if ret_name is True): Synoname value
 
-        >>> synoname(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''))
-        2
-        >>> synoname(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''),
-        ... ret_name=True)
-        'omission'
-        >>> synoname(('Dore', 'Gustave', ''),
-        ... ('Dore', 'Paul Gustave Louis Christophe', ''),
-        ... ret_name=True)
-        'inclusion'
-        >>> synoname(('Pereira', 'I. R.', ''), ('Pereira', 'I. Smith', ''),
-        ... ret_name=True)
-        'word_approx'
+        Examples:
+            >>> synoname(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''))
+            2
+            >>> synoname(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''),
+            ... ret_name=True)
+            'omission'
+            >>> synoname(('Dore', 'Gustave', ''),
+            ... ('Dore', 'Paul Gustave Louis Christophe', ''),
+            ... ret_name=True)
+            'inclusion'
+            >>> synoname(('Pereira', 'I. R.', ''), ('Pereira', 'I. Smith', ''),
+            ... ret_name=True)
+            'word_approx'
+
         """
         if isinstance(tests, Iterable):
             new_tests = 0
@@ -613,32 +621,25 @@ class Synoname(Distance):
         word_approx_min=0.3,
         char_approx_min=0.73,
         tests=2 ** 12 - 1,
-        ret_name=False,
     ):
         """Return the normalized Synoname distance between two words.
 
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-        :param bool ret_name: return the name of the match type rather than the
-            int value
-        :param float word_approx_min: the minimum word approximation value to
-            signal a 'word_approx' match
-        :param float char_approx_min: the minimum character approximation value
-            to signal a 'char_approx' match
-        :param int or Iterable tests: either an integer indicating tests to
-            perform or a list of test names to perform (defaults to performing
-            all tests)
-        :param bool ret_name: if True, returns the match name rather than its
-            integer equivalent
+            word_approx_min (float): the minimum word approximation value to
+                signal a 'word_approx' match
+            char_approx_min (float): the minimum character approximation value
+                to signal a 'char_approx' match
+            tests (int or Iterable): either an integer indicating tests to
+                perform or a list of test names to perform (defaults to
+                performing all tests)
 
-        :returns: Synoname value
-        :rtype: int (or str if ret_name is True)
+        Returns:
+            float: Normalized Synoname distance
         """
         return (
-            synoname(
-                src, tar, word_approx_min, char_approx_min, tests, ret_name
-            )
+            synoname(src, tar, word_approx_min, char_approx_min, tests, False)
             / 14
         )
 
@@ -658,33 +659,33 @@ def synoname(
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param bool ret_name: return the name of the match type rather than the
-        int value
-    :param float word_approx_min: the minimum word approximation value to
-        signal a 'word_approx' match
-    :param float char_approx_min: the minimum character approximation value to
-        signal a 'char_approx' match
-    :param int or Iterable tests: either an integer indicating tests to
-        perform or a list of test names to perform (defaults to performing all
-        tests)
-    :param bool ret_name: if True, returns the match name rather than its
-        integer equivalent
+        word_approx_min (float): the minimum word approximation value to signal
+            a 'word_approx' match
+        char_approx_min (float): the minimum character approximation value to
+            signal a 'char_approx' match
+        tests (int or Iterable): either an integer indicating tests to perform
+            or a list of test names to perform (defaults to performing all\
+            tests)
+        ret_name (bool): If True, returns the match name rather than its
+            integer equivalent
 
-    :returns: Synoname value
-    :rtype: int (or str if ret_name is True)
+    Returns:
+        int (or str if ret_name is True): Synoname value
 
-    >>> synoname(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''))
-    2
-    >>> synoname(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''),
-    ... ret_name=True)
-    'omission'
-    >>> synoname(('Dore', 'Gustave', ''),
-    ... ('Dore', 'Paul Gustave Louis Christophe', ''),
-    ... ret_name=True)
-    'inclusion'
-    >>> synoname(('Pereira', 'I. R.', ''), ('Pereira', 'I. Smith', ''),
-    ... ret_name=True)
-    'word_approx'
+    Examples:
+        >>> synoname(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''))
+        2
+        >>> synoname(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''),
+        ... ret_name=True)
+        'omission'
+        >>> synoname(('Dore', 'Gustave', ''),
+        ... ('Dore', 'Paul Gustave Louis Christophe', ''),
+        ... ret_name=True)
+        'inclusion'
+        >>> synoname(('Pereira', 'I. R.', ''), ('Pereira', 'I. Smith', ''),
+        ... ret_name=True)
+        'word_approx'
+
     """
     return Synoname().dist_abs(
         src, tar, word_approx_min, char_approx_min, tests, ret_name

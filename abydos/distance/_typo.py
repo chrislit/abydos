@@ -99,45 +99,48 @@ class Typo(Distance):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-        :param str metric: supported values include: 'euclidean', 'manhattan',
-              'log-euclidean', and 'log-manhattan'
-        :param tuple cost: a 4-tuple representing the cost of the four possible
-            edits: inserts, deletes, substitutions, and shift, respectively (by
-            default: (1, 1, 0.5, 0.5)) The substitution & shift costs should be
-            significantly less than the cost of an insertion & deletion unless
-            a log metric is used.
-        :param str layout: name of the keyboard layout to use (Currently
-            supported: QWERTY, Dvorak, AZERTY, QWERTZ)
-        :returns: typo distance
-        :rtype: float
+            metric (str): supported values include: ``euclidean``,
+                ``manhattan``, ``log-euclidean``, and ``log-manhattan``
+            cost (tuple): a 4-tuple representing the cost of the four possible
+                edits: inserts, deletes, substitutions, and shift, respectively
+                (by default: (1, 1, 0.5, 0.5)) The substitution & shift costs
+                should be significantly less than the cost of an insertion &
+                deletion unless a log metric is used.
+            layout (str): name of the keyboard layout to use (Currently
+                supported: QWERTY, Dvorak, AZERTY, QWERTZ)
 
-        >>> cmp = Typo()
-        >>> cmp.dist_abs('cat', 'hat')
-        1.5811388
-        >>> cmp.dist_abs('Niall', 'Neil')
-        2.8251407
-        >>> cmp.dist_abs('Colin', 'Cuilen')
-        3.4142137
-        >>> cmp.dist_abs('ATCG', 'TAGC')
-        2.5
+        Returns:
+            float: Typo distance
 
-        >>> cmp.dist_abs('cat', 'hat', metric='manhattan')
-        2.0
-        >>> cmp.dist_abs('Niall', 'Neil', metric='manhattan')
-        3.0
-        >>> cmp.dist_abs('Colin', 'Cuilen', metric='manhattan')
-        3.5
-        >>> cmp.dist_abs('ATCG', 'TAGC', metric='manhattan')
-        2.5
+        Examples:
+            >>> cmp = Typo()
+            >>> cmp.dist_abs('cat', 'hat')
+            1.5811388
+            >>> cmp.dist_abs('Niall', 'Neil')
+            2.8251407
+            >>> cmp.dist_abs('Colin', 'Cuilen')
+            3.4142137
+            >>> cmp.dist_abs('ATCG', 'TAGC')
+            2.5
 
-        >>> cmp.dist_abs('cat', 'hat', metric='log-manhattan')
-        0.804719
-        >>> cmp.dist_abs('Niall', 'Neil', metric='log-manhattan')
-        2.2424533
-        >>> cmp.dist_abs('Colin', 'Cuilen', metric='log-manhattan')
-        2.2424533
-        >>> cmp.dist_abs('ATCG', 'TAGC', metric='log-manhattan')
-        2.3465736
+            >>> cmp.dist_abs('cat', 'hat', metric='manhattan')
+            2.0
+            >>> cmp.dist_abs('Niall', 'Neil', metric='manhattan')
+            3.0
+            >>> cmp.dist_abs('Colin', 'Cuilen', metric='manhattan')
+            3.5
+            >>> cmp.dist_abs('ATCG', 'TAGC', metric='manhattan')
+            2.5
+
+            >>> cmp.dist_abs('cat', 'hat', metric='log-manhattan')
+            0.804719
+            >>> cmp.dist_abs('Niall', 'Neil', metric='log-manhattan')
+            2.2424533
+            >>> cmp.dist_abs('Colin', 'Cuilen', metric='log-manhattan')
+            2.2424533
+            >>> cmp.dist_abs('ATCG', 'TAGC', metric='log-manhattan')
+            2.3465736
+
         """
         ins_cost, del_cost, sub_cost, shift_cost = cost
 
@@ -153,7 +156,17 @@ class Typo(Distance):
         uppercase = {item for sublist in keyboard[1] for item in sublist}
 
         def _kb_array_for_char(char):
-            """Return the keyboard layout that contains ch."""
+            """Return the keyboard layout that contains ch.
+
+            Args:
+                char (str): The character to lookup
+
+            Returns:
+                tuple: A keyboard
+
+            Raises:
+                ValueError: char not found in any keyboard layouts
+            """
             if char in lowercase:
                 return keyboard[0]
             elif char in uppercase:
@@ -232,28 +245,30 @@ class Typo(Distance):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-        :param str metric: supported values include: 'euclidean', 'manhattan',
-              'log-euclidean', and 'log-manhattan'
-        :param tuple cost: a 4-tuple representing the cost of the four possible
-            edits: inserts, deletes, substitutions, and shift, respectively (by
-            default: (1, 1, 0.5, 0.5)) The substitution & shift costs should be
-            significantly less than the cost of an insertion & deletion unless
-            a log metric is used.
-        :param str layout: name of the keyboard layout to use (Currently
-            supported: QWERTY, Dvorak, AZERTY, QWERTZ)
+            metric (str): supported values include: ``euclidean``,
+                ``manhattan``, ``log-euclidean``, and ``log-manhattan``
+            cost (tuple): a 4-tuple representing the cost of the four possible
+                edits: inserts, deletes, substitutions, and shift, respectively
+                (by default: (1, 1, 0.5, 0.5)) The substitution & shift costs
+                should be significantly less than the cost of an insertion &
+                deletion unless a log metric is used.
+            layout (str): name of the keyboard layout to use (Currently
+                supported: QWERTY, Dvorak, AZERTY, QWERTZ)
 
-        :returns: normalized typo distance
-        :rtype: float
+        Returns:
+            float: Normalized typo distance
 
-        >>> cmp = Typo()
-        >>> round(cmp.dist('cat', 'hat'), 12)
-        0.527046283086
-        >>> round(cmp.dist('Niall', 'Neil'), 12)
-        0.565028142929
-        >>> round(cmp.dist('Colin', 'Cuilen'), 12)
-        0.569035609563
-        >>> cmp.dist('ATCG', 'TAGC')
-        0.625
+        Examples:
+            >>> cmp = Typo()
+            >>> round(cmp.dist('cat', 'hat'), 12)
+            0.527046283086
+            >>> round(cmp.dist('Niall', 'Neil'), 12)
+            0.565028142929
+            >>> round(cmp.dist('Colin', 'Cuilen'), 12)
+            0.569035609563
+            >>> cmp.dist('ATCG', 'TAGC')
+            0.625
+
         """
         if src == tar:
             return 0.0
@@ -271,45 +286,47 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param str metric: supported values include: 'euclidean', 'manhattan',
-          'log-euclidean', and 'log-manhattan'
-    :param tuple cost: a 4-tuple representing the cost of the four possible
-        edits: inserts, deletes, substitutions, and shift, respectively (by
-        default: (1, 1, 0.5, 0.5)) The substitution & shift costs should be
-        significantly less than the cost of an insertion & deletion unless
-        a log metric is used.
-    :param str layout: name of the keyboard layout to use (Currently supported:
-        QWERTY, Dvorak, AZERTY, QWERTZ)
+        metric (str): supported values include: ``euclidean``,
+            ``manhattan``, ``log-euclidean``, and ``log-manhattan``
+        cost (tuple): a 4-tuple representing the cost of the four possible
+            edits: inserts, deletes, substitutions, and shift, respectively (by
+            default: (1, 1, 0.5, 0.5)) The substitution & shift costs should be
+            significantly less than the cost of an insertion & deletion unless
+            a log metric is used.
+        layout (str): name of the keyboard layout to use (Currently supported:
+            QWERTY, Dvorak, AZERTY, QWERTZ)
 
-    :returns: typo distance
-    :rtype: float
+    Returns:
+        float: Typo distance
 
-    >>> typo('cat', 'hat')
-    1.5811388
-    >>> typo('Niall', 'Neil')
-    2.8251407
-    >>> typo('Colin', 'Cuilen')
-    3.4142137
-    >>> typo('ATCG', 'TAGC')
-    2.5
+    Examples:
+        >>> typo('cat', 'hat')
+        1.5811388
+        >>> typo('Niall', 'Neil')
+        2.8251407
+        >>> typo('Colin', 'Cuilen')
+        3.4142137
+        >>> typo('ATCG', 'TAGC')
+        2.5
 
-    >>> typo('cat', 'hat', metric='manhattan')
-    2.0
-    >>> typo('Niall', 'Neil', metric='manhattan')
-    3.0
-    >>> typo('Colin', 'Cuilen', metric='manhattan')
-    3.5
-    >>> typo('ATCG', 'TAGC', metric='manhattan')
-    2.5
+        >>> typo('cat', 'hat', metric='manhattan')
+        2.0
+        >>> typo('Niall', 'Neil', metric='manhattan')
+        3.0
+        >>> typo('Colin', 'Cuilen', metric='manhattan')
+        3.5
+        >>> typo('ATCG', 'TAGC', metric='manhattan')
+        2.5
 
-    >>> typo('cat', 'hat', metric='log-manhattan')
-    0.804719
-    >>> typo('Niall', 'Neil', metric='log-manhattan')
-    2.2424533
-    >>> typo('Colin', 'Cuilen', metric='log-manhattan')
-    2.2424533
-    >>> typo('ATCG', 'TAGC', metric='log-manhattan')
-    2.3465736
+        >>> typo('cat', 'hat', metric='log-manhattan')
+        0.804719
+        >>> typo('Niall', 'Neil', metric='log-manhattan')
+        2.2424533
+        >>> typo('Colin', 'Cuilen', metric='log-manhattan')
+        2.2424533
+        >>> typo('ATCG', 'TAGC', metric='log-manhattan')
+        2.3465736
+
     """
     return Typo().dist_abs(src, tar, metric, cost, layout)
 
@@ -324,27 +341,29 @@ def dist_typo(
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param str metric: supported values include: 'euclidean', 'manhattan',
-          'log-euclidean', and 'log-manhattan'
-    :param tuple cost: a 4-tuple representing the cost of the four possible
-        edits: inserts, deletes, substitutions, and shift, respectively (by
-        default: (1, 1, 0.5, 0.5)) The substitution & shift costs should be
-        significantly less than the cost of an insertion & deletion unless
-        a log metric is used.
-    :param str layout: name of the keyboard layout to use (Currently supported:
-        QWERTY, Dvorak, AZERTY, QWERTZ)
+        metric (str): supported values include: ``euclidean``,
+            ``manhattan``, ``log-euclidean``, and ``log-manhattan``
+        cost (tuple): a 4-tuple representing the cost of the four possible
+            edits: inserts, deletes, substitutions, and shift, respectively (by
+            default: (1, 1, 0.5, 0.5)) The substitution & shift costs should be
+            significantly less than the cost of an insertion & deletion unless
+            a log metric is used.
+        layout (str): name of the keyboard layout to use (Currently supported:
+            QWERTY, Dvorak, AZERTY, QWERTZ)
 
-    :returns: normalized typo distance
-    :rtype: float
+    Returns:
+        float: Normalized typo distance
 
-    >>> round(dist_typo('cat', 'hat'), 12)
-    0.527046283086
-    >>> round(dist_typo('Niall', 'Neil'), 12)
-    0.565028142929
-    >>> round(dist_typo('Colin', 'Cuilen'), 12)
-    0.569035609563
-    >>> dist_typo('ATCG', 'TAGC')
-    0.625
+    Examples:
+        >>> round(dist_typo('cat', 'hat'), 12)
+        0.527046283086
+        >>> round(dist_typo('Niall', 'Neil'), 12)
+        0.565028142929
+        >>> round(dist_typo('Colin', 'Cuilen'), 12)
+        0.569035609563
+        >>> dist_typo('ATCG', 'TAGC')
+        0.625
+
     """
     return Typo().dist(src, tar, metric, cost, layout)
 
@@ -359,27 +378,29 @@ def sim_typo(
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-    :param str metric: supported values include: 'euclidean', 'manhattan',
-          'log-euclidean', and 'log-manhattan'
-    :param tuple cost: a 4-tuple representing the cost of the four possible
-        edits: inserts, deletes, substitutions, and shift, respectively (by
-        default: (1, 1, 0.5, 0.5)) The substitution & shift costs should be
-        significantly less than the cost of an insertion & deletion unless
-        a log metric is used.
-    :param str layout: name of the keyboard layout to use (Currently supported:
-        QWERTY, Dvorak, AZERTY, QWERTZ)
+        metric (str): supported values include: ``euclidean``,
+            ``manhattan``, ``log-euclidean``, and ``log-manhattan``
+        cost (tuple): a 4-tuple representing the cost of the four possible
+            edits: inserts, deletes, substitutions, and shift, respectively (by
+            default: (1, 1, 0.5, 0.5)) The substitution & shift costs should be
+            significantly less than the cost of an insertion & deletion unless
+            a log metric is used.
+        layout (str): name of the keyboard layout to use (Currently supported:
+            QWERTY, Dvorak, AZERTY, QWERTZ)
 
-    :returns: normalized typo similarity
-    :rtype: float
+    Returns:
+        float: Normalized typo similarity
 
-    >>> round(sim_typo('cat', 'hat'), 12)
-    0.472953716914
-    >>> round(sim_typo('Niall', 'Neil'), 12)
-    0.434971857071
-    >>> round(sim_typo('Colin', 'Cuilen'), 12)
-    0.430964390437
-    >>> sim_typo('ATCG', 'TAGC')
-    0.375
+    Examples:
+        >>> round(sim_typo('cat', 'hat'), 12)
+        0.472953716914
+        >>> round(sim_typo('Niall', 'Neil'), 12)
+        0.434971857071
+        >>> round(sim_typo('Colin', 'Cuilen'), 12)
+        0.430964390437
+        >>> sim_typo('ATCG', 'TAGC')
+        0.375
+
     """
     return Typo().sim(src, tar, metric, cost, layout)
 
