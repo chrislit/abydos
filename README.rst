@@ -75,7 +75,7 @@ Abydos
    :target: #
    :alt: Pylint Score
 
-.. |flake8| image:: https://img.shields.io/badge/flake8-2-green.svg
+.. |flake8| image:: https://img.shields.io/badge/flake8-1459-red.svg
    :target: #
    :alt: flake8 Errors
 

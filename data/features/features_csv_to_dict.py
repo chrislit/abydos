@@ -45,7 +45,11 @@ import unicodedata
 
 
 def main(argv):
-    """Read input file and write to output."""
+    """Read input file and write to output.
+
+    Args:
+        argv (list): Arguments to the script
+    """
     first_col = 3
     last_col = -1
 
@@ -57,7 +61,14 @@ def main(argv):
         sys.exit(2)
 
     def binarize(num):
-        """Replace 0, -1, 1, 2 with 00, 10, 01, 11."""
+        """Replace 0, -1, 1, 2 with 00, 10, 01, 11.
+
+        Args:
+            num (str): The number to binarize
+
+        Returns:
+            str: A binarized number
+        """
         if num == '0':  # 0
             return '00'
         elif num == '-1':  # -
@@ -68,7 +79,11 @@ def main(argv):
             return '11'
 
     def init_termdicts():
-        """Initialize the terms dict."""
+        """Initialize the terms dict.
+
+        Returns:
+            (dict, dict): Term & feature mask dictionaries
+        """
         ifile = codecs.open('features_terms.csv', 'r', 'utf-8')
 
         feature_mask = {}

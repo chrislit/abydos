@@ -36,7 +36,15 @@ BADGE_COLORS = (
 
 
 def pylint_color(score):
-    """Return Pylint badge color."""
+    """Return Pylint badge color.
+
+    Args:
+        score (float): A Pylint score
+
+    Returns:
+        str: Badge color
+
+    """
     # These are the score cutoffs for each color above.
     # I.e. score==10 -> brightgreen, down to 7.5 > score >= 5 -> orange
     score_cutoffs = (10, 9.5, 8.5, 7.5, 5)
@@ -60,7 +68,15 @@ def pylint_color(score):
 
 
 def flake8_color(score):
-    """Return flake8 badge color."""
+    """Return flake8 badge color.
+
+    Args:
+        score (float): A flake8 score
+
+    Returns:
+        str: Badge color
+
+    """
     # These are the score cutoffs for each color above.
     # I.e. score==0 -> brightgreen, down to 100 < score <= 200 -> orange
     score_cutoffs = (0, 20, 50, 100, 200)
