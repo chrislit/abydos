@@ -41,7 +41,8 @@ class Distance(object):
             **kwargs: Arbitrary keyword arguments.
 
         Returns:
-            Similarity
+            float: Similarity
+
         """
         return 1.0 - self.dist(src, tar, *args, **kwargs)
 
@@ -55,7 +56,8 @@ class Distance(object):
             **kwargs: Arbitrary keyword arguments.
 
         Returns:
-            Distance
+            float: Distance
+
         """
         return 1.0 - self.sim(src, tar, *args, **kwargs)
 
@@ -69,7 +71,8 @@ class Distance(object):
             **kwargs: Arbitrary keyword arguments.
 
         Returns:
-            Absolute distance
+            int: Absolute distance
+
         """
         return self.dist(src, tar, *args, **kwargs)
 
@@ -90,17 +93,19 @@ class TokenDistance(Distance):
         Returns:
             tuple of Counters: Q-Grams
 
+        # noqa: S001
+
         Examples:
             >>> pe = TokenDistance()
             >>> pe._get_qgrams('AT', 'TT', qval=2)
-            (QGrams({'$A': 1, 'AT': 1, 'T#': 1}),
-             QGrams({'$T': 1, 'TT': 1, 'T#': 1}))
+            (QGrams({'$A': 1, 'AT': 1, 'T@': 1}),
+             QGrams({'$T': 1, 'TT': 1, 'T@': 1}))
 
         """
         if isinstance(src, Counter) and isinstance(tar, Counter):
             return src, tar
         if qval > 0:
-            return QGrams(src, qval, '$#', skip), QGrams(tar, qval, '$#', skip)
+            return QGrams(src, qval, '$@', skip), QGrams(tar, qval, '$@', skip)
         return Counter(src.strip().split()), Counter(tar.strip().split())
 
 

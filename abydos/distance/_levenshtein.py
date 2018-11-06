@@ -343,6 +343,11 @@ class DamerauLevenshtein(Distance):
             int (may return a float if cost has float values): The
                 Damerau-Levenshtein distance between src & tar
 
+        Raises:
+            ValueError: Unsupported cost assignment; the cost of two
+                transpositions must not be less than the cost of an insert plus
+                a delete.
+
         Examples:
             >>> cmp = DamerauLevenshtein()
             >>> cmp.dist_abs('cat', 'hat')
@@ -366,7 +371,7 @@ class DamerauLevenshtein(Distance):
 
         if 2 * trans_cost < ins_cost + del_cost:
             raise ValueError(
-                'Unsupported cost assignment; the cost of two transpositions'
+                'Unsupported cost assignment; the cost of two transpositions '
                 + 'must not be less than the cost of an insert plus a delete.'
             )
 

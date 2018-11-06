@@ -370,6 +370,7 @@ def sift4_simplest(src, tar, max_offset=5):
         3
         >>> sift4_simplest('ATCG', 'TAGC')
         2
+
     """
     return Sift4Simplest().dist_abs(src, tar, max_offset)
 

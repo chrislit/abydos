@@ -28,6 +28,11 @@ import unittest
 from abydos.distance import dist_eudex, eudex_hamming, sim_eudex
 
 
+def _yield_1():
+    while True:
+        yield 1
+
+
 class EudexTestCases(unittest.TestCase):
     """Test Eudex distance functions.
 
@@ -36,10 +41,6 @@ class EudexTestCases(unittest.TestCase):
 
     def test_eudex_hamming(self):
         """Test abydos.distance._eudex.eudex_hamming."""
-
-        def _yield_1():
-            while True:
-                yield 1
 
         # Base cases
         self.assertEqual(eudex_hamming('', ''), 0)

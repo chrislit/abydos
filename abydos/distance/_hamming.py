@@ -107,16 +107,15 @@ class Hamming(Distance):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-        :param bool diff_lens:
-            If True (default), this returns the Hamming distance for those
-            characters that have a matching character in both strings plus the
-            difference in the strings' lengths. This is equivalent to extending
-            the shorter string with obligatorily non-matching characters.
-            If False, an exception is raised in the case of strings of unequal
-            lengths.
+            diff_lens (bool): If True (default), this returns the Hamming
+                distance for those characters that have a matching character in
+                both strings plus the difference in the strings' lengths. This
+                is equivalent to extending the shorter string with obligatorily
+                non-matching characters. If False, an exception is raised in
+                the case of strings of unequal lengths.
 
-        :returns: normalized Hamming distance
-        :rtype: float
+        Returns:
+            float: Normalized Hamming distance
 
         Examples:
             >>> cmp = Hamming()

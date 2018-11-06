@@ -39,6 +39,40 @@ class Eudex(Distance):
     Cf. :cite:`Ticki:2016`.
     """
 
+    @staticmethod
+    def gen_fibonacci():
+        """Yield the next Fibonacci number.
+
+        Based on https://www.python-course.eu/generators.php
+        Starts at Fibonacci number 3 (the second 1)
+
+        Yields:
+            int: The next Fibonacci number
+
+        """
+        num_a, num_b = 1, 2
+        while True:
+            yield num_a
+            num_a, num_b = num_b, num_a + num_b
+
+    @staticmethod
+    def gen_exponential(base=2):
+        """Yield the next value in an exponential series of the base.
+
+        Starts at base**0
+
+        Args:
+            base (int): The base to exponentiate
+
+        Yields:
+            int: The next power of `base`
+
+        """
+        exp = 0
+        while True:
+            yield base ** exp
+            exp += 1
+
     def dist_abs(
         self, src, tar, weights='exponential', max_length=8, normalized=False
     ):
@@ -58,9 +92,9 @@ class Eudex(Distance):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-            weights (str, iterable, or generator function): the weights or
+            weights (str, iterable, or generator function): The weights or
                 weights generator function
-            max_length (int): the number of characters to encode as a eudex
+            max_length (int): The number of characters to encode as a eudex
                 hash
             normalized (bool): Normalizes to [0, 1] if True
 
@@ -96,7 +130,6 @@ class Eudex(Distance):
             >>> cmp.dist_abs('ATCG', 'TAGC', weights=None)
             9
 
-            >>> # Using the OEIS A000142:
             >>> cmp.dist_abs('cat', 'hat', [1, 1, 2, 6, 24, 120, 720, 5040])
             1
             >>> cmp.dist_abs('Niall', 'Neil', [1, 1, 2, 6, 24, 120, 720, 5040])
@@ -108,38 +141,6 @@ class Eudex(Distance):
             6243
 
         """
-
-        def _gen_fibonacci():
-            """Yield the next Fibonacci number.
-
-            Based on https://www.python-course.eu/generators.php
-            Starts at Fibonacci number 3 (the second 1)
-
-            Yields:
-                int: The next Fibonacci number
-
-            """
-            num_a, num_b = 1, 2
-            while True:
-                yield num_a
-                num_a, num_b = num_b, num_a + num_b
-
-        def _gen_exponential(base=2):
-            """Yield the next value in an exponential series of the base.
-
-            Starts at base**0
-
-            Args:
-                base (int): The base to exponentiate
-
-            Yields:
-                int: The next power of `base`
-
-            """
-            exp = 0
-            while True:
-                yield base ** exp
-                exp += 1
 
         # Calculate the eudex hashes and XOR them
         xored = eudex(src, max_length=max_length) ^ eudex(
@@ -159,9 +160,9 @@ class Eudex(Distance):
         if callable(weights):
             weights = weights()
         elif weights == 'exponential':
-            weights = _gen_exponential()
+            weights = Eudex.gen_exponential()
         elif weights == 'fibonacci':
-            weights = _gen_fibonacci()
+            weights = Eudex.gen_fibonacci()
         if isinstance(weights, GeneratorType):
             weights = [next(weights) for _ in range(max_length)][::-1]
 
@@ -186,9 +187,9 @@ class Eudex(Distance):
         Args:
             src (str): Source string for comparison
             tar (str): Target string for comparison
-            weights (str, iterable, or generator function): the weights or
+            weights (str, iterable, or generator function): The weights or
                 weights generator function
-            max_length (int): the number of characters to encode as a eudex
+            max_length (int): The number of characters to encode as a eudex
                 hash
 
         Returns:
@@ -219,9 +220,9 @@ def eudex_hamming(
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-        weights (str, iterable, or generator function): the weights or weights
+        weights (str, iterable, or generator function): The weights or weights
             generator function
-        max_length (int): the number of characters to encode as a eudex hash
+        max_length (int): The number of characters to encode as a eudex hash
         normalized (bool): Normalizes to [0, 1] if True
 
     Returns:
@@ -255,7 +256,6 @@ def eudex_hamming(
         >>> eudex_hamming('ATCG', 'TAGC', weights=None)
         9
 
-        >>> # Using the OEIS A000142:
         >>> eudex_hamming('cat', 'hat', [1, 1, 2, 6, 24, 120, 720, 5040])
         1
         >>> eudex_hamming('Niall', 'Neil', [1, 1, 2, 6, 24, 120, 720, 5040])
@@ -277,9 +277,9 @@ def dist_eudex(src, tar, weights='exponential', max_length=8):
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-        weights (str, iterable, or generator function): the weights or
+        weights (str, iterable, or generator function): The weights or
             weights generator function
-        max_length (int): the number of characters to encode as a eudex hash
+        max_length (int): The number of characters to encode as a eudex hash
 
     Returns:
         int: The normalized Eudex Hamming distance
@@ -306,9 +306,9 @@ def sim_eudex(src, tar, weights='exponential', max_length=8):
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
-        weights (str, iterable, or generator function): the weights or
+        weights (str, iterable, or generator function): The weights or
             weights generator function
-        max_length (int): the number of characters to encode as a eudex hash
+        max_length (int): The number of characters to encode as a eudex hash
 
     Returns:
         int: The normalized Eudex Hamming similarity
