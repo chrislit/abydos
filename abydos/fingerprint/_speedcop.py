@@ -48,17 +48,21 @@ class SkeletonKey(Fingerprint):
     def fingerprint(self, word):
         """Return the skeleton key.
 
-        :param str word: the word to transform into its skeleton key
-        :returns: the skeleton key
-        :rtype: str
+        Args:
+            word (str): The word to transform into its skeleton key
 
-        >>> sk = SkeletonKey()
-        >>> sk.fingerprint('The quick brown fox jumped over the lazy dog.')
-        'THQCKBRWNFXJMPDVLZYGEUIOA'
-        >>> sk.fingerprint('Christopher')
-        'CHRSTPIOE'
-        >>> sk.fingerprint('Niall')
-        'NLIA'
+        Returns:
+            str: The skeleton key
+
+        Examples:
+            >>> sk = SkeletonKey()
+            >>> sk.fingerprint('The quick brown fox jumped over the lazy dog.')
+            'THQCKBRWNFXJMPDVLZYGEUIOA'
+            >>> sk.fingerprint('Christopher')
+            'CHRSTPIOE'
+            >>> sk.fingerprint('Niall')
+            'NLIA'
+
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
         word = ''.join(c for c in word if c in self._letters)
@@ -82,16 +86,20 @@ class SkeletonKey(Fingerprint):
 def skeleton_key(word):
     """Return the skeleton key.
 
-    :param str word: the word to transform into its skeleton key
-    :returns: the skeleton key
-    :rtype: str
+    Args:
+        word (str): The word to transform into its skeleton key
 
-    >>> skeleton_key('The quick brown fox jumped over the lazy dog.')
-    'THQCKBRWNFXJMPDVLZYGEUIOA'
-    >>> skeleton_key('Christopher')
-    'CHRSTPIOE'
-    >>> skeleton_key('Niall')
-    'NLIA'
+    Returns:
+        str: The skeleton key
+
+    Examples:
+        >>> skeleton_key('The quick brown fox jumped over the lazy dog.')
+        'THQCKBRWNFXJMPDVLZYGEUIOA'
+        >>> skeleton_key('Christopher')
+        'CHRSTPIOE'
+        >>> skeleton_key('Niall')
+        'NLIA'
+
     """
     return SkeletonKey().fingerprint(word)
 
@@ -108,17 +116,21 @@ class OmissionKey(Fingerprint):
     def fingerprint(self, word):
         """Return the omission key.
 
-        :param str word: the word to transform into its omission key
-        :returns: the omission key
-        :rtype: str
+        Args:
+            word (str): The word to transform into its omission key
 
-        >>> ok = OmissionKey()
-        >>> ok.fingerprint('The quick brown fox jumped over the lazy dog.')
-        'JKQXZVWYBFMGPDHCLNTREUIOA'
-        >>> ok.fingerprint('Christopher')
-        'PHCTSRIOE'
-        >>> ok.fingerprint('Niall')
-        'LNIA'
+        Returns:
+            str: The omission key
+
+        Examples:
+            >>> ok = OmissionKey()
+            >>> ok.fingerprint('The quick brown fox jumped over the lazy dog.')
+            'JKQXZVWYBFMGPDHCLNTREUIOA'
+            >>> ok.fingerprint('Christopher')
+            'PHCTSRIOE'
+            >>> ok.fingerprint('Niall')
+            'LNIA'
+
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
         word = ''.join(c for c in word if c in self._letters)
@@ -143,16 +155,20 @@ def omission_key(word):
 
     This is a wrapper for :py:meth:`OmissionKey.fingerprint`.
 
-    :param str word: the word to transform into its omission key
-    :returns: the omission key
-    :rtype: str
+    Args:
+        word (str): The word to transform into its omission key
 
-    >>> omission_key('The quick brown fox jumped over the lazy dog.')
-    'JKQXZVWYBFMGPDHCLNTREUIOA'
-    >>> omission_key('Christopher')
-    'PHCTSRIOE'
-    >>> omission_key('Niall')
-    'LNIA'
+    Returns:
+        str: The omission key
+
+    Examples:
+        >>> omission_key('The quick brown fox jumped over the lazy dog.')
+        'JKQXZVWYBFMGPDHCLNTREUIOA'
+        >>> omission_key('Christopher')
+        'PHCTSRIOE'
+        >>> omission_key('Niall')
+        'LNIA'
+
     """
     return OmissionKey().fingerprint(word)
 

@@ -95,24 +95,28 @@ class Occurrence(Fingerprint):
     def fingerprint(self, word, n_bits=16, most_common=MOST_COMMON_LETTERS_CG):
         """Return the occurrence fingerprint.
 
-        :param str word: the word to fingerprint
-        :param int n_bits: number of bits in the fingerprint returned
-        :param list most_common: the most common tokens in the target language,
-            ordered by frequency
-        :returns: the occurrence fingerprint
-        :rtype: int
+        Args:
+            word (str): The word to fingerprint
+            n_bits (int): Number of bits in the fingerprint returned
+            most_common (list): The most common tokens in the target language,
+                ordered by frequency
 
-        >>> of = Occurrence()
-        >>> bin(of.fingerprint('hat'))
-        '0b110000100000000'
-        >>> bin(of.fingerprint('niall'))
-        '0b10110000100000'
-        >>> bin(of.fingerprint('colin'))
-        '0b1110000110000'
-        >>> bin(of.fingerprint('atcg'))
-        '0b110000000010000'
-        >>> bin(of.fingerprint('entreatment'))
-        '0b1110010010000100'
+        Returns:
+            int: The occurrence fingerprint
+
+        Examples:
+            >>> of = Occurrence()
+            >>> bin(of.fingerprint('hat'))
+            '0b110000100000000'
+            >>> bin(of.fingerprint('niall'))
+            '0b10110000100000'
+            >>> bin(of.fingerprint('colin'))
+            '0b1110000110000'
+            >>> bin(of.fingerprint('atcg'))
+            '0b110000000010000'
+            >>> bin(of.fingerprint('entreatment'))
+            '0b1110010010000100'
+
         """
         word = set(word)
         fingerprint = 0
@@ -140,23 +144,27 @@ def occurrence_fingerprint(
 
     This is a wrapper for :py:meth:`Occurrence.fingerprint`.
 
-    :param str word: the word to fingerprint
-    :param int n_bits: number of bits in the fingerprint returned
-    :param list most_common: the most common tokens in the target language,
-        ordered by frequency
-    :returns: the occurrence fingerprint
-    :rtype: int
+    Args:
+        word (str): The word to fingerprint
+        n_bits (int): Number of bits in the fingerprint returned
+        most_common (list): The most common tokens in the target language,
+            ordered by frequency
 
-    >>> bin(occurrence_fingerprint('hat'))
-    '0b110000100000000'
-    >>> bin(occurrence_fingerprint('niall'))
-    '0b10110000100000'
-    >>> bin(occurrence_fingerprint('colin'))
-    '0b1110000110000'
-    >>> bin(occurrence_fingerprint('atcg'))
-    '0b110000000010000'
-    >>> bin(occurrence_fingerprint('entreatment'))
-    '0b1110010010000100'
+    Returns:
+        int: The occurrence fingerprint
+
+    Examples:
+        >>> bin(occurrence_fingerprint('hat'))
+        '0b110000100000000'
+        >>> bin(occurrence_fingerprint('niall'))
+        '0b10110000100000'
+        >>> bin(occurrence_fingerprint('colin'))
+        '0b1110000110000'
+        >>> bin(occurrence_fingerprint('atcg'))
+        '0b110000000010000'
+        >>> bin(occurrence_fingerprint('entreatment'))
+        '0b1110010010000100'
+
     """
     return Occurrence().fingerprint(word, n_bits, most_common)
 
@@ -172,24 +180,28 @@ class OccurrenceHalved(Fingerprint):
 
         Based on the occurrence halved fingerprint from :cite:`Cislak:2017`.
 
-        :param str word: the word to fingerprint
-        :param int n_bits: number of bits in the fingerprint returned
-        :param list most_common: the most common tokens in the target language,
-            ordered by frequency
-        :returns: the occurrence halved fingerprint
-        :rtype: int
+        Args:
+            word (str): The word to fingerprint
+            n_bits (int): Number of bits in the fingerprint returned
+            most_common (list): The most common tokens in the target language,
+                ordered by frequency
 
-        >>> ohf = OccurrenceHalved()
-        >>> bin(ohf.fingerprint('hat'))
-        '0b1010000000010'
-        >>> bin(ohf.fingerprint('niall'))
-        '0b10010100000'
-        >>> bin(ohf.fingerprint('colin'))
-        '0b1001010000'
-        >>> bin(ohf.fingerprint('atcg'))
-        '0b10100000000000'
-        >>> bin(ohf.fingerprint('entreatment'))
-        '0b1111010000110000'
+        Returns:
+            int: The occurrence halved fingerprint
+
+        Examples:
+            >>> ohf = OccurrenceHalved()
+            >>> bin(ohf.fingerprint('hat'))
+            '0b1010000000010'
+            >>> bin(ohf.fingerprint('niall'))
+            '0b10010100000'
+            >>> bin(ohf.fingerprint('colin'))
+            '0b1001010000'
+            >>> bin(ohf.fingerprint('atcg'))
+            '0b10100000000000'
+            >>> bin(ohf.fingerprint('entreatment'))
+            '0b1111010000110000'
+
         """
         if n_bits % 2:
             n_bits += 1
@@ -224,23 +236,27 @@ def occurrence_halved_fingerprint(
 
     This is a wrapper for :py:meth:`OccurrenceHalved.fingerprint`.
 
-    :param str word: the word to fingerprint
-    :param int n_bits: number of bits in the fingerprint returned
-    :param list most_common: the most common tokens in the target language,
-        ordered by frequency
-    :returns: the occurrence halved fingerprint
-    :rtype: int
+    Args:
+        word (str): The word to fingerprint
+        n_bits (int): Number of bits in the fingerprint returned
+        most_common (list): The most common tokens in the target language,
+            ordered by frequency
 
-    >>> bin(occurrence_halved_fingerprint('hat'))
-    '0b1010000000010'
-    >>> bin(occurrence_halved_fingerprint('niall'))
-    '0b10010100000'
-    >>> bin(occurrence_halved_fingerprint('colin'))
-    '0b1001010000'
-    >>> bin(occurrence_halved_fingerprint('atcg'))
-    '0b10100000000000'
-    >>> bin(occurrence_halved_fingerprint('entreatment'))
-    '0b1111010000110000'
+    Returns:
+        int: The occurrence halved fingerprint
+
+    Examples:
+        >>> bin(occurrence_halved_fingerprint('hat'))
+        '0b1010000000010'
+        >>> bin(occurrence_halved_fingerprint('niall'))
+        '0b10010100000'
+        >>> bin(occurrence_halved_fingerprint('colin'))
+        '0b1001010000'
+        >>> bin(occurrence_halved_fingerprint('atcg'))
+        '0b10100000000000'
+        >>> bin(occurrence_halved_fingerprint('entreatment'))
+        '0b1111010000110000'
+
     """
     return OccurrenceHalved().fingerprint(word, n_bits, most_common)
 
@@ -254,24 +270,28 @@ class Count(Fingerprint):
     def fingerprint(self, word, n_bits=16, most_common=MOST_COMMON_LETTERS_CG):
         """Return the count fingerprint.
 
-        :param str word: the word to fingerprint
-        :param int n_bits: number of bits in the fingerprint returned
-        :param list most_common: the most common tokens in the target language,
-            ordered by frequency
-        :returns: the count fingerprint
-        :rtype: int
+        Args:
+            word (str): The word to fingerprint
+            n_bits (int): Number of bits in the fingerprint returned
+            most_common (list): The most common tokens in the target language,
+                ordered by frequency
 
-        >>> cf = Count()
-        >>> bin(cf.fingerprint('hat'))
-        '0b1010000000001'
-        >>> bin(cf.fingerprint('niall'))
-        '0b10001010000'
-        >>> bin(cf.fingerprint('colin'))
-        '0b101010000'
-        >>> bin(cf.fingerprint('atcg'))
-        '0b1010000000000'
-        >>> bin(cf.fingerprint('entreatment'))
-        '0b1111010000100000'
+        Returns:
+            int: The count fingerprint
+
+        Examples:
+            >>> cf = Count()
+            >>> bin(cf.fingerprint('hat'))
+            '0b1010000000001'
+            >>> bin(cf.fingerprint('niall'))
+            '0b10001010000'
+            >>> bin(cf.fingerprint('colin'))
+            '0b101010000'
+            >>> bin(cf.fingerprint('atcg'))
+            '0b1010000000000'
+            >>> bin(cf.fingerprint('entreatment'))
+            '0b1111010000100000'
+
         """
         if n_bits % 2:
             n_bits += 1
@@ -298,23 +318,27 @@ def count_fingerprint(word, n_bits=16, most_common=MOST_COMMON_LETTERS_CG):
 
     This is a wrapper for :py:meth:`Count.fingerprint`.
 
-    :param str word: the word to fingerprint
-    :param int n_bits: number of bits in the fingerprint returned
-    :param list most_common: the most common tokens in the target language,
-        ordered by frequency
-    :returns: the count fingerprint
-    :rtype: int
+    Args:
+        word (str): The word to fingerprint
+        n_bits (int): Number of bits in the fingerprint returned
+        most_common (list): The most common tokens in the target language,
+            ordered by frequency
 
-    >>> bin(count_fingerprint('hat'))
-    '0b1010000000001'
-    >>> bin(count_fingerprint('niall'))
-    '0b10001010000'
-    >>> bin(count_fingerprint('colin'))
-    '0b101010000'
-    >>> bin(count_fingerprint('atcg'))
-    '0b1010000000000'
-    >>> bin(count_fingerprint('entreatment'))
-    '0b1111010000100000'
+    Returns:
+        int: The count fingerprint
+
+    Examples:
+        >>> bin(count_fingerprint('hat'))
+        '0b1010000000001'
+        >>> bin(count_fingerprint('niall'))
+        '0b10001010000'
+        >>> bin(count_fingerprint('colin'))
+        '0b101010000'
+        >>> bin(count_fingerprint('atcg'))
+        '0b1010000000000'
+        >>> bin(count_fingerprint('entreatment'))
+        '0b1111010000100000'
+
     """
     return Count().fingerprint(word, n_bits, most_common)
 
@@ -334,24 +358,28 @@ class Position(Fingerprint):
     ):
         """Return the position fingerprint.
 
-        :param str word: the word to fingerprint
-        :param int n_bits: number of bits in the fingerprint returned
-        :param list most_common: the most common tokens in the target language,
-            ordered by frequency
-        :param int bits_per_letter: the bits to assign for letter position
-        :returns: the position fingerprint
-        :rtype: int
+        Args:
+            word (str): The word to fingerprint
+            n_bits (int): Number of bits in the fingerprint returned
+            most_common (list): The most common tokens in the target language,
+                ordered by frequency
+            bits_per_letter (int): The bits to assign for letter position
 
-        >>> bin(position_fingerprint('hat'))
-        '0b1110100011111111'
-        >>> bin(position_fingerprint('niall'))
-        '0b1111110101110010'
-        >>> bin(position_fingerprint('colin'))
-        '0b1111111110010111'
-        >>> bin(position_fingerprint('atcg'))
-        '0b1110010001111111'
-        >>> bin(position_fingerprint('entreatment'))
-        '0b101011111111'
+        Returns:
+            int: The position fingerprint
+
+        Examples:
+            >>> bin(position_fingerprint('hat'))
+            '0b1110100011111111'
+            >>> bin(position_fingerprint('niall'))
+            '0b1111110101110010'
+            >>> bin(position_fingerprint('colin'))
+            '0b1111111110010111'
+            >>> bin(position_fingerprint('atcg'))
+            '0b1110010001111111'
+            >>> bin(position_fingerprint('entreatment'))
+            '0b101011111111'
+
         """
         position = {}
         for pos, letter in enumerate(word):
@@ -387,24 +415,28 @@ def position_fingerprint(
 
     This is a wrapper for :py:meth:`Position.fingerprint`.
 
-    :param str word: the word to fingerprint
-    :param int n_bits: number of bits in the fingerprint returned
-    :param list most_common: the most common tokens in the target language,
-        ordered by frequency
-    :param int bits_per_letter: the bits to assign for letter position
-    :returns: the position fingerprint
-    :rtype: int
+    Args:
+        word (str): The word to fingerprint
+        n_bits (int): Number of bits in the fingerprint returned
+        most_common (list): The most common tokens in the target language,
+            ordered by frequency
+        bits_per_letter (int): The bits to assign for letter position
 
-    >>> bin(position_fingerprint('hat'))
-    '0b1110100011111111'
-    >>> bin(position_fingerprint('niall'))
-    '0b1111110101110010'
-    >>> bin(position_fingerprint('colin'))
-    '0b1111111110010111'
-    >>> bin(position_fingerprint('atcg'))
-    '0b1110010001111111'
-    >>> bin(position_fingerprint('entreatment'))
-    '0b101011111111'
+    Returns:
+        int: The position fingerprint
+
+    Examples:
+        >>> bin(position_fingerprint('hat'))
+        '0b1110100011111111'
+        >>> bin(position_fingerprint('niall'))
+        '0b1111110101110010'
+        >>> bin(position_fingerprint('colin'))
+        '0b1111111110010111'
+        >>> bin(position_fingerprint('atcg'))
+        '0b1110010001111111'
+        >>> bin(position_fingerprint('entreatment'))
+        '0b101011111111'
+
     """
     return Position().fingerprint(word, n_bits, most_common, bits_per_letter)
 
