@@ -68,31 +68,55 @@ class Koelner(Phonetic):
         While the output code is numeric, it is still a str because 0s can lead
         the code.
 
-        :param str word: the word to transform
-        :returns: the Kölner Phonetik value as a numeric string
-        :rtype: str
+        Args:
+            word (str): The word to transform
 
-        >>> pe = Koelner()
-        >>> pe.encode('Christopher')
-        '478237'
-        >>> pe.encode('Niall')
-        '65'
-        >>> pe.encode('Smith')
-        '862'
-        >>> pe.encode('Schmidt')
-        '862'
-        >>> pe.encode('Müller')
-        '657'
-        >>> pe.encode('Zimmermann')
-        '86766'
+        Returns:
+            str: The Kölner Phonetik value as a numeric string
+
+        Example:
+            >>> pe = Koelner()
+            >>> pe.encode('Christopher')
+            '478237'
+            >>> pe.encode('Niall')
+            '65'
+            >>> pe.encode('Smith')
+            '862'
+            >>> pe.encode('Schmidt')
+            '862'
+            >>> pe.encode('Müller')
+            '657'
+            >>> pe.encode('Zimmermann')
+            '86766'
+
         """
 
         def _after(word, pos, letters):
-            """Return True if word[i] follows one of the supplied letters."""
+            """Return True if word[pos] follows one of the supplied letters.
+
+            Args:
+                word (str): The word to check
+                pos (int): Position within word to check
+                letters (str): Letters to confirm precede word[pos]
+
+            Returns:
+                bool: True if word[pos] follows a value in letters
+
+            """
             return pos > 0 and word[pos - 1] in letters
 
         def _before(word, pos, letters):
-            """Return True if word[i] precedes one of the supplied letters."""
+            """Return True if word[pos] precedes one of the supplied letters.
+
+            Args:
+                word (str): The word to check
+                pos (int): Position within word to check
+                letters (str): Letters to confirm follow word[pos]
+
+            Returns:
+                bool: True if word[pos] precedes a value in letters
+
+            """
             return pos + 1 < len(word) and word[pos + 1] in letters
 
         sdx = ''
@@ -166,18 +190,21 @@ class Koelner(Phonetic):
     def _to_alpha(self, num):
         """Convert a Kölner Phonetik code from numeric to alphabetic.
 
-        :param str num: a numeric Kölner Phonetik representation (can be a str
-            or an int)
-        :returns: an alphabetic representation of the same word
-        :rtype: str
+        Args:
+            num (str or int): A numeric Kölner Phonetik representation
 
-        >>> pe = Koelner()
-        >>> pe._to_alpha('862')
-        'SNT'
-        >>> pe._to_alpha('657')
-        'NLR'
-        >>> pe._to_alpha('86766')
-        'SNRNN'
+        Returns:
+            str: An alphabetic representation of the same word
+
+        Examples:
+            >>> pe = Koelner()
+            >>> pe._to_alpha('862')
+            'SNT'
+            >>> pe._to_alpha('657')
+            'NLR'
+            >>> pe._to_alpha('86766')
+            'SNRNN'
+
         """
         num = ''.join(c for c in text_type(num) if c in self._num_set)
         return num.translate(self._num_trans)
@@ -185,19 +212,23 @@ class Koelner(Phonetic):
     def encode_alpha(self, word):
         """Return the Kölner Phonetik (alphabetic output) code for a word.
 
-        :param str word: the word to transform
-        :returns: the Kölner Phonetik value as an alphabetic string
-        :rtype: str
+        Args:
+            word (str): The word to transform
 
-        >>> pe = Koelner()
-        >>> pe.encode_alpha('Smith')
-        'SNT'
-        >>> pe.encode_alpha('Schmidt')
-        'SNT'
-        >>> pe.encode_alpha('Müller')
-        'NLR'
-        >>> pe.encode_alpha('Zimmermann')
-        'SNRNN'
+        Returns:
+            str: The Kölner Phonetik value as an alphabetic string
+
+        Examples:
+            >>> pe = Koelner()
+            >>> pe.encode_alpha('Smith')
+            'SNT'
+            >>> pe.encode_alpha('Schmidt')
+            'SNT'
+            >>> pe.encode_alpha('Müller')
+            'NLR'
+            >>> pe.encode_alpha('Zimmermann')
+            'SNRNN'
+
         """
         return koelner_phonetik_num_to_alpha(koelner_phonetik(word))
 
@@ -207,22 +238,26 @@ def koelner_phonetik(word):
 
     This is a wrapper for :py:meth:`Koelner.encode`.
 
-    :param str word: the word to transform
-    :returns: the Kölner Phonetik value as a numeric string
-    :rtype: str
+    Args:
+        word (str): The word to transform
 
-    >>> koelner_phonetik('Christopher')
-    '478237'
-    >>> koelner_phonetik('Niall')
-    '65'
-    >>> koelner_phonetik('Smith')
-    '862'
-    >>> koelner_phonetik('Schmidt')
-    '862'
-    >>> koelner_phonetik('Müller')
-    '657'
-    >>> koelner_phonetik('Zimmermann')
-    '86766'
+    Returns:
+        str: The Kölner Phonetik value as a numeric string
+
+    Example:
+        >>> koelner_phonetik('Christopher')
+        '478237'
+        >>> koelner_phonetik('Niall')
+        '65'
+        >>> koelner_phonetik('Smith')
+        '862'
+        >>> koelner_phonetik('Schmidt')
+        '862'
+        >>> koelner_phonetik('Müller')
+        '657'
+        >>> koelner_phonetik('Zimmermann')
+        '86766'
+
     """
     return Koelner().encode(word)
 
@@ -232,17 +267,20 @@ def koelner_phonetik_num_to_alpha(num):
 
     This is a wrapper for :py:meth:`Koelner._to_alpha`.
 
-    :param str num: a numeric Kölner Phonetik representation (can be a str or
-        an int)
-    :returns: an alphabetic representation of the same word
-    :rtype: str
+    Args:
+        num (str or int): A numeric Kölner Phonetik representation
 
-    >>> koelner_phonetik_num_to_alpha('862')
-    'SNT'
-    >>> koelner_phonetik_num_to_alpha('657')
-    'NLR'
-    >>> koelner_phonetik_num_to_alpha('86766')
-    'SNRNN'
+    Returns:
+        str: An alphabetic representation of the same word
+
+    Examples:
+        >>> koelner_phonetik_num_to_alpha('862')
+        'SNT'
+        >>> koelner_phonetik_num_to_alpha('657')
+        'NLR'
+        >>> koelner_phonetik_num_to_alpha('86766')
+        'SNRNN'
+
     """
     return Koelner()._to_alpha(num)
 
@@ -252,18 +290,22 @@ def koelner_phonetik_alpha(word):
 
     This is a wrapper for :py:meth:`Koelner.encode_alpha`.
 
-    :param str word: the word to transform
-    :returns: the Kölner Phonetik value as an alphabetic string
-    :rtype: str
+    Args:
+        word (str): The word to transform
 
-    >>> koelner_phonetik_alpha('Smith')
-    'SNT'
-    >>> koelner_phonetik_alpha('Schmidt')
-    'SNT'
-    >>> koelner_phonetik_alpha('Müller')
-    'NLR'
-    >>> koelner_phonetik_alpha('Zimmermann')
-    'SNRNN'
+    Returns:
+        str: The Kölner Phonetik value as an alphabetic string
+
+    Examples:
+        >>> koelner_phonetik_alpha('Smith')
+        'SNT'
+        >>> koelner_phonetik_alpha('Schmidt')
+        'SNT'
+        >>> koelner_phonetik_alpha('Müller')
+        'NLR'
+        >>> koelner_phonetik_alpha('Zimmermann')
+        'SNRNN'
+
     """
     return Koelner().encode_alpha(word)
 
@@ -313,19 +355,23 @@ class Phonem(Phonetic):
     def encode(self, word):
         """Return the Phonem code for a word.
 
-        :param str word: the word to transform
-        :returns: the Phonem value
-        :rtype: str
+        Args:
+            word (str): The word to transform
 
-        >>> pe = Phonem()
-        >>> pe.encode('Christopher')
-        'CRYSDOVR'
-        >>> pe.encode('Niall')
-        'NYAL'
-        >>> pe.encode('Smith')
-        'SMYD'
-        >>> pe.encode('Schmidt')
-        'CMYD'
+        Returns:
+            str: The Phonem value
+
+        Examples:
+            >>> pe = Phonem()
+            >>> pe.encode('Christopher')
+            'CRYSDOVR'
+            >>> pe.encode('Niall')
+            'NYAL'
+            >>> pe.encode('Smith')
+            'SMYD'
+            >>> pe.encode('Schmidt')
+            'CMYD'
+
         """
         word = unicode_normalize('NFC', text_type(word.upper()))
         for i, j in self._substitutions:
@@ -344,18 +390,22 @@ def phonem(word):
 
     This is a wrapper for :py:meth:`Phonem.encode`.
 
-    :param str word: the word to transform
-    :returns: the Phonem value
-    :rtype: str
+    Args:
+        word (str): The word to transform
 
-    >>> phonem('Christopher')
-    'CRYSDOVR'
-    >>> phonem('Niall')
-    'NYAL'
-    >>> phonem('Smith')
-    'SMYD'
-    >>> phonem('Schmidt')
-    'CMYD'
+    Returns:
+        str: The Phonem value
+
+    Examples:
+        >>> phonem('Christopher')
+        'CRYSDOVR'
+        >>> phonem('Niall')
+        'NYAL'
+        >>> phonem('Smith')
+        'SMYD'
+        >>> phonem('Schmidt')
+        'CMYD'
+
     """
     return Phonem().encode(word)
 
@@ -375,34 +425,57 @@ class Haase(Phonetic):
 
         While the output code is numeric, it is nevertheless a str.
 
-        :param str word: the word to transform
-        :param bool primary_only: if True, only the primary code is returned
-        :returns: the Haase Phonetik value as a numeric string
-        :rtype: tuple
+        Args:
+            word (str): The word to transform
+            primary_only (bool): If True, only the primary code is returned
 
+        Returns:
+            tuple: The Haase Phonetik value as a numeric string
 
-        >>> pe = Haase()
-        >>> pe.encode('Joachim')
-        ('9496',)
-        >>> pe.encode('Christoph')
-        ('4798293', '8798293')
-        >>> pe.encode('Jörg')
-        ('974',)
-        >>> pe.encode('Smith')
-        ('8692',)
-        >>> pe.encode('Schmidt')
-        ('8692', '4692')
+        Examples:
+            >>> pe = Haase()
+            >>> pe.encode('Joachim')
+            ('9496',)
+            >>> pe.encode('Christoph')
+            ('4798293', '8798293')
+            >>> pe.encode('Jörg')
+            ('974',)
+            >>> pe.encode('Smith')
+            ('8692',)
+            >>> pe.encode('Schmidt')
+            ('8692', '4692')
+
         """
 
-        def _after(word, i, letters):
-            """Return True if word[i] follows one of the supplied letters."""
-            if i > 0 and word[i - 1] in letters:
+        def _after(word, pos, letters):
+            """Return True if word[pos] follows one of the supplied letters.
+
+            Args:
+                word (str): Word to modify
+                pos (int): Position to examine
+                letters (set): Letters to check for
+
+            Returns:
+                bool: True if word[pos] follows one of letters
+
+            """
+            if pos > 0 and word[pos - 1] in letters:
                 return True
             return False
 
-        def _before(word, i, letters):
-            """Return True if word[i] precedes one of the supplied letters."""
-            if i + 1 < len(word) and word[i + 1] in letters:
+        def _before(word, pos, letters):
+            """Return True if word[pos] precedes one of the supplied letters.
+
+            Args:
+                word (str): Word to modify
+                pos (int): Position to examine
+                letters (set): Letters to check for
+
+            Returns:
+                bool: True if word[pos] precedes one of letters
+
+            """
+            if pos + 1 < len(word) and word[pos + 1] in letters:
                 return True
             return False
 
@@ -530,21 +603,25 @@ def haase_phonetik(word, primary_only=False):
 
     This is a wrapper for :py:meth:`Haase.encode`.
 
-    :param str word: the word to transform
-    :param bool primary_only: if True, only the primary code is returned
-    :returns: the Haase Phonetik value as a numeric string
-    :rtype: tuple
+    Args:
+        word (str): The word to transform
+        primary_only (bool): If True, only the primary code is returned
 
-    >>> haase_phonetik('Joachim')
-    ('9496',)
-    >>> haase_phonetik('Christoph')
-    ('4798293', '8798293')
-    >>> haase_phonetik('Jörg')
-    ('974',)
-    >>> haase_phonetik('Smith')
-    ('8692',)
-    >>> haase_phonetik('Schmidt')
-    ('8692', '4692')
+    Returns:
+        tuple: The Haase Phonetik value as a numeric string
+
+    Examples:
+        >>> haase_phonetik('Joachim')
+        ('9496',)
+        >>> haase_phonetik('Christoph')
+        ('4798293', '8798293')
+        >>> haase_phonetik('Jörg')
+        ('974',)
+        >>> haase_phonetik('Smith')
+        ('8692',)
+        >>> haase_phonetik('Schmidt')
+        ('8692', '4692')
+
     """
     return Haase().encode(word, primary_only)
 
@@ -641,20 +718,24 @@ class RethSchek(Phonetic):
     def encode(self, word):
         """Return Reth-Schek Phonetik code for a word.
 
-        :param str word: the word to transform
-        :returns: the Reth-Schek Phonetik code
-        :rtype: str
+        Args:
+            word (str): The word to transform
 
-        >>> reth_schek_phonetik('Joachim')
-        'JOAGHIM'
-        >>> reth_schek_phonetik('Christoph')
-        'GHRISDOF'
-        >>> reth_schek_phonetik('Jörg')
-        'JOERG'
-        >>> reth_schek_phonetik('Smith')
-        'SMID'
-        >>> reth_schek_phonetik('Schmidt')
-        'SCHMID'
+        Returns:
+            str: The Reth-Schek Phonetik code
+
+        Examples:
+            >>> reth_schek_phonetik('Joachim')
+            'JOAGHIM'
+            >>> reth_schek_phonetik('Christoph')
+            'GHRISDOF'
+            >>> reth_schek_phonetik('Jörg')
+            'JOERG'
+            >>> reth_schek_phonetik('Smith')
+            'SMID'
+            >>> reth_schek_phonetik('Schmidt')
+            'SCHMID'
+
         """
         # Uppercase
         word = word.upper()
@@ -699,20 +780,24 @@ def reth_schek_phonetik(word):
 
     This is a wrapper for :py:meth:`RethSchek.encode`.
 
-    :param str word: the word to transform
-    :returns: the Reth-Schek Phonetik code
-    :rtype: str
+    Args:
+        word (str): The word to transform
 
-    >>> reth_schek_phonetik('Joachim')
-    'JOAGHIM'
-    >>> reth_schek_phonetik('Christoph')
-    'GHRISDOF'
-    >>> reth_schek_phonetik('Jörg')
-    'JOERG'
-    >>> reth_schek_phonetik('Smith')
-    'SMID'
-    >>> reth_schek_phonetik('Schmidt')
-    'SCHMID'
+    Returns:
+        str: The Reth-Schek Phonetik code
+
+    Examples:
+        >>> reth_schek_phonetik('Joachim')
+        'JOAGHIM'
+        >>> reth_schek_phonetik('Christoph')
+        'GHRISDOF'
+        >>> reth_schek_phonetik('Jörg')
+        'JOERG'
+        >>> reth_schek_phonetik('Smith')
+        'SMID'
+        >>> reth_schek_phonetik('Schmidt')
+        'SCHMID'
+
     """
     return RethSchek().encode(word)
 

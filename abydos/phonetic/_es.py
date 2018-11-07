@@ -57,23 +57,27 @@ class PhoneticSpanish(Phonetic):
     def encode(self, word, max_length=-1):
         """Return the PhoneticSpanish coding of word.
 
-        :param str word: the word to transform
-        :param int max_length: the length of the code returned (defaults to
-            unlimited)
-        :returns: the PhoneticSpanish code
-        :rtype: str
+        Args:
+            word (str): The word to transform
+            max_length (int): The length of the code returned (defaults to
+                unlimited)
 
-        >>> pe = PhoneticSpanish()
-        >>> pe.encode('Perez')
-        '094'
-        >>> pe.encode('Martinez')
-        '69364'
-        >>> pe.encode('Gutierrez')
-        '83994'
-        >>> pe.encode('Santiago')
-        '4638'
-        >>> pe.encode('Nicolás')
-        '6454'
+        Returns:
+            str: The PhoneticSpanish code
+
+        Examples:
+            >>> pe = PhoneticSpanish()
+            >>> pe.encode('Perez')
+            '094'
+            >>> pe.encode('Martinez')
+            '69364'
+            >>> pe.encode('Gutierrez')
+            '83994'
+            >>> pe.encode('Santiago')
+            '4638'
+            >>> pe.encode('Nicolás')
+            '6454'
+
         """
         # uppercase, normalize, and decompose, filter to A-Z minus vowels & W
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -97,22 +101,26 @@ def phonetic_spanish(word, max_length=-1):
 
     This is a wrapper for :py:meth:`PhoneticSpanish.encode`.
 
-    :param str word: the word to transform
-    :param int max_length: the length of the code returned (defaults to
-        unlimited)
-    :returns: the PhoneticSpanish code
-    :rtype: str
+    Args:
+        word (str): The word to transform
+        max_length (int): The length of the code returned (defaults to
+            unlimited)
 
-    >>> phonetic_spanish('Perez')
-    '094'
-    >>> phonetic_spanish('Martinez')
-    '69364'
-    >>> phonetic_spanish('Gutierrez')
-    '83994'
-    >>> phonetic_spanish('Santiago')
-    '4638'
-    >>> phonetic_spanish('Nicolás')
-    '6454'
+    Returns:
+        str: The PhoneticSpanish code
+
+    Examples:
+        >>> phonetic_spanish('Perez')
+        '094'
+        >>> phonetic_spanish('Martinez')
+        '69364'
+        >>> phonetic_spanish('Gutierrez')
+        '83994'
+        >>> phonetic_spanish('Santiago')
+        '4638'
+        >>> phonetic_spanish('Nicolás')
+        '6454'
+
     """
     return PhoneticSpanish().encode(word, max_length)
 
@@ -130,28 +138,40 @@ class SpanishMetaphone(Phonetic):
     def encode(self, word, max_length=6, modified=False):
         """Return the Spanish Metaphone of a word.
 
-        :param str word: the word to transform
-        :param int max_length: the length of the code returned (defaults to 6)
-        :param bool modified: Set to True to use del Pilar Angeles &
-            Bailón-Miguel's modified version of the algorithm
-        :returns: the Spanish Metaphone code
-        :rtype: str
+        Args:
+            word (str): The word to transform
+            max_length (int): The length of the code returned (defaults to 6)
+            modified (bool): Set to True to use del Pilar Angeles &
+                Bailón-Miguel's modified version of the algorithm
 
-        >>> pe = SpanishMetaphone()
-        >>> pe.encode('Perez')
-        'PRZ'
-        >>> pe.encode('Martinez')
-        'MRTNZ'
-        >>> pe.encode('Gutierrez')
-        'GTRRZ'
-        >>> pe.encode('Santiago')
-        'SNTG'
-        >>> pe.encode('Nicolás')
-        'NKLS'
+        Returns:
+            str: The Spanish Metaphone code
+
+        Examples:
+            >>> pe = SpanishMetaphone()
+            >>> pe.encode('Perez')
+            'PRZ'
+            >>> pe.encode('Martinez')
+            'MRTNZ'
+            >>> pe.encode('Gutierrez')
+            'GTRRZ'
+            >>> pe.encode('Santiago')
+            'SNTG'
+            >>> pe.encode('Nicolás')
+            'NKLS'
+
         """
 
         def _is_vowel(pos):
-            """Return True if the character at word[pos] is a vowel."""
+            """Return True if the character at word[pos] is a vowel.
+
+            Args:
+                pos (int): Position to check for a vowel
+
+            Returns:
+                bool: True if word[pos] is a vowel
+
+            """
             return pos < len(word) and word[pos] in {'A', 'E', 'I', 'O', 'U'}
 
         word = unicode_normalize('NFC', text_type(word.upper()))
@@ -294,23 +314,27 @@ def spanish_metaphone(word, max_length=6, modified=False):
 
     This is a wrapper for :py:meth:`SpanishMetaphone.encode`.
 
-    :param str word: the word to transform
-    :param int max_length: the length of the code returned (defaults to 6)
-    :param bool modified: Set to True to use del Pilar Angeles &
-        Bailón-Miguel's modified version of the algorithm
-    :returns: the Spanish Metaphone code
-    :rtype: str
+    Args:
+        word (str): The word to transform
+        max_length (int): The length of the code returned (defaults to 6)
+        modified (bool): Set to True to use del Pilar Angeles &
+            Bailón-Miguel's modified version of the algorithm
 
-    >>> spanish_metaphone('Perez')
-    'PRZ'
-    >>> spanish_metaphone('Martinez')
-    'MRTNZ'
-    >>> spanish_metaphone('Gutierrez')
-    'GTRRZ'
-    >>> spanish_metaphone('Santiago')
-    'SNTG'
-    >>> spanish_metaphone('Nicolás')
-    'NKLS'
+    Returns:
+        str: The Spanish Metaphone code
+
+    Examples:
+        >>> spanish_metaphone('Perez')
+        'PRZ'
+        >>> spanish_metaphone('Martinez')
+        'MRTNZ'
+        >>> spanish_metaphone('Gutierrez')
+        'GTRRZ'
+        >>> spanish_metaphone('Santiago')
+        'SNTG'
+        >>> spanish_metaphone('Nicolás')
+        'NKLS'
+
     """
     return SpanishMetaphone().encode(word, max_length, modified)
 

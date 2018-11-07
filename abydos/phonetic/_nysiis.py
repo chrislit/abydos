@@ -44,34 +44,38 @@ class NYSIIS(Phonetic):
     def encode(self, word, max_length=6, modified=False):
         """Return the NYSIIS code for a word.
 
-        :param str word: the word to transform
-        :param int max_length: the maximum length (default 6) of the code to
-            return
-        :param bool modified: indicates whether to use USDA modified NYSIIS
-        :returns: the NYSIIS value
-        :rtype: str
+        Args:
+            word (str): The word to transform
+            max_length (int): The maximum length (default 6) of the code to
+                return
+            modified (bool): Indicates whether to use USDA modified NYSIIS
 
-        >>> pe = NYSIIS()
-        >>> pe.encode('Christopher')
-        'CRASTA'
-        >>> pe.encode('Niall')
-        'NAL'
-        >>> pe.encode('Smith')
-        'SNAT'
-        >>> pe.encode('Schmidt')
-        'SNAD'
+        Returns:
+            str: The NYSIIS value
 
-        >>> pe.encode('Christopher', max_length=-1)
-        'CRASTAFAR'
+        Examples:
+            >>> pe = NYSIIS()
+            >>> pe.encode('Christopher')
+            'CRASTA'
+            >>> pe.encode('Niall')
+            'NAL'
+            >>> pe.encode('Smith')
+            'SNAT'
+            >>> pe.encode('Schmidt')
+            'SNAD'
 
-        >>> pe.encode('Christopher', max_length=8, modified=True)
-        'CRASTAFA'
-        >>> pe.encode('Niall', max_length=8, modified=True)
-        'NAL'
-        >>> pe.encode('Smith', max_length=8, modified=True)
-        'SNAT'
-        >>> pe.encode('Schmidt', max_length=8, modified=True)
-        'SNAD'
+            >>> pe.encode('Christopher', max_length=-1)
+            'CRASTAFAR'
+
+            >>> pe.encode('Christopher', max_length=8, modified=True)
+            'CRASTAFA'
+            >>> pe.encode('Niall', max_length=8, modified=True)
+            'NAL'
+            >>> pe.encode('Smith', max_length=8, modified=True)
+            'SNAT'
+            >>> pe.encode('Schmidt', max_length=8, modified=True)
+            'SNAD'
+
         """
         # Require a max_length of at least 6
         if max_length > -1:
@@ -210,33 +214,36 @@ def nysiis(word, max_length=6, modified=False):
 
     This is a wrapper for :py:meth:`Metaphone.encode`.
 
-    :param str word: the word to transform
-    :param int max_length: the maximum length (default 6) of the code to
-        return
-    :param bool modified: indicates whether to use USDA modified NYSIIS
-    :returns: the NYSIIS value
-    :rtype: str
+    Args:
+        word (str): The word to transform
+        max_length (int): The maximum length (default 6) of the code to return
+        modified (bool): Indicates whether to use USDA modified NYSIIS
 
-    >>> nysiis('Christopher')
-    'CRASTA'
-    >>> nysiis('Niall')
-    'NAL'
-    >>> nysiis('Smith')
-    'SNAT'
-    >>> nysiis('Schmidt')
-    'SNAD'
+    Returns:
+        str: The NYSIIS value
 
-    >>> nysiis('Christopher', max_length=-1)
-    'CRASTAFAR'
+    Examples:
+        >>> nysiis('Christopher')
+        'CRASTA'
+        >>> nysiis('Niall')
+        'NAL'
+        >>> nysiis('Smith')
+        'SNAT'
+        >>> nysiis('Schmidt')
+        'SNAD'
 
-    >>> nysiis('Christopher', max_length=8, modified=True)
-    'CRASTAFA'
-    >>> nysiis('Niall', max_length=8, modified=True)
-    'NAL'
-    >>> nysiis('Smith', max_length=8, modified=True)
-    'SNAT'
-    >>> nysiis('Schmidt', max_length=8, modified=True)
-    'SNAD'
+        >>> nysiis('Christopher', max_length=-1)
+        'CRASTAFAR'
+
+        >>> nysiis('Christopher', max_length=8, modified=True)
+        'CRASTAFA'
+        >>> nysiis('Niall', max_length=8, modified=True)
+        'NAL'
+        >>> nysiis('Smith', max_length=8, modified=True)
+        'SNAT'
+        >>> nysiis('Schmidt', max_length=8, modified=True)
+        'SNAD'
+
     """
     return NYSIIS().encode(word, max_length, modified)
 

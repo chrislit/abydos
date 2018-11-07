@@ -38,19 +38,23 @@ class MRA(Phonetic):
     def encode(self, word):
         """Return the MRA personal numeric identifier (PNI) for a word.
 
-        :param str word: the word to transform
-        :returns: the MRA PNI
-        :rtype: str
+        Args:
+            word (str): The word to transform
 
-        >>> pe = MRA()
-        >>> pe.encode('Christopher')
-        'CHRPHR'
-        >>> pe.encode('Niall')
-        'NL'
-        >>> pe.encode('Smith')
-        'SMTH'
-        >>> pe.encode('Schmidt')
-        'SCHMDT'
+        Returns:
+            str: The MRA PNI
+
+        Examples:
+            >>> pe = MRA()
+            >>> pe.encode('Christopher')
+            'CHRPHR'
+            >>> pe.encode('Niall')
+            'NL'
+            >>> pe.encode('Smith')
+            'SMTH'
+            >>> pe.encode('Schmidt')
+            'SCHMDT'
+
         """
         if not word:
             return word
@@ -70,18 +74,22 @@ def mra(word):
 
     This is a wrapper for :py:meth:`MRA.encode`.
 
-    :param str word: the word to transform
-    :returns: the MRA PNI
-    :rtype: str
+    Args:
+        word (str): The word to transform
 
-    >>> mra('Christopher')
-    'CHRPHR'
-    >>> mra('Niall')
-    'NL'
-    >>> mra('Smith')
-    'SMTH'
-    >>> mra('Schmidt')
-    'SCHMDT'
+    Returns:
+        str: The MRA PNI
+
+    Examples:
+        >>> mra('Christopher')
+        'CHRPHR'
+        >>> mra('Niall')
+        'NL'
+        >>> mra('Smith')
+        'SMTH'
+        >>> mra('Schmidt')
+        'SCHMDT'
+
     """
     return MRA().encode(word)
 

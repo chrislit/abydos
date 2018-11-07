@@ -143,9 +143,14 @@ class BeiderMorse(Phonetic):
     def _language(self, name, name_mode):
         """Return the best guess language ID for the word and language choices.
 
-        :param str name: the term to guess the language of
-        :param str name_mode: the name mode of the algorithm: 'gen' (default),
+        Args:
+            name (str): The term to guess the language of
+            name_mode (str): the name mode of the algorithm: 'gen' (default),
                     'ash' (Ashkenazi), or 'sep' (Sephardic)
+
+        Returns:
+            int: Language ID
+
         """
         name = name.strip().lower()
         rules = BMDATA[name_mode]['language_rules']
@@ -171,15 +176,20 @@ class BeiderMorse(Phonetic):
 
         Uses a split multi-word term.
 
-        :param str term: the term to encode via Beider-Morse
-        :param str name_mode: the name mode of the algorithm: 'gen' (default),
-            'ash' (Ashkenazi), or 'sep' (Sephardic)
-        :param tuple rules: the set of initial phonetic transform regexps
-        :param tuple final_rules1: the common set of final phonetic transform
-            regexps
-        :param tuple final_rules2: the specific set of final phonetic transform
-            regexps
-        :param bool concat: a flag to indicate concatenation
+        Args:
+            term (str): The term to encode via Beider-Morse
+            name_mode (str): The name mode of the algorithm: ``gen`` (default),
+                ``ash`` (Ashkenazi), or ``sep`` (Sephardic)
+            rules (tuple): The set of initial phonetic transform regexps
+            final_rules1 (tuple): The common set of final phonetic transform
+                regexps
+            final_rules2 (tuple): The specific set of final phonetic transform
+                regexps
+            concat (bool): A flag to indicate concatenation
+
+        Returns:
+            str: A BMPM code
+
         """
         language_arg = self._language(term, name_mode)
         return self._phonetic(
@@ -204,17 +214,21 @@ class BeiderMorse(Phonetic):
     ):
         """Return the Beider-Morse encoding(s) of a term.
 
-        :param str term: the term to encode via Beider-Morse
-        :param str name_mode: the name mode of the algorithm: 'gen' (default),
-            ash' (Ashkenazi), or 'sep' (Sephardic)
-        :param tuple rules: the set of initial phonetic transform regexps
-        :param tuple final_rules1: the common set of final phonetic transform
-            regexps
-        :param tuple final_rules2: the specific set of final phonetic transform
-            regexps
-        :param int language_arg: an integer representing the target language of
-            the phonetic encoding
-        :param bool concat: a flag to indicate concatenation
+        Args:
+            term (str): The term to encode via Beider-Morse
+            name_mode (str): The name mode of the algorithm: ``gen`` (default),
+                ``ash`` (Ashkenazi), or ``sep`` (Sephardic)
+            rules (tuple): The set of initial phonetic transform regexps
+            final_rules1 (tuple): The common set of final phonetic transform
+                regexps
+            final_rules2 (tuple): The specific set of final phonetic transform
+                regexps
+            language_arg (int): The language of the term
+            concat (bool): A flag to indicate concatenation
+
+        Returns:
+            str: A BMPM code
+
         """
         term = term.replace('-', ' ').strip()
 
@@ -361,12 +375,17 @@ class BeiderMorse(Phonetic):
     def _apply_final_rules(self, phonetic, final_rules, language_arg, strip):
         """Apply a set of final rules to the phonetic encoding.
 
-        :param str phonetic: the term to which to apply the final rules
-        :param tuple final_rules: the set of final phonetic transform regexps
-        :param int language_arg: an integer representing the target language of
-            the phonetic encoding
-        :param bool strip: flag to indicate whether to normalize the language
-            attributes
+        Args:
+            phonetic (str): The term to which to apply the final rules
+            final_rules (tuple): The set of final phonetic transform regexps
+            language_arg (int): An integer representing the target language of
+                the phonetic encoding
+            strip (bool): Flag to indicate whether to normalize the language
+                attributes
+
+        Returns:
+            str: A BMPM code
+
         """
         # optimization to save time
         if not final_rules:
@@ -454,7 +473,12 @@ class BeiderMorse(Phonetic):
     def _phonetic_number(self, phonetic):
         """Remove bracketed text from the end of a string.
 
-        :param str phonetic: a Beider-Morse phonetic encoding
+        Args:
+            phonetic (str): A Beider-Morse phonetic encoding
+
+        Returns:
+            str: A BMPM code
+
         """
         if '[' in phonetic:
             return phonetic[: phonetic.find('[')]
@@ -464,7 +488,12 @@ class BeiderMorse(Phonetic):
     def _expand_alternates(self, phonetic):
         """Expand phonetic alternates separated by |s.
 
-        :param str phonetic: a Beider-Morse phonetic encoding
+        Args:
+            phonetic (str): A Beider-Morse phonetic encoding
+
+        Returns:
+            str: A BMPM code
+
         """
         alt_start = phonetic.find('(')
         if alt_start == -1:
@@ -492,7 +521,12 @@ class BeiderMorse(Phonetic):
     def _pnums_with_leading_space(self, phonetic):
         """Join prefixes & suffixes in cases of alternate phonetic values.
 
-        :param str phonetic: a Beider-Morse phonetic encoding
+        Args:
+            phonetic (str): A Beider-Morse phonetic encoding
+
+        Returns:
+            str: A BMPM code
+
         """
         alt_start = phonetic.find('(')
         if alt_start == -1:
@@ -517,7 +551,12 @@ class BeiderMorse(Phonetic):
         Split phonetic value on '-', run through _pnums_with_leading_space,
         and join with ' '
 
-        :param str phonetic: a Beider-Morse phonetic encoding
+        Args:
+            phonetic (str): A Beider-Morse phonetic encoding
+
+        Returns:
+            str: A BMPM code
+
         """
         phonetic_array = phonetic.split('-')  # for names with spaces in them
         result = ' '.join(
@@ -528,7 +567,12 @@ class BeiderMorse(Phonetic):
     def _remove_dupes(self, phonetic):
         """Remove duplicates from a phonetic encoding list.
 
-        :param str phonetic: a Beider-Morse phonetic encoding
+        Args:
+            phonetic (str): A Beider-Morse phonetic encoding
+
+        Returns:
+            str: A BMPM code
+
         """
         alt_string = phonetic
         alt_array = alt_string.split('|')
@@ -547,14 +591,22 @@ class BeiderMorse(Phonetic):
         This (potentially) bitwise-ands bracketed attributes together and adds
         to the end.
         This is applied to a single alternative at a time -- not to a
-        parenthisized list.
+        parenthesized list.
         It removes all embedded bracketed attributes, logically-ands them
         together, and places them at the end.
         However if strip is true, this can indeed remove embedded bracketed
         attributes from a parenthesized list.
 
-        :param str text: a Beider-Morse phonetic encoding (in progress)
-        :param bool strip: remove the bracketed attributes (and throw away)
+        Args:
+            text (str): A Beider-Morse phonetic encoding (in progress)
+            strip (bool): Remove the bracketed attributes (and throw away)
+
+        Returns:
+            str: A BMPM code
+
+        Raises:
+            ValueError: No closing square bracket
+
         """
         uninitialized = -1  # all 1's
         attrib = uninitialized
@@ -597,10 +649,15 @@ class BeiderMorse(Phonetic):
 
         apply the rule
 
-        :param str phonetic: the Beider-Morse phonetic encoding (so far)
-        :param str target: a proposed addition to the phonetic encoding
-        :param int language_arg: an integer representing the target language of
-            the phonetic encoding
+        Args:
+            phonetic (str): The Beider-Morse phonetic encoding (so far)
+            target (str): A proposed addition to the phonetic encoding
+            language_arg (int): An integer representing the target language of
+                the phonetic encoding
+
+        Returns:
+            str: A candidate encoding
+
         """
         candidate = phonetic + target
         if '[' not in candidate:  # no attributes so we need test no further
@@ -641,9 +698,14 @@ class BeiderMorse(Phonetic):
         This returns l_any if more than one code is specified or the code is
         out of bounds.
 
-        :param int code: the language code to interpret
-        :param str name_mode: the name mode of the algorithm: 'gen' (default),
-                    'ash' (Ashkenazi), or 'sep' (Sephardic)
+        Args:
+            code (int): The language code to interpret
+            name_mode (str): The name mode of the algorithm: ``gen`` (default),
+                    ``ash`` (Ashkenazi), or ``sep`` (Sephardic)
+
+        Returns:
+            int: Language code index
+
         """
         if code < 1 or code > sum(
             _LANG_DICT[_] for _ in BMDATA[name_mode]['languages']
@@ -666,68 +728,73 @@ class BeiderMorse(Phonetic):
     ):
         """Return the Beider-Morse Phonetic Matching encoding(s) of a term.
 
-        :param str word: the word to transform
-        :param str language_arg: the language of the term; supported values
-            include:
+        Args:
+            word (str): The word to transform
+            language_arg (int): The language of the term; supported values
+                include:
+                    - ``any``
+                    - ``arabic``
+                    - ``cyrillic``
+                    - ``czech``
+                    - ``dutch``
+                    - ``english``
+                    - ``french``
+                    - ``german``
+                    - ``greek``
+                    - ``greeklatin``
+                    - ``hebrew``
+                    - ``hungarian``
+                    - ``italian``
+                    - ``latvian``
+                    - ``polish``
+                    - ``portuguese``
+                    - ``romanian``
+                    - ``russian``
+                    - ``spanish``
+                    - ``turkish``
+            name_mode (str): The name mode of the algorithm:
+                - ``gen`` -- general (default)
+                - ``ash`` -- Ashkenazi
+                - ``sep`` -- Sephardic
+            match_mode (str): Matching mode: ``approx`` or ``exact``
+            concat (bool): Concatenation mode
+            filter_langs (bool): Filter out incompatible languages
 
-                - 'any'
-                - 'arabic'
-                - 'cyrillic'
-                - 'czech'
-                - 'dutch'
-                - 'english'
-                - 'french'
-                - 'german'
-                - 'greek'
-                - 'greeklatin'
-                - 'hebrew'
-                - 'hungarian'
-                - 'italian'
-                - 'latvian'
-                - 'polish'
-                - 'portuguese'
-                - 'romanian'
-                - 'russian'
-                - 'spanish'
-                - 'turkish'
+        Returns:
+            tuple: The BMPM value(s)
 
-        :param str name_mode: the name mode of the algorithm:
+        Raises:
+            ValueError: Unknown language
 
-                - 'gen' -- general (default)
-                - 'ash' -- Ashkenazi
-                - 'sep' -- Sephardic
+        Examples:
+            >>> pe = BeiderMorse()
+            >>> pe.encode('Christopher')
+            'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir
+            xristofir xristYfir xristopi xritopir xritopi xristofi xritofir
+            xritofi tzristopir tzristofir zristopir zristopi zritopir zritopi
+            zristofir zristofi zritofir zritofi'
+            >>> pe.encode('Niall')
+            'nial niol'
+            >>> pe.encode('Smith')
+            'zmit'
+            >>> pe.encode('Schmidt')
+            'zmit stzmit'
 
-        :param str match_mode: matching mode: 'approx' or 'exact'
-        :param bool concat: concatenation mode
-        :param bool filter_langs: filter out incompatible languages
-        :returns: the BMPM value(s)
-        :rtype: tuple
+            >>> pe.encode('Christopher', language_arg='German')
+            'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir
+            xristofir xristYfir'
+            >>> pe.encode('Christopher', language_arg='English')
+            'tzristofir tzrQstofir tzristafir tzrQstafir xristofir xrQstofir
+            xristafir xrQstafir'
+            >>> pe.encode('Christopher', language_arg='German',
+            ... name_mode='ash')
+            'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir
+            xristofir xristYfir'
 
-        >>> pe = BeiderMorse()
-        >>> pe.encode('Christopher')
-        'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
-        xristYfir xristopi xritopir xritopi xristofi xritofir xritofi
-        tzristopir tzristofir zristopir zristopi zritopir zritopi zristofir
-        zristofi zritofir zritofi'
-        >>> pe.encode('Niall')
-        'nial niol'
-        >>> pe.encode('Smith')
-        'zmit'
-        >>> pe.encode('Schmidt')
-        'zmit stzmit'
+            >>> pe.encode('Christopher', language_arg='German',
+            ... match_mode='exact')
+            'xriStopher xriStofer xristopher xristofer'
 
-        >>> pe.encode('Christopher', language_arg='German')
-        'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
-        xristYfir'
-        >>> pe.encode('Christopher', language_arg='English')
-        'tzristofir tzrQstofir tzristafir tzrQstafir xristofir xrQstofir
-        xristafir xrQstafir'
-        >>> pe.encode('Christopher', language_arg='German', name_mode='ash')
-        'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
-        xristYfir'
-
-        >>> pe.encode('Christopher', language_arg='German', match_mode='exact')
-        'xriStopher xriStofer xristopher xristofer'
         """
         word = normalize('NFC', text_type(word.strip().lower()))
 
@@ -797,67 +864,67 @@ def bmpm(
 
     This is a wrapper for :py:meth:`BeiderMorse.encode`.
 
-    :param str word: the word to transform
-    :param str language_arg: the language of the term; supported values
-        include:
+    Args:
+        word (str): The word to transform
+        language_arg (str): The language of the term; supported values
+            include:
+                - ``any``
+                - ``arabic``
+                - ``cyrillic``
+                - ``czech``
+                - ``dutch``
+                - ``english``
+                - ``french``
+                - ``german``
+                - ``greek``
+                - ``greeklatin``
+                - ``hebrew``
+                - ``hungarian``
+                - ``italian``
+                - ``latvian``
+                - ``polish``
+                - ``portuguese``
+                - ``romanian``
+                - ``russian``
+                - ``spanish``
+                - ``turkish``
+        name_mode (str): The name mode of the algorithm:
+            - ``gen`` -- general (default)
+            - ``ash`` -- Ashkenazi
+            - ``sep`` -- Sephardic
+        match_mode (str): Matching mode: ``approx`` or ``exact``
+        concat (bool): Concatenation mode
+        filter_langs (bool): Filter out incompatible languages
 
-            - 'any'
-            - 'arabic'
-            - 'cyrillic'
-            - 'czech'
-            - 'dutch'
-            - 'english'
-            - 'french'
-            - 'german'
-            - 'greek'
-            - 'greeklatin'
-            - 'hebrew'
-            - 'hungarian'
-            - 'italian'
-            - 'latvian'
-            - 'polish'
-            - 'portuguese'
-            - 'romanian'
-            - 'russian'
-            - 'spanish'
-            - 'turkish'
+    Returns:
+        tuple: The BMPM value(s)
 
-    :param str name_mode: the name mode of the algorithm:
+    Examples:
+        >>> bmpm('Christopher')
+        'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
+        xristYfir xristopi xritopir xritopi xristofi xritofir xritofi
+        tzristopir tzristofir zristopir zristopi zritopir zritopi zristofir
+        zristofi zritofir zritofi'
+        >>> bmpm('Niall')
+        'nial niol'
+        >>> bmpm('Smith')
+        'zmit'
+        >>> bmpm('Schmidt')
+        'zmit stzmit'
 
-            - 'gen' -- general (default)
-            - 'ash' -- Ashkenazi
-            - 'sep' -- Sephardic
+        >>> bmpm('Christopher', language_arg='German')
+        'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
+        xristYfir'
+        >>> bmpm('Christopher', language_arg='English')
+        'tzristofir tzrQstofir tzristafir tzrQstafir xristofir xrQstofir
+        xristafir xrQstafir'
+        >>> bmpm('Christopher', language_arg='German', name_mode='ash')
+        'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
+        xristYfir'
 
-    :param str match_mode: matching mode: 'approx' or 'exact'
-    :param bool concat: concatenation mode
-    :param bool filter_langs: filter out incompatible languages
-    :returns: the BMPM value(s)
-    :rtype: tuple
+        >>> bmpm('Christopher', language_arg='German', match_mode='exact')
+        'xriStopher xriStofer xristopher xristofer'
 
-    >>> bmpm('Christopher')
-    'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
-    xristYfir xristopi xritopir xritopi xristofi xritofir xritofi tzristopir
-    tzristofir zristopir zristopi zritopir zritopi zristofir zristofi zritofir
-    zritofi'
-    >>> bmpm('Niall')
-    'nial niol'
-    >>> bmpm('Smith')
-    'zmit'
-    >>> bmpm('Schmidt')
-    'zmit stzmit'
-
-    >>> bmpm('Christopher', language_arg='German')
-    'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
-    xristYfir'
-    >>> bmpm('Christopher', language_arg='English')
-    'tzristofir tzrQstofir tzristafir tzrQstafir xristofir xrQstofir xristafir
-    xrQstafir'
-    >>> bmpm('Christopher', language_arg='German', name_mode='ash')
-    'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir xristofir
-    xristYfir'
-
-    >>> bmpm('Christopher', language_arg='German', match_mode='exact')
-    'xriStopher xriStofer xristopher xristofer'
     """
     return BeiderMorse().encode(
         word, language_arg, name_mode, match_mode, concat, filter_langs

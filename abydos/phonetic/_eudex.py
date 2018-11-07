@@ -166,23 +166,27 @@ class Eudex(Phonetic):
     def encode(self, word, max_length=8):
         """Return the eudex phonetic hash of a word.
 
-        :param str word: the word to transform
-        :param int max_length: the length in bits of the code returned (default
-            8)
-        :returns: the eudex hash
-        :rtype: int
+        Args:
+            word (str): The word to transform
+            max_length (int): The length in bits of the code returned (default
+                8)
 
-        >>> pe = Eudex()
-        >>> pe.encode('Colin')
-        432345564238053650
-        >>> pe.encode('Christopher')
-        433648490138894409
-        >>> pe.encode('Niall')
-        648518346341351840
-        >>> pe.encode('Smith')
-        720575940412906756
-        >>> pe.encode('Schmidt')
-        720589151732307997
+        Returns:
+            int: The eudex hash
+
+        Examples:
+            >>> pe = Eudex()
+            >>> pe.encode('Colin')
+            432345564238053650
+            >>> pe.encode('Christopher')
+            433648490138894409
+            >>> pe.encode('Niall')
+            648518346341351840
+            >>> pe.encode('Smith')
+            720575940412906756
+            >>> pe.encode('Schmidt')
+            720589151732307997
+
         """
         # Lowercase input & filter unknown characters
         word = ''.join(
@@ -223,21 +227,26 @@ def eudex(word, max_length=8):
 
     This is a wrapper for :py:meth:`Eudex.encode`.
 
-    :param str word: the word to transform
-    :param int max_length: the length in bits of the code returned (default 8)
-    :returns: the eudex hash
-    :rtype: int
+    Args:
+        word (str): The word to transform
+        max_length (int): The length in bits of the code returned (default
+            8)
 
-    >>> eudex('Colin')
-    432345564238053650
-    >>> eudex('Christopher')
-    433648490138894409
-    >>> eudex('Niall')
-    648518346341351840
-    >>> eudex('Smith')
-    720575940412906756
-    >>> eudex('Schmidt')
-    720589151732307997
+    Returns:
+        int: The eudex hash
+
+    Examples:
+        >>> eudex('Colin')
+        432345564238053650
+        >>> eudex('Christopher')
+        433648490138894409
+        >>> eudex('Niall')
+        648518346341351840
+        >>> eudex('Smith')
+        720575940412906756
+        >>> eudex('Schmidt')
+        720589151732307997
+
     """
     return Eudex().encode(word, max_length)
 

@@ -71,35 +71,51 @@ class SPFC(Phonetic):
     def encode(self, word):
         """Return the Standardized Phonetic Frequency Code (SPFC) of a word.
 
-        :param str word: the word to transform
-        :returns: the SPFC value
-        :rtype: str
+        Args:
+            word (str): The word to transform
 
-        >>> pe = SPFC()
-        >>> pe.encode('Christopher Smith')
-        '01160'
-        >>> pe.encode('Christopher Schmidt')
-        '01160'
-        >>> pe.encode('Niall Smith')
-        '01660'
-        >>> pe.encode('Niall Schmidt')
-        '01660'
+        Returns:
+            str: The SPFC value
 
-        >>> pe.encode('L.Smith')
-        '01960'
-        >>> pe.encode('R.Miller')
-        '65490'
+        Raises:
+            AttributeError: Word attribute must be a string with a space or
+                period dividing the first and last names or a tuple/list
+                consisting of the first and last names
 
-        >>> pe.encode(('L', 'Smith'))
-        '01960'
-        >>> pe.encode(('R', 'Miller'))
-        '65490'
+        Examples:
+            >>> pe = SPFC()
+            >>> pe.encode('Christopher Smith')
+            '01160'
+            >>> pe.encode('Christopher Schmidt')
+            '01160'
+            >>> pe.encode('Niall Smith')
+            '01660'
+            >>> pe.encode('Niall Schmidt')
+            '01660'
+
+            >>> pe.encode('L.Smith')
+            '01960'
+            >>> pe.encode('R.Miller')
+            '65490'
+
+            >>> pe.encode(('L', 'Smith'))
+            '01960'
+            >>> pe.encode(('R', 'Miller'))
+            '65490'
+
         """
 
         def _raise_word_ex():
-            """Raise an AttributeError."""
+            """Raise an AttributeError.
+
+            Raises:
+                AttributeError: Word attribute must be a string with a space or
+                    period dividing the first and last names or a tuple/list
+                    consisting of the first and last names
+
+            """
             raise AttributeError(
-                'word attribute must be a string with a space or period '
+                'Word attribute must be a string with a space or period '
                 + 'dividing the first and last names or a tuple/list '
                 + 'consisting of the first and last names'
             )
@@ -130,7 +146,15 @@ class SPFC(Phonetic):
         code = ''
 
         def _steps_one_to_three(name):
-            """Perform the first three steps of SPFC."""
+            """Perform the first three steps of SPFC.
+
+            Args:
+                name (str): Name to transform
+
+            Returns:
+                str: Transformed name
+
+            """
             # filter out non A-Z
             name = ''.join(_ for _ in name if _ in self._uc_set)
 
@@ -211,30 +235,34 @@ class SPFC(Phonetic):
 def spfc(word):
     """Return the Standardized Phonetic Frequency Code (SPFC) of a word.
 
-    This is a wraper for :py:meth:`SPFC.encode`.
+    This is a wrapper for :py:meth:`SPFC.encode`.
 
-    :param str word: the word to transform
-    :returns: the SPFC value
-    :rtype: str
+    Args:
+        word (str): The word to transform
 
-    >>> spfc('Christopher Smith')
-    '01160'
-    >>> spfc('Christopher Schmidt')
-    '01160'
-    >>> spfc('Niall Smith')
-    '01660'
-    >>> spfc('Niall Schmidt')
-    '01660'
+    Returns:
+        str: The SPFC value
 
-    >>> spfc('L.Smith')
-    '01960'
-    >>> spfc('R.Miller')
-    '65490'
+    Examples:
+        >>> spfc('Christopher Smith')
+        '01160'
+        >>> spfc('Christopher Schmidt')
+        '01160'
+        >>> spfc('Niall Smith')
+        '01660'
+        >>> spfc('Niall Schmidt')
+        '01660'
 
-    >>> spfc(('L', 'Smith'))
-    '01960'
-    >>> spfc(('R', 'Miller'))
-    '65490'
+        >>> spfc('L.Smith')
+        '01960'
+        >>> spfc('R.Miller')
+        '65490'
+
+        >>> spfc(('L', 'Smith'))
+        '01960'
+        >>> spfc(('R', 'Miller'))
+        '65490'
+
     """
     return SPFC().encode(word)
 

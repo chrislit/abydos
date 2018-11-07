@@ -50,22 +50,26 @@ class Metaphone(Phonetic):
         This incorporates some corrections to the above code, particularly
         some of those suggested by Michael Kuhn in :cite:`Kuhn:1995`.
 
-        :param str word: the word to transform
-        :param int max_length: the maximum length of the returned Metaphone
-            code (defaults to 64, but in Philips' original implementation this
-            was 4)
-        :returns: the Metaphone value
-        :rtype: str
+        Args:
+            word (str): The word to transform
+            max_length (int): The maximum length of the returned Metaphone
+                code (defaults to 64, but in Philips' original implementation
+                this was 4)
 
-        >>> pe = Metaphone()
-        >>> pe.encode('Christopher')
-        'KRSTFR'
-        >>> pe.encode('Niall')
-        'NL'
-        >>> pe.encode('Smith')
-        'SM0'
-        >>> pe.encode('Schmidt')
-        'SKMTT'
+        Returns:
+            str: The Metaphone value
+
+        Examples:
+            >>> pe = Metaphone()
+            >>> pe.encode('Christopher')
+            'KRSTFR'
+            >>> pe.encode('Niall')
+            'NL'
+            >>> pe.encode('Smith')
+            'SM0'
+            >>> pe.encode('Schmidt')
+            'SKMTT'
+
         """
         # Require a max_length of at least 4
         if max_length != -1:
@@ -245,20 +249,25 @@ def metaphone(word, max_length=-1):
 
     This is a wrapper for :py:meth:`Metaphone.encode`.
 
-    :param str word: the word to transform
-    :param int max_length: the maximum length of the returned Metaphone code
-        (defaults to 64, but in Philips' original implementation this was 4)
-    :returns: the Metaphone value
-    :rtype: str
+    Args:
+        word (str): The word to transform
+        max_length (int): The maximum length of the returned Metaphone
+            code (defaults to 64, but in Philips' original implementation
+            this was 4)
 
-    >>> metaphone('Christopher')
-    'KRSTFR'
-    >>> metaphone('Niall')
-    'NL'
-    >>> metaphone('Smith')
-    'SM0'
-    >>> metaphone('Schmidt')
-    'SKMTT'
+    Returns:
+        str: The Metaphone value
+
+    Examples:
+        >>> metaphone('Christopher')
+        'KRSTFR'
+        >>> metaphone('Niall')
+        'NL'
+        >>> metaphone('Smith')
+        'SM0'
+        >>> metaphone('Schmidt')
+        'SKMTT'
+
     """
     return Metaphone().encode(word, max_length)
 
@@ -273,22 +282,26 @@ class DoubleMetaphone(Phonetic):
     def encode(self, word, max_length=-1):
         """Return the Double Metaphone code for a word.
 
-        :param word: the word to transform
-        :param max_length: the maximum length of the returned Double Metaphone
-            codes (defaults to 64, but in Philips' original implementation this
-            was 4)
-        :returns: the Double Metaphone value(s)
-        :rtype: tuple
+        Args:
+            word (str): The word to transform
+            max_length (int): The maximum length of the returned Double
+                Metaphone codes (defaults to 64, but in Philips' original
+                implementation this was 4)
 
-        >>> pe = DoubleMetaphone()
-        >>> pe.encode('Christopher')
-        ('KRSTFR', '')
-        >>> pe.encode('Niall')
-        ('NL', '')
-        >>> pe.encode('Smith')
-        ('SM0', 'XMT')
-        >>> pe.encode('Schmidt')
-        ('XMT', 'SMT')
+        Returns:
+            tuple: The Double Metaphone value(s)
+
+        Examples:
+            >>> pe = DoubleMetaphone()
+            >>> pe.encode('Christopher')
+            ('KRSTFR', '')
+            >>> pe.encode('Niall')
+            ('NL', '')
+            >>> pe.encode('Smith')
+            ('SM0', 'XMT')
+            >>> pe.encode('Schmidt')
+            ('XMT', 'SMT')
+
         """
         # Require a max_length of at least 4
         if max_length != -1:
@@ -300,13 +313,27 @@ class DoubleMetaphone(Phonetic):
         secondary = ''
 
         def _slavo_germanic():
-            """Return True if the word appears to be Slavic or Germanic."""
+            """Return True if the word appears to be Slavic or Germanic.
+
+            Returns:
+                bool: True if the word appears to be Slavic or Germanic
+
+            """
             if 'W' in word or 'K' in word or 'CZ' in word:
                 return True
             return False
 
         def _metaph_add(pri, sec=''):
-            """Return a new metaphone tuple with the supplied elements."""
+            """Return a new metaphone tuple with the supplied elements.
+
+            Args:
+                pri (str): The primary element
+                sec (str): The secondary element
+
+            Returns:
+                tuple: A new metaphone tuple with the supplied elements
+
+            """
             newpri = primary
             newsec = secondary
             if pri:
@@ -319,17 +346,43 @@ class DoubleMetaphone(Phonetic):
             return newpri, newsec
 
         def _is_vowel(pos):
-            """Return True if the character at word[pos] is a vowel."""
+            """Return True if the character at word[pos] is a vowel.
+
+            Args:
+                pos (int): Position in the word
+
+            Returns:
+                bool: True if the character is a vowel
+
+            """
             if pos >= 0 and word[pos] in {'A', 'E', 'I', 'O', 'U', 'Y'}:
                 return True
             return False
 
         def _get_at(pos):
-            """Return the character at word[pos]."""
+            """Return the character at word[pos].
+
+            Args:
+                pos (int): Position in the word
+
+            Returns:
+                str: Character at word[pos]
+
+            """
             return word[pos]
 
         def _string_at(pos, slen, substrings):
-            """Return True if word[pos:pos+slen] is in substrings."""
+            """Return True if word[pos:pos+slen] is in substrings.
+
+            Args:
+                pos (int): Position in the word
+                slen (int): Substring length
+                substrings (set): Substrings to search
+
+            Returns:
+                bool: True if word[pos:pos+slen] is in substrings
+
+            """
             if pos < 0:
                 return False
             return word[pos : pos + slen] in substrings
@@ -1126,21 +1179,25 @@ def double_metaphone(word, max_length=-1):
     Based on Lawrence Philips' (Visual) C++ code from 1999
     :cite:`Philips:2000`.
 
-    :param word: the word to transform
-    :param max_length: the maximum length of the returned Double Metaphone
-        codes (defaults to 64, but in Philips' original implementation this
-        was 4)
-    :returns: the Double Metaphone value(s)
-    :rtype: tuple
+    Args:
+        word (str): The word to transform
+        max_length (int): The maximum length of the returned Double
+            Metaphone codes (defaults to 64, but in Philips' original
+            implementation this was 4)
 
-    >>> double_metaphone('Christopher')
-    ('KRSTFR', '')
-    >>> double_metaphone('Niall')
-    ('NL', '')
-    >>> double_metaphone('Smith')
-    ('SM0', 'XMT')
-    >>> double_metaphone('Schmidt')
-    ('XMT', 'SMT')
+    Returns:
+        tuple: The Double Metaphone value(s)
+
+    Examples:
+        >>> double_metaphone('Christopher')
+        ('KRSTFR', '')
+        >>> double_metaphone('Niall')
+        ('NL', '')
+        >>> double_metaphone('Smith')
+        ('SM0', 'XMT')
+        >>> double_metaphone('Schmidt')
+        ('XMT', 'SMT')
+
     """
     return DoubleMetaphone().encode(word, max_length)
 

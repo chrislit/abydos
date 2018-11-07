@@ -200,21 +200,25 @@ class FONEM(Phonetic):
     def encode(self, word):
         """Return the FONEM code of a word.
 
-        :param str word: the word to transform
-        :returns: the FONEM code
-        :rtype: str
+        Args:
+            word (str): The word to transform
 
-        >>> pe = FONEM()
-        >>> pe.encode('Marchand')
-        'MARCHEN'
-        >>> pe.encode('Beaulieu')
-        'BOLIEU'
-        >>> pe.encode('Beaumont')
-        'BOMON'
-        >>> pe.encode('Legrand')
-        'LEGREN'
-        >>> pe.encode('Pelletier')
-        'PELETIER'
+        Returns:
+            str: The FONEM code
+
+        Examples:
+            >>> pe = FONEM()
+            >>> pe.encode('Marchand')
+            'MARCHEN'
+            >>> pe.encode('Beaulieu')
+            'BOLIEU'
+            >>> pe.encode('Beaumont')
+            'BOMON'
+            >>> pe.encode('Legrand')
+            'LEGREN'
+            >>> pe.encode('Pelletier')
+            'PELETIER'
+
         """
         # normalize, upper-case, and filter non-French letters
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -236,20 +240,24 @@ def fonem(word):
 
     This is a wrapper for :py:meth:`FONEM.encode`.
 
-    :param str word: the word to transform
-    :returns: the FONEM code
-    :rtype: str
+    Args:
+        word (str): The word to transform
 
-    >>> fonem('Marchand')
-    'MARCHEN'
-    >>> fonem('Beaulieu')
-    'BOLIEU'
-    >>> fonem('Beaumont')
-    'BOMON'
-    >>> fonem('Legrand')
-    'LEGREN'
-    >>> fonem('Pelletier')
-    'PELETIER'
+    Returns:
+        str: The FONEM code
+
+    Examples:
+        >>> fonem('Marchand')
+        'MARCHEN'
+        >>> fonem('Beaulieu')
+        'BOLIEU'
+        >>> fonem('Beaumont')
+        'BOMON'
+        >>> fonem('Legrand')
+        'LEGREN'
+        >>> fonem('Pelletier')
+        'PELETIER'
+
     """
     return FONEM().encode(word)
 
@@ -276,21 +284,25 @@ class HenryEarly(Phonetic):
     def encode(self, word, max_length=3):
         """Calculate the early version of the Henry code for a word.
 
-        :param str word: the word to transform
-        :param int max_length: the length of the code returned (defaults to 3)
-        :returns: the early Henry code
-        :rtype: str
+        Args:
+            word (str): The word to transform
+            max_length (int): The length of the code returned (defaults to 3)
 
-        >>> henry_early('Marchand')
-        'MRC'
-        >>> henry_early('Beaulieu')
-        'BL'
-        >>> henry_early('Beaumont')
-        'BM'
-        >>> henry_early('Legrand')
-        'LGR'
-        >>> henry_early('Pelletier')
-        'PLT'
+        Returns:
+            str: The early Henry code
+
+        Examples:
+            >>> henry_early('Marchand')
+            'MRC'
+            >>> henry_early('Beaulieu')
+            'BL'
+            >>> henry_early('Beaumont')
+            'BM'
+            >>> henry_early('Legrand')
+            'LGR'
+            >>> henry_early('Pelletier')
+            'PLT'
+
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
         word = ''.join(c for c in word if c in self._uc_set)
@@ -451,21 +463,25 @@ def henry_early(word, max_length=3):
 
     This is a wrapper for :py:meth:`HenryEarly.encode`.
 
-    :param str word: the word to transform
-    :param int max_length: the length of the code returned (defaults to 3)
-    :returns: the early Henry code
-    :rtype: str
+    Args:
+        word (str): The word to transform
+        max_length (int): The length of the code returned (defaults to 3)
 
-    >>> henry_early('Marchand')
-    'MRC'
-    >>> henry_early('Beaulieu')
-    'BL'
-    >>> henry_early('Beaumont')
-    'BM'
-    >>> henry_early('Legrand')
-    'LGR'
-    >>> henry_early('Pelletier')
-    'PLT'
+    Returns:
+        str: The early Henry code
+
+    Examples:
+        >>> henry_early('Marchand')
+        'MRC'
+        >>> henry_early('Beaulieu')
+        'BL'
+        >>> henry_early('Beaumont')
+        'BM'
+        >>> henry_early('Legrand')
+        'LGR'
+        >>> henry_early('Pelletier')
+        'PLT'
+
     """
     return HenryEarly().encode(word, max_length)
 

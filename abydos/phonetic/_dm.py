@@ -255,27 +255,31 @@ class DaitchMokotoff(Phonetic):
     def encode(self, word, max_length=6, zero_pad=True):
         """Return the Daitch-Mokotoff Soundex code for a word.
 
-        :param word: the word to transform
-        :param max_length: the length of the code returned (defaults to 6; must
-            be between 6 and 64)
-        :param zero_pad: pad the end of the return value with 0s to achieve a
-            max_length string
-        :returns: the Daitch-Mokotoff Soundex value
-        :rtype: str
+        Args:
+            word (str): The word to transform
+            max_length (int): The length of the code returned (defaults to 6;
+                must be between 6 and 64)
+            zero_pad (bool): Pad the end of the return value with 0s to achieve
+                a max_length string
 
-        >>> pe = DaitchMokotoff()
-        >>> sorted(pe.encode('Christopher'))
-        ['494379', '594379']
-        >>> pe.encode('Niall')
-        {'680000'}
-        >>> pe.encode('Smith')
-        {'463000'}
-        >>> pe.encode('Schmidt')
-        {'463000'}
+        Returns:
+            str: The Daitch-Mokotoff Soundex value
 
-        >>> sorted(pe.encode('The quick brown fox', max_length=20,
-        ... zero_pad=False))
-        ['35457976754', '3557976754']
+        Examples:
+            >>> pe = DaitchMokotoff()
+            >>> sorted(pe.encode('Christopher'))
+            ['494379', '594379']
+            >>> pe.encode('Niall')
+            {'680000'}
+            >>> pe.encode('Smith')
+            {'463000'}
+            >>> pe.encode('Schmidt')
+            {'463000'}
+
+            >>> sorted(pe.encode('The quick brown fox', max_length=20,
+            ... zero_pad=False))
+            ['35457976754', '3557976754']
+
         """
         dms = ['']  # initialize empty code list
 
@@ -347,26 +351,30 @@ def dm_soundex(word, max_length=6, zero_pad=True):
 
     This is a wrapper for :py:meth:`DaitchMokotoff.encode`.
 
-    :param word: the word to transform
-    :param max_length: the length of the code returned (defaults to 6; must be
-        between 6 and 64)
-    :param zero_pad: pad the end of the return value with 0s to achieve a
-        max_length string
-    :returns: the Daitch-Mokotoff Soundex value
-    :rtype: str
+    Args:
+        word (str): The word to transform
+        max_length (int): The length of the code returned (defaults to 6;
+            must be between 6 and 64)
+        zero_pad (bool): Pad the end of the return value with 0s to achieve
+            a max_length string
 
-    >>> sorted(dm_soundex('Christopher'))
-    ['494379', '594379']
-    >>> dm_soundex('Niall')
-    {'680000'}
-    >>> dm_soundex('Smith')
-    {'463000'}
-    >>> dm_soundex('Schmidt')
-    {'463000'}
+    Returns:
+        str: The Daitch-Mokotoff Soundex value
 
-    >>> sorted(dm_soundex('The quick brown fox', max_length=20,
-    ... zero_pad=False))
-    ['35457976754', '3557976754']
+    Examples:
+        >>> sorted(dm_soundex('Christopher'))
+        ['494379', '594379']
+        >>> dm_soundex('Niall')
+        {'680000'}
+        >>> dm_soundex('Smith')
+        {'463000'}
+        >>> dm_soundex('Schmidt')
+        {'463000'}
+
+        >>> sorted(dm_soundex('The quick brown fox', max_length=20,
+        ... zero_pad=False))
+        ['35457976754', '3557976754']
+
     """
     return DaitchMokotoff().encode(word, max_length, zero_pad)
 

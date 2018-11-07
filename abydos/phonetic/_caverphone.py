@@ -41,36 +41,49 @@ class Caverphone(Phonetic):
     def encode(self, word, version=2):
         """Return the Caverphone code for a word.
 
-        :param str word: the word to transform
-        :param int version: the version of Caverphone to employ for encoding
-            (defaults to 2)
-        :returns: the Caverphone value
-        :rtype: str
+        Args:
+            word (str): The word to transform
+            version (int): The version of Caverphone to employ for encoding
+                (defaults to 2)
 
-        >>> pe = Caverphone()
-        >>> pe.encode('Christopher')
-        'KRSTFA1111'
-        >>> pe.encode('Niall')
-        'NA11111111'
-        >>> pe.encode('Smith')
-        'SMT1111111'
-        >>> pe.encode('Schmidt')
-        'SKMT111111'
+        Returns:
+            str: The Caverphone value
 
-        >>> pe.encode('Christopher', 1)
-        'KRSTF1'
-        >>> pe.encode('Niall', 1)
-        'N11111'
-        >>> pe.encode('Smith', 1)
-        'SMT111'
-        >>> pe.encode('Schmidt', 1)
-        'SKMT11'
+        Examples:
+            >>> pe = Caverphone()
+            >>> pe.encode('Christopher')
+            'KRSTFA1111'
+            >>> pe.encode('Niall')
+            'NA11111111'
+            >>> pe.encode('Smith')
+            'SMT1111111'
+            >>> pe.encode('Schmidt')
+            'SKMT111111'
+
+            >>> pe.encode('Christopher', 1)
+            'KRSTF1'
+            >>> pe.encode('Niall', 1)
+            'N11111'
+            >>> pe.encode('Smith', 1)
+            'SMT111'
+            >>> pe.encode('Schmidt', 1)
+            'SKMT11'
+
         """
         word = word.lower()
         word = ''.join(c for c in word if c in self._lc_set)
 
         def _squeeze_replace(word, char):
-            """Convert strings of char in word to one instance of new_char."""
+            """Convert strings of char in word to one instance.
+
+            Args:
+                word (str): The partially converted word
+                char (str): A character to 'squeeze'
+
+            Returns:
+                str: The word with instances of char squeezed down to one
+
+            """
             while char * 2 in word:
                 word = word.replace(char * 2, char)
             return word.replace(char, char.upper())
@@ -178,29 +191,33 @@ def caverphone(word, version=2):
 
     This is a wrapper for :py:meth:`Caverphone.encode`.
 
-    :param str word: the word to transform
-    :param int version: the version of Caverphone to employ for encoding
-        (defaults to 2)
-    :returns: the Caverphone value
-    :rtype: str
+    Args:
+        word (str): The word to transform
+        version (int): The version of Caverphone to employ for encoding
+            (defaults to 2)
 
-    >>> caverphone('Christopher')
-    'KRSTFA1111'
-    >>> caverphone('Niall')
-    'NA11111111'
-    >>> caverphone('Smith')
-    'SMT1111111'
-    >>> caverphone('Schmidt')
-    'SKMT111111'
+    Returns:
+        str: The Caverphone value
 
-    >>> caverphone('Christopher', 1)
-    'KRSTF1'
-    >>> caverphone('Niall', 1)
-    'N11111'
-    >>> caverphone('Smith', 1)
-    'SMT111'
-    >>> caverphone('Schmidt', 1)
-    'SKMT11'
+    Examples:
+        >>> caverphone('Christopher')
+        'KRSTFA1111'
+        >>> caverphone('Niall')
+        'NA11111111'
+        >>> caverphone('Smith')
+        'SMT1111111'
+        >>> caverphone('Schmidt')
+        'SKMT111111'
+
+        >>> caverphone('Christopher', 1)
+        'KRSTF1'
+        >>> caverphone('Niall', 1)
+        'N11111'
+        >>> caverphone('Smith', 1)
+        'SMT111'
+        >>> caverphone('Schmidt', 1)
+        'SKMT11'
+
     """
     return Caverphone().encode(word, version)
 

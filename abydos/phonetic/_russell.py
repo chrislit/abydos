@@ -59,19 +59,23 @@ class RussellIndex(Phonetic):
     def encode(self, word):
         """Return the Russell Index (integer output) of a word.
 
-        :param str word: the word to transform
-        :returns: the Russell Index value
-        :rtype: int
+        Args:
+            word (str): The word to transform
 
-        >>> pe = RussellIndex()
-        >>> pe.encode('Christopher')
-        3813428
-        >>> pe.encode('Niall')
-        715
-        >>> pe.encode('Smith')
-        3614
-        >>> pe.encode('Schmidt')
-        3614
+        Returns:
+            int: The Russell Index value
+
+        Examples:
+            >>> pe = RussellIndex()
+            >>> pe.encode('Christopher')
+            3813428
+            >>> pe.encode('Niall')
+            715
+            >>> pe.encode('Smith')
+            3614
+            >>> pe.encode('Schmidt')
+            3614
+
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
         word = word.replace('ß', 'SS')
@@ -99,17 +103,21 @@ class RussellIndex(Phonetic):
         This follows Robert C. Russell's Index algorithm, as described in
         :cite:`Russell:1917`.
 
-        :param int num: a Russell Index integer value
-        :returns: the Russell Index as an alphabetic string
-        :rtype: str
+        Args:
+            num (int): A Russell Index integer value
 
-        >>> pe = RussellIndex()
-        >>> pe._to_alpha(3813428)
-        'CRACDBR'
-        >>> pe._to_alpha(715)
-        'NAL'
-        >>> pe._to_alpha(3614)
-        'CMAD'
+        Returns:
+            str: The Russell Index as an alphabetic string
+
+        Examples:
+            >>> pe = RussellIndex()
+            >>> pe._to_alpha(3813428)
+            'CRACDBR'
+            >>> pe._to_alpha(715)
+            'NAL'
+            >>> pe._to_alpha(3614)
+            'CMAD'
+
         """
         num = ''.join(c for c in text_type(num) if c in self._num_set)
         if num:
@@ -122,19 +130,23 @@ class RussellIndex(Phonetic):
         This follows Robert C. Russell's Index algorithm, as described in
         :cite:`Russell:1917`.
 
-        :param str word: the word to transform
-        :returns: the Russell Index value as an alphabetic string
-        :rtype: str
+        Args:
+            word (str): The word to transform
 
-        >>> pe = RussellIndex()
-        >>> pe.encode_alpha('Christopher')
-        'CRACDBR'
-        >>> pe.encode_alpha('Niall')
-        'NAL'
-        >>> pe.encode_alpha('Smith')
-        'CMAD'
-        >>> pe.encode_alpha('Schmidt')
-        'CMAD'
+        Returns:
+            str: The Russell Index value as an alphabetic string
+
+        Examples:
+            >>> pe = RussellIndex()
+            >>> pe.encode_alpha('Christopher')
+            'CRACDBR'
+            >>> pe.encode_alpha('Niall')
+            'NAL'
+            >>> pe.encode_alpha('Smith')
+            'CMAD'
+            >>> pe.encode_alpha('Schmidt')
+            'CMAD'
+
         """
         if word:
             return self._to_alpha(self.encode(word))
@@ -146,18 +158,22 @@ def russell_index(word):
 
     This is a wrapper for :py:meth:`RussellIndex.encode`.
 
-    :param str word: the word to transform
-    :returns: the Russell Index value
-    :rtype: int
+    Args:
+        word (str): The word to transform
 
-    >>> russell_index('Christopher')
-    3813428
-    >>> russell_index('Niall')
-    715
-    >>> russell_index('Smith')
-    3614
-    >>> russell_index('Schmidt')
-    3614
+    Returns:
+        int: The Russell Index value
+
+    Examples:
+        >>> russell_index('Christopher')
+        3813428
+        >>> russell_index('Niall')
+        715
+        >>> russell_index('Smith')
+        3614
+        >>> russell_index('Schmidt')
+        3614
+
     """
     return RussellIndex().encode(word)
 
@@ -167,16 +183,20 @@ def russell_index_num_to_alpha(num):
 
     This is a wrapper for :py:meth:`RussellIndex._to_alpha`.
 
-    :param int num: a Russell Index integer value
-    :returns: the Russell Index as an alphabetic string
-    :rtype: str
+    Args:
+        num (int): A Russell Index integer value
 
-    >>> russell_index_num_to_alpha(3813428)
-    'CRACDBR'
-    >>> russell_index_num_to_alpha(715)
-    'NAL'
-    >>> russell_index_num_to_alpha(3614)
-    'CMAD'
+    Returns:
+        str: The Russell Index as an alphabetic string
+
+    Examples:
+        >>> russell_index_num_to_alpha(3813428)
+        'CRACDBR'
+        >>> russell_index_num_to_alpha(715)
+        'NAL'
+        >>> russell_index_num_to_alpha(3614)
+        'CMAD'
+
     """
     return RussellIndex()._to_alpha(num)
 
@@ -186,18 +206,22 @@ def russell_index_alpha(word):
 
     This is a wrapper for :py:meth:`RussellIndex.encode_alpha`.
 
-    :param str word: the word to transform
-    :returns: the Russell Index value as an alphabetic string
-    :rtype: str
+    Args:
+        word (str): The word to transform
 
-    >>> russell_index_alpha('Christopher')
-    'CRACDBR'
-    >>> russell_index_alpha('Niall')
-    'NAL'
-    >>> russell_index_alpha('Smith')
-    'CMAD'
-    >>> russell_index_alpha('Schmidt')
-    'CMAD'
+    Returns:
+        str: The Russell Index value as an alphabetic string
+
+    Examples:
+        >>> russell_index_alpha('Christopher')
+        'CRACDBR'
+        >>> russell_index_alpha('Niall')
+        'NAL'
+        >>> russell_index_alpha('Smith')
+        'CMAD'
+        >>> russell_index_alpha('Schmidt')
+        'CMAD'
+
     """
     return RussellIndex().encode_alpha(word)
 

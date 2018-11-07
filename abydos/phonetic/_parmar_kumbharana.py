@@ -60,21 +60,25 @@ class ParmarKumbharana(Phonetic):
     def encode(self, word):
         """Return the Parmar-Kumbharana encoding of a word.
 
-        :param str word: the word to transform
-        :returns: the Parmar-Kumbharana encoding
-        :rtype: str
+        Args:
+            word (str): The word to transform
 
-        >>> pe = ParmarKumbharana()
-        >>> pe.encode('Gough')
-        'GF'
-        >>> pe.encode('pneuma')
-        'NM'
-        >>> pe.encode('knight')
-        'NT'
-        >>> pe.encode('trice')
-        'TRS'
-        >>> pe.encode('judge')
-        'JJ'
+        Returns:
+            str: The Parmar-Kumbharana encoding
+
+        Examples:
+            >>> pe = ParmarKumbharana()
+            >>> pe.encode('Gough')
+            'GF'
+            >>> pe.encode('pneuma')
+            'NM'
+            >>> pe.encode('knight')
+            'NT'
+            >>> pe.encode('trice')
+            'TRS'
+            >>> pe.encode('judge')
+            'JJ'
+
         """
         word = word.upper()  # Rule 3
         word = self._delete_consecutive_repeats(word)  # Rule 4
@@ -100,20 +104,24 @@ def parmar_kumbharana(word):
 
     This is a wrapper for :py:meth:`ParmarKumbharana.encode`.
 
-    :param str word: the word to transform
-    :returns: the Parmar-Kumbharana encoding
-    :rtype: str
+    Args:
+        word (str): The word to transform
 
-    >>> parmar_kumbharana('Gough')
-    'GF'
-    >>> parmar_kumbharana('pneuma')
-    'NM'
-    >>> parmar_kumbharana('knight')
-    'NT'
-    >>> parmar_kumbharana('trice')
-    'TRS'
-    >>> parmar_kumbharana('judge')
-    'JJ'
+    Returns:
+        str: The Parmar-Kumbharana encoding
+
+    Examples:
+        >>> parmar_kumbharana('Gough')
+        'GF'
+        >>> parmar_kumbharana('pneuma')
+        'NM'
+        >>> parmar_kumbharana('knight')
+        'NT'
+        >>> parmar_kumbharana('trice')
+        'TRS'
+        >>> parmar_kumbharana('judge')
+        'JJ'
+
     """
     return ParmarKumbharana().encode(word)
 
