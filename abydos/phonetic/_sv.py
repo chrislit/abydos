@@ -153,30 +153,42 @@ class SfinxBis(Phonetic):
     def encode(self, word, max_length=-1):
         """Return the SfinxBis code for a word.
 
-        :param str word: the word to transform
-        :param int max_length: the length of the code returned (defaults to
-            unlimited)
-        :returns: the SfinxBis value
-        :rtype: tuple
+        Args:
+            word (str): The word to transform
+            max_length (int): The length of the code returned (defaults to
+                unlimited)
 
-        >>> pe = SfinxBis()
-        >>> pe.encode('Christopher')
-        ('K68376',)
-        >>> pe.encode('Niall')
-        ('N4',)
-        >>> pe.encode('Smith')
-        ('S53',)
-        >>> pe.encode('Schmidt')
-        ('S53',)
+        Returns:
+            tuple: The SfinxBis value
 
-        >>> pe.encode('Johansson')
-        ('J585',)
-        >>> pe.encode('Sjöberg')
-        ('#162',)
+        Examples:
+            >>> pe = SfinxBis()
+            >>> pe.encode('Christopher')
+            ('K68376',)
+            >>> pe.encode('Niall')
+            ('N4',)
+            >>> pe.encode('Smith')
+            ('S53',)
+            >>> pe.encode('Schmidt')
+            ('S53',)
+
+            >>> pe.encode('Johansson')
+            ('J585',)
+            >>> pe.encode('Sjöberg')
+            ('#162',)
+
         """
 
         def _foersvensker(lokal_ordet):
-            """Return the Swedish-ized form of the word."""
+            """Return the Swedish-ized form of the word.
+
+            Args:
+                lokal_ordet (str): Word to transform
+
+            Returns:
+                str: Transformed word
+
+            """
             lokal_ordet = lokal_ordet.replace('STIERN', 'STJÄRN')
             lokal_ordet = lokal_ordet.replace('HIE', 'HJ')
             lokal_ordet = lokal_ordet.replace('SIÖ', 'SJÖ')
@@ -207,7 +219,15 @@ class SfinxBis(Phonetic):
             return lokal_ordet
 
         def _koda_foersta_ljudet(lokal_ordet):
-            """Return the word with the first sound coded."""
+            """Return the word with the first sound coded.
+
+            Args:
+                lokal_ordet (str): Word to transform
+
+            Returns:
+                str: Transformed word
+
+            """
             if (
                 lokal_ordet[0:1] in self._mjuka_vokaler
                 or lokal_ordet[0:1] in self._harde_vokaler
@@ -326,27 +346,31 @@ class SfinxBis(Phonetic):
 def sfinxbis(word, max_length=-1):
     """Return the SfinxBis code for a word.
 
-    This is a wraper for :py:meth:`SfinxBis.encode`.
+    This is a wrapper for :py:meth:`SfinxBis.encode`.
 
-    :param str word: the word to transform
-    :param int max_length: the length of the code returned (defaults to
-        unlimited)
-    :returns: the SfinxBis value
-    :rtype: tuple
+    Args:
+        word (str): The word to transform
+        max_length (int): The length of the code returned (defaults to
+            unlimited)
 
-    >>> sfinxbis('Christopher')
-    ('K68376',)
-    >>> sfinxbis('Niall')
-    ('N4',)
-    >>> sfinxbis('Smith')
-    ('S53',)
-    >>> sfinxbis('Schmidt')
-    ('S53',)
+    Returns:
+        tuple: The SfinxBis value
 
-    >>> sfinxbis('Johansson')
-    ('J585',)
-    >>> sfinxbis('Sjöberg')
-    ('#162',)
+    Examples:
+        >>> sfinxbis('Christopher')
+        ('K68376',)
+        >>> sfinxbis('Niall')
+        ('N4',)
+        >>> sfinxbis('Smith')
+        ('S53',)
+        >>> sfinxbis('Schmidt')
+        ('S53',)
+
+        >>> sfinxbis('Johansson')
+        ('J585',)
+        >>> sfinxbis('Sjöberg')
+        ('#162',)
+
     """
     return SfinxBis().encode(word, max_length)
 
@@ -390,21 +414,25 @@ class Norphone(Phonetic):
     def encode(self, word):
         """Return the Norphone code.
 
-        :param str word: the word to transform
-        :returns: the Norphone code
-        :rtype: str
+        Args:
+            word (str): The word to transform
 
-        >>> pe = Norphone()
-        >>> pe.encode('Hansen')
-        'HNSN'
-        >>> pe.encode('Larsen')
-        'LRSN'
-        >>> pe.encode('Aagaard')
-        'ÅKRT'
-        >>> pe.encode('Braaten')
-        'BRTN'
-        >>> pe.encode('Sandvik')
-        'SNVK'
+        Returns:
+            str: The Norphone code
+
+        Examples:
+            >>> pe = Norphone()
+            >>> pe.encode('Hansen')
+            'HNSN'
+            >>> pe.encode('Larsen')
+            'LRSN'
+            >>> pe.encode('Aagaard')
+            'ÅKRT'
+            >>> pe.encode('Braaten')
+            'BRTN'
+            >>> pe.encode('Sandvik')
+            'SNVK'
+
         """
         word = word.upper()
 
@@ -466,22 +494,26 @@ class Norphone(Phonetic):
 def norphone(word):
     """Return the Norphone code.
 
-    This is a wraper for :py:meth:`Norphone.encode`.
+    This is a wrapper for :py:meth:`Norphone.encode`.
 
-    :param str word: the word to transform
-    :returns: the Norphone code
-    :rtype: str
+    Args:
+        word (str): The word to transform
 
-    >>> norphone('Hansen')
-    'HNSN'
-    >>> norphone('Larsen')
-    'LRSN'
-    >>> norphone('Aagaard')
-    'ÅKRT'
-    >>> norphone('Braaten')
-    'BRTN'
-    >>> norphone('Sandvik')
-    'SNVK'
+    Returns:
+        str: The Norphone code
+
+    Examples:
+        >>> norphone('Hansen')
+        'HNSN'
+        >>> norphone('Larsen')
+        'LRSN'
+        >>> norphone('Aagaard')
+        'ÅKRT'
+        >>> norphone('Braaten')
+        'BRTN'
+        >>> norphone('Sandvik')
+        'SNVK'
+
     """
     return Norphone().encode(word)
 

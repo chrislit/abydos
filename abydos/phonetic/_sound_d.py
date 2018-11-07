@@ -48,21 +48,25 @@ class SoundD(Phonetic):
     def encode(self, word, max_length=4):
         """Return the SoundD code.
 
-        :param str word: the word to transform
-        :param int max_length: the length of the code returned (defaults to 4)
-        :returns: the SoundD code
-        :rtype: str
+        Args:
+            word (str): The word to transform
+            max_length (int): The length of the code returned (defaults to 4)
 
-        >>> sound_d('Gough')
-        '2000'
-        >>> sound_d('pneuma')
-        '5500'
-        >>> sound_d('knight')
-        '5300'
-        >>> sound_d('trice')
-        '3620'
-        >>> sound_d('judge')
-        '2200'
+        Returns:
+            str: The SoundD code
+
+        Examples:
+            >>> sound_d('Gough')
+            '2000'
+            >>> sound_d('pneuma')
+            '5500'
+            >>> sound_d('knight')
+            '5300'
+            >>> sound_d('trice')
+            '3620'
+            >>> sound_d('judge')
+            '2200'
+
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
         word = word.replace('ß', 'SS')
@@ -95,21 +99,25 @@ class SoundD(Phonetic):
 def sound_d(word, max_length=4):
     """Return the SoundD code.
 
-    :param str word: the word to transform
-    :param int max_length: the length of the code returned (defaults to 4)
-    :returns: the SoundD code
-    :rtype: str
+    Args:
+        word (str): The word to transform
+        max_length (int): The length of the code returned (defaults to 4)
 
-    >>> sound_d('Gough')
-    '2000'
-    >>> sound_d('pneuma')
-    '5500'
-    >>> sound_d('knight')
-    '5300'
-    >>> sound_d('trice')
-    '3620'
-    >>> sound_d('judge')
-    '2200'
+    Returns:
+        str: The SoundD code
+
+    Examples:
+        >>> sound_d('Gough')
+        '2000'
+        >>> sound_d('pneuma')
+        '5500'
+        >>> sound_d('knight')
+        '5300'
+        >>> sound_d('trice')
+        '3620'
+        >>> sound_d('judge')
+        '2200'
+
     """
     return SoundD().encode(word, max_length)
 

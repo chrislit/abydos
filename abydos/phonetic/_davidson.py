@@ -45,29 +45,33 @@ class Davidson(Phonetic):
     def encode(self, lname, fname='.', omit_fname=False):
         """Return Davidson's Consonant Code.
 
-        :param str lname: Last name (or word) to be encoded
-        :param str fname: First name (optional), of which the first character
-            is included in the code.
-        :param bool omit_fname: Set to True to completely omit the first
-            character of the first name
-        :returns: Davidson's Consonant Code
-        :rtype: str
+        Args:
+            lname (str): Last name (or word) to be encoded
+            fname (str): First name (optional), of which the first character is
+                included in the code.
+            omit_fname (bool): Set to True to completely omit the first
+                character of the first name
 
-        >>> pe = Davidson()
-        >>> pe.encode('Gough')
-        'G   .'
-        >>> pe.encode('pneuma')
-        'PNM .'
-        >>> pe.encode('knight')
-        'KNGT.'
-        >>> pe.encode('trice')
-        'TRC .'
-        >>> pe.encode('judge')
-        'JDG .'
-        >>> pe.encode('Smith', 'James')
-        'SMT J'
-        >>> pe.encode('Wasserman', 'Tabitha')
-        'WSRMT'
+        Returns:
+            str: Davidson's Consonant Code
+
+        Example:
+            >>> pe = Davidson()
+            >>> pe.encode('Gough')
+            'G   .'
+            >>> pe.encode('pneuma')
+            'PNM .'
+            >>> pe.encode('knight')
+            'KNGT.'
+            >>> pe.encode('trice')
+            'TRC .'
+            >>> pe.encode('judge')
+            'JDG .'
+            >>> pe.encode('Smith', 'James')
+            'SMT J'
+            >>> pe.encode('Wasserman', 'Tabitha')
+            'WSRMT'
+
         """
         lname = text_type(lname.upper())
         code = self._delete_consecutive_repeats(
@@ -86,28 +90,32 @@ def davidson(lname, fname='.', omit_fname=False):
 
     This is a wrapper for :py:meth:`Davidson.encode`.
 
-    :param str lname: Last name (or word) to be encoded
-    :param str fname: First name (optional), of which the first character is
-        included in the code.
-    :param bool omit_fname: Set to True to completely omit the first character
-        of the first name
-    :returns: Davidson's Consonant Code
-    :rtype: str
+    Args:
+        lname (str): Last name (or word) to be encoded
+        fname (str): First name (optional), of which the first character is
+            included in the code.
+        omit_fname (bool): Set to True to completely omit the first
+            character of the first name
 
-    >>> davidson('Gough')
-    'G   .'
-    >>> davidson('pneuma')
-    'PNM .'
-    >>> davidson('knight')
-    'KNGT.'
-    >>> davidson('trice')
-    'TRC .'
-    >>> davidson('judge')
-    'JDG .'
-    >>> davidson('Smith', 'James')
-    'SMT J'
-    >>> davidson('Wasserman', 'Tabitha')
-    'WSRMT'
+    Returns:
+        str: Davidson's Consonant Code
+
+    Example:
+        >>> davidson('Gough')
+        'G   .'
+        >>> davidson('pneuma')
+        'PNM .'
+        >>> davidson('knight')
+        'KNGT.'
+        >>> davidson('trice')
+        'TRC .'
+        >>> davidson('judge')
+        'JDG .'
+        >>> davidson('Smith', 'James')
+        'SMT J'
+        >>> davidson('Wasserman', 'Tabitha')
+        'WSRMT'
+
     """
     return Davidson().encode(lname, fname, omit_fname)
 

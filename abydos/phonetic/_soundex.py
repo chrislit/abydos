@@ -91,56 +91,59 @@ class Soundex(Phonetic):
     ):
         """Return the Soundex code for a word.
 
-        :param str word: the word to transform
-        :param int max_length: the length of the code returned (defaults to 4)
-        :param str var: the variant of the algorithm to employ (defaults to
-            'American'):
+        Args:
+            word (str): The word to transform
+            max_length (int): The length of the code returned (defaults to 4)
+            var (str): The variant of the algorithm to employ (defaults to
+                ``American``):
+                    - ``American`` follows the American Soundex algorithm, as
+                      described at :cite:`US:2007` and in :cite:`Knuth:1998`;
+                      this is also called Miracode
+                    - ``special`` follows the rules from the 1880-1910 US
+                      Census retrospective re-analysis, in which h & w are not
+                      treated as blocking consonants but as vowels. Cf.
+                      :cite:`Repici:2013`.
+                    - ``Census`` follows the rules laid out in GIL 55
+                      :cite:`US:1997` by the US Census, including coding
+                      prefixed and unprefixed versions of some names
+            reverse (bool): Reverse the word before computing the selected
+                Soundex (defaults to False); This results in "Reverse Soundex",
+                which is useful for blocking in cases where the initial
+                elements may be in error.
+            zero_pad (bool): Pad the end of the return value with 0s to achieve
+                a max_length string
 
-            - 'American' follows the American Soundex algorithm, as described
-              at :cite:`US:2007` and in :cite:`Knuth:1998`; this is also called
-              Miracode
-            - 'special' follows the rules from the 1880-1910 US Census
-              retrospective re-analysis, in which h & w are not treated as
-              blocking consonants but as vowels. Cf. :cite:`Repici:2013`.
-            - 'Census' follows the rules laid out in GIL 55 :cite:`US:1997` by
-              the US Census, including coding prefixed and unprefixed versions
-              of some names
+        Returns:
+            str: The Soundex value
 
-        :param bool reverse: reverse the word before computing the selected
-            Soundex (defaults to False); This results in "Reverse Soundex",
-            which is useful for blocking in cases where the initial elements
-            may be in error.
-        :param bool zero_pad: pad the end of the return value with 0s to
-            achieve a max_length string
-        :returns: the Soundex value
-        :rtype: str
+        Examples:
+            >>> pe = Soundex()
+            >>> pe.encode("Christopher")
+            'C623'
+            >>> pe.encode("Niall")
+            'N400'
+            >>> pe.encode('Smith')
+            'S530'
+            >>> pe.encode('Schmidt')
+            'S530'
 
-        >>> pe = Soundex()
-        >>> pe.encode("Christopher")
-        'C623'
-        >>> pe.encode("Niall")
-        'N400'
-        >>> pe.encode('Smith')
-        'S530'
-        >>> pe.encode('Schmidt')
-        'S530'
+            >>> pe.encode('Christopher', max_length=-1)
+            'C623160000000000000000000000000000000000000000000000000000000000'
+            >>> pe.encode('Christopher', max_length=-1, zero_pad=False)
+            'C62316'
 
-        >>> pe.encode('Christopher', max_length=-1)
-        'C623160000000000000000000000000000000000000000000000000000000000'
-        >>> pe.encode('Christopher', max_length=-1, zero_pad=False)
-        'C62316'
+            >>> pe.encode('Christopher', reverse=True)
+            'R132'
 
-        >>> pe.encode('Christopher', reverse=True)
-        'R132'
+            >>> pe.encode('Ashcroft')
+            'A261'
+            >>> pe.encode('Asicroft')
+            'A226'
+            >>> pe.encode('Ashcroft', var='special')
+            'A226'
+            >>> pe.encode('Asicroft', var='special')
+            'A226'
 
-        >>> pe.encode('Ashcroft')
-        'A261'
-        >>> pe.encode('Asicroft')
-        'A226'
-        >>> pe.encode('Ashcroft', var='special')
-        'A226'
-        >>> pe.encode('Asicroft', var='special')
-        'A226'
         """
         # Require a max_length of at least 4 and not more than 64
         if max_length != -1:
@@ -208,54 +211,57 @@ def soundex(word, max_length=4, var='American', reverse=False, zero_pad=True):
 
     This is a wrapper for :py:meth:`Soundex.encode`.
 
-    :param str word: the word to transform
-    :param int max_length: the length of the code returned (defaults to 4)
-    :param str var: the variant of the algorithm to employ (defaults to
-        'American'):
+    Args:
+        word (str): The word to transform
+        max_length (int): The length of the code returned (defaults to 4)
+        var (str): The variant of the algorithm to employ (defaults to
+            ``American``):
+                - ``American`` follows the American Soundex algorithm, as
+                  described at :cite:`US:2007` and in :cite:`Knuth:1998`; this
+                  is also called Miracode
+                - ``special`` follows the rules from the 1880-1910 US Census
+                  retrospective re-analysis, in which h & w are not treated as
+                  blocking consonants but as vowels. Cf. :cite:`Repici:2013`.
+                - ``Census`` follows the rules laid out in GIL 55
+                  :cite:`US:1997` by the US Census, including coding prefixed
+                  and unprefixed versions of some names
+        reverse (bool): Reverse the word before computing the selected
+            Soundex (defaults to False); This results in "Reverse Soundex",
+            which is useful for blocking in cases where the initial elements
+            may be in error.
+        zero_pad (bool): Pad the end of the return value with 0s to achieve a
+            max_length string
 
-        - 'American' follows the American Soundex algorithm, as described at
-          :cite:`US:2007` and in :cite:`Knuth:1998`; this is also called
-          Miracode
-        - 'special' follows the rules from the 1880-1910 US Census
-          retrospective re-analysis, in which h & w are not treated as blocking
-          consonants but as vowels. Cf. :cite:`Repici:2013`.
-        - 'Census' follows the rules laid out in GIL 55 :cite:`US:1997` by the
-          US Census, including coding prefixed and unprefixed versions of some
-          names
+    Returns:
+        str: The Soundex value
 
-    :param bool reverse: reverse the word before computing the selected Soundex
-        (defaults to False); This results in "Reverse Soundex", which is useful
-        for blocking in cases where the initial elements may be in error.
-    :param bool zero_pad: pad the end of the return value with 0s to achieve a
-        max_length string
-    :returns: the Soundex value
-    :rtype: str
+    Examples:
+        >>> soundex("Christopher")
+        'C623'
+        >>> soundex("Niall")
+        'N400'
+        >>> soundex('Smith')
+        'S530'
+        >>> soundex('Schmidt')
+        'S530'
 
-    >>> soundex("Christopher")
-    'C623'
-    >>> soundex("Niall")
-    'N400'
-    >>> soundex('Smith')
-    'S530'
-    >>> soundex('Schmidt')
-    'S530'
+        >>> soundex('Christopher', max_length=-1)
+        'C623160000000000000000000000000000000000000000000000000000000000'
+        >>> soundex('Christopher', max_length=-1, zero_pad=False)
+        'C62316'
 
-    >>> soundex('Christopher', max_length=-1)
-    'C623160000000000000000000000000000000000000000000000000000000000'
-    >>> soundex('Christopher', max_length=-1, zero_pad=False)
-    'C62316'
+        >>> soundex('Christopher', reverse=True)
+        'R132'
 
-    >>> soundex('Christopher', reverse=True)
-    'R132'
+        >>> soundex('Ashcroft')
+        'A261'
+        >>> soundex('Asicroft')
+        'A226'
+        >>> soundex('Ashcroft', var='special')
+        'A226'
+        >>> soundex('Asicroft', var='special')
+        'A226'
 
-    >>> soundex('Ashcroft')
-    'A261'
-    >>> soundex('Asicroft')
-    'A226'
-    >>> soundex('Ashcroft', var='special')
-    'A226'
-    >>> soundex('Asicroft', var='special')
-    'A226'
     """
     return Soundex().encode(word, max_length, var, reverse, zero_pad)
 
@@ -277,24 +283,28 @@ class RefinedSoundex(Phonetic):
     def encode(self, word, max_length=-1, zero_pad=False, retain_vowels=False):
         """Return the Refined Soundex code for a word.
 
-        :param word: the word to transform
-        :param max_length: the length of the code returned (defaults to
-            unlimited)
-        :param zero_pad: pad the end of the return value with 0s to achieve a
-            max_length string
-        :param retain_vowels: retain vowels (as 0) in the resulting code
-        :returns: the Refined Soundex value
-        :rtype: str
+        Args:
+            word (str): The word to transform
+            max_length (int): The length of the code returned (defaults to
+                unlimited)
+            zero_pad (bool): Pad the end of the return value with 0s to achieve
+                a max_length string
+            retain_vowels (bool): Retain vowels (as 0) in the resulting code
 
-        >>> pe = RefinedSoundex()
-        >>> pe.encode('Christopher')
-        'C393619'
-        >>> pe.encode('Niall')
-        'N87'
-        >>> pe.encode('Smith')
-        'S386'
-        >>> pe.encode('Schmidt')
-        'S386'
+        Returns:
+            str: The Refined Soundex value
+
+        Examples:
+            >>> pe = RefinedSoundex()
+            >>> pe.encode('Christopher')
+            'C393619'
+            >>> pe.encode('Niall')
+            'N87'
+            >>> pe.encode('Smith')
+            'S386'
+            >>> pe.encode('Schmidt')
+            'S386'
+
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -320,22 +330,28 @@ def refined_soundex(word, max_length=-1, zero_pad=False, retain_vowels=False):
 
     This is a wrapper for :py:meth:`RefinedSoundex.encode`.
 
-    :param word: the word to transform
-    :param max_length: the length of the code returned (defaults to unlimited)
-    :param zero_pad: pad the end of the return value with 0s to achieve a
-        max_length string
-    :param retain_vowels: retain vowels (as 0) in the resulting code
-    :returns: the Refined Soundex value
-    :rtype: str
 
-    >>> refined_soundex('Christopher')
-    'C393619'
-    >>> refined_soundex('Niall')
-    'N87'
-    >>> refined_soundex('Smith')
-    'S386'
-    >>> refined_soundex('Schmidt')
-    'S386'
+    Args:
+        word (str): The word to transform
+        max_length (int): The length of the code returned (defaults to
+            unlimited)
+        zero_pad (bool): Pad the end of the return value with 0s to achieve
+            a max_length string
+        retain_vowels (bool): Retain vowels (as 0) in the resulting code
+
+    Returns:
+        str: The Refined Soundex value
+
+    Examples:
+        >>> refined_soundex('Christopher')
+        'C393619'
+        >>> refined_soundex('Niall')
+        'N87'
+        >>> refined_soundex('Smith')
+        'S386'
+        >>> refined_soundex('Schmidt')
+        'S386'
+
     """
     return RefinedSoundex().encode(word, max_length, zero_pad, retain_vowels)
 
@@ -357,22 +373,26 @@ class FuzzySoundex(Phonetic):
     def encode(self, word, max_length=5, zero_pad=True):
         """Return the Fuzzy Soundex code for a word.
 
-        :param str word: the word to transform
-        :param int max_length: the length of the code returned (defaults to 4)
-        :param bool zero_pad: pad the end of the return value with 0s to
-            achieve a max_length string
-        :returns: the Fuzzy Soundex value
-        :rtype: str
+        Args:
+            word (str): The word to transform
+            max_length (int): The length of the code returned (defaults to 4)
+            zero_pad (bool): pad the end of the return value with 0s to achieve
+                a max_length string
 
-        >>> pe = FuzzySoundex()
-        >>> pe.encode('Christopher')
-        'K6931'
-        >>> pe.encode('Niall')
-        'N4000'
-        >>> pe.encode('Smith')
-        'S5300'
-        >>> pe.encode('Smith')
-        'S5300'
+        Returns:
+            str: The Fuzzy Soundex value
+
+        Examples:
+            >>> pe = FuzzySoundex()
+            >>> pe.encode('Christopher')
+            'K6931'
+            >>> pe.encode('Niall')
+            'N4000'
+            >>> pe.encode('Smith')
+            'S5300'
+            >>> pe.encode('Smith')
+            'S5300'
+
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
         word = word.replace('ß', 'SS')
@@ -456,21 +476,25 @@ def fuzzy_soundex(word, max_length=5, zero_pad=True):
 
     This is a wrapper for :py:meth:`FuzzySoundex.encode`.
 
-    :param str word: the word to transform
-    :param int max_length: the length of the code returned (defaults to 4)
-    :param bool zero_pad: pad the end of the return value with 0s to achieve
-        a max_length string
-    :returns: the Fuzzy Soundex value
-    :rtype: str
+    Args:
+        word (str): The word to transform
+        max_length (int): The length of the code returned (defaults to 4)
+        zero_pad (bool): pad the end of the return value with 0s to achieve
+            a max_length string
 
-    >>> fuzzy_soundex('Christopher')
-    'K6931'
-    >>> fuzzy_soundex('Niall')
-    'N4000'
-    >>> fuzzy_soundex('Smith')
-    'S5300'
-    >>> fuzzy_soundex('Smith')
-    'S5300'
+    Returns:
+        str: The Fuzzy Soundex value
+
+    Examples:
+        >>> fuzzy_soundex('Christopher')
+        'K6931'
+        >>> fuzzy_soundex('Niall')
+        'N4000'
+        >>> fuzzy_soundex('Smith')
+        'S5300'
+        >>> fuzzy_soundex('Smith')
+        'S5300'
+
     """
     return FuzzySoundex().encode(word, max_length, zero_pad)
 
@@ -484,22 +508,26 @@ class Phonex(Phonetic):
     def encode(self, word, max_length=4, zero_pad=True):
         """Return the Phonex code for a word.
 
-        :param str word: the word to transform
-        :param int max_length: the length of the code returned (defaults to 4)
-        :param bool zero_pad: pad the end of the return value with 0s to
-            achieve a max_length string
-        :returns: the Phonex value
-        :rtype: str
+        Args:
+            word (str): The word to transform
+            max_length (int): The length of the code returned (defaults to 4)
+            zero_pad (bool): pad the end of the return value with 0s to achieve
+                a max_length string
 
-        >>> pe = Phonex()
-        >>> pe.encode('Christopher')
-        'C623'
-        >>> pe.encode('Niall')
-        'N400'
-        >>> pe.encode('Schmidt')
-        'S253'
-        >>> pe.encode('Smith')
-        'S530'
+        Returns:
+            str: The Phonex value
+
+        Examples:
+            >>> pe = Phonex()
+            >>> pe.encode('Christopher')
+            'C623'
+            >>> pe.encode('Niall')
+            'N400'
+            >>> pe.encode('Schmidt')
+            'S253'
+            >>> pe.encode('Smith')
+            'S530'
+
         """
         name = unicode_normalize('NFKD', text_type(word.upper()))
         name = name.replace('ß', 'SS')
@@ -595,21 +623,25 @@ def phonex(word, max_length=4, zero_pad=True):
 
     This is a wrapper for :py:meth:`Phonex.encode`.
 
-    :param str word: the word to transform
-    :param int max_length: the length of the code returned (defaults to 4)
-    :param bool zero_pad: pad the end of the return value with 0s to achieve
-        a max_length string
-    :returns: the Phonex value
-    :rtype: str
+    Args:
+        word (str): The word to transform
+        max_length (int): The length of the code returned (defaults to 4)
+        zero_pad (bool): pad the end of the return value with 0s to achieve
+            a max_length string
 
-    >>> phonex('Christopher')
-    'C623'
-    >>> phonex('Niall')
-    'N400'
-    >>> phonex('Schmidt')
-    'S253'
-    >>> phonex('Smith')
-    'S530'
+    Returns:
+        str: The Phonex value
+
+    Examples:
+        >>> phonex('Christopher')
+        'C623'
+        >>> phonex('Niall')
+        'N400'
+        >>> phonex('Schmidt')
+        'S253'
+        >>> phonex('Smith')
+        'S530'
+
     """
     return Phonex().encode(word, max_length, zero_pad)
 
@@ -759,26 +791,41 @@ class Phonix(Phonetic):
     def encode(self, word, max_length=4, zero_pad=True):
         """Return the Phonix code for a word.
 
-        :param str word: the word to transform
-        :param int max_length: the length of the code returned (defaults to 4)
-        :param bool zero_pad: pad the end of the return value with 0s to
-            achieve a max_length string
-        :returns: the Phonix value
-        :rtype: str
+        Args:
+            word (str): The word to transform
+            max_length (int): The length of the code returned (defaults to 4)
+            zero_pad (bool): pad the end of the return value with 0s to achieve
+                a max_length string
 
-        >>> pe = Phonix()
-        >>> pe.encode('Christopher')
-        'K683'
-        >>> pe.encode('Niall')
-        'N400'
-        >>> pe.encode('Smith')
-        'S530'
-        >>> pe.encode('Schmidt')
-        'S530'
+        Returns:
+            str: The Phonix value
+
+        Examples:
+            >>> pe = Phonix()
+            >>> pe.encode('Christopher')
+            'K683'
+            >>> pe.encode('Niall')
+            'N400'
+            >>> pe.encode('Smith')
+            'S530'
+            >>> pe.encode('Schmidt')
+            'S530'
+
         """
 
         def _start_repl(word, src, tar, post=None):
-            """Replace src with tar at the start of word."""
+            """Replace src with tar at the start of word.
+
+            Args:
+                word (str): The word to modify
+                src (str): Substring to match
+                tar (str): Substring to substitute
+                post (set): Following characters
+
+            Returns:
+                str: Modified string
+
+            """
             if post:
                 for i in post:
                     if word.startswith(src + i):
@@ -788,7 +835,18 @@ class Phonix(Phonetic):
             return word
 
         def _end_repl(word, src, tar, pre=None):
-            """Replace src with tar at the end of word."""
+            """Replace src with tar at the end of word.
+
+            Args:
+                word (str): The word to modify
+                src (str): Substring to match
+                tar (str): Substring to substitute
+                pre (set): Preceding characters
+
+            Returns:
+                str: Modified string
+
+            """
             if pre:
                 for i in pre:
                     if word.endswith(i + src):
@@ -798,7 +856,19 @@ class Phonix(Phonetic):
             return word
 
         def _mid_repl(word, src, tar, pre=None, post=None):
-            """Replace src with tar in the middle of word."""
+            """Replace src with tar in the middle of word.
+
+            Args:
+                word (str): The word to modify
+                src (str): Substring to match
+                tar (str): Substring to substitute
+                pre (set): Preceding characters
+                post (set): Following characters
+
+            Returns:
+                str: Modified string
+
+            """
             if pre or post:
                 if not pre:
                     return word[0] + _all_repl(word[1:], src, tar, pre, post)
@@ -810,7 +880,19 @@ class Phonix(Phonetic):
             )
 
         def _all_repl(word, src, tar, pre=None, post=None):
-            """Replace src with tar anywhere in word."""
+            """Replace src with tar anywhere in word.
+
+            Args:
+                word (str): The word to modify
+                src (str): Substring to match
+                tar (str): Substring to substitute
+                pre (set): Preceding characters
+                post (set): Following characters
+
+            Returns:
+                str: Modified string
+
+            """
             if pre or post:
                 if post:
                     post = post
@@ -862,21 +944,25 @@ def phonix(word, max_length=4, zero_pad=True):
 
     This is a wrapper for :py:meth:`Phonix.encode`.
 
-    :param str word: the word to transform
-    :param int max_length: the length of the code returned (defaults to 4)
-    :param bool zero_pad: pad the end of the return value with 0s to achieve
-        a max_length string
-    :returns: the Phonix value
-    :rtype: str
+    Args:
+        word (str): The word to transform
+        max_length (int): The length of the code returned (defaults to 4)
+        zero_pad (bool): pad the end of the return value with 0s to achieve
+            a max_length string
 
-    >>> phonix('Christopher')
-    'K683'
-    >>> phonix('Niall')
-    'N400'
-    >>> phonix('Smith')
-    'S530'
-    >>> phonix('Schmidt')
-    'S530'
+    Returns:
+        str: The Phonix value
+
+    Examples:
+        >>> phonix('Christopher')
+        'K683'
+        >>> phonix('Niall')
+        'N400'
+        >>> phonix('Smith')
+        'S530'
+        >>> phonix('Schmidt')
+        'S530'
+
     """
     return Phonix().encode(word, max_length, zero_pad)
 
@@ -896,23 +982,26 @@ class Lein(Phonetic):
     def encode(self, word, max_length=4, zero_pad=True):
         """Return the Lein code for a word.
 
-        :param str word: the word to transform
-        :param int max_length: the maximum length (default 4) of the code to
-            return
-        :param bool zero_pad: pad the end of the return value with 0s to
-            achieve a max_length string
-        :returns: the Lein code
-        :rtype: str
+        Args:
+            word (str): The word to transform
+            max_length (int): The length of the code returned (defaults to 4)
+            zero_pad (bool): pad the end of the return value with 0s to achieve
+                a max_length string
 
-        >>> pe = Lein()
-        >>> pe.encode('Christopher')
-        'C351'
-        >>> pe.encode('Niall')
-        'N300'
-        >>> pe.encode('Smith')
-        'S210'
-        >>> pe.encode('Schmidt')
-        'S521'
+        Returns:
+            str: The Lein code
+
+        Examples:
+            >>> pe = Lein()
+            >>> pe.encode('Christopher')
+            'C351'
+            >>> pe.encode('Niall')
+            'N300'
+            >>> pe.encode('Smith')
+            'S210'
+            >>> pe.encode('Schmidt')
+            'S521'
+
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -935,21 +1024,25 @@ def lein(word, max_length=4, zero_pad=True):
 
     This is a wrapper for :py:meth:`Lein.encode`.
 
-    :param str word: the word to transform
-    :param int max_length: the maximum length (default 4) of the code to return
-    :param bool zero_pad: pad the end of the return value with 0s to achieve a
-        max_length string
-    :returns: the Lein code
-    :rtype: str
+    Args:
+        word (str): The word to transform
+        max_length (int): The length of the code returned (defaults to 4)
+        zero_pad (bool): pad the end of the return value with 0s to achieve
+            a max_length string
 
-    >>> lein('Christopher')
-    'C351'
-    >>> lein('Niall')
-    'N300'
-    >>> lein('Smith')
-    'S210'
-    >>> lein('Schmidt')
-    'S521'
+    Returns:
+        str: The Lein code
+
+    Examples:
+        >>> lein('Christopher')
+        'C351'
+        >>> lein('Niall')
+        'N300'
+        >>> lein('Smith')
+        'S210'
+        >>> lein('Schmidt')
+        'S521'
+
     """
     return Lein().encode(word, max_length, zero_pad)
 
@@ -975,24 +1068,28 @@ class PSHPSoundexLast(Phonetic):
     def encode(self, lname, max_length=4, german=False):
         """Calculate the PSHP Soundex/Viewex Coding of a last name.
 
-        :param str lname: the last name to encode
-        :param int max_length: the length of the code returned (defaults to 4)
-        :param bool german: set to True if the name is German (different rules
-            apply)
-        :returns: the PSHP Soundex/Viewex Coding
-        :rtype: str
+        Args:
+            lname (str): The last name to encode
+            max_length (int): The length of the code returned (defaults to 4)
+            german (bool): Set to True if the name is German (different rules
+                apply)
 
-        >>> pe = PSHPSoundexLast()
-        >>> pe.encode('Smith')
-        'S530'
-        >>> pe.encode('Waters')
-        'W350'
-        >>> pe.encode('James')
-        'J500'
-        >>> pe.encode('Schmidt')
-        'S530'
-        >>> pe.encode('Ashcroft')
-        'A225'
+        Returns:
+            str: The PSHP Soundex/Viewex Coding
+
+        Examples:
+            >>> pe = PSHPSoundexLast()
+            >>> pe.encode('Smith')
+            'S530'
+            >>> pe.encode('Waters')
+            'W350'
+            >>> pe.encode('James')
+            'J500'
+            >>> pe.encode('Schmidt')
+            'S530'
+            >>> pe.encode('Ashcroft')
+            'A225'
+
         """
         lname = unicode_normalize('NFKD', text_type(lname.upper()))
         lname = lname.replace('ß', 'SS')
@@ -1116,23 +1213,27 @@ def pshp_soundex_last(lname, max_length=4, german=False):
 
     This is a wrapper for :py:meth:`PSHPSoundexLast.encode`.
 
-    :param str lname: the last name to encode
-    :param int max_length: the length of the code returned (defaults to 4)
-    :param bool german: set to True if the name is German (different rules
-        apply)
-    :returns: the PSHP Soundex/Viewex Coding
-    :rtype: str
+    Args:
+        lname (str): The last name to encode
+        max_length (int): The length of the code returned (defaults to 4)
+        german (bool): Set to True if the name is German (different rules
+            apply)
 
-    >>> pshp_soundex_last('Smith')
-    'S530'
-    >>> pshp_soundex_last('Waters')
-    'W350'
-    >>> pshp_soundex_last('James')
-    'J500'
-    >>> pshp_soundex_last('Schmidt')
-    'S530'
-    >>> pshp_soundex_last('Ashcroft')
-    'A225'
+    Returns:
+        str: The PSHP Soundex/Viewex Coding
+
+    Examples:
+        >>> pshp_soundex_last('Smith')
+        'S530'
+        >>> pshp_soundex_last('Waters')
+        'W350'
+        >>> pshp_soundex_last('James')
+        'J500'
+        >>> pshp_soundex_last('Schmidt')
+        'S530'
+        >>> pshp_soundex_last('Ashcroft')
+        'A225'
+
     """
     return PSHPSoundexLast().encode(lname, max_length, german)
 
@@ -1158,34 +1259,38 @@ class PSHPSoundexFirst(Phonetic):
     def encode(self, fname, max_length=4, german=False):
         """Calculate the PSHP Soundex/Viewex Coding of a first name.
 
-        :param str fname: the first name to encode
-        :param int max_length: the length of the code returned (defaults to 4)
-        :param bool german: set to True if the name is German (different rules
-            apply)
-        :returns: the PSHP Soundex/Viewex Coding
-        :rtype: str
+        Args:
+            fname (str): The first name to encode
+            max_length (int): The length of the code returned (defaults to 4)
+            german (bool): Set to True if the name is German (different rules
+                apply)
 
-        >>> pe = PSHPSoundexFirst()
-        >>> pe.encode('Smith')
-        'S530'
-        >>> pe.encode('Waters')
-        'W352'
-        >>> pe.encode('James')
-        'J700'
-        >>> pe.encode('Schmidt')
-        'S500'
-        >>> pe.encode('Ashcroft')
-        'A220'
-        >>> pe.encode('John')
-        'J500'
-        >>> pe.encode('Colin')
-        'K400'
-        >>> pe.encode('Niall')
-        'N400'
-        >>> pe.encode('Sally')
-        'S400'
-        >>> pe.encode('Jane')
-        'J500'
+        Returns:
+            str: The PSHP Soundex/Viewex Coding
+
+        Examples:
+            >>> pe = PSHPSoundexFirst()
+            >>> pe.encode('Smith')
+            'S530'
+            >>> pe.encode('Waters')
+            'W352'
+            >>> pe.encode('James')
+            'J700'
+            >>> pe.encode('Schmidt')
+            'S500'
+            >>> pe.encode('Ashcroft')
+            'A220'
+            >>> pe.encode('John')
+            'J500'
+            >>> pe.encode('Colin')
+            'K400'
+            >>> pe.encode('Niall')
+            'N400'
+            >>> pe.encode('Sally')
+            'S400'
+            >>> pe.encode('Jane')
+            'J500'
+
         """
         fname = unicode_normalize('NFKD', text_type(fname.upper()))
         fname = fname.replace('ß', 'SS')
@@ -1249,33 +1354,37 @@ def pshp_soundex_first(fname, max_length=4, german=False):
 
     This is a wrapper for :py:meth:`PSHPSoundexFirst.encode`.
 
-    :param str fname: the first name to encode
-    :param int max_length: the length of the code returned (defaults to 4)
-    :param bool german: set to True if the name is German (different rules
-        apply)
-    :returns: the PSHP Soundex/Viewex Coding
-    :rtype: str
+    Args:
+        fname (str): The first name to encode
+        max_length (int): The length of the code returned (defaults to 4)
+        german (bool): Set to True if the name is German (different rules
+            apply)
 
-    >>> pshp_soundex_first('Smith')
-    'S530'
-    >>> pshp_soundex_first('Waters')
-    'W352'
-    >>> pshp_soundex_first('James')
-    'J700'
-    >>> pshp_soundex_first('Schmidt')
-    'S500'
-    >>> pshp_soundex_first('Ashcroft')
-    'A220'
-    >>> pshp_soundex_first('John')
-    'J500'
-    >>> pshp_soundex_first('Colin')
-    'K400'
-    >>> pshp_soundex_first('Niall')
-    'N400'
-    >>> pshp_soundex_first('Sally')
-    'S400'
-    >>> pshp_soundex_first('Jane')
-    'J500'
+    Returns:
+        str: The PSHP Soundex/Viewex Coding
+
+    Examples:
+        >>> pshp_soundex_first('Smith')
+        'S530'
+        >>> pshp_soundex_first('Waters')
+        'W352'
+        >>> pshp_soundex_first('James')
+        'J700'
+        >>> pshp_soundex_first('Schmidt')
+        'S500'
+        >>> pshp_soundex_first('Ashcroft')
+        'A220'
+        >>> pshp_soundex_first('John')
+        'J500'
+        >>> pshp_soundex_first('Colin')
+        'K400'
+        >>> pshp_soundex_first('Niall')
+        'N400'
+        >>> pshp_soundex_first('Sally')
+        'S400'
+        >>> pshp_soundex_first('Jane')
+        'J500'
+
     """
     return PSHPSoundexFirst().encode(fname, max_length, german)
 

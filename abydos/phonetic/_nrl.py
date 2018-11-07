@@ -430,23 +430,27 @@ class NRL(Phonetic):
     def encode(self, word):
         """Return the Naval Research Laboratory phonetic encoding of a word.
 
-        :param str word: the word to transform
-        :returns: the NRL phonetic encoding
-        :rtype: str
+        Args:
+            word (str): The word to transform
 
-        >>> pe = NRL()
-        >>> pe.encode('the')
-        'DHAX'
-        >>> pe.encode('round')
-        'rAWnd'
-        >>> pe.encode('quick')
-        'kwIHk'
-        >>> pe.encode('eaten')
-        'IYtEHn'
-        >>> pe.encode('Smith')
-        'smIHTH'
-        >>> pe.encode('Larsen')
-        'lAArsEHn'
+        Returns:
+            str: The NRL phonetic encoding
+
+        Examples:
+            >>> pe = NRL()
+            >>> pe.encode('the')
+            'DHAX'
+            >>> pe.encode('round')
+            'rAWnd'
+            >>> pe.encode('quick')
+            'kwIHk'
+            >>> pe.encode('eaten')
+            'IYtEHn'
+            >>> pe.encode('Smith')
+            'smIHTH'
+            >>> pe.encode('Larsen')
+            'lAArsEHn'
+
         """
 
         def _to_regex(pattern, left_match=True):
@@ -510,22 +514,26 @@ def nrl(word):
 
     This is a wrapper for :py:meth:`NRL.encode`.
 
-    :param str word: the word to transform
-    :returns: the NRL phonetic encoding
-    :rtype: str
+    Args:
+        word (str): The word to transform
 
-    >>> nrl('the')
-    'DHAX'
-    >>> nrl('round')
-    'rAWnd'
-    >>> nrl('quick')
-    'kwIHk'
-    >>> nrl('eaten')
-    'IYtEHn'
-    >>> nrl('Smith')
-    'smIHTH'
-    >>> nrl('Larsen')
-    'lAArsEHn'
+    Returns:
+        str: The NRL phonetic encoding
+
+    Examples:
+        >>> nrl('the')
+        'DHAX'
+        >>> nrl('round')
+        'rAWnd'
+        >>> nrl('quick')
+        'kwIHk'
+        >>> nrl('eaten')
+        'IYtEHn'
+        >>> nrl('Smith')
+        'smIHTH'
+        >>> nrl('Larsen')
+        'lAArsEHn'
+
     """
     return NRL().encode(word)
 

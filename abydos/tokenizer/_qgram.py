@@ -63,9 +63,9 @@ class QGrams(Counter):
                 an integer, range object, or list
 
         Exampls:
-            >>> qg = QGrams('AATTATAT', start_stop='$@')
+            >>> qg = QGrams('AATTATAT')
             >>> qg
-            QGrams({'AT': 3, 'TA': 2, '$A': 1, 'AA': 1, 'TT': 1, 'T@': 1})
+            QGrams({'AT': 3, 'TA': 2, '$A': 1, 'AA': 1, 'TT': 1, 'T#': 1})
 
             >>> qg = QGrams('AATTATAT', qval=1, start_stop='')
             >>> qg

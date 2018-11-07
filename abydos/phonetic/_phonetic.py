@@ -39,34 +39,43 @@ class Phonetic(object):
     def _delete_consecutive_repeats(self, word):
         """Delete consecutive repeated characters in a word.
 
-        :param str word: the word to transform
-        :returns: word with consecutive repeating characters collapsed to
-            a single instance
-        :rtype: str
+        Args:
+            word (str): The word to transform
 
-        >>> pe = Phonetic()
-        >>> pe._delete_consecutive_repeats('REDDEE')
-        'REDE'
-        >>> pe._delete_consecutive_repeats('AEIOU')
-        'AEIOU'
-        >>> pe._delete_consecutive_repeats('AAACCCTTTGGG')
-        'ACTG'
+        Returns:
+            str: Word with consecutive repeating characters collapsed to a
+                single instance
+
+        Examples:
+            >>> pe = Phonetic()
+            >>> pe._delete_consecutive_repeats('REDDEE')
+            'REDE'
+            >>> pe._delete_consecutive_repeats('AEIOU')
+            'AEIOU'
+            >>> pe._delete_consecutive_repeats('AAACCCTTTGGG')
+            'ACTG'
+
         """
         return ''.join(char for char, _ in groupby(word))
 
     def encode(self, word):
         """Encode phonetically.
 
-        :param word: word to encode
-        :return:
+        Args:
+            word (str): The word to transform
+
         """
         pass
 
     def encode_alpha(self, word):
         """Encode phonetically using alphabetic characters.
 
-        :param word: word to encode
-        :return:
+        Args:
+            word (str): The word to transform
+
+        Returns:
+            str: The word transformed
+
         """
         return self.encode(word)
 
