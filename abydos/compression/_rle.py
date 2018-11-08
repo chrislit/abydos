@@ -88,22 +88,22 @@ class RLE(object):
             str: word decoded by RLE
 
         Examples:
-        >>> rle = RLE()
-        >>> bwt = BWT()
-        >>> bwt.decode(rle.decode('n\x00ilag'))
-        'align'
-        >>> rle.decode('align')
-        'align'
+            >>> rle = RLE()
+            >>> bwt = BWT()
+            >>> bwt.decode(rle.decode('n\x00ilag'))
+            'align'
+            >>> rle.decode('align')
+            'align'
 
-        >>> bwt.decode(rle.decode('annb\x00aa'))
-        'banana'
-        >>> rle.decode('banana')
-        'banana'
+            >>> bwt.decode(rle.decode('annb\x00aa'))
+            'banana'
+            >>> rle.decode('banana')
+            'banana'
 
-        >>> bwt.decode(rle.decode('ab\x00abbab5a'))
-        'aaabaabababa'
-        >>> rle.decode('3abaabababa')
-        'aaabaabababa'
+            >>> bwt.decode(rle.decode('ab\x00abbab5a'))
+            'aaabaabababa'
+            >>> rle.decode('3abaabababa')
+            'aaabaabababa'
 
         """
         mult = ''
