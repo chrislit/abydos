@@ -30,15 +30,7 @@ from __future__ import (
 
 from ._Distance import _Distance
 
-__all__ = [
-    'Hamming',
-    'MLIPNS',
-    'dist_hamming',
-    'dist_mlipns',
-    'hamming',
-    'sim_hamming',
-    'sim_mlipns',
-]
+__all__ = ['Hamming', 'dist_hamming', 'hamming', 'sim_hamming']
 
 
 class Hamming(_Distance):
