@@ -75,38 +75,17 @@ from ._Ident import Ident, dist_ident, sim_ident
 from ._Length import Length, dist_length, sim_length
 from ._Prefix import Prefix, dist_prefix, sim_prefix
 from ._Suffix import Suffix, dist_suffix, sim_suffix
-from ._baystat import Baystat, dist_baystat, sim_baystat
-from ._compression import (
-    NCDarith,
-    NCDbwtrle,
-    NCDbz2,
-    NCDlzma,
-    NCDrle,
-    NCDzlib,
-    dist_ncd_arith,
-    dist_ncd_bwtrle,
-    dist_ncd_bz2,
-    dist_ncd_lzma,
-    dist_ncd_rle,
-    dist_ncd_zlib,
-    sim_ncd_arith,
-    sim_ncd_bwtrle,
-    sim_ncd_bz2,
-    sim_ncd_lzma,
-    sim_ncd_rle,
-    sim_ncd_zlib,
-)
+from ._Baystat import Baystat, dist_baystat, sim_baystat
+from ._NCDarith import NCDarith, dist_ncd_arith, sim_ncd_arith
+from ._NCDbwtrle import NCDbwtrle, dist_ncd_bwtrle, sim_ncd_bwtrle
+from ._NCDbz2 import NCDbz2, dist_ncd_bz2, sim_ncd_bz2
+from ._NCDlzma import NCDlzma, dist_ncd_lzma, sim_ncd_lzma
+from ._NCDrle import NCDrle, dist_ncd_rle, sim_ncd_rle
+from ._NCDzlib import NCDzlib, dist_ncd_zlib, sim_ncd_zlib
 from ._editex import Editex, dist_editex, editex, sim_editex
 from ._eudex import Eudex, dist_eudex, eudex_hamming, sim_eudex
-from ._hamming import (
-    Hamming,
-    MLIPNS,
-    dist_hamming,
-    dist_mlipns,
-    hamming,
-    sim_hamming,
-    sim_mlipns,
-)
+from ._Hamming import Hamming, dist_hamming, hamming, sim_hamming
+from ._MLIPNS import MLIPNS, dist_mlipns, sim_mlipns
 from ._jaro import (
     JaroWinkler,
     Strcmp95,

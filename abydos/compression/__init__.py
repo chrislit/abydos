@@ -38,16 +38,16 @@ from ._BWT import BWT, bwt_decode, bwt_encode
 from ._RLE import RLE, rle_decode, rle_encode
 
 __all__ = [
+    'Arithmetic',
+    'ac_decode',
+    'ac_encode',
+    'ac_train',
     'BWT',
     'bwt_decode',
     'bwt_encode',
     'RLE',
     'rle_decode',
     'rle_encode',
-    'Arithmetic',
-    'ac_decode',
-    'ac_encode',
-    'ac_train',
 ]
 
 
