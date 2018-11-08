@@ -48,17 +48,21 @@ class Caumanns(Stemmer):
     def stem(self, word):
         """Return Caumanns German stem.
 
-        :param str word: the word to calculate the stem of
-        :returns: word stem
-        :rtype: str
+        Args:
+            word (str): The word to stem
 
-        >>> stmr = Caumanns()
-        >>> stmr.stem('lesen')
-        'les'
-        >>> stmr.stem('graues')
-        'grau'
-        >>> stmr.stem('buchstabieren')
-        'buchstabier'
+        Returns:
+            str: Word stem
+
+        Examples:
+            >>> stmr = Caumanns()
+            >>> stmr.stem('lesen')
+            'les'
+            >>> stmr.stem('graues')
+            'grau'
+            >>> stmr.stem('buchstabieren')
+            'buchstabier'
+
         """
         if not word:
             return ''
@@ -137,16 +141,20 @@ def caumanns(word):
 
     This is a wrapper for :py:meth:`Caumanns.stem`.
 
-    :param str word: the word to calculate the stem of
-    :returns: word stem
-    :rtype: str
+    Args:
+        word (str): The word to stem
 
-    >>> caumanns('lesen')
-    'les'
-    >>> caumanns('graues')
-    'grau'
-    >>> caumanns('buchstabieren')
-    'buchstabier'
+    Returns:
+        str: Word stem
+
+    Examples:
+        >>> caumanns('lesen')
+        'les'
+        >>> caumanns('graues')
+        'grau'
+        >>> caumanns('buchstabieren')
+        'buchstabier'
+
     """
     return Caumanns().stem(word)
 

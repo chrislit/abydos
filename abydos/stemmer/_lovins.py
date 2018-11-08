@@ -43,63 +43,91 @@ class Lovins(Stemmer):
     def _cond_b(self, word, suffix_len):
         """Return Lovins' condition B.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return len(word) - suffix_len >= 3
 
     def _cond_c(self, word, suffix_len):
         """Return Lovins' condition C.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return len(word) - suffix_len >= 4
 
     def _cond_d(self, word, suffix_len):
         """Return Lovins' condition D.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return len(word) - suffix_len >= 5
 
     def _cond_e(self, word, suffix_len):
         """Return Lovins' condition E.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return word[-suffix_len - 1] != 'e'
 
     def _cond_f(self, word, suffix_len):
         """Return Lovins' condition F.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return len(word) - suffix_len >= 3 and word[-suffix_len - 1] != 'e'
 
     def _cond_g(self, word, suffix_len):
         """Return Lovins' condition G.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return len(word) - suffix_len >= 3 and word[-suffix_len - 1] == 'f'
 
     def _cond_h(self, word, suffix_len):
         """Return Lovins' condition H.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return (
             word[-suffix_len - 1] == 't'
@@ -109,27 +137,39 @@ class Lovins(Stemmer):
     def _cond_i(self, word, suffix_len):
         """Return Lovins' condition I.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return word[-suffix_len - 1] not in {'e', 'o'}
 
     def _cond_j(self, word, suffix_len):
         """Return Lovins' condition J.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return word[-suffix_len - 1] not in {'a', 'e'}
 
     def _cond_k(self, word, suffix_len):
         """Return Lovins' condition K.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return (len(word) - suffix_len >= 3) and (
             word[-suffix_len - 1] in {'i', 'l'}
@@ -139,9 +179,13 @@ class Lovins(Stemmer):
     def _cond_l(self, word, suffix_len):
         """Return Lovins' condition L.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return (
             word[-suffix_len - 1] not in {'s', 'u', 'x'}
@@ -151,18 +195,26 @@ class Lovins(Stemmer):
     def _cond_m(self, word, suffix_len):
         """Return Lovins' condition M.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return word[-suffix_len - 1] not in {'a', 'c', 'e', 'm'}
 
     def _cond_n(self, word, suffix_len):
         """Return Lovins' condition N.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         if len(word) - suffix_len >= 3:
             if word[-suffix_len - 3] == 's':
@@ -175,27 +227,39 @@ class Lovins(Stemmer):
     def _cond_o(self, word, suffix_len):
         """Return Lovins' condition O.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return word[-suffix_len - 1] in {'i', 'l'}
 
     def _cond_p(self, word, suffix_len):
         """Return Lovins' condition P.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return word[-suffix_len - 1] != 'c'
 
     def _cond_q(self, word, suffix_len):
         """Return Lovins' condition Q.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return len(word) - suffix_len >= 3 and word[-suffix_len - 1] not in {
             'l',
@@ -205,18 +269,26 @@ class Lovins(Stemmer):
     def _cond_r(self, word, suffix_len):
         """Return Lovins' condition R.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return word[-suffix_len - 1] in {'n', 'r'}
 
     def _cond_s(self, word, suffix_len):
         """Return Lovins' condition S.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return word[-suffix_len - 2 : -suffix_len] == 'dr' or (
             word[-suffix_len - 1] == 't'
@@ -226,9 +298,13 @@ class Lovins(Stemmer):
     def _cond_t(self, word, suffix_len):
         """Return Lovins' condition T.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return (
             word[-suffix_len - 1] in {'s', 't'}
@@ -238,36 +314,52 @@ class Lovins(Stemmer):
     def _cond_u(self, word, suffix_len):
         """Return Lovins' condition U.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return word[-suffix_len - 1] in {'l', 'm', 'n', 'r'}
 
     def _cond_v(self, word, suffix_len):
         """Return Lovins' condition V.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return word[-suffix_len - 1] == 'c'
 
     def _cond_w(self, word, suffix_len):
         """Return Lovins' condition W.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return word[-suffix_len - 1] not in {'s', 'u'}
 
     def _cond_x(self, word, suffix_len):
         """Return Lovins' condition X.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return word[-suffix_len - 1] in {'i', 'l'} or (
             word[-suffix_len - 3 : -suffix_len] == 'u'
@@ -277,27 +369,39 @@ class Lovins(Stemmer):
     def _cond_y(self, word, suffix_len):
         """Return Lovins' condition Y.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return word[-suffix_len - 2 : -suffix_len] == 'in'
 
     def _cond_z(self, word, suffix_len):
         """Return Lovins' condition Z.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return word[-suffix_len - 1] != 'f'
 
     def _cond_aa(self, word, suffix_len):
         """Return Lovins' condition AA.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return word[-suffix_len - 1] in {'d', 'f', 'l', 't'} or word[
             -suffix_len - 2 : -suffix_len
@@ -306,9 +410,13 @@ class Lovins(Stemmer):
     def _cond_bb(self, word, suffix_len):
         """Return Lovins' condition BB.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return (
             len(word) - suffix_len >= 3
@@ -319,38 +427,82 @@ class Lovins(Stemmer):
     def _cond_cc(self, word, suffix_len):
         """Return Lovins' condition CC.
 
-        :param str word: word to check
-        :param int suffix_len: suffix length
-        :rtype: bool
+        Args:
+            word (str): Word to check
+            suffix_len (int): Suffix length
+
+        Returns:
+            bool: True if condition is met
+
         """
         return word[-suffix_len - 1] == 'l'
 
     def _recode9(self, stem):
-        """Return Lovins' conditional recode rule 9."""
+        """Return Lovins' conditional recode rule 9.
+
+        Args:
+            stem (str): Word to stem
+
+        Returns:
+            str: Word stripped of suffix
+
+        """
         if stem[-3:-2] in {'a', 'i', 'o'}:
             return stem
         return stem[:-2] + 'l'
 
     def _recode24(self, stem):
-        """Return Lovins' conditional recode rule 24."""
+        """Return Lovins' conditional recode rule 24.
+
+        Args:
+            stem (str): Word to stem
+
+        Returns:
+            str: Word stripped of suffix
+
+        """
         if stem[-4:-3] == 's':
             return stem
         return stem[:-1] + 's'
 
     def _recode28(self, stem):
-        """Return Lovins' conditional recode rule 28."""
+        """Return Lovins' conditional recode rule 28.
+
+        Args:
+            stem (str): Word to stem
+
+        Returns:
+            str: Word stripped of suffix
+
+        """
         if stem[-4:-3] in {'p', 't'}:
             return stem
         return stem[:-1] + 's'
 
     def _recode30(self, stem):
-        """Return Lovins' conditional recode rule 30."""
+        """Return Lovins' conditional recode rule 30.
+
+        Args:
+            stem (str): Word to stem
+
+        Returns:
+            str: Word stripped of suffix
+
+        """
         if stem[-4:-3] == 'm':
             return stem
         return stem[:-1] + 's'
 
     def _recode32(self, stem):
-        """Return Lovins' conditional recode rule 32."""
+        """Return Lovins' conditional recode rule 32.
+
+        Args:
+            stem (str): Word to stem
+
+        Returns:
+            str: Word stripped of suffix
+
+        """
         if stem[-3:-2] == 'n':
             return stem
         return stem[:-1] + 's'
@@ -697,17 +849,21 @@ class Lovins(Stemmer):
     def stem(self, word):
         """Return Lovins stem.
 
-        :param str word: the word to stem
-        :returns: word stem
-        :rtype: str
+        Args:
+            word (str): The word to stem
 
-        >>> stmr = Lovins()
-        >>> stmr.stem('reading')
-        'read'
-        >>> stmr.stem('suspension')
-        'suspens'
-        >>> stmr.stem('elusiveness')
-        'elus'
+        Returns:
+            str: Word stem
+
+        Examples:
+            >>> stmr = Lovins()
+            >>> stmr.stem('reading')
+            'read'
+            >>> stmr.stem('suspension')
+            'suspens'
+            >>> stmr.stem('elusiveness')
+            'elus'
+
         """
         # lowercase, normalize, and compose
         word = normalize('NFC', text_type(word.lower()))
@@ -754,16 +910,20 @@ def lovins(word):
 
     This is a wrapper for :py:meth:`Lovins.stem`.
 
-    :param str word: the word to stem
-    :returns: word stem
-    :rtype: str
+    Args:
+        word (str): The word to stem
 
-    >>> lovins('reading')
-    'read'
-    >>> lovins('suspension')
-    'suspens'
-    >>> lovins('elusiveness')
-    'elus'
+    Returns:
+        str: Word stem
+
+    Examples:
+        >>> lovins('reading')
+        'read'
+        >>> lovins('suspension')
+        'suspens'
+        >>> lovins('elusiveness')
+        'elus'
+
     """
     return Lovins().stem(word)
 

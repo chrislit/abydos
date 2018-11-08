@@ -136,21 +136,25 @@ class Schinke(Stemmer):
     def stem(self, word):
         """Return the stem of a word according to the Schinke stemmer.
 
-        :param str word: the word to stem
-        :returns: a dict of the noun- and verb-stemmed word
-        :rtype: dict
+        Args:
+            word (str): The word to stem
 
-        >>> stmr = Schinke()
-        >>> stmr.stem('atque')
-        {'n': 'atque', 'v': 'atque'}
-        >>> stmr.stem('census')
-        {'n': 'cens', 'v': 'censu'}
-        >>> stmr.stem('virum')
-        {'n': 'uir', 'v': 'uiru'}
-        >>> stmr.stem('populusque')
-        {'n': 'popul', 'v': 'populu'}
-        >>> stmr.stem('senatus')
-        {'n': 'senat', 'v': 'senatu'}
+        Returns:
+            str: Word stem
+
+        Examples:
+            >>> stmr = Schinke()
+            >>> stmr.stem('atque')
+            {'n': 'atque', 'v': 'atque'}
+            >>> stmr.stem('census')
+            {'n': 'cens', 'v': 'censu'}
+            >>> stmr.stem('virum')
+            {'n': 'uir', 'v': 'uiru'}
+            >>> stmr.stem('populusque')
+            {'n': 'popul', 'v': 'populu'}
+            >>> stmr.stem('senatus')
+            {'n': 'senat', 'v': 'senatu'}
+
         """
         word = normalize('NFKD', text_type(word.lower()))
         word = ''.join(
@@ -252,20 +256,24 @@ def schinke(word):
 
     This is a wrapper for :py:meth:`Schinke.stem`.
 
-    :param str word: the word to stem
-    :returns: a dict of the noun- and verb-stemmed word
-    :rtype: dict
+    Args:
+        word (str): The word to stem
 
-    >>> schinke('atque')
-    {'n': 'atque', 'v': 'atque'}
-    >>> schinke('census')
-    {'n': 'cens', 'v': 'censu'}
-    >>> schinke('virum')
-    {'n': 'uir', 'v': 'uiru'}
-    >>> schinke('populusque')
-    {'n': 'popul', 'v': 'populu'}
-    >>> schinke('senatus')
-    {'n': 'senat', 'v': 'senatu'}
+    Returns:
+        str: Word stem
+
+    Examples:
+        >>> schinke('atque')
+        {'n': 'atque', 'v': 'atque'}
+        >>> schinke('census')
+        {'n': 'cens', 'v': 'censu'}
+        >>> schinke('virum')
+        {'n': 'uir', 'v': 'uiru'}
+        >>> schinke('populusque')
+        {'n': 'popul', 'v': 'populu'}
+        >>> schinke('senatus')
+        {'n': 'senat', 'v': 'senatu'}
+
     """
     return Schinke().stem(word)
 
