@@ -31,7 +31,12 @@ The stemmer module defines word stemmers including:
     - S stemmer
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from ._caumanns import Caumanns, caumanns
 from ._clef import (

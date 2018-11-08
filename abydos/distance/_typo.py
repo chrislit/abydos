@@ -21,7 +21,12 @@
 The distance.typo module implements typo edit distance functions.
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from math import log
 
@@ -30,12 +35,12 @@ from numpy import zeros as np_zeros
 
 from six.moves import range
 
-from ._distance import Distance
+from ._Distance import _Distance
 
 __all__ = ['dist_typo', 'sim_typo', 'typo']
 
 
-class Typo(Distance):
+class Typo(_Distance):
     """Typo distance.
 
     This is inspired by Typo-Distance :cite:`Song:2011`, and a fair bit of

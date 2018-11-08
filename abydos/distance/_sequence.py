@@ -22,14 +22,19 @@ The distance.sequence module implements subsequence and substring edit distance
 functions, along with Ratcliff-Obershelp similarity & distance.
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from numpy import int as np_int
 from numpy import zeros as np_zeros
 
 from six.moves import range
 
-from ._distance import Distance
+from ._Distance import _Distance
 
 __all__ = [
     'LCSseq',
@@ -46,7 +51,7 @@ __all__ = [
 ]
 
 
-class LCSseq(Distance):
+class LCSseq(_Distance):
     """Longest common subsequence.
 
     Longest common subsequence (LCSseq) is the longest subsequence of
@@ -220,7 +225,7 @@ def dist_lcsseq(src, tar):
     return LCSseq().dist(src, tar)
 
 
-class LCSstr(Distance):
+class LCSstr(_Distance):
     """Longest common substring."""
 
     def lcsstr(self, src, tar):
@@ -381,7 +386,7 @@ def dist_lcsstr(src, tar):
     return LCSstr().dist(src, tar)
 
 
-class RatcliffObershelp(Distance):
+class RatcliffObershelp(_Distance):
     """Ratcliff-Obershelp similarity.
 
     This follows the Ratcliff-Obershelp algorithm :cite:`Ratcliff:1988` to

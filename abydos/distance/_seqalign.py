@@ -27,15 +27,20 @@ used in sequence alignment:
     - Gotoh score
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
 
 from six.moves import range
 
-from ._basic import sim_ident
-from ._distance import Distance
+from ._Ident import sim_ident
+from ._Distance import _Distance
 
 __all__ = [
     'Gotoh',
@@ -47,7 +52,7 @@ __all__ = [
 ]
 
 
-class NeedlemanWunsch(Distance):
+class NeedlemanWunsch(_Distance):
     """Needleman-Wunsch score.
 
     The Needleman-Wunsch score :cite:`Needleman:1970` is a standard edit

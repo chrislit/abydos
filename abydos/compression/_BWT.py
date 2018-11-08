@@ -16,12 +16,17 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.compression._bwt.
+"""abydos.compression._BWT.
 
 Burrows-Wheeler Transform encoder/decoder
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    unicode_literals,
+    absolute_import,
+    division,
+    print_function,
+)
 
 from six.moves import range
 

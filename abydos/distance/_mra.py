@@ -22,17 +22,22 @@ The distance.mra module implements the Match Rating Algorithm's distance
 measure.
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from six.moves import range
 
-from ._distance import Distance
+from ._Distance import _Distance
 from ..phonetic import mra
 
 __all__ = ['MRA', 'dist_mra', 'mra_compare', 'sim_mra']
 
 
-class MRA(Distance):
+class MRA(_Distance):
     """Match Rating Algorithm comparison rating.
 
     The Western Airlines Surname Match Rating Algorithm comparison rating, as

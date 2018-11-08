@@ -21,7 +21,12 @@
 The stemmer._paice_husk module defines the Paice-Husk Stemmer
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from six.moves import range
 

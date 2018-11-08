@@ -21,12 +21,17 @@
 The distance.compression module implements compression distance measures.
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    unicode_literals,
+    absolute_import,
+    division,
+    print_function,
+)
 
 import bz2
 import zlib
 
-from ._distance import Distance
+from ._Distance import _Distance
 from ..compression import Arithmetic, BWT, RLE
 
 try:
@@ -58,7 +63,7 @@ __all__ = [
 ]
 
 
-class NCDarith(Distance):
+class NCDarith(_Distance):
     """Normalized Compression Distance using Arithmetic Coding.
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
@@ -166,7 +171,7 @@ def sim_ncd_arith(src, tar, probs=None):
     return NCDarith().sim(src, tar, probs)
 
 
-class NCDrle(Distance):
+class NCDrle(_Distance):
     """Normalized Compression Distance using RLE.
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
@@ -358,7 +363,7 @@ def sim_ncd_bwtrle(src, tar):
     return NCDbwtrle().sim(src, tar)
 
 
-class NCDzlib(Distance):
+class NCDzlib(_Distance):
     """Normalized Compression Distance using zlib compression.
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
@@ -469,7 +474,7 @@ def sim_ncd_zlib(src, tar):
     return NCDzlib().sim(src, tar)
 
 
-class NCDbz2(Distance):
+class NCDbz2(_Distance):
     """Normalized Compression Distance using bz2 compression.
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
@@ -576,7 +581,7 @@ def sim_ncd_bz2(src, tar):
     return NCDbz2().sim(src, tar)
 
 
-class NCDlzma(Distance):
+class NCDlzma(_Distance):
     """Normalized Compression Distance using lzma compression.
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.

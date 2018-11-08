@@ -21,7 +21,12 @@
 The phonetic._mra module implements the MRA personal numeric identifier (PNI).
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from ._phonetic import Phonetic
 

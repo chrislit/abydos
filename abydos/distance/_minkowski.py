@@ -26,11 +26,16 @@ The distance.minkowski module implements Minkowski token-based distances:
     - Chebyshev distance
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from numbers import Number
 
-from ._distance import TokenDistance
+from ._TokenDistance import _TokenDistance
 
 __all__ = [
     'Chebyshev',
@@ -50,7 +55,7 @@ __all__ = [
 ]
 
 
-class Minkowski(TokenDistance):
+class Minkowski(_TokenDistance):
     """Minkowski distance.
 
     The Minkowski distance :cite:`Minkowski:1910` is a distance metric in

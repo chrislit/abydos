@@ -27,7 +27,12 @@ algorithms for German:
     - Reth-Schek Phonetik
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from itertools import product
 from unicodedata import normalize as unicode_normalize

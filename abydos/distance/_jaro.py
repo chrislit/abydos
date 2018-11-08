@@ -26,13 +26,18 @@ The distance.jaro module implements distance metrics based on
     - the strcmp95 algorithm variant of Jaro-Winkler distance
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from collections import defaultdict
 
 from six.moves import range
 
-from ._distance import Distance
+from ._Distance import _Distance
 from ..tokenizer import QGrams
 
 __all__ = [
@@ -45,7 +50,7 @@ __all__ = [
 ]
 
 
-class Strcmp95(Distance):
+class Strcmp95(_Distance):
     """Strcmp95.
 
     This is a Python translation of the C code for strcmp95:
@@ -313,7 +318,7 @@ def dist_strcmp95(src, tar, long_strings=False):
     return Strcmp95().dist(src, tar, long_strings)
 
 
-class JaroWinkler(Distance):
+class JaroWinkler(_Distance):
     """Jaro-Winkler distance.
 
     Jaro(-Winkler) distance is a string edit distance initially proposed by

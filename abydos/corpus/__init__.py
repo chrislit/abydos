@@ -21,10 +21,15 @@
 The corpus package includes basic and n-gram corpus classes.
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    unicode_literals,
+    absolute_import,
+    division,
+    print_function,
+)
 
-from ._corpus import Corpus
-from ._ngram import NGramCorpus
+from ._Corpus import Corpus
+from ._NGramCorpus import NGramCorpus
 
 __all__ = ['Corpus', 'NGramCorpus']
 
