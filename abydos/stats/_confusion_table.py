@@ -75,9 +75,9 @@ class ConfusionTable(object):
 
         Args:
             tp (int or a tuple, list, or dict): True positives; If a tuple or
-            list is supplied, it must include 4 values in the order [tp, tn,
-            fp, fn]. If a dict is supplied, it must have 4 keys, namely 'tp',
-            'tn', 'fp', & 'fn'.
+                list is supplied, it must include 4 values in the order [tp,
+                tn, fp, fn]. If a dict is supplied, it must have 4 keys, namely
+                'tp', 'tn', 'fp', & 'fn'.
             tn (int): True negatives
             fp (int): False positives
             fn (int): False negatives
