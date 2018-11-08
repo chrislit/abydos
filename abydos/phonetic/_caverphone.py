@@ -21,7 +21,12 @@
 The phonetic._caverphone module implements the Caverphone phonetic algorithm.
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from ._phonetic import Phonetic
 

@@ -21,7 +21,12 @@
 The stemmer._caumanns module defines the Caumanns German stemmer.
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from unicodedata import normalize
 

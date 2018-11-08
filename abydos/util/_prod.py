@@ -22,7 +22,12 @@ The util._prod module defines prod, which computes the product of a collection
 of numbers (akin to sum, but for product).
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from operator import mul
 

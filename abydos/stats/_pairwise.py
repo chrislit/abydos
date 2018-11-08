@@ -24,7 +24,12 @@ The stats._pairwise module implements pairwise statistical algorithms such as:
     - pairwise similarity statistics
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from six.moves import range
 

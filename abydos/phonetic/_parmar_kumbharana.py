@@ -22,7 +22,12 @@ The phonetic._parmar_kumbharana module implements the Parmar-Kumbharana
 phonetic algorithm.
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from six.moves import range
 

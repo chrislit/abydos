@@ -16,13 +16,18 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.corpus._corpus.
+"""abydos.corpus._Corpus.
 
 The Corpus class is a container for linguistic corpora and includes various
 functions for corpus statistics, language modeling, etc.
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    unicode_literals,
+    absolute_import,
+    division,
+    print_function,
+)
 
 from math import log10
 

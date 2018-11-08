@@ -21,7 +21,12 @@
 The phonetic._nrl module implements NRL English-to-phoneme algorithm.
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from re import match as re_match
 

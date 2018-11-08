@@ -21,11 +21,16 @@
 The distance.synoname module implements Synoname.
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from collections import Iterable
 
-from ._distance import Distance
+from ._Distance import _Distance
 from ._levenshtein import levenshtein
 from ._sequence import sim_ratcliff_obershelp
 
@@ -35,7 +40,7 @@ from ..fingerprint._synoname import SynonameToolcode
 __all__ = ['Synoname', 'synoname']
 
 
-class Synoname(Distance):
+class Synoname(_Distance):
     """Synoname.
 
     Cf. :cite:`Getty:1991,Gross:1991`

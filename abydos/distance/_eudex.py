@@ -21,19 +21,24 @@
 The distance.eudex module implements eudex distance functions.
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from types import GeneratorType
 
 from six.moves import range
 
-from ._distance import Distance
+from ._Distance import _Distance
 from ..phonetic import eudex
 
 __all__ = ['Eudex', 'dist_eudex', 'eudex_hamming', 'sim_eudex']
 
 
-class Eudex(Distance):
+class Eudex(_Distance):
     """Distance between the Eudex hashes of two terms.
 
     Cf. :cite:`Ticki:2016`.

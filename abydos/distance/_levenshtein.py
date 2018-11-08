@@ -27,7 +27,12 @@ based on Levenshtein distance, including:
     - Indel distance
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from sys import maxsize
 
@@ -36,7 +41,7 @@ from numpy import zeros as np_zeros
 
 from six.moves import range
 
-from ._distance import Distance
+from ._Distance import _Distance
 
 __all__ = [
     'DamerauLevenshtein',
@@ -53,7 +58,7 @@ __all__ = [
 ]
 
 
-class Levenshtein(Distance):
+class Levenshtein(_Distance):
     """Levenshtein distance.
 
     This is the standard edit distance measure. Cf.
@@ -320,7 +325,7 @@ def sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     return Levenshtein().sim(src, tar, mode, cost)
 
 
-class DamerauLevenshtein(Distance):
+class DamerauLevenshtein(_Distance):
     """Damerau-Levenshtein distance.
 
     This computes the Damerau-Levenshtein distance :cite:`Damerau:1964`.
@@ -578,7 +583,7 @@ def sim_damerau(src, tar, cost=(1, 1, 1, 1)):
     return DamerauLevenshtein().sim(src, tar, cost)
 
 
-class Indel(Distance):
+class Indel(_Distance):
     """Indel distance.
 
     This is equivalent to Levenshtein distance, when only inserts and deletes

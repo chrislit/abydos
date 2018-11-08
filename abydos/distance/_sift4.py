@@ -22,11 +22,16 @@ The distance.sift4 module implements Sift4 approximate string distance
 functions.
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from six.moves import range
 
-from ._distance import Distance
+from ._Distance import _Distance
 
 __all__ = [
     'Sift4',
@@ -38,7 +43,7 @@ __all__ = [
 ]
 
 
-class Sift4(Distance):
+class Sift4(_Distance):
     """Sift4 Common version.
 
     This is an approximation of edit distance, described in

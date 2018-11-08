@@ -21,7 +21,12 @@
 The phonetic._metaphone module implements Metaphone and Double Metaphone.
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from six.moves import range
 

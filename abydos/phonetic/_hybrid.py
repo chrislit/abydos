@@ -24,7 +24,12 @@ The phonetic._hybrid module implements hybrid phonetic algorithms:
     - MetaSoundex
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from ._es import PhoneticSpanish, SpanishMetaphone
 from ._metaphone import Metaphone

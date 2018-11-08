@@ -30,12 +30,18 @@ those that are Minkowski distance measures):
     - Monge-Elkan similarity & distance
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from collections import Counter
 from math import log, sqrt
 
-from ._distance import Distance, TokenDistance
+from ._Distance import _Distance
+from ._TokenDistance import _TokenDistance
 from ._levenshtein import sim_levenshtein
 from ..tokenizer import QGrams
 
@@ -66,7 +72,7 @@ __all__ = [
 ]
 
 
-class Tversky(TokenDistance):
+class Tversky(_TokenDistance):
     r"""Tversky index.
 
     The Tversky index :cite:`Tversky:1977` is defined as:
@@ -469,7 +475,7 @@ def tanimoto(src, tar, qval=2):
     return Jaccard().tanimoto_coeff(src, tar, qval)
 
 
-class Overlap(TokenDistance):
+class Overlap(_TokenDistance):
     r"""Overlap coefficient.
 
     For two sets X and Y, the overlap coefficient
@@ -568,7 +574,7 @@ def dist_overlap(src, tar, qval=2):
     return Overlap().dist(src, tar, qval)
 
 
-class Cosine(TokenDistance):
+class Cosine(_TokenDistance):
     r"""Cosine similarity.
 
     For two sets X and Y, the cosine similarity, Otsuka-Ochiai coefficient, or
@@ -665,7 +671,7 @@ def dist_cosine(src, tar, qval=2):
     return Cosine().dist(src, tar, qval)
 
 
-class Bag(TokenDistance):
+class Bag(_TokenDistance):
     """Bag distance.
 
     Bag distance is proposed in :cite:`Bartolini:2002`. It is defined as:
@@ -827,7 +833,7 @@ def sim_bag(src, tar):
     return Bag().sim(src, tar)
 
 
-class MongeElkan(Distance):
+class MongeElkan(_Distance):
     """Monge-Elkan similarity.
 
     Monge-Elkan is defined in :cite:`Monge:1996`.

@@ -21,14 +21,19 @@
 The distance.baystat module implements Baystat similarity.
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    unicode_literals,
+    absolute_import,
+    division,
+    print_function,
+)
 
-from ._distance import Distance
+from ._Distance import _Distance
 
 __all__ = ['Baystat', 'dist_baystat', 'sim_baystat']
 
 
-class Baystat(Distance):
+class Baystat(_Distance):
     """Baystat similarity and distance.
 
     Good results for shorter words are reported when setting min_ss_len to 1

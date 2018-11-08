@@ -25,7 +25,12 @@ including:
     - an early version of Henry Code
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from re import compile as re_compile
 from unicodedata import normalize as unicode_normalize

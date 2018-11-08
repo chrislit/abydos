@@ -21,7 +21,12 @@
 The distance.editex module implements editex functions.
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    unicode_literals,
+    absolute_import,
+    division,
+    print_function,
+)
 
 from unicodedata import normalize as unicode_normalize
 
@@ -31,12 +36,12 @@ from numpy import zeros as np_zeros
 from six import text_type
 from six.moves import range
 
-from ._distance import Distance
+from ._Distance import _Distance
 
 __all__ = ['Editex', 'dist_editex', 'editex', 'sim_editex']
 
 
-class Editex(Distance):
+class Editex(_Distance):
     """Editex.
 
     As described on pages 3 & 4 of :cite:`Zobel:1996`.

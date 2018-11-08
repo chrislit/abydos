@@ -64,22 +64,17 @@ If a sim_X function is supplied identical src & tar arguments, it is guaranteed
 to return 1; the corresponding dist_X function is guaranteed to return 0.
 """
 
-from __future__ import unicode_literals
-
-from ._basic import (
-    Ident,
-    Length,
-    Prefix,
-    Suffix,
-    dist_ident,
-    dist_length,
-    dist_prefix,
-    dist_suffix,
-    sim_ident,
-    sim_length,
-    sim_prefix,
-    sim_suffix,
+from __future__ import (
+    unicode_literals,
+    absolute_import,
+    division,
+    print_function,
 )
+
+from ._Ident import Ident, dist_ident, sim_ident
+from ._Length import Length, dist_length, sim_length
+from ._Prefix import Prefix, dist_prefix, sim_prefix
+from ._Suffix import Suffix, dist_suffix, sim_suffix
 from ._baystat import Baystat, dist_baystat, sim_baystat
 from ._compression import (
     NCDarith,
