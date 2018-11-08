@@ -69,9 +69,12 @@ class Porter(Stemmer):
 
         m-degree is equal to the number of V to C transitions
 
-        :param str term: the word for which to calculate the m-degree
-        :returns: the m-degree as defined in the Porter stemmer definition
-        :rtype: int
+        Args:
+            term (str): The word for which to calculate the m-degree
+
+        Returns:
+            int: The m-degree as defined in the Porter stemmer definition
+
         """
         mdeg = 0
         last_was_vowel = False
@@ -87,10 +90,13 @@ class Porter(Stemmer):
     def _has_vowel(self, term):
         """Return Porter helper function _has_vowel value.
 
-        :param str term: the word to scan for vowels
-        :returns: true iff a vowel exists in the term (as defined in the Porter
-            stemmer definition)
-        :rtype: bool
+        Args:
+            term (str): The word to scan for vowels
+
+        Returns:
+            bool: True iff a vowel exists in the term (as defined in the Porter
+                stemmer definition)
+
         """
         for letter in term:
             if letter in self._vowels:
@@ -100,11 +106,13 @@ class Porter(Stemmer):
     def _ends_in_doubled_cons(self, term):
         """Return Porter helper function _ends_in_doubled_cons value.
 
-        :param str term: the word to check for a final doubled consonant
-        :param set vowels: the set of vowels in the language
-        :returns: true iff the stem ends in a doubled consonant (as defined in
-            the Porter stemmer definition)
-        :rtype: bool
+        Args:
+            term (str): The word to check for a final doubled consonant
+
+        Returns:
+            bool: True iff the stem ends in a doubled consonant (as defined in
+                the Porter stemmer definition)
+
         """
         return (
             len(term) > 1
@@ -115,10 +123,13 @@ class Porter(Stemmer):
     def _ends_in_cvc(self, term):
         """Return Porter helper function _ends_in_cvc value.
 
-        :param str term: the word to scan for cvc
-        :returns: true iff the stem ends in cvc (as defined in the Porter
-            stemmer definition)
-        :rtype: bool
+        Args:
+            term (str): The word to scan for cvc
+
+        Returns:
+            bool: True iff the stem ends in cvc (as defined in the Porter
+                stemmer definition)
+
         """
         return len(term) > 2 and (
             term[-1] not in self._vowels
@@ -130,22 +141,26 @@ class Porter(Stemmer):
     def stem(self, word, early_english=False):
         """Return Porter stem.
 
-        :param str word: the word to calculate the stem of
-        :param bool early_english: set to True in order to remove -eth & -est
-            (2nd & 3rd person singular verbal agreement suffixes)
-        :returns: word stem
-        :rtype: str
+        Args:
+            word (str): The word to stem
+            early_english (bool): Set to True in order to remove -eth & -est
+                (2nd & 3rd person singular verbal agreement suffixes)
 
-        >>> stmr = Porter()
-        >>> stmr.stem('reading')
-        'read'
-        >>> stmr.stem('suspension')
-        'suspens'
-        >>> stmr.stem('elusiveness')
-        'elus'
+        Returns:
+            str: Word stem
 
-        >>> stmr.stem('eateth', early_english=True)
-        'eat'
+        Examples:
+            >>> stmr = Porter()
+            >>> stmr.stem('reading')
+            'read'
+            >>> stmr.stem('suspension')
+            'suspens'
+            >>> stmr.stem('elusiveness')
+            'elus'
+
+            >>> stmr.stem('eateth', early_english=True)
+            'eat'
+
         """
         # lowercase, normalize, and compose
         word = normalize('NFC', text_type(word.lower()))
@@ -357,21 +372,25 @@ def porter(word, early_english=False):
 
     This is a wrapper for :py:meth:`Porter.stem`.
 
-    :param str word: the word to calculate the stem of
-    :param bool early_english: set to True in order to remove -eth & -est
-        (2nd & 3rd person singular verbal agreement suffixes)
-    :returns: word stem
-    :rtype: str
+    Args:
+        word (str): The word to stem
+        early_english (bool): Set to True in order to remove -eth & -est
+                (2nd & 3rd person singular verbal agreement suffixes)
 
-    >>> porter('reading')
-    'read'
-    >>> porter('suspension')
-    'suspens'
-    >>> porter('elusiveness')
-    'elus'
+    Returns:
+        str: Word stem
 
-    >>> porter('eateth', early_english=True)
-    'eat'
+    Examples:
+        >>> porter('reading')
+        'read'
+        >>> porter('suspension')
+        'suspens'
+        >>> porter('elusiveness')
+        'elus'
+
+        >>> porter('eateth', early_english=True)
+        'eat'
+
     """
     return Porter().stem(word, early_english)
 
@@ -383,7 +402,16 @@ class Snowball(Stemmer):
     _codanonvowels = set('\'bcdfghjklmnpqrstvz')
 
     def _sb_r1(self, term, r1_prefixes=None):
-        """Return the R1 region, as defined in the Porter2 specification."""
+        """Return the R1 region, as defined in the Porter2 specification.
+
+        Args:
+            term (str): The term to examine
+            r1_prefixes (set): Prefixes to consider
+
+        Returns:
+            int: Length of the R1 region
+
+        """
         vowel_found = False
         if hasattr(r1_prefixes, '__iter__'):
             for prefix in r1_prefixes:
@@ -398,7 +426,16 @@ class Snowball(Stemmer):
         return len(term)
 
     def _sb_r2(self, term, r1_prefixes=None):
-        """Return the R2 region, as defined in the Porter2 specification."""
+        """Return the R2 region, as defined in the Porter2 specification.
+
+        Args:
+            term (str): The term to examine
+            r1_prefixes (set): Prefixes to consider
+
+        Returns:
+            int: Length of the R1 region
+
+        """
         r1_start = self._sb_r1(term, r1_prefixes)
         return r1_start + self._sb_r1(term[r1_start:])
 
@@ -409,6 +446,13 @@ class Snowball(Stemmer):
 
         NB: This is akin to the CVC test from the Porter stemmer. The
         description is unfortunately poor/ambiguous.
+
+        Args:
+            term (str): The term to examine
+
+        Returns:
+            bool: True iff term ends in a short syllable
+
         """
         if not term:
             return False
@@ -428,6 +472,14 @@ class Snowball(Stemmer):
         """Return True iff term is a short word.
 
         (...according to the Porter2 specification.)
+
+        Args:
+            term (str): The term to examine
+            r1_prefixes (set): Prefixes to consider
+
+        Returns:
+            bool: True iff term is a short word
+
         """
         if self._sb_r1(term, r1_prefixes) == len(
             term
@@ -438,10 +490,13 @@ class Snowball(Stemmer):
     def _sb_has_vowel(self, term):
         """Return Porter helper function _sb_has_vowel value.
 
-        :param str term: the word to scan for vowels
-        :returns: true iff a vowel exists in the term (as defined in the Porter
-            stemmer definition)
-        :rtype: bool
+        Args:
+            term (str): The term to examine
+
+        Returns:
+            bool: True iff a vowel exists in the term (as defined in the Porter
+                stemmer definition)
+
         """
         for letter in term:
             if letter in self._vowels:
@@ -498,22 +553,26 @@ class Porter2(Snowball):
     def stem(self, word, early_english=False):
         """Return the Porter2 (Snowball English) stem.
 
-        :param str word: the word to calculate the stem of
-        :param bool early_english: set to True in order to remove -eth & -est
-            (2nd & 3rd person singular verbal agreement suffixes)
-        :returns: word stem
-        :rtype: str
+        Args:
+            word (str): The word to stem
+            early_english (bool): Set to True in order to remove -eth & -est
+                (2nd & 3rd person singular verbal agreement suffixes)
 
-        >>> stmr = Porter2()
-        >>> stmr.stem('reading')
-        'read'
-        >>> stmr.stem('suspension')
-        'suspens'
-        >>> stmr.stem('elusiveness')
-        'elus'
+        Returns:
+            str: Word stem
 
-        >>> stmr.stem('eateth', early_english=True)
-        'eat'
+        Examples:
+            >>> stmr = Porter2()
+            >>> stmr.stem('reading')
+            'read'
+            >>> stmr.stem('suspension')
+            'suspens'
+            >>> stmr.stem('elusiveness')
+            'elus'
+
+            >>> stmr.stem('eateth', early_english=True)
+            'eat'
+
         """
         # lowercase, normalize, and compose
         word = normalize('NFC', text_type(word.lower()))
@@ -783,21 +842,25 @@ def porter2(word, early_english=False):
 
     This is a wrapper for :py:meth:`Porter2.stem`.
 
-    :param str word: the word to calculate the stem of
-    :param bool early_english: set to True in order to remove -eth & -est
-        (2nd & 3rd person singular verbal agreement suffixes)
-    :returns: word stem
-    :rtype: str
+    Args:
+        word (str): The word to stem
+        early_english (bool): Set to True in order to remove -eth & -est (2nd &
+            3rd person singular verbal agreement suffixes)
 
-    >>> porter2('reading')
-    'read'
-    >>> porter2('suspension')
-    'suspens'
-    >>> porter2('elusiveness')
-    'elus'
+    Returns:
+        str: Word stem
 
-    >>> porter2('eateth', early_english=True)
-    'eat'
+    Examples:
+        >>> porter2('reading')
+        'read'
+        >>> porter2('suspension')
+        'suspens'
+        >>> porter2('elusiveness')
+        'elus'
+
+        >>> porter2('eateth', early_english=True)
+        'eat'
+
     """
     return Porter2().stem(word, early_english)
 
@@ -816,19 +879,23 @@ class SnowballGerman(Snowball):
     def stem(self, word, alternate_vowels=False):
         """Return Snowball German stem.
 
-        :param str word: the word to calculate the stem of
-        :param bool alternate_vowels: composes ae as ä, oe as ö, and ue as ü
-            before running the algorithm
-        :returns: word stem
-        :rtype: str
+        Args:
+            word (str): The word to stem
+            alternate_vowels (bool): composes ae as ä, oe as ö, and ue as ü
+                before running the algorithm
 
-        >>> stmr = SnowballGerman()
-        >>> stmr.stem('lesen')
-        'les'
-        >>> stmr.stem('graues')
-        'grau'
-        >>> stmr.stem('buchstabieren')
-        'buchstabi'
+        Returns:
+            str: Word stem
+
+        Examples:
+            >>> stmr = SnowballGerman()
+            >>> stmr.stem('lesen')
+            'les'
+            >>> stmr.stem('graues')
+            'grau'
+            >>> stmr.stem('buchstabieren')
+            'buchstabi'
+
         """
         # lowercase, normalize, and compose
         word = normalize('NFC', word.lower())
@@ -952,18 +1019,22 @@ def sb_german(word, alternate_vowels=False):
 
     This is a wrapper for :py:meth:`SnowballGerman.stem`.
 
-    :param str word: the word to calculate the stem of
-    :param bool alternate_vowels: composes ae as ä, oe as ö, and ue as ü before
-        running the algorithm
-    :returns: word stem
-    :rtype: str
+    Args:
+        word (str): The word to stem
+        alternate_vowels (bool): composes ae as ä, oe as ö, and ue as ü
+            before running the algorithm
 
-    >>> sb_german('lesen')
-    'les'
-    >>> sb_german('graues')
-    'grau'
-    >>> sb_german('buchstabieren')
-    'buchstabi'
+    Returns:
+        str: Word stem
+
+    Examples:
+        >>> sb_german('lesen')
+        'les'
+        >>> sb_german('graues')
+        'grau'
+        >>> sb_german('buchstabieren')
+        'buchstabi'
+
     """
     return SnowballGerman().stem(word, alternate_vowels)
 
@@ -980,7 +1051,15 @@ class SnowballDutch(Snowball):
     _accented = dict(zip((ord(_) for _ in 'äëïöüáéíóú'), 'aeiouaeiou'))
 
     def _undouble(self, word):
-        """Undouble endings -kk, -dd, and -tt."""
+        """Undouble endings -kk, -dd, and -tt.
+
+        Args:
+            word (str): The word to stem
+
+        Returns:
+            str: The word with doubled endings undoubled
+
+        """
         if (
             len(word) > 1
             and word[-1] == word[-2]
@@ -992,17 +1071,21 @@ class SnowballDutch(Snowball):
     def stem(self, word):
         """Return Snowball Dutch stem.
 
-        :param str word: the word to calculate the stem of
-        :returns: word stem
-        :rtype: str
+        Args:
+            word (str): The word to stem
 
-        >>> stmr = SnowballDutch()
-        >>> stmr.stem('lezen')
-        'lez'
-        >>> stmr.stem('opschorting')
-        'opschort'
-        >>> stmr.stem('ongrijpbaarheid')
-        'ongrijp'
+        Returns:
+            str: Word stem
+
+        Examples:
+            >>> stmr = SnowballDutch()
+            >>> stmr.stem('lezen')
+            'lez'
+            >>> stmr.stem('opschorting')
+            'opschort'
+            >>> stmr.stem('ongrijpbaarheid')
+            'ongrijp'
+
         """
         # lowercase, normalize, decompose, filter umlauts & acutes out, and
         # compose
@@ -1127,16 +1210,20 @@ def sb_dutch(word):
 
     This is a wrapper for :py:meth:`SnowballDutch.stem`.
 
-    :param str word: the word to calculate the stem of
-    :returns: word stem
-    :rtype: str
+    Args:
+        word (str): The word to stem
 
-    >>> sb_dutch('lezen')
-    'lez'
-    >>> sb_dutch('opschorting')
-    'opschort'
-    >>> sb_dutch('ongrijpbaarheid')
-    'ongrijp'
+    Returns:
+        str: Word stem
+
+    Examples:
+        >>> sb_dutch('lezen')
+        'lez'
+        >>> sb_dutch('opschorting')
+        'opschort'
+        >>> sb_dutch('ongrijpbaarheid')
+        'ongrijp'
+
     """
     return SnowballDutch().stem(word)
 
@@ -1172,17 +1259,21 @@ class SnowballNorwegian(Snowball):
     def stem(self, word):
         """Return Snowball Norwegian stem.
 
-        :param str word: the word to calculate the stem of
-        :returns: word stem
-        :rtype: str
+        Args:
+            word (str): The word to stem
 
-        >>> stmr = SnowballNorwegian()
-        >>> stmr.stem('lese')
-        'les'
-        >>> stmr.stem('suspensjon')
-        'suspensjon'
-        >>> stmr.stem('sikkerhet')
-        'sikker'
+        Returns:
+            str: Word stem
+
+        Examples:
+            >>> stmr = SnowballNorwegian()
+            >>> stmr.stem('lese')
+            'les'
+            >>> stmr.stem('suspensjon')
+            'suspensjon'
+            >>> stmr.stem('sikkerhet')
+            'sikker'
+
         """
         # lowercase, normalize, and compose
         word = normalize('NFC', text_type(word.lower()))
@@ -1252,16 +1343,20 @@ def sb_norwegian(word):
 
     This is a wrapper for :py:meth:`SnowballNorwegian.stem`.
 
-    :param str word: the word to calculate the stem of
-    :returns: word stem
-    :rtype: str
+    Args:
+        word (str): The word to stem
 
-    >>> sb_norwegian('lese')
-    'les'
-    >>> sb_norwegian('suspensjon')
-    'suspensjon'
-    >>> sb_norwegian('sikkerhet')
-    'sikker'
+    Returns:
+        str: Word stem
+
+    Examples:
+        >>> sb_norwegian('lese')
+        'les'
+        >>> sb_norwegian('suspensjon')
+        'suspensjon'
+        >>> sb_norwegian('sikkerhet')
+        'sikker'
+
     """
     return SnowballNorwegian().stem(word)
 
@@ -1297,17 +1392,21 @@ class SnowballSwedish(Snowball):
     def stem(self, word):
         """Return Snowball Swedish stem.
 
-        :param str word: the word to calculate the stem of
-        :returns: word stem
-        :rtype: str
+        Args:
+            word (str): The word to stem
 
-        >>> stmr = SnowballSwedish()
-        >>> stmr.stem('undervisa')
-        'undervis'
-        >>> stmr.stem('suspension')
-        'suspension'
-        >>> stmr.stem('visshet')
-        'viss'
+        Returns:
+            str: Word stem
+
+        Examples:
+            >>> stmr = SnowballSwedish()
+            >>> stmr.stem('undervisa')
+            'undervis'
+            >>> stmr.stem('suspension')
+            'suspension'
+            >>> stmr.stem('visshet')
+            'viss'
+
         """
         # lowercase, normalize, and compose
         word = normalize('NFC', text_type(word.lower()))
@@ -1377,16 +1476,20 @@ def sb_swedish(word):
 
     This is a wrapper for :py:meth:`SnowballSwedish.stem`.
 
-    :param str word: the word to calculate the stem of
-    :returns: word stem
-    :rtype: str
+    Args:
+        word (str): The word to stem
 
-    >>> sb_swedish('undervisa')
-    'undervis'
-    >>> sb_swedish('suspension')
-    'suspension'
-    >>> sb_swedish('visshet')
-    'viss'
+    Returns:
+        str: Word stem
+
+    Examples:
+        >>> sb_swedish('undervisa')
+        'undervis'
+        >>> sb_swedish('suspension')
+        'suspension'
+        >>> sb_swedish('visshet')
+        'viss'
+
     """
     return SnowballSwedish().stem(word)
 
@@ -1425,17 +1528,21 @@ class SnowballDanish(Snowball):
     def stem(self, word):
         """Return Snowball Danish stem.
 
-        :param str word: the word to calculate the stem of
-        :returns: word stem
-        :rtype: str
+        Args:
+            word (str): The word to stem
 
-        >>> stmr = SnowballDanish()
-        >>> stmr.stem('underviser')
-        'undervis'
-        >>> stmr.stem('suspension')
-        'suspension'
-        >>> stmr.stem('sikkerhed')
-        'sikker'
+        Returns:
+            str: Word stem
+
+        Examples:
+            >>> stmr = SnowballDanish()
+            >>> stmr.stem('underviser')
+            'undervis'
+            >>> stmr.stem('suspension')
+            'suspension'
+            >>> stmr.stem('sikkerhed')
+            'sikker'
+
         """
         # lowercase, normalize, and compose
         word = normalize('NFC', text_type(word.lower()))
@@ -1524,16 +1631,20 @@ def sb_danish(word):
 
     This is a wrapper for :py:meth:`SnowballDanish.stem`.
 
-    :param str word: the word to calculate the stem of
-    :returns: word stem
-    :rtype: str
+    Args:
+        word (str): The word to stem
 
-    >>> sb_danish('underviser')
-    'undervis'
-    >>> sb_danish('suspension')
-    'suspension'
-    >>> sb_danish('sikkerhed')
-    'sikker'
+    Returns:
+        str: Word stem
+
+    Examples:
+        >>> sb_danish('underviser')
+        'undervis'
+        >>> sb_danish('suspension')
+        'suspension'
+        >>> sb_danish('sikkerhed')
+        'sikker'
+
     """
     return SnowballDanish().stem(word)
 

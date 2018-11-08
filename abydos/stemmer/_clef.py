@@ -54,17 +54,21 @@ class CLEFGerman(Stemmer):
     def stem(self, word):
         """Return CLEF German stem.
 
-        :param str word: the word to calculate the stem of
-        :returns: word stem
-        :rtype: str
+        Args:
+            word (str): The word to stem
 
-        >>> stmr = CLEFGerman()
-        >>> stmr.stem('lesen')
-        'lese'
-        >>> stmr.stem('graues')
-        'grau'
-        >>> stmr.stem('buchstabieren')
-        'buchstabier'
+        Returns:
+            str: Word stem
+
+        Examples:
+            >>> stmr = CLEFGerman()
+            >>> stmr.stem('lesen')
+            'lese'
+            >>> stmr.stem('graues')
+            'grau'
+            >>> stmr.stem('buchstabieren')
+            'buchstabier'
+
         """
         # lowercase, normalize, and compose
         word = normalize('NFC', text_type(word.lower()))
@@ -92,16 +96,20 @@ def clef_german(word):
 
     This is a wrapper for :py:meth:`CLEFGerman.stem`.
 
-    :param str word: the word to calculate the stem of
-    :returns: word stem
-    :rtype: str
+    Args:
+        word (str): The word to stem
 
-    >>> clef_german('lesen')
-    'lese'
-    >>> clef_german('graues')
-    'grau'
-    >>> clef_german('buchstabieren')
-    'buchstabier'
+    Returns:
+        str: Word stem
+
+    Examples:
+        >>> clef_german('lesen')
+        'lese'
+        >>> clef_german('graues')
+        'grau'
+        >>> clef_german('buchstabieren')
+        'buchstabier'
+
     """
     return CLEFGerman().stem(word)
 
@@ -121,17 +129,21 @@ class CLEFGermanPlus(Stemmer):
     def stem(self, word):
         """Return 'CLEF German stemmer plus' stem.
 
-        :param str word: the word to calculate the stem of
-        :returns: word stem
-        :rtype: str
+        Args:
+            word (str): The word to stem
 
-        >>> stmr = CLEFGermanPlus()
-        >>> clef_german_plus('lesen')
-        'les'
-        >>> clef_german_plus('graues')
-        'grau'
-        >>> clef_german_plus('buchstabieren')
-        'buchstabi'
+        Returns:
+            str: Word stem
+
+        Examples:
+            >>> stmr = CLEFGermanPlus()
+            >>> clef_german_plus('lesen')
+            'les'
+            >>> clef_german_plus('graues')
+            'grau'
+            >>> clef_german_plus('buchstabieren')
+            'buchstabi'
+
         """
         # lowercase, normalize, and compose
         word = normalize('NFC', text_type(word.lower()))
@@ -169,17 +181,21 @@ def clef_german_plus(word):
 
     This is a wrapper for :py:meth:`CLEFGermanPlus.stem`.
 
-    :param str word: the word to calculate the stem of
-    :returns: word stem
-    :rtype: str
+    Args:
+        word (str): The word to stem
 
-    >>> stmr = CLEFGermanPlus()
-    >>> clef_german_plus('lesen')
-    'les'
-    >>> clef_german_plus('graues')
-    'grau'
-    >>> clef_german_plus('buchstabieren')
-    'buchstabi'
+    Returns:
+        str: Word stem
+
+    Examples:
+        >>> stmr = CLEFGermanPlus()
+        >>> clef_german_plus('lesen')
+        'les'
+        >>> clef_german_plus('graues')
+        'grau'
+        >>> clef_german_plus('buchstabieren')
+        'buchstabi'
+
     """
     return CLEFGermanPlus().stem(word)
 
@@ -193,16 +209,20 @@ class CLEFSwedish(Stemmer):
     def stem(self, word):
         """Return CLEF Swedish stem.
 
-        :param str word: the word to calculate the stem of
-        :returns: word stem
-        :rtype: str
+        Args:
+            word (str): The word to stem
 
-        >>> clef_swedish('undervisa')
-        'undervis'
-        >>> clef_swedish('suspension')
-        'suspensio'
-        >>> clef_swedish('visshet')
-        'viss'
+        Returns:
+            str: Word stem
+
+        Examples:
+            >>> clef_swedish('undervisa')
+            'undervis'
+            >>> clef_swedish('suspension')
+            'suspensio'
+            >>> clef_swedish('visshet')
+            'viss'
+
         """
         wlen = len(word) - 1
 
@@ -241,16 +261,20 @@ def clef_swedish(word):
 
     This is a wrapper for :py:meth:`CLEFSwedish.stem`.
 
-    :param str word: the word to calculate the stem of
-    :returns: word stem
-    :rtype: str
+    Args:
+        word (str): The word to stem
 
-    >>> clef_swedish('undervisa')
-    'undervis'
-    >>> clef_swedish('suspension')
-    'suspensio'
-    >>> clef_swedish('visshet')
-    'viss'
+    Returns:
+        str: Word stem
+
+    Examples:
+        >>> clef_swedish('undervisa')
+        'undervis'
+        >>> clef_swedish('suspension')
+        'suspensio'
+        >>> clef_swedish('visshet')
+        'viss'
+
     """
     return CLEFSwedish().stem(word)
 

@@ -68,6 +68,7 @@ def main(argv):
 
         Returns:
             str: A binarized number
+
         """
         if num == '0':  # 0
             return '00'
@@ -83,6 +84,7 @@ def main(argv):
 
         Returns:
             (dict, dict): Term & feature mask dictionaries
+
         """
         ifile = codecs.open('features_terms.csv', 'r', 'utf-8')
 
@@ -113,6 +115,13 @@ def main(argv):
 
         Check each term of the phone name to confirm that it matches
         the expected features implied by that feature.
+
+        Args:
+            sym (str): Symbol to check
+            features (int): Phone features
+            name (str): Phone name
+            termdict (dict): Dictionary of terms
+
         """
         if '#' in name:
             name = name[: name.find('#')].strip()
@@ -142,6 +151,12 @@ def main(argv):
 
         Check for necessary feature assignments (entailments)
         For example, [+round] necessitates [+labial].
+
+        Args:
+            sym (str): Symbol to check
+            features (int): Phone features
+            feature_mask (dict): The feature mask
+
         """
         entailments = {
             '+labial': ('±round', '±protruded', '±compressed', '±labiodental'),

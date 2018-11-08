@@ -30,10 +30,14 @@ class Stemmer(object):
     def stem(self, word, *args, **kwargs):
         """Return stem.
 
-        :param word:
-        :param args:
-        :param kwargs:
-        :return:
+        Args:
+            word (str): The word to stem
+            *args: Variable length argument list
+            **kwargs: Arbitrary keyword arguments
+
+        Returns:
+            str: Word stem
+
         """
         pass
 

@@ -37,21 +37,25 @@ class SStemmer(Stemmer):
     def stem(self, word):
         """Return the S-stemmed form of a word.
 
-        :param str word: the word to stem
-        :returns: the stemmed word
-        :rtype: str
+        Args:
+            word (str): The word to stem
 
-        >>> stmr = SStemmer()
-        >>> stmr.stem('summaries')
-        'summary'
-        >>> stmr.stem('summary')
-        'summary'
-        >>> stmr.stem('towers')
-        'tower'
-        >>> stmr.stem('reading')
-        'reading'
-        >>> stmr.stem('census')
-        'census'
+        Returns:
+            str: Word stem
+
+        Examples:
+            >>> stmr = SStemmer()
+            >>> stmr.stem('summaries')
+            'summary'
+            >>> stmr.stem('summary')
+            'summary'
+            >>> stmr.stem('towers')
+            'tower'
+            >>> stmr.stem('reading')
+            'reading'
+            >>> stmr.stem('census')
+            'census'
+
         """
         lowered = word.lower()
         if lowered[-3:] == 'ies' and lowered[-4:-3] not in {'e', 'a'}:
@@ -68,20 +72,24 @@ def s_stemmer(word):
 
     This is a wrapper for :py:meth:`SStemmer.stem`.
 
-    :param str word: the word to stem
-    :returns: the stemmed word
-    :rtype: str
+    Args:
+        word (str): The word to stem
 
-    >>> s_stemmer('summaries')
-    'summary'
-    >>> s_stemmer('summary')
-    'summary'
-    >>> s_stemmer('towers')
-    'tower'
-    >>> s_stemmer('reading')
-    'reading'
-    >>> s_stemmer('census')
-    'census'
+    Returns:
+        str: Word stem
+
+    Examples:
+        >>> s_stemmer('summaries')
+        'summary'
+        >>> s_stemmer('summary')
+        'summary'
+        >>> s_stemmer('towers')
+        'tower'
+        >>> s_stemmer('reading')
+        'reading'
+        >>> s_stemmer('census')
+        'census'
+
     """
     return SStemmer().stem(word)
 

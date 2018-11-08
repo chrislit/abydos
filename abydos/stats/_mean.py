@@ -87,16 +87,20 @@ def amean(nums):
 
     Cf. https://en.wikipedia.org/wiki/Arithmetic_mean
 
-    :param list nums: A series of numbers
-    :returns: The arithmetric mean of nums
-    :rtype: float
+    Args:
+        nums (list): A series of numbers
 
-    >>> amean([1, 2, 3, 4])
-    2.5
-    >>> amean([1, 2])
-    1.5
-    >>> amean([0, 5, 1000])
-    335.0
+    Returns:
+        float: The arithmetric mean of nums
+
+    Examples:
+        >>> amean([1, 2, 3, 4])
+        2.5
+        >>> amean([1, 2])
+        1.5
+        >>> amean([0, 5, 1000])
+        335.0
+
     """
     return sum(nums) / len(nums)
 
@@ -109,16 +113,20 @@ def gmean(nums):
 
     Cf. https://en.wikipedia.org/wiki/Geometric_mean
 
-    :param list nums: A series of numbers
-    :returns: The geometric mean of nums
-    :rtype: float
+    Args:
+        nums (list): A series of numbers
 
-    >>> gmean([1, 2, 3, 4])
-    2.213363839400643
-    >>> gmean([1, 2])
-    1.4142135623730951
-    >>> gmean([0, 5, 1000])
-    0.0
+    Returns:
+        float: The geometric mean of nums
+
+    Examples:
+        >>> gmean([1, 2, 3, 4])
+        2.213363839400643
+        >>> gmean([1, 2])
+        1.4142135623730951
+        >>> gmean([0, 5, 1000])
+        0.0
+
     """
     return prod(nums) ** (1 / len(nums))
 
@@ -135,16 +143,23 @@ def hmean(nums):
 
     Cf. https://en.wikipedia.org/wiki/Harmonic_mean
 
-    :param list nums: A series of numbers
-    :returns: The harmonic mean of nums
-    :rtype: float
+    Args:
+        nums (list): A series of numbers
 
-    >>> hmean([1, 2, 3, 4])
-    1.9200000000000004
-    >>> hmean([1, 2])
-    1.3333333333333333
-    >>> hmean([0, 5, 1000])
-    0
+    Returns:
+        float: The harmonic mean of nums
+
+    Raises:
+        AttributeError: hmean requires at least one value
+
+    Examples:
+        >>> hmean([1, 2, 3, 4])
+        1.9200000000000004
+        >>> hmean([1, 2])
+        1.3333333333333333
+        >>> hmean([0, 5, 1000])
+        0
+
     """
     if len(nums) < 1:
         raise AttributeError('hmean requires at least one value')
@@ -172,16 +187,20 @@ def qmean(nums):
 
     Cf. https://en.wikipedia.org/wiki/Quadratic_mean
 
-    :param list nums: A series of numbers
-    :returns: The quadratic mean of nums
-    :rtype: float
+    Args:
+        nums (list): A series of numbers
 
-    >>> qmean([1, 2, 3, 4])
-    2.7386127875258306
-    >>> qmean([1, 2])
-    1.5811388300841898
-    >>> qmean([0, 5, 1000])
-    577.3574860228857
+    Returns:
+        float: The quadratic mean of nums
+
+    Examples:
+        >>> qmean([1, 2, 3, 4])
+        2.7386127875258306
+        >>> qmean([1, 2])
+        1.5811388300841898
+        >>> qmean([0, 5, 1000])
+        577.3574860228857
+
     """
     return (sum(i ** 2 for i in nums) / len(nums)) ** 0.5
 
@@ -194,16 +213,20 @@ def cmean(nums):
 
     Cf. https://en.wikipedia.org/wiki/Contraharmonic_mean
 
-    :param list nums: A series of numbers
-    :returns: The contraharmonic mean of nums
-    :rtype: float
+    Args:
+        nums (list): A series of numbers
 
-    >>> cmean([1, 2, 3, 4])
-    3.0
-    >>> cmean([1, 2])
-    1.6666666666666667
-    >>> cmean([0, 5, 1000])
-    995.0497512437811
+    Returns:
+        float: The contraharmonic mean of nums
+
+    Examples:
+        >>> cmean([1, 2, 3, 4])
+        3.0
+        >>> cmean([1, 2])
+        1.6666666666666667
+        >>> cmean([0, 5, 1000])
+        995.0497512437811
+
     """
     return sum(x ** 2 for x in nums) / sum(nums)
 
@@ -221,17 +244,24 @@ def lmean(nums):
 
     Cf. https://en.wikipedia.org/wiki/Logarithmic_mean
 
-    :param list nums: A series of numbers
-    :returns: The logarithmic mean of nums
-    :rtype: float
+    Args:
+        nums (list): A series of numbers
 
-    >>> lmean([1, 2, 3, 4])
-    2.2724242417489258
-    >>> lmean([1, 2])
-    1.4426950408889634
+    Returns:
+        float: The logarithmic mean of nums
+
+    Raises:
+        AttributeError: No two values in the nums list may be equal
+
+    Examples:
+        >>> lmean([1, 2, 3, 4])
+        2.2724242417489258
+        >>> lmean([1, 2])
+        1.4426950408889634
+
     """
     if len(nums) != len(set(nums)):
-        raise AttributeError('No two values in the nums list may be equal.')
+        raise AttributeError('No two values in the nums list may be equal')
     rolling_sum = 0
     for i in range(len(nums)):
         rolling_prod = 1
@@ -251,16 +281,23 @@ def imean(nums):
 
     Cf. https://en.wikipedia.org/wiki/Identric_mean
 
-    :param list nums: A series of numbers
-    :returns: The identric mean of nums
-    :rtype: float
+    Args:
+        nums (list): A series of numbers
 
-    >>> imean([1, 2])
-    1.4715177646857693
-    >>> imean([1, 0])
-    nan
-    >>> imean([2, 4])
-    2.9430355293715387
+    Returns:
+        float: The identric mean of nums
+
+    Raises:
+        AttributeError: imean supports no more than two values
+
+    Examples:
+        >>> imean([1, 2])
+        1.4715177646857693
+        >>> imean([1, 0])
+        nan
+        >>> imean([2, 4])
+        2.9430355293715387
+
     """
     if len(nums) == 1:
         return nums[0]
@@ -283,18 +320,25 @@ def seiffert_mean(nums):
 
     Cf. http://www.helsinki.fi/~hasto/pp/miaPreprint.pdf
 
-    :param list nums: A series of numbers
-    :returns: Sieffert's mean of nums
-    :rtype: float
+    Args:
+        nums (list): A series of numbers
 
-    >>> seiffert_mean([1, 2])
-    1.4712939827611637
-    >>> seiffert_mean([1, 0])
-    0.3183098861837907
-    >>> seiffert_mean([2, 4])
-    2.9425879655223275
-    >>> seiffert_mean([2, 1000])
-    336.84053300118825
+    Returns:
+        float: Sieffert's mean of nums
+
+    Raises:
+        AttributeError: seiffert_mean supports no more than two values
+
+    Examples:
+        >>> seiffert_mean([1, 2])
+        1.4712939827611637
+        >>> seiffert_mean([1, 0])
+        0.3183098861837907
+        >>> seiffert_mean([2, 4])
+        2.9425879655223275
+        >>> seiffert_mean([2, 1000])
+        336.84053300118825
+
     """
     if len(nums) == 1:
         return nums[0]
@@ -315,17 +359,21 @@ def lehmer_mean(nums, exp=2):
 
     Cf. https://en.wikipedia.org/wiki/Lehmer_mean
 
-    :param list nums: A series of numbers
-    :param numeric exp: The exponent of the Lehmer mean
-    :returns: The Lehmer mean of nums for the given exponent
-    :rtype: float
+    Args:
+        nums (list): A series of numbers
+        exp (numeric): The exponent of the Lehmer mean
 
-    >>> lehmer_mean([1, 2, 3, 4])
-    3.0
-    >>> lehmer_mean([1, 2])
-    1.6666666666666667
-    >>> lehmer_mean([0, 5, 1000])
-    995.0497512437811
+    Returns:
+        float: The Lehmer mean of nums for the given exponent
+
+    Examples:
+        >>> lehmer_mean([1, 2, 3, 4])
+        3.0
+        >>> lehmer_mean([1, 2])
+        1.6666666666666667
+        >>> lehmer_mean([0, 5, 1000])
+        995.0497512437811
+
     """
     return sum(x ** exp for x in nums) / sum(x ** (exp - 1) for x in nums)
 
@@ -340,16 +388,20 @@ def heronian_mean(nums):
 
     Cf. https://en.wikipedia.org/wiki/Heronian_mean
 
-    :param list nums: A series of numbers
-    :returns: The Heronian mean of nums
-    :rtype: float
+    Args:
+        nums (list): A series of numbers
 
-    >>> heronian_mean([1, 2, 3, 4])
-    2.3888282852609093
-    >>> heronian_mean([1, 2])
-    1.4714045207910316
-    >>> heronian_mean([0, 5, 1000])
-    179.28511301977582
+    Returns:
+        float: The Heronian mean of nums
+
+    Examples:
+        >>> heronian_mean([1, 2, 3, 4])
+        2.3888282852609093
+        >>> heronian_mean([1, 2])
+        1.4714045207910316
+        >>> heronian_mean([0, 5, 1000])
+        179.28511301977582
+
     """
     mag = len(nums)
     rolling_sum = 0
@@ -371,17 +423,21 @@ def hoelder_mean(nums, exp=2):
 
     Cf. https://en.wikipedia.org/wiki/Generalized_mean
 
-    :param list nums: A series of numbers
-    :param numeric exp: The exponent of the Hölder mean
-    :returns: The Hölder mean of nums for the given exponent
-    :rtype: float
+    Args:
+        nums (list): A series of numbers
+        exp (numeric): The exponent of the Hölder mean
 
-    >>> hoelder_mean([1, 2, 3, 4])
-    2.7386127875258306
-    >>> hoelder_mean([1, 2])
-    1.5811388300841898
-    >>> hoelder_mean([0, 5, 1000])
-    577.3574860228857
+    Returns:
+        float: The Hölder mean of nums for the given exponent
+
+    Examples:
+        >>> hoelder_mean([1, 2, 3, 4])
+        2.7386127875258306
+        >>> hoelder_mean([1, 2])
+        1.5811388300841898
+        >>> hoelder_mean([0, 5, 1000])
+        577.3574860228857
+
     """
     if exp == 0:
         return gmean(nums)
@@ -396,16 +452,20 @@ def agmean(nums):
 
     Cf. https://en.wikipedia.org/wiki/Arithmetic-geometric_mean
 
-    :param list nums: A series of numbers
-    :returns: The arithmetic-geometric mean of nums
-    :rtype: float
+    Args:
+        nums (list): A series of numbers
 
-    >>> agmean([1, 2, 3, 4])
-    2.3545004777751077
-    >>> agmean([1, 2])
-    1.4567910310469068
-    >>> agmean([0, 5, 1000])
-    2.9753977059954195e-13
+    Returns:
+        float: The arithmetic-geometric mean of nums
+
+    Examples:
+        >>> agmean([1, 2, 3, 4])
+        2.3545004777751077
+        >>> agmean([1, 2])
+        1.4567910310469068
+        >>> agmean([0, 5, 1000])
+        2.9753977059954195e-13
+
     """
     m_a = amean(nums)
     m_g = gmean(nums)
@@ -424,21 +484,25 @@ def ghmean(nums):
 
     Cf. https://en.wikipedia.org/wiki/Geometric-harmonic_mean
 
-    :param list nums: A series of numbers
-    :returns: The geometric-harmonic mean of nums
-    :rtype: float
+    Args:
+        nums (list): A series of numbers
 
-    >>> ghmean([1, 2, 3, 4])
-    2.058868154613003
-    >>> ghmean([1, 2])
-    1.3728805006183502
-    >>> ghmean([0, 5, 1000])
-    0.0
+    Returns:
+        float: The geometric-harmonic mean of nums
 
-    >>> ghmean([0, 0])
-    0.0
-    >>> ghmean([0, 0, 5])
-    nan
+    Examples:
+        >>> ghmean([1, 2, 3, 4])
+        2.058868154613003
+        >>> ghmean([1, 2])
+        1.3728805006183502
+        >>> ghmean([0, 5, 1000])
+        0.0
+
+        >>> ghmean([0, 0])
+        0.0
+        >>> ghmean([0, 0, 5])
+        nan
+
     """
     m_g = gmean(nums)
     m_h = hmean(nums)
@@ -457,16 +521,20 @@ def aghmean(nums):
     method described by Raïssouli, Leazizi, & Chergui:
     http://www.emis.de/journals/JIPAM/images/014_08_JIPAM/014_08.pdf
 
-    :param list nums: A series of numbers
-    :returns: The arithmetic-geometric-harmonic mean of nums
-    :rtype: float
+    Args:
+        nums (list): A series of numbers
 
-    >>> aghmean([1, 2, 3, 4])
-    2.198327159900212
-    >>> aghmean([1, 2])
-    1.4142135623731884
-    >>> aghmean([0, 5, 1000])
-    335.0
+    Returns:
+        float: The arithmetic-geometric-harmonic mean of nums
+
+    Examples:
+        >>> aghmean([1, 2, 3, 4])
+        2.198327159900212
+        >>> aghmean([1, 2])
+        1.4142135623731884
+        >>> aghmean([0, 5, 1000])
+        335.0
+
     """
     m_a = amean(nums)
     m_g = gmean(nums)
@@ -491,16 +559,20 @@ def midrange(nums):
 
     Cf. https://en.wikipedia.org/wiki/Midrange
 
-    :param list nums: A series of numbers
-    :returns: The midrange of nums
-    :rtype: float
+    Args:
+        nums (list): A series of numbers
 
-    >>> midrange([1, 2, 3])
-    2.0
-    >>> midrange([1, 2, 2, 3])
-    2.0
-    >>> midrange([1, 2, 1000, 3])
-    500.5
+    Returns:
+        float: The midrange of nums
+
+    Examples:
+        >>> midrange([1, 2, 3])
+        2.0
+        >>> midrange([1, 2, 2, 3])
+        2.0
+        >>> midrange([1, 2, 1000, 3])
+        500.5
+
     """
     return 0.5 * (max(nums) + min(nums))
 
@@ -514,16 +586,20 @@ def median(nums):
 
     Cf. https://en.wikipedia.org/wiki/Median
 
-    :param list nums: A series of numbers
-    :returns: The median of nums
-    :rtype: int or float
+    Args:
+        nums (list): A series of numbers
 
-    >>> median([1, 2, 3])
-    2
-    >>> median([1, 2, 3, 4])
-    2.5
-    >>> median([1, 2, 2, 4])
-    2
+    Returns:
+        int or float: The median of nums
+
+    Examples:
+        >>> median([1, 2, 3])
+        2
+        >>> median([1, 2, 3, 4])
+        2.5
+        >>> median([1, 2, 2, 4])
+        2
+
     """
     nums = sorted(nums)
     mag = len(nums)
@@ -542,12 +618,16 @@ def mode(nums):
 
     Cf. https://en.wikipedia.org/wiki/Mode_(statistics)
 
-    :param list nums: A series of numbers
-    :returns: The mode of nums
-    :rtype: float
+    Args:
+        nums (list): A series of numbers
 
-    >>> mode([1, 2, 2, 3])
-    2
+    Returns:
+        int or float: The mode of nums
+
+    Example:
+        >>> mode([1, 2, 2, 3])
+        2
+
     """
     return Counter(nums).most_common(1)[0][0]
 
@@ -555,19 +635,22 @@ def mode(nums):
 def var(nums, mean_func=amean, ddof=0):
     """Calculate the variance.
 
-    :param list nums: A series of numbers
-    :param function mean_func: A mean function (amean by default)
-    :param int ddof: The degrees of freedom (0 by default)
-    :returns: The variance of the values in the series
-    :rtype: float
+    Args:
+        nums (list): A series of numbers
+        mean_func (function): A mean function (amean by default)
+        ddof (int): The degrees of freedom (0 by default)
 
+    Returns:
+        float: The variance of the values in the series
 
-    >>> var([1, 1, 1, 1])
-    0.0
-    >>> var([1, 2, 3, 4])
-    1.25
-    >>> round(var([1, 2, 3, 4], ddof=1), 12)
-    1.666666666667
+    Examples:
+        >>> var([1, 1, 1, 1])
+        0.0
+        >>> var([1, 2, 3, 4])
+        1.25
+        >>> round(var([1, 2, 3, 4], ddof=1), 12)
+        1.666666666667
+
     """
     x_bar = mean_func(nums)
     return sum((x - x_bar) ** 2 for x in nums) / (len(nums) - ddof)
@@ -576,18 +659,22 @@ def var(nums, mean_func=amean, ddof=0):
 def std(nums, mean_func=amean, ddof=0):
     """Return the standard deviation.
 
-    :param list nums: A series of numbers
-    :param function mean_func: A mean function (amean by default)
-    :param int ddof: The degrees of freedom (0 by default)
-    :returns: The standard deviation of the values in the series
-    :rtype: float
+    Args:
+        nums (list): A series of numbers
+        mean_func (function): A mean function (amean by default)
+        ddof (int): The degrees of freedom (0 by default)
 
-    >>> std([1, 1, 1, 1])
-    0.0
-    >>> round(std([1, 2, 3, 4]), 12)
-    1.11803398875
-    >>> round(std([1, 2, 3, 4], ddof=1), 12)
-    1.290994448736
+    Returns:
+        float: The standard deviation of the values in the series
+
+    Examples:
+        >>> std([1, 1, 1, 1])
+        0.0
+        >>> round(std([1, 2, 3, 4]), 12)
+        1.11803398875
+        >>> round(std([1, 2, 3, 4], ddof=1), 12)
+        1.290994448736
+
     """
     return var(nums, mean_func, ddof) ** 0.5
 
