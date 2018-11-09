@@ -82,104 +82,51 @@ from ._NCDbz2 import NCDbz2, dist_ncd_bz2, sim_ncd_bz2
 from ._NCDlzma import NCDlzma, dist_ncd_lzma, sim_ncd_lzma
 from ._NCDrle import NCDrle, dist_ncd_rle, sim_ncd_rle
 from ._NCDzlib import NCDzlib, dist_ncd_zlib, sim_ncd_zlib
-from ._editex import Editex, dist_editex, editex, sim_editex
-from ._eudex import Eudex, dist_eudex, eudex_hamming, sim_eudex
+from ._Editex import Editex, dist_editex, editex, sim_editex
+from ._Eudex import Eudex, dist_eudex, eudex_hamming, sim_eudex
 from ._Hamming import Hamming, dist_hamming, hamming, sim_hamming
 from ._MLIPNS import MLIPNS, dist_mlipns, sim_mlipns
-from ._jaro import (
-    JaroWinkler,
-    Strcmp95,
-    dist_jaro_winkler,
-    dist_strcmp95,
-    sim_jaro_winkler,
-    sim_strcmp95,
-)
-from ._levenshtein import (
-    DamerauLevenshtein,
-    Indel,
+from ._JaroWinkler import JaroWinkler, dist_jaro_winkler, sim_jaro_winkler
+from ._Strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
+from ._Levenshtein import (
     Levenshtein,
-    damerau_levenshtein,
-    dist_damerau,
-    dist_indel,
     dist_levenshtein,
     levenshtein,
-    sim_damerau,
-    sim_indel,
     sim_levenshtein,
 )
-from ._minkowski import (
-    Chebyshev,
-    Euclidean,
-    Manhattan,
-    Minkowski,
-    chebyshev,
-    dist_euclidean,
-    dist_manhattan,
-    dist_minkowski,
-    euclidean,
-    manhattan,
-    minkowski,
-    sim_euclidean,
-    sim_manhattan,
-    sim_minkowski,
+from ._DamerauLevenshtein import (
+    DamerauLevenshtein,
+    damerau_levenshtein,
+    dist_damerau,
+    sim_damerau,
 )
-from ._mra import MRA, dist_mra, mra_compare, sim_mra
-from ._seqalign import (
-    Gotoh,
-    NeedlemanWunsch,
-    SmithWaterman,
-    gotoh,
-    needleman_wunsch,
-    smith_waterman,
-)
-from ._sequence import (
-    LCSseq,
-    LCSstr,
+from ._Indel import Indel, dist_indel, sim_indel
+from ._Chebyshev import Chebyshev, chebyshev
+from ._Euclidean import Euclidean, dist_euclidean, euclidean, sim_euclidean
+from ._Manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
+from ._Minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
+from ._MRA import MRA, dist_mra, mra_compare, sim_mra
+from ._Gotoh import Gotoh, gotoh
+from ._NeedlemanWunsch import NeedlemanWunsch, needleman_wunsch
+from ._SmithWaterman import SmithWaterman, smith_waterman
+from ._LCSseq import LCSseq, dist_lcsseq, lcsseq, sim_lcsseq
+from ._LCSstr import LCSstr, dist_lcsstr, lcsstr, sim_lcsstr
+from ._RatcliffObershelp import (
     RatcliffObershelp,
-    dist_lcsseq,
-    dist_lcsstr,
     dist_ratcliff_obershelp,
-    lcsseq,
-    lcsstr,
-    sim_lcsseq,
-    sim_lcsstr,
     sim_ratcliff_obershelp,
 )
-from ._sift4 import (
-    Sift4,
-    Sift4Simplest,
-    dist_sift4,
-    sift4_common,
-    sift4_simplest,
-    sim_sift4,
-)
-from ._synoname import Synoname, synoname
-from ._token import (
-    Bag,
-    Cosine,
-    Dice,
-    Jaccard,
-    MongeElkan,
-    Overlap,
-    Tversky,
-    bag,
-    dist_bag,
-    dist_cosine,
-    dist_dice,
-    dist_jaccard,
-    dist_monge_elkan,
-    dist_overlap,
-    dist_tversky,
-    sim_bag,
-    sim_cosine,
-    sim_dice,
-    sim_jaccard,
-    sim_monge_elkan,
-    sim_overlap,
-    sim_tversky,
-    tanimoto,
-)
-from ._typo import Typo, dist_typo, sim_typo, typo
+from ._Sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
+from ._Sift4Simplest import Sift4Simplest, sift4_simplest
+from ._Synoname import Synoname, synoname
+from ._Bag import Bag, bag, dist_bag, sim_bag
+from ._Cosine import Cosine, dist_cosine, sim_cosine
+from ._Dice import Dice, dist_dice, sim_dice
+from ._Jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
+from ._MongeElkan import MongeElkan, dist_monge_elkan, sim_monge_elkan
+from ._Overlap import Overlap, dist_overlap, sim_overlap
+from ._Tversky import Tversky, dist_tversky, sim_tversky
+from ._Typo import Typo, dist_typo, sim_typo, typo
 
 __all__ = [
     'sim',
