@@ -16,13 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.fingerprint._speedcop.
+"""abydos.fingerprint._SkeletonKey.
 
-The fingerprint.speedcop module implements string fingerprints developed by
-Pollock & Zomora in :cite:`Pollock:1984`:
-
-    - skeleton key
-    - omission key
+skeleton key
 """
 
 from __future__ import (
@@ -36,9 +32,9 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._fingerprint import Fingerprint
+from ._Fingerprint import Fingerprint
 
-__all__ = ['OmissionKey', 'SkeletonKey', 'omission_key', 'skeleton_key']
+__all__ = ['SkeletonKey', 'skeleton_key']
 
 
 class SkeletonKey(Fingerprint):
@@ -90,6 +86,8 @@ class SkeletonKey(Fingerprint):
 
 def skeleton_key(word):
     """Return the skeleton key.
+
+    This is a wrapper for :py:meth:`SkeletonKey.fingerprint`.
 
     Args:
         word (str): The word to transform into its skeleton key
@@ -153,29 +151,6 @@ class OmissionKey(Fingerprint):
                 key += char
 
         return key
-
-
-def omission_key(word):
-    """Return the omission key.
-
-    This is a wrapper for :py:meth:`OmissionKey.fingerprint`.
-
-    Args:
-        word (str): The word to transform into its omission key
-
-    Returns:
-        str: The omission key
-
-    Examples:
-        >>> omission_key('The quick brown fox jumped over the lazy dog.')
-        'JKQXZVWYBFMGPDHCLNTREUIOA'
-        >>> omission_key('Christopher')
-        'PHCTSRIOE'
-        >>> omission_key('Niall')
-        'LNIA'
-
-    """
-    return OmissionKey().fingerprint(word)
 
 
 if __name__ == '__main__':
