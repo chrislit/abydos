@@ -16,10 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance.mra.
+"""abydos.distance._MRA.
 
-The distance.mra module implements the Match Rating Algorithm's distance
-measure.
+The Match Rating Algorithm's distance measure
 """
 
 from __future__ import (

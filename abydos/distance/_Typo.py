@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance.typo.
+"""abydos.distance._Typo.
 
-The distance.typo module implements typo edit distance functions.
+Typo edit distance functions.
 """
 
 from __future__ import (
@@ -37,7 +37,7 @@ from six.moves import range
 
 from ._Distance import _Distance
 
-__all__ = ['dist_typo', 'sim_typo', 'typo']
+__all__ = ['Typo', 'dist_typo', 'sim_typo', 'typo']
 
 
 class Typo(_Distance):

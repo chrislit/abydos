@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance.synoname.
+"""abydos.distance._Synoname.
 
-The distance.synoname module implements Synoname.
+Synoname.
 """
 
 from __future__ import (
@@ -31,8 +31,8 @@ from __future__ import (
 from collections import Iterable
 
 from ._Distance import _Distance
-from ._levenshtein import levenshtein
-from ._sequence import sim_ratcliff_obershelp
+from ._Levenshtein import levenshtein
+from ._RatcliffObershelp import sim_ratcliff_obershelp
 
 # noinspection PyProtectedMember
 from ..fingerprint._synoname import SynonameToolcode
@@ -661,7 +661,7 @@ def synoname(
 ):
     """Return the Synoname similarity type of two words.
 
-    This is a wrapper for :py:meth:`Synoname.synoname`.
+    This is a wrapper for :py:meth:`Synoname.dist_abs`.
 
     Args:
         src (str): Source string for comparison

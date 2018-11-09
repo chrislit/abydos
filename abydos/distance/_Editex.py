@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance.editex.
+"""abydos.distance._Editex.
 
-The distance.editex module implements editex functions.
+editex
 """
 
 from __future__ import (
@@ -205,6 +205,8 @@ class Editex(_Distance):
 def editex(src, tar, cost=(0, 1, 2), local=False):
     """Return the Editex distance between two strings.
 
+    This is a wrapper for :py:meth:`Editex.dist_abs`.
+
     Args:
         src (str): Source string for comparison
         tar (str): Target string for comparison
@@ -232,6 +234,8 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
 
 def dist_editex(src, tar, cost=(0, 1, 2), local=False):
     """Return the normalized Editex distance between two strings.
+
+    This is a wrapper for :py:meth:`Editex.dist`.
 
     Args:
         src (str): Source string for comparison

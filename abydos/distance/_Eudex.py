@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance.eudex.
+"""abydos.distance._Eudex.
 
-The distance.eudex module implements eudex distance functions.
+eudex distance functions
 """
 
 from __future__ import (

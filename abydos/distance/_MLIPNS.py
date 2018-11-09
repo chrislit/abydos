@@ -28,12 +28,13 @@ from __future__ import (
     unicode_literals,
 )
 
+from ._Distance import _Distance
 from ._Hamming import Hamming
 
 __all__ = ['MLIPNS', 'dist_mlipns', 'sim_mlipns']
 
 
-class MLIPNS(Hamming):
+class MLIPNS(_Distance):
     """MLIPNS similarity.
 
     Modified Language-Independent Product Name Search (MLIPNS) is described in
@@ -42,8 +43,7 @@ class MLIPNS(Hamming):
     similarity.
     """
 
-    # TODO: should Hamming.dist be available? Hamming.dist_abs?
-    # TODO: should we just incorporate a Hamming object?
+    hamming = Hamming()
 
     def sim(self, src, tar, threshold=0.25, max_mismatches=2):
         """Return the MLIPNS similarity of two strings.
@@ -78,7 +78,7 @@ class MLIPNS(Hamming):
             return 0.0
 
         mismatches = 0
-        ham = super(MLIPNS, self).dist_abs(src, tar, diff_lens=True)
+        ham = Hamming().dist_abs(src, tar, diff_lens=True)
         max_length = max(len(src), len(tar))
         while src and tar and mismatches <= max_mismatches:
             if (
@@ -98,6 +98,8 @@ class MLIPNS(Hamming):
 
 def sim_mlipns(src, tar, threshold=0.25, max_mismatches=2):
     """Return the MLIPNS similarity of two strings.
+
+    This is a wrapper for :py:meth:`MLIPNS.sim`.
 
     Args:
         src (str): Source string for comparison
@@ -129,9 +131,7 @@ def sim_mlipns(src, tar, threshold=0.25, max_mismatches=2):
 def dist_mlipns(src, tar, threshold=0.25, max_mismatches=2):
     """Return the MLIPNS distance between two strings.
 
-    MLIPNS distance is the complement of MLIPNS similarity:
-    :math:`dist_{MLIPNS} = 1 - sim_{MLIPNS}`. This function returns only 0.0
-    (distant) or 1.0 (not distant).
+    This is a wrapper for :py:meth:`MLIPNS.dist`.
 
     Args:
         src (str): Source string for comparison
