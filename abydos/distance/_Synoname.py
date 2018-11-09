@@ -35,7 +35,7 @@ from ._Levenshtein import levenshtein
 from ._RatcliffObershelp import sim_ratcliff_obershelp
 
 # noinspection PyProtectedMember
-from ..fingerprint._synoname import SynonameToolcode
+from ..fingerprint._Synoname import SynonameToolcode
 
 __all__ = ['Synoname', 'synoname']
 

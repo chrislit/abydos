@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.fingerprint._synoname.
+"""abydos.fingerprint._Synoname.
 
-The fingerprint.synoname module implements the Synoname toolcode.
+Synoname toolcode.
 """
 
 from __future__ import (
@@ -28,7 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._fingerprint import Fingerprint
+from ._Fingerprint import Fingerprint
 
 __all__ = ['SynonameToolcode', 'synoname_toolcode']
 
