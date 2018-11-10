@@ -38,7 +38,7 @@ from abydos.stemmer import (
 )
 
 # noinspection PyProtectedMember
-from abydos.stemmer._snowball import Snowball
+from abydos.stemmer._Snowball import _Snowball
 
 from .. import _corpus_file
 
@@ -259,7 +259,7 @@ class Porter2TestCases(unittest.TestCase):
 
     def test_has_vowel(self):
         """Test abydos.stemmer._snowball.Snowball._has_vowel."""
-        stmr = Snowball()
+        stmr = _Snowball()
         stmr._vowels = set('aeiouy')  # noqa: SF01
 
         # base case
@@ -291,7 +291,7 @@ class Porter2TestCases(unittest.TestCase):
 
     def test_sb_r1(self):
         """Test abydos.stemmer._snowball.Snowball._sb_r1."""
-        stmr = Snowball()
+        stmr = _Snowball()
         stmr._vowels = set('aeiouy')  # noqa: SF01
 
         # base case
@@ -307,7 +307,7 @@ class Porter2TestCases(unittest.TestCase):
 
     def test_sb_r2(self):
         """Test abydos.stemmer._snowball.Snowball._sb_r2."""
-        stmr = Snowball()
+        stmr = _Snowball()
         stmr._vowels = set('aeiouy')  # noqa: SF01
 
         # base case
@@ -323,7 +323,7 @@ class Porter2TestCases(unittest.TestCase):
 
     def test_sb_ends_in_short_syllable(self):
         """Test abydos.stemmer._snowball.Snowball._sb_ends_in_short_syllable."""  # noqa: E501
-        stmr = Snowball()
+        stmr = _Snowball()
         stmr._vowels = set('aeiouy')  # noqa: SF01
         stmr._codanonvowels = set('bcdfghjklmnpqrstvz\'')  # noqa: SF01
 
@@ -359,7 +359,7 @@ class Porter2TestCases(unittest.TestCase):
 
     def test_sb_short_word(self):
         """Test abydos.stemmer._snowball.Snowball._sb_short_word."""
-        stmr = Snowball()
+        stmr = _Snowball()
         stmr._vowels = set('aeiouy')  # noqa: SF01
         stmr._codanonvowels = set('bcdfghjklmnpqrstvz\'')  # noqa: SF01
 
