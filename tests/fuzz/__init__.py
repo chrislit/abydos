@@ -22,6 +22,13 @@
 This module contains fuzz tests for Abydos
 """
 
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
+
 import os
 import unicodedata
 from random import choice, randint, random

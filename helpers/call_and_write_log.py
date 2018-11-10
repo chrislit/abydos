@@ -30,6 +30,14 @@ Although this isn't a terribly secure script, it's only used in development and
 not included as part of the distributed Abydos package itself. Accordingly,
 I'm suppressing security warnings from flake8.
 """
+
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
+
 import sys
 from subprocess import call  # noqa: S404
 

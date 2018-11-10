@@ -21,7 +21,12 @@
 This module contains unit tests for abydos.corpus._n_gram_corpus
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import unittest
 from collections import Counter
