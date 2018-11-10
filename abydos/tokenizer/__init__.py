@@ -29,7 +29,7 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._qgram import QGrams
+from ._QGrams import QGrams
 
 __all__ = ['QGrams']
 
