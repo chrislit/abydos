@@ -16,10 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic._parmar_kumbharana.
+"""abydos.phonetic._ParmarKumbharana.
 
-The phonetic._parmar_kumbharana module implements the Parmar-Kumbharana
-phonetic algorithm.
+Parmar-Kumbharana phonetic algorithm
 """
 
 from __future__ import (
@@ -31,7 +30,7 @@ from __future__ import (
 
 from six.moves import range
 
-from ._phonetic import Phonetic
+from ._Phonetic import Phonetic
 
 __all__ = ['ParmarKumbharana', 'parmar_kumbharana']
 

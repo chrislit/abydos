@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic._caverphone.
+"""abydos.phonetic._Caverphone.
 
-The phonetic._caverphone module implements the Caverphone phonetic algorithm.
+Caverphone phonetic algorithm
 """
 
 from __future__ import (
@@ -28,7 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._phonetic import Phonetic
+from ._Phonetic import Phonetic
 
 __all__ = ['Caverphone', 'caverphone']
 

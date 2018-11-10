@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic._dolby.
+"""abydos.phonetic._Dolby.
 
-The phonetic._dolby module implements the Dolby Code algorithm.
+Dolby Code
 """
 
 from __future__ import (
@@ -32,7 +32,7 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._phonetic import Phonetic
+from ._Phonetic import Phonetic
 
 __all__ = ['Dolby', 'dolby']
 
@@ -242,8 +242,7 @@ class Dolby(Phonetic):
 def dolby(word, max_length=-1, keep_vowels=False, vowel_char='*'):
     r"""Return the Dolby Code of a name.
 
-    This follows "A Spelling Equivalent Abbreviation Algorithm For Personal
-    Names" from :cite:`Dolby:1970` and :cite:`Cunningham:1969`.
+    This is a wrapper for :py:meth:`Dolby.encode`.
 
     Args:
         word (str): The word to transform

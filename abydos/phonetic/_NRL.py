@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic._nrl.
+"""abydos.phonetic._NRL.
 
-The phonetic._nrl module implements NRL English-to-phoneme algorithm.
+NRL English-to-phoneme algorithm
 """
 
 from __future__ import (
@@ -30,7 +30,7 @@ from __future__ import (
 
 from re import match as re_match
 
-from ._phonetic import Phonetic
+from ._Phonetic import Phonetic
 
 __all__ = ['NRL', 'nrl']
 

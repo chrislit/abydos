@@ -16,10 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic._alpha_sis.
+"""abydos.phonetic._AlphaSIS.
 
-The phonetic._alpha_sis module implements IBM's Alpha Search Inquiry System
-coding.
+IBM's Alpha Search Inquiry System coding
 """
 
 from __future__ import (
@@ -34,7 +33,7 @@ from unicodedata import normalize as unicode_normalize
 from six import text_type
 from six.moves import range
 
-from ._phonetic import Phonetic
+from ._Phonetic import Phonetic
 
 __all__ = ['AlphaSIS', 'alpha_sis']
 

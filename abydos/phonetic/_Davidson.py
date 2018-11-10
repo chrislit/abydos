@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic._davidson.
+"""abydos.phonetic._Davidson.
 
-The phonetic._davidson module implements Davidson's Consonant Code.
+Davidson's Consonant Code.
 """
 
 from __future__ import (
@@ -30,7 +30,7 @@ from __future__ import (
 
 from six import text_type
 
-from ._phonetic import Phonetic
+from ._Phonetic import Phonetic
 
 __all__ = ['Davidson', 'davidson']
 
