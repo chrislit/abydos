@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.stemmer._caumanns.
+"""abydos.stemmer._Caumanns.
 
-The stemmer._caumanns module defines the Caumanns German stemmer.
+Caumanns German stemmer
 """
 
 from __future__ import (
@@ -33,12 +33,12 @@ from unicodedata import normalize
 from six import text_type
 from six.moves import range
 
-from ._stemmer import Stemmer
+from ._Stemmer import _Stemmer
 
 __all__ = ['Caumanns', 'caumanns']
 
 
-class Caumanns(Stemmer):
+class Caumanns(_Stemmer):
     """Caumanns stemmer.
 
     Jörg Caumanns' stemmer is described in his article in
