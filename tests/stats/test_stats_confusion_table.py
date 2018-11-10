@@ -71,10 +71,10 @@ class ConstructorTestCases(unittest.TestCase):
         self.assertEqual(ConfusionTable(), ConfusionTable(0, 0))
         self.assertEqual(ConfusionTable(), ConfusionTable(0, 0, 0))
         self.assertEqual(ConfusionTable(), ConfusionTable(0, 0, 0, 0))
-        self.assertNotEquals(ConfusionTable(), ConfusionTable(1))
-        self.assertNotEquals(ConfusionTable(), ConfusionTable(0, 1))
-        self.assertNotEquals(ConfusionTable(), ConfusionTable(0, 0, 1))
-        self.assertNotEquals(ConfusionTable(), ConfusionTable(0, 0, 0, 1))
+        self.assertNotEqual(ConfusionTable(), ConfusionTable(1))
+        self.assertNotEqual(ConfusionTable(), ConfusionTable(0, 1))
+        self.assertNotEqual(ConfusionTable(), ConfusionTable(0, 0, 1))
+        self.assertNotEqual(ConfusionTable(), ConfusionTable(0, 0, 0, 1))
 
         # test int constructor & __eq__ by value
         self.assertEqual(SCALE_TABLE, ConfusionTable(1, 2, 3, 4))
