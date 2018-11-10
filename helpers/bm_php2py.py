@@ -33,7 +33,12 @@ The file _beider_morse.py may still need manual changes to be made after this
 script is run.
 """
 
-from __future__ import print_function, unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import codecs
 import re

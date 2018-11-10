@@ -21,7 +21,12 @@
 This module contains unit tests for abydos.distance.compression
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import unittest
 

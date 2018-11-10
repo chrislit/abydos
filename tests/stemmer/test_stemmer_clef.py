@@ -21,7 +21,12 @@
 This module contains unit tests for abydos.stemmer._clef
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import unittest
 
