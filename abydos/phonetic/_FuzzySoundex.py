@@ -34,10 +34,7 @@ from six import text_type
 
 from ._Phonetic import Phonetic
 
-__all__ = [
-    'FuzzySoundex',
-    'fuzzy_soundex',
-]
+__all__ = ['FuzzySoundex', 'fuzzy_soundex']
 
 
 class FuzzySoundex(Phonetic):

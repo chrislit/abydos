@@ -32,10 +32,7 @@ from six.moves import range
 
 from ._Phonetic import Phonetic
 
-__all__ = [
-    'RethSchek',
-    'reth_schek_phonetik',
-]
+__all__ = ['RethSchek', 'reth_schek_phonetik']
 
 
 class RethSchek(Phonetic):

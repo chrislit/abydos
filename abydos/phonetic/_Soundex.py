@@ -34,10 +34,7 @@ from six import text_type
 
 from ._Phonetic import Phonetic
 
-__all__ = [
-    'Soundex',
-    'soundex',
-]
+__all__ = ['Soundex', 'soundex']
 
 
 class Soundex(Phonetic):
