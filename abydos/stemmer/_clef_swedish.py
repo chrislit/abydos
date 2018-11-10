@@ -57,35 +57,23 @@ class CLEFSwedish(_Stemmer):
             'viss'
 
         """
-        wlen = len(word) - 1
+        wlen = len(word) - 2
 
-        if wlen > 3 and word[-1] == 's':
+        if wlen > 2 and word[-1] == 's':
             word = word[:-1]
             wlen -= 1
 
-        if wlen > 6:
-            if word[-5:] in {'elser', 'heten'}:
-                return word[:-5]
-        if wlen > 5:
-            if word[-4:] in {
-                'arne',
-                'erna',
-                'ande',
-                'else',
-                'aste',
-                'orna',
-                'aren',
-            }:
-                return word[:-4]
-        if wlen > 4:
-            if word[-3:] in {'are', 'ast', 'het'}:
-                return word[:-3]
-        if wlen > 3:
-            if word[-2:] in {'ar', 'er', 'or', 'en', 'at', 'te', 'et'}:
-                return word[:-2]
-        if wlen > 2:
-            if word[-1] in {'a', 'e', 'n', 't'}:
-                return word[:-1]
+        _endings = {
+            5: {'elser', 'heten'},
+            4: {'arne', 'erna', 'ande', 'else', 'aste', 'orna', 'aren'},
+            3: {'are', 'ast', 'het'},
+            2: {'ar', 'er', 'or', 'en', 'at', 'te', 'et'},
+            1: {'a', 'e', 'n', 't'},
+        }
+
+        for end_len in range(5, 0, -1):
+            if wlen > end_len and word[-end_len:] in _endings[end_len]:
+                return word[:-end_len]
         return word
 
 
