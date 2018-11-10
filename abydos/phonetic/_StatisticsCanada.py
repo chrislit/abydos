@@ -16,10 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic._statistics_canada.
+"""abydos.phonetic._StatisticsCanada.
 
-The phonetic._statistics_canada module implements the Statistics Canada
-phonetic encoding.
+Statistics Canada phonetic encoding
 """
 
 from __future__ import (
@@ -33,7 +32,7 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._phonetic import Phonetic
+from ._Phonetic import Phonetic
 
 __all__ = ['StatisticsCanada', 'statistics_canada']
 

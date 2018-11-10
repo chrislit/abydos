@@ -20,10 +20,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic._bmpm.
+"""abydos.phonetic._BeiderMorse.
 
-The phonetic._bmpm module implements the Beider-Morse Phonentic Matching (BMPM)
-algorithm.
+Beider-Morse Phonetic Matching (BMPM) algorithm
 """
 
 from __future__ import (
@@ -63,7 +62,7 @@ from ._bmdata import (
     L_SPANISH,
     L_TURKISH,
 )
-from ._phonetic import Phonetic
+from ._Phonetic import Phonetic
 
 __all__ = ['BeiderMorse', 'bmpm']
 

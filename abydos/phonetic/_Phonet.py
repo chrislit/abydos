@@ -16,10 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic._phonet.
+"""abydos.phonetic._Phonet.
 
-The phonetic._phonet module implements phonet algorithm (a.k.a. Hannoveraner
-Phonetik), intended chiefly for German.
+phonet algorithm (a.k.a. Hannoveraner Phonetik), intended chiefly for German
 """
 
 from __future__ import (
@@ -35,7 +34,7 @@ from unicodedata import normalize as unicode_normalize
 from six import text_type
 from six.moves import range
 
-from ._phonetic import Phonetic
+from ._Phonetic import Phonetic
 
 __all__ = ['Phonet', 'phonet']
 

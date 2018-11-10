@@ -16,10 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic._nysiis.
+"""abydos.phonetic._NYSIIS.
 
-The phonetic._nysiis module implements New York State Identification and
-Intelligence System (NYSIIS) phonetic encoding.
+New York State Identification and Intelligence System (NYSIIS) phonetic
+encoding
 """
 
 from __future__ import (
@@ -31,7 +31,7 @@ from __future__ import (
 
 from six.moves import range
 
-from ._phonetic import Phonetic
+from ._Phonetic import Phonetic
 
 __all__ = ['NYSIIS', 'nysiis']
 
@@ -217,7 +217,7 @@ class NYSIIS(Phonetic):
 def nysiis(word, max_length=6, modified=False):
     """Return the NYSIIS code for a word.
 
-    This is a wrapper for :py:meth:`Metaphone.encode`.
+    This is a wrapper for :py:meth:`NYSIIS.encode`.
 
     Args:
         word (str): The word to transform

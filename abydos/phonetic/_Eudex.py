@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.phonetic._eudex.
+"""abydos.phonetic._Eudex.
 
-The phonetic._eudex module implements the Eudex phonetic hash.
+Eudex phonetic hash
 """
 
 from __future__ import (
@@ -30,7 +30,7 @@ from __future__ import (
 
 from six.moves import range
 
-from ._phonetic import Phonetic
+from ._Phonetic import Phonetic
 
 __all__ = ['Eudex', 'eudex']
 
