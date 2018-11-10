@@ -18,75 +18,85 @@
 
 """abydos.tests.distance.test_distance_baystat.
 
-This module contains unit tests for abydos.distance._baystat
+This module contains unit tests for abydos.distance.Baystat
 """
 
 from __future__ import division, unicode_literals
 
 import unittest
 
-from abydos.distance import dist_baystat, sim_baystat
+from abydos.distance import Baystat, dist_baystat, sim_baystat
 
 
 class BaystatTestCases(unittest.TestCase):
     """Test Baystat functions.
 
-    abydos.distance._baystat.sim_baystat & .dist_baystat
+    abydos.distance.Baystat
     """
 
+    cmp = Baystat()
+
     def test_sim_baystat(self):
-        """Test abydos.distance._baystat.sim_baystat."""
+        """Test abydos.distance.Baystat.sim."""
         # Base cases
-        self.assertEqual(sim_baystat('', ''), 1)
-        self.assertEqual(sim_baystat('Colin', ''), 0)
-        self.assertEqual(sim_baystat('Colin', 'Colin'), 1)
+        self.assertEqual(self.cmp.sim('', ''), 1)
+        self.assertEqual(self.cmp.sim('Colin', ''), 0)
+        self.assertEqual(self.cmp.sim('Colin', 'Colin'), 1)
 
         # Examples given in the paper
         # https://www.statistik.bayern.de/medien/statistik/zensus/zusammenf__hrung_von_datenbest__nden_ohne_numerische_identifikatoren.pdf
-        self.assertAlmostEqual(sim_baystat('DRAKOMENA', 'DRAOMINA'), 7 / 9)
-        self.assertAlmostEqual(sim_baystat('RIEKI', 'RILKI'), 4 / 5)
-        self.assertAlmostEqual(sim_baystat('ATANASSIONI', 'ATANASIOU'), 8 / 11)
+        self.assertAlmostEqual(self.cmp.sim('DRAKOMENA', 'DRAOMINA'), 7 / 9)
+        self.assertAlmostEqual(self.cmp.sim('RIEKI', 'RILKI'), 4 / 5)
         self.assertAlmostEqual(
-            sim_baystat('LIESKOVSKY', 'LIESZKOVSZKY'), 10 / 12
+            self.cmp.sim('ATANASSIONI', 'ATANASIOU'), 8 / 11
         )
-        self.assertAlmostEqual(sim_baystat('JEANETTE', 'JEANNETTE'), 8 / 9)
-        self.assertAlmostEqual(sim_baystat('JOHANNES', 'JOHAN'), 0.625)
-        self.assertAlmostEqual(sim_baystat('JOHANNES', 'HANS'), 0.375)
-        self.assertAlmostEqual(sim_baystat('JOHANNES', 'HANNES'), 0.75)
-        self.assertAlmostEqual(sim_baystat('ZIMMERMANN', 'SEMMERMANN'), 0.8)
-        self.assertAlmostEqual(sim_baystat('ZIMMERMANN', 'ZIMMERER'), 0.6)
-        self.assertAlmostEqual(sim_baystat('ZIMMERMANN', 'ZIMMER'), 0.6)
+        self.assertAlmostEqual(
+            self.cmp.sim('LIESKOVSKY', 'LIESZKOVSZKY'), 10 / 12
+        )
+        self.assertAlmostEqual(self.cmp.sim('JEANETTE', 'JEANNETTE'), 8 / 9)
+        self.assertAlmostEqual(self.cmp.sim('JOHANNES', 'JOHAN'), 0.625)
+        self.assertAlmostEqual(self.cmp.sim('JOHANNES', 'HANS'), 0.375)
+        self.assertAlmostEqual(self.cmp.sim('JOHANNES', 'HANNES'), 0.75)
+        self.assertAlmostEqual(self.cmp.sim('ZIMMERMANN', 'SEMMERMANN'), 0.8)
+        self.assertAlmostEqual(self.cmp.sim('ZIMMERMANN', 'ZIMMERER'), 0.6)
+        self.assertAlmostEqual(self.cmp.sim('ZIMMERMANN', 'ZIMMER'), 0.6)
 
         # Tests to maximize coverage
         self.assertAlmostEqual(
-            sim_baystat('ZIMMERMANN', 'SEMMERMANN', 2, 2, 2), 0.8
+            self.cmp.sim('ZIMMERMANN', 'SEMMERMANN', 2, 2, 2), 0.8
         )
-        self.assertAlmostEqual(sim_baystat('ZIMMER', 'ZIMMERMANN'), 0.6)
+        self.assertAlmostEqual(self.cmp.sim('ZIMMER', 'ZIMMERMANN'), 0.6)
+
+        # Test wrapper
+        self.assertAlmostEqual(sim_baystat('ZIMMERMANN', 'SEMMERMANN'), 0.8)
 
     def test_dist_baystat(self):
-        """Test abydos.distance._baystat.dist_baystat."""
+        """Test abydos.distance.Baystat.dist."""
         # Base cases
-        self.assertEqual(dist_baystat('', ''), 0)
-        self.assertEqual(dist_baystat('Colin', ''), 1)
-        self.assertEqual(dist_baystat('Colin', 'Colin'), 0)
+        self.assertEqual(self.cmp.dist('', ''), 0)
+        self.assertEqual(self.cmp.dist('Colin', ''), 1)
+        self.assertEqual(self.cmp.dist('Colin', 'Colin'), 0)
 
         # Examples given in the paper
         # https://www.statistik.bayern.de/medien/statistik/zensus/zusammenf__hrung_von_datenbest__nden_ohne_numerische_identifikatoren.pdf
-        self.assertAlmostEqual(dist_baystat('DRAKOMENA', 'DRAOMINA'), 2 / 9)
-        self.assertAlmostEqual(dist_baystat('RIEKI', 'RILKI'), 1 / 5)
+        self.assertAlmostEqual(self.cmp.dist('DRAKOMENA', 'DRAOMINA'), 2 / 9)
+        self.assertAlmostEqual(self.cmp.dist('RIEKI', 'RILKI'), 1 / 5)
         self.assertAlmostEqual(
-            dist_baystat('ATANASSIONI', 'ATANASIOU'), 3 / 11
+            self.cmp.dist('ATANASSIONI', 'ATANASIOU'), 3 / 11
         )
         self.assertAlmostEqual(
-            dist_baystat('LIESKOVSKY', 'LIESZKOVSZKY'), 2 / 12
+            self.cmp.dist('LIESKOVSKY', 'LIESZKOVSZKY'), 2 / 12
         )
-        self.assertAlmostEqual(dist_baystat('JEANETTE', 'JEANNETTE'), 1 / 9)
-        self.assertAlmostEqual(dist_baystat('JOHANNES', 'JOHAN'), 0.375)
-        self.assertAlmostEqual(dist_baystat('JOHANNES', 'HANS'), 0.625)
-        self.assertAlmostEqual(dist_baystat('JOHANNES', 'HANNES'), 0.25)
+        self.assertAlmostEqual(self.cmp.dist('JEANETTE', 'JEANNETTE'), 1 / 9)
+        self.assertAlmostEqual(self.cmp.dist('JOHANNES', 'JOHAN'), 0.375)
+        self.assertAlmostEqual(self.cmp.dist('JOHANNES', 'HANS'), 0.625)
+        self.assertAlmostEqual(self.cmp.dist('JOHANNES', 'HANNES'), 0.25)
+        self.assertAlmostEqual(self.cmp.dist('ZIMMERMANN', 'SEMMERMANN'), 0.2)
+        self.assertAlmostEqual(self.cmp.dist('ZIMMERMANN', 'ZIMMERER'), 0.4)
+        self.assertAlmostEqual(self.cmp.dist('ZIMMERMANN', 'ZIMMER'), 0.4)
+
+        # Test wrapper
         self.assertAlmostEqual(dist_baystat('ZIMMERMANN', 'SEMMERMANN'), 0.2)
-        self.assertAlmostEqual(dist_baystat('ZIMMERMANN', 'ZIMMERER'), 0.4)
-        self.assertAlmostEqual(dist_baystat('ZIMMERMANN', 'ZIMMER'), 0.4)
 
 
 if __name__ == '__main__':
