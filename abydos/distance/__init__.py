@@ -71,46 +71,49 @@ from __future__ import (
     print_function,
 )
 
-from ._Ident import Ident, dist_ident, sim_ident
-from ._Length import Length, dist_length, sim_length
-from ._Prefix import Prefix, dist_prefix, sim_prefix
-from ._Suffix import Suffix, dist_suffix, sim_suffix
+from ._Bag import Bag, bag, dist_bag, sim_bag
 from ._Baystat import Baystat, dist_baystat, sim_baystat
-from ._NCDarith import NCDarith, dist_ncd_arith, sim_ncd_arith
-from ._NCDbwtrle import NCDbwtrle, dist_ncd_bwtrle, sim_ncd_bwtrle
-from ._NCDbz2 import NCDbz2, dist_ncd_bz2, sim_ncd_bz2
-from ._NCDlzma import NCDlzma, dist_ncd_lzma, sim_ncd_lzma
-from ._NCDrle import NCDrle, dist_ncd_rle, sim_ncd_rle
-from ._NCDzlib import NCDzlib, dist_ncd_zlib, sim_ncd_zlib
-from ._Editex import Editex, dist_editex, editex, sim_editex
-from ._Eudex import Eudex, dist_eudex, eudex_hamming, sim_eudex
-from ._Hamming import Hamming, dist_hamming, hamming, sim_hamming
-from ._MLIPNS import MLIPNS, dist_mlipns, sim_mlipns
-from ._JaroWinkler import JaroWinkler, dist_jaro_winkler, sim_jaro_winkler
-from ._Strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
-from ._Levenshtein import (
-    Levenshtein,
-    dist_levenshtein,
-    levenshtein,
-    sim_levenshtein,
-)
+from ._Chebyshev import Chebyshev, chebyshev
+from ._Cosine import Cosine, dist_cosine, sim_cosine
 from ._DamerauLevenshtein import (
     DamerauLevenshtein,
     damerau_levenshtein,
     dist_damerau,
     sim_damerau,
 )
-from ._Indel import Indel, dist_indel, sim_indel
-from ._Chebyshev import Chebyshev, chebyshev
+from ._Dice import Dice, dist_dice, sim_dice
+from ._Editex import Editex, dist_editex, editex, sim_editex
 from ._Euclidean import Euclidean, dist_euclidean, euclidean, sim_euclidean
-from ._Manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
-from ._Minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
-from ._MRA import MRA, dist_mra, mra_compare, sim_mra
+from ._Eudex import Eudex, dist_eudex, eudex_hamming, sim_eudex
 from ._Gotoh import Gotoh, gotoh
-from ._NeedlemanWunsch import NeedlemanWunsch, needleman_wunsch
-from ._SmithWaterman import SmithWaterman, smith_waterman
+from ._Hamming import Hamming, dist_hamming, hamming, sim_hamming
+from ._Ident import Ident, dist_ident, sim_ident
+from ._Indel import Indel, dist_indel, sim_indel
+from ._Jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
+from ._JaroWinkler import JaroWinkler, dist_jaro_winkler, sim_jaro_winkler
 from ._LCSseq import LCSseq, dist_lcsseq, lcsseq, sim_lcsseq
 from ._LCSstr import LCSstr, dist_lcsstr, lcsstr, sim_lcsstr
+from ._Length import Length, dist_length, sim_length
+from ._Levenshtein import (
+    Levenshtein,
+    dist_levenshtein,
+    levenshtein,
+    sim_levenshtein,
+)
+from ._MLIPNS import MLIPNS, dist_mlipns, sim_mlipns
+from ._MRA import MRA, dist_mra, mra_compare, sim_mra
+from ._Manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
+from ._Minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
+from ._MongeElkan import MongeElkan, dist_monge_elkan, sim_monge_elkan
+from ._NCDarith import NCDarith, dist_ncd_arith, sim_ncd_arith
+from ._NCDbwtrle import NCDbwtrle, dist_ncd_bwtrle, sim_ncd_bwtrle
+from ._NCDbz2 import NCDbz2, dist_ncd_bz2, sim_ncd_bz2
+from ._NCDlzma import NCDlzma, dist_ncd_lzma, sim_ncd_lzma
+from ._NCDrle import NCDrle, dist_ncd_rle, sim_ncd_rle
+from ._NCDzlib import NCDzlib, dist_ncd_zlib, sim_ncd_zlib
+from ._NeedlemanWunsch import NeedlemanWunsch, needleman_wunsch
+from ._Overlap import Overlap, dist_overlap, sim_overlap
+from ._Prefix import Prefix, dist_prefix, sim_prefix
 from ._RatcliffObershelp import (
     RatcliffObershelp,
     dist_ratcliff_obershelp,
@@ -118,15 +121,12 @@ from ._RatcliffObershelp import (
 )
 from ._Sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
 from ._Sift4Simplest import Sift4Simplest, sift4_simplest
+from ._SmithWaterman import SmithWaterman, smith_waterman
+from ._Strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
+from ._Suffix import Suffix, dist_suffix, sim_suffix
 from ._Synoname import Synoname, synoname
-from ._Bag import Bag, bag, dist_bag, sim_bag
-from ._Cosine import Cosine, dist_cosine, sim_cosine
-from ._Dice import Dice, dist_dice, sim_dice
-from ._Jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
-from ._MongeElkan import MongeElkan, dist_monge_elkan, sim_monge_elkan
-from ._Overlap import Overlap, dist_overlap, sim_overlap
-from ._Tversky import Tversky, dist_tversky, sim_tversky
 from ._Typo import Typo, dist_typo, sim_typo, typo
+from ._Tversky import Tversky, dist_tversky, sim_tversky
 
 __all__ = [
     'sim',

@@ -38,6 +38,7 @@ from __future__ import (
     unicode_literals,
 )
 
+from ._Count import Count, count_fingerprint
 from ._Fingerprint import (
     MOST_COMMON_LETTERS,
     MOST_COMMON_LETTERS_CG,
@@ -45,15 +46,14 @@ from ._Fingerprint import (
     MOST_COMMON_LETTERS_DE_LC,
     MOST_COMMON_LETTERS_EN_LC,
 )
-from ._PhoneticFingerprint import PhoneticFingerprint, phonetic_fingerprint
-from ._QGramFingerprint import QGramFingerprint, qgram_fingerprint
-from ._StringFingerprint import StringFingerprint, str_fingerprint
-from ._Position import Position, position_fingerprint
-from ._Count import Count, count_fingerprint
 from ._Occurrence import Occurrence, occurrence_fingerprint
 from ._OccurrenceHalved import OccurrenceHalved, occurrence_halved_fingerprint
 from ._OmissionKey import OmissionKey, omission_key
+from ._PhoneticFingerprint import PhoneticFingerprint, phonetic_fingerprint
+from ._Position import Position, position_fingerprint
+from ._QGramFingerprint import QGramFingerprint, qgram_fingerprint
 from ._SkeletonKey import SkeletonKey, skeleton_key
+from ._StringFingerprint import StringFingerprint, str_fingerprint
 from ._Synoname import SynonameToolcode, synoname_toolcode
 
 __all__ = [
