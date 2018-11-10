@@ -18,7 +18,7 @@
 
 """abydos.tests.corpus.test_corpus_corpus.
 
-This module contains unit tests for abydos.corpus._corpus
+This module contains unit tests for abydos.corpus.Corpus
 """
 
 from __future__ import unicode_literals
@@ -71,7 +71,7 @@ class CorpusTestCases(unittest.TestCase):
     sotu2015Corpus = Corpus(sotu2015Sample, filter_chars='.?-;,:')
 
     def test_corpus(self):
-        """Test abydos.corpus._corpus.Corpus."""
+        """Test abydos.corpus.Corpus."""
         # base cases
         self.assertEqual(Corpus().corpus, [])
         self.assertEqual(Corpus('').corpus, [])
@@ -204,7 +204,7 @@ class CorpusTestCases(unittest.TestCase):
         )
 
     def test_corpus_docs_sents_words(self):
-        """Test abydos.corpus._corpus.Corpus.docs, .sents, .words, .docs_of_words, .raw."""  # noqa: E501
+        """Test abydos.corpus.Corpus.docs, .sents, .words, .docs_of_words, .raw."""  # noqa: E501
         doc_str = 'a b c d\n\ne f g\nh i j\nk'
         doc_corp = Corpus(doc_str)
 
@@ -238,7 +238,7 @@ class CorpusTestCases(unittest.TestCase):
         self.assertEqual(doc_corp.raw(), doc_str)
 
     def test_corpus_idf(self):
-        """Test abydos.corpus._corpus.Corpus.idf."""
+        """Test abydos.corpus.Corpus.idf."""
         wiki_idf_sample = 'this is a a sample\n\nthis is another another \
         example example example'
         wiki_idf_corpus = Corpus(wiki_idf_sample)

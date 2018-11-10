@@ -18,7 +18,7 @@
 
 """abydos.tests.compression.test_compression_arithmetic.
 
-This module contains unit tests for abydos.compression._arithmetic
+This module contains unit tests for abydos.compression.Arithmetic
 """
 
 from __future__ import unicode_literals
@@ -26,13 +26,13 @@ from __future__ import unicode_literals
 import unittest
 from fractions import Fraction
 
-from abydos.compression import ac_decode, ac_encode, ac_train
+from abydos.compression import Arithmetic, ac_decode, ac_encode, ac_train
 
 from .. import NIALL
 
 
 class ArithmeticCoderTestCases(unittest.TestCase):
-    """Test abydos.compression._arithmetic.train & ._arithmetic.encode."""
+    """Test abydos.compression.Arithmetic.train & .Arithmetic.encode."""
 
     niall_probs = {
         'a': (Fraction(41, 57), Fraction(91, 114)),
@@ -58,49 +58,63 @@ class ArithmeticCoderTestCases(unittest.TestCase):
         'n': (Fraction(107, 114), Fraction(18, 19)),
     }
 
+    coder = Arithmetic()
+
     def test_arithmetic_train(self):
-        """Test abydos.compression._arithmetic.train."""
-        self.assertEqual(ac_train(''), {'\x00': (0, 1)})
-        self.assertEqual(ac_train(' '.join(NIALL)), self.niall_probs)
+        """Test abydos.compression.Arithmetic.train."""
+        self.coder.train('')
+        self.assertEqual(self.coder.get_probs(), {'\x00': (0, 1)})
+        self.coder.train(' '.join(NIALL))
+        self.assertEqual(self.coder.get_probs(), self.niall_probs)
+        self.coder.train(' '.join(sorted(NIALL)))
+        self.assertEqual(self.coder.get_probs(), self.niall_probs)
+
+        self.coder.train(' '.join(NIALL))
+        niall_probs_new = self.coder.get_probs()
+        self.coder.train(' '.join(sorted(NIALL)))
+        self.assertEqual(niall_probs_new, self.coder.get_probs())
+
+        self.coder.train('\x00'.join(NIALL))
+        self.assertEqual(niall_probs_new, self.coder.get_probs())
+        # Test wrapper
         self.assertEqual(ac_train(' '.join(sorted(NIALL))), self.niall_probs)
-        self.assertEqual(
-            ac_train(' '.join(NIALL)), ac_train(' '.join(sorted(NIALL)))
-        )
-        self.assertEqual(
-            ac_train(' '.join(NIALL)), ac_train('\x00'.join(NIALL))
-        )
 
     def test_arithmetic_encode(self):
-        """Test abydos.compression._arithmetic.encode."""
-        self.assertEqual(ac_encode('', self.niall_probs), (254, 8))
-        self.assertEqual(ac_encode('a', self.niall_probs), (3268, 12))
+        """Test abydos.compression.Arithmetic.encode."""
+        self.coder.set_probs(self.niall_probs)
+        self.assertEqual(self.coder.encode(''), (254, 8))
+        self.assertEqual(self.coder.encode('a'), (3268, 12))
+        self.assertEqual(self.coder.encode('Niall'), (3911665, 23))
+        self.assertEqual(self.coder.encode('Ni\x00ll'), (1932751, 22))
+        self.assertEqual(self.coder.encode('Niel'), (486801, 20))
+        self.assertEqual(self.coder.encode('Mean'), (243067161, 28))
+        self.assertEqual(
+            self.coder.encode('Neil Noígíallach'), (2133315320471368785758, 72)
+        )
+        self.assertRaises(KeyError, self.coder.encode, 'NIALL')
+        self.coder.set_probs({'\x00': (0, 1)})
+        self.assertEqual(self.coder.encode(''), (1, 1))
+        # Test wrapper
         self.assertEqual(ac_encode('Niall', self.niall_probs), (3911665, 23))
-        self.assertEqual(
-            ac_encode('Ni\x00ll', self.niall_probs), (1932751, 22)
-        )
-        self.assertEqual(ac_encode('Niel', self.niall_probs), (486801, 20))
-        self.assertEqual(ac_encode('Mean', self.niall_probs), (243067161, 28))
-        self.assertEqual(
-            ac_encode('Neil Noígíallach', self.niall_probs),
-            (2133315320471368785758, 72),
-        )
-        self.assertRaises(KeyError, ac_encode, 'NIALL', self.niall_probs)
-        self.assertEqual(ac_encode('', {'\x00': (0, 1)}), (1, 1))
 
     def test_arithmetic_decode(self):
-        """Test abydos.compression._arithmetic.decode."""
-        self.assertEqual(ac_decode(254, 8, self.niall_probs), '')
-        self.assertEqual(ac_decode(3268, 12, self.niall_probs), 'a')
-        self.assertEqual(ac_decode(3911665, 23, self.niall_probs), 'Niall')
-        self.assertEqual(ac_decode(1932751, 22, self.niall_probs), 'Ni ll')
-        self.assertEqual(ac_decode(486801, 20, self.niall_probs), 'Niel')
-        self.assertEqual(ac_decode(243067161, 28, self.niall_probs), 'Mean')
+        """Test abydos.compression.Arithmetic.decode."""
+        self.coder.set_probs(self.niall_probs)
+        self.assertEqual(self.coder.decode(254, 8), '')
+        self.assertEqual(self.coder.decode(3268, 12), 'a')
+        self.assertEqual(self.coder.decode(3911665, 23), 'Niall')
+        self.assertEqual(self.coder.decode(1932751, 22), 'Ni ll')
+        self.assertEqual(self.coder.decode(486801, 20), 'Niel')
+        self.assertEqual(self.coder.decode(243067161, 28), 'Mean')
         self.assertEqual(
-            ac_decode(2133315320471368785758, 72, self.niall_probs),
-            'Neil Noígíallach',
+            self.coder.decode(2133315320471368785758, 72), 'Neil Noígíallach'
         )
-        self.assertEqual(ac_decode(0, 0, {}), '')
-        self.assertEqual(ac_decode(1, 1, {'\x00': (0, 1)}), '')
+        self.coder.set_probs({})
+        self.assertEqual(self.coder.decode(0, 0), '')
+        self.coder.set_probs({'\x00': (0, 1)})
+        self.assertEqual(self.coder.decode(1, 1), '')
+        # Test wrapper
+        self.assertEqual(ac_decode(3911665, 23, self.niall_probs), 'Niall')
 
 
 if __name__ == '__main__':
