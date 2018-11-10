@@ -28,8 +28,6 @@ from __future__ import (
     unicode_literals,
 )
 
-from math import log
-
 from ._Tversky import Tversky
 
 __all__ = ['Dice', 'dist_dice', 'sim_dice']

@@ -28,8 +28,6 @@ from __future__ import (
     unicode_literals,
 )
 
-from six.moves import range
-
 from ._Distance import _Distance
 
 __all__ = ['Length', 'dist_length', 'sim_length']
