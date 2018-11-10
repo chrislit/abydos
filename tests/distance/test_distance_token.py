@@ -21,147 +21,46 @@
 This module contains unit tests for abydos.distance._token
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import math
 import unittest
 
 from abydos.distance import (
+    Bag,
     bag,
     dist_bag,
-    dist_cosine,
-    dist_dice,
-    dist_jaccard,
-    dist_monge_elkan,
-    dist_overlap,
-    dist_tversky,
     sim_bag,
+
+    Cosine,
+    dist_cosine,
     sim_cosine,
+
+    Dice,
+    dist_dice,
     sim_dice,
+
+    Jaccard,
+    dist_jaccard,
     sim_jaccard,
-    sim_monge_elkan,
-    sim_overlap,
-    sim_tversky,
     tanimoto,
+
+    MongeElkan,
+    dist_monge_elkan,
+    sim_monge_elkan,
+
+    Overlap,
+    dist_overlap,
+    sim_overlap,
 )
 from abydos.tokenizer import QGrams
 
 from .. import NONQ_FROM, NONQ_TO
-
-
-class TverskyIndexTestCases(unittest.TestCase):
-    """Test Tversky functions.
-
-    abydos.distance._token.sim_tversky & .dist_tversky
-    """
-
-    def test_sim_tversky(self):
-        """Test abydos.distance._token.sim_tversky."""
-        self.assertEqual(sim_tversky('', ''), 1)
-        self.assertEqual(sim_tversky('nelson', ''), 0)
-        self.assertEqual(sim_tversky('', 'neilsen'), 0)
-        self.assertAlmostEqual(sim_tversky('nelson', 'neilsen'), 4 / 11)
-
-        self.assertEqual(sim_tversky('', '', 2), 1)
-        self.assertEqual(sim_tversky('nelson', '', 2), 0)
-        self.assertEqual(sim_tversky('', 'neilsen', 2), 0)
-        self.assertAlmostEqual(sim_tversky('nelson', 'neilsen', 2), 4 / 11)
-
-        # test valid alpha & beta
-        self.assertRaises(ValueError, sim_tversky, 'abcd', 'dcba', 2, -1, -1)
-        self.assertRaises(ValueError, sim_tversky, 'abcd', 'dcba', 2, -1, 0)
-        self.assertRaises(ValueError, sim_tversky, 'abcd', 'dcba', 2, 0, -1)
-
-        # test empty QGrams
-        self.assertAlmostEqual(sim_tversky('nelson', 'neilsen', 7), 0.0)
-
-        # test unequal alpha & beta
-        self.assertAlmostEqual(sim_tversky('niall', 'neal', 2, 2, 1), 3 / 11)
-        self.assertAlmostEqual(sim_tversky('niall', 'neal', 2, 1, 2), 3 / 10)
-        self.assertAlmostEqual(sim_tversky('niall', 'neal', 2, 2, 2), 3 / 13)
-
-        # test bias parameter
-        self.assertAlmostEqual(
-            sim_tversky('niall', 'neal', 2, 1, 1, 0.5), 7 / 11
-        )
-        self.assertAlmostEqual(
-            sim_tversky('niall', 'neal', 2, 2, 1, 0.5), 7 / 9
-        )
-        self.assertAlmostEqual(
-            sim_tversky('niall', 'neal', 2, 1, 2, 0.5), 7 / 15
-        )
-        self.assertAlmostEqual(
-            sim_tversky('niall', 'neal', 2, 2, 2, 0.5), 7 / 11
-        )
-
-        # supplied q-gram tests
-        self.assertEqual(sim_tversky(QGrams(''), QGrams('')), 1)
-        self.assertEqual(sim_tversky(QGrams('nelson'), QGrams('')), 0)
-        self.assertEqual(sim_tversky(QGrams(''), QGrams('neilsen')), 0)
-        self.assertAlmostEqual(
-            sim_tversky(QGrams('nelson'), QGrams('neilsen')), 4 / 11
-        )
-
-        # non-q-gram tests
-        self.assertEqual(sim_tversky('', '', 0), 1)
-        self.assertEqual(sim_tversky('the quick', '', 0), 0)
-        self.assertEqual(sim_tversky('', 'the quick', 0), 0)
-        self.assertAlmostEqual(sim_tversky(NONQ_FROM, NONQ_TO, 0), 1 / 3)
-        self.assertAlmostEqual(sim_tversky(NONQ_TO, NONQ_FROM, 0), 1 / 3)
-
-    def test_dist_tversky(self):
-        """Test abydos.distance._token.dist_tversky."""
-        self.assertEqual(dist_tversky('', ''), 0)
-        self.assertEqual(dist_tversky('nelson', ''), 1)
-        self.assertEqual(dist_tversky('', 'neilsen'), 1)
-        self.assertAlmostEqual(dist_tversky('nelson', 'neilsen'), 7 / 11)
-
-        self.assertEqual(dist_tversky('', '', 2), 0)
-        self.assertEqual(dist_tversky('nelson', '', 2), 1)
-        self.assertEqual(dist_tversky('', 'neilsen', 2), 1)
-        self.assertAlmostEqual(dist_tversky('nelson', 'neilsen', 2), 7 / 11)
-
-        # test valid alpha & beta
-        self.assertRaises(ValueError, dist_tversky, 'abcd', 'dcba', 2, -1, -1)
-        self.assertRaises(ValueError, dist_tversky, 'abcd', 'dcba', 2, -1, 0)
-        self.assertRaises(ValueError, dist_tversky, 'abcd', 'dcba', 2, 0, -1)
-
-        # test empty QGrams
-        self.assertAlmostEqual(dist_tversky('nelson', 'neilsen', 7), 1.0)
-
-        # test unequal alpha & beta
-        self.assertAlmostEqual(dist_tversky('niall', 'neal', 2, 2, 1), 8 / 11)
-        self.assertAlmostEqual(dist_tversky('niall', 'neal', 2, 1, 2), 7 / 10)
-        self.assertAlmostEqual(dist_tversky('niall', 'neal', 2, 2, 2), 10 / 13)
-
-        # test bias parameter
-        self.assertAlmostEqual(
-            dist_tversky('niall', 'neal', 2, 1, 1, 0.5), 4 / 11
-        )
-        self.assertAlmostEqual(
-            dist_tversky('niall', 'neal', 2, 2, 1, 0.5), 2 / 9
-        )
-        self.assertAlmostEqual(
-            dist_tversky('niall', 'neal', 2, 1, 2, 0.5), 8 / 15
-        )
-        self.assertAlmostEqual(
-            dist_tversky('niall', 'neal', 2, 2, 2, 0.5), 4 / 11
-        )
-
-        # supplied q-gram tests
-        self.assertEqual(dist_tversky(QGrams(''), QGrams('')), 0)
-        self.assertEqual(dist_tversky(QGrams('nelson'), QGrams('')), 1)
-        self.assertEqual(dist_tversky(QGrams(''), QGrams('neilsen')), 1)
-        self.assertAlmostEqual(
-            dist_tversky(QGrams('nelson'), QGrams('neilsen')), 7 / 11
-        )
-
-        # non-q-gram tests
-        self.assertEqual(dist_tversky('', '', 0), 0)
-        self.assertEqual(dist_tversky('the quick', '', 0), 1)
-        self.assertEqual(dist_tversky('', 'the quick', 0), 1)
-        self.assertAlmostEqual(dist_tversky(NONQ_FROM, NONQ_TO, 0), 2 / 3)
-        self.assertAlmostEqual(dist_tversky(NONQ_TO, NONQ_FROM, 0), 2 / 3)
 
 
 class DiceTestCases(unittest.TestCase):
