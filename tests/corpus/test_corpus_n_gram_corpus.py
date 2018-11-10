@@ -18,7 +18,7 @@
 
 """abydos.tests.corpus.test_ngram.
 
-This module contains unit tests for abydos.corpus._ngram
+This module contains unit tests for abydos.corpus._n_gram_corpus
 """
 
 from __future__ import unicode_literals
@@ -33,7 +33,7 @@ from .. import _corpus_file
 
 
 class NGramCorpusTestCases(unittest.TestCase):
-    """Test abydos.corpus.ngram.NGramCorpus."""
+    """Test abydos.corpus.NGramCorpus."""
 
     simple_corpus = NGramCorpus()
     simple_corpus.gng_importer(_corpus_file('simple-ngrams.txt'))
@@ -95,13 +95,13 @@ class NGramCorpusTestCases(unittest.TestCase):
     )  # 10 a's
 
     def test_init(self):
-        """Test abydos.corpus._ngram.NGramCorpus.__init__."""
+        """Test abydos.corpus.NGramCorpus.__init__."""
         self.assertIsInstance(NGramCorpus(), NGramCorpus)
         self.assertRaises(TypeError, NGramCorpus, ['a', 'b', 'c'])
         self.assertIsInstance(NGramCorpus(self.sotu2015Corpus), NGramCorpus)
 
     def test_corpus_importer(self):
-        """Test abydos.corpus._ngram.NGramCorpus.corpus_importer."""
+        """Test abydos.corpus.NGramCorpus.corpus_importer."""
         self.assertRaises(
             TypeError, self.sotu_ngcorpus_5.corpus_importer, 'a b c d'
         )
@@ -185,7 +185,7 @@ class NGramCorpusTestCases(unittest.TestCase):
         )
 
     def test_gng_importer(self):
-        """Test abydos.corpus._ngram.NGramCorpus.gng_importer."""
+        """Test abydos.corpus.NGramCorpus.gng_importer."""
         self.assertIsInstance(self.simple_corpus, NGramCorpus)
         self.assertIsInstance(self.simple_corpus.ngcorpus, Counter)
 
@@ -193,7 +193,7 @@ class NGramCorpusTestCases(unittest.TestCase):
         self.assertEqual(self.double_corpus.get_count('the'), 40)
 
     def test_get_count(self):
-        """Test abydos.corpus._ngram.NGramCorpus.get_count."""
+        """Test abydos.corpus.NGramCorpus.get_count."""
         # string-style tests
         self.assertEqual(self.simple_corpus.get_count('the'), 20)
         self.assertEqual(self.simple_corpus.get_count('the quick'), 2)
@@ -205,7 +205,7 @@ class NGramCorpusTestCases(unittest.TestCase):
         self.assertEqual(self.simple_corpus.get_count(['trolley']), 0)
 
     def test_tf(self):
-        """Test abydos.corpus._ngram.NGramCorpus.tf."""
+        """Test abydos.corpus.NGramCorpus.tf."""
         # zero case
         self.assertEqual(self.sotu_ngcorpus_uni.tf('Niall'), 0)
 

@@ -18,58 +18,93 @@
 
 """abydos.tests.compression.test_compression_rle.
 
-This module contains unit tests for abydos.compression._rle
+This module contains unit tests for abydos.compression.RLE
 """
 
 from __future__ import unicode_literals
 
 import unittest
 
-from abydos.compression import rle_decode, rle_encode
+from abydos.compression import BWT, RLE, rle_decode, rle_encode
 
 
 class RLETestCases(unittest.TestCase):
-    """Test abydos.compression._rle.rle_encode & .rle_decode."""
+    """Test abydos.compression.RLE.encode & .decode."""
+
+    rle = RLE()
+    bwt = BWT()
 
     bws = 'WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWBWWWWWWWWWWWWWW'
 
     def test_rle_encode(self):
-        """Test abydos.compression._rle.encode."""
-        self.assertEqual(rle_encode('', False), '')
-        self.assertEqual(rle_encode(''), '\x00')
-        self.assertEqual(rle_encode('banana', False), 'banana')
-        self.assertEqual(rle_encode('banana'), 'annb\x00aa')
+        """Test abydos.compression.RLE.encode."""
+        self.assertEqual(self.rle.encode(''), '')
+        self.assertEqual(self.rle.encode(self.bwt.encode('')), '\x00')
+        self.assertEqual(self.rle.encode('banana'), 'banana')
+        self.assertEqual(
+            self.rle.encode(self.bwt.encode('banana')), 'annb\x00aa'
+        )
+        self.assertEqual(self.rle.encode(self.bws), '12WB12W3B24WB14W')
+        self.assertEqual(
+            self.rle.encode(self.bwt.encode(self.bws)), 'WWBWWB45WB\x003WB10WB'
+        )
+        self.assertEqual(self.rle.encode('Schifffahrt'), 'Schi3fahrt')
+        # Test wrapper
         self.assertEqual(rle_encode(self.bws, False), '12WB12W3B24WB14W')
         self.assertEqual(rle_encode(self.bws), 'WWBWWB45WB\x003WB10WB')
-        self.assertEqual(rle_encode('Schifffahrt', False), 'Schi3fahrt')
 
     def test_rle_decode(self):
-        """Test abydos.compression._rle.decode."""
-        self.assertEqual(rle_decode('', False), '')
-        self.assertEqual(rle_decode('\x00'), '')
-        self.assertEqual(rle_decode('banana', False), 'banana')
-        self.assertEqual(rle_decode('annb\x00aa'), 'banana')
-        self.assertEqual(rle_decode('12WB12W3B24WB14W', False), self.bws)
+        """Test abydos.compression.RLE.decode."""
+        self.assertEqual(self.rle.decode(''), '')
+        self.assertEqual(self.bwt.decode(self.rle.decode('\x00')), '')
+        self.assertEqual(self.rle.decode('banana'), 'banana')
+        self.assertEqual(
+            self.bwt.decode(self.rle.decode('annb\x00aa')), 'banana'
+        )
+        self.assertEqual(self.rle.decode('12WB12W3B24WB14W'), self.bws)
+        self.assertEqual(self.rle.decode('12W1B12W3B24W1B14W'), self.bws)
+        self.assertEqual(
+            self.bwt.decode(self.rle.decode('WWBWWB45WB\x003WB10WB')), self.bws
+        )
+        self.assertEqual(self.rle.decode('Schi3fahrt'), 'Schifffahrt')
+        # Test wrapper
         self.assertEqual(rle_decode('12W1B12W3B24W1B14W', False), self.bws)
         self.assertEqual(rle_decode('WWBWWB45WB\x003WB10WB'), self.bws)
-        self.assertEqual(rle_decode('Schi3fahrt', False), 'Schifffahrt')
 
     def test_rle_roundtripping(self):
         """Test abydos.compression._rle.encode & .decode roundtripping."""
-        self.assertEqual(rle_decode(rle_encode('', False), False), '')
-        self.assertEqual(rle_decode(rle_encode('')), '')
+        self.assertEqual(self.rle.decode(self.rle.encode('')), '')
         self.assertEqual(
-            rle_decode(rle_encode('banana', False), False), 'banana'
+            self.bwt.decode(
+                self.rle.decode(self.rle.encode(self.bwt.encode('')))
+            ),
+            '',
         )
-        self.assertEqual(rle_decode(rle_encode('banana')), 'banana')
+        self.assertEqual(self.rle.decode(self.rle.encode('banana')), 'banana')
         self.assertEqual(
-            rle_decode(rle_encode(self.bws, False), False), self.bws
+            self.bwt.decode(
+                self.rle.decode(self.rle.encode(self.bwt.encode('banana')))
+            ),
+            'banana',
         )
-        self.assertEqual(rle_decode(rle_encode(self.bws)), self.bws)
+        self.assertEqual(self.rle.decode(self.rle.encode(self.bws)), self.bws)
         self.assertEqual(
-            rle_decode(rle_encode('Schifffahrt', False), False), 'Schifffahrt'
+            self.bwt.decode(
+                self.rle.decode(self.rle.encode(self.bwt.encode(self.bws)))
+            ),
+            self.bws,
         )
-        self.assertEqual(rle_decode(rle_encode('Schifffahrt')), 'Schifffahrt')
+        self.assertEqual(
+            self.rle.decode(self.rle.encode('Schifffahrt')), 'Schifffahrt'
+        )
+        self.assertEqual(
+            self.bwt.decode(
+                self.rle.decode(
+                    self.rle.encode(self.bwt.encode('Schifffahrt'))
+                )
+            ),
+            'Schifffahrt',
+        )
 
 
 if __name__ == '__main__':
