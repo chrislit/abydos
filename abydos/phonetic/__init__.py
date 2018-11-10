@@ -68,56 +68,56 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._AlphaSIS import AlphaSIS, alpha_sis
-from ._BeiderMorse import BeiderMorse, bmpm
-from ._Caverphone import Caverphone, caverphone
-from ._DaitchMokotoff import DaitchMokotoff, dm_soundex
-from ._Davidson import Davidson, davidson
-from ._Dolby import Dolby, dolby
-from ._DoubleMetaphone import DoubleMetaphone, double_metaphone
-from ._Eudex import Eudex, eudex
-from ._FONEM import FONEM, fonem
-from ._FuzzySoundex import FuzzySoundex, fuzzy_soundex
-from ._Haase import Haase, haase_phonetik
-from ._HenryEarly import HenryEarly, henry_early
-from ._Koelner import (
+from ._alpha_sis import AlphaSIS, alpha_sis
+from ._beider_morse import BeiderMorse, bmpm
+from ._caverphone import Caverphone, caverphone
+from ._daitch_mokotoff import DaitchMokotoff, dm_soundex
+from ._davidson import Davidson, davidson
+from ._dolby import Dolby, dolby
+from ._double_metaphone import DoubleMetaphone, double_metaphone
+from ._eudex import Eudex, eudex
+from ._fonem import FONEM, fonem
+from ._fuzzy_soundex import FuzzySoundex, fuzzy_soundex
+from ._haase import Haase, haase_phonetik
+from ._henry_early import HenryEarly, henry_early
+from ._koelner import (
     Koelner,
     koelner_phonetik,
     koelner_phonetik_alpha,
     koelner_phonetik_num_to_alpha,
 )
-from ._Lein import Lein, lein
-from ._MRA import MRA, mra
-from ._MetaSoundex import MetaSoundex, metasoundex
-from ._Metaphone import Metaphone, metaphone
-from ._NRL import NRL, nrl
-from ._NYSIIS import NYSIIS, nysiis
-from ._Norphone import Norphone, norphone
-from ._ONCA import ONCA, onca
-from ._PSHPSoundexFirst import PSHPSoundexFirst, pshp_soundex_first
-from ._PSHPSoundexLast import PSHPSoundexLast, pshp_soundex_last
-from ._ParmarKumbharana import ParmarKumbharana, parmar_kumbharana
-from ._Phonem import Phonem, phonem
-from ._Phonet import Phonet, phonet
-from ._PhoneticSpanish import PhoneticSpanish, phonetic_spanish
-from ._Phonex import Phonex, phonex
-from ._Phonix import Phonix, phonix
-from ._RefinedSoundex import RefinedSoundex, refined_soundex
-from ._RethSchek import RethSchek, reth_schek_phonetik
-from ._RogerRoot import RogerRoot, roger_root
-from ._RussellIndex import (
+from ._lein import Lein, lein
+from ._meta_soundex import MetaSoundex, metasoundex
+from ._metaphone import Metaphone, metaphone
+from ._mra import MRA, mra
+from ._norphone import Norphone, norphone
+from ._nrl import NRL, nrl
+from ._nysiis import NYSIIS, nysiis
+from ._onca import ONCA, onca
+from ._parmar_kumbharana import ParmarKumbharana, parmar_kumbharana
+from ._phonem import Phonem, phonem
+from ._phonet import Phonet, phonet
+from ._phonetic_spanish import PhoneticSpanish, phonetic_spanish
+from ._phonex import Phonex, phonex
+from ._phonix import Phonix, phonix
+from ._pshp_soundex_first import PSHPSoundexFirst, pshp_soundex_first
+from ._pshp_soundex_last import PSHPSoundexLast, pshp_soundex_last
+from ._refined_soundex import RefinedSoundex, refined_soundex
+from ._reth_schek import RethSchek, reth_schek_phonetik
+from ._roger_root import RogerRoot, roger_root
+from ._russell_index import (
     RussellIndex,
     russell_index,
     russell_index_alpha,
     russell_index_num_to_alpha,
 )
-from ._SPFC import SPFC, spfc
-from ._SfinxBis import SfinxBis, sfinxbis
-from ._SoundD import SoundD, sound_d
-from ._Soundex import Soundex, soundex
-from ._SoundexBR import SoundexBR, soundex_br
-from ._SpanishMetaphone import SpanishMetaphone, spanish_metaphone
-from ._StatisticsCanada import StatisticsCanada, statistics_canada
+from ._sfinx_bis import SfinxBis, sfinxbis
+from ._sound_d import SoundD, sound_d
+from ._soundex import Soundex, soundex
+from ._soundex_br import SoundexBR, soundex_br
+from ._spanish_metaphone import SpanishMetaphone, spanish_metaphone
+from ._spfc import SPFC, spfc
+from ._statistics_canada import StatisticsCanada, statistics_canada
 
 __all__ = [
     'RussellIndex',

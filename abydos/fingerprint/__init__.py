@@ -38,23 +38,23 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._Count import Count, count_fingerprint
-from ._Fingerprint import (
+from ._count import Count, count_fingerprint
+from ._fingerprint import (
     MOST_COMMON_LETTERS,
     MOST_COMMON_LETTERS_CG,
     MOST_COMMON_LETTERS_DE,
     MOST_COMMON_LETTERS_DE_LC,
     MOST_COMMON_LETTERS_EN_LC,
 )
-from ._Occurrence import Occurrence, occurrence_fingerprint
-from ._OccurrenceHalved import OccurrenceHalved, occurrence_halved_fingerprint
-from ._OmissionKey import OmissionKey, omission_key
-from ._PhoneticFingerprint import PhoneticFingerprint, phonetic_fingerprint
-from ._Position import Position, position_fingerprint
-from ._QGramFingerprint import QGramFingerprint, qgram_fingerprint
-from ._SkeletonKey import SkeletonKey, skeleton_key
-from ._StringFingerprint import StringFingerprint, str_fingerprint
-from ._Synoname import SynonameToolcode, synoname_toolcode
+from ._occurrence import Occurrence, occurrence_fingerprint
+from ._occurrence_halved import OccurrenceHalved, occurrence_halved_fingerprint
+from ._omission_key import OmissionKey, omission_key
+from ._phonetic_fingerprint import PhoneticFingerprint, phonetic_fingerprint
+from ._position import Position, position_fingerprint
+from ._q_gram_fingerprint import QGramFingerprint, qgram_fingerprint
+from ._skeleton_key import SkeletonKey, skeleton_key
+from ._string_fingerprint import StringFingerprint, str_fingerprint
+from ._synoname import SynonameToolcode, synoname_toolcode
 
 __all__ = [
     'StringFingerprint',

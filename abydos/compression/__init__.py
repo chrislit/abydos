@@ -33,9 +33,9 @@ from __future__ import (
     print_function,
 )
 
-from ._Arithmetic import Arithmetic, ac_decode, ac_encode, ac_train
-from ._BWT import BWT, bwt_decode, bwt_encode
-from ._RLE import RLE, rle_decode, rle_encode
+from ._arithmetic import Arithmetic, ac_decode, ac_encode, ac_train
+from ._bwt import BWT, bwt_decode, bwt_encode
+from ._rle import RLE, rle_decode, rle_encode
 
 __all__ = [
     'Arithmetic',

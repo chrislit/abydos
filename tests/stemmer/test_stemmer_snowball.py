@@ -38,7 +38,7 @@ from abydos.stemmer import (
 )
 
 # noinspection PyProtectedMember
-from abydos.stemmer._Snowball import _Snowball
+from abydos.stemmer._snowball import _Snowball
 
 from .. import _corpus_file
 

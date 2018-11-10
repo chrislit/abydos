@@ -28,8 +28,8 @@ from __future__ import (
     print_function,
 )
 
-from ._Corpus import Corpus
-from ._NGramCorpus import NGramCorpus
+from ._corpus import Corpus
+from ._n_gram_corpus import NGramCorpus
 
 __all__ = ['Corpus', 'NGramCorpus']
 

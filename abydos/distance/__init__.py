@@ -22,40 +22,40 @@ The distance module implements string edit distance functions including:
 
     - Levenshtein distance
     - Optimal String Alignment distance
-    - Levenshtein-Damerau distance
+    - Damerau-Levenshtein distance
+    - Indel distance
     - Hamming distance
-    - Tversky index
-    - Sørensen–Dice coefficient & distance
-    - Jaccard similarity coefficient & distance
-    - overlap similarity & distance
-    - Tanimoto coefficient & distance
+    - Jaro distance
+    - Jaro-Winkler distance (incl. the strcmp95 algorithm variant)
     - Minkowski distance & similarity
     - Manhattan distance & similarity
     - Euclidean distance & similarity
     - Chebyshev distance
+    - Tversky index
+    - Sørensen–Dice coefficient & distance
+    - Jaccard similarity coefficient & distance
+    - Tanimoto coefficient
+    - overlap similarity & distance
     - cosine similarity & distance
-    - Jaro distance
-    - Jaro-Winkler distance (incl. the strcmp95 algorithm variant)
-    - Longest common substring
-    - Ratcliff-Obershelp similarity & distance
-    - Match Rating Algorithm similarity
-    - Normalized Compression Distance (NCD) & similarity
+    - Bag similarity & distance
     - Monge-Elkan similarity & distance
-    - Matrix similarity
     - Needleman-Wunsch score
     - Smith-Waterman score
     - Gotoh score
-    - Length similarity
-    - Prefix, Suffix, and Identity similarity & distance
+    - Longest common subsequence
+    - Longest common substring
+    - Ratcliff-Obershelp similarity & distance
+    - Identity, Length, Prefix, and Suffix similarity & distance
+    - Normalized Compression Distance (NCD) & similarity using zlib, bzip2,
+      lzma, arithmetic coding, BWT+RLE, or RLE compression
+    - Match Rating Algorithm similarity
+    - Editex distance
     - Modified Language-Independent Product Name Search (MLIPNS) similarity &
       distance
-    - Bag similarity & distance
-    - Editex distance
+    - Baystat distance & similarity
     - Eudex distances
     - Sift4 distance
-    - Baystat distance & similarity
     - Typo distance
-    - Indel distance
     - Synoname
 
 Functions beginning with the prefixes 'sim' and 'dist' are guaranteed to be
@@ -71,62 +71,62 @@ from __future__ import (
     print_function,
 )
 
-from ._Bag import Bag, bag, dist_bag, sim_bag
-from ._Baystat import Baystat, dist_baystat, sim_baystat
-from ._Chebyshev import Chebyshev, chebyshev
-from ._Cosine import Cosine, dist_cosine, sim_cosine
-from ._DamerauLevenshtein import (
+from ._bag import Bag, bag, dist_bag, sim_bag
+from ._baystat import Baystat, dist_baystat, sim_baystat
+from ._chebyshev import Chebyshev, chebyshev
+from ._cosine import Cosine, dist_cosine, sim_cosine
+from ._damerau_levenshtein import (
     DamerauLevenshtein,
     damerau_levenshtein,
     dist_damerau,
     sim_damerau,
 )
-from ._Dice import Dice, dist_dice, sim_dice
-from ._Editex import Editex, dist_editex, editex, sim_editex
-from ._Euclidean import Euclidean, dist_euclidean, euclidean, sim_euclidean
-from ._Eudex import Eudex, dist_eudex, eudex_hamming, sim_eudex
-from ._Gotoh import Gotoh, gotoh
-from ._Hamming import Hamming, dist_hamming, hamming, sim_hamming
-from ._Ident import Ident, dist_ident, sim_ident
-from ._Indel import Indel, dist_indel, sim_indel
-from ._Jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
-from ._JaroWinkler import JaroWinkler, dist_jaro_winkler, sim_jaro_winkler
-from ._LCSseq import LCSseq, dist_lcsseq, lcsseq, sim_lcsseq
-from ._LCSstr import LCSstr, dist_lcsstr, lcsstr, sim_lcsstr
-from ._Length import Length, dist_length, sim_length
-from ._Levenshtein import (
+from ._dice import Dice, dist_dice, sim_dice
+from ._editex import Editex, dist_editex, editex, sim_editex
+from ._euclidean import Euclidean, dist_euclidean, euclidean, sim_euclidean
+from ._eudex import Eudex, dist_eudex, eudex_hamming, sim_eudex
+from ._gotoh import Gotoh, gotoh
+from ._hamming import Hamming, dist_hamming, hamming, sim_hamming
+from ._ident import Ident, dist_ident, sim_ident
+from ._indel import Indel, dist_indel, sim_indel
+from ._jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
+from ._jaro_winkler import JaroWinkler, dist_jaro_winkler, sim_jaro_winkler
+from ._lcsseq import LCSseq, dist_lcsseq, lcsseq, sim_lcsseq
+from ._lcsstr import LCSstr, dist_lcsstr, lcsstr, sim_lcsstr
+from ._length import Length, dist_length, sim_length
+from ._levenshtein import (
     Levenshtein,
     dist_levenshtein,
     levenshtein,
     sim_levenshtein,
 )
-from ._MLIPNS import MLIPNS, dist_mlipns, sim_mlipns
-from ._MRA import MRA, dist_mra, mra_compare, sim_mra
-from ._Manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
-from ._Minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
-from ._MongeElkan import MongeElkan, dist_monge_elkan, sim_monge_elkan
-from ._NCDarith import NCDarith, dist_ncd_arith, sim_ncd_arith
-from ._NCDbwtrle import NCDbwtrle, dist_ncd_bwtrle, sim_ncd_bwtrle
-from ._NCDbz2 import NCDbz2, dist_ncd_bz2, sim_ncd_bz2
-from ._NCDlzma import NCDlzma, dist_ncd_lzma, sim_ncd_lzma
-from ._NCDrle import NCDrle, dist_ncd_rle, sim_ncd_rle
-from ._NCDzlib import NCDzlib, dist_ncd_zlib, sim_ncd_zlib
-from ._NeedlemanWunsch import NeedlemanWunsch, needleman_wunsch
-from ._Overlap import Overlap, dist_overlap, sim_overlap
-from ._Prefix import Prefix, dist_prefix, sim_prefix
-from ._RatcliffObershelp import (
+from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
+from ._mra import MRA, dist_mra, mra_compare, sim_mra
+from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
+from ._minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
+from ._monge_elkan import MongeElkan, dist_monge_elkan, sim_monge_elkan
+from ._ncd_arith import NCDarith, dist_ncd_arith, sim_ncd_arith
+from ._ncd_bwtrle import NCDbwtrle, dist_ncd_bwtrle, sim_ncd_bwtrle
+from ._ncd_bz2 import NCDbz2, dist_ncd_bz2, sim_ncd_bz2
+from ._ncd_lzma import NCDlzma, dist_ncd_lzma, sim_ncd_lzma
+from ._ncd_rle import NCDrle, dist_ncd_rle, sim_ncd_rle
+from ._ncd_zlib import NCDzlib, dist_ncd_zlib, sim_ncd_zlib
+from ._needleman_wunsch import NeedlemanWunsch, needleman_wunsch
+from ._overlap import Overlap, dist_overlap, sim_overlap
+from ._prefix import Prefix, dist_prefix, sim_prefix
+from ._ratcliff_obershelp import (
     RatcliffObershelp,
     dist_ratcliff_obershelp,
     sim_ratcliff_obershelp,
 )
-from ._Sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
-from ._Sift4Simplest import Sift4Simplest, sift4_simplest
-from ._SmithWaterman import SmithWaterman, smith_waterman
-from ._Strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
-from ._Suffix import Suffix, dist_suffix, sim_suffix
-from ._Synoname import Synoname, synoname
-from ._Typo import Typo, dist_typo, sim_typo, typo
-from ._Tversky import Tversky, dist_tversky, sim_tversky
+from ._sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
+from ._sift4_simplest import Sift4Simplest, sift4_simplest
+from ._smith_waterman import SmithWaterman, smith_waterman
+from ._strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
+from ._suffix import Suffix, dist_suffix, sim_suffix
+from ._synoname import Synoname, synoname
+from ._typo import Typo, dist_typo, sim_typo, typo
+from ._tversky import Tversky, dist_tversky, sim_tversky
 
 __all__ = [
     'sim',
@@ -227,15 +227,15 @@ __all__ = [
     'NCDlzma',
     'dist_ncd_lzma',
     'sim_ncd_lzma',
+    'NCDarith',
+    'dist_ncd_arith',
+    'sim_ncd_arith',
     'NCDbwtrle',
     'dist_ncd_bwtrle',
     'sim_ncd_bwtrle',
     'NCDrle',
     'dist_ncd_rle',
     'sim_ncd_rle',
-    'NCDarith',
-    'dist_ncd_arith',
-    'sim_ncd_arith',
     'MRA',
     'mra_compare',
     'dist_mra',

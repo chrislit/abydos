@@ -22,4 +22,4 @@ exclude_patterns:
 - "docs/"
 - "setup.py"
 - "badge_update.py"
-- "_bmdata.py"
+- "_beider_morse_data.py"

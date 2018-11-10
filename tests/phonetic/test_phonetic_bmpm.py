@@ -29,7 +29,7 @@ import unittest
 from abydos.phonetic import BeiderMorse, bmpm
 
 # noinspection PyProtectedMember
-from abydos.phonetic._bmdata import (
+from abydos.phonetic._beider_morse_data import (
     L_ANY,
     L_CYRILLIC,
     L_CZECH,
