@@ -62,9 +62,9 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(soundex('Lissajous'), 'L222')
         self.assertEqual(soundex('Rogers'), 'R262')
         self.assertEqual(soundex('Rodgers'), 'R326')
-        self.assertNotEquals(soundex('Rogers'), soundex('Rodgers'))
-        self.assertNotEquals(soundex('Sinclair'), soundex('St. Clair'))
-        self.assertNotEquals(soundex('Tchebysheff'), soundex('Chebyshev'))
+        self.assertNotEqual(soundex('Rogers'), soundex('Rodgers'))
+        self.assertNotEqual(soundex('Sinclair'), soundex('St. Clair'))
+        self.assertNotEqual(soundex('Tchebysheff'), soundex('Chebyshev'))
 
         # http://creativyst.com/Doc/Articles/SoundEx1/SoundEx1.htm#Related
         self.assertEqual(soundex('Htacky'), 'H320')
