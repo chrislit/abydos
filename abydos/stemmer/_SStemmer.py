@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.stemmer._s_stemmer.
+"""abydos.stemmer._SStemmer.
 
-The stemmer._s_stemmer module defines S stemmer.
+S-stemmer.
 """
 
 from __future__ import (
@@ -28,12 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._stemmer import Stemmer
+from ._Stemmer import _Stemmer
 
 __all__ = ['SStemmer', 's_stemmer']
 
 
-class SStemmer(Stemmer):
+class SStemmer(_Stemmer):
     """S-stemmer.
 
     The S stemmer is defined in :cite:`Harman:1991`.

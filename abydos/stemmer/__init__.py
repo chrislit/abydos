@@ -38,36 +38,22 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._caumanns import Caumanns, caumanns
-from ._clef import (
-    CLEFGerman,
-    CLEFGermanPlus,
-    CLEFSwedish,
-    clef_german,
-    clef_german_plus,
-    clef_swedish,
-)
-from ._lovins import Lovins, lovins
-from ._paice_husk import PaiceHusk, paice_husk
-from ._s_stemmer import SStemmer, s_stemmer
-from ._schinke import Schinke, schinke
-from ._snowball import (
-    Porter,
-    Porter2,
-    SnowballDanish,
-    SnowballDutch,
-    SnowballGerman,
-    SnowballNorwegian,
-    SnowballSwedish,
-    porter,
-    porter2,
-    sb_danish,
-    sb_dutch,
-    sb_german,
-    sb_norwegian,
-    sb_swedish,
-)
-from ._uealite import UEALite, uealite
+from ._Caumanns import Caumanns, caumanns
+from ._CLEFGerman import CLEFGerman, clef_german
+from ._CLEFGermanPlus import CLEFGermanPlus, clef_german_plus
+from ._CLEFSwedish import CLEFSwedish, clef_swedish
+from ._Lovins import Lovins, lovins
+from ._PaiceHusk import PaiceHusk, paice_husk
+from ._Porter import Porter, porter
+from ._Porter2 import Porter2, porter2
+from ._SStemmer import SStemmer, s_stemmer
+from ._Schinke import Schinke, schinke
+from ._SnowballDanish import SnowballDanish, sb_danish
+from ._SnowballDutch import SnowballDutch, sb_dutch
+from ._SnowballGerman import SnowballGerman, sb_german
+from ._SnowballNorwegian import SnowballNorwegian, sb_norwegian
+from ._SnowballSwedish import SnowballSwedish, sb_swedish
+from ._UEALite import UEALite, uealite
 
 __all__ = [
     'Lovins',

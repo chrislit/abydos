@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.stemmer._uealite.
+"""abydos.stemmer._UEALite.
 
-The stemmer._uealite module defines the UEA-Lite Stemmer.
+UEA-Lite stemmer
 """
 
 from __future__ import (
@@ -32,12 +32,12 @@ from re import match as re_match
 
 from six.moves import range
 
-from ._stemmer import Stemmer
+from ._Stemmer import _Stemmer
 
 __all__ = ['UEALite', 'uealite']
 
 
-class UEALite(Stemmer):
+class UEALite(_Stemmer):
     """UEA-Lite stemmer.
 
     The UEA-Lite stemmer is discussed in :cite:`Jenkins:2005`.

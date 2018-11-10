@@ -18,7 +18,7 @@
 
 """abydos.stemmer._paice_husk.
 
-The stemmer._paice_husk module defines the Paice-Husk Stemmer
+Paice-Husk Stemmer
 """
 
 from __future__ import (
@@ -30,12 +30,12 @@ from __future__ import (
 
 from six.moves import range
 
-from ._stemmer import Stemmer
+from ._Stemmer import _Stemmer
 
 __all__ = ['PaiceHusk', 'paice_husk']
 
 
-class PaiceHusk(Stemmer):
+class PaiceHusk(_Stemmer):
     """Paice-Husk stemmer.
 
     Implementation of the Paice-Husk Stemmer, also known as the Lancaster

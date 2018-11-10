@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.stemmer._schinke.
+"""abydos.stemmer._Schinke.
 
-The stemmer.schinke module defines the Schinke Latin stemmer.
+Schinke Latin stemmer.
 """
 
 from __future__ import (
@@ -33,12 +33,12 @@ from unicodedata import normalize
 from six import text_type
 from six.moves import range
 
-from ._stemmer import Stemmer
+from ._Stemmer import _Stemmer
 
 __all__ = ['Schinke', 'schinke']
 
 
-class Schinke(Stemmer):
+class Schinke(_Stemmer):
     """Schinke stemmer.
 
     This is defined in :cite:`Schinke:1996`.

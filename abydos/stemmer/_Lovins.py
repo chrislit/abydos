@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.stemmer._lovins.
+"""abydos.stemmer._Lovins.
 
-The stemmer._lovins module implements the Lovins stemmer.
+Lovins stemmer.
 """
 
 from __future__ import (
@@ -33,12 +33,12 @@ from unicodedata import normalize
 from six import text_type
 from six.moves import range
 
-from ._stemmer import Stemmer
+from ._Stemmer import _Stemmer
 
 __all__ = ['Lovins', 'lovins']
 
 
-class Lovins(Stemmer):
+class Lovins(_Stemmer):
     """Lovins stemmer.
 
     The Lovins stemmer is described in Julie Beth Lovins's article

@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.stemmer._stemmer.
+"""abydos.stemmer._Stemmer.
 
-The stemmer._stemmer module implements abstract class Stemmer.
+abstract class _Stemmer
 """
 
 from __future__ import (
@@ -29,7 +29,7 @@ from __future__ import (
 )
 
 
-class Stemmer(object):
+class _Stemmer(object):
     """Abstract Stemmer class."""
 
     def stem(self, word, *args, **kwargs):
