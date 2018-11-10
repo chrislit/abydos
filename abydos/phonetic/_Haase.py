@@ -36,10 +36,7 @@ from six.moves import range
 
 from ._Phonetic import Phonetic
 
-__all__ = [
-    'Haase',
-    'haase_phonetik',
-]
+__all__ = ['Haase', 'haase_phonetik']
 
 
 class Haase(Phonetic):

@@ -38,10 +38,7 @@ from six import text_type
 
 from ._Phonetic import Phonetic
 
-__all__ = [
-    'SpanishMetaphone',
-    'spanish_metaphone',
-]
+__all__ = ['SpanishMetaphone', 'spanish_metaphone']
 
 
 class SpanishMetaphone(Phonetic):

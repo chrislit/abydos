@@ -34,10 +34,7 @@ from six import text_type
 
 from ._Phonetic import Phonetic
 
-__all__ = [
-    'PSHPSoundexFirst',
-    'pshp_soundex_first',
-]
+__all__ = ['PSHPSoundexFirst', 'pshp_soundex_first']
 
 
 class PSHPSoundexFirst(Phonetic):

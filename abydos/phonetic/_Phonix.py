@@ -34,10 +34,7 @@ from six import text_type
 
 from ._Phonetic import Phonetic
 
-__all__ = [
-    'Phonix',
-    'phonix',
-]
+__all__ = ['Phonix', 'phonix']
 
 
 class Phonix(Phonetic):

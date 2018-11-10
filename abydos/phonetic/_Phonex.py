@@ -35,10 +35,7 @@ from six.moves import range
 
 from ._Phonetic import Phonetic
 
-__all__ = [
-    'Phonex',
-    'phonex',
-]
+__all__ = ['Phonex', 'phonex']
 
 
 class Phonex(Phonetic):

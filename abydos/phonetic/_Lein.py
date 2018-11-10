@@ -34,10 +34,7 @@ from six import text_type
 
 from ._Phonetic import Phonetic
 
-__all__ = [
-    'Lein',
-    'lein',
-]
+__all__ = ['Lein', 'lein']
 
 
 class Lein(Phonetic):

@@ -74,7 +74,12 @@ from ._Caverphone import Caverphone, caverphone
 from ._Davidson import Davidson, davidson
 from ._RethSchek import RethSchek, reth_schek_phonetik
 from ._Haase import Haase, haase_phonetik
-from ._Koelner import Koelner, koelner_phonetik, koelner_phonetik_alpha, koelner_phonetik_num_to_alpha
+from ._Koelner import (
+    Koelner,
+    koelner_phonetik,
+    koelner_phonetik_alpha,
+    koelner_phonetik_num_to_alpha,
+)
 from ._Phonem import Phonem, phonem
 from ._DaitchMokotoff import DaitchMokotoff, dm_soundex
 from ._Dolby import Dolby, dolby
@@ -101,14 +106,14 @@ from ._RussellIndex import (
     russell_index_num_to_alpha,
 )
 from ._SoundD import SoundD, sound_d
-from ._Soundex import Soundex,soundex
-from ._FuzzySoundex import FuzzySoundex,fuzzy_soundex
-from ._Lein import Lein,lein
-from ._PSHPSoundexFirst import PSHPSoundexFirst,pshp_soundex_first
-from ._PSHPSoundexLast import PSHPSoundexLast,pshp_soundex_last
-from ._Phonex import Phonex,phonex
-from ._Phonix import Phonix,phonix
-from ._RefinedSoundex import RefinedSoundex,refined_soundex
+from ._Soundex import Soundex, soundex
+from ._FuzzySoundex import FuzzySoundex, fuzzy_soundex
+from ._Lein import Lein, lein
+from ._PSHPSoundexFirst import PSHPSoundexFirst, pshp_soundex_first
+from ._PSHPSoundexLast import PSHPSoundexLast, pshp_soundex_last
+from ._Phonex import Phonex, phonex
+from ._Phonix import Phonix, phonix
+from ._RefinedSoundex import RefinedSoundex, refined_soundex
 from ._SPFC import SPFC, spfc
 from ._StatisticsCanada import StatisticsCanada, statistics_canada
 from ._SfinxBis import SfinxBis, sfinxbis

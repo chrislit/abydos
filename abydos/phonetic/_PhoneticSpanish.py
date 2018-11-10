@@ -34,10 +34,7 @@ from six import text_type
 
 from ._Phonetic import Phonetic
 
-__all__ = [
-    'PhoneticSpanish',
-    'phonetic_spanish',
-]
+__all__ = ['PhoneticSpanish', 'phonetic_spanish']
 
 
 class PhoneticSpanish(Phonetic):
