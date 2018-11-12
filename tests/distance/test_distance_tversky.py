@@ -43,7 +43,7 @@ from .. import NONQ_FROM, NONQ_TO
 class TverskyIndexTestCases(unittest.TestCase):
     """Test Tversky functions.
 
-    abydos.distance.Tversky.sim_tversky & .dist_tversky
+    abydos.distance.Tversky
     """
     cmp = Tversky()
 

@@ -18,7 +18,7 @@
 
 """abydos.tests.distance.test_distance_synoname.
 
-This module contains unit tests for abydos.distance._synoname
+This module contains unit tests for abydos.distance.Synoname
 """
 
 from __future__ import (
@@ -36,35 +36,32 @@ from abydos.distance import Synoname, synoname
 class SynonameTestCases(unittest.TestCase):
     """Test Synoname functions.
 
-    abydos.distance._synoname._synoname_strip_punct,
-    _synoname_word_approximation, & synoname
+    abydos.distance.Synoname
     """
+    cmp = Synoname()
 
     def test_synoname_strip_punct(self):
-        """Test abydos.distance._synoname._synoname_strip_punct."""
-        synoname = Synoname()
+        """Test abydos.distance.Synoname._synoname_strip_punct."""
+        # Base case
+        self.assertEqual(self.cmp._synoname_strip_punct(''), '')  # noqa: SF01
 
-        # Base cases
-        self.assertEqual(synoname._synoname_strip_punct(''), '')  # noqa: SF01
         self.assertEqual(
-            synoname._synoname_strip_punct('abcdefg'), 'abcdefg'  # noqa: SF01
+            self.cmp._synoname_strip_punct('abcdefg'), 'abcdefg'  # noqa: SF01
         )
         self.assertEqual(
-            synoname._synoname_strip_punct('a\'b-c,d!e:f%g'),  # noqa: SF01
+            self.cmp._synoname_strip_punct('a\'b-c,d!e:f%g'),  # noqa: SF01
             'abcdefg',
         )
 
     def test_synoname_word_approximation(self):
-        """Test abydos.distance._synoname._synoname_word_approximation."""
-        synoname = Synoname()
-
-        # Base cases
+        """Test abydos.distance.Synoname._synoname_word_approximation."""
+        # Base case
         self.assertEqual(
-            synoname._synoname_word_approximation('', ''), 0  # noqa: SF01
+            self.cmp._synoname_word_approximation('', ''), 0  # noqa: SF01
         )
 
         self.assertEqual(
-            synoname._synoname_word_approximation(  # noqa: SF01
+            self.cmp._synoname_word_approximation(  # noqa: SF01
                 'di Domenico di Bonaventura',
                 'di Tomme di Nuto',
                 'Cosimo',
@@ -73,7 +70,7 @@ class SynonameTestCases(unittest.TestCase):
             0.4,
         )
         self.assertEqual(
-            synoname._synoname_word_approximation(  # noqa: SF01
+            self.cmp._synoname_word_approximation(  # noqa: SF01
                 'Antonello da Messina',
                 'Messina',
                 '',
@@ -88,7 +85,7 @@ class SynonameTestCases(unittest.TestCase):
             0,
         )
         self.assertEqual(
-            synoname._synoname_word_approximation(  # noqa: SF01
+            self.cmp._synoname_word_approximation(  # noqa: SF01
                 'louis ii',
                 'louis ii',
                 'sr jean',
@@ -103,7 +100,7 @@ class SynonameTestCases(unittest.TestCase):
             0,
         )
         self.assertEqual(
-            synoname._synoname_word_approximation(  # noqa: SF01
+            self.cmp._synoname_word_approximation(  # noqa: SF01
                 'louis ii',
                 'louis ii',
                 'il giovane',
@@ -128,7 +125,7 @@ class SynonameTestCases(unittest.TestCase):
             1,
         )
         self.assertAlmostEqual(
-            synoname._synoname_word_approximation(  # noqa: SF01
+            self.cmp._synoname_word_approximation(  # noqa: SF01
                 'louis ii',
                 'louis ii',
                 'ste.-geo ste.',
@@ -153,7 +150,7 @@ class SynonameTestCases(unittest.TestCase):
             2 / 3,
         )
         self.assertAlmostEqual(
-            synoname._synoname_word_approximation(  # noqa: SF01
+            self.cmp._synoname_word_approximation(  # noqa: SF01
                 'louis ii',
                 'louis',
                 'ste.-geo ste.',
@@ -173,13 +170,13 @@ class SynonameTestCases(unittest.TestCase):
             0,
         )
         self.assertAlmostEqual(
-            synoname._synoname_word_approximation(  # noqa: SF01
+            self.cmp._synoname_word_approximation(  # noqa: SF01
                 'lou ii', 'louis', 'louis iv', 'ste.', {}
             ),
             0,
         )
         self.assertEqual(
-            synoname._synoname_word_approximation(  # noqa: SF01
+            self.cmp._synoname_word_approximation(  # noqa: SF01
                 'ren',
                 'loren ste.',
                 '',
@@ -192,32 +189,32 @@ class SynonameTestCases(unittest.TestCase):
             1,
         )
 
-    def test_synoname(self):
-        """Test abydos.distance._synoname.synoname."""
+    def test_synoname_dist_abs(self):
+        """Test abydos.distance.Synoname.dist_abs."""
         # Base cases
-        self.assertEqual(synoname('', ''), 1)
-        self.assertEqual(synoname('', '', tests=['exact']), 1)
-        self.assertEqual(synoname('', '', tests=[]), 13)
-        self.assertEqual(synoname('', '', tests=['nonsense-test']), 13)
-        self.assertEqual(synoname('', '', ret_name=True), 'exact')
+        self.assertEqual(self.cmp.dist_abs('', ''), 1)
+        self.assertEqual(self.cmp.dist_abs('', '', tests=['exact']), 1)
+        self.assertEqual(self.cmp.dist_abs('', '', tests=[]), 13)
+        self.assertEqual(self.cmp.dist_abs('', '', tests=['nonsense-test']), 13)
+        self.assertEqual(self.cmp.dist_abs('', '', ret_name=True), 'exact')
 
         # Test input formats
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Brueghel II (the Younger)', 'Pieter', 'Workshop of'),
                 ('Brueghel II (the Younger)', 'Pieter', 'Workshop of'),
             ),
             1,
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 'Brueghel II (the Younger)#Pieter#' + 'Workshop of',
                 'Brueghel II (the Younger)#Pieter#' + 'Workshop of',
             ),
             1,
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 '22#Brueghel II (the Younger)#Pieter#' + 'Workshop of',
                 '44#Brueghel II (the Younger)#Pieter#' + 'Workshop of',
             ),
@@ -226,7 +223,7 @@ class SynonameTestCases(unittest.TestCase):
 
         # approx_c tests
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 (
                     'Master of Brueghel II (the Younger)',
                     'Pieter',
@@ -237,7 +234,7 @@ class SynonameTestCases(unittest.TestCase):
             13,
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Master of Brueghel II', 'Pieter', 'Workshop of'),
                 ('Master known as the Brueghel II', 'Pieter', 'Workshop of'),
             ),
@@ -246,7 +243,7 @@ class SynonameTestCases(unittest.TestCase):
 
         # Types 1-12
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Brueghel', 'Pieter', ''),
                 ('Brueghel', 'Pieter', ''),
                 ret_name=True,
@@ -255,7 +252,7 @@ class SynonameTestCases(unittest.TestCase):
         )
 
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Brueghel II', 'Pieter', ''),
                 ('Brueghel I', 'Pieter', ''),
                 ret_name=True,
@@ -263,7 +260,7 @@ class SynonameTestCases(unittest.TestCase):
             'no_match',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Breghel', 'Pieter', ''),
                 ('Brueghel', 'Pieter', ''),
                 ret_name=True,
@@ -271,7 +268,7 @@ class SynonameTestCases(unittest.TestCase):
             'omission',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Brueghel', 'Pieter', ''),
                 ('Breghel', 'Pieter', ''),
                 ret_name=True,
@@ -279,7 +276,7 @@ class SynonameTestCases(unittest.TestCase):
             'omission',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Brueghel', 'Piter', ''),
                 ('Brueghel', 'Pieter', ''),
                 ret_name=True,
@@ -287,7 +284,7 @@ class SynonameTestCases(unittest.TestCase):
             'omission',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Brueghel', 'Pieter', ''),
                 ('Brueghel', 'Piter', ''),
                 ret_name=True,
@@ -295,7 +292,7 @@ class SynonameTestCases(unittest.TestCase):
             'omission',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Brughel', 'Pieter', ''),
                 ('Breghel', 'Pieter', ''),
                 ret_name=True,
@@ -303,7 +300,7 @@ class SynonameTestCases(unittest.TestCase):
             'substitution',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Breughel', 'Peter', ''),
                 ('Breughel', 'Piter', ''),
                 ret_name=True,
@@ -311,7 +308,7 @@ class SynonameTestCases(unittest.TestCase):
             'substitution',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Brueghel', 'Pieter', ''),
                 ('Breughel', 'Pieter', ''),
                 ret_name=True,
@@ -319,7 +316,7 @@ class SynonameTestCases(unittest.TestCase):
             'transposition',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Brueghel', 'Peiter', ''),
                 ('Brueghel', 'Pieter', ''),
                 ret_name=True,
@@ -328,7 +325,7 @@ class SynonameTestCases(unittest.TestCase):
         )
 
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Brueghel:', 'Pieter', ''),
                 ('Brueghel', 'Pi-eter', ''),
                 ret_name=True,
@@ -336,7 +333,7 @@ class SynonameTestCases(unittest.TestCase):
             'punctuation',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Brueghel,', 'Pieter', ''),
                 ('Brueghel', 'Pieter...', ''),
                 ret_name=True,
@@ -344,7 +341,7 @@ class SynonameTestCases(unittest.TestCase):
             'punctuation',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Seu rat', 'George Pierre', ''),
                 ('Seu-rat', 'George-Pierre', ''),
                 ret_name=True,
@@ -352,13 +349,13 @@ class SynonameTestCases(unittest.TestCase):
             'punctuation',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Picasso', '', ''), ('Picasso', 'Pablo', ''), ret_name=True
             ),
             'no_first',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Pereira', 'I. R.', ''),
                 ('Pereira', 'Irene Rice', ''),
                 ret_name=True,
@@ -366,7 +363,7 @@ class SynonameTestCases(unittest.TestCase):
             'initials',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Pereira', 'I.', ''),
                 ('Pereira', 'Irene Rice', ''),
                 ret_name=True,
@@ -374,7 +371,7 @@ class SynonameTestCases(unittest.TestCase):
             'initials',
         )
         self.assertNotEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Pereira', 'I. R.', ''),
                 ('Pereira', 'I. Smith', ''),
                 ret_name=True,
@@ -382,7 +379,7 @@ class SynonameTestCases(unittest.TestCase):
             'initials',
         )
         self.assertNotEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Pereira', 'I. R. S.', ''),
                 ('Pereira', 'I. S. R.', ''),
                 ret_name=True,
@@ -390,7 +387,7 @@ class SynonameTestCases(unittest.TestCase):
             'initials',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('de Goya', 'Francisco', ''),
                 ('de Goya y Lucientes', 'Francisco', ''),
                 ret_name=True,
@@ -398,7 +395,7 @@ class SynonameTestCases(unittest.TestCase):
             'extension',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Seurat', 'George', ''),
                 ('Seurat', 'George-Pierre', ''),
                 ret_name=True,
@@ -406,7 +403,7 @@ class SynonameTestCases(unittest.TestCase):
             'extension',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Gericault', 'Theodore', ''),
                 ('Gericault', 'Jean Louis Andre Theodore', ''),
                 ret_name=True,
@@ -414,7 +411,7 @@ class SynonameTestCases(unittest.TestCase):
             'inclusion',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Dore', 'Gustave', ''),
                 ('Dore', 'Paul Gustave Louis Christophe', ''),
                 ret_name=True,
@@ -423,7 +420,7 @@ class SynonameTestCases(unittest.TestCase):
         )
 
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Rosetti', 'Dante Gabriel', ''),
                 ('Rosetti', 'Gabriel Charles Dante', ''),
                 ret_name=True,
@@ -431,7 +428,7 @@ class SynonameTestCases(unittest.TestCase):
             'word_approx',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('di Domenico di Bonaventura', 'Cosimo', ''),
                 ('di Tomme di Nuto', 'Luca', ''),
                 ret_name=True,
@@ -439,7 +436,7 @@ class SynonameTestCases(unittest.TestCase):
             'no_match',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Pereira', 'I. R.', ''),
                 ('Pereira', 'I. Smith', ''),
                 ret_name=True,
@@ -447,7 +444,7 @@ class SynonameTestCases(unittest.TestCase):
             'word_approx',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Antonello da Messina', '', ''),
                 ('Messina', 'Antonello da', ''),
                 ret_name=True,
@@ -455,7 +452,7 @@ class SynonameTestCases(unittest.TestCase):
             'confusions',
         )
         self.assertEqual(
-            synoname(
+            self.cmp.dist_abs(
                 ('Brueghel', 'Pietter', ''),
                 ('Bruegghel', 'Pieter', ''),
                 ret_name=True,
@@ -463,6 +460,14 @@ class SynonameTestCases(unittest.TestCase):
             'char_approx',
         )
 
+        # Test wrapper
+        self.assertEqual(
+            synoname(
+                ('Master of Brueghel II', 'Pieter', 'Workshop of'),
+                ('Master known as the Brueghel II', 'Pieter', 'Workshop of'),
+            ),
+            10,
+        )
 
 if __name__ == '__main__':
     unittest.main()
