@@ -30,10 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.fingerprint import (
-    PhoneticFingerprint,
-    phonetic_fingerprint,
-)
+from abydos.fingerprint import PhoneticFingerprint, phonetic_fingerprint
 from abydos.phonetic import Phonet, Soundex
 
 
@@ -45,6 +42,7 @@ class PhoneticFingerprintTestCases(unittest.TestCase):
 
     abydos.fingerprint.PhoneticFingerprint
     """
+
     fp = PhoneticFingerprint()
     phonet = Phonet()
     soundex = Soundex()

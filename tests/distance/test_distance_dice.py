@@ -30,11 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import (
-    Dice,
-    dist_dice,
-    sim_dice,
-)
+from abydos.distance import Dice, dist_dice, sim_dice
 from abydos.tokenizer import QGrams
 
 from .. import NONQ_FROM, NONQ_TO
@@ -45,6 +41,7 @@ class DiceTestCases(unittest.TestCase):
 
     abydos.distance.Dice
     """
+
     cmp = Dice()
 
     def test_dice_sim(self):

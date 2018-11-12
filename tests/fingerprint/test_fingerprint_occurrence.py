@@ -30,10 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.fingerprint import (
-    Occurrence,
-    occurrence_fingerprint,
-)
+from abydos.fingerprint import Occurrence, occurrence_fingerprint
 
 
 class OccurrenceFingerprintTestCases(unittest.TestCase):
@@ -41,6 +38,7 @@ class OccurrenceFingerprintTestCases(unittest.TestCase):
 
     abydos.fingerprint.Occurrence
     """
+
     fp = Occurrence()
 
     def test_occurrence_fingerprint(self):
@@ -49,9 +47,7 @@ class OccurrenceFingerprintTestCases(unittest.TestCase):
         self.assertEqual(self.fp.fingerprint(''), 0)
 
         # https://arxiv.org/pdf/1711.08475.pdf
-        self.assertEqual(
-            self.fp.fingerprint('instance'), 0b1110111000010000
-        )
+        self.assertEqual(self.fp.fingerprint('instance'), 0b1110111000010000)
 
         self.assertEqual(self.fp.fingerprint('inst'), 0b0100111000000000)
         self.assertEqual(

@@ -30,11 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import (
-    MLIPNS,
-    dist_mlipns,
-    sim_mlipns,
-)
+from abydos.distance import MLIPNS, dist_mlipns, sim_mlipns
 
 
 class MLIPNSTestCases(unittest.TestCase):
@@ -42,6 +38,7 @@ class MLIPNSTestCases(unittest.TestCase):
 
     abydos.distance.MLIPNS
     """
+
     cmp = MLIPNS()
 
     def test_mlipns_sim(self):

@@ -30,12 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import (
-    Euclidean,
-    dist_euclidean,
-    euclidean,
-    sim_euclidean,
-)
+from abydos.distance import Euclidean, dist_euclidean, euclidean, sim_euclidean
 from abydos.tokenizer import QGrams
 
 from .. import NONQ_FROM, NONQ_TO
@@ -46,6 +41,7 @@ class EuclideanTestCases(unittest.TestCase):
 
     abydos.distance.Euclidean
     """
+
     cmp = Euclidean()
 
     def test_euclidean_dist_abs(self):
@@ -53,17 +49,25 @@ class EuclideanTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('', ''), 0)
         self.assertEqual(self.cmp.dist_abs('nelson', ''), 7 ** 0.5)
         self.assertEqual(self.cmp.dist_abs('', 'neilsen'), 8 ** 0.5)
-        self.assertAlmostEqual(self.cmp.dist_abs('nelson', 'neilsen'), 7 ** 0.5)
+        self.assertAlmostEqual(
+            self.cmp.dist_abs('nelson', 'neilsen'), 7 ** 0.5
+        )
 
         self.assertEqual(self.cmp.dist_abs('', '', 2), 0)
         self.assertEqual(self.cmp.dist_abs('nelson', '', 2), 7 ** 0.5)
         self.assertEqual(self.cmp.dist_abs('', 'neilsen', 2), 8 ** 0.5)
-        self.assertAlmostEqual(self.cmp.dist_abs('nelson', 'neilsen', 2), 7 ** 0.5)
+        self.assertAlmostEqual(
+            self.cmp.dist_abs('nelson', 'neilsen', 2), 7 ** 0.5
+        )
 
         # supplied q-gram tests
         self.assertEqual(self.cmp.dist_abs(QGrams(''), QGrams('')), 0)
-        self.assertEqual(self.cmp.dist_abs(QGrams('nelson'), QGrams('')), 7 ** 0.5)
-        self.assertEqual(self.cmp.dist_abs(QGrams(''), QGrams('neilsen')), 8 ** 0.5)
+        self.assertEqual(
+            self.cmp.dist_abs(QGrams('nelson'), QGrams('')), 7 ** 0.5
+        )
+        self.assertEqual(
+            self.cmp.dist_abs(QGrams(''), QGrams('neilsen')), 8 ** 0.5
+        )
         self.assertAlmostEqual(
             self.cmp.dist_abs(QGrams('nelson'), QGrams('neilsen')), 7 ** 0.5
         )
@@ -72,8 +76,12 @@ class EuclideanTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('', '', 0), 0)
         self.assertEqual(self.cmp.dist_abs('the quick', '', 0), 2 ** 0.5)
         self.assertEqual(self.cmp.dist_abs('', 'the quick', 0), 2 ** 0.5)
-        self.assertAlmostEqual(self.cmp.dist_abs(NONQ_FROM, NONQ_TO, 0), 8 ** 0.5)
-        self.assertAlmostEqual(self.cmp.dist_abs(NONQ_TO, NONQ_FROM, 0), 8 ** 0.5)
+        self.assertAlmostEqual(
+            self.cmp.dist_abs(NONQ_FROM, NONQ_TO, 0), 8 ** 0.5
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist_abs(NONQ_TO, NONQ_FROM, 0), 8 ** 0.5
+        )
 
         # Test wrapper
         self.assertAlmostEqual(euclidean('nelson', 'neilsen'), 7 ** 0.5)

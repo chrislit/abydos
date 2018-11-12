@@ -43,6 +43,7 @@ class LevenshteinTestCases(unittest.TestCase):
 
     abydos.distance.Levenshtein
     """
+
     cmp = Levenshtein()
 
     def test_levenshtein_dist_abs(self):
@@ -71,31 +72,55 @@ class LevenshteinTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('ab', 'ac'), 1)
         self.assertEqual(self.cmp.dist_abs('ac', 'bc'), 1)
         self.assertEqual(self.cmp.dist_abs('abc', 'axc'), 1)
-        self.assertEqual(self.cmp.dist_abs('xabxcdxxefxgx', '1ab2cd34ef5g6'), 6)
+        self.assertEqual(
+            self.cmp.dist_abs('xabxcdxxefxgx', '1ab2cd34ef5g6'), 6
+        )
         self.assertEqual(self.cmp.dist_abs('example', 'samples'), 3)
         self.assertEqual(self.cmp.dist_abs('sturgeon', 'urgently'), 6)
         self.assertEqual(self.cmp.dist_abs('levenshtein', 'frankenstein'), 6)
         self.assertEqual(self.cmp.dist_abs('distance', 'difference'), 5)
-        self.assertEqual(self.cmp.dist_abs('java was neat', 'scala is great'), 7)
+        self.assertEqual(
+            self.cmp.dist_abs('java was neat', 'scala is great'), 7
+        )
 
         # https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
         self.assertEqual(self.cmp.dist_abs('CA', 'ABC', 'osa'), 3)
 
         # test cost of insert
-        self.assertEqual(self.cmp.dist_abs('', 'b', 'lev', cost=(5, 7, 10, 10)), 5)
-        self.assertEqual(self.cmp.dist_abs('', 'b', 'osa', cost=(5, 7, 10, 10)), 5)
-        self.assertEqual(self.cmp.dist_abs('a', 'ab', 'lev', cost=(5, 7, 10, 10)), 5)
-        self.assertEqual(self.cmp.dist_abs('a', 'ab', 'osa', cost=(5, 7, 10, 10)), 5)
+        self.assertEqual(
+            self.cmp.dist_abs('', 'b', 'lev', cost=(5, 7, 10, 10)), 5
+        )
+        self.assertEqual(
+            self.cmp.dist_abs('', 'b', 'osa', cost=(5, 7, 10, 10)), 5
+        )
+        self.assertEqual(
+            self.cmp.dist_abs('a', 'ab', 'lev', cost=(5, 7, 10, 10)), 5
+        )
+        self.assertEqual(
+            self.cmp.dist_abs('a', 'ab', 'osa', cost=(5, 7, 10, 10)), 5
+        )
 
         # test cost of delete
-        self.assertEqual(self.cmp.dist_abs('b', '', 'lev', cost=(5, 7, 10, 10)), 7)
-        self.assertEqual(self.cmp.dist_abs('b', '', 'osa', cost=(5, 7, 10, 10)), 7)
-        self.assertEqual(self.cmp.dist_abs('ab', 'a', 'lev', cost=(5, 7, 10, 10)), 7)
-        self.assertEqual(self.cmp.dist_abs('ab', 'a', 'osa', cost=(5, 7, 10, 10)), 7)
+        self.assertEqual(
+            self.cmp.dist_abs('b', '', 'lev', cost=(5, 7, 10, 10)), 7
+        )
+        self.assertEqual(
+            self.cmp.dist_abs('b', '', 'osa', cost=(5, 7, 10, 10)), 7
+        )
+        self.assertEqual(
+            self.cmp.dist_abs('ab', 'a', 'lev', cost=(5, 7, 10, 10)), 7
+        )
+        self.assertEqual(
+            self.cmp.dist_abs('ab', 'a', 'osa', cost=(5, 7, 10, 10)), 7
+        )
 
         # test cost of substitute
-        self.assertEqual(self.cmp.dist_abs('a', 'b', 'lev', cost=(10, 10, 5, 10)), 5)
-        self.assertEqual(self.cmp.dist_abs('a', 'b', 'osa', cost=(10, 10, 5, 10)), 5)
+        self.assertEqual(
+            self.cmp.dist_abs('a', 'b', 'lev', cost=(10, 10, 5, 10)), 5
+        )
+        self.assertEqual(
+            self.cmp.dist_abs('a', 'b', 'osa', cost=(10, 10, 5, 10)), 5
+        )
         self.assertEqual(
             self.cmp.dist_abs('ac', 'bc', 'lev', cost=(10, 10, 5, 10)), 5
         )

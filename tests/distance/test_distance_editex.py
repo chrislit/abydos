@@ -38,6 +38,7 @@ class EditexTestCases(unittest.TestCase):
 
     abydos.distance.Editex
     """
+
     cmp = Editex()
 
     def test_editex_dist_abs(self):

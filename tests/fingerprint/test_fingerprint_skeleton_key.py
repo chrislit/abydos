@@ -38,6 +38,7 @@ class SkeletonKeyTestCases(unittest.TestCase):
 
     abydos.fingerprint.SkeletonKey
     """
+
     fp = SkeletonKey()
 
     def test_skeleton_key(self):

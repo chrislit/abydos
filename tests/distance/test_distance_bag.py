@@ -30,12 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import (
-    Bag,
-    bag,
-    dist_bag,
-    sim_bag,
-)
+from abydos.distance import Bag, bag, dist_bag, sim_bag
 
 
 class BagTestCases(unittest.TestCase):
@@ -43,6 +38,7 @@ class BagTestCases(unittest.TestCase):
 
     abydos.distance.Bag
     """
+
     cmp = Bag()
 
     def test_bag_dist_abs(self):
@@ -95,6 +91,7 @@ class BagTestCases(unittest.TestCase):
 
         # Test wrapper
         self.assertAlmostEqual(dist_bag('nelson', 'neilsen'), 2 / 7)
+
 
 if __name__ == '__main__':
     unittest.main()

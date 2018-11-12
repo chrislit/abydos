@@ -30,10 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.fingerprint import (
-    StringFingerprint,
-    str_fingerprint,
-)
+from abydos.fingerprint import StringFingerprint, str_fingerprint
 
 from six.moves import range
 
@@ -43,6 +40,7 @@ class StringFingerprintTestCases(unittest.TestCase):
 
     abydos.fingerprint.StringFingerprint
     """
+
     fp = StringFingerprint()
 
     _testset = (
@@ -65,9 +63,7 @@ o pe pinguim poe queixoso tamaras ve vovo',
             )
 
         # Test wrapper
-        self.assertEqual(
-            str_fingerprint(self._testset[0]), self._anssetw[0]
-        )
+        self.assertEqual(str_fingerprint(self._testset[0]), self._anssetw[0])
 
 
 if __name__ == '__main__':

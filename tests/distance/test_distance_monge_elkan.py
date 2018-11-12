@@ -30,11 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import (
-    MongeElkan,
-    dist_monge_elkan,
-    sim_monge_elkan,
-)
+from abydos.distance import MongeElkan, dist_monge_elkan, sim_monge_elkan
 
 
 class MongeElkanTestCases(unittest.TestCase):
@@ -42,6 +38,7 @@ class MongeElkanTestCases(unittest.TestCase):
 
     abydos.distance.MongeElkan
     """
+
     cmp = MongeElkan()
 
     def test_monge_elkan_sim(self):
@@ -58,9 +55,7 @@ class MongeElkanTestCases(unittest.TestCase):
         self.assertEqual(
             self.cmp.sim('Niall', 'Neal', symmetric=True), 31 / 40
         )
-        self.assertEqual(
-            self.cmp.sim('Niall', 'Njall', symmetric=True), 5 / 6
-        )
+        self.assertEqual(self.cmp.sim('Niall', 'Njall', symmetric=True), 5 / 6)
         self.assertEqual(
             self.cmp.sim('Niall', 'Niel', symmetric=True), 31 / 40
         )

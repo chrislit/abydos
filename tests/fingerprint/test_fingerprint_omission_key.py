@@ -38,6 +38,7 @@ class OmissionKeyTestCases(unittest.TestCase):
 
     abydos.fingerprint.OmissionKey
     """
+
     fp = OmissionKey()
 
     def test_omission_key(self):

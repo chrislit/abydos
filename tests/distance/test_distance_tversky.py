@@ -30,11 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import (
-    Tversky,
-    dist_tversky,
-    sim_tversky,
-)
+from abydos.distance import Tversky, dist_tversky, sim_tversky
 from abydos.tokenizer import QGrams
 
 from .. import NONQ_FROM, NONQ_TO
@@ -45,6 +41,7 @@ class TverskyIndexTestCases(unittest.TestCase):
 
     abydos.distance.Tversky
     """
+
     cmp = Tversky()
 
     def test_tversky_sim(self):
@@ -127,7 +124,9 @@ class TverskyIndexTestCases(unittest.TestCase):
         # test unequal alpha & beta
         self.assertAlmostEqual(self.cmp.dist('niall', 'neal', 2, 2, 1), 8 / 11)
         self.assertAlmostEqual(self.cmp.dist('niall', 'neal', 2, 1, 2), 7 / 10)
-        self.assertAlmostEqual(self.cmp.dist('niall', 'neal', 2, 2, 2), 10 / 13)
+        self.assertAlmostEqual(
+            self.cmp.dist('niall', 'neal', 2, 2, 2), 10 / 13
+        )
 
         # test bias parameter
         self.assertAlmostEqual(

@@ -38,6 +38,7 @@ class SynonameToolcodeTestCases(unittest.TestCase):
 
     abydos.fingerprint.SynonameToolcode
     """
+
     fp = SynonameToolcode()
 
     def test_synoname_toolcode(self):

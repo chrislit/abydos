@@ -31,12 +31,7 @@ from __future__ import (
 import math
 import unittest
 
-from abydos.distance import (
-    Jaccard,
-    dist_jaccard,
-    sim_jaccard,
-    tanimoto,
-)
+from abydos.distance import Jaccard, dist_jaccard, sim_jaccard, tanimoto
 from abydos.tokenizer import QGrams
 
 from .. import NONQ_FROM, NONQ_TO
@@ -47,6 +42,7 @@ class JaccardTestCases(unittest.TestCase):
 
     abydos.distance.Jaccard
     """
+
     cmp = Jaccard()
 
     def test_jaccard_sim(self):
@@ -115,6 +111,7 @@ class TanimotoTestCases(unittest.TestCase):
 
     abydos.distance.Jaccard.tanimoto_coeff
     """
+
     cmp = Jaccard()
 
     def test_jaccard_tanimoto_coeff(self):
@@ -127,26 +124,40 @@ class TanimotoTestCases(unittest.TestCase):
         )
 
         self.assertEqual(self.cmp.tanimoto_coeff('', '', 2), 0)
-        self.assertEqual(self.cmp.tanimoto_coeff('nelson', '', 2), float('-inf'))
-        self.assertEqual(self.cmp.tanimoto_coeff('', 'neilsen', 2), float('-inf'))
+        self.assertEqual(
+            self.cmp.tanimoto_coeff('nelson', '', 2), float('-inf')
+        )
+        self.assertEqual(
+            self.cmp.tanimoto_coeff('', 'neilsen', 2), float('-inf')
+        )
         self.assertAlmostEqual(
-            self.cmp.tanimoto_coeff('nelson', 'neilsen', 2), math.log(4 / 11, 2)
+            self.cmp.tanimoto_coeff('nelson', 'neilsen', 2),
+            math.log(4 / 11, 2),
         )
 
         # supplied q-gram tests
         self.assertEqual(self.cmp.tanimoto_coeff(QGrams(''), QGrams('')), 0)
-        self.assertEqual(self.cmp.tanimoto_coeff(QGrams('nelson'), QGrams('')), float('-inf'))
         self.assertEqual(
-            self.cmp.tanimoto_coeff(QGrams(''), QGrams('neilsen')), float('-inf')
+            self.cmp.tanimoto_coeff(QGrams('nelson'), QGrams('')),
+            float('-inf'),
+        )
+        self.assertEqual(
+            self.cmp.tanimoto_coeff(QGrams(''), QGrams('neilsen')),
+            float('-inf'),
         )
         self.assertAlmostEqual(
-            self.cmp.tanimoto_coeff(QGrams('nelson'), QGrams('neilsen')), math.log(4 / 11, 2)
+            self.cmp.tanimoto_coeff(QGrams('nelson'), QGrams('neilsen')),
+            math.log(4 / 11, 2),
         )
 
         # non-q-gram tests
         self.assertEqual(self.cmp.tanimoto_coeff('', '', 0), 0)
-        self.assertEqual(self.cmp.tanimoto_coeff('the quick', '', 0), float('-inf'))
-        self.assertEqual(self.cmp.tanimoto_coeff('', 'the quick', 0), float('-inf'))
+        self.assertEqual(
+            self.cmp.tanimoto_coeff('the quick', '', 0), float('-inf')
+        )
+        self.assertEqual(
+            self.cmp.tanimoto_coeff('', 'the quick', 0), float('-inf')
+        )
         self.assertAlmostEqual(
             self.cmp.tanimoto_coeff(NONQ_FROM, NONQ_TO, 0), math.log(1 / 3, 2)
         )

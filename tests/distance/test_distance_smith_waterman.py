@@ -30,10 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import (
-    SmithWaterman,
-    smith_waterman,
-)
+from abydos.distance import SmithWaterman, smith_waterman
 
 from six.moves import range
 
@@ -46,6 +43,7 @@ class SmithWatermanTestCases(unittest.TestCase):
 
     abydos.distance.SmithWaterman
     """
+
     cmp = SmithWaterman()
 
     def test_smith_waterman_dist_abs(self):
@@ -53,7 +51,9 @@ class SmithWatermanTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('', ''), 0)
 
         # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
-        self.assertEqual(self.cmp.dist_abs('GATTACA', 'GCATGCU', 1, _sim_nw), 0)
+        self.assertEqual(
+            self.cmp.dist_abs('GATTACA', 'GCATGCU', 1, _sim_nw), 0
+        )
         self.assertEqual(
             self.cmp.dist_abs('AGACTAGTTAC', 'CGAGACGT', 5, _sim_wikipedia), 26
         )

@@ -30,10 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.fingerprint import (
-    QGramFingerprint,
-    qgram_fingerprint,
-)
+from abydos.fingerprint import QGramFingerprint, qgram_fingerprint
 
 from six.moves import range
 
@@ -45,6 +42,7 @@ class QGramFingerprintTestCases(unittest.TestCase):
 
     abydos.fingerprint.QGramFingerprint
     """
+
     fp = QGramFingerprint()
 
     _testset = (

@@ -30,12 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import (
-    Manhattan,
-    dist_manhattan,
-    manhattan,
-    sim_manhattan,
-)
+from abydos.distance import Manhattan, dist_manhattan, manhattan, sim_manhattan
 from abydos.tokenizer import QGrams
 
 from .. import NONQ_FROM, NONQ_TO
@@ -46,6 +41,7 @@ class ManhattanTestCases(unittest.TestCase):
 
     abydos.distance.Manhattan
     """
+
     cmp = Manhattan()
 
     def test_manhattan_dist_abs(self):

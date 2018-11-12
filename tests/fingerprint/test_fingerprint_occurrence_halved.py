@@ -30,10 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.fingerprint import (
-    OccurrenceHalved,
-    occurrence_halved_fingerprint,
-)
+from abydos.fingerprint import OccurrenceHalved, occurrence_halved_fingerprint
 
 
 class OccurrenceHalvedFingerprintTestCases(unittest.TestCase):
@@ -41,6 +38,7 @@ class OccurrenceHalvedFingerprintTestCases(unittest.TestCase):
 
     abydos.fingerprint.OccurrenceHalved
     """
+
     fp = OccurrenceHalved()
 
     def test_occurrence_halved_fingerprint(self):
@@ -49,13 +47,9 @@ class OccurrenceHalvedFingerprintTestCases(unittest.TestCase):
         self.assertEqual(self.fp.fingerprint(''), 0)
 
         # https://arxiv.org/pdf/1711.08475.pdf
-        self.assertEqual(
-            self.fp.fingerprint('instance'), 0b0110010010111000
-        )
+        self.assertEqual(self.fp.fingerprint('instance'), 0b0110010010111000)
 
-        self.assertEqual(
-            self.fp.fingerprint('inst'), 0b0001000010100100
-        )
+        self.assertEqual(self.fp.fingerprint('inst'), 0b0001000010100100)
         self.assertEqual(
             self.fp.fingerprint('instance', 15), 0b0110010010111000
         )

@@ -31,11 +31,7 @@ from __future__ import (
 import math
 import unittest
 
-from abydos.distance import (
-    Cosine,
-    dist_cosine,
-    sim_cosine,
-)
+from abydos.distance import Cosine, dist_cosine, sim_cosine
 from abydos.tokenizer import QGrams
 
 from .. import NONQ_FROM, NONQ_TO
@@ -46,6 +42,7 @@ class CosineSimilarityTestCases(unittest.TestCase):
 
     abydos.distance.Cosine
     """
+
     cmp = Cosine()
 
     def test_cosine_sim(self):

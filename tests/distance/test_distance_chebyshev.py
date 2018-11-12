@@ -30,14 +30,10 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import (
-    Chebyshev,
-    chebyshev,
-)
+from abydos.distance import Chebyshev, chebyshev
 from abydos.tokenizer import QGrams
 
 from .. import NONQ_FROM, NONQ_TO
-
 
 
 class ChebyshevTestCases(unittest.TestCase):
@@ -45,6 +41,7 @@ class ChebyshevTestCases(unittest.TestCase):
 
     abydos.distance.Chebyshev
     """
+
     cmp = Chebyshev()
 
     def test_chebyshev_dist_abs(self):

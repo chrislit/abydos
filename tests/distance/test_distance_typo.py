@@ -37,6 +37,7 @@ class TypoTestCases(unittest.TestCase):
 
     abydos.distance.Typo
     """
+
     cmp = Typo()
 
     def test_typo_dist_abs(self):
@@ -53,12 +54,16 @@ class TypoTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp.dist_abs('asdf', 'asdt', metric='euclidean'), 0.70710677
         )
-        self.assertAlmostEqual(self.cmp.dist_abs('asdf', 'asdt', metric='manhattan'), 1)
         self.assertAlmostEqual(
-            self.cmp.dist_abs('asdf', 'asdt', metric='log-euclidean'), 0.4406868
+            self.cmp.dist_abs('asdf', 'asdt', metric='manhattan'), 1
         )
         self.assertAlmostEqual(
-            self.cmp.dist_abs('asdf', 'asdt', metric='log-manhattan'), 0.54930615
+            self.cmp.dist_abs('asdf', 'asdt', metric='log-euclidean'),
+            0.4406868,
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist_abs('asdf', 'asdt', metric='log-manhattan'),
+            0.54930615,
         )
 
         self.assertRaises(ValueError, self.cmp.dist_abs, 'asdf', 'Ösdf')
@@ -80,7 +85,8 @@ class TypoTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('asdf', 'qsdf'), 0.875)
 
         self.assertAlmostEqual(
-            self.cmp.sim('asdf', 'asdt', metric='euclidean'), 1 - (0.70710677 / 4)
+            self.cmp.sim('asdf', 'asdt', metric='euclidean'),
+            1 - (0.70710677 / 4),
         )
         self.assertAlmostEqual(
             self.cmp.sim('asdf', 'asdt', metric='manhattan'), 0.75
@@ -118,10 +124,12 @@ class TypoTestCases(unittest.TestCase):
             self.cmp.dist('asdf', 'asdt', metric='manhattan'), 0.25
         )
         self.assertAlmostEqual(
-            self.cmp.dist('asdf', 'asdt', metric='log-euclidean'), 0.4406868 / 4
+            self.cmp.dist('asdf', 'asdt', metric='log-euclidean'),
+            0.4406868 / 4,
         )
         self.assertAlmostEqual(
-            self.cmp.dist('asdf', 'asdt', metric='log-manhattan'), 0.54930615 / 4
+            self.cmp.dist('asdf', 'asdt', metric='log-manhattan'),
+            0.54930615 / 4,
         )
 
         # Test wrapper
