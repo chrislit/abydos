@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.distance.test_distance_minkowski.
+"""abydos.tests.distance.test_distance_manhattan.
 
-This module contains unit tests for abydos.distance.Minkowski
+This module contains unit tests for abydos.distance.Manhattan
 """
 
 from __future__ import (
@@ -31,25 +31,25 @@ from __future__ import (
 import unittest
 
 from abydos.distance import (
-    Minkowski,
-    dist_minkowski,
-    minkowski,
-    sim_minkowski,
+    Manhattan,
+    dist_manhattan,
+    manhattan,
+    sim_manhattan,
 )
 from abydos.tokenizer import QGrams
 
 from .. import NONQ_FROM, NONQ_TO
 
 
-class MinkowskiTestCases(unittest.TestCase):
-    """Test Minkowski functions.
+class ManhattanTestCases(unittest.TestCase):
+    """Test Manhattan functions.
 
-    abydos.distance.Minkowski
+    abydos.distance.Manhattan
     """
-    cmp = Minkowski()
+    cmp = Manhattan()
 
-    def test_minkowski_dist_abs(self):
-        """Test abydos.distance.Minkowski.dist_abs."""
+    def test_manhattan_dist_abs(self):
+        """Test abydos.distance.Manhattan.dist_abs."""
         self.assertEqual(self.cmp.dist_abs('', ''), 0)
         self.assertEqual(self.cmp.dist_abs('nelson', ''), 7)
         self.assertEqual(self.cmp.dist_abs('', 'neilsen'), 8)
@@ -75,41 +75,11 @@ class MinkowskiTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist_abs(NONQ_FROM, NONQ_TO, 0), 8)
         self.assertAlmostEqual(self.cmp.dist_abs(NONQ_TO, NONQ_FROM, 0), 8)
 
-        # test l_0 "norm"
-        self.assertEqual(self.cmp.dist_abs('', '', 1, 0), 0)
-        self.assertEqual(self.cmp.dist_abs('a', '', 1, 0), 1)
-        self.assertEqual(self.cmp.dist_abs('a', 'b', 1, 0), 2)
-        self.assertEqual(self.cmp.dist_abs('ab', 'b', 1, 0), 1)
-        self.assertEqual(self.cmp.dist_abs('aab', 'b', 1, 0), 1)
-        self.assertEqual(self.cmp.dist_abs('', '', 1, 0, True), 0)
-        self.assertEqual(self.cmp.dist_abs('a', '', 1, 0, True), 1)
-        self.assertEqual(self.cmp.dist_abs('a', 'b', 1, 0, True), 1)
-        self.assertEqual(self.cmp.dist_abs('ab', 'b', 1, 0, True), 1 / 2)
-        self.assertEqual(self.cmp.dist_abs('aab', 'b', 1, 0, True), 1 / 2)
-        self.assertEqual(self.cmp.dist_abs('aaab', 'b', 1, 0, True), 1 / 2)
-        self.assertEqual(self.cmp.dist_abs('aaab', 'ab', 1, 0, True), 1 / 2)
-
-        # test with alphabet
-        self.assertEqual(self.cmp.dist_abs('ab', 'b', 1, alphabet=26), 1)
-        self.assertEqual(
-            self.cmp.dist_abs('ab', 'b', 1, normalized=True, alphabet=26), 1 / 26
-        )
-        self.assertEqual(
-            self.cmp.dist_abs(
-                'ab',
-                'b',
-                1,
-                normalized=True,
-                alphabet='abcdefghijklmnopqrstuvwxyz',
-            ),
-            1 / 26,
-        )
-
         # Test wrapper
-        self.assertAlmostEqual(minkowski('nelson', 'neilsen'), 7)
+        self.assertAlmostEqual(manhattan('nelson', 'neilsen'), 7)
 
-    def test_minkowski_sim(self):
-        """Test abydos.distance.Minkowski.sim."""
+    def test_manhattan_sim(self):
+        """Test abydos.distance.Manhattan.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
         self.assertEqual(self.cmp.sim('nelson', ''), 0)
         self.assertEqual(self.cmp.sim('', 'neilsen'), 0)
@@ -136,10 +106,10 @@ class MinkowskiTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim(NONQ_TO, NONQ_FROM, 0), 1 / 2)
 
         # Test wrapper
-        self.assertAlmostEqual(sim_minkowski('nelson', 'neilsen'), 8 / 15)
+        self.assertAlmostEqual(sim_manhattan('nelson', 'neilsen'), 8 / 15)
 
-    def test_minkowski_dist(self):
-        """Test abydos.distance.Minkowski.dist."""
+    def test_manhattan_dist(self):
+        """Test abydos.distance.Manhattan.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
         self.assertEqual(self.cmp.dist('nelson', ''), 1)
         self.assertEqual(self.cmp.dist('', 'neilsen'), 1)
@@ -148,7 +118,7 @@ class MinkowskiTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('', '', 2), 0)
         self.assertEqual(self.cmp.dist('nelson', '', 2), 1)
         self.assertEqual(self.cmp.dist('', 'neilsen', 2), 1)
-        self.assertAlmostEqual(dist_minkowski('nelson', 'neilsen', 2), 7 / 15)
+        self.assertAlmostEqual(self.cmp.dist('nelson', 'neilsen', 2), 7 / 15)
 
         # supplied q-gram tests
         self.assertEqual(self.cmp.dist(QGrams(''), QGrams('')), 0)
@@ -166,7 +136,7 @@ class MinkowskiTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist(NONQ_TO, NONQ_FROM, 0), 1 / 2)
 
         # Test wrapper
-        self.assertAlmostEqual(dist_minkowski('nelson', 'neilsen'), 7 / 15)
+        self.assertAlmostEqual(dist_manhattan('nelson', 'neilsen'), 7 / 15)
 
 
 if __name__ == '__main__':

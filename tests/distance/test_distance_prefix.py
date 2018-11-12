@@ -71,6 +71,7 @@ class PrefixTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('xxxa', 'aaa'), 0)
         self.assertEqual(self.cmp.sim('xxxaa', 'yaa'), 0)
         self.assertEqual(self.cmp.sim('xxxxaa', 'yyyaa'), 0)
+
         # Test wrapper
         self.assertEqual(sim_prefix('aaxxxx', 'aayyy'), 2 / 5)
 
@@ -104,6 +105,7 @@ class PrefixTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('xxxa', 'aaa'), 1)
         self.assertEqual(self.cmp.dist('xxxaa', 'yaa'), 1)
         self.assertEqual(self.cmp.dist('xxxxaa', 'yyyaa'), 1)
+
         # Test wrapper
         self.assertEqual(dist_prefix('aaxxxx', 'aayyy'), 3 / 5)
 

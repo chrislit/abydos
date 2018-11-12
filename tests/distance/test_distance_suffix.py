@@ -71,6 +71,7 @@ class SuffixTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('xxxa', 'aaa'), 1 / 3)
         self.assertAlmostEqual(self.cmp.sim('xxxaa', 'yaa'), 2 / 3)
         self.assertEqual(self.cmp.sim('xxxxaa', 'yyyaa'), 2 / 5)
+
         # Test wrapper
         self.assertAlmostEqual(sim_suffix('xxxaa', 'yaa'), 2 / 3)
 
@@ -104,6 +105,7 @@ class SuffixTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('xxxa', 'aaa'), 2 / 3)
         self.assertAlmostEqual(self.cmp.dist('xxxaa', 'yaa'), 1 / 3)
         self.assertEqual(self.cmp.dist('xxxxaa', 'yyyaa'), 3 / 5)
+
         # Test wrapper
         self.assertAlmostEqual(dist_suffix('xxxaa', 'yaa'), 1 / 3)
 

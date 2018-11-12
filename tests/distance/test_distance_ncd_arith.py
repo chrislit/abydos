@@ -81,7 +81,7 @@ class NCDarithTestCases(unittest.TestCase):
         )
 
     def test_ncd_arith_sim(self):
-        """Test abydos.distance._compression.sim_ncd_arith."""
+        """Test abydos.distance.NCDarith.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
         self.assertEqual(self.cmp.sim('', '', self.arith.get_probs()), 1)
         self.assertLess(self.cmp.sim('a', ''), 1)

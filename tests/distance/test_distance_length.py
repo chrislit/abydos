@@ -54,6 +54,7 @@ class LengthTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abcd', 'cba'), 0.75)
         self.assertEqual(self.cmp.sim('ab', 'dcba'), 0.5)
         self.assertEqual(self.cmp.sim('abcd', 'ba'), 0.5)
+
         # Test wrapper
         self.assertEqual(sim_length('abcd', 'cba'), 0.75)
 
@@ -70,6 +71,7 @@ class LengthTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('abcd', 'cba'), 0.25)
         self.assertEqual(self.cmp.dist('ab', 'dcba'), 0.5)
         self.assertEqual(self.cmp.dist('abcd', 'ba'), 0.5)
+
         # Test wrapper
         self.assertEqual(dist_length('abcd', 'cba'), 0.25)
 
