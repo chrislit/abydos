@@ -41,7 +41,7 @@ class IdentTestCases(unittest.TestCase):
 
     cmp = Ident()
 
-    def test_sim_ident(self):
+    def test_ident_sim(self):
         """Test abydos.distance.Ident.sim"""
         self.assertEqual(self.cmp.sim('', ''), 1)
         self.assertEqual(self.cmp.sim('', 'a'), 0)
@@ -53,7 +53,7 @@ class IdentTestCases(unittest.TestCase):
         # Test wrapper
         self.assertEqual(sim_ident('abcd', 'dcba'), 0)
 
-    def test_dist_ident(self):
+    def test_ident_dist(self):
         """Test abydos.distance.Ident.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
         self.assertEqual(self.cmp.dist('', 'a'), 1)

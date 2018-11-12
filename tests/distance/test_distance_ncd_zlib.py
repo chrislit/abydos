@@ -41,7 +41,7 @@ class CompressionTestCases(unittest.TestCase):
 
     cmp = NCDzlib()
 
-    def test_dist_ncd_zlib(self):
+    def test_ncd_zlib_dist(self):
         """Test abydos.distance.NCDzlib.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
         self.assertGreater(self.cmp.dist('a', ''), 0)
@@ -50,7 +50,7 @@ class CompressionTestCases(unittest.TestCase):
         # Test wrapper
         self.assertAlmostEqual(dist_ncd_zlib('abcdefg', 'fg'), 0.5384615384615)
 
-    def test_sim_ncd_zlib(self):
+    def test_ncd_zlib_sim(self):
         """Test abydos.distance.NCDzlib.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
         self.assertLess(self.cmp.sim('a', ''), 1)

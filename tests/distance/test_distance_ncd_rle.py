@@ -41,7 +41,7 @@ class CompressionTestCases(unittest.TestCase):
 
     cmp = NCDrle()
 
-    def test_dist_ncd_rle(self):
+    def test_ncd_rle_dist(self):
         """Test abydos.distance.NCDrle.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
         self.assertGreater(self.cmp.dist('a', ''), 0)
@@ -56,7 +56,7 @@ class CompressionTestCases(unittest.TestCase):
         # Test wrapper
         self.assertAlmostEqual(dist_ncd_rle('abb', 'bbba'), 1 / 3)
 
-    def test_sim_ncd_rle(self):
+    def test_ncd_rle_sim(self):
         """Test abydos.distance.NCDrle.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
         self.assertLess(self.cmp.sim('a', ''), 1)

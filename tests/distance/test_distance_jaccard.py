@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.distance.test_distance_tversky.
+"""abydos.tests.distance.test_distance_jaccard.
 
-This module contains unit tests for abydos.distance.Tversky
+This module contains unit tests for abydos.distance.Jaccard
 """
 
 from __future__ import (
@@ -28,27 +28,29 @@ from __future__ import (
     unicode_literals,
 )
 
+import math
 import unittest
 
 from abydos.distance import (
-    Tversky,
-    dist_tversky,
-    sim_tversky,
+    Jaccard,
+    dist_jaccard,
+    sim_jaccard,
+    tanimoto,
 )
 from abydos.tokenizer import QGrams
 
 from .. import NONQ_FROM, NONQ_TO
 
 
-class TverskyIndexTestCases(unittest.TestCase):
-    """Test Tversky functions.
+class JaccardTestCases(unittest.TestCase):
+    """Test Jaccard functions.
 
-    abydos.distance.Tversky.sim_tversky & .dist_tversky
+    abydos.distance.Jaccard
     """
-    cmp = Tversky()
+    cmp = Jaccard()
 
-    def test_tversky_sim(self):
-        """Test abydos.distance.Tversky.sim."""
+    def test_jaccard_sim(self):
+        """Test abydos.distance.Jaccard.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
         self.assertEqual(self.cmp.sim('nelson', ''), 0)
         self.assertEqual(self.cmp.sim('', 'neilsen'), 0)
@@ -58,33 +60,6 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('nelson', '', 2), 0)
         self.assertEqual(self.cmp.sim('', 'neilsen', 2), 0)
         self.assertAlmostEqual(self.cmp.sim('nelson', 'neilsen', 2), 4 / 11)
-
-        # test valid alpha & beta
-        self.assertRaises(ValueError, self.cmp.sim, 'abcd', 'dcba', 2, -1, -1)
-        self.assertRaises(ValueError, self.cmp.sim, 'abcd', 'dcba', 2, -1, 0)
-        self.assertRaises(ValueError, self.cmp.sim, 'abcd', 'dcba', 2, 0, -1)
-
-        # test empty QGrams
-        self.assertAlmostEqual(self.cmp.sim('nelson', 'neilsen', 7), 0.0)
-
-        # test unequal alpha & beta
-        self.assertAlmostEqual(self.cmp.sim('niall', 'neal', 2, 2, 1), 3 / 11)
-        self.assertAlmostEqual(self.cmp.sim('niall', 'neal', 2, 1, 2), 3 / 10)
-        self.assertAlmostEqual(self.cmp.sim('niall', 'neal', 2, 2, 2), 3 / 13)
-
-        # test bias parameter
-        self.assertAlmostEqual(
-            self.cmp.sim('niall', 'neal', 2, 1, 1, 0.5), 7 / 11
-        )
-        self.assertAlmostEqual(
-            self.cmp.sim('niall', 'neal', 2, 2, 1, 0.5), 7 / 9
-        )
-        self.assertAlmostEqual(
-            self.cmp.sim('niall', 'neal', 2, 1, 2, 0.5), 7 / 15
-        )
-        self.assertAlmostEqual(
-            self.cmp.sim('niall', 'neal', 2, 2, 2, 0.5), 7 / 11
-        )
 
         # supplied q-gram tests
         self.assertEqual(self.cmp.sim(QGrams(''), QGrams('')), 1)
@@ -102,10 +77,10 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim(NONQ_TO, NONQ_FROM, 0), 1 / 3)
 
         # Test wrapper
-        self.assertAlmostEqual(sim_tversky('nelson', 'neilsen'), 4 / 11)
+        self.assertAlmostEqual(sim_jaccard('nelson', 'neilsen'), 4 / 11)
 
-    def test_tversky_dist(self):
-        """Test abydos.distance.Tversky.dist."""
+    def test_jaccard_dist(self):
+        """Test abydos.distance.Jaccard.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
         self.assertEqual(self.cmp.dist('nelson', ''), 1)
         self.assertEqual(self.cmp.dist('', 'neilsen'), 1)
@@ -115,33 +90,6 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('nelson', '', 2), 1)
         self.assertEqual(self.cmp.dist('', 'neilsen', 2), 1)
         self.assertAlmostEqual(self.cmp.dist('nelson', 'neilsen', 2), 7 / 11)
-
-        # test valid alpha & beta
-        self.assertRaises(ValueError, self.cmp.dist, 'abcd', 'dcba', 2, -1, -1)
-        self.assertRaises(ValueError, self.cmp.dist, 'abcd', 'dcba', 2, -1, 0)
-        self.assertRaises(ValueError, self.cmp.dist, 'abcd', 'dcba', 2, 0, -1)
-
-        # test empty QGrams
-        self.assertAlmostEqual(self.cmp.dist('nelson', 'neilsen', 7), 1.0)
-
-        # test unequal alpha & beta
-        self.assertAlmostEqual(self.cmp.dist('niall', 'neal', 2, 2, 1), 8 / 11)
-        self.assertAlmostEqual(self.cmp.dist('niall', 'neal', 2, 1, 2), 7 / 10)
-        self.assertAlmostEqual(self.cmp.dist('niall', 'neal', 2, 2, 2), 10 / 13)
-
-        # test bias parameter
-        self.assertAlmostEqual(
-            self.cmp.dist('niall', 'neal', 2, 1, 1, 0.5), 4 / 11
-        )
-        self.assertAlmostEqual(
-            self.cmp.dist('niall', 'neal', 2, 2, 1, 0.5), 2 / 9
-        )
-        self.assertAlmostEqual(
-            self.cmp.dist('niall', 'neal', 2, 1, 2, 0.5), 8 / 15
-        )
-        self.assertAlmostEqual(
-            self.cmp.dist('niall', 'neal', 2, 2, 2, 0.5), 4 / 11
-        )
 
         # supplied q-gram tests
         self.assertEqual(self.cmp.dist(QGrams(''), QGrams('')), 0)
@@ -159,7 +107,57 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist(NONQ_TO, NONQ_FROM, 0), 2 / 3)
 
         # Test wrapper
-        self.assertAlmostEqual(dist_tversky('nelson', 'neilsen'), 7 / 11)
+        self.assertAlmostEqual(dist_jaccard('nelson', 'neilsen'), 7 / 11)
+
+
+class TanimotoTestCases(unittest.TestCase):
+    """Test Tanimoto functions.
+
+    abydos.distance.Jaccard.tanimoto_coeff
+    """
+    cmp = Jaccard()
+
+    def test_jaccard_tanimoto_coeff(self):
+        """Test abydos.distance.Jaccard.tanimoto_coeff."""
+        self.assertEqual(self.cmp.tanimoto_coeff('', ''), 0)
+        self.assertEqual(self.cmp.tanimoto_coeff('nelson', ''), float('-inf'))
+        self.assertEqual(self.cmp.tanimoto_coeff('', 'neilsen'), float('-inf'))
+        self.assertAlmostEqual(
+            self.cmp.tanimoto_coeff('nelson', 'neilsen'), math.log(4 / 11, 2)
+        )
+
+        self.assertEqual(self.cmp.tanimoto_coeff('', '', 2), 0)
+        self.assertEqual(self.cmp.tanimoto_coeff('nelson', '', 2), float('-inf'))
+        self.assertEqual(self.cmp.tanimoto_coeff('', 'neilsen', 2), float('-inf'))
+        self.assertAlmostEqual(
+            self.cmp.tanimoto_coeff('nelson', 'neilsen', 2), math.log(4 / 11, 2)
+        )
+
+        # supplied q-gram tests
+        self.assertEqual(self.cmp.tanimoto_coeff(QGrams(''), QGrams('')), 0)
+        self.assertEqual(self.cmp.tanimoto_coeff(QGrams('nelson'), QGrams('')), float('-inf'))
+        self.assertEqual(
+            self.cmp.tanimoto_coeff(QGrams(''), QGrams('neilsen')), float('-inf')
+        )
+        self.assertAlmostEqual(
+            self.cmp.tanimoto_coeff(QGrams('nelson'), QGrams('neilsen')), math.log(4 / 11, 2)
+        )
+
+        # non-q-gram tests
+        self.assertEqual(self.cmp.tanimoto_coeff('', '', 0), 0)
+        self.assertEqual(self.cmp.tanimoto_coeff('the quick', '', 0), float('-inf'))
+        self.assertEqual(self.cmp.tanimoto_coeff('', 'the quick', 0), float('-inf'))
+        self.assertAlmostEqual(
+            self.cmp.tanimoto_coeff(NONQ_FROM, NONQ_TO, 0), math.log(1 / 3, 2)
+        )
+        self.assertAlmostEqual(
+            self.cmp.tanimoto_coeff(NONQ_TO, NONQ_FROM, 0), math.log(1 / 3, 2)
+        )
+
+        # Test wrapper
+        self.assertAlmostEqual(
+            tanimoto('nelson', 'neilsen'), math.log(4 / 11, 2)
+        )
 
 
 if __name__ == '__main__':
