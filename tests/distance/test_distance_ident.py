@@ -50,6 +50,7 @@ class IdentTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abcd', 'abcd'), 1)
         self.assertEqual(self.cmp.sim('abcd', 'dcba'), 0)
         self.assertEqual(self.cmp.sim('abc', 'cba'), 0)
+
         # Test wrapper
         self.assertEqual(sim_ident('abcd', 'dcba'), 0)
 
@@ -62,6 +63,7 @@ class IdentTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('abcd', 'abcd'), 0)
         self.assertEqual(self.cmp.dist('abcd', 'dcba'), 1)
         self.assertEqual(self.cmp.dist('abc', 'cba'), 1)
+
         # Test wrapper
         self.assertEqual(dist_ident('abcd', 'dcba'), 1)
 
