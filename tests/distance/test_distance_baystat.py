@@ -41,7 +41,7 @@ class BaystatTestCases(unittest.TestCase):
 
     cmp = Baystat()
 
-    def test_sim_baystat(self):
+    def test_baystat_sim(self):
         """Test abydos.distance.Baystat.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 1)
@@ -75,7 +75,7 @@ class BaystatTestCases(unittest.TestCase):
         # Test wrapper
         self.assertAlmostEqual(sim_baystat('ZIMMERMANN', 'SEMMERMANN'), 0.8)
 
-    def test_dist_baystat(self):
+    def test_baystat_dist(self):
         """Test abydos.distance.Baystat.dist."""
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), 0)

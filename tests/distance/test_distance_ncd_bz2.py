@@ -41,7 +41,7 @@ class CompressionTestCases(unittest.TestCase):
 
     cmp = NCDbz2()
 
-    def test_dist_ncd_bz2(self):
+    def test_ncd_bz2_dist(self):
         """Test abydos.distance.NCDbz2.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
         self.assertGreater(self.cmp.dist('a', ''), 0)
@@ -50,7 +50,7 @@ class CompressionTestCases(unittest.TestCase):
         # Test wrapper
         self.assertAlmostEqual(dist_ncd_bz2('abcdefg', 'fg'), 0.15625)
 
-    def test_sim_ncd_bz2(self):
+    def test_ncd_bz2_sim(self):
         """Test abydos.distance.NCDbz2.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
         self.assertLess(self.cmp.sim('a', ''), 1)

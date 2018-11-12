@@ -45,7 +45,7 @@ class NCDarithTestCases(unittest.TestCase):
     arith = Arithmetic(' '.join(NIALL))
     cmp = NCDarith()
 
-    def test_dist_ncd_arith(self):
+    def test_ncd_arith_dist(self):
         """Test abydos.distance.NCDarith.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
         self.assertEqual(self.cmp.dist('', '', self.arith.get_probs()), 0)
@@ -80,7 +80,7 @@ class NCDarithTestCases(unittest.TestCase):
             0.608695652173913,
         )
 
-    def test_sim_ncd_arith(self):
+    def test_ncd_arith_sim(self):
         """Test abydos.distance._compression.sim_ncd_arith."""
         self.assertEqual(self.cmp.sim('', ''), 1)
         self.assertEqual(self.cmp.sim('', '', self.arith.get_probs()), 1)

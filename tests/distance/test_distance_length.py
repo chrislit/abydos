@@ -41,7 +41,7 @@ class LengthTestCases(unittest.TestCase):
 
     cmp = Length()
 
-    def test_sim_ident(self):
+    def test_ident_sim(self):
         """Test abydos.distance.Length.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
         self.assertEqual(self.cmp.sim('', 'a'), 0)
@@ -57,7 +57,7 @@ class LengthTestCases(unittest.TestCase):
         # Test wrapper
         self.assertEqual(sim_length('abcd', 'cba'), 0.75)
 
-    def test_dist_ident(self):
+    def test_ident_dist(self):
         """Test abydos.distance.Length.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
         self.assertEqual(self.cmp.dist('', 'a'), 1)

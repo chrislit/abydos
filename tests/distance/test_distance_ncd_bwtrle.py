@@ -41,7 +41,7 @@ class NCDbwtrleTestCases(unittest.TestCase):
 
     cmp = NCDbwtrle()
 
-    def test_dist_ncd_bwtrle(self):
+    def test_ncd_bwtrle_dist(self):
         """Test abydos.distance.NCDbwtrle.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
         self.assertGreater(self.cmp.dist('a', ''), 0)
@@ -60,7 +60,7 @@ class NCDbwtrleTestCases(unittest.TestCase):
             dist_ncd_bwtrle('banana', 'banane'), 0.57142857142
         )
 
-    def test_sim_ncd_bwtrle(self):
+    def test_ncd_bwtrle_sim(self):
         """Test abydos.distance.NCDbwtrle.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
         self.assertLess(self.cmp.sim('a', ''), 1)

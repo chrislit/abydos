@@ -49,7 +49,7 @@ class CompressionTestCases(unittest.TestCase):
     if lzma is not None:
         cmp = NCDlzma()
 
-    def test_dist_ncd_lzma(self):
+    def test_ncd_lzma_dist(self):
         """Test abydos.distance.NCDlzma.dist."""
         if lzma is not None:
             self.assertEqual(self.cmp.dist('', ''), 0)
@@ -59,7 +59,7 @@ class CompressionTestCases(unittest.TestCase):
             # Test wrapper
             self.assertEqual(dist_ncd_lzma('abcdefg', 'fg'), 0.16)
 
-    def test_sim_ncd_lzma(self):
+    def test_ncd_lzma_sim(self):
         """Test abydos.distance.NCDlzma.sim."""
         if lzma is not None:
             self.assertEqual(self.cmp.sim('', ''), 1)

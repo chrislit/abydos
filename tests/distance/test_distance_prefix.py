@@ -41,7 +41,7 @@ class PrefixTestCases(unittest.TestCase):
 
     cmp = Prefix()
 
-    def test_sim_prefix(self):
+    def test_prefix_sim(self):
         """Test abydos.distance.Prefix.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
         self.assertEqual(self.cmp.sim('a', ''), 0)
@@ -74,7 +74,7 @@ class PrefixTestCases(unittest.TestCase):
         # Test wrapper
         self.assertEqual(sim_prefix('aaxxxx', 'aayyy'), 2 / 5)
 
-    def test_dist_prefix(self):
+    def test_prefix_dist(self):
         """Test abydos.distance.Prefix.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
         self.assertEqual(self.cmp.dist('a', ''), 1)

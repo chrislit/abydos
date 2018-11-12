@@ -41,7 +41,7 @@ class SuffixTestCases(unittest.TestCase):
 
     cmp = Suffix()
 
-    def test_sim_suffix(self):
+    def test_suffix_sim(self):
         """Test abydos.distance.Suffix.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
         self.assertEqual(self.cmp.sim('a', ''), 0)
@@ -74,7 +74,7 @@ class SuffixTestCases(unittest.TestCase):
         # Test wrapper
         self.assertAlmostEqual(sim_suffix('xxxaa', 'yaa'), 2 / 3)
 
-    def test_dist_suffix(self):
+    def test_suffix_dist(self):
         """Test abydos.distance.Suffix.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
         self.assertEqual(self.cmp.dist('a', ''), 1)
