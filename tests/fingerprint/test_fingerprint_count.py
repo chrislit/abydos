@@ -30,10 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.fingerprint import (
-    Count,
-    count_fingerprint,
-)
+from abydos.fingerprint import Count, count_fingerprint
 
 
 class CountFingerprintTestCases(unittest.TestCase):
@@ -41,6 +38,7 @@ class CountFingerprintTestCases(unittest.TestCase):
 
     abydos.fingerprint.Count
     """
+
     fp = Count()
 
     def test_count_fingerprint(self):
@@ -52,7 +50,9 @@ class CountFingerprintTestCases(unittest.TestCase):
         self.assertEqual(self.fp.fingerprint('instance'), 0b0101010001100100)
 
         self.assertEqual(self.fp.fingerprint('inst'), 0b0001000001010100)
-        self.assertEqual(self.fp.fingerprint('instance', 15), 0b0101010001100100)
+        self.assertEqual(
+            self.fp.fingerprint('instance', 15), 0b0101010001100100
+        )
         self.assertEqual(
             self.fp.fingerprint('instance', 32),
             0b01010100011001000000000100000000,
@@ -67,6 +67,7 @@ class CountFingerprintTestCases(unittest.TestCase):
             count_fingerprint('instance', 32),
             0b01010100011001000000000100000000,
         )
+
 
 if __name__ == '__main__':
     unittest.main()

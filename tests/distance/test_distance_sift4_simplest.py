@@ -30,10 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import (
-    Sift4Simplest,
-    sift4_simplest,
-)
+from abydos.distance import Sift4Simplest, sift4_simplest
 
 
 class Sift4TestCases(unittest.TestCase):
@@ -41,6 +38,7 @@ class Sift4TestCases(unittest.TestCase):
 
     abydos.distance.Sift4Simplest
     """
+
     cmp = Sift4Simplest()
 
     def test_sift4_simplest_dist_abs(self):
@@ -69,7 +67,9 @@ class Sift4TestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('ab', 'ac'), 1)
         self.assertEqual(self.cmp.dist_abs('ac', 'bc'), 1)
         self.assertEqual(self.cmp.dist_abs('abc', 'axc'), 1)
-        self.assertEqual(self.cmp.dist_abs('xabxcdxxefxgx', '1ab2cd34ef5g6'), 6)
+        self.assertEqual(
+            self.cmp.dist_abs('xabxcdxxefxgx', '1ab2cd34ef5g6'), 6
+        )
 
         self.assertEqual(self.cmp.dist_abs('example', 'samples'), 2)
         self.assertEqual(self.cmp.dist_abs('sturgeon', 'urgently'), 4)

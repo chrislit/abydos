@@ -38,6 +38,7 @@ class MraTestCases(unittest.TestCase):
 
     abydos.distance.MRA
     """
+
     cmp = MRA()
 
     def test_mra_dist_abs(self):

@@ -30,12 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import (
-    Minkowski,
-    dist_minkowski,
-    minkowski,
-    sim_minkowski,
-)
+from abydos.distance import Minkowski, dist_minkowski, minkowski, sim_minkowski
 from abydos.tokenizer import QGrams
 
 from .. import NONQ_FROM, NONQ_TO
@@ -46,6 +41,7 @@ class MinkowskiTestCases(unittest.TestCase):
 
     abydos.distance.Minkowski
     """
+
     cmp = Minkowski()
 
     def test_minkowski_dist_abs(self):
@@ -92,7 +88,8 @@ class MinkowskiTestCases(unittest.TestCase):
         # test with alphabet
         self.assertEqual(self.cmp.dist_abs('ab', 'b', 1, alphabet=26), 1)
         self.assertEqual(
-            self.cmp.dist_abs('ab', 'b', 1, normalized=True, alphabet=26), 1 / 26
+            self.cmp.dist_abs('ab', 'b', 1, normalized=True, alphabet=26),
+            1 / 26,
         )
         self.assertEqual(
             self.cmp.dist_abs(

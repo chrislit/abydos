@@ -30,12 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import (
-    Sift4,
-    dist_sift4,
-    sift4_common,
-    sim_sift4,
-)
+from abydos.distance import Sift4, dist_sift4, sift4_common, sim_sift4
 
 
 class Sift4TestCases(unittest.TestCase):
@@ -43,6 +38,7 @@ class Sift4TestCases(unittest.TestCase):
 
     abydos.distance.Sift4
     """
+
     cmp = Sift4()
 
     def test_sift4_dist_abs(self):
@@ -71,7 +67,9 @@ class Sift4TestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('ab', 'ac'), 1)
         self.assertEqual(self.cmp.dist_abs('ac', 'bc'), 1)
         self.assertEqual(self.cmp.dist_abs('abc', 'axc'), 1)
-        self.assertEqual(self.cmp.dist_abs('xabxcdxxefxgx', '1ab2cd34ef5g6'), 6)
+        self.assertEqual(
+            self.cmp.dist_abs('xabxcdxxefxgx', '1ab2cd34ef5g6'), 6
+        )
 
         self.assertEqual(self.cmp.dist_abs('example', 'samples'), 2)
         self.assertEqual(self.cmp.dist_abs('sturgeon', 'urgently'), 3)
@@ -100,7 +98,9 @@ class Sift4TestCases(unittest.TestCase):
         # cases with max_distance
         self.assertEqual(self.cmp.dist_abs('example', 'samples', 5, 5), 5)
         self.assertEqual(self.cmp.dist_abs('sturgeon', 'urgently', 5, 5), 5)
-        self.assertEqual(self.cmp.dist_abs('levenshtein', 'frankenstein', 5, 5), 5)
+        self.assertEqual(
+            self.cmp.dist_abs('levenshtein', 'frankenstein', 5, 5), 5
+        )
         self.assertEqual(self.cmp.dist_abs('distance', 'difference', 5, 5), 5)
 
         # Test wrapper
@@ -140,9 +140,13 @@ class Sift4TestCases(unittest.TestCase):
             self.cmp.dist('xabxcdxxefxgx', '1ab2cd34ef5g6'), 0.461538461
         )
 
-        self.assertAlmostEqual(self.cmp.dist('example', 'samples'), 0.285714285)
+        self.assertAlmostEqual(
+            self.cmp.dist('example', 'samples'), 0.285714285
+        )
         self.assertAlmostEqual(self.cmp.dist('sturgeon', 'urgently'), 0.375)
-        self.assertAlmostEqual(self.cmp.dist('levenshtein', 'frankenstein'), 0.5)
+        self.assertAlmostEqual(
+            self.cmp.dist('levenshtein', 'frankenstein'), 0.5
+        )
         self.assertAlmostEqual(self.cmp.dist('distance', 'difference'), 0.5)
 
         # Tests copied from
@@ -168,11 +172,15 @@ class Sift4TestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp.dist('example', 'samples', 5, 5), 0.714285714
         )
-        self.assertAlmostEqual(self.cmp.dist('sturgeon', 'urgently', 5, 5), 0.625)
+        self.assertAlmostEqual(
+            self.cmp.dist('sturgeon', 'urgently', 5, 5), 0.625
+        )
         self.assertAlmostEqual(
             self.cmp.dist('levenshtein', 'frankenstein', 5, 5), 0.416666666
         )
-        self.assertAlmostEqual(self.cmp.dist('distance', 'difference', 5, 5), 0.5)
+        self.assertAlmostEqual(
+            self.cmp.dist('distance', 'difference', 5, 5), 0.5
+        )
 
         # Test wrapper
         self.assertAlmostEqual(
@@ -215,7 +223,9 @@ class Sift4TestCases(unittest.TestCase):
 
         self.assertAlmostEqual(self.cmp.sim('example', 'samples'), 0.714285714)
         self.assertAlmostEqual(self.cmp.sim('sturgeon', 'urgently'), 0.625)
-        self.assertAlmostEqual(self.cmp.sim('levenshtein', 'frankenstein'), 0.5)
+        self.assertAlmostEqual(
+            self.cmp.sim('levenshtein', 'frankenstein'), 0.5
+        )
         self.assertAlmostEqual(self.cmp.sim('distance', 'difference'), 0.5)
 
         # Tests copied from
@@ -241,11 +251,15 @@ class Sift4TestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp.sim('example', 'samples', 5, 5), 0.285714286
         )
-        self.assertAlmostEqual(self.cmp.sim('sturgeon', 'urgently', 5, 5), 0.375)
+        self.assertAlmostEqual(
+            self.cmp.sim('sturgeon', 'urgently', 5, 5), 0.375
+        )
         self.assertAlmostEqual(
             self.cmp.sim('levenshtein', 'frankenstein', 5, 5), 0.583333333
         )
-        self.assertAlmostEqual(self.cmp.sim('distance', 'difference', 5, 5), 0.5)
+        self.assertAlmostEqual(
+            self.cmp.sim('distance', 'difference', 5, 5), 0.5
+        )
 
         # Test wrapper
         self.assertAlmostEqual(

@@ -30,10 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import (
-    NeedlemanWunsch,
-    needleman_wunsch,
-)
+from abydos.distance import NeedlemanWunsch, needleman_wunsch
 
 from six.moves import range
 
@@ -126,6 +123,7 @@ class NeedlemanWunschTestCases(unittest.TestCase):
 
     abydos.distance.NeedlemanWunsch
     """
+
     cmp = NeedlemanWunsch()
 
     def test_needleman_wunsch_dist_abs(self):

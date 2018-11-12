@@ -43,6 +43,7 @@ class DamerauLevenshteinTestCases(unittest.TestCase):
 
     abydos.distance.DamerauLevenshtein
     """
+
     cmp = DamerauLevenshtein()
 
     def test_damerau_levenshtein_dist_abs(self):
@@ -51,22 +52,14 @@ class DamerauLevenshteinTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('CA', 'CA'), 0)
         self.assertEqual(self.cmp.dist_abs('CA', 'ABC'), 2)
         self.assertEqual(self.cmp.dist_abs('', 'b', cost=(5, 7, 10, 10)), 5)
-        self.assertEqual(
-            self.cmp.dist_abs('a', 'ab', cost=(5, 7, 10, 10)), 5
-        )
+        self.assertEqual(self.cmp.dist_abs('a', 'ab', cost=(5, 7, 10, 10)), 5)
         self.assertEqual(self.cmp.dist_abs('b', '', cost=(5, 7, 10, 10)), 7)
-        self.assertEqual(
-            self.cmp.dist_abs('ab', 'a', cost=(5, 7, 10, 10)), 7
-        )
-        self.assertEqual(
-            self.cmp.dist_abs('a', 'b', cost=(10, 10, 5, 10)), 5
-        )
+        self.assertEqual(self.cmp.dist_abs('ab', 'a', cost=(5, 7, 10, 10)), 7)
+        self.assertEqual(self.cmp.dist_abs('a', 'b', cost=(10, 10, 5, 10)), 5)
         self.assertEqual(
             self.cmp.dist_abs('ac', 'bc', cost=(10, 10, 5, 10)), 5
         )
-        self.assertEqual(
-            self.cmp.dist_abs('ab', 'ba', cost=(5, 5, 10, 5)), 5
-        )
+        self.assertEqual(self.cmp.dist_abs('ab', 'ba', cost=(5, 5, 10, 5)), 5)
         self.assertEqual(
             self.cmp.dist_abs('abc', 'bac', cost=(5, 5, 10, 5)), 5
         )

@@ -30,12 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import (
-    Hamming,
-    dist_hamming,
-    hamming,
-    sim_hamming,
-)
+from abydos.distance import Hamming, dist_hamming, hamming, sim_hamming
 
 
 class HammingTestCases(unittest.TestCase):
@@ -43,6 +38,7 @@ class HammingTestCases(unittest.TestCase):
 
     abydos.distance.Hamming
     """
+
     cmp = Hamming()
 
     def test_hamming_dist_abs(self):

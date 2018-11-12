@@ -45,6 +45,7 @@ class RatcliffObershelpTestCases(unittest.TestCase):
 
     abydos.distance.RatcliffObershelp
     """
+
     cmp = RatcliffObershelp()
 
     def test_ratcliff_obershelp_sim(self):
@@ -58,20 +59,16 @@ class RatcliffObershelpTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abc', 'xyz'), 0)
         self.assertEqual(self.cmp.sim('123', '456'), 0)
         self.assertAlmostEqual(
-            self.cmp.sim('aleksander', 'alexandre'),
-            0.7368421052631579,
+            self.cmp.sim('aleksander', 'alexandre'), 0.7368421052631579
         )
         self.assertAlmostEqual(
-            self.cmp.sim('alexandre', 'aleksander'),
-            0.7368421052631579,
+            self.cmp.sim('alexandre', 'aleksander'), 0.7368421052631579
         )
         self.assertAlmostEqual(
-            self.cmp.sim('pennsylvania', 'pencilvaneya'),
-            0.6666666666666666,
+            self.cmp.sim('pennsylvania', 'pencilvaneya'), 0.6666666666666666
         )
         self.assertAlmostEqual(
-            self.cmp.sim('pencilvaneya', 'pennsylvania'),
-            0.6666666666666666,
+            self.cmp.sim('pencilvaneya', 'pennsylvania'), 0.6666666666666666
         )
         self.assertAlmostEqual(
             self.cmp.sim('abcefglmn', 'abefglmo'), 0.8235294117647058
@@ -125,28 +122,22 @@ class RatcliffObershelpTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('abc', 'xyz'), 1)
         self.assertEqual(self.cmp.dist('123', '456'), 1)
         self.assertAlmostEqual(
-            self.cmp.dist('aleksander', 'alexandre'),
-            0.2631578947368421,
+            self.cmp.dist('aleksander', 'alexandre'), 0.2631578947368421
         )
         self.assertAlmostEqual(
-            self.cmp.dist('alexandre', 'aleksander'),
-            0.2631578947368421,
+            self.cmp.dist('alexandre', 'aleksander'), 0.2631578947368421
         )
         self.assertAlmostEqual(
-            self.cmp.dist('pennsylvania', 'pencilvaneya'),
-            0.3333333333333333,
+            self.cmp.dist('pennsylvania', 'pencilvaneya'), 0.3333333333333333
         )
         self.assertAlmostEqual(
-            self.cmp.dist('pencilvaneya', 'pennsylvania'),
-            0.3333333333333333,
+            self.cmp.dist('pencilvaneya', 'pennsylvania'), 0.3333333333333333
         )
         self.assertAlmostEqual(
-            self.cmp.dist('abcefglmn', 'abefglmo'),
-            0.1764705882352941,
+            self.cmp.dist('abcefglmn', 'abefglmo'), 0.1764705882352941
         )
         self.assertAlmostEqual(
-            self.cmp.dist('abefglmo', 'abcefglmn'),
-            0.1764705882352941,
+            self.cmp.dist('abefglmo', 'abcefglmn'), 0.1764705882352941
         )
 
         # Test wrapper

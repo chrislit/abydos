@@ -30,11 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import (
-    Indel,
-    dist_indel,
-    sim_indel,
-)
+from abydos.distance import Indel, dist_indel, sim_indel
 
 
 class IndelTestCases(unittest.TestCase):
@@ -42,6 +38,7 @@ class IndelTestCases(unittest.TestCase):
 
     abydos.distance.Indel
     """
+
     cmp = Indel()
 
     def test_indel_sim(self):

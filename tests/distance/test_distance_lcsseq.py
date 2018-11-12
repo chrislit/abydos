@@ -30,12 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import (
-    LCSseq,
-    dist_lcsseq,
-    lcsseq,
-    sim_lcsseq,
-)
+from abydos.distance import LCSseq, dist_lcsseq, lcsseq, sim_lcsseq
 
 
 class LCSseqTestCases(unittest.TestCase):
@@ -43,6 +38,7 @@ class LCSseqTestCases(unittest.TestCase):
 
     abydos.distance.LCSseq
     """
+
     cmp = LCSseq()
 
     def test_lcsseq(self):
@@ -74,7 +70,9 @@ class LCSseqTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.lcsseq('faxbcd', 'abdef'), 'abd')
 
         # http://www.unesco.org/culture/languages-atlas/assets/_core/php/qcubed_unit_tests.php
-        self.assertEqual(self.cmp.lcsseq('hello world', 'world war 2'), 'world')
+        self.assertEqual(
+            self.cmp.lcsseq('hello world', 'world war 2'), 'world'
+        )
         self.assertEqual(self.cmp.lcsseq('foo bar', 'bar foo'), 'foo')
         self.assertEqual(self.cmp.lcsseq('aaa', 'aa'), 'aa')
         self.assertEqual(self.cmp.lcsseq('cc', 'bbbbcccccc'), 'cc')

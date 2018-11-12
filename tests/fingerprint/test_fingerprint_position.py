@@ -30,10 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.fingerprint import (
-    Position,
-    position_fingerprint,
-)
+from abydos.fingerprint import Position, position_fingerprint
 
 
 class PositionFingerprintTestCases(unittest.TestCase):
@@ -41,6 +38,7 @@ class PositionFingerprintTestCases(unittest.TestCase):
 
     abydos.fingerprint.Position
     """
+
     fp = Position()
 
     def test_position_fingerprint(self):

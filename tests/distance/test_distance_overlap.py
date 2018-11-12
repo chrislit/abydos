@@ -30,11 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import (
-    Overlap,
-    dist_overlap,
-    sim_overlap,
-)
+from abydos.distance import Overlap, dist_overlap, sim_overlap
 from abydos.tokenizer import QGrams
 
 from .. import NONQ_FROM, NONQ_TO
@@ -45,6 +41,7 @@ class OverlapTestCases(unittest.TestCase):
 
     abydos.distance.Overlap
     """
+
     cmp = Overlap()
 
     def test_overlap_sim(self):

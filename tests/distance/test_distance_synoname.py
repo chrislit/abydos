@@ -38,6 +38,7 @@ class SynonameTestCases(unittest.TestCase):
 
     abydos.distance.Synoname
     """
+
     cmp = Synoname()
 
     def test_synoname_strip_punct(self):
@@ -195,7 +196,9 @@ class SynonameTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('', ''), 1)
         self.assertEqual(self.cmp.dist_abs('', '', tests=['exact']), 1)
         self.assertEqual(self.cmp.dist_abs('', '', tests=[]), 13)
-        self.assertEqual(self.cmp.dist_abs('', '', tests=['nonsense-test']), 13)
+        self.assertEqual(
+            self.cmp.dist_abs('', '', tests=['nonsense-test']), 13
+        )
         self.assertEqual(self.cmp.dist_abs('', '', ret_name=True), 'exact')
 
         # Test input formats
@@ -468,6 +471,7 @@ class SynonameTestCases(unittest.TestCase):
             ),
             10,
         )
+
 
 if __name__ == '__main__':
     unittest.main()

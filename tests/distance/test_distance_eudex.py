@@ -43,6 +43,7 @@ class EudexTestCases(unittest.TestCase):
 
     abydos.distance.Eudex
     """
+
     cmp = Eudex()
 
     def test_eudex_dist_abs(self):
@@ -61,7 +62,9 @@ class EudexTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('Niall', 'Niall', 'fibonacci'), 0)
         self.assertEqual(self.cmp.dist_abs('Niall', 'Niall', [10, 1, 1, 1]), 0)
         self.assertEqual(self.cmp.dist_abs('Niall', 'Niall', _yield_1), 0)
-        self.assertEqual(self.cmp.dist_abs('Niall', 'Niall', normalized=True), 0)
+        self.assertEqual(
+            self.cmp.dist_abs('Niall', 'Niall', normalized=True), 0
+        )
 
         self.assertEqual(self.cmp.dist_abs('Niall', 'Neil'), 2)
         self.assertEqual(self.cmp.dist_abs('Niall', 'Neil', None), 1)
@@ -96,13 +99,17 @@ class EudexTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('Niall', 'Niall', 'fibonacci'), 0)
 
         self.assertAlmostEqual(self.cmp.dist('Niall', 'Neil'), 0.00098039)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Neil', None), 0.11111111)
+        self.assertAlmostEqual(
+            self.cmp.dist('Niall', 'Neil', None), 0.11111111
+        )
         self.assertAlmostEqual(
             self.cmp.dist('Niall', 'Neil', 'fibonacci'), 0.00287356
         )
 
         self.assertAlmostEqual(self.cmp.dist('Niall', 'Colin'), 0.25686275)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Colin', None), 0.16666667)
+        self.assertAlmostEqual(
+            self.cmp.dist('Niall', 'Colin', None), 0.16666667
+        )
         self.assertAlmostEqual(
             self.cmp.dist('Niall', 'Colin', 'fibonacci'), 0.20977011
         )
@@ -130,7 +137,9 @@ class EudexTestCases(unittest.TestCase):
         )
 
         self.assertAlmostEqual(self.cmp.sim('Niall', 'Colin'), 0.74313725)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Colin', None), 0.83333333)
+        self.assertAlmostEqual(
+            self.cmp.sim('Niall', 'Colin', None), 0.83333333
+        )
         self.assertAlmostEqual(
             self.cmp.sim('Niall', 'Colin', 'fibonacci'), 0.79022989
         )
