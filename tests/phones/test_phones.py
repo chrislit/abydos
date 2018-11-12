@@ -18,7 +18,7 @@
 
 """abydos.tests.phones.test_phones.
 
-This module contains unit tests for abydos.phones._phones.
+This module contains unit tests for abydos.phones.
 """
 
 from __future__ import (
@@ -34,11 +34,11 @@ from math import isnan
 from abydos.phones import cmp_features, get_feature, ipa_to_features
 
 
-class IpaFeaturesTestCases(unittest.TestCase):
-    """Test abydos.phones._phones.ipa_to_features."""
+class PhonesTestCases(unittest.TestCase):
+    """Test abydos.phones."""
 
-    def test_ipa_to_features(self):
-        """Test abydos.phones._phones.ipa_to_features."""
+    def test_phones_ipa_to_features(self):
+        """Test abydos.phones.ipa_to_features."""
         self.assertEqual(
             ipa_to_features('medçen'),
             [
@@ -125,12 +125,8 @@ class IpaFeaturesTestCases(unittest.TestCase):
             [1826957412996131242, -1, 2783233463150095018],
         )
 
-
-class HasFeatureTestCases(unittest.TestCase):
-    """Test abydos.phones._phones.get_feature."""
-
-    def test_ipa_to_features(self):
-        """Test abydos.phones._phones.get_feature."""
+    def test_phones_get_feature(self):
+        """Test abydos.phones.get_feature."""
         self.assertEqual(
             get_feature(ipa_to_features('medçen'), 'nasal'),
             [1, -1, -1, -1, -1, 1],
@@ -180,12 +176,8 @@ class HasFeatureTestCases(unittest.TestCase):
             isnan(get_feature(ipa_to_features('i@c'), 'syllabic')[1])
         )
 
-
-class CmpFeaturesTestCases(unittest.TestCase):
-    """Test cases for abydos.phones._phones.cmp_features."""
-
-    def test_cmp_features(self):
-        """Test abydos.phones._phones.cmp_features."""
+    def test_phones_cmp_features(self):
+        """Test abydos.phones.cmp_features."""
         # # negatives
         self.assertEqual(cmp_features(-1, 1826957425952336298), -1)
         self.assertEqual(cmp_features(1826957425952336298, -1), -1)
