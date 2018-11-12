@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.distance.test_distance_seqalign.
+"""abydos.tests.distance.test_distance_needleman_wunsch.
 
-This module contains unit tests for abydos.distance._seqalign
+This module contains unit tests for abydos.distance.NeedlemanWunsch
 """
 
 from __future__ import (
@@ -32,9 +32,7 @@ import unittest
 
 from abydos.distance import (
     NeedlemanWunsch,
-    gotoh,
     needleman_wunsch,
-    smith_waterman,
 )
 
 from six.moves import range
@@ -90,11 +88,11 @@ def _sim_nw(src, tar):
 class MatrixSimTestCases(unittest.TestCase):
     """Test matrix similarity functions.
 
-    abydos.distance._seqalign.sim_matrix
+    abydos.distance.NeedlemanWunsch.sim_matrix
     """
 
     def test_sim_matrix(self):
-        """Test abydos.distance._seqalign.sim_matrix."""
+        """Test abydos.distance.NeedlemanWunsch.sim_matrix."""
         self.assertEqual(NeedlemanWunsch.sim_matrix('', ''), 1)
         self.assertEqual(NeedlemanWunsch.sim_matrix('', 'a'), 0)
         self.assertEqual(NeedlemanWunsch.sim_matrix('a', ''), 0)
@@ -126,11 +124,12 @@ class MatrixSimTestCases(unittest.TestCase):
 class NeedlemanWunschTestCases(unittest.TestCase):
     """Test Needleman-Wunsch functions.
 
-    abydos.distance._seqalign.needleman_wunsch
+    abydos.distance.NeedlemanWunsch
     """
+    cmp = NeedlemanWunsch()
 
-    def test_needleman_wunsch(self):
-        """Test abydos.distance._seqalign.needleman_wunsch."""
+    def test_needleman_wunsch_dist_abs(self):
+        """Test abydos.distance.NeedlemanWunsch.dist_abs."""
         self.assertEqual(needleman_wunsch('', ''), 0)
 
         # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
@@ -150,108 +149,13 @@ class NeedlemanWunschTestCases(unittest.TestCase):
             needleman_wunsch('AGACTAGTTAC', 'CGAGACGT', 5, _sim_nw), -15
         )
 
-    def test_needleman_wunsch_nialls(self):
-        """Test abydos.distance._seqalign.needleman_wunsch (Nialls set)."""
+    def test_needleman_wunsch_dist_abs_nialls(self):
+        """Test abydos.distance.NeedlemanWunsch.dist_abs (Nialls set)."""
         # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=2, skew=2)
         nw_vals = (5, 0, -2, 3, 1, 1, -2, -2, -1, -3, -3, -5, -3, -7, -7, -19)
         for i in range(len(NIALL)):
             self.assertEqual(
                 needleman_wunsch(NIALL[0], NIALL[i], 2, _sim_nw), nw_vals[i]
-            )
-
-
-class SmithWatermanTestCases(unittest.TestCase):
-    """Test Smith-Waterman functions.
-
-    abydos.distance._seqalign.smith_waterman
-    """
-
-    def test_smith_waterman(self):
-        """Test abydos.distance._seqalign.smith_waterman."""
-        self.assertEqual(smith_waterman('', ''), 0)
-
-        # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
-        self.assertEqual(smith_waterman('GATTACA', 'GCATGCU', 1, _sim_nw), 0)
-        self.assertEqual(
-            smith_waterman('AGACTAGTTAC', 'CGAGACGT', 5, _sim_wikipedia), 26
-        )
-
-        self.assertEqual(
-            smith_waterman('CGATATCAG', 'TGACGSTGC', 5, _sim_nw), 0
-        )
-        self.assertEqual(
-            smith_waterman('AGACTAGTTAC', 'TGACGSTGC', 5, _sim_nw), 1
-        )
-        self.assertEqual(
-            smith_waterman('AGACTAGTTAC', 'CGAGACGT', 5, _sim_nw), 0
-        )
-
-    def test_smith_waterman_nialls(self):
-        """Test abydos.distance._seqalign.smith_waterman (Nialls set)."""
-        sw_vals = (5, 1, 1, 3, 2, 1, 1, 0, 0, 1, 1, 2, 2, 1, 0, 0)
-        for i in range(len(NIALL)):
-            self.assertEqual(
-                smith_waterman(NIALL[0], NIALL[i], 2, _sim_nw), sw_vals[i]
-            )
-
-
-class GotohTestCases(unittest.TestCase):
-    """Test Gotoh functions.
-
-    abydos.distance._seqalign.gotoh
-    """
-
-    def test_gotoh(self):
-        """Test abydos.distance._seqalign.gotoh."""
-        self.assertEqual(gotoh('', ''), 0)
-
-        # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
-        self.assertEqual(gotoh('GATTACA', 'GCATGCU', 1, 1, _sim_nw), 0)
-        self.assertGreaterEqual(
-            gotoh('GATTACA', 'GCATGCU', 1, 0.5, _sim_nw),
-            needleman_wunsch('GATTACA', 'GCATGCU', 1, _sim_nw),
-        )
-        self.assertEqual(
-            gotoh('AGACTAGTTAC', 'CGAGACGT', 5, 5, _sim_wikipedia), 16
-        )
-        self.assertGreaterEqual(
-            gotoh('AGACTAGTTAC', 'CGAGACGT', 5, 2, _sim_wikipedia),
-            needleman_wunsch('AGACTAGTTAC', 'CGAGACGT', 5, _sim_wikipedia),
-        )
-
-        # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=5, skew=5)
-        self.assertEqual(gotoh('CGATATCAG', 'TGACGSTGC', 5, 5, _sim_nw), -5)
-        self.assertGreaterEqual(
-            gotoh('CGATATCAG', 'TGACGSTGC', 5, 2, _sim_nw),
-            needleman_wunsch('CGATATCAG', 'TGACGSTGC', 5, _sim_nw),
-        )
-        self.assertEqual(gotoh('AGACTAGTTAC', 'TGACGSTGC', 5, 5, _sim_nw), -7)
-        self.assertGreaterEqual(
-            gotoh('AGACTAGTTAC', 'TGACGSTGC', 5, 2, _sim_nw),
-            needleman_wunsch('AGACTAGTTAC', 'TGACGSTGC', 5, _sim_nw),
-        )
-        self.assertEqual(gotoh('AGACTAGTTAC', 'CGAGACGT', 5, 5, _sim_nw), -15)
-        self.assertGreaterEqual(
-            gotoh('AGACTAGTTAC', 'CGAGACGT', 5, 2, _sim_nw),
-            needleman_wunsch('AGACTAGTTAC', 'CGAGACGT', 5, _sim_nw),
-        )
-
-    def test_gotoh_nialls(self):
-        """Test abydos.distance._seqalign.gotoh (Nialls set)."""
-        # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=2, skew=2)
-        nw_vals = (5, 0, -2, 3, 1, 1, -2, -2, -1, -3, -3, -5, -3, -7, -7, -19)
-        for i in range(len(NIALL)):
-            self.assertEqual(
-                gotoh(NIALL[0], NIALL[i], 2, 2, _sim_nw), nw_vals[i]
-            )
-        nw_vals2 = (5, 0, -2, 3, 1, 1, -2, -2, -1, -2, -3, -3, -2, -6, -6, -8)
-        for i in range(len(NIALL)):
-            self.assertEqual(
-                gotoh(NIALL[0], NIALL[i], 2, 1, _sim_nw), nw_vals2[i]
-            )
-            self.assertGreaterEqual(
-                gotoh(NIALL[0], NIALL[i], 2, 0.5, _sim_nw),
-                needleman_wunsch(NIALL[0], NIALL[i], 2, _sim_nw),
             )
 
 
