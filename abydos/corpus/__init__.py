@@ -29,7 +29,7 @@ from __future__ import (
 )
 
 from ._corpus import Corpus
-from ._n_gram_corpus import NGramCorpus
+from ._ngram_corpus import NGramCorpus
 
 __all__ = ['Corpus', 'NGramCorpus']
 

@@ -91,7 +91,7 @@ class GotohTestCases(unittest.TestCase):
         )
 
     def test_gotoh_dist_abs_nialls(self):
-        """Test abydos.distance._seqalign.gotoh (Nialls set)."""
+        """Test abydos.distance.Gotoh.dist_abs (Nialls set)."""
         # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=2, skew=2)
         nw_vals = (5, 0, -2, 3, 1, 1, -2, -2, -1, -3, -3, -5, -3, -7, -7, -19)
         for i in range(len(NIALL)):

@@ -51,7 +51,7 @@ from ._occurrence_halved import OccurrenceHalved, occurrence_halved_fingerprint
 from ._omission_key import OmissionKey, omission_key
 from ._phonetic_fingerprint import PhoneticFingerprint, phonetic_fingerprint
 from ._position import Position, position_fingerprint
-from ._q_gram_fingerprint import QGramFingerprint, qgram_fingerprint
+from ._qgram_fingerprint import QGramFingerprint, qgram_fingerprint
 from ._skeleton_key import SkeletonKey, skeleton_key
 from ._string_fingerprint import StringFingerprint, str_fingerprint
 from ._synoname import SynonameToolcode, synoname_toolcode

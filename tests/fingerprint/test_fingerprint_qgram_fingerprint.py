@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.fingerprint.test_fingerprint_basic.
+"""abydos.tests.fingerprint.test_fingerprint_qgram_fingerprint.
 
-This module contains unit tests for abydos.fingerprint._basic
+This module contains unit tests for abydos.fingerprint.QGramFingerprint
 """
 
 from __future__ import (
@@ -31,31 +31,25 @@ from __future__ import (
 import unittest
 
 from abydos.fingerprint import (
-    phonetic_fingerprint,
+    QGramFingerprint,
     qgram_fingerprint,
-    str_fingerprint,
 )
-from abydos.phonetic import phonet, soundex
 
 from six.moves import range
 
 from .. import NIALL
 
 
-class FingerprintTestCases(unittest.TestCase):
-    """Test basic fingerprint functions.
+class QGramFingerprintTestCases(unittest.TestCase):
+    """Test q-gram fingerprint functions.
 
-    abydos.fingerprint._basic.str_fingerprint, .qgram_fingerprint, &
-    .phonetic_fingerprint
+    abydos.fingerprint.QGramFingerprint
     """
+    fp = QGramFingerprint()
 
     _testset = (
         'À noite, vovô Kowalsky vê o ímã cair no pé do pingüim \
 queixoso e vovó põe açúcar no chá de tâmaras do jabuti feliz.',
-    )
-    _anssetw = (
-        'a acucar cair cha de do e feliz ima jabuti kowalsky no noite \
-o pe pinguim poe queixoso tamaras ve vovo',
     )
     _anssetq2 = (
         'abacadaialamanarasbucachcudedoeaedeieleoetevfeguhaifiminirit\
@@ -64,30 +58,20 @@ xoyv',
     )
     _anssetq1 = ('abcdefghijklmnopqrstuvwxyz',)
 
-    def test_str_fingerprint(self):
-        """Test abydos.fingerprint._basic.str_fingerprint."""
-        # Base case
-        self.assertEqual(str_fingerprint(''), '')
-
-        for i in range(len(self._testset)):
-            self.assertEqual(
-                str_fingerprint(self._testset[i]), self._anssetw[i]
-            )
-
     def test_qgram_fingerprint(self):
-        """Test abydos.fingerprint._basic.qgram_fingerprint."""
+        """Test abydos.fingerprint.QGramFingerprint.fingerprint."""
         # Base case
-        self.assertEqual(qgram_fingerprint(''), '')
+        self.assertEqual(self.fp.fingerprint(''), '')
 
         for i in range(len(self._testset)):
             self.assertEqual(
-                qgram_fingerprint(self._testset[i], 1), self._anssetq1[i]
+                self.fp.fingerprint(self._testset[i], 1), self._anssetq1[i]
             )
             self.assertEqual(
-                qgram_fingerprint(self._testset[i], 2), self._anssetq2[i]
+                self.fp.fingerprint(self._testset[i], 2), self._anssetq2[i]
             )
             self.assertEqual(
-                qgram_fingerprint(self._testset[i]), self._anssetq2[i]
+                self.fp.fingerprint(self._testset[i]), self._anssetq2[i]
             )
 
         qgram_fp_niall = (
@@ -109,25 +93,10 @@ xoyv',
             'acalchgiiaiglalllnninooi',
         )
         for i in range(len(NIALL)):
-            self.assertEqual(qgram_fingerprint(NIALL[i]), qgram_fp_niall[i])
+            self.assertEqual(self.fp.fingerprint(NIALL[i]), qgram_fp_niall[i])
 
-    def test_phonetic_fingerprint(self):
-        """Test abydos.fingerprint._basic.phonetic_fingerprint."""
-        # Base case
-        self.assertEqual(phonetic_fingerprint(''), '')
-
-        self.assertEqual(
-            phonetic_fingerprint(' '.join(NIALL)), 'a anl mknl njl nklk nl'
-        )
-        self.assertEqual(
-            phonetic_fingerprint(' '.join(NIALL), phonet),
-            'knile makneil maknele neil nel nele nial nigeli '
-            + 'nigl nil noigialach oneil ui',
-        )
-        self.assertEqual(
-            phonetic_fingerprint(' '.join(NIALL), soundex),
-            'k540 m254 n240 n242 n400 o540 u000',
-        )
+        # Test wrapper
+        self.assertEqual(qgram_fingerprint(NIALL[0]), qgram_fp_niall[0])
 
 
 if __name__ == '__main__':
