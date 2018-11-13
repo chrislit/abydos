@@ -126,11 +126,15 @@ algorithms = {
     'russell_index_alpha': russell.encode_alpha,
     'soundex': soundex.encode,
     'reverse_soundex': lambda _: soundex.encode(_, reverse=True),
-    'soundex_0pad_ml6': lambda _: soundex.encode(_, zero_pad=True, max_length=6),
+    'soundex_0pad_ml6': lambda _: soundex.encode(
+        _, zero_pad=True, max_length=6
+    ),
     'soundex_special': lambda _: soundex.encode(_, var='special'),
     'soundex_census': lambda _: ', '.join(soundex.encode(_, var='Census')),
     'refined_soundex': refined_soundex.encode,
-    'refined_soundex_vowels': lambda _: refined_soundex.encode(_, retain_vowels=True),
+    'refined_soundex_vowels': lambda _: refined_soundex.encode(
+        _, retain_vowels=True
+    ),
     'refined_soundex_0pad_ml6': lambda _: refined_soundex.encode(
         _, zero_pad=True, max_length=6
     ),
@@ -166,7 +170,9 @@ algorithms = {
     'phonet_2_none': lambda _: phonet.encode(_, mode=2, lang='none'),
     'spfc': lambda _: spfc.encode(_ + ' ' + _),
     'statistics_canada': statistics_canada.encode,
-    'statistics_canada_ml8': lambda _: statistics_canada.encode(_, max_length=8),
+    'statistics_canada_ml8': lambda _: statistics_canada.encode(
+        _, max_length=8
+    ),
     'lein': lein.encode,
     'lein_nopad_ml8': lambda _: lein.encode(_, max_length=8, zero_pad=False),
     'roger_root': roger_root.encode,
@@ -177,9 +183,7 @@ algorithms = {
     'onca_nopad_ml8': lambda _: onca.encode(_, max_length=8, zero_pad=False),
     'eudex': lambda _: str(eudex.encode(_)),
     'haase_phonetik': lambda _: ', '.join(haase.encode(_)),
-    'haase_phonetik_primary': lambda _: haase.encode(_, primary_only=True)[
-        0
-    ],
+    'haase_phonetik_primary': lambda _: haase.encode(_, primary_only=True)[0],
     'reth_schek_phonetik': reth_schek.encode,
     'fonem': fonem.encode,
     'parmar_kumbharana': parmar_kumbharana.encode,
@@ -187,11 +191,19 @@ algorithms = {
     'sound_d': sound_d.encode,
     'sound_d_ml8': lambda _: sound_d.encode(_, max_length=8),
     'pshp_soundex_last': pshp_soundex_last.encode,
-    'pshp_soundex_last_german': lambda _: pshp_soundex_last.encode(_, german=True),
-    'pshp_soundex_last_ml8': lambda _: pshp_soundex_last.encode(_, max_length=8),
+    'pshp_soundex_last_german': lambda _: pshp_soundex_last.encode(
+        _, german=True
+    ),
+    'pshp_soundex_last_ml8': lambda _: pshp_soundex_last.encode(
+        _, max_length=8
+    ),
     'pshp_soundex_first': pshp_soundex_first.encode,
-    'pshp_soundex_first_german': lambda _: pshp_soundex_first.encode(_, german=True),
-    'pshp_soundex_first_ml8': lambda _: pshp_soundex_first.encode(_, max_length=8),
+    'pshp_soundex_first_german': lambda _: pshp_soundex_first.encode(
+        _, german=True
+    ),
+    'pshp_soundex_first_ml8': lambda _: pshp_soundex_first.encode(
+        _, max_length=8
+    ),
     'henry_early': henry_early.encode,
     'henry_early_ml8': lambda _: henry_early.encode(_, max_length=8),
     'norphone': norphone.encode,
@@ -204,7 +216,9 @@ algorithms = {
     'spanish_metaphone_modified': lambda _: spanish_metaphone.encode(
         _, modified=True
     ),
-    'spanish_metaphone_ml4': lambda _: spanish_metaphone.encode(_, max_length=4),
+    'spanish_metaphone_ml4': lambda _: spanish_metaphone.encode(
+        _, max_length=4
+    ),
     'metasoundex': metasoundex.encode,
     'metasoundex_es': lambda _: metasoundex.encode(_, lang='es'),
     'soundex_br': soundex_br.encode,
@@ -214,9 +228,13 @@ algorithms = {
     'bmpm_french': lambda _: bm.encode(_, language_arg='french'),
     'bmpm_gen_exact': lambda _: bm.encode(_, match_mode='exact'),
     'bmpm_ash_approx': lambda _: bm.encode(_, name_mode='ash'),
-    'bmpm_ash_exact': lambda _: bm.encode(_, name_mode='ash', match_mode='exact'),
+    'bmpm_ash_exact': lambda _: bm.encode(
+        _, name_mode='ash', match_mode='exact'
+    ),
     'bmpm_sep_approx': lambda _: bm.encode(_, name_mode='sep'),
-    'bmpm_sep_exact': lambda _: bm.encode(_, name_mode='sep', match_mode='exact'),
+    'bmpm_sep_exact': lambda _: bm.encode(
+        _, name_mode='sep', match_mode='exact'
+    ),
 }
 
 
