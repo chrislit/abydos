@@ -18,7 +18,7 @@
 
 """abydos.tests.phonetic.test_phonetic_dolby.
 
-This module contains unit tests for abydos.phonetic._dolby
+This module contains unit tests for abydos.phonetic.Dolby
 """
 
 from __future__ import (
@@ -30,19 +30,21 @@ from __future__ import (
 
 import unittest
 
-from abydos.phonetic import dolby
+from abydos.phonetic import Dolby, dolby
 
 
 class DolbyTestCases(unittest.TestCase):
     """Test Dolby functions.
 
-    test cases for abydos.phonetic._dolby.dolby
+    test cases for abydos.phonetic.Dolby
     """
 
+    pa = Dolby()
+
     def test_dolby(self):
-        """Test abydos.phonetic._dolby.dolby."""
+        """Test abydos.phonetic.Dolby."""
         # Base case
-        self.assertEqual(dolby(''), '')
+        self.assertEqual(self.pa.encode(''), '')
 
         # Tests from Dolby (1970) pp. 264--274
         # https://ejournals.bc.edu/ojs/index.php/ital/article/download/5259/4734
@@ -731,21 +733,25 @@ class DolbyTestCases(unittest.TestCase):
             result, names = tests[0], tests[1:]
             for name in names:
                 if name[0] == '!':
-                    self.assertNotEqual(result, dolby(name[1:]))
+                    self.assertNotEqual(result, self.pa.encode(name[1:]))
                 else:
-                    self.assertEqual(result, dolby(name))
+                    self.assertEqual(result, self.pa.encode(name))
 
         # Additional tests to improve coverage
-        self.assertEqual(dolby('Rune'), 'R*N')
-        self.assertEqual(dolby('Rune', keep_vowels=True), 'R*N*')
-        self.assertEqual(dolby('Rune', vowel_char=''), 'RN')
-        self.assertEqual(dolby('Rune', vowel_char='A'), 'RAN')
-        self.assertEqual(dolby('Rune', max_length=2), 'R*')
-        self.assertEqual(dolby('Rune', max_length=2), 'R*')
-        self.assertEqual(dolby('Wassermann', max_length=4), 'W*SR')
+        self.assertEqual(self.pa.encode('Rune'), 'R*N')
+        self.assertEqual(self.pa.encode('Rune', keep_vowels=True), 'R*N*')
+        self.assertEqual(self.pa.encode('Rune', vowel_char=''), 'RN')
+        self.assertEqual(self.pa.encode('Rune', vowel_char='A'), 'RAN')
+        self.assertEqual(self.pa.encode('Rune', max_length=2), 'R*')
+        self.assertEqual(self.pa.encode('Rune', max_length=2), 'R*')
+        self.assertEqual(self.pa.encode('Wassermann', max_length=4), 'W*SR')
         self.assertEqual(
-            dolby('Wassermanns', max_length=4, keep_vowels=True), 'W*S*'
+            self.pa.encode('Wassermanns', max_length=4, keep_vowels=True),
+            'W*S*',
         )
+        self.assertEqual(self.pa.encode('Wassermanns'), 'W*SRMNS')
+
+        # Test wrapper
         self.assertEqual(dolby('Wassermanns'), 'W*SRMNS')
 
 

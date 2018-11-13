@@ -18,7 +18,7 @@
 
 """abydos.tests.phonetic.test_phonetic_mra.
 
-This module contains unit tests for abydos.phonetic._mra
+This module contains unit tests for abydos.phonetic.MRA
 """
 
 from __future__ import (
@@ -30,31 +30,36 @@ from __future__ import (
 
 import unittest
 
-from abydos.phonetic import mra
+from abydos.phonetic import MRA, mra
 
 
 class MraTestCases(unittest.TestCase):
     """Test MRA functions.
 
-    test cases for abydos.phonetic._mra.mra
+    test cases for abydos.phonetic.MRA
     """
 
+    pa = MRA()
+
     def test_mra(self):
-        """Test abydos.phonetic._mra.mra."""
-        self.assertEqual(mra(''), '')
+        """Test abydos.phonetic.MRA."""
+        self.assertEqual(self.pa.encode(''), '')
 
         # https://en.wikipedia.org/wiki/Match_rating_approach
-        self.assertEqual(mra('Byrne'), 'BYRN')
-        self.assertEqual(mra('Boern'), 'BRN')
-        self.assertEqual(mra('Smith'), 'SMTH')
-        self.assertEqual(mra('Smyth'), 'SMYTH')
-        self.assertEqual(mra('Catherine'), 'CTHRN')
-        self.assertEqual(mra('Kathryn'), 'KTHRYN')
+        self.assertEqual(self.pa.encode('Byrne'), 'BYRN')
+        self.assertEqual(self.pa.encode('Boern'), 'BRN')
+        self.assertEqual(self.pa.encode('Smith'), 'SMTH')
+        self.assertEqual(self.pa.encode('Smyth'), 'SMYTH')
+        self.assertEqual(self.pa.encode('Catherine'), 'CTHRN')
+        self.assertEqual(self.pa.encode('Kathryn'), 'KTHRYN')
 
         # length checks
-        self.assertEqual(mra('Christopher'), 'CHRPHR')
-        self.assertEqual(mra('Dickensianistic'), 'DCKSTC')
-        self.assertEqual(mra('Acetylcholinesterase'), 'ACTTRS')
+        self.assertEqual(self.pa.encode('Christopher'), 'CHRPHR')
+        self.assertEqual(self.pa.encode('Dickensianistic'), 'DCKSTC')
+        self.assertEqual(self.pa.encode('Acetylcholinesterase'), 'ACTTRS')
+
+        # Test wrapper
+        self.assertEqual(mra('Byrne'), 'BYRN')
 
 
 if __name__ == '__main__':

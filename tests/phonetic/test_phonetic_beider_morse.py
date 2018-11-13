@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.phonetic.test_phonetic_bmpm.
+"""abydos.tests.phonetic.test_phonetic_beider_morse.
 
-This module contains unit tests for abydos.phonetic._bmpm
+This module contains unit tests for abydos.phonetic.BeiderMorse
 """
 
 from __future__ import (
@@ -61,17 +61,15 @@ from .. import ALLOW_RANDOM, _corpus_file, _one_in
 
 
 class BeiderMorseTestCases(unittest.TestCase):
-    """Test BMPM functions.
+    """Test BeiderMorse functions.
 
-    test cases for abydos.phonetic._bmpm.bmpm, ._phonetic_number,
-    ._apply_rule_if_compat, ._language, ._expand_alternates,
-    ._remove_dupes, ._normalize_lang_attrs
+    test cases for abydos.phonetic.BeiderMorse
     """
 
-    pe = BeiderMorse()
+    pa = BeiderMorse()
 
-    def test_bmpm(self):
-        """Test abydos.phonetic._bmpm.bmpm.
+    def test_beider_morse_encode(self):
+        """Test abydos.phonetic.BeiderMorse.
 
         Most test cases from:
         http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/
@@ -84,7 +82,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         particularly in terms of formatting and ordering.
         """
         # base cases
-        self.assertEqual(bmpm(''), '')
+        self.assertEqual(self.pa.encode(''), '')
 
         for langs in ('', 1, 'spanish', 'english,italian', 3):
             for name_mode in ('gen', 'ash', 'sep'):
@@ -96,7 +94,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                         ):
                             self.assertRaises(
                                 ValueError,
-                                bmpm,
+                                self.pa.encode,
                                 '',
                                 langs,
                                 name_mode,
@@ -105,52 +103,58 @@ class BeiderMorseTestCases(unittest.TestCase):
                             )
                         else:
                             self.assertEqual(
-                                bmpm('', langs, name_mode, match_mode, concat),
+                                self.pa.encode(
+                                    '', langs, name_mode, match_mode, concat
+                                ),
                                 '',
                             )
 
         # testSolrGENERIC
         # concat is true, ruleType is EXACT
         self.assertEqual(
-            bmpm('Angelo', '', 'gen', 'exact', True),
+            self.pa.encode('Angelo', '', 'gen', 'exact', True),
             'angelo anxelo anhelo anjelo anZelo andZelo',
         )
         self.assertEqual(
-            bmpm('D\'Angelo', '', 'gen', 'exact', True),
+            self.pa.encode('D\'Angelo', '', 'gen', 'exact', True),
             'angelo anxelo anhelo anjelo anZelo andZelo dangelo'
             + ' danxelo danhelo danjelo danZelo dandZelo',
         )
         self.assertEqual(
-            bmpm('Angelo', 'italian,greek,spanish', 'gen', 'exact', True),
+            self.pa.encode(
+                'Angelo', 'italian,greek,spanish', 'gen', 'exact', True
+            ),
             'angelo anxelo andZelo',
         )
-        self.assertEqual(bmpm('1234', '', 'gen', 'exact', True), '')
+        self.assertEqual(self.pa.encode('1234', '', 'gen', 'exact', True), '')
 
         # concat is false, ruleType is EXACT
         self.assertEqual(
-            bmpm('Angelo', '', 'gen', 'exact', False),
+            self.pa.encode('Angelo', '', 'gen', 'exact', False),
             'angelo anxelo anhelo anjelo anZelo andZelo',
         )
         self.assertEqual(
-            bmpm('D\'Angelo', '', 'gen', 'exact', False),
+            self.pa.encode('D\'Angelo', '', 'gen', 'exact', False),
             'angelo anxelo anhelo anjelo anZelo andZelo dangelo'
             + ' danxelo danhelo danjelo danZelo dandZelo',
         )
         self.assertEqual(
-            bmpm('Angelo', 'italian,greek,spanish', 'gen', 'exact', False),
+            self.pa.encode(
+                'Angelo', 'italian,greek,spanish', 'gen', 'exact', False
+            ),
             'angelo anxelo andZelo',
         )
-        self.assertEqual(bmpm('1234', '', 'gen', 'exact', False), '')
+        self.assertEqual(self.pa.encode('1234', '', 'gen', 'exact', False), '')
 
         # concat is true, ruleType is APPROX
         self.assertEqual(
-            bmpm('Angelo', '', 'gen', 'approx', True),
+            self.pa.encode('Angelo', '', 'gen', 'approx', True),
             'angilo angYlo agilo ongilo ongYlo ogilo Yngilo'
             + ' YngYlo anxilo onxilo anilo onilo aniilo oniilo'
             + ' anzilo onzilo',
         )
         self.assertEqual(
-            bmpm('D\'Angelo', '', 'gen', 'approx', True),
+            self.pa.encode('D\'Angelo', '', 'gen', 'approx', True),
             'angilo angYlo agilo ongilo ongYlo ogilo Yngilo'
             + ' YngYlo anxilo onxilo anilo onilo aniilo oniilo'
             + ' anzilo onzilo dangilo dangYlo dagilo dongilo'
@@ -158,20 +162,22 @@ class BeiderMorseTestCases(unittest.TestCase):
             + ' danilo donilo daniilo doniilo danzilo donzilo',
         )
         self.assertEqual(
-            bmpm('Angelo', 'italian,greek,spanish', 'gen', 'approx', True),
+            self.pa.encode(
+                'Angelo', 'italian,greek,spanish', 'gen', 'approx', True
+            ),
             'angilo ongilo anxilo onxilo anzilo onzilo',
         )
-        self.assertEqual(bmpm('1234', '', 'gen', 'approx', True), '')
+        self.assertEqual(self.pa.encode('1234', '', 'gen', 'approx', True), '')
 
         # concat is false, ruleType is APPROX
         self.assertEqual(
-            bmpm('Angelo', '', 'gen', 'approx', False),
+            self.pa.encode('Angelo', '', 'gen', 'approx', False),
             'angilo angYlo agilo ongilo ongYlo ogilo Yngilo'
             + ' YngYlo anxilo onxilo anilo onilo aniilo oniilo'
             + ' anzilo onzilo',
         )
         self.assertEqual(
-            bmpm('D\'Angelo', '', 'gen', 'approx', False),
+            self.pa.encode('D\'Angelo', '', 'gen', 'approx', False),
             'angilo angYlo agilo ongilo ongYlo ogilo Yngilo'
             + ' YngYlo anxilo onxilo anilo onilo aniilo oniilo'
             + ' anzilo onzilo dangilo dangYlo dagilo dongilo'
@@ -179,24 +185,28 @@ class BeiderMorseTestCases(unittest.TestCase):
             + ' danilo donilo daniilo doniilo danzilo donzilo',
         )
         self.assertEqual(
-            bmpm('Angelo', 'italian,greek,spanish', 'gen', 'approx', False),
+            self.pa.encode(
+                'Angelo', 'italian,greek,spanish', 'gen', 'approx', False
+            ),
             'angilo ongilo anxilo onxilo anzilo onzilo',
         )
-        self.assertEqual(bmpm('1234', '', 'gen', 'approx', False), '')
+        self.assertEqual(
+            self.pa.encode('1234', '', 'gen', 'approx', False), ''
+        )
 
         # testSolrASHKENAZI
         # concat is true, ruleType is EXACT
         self.assertEqual(
-            bmpm('Angelo', '', 'ash', 'exact', True),
+            self.pa.encode('Angelo', '', 'ash', 'exact', True),
             'angelo andZelo anhelo anxelo',
         )
         self.assertEqual(
-            bmpm('D\'Angelo', '', 'ash', 'exact', True),
+            self.pa.encode('D\'Angelo', '', 'ash', 'exact', True),
             'dangelo dandZelo danhelo danxelo',
         )
         self.assertRaises(
             ValueError,
-            bmpm,
+            self.pa.encode,
             'Angelo',
             'italian,greek,spanish',
             'ash',
@@ -204,25 +214,25 @@ class BeiderMorseTestCases(unittest.TestCase):
             True,
         )
         self.assertEqual(
-            bmpm(
+            self.pa.encode(
                 'Angelo', 'italian,greek,spanish', 'ash', 'exact', True, True
             ),
             'anxelo angelo',
         )
-        self.assertEqual(bmpm('1234', '', 'ash', 'exact', True), '')
+        self.assertEqual(self.pa.encode('1234', '', 'ash', 'exact', True), '')
 
         # concat is false, ruleType is EXACT
         self.assertEqual(
-            bmpm('Angelo', '', 'ash', 'exact', False),
+            self.pa.encode('Angelo', '', 'ash', 'exact', False),
             'angelo andZelo anhelo anxelo',
         )
         self.assertEqual(
-            bmpm('D\'Angelo', '', 'ash', 'exact', False),
+            self.pa.encode('D\'Angelo', '', 'ash', 'exact', False),
             'dangelo dandZelo danhelo danxelo',
         )
         self.assertRaises(
             ValueError,
-            bmpm,
+            self.pa.encode,
             'Angelo',
             'italian,greek,spanish',
             'ash',
@@ -230,27 +240,27 @@ class BeiderMorseTestCases(unittest.TestCase):
             False,
         )
         self.assertEqual(
-            bmpm(
+            self.pa.encode(
                 'Angelo', 'italian,greek,spanish', 'ash', 'exact', False, True
             ),
             'anxelo angelo',
         )
-        self.assertEqual(bmpm('1234', '', 'ash', 'exact', False), '')
+        self.assertEqual(self.pa.encode('1234', '', 'ash', 'exact', False), '')
 
         # concat is true, ruleType is APPROX
         self.assertEqual(
-            bmpm('Angelo', '', 'ash', 'approx', True),
+            self.pa.encode('Angelo', '', 'ash', 'approx', True),
             'angilo angYlo ongilo ongYlo Yngilo YngYlo anzilo'
             + ' onzilo anilo onilo anxilo onxilo',
         )
         self.assertEqual(
-            bmpm('D\'Angelo', '', 'ash', 'approx', True),
+            self.pa.encode('D\'Angelo', '', 'ash', 'approx', True),
             'dangilo dangYlo dongilo dongYlo dYngilo dYngYlo'
             + ' danzilo donzilo danilo donilo danxilo donxilo',
         )
         self.assertRaises(
             ValueError,
-            bmpm,
+            self.pa.encode,
             'Angelo',
             'italian,greek,spanish',
             'ash',
@@ -258,27 +268,27 @@ class BeiderMorseTestCases(unittest.TestCase):
             True,
         )
         self.assertEqual(
-            bmpm(
+            self.pa.encode(
                 'Angelo', 'italian,greek,spanish', 'ash', 'approx', True, True
             ),
             'anxYlo anxilo onxYlo onxilo angYlo angilo ongYlo' + ' ongilo',
         )
-        self.assertEqual(bmpm('1234', '', 'ash', 'approx', True), '')
+        self.assertEqual(self.pa.encode('1234', '', 'ash', 'approx', True), '')
 
         # concat is false, ruleType is APPROX
         self.assertEqual(
-            bmpm('Angelo', '', 'ash', 'approx', False),
+            self.pa.encode('Angelo', '', 'ash', 'approx', False),
             'angilo angYlo ongilo ongYlo Yngilo YngYlo anzilo'
             + ' onzilo anilo onilo anxilo onxilo',
         )
         self.assertEqual(
-            bmpm('D\'Angelo', '', 'ash', 'approx', False),
+            self.pa.encode('D\'Angelo', '', 'ash', 'approx', False),
             'dangilo dangYlo dongilo dongYlo dYngilo dYngYlo'
             + ' danzilo donzilo danilo donilo danxilo donxilo',
         )
         self.assertRaises(
             ValueError,
-            bmpm,
+            self.pa.encode,
             'Angelo',
             'italian,greek,spanish',
             'ash',
@@ -286,25 +296,28 @@ class BeiderMorseTestCases(unittest.TestCase):
             False,
         )
         self.assertEqual(
-            bmpm(
+            self.pa.encode(
                 'Angelo', 'italian,greek,spanish', 'ash', 'approx', False, True
             ),
             'anxYlo anxilo onxYlo onxilo angYlo angilo ongYlo' + ' ongilo',
         )
-        self.assertEqual(bmpm('1234', '', 'ash', 'approx', False), '')
+        self.assertEqual(
+            self.pa.encode('1234', '', 'ash', 'approx', False), ''
+        )
 
         # testSolrSEPHARDIC
         # concat is true, ruleType is EXACT
         self.assertEqual(
-            bmpm('Angelo', '', 'sep', 'exact', True), 'anZelo andZelo anxelo'
+            self.pa.encode('Angelo', '', 'sep', 'exact', True),
+            'anZelo andZelo anxelo',
         )
         self.assertEqual(
-            bmpm('D\'Angelo', '', 'sep', 'exact', True),
+            self.pa.encode('D\'Angelo', '', 'sep', 'exact', True),
             'anZelo andZelo anxelo',
         )
         self.assertRaises(
             ValueError,
-            bmpm,
+            self.pa.encode,
             'Angelo',
             'italian,greek,spanish',
             'sep',
@@ -312,24 +325,25 @@ class BeiderMorseTestCases(unittest.TestCase):
             True,
         )
         self.assertEqual(
-            bmpm(
+            self.pa.encode(
                 'Angelo', 'italian,greek,spanish', 'sep', 'exact', True, True
             ),
             'andZelo anxelo',
         )
-        self.assertEqual(bmpm('1234', '', 'sep', 'exact', True), '')
+        self.assertEqual(self.pa.encode('1234', '', 'sep', 'exact', True), '')
 
         # concat is false, ruleType is EXACT
         self.assertEqual(
-            bmpm('Angelo', '', 'sep', 'exact', False), 'anZelo andZelo anxelo'
+            self.pa.encode('Angelo', '', 'sep', 'exact', False),
+            'anZelo andZelo anxelo',
         )
         self.assertEqual(
-            bmpm('D\'Angelo', '', 'sep', 'exact', False),
+            self.pa.encode('D\'Angelo', '', 'sep', 'exact', False),
             'anZelo andZelo anxelo',
         )
         self.assertRaises(
             ValueError,
-            bmpm,
+            self.pa.encode,
             'Angelo',
             'italian,greek,spanish',
             'sep',
@@ -337,25 +351,25 @@ class BeiderMorseTestCases(unittest.TestCase):
             False,
         )
         self.assertEqual(
-            bmpm(
+            self.pa.encode(
                 'Angelo', 'italian,greek,spanish', 'sep', 'exact', False, True
             ),
             'andZelo anxelo',
         )
-        self.assertEqual(bmpm('1234', '', 'sep', 'exact', False), '')
+        self.assertEqual(self.pa.encode('1234', '', 'sep', 'exact', False), '')
 
         # concat is true, ruleType is APPROX
         self.assertEqual(
-            bmpm('Angelo', '', 'sep', 'approx', True),
+            self.pa.encode('Angelo', '', 'sep', 'approx', True),
             'anzila anzilu nzila nzilu anhila anhilu nhila nhilu',
         )
         self.assertEqual(
-            bmpm('D\'Angelo', '', 'sep', 'approx', True),
+            self.pa.encode('D\'Angelo', '', 'sep', 'approx', True),
             'anzila anzilu nzila nzilu anhila anhilu nhila nhilu',
         )
         self.assertRaises(
             ValueError,
-            bmpm,
+            self.pa.encode,
             'Angelo',
             'italian,greek,spanish',
             'sep',
@@ -363,25 +377,25 @@ class BeiderMorseTestCases(unittest.TestCase):
             True,
         )
         self.assertEqual(
-            bmpm(
+            self.pa.encode(
                 'Angelo', 'italian,greek,spanish', 'sep', 'approx', True, True
             ),
             'anzila anzilu nzila nzilu anhila anhilu nhila nhilu',
         )
-        self.assertEqual(bmpm('1234', '', 'sep', 'approx', True), '')
+        self.assertEqual(self.pa.encode('1234', '', 'sep', 'approx', True), '')
 
         # concat is false, ruleType is APPROX
         self.assertEqual(
-            bmpm('Angelo', '', 'sep', 'approx', False),
+            self.pa.encode('Angelo', '', 'sep', 'approx', False),
             'anzila anzilu nzila nzilu anhila anhilu nhila nhilu',
         )
         self.assertEqual(
-            bmpm('D\'Angelo', '', 'sep', 'approx', False),
+            self.pa.encode('D\'Angelo', '', 'sep', 'approx', False),
             'anzila anzilu nzila nzilu anhila anhilu nhila nhilu',
         )
         self.assertRaises(
             ValueError,
-            bmpm,
+            self.pa.encode,
             'Angelo',
             'italian,greek,spanish',
             'sep',
@@ -389,76 +403,89 @@ class BeiderMorseTestCases(unittest.TestCase):
             False,
         )
         self.assertEqual(
-            bmpm(
+            self.pa.encode(
                 'Angelo', 'italian,greek,spanish', 'sep', 'approx', False, True
             ),
             'anzila anzilu nzila nzilu anhila anhilu nhila nhilu',
         )
-        self.assertEqual(bmpm('1234', '', 'sep', 'approx', False), '')
+        self.assertEqual(
+            self.pa.encode('1234', '', 'sep', 'approx', False), ''
+        )
 
         # testCompatibilityWithOriginalVersion
         self.assertEqual(
-            bmpm('abram', '', 'gen', 'approx', False),
+            self.pa.encode('abram', '', 'gen', 'approx', False),
             'abram abrom avram avrom obram obrom ovram ovrom'
             + ' Ybram Ybrom abran abron obran obron',
         )
         self.assertEqual(
-            bmpm('Bendzin', '', 'gen', 'approx', False),
+            self.pa.encode('Bendzin', '', 'gen', 'approx', False),
             'binzn bindzn vindzn bintsn vintsn',
         )
         self.assertEqual(
-            bmpm('abram', '', 'ash', 'approx', False),
+            self.pa.encode('abram', '', 'ash', 'approx', False),
             'abram abrom avram avrom obram obrom ovram ovrom'
             + ' Ybram Ybrom ombram ombrom imbram imbrom',
         )
         self.assertEqual(
-            bmpm('Halpern', '', 'ash', 'approx', False),
+            self.pa.encode('Halpern', '', 'ash', 'approx', False),
             'alpirn alpYrn olpirn olpYrn Ylpirn YlpYrn xalpirn' + ' xolpirn',
         )
 
         # PhoneticEngineTest
         self.assertEqual(
-            bmpm('Renault', '', 'gen', 'approx', True),
+            self.pa.encode('Renault', '', 'gen', 'approx', True),
             'rinolt rino rinDlt rinalt rinult rinD rina rinu',
         )
         self.assertEqual(
-            bmpm('Renault', '', 'ash', 'approx', True),
+            self.pa.encode('Renault', '', 'ash', 'approx', True),
             'rinDlt rinalt rinult rYnDlt rYnalt rYnult rinolt',
         )
-        self.assertEqual(bmpm('Renault', '', 'sep', 'approx', True), 'rinDlt')
         self.assertEqual(
-            bmpm('SntJohn-Smith', '', 'gen', 'exact', True), 'sntjonsmit'
+            self.pa.encode('Renault', '', 'sep', 'approx', True), 'rinDlt'
         )
         self.assertEqual(
-            bmpm('d\'ortley', '', 'gen', 'exact', True),
+            self.pa.encode('SntJohn-Smith', '', 'gen', 'exact', True),
+            'sntjonsmit',
+        )
+        self.assertEqual(
+            self.pa.encode('d\'ortley', '', 'gen', 'exact', True),
             'ortlaj ortlej dortlaj dortlej',
         )
         self.assertEqual(
-            bmpm('van helsing', '', 'gen', 'exact', False),
+            self.pa.encode('van helsing', '', 'gen', 'exact', False),
             'helSink helsink helzink xelsink elSink elsink'
             + ' vanhelsink vanhelzink vanjelsink fanhelsink'
             + ' fanhelzink banhelsink',
         )
 
-    def test_bmpm_misc(self):
-        """Test abydos.phonetic._bmpm.bmpm (miscellaneous tests).
+        # Test wrapper
+        self.assertEqual(
+            bmpm('Angelo', '', 'gen', 'exact', True),
+            'angelo anxelo anhelo anjelo anZelo andZelo',
+        )
+
+    def test_beider_morse_encode_misc(self):
+        """Test abydos.phonetic.BeiderMorse (miscellaneous tests).
 
         The purpose of this test set is to achieve higher code coverage
         and to hit some of the test cases noted in the BMPM reference code.
         """
         # test of Ashkenazi with discardable prefix
-        self.assertEqual(bmpm('bar Hayim', name_mode='ash'), 'Dm xDm')
+        self.assertEqual(
+            self.pa.encode('bar Hayim', name_mode='ash'), 'Dm xDm'
+        )
 
         # tests of concat behavior
         self.assertEqual(
-            bmpm('Rodham Clinton', concat=False),
+            self.pa.encode('Rodham Clinton', concat=False),
             'rodam rodom rYdam rYdom rodan rodon rodxam rodxom'
             + ' rodxan rodxon rudam rudom klinton klnton klintun'
             + ' klntun tzlinton tzlnton tzlintun tzlntun zlinton'
             + ' zlnton',
         )
         self.assertEqual(
-            bmpm('Rodham Clinton', concat=True),
+            self.pa.encode('Rodham Clinton', concat=True),
             'rodamklinton rodomklinton rodamklnton rodomklnton'
             + ' rodamklintun rodomklintun rodamklntun rodomklntun'
             + ' rodamtzlinton rodomtzlinton rodamtzlnton'
@@ -477,45 +504,51 @@ class BeiderMorseTestCases(unittest.TestCase):
         )
 
         # tests of name_mode values
-        self.assertEqual(bmpm('bar Hayim', name_mode='ash'), 'Dm xDm')
-        self.assertEqual(bmpm('bar Hayim', name_mode='ashkenazi'), 'Dm xDm')
-        self.assertEqual(bmpm('bar Hayim', name_mode='Ashkenazi'), 'Dm xDm')
         self.assertEqual(
-            bmpm('bar Hayim', name_mode='gen', concat=True),
+            self.pa.encode('bar Hayim', name_mode='ash'), 'Dm xDm'
+        )
+        self.assertEqual(
+            self.pa.encode('bar Hayim', name_mode='ashkenazi'), 'Dm xDm'
+        )
+        self.assertEqual(
+            self.pa.encode('bar Hayim', name_mode='Ashkenazi'), 'Dm xDm'
+        )
+        self.assertEqual(
+            self.pa.encode('bar Hayim', name_mode='gen', concat=True),
             'barDm borDm bYrDm varDm vorDm barDn borDn barxDm'
             + ' borxDm varxDm vorxDm barxDn borxDn',
         )
         self.assertEqual(
-            bmpm('bar Hayim', name_mode='general', concat=True),
+            self.pa.encode('bar Hayim', name_mode='general', concat=True),
             'barDm borDm bYrDm varDm vorDm barDn borDn barxDm'
             + ' borxDm varxDm vorxDm barxDn borxDn',
         )
         self.assertEqual(
-            bmpm('bar Hayim', name_mode='Mizrahi', concat=True),
+            self.pa.encode('bar Hayim', name_mode='Mizrahi', concat=True),
             'barDm borDm bYrDm varDm vorDm barDn borDn barxDm'
             + ' borxDm varxDm vorxDm barxDn borxDn',
         )
         self.assertEqual(
-            bmpm('bar Hayim', name_mode='mizrahi', concat=True),
+            self.pa.encode('bar Hayim', name_mode='mizrahi', concat=True),
             'barDm borDm bYrDm varDm vorDm barDn borDn barxDm'
             + ' borxDm varxDm vorxDm barxDn borxDn',
         )
         self.assertEqual(
-            bmpm('bar Hayim', name_mode='miz', concat=True),
+            self.pa.encode('bar Hayim', name_mode='miz', concat=True),
             'barDm borDm bYrDm varDm vorDm barDn borDn barxDm'
             + ' borxDm varxDm vorxDm barxDn borxDn',
         )
 
         # test that out-of-range language_arg results in L_ANY
         self.assertEqual(
-            bmpm('Rodham Clinton', language_arg=2 ** 32),
+            self.pa.encode('Rodham Clinton', language_arg=2 ** 32),
             'rodam rodom rYdam rYdom rodan rodon rodxam rodxom'
             + ' rodxan rodxon rudam rudom klinton klnton klintun'
             + ' klntun tzlinton tzlnton tzlintun tzlntun zlinton'
             + ' zlnton',
         )
         self.assertEqual(
-            bmpm('Rodham Clinton', language_arg=-4),
+            self.pa.encode('Rodham Clinton', language_arg=-4),
             'rodam rodom rYdam rYdom rodan rodon rodxam rodxom'
             + ' rodxan rodxon rudam rudom klinton klnton klintun'
             + ' klntun tzlinton tzlnton tzlintun tzlntun zlinton'
@@ -523,10 +556,12 @@ class BeiderMorseTestCases(unittest.TestCase):
         )
 
         # etc. (for code coverage)
-        self.assertEqual(bmpm('van Damme', name_mode='sep'), 'dami mi dam m')
+        self.assertEqual(
+            self.pa.encode('van Damme', name_mode='sep'), 'dami mi dam m'
+        )
 
-    def test_bmpm_nachnamen(self):
-        """Test abydos.phonetic._bmpm.bmpm (Nachnamen set)."""
+    def test_beider_morse_encode_nachnamen(self):
+        """Test abydos.phonetic.BeiderMorse (Nachnamen set)."""
         if not ALLOW_RANDOM:
             return
         with codecs.open(
@@ -539,12 +574,13 @@ class BeiderMorseTestCases(unittest.TestCase):
                 # so let's just randomly select about 20 for testing
                 if nn_line[0] != '#' and _one_in(500):
                     self.assertEqual(
-                        bmpm(nn_line[0], language_arg='german'), nn_line[1]
+                        self.pa.encode(nn_line[0], language_arg='german'),
+                        nn_line[1],
                     )
-                    self.assertEqual(bmpm(nn_line[0]), nn_line[2])
+                    self.assertEqual(self.pa.encode(nn_line[0]), nn_line[2])
 
-    def test_bmpm_nachnamen_cc(self):
-        """Test abydos.phonetic._bmpm.bmpm (Nachnamen, corner cases)."""
+    def test_beider_morse_encode_nachnamen_cc(self):
+        """Test abydos.phonetic.BeiderMorse (Nachnamen, corner cases)."""
         with codecs.open(
             _corpus_file('nachnamen.bm.cc.csv'), encoding='utf-8'
         ) as nachnamen_testset:
@@ -555,12 +591,13 @@ class BeiderMorseTestCases(unittest.TestCase):
                 # so let's just randomly select about 20 for testing
                 if nn_line[0] != '#':
                     self.assertEqual(
-                        bmpm(nn_line[0], language_arg='german'), nn_line[1]
+                        self.pa.encode(nn_line[0], language_arg='german'),
+                        nn_line[1],
                     )
-                    self.assertEqual(bmpm(nn_line[0]), nn_line[2])
+                    self.assertEqual(self.pa.encode(nn_line[0]), nn_line[2])
 
-    def test_bmpm_uscensus2000(self):
-        """Test abydos.phonetic._bmpm.bmpm (US Census 2000 set)."""
+    def test_beider_morse_encode_uscensus2000(self):
+        """Test abydos.phonetic.BeiderMorse (US Census 2000 set)."""
         if not ALLOW_RANDOM:
             return
         with open(_corpus_file('uscensus2000.bm.csv')) as uscensus_ts:
@@ -571,38 +608,44 @@ class BeiderMorseTestCases(unittest.TestCase):
                 # so let's just randomly select about 20 for testing
                 if cen_line[0] != '#' and _one_in(7500):
                     self.assertEqual(
-                        bmpm(
+                        self.pa.encode(
                             cen_line[0], match_mode='approx', name_mode='gen'
                         ),
                         cen_line[1],
                     )
                     self.assertEqual(
-                        bmpm(
+                        self.pa.encode(
                             cen_line[0], match_mode='approx', name_mode='ash'
                         ),
                         cen_line[2],
                     )
                     self.assertEqual(
-                        bmpm(
+                        self.pa.encode(
                             cen_line[0], match_mode='approx', name_mode='sep'
                         ),
                         cen_line[3],
                     )
                     self.assertEqual(
-                        bmpm(cen_line[0], match_mode='exact', name_mode='gen'),
+                        self.pa.encode(
+                            cen_line[0], match_mode='exact', name_mode='gen'
+                        ),
                         cen_line[4],
                     )
                     self.assertEqual(
-                        bmpm(cen_line[0], match_mode='exact', name_mode='ash'),
+                        self.pa.encode(
+                            cen_line[0], match_mode='exact', name_mode='ash'
+                        ),
                         cen_line[5],
                     )
                     self.assertEqual(
-                        bmpm(cen_line[0], match_mode='exact', name_mode='sep'),
+                        self.pa.encode(
+                            cen_line[0], match_mode='exact', name_mode='sep'
+                        ),
                         cen_line[6],
                     )
 
-    def test_bmpm_uscensus2000_cc(self):
-        """Test abydos.phonetic._bmpm.bmpm (US Census 2000, corner cases)."""
+    def test_beider_morse_encode_uscensus2000_cc(self):
+        """Test abydos.phonetic.BeiderMorse (US Census 2000, corner cases)."""
         with open(_corpus_file('uscensus2000.bm.cc.csv')) as uscensus_ts:
             next(uscensus_ts)
             for cen_line in uscensus_ts:
@@ -611,271 +654,277 @@ class BeiderMorseTestCases(unittest.TestCase):
                 # so let's just randomly select about 20 for testing
                 if cen_line[0] != '#' and _one_in(10):
                     self.assertEqual(
-                        bmpm(
+                        self.pa.encode(
                             cen_line[0], match_mode='approx', name_mode='gen'
                         ),
                         cen_line[1],
                     )
                     self.assertEqual(
-                        bmpm(
+                        self.pa.encode(
                             cen_line[0], match_mode='approx', name_mode='ash'
                         ),
                         cen_line[2],
                     )
                     self.assertEqual(
-                        bmpm(
+                        self.pa.encode(
                             cen_line[0], match_mode='approx', name_mode='sep'
                         ),
                         cen_line[3],
                     )
                     self.assertEqual(
-                        bmpm(cen_line[0], match_mode='exact', name_mode='gen'),
+                        self.pa.encode(
+                            cen_line[0], match_mode='exact', name_mode='gen'
+                        ),
                         cen_line[4],
                     )
                     self.assertEqual(
-                        bmpm(cen_line[0], match_mode='exact', name_mode='ash'),
+                        self.pa.encode(
+                            cen_line[0], match_mode='exact', name_mode='ash'
+                        ),
                         cen_line[5],
                     )
                     self.assertEqual(
-                        bmpm(cen_line[0], match_mode='exact', name_mode='sep'),
+                        self.pa.encode(
+                            cen_line[0], match_mode='exact', name_mode='sep'
+                        ),
                         cen_line[6],
                     )
 
-    def test_phonetic_number(self):
-        """Test abydos.phonetic._bmpm._phonetic_number."""
-        self.assertEqual(self.pe._phonetic_number(''), '')  # noqa: SF01
+    def test_beider_morse_phonetic_number(self):
+        """Test abydos.phonetic.BeiderMorse._phonetic_number."""
+        self.assertEqual(self.pa._phonetic_number(''), '')  # noqa: SF01
         self.assertEqual(
-            self.pe._phonetic_number('abcd'), 'abcd'  # noqa: SF01
+            self.pa._phonetic_number('abcd'), 'abcd'  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._phonetic_number('abcd[123]'), 'abcd'  # noqa: SF01
+            self.pa._phonetic_number('abcd[123]'), 'abcd'  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._phonetic_number('abcd[123'), 'abcd'  # noqa: SF01
+            self.pa._phonetic_number('abcd[123'), 'abcd'  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._phonetic_number('abcd['), 'abcd'  # noqa: SF01
+            self.pa._phonetic_number('abcd['), 'abcd'  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._phonetic_number('abcd[[[123]]]'), 'abcd'  # noqa: SF01
+            self.pa._phonetic_number('abcd[[[123]]]'), 'abcd'  # noqa: SF01
         )
 
-    def test_apply_rule_if_compat(self):
-        """Test abydos.phonetic._bmpm._apply_rule_if_compat."""
+    def test_beider_morse_apply_rule_if_compat(self):
+        """Test abydos.phonetic.BeiderMorse._apply_rule_if_compat."""
         self.assertEqual(
-            self.pe._apply_rule_if_compat('abc', 'def', 4),  # noqa: SF01
+            self.pa._apply_rule_if_compat('abc', 'def', 4),  # noqa: SF01
             'abcdef',
         )
         self.assertEqual(
-            self.pe._apply_rule_if_compat('abc', 'def[6]', 4),  # noqa: SF01
+            self.pa._apply_rule_if_compat('abc', 'def[6]', 4),  # noqa: SF01
             'abcdef[4]',
         )
         self.assertEqual(
-            self.pe._apply_rule_if_compat('abc', 'def[4]', 4),  # noqa: SF01
+            self.pa._apply_rule_if_compat('abc', 'def[4]', 4),  # noqa: SF01
             'abcdef[4]',
         )
         self.assertEqual(
-            self.pe._apply_rule_if_compat('abc', 'def[0]', 4),  # noqa: SF01
+            self.pa._apply_rule_if_compat('abc', 'def[0]', 4),  # noqa: SF01
             None,
         )
         self.assertEqual(
-            self.pe._apply_rule_if_compat('abc', 'def[8]', 4),  # noqa: SF01
+            self.pa._apply_rule_if_compat('abc', 'def[8]', 4),  # noqa: SF01
             None,
         )
         self.assertEqual(
-            self.pe._apply_rule_if_compat('abc', 'def', 1),  # noqa: SF01
+            self.pa._apply_rule_if_compat('abc', 'def', 1),  # noqa: SF01
             'abcdef',
         )
         self.assertEqual(
-            self.pe._apply_rule_if_compat('abc', 'def[4]', 1),  # noqa: SF01
+            self.pa._apply_rule_if_compat('abc', 'def[4]', 1),  # noqa: SF01
             'abcdef[4]',
         )
 
-    def test_language(self):
-        """Test abydos.phonetic._bmpm._language.
+    def test_beider_morse_language(self):
+        """Test abydos.phonetic.BeiderMorse._language.
 
         Most test cases from:
         http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/bm/LanguageGuessingTest.java?view=markup
         """
         self.assertEqual(
-            self.pe._language('Renault', 'gen'), L_FRENCH  # noqa: SF01
+            self.pa._language('Renault', 'gen'), L_FRENCH  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._language('Mickiewicz', 'gen'), L_POLISH  # noqa: SF01
+            self.pa._language('Mickiewicz', 'gen'), L_POLISH  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._language('Thompson', 'gen') & L_ENGLISH,  # noqa: SF01
+            self.pa._language('Thompson', 'gen') & L_ENGLISH,  # noqa: SF01
             L_ENGLISH,
         )
         self.assertEqual(
-            self.pe._language('Nuñez', 'gen'), L_SPANISH  # noqa: SF01
+            self.pa._language('Nuñez', 'gen'), L_SPANISH  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._language('Carvalho', 'gen'), L_PORTUGUESE  # noqa: SF01
+            self.pa._language('Carvalho', 'gen'), L_PORTUGUESE  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._language('Čapek', 'gen'),  # noqa: SF01
+            self.pa._language('Čapek', 'gen'),  # noqa: SF01
             L_CZECH | L_LATVIAN,
         )
         self.assertEqual(
-            self.pe._language('Sjneijder', 'gen'), L_DUTCH  # noqa: SF01
+            self.pa._language('Sjneijder', 'gen'), L_DUTCH  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._language('Klausewitz', 'gen'), L_GERMAN  # noqa: SF01
+            self.pa._language('Klausewitz', 'gen'), L_GERMAN  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._language('Küçük', 'gen'), L_TURKISH  # noqa: SF01
+            self.pa._language('Küçük', 'gen'), L_TURKISH  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._language('Giacometti', 'gen'), L_ITALIAN  # noqa: SF01
+            self.pa._language('Giacometti', 'gen'), L_ITALIAN  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._language('Nagy', 'gen'), L_HUNGARIAN  # noqa: SF01
+            self.pa._language('Nagy', 'gen'), L_HUNGARIAN  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._language('Ceauşescu', 'gen'), L_ROMANIAN  # noqa: SF01
+            self.pa._language('Ceauşescu', 'gen'), L_ROMANIAN  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._language('Angelopoulos', 'gen'),  # noqa: SF01
+            self.pa._language('Angelopoulos', 'gen'),  # noqa: SF01
             L_GREEKLATIN,
         )
         self.assertEqual(
-            self.pe._language('Αγγελόπουλος', 'gen'), L_GREEK  # noqa: SF01
+            self.pa._language('Αγγελόπουλος', 'gen'), L_GREEK  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._language('Пушкин', 'gen'), L_CYRILLIC  # noqa: SF01
+            self.pa._language('Пушкин', 'gen'), L_CYRILLIC  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._language('כהן', 'gen'), L_HEBREW  # noqa: SF01
+            self.pa._language('כהן', 'gen'), L_HEBREW  # noqa: SF01
         )
-        self.assertEqual(self.pe._language('ácz', 'gen'), L_ANY)  # noqa: SF01
-        self.assertEqual(self.pe._language('átz', 'gen'), L_ANY)  # noqa: SF01
+        self.assertEqual(self.pa._language('ácz', 'gen'), L_ANY)  # noqa: SF01
+        self.assertEqual(self.pa._language('átz', 'gen'), L_ANY)  # noqa: SF01
 
-    def test_expand_alternates(self):
-        """Test abydos.phonetic._bmpm._expand_alternates."""
-        self.assertEqual(self.pe._expand_alternates(''), '')  # noqa: SF01
-        self.assertEqual(self.pe._expand_alternates('aa'), 'aa')  # noqa: SF01
+    def test_beider_morse_expand_alternates(self):
+        """Test abydos.phonetic.BeiderMorse._expand_alternates."""
+        self.assertEqual(self.pa._expand_alternates(''), '')  # noqa: SF01
+        self.assertEqual(self.pa._expand_alternates('aa'), 'aa')  # noqa: SF01
         self.assertEqual(
-            self.pe._expand_alternates('aa|bb'), 'aa|bb'  # noqa: SF01
+            self.pa._expand_alternates('aa|bb'), 'aa|bb'  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._expand_alternates('aa|aa'), 'aa|aa'  # noqa: SF01
-        )
-
-        self.assertEqual(
-            self.pe._expand_alternates('(aa)(bb)'), 'aabb'  # noqa: SF01
-        )
-        self.assertEqual(
-            self.pe._expand_alternates('(aa)(bb[0])'), ''  # noqa: SF01
-        )
-        self.assertEqual(
-            self.pe._expand_alternates('(aa)(bb[4])'), 'aabb[4]'  # noqa: SF01
-        )
-        self.assertEqual(
-            self.pe._expand_alternates('(aa[0])(bb)'), ''  # noqa: SF01
-        )
-        self.assertEqual(
-            self.pe._expand_alternates('(aa[4])(bb)'), 'aabb[4]'  # noqa: SF01
+            self.pa._expand_alternates('aa|aa'), 'aa|aa'  # noqa: SF01
         )
 
         self.assertEqual(
-            self.pe._expand_alternates('(a|b|c)(a|b|c)'),  # noqa: SF01
+            self.pa._expand_alternates('(aa)(bb)'), 'aabb'  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pa._expand_alternates('(aa)(bb[0])'), ''  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pa._expand_alternates('(aa)(bb[4])'), 'aabb[4]'  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pa._expand_alternates('(aa[0])(bb)'), ''  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pa._expand_alternates('(aa[4])(bb)'), 'aabb[4]'  # noqa: SF01
+        )
+
+        self.assertEqual(
+            self.pa._expand_alternates('(a|b|c)(a|b|c)'),  # noqa: SF01
             'aa|ab|ac|ba|bb|bc|ca|cb|cc',
         )
         self.assertEqual(
-            self.pe._expand_alternates('(a[1]|b[2])(c|d)'),  # noqa: SF01
+            self.pa._expand_alternates('(a[1]|b[2])(c|d)'),  # noqa: SF01
             'ac[1]|ad[1]|bc[2]|bd[2]',
         )
         self.assertEqual(
-            self.pe._expand_alternates('(a[1]|b[2])(c[4]|d)'),  # noqa: SF01
+            self.pa._expand_alternates('(a[1]|b[2])(c[4]|d)'),  # noqa: SF01
             'ad[1]|bd[2]',
         )
 
-    def test_remove_dupes(self):
-        """Test abydos.phonetic._bmpm._remove_dupes."""
-        self.assertEqual(self.pe._remove_dupes(''), '')  # noqa: SF01
-        self.assertEqual(self.pe._remove_dupes('aa'), 'aa')  # noqa: SF01
-        self.assertEqual(self.pe._remove_dupes('aa|bb'), 'aa|bb')  # noqa: SF01
-        self.assertEqual(self.pe._remove_dupes('aa|aa'), 'aa')  # noqa: SF01
+    def test_beider_morse_remove_dupes(self):
+        """Test abydos.phonetic.BeiderMorse._remove_dupes."""
+        self.assertEqual(self.pa._remove_dupes(''), '')  # noqa: SF01
+        self.assertEqual(self.pa._remove_dupes('aa'), 'aa')  # noqa: SF01
+        self.assertEqual(self.pa._remove_dupes('aa|bb'), 'aa|bb')  # noqa: SF01
+        self.assertEqual(self.pa._remove_dupes('aa|aa'), 'aa')  # noqa: SF01
         self.assertEqual(
-            self.pe._remove_dupes('aa|aa|aa|bb|aa'), 'aa|bb'  # noqa: SF01
+            self.pa._remove_dupes('aa|aa|aa|bb|aa'), 'aa|bb'  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._remove_dupes('bb|aa|bb|aa|bb'), 'bb|aa'  # noqa: SF01
+            self.pa._remove_dupes('bb|aa|bb|aa|bb'), 'bb|aa'  # noqa: SF01
         )
 
-    def test_normalize_lang_attrs(self):
-        """Test abydos.phonetic._bmpm._normalize_language_attributes."""
+    def test_beider_morse_normalize_lang_attrs(self):
+        """Test abydos.phonetic.BeiderMorse._normalize_language_attributes."""
         self.assertEqual(
-            self.pe._normalize_lang_attrs('', False), ''  # noqa: SF01
+            self.pa._normalize_lang_attrs('', False), ''  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('', True), ''  # noqa: SF01
+            self.pa._normalize_lang_attrs('', True), ''  # noqa: SF01
         )
 
         self.assertRaises(
             ValueError,
-            self.pe._normalize_lang_attrs,  # noqa: SF01
+            self.pa._normalize_lang_attrs,  # noqa: SF01
             'a[1',
             False,
         )
         self.assertRaises(
             ValueError,
-            self.pe._normalize_lang_attrs,  # noqa: SF01
+            self.pa._normalize_lang_attrs,  # noqa: SF01
             'a[1',
             True,
         )
 
         self.assertEqual(
-            self.pe._normalize_lang_attrs('abc', False), 'abc'  # noqa: SF01
+            self.pa._normalize_lang_attrs('abc', False), 'abc'  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('abc[0]', False), '[0]'  # noqa: SF01
+            self.pa._normalize_lang_attrs('abc[0]', False), '[0]'  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('abc[2]', False),  # noqa: SF01
+            self.pa._normalize_lang_attrs('abc[2]', False),  # noqa: SF01
             'abc[2]',
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('abc[2][4]', False),  # noqa: SF01
+            self.pa._normalize_lang_attrs('abc[2][4]', False),  # noqa: SF01
             '[0]',
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('abc[2][6]', False),  # noqa: SF01
+            self.pa._normalize_lang_attrs('abc[2][6]', False),  # noqa: SF01
             'abc[2]',
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('ab[2]c[4]', False),  # noqa: SF01
+            self.pa._normalize_lang_attrs('ab[2]c[4]', False),  # noqa: SF01
             '[0]',
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('ab[2]c[6]', False),  # noqa: SF01
+            self.pa._normalize_lang_attrs('ab[2]c[6]', False),  # noqa: SF01
             'abc[2]',
         )
 
         self.assertEqual(
-            self.pe._normalize_lang_attrs('abc', True), 'abc'  # noqa: SF01
+            self.pa._normalize_lang_attrs('abc', True), 'abc'  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('abc[0]', True), 'abc'  # noqa: SF01
+            self.pa._normalize_lang_attrs('abc[0]', True), 'abc'  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('abc[2]', True), 'abc'  # noqa: SF01
+            self.pa._normalize_lang_attrs('abc[2]', True), 'abc'  # noqa: SF01
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('abc[2][4]', True),  # noqa: SF01
+            self.pa._normalize_lang_attrs('abc[2][4]', True),  # noqa: SF01
             'abc',
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('abc[2][6]', True),  # noqa: SF01
+            self.pa._normalize_lang_attrs('abc[2][6]', True),  # noqa: SF01
             'abc',
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('ab[2]c[4]', True),  # noqa: SF01
+            self.pa._normalize_lang_attrs('ab[2]c[4]', True),  # noqa: SF01
             'abc',
         )
         self.assertEqual(
-            self.pe._normalize_lang_attrs('ab[2]c[6]', True),  # noqa: SF01
+            self.pa._normalize_lang_attrs('ab[2]c[6]', True),  # noqa: SF01
             'abc',
         )
 

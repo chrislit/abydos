@@ -1,0 +1,65 @@
+# -*- coding: utf-8 -*-
+
+# Copyright 2018 by Christopher C. Little.
+# This file is part of Abydos.
+#
+# Abydos is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Abydos is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Abydos. If not, see <http://www.gnu.org/licenses/>.
+
+"""abydos.tests.phonetic.test_phonetic_phonetic_spanish.
+
+This module contains unit tests for abydos.phonetic.PhoneticSpanish
+"""
+
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
+
+import unittest
+
+from abydos.phonetic import PhoneticSpanish, phonetic_spanish
+
+
+class PhoneticSpanishTestCases(unittest.TestCase):
+    """Test PhoneticSpanish functions.
+
+    test cases for abydos.phonetic.PhoneticSpanish
+    """
+
+    pa = PhoneticSpanish()
+
+    def test_phonetic_spanish(self):
+        """Test abydos.phonetic.PhoneticSpanish."""
+        # Base case
+        self.assertEqual(self.pa.encode(''), '')
+
+        # Examples given in
+        self.assertEqual(self.pa.encode('Giraldo'), '8953')
+        self.assertEqual(self.pa.encode('Jiraldo'), '8953')
+        self.assertEqual(self.pa.encode('Halla'), '25')
+        self.assertEqual(self.pa.encode('Haya'), '25')
+        self.assertEqual(self.pa.encode('Cielo'), '45')
+        self.assertEqual(self.pa.encode('Sielo'), '45')
+
+        # Test to maximize coverage
+        self.assertEqual(self.pa.encode('Giraldo', max_length=2), '89')
+
+        # Test wrapper
+        self.assertEqual(phonetic_spanish('Giraldo'), '8953')
+
+
+if __name__ == '__main__':
+    unittest.main()

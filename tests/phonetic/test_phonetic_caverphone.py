@@ -18,7 +18,7 @@
 
 """abydos.tests.phonetic.test_phonetic_caverphone.
 
-This module contains unit tests for abydos.phonetic._caverphone
+This module contains unit tests for abydos.phonetic.Caverphone
 """
 
 from __future__ import (
@@ -30,7 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.phonetic import caverphone, metaphone, soundex
+from abydos.phonetic import Caverphone, Metaphone, Soundex, caverphone
 
 from .. import _corpus_file
 
@@ -38,34 +38,36 @@ from .. import _corpus_file
 class CaverphoneTestCases(unittest.TestCase):
     """Test Caverphone functions.
 
-    test cases for abydos.phonetic._caverphone.caverphone
+    test cases for abydos.phonetic.Caverphone
     """
 
-    def test_caverphone2(self):
-        """Test abydos.phonetic._caverphone.caverphone (Caverphone 2)."""
-        self.assertEqual(caverphone(''), '1111111111')
-        self.assertEqual(caverphone('', 2), '1111111111')
-        self.assertEqual(caverphone('', version=2), '1111111111')
+    pa = Caverphone()
+
+    def test_caverphone2_encode(self):
+        """Test abydos.phonetic.Caverphone (Caverphone 2)."""
+        self.assertEqual(self.pa.encode(''), '1111111111')
+        self.assertEqual(self.pa.encode('', 2), '1111111111')
+        self.assertEqual(self.pa.encode('', version=2), '1111111111')
 
         # http://ntz-develop.blogspot.com/2011/03/phonetic-algorithms.html
-        self.assertEqual(caverphone('Henrichsen'), 'ANRKSN1111')
-        self.assertEqual(caverphone('Henricsson'), 'ANRKSN1111')
-        self.assertEqual(caverphone('Henriksson'), 'ANRKSN1111')
-        self.assertEqual(caverphone('Hinrichsen'), 'ANRKSN1111')
-        self.assertEqual(caverphone('Izchaki'), 'ASKKA11111')
-        self.assertEqual(caverphone('Maclaverty'), 'MKLFTA1111')
-        self.assertEqual(caverphone('Mccleverty'), 'MKLFTA1111')
-        self.assertEqual(caverphone('Mcclifferty'), 'MKLFTA1111')
-        self.assertEqual(caverphone('Mclafferty'), 'MKLFTA1111')
-        self.assertEqual(caverphone('Mclaverty'), 'MKLFTA1111')
-        self.assertEqual(caverphone('Slocomb'), 'SLKM111111')
-        self.assertEqual(caverphone('Slocombe'), 'SLKM111111')
-        self.assertEqual(caverphone('Slocumb'), 'SLKM111111')
-        self.assertEqual(caverphone('Whitlam'), 'WTLM111111')
+        self.assertEqual(self.pa.encode('Henrichsen'), 'ANRKSN1111')
+        self.assertEqual(self.pa.encode('Henricsson'), 'ANRKSN1111')
+        self.assertEqual(self.pa.encode('Henriksson'), 'ANRKSN1111')
+        self.assertEqual(self.pa.encode('Hinrichsen'), 'ANRKSN1111')
+        self.assertEqual(self.pa.encode('Izchaki'), 'ASKKA11111')
+        self.assertEqual(self.pa.encode('Maclaverty'), 'MKLFTA1111')
+        self.assertEqual(self.pa.encode('Mccleverty'), 'MKLFTA1111')
+        self.assertEqual(self.pa.encode('Mcclifferty'), 'MKLFTA1111')
+        self.assertEqual(self.pa.encode('Mclafferty'), 'MKLFTA1111')
+        self.assertEqual(self.pa.encode('Mclaverty'), 'MKLFTA1111')
+        self.assertEqual(self.pa.encode('Slocomb'), 'SLKM111111')
+        self.assertEqual(self.pa.encode('Slocombe'), 'SLKM111111')
+        self.assertEqual(self.pa.encode('Slocumb'), 'SLKM111111')
+        self.assertEqual(self.pa.encode('Whitlam'), 'WTLM111111')
 
         # http://caversham.otago.ac.nz/files/working/ctp150804.pdf
-        self.assertEqual(caverphone('Stevenson'), 'STFNSN1111')
-        self.assertEqual(caverphone('Peter'), 'PTA1111111')
+        self.assertEqual(self.pa.encode('Stevenson'), 'STFNSN1111')
+        self.assertEqual(self.pa.encode('Peter'), 'PTA1111111')
         for word in (
             'Darda',
             'Datha',
@@ -136,9 +138,9 @@ class CaverphoneTestCases(unittest.TestCase):
             'Tuttle',
             'Tutto',
         ):
-            self.assertEqual(caverphone(word), 'TTA1111111')
-            self.assertEqual(caverphone(word, 2), 'TTA1111111')
-            self.assertEqual(caverphone(word, version=2), 'TTA1111111')
+            self.assertEqual(self.pa.encode(word), 'TTA1111111')
+            self.assertEqual(self.pa.encode(word, 2), 'TTA1111111')
+            self.assertEqual(self.pa.encode(word, version=2), 'TTA1111111')
         for word in (
             'Cailean',
             'Calan',
@@ -223,9 +225,9 @@ class CaverphoneTestCases(unittest.TestCase):
             'Qulllon',
             'Xylon',
         ):
-            self.assertEqual(caverphone(word), 'KLN1111111')
-            self.assertEqual(caverphone(word, 2), 'KLN1111111')
-            self.assertEqual(caverphone(word, version=2), 'KLN1111111')
+            self.assertEqual(self.pa.encode(word), 'KLN1111111')
+            self.assertEqual(self.pa.encode(word, 2), 'KLN1111111')
+            self.assertEqual(self.pa.encode(word, version=2), 'KLN1111111')
         for word in (
             'Dan',
             'Dane',
@@ -297,34 +299,40 @@ class CaverphoneTestCases(unittest.TestCase):
             'Turne',
             'Tyne',
         ):
-            self.assertEqual(caverphone(word), 'TN11111111')
-            self.assertEqual(caverphone(word, 2), 'TN11111111')
-            self.assertEqual(caverphone(word, version=2), 'TN11111111')
+            self.assertEqual(self.pa.encode(word), 'TN11111111')
+            self.assertEqual(self.pa.encode(word, 2), 'TN11111111')
+            self.assertEqual(self.pa.encode(word, version=2), 'TN11111111')
 
         # etc. (for code coverage)
-        self.assertEqual(caverphone('enough'), 'ANF1111111')
-        self.assertEqual(caverphone('trough'), 'TRF1111111')
-        self.assertEqual(caverphone('gnu'), 'NA11111111')
+        self.assertEqual(self.pa.encode('enough'), 'ANF1111111')
+        self.assertEqual(self.pa.encode('trough'), 'TRF1111111')
+        self.assertEqual(self.pa.encode('gnu'), 'NA11111111')
 
-    def test_caverphone2_php_testset(self):
-        """Test abydos.phonetic._caverphone.caverphone (PHP version testset)."""  # noqa: E501
+        # Test wrapper
+        self.assertEqual(caverphone('Maclaverty'), 'MKLFTA1111')
+
+    def test_caverphone2_encode_php_testset(self):
+        """Test abydos.phonetic.Caverphone (PHP version testset)."""  # noqa: E501
         # https://raw.githubusercontent.com/kiphughes/caverphone/master/unit_tests.php
         with open(_corpus_file('php_caverphone.csv')) as php_testset:
             for php_line in php_testset:
                 (word, caver) = php_line.strip().split(',')
-                self.assertEqual(caverphone(word), caver)
+                self.assertEqual(self.pa.encode(word), caver)
 
-    def test_caverphone1(self):
-        """Test abydos.phonetic._caverphone.caverphone (Caverphone 1)."""
-        self.assertEqual(caverphone('', 1), '111111')
-        self.assertEqual(caverphone('', version=1), '111111')
+    def test_caverphone1_encode(self):
+        """Test abydos.phonetic.Caverphone (Caverphone 1)."""
+        self.assertEqual(self.pa.encode('', 1), '111111')
+        self.assertEqual(self.pa.encode('', version=1), '111111')
 
         # http://caversham.otago.ac.nz/files/working/ctp060902.pdf
-        self.assertEqual(caverphone('David', version=1), 'TFT111')
-        self.assertEqual(caverphone('Whittle', version=1), 'WTL111')
+        self.assertEqual(self.pa.encode('David', version=1), 'TFT111')
+        self.assertEqual(self.pa.encode('Whittle', version=1), 'WTL111')
 
     def test_caversham(self):
         """Test using Caversham test set (SoundEx, Metaphone, & Caverphone)."""
+        soundex = Soundex()
+        metaphone = Metaphone()
+
         with open(_corpus_file('variantNames.csv')) as cav_testset:
             next(cav_testset)
             for cav_line in cav_testset:
@@ -342,26 +350,38 @@ class CaverphoneTestCases(unittest.TestCase):
                     caverphone_same,
                 ) = cav_line.strip().split(',')
 
-                self.assertEqual(soundex(name1), soundex1)
-                self.assertEqual(soundex(name2), soundex2)
+                self.assertEqual(soundex.encode(name1), soundex1)
+                self.assertEqual(soundex.encode(name2), soundex2)
                 if soundex_same == '1':
-                    self.assertEqual(soundex(name1), soundex(name2))
+                    self.assertEqual(
+                        soundex.encode(name1), soundex.encode(name2)
+                    )
                 else:
-                    self.assertNotEqual(soundex(name1), soundex(name2))
+                    self.assertNotEqual(
+                        soundex.encode(name1), soundex.encode(name2)
+                    )
 
-                self.assertEqual(metaphone(name1), metaphone1)
-                self.assertEqual(metaphone(name2), metaphone2)
+                self.assertEqual(metaphone.encode(name1), metaphone1)
+                self.assertEqual(metaphone.encode(name2), metaphone2)
                 if metaphone_same == '1':
-                    self.assertEqual(metaphone(name1), metaphone(name2))
+                    self.assertEqual(
+                        metaphone.encode(name1), metaphone.encode(name2)
+                    )
                 else:
-                    self.assertNotEqual(metaphone(name1), metaphone(name2))
+                    self.assertNotEqual(
+                        metaphone.encode(name1), metaphone.encode(name2)
+                    )
 
-                self.assertEqual(caverphone(name1), caverphone1)
-                self.assertEqual(caverphone(name2), caverphone2)
+                self.assertEqual(self.pa.encode(name1), caverphone1)
+                self.assertEqual(self.pa.encode(name2), caverphone2)
                 if caverphone_same == '1':
-                    self.assertEqual(caverphone(name1), caverphone(name2))
+                    self.assertEqual(
+                        self.pa.encode(name1), self.pa.encode(name2)
+                    )
                 else:
-                    self.assertNotEqual(caverphone(name1), caverphone(name2))
+                    self.assertNotEqual(
+                        self.pa.encode(name1), self.pa.encode(name2)
+                    )
 
 
 if __name__ == '__main__':
