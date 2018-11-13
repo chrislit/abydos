@@ -58,19 +58,23 @@ class NGramCorpus(object):
     def __init__(self, corpus=None):
         r"""Initialize Corpus.
 
-        Args:
-            corpus (Corpus): The Corpus from which to initialize the n-gram
-                corpus. By default, this is None, which initializes an empty
-                NGramCorpus. This can then be populated using NGramCorpus
-                methods.
+        Parameters
+        ----------
+        corpus : Corpus
+            The Corpus from which to initialize the n-gram corpus. By default,
+            this is None, which initializes an empty NGramCorpus. This can then
+            be populated using NGramCorpus methods.
 
-        Raises:
-            TypeError: Corpus argument must be None or of type abydos.Corpus
+        Raises
+        ------
+        TypeError
+            Corpus argument must be None or of type abydos.Corpus
 
-        Example:
-            >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
-            >>> tqbf += 'And then it slept.\n And the dog ran off.'
-            >>> ngcorp = NGramCorpus(Corpus(tqbf))
+        Example
+        -------
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> ngcorp = NGramCorpus(Corpus(tqbf))
 
         """
         self.ngcorpus = Counter()
@@ -89,22 +93,28 @@ class NGramCorpus(object):
     def corpus_importer(self, corpus, n_val=1, bos='_START_', eos='_END_'):
         r"""Fill in self.ngcorpus from a Corpus argument.
 
-        Args:
-            corpus (Corpus): The Corpus from which to initialize the n-gram
-                corpus
-            n_val (int): Maximum n value for n-grams
-            bos (str): String to insert as an indicator of beginning of
-                sentence
-            eos (str): String to insert as an indicator of end of sentence
+        Parameters
+        ----------
+        corpus :Corpus
+            The Corpus from which to initialize the n-gram corpus
+        n_val : int
+            Maximum n value for n-grams
+        bos : str
+            String to insert as an indicator of beginning of sentence
+        eos : str
+            String to insert as an indicator of end of sentence
 
-        Raises:
-            TypeError: Corpus argument of the Corpus class required.
+        Raises
+        ------
+        TypeError
+            Corpus argument of the Corpus class required.
 
-        Example:
-            >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
-            >>> tqbf += 'And then it slept.\n And the dog ran off.'
-            >>> ngcorp = NGramCorpus()
-            >>> ngcorp.corpus_importer(Corpus(tqbf))
+        Example
+        -------
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> ngcorp = NGramCorpus()
+        >>> ngcorp.corpus_importer(Corpus(tqbf))
 
         """
         if not corpus or not isinstance(corpus, Corpus):
@@ -131,22 +141,27 @@ class NGramCorpus(object):
     def get_count(self, ngram, corpus=None):
         r"""Get the count of an n-gram in the corpus.
 
-        Args:
-            ngram (str): The n-gram to retrieve the count of from the n-gram
-                corpus
-            corpus (Corpus): The corpus
+        Parameters
+        ----------
+        ngram : str
+            The n-gram to retrieve the count of from the n-gram corpus
+        corpus : Corpus
+            The corpus
 
-        Returns:
-            int: The n-gram count
+        Returns
+        -------
+        int
+            The n-gram count
 
-        Examples:
-            >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
-            >>> tqbf += 'And then it slept.\n And the dog ran off.'
-            >>> ngcorp = NGramCorpus(Corpus(tqbf))
-            >>> NGramCorpus(Corpus(tqbf)).get_count('the')
-            2
-            >>> NGramCorpus(Corpus(tqbf)).get_count('fox')
-            1
+        Examples
+        --------
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> ngcorp = NGramCorpus(Corpus(tqbf))
+        >>> NGramCorpus(Corpus(tqbf)).get_count('the')
+        2
+        >>> NGramCorpus(Corpus(tqbf)).get_count('fox')
+        1
 
         """
         if not corpus:
@@ -170,10 +185,14 @@ class NGramCorpus(object):
     def _add_to_ngcorpus(self, corpus, words, count):
         """Build up a corpus entry recursively.
 
-        Args:
-            corpus (Corpus): The corpus
-            words ([str]): Words to add to the corpus
-            count (int): Count of words
+        Parameters
+        ----------
+        corpus : Corpus
+            The corpus
+        words : [str]
+            Words to add to the corpus
+        count : int
+            Count of words
 
         """
         if words[0] not in corpus:
@@ -187,9 +206,10 @@ class NGramCorpus(object):
     def gng_importer(self, corpus_file):
         """Fill in self.ngcorpus from a Google NGram corpus file.
 
-        Args:
-            corpus_file (file): The Google NGram file from which to initialize
-                the n-gram corpus
+        Parameters
+        ----------
+        corpus_file : file
+            The Google NGram file from which to initialize the n-gram corpus
 
         """
         with c_open(corpus_file, 'r', encoding='utf-8') as gng:
@@ -202,23 +222,30 @@ class NGramCorpus(object):
     def tf(self, term):
         r"""Return term frequency.
 
-        Args:
-            term (str): The term for which to calculate tf
+        Parameters
+        ----------
+        term : str
+            The term for which to calculate tf
 
-        Returns:
-            float: The term frequency (tf)
+        Returns
+        -------
+        float
+            The term frequency (tf)
 
-        Raises:
-            ValueError: tf can only calculate the frequency of individual words
+        Raises
+        ------
+        ValueError
+            tf can only calculate the frequency of individual words
 
-        Examples:
-            >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
-            >>> tqbf += 'And then it slept.\n And the dog ran off.'
-            >>> ngcorp = NGramCorpus(Corpus(tqbf))
-            >>> NGramCorpus(Corpus(tqbf)).tf('the')
-            1.3010299956639813
-            >>> NGramCorpus(Corpus(tqbf)).tf('fox')
-            1.0
+        Examples
+        --------
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> ngcorp = NGramCorpus(Corpus(tqbf))
+        >>> NGramCorpus(Corpus(tqbf)).tf('the')
+        1.3010299956639813
+        >>> NGramCorpus(Corpus(tqbf)).tf('fox')
+        1.0
 
         """
         if ' ' in term:

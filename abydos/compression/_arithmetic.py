@@ -52,8 +52,10 @@ class Arithmetic(object):
     def __init__(self, text=None):
         """Initialize arithmetic coder object.
 
-        Args:
-            text (str): The training text
+        Parameters
+        ----------
+        text : str
+            The training text
 
         """
         if text is not None:
@@ -62,8 +64,10 @@ class Arithmetic(object):
     def get_probs(self):
         """Return the probs dictionary.
 
-        Returns:
-            dict: The dictionary of probabilities
+        Returns
+        -------
+        dict
+            The dictionary of probabilities
 
         """
         return self._probs
@@ -71,8 +75,10 @@ class Arithmetic(object):
     def set_probs(self, probs):
         """Set the probs dictionary.
 
-        Args:
-            probs (dict): The dictionary of probabilities
+        Parameters
+        ----------
+        probs : dict
+            The dictionary of probabilities
 
         """
         self._probs = probs
@@ -82,42 +88,45 @@ class Arithmetic(object):
 
         Text -> 0-order probability statistics as a dict
 
-        Args:
-            text (str): The text data over which to calculate probability
-                statistics. This must not contain the NUL (0x00) character
-                because that is used to indicate the end of data.
+        Parameters
+        ----------
+        text : str
+            The text data over which to calculate probability statistics. This
+            must not contain the NUL (0x00) character because that is used to
+            indicate the end of data.
 
-        Example:
-            >>> ac = Arithmetic()
-            >>> ac.train('the quick brown fox jumped over the lazy dog')
-            >>> ac.get_probs()
-            {' ': (Fraction(0, 1), Fraction(8, 45)),
-             'o': (Fraction(8, 45), Fraction(4, 15)),
-             'e': (Fraction(4, 15), Fraction(16, 45)),
-             'u': (Fraction(16, 45), Fraction(2, 5)),
-             't': (Fraction(2, 5), Fraction(4, 9)),
-             'r': (Fraction(4, 9), Fraction(22, 45)),
-             'h': (Fraction(22, 45), Fraction(8, 15)),
-             'd': (Fraction(8, 15), Fraction(26, 45)),
-             'z': (Fraction(26, 45), Fraction(3, 5)),
-             'y': (Fraction(3, 5), Fraction(28, 45)),
-             'x': (Fraction(28, 45), Fraction(29, 45)),
-             'w': (Fraction(29, 45), Fraction(2, 3)),
-             'v': (Fraction(2, 3), Fraction(31, 45)),
-             'q': (Fraction(31, 45), Fraction(32, 45)),
-             'p': (Fraction(32, 45), Fraction(11, 15)),
-             'n': (Fraction(11, 15), Fraction(34, 45)),
-             'm': (Fraction(34, 45), Fraction(7, 9)),
-             'l': (Fraction(7, 9), Fraction(4, 5)),
-             'k': (Fraction(4, 5), Fraction(37, 45)),
-             'j': (Fraction(37, 45), Fraction(38, 45)),
-             'i': (Fraction(38, 45), Fraction(13, 15)),
-             'g': (Fraction(13, 15), Fraction(8, 9)),
-             'f': (Fraction(8, 9), Fraction(41, 45)),
-             'c': (Fraction(41, 45), Fraction(14, 15)),
-             'b': (Fraction(14, 15), Fraction(43, 45)),
-             'a': (Fraction(43, 45), Fraction(44, 45)),
-             '\x00': (Fraction(44, 45), Fraction(1, 1))}
+        Example
+        -------
+        >>> ac = Arithmetic()
+        >>> ac.train('the quick brown fox jumped over the lazy dog')
+        >>> ac.get_probs()
+        {' ': (Fraction(0, 1), Fraction(8, 45)),
+         'o': (Fraction(8, 45), Fraction(4, 15)),
+         'e': (Fraction(4, 15), Fraction(16, 45)),
+         'u': (Fraction(16, 45), Fraction(2, 5)),
+         't': (Fraction(2, 5), Fraction(4, 9)),
+         'r': (Fraction(4, 9), Fraction(22, 45)),
+         'h': (Fraction(22, 45), Fraction(8, 15)),
+         'd': (Fraction(8, 15), Fraction(26, 45)),
+         'z': (Fraction(26, 45), Fraction(3, 5)),
+         'y': (Fraction(3, 5), Fraction(28, 45)),
+         'x': (Fraction(28, 45), Fraction(29, 45)),
+         'w': (Fraction(29, 45), Fraction(2, 3)),
+         'v': (Fraction(2, 3), Fraction(31, 45)),
+         'q': (Fraction(31, 45), Fraction(32, 45)),
+         'p': (Fraction(32, 45), Fraction(11, 15)),
+         'n': (Fraction(11, 15), Fraction(34, 45)),
+         'm': (Fraction(34, 45), Fraction(7, 9)),
+         'l': (Fraction(7, 9), Fraction(4, 5)),
+         'k': (Fraction(4, 5), Fraction(37, 45)),
+         'j': (Fraction(37, 45), Fraction(38, 45)),
+         'i': (Fraction(38, 45), Fraction(13, 15)),
+         'g': (Fraction(13, 15), Fraction(8, 9)),
+         'f': (Fraction(8, 9), Fraction(41, 45)),
+         'c': (Fraction(41, 45), Fraction(14, 15)),
+         'b': (Fraction(14, 15), Fraction(43, 45)),
+         'a': (Fraction(43, 45), Fraction(44, 45)),
+         '\x00': (Fraction(44, 45), Fraction(1, 1))}
 
         """
         text = text_type(text)
@@ -145,16 +154,21 @@ class Arithmetic(object):
 
         The encoded number is Fraction(longval, 2**nbits)
 
-        Args:
-            text (str): A string to encode
+        Parameters
+        ----------
+        text : str
+            A string to encode
 
-        Returns:
-            tuple: The arithmetically coded text
+        Returns
+        -------
+        tuple
+            The arithmetically coded text
 
-        Example:
-            >>> ac = Arithmetic('the quick brown fox jumped over the lazy dog')
-            >>> ac.encode('align')
-            (16720586181, 34)
+        Example
+        -------
+        >>> ac = Arithmetic('the quick brown fox jumped over the lazy dog')
+        >>> ac.encode('align')
+        (16720586181, 34)
 
         """
         text = text_type(text)
@@ -190,17 +204,23 @@ class Arithmetic(object):
     def decode(self, longval, nbits):
         """Decode the number to a string using the given statistics.
 
-        Args:
-            longval (int): The first part of an encoded tuple from encode
-            nbits (int): The second part of an encoded tuple from encode
+        Parameters
+        ----------
+        longval : int
+            The first part of an encoded tuple from encode
+        nbits : int
+            The second part of an encoded tuple from encode
 
-        Returns:
-            str: The arithmetically decoded text
+        Returns
+        -------
+        str
+            The arithmetically decoded text
 
-        Example:
-            >>> ac = Arithmetic('the quick brown fox jumped over the lazy dog')
-            >>> ac.decode(16720586181, 34)
-            'align'
+        Example
+        -------
+        >>> ac = Arithmetic('the quick brown fox jumped over the lazy dog')
+        >>> ac.decode(16720586181, 34)
+        'align'
 
         """
         val = Fraction(longval, long(1) << nbits)
@@ -230,43 +250,48 @@ def ac_train(text):
 
     This is a wrapper for :py:meth:`Arithmetic.train`.
 
-    Args:
-        text (str): The text data over which to calculate probability
-            statistics. This must not contain the NUL (0x00) character because
-            that's used to indicate the end of data.
+    Parameters
+    ----------
+    text : str
+        The text data over which to calculate probability statistics. This must
+        not contain the NUL (0x00) character because that's used to indicate
+        the end of data.
 
-    Returns:
-        dict: a probability dict
+    Returns
+    -------
+    dict
+        A probability dict
 
-    Example:
-        >>> ac_train('the quick brown fox jumped over the lazy dog')
-        {' ': (Fraction(0, 1), Fraction(8, 45)),
-         'o': (Fraction(8, 45), Fraction(4, 15)),
-         'e': (Fraction(4, 15), Fraction(16, 45)),
-         'u': (Fraction(16, 45), Fraction(2, 5)),
-         't': (Fraction(2, 5), Fraction(4, 9)),
-         'r': (Fraction(4, 9), Fraction(22, 45)),
-         'h': (Fraction(22, 45), Fraction(8, 15)),
-         'd': (Fraction(8, 15), Fraction(26, 45)),
-         'z': (Fraction(26, 45), Fraction(3, 5)),
-         'y': (Fraction(3, 5), Fraction(28, 45)),
-         'x': (Fraction(28, 45), Fraction(29, 45)),
-         'w': (Fraction(29, 45), Fraction(2, 3)),
-         'v': (Fraction(2, 3), Fraction(31, 45)),
-         'q': (Fraction(31, 45), Fraction(32, 45)),
-         'p': (Fraction(32, 45), Fraction(11, 15)),
-         'n': (Fraction(11, 15), Fraction(34, 45)),
-         'm': (Fraction(34, 45), Fraction(7, 9)),
-         'l': (Fraction(7, 9), Fraction(4, 5)),
-         'k': (Fraction(4, 5), Fraction(37, 45)),
-         'j': (Fraction(37, 45), Fraction(38, 45)),
-         'i': (Fraction(38, 45), Fraction(13, 15)),
-         'g': (Fraction(13, 15), Fraction(8, 9)),
-         'f': (Fraction(8, 9), Fraction(41, 45)),
-         'c': (Fraction(41, 45), Fraction(14, 15)),
-         'b': (Fraction(14, 15), Fraction(43, 45)),
-         'a': (Fraction(43, 45), Fraction(44, 45)),
-         '\x00': (Fraction(44, 45), Fraction(1, 1))}
+    Example
+    -------
+    >>> ac_train('the quick brown fox jumped over the lazy dog')
+    {' ': (Fraction(0, 1), Fraction(8, 45)),
+     'o': (Fraction(8, 45), Fraction(4, 15)),
+     'e': (Fraction(4, 15), Fraction(16, 45)),
+     'u': (Fraction(16, 45), Fraction(2, 5)),
+     't': (Fraction(2, 5), Fraction(4, 9)),
+     'r': (Fraction(4, 9), Fraction(22, 45)),
+     'h': (Fraction(22, 45), Fraction(8, 15)),
+     'd': (Fraction(8, 15), Fraction(26, 45)),
+     'z': (Fraction(26, 45), Fraction(3, 5)),
+     'y': (Fraction(3, 5), Fraction(28, 45)),
+     'x': (Fraction(28, 45), Fraction(29, 45)),
+     'w': (Fraction(29, 45), Fraction(2, 3)),
+     'v': (Fraction(2, 3), Fraction(31, 45)),
+     'q': (Fraction(31, 45), Fraction(32, 45)),
+     'p': (Fraction(32, 45), Fraction(11, 15)),
+     'n': (Fraction(11, 15), Fraction(34, 45)),
+     'm': (Fraction(34, 45), Fraction(7, 9)),
+     'l': (Fraction(7, 9), Fraction(4, 5)),
+     'k': (Fraction(4, 5), Fraction(37, 45)),
+     'j': (Fraction(37, 45), Fraction(38, 45)),
+     'i': (Fraction(38, 45), Fraction(13, 15)),
+     'g': (Fraction(13, 15), Fraction(8, 9)),
+     'f': (Fraction(8, 9), Fraction(41, 45)),
+     'c': (Fraction(41, 45), Fraction(14, 15)),
+     'b': (Fraction(14, 15), Fraction(43, 45)),
+     'a': (Fraction(43, 45), Fraction(44, 45)),
+     '\x00': (Fraction(44, 45), Fraction(1, 1))}
 
     """
     return Arithmetic(text).get_probs()
@@ -277,18 +302,24 @@ def ac_encode(text, probs):
 
     This is a wrapper for :py:meth:`Arithmetic.encode`.
 
-    Args:
-        text (str): A string to encode
-        probs (dict): A probability statistics dictionary generated by
-            :py:meth:`Arithmetic.train`
+    Parameters
+    ----------
+    text : str
+        A string to encode
+    probs : dict
+        A probability statistics dictionary generated by
+        :py:meth:`Arithmetic.train`
 
-    Returns:
-        tuple: The arithmetically coded text
+    Returns
+    -------
+    tuple
+        The arithmetically coded text
 
-    Example:
-        >>> pr = ac_train('the quick brown fox jumped over the lazy dog')
-        >>> ac_encode('align', pr)
-        (16720586181, 34)
+    Example
+    -------
+    >>> pr = ac_train('the quick brown fox jumped over the lazy dog')
+    >>> ac_encode('align', pr)
+    (16720586181, 34)
 
     """
     coder = Arithmetic()
@@ -302,19 +333,26 @@ def ac_decode(longval, nbits, probs):
 
     This is a wrapper for :py:meth:`Arithmetic.decode`.
 
-    Args:
-        longval (int): The first part of an encoded tuple from ac_encode
-        nbits (int): The second part of an encoded tuple from ac_encode
-        probs (dict): A probability statistics dictionary generated by
+    Parameters
+    ----------
+    longval : int
+        The first part of an encoded tuple from ac_encode
+    nbits : int
+        The second part of an encoded tuple from ac_encode
+    probs : dict
+        A probability statistics dictionary generated by
             :py:meth:`Arithmetic.train`
 
-    Returns:
-        str: The arithmetically decoded text
+    Returns
+    -------
+    str
+        The arithmetically decoded text
 
-    Example:
-        >>> pr = ac_train('the quick brown fox jumped over the lazy dog')
-        >>> ac_decode(16720586181, 34, pr)
-        'align'
+    Example
+    -------
+    >>> pr = ac_train('the quick brown fox jumped over the lazy dog')
+    >>> ac_decode(16720586181, 34, pr)
+    'align'
 
     """
     coder = Arithmetic()
