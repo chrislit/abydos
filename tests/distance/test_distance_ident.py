@@ -42,7 +42,7 @@ class IdentTestCases(unittest.TestCase):
     cmp = Ident()
 
     def test_ident_sim(self):
-        """Test abydos.distance.Ident.sim"""
+        """Test abydos.distance.Ident.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
         self.assertEqual(self.cmp.sim('', 'a'), 0)
         self.assertEqual(self.cmp.sim('a', ''), 0)

@@ -103,29 +103,29 @@ class SnowballTestCases(unittest.TestCase):
         """Test abydos.stemmer._Snowball._sb_ends_in_short_syllable."""  # noqa: E501
         # base case
         self.assertFalse(
-            self.stmr._sb_ends_in_short_syllable('')
-        )  # noqa: SF01
+            self.stmr._sb_ends_in_short_syllable('')  # noqa: SF01
+        )
 
         # examples from
         # http://snowball.tartarus.org/algorithms/english/stemmer.html
         self.assertTrue(
-            self.stmr._sb_ends_in_short_syllable('rap')
-        )  # noqa: SF01
+            self.stmr._sb_ends_in_short_syllable('rap')  # noqa: SF01
+        )
         self.assertTrue(
-            self.stmr._sb_ends_in_short_syllable('trap')
-        )  # noqa: SF01
+            self.stmr._sb_ends_in_short_syllable('trap')  # noqa: SF01
+        )
         self.assertTrue(
             self.stmr._sb_ends_in_short_syllable('entrap')  # noqa: SF01
         )
         self.assertTrue(
-            self.stmr._sb_ends_in_short_syllable('ow')
-        )  # noqa: SF01
+            self.stmr._sb_ends_in_short_syllable('ow')  # noqa: SF01
+        )
         self.assertTrue(
-            self.stmr._sb_ends_in_short_syllable('on')
-        )  # noqa: SF01
+            self.stmr._sb_ends_in_short_syllable('on')  # noqa: SF01
+        )
         self.assertTrue(
-            self.stmr._sb_ends_in_short_syllable('at')
-        )  # noqa: SF01
+            self.stmr._sb_ends_in_short_syllable('at')  # noqa: SF01
+        )
         self.assertFalse(
             self.stmr._sb_ends_in_short_syllable('uproot')  # noqa: SF01
         )
@@ -141,11 +141,11 @@ class SnowballTestCases(unittest.TestCase):
 
         # missed branch test cases
         self.assertFalse(
-            self.stmr._sb_ends_in_short_syllable('d')
-        )  # noqa: SF01
+            self.stmr._sb_ends_in_short_syllable('d')  # noqa: SF01
+        )
         self.assertFalse(
-            self.stmr._sb_ends_in_short_syllable('a')
-        )  # noqa: SF01
+            self.stmr._sb_ends_in_short_syllable('a')  # noqa: SF01
+        )
 
     def test_sb_short_word(self):
         """Test abydos.stemmer._Snowball._sb_short_word."""

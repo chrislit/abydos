@@ -71,11 +71,15 @@ class RussellIndexTestCases(unittest.TestCase):
 
     def test_russel_index_n2a(self):
         """Test abydos.phonetic.RussellIndex._to_alpha."""
-        self.assertEqual(self.pa._to_alpha(0), '')
-        self.assertEqual(self.pa._to_alpha(''), '')
-        self.assertEqual(self.pa._to_alpha(float('NaN')), '')
-        self.assertEqual(self.pa._to_alpha(123456789), 'ABCDLMNR')
-        self.assertEqual(self.pa._to_alpha('0123456789'), 'ABCDLMNR')
+        self.assertEqual(self.pa._to_alpha(0), '')  # noqa: SF01
+        self.assertEqual(self.pa._to_alpha(''), '')  # noqa: SF01
+        self.assertEqual(self.pa._to_alpha(float('NaN')), '')  # noqa: SF01
+        self.assertEqual(
+            self.pa._to_alpha(123456789), 'ABCDLMNR'  # noqa: SF01
+        )
+        self.assertEqual(
+            self.pa._to_alpha('0123456789'), 'ABCDLMNR'  # noqa: SF01
+        )
 
         # Test wrapper
         self.assertEqual(russell_index_num_to_alpha(123456789), 'ABCDLMNR')

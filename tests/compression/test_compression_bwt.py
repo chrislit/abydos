@@ -54,6 +54,7 @@ class BWTTestCases(unittest.TestCase):
 
         self.assertRaises(ValueError, self.coder.encode, 'ABC$', '$')
         self.assertRaises(ValueError, self.coder.encode, 'ABC\0')
+
         # Test wrapper
         self.assertEqual(bwt_encode('aardvark', '$'), 'k$avrraad')
 
@@ -73,8 +74,9 @@ class BWTTestCases(unittest.TestCase):
 
         self.assertRaises(ValueError, self.coder.decode, 'ABC', '$')
         self.assertRaises(ValueError, self.coder.decode, 'ABC')
+
         # Test wrapper
-        self.assertEqual(self.coder.decode('BNN^AA|A', '|'), '^BANANA')
+        self.assertEqual(bwt_decode('BNN^AA|A', '|'), '^BANANA')
 
     def test_bwt_roundtripping(self):
         """Test abydos.compression.BWT.encode & .decode roundtripping."""  # noqa: E501

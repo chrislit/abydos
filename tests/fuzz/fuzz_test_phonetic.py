@@ -120,7 +120,7 @@ statistics_canada = StatisticsCanada()
 
 algorithms = {
     'russell_index': lambda _: str(russell.encode(_)),
-    'russell_index_num_to_alpha': lambda _: russell._to_alpha(
+    'russell_index_num_to_alpha': lambda _: russell._to_alpha(  # noqa: SF01
         russell.encode(_)
     ),
     'russell_index_alpha': russell.encode_alpha,
@@ -140,7 +140,7 @@ algorithms = {
     ),
     'dm_soundex': lambda _: ', '.join(sorted(dm.encode(_))),
     'koelner_phonetik': koelner.encode,
-    'koelner_phonetik_num_to_alpha': lambda _: koelner._to_alpha(
+    'koelner_phonetik_num_to_alpha': lambda _: koelner._to_alpha(  # noqa: SF01
         koelner.encode(_)
     ),
     'koelner_phonetik_alpha': koelner.encode_alpha,

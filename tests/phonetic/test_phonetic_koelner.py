@@ -83,7 +83,9 @@ class KoelnerTestCases(unittest.TestCase):
 
     def test_koelner_phonetik_n2a(self):
         """Test abydos.phonetic.Koelner._to_alpha."""
-        self.assertEqual(self.pa._to_alpha('0123456789'), 'APTFKLNRS')
+        self.assertEqual(
+            self.pa._to_alpha('0123456789'), 'APTFKLNRS'  # noqa: SF01
+        )
 
         # Test wrapper
         self.assertEqual(
