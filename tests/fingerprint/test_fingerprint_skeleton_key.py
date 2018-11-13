@@ -42,7 +42,7 @@ class SkeletonKeyTestCases(unittest.TestCase):
     fp = SkeletonKey()
 
     def test_skeleton_key(self):
-        """Test abydos.fingerprint.SkeletonKey.fingerprint."""
+        """Test abydos.fingerprint.SkeletonKey."""
         # Base case
         self.assertEqual(self.fp.fingerprint(''), '')
 

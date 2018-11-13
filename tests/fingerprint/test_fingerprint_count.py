@@ -42,7 +42,7 @@ class CountFingerprintTestCases(unittest.TestCase):
     fp = Count()
 
     def test_count_fingerprint(self):
-        """Test abydos.fingerprint.Count.fingerprint."""
+        """Test abydos.fingerprint.Count."""
         # Base case
         self.assertEqual(self.fp.fingerprint(''), 0)
 

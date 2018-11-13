@@ -42,7 +42,7 @@ class OccurrenceFingerprintTestCases(unittest.TestCase):
     fp = Occurrence()
 
     def test_occurrence_fingerprint(self):
-        """Test abydos.fingerprint.Occurrence.fingerprint."""
+        """Test abydos.fingerprint.Occurrence."""
         # Base case
         self.assertEqual(self.fp.fingerprint(''), 0)
 

@@ -18,7 +18,7 @@
 
 """abydos.tests.stemmer.test_stemmer_schinke.
 
-This module contains unit tests for abydos.stemmer._schinke
+This module contains unit tests for abydos.stemmer.Schinke
 """
 
 from __future__ import (
@@ -30,7 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.stemmer import schinke
+from abydos.stemmer import Schinke, schinke
 
 from .. import _corpus_file
 
@@ -38,11 +38,13 @@ from .. import _corpus_file
 class SchinkeTestCases(unittest.TestCase):
     """Test Schinke functions.
 
-    abydos.stemmer._schinke.schinke
+    abydos.stemmer.Schinke
     """
 
+    stmr = Schinke()
+
     def test_schinke(self):
-        """Test abydos.stemmer._schinke.schinke.
+        """Test abydos.stemmer.Schinke.
 
         These tests are copied from the Snowball testset at
         http://snowball.tartarus.org/otherapps/schinke/schinke.tgz
@@ -50,9 +52,13 @@ class SchinkeTestCases(unittest.TestCase):
         with open(_corpus_file('snowball_schinke.csv')) as schinke_ts:
             for schinke_line in schinke_ts:
                 word, noun, verb = schinke_line.strip().split(',')
-                nv = schinke(word)
+                nv = self.stmr.stem(word)
                 self.assertEqual(nv['n'], noun)
                 self.assertEqual(nv['v'], verb)
+
+        # Test wrapper
+        self.assertEqual(schinke('mathematicum')['n'], 'mathematic')
+        self.assertEqual(schinke('mathematicum')['v'], 'mathematicu')
 
 
 if __name__ == '__main__':

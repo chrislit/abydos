@@ -42,7 +42,7 @@ class OccurrenceHalvedFingerprintTestCases(unittest.TestCase):
     fp = OccurrenceHalved()
 
     def test_occurrence_halved_fingerprint(self):
-        """Test abydos.fingerprint.OccurrenceHalved.fingerprint."""
+        """Test abydos.fingerprint.OccurrenceHalved."""
         # Base case
         self.assertEqual(self.fp.fingerprint(''), 0)
 

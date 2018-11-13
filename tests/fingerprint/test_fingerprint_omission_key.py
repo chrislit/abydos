@@ -42,7 +42,7 @@ class OmissionKeyTestCases(unittest.TestCase):
     fp = OmissionKey()
 
     def test_omission_key(self):
-        """Test abydos.fingerprint.OmissionKey.fingerprint."""
+        """Test abydos.fingerprint.OmissionKey."""
         # Base case
         self.assertEqual(self.fp.fingerprint(''), '')
 

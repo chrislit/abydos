@@ -53,7 +53,7 @@ o pe pinguim poe queixoso tamaras ve vovo',
     )
 
     def test_string_fingerprint(self):
-        """Test abydos.fingerprint.StringFingerprint.fingerprint."""
+        """Test abydos.fingerprint.StringFingerprint."""
         # Base case
         self.assertEqual(self.fp.fingerprint(''), '')
 

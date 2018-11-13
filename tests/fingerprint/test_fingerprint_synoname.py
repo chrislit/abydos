@@ -42,7 +42,7 @@ class SynonameToolcodeTestCases(unittest.TestCase):
     fp = SynonameToolcode()
 
     def test_synoname_toolcode(self):
-        """Test abydos.fingerprint.SynonameToolcode.fingerprint."""
+        """Test abydos.fingerprint.SynonameToolcode."""
         # Base case
         self.assertEqual(self.fp.fingerprint(''), ('', '', '0000000000$$'))
 

@@ -48,7 +48,7 @@ class PhoneticFingerprintTestCases(unittest.TestCase):
     soundex = Soundex()
 
     def test_phonetic_fingerprint(self):
-        """Test abydos.fingerprint.PhoneticFingerprint.fingerprint."""
+        """Test abydos.fingerprint.PhoneticFingerprint."""
         # Base case
         self.assertEqual(self.fp.fingerprint(''), '')
 
