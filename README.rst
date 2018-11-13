@@ -8,7 +8,7 @@ Abydos
 +------------------+------------------------------------------------------+
 | Dependencies     | |requires| |snyk| |pyup| |fossa|                     |
 +------------------+------------------------------------------------------+
-| Local Analysis   | |pylint| |flake8| |black|                            |
+| Local Analysis   | |pylint| |flake8| |pydocstyle| |black|               |
 +------------------+------------------------------------------------------+
 | Usage            | |docs| |mybinder| |license| |sourcerank| |zenodo|    |
 +------------------+------------------------------------------------------+
@@ -78,6 +78,10 @@ Abydos
 .. |flake8| image:: https://img.shields.io/badge/flake8-0-brightgreen.svg
    :target: #
    :alt: flake8 Errors
+
+.. |pydocstyle| image:: https://img.shields.io/badge/pydocstyle-3463-red.svg
+   :target: #
+   :alt: pydocstyle Errors
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/ambv/black

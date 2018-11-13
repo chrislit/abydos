@@ -19,7 +19,7 @@
 
 """badge_update.py.
 
-This updates the Pylint, pycodestyle, & flake8 badges in README.rst.
+This updates the Pylint, pycodestyle, pydocstyle & flake8 badges in README.rst.
 """
 
 import os.path
@@ -67,6 +67,26 @@ def pylint_color(score):
 #     return BADGE_COLORS[-1]
 
 
+def pydocstyle_color(score):
+    """Return pydocstyle badge color.
+
+    Args:
+        score (float): A pydocstyle score
+
+    Returns:
+        str: Badge color
+
+    """
+    # These are the score cutoffs for each color above.
+    # I.e. score==0 -> brightgreen, down to 100 < score <= 200 -> orange
+    score_cutoffs = (0, 10, 25, 50, 100)
+    for i in range(len(score_cutoffs)):
+        if score <= score_cutoffs[i]:
+            return BADGE_COLORS[i]
+    # and score > 200 -> red
+    return BADGE_COLORS[-1]
+
+
 def flake8_color(score):
     """Return flake8 badge color.
 
@@ -109,6 +129,12 @@ if __name__ == '__main__':
     # pycodestyle_score = sum(int(n) for n in re.findall(r'\n([0-9]+) +',
     #                                                    pycodestyle_text))
 
+    if not os.path.isfile('./pydocstyle.log'):
+        exit('Please direct pydocstyle output to pydocstyle.log')
+    pydocstyle_score = int(
+        open('pydocstyle.log', 'r', encoding='utf-8').read().split()[-1]
+    )
+
     if not os.path.isfile('./flake8.log'):
         exit('Please direct flake8 output to flake8.log')
     flake8_score = int(
@@ -130,6 +156,14 @@ if __name__ == '__main__':
     #                      prefix + str(pycodestyle_score) + '-' +
     #                      pycodestyle_color(pycodestyle_score),
     #                      readme_text, 1)
+
+    prefix = 'https://img.shields.io/badge/pydocstyle-'
+    readme_text = re.sub(
+        prefix + r'([0-9\.]+-[a-z]+)',
+        prefix + str(pydocstyle_score) + '-' + pydocstyle_color(pydocstyle_score),
+        readme_text,
+        1,
+    )
 
     prefix = 'https://img.shields.io/badge/flake8-'
     readme_text = re.sub(
