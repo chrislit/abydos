@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.phonetic.test_phonetic_russell.
+"""abydos.tests.phonetic.test_phonetic_russell_index.
 
-This module contains unit tests for abydos.phonetic._russell
+This module contains unit tests for abydos.phonetic.RussellIndex
 """
 
 from __future__ import (
@@ -32,6 +32,7 @@ import math
 import unittest
 
 from abydos.phonetic import (
+    RussellIndex,
     russell_index,
     russell_index_alpha,
     russell_index_num_to_alpha,
@@ -41,55 +42,65 @@ from abydos.phonetic import (
 class RussellIndexTestCases(unittest.TestCase):
     """Test Russel Index functions.
 
-    test cases for abydos.phonetic._russell.russell_index,
-    .russell_index_num_to_alpha, & .russell_index_alpha
+    test cases for abydos.RussellIndex
     """
 
+    pa = RussellIndex()
+
     def test_russel_index(self):
-        """Test abydos.phonetic._russell.russell_index."""
-        self.assertTrue(math.isnan(russell_index('')))
-        self.assertTrue(math.isnan(russell_index('H')))
-        self.assertEqual(russell_index('Hoppa'), 12)
-        self.assertEqual(russell_index('Hopley'), 125)
+        """Test abydos.phonetic.RussellIndex."""
+        self.assertTrue(math.isnan(self.pa.encode('')))
+        self.assertTrue(math.isnan(self.pa.encode('H')))
+        self.assertEqual(self.pa.encode('Hoppa'), 12)
+        self.assertEqual(self.pa.encode('Hopley'), 125)
+        self.assertEqual(self.pa.encode('Highfield'), 1254)
+        self.assertEqual(self.pa.encode('Wright'), 814)
+        self.assertEqual(self.pa.encode('Carter'), 31848)
+        self.assertEqual(self.pa.encode('Hopf'), 12)
+        self.assertEqual(self.pa.encode('Hay'), 1)
+        self.assertEqual(self.pa.encode('Haas'), 1)
+        self.assertEqual(self.pa.encode('Meyers'), 618)
+        self.assertEqual(self.pa.encode('Myers'), 618)
+        self.assertEqual(self.pa.encode('Meyer'), 618)
+        self.assertEqual(self.pa.encode('Myer'), 618)
+        self.assertEqual(self.pa.encode('Mack'), 613)
+        self.assertEqual(self.pa.encode('Knack'), 3713)
+
+        # Test wrapper
         self.assertEqual(russell_index('Highfield'), 1254)
-        self.assertEqual(russell_index('Wright'), 814)
-        self.assertEqual(russell_index('Carter'), 31848)
-        self.assertEqual(russell_index('Hopf'), 12)
-        self.assertEqual(russell_index('Hay'), 1)
-        self.assertEqual(russell_index('Haas'), 1)
-        self.assertEqual(russell_index('Meyers'), 618)
-        self.assertEqual(russell_index('Myers'), 618)
-        self.assertEqual(russell_index('Meyer'), 618)
-        self.assertEqual(russell_index('Myer'), 618)
-        self.assertEqual(russell_index('Mack'), 613)
-        self.assertEqual(russell_index('Knack'), 3713)
 
     def test_russel_index_n2a(self):
-        """Test abydos.phonetic._russell.russell_index_num_to_alpha."""
-        self.assertEqual(russell_index_num_to_alpha(0), '')
-        self.assertEqual(russell_index_num_to_alpha(''), '')
-        self.assertEqual(russell_index_num_to_alpha(float('NaN')), '')
+        """Test abydos.phonetic.RussellIndex._to_alpha."""
+        self.assertEqual(self.pa._to_alpha(0), '')
+        self.assertEqual(self.pa._to_alpha(''), '')
+        self.assertEqual(self.pa._to_alpha(float('NaN')), '')
+        self.assertEqual(self.pa._to_alpha(123456789), 'ABCDLMNR')
+        self.assertEqual(self.pa._to_alpha('0123456789'), 'ABCDLMNR')
+
+        # Test wrapper
         self.assertEqual(russell_index_num_to_alpha(123456789), 'ABCDLMNR')
-        self.assertEqual(russell_index_num_to_alpha('0123456789'), 'ABCDLMNR')
 
     def test_russel_index_alpha(self):
-        """Test abydos.phonetic._russell.russell_index_alpha."""
-        self.assertEqual(russell_index_alpha(''), '')
-        self.assertEqual(russell_index_alpha('H'), '')
-        self.assertEqual(russell_index_alpha('Hoppa'), 'AB')
-        self.assertEqual(russell_index_alpha('Hopley'), 'ABL')
+        """Test abydos.phonetic.RussellIndex.encode_alpha."""
+        self.assertEqual(self.pa.encode_alpha(''), '')
+        self.assertEqual(self.pa.encode_alpha('H'), '')
+        self.assertEqual(self.pa.encode_alpha('Hoppa'), 'AB')
+        self.assertEqual(self.pa.encode_alpha('Hopley'), 'ABL')
+        self.assertEqual(self.pa.encode_alpha('Highfield'), 'ABLD')
+        self.assertEqual(self.pa.encode_alpha('Wright'), 'RAD')
+        self.assertEqual(self.pa.encode_alpha('Carter'), 'CARDR')
+        self.assertEqual(self.pa.encode_alpha('Hopf'), 'AB')
+        self.assertEqual(self.pa.encode_alpha('Hay'), 'A')
+        self.assertEqual(self.pa.encode_alpha('Haas'), 'A')
+        self.assertEqual(self.pa.encode_alpha('Meyers'), 'MAR')
+        self.assertEqual(self.pa.encode_alpha('Myers'), 'MAR')
+        self.assertEqual(self.pa.encode_alpha('Meyer'), 'MAR')
+        self.assertEqual(self.pa.encode_alpha('Myer'), 'MAR')
+        self.assertEqual(self.pa.encode_alpha('Mack'), 'MAC')
+        self.assertEqual(self.pa.encode_alpha('Knack'), 'CNAC')
+
+        # Test wrapper
         self.assertEqual(russell_index_alpha('Highfield'), 'ABLD')
-        self.assertEqual(russell_index_alpha('Wright'), 'RAD')
-        self.assertEqual(russell_index_alpha('Carter'), 'CARDR')
-        self.assertEqual(russell_index_alpha('Hopf'), 'AB')
-        self.assertEqual(russell_index_alpha('Hay'), 'A')
-        self.assertEqual(russell_index_alpha('Haas'), 'A')
-        self.assertEqual(russell_index_alpha('Meyers'), 'MAR')
-        self.assertEqual(russell_index_alpha('Myers'), 'MAR')
-        self.assertEqual(russell_index_alpha('Meyer'), 'MAR')
-        self.assertEqual(russell_index_alpha('Myer'), 'MAR')
-        self.assertEqual(russell_index_alpha('Mack'), 'MAC')
-        self.assertEqual(russell_index_alpha('Knack'), 'CNAC')
 
 
 if __name__ == '__main__':

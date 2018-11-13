@@ -18,7 +18,7 @@
 
 """abydos.tests.phonetic.test_phonetic_spfc.
 
-This module contains unit tests for abydos.phonetic._spfc
+This module contains unit tests for abydos.phonetic.SPFC
 """
 
 from __future__ import (
@@ -30,47 +30,54 @@ from __future__ import (
 
 import unittest
 
-from abydos.phonetic import spfc
+from abydos.phonetic import SPFC, spfc
 
 
 class SPFCTestCases(unittest.TestCase):
     """Test SPFC functions.
 
-    test cases for abydos.phonetic._spfc.spfc
+    test cases for abydos.phonetic.SPFC
     """
 
+    pa = SPFC()
+
     def test_spfc(self):
-        """Test abydos.phonetic._spfc.spfc."""
-        self.assertEqual(spfc(''), '')
+        """Test abydos.phonetic.SPFC."""
+        self.assertEqual(self.pa.encode(''), '')
 
         # https://archive.org/stream/accessingindivid00moor#page/19/mode/1up
-        self.assertEqual(spfc(('J', 'KUHNS')), '16760')
-        self.assertEqual(spfc(('G', 'ALTSHULER')), '35797')
-        self.assertEqual(spfc('J KUHNS'), '16760')
-        self.assertEqual(spfc('G ALTSHULER'), '35797')
-        self.assertEqual(spfc('J. KUHNS'), '16760')
-        self.assertEqual(spfc('G. ALTSHULER'), '35797')
-        self.assertEqual(spfc('J. Kuhns'), '16760')
-        self.assertEqual(spfc('G. Altshuler'), '35797')
-        self.assertEqual(spfc('T. Vines'), '16760')
-        self.assertEqual(spfc('J. Butler'), '35779')
-        self.assertNotEqual(spfc('J. Kuhns'), spfc('J. Kuntz'))
-        self.assertEqual(spfc('Jon Kuhns'), '16760')
-        self.assertEqual(spfc('James Kuhns'), '16760')
+        self.assertEqual(self.pa.encode(('J', 'KUHNS')), '16760')
+        self.assertEqual(self.pa.encode(('G', 'ALTSHULER')), '35797')
+        self.assertEqual(self.pa.encode('J KUHNS'), '16760')
+        self.assertEqual(self.pa.encode('G ALTSHULER'), '35797')
+        self.assertEqual(self.pa.encode('J. KUHNS'), '16760')
+        self.assertEqual(self.pa.encode('G. ALTSHULER'), '35797')
+        self.assertEqual(self.pa.encode('J. Kuhns'), '16760')
+        self.assertEqual(self.pa.encode('G. Altshuler'), '35797')
+        self.assertEqual(self.pa.encode('T. Vines'), '16760')
+        self.assertEqual(self.pa.encode('J. Butler'), '35779')
+        self.assertNotEqual(
+            self.pa.encode('J. Kuhns'), self.pa.encode('J. Kuntz')
+        )
+        self.assertEqual(self.pa.encode('Jon Kuhns'), '16760')
+        self.assertEqual(self.pa.encode('James Kuhns'), '16760')
 
-        self.assertRaises(AttributeError, spfc, ('J', 'A', 'Kuhns'))
-        self.assertRaises(AttributeError, spfc, 'JKuhns')
-        self.assertRaises(AttributeError, spfc, 5)
+        self.assertRaises(AttributeError, self.pa.encode, ('J', 'A', 'Kuhns'))
+        self.assertRaises(AttributeError, self.pa.encode, 'JKuhns')
+        self.assertRaises(AttributeError, self.pa.encode, 5)
 
         # etc. (for code coverage)
-        self.assertEqual(spfc('James Goldstein'), '78795')
-        self.assertEqual(spfc('James Hansen'), '58760')
-        self.assertEqual(spfc('James Hester'), '59700')
-        self.assertEqual(spfc('James Bardot'), '31745')
-        self.assertEqual(spfc('James Windsor'), '29765')
-        self.assertEqual(spfc('James Wenders'), '27760')
-        self.assertEqual(spfc('James Ventor'), '17760')
-        self.assertEqual(spfc('þ þ'), '00')
+        self.assertEqual(self.pa.encode('James Goldstein'), '78795')
+        self.assertEqual(self.pa.encode('James Hansen'), '58760')
+        self.assertEqual(self.pa.encode('James Hester'), '59700')
+        self.assertEqual(self.pa.encode('James Bardot'), '31745')
+        self.assertEqual(self.pa.encode('James Windsor'), '29765')
+        self.assertEqual(self.pa.encode('James Wenders'), '27760')
+        self.assertEqual(self.pa.encode('James Ventor'), '17760')
+        self.assertEqual(self.pa.encode('þ þ'), '00')
+
+        # Test wrapper
+        self.assertEqual(spfc('G ALTSHULER'), '35797')
 
 
 if __name__ == '__main__':

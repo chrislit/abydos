@@ -18,7 +18,7 @@
 
 """abydos.tests.phonetic.test_phonetic_alpha_sis.
 
-This module contains unit tests for abydos.phonetic._alpha_sis
+This module contains unit tests for abydos.phonetic.AlphaSIS
 """
 
 from __future__ import (
@@ -30,42 +30,47 @@ from __future__ import (
 
 import unittest
 
-from abydos.phonetic import alpha_sis
+from abydos.phonetic import AlphaSIS, alpha_sis
 
 
-class AlphaSisTestCases(unittest.TestCase):
+class AlphaSISTestCases(unittest.TestCase):
     """Test Alpha-SIS functions.
 
-    test cases for abydos.phonetic._alpha_sis
+    test cases for abydos.phonetic.AlphaSIS
     """
 
-    def test_alpha_sis(self):
-        """Test abydos.phonetic._alpha_sis.alpha_sis."""
-        self.assertEqual(alpha_sis('')[0], '00000000000000')
+    pa = AlphaSIS()
 
-        self.assertEqual(alpha_sis('Rodgers')[0], '04740000000000')
-        self.assertEqual(alpha_sis('Rogers')[0], '04740000000000')
-        self.assertEqual(alpha_sis('Kant')[0], '07210000000000')
-        self.assertEqual(alpha_sis('Knuth')[0], '02100000000000')
-        self.assertEqual(alpha_sis('Harper')[0], '24940000000000')
-        self.assertEqual(alpha_sis('Collier')[0], '07540000000000')
-        self.assertEqual(alpha_sis('Schultz')[0], '06500000000000')
-        self.assertEqual(alpha_sis('Livingston')[0], '05827012000000')
+    def test_alpha_sis_encode(self):
+        """Test abydos.phonetic.AlphaSIS."""
+        self.assertEqual(self.pa.encode('')[0], '00000000000000')
+
+        self.assertEqual(self.pa.encode('Rodgers')[0], '04740000000000')
+        self.assertEqual(self.pa.encode('Rogers')[0], '04740000000000')
+        self.assertEqual(self.pa.encode('Kant')[0], '07210000000000')
+        self.assertEqual(self.pa.encode('Knuth')[0], '02100000000000')
+        self.assertEqual(self.pa.encode('Harper')[0], '24940000000000')
+        self.assertEqual(self.pa.encode('Collier')[0], '07540000000000')
+        self.assertEqual(self.pa.encode('Schultz')[0], '06500000000000')
+        self.assertEqual(self.pa.encode('Livingston')[0], '05827012000000')
 
         # tests of repeated letters
-        self.assertEqual(alpha_sis('Colllier')[0], '07554000000000')
-        self.assertEqual(alpha_sis('Collllier')[0], '07554000000000')
-        self.assertEqual(alpha_sis('Colllllier')[0], '07555400000000')
-        self.assertEqual(alpha_sis('Collllllier')[0], '07555400000000')
-        self.assertEqual(alpha_sis('Colalalier')[0], '07555400000000')
+        self.assertEqual(self.pa.encode('Colllier')[0], '07554000000000')
+        self.assertEqual(self.pa.encode('Collllier')[0], '07554000000000')
+        self.assertEqual(self.pa.encode('Colllllier')[0], '07555400000000')
+        self.assertEqual(self.pa.encode('Collllllier')[0], '07555400000000')
+        self.assertEqual(self.pa.encode('Colalalier')[0], '07555400000000')
 
         # max_length bounds tests
         self.assertEqual(
-            alpha_sis('Niall', max_length=-1)[0],
+            self.pa.encode('Niall', max_length=-1)[0],
             '02500000000000000000000000000000000000000000000000'
             + '00000000000000',
         )
-        self.assertEqual(alpha_sis('Niall', max_length=0)[0], '0250')
+        self.assertEqual(self.pa.encode('Niall', max_length=0)[0], '0250')
+
+        # Test wrapper
+        self.assertEqual(alpha_sis('Livingston')[0], '05827012000000')
 
 
 if __name__ == '__main__':
