@@ -50,29 +50,34 @@ class RLE(object):
     def encode(self, text):
         r"""Perform encoding of run-length-encoding (RLE).
 
-        Args:
-            text (str): A text string to encode
+        Parameters
+        ----------
+        text : str
+            A text string to encode
 
-        Returns:
-            str: Word decoded by RLE
+        Returns
+        -------
+        str
+            Word decoded by RLE
 
-        Examples:
-            >>> rle = RLE()
-            >>> bwt = BWT()
-            >>> rle.encode(bwt.encode('align'))
-            'n\x00ilag'
-            >>> rle.encode('align')
-            'align'
+        Examples
+        --------
+        >>> rle = RLE()
+        >>> bwt = BWT()
+        >>> rle.encode(bwt.encode('align'))
+        'n\x00ilag'
+        >>> rle.encode('align')
+        'align'
 
-            >>> rle.encode(bwt.encode('banana'))
-            'annb\x00aa'
-            >>> rle.encode('banana')
-            'banana'
+        >>> rle.encode(bwt.encode('banana'))
+        'annb\x00aa'
+        >>> rle.encode('banana')
+        'banana'
 
-            >>> rle.encode(bwt.encode('aaabaabababa'))
-            'ab\x00abbab5a'
-            >>> rle.encode('aaabaabababa')
-            '3abaabababa'
+        >>> rle.encode(bwt.encode('aaabaabababa'))
+        'ab\x00abbab5a'
+        >>> rle.encode('aaabaabababa')
+        '3abaabababa'
 
         """
         if text:
@@ -86,29 +91,34 @@ class RLE(object):
     def decode(self, text):
         r"""Perform decoding of run-length-encoding (RLE).
 
-        Args:
-            text (str): A text string to decode
+        Parameters
+        ----------
+        text : str
+            A text string to decode
 
-        Returns:
-            str: word decoded by RLE
+        Returns
+        -------
+        str
+            Word decoded by RLE
 
-        Examples:
-            >>> rle = RLE()
-            >>> bwt = BWT()
-            >>> bwt.decode(rle.decode('n\x00ilag'))
-            'align'
-            >>> rle.decode('align')
-            'align'
+        Examples
+        --------
+        >>> rle = RLE()
+        >>> bwt = BWT()
+        >>> bwt.decode(rle.decode('n\x00ilag'))
+        'align'
+        >>> rle.decode('align')
+        'align'
 
-            >>> bwt.decode(rle.decode('annb\x00aa'))
-            'banana'
-            >>> rle.decode('banana')
-            'banana'
+        >>> bwt.decode(rle.decode('annb\x00aa'))
+        'banana'
+        >>> rle.decode('banana')
+        'banana'
 
-            >>> bwt.decode(rle.decode('ab\x00abbab5a'))
-            'aaabaabababa'
-            >>> rle.decode('3abaabababa')
-            'aaabaabababa'
+        >>> bwt.decode(rle.decode('ab\x00abbab5a'))
+        'aaabaabababa'
+        >>> rle.decode('3abaabababa')
+        'aaabaabababa'
 
         """
         mult = ''
@@ -132,29 +142,34 @@ def rle_encode(text, use_bwt=True):
 
     This is a wrapper for :py:meth:`RLE.encode`.
 
-    Args:
-        text (str): A text string to encode
-        use_bwt (bool): Indicats whether to perform BWT encoding before RLE
-            encoding
+    Parameters
+    ----------
+    text : str
+        A text string to encode
+    use_bwt : bool
+        Indicates whether to perform BWT encoding before RLE encoding
 
-    Returns:
-        str: Word decoded by RLE
+    Returns
+    -------
+    str
+        Word decoded by RLE
 
-    Examples:
-        >>> rle_encode('align')
-        'n\x00ilag'
-        >>> rle_encode('align', use_bwt=False)
-        'align'
+    Examples
+    --------
+    >>> rle_encode('align')
+    'n\x00ilag'
+    >>> rle_encode('align', use_bwt=False)
+    'align'
 
-        >>> rle_encode('banana')
-        'annb\x00aa'
-        >>> rle_encode('banana', use_bwt=False)
-        'banana'
+    >>> rle_encode('banana')
+    'annb\x00aa'
+    >>> rle_encode('banana', use_bwt=False)
+    'banana'
 
-        >>> rle_encode('aaabaabababa')
-        'ab\x00abbab5a'
-        >>> rle_encode('aaabaabababa', False)
-        '3abaabababa'
+    >>> rle_encode('aaabaabababa')
+    'ab\x00abbab5a'
+    >>> rle_encode('aaabaabababa', False)
+    '3abaabababa'
 
     """
     if use_bwt:
@@ -167,29 +182,34 @@ def rle_decode(text, use_bwt=True):
 
     This is a wrapper for :py:meth:`RLE.decode`.
 
-    Args:
-        text (str): A text string to decode
-        use_bwt (bool): Indicates whether to perform BWT decoding after RLE
-            decoding
+    Parameters
+    ----------
+    text : str
+        A text string to decode
+    use_bwt : bool
+        Indicates whether to perform BWT decoding after RLE decoding
 
-    Returns:
-        str: Word decoded by RLE
+    Returns
+    -------
+    str
+        Word decoded by RLE
 
-    Examples:
-        >>> rle_decode('n\x00ilag')
-        'align'
-        >>> rle_decode('align', use_bwt=False)
-        'align'
+    Examples
+    --------
+    >>> rle_decode('n\x00ilag')
+    'align'
+    >>> rle_decode('align', use_bwt=False)
+    'align'
 
-        >>> rle_decode('annb\x00aa')
-        'banana'
-        >>> rle_decode('banana', use_bwt=False)
-        'banana'
+    >>> rle_decode('annb\x00aa')
+    'banana'
+    >>> rle_decode('banana', use_bwt=False)
+    'banana'
 
-        >>> rle_decode('ab\x00abbab5a')
-        'aaabaabababa'
-        >>> rle_decode('3abaabababa', False)
-        'aaabaabababa'
+    >>> rle_decode('ab\x00abbab5a')
+    'aaabaabababa'
+    >>> rle_decode('3abaabababa', False)
+    'aaabaabababa'
 
     """
     text = RLE().decode(text)

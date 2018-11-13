@@ -45,24 +45,32 @@ class BWT(object):
     def encode(self, word, terminator='\0'):
         r"""Return the Burrows-Wheeler transformed form of a word.
 
-        Args:
-            word (str): The word to transform using BWT
-            terminator (str): A character added to signal the end of the string
+        Parameters
+        ----------
+        word : str
+            The word to transform using BWT
+        terminator : str
+            A character added to signal the end of the string
 
-        Returns:
-            str: Word encoded by BWT
+        Returns
+        -------
+        str
+            Word encoded by BWT
 
-        Raises:
-            ValueError: Specified terminator absent from code.
+        Raises
+        ------
+        ValueError
+            Specified terminator absent from code.
 
-        Examples:
-            >>> bwt = BWT()
-            >>> bwt.encode('align')
-            'n\x00ilag'
-            >>> bwt.encode('banana')
-            'annb\x00aa'
-            >>> bwt.encode('banana', '@')
-            'annb@aa'
+        Examples
+        --------
+        >>> bwt = BWT()
+        >>> bwt.encode('align')
+        'n\x00ilag'
+        >>> bwt.encode('banana')
+        'annb\x00aa'
+        >>> bwt.encode('banana', '@')
+        'annb@aa'
 
         """
         if word:
@@ -84,24 +92,32 @@ class BWT(object):
     def decode(self, code, terminator='\0'):
         r"""Return a word decoded from BWT form.
 
-        Args:
-            code (str): The word to transform from BWT form
-            terminator (str): A character added to signal the end of the string
+        Parameters
+        ----------
+        code : str
+            The word to transform from BWT form
+        terminator : str
+            A character added to signal the end of the string
 
-        Returns:
-            str: Word decoded by BWT
+        Returns
+        -------
+        str
+            Word decoded by BWT
 
-        Raises:
-            ValueError: Specified terminator absent from code.
+        Raises
+        ------
+        ValueError
+            Specified terminator absent from code.
 
-        Examples:
-            >>> bwt = BWT()
-            >>> bwt.decode('n\x00ilag')
-            'align'
-            >>> bwt.decode('annb\x00aa')
-            'banana'
-            >>> bwt.decode('annb@aa', '@')
-            'banana'
+        Examples
+        --------
+        >>> bwt = BWT()
+        >>> bwt.decode('n\x00ilag')
+        'align'
+        >>> bwt.decode('annb\x00aa')
+        'banana'
+        >>> bwt.decode('annb@aa', '@')
+        'banana'
 
         """
         if code:
@@ -128,20 +144,26 @@ def bwt_encode(word, terminator='\0'):
 
     This is a wrapper for :py:meth:`BWT.encode`.
 
-    Args:
-        word (str): The word to transform using BWT
-        terminator (str): A character added to signal the end of the string
+    Parameters
+    ----------
+    word : str
+        The word to transform using BWT
+    terminator : str
+        A character added to signal the end of the string
 
-    Returns:
-        str: Word encoded by BWT
+    Returns
+    -------
+    str
+        Word encoded by BWT
 
-    Examples:
-        >>> bwt_encode('align')
-        'n\x00ilag'
-        >>> bwt_encode('banana')
-        'annb\x00aa'
-        >>> bwt_encode('banana', '@')
-        'annb@aa'
+    Examples
+    --------
+    >>> bwt_encode('align')
+    'n\x00ilag'
+    >>> bwt_encode('banana')
+    'annb\x00aa'
+    >>> bwt_encode('banana', '@')
+    'annb@aa'
 
     """
     return BWT().encode(word, terminator)
@@ -152,20 +174,26 @@ def bwt_decode(code, terminator='\0'):
 
     This is a wrapper for :py:meth:`BWT.decode`.
 
-    Args:
-        code (str): The word to transform from BWT form
-        terminator (str): A character added to signal the end of the string
+    Parameters
+    ----------
+    code : str
+        The word to transform from BWT form
+    terminator : str
+        A character added to signal the end of the string
 
-    Returns:
-        str: Word decoded by BWT
+    Returns
+    -------
+    str
+        Word decoded by BWT
 
-    Examples:
-        >>> bwt_decode('n\x00ilag')
-        'align'
-        >>> bwt_decode('annb\x00aa')
-        'banana'
-        >>> bwt_decode('annb@aa', '@')
-        'banana'
+    Examples
+    --------
+    >>> bwt_decode('n\x00ilag')
+    'align'
+    >>> bwt_decode('annb\x00aa')
+    'banana'
+    >>> bwt_decode('annb@aa', '@')
+    'banana'
 
     """
     return BWT().decode(code, terminator)

@@ -58,21 +58,26 @@ class Corpus(object):
             - single newlines divide sentences
             - other whitespace divides words
 
-        Args:
-            corpus_text (str): The corpus text as a single string
-            doc_split (str): A character or string used to split corpus_text
-                into documents
-            sent_split (str): A character or string used to split documents
-                into sentences
-            filter_chars (list): A list of characters (as a string, tuple,
-                set, or list) to filter out of the corpus text
-            stop_words (list): A list of words (as a tuple, set, or list) to
-                filter out of the corpus text
+        Parameters
+        ----------
+        corpus_text : str
+            The corpus text as a single string
+        doc_split : str
+            A character or string used to split corpus_text into documents
+        sent_split : str
+            A character or string used to split documents into sentences
+        filter_chars : list
+            A list of characters (as a string, tuple, set, or list) to filter
+            out of the corpus text
+        stop_words : list
+            A list of words (as a tuple, set, or list) to filter out of the
+            corpus text
 
-        Example:
-            >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
-            >>> tqbf += 'And then it slept.\n And the dog ran off.'
-            >>> corp = Corpus(tqbf)
+        Example
+        -------
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> corp = Corpus(tqbf)
 
         """
         self.corpus = []
@@ -99,20 +104,22 @@ class Corpus(object):
         Each list within a doc represents the sentences in that doc, each of
         which is in turn a list of words within that sentence.
 
-        Returns:
-            [[[str]]]: The paragraphs in the corpus as a list of lists of lists
-                of strs
+        Returns
+        -------
+        [[[str]]]
+            The paragraphs in the corpus as a list of lists of lists of strs
 
-        Example:
-            >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
-            >>> tqbf += 'And then it slept.\n And the dog ran off.'
-            >>> corp = Corpus(tqbf)
-            >>> corp.docs()
-            [[['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
-            'dog.'], ['And', 'then', 'it', 'slept.'], ['And', 'the', 'dog',
-            'ran', 'off.']]]
-            >>> len(corp.docs())
-            1
+        Example
+        -------
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> corp = Corpus(tqbf)
+        >>> corp.docs()
+        [[['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
+        'dog.'], ['And', 'then', 'it', 'slept.'], ['And', 'the', 'dog',
+        'ran', 'off.']]]
+        >>> len(corp.docs())
+        1
 
         """
         return self.corpus
@@ -125,20 +132,22 @@ class Corpus(object):
         This is identical to the docs() member function and exists only to
         mirror part of NLTK's API for corpora.
 
-        Returns:
-            [[[str]]]: The paragraphs in the corpus as a list of lists of lists
-                of strs
+        Returns
+        -------
+        [[[str]]]
+            The paragraphs in the corpus as a list of lists of lists of strs
 
-        Example:
-            >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
-            >>> tqbf += 'And then it slept.\n And the dog ran off.'
-            >>> corp = Corpus(tqbf)
-            >>> corp.paras()
-            [[['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
-            'dog.'], ['And', 'then', 'it', 'slept.'], ['And', 'the', 'dog',
-            'ran', 'off.']]]
-            >>> len(corp.paras())
-            1
+        Example
+        -------
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> corp = Corpus(tqbf)
+        >>> corp.paras()
+        [[['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
+        'dog.'], ['And', 'then', 'it', 'slept.'], ['And', 'the', 'dog',
+        'ran', 'off.']]]
+        >>> len(corp.paras())
+        1
 
         """
         return self.docs()
@@ -148,19 +157,22 @@ class Corpus(object):
 
         Each list within a sentence represents the words within that sentence.
 
-        Returns:
-            [[str]]: The sentences in the corpus as a list of lists of strs
+        Returns
+        -------
+        [[str]]
+            The sentences in the corpus as a list of lists of strs
 
-        Example:
-            >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
-            >>> tqbf += 'And then it slept.\n And the dog ran off.'
-            >>> corp = Corpus(tqbf)
-            >>> corp.sents()
-            [['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
-            'dog.'], ['And', 'then', 'it', 'slept.'], ['And', 'the', 'dog',
-            'ran', 'off.']]
-            >>> len(corp.sents())
-            3
+        Example
+        -------
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> corp = Corpus(tqbf)
+        >>> corp.sents()
+        [['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
+        'dog.'], ['And', 'then', 'it', 'slept.'], ['And', 'the', 'dog',
+        'ran', 'off.']]
+        >>> len(corp.sents())
+        3
 
         """
         return [words for sents in self.corpus for words in sents]
@@ -168,19 +180,22 @@ class Corpus(object):
     def words(self):
         r"""Return the words in the corpus as a single list.
 
-        Returns:
-            [str]: The words in the corpus as a list of strs
+        Returns
+        -------
+        [str]
+            The words in the corpus as a list of strs
 
-        Example:
-            >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
-            >>> tqbf += 'And then it slept.\n And the dog ran off.'
-            >>> corp = Corpus(tqbf)
-            >>> corp.words()
-            ['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
-            'dog.', 'And', 'then', 'it', 'slept.', 'And', 'the', 'dog', 'ran',
-            'off.']
-            >>> len(corp.words())
-            18
+        Example
+        -------
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> corp = Corpus(tqbf)
+        >>> corp.words()
+        ['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
+        'dog.', 'And', 'then', 'it', 'slept.', 'And', 'the', 'dog', 'ran',
+        'off.']
+        >>> len(corp.words())
+        18
 
         """
         return [words for sents in self.sents() for words in sents]
@@ -191,19 +206,22 @@ class Corpus(object):
         Each list within the corpus represents all the words of that document.
         Thus the sentence level of lists has been flattened.
 
-        Returns:
-            [[str]]: The docs in the corpus as a list of list of strs
+        Returns
+        -------
+        [[str]]
+            The docs in the corpus as a list of list of strs
 
-        Example:
-            >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
-            >>> tqbf += 'And then it slept.\n And the dog ran off.'
-            >>> corp = Corpus(tqbf)
-            >>> corp.docs_of_words()
-            [['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
-            'dog.', 'And', 'then', 'it', 'slept.', 'And', 'the', 'dog', 'ran',
-            'off.']]
-            >>> len(corp.docs_of_words())
-            1
+        Example
+        -------
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> corp = Corpus(tqbf)
+        >>> corp.docs_of_words()
+        [['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
+        'dog.', 'And', 'then', 'it', 'slept.', 'And', 'the', 'dog', 'ran',
+        'off.']]
+        >>> len(corp.docs_of_words())
+        1
 
         """
         return [
@@ -216,19 +234,22 @@ class Corpus(object):
         This is reconstructed by joining sub-components with the corpus' split
         characters
 
-        Returns:
-            str: The raw corpus
+        Returns
+        -------
+        str
+            The raw corpus
 
-        Example:
-            >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
-            >>> tqbf += 'And then it slept.\n And the dog ran off.'
-            >>> corp = Corpus(tqbf)
-            >>> print(corp.raw())
-            The quick brown fox jumped over the lazy dog.
-            And then it slept.
-            And the dog ran off.
-            >>> len(corp.raw())
-            85
+        Example
+        -------
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
+        >>> tqbf += 'And then it slept.\n And the dog ran off.'
+        >>> corp = Corpus(tqbf)
+        >>> print(corp.raw())
+        The quick brown fox jumped over the lazy dog.
+        And then it slept.
+        And the dog ran off.
+        >>> len(corp.raw())
+        85
 
         """
         doc_list = []
@@ -243,27 +264,33 @@ class Corpus(object):
     def idf(self, term, transform=None):
         r"""Calculate the Inverse Document Frequency of a term in the corpus.
 
-        Args:
-            term (str): The term to calculate the IDF of
-            transform (function): a function to apply to each document term
-                before checking for the presence of term
+        Parameters
+        ----------
+        term : str
+            The term to calculate the IDF of
+        transform : function
+            A function to apply to each document term before checking for the
+            presence of term
 
-        Returns:
-            float: The IDF
+        Returns
+        -------
+        float
+            The IDF
 
-        Examples:
-            >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n\n'
-            >>> tqbf += 'And then it slept.\n\n And the dog ran off.'
-            >>> corp = Corpus(tqbf)
-            >>> print(corp.docs())
-            [[['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
-            'dog.']],
-            [['And', 'then', 'it', 'slept.']],
-            [['And', 'the', 'dog', 'ran', 'off.']]]
-            >>> round(corp.idf('dog'), 10)
-            0.4771212547
-            >>> round(corp.idf('the'), 10)
-            0.1760912591
+        Examples
+        --------
+        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n\n'
+        >>> tqbf += 'And then it slept.\n\n And the dog ran off.'
+        >>> corp = Corpus(tqbf)
+        >>> print(corp.docs())
+        [[['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
+        'dog.']],
+        [['And', 'then', 'it', 'slept.']],
+        [['And', 'the', 'dog', 'ran', 'off.']]]
+        >>> round(corp.idf('dog'), 10)
+        0.4771212547
+        >>> round(corp.idf('the'), 10)
+        0.1760912591
 
         """
         docs_with_term = 0
