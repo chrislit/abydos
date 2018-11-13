@@ -32,6 +32,8 @@ import unittest
 
 from abydos.distance import NCDlzma, dist_ncd_lzma, sim_ncd_lzma
 
+from six import PY3
+
 try:
     import lzma
 except ImportError:  # pragma: no cover
@@ -53,21 +55,43 @@ class CompressionTestCases(unittest.TestCase):
         """Test abydos.distance.NCDlzma.dist."""
         if lzma is not None:
             self.assertEqual(self.cmp.dist('', ''), 0)
-            self.assertAlmostEqual(self.cmp.dist('a', ''), 0.6086956521739)
-            self.assertEqual(self.cmp.dist('abcdefg', 'fg'), 0.16)
+            if PY3:
+                self.assertAlmostEqual(self.cmp.dist('a', ''), 0.6086956521739)
+                self.assertAlmostEqual(self.cmp.dist('abcdefg', 'fg'), 0.16)
+            else:
+                self.assertAlmostEqual(self.cmp.dist('a', ''), 0.5714285714286)
+                self.assertAlmostEqual(
+                    self.cmp.dist('abcdefg', 'fg'), 0.1739130434783
+                )
 
             # Test wrapper
-            self.assertEqual(dist_ncd_lzma('abcdefg', 'fg'), 0.16)
+            if PY3:
+                self.assertAlmostEqual(dist_ncd_lzma('abcdefg', 'fg'), 0.16)
+            else:
+                self.assertAlmostEqual(
+                    dist_ncd_lzma('abcdefg', 'fg'), 0.1739130434783
+                )
 
     def test_ncd_lzma_sim(self):
         """Test abydos.distance.NCDlzma.sim."""
         if lzma is not None:
             self.assertEqual(self.cmp.sim('', ''), 1)
-            self.assertAlmostEqual(self.cmp.sim('a', ''), 0.391304347826)
-            self.assertEqual(self.cmp.sim('abcdefg', 'fg'), 0.84)
+            if PY3:
+                self.assertAlmostEqual(self.cmp.sim('a', ''), 0.391304347826)
+                self.assertAlmostEqual(self.cmp.sim('abcdefg', 'fg'), 0.84)
+            else:
+                self.assertAlmostEqual(self.cmp.sim('a', ''), 0.428571428571)
+                self.assertAlmostEqual(
+                    self.cmp.sim('abcdefg', 'fg'), 0.8260869565217
+                )
 
             # Test wrapper
-            self.assertEqual(sim_ncd_lzma('abcdefg', 'fg'), 0.84)
+            if PY3:
+                self.assertAlmostEqual(sim_ncd_lzma('abcdefg', 'fg'), 0.84)
+            else:
+                self.assertAlmostEqual(
+                    sim_ncd_lzma('abcdefg', 'fg'), 0.8260869565217
+                )
 
 
 if __name__ == '__main__':
