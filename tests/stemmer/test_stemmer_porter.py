@@ -108,25 +108,25 @@ class PorterTestCases(unittest.TestCase):
         self.assertFalse(self.stmr._ends_in_doubled_cons('c'))  # noqa: SF01
         self.assertFalse(self.stmr._ends_in_doubled_cons('bc'))  # noqa: SF01
         self.assertFalse(
-            self.stmr._ends_in_doubled_cons(
+            self.stmr._ends_in_doubled_cons(  # noqa: SF01
                 'bcdfghjklmnpqrstvwxYz'
-            )  # noqa: SF01
+            )
         )
         self.assertFalse(self.stmr._ends_in_doubled_cons('Y'))  # noqa: SF01
         self.assertFalse(self.stmr._ends_in_doubled_cons('a'))  # noqa: SF01
         self.assertFalse(self.stmr._ends_in_doubled_cons('e'))  # noqa: SF01
         self.assertFalse(self.stmr._ends_in_doubled_cons('ae'))  # noqa: SF01
         self.assertFalse(
-            self.stmr._ends_in_doubled_cons('aeiouy')
-        )  # noqa: SF01
+            self.stmr._ends_in_doubled_cons('aeiouy')  # noqa: SF01
+        )
         self.assertFalse(self.stmr._ends_in_doubled_cons('y'))  # noqa: SF01
         self.assertFalse(self.stmr._ends_in_doubled_cons('ade'))  # noqa: SF01
         self.assertFalse(self.stmr._ends_in_doubled_cons('cad'))  # noqa: SF01
         self.assertFalse(self.stmr._ends_in_doubled_cons('phi'))  # noqa: SF01
         self.assertFalse(self.stmr._ends_in_doubled_cons('pfy'))  # noqa: SF01
         self.assertFalse(
-            self.stmr._ends_in_doubled_cons('faddy')
-        )  # noqa: SF01
+            self.stmr._ends_in_doubled_cons('faddy')  # noqa: SF01
+        )
         self.assertFalse(self.stmr._ends_in_doubled_cons('aiii'))  # noqa: SF01
         self.assertFalse(self.stmr._ends_in_doubled_cons('ayyy'))  # noqa: SF01
 
@@ -134,8 +134,8 @@ class PorterTestCases(unittest.TestCase):
         self.assertTrue(self.stmr._ends_in_doubled_cons('add'))  # noqa: SF01
         self.assertTrue(self.stmr._ends_in_doubled_cons('fadd'))  # noqa: SF01
         self.assertTrue(
-            self.stmr._ends_in_doubled_cons('fadddd')
-        )  # noqa: SF01
+            self.stmr._ends_in_doubled_cons('fadddd')  # noqa: SF01
+        )
         self.assertTrue(self.stmr._ends_in_doubled_cons('raYY'))  # noqa: SF01
         self.assertTrue(self.stmr._ends_in_doubled_cons('doll'))  # noqa: SF01
         self.assertTrue(self.stmr._ends_in_doubled_cons('parr'))  # noqa: SF01
