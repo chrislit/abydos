@@ -33,36 +33,48 @@ import unittest
 from random import choice, randint, sample
 
 from abydos.fingerprint import (
-    count_fingerprint,
-    occurrence_fingerprint,
-    occurrence_halved_fingerprint,
-    omission_key,
-    phonetic_fingerprint,
-    position_fingerprint,
-    qgram_fingerprint,
-    skeleton_key,
-    str_fingerprint,
-    synoname_toolcode,
+    Count,
+    Occurrence,
+    OccurrenceHalved,
+    OmissionKey,
+    PhoneticFingerprint,
+    Position,
+    QGramFingerprint,
+    SkeletonKey,
+    StringFingerprint,
+    SynonameToolcode,
 )
 
 from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 
+
+string = StringFingerprint()
+qgram = QGramFingerprint()
+phonetic = PhoneticFingerprint()
+skeleton = SkeletonKey()
+omission = OmissionKey()
+occurrence = Occurrence()
+occurrence_halved = OccurrenceHalved()
+count = Count()
+position = Position()
+synoname = SynonameToolcode()
+
 algorithms = {
-    'str_fingerprint': str_fingerprint,
-    'qgram_fingerprint': qgram_fingerprint,
-    'qgram_fingerprint_3': lambda _: qgram_fingerprint(_, qval=3),
-    'qgram_fingerprint_ssj': lambda _: qgram_fingerprint(
+    'str_fingerprint': string.fingerprint,
+    'qgram_fingerprint': qgram.fingerprint,
+    'qgram_fingerprint_3': lambda _: qgram.fingerprint(_, qval=3),
+    'qgram_fingerprint_ssj': lambda _: qgram.fingerprint(
         _, start_stop='$#', joiner=' '
     ),
-    'phonetic_fingerprint': phonetic_fingerprint,
-    'skeleton_key': skeleton_key,
-    'omission_key': omission_key,
-    'occurrence_fingerprint': occurrence_fingerprint,
-    'occurrence_halved_fingerprint': occurrence_halved_fingerprint,
-    'count_fingerprint': count_fingerprint,
-    'position_fingerprint': position_fingerprint,
-    'synoname_toolcode': synoname_toolcode,
-    'synoname_toolcode_2name': lambda _: synoname_toolcode(_, _),
+    'phonetic_fingerprint': phonetic.fingerprint,
+    'skeleton_key': skeleton.fingerprint,
+    'omission_key': omission.fingerprint,
+    'occurrence_fingerprint': occurrence.fingerprint,
+    'occurrence_halved_fingerprint': occurrence_halved.fingerprint,
+    'count_fingerprint': count.fingerprint,
+    'position_fingerprint': position.fingerprint,
+    'synoname_toolcode': synoname.fingerprint,
+    'synoname_toolcode_2name': lambda _: synoname.fingerprint(_, _),
 }
 
 
