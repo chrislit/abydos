@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.tokenizer.test_tokenizer_qgram.
+"""abydos.tests.tokenizer.test_tokenizer_qgrams.
 
-This module contains unit tests for abydos.tokenizer._qgram
+This module contains unit tests for abydos.tokenizer.QGrams
 """
 
 from __future__ import (
@@ -33,11 +33,11 @@ import unittest
 from abydos.tokenizer import QGrams
 
 
-class QgramTestCases(unittest.TestCase):
-    """Test abydos.tokenizer._qgram."""
+class QGramsTestCases(unittest.TestCase):
+    """Test abydos.tokenizer.QGrams."""
 
     def test_qgrams(self):
-        """Test abydos.tokenizer._qgram.QGrams."""
+        """Test abydos.tokenizer.QGrams."""
         self.assertEqual(sorted(QGrams('').elements()), [])
         self.assertEqual(sorted(QGrams('a', 2).elements()), [])
         self.assertEqual(sorted(QGrams('NELSON', 0).elements()), [])
@@ -218,7 +218,7 @@ class QgramTestCases(unittest.TestCase):
         self.assertEqual(QGrams('NELSON', skip=(0, 1, 2)).count(), 21)
 
     def test_qgram_intersections(self):
-        """Test abydos.tokenizer._qgram.QGrams intersections."""
+        """Test abydos.tokenizer.QGrams intersections."""
         self.assertEqual(sorted(QGrams('NELSON') & QGrams('')), [])
         self.assertEqual(sorted(QGrams('') & QGrams('NEILSEN')), [])
         self.assertEqual(
@@ -252,7 +252,7 @@ class QgramTestCases(unittest.TestCase):
         )
 
     def test_qgram_counts(self):
-        """Test abydos.tokenizer._qgram.QGrams counts."""
+        """Test abydos.tokenizer.QGrams counts."""
         self.assertEqual(QGrams('').count(), 0)
         self.assertEqual(len(QGrams('').ordered_list), 0)
 

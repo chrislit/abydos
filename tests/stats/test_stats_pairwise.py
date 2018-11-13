@@ -18,7 +18,7 @@
 
 """abydos.tests.stats.test_stats_pairwise.
 
-This module contains unit tests for abydos.stats._pairwise
+This module contains unit tests for abydos.stats pairwise functions
 """
 
 from __future__ import (
@@ -79,11 +79,11 @@ NIALL_1WORD = (
 class MPSTestCases(unittest.TestCase):
     """Test mean pairwise similarity functions.
 
-    abydos.stats._pairwise.mean_pairwise_similarity
+    abydos.stats.mean_pairwise_similarity
     """
 
     def test_mean_pairwise_similarity(self):
-        """Test abydos.stats._pairwise.mean_pairwise_similarity."""
+        """Test abydos.stats.mean_pairwise_similarity."""
         self.assertEqual(mean_pairwise_similarity(NIALL), 0.29362587170180671)
         self.assertEqual(
             mean_pairwise_similarity(NIALL, symmetric=True), 0.2936258717018066
@@ -161,11 +161,11 @@ class MPSTestCases(unittest.TestCase):
 class PSSTestCases(unittest.TestCase):
     """Test pairwise similarity statistics functions.
 
-    abydos.stats._pairwise.pairwise_similarity_statistics
+    abydos.stats.pairwise_similarity_statistics
     """
 
     def test_pairwise_similarity_statistics(self):
-        """Test abydos.stats._pairwise.pairwise_similarity_statistics."""
+        """Test abydos.stats.pairwise_similarity_statistics."""
         (pw_max, pw_min, pw_mean, pw_std) = pairwise_similarity_statistics(
             NIALL, NIALL
         )

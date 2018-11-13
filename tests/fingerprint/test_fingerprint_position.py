@@ -42,7 +42,7 @@ class PositionFingerprintTestCases(unittest.TestCase):
     fp = Position()
 
     def test_position_fingerprint(self):
-        """Test abydos.fingerprint.Position.fingerprint."""
+        """Test abydos.fingerprint.Position."""
         # Base case
         self.assertEqual(self.fp.fingerprint(''), 0b1111111111111111)
 

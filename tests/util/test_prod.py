@@ -18,7 +18,7 @@
 
 """abydos.tests.util.test_prod.
 
-This module contains unit tests for abydos.util._prod
+This module contains unit tests for abydos.util.prod
 """
 
 from __future__ import (
@@ -36,10 +36,10 @@ from six.moves import range
 
 
 class ProdTestCases(unittest.TestCase):
-    """Test cases for abydos.util._prod."""
+    """Test cases for abydos.util.prod."""
 
     def test_prod(self):
-        """Test abydos.util._prod.prod."""
+        """Test abydos.util.prod."""
         self.assertEqual(prod([]), 1)
         self.assertEqual(prod(()), 1)
         self.assertEqual(prod({}), 1)

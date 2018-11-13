@@ -42,7 +42,7 @@ class SoundexTestCases(unittest.TestCase):
     pa = Soundex()
 
     def test_soundex(self):
-        """Test abydos.phonetic._soundex.soundex."""
+        """Test abydos.phonetic.Soundex."""
         self.assertEqual(self.pa.encode(''), '0000')
 
         # https://archive.org/stream/accessingindivid00moor#page/14/mode/2up
@@ -133,7 +133,7 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(soundex('Euler'), 'E460')
 
     def test_soundex_special(self):
-        """Test abydos.phonetic._soundex.soundex (special 1880-1910 variant method)."""  # noqa: E501
+        """Test abydos.phonetic.Soundex (special 1880-1910 variant method)."""  # noqa: E501
         self.assertEqual(self.pa.encode('Ashcroft', var='special'), 'A226')
         self.assertEqual(self.pa.encode('Asicroft', var='special'), 'A226')
         self.assertEqual(self.pa.encode('AsWcroft', var='special'), 'A226')
@@ -141,7 +141,7 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('Rubin', var='special'), 'R150')
 
     def test_soundex_census(self):
-        """Test abydos.phonetic._soundex.soundex (Census variant method)."""
+        """Test abydos.phonetic.Soundex(Census variant method)."""
         self.assertEqual(
             self.pa.encode('Vandeusen', var='Census'), ('V532', 'D250')
         )

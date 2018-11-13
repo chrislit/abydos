@@ -1,0 +1,124 @@
+# -*- coding: utf-8 -*-
+
+# Copyright 2014-2018 by Christopher C. Little.
+# This file is part of Abydos.
+#
+# Abydos is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Abydos is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Abydos. If not, see <http://www.gnu.org/licenses/>.
+
+"""abydos.tests.stemmer.test_stemmer_porter2.
+
+This module contains unit tests for abydos.stemmer.Porter2
+"""
+
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
+
+import unittest
+
+from abydos.stemmer import Porter2, porter2
+
+
+from .. import _corpus_file
+
+
+class Porter2TestCases(unittest.TestCase):
+    """Test Porter2 functions.
+
+    abydos.stemmer.Porter2
+    """
+
+    stmr = Porter2()
+
+    def test_porter2(self):
+        """Test abydos.stemmer.Porter2."""
+        # base case
+        self.assertEqual(self.stmr.stem(''), '')
+
+        # simple cases
+        self.assertEqual(self.stmr.stem('c'), 'c')
+        self.assertEqual(self.stmr.stem('da'), 'da')
+        self.assertEqual(self.stmr.stem('ad'), 'ad')
+        self.assertEqual(self.stmr.stem('sing'), 'sing')
+        self.assertEqual(self.stmr.stem('singing'), 'sing')
+
+        # missed branch test cases
+        self.assertEqual(self.stmr.stem('capitalism'), 'capit')
+        self.assertEqual(self.stmr.stem('fatalism'), 'fatal')
+        self.assertEqual(self.stmr.stem('dog\'s'), 'dog')
+        self.assertEqual(self.stmr.stem('A\'s\''), 'a')
+        self.assertEqual(self.stmr.stem('agreedly'), 'agre')
+        self.assertEqual(self.stmr.stem('feedly'), 'feed')
+        self.assertEqual(self.stmr.stem('stional'), 'stional')
+        self.assertEqual(self.stmr.stem('palism'), 'palism')
+        self.assertEqual(self.stmr.stem('sization'), 'sizat')
+        self.assertEqual(self.stmr.stem('licated'), 'licat')
+        self.assertEqual(self.stmr.stem('lical'), 'lical')
+        self.assertEqual(self.stmr.stem('clessly'), 'clessli')
+        self.assertEqual(self.stmr.stem('tably'), 'tabli')
+        self.assertEqual(self.stmr.stem('sizer'), 'sizer')
+        self.assertEqual(self.stmr.stem('livity'), 'liviti')
+
+        # Test wrapper
+        self.assertEqual(porter2('capitalism'), 'capit')
+
+    def test_porter2_early_english(self):
+        """Test abydos.stemmer.Porter2 (early English)."""
+        # base case
+        self.assertEqual(self.stmr.stem('', early_english=True), '')
+
+        # simple cases (no different from regular stemmer)
+        self.assertEqual(self.stmr.stem('c', early_english=True), 'c')
+        self.assertEqual(self.stmr.stem('da', early_english=True), 'da')
+        self.assertEqual(self.stmr.stem('ad', early_english=True), 'ad')
+        self.assertEqual(self.stmr.stem('sing', early_english=True), 'sing')
+        self.assertEqual(self.stmr.stem('singing', early_english=True), 'sing')
+
+        # make
+        self.assertEqual(self.stmr.stem('make', early_english=True), 'make')
+        self.assertEqual(self.stmr.stem('makes', early_english=True), 'make')
+        self.assertEqual(self.stmr.stem('maketh', early_english=True), 'make')
+        self.assertEqual(self.stmr.stem('makest', early_english=True), 'make')
+
+        # say
+        self.assertEqual(self.stmr.stem('say', early_english=True), 'say')
+        self.assertEqual(self.stmr.stem('says', early_english=True), 'say')
+        self.assertEqual(self.stmr.stem('sayeth', early_english=True), 'say')
+        self.assertEqual(self.stmr.stem('sayest', early_english=True), 'say')
+
+        # missed branch test cases
+        self.assertEqual(self.stmr.stem('best', early_english=True), 'best')
+        self.assertEqual(self.stmr.stem('meth', early_english=True), 'meth')
+
+    def test_porter2_snowball(self):
+        """Test abydos.stemmer.Porter2 (Snowball testset).
+
+        These test cases are from
+        http://snowball.tartarus.org/algorithms/english/diffs.txt
+        """
+        #  Snowball Porter test set
+        with open(_corpus_file('snowball_porter2.csv')) as snowball_ts:
+            next(snowball_ts)
+            for line in snowball_ts:
+                if line[0] != '#':
+                    line = line.strip().split(',')
+                    word, stem = line[0], line[1]
+                    self.assertEqual(self.stmr.stem(word), stem.lower())
+
+
+if __name__ == '__main__':
+    unittest.main()

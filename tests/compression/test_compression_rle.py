@@ -77,7 +77,7 @@ class RLETestCases(unittest.TestCase):
         self.assertEqual(rle_decode('WWBWWB45WB\x003WB10WB'), self.bws)
 
     def test_rle_roundtripping(self):
-        """Test abydos.compression._rle.encode & .decode roundtripping."""
+        """Test abydos.compression.RLE.encode & .decode roundtripping."""
         self.assertEqual(self.rle.decode(self.rle.encode('')), '')
         self.assertEqual(
             self.bwt.decode(

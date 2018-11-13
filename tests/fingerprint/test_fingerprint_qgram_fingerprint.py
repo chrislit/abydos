@@ -57,7 +57,7 @@ xoyv',
     _anssetq1 = ('abcdefghijklmnopqrstuvwxyz',)
 
     def test_qgram_fingerprint(self):
-        """Test abydos.fingerprint.QGramFingerprint.fingerprint."""
+        """Test abydos.fingerprint.QGramFingerprint."""
         # Base case
         self.assertEqual(self.fp.fingerprint(''), '')
 
