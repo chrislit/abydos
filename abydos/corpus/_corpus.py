@@ -23,10 +23,10 @@ functions for corpus statistics, language modeling, etc.
 """
 
 from __future__ import (
-    unicode_literals,
     absolute_import,
     division,
     print_function,
+    unicode_literals,
 )
 
 from math import log10

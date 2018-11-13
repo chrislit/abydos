@@ -22,10 +22,10 @@ Run-Length Encoding encoder/decoder
 """
 
 from __future__ import (
-    unicode_literals,
     absolute_import,
     division,
     print_function,
+    unicode_literals,
 )
 
 from itertools import groupby

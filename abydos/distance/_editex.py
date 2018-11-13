@@ -22,10 +22,10 @@ editex
 """
 
 from __future__ import (
-    unicode_literals,
     absolute_import,
     division,
     print_function,
+    unicode_literals,
 )
 
 from unicodedata import normalize as unicode_normalize

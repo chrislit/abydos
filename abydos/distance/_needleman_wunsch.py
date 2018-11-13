@@ -33,8 +33,8 @@ from numpy import zeros as np_zeros
 
 from six.moves import range
 
-from ._ident import sim_ident
 from ._distance import _Distance
+from ._ident import sim_ident
 
 __all__ = ['NeedlemanWunsch', 'needleman_wunsch']
 

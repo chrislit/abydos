@@ -22,10 +22,10 @@ NCD using BWT plus RLE
 """
 
 from __future__ import (
-    unicode_literals,
     absolute_import,
     division,
     print_function,
+    unicode_literals,
 )
 
 from ._ncd_rle import NCDrle
