@@ -772,7 +772,6 @@ def cmp_features(feat1, feat2):
         featxor >>= 1
     # print(diffbits)
     return 1 - (diffbits / (2 * magnitude))
-    # TODO: finish implementation/testing/tuning
 
 
 if __name__ == '__main__':
