@@ -130,7 +130,6 @@ class Soundex(Phonetic):
         word = word.replace('ß', 'SS')
 
         if var == 'Census':
-            # TODO: Should these prefixes be supplemented? (VANDE, DELA, VON)
             if word[:3] in {'VAN', 'CON'} and len(word) > 4:
                 return (
                     soundex(word, max_length, 'American', reverse, zero_pad),
