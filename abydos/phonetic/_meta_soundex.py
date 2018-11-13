@@ -28,11 +28,11 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._phonetic_spanish import PhoneticSpanish
-from ._spanish_metaphone import SpanishMetaphone
 from ._metaphone import Metaphone
 from ._phonetic import Phonetic
+from ._phonetic_spanish import PhoneticSpanish
 from ._soundex import Soundex
+from ._spanish_metaphone import SpanishMetaphone
 
 __all__ = ['MetaSoundex', 'metasoundex']
 

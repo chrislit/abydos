@@ -27,10 +27,10 @@ for use within Abydos, including implementations of the following:
 """
 
 from __future__ import (
-    unicode_literals,
     absolute_import,
     division,
     print_function,
+    unicode_literals,
 )
 
 from ._arithmetic import Arithmetic, ac_decode, ac_encode, ac_train

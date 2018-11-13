@@ -65,10 +65,10 @@ to return 1; the corresponding dist_X function is guaranteed to return 0.
 """
 
 from __future__ import (
-    unicode_literals,
     absolute_import,
     division,
     print_function,
+    unicode_literals,
 )
 
 from ._bag import Bag, bag, dist_bag, sim_bag
@@ -100,11 +100,11 @@ from ._levenshtein import (
     levenshtein,
     sim_levenshtein,
 )
-from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
-from ._mra import MRA, dist_mra, mra_compare, sim_mra
 from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
 from ._minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
+from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
 from ._monge_elkan import MongeElkan, dist_monge_elkan, sim_monge_elkan
+from ._mra import MRA, dist_mra, mra_compare, sim_mra
 from ._ncd_arith import NCDarith, dist_ncd_arith, sim_ncd_arith
 from ._ncd_bwtrle import NCDbwtrle, dist_ncd_bwtrle, sim_ncd_bwtrle
 from ._ncd_bz2 import NCDbz2, dist_ncd_bz2, sim_ncd_bz2
@@ -125,8 +125,8 @@ from ._smith_waterman import SmithWaterman, smith_waterman
 from ._strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
 from ._suffix import Suffix, dist_suffix, sim_suffix
 from ._synoname import Synoname, synoname
-from ._typo import Typo, dist_typo, sim_typo, typo
 from ._tversky import Tversky, dist_tversky, sim_tversky
+from ._typo import Typo, dist_typo, sim_typo, typo
 
 __all__ = [
     'sim',

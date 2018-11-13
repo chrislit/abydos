@@ -30,8 +30,8 @@ from __future__ import (
 
 from collections import Counter
 
-from ..tokenizer import QGrams
 from ._distance import _Distance
+from ..tokenizer import QGrams
 
 
 class _TokenDistance(_Distance):

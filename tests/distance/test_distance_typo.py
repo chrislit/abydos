@@ -27,6 +27,7 @@ from __future__ import (
     print_function,
     unicode_literals,
 )
+
 import unittest
 
 from abydos.distance import Typo, dist_typo, sim_typo, typo
