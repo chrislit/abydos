@@ -58,6 +58,7 @@ def main(argv):
     ----------
     argv : list
         Arguments to the script
+
     """
     first_col = 3
     last_col = -1

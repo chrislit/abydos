@@ -87,6 +87,7 @@ class Koelner(Phonetic):
         '86766'
 
         """
+
         def _after(word, pos, letters):
             """Return True if word[pos] follows one of the supplied letters.
 

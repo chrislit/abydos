@@ -700,7 +700,8 @@ def synoname(
     word_approx_min : float
         The minimum word approximation value to signal a 'word_approx' match
     char_approx_min : float
-        The minimum character approximation value to signal a 'char_approx' match
+        The minimum character approximation value to signal a 'char_approx'
+        match
     tests : int or Iterable
         Either an integer indicating tests to perform or a list of test names
         to perform (defaults to performing all tests)

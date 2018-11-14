@@ -73,6 +73,7 @@ class Soundex(Phonetic):
             The length of the code returned (defaults to 4)
         var : str
             The variant of the algorithm to employ (defaults to ``American``):
+
                 - ``American`` follows the American Soundex algorithm, as
                   described at :cite:`US:2007` and in :cite:`Knuth:1998`; this
                   is also called Miracode
@@ -82,6 +83,7 @@ class Soundex(Phonetic):
                 - ``Census`` follows the rules laid out in GIL 55
                   :cite:`US:1997` by the US Census, including coding prefixed
                   and unprefixed versions of some names
+
         reverse : bool
             Reverse the word before computing the selected Soundex (defaults to
             False); This results in "Reverse Soundex", which is useful for
@@ -198,6 +200,7 @@ def soundex(word, max_length=4, var='American', reverse=False, zero_pad=True):
         The length of the code returned (defaults to 4)
     var : str
         The variant of the algorithm to employ (defaults to ``American``):
+
             - ``American`` follows the American Soundex algorithm, as described
               at :cite:`US:2007` and in :cite:`Knuth:1998`; this is also called
               Miracode
@@ -207,6 +210,7 @@ def soundex(word, max_length=4, var='American', reverse=False, zero_pad=True):
             - ``Census`` follows the rules laid out in GIL 55 :cite:`US:1997`
               by the US Census, including coding prefixed and unprefixed
               versions of some names
+
     reverse : bool
         Reverse the word before computing the selected Soundex (defaults to
         False); This results in "Reverse Soundex", which is useful for blocking

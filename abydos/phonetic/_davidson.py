@@ -107,7 +107,8 @@ def davidson(lname, fname='.', omit_fname=False):
     lname : str
         Last name (or word) to be encoded
     fname : str
-        First name (optional), of which the first character is included in the code.
+        First name (optional), of which the first character is included in the
+        code.
     omit_fname : bool
         Set to True to completely omit the first character of the first name
 

@@ -50,6 +50,7 @@ class NCDbz2(_Distance):
         ----------
         level : int
             The compression level (0 to 9)
+
         """
         self._level = level
 
