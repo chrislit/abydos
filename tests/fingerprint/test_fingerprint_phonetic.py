@@ -18,7 +18,7 @@
 
 """abydos.tests.fingerprint.test_fingerprint_phonetic_fingerprint.
 
-This module contains unit tests for abydos.fingerprint.PhoneticFingerprint
+This module contains unit tests for abydos.fingerprint.Phonetic
 """
 
 from __future__ import (
@@ -30,25 +30,25 @@ from __future__ import (
 
 import unittest
 
-from abydos.fingerprint import PhoneticFingerprint, phonetic_fingerprint
+from abydos.fingerprint import Phonetic, phonetic_fingerprint
 from abydos.phonetic import Phonet, Soundex
 
 
 from .. import NIALL
 
 
-class PhoneticFingerprintTestCases(unittest.TestCase):
+class PhoneticTestCases(unittest.TestCase):
     """Test phonetic fingerprint functions.
 
-    abydos.fingerprint.PhoneticFingerprint
+    abydos.fingerprint.Phonetic
     """
 
-    fp = PhoneticFingerprint()
+    fp = Phonetic()
     phonet = Phonet()
     soundex = Soundex()
 
     def test_phonetic_fingerprint(self):
-        """Test abydos.fingerprint.PhoneticFingerprint."""
+        """Test abydos.fingerprint.Phonetic."""
         # Base case
         self.assertEqual(self.fp.fingerprint(''), '')
 

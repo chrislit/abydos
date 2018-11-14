@@ -18,7 +18,7 @@
 
 """abydos.tests.fingerprint.test_fingerprint_qgram_fingerprint.
 
-This module contains unit tests for abydos.fingerprint.QGramFingerprint
+This module contains unit tests for abydos.fingerprint.QGram
 """
 
 from __future__ import (
@@ -30,20 +30,20 @@ from __future__ import (
 
 import unittest
 
-from abydos.fingerprint import QGramFingerprint, qgram_fingerprint
+from abydos.fingerprint import QGram, qgram_fingerprint
 
 from six.moves import range
 
 from .. import NIALL
 
 
-class QGramFingerprintTestCases(unittest.TestCase):
+class QGramTestCases(unittest.TestCase):
     """Test q-gram fingerprint functions.
 
-    abydos.fingerprint.QGramFingerprint
+    abydos.fingerprint.QGram
     """
 
-    fp = QGramFingerprint()
+    fp = QGram()
 
     _testset = (
         'À noite, vovô Kowalsky vê o ímã cair no pé do pingüim \
@@ -57,7 +57,7 @@ xoyv',
     _anssetq1 = ('abcdefghijklmnopqrstuvwxyz',)
 
     def test_qgram_fingerprint(self):
-        """Test abydos.fingerprint.QGramFingerprint."""
+        """Test abydos.fingerprint.QGram."""
         # Base case
         self.assertEqual(self.fp.fingerprint(''), '')
 
