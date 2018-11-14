@@ -270,32 +270,40 @@ class SynonameToolcode(Fingerprint):
     def fingerprint(self, lname, fname='', qual='', normalize=0):
         """Build the Synoname toolcode.
 
-        Args:
-            lname (str): Last name
-            fname (str): First name (can be blank)
-            qual (str): Qualifier
-            normalize (int): Normalization mode (0, 1, or 2)
+        Parameters
+        ----------
+        lname : str
+            Last name
+        fname : str
+            First name (can be blank)
+        qual : str
+            Qualifier
+        normalize : int
+            Normalization mode (0, 1, or 2)
 
-        Returns:
-            tuple: The transformed names and the synoname toolcode
+        Returns
+        -------
+        tuple
+            The transformed names and the synoname toolcode
 
-        Examples:
-            >>> st = SynonameToolcode()
-            >>> st.fingerprint('hat')
-            ('hat', '', '0000000003$$h')
-            >>> st.fingerprint('niall')
-            ('niall', '', '0000000005$$n')
-            >>> st.fingerprint('colin')
-            ('colin', '', '0000000005$$c')
-            >>> st.fingerprint('atcg')
-            ('atcg', '', '0000000004$$a')
-            >>> st.fingerprint('entreatment')
-            ('entreatment', '', '0000000011$$e')
+        Examples
+        --------
+        >>> st = SynonameToolcode()
+        >>> st.fingerprint('hat')
+        ('hat', '', '0000000003$$h')
+        >>> st.fingerprint('niall')
+        ('niall', '', '0000000005$$n')
+        >>> st.fingerprint('colin')
+        ('colin', '', '0000000005$$c')
+        >>> st.fingerprint('atcg')
+        ('atcg', '', '0000000004$$a')
+        >>> st.fingerprint('entreatment')
+        ('entreatment', '', '0000000011$$e')
 
-            >>> st.fingerprint('Ste.-Marie', 'Count John II', normalize=2)
-            ('ste.-marie ii', 'count john', '0200491310$015b049a127c$smcji')
-            >>> st.fingerprint('Michelangelo IV', '', 'Workshop of')
-            ('michelangelo iv', '', '3000550015$055b$mi')
+        >>> st.fingerprint('Ste.-Marie', 'Count John II', normalize=2)
+        ('ste.-marie ii', 'count john', '0200491310$015b049a127c$smcji')
+        >>> st.fingerprint('Michelangelo IV', '', 'Workshop of')
+        ('michelangelo iv', '', '3000550015$055b$mi')
 
         """
         lname = lname.lower()
@@ -378,13 +386,19 @@ class SynonameToolcode(Fingerprint):
         def roman_check(numeral, fname, lname):
             """Move Roman numerals from first name to last.
 
-            Args:
-                numeral (str): Roman numeral
-                fname (str): First name
-                lname (str): Last name
+            Parameters
+            ----------
+            numeral : str
+                Roman numeral
+            fname : str
+                First name
+            lname : str
+                Last name
 
-            Returns:
-                tuple: First and last names with Roman numeral moved
+            Returns
+            -------
+            tuple
+                First and last names with Roman numeral moved
 
             """
             loc = fname.find(numeral)
@@ -483,31 +497,39 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
 
     This is a wrapper for :py:meth:`SynonameToolcode.fingerprint`.
 
-    Args:
-        lname (str): Last name
-        fname (str): First name (can be blank)
-        qual (str): Qualifier
-        normalize (int): Normalization mode (0, 1, or 2)
+    Parameters
+    ----------
+    lname : str
+        Last name
+    fname : str
+        First name (can be blank)
+    qual : str
+        Qualifier
+    normalize : int
+        Normalization mode (0, 1, or 2)
 
-    Returns:
-        tuple: The transformed names and the synoname toolcode
+    Returns
+    -------
+    tuple
+        The transformed names and the synoname toolcode
 
-    Examples:
-        >>> synoname_toolcode('hat')
-        ('hat', '', '0000000003$$h')
-        >>> synoname_toolcode('niall')
-        ('niall', '', '0000000005$$n')
-        >>> synoname_toolcode('colin')
-        ('colin', '', '0000000005$$c')
-        >>> synoname_toolcode('atcg')
-        ('atcg', '', '0000000004$$a')
-        >>> synoname_toolcode('entreatment')
-        ('entreatment', '', '0000000011$$e')
+    Examples
+    --------
+    >>> synoname_toolcode('hat')
+    ('hat', '', '0000000003$$h')
+    >>> synoname_toolcode('niall')
+    ('niall', '', '0000000005$$n')
+    >>> synoname_toolcode('colin')
+    ('colin', '', '0000000005$$c')
+    >>> synoname_toolcode('atcg')
+    ('atcg', '', '0000000004$$a')
+    >>> synoname_toolcode('entreatment')
+    ('entreatment', '', '0000000011$$e')
 
-        >>> synoname_toolcode('Ste.-Marie', 'Count John II', normalize=2)
-        ('ste.-marie ii', 'count john', '0200491310$015b049a127c$smcji')
-        >>> synoname_toolcode('Michelangelo IV', '', 'Workshop of')
-        ('michelangelo iv', '', '3000550015$055b$mi')
+    >>> synoname_toolcode('Ste.-Marie', 'Count John II', normalize=2)
+    ('ste.-marie ii', 'count john', '0200491310$015b049a127c$smcji')
+    >>> synoname_toolcode('Michelangelo IV', '', 'Workshop of')
+    ('michelangelo iv', '', '3000550015$055b$mi')
 
     """
     return SynonameToolcode().fingerprint(lname, fname, qual, normalize)

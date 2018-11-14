@@ -49,20 +49,25 @@ class SkeletonKey(Fingerprint):
     def fingerprint(self, word):
         """Return the skeleton key.
 
-        Args:
-            word (str): The word to transform into its skeleton key
+        Parameters
+        ----------
+        word : str
+            The word to transform into its skeleton key
 
-        Returns:
-            str: The skeleton key
+        Returns
+        -------
+        str
+            The skeleton key
 
-        Examples:
-            >>> sk = SkeletonKey()
-            >>> sk.fingerprint('The quick brown fox jumped over the lazy dog.')
-            'THQCKBRWNFXJMPDVLZYGEUIOA'
-            >>> sk.fingerprint('Christopher')
-            'CHRSTPIOE'
-            >>> sk.fingerprint('Niall')
-            'NLIA'
+        Examples
+        --------
+        >>> sk = SkeletonKey()
+        >>> sk.fingerprint('The quick brown fox jumped over the lazy dog.')
+        'THQCKBRWNFXJMPDVLZYGEUIOA'
+        >>> sk.fingerprint('Christopher')
+        'CHRSTPIOE'
+        >>> sk.fingerprint('Niall')
+        'NLIA'
 
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -89,68 +94,27 @@ def skeleton_key(word):
 
     This is a wrapper for :py:meth:`SkeletonKey.fingerprint`.
 
-    Args:
-        word (str): The word to transform into its skeleton key
+    Parameters
+    ----------
+    word : str
+        The word to transform into its skeleton key
 
-    Returns:
-        str: The skeleton key
+    Returns
+    -------
+    str
+        The skeleton key
 
-    Examples:
-        >>> skeleton_key('The quick brown fox jumped over the lazy dog.')
-        'THQCKBRWNFXJMPDVLZYGEUIOA'
-        >>> skeleton_key('Christopher')
-        'CHRSTPIOE'
-        >>> skeleton_key('Niall')
-        'NLIA'
+    Examples
+    --------
+    >>> skeleton_key('The quick brown fox jumped over the lazy dog.')
+    'THQCKBRWNFXJMPDVLZYGEUIOA'
+    >>> skeleton_key('Christopher')
+    'CHRSTPIOE'
+    >>> skeleton_key('Niall')
+    'NLIA'
 
     """
     return SkeletonKey().fingerprint(word)
-
-
-class OmissionKey(Fingerprint):
-    """Omission Key.
-
-    The omission key of a word is defined in :cite:`Pollock:1984`.
-    """
-
-    _consonants = tuple('JKQXZVWYBFMGPDHCLNTSR')
-    _letters = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
-
-    def fingerprint(self, word):
-        """Return the omission key.
-
-        Args:
-            word (str): The word to transform into its omission key
-
-        Returns:
-            str: The omission key
-
-        Examples:
-            >>> ok = OmissionKey()
-            >>> ok.fingerprint('The quick brown fox jumped over the lazy dog.')
-            'JKQXZVWYBFMGPDHCLNTREUIOA'
-            >>> ok.fingerprint('Christopher')
-            'PHCTSRIOE'
-            >>> ok.fingerprint('Niall')
-            'LNIA'
-
-        """
-        word = unicode_normalize('NFKD', text_type(word.upper()))
-        word = ''.join(c for c in word if c in self._letters)
-
-        key = ''
-
-        # add consonants in order supplied by _consonants (no duplicates)
-        for char in self._consonants:
-            if char in word:
-                key += char
-
-        # add vowels in order they appeared in the word (no duplicates)
-        for char in word:
-            if char not in self._consonants and char not in key:
-                key += char
-
-        return key
 
 
 if __name__ == '__main__':
