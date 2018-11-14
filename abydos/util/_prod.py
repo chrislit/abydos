@@ -39,25 +39,30 @@ __all__ = ['prod']
 def prod(nums):
     """Return the product of nums.
 
-    The product is Π(nums).
+    The product is :math:`\prod nums`.
 
     Cf. https://en.wikipedia.org/wiki/Product_(mathematics)
 
-    Args:
-        nums (list): A collection (list, tuple, set, etc.) of numbers
+    Parameters
+    ----------
+    nums : list
+        A collection (list, tuple, set, etc.) of numbers
 
-    Returns:
-        numeric: The product of a nums
+    Returns
+    -------
+    numeric
+        The product of a nums
 
-    Examples:
-        >>> prod([1,1,1,1])
-        1
-        >>> prod((2,4,8))
-        64
-        >>> prod({1,2,3,4})
-        24
-        >>> prod(2**i for i in range(5))
-        1024
+    Examples
+    --------
+    >>> prod([1,1,1,1])
+    1
+    >>> prod((2,4,8))
+    64
+    >>> prod({1,2,3,4})
+    24
+    >>> prod(2**i for i in range(5))
+    1024
 
     """
     return reduce(mul, nums, 1)
