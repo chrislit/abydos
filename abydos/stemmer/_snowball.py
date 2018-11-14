@@ -42,12 +42,17 @@ class _Snowball(_Stemmer):
     def _sb_r1(self, term, r1_prefixes=None):
         """Return the R1 region, as defined in the Porter2 specification.
 
-        Args:
-            term (str): The term to examine
-            r1_prefixes (set): Prefixes to consider
+        Parameters
+        ----------
+        term : str
+            The term to examine
+        r1_prefixes : set
+            Prefixes to consider
 
-        Returns:
-            int: Length of the R1 region
+        Returns
+        -------
+        int
+            Length of the R1 region
 
         """
         vowel_found = False
@@ -66,12 +71,17 @@ class _Snowball(_Stemmer):
     def _sb_r2(self, term, r1_prefixes=None):
         """Return the R2 region, as defined in the Porter2 specification.
 
-        Args:
-            term (str): The term to examine
-            r1_prefixes (set): Prefixes to consider
+        Parameters
+        ----------
+        term : str
+            The term to examine
+        r1_prefixes : set
+            Prefixes to consider
 
-        Returns:
-            int: Length of the R1 region
+        Returns
+        -------
+        int
+            Length of the R1 region
 
         """
         r1_start = self._sb_r1(term, r1_prefixes)
@@ -85,11 +95,15 @@ class _Snowball(_Stemmer):
         NB: This is akin to the CVC test from the Porter stemmer. The
         description is unfortunately poor/ambiguous.
 
-        Args:
-            term (str): The term to examine
+        Parameters
+        ----------
+        term : str
+            The term to examine
 
-        Returns:
-            bool: True iff term ends in a short syllable
+        Returns
+        -------
+        bool
+            True iff term ends in a short syllable
 
         """
         if not term:
@@ -111,12 +125,17 @@ class _Snowball(_Stemmer):
 
         (...according to the Porter2 specification.)
 
-        Args:
-            term (str): The term to examine
-            r1_prefixes (set): Prefixes to consider
+        Parameters
+        ----------
+        term : str
+            The term to examine
+        r1_prefixes : set
+            Prefixes to consider
 
-        Returns:
-            bool: True iff term is a short word
+        Returns
+        -------
+        bool
+            True iff term is a short word
 
         """
         if self._sb_r1(term, r1_prefixes) == len(
@@ -128,12 +147,16 @@ class _Snowball(_Stemmer):
     def _sb_has_vowel(self, term):
         """Return Porter helper function _sb_has_vowel value.
 
-        Args:
-            term (str): The term to examine
+        Parameters
+        ----------
+        term : str
+            The term to examine
 
-        Returns:
-            bool: True iff a vowel exists in the term (as defined in the Porter
-                stemmer definition)
+        Returns
+        -------
+        bool
+            True iff a vowel exists in the term (as defined in the Porter
+            stemmer definition)
 
         """
         for letter in term:

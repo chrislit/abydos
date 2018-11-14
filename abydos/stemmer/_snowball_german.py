@@ -51,22 +51,27 @@ class SnowballGerman(_Snowball):
     def stem(self, word, alternate_vowels=False):
         """Return Snowball German stem.
 
-        Args:
-            word (str): The word to stem
-            alternate_vowels (bool): composes ae as ä, oe as ö, and ue as ü
-                before running the algorithm
+        Parameters
+        ----------
+        word : str
+            The word to stem
+        alternate_vowels : bool
+            Composes ae as ä, oe as ö, and ue as ü before running the algorithm
 
-        Returns:
-            str: Word stem
+        Returns
+        -------
+        str
+            Word stem
 
-        Examples:
-            >>> stmr = SnowballGerman()
-            >>> stmr.stem('lesen')
-            'les'
-            >>> stmr.stem('graues')
-            'grau'
-            >>> stmr.stem('buchstabieren')
-            'buchstabi'
+        Examples
+        --------
+        >>> stmr = SnowballGerman()
+        >>> stmr.stem('lesen')
+        'les'
+        >>> stmr.stem('graues')
+        'grau'
+        >>> stmr.stem('buchstabieren')
+        'buchstabi'
 
         """
         # lowercase, normalize, and compose
@@ -191,21 +196,26 @@ def sb_german(word, alternate_vowels=False):
 
     This is a wrapper for :py:meth:`SnowballGerman.stem`.
 
-    Args:
-        word (str): The word to stem
-        alternate_vowels (bool): composes ae as ä, oe as ö, and ue as ü
-            before running the algorithm
+    Parameters
+    ----------
+    word : str
+        The word to stem
+    alternate_vowels : bool
+        Composes ae as ä, oe as ö, and ue as ü before running the algorithm
 
-    Returns:
-        str: Word stem
+    Returns
+    -------
+    str
+        Word stem
 
-    Examples:
-        >>> sb_german('lesen')
-        'les'
-        >>> sb_german('graues')
-        'grau'
-        >>> sb_german('buchstabieren')
-        'buchstabi'
+    Examples
+    --------
+    >>> sb_german('lesen')
+    'les'
+    >>> sb_german('graues')
+    'grau'
+    >>> sb_german('buchstabieren')
+    'buchstabi'
 
     """
     return SnowballGerman().stem(word, alternate_vowels)

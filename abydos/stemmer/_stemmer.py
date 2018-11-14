@@ -35,13 +35,19 @@ class _Stemmer(object):
     def stem(self, word, *args, **kwargs):
         """Return stem.
 
-        Args:
-            word (str): The word to stem
-            *args: Variable length argument list
-            **kwargs: Arbitrary keyword arguments
+        Parameters
+        ----------
+        word : str
+            The word to stem
+        *args
+            Variable length argument list
+        **kwargs
+            Arbitrary keyword arguments
 
-        Returns:
-            str: Word stem
+        Returns
+        -------
+        str
+            Word stem
 
         """
         pass

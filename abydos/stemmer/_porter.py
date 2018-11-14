@@ -51,11 +51,15 @@ class Porter(_Stemmer):
 
         m-degree is equal to the number of V to C transitions
 
-        Args:
-            term (str): The word for which to calculate the m-degree
+        Parameters
+        ----------
+        term : str
+            The word for which to calculate the m-degree
 
-        Returns:
-            int: The m-degree as defined in the Porter stemmer definition
+        Returns
+        -------
+        int
+            The m-degree as defined in the Porter stemmer definition
 
         """
         mdeg = 0
@@ -72,12 +76,16 @@ class Porter(_Stemmer):
     def _has_vowel(self, term):
         """Return Porter helper function _has_vowel value.
 
-        Args:
-            term (str): The word to scan for vowels
+        Parameters
+        ----------
+        term : str
+            The word to scan for vowels
 
-        Returns:
-            bool: True iff a vowel exists in the term (as defined in the Porter
-                stemmer definition)
+        Returns
+        -------
+        bool
+            True iff a vowel exists in the term (as defined in the Porter
+            stemmer definition)
 
         """
         for letter in term:
@@ -88,12 +96,16 @@ class Porter(_Stemmer):
     def _ends_in_doubled_cons(self, term):
         """Return Porter helper function _ends_in_doubled_cons value.
 
-        Args:
-            term (str): The word to check for a final doubled consonant
+        Parameters
+        ----------
+        term : str
+            The word to check for a final doubled consonant
 
-        Returns:
-            bool: True iff the stem ends in a doubled consonant (as defined in
-                the Porter stemmer definition)
+        Returns
+        -------
+        bool
+            True iff the stem ends in a doubled consonant (as defined in the
+            Porter stemmer definition)
 
         """
         return (
@@ -105,12 +117,16 @@ class Porter(_Stemmer):
     def _ends_in_cvc(self, term):
         """Return Porter helper function _ends_in_cvc value.
 
-        Args:
-            term (str): The word to scan for cvc
+        Parameters
+        ----------
+        term : str
+            The word to scan for cvc
 
-        Returns:
-            bool: True iff the stem ends in cvc (as defined in the Porter
-                stemmer definition)
+        Returns
+        -------
+        bool
+            True iff the stem ends in cvc (as defined in the Porter stemmer
+            definition)
 
         """
         return len(term) > 2 and (
@@ -123,25 +139,31 @@ class Porter(_Stemmer):
     def stem(self, word, early_english=False):
         """Return Porter stem.
 
-        Args:
-            word (str): The word to stem
-            early_english (bool): Set to True in order to remove -eth & -est
-                (2nd & 3rd person singular verbal agreement suffixes)
+        Parameters
+        ----------
+        word : str
+            The word to stem
+        early_english : bool
+            Set to True in order to remove -eth & -est (2nd & 3rd person
+            singular verbal agreement suffixes)
 
-        Returns:
-            str: Word stem
+        Returns
+        -------
+        str
+            Word stem
 
-        Examples:
-            >>> stmr = Porter()
-            >>> stmr.stem('reading')
-            'read'
-            >>> stmr.stem('suspension')
-            'suspens'
-            >>> stmr.stem('elusiveness')
-            'elus'
+        Examples
+        --------
+        >>> stmr = Porter()
+        >>> stmr.stem('reading')
+        'read'
+        >>> stmr.stem('suspension')
+        'suspens'
+        >>> stmr.stem('elusiveness')
+        'elus'
 
-            >>> stmr.stem('eateth', early_english=True)
-            'eat'
+        >>> stmr.stem('eateth', early_english=True)
+        'eat'
 
         """
         # lowercase, normalize, and compose
@@ -354,24 +376,30 @@ def porter(word, early_english=False):
 
     This is a wrapper for :py:meth:`Porter.stem`.
 
-    Args:
-        word (str): The word to stem
-        early_english (bool): Set to True in order to remove -eth & -est
-                (2nd & 3rd person singular verbal agreement suffixes)
+    Parameters
+    ----------
+    word : str
+        The word to stem
+    early_english : bool
+        Set to True in order to remove -eth & -est (2nd & 3rd person singular
+        verbal agreement suffixes)
 
-    Returns:
-        str: Word stem
+    Returns
+    -------
+    str
+        Word stem
 
-    Examples:
-        >>> porter('reading')
-        'read'
-        >>> porter('suspension')
-        'suspens'
-        >>> porter('elusiveness')
-        'elus'
+    Examples
+    --------
+    >>> porter('reading')
+    'read'
+    >>> porter('suspension')
+    'suspens'
+    >>> porter('elusiveness')
+    'elus'
 
-        >>> porter('eateth', early_english=True)
-        'eat'
+    >>> porter('eateth', early_english=True)
+    'eat'
 
     """
     return Porter().stem(word, early_english)

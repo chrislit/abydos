@@ -68,20 +68,25 @@ class SnowballSwedish(_Snowball):
     def stem(self, word):
         """Return Snowball Swedish stem.
 
-        Args:
-            word (str): The word to stem
+        Parameters
+        ----------
+        word : str
+            The word to stem
 
-        Returns:
-            str: Word stem
+        Returns
+        -------
+        str
+            Word stem
 
-        Examples:
-            >>> stmr = SnowballSwedish()
-            >>> stmr.stem('undervisa')
-            'undervis'
-            >>> stmr.stem('suspension')
-            'suspension'
-            >>> stmr.stem('visshet')
-            'viss'
+        Examples
+        --------
+        >>> stmr = SnowballSwedish()
+        >>> stmr.stem('undervisa')
+        'undervis'
+        >>> stmr.stem('suspension')
+        'suspension'
+        >>> stmr.stem('visshet')
+        'viss'
 
         """
         # lowercase, normalize, and compose
@@ -152,19 +157,24 @@ def sb_swedish(word):
 
     This is a wrapper for :py:meth:`SnowballSwedish.stem`.
 
-    Args:
-        word (str): The word to stem
+    Parameters
+    ----------
+    word : str
+        The word to stem
 
-    Returns:
-        str: Word stem
+    Returns
+    -------
+    str
+        Word stem
 
-    Examples:
-        >>> sb_swedish('undervisa')
-        'undervis'
-        >>> sb_swedish('suspension')
-        'suspension'
-        >>> sb_swedish('visshet')
-        'viss'
+    Examples
+    --------
+    >>> sb_swedish('undervisa')
+    'undervis'
+    >>> sb_swedish('suspension')
+    'suspension'
+    >>> sb_swedish('visshet')
+    'viss'
 
     """
     return SnowballSwedish().stem(word)
