@@ -43,12 +43,16 @@ def _sim_wikipedia(src, tar):
     Values copied from:
     https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+        tar : str
+        Target string for comparison
 
-    Returns:
-        int: similarity of two DNA base pairs
+    Returns
+    -------
+    int: similarity of two DNA base pairs
 
     """
     nw_matrix = {
@@ -71,12 +75,16 @@ def _sim_wikipedia(src, tar):
 def _sim_nw(src, tar):
     """Return 1 if src is tar, otherwise -1.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+        tar : str
+        Target string for comparison
 
-    Returns:
-        int: nw similarity
+    Returns
+    -------
+    int: nw similarity
 
     """
     return 2 * int(src is tar) - 1

@@ -77,9 +77,10 @@ class Fingerprint(object):
         """Fingerprint string.
 
         Parameters
-    ----------
+        ----------
         word : str
-        Word to fingerprint
+            Word to fingerprint
+
         """
         pass
 

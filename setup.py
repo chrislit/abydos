@@ -41,11 +41,15 @@ HERE = path.abspath(path.dirname(__file__))
 def readfile(fn):
     """Read fn and return the contents.
 
-    Args:
-        fn (str): A filename
+    Parameters
+    ----------
+    fn : str
+        A filename
 
-    Returns:
-        str: The content of the file
+    Returns
+    -------
+    str
+        The content of the file
 
     """
     with open(path.join(HERE, fn), 'r', encoding='utf-8') as f:

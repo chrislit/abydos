@@ -38,11 +38,15 @@ BADGE_COLORS = (
 def pylint_color(score):
     """Return Pylint badge color.
 
-    Args:
-        score (float): A Pylint score
+    Parameters
+    ----------
+    score : float
+        A Pylint score
 
-    Returns:
-        str: Badge color
+    Returns
+    -------
+    str
+        Badge color
 
     """
     # These are the score cutoffs for each color above.
@@ -70,11 +74,15 @@ def pylint_color(score):
 def pydocstyle_color(score):
     """Return pydocstyle badge color.
 
-    Args:
-        score (float): A pydocstyle score
+    Parameters
+    ----------
+    score : float
+        A pydocstyle score
 
-    Returns:
-        str: Badge color
+    Returns
+    -------
+    str
+        Badge color
 
     """
     # These are the score cutoffs for each color above.
@@ -90,11 +98,15 @@ def pydocstyle_color(score):
 def flake8_color(score):
     """Return flake8 badge color.
 
-    Args:
-        score (float): A flake8 score
+    Parameters
+    ----------
+    score : float
+        A flake8 score
 
-    Returns:
-        str: Badge color
+    Returns
+    -------
+    str
+        Badge color
 
     """
     # These are the score cutoffs for each color above.
@@ -160,7 +172,10 @@ if __name__ == '__main__':
     prefix = 'https://img.shields.io/badge/pydocstyle-'
     readme_text = re.sub(
         prefix + r'([0-9\.]+-[a-z]+)',
-        prefix + str(pydocstyle_score) + '-' + pydocstyle_color(pydocstyle_score),
+        prefix
+        + str(pydocstyle_score)
+        + '-'
+        + pydocstyle_color(pydocstyle_score),
         readme_text,
         1,
     )

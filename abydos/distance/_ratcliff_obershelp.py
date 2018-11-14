@@ -88,7 +88,6 @@ class RatcliffObershelp(_Distance):
         0.5
 
         """
-
         def _lcsstr_stl(src, tar):
             """Return start positions & length for Ratcliff-Obershelp.
 

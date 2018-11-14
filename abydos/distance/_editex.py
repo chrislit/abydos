@@ -305,7 +305,7 @@ def sim_editex(src, tar, cost=(0, 1, 2), local=False):
 
     This is a wrapper for :py:meth:`Editex.sim`.
 
-     Parameters
+    Parameters
     ----------
     src : str
         Source string for comparison

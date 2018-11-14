@@ -294,7 +294,7 @@ class StatisticalRatioTestCases(unittest.TestCase):
         )
 
     def test_balanced_accuracy(self):
-        """Test abydos.stats.ConfusionTable.balanced_accuracy."""  # noqa: E501
+        """Test abydos.stats.ConfusionTable.balanced_accuracy."""
         self.assertEqual(UNIT_TABLE.balanced_accuracy(), 0.5)
         self.assertTrue(isnan(NULL_TABLE.balanced_accuracy()))
         self.assertAlmostEqual(SCALE_TABLE.balanced_accuracy(), 0.3)
@@ -396,7 +396,7 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertTrue(isnan(VERY_POOR_TABLE.pr_imean()))
 
     def test_pr_seiffert_mean(self):
-        """Test abydos.stats.ConfusionTable.pr_seiffert_mean."""  # noqa: E501
+        """Test abydos.stats.ConfusionTable.pr_seiffert_mean."""
         self.assertTrue(isnan(UNIT_TABLE.pr_seiffert_mean()))
         self.assertTrue(isnan(NULL_TABLE.pr_seiffert_mean()))
         self.assertAlmostEqual(SCALE_TABLE.pr_seiffert_mean(), 0.2245354073)
@@ -443,7 +443,7 @@ class PrMeansTestCases(unittest.TestCase):
         )
 
     def test_pr_heronian_mean(self):
-        """Test abydos.stats.ConfusionTable.pr_heronian_mean."""  # noqa: E501
+        """Test abydos.stats.ConfusionTable.pr_heronian_mean."""
         self.assertEqual(UNIT_TABLE.pr_heronian_mean(), 0.5)
         self.assertTrue(isnan(NULL_TABLE.pr_heronian_mean()))
         self.assertAlmostEqual(SCALE_TABLE.pr_heronian_mean(), 0.2245355992)
@@ -456,7 +456,7 @@ class PrMeansTestCases(unittest.TestCase):
         self.assertEqual(VERY_POOR_TABLE.pr_heronian_mean(), 0)
 
     def test_pr_hoelder_mean(self):
-        """Test abydos.stats.ConfusionTable.pr_hoelder_mean."""  # noqa: E501
+        """Test abydos.stats.ConfusionTable.pr_hoelder_mean."""
         self.assertEqual(UNIT_TABLE.pr_hoelder_mean(), 0.5)
         self.assertTrue(isnan(NULL_TABLE.pr_hoelder_mean()))
         self.assertAlmostEqual(
@@ -645,8 +645,7 @@ class StatisticalMeasureTestCases(unittest.TestCase):
         )
 
     def test_kappa_statistic(self):
-        """Test abydos.stats.ConfusionTable.kappa_statistic."""  # noqa: E501
-
+        """Test abydos.stats.ConfusionTable.kappa_statistic."""
         def _quick_kappa(acc, racc):
             return (acc - racc) / (1 - racc)
 

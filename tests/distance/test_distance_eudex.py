@@ -48,7 +48,6 @@ class EudexTestCases(unittest.TestCase):
 
     def test_eudex_dist_abs(self):
         """Test abydos.distance.Eudex.dist_abs."""
-
         # Base cases
         self.assertEqual(self.cmp.dist_abs('', ''), 0)
         self.assertEqual(self.cmp.dist_abs('', '', None), 0)

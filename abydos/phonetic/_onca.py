@@ -53,7 +53,7 @@ class ONCA(Phonetic):
         """Return the Oxford Name Compression Algorithm (ONCA) code for a word.
 
         Parameters
-    ----------
+        ----------
         word : str
             The word to transform
         max_length : int
