@@ -46,31 +46,39 @@ class NCDbz2(_Distance):
     def __init__(self, level=9):
         """Initialize zlib compressor.
 
-        Args:
-            level (int): The compression level (0 to 9)
+        Parameters
+        ----------
+        level : int
+            The compression level (0 to 9)
         """
         self._level = level
 
     def dist(self, src, tar):
         """Return the NCD between two strings using bz2 compression.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
-        Returns:
-            float: Compression distance
+        Returns
+        -------
+        float
+            Compression distance
 
-        Examples:
-            >>> cmp = NCDbz2()
-            >>> cmp.dist('cat', 'hat')
-            0.06666666666666667
-            >>> cmp.dist('Niall', 'Neil')
-            0.03125
-            >>> cmp.dist('aluminum', 'Catalan')
-            0.17647058823529413
-            >>> cmp.dist('ATCG', 'TAGC')
-            0.03125
+        Examples
+        --------
+        >>> cmp = NCDbz2()
+        >>> cmp.dist('cat', 'hat')
+        0.06666666666666667
+        >>> cmp.dist('Niall', 'Neil')
+        0.03125
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.17647058823529413
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.03125
 
         """
         if src == tar:
@@ -95,22 +103,28 @@ def dist_ncd_bz2(src, tar):
 
     This is a wrapper for :py:meth:`NCDbz2.dist`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Compression distance
+    Returns
+    -------
+    float
+        Compression distance
 
-    Examples:
-        >>> dist_ncd_bz2('cat', 'hat')
-        0.06666666666666667
-        >>> dist_ncd_bz2('Niall', 'Neil')
-        0.03125
-        >>> dist_ncd_bz2('aluminum', 'Catalan')
-        0.17647058823529413
-        >>> dist_ncd_bz2('ATCG', 'TAGC')
-        0.03125
+    Examples
+    --------
+    >>> dist_ncd_bz2('cat', 'hat')
+    0.06666666666666667
+    >>> dist_ncd_bz2('Niall', 'Neil')
+    0.03125
+    >>> dist_ncd_bz2('aluminum', 'Catalan')
+    0.17647058823529413
+    >>> dist_ncd_bz2('ATCG', 'TAGC')
+    0.03125
 
     """
     return NCDbz2().dist(src, tar)
@@ -121,22 +135,28 @@ def sim_ncd_bz2(src, tar):
 
     This is a wrapper for :py:meth:`NCDbz2.sim`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Compression similarity
+    Returns
+    -------
+    float
+        Compression similarity
 
-    Examples:
-        >>> sim_ncd_bz2('cat', 'hat')
-        0.9333333333333333
-        >>> sim_ncd_bz2('Niall', 'Neil')
-        0.96875
-        >>> sim_ncd_bz2('aluminum', 'Catalan')
-        0.8235294117647058
-        >>> sim_ncd_bz2('ATCG', 'TAGC')
-        0.96875
+    Examples
+    --------
+    >>> sim_ncd_bz2('cat', 'hat')
+    0.9333333333333333
+    >>> sim_ncd_bz2('Niall', 'Neil')
+    0.96875
+    >>> sim_ncd_bz2('aluminum', 'Catalan')
+    0.8235294117647058
+    >>> sim_ncd_bz2('ATCG', 'TAGC')
+    0.96875
 
     """
     return NCDbz2().sim(src, tar)

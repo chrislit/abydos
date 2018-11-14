@@ -64,57 +64,67 @@ class JaroWinkler(_Distance):
     ):
         """Return the Jaro or Jaro-Winkler similarity of two strings.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
-            qval (int): The length of each q-gram (defaults to 1:
-                character-wise matching)
-            mode (str): Indicates which variant of this distance metric to
-                compute:
-                    - ``winkler`` -- computes the Jaro-Winkler distance
-                      (default) which increases the score for matches near the
-                      start of the word
-                    - ``jaro`` -- computes the Jaro distance
-            long_strings (bool): Set to True to "Increase the probability of a
-                match when the number of matched characters is large. This
-                option allows for a little more tolerance when the strings are
-                large. It is not an appropriate test when comparing fixed
-                length fields such as phone and social security numbers."
-                (Used in 'winkler' mode only.)
-            boost_threshold (float): A value between 0 and 1, below which the
-                Winkler boost is not applied (defaults to 0.7). (Used in
-                'winkler' mode only.)
-            scaling_factor (float): A value between 0 and 0.25, indicating by
-                how much to boost scores for matching prefixes (defaults to
-                0.1). (Used in 'winkler' mode only.)
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        qval : int
+            The length of each q-gram (defaults to 1: character-wise matching)
+        mode : str
+            Indicates which variant of this distance metric to compute:
+                - ``winkler`` -- computes the Jaro-Winkler distance (default)
+                  which increases the score for matches near the start of the
+                  word
+                - ``jaro`` -- computes the Jaro distance
+        long_strings : bool
+            Set to True to "Increase the probability of a match when the number
+            of matched characters is large. This option allows for a little
+            more tolerance when the strings are large. It is not an appropriate
+            test when comparing fixed length fields such as phone and social
+            security numbers." (Used in 'winkler' mode only.)
+        boost_threshold : float
+            A value between 0 and 1, below which the Winkler boost is not
+            applied (defaults to 0.7). (Used in 'winkler' mode only.)
+        scaling_factor : float
+            A value between 0 and 0.25, indicating by how much to boost scores
+            for matching prefixes (defaults to 0.1). (Used in 'winkler' mode
+            only.)
 
-        Returns:
-            float: Jaro or Jaro-Winkler similarity
+        Returns
+        -------
+        float
+            Jaro or Jaro-Winkler similarity
 
-        Raises:
-            ValueError: Unsupported boost_threshold assignment; boost_threshold
-                must be between 0 and 1.
-            ValueError: Unsupported scaling_factor assignment; scaling_factor
-                must be between 0 and 0.25.'
+        Raises
+        ------
+        ValueError
+            Unsupported boost_threshold assignment; boost_threshold must be
+            between 0 and 1.
+        ValueError
+            Unsupported scaling_factor assignment; scaling_factor must be
+            between 0 and 0.25.'
 
-        Examples:
-            >>> round(sim_jaro_winkler('cat', 'hat'), 12)
-            0.777777777778
-            >>> round(sim_jaro_winkler('Niall', 'Neil'), 12)
-            0.805
-            >>> round(sim_jaro_winkler('aluminum', 'Catalan'), 12)
-            0.60119047619
-            >>> round(sim_jaro_winkler('ATCG', 'TAGC'), 12)
-            0.833333333333
+        Examples
+        --------
+        >>> round(sim_jaro_winkler('cat', 'hat'), 12)
+        0.777777777778
+        >>> round(sim_jaro_winkler('Niall', 'Neil'), 12)
+        0.805
+        >>> round(sim_jaro_winkler('aluminum', 'Catalan'), 12)
+        0.60119047619
+        >>> round(sim_jaro_winkler('ATCG', 'TAGC'), 12)
+        0.833333333333
 
-            >>> round(sim_jaro_winkler('cat', 'hat', mode='jaro'), 12)
-            0.777777777778
-            >>> round(sim_jaro_winkler('Niall', 'Neil', mode='jaro'), 12)
-            0.783333333333
-            >>> round(sim_jaro_winkler('aluminum', 'Catalan', mode='jaro'), 12)
-            0.60119047619
-            >>> round(sim_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
-            0.833333333333
+        >>> round(sim_jaro_winkler('cat', 'hat', mode='jaro'), 12)
+        0.777777777778
+        >>> round(sim_jaro_winkler('Niall', 'Neil', mode='jaro'), 12)
+        0.783333333333
+        >>> round(sim_jaro_winkler('aluminum', 'Catalan', mode='jaro'), 12)
+        0.60119047619
+        >>> round(sim_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
+        0.833333333333
 
         """
         if mode == 'winkler':
@@ -232,51 +242,56 @@ def sim_jaro_winkler(
 
     This is a wrapper for :py:meth:`JaroWinkler.sim`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        qval (int): The length of each q-gram (defaults to 1:
-            character-wise matching)
-        mode (str): Indicates which variant of this distance metric to
-            compute:
-                - ``winkler`` -- computes the Jaro-Winkler distance (default)
-                  which increases the score for matches near the start of the
-                  word
-                - ``jaro`` -- computes the Jaro distance
-        long_strings (bool): Set to True to "Increase the probability of a
-            match when the number of matched characters is large. This option
-            allows for a little more tolerance when the strings are large. It
-            is not an appropriate test when comparing fixedlength fields such
-            as phone and social security numbers." (Used in 'winkler' mode
-            only.)
-        boost_threshold (float): A value between 0 and 1, below which the
-            Winkler boost is not applied (defaults to 0.7). (Used in 'winkler'
-            mode only.)
-        scaling_factor (float): A value between 0 and 0.25, indicating by how
-            much to boost scores for matching prefixes (defaults to 0.1). (Used
-            in 'winkler' mode only.)
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    qval : int
+        The length of each q-gram (defaults to 1: character-wise matching)
+    mode : str
+        Indicates which variant of this distance metric to compute:
+            - ``winkler`` -- computes the Jaro-Winkler distance (default) which
+              increases the score for matches near the start of the word
+            - ``jaro`` -- computes the Jaro distance
+    long_strings : bool
+        Set to True to "Increase the probability of a match when the number of
+        matched characters is large. This option allows for a little more
+        tolerance when the strings are large. It is not an appropriate test
+        when comparing fixedlength fields such as phone and social security
+        numbers." (Used in 'winkler' mode only.)
+    boost_threshold : float
+        A value between 0 and 1, below which the Winkler boost is not applied
+        (defaults to 0.7). (Used in 'winkler' mode only.)
+    scaling_factor : float
+        A value between 0 and 0.25, indicating by how much to boost scores for
+        matching prefixes (defaults to 0.1). (Used in 'winkler' mode only.)
 
-    Returns:
-        float: Jaro or Jaro-Winkler similarity
+    Returns
+    -------
+    float
+        Jaro or Jaro-Winkler similarity
 
-    Examples:
-        >>> round(sim_jaro_winkler('cat', 'hat'), 12)
-        0.777777777778
-        >>> round(sim_jaro_winkler('Niall', 'Neil'), 12)
-        0.805
-        >>> round(sim_jaro_winkler('aluminum', 'Catalan'), 12)
-        0.60119047619
-        >>> round(sim_jaro_winkler('ATCG', 'TAGC'), 12)
-        0.833333333333
+    Examples
+    --------
+    >>> round(sim_jaro_winkler('cat', 'hat'), 12)
+    0.777777777778
+    >>> round(sim_jaro_winkler('Niall', 'Neil'), 12)
+    0.805
+    >>> round(sim_jaro_winkler('aluminum', 'Catalan'), 12)
+    0.60119047619
+    >>> round(sim_jaro_winkler('ATCG', 'TAGC'), 12)
+    0.833333333333
 
-        >>> round(sim_jaro_winkler('cat', 'hat', mode='jaro'), 12)
-        0.777777777778
-        >>> round(sim_jaro_winkler('Niall', 'Neil', mode='jaro'), 12)
-        0.783333333333
-        >>> round(sim_jaro_winkler('aluminum', 'Catalan', mode='jaro'), 12)
-        0.60119047619
-        >>> round(sim_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
-        0.833333333333
+    >>> round(sim_jaro_winkler('cat', 'hat', mode='jaro'), 12)
+    0.777777777778
+    >>> round(sim_jaro_winkler('Niall', 'Neil', mode='jaro'), 12)
+    0.783333333333
+    >>> round(sim_jaro_winkler('aluminum', 'Catalan', mode='jaro'), 12)
+    0.60119047619
+    >>> round(sim_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
+    0.833333333333
 
     """
     return JaroWinkler().sim(
@@ -297,51 +312,56 @@ def dist_jaro_winkler(
 
     This is a wrapper for :py:meth:`JaroWinkler.dist`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        qval (int): The length of each q-gram (defaults to 1:
-            character-wise matching)
-        mode (str): Indicates which variant of this distance metric to
-            compute:
-                - ``winkler`` -- computes the Jaro-Winkler distance (default)
-                  which increases the score for matches near the start of the
-                  word
-                - ``jaro`` -- computes the Jaro distance
-        long_strings (bool): Set to True to "Increase the probability of a
-            match when the number of matched characters is large. This option
-            allows for a little more tolerance when the strings are large. It
-            is not an appropriate test when comparing fixedlength fields such
-            as phone and social security numbers." (Used in 'winkler' mode
-            only.)
-        boost_threshold (float): A value between 0 and 1, below which the
-            Winkler boost is not applied (defaults to 0.7). (Used in 'winkler'
-            mode only.)
-        scaling_factor (float): A value between 0 and 0.25, indicating by how
-            much to boost scores for matching prefixes (defaults to 0.1). (Used
-            in 'winkler' mode only.)
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    qval : int
+        The length of each q-gram (defaults to 1: character-wise matching)
+    mode : str
+        Indicates which variant of this distance metric to compute:
+            - ``winkler`` -- computes the Jaro-Winkler distance (default) which
+              increases the score for matches near the start of the word
+            - ``jaro`` -- computes the Jaro distance
+    long_strings : bool
+        Set to True to "Increase the probability of a match when the number of
+        matched characters is large. This option allows for a little more
+        tolerance when the strings are large. It is not an appropriate test
+        when comparing fixedlength fields such as phone and social security
+        numbers." (Used in 'winkler' mode only.)
+    boost_threshold : float
+        A value between 0 and 1, below which the Winkler boost is not applied
+        (defaults to 0.7). (Used in 'winkler' mode only.)
+    scaling_factor : float
+        A value between 0 and 0.25, indicating by how much to boost scores for
+        matching prefixes (defaults to 0.1). (Used in 'winkler' mode only.)
 
-    Returns:
-        float: Jaro or Jaro-Winkler distance
+    Returns
+    -------
+    float
+        Jaro or Jaro-Winkler distance
 
-    Examples:
-        >>> round(dist_jaro_winkler('cat', 'hat'), 12)
-        0.222222222222
-        >>> round(dist_jaro_winkler('Niall', 'Neil'), 12)
-        0.195
-        >>> round(dist_jaro_winkler('aluminum', 'Catalan'), 12)
-        0.39880952381
-        >>> round(dist_jaro_winkler('ATCG', 'TAGC'), 12)
-        0.166666666667
+    Examples
+    --------
+    >>> round(dist_jaro_winkler('cat', 'hat'), 12)
+    0.222222222222
+    >>> round(dist_jaro_winkler('Niall', 'Neil'), 12)
+    0.195
+    >>> round(dist_jaro_winkler('aluminum', 'Catalan'), 12)
+    0.39880952381
+    >>> round(dist_jaro_winkler('ATCG', 'TAGC'), 12)
+    0.166666666667
 
-        >>> round(dist_jaro_winkler('cat', 'hat', mode='jaro'), 12)
-        0.222222222222
-        >>> round(dist_jaro_winkler('Niall', 'Neil', mode='jaro'), 12)
-        0.216666666667
-        >>> round(dist_jaro_winkler('aluminum', 'Catalan', mode='jaro'), 12)
-        0.39880952381
-        >>> round(dist_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
-        0.166666666667
+    >>> round(dist_jaro_winkler('cat', 'hat', mode='jaro'), 12)
+    0.222222222222
+    >>> round(dist_jaro_winkler('Niall', 'Neil', mode='jaro'), 12)
+    0.216666666667
+    >>> round(dist_jaro_winkler('aluminum', 'Catalan', mode='jaro'), 12)
+    0.39880952381
+    >>> round(dist_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
+    0.166666666667
 
     """
     return JaroWinkler().dist(

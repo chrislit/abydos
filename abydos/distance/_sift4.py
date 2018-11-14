@@ -45,26 +45,33 @@ class Sift4(_Distance):
     def dist_abs(self, src, tar, max_offset=5, max_distance=0):
         """Return the "common" Sift4 distance between two terms.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
-            max_offset (int): the number of characters to search for matching
-                letters
-            max_distance (int): the distance at which to stop and exit
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        max_offset : int
+            The number of characters to search for matching letters
+        max_distance : int
+            The distance at which to stop and exit
 
-        Returns:
-            int: The Sift4 distance according to the common formula
+        Returns
+        -------
+        int
+            The Sift4 distance according to the common formula
 
-        Examples:
-            >>> cmp = Sift4()
-            >>> cmp.dist_abs('cat', 'hat')
-            1
-            >>> cmp.dist_abs('Niall', 'Neil')
-            2
-            >>> cmp.dist_abs('Colin', 'Cuilen')
-            3
-            >>> cmp.dist_abs('ATCG', 'TAGC')
-            2
+        Examples
+        --------
+        >>> cmp = Sift4()
+        >>> cmp.dist_abs('cat', 'hat')
+        1
+        >>> cmp.dist_abs('Niall', 'Neil')
+        2
+        >>> cmp.dist_abs('Colin', 'Cuilen')
+        3
+        >>> cmp.dist_abs('ATCG', 'TAGC')
+        2
 
         """
         if not src:
@@ -152,26 +159,33 @@ class Sift4(_Distance):
 
         This is Sift4 distance, normalized to [0, 1].
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
-            max_offset (int): the number of characters to search for matching
-                letters
-            max_distance (int): the distance at which to stop and exit
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        max_offset : int
+            The number of characters to search for matching letters
+        max_distance : int
+            The distance at which to stop and exit
 
-        Returns:
-            float: The normalized Sift4 distance
+        Returns
+        -------
+        float
+            The normalized Sift4 distance
 
-        Examples:
-            >>> cmp = Sift4()
-            >>> round(cmp.dist('cat', 'hat'), 12)
-            0.333333333333
-            >>> cmp.dist('Niall', 'Neil')
-            0.4
-            >>> cmp.dist('Colin', 'Cuilen')
-            0.5
-            >>> cmp.dist('ATCG', 'TAGC')
-            0.5
+        Examples
+        --------
+        >>> cmp = Sift4()
+        >>> round(cmp.dist('cat', 'hat'), 12)
+        0.333333333333
+        >>> cmp.dist('Niall', 'Neil')
+        0.4
+        >>> cmp.dist('Colin', 'Cuilen')
+        0.5
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.5
 
         """
         return self.dist_abs(src, tar, max_offset, max_distance) / (
@@ -184,25 +198,32 @@ def sift4_common(src, tar, max_offset=5, max_distance=0):
 
     This is a wrapper for :py:meth:`Sift4.dist_abs`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        max_offset (int): the number of characters to search for matching
-            letters
-        max_distance (int): the distance at which to stop and exit
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    max_offset : int
+        The number of characters to search for matching letters
+    max_distance : int
+        The distance at which to stop and exit
 
-    Returns:
-        int: The Sift4 distance according to the common formula
+    Returns
+    -------
+    int
+        The Sift4 distance according to the common formula
 
-    Examples:
-        >>> sift4_common('cat', 'hat')
-        1
-        >>> sift4_common('Niall', 'Neil')
-        2
-        >>> sift4_common('Colin', 'Cuilen')
-        3
-        >>> sift4_common('ATCG', 'TAGC')
-        2
+    Examples
+    --------
+    >>> sift4_common('cat', 'hat')
+    1
+    >>> sift4_common('Niall', 'Neil')
+    2
+    >>> sift4_common('Colin', 'Cuilen')
+    3
+    >>> sift4_common('ATCG', 'TAGC')
+    2
 
     """
     return Sift4().dist_abs(src, tar, max_offset, max_distance)
@@ -213,25 +234,32 @@ def dist_sift4(src, tar, max_offset=5, max_distance=0):
 
     This is a wrapper for :py:meth:`Sift4.dist`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        max_offset (int): the number of characters to search for matching
-            letters
-        max_distance (int): the distance at which to stop and exit
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    max_offset : int
+        The number of characters to search for matching letters
+    max_distance : int
+        The distance at which to stop and exit
 
-    Returns:
-        float: The normalized Sift4 distance
+    Returns
+    -------
+    float
+        The normalized Sift4 distance
 
-    Examples:
-        >>> round(dist_sift4('cat', 'hat'), 12)
-        0.333333333333
-        >>> dist_sift4('Niall', 'Neil')
-        0.4
-        >>> dist_sift4('Colin', 'Cuilen')
-        0.5
-        >>> dist_sift4('ATCG', 'TAGC')
-        0.5
+    Examples
+    --------
+    >>> round(dist_sift4('cat', 'hat'), 12)
+    0.333333333333
+    >>> dist_sift4('Niall', 'Neil')
+    0.4
+    >>> dist_sift4('Colin', 'Cuilen')
+    0.5
+    >>> dist_sift4('ATCG', 'TAGC')
+    0.5
 
     """
     return Sift4().dist(src, tar, max_offset, max_distance)
@@ -242,25 +270,32 @@ def sim_sift4(src, tar, max_offset=5, max_distance=0):
 
     This is a wrapper for :py:meth:`Sift4.sim`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        max_offset (int): the number of characters to search for matching
-            letters
-        max_distance (int): the distance at which to stop and exit
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    max_offset : int
+        The number of characters to search for matching letters
+    max_distance : int
+        The distance at which to stop and exit
 
-    Returns:
-        float: The normalized Sift4 similarity
+    Returns
+    -------
+    float
+        The normalized Sift4 similarity
 
-    Examples:
-        >>> round(sim_sift4('cat', 'hat'), 12)
-        0.666666666667
-        >>> sim_sift4('Niall', 'Neil')
-        0.6
-        >>> sim_sift4('Colin', 'Cuilen')
-        0.5
-        >>> sim_sift4('ATCG', 'TAGC')
-        0.5
+    Examples
+    --------
+    >>> round(sim_sift4('cat', 'hat'), 12)
+    0.666666666667
+    >>> sim_sift4('Niall', 'Neil')
+    0.6
+    >>> sim_sift4('Colin', 'Cuilen')
+    0.5
+    >>> sim_sift4('ATCG', 'TAGC')
+    0.5
 
     """
     return Sift4().sim(src, tar, max_offset, max_distance)

@@ -45,25 +45,31 @@ class Sift4Simplest(Sift4):
     def dist_abs(self, src, tar, max_offset=5):
         """Return the "simplest" Sift4 distance between two terms.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
-            max_offset (int): the number of characters to search for matching
-                letters
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        max_offset : int
+            The number of characters to search for matching letters
 
-        Returns:
-            int: The Sift4 distance according to the simplest formula
+        Returns
+        -------
+        int
+            The Sift4 distance according to the simplest formula
 
-        Examples:
-            >>> cmp = Sift4Simplest()
-            >>> cmp.dist_abs('cat', 'hat')
-            1
-            >>> cmp.dist_abs('Niall', 'Neil')
-            2
-            >>> cmp.dist_abs('Colin', 'Cuilen')
-            3
-            >>> cmp.dist_abs('ATCG', 'TAGC')
-            2
+        Examples
+        --------
+        >>> cmp = Sift4Simplest()
+        >>> cmp.dist_abs('cat', 'hat')
+        1
+        >>> cmp.dist_abs('Niall', 'Neil')
+        2
+        >>> cmp.dist_abs('Colin', 'Cuilen')
+        3
+        >>> cmp.dist_abs('ATCG', 'TAGC')
+        2
 
         """
         if not src:
@@ -118,24 +124,30 @@ def sift4_simplest(src, tar, max_offset=5):
 
     This is a wrapper for :py:meth:`Sift4Simplest.dist_abs`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        max_offset (int): the number of characters to search for matching
-            letters
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    max_offset : int
+        The number of characters to search for matching letters
 
-    Returns:
-        int: The Sift4 distance according to the simplest formula
+    Returns
+    -------
+    int
+        The Sift4 distance according to the simplest formula
 
-    Examples:
-        >>> sift4_simplest('cat', 'hat')
-        1
-        >>> sift4_simplest('Niall', 'Neil')
-        2
-        >>> sift4_simplest('Colin', 'Cuilen')
-        3
-        >>> sift4_simplest('ATCG', 'TAGC')
-        2
+    Examples
+    --------
+    >>> sift4_simplest('cat', 'hat')
+    1
+    >>> sift4_simplest('Niall', 'Neil')
+    2
+    >>> sift4_simplest('Colin', 'Cuilen')
+    3
+    >>> sift4_simplest('ATCG', 'TAGC')
+    2
 
     """
     return Sift4Simplest().dist_abs(src, tar, max_offset)

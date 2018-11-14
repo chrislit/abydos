@@ -68,31 +68,43 @@ class Tversky(_TokenDistance):
     def sim(self, src, tar, qval=2, alpha=1, beta=1, bias=None):
         """Return the Tversky index of two strings.
 
-        Args:
-            src (str): Source string (or QGrams/Counter objects) for comparison
-            tar (str): Target string (or QGrams/Counter objects) for comparison
-            qval (int): The length of each q-gram; 0 for non-q-gram version
-            alpha (float): Tversky index parameter as described above
-            beta (float): Tversky index parameter as described above
-            bias (float): The symmetric Tversky index bias parameter
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+        qval : int
+            The length of each q-gram; 0 for non-q-gram version
+        alpha : float
+            Tversky index parameter as described above
+        beta : float
+            Tversky index parameter as described above
+        bias : float
+            The symmetric Tversky index bias parameter
 
-        Returns:
-            float: Tversky similarity
+        Returns
+        -------
+        float
+            Tversky similarity
 
-        Raises:
-            ValueError: Unsupported weight assignment; alpha and beta must be
-                greater than or equal to 0.
+        Raises
+        ------
+        ValueError
+            Unsupported weight assignment; alpha and beta must be greater than
+            or equal to 0.
 
-        Examples:
-            >>> cmp = Tversky()
-            >>> cmp.sim('cat', 'hat')
-            0.3333333333333333
-            >>> cmp.sim('Niall', 'Neil')
-            0.2222222222222222
-            >>> cmp.sim('aluminum', 'Catalan')
-            0.0625
-            >>> cmp.sim('ATCG', 'TAGC')
-            0.0
+        Examples
+        --------
+        >>> cmp = Tversky()
+        >>> cmp.sim('cat', 'hat')
+        0.3333333333333333
+        >>> cmp.sim('Niall', 'Neil')
+        0.2222222222222222
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0625
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
 
         """
         if alpha < 0 or beta < 0:
@@ -136,26 +148,36 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
 
     This is a wrapper for :py:meth:`Tversky.sim`.
 
-    Args:
-        src (str): Source string (or QGrams/Counter objects) for comparison
-        tar (str): Target string (or QGrams/Counter objects) for comparison
-        qval (int): The length of each q-gram; 0 for non-q-gram version
-        alpha (float): Tversky index parameter as described above
-        beta (float): Tversky index parameter as described above
-        bias (float): The symmetric Tversky index bias parameter
+    Parameters
+    ----------
+    src : str
+        Source string (or QGrams/Counter objects) for comparison
+    tar : str
+        Target string (or QGrams/Counter objects) for comparison
+    qval : int
+        The length of each q-gram; 0 for non-q-gram version
+    alpha : float
+        Tversky index parameter as described above
+    beta : float
+        Tversky index parameter as described above
+    bias : float
+        The symmetric Tversky index bias parameter
 
-    Returns:
-        float: Tversky similarity
+    Returns
+    -------
+    float
+        Tversky similarity
 
-    Examples:
-        >>> sim_tversky('cat', 'hat')
-        0.3333333333333333
-        >>> sim_tversky('Niall', 'Neil')
-        0.2222222222222222
-        >>> sim_tversky('aluminum', 'Catalan')
-        0.0625
-        >>> sim_tversky('ATCG', 'TAGC')
-        0.0
+    Examples
+    --------
+    >>> sim_tversky('cat', 'hat')
+    0.3333333333333333
+    >>> sim_tversky('Niall', 'Neil')
+    0.2222222222222222
+    >>> sim_tversky('aluminum', 'Catalan')
+    0.0625
+    >>> sim_tversky('ATCG', 'TAGC')
+    0.0
 
     """
     return Tversky().sim(src, tar, qval, alpha, beta, bias)
@@ -166,26 +188,36 @@ def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
 
     This is a wrapper for :py:meth:`Tversky.dist`.
 
-    Args:
-        src (str): Source string (or QGrams/Counter objects) for comparison
-        tar (str): Target string (or QGrams/Counter objects) for comparison
-        qval (int): The length of each q-gram; 0 for non-q-gram version
-        alpha (float): Tversky index parameter as described above
-        beta (float): Tversky index parameter as described above
-        bias (float): The symmetric Tversky index bias parameter
+    Parameters
+    ----------
+    src : str
+        Source string (or QGrams/Counter objects) for comparison
+    tar : str
+        Target string (or QGrams/Counter objects) for comparison
+    qval : int
+        The length of each q-gram; 0 for non-q-gram version
+    alpha : float
+        Tversky index parameter as described above
+    beta : float
+        Tversky index parameter as described above
+    bias : float
+        The symmetric Tversky index bias parameter
 
-    Returns:
-        float: Tversky distance
+    Returns
+    -------
+    float
+        Tversky distance
 
-    Examples:
-        >>> dist_tversky('cat', 'hat')
-        0.6666666666666667
-        >>> dist_tversky('Niall', 'Neil')
-        0.7777777777777778
-        >>> dist_tversky('aluminum', 'Catalan')
-        0.9375
-        >>> dist_tversky('ATCG', 'TAGC')
-        1.0
+    Examples
+    --------
+    >>> dist_tversky('cat', 'hat')
+    0.6666666666666667
+    >>> dist_tversky('Niall', 'Neil')
+    0.7777777777777778
+    >>> dist_tversky('aluminum', 'Catalan')
+    0.9375
+    >>> dist_tversky('ATCG', 'TAGC')
+    1.0
 
     """
     return Tversky().dist(src, tar, qval, alpha, beta, bias)

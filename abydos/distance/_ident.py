@@ -41,19 +41,25 @@ class Ident(_Distance):
 
         Identity similarity is 1 if the two strings are identical, otherwise 0.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
-        Returns:
-            float: Identity similarity
+        Returns
+        -------
+        float
+            Identity similarity
 
-        Examples:
-            >>> cmp = Ident()
-            >>> cmp.sim('cat', 'hat')
-            0.0
-            >>> cmp.sim('cat', 'cat')
-            1.0
+        Examples
+        --------
+        >>> cmp = Ident()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('cat', 'cat')
+        1.0
 
         """
         return 1.0 if src == tar else 0.0
@@ -64,19 +70,25 @@ def sim_ident(src, tar):
 
     This is a wrapper for :py:meth:`Ident.sim`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Identity similarity
+    Returns
+    -------
+    float
+        Identity similarity
 
 
-    Examples:
-        >>> sim_ident('cat', 'hat')
-        0.0
-        >>> sim_ident('cat', 'cat')
-        1.0
+    Examples
+    --------
+    >>> sim_ident('cat', 'hat')
+    0.0
+    >>> sim_ident('cat', 'cat')
+    1.0
 
     """
     return Ident().sim(src, tar)
@@ -87,18 +99,24 @@ def dist_ident(src, tar):
 
     This is a wrapper for :py:meth:`Ident.dist`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Identity distance
+    Returns
+    -------
+    float
+        Identity distance
 
-    Examples:
-        >>> dist_ident('cat', 'hat')
-        1.0
-        >>> dist_ident('cat', 'cat')
-        0.0
+    Examples
+    --------
+    >>> dist_ident('cat', 'hat')
+    1.0
+    >>> dist_ident('cat', 'cat')
+    0.0
 
     """
     return Ident().dist(src, tar)

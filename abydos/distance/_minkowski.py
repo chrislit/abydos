@@ -47,27 +47,37 @@ class Minkowski(_TokenDistance):
     ):
         """Return the Minkowski distance (:math:`L^p-norm`) of two strings.
 
-        Args:
-            src (str): Source string (or QGrams/Counter objects) for comparison
-            tar (str): Target string (or QGrams/Counter objects) for comparison
-            qval (int): The length of each q-gram; 0 for non-q-gram version
-            pval (int or float): The :math:`p`-value of the :math:`L^p`-space
-            normalized (bool): Normalizes to [0, 1] if True
-            alphabet (collection or int): The values or size of the alphabet
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+        qval : int
+            The length of each q-gram; 0 for non-q-gram version
+        pval : int or float
+            The :math:`p`-value of the :math:`L^p`-space
+        normalized : bool
+            Normalizes to [0, 1] if True
+        alphabet : collection or int
+            The values or size of the alphabet
 
-        Returns:
-            float: The Minkowski distance
+        Returns
+        -------
+        float
+            The Minkowski distance
 
-        Examples:
-            >>> cmp = Minkowski()
-            >>> cmp.dist_abs('cat', 'hat')
-            4.0
-            >>> cmp.dist_abs('Niall', 'Neil')
-            7.0
-            >>> cmp.dist_abs('Colin', 'Cuilen')
-            9.0
-            >>> cmp.dist_abs('ATCG', 'TAGC')
-            10.0
+        Examples
+        --------
+        >>> cmp = Minkowski()
+        >>> cmp.dist_abs('cat', 'hat')
+        4.0
+        >>> cmp.dist_abs('Niall', 'Neil')
+        7.0
+        >>> cmp.dist_abs('Colin', 'Cuilen')
+        9.0
+        >>> cmp.dist_abs('ATCG', 'TAGC')
+        10.0
 
         """
         q_src, q_tar = self._get_qgrams(src, tar, qval)
@@ -102,26 +112,35 @@ class Minkowski(_TokenDistance):
         The normalized Minkowski distance :cite:`Minkowski:1910` is a distance
         metric in :math:`L^p-space`, normalized to [0, 1].
 
-        Args:
-            src (str): Source string (or QGrams/Counter objects) for comparison
-            tar (str): Target string (or QGrams/Counter objects) for comparison
-            qval (int): The length of each q-gram; 0 for non-q-gram version
-            pval (int or float): The :math:`p`-value of the :math:`L^p`-space
-            alphabet (collection or int): The values or size of the alphabet
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+        qval : int
+            The length of each q-gram; 0 for non-q-gram version
+        pval : int or float
+            The :math:`p`-value of the :math:`L^p`-space
+        alphabet : collection or int
+            The values or size of the alphabet
 
-        Returns:
-            float: The normalized Minkowski distance
+        Returns
+        -------
+        float
+            The normalized Minkowski distance
 
-        Examples:
-            >>> cmp = Minkowski()
-            >>> cmp.dist('cat', 'hat')
-            0.5
-            >>> round(cmp.dist('Niall', 'Neil'), 12)
-            0.636363636364
-            >>> round(cmp.dist('Colin', 'Cuilen'), 12)
-            0.692307692308
-            >>> cmp.dist('ATCG', 'TAGC')
-            1.0
+        Examples
+        --------
+        >>> cmp = Minkowski()
+        >>> cmp.dist('cat', 'hat')
+        0.5
+        >>> round(cmp.dist('Niall', 'Neil'), 12)
+        0.636363636364
+        >>> round(cmp.dist('Colin', 'Cuilen'), 12)
+        0.692307692308
+        >>> cmp.dist('ATCG', 'TAGC')
+        1.0
 
         """
         return self.dist_abs(src, tar, qval, pval, True, alphabet)
@@ -132,26 +151,36 @@ def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
 
     This is a wrapper for :py:meth:`Minkowski.dist_abs`.
 
-    Args:
-        src (str): Source string (or QGrams/Counter objects) for comparison
-        tar (str): Target string (or QGrams/Counter objects) for comparison
-        qval (int): The length of each q-gram; 0 for non-q-gram version
-        pval (int or float): The :math:`p`-value of the :math:`L^p`-space
-        normalized (bool): Normalizes to [0, 1] if True
-        alphabet (collection or int): The values or size of the alphabet
+    Parameters
+    ----------
+    src : str
+        Source string (or QGrams/Counter objects) for comparison
+    tar : str
+        Target string (or QGrams/Counter objects) for comparison
+    qval : int
+        The length of each q-gram; 0 for non-q-gram version
+    pval : int or float
+        The :math:`p`-value of the :math:`L^p`-space
+    normalized : bool
+        Normalizes to [0, 1] if True
+    alphabet : collection or int
+        The values or size of the alphabet
 
-    Returns:
-        float: The Minkowski distance
+    Returns
+    -------
+    float
+        The Minkowski distance
 
-    Examples:
-        >>> minkowski('cat', 'hat')
-        4.0
-        >>> minkowski('Niall', 'Neil')
-        7.0
-        >>> minkowski('Colin', 'Cuilen')
-        9.0
-        >>> minkowski('ATCG', 'TAGC')
-        10.0
+    Examples
+    --------
+    >>> minkowski('cat', 'hat')
+    4.0
+    >>> minkowski('Niall', 'Neil')
+    7.0
+    >>> minkowski('Colin', 'Cuilen')
+    9.0
+    >>> minkowski('ATCG', 'TAGC')
+    10.0
 
     """
     return Minkowski().dist_abs(src, tar, qval, pval, normalized, alphabet)
@@ -162,25 +191,34 @@ def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
 
     This is a wrapper for :py:meth:`Minkowski.dist`.
 
-    Args:
-        src (str): Source string (or QGrams/Counter objects) for comparison
-        tar (str): Target string (or QGrams/Counter objects) for comparison
-        qval (int): The length of each q-gram; 0 for non-q-gram version
-        pval (int or float): The :math:`p`-value of the :math:`L^p`-space
-        alphabet (collection or int): The values or size of the alphabet
+    Parameters
+    ----------
+    src : str
+        Source string (or QGrams/Counter objects) for comparison
+    tar : str
+        Target string (or QGrams/Counter objects) for comparison
+    qval : int
+        The length of each q-gram; 0 for non-q-gram version
+    pval : int or float
+        The :math:`p`-value of the :math:`L^p`-space
+    alphabet : collection or int
+        The values or size of the alphabet
 
-    Returns:
-        float: The normalized Minkowski distance
+    Returns
+    -------
+    float
+        The normalized Minkowski distance
 
-    Examples:
-        >>> dist_minkowski('cat', 'hat')
-        0.5
-        >>> round(dist_minkowski('Niall', 'Neil'), 12)
-        0.636363636364
-        >>> round(dist_minkowski('Colin', 'Cuilen'), 12)
-        0.692307692308
-        >>> dist_minkowski('ATCG', 'TAGC')
-        1.0
+    Examples
+    --------
+    >>> dist_minkowski('cat', 'hat')
+    0.5
+    >>> round(dist_minkowski('Niall', 'Neil'), 12)
+    0.636363636364
+    >>> round(dist_minkowski('Colin', 'Cuilen'), 12)
+    0.692307692308
+    >>> dist_minkowski('ATCG', 'TAGC')
+    1.0
 
     """
     return Minkowski().dist(src, tar, qval, pval, alphabet)
@@ -191,25 +229,34 @@ def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
 
     This is a wrapper for :py:meth:`Minkowski.sim`.
 
-    Args:
-        src (str): Source string (or QGrams/Counter objects) for comparison
-        tar (str): Target string (or QGrams/Counter objects) for comparison
-        qval (int): The length of each q-gram; 0 for non-q-gram version
-        pval (int or float): The :math:`p`-value of the :math:`L^p`-space
-        alphabet (collection or int): The values or size of the alphabet
+    Parameters
+    ----------
+    src : str
+        Source string (or QGrams/Counter objects) for comparison
+    tar : str
+        Target string (or QGrams/Counter objects) for comparison
+    qval : int
+        The length of each q-gram; 0 for non-q-gram version
+    pval : int or float
+        The :math:`p`-value of the :math:`L^p`-space
+    alphabet : collection or int
+        The values or size of the alphabet
 
-    Returns:
-        float: The normalized Minkowski similarity
+    Returns
+    -------
+    float
+        The normalized Minkowski similarity
 
-    Examples:
-        >>> sim_minkowski('cat', 'hat')
-        0.5
-        >>> round(sim_minkowski('Niall', 'Neil'), 12)
-        0.363636363636
-        >>> round(sim_minkowski('Colin', 'Cuilen'), 12)
-        0.307692307692
-        >>> sim_minkowski('ATCG', 'TAGC')
-        0.0
+    Examples
+    --------
+    >>> sim_minkowski('cat', 'hat')
+    0.5
+    >>> round(sim_minkowski('Niall', 'Neil'), 12)
+    0.363636363636
+    >>> round(sim_minkowski('Colin', 'Cuilen'), 12)
+    0.307692307692
+    >>> sim_minkowski('ATCG', 'TAGC')
+    0.0
 
     """
     return Minkowski().sim(src, tar, qval, pval, alphabet)

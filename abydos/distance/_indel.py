@@ -46,23 +46,29 @@ class Indel(_Distance):
     def dist_abs(self, src, tar):
         """Return the indel distance between two strings.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
-        Returns:
-            int: Indel distance
+        Returns
+        -------
+        int
+            Indel distance
 
-        Examples:
-            >>> cmp = Indel()
-            >>> cmp.dist_abs('cat', 'hat')
-            2
-            >>> cmp.dist_abs('Niall', 'Neil')
-            3
-            >>> cmp.dist_abs('Colin', 'Cuilen')
-            5
-            >>> cmp.dist_abs('ATCG', 'TAGC')
-            4
+        Examples
+        --------
+        >>> cmp = Indel()
+        >>> cmp.dist_abs('cat', 'hat')
+        2
+        >>> cmp.dist_abs('Niall', 'Neil')
+        3
+        >>> cmp.dist_abs('Colin', 'Cuilen')
+        5
+        >>> cmp.dist_abs('ATCG', 'TAGC')
+        4
 
         """
         return self._lev.dist_abs(
@@ -75,23 +81,29 @@ class Indel(_Distance):
         This is equivalent to normalized Levenshtein distance, when only
         inserts and deletes are possible.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
-        Returns:
-            float: Normalized indel distance
+        Returns
+        -------
+        float
+            Normalized indel distance
 
-        Examples:
-            >>> cmp = Indel()
-            >>> round(cmp.dist('cat', 'hat'), 12)
-            0.333333333333
-            >>> round(cmp.dist('Niall', 'Neil'), 12)
-            0.333333333333
-            >>> round(cmp.dist('Colin', 'Cuilen'), 12)
-            0.454545454545
-            >>> cmp.dist('ATCG', 'TAGC')
-            0.5
+        Examples
+        --------
+        >>> cmp = Indel()
+        >>> round(cmp.dist('cat', 'hat'), 12)
+        0.333333333333
+        >>> round(cmp.dist('Niall', 'Neil'), 12)
+        0.333333333333
+        >>> round(cmp.dist('Colin', 'Cuilen'), 12)
+        0.454545454545
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.5
 
         """
         if src == tar:
@@ -102,22 +114,28 @@ class Indel(_Distance):
 def indel(src, tar):
     """Return the indel distance between two strings.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        int: Indel distance
+    Returns
+    -------
+    int
+        Indel distance
 
-    Examples:
-        >>> indel('cat', 'hat')
-        2
-        >>> indel('Niall', 'Neil')
-        3
-        >>> indel('Colin', 'Cuilen')
-        5
-        >>> indel('ATCG', 'TAGC')
-        4
+    Examples
+    --------
+    >>> indel('cat', 'hat')
+    2
+    >>> indel('Niall', 'Neil')
+    3
+    >>> indel('Colin', 'Cuilen')
+    5
+    >>> indel('ATCG', 'TAGC')
+    4
 
     """
     return Indel().dist_abs(src, tar)
@@ -129,22 +147,28 @@ def dist_indel(src, tar):
     This is equivalent to normalized Levenshtein distance, when only inserts
     and deletes are possible.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Normalized indel distance
+    Returns
+    -------
+    float
+        Normalized indel distance
 
-    Examples:
-        >>> round(dist_indel('cat', 'hat'), 12)
-        0.333333333333
-        >>> round(dist_indel('Niall', 'Neil'), 12)
-        0.333333333333
-        >>> round(dist_indel('Colin', 'Cuilen'), 12)
-        0.454545454545
-        >>> dist_indel('ATCG', 'TAGC')
-        0.5
+    Examples
+    --------
+    >>> round(dist_indel('cat', 'hat'), 12)
+    0.333333333333
+    >>> round(dist_indel('Niall', 'Neil'), 12)
+    0.333333333333
+    >>> round(dist_indel('Colin', 'Cuilen'), 12)
+    0.454545454545
+    >>> dist_indel('ATCG', 'TAGC')
+    0.5
 
     """
     return Indel().dist(src, tar)
@@ -156,22 +180,28 @@ def sim_indel(src, tar):
     This is equivalent to normalized Levenshtein similarity, when only inserts
     and deletes are possible.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Normalized indel similarity
+    Returns
+    -------
+    float
+        Normalized indel similarity
 
-    Examples:
-        >>> round(sim_indel('cat', 'hat'), 12)
-        0.666666666667
-        >>> round(sim_indel('Niall', 'Neil'), 12)
-        0.666666666667
-        >>> round(sim_indel('Colin', 'Cuilen'), 12)
-        0.545454545455
-        >>> sim_indel('ATCG', 'TAGC')
-        0.5
+    Examples
+    --------
+    >>> round(sim_indel('cat', 'hat'), 12)
+    0.666666666667
+    >>> round(sim_indel('Niall', 'Neil'), 12)
+    0.666666666667
+    >>> round(sim_indel('Colin', 'Cuilen'), 12)
+    0.545454545455
+    >>> sim_indel('ATCG', 'TAGC')
+    0.5
 
     """
     return Indel().sim(src, tar)

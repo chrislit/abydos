@@ -46,23 +46,29 @@ class NCDbwtrle(NCDrle):
     def dist(self, src, tar):
         """Return the NCD between two strings using BWT plus RLE.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
-        Returns:
-            float: Compression distance
+        Returns
+        -------
+        float
+            Compression distance
 
-        Examples:
-            >>> cmp = NCDbwtrle()
-            >>> cmp.dist('cat', 'hat')
-            0.75
-            >>> cmp.dist('Niall', 'Neil')
-            0.8333333333333334
-            >>> cmp.dist('aluminum', 'Catalan')
-            1.0
-            >>> cmp.dist('ATCG', 'TAGC')
-            0.8
+        Examples
+        --------
+        >>> cmp = NCDbwtrle()
+        >>> cmp.dist('cat', 'hat')
+        0.75
+        >>> cmp.dist('Niall', 'Neil')
+        0.8333333333333334
+        >>> cmp.dist('aluminum', 'Catalan')
+        1.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.8
 
         """
         if src == tar:
@@ -84,22 +90,28 @@ def dist_ncd_bwtrle(src, tar):
 
     This is a wrapper for :py:meth:`NCDbwtrle.dist`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Compression distance
+    Returns
+    -------
+    float
+        Compression distance
 
-    Examples:
-        >>> dist_ncd_bwtrle('cat', 'hat')
-        0.75
-        >>> dist_ncd_bwtrle('Niall', 'Neil')
-        0.8333333333333334
-        >>> dist_ncd_bwtrle('aluminum', 'Catalan')
-        1.0
-        >>> dist_ncd_bwtrle('ATCG', 'TAGC')
-        0.8
+    Examples
+    --------
+    >>> dist_ncd_bwtrle('cat', 'hat')
+    0.75
+    >>> dist_ncd_bwtrle('Niall', 'Neil')
+    0.8333333333333334
+    >>> dist_ncd_bwtrle('aluminum', 'Catalan')
+    1.0
+    >>> dist_ncd_bwtrle('ATCG', 'TAGC')
+    0.8
 
     """
     return NCDbwtrle().dist(src, tar)
@@ -110,22 +122,28 @@ def sim_ncd_bwtrle(src, tar):
 
     This is a wrapper for :py:meth:`NCDbwtrle.sim`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Compression similarity
+    Returns
+    -------
+    float
+        Compression similarity
 
-    Examples:
-        >>> sim_ncd_bwtrle('cat', 'hat')
-        0.25
-        >>> sim_ncd_bwtrle('Niall', 'Neil')
-        0.16666666666666663
-        >>> sim_ncd_bwtrle('aluminum', 'Catalan')
-        0.0
-        >>> sim_ncd_bwtrle('ATCG', 'TAGC')
-        0.19999999999999996
+    Examples
+    --------
+    >>> sim_ncd_bwtrle('cat', 'hat')
+    0.25
+    >>> sim_ncd_bwtrle('Niall', 'Neil')
+    0.16666666666666663
+    >>> sim_ncd_bwtrle('aluminum', 'Catalan')
+    0.0
+    >>> sim_ncd_bwtrle('ATCG', 'TAGC')
+    0.19999999999999996
 
     """
     return NCDbwtrle().sim(src, tar)

@@ -51,24 +51,31 @@ class Jaccard(Tversky):
     def sim(self, src, tar, qval=2):
         r"""Return the Jaccard similarity of two strings.
 
-        Args:
-            src (str): Source string (or QGrams/Counter objects) for comparison
-            tar (str): Target string (or QGrams/Counter objects) for comparison
-            qval (int): The length of each q-gram; 0 for non-q-gram version
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+        qval : int
+            The length of each q-gram; 0 for non-q-gram version
 
-        Returns:
-            float: Jaccard similarity
+        Returns
+        -------
+        float
+            Jaccard similarity
 
-        Examples:
-            >>> cmp = Jaccard()
-            >>> cmp.sim('cat', 'hat')
-            0.3333333333333333
-            >>> cmp.sim('Niall', 'Neil')
-            0.2222222222222222
-            >>> cmp.sim('aluminum', 'Catalan')
-            0.0625
-            >>> cmp.sim('ATCG', 'TAGC')
-            0.0
+        Examples
+        --------
+        >>> cmp = Jaccard()
+        >>> cmp.sim('cat', 'hat')
+        0.3333333333333333
+        >>> cmp.sim('Niall', 'Neil')
+        0.2222222222222222
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0625
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
 
         """
         return super(self.__class__, self).sim(src, tar, qval, 1, 1)
@@ -79,24 +86,31 @@ class Jaccard(Tversky):
         Tanimoto distance :cite:`Tanimoto:1958` is
         :math:`-log_{2}sim_{Tanimoto}`.
 
-        Args:
-            src (str): Source string (or QGrams/Counter objects) for comparison
-            tar (str): Target string (or QGrams/Counter objects) for comparison
-            qval (int): The length of each q-gram; 0 for non-q-gram version
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+        qval : int
+            The length of each q-gram; 0 for non-q-gram version
 
-        Returns:
-            float: Tanimoto distance
+        Returns
+        -------
+        float
+            Tanimoto distance
 
-        Examples:
-            >>> cmp = Jaccard()
-            >>> cmp.tanimoto_coeff('cat', 'hat')
-            -1.5849625007211563
-            >>> cmp.tanimoto_coeff('Niall', 'Neil')
-            -2.1699250014423126
-            >>> cmp.tanimoto_coeff('aluminum', 'Catalan')
-            -4.0
-            >>> cmp.tanimoto_coeff('ATCG', 'TAGC')
-            -inf
+        Examples
+        --------
+        >>> cmp = Jaccard()
+        >>> cmp.tanimoto_coeff('cat', 'hat')
+        -1.5849625007211563
+        >>> cmp.tanimoto_coeff('Niall', 'Neil')
+        -2.1699250014423126
+        >>> cmp.tanimoto_coeff('aluminum', 'Catalan')
+        -4.0
+        >>> cmp.tanimoto_coeff('ATCG', 'TAGC')
+        -inf
 
         """
         coeff = self.sim(src, tar, qval)
@@ -111,23 +125,30 @@ def sim_jaccard(src, tar, qval=2):
 
     This is a wrapper for :py:meth:`Jaccard.sim`.
 
-    Args:
-        src (str): Source string (or QGrams/Counter objects) for comparison
-        tar (str): Target string (or QGrams/Counter objects) for comparison
-        qval (int): The length of each q-gram; 0 for non-q-gram version
+    Parameters
+    ----------
+    src : str
+        Source string (or QGrams/Counter objects) for comparison
+    tar : str
+        Target string (or QGrams/Counter objects) for comparison
+    qval : int
+        The length of each q-gram; 0 for non-q-gram version
 
-    Returns:
-        float: Jaccard similarity
+    Returns
+    -------
+    float
+        Jaccard similarity
 
-    Examples:
-        >>> sim_jaccard('cat', 'hat')
-        0.3333333333333333
-        >>> sim_jaccard('Niall', 'Neil')
-        0.2222222222222222
-        >>> sim_jaccard('aluminum', 'Catalan')
-        0.0625
-        >>> sim_jaccard('ATCG', 'TAGC')
-        0.0
+    Examples
+    --------
+    >>> sim_jaccard('cat', 'hat')
+    0.3333333333333333
+    >>> sim_jaccard('Niall', 'Neil')
+    0.2222222222222222
+    >>> sim_jaccard('aluminum', 'Catalan')
+    0.0625
+    >>> sim_jaccard('ATCG', 'TAGC')
+    0.0
 
     """
     return Jaccard().sim(src, tar, qval)
@@ -138,23 +159,30 @@ def dist_jaccard(src, tar, qval=2):
 
     This is a wrapper for :py:meth:`Jaccard.dist`.
 
-    Args:
-        src (str): Source string (or QGrams/Counter objects) for comparison
-        tar (str): Target string (or QGrams/Counter objects) for comparison
-        qval (int): The length of each q-gram; 0 for non-q-gram version
+    Parameters
+    ----------
+    src : str
+        Source string (or QGrams/Counter objects) for comparison
+    tar : str
+        Target string (or QGrams/Counter objects) for comparison
+    qval : int
+        The length of each q-gram; 0 for non-q-gram version
 
-    Returns:
-        float: Jaccard distance
+    Returns
+    -------
+    float
+        Jaccard distance
 
-    Examples:
-        >>> dist_jaccard('cat', 'hat')
-        0.6666666666666667
-        >>> dist_jaccard('Niall', 'Neil')
-        0.7777777777777778
-        >>> dist_jaccard('aluminum', 'Catalan')
-        0.9375
-        >>> dist_jaccard('ATCG', 'TAGC')
-        1.0
+    Examples
+    --------
+    >>> dist_jaccard('cat', 'hat')
+    0.6666666666666667
+    >>> dist_jaccard('Niall', 'Neil')
+    0.7777777777777778
+    >>> dist_jaccard('aluminum', 'Catalan')
+    0.9375
+    >>> dist_jaccard('ATCG', 'TAGC')
+    1.0
 
     """
     return Jaccard().dist(src, tar, qval)
@@ -165,23 +193,30 @@ def tanimoto(src, tar, qval=2):
 
     This is a wrapper for :py:meth:`Jaccard.tanimoto_coeff`.
 
-    Args:
-        src (str): Source string (or QGrams/Counter objects) for comparison
-        tar (str): Target string (or QGrams/Counter objects) for comparison
-        qval (int): The length of each q-gram; 0 for non-q-gram version
+    Parameters
+    ----------
+    src : str
+        Source string (or QGrams/Counter objects) for comparison
+    tar : str
+        Target string (or QGrams/Counter objects) for comparison
+    qval : int
+        The length of each q-gram; 0 for non-q-gram version
 
-    Returns:
-        float: Tanimoto distance
+    Returns
+    -------
+    float
+        Tanimoto distance
 
-    Examples:
-        >>> tanimoto('cat', 'hat')
-        -1.5849625007211563
-        >>> tanimoto('Niall', 'Neil')
-        -2.1699250014423126
-        >>> tanimoto('aluminum', 'Catalan')
-        -4.0
-        >>> tanimoto('ATCG', 'TAGC')
-        -inf
+    Examples
+    --------
+    >>> tanimoto('cat', 'hat')
+    -1.5849625007211563
+    >>> tanimoto('Niall', 'Neil')
+    -2.1699250014423126
+    >>> tanimoto('aluminum', 'Catalan')
+    -4.0
+    >>> tanimoto('ATCG', 'TAGC')
+    -inf
 
     """
     return Jaccard().tanimoto_coeff(src, tar, qval)

@@ -63,35 +63,48 @@ class NeedlemanWunsch(_Distance):
         :math:`[0, 1]`, if values outside that range are present in mat,
         mismatch_cost, or match_cost.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
-            mat (dict): A dict mapping tuples to costs; the tuples are (src,
-                tar) pairs of symbols from the alphabet parameter
-            mismatch_cost (float): the value returned if (src, tar) is absent
-                from mat when src does not equal tar
-            match_cost (float): the value returned if (src, tar) is absent from
-                mat when src equals tar
-            symmetric (bool): True if the cost of src not matching tar is
-                identical to the cost of tar not matching src; in this case,
-                the values in mat need only contain (src, tar) or (tar, src),
-                not both
-            alphabet (str): a collection of tokens from which src and tar are
-                drawn; if this is defined a ValueError is raised if either tar
-                or src is not found in alphabet
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        mat : dict
+            A dict mapping tuples to costs; the tuples are (src, tar) pairs of
+            symbols from the alphabet parameter
+        mismatch_cost : float
+            The value returned if (src, tar) is absent from mat when src does
+            not equal tar
+        match_cost : float
+            The value returned if (src, tar) is absent from mat when src equals
+            tar
+        symmetric : bool
+            True if the cost of src not matching tar is identical to the cost
+            of tar not matching src; in this case, the values in mat need only
+            contain (src, tar) or (tar, src), not both
+        alphabet : str
+            A collection of tokens from which src and tar are drawn; if this is
+            defined a ValueError is raised if either tar or src is not found in
+            alphabet
 
-        Returns:
-            float: Matrix similarity
+        Returns
+        -------
+        float
+            Matrix similarity
 
-        Raises:
-            ValueError: src value not in alphabet
-            ValueError: tar value not in alphabet
+        Raises
+        ------
+        ValueError
+            src value not in alphabet
+        ValueError
+            tar value not in alphabet
 
-        Examples:
-            >>> NeedlemanWunsch.sim_matrix('cat', 'hat')
-            0
-            >>> NeedlemanWunsch.sim_matrix('hat', 'hat')
-            1
+        Examples
+        --------
+        >>> NeedlemanWunsch.sim_matrix('cat', 'hat')
+        0
+        >>> NeedlemanWunsch.sim_matrix('hat', 'hat')
+        1
 
         """
         if alphabet:
@@ -116,26 +129,34 @@ class NeedlemanWunsch(_Distance):
     def dist_abs(self, src, tar, gap_cost=1, sim_func=sim_ident):
         """Return the Needleman-Wunsch score of two strings.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
-            gap_cost (float): the cost of an alignment gap (1 by default)
-            sim_func (function): a function that returns the similarity of two
-                characters (identity similarity by default)
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        gap_cost : float
+            The cost of an alignment gap (1 by default)
+        sim_func : function
+            A function that returns the similarity of two characters (identity
+            similarity by default)
 
-        Returns:
-            float: Needleman-Wunsch score
+        Returns
+        -------
+        float
+            Needleman-Wunsch score
 
-        Examples:
-            >>> cmp = NeedlemanWunsch()
-            >>> cmp.dist_abs('cat', 'hat')
-            2.0
-            >>> cmp.dist_abs('Niall', 'Neil')
-            1.0
-            >>> cmp.dist_abs('aluminum', 'Catalan')
-            -1.0
-            >>> cmp.dist_abs('ATCG', 'TAGC')
-            0.0
+        Examples
+        --------
+        >>> cmp = NeedlemanWunsch()
+        >>> cmp.dist_abs('cat', 'hat')
+        2.0
+        >>> cmp.dist_abs('Niall', 'Neil')
+        1.0
+        >>> cmp.dist_abs('aluminum', 'Catalan')
+        -1.0
+        >>> cmp.dist_abs('ATCG', 'TAGC')
+        0.0
 
         """
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
@@ -158,25 +179,33 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
 
     This is a wrapper for :py:meth:`NeedlemanWunsch.dist_abs`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        gap_cost (float): the cost of an alignment gap (1 by default)
-        sim_func (function): a function that returns the similarity of two
-            characters (identity similarity by default)
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    gap_cost : float
+        The cost of an alignment gap (1 by default)
+    sim_func : function
+        A function that returns the similarity of two characters (identity
+        similarity by default)
 
-    Returns:
-        float: Needleman-Wunsch score
+    Returns
+    -------
+    float
+        Needleman-Wunsch score
 
-    Examples:
-        >>> needleman_wunsch('cat', 'hat')
-        2.0
-        >>> needleman_wunsch('Niall', 'Neil')
-        1.0
-        >>> needleman_wunsch('aluminum', 'Catalan')
-        -1.0
-        >>> needleman_wunsch('ATCG', 'TAGC')
-        0.0
+    Examples
+    --------
+    >>> needleman_wunsch('cat', 'hat')
+    2.0
+    >>> needleman_wunsch('Niall', 'Neil')
+    1.0
+    >>> needleman_wunsch('aluminum', 'Catalan')
+    -1.0
+    >>> needleman_wunsch('ATCG', 'TAGC')
+    0.0
 
     """
     return NeedlemanWunsch().dist_abs(src, tar, gap_cost, sim_func)

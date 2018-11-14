@@ -51,25 +51,33 @@ class MongeElkan(_Distance):
     def sim(self, src, tar, sim_func=sim_levenshtein, symmetric=False):
         """Return the Monge-Elkan similarity of two strings.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
-            sim_func (function): the internal similarity metric to employ
-            symmetric (bool): return a symmetric similarity measure
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        sim_func : function
+            The internal similarity metric to employ
+        symmetric : bool
+            Return a symmetric similarity measure
 
-        Returns:
-            float: Monge-Elkan similarity
+        Returns
+        -------
+        float
+            Monge-Elkan similarity
 
-        Examples:
-            >>> cmp = MongeElkan()
-            >>> cmp.sim('cat', 'hat')
-            0.75
-            >>> round(cmp.sim('Niall', 'Neil'), 12)
-            0.666666666667
-            >>> round(cmp.sim('aluminum', 'Catalan'), 12)
-            0.388888888889
-            >>> cmp.sim('ATCG', 'TAGC')
-            0.5
+        Examples
+        --------
+        >>> cmp = MongeElkan()
+        >>> cmp.sim('cat', 'hat')
+        0.75
+        >>> round(cmp.sim('Niall', 'Neil'), 12)
+        0.666666666667
+        >>> round(cmp.sim('aluminum', 'Catalan'), 12)
+        0.388888888889
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.5
 
         """
         if src == tar:
@@ -100,24 +108,32 @@ def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
 
     This is a wrapper for :py:meth:`MongeElkan.sim`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        sim_func (function): the internal similarity metric to employ
-        symmetric (bool): return a symmetric similarity measure
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    sim_func : function
+        Rhe internal similarity metric to employ
+    symmetric : bool
+        Return a symmetric similarity measure
 
-    Returns:
-        float: Monge-Elkan similarity
+    Returns
+    -------
+    float
+        Monge-Elkan similarity
 
-    Examples:
-        >>> sim_monge_elkan('cat', 'hat')
-        0.75
-        >>> round(sim_monge_elkan('Niall', 'Neil'), 12)
-        0.666666666667
-        >>> round(sim_monge_elkan('aluminum', 'Catalan'), 12)
-        0.388888888889
-        >>> sim_monge_elkan('ATCG', 'TAGC')
-        0.5
+    Examples
+    --------
+    >>> sim_monge_elkan('cat', 'hat')
+    0.75
+    >>> round(sim_monge_elkan('Niall', 'Neil'), 12)
+    0.666666666667
+    >>> round(sim_monge_elkan('aluminum', 'Catalan'), 12)
+    0.388888888889
+    >>> sim_monge_elkan('ATCG', 'TAGC')
+    0.5
 
     """
     return MongeElkan().sim(src, tar, sim_func, symmetric)
@@ -128,24 +144,32 @@ def dist_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
 
     This is a wrapper for :py:meth:`MongeElkan.dist`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        sim_func (function): the internal similarity metric to employ
-        symmetric (bool): return a symmetric similarity measure
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    sim_func : function
+        The internal similarity metric to employ
+    symmetric : bool
+        Return a symmetric similarity measure
 
-    Returns:
-        float: Monge-Elkan distance
+    Returns
+    -------
+    float
+        Monge-Elkan distance
 
-    Examples:
-        >>> dist_monge_elkan('cat', 'hat')
-        0.25
-        >>> round(dist_monge_elkan('Niall', 'Neil'), 12)
-        0.333333333333
-        >>> round(dist_monge_elkan('aluminum', 'Catalan'), 12)
-        0.611111111111
-        >>> dist_monge_elkan('ATCG', 'TAGC')
-        0.5
+    Examples
+    --------
+    >>> dist_monge_elkan('cat', 'hat')
+    0.25
+    >>> round(dist_monge_elkan('Niall', 'Neil'), 12)
+    0.333333333333
+    >>> round(dist_monge_elkan('aluminum', 'Catalan'), 12)
+    0.611111111111
+    >>> dist_monge_elkan('ATCG', 'TAGC')
+    0.5
 
     """
     return MongeElkan().dist(src, tar, sim_func, symmetric)

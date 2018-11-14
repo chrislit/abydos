@@ -45,24 +45,31 @@ class Overlap(_TokenDistance):
     def sim(self, src, tar, qval=2):
         r"""Return the overlap coefficient of two strings.
 
-        Args:
-            src (str): Source string (or QGrams/Counter objects) for comparison
-            tar (str): Target string (or QGrams/Counter objects) for comparison
-            qval (int): The length of each q-gram; 0 for non-q-gram version
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+        qval : int
+            The length of each q-gram; 0 for non-q-gram version
 
-        Returns:
-            float: Overlap similarity
+        Returns
+        -------
+        float
+            Overlap similarity
 
-        Examples:
-            >>> cmp = Overlap()
-            >>> cmp.sim('cat', 'hat')
-            0.5
-            >>> cmp.sim('Niall', 'Neil')
-            0.4
-            >>> cmp.sim('aluminum', 'Catalan')
-            0.125
-            >>> cmp.sim('ATCG', 'TAGC')
-            0.0
+        Examples
+        --------
+        >>> cmp = Overlap()
+        >>> cmp.sim('cat', 'hat')
+        0.5
+        >>> cmp.sim('Niall', 'Neil')
+        0.4
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.125
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
 
         """
         if src == tar:
@@ -83,23 +90,30 @@ def sim_overlap(src, tar, qval=2):
 
     This is a wrapper for :py:meth:`Overlap.sim`.
 
-    Args:
-        src (str): Source string (or QGrams/Counter objects) for comparison
-        tar (str): Target string (or QGrams/Counter objects) for comparison
-        qval (int): The length of each q-gram; 0 for non-q-gram version
+    Parameters
+    ----------
+    src : str
+        Source string (or QGrams/Counter objects) for comparison
+    tar : str
+        Target string (or QGrams/Counter objects) for comparison
+    qval : int
+        The length of each q-gram; 0 for non-q-gram version
 
-    Returns:
-        float: Overlap similarity
+    Returns
+    -------
+    float
+        Overlap similarity
 
-    Examples:
-        >>> sim_overlap('cat', 'hat')
-        0.5
-        >>> sim_overlap('Niall', 'Neil')
-        0.4
-        >>> sim_overlap('aluminum', 'Catalan')
-        0.125
-        >>> sim_overlap('ATCG', 'TAGC')
-        0.0
+    Examples
+    --------
+    >>> sim_overlap('cat', 'hat')
+    0.5
+    >>> sim_overlap('Niall', 'Neil')
+    0.4
+    >>> sim_overlap('aluminum', 'Catalan')
+    0.125
+    >>> sim_overlap('ATCG', 'TAGC')
+    0.0
 
     """
     return Overlap().sim(src, tar, qval)
@@ -110,23 +124,30 @@ def dist_overlap(src, tar, qval=2):
 
     This is a wrapper for :py:meth:`Overlap.dist`.
 
-    Args:
-        src (str): Source string (or QGrams/Counter objects) for comparison
-        tar (str): Target string (or QGrams/Counter objects) for comparison
-        qval (int): The length of each q-gram; 0 for non-q-gram version
+    Parameters
+    ----------
+    src : str
+        Source string (or QGrams/Counter objects) for comparison
+    tar : str
+        Target string (or QGrams/Counter objects) for comparison
+    qval : int
+        The length of each q-gram; 0 for non-q-gram version
 
-    Returns:
-        float: Overlap distance
+    Returns
+    -------
+    float
+        Overlap distance
 
-    Examples:
-        >>> dist_overlap('cat', 'hat')
-        0.5
-        >>> dist_overlap('Niall', 'Neil')
-        0.6
-        >>> dist_overlap('aluminum', 'Catalan')
-        0.875
-        >>> dist_overlap('ATCG', 'TAGC')
-        1.0
+    Examples
+    --------
+    >>> dist_overlap('cat', 'hat')
+    0.5
+    >>> dist_overlap('Niall', 'Neil')
+    0.6
+    >>> dist_overlap('aluminum', 'Catalan')
+    0.875
+    >>> dist_overlap('ATCG', 'TAGC')
+    1.0
 
     """
     return Overlap().dist(src, tar, qval)

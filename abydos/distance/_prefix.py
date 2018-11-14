@@ -45,23 +45,29 @@ class Prefix(_Distance):
         exactly matches the longer term to the length of the shorter term,
         beginning at the start of both terms.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
-        Returns:
-            float: Prefix similarity
+        Returns
+        -------
+        float
+            Prefix similarity
 
-        Examples:
-            >>> cmp = Prefix()
-            >>> cmp.sim('cat', 'hat')
-            0.0
-            >>> cmp.sim('Niall', 'Neil')
-            0.25
-            >>> cmp.sim('aluminum', 'Catalan')
-            0.0
-            >>> cmp.sim('ATCG', 'TAGC')
-            0.0
+        Examples
+        --------
+        >>> cmp = Prefix()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.25
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
 
         """
         if src == tar:
@@ -81,22 +87,28 @@ def sim_prefix(src, tar):
 
     This is a wrapper for :py:meth:`Prefix.sim`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Prefix similarity
+    Returns
+    -------
+    float
+        Prefix similarity
 
-    Examples:
-        >>> sim_prefix('cat', 'hat')
-        0.0
-        >>> sim_prefix('Niall', 'Neil')
-        0.25
-        >>> sim_prefix('aluminum', 'Catalan')
-        0.0
-        >>> sim_prefix('ATCG', 'TAGC')
-        0.0
+    Examples
+    --------
+    >>> sim_prefix('cat', 'hat')
+    0.0
+    >>> sim_prefix('Niall', 'Neil')
+    0.25
+    >>> sim_prefix('aluminum', 'Catalan')
+    0.0
+    >>> sim_prefix('ATCG', 'TAGC')
+    0.0
 
     """
     return Prefix().sim(src, tar)
@@ -107,22 +119,28 @@ def dist_prefix(src, tar):
 
     This is a wrapper for :py:meth:`Prefix.dist`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Prefix distance
+    Returns
+    -------
+    float
+        Prefix distance
 
-    Examples:
-        >>> dist_prefix('cat', 'hat')
-        1.0
-        >>> dist_prefix('Niall', 'Neil')
-        0.75
-        >>> dist_prefix('aluminum', 'Catalan')
-        1.0
-        >>> dist_prefix('ATCG', 'TAGC')
-        1.0
+    Examples
+    --------
+    >>> dist_prefix('cat', 'hat')
+    1.0
+    >>> dist_prefix('Niall', 'Neil')
+    0.75
+    >>> dist_prefix('aluminum', 'Catalan')
+    1.0
+    >>> dist_prefix('ATCG', 'TAGC')
+    1.0
 
     """
     return Prefix().dist(src, tar)

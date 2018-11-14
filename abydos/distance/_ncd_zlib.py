@@ -47,31 +47,40 @@ class NCDzlib(_Distance):
     def __init__(self, level=zlib.Z_DEFAULT_COMPRESSION):
         """Initialize zlib compressor.
 
-        Args:
-            level (int): The compression level (0 to 9)
+        Parameters
+        ----------
+        level : int
+            The compression level (0 to 9)
+
         """
         self._compressor = zlib.compressobj(level)
 
     def dist(self, src, tar):
         """Return the NCD between two strings using zlib compression.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
-        Returns:
-            float: Compression distance
+        Returns
+        -------
+        float
+            Compression distance
 
-        Examples:
-            >>> cmp = NCDzlib()
-            >>> cmp.dist('cat', 'hat')
-            0.3333333333333333
-            >>> cmp.dist('Niall', 'Neil')
-            0.45454545454545453
-            >>> cmp.dist('aluminum', 'Catalan')
-            0.5714285714285714
-            >>> cmp.dist('ATCG', 'TAGC')
-            0.4
+        Examples
+        --------
+        >>> cmp = NCDzlib()
+        >>> cmp.dist('cat', 'hat')
+        0.3333333333333333
+        >>> cmp.dist('Niall', 'Neil')
+        0.45454545454545453
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.5714285714285714
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.4
 
         """
         if src == tar:
@@ -100,22 +109,28 @@ def dist_ncd_zlib(src, tar):
 
     This is a wrapper for :py:meth:`NCDzlib.dist`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Compression distance
+    Returns
+    -------
+    float
+        Compression distance
 
-    Examples:
-        >>> dist_ncd_zlib('cat', 'hat')
-        0.3333333333333333
-        >>> dist_ncd_zlib('Niall', 'Neil')
-        0.45454545454545453
-        >>> dist_ncd_zlib('aluminum', 'Catalan')
-        0.5714285714285714
-        >>> dist_ncd_zlib('ATCG', 'TAGC')
-        0.4
+    Examples
+    --------
+    >>> dist_ncd_zlib('cat', 'hat')
+    0.3333333333333333
+    >>> dist_ncd_zlib('Niall', 'Neil')
+    0.45454545454545453
+    >>> dist_ncd_zlib('aluminum', 'Catalan')
+    0.5714285714285714
+    >>> dist_ncd_zlib('ATCG', 'TAGC')
+    0.4
 
     """
     return NCDzlib().dist(src, tar)
@@ -126,22 +141,27 @@ def sim_ncd_zlib(src, tar):
 
     This is a wrapper for :py:meth:`NCDzlib.sim`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Compression similarity
+    Returns
+    -------
+    float: Compression similarity
 
-    Examples:
-        >>> sim_ncd_zlib('cat', 'hat')
-        0.6666666666666667
-        >>> sim_ncd_zlib('Niall', 'Neil')
-        0.5454545454545454
-        >>> sim_ncd_zlib('aluminum', 'Catalan')
-        0.4285714285714286
-        >>> sim_ncd_zlib('ATCG', 'TAGC')
-        0.6
+    Examples
+    --------
+    >>> sim_ncd_zlib('cat', 'hat')
+    0.6666666666666667
+    >>> sim_ncd_zlib('Niall', 'Neil')
+    0.5454545454545454
+    >>> sim_ncd_zlib('aluminum', 'Catalan')
+    0.4285714285714286
+    >>> sim_ncd_zlib('ATCG', 'TAGC')
+    0.6
 
     """
     return NCDzlib().sim(src, tar)

@@ -49,26 +49,34 @@ class NCDlzma(_Distance):
     def dist(self, src, tar):
         """Return the NCD between two strings using lzma compression.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
-        Returns:
-            float: Compression distance
+        Returns
+        -------
+        float
+            Compression distance
 
-        Raises:
-            ValueError: Install the PylibLZMA module in order to use lzma
+        Raises
+        ------
+        ValueError
+            Install the PylibLZMA module in order to use lzma
 
-        Examples:
-            >>> cmp = NCDlzma()
-            >>> cmp.dist('cat', 'hat')
-            0.08695652173913043
-            >>> cmp.dist('Niall', 'Neil')
-            0.16
-            >>> cmp.dist('aluminum', 'Catalan')
-            0.16
-            >>> cmp.dist('ATCG', 'TAGC')
-            0.08695652173913043
+        Examples
+        --------
+        >>> cmp = NCDlzma()
+        >>> cmp.dist('cat', 'hat')
+        0.08695652173913043
+        >>> cmp.dist('Niall', 'Neil')
+        0.16
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.16
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.08695652173913043
 
         """
         if src == tar:
@@ -98,22 +106,28 @@ def dist_ncd_lzma(src, tar):
 
     This is a wrapper for :py:meth:`NCDlzma.dist`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Compression distance
+    Returns
+    -------
+    float
+        Compression distance
 
-    Examples:
-        >>> dist_ncd_lzma('cat', 'hat')
-        0.08695652173913043
-        >>> dist_ncd_lzma('Niall', 'Neil')
-        0.16
-        >>> dist_ncd_lzma('aluminum', 'Catalan')
-        0.16
-        >>> dist_ncd_lzma('ATCG', 'TAGC')
-        0.08695652173913043
+    Examples
+    --------
+    >>> dist_ncd_lzma('cat', 'hat')
+    0.08695652173913043
+    >>> dist_ncd_lzma('Niall', 'Neil')
+    0.16
+    >>> dist_ncd_lzma('aluminum', 'Catalan')
+    0.16
+    >>> dist_ncd_lzma('ATCG', 'TAGC')
+    0.08695652173913043
 
     """
     return NCDlzma().dist(src, tar)
@@ -124,22 +138,28 @@ def sim_ncd_lzma(src, tar):
 
     This is a wrapper for :py:meth:`NCDlzma.sim`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Compression similarity
+    Returns
+    -------
+    float
+        Compression similarity
 
-    Examples:
-        >>> sim_ncd_lzma('cat', 'hat')
-        0.9130434782608696
-        >>> sim_ncd_lzma('Niall', 'Neil')
-        0.84
-        >>> sim_ncd_lzma('aluminum', 'Catalan')
-        0.84
-        >>> sim_ncd_lzma('ATCG', 'TAGC')
-        0.9130434782608696
+    Examples
+    --------
+    >>> sim_ncd_lzma('cat', 'hat')
+    0.9130434782608696
+    >>> sim_ncd_lzma('Niall', 'Neil')
+    0.84
+    >>> sim_ncd_lzma('aluminum', 'Catalan')
+    0.84
+    >>> sim_ncd_lzma('ATCG', 'TAGC')
+    0.9130434782608696
 
     """
     return NCDlzma().sim(src, tar)

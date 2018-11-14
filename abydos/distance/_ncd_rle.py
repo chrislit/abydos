@@ -45,23 +45,29 @@ class NCDrle(_Distance):
     def dist(self, src, tar):
         """Return the NCD between two strings using RLE.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
-        Returns:
-            float: Compression distance
+        Returns
+        -------
+        float
+            Compression distance
 
-        Examples:
-            >>> cmp = NCDrle()
-            >>> cmp.dist('cat', 'hat')
-            1.0
-            >>> cmp.dist('Niall', 'Neil')
-            1.0
-            >>> cmp.dist('aluminum', 'Catalan')
-            1.0
-            >>> cmp.dist('ATCG', 'TAGC')
-            1.0
+        Examples
+        --------
+        >>> cmp = NCDrle()
+        >>> cmp.dist('cat', 'hat')
+        1.0
+        >>> cmp.dist('Niall', 'Neil')
+        1.0
+        >>> cmp.dist('aluminum', 'Catalan')
+        1.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        1.0
 
         """
         if src == tar:
@@ -83,22 +89,28 @@ def dist_ncd_rle(src, tar):
 
     This is a wrapper for :py:meth:`NCDrle.dist`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Compression distance
+    Returns
+    -------
+    float
+        Compression distance
 
-    Examples:
-        >>> dist_ncd_rle('cat', 'hat')
-        1.0
-        >>> dist_ncd_rle('Niall', 'Neil')
-        1.0
-        >>> dist_ncd_rle('aluminum', 'Catalan')
-        1.0
-        >>> dist_ncd_rle('ATCG', 'TAGC')
-        1.0
+    Examples
+    --------
+    >>> dist_ncd_rle('cat', 'hat')
+    1.0
+    >>> dist_ncd_rle('Niall', 'Neil')
+    1.0
+    >>> dist_ncd_rle('aluminum', 'Catalan')
+    1.0
+    >>> dist_ncd_rle('ATCG', 'TAGC')
+    1.0
 
     """
     return NCDrle().dist(src, tar)
@@ -109,22 +121,28 @@ def sim_ncd_rle(src, tar):
 
     This is a wrapper for :py:meth:`NCDrle.sim`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Compression similarity
+    Returns
+    -------
+    float
+        Compression similarity
 
-    Examples:
-        >>> sim_ncd_rle('cat', 'hat')
-        0.0
-        >>> sim_ncd_rle('Niall', 'Neil')
-        0.0
-        >>> sim_ncd_rle('aluminum', 'Catalan')
-        0.0
-        >>> sim_ncd_rle('ATCG', 'TAGC')
-        0.0
+    Examples
+    --------
+    >>> sim_ncd_rle('cat', 'hat')
+    0.0
+    >>> sim_ncd_rle('Niall', 'Neil')
+    0.0
+    >>> sim_ncd_rle('aluminum', 'Catalan')
+    0.0
+    >>> sim_ncd_rle('ATCG', 'TAGC')
+    0.0
 
     """
     return NCDrle().sim(src, tar)

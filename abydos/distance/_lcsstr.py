@@ -56,23 +56,29 @@ class LCSstr(_Distance):
             - conversion to a numpy array in place of a list of lists
             - conversion to Python 2/3-safe range from xrange via six
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
-        Returns:
-            str: The longest common substring
+        Returns
+        -------
+        str
+            The longest common substring
 
-        Examples:
-            >>> sstr = LCSstr()
-            >>> sstr.lcsstr('cat', 'hat')
-            'at'
-            >>> sstr.lcsstr('Niall', 'Neil')
-            'N'
-            >>> sstr.lcsstr('aluminum', 'Catalan')
-            'al'
-            >>> sstr.lcsstr('ATCG', 'TAGC')
-            'A'
+        Examples
+        --------
+        >>> sstr = LCSstr()
+        >>> sstr.lcsstr('cat', 'hat')
+        'at'
+        >>> sstr.lcsstr('Niall', 'Neil')
+        'N'
+        >>> sstr.lcsstr('aluminum', 'Catalan')
+        'al'
+        >>> sstr.lcsstr('ATCG', 'TAGC')
+        'A'
 
         """
         lengths = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
@@ -96,22 +102,28 @@ class LCSstr(_Distance):
         This employs the LCS function to derive a similarity metric:
         :math:`sim_{LCSstr}(s,t) = \\frac{|LCSstr(s,t)|}{max(|s|, |t|)}`
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
-        Returns:
-            float: LCSstr similarity
+        Returns
+        -------
+        float
+            LCSstr similarity
 
-        Examples:
-            >>> sim_lcsstr('cat', 'hat')
-            0.6666666666666666
-            >>> sim_lcsstr('Niall', 'Neil')
-            0.2
-            >>> sim_lcsstr('aluminum', 'Catalan')
-            0.25
-            >>> sim_lcsstr('ATCG', 'TAGC')
-            0.25
+        Examples
+        --------
+        >>> sim_lcsstr('cat', 'hat')
+        0.6666666666666666
+        >>> sim_lcsstr('Niall', 'Neil')
+        0.2
+        >>> sim_lcsstr('aluminum', 'Catalan')
+        0.25
+        >>> sim_lcsstr('ATCG', 'TAGC')
+        0.25
 
         """
         if src == tar:
@@ -126,22 +138,28 @@ def lcsstr(src, tar):
 
     This is a wrapper for :py:meth:`LCSstr.lcsstr`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        str: The longest common substring
+    Returns
+    -------
+    str
+        The longest common substring
 
-    Examples:
-        >>> lcsstr('cat', 'hat')
-        'at'
-        >>> lcsstr('Niall', 'Neil')
-        'N'
-        >>> lcsstr('aluminum', 'Catalan')
-        'al'
-        >>> lcsstr('ATCG', 'TAGC')
-        'A'
+    Examples
+    --------
+    >>> lcsstr('cat', 'hat')
+    'at'
+    >>> lcsstr('Niall', 'Neil')
+    'N'
+    >>> lcsstr('aluminum', 'Catalan')
+    'al'
+    >>> lcsstr('ATCG', 'TAGC')
+    'A'
 
     """
     return LCSstr().lcsstr(src, tar)
@@ -152,22 +170,28 @@ def sim_lcsstr(src, tar):
 
     This is a wrapper for :py:meth:`LCSstr.sim`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: LCSstr similarity
+    Returns
+    -------
+    float
+        LCSstr similarity
 
-    Examples:
-        >>> sim_lcsstr('cat', 'hat')
-        0.6666666666666666
-        >>> sim_lcsstr('Niall', 'Neil')
-        0.2
-        >>> sim_lcsstr('aluminum', 'Catalan')
-        0.25
-        >>> sim_lcsstr('ATCG', 'TAGC')
-        0.25
+    Examples
+    --------
+    >>> sim_lcsstr('cat', 'hat')
+    0.6666666666666666
+    >>> sim_lcsstr('Niall', 'Neil')
+    0.2
+    >>> sim_lcsstr('aluminum', 'Catalan')
+    0.25
+    >>> sim_lcsstr('ATCG', 'TAGC')
+    0.25
 
     """
     return LCSstr().sim(src, tar)
@@ -178,22 +202,28 @@ def dist_lcsstr(src, tar):
 
     This is a wrapper for :py:meth:`LCSstr.dist`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: LCSstr distance
+    Returns
+    -------
+    float
+        LCSstr distance
 
-    Examples:
-        >>> dist_lcsstr('cat', 'hat')
-        0.33333333333333337
-        >>> dist_lcsstr('Niall', 'Neil')
-        0.8
-        >>> dist_lcsstr('aluminum', 'Catalan')
-        0.75
-        >>> dist_lcsstr('ATCG', 'TAGC')
-        0.75
+    Examples
+    --------
+    >>> dist_lcsstr('cat', 'hat')
+    0.33333333333333337
+    >>> dist_lcsstr('Niall', 'Neil')
+    0.8
+    >>> dist_lcsstr('aluminum', 'Catalan')
+    0.75
+    >>> dist_lcsstr('ATCG', 'TAGC')
+    0.75
 
     """
     return LCSstr().dist(src, tar)

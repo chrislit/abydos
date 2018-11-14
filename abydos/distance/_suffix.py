@@ -45,23 +45,29 @@ class Suffix(_Distance):
         exactly matches the longer term to the length of the shorter term,
         beginning at the end of both terms.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
-        Returns:
-            float: Suffix similarity
+        Returns
+        -------
+        float
+            Suffix similarity
 
-        Examples:
-            >>> cmp = Suffix()
-            >>> cmp.sim('cat', 'hat')
-            0.6666666666666666
-            >>> cmp.sim('Niall', 'Neil')
-            0.25
-            >>> cmp.sim('aluminum', 'Catalan')
-            0.0
-            >>> cmp.sim('ATCG', 'TAGC')
-            0.0
+        Examples
+        --------
+        >>> cmp = Suffix()
+        >>> cmp.sim('cat', 'hat')
+        0.6666666666666666
+        >>> cmp.sim('Niall', 'Neil')
+        0.25
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
 
         """
         if src == tar:
@@ -81,22 +87,28 @@ def sim_suffix(src, tar):
 
     This is a wrapper for :py:meth:`Suffix.sim`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Suffix similarity
+    Returns
+    -------
+    float
+        Suffix similarity
 
-    Examples:
-        >>> sim_suffix('cat', 'hat')
-        0.6666666666666666
-        >>> sim_suffix('Niall', 'Neil')
-        0.25
-        >>> sim_suffix('aluminum', 'Catalan')
-        0.0
-        >>> sim_suffix('ATCG', 'TAGC')
-        0.0
+    Examples
+    --------
+    >>> sim_suffix('cat', 'hat')
+    0.6666666666666666
+    >>> sim_suffix('Niall', 'Neil')
+    0.25
+    >>> sim_suffix('aluminum', 'Catalan')
+    0.0
+    >>> sim_suffix('ATCG', 'TAGC')
+    0.0
 
     """
     return Suffix().sim(src, tar)
@@ -107,22 +119,28 @@ def dist_suffix(src, tar):
 
     This is a wrapper for :py:meth:`Suffix.dist`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: suffix distance
+    Returns
+    -------
+    float
+        Suffix distance
 
-    Examples:
-        >>> dist_suffix('cat', 'hat')
-        0.33333333333333337
-        >>> dist_suffix('Niall', 'Neil')
-        0.75
-        >>> dist_suffix('aluminum', 'Catalan')
-        1.0
-        >>> dist_suffix('ATCG', 'TAGC')
-        1.0
+    Examples
+    --------
+    >>> dist_suffix('cat', 'hat')
+    0.33333333333333337
+    >>> dist_suffix('Niall', 'Neil')
+    0.75
+    >>> dist_suffix('aluminum', 'Catalan')
+    1.0
+    >>> dist_suffix('ATCG', 'TAGC')
+    1.0
 
     """
     return Suffix().dist(src, tar)

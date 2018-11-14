@@ -53,23 +53,29 @@ class LCSseq(_Distance):
         Modifications include:
             conversion to a numpy array in place of a list of lists
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
-        Returns:
-            str: The longest common subsequence
+        Returns
+        -------
+        str
+            The longest common subsequence
 
-        Examples:
-            >>> sseq = LCSseq()
-            >>> sseq.lcsseq('cat', 'hat')
-            'at'
-            >>> sseq.lcsseq('Niall', 'Neil')
-            'Nil'
-            >>> sseq.lcsseq('aluminum', 'Catalan')
-            'aln'
-            >>> sseq.lcsseq('ATCG', 'TAGC')
-            'AC'
+        Examples
+        --------
+        >>> sseq = LCSseq()
+        >>> sseq.lcsseq('cat', 'hat')
+        'at'
+        >>> sseq.lcsseq('Niall', 'Neil')
+        'Nil'
+        >>> sseq.lcsseq('aluminum', 'Catalan')
+        'aln'
+        >>> sseq.lcsseq('ATCG', 'TAGC')
+        'AC'
 
         """
         lengths = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
@@ -106,23 +112,29 @@ class LCSseq(_Distance):
         This employs the LCSseq function to derive a similarity metric:
         :math:`sim_{LCSseq}(s,t) = \\frac{|LCSseq(s,t)|}{max(|s|, |t|)}`
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
-        Returns:
-            float: LCSseq similarity
+        Returns
+        -------
+        float
+            LCSseq similarity
 
-        Examples:
-            >>> sseq = LCSseq()
-            >>> sseq.sim('cat', 'hat')
-            0.6666666666666666
-            >>> sseq.sim('Niall', 'Neil')
-            0.6
-            >>> sseq.sim('aluminum', 'Catalan')
-            0.375
-            >>> sseq.sim('ATCG', 'TAGC')
-            0.5
+        Examples
+        --------
+        >>> sseq = LCSseq()
+        >>> sseq.sim('cat', 'hat')
+        0.6666666666666666
+        >>> sseq.sim('Niall', 'Neil')
+        0.6
+        >>> sseq.sim('aluminum', 'Catalan')
+        0.375
+        >>> sseq.sim('ATCG', 'TAGC')
+        0.5
 
         """
         if src == tar:
@@ -137,22 +149,28 @@ def lcsseq(src, tar):
 
     This is a wrapper for :py:meth:`LCSseq.lcsseq`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        str: The longest common subsequence
+    Returns
+    -------
+    str
+        The longest common subsequence
 
-    Examples:
-        >>> lcsseq('cat', 'hat')
-        'at'
-        >>> lcsseq('Niall', 'Neil')
-        'Nil'
-        >>> lcsseq('aluminum', 'Catalan')
-        'aln'
-        >>> lcsseq('ATCG', 'TAGC')
-        'AC'
+    Examples
+    --------
+    >>> lcsseq('cat', 'hat')
+    'at'
+    >>> lcsseq('Niall', 'Neil')
+    'Nil'
+    >>> lcsseq('aluminum', 'Catalan')
+    'aln'
+    >>> lcsseq('ATCG', 'TAGC')
+    'AC'
 
     """
     return LCSseq().lcsseq(src, tar)
@@ -163,22 +181,28 @@ def sim_lcsseq(src, tar):
 
     This is a wrapper for :py:meth:`LCSseq.sim`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: LCSseq similarity
+    Returns
+    -------
+    float
+        LCSseq similarity
 
-    Examples:
-        >>> sim_lcsseq('cat', 'hat')
-        0.6666666666666666
-        >>> sim_lcsseq('Niall', 'Neil')
-        0.6
-        >>> sim_lcsseq('aluminum', 'Catalan')
-        0.375
-        >>> sim_lcsseq('ATCG', 'TAGC')
-        0.5
+    Examples
+    --------
+    >>> sim_lcsseq('cat', 'hat')
+    0.6666666666666666
+    >>> sim_lcsseq('Niall', 'Neil')
+    0.6
+    >>> sim_lcsseq('aluminum', 'Catalan')
+    0.375
+    >>> sim_lcsseq('ATCG', 'TAGC')
+    0.5
 
     """
     return LCSseq().sim(src, tar)
@@ -189,22 +213,28 @@ def dist_lcsseq(src, tar):
 
     This is a wrapper for :py:meth:`LCSseq.dist`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: LCSseq distance
+    Returns
+    -------
+    float
+        LCSseq distance
 
-    Examples:
-        >>> dist_lcsseq('cat', 'hat')
-        0.33333333333333337
-        >>> dist_lcsseq('Niall', 'Neil')
-        0.4
-        >>> dist_lcsseq('aluminum', 'Catalan')
-        0.625
-        >>> dist_lcsseq('ATCG', 'TAGC')
-        0.5
+    Examples
+    --------
+    >>> dist_lcsseq('cat', 'hat')
+    0.33333333333333337
+    >>> dist_lcsseq('Niall', 'Neil')
+    0.4
+    >>> dist_lcsseq('aluminum', 'Catalan')
+    0.625
+    >>> dist_lcsseq('ATCG', 'TAGC')
+    0.5
 
     """
     return LCSseq().dist(src, tar)
