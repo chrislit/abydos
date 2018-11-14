@@ -37,7 +37,7 @@ __all__ = ['prod']
 
 
 def prod(nums):
-    """Return the product of nums.
+    r"""Return the product of nums.
 
     The product is :math:`\prod nums`.
 

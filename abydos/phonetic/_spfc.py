@@ -115,7 +115,6 @@ class SPFC(Phonetic):
         '65490'
 
         """
-
         def _raise_word_ex():
             """Raise an AttributeError.
 

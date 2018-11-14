@@ -140,15 +140,14 @@ def euclidean(src, tar, qval=2, normalized=False, alphabet=None):
 
     Examples
     --------
-
-        >>> euclidean('cat', 'hat')
-        2.0
-        >>> round(euclidean('Niall', 'Neil'), 12)
-        2.645751311065
-        >>> euclidean('Colin', 'Cuilen')
-        3.0
-        >>> round(euclidean('ATCG', 'TAGC'), 12)
-        3.162277660168
+    >>> euclidean('cat', 'hat')
+    2.0
+    >>> round(euclidean('Niall', 'Neil'), 12)
+    2.645751311065
+    >>> euclidean('Colin', 'Cuilen')
+    3.0
+    >>> round(euclidean('ATCG', 'TAGC'), 12)
+    3.162277660168
 
     """
     return Euclidean().dist_abs(src, tar, qval, normalized, alphabet)

@@ -37,20 +37,20 @@ from abydos.fingerprint import (
     Occurrence,
     OccurrenceHalved,
     OmissionKey,
-    PhoneticFingerprint,
+    Phonetic,
     Position,
-    QGramFingerprint,
+    QGram,
     SkeletonKey,
-    StringFingerprint,
+    String,
     SynonameToolcode,
 )
 
 from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 
 
-string = StringFingerprint()
-qgram = QGramFingerprint()
-phonetic = PhoneticFingerprint()
+string = String()
+qgram = QGram()
+phonetic = Phonetic()
 skeleton = SkeletonKey()
 omission = OmissionKey()
 occurrence = Occurrence()

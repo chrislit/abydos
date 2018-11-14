@@ -80,7 +80,6 @@ class SpanishMetaphone(Phonetic):
         'NKLS'
 
         """
-
         def _is_vowel(pos):
             """Return True if the character at word[pos] is a vowel.
 

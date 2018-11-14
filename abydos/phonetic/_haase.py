@@ -81,7 +81,6 @@ class Haase(Phonetic):
         ('8692', '4692')
 
         """
-
         def _after(word, pos, letters):
             """Return True if word[pos] follows one of the supplied letters.
 

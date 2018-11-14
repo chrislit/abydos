@@ -60,12 +60,17 @@ if not EXTREME_TEST and os.path.isfile(
 def _corpus_file(name, corpora_dir=CORPORA):
     """Return the path to a corpus file.
 
-    Args:
-        name (str): Corpus file
-        corpora_dir (str): The directory containing the corpora
+    Parameters
+    ----------
+    name : str
+        Corpus file
+    corpora_dir : str
+        The directory containing the corpora
 
-    Returns:
-        str: The path to the corpus file
+    Returns
+    -------
+    str
+        The path to the corpus file
 
     """
     return _super_corpus_file(name, corpora_dir)
@@ -74,15 +79,21 @@ def _corpus_file(name, corpora_dir=CORPORA):
 def _random_char(below=0x10FFFF, must_be=None):
     """Generate a random Unicode character below U+{below}.
 
-    Args:
-        below (int): Maximum Unicode value
-        must_be (str): A required part of the character name
+    Parameters
+    ----------
+    below : int
+        Maximum Unicode value
+    must_be : str
+        A required part of the character name
 
-    Returns:
-        str: A character
+    Returns
+    -------
+    str
+        A character
 
-    Raises:
-        ValueError
+    Raises
+    ------
+    ValueError
 
     """
     while True:
@@ -98,12 +109,17 @@ def _random_char(below=0x10FFFF, must_be=None):
 def _fuzz(word, fuzziness=0.2):
     """Fuzz a word with noise.
 
-    Args:
-        word (str): A word to fuzz
-        fuzziness (float): How fuzzy to make the word
+    Parameters
+    ----------
+    word : str
+        A word to fuzz
+    fuzziness : float
+        How fuzzy to make the word
 
-    Returns:
-        str: A fuzzed word
+    Returns
+    -------
+    str
+        A fuzzed word
 
     """
     while True:

@@ -184,7 +184,6 @@ class SfinxBis(Phonetic):
         ('#162',)
 
         """
-
         def _foersvensker(lokal_ordet):
             """Return the Swedish-ized form of the word.
 

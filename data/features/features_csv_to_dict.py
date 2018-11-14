@@ -54,8 +54,10 @@ import unicodedata
 def main(argv):
     """Read input file and write to output.
 
-    Args:
-        argv (list): Arguments to the script
+    Parameters
+    ----------
+    argv : list
+        Arguments to the script
     """
     first_col = 3
     last_col = -1
@@ -70,11 +72,15 @@ def main(argv):
     def binarize(num):
         """Replace 0, -1, 1, 2 with 00, 10, 01, 11.
 
-        Args:
-            num (str): The number to binarize
+        Parameters
+        ----------
+        num : str
+            The number to binarize
 
-        Returns:
-            str: A binarized number
+        Returns
+        -------
+        str
+            A binarized number
 
         """
         if num == '0':  # 0
@@ -89,8 +95,10 @@ def main(argv):
     def init_termdicts():
         """Initialize the terms dict.
 
-        Returns:
-            (dict, dict): Term & feature mask dictionaries
+        Returns
+        -------
+        (dict, dict)
+            Term & feature mask dictionaries
 
         """
         ifile = codecs.open('features_terms.csv', 'r', 'utf-8')
@@ -123,11 +131,16 @@ def main(argv):
         Check each term of the phone name to confirm that it matches
         the expected features implied by that feature.
 
-        Args:
-            sym (str): Symbol to check
-            features (int): Phone features
-            name (str): Phone name
-            termdict (dict): Dictionary of terms
+        Parameters
+        ----------
+        sym : str
+            Symbol to check
+        features : int
+            Phone features
+        name : str
+            Phone name
+        termdict : dict
+            Dictionary of terms
 
         """
         if '#' in name:
@@ -159,10 +172,14 @@ def main(argv):
         Check for necessary feature assignments (entailments)
         For example, [+round] necessitates [+labial].
 
-        Args:
-            sym (str): Symbol to check
-            features (int): Phone features
-            feature_mask (dict): The feature mask
+        Parameters
+        ----------
+        sym : str
+            Symbol to check
+        features : int
+            Phone features
+        feature_mask : dict
+            The feature mask
 
         """
         entailments = {

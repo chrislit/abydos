@@ -661,7 +661,6 @@ class UEALite(_Stemmer):
         'erode'
 
         """
-
         def _stem_with_duplicate_character_check(word, del_len):
             if word[-1] == 's':
                 del_len += 1

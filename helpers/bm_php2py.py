@@ -91,11 +91,13 @@ def c2u(name):
     Src:
     https://stackoverflow.com/questions/1175208/elegant-python-function-to-convert-camelcase-to-snake-case
 
-    Args:
-        name: A function or variable name in camelCase
+    Parameters
+    ----------
+    name: A function or variable name in camelCase
 
-    Returns:
-        str: The name in snake_case
+    Returns
+    -------
+    str: The name in snake_case
 
     """
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
@@ -106,13 +108,18 @@ def c2u(name):
 def pythonize(line, fn='', subdir='gen'):
     """Convert a line of BMPM code from PHP to Python.
 
-    Args:
-        line (str): A line of code
-        fn (str): A filename
-        subdir (str): The file's subdirectory
+    Parameters
+    ----------
+    line : str
+        A line of code
+        fn : str
+        A filename
+        subdir : str
+        The file's subdirectory
 
-    Returns:
-        The code in Python
+    Returns
+    -------
+    The code in Python
 
     """
     global nl, array_seen

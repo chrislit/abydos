@@ -91,12 +91,16 @@ NONQ_TO = 'That brown dog jumped over the fox.'
 def _corpus_file(name, corpora_dir=CORPORA):
     """Return the path to a corpus file.
 
-    Args:
-        name (str): Corpus file
-        corpora_dir (str): The directory containing the corpora
+    Parameters
+    ----------
+    name : str
+        Corpus file
+        corpora_dir : str
+        The directory containing the corpora
 
-    Returns:
-        str: The full path to the corpus file
+    Returns
+    -------
+    str: The full path to the corpus file
 
     """
     return os.path.join(corpora_dir, name)
@@ -113,11 +117,14 @@ def _one_in(inverse_probability):
         random.random() * inverse_probability < 1)
     Otherwise return False
 
-    Args:
-        inverse_probability (int): The inverse of the probability
+    Parameters
+    ----------
+    inverse_probability : int
+        The inverse of the probability
 
-    Returns:
-        bool: Whether to run a test
+    Returns
+    -------
+    bool: Whether to run a test
 
     """
     if EXTREME_TEST:

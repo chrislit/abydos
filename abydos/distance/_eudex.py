@@ -52,7 +52,7 @@ class Eudex(_Distance):
         Starts at Fibonacci number 3 (the second 1)
 
         Yields
-        -----
+        ------
         int
             The next Fibonacci number
 
@@ -74,7 +74,7 @@ class Eudex(_Distance):
             The base to exponentiate
 
         Yields
-        -----
+        ------
         int
             The next power of `base`
 
@@ -160,7 +160,6 @@ class Eudex(_Distance):
         6243
 
         """
-
         # Calculate the eudex hashes and XOR them
         xored = eudex(src, max_length=max_length) ^ eudex(
             tar, max_length=max_length
