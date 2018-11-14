@@ -154,40 +154,49 @@ class SfinxBis(Phonetic):
     def encode(self, word, max_length=-1):
         """Return the SfinxBis code for a word.
 
-        Args:
-            word (str): The word to transform
-            max_length (int): The length of the code returned (defaults to
-                unlimited)
+        Parameters
+        ----------
+        word : str
+            The word to transform
+        max_length : int
+            The length of the code returned (defaults to unlimited)
 
-        Returns:
-            tuple: The SfinxBis value
+        Returns
+        -------
+        tuple
+            The SfinxBis value
 
-        Examples:
-            >>> pe = SfinxBis()
-            >>> pe.encode('Christopher')
-            ('K68376',)
-            >>> pe.encode('Niall')
-            ('N4',)
-            >>> pe.encode('Smith')
-            ('S53',)
-            >>> pe.encode('Schmidt')
-            ('S53',)
+        Examples
+        --------
+        >>> pe = SfinxBis()
+        >>> pe.encode('Christopher')
+        ('K68376',)
+        >>> pe.encode('Niall')
+        ('N4',)
+        >>> pe.encode('Smith')
+        ('S53',)
+        >>> pe.encode('Schmidt')
+        ('S53',)
 
-            >>> pe.encode('Johansson')
-            ('J585',)
-            >>> pe.encode('Sjöberg')
-            ('#162',)
+        >>> pe.encode('Johansson')
+        ('J585',)
+        >>> pe.encode('Sjöberg')
+        ('#162',)
 
         """
 
         def _foersvensker(lokal_ordet):
             """Return the Swedish-ized form of the word.
 
-            Args:
-                lokal_ordet (str): Word to transform
+            Parameters
+            ----------
+            lokal_ordet : str
+                Word to transform
 
-            Returns:
-                str: Transformed word
+            Returns
+            -------
+            str
+                Transformed word
 
             """
             lokal_ordet = lokal_ordet.replace('STIERN', 'STJÄRN')
@@ -222,11 +231,15 @@ class SfinxBis(Phonetic):
         def _koda_foersta_ljudet(lokal_ordet):
             """Return the word with the first sound coded.
 
-            Args:
-                lokal_ordet (str): Word to transform
+            Parameters
+            ----------
+            lokal_ordet : str
+                Word to transform
 
-            Returns:
-                str: Transformed word
+            Returns
+            -------
+            str
+                Transformed word
 
             """
             if (
@@ -349,28 +362,33 @@ def sfinxbis(word, max_length=-1):
 
     This is a wrapper for :py:meth:`SfinxBis.encode`.
 
-    Args:
-        word (str): The word to transform
-        max_length (int): The length of the code returned (defaults to
-            unlimited)
+    Parameters
+    ----------
+    word : str
+        The word to transform
+    max_length : int
+        The length of the code returned (defaults to unlimited)
 
-    Returns:
-        tuple: The SfinxBis value
+    Returns
+    -------
+    tuple
+        The SfinxBis value
 
-    Examples:
-        >>> sfinxbis('Christopher')
-        ('K68376',)
-        >>> sfinxbis('Niall')
-        ('N4',)
-        >>> sfinxbis('Smith')
-        ('S53',)
-        >>> sfinxbis('Schmidt')
-        ('S53',)
+    Examples
+    --------
+    >>> sfinxbis('Christopher')
+    ('K68376',)
+    >>> sfinxbis('Niall')
+    ('N4',)
+    >>> sfinxbis('Smith')
+    ('S53',)
+    >>> sfinxbis('Schmidt')
+    ('S53',)
 
-        >>> sfinxbis('Johansson')
-        ('J585',)
-        >>> sfinxbis('Sjöberg')
-        ('#162',)
+    >>> sfinxbis('Johansson')
+    ('J585',)
+    >>> sfinxbis('Sjöberg')
+    ('#162',)
 
     """
     return SfinxBis().encode(word, max_length)

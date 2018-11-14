@@ -82,22 +82,27 @@ class Phonem(Phonetic):
     def encode(self, word):
         """Return the Phonem code for a word.
 
-        Args:
-            word (str): The word to transform
+        Parameters
+        ----------
+        word : str
+        The word to transform
 
-        Returns:
-            str: The Phonem value
+        Returns
+        -------
+        str
+            The Phonem value
 
-        Examples:
-            >>> pe = Phonem()
-            >>> pe.encode('Christopher')
-            'CRYSDOVR'
-            >>> pe.encode('Niall')
-            'NYAL'
-            >>> pe.encode('Smith')
-            'SMYD'
-            >>> pe.encode('Schmidt')
-            'CMYD'
+        Examples
+        --------
+        >>> pe = Phonem()
+        >>> pe.encode('Christopher')
+        'CRYSDOVR'
+        >>> pe.encode('Niall')
+        'NYAL'
+        >>> pe.encode('Smith')
+        'SMYD'
+        >>> pe.encode('Schmidt')
+        'CMYD'
 
         """
         word = unicode_normalize('NFC', text_type(word.upper()))
@@ -117,21 +122,26 @@ def phonem(word):
 
     This is a wrapper for :py:meth:`Phonem.encode`.
 
-    Args:
-        word (str): The word to transform
+    Parameters
+    ----------
+    word : str
+        The word to transform
 
-    Returns:
-        str: The Phonem value
+    Returns
+    -------
+    str
+        The Phonem value
 
-    Examples:
-        >>> phonem('Christopher')
-        'CRYSDOVR'
-        >>> phonem('Niall')
-        'NYAL'
-        >>> phonem('Smith')
-        'SMYD'
-        >>> phonem('Schmidt')
-        'CMYD'
+    Examples
+    --------
+    >>> phonem('Christopher')
+    'CRYSDOVR'
+    >>> phonem('Niall')
+    'NYAL'
+    >>> phonem('Smith')
+    'SMYD'
+    >>> phonem('Schmidt')
+    'CMYD'
 
     """
     return Phonem().encode(word)

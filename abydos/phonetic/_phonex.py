@@ -47,25 +47,32 @@ class Phonex(Phonetic):
     def encode(self, word, max_length=4, zero_pad=True):
         """Return the Phonex code for a word.
 
-        Args:
-            word (str): The word to transform
-            max_length (int): The length of the code returned (defaults to 4)
-            zero_pad (bool): pad the end of the return value with 0s to achieve
-                a max_length string
+        Parameters
+        ----------
+        word : str
+            The word to transform
+        max_length : int
+            The length of the code returned (defaults to 4)
+        zero_pad : bool
+            Pad the end of the return value with 0s to achieve a max_length
+            string
 
-        Returns:
-            str: The Phonex value
+        Returns
+        -------
+        str
+            The Phonex value
 
-        Examples:
-            >>> pe = Phonex()
-            >>> pe.encode('Christopher')
-            'C623'
-            >>> pe.encode('Niall')
-            'N400'
-            >>> pe.encode('Schmidt')
-            'S253'
-            >>> pe.encode('Smith')
-            'S530'
+        Examples
+        --------
+        >>> pe = Phonex()
+        >>> pe.encode('Christopher')
+        'C623'
+        >>> pe.encode('Niall')
+        'N400'
+        >>> pe.encode('Schmidt')
+        'S253'
+        >>> pe.encode('Smith')
+        'S530'
 
         """
         name = unicode_normalize('NFKD', text_type(word.upper()))
@@ -162,24 +169,30 @@ def phonex(word, max_length=4, zero_pad=True):
 
     This is a wrapper for :py:meth:`Phonex.encode`.
 
-    Args:
-        word (str): The word to transform
-        max_length (int): The length of the code returned (defaults to 4)
-        zero_pad (bool): pad the end of the return value with 0s to achieve
-            a max_length string
+    Parameters
+    ----------
+    word : str
+        The word to transform
+    max_length : int
+        The length of the code returned (defaults to 4)
+    zero_pad : bool
+        Pad the end of the return value with 0s to achieve a max_length string
 
-    Returns:
-        str: The Phonex value
+    Returns
+    -------
+    str
+        The Phonex value
 
-    Examples:
-        >>> phonex('Christopher')
-        'C623'
-        >>> phonex('Niall')
-        'N400'
-        >>> phonex('Schmidt')
-        'S253'
-        >>> phonex('Smith')
-        'S530'
+    Examples
+    --------
+    >>> phonex('Christopher')
+    'C623'
+    >>> phonex('Niall')
+    'N400'
+    >>> phonex('Schmidt')
+    'S253'
+    >>> phonex('Smith')
+    'S530'
 
     """
     return Phonex().encode(word, max_length, zero_pad)

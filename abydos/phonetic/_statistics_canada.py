@@ -53,24 +53,29 @@ class StatisticsCanada(Phonetic):
     def encode(self, word, max_length=4):
         """Return the Statistics Canada code for a word.
 
-        Args:
-            word (str): The word to transform
-            max_length (int): The maximum length (default 4) of the code to
-                return
+        Parameters
+        ----------
+        word : str
+            The word to transform
+        max_length : int
+            The maximum length (default 4) of the code to return
 
-        Returns:
-            str: The Statistics Canada name code value
+        Returns
+        -------
+        str
+            The Statistics Canada name code value
 
-        Examples:
-            >>> pe = StatisticsCanada()
-            >>> pe.encode('Christopher')
-            'CHRS'
-            >>> pe.encode('Niall')
-            'NL'
-            >>> pe.encode('Smith')
-            'SMTH'
-            >>> pe.encode('Schmidt')
-            'SCHM'
+        Examples
+        --------
+        >>> pe = StatisticsCanada()
+        >>> pe.encode('Christopher')
+        'CHRS'
+        >>> pe.encode('Niall')
+        'NL'
+        >>> pe.encode('Smith')
+        'SMTH'
+        >>> pe.encode('Schmidt')
+        'SCHM'
 
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
@@ -95,23 +100,28 @@ def statistics_canada(word, max_length=4):
 
     This is a wrapper for :py:meth:`StatisticsCanada.encode`.
 
-    Args:
-        word (str): The word to transform
-        max_length (int): The maximum length (default 4) of the code to
-            return
+    Parameters
+    ----------
+    word : str
+        The word to transform
+    max_length : int
+        The maximum length (default 4) of the code to return
 
-    Returns:
-        str: The Statistics Canada name code value
+    Returns
+    -------
+    str
+        The Statistics Canada name code value
 
-    Examples:
-        >>> statistics_canada('Christopher')
-        'CHRS'
-        >>> statistics_canada('Niall')
-        'NL'
-        >>> statistics_canada('Smith')
-        'SMTH'
-        >>> statistics_canada('Schmidt')
-        'SCHM'
+    Examples
+    --------
+    >>> statistics_canada('Christopher')
+    'CHRS'
+    >>> statistics_canada('Niall')
+    'NL'
+    >>> statistics_canada('Smith')
+    'SMTH'
+    >>> statistics_canada('Schmidt')
+    'SCHM'
 
     """
     return StatisticsCanada().encode(word, max_length)

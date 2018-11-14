@@ -1075,42 +1075,49 @@ class Phonet(Phonetic):
     def encode(self, word, mode=1, lang='de'):
         """Return the phonet code for a word.
 
-        Args:
-            word (str): The word to transform
-            mode (int): The ponet variant to employ (1 or 2)
-            lang (str): 'de' (default) for German, 'none' for no language
+        Parameters
+        ----------
+        word : str
+            The word to transform
+        mode : int
+            The ponet variant to employ (1 or 2)
+        lang : str
+            ``de`` (default) for German, ``none`` for no language
 
-        Returns:
-            str: The phonet value
+        Returns
+        -------
+        str
+            The phonet value
 
-        Examples:
-            >>> pe = Phonet()
-            >>> pe.encode('Christopher')
-            'KRISTOFA'
-            >>> pe.encode('Niall')
-            'NIAL'
-            >>> pe.encode('Smith')
-            'SMIT'
-            >>> pe.encode('Schmidt')
-            'SHMIT'
+        Examples
+        --------
+        >>> pe = Phonet()
+        >>> pe.encode('Christopher')
+        'KRISTOFA'
+        >>> pe.encode('Niall')
+        'NIAL'
+        >>> pe.encode('Smith')
+        'SMIT'
+        >>> pe.encode('Schmidt')
+        'SHMIT'
 
-            >>> pe.encode('Christopher', mode=2)
-            'KRIZTUFA'
-            >>> pe.encode('Niall', mode=2)
-            'NIAL'
-            >>> pe.encode('Smith', mode=2)
-            'ZNIT'
-            >>> pe.encode('Schmidt', mode=2)
-            'ZNIT'
+        >>> pe.encode('Christopher', mode=2)
+        'KRIZTUFA'
+        >>> pe.encode('Niall', mode=2)
+        'NIAL'
+        >>> pe.encode('Smith', mode=2)
+        'ZNIT'
+        >>> pe.encode('Schmidt', mode=2)
+        'ZNIT'
 
-            >>> pe.encode('Christopher', lang='none')
-            'CHRISTOPHER'
-            >>> pe.encode('Niall', lang='none')
-            'NIAL'
-            >>> pe.encode('Smith', lang='none')
-            'SMITH'
-            >>> pe.encode('Schmidt', lang='none')
-            'SCHMIDT'
+        >>> pe.encode('Christopher', lang='none')
+        'CHRISTOPHER'
+        >>> pe.encode('Niall', lang='none')
+        'NIAL'
+        >>> pe.encode('Smith', lang='none')
+        'SMITH'
+        >>> pe.encode('Schmidt', lang='none')
+        'SCHMIDT'
 
         """
         phonet_hash = Counter()
@@ -1122,8 +1129,10 @@ class Phonet(Phonetic):
         def _initialize_phonet(lang):
             """Initialize phonet variables.
 
-            Args:
-                lang (str): Language to use for rules
+            Parameters
+            ----------
+            lang : str
+                Language to use for rules
 
             """
             if lang == 'none':
@@ -1236,13 +1245,19 @@ class Phonet(Phonetic):
         def _phonet(term, mode, lang):
             """Return the phonet coded form of a term.
 
-            Args:
-                term (str): Term to transform
-                mode (int): The ponet variant to employ (1 or 2)
-                lang (str): 'de' (default) for German, 'none' for no language
+            Parameters
+            ----------
+            term : str
+                Term to transform
+            mode : int
+                The ponet variant to employ (1 or 2)
+            lang : str
+                ``de`` (default) for German, ``none`` for no language
 
-            Returns:
-                str: The phonet value
+            Returns
+            -------
+            str
+                The phonet value
 
             """
             if lang == 'none':
@@ -1712,41 +1727,48 @@ def phonet(word, mode=1, lang='de'):
 
     This is a wrapper for :py:meth:`Phonet.encode`.
 
-    Args:
-        word (str): The word to transform
-        mode (int): The ponet variant to employ (1 or 2)
-        lang (str): 'de' (default) for German, 'none' for no language
+    Parameters
+    ----------
+    word : str
+        The word to transform
+    mode : int
+        The ponet variant to employ (1 or 2)
+    lang : str
+        ``de`` (default) for German, ``none`` for no language
 
-    Returns:
-        str: The phonet value
+    Returns
+    -------
+    str
+        The phonet value
 
-    Examples:
-        >>> phonet('Christopher')
-        'KRISTOFA'
-        >>> phonet('Niall')
-        'NIAL'
-        >>> phonet('Smith')
-        'SMIT'
-        >>> phonet('Schmidt')
-        'SHMIT'
+    Examples
+    --------
+    >>> phonet('Christopher')
+    'KRISTOFA'
+    >>> phonet('Niall')
+    'NIAL'
+    >>> phonet('Smith')
+    'SMIT'
+    >>> phonet('Schmidt')
+    'SHMIT'
 
-        >>> phonet('Christopher', mode=2)
-        'KRIZTUFA'
-        >>> phonet('Niall', mode=2)
-        'NIAL'
-        >>> phonet('Smith', mode=2)
-        'ZNIT'
-        >>> phonet('Schmidt', mode=2)
-        'ZNIT'
+    >>> phonet('Christopher', mode=2)
+    'KRIZTUFA'
+    >>> phonet('Niall', mode=2)
+    'NIAL'
+    >>> phonet('Smith', mode=2)
+    'ZNIT'
+    >>> phonet('Schmidt', mode=2)
+    'ZNIT'
 
-        >>> phonet('Christopher', lang='none')
-        'CHRISTOPHER'
-        >>> phonet('Niall', lang='none')
-        'NIAL'
-        >>> phonet('Smith', lang='none')
-        'SMITH'
-        >>> phonet('Schmidt', lang='none')
-        'SCHMIDT'
+    >>> phonet('Christopher', lang='none')
+    'CHRISTOPHER'
+    >>> phonet('Niall', lang='none')
+    'NIAL'
+    >>> phonet('Smith', lang='none')
+    'SMITH'
+    >>> phonet('Schmidt', lang='none')
+    'SCHMIDT'
 
     """
     return Phonet().encode(word, mode, lang)

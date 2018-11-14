@@ -59,24 +59,30 @@ class HenryEarly(Phonetic):
     def encode(self, word, max_length=3):
         """Calculate the early version of the Henry code for a word.
 
-        Args:
-            word (str): The word to transform
-            max_length (int): The length of the code returned (defaults to 3)
+        Parameters
+        ----------
+        word : str
+            The word to transform
+        max_length : int
+            The length of the code returned (defaults to 3)
 
-        Returns:
-            str: The early Henry code
+        Returns
+        -------
+        str
+            The early Henry code
 
-        Examples:
-            >>> henry_early('Marchand')
-            'MRC'
-            >>> henry_early('Beaulieu')
-            'BL'
-            >>> henry_early('Beaumont')
-            'BM'
-            >>> henry_early('Legrand')
-            'LGR'
-            >>> henry_early('Pelletier')
-            'PLT'
+        Examples
+        --------
+        >>> henry_early('Marchand')
+        'MRC'
+        >>> henry_early('Beaulieu')
+        'BL'
+        >>> henry_early('Beaumont')
+        'BM'
+        >>> henry_early('Legrand')
+        'LGR'
+        >>> henry_early('Pelletier')
+        'PLT'
 
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -238,24 +244,30 @@ def henry_early(word, max_length=3):
 
     This is a wrapper for :py:meth:`HenryEarly.encode`.
 
-    Args:
-        word (str): The word to transform
-        max_length (int): The length of the code returned (defaults to 3)
+    Parameters
+    ----------
+    word : str
+        The word to transform
+    max_length : int
+        The length of the code returned (defaults to 3)
 
-    Returns:
-        str: The early Henry code
+    Returns
+    -------
+    str
+        The early Henry code
 
-    Examples:
-        >>> henry_early('Marchand')
-        'MRC'
-        >>> henry_early('Beaulieu')
-        'BL'
-        >>> henry_early('Beaumont')
-        'BM'
-        >>> henry_early('Legrand')
-        'LGR'
-        >>> henry_early('Pelletier')
-        'PLT'
+    Examples
+    --------
+    >>> henry_early('Marchand')
+    'MRC'
+    >>> henry_early('Beaulieu')
+    'BL'
+    >>> henry_early('Beaumont')
+    'BM'
+    >>> henry_early('Legrand')
+    'LGR'
+    >>> henry_early('Pelletier')
+    'PLT'
 
     """
     return HenryEarly().encode(word, max_length)

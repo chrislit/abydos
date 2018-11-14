@@ -60,39 +60,50 @@ class Koelner(Phonetic):
         While the output code is numeric, it is still a str because 0s can lead
         the code.
 
-        Args:
-            word (str): The word to transform
+        Parameters
+        ----------
+        word : str
+            The word to transform
 
-        Returns:
-            str: The Kölner Phonetik value as a numeric string
+        Returns
+        -------
+        str
+            The Kölner Phonetik value as a numeric string
 
-        Example:
-            >>> pe = Koelner()
-            >>> pe.encode('Christopher')
-            '478237'
-            >>> pe.encode('Niall')
-            '65'
-            >>> pe.encode('Smith')
-            '862'
-            >>> pe.encode('Schmidt')
-            '862'
-            >>> pe.encode('Müller')
-            '657'
-            >>> pe.encode('Zimmermann')
-            '86766'
+        Example
+        -------
+        >>> pe = Koelner()
+        >>> pe.encode('Christopher')
+        '478237'
+        >>> pe.encode('Niall')
+        '65'
+        >>> pe.encode('Smith')
+        '862'
+        >>> pe.encode('Schmidt')
+        '862'
+        >>> pe.encode('Müller')
+        '657'
+        >>> pe.encode('Zimmermann')
+        '86766'
 
         """
 
         def _after(word, pos, letters):
             """Return True if word[pos] follows one of the supplied letters.
 
-            Args:
-                word (str): The word to check
-                pos (int): Position within word to check
-                letters (str): Letters to confirm precede word[pos]
+            Parameters
+            ----------
+            word : str
+                The word to check
+            pos : int
+                Position within word to check
+            letters : str
+                Letters to confirm precede word[pos]
 
-            Returns:
-                bool: True if word[pos] follows a value in letters
+            Returns
+            -------
+            bool
+                True if word[pos] follows a value in letters
 
             """
             return pos > 0 and word[pos - 1] in letters
@@ -100,13 +111,19 @@ class Koelner(Phonetic):
         def _before(word, pos, letters):
             """Return True if word[pos] precedes one of the supplied letters.
 
-            Args:
-                word (str): The word to check
-                pos (int): Position within word to check
-                letters (str): Letters to confirm follow word[pos]
+            Parameters
+            ----------
+            word : str
+                The word to check
+            pos : int
+                Position within word to check
+            letters : str
+                Letters to confirm follow word[pos]
 
-            Returns:
-                bool: True if word[pos] precedes a value in letters
+            Returns
+            -------
+            bool
+                True if word[pos] precedes a value in letters
 
             """
             return pos + 1 < len(word) and word[pos + 1] in letters
@@ -182,20 +199,25 @@ class Koelner(Phonetic):
     def _to_alpha(self, num):
         """Convert a Kölner Phonetik code from numeric to alphabetic.
 
-        Args:
-            num (str or int): A numeric Kölner Phonetik representation
+        Parameters
+        ----------
+        num : str or int
+            A numeric Kölner Phonetik representation
 
-        Returns:
-            str: An alphabetic representation of the same word
+        Returns
+        -------
+        str
+            An alphabetic representation of the same word
 
-        Examples:
-            >>> pe = Koelner()
-            >>> pe._to_alpha('862')
-            'SNT'
-            >>> pe._to_alpha('657')
-            'NLR'
-            >>> pe._to_alpha('86766')
-            'SNRNN'
+        Examples
+        --------
+        >>> pe = Koelner()
+        >>> pe._to_alpha('862')
+        'SNT'
+        >>> pe._to_alpha('657')
+        'NLR'
+        >>> pe._to_alpha('86766')
+        'SNRNN'
 
         """
         num = ''.join(c for c in text_type(num) if c in self._num_set)
@@ -204,22 +226,27 @@ class Koelner(Phonetic):
     def encode_alpha(self, word):
         """Return the Kölner Phonetik (alphabetic output) code for a word.
 
-        Args:
-            word (str): The word to transform
+        Parameters
+        ----------
+        word : str
+            The word to transform
 
-        Returns:
-            str: The Kölner Phonetik value as an alphabetic string
+        Returns
+        -------
+        str
+            The Kölner Phonetik value as an alphabetic string
 
-        Examples:
-            >>> pe = Koelner()
-            >>> pe.encode_alpha('Smith')
-            'SNT'
-            >>> pe.encode_alpha('Schmidt')
-            'SNT'
-            >>> pe.encode_alpha('Müller')
-            'NLR'
-            >>> pe.encode_alpha('Zimmermann')
-            'SNRNN'
+        Examples
+        --------
+        >>> pe = Koelner()
+        >>> pe.encode_alpha('Smith')
+        'SNT'
+        >>> pe.encode_alpha('Schmidt')
+        'SNT'
+        >>> pe.encode_alpha('Müller')
+        'NLR'
+        >>> pe.encode_alpha('Zimmermann')
+        'SNRNN'
 
         """
         return koelner_phonetik_num_to_alpha(koelner_phonetik(word))
@@ -230,25 +257,30 @@ def koelner_phonetik(word):
 
     This is a wrapper for :py:meth:`Koelner.encode`.
 
-    Args:
-        word (str): The word to transform
+    Parameters
+    ----------
+    word : str
+        The word to transform
 
-    Returns:
-        str: The Kölner Phonetik value as a numeric string
+    Returns
+    -------
+    str
+        The Kölner Phonetik value as a numeric string
 
-    Example:
-        >>> koelner_phonetik('Christopher')
-        '478237'
-        >>> koelner_phonetik('Niall')
-        '65'
-        >>> koelner_phonetik('Smith')
-        '862'
-        >>> koelner_phonetik('Schmidt')
-        '862'
-        >>> koelner_phonetik('Müller')
-        '657'
-        >>> koelner_phonetik('Zimmermann')
-        '86766'
+    Example
+    -------
+    >>> koelner_phonetik('Christopher')
+    '478237'
+    >>> koelner_phonetik('Niall')
+    '65'
+    >>> koelner_phonetik('Smith')
+    '862'
+    >>> koelner_phonetik('Schmidt')
+    '862'
+    >>> koelner_phonetik('Müller')
+    '657'
+    >>> koelner_phonetik('Zimmermann')
+    '86766'
 
     """
     return Koelner().encode(word)
@@ -259,19 +291,24 @@ def koelner_phonetik_num_to_alpha(num):
 
     This is a wrapper for :py:meth:`Koelner._to_alpha`.
 
-    Args:
-        num (str or int): A numeric Kölner Phonetik representation
+    Parameters
+    ----------
+    num : str or int
+        A numeric Kölner Phonetik representation
 
-    Returns:
-        str: An alphabetic representation of the same word
+    Returns
+    -------
+    str
+        An alphabetic representation of the same word
 
-    Examples:
-        >>> koelner_phonetik_num_to_alpha('862')
-        'SNT'
-        >>> koelner_phonetik_num_to_alpha('657')
-        'NLR'
-        >>> koelner_phonetik_num_to_alpha('86766')
-        'SNRNN'
+    Examples
+    --------
+    >>> koelner_phonetik_num_to_alpha('862')
+    'SNT'
+    >>> koelner_phonetik_num_to_alpha('657')
+    'NLR'
+    >>> koelner_phonetik_num_to_alpha('86766')
+    'SNRNN'
 
     """
     return Koelner()._to_alpha(num)
@@ -282,21 +319,26 @@ def koelner_phonetik_alpha(word):
 
     This is a wrapper for :py:meth:`Koelner.encode_alpha`.
 
-    Args:
-        word (str): The word to transform
+    Parameters
+    ----------
+    word : str
+        The word to transform
 
-    Returns:
-        str: The Kölner Phonetik value as an alphabetic string
+    Returns
+    -------
+    str
+        The Kölner Phonetik value as an alphabetic string
 
-    Examples:
-        >>> koelner_phonetik_alpha('Smith')
-        'SNT'
-        >>> koelner_phonetik_alpha('Schmidt')
-        'SNT'
-        >>> koelner_phonetik_alpha('Müller')
-        'NLR'
-        >>> koelner_phonetik_alpha('Zimmermann')
-        'SNRNN'
+    Examples
+    --------
+    >>> koelner_phonetik_alpha('Smith')
+    'SNT'
+    >>> koelner_phonetik_alpha('Schmidt')
+    'SNT'
+    >>> koelner_phonetik_alpha('Müller')
+    'NLR'
+    >>> koelner_phonetik_alpha('Zimmermann')
+    'SNRNN'
 
     """
     return Koelner().encode_alpha(word)

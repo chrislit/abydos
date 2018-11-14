@@ -75,47 +75,56 @@ class SPFC(Phonetic):
     def encode(self, word):
         """Return the Standardized Phonetic Frequency Code (SPFC) of a word.
 
-        Args:
-            word (str): The word to transform
+        Parameters
+        ----------
+        word : str
+            The word to transform
 
-        Returns:
-            str: The SPFC value
+        Returns
+        -------
+        str
+            The SPFC value
 
-        Raises:
-            AttributeError: Word attribute must be a string with a space or
-                period dividing the first and last names or a tuple/list
-                consisting of the first and last names
+        Raises
+        ------
+        AttributeError
+            Word attribute must be a string with a space or period dividing the
+            first and last names or a tuple/list consisting of the first and
+            last names
 
-        Examples:
-            >>> pe = SPFC()
-            >>> pe.encode('Christopher Smith')
-            '01160'
-            >>> pe.encode('Christopher Schmidt')
-            '01160'
-            >>> pe.encode('Niall Smith')
-            '01660'
-            >>> pe.encode('Niall Schmidt')
-            '01660'
+        Examples
+        --------
+        >>> pe = SPFC()
+        >>> pe.encode('Christopher Smith')
+        '01160'
+        >>> pe.encode('Christopher Schmidt')
+        '01160'
+        >>> pe.encode('Niall Smith')
+        '01660'
+        >>> pe.encode('Niall Schmidt')
+        '01660'
 
-            >>> pe.encode('L.Smith')
-            '01960'
-            >>> pe.encode('R.Miller')
-            '65490'
+        >>> pe.encode('L.Smith')
+        '01960'
+        >>> pe.encode('R.Miller')
+        '65490'
 
-            >>> pe.encode(('L', 'Smith'))
-            '01960'
-            >>> pe.encode(('R', 'Miller'))
-            '65490'
+        >>> pe.encode(('L', 'Smith'))
+        '01960'
+        >>> pe.encode(('R', 'Miller'))
+        '65490'
 
         """
 
         def _raise_word_ex():
             """Raise an AttributeError.
 
-            Raises:
-                AttributeError: Word attribute must be a string with a space or
-                    period dividing the first and last names or a tuple/list
-                    consisting of the first and last names
+            Raises
+            ------
+            AttributeError
+                Word attribute must be a string with a space or period dividing
+                the first and last names or a tuple/list consisting of the
+                first and last names
 
             """
             raise AttributeError(
@@ -152,11 +161,15 @@ class SPFC(Phonetic):
         def _steps_one_to_three(name):
             """Perform the first three steps of SPFC.
 
-            Args:
-                name (str): Name to transform
+            Parameters
+            ----------
+            name : str
+                Name to transform
 
-            Returns:
-                str: Transformed name
+            Returns
+            -------
+            str
+                Transformed name
 
             """
             # filter out non A-Z
@@ -241,31 +254,36 @@ def spfc(word):
 
     This is a wrapper for :py:meth:`SPFC.encode`.
 
-    Args:
-        word (str): The word to transform
+    Parameters
+    ----------
+    word : str
+        The word to transform
 
-    Returns:
-        str: The SPFC value
+    Returns
+    -------
+    str
+        The SPFC value
 
-    Examples:
-        >>> spfc('Christopher Smith')
-        '01160'
-        >>> spfc('Christopher Schmidt')
-        '01160'
-        >>> spfc('Niall Smith')
-        '01660'
-        >>> spfc('Niall Schmidt')
-        '01660'
+    Examples
+    --------
+    >>> spfc('Christopher Smith')
+    '01160'
+    >>> spfc('Christopher Schmidt')
+    '01160'
+    >>> spfc('Niall Smith')
+    '01660'
+    >>> spfc('Niall Schmidt')
+    '01660'
 
-        >>> spfc('L.Smith')
-        '01960'
-        >>> spfc('R.Miller')
-        '65490'
+    >>> spfc('L.Smith')
+    '01960'
+    >>> spfc('R.Miller')
+    '65490'
 
-        >>> spfc(('L', 'Smith'))
-        '01960'
-        >>> spfc(('R', 'Miller'))
-        '65490'
+    >>> spfc(('L', 'Smith'))
+    '01960'
+    >>> spfc(('R', 'Miller'))
+    '65490'
 
     """
     return SPFC().encode(word)
