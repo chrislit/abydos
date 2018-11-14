@@ -18,7 +18,7 @@
 
 """abydos.tests.fingerprint.test_fingerprint_string_fingerprint.
 
-This module contains unit tests for abydos.fingerprint.StringFingerprint
+This module contains unit tests for abydos.fingerprint.String
 """
 
 from __future__ import (
@@ -30,18 +30,18 @@ from __future__ import (
 
 import unittest
 
-from abydos.fingerprint import StringFingerprint, str_fingerprint
+from abydos.fingerprint import String, str_fingerprint
 
 from six.moves import range
 
 
-class StringFingerprintTestCases(unittest.TestCase):
+class StringTestCases(unittest.TestCase):
     """Test string fingerprint functions.
 
-    abydos.fingerprint.StringFingerprint
+    abydos.fingerprint.String
     """
 
-    fp = StringFingerprint()
+    fp = String()
 
     _testset = (
         'À noite, vovô Kowalsky vê o ímã cair no pé do pingüim \
@@ -53,7 +53,7 @@ o pe pinguim poe queixoso tamaras ve vovo',
     )
 
     def test_string_fingerprint(self):
-        """Test abydos.fingerprint.StringFingerprint."""
+        """Test abydos.fingerprint.String."""
         # Base case
         self.assertEqual(self.fp.fingerprint(''), '')
 
