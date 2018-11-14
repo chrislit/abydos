@@ -589,20 +589,25 @@ def ipa_to_features(ipa):
     This translates an IPA string of one or more phones to a list of ints
     representing the features of the string.
 
-    Args:
-        ipa (str): The IPA representation of a phone or series of phones
+    Parameters
+    ----------
+    ipa : str
+        The IPA representation of a phone or series of phones
 
-    Returns:
-        list of ints: a representation of the features of the input string
+    Returns
+    -------
+    list of ints
+        A representation of the features of the input string
 
-    Examples:
-        >>> ipa_to_features('mut')
-        [2709662981243185770, 1825831513894594986, 2783230754502126250]
-        >>> ipa_to_features('fon')
-        [2781702983095331242, 1825831531074464170, 2711173160463936106]
-        >>> ipa_to_features('telz')
-        [2783230754502126250, 1826957430176000426, 2693158761954453926,
-        2783230754501863834]
+    Examples
+    --------
+    >>> ipa_to_features('mut')
+    [2709662981243185770, 1825831513894594986, 2783230754502126250]
+    >>> ipa_to_features('fon')
+    [2781702983095331242, 1825831531074464170, 2711173160463936106]
+    >>> ipa_to_features('telz')
+    [2783230754502126250, 1826957430176000426, 2693158761954453926,
+    2783230754501863834]
 
     """
     features = []
@@ -636,34 +641,42 @@ def get_feature(vector, feature):
         representing presence/absence/neutrality with respect to a particular
         phonetic feature.
 
-    Args:
-        vector (list): a tuple or list of ints representing the phonetic
-            features of a phone or series of phones (such as is returned by the
-            ipa_to_features function)
-        feature (str): a feature name from the set:
-            ``consonantal``, ``sonorant``, ``syllabic``, ``labial``, ``round``,
-            ``coronal``, ``anterior``, ``distributed``, ``dorsal``, ``high``,
-            ``low``, ``back``, ``tense``, ``pharyngeal``, ``ATR``, ``voice``,
-            ``spread_glottis``, ``constricted_glottis``, ``continuant``,
-            ``strident``, ``lateral``, ``delayed_release``, ``nasal``
+    Parameters
+    ----------
+    vector : list
+        A tuple or list of ints representing the phonetic features of a phone
+        or series of phones (such as is returned by the ipa_to_features
+        function)
+    feature : str
+        A feature name from the set:
+        ``consonantal``, ``sonorant``, ``syllabic``, ``labial``, ``round``,
+        ``coronal``, ``anterior``, ``distributed``, ``dorsal``, ``high``,
+        ``low``, ``back``, ``tense``, ``pharyngeal``, ``ATR``, ``voice``,
+        ``spread_glottis``, ``constricted_glottis``, ``continuant``,
+        ``strident``, ``lateral``, ``delayed_release``, ``nasal``
 
-    Returns:
-        list of ints: A list indicating presence/absence/neutrality with
-            respect to the feature
+    Returns
+    -------
+    list of ints
+        A list indicating presence/absence/neutrality with respect to the
+        feature
 
-    Raises:
-        AttributeError: feature must be one of ...
+    Raises
+    ------
+    AttributeError
+        feature must be one of ...
 
-    Examples:
-        >>> tails = ipa_to_features('telz')
-        >>> get_feature(tails, 'consonantal')
-        [1, -1, 1, 1]
-        >>> get_feature(tails, 'sonorant')
-        [-1, 1, 1, -1]
-        >>> get_feature(tails, 'nasal')
-        [-1, -1, -1, -1]
-        >>> get_feature(tails, 'coronal')
-        [1, -1, 1, 1]
+    Examples
+    --------
+    >>> tails = ipa_to_features('telz')
+    >>> get_feature(tails, 'consonantal')
+    [1, -1, 1, 1]
+    >>> get_feature(tails, 'sonorant')
+    [-1, 1, 1, -1]
+    >>> get_feature(tails, 'nasal')
+    [-1, -1, -1, -1]
+    >>> get_feature(tails, 'coronal')
+    [1, -1, 1, 1]
 
     """
     # :param bool binary: if False, -1, 0, & 1 represent -, 0, & +
@@ -739,22 +752,28 @@ def cmp_features(feat1, feat2):
 
     Otherwise, a float representing their similarity is returned.
 
-    Args:
-        feat1 (int): A feature bundle
-        feat2 (int): A feature bundle
+    Parameters
+    ----------
+    feat1 : int
+        A feature bundle
+    feat2 : int
+        A feature bundle
 
-    Returns:
-        float: A comparison of the feature bundles
+    Returns
+    -------
+    float
+        A comparison of the feature bundles
 
-    Examples:
-        >>> cmp_features(ipa_to_features('l')[0], ipa_to_features('l')[0])
-        1.0
-        >>> cmp_features(ipa_to_features('l')[0], ipa_to_features('n')[0])
-        0.8709677419354839
-        >>> cmp_features(ipa_to_features('l')[0], ipa_to_features('z')[0])
-        0.8709677419354839
-        >>> cmp_features(ipa_to_features('l')[0], ipa_to_features('i')[0])
-        0.564516129032258
+    Examples
+    --------
+    >>> cmp_features(ipa_to_features('l')[0], ipa_to_features('l')[0])
+    1.0
+    >>> cmp_features(ipa_to_features('l')[0], ipa_to_features('n')[0])
+    0.8709677419354839
+    >>> cmp_features(ipa_to_features('l')[0], ipa_to_features('z')[0])
+    0.8709677419354839
+    >>> cmp_features(ipa_to_features('l')[0], ipa_to_features('i')[0])
+    0.564516129032258
 
     """
     if feat1 < 0 or feat2 < 0:
