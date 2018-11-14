@@ -71,12 +71,14 @@ class Levenshtein(_Distance):
             Target string for comparison
         mode : str
             Specifies a mode for computing the Levenshtein distance:
+
                 - ``lev`` (default) computes the ordinary Levenshtein distance,
                   in which edits may include inserts, deletes, and
                   substitutions
                 - ``osa`` computes the Optimal String Alignment distance, in
                   which edits may include inserts, deletes, substitutions, and
                   transpositions but substrings may only be edited once
+
         cost : tuple
             A 4-tuple representing the cost of the four possible edits:
             inserts, deletes, substitutions, and transpositions, respectively
@@ -162,12 +164,14 @@ class Levenshtein(_Distance):
             Target string for comparison
         mode : str
             Specifies a mode for computing the Levenshtein distance:
+
                 - ``lev`` (default) computes the ordinary Levenshtein distance,
                   in which edits may include inserts, deletes, and
                   substitutions
                 - ``osa`` computes the Optimal String Alignment distance, in
                   which edits may include inserts, deletes, substitutions, and
                   transpositions but substrings may only be edited once
+
         cost : tuple
             A 4-tuple representing the cost of the four possible edits:
             inserts, deletes, substitutions, and transpositions, respectively
@@ -212,11 +216,13 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
         Target string for comparison
     mode : str
         Specifies a mode for computing the Levenshtein distance:
+
             - ``lev`` (default) computes the ordinary Levenshtein distance, in
               which edits may include inserts, deletes, and substitutions
             - ``osa`` computes the Optimal String Alignment distance, in which
               edits may include inserts, deletes, substitutions, and
               transpositions but substrings may only be edited once
+
     cost : tuple
         A 4-tuple representing the cost of the four possible edits: inserts,
         deletes, substitutions, and transpositions, respectively (by default:
@@ -260,11 +266,13 @@ def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
         Target string for comparison
     mode : str
         Specifies a mode for computing the Levenshtein distance:
+
             - ``lev`` (default) computes the ordinary Levenshtein distance, in
               which edits may include inserts, deletes, and substitutions
             - ``osa`` computes the Optimal String Alignment distance, in which
               edits may include inserts, deletes, substitutions, and
               transpositions but substrings may only be edited once
+
     cost : tuple
         A 4-tuple representing the cost of the four possible edits: inserts,
         deletes, substitutions, and transpositions, respectively (by default:
@@ -303,14 +311,17 @@ def sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
         Target string for comparison
     mode : str
         Specifies a mode for computing the Levenshtein distance:
+
             - ``lev`` (default) computes the ordinary Levenshtein distance, in
               which edits may include inserts, deletes, and substitutions
             - ``osa`` computes the Optimal String Alignment distance, in which
               edits may include inserts, deletes, substitutions, and
               transpositions but substrings may only be edited once
+
     cost : tuple
         A 4-tuple representing the cost of the four possible edits: inserts,
-        deletes, substitutions, and transpositions, respectively (by default: (1, 1, 1, 1))
+        deletes, substitutions, and transpositions, respectively (by default:
+        (1, 1, 1, 1))
 
     Returns
     -------

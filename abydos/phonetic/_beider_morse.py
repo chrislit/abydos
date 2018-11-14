@@ -802,6 +802,7 @@ class BeiderMorse(Phonetic):
             The word to transform
         language_arg : int
             The language of the term; supported values include:
+
                 - ``any``
                 - ``arabic``
                 - ``cyrillic``
@@ -822,11 +823,14 @@ class BeiderMorse(Phonetic):
                 - ``russian``
                 - ``spanish``
                 - ``turkish``
+
         name_mode : str
             The name mode of the algorithm:
+
                 - ``gen`` -- general (default)
                 - ``ash`` -- Ashkenazi
                 - ``sep`` -- Sephardic
+
         match_mode : str
             Matching mode: ``approx`` or ``exact``
         concat : bool
@@ -947,6 +951,7 @@ def bmpm(
         The word to transform
     language_arg : str
         The language of the term; supported values include:
+
             - ``any``
             - ``arabic``
             - ``cyrillic``
@@ -967,11 +972,14 @@ def bmpm(
             - ``russian``
             - ``spanish``
             - ``turkish``
+
     name_mode : str
         The name mode of the algorithm:
+
             - ``gen`` -- general (default)
             - ``ash`` -- Ashkenazi
             - ``sep`` -- Sephardic
+
     match_mode : str
         Matching mode: ``approx`` or ``exact``
     concat : bool

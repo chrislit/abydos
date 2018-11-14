@@ -462,6 +462,7 @@ class NRL(Phonetic):
         'lAArsEHn'
 
         """
+
         def _to_regex(pattern, left_match=True):
             new_pattern = ''
             replacements = {

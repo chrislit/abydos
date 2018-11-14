@@ -74,10 +74,12 @@ class JaroWinkler(_Distance):
             The length of each q-gram (defaults to 1: character-wise matching)
         mode : str
             Indicates which variant of this distance metric to compute:
+
                 - ``winkler`` -- computes the Jaro-Winkler distance (default)
                   which increases the score for matches near the start of the
                   word
                 - ``jaro`` -- computes the Jaro distance
+
         long_strings : bool
             Set to True to "Increase the probability of a match when the number
             of matched characters is large. This option allows for a little
@@ -252,9 +254,11 @@ def sim_jaro_winkler(
         The length of each q-gram (defaults to 1: character-wise matching)
     mode : str
         Indicates which variant of this distance metric to compute:
+
             - ``winkler`` -- computes the Jaro-Winkler distance (default) which
               increases the score for matches near the start of the word
             - ``jaro`` -- computes the Jaro distance
+
     long_strings : bool
         Set to True to "Increase the probability of a match when the number of
         matched characters is large. This option allows for a little more
@@ -322,9 +326,11 @@ def dist_jaro_winkler(
         The length of each q-gram (defaults to 1: character-wise matching)
     mode : str
         Indicates which variant of this distance metric to compute:
+
             - ``winkler`` -- computes the Jaro-Winkler distance (default) which
               increases the score for matches near the start of the word
             - ``jaro`` -- computes the Jaro distance
+
     long_strings : bool
         Set to True to "Increase the probability of a match when the number of
         matched characters is large. This option allows for a little more

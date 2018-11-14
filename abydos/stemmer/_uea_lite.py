@@ -639,6 +639,7 @@ class UEALite(_Stemmer):
             If True, returns the stem along with rule number
         var : str
             Variant rules to use:
+
                 - ``Adams`` to use Jason Adams' rules
                 - ``Perl`` to use the original Perl rules
 
@@ -661,6 +662,7 @@ class UEALite(_Stemmer):
         'erode'
 
         """
+
         def _stem_with_duplicate_character_check(word, del_len):
             if word[-1] == 's':
                 del_len += 1
@@ -781,6 +783,7 @@ def uealite(
         If True, returns the stem along with rule number
     var : str
         Variant rules to use:
+
             - ``Adams`` to use Jason Adams' rules
             - ``Perl`` to use the original Perl rules
 

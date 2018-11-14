@@ -51,8 +51,8 @@ class Chebyshev(Minkowski):
             Target string (or QGrams/Counter objects) for comparison
         qval : int
             The length of each q-gram; 0 for non-q-gram version alphabet
-            : collection or int
-        The values or size of the alphabet
+        alphabet : collection or int
+            The values or size of the alphabet
 
         Returns
         -------
@@ -130,7 +130,7 @@ def chebyshev(src, tar, qval=2, alphabet=None):
         Target string (or QGrams/Counter objects) for comparison
     qval : int
         The length of each q-gram; 0 for non-q-gram version alphabet
-        : collection or int
+    alphabet : collection or int
         The values or size of the alphabet
 
     Returns

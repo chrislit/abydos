@@ -210,6 +210,7 @@ class Phonix(Phonetic):
         'S530'
 
         """
+
         def _start_repl(word, src, tar, post=None):
             """Replace src with tar at the start of word.
 
