@@ -52,11 +52,15 @@ class SnowballDutch(_Snowball):
     def _undouble(self, word):
         """Undouble endings -kk, -dd, and -tt.
 
-        Args:
-            word (str): The word to stem
+        Parameters
+        ----------
+        word : str
+          The word to stem
 
-        Returns:
-            str: The word with doubled endings undoubled
+        Returns
+        -------
+        str
+            The word with doubled endings undoubled
 
         """
         if (
@@ -70,20 +74,25 @@ class SnowballDutch(_Snowball):
     def stem(self, word):
         """Return Snowball Dutch stem.
 
-        Args:
-            word (str): The word to stem
+        Parameters
+        ----------
+        word : str
+            The word to stem
 
-        Returns:
-            str: Word stem
+        Returns
+        -------
+        str
+            Word stem
 
-        Examples:
-            >>> stmr = SnowballDutch()
-            >>> stmr.stem('lezen')
-            'lez'
-            >>> stmr.stem('opschorting')
-            'opschort'
-            >>> stmr.stem('ongrijpbaarheid')
-            'ongrijp'
+        Examples
+        --------
+        >>> stmr = SnowballDutch()
+        >>> stmr.stem('lezen')
+        'lez'
+        >>> stmr.stem('opschorting')
+        'opschort'
+        >>> stmr.stem('ongrijpbaarheid')
+        'ongrijp'
 
         """
         # lowercase, normalize, decompose, filter umlauts & acutes out, and
@@ -209,19 +218,24 @@ def sb_dutch(word):
 
     This is a wrapper for :py:meth:`SnowballDutch.stem`.
 
-    Args:
-        word (str): The word to stem
+    Parameters
+    ----------
+    word : str
+        The word to stem
 
-    Returns:
-        str: Word stem
+    Returns
+    -------
+    str
+        Word stem
 
-    Examples:
-        >>> sb_dutch('lezen')
-        'lez'
-        >>> sb_dutch('opschorting')
-        'opschort'
-        >>> sb_dutch('ongrijpbaarheid')
-        'ongrijp'
+    Examples
+    --------
+    >>> sb_dutch('lezen')
+    'lez'
+    >>> sb_dutch('opschorting')
+    'opschort'
+    >>> sb_dutch('ongrijpbaarheid')
+    'ongrijp'
 
     """
     return SnowballDutch().stem(word)

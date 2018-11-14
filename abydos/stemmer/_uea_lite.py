@@ -627,30 +627,38 @@ class UEALite(_Stemmer):
     ):
         """Return UEA-Lite stem.
 
-        Args:
-            word (str): The word to stem
-            max_word_length (int): The maximum word length allowed
-            max_acro_length (int): The maximum acronym length allowed
-            return_rule_no (bool): If True, returns the stem along with rule
-                number
-            var (str): variant rules to use:
+        Parameters
+        ----------
+        word : str
+            The word to stem
+        max_word_length : int
+            The maximum word length allowed
+        max_acro_length : int
+            The maximum acronym length allowed
+        return_rule_no : bool
+            If True, returns the stem along with rule number
+        var : str
+            Variant rules to use:
                 - ``Adams`` to use Jason Adams' rules
                 - ``Perl`` to use the original Perl rules
 
-        Returns:
-            str or (str, int): Word stem
+        Returns
+        -------
+        str or (str, int)
+            Word stem
 
-        Examples:
-            >>> uealite('readings')
-            'read'
-            >>> uealite('insulted')
-            'insult'
-            >>> uealite('cussed')
-            'cuss'
-            >>> uealite('fancies')
-            'fancy'
-            >>> uealite('eroded')
-            'erode'
+        Examples
+        --------
+        >>> uealite('readings')
+        'read'
+        >>> uealite('insulted')
+        'insult'
+        >>> uealite('cussed')
+        'cuss'
+        >>> uealite('fancies')
+        'fancy'
+        >>> uealite('eroded')
+        'erode'
 
         """
 
@@ -762,29 +770,38 @@ def uealite(
 
     This is a wrapper for :py:meth:`UEALite.stem`.
 
-    Args:
-        word (str): The word to stem
-        max_word_length (int): The maximum word length allowed
-        max_acro_length (int): The maximum acronym length allowed
-        return_rule_no (bool): If True, returns the stem along with rule number
-        var (str): variant rules to use:
+    Parameters
+    ----------
+    word : str
+        The word to stem
+    max_word_length : int
+        The maximum word length allowed
+    max_acro_length : int
+        The maximum acronym length allowed
+    return_rule_no : bool
+        If True, returns the stem along with rule number
+    var : str
+        Variant rules to use:
             - ``Adams`` to use Jason Adams' rules
             - ``Perl`` to use the original Perl rules
 
-    Returns:
-        str or (str, int): Word stem
+    Returns
+    -------
+    str or (str, int)
+        Word stem
 
-    Examples:
-        >>> uealite('readings')
-        'read'
-        >>> uealite('insulted')
-        'insult'
-        >>> uealite('cussed')
-        'cuss'
-        >>> uealite('fancies')
-        'fancy'
-        >>> uealite('eroded')
-        'erode'
+    Examples
+    --------
+    >>> uealite('readings')
+    'read'
+    >>> uealite('insulted')
+    'insult'
+    >>> uealite('cussed')
+    'cuss'
+    >>> uealite('fancies')
+    'fancy'
+    >>> uealite('eroded')
+    'erode'
 
     """
     return UEALite().stem(

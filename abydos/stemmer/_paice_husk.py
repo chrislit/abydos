@@ -201,24 +201,29 @@ class PaiceHusk(_Stemmer):
     def stem(self, word):
         """Return Paice-Husk stem.
 
-        Args:
-            word (str): The word to stem
+        Parameters
+        ----------
+        word : str
+            The word to stem
 
-        Returns:
-            str: Word stem
+        Returns
+        -------
+        str
+            Word stem
 
-        Examples:
-            >>> stmr = PaiceHusk()
-            >>> stmr.stem('assumption')
-            'assum'
-            >>> stmr.stem('verifiable')
-            'ver'
-            >>> stmr.stem('fancies')
-            'fant'
-            >>> stmr.stem('fanciful')
-            'fancy'
-            >>> stmr.stem('torment')
-            'tor'
+        Examples
+        --------
+        >>> stmr = PaiceHusk()
+        >>> stmr.stem('assumption')
+        'assum'
+        >>> stmr.stem('verifiable')
+        'ver'
+        >>> stmr.stem('fancies')
+        'fant'
+        >>> stmr.stem('fanciful')
+        'fancy'
+        >>> stmr.stem('torment')
+        'tor'
 
         """
         terminate = False
@@ -256,23 +261,28 @@ def paice_husk(word):
 
     This is a wrapper for :py:meth:`PaiceHusk.stem`.
 
-    Args:
-        word (str): The word to stem
+    Parameters
+    ----------
+    word : str
+        The word to stem
 
-    Returns:
-        str: Word stem
+    Returns
+    -------
+    str
+        Word stem
 
-    Examples:
-        >>> paice_husk('assumption')
-        'assum'
-        >>> paice_husk('verifiable')
-        'ver'
-        >>> paice_husk('fancies')
-        'fant'
-        >>> paice_husk('fanciful')
-        'fancy'
-        >>> paice_husk('torment')
-        'tor'
+    Examples
+    --------
+    >>> paice_husk('assumption')
+    'assum'
+    >>> paice_husk('verifiable')
+    'ver'
+    >>> paice_husk('fancies')
+    'fant'
+    >>> paice_husk('fanciful')
+    'fancy'
+    >>> paice_husk('torment')
+    'tor'
 
     """
     return PaiceHusk().stem(word)

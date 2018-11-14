@@ -42,19 +42,24 @@ class CLEFSwedish(_Stemmer):
     def stem(self, word):
         """Return CLEF Swedish stem.
 
-        Args:
-            word (str): The word to stem
+        Parameters
+        ----------
+        word : str
+            The word to stem
 
-        Returns:
-            str: Word stem
+        Returns
+        -------
+        str
+            Word stem
 
-        Examples:
-            >>> clef_swedish('undervisa')
-            'undervis'
-            >>> clef_swedish('suspension')
-            'suspensio'
-            >>> clef_swedish('visshet')
-            'viss'
+        Examples
+        --------
+        >>> clef_swedish('undervisa')
+        'undervis'
+        >>> clef_swedish('suspension')
+        'suspensio'
+        >>> clef_swedish('visshet')
+        'viss'
 
         """
         wlen = len(word) - 2
@@ -82,19 +87,24 @@ def clef_swedish(word):
 
     This is a wrapper for :py:meth:`CLEFSwedish.stem`.
 
-    Args:
-        word (str): The word to stem
+    Parameters
+    ----------
+    word : str
+        The word to stem
 
-    Returns:
-        str: Word stem
+    Returns
+    -------
+    str
+        Word stem
 
-    Examples:
-        >>> clef_swedish('undervisa')
-        'undervis'
-        >>> clef_swedish('suspension')
-        'suspensio'
-        >>> clef_swedish('visshet')
-        'viss'
+    Examples
+    --------
+    >>> clef_swedish('undervisa')
+    'undervis'
+    >>> clef_swedish('suspension')
+    'suspensio'
+    >>> clef_swedish('visshet')
+    'viss'
 
     """
     return CLEFSwedish().stem(word)

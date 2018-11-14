@@ -87,25 +87,31 @@ class Porter2(_Snowball):
     def stem(self, word, early_english=False):
         """Return the Porter2 (Snowball English) stem.
 
-        Args:
-            word (str): The word to stem
-            early_english (bool): Set to True in order to remove -eth & -est
-                (2nd & 3rd person singular verbal agreement suffixes)
+        Parameters
+        ----------
+        word : str
+            The word to stem
+        early_english : bool
+            Set to True in order to remove -eth & -est (2nd & 3rd person
+            singular verbal agreement suffixes)
 
-        Returns:
-            str: Word stem
+        Returns
+        -------
+        str
+            Word stem
 
-        Examples:
-            >>> stmr = Porter2()
-            >>> stmr.stem('reading')
-            'read'
-            >>> stmr.stem('suspension')
-            'suspens'
-            >>> stmr.stem('elusiveness')
-            'elus'
+        Examples
+        --------
+        >>> stmr = Porter2()
+        >>> stmr.stem('reading')
+        'read'
+        >>> stmr.stem('suspension')
+        'suspens'
+        >>> stmr.stem('elusiveness')
+        'elus'
 
-            >>> stmr.stem('eateth', early_english=True)
-            'eat'
+        >>> stmr.stem('eateth', early_english=True)
+        'eat'
 
         """
         # lowercase, normalize, and compose
@@ -376,24 +382,30 @@ def porter2(word, early_english=False):
 
     This is a wrapper for :py:meth:`Porter2.stem`.
 
-    Args:
-        word (str): The word to stem
-        early_english (bool): Set to True in order to remove -eth & -est (2nd &
-            3rd person singular verbal agreement suffixes)
+    Parameters
+    ----------
+    word : str
+        The word to stem
+    early_english : bool
+        Set to True in order to remove -eth & -est (2nd & 3rd person singular
+        verbal agreement suffixes)
 
-    Returns:
-        str: Word stem
+    Returns
+    -------
+    str
+        Word stem
 
-    Examples:
-        >>> porter2('reading')
-        'read'
-        >>> porter2('suspension')
-        'suspens'
-        >>> porter2('elusiveness')
-        'elus'
+    Examples
+    --------
+    >>> porter2('reading')
+    'read'
+    >>> porter2('suspension')
+    'suspens'
+    >>> porter2('elusiveness')
+    'elus'
 
-        >>> porter2('eateth', early_english=True)
-        'eat'
+    >>> porter2('eateth', early_english=True)
+    'eat'
 
     """
     return Porter2().stem(word, early_english)

@@ -68,20 +68,25 @@ class SnowballNorwegian(_Snowball):
     def stem(self, word):
         """Return Snowball Norwegian stem.
 
-        Args:
-            word (str): The word to stem
+        Parameters
+        ----------
+        word : str
+            The word to stem
 
-        Returns:
-            str: Word stem
+        Returns
+        -------
+        str
+            Word stem
 
-        Examples:
-            >>> stmr = SnowballNorwegian()
-            >>> stmr.stem('lese')
-            'les'
-            >>> stmr.stem('suspensjon')
-            'suspensjon'
-            >>> stmr.stem('sikkerhet')
-            'sikker'
+        Examples
+        --------
+        >>> stmr = SnowballNorwegian()
+        >>> stmr.stem('lese')
+        'les'
+        >>> stmr.stem('suspensjon')
+        'suspensjon'
+        >>> stmr.stem('sikkerhet')
+        'sikker'
 
         """
         # lowercase, normalize, and compose
@@ -152,19 +157,24 @@ def sb_norwegian(word):
 
     This is a wrapper for :py:meth:`SnowballNorwegian.stem`.
 
-    Args:
-        word (str): The word to stem
+    Parameters
+    ----------
+    word : str
+        The word to stem
 
-    Returns:
-        str: Word stem
+    Returns
+    -------
+    str
+        Word stem
 
-    Examples:
-        >>> sb_norwegian('lese')
-        'les'
-        >>> sb_norwegian('suspensjon')
-        'suspensjon'
-        >>> sb_norwegian('sikkerhet')
-        'sikker'
+    Examples
+    --------
+    >>> sb_norwegian('lese')
+    'les'
+    >>> sb_norwegian('suspensjon')
+    'suspensjon'
+    >>> sb_norwegian('sikkerhet')
+    'sikker'
 
     """
     return SnowballNorwegian().stem(word)

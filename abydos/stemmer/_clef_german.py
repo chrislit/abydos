@@ -48,20 +48,25 @@ class CLEFGerman(_Stemmer):
     def stem(self, word):
         """Return CLEF German stem.
 
-        Args:
-            word (str): The word to stem
+        Parameters
+        ----------
+        word : str
+            The word to stem
 
-        Returns:
-            str: Word stem
+        Returns
+        -------
+        str
+            Word stem
 
-        Examples:
-            >>> stmr = CLEFGerman()
-            >>> stmr.stem('lesen')
-            'lese'
-            >>> stmr.stem('graues')
-            'grau'
-            >>> stmr.stem('buchstabieren')
-            'buchstabier'
+        Examples
+        --------
+        >>> stmr = CLEFGerman()
+        >>> stmr.stem('lesen')
+        'lese'
+        >>> stmr.stem('graues')
+        'grau'
+        >>> stmr.stem('buchstabieren')
+        'buchstabier'
 
         """
         # lowercase, normalize, and compose
@@ -90,19 +95,24 @@ def clef_german(word):
 
     This is a wrapper for :py:meth:`CLEFGerman.stem`.
 
-    Args:
-        word (str): The word to stem
+    Parameters
+    ----------
+    word : str
+        The word to stem
 
-    Returns:
-        str: Word stem
+    Returns
+    -------
+    str
+        Word stem
 
-    Examples:
-        >>> clef_german('lesen')
-        'lese'
-        >>> clef_german('graues')
-        'grau'
-        >>> clef_german('buchstabieren')
-        'buchstabier'
+    Examples
+    --------
+    >>> clef_german('lesen')
+    'lese'
+    >>> clef_german('graues')
+    'grau'
+    >>> clef_german('buchstabieren')
+    'buchstabier'
 
     """
     return CLEFGerman().stem(word)
