@@ -49,20 +49,25 @@ class OmissionKey(Fingerprint):
     def fingerprint(self, word):
         """Return the omission key.
 
-        Args:
-            word (str): The word to transform into its omission key
+        Parameters
+        ----------
+        word : str
+            The word to transform into its omission key
 
-        Returns:
-            str: The omission key
+        Returns
+        -------
+        str
+            The omission key
 
-        Examples:
-            >>> ok = OmissionKey()
-            >>> ok.fingerprint('The quick brown fox jumped over the lazy dog.')
-            'JKQXZVWYBFMGPDHCLNTREUIOA'
-            >>> ok.fingerprint('Christopher')
-            'PHCTSRIOE'
-            >>> ok.fingerprint('Niall')
-            'LNIA'
+        Examples
+        --------
+        >>> ok = OmissionKey()
+        >>> ok.fingerprint('The quick brown fox jumped over the lazy dog.')
+        'JKQXZVWYBFMGPDHCLNTREUIOA'
+        >>> ok.fingerprint('Christopher')
+        'PHCTSRIOE'
+        >>> ok.fingerprint('Niall')
+        'LNIA'
 
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -88,19 +93,24 @@ def omission_key(word):
 
     This is a wrapper for :py:meth:`OmissionKey.fingerprint`.
 
-    Args:
-        word (str): The word to transform into its omission key
+    Parameters
+    ----------
+    word : str
+        The word to transform into its omission key
 
-    Returns:
-        str: The omission key
+    Returns
+    -------
+    str
+        The omission key
 
-    Examples:
-        >>> omission_key('The quick brown fox jumped over the lazy dog.')
-        'JKQXZVWYBFMGPDHCLNTREUIOA'
-        >>> omission_key('Christopher')
-        'PHCTSRIOE'
-        >>> omission_key('Niall')
-        'LNIA'
+    Examples
+    --------
+    >>> omission_key('The quick brown fox jumped over the lazy dog.')
+    'JKQXZVWYBFMGPDHCLNTREUIOA'
+    >>> omission_key('Christopher')
+    'PHCTSRIOE'
+    >>> omission_key('Niall')
+    'LNIA'
 
     """
     return OmissionKey().fingerprint(word)

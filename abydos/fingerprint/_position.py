@@ -48,27 +48,34 @@ class Position(Fingerprint):
     ):
         """Return the position fingerprint.
 
-        Args:
-            word (str): The word to fingerprint
-            n_bits (int): Number of bits in the fingerprint returned
-            most_common (list): The most common tokens in the target language,
-                ordered by frequency
-            bits_per_letter (int): The bits to assign for letter position
+        Parameters
+        ----------
+        word : str
+            The word to fingerprint
+        n_bits : int
+            Number of bits in the fingerprint returned
+        most_common : list
+            The most common tokens in the target language, ordered by frequency
+        bits_per_letter : int
+            The bits to assign for letter position
 
-        Returns:
-            int: The position fingerprint
+        Returns
+        -------
+        int
+            The position fingerprint
 
-        Examples:
-            >>> bin(position_fingerprint('hat'))
-            '0b1110100011111111'
-            >>> bin(position_fingerprint('niall'))
-            '0b1111110101110010'
-            >>> bin(position_fingerprint('colin'))
-            '0b1111111110010111'
-            >>> bin(position_fingerprint('atcg'))
-            '0b1110010001111111'
-            >>> bin(position_fingerprint('entreatment'))
-            '0b101011111111'
+        Examples
+        --------
+        >>> bin(position_fingerprint('hat'))
+        '0b1110100011111111'
+        >>> bin(position_fingerprint('niall'))
+        '0b1111110101110010'
+        >>> bin(position_fingerprint('colin'))
+        '0b1111111110010111'
+        >>> bin(position_fingerprint('atcg'))
+        '0b1110010001111111'
+        >>> bin(position_fingerprint('entreatment'))
+        '0b101011111111'
 
         """
         position = {}
@@ -105,27 +112,34 @@ def position_fingerprint(
 
     This is a wrapper for :py:meth:`Position.fingerprint`.
 
-    Args:
-        word (str): The word to fingerprint
-        n_bits (int): Number of bits in the fingerprint returned
-        most_common (list): The most common tokens in the target language,
-            ordered by frequency
-        bits_per_letter (int): The bits to assign for letter position
+    Parameters
+    ----------
+    word : str
+        The word to fingerprint
+    n_bits : int
+        Number of bits in the fingerprint returned
+    most_common : list
+        The most common tokens in the target language, ordered by frequency
+    bits_per_letter : int
+        The bits to assign for letter position
 
-    Returns:
-        int: The position fingerprint
+    Returns
+    -------
+    int
+        The position fingerprint
 
-    Examples:
-        >>> bin(position_fingerprint('hat'))
-        '0b1110100011111111'
-        >>> bin(position_fingerprint('niall'))
-        '0b1111110101110010'
-        >>> bin(position_fingerprint('colin'))
-        '0b1111111110010111'
-        >>> bin(position_fingerprint('atcg'))
-        '0b1110010001111111'
-        >>> bin(position_fingerprint('entreatment'))
-        '0b101011111111'
+    Examples
+    --------
+    >>> bin(position_fingerprint('hat'))
+    '0b1110100011111111'
+    >>> bin(position_fingerprint('niall'))
+    '0b1111110101110010'
+    >>> bin(position_fingerprint('colin'))
+    '0b1111111110010111'
+    >>> bin(position_fingerprint('atcg'))
+    '0b1110010001111111'
+    >>> bin(position_fingerprint('entreatment'))
+    '0b101011111111'
 
     """
     return Position().fingerprint(word, n_bits, most_common, bits_per_letter)

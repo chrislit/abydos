@@ -34,10 +34,10 @@ from six import text_type
 
 from ._fingerprint import Fingerprint
 
-__all__ = ['StringFingerprint', 'str_fingerprint']
+__all__ = ['String', 'str_fingerprint']
 
 
-class StringFingerprint(Fingerprint):
+class String(Fingerprint):
     """String Fingerprint.
 
     The fingerprint of a string is a string consisting of all of the unique
@@ -48,17 +48,23 @@ class StringFingerprint(Fingerprint):
     def fingerprint(self, phrase, joiner=' '):
         """Return string fingerprint.
 
-        Args:
-            phrase (str): The string from which to calculate the fingerprint
-            joiner (str): The string that will be placed between each word
+        Parameters
+        ----------
+        phrase : str
+            The string from which to calculate the fingerprint
+        joiner : str
+            The string that will be placed between each word
 
-        Returns:
-            str: The fingerprint of the phrase
+        Returns
+        -------
+        str
+            The fingerprint of the phrase
 
-        Example:
-            >>> sf = StringFingerprint()
-            >>> sf.fingerprint('The quick brown fox jumped over the lazy dog.')
-            'brown dog fox jumped lazy over quick the'
+        Example
+        -------
+        >>> sf = String()
+        >>> sf.fingerprint('The quick brown fox jumped over the lazy dog.')
+        'brown dog fox jumped lazy over quick the'
 
         """
         phrase = unicode_normalize('NFKD', text_type(phrase.strip().lower()))
@@ -72,19 +78,25 @@ def str_fingerprint(phrase, joiner=' '):
 
     This is a wrapper for :py:meth:`StringFingerprint.fingerprint`.
 
-    Args:
-        phrase (str): The string from which to calculate the fingerprint
-        joiner (str): The string that will be placed between each word
+    Parameters
+    ----------
+    phrase : str
+        The string from which to calculate the fingerprint
+    joiner : str
+        The string that will be placed between each word
 
-    Returns:
-        str: The fingerprint of the phrase
+    Returns
+    -------
+    str
+        The fingerprint of the phrase
 
-    Example:
-        >>> str_fingerprint('The quick brown fox jumped over the lazy dog.')
-        'brown dog fox jumped lazy over quick the'
+    Example
+    -------
+    >>> str_fingerprint('The quick brown fox jumped over the lazy dog.')
+    'brown dog fox jumped lazy over quick the'
 
     """
-    return StringFingerprint().fingerprint(phrase, joiner)
+    return String().fingerprint(phrase, joiner)
 
 
 if __name__ == '__main__':

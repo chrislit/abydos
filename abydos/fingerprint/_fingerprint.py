@@ -76,8 +76,10 @@ class Fingerprint(object):
     def fingerprint(self, word):
         """Fingerprint string.
 
-        Args:
-            word (str): Word to fingerprint
+        Parameters
+    ----------
+        word : str
+        Word to fingerprint
         """
         pass
 

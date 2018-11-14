@@ -49,19 +49,19 @@ from ._fingerprint import (
 from ._occurrence import Occurrence, occurrence_fingerprint
 from ._occurrence_halved import OccurrenceHalved, occurrence_halved_fingerprint
 from ._omission_key import OmissionKey, omission_key
-from ._phonetic_fingerprint import PhoneticFingerprint, phonetic_fingerprint
+from ._phonetic import Phonetic, phonetic_fingerprint
 from ._position import Position, position_fingerprint
-from ._qgram_fingerprint import QGramFingerprint, qgram_fingerprint
+from ._qgram import QGram, qgram_fingerprint
 from ._skeleton_key import SkeletonKey, skeleton_key
-from ._string_fingerprint import StringFingerprint, str_fingerprint
+from ._string import String, str_fingerprint
 from ._synoname import SynonameToolcode, synoname_toolcode
 
 __all__ = [
-    'StringFingerprint',
+    'String',
     'str_fingerprint',
-    'QGramFingerprint',
+    'QGram',
     'qgram_fingerprint',
-    'PhoneticFingerprint',
+    'Phonetic',
     'phonetic_fingerprint',
     'OmissionKey',
     'omission_key',
