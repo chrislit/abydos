@@ -63,37 +63,48 @@ class RatcliffObershelp(_Distance):
     def sim(self, src, tar):
         """Return the Ratcliff-Obershelp similarity of two strings.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
-        Returns:
-            float: Ratcliff-Obershelp similarity
+        Returns
+        -------
+        float
+            Ratcliff-Obershelp similarity
 
-        Examples:
-            >>> cmp = RatcliffObershelp()
-            >>> round(cmp.sim('cat', 'hat'), 12)
-            0.666666666667
-            >>> round(cmp.sim('Niall', 'Neil'), 12)
-            0.666666666667
-            >>> round(cmp.sim('aluminum', 'Catalan'), 12)
-            0.4
-            >>> cmp.sim('ATCG', 'TAGC')
-            0.5
+        Examples
+        --------
+        >>> cmp = RatcliffObershelp()
+        >>> round(cmp.sim('cat', 'hat'), 12)
+        0.666666666667
+        >>> round(cmp.sim('Niall', 'Neil'), 12)
+        0.666666666667
+        >>> round(cmp.sim('aluminum', 'Catalan'), 12)
+        0.4
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.5
 
         """
 
         def _lcsstr_stl(src, tar):
             """Return start positions & length for Ratcliff-Obershelp.
 
-            Args:
-                src (str): Source string for comparison
-                tar (str): Target string for comparison
+            Parameters
+            ----------
+            src : str
+                Source string for comparison
+            tar : str
+            Target string for comparison
 
-            Returns:
-                 tuple: The start position in the source string, start position
-                    in the target string, and length of the longest common
-                    substring of strings src and tar.
+            Returns
+            -------
+            tuple
+                The start position in the source string, start position in the
+                target string, and length of the longest common substring of
+                strings src and tar.
 
             """
             lengths = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
@@ -123,12 +134,17 @@ class RatcliffObershelp(_Distance):
                      return 0.
                  4. Return the sum.
 
-            Args:
-                src (str): Source string for comparison
-                tar (str): Target string for comparison
+            Parameters
+            ----------
+            src : str
+                Source string for comparison
+            tar : str
+                Target string for comparison
 
-            Returns:
-                int: Sum of substring match lengths
+            Returns
+            -------
+            int
+                Sum of substring match lengths
 
             """
             src_start, tar_start, length = _lcsstr_stl(src, tar)
@@ -154,22 +170,28 @@ def sim_ratcliff_obershelp(src, tar):
 
     This is a wrapper for :py:meth:`RatcliffObershelp.sim`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Ratcliff-Obershelp similarity
+    Returns
+    -------
+    float
+        Ratcliff-Obershelp similarity
 
-    Examples:
-        >>> round(sim_ratcliff_obershelp('cat', 'hat'), 12)
-        0.666666666667
-        >>> round(sim_ratcliff_obershelp('Niall', 'Neil'), 12)
-        0.666666666667
-        >>> round(sim_ratcliff_obershelp('aluminum', 'Catalan'), 12)
-        0.4
-        >>> sim_ratcliff_obershelp('ATCG', 'TAGC')
-        0.5
+    Examples
+    --------
+    >>> round(sim_ratcliff_obershelp('cat', 'hat'), 12)
+    0.666666666667
+    >>> round(sim_ratcliff_obershelp('Niall', 'Neil'), 12)
+    0.666666666667
+    >>> round(sim_ratcliff_obershelp('aluminum', 'Catalan'), 12)
+    0.4
+    >>> sim_ratcliff_obershelp('ATCG', 'TAGC')
+    0.5
 
     """
     return RatcliffObershelp().sim(src, tar)
@@ -180,23 +202,28 @@ def dist_ratcliff_obershelp(src, tar):
 
     This is a wrapper for :py:meth:`RatcliffObershelp.dist`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Ratcliff-Obershelp distance
+    Returns
+    -------
+    float
+        Ratcliff-Obershelp distance
 
-
-    Examples:
-        >>> round(dist_ratcliff_obershelp('cat', 'hat'), 12)
-        0.333333333333
-        >>> round(dist_ratcliff_obershelp('Niall', 'Neil'), 12)
-        0.333333333333
-        >>> round(dist_ratcliff_obershelp('aluminum', 'Catalan'), 12)
-        0.6
-        >>> dist_ratcliff_obershelp('ATCG', 'TAGC')
-        0.5
+    Examples
+    --------
+    >>> round(dist_ratcliff_obershelp('cat', 'hat'), 12)
+    0.333333333333
+    >>> round(dist_ratcliff_obershelp('Niall', 'Neil'), 12)
+    0.333333333333
+    >>> round(dist_ratcliff_obershelp('aluminum', 'Catalan'), 12)
+    0.6
+    >>> dist_ratcliff_obershelp('ATCG', 'TAGC')
+    0.5
 
     """
     return RatcliffObershelp().dist(src, tar)

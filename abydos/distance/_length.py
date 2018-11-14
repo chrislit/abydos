@@ -42,23 +42,29 @@ class Length(_Distance):
         Length similarity is the ratio of the length of the shorter string to
         the longer.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
-        Returns:
-            float: Length similarity
+        Returns
+        -------
+        float
+            Length similarity
 
-        Examples:
-            >>> cmp = Length()
-            >>> cmp.sim('cat', 'hat')
-            1.0
-            >>> cmp.sim('Niall', 'Neil')
-            0.8
-            >>> cmp.sim('aluminum', 'Catalan')
-            0.875
-            >>> cmp.sim('ATCG', 'TAGC')
-            1.0
+        Examples
+        --------
+        >>> cmp = Length()
+        >>> cmp.sim('cat', 'hat')
+        1.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.8
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.875
+        >>> cmp.sim('ATCG', 'TAGC')
+        1.0
 
         """
         if src == tar:
@@ -75,22 +81,28 @@ def sim_length(src, tar):
 
     This is a wrapper for :py:meth:`Length.sim`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Length similarity
+    Returns
+    -------
+    float
+        Length similarity
 
-    Examples:
-        >>> sim_length('cat', 'hat')
-        1.0
-        >>> sim_length('Niall', 'Neil')
-        0.8
-        >>> sim_length('aluminum', 'Catalan')
-        0.875
-        >>> sim_length('ATCG', 'TAGC')
-        1.0
+    Examples
+    --------
+    >>> sim_length('cat', 'hat')
+    1.0
+    >>> sim_length('Niall', 'Neil')
+    0.8
+    >>> sim_length('aluminum', 'Catalan')
+    0.875
+    >>> sim_length('ATCG', 'TAGC')
+    1.0
 
     """
     return Length().sim(src, tar)
@@ -101,22 +113,28 @@ def dist_length(src, tar):
 
     This is a wrapper for :py:meth:`Length.dist`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
 
-    Returns:
-        float: Length distance
+    Returns
+    -------
+    float
+        Length distance
 
-    Examples:
-        >>> dist_length('cat', 'hat')
-        0.0
-        >>> dist_length('Niall', 'Neil')
-        0.19999999999999996
-        >>> dist_length('aluminum', 'Catalan')
-        0.125
-        >>> dist_length('ATCG', 'TAGC')
-        0.0
+    Examples
+    --------
+    >>> dist_length('cat', 'hat')
+    0.0
+    >>> dist_length('Niall', 'Neil')
+    0.19999999999999996
+    >>> dist_length('aluminum', 'Catalan')
+    0.125
+    >>> dist_length('ATCG', 'TAGC')
+    0.0
 
     """
     return Length().dist(src, tar)

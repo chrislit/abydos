@@ -35,14 +35,21 @@ class _Distance(object):
     def sim(self, src, tar, *args, **kwargs):
         """Return similarity.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
-            *args: Variable length argument list.
-            **kwargs: Arbitrary keyword arguments.
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        *args
+            Variable length argument list.
+        **kwargs
+            Arbitrary keyword arguments.
 
-        Returns:
-            float: Similarity
+        Returns
+        -------
+        float
+            Similarity
 
         """
         return 1.0 - self.dist(src, tar, *args, **kwargs)
@@ -50,14 +57,21 @@ class _Distance(object):
     def dist(self, src, tar, *args, **kwargs):
         """Return distance.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
-            *args: Variable length argument list.
-            **kwargs: Arbitrary keyword arguments.
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        *args
+            Variable length argument list.
+        **kwargs
+            Arbitrary keyword arguments.
 
-        Returns:
-            float: Distance
+        Returns
+        -------
+        float
+            Distance
 
         """
         return 1.0 - self.sim(src, tar, *args, **kwargs)
@@ -65,14 +79,21 @@ class _Distance(object):
     def dist_abs(self, src, tar, *args, **kwargs):
         """Return absolute distance.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
-            *args: Variable length argument list.
-            **kwargs: Arbitrary keyword arguments.
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        *args
+            Variable length argument list.
+        **kwargs
+            Arbitrary keyword arguments.
 
-        Returns:
-            int: Absolute distance
+        Returns
+        -------
+        int
+            Absolute distance
 
         """
         return self.dist(src, tar, *args, **kwargs)

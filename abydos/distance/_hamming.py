@@ -46,34 +46,42 @@ class Hamming(_Distance):
     def dist_abs(self, src, tar, diff_lens=True):
         """Return the Hamming distance between two strings.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
-            diff_lens (bool): If True (default), this returns the Hamming
-                distance for those characters that have a matching character in
-                both strings plus the difference in the strings' lengths. This
-                is equivalent to extending the shorter string with obligatorily
-                non-matching characters. If False, an exception is raised in
-                the case of strings of unequal lengths.
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        diff_lens : bool
+            If True (default), this returns the Hamming distance for those
+            characters that have a matching character in both strings plus the
+            difference in the strings' lengths. This is equivalent to extending
+            the shorter string with obligatorily non-matching characters. If
+            False, an exception is raised in the case of strings of unequal
+            lengths.
 
-        Returns:
-            int: The Hamming distance between src & tar
+        Returns
+        -------
+        int
+            The Hamming distance between src & tar
 
-        Raises:
-            ValueError: Undefined for sequences of unequal length; set
-                diff_lens to True for Hamming distance between strings of
-                unequal lengths.
+        Raises
+        ------
+        ValueError
+            Undefined for sequences of unequal length; set diff_lens to True
+            for Hamming distance between strings of unequal lengths.
 
-        Examples:
-            >>> cmp = Hamming()
-            >>> cmp.dist_abs('cat', 'hat')
-            1
-            >>> cmp.dist_abs('Niall', 'Neil')
-            3
-            >>> cmp.dist_abs('aluminum', 'Catalan')
-            8
-            >>> cmp.dist_abs('ATCG', 'TAGC')
-            4
+        Examples
+        --------
+        >>> cmp = Hamming()
+        >>> cmp.dist_abs('cat', 'hat')
+        1
+        >>> cmp.dist_abs('Niall', 'Neil')
+        3
+        >>> cmp.dist_abs('aluminum', 'Catalan')
+        8
+        >>> cmp.dist_abs('ATCG', 'TAGC')
+        4
 
         """
         if not diff_lens and len(src) != len(tar):
@@ -101,29 +109,36 @@ class Hamming(_Distance):
 
         The arguments are identical to those of the hamming() function.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
-            diff_lens (bool): If True (default), this returns the Hamming
-                distance for those characters that have a matching character in
-                both strings plus the difference in the strings' lengths. This
-                is equivalent to extending the shorter string with obligatorily
-                non-matching characters. If False, an exception is raised in
-                the case of strings of unequal lengths.
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        diff_lens : bool
+            If True (default), this returns the Hamming distance for those
+            characters that have a matching character in both strings plus the
+            difference in the strings' lengths. This is equivalent to extending
+            the shorter string with obligatorily non-matching characters. If
+            False, an exception is raised in the case of strings of unequal
+            lengths.
 
-        Returns:
-            float: Normalized Hamming distance
+        Returns
+        -------
+        float
+            Normalized Hamming distance
 
-        Examples:
-            >>> cmp = Hamming()
-            >>> round(cmp.dist('cat', 'hat'), 12)
-            0.333333333333
-            >>> cmp.dist('Niall', 'Neil')
-            0.6
-            >>> cmp.dist('aluminum', 'Catalan')
-            1.0
-            >>> cmp.dist('ATCG', 'TAGC')
-            1.0
+        Examples
+        --------
+        >>> cmp = Hamming()
+        >>> round(cmp.dist('cat', 'hat'), 12)
+        0.333333333333
+        >>> cmp.dist('Niall', 'Neil')
+        0.6
+        >>> cmp.dist('aluminum', 'Catalan')
+        1.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        1.0
 
         """
         if src == tar:
@@ -136,28 +151,34 @@ def hamming(src, tar, diff_lens=True):
 
     This is a wrapper for :py:meth:`Hamming.dist_abs`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        diff_lens (bool): If True (default), this returns the Hamming distance
-            for those characters that have a matching character in both strings
-            plus the difference in the strings' lengths. This is equivalent to
-            extending the shorter string with obligatorily non-matching
-            characters. If False, an exception is raised in the case of strings
-            of unequal lengths.
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    diff_lens : bool
+        If True (default), this returns the Hamming distance for those
+        characters that have a matching character in both strings plus the
+        difference in the strings' lengths. This is equivalent to extending the
+        shorter string with obligatorily non-matching characters. If False, an
+        exception is raised in the case of strings of unequal lengths.
 
-    Returns:
-        int: The Hamming distance between src & tar
+    Returns
+    -------
+    int
+        The Hamming distance between src & tar
 
-    Examples:
-        >>> hamming('cat', 'hat')
-        1
-        >>> hamming('Niall', 'Neil')
-        3
-        >>> hamming('aluminum', 'Catalan')
-        8
-        >>> hamming('ATCG', 'TAGC')
-        4
+    Examples
+    --------
+    >>> hamming('cat', 'hat')
+    1
+    >>> hamming('Niall', 'Neil')
+    3
+    >>> hamming('aluminum', 'Catalan')
+    8
+    >>> hamming('ATCG', 'TAGC')
+    4
 
     """
     return Hamming().dist_abs(src, tar, diff_lens)
@@ -168,28 +189,34 @@ def dist_hamming(src, tar, diff_lens=True):
 
     This is a wrapper for :py:meth:`Hamming.dist`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        diff_lens (bool): If True (default), this returns the Hamming distance
-            for those characters that have a matching character in both strings
-            plus the difference in the strings' lengths. This is equivalent to
-            extending the shorter string with obligatorily non-matching
-            characters. If False, an exception is raised in the case of strings
-            of unequal lengths.
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    diff_lens : bool
+        If True (default), this returns the Hamming distance for those
+        characters that have a matching character in both strings plus the
+        difference in the strings' lengths. This is equivalent to extending the
+        shorter string with obligatorily non-matching characters. If False, an
+        exception is raised in the case of strings of unequal lengths.
 
-    Returns:
-        float: The normalized Hamming distance
+    Returns
+    -------
+    float
+        The normalized Hamming distance
 
-    Examples:
-        >>> round(dist_hamming('cat', 'hat'), 12)
-        0.333333333333
-        >>> dist_hamming('Niall', 'Neil')
-        0.6
-        >>> dist_hamming('aluminum', 'Catalan')
-        1.0
-        >>> dist_hamming('ATCG', 'TAGC')
-        1.0
+    Examples
+    --------
+    >>> round(dist_hamming('cat', 'hat'), 12)
+    0.333333333333
+    >>> dist_hamming('Niall', 'Neil')
+    0.6
+    >>> dist_hamming('aluminum', 'Catalan')
+    1.0
+    >>> dist_hamming('ATCG', 'TAGC')
+    1.0
 
     """
     return Hamming().dist(src, tar, diff_lens)
@@ -200,28 +227,34 @@ def sim_hamming(src, tar, diff_lens=True):
 
     This is a wrapper for :py:meth:`Hamming.sim`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        diff_lens (bool): If True (default), this returns the Hamming distance
-            for those characters that have a matching character in both strings
-            plus the difference in the strings' lengths. This is equivalent to
-            extending the shorter string with obligatorily non-matching
-            characters. If False, an exception is raised in the case of strings
-            of unequal lengths.
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    diff_lens : bool
+        If True (default), this returns the Hamming distance for those
+        characters that have a matching character in both strings plus the
+        difference in the strings' lengths. This is equivalent to extending the
+        shorter string with obligatorily non-matching characters. If False, an
+        exception is raised in the case of strings of unequal lengths.
 
-    Returns:
-        float: The normalized Hamming similarity
+    Returns
+    -------
+    float
+        The normalized Hamming similarity
 
-    Examples:
-        >>> round(sim_hamming('cat', 'hat'), 12)
-        0.666666666667
-        >>> sim_hamming('Niall', 'Neil')
-        0.4
-        >>> sim_hamming('aluminum', 'Catalan')
-        0.0
-        >>> sim_hamming('ATCG', 'TAGC')
-        0.0
+    Examples
+    --------
+    >>> round(sim_hamming('cat', 'hat'), 12)
+    0.666666666667
+    >>> sim_hamming('Niall', 'Neil')
+    0.4
+    >>> sim_hamming('aluminum', 'Catalan')
+    0.0
+    >>> sim_hamming('ATCG', 'TAGC')
+    0.0
 
     """
     return Hamming().sim(src, tar, diff_lens)

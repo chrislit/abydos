@@ -46,24 +46,31 @@ class Cosine(_TokenDistance):
     def sim(self, src, tar, qval=2):
         r"""Return the cosine similarity of two strings.
 
-        Args:
-            src (str): Source string (or QGrams/Counter objects) for comparison
-            tar (str): Target string (or QGrams/Counter objects) for comparison
-            qval (int): The length of each q-gram; 0 for non-q-gram version
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+        qval : int
+            The length of each q-gram; 0 for non-q-gram version
 
-        Returns:
-            float: Cosine similarity
+        Returns
+        -------
+        float
+            Cosine similarity
 
-        Examples:
-            >>> cmp = Cosine()
-            >>> cmp.sim('cat', 'hat')
-            0.5
-            >>> cmp.sim('Niall', 'Neil')
-            0.3651483716701107
-            >>> cmp.sim('aluminum', 'Catalan')
-            0.11785113019775793
-            >>> cmp.sim('ATCG', 'TAGC')
-            0.0
+        Examples
+        --------
+        >>> cmp = Cosine()
+        >>> cmp.sim('cat', 'hat')
+        0.5
+        >>> cmp.sim('Niall', 'Neil')
+        0.3651483716701107
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.11785113019775793
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
 
         """
         if src == tar:
@@ -84,23 +91,30 @@ def sim_cosine(src, tar, qval=2):
 
     This is a wrapper for :py:meth:`Cosine.sim`.
 
-    Args:
-        src (str): Source string (or QGrams/Counter objects) for comparison
-        tar (str): Target string (or QGrams/Counter objects) for comparison
-        qval (int): The length of each q-gram; 0 for non-q-gram version
+    Parameters
+    ----------
+    src : str
+        Source string (or QGrams/Counter objects) for comparison
+    tar : str
+        Target string (or QGrams/Counter objects) for comparison
+    qval : int
+        The length of each q-gram; 0 for non-q-gram version
 
-    Returns:
-        float: Cosine similarity
+    Returns
+    -------
+    float
+        Cosine similarity
 
-    Examples:
-        >>> sim_cosine('cat', 'hat')
-        0.5
-        >>> sim_cosine('Niall', 'Neil')
-        0.3651483716701107
-        >>> sim_cosine('aluminum', 'Catalan')
-        0.11785113019775793
-        >>> sim_cosine('ATCG', 'TAGC')
-        0.0
+    Examples
+    --------
+    >>> sim_cosine('cat', 'hat')
+    0.5
+    >>> sim_cosine('Niall', 'Neil')
+    0.3651483716701107
+    >>> sim_cosine('aluminum', 'Catalan')
+    0.11785113019775793
+    >>> sim_cosine('ATCG', 'TAGC')
+    0.0
 
     """
     return Cosine().sim(src, tar, qval)
@@ -111,23 +125,30 @@ def dist_cosine(src, tar, qval=2):
 
     This is a wrapper for :py:meth:`Cosine.dist`.
 
-    Args:
-        src (str): Source string (or QGrams/Counter objects) for comparison
-        tar (str): Target string (or QGrams/Counter objects) for comparison
-        qval (int): The length of each q-gram; 0 for non-q-gram version
+    Parameters
+    ----------
+    src : str
+        Source string (or QGrams/Counter objects) for comparison
+    tar : str
+        Target string (or QGrams/Counter objects) for comparison
+    qval : int
+        The length of each q-gram; 0 for non-q-gram version
 
-    Returns:
-        float: Cosine distance
+    Returns
+    -------
+    float
+        Cosine distance
 
-    Examples:
-        >>> dist_cosine('cat', 'hat')
-        0.5
-        >>> dist_cosine('Niall', 'Neil')
-        0.6348516283298893
-        >>> dist_cosine('aluminum', 'Catalan')
-        0.882148869802242
-        >>> dist_cosine('ATCG', 'TAGC')
-        1.0
+    Examples
+    --------
+    >>> dist_cosine('cat', 'hat')
+    0.5
+    >>> dist_cosine('Niall', 'Neil')
+    0.6348516283298893
+    >>> dist_cosine('aluminum', 'Catalan')
+    0.882148869802242
+    >>> dist_cosine('ATCG', 'TAGC')
+    1.0
 
     """
     return Cosine().dist(src, tar, qval)

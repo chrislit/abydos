@@ -48,24 +48,31 @@ class Dice(Tversky):
     def sim(self, src, tar, qval=2):
         """Return the Sørensen–Dice coefficient of two strings.
 
-        Args:
-            src (str): Source string (or QGrams/Counter objects) for comparison
-            tar (str): Target string (or QGrams/Counter objects) for comparison
-            qval (int): The length of each q-gram; 0 for non-q-gram version
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+        qval : int
+            The length of each q-gram; 0 for non-q-gram version
 
-        Returns:
-            float: Sørensen–Dice similarity
+        Returns
+        -------
+        float
+            Sørensen–Dice similarity
 
-        Examples:
-            >>> cmp = Dice()
-            >>> cmp.sim('cat', 'hat')
-            0.5
-            >>> cmp.sim('Niall', 'Neil')
-            0.36363636363636365
-            >>> cmp.sim('aluminum', 'Catalan')
-            0.11764705882352941
-            >>> cmp.sim('ATCG', 'TAGC')
-            0.0
+        Examples
+        --------
+        >>> cmp = Dice()
+        >>> cmp.sim('cat', 'hat')
+        0.5
+        >>> cmp.sim('Niall', 'Neil')
+        0.36363636363636365
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.11764705882352941
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
 
         """
         return super(self.__class__, self).sim(src, tar, qval, 0.5, 0.5)
@@ -76,23 +83,30 @@ def sim_dice(src, tar, qval=2):
 
     This is a wrapper for :py:meth:`Dice.sim`.
 
-    Args:
-        src (str): Source string (or QGrams/Counter objects) for comparison
-        tar (str): Target string (or QGrams/Counter objects) for comparison
-        qval (int): The length of each q-gram; 0 for non-q-gram version
+    Parameters
+    ----------
+    src : str
+        Source string (or QGrams/Counter objects) for comparison
+    tar : str
+        Target string (or QGrams/Counter objects) for comparison
+    qval : int
+        The length of each q-gram; 0 for non-q-gram version
 
-    Returns:
-        float: Sørensen–Dice similarity
+    Returns
+    -------
+    float
+        Sørensen–Dice similarity
 
-    Examples:
-        >>> sim_dice('cat', 'hat')
-        0.5
-        >>> sim_dice('Niall', 'Neil')
-        0.36363636363636365
-        >>> sim_dice('aluminum', 'Catalan')
-        0.11764705882352941
-        >>> sim_dice('ATCG', 'TAGC')
-        0.0
+    Examples
+    --------
+    >>> sim_dice('cat', 'hat')
+    0.5
+    >>> sim_dice('Niall', 'Neil')
+    0.36363636363636365
+    >>> sim_dice('aluminum', 'Catalan')
+    0.11764705882352941
+    >>> sim_dice('ATCG', 'TAGC')
+    0.0
 
     """
     return Dice().sim(src, tar, qval)
@@ -103,23 +117,30 @@ def dist_dice(src, tar, qval=2):
 
     This is a wrapper for :py:meth:`Dice.dist`.
 
-    Args:
-        src (str): Source string (or QGrams/Counter objects) for comparison
-        tar (str): Target string (or QGrams/Counter objects) for comparison
-        qval (int): The length of each q-gram; 0 for non-q-gram version
+    Parameters
+    ----------
+    src : str
+        Source string (or QGrams/Counter objects) for comparison
+    tar : str
+        Target string (or QGrams/Counter objects) for comparison
+    qval : int
+        The length of each q-gram; 0 for non-q-gram version
 
-    Returns:
-        float: Sørensen–Dice distance
+    Returns
+    -------
+    float
+        Sørensen–Dice distance
 
-    Examples:
-        >>> dist_dice('cat', 'hat')
-        0.5
-        >>> dist_dice('Niall', 'Neil')
-        0.6363636363636364
-        >>> dist_dice('aluminum', 'Catalan')
-        0.8823529411764706
-        >>> dist_dice('ATCG', 'TAGC')
-        1.0
+    Examples
+    --------
+    >>> dist_dice('cat', 'hat')
+    0.5
+    >>> dist_dice('Niall', 'Neil')
+    0.6363636363636364
+    >>> dist_dice('aluminum', 'Catalan')
+    0.8823529411764706
+    >>> dist_dice('ATCG', 'TAGC')
+    1.0
 
     """
     return Dice().dist(src, tar, qval)

@@ -50,26 +50,34 @@ class SmithWaterman(NeedlemanWunsch):
     def dist_abs(self, src, tar, gap_cost=1, sim_func=sim_ident):
         """Return the Smith-Waterman score of two strings.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
-            gap_cost (float): the cost of an alignment gap (1 by default)
-            sim_func (function): a function that returns the similarity of two
-                characters (identity similarity by default)
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        gap_cost : float
+            The cost of an alignment gap (1 by default)
+        sim_func : function
+            A function that returns the similarity of two characters (identity
+            similarity by default)
 
-        Returns:
-            float: Smith-Waterman score
+        Returns
+        -------
+        float
+            Smith-Waterman score
 
-        Examples:
-            >>> cmp = SmithWaterman()
-            >>> cmp.dist_abs('cat', 'hat')
-            2.0
-            >>> cmp.dist_abs('Niall', 'Neil')
-            1.0
-            >>> cmp.dist_abs('aluminum', 'Catalan')
-            0.0
-            >>> cmp.dist_abs('ATCG', 'TAGC')
-            1.0
+        Examples
+        --------
+        >>> cmp = SmithWaterman()
+        >>> cmp.dist_abs('cat', 'hat')
+        2.0
+        >>> cmp.dist_abs('Niall', 'Neil')
+        1.0
+        >>> cmp.dist_abs('aluminum', 'Catalan')
+        0.0
+        >>> cmp.dist_abs('ATCG', 'TAGC')
+        1.0
 
         """
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
@@ -92,25 +100,33 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
 
     This is a wrapper for :py:meth:`SmithWaterman.dist_abs`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        gap_cost (float): the cost of an alignment gap (1 by default)
-        sim_func (function): a function that returns the similarity of two
-            characters (identity similarity by default)
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    gap_cost : float
+        The cost of an alignment gap (1 by default)
+    sim_func : function
+        A function that returns the similarity of two characters (identity
+        similarity by default)
 
-    Returns:
-        float: Smith-Waterman score
+    Returns
+    -------
+    float
+        Smith-Waterman score
 
-    Examples:
-        >>> smith_waterman('cat', 'hat')
-        2.0
-        >>> smith_waterman('Niall', 'Neil')
-        1.0
-        >>> smith_waterman('aluminum', 'Catalan')
-        0.0
-        >>> smith_waterman('ATCG', 'TAGC')
-        1.0
+    Examples
+    --------
+    >>> smith_waterman('cat', 'hat')
+    2.0
+    >>> smith_waterman('Niall', 'Neil')
+    1.0
+    >>> smith_waterman('aluminum', 'Catalan')
+    0.0
+    >>> smith_waterman('ATCG', 'TAGC')
+    1.0
 
     """
     return SmithWaterman().dist_abs(src, tar, gap_cost, sim_func)

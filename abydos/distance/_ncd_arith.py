@@ -49,24 +49,31 @@ class NCDarith(_Distance):
     def dist(self, src, tar, probs=None):
         """Return the NCD between two strings using arithmetic coding.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
-            probs (dict): A dictionary trained with :py:meth:`Arithmetic.train`
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        probs : dict
+            A dictionary trained with :py:meth:`Arithmetic.train`
 
-        Returns:
-            float: Compression distance
+        Returns
+        -------
+        float
+            Compression distance
 
-        Examples:
-            >>> cmp = NCDarith()
-            >>> cmp.dist('cat', 'hat')
-            0.5454545454545454
-            >>> cmp.dist('Niall', 'Neil')
-            0.6875
-            >>> cmp.dist('aluminum', 'Catalan')
-            0.8275862068965517
-            >>> cmp.dist('ATCG', 'TAGC')
-            0.6923076923076923
+        Examples
+        --------
+        >>> cmp = NCDarith()
+        >>> cmp.dist('cat', 'hat')
+        0.5454545454545454
+        >>> cmp.dist('Niall', 'Neil')
+        0.6875
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.8275862068965517
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.6923076923076923
 
         """
         if src == tar:
@@ -93,23 +100,30 @@ def dist_ncd_arith(src, tar, probs=None):
 
     This is a wrapper for :py:meth:`NCDarith.dist`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        probs (dict): A dictionary trained with :py:meth:`Arithmetic.train`
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    probs : dict
+        A dictionary trained with :py:meth:`Arithmetic.train`
 
-    Returns:
-        float: Compression distance
+    Returns
+    -------
+    float
+        Compression distance
 
-    Examples:
-        >>> dist_ncd_arith('cat', 'hat')
-        0.5454545454545454
-        >>> dist_ncd_arith('Niall', 'Neil')
-        0.6875
-        >>> dist_ncd_arith('aluminum', 'Catalan')
-        0.8275862068965517
-        >>> dist_ncd_arith('ATCG', 'TAGC')
-        0.6923076923076923
+    Examples
+    --------
+    >>> dist_ncd_arith('cat', 'hat')
+    0.5454545454545454
+    >>> dist_ncd_arith('Niall', 'Neil')
+    0.6875
+    >>> dist_ncd_arith('aluminum', 'Catalan')
+    0.8275862068965517
+    >>> dist_ncd_arith('ATCG', 'TAGC')
+    0.6923076923076923
 
     """
     return NCDarith().dist(src, tar, probs)
@@ -120,23 +134,30 @@ def sim_ncd_arith(src, tar, probs=None):
 
     This is a wrapper for :py:meth:`NCDarith.sim`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        probs (dict): A dictionary trained with :py:meth:`Arithmetic.train`
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    probs : dict
+        A dictionary trained with :py:meth:`Arithmetic.train`
 
-    Returns:
-        float: Compression similarity
+    Returns
+    -------
+    float
+        Compression similarity
 
-    Examples:
-        >>> sim_ncd_arith('cat', 'hat')
-        0.4545454545454546
-        >>> sim_ncd_arith('Niall', 'Neil')
-        0.3125
-        >>> sim_ncd_arith('aluminum', 'Catalan')
-        0.1724137931034483
-        >>> sim_ncd_arith('ATCG', 'TAGC')
-        0.3076923076923077
+    Examples
+    --------
+    >>> sim_ncd_arith('cat', 'hat')
+    0.4545454545454546
+    >>> sim_ncd_arith('Niall', 'Neil')
+    0.3125
+    >>> sim_ncd_arith('aluminum', 'Catalan')
+    0.1724137931034483
+    >>> sim_ncd_arith('ATCG', 'TAGC')
+    0.3076923076923077
 
     """
     return NCDarith().sim(src, tar, probs)

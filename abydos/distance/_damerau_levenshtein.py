@@ -57,32 +57,39 @@ class DamerauLevenshtein(_Distance):
     def dist_abs(self, src, tar, cost=(1, 1, 1, 1)):
         """Return the Damerau-Levenshtein distance between two strings.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
-            cost (tuple): a 4-tuple representing the cost of the four possible
-                edits: inserts, deletes, substitutions, and transpositions,
-                respectively (by default: (1, 1, 1, 1))
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        cost : tuple
+            A 4-tuple representing the cost of the four possible edits:
+            inserts, deletes, substitutions, and transpositions, respectively
+            (by default: (1, 1, 1, 1))
 
-        Returns:
-            int (may return a float if cost has float values): The
-                Damerau-Levenshtein distance between src & tar
+        Returns
+        -------
+        int (may return a float if cost has float values)
+            The Damerau-Levenshtein distance between src & tar
 
-        Raises:
-            ValueError: Unsupported cost assignment; the cost of two
-                transpositions must not be less than the cost of an insert plus
-                a delete.
+        Raises
+        ------
+        ValueError
+            Unsupported cost assignment; the cost of two transpositions must
+            not be less than the cost of an insert plus a delete.
 
-        Examples:
-            >>> cmp = DamerauLevenshtein()
-            >>> cmp.dist_abs('cat', 'hat')
-            1
-            >>> cmp.dist_abs('Niall', 'Neil')
-            3
-            >>> cmp.dist_abs('aluminum', 'Catalan')
-            7
-            >>> cmp.dist_abs('ATCG', 'TAGC')
-            2
+        Examples
+        --------
+        >>> cmp = DamerauLevenshtein()
+        >>> cmp.dist_abs('cat', 'hat')
+        1
+        >>> cmp.dist_abs('Niall', 'Neil')
+        3
+        >>> cmp.dist_abs('aluminum', 'Catalan')
+        7
+        >>> cmp.dist_abs('ATCG', 'TAGC')
+        2
 
         """
         ins_cost, del_cost, sub_cost, trans_cost = cost
@@ -178,26 +185,33 @@ class DamerauLevenshtein(_Distance):
         For the case in which all operations have :math:`cost = 1`, this is
         equivalent to the greater of the length of the two strings src & tar.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
-            cost (tuple): a 4-tuple representing the cost of the four possible
-                edits: inserts, deletes, substitutions, and transpositions,
-                respectively (by default: (1, 1, 1, 1))
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        cost : tuple
+            A 4-tuple representing the cost of the four possible edits:
+            inserts, deletes, substitutions, and transpositions, respectively
+            (by default: (1, 1, 1, 1))
 
-        Returns:
-            float: The normalized Damerau-Levenshtein distance
+        Returns
+        -------
+        float
+            The normalized Damerau-Levenshtein distance
 
-        Examples:
-            >>> cmp = DamerauLevenshtein()
-            >>> round(cmp.dist('cat', 'hat'), 12)
-            0.333333333333
-            >>> round(cmp.dist('Niall', 'Neil'), 12)
-            0.6
-            >>> cmp.dist('aluminum', 'Catalan')
-            0.875
-            >>> cmp.dist('ATCG', 'TAGC')
-            0.5
+        Examples
+        --------
+        >>> cmp = DamerauLevenshtein()
+        >>> round(cmp.dist('cat', 'hat'), 12)
+        0.333333333333
+        >>> round(cmp.dist('Niall', 'Neil'), 12)
+        0.6
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.875
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.5
 
         """
         if src == tar:
@@ -213,26 +227,32 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
 
     This is a wrapper of :py:meth:`DamerauLevenshtein.dist_abs`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        cost (tuple): a 4-tuple representing the cost of the four possible
-            edits: inserts, deletes, substitutions, and transpositions,
-            respectively (by default: (1, 1, 1, 1))
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    cost : tuple
+        A 4-tuple representing the cost of the four possible edits: inserts,
+        deletes, substitutions, and transpositions, respectively (by default:
+        (1, 1, 1, 1))
 
-    Returns:
-        int (may return a float if cost has float values): The
-            Damerau-Levenshtein distance between src & tar
+    Returns
+    -------
+    int (may return a float if cost has float values)
+        The Damerau-Levenshtein distance between src & tar
 
-    Examples:
-        >>> damerau_levenshtein('cat', 'hat')
-        1
-        >>> damerau_levenshtein('Niall', 'Neil')
-        3
-        >>> damerau_levenshtein('aluminum', 'Catalan')
-        7
-        >>> damerau_levenshtein('ATCG', 'TAGC')
-        2
+    Examples
+    --------
+    >>> damerau_levenshtein('cat', 'hat')
+    1
+    >>> damerau_levenshtein('Niall', 'Neil')
+    3
+    >>> damerau_levenshtein('aluminum', 'Catalan')
+    7
+    >>> damerau_levenshtein('ATCG', 'TAGC')
+    2
 
     """
     return DamerauLevenshtein().dist_abs(src, tar, cost)
@@ -243,25 +263,32 @@ def dist_damerau(src, tar, cost=(1, 1, 1, 1)):
 
     This is a wrapper of :py:meth:`DamerauLevenshtein.dist`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        cost (tuple): a 4-tuple representing the cost of the four possible
-            edits: inserts, deletes, substitutions, and transpositions,
-            respectively (by default: (1, 1, 1, 1))
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    cost : tuple
+        A 4-tuple representing the cost of the four possible edits: inserts,
+        deletes, substitutions, and transpositions, respectively (by default:
+        (1, 1, 1, 1))
 
-    Returns:
-        float: The normalized Damerau-Levenshtein distance
+    Returns
+    -------
+    float
+        The normalized Damerau-Levenshtein distance
 
-    Examples:
-        >>> round(dist_damerau('cat', 'hat'), 12)
-        0.333333333333
-        >>> round(dist_damerau('Niall', 'Neil'), 12)
-        0.6
-        >>> dist_damerau('aluminum', 'Catalan')
-        0.875
-        >>> dist_damerau('ATCG', 'TAGC')
-        0.5
+    Examples
+    --------
+    >>> round(dist_damerau('cat', 'hat'), 12)
+    0.333333333333
+    >>> round(dist_damerau('Niall', 'Neil'), 12)
+    0.6
+    >>> dist_damerau('aluminum', 'Catalan')
+    0.875
+    >>> dist_damerau('ATCG', 'TAGC')
+    0.5
 
     """
     return DamerauLevenshtein().dist(src, tar, cost)
@@ -272,25 +299,32 @@ def sim_damerau(src, tar, cost=(1, 1, 1, 1)):
 
     This is a wrapper of :py:meth:`DamerauLevenshtein.sim`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        cost (tuple): a 4-tuple representing the cost of the four possible
-            edits: inserts, deletes, substitutions, and transpositions,
-            respectively (by default: (1, 1, 1, 1))
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    cost : tuple
+        A 4-tuple representing the cost of the four possible edits: inserts,
+        deletes, substitutions, and transpositions, respectively (by default:
+        (1, 1, 1, 1))
 
-    Returns:
-        float: The normalized Damerau-Levenshtein similarity
+    Returns
+    -------
+    float
+        The normalized Damerau-Levenshtein similarity
 
-    Examples:
-        >>> round(sim_damerau('cat', 'hat'), 12)
-        0.666666666667
-        >>> round(sim_damerau('Niall', 'Neil'), 12)
-        0.4
-        >>> sim_damerau('aluminum', 'Catalan')
-        0.125
-        >>> sim_damerau('ATCG', 'TAGC')
-        0.5
+    Examples
+    --------
+    >>> round(sim_damerau('cat', 'hat'), 12)
+    0.666666666667
+    >>> round(sim_damerau('Niall', 'Neil'), 12)
+    0.4
+    >>> sim_damerau('aluminum', 'Catalan')
+    0.125
+    >>> sim_damerau('ATCG', 'TAGC')
+    0.5
 
     """
     return DamerauLevenshtein().sim(src, tar, cost)

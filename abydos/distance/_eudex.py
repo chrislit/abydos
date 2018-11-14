@@ -51,8 +51,10 @@ class Eudex(_Distance):
         Based on https://www.python-course.eu/generators.php
         Starts at Fibonacci number 3 (the second 1)
 
-        Yields:
-            int: The next Fibonacci number
+        Yields
+        -----
+        int
+            The next Fibonacci number
 
         """
         num_a, num_b = 1, 2
@@ -66,11 +68,15 @@ class Eudex(_Distance):
 
         Starts at base**0
 
-        Args:
-            base (int): The base to exponentiate
+        Parameters
+        ----------
+        base : int
+            The base to exponentiate
 
-        Yields:
-            int: The next power of `base`
+        Yields
+        -----
+        int
+            The next power of `base`
 
         """
         exp = 0
@@ -94,56 +100,64 @@ class Eudex(_Distance):
         - If set to an iterable, the iterable's values should be integers and
           will be used as the weights.
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
-            weights (str, iterable, or generator function): The weights or
-                weights generator function
-            max_length (int): The number of characters to encode as a eudex
-                hash
-            normalized (bool): Normalizes to [0, 1] if True
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        weights : str, iterable, or generator function
+            The weights or weights generator function
+        max_length : int
+            The number of characters to encode as a eudex hash
+        normalized : bool
+            Normalizes to [0, 1] if True
 
-        Returns:
-            int: The Eudex Hamming distance
+        Returns
+        -------
+        int
+            The Eudex Hamming distance
 
-        Examples:
-            >>> cmp = Eudex()
-            >>> cmp.dist_abs('cat', 'hat')
-            128
-            >>> cmp.dist_abs('Niall', 'Neil')
-            2
-            >>> cmp.dist_abs('Colin', 'Cuilen')
-            10
-            >>> cmp.dist_abs('ATCG', 'TAGC')
-            403
+        Examples
+        --------
+        >>> cmp = Eudex()
+        >>> cmp.dist_abs('cat', 'hat')
+        128
+        >>> cmp.dist_abs('Niall', 'Neil')
+        2
+        >>> cmp.dist_abs('Colin', 'Cuilen')
+        10
+        >>> cmp.dist_abs('ATCG', 'TAGC')
+        403
 
-            >>> cmp.dist_abs('cat', 'hat', weights='fibonacci')
-            34
-            >>> cmp.dist_abs('Niall', 'Neil', weights='fibonacci')
-            2
-            >>> cmp.dist_abs('Colin', 'Cuilen', weights='fibonacci')
-            7
-            >>> cmp.dist_abs('ATCG', 'TAGC', weights='fibonacci')
-            117
+        >>> cmp.dist_abs('cat', 'hat', weights='fibonacci')
+        34
+        >>> cmp.dist_abs('Niall', 'Neil', weights='fibonacci')
+        2
+        >>> cmp.dist_abs('Colin', 'Cuilen', weights='fibonacci')
+        7
+        >>> cmp.dist_abs('ATCG', 'TAGC', weights='fibonacci')
+        117
 
-            >>> cmp.dist_abs('cat', 'hat', weights=None)
-            1
-            >>> cmp.dist_abs('Niall', 'Neil', weights=None)
-            1
-            >>> cmp.dist_abs('Colin', 'Cuilen', weights=None)
-            2
-            >>> cmp.dist_abs('ATCG', 'TAGC', weights=None)
-            9
+        >>> cmp.dist_abs('cat', 'hat', weights=None)
+        1
+        >>> cmp.dist_abs('Niall', 'Neil', weights=None)
+        1
+        >>> cmp.dist_abs('Colin', 'Cuilen', weights=None)
+        2
+        >>> cmp.dist_abs('ATCG', 'TAGC', weights=None)
+        9
 
-            >>> cmp.dist_abs('cat', 'hat', [1, 1, 2, 6, 24, 120, 720, 5040])
-            1
-            >>> cmp.dist_abs('Niall', 'Neil', [1, 1, 2, 6, 24, 120, 720, 5040])
-            720
-            >>> cmp.dist_abs('Colin', 'Cuilen',
-            ... [1, 1, 2, 6, 24, 120, 720, 5040])
-            744
-            >>> cmp.dist_abs('ATCG', 'TAGC', [1, 1, 2, 6, 24, 120, 720, 5040])
-            6243
+        >>> # Using the OEIS A000142:
+        >>> cmp.dist_abs('cat', 'hat', [1, 1, 2, 6, 24, 120, 720, 5040])
+        1
+        >>> cmp.dist_abs('Niall', 'Neil', [1, 1, 2, 6, 24, 120, 720, 5040])
+        720
+        >>> cmp.dist_abs('Colin', 'Cuilen',
+        ... [1, 1, 2, 6, 24, 120, 720, 5040])
+        744
+        >>> cmp.dist_abs('ATCG', 'TAGC', [1, 1, 2, 6, 24, 120, 720, 5040])
+        6243
 
         """
 
@@ -189,27 +203,33 @@ class Eudex(_Distance):
 
         This is Eudex distance normalized to [0, 1].
 
-        Args:
-            src (str): Source string for comparison
-            tar (str): Target string for comparison
-            weights (str, iterable, or generator function): The weights or
-                weights generator function
-            max_length (int): The number of characters to encode as a eudex
-                hash
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        weights : str, iterable, or generator function
+            The weights or weights generator function
+        max_length : int
+            The number of characters to encode as a eudex hash
 
-        Returns:
-            int: The normalized Eudex Hamming distance
+        Returns
+        -------
+        int
+            The normalized Eudex Hamming distance
 
-        Examples:
-            >>> cmp = Eudex()
-            >>> round(cmp.dist('cat', 'hat'), 12)
-            0.062745098039
-            >>> round(cmp.dist('Niall', 'Neil'), 12)
-            0.000980392157
-            >>> round(cmp.dist('Colin', 'Cuilen'), 12)
-            0.004901960784
-            >>> round(cmp.dist('ATCG', 'TAGC'), 12)
-            0.197549019608
+        Examples
+        --------
+        >>> cmp = Eudex()
+        >>> round(cmp.dist('cat', 'hat'), 12)
+        0.062745098039
+        >>> round(cmp.dist('Niall', 'Neil'), 12)
+        0.000980392157
+        >>> round(cmp.dist('Colin', 'Cuilen'), 12)
+        0.004901960784
+        >>> round(cmp.dist('ATCG', 'TAGC'), 12)
+        0.197549019608
 
         """
         return self.dist_abs(src, tar, weights, max_length, True)
@@ -222,53 +242,62 @@ def eudex_hamming(
 
     This is a wrapper for :py:meth:`Eudex.eudex_hamming`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        weights (str, iterable, or generator function): The weights or weights
-            generator function
-        max_length (int): The number of characters to encode as a eudex hash
-        normalized (bool): Normalizes to [0, 1] if True
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    weights : str, iterable, or generator function
+        The weights or weights generator function
+    max_length : int
+        The number of characters to encode as a eudex hash
+    normalized : bool
+        Normalizes to [0, 1] if True
 
-    Returns:
-        int: The Eudex Hamming distance
+    Returns
+    -------
+    int
+        The Eudex Hamming distance
 
-    Examples:
-        >>> eudex_hamming('cat', 'hat')
-        128
-        >>> eudex_hamming('Niall', 'Neil')
-        2
-        >>> eudex_hamming('Colin', 'Cuilen')
-        10
-        >>> eudex_hamming('ATCG', 'TAGC')
-        403
+    Examples
+    --------
+    >>> eudex_hamming('cat', 'hat')
+    128
+    >>> eudex_hamming('Niall', 'Neil')
+    2
+    >>> eudex_hamming('Colin', 'Cuilen')
+    10
+    >>> eudex_hamming('ATCG', 'TAGC')
+    403
 
-        >>> eudex_hamming('cat', 'hat', weights='fibonacci')
-        34
-        >>> eudex_hamming('Niall', 'Neil', weights='fibonacci')
-        2
-        >>> eudex_hamming('Colin', 'Cuilen', weights='fibonacci')
-        7
-        >>> eudex_hamming('ATCG', 'TAGC', weights='fibonacci')
-        117
+    >>> eudex_hamming('cat', 'hat', weights='fibonacci')
+    34
+    >>> eudex_hamming('Niall', 'Neil', weights='fibonacci')
+    2
+    >>> eudex_hamming('Colin', 'Cuilen', weights='fibonacci')
+    7
+    >>> eudex_hamming('ATCG', 'TAGC', weights='fibonacci')
+    117
 
-        >>> eudex_hamming('cat', 'hat', weights=None)
-        1
-        >>> eudex_hamming('Niall', 'Neil', weights=None)
-        1
-        >>> eudex_hamming('Colin', 'Cuilen', weights=None)
-        2
-        >>> eudex_hamming('ATCG', 'TAGC', weights=None)
-        9
+    >>> eudex_hamming('cat', 'hat', weights=None)
+    1
+    >>> eudex_hamming('Niall', 'Neil', weights=None)
+    1
+    >>> eudex_hamming('Colin', 'Cuilen', weights=None)
+    2
+    >>> eudex_hamming('ATCG', 'TAGC', weights=None)
+    9
 
-        >>> eudex_hamming('cat', 'hat', [1, 1, 2, 6, 24, 120, 720, 5040])
-        1
-        >>> eudex_hamming('Niall', 'Neil', [1, 1, 2, 6, 24, 120, 720, 5040])
-        720
-        >>> eudex_hamming('Colin', 'Cuilen', [1, 1, 2, 6, 24, 120, 720, 5040])
-        744
-        >>> eudex_hamming('ATCG', 'TAGC', [1, 1, 2, 6, 24, 120, 720, 5040])
-        6243
+    >>> # Using the OEIS A000142:
+    >>> eudex_hamming('cat', 'hat', [1, 1, 2, 6, 24, 120, 720, 5040])
+    1
+    >>> eudex_hamming('Niall', 'Neil', [1, 1, 2, 6, 24, 120, 720, 5040])
+    720
+    >>> eudex_hamming('Colin', 'Cuilen', [1, 1, 2, 6, 24, 120, 720, 5040])
+    744
+    >>> eudex_hamming('ATCG', 'TAGC', [1, 1, 2, 6, 24, 120, 720, 5040])
+    6243
 
     """
     return Eudex().dist_abs(src, tar, weights, max_length, normalized)
@@ -279,25 +308,32 @@ def dist_eudex(src, tar, weights='exponential', max_length=8):
 
     This is a wrapper for :py:meth:`Eudex.dist`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        weights (str, iterable, or generator function): The weights or
-            weights generator function
-        max_length (int): The number of characters to encode as a eudex hash
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    weights : str, iterable, or generator function
+        The weights or weights generator function
+    max_length : int
+        The number of characters to encode as a eudex hash
 
-    Returns:
-        int: The normalized Eudex Hamming distance
+    Returns
+    -------
+    int
+        The normalized Eudex Hamming distance
 
-    Examples:
-        >>> round(dist_eudex('cat', 'hat'), 12)
-        0.062745098039
-        >>> round(dist_eudex('Niall', 'Neil'), 12)
-        0.000980392157
-        >>> round(dist_eudex('Colin', 'Cuilen'), 12)
-        0.004901960784
-        >>> round(dist_eudex('ATCG', 'TAGC'), 12)
-        0.197549019608
+    Examples
+    --------
+    >>> round(dist_eudex('cat', 'hat'), 12)
+    0.062745098039
+    >>> round(dist_eudex('Niall', 'Neil'), 12)
+    0.000980392157
+    >>> round(dist_eudex('Colin', 'Cuilen'), 12)
+    0.004901960784
+    >>> round(dist_eudex('ATCG', 'TAGC'), 12)
+    0.197549019608
 
     """
     return Eudex().dist(src, tar, weights, max_length)
@@ -308,25 +344,32 @@ def sim_eudex(src, tar, weights='exponential', max_length=8):
 
     This is a wrapper for :py:meth:`Eudex.sim`.
 
-    Args:
-        src (str): Source string for comparison
-        tar (str): Target string for comparison
-        weights (str, iterable, or generator function): The weights or
-            weights generator function
-        max_length (int): The number of characters to encode as a eudex hash
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    weights : str, iterable, or generator function
+        The weights or weights generator function
+    max_length : int
+        The number of characters to encode as a eudex hash
 
-    Returns:
-        int: The normalized Eudex Hamming similarity
+    Returns
+    -------
+    int
+        The normalized Eudex Hamming similarity
 
-    Examples:
-        >>> round(sim_eudex('cat', 'hat'), 12)
-        0.937254901961
-        >>> round(sim_eudex('Niall', 'Neil'), 12)
-        0.999019607843
-        >>> round(sim_eudex('Colin', 'Cuilen'), 12)
-        0.995098039216
-        >>> round(sim_eudex('ATCG', 'TAGC'), 12)
-        0.802450980392
+    Examples
+    --------
+    >>> round(sim_eudex('cat', 'hat'), 12)
+    0.937254901961
+    >>> round(sim_eudex('Niall', 'Neil'), 12)
+    0.999019607843
+    >>> round(sim_eudex('Colin', 'Cuilen'), 12)
+    0.995098039216
+    >>> round(sim_eudex('ATCG', 'TAGC'), 12)
+    0.802450980392
 
     """
     return Eudex().sim(src, tar, weights, max_length)
