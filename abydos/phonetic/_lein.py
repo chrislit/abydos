@@ -52,25 +52,32 @@ class Lein(Phonetic):
     def encode(self, word, max_length=4, zero_pad=True):
         """Return the Lein code for a word.
 
-        Args:
-            word (str): The word to transform
-            max_length (int): The length of the code returned (defaults to 4)
-            zero_pad (bool): pad the end of the return value with 0s to achieve
-                a max_length string
+        Parameters
+        ----------
+        word : str
+            The word to transform
+        max_length : int
+            The length of the code returned (defaults to 4)
+        zero_pad : bool
+            Pad the end of the return value with 0s to achieve a max_length
+            string
 
-        Returns:
-            str: The Lein code
+        Returns
+        -------
+        str
+            The Lein code
 
-        Examples:
-            >>> pe = Lein()
-            >>> pe.encode('Christopher')
-            'C351'
-            >>> pe.encode('Niall')
-            'N300'
-            >>> pe.encode('Smith')
-            'S210'
-            >>> pe.encode('Schmidt')
-            'S521'
+        Examples
+        --------
+        >>> pe = Lein()
+        >>> pe.encode('Christopher')
+        'C351'
+        >>> pe.encode('Niall')
+        'N300'
+        >>> pe.encode('Smith')
+        'S210'
+        >>> pe.encode('Schmidt')
+        'S521'
 
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
@@ -94,24 +101,30 @@ def lein(word, max_length=4, zero_pad=True):
 
     This is a wrapper for :py:meth:`Lein.encode`.
 
-    Args:
-        word (str): The word to transform
-        max_length (int): The length of the code returned (defaults to 4)
-        zero_pad (bool): pad the end of the return value with 0s to achieve
-            a max_length string
+    Parameters
+    ----------
+    word : str
+        The word to transform
+    max_length : int
+        The length of the code returned (defaults to 4)
+    zero_pad : bool
+        Pad the end of the return value with 0s to achieve a max_length string
 
-    Returns:
-        str: The Lein code
+    Returns
+    -------
+    str
+        The Lein code
 
-    Examples:
-        >>> lein('Christopher')
-        'C351'
-        >>> lein('Niall')
-        'N300'
-        >>> lein('Smith')
-        'S210'
-        >>> lein('Schmidt')
-        'S521'
+    Examples
+    --------
+    >>> lein('Christopher')
+    'C351'
+    >>> lein('Niall')
+    'N300'
+    >>> lein('Smith')
+    'S210'
+    >>> lein('Schmidt')
+    'S521'
 
     """
     return Lein().encode(word, max_length, zero_pad)

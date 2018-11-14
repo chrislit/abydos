@@ -58,35 +58,41 @@ class MetaSoundex(Phonetic):
     def encode(self, word, lang='en'):
         """Return the MetaSoundex code for a word.
 
-        Args:
-            word (str): The word to transform
-            lang (str): Either 'en' for English or 'es' for Spanish
+        Parameters
+        ----------
+        word : str
+            The word to transform
+        lang : str
+            Either 'en' for English or 'es' for Spanish
 
-        Returns:
-            str: The MetaSoundex code
+        Returns
+        -------
+        str
+            The MetaSoundex code
 
-        Examples:
-            >>> pe = MetaSoundex()
-            >>> pe.encode('Smith')
-            '4500'
-            >>> pe.encode('Waters')
-            '7362'
-            >>> pe.encode('James')
-            '1520'
-            >>> pe.encode('Schmidt')
-            '4530'
-            >>> pe.encode('Ashcroft')
-            '0261'
-            >>> pe.encode('Perez', lang='es')
-            '094'
-            >>> pe.encode('Martinez', lang='es')
-            '69364'
-            >>> pe.encode('Gutierrez', lang='es')
-            '83994'
-            >>> pe.encode('Santiago', lang='es')
-            '4638'
-            >>> pe.encode('Nicolás', lang='es')
-            '6754'
+        Examples
+        --------
+        >>> pe = MetaSoundex()
+        >>> pe.encode('Smith')
+        '4500'
+        >>> pe.encode('Waters')
+        '7362'
+        >>> pe.encode('James')
+        '1520'
+        >>> pe.encode('Schmidt')
+        '4530'
+        >>> pe.encode('Ashcroft')
+        '0261'
+        >>> pe.encode('Perez', lang='es')
+        '094'
+        >>> pe.encode('Martinez', lang='es')
+        '69364'
+        >>> pe.encode('Gutierrez', lang='es')
+        '83994'
+        >>> pe.encode('Santiago', lang='es')
+        '4638'
+        >>> pe.encode('Nicolás', lang='es')
+        '6754'
 
         """
         if lang == 'es':
@@ -104,34 +110,40 @@ def metasoundex(word, lang='en'):
 
     This is a wrapper for :py:meth:`MetaSoundex.encode`.
 
-    Args:
-        word (str): The word to transform
-        lang (str): Either 'en' for English or 'es' for Spanish
+    Parameters
+    ----------
+    word : str
+        The word to transform
+    lang : str
+        Either 'en' for English or 'es' for Spanish
 
-    Returns:
-        str: The MetaSoundex code
+    Returns
+    -------
+    str
+        The MetaSoundex code
 
-    Examples:
-        >>> metasoundex('Smith')
-        '4500'
-        >>> metasoundex('Waters')
-        '7362'
-        >>> metasoundex('James')
-        '1520'
-        >>> metasoundex('Schmidt')
-        '4530'
-        >>> metasoundex('Ashcroft')
-        '0261'
-        >>> metasoundex('Perez', lang='es')
-        '094'
-        >>> metasoundex('Martinez', lang='es')
-        '69364'
-        >>> metasoundex('Gutierrez', lang='es')
-        '83994'
-        >>> metasoundex('Santiago', lang='es')
-        '4638'
-        >>> metasoundex('Nicolás', lang='es')
-        '6754'
+    Examples
+    --------
+    >>> metasoundex('Smith')
+    '4500'
+    >>> metasoundex('Waters')
+    '7362'
+    >>> metasoundex('James')
+    '1520'
+    >>> metasoundex('Schmidt')
+    '4530'
+    >>> metasoundex('Ashcroft')
+    '0261'
+    >>> metasoundex('Perez', lang='es')
+    '094'
+    >>> metasoundex('Martinez', lang='es')
+    '69364'
+    >>> metasoundex('Gutierrez', lang='es')
+    '83994'
+    >>> metasoundex('Santiago', lang='es')
+    '4638'
+    >>> metasoundex('Nicolás', lang='es')
+    '6754'
 
     """
     return MetaSoundex().encode(word, lang)

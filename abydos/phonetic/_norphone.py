@@ -73,24 +73,29 @@ class Norphone(Phonetic):
     def encode(self, word):
         """Return the Norphone code.
 
-        Args:
-            word (str): The word to transform
+        Parameters
+        ----------
+        word : str
+            The word to transform
 
-        Returns:
-            str: The Norphone code
+        Returns
+        -------
+        str
+            The Norphone code
 
-        Examples:
-            >>> pe = Norphone()
-            >>> pe.encode('Hansen')
-            'HNSN'
-            >>> pe.encode('Larsen')
-            'LRSN'
-            >>> pe.encode('Aagaard')
-            'ÅKRT'
-            >>> pe.encode('Braaten')
-            'BRTN'
-            >>> pe.encode('Sandvik')
-            'SNVK'
+        Examples
+        --------
+        >>> pe = Norphone()
+        >>> pe.encode('Hansen')
+        'HNSN'
+        >>> pe.encode('Larsen')
+        'LRSN'
+        >>> pe.encode('Aagaard')
+        'ÅKRT'
+        >>> pe.encode('Braaten')
+        'BRTN'
+        >>> pe.encode('Sandvik')
+        'SNVK'
 
         """
         word = word.upper()
@@ -155,23 +160,28 @@ def norphone(word):
 
     This is a wrapper for :py:meth:`Norphone.encode`.
 
-    Args:
-        word (str): The word to transform
+    Parameters
+    ----------
+    word : str
+        The word to transform
 
-    Returns:
-        str: The Norphone code
+    Returns
+    -------
+    str
+        The Norphone code
 
-    Examples:
-        >>> norphone('Hansen')
-        'HNSN'
-        >>> norphone('Larsen')
-        'LRSN'
-        >>> norphone('Aagaard')
-        'ÅKRT'
-        >>> norphone('Braaten')
-        'BRTN'
-        >>> norphone('Sandvik')
-        'SNVK'
+    Examples
+    --------
+    >>> norphone('Hansen')
+    'HNSN'
+    >>> norphone('Larsen')
+    'LRSN'
+    >>> norphone('Aagaard')
+    'ÅKRT'
+    >>> norphone('Braaten')
+    'BRTN'
+    >>> norphone('Sandvik')
+    'SNVK'
 
     """
     return Norphone().encode(word)

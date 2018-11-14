@@ -435,26 +435,31 @@ class NRL(Phonetic):
     def encode(self, word):
         """Return the Naval Research Laboratory phonetic encoding of a word.
 
-        Args:
-            word (str): The word to transform
+        Parameters
+        ----------
+        word : str
+            The word to transform
 
-        Returns:
-            str: The NRL phonetic encoding
+        Returns
+        -------
+        str
+            The NRL phonetic encoding
 
-        Examples:
-            >>> pe = NRL()
-            >>> pe.encode('the')
-            'DHAX'
-            >>> pe.encode('round')
-            'rAWnd'
-            >>> pe.encode('quick')
-            'kwIHk'
-            >>> pe.encode('eaten')
-            'IYtEHn'
-            >>> pe.encode('Smith')
-            'smIHTH'
-            >>> pe.encode('Larsen')
-            'lAArsEHn'
+        Examples
+        --------
+        >>> pe = NRL()
+        >>> pe.encode('the')
+        'DHAX'
+        >>> pe.encode('round')
+        'rAWnd'
+        >>> pe.encode('quick')
+        'kwIHk'
+        >>> pe.encode('eaten')
+        'IYtEHn'
+        >>> pe.encode('Smith')
+        'smIHTH'
+        >>> pe.encode('Larsen')
+        'lAArsEHn'
 
         """
 
@@ -519,25 +524,30 @@ def nrl(word):
 
     This is a wrapper for :py:meth:`NRL.encode`.
 
-    Args:
-        word (str): The word to transform
+    Parameters
+    ----------
+    word : str
+        The word to transform
 
-    Returns:
-        str: The NRL phonetic encoding
+    Returns
+    -------
+    str
+        The NRL phonetic encoding
 
-    Examples:
-        >>> nrl('the')
-        'DHAX'
-        >>> nrl('round')
-        'rAWnd'
-        >>> nrl('quick')
-        'kwIHk'
-        >>> nrl('eaten')
-        'IYtEHn'
-        >>> nrl('Smith')
-        'smIHTH'
-        >>> nrl('Larsen')
-        'lAArsEHn'
+    Examples
+    --------
+    >>> nrl('the')
+    'DHAX'
+    >>> nrl('round')
+    'rAWnd'
+    >>> nrl('quick')
+    'kwIHk'
+    >>> nrl('eaten')
+    'IYtEHn'
+    >>> nrl('Smith')
+    'smIHTH'
+    >>> nrl('Larsen')
+    'lAArsEHn'
 
     """
     return NRL().encode(word)

@@ -55,25 +55,30 @@ class Metaphone(Phonetic):
         This incorporates some corrections to the above code, particularly
         some of those suggested by Michael Kuhn in :cite:`Kuhn:1995`.
 
-        Args:
-            word (str): The word to transform
-            max_length (int): The maximum length of the returned Metaphone
-                code (defaults to 64, but in Philips' original implementation
-                this was 4)
+        Parameters
+        ----------
+        word : str
+            The word to transform
+        max_length : int
+            The maximum length of the returned Metaphone code (defaults to 64,
+            but in Philips' original implementation this was 4)
 
-        Returns:
-            str: The Metaphone value
+        Returns
+        -------
+        str
+            The Metaphone value
 
-        Examples:
-            >>> pe = Metaphone()
-            >>> pe.encode('Christopher')
-            'KRSTFR'
-            >>> pe.encode('Niall')
-            'NL'
-            >>> pe.encode('Smith')
-            'SM0'
-            >>> pe.encode('Schmidt')
-            'SKMTT'
+        Examples
+        --------
+        >>> pe = Metaphone()
+        >>> pe.encode('Christopher')
+        'KRSTFR'
+        >>> pe.encode('Niall')
+        'NL'
+        >>> pe.encode('Smith')
+        'SM0'
+        >>> pe.encode('Schmidt')
+        'SKMTT'
 
         """
         # Require a max_length of at least 4
@@ -254,24 +259,29 @@ def metaphone(word, max_length=-1):
 
     This is a wrapper for :py:meth:`Metaphone.encode`.
 
-    Args:
-        word (str): The word to transform
-        max_length (int): The maximum length of the returned Metaphone
-            code (defaults to 64, but in Philips' original implementation
-            this was 4)
+    Parameters
+    ----------
+    word : str
+        The word to transform
+    max_length : int
+        The maximum length of the returned Metaphone code (defaults to 64, but
+        in Philips' original implementation this was 4)
 
-    Returns:
-        str: The Metaphone value
+    Returns
+    -------
+    str
+        The Metaphone value
 
-    Examples:
-        >>> metaphone('Christopher')
-        'KRSTFR'
-        >>> metaphone('Niall')
-        'NL'
-        >>> metaphone('Smith')
-        'SM0'
-        >>> metaphone('Schmidt')
-        'SKMTT'
+    Examples
+    --------
+    >>> metaphone('Christopher')
+    'KRSTFR'
+    >>> metaphone('Niall')
+    'NL'
+    >>> metaphone('Smith')
+    'SM0'
+    >>> metaphone('Schmidt')
+    'SKMTT'
 
     """
     return Metaphone().encode(word, max_length)

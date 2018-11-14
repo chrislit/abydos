@@ -53,26 +53,31 @@ class PhoneticSpanish(Phonetic):
     def encode(self, word, max_length=-1):
         """Return the PhoneticSpanish coding of word.
 
-        Args:
-            word (str): The word to transform
-            max_length (int): The length of the code returned (defaults to
-                unlimited)
+        Parameters
+        ----------
+        word : str
+            The word to transform
+        max_length : int
+            The length of the code returned (defaults to unlimited)
 
-        Returns:
-            str: The PhoneticSpanish code
+        Returns
+        -------
+        str
+            The PhoneticSpanish code
 
-        Examples:
-            >>> pe = PhoneticSpanish()
-            >>> pe.encode('Perez')
-            '094'
-            >>> pe.encode('Martinez')
-            '69364'
-            >>> pe.encode('Gutierrez')
-            '83994'
-            >>> pe.encode('Santiago')
-            '4638'
-            >>> pe.encode('Nicolás')
-            '6454'
+        Examples
+        --------
+        >>> pe = PhoneticSpanish()
+        >>> pe.encode('Perez')
+        '094'
+        >>> pe.encode('Martinez')
+        '69364'
+        >>> pe.encode('Gutierrez')
+        '83994'
+        >>> pe.encode('Santiago')
+        '4638'
+        >>> pe.encode('Nicolás')
+        '6454'
 
         """
         # uppercase, normalize, and decompose, filter to A-Z minus vowels & W
@@ -97,25 +102,30 @@ def phonetic_spanish(word, max_length=-1):
 
     This is a wrapper for :py:meth:`PhoneticSpanish.encode`.
 
-    Args:
-        word (str): The word to transform
-        max_length (int): The length of the code returned (defaults to
-            unlimited)
+    Parameters
+    ----------
+    word : str
+        The word to transform
+    max_length : int
+        The length of the code returned (defaults to unlimited)
 
-    Returns:
-        str: The PhoneticSpanish code
+    Returns
+    -------
+    str
+        The PhoneticSpanish code
 
-    Examples:
-        >>> phonetic_spanish('Perez')
-        '094'
-        >>> phonetic_spanish('Martinez')
-        '69364'
-        >>> phonetic_spanish('Gutierrez')
-        '83994'
-        >>> phonetic_spanish('Santiago')
-        '4638'
-        >>> phonetic_spanish('Nicolás')
-        '6454'
+    Examples
+    --------
+    >>> phonetic_spanish('Perez')
+    '094'
+    >>> phonetic_spanish('Martinez')
+    '69364'
+    >>> phonetic_spanish('Gutierrez')
+    '83994'
+    >>> phonetic_spanish('Santiago')
+    '4638'
+    >>> phonetic_spanish('Nicolás')
+    '6454'
 
     """
     return PhoneticSpanish().encode(word, max_length)

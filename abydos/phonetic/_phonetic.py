@@ -44,21 +44,26 @@ class Phonetic(object):
     def _delete_consecutive_repeats(self, word):
         """Delete consecutive repeated characters in a word.
 
-        Args:
-            word (str): The word to transform
+        Parameters
+        ----------
+        word : str
+            The word to transform
 
-        Returns:
-            str: Word with consecutive repeating characters collapsed to a
-                single instance
+        Returns
+        -------
+        str
+            Word with consecutive repeating characters collapsed to a single
+            instance
 
-        Examples:
-            >>> pe = Phonetic()
-            >>> pe._delete_consecutive_repeats('REDDEE')
-            'REDE'
-            >>> pe._delete_consecutive_repeats('AEIOU')
-            'AEIOU'
-            >>> pe._delete_consecutive_repeats('AAACCCTTTGGG')
-            'ACTG'
+        Examples
+        --------
+        >>> pe = Phonetic()
+        >>> pe._delete_consecutive_repeats('REDDEE')
+        'REDE'
+        >>> pe._delete_consecutive_repeats('AEIOU')
+        'AEIOU'
+        >>> pe._delete_consecutive_repeats('AAACCCTTTGGG')
+        'ACTG'
 
         """
         return ''.join(char for char, _ in groupby(word))
@@ -66,8 +71,10 @@ class Phonetic(object):
     def encode(self, word):
         """Encode phonetically.
 
-        Args:
-            word (str): The word to transform
+        Parameters
+        ----------
+        word : str
+            The word to transform
 
         """
         pass
@@ -75,11 +82,15 @@ class Phonetic(object):
     def encode_alpha(self, word):
         """Encode phonetically using alphabetic characters.
 
-        Args:
-            word (str): The word to transform
+        Parameters
+        ----------
+        word : str
+            The word to transform
 
-        Returns:
-            str: The word transformed
+        Returns
+        -------
+        str
+            The word transformed
 
         """
         return self.encode(word)

@@ -182,39 +182,53 @@ class Phonix(Phonetic):
     def encode(self, word, max_length=4, zero_pad=True):
         """Return the Phonix code for a word.
 
-        Args:
-            word (str): The word to transform
-            max_length (int): The length of the code returned (defaults to 4)
-            zero_pad (bool): pad the end of the return value with 0s to achieve
-                a max_length string
+        Parameters
+        ----------
+        word : str
+            The word to transform
+        max_length : int
+            The length of the code returned (defaults to 4)
+        zero_pad : bool
+            Pad the end of the return value with 0s to achieve a max_length
+            string
 
-        Returns:
-            str: The Phonix value
+        Returns
+        -------
+        str
+            The Phonix value
 
-        Examples:
-            >>> pe = Phonix()
-            >>> pe.encode('Christopher')
-            'K683'
-            >>> pe.encode('Niall')
-            'N400'
-            >>> pe.encode('Smith')
-            'S530'
-            >>> pe.encode('Schmidt')
-            'S530'
+        Examples
+        --------
+        >>> pe = Phonix()
+        >>> pe.encode('Christopher')
+        'K683'
+        >>> pe.encode('Niall')
+        'N400'
+        >>> pe.encode('Smith')
+        'S530'
+        >>> pe.encode('Schmidt')
+        'S530'
 
         """
 
         def _start_repl(word, src, tar, post=None):
             """Replace src with tar at the start of word.
 
-            Args:
-                word (str): The word to modify
-                src (str): Substring to match
-                tar (str): Substring to substitute
-                post (set): Following characters
+            Parameters
+            ----------
+            word : str
+                The word to modify
+            src : str
+                Substring to match
+            tar : str
+                Substring to substitute
+            post : set
+                Following characters
 
-            Returns:
-                str: Modified string
+            Returns
+            -------
+            str
+                Modified string
 
             """
             if post:
@@ -228,14 +242,21 @@ class Phonix(Phonetic):
         def _end_repl(word, src, tar, pre=None):
             """Replace src with tar at the end of word.
 
-            Args:
-                word (str): The word to modify
-                src (str): Substring to match
-                tar (str): Substring to substitute
-                pre (set): Preceding characters
+            Parameters
+            ----------
+            word : str
+                The word to modify
+            src : str
+                Substring to match
+            tar : str
+                Substring to substitute
+            pre : set
+                Preceding characters
 
-            Returns:
-                str: Modified string
+            Returns
+            -------
+            str
+                Modified string
 
             """
             if pre:
@@ -249,15 +270,23 @@ class Phonix(Phonetic):
         def _mid_repl(word, src, tar, pre=None, post=None):
             """Replace src with tar in the middle of word.
 
-            Args:
-                word (str): The word to modify
-                src (str): Substring to match
-                tar (str): Substring to substitute
-                pre (set): Preceding characters
-                post (set): Following characters
+            Parameters
+            ----------
+            word : str
+                The word to modify
+            src : str
+                Substring to match
+            tar : str
+                Substring to substitute
+            pre : set
+                Preceding characters
+            post : set
+                Following characters
 
-            Returns:
-                str: Modified string
+            Returns
+            -------
+            str
+                Modified string
 
             """
             if pre or post:
@@ -273,15 +302,23 @@ class Phonix(Phonetic):
         def _all_repl(word, src, tar, pre=None, post=None):
             """Replace src with tar anywhere in word.
 
-            Args:
-                word (str): The word to modify
-                src (str): Substring to match
-                tar (str): Substring to substitute
-                pre (set): Preceding characters
-                post (set): Following characters
+            Parameters
+            ----------
+            word : str
+                The word to modify
+            src : str
+                Substring to match
+            tar : str
+                Substring to substitute
+            pre : set
+                Preceding characters
+            post : set
+                Following characters
 
-            Returns:
-                str: Modified string
+            Returns
+            -------
+            str
+                Modified string
 
             """
             if pre or post:
@@ -335,24 +372,30 @@ def phonix(word, max_length=4, zero_pad=True):
 
     This is a wrapper for :py:meth:`Phonix.encode`.
 
-    Args:
-        word (str): The word to transform
-        max_length (int): The length of the code returned (defaults to 4)
-        zero_pad (bool): pad the end of the return value with 0s to achieve
-            a max_length string
+    Parameters
+    ----------
+    word : str
+        The word to transform
+    max_length : int
+        The length of the code returned (defaults to 4)
+    zero_pad : bool
+        Pad the end of the return value with 0s to achieve a max_length string
 
-    Returns:
-        str: The Phonix value
+    Returns
+    -------
+    str
+        The Phonix value
 
-    Examples:
-        >>> phonix('Christopher')
-        'K683'
-        >>> phonix('Niall')
-        'N400'
-        >>> phonix('Smith')
-        'S530'
-        >>> phonix('Schmidt')
-        'S530'
+    Examples
+    --------
+    >>> phonix('Christopher')
+    'K683'
+    >>> phonix('Niall')
+    'N400'
+    >>> phonix('Smith')
+    'S530'
+    >>> phonix('Schmidt')
+    'S530'
 
     """
     return Phonix().encode(word, max_length, zero_pad)

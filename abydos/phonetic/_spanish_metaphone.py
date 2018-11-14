@@ -50,38 +50,49 @@ class SpanishMetaphone(Phonetic):
     def encode(self, word, max_length=6, modified=False):
         """Return the Spanish Metaphone of a word.
 
-        Args:
-            word (str): The word to transform
-            max_length (int): The length of the code returned (defaults to 6)
-            modified (bool): Set to True to use del Pilar Angeles &
-                Bailón-Miguel's modified version of the algorithm
+        Parameters
+        ----------
+        word : str
+            The word to transform
+        max_length : int
+            The length of the code returned (defaults to 6)
+        modified : bool
+            Set to True to use del Pilar Angeles & Bailón-Miguel's modified
+            version of the algorithm
 
-        Returns:
-            str: The Spanish Metaphone code
+        Returns
+        -------
+        str
+            The Spanish Metaphone code
 
-        Examples:
-            >>> pe = SpanishMetaphone()
-            >>> pe.encode('Perez')
-            'PRZ'
-            >>> pe.encode('Martinez')
-            'MRTNZ'
-            >>> pe.encode('Gutierrez')
-            'GTRRZ'
-            >>> pe.encode('Santiago')
-            'SNTG'
-            >>> pe.encode('Nicolás')
-            'NKLS'
+        Examples
+        --------
+        >>> pe = SpanishMetaphone()
+        >>> pe.encode('Perez')
+        'PRZ'
+        >>> pe.encode('Martinez')
+        'MRTNZ'
+        >>> pe.encode('Gutierrez')
+        'GTRRZ'
+        >>> pe.encode('Santiago')
+        'SNTG'
+        >>> pe.encode('Nicolás')
+        'NKLS'
 
         """
 
         def _is_vowel(pos):
             """Return True if the character at word[pos] is a vowel.
 
-            Args:
-                pos (int): Position to check for a vowel
+            Parameters
+            ----------
+            pos : int
+                Position to check for a vowel
 
-            Returns:
-                bool: True if word[pos] is a vowel
+            Returns
+            -------
+            bool
+                True if word[pos] is a vowel
 
             """
             return pos < len(word) and word[pos] in {'A', 'E', 'I', 'O', 'U'}
@@ -226,26 +237,33 @@ def spanish_metaphone(word, max_length=6, modified=False):
 
     This is a wrapper for :py:meth:`SpanishMetaphone.encode`.
 
-    Args:
-        word (str): The word to transform
-        max_length (int): The length of the code returned (defaults to 6)
-        modified (bool): Set to True to use del Pilar Angeles &
-            Bailón-Miguel's modified version of the algorithm
+    Parameters
+    ----------
+    word : str
+        The word to transform
+    max_length : int
+        The length of the code returned (defaults to 6)
+    modified : bool
+        Set to True to use del Pilar Angeles & Bailón-Miguel's modified version
+        of the algorithm
 
-    Returns:
-        str: The Spanish Metaphone code
+    Returns
+    -------
+    str
+        The Spanish Metaphone code
 
-    Examples:
-        >>> spanish_metaphone('Perez')
-        'PRZ'
-        >>> spanish_metaphone('Martinez')
-        'MRTNZ'
-        >>> spanish_metaphone('Gutierrez')
-        'GTRRZ'
-        >>> spanish_metaphone('Santiago')
-        'SNTG'
-        >>> spanish_metaphone('Nicolás')
-        'NKLS'
+    Examples
+    --------
+    >>> spanish_metaphone('Perez')
+    'PRZ'
+    >>> spanish_metaphone('Martinez')
+    'MRTNZ'
+    >>> spanish_metaphone('Gutierrez')
+    'GTRRZ'
+    >>> spanish_metaphone('Santiago')
+    'SNTG'
+    >>> spanish_metaphone('Nicolás')
+    'NKLS'
 
     """
     return SpanishMetaphone().encode(word, max_length, modified)

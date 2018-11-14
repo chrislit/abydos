@@ -161,23 +161,29 @@ class AlphaSIS(Phonetic):
         multiple values for a single word. But the collection must be ordered
         since the first value is the primary coding.
 
-        Args:
-            word (str): The word to transform
-            max_length (int): The length of the code returned (defaults to 14)
+        Parameters
+        ----------
+        word : str
+            The word to transform
+        max_length : int
+            The length of the code returned (defaults to 14)
 
-        Returns:
-            tuple: The Alpha-SIS value
+        Returns
+        -------
+        tuple
+            The Alpha-SIS value
 
-        Examples:
-            >>> pe = AlphaSIS()
-            >>> pe.encode('Christopher')
-            ('06401840000000', '07040184000000', '04018400000000')
-            >>> pe.encode('Niall')
-            ('02500000000000',)
-            >>> pe.encode('Smith')
-            ('03100000000000',)
-            >>> pe.encode('Schmidt')
-            ('06310000000000',)
+        Examples
+        --------
+        >>> pe = AlphaSIS()
+        >>> pe.encode('Christopher')
+        ('06401840000000', '07040184000000', '04018400000000')
+        >>> pe.encode('Niall')
+        ('02500000000000',)
+        >>> pe.encode('Smith')
+        ('03100000000000',)
+        >>> pe.encode('Schmidt')
+        ('06310000000000',)
 
         """
         alpha = ['']
@@ -243,22 +249,28 @@ def alpha_sis(word, max_length=14):
 
     This is a wrapper for :py:meth:`AlphaSIS.encode`.
 
-    Args:
-        word (str): The word to transform
-        max_length (int): The length of the code returned (defaults to 14)
+    Parameters
+    ----------
+    word : str
+        The word to transform
+    max_length : int
+        The length of the code returned (defaults to 14)
 
-    Returns:
-        tuple: The Alpha-SIS value
+    Returns
+    -------
+    tuple
+        The Alpha-SIS value
 
-    Examples:
-        >>> alpha_sis('Christopher')
-        ('06401840000000', '07040184000000', '04018400000000')
-        >>> alpha_sis('Niall')
-        ('02500000000000',)
-        >>> alpha_sis('Smith')
-        ('03100000000000',)
-        >>> alpha_sis('Schmidt')
-        ('06310000000000',)
+    Examples
+    --------
+    >>> alpha_sis('Christopher')
+    ('06401840000000', '07040184000000', '04018400000000')
+    >>> alpha_sis('Niall')
+    ('02500000000000',)
+    >>> alpha_sis('Smith')
+    ('03100000000000',)
+    >>> alpha_sis('Schmidt')
+    ('06310000000000',)
 
     """
     return AlphaSIS().encode(word, max_length)

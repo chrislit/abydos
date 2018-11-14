@@ -54,38 +54,50 @@ class Haase(Phonetic):
 
         While the output code is numeric, it is nevertheless a str.
 
-        Args:
-            word (str): The word to transform
-            primary_only (bool): If True, only the primary code is returned
+        Parameters
+        ----------
+        word : str
+            The word to transform
+        primary_only : bool
+            If True, only the primary code is returned
 
-        Returns:
-            tuple: The Haase Phonetik value as a numeric string
+        Returns
+        -------
+        tuple
+            The Haase Phonetik value as a numeric string
 
-        Examples:
-            >>> pe = Haase()
-            >>> pe.encode('Joachim')
-            ('9496',)
-            >>> pe.encode('Christoph')
-            ('4798293', '8798293')
-            >>> pe.encode('Jörg')
-            ('974',)
-            >>> pe.encode('Smith')
-            ('8692',)
-            >>> pe.encode('Schmidt')
-            ('8692', '4692')
+        Examples
+        --------
+        >>> pe = Haase()
+        >>> pe.encode('Joachim')
+        ('9496',)
+        >>> pe.encode('Christoph')
+        ('4798293', '8798293')
+        >>> pe.encode('Jörg')
+        ('974',)
+        >>> pe.encode('Smith')
+        ('8692',)
+        >>> pe.encode('Schmidt')
+        ('8692', '4692')
 
         """
 
         def _after(word, pos, letters):
             """Return True if word[pos] follows one of the supplied letters.
 
-            Args:
-                word (str): Word to modify
-                pos (int): Position to examine
-                letters (set): Letters to check for
+            Parameters
+            ----------
+            word : str
+                Word to modify
+            pos : int
+                Position to examine
+            letters : set
+                Letters to check for
 
-            Returns:
-                bool: True if word[pos] follows one of letters
+            Returns
+            -------
+            bool
+                True if word[pos] follows one of letters
 
             """
             if pos > 0 and word[pos - 1] in letters:
@@ -95,13 +107,19 @@ class Haase(Phonetic):
         def _before(word, pos, letters):
             """Return True if word[pos] precedes one of the supplied letters.
 
-            Args:
-                word (str): Word to modify
-                pos (int): Position to examine
-                letters (set): Letters to check for
+            Parameters
+            ----------
+            word : str
+                Word to modify
+            pos : int
+                Position to examine
+            letters : set
+                Letters to check for
 
-            Returns:
-                bool: True if word[pos] precedes one of letters
+            Returns
+            -------
+            bool
+                True if word[pos] precedes one of letters
 
             """
             if pos + 1 < len(word) and word[pos + 1] in letters:
@@ -232,24 +250,30 @@ def haase_phonetik(word, primary_only=False):
 
     This is a wrapper for :py:meth:`Haase.encode`.
 
-    Args:
-        word (str): The word to transform
-        primary_only (bool): If True, only the primary code is returned
+    Parameters
+    ----------
+    word : str
+        The word to transform
+    primary_only : bool
+        If True, only the primary code is returned
 
-    Returns:
-        tuple: The Haase Phonetik value as a numeric string
+    Returns
+    -------
+    tuple
+        The Haase Phonetik value as a numeric string
 
-    Examples:
-        >>> haase_phonetik('Joachim')
-        ('9496',)
-        >>> haase_phonetik('Christoph')
-        ('4798293', '8798293')
-        >>> haase_phonetik('Jörg')
-        ('974',)
-        >>> haase_phonetik('Smith')
-        ('8692',)
-        >>> haase_phonetik('Schmidt')
-        ('8692', '4692')
+    Examples
+    --------
+    >>> haase_phonetik('Joachim')
+    ('9496',)
+    >>> haase_phonetik('Christoph')
+    ('4798293', '8798293')
+    >>> haase_phonetik('Jörg')
+    ('974',)
+    >>> haase_phonetik('Smith')
+    ('8692',)
+    >>> haase_phonetik('Schmidt')
+    ('8692', '4692')
 
     """
     return Haase().encode(word, primary_only)

@@ -43,25 +43,30 @@ class DoubleMetaphone(Phonetic):
     def encode(self, word, max_length=-1):
         """Return the Double Metaphone code for a word.
 
-        Args:
-            word (str): The word to transform
-            max_length (int): The maximum length of the returned Double
-                Metaphone codes (defaults to 64, but in Philips' original
-                implementation this was 4)
+        Parameters
+        ----------
+        word : str
+            The word to transform
+        max_length : int
+            The maximum length of the returned Double Metaphone codes (defaults
+            to 64, but in Philips' original implementation this was 4)
 
-        Returns:
-            tuple: The Double Metaphone value(s)
+        Returns
+        -------
+        tuple
+            The Double Metaphone value(s)
 
-        Examples:
-            >>> pe = DoubleMetaphone()
-            >>> pe.encode('Christopher')
-            ('KRSTFR', '')
-            >>> pe.encode('Niall')
-            ('NL', '')
-            >>> pe.encode('Smith')
-            ('SM0', 'XMT')
-            >>> pe.encode('Schmidt')
-            ('XMT', 'SMT')
+        Examples
+        --------
+        >>> pe = DoubleMetaphone()
+        >>> pe.encode('Christopher')
+        ('KRSTFR', '')
+        >>> pe.encode('Niall')
+        ('NL', '')
+        >>> pe.encode('Smith')
+        ('SM0', 'XMT')
+        >>> pe.encode('Schmidt')
+        ('XMT', 'SMT')
 
         """
         # Require a max_length of at least 4
@@ -76,8 +81,10 @@ class DoubleMetaphone(Phonetic):
         def _slavo_germanic():
             """Return True if the word appears to be Slavic or Germanic.
 
-            Returns:
-                bool: True if the word appears to be Slavic or Germanic
+            Returns
+            -------
+            bool
+                True if the word appears to be Slavic or Germanic
 
             """
             if 'W' in word or 'K' in word or 'CZ' in word:
@@ -87,12 +94,17 @@ class DoubleMetaphone(Phonetic):
         def _metaph_add(pri, sec=''):
             """Return a new metaphone tuple with the supplied elements.
 
-            Args:
-                pri (str): The primary element
-                sec (str): The secondary element
+            Parameters
+            ----------
+            pri : str
+                The primary element
+            sec : str
+                The secondary element
 
-            Returns:
-                tuple: A new metaphone tuple with the supplied elements
+            Returns
+            -------
+            tuple
+                A new metaphone tuple with the supplied elements
 
             """
             newpri = primary
@@ -109,11 +121,15 @@ class DoubleMetaphone(Phonetic):
         def _is_vowel(pos):
             """Return True if the character at word[pos] is a vowel.
 
-            Args:
-                pos (int): Position in the word
+            Parameters
+            ----------
+            pos : int
+                Position in the word
 
-            Returns:
-                bool: True if the character is a vowel
+            Returns
+            -------
+            bool
+                True if the character is a vowel
 
             """
             if pos >= 0 and word[pos] in {'A', 'E', 'I', 'O', 'U', 'Y'}:
@@ -123,11 +139,15 @@ class DoubleMetaphone(Phonetic):
         def _get_at(pos):
             """Return the character at word[pos].
 
-            Args:
-                pos (int): Position in the word
+            Parameters
+            ----------
+            pos : int
+                Position in the word
 
-            Returns:
-                str: Character at word[pos]
+            Returns
+            -------
+            str
+                Character at word[pos]
 
             """
             return word[pos]
@@ -135,13 +155,19 @@ class DoubleMetaphone(Phonetic):
         def _string_at(pos, slen, substrings):
             """Return True if word[pos:pos+slen] is in substrings.
 
-            Args:
-                pos (int): Position in the word
-                slen (int): Substring length
-                substrings (set): Substrings to search
+            Parameters
+            ----------
+            pos : int
+                Position in the word
+            slen : int
+                Substring length
+            substrings : set
+                Substrings to search
 
-            Returns:
-                bool: True if word[pos:pos+slen] is in substrings
+            Returns
+            -------
+            bool
+                True if word[pos:pos+slen] is in substrings
 
             """
             if pos < 0:
@@ -324,7 +350,7 @@ class DoubleMetaphone(Phonetic):
                     # 'bellocchio' but not 'bacchus'
                     if _string_at(
                         (current + 2), 1, {'I', 'E', 'H'}
-                    ) and not _string_at((current + 2), 2, ['HU']):
+                    ) and not _string_at((current + 2), 2, {'HU'}):
                         # 'accident', 'accede' 'succeed'
                         if (
                             (current == 1) and _get_at(current - 1) == 'A'
@@ -562,12 +588,12 @@ class DoubleMetaphone(Phonetic):
 
             elif _get_at(current) == 'J':
                 # obvious spanish, 'jose', 'san jacinto'
-                if _string_at(current, 4, ['JOSE']) or _string_at(
+                if _string_at(current, 4, {'JOSE'}) or _string_at(
                     0, 4, {'SAN '}
                 ):
                     if (
                         (current == 0) and (_get_at(current + 4) == ' ')
-                    ) or _string_at(0, 4, ['SAN ']):
+                    ) or _string_at(0, 4, {'SAN '}):
                         primary, secondary = _metaph_add('H')
                     else:
                         primary, secondary = _metaph_add('J', 'H')
@@ -870,7 +896,7 @@ class DoubleMetaphone(Phonetic):
                     or _string_at(
                         (current - 1), 5, {'EWSKI', 'EWSKY', 'OWSKI', 'OWSKY'}
                     )
-                    or _string_at(0, 3, ['SCH'])
+                    or _string_at(0, 3, {'SCH'})
                 ):
                     primary, secondary = _metaph_add('', 'F')
                     current += 1
@@ -939,24 +965,29 @@ def double_metaphone(word, max_length=-1):
 
     This is a wrapper for :py:meth:`DoubleMetaphone.encode`.
 
-    Args:
-        word (str): The word to transform
-        max_length (int): The maximum length of the returned Double
-            Metaphone codes (defaults to 64, but in Philips' original
-            implementation this was 4)
+    Parameters
+    ----------
+    word : str
+        The word to transform
+    max_length : int
+        The maximum length of the returned Double Metaphone codes (defaults to
+        64, but in Philips' original implementation this was 4)
 
-    Returns:
-        tuple: The Double Metaphone value(s)
+    Returns
+    -------
+    tuple
+        The Double Metaphone value(s)
 
-    Examples:
-        >>> double_metaphone('Christopher')
-        ('KRSTFR', '')
-        >>> double_metaphone('Niall')
-        ('NL', '')
-        >>> double_metaphone('Smith')
-        ('SM0', 'XMT')
-        >>> double_metaphone('Schmidt')
-        ('XMT', 'SMT')
+    Examples
+    --------
+    >>> double_metaphone('Christopher')
+    ('KRSTFR', '')
+    >>> double_metaphone('Niall')
+    ('NL', '')
+    >>> double_metaphone('Smith')
+    ('SM0', 'XMT')
+    >>> double_metaphone('Schmidt')
+    ('XMT', 'SMT')
 
     """
     return DoubleMetaphone().encode(word, max_length)

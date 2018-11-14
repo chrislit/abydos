@@ -201,24 +201,29 @@ class FONEM(Phonetic):
     def encode(self, word):
         """Return the FONEM code of a word.
 
-        Args:
-            word (str): The word to transform
+        Parameters
+        ----------
+        word : str
+            The word to transform
 
-        Returns:
-            str: The FONEM code
+        Returns
+        -------
+        str
+            The FONEM code
 
-        Examples:
-            >>> pe = FONEM()
-            >>> pe.encode('Marchand')
-            'MARCHEN'
-            >>> pe.encode('Beaulieu')
-            'BOLIEU'
-            >>> pe.encode('Beaumont')
-            'BOMON'
-            >>> pe.encode('Legrand')
-            'LEGREN'
-            >>> pe.encode('Pelletier')
-            'PELETIER'
+        Examples
+        --------
+        >>> pe = FONEM()
+        >>> pe.encode('Marchand')
+        'MARCHEN'
+        >>> pe.encode('Beaulieu')
+        'BOLIEU'
+        >>> pe.encode('Beaumont')
+        'BOMON'
+        >>> pe.encode('Legrand')
+        'LEGREN'
+        >>> pe.encode('Pelletier')
+        'PELETIER'
 
         """
         # normalize, upper-case, and filter non-French letters
@@ -241,23 +246,28 @@ def fonem(word):
 
     This is a wrapper for :py:meth:`FONEM.encode`.
 
-    Args:
-        word (str): The word to transform
+    Parameters
+    ----------
+    word : str
+        The word to transform
 
-    Returns:
-        str: The FONEM code
+    Returns
+    -------
+    str
+        The FONEM code
 
-    Examples:
-        >>> fonem('Marchand')
-        'MARCHEN'
-        >>> fonem('Beaulieu')
-        'BOLIEU'
-        >>> fonem('Beaumont')
-        'BOMON'
-        >>> fonem('Legrand')
-        'LEGREN'
-        >>> fonem('Pelletier')
-        'PELETIER'
+    Examples
+    --------
+    >>> fonem('Marchand')
+    'MARCHEN'
+    >>> fonem('Beaulieu')
+    'BOLIEU'
+    >>> fonem('Beaumont')
+    'BOMON'
+    >>> fonem('Legrand')
+    'LEGREN'
+    >>> fonem('Pelletier')
+    'PELETIER'
 
     """
     return FONEM().encode(word)

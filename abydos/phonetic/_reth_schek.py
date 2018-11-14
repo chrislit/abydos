@@ -127,23 +127,28 @@ class RethSchek(Phonetic):
     def encode(self, word):
         """Return Reth-Schek Phonetik code for a word.
 
-        Args:
-            word (str): The word to transform
+        Parameters
+        ----------
+        word : str
+            The word to transform
 
-        Returns:
-            str: The Reth-Schek Phonetik code
+        Returns
+        -------
+        str
+            The Reth-Schek Phonetik code
 
-        Examples:
-            >>> reth_schek_phonetik('Joachim')
-            'JOAGHIM'
-            >>> reth_schek_phonetik('Christoph')
-            'GHRISDOF'
-            >>> reth_schek_phonetik('Jörg')
-            'JOERG'
-            >>> reth_schek_phonetik('Smith')
-            'SMID'
-            >>> reth_schek_phonetik('Schmidt')
-            'SCHMID'
+        Examples
+        --------
+        >>> reth_schek_phonetik('Joachim')
+        'JOAGHIM'
+        >>> reth_schek_phonetik('Christoph')
+        'GHRISDOF'
+        >>> reth_schek_phonetik('Jörg')
+        'JOERG'
+        >>> reth_schek_phonetik('Smith')
+        'SMID'
+        >>> reth_schek_phonetik('Schmidt')
+        'SCHMID'
 
         """
         # Uppercase
@@ -189,23 +194,28 @@ def reth_schek_phonetik(word):
 
     This is a wrapper for :py:meth:`RethSchek.encode`.
 
-    Args:
-        word (str): The word to transform
+    Parameters
+    ----------
+    word : str
+        The word to transform
 
-    Returns:
-        str: The Reth-Schek Phonetik code
+    Returns
+    -------
+    str
+        The Reth-Schek Phonetik code
 
-    Examples:
-        >>> reth_schek_phonetik('Joachim')
-        'JOAGHIM'
-        >>> reth_schek_phonetik('Christoph')
-        'GHRISDOF'
-        >>> reth_schek_phonetik('Jörg')
-        'JOERG'
-        >>> reth_schek_phonetik('Smith')
-        'SMID'
-        >>> reth_schek_phonetik('Schmidt')
-        'SCHMID'
+    Examples
+    --------
+    >>> reth_schek_phonetik('Joachim')
+    'JOAGHIM'
+    >>> reth_schek_phonetik('Christoph')
+    'GHRISDOF'
+    >>> reth_schek_phonetik('Jörg')
+    'JOERG'
+    >>> reth_schek_phonetik('Smith')
+    'SMID'
+    >>> reth_schek_phonetik('Schmidt')
+    'SCHMID'
 
     """
     return RethSchek().encode(word)

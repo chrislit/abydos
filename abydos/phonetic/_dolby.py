@@ -47,60 +47,67 @@ class Dolby(Phonetic):
     def encode(self, word, max_length=-1, keep_vowels=False, vowel_char='*'):
         r"""Return the Dolby Code of a name.
 
-        Args:
-            word (str): The word to transform
-            max_length (int): Maximum length of the returned Dolby code -- this
-                also activates the fixed-length code mode if it is greater than
-                0
-            keep_vowels (bool): If True, retains all vowel markers
-            vowel_char (str): The vowel marker character (default to \*)
+        Parameters
+        ----------
+        word : str
+            The word to transform
+        max_length : int
+            Maximum length of the returned Dolby code -- this also activates
+            the fixed-length code mode if it is greater than 0
+        keep_vowels : bool
+            If True, retains all vowel markers
+        vowel_char : str
+            The vowel marker character (default to \*)
 
-        Returns:
-            str: The Dolby Code
+        Returns
+        -------
+        str
+            The Dolby Code
 
-        Examples:
-            >>> pe = Dolby()
-            >>> pe.encode('Hansen')
-            'H*NSN'
-            >>> pe.encode('Larsen')
-            'L*RSN'
-            >>> pe.encode('Aagaard')
-            '*GR'
-            >>> pe.encode('Braaten')
-            'BR*DN'
-            >>> pe.encode('Sandvik')
-            'S*NVK'
-            >>> pe.encode('Hansen', max_length=6)
-            'H*NS*N'
-            >>> pe.encode('Larsen', max_length=6)
-            'L*RS*N'
-            >>> pe.encode('Aagaard', max_length=6)
-            '*G*R  '
-            >>> pe.encode('Braaten', max_length=6)
-            'BR*D*N'
-            >>> pe.encode('Sandvik', max_length=6)
-            'S*NF*K'
+        Examples
+        --------
+        >>> pe = Dolby()
+        >>> pe.encode('Hansen')
+        'H*NSN'
+        >>> pe.encode('Larsen')
+        'L*RSN'
+        >>> pe.encode('Aagaard')
+        '*GR'
+        >>> pe.encode('Braaten')
+        'BR*DN'
+        >>> pe.encode('Sandvik')
+        'S*NVK'
+        >>> pe.encode('Hansen', max_length=6)
+        'H*NS*N'
+        >>> pe.encode('Larsen', max_length=6)
+        'L*RS*N'
+        >>> pe.encode('Aagaard', max_length=6)
+        '*G*R  '
+        >>> pe.encode('Braaten', max_length=6)
+        'BR*D*N'
+        >>> pe.encode('Sandvik', max_length=6)
+        'S*NF*K'
 
-            >>> pe.encode('Smith')
-            'SM*D'
-            >>> pe.encode('Waters')
-            'W*DRS'
-            >>> pe.encode('James')
-            'J*MS'
-            >>> pe.encode('Schmidt')
-            'SM*D'
-            >>> pe.encode('Ashcroft')
-            '*SKRFD'
-            >>> pe.encode('Smith', max_length=6)
-            'SM*D  '
-            >>> pe.encode('Waters', max_length=6)
-            'W*D*RS'
-            >>> pe.encode('James', max_length=6)
-            'J*M*S '
-            >>> pe.encode('Schmidt', max_length=6)
-            'SM*D  '
-            >>> pe.encode('Ashcroft', max_length=6)
-            '*SKRFD'
+        >>> pe.encode('Smith')
+        'SM*D'
+        >>> pe.encode('Waters')
+        'W*DRS'
+        >>> pe.encode('James')
+        'J*MS'
+        >>> pe.encode('Schmidt')
+        'SM*D'
+        >>> pe.encode('Ashcroft')
+        '*SKRFD'
+        >>> pe.encode('Smith', max_length=6)
+        'SM*D  '
+        >>> pe.encode('Waters', max_length=6)
+        'W*D*RS'
+        >>> pe.encode('James', max_length=6)
+        'J*M*S '
+        >>> pe.encode('Schmidt', max_length=6)
+        'SM*D  '
+        >>> pe.encode('Ashcroft', max_length=6)
+        '*SKRFD'
 
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
@@ -244,59 +251,66 @@ def dolby(word, max_length=-1, keep_vowels=False, vowel_char='*'):
 
     This is a wrapper for :py:meth:`Dolby.encode`.
 
-    Args:
-        word (str): The word to transform
-        max_length (int): Maximum length of the returned Dolby code -- this
-            also activates the fixed-length code mode if it is greater than
-            0
-        keep_vowels (bool): If True, retains all vowel markers
-        vowel_char (str): The vowel marker character (default to \*)
+    Parameters
+    ----------
+    word : str
+        The word to transform
+    max_length : int
+        Maximum length of the returned Dolby code -- this also activates the
+        fixed-length code mode if it is greater than 0
+    keep_vowels : bool
+        If True, retains all vowel markers
+    vowel_char : str
+        The vowel marker character (default to \*)
 
-    Returns:
-        str: The Dolby Code
+    Returns
+    -------
+    str
+        The Dolby Code
 
-    Examples:
-        >>> dolby('Hansen')
-        'H*NSN'
-        >>> dolby('Larsen')
-        'L*RSN'
-        >>> dolby('Aagaard')
-        '*GR'
-        >>> dolby('Braaten')
-        'BR*DN'
-        >>> dolby('Sandvik')
-        'S*NVK'
-        >>> dolby('Hansen', max_length=6)
-        'H*NS*N'
-        >>> dolby('Larsen', max_length=6)
-        'L*RS*N'
-        >>> dolby('Aagaard', max_length=6)
-        '*G*R  '
-        >>> dolby('Braaten', max_length=6)
-        'BR*D*N'
-        >>> dolby('Sandvik', max_length=6)
-        'S*NF*K'
+    Examples
+    --------
+    >>> dolby('Hansen')
+    'H*NSN'
+    >>> dolby('Larsen')
+    'L*RSN'
+    >>> dolby('Aagaard')
+    '*GR'
+    >>> dolby('Braaten')
+    'BR*DN'
+    >>> dolby('Sandvik')
+    'S*NVK'
+    >>> dolby('Hansen', max_length=6)
+    'H*NS*N'
+    >>> dolby('Larsen', max_length=6)
+    'L*RS*N'
+    >>> dolby('Aagaard', max_length=6)
+    '*G*R  '
+    >>> dolby('Braaten', max_length=6)
+    'BR*D*N'
+    >>> dolby('Sandvik', max_length=6)
+    'S*NF*K'
 
-        >>> dolby('Smith')
-        'SM*D'
-        >>> dolby('Waters')
-        'W*DRS'
-        >>> dolby('James')
-        'J*MS'
-        >>> dolby('Schmidt')
-        'SM*D'
-        >>> dolby('Ashcroft')
-        '*SKRFD'
-        >>> dolby('Smith', max_length=6)
-        'SM*D  '
-        >>> dolby('Waters', max_length=6)
-        'W*D*RS'
-        >>> dolby('James', max_length=6)
-        'J*M*S '
-        >>> dolby('Schmidt', max_length=6)
-        'SM*D  '
-        >>> dolby('Ashcroft', max_length=6)
-        '*SKRFD'
+    >>> dolby('Smith')
+    'SM*D'
+    >>> dolby('Waters')
+    'W*DRS'
+    >>> dolby('James')
+    'J*MS'
+    >>> dolby('Schmidt')
+    'SM*D'
+    >>> dolby('Ashcroft')
+    '*SKRFD'
+    >>> dolby('Smith', max_length=6)
+    'SM*D  '
+    >>> dolby('Waters', max_length=6)
+    'W*D*RS'
+    >>> dolby('James', max_length=6)
+    'J*M*S '
+    >>> dolby('Schmidt', max_length=6)
+    'SM*D  '
+    >>> dolby('Ashcroft', max_length=6)
+    '*SKRFD'
 
     """
     return Dolby().encode(word, max_length, keep_vowels, vowel_char)
