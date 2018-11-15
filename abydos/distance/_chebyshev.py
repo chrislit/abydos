@@ -92,11 +92,11 @@ class Chebyshev(Minkowski):
 
         Raises
         ------
-        Exception
+        NotImplementedError
             Method disabled for Chebyshev distance
 
         """
-        raise Exception('Method disabled for Chebyshev distance.')
+        raise NotImplementedError('Method disabled for Chebyshev distance.')
 
     def dist(self, *args, **kwargs):
         """Raise exception when called.
@@ -110,11 +110,11 @@ class Chebyshev(Minkowski):
 
         Raises
         ------
-        Exception
+        NotImplementedError
             Method disabled for Chebyshev distance
 
         """
-        raise Exception('Method disabled for Chebyshev distance.')
+        raise NotImplementedError('Method disabled for Chebyshev distance.')
 
 
 def chebyshev(src, tar, qval=2, alphabet=None):
