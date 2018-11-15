@@ -38,11 +38,11 @@ class Dice(Tversky):
 
     For two sets X and Y, the Sørensen–Dice coefficient
     :cite:`Dice:1945,Sorensen:1948` is
-    :math:`sim_{dice}(X, Y) = \\frac{2 \\cdot |X \\cap Y|}{|X| + |Y|}`.
+    :math:`sim_{dice}(X, Y) = \frac{2 \cdot |X \cap Y|}{|X| + |Y|}`.
 
     This is identical to the Tanimoto similarity coefficient
     :cite:`Tanimoto:1958` and the Tversky index :cite:`Tversky:1977` for
-    :math:`\\alpha = \\beta = 0.5`.
+    :math:`\alpha = \beta = 0.5`.
     """
 
     def sim(self, src, tar, qval=2):

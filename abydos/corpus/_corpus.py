@@ -107,7 +107,7 @@ class Corpus(object):
         Returns
         -------
         [[[str]]]
-            The paragraphs in the corpus as a list of lists of lists of strs
+            The docs in the corpus as a list of lists of lists of strs
 
         Example
         -------

@@ -18,7 +18,8 @@
 
 """abydos.phones.
 
-The phones module implements ...
+The phones module implements phonetic feature coding, decoding, and comparison
+functions.
 """
 
 from __future__ import (
