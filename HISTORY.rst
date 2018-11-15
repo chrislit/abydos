@@ -7,7 +7,7 @@ Release History
 
 doi:
 
-Version 0.3.6 encapsultes most functions into classes and further breaks code
+Version 0.3.6 encapsulates most functions into classes and further breaks code
 out to one class per file, with test files paralleling library files.
 Documentation was converted from
 
