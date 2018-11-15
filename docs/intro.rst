@@ -229,10 +229,13 @@ warranted.
 
 - Local Analysis
 
-    - Pylint score run locally
-    - flake8 score run locally, should be 0
-    - pydocstyle score run locally, shoule be 0
-    - code style black signals that black is used for code styling
+    - `Pylint <https://www.pylint.org/>`_ score, run locally
+    - `flake8 <http://flake8.pycqa.org/en/latest/>`_ score, run locally, should
+      be 0.
+    - `pydocstyle <https://github.com/PyCQA/pydocstyle>`_ score, run locally,
+      should be 0.
+    - `Black code style <https://github.com/ambv/black>`_ signals that Black is
+      used for code styling.
 
 - Usage
 
