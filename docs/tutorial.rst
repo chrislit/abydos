@@ -285,7 +285,7 @@ Phonetic
 The :py:mod:`.phonetic` package includes classes for phonetic algorithms,
 including:
 
-    - Robert C. Russell's Index (:py:class:`.RusselIndex`)
+    - Robert C. Russell's Index (:py:class:`.RussellIndex`)
     - American Soundex (:py:class:`.Soundex`)
     - Refined Soundex (:py:class:`.RefinedSoundex`)
     - Daitch-Mokotoff Soundex (:py:class:`.DaitchMokotoff`)
@@ -429,9 +429,9 @@ a number of ways:
 The :py:class:`.ConfusionTable` class has methods:
 
     - :py:meth:`.to_tuple` extracts the :py:class:`.ConfusionTable` values as a
-      tuple: (tp, tn, fp, fn)
+      tuple: (:math:`w`, :math:`x`, :math:`y`, :math:`z`)
     - :py:meth:`.to_dict` extracts the :py:class:`.ConfusionTable` values as a
-      dict: {'tp': w, 'tn': x, 'fp': y, 'fn': z}
+      dict: {'tp'::math:`w`, 'tn'::math:`x`, 'fp'::math:`y`, 'fn'::math:`z`}
     - :py:meth:`.true_pos` returns the number of true positives
     - :py:meth:`.true_neg` returns the number of true negatives
     - :py:meth:`.false_pos` returns the number of false positives
@@ -510,8 +510,137 @@ True
 Stemmer
 -------
 
+The :py:mod:`stemmer` package collects stemmer classes for a number of
+languages including:
+
+    - English stemmers:
+
+        - Lovins' (:py:class:`.Lovins`)
+        - Porter (:py:class:`.Porter`)
+        - Porter2 (i.e. Snowball English) (:py:class:`.Porter2`)
+        - UEA-Lite (:py:class:`.UEALite`)
+        - Paice-Husk (:py:class:`.PaiceHusk`)
+        - S-stemmer (:py:class:`.SStemmer`)
+
+    - German stemmers:
+
+        - Caumanns' (:py:class:`.Caumanns`)
+        - CLEF German (:py:class:`.CLEFGerman`)
+        - CLEF German Plus (:py:class:`.CLEFGermanPlus`)
+        - Snowball German (:py:class:`.SnowballGerman`)
+
+    - Swedish stemmers:
+
+        - CLEF Swedish (:py:class:`.CLEFSwedish`)
+        - Snowball Swedish (:py:class:`.SnowballSwedish`)
+
+    - Latin stemmer:
+
+        - Schinke (:py:class:`.Schinke`)
+
+    - Danish stemmer:
+
+        - Snowball Danish (:py:class:`.SnowballDanish`)
+
+    - Dutch stemmer:
+
+        - Snowball Dutch (:py:class:`.SnowballDutch`)
+
+    - Norwegian stemmer:
+
+        - Snowball Norwegian (:py:class:`.SnowballNorwegian`)
+
+
+Each stemmer has a ``stem`` method, which takes a word and returns its stemmed
+form:
+
+>>> stmr = Porter()
+>>> stmr.stem('democracy')
+'democraci'
+>>> stmr.stem('trusted')
+'trust'
 
 
 
 Tokenizer
 ---------
+
+The :py:mod:`tokenizer` package collects classes whose purpose is to tokenize
+text. Currently, this is limited to the :py:class:`.QGrams` class, which
+tokenizes a string into q-grams. The class supports different values of
+q, the addition of start and stop symbols, and skip values. It even supports
+multiple values for q and skip, using lists or ranges.
+
+>>> QGrams('interning', qval=2, start_stop='$#')
+QGrams({'$i': 1,
+        'in': 2,
+        'nt': 1,
+        'te': 1,
+        'er': 1,
+        'rn': 1,
+        'ni': 1,
+        'ng': 1,
+        'g#': 1})
+
+>>> QGrams('AACTAGAAC', start_stop='', skip=1)
+QGrams({'AC': 2, 'AT': 1, 'CA': 1, 'TG': 1, 'AA': 1, 'GA': 1, 'A': 1})
+
+>>> QGrams('AACTAGAAC', start_stop='', skip=[0, 1])
+QGrams({'AA': 3,
+        'AC': 4,
+        'CT': 1,
+        'TA': 1,
+        'AG': 1,
+        'GA': 2,
+        'AT': 1,
+        'CA': 1,
+        'TG': 1,
+        'A': 1})
+
+>>> QGrams('interdisciplinarian', qval=range(3), skip=[0, 1])
+QGrams({'i': 10,
+        'n': 7,
+        't': 2,
+        'e': 2,
+        'r': 4,
+        'd': 2,
+        's': 2,
+        'c': 2,
+        'p': 2,
+        'l': 2,
+        'a': 4,
+        '$i': 1,
+        'in': 3,
+        'nt': 1,
+        'te': 1,
+        'er': 1,
+        'rd': 1,
+        'di': 1,
+        'is': 1,
+        'sc': 1,
+        'ci': 1,
+        'ip': 1,
+        'pl': 1,
+        'li': 1,
+        'na': 1,
+        'ar': 1,
+        'ri': 2,
+        'ia': 2,
+        'an': 1,
+        'n#': 1,
+        '$n': 1,
+        'it': 1,
+        'ne': 1,
+        'tr': 1,
+        'ed': 1,
+        'ds': 1,
+        'ic': 1,
+        'si': 1,
+        'cp': 1,
+        'il': 1,
+        'pi': 1,
+        'ln': 1,
+        'nr': 1,
+        'ai': 1,
+        'ra': 1,
+        'a#': 1})
