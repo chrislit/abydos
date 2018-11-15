@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.corpus._n_gram_corpus.
+"""abydos.corpus._ngram_corpus.
 
 The NGram class is a container for an n-gram corpus
 """
@@ -45,14 +45,14 @@ class NGramCorpus(object):
 
     Internally, this is a set of recursively embedded dicts, with n layers for
     a corpus of n-grams. E.g. for a trigram corpus, this will be a dict of
-    dicts of dicts. More precisely, collections.Counter is used in place of
+    dicts of dicts. More precisely, ``collections.Counter`` is used in place of
     dict, making multiset operations valid and allowing unattested n-grams to
     be queried.
 
     The key at each level is a word. The value at the most deeply embedded
     level is a numeric value representing the frequency of the trigram. E.g.
     the trigram frequency of 'colorless green ideas' would be the value stored
-    in self.ngcorpus['colorless']['green']['ideas'][None].
+    in ``self.ngcorpus['colorless']['green']['ideas'][None]``.
     """
 
     def __init__(self, corpus=None):
@@ -61,9 +61,9 @@ class NGramCorpus(object):
         Parameters
         ----------
         corpus : Corpus
-            The Corpus from which to initialize the n-gram corpus. By default,
-            this is None, which initializes an empty NGramCorpus. This can then
-            be populated using NGramCorpus methods.
+            The :py:class:`Corpus` from which to initialize the n-gram corpus.
+            By default, this is None, which initializes an empty NGramCorpus.
+            This can then be populated using NGramCorpus methods.
 
         Raises
         ------

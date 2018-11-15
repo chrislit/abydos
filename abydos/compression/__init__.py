@@ -21,9 +21,9 @@
 The compression package defines compression and compression-related functions
 for use within Abydos, including implementations of the following:
 
-    - Arithmetic coding functions (ac_train, ac_encode, & ac_decode)
-    - Burrows-Wheeler transform encoder/decoder (bwt_encode & bwt_decode)
-    - Run-Length Encoding encoder/decoder (rle_encode & rle_decode)
+    - Arithmetic coder/decoder
+    - Burrows-Wheeler Transform encoder/decoder
+    - Run-Length Encoding encoder/decoder
 """
 
 from __future__ import (

@@ -20,7 +20,7 @@
 
 The stats._pairwise module implements pairwise statistical algorithms such as:
 
-    - mean pair-wise similarity
+    - mean pairwise similarity
     - pairwise similarity statistics
 """
 

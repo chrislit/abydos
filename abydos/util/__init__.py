@@ -21,7 +21,9 @@
 The util module defines various utility functions for other modules within
 Abydos, including:
 
-    - prod -- computes the product of a collection of numbers (akin to sum)
+    - _prod -- computes the product of a collection of numbers (akin to sum)
+
+These functions are not intended for use by users.
 """
 
 from __future__ import (

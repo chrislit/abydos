@@ -59,7 +59,7 @@ from collections import Counter
 
 from six.moves import range
 
-from ..util import prod
+from ..util._prod import _prod
 
 __all__ = [
     'aghmean',
@@ -143,7 +143,7 @@ def gmean(nums):
     0.0
 
     """
-    return prod(nums) ** (1 / len(nums))
+    return _prod(nums) ** (1 / len(nums))
 
 
 def hmean(nums):
