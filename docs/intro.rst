@@ -174,7 +174,9 @@ In order to only run & generate Flake8 reports, call::
     tox -e flake8
 
 Contributions such as bug reports, PRs, suggestions, desired new features, etc.
-are welcome through the Github Issues & Pull requests.
+are welcome through Github
+`Issues <https://github.com/chrislit/abydos/issues>`_ &
+`Pull requests <https://github.com/chrislit/abydos/pulls>`_.
 
 -----
 
