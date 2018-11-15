@@ -30,40 +30,40 @@ from __future__ import (
 
 import unittest
 
-from abydos.util import prod
+from abydos.util._prod import _prod
 
 from six.moves import range
 
 
 class ProdTestCases(unittest.TestCase):
-    """Test cases for abydos.util.prod."""
+    """Test cases for abydos.util._prod."""
 
     def test_prod(self):
-        """Test abydos.util.prod."""
-        self.assertEqual(prod([]), 1)
-        self.assertEqual(prod(()), 1)
-        self.assertEqual(prod({}), 1)
+        """Test abydos.util._prod."""
+        self.assertEqual(_prod([]), 1)
+        self.assertEqual(_prod(()), 1)
+        self.assertEqual(_prod({}), 1)
 
-        self.assertEqual(prod([1, 1, 1, 1, 1]), 1)
-        self.assertEqual(prod((1, 1, 1, 1, 1)), 1)
-        self.assertEqual(prod({1, 1, 1, 1, 1}), 1)
+        self.assertEqual(_prod([1, 1, 1, 1, 1]), 1)
+        self.assertEqual(_prod((1, 1, 1, 1, 1)), 1)
+        self.assertEqual(_prod({1, 1, 1, 1, 1}), 1)
 
-        self.assertEqual(prod([2, 2, 2, 2, 2]), 32)
-        self.assertEqual(prod((2, 2, 2, 2, 2)), 32)
-        self.assertEqual(prod({2, 2, 2, 2, 2}), 2)
+        self.assertEqual(_prod([2, 2, 2, 2, 2]), 32)
+        self.assertEqual(_prod((2, 2, 2, 2, 2)), 32)
+        self.assertEqual(_prod({2, 2, 2, 2, 2}), 2)
 
-        self.assertEqual(prod([1, 2, 3, 4, 5]), 120)
-        self.assertEqual(prod((1, 2, 3, 4, 5)), 120)
-        self.assertEqual(prod({1, 2, 3, 4, 5}), 120)
-        self.assertEqual(prod(range(1, 6)), 120)
-        self.assertEqual(prod(list(range(1, 6))), 120)
-        self.assertEqual(prod(tuple(range(1, 6))), 120)
-        self.assertEqual(prod(set(range(1, 6))), 120)
+        self.assertEqual(_prod([1, 2, 3, 4, 5]), 120)
+        self.assertEqual(_prod((1, 2, 3, 4, 5)), 120)
+        self.assertEqual(_prod({1, 2, 3, 4, 5}), 120)
+        self.assertEqual(_prod(range(1, 6)), 120)
+        self.assertEqual(_prod(list(range(1, 6))), 120)
+        self.assertEqual(_prod(tuple(range(1, 6))), 120)
+        self.assertEqual(_prod(set(range(1, 6))), 120)
 
-        self.assertEqual(prod(range(6)), 0)
-        self.assertEqual(prod(list(range(6))), 0)
-        self.assertEqual(prod(tuple(range(6))), 0)
-        self.assertEqual(prod(set(range(6))), 0)
+        self.assertEqual(_prod(range(6)), 0)
+        self.assertEqual(_prod(list(range(6))), 0)
+        self.assertEqual(_prod(tuple(range(6))), 0)
+        self.assertEqual(_prod(set(range(6))), 0)
 
 
 if __name__ == '__main__':

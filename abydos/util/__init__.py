@@ -31,9 +31,7 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._prod import prod
-
-__all__ = ['prod']
+__all__ = []
 
 
 if __name__ == '__main__':

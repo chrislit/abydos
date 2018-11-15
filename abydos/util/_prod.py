@@ -33,10 +33,10 @@ from operator import mul
 
 from six.moves import reduce
 
-__all__ = ['prod']
+__all__ = []
 
 
-def prod(nums):
+def _prod(nums):
     r"""Return the product of nums.
 
     The product is :math:`\prod nums`.
@@ -55,13 +55,13 @@ def prod(nums):
 
     Examples
     --------
-    >>> prod([1,1,1,1])
+    >>> _prod([1,1,1,1])
     1
-    >>> prod((2,4,8))
+    >>> _prod((2,4,8))
     64
-    >>> prod({1,2,3,4})
+    >>> _prod({1,2,3,4})
     24
-    >>> prod(2**i for i in range(5))
+    >>> _prod(2**i for i in range(5))
     1024
 
     """
