@@ -287,7 +287,7 @@ To install Abydos (latest release) from PyPI using pip::
 
    pip install abydos
 
-To install from `conda-forge <https://conda-forge.org/>`_::
+To install from `conda-forge <https://anaconda.org/conda-forge/abydos>`_::
 
    conda install abydos
 
@@ -300,10 +300,10 @@ To run the whole test-suite just call tox::
 
     tox
 
-The tox setup has the following environments: py27, py36, doctest,
-py27-regression, py36-regression, pylint, pycodestyle, flake8, doc8,
-badges, docs, py27-fuzz, & py36-fuzz. So if only want to generate documentation
-(in HTML, EPUB, & PDF formats), just call::
+The tox setup has the following environments: black, py36, py27, doctest,
+py36-regression, py27-regression, py36-fuzz, py27-fuzz, pylint, pycodestyle,
+pydocstyle, flake8, doc8, badges, docs, & dist. So if you only want to generate
+documentation (in HTML, EPUB, & PDF formats), just call::
 
     tox -e docs
 
