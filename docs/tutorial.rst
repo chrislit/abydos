@@ -59,8 +59,8 @@ As a quick example of :py:class:`.Corpus`:
 0.1760912591
 
 Here, each sentence is a separate "document". We can retrieve IDF values from
-the :py:class:`.Corpus`. The same :py:class:`.Corpus` can be used to initialize an
-:py:class:`.NGramCorpus` and calculate TF values:
+the :py:class:`.Corpus`. The same :py:class:`.Corpus` can be used to initialize
+an :py:class:`.NGramCorpus` and calculate TF values:
 
 >>> ngcorp = NGramCorpus(corp)
 >>> ngcorp.get_count('the')
@@ -76,8 +76,8 @@ the :py:class:`.Corpus`. The same :py:class:`.Corpus` can be used to initialize 
 Distance
 --------
 
-The :py:mod:`.distance` package provides a growing list of string distance measure
-and metric classes.
+The :py:mod:`.distance` package provides a growing list of string distance
+measure and metric classes.
 
 These include traditional Levenshtein edit distance and related algorithms:
 
@@ -175,8 +175,8 @@ class:
 Fingerprint
 -----------
 
-The :py:mod:`.fingerprint` package provides numerous string fingerprint algorithms,
-including:
+The :py:mod:`.fingerprint` package provides numerous string fingerprint
+algorithms, including:
 
     - Basic fingerprinters originating in `OpenRefine <http://openrefine.org>`:
 
@@ -216,9 +216,9 @@ Phones
 
 The `phones` package has three functions:
 
-    - :py:func:`.ipa_to_features` takes a string of IPA symbols and returns list of
-      integers that represent the phonetic features bundled in the phone that
-      the symbols represents.
+    - :py:func:`.ipa_to_features` takes a string of IPA symbols and returns
+      list of integers that represent the phonetic features bundled in the
+      phone that the symbols represents.
     - :py:func:`.get_feature` takes a list of feature bundles produced by
       :py:func:`.ipa_to_features` and a feature name and returns a list
       representing whether that feature is present in each component of the
@@ -410,7 +410,7 @@ Two pairwise functions are provided:
       returns the mean similarity (using a supplied similarity function) among
       each item in a collection
     - pairwise similarity statistics
-      (:py:func:`.pairwise_similarity_statistics), which returns the max, min,
+      (:py:func:`.pairwise_similarity_statistics`), which returns the max, min,
       mean, and standard deviation of pairwise similarities between two
       collections
 
