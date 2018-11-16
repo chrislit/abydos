@@ -263,7 +263,9 @@ class QGramsTestCases(unittest.TestCase):
 
         self.assertEqual(len(QGrams('NEILSEN')._ordered_list), 8)
         self.assertEqual(len(QGrams('NELSON')._ordered_list), 7)
-        self.assertEqual(len(QGrams('NEILSEN', start_stop='')._ordered_list), 6)
+        self.assertEqual(
+            len(QGrams('NEILSEN', start_stop='')._ordered_list), 6
+        )
         self.assertEqual(len(QGrams('NELSON', start_stop='')._ordered_list), 5)
 
 
