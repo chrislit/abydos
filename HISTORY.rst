@@ -7,9 +7,15 @@ Release History
 
 doi:
 
-Version 0.3.6 encapsulates most functions into classes and further breaks code
-out to one class per file, with test files paralleling library files.
-Documentation was converted from
+Changes:
+
+- Most functions were encapsulated into classes.
+- Each class is broken out into its own file, with test files paralleling
+  library files.
+- Documentation was converted from Sphinx markup to Numpy style.
+- A tutorial was written for each subpackage.
+- Documentation was cleaned up, with math markup corrections and many
+  additional links.
 
 
 0.3.5 (2018-10-31) *cantankerous carl*
