@@ -37,8 +37,9 @@ __all__ = ['NCDzlib', 'dist_ncd_zlib', 'sim_ncd_zlib']
 
 
 class NCDzlib(_Distance):
-    """Normalized Compression Distance using `zlib <https://zlib.net/>`_
-    compression.
+    """Normalized Compression Distance using zlib compression.
+
+    Cf. https://zlib.net/
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
     """

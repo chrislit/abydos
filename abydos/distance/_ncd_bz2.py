@@ -36,8 +36,9 @@ __all__ = ['NCDbz2', 'dist_ncd_bz2', 'sim_ncd_bz2']
 
 
 class NCDbz2(_Distance):
-    """Normalized Compression Distance using
-    `bzip2 <https://en.wikipedia.org/wiki/Bzip2>`_ compression.
+    """Normalized Compression Distance using bzip2 compression.
+
+    Cf. https://en.wikipedia.org/wiki/Bzip2
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
     """

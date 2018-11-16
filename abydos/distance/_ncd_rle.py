@@ -35,8 +35,9 @@ __all__ = ['NCDrle', 'dist_ncd_rle', 'sim_ncd_rle']
 
 
 class NCDrle(_Distance):
-    """Normalized Compression Distance using
-    `RLE <https://en.wikipedia.org/wiki/Run-length_encoding>`_.
+    """Normalized Compression Distance using RLE.
+
+    Cf. https://en.wikipedia.org/wiki/Run-length_encoding
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
     """
