@@ -44,9 +44,9 @@ class QGrams(Counter):
     to sequences of characters in a word or string.
     """
 
-    term = ''
-    term_ss = ''
-    ordered_list = []
+    _term = ''
+    _term_ss = ''
+    _ordered_list = []
 
     def __init__(self, term, qval=2, start_stop='$#', skip=0):
         """Initialize QGrams.
@@ -87,8 +87,8 @@ class QGrams(Counter):
 
         """
         # Save the term itself
-        self.term = term
-        self.ordered_list = []
+        self._term = term
+        self._ordered_list = []
 
         if not isinstance(qval, Iterable):
             qval = (qval,)
@@ -97,30 +97,30 @@ class QGrams(Counter):
 
         for qval_i in qval:
             for skip_i in skip:
-                if len(self.term) < qval_i or qval_i < 1:
+                if len(self._term) < qval_i or qval_i < 1:
                     continue
 
                 if start_stop and qval_i > 1:
                     term = (
                         start_stop[0] * (qval_i - 1)
-                        + self.term
+                        + self._term
                         + start_stop[-1] * (qval_i - 1)
                     )
                 else:
-                    term = self.term
+                    term = self._term
 
                 # Having appended start & stop symbols (or not), save the
                 # result, but only for the longest valid qval_i
-                if len(term) > len(self.term_ss):
-                    self.term_ss = term
+                if len(term) > len(self._term_ss):
+                    self._term_ss = term
 
                 skip_i += 1
-                self.ordered_list += [
+                self._ordered_list += [
                     term[i : i + (qval_i * skip_i) : skip_i]
                     for i in range(len(term) - (qval_i - 1))
                 ]
 
-        super(QGrams, self).__init__(self.ordered_list)
+        super(QGrams, self).__init__(self._ordered_list)
 
     def count(self):
         """Return q-grams count.

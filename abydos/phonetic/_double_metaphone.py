@@ -971,7 +971,7 @@ def double_metaphone(word, max_length=-1):
         The word to transform
     max_length : int
         The maximum length of the returned Double Metaphone codes (defaults to
-        64, but in Philips' original implementation this was 4)
+        64, but in Philips original implementation this was 4)
 
     Returns
     -------
