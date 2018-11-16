@@ -8,17 +8,19 @@ Abydos
 |
 
 .. image:: https://raw.githubusercontent.com/chrislit/abydos/master/abydos-small.png
+    :target: https://github.com/chrislit/abydos
     :alt: abydos
     :align: right
 
 |
-| Abydos NLP/IR library
+| `Abydos NLP/IR library <https://github.com/chrislit/abydos>`_
 | Copyright 2014-2018 by Christopher C. Little
 
 Abydos is a library of phonetic algorithms, string distance measures & metrics,
 stemmers, and string fingerprinters including:
 
 - Phonetic algorithms
+
     - Robert C. Russell's Index
     - American Soundex
     - Refined Soundex
@@ -58,7 +60,9 @@ stemmers, and string fingerprinters including:
     - SoundexBR
     - NRL English-to-phoneme
     - Beider-Morse Phonetic Matching
+
 - String distance metrics
+
     - Levenshtein distance
     - Optimal String Alignment distance
     - Levenshtein-Damerau distance
@@ -96,7 +100,9 @@ stemmers, and string fingerprinters including:
     - Typo distance
     - Indel distance
     - Synoname
+
 - Stemmers
+
     - the Lovins stemmer
     - the Porter and Porter2 (Snowball English) stemmers
     - Snowball stemmers for German, Dutch, Norwegian, Swedish, and Danish
@@ -106,7 +112,9 @@ stemmers, and string fingerprinters including:
     - Paice-Husk Stemmer
     - Schinke Latin stemmer
     - S stemmer
+
 - String Fingerprints
+
     - string fingerprint
     - q-gram fingerprint
     - phonetic fingerprint
