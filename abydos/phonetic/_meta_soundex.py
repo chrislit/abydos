@@ -63,7 +63,7 @@ class MetaSoundex(Phonetic):
         word : str
             The word to transform
         lang : str
-            Either 'en' for English or 'es' for Spanish
+            Either ``en`` for English or ``es`` for Spanish
 
         Returns
         -------
@@ -115,7 +115,7 @@ def metasoundex(word, lang='en'):
     word : str
         The word to transform
     lang : str
-        Either 'en' for English or 'es' for Spanish
+        Either ``en`` for English or ``es`` for Spanish
 
     Returns
     -------

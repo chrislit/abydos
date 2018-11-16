@@ -254,17 +254,17 @@ class QGramsTestCases(unittest.TestCase):
     def test_qgram_counts(self):
         """Test abydos.tokenizer.QGrams counts."""
         self.assertEqual(QGrams('').count(), 0)
-        self.assertEqual(len(QGrams('').ordered_list), 0)
+        self.assertEqual(len(QGrams('')._ordered_list), 0)
 
         self.assertEqual(QGrams('NEILSEN').count(), 8)
         self.assertEqual(QGrams('NELSON').count(), 7)
         self.assertEqual(QGrams('NEILSEN', start_stop='').count(), 6)
         self.assertEqual(QGrams('NELSON', start_stop='').count(), 5)
 
-        self.assertEqual(len(QGrams('NEILSEN').ordered_list), 8)
-        self.assertEqual(len(QGrams('NELSON').ordered_list), 7)
-        self.assertEqual(len(QGrams('NEILSEN', start_stop='').ordered_list), 6)
-        self.assertEqual(len(QGrams('NELSON', start_stop='').ordered_list), 5)
+        self.assertEqual(len(QGrams('NEILSEN')._ordered_list), 8)
+        self.assertEqual(len(QGrams('NELSON')._ordered_list), 7)
+        self.assertEqual(len(QGrams('NEILSEN', start_stop='')._ordered_list), 6)
+        self.assertEqual(len(QGrams('NELSON', start_stop='')._ordered_list), 5)
 
 
 if __name__ == '__main__':

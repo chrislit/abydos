@@ -39,7 +39,7 @@ class SynonameToolcode(Fingerprint):
     Cf. :cite:`Getty:1991,Gross:1991`.
     """
 
-    synoname_special_table = (
+    _synoname_special_table = (
         # Roman, match, extra, method
         (False, 'NONE', '', 0),
         (False, 'aine', '', 3),
@@ -208,7 +208,7 @@ class SynonameToolcode(Fingerprint):
         (False, 'y', '', 7),
     )
 
-    method_dict = {
+    _method_dict = {
         'end': 1,
         'middle': 2,
         'beginning': 4,
@@ -216,7 +216,7 @@ class SynonameToolcode(Fingerprint):
     }
 
     # Fill field 0 (qualifier)
-    qual_3 = {
+    _qual_3 = {
         'adaptation after',
         'after',
         'assistant of',
@@ -232,8 +232,8 @@ class SynonameToolcode(Fingerprint):
         'style of',
         'workshop of',
     }
-    qual_2 = {'copy after', 'copy after?', 'copy of'}
-    qual_1 = {
+    _qual_2 = {'copy after', 'copy after?', 'copy of'}
+    _qual_1 = {
         'ascribed to',
         'attributed to or copy after',
         'attributed to',
@@ -241,7 +241,7 @@ class SynonameToolcode(Fingerprint):
     }
 
     # Fill field 2 (generation)
-    gen_1 = (
+    _gen_1 = (
         'the elder',
         ' sr.',
         ' sr',
@@ -255,7 +255,7 @@ class SynonameToolcode(Fingerprint):
         'vecchia',
         'vecchio',
     )
-    gen_2 = (
+    _gen_2 = (
         ' jr.',
         ' jr',
         'der jungere',
@@ -315,11 +315,11 @@ class SynonameToolcode(Fingerprint):
 
         full_name = ' '.join((lname, fname))
 
-        if qual in self.qual_3:
+        if qual in self._qual_3:
             toolcode[0] = '3'
-        elif qual in self.qual_2:
+        elif qual in self._qual_2:
             toolcode[0] = '2'
-        elif qual in self.qual_1:
+        elif qual in self._qual_1:
             toolcode[0] = '1'
 
         # Fill field 1 (punctuation)
@@ -332,13 +332,13 @@ class SynonameToolcode(Fingerprint):
                     break
 
         elderyounger = ''  # save elder/younger for possible movement later
-        for gen in self.gen_1:
+        for gen in self._gen_1:
             if gen in full_name:
                 toolcode[2] = '1'
                 elderyounger = gen
                 break
         else:
-            for gen in self.gen_2:
+            for gen in self._gen_2:
                 if gen in full_name:
                     toolcode[2] = '2'
                     elderyounger = gen
@@ -417,9 +417,9 @@ class SynonameToolcode(Fingerprint):
             return fname.strip(), lname.strip()
 
         # Fill fields 7 (specials) and 3 (roman numerals)
-        for num, special in enumerate(self.synoname_special_table):
+        for num, special in enumerate(self._synoname_special_table):
             roman, match, extra, method = special
-            if method & self.method_dict['end']:
+            if method & self._method_dict['end']:
                 match_context = ' ' + match
                 loc = full_name.find(match_context)
                 if (len(full_name) > len(match_context)) and (
@@ -438,7 +438,7 @@ class SynonameToolcode(Fingerprint):
                     else:
                         full_name = full_name[:loc]
                         toolcode[7] += '{:03d}'.format(num) + 'a'
-            if method & self.method_dict['middle']:
+            if method & self._method_dict['middle']:
                 match_context = ' ' + match + ' '
                 loc = 0
                 while loc != -1:
@@ -465,13 +465,13 @@ class SynonameToolcode(Fingerprint):
                                 + full_name[loc + len(match) + 1 :]
                             )
                             toolcode[7] += '{:03d}'.format(num) + 'b'
-            if method & self.method_dict['beginning']:
+            if method & self._method_dict['beginning']:
                 match_context = match + ' '
                 loc = full_name.find(match_context)
                 if loc == 0:
                     full_name = full_name[len(match) + 1 :]
                     toolcode[7] += '{:03d}'.format(num) + 'c'
-            if method & self.method_dict['beginning_no_space']:
+            if method & self._method_dict['beginning_no_space']:
                 loc = full_name.find(match)
                 if loc == 0:
                     toolcode[7] += '{:03d}'.format(num) + 'd'

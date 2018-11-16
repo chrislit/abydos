@@ -164,67 +164,67 @@ class Synoname(_Distance):
         for s_pos, s_type in features['tar_specials']:
             if s_type == 'a':
                 full_tar1 = full_tar1[
-                    : -(1 + len(self._stc.synoname_special_table[s_pos][1]))
+                    : -(1 + len(self._stc._synoname_special_table[s_pos][1]))
                 ]
             elif s_type == 'b':
                 loc = (
                     full_tar1.find(
-                        ' ' + self._stc.synoname_special_table[s_pos][1] + ' '
+                        ' ' + self._stc._synoname_special_table[s_pos][1] + ' '
                     )
                     + 1
                 )
                 full_tar1 = (
                     full_tar1[:loc]
                     + full_tar1[
-                        loc + len(self._stc.synoname_special_table[s_pos][1]):
+                        loc + len(self._stc._synoname_special_table[s_pos][1]):
                     ]
                 )
             elif s_type == 'c':
                 full_tar1 = full_tar1[
-                    1 + len(self._stc.synoname_special_table[s_pos][1]):
+                    1 + len(self._stc._synoname_special_table[s_pos][1]):
                 ]
 
         full_src1 = ' '.join((src_ln, src_fn)).replace('-', ' ').strip()
         for s_pos, s_type in features['src_specials']:
             if s_type == 'a':
                 full_src1 = full_src1[
-                    : -(1 + len(self._stc.synoname_special_table[s_pos][1]))
+                    : -(1 + len(self._stc._synoname_special_table[s_pos][1]))
                 ]
             elif s_type == 'b':
                 loc = (
                     full_src1.find(
-                        ' ' + self._stc.synoname_special_table[s_pos][1] + ' '
+                        ' ' + self._stc._synoname_special_table[s_pos][1] + ' '
                     )
                     + 1
                 )
                 full_src1 = (
                     full_src1[:loc]
                     + full_src1[
-                        loc + len(self._stc.synoname_special_table[s_pos][1]):
+                        loc + len(self._stc._synoname_special_table[s_pos][1]):
                     ]
                 )
             elif s_type == 'c':
                 full_src1 = full_src1[
-                    1 + len(self._stc.synoname_special_table[s_pos][1]):
+                    1 + len(self._stc._synoname_special_table[s_pos][1]):
                 ]
 
         full_tar2 = full_tar1
         for s_pos, s_type in features['tar_specials']:
             if s_type == 'd':
                 full_tar2 = full_tar2[
-                            len(self._stc.synoname_special_table[s_pos][1]):
+                            len(self._stc._synoname_special_table[s_pos][1]):
                 ]
             elif (
                     s_type == 'X'
-                    and self._stc.synoname_special_table[s_pos][1] in full_tar2
+                    and self._stc._synoname_special_table[s_pos][1] in full_tar2
             ):
                 loc = full_tar2.find(
-                    ' ' + self._stc.synoname_special_table[s_pos][1]
+                    ' ' + self._stc._synoname_special_table[s_pos][1]
                 )
                 full_tar2 = (
                     full_tar2[:loc]
                     + full_tar2[
-                        loc + len(self._stc.synoname_special_table[s_pos][1]):
+                        loc + len(self._stc._synoname_special_table[s_pos][1]):
                     ]
                 )
 
@@ -232,19 +232,19 @@ class Synoname(_Distance):
         for s_pos, s_type in features['src_specials']:
             if s_type == 'd':
                 full_src2 = full_src2[
-                            len(self._stc.synoname_special_table[s_pos][1]):
+                            len(self._stc._synoname_special_table[s_pos][1]):
                 ]
             elif (
                     s_type == 'X'
-                    and self._stc.synoname_special_table[s_pos][1] in full_src2
+                    and self._stc._synoname_special_table[s_pos][1] in full_src2
             ):
                 loc = full_src2.find(
-                    ' ' + self._stc.synoname_special_table[s_pos][1]
+                    ' ' + self._stc._synoname_special_table[s_pos][1]
                 )
                 full_src2 = (
                     full_src2[:loc]
                     + full_src2[
-                        loc + len(self._stc.synoname_special_table[s_pos][1]):
+                        loc + len(self._stc._synoname_special_table[s_pos][1]):
                     ]
                 )
 
