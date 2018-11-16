@@ -71,15 +71,15 @@ Abydos
      :target: https://app.fossa.io/projects/git%2Bgithub.com%2Fchrislit%2Fabydos?ref=badge_shield
      :alt: FOSSA Status
 
-.. |pylint| image:: https://img.shields.io/badge/Pylint-9.19/10-yellowgreen.svg
+.. |pylint| image:: https://img.shields.io/badge/Pylint-9.16/10-yellowgreen.svg
    :target: #
    :alt: Pylint Score
 
-.. |flake8| image:: https://img.shields.io/badge/flake8-12-green.svg
+.. |flake8| image:: https://img.shields.io/badge/flake8-0-brightgreen.svg
    :target: #
    :alt: flake8 Errors
 
-.. |pydocstyle| image:: https://img.shields.io/badge/pydocstyle-12-yellowgreen.svg
+.. |pydocstyle| image:: https://img.shields.io/badge/pydocstyle-0-brightgreen.svg
    :target: #
    :alt: pydocstyle Errors
 
@@ -146,17 +146,19 @@ Abydos
 |
 
 .. image:: https://raw.githubusercontent.com/chrislit/abydos/master/abydos-small.png
+    :target: https://github.com/chrislit/abydos
     :alt: abydos
     :align: right
 
 |
-| Abydos NLP/IR library
+| `Abydos NLP/IR library <https://github.com/chrislit/abydos>`_
 | Copyright 2014-2018 by Christopher C. Little
 
 Abydos is a library of phonetic algorithms, string distance measures & metrics,
 stemmers, and string fingerprinters including:
 
 - Phonetic algorithms
+
     - Robert C. Russell's Index
     - American Soundex
     - Refined Soundex
@@ -196,7 +198,9 @@ stemmers, and string fingerprinters including:
     - SoundexBR
     - NRL English-to-phoneme
     - Beider-Morse Phonetic Matching
+
 - String distance metrics
+
     - Levenshtein distance
     - Optimal String Alignment distance
     - Levenshtein-Damerau distance
@@ -234,7 +238,9 @@ stemmers, and string fingerprinters including:
     - Typo distance
     - Indel distance
     - Synoname
+
 - Stemmers
+
     - the Lovins stemmer
     - the Porter and Porter2 (Snowball English) stemmers
     - Snowball stemmers for German, Dutch, Norwegian, Swedish, and Danish
@@ -244,7 +250,9 @@ stemmers, and string fingerprinters including:
     - Paice-Husk Stemmer
     - Schinke Latin stemmer
     - S stemmer
+
 - String Fingerprints
+
     - string fingerprint
     - q-gram fingerprint
     - phonetic fingerprint
@@ -255,6 +263,7 @@ stemmers, and string fingerprinters including:
     - Cisłak & Grabowski's count fingerprint
     - Cisłak & Grabowski's position fingerprint
     - Synoname Toolcode
+
 
 -----
 
