@@ -35,7 +35,8 @@ __all__ = ['NCDarith', 'dist_ncd_arith', 'sim_ncd_arith']
 
 
 class NCDarith(_Distance):
-    """Normalized Compression Distance using Arithmetic Coding.
+    """Normalized Compression Distance using
+    `arithmetic coding <https://en.wikipedia.org/wiki/Arithmetic_coding>`_.
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
     """

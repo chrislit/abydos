@@ -110,7 +110,7 @@ class LCSseq(_Distance):
         Longest common subsequence similarity (:math:`sim_{LCSseq}`).
 
         This employs the LCSseq function to derive a similarity metric:
-        :math:`sim_{LCSseq}(s,t) = \\frac{|LCSseq(s,t)|}{max(|s|, |t|)}`
+        :math:`sim_{LCSseq}(s,t) = \frac{|LCSseq(s,t)|}{max(|s|, |t|)}`
 
         Parameters
         ----------

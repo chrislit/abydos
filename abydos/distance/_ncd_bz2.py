@@ -36,7 +36,8 @@ __all__ = ['NCDbz2', 'dist_ncd_bz2', 'sim_ncd_bz2']
 
 
 class NCDbz2(_Distance):
-    """Normalized Compression Distance using bz2 compression.
+    """Normalized Compression Distance using
+    `bzip2 <https://en.wikipedia.org/wiki/Bzip2>`_ compression.
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
     """
@@ -44,7 +45,7 @@ class NCDbz2(_Distance):
     _level = 9
 
     def __init__(self, level=9):
-        """Initialize zlib compressor.
+        """Initialize bzip2 compressor.
 
         Parameters
         ----------
@@ -55,7 +56,7 @@ class NCDbz2(_Distance):
         self._level = level
 
     def dist(self, src, tar):
-        """Return the NCD between two strings using bz2 compression.
+        """Return the NCD between two strings using bzip2 compression.
 
         Parameters
         ----------
@@ -100,7 +101,7 @@ class NCDbz2(_Distance):
 
 
 def dist_ncd_bz2(src, tar):
-    """Return the NCD between two strings using bz2 compression.
+    """Return the NCD between two strings using bzip2 compression.
 
     This is a wrapper for :py:meth:`NCDbz2.dist`.
 
@@ -132,7 +133,7 @@ def dist_ncd_bz2(src, tar):
 
 
 def sim_ncd_bz2(src, tar):
-    """Return the NCD similarity between two strings using bz2 compression.
+    """Return the NCD similarity between two strings using bzip2 compression.
 
     This is a wrapper for :py:meth:`NCDbz2.sim`.
 

@@ -40,9 +40,9 @@ class Phonetic(String):
     """Phonetic Fingerprint.
 
     A phonetic fingerprint is identical to a standard string fingerprint, as
-    implemented in abydos.clustering.fingerprint(), but performs the
-    fingerprinting function after converting the string to its phonetic form,
-    as determined by some phonetic algorithm. This fingerprint is described at
+    implemented in :py:class:`.String`, but performs the fingerprinting
+    function after converting the string to its phonetic form, as determined by
+    some phonetic algorithm. This fingerprint is described at
     :cite:`OpenRefine:2012`.
     """
 
@@ -63,8 +63,7 @@ class Phonetic(String):
         phonetic_algorithm : function
             A phonetic algorithm that takes a string and returns a string
             (presumably a phonetic representation of the original string). By
-            default, this function uses
-            :py:func:`abydos.phonetic.double_metaphone`
+            default, this function uses :py:func:`.double_metaphone`.
         joiner : str
             The string that will be placed between each word
         *args
@@ -103,7 +102,7 @@ def phonetic_fingerprint(
 ):
     """Return the phonetic fingerprint of a phrase.
 
-    This is a wrapper for :py:meth:`PhoneticFingerprint.fingerprint`.
+    This is a wrapper for :py:meth:`Phonetic.fingerprint`.
 
     Parameters
     ----------
@@ -112,8 +111,7 @@ def phonetic_fingerprint(
     phonetic_algorithm : function
         A phonetic algorithm that takes a string and returns a string
         (presumably a phonetic representation of the original string). By
-        default, this function uses
-        :py:func:`abydos.phonetic.double_metaphone`.
+        default, this function uses :py:func:`.double_metaphone`.
     joiner : str
         The string that will be placed between each word
     *args

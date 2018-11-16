@@ -18,7 +18,7 @@
 
 """abydos.distance._ncd_lzma.
 
-NCD using lzma
+NCD using LZMA
 """
 
 from __future__ import (
@@ -41,13 +41,15 @@ __all__ = ['NCDlzma', 'dist_ncd_lzma', 'sim_ncd_lzma']
 
 
 class NCDlzma(_Distance):
-    """Normalized Compression Distance using lzma compression.
+    """Normalized Compression Distance using
+    `LZMA <https://en.wikipedia.org/wiki/Lempel-Ziv-Markov_chain_algorithm>`_
+    compression.
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
     """
 
     def dist(self, src, tar):
-        """Return the NCD between two strings using lzma compression.
+        """Return the NCD between two strings using LZMA compression.
 
         Parameters
         ----------
@@ -64,7 +66,7 @@ class NCDlzma(_Distance):
         Raises
         ------
         ValueError
-            Install the PylibLZMA module in order to use lzma
+            Install the PylibLZMA module in order to use LZMA
 
         Examples
         --------
@@ -92,7 +94,7 @@ class NCDlzma(_Distance):
             concat_comp2 = lzma.compress(tar + src)[14:]
         else:  # pragma: no cover
             raise ValueError(
-                'Install the PylibLZMA module in order to use lzma'
+                'Install the PylibLZMA module in order to use LZMA'
             )
 
         return (
@@ -102,7 +104,7 @@ class NCDlzma(_Distance):
 
 
 def dist_ncd_lzma(src, tar):
-    """Return the NCD between two strings using lzma compression.
+    """Return the NCD between two strings using LZMA compression.
 
     This is a wrapper for :py:meth:`NCDlzma.dist`.
 
@@ -134,7 +136,7 @@ def dist_ncd_lzma(src, tar):
 
 
 def sim_ncd_lzma(src, tar):
-    """Return the NCD similarity between two strings using lzma compression.
+    """Return the NCD similarity between two strings using LZMA compression.
 
     This is a wrapper for :py:meth:`NCDlzma.sim`.
 

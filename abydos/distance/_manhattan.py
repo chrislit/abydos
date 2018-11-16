@@ -82,7 +82,7 @@ class Manhattan(Minkowski):
         """Return the normalized Manhattan distance between two strings.
 
         The normalized Manhattan distance is a distance metric in
-        :math:`L^1-space`, normalized to [0, 1].
+        :math:`L^1`-space, normalized to [0, 1].
 
         This is identical to Canberra distance.
 
