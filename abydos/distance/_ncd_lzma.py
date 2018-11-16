@@ -41,9 +41,9 @@ __all__ = ['NCDlzma', 'dist_ncd_lzma', 'sim_ncd_lzma']
 
 
 class NCDlzma(_Distance):
-    """Normalized Compression Distance using
-    `LZMA <https://en.wikipedia.org/wiki/Lempel-Ziv-Markov_chain_algorithm>`_
-    compression.
+    """Normalized Compression Distance using LZMA compression.
+
+    Cf. https://en.wikipedia.org/wiki/Lempel-Ziv-Markov_chain_algorithm
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
     """

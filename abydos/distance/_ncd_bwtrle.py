@@ -36,9 +36,9 @@ __all__ = ['NCDbwtrle', 'dist_ncd_bwtrle', 'sim_ncd_bwtrle']
 
 
 class NCDbwtrle(NCDrle):
-    """Normalized Compression Distance using
-    `BWT <https://en.wikipedia.org/wiki/Burrows-Wheeler_transform>`_ plus
-    `RLE <https://en.wikipedia.org/wiki/Run-length_encoding>`_.
+    """Normalized Compression Distance using BWT plus RLE.
+
+    Cf. https://en.wikipedia.org/wiki/Burrows-Wheeler_transform
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
     """
