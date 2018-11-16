@@ -71,7 +71,7 @@ Abydos
      :target: https://app.fossa.io/projects/git%2Bgithub.com%2Fchrislit%2Fabydos?ref=badge_shield
      :alt: FOSSA Status
 
-.. |pylint| image:: https://img.shields.io/badge/Pylint-9.18/10-yellowgreen.svg
+.. |pylint| image:: https://img.shields.io/badge/Pylint-9.19/10-yellowgreen.svg
    :target: #
    :alt: Pylint Score
 

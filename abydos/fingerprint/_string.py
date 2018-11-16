@@ -76,7 +76,7 @@ class String(Fingerprint):
 def str_fingerprint(phrase, joiner=' '):
     """Return string fingerprint.
 
-    This is a wrapper for :py:meth:`StringFingerprint.fingerprint`.
+    This is a wrapper for :py:meth:`String.fingerprint`.
 
     Parameters
     ----------

@@ -39,13 +39,13 @@ class Jaccard(Tversky):
     r"""Jaccard similarity.
 
     For two sets X and Y, the Jaccard similarity coefficient
-    :cite:`Jaccard:1901` is :math:`sim_{jaccard}(X, Y) =
-    \\frac{|X \\cap Y|}{|X \\cup Y|}`.
+    :cite:`Jaccard:1901` is :math:`sim_{Jaccard}(X, Y) =
+    \frac{|X \cap Y|}{|X \cup Y|}`.
 
     This is identical to the Tanimoto similarity coefficient
     :cite:`Tanimoto:1958`
     and the Tversky index :cite:`Tversky:1977` for
-    :math:`\\alpha = \\beta = 1`.
+    :math:`\alpha = \beta = 1`.
     """
 
     def sim(self, src, tar, qval=2):
@@ -84,7 +84,7 @@ class Jaccard(Tversky):
         """Return the Tanimoto distance between two strings.
 
         Tanimoto distance :cite:`Tanimoto:1958` is
-        :math:`-log_{2}sim_{Tanimoto}`.
+        :math:`-log_{2} sim_{Tanimoto}(X, Y)`.
 
         Parameters
         ----------

@@ -82,7 +82,7 @@ class Euclidean(Minkowski):
         """Return the normalized Euclidean distance between two strings.
 
         The normalized Euclidean distance is a distance
-        metric in :math:`L^2-space`, normalized to [0, 1].
+        metric in :math:`L^2`-space, normalized to [0, 1].
 
         Parameters
         ----------

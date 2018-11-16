@@ -87,7 +87,7 @@ class QGram(Fingerprint):
 def qgram_fingerprint(phrase, qval=2, start_stop='', joiner=''):
     """Return Q-Gram fingerprint.
 
-    This is a wrapper for :py:meth:`QGramFingerprint.fingerprint`.
+    This is a wrapper for :py:meth:`QGram.fingerprint`.
 
     Parameters
     ----------

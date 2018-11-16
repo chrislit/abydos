@@ -37,7 +37,7 @@ class Chebyshev(Minkowski):
     r"""Chebyshev distance.
 
     Euclidean distance is the chessboard distance,
-    equivalent to Minkowski distance in :math:`L^\infty-space`.
+    equivalent to Minkowski distance in :math:`L^\infty`-space.
     """
 
     def dist_abs(self, src, tar, qval=2, alphabet=None):

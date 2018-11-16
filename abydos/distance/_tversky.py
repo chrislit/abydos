@@ -38,27 +38,27 @@ class Tversky(_TokenDistance):
 
     The Tversky index :cite:`Tversky:1977` is defined as:
     For two sets X and Y:
-    :math:`sim_{Tversky}(X, Y) = \\frac{|X \\cap Y|}
-    {|X \\cap Y| + \\alpha|X - Y| + \\beta|Y - X|}`.
+    :math:`sim_{Tversky}(X, Y) = \frac{|X \cap Y|}
+    {|X \cap Y| + \alpha|X - Y| + \beta|Y - X|}`.
 
-    :math:`\\alpha = \\beta = 1` is equivalent to the Jaccard & Tanimoto
+    :math:`\alpha = \beta = 1` is equivalent to the Jaccard & Tanimoto
     similarity coefficients.
 
-    :math:`\\alpha = \\beta = 0.5` is equivalent to the Sørensen-Dice
+    :math:`\alpha = \beta = 0.5` is equivalent to the Sørensen-Dice
     similarity coefficient :cite:`Dice:1945,Sorensen:1948`.
 
     Unequal α and β will tend to emphasize one or the other set's
     contributions:
 
-        - :math:`\\alpha > \\beta` emphasizes the contributions of X over Y
-        - :math:`\\alpha < \\beta` emphasizes the contributions of Y over X)
+        - :math:`\alpha > \beta` emphasizes the contributions of X over Y
+        - :math:`\alpha < \beta` emphasizes the contributions of Y over X)
 
     Parameter values' relation to 1 emphasizes different types of
     contributions:
 
-        - :math:`\\alpha and \\beta > 1` emphsize unique contributions over the
+        - :math:`\alpha and \beta > 1` emphsize unique contributions over the
           intersection
-        - :math:`\\alpha and \\beta < 1` emphsize the intersection over unique
+        - :math:`\alpha and \beta < 1` emphsize the intersection over unique
           contributions
 
     The symmetric variant is defined in :cite:`Jiminez:2013`. This is activated

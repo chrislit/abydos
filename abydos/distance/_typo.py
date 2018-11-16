@@ -117,8 +117,8 @@ class Typo(_Distance):
             significantly less than the cost of an insertion & deletion unless
             a log metric is used.
         layout : str
-            Name of the keyboard layout to use (Currently supported: QWERTY,
-            Dvorak, AZERTY, QWERTZ)
+            Name of the keyboard layout to use (Currently supported:
+            ``QWERTY``, ``Dvorak``, ``AZERTY``, ``QWERTZ``)
 
         Returns
         -------
@@ -298,8 +298,8 @@ class Typo(_Distance):
             significantly less than the cost of an insertion & deletion unless
             a log metric is used.
         layout : str
-            Name of the keyboard layout to use (Currently supported: QWERTY,
-            Dvorak, AZERTY, QWERTZ)
+            Name of the keyboard layout to use (Currently supported:
+            ``QWERTY``, ``Dvorak``, ``AZERTY``, ``QWERTZ``)
 
         Returns
         -------
@@ -348,8 +348,8 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
         significantly less than the cost of an insertion & deletion unless a
         log metric is used.
     layout : str
-        Name of the keyboard layout to use (Currently supported: QWERTY,
-        Dvorak, AZERTY, QWERTZ)
+        Name of the keyboard layout to use (Currently supported:
+        ``QWERTY``, ``Dvorak``, ``AZERTY``, ``QWERTZ``)
 
     Returns
     -------
@@ -412,8 +412,8 @@ def dist_typo(
         significantly less than the cost of an insertion & deletion unless a
         log metric is used.
     layout : str
-        Name of the keyboard layout to use (Currently supported: QWERTY,
-        Dvorak, AZERTY, QWERTZ)
+        Name of the keyboard layout to use (Currently supported:
+        ``QWERTY``, ``Dvorak``, ``AZERTY``, ``QWERTZ``)
 
     Returns
     -------
@@ -458,8 +458,8 @@ def sim_typo(
         significantly less than the cost of an insertion & deletion unless a
         log metric is used.
     layout : str
-        Name of the keyboard layout to use (Currently supported: QWERTY,
-        Dvorak, AZERTY, QWERTZ)
+        Name of the keyboard layout to use (Currently supported:
+        ``QWERTY``, ``Dvorak``, ``AZERTY``, ``QWERTZ``)
 
     Returns
     -------

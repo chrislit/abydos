@@ -100,7 +100,7 @@ class LCSstr(_Distance):
         Longest common substring similarity (:math:`sim_{LCSstr}`).
 
         This employs the LCS function to derive a similarity metric:
-        :math:`sim_{LCSstr}(s,t) = \\frac{|LCSstr(s,t)|}{max(|s|, |t|)}`
+        :math:`sim_{LCSstr}(s,t) = \frac{|LCSstr(s,t)|}{max(|s|, |t|)}`
 
         Parameters
         ----------

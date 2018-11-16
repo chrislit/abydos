@@ -45,7 +45,7 @@ class Minkowski(_TokenDistance):
     def dist_abs(
         self, src, tar, qval=2, pval=1, normalized=False, alphabet=None
     ):
-        """Return the Minkowski distance (:math:`L^p-norm`) of two strings.
+        """Return the Minkowski distance (:math:`L^p`-norm) of two strings.
 
         Parameters
         ----------
@@ -110,7 +110,7 @@ class Minkowski(_TokenDistance):
         """Return normalized Minkowski distance of two strings.
 
         The normalized Minkowski distance :cite:`Minkowski:1910` is a distance
-        metric in :math:`L^p-space`, normalized to [0, 1].
+        metric in :math:`L^p`-space, normalized to [0, 1].
 
         Parameters
         ----------
@@ -147,7 +147,7 @@ class Minkowski(_TokenDistance):
 
 
 def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
-    """Return the Minkowski distance (:math:`L^p-norm`) of two strings.
+    """Return the Minkowski distance (:math:`L^p`-norm) of two strings.
 
     This is a wrapper for :py:meth:`Minkowski.dist_abs`.
 

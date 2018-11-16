@@ -39,7 +39,7 @@ class Overlap(_TokenDistance):
     For two sets X and Y, the overlap coefficient
     :cite:`Szymkiewicz:1934,Simpson:1949`, also called the
     Szymkiewicz-Simpson coefficient, is
-    :math:`sim_{overlap}(X, Y) = \\frac{|X \\cap Y|}{min(|X|, |Y|)}`.
+    :math:`sim_{overlap}(X, Y) = \frac{|X \cap Y|}{min(|X|, |Y|)}`.
     """
 
     def sim(self, src, tar, qval=2):

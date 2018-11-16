@@ -89,17 +89,6 @@ class Eudex(_Distance):
     ):
         """Calculate the Hamming distance between the Eudex hashes of two terms.
 
-        weights:
-        - If set to None, a simple Hamming distance is calculated.
-        - If set to 'exponential', weight decays by powers of 2, as proposed in
-          the eudex specification: https://github.com/ticki/eudex.
-        - If set to 'fibonacci', weight decays through the Fibonacci series, as
-          in the eudex reference implementation.
-        - If set to a callable function, this assumes it creates a generator
-          and the generator is used to populate a series of weights.
-        - If set to an iterable, the iterable's values should be integers and
-          will be used as the weights.
-
         Parameters
         ----------
         src : str
@@ -108,6 +97,19 @@ class Eudex(_Distance):
             Target string for comparison
         weights : str, iterable, or generator function
             The weights or weights generator function
+
+                - If set to ``None``, a simple Hamming distance is calculated.
+                - If set to ``exponential``, weight decays by powers of 2, as
+                  proposed in the eudex specification:
+                  https://github.com/ticki/eudex.
+                - If set to ``fibonacci``, weight decays through the Fibonacci
+                  series, as in the eudex reference implementation.
+                - If set to a callable function, this assumes it creates a
+                  generator and the generator is used to populate a series of
+                  weights.
+                - If set to an iterable, the iterable's values should be
+                  integers and will be used as the weights.
+
         max_length : int
             The number of characters to encode as a eudex hash
         normalized : bool
