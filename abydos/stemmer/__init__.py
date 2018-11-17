@@ -18,17 +18,58 @@
 
 """abydos.stemmer.
 
-The stemmer module defines word stemmers including:
+The stemmer package collects stemmer classes for a number of
+languages including:
 
-    - Lovins stemmer
-    - Paice-Husk Stemmer
-    - UEA-Lite Stemmer
-    - S-stemmer
-    - Caumanns German stemmer
-    - Schinke Latin stemmer
-    - the Porter and Porter2 (Snowball English) stemmers
-    - Snowball stemmers for German, Dutch, Norwegian, Swedish, and Danish
-    - CLEF German, German plus, and Swedish stemmers
+    - English stemmers:
+
+        - Lovins' (:py:class:`.Lovins`)
+        - Porter (:py:class:`.Porter`)
+        - Porter2 (i.e. Snowball English) (:py:class:`.Porter2`)
+        - UEA-Lite (:py:class:`.UEALite`)
+        - Paice-Husk (:py:class:`.PaiceHusk`)
+        - S-stemmer (:py:class:`.SStemmer`)
+
+    - German stemmers:
+
+        - Caumanns' (:py:class:`.Caumanns`)
+        - CLEF German (:py:class:`.CLEFGerman`)
+        - CLEF German Plus (:py:class:`.CLEFGermanPlus`)
+        - Snowball German (:py:class:`.SnowballGerman`)
+
+    - Swedish stemmers:
+
+        - CLEF Swedish (:py:class:`.CLEFSwedish`)
+        - Snowball Swedish (:py:class:`.SnowballSwedish`)
+
+    - Latin stemmer:
+
+        - Schinke (:py:class:`.Schinke`)
+
+    - Danish stemmer:
+
+        - Snowball Danish (:py:class:`.SnowballDanish`)
+
+    - Dutch stemmer:
+
+        - Snowball Dutch (:py:class:`.SnowballDutch`)
+
+    - Norwegian stemmer:
+
+        - Snowball Norwegian (:py:class:`.SnowballNorwegian`)
+
+
+Each stemmer has a ``stem`` method, which takes a word and returns its stemmed
+form:
+
+>>> stmr = Porter()
+>>> stmr.stem('democracy')
+'democraci'
+>>> stmr.stem('trusted')
+'trust'
+
+----
+
 """
 
 from __future__ import (

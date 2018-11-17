@@ -18,50 +18,101 @@
 
 """abydos.distance.
 
-The distance module implements string edit distance functions including:
+The distance package implements string distance measure and metric classes:
 
-    - Levenshtein distance
-    - Optimal String Alignment distance
-    - Damerau-Levenshtein distance
-    - Indel distance
-    - Hamming distance
-    - Jaro distance
-    - Jaro-Winkler distance (incl. the strcmp95 algorithm variant)
-    - Minkowski distance & similarity
-    - Manhattan distance & similarity
-    - Euclidean distance & similarity
-    - Chebyshev distance
-    - Tversky index
-    - Sørensen–Dice coefficient & distance
-    - Jaccard similarity coefficient & distance
-    - Tanimoto coefficient
-    - overlap similarity & distance
-    - cosine similarity & distance
-    - Bag similarity & distance
-    - Monge-Elkan similarity & distance
-    - Needleman-Wunsch score
-    - Smith-Waterman score
-    - Gotoh score
-    - Longest common subsequence
-    - Longest common substring
-    - Ratcliff-Obershelp similarity & distance
-    - Identity, Length, Prefix, and Suffix similarity & distance
-    - Normalized Compression Distance (NCD) & similarity using zlib, bzip2,
-      lzma, arithmetic coding, BWT+RLE, or RLE compression
-    - Match Rating Algorithm similarity
-    - Editex distance
-    - Modified Language-Independent Product Name Search (MLIPNS) similarity &
-      distance
-    - Baystat distance & similarity
-    - Eudex distances
-    - Sift4 distance
-    - Typo distance
-    - Synoname
+These include traditional Levenshtein edit distance and related algorithms:
 
-Functions beginning with the prefixes 'sim' and 'dist' are guaranteed to be
-in the range [0, 1], and sim_X = 1 - dist_X since the two are complements.
-If a sim_X function is supplied identical src & tar arguments, it is guaranteed
-to return 1; the corresponding dist_X function is guaranteed to return 0.
+    - Levenshtein distance (:py:class:`.Levenshtein`)
+    - Optimal String Alignment distance (:py:class:`.Levenshtein` with
+      ``mode='osa'``)
+    - Damerau-Levenshtein distance (:py:class:`.DamerauLevenshtein`)
+    - Indel distance (:py:class:`.Indel`)
+
+Hamming distance (:py:class:`.Hamming`) and the closely related Modified
+Language-Independent Product Name Search distance (:py:class:`.MLIPNS`) are
+provided.
+
+Distance metrics developed for the US Census are included:
+
+    - Jaro distance (:py:class:`.JaroWinkler` with ``mode='Jaro'``)
+    - Jaro-Winkler distance (:py:class:`.JaroWinkler`)
+    - Strcmp95 distance (:py:class:`.Strcmp95`)
+
+A large set of multi-set token-based distance metrics are provided, including:
+
+    - Generalized Minkowski distance (:py:class:`.Minkowski`)
+    - Manhattan distance (:py:class:`.Manhattan`)
+    - Euclidean distance (:py:class:`.Euclidean`)
+    - Chebyshev distance (:py:class:`.Chebyshev`)
+    - Generalized Tversky distance (:py:class:`.Tversky`)
+    - Sørensen–Dice coefficient (:py:class:`.Dice`)
+    - Jaccard similarity (:py:class:`.Jaccard`)
+    - Tanimoto coefficient (:py:meth:`.Jaccard.tanimoto_coeff`)
+    - Overlap distance (:py:class:`.Overlap`)
+    - Cosine similarity (:py:class:`.Cosine`)
+    - Bag distance (:py:class:`.Bag`)
+    - Monge-Elkan distance (:py:class:`.MongeElkan`)
+
+Three popular sequence alignment algorithms are provided:
+
+    - Needleman-Wunsch score (:py:class:`.NeedlemanWunsch`)
+    - Smith-Waterman score (:py:class:`.SmithWaterman`)
+    - Gotoh score (:py:class:`.Gotoh`)
+
+Classes relating to substring and subsequence distances include:
+
+    - Longest common subsequence (:py:class:`.LCSseq`)
+    - Longest common substring (:py:class:`.LCSstr`)
+    - Ratcliff-Obserhelp distance (:py:class:`.RatcliffObershelp`)
+
+A number of simple distance classes provided in the package include:
+
+    - Identity distance (:py:class:`.Ident`)
+    - Length distance (:py:class:`.Length`)
+    - Prefix distance (:py:class:`.Prefix`)
+    - Suffix distance (:py:class:`.Suffix`)
+
+Normalized compression distance classes for a variety of compression algorithms
+are provided:
+
+    - zlib (:py:class:`.NCDzlib`)
+    - bzip2 (:py:class:`.NCDbz2`)
+    - lzma (:py:class:`.NCDlzma`)
+    - arithmetic coding (:py:class:`.NCDarith`)
+    - BWT plus RLE (:py:class:`.NCDbwtrle`)
+    - RLE (:py:class:`.NCDrle`)
+
+The remaining distance measures & metrics include:
+
+    - Western Airlines' Match Rating Algorithm comparison
+      (:py:class:`.distance.MRA`)
+    - Editex (:py:class:`.Editex`)
+    - Bavarian Landesamt für Statistik distance (:py:class:`.Baystat`)
+    - Eudex distance (:py:class:`.distance.Eudex`)
+    - Sift4 distance (:py:class:`.Sift4` and :py:class:`.Sift4Simplest`)
+    - Typo distance (:py:class:`.Typo`)
+    - Synoname (:py:class:`.Synoname`)
+
+Most of the distance and similarity measures have ``sim`` and ``dist`` methods,
+which return a measure that is normalized to the range :math:`[0, 1]`. The
+normalized distance and similarity are always complements, so the normalized
+distance will always equal 1 - the similarity for a particular measure supplied
+with the same input. Some measures have an absolute distance method
+``dist_abs`` that is not limited to any range.
+
+All three methods can be demonstrated using the :py:class:`.DamerauLevenshtein`
+class:
+
+>>> dl = DamerauLevenshtein()
+>>> dl.dist_abs('orange', 'strange')
+2
+>>> dl.dist('orange', 'strange')
+0.2857142857142857
+>>> dl.sim('orange', 'strange')
+0.7142857142857143
+
+----
+
 """
 
 from __future__ import (

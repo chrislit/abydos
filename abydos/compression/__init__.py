@@ -21,9 +21,22 @@
 The compression package defines compression and compression-related functions
 for use within Abydos, including implementations of the following:
 
-    - Arithmetic coder/decoder
-    - Burrows-Wheeler Transform encoder/decoder
-    - Run-Length Encoding encoder/decoder
+        - :py:class:`.Arithmetic` for arithmetic coding
+        - :py:class:`.BWT` for Burrows-Wheeler Transform
+        - :py:class:`.RLE` for Run-Length Encoding
+
+
+Each class exposes ``encode`` and ``decode`` methods for performing and
+reversing its encoding. For example, the Burrows-Wheeler Transform can be
+performed by creating a :py:class:`.BWT` object and then calling
+:py:meth:`.BWT.encode` on a string:
+
+>>> bwt = BWT()
+>>> bwt.encode('^BANANA')
+'ANNB^AA\x00'
+
+----
+
 """
 
 from __future__ import (

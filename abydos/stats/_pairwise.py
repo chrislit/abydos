@@ -18,10 +18,7 @@
 
 """abydos.stats._pairwise.
 
-The stats._pairwise module implements pairwise statistical algorithms such as:
-
-    - mean pairwise similarity
-    - pairwise similarity statistics
+The stats._pairwise module implements pairwise statistical algorithms.
 """
 
 from __future__ import (

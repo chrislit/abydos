@@ -19,6 +19,26 @@
 """abydos.
 
 Abydos NLP/IR library by Christopher C. Little
+
+
+There are nine major packages that make up Abydos:
+
+    - :py:mod:`.compression` for string compression classes
+    - :py:mod:`.corpus` for document corpus classes
+    - :py:mod:`.distance` for string distance measure & metric classes
+    - :py:mod:`.fingerprint` for string fingerprint classes
+    - :py:mod:`.phones` for functions relating to phones and phonemes
+    - :py:mod:`.phonetic` for phonetic algorithm classes
+    - :py:mod:`.stats` for statistical functions and a confusion table class
+    - :py:mod:`.stemmer` for stemming classes
+    - :py:mod:`.tokenizer` for tokenizer classes
+
+Classes with each package have consistent method names, as discussed below.
+A tenth package, :py:mod:`.util`, contains functions not intended for end-user
+use.
+
+----
+
 """
 
 from __future__ import (
