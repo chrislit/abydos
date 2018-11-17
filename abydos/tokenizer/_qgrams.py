@@ -44,10 +44,6 @@ class QGrams(Counter):
     to sequences of characters in a word or string.
     """
 
-    _term = ''
-    _term_ss = ''
-    _ordered_list = []
-
     def __init__(self, term, qval=2, start_stop='$#', skip=0):
         """Initialize QGrams.
 
@@ -88,6 +84,7 @@ class QGrams(Counter):
         """
         # Save the term itself
         self._term = term
+        self._term_ss = term
         self._ordered_list = []
 
         if not isinstance(qval, Iterable):
