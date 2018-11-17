@@ -30,7 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import Indel, dist_indel, sim_indel
+from abydos.distance import Indel, dist_indel, indel, sim_indel
 
 
 class IndelTestCases(unittest.TestCase):
@@ -76,6 +76,24 @@ class IndelTestCases(unittest.TestCase):
 
         # Test wrapper
         self.assertAlmostEqual(dist_indel('Colin', 'Coiln'), 0.2)
+
+    def test_indel_dist_abs(self):
+        """Test abydos.distance.Indel.dist_abs."""
+        # Base cases
+        self.assertEqual(self.cmp.dist_abs('', ''), 0)
+        self.assertEqual(self.cmp.dist_abs('a', ''), 1)
+        self.assertEqual(self.cmp.dist_abs('', 'a'), 1)
+        self.assertEqual(self.cmp.dist_abs('abc', ''), 3)
+        self.assertEqual(self.cmp.dist_abs('', 'abc'), 3)
+        self.assertEqual(self.cmp.dist_abs('abcd', 'efgh'), 8)
+
+        self.assertAlmostEqual(self.cmp.dist_abs('Nigel', 'Niall'), 4)
+        self.assertAlmostEqual(self.cmp.dist_abs('Niall', 'Nigel'), 4)
+        self.assertAlmostEqual(self.cmp.dist_abs('Colin', 'Coiln'), 2)
+        self.assertAlmostEqual(self.cmp.dist_abs('Coiln', 'Colin'), 2)
+
+        # Test wrapper
+        self.assertAlmostEqual(indel('Colin', 'Coiln'), 2)
 
 
 if __name__ == '__main__':
