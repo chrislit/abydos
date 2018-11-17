@@ -95,16 +95,16 @@ Abydos
     :target: https://mybinder.org/v2/gh/chrislit/abydos/master?filepath=binder
     :alt: Binder
 
-.. |license| image:: https://img.shields.io/badge/License-GPL%20v3-blue.svg
+.. |license| image:: https://img.shields.io/badge/License-GPL%20v3+-blue.svg
     :target: https://www.gnu.org/licenses/gpl-3.0
-    :alt: License: GPL v3
+    :alt: License: GPL v3.0+
 
 .. |sourcerank| image:: https://img.shields.io/librariesio/sourcerank/pypi/abydos.svg
     :target: https://libraries.io/pypi/abydos
     :alt: Libraries.io SourceRank
 
-.. |zenodo| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.1462443.svg
-   :target: https://doi.org/10.5281/zenodo.1463204
+.. |zenodo| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.1490288.svg
+   :target: https://doi.org/10.5281/zenodo.1490288
    :alt: Zenodo
 
 .. |cii| image:: https://bestpractices.coreinfrastructure.org/projects/1598/badge
@@ -222,7 +222,7 @@ stemmers, and string fingerprinters including:
     - Monge-Elkan similarity & distance
     - Matrix similarity
     - Needleman-Wunsch score
-    - Smither-Waterman score
+    - Smith-Waterman score
     - Gotoh score
     - Length similarity
     - Prefix, Suffix, and Identity similarity & distance

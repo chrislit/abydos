@@ -2,10 +2,10 @@ Release History
 ---------------
 
 
-0.3.6 (2018-11-xx) *classy carl*
+0.3.6 (2018-11-17) *classy carl*
 ++++++++++++++++++++++++++++++++
 
-doi:
+doi:10.5281/zenodo.1490288
 
 Changes:
 
