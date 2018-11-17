@@ -159,8 +159,8 @@ The :py:class:`.ConfusionTable` class has methods:
 The :py:class:`.ConfusionTable` class also supports checking for equality with
 another :py:class:`.ConfusionTable` and casting to string with ``str()``:
 
->>> ConfusionTable({'tp':120, 'tn':60, 'fp':20, 'fn':30}) ==
-... ConfusionTable(120, 60, 20, 30)
+>>> (ConfusionTable({'tp':120, 'tn':60, 'fp':20, 'fn':30}) ==
+... ConfusionTable(120, 60, 20, 30))
 True
 >>> str(ConfusionTable(120, 60, 20, 30))
 'tp:120, tn:60, fp:20, fn:30'

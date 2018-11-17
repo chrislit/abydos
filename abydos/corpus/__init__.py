@@ -26,13 +26,12 @@ The corpus package includes basic and n-gram corpus classes:
 
 As a quick example of :py:class:`.Corpus`:
 
->>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
->>> tqbf += 'And then it slept.\n And the dog ran off.'
+>>> tqbf = 'The quick brown fox jumped over the lazy dog.\n\n'
+>>> tqbf += 'And then it slept.\n\n And the dog ran off.'
 >>> corp = Corpus(tqbf)
 >>> corp.docs()
-[[['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
-'dog.'], ['And', 'then', 'it', 'slept.'], ['And', 'the', 'dog',
-'ran', 'off.']]]
+[[['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog.']],
+[['And', 'then', 'it', 'slept.']], [['And', 'the', 'dog', 'ran', 'off.']]]
 >>> round(corp.idf('dog'), 10)
 0.4771212547
 >>> round(corp.idf('the'), 10)
