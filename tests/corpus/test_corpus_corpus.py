@@ -209,17 +209,10 @@ class CorpusTestCases(unittest.TestCase):
         )
 
     def test_corpus_docs_sents_words(self):
-        """Test abydos.corpus.Corpus.docs, .sents, .words, .docs_of_words, .raw."""  # noqa: E501
+        """Test abydos.corpus.Corpus.paras, .docs, .docs_of_words, .raw."""
         doc_str = 'a b c d\n\ne f g\nh i j\nk'
         doc_corp = Corpus(doc_str)
 
-        self.assertEqual(
-            doc_corp.docs(),
-            [
-                [['a', 'b', 'c', 'd']],
-                [['e', 'f', 'g'], ['h', 'i', 'j'], ['k']],
-            ],
-        )
         self.assertEqual(
             doc_corp.paras(),
             [
@@ -228,6 +221,24 @@ class CorpusTestCases(unittest.TestCase):
             ],
         )
         self.assertEqual(
+            doc_corp.docs(),
+            [
+                [['a', 'b', 'c', 'd']],
+                [['e', 'f', 'g'], ['h', 'i', 'j'], ['k']],
+            ],
+        )
+        self.assertEqual(
+            doc_corp.docs_of_words(),
+            [['a', 'b', 'c', 'd'], ['e', 'f', 'g', 'h', 'i', 'j', 'k']],
+        )
+        self.assertEqual(doc_corp.raw(), doc_str)
+
+    def test_corpus_docs_sents_words(self):
+        """Test abydos.corpus.Corpus.sents, .words."""
+        doc_str = 'a b c d\n\ne f g\nh i j\nk'
+        doc_corp = Corpus(doc_str)
+
+        self.assertEqual(
             doc_corp.sents(),
             [['a', 'b', 'c', 'd'], ['e', 'f', 'g'], ['h', 'i', 'j'], ['k']],
         )
@@ -235,12 +246,6 @@ class CorpusTestCases(unittest.TestCase):
             doc_corp.words(),
             ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'],
         )
-
-        self.assertEqual(
-            doc_corp.docs_of_words(),
-            [['a', 'b', 'c', 'd'], ['e', 'f', 'g', 'h', 'i', 'j', 'k']],
-        )
-        self.assertEqual(doc_corp.raw(), doc_str)
 
     def test_corpus_idf(self):
         """Test abydos.corpus.Corpus.idf."""

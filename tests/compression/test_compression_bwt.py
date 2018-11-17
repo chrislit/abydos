@@ -79,7 +79,7 @@ class BWTTestCases(unittest.TestCase):
         self.assertEqual(bwt_decode('BNN^AA|A', '|'), '^BANANA')
 
     def test_bwt_roundtripping(self):
-        """Test abydos.compression.BWT.encode & .decode roundtripping."""  # noqa: E501
+        """Test abydos.compression.BWT.encode & .decode roundtripping."""
         for w in (
             '',
             'Banana',

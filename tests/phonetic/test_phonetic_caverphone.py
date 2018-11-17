@@ -312,7 +312,7 @@ class CaverphoneTestCases(unittest.TestCase):
         self.assertEqual(caverphone('Maclaverty'), 'MKLFTA1111')
 
     def test_caverphone2_encode_php_testset(self):
-        """Test abydos.phonetic.Caverphone (PHP version testset)."""  # noqa: E501
+        """Test abydos.phonetic.Caverphone (PHP version testset)."""
         # https://raw.githubusercontent.com/kiphughes/caverphone/master/unit_tests.php
         with open(_corpus_file('php_caverphone.csv')) as php_testset:
             for php_line in php_testset:

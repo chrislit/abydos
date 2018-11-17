@@ -1520,7 +1520,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('zhao'), ('J', ''))
 
     def test_double_metaphone_surnames4(self):
-        """Test abydos.phonetic.DoubleMetaphone (surname data, 4-letter)."""  # noqa: E501
+        """Test abydos.phonetic.DoubleMetaphone (surname data, 4-letter)."""
         self.assertEqual(self.pa.encode('', 4), ('', ''))
         self.assertEqual(self.pa.encode('ALLERTON', 4), ('ALRT', ''))
         self.assertEqual(self.pa.encode('Acton', 4), ('AKTN', ''))

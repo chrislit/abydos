@@ -148,7 +148,7 @@ class Arithmetic(object):
             tot = tot + count
 
     def encode(self, text):
-        """Encode a text using arithmetic coding with the provided probabilities.
+        """Encode a text using arithmetic coding.
 
         Text and the 0-order probability statistics -> longval, nbits
 
