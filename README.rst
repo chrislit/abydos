@@ -158,7 +158,6 @@ Abydos is a library of phonetic algorithms, string distance measures & metrics,
 stemmers, and string fingerprinters including:
 
 - Phonetic algorithms
-
     - Robert C. Russell's Index
     - American Soundex
     - Refined Soundex
@@ -200,7 +199,6 @@ stemmers, and string fingerprinters including:
     - Beider-Morse Phonetic Matching
 
 - String distance metrics
-
     - Levenshtein distance
     - Optimal String Alignment distance
     - Levenshtein-Damerau distance
@@ -240,7 +238,6 @@ stemmers, and string fingerprinters including:
     - Synoname
 
 - Stemmers
-
     - the Lovins stemmer
     - the Porter and Porter2 (Snowball English) stemmers
     - Snowball stemmers for German, Dutch, Norwegian, Swedish, and Danish
@@ -252,7 +249,6 @@ stemmers, and string fingerprinters including:
     - S stemmer
 
 - String Fingerprints
-
     - string fingerprint
     - q-gram fingerprint
     - phonetic fingerprint
