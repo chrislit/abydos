@@ -8,13 +8,13 @@ Abydos
 +------------------+------------------------------------------------------+
 | Dependencies     | |requires| |snyk| |pyup| |fossa|                     |
 +------------------+------------------------------------------------------+
-| Local Analysis   | |pylint| |flake8| |black|                            |
+| Local Analysis   | |pylint| |flake8| |pydocstyle| |black|               |
 +------------------+------------------------------------------------------+
 | Usage            | |docs| |mybinder| |license| |sourcerank| |zenodo|    |
 +------------------+------------------------------------------------------+
 | Contribution     | |cii| |waffle| |openhub|                             |
 +------------------+------------------------------------------------------+
-| PyPI             | |pypi| |pypi-ver|                                    |
+| PyPI             | |pypi| |pypi-dl| |pypi-ver|                          |
 +------------------+------------------------------------------------------+
 | conda-forge      | |conda| |conda-dl| |conda-platforms|                 |
 +------------------+------------------------------------------------------+
@@ -71,13 +71,17 @@ Abydos
      :target: https://app.fossa.io/projects/git%2Bgithub.com%2Fchrislit%2Fabydos?ref=badge_shield
      :alt: FOSSA Status
 
-.. |pylint| image:: https://img.shields.io/badge/Pylint-9.5/10-green.svg
+.. |pylint| image:: https://img.shields.io/badge/Pylint-9.16/10-yellowgreen.svg
    :target: #
    :alt: Pylint Score
 
-.. |flake8| image:: https://img.shields.io/badge/flake8-2-green.svg
+.. |flake8| image:: https://img.shields.io/badge/flake8-0-brightgreen.svg
    :target: #
    :alt: flake8 Errors
+
+.. |pydocstyle| image:: https://img.shields.io/badge/pydocstyle-0-brightgreen.svg
+   :target: #
+   :alt: pydocstyle Errors
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/ambv/black
@@ -91,16 +95,16 @@ Abydos
     :target: https://mybinder.org/v2/gh/chrislit/abydos/master?filepath=binder
     :alt: Binder
 
-.. |license| image:: https://img.shields.io/badge/License-GPL%20v3-blue.svg
+.. |license| image:: https://img.shields.io/badge/License-GPL%20v3+-blue.svg
     :target: https://www.gnu.org/licenses/gpl-3.0
-    :alt: License: GPL v3
+    :alt: License: GPL v3.0+
 
 .. |sourcerank| image:: https://img.shields.io/librariesio/sourcerank/pypi/abydos.svg
     :target: https://libraries.io/pypi/abydos
     :alt: Libraries.io SourceRank
 
-.. |zenodo| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.1462443.svg
-   :target: https://doi.org/10.5281/zenodo.1463204
+.. |zenodo| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.1490288.svg
+   :target: https://doi.org/10.5281/zenodo.1490288
    :alt: Zenodo
 
 .. |cii| image:: https://bestpractices.coreinfrastructure.org/projects/1598/badge
@@ -119,7 +123,11 @@ Abydos
     :target: https://pypi.python.org/pypi/abydos
     :alt: PyPI
 
-.. |pypi-ver| image:: 	https://img.shields.io/pypi/pyversions/abydos.svg
+.. |pypi-dl| image:: https://img.shields.io/pypi/dm/abydos.svg
+    :target: https://pypi.python.org/pypi/abydos
+    :alt: PyPI downloads/month
+
+.. |pypi-ver| image:: https://img.shields.io/pypi/pyversions/abydos.svg
     :target: https://pypi.python.org/pypi/abydos
     :alt: PyPI versions
 
@@ -138,11 +146,12 @@ Abydos
 |
 
 .. image:: https://raw.githubusercontent.com/chrislit/abydos/master/abydos-small.png
+    :target: https://github.com/chrislit/abydos
     :alt: abydos
     :align: right
 
 |
-| Abydos NLP/IR library
+| `Abydos NLP/IR library <https://github.com/chrislit/abydos>`_
 | Copyright 2014-2018 by Christopher C. Little
 
 Abydos is a library of phonetic algorithms, string distance measures & metrics,
@@ -188,6 +197,7 @@ stemmers, and string fingerprinters including:
     - SoundexBR
     - NRL English-to-phoneme
     - Beider-Morse Phonetic Matching
+
 - String distance metrics
     - Levenshtein distance
     - Optimal String Alignment distance
@@ -212,7 +222,7 @@ stemmers, and string fingerprinters including:
     - Monge-Elkan similarity & distance
     - Matrix similarity
     - Needleman-Wunsch score
-    - Smither-Waterman score
+    - Smith-Waterman score
     - Gotoh score
     - Length similarity
     - Prefix, Suffix, and Identity similarity & distance
@@ -226,6 +236,7 @@ stemmers, and string fingerprinters including:
     - Typo distance
     - Indel distance
     - Synoname
+
 - Stemmers
     - the Lovins stemmer
     - the Porter and Porter2 (Snowball English) stemmers
@@ -236,6 +247,7 @@ stemmers, and string fingerprinters including:
     - Paice-Husk Stemmer
     - Schinke Latin stemmer
     - S stemmer
+
 - String Fingerprints
     - string fingerprint
     - q-gram fingerprint
@@ -247,6 +259,7 @@ stemmers, and string fingerprinters including:
     - Cisłak & Grabowski's count fingerprint
     - Cisłak & Grabowski's position fingerprint
     - Synoname Toolcode
+
 
 -----
 
@@ -279,7 +292,7 @@ To install Abydos (latest release) from PyPI using pip::
 
    pip install abydos
 
-To install from `conda-forge <https://conda-forge.org/>`_::
+To install from `conda-forge <https://anaconda.org/conda-forge/abydos>`_::
 
    conda install abydos
 
@@ -292,10 +305,10 @@ To run the whole test-suite just call tox::
 
     tox
 
-The tox setup has the following environments: py27, py36, doctest,
-py27-regression, py36-regression, pylint, pycodestyle, flake8, doc8,
-badges, docs, py27-fuzz, & py36-fuzz. So if only want to generate documentation
-(in HTML, EPUB, & PDF formats), just call::
+The tox setup has the following environments: black, py36, py27, doctest,
+py36-regression, py27-regression, py36-fuzz, py27-fuzz, pylint, pycodestyle,
+pydocstyle, flake8, doc8, badges, docs, & dist. So if you only want to generate
+documentation (in HTML, EPUB, & PDF formats), just call::
 
     tox -e docs
 
@@ -304,4 +317,6 @@ In order to only run & generate Flake8 reports, call::
     tox -e flake8
 
 Contributions such as bug reports, PRs, suggestions, desired new features, etc.
-are welcome through the Github Issues & Pull requests.
+are welcome through Github
+`Issues <https://github.com/chrislit/abydos/issues>`_ &
+`Pull requests <https://github.com/chrislit/abydos/pulls>`_.

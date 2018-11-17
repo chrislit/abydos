@@ -18,94 +18,124 @@
 
 """abydos.tests.distance.test_distance_typo.
 
-This module contains unit tests for abydos.distance._typo
+This module contains unit tests for abydos.distance.Typo
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import unittest
 
-from abydos.distance import dist_typo, sim_typo, typo
+from abydos.distance import Typo, dist_typo, sim_typo, typo
 
 
 class TypoTestCases(unittest.TestCase):
     """Test Typo functions.
 
-    abydos.distance._typo.typo, sim_typo & .dist_typo
+    abydos.distance.Typo
     """
 
-    def test_typo(self):
-        """Test abydos.distance._typo.typo."""
-        # Base cases
-        self.assertEqual(typo('', ''), 0)
-        self.assertEqual(typo('', 'typo'), 4)
-        self.assertEqual(typo('typo', ''), 4)
+    cmp = Typo()
 
-        self.assertEqual(typo('asdf', 'zxcv'), 2)
-        self.assertEqual(typo('asdf', 'ASDF'), 1)
-        self.assertEqual(typo('asdf', 'qsdf'), 0.5)
+    def test_typo_dist_abs(self):
+        """Test abydos.distance.Typo.dist_abs."""
+        # Base cases
+        self.assertEqual(self.cmp.dist_abs('', ''), 0)
+        self.assertEqual(self.cmp.dist_abs('', 'typo'), 4)
+        self.assertEqual(self.cmp.dist_abs('typo', ''), 4)
+
+        self.assertEqual(self.cmp.dist_abs('asdf', 'zxcv'), 2)
+        self.assertEqual(self.cmp.dist_abs('asdf', 'ASDF'), 1)
+        self.assertEqual(self.cmp.dist_abs('asdf', 'qsdf'), 0.5)
 
         self.assertAlmostEqual(
-            typo('asdf', 'asdt', metric='euclidean'), 0.70710677
+            self.cmp.dist_abs('asdf', 'asdt', metric='euclidean'), 0.70710677
         )
-        self.assertAlmostEqual(typo('asdf', 'asdt', metric='manhattan'), 1)
+        self.assertAlmostEqual(
+            self.cmp.dist_abs('asdf', 'asdt', metric='manhattan'), 1
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist_abs('asdf', 'asdt', metric='log-euclidean'),
+            0.4406868,
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist_abs('asdf', 'asdt', metric='log-manhattan'),
+            0.54930615,
+        )
+
+        self.assertRaises(ValueError, self.cmp.dist_abs, 'asdf', 'Ösdf')
+
+        # Test wrapper
         self.assertAlmostEqual(
             typo('asdf', 'asdt', metric='log-euclidean'), 0.4406868
         )
-        self.assertAlmostEqual(
-            typo('asdf', 'asdt', metric='log-manhattan'), 0.54930615
-        )
 
-        self.assertRaises(ValueError, typo, 'asdf', 'Ösdf')
-
-    def test_sim_typo(self):
-        """Test abydos.distance._typo.sim_typo."""
+    def test_typo_sim(self):
+        """Test abydos.distance.Typo.sim."""
         # Base cases
-        self.assertEqual(sim_typo('', ''), 1)
-        self.assertEqual(sim_typo('', 'typo'), 0)
-        self.assertEqual(sim_typo('typo', ''), 0)
+        self.assertEqual(self.cmp.sim('', ''), 1)
+        self.assertEqual(self.cmp.sim('', 'typo'), 0)
+        self.assertEqual(self.cmp.sim('typo', ''), 0)
 
-        self.assertEqual(sim_typo('asdf', 'zxcv'), 0.5)
-        self.assertEqual(sim_typo('asdf', 'ASDF'), 0.75)
-        self.assertEqual(sim_typo('asdf', 'qsdf'), 0.875)
+        self.assertEqual(self.cmp.sim('asdf', 'zxcv'), 0.5)
+        self.assertEqual(self.cmp.sim('asdf', 'ASDF'), 0.75)
+        self.assertEqual(self.cmp.sim('asdf', 'qsdf'), 0.875)
 
         self.assertAlmostEqual(
-            sim_typo('asdf', 'asdt', metric='euclidean'), 1 - (0.70710677 / 4)
+            self.cmp.sim('asdf', 'asdt', metric='euclidean'),
+            1 - (0.70710677 / 4),
         )
         self.assertAlmostEqual(
-            sim_typo('asdf', 'asdt', metric='manhattan'), 0.75
+            self.cmp.sim('asdf', 'asdt', metric='manhattan'), 0.75
         )
+        self.assertAlmostEqual(
+            self.cmp.sim('asdf', 'asdt', metric='log-euclidean'),
+            1 - (0.4406868 / 4),
+        )
+        self.assertAlmostEqual(
+            self.cmp.sim('asdf', 'asdt', metric='log-manhattan'),
+            1 - (0.54930615 / 4),
+        )
+
+        # Test wrapper
         self.assertAlmostEqual(
             sim_typo('asdf', 'asdt', metric='log-euclidean'),
             1 - (0.4406868 / 4),
         )
-        self.assertAlmostEqual(
-            sim_typo('asdf', 'asdt', metric='log-manhattan'),
-            1 - (0.54930615 / 4),
-        )
 
-    def test_dist_typo(self):
-        """Test abydos.distance._typo.dist_typo."""
+    def test_typo_dist(self):
+        """Test abydos.distance.Typo.dist."""
         # Base cases
-        self.assertEqual(dist_typo('', ''), 0)
-        self.assertEqual(dist_typo('', 'typo'), 1)
-        self.assertEqual(dist_typo('typo', ''), 1)
+        self.assertEqual(self.cmp.dist('', ''), 0)
+        self.assertEqual(self.cmp.dist('', 'typo'), 1)
+        self.assertEqual(self.cmp.dist('typo', ''), 1)
 
-        self.assertEqual(dist_typo('asdf', 'zxcv'), 0.5)
-        self.assertEqual(dist_typo('asdf', 'ASDF'), 0.25)
-        self.assertEqual(dist_typo('asdf', 'qsdf'), 0.125)
+        self.assertEqual(self.cmp.dist('asdf', 'zxcv'), 0.5)
+        self.assertEqual(self.cmp.dist('asdf', 'ASDF'), 0.25)
+        self.assertEqual(self.cmp.dist('asdf', 'qsdf'), 0.125)
 
         self.assertAlmostEqual(
-            dist_typo('asdf', 'asdt', metric='euclidean'), 0.70710677 / 4
+            self.cmp.dist('asdf', 'asdt', metric='euclidean'), 0.70710677 / 4
         )
         self.assertAlmostEqual(
-            dist_typo('asdf', 'asdt', metric='manhattan'), 0.25
+            self.cmp.dist('asdf', 'asdt', metric='manhattan'), 0.25
         )
+        self.assertAlmostEqual(
+            self.cmp.dist('asdf', 'asdt', metric='log-euclidean'),
+            0.4406868 / 4,
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist('asdf', 'asdt', metric='log-manhattan'),
+            0.54930615 / 4,
+        )
+
+        # Test wrapper
         self.assertAlmostEqual(
             dist_typo('asdf', 'asdt', metric='log-euclidean'), 0.4406868 / 4
-        )
-        self.assertAlmostEqual(
-            dist_typo('asdf', 'asdt', metric='log-manhattan'), 0.54930615 / 4
         )
 
 

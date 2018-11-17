@@ -18,40 +18,32 @@
 
 """abydos.phonetic._eudex.
 
-The phonetic._eudex module implements the Eudex phonetic hash.
+Eudex phonetic hash
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from six.moves import range
 
-__all__ = ['eudex']
+from ._phonetic import _Phonetic
+
+__all__ = ['Eudex', 'eudex']
 
 
-def eudex(word, max_length=8):
-    """Return the eudex phonetic hash of a word.
+class Eudex(_Phonetic):
+    """Eudex hash.
 
     This implementation of eudex phonetic hashing is based on the specification
     (not the reference implementation) at :cite:`Ticki:2016`.
 
     Further details can be found at :cite:`Ticki:2016b`.
-
-    :param str word: the word to transform
-    :param int max_length: the length in bits of the code returned (default 8)
-    :returns: the eudex hash
-    :rtype: int
-
-    >>> eudex('Colin')
-    432345564238053650
-    >>> eudex('Christopher')
-    433648490138894409
-    >>> eudex('Niall')
-    648518346341351840
-    >>> eudex('Smith')
-    720575940412906756
-    >>> eudex('Schmidt')
-    720589151732307997
     """
+
     _trailing_phones = {
         'a': 0,  # a
         'b': 0b01001000,  # b
@@ -175,36 +167,103 @@ def eudex(word, max_length=8):
         'þ': 0b00001011,  # þ [ð̠] (represented as a non-plosive T)
         'ÿ': 0b11100101,  # ÿ
     }
-    # Lowercase input & filter unknown characters
-    word = ''.join(char for char in word.lower() if char in _initial_phones)
 
-    if not word:
-        word = '÷'
+    def encode(self, word, max_length=8):
+        """Return the eudex phonetic hash of a word.
 
-    # Perform initial eudex coding of each character
-    values = [_initial_phones[word[0]]]
-    values += [_trailing_phones[char] for char in word[1:]]
+        Parameters
+        ----------
+        word : str
+            The word to transform
+        max_length : int
+            The length in bits of the code returned (default 8)
 
-    # Right-shift by one to determine if second instance should be skipped
-    shifted_values = [_ >> 1 for _ in values]
-    condensed_values = [values[0]]
-    for n in range(1, len(shifted_values)):
-        if shifted_values[n] != shifted_values[n - 1]:
-            condensed_values.append(values[n])
+        Returns
+        -------
+        int
+            The eudex hash
 
-    # Add padding after first character & trim beyond max_length
-    values = (
-        [condensed_values[0]]
-        + [0] * max(0, max_length - len(condensed_values))
-        + condensed_values[1:max_length]
-    )
+        Examples
+        --------
+        >>> pe = Eudex()
+        >>> pe.encode('Colin')
+        432345564238053650
+        >>> pe.encode('Christopher')
+        433648490138894409
+        >>> pe.encode('Niall')
+        648518346341351840
+        >>> pe.encode('Smith')
+        720575940412906756
+        >>> pe.encode('Schmidt')
+        720589151732307997
 
-    # Combine individual character values into eudex hash
-    hash_value = 0
-    for val in values:
-        hash_value = (hash_value << 8) | val
+        """
+        # Lowercase input & filter unknown characters
+        word = ''.join(
+            char for char in word.lower() if char in self._initial_phones
+        )
 
-    return hash_value
+        if not word:
+            word = '÷'
+
+        # Perform initial eudex coding of each character
+        values = [self._initial_phones[word[0]]]
+        values += [self._trailing_phones[char] for char in word[1:]]
+
+        # Right-shift by one to determine if second instance should be skipped
+        shifted_values = [_ >> 1 for _ in values]
+        condensed_values = [values[0]]
+        for n in range(1, len(shifted_values)):
+            if shifted_values[n] != shifted_values[n - 1]:
+                condensed_values.append(values[n])
+
+        # Add padding after first character & trim beyond max_length
+        values = (
+            [condensed_values[0]]
+            + [0] * max(0, max_length - len(condensed_values))
+            + condensed_values[1:max_length]
+        )
+
+        # Combine individual character values into eudex hash
+        hash_value = 0
+        for val in values:
+            hash_value = (hash_value << 8) | val
+
+        return hash_value
+
+
+def eudex(word, max_length=8):
+    """Return the eudex phonetic hash of a word.
+
+    This is a wrapper for :py:meth:`Eudex.encode`.
+
+    Parameters
+    ----------
+    word : str
+        The word to transform
+    max_length : int
+        The length in bits of the code returned (default 8)
+
+    Returns
+    -------
+    int
+        The eudex hash
+
+    Examples
+    --------
+    >>> eudex('Colin')
+    432345564238053650
+    >>> eudex('Christopher')
+    433648490138894409
+    >>> eudex('Niall')
+    648518346341351840
+    >>> eudex('Smith')
+    720575940412906756
+    >>> eudex('Schmidt')
+    720589151732307997
+
+    """
+    return Eudex().encode(word, max_length)
 
 
 if __name__ == '__main__':

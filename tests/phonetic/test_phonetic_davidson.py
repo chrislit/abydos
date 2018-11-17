@@ -18,27 +18,34 @@
 
 """abydos.tests.phonetic.test_phonetic_davidson.
 
-This module contains unit tests for abydos.phonetic._davidson
+This module contains unit tests for abydos.phonetic.Davidson
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import unittest
 
-from abydos.phonetic import davidson
+from abydos.phonetic import Davidson, davidson
 
 
 class DavidsonTestCases(unittest.TestCase):
     """Test class Davidson functions.
 
-    test cases for abydos.phonetic._davidson.davidson
+    test cases for abydos.phonetic.Davidson
     """
 
-    def test_davidson(self):
-        """Test abydos.phonetic._davidson.davidson."""
+    pa = Davidson()
+
+    def test_davidson_encode(self):
+        """Test abydos.phonetic.Davidson."""
         # Base cases
-        self.assertEqual(davidson('', omit_fname=True), '    ')
-        self.assertEqual(davidson(''), '    .')
+        self.assertEqual(self.pa.encode('', omit_fname=True), '    ')
+        self.assertEqual(self.pa.encode(''), '    .')
 
         # Test cases from Gadd (1988) "'Fisching fore werds': phonetic
         # retrieval of written text in information systems." Program,
@@ -62,7 +69,10 @@ class DavidsonTestCases(unittest.TestCase):
             ('REECE', 'RC  '),
         )
         for word, encoding in test_cases:
-            self.assertEqual(davidson(word, omit_fname=True), encoding)
+            self.assertEqual(self.pa.encode(word, omit_fname=True), encoding)
+
+        # Test wrapper
+        self.assertEqual(davidson('WAIT', omit_fname=True), 'WT  ')
 
 
 if __name__ == '__main__':

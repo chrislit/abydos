@@ -18,79 +18,33 @@
 
 """abydos.stemmer._schinke.
 
-The stemmer.schinke module defines the Schinke Latin stemmer.
+Schinke Latin stemmer.
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from unicodedata import normalize
 
 from six import text_type
 from six.moves import range
 
-__all__ = ['schinke']
+from ._stemmer import _Stemmer
+
+__all__ = ['Schinke', 'schinke']
 
 
-def schinke(word):
-    """Return the stem of a word according to the Schinke stemmer.
+class Schinke(_Stemmer):
+    """Schinke stemmer.
 
     This is defined in :cite:`Schinke:1996`.
-
-    :param str word: the word to stem
-    :returns: a dict of the noun- and verb-stemmed word
-    :rtype: dict
-
-    >>> schinke('atque')
-    {'n': 'atque', 'v': 'atque'}
-    >>> schinke('census')
-    {'n': 'cens', 'v': 'censu'}
-    >>> schinke('virum')
-    {'n': 'uir', 'v': 'uiru'}
-    >>> schinke('populusque')
-    {'n': 'popul', 'v': 'populu'}
-    >>> schinke('senatus')
-    {'n': 'senat', 'v': 'senatu'}
     """
-    word = normalize('NFKD', text_type(word.lower()))
-    word = ''.join(
-        c
-        for c in word
-        if c
-        in {
-            'a',
-            'b',
-            'c',
-            'd',
-            'e',
-            'f',
-            'g',
-            'h',
-            'i',
-            'j',
-            'k',
-            'l',
-            'm',
-            'n',
-            'o',
-            'p',
-            'q',
-            'r',
-            's',
-            't',
-            'u',
-            'v',
-            'w',
-            'x',
-            'y',
-            'z',
-        }
-    )
 
-    # Rule 2
-    word = word.replace('j', 'i').replace('v', 'u')
-
-    # Rule 3
-    keep_que = {
+    _keep_que = {
         'at',
         'quo',
         'ne',
@@ -146,19 +100,8 @@ def schinke(word):
         'intor',
         'praetor',
     }
-    if word[-3:] == 'que':
-        # This diverges from the paper by also returning 'que' itself unstemmed
-        if word[:-3] in keep_que or word == 'que':
-            return {'n': word, 'v': word}
-        else:
-            word = word[:-3]
 
-    # Base case will mean returning the words as is
-    noun = word
-    verb = word
-
-    # Rule 4
-    n_endings = {
+    _n_endings = {
         4: {'ibus'},
         3: {'ius'},
         2: {
@@ -177,15 +120,8 @@ def schinke(word):
         },
         1: {'a', 'e', 'i', 'o', 'u'},
     }
-    for endlen in range(4, 0, -1):
-        if word[-endlen:] in n_endings[endlen]:
-            if len(word) - 2 >= endlen:
-                noun = word[:-endlen]
-            else:
-                noun = word
-            break
 
-    v_endings_strip = {
+    _v_endings_strip = {
         6: {},
         5: {},
         4: {'mini', 'ntur', 'stis'},
@@ -193,7 +129,7 @@ def schinke(word):
         2: {'ns', 'nt', 'ri'},
         1: {'m', 'r', 's', 't'},
     }
-    v_endings_alter = {
+    _v_endings_alter = {
         6: {'iuntur'},
         5: {'beris', 'erunt', 'untur'},
         4: {'iunt'},
@@ -201,33 +137,160 @@ def schinke(word):
         2: {'bo'},
         1: {},
     }
-    for endlen in range(6, 0, -1):
-        if word[-endlen:] in v_endings_strip[endlen]:
-            if len(word) - 2 >= endlen:
-                verb = word[:-endlen]
-            else:
-                verb = word
-            break
-        if word[-endlen:] in v_endings_alter[endlen]:
-            if word[-endlen:] in {'iuntur', 'erunt', 'untur', 'iunt', 'unt'}:
-                new_word = word[:-endlen] + 'i'
-                addlen = 1
-            elif word[-endlen:] in {'beris', 'bor', 'bo'}:
-                new_word = word[:-endlen] + 'bi'
-                addlen = 2
-            else:
-                new_word = word[:-endlen] + 'eri'
-                addlen = 3
 
-            # Technically this diverges from the paper by considering the
-            # length of the stem without the new suffix
-            if len(new_word) >= 2 + addlen:
-                verb = new_word
-            else:
-                verb = word
-            break
+    def stem(self, word):
+        """Return the stem of a word according to the Schinke stemmer.
 
-    return {'n': noun, 'v': verb}
+        Parameters
+        ----------
+        word : str
+            The word to stem
+
+        Returns
+        -------
+        str
+            Word stem
+
+        Examples
+        --------
+        >>> stmr = Schinke()
+        >>> stmr.stem('atque')
+        {'n': 'atque', 'v': 'atque'}
+        >>> stmr.stem('census')
+        {'n': 'cens', 'v': 'censu'}
+        >>> stmr.stem('virum')
+        {'n': 'uir', 'v': 'uiru'}
+        >>> stmr.stem('populusque')
+        {'n': 'popul', 'v': 'populu'}
+        >>> stmr.stem('senatus')
+        {'n': 'senat', 'v': 'senatu'}
+
+        """
+        word = normalize('NFKD', text_type(word.lower()))
+        word = ''.join(
+            c
+            for c in word
+            if c
+            in {
+                'a',
+                'b',
+                'c',
+                'd',
+                'e',
+                'f',
+                'g',
+                'h',
+                'i',
+                'j',
+                'k',
+                'l',
+                'm',
+                'n',
+                'o',
+                'p',
+                'q',
+                'r',
+                's',
+                't',
+                'u',
+                'v',
+                'w',
+                'x',
+                'y',
+                'z',
+            }
+        )
+
+        # Rule 2
+        word = word.replace('j', 'i').replace('v', 'u')
+
+        # Rule 3
+        if word[-3:] == 'que':
+            # This diverges from the paper by also returning 'que' itself
+            #  unstemmed
+            if word[:-3] in self._keep_que or word == 'que':
+                return {'n': word, 'v': word}
+            else:
+                word = word[:-3]
+
+        # Base case will mean returning the words as is
+        noun = word
+        verb = word
+
+        # Rule 4
+        for endlen in range(4, 0, -1):
+            if word[-endlen:] in self._n_endings[endlen]:
+                if len(word) - 2 >= endlen:
+                    noun = word[:-endlen]
+                else:
+                    noun = word
+                break
+
+        for endlen in range(6, 0, -1):
+            if word[-endlen:] in self._v_endings_strip[endlen]:
+                if len(word) - 2 >= endlen:
+                    verb = word[:-endlen]
+                else:
+                    verb = word
+                break
+            if word[-endlen:] in self._v_endings_alter[endlen]:
+                if word[-endlen:] in {
+                    'iuntur',
+                    'erunt',
+                    'untur',
+                    'iunt',
+                    'unt',
+                }:
+                    new_word = word[:-endlen] + 'i'
+                    addlen = 1
+                elif word[-endlen:] in {'beris', 'bor', 'bo'}:
+                    new_word = word[:-endlen] + 'bi'
+                    addlen = 2
+                else:
+                    new_word = word[:-endlen] + 'eri'
+                    addlen = 3
+
+                # Technically this diverges from the paper by considering the
+                # length of the stem without the new suffix
+                if len(new_word) >= 2 + addlen:
+                    verb = new_word
+                else:
+                    verb = word
+                break
+
+        return {'n': noun, 'v': verb}
+
+
+def schinke(word):
+    """Return the stem of a word according to the Schinke stemmer.
+
+    This is a wrapper for :py:meth:`Schinke.stem`.
+
+    Parameters
+    ----------
+    word : str
+        The word to stem
+
+    Returns
+    -------
+    str
+        Word stem
+
+    Examples
+    --------
+    >>> schinke('atque')
+    {'n': 'atque', 'v': 'atque'}
+    >>> schinke('census')
+    {'n': 'cens', 'v': 'censu'}
+    >>> schinke('virum')
+    {'n': 'uir', 'v': 'uiru'}
+    >>> schinke('populusque')
+    {'n': 'popul', 'v': 'populu'}
+    >>> schinke('senatus')
+    {'n': 'senat', 'v': 'senatu'}
+
+    """
+    return Schinke().stem(word)
 
 
 if __name__ == '__main__':

@@ -22,6 +22,13 @@
 This module contains fuzz tests for Abydos
 """
 
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
+
 import os
 import unicodedata
 from random import choice, randint, random
@@ -53,15 +60,42 @@ if not EXTREME_TEST and os.path.isfile(
 def _corpus_file(name, corpora_dir=CORPORA):
     """Return the path to a corpus file.
 
-    :param str name: corpus file
-    :param str corpora_dir: the directory containing the corpora
-    :return: path
+    Parameters
+    ----------
+    name : str
+        Corpus file
+    corpora_dir : str
+        The directory containing the corpora
+
+    Returns
+    -------
+    str
+        The path to the corpus file
+
     """
     return _super_corpus_file(name, corpora_dir)
 
 
 def _random_char(below=0x10FFFF, must_be=None):
-    """Generate a random Unicode character below U+{below}."""
+    """Generate a random Unicode character below U+{below}.
+
+    Parameters
+    ----------
+    below : int
+        Maximum Unicode value
+    must_be : str
+        A required part of the character name
+
+    Returns
+    -------
+    str
+        A character
+
+    Raises
+    ------
+    ValueError
+
+    """
     while True:
         char = unichr(randint(0, below))  # noqa: S311
         try:
@@ -73,7 +107,21 @@ def _random_char(below=0x10FFFF, must_be=None):
 
 
 def _fuzz(word, fuzziness=0.2):
-    """Fuzz a word with noise."""
+    """Fuzz a word with noise.
+
+    Parameters
+    ----------
+    word : str
+        A word to fuzz
+    fuzziness : float
+        How fuzzy to make the word
+
+    Returns
+    -------
+    str
+        A fuzzed word
+
+    """
     while True:
         new_word = []
         for ch in word:

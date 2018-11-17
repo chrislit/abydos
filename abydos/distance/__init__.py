@@ -18,248 +18,305 @@
 
 """abydos.distance.
 
-The distance module implements string edit distance functions including:
+The distance package implements string distance measure and metric classes:
 
-    - Levenshtein distance
-    - Optimal String Alignment distance
-    - Levenshtein-Damerau distance
-    - Hamming distance
-    - Tversky index
-    - Sørensen–Dice coefficient & distance
-    - Jaccard similarity coefficient & distance
-    - overlap similarity & distance
-    - Tanimoto coefficient & distance
-    - Minkowski distance & similarity
-    - Manhattan distance & similarity
-    - Euclidean distance & similarity
-    - Chebyshev distance
-    - cosine similarity & distance
-    - Jaro distance
-    - Jaro-Winkler distance (incl. the strcmp95 algorithm variant)
-    - Longest common substring
-    - Ratcliff-Obershelp similarity & distance
-    - Match Rating Algorithm similarity
-    - Normalized Compression Distance (NCD) & similarity
-    - Monge-Elkan similarity & distance
-    - Matrix similarity
-    - Needleman-Wunsch score
-    - Smith-Waterman score
-    - Gotoh score
-    - Length similarity
-    - Prefix, Suffix, and Identity similarity & distance
-    - Modified Language-Independent Product Name Search (MLIPNS) similarity &
-      distance
-    - Bag similarity & distance
-    - Editex distance
-    - Eudex distances
-    - Sift4 distance
-    - Baystat distance & similarity
-    - Typo distance
-    - Indel distance
-    - Synoname
+These include traditional Levenshtein edit distance and related algorithms:
 
-Functions beginning with the prefixes 'sim' and 'dist' are guaranteed to be
-in the range [0, 1], and sim_X = 1 - dist_X since the two are complements.
-If a sim_X function is supplied identical src & tar arguments, it is guaranteed
-to return 1; the corresponding dist_X function is guaranteed to return 0.
+    - Levenshtein distance (:py:class:`.Levenshtein`)
+    - Optimal String Alignment distance (:py:class:`.Levenshtein` with
+      ``mode='osa'``)
+    - Damerau-Levenshtein distance (:py:class:`.DamerauLevenshtein`)
+    - Indel distance (:py:class:`.Indel`)
+
+Hamming distance (:py:class:`.Hamming`) and the closely related Modified
+Language-Independent Product Name Search distance (:py:class:`.MLIPNS`) are
+provided.
+
+Distance metrics developed for the US Census are included:
+
+    - Jaro distance (:py:class:`.JaroWinkler` with ``mode='Jaro'``)
+    - Jaro-Winkler distance (:py:class:`.JaroWinkler`)
+    - Strcmp95 distance (:py:class:`.Strcmp95`)
+
+A large set of multi-set token-based distance metrics are provided, including:
+
+    - Generalized Minkowski distance (:py:class:`.Minkowski`)
+    - Manhattan distance (:py:class:`.Manhattan`)
+    - Euclidean distance (:py:class:`.Euclidean`)
+    - Chebyshev distance (:py:class:`.Chebyshev`)
+    - Generalized Tversky distance (:py:class:`.Tversky`)
+    - Sørensen–Dice coefficient (:py:class:`.Dice`)
+    - Jaccard similarity (:py:class:`.Jaccard`)
+    - Tanimoto coefficient (:py:meth:`.Jaccard.tanimoto_coeff`)
+    - Overlap distance (:py:class:`.Overlap`)
+    - Cosine similarity (:py:class:`.Cosine`)
+    - Bag distance (:py:class:`.Bag`)
+    - Monge-Elkan distance (:py:class:`.MongeElkan`)
+
+Three popular sequence alignment algorithms are provided:
+
+    - Needleman-Wunsch score (:py:class:`.NeedlemanWunsch`)
+    - Smith-Waterman score (:py:class:`.SmithWaterman`)
+    - Gotoh score (:py:class:`.Gotoh`)
+
+Classes relating to substring and subsequence distances include:
+
+    - Longest common subsequence (:py:class:`.LCSseq`)
+    - Longest common substring (:py:class:`.LCSstr`)
+    - Ratcliff-Obserhelp distance (:py:class:`.RatcliffObershelp`)
+
+A number of simple distance classes provided in the package include:
+
+    - Identity distance (:py:class:`.Ident`)
+    - Length distance (:py:class:`.Length`)
+    - Prefix distance (:py:class:`.Prefix`)
+    - Suffix distance (:py:class:`.Suffix`)
+
+Normalized compression distance classes for a variety of compression algorithms
+are provided:
+
+    - zlib (:py:class:`.NCDzlib`)
+    - bzip2 (:py:class:`.NCDbz2`)
+    - lzma (:py:class:`.NCDlzma`)
+    - arithmetic coding (:py:class:`.NCDarith`)
+    - BWT plus RLE (:py:class:`.NCDbwtrle`)
+    - RLE (:py:class:`.NCDrle`)
+
+The remaining distance measures & metrics include:
+
+    - Western Airlines' Match Rating Algorithm comparison
+      (:py:class:`.distance.MRA`)
+    - Editex (:py:class:`.Editex`)
+    - Bavarian Landesamt für Statistik distance (:py:class:`.Baystat`)
+    - Eudex distance (:py:class:`.distance.Eudex`)
+    - Sift4 distance (:py:class:`.Sift4` and :py:class:`.Sift4Simplest`)
+    - Typo distance (:py:class:`.Typo`)
+    - Synoname (:py:class:`.Synoname`)
+
+Most of the distance and similarity measures have ``sim`` and ``dist`` methods,
+which return a measure that is normalized to the range :math:`[0, 1]`. The
+normalized distance and similarity are always complements, so the normalized
+distance will always equal 1 - the similarity for a particular measure supplied
+with the same input. Some measures have an absolute distance method
+``dist_abs`` that is not limited to any range.
+
+All three methods can be demonstrated using the :py:class:`.DamerauLevenshtein`
+class:
+
+>>> dl = DamerauLevenshtein()
+>>> dl.dist_abs('orange', 'strange')
+2
+>>> dl.dist('orange', 'strange')
+0.2857142857142857
+>>> dl.sim('orange', 'strange')
+0.7142857142857143
+
+----
+
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
-from ._basic import (
-    dist_ident,
-    dist_length,
-    dist_prefix,
-    dist_suffix,
-    sim_ident,
-    sim_length,
-    sim_prefix,
-    sim_suffix,
-)
-from ._baystat import dist_baystat, sim_baystat
-from ._compression import (
-    dist_ncd_arith,
-    dist_ncd_bwtrle,
-    dist_ncd_bz2,
-    dist_ncd_lzma,
-    dist_ncd_rle,
-    dist_ncd_zlib,
-    sim_ncd_arith,
-    sim_ncd_bwtrle,
-    sim_ncd_bz2,
-    sim_ncd_lzma,
-    sim_ncd_rle,
-    sim_ncd_zlib,
-)
-from ._editex import dist_editex, editex, sim_editex
-from ._eudex import dist_eudex, eudex_hamming, sim_eudex
-from ._hamming import (
-    dist_hamming,
-    dist_mlipns,
-    hamming,
-    sim_hamming,
-    sim_mlipns,
-)
-from ._jaro import (
-    dist_jaro_winkler,
-    dist_strcmp95,
-    sim_jaro_winkler,
-    sim_strcmp95,
-)
-from ._levenshtein import (
+from ._bag import Bag, bag, dist_bag, sim_bag
+from ._baystat import Baystat, dist_baystat, sim_baystat
+from ._chebyshev import Chebyshev, chebyshev
+from ._cosine import Cosine, dist_cosine, sim_cosine
+from ._damerau_levenshtein import (
+    DamerauLevenshtein,
     damerau_levenshtein,
     dist_damerau,
-    dist_indel,
+    sim_damerau,
+)
+from ._dice import Dice, dist_dice, sim_dice
+from ._editex import Editex, dist_editex, editex, sim_editex
+from ._euclidean import Euclidean, dist_euclidean, euclidean, sim_euclidean
+from ._eudex import Eudex, dist_eudex, eudex_hamming, sim_eudex
+from ._gotoh import Gotoh, gotoh
+from ._hamming import Hamming, dist_hamming, hamming, sim_hamming
+from ._ident import Ident, dist_ident, sim_ident
+from ._indel import Indel, dist_indel, indel, sim_indel
+from ._jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
+from ._jaro_winkler import JaroWinkler, dist_jaro_winkler, sim_jaro_winkler
+from ._lcsseq import LCSseq, dist_lcsseq, lcsseq, sim_lcsseq
+from ._lcsstr import LCSstr, dist_lcsstr, lcsstr, sim_lcsstr
+from ._length import Length, dist_length, sim_length
+from ._levenshtein import (
+    Levenshtein,
     dist_levenshtein,
     levenshtein,
-    sim_damerau,
-    sim_indel,
     sim_levenshtein,
 )
-from ._minkowski import (
-    chebyshev,
-    dist_euclidean,
-    dist_manhattan,
-    dist_minkowski,
-    euclidean,
-    manhattan,
-    minkowski,
-    sim_euclidean,
-    sim_manhattan,
-    sim_minkowski,
-)
-from ._mra import dist_mra, mra_compare, sim_mra
-from ._seqalign import gotoh, needleman_wunsch, sim_matrix, smith_waterman
-from ._sequence import (
-    dist_lcsseq,
-    dist_lcsstr,
+from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
+from ._minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
+from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
+from ._monge_elkan import MongeElkan, dist_monge_elkan, sim_monge_elkan
+from ._mra import MRA, dist_mra, mra_compare, sim_mra
+from ._ncd_arith import NCDarith, dist_ncd_arith, sim_ncd_arith
+from ._ncd_bwtrle import NCDbwtrle, dist_ncd_bwtrle, sim_ncd_bwtrle
+from ._ncd_bz2 import NCDbz2, dist_ncd_bz2, sim_ncd_bz2
+from ._ncd_lzma import NCDlzma, dist_ncd_lzma, sim_ncd_lzma
+from ._ncd_rle import NCDrle, dist_ncd_rle, sim_ncd_rle
+from ._ncd_zlib import NCDzlib, dist_ncd_zlib, sim_ncd_zlib
+from ._needleman_wunsch import NeedlemanWunsch, needleman_wunsch
+from ._overlap import Overlap, dist_overlap, sim_overlap
+from ._prefix import Prefix, dist_prefix, sim_prefix
+from ._ratcliff_obershelp import (
+    RatcliffObershelp,
     dist_ratcliff_obershelp,
-    lcsseq,
-    lcsstr,
-    sim_lcsseq,
-    sim_lcsstr,
     sim_ratcliff_obershelp,
 )
-from ._sift4 import dist_sift4, sift4_common, sift4_simplest, sim_sift4
-from ._synoname import synoname
-from ._token import (
-    bag,
-    dist_bag,
-    dist_cosine,
-    dist_dice,
-    dist_jaccard,
-    dist_monge_elkan,
-    dist_overlap,
-    dist_tversky,
-    sim_bag,
-    sim_cosine,
-    sim_dice,
-    sim_jaccard,
-    sim_monge_elkan,
-    sim_overlap,
-    sim_tanimoto,
-    sim_tversky,
-    tanimoto,
-)
-from ._typo import dist_typo, sim_typo, typo
+from ._sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
+from ._sift4_simplest import Sift4Simplest, sift4_simplest
+from ._smith_waterman import SmithWaterman, smith_waterman
+from ._strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
+from ._suffix import Suffix, dist_suffix, sim_suffix
+from ._synoname import Synoname, synoname
+from ._tversky import Tversky, dist_tversky, sim_tversky
+from ._typo import Typo, dist_typo, sim_typo, typo
 
 __all__ = [
     'sim',
     'dist',
+    'Levenshtein',
     'levenshtein',
     'dist_levenshtein',
     'sim_levenshtein',
+    'DamerauLevenshtein',
     'damerau_levenshtein',
     'dist_damerau',
     'sim_damerau',
+    'Indel',
+    'indel',
     'dist_indel',
     'sim_indel',
+    'Hamming',
     'hamming',
     'dist_hamming',
     'sim_hamming',
+    'JaroWinkler',
     'dist_jaro_winkler',
     'sim_jaro_winkler',
+    'Strcmp95',
     'dist_strcmp95',
     'sim_strcmp95',
+    'Minkowski',
     'minkowski',
     'dist_minkowski',
     'sim_minkowski',
+    'Manhattan',
     'manhattan',
     'dist_manhattan',
     'sim_manhattan',
+    'Euclidean',
     'euclidean',
     'dist_euclidean',
     'sim_euclidean',
+    'Chebyshev',
     'chebyshev',
+    'Tversky',
     'dist_tversky',
     'sim_tversky',
+    'Dice',
     'dist_dice',
     'sim_dice',
+    'Jaccard',
     'dist_jaccard',
     'sim_jaccard',
+    'tanimoto',
+    'Overlap',
     'dist_overlap',
     'sim_overlap',
-    'tanimoto',
-    'sim_tanimoto',
+    'Cosine',
     'dist_cosine',
     'sim_cosine',
+    'Bag',
     'bag',
     'dist_bag',
     'sim_bag',
+    'MongeElkan',
     'dist_monge_elkan',
     'sim_monge_elkan',
+    'NeedlemanWunsch',
     'needleman_wunsch',
+    'SmithWaterman',
     'smith_waterman',
+    'Gotoh',
     'gotoh',
-    'sim_matrix',
+    'LCSseq',
     'lcsseq',
     'dist_lcsseq',
     'sim_lcsseq',
+    'LCSstr',
     'lcsstr',
     'dist_lcsstr',
     'sim_lcsstr',
+    'RatcliffObershelp',
     'dist_ratcliff_obershelp',
     'sim_ratcliff_obershelp',
+    'Ident',
     'dist_ident',
     'sim_ident',
+    'Length',
     'dist_length',
     'sim_length',
+    'Prefix',
     'dist_prefix',
     'sim_prefix',
+    'Suffix',
     'dist_suffix',
     'sim_suffix',
+    'NCDzlib',
     'dist_ncd_zlib',
     'sim_ncd_zlib',
+    'NCDbz2',
     'dist_ncd_bz2',
     'sim_ncd_bz2',
+    'NCDlzma',
     'dist_ncd_lzma',
     'sim_ncd_lzma',
-    'dist_ncd_bwtrle',
-    'sim_ncd_bwtrle',
-    'dist_ncd_rle',
-    'sim_ncd_rle',
+    'NCDarith',
     'dist_ncd_arith',
     'sim_ncd_arith',
+    'NCDbwtrle',
+    'dist_ncd_bwtrle',
+    'sim_ncd_bwtrle',
+    'NCDrle',
+    'dist_ncd_rle',
+    'sim_ncd_rle',
+    'MRA',
     'mra_compare',
     'dist_mra',
     'sim_mra',
+    'Editex',
     'editex',
     'dist_editex',
     'sim_editex',
+    'MLIPNS',
     'dist_mlipns',
     'sim_mlipns',
+    'Baystat',
     'dist_baystat',
     'sim_baystat',
+    'Eudex',
     'eudex_hamming',
     'dist_eudex',
     'sim_eudex',
+    'Sift4',
+    'Sift4Simplest',
     'sift4_common',
     'sift4_simplest',
     'dist_sift4',
     'sim_sift4',
+    'Typo',
     'typo',
     'dist_typo',
     'sim_typo',
+    'Synoname',
     'synoname',
 ]
 
@@ -269,13 +326,27 @@ def sim(src, tar, method=sim_levenshtein):
 
     This is a generalized function for calling other similarity functions.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
-    :param function method: specifies the similarity metric (sim_levenshtein by
-        default)
-    :returns: similarity according to the specified function
-    :rtype: float
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    method : function
+        Specifies the similarity metric (:py:func:`sim_levenshtein` by default)
 
+    Returns
+    -------
+    float
+        Similarity according to the specified function
+
+    Raises
+    ------
+    AttributeError
+        Unknown distance function
+
+    Examples
+    --------
     >>> round(sim('cat', 'hat'), 12)
     0.666666666667
     >>> round(sim('Niall', 'Neil'), 12)
@@ -284,6 +355,7 @@ def sim(src, tar, method=sim_levenshtein):
     0.125
     >>> sim('ATCG', 'TAGC')
     0.25
+
     """
     if callable(method):
         return method(src, tar)
@@ -296,14 +368,29 @@ def dist(src, tar, method=sim_levenshtein):
 
     This is a generalized function for calling other distance functions.
 
-    :param str src: source string for comparison
-    :param str tar: target string for comparison
-    :param function method: specifies the similarity metric (sim_levenshtein by
-        default) -- Note that this takes a similarity metric function, not
-        a distance metric function.
-    :returns: distance according to the specified function
-    :rtype: float
+    Parameters
+    ----------
+    src : str
+        Source string for comparison
+    tar : str
+        Target string for comparison
+    method : function
+        Specifies the similarity metric (:py:func:`sim_levenshtein` by default)
+        -- Note that this takes a similarity metric function, not a distance
+        metric function.
 
+    Returns
+    -------
+    float
+        Distance according to the specified function
+
+    Raises
+    ------
+    AttributeError
+        Unknown distance function
+
+    Examples
+    --------
     >>> round(dist('cat', 'hat'), 12)
     0.333333333333
     >>> round(dist('Niall', 'Neil'), 12)
@@ -312,6 +399,7 @@ def dist(src, tar, method=sim_levenshtein):
     0.875
     >>> dist('ATCG', 'TAGC')
     0.75
+
     """
     if callable(method):
         return 1 - method(src, tar)

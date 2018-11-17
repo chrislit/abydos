@@ -30,21 +30,41 @@ Although this isn't a terribly secure script, it's only used in development and
 not included as part of the distributed Abydos package itself. Accordingly,
 I'm suppressing security warnings from flake8.
 """
+
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
+
 import sys
 from subprocess import call  # noqa: S404
 
-const_ret = None
-if len(sys.argv) > 2:
-    try:
-        const_ret = int(sys.argv[2])
-    except ValueError:
-        pass
 
-retval = 1
-if len(sys.argv) > 1:
-    args = sys.argv[1].split()
-    if args[0] not in {'pylint', 'pycodestyle', 'flake8', 'doc8'}:
+def _run_script():
+    const_ret = None
+    if len(sys.argv) > 2:
+        try:
+            const_ret = int(sys.argv[2])
+        except ValueError:
+            pass
+
+    retval = 1
+    if len(sys.argv) > 1:
+        args = sys.argv[1].split()
+        if args[0] not in {
+            'pylint',
+            'pycodestyle',
+            'flake8',
+            'doc8',
+            'pydocstyle',
+        }:
+            sys.exit(const_ret if const_ret is not None else retval)
+        with open(args[0] + '.log', 'w') as output:
+            retval = call(args, stdout=output, shell=False)  # noqa: S603
         sys.exit(const_ret if const_ret is not None else retval)
-    with open(args[0] + '.log', 'w') as output:
-        retval = call(args, stdout=output, shell=False)  # noqa: S603
-    sys.exit(const_ret if const_ret is not None else retval)
+
+
+if __name__ == '__main__':
+    _run_script()

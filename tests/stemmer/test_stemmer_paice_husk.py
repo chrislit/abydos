@@ -18,14 +18,19 @@
 
 """abydos.tests.stemmer.test_stemmer_paice_husk.
 
-This module contains unit tests for abydos.stemmer._paice_husk
+This module contains unit tests for abydos.stemmer.PaiceHusk
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import unittest
 
-from abydos.stemmer import paice_husk
+from abydos.stemmer import PaiceHusk, paice_husk
 
 from .. import _corpus_file
 
@@ -33,31 +38,36 @@ from .. import _corpus_file
 class PaiceHuskTestCases(unittest.TestCase):
     """Test Paice-Husk functions.
 
-    abydos.stemmer._paice_husk.paice_husk
+    abydos.stemmer.PaiceHusk
     """
 
+    stmr = PaiceHusk()
+
     def test_paice_husk(self):
-        """Test abydos.stemmer._paice_husk.paice_husk."""
+        """Test abydos.stemmer.PaiceHusk."""
         # base case
-        self.assertEqual(paice_husk(''), '')
+        self.assertEqual(self.stmr.stem(''), '')
 
         # cases copied from
         # https://doi.org/10.1145/101306.101310
+        self.assertEqual(self.stmr.stem('maximum'), 'maxim')
+        self.assertEqual(self.stmr.stem('presumably'), 'presum')
+        self.assertEqual(self.stmr.stem('multiply'), 'multiply')
+        self.assertEqual(self.stmr.stem('provision'), 'provid')
+        self.assertEqual(self.stmr.stem('owed'), 'ow')
+        self.assertEqual(self.stmr.stem('owing'), 'ow')
+        self.assertEqual(self.stmr.stem('ear'), 'ear')
+        self.assertEqual(self.stmr.stem('saying'), 'say')
+        self.assertEqual(self.stmr.stem('crying'), 'cry')
+        self.assertEqual(self.stmr.stem('string'), 'string')
+        self.assertEqual(self.stmr.stem('meant'), 'meant')
+        self.assertEqual(self.stmr.stem('cement'), 'cem')
+
+        # Test wrapper
         self.assertEqual(paice_husk('maximum'), 'maxim')
-        self.assertEqual(paice_husk('presumably'), 'presum')
-        self.assertEqual(paice_husk('multiply'), 'multiply')
-        self.assertEqual(paice_husk('provision'), 'provid')
-        self.assertEqual(paice_husk('owed'), 'ow')
-        self.assertEqual(paice_husk('owing'), 'ow')
-        self.assertEqual(paice_husk('ear'), 'ear')
-        self.assertEqual(paice_husk('saying'), 'say')
-        self.assertEqual(paice_husk('crying'), 'cry')
-        self.assertEqual(paice_husk('string'), 'string')
-        self.assertEqual(paice_husk('meant'), 'meant')
-        self.assertEqual(paice_husk('cement'), 'cem')
 
     def test_paice_husk_hopper_set(self):
-        """Test abydos.stemmer._paice_husk.paice_husk (Hopper262 testset).
+        """Test abydos.stemmer.PaiceHusk (Hopper262 testset).
 
         Source:
         https://raw.githubusercontent.com/Hopper262/paice-husk-stemmer/master/wordlist.txt
@@ -73,7 +83,7 @@ class PaiceHuskTestCases(unittest.TestCase):
         with open(_corpus_file('paicehusk.csv')) as hopper_ts:
             for hopper_line in hopper_ts:
                 (word, stem) = hopper_line.strip().split(',')
-                self.assertEqual(paice_husk(word), stem)
+                self.assertEqual(self.stmr.stem(word), stem)
 
 
 if __name__ == '__main__':

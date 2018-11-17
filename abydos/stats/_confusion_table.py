@@ -34,7 +34,12 @@ calculating the following data based on a confusion table:
     - significance & Matthews correlation coefficient calculation
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import math
 
@@ -73,14 +78,26 @@ class ConfusionTable(object):
     def __init__(self, tp=0, tn=0, fp=0, fn=0):
         """Initialize ConfusionTable.
 
-        :param int tp: true positives (or a tuple, list, or dict); If a tuple
-            or list is supplied, it must include 4 values in the order [tp, tn,
-            fp, fn]. If a dict is supplied, it must have 4 keys, namely 'tp',
-            'tn', 'fp', & 'fn'.
-        :param int tn: true negatives
-        :param int fp: false positives
-        :param int fn: false negatives
+        Parameters
+        ----------
+        tp : int or a tuple, list, or dict
+            True positives; If a tuple or list is supplied, it must include 4
+            values in the order [tp, tn, fp, fn]. If a dict is supplied, it
+            must have 4 keys, namely 'tp', 'tn', 'fp', & 'fn'.
+        tn : int
+            True negatives
+        fp : int
+            False positives
+        fn : int
+            False negatives
 
+        Raises
+        ------
+        AttributeError
+            ConfusionTable requires a 4-tuple when being created from a tuple.
+
+        Examples
+        --------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct == ConfusionTable((120, 60, 20, 30))
         True
@@ -88,6 +105,7 @@ class ConfusionTable(object):
         True
         >>> ct == ConfusionTable({'tp': 120, 'tn': 60, 'fp': 20, 'fn': 30})
         True
+
         """
         if isinstance(tp, (tuple, list)):
             if len(tp) == 4:
@@ -97,8 +115,8 @@ class ConfusionTable(object):
                 self._fn = tp[3]
             else:
                 raise AttributeError(
-                    'ConfusionTable requires a 4-tuple '
-                    + 'when being created from a tuple.'
+                    'ConfusionTable requires a 4-tuple when being created '
+                    + 'from a tuple.'
                 )
         elif isinstance(tp, dict):
             if 'tp' in tp:
@@ -121,10 +139,19 @@ class ConfusionTable(object):
         Compares a ConfusionTable to another ConfusionTable or its equivalent
         in the form of a tuple, list, or dict.
 
-        :returns: True if two ConfusionTables are the same object or all four
-        of their attributes are equal
-        :rtype: bool
+        Parameters
+        ----------
+        other : ConfusionTable
+            Another ConfusionTable object to compare to
 
+        Returns
+        -------
+        bool
+            True if two ConfusionTables are the same object or all four of
+            their attributes are equal
+
+        Examples
+        --------
         >>> ct1 = ConfusionTable(120, 60, 20, 30)
         >>> ct2 = ConfusionTable(120, 60, 20, 30)
         >>> ct3 = ConfusionTable(60, 30, 10, 15)
@@ -138,6 +165,7 @@ class ConfusionTable(object):
         False
         >>> ct1 != ct3
         True
+
         """
         if isinstance(other, ConfusionTable):
             if id(self) == id(other):
@@ -170,178 +198,241 @@ class ConfusionTable(object):
     def __str__(self):
         """Cast to str.
 
-        :returns: a human-readable version of the confusion table
-        :rtype: str
+        Returns
+        -------
+        str
+            A human-readable version of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> str(ct)
         'tp:120, tn:60, fp:20, fn:30'
+
         """
-        return (
-            'tp:'
-            + str(self._tp)
-            + ', tn:'
-            + str(self._tn)
-            + ', fp:'
-            + str(self._fp)
-            + ', fn:'
-            + str(self._fn)
+        return 'tp:{}, tn:{}, fp:{}, fn:{}'.format(
+            self._tp, self._tn, self._fp, self._fn
         )
 
     def to_tuple(self):
         """Cast to tuple.
 
-        :returns: the confusion table as a 4-tuple (tp, tn, fp, fn)
-        :rtype: tuple
+        Returns
+        -------
+        tuple
+            The confusion table as a 4-tuple (tp, tn, fp, fn)
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.to_tuple()
         (120, 60, 20, 30)
+
         """
         return self._tp, self._tn, self._fp, self._fn
 
     def to_dict(self):
         """Cast to dict.
 
-        :returns: the confusion table as a dict
-        :rtype: dict
+        Returns
+        -------
+        dict
+            The confusion table as a dict
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> import pprint
         >>> pprint.pprint(ct.to_dict())
         {'fn': 30, 'fp': 20, 'tn': 60, 'tp': 120}
+
         """
         return {'tp': self._tp, 'tn': self._tn, 'fp': self._fp, 'fn': self._fn}
 
     def true_pos(self):
         """Return true positives.
 
-        :returns: the true positives of the confusion table
-        :rtype: int
+        Returns
+        -------
+        int
+            The true positives of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.true_pos()
         120
+
         """
         return self._tp
 
     def true_neg(self):
         """Return true negatives.
 
-        :returns: the true negatives of the confusion table
-        :rtype: int
+        Returns
+        -------
+        int
+            The true negatives of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.true_neg()
         60
+
         """
         return self._tn
 
     def false_pos(self):
         """Return false positives.
 
-        :returns: the false positives of the confusion table
-        :rtype: int
+        Returns
+        -------
+        int
+            The false positives of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.false_pos()
         20
+
         """
         return self._fp
 
     def false_neg(self):
         """Return false negatives.
 
-        :returns: the false negatives of the confusion table
-        :rtype: int
+        Returns
+        -------
+        int
+            The false negatives of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.false_neg()
         30
+
         """
         return self._fn
 
     def correct_pop(self):
         """Return correct population.
 
-        :returns: the correct population of the confusion table
-        :rtype: int
+        Returns
+        -------
+        int
+            The correct population of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.correct_pop()
         180
+
         """
         return self._tp + self._tn
 
     def error_pop(self):
         """Return error population.
 
-        :returns: The error population of the confusion table
-        :rtype: int
+        Returns
+        -------
+        int
+            The error population of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.error_pop()
         50
+
         """
         return self._fp + self._fn
 
     def test_pos_pop(self):
         """Return test positive population.
 
-        :returns: The test positive population of the confusion table
-        :rtype: int
+        Returns
+        -------
+        int
+            The test positive population of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.test_pos_pop()
         140
+
         """
         return self._tp + self._fp
 
     def test_neg_pop(self):
         """Return test negative population.
 
-        :returns: The test negative population of the confusion table
-        :rtype: int
+        Returns
+        -------
+        int
+            The test negative population of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.test_neg_pop()
         90
+
         """
         return self._tn + self._fn
 
     def cond_pos_pop(self):
         """Return condition positive population.
 
-        :returns: The condition positive population of the confusion table
-        :rtype: int
+        Returns
+        -------
+        int
+            The condition positive population of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.cond_pos_pop()
         150
+
         """
         return self._tp + self._fn
 
     def cond_neg_pop(self):
         """Return condition negative population.
 
-        :returns: The condition negative population of the confusion table
-        :rtype: int
+        Returns
+        -------
+        int
+            The condition negative population of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.cond_neg_pop()
         80
+
         """
         return self._fp + self._tn
 
     def population(self):
         """Return population, N.
 
-        :returns: The population (N) of the confusion table
-        :rtype: int
+        Returns
+        -------
+        int
+            The population (N) of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.population()
         230
+
         """
         return self._tp + self._tn + self._fp + self._fn
 
@@ -356,12 +447,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Information_retrieval#Precision
 
-        :returns: The precision of the confusion table
-        :rtype: float
+        Returns
+        -------
+        float
+            The precision of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.precision()
         0.8571428571428571
+
         """
         if self._tp + self._fp == 0:
             return float('NaN')
@@ -375,12 +471,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Gain_(information_retrieval)
 
-        :returns: The gain in precision of the confusion table
-        :rtype: float
+        Returns
+        -------
+        float
+            The gain in precision of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.precision_gain()
         1.3142857142857143
+
         """
         if self.population() == 0:
             return float('NaN')
@@ -402,12 +503,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Information_retrieval#Recall
 
-        :returns: The recall of the confusion table
-        :rtype: float
+        Returns
+        -------
+        float
+            The recall of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.recall()
         0.8
+
         """
         if self._tp + self._fn == 0:
             return float('NaN')
@@ -422,12 +528,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Specificity_(tests)
 
-        :returns: The specificity of the confusion table
-        :rtype: float
+        Returns
+        -------
+        float
+            The specificity of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.specificity()
         0.75
+
         """
         if self._tn + self._fp == 0:
             return float('NaN')
@@ -440,12 +551,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Negative_predictive_value
 
-        :returns: The negative predictive value of the confusion table
-        :rtype: float
+        Returns
+        -------
+        float
+            The negative predictive value of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.npv()
         0.6666666666666666
+
         """
         if self._tn + self._fn == 0:
             return float('NaN')
@@ -460,12 +576,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Information_retrieval#Fall-out
 
-        :returns: The fall-out of the confusion table
-        :rtype: float
+        Returns
+        -------
+        float
+            The fall-out of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.fallout()
         0.25
+
         """
         if self._fp + self._tn == 0:
             return float('NaN')
@@ -478,12 +599,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/False_discovery_rate
 
-        :returns: The false discovery rate of the confusion table
-        :rtype: float
+        Returns
+        -------
+        float
+            The false discovery rate of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.fdr()
         0.14285714285714285
+
         """
         if self._fp + self._tp == 0:
             return float('NaN')
@@ -496,12 +622,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Accuracy
 
-        :returns: The accuracy of the confusion table
-        :rtype: float
+        Returns
+        -------
+        float
+            The accuracy of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.accuracy()
         0.782608695652174
+
         """
         if self.population() == 0:
             return float('NaN')
@@ -515,12 +646,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Gain_(information_retrieval)
 
-        :returns: The gain in accuracy of the confusion table
-        :rtype: float
+        Returns
+        -------
+        float
+            The gain in accuracy of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.accuracy_gain()
         1.4325259515570934
+
         """
         if self.population() == 0:
             return float('NaN')
@@ -537,12 +673,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Accuracy
 
-        :returns: The balanced accuracy of the confusion table
-        :rtype: float
+        Returns
+        -------
+        float
+            The balanced accuracy of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.balanced_accuracy()
         0.775
+
         """
         return 0.5 * (self.recall() + self.specificity())
 
@@ -551,21 +692,23 @@ class ConfusionTable(object):
 
         Informedness is defined as :math:`sensitivity + specificity - 1`.
 
-        AKA Youden's J statistic
+        AKA Youden's J statistic (:cite:`Youden:1950`)
 
         AKA DeltaP'
 
         Cf. https://en.wikipedia.org/wiki/Youden%27s_J_statistic
 
-        Cf.
-        http://dspace.flinders.edu.au/xmlui/bitstream/handle/2328/27165/Powers%20Evaluation.pdf
+        Returns
+        -------
+        float
+            The informedness of the confusion table
 
-        :returns: The informedness of the confusion table
-        :rtype: float
-
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.informedness()
         0.55
+
         """
         return self.recall() + self.specificity() - 1
 
@@ -574,19 +717,17 @@ class ConfusionTable(object):
 
         Markedness is defined as :math:`precision + npv - 1`
 
-        AKA DeltaP
+        Returns
+        -------
+        float
+            The markedness of the confusion table
 
-        Cf. https://en.wikipedia.org/wiki/Youden%27s_J_statistic
-
-        Cf.
-        http://dspace.flinders.edu.au/xmlui/bitstream/handle/2328/27165/Powers%20Evaluation.pdf
-
-        :returns: The markedness of the confusion table
-        :rtype: float
-
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.markedness()
         0.5238095238095237
+
         """
         return self.precision() + self.npv() - 1
 
@@ -598,13 +739,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Arithmetic_mean
 
-        :returns: The arithmetic mean of the confusion table's precision &
-            recall
-        :rtype: float
+        Returns
+        -------
+        float
+            The arithmetic mean of the confusion table's precision & recall
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_amean()
         0.8285714285714285
+
         """
         return amean((self.precision(), self.recall()))
 
@@ -616,13 +761,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Geometric_mean
 
-        :returns: The geometric mean of the confusion table's precision &
-            recall
-        :rtype: float
+        Returns
+        -------
+        float
+            The geometric mean of the confusion table's precision & recall
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_gmean()
         0.828078671210825
+
         """
         return gmean((self.precision(), self.recall()))
 
@@ -634,12 +783,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Harmonic_mean
 
-        :returns: The harmonic mean of the confusion table's precision & recall
-        :rtype: float
+        Returns
+        -------
+        float
+            The harmonic mean of the confusion table's precision & recall
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_hmean()
         0.8275862068965516
+
         """
         return hmean((self.precision(), self.recall()))
 
@@ -651,13 +805,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Quadratic_mean
 
-        :returns: The quadratic mean of the confusion table's precision &
-            recall
-        :rtype: float
+        Returns
+        -------
+        float
+            The quadratic mean of the confusion table's precision & recall
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_qmean()
         0.8290638930598233
+
         """
         return qmean((self.precision(), self.recall()))
 
@@ -669,13 +827,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Contraharmonic_mean
 
-        :returns: The contraharmonic mean of the confusion table's precision &
-            recall
-        :rtype: float
+        Returns
+        -------
+        float
+            The contraharmonic mean of the confusion table's precision & recall
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_cmean()
         0.8295566502463055
+
         """
         return cmean((self.precision(), self.recall()))
 
@@ -690,13 +852,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Logarithmic_mean
 
-        :returns: The logarithmic mean of the confusion table's precision &
-            recall
-        :rtype: float
+        Returns
+        -------
+        float
+            The logarithmic mean of the confusion table's precision & recall
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_lmean()
         0.8282429171492667
+
         """
         precision = self.precision()
         recall = self.recall()
@@ -717,12 +883,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Identric_mean
 
-        :returns: The identric mean of the confusion table's precision & recall
-        :rtype: float
+        Returns
+        -------
+        float
+            The identric mean of the confusion table's precision & recall
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_imean()
         0.8284071826325543
+
         """
         return imean((self.precision(), self.recall()))
 
@@ -733,14 +904,19 @@ class ConfusionTable(object):
         :math:`\frac{precision - recall}{4 \cdot arctan
         \sqrt{\frac{precision}{recall}} - \pi}`
 
-        Cf. http://www.helsinki.fi/~hasto/pp/miaPreprint.pdf
+        It is defined in :cite:`Seiffert:1993`.
 
-        :returns: Seiffer's mean of the confusion table's precision & recall
-        :rtype: float
+        Returns
+        -------
+        float
+            Seiffert's mean of the confusion table's precision & recall
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_seiffert_mean()
         0.8284071696048312
+
         """
         return seiffert_mean((self.precision(), self.recall()))
 
@@ -753,14 +929,23 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Lehmer_mean
 
-        :param float exp: The exponent of the Lehmer mean
-        :returns: The Lehmer mean for the given exponent of the confusion
-            table's precision & recall
-        :rtype: float
+        Parameters
+        ----------
+        exp : float
+            The exponent of the Lehmer mean
 
+        Returns
+        -------
+        float
+            The Lehmer mean for the given exponent of the confusion table's
+            precision & recall
+
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_lehmer_mean()
         0.8295566502463055
+
         """
         return lehmer_mean((self.precision(), self.recall()), exp)
 
@@ -772,12 +957,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Heronian_mean
 
-        :returns: The Heronian mean of the confusion table's precision & recall
-        :rtype: float
+        Returns
+        -------
+        float
+            The Heronian mean of the confusion table's precision & recall
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_heronian_mean()
         0.8284071761178939
+
         """
         return heronian_mean((self.precision(), self.recall()))
 
@@ -791,14 +981,23 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Generalized_mean
 
-        :param float exp: The exponent of the Hölder mean
-        :returns: The Hölder mean for the given exponent of the confusion
-            table's precision & recall
-        :rtype: float
+        Parameters
+        ----------
+        exp : float
+            The exponent of the Hölder mean
 
+        Returns
+        -------
+        float
+            The Hölder mean for the given exponent of the confusion table's
+            precision & recall
+
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_hoelder_mean()
         0.8290638930598233
+
         """
         return hoelder_mean((self.precision(), self.recall()), exp)
 
@@ -810,13 +1009,18 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Arithmetic-geometric_mean
 
-        :returns: The arithmetic-geometric mean of the confusion table's
-            precision & recall
-        :rtype: float
+        Returns
+        -------
+        float
+            The arithmetic-geometric mean of the confusion table's precision &
+            recall
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_agmean()
         0.8283250315702829
+
         """
         return agmean((self.precision(), self.recall()))
 
@@ -828,13 +1032,18 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Geometric-harmonic_mean
 
-        :returns: The geometric-harmonic mean of the confusion table's
-            precision & recall
-        :rtype: float
+        Returns
+        -------
+        float
+            The geometric-harmonic mean of the confusion table's precision &
+            recall
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_ghmean()
         0.8278323841238441
+
         """
         return ghmean((self.precision(), self.recall()))
 
@@ -843,16 +1052,20 @@ class ConfusionTable(object):
 
         Iterates over arithmetic, geometric, & harmonic means until they
         converge to a single value (rounded to 12 digits), following the
-        method described by Raïssouli, Leazizi, & Chergui:
-        http://www.emis.de/journals/JIPAM/images/014_08_JIPAM/014_08.pdf
+        method described in :cite:`Raissouli:2009`.
 
-        :returns: The arithmetic-geometric-harmonic mean of the confusion
-            table's precision & recall
-        :rtype: float
+        Returns
+        -------
+        float
+            The arithmetic-geometric-harmonic mean of the confusion table's
+            precision & recall
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_aghmean()
         0.8280786712108288
+
         """
         return aghmean((self.precision(), self.recall()))
 
@@ -870,15 +1083,29 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
-        :params float beta: The :math:`\beta` parameter in the above formula
-        :returns: The :math:`F_{\beta}` of the confusion table
-        :rtype: float
+        Parameters
+        ----------
+        beta : float
+            The :math:`\beta` parameter in the above formula
 
+        Returns
+        -------
+        float
+            The :math:`F_{\beta}` of the confusion table
+
+        Raises
+        ------
+        AttributeError
+            Beta must be a positive real value
+
+        Examples
+        --------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.fbeta_score()
         0.8275862068965518
         >>> ct.fbeta_score(beta=0.1)
         0.8565371024734982
+
         """
         if beta <= 0:
             raise AttributeError('Beta must be a positive real value.')
@@ -899,12 +1126,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
-        :returns: The :math:`F_{2}` of the confusion table
-        :rtype: float
+        Returns
+        -------
+        float
+            The :math:`F_{2}` of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.f2_score()
         0.8108108108108109
+
         """
         return self.fbeta_score(2.0)
 
@@ -916,12 +1148,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
-        :returns: The :math:`F_{0.5}` score of the confusion table
-        :rtype: float
+        Returns
+        -------
+        float
+            The :math:`F_{0.5}` score of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.fhalf_score()
         0.8450704225352114
+
         """
         return self.fbeta_score(0.5)
 
@@ -933,13 +1170,22 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Information_retrieval#F-measure
 
-        :param float beta: The :math:`\beta` parameter in the above formula
-        :returns: The :math:`E`-score of the confusion table
-        :rtype: float
+        Parameters
+        ----------
+        beta : float
+            The :math:`\beta` parameter in the above formula
 
+        Returns
+        -------
+        float
+            The :math:`E`-score of the confusion table
+
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.e_score()
         0.17241379310344818
+
         """
         return 1 - self.fbeta_score(beta)
 
@@ -951,12 +1197,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
-        :returns: The :math:`F_{1}` of the confusion table
-        :rtype: float
+        Returns
+        -------
+        float
+            The :math:`F_{1}` of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.f1_score()
         0.8275862068965516
+
         """
         return self.pr_hmean()
 
@@ -968,12 +1219,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
-        :returns: The math:`F`-measure of the confusion table
-        :rtype: float
+        Returns
+        -------
+        float
+            The math:`F`-measure of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.f_measure()
         0.8275862068965516
+
         """
         return self.pr_hmean()
 
@@ -990,19 +1246,25 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Fowlkes%E2%80%93Mallows_index
 
-        :returns: The :math:`G`-measure of the confusion table
-        :rtype: float
+        Returns
+        -------
+        float
+            The :math:`G`-measure of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.g_measure()
         0.828078671210825
+
         """
         return self.pr_gmean()
 
     def mcc(self):
         r"""Return Matthews correlation coefficient (MCC).
 
-        The Matthews correlation coefficient is defined as:
+        The Matthews correlation coefficient is defined in
+        :cite:`Matthews:1975` as:
         :math:`\frac{(tp \cdot tn) - (fp \cdot fn)}
         {\sqrt{(tp + fp)(tp + fn)(tn + fp)(tn + fn)}}`
 
@@ -1011,12 +1273,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Matthews_correlation_coefficient
 
-        :returns: The Matthews correlation coefficient of the confusion table
-        :rtype: float
+        Returns
+        -------
+        float
+            The Matthews correlation coefficient of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.mcc()
         0.5367450401216932
+
         """
         if (
             (
@@ -1046,12 +1313,17 @@ class ConfusionTable(object):
 
         Cf. https://en.wikipedia.org/wiki/Pearson%27s_chi-square_test
 
-        :returns: The significance of the confusion table
-        :rtype: float
+        Returns
+        -------
+        float
+            The significance of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.significance()
         66.26190476190476
+
         """
         if (
             (
@@ -1080,16 +1352,22 @@ class ConfusionTable(object):
         {1 - random~ accuracy}`
 
         The κ statistic compares the performance of the classifier relative to
-        the performance of a random classifier. κ = 0 indicates performance
-        identical to random. κ = 1 indicates perfect predictive success.
-        κ = -1 indicates perfect predictive failure.
+        the performance of a random classifier. :math:`\kappa` = 0 indicates
+        performance identical to random. :math:`\kappa` = 1 indicates perfect
+        predictive success. :math:`\kappa` = -1 indicates perfect predictive
+        failure.
 
-        :returns: The κ statistic of the confusion table
-        :rtype: float
+        Returns
+        -------
+        float
+            The κ statistic of the confusion table
 
+        Example
+        -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.kappa_statistic()
         0.5344129554655871
+
         """
         if self.population() == 0:
             return float('NaN')

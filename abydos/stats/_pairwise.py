@@ -18,13 +18,15 @@
 
 """abydos.stats._pairwise.
 
-The stats._pairwise module implements pairwise statistical algorithms such as:
-
-    - mean pair-wise similarity
-    - pairwise similarity statistics
+The stats._pairwise module implements pairwise statistical algorithms.
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from six.moves import range
 
@@ -43,20 +45,42 @@ def mean_pairwise_similarity(
     collection, optionally in both directions (for asymmetric similarity
     metrics.
 
-    :param list collection: a collection of terms or a string that can be split
-    :param function metric: a similarity metric function
-    :param function mean_func: a mean function that takes a list of values and
-        returns a float
-    :param bool symmetric: set to True if all pairwise similarities should be
-        calculated in both directions
-    :returns: the mean pairwise similarity of a collection of strings
-    :rtype: float
+    Parameters
+    ----------
+    collection : list
+        A collection of terms or a string that can be split
+    metric : function
+        A similarity metric function
+    mean_func : function
+        A mean function that takes a list of values and returns a float
+    symmetric : bool
+        Set to True if all pairwise similarities should be calculated in both
+        directions
 
+    Returns
+    -------
+    float
+        The mean pairwise similarity of a collection of strings
+
+    Raises
+    ------
+    ValueError
+        mean_func must be a function
+    ValueError
+        metric must be a function
+    ValueError
+        collection is neither a string nor iterable type
+    ValueError
+        collection has fewer than two members
+
+    Examples
+    --------
     >>> round(mean_pairwise_similarity(['Christopher', 'Kristof',
     ... 'Christobal']), 12)
     0.519801980198
     >>> round(mean_pairwise_similarity(['Niall', 'Neal', 'Neil']), 12)
     0.545454545455
+
     """
     if not callable(mean_func):
         raise ValueError('mean_func must be a function')
@@ -97,21 +121,42 @@ def pairwise_similarity_statistics(
     arithmetic mean, by default), and (population) standard deviation
     of those similarities.
 
-    :param list src_collection: a collection of terms or a string that can be
-        split
-    :param list tar_collection: a collection of terms or a string that can be
-        split
-    :param function metric: a similarity metric function
-    :param function mean_func: a mean function that takes a list of values and
-        returns a float
-    :param bool symmetric: set to True if all pairwise similarities should be
-        calculated in both directions
-    :returns: the max, min, mean, and standard deviation of similarities
-    :rtype: tuple
+    Parameters
+    ----------
+    src_collection : list
+        A collection of terms or a string that can be split
+    tar_collection : list
+        A collection of terms or a string that can be split
+    metric : function
+        A similarity metric function
+    mean_func : function
+        A mean function that takes a list of values and returns a float
+    symmetric : bool
+        Set to True if all pairwise similarities should be calculated in both
+        directions
 
+    Returns
+    -------
+    tuple
+        The max, min, mean, and standard deviation of similarities
+
+    Raises
+    ------
+    ValueError
+        mean_func must be a function
+    ValueError
+        metric must be a function
+    ValueError
+        src_collection is neither a string nor iterable
+    ValueError
+        tar_collection is neither a string nor iterable
+
+    Example
+    -------
     >>> tuple(round(_, 12) for _ in pairwise_similarity_statistics(
     ... ['Christopher', 'Kristof', 'Christobal'], ['Niall', 'Neal', 'Neil']))
     (0.2, 0.0, 0.118614718615, 0.075070477184)
+
     """
     if not callable(mean_func):
         raise ValueError('mean_func must be a function')

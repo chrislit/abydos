@@ -18,21 +18,26 @@
 
 """abydos.compression._rle.
 
-Run-Length Encoding encoder/decoder (rle_encoder & rle_decoder)
+Run-Length Encoding encoder/decoder
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from itertools import groupby
 
-from ._bwt import bwt_decode, bwt_encode
+from ._bwt import BWT
 
 
-__all__ = ['rle_decode', 'rle_encode']
+__all__ = ['RLE', 'rle_decode', 'rle_encode']
 
 
-def rle_encode(text, use_bwt=True):
-    r"""Perform encoding of run-length-encoding (RLE).
+class RLE(object):
+    """Run-Length Encoding.
 
     Cf. :cite:`Robinson:1967`.
 
@@ -40,13 +45,117 @@ def rle_encode(text, use_bwt=True):
     :cite:`rosettacode:2018`. This is licensed GFDL 1.2.
 
     Digits 0-9 cannot be in text.
+    """
 
-    :param str text: a text string to encode
-    :param bool use_bwt: boolean indicating whether to perform BWT encoding
-        before RLE encoding
-    :returns: word decoded by RLE
-    :rtype: str
+    def encode(self, text):
+        r"""Perform encoding of run-length-encoding (RLE).
 
+        Parameters
+        ----------
+        text : str
+            A text string to encode
+
+        Returns
+        -------
+        str
+            Word decoded by RLE
+
+        Examples
+        --------
+        >>> rle = RLE()
+        >>> bwt = BWT()
+        >>> rle.encode(bwt.encode('align'))
+        'n\x00ilag'
+        >>> rle.encode('align')
+        'align'
+
+        >>> rle.encode(bwt.encode('banana'))
+        'annb\x00aa'
+        >>> rle.encode('banana')
+        'banana'
+
+        >>> rle.encode(bwt.encode('aaabaabababa'))
+        'ab\x00abbab5a'
+        >>> rle.encode('aaabaabababa')
+        '3abaabababa'
+
+        """
+        if text:
+            text = ((len(list(g)), k) for k, g in groupby(text))
+            text = (
+                (str(n) + k if n > 2 else (k if n == 1 else 2 * k))
+                for n, k in text
+            )
+        return ''.join(text)
+
+    def decode(self, text):
+        r"""Perform decoding of run-length-encoding (RLE).
+
+        Parameters
+        ----------
+        text : str
+            A text string to decode
+
+        Returns
+        -------
+        str
+            Word decoded by RLE
+
+        Examples
+        --------
+        >>> rle = RLE()
+        >>> bwt = BWT()
+        >>> bwt.decode(rle.decode('n\x00ilag'))
+        'align'
+        >>> rle.decode('align')
+        'align'
+
+        >>> bwt.decode(rle.decode('annb\x00aa'))
+        'banana'
+        >>> rle.decode('banana')
+        'banana'
+
+        >>> bwt.decode(rle.decode('ab\x00abbab5a'))
+        'aaabaabababa'
+        >>> rle.decode('3abaabababa')
+        'aaabaabababa'
+
+        """
+        mult = ''
+        decoded = []
+        for letter in list(text):
+            if not letter.isdigit():
+                if mult:
+                    decoded.append(int(mult) * letter)
+                    mult = ''
+                else:
+                    decoded.append(letter)
+            else:
+                mult += letter
+
+        text = ''.join(decoded)
+        return text
+
+
+def rle_encode(text, use_bwt=True):
+    r"""Perform encoding of run-length-encoding (RLE).
+
+    This is a wrapper for :py:meth:`RLE.encode`.
+
+    Parameters
+    ----------
+    text : str
+        A text string to encode
+    use_bwt : bool
+        Indicates whether to perform BWT encoding before RLE encoding
+
+    Returns
+    -------
+    str
+        Word decoded by RLE
+
+    Examples
+    --------
     >>> rle_encode('align')
     'n\x00ilag'
     >>> rle_encode('align', use_bwt=False)
@@ -61,34 +170,32 @@ def rle_encode(text, use_bwt=True):
     'ab\x00abbab5a'
     >>> rle_encode('aaabaabababa', False)
     '3abaabababa'
+
     """
     if use_bwt:
-        text = bwt_encode(text)
-    if text:
-        text = ((len(list(g)), k) for k, g in groupby(text))
-        text = (
-            (str(n) + k if n > 2 else (k if n == 1 else 2 * k))
-            for n, k in text
-        )
-    return ''.join(text)
+        text = BWT().encode(text)
+    return RLE().encode(text)
 
 
 def rle_decode(text, use_bwt=True):
     r"""Perform decoding of run-length-encoding (RLE).
 
-    Cf. :cite:`Robinson:1967`.
+    This is a wrapper for :py:meth:`RLE.decode`.
 
-    Based on http://rosettacode.org/wiki/Run-length_encoding#Python
-    :cite:`rosettacode:2018`. This is licensed GFDL 1.2.
+    Parameters
+    ----------
+    text : str
+        A text string to decode
+    use_bwt : bool
+        Indicates whether to perform BWT decoding after RLE decoding
 
-    Digits 0-9 cannot have been in the original text.
+    Returns
+    -------
+    str
+        Word decoded by RLE
 
-    :param str text: a text string to decode
-    :param bool use_bwt: boolean indicating whether to perform BWT decoding
-        after RLE decoding
-    :returns: word decoded by RLE
-    :rtype: str
-
+    Examples
+    --------
     >>> rle_decode('n\x00ilag')
     'align'
     >>> rle_decode('align', use_bwt=False)
@@ -103,22 +210,11 @@ def rle_decode(text, use_bwt=True):
     'aaabaabababa'
     >>> rle_decode('3abaabababa', False)
     'aaabaabababa'
-    """
-    mult = ''
-    decoded = []
-    for letter in list(text):
-        if not letter.isdigit():
-            if mult:
-                decoded.append(int(mult) * letter)
-                mult = ''
-            else:
-                decoded.append(letter)
-        else:
-            mult += letter
 
-    text = ''.join(decoded)
+    """
+    text = RLE().decode(text)
     if use_bwt:
-        text = bwt_decode(text)
+        text = BWT().decode(text)
     return text
 
 

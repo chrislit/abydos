@@ -18,41 +18,53 @@
 
 """abydos.tests.phonetic.test_phonetic_sound_d.
 
-This module contains unit tests for abydos.phonetic._sound_d
+This module contains unit tests for abydos.phonetic.SoundD
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import unittest
 
-from abydos.phonetic import sound_d
+from abydos.phonetic import SoundD, sound_d
 
 
 class SoundDTestCases(unittest.TestCase):
     """Test class SoundD functions.
 
-    test cases for abydos.phonetic._sound_d.sound_d
+    test cases for abydos.phonetic.SoundD
     """
 
-    def test_sound_d(self):
-        """Test abydos.phonetic._sound_d.sound_d."""
-        # Base cases
-        self.assertEqual(sound_d(''), '0000')
-        self.assertEqual(sound_d('', max_length=6), '000000')
+    pa = SoundD()
 
+    def test_sound_d(self):
+        """Test abydos.phonetic.SoundD."""
+        # Base cases
+        self.assertEqual(self.pa.encode(''), '0000')
+        self.assertEqual(self.pa.encode('', max_length=6), '000000')
+
+        self.assertEqual(self.pa.encode('knight'), '5300')
+        self.assertEqual(self.pa.encode('accept'), '2130')
+        self.assertEqual(self.pa.encode('pneuma'), '5500')
+        self.assertEqual(self.pa.encode('ax'), '2000')
+        self.assertEqual(self.pa.encode('wherever'), '6160')
+        self.assertEqual(self.pa.encode('pox'), '1200')
+        self.assertEqual(self.pa.encode('anywhere'), '5600')
+        self.assertEqual(self.pa.encode('adenosine'), '3525')
+        self.assertEqual(self.pa.encode('judge'), '2200')
+        self.assertEqual(self.pa.encode('rough'), '6000')
+        self.assertEqual(self.pa.encode('x-ray'), '2600')
+        self.assertEqual(
+            self.pa.encode('acetylcholine', max_length=-1), '234245'
+        )
+        self.assertEqual(self.pa.encode('rough', max_length=-1), '6')
+
+        # Test wrapper
         self.assertEqual(sound_d('knight'), '5300')
-        self.assertEqual(sound_d('accept'), '2130')
-        self.assertEqual(sound_d('pneuma'), '5500')
-        self.assertEqual(sound_d('ax'), '2000')
-        self.assertEqual(sound_d('wherever'), '6160')
-        self.assertEqual(sound_d('pox'), '1200')
-        self.assertEqual(sound_d('anywhere'), '5600')
-        self.assertEqual(sound_d('adenosine'), '3525')
-        self.assertEqual(sound_d('judge'), '2200')
-        self.assertEqual(sound_d('rough'), '6000')
-        self.assertEqual(sound_d('x-ray'), '2600')
-        self.assertEqual(sound_d('acetylcholine', max_length=-1), '234245')
-        self.assertEqual(sound_d('rough', max_length=-1), '6')
 
 
 if __name__ == '__main__':
