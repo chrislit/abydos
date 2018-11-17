@@ -28,12 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._fingerprint import Fingerprint, MOST_COMMON_LETTERS_CG
+from ._fingerprint import MOST_COMMON_LETTERS_CG, _Fingerprint
 
 __all__ = ['Position', 'position_fingerprint']
 
 
-class Position(Fingerprint):
+class Position(_Fingerprint):
     """Position Fingerprint.
 
     Based on the position fingerprint from :cite:`Cislak:2017`.

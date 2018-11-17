@@ -32,13 +32,13 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._fingerprint import Fingerprint
+from ._fingerprint import _Fingerprint
 from ..tokenizer import QGrams
 
 __all__ = ['QGram', 'qgram_fingerprint']
 
 
-class QGram(Fingerprint):
+class QGram(_Fingerprint):
     """Q-Gram Fingerprint.
 
     A q-gram fingerprint is a string consisting of all of the unique q-grams

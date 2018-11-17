@@ -32,12 +32,12 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['Lein', 'lein']
 
 
-class Lein(Phonetic):
+class Lein(_Phonetic):
     """Lein code.
 
     This is Lein name coding, described in :cite:`Moore:1977`.

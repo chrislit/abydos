@@ -32,12 +32,12 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['PSHPSoundexLast', 'pshp_soundex_last']
 
 
-class PSHPSoundexLast(Phonetic):
+class PSHPSoundexLast(_Phonetic):
     """PSHP Soundex/Viewex Coding of a last name.
 
     This coding is based on :cite:`Hershberg:1976`.

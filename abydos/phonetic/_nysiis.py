@@ -31,12 +31,12 @@ from __future__ import (
 
 from six.moves import range
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['NYSIIS', 'nysiis']
 
 
-class NYSIIS(Phonetic):
+class NYSIIS(_Phonetic):
     """NYSIIS Code.
 
     The New York State Identification and Intelligence System algorithm is

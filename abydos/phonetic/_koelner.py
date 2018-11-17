@@ -33,7 +33,7 @@ from unicodedata import normalize as unicode_normalize
 from six import text_type
 from six.moves import range
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = [
     'Koelner',
@@ -43,7 +43,7 @@ __all__ = [
 ]
 
 
-class Koelner(Phonetic):
+class Koelner(_Phonetic):
     """Kölner Phonetik.
 
     Based on the algorithm defined by :cite:`Postel:1969`.

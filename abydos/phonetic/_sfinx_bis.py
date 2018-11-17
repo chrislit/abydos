@@ -32,12 +32,12 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['SfinxBis', 'sfinxbis']
 
 
-class SfinxBis(Phonetic):
+class SfinxBis(_Phonetic):
     """SfinxBis code.
 
     SfinxBis is a Soundex-like algorithm defined in :cite:`Axelsson:2009`.

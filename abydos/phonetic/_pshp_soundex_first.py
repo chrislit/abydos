@@ -32,12 +32,12 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['PSHPSoundexFirst', 'pshp_soundex_first']
 
 
-class PSHPSoundexFirst(Phonetic):
+class PSHPSoundexFirst(_Phonetic):
     """PSHP Soundex/Viewex Coding of a first name.
 
     This coding is based on :cite:`Hershberg:1976`.

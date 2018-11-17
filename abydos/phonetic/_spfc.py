@@ -33,12 +33,12 @@ from unicodedata import normalize as unicode_normalize
 from six import text_type
 from six.moves import range
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['SPFC', 'spfc']
 
 
-class SPFC(Phonetic):
+class SPFC(_Phonetic):
     """Standardized Phonetic Frequency Code (SPFC).
 
     Standardized Phonetic Frequency Code is roughly Soundex-like.

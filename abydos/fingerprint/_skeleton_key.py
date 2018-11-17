@@ -32,12 +32,12 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._fingerprint import Fingerprint
+from ._fingerprint import _Fingerprint
 
 __all__ = ['SkeletonKey', 'skeleton_key']
 
 
-class SkeletonKey(Fingerprint):
+class SkeletonKey(_Fingerprint):
     """Skeleton Key.
 
     The skeleton key of a word is defined in :cite:`Pollock:1984`.

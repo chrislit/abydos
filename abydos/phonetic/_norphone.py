@@ -29,12 +29,12 @@ from __future__ import (
 )
 
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['Norphone', 'norphone']
 
 
-class Norphone(Phonetic):
+class Norphone(_Phonetic):
     """Norphone.
 
     The reference implementation by Lars Marius Garshol is available in

@@ -32,12 +32,12 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['Dolby', 'dolby']
 
 
-class Dolby(Phonetic):
+class Dolby(_Phonetic):
     """Dolby Code.
 
     This follows "A Spelling Equivalent Abbreviation Algorithm For Personal

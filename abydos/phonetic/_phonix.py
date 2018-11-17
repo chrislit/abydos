@@ -32,12 +32,12 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['Phonix', 'phonix']
 
 
-class Phonix(Phonetic):
+class Phonix(_Phonetic):
     """Phonix code.
 
     Phonix is a Soundex-like algorithm defined in :cite:`Gadd:1990`.

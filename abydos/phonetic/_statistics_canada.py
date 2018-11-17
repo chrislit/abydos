@@ -32,12 +32,12 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['StatisticsCanada', 'statistics_canada']
 
 
-class StatisticsCanada(Phonetic):
+class StatisticsCanada(_Phonetic):
     """Statistics Canada code.
 
     The original description of this algorithm could not be located, and

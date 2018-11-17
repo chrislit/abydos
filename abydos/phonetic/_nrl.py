@@ -30,12 +30,12 @@ from __future__ import (
 
 from re import match as re_match
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['NRL', 'nrl']
 
 
-class NRL(Phonetic):
+class NRL(_Phonetic):
     """Naval Research Laboratory English-to-phoneme encoder.
 
     This is defined by :cite:`Elovitz:1976`.

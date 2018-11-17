@@ -30,12 +30,12 @@ from __future__ import (
 
 from six.moves import range
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['Metaphone', 'metaphone']
 
 
-class Metaphone(Phonetic):
+class Metaphone(_Phonetic):
     """Metaphone.
 
     Based on Lawrence Philips' Pick BASIC code from 1990 :cite:`Philips:1990`,

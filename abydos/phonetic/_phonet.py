@@ -34,12 +34,12 @@ from unicodedata import normalize as unicode_normalize
 from six import text_type
 from six.moves import range
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['Phonet', 'phonet']
 
 
-class Phonet(Phonetic):
+class Phonet(_Phonetic):
     """Phonet code.
 
     phonet ("Hannoveraner Phonetik") was developed by Jörg Michael and

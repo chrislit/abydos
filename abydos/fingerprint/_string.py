@@ -32,12 +32,12 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._fingerprint import Fingerprint
+from ._fingerprint import _Fingerprint
 
 __all__ = ['String', 'str_fingerprint']
 
 
-class String(Fingerprint):
+class String(_Fingerprint):
     """String Fingerprint.
 
     The fingerprint of a string is a string consisting of all of the unique

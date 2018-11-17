@@ -32,12 +32,12 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['SpanishMetaphone', 'spanish_metaphone']
 
 
-class SpanishMetaphone(Phonetic):
+class SpanishMetaphone(_Phonetic):
     """Spanish Metaphone.
 
     This is a quick rewrite of the Spanish Metaphone Algorithm, as presented at

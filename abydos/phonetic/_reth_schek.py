@@ -30,12 +30,12 @@ from __future__ import (
 
 from six.moves import range
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['RethSchek', 'reth_schek_phonetik']
 
 
-class RethSchek(Phonetic):
+class RethSchek(_Phonetic):
     """Reth-Schek Phonetik.
 
     This algorithm is proposed in :cite:`Reth:1977`.

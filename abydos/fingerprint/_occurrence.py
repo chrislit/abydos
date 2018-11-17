@@ -28,12 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._fingerprint import Fingerprint, MOST_COMMON_LETTERS_CG
+from ._fingerprint import MOST_COMMON_LETTERS_CG, _Fingerprint
 
 __all__ = ['Occurrence', 'occurrence_fingerprint']
 
 
-class Occurrence(Fingerprint):
+class Occurrence(_Fingerprint):
     """Occurrence Fingerprint.
 
     Based on the occurrence fingerprint from :cite:`Cislak:2017`.
