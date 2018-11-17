@@ -18,17 +18,42 @@
 
 """abydos.fingerprint.
 
-The fingerprint module implements string fingerprints such as:
-    - string fingerprint
-    - q-gram fingerprint
-    - phonetic fingerprint
-    - Pollock & Zomora's skeleton key
-    - Pollock & Zomora's omission key
-    - Cisłak & Grabowski's occurrence fingerprint
-    - Cisłak & Grabowski's occurrence halved fingerprint
-    - Cisłak & Grabowski's count fingerprint
-    - Cisłak & Grabowski's position fingerprint
-    - Synoname Toolcode
+The fingerprint package implements string fingerprints such as:
+
+    - Basic fingerprinters originating in `OpenRefine <http://openrefine.org>`:
+
+        - String (:py:class:`.String`)
+        - Phonetic, which applies a phonetic algorithm and returns the string
+          fingerprint of the result (:py:class:`.Phonetic`)
+        - QGram, which applies Q-gram tokenization and returns the string
+          fingerprint of the result (:py:class:`.QGram`)
+
+    - Fingerprints developed by Pollock & Zomora:
+
+        - Skeleton key (:py:class:`.SkeletonKey`)
+        - Omission key (:py:class:`.OmissionKey`)
+
+    - Fingerprints developed by Cisłak & Grabowski:
+
+        - Occurrence (:py:class:`.Occurrence`)
+        - Occurrence halved (:py:class:`.OccurrenceHalved`)
+        - Count (:py:class:`.Count`)
+        - Position (:py:class:`.Position`)
+
+    - The Synoname toolcode (:py:class:`.SynonameToolcode`)
+
+
+Each fingerprint class has a ``fingerprint`` method that takes a string and
+returns the string's fingerprint:
+
+>>> sk = SkeletonKey()
+>>> sk.fingerprint('orange')
+'ORNGAE'
+>>> sk.fingerprint('strange')
+'STRNGAE'
+
+----
+
 """
 
 from __future__ import (

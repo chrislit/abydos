@@ -18,47 +18,86 @@
 
 """abydos.phonetic.
 
-The phonetic module implements phonetic algorithms including:
+The phonetic package includes classes for phonetic algorithms,
+including:
 
-    - Robert C. Russell's Index
-    - American Soundex
-    - Refined Soundex
-    - Daitch-Mokotoff Soundex
-    - Kölner Phonetik
-    - NYSIIS
-    - Match Rating Algorithm
-    - Metaphone
-    - Double Metaphone
-    - Caverphone
-    - Alpha Search Inquiry System
-    - Fuzzy Soundex
-    - Phonex
-    - Phonem
-    - Phonix
-    - SfinxBis
-    - phonet
-    - Standardized Phonetic Frequency Code
-    - Statistics Canada
-    - Lein
-    - Roger Root
-    - Oxford Name Compression Algorithm (ONCA)
-    - Eudex phonetic hash
-    - Haase Phonetik
-    - Reth-Schek Phonetik
-    - FONEM
-    - Parmar-Kumbharana
-    - Davidson's Consonant Code
-    - SoundD
-    - PSHP Soundex/Viewex Coding
-    - an early version of Henry Code
-    - Norphone
-    - Dolby Code
-    - Phonetic Spanish
-    - Spanish Metaphone
-    - MetaSoundex
-    - SoundexBR
-    - NRL English-to-phoneme
-    - Beider-Morse Phonetic Matching
+    - Robert C. Russell's Index (:py:class:`.RussellIndex`)
+    - American Soundex (:py:class:`.Soundex`)
+    - Refined Soundex (:py:class:`.RefinedSoundex`)
+    - Daitch-Mokotoff Soundex (:py:class:`.DaitchMokotoff`)
+    - NYSIIS (:py:class:`.NYSIIS`)
+    - Match Rating Algorithm (:py:class:`.phonetic.MRA`)
+    - Metaphone (:py:class:`.Metaphone`)
+    - Double Metaphone (:py:class:`.DoubleMetaphone`)
+    - Caverphone (:py:class:`.Caverphone`)
+    - Alpha Search Inquiry System (:py:class:`.AlphaSIS`)
+    - Fuzzy Soundex (:py:class:`.FuzzySoundex`)
+    - Phonex (:py:class:`.Phonex`)
+    - Phonem (:py:class:`.Phonem`)
+    - Phonix (:py:class:`.Phonix`)
+    - Standardized Phonetic Frequency Code (:py:class:`.SPFC`)
+    - Statistics Canada (:py:class:`.StatisticsCanada`)
+    - Lein (:py:class:`.Lein`)
+    - Roger Root (:py:class:`.RogerRoot`)
+    - Eudex phonetic hash (:py:class:`.phonetic.Eudex`)
+    - Parmar-Kumbharana (:py:class:`.ParmarKumbharana`)
+    - Davidson's Consonant Code (:py:class:`.Davidson`)
+    - SoundD (:py:class:`.SoundD`)
+    - PSHP Soundex/Viewex Coding (:py:class:`.PSHPSoundexFirst` and
+      :py:class:`.PSHPSoundexLast`)
+    - Dolby Code (:py:class:`.Dolby`)
+    - NRL English-to-phoneme (:py:class:`.NRL`)
+    - Beider-Morse Phonetic Matching (:py:class:`.BeiderMorse`)
+
+There are also language-specific phonetic algorithms for German:
+
+    - Kölner Phonetik (:py:class:`.Koelner`)
+    - phonet (:py:class:`.Phonet`)
+    - Haase Phonetik (:py:class:`.Haase`)
+    - Reth-Schek Phonetik (:py:class:`.RethSchek`)
+
+For French:
+
+    - FONEM (:py:class:`.FONEM`)
+    - an early version of Henry Code (:py:class:`.HenryEarly`)
+
+For Spanish:
+
+    - Phonetic Spanish (:py:class:`.PhoneticSpanish`)
+    - Spanish Metaphone (:py:class:`.SpanishMetaphone`)
+
+For Swedish:
+
+    - SfinxBis (:py:class:`.SfinxBis`)
+
+For Norwegian:
+
+    - Norphone (:py:class:`.Norphone`)
+
+For Brazilian Portuguese:
+
+    - SoundexBR (:py:class:`.SoundexBR`)
+
+And there are some hybrid phonetic algorithms that employ multiple underlying
+phonetic algorithms:
+
+    - Oxford Name Compression Algorithm (ONCA) (:py:class:`.ONCA`)
+    - MetaSoundex (:py:class:`.MetaSoundex`)
+
+
+Each class has an ``encode`` method to return the phonetically encoded string.
+Classes for which ``encode`` returns a numeric value generally have an
+``encode_alpha`` method that returns an alphabetic version of the phonetic
+encoding, as demonstrated below:
+
+>>> rus = RussellIndex()
+>>> rus.encode('Abramson')
+128637
+>>> rus.encode_alpha('Abramson')
+'ABRMCN'
+
+----
+
 """
 
 from __future__ import (

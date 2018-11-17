@@ -6,7 +6,6 @@ Welcome to Abydos's documentation!
    :caption: Contents:
 
    intro
-   tutorial
    modules
    history
 
