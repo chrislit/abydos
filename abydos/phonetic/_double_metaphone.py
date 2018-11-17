@@ -28,12 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['DoubleMetaphone', 'double_metaphone']
 
 
-class DoubleMetaphone(Phonetic):
+class DoubleMetaphone(_Phonetic):
     """Double Metaphone.
 
     Based on Lawrence Philips' (Visual) C++ code from 1999
@@ -49,7 +49,7 @@ class DoubleMetaphone(Phonetic):
             The word to transform
         max_length : int
             The maximum length of the returned Double Metaphone codes (defaults
-            to 64, but in Philips' original implementation this was 4)
+            to unlmited, but in Philips' original implementation this was 4)
 
         Returns
         -------
@@ -72,8 +72,6 @@ class DoubleMetaphone(Phonetic):
         # Require a max_length of at least 4
         if max_length != -1:
             max_length = max(4, max_length)
-        else:
-            max_length = 64
 
         primary = ''
         secondary = ''
@@ -971,7 +969,7 @@ def double_metaphone(word, max_length=-1):
         The word to transform
     max_length : int
         The maximum length of the returned Double Metaphone codes (defaults to
-        64, but in Philips' original implementation this was 4)
+        unlimited, but in Philips' original implementation this was 4)
 
     Returns
     -------
