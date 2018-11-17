@@ -23,28 +23,28 @@ data about linguistic objects.
 
 Functions are provided for calculating the following means:
 
-    - arithmetic
-    - geometric
-    - harmonic
-    - quadratic
-    - contraharmonic
-    - logarithmic
-    - identric (exponential)
-    - Seiffert's
-    - Lehmer
-    - Heronian
-    - Hölder (power/generalized)
-    - arithmetic-geometric
-    - geometric-harmonic
-    - arithmetic-geometric-harmonic
+    - arithmetic (:py:func:`amean`)
+    - geometric (:py:func:`gmean`)
+    - harmonic (:py:func:`hmean`)
+    - quadratic (:py:func:`qmean`)
+    - contraharmonic (:py:func:`cmean`)
+    - logarithmic (:py:func:`lmean`)
+    - identric (exponential) (:py:func:`imean`)
+    - Seiffert's (:py:func:`seiffert_mean`)
+    - Lehmer (:py:func:`lehmer_mean`)
+    - Heronian (:py:func:`heronian_mean`)
+    - Hölder (power/generalized) (:py:func:`hoelder_mean`)
+    - arithmetic-geometric (:py:func:`agmean`)
+    - geometric-harmonic (:py:func:`ghmean`)
+    - arithmetic-geometric-harmonic (:py:func:`aghmean`)
 
 And for calculating:
 
-    - midrange
-    - median
-    - mode
-    - variance
-    - standard deviation
+    - midrange (:py:func:`midrange`)
+    - median (:py:func:`median`)
+    - mode (:py:func:`mode`)
+    - variance (:py:func:`var`)
+    - standard deviation (:py:func:`std`)
 """
 
 from __future__ import (
@@ -62,23 +62,23 @@ from six.moves import range
 from ..util._prod import _prod
 
 __all__ = [
-    'aghmean',
-    'agmean',
     'amean',
-    'cmean',
-    'ghmean',
     'gmean',
-    'heronian_mean',
     'hmean',
-    'hoelder_mean',
+    'agmean',
+    'ghmean',
+    'aghmean',
+    'cmean',
     'imean',
-    'lehmer_mean',
     'lmean',
+    'qmean',
+    'heronian_mean',
+    'hoelder_mean',
+    'lehmer_mean',
+    'seiffert_mean',
     'median',
     'midrange',
     'mode',
-    'qmean',
-    'seiffert_mean',
     'std',
     'var',
 ]
@@ -364,7 +364,7 @@ def seiffert_mean(nums):
     Seiffert's mean of two numbers x and y is:
     :math:`\frac{x - y}{4 \cdot arctan \sqrt{\frac{x}{y}} - \pi}`
 
-    Cf. http://www.helsinki.fi/~hasto/pp/miaPreprint.pdf
+    It is defined in :cite:`Seiffert:1993`.
 
     Parameters
     ----------
@@ -598,8 +598,7 @@ def aghmean(nums):
 
     Iterates over arithmetic, geometric, & harmonic means until they
     converge to a single value (rounded to 12 digits), following the
-    method described by Raïssouli, Leazizi, & Chergui:
-    http://www.emis.de/journals/JIPAM/images/014_08_JIPAM/014_08.pdf
+    method described in :cite:`Raissouli:2009`.
 
     Parameters
     ----------
@@ -733,7 +732,14 @@ def mode(nums):
 
 
 def var(nums, mean_func=amean, ddof=0):
-    """Calculate the variance.
+    r"""Calculate the variance.
+
+    The variance (:math:`\sigma^2`) of a series of numbers (:math:`x_i`) with
+    mean :math:`\mu` and population :math:`N` is:
+
+    :math:`\sigma^2 = \frac{1}{N}\sum_{i=1}^{N}(x_i-\mu)^2`.
+
+    Cf. https://en.wikipedia.org/wiki/Variance
 
     Parameters
     ----------
@@ -765,6 +771,11 @@ def var(nums, mean_func=amean, ddof=0):
 
 def std(nums, mean_func=amean, ddof=0):
     """Return the standard deviation.
+
+    The standard deviation of a series of values is the square root of the
+    variance.
+
+    Cf. https://en.wikipedia.org/wiki/Standard_deviation
 
     Parameters
     ----------

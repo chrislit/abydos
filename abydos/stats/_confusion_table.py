@@ -692,14 +692,11 @@ class ConfusionTable(object):
 
         Informedness is defined as :math:`sensitivity + specificity - 1`.
 
-        AKA Youden's J statistic
+        AKA Youden's J statistic (:cite:`Youden:1950`)
 
         AKA DeltaP'
 
         Cf. https://en.wikipedia.org/wiki/Youden%27s_J_statistic
-
-        Cf.
-        http://dspace.flinders.edu.au/xmlui/bitstream/handle/2328/27165/Powers%20Evaluation.pdf
 
         Returns
         -------
@@ -719,13 +716,6 @@ class ConfusionTable(object):
         """Return markedness.
 
         Markedness is defined as :math:`precision + npv - 1`
-
-        AKA DeltaP
-
-        Cf. https://en.wikipedia.org/wiki/Youden%27s_J_statistic
-
-        Cf.
-        http://dspace.flinders.edu.au/xmlui/bitstream/handle/2328/27165/Powers%20Evaluation.pdf
 
         Returns
         -------
@@ -914,7 +904,7 @@ class ConfusionTable(object):
         :math:`\frac{precision - recall}{4 \cdot arctan
         \sqrt{\frac{precision}{recall}} - \pi}`
 
-        Cf. http://www.helsinki.fi/~hasto/pp/miaPreprint.pdf
+        It is defined in :cite:`Seiffert:1993`.
 
         Returns
         -------
@@ -1062,8 +1052,7 @@ class ConfusionTable(object):
 
         Iterates over arithmetic, geometric, & harmonic means until they
         converge to a single value (rounded to 12 digits), following the
-        method described by Raïssouli, Leazizi, & Chergui:
-        http://www.emis.de/journals/JIPAM/images/014_08_JIPAM/014_08.pdf
+        method described in :cite:`Raissouli:2009`.
 
         Returns
         -------
@@ -1274,7 +1263,8 @@ class ConfusionTable(object):
     def mcc(self):
         r"""Return Matthews correlation coefficient (MCC).
 
-        The Matthews correlation coefficient is defined as:
+        The Matthews correlation coefficient is defined in
+        :cite:`Matthews:1975` as:
         :math:`\frac{(tp \cdot tn) - (fp \cdot fn)}
         {\sqrt{(tp + fp)(tp + fn)(tn + fp)(tn + fn)}}`
 
@@ -1362,9 +1352,10 @@ class ConfusionTable(object):
         {1 - random~ accuracy}`
 
         The κ statistic compares the performance of the classifier relative to
-        the performance of a random classifier. κ = 0 indicates performance
-        identical to random. κ = 1 indicates perfect predictive success.
-        κ = -1 indicates perfect predictive failure.
+        the performance of a random classifier. :math:`\kappa` = 0 indicates
+        performance identical to random. :math:`\kappa` = 1 indicates perfect
+        predictive success. :math:`\kappa` = -1 indicates perfect predictive
+        failure.
 
         Returns
         -------
