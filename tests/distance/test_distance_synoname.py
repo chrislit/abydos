@@ -472,6 +472,66 @@ class SynonameTestCases(unittest.TestCase):
             10,
         )
 
+    def test_synoname_dist(self):
+        """Test abydos.distance.Synoname.dist."""
+        # Base cases
+        self.assertAlmostEqual(self.cmp.dist('', ''), 1 / 14)
+        self.assertAlmostEqual(
+            self.cmp.dist(
+                '22#Brueghel II (the Younger)#Pieter#' + 'Workshop of',
+                '44#Brueghel II (the Younger)#Pieter#' + 'Workshop of',
+            ),
+            1 / 14,
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist(
+                (
+                    'Master of Brueghel II (the Younger)',
+                    'Pieter',
+                    'Workshop of',
+                ),
+                ('Brueghel I (the Elder)', 'Pieter', 'Workshop of'),
+            ),
+            13 / 14,
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist(
+                ('Master of Brueghel II', 'Pieter', 'Workshop of'),
+                ('Master known as the Brueghel II', 'Pieter', 'Workshop of'),
+            ),
+            10 / 14,
+        )
+
+    def test_synoname_sim(self):
+        """Test abydos.distance.Synoname.sim."""
+        # Base cases
+        self.assertAlmostEqual(self.cmp.sim('', ''), 13 / 14)
+        self.assertAlmostEqual(
+            self.cmp.sim(
+                '22#Brueghel II (the Younger)#Pieter#' + 'Workshop of',
+                '44#Brueghel II (the Younger)#Pieter#' + 'Workshop of',
+            ),
+            13 / 14,
+        )
+        self.assertAlmostEqual(
+            self.cmp.sim(
+                (
+                    'Master of Brueghel II (the Younger)',
+                    'Pieter',
+                    'Workshop of',
+                ),
+                ('Brueghel I (the Elder)', 'Pieter', 'Workshop of'),
+            ),
+            1 / 14,
+        )
+        self.assertAlmostEqual(
+            self.cmp.sim(
+                ('Master of Brueghel II', 'Pieter', 'Workshop of'),
+                ('Master known as the Brueghel II', 'Pieter', 'Workshop of'),
+            ),
+            4 / 14,
+        )
+
 
 if __name__ == '__main__':
     unittest.main()
