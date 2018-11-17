@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.distance.test_distance.
+"""abydos.tests.distance.test_distance__distance.
 
-This module contains unit tests for abydos.distance
+This module contains unit tests for abydos.distance._Distance
 """
 
 from __future__ import (
@@ -30,7 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import Levenshtein, Dice
+from abydos.distance import Dice, Levenshtein
 
 
 class DistanceTestCases(unittest.TestCase):
