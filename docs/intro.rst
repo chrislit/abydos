@@ -94,10 +94,9 @@ warranted.
     - `CircleCI <https://circleci.com/gh/chrislit/abydos/tree/master>`_ runs
       only the Python 3.6 tests on Linux and is used for quick tests of each
       commit.
-    - `Appveyor <https://ci.appveyor.com/project/chrislit/abydos>`_ is used to
-      check for Windows CI of all supported Python platforms (2.7-3.7, with
-      both 32-bit & 64-bit Python). Only the tests in the tests directory are
-      run.
+    - `Azure Devops <https://dev.azure.com/chrislit/abydos/_build/latest?definitionId=1>`_
+      is used to perform tests on Linux, MaxOS, and Windows on Python 2.7,
+      3.5, 3.6, & 3.7 using pytest.
     - `Semaphore <https://semaphoreci.com/chrislit/abydos>`_ is used to run
       the tests in the tests directory, doctests, regression tests, and fuzz
       tests.
