@@ -306,7 +306,7 @@ def _run_script():
     outfile = codecs.open(outfilename, 'w', 'utf-8')
 
     outfile.write(
-        r"""# -*- coding: utf-8 -*-\n\n# Copyright 2014-2018 by \
+        r'# -*- coding: utf-8 -*-\n\n# Copyright 2014-2018 by \
 Christopher C. Little.\n# This file is part of Abydos.\n#\n# This file is \
 based on Alexander Beider and Stephen P. Morse\'s implementation\n# of the \
 Beider-Morse Phonetic Matching (BMPM) System, available at\n# \
@@ -319,12 +319,12 @@ ANY WARRANTY; without even the implied warranty of\n# MERCHANTABILITY or \
 FITNESS FOR A PARTICULAR PURPOSE. See the\n# GNU General Public License for \
 more details.\n#\n# You should have received a copy of the GNU General Public \
 License\n# along with Abydos. If not, see <http://www.gnu.org/licenses/>.\n\n\
-\"\"\"abydos.phonetic._beider_morse_data.\n\nBehind-the-scenes constants, \
+"""abydos.phonetic._beider_morse_data.\n\nBehind-the-scenes constants, \
 rules, etc. for the Beider-Morse Phonentic\nMatching (BMPM) algorithm\n\nDO \
 NOT EDIT - This document is automatically generated from the reference\n\
-implementation in PHP.\n\"\"\"\n# pylint: disable=line-too-long\n\nfrom \
+implementation in PHP.\n"""\n# pylint: disable=line-too-long\n\nfrom \
 __future__ import (\n    absolute_import,\n    division,\n    print_function,\
-    unicode_literals,\n)\n"""
+    unicode_literals,\n)\n'
     )
 
     outfile.write('L_NONE = 0\n')
@@ -379,10 +379,10 @@ __future__ import (\n    absolute_import,\n    division,\n    print_function,\
                     ]
                     print(s + '/' + infilename)  # noqa: T001
                     infile = codecs.open(infilepath, 'r', infileenc)
-                    if infilename.startswith('lang'):
-                        tuplename = infilename[:-4]
-                    else:
-                        tuplename = pfx + '_' + infilename[len(pfx) : -4]
+                    # if infilename.startswith('lang'):
+                    #     tuplename = infilename[:-4]
+                    # else:
+                    #     tuplename = pfx + '_' + infilename[len(pfx) : -4]
                     # indent = len(tuplename) + 21
 
                     outfile.write('# ' + s + '/' + infilename + '\n')
@@ -438,5 +438,5 @@ __future__ import (\n    absolute_import,\n    division,\n    print_function,\
             nl = True
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     _run_script()
