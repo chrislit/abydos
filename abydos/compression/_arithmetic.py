@@ -323,8 +323,7 @@ def ac_encode(text, probs):
 
     """
     coder = Arithmetic()
-    if probs is not None:
-        coder.set_probs(probs)
+    coder.set_probs(probs)
     return coder.encode(text)
 
 
@@ -356,8 +355,7 @@ def ac_decode(longval, nbits, probs):
 
     """
     coder = Arithmetic()
-    if probs is not None:
-        coder.set_probs(probs)
+    coder.set_probs(probs)
     return coder.decode(longval, nbits)
 
 
