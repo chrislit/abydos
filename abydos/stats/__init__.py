@@ -20,6 +20,40 @@ r"""abydos.stats.
 
 The stats module defines functions for calculating various statistical data
 about linguistic objects.
+
+A :py:class:`ConfusionTable` class if provided.
+
+Functions are provided for calculating the following means:
+
+    - arithmetic (:py:func:`amean`)
+    - geometric (:py:func:`gmean`)
+    - harmonic (:py:func:`hmean`)
+    - quadratic (:py:func:`qmean`)
+    - contraharmonic (:py:func:`cmean`)
+    - logarithmic (:py:func:`lmean`)
+    - identric (exponential) (:py:func:`imean`)
+    - Seiffert's (:py:func:`seiffert_mean`)
+    - Lehmer (:py:func:`lehmer_mean`)
+    - Heronian (:py:func:`heronian_mean`)
+    - Hölder (power/generalized) (:py:func:`hoelder_mean`)
+    - arithmetic-geometric (:py:func:`agmean`)
+    - geometric-harmonic (:py:func:`ghmean`)
+    - arithmetic-geometric-harmonic (:py:func:`aghmean`)
+
+And for calculating:
+
+    - midrange (:py:func:`midrange`)
+    - median (:py:func:`median`)
+    - mode (:py:func:`mode`)
+    - variance (:py:func:`var`)
+    - standard deviation (:py:func:`std`)
+
+And for the pairwise statistical algorithms:
+
+    - mean pairwise similarity (:py:func:`mean_pairwise_similarity`)
+    - pairwise similarity statistics
+      (:py:func:`pairwise_similarity_statistics`)
+
 """
 
 from __future__ import (
