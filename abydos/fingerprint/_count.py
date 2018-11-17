@@ -30,12 +30,12 @@ from __future__ import (
 
 from collections import Counter
 
-from ._fingerprint import Fingerprint, MOST_COMMON_LETTERS_CG
+from ._fingerprint import MOST_COMMON_LETTERS_CG, _Fingerprint
 
 __all__ = ['Count', 'count_fingerprint']
 
 
-class Count(Fingerprint):
+class Count(_Fingerprint):
     """Count Fingerprint.
 
     Based on the count fingerprint from :cite:`Cislak:2017`.

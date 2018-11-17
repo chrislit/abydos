@@ -32,12 +32,12 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['SoundexBR', 'soundex_br']
 
 
-class SoundexBR(Phonetic):
+class SoundexBR(_Phonetic):
     """SoundexBR.
 
     This is based on :cite:`Marcelino:2015`.

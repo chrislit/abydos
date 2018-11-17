@@ -33,12 +33,12 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['FONEM', 'fonem']
 
 
-class FONEM(Phonetic):
+class FONEM(_Phonetic):
     """FONEM.
 
     FONEM is a phonetic algorithm designed for French (particularly surnames in

@@ -30,12 +30,12 @@ from __future__ import (
 
 from six import text_type
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['Davidson', 'davidson']
 
 
-class Davidson(Phonetic):
+class Davidson(_Phonetic):
     """Davidson Consonant Code.
 
     This is based on the name compression system described in

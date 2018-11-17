@@ -28,12 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['Caverphone', 'caverphone']
 
 
-class Caverphone(Phonetic):
+class Caverphone(_Phonetic):
     """Caverphone.
 
     A description of version 1 of the algorithm can be found in

@@ -33,12 +33,12 @@ from unicodedata import normalize as unicode_normalize
 from six import text_type
 from six.moves import range
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['RogerRoot', 'roger_root']
 
 
-class RogerRoot(Phonetic):
+class RogerRoot(_Phonetic):
     """Roger Root code.
 
     This is Roger Root name coding, described in :cite:`Moore:1977`.

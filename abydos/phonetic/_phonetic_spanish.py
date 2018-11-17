@@ -32,12 +32,12 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['PhoneticSpanish', 'phonetic_spanish']
 
 
-class PhoneticSpanish(Phonetic):
+class PhoneticSpanish(_Phonetic):
     """PhoneticSpanish.
 
     This follows the coding described in :cite:`Amon:2012` and

@@ -33,12 +33,12 @@ from unicodedata import normalize as unicode_normalize
 from six import text_type
 from six.moves import range
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['AlphaSIS', 'alpha_sis']
 
 
-class AlphaSIS(Phonetic):
+class AlphaSIS(_Phonetic):
     """Alpha-SIS.
 
     The Alpha Search Inquiry System code is defined in :cite:`IBM:1973`.

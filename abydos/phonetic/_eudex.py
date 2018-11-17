@@ -30,12 +30,12 @@ from __future__ import (
 
 from six.moves import range
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['Eudex', 'eudex']
 
 
-class Eudex(Phonetic):
+class Eudex(_Phonetic):
     """Eudex hash.
 
     This implementation of eudex phonetic hashing is based on the specification

@@ -31,7 +31,7 @@ from __future__ import (
 from itertools import groupby
 
 
-class Phonetic(object):
+class _Phonetic(object):
     """Abstract Phonetic class."""
 
     _uc_set = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
@@ -57,7 +57,7 @@ class Phonetic(object):
 
         Examples
         --------
-        >>> pe = Phonetic()
+        >>> pe = _Phonetic()
         >>> pe._delete_consecutive_repeats('REDDEE')
         'REDE'
         >>> pe._delete_consecutive_repeats('AEIOU')

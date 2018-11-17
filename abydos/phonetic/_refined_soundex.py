@@ -32,12 +32,12 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['RefinedSoundex', 'refined_soundex']
 
 
-class RefinedSoundex(Phonetic):
+class RefinedSoundex(_Phonetic):
     """Refined Soundex.
 
     This is Soundex, but with more character classes. It was defined at

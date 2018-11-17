@@ -32,12 +32,12 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._fingerprint import Fingerprint
+from ._fingerprint import _Fingerprint
 
 __all__ = ['OmissionKey', 'omission_key']
 
 
-class OmissionKey(Fingerprint):
+class OmissionKey(_Fingerprint):
     """Omission Key.
 
     The omission key of a word is defined in :cite:`Pollock:1984`.

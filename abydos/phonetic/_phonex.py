@@ -33,12 +33,12 @@ from unicodedata import normalize as unicode_normalize
 from six import text_type
 from six.moves import range
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['Phonex', 'phonex']
 
 
-class Phonex(Phonetic):
+class Phonex(_Phonetic):
     """Phonex code.
 
     Phonex is an algorithm derived from Soundex, defined in :cite:`Lait:1996`.

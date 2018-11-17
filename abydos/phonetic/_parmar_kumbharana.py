@@ -30,12 +30,12 @@ from __future__ import (
 
 from six.moves import range
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['ParmarKumbharana', 'parmar_kumbharana']
 
 
-class ParmarKumbharana(Phonetic):
+class ParmarKumbharana(_Phonetic):
     """Parmar-Kumbharana code.
 
     This is based on the phonetic algorithm proposed in :cite:`Parmar:2014`.

@@ -28,12 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._fingerprint import Fingerprint
+from ._fingerprint import _Fingerprint
 
 __all__ = ['SynonameToolcode', 'synoname_toolcode']
 
 
-class SynonameToolcode(Fingerprint):
+class SynonameToolcode(_Fingerprint):
     """Synoname Toolcode.
 
     Cf. :cite:`Getty:1991,Gross:1991`.

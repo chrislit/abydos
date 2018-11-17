@@ -28,12 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['MRA', 'mra']
 
 
-class MRA(Phonetic):
+class MRA(_Phonetic):
     """Western Airlines Surname Match Rating Algorithm.
 
     A description of the Western Airlines Surname Match Rating Algorithm can

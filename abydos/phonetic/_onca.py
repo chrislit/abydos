@@ -29,13 +29,13 @@ from __future__ import (
 )
 
 from ._nysiis import NYSIIS
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 from ._soundex import Soundex
 
 __all__ = ['ONCA', 'onca']
 
 
-class ONCA(Phonetic):
+class ONCA(_Phonetic):
     """Oxford Name Compression Algorithm (ONCA).
 
     This is the Oxford Name Compression Algorithm, based on :cite:`Gill:1997`.

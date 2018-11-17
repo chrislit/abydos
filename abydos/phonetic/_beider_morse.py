@@ -62,7 +62,7 @@ from ._beider_morse_data import (
     L_SPANISH,
     L_TURKISH,
 )
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['BeiderMorse', 'bmpm']
 
@@ -136,7 +136,7 @@ _RCONTEXT_POS = 2
 _PHONETIC_POS = 3
 
 
-class BeiderMorse(Phonetic):
+class BeiderMorse(_Phonetic):
     """Beider-Morse Phonetic Matching.
 
     The Beider-Morse Phonetic Matching algorithm is described in

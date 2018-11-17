@@ -32,12 +32,12 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['SoundD', 'sound_d']
 
 
-class SoundD(Phonetic):
+class SoundD(_Phonetic):
     """SoundD code.
 
     SoundD is defined in :cite:`Varol:2012`.

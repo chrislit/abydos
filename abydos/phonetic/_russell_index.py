@@ -32,7 +32,7 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = [
     'RussellIndex',
@@ -42,7 +42,7 @@ __all__ = [
 ]
 
 
-class RussellIndex(Phonetic):
+class RussellIndex(_Phonetic):
     """Russell Index.
 
     This follows Robert C. Russell's Index algorithm, as described in

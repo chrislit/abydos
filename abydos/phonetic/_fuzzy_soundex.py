@@ -32,12 +32,12 @@ from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 
-from ._phonetic import Phonetic
+from ._phonetic import _Phonetic
 
 __all__ = ['FuzzySoundex', 'fuzzy_soundex']
 
 
-class FuzzySoundex(Phonetic):
+class FuzzySoundex(_Phonetic):
     """Fuzzy Soundex.
 
     Fuzzy Soundex is an algorithm derived from Soundex, defined in
