@@ -74,6 +74,14 @@ class ChebyshevTestCases(unittest.TestCase):
         # Test wrapper
         self.assertAlmostEqual(chebyshev('nelson', 'neilsen', 2), 1)
 
+    def test_chebyshev_dist(self):
+        """Test abydos.distance.Chebyshev.dist."""
+        self.assertRaises(NotImplementedError, self.cmp.dist)
+
+    def test_chebyshev_sim(self):
+        """Test abydos.distance.Chebyshev.sim."""
+        self.assertRaises(NotImplementedError, self.cmp.sim)
+
 
 if __name__ == '__main__':
     unittest.main()
