@@ -31,7 +31,7 @@ from __future__ import (
 from ._distance import _Distance
 from ._levenshtein import Levenshtein
 
-__all__ = ['Indel', 'dist_indel', 'sim_indel']
+__all__ = ['Indel', 'dist_indel', 'indel', 'sim_indel']
 
 
 class Indel(_Distance):

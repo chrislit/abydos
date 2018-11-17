@@ -139,7 +139,7 @@ from ._eudex import Eudex, dist_eudex, eudex_hamming, sim_eudex
 from ._gotoh import Gotoh, gotoh
 from ._hamming import Hamming, dist_hamming, hamming, sim_hamming
 from ._ident import Ident, dist_ident, sim_ident
-from ._indel import Indel, dist_indel, sim_indel
+from ._indel import Indel, dist_indel, indel, sim_indel
 from ._jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
 from ._jaro_winkler import JaroWinkler, dist_jaro_winkler, sim_jaro_winkler
 from ._lcsseq import LCSseq, dist_lcsseq, lcsseq, sim_lcsseq
@@ -191,6 +191,7 @@ __all__ = [
     'dist_damerau',
     'sim_damerau',
     'Indel',
+    'indel',
     'dist_indel',
     'sim_indel',
     'Hamming',
