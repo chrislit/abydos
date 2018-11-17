@@ -208,7 +208,7 @@ class CorpusTestCases(unittest.TestCase):
             ],
         )
 
-    def test_corpus_docs_sents_words(self):
+    def test_corpus_docs_raw(self):
         """Test abydos.corpus.Corpus.paras, .docs, .docs_of_words, .raw."""
         doc_str = 'a b c d\n\ne f g\nh i j\nk'
         doc_corp = Corpus(doc_str)
@@ -233,7 +233,7 @@ class CorpusTestCases(unittest.TestCase):
         )
         self.assertEqual(doc_corp.raw(), doc_str)
 
-    def test_corpus_docs_sents_words(self):
+    def test_corpus_sents_words(self):
         """Test abydos.corpus.Corpus.sents, .words."""
         doc_str = 'a b c d\n\ne f g\nh i j\nk'
         doc_corp = Corpus(doc_str)
