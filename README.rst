@@ -2,7 +2,7 @@ Abydos
 ======
 
 +------------------+------------------------------------------------------+
-| CI & Test Status | |travis| |circle| |appveyor| |semaphore| |coveralls| |
+| CI & Test Status | |travis| |circle| |azure| |semaphore| |coveralls|    |
 +------------------+------------------------------------------------------+
 | Code Quality     | |codeclimate| |scrutinizer| |codacy| |codefactor|    |
 +------------------+------------------------------------------------------+
@@ -27,9 +27,9 @@ Abydos
     :target: https://circleci.com/gh/chrislit/abydos/tree/master
     :alt: Circle-CI Build Status
 
-.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/cwukqqsmogivcker/branch/master?svg=true
-    :target: https://ci.appveyor.com/project/chrislit/abydos
-    :alt: AppVeyor Build Status
+.. |azure| image:: https://dev.azure.com/chrislit/abydos/_apis/build/status/chrislit.abydos
+    :target: https://dev.azure.com/chrislit/abydos/_build/latest?definitionId=1
+    :alt: Azure Pipelines Build Status
 
 .. |semaphore| image:: https://semaphoreci.com/api/v1/chrislit/abydos/branches/master/shields_badge.svg
     :target: https://semaphoreci.com/chrislit/abydos
