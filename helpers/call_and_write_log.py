@@ -66,5 +66,5 @@ def _run_script():
         sys.exit(const_ret if const_ret is not None else retval)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     _run_script()
