@@ -18,27 +18,84 @@
 
 """abydos.phonetic._mra.
 
-The phonetic._mra module implements the MRA personal numeric identifier (PNI).
+MRA personal numeric identifier (PNI).
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
+
+from ._phonetic import _Phonetic
+
+__all__ = ['MRA', 'mra']
 
 
-from ._util import _delete_consecutive_repeats
+class MRA(_Phonetic):
+    """Western Airlines Surname Match Rating Algorithm.
 
-__all__ = ['mra']
+    A description of the Western Airlines Surname Match Rating Algorithm can
+    be found on page 18 of :cite:`Moore:1977`.
+    """
+
+    def encode(self, word):
+        """Return the MRA personal numeric identifier (PNI) for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The MRA PNI
+
+        Examples
+        --------
+        >>> pe = MRA()
+        >>> pe.encode('Christopher')
+        'CHRPHR'
+        >>> pe.encode('Niall')
+        'NL'
+        >>> pe.encode('Smith')
+        'SMTH'
+        >>> pe.encode('Schmidt')
+        'SCHMDT'
+
+        """
+        if not word:
+            return word
+        word = word.upper()
+        word = word.replace('ß', 'SS')
+        word = word[0] + ''.join(
+            c for c in word[1:] if c not in self._uc_v_set
+        )
+        word = self._delete_consecutive_repeats(word)
+        if len(word) > 6:
+            word = word[:3] + word[-3:]
+        return word
 
 
 def mra(word):
     """Return the MRA personal numeric identifier (PNI) for a word.
 
-    A description of the Western Airlines Surname Match Rating Algorithm can
-    be found on page 18 of :cite:`Moore:1977`.
+    This is a wrapper for :py:meth:`MRA.encode`.
 
-    :param str word: the word to transform
-    :returns: the MRA PNI
-    :rtype: str
+    Parameters
+    ----------
+    word : str
+        The word to transform
 
+    Returns
+    -------
+    str
+        The MRA PNI
+
+    Examples
+    --------
     >>> mra('Christopher')
     'CHRPHR'
     >>> mra('Niall')
@@ -47,18 +104,9 @@ def mra(word):
     'SMTH'
     >>> mra('Schmidt')
     'SCHMDT'
+
     """
-    if not word:
-        return word
-    word = word.upper()
-    word = word.replace('ß', 'SS')
-    word = word[0] + ''.join(
-        c for c in word[1:] if c not in {'A', 'E', 'I', 'O', 'U'}
-    )
-    word = _delete_consecutive_repeats(word)
-    if len(word) > 6:
-        word = word[:3] + word[-3:]
-    return word
+    return MRA().encode(word)
 
 
 if __name__ == '__main__':

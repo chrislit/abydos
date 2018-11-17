@@ -18,58 +18,82 @@
 
 """abydos.tests.phonetic.test_phonetic_eudex.
 
-This module contains unit tests for abydos.phonetic._eudex
+This module contains unit tests for abydos.phonetic.Eudex
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import unittest
 
-from abydos.phonetic import eudex
+from abydos.phonetic import Eudex, eudex
 
 
 class EudexTestCases(unittest.TestCase):
     """Test eudex functions.
 
-    test cases for abydos.phonetic._eudex.eudex
+    test cases for abydos.phonetic.Eudex
     """
 
+    pa = Eudex()
+
     def test_eudex(self):
-        """Test abydos.phonetic._eudex.eudex."""
+        """Test abydos.phonetic.Eudex."""
         # base cases
-        self.assertEqual(eudex(''), 18374686479671623680)
-        self.assertEqual(eudex(' '), 18374686479671623680)
+        self.assertEqual(self.pa.encode(''), 18374686479671623680)
+        self.assertEqual(self.pa.encode(' '), 18374686479671623680)
 
         # exact & mismatch cases from
         # https://github.com/ticki/eudex/blob/master/src/tests.rs
-        self.assertEqual(eudex('JAva'), eudex('jAva'))
-        self.assertEqual(eudex('co!mputer'), eudex('computer'))
-        self.assertEqual(eudex('comp-uter'), eudex('computer'))
-        self.assertEqual(eudex('comp@u#te?r'), eudex('computer'))
-        self.assertEqual(eudex('lal'), eudex('lel'))
-        self.assertEqual(eudex('rindom'), eudex('ryndom'))
-        self.assertEqual(eudex('riiiindom'), eudex('ryyyyyndom'))
-        self.assertEqual(eudex('riyiyiiindom'), eudex('ryyyyyndom'))
-        self.assertEqual(eudex('triggered'), eudex('TRIGGERED'))
-        self.assertEqual(eudex('repert'), eudex('ropert'))
+        self.assertEqual(self.pa.encode('JAva'), self.pa.encode('jAva'))
+        self.assertEqual(
+            self.pa.encode('co!mputer'), self.pa.encode('computer')
+        )
+        self.assertEqual(
+            self.pa.encode('comp-uter'), self.pa.encode('computer')
+        )
+        self.assertEqual(
+            self.pa.encode('comp@u#te?r'), self.pa.encode('computer')
+        )
+        self.assertEqual(self.pa.encode('lal'), self.pa.encode('lel'))
+        self.assertEqual(self.pa.encode('rindom'), self.pa.encode('ryndom'))
+        self.assertEqual(
+            self.pa.encode('riiiindom'), self.pa.encode('ryyyyyndom')
+        )
+        self.assertEqual(
+            self.pa.encode('riyiyiiindom'), self.pa.encode('ryyyyyndom')
+        )
+        self.assertEqual(
+            self.pa.encode('triggered'), self.pa.encode('TRIGGERED')
+        )
+        self.assertEqual(self.pa.encode('repert'), self.pa.encode('ropert'))
 
-        self.assertNotEqual(eudex('reddit'), eudex('eddit'))
-        self.assertNotEqual(eudex('lol'), eudex('lulz'))
-        self.assertNotEqual(eudex('ijava'), eudex('java'))
-        self.assertNotEqual(eudex('jiva'), eudex('java'))
-        self.assertNotEqual(eudex('jesus'), eudex('iesus'))
-        self.assertNotEqual(eudex('aesus'), eudex('iesus'))
-        self.assertNotEqual(eudex('iesus'), eudex('yesus'))
-        self.assertNotEqual(eudex('rupirt'), eudex('ropert'))
-        self.assertNotEqual(eudex('ripert'), eudex('ropyrt'))
-        self.assertNotEqual(eudex('rrr'), eudex('rraaaa'))
-        self.assertNotEqual(eudex('randomal'), eudex('randomai'))
+        self.assertNotEqual(self.pa.encode('reddit'), self.pa.encode('eddit'))
+        self.assertNotEqual(self.pa.encode('lol'), self.pa.encode('lulz'))
+        self.assertNotEqual(self.pa.encode('ijava'), self.pa.encode('java'))
+        self.assertNotEqual(self.pa.encode('jiva'), self.pa.encode('java'))
+        self.assertNotEqual(self.pa.encode('jesus'), self.pa.encode('iesus'))
+        self.assertNotEqual(self.pa.encode('aesus'), self.pa.encode('iesus'))
+        self.assertNotEqual(self.pa.encode('iesus'), self.pa.encode('yesus'))
+        self.assertNotEqual(self.pa.encode('rupirt'), self.pa.encode('ropert'))
+        self.assertNotEqual(self.pa.encode('ripert'), self.pa.encode('ropyrt'))
+        self.assertNotEqual(self.pa.encode('rrr'), self.pa.encode('rraaaa'))
+        self.assertNotEqual(
+            self.pa.encode('randomal'), self.pa.encode('randomai')
+        )
 
         # manually checked against algorithm
-        self.assertEqual(eudex('guillaume'), 288230383131034112)
-        self.assertEqual(eudex('niall'), 648518346341351840)
-        self.assertEqual(eudex('hello'), 144115188075896832)
-        self.assertEqual(eudex('christopher'), 433648490138894409)
+        self.assertEqual(self.pa.encode('guillaume'), 288230383131034112)
+        self.assertEqual(self.pa.encode('niall'), 648518346341351840)
+        self.assertEqual(self.pa.encode('hello'), 144115188075896832)
+        self.assertEqual(self.pa.encode('christopher'), 433648490138894409)
+        self.assertEqual(self.pa.encode('colin'), 432345564238053650)
+
+        # Test wrapper
         self.assertEqual(eudex('colin'), 432345564238053650)
 
 

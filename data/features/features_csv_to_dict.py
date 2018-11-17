@@ -38,6 +38,13 @@ The CSV document is of the format
 Lines beginning with # are interpreted as comments
 """
 
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
+
 import codecs
 import getopt
 import sys
@@ -45,7 +52,14 @@ import unicodedata
 
 
 def main(argv):
-    """Read input file and write to output."""
+    """Read input file and write to output.
+
+    Parameters
+    ----------
+    argv : list
+        Arguments to the script
+
+    """
     first_col = 3
     last_col = -1
 
@@ -57,7 +71,19 @@ def main(argv):
         sys.exit(2)
 
     def binarize(num):
-        """Replace 0, -1, 1, 2 with 00, 10, 01, 11."""
+        """Replace 0, -1, 1, 2 with 00, 10, 01, 11.
+
+        Parameters
+        ----------
+        num : str
+            The number to binarize
+
+        Returns
+        -------
+        str
+            A binarized number
+
+        """
         if num == '0':  # 0
             return '00'
         elif num == '-1':  # -
@@ -68,7 +94,14 @@ def main(argv):
             return '11'
 
     def init_termdicts():
-        """Initialize the terms dict."""
+        """Initialize the terms dict.
+
+        Returns
+        -------
+        (dict, dict)
+            Term & feature mask dictionaries
+
+        """
         ifile = codecs.open('features_terms.csv', 'r', 'utf-8')
 
         feature_mask = {}
@@ -98,6 +131,18 @@ def main(argv):
 
         Check each term of the phone name to confirm that it matches
         the expected features implied by that feature.
+
+        Parameters
+        ----------
+        sym : str
+            Symbol to check
+        features : int
+            Phone features
+        name : str
+            Phone name
+        termdict : dict
+            Dictionary of terms
+
         """
         if '#' in name:
             name = name[: name.find('#')].strip()
@@ -127,6 +172,16 @@ def main(argv):
 
         Check for necessary feature assignments (entailments)
         For example, [+round] necessitates [+labial].
+
+        Parameters
+        ----------
+        sym : str
+            Symbol to check
+        features : int
+            Phone features
+        feature_mask : dict
+            The feature mask
+
         """
         entailments = {
             '+labial': ('±round', '±protruded', '±compressed', '±labiodental'),

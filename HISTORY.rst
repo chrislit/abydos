@@ -2,6 +2,22 @@ Release History
 ---------------
 
 
+0.3.6 (2018-11-17) *classy carl*
+++++++++++++++++++++++++++++++++
+
+doi:10.5281/zenodo.1490288
+
+Changes:
+
+- Most functions were encapsulated into classes.
+- Each class is broken out into its own file, with test files paralleling
+  library files.
+- Documentation was converted from Sphinx markup to Numpy style.
+- A tutorial was written for each subpackage.
+- Documentation was cleaned up, with math markup corrections and many
+  additional links.
+
+
 0.3.5 (2018-10-31) *cantankerous carl*
 ++++++++++++++++++++++++++++++++++++++
 

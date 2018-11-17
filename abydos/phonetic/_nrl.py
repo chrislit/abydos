@@ -18,65 +18,30 @@
 
 """abydos.phonetic._nrl.
 
-The phonetic._nrl module implements NRL English-to-phoneme algorithm.
+NRL English-to-phoneme algorithm
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from re import match as re_match
 
-__all__ = ['nrl']
+from ._phonetic import _Phonetic
+
+__all__ = ['NRL', 'nrl']
 
 
-def nrl(word):
-    """Return the Naval Research Laboratory phonetic encoding of a word.
+class NRL(_Phonetic):
+    """Naval Research Laboratory English-to-phoneme encoder.
 
     This is defined by :cite:`Elovitz:1976`.
-
-    :param str word: the word to transform
-    :returns: the NRL phonetic encoding
-    :rtype: str
-
-    >>> nrl('the')
-    'DHAX'
-    >>> nrl('round')
-    'rAWnd'
-    >>> nrl('quick')
-    'kwIHk'
-    >>> nrl('eaten')
-    'IYtEHn'
-    >>> nrl('Smith')
-    'smIHTH'
-    >>> nrl('Larsen')
-    'lAArsEHn'
     """
 
-    def _to_regex(pattern, left_match=True):
-        new_pattern = ''
-        replacements = {
-            '#': '[AEIOU]+',
-            ':': '[BCDFGHJKLMNPQRSTVWXYZ]*',
-            '^': '[BCDFGHJKLMNPQRSTVWXYZ]',
-            '.': '[BDVGJLMNTWZ]',
-            '%': '(ER|E|ES|ED|ING|ELY)',
-            '+': '[EIY]',
-            ' ': '^',
-        }
-        for char in pattern:
-            new_pattern += replacements[char] if char in replacements else char
-
-        if left_match:
-            new_pattern += '$'
-            if '^' not in pattern:
-                new_pattern = '^.*' + new_pattern
-        else:
-            new_pattern = '^' + new_pattern.replace('^', '$')
-            if '$' not in new_pattern:
-                new_pattern += '.*$'
-
-        return new_pattern
-
-    rules = {
+    _rules = {
         ' ': (
             ('', ' ', '', ' '),
             ('', '-', '', ''),
@@ -467,32 +432,125 @@ def nrl(word):
         'Z': (('', 'Z', '', 'z'),),
     }
 
-    word = word.upper()
+    def encode(self, word):
+        """Return the Naval Research Laboratory phonetic encoding of a word.
 
-    pron = ''
-    pos = 0
-    while pos < len(word):
-        left_orig = word[:pos]
-        right_orig = word[pos:]
-        first = word[pos] if word[pos] in rules else ' '
-        for rule in rules[first]:
-            left, match, right, out = rule
-            if right_orig.startswith(match):
-                if left:
-                    l_pattern = _to_regex(left, left_match=True)
-                if right:
-                    r_pattern = _to_regex(right, left_match=False)
-                if (not left or re_match(l_pattern, left_orig)) and (
-                    not right or re_match(r_pattern, right_orig[len(match) :])
-                ):
-                    pron += out
-                    pos += len(match)
-                    break
-        else:
-            pron += word[pos]
-            pos += 1
+        Parameters
+        ----------
+        word : str
+            The word to transform
 
-    return pron
+        Returns
+        -------
+        str
+            The NRL phonetic encoding
+
+        Examples
+        --------
+        >>> pe = NRL()
+        >>> pe.encode('the')
+        'DHAX'
+        >>> pe.encode('round')
+        'rAWnd'
+        >>> pe.encode('quick')
+        'kwIHk'
+        >>> pe.encode('eaten')
+        'IYtEHn'
+        >>> pe.encode('Smith')
+        'smIHTH'
+        >>> pe.encode('Larsen')
+        'lAArsEHn'
+
+        """
+
+        def _to_regex(pattern, left_match=True):
+            new_pattern = ''
+            replacements = {
+                '#': '[AEIOU]+',
+                ':': '[BCDFGHJKLMNPQRSTVWXYZ]*',
+                '^': '[BCDFGHJKLMNPQRSTVWXYZ]',
+                '.': '[BDVGJLMNTWZ]',
+                '%': '(ER|E|ES|ED|ING|ELY)',
+                '+': '[EIY]',
+                ' ': '^',
+            }
+            for char in pattern:
+                new_pattern += (
+                    replacements[char] if char in replacements else char
+                )
+
+            if left_match:
+                new_pattern += '$'
+                if '^' not in pattern:
+                    new_pattern = '^.*' + new_pattern
+            else:
+                new_pattern = '^' + new_pattern.replace('^', '$')
+                if '$' not in new_pattern:
+                    new_pattern += '.*$'
+
+            return new_pattern
+
+        word = word.upper()
+
+        pron = ''
+        pos = 0
+        while pos < len(word):
+            left_orig = word[:pos]
+            right_orig = word[pos:]
+            first = word[pos] if word[pos] in self._rules else ' '
+            for rule in self._rules[first]:
+                left, match, right, out = rule
+                if right_orig.startswith(match):
+                    if left:
+                        l_pattern = _to_regex(left, left_match=True)
+                    if right:
+                        r_pattern = _to_regex(right, left_match=False)
+                    if (not left or re_match(l_pattern, left_orig)) and (
+                        not right
+                        or re_match(r_pattern, right_orig[len(match) :])
+                    ):
+                        pron += out
+                        pos += len(match)
+                        break
+            else:
+                pron += word[pos]
+                pos += 1
+
+        return pron
+
+
+def nrl(word):
+    """Return the Naval Research Laboratory phonetic encoding of a word.
+
+    This is a wrapper for :py:meth:`NRL.encode`.
+
+    Parameters
+    ----------
+    word : str
+        The word to transform
+
+    Returns
+    -------
+    str
+        The NRL phonetic encoding
+
+    Examples
+    --------
+    >>> nrl('the')
+    'DHAX'
+    >>> nrl('round')
+    'rAWnd'
+    >>> nrl('quick')
+    'kwIHk'
+    >>> nrl('eaten')
+    'IYtEHn'
+    >>> nrl('Smith')
+    'smIHTH'
+    >>> nrl('Larsen')
+    'lAArsEHn'
+
+    """
+    return NRL().encode(word)
 
 
 if __name__ == '__main__':

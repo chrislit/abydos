@@ -18,26 +18,33 @@
 
 """abydos.tests.phonetic.test_phonetic_parmar_kumbharana.
 
-This module contains unit tests for abydos.phonetic._parmar_kumbharana
+This module contains unit tests for abydos.phonetic.ParmarKumbharana
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import unittest
 
-from abydos.phonetic import parmar_kumbharana
+from abydos.phonetic import ParmarKumbharana, parmar_kumbharana
 
 
 class ParmarKumbharanaTestCases(unittest.TestCase):
     """Test Parmar-Kumbharana functions.
 
-    test cases for abydos.phonetic._parmar_kumbharana.parmar_kumbharana
+    test cases for abydos.phonetic.ParmarKumbharana
     """
 
+    pa = ParmarKumbharana()
+
     def test_parmar_kumbharana(self):
-        """Test abydos.phonetic._parmar_kumbharana.parmar_kumbharana."""
+        """Test abydos.phonetic.ParmarKumbharana."""
         # Base cases
-        self.assertEqual(parmar_kumbharana(''), '')
+        self.assertEqual(self.pa.encode(''), '')
 
         # Test cases from Parmar & Kumbharana (2014)
         test_cases = (
@@ -95,7 +102,10 @@ class ParmarKumbharanaTestCases(unittest.TestCase):
             ('Marry', 'MR'),
         )
         for word, encoding in test_cases:
-            self.assertEqual(parmar_kumbharana(word), encoding)
+            self.assertEqual(self.pa.encode(word), encoding)
+
+        # Test wrapper
+        self.assertEqual(parmar_kumbharana('Centre'), 'SNTR')
 
 
 if __name__ == '__main__':

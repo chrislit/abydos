@@ -18,10 +18,15 @@
 
 """abydos.tests.corpus.test_corpus_corpus.
 
-This module contains unit tests for abydos.corpus._corpus
+This module contains unit tests for abydos.corpus.Corpus
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import unittest
 
@@ -71,7 +76,7 @@ class CorpusTestCases(unittest.TestCase):
     sotu2015Corpus = Corpus(sotu2015Sample, filter_chars='.?-;,:')
 
     def test_corpus(self):
-        """Test abydos.corpus._corpus.Corpus."""
+        """Test abydos.corpus.Corpus."""
         # base cases
         self.assertEqual(Corpus().corpus, [])
         self.assertEqual(Corpus('').corpus, [])
@@ -203,11 +208,18 @@ class CorpusTestCases(unittest.TestCase):
             ],
         )
 
-    def test_corpus_docs_sents_words(self):
-        """Test abydos.corpus._corpus.Corpus.docs, .sents, .words, .docs_of_words, .raw."""  # noqa: E501
+    def test_corpus_docs_raw(self):
+        """Test abydos.corpus.Corpus.paras, .docs, .docs_of_words, .raw."""
         doc_str = 'a b c d\n\ne f g\nh i j\nk'
         doc_corp = Corpus(doc_str)
 
+        self.assertEqual(
+            doc_corp.paras(),
+            [
+                [['a', 'b', 'c', 'd']],
+                [['e', 'f', 'g'], ['h', 'i', 'j'], ['k']],
+            ],
+        )
         self.assertEqual(
             doc_corp.docs(),
             [
@@ -216,12 +228,16 @@ class CorpusTestCases(unittest.TestCase):
             ],
         )
         self.assertEqual(
-            doc_corp.paras(),
-            [
-                [['a', 'b', 'c', 'd']],
-                [['e', 'f', 'g'], ['h', 'i', 'j'], ['k']],
-            ],
+            doc_corp.docs_of_words(),
+            [['a', 'b', 'c', 'd'], ['e', 'f', 'g', 'h', 'i', 'j', 'k']],
         )
+        self.assertEqual(doc_corp.raw(), doc_str)
+
+    def test_corpus_sents_words(self):
+        """Test abydos.corpus.Corpus.sents, .words."""
+        doc_str = 'a b c d\n\ne f g\nh i j\nk'
+        doc_corp = Corpus(doc_str)
+
         self.assertEqual(
             doc_corp.sents(),
             [['a', 'b', 'c', 'd'], ['e', 'f', 'g'], ['h', 'i', 'j'], ['k']],
@@ -231,14 +247,8 @@ class CorpusTestCases(unittest.TestCase):
             ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'],
         )
 
-        self.assertEqual(
-            doc_corp.docs_of_words(),
-            [['a', 'b', 'c', 'd'], ['e', 'f', 'g', 'h', 'i', 'j', 'k']],
-        )
-        self.assertEqual(doc_corp.raw(), doc_str)
-
     def test_corpus_idf(self):
-        """Test abydos.corpus._corpus.Corpus.idf."""
+        """Test abydos.corpus.Corpus.idf."""
         wiki_idf_sample = 'this is a a sample\n\nthis is another another \
         example example example'
         wiki_idf_corpus = Corpus(wiki_idf_sample)

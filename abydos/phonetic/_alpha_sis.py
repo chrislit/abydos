@@ -18,44 +18,33 @@
 
 """abydos.phonetic._alpha_sis.
 
-The phonetic._alpha_sis module implements IBM's Alpha Search Inquiry System
-coding.
+IBM's Alpha Search Inquiry System coding
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from unicodedata import normalize as unicode_normalize
 
 from six import text_type
 from six.moves import range
 
-__all__ = ['alpha_sis']
+from ._phonetic import _Phonetic
+
+__all__ = ['AlphaSIS', 'alpha_sis']
 
 
-def alpha_sis(word, max_length=14):
-    """Return the IBM Alpha Search Inquiry System code for a word.
+class AlphaSIS(_Phonetic):
+    """Alpha-SIS.
 
     The Alpha Search Inquiry System code is defined in :cite:`IBM:1973`.
     This implementation is based on the description in :cite:`Moore:1977`.
-
-    A collection is necessary since there can be multiple values for a
-    single word. But the collection must be ordered since the first value
-    is the primary coding.
-
-    :param str word: the word to transform
-    :param int max_length: the length of the code returned (defaults to 14)
-    :returns: the Alpha SIS value
-    :rtype: tuple
-
-    >>> alpha_sis('Christopher')
-    ('06401840000000', '07040184000000', '04018400000000')
-    >>> alpha_sis('Niall')
-    ('02500000000000',)
-    >>> alpha_sis('Smith')
-    ('03100000000000',)
-    >>> alpha_sis('Schmidt')
-    ('06310000000000',)
     """
+
     _alpha_sis_initials = {
         'GF': '08',
         'GM': '03',
@@ -165,92 +154,126 @@ def alpha_sis(word, max_length=14):
         'P',
     )
 
-    alpha = ['']
-    pos = 0
-    word = unicode_normalize('NFKD', text_type(word.upper()))
-    word = word.replace('ß', 'SS')
-    word = ''.join(
-        c
-        for c in word
-        if c
-        in {
-            'A',
-            'B',
-            'C',
-            'D',
-            'E',
-            'F',
-            'G',
-            'H',
-            'I',
-            'J',
-            'K',
-            'L',
-            'M',
-            'N',
-            'O',
-            'P',
-            'Q',
-            'R',
-            'S',
-            'T',
-            'U',
-            'V',
-            'W',
-            'X',
-            'Y',
-            'Z',
-        }
-    )
+    def encode(self, word, max_length=14):
+        """Return the IBM Alpha Search Inquiry System code for a word.
 
-    # Clamp max_length to [4, 64]
-    if max_length != -1:
-        max_length = min(max(4, max_length), 64)
-    else:
-        max_length = 64
+        A collection is necessary as the return type since there can be
+        multiple values for a single word. But the collection must be ordered
+        since the first value is the primary coding.
 
-    # Do special processing for initial substrings
-    for k in _alpha_sis_initials_order:
-        if word.startswith(k):
-            alpha[0] += _alpha_sis_initials[k]
-            pos += len(k)
-            break
+        Parameters
+        ----------
+        word : str
+            The word to transform
+        max_length : int
+            The length of the code returned (defaults to 14)
 
-    # Add a '0' if alpha is still empty
-    if not alpha[0]:
-        alpha[0] += '0'
+        Returns
+        -------
+        tuple
+            The Alpha-SIS value
 
-    # Whether or not any special initial codes were encoded, iterate
-    # through the length of the word in the main encoding loop
-    while pos < len(word):
-        orig_pos = pos
-        for k in _alpha_sis_basic_order:
-            if word[pos:].startswith(k):
-                if isinstance(_alpha_sis_basic[k], tuple):
-                    newalpha = []
-                    for i in range(len(_alpha_sis_basic[k])):
-                        newalpha += [_ + _alpha_sis_basic[k][i] for _ in alpha]
-                    alpha = newalpha
-                else:
-                    alpha = [_ + _alpha_sis_basic[k] for _ in alpha]
+        Examples
+        --------
+        >>> pe = AlphaSIS()
+        >>> pe.encode('Christopher')
+        ('06401840000000', '07040184000000', '04018400000000')
+        >>> pe.encode('Niall')
+        ('02500000000000',)
+        >>> pe.encode('Smith')
+        ('03100000000000',)
+        >>> pe.encode('Schmidt')
+        ('06310000000000',)
+
+        """
+        alpha = ['']
+        pos = 0
+        word = unicode_normalize('NFKD', text_type(word.upper()))
+        word = word.replace('ß', 'SS')
+        word = ''.join(c for c in word if c in self._uc_set)
+
+        # Clamp max_length to [4, 64]
+        if max_length != -1:
+            max_length = min(max(4, max_length), 64)
+        else:
+            max_length = 64
+
+        # Do special processing for initial substrings
+        for k in self._alpha_sis_initials_order:
+            if word.startswith(k):
+                alpha[0] += self._alpha_sis_initials[k]
                 pos += len(k)
                 break
-        if pos == orig_pos:
-            alpha = [_ + '_' for _ in alpha]
-            pos += 1
 
-    # Trim doublets and placeholders
-    for i in range(len(alpha)):
-        pos = 1
-        while pos < len(alpha[i]):
-            if alpha[i][pos] == alpha[i][pos - 1]:
-                alpha[i] = alpha[i][:pos] + alpha[i][pos + 1 :]
-            pos += 1
-    alpha = (_.replace('_', '') for _ in alpha)
+        # Add a '0' if alpha is still empty
+        if not alpha[0]:
+            alpha[0] += '0'
 
-    # Trim codes and return tuple
-    alpha = ((_ + ('0' * max_length))[:max_length] for _ in alpha)
-    return tuple(alpha)
+        # Whether or not any special initial codes were encoded, iterate
+        # through the length of the word in the main encoding loop
+        while pos < len(word):
+            orig_pos = pos
+            for k in self._alpha_sis_basic_order:
+                if word[pos:].startswith(k):
+                    if isinstance(self._alpha_sis_basic[k], tuple):
+                        newalpha = []
+                        for i in range(len(self._alpha_sis_basic[k])):
+                            newalpha += [
+                                _ + self._alpha_sis_basic[k][i] for _ in alpha
+                            ]
+                        alpha = newalpha
+                    else:
+                        alpha = [_ + self._alpha_sis_basic[k] for _ in alpha]
+                    pos += len(k)
+                    break
+            if pos == orig_pos:
+                alpha = [_ + '_' for _ in alpha]
+                pos += 1
+
+        # Trim doublets and placeholders
+        for i in range(len(alpha)):
+            pos = 1
+            while pos < len(alpha[i]):
+                if alpha[i][pos] == alpha[i][pos - 1]:
+                    alpha[i] = alpha[i][:pos] + alpha[i][pos + 1 :]
+                pos += 1
+        alpha = (_.replace('_', '') for _ in alpha)
+
+        # Trim codes and return tuple
+        alpha = ((_ + ('0' * max_length))[:max_length] for _ in alpha)
+        return tuple(alpha)
+
+
+def alpha_sis(word, max_length=14):
+    """Return the IBM Alpha Search Inquiry System code for a word.
+
+    This is a wrapper for :py:meth:`AlphaSIS.encode`.
+
+    Parameters
+    ----------
+    word : str
+        The word to transform
+    max_length : int
+        The length of the code returned (defaults to 14)
+
+    Returns
+    -------
+    tuple
+        The Alpha-SIS value
+
+    Examples
+    --------
+    >>> alpha_sis('Christopher')
+    ('06401840000000', '07040184000000', '04018400000000')
+    >>> alpha_sis('Niall')
+    ('02500000000000',)
+    >>> alpha_sis('Smith')
+    ('03100000000000',)
+    >>> alpha_sis('Schmidt')
+    ('06310000000000',)
+
+    """
+    return AlphaSIS().encode(word, max_length)
 
 
 if __name__ == '__main__':

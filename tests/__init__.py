@@ -22,7 +22,12 @@
 This module contains unit tests for Abydos
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import os
 import unittest
@@ -86,9 +91,17 @@ NONQ_TO = 'That brown dog jumped over the fox.'
 def _corpus_file(name, corpora_dir=CORPORA):
     """Return the path to a corpus file.
 
-    :param str name: corpus file
-    :param str corpora_dir: the directory containing the corpora
-    :return: path
+    Parameters
+    ----------
+    name : str
+        Corpus file
+        corpora_dir : str
+        The directory containing the corpora
+
+    Returns
+    -------
+    str: The full path to the corpus file
+
     """
     return os.path.join(corpora_dir, name)
 
@@ -104,9 +117,15 @@ def _one_in(inverse_probability):
         random.random() * inverse_probability < 1)
     Otherwise return False
 
-    :param int inverse_probability: the inverse of the probability
-    :returns: whether to run a test
-    :rtype: bool
+    Parameters
+    ----------
+    inverse_probability : int
+        The inverse of the probability
+
+    Returns
+    -------
+    bool: Whether to run a test
+
     """
     if EXTREME_TEST:
         return True

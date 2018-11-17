@@ -18,40 +18,33 @@
 
 """abydos.stemmer._paice_husk.
 
-The stemmer._paice_husk module defines the Paice-Husk Stemmer
+Paice-Husk Stemmer
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from six.moves import range
 
-__all__ = ['paice_husk']
+from ._stemmer import _Stemmer
+
+__all__ = ['PaiceHusk', 'paice_husk']
 
 
-def paice_husk(word):
-    """Return Paice-Husk stem.
+class PaiceHusk(_Stemmer):
+    """Paice-Husk stemmer.
 
     Implementation of the Paice-Husk Stemmer, also known as the Lancaster
     Stemmer, developed by Chris Paice, with the assistance of Gareth Husk
 
     This is based on the algorithm's description in :cite:`Paice:1990`.
-
-    :param str word: the word to stem
-    :returns: the stemmed word
-    :rtype: str
-
-    >>> paice_husk('assumption')
-    'assum'
-    >>> paice_husk('verifiable')
-    'ver'
-    >>> paice_husk('fancies')
-    'fant'
-    >>> paice_husk('fanciful')
-    'fancy'
-    >>> paice_husk('torment')
-    'tor'
     """
-    rule_table = {
+
+    _rule_table = {
         6: {'ifiabl': (False, 6, None, True), 'plicat': (False, 4, 'y', True)},
         5: {
             'guish': (False, 5, 'ct', True),
@@ -176,18 +169,18 @@ def paice_husk(word):
         },
     }
 
-    def _has_vowel(word):
+    def _has_vowel(self, word):
         for char in word:
             if char in {'a', 'e', 'i', 'o', 'u', 'y'}:
                 return True
         return False
 
-    def _acceptable(word):
+    def _acceptable(self, word):
         if word and word[0] in {'a', 'e', 'i', 'o', 'u'}:
             return len(word) > 1
-        return len(word) > 2 and _has_vowel(word[1:])
+        return len(word) > 2 and self._has_vowel(word[1:])
 
-    def _apply_rule(word, rule, intact):
+    def _apply_rule(self, word, rule, intact, terminate):
         old_word = word
         only_intact, del_len, add_str, set_terminate = rule
         # print(word, word[-n:], rule)
@@ -200,36 +193,99 @@ def paice_husk(word):
         else:
             return word, False, intact, terminate
 
-        if _acceptable(word):
+        if self._acceptable(word):
             return word, True, False, set_terminate
         else:
             return old_word, False, intact, terminate
 
-    terminate = False
-    intact = True
-    while not terminate:
-        for n in range(6, 0, -1):
-            if word[-n:] in rule_table[n]:
-                accept = False
-                if len(rule_table[n][word[-n:]]) < 4:
-                    for rule in rule_table[n][word[-n:]]:
-                        (word, accept, intact, terminate) = _apply_rule(
-                            word, rule, intact
+    def stem(self, word):
+        """Return Paice-Husk stem.
+
+        Parameters
+        ----------
+        word : str
+            The word to stem
+
+        Returns
+        -------
+        str
+            Word stem
+
+        Examples
+        --------
+        >>> stmr = PaiceHusk()
+        >>> stmr.stem('assumption')
+        'assum'
+        >>> stmr.stem('verifiable')
+        'ver'
+        >>> stmr.stem('fancies')
+        'fant'
+        >>> stmr.stem('fanciful')
+        'fancy'
+        >>> stmr.stem('torment')
+        'tor'
+
+        """
+        terminate = False
+        intact = True
+        while not terminate:
+            for n in range(6, 0, -1):
+                if word[-n:] in self._rule_table[n]:
+                    accept = False
+                    if len(self._rule_table[n][word[-n:]]) < 4:
+                        for rule in self._rule_table[n][word[-n:]]:
+                            (
+                                word,
+                                accept,
+                                intact,
+                                terminate,
+                            ) = self._apply_rule(word, rule, intact, terminate)
+                            if accept:
+                                break
+                    else:
+                        rule = self._rule_table[n][word[-n:]]
+                        (word, accept, intact, terminate) = self._apply_rule(
+                            word, rule, intact, terminate
                         )
-                        if accept:
-                            break
-                else:
-                    rule = rule_table[n][word[-n:]]
-                    (word, accept, intact, terminate) = _apply_rule(
-                        word, rule, intact
-                    )
 
-                if accept:
-                    break
-        else:
-            break
+                    if accept:
+                        break
+            else:
+                break
 
-    return word
+        return word
+
+
+def paice_husk(word):
+    """Return Paice-Husk stem.
+
+    This is a wrapper for :py:meth:`PaiceHusk.stem`.
+
+    Parameters
+    ----------
+    word : str
+        The word to stem
+
+    Returns
+    -------
+    str
+        Word stem
+
+    Examples
+    --------
+    >>> paice_husk('assumption')
+    'assum'
+    >>> paice_husk('verifiable')
+    'ver'
+    >>> paice_husk('fancies')
+    'fant'
+    >>> paice_husk('fanciful')
+    'fancy'
+    >>> paice_husk('torment')
+    'tor'
+
+    """
+    return PaiceHusk().stem(word)
 
 
 if __name__ == '__main__':

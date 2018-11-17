@@ -27,12 +27,18 @@ It assumes that the BMPM code is located at ../../bmpm (relative to this
 directory in the abydos repository).
 
 It reads the BMPM reference implementation and generates the file
-../abydos/_bmdata.py.
-The file _bm.py may still need manual changes to be made after this script
-is run.
+../abydos/_beider_morse_data.py.
+
+The file _beider_morse.py may still need manual changes to be made after this
+script is run.
 """
 
-from __future__ import print_function, unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import codecs
 import re
@@ -77,6 +83,7 @@ nl = False
 array_seen = False
 
 tail_text = ''
+sd = ''
 
 
 def c2u(name):
@@ -84,6 +91,15 @@ def c2u(name):
 
     Src:
     https://stackoverflow.com/questions/1175208/elegant-python-function-to-convert-camelcase-to-snake-case
+
+    Parameters
+    ----------
+    name: A function or variable name in camelCase
+
+    Returns
+    -------
+    str: The name in snake_case
+
     """
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
     s1 = re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
@@ -91,8 +107,23 @@ def c2u(name):
 
 
 def pythonize(line, fn='', subdir='gen'):
-    """Convert a line of BMPM code from PHP to Python."""
-    global nl, array_seen
+    """Convert a line of BMPM code from PHP to Python.
+
+    Parameters
+    ----------
+    line : str
+        A line of code
+        fn : str
+        A filename
+        subdir : str
+        The file's subdirectory
+
+    Returns
+    -------
+    The code in Python
+
+    """
+    global array_seen, nl, sd
 
     if '$all' in line:
         return ''
@@ -178,7 +209,7 @@ def pythonize(line, fn='', subdir='gen'):
 
     line = re.sub(
         r'^\$([a-zA-Z]+)',
-        lambda m: '_' + s.upper() + '_' + c2u(m.group(1)).upper(),
+        lambda m: '_' + sd.upper() + '_' + c2u(m.group(1)).upper(),
         line,
     )
 
@@ -266,16 +297,19 @@ def pythonize(line, fn='', subdir='gen'):
         return ''
 
 
-if len(sys.argv) > 1:
-    bmdir = sys.argv[1].rstrip('/') + '/'
-else:
-    bmdir = '../../bmpm/'
+def _run_script():
+    global array_seen, nl, sd, tail_text
 
-outfilename = '../abydos/_bmdata.py'
-outfile = codecs.open(outfilename, 'w', 'utf-8')
+    if len(sys.argv) > 1:
+        bmdir = sys.argv[1].rstrip('/') + '/'
+    else:
+        bmdir = '../../bmpm/'
 
-outfile.write(
-    '# -*- coding: utf-8 -*-\n\n# Copyright 2014-2018 by \
+    outfilename = '../abydos/phonetic/_beider_morse_data.py'
+    outfile = codecs.open(outfilename, 'w', 'utf-8')
+
+    outfile.write(
+        '# -*- coding: utf-8 -*-\n\n# Copyright 2014-2018 by \
 Christopher C. Little.\n# This file is part of Abydos.\n#\n# This file is \
 based on Alexander Beider and Stephen P. Morse\'s implementation\n# of the \
 Beider-Morse Phonetic Matching (BMPM) System, available at\n# \
@@ -288,106 +322,130 @@ ANY WARRANTY; without even the implied warranty of\n# MERCHANTABILITY or \
 FITNESS FOR A PARTICULAR PURPOSE. See the\n# GNU General Public License for \
 more details.\n#\n# You should have received a copy of the GNU General Public \
 License\n# along with Abydos. If not, see <http://www.gnu.org/licenses/>.\n\n\
-"""abydos._bmdata.\n\nBehind-the-scenes constants, rules, etc. for the \
-Beider-Morse Phonentic\nMatching (BMPM) algorithm\n\nDO NOT EDIT - This \
-document is automatically generated from the reference\nimplementation in \
-PHP.\n"""\n# pylint: disable=line-too-long\n\nfrom __future__ \
-import unicode_literals\n\n'
-)
-
-outfile.write('L_NONE = 0\n')
-for i, l in enumerate(lang_tuple):
-    outfile.write('L_' + l.upper() + ' = 2**' + str(i) + '\n')
-outfile.write('\n\n')
-
-tail_text += '\nBMDATA = {}\n'
-
-subdirs = ('gen', 'sep', 'ash')
-
-for s in subdirs:
-    tail_text += '\nBMDATA[\'' + s + '\'] = {}\n'
-    tail_text += 'BMDATA[\'' + s + '\'][\'approx\'] = {}\n'
-    tail_text += 'BMDATA[\'' + s + '\'][\'exact\'] = {}\n'
-    tail_text += 'BMDATA[\'' + s + '\'][\'rules\'] = {}\n'
-    tail_text += 'BMDATA[\'' + s + '\'][\'hebrew\'] = {}\n\n'
-    tail_text += (
-        'BMDATA[\''
-        + s
-        + '\'][\'language_rules\'] = _'
-        + s.upper()
-        + '_LANGUAGE_RULES\n'
-    )
-    tail_text += (
-        'BMDATA[\'' + s + '\'][\'languages\'] = _' + s.upper() + '_LANGUAGES\n'
+"""abydos.phonetic._beider_morse_data.\n\nBehind-the-scenes constants, \
+rules, etc. for the Beider-Morse Phonentic\nMatching (BMPM) algorithm\n\nDO \
+NOT EDIT - This document is automatically generated from the reference\n\
+implementation in PHP.\n"""\n\nfrom \
+__future__ import (\n    absolute_import,\n    division,\n    print_function,\
+    unicode_literals,\n)\n'
     )
 
-    phps = [
-        f
-        for f in sorted(listdir(bmdir + s + '/'))
-        if (isfile(bmdir + s + '/' + f) and f.endswith('.php'))
-    ]
-    for infilename in phps:
-        for pfx in ('rules', 'approx', 'exact', 'hebrew', 'language', 'lang'):
-            if infilename.startswith(pfx):
-                array_seen = False
-                infilepath = bmdir + s + '/' + infilename
-                infileenc = chardet.detect(open(infilepath, 'rb').read())[
-                    'encoding'
-                ]
-                print(s + '/' + infilename)  # noqa: T001
-                infile = codecs.open(infilepath, 'r', infileenc)
-                if infilename.startswith('lang'):
-                    tuplename = infilename[:-4]
-                else:
-                    tuplename = pfx + '_' + infilename[len(pfx) : -4]
-                # indent = len(tuplename) + 21
+    outfile.write('L_NONE = 0\n')
+    for i, l in enumerate(lang_tuple):
+        outfile.write('L_' + l.upper() + ' = 2**' + str(i) + '\n')
+    outfile.write('\n\n')
 
-                outfile.write('# ' + s + '/' + infilename + '\n')
+    tail_text += '\nBMDATA = {}\n'
 
-                ignore = True
-                for line in infile:
-                    if 'function Language' in line:
-                        break
-                    if not ignore:
-                        if re.search(r'\?>', line):
-                            ignore = True
-                        else:
-                            line = pythonize(line, infilename[:-4], s)
-                            if line.startswith('BMDATA'):
-                                tail_text += line
+    subdirs = ('gen', 'sep', 'ash')
+
+    for s in subdirs:
+        sd = s
+        tail_text += '\nBMDATA[\'' + s + '\'] = {}\n'
+        tail_text += 'BMDATA[\'' + s + '\'][\'approx\'] = {}\n'
+        tail_text += 'BMDATA[\'' + s + '\'][\'exact\'] = {}\n'
+        tail_text += 'BMDATA[\'' + s + '\'][\'rules\'] = {}\n'
+        tail_text += 'BMDATA[\'' + s + '\'][\'hebrew\'] = {}\n\n'
+        tail_text += (
+            'BMDATA[\''
+            + s
+            + '\'][\'language_rules\'] = _'
+            + s.upper()
+            + '_LANGUAGE_RULES\n'
+        )
+        tail_text += (
+            'BMDATA[\''
+            + s
+            + '\'][\'languages\'] = _'
+            + s.upper()
+            + '_LANGUAGES\n'
+        )
+
+        phps = [
+            f
+            for f in sorted(listdir(bmdir + s + '/'))
+            if (isfile(bmdir + s + '/' + f) and f.endswith('.php'))
+        ]
+        for infilename in phps:
+            for pfx in (
+                'rules',
+                'approx',
+                'exact',
+                'hebrew',
+                'language',
+                'lang',
+            ):
+                if infilename.startswith(pfx):
+                    array_seen = False
+                    infilepath = bmdir + s + '/' + infilename
+                    infileenc = chardet.detect(open(infilepath, 'rb').read())[
+                        'encoding'
+                    ]
+                    print(s + '/' + infilename)  # noqa: T001
+                    infile = codecs.open(infilepath, 'r', infileenc)
+                    # if infilename.startswith('lang'):
+                    #     tuplename = infilename[:-4]
+                    # else:
+                    #     tuplename = pfx + '_' + infilename[len(pfx) : -4]
+                    # indent = len(tuplename) + 21
+
+                    outfile.write('# ' + s + '/' + infilename + '\n')
+
+                    ignore = True
+                    for line in infile:
+                        if 'function Language' in line:
+                            break
+                        if not ignore:
+                            if re.search(r'\?>', line):
+                                ignore = True
                             else:
-                                outfile.write(line)
-                    if '*/' in line:
-                        ignore = False
+                                line = pythonize(line, infilename[:-4], s)
+                                if line.startswith('BMDATA'):
+                                    tail_text += line
+                                else:
+                                    outfile.write(line)
+                        if '*/' in line:
+                            ignore = False
 
-                outfile.write('\n\n')
-                break
+                    outfile.write('\n\n')
+                    break
 
-outfile.write(tail_text)
+    outfile.write(tail_text)
 
-outfile.close()
-outfilelines = codecs.open(outfilename, 'r', 'utf-8').readlines()
-outfile = codecs.open(outfilename, 'w', 'utf-8')
-nl = False
-fixlanguagesarray = False
+    outfile.close()
+    outfilelines = codecs.open(outfilename, 'r', 'utf-8').readlines()
+    outfile = codecs.open(outfilename, 'w', 'utf-8')
+    nl = False
+    fixlanguagesarray = False
 
-sep_lang = "('any', 'french', 'hebrew', 'italian', 'portuguese', 'spanish')"
+    sep_lang = (
+        "('any', 'french', 'hebrew', 'italian', 'portuguese', 'spanish')"
+    )
 
-for line in outfilelines:
-    line = line.rstrip()
-    if line:
-        if fixlanguagesarray:
-            line = ' ' + line.strip()
-            fixlanguagesarray = False
-        if len(line) > 79 or sep_lang in line:
-            line += '  # noqa: E501'
-        outfile.write(line)
-        if not line.endswith('='):
-            outfile.write('\n')
+    for line in outfilelines:
+        line = line.rstrip()
+        if line:
+            if fixlanguagesarray:
+                line = ' ' + line.strip()
+                fixlanguagesarray = False
+            if len(line) > 79 or sep_lang in line:
+                line += '  # noqa: E501'
+            outfile.write(line)
+            if not line.endswith('='):
+                outfile.write('\n')
+            else:
+                fixlanguagesarray = True
+            nl = False
         else:
-            fixlanguagesarray = True
-        nl = False
-    else:
-        if not nl:
-            outfile.write('\n')
-        nl = True
+            if not nl:
+                outfile.write('\n')
+            nl = True
+
+    outfile.write(
+        '\n\nif __name__ == \'__main__\':\n    import doctest\n\n\
+    doctest.testmod()\n'
+    )
+
+
+if __name__ == '__main__':
+    _run_script()

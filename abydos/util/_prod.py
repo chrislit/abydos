@@ -22,34 +22,48 @@ The util._prod module defines prod, which computes the product of a collection
 of numbers (akin to sum, but for product).
 """
 
-from __future__ import unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from operator import mul
 
 from six.moves import reduce
 
-__all__ = ['prod']
+__all__ = []
 
 
-def prod(nums):
-    """Return the product of nums.
+def _prod(nums):
+    r"""Return the product of nums.
 
-    The product is Π(nums).
+    The product is :math:`\prod nums`.
 
     Cf. https://en.wikipedia.org/wiki/Product_(mathematics)
 
-    :param nums: a collection (list, tuple, set, etc.) of numbers
-    :returns: the product of a nums
-    :rtype: numeric
+    Parameters
+    ----------
+    nums : list
+        A collection (list, tuple, set, etc.) of numbers
 
-    >>> prod([1,1,1,1])
+    Returns
+    -------
+    numeric
+        The product of a nums
+
+    Examples
+    --------
+    >>> _prod([1,1,1,1])
     1
-    >>> prod((2,4,8))
+    >>> _prod((2,4,8))
     64
-    >>> prod({1,2,3,4})
+    >>> _prod({1,2,3,4})
     24
-    >>> prod(2**i for i in range(5))
+    >>> _prod(2**i for i in range(5))
     1024
+
     """
     return reduce(mul, nums, 1)
 

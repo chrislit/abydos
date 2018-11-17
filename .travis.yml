@@ -18,17 +18,17 @@ matrix:
 
 notifications:
   email: false
- 
+
 # Install packages
 install:
   - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then travis_retry pip install pyliblzma; fi
   - travis_retry pip install coveralls
   - travis_retry python setup.py install
- 
+
 # Run test
 script:
   - nosetests --verbose --with-coverage --cover-erase --cover-branches --cover-package=abydos --logging-level=INFO --process-timeout=60 --process-restartworker
- 
+
 # Calculate coverage
 after_success:
   - coveralls --verbose --rcfile=.coveragerc

@@ -6,22 +6,16 @@ Welcome to Abydos's documentation!
    :caption: Contents:
 
    intro
-   tutorial
    modules
    history
 
-Indices and tables
-==================
+Indices
+=======
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
 
-
-================
-  Bibliography
-================
-.. rubric:: References
 
 .. bibliography:: abydos.bib
     :cited:

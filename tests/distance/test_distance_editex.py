@@ -18,74 +18,93 @@
 
 """abydos.tests.distance.test_distance_editex.
 
-This module contains unit tests for abydos.distance._editex
+This module contains unit tests for abydos.distance.Editex
 """
 
-from __future__ import division, unicode_literals
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import unittest
 
-from abydos.distance import dist_editex, editex, sim_editex
+from abydos.distance import Editex, dist_editex, editex, sim_editex
 
 
 class EditexTestCases(unittest.TestCase):
     """Test Editex functions.
 
-    abydos.distance._editex.editex, .sim_editex & .dist_editex
+    abydos.distance.Editex
     """
 
-    def test_editex(self):
-        """Test abydos.distance._editex.editex."""
-        self.assertEqual(editex('', ''), 0)
-        self.assertEqual(editex('nelson', ''), 12)
-        self.assertEqual(editex('', 'neilsen'), 14)
-        self.assertEqual(editex('ab', 'a'), 2)
-        self.assertEqual(editex('ab', 'c'), 4)
-        self.assertEqual(editex('nelson', 'neilsen'), 2)
-        self.assertEqual(editex('neilsen', 'nelson'), 2)
+    cmp = Editex()
+
+    def test_editex_dist_abs(self):
+        """Test abydos.distance.Editex.dist_abs."""
+        self.assertEqual(self.cmp.dist_abs('', ''), 0)
+        self.assertEqual(self.cmp.dist_abs('nelson', ''), 12)
+        self.assertEqual(self.cmp.dist_abs('', 'neilsen'), 14)
+        self.assertEqual(self.cmp.dist_abs('ab', 'a'), 2)
+        self.assertEqual(self.cmp.dist_abs('ab', 'c'), 4)
+        self.assertEqual(self.cmp.dist_abs('nelson', 'neilsen'), 2)
+        self.assertEqual(self.cmp.dist_abs('neilsen', 'nelson'), 2)
+        self.assertEqual(self.cmp.dist_abs('niall', 'neal'), 1)
+        self.assertEqual(self.cmp.dist_abs('neal', 'niall'), 1)
+        self.assertEqual(self.cmp.dist_abs('niall', 'nihal'), 2)
+        self.assertEqual(self.cmp.dist_abs('nihal', 'niall'), 2)
+        self.assertEqual(self.cmp.dist_abs('neal', 'nihl'), 3)
+        self.assertEqual(self.cmp.dist_abs('nihl', 'neal'), 3)
+
+        # Test wrapper
         self.assertEqual(editex('niall', 'neal'), 1)
-        self.assertEqual(editex('neal', 'niall'), 1)
-        self.assertEqual(editex('niall', 'nihal'), 2)
-        self.assertEqual(editex('nihal', 'niall'), 2)
-        self.assertEqual(editex('neal', 'nihl'), 3)
-        self.assertEqual(editex('nihl', 'neal'), 3)
 
-    def test_editex_local(self):
-        """Test abydos.distance._editex.editex (local variant)."""
-        self.assertEqual(editex('', '', local=True), 0)
-        self.assertEqual(editex('nelson', '', local=True), 12)
-        self.assertEqual(editex('', 'neilsen', local=True), 14)
-        self.assertEqual(editex('ab', 'a', local=True), 2)
-        self.assertEqual(editex('ab', 'c', local=True), 2)
-        self.assertEqual(editex('nelson', 'neilsen', local=True), 2)
-        self.assertEqual(editex('neilsen', 'nelson', local=True), 2)
+    def test_editex_dist_abs_local(self):
+        """Test abydos.distance.Editex.dist_abs (local variant)."""
+        self.assertEqual(self.cmp.dist_abs('', '', local=True), 0)
+        self.assertEqual(self.cmp.dist_abs('nelson', '', local=True), 12)
+        self.assertEqual(self.cmp.dist_abs('', 'neilsen', local=True), 14)
+        self.assertEqual(self.cmp.dist_abs('ab', 'a', local=True), 2)
+        self.assertEqual(self.cmp.dist_abs('ab', 'c', local=True), 2)
+        self.assertEqual(self.cmp.dist_abs('nelson', 'neilsen', local=True), 2)
+        self.assertEqual(self.cmp.dist_abs('neilsen', 'nelson', local=True), 2)
+        self.assertEqual(self.cmp.dist_abs('niall', 'neal', local=True), 1)
+        self.assertEqual(self.cmp.dist_abs('neal', 'niall', local=True), 1)
+        self.assertEqual(self.cmp.dist_abs('niall', 'nihal', local=True), 2)
+        self.assertEqual(self.cmp.dist_abs('nihal', 'niall', local=True), 2)
+        self.assertEqual(self.cmp.dist_abs('neal', 'nihl', local=True), 3)
+        self.assertEqual(self.cmp.dist_abs('nihl', 'neal', local=True), 3)
+
+        # Test wrapper
         self.assertEqual(editex('niall', 'neal', local=True), 1)
-        self.assertEqual(editex('neal', 'niall', local=True), 1)
-        self.assertEqual(editex('niall', 'nihal', local=True), 2)
-        self.assertEqual(editex('nihal', 'niall', local=True), 2)
-        self.assertEqual(editex('neal', 'nihl', local=True), 3)
-        self.assertEqual(editex('nihl', 'neal', local=True), 3)
 
-    def test_sim_editex(self):
-        """Test abydos.distance._editex.sim_editex."""
-        self.assertEqual(sim_editex('', ''), 1)
-        self.assertEqual(sim_editex('nelson', ''), 0)
-        self.assertEqual(sim_editex('', 'neilsen'), 0)
-        self.assertEqual(sim_editex('ab', 'a'), 0.5)
-        self.assertEqual(sim_editex('ab', 'c'), 0)
-        self.assertAlmostEqual(sim_editex('nelson', 'neilsen'), 12 / 14)
-        self.assertAlmostEqual(sim_editex('neilsen', 'nelson'), 12 / 14)
+    def test_editex_sim(self):
+        """Test abydos.distance.Editex.sim."""
+        self.assertEqual(self.cmp.sim('', ''), 1)
+        self.assertEqual(self.cmp.sim('nelson', ''), 0)
+        self.assertEqual(self.cmp.sim('', 'neilsen'), 0)
+        self.assertEqual(self.cmp.sim('ab', 'a'), 0.5)
+        self.assertEqual(self.cmp.sim('ab', 'c'), 0)
+        self.assertAlmostEqual(self.cmp.sim('nelson', 'neilsen'), 12 / 14)
+        self.assertAlmostEqual(self.cmp.sim('neilsen', 'nelson'), 12 / 14)
+        self.assertEqual(self.cmp.sim('niall', 'neal'), 0.9)
+
+        # Test wrapper
         self.assertEqual(sim_editex('niall', 'neal'), 0.9)
 
-    def test_dist_editex(self):
-        """Test abydos.distance._editex.dist_editex."""
-        self.assertEqual(dist_editex('', ''), 0)
-        self.assertEqual(dist_editex('nelson', ''), 1)
-        self.assertEqual(dist_editex('', 'neilsen'), 1)
-        self.assertEqual(dist_editex('ab', 'a'), 0.5)
-        self.assertEqual(dist_editex('ab', 'c'), 1)
-        self.assertAlmostEqual(dist_editex('nelson', 'neilsen'), 2 / 14)
-        self.assertAlmostEqual(dist_editex('neilsen', 'nelson'), 2 / 14)
+    def test_editex_dist(self):
+        """Test abydos.distance.Editex.dist."""
+        self.assertEqual(self.cmp.dist('', ''), 0)
+        self.assertEqual(self.cmp.dist('nelson', ''), 1)
+        self.assertEqual(self.cmp.dist('', 'neilsen'), 1)
+        self.assertEqual(self.cmp.dist('ab', 'a'), 0.5)
+        self.assertEqual(self.cmp.dist('ab', 'c'), 1)
+        self.assertAlmostEqual(self.cmp.dist('nelson', 'neilsen'), 2 / 14)
+        self.assertAlmostEqual(self.cmp.dist('neilsen', 'nelson'), 2 / 14)
+        self.assertEqual(self.cmp.dist('niall', 'neal'), 0.1)
+
+        # Test wrapper
         self.assertEqual(dist_editex('niall', 'neal'), 0.1)
 
 
