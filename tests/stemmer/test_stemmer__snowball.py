@@ -100,7 +100,7 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(self.stmr._sb_r2('eucharist'), 6)  # noqa: SF01
 
     def test_sb_ends_in_short_syllable(self):
-        """Test abydos.stemmer._Snowball._sb_ends_in_short_syllable."""  # noqa: E501
+        """Test abydos.stemmer._Snowball._sb_ends_in_short_syllable."""
         # base case
         self.assertFalse(
             self.stmr._sb_ends_in_short_syllable('')  # noqa: SF01

@@ -87,7 +87,7 @@ class Eudex(_Distance):
     def dist_abs(
         self, src, tar, weights='exponential', max_length=8, normalized=False
     ):
-        """Calculate the Hamming distance between the Eudex hashes of two terms.
+        """Calculate the distance between the Eudex hashes of two terms.
 
         Parameters
         ----------
@@ -200,7 +200,7 @@ class Eudex(_Distance):
         return distance
 
     def dist(self, src, tar, weights='exponential', max_length=8):
-        """Return normalized Hamming distance between Eudex hashes of two terms.
+        """Return normalized distance between the Eudex hashes of two terms.
 
         This is Eudex distance normalized to [0, 1].
 

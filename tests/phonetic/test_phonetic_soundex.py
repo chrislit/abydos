@@ -133,7 +133,7 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(soundex('Euler'), 'E460')
 
     def test_soundex_special(self):
-        """Test abydos.phonetic.Soundex (special 1880-1910 variant method)."""  # noqa: E501
+        """Test abydos.phonetic.Soundex (special 1880-1910 variant method)."""
         self.assertEqual(self.pa.encode('Ashcroft', var='special'), 'A226')
         self.assertEqual(self.pa.encode('Asicroft', var='special'), 'A226')
         self.assertEqual(self.pa.encode('AsWcroft', var='special'), 'A226')
