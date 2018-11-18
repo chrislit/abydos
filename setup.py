@@ -89,7 +89,7 @@ if __name__ == '__main__':
             'Development Status :: 4 - Beta',
             'Intended Audience :: Developers',
             'License :: OSI Approved :: GNU General Public License v3 or \
-            later (GPLv3+)',
+later (GPLv3+)',
             'Operating System :: OS Independent',
             'Topic :: Scientific/Engineering :: Artificial Intelligence',
             'Topic :: Software Development :: Libraries :: Python Modules',
