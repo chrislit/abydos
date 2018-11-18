@@ -100,7 +100,7 @@ later (GPLv3+)',
         long_description='\n\n'.join(
             [readfile(f) for f in ('README.rst', 'HISTORY.rst', 'AUTHORS.rst')]
         ),
-        install_requires=['numpy', 'six'],
+        install_requires=['numpy', 'six', 'deprecation'],
         extras_require={
             ':python_version >= "2.7" and python_version < "2.8"': [
                 'pyliblzma>=0.5.3,<0.6.0'
