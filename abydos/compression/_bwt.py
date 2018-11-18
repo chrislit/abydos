@@ -28,8 +28,11 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
+from .. import __version__
 
 __all__ = ['BWT', 'bwt_decode', 'bwt_encode']
 
@@ -139,6 +142,12 @@ class BWT(object):
             return ''
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the BWT.encode method instead.',
+)
 def bwt_encode(word, terminator='\0'):
     r"""Return the Burrows-Wheeler transformed form of a word.
 
@@ -169,6 +178,12 @@ def bwt_encode(word, terminator='\0'):
     return BWT().encode(word, terminator)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the BWT.decode method instead.',
+)
 def bwt_decode(code, terminator='\0'):
     r"""Return a word decoded from BWT form.
 

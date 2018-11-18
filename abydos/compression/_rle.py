@@ -30,8 +30,11 @@ from __future__ import (
 
 from itertools import groupby
 
+from deprecation import deprecated
+
 from ._bwt import BWT
 
+from .. import __version__
 
 __all__ = ['RLE', 'rle_decode', 'rle_encode']
 
@@ -137,6 +140,12 @@ class RLE(object):
         return text
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the RLE.encode method instead.',
+)
 def rle_encode(text, use_bwt=True):
     r"""Perform encoding of run-length-encoding (RLE).
 
@@ -177,6 +186,12 @@ def rle_encode(text, use_bwt=True):
     return RLE().encode(text)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the RLE.decode method instead.',
+)
 def rle_decode(text, use_bwt=True):
     r"""Perform decoding of run-length-encoding (RLE).
 

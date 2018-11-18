@@ -31,8 +31,11 @@ from __future__ import (
 from collections import Counter
 from fractions import Fraction
 
+from deprecation import deprecated
+
 from six import PY3, text_type
 
+from .. import __version__
 
 if PY3:
     long = int
@@ -245,6 +248,12 @@ class Arithmetic(object):
         return ''.join(letters)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Arithmetic.train method instead.',
+)
 def ac_train(text):
     r"""Generate a probability dict from the provided text.
 
@@ -297,6 +306,12 @@ def ac_train(text):
     return Arithmetic(text).get_probs()
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Arithmetic.encode method instead.',
+)
 def ac_encode(text, probs):
     """Encode a text using arithmetic coding with the provided probabilities.
 
@@ -327,6 +342,12 @@ def ac_encode(text, probs):
     return coder.encode(text)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Arithmetic.decode method instead.',
+)
 def ac_decode(longval, nbits, probs):
     """Decode the number to a string using the given statistics.
 
