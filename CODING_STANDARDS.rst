@@ -6,6 +6,8 @@ CODING STANDARDS
 - Pydocstyle will be used to ensure documentation style conformance to PEP257
   (for the most part) and NumPy documentation style.
 - Black will be used to keep code style consistent.
+- 3rd party packages may be used, but must be present in both PyPI and conda
+  or conda-forge. They must also support all supported Python versions.
 
 ----
 
