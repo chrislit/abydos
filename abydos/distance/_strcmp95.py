@@ -30,9 +30,12 @@ from __future__ import (
 
 from collections import defaultdict
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['Strcmp95', 'dist_strcmp95', 'sim_strcmp95']
 
@@ -254,6 +257,12 @@ class Strcmp95(_Distance):
         return weight
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Strcmp95.sim method instead.',
+)
 def sim_strcmp95(src, tar, long_strings=False):
     """Return the strcmp95 similarity of two strings.
 
@@ -292,6 +301,12 @@ def sim_strcmp95(src, tar, long_strings=False):
     return Strcmp95().sim(src, tar, long_strings)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Strcmp95.dist method instead.',
+)
 def dist_strcmp95(src, tar, long_strings=False):
     """Return the strcmp95 distance between two strings.
 

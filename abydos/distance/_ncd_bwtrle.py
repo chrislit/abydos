@@ -28,9 +28,11 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._ncd_rle import NCDrle
-from ..compression import BWT
+from deprecation import deprecated
 
+from ._ncd_rle import NCDrle
+from .. import __version__
+from ..compression import BWT
 
 __all__ = ['NCDbwtrle', 'dist_ncd_bwtrle', 'sim_ncd_bwtrle']
 
@@ -87,6 +89,12 @@ class NCDbwtrle(NCDrle):
         ) / max(len(src_comp), len(tar_comp))
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDbwtrle.dist method instead.',
+)
 def dist_ncd_bwtrle(src, tar):
     """Return the NCD between two strings using BWT plus RLE.
 

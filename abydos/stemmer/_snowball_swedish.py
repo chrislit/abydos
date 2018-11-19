@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._snowball import _Snowball
+from .. import __version__
 
 __all__ = ['SnowballSwedish', 'sb_swedish']
 
@@ -152,6 +155,12 @@ class SnowballSwedish(_Snowball):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the SnowballSwedish.stem method instead.',
+)
 def sb_swedish(word):
     """Return Snowball Swedish stem.
 

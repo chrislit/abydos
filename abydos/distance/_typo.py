@@ -30,12 +30,16 @@ from __future__ import (
 
 from math import log
 
+from deprecation import deprecated
+
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
 
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
+
 
 __all__ = ['Typo', 'dist_typo', 'sim_typo', 'typo']
 
@@ -327,6 +331,12 @@ class Typo(_Distance):
         )
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Typo.dist_abs method instead.',
+)
 def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
     """Return the typo distance between two strings.
 
@@ -389,6 +399,12 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
     return Typo().dist_abs(src, tar, metric, cost, layout)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Typo.dist method instead.',
+)
 def dist_typo(
     src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'
 ):
@@ -435,6 +451,12 @@ def dist_typo(
     return Typo().dist(src, tar, metric, cost, layout)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Typo.sim method instead.',
+)
 def sim_typo(
     src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'
 ):

@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._tversky import Tversky
+from .. import __version__
 
 __all__ = ['Dice', 'dist_dice', 'sim_dice']
 
@@ -78,6 +81,12 @@ class Dice(Tversky):
         return super(self.__class__, self).sim(src, tar, qval, 0.5, 0.5)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Dice.sim method instead.',
+)
 def sim_dice(src, tar, qval=2):
     """Return the Sørensen–Dice coefficient of two strings.
 
@@ -112,6 +121,12 @@ def sim_dice(src, tar, qval=2):
     return Dice().sim(src, tar, qval)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Dice.dist method instead.',
+)
 def dist_dice(src, tar, qval=2):
     """Return the Sørensen–Dice distance between two strings.
 

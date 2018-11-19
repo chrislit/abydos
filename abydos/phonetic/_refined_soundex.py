@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['RefinedSoundex', 'refined_soundex']
 
@@ -103,6 +106,12 @@ class RefinedSoundex(_Phonetic):
         return sdx
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the RefinedSoundex.encode method instead.',
+)
 def refined_soundex(word, max_length=-1, zero_pad=False, retain_vowels=False):
     """Return the Refined Soundex code for a word.
 

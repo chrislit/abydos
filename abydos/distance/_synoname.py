@@ -30,12 +30,15 @@ from __future__ import (
 
 from collections import Iterable
 
+from deprecation import deprecated
+
 from ._distance import _Distance
 from ._levenshtein import levenshtein
 from ._ratcliff_obershelp import sim_ratcliff_obershelp
+from .. import __version__
 
 # noinspection PyProtectedMember
-from ..fingerprint._synoname import SynonameToolcode
+from ..fingerprint._synoname_toolcode import SynonameToolcode
 
 __all__ = ['Synoname', 'synoname']
 
@@ -748,6 +751,12 @@ class Synoname(_Distance):
         )
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Synoname.dist_abs method instead.',
+)
 def synoname(
     src,
     tar,

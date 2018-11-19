@@ -28,9 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['ParmarKumbharana', 'parmar_kumbharana']
 
@@ -108,6 +111,12 @@ class ParmarKumbharana(_Phonetic):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the ParmarKumbharana.encode method instead.',
+)
 def parmar_kumbharana(word):
     """Return the Parmar-Kumbharana encoding of a word.
 

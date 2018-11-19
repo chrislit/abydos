@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['SfinxBis', 'sfinxbis']
 
@@ -357,6 +360,12 @@ class SfinxBis(_Phonetic):
         return tuple(ordlista)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the SfinxBis.encode method instead.',
+)
 def sfinxbis(word, max_length=-1):
     """Return the SfinxBis code for a word.
 

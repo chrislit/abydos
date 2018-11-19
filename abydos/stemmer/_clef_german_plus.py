@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._stemmer import _Stemmer
+from .. import __version__
 
 __all__ = ['CLEFGermanPlus', 'clef_german_plus']
 
@@ -104,6 +107,12 @@ class CLEFGermanPlus(_Stemmer):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the CLEFGermanPlus.stem method instead.',
+)
 def clef_german_plus(word):
     """Return 'CLEF German stemmer plus' stem.
 

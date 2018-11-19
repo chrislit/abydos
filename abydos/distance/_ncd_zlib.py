@@ -30,8 +30,10 @@ from __future__ import (
 
 import zlib
 
-from ._distance import _Distance
+from deprecation import deprecated
 
+from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['NCDzlib', 'dist_ncd_zlib', 'sim_ncd_zlib']
 
@@ -106,6 +108,12 @@ class NCDzlib(_Distance):
         ) / max(len(src_comp), len(tar_comp))
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDzlib.dist method instead.',
+)
 def dist_ncd_zlib(src, tar):
     """Return the NCD between two strings using zlib compression.
 
@@ -138,6 +146,12 @@ def dist_ncd_zlib(src, tar):
     return NCDzlib().dist(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDzlib.sim method instead.',
+)
 def sim_ncd_zlib(src, tar):
     """Return the NCD similarity between two strings using zlib compression.
 

@@ -30,7 +30,10 @@ from __future__ import (
 
 from collections import Counter
 
+from deprecation import deprecated
+
 from ._fingerprint import MOST_COMMON_LETTERS_CG, _Fingerprint
+from .. import __version__
 
 __all__ = ['Count', 'count_fingerprint']
 
@@ -93,6 +96,12 @@ class Count(_Fingerprint):
         return fingerprint
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Count.fingerprint method instead.',
+)
 def count_fingerprint(word, n_bits=16, most_common=MOST_COMMON_LETTERS_CG):
     """Return the count fingerprint.
 

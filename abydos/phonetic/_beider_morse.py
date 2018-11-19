@@ -35,6 +35,8 @@ from __future__ import (
 from re import search
 from unicodedata import normalize
 
+from deprecation import deprecated
+
 from six import PY3, text_type
 from six.moves import range
 
@@ -63,6 +65,7 @@ from ._beider_morse_data import (
     L_TURKISH,
 )
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['BeiderMorse', 'bmpm']
 
@@ -933,6 +936,12 @@ class BeiderMorse(_Phonetic):
         return result
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the BeiderMorse.encode method instead.',
+)
 def bmpm(
     word,
     language_arg=0,

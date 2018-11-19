@@ -79,7 +79,7 @@ from ._position import Position, position_fingerprint
 from ._qgram import QGram, qgram_fingerprint
 from ._skeleton_key import SkeletonKey, skeleton_key
 from ._string import String, str_fingerprint
-from ._synoname import SynonameToolcode, synoname_toolcode
+from ._synoname_toolcode import SynonameToolcode, synoname_toolcode
 
 __all__ = [
     'String',

@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['HenryEarly', 'henry_early']
 
@@ -239,6 +242,12 @@ class HenryEarly(_Phonetic):
         return code
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the HenryEarly.encode method instead.',
+)
 def henry_early(word, max_length=3):
     """Calculate the early version of the Henry code for a word.
 

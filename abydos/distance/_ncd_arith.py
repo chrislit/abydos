@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._distance import _Distance
+from .. import __version__
 from ..compression import Arithmetic
 
 __all__ = ['NCDarith', 'dist_ncd_arith', 'sim_ncd_arith']
@@ -97,6 +100,12 @@ class NCDarith(_Distance):
         ) / max(src_comp, tar_comp)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDarith.dist method instead.',
+)
 def dist_ncd_arith(src, tar, probs=None):
     """Return the NCD between two strings using arithmetic coding.
 
@@ -131,6 +140,12 @@ def dist_ncd_arith(src, tar, probs=None):
     return NCDarith().dist(src, tar, probs)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDarith.sim method instead.',
+)
 def sim_ncd_arith(src, tar, probs=None):
     """Return the NCD similarity between two strings using arithmetic coding.
 

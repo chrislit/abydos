@@ -28,9 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['Suffix', 'dist_suffix', 'sim_suffix']
 
@@ -82,6 +85,12 @@ class Suffix(_Distance):
         return 0.0
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Suffix.sim method instead.',
+)
 def sim_suffix(src, tar):
     """Return the suffix similarity of two strings.
 
@@ -114,6 +123,12 @@ def sim_suffix(src, tar):
     return Suffix().sim(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Suffix.dist method instead.',
+)
 def dist_suffix(src, tar):
     """Return the suffix distance between two strings.
 

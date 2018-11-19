@@ -30,9 +30,12 @@ from __future__ import (
 
 from re import match as re_match
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._stemmer import _Stemmer
+from .. import __version__
 
 __all__ = ['UEALite', 'uealite']
 
@@ -760,6 +763,12 @@ class UEALite(_Stemmer):
         return stem
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the UEALite.stem method instead.',
+)
 def uealite(
     word,
     max_word_length=20,

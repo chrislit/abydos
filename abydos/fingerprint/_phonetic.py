@@ -28,10 +28,14 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._string import String
+from .. import __version__
 from ..phonetic import double_metaphone
+
 
 __all__ = ['Phonetic', 'phonetic_fingerprint']
 
@@ -97,6 +101,12 @@ class Phonetic(String):
         return super(self.__class__, self).fingerprint(phonetic)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Phonetic.fingerprint method instead.',
+)
 def phonetic_fingerprint(
     phrase, phonetic_algorithm=double_metaphone, joiner=' ', *args, **kwargs
 ):

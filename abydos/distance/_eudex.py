@@ -30,9 +30,12 @@ from __future__ import (
 
 from types import GeneratorType
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 from ..phonetic import eudex
 
 __all__ = ['Eudex', 'dist_eudex', 'eudex_hamming', 'sim_eudex']
@@ -236,6 +239,12 @@ class Eudex(_Distance):
         return self.dist_abs(src, tar, weights, max_length, True)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Eudex.dist_abs method instead.',
+)
 def eudex_hamming(
     src, tar, weights='exponential', max_length=8, normalized=False
 ):
@@ -304,6 +313,12 @@ def eudex_hamming(
     return Eudex().dist_abs(src, tar, weights, max_length, normalized)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Eudex.dist method instead.',
+)
 def dist_eudex(src, tar, weights='exponential', max_length=8):
     """Return normalized Hamming distance between Eudex hashes of two terms.
 
@@ -340,6 +355,12 @@ def dist_eudex(src, tar, weights='exponential', max_length=8):
     return Eudex().dist(src, tar, weights, max_length)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Eudex.sim method instead.',
+)
 def sim_eudex(src, tar, weights='exponential', max_length=8):
     """Return normalized Hamming similarity between Eudex hashes of two terms.
 

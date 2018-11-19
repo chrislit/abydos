@@ -28,8 +28,11 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._distance import _Distance
 from ._levenshtein import Levenshtein
+from .. import __version__
 
 __all__ = ['Indel', 'dist_indel', 'indel', 'sim_indel']
 
@@ -111,6 +114,12 @@ class Indel(_Distance):
         return self.dist_abs(src, tar) / (len(src) + len(tar))
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Indel.dist_abs method instead.',
+)
 def indel(src, tar):
     """Return the indel distance between two strings.
 
@@ -141,6 +150,12 @@ def indel(src, tar):
     return Indel().dist_abs(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Indel.dist method instead.',
+)
 def dist_indel(src, tar):
     """Return the normalized indel distance between two strings.
 
@@ -174,6 +189,12 @@ def dist_indel(src, tar):
     return Indel().dist(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Indel.sim method instead.',
+)
 def sim_indel(src, tar):
     """Return the normalized indel similarity of two strings.
 

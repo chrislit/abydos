@@ -28,9 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['RethSchek', 'reth_schek_phonetik']
 
@@ -189,6 +192,12 @@ class RethSchek(_Phonetic):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the RethSchek.encode method instead.',
+)
 def reth_schek_phonetik(word):
     """Return Reth-Schek Phonetik code for a word.
 

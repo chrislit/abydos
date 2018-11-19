@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = [
     'RussellIndex',
@@ -173,6 +176,12 @@ class RussellIndex(_Phonetic):
         return ''
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the RussellIndex.encode method instead.',
+)
 def russell_index(word):
     """Return the Russell Index (integer output) of a word.
 
@@ -203,6 +212,12 @@ def russell_index(word):
     return RussellIndex().encode(word)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the RussellIndex._to_alpha method instead.',
+)
 def russell_index_num_to_alpha(num):
     """Convert the Russell Index integer to an alphabetic string.
 
@@ -231,6 +246,12 @@ def russell_index_num_to_alpha(num):
     return RussellIndex()._to_alpha(num)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the RussellIndex.encode_alpha method instead.',
+)
 def russell_index_alpha(word):
     """Return the Russell Index (alphabetic output) for the word.
 

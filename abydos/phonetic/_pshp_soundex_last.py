@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['PSHPSoundexLast', 'pshp_soundex_last']
 
@@ -204,6 +207,12 @@ class PSHPSoundexLast(_Phonetic):
         return code
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the PSHPSoundexLast.encode method instead.',
+)
 def pshp_soundex_last(lname, max_length=4, german=False):
     """Calculate the PSHP Soundex/Viewex Coding of a last name.
 

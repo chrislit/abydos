@@ -28,12 +28,15 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from numpy import int as np_int
 from numpy import zeros as np_zeros
 
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = [
     'RatcliffObershelp',
@@ -165,6 +168,12 @@ class RatcliffObershelp(_Distance):
         return 2 * _sstr_matches(src, tar) / (len(src) + len(tar))
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the RatcliffObershelp.sim method instead.',
+)
 def sim_ratcliff_obershelp(src, tar):
     """Return the Ratcliff-Obershelp similarity of two strings.
 
@@ -197,6 +206,12 @@ def sim_ratcliff_obershelp(src, tar):
     return RatcliffObershelp().sim(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the RatcliffObershelp.dist method instead.',
+)
 def dist_ratcliff_obershelp(src, tar):
     """Return the Ratcliff-Obershelp distance between two strings.
 

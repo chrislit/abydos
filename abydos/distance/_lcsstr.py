@@ -28,12 +28,15 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from numpy import int as np_int
 from numpy import zeros as np_zeros
 
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['LCSstr', 'dist_lcsstr', 'lcsstr', 'sim_lcsstr']
 
@@ -133,6 +136,12 @@ class LCSstr(_Distance):
         return len(self.lcsstr(src, tar)) / max(len(src), len(tar))
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the LCSstr.lcsstr method instead.',
+)
 def lcsstr(src, tar):
     """Return the longest common substring of two strings.
 
@@ -165,6 +174,12 @@ def lcsstr(src, tar):
     return LCSstr().lcsstr(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the LCSstr.sim method instead.',
+)
 def sim_lcsstr(src, tar):
     """Return the longest common substring similarity of two strings.
 
@@ -197,6 +212,12 @@ def sim_lcsstr(src, tar):
     return LCSstr().sim(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the LCSstr.dist method instead.',
+)
 def dist_lcsstr(src, tar):
     """Return the longest common substring distance between two strings.
 

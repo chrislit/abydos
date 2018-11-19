@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['Ident', 'dist_ident', 'sim_ident']
 
@@ -66,6 +69,12 @@ class Ident(_Distance):
         return 1.0 if src == tar else 0.0
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Ident.sim method instead.',
+)
 def sim_ident(src, tar):
     """Return the identity similarity of two strings.
 
@@ -95,6 +104,12 @@ def sim_ident(src, tar):
     return Ident().sim(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Ident.dist method instead.',
+)
 def dist_ident(src, tar):
     """Return the identity distance between two strings.
 

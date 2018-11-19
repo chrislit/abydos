@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._token_distance import _TokenDistance
+from .. import __version__
 
 __all__ = ['Overlap', 'dist_overlap', 'sim_overlap']
 
@@ -85,6 +88,12 @@ class Overlap(_TokenDistance):
         return q_intersection_mag / min(q_src_mag, q_tar_mag)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Overlap.sim method instead.',
+)
 def sim_overlap(src, tar, qval=2):
     r"""Return the overlap coefficient of two strings.
 
@@ -119,6 +128,12 @@ def sim_overlap(src, tar, qval=2):
     return Overlap().sim(src, tar, qval)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Overlap.dist method instead.',
+)
 def dist_overlap(src, tar, qval=2):
     """Return the overlap distance between two strings.
 

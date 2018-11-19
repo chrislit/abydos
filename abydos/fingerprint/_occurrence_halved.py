@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._fingerprint import MOST_COMMON_LETTERS_CG, _Fingerprint
+from .. import __version__
 
 __all__ = ['OccurrenceHalved', 'occurrence_halved_fingerprint']
 
@@ -99,6 +102,12 @@ class OccurrenceHalved(_Fingerprint):
         return fingerprint
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the OccurrenceHalved.fingerprint method instead.',
+)
 def occurrence_halved_fingerprint(
     word, n_bits=16, most_common=MOST_COMMON_LETTERS_CG
 ):

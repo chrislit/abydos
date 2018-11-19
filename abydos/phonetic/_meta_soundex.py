@@ -28,11 +28,14 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._metaphone import Metaphone
 from ._phonetic import _Phonetic
 from ._phonetic_spanish import PhoneticSpanish
 from ._soundex import Soundex
 from ._spanish_metaphone import SpanishMetaphone
+from .. import __version__
 
 __all__ = ['MetaSoundex', 'metasoundex']
 
@@ -105,6 +108,12 @@ class MetaSoundex(_Phonetic):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the MetaSoundex.encode method instead.',
+)
 def metasoundex(word, lang='en'):
     """Return the MetaSoundex code for a word.
 

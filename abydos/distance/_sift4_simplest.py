@@ -28,9 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._sift4 import Sift4
+from .. import __version__
 
 __all__ = ['Sift4Simplest', 'sift4_simplest']
 
@@ -119,6 +122,12 @@ class Sift4Simplest(Sift4):
         return round(max(src_len, tar_len) - lcss)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Sift4Simplest.dist_abs method instead.',
+)
 def sift4_simplest(src, tar, max_offset=5):
     """Return the "simplest" Sift4 distance between two terms.
 

@@ -28,9 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['Prefix', 'dist_prefix', 'sim_prefix']
 
@@ -82,6 +85,12 @@ class Prefix(_Distance):
         return 0.0
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Prefix.sim method instead.',
+)
 def sim_prefix(src, tar):
     """Return the prefix similarity of two strings.
 
@@ -114,6 +123,12 @@ def sim_prefix(src, tar):
     return Prefix().sim(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Prefix.dist method instead.',
+)
 def dist_prefix(src, tar):
     """Return the prefix distance between two strings.
 

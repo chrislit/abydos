@@ -30,12 +30,15 @@ from __future__ import (
 
 from sys import maxsize
 
+from deprecation import deprecated
+
 from numpy import int as np_int
 from numpy import zeros as np_zeros
 
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = [
     'DamerauLevenshtein',
@@ -222,6 +225,12 @@ class DamerauLevenshtein(_Distance):
         )
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the DamerauLevenshtein.dist_abs method instead.',
+)
 def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
     """Return the Damerau-Levenshtein distance between two strings.
 
@@ -258,6 +267,12 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
     return DamerauLevenshtein().dist_abs(src, tar, cost)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the DamerauLevenshtein.dist method instead.',
+)
 def dist_damerau(src, tar, cost=(1, 1, 1, 1)):
     """Return the Damerau-Levenshtein similarity of two strings.
 
@@ -294,6 +309,12 @@ def dist_damerau(src, tar, cost=(1, 1, 1, 1)):
     return DamerauLevenshtein().dist(src, tar, cost)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the DamerauLevenshtein.sim method instead.',
+)
 def sim_damerau(src, tar, cost=(1, 1, 1, 1)):
     """Return the Damerau-Levenshtein similarity of two strings.
 

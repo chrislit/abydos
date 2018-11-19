@@ -30,10 +30,13 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 from six.moves import range
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['RogerRoot', 'roger_root']
 
@@ -200,6 +203,12 @@ class RogerRoot(_Phonetic):
         return code[:max_length]
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the RogerRoot.encode method instead.',
+)
 def roger_root(word, max_length=5, zero_pad=True):
     """Return the Roger Root code for a word.
 

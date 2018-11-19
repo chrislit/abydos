@@ -30,7 +30,10 @@ from __future__ import (
 
 from collections import Counter
 
+from deprecation import deprecated
+
 from ._token_distance import _TokenDistance
+from .. import __version__
 
 __all__ = ['Bag', 'bag', 'dist_bag', 'sim_bag']
 
@@ -128,6 +131,12 @@ class Bag(_TokenDistance):
         return self.dist_abs(src, tar) / max_length
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Bag.dist_abs method instead.',
+)
 def bag(src, tar):
     """Return the bag distance between two strings.
 
@@ -164,6 +173,12 @@ def bag(src, tar):
     return Bag().dist_abs(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Bag.dist method instead.',
+)
 def dist_bag(src, tar):
     """Return the normalized bag distance between two strings.
 
@@ -196,6 +211,12 @@ def dist_bag(src, tar):
     return Bag().dist(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Bag.sim method instead.',
+)
 def sim_bag(src, tar):
     """Return the normalized bag similarity of two strings.
 
