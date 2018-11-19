@@ -164,16 +164,16 @@ class PopulationTestCases(unittest.TestCase):
         self.assertEqual(CATSNDOGS_TABLE.error_pop(), 5)
         self.assertEqual(WORKED_EG_TABLE.error_pop(), 190)
 
-    def test_test_pos_pop(self):
-        """Test abydos.stats.ConfusionTable.test_pos_pop."""
+    def test_pred_pos_pop(self):
+        """Test abydos.stats.ConfusionTable.pred_pos_pop."""
         self.assertEqual(UNIT_TABLE.pred_pos_pop(), 2)
         self.assertEqual(NULL_TABLE.pred_pos_pop(), 0)
         self.assertEqual(SCALE_TABLE.pred_pos_pop(), 4)
         self.assertEqual(CATSNDOGS_TABLE.pred_pos_pop(), 7)
         self.assertEqual(WORKED_EG_TABLE.pred_pos_pop(), 200)
 
-    def test_test_neg_pop(self):
-        """Test abydos.stats.ConfusionTable.test_neg_pop."""
+    def test_pred_neg_pop(self):
+        """Test abydos.stats.ConfusionTable.pred_neg_pop."""
         self.assertEqual(UNIT_TABLE.pred_neg_pop(), 2)
         self.assertEqual(NULL_TABLE.pred_neg_pop(), 0)
         self.assertEqual(SCALE_TABLE.pred_neg_pop(), 6)
@@ -244,6 +244,14 @@ class StatisticalRatioTestCases(unittest.TestCase):
         self.assertAlmostEqual(CATSNDOGS_TABLE.specificity(), 17 / 19)
         self.assertAlmostEqual(WORKED_EG_TABLE.specificity(), 0.91)
 
+    def test_fnr(self):
+        """Test abydos.stats.ConfusionTable.fnr."""
+        self.assertEqual(UNIT_TABLE.fnr(), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.fnr()))
+        self.assertAlmostEqual(SCALE_TABLE.fnr(), 0.8)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.fnr(), 3 / 8)
+        self.assertAlmostEqual(WORKED_EG_TABLE.fnr(), 1 / 3)
+
     def test_npv(self):
         """Test abydos.stats.ConfusionTable.npv."""
         self.assertEqual(UNIT_TABLE.npv(), 0.5)
@@ -252,6 +260,16 @@ class StatisticalRatioTestCases(unittest.TestCase):
         self.assertAlmostEqual(CATSNDOGS_TABLE.npv(), 17 / 20)
         self.assertAlmostEqual(WORKED_EG_TABLE.npv(), 182 / 183)
 
+    def test_false_omission_rate(self):
+        """Test abydos.stats.ConfusionTable.false_omission_rate."""
+        self.assertEqual(UNIT_TABLE.false_omission_rate(), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.false_omission_rate()))
+        self.assertAlmostEqual(SCALE_TABLE.false_omission_rate(), 2 / 3)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.false_omission_rate(), 3 / 20)
+        self.assertAlmostEqual(
+            WORKED_EG_TABLE.false_omission_rate(), 10 / 1830
+        )
+
     def test_fallout(self):
         """Test abydos.stats.ConfusionTable.fallout."""
         self.assertEqual(UNIT_TABLE.fallout(), 0.5)
@@ -259,6 +277,38 @@ class StatisticalRatioTestCases(unittest.TestCase):
         self.assertAlmostEqual(SCALE_TABLE.fallout(), 0.6)
         self.assertAlmostEqual(CATSNDOGS_TABLE.fallout(), 2 / 19)
         self.assertAlmostEqual(WORKED_EG_TABLE.fallout(), 0.09)
+
+    def test_pos_likelihood_ratio(self):
+        """Test abydos.stats.ConfusionTable.pos_likelihood_ratio."""
+        self.assertEqual(UNIT_TABLE.pos_likelihood_ratio(), 1.0)
+        self.assertTrue(isnan(NULL_TABLE.pos_likelihood_ratio()))
+        self.assertAlmostEqual(SCALE_TABLE.pos_likelihood_ratio(), 1 / 3)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.pos_likelihood_ratio(), 5.9375)
+        self.assertAlmostEqual(
+            WORKED_EG_TABLE.pos_likelihood_ratio(), 7.407407407407409
+        )
+
+    def test_neg_likelihood_ratio(self):
+        """Test abydos.stats.ConfusionTable.neg_likelihood_ratio."""
+        self.assertEqual(UNIT_TABLE.neg_likelihood_ratio(), 1.0)
+        self.assertTrue(isnan(NULL_TABLE.neg_likelihood_ratio()))
+        self.assertAlmostEqual(SCALE_TABLE.neg_likelihood_ratio(), 2.0)
+        self.assertAlmostEqual(
+            CATSNDOGS_TABLE.neg_likelihood_ratio(), 0.41911764705882354
+        )
+        self.assertAlmostEqual(
+            WORKED_EG_TABLE.neg_likelihood_ratio(), 0.36630036630036633
+        )
+
+    def test_diagnostic_odds_ratio(self):
+        """Test abydos.stats.ConfusionTable.diagnostic_odds_ratio."""
+        self.assertEqual(UNIT_TABLE.diagnostic_odds_ratio(), 1.0)
+        self.assertTrue(isnan(NULL_TABLE.diagnostic_odds_ratio()))
+        self.assertAlmostEqual(SCALE_TABLE.diagnostic_odds_ratio(), 1 / 6)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.diagnostic_odds_ratio(), 85 / 6)
+        self.assertAlmostEqual(
+            WORKED_EG_TABLE.diagnostic_odds_ratio(), 20.22222222222222
+        )
 
     def test_fdr(self):
         """Test abydos.stats.ConfusionTable.fdr."""
@@ -300,6 +350,22 @@ class StatisticalRatioTestCases(unittest.TestCase):
         self.assertAlmostEqual(SCALE_TABLE.balanced_accuracy(), 0.3)
         self.assertAlmostEqual(CATSNDOGS_TABLE.balanced_accuracy(), 231 / 304)
         self.assertAlmostEqual(WORKED_EG_TABLE.balanced_accuracy(), 473 / 600)
+
+    def test_error_rate(self):
+        """Test abydos.stats.ConfusionTable.error_rate."""
+        self.assertEqual(UNIT_TABLE.error_rate(), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.error_rate()))
+        self.assertAlmostEqual(SCALE_TABLE.error_rate(), 0.7)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.error_rate(), 5 / 27)
+        self.assertAlmostEqual(WORKED_EG_TABLE.error_rate(), 190 / 2030)
+
+    def test_prevalence(self):
+        """Test abydos.stats.ConfusionTable.prevalence."""
+        self.assertEqual(UNIT_TABLE.prevalence(), 0.5)
+        self.assertTrue(isnan(NULL_TABLE.prevalence()))
+        self.assertAlmostEqual(SCALE_TABLE.prevalence(), 0.5)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.prevalence(), 8 / 27)
+        self.assertAlmostEqual(WORKED_EG_TABLE.prevalence(), 30 / 2030)
 
     def test_informedness(self):
         """Test abydos.stats.ConfusionTable.informedness."""
@@ -610,6 +676,14 @@ class StatisticalMeasureTestCases(unittest.TestCase):
         self.assertAlmostEqual(CATSNDOGS_TABLE.f_measure(), 2 / 3)
         self.assertAlmostEqual(WORKED_EG_TABLE.f_measure(), 4 / 23)
 
+    def test_jaccard(self):
+        """Test abydos.stats.ConfusionTable.jaccard."""
+        self.assertEqual(UNIT_TABLE.jaccard(), 1 / 3)
+        self.assertTrue(isnan(NULL_TABLE.jaccard()))
+        self.assertAlmostEqual(SCALE_TABLE.jaccard(), 1 / 8)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.jaccard(), 0.5)
+        self.assertAlmostEqual(WORKED_EG_TABLE.jaccard(), 20 / 210)
+
     def test_g_measure(self):
         """Test abydos.stats.ConfusionTable.g_measure."""
         self.assertEqual(UNIT_TABLE.g_measure(), 0.5)
@@ -621,6 +695,14 @@ class StatisticalMeasureTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             WORKED_EG_TABLE.g_measure(), 0.25819888974716115
         )
+
+    def test_d_measure(self):
+        """Test abydos.stats.ConfusionTable.d_measure."""
+        self.assertAlmostEqual(UNIT_TABLE.d_measure(), 2 / 3)
+        self.assertTrue(isnan(NULL_TABLE.d_measure()))
+        self.assertAlmostEqual(SCALE_TABLE.d_measure(), 7 / 8)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.d_measure(), 0.5)
+        self.assertAlmostEqual(WORKED_EG_TABLE.d_measure(), 0.9047619047619048)
 
     def test_mcc(self):
         """Test abydos.stats.ConfusionTable.mcc."""
@@ -662,6 +744,32 @@ class StatisticalMeasureTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             WORKED_EG_TABLE.kappa_statistic(),
             _quick_kappa((184 / 203), (((2000 * 1830) + 6000) / 2030 ** 2)),
+        )
+
+    def test_phi_coefficient(self):
+        """Test abydos.stats.ConfusionTable.phi_coefficient."""
+        self.assertEqual(UNIT_TABLE.phi_coefficient(), 0.0)
+        self.assertTrue(isnan(NULL_TABLE.phi_coefficient()))
+        self.assertAlmostEqual(
+            SCALE_TABLE.phi_coefficient(), -0.408248290463863
+        )
+        self.assertAlmostEqual(
+            CATSNDOGS_TABLE.phi_coefficient(), 0.5415533908932432
+        )
+        self.assertAlmostEqual(
+            WORKED_EG_TABLE.phi_coefficient(), 0.23348550853492078
+        )
+
+    def test_proficiency(self):
+        """Test abydos.stats.ConfusionTable.proficiency."""
+        self.assertEqual(UNIT_TABLE.proficiency(), -1.601713251907459e-16)
+        self.assertTrue(isnan(NULL_TABLE.proficiency()))
+        self.assertAlmostEqual(SCALE_TABLE.proficiency(), 0.053624076498240525)
+        self.assertAlmostEqual(
+            CATSNDOGS_TABLE.proficiency(), 0.051882890061500264
+        )
+        self.assertAlmostEqual(
+            WORKED_EG_TABLE.proficiency(), 0.001903505930565753
         )
 
 
