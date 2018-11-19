@@ -28,9 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 from ..phonetic import mra
 
 __all__ = ['MRA', 'dist_mra', 'mra_compare', 'sim_mra']
@@ -144,6 +147,12 @@ class MRA(_Distance):
         return mra_compare(src, tar) / 6
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the MRA.dist_abs method instead.',
+)
 def mra_compare(src, tar):
     """Return the MRA comparison rating of two strings.
 
@@ -176,6 +185,12 @@ def mra_compare(src, tar):
     return MRA().dist_abs(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the MRA.sim method instead.',
+)
 def sim_mra(src, tar):
     """Return the normalized MRA similarity of two strings.
 
@@ -208,6 +223,12 @@ def sim_mra(src, tar):
     return MRA().sim(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the MRA.dist method instead.',
+)
 def dist_mra(src, tar):
     """Return the normalized MRA distance between two strings.
 

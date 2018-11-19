@@ -30,6 +30,8 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from numpy import int as np_int
 from numpy import zeros as np_zeros
 
@@ -37,6 +39,7 @@ from six import text_type
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['Editex', 'dist_editex', 'editex', 'sim_editex']
 
@@ -226,6 +229,12 @@ class Editex(_Distance):
         )
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Editex.dist_abs method instead.',
+)
 def editex(src, tar, cost=(0, 1, 2), local=False):
     """Return the Editex distance between two strings.
 
@@ -263,6 +272,12 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
     return Editex().dist_abs(src, tar, cost, local)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Editex.dist method instead.',
+)
 def dist_editex(src, tar, cost=(0, 1, 2), local=False):
     """Return the normalized Editex distance between two strings.
 
@@ -300,6 +315,12 @@ def dist_editex(src, tar, cost=(0, 1, 2), local=False):
     return Editex().dist(src, tar, cost, local)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Editex.sim method instead.',
+)
 def sim_editex(src, tar, cost=(0, 1, 2), local=False):
     """Return the normalized Editex similarity of two strings.
 

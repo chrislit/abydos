@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['SoundD', 'sound_d']
 
@@ -107,6 +110,12 @@ class SoundD(_Phonetic):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the SoundD.encode method instead.',
+)
 def sound_d(word, max_length=4):
     """Return the SoundD code.
 

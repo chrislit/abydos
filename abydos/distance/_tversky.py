@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._token_distance import _TokenDistance
+from .. import __version__
 
 __all__ = ['Tversky', 'dist_tversky', 'sim_tversky']
 
@@ -143,6 +146,12 @@ class Tversky(_TokenDistance):
         return c_val / (beta * (alpha * a_val + (1 - alpha) * b_val) + c_val)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Tversky.sim method instead.',
+)
 def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     """Return the Tversky index of two strings.
 
@@ -183,6 +192,12 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     return Tversky().sim(src, tar, qval, alpha, beta, bias)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Tversky.dist method instead.',
+)
 def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     """Return the Tversky distance between two strings.
 

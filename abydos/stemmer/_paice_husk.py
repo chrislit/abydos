@@ -28,9 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._stemmer import _Stemmer
+from .. import __version__
 
 __all__ = ['PaiceHusk', 'paice_husk']
 
@@ -256,6 +259,12 @@ class PaiceHusk(_Stemmer):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the PaiceHusk.stem method instead.',
+)
 def paice_husk(word):
     """Return Paice-Husk stem.
 

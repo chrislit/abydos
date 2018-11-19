@@ -30,10 +30,13 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 from six.moves import range
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['Phonex', 'phonex']
 
@@ -164,6 +167,12 @@ class Phonex(_Phonetic):
         return name_code[:max_length]
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Phonex.encode method instead.',
+)
 def phonex(word, max_length=4, zero_pad=True):
     """Return the Phonex code for a word.
 

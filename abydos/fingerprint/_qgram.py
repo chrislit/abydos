@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._fingerprint import _Fingerprint
+from .. import __version__
 from ..tokenizer import QGrams
 
 __all__ = ['QGram', 'qgram_fingerprint']
@@ -84,6 +87,12 @@ class QGram(_Fingerprint):
         return phrase
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the QGram.fingerprint method instead.',
+)
 def qgram_fingerprint(phrase, qval=2, start_stop='', joiner=''):
     """Return Q-Gram fingerprint.
 

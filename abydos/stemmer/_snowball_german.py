@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._snowball import _Snowball
+from .. import __version__
 
 __all__ = ['SnowballGerman', 'sb_german']
 
@@ -191,6 +194,12 @@ class SnowballGerman(_Snowball):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the SnowballGerman.stem method instead.',
+)
 def sb_german(word, alternate_vowels=False):
     """Return Snowball German stem.
 

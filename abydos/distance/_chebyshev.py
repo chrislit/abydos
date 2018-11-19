@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._minkowski import Minkowski
+from .. import __version__
 
 __all__ = ['Chebyshev', 'chebyshev']
 
@@ -117,6 +120,12 @@ class Chebyshev(Minkowski):
         raise NotImplementedError('Method disabled for Chebyshev distance.')
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Chebyshev.dist_abs method instead.',
+)
 def chebyshev(src, tar, qval=2, alphabet=None):
     r"""Return the Chebyshev distance between two strings.
 

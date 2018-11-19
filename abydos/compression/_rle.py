@@ -33,7 +33,6 @@ from itertools import groupby
 from deprecation import deprecated
 
 from ._bwt import BWT
-
 from .. import __version__
 
 __all__ = ['RLE', 'rle_decode', 'rle_encode']

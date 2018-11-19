@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._minkowski import Minkowski
+from .. import __version__
 
 __all__ = ['Euclidean', 'dist_euclidean', 'euclidean', 'sim_euclidean']
 
@@ -116,6 +119,12 @@ class Euclidean(Minkowski):
         return self.dist_abs(src, tar, qval, True, alphabet)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Euclidean.dist_abs method instead.',
+)
 def euclidean(src, tar, qval=2, normalized=False, alphabet=None):
     """Return the Euclidean distance between two strings.
 
@@ -153,6 +162,12 @@ def euclidean(src, tar, qval=2, normalized=False, alphabet=None):
     return Euclidean().dist_abs(src, tar, qval, normalized, alphabet)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Euclidean.dist method instead.',
+)
 def dist_euclidean(src, tar, qval=2, alphabet=None):
     """Return the normalized Euclidean distance between two strings.
 
@@ -189,6 +204,12 @@ def dist_euclidean(src, tar, qval=2, alphabet=None):
     return Euclidean().dist(src, tar, qval, alphabet)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Euclidean.sim method instead.',
+)
 def sim_euclidean(src, tar, qval=2, alphabet=None):
     """Return the normalized Euclidean similarity of two strings.
 

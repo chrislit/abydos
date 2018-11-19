@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
 
@@ -35,6 +37,7 @@ from six.moves import range
 
 from ._ident import sim_ident
 from ._needleman_wunsch import NeedlemanWunsch
+from .. import __version__
 
 __all__ = ['Gotoh', 'gotoh']
 
@@ -120,6 +123,12 @@ class Gotoh(NeedlemanWunsch):
         return max(d_mat[i, j], p_mat[i, j], q_mat[i, j])
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Gotoh.dist_abs method instead.',
+)
 def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
     """Return the Gotoh score of two strings.
 

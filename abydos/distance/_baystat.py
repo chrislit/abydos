@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['Baystat', 'dist_baystat', 'sim_baystat']
 
@@ -173,6 +176,12 @@ class Baystat(_Distance):
             pos += ix
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Baystat.sim method instead.',
+)
 def sim_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
     """Return the Baystat similarity.
 
@@ -211,6 +220,12 @@ def sim_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
     return Baystat().sim(src, tar, min_ss_len, left_ext, right_ext)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Baystat.dist method instead.',
+)
 def dist_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
     """Return the Baystat distance.
 

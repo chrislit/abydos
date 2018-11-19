@@ -31,9 +31,12 @@ from __future__ import (
 from re import compile as re_compile
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['FONEM', 'fonem']
 
@@ -241,6 +244,12 @@ class FONEM(_Phonetic):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the FONEM.encode method instead.',
+)
 def fonem(word):
     """Return the FONEM code of a word.
 

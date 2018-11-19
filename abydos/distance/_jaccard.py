@@ -30,7 +30,10 @@ from __future__ import (
 
 from math import log
 
+from deprecation import deprecated
+
 from ._tversky import Tversky
+from .. import __version__
 
 __all__ = ['Jaccard', 'dist_jaccard', 'sim_jaccard', 'tanimoto']
 
@@ -120,6 +123,12 @@ class Jaccard(Tversky):
         return float('-inf')
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Jaccard.sim method instead.',
+)
 def sim_jaccard(src, tar, qval=2):
     """Return the Jaccard similarity of two strings.
 
@@ -154,6 +163,12 @@ def sim_jaccard(src, tar, qval=2):
     return Jaccard().sim(src, tar, qval)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Jaccard.dist method instead.',
+)
 def dist_jaccard(src, tar, qval=2):
     """Return the Jaccard distance between two strings.
 
@@ -188,6 +203,12 @@ def dist_jaccard(src, tar, qval=2):
     return Jaccard().dist(src, tar, qval)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Jaccard.tanimoto_coeff method instead.',
+)
 def tanimoto(src, tar, qval=2):
     """Return the Tanimoto coefficient of two strings.
 

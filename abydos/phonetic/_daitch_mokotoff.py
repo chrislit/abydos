@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['DaitchMokotoff', 'dm_soundex']
 
@@ -358,6 +361,12 @@ class DaitchMokotoff(_Phonetic):
         return set(dms)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the DaitchMokotoff.encode method instead.',
+)
 def dm_soundex(word, max_length=6, zero_pad=True):
     """Return the Daitch-Mokotoff Soundex code for a word.
 

@@ -28,8 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['Norphone', 'norphone']
 
@@ -155,6 +157,12 @@ class Norphone(_Phonetic):
         return code
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Norphone.encode method instead.',
+)
 def norphone(word):
     """Return the Norphone code.
 

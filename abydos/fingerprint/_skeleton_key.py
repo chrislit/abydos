@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._fingerprint import _Fingerprint
+from .. import __version__
 
 __all__ = ['SkeletonKey', 'skeleton_key']
 
@@ -89,6 +92,12 @@ class SkeletonKey(_Fingerprint):
         return start + consonant_part + vowel_part
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the SkeletonKey.fingerprint method instead.',
+)
 def skeleton_key(word):
     """Return the skeleton key.
 

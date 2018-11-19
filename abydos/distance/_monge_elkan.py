@@ -28,8 +28,11 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._distance import _Distance
 from ._levenshtein import sim_levenshtein
+from .. import __version__
 from ..tokenizer import QGrams
 
 __all__ = ['MongeElkan', 'dist_monge_elkan', 'sim_monge_elkan']
@@ -103,6 +106,12 @@ class MongeElkan(_Distance):
         return sim_em
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the MongeElkan.sim method instead.',
+)
 def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
     """Return the Monge-Elkan similarity of two strings.
 
@@ -139,6 +148,12 @@ def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
     return MongeElkan().sim(src, tar, sim_func, symmetric)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the MongeElkan.dist method instead.',
+)
 def dist_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
     """Return the Monge-Elkan distance between two strings.
 

@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._stemmer import _Stemmer
+from .. import __version__
 
 __all__ = ['CLEFSwedish', 'clef_swedish']
 
@@ -82,6 +85,12 @@ class CLEFSwedish(_Stemmer):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the CLEFSwedish.stem method instead.',
+)
 def clef_swedish(word):
     """Return CLEF Swedish stem.
 

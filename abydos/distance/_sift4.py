@@ -28,9 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['Sift4', 'dist_sift4', 'sift4_common', 'sim_sift4']
 
@@ -193,6 +196,12 @@ class Sift4(_Distance):
         )
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Sift4.dist_abs method instead.',
+)
 def sift4_common(src, tar, max_offset=5, max_distance=0):
     """Return the "common" Sift4 distance between two terms.
 
@@ -229,6 +238,12 @@ def sift4_common(src, tar, max_offset=5, max_distance=0):
     return Sift4().dist_abs(src, tar, max_offset, max_distance)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Sift4.dist method instead.',
+)
 def dist_sift4(src, tar, max_offset=5, max_distance=0):
     """Return the normalized "common" Sift4 distance between two terms.
 
@@ -265,6 +280,12 @@ def dist_sift4(src, tar, max_offset=5, max_distance=0):
     return Sift4().dist(src, tar, max_offset, max_distance)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Sift4.sim method instead.',
+)
 def sim_sift4(src, tar, max_offset=5, max_distance=0):
     """Return the normalized "common" Sift4 similarity of two terms.
 

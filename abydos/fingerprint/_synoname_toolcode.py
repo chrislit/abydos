@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._fingerprint import _Fingerprint
+from .. import __version__
 
 __all__ = ['SynonameToolcode', 'synoname_toolcode']
 
@@ -492,6 +495,12 @@ class SynonameToolcode(_Fingerprint):
         return lname, fname, ''.join(toolcode)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the SynonameToolcode.fingerprint method instead.',
+)
 def synoname_toolcode(lname, fname='', qual='', normalize=0):
     """Build the Synoname toolcode.
 

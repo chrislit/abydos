@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['SpanishMetaphone', 'spanish_metaphone']
 
@@ -232,6 +235,12 @@ class SpanishMetaphone(_Phonetic):
         return meta_key
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the SpanishMetaphone.encode method instead.',
+)
 def spanish_metaphone(word, max_length=6, modified=False):
     """Return the Spanish Metaphone of a word.
 

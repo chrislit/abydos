@@ -30,7 +30,10 @@ from __future__ import (
 
 from numbers import Number
 
+from deprecation import deprecated
+
 from ._token_distance import _TokenDistance
+from .. import __version__
 
 __all__ = ['Minkowski', 'dist_minkowski', 'minkowski', 'sim_minkowski']
 
@@ -146,6 +149,12 @@ class Minkowski(_TokenDistance):
         return self.dist_abs(src, tar, qval, pval, True, alphabet)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Minkowski.dist_abs method instead.',
+)
 def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
     """Return the Minkowski distance (:math:`L^p`-norm) of two strings.
 
@@ -186,6 +195,12 @@ def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
     return Minkowski().dist_abs(src, tar, qval, pval, normalized, alphabet)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Minkowski.dist method instead.',
+)
 def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     """Return normalized Minkowski distance of two strings.
 
@@ -224,6 +239,12 @@ def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     return Minkowski().dist(src, tar, qval, pval, alphabet)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Minkowski.sim method instead.',
+)
 def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     """Return normalized Minkowski similarity of two strings.
 

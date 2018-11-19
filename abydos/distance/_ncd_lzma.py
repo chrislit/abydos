@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._distance import _Distance
+from .. import __version__
 
 try:
     import lzma
@@ -103,6 +106,12 @@ class NCDlzma(_Distance):
         ) / max(len(src_comp), len(tar_comp))
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDlzma.dist method instead.',
+)
 def dist_ncd_lzma(src, tar):
     """Return the NCD between two strings using LZMA compression.
 
@@ -135,6 +144,12 @@ def dist_ncd_lzma(src, tar):
     return NCDlzma().dist(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDlzma.sim method instead.',
+)
 def sim_ncd_lzma(src, tar):
     """Return the NCD similarity between two strings using LZMA compression.
 

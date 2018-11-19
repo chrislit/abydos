@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._distance import _Distance
+from .. import __version__
 from ..compression import RLE
 
 __all__ = ['NCDrle', 'dist_ncd_rle', 'sim_ncd_rle']
@@ -86,6 +89,12 @@ class NCDrle(_Distance):
         ) / max(len(src_comp), len(tar_comp))
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDrle.dist method instead.',
+)
 def dist_ncd_rle(src, tar):
     """Return the NCD between two strings using RLE.
 
@@ -118,6 +127,12 @@ def dist_ncd_rle(src, tar):
     return NCDrle().dist(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDrle.sim method instead.',
+)
 def sim_ncd_rle(src, tar):
     """Return the NCD similarity between two strings using RLE.
 

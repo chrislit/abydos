@@ -31,10 +31,13 @@ from __future__ import (
 from itertools import product
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 from six.moves import range
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['Haase', 'haase_phonetik']
 
@@ -245,6 +248,12 @@ class Haase(_Phonetic):
         return encoded
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Haase.encode method instead.',
+)
 def haase_phonetik(word, primary_only=False):
     """Return the Haase Phonetik (numeric output) code for a word.
 

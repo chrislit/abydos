@@ -28,8 +28,11 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._distance import _Distance
 from ._hamming import Hamming
+from .. import __version__
 
 __all__ = ['MLIPNS', 'dist_mlipns', 'sim_mlipns']
 
@@ -102,6 +105,12 @@ class MLIPNS(_Distance):
         return 0.0
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the MLIPNS.sim method instead.',
+)
 def sim_mlipns(src, tar, threshold=0.25, max_mismatches=2):
     """Return the MLIPNS similarity of two strings.
 
@@ -140,6 +149,12 @@ def sim_mlipns(src, tar, threshold=0.25, max_mismatches=2):
     return MLIPNS().sim(src, tar, threshold, max_mismatches)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the MLIPNS.dist method instead.',
+)
 def dist_mlipns(src, tar, threshold=0.25, max_mismatches=2):
     """Return the MLIPNS distance between two strings.
 

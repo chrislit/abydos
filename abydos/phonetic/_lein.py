@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['Lein', 'lein']
 
@@ -96,6 +99,12 @@ class Lein(_Phonetic):
         return code[:max_length]
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Lein.encode method instead.',
+)
 def lein(word, max_length=4, zero_pad=True):
     """Return the Lein code for a word.
 

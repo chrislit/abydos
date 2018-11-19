@@ -28,9 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['Davidson', 'davidson']
 
@@ -97,6 +100,12 @@ class Davidson(_Phonetic):
         return code
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Davidson.encode method instead.',
+)
 def davidson(lname, fname='.', omit_fname=False):
     """Return Davidson's Consonant Code.
 

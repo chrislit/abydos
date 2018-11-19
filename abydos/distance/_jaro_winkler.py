@@ -32,9 +32,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 from ..tokenizer import QGrams
 
 __all__ = ['JaroWinkler', 'dist_jaro_winkler', 'sim_jaro_winkler']
@@ -231,6 +234,12 @@ class JaroWinkler(_Distance):
         return weight
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the JaroWinkler.sim method instead.',
+)
 def sim_jaro_winkler(
     src,
     tar,
@@ -303,6 +312,12 @@ def sim_jaro_winkler(
     )
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the JaroWinkler.dist method instead.',
+)
 def dist_jaro_winkler(
     src,
     tar,

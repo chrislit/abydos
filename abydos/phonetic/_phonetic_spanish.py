@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['PhoneticSpanish', 'phonetic_spanish']
 
@@ -97,6 +100,12 @@ class PhoneticSpanish(_Phonetic):
         return sdx
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the PhoneticSpanish.encode method instead.',
+)
 def phonetic_spanish(word, max_length=-1):
     """Return the PhoneticSpanish coding of word.
 

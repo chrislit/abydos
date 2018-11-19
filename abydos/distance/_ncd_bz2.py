@@ -30,7 +30,10 @@ from __future__ import (
 
 import bz2
 
+from deprecation import deprecated
+
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['NCDbz2', 'dist_ncd_bz2', 'sim_ncd_bz2']
 
@@ -101,6 +104,12 @@ class NCDbz2(_Distance):
         ) / max(len(src_comp), len(tar_comp))
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDbz2.dist method instead.',
+)
 def dist_ncd_bz2(src, tar):
     """Return the NCD between two strings using bzip2 compression.
 
@@ -133,6 +142,12 @@ def dist_ncd_bz2(src, tar):
     return NCDbz2().dist(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDbz2.sim method instead.',
+)
 def sim_ncd_bz2(src, tar):
     """Return the NCD similarity between two strings using bzip2 compression.
 

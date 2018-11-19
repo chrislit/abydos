@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['Hamming', 'dist_hamming', 'hamming', 'sim_hamming']
 
@@ -146,6 +149,12 @@ class Hamming(_Distance):
         return self.dist_abs(src, tar, diff_lens) / max(len(src), len(tar))
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Hamming.dist_abs method instead.',
+)
 def hamming(src, tar, diff_lens=True):
     """Return the Hamming distance between two strings.
 
@@ -184,6 +193,12 @@ def hamming(src, tar, diff_lens=True):
     return Hamming().dist_abs(src, tar, diff_lens)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Hamming.dist method instead.',
+)
 def dist_hamming(src, tar, diff_lens=True):
     """Return the normalized Hamming distance between two strings.
 
@@ -222,6 +237,12 @@ def dist_hamming(src, tar, diff_lens=True):
     return Hamming().dist(src, tar, diff_lens)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Hamming.sim method instead.',
+)
 def sim_hamming(src, tar, diff_lens=True):
     """Return the normalized Hamming similarity of two strings.
 

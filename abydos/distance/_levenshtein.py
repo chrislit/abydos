@@ -32,6 +32,7 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
 
 from numpy import int as np_int
 from numpy import zeros as np_zeros
@@ -39,6 +40,7 @@ from numpy import zeros as np_zeros
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['Levenshtein', 'dist_levenshtein', 'levenshtein', 'sim_levenshtein']
 
@@ -203,6 +205,12 @@ class Levenshtein(_Distance):
         )
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Levenshtein.dist_abs method instead.',
+)
 def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     """Return the Levenshtein distance between two strings.
 
@@ -253,6 +261,12 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     return Levenshtein().dist_abs(src, tar, mode, cost)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Levenshtein.dist method instead.',
+)
 def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     """Return the normalized Levenshtein distance between two strings.
 
@@ -298,6 +312,12 @@ def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     return Levenshtein().dist(src, tar, mode, cost)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Levenshtein.sim method instead.',
+)
 def sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     """Return the Levenshtein similarity of two strings.
 

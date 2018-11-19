@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['Caverphone', 'caverphone']
 
@@ -201,6 +204,12 @@ class Caverphone(_Phonetic):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Caverphone.encode method instead.',
+)
 def caverphone(word, version=2):
     """Return the Caverphone code for a word.
 

@@ -29,9 +29,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['NYSIIS', 'nysiis']
 
@@ -220,6 +223,12 @@ class NYSIIS(_Phonetic):
         return key
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NYSIIS.encode method instead.',
+)
 def nysiis(word, max_length=6, modified=False):
     """Return the NYSIIS code for a word.
 

@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
 
@@ -35,6 +37,7 @@ from six.moves import range
 
 from ._ident import sim_ident
 from ._needleman_wunsch import NeedlemanWunsch
+from .. import __version__
 
 __all__ = ['SmithWaterman', 'smith_waterman']
 
@@ -95,6 +98,12 @@ class SmithWaterman(NeedlemanWunsch):
         return d_mat[d_mat.shape[0] - 1, d_mat.shape[1] - 1]
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the SmithWaterman.dist_abs method instead.',
+)
 def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
     """Return the Smith-Waterman score of two strings.
 

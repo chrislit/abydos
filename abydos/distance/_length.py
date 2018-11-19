@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['Length', 'dist_length', 'sim_length']
 
@@ -76,6 +79,12 @@ class Length(_Distance):
         )
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Length.sim method instead.',
+)
 def sim_length(src, tar):
     """Return the length similarity of two strings.
 
@@ -108,6 +117,12 @@ def sim_length(src, tar):
     return Length().sim(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Length.dist method instead.',
+)
 def dist_length(src, tar):
     """Return the length distance between two strings.
 
