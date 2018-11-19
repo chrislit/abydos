@@ -366,7 +366,7 @@ class ConfusionTable(object):
         Example
         -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        >>> ct.test_pos_pop()
+        >>> ct.pred_pos_pop()
         140
 
         """
@@ -383,7 +383,7 @@ class ConfusionTable(object):
         Example
         -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        >>> ct.test_neg_pop()
+        >>> ct.pred_neg_pop()
         90
 
         """

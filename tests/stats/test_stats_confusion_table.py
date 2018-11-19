@@ -166,19 +166,19 @@ class PopulationTestCases(unittest.TestCase):
 
     def test_test_pos_pop(self):
         """Test abydos.stats.ConfusionTable.test_pos_pop."""
-        self.assertEqual(UNIT_TABLE.test_pos_pop(), 2)
-        self.assertEqual(NULL_TABLE.test_pos_pop(), 0)
-        self.assertEqual(SCALE_TABLE.test_pos_pop(), 4)
-        self.assertEqual(CATSNDOGS_TABLE.test_pos_pop(), 7)
-        self.assertEqual(WORKED_EG_TABLE.test_pos_pop(), 200)
+        self.assertEqual(UNIT_TABLE.pred_pos_pop(), 2)
+        self.assertEqual(NULL_TABLE.pred_pos_pop(), 0)
+        self.assertEqual(SCALE_TABLE.pred_pos_pop(), 4)
+        self.assertEqual(CATSNDOGS_TABLE.pred_pos_pop(), 7)
+        self.assertEqual(WORKED_EG_TABLE.pred_pos_pop(), 200)
 
     def test_test_neg_pop(self):
         """Test abydos.stats.ConfusionTable.test_neg_pop."""
-        self.assertEqual(UNIT_TABLE.test_neg_pop(), 2)
-        self.assertEqual(NULL_TABLE.test_neg_pop(), 0)
-        self.assertEqual(SCALE_TABLE.test_neg_pop(), 6)
-        self.assertEqual(CATSNDOGS_TABLE.test_neg_pop(), 20)
-        self.assertEqual(WORKED_EG_TABLE.test_neg_pop(), 1830)
+        self.assertEqual(UNIT_TABLE.pred_neg_pop(), 2)
+        self.assertEqual(NULL_TABLE.pred_neg_pop(), 0)
+        self.assertEqual(SCALE_TABLE.pred_neg_pop(), 6)
+        self.assertEqual(CATSNDOGS_TABLE.pred_neg_pop(), 20)
+        self.assertEqual(WORKED_EG_TABLE.pred_neg_pop(), 1830)
 
     def test_cond_pos_pop(self):
         """Test abydos.stats.ConfusionTable.cond_pos_pop."""
