@@ -286,6 +286,8 @@ class ConfusionTable(object):
     def false_pos(self):
         """Return false positives.
 
+        AKA Type I error
+
         Returns
         -------
         int
@@ -302,6 +304,8 @@ class ConfusionTable(object):
 
     def false_neg(self):
         """Return false negatives.
+
+        AKA Type II error
 
         Returns
         -------
@@ -351,13 +355,13 @@ class ConfusionTable(object):
         """
         return self._fp + self._fn
 
-    def test_pos_pop(self):
-        """Return test positive population.
+    def pred_pos_pop(self):
+        """Return predicted positive population.
 
         Returns
         -------
         int
-            The test positive population of the confusion table
+            The predicted positive population of the confusion table
 
         Example
         -------
@@ -368,13 +372,13 @@ class ConfusionTable(object):
         """
         return self._tp + self._fp
 
-    def test_neg_pop(self):
-        """Return test negative population.
+    def pred_neg_pop(self):
+        """Return predicted negative population.
 
         Returns
         -------
         int
-            The test negative population of the confusion table
+            The predicted negative population of the confusion table
 
         Example
         -------
