@@ -530,9 +530,10 @@ class ConfusionTable(object):
         .. versionadded:: 0.1.0
 
         """
-        if self._tp + self._fp == 0:
-            return float('NaN')
-        return self._tp / (self._tp + self._fp)
+        try:
+            return self._tp / (self._tp + self._fp)
+        except ZeroDivisionError:
+            return float('nan')
 
     def precision_gain(self):
         r"""Return gain in precision.
@@ -556,10 +557,11 @@ class ConfusionTable(object):
         .. versionadded:: 0.1.0
 
         """
-        if self.population() == 0:
-            return float('NaN')
-        random_precision = self.cond_pos_pop() / self.population()
-        return self.precision() / random_precision
+        try:
+            random_precision = self.cond_pos_pop() / self.population()
+            return self.precision() / random_precision
+        except ZeroDivisionError:
+            return float('nan')
 
     def recall(self):
         r"""Return recall.
@@ -590,9 +592,10 @@ class ConfusionTable(object):
         .. versionadded:: 0.1.0
 
         """
-        if self._tp + self._fn == 0:
-            return float('NaN')
-        return self._tp / (self._tp + self._fn)
+        try:
+            return self._tp / (self._tp + self._fn)
+        except ZeroDivisionError:
+            return float('nan')
 
     def specificity(self):
         r"""Return specificity.
@@ -619,9 +622,10 @@ class ConfusionTable(object):
         .. versionadded:: 0.1.0
 
         """
-        if self._tn + self._fp == 0:
-            return float('NaN')
-        return self._tn / (self._tn + self._fp)
+        try:
+            return self._tn / (self._tn + self._fp)
+        except ZeroDivisionError:
+            return float('nan')
 
     def fnr(self):
         r"""Return false negative rate.
@@ -672,9 +676,10 @@ class ConfusionTable(object):
         .. versionadded:: 0.1.0
 
         """
-        if self._tn + self._fn == 0:
-            return float('NaN')
-        return self._tn / (self._tn + self._fn)
+        try:
+            return self._tn / (self._tn + self._fn)
+        except ZeroDivisionError:
+            return float('nan')
 
     def false_omission_rate(self):
         r"""Return false omission rate (FOR).
@@ -697,9 +702,10 @@ class ConfusionTable(object):
         .. versionadded:: 0.4.0
 
         """
-        if self._tn + self._fn == 0:
-            return float('NaN')
-        return self._fn / (self._tn + self._fn)
+        try:
+            return self._fn / (self._tn + self._fn)
+        except ZeroDivisionError:
+            return float('nan')
 
     def fallout(self):
         r"""Return fall-out.
@@ -799,9 +805,10 @@ class ConfusionTable(object):
         .. versionadded:: 0.4.0
 
         """
-        if self._fp * self._fn == 0.0:
-            return float('NaN')
-        return (self._tp * self._tn) / (self._fp * self._fn)
+        try:
+            return (self._tp * self._tn) / (self._fp * self._fn)
+        except ZeroDivisionError:
+            return float('nan')
 
     def fdr(self):
         r"""Return false discovery rate (FDR).
@@ -824,9 +831,10 @@ class ConfusionTable(object):
         .. versionadded:: 0.1.0
 
         """
-        if self._fp + self._tp == 0:
-            return float('NaN')
-        return self._fp / (self._fp + self._tp)
+        try:
+            return self._fp / (self._fp + self._tp)
+        except ZeroDivisionError:
+            return float('nan')
 
     def accuracy(self):
         r"""Return accuracy.
@@ -849,9 +857,10 @@ class ConfusionTable(object):
         .. versionadded:: 0.1.0
 
         """
-        if self.population() == 0:
-            return float('NaN')
-        return (self._tp + self._tn) / self.population()
+        try:
+            return (self._tp + self._tn) / self.population()
+        except ZeroDivisionError:
+            return float('nan')
 
     def accuracy_gain(self):
         r"""Return gain in accuracy.
@@ -875,12 +884,13 @@ class ConfusionTable(object):
         .. versionadded:: 0.1.0
 
         """
-        if self.population() == 0:
-            return float('NaN')
-        random_accuracy = (self.cond_pos_pop() / self.population()) ** 2 + (
-            self.cond_neg_pop() / self.population()
-        ) ** 2
-        return self.accuracy() / random_accuracy
+        try:
+            random_accuracy = (
+                self.cond_pos_pop() / self.population()
+            ) ** 2 + (self.cond_neg_pop() / self.population()) ** 2
+            return self.accuracy() / random_accuracy
+        except ZeroDivisionError:
+            return float('nan')
 
     def balanced_accuracy(self):
         r"""Return balanced accuracy.
@@ -955,9 +965,10 @@ class ConfusionTable(object):
         .. versionadded:: 0.4.0
 
         """
-        if self.population() == 0:
-            return float('NaN')
-        return self.cond_pos_pop() / self.population()
+        try:
+            return self.cond_pos_pop() / self.population()
+        except ZeroDivisionError:
+            return float('nan')
 
     def informedness(self):
         """Return informedness.
@@ -1668,21 +1679,15 @@ class ConfusionTable(object):
         .. versionadded:: 0.1.0
 
         """
-        if (
-            (
+        try:
+            return ((self._tp * self._tn) - (self._fp * self._fn)) / math.sqrt(
                 (self._tp + self._fp)
                 * (self._tp + self._fn)
                 * (self._tn + self._fp)
                 * (self._tn + self._fn)
             )
-        ) == 0:
-            return float('NaN')
-        return ((self._tp * self._tn) - (self._fp * self._fn)) / math.sqrt(
-            (self._tp + self._fp)
-            * (self._tp + self._fn)
-            * (self._tn + self._fp)
-            * (self._tn + self._fn)
-        )
+        except ZeroDivisionError:
+            return float('nan')
 
     def significance(self):
         r"""Return the significance, :math:`\chi^{2}`.
@@ -1710,24 +1715,18 @@ class ConfusionTable(object):
         .. versionadded:: 0.1.0
 
         """
-        if (
-            (
+        try:
+            return (
+                (self._tp * self._tn - self._fp * self._fn) ** 2
+                * (self._tp + self._tn + self._fp + self._fn)
+            ) / (
                 (self._tp + self._fp)
                 * (self._tp + self._fn)
                 * (self._tn + self._fp)
                 * (self._tn + self._fn)
             )
-        ) == 0:
-            return float('NaN')
-        return (
-            (self._tp * self._tn - self._fp * self._fn) ** 2
-            * (self._tp + self._tn + self._fp + self._fn)
-        ) / (
-            (self._tp + self._fp)
-            * (self._tp + self._fn)
-            * (self._tn + self._fp)
-            * (self._tn + self._fn)
-        )
+        except ZeroDivisionError:
+            return float('nan')
 
     def kappa_statistic(self):
         r"""Return κ statistic.
@@ -1756,13 +1755,14 @@ class ConfusionTable(object):
         .. versionadded:: 0.1.0
 
         """
-        if self.population() == 0:
-            return float('NaN')
-        random_accuracy = (
-            (self._tn + self._fp) * (self._tn + self._fn)
-            + (self._fn + self._tp) * (self._fp + self._tp)
-        ) / self.population() ** 2
-        return (self.accuracy() - random_accuracy) / (1 - random_accuracy)
+        try:
+            random_accuracy = (
+                (self._tn + self._fp) * (self._tn + self._fn)
+                + (self._fn + self._tp) * (self._fp + self._tp)
+            ) / self.population() ** 2
+            return (self.accuracy() - random_accuracy) / (1 - random_accuracy)
+        except ZeroDivisionError:
+            return float('nan')
 
     def phi_coefficient(self):
         r"""Return φ coefficient.
