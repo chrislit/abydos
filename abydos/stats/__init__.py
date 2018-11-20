@@ -96,8 +96,8 @@ The :py:class:`.ConfusionTable` class has methods:
     - :py:meth:`.false_neg` returns the number of false negatives
     - :py:meth:`.correct_pop` returns the correct population
     - :py:meth:`.error_pop` returns the error population
-    - :py:meth:`.test_pos_pop` returns the test positive population
-    - :py:meth:`.test_neg_pop` returns the test negative population
+    - :py:meth:`.pred_pos_pop` returns the test positive population
+    - :py:meth:`.pred_neg_pop` returns the test negative population
     - :py:meth:`.cond_pos_pop` returns the condition positive population
     - :py:meth:`.cond_neg_pop` returns the condition negative population
     - :py:meth:`.population` returns the total population
