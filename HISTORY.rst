@@ -9,6 +9,28 @@ doi:
 
 Changes:
 
+- Deprecated functions that merely wrap class methods to maintain API
+  compatibility, for removal in 0.6.0
+- Added methods to ConfusionTable to return:
+    - its internal representation
+    - false negative rate
+    - false omission rate
+    - positive & negative likelihood ratios
+    - diagnostic odds ratio
+    - error rate
+    - prevalence
+    - Jaccard index
+    - D-measure
+    - Phi coefficient
+    - joint, actual, & predicted entropies
+    - mutual information
+    - proficiency (uncertainty coefficient)
+    - information gain ratio
+    - dependency
+    - lift
+- Deprecated f-measure & g-measure from ConfusionTable for removal in
+  0.6.0
+- Added notes to indicate when functions, classes, & methods were added
 
 
 0.3.6 (2018-11-17) *classy carl*
