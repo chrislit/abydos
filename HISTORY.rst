@@ -128,6 +128,7 @@ Changes:
    - UEA-Lite Stemmer
    - Paice-Husk Stemmer
    - Schinke Latin stemmer
+   - S stemmer
 - Eliminated ._compat submodule in favor of six
 - Transitioned from PEP8 to flake8, etc.
 - Phonetic algorithms now consistently use max_length=-1 to indicate that
