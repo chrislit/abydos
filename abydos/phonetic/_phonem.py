@@ -51,6 +51,8 @@ class Phonem(_Phonetic):
     :cite:`dcm4che:2011`.
 
     Phonem is intended chiefly for German names/words.
+
+    .. versionadded:: 0.3.6
     """
 
     _substitutions = (
@@ -107,6 +109,10 @@ class Phonem(_Phonetic):
         >>> pe.encode('Schmidt')
         'CMYD'
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         word = unicode_normalize('NFC', text_type(word.upper()))
         for i, j in self._substitutions:
@@ -151,6 +157,8 @@ def phonem(word):
     'SMYD'
     >>> phonem('Schmidt')
     'CMYD'
+
+    .. versionadded:: 0.1.0
 
     """
     return Phonem().encode(word)

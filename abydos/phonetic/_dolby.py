@@ -45,6 +45,8 @@ class Dolby(_Phonetic):
 
     This follows "A Spelling Equivalent Abbreviation Algorithm For Personal
     Names" from :cite:`Dolby:1970` and :cite:`Cunningham:1969`.
+
+    .. versionadded:: 0.3.6
     """
 
     def encode(self, word, max_length=-1, keep_vowels=False, vowel_char='*'):
@@ -111,6 +113,10 @@ class Dolby(_Phonetic):
         'SM*D  '
         >>> pe.encode('Ashcroft', max_length=6)
         '*SKRFD'
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
@@ -320,6 +326,8 @@ def dolby(word, max_length=-1, keep_vowels=False, vowel_char='*'):
     'SM*D  '
     >>> dolby('Ashcroft', max_length=6)
     '*SKRFD'
+
+    .. versionadded:: 0.3.0
 
     """
     return Dolby().encode(word, max_length, keep_vowels, vowel_char)

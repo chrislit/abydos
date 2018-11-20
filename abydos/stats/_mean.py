@@ -86,6 +86,8 @@ def amean(nums):
     >>> amean([0, 5, 1000])
     335.0
 
+    .. versionadded:: 0.1.0
+
     """
     return sum(nums) / len(nums)
 
@@ -116,6 +118,8 @@ def gmean(nums):
     1.4142135623730951
     >>> gmean([0, 5, 1000])
     0.0
+
+    .. versionadded:: 0.1.0
 
     """
     return _prod(nums) ** (1 / len(nums))
@@ -156,6 +160,8 @@ def hmean(nums):
     1.3333333333333333
     >>> hmean([0, 5, 1000])
     0
+
+    .. versionadded:: 0.1.0
 
     """
     if len(nums) < 1:
@@ -203,6 +209,8 @@ def qmean(nums):
     >>> qmean([0, 5, 1000])
     577.3574860228857
 
+    .. versionadded:: 0.1.0
+
     """
     return (sum(i ** 2 for i in nums) / len(nums)) ** 0.5
 
@@ -233,6 +241,8 @@ def cmean(nums):
     1.6666666666666667
     >>> cmean([0, 5, 1000])
     995.0497512437811
+
+    .. versionadded:: 0.1.0
 
     """
     return sum(x ** 2 for x in nums) / sum(nums)
@@ -272,6 +282,8 @@ def lmean(nums):
     2.2724242417489258
     >>> lmean([1, 2])
     1.4426950408889634
+
+    .. versionadded:: 0.1.0
 
     """
     if len(nums) != len(set(nums)):
@@ -318,6 +330,8 @@ def imean(nums):
     nan
     >>> imean([2, 4])
     2.9430355293715387
+
+    .. versionadded:: 0.1.0
 
     """
     if len(nums) == 1:
@@ -367,6 +381,8 @@ def seiffert_mean(nums):
     >>> seiffert_mean([2, 1000])
     336.84053300118825
 
+    .. versionadded:: 0.1.0
+
     """
     if len(nums) == 1:
         return nums[0]
@@ -408,6 +424,8 @@ def lehmer_mean(nums, exp=2):
     >>> lehmer_mean([0, 5, 1000])
     995.0497512437811
 
+    .. versionadded:: 0.1.0
+
     """
     return sum(x ** exp for x in nums) / sum(x ** (exp - 1) for x in nums)
 
@@ -440,6 +458,8 @@ def heronian_mean(nums):
     1.4714045207910316
     >>> heronian_mean([0, 5, 1000])
     179.28511301977582
+
+    .. versionadded:: 0.1.0
 
     """
     mag = len(nums)
@@ -483,6 +503,8 @@ def hoelder_mean(nums, exp=2):
     >>> hoelder_mean([0, 5, 1000])
     577.3574860228857
 
+    .. versionadded:: 0.1.0
+
     """
     if exp == 0:
         return gmean(nums)
@@ -515,6 +537,8 @@ def agmean(nums):
     1.4567910310469068
     >>> agmean([0, 5, 1000])
     2.9753977059954195e-13
+
+    .. versionadded:: 0.1.0
 
     """
     m_a = amean(nums)
@@ -558,6 +582,8 @@ def ghmean(nums):
     >>> ghmean([0, 0, 5])
     nan
 
+    .. versionadded:: 0.1.0
+
     """
     m_g = gmean(nums)
     m_h = hmean(nums)
@@ -593,6 +619,8 @@ def aghmean(nums):
     1.4142135623731884
     >>> aghmean([0, 5, 1000])
     335.0
+
+    .. versionadded:: 0.1.0
 
     """
     m_a = amean(nums)
@@ -637,6 +665,8 @@ def midrange(nums):
     >>> midrange([1, 2, 1000, 3])
     500.5
 
+    .. versionadded:: 0.1.0
+
     """
     return 0.5 * (max(nums) + min(nums))
 
@@ -668,6 +698,8 @@ def median(nums):
     2.5
     >>> median([1, 2, 2, 4])
     2
+
+    .. versionadded:: 0.1.0
 
     """
     nums = sorted(nums)
@@ -701,6 +733,8 @@ def mode(nums):
     -------
     >>> mode([1, 2, 2, 3])
     2
+
+    .. versionadded:: 0.1.0
 
     """
     return Counter(nums).most_common(1)[0][0]
@@ -739,6 +773,8 @@ def var(nums, mean_func=amean, ddof=0):
     >>> round(var([1, 2, 3, 4], ddof=1), 12)
     1.666666666667
 
+    .. versionadded:: 0.3.0
+
     """
     x_bar = mean_func(nums)
     return sum((x - x_bar) ** 2 for x in nums) / (len(nums) - ddof)
@@ -774,6 +810,8 @@ def std(nums, mean_func=amean, ddof=0):
     1.11803398875
     >>> round(std([1, 2, 3, 4], ddof=1), 12)
     1.290994448736
+
+    .. versionadded:: 0.3.0
 
     """
     return var(nums, mean_func, ddof) ** 0.5

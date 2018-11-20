@@ -60,6 +60,8 @@ class Levenshtein(_Distance):
 
     Levenshtein edit distance ordinarily has unit insertion, deletion, and
     substitution costs.
+
+    .. versionadded:: 0.3.6
     """
 
     def dist_abs(self, src, tar, mode='lev', cost=(1, 1, 1, 1)):
@@ -107,6 +109,10 @@ class Levenshtein(_Distance):
         2
         >>> cmp.dist_abs('ACTG', 'TAGC', mode='osa')
         4
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         ins_cost, del_cost, sub_cost, trans_cost = cost
@@ -196,6 +202,10 @@ class Levenshtein(_Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         0.75
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 0
@@ -257,6 +267,8 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     >>> levenshtein('ACTG', 'TAGC', mode='osa')
     4
 
+    .. versionadded:: 0.1.0
+
     """
     return Levenshtein().dist_abs(src, tar, mode, cost)
 
@@ -308,6 +320,8 @@ def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     >>> dist_levenshtein('ATCG', 'TAGC')
     0.75
 
+    .. versionadded:: 0.1.0
+
     """
     return Levenshtein().dist(src, tar, mode, cost)
 
@@ -358,6 +372,8 @@ def sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     0.125
     >>> sim_levenshtein('ATCG', 'TAGC')
     0.25
+
+    .. versionadded:: 0.1.0
 
     """
     return Levenshtein().sim(src, tar, mode, cost)

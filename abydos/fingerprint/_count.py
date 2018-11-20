@@ -42,6 +42,8 @@ class Count(_Fingerprint):
     """Count Fingerprint.
 
     Based on the count fingerprint from :cite:`Cislak:2017`.
+
+    .. versionadded:: 0.3.6
     """
 
     def fingerprint(self, word, n_bits=16, most_common=MOST_COMMON_LETTERS_CG):
@@ -74,6 +76,10 @@ class Count(_Fingerprint):
         '0b1010000000000'
         >>> bin(cf.fingerprint('entreatment'))
         '0b1111010000100000'
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if n_bits % 2:
@@ -133,6 +139,8 @@ def count_fingerprint(word, n_bits=16, most_common=MOST_COMMON_LETTERS_CG):
     '0b1010000000000'
     >>> bin(count_fingerprint('entreatment'))
     '0b1111010000100000'
+
+    .. versionadded:: 0.3.0
 
     """
     return Count().fingerprint(word, n_bits, most_common)

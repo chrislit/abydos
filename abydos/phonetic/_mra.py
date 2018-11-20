@@ -41,6 +41,8 @@ class MRA(_Phonetic):
 
     A description of the Western Airlines Surname Match Rating Algorithm can
     be found on page 18 of :cite:`Moore:1977`.
+
+    .. versionadded:: 0.3.6
     """
 
     def encode(self, word):
@@ -67,6 +69,10 @@ class MRA(_Phonetic):
         'SMTH'
         >>> pe.encode('Schmidt')
         'SCHMDT'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if not word:
@@ -113,6 +119,8 @@ def mra(word):
     'SMTH'
     >>> mra('Schmidt')
     'SCHMDT'
+
+    .. versionadded:: 0.1.0
 
     """
     return MRA().encode(word)

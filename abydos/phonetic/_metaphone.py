@@ -45,6 +45,8 @@ class Metaphone(_Phonetic):
     as described in :cite:`Philips:1990b`.
     This incorporates some corrections to the above code, particularly
     some of those suggested by Michael Kuhn in :cite:`Kuhn:1995`.
+
+    .. versionadded:: 0.3.6
     """
 
     _frontv = {'E', 'I', 'Y'}
@@ -82,6 +84,10 @@ class Metaphone(_Phonetic):
         'SM0'
         >>> pe.encode('Schmidt')
         'SKMTT'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # Require a max_length of at least 4
@@ -291,6 +297,8 @@ def metaphone(word, max_length=-1):
     'SM0'
     >>> metaphone('Schmidt')
     'SKMTT'
+
+    .. versionadded:: 0.1.0
 
     """
     return Metaphone().encode(word, max_length)

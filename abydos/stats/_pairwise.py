@@ -81,6 +81,8 @@ def mean_pairwise_similarity(
     >>> round(mean_pairwise_similarity(['Niall', 'Neal', 'Neil']), 12)
     0.545454545455
 
+    .. versionadded:: 0.1.0
+
     """
     if not callable(mean_func):
         raise ValueError('mean_func must be a function')
@@ -156,6 +158,8 @@ def pairwise_similarity_statistics(
     >>> tuple(round(_, 12) for _ in pairwise_similarity_statistics(
     ... ['Christopher', 'Kristof', 'Christobal'], ['Niall', 'Neal', 'Neil']))
     (0.2, 0.0, 0.118614718615, 0.075070477184)
+
+    .. versionadded:: 0.3.0
 
     """
     if not callable(mean_func):

@@ -44,6 +44,8 @@ class SoundD(_Phonetic):
     """SoundD code.
 
     SoundD is defined in :cite:`Varol:2012`.
+
+    .. versionadded:: 0.3.6
     """
 
     _trans = dict(
@@ -80,6 +82,10 @@ class SoundD(_Phonetic):
         '3620'
         >>> sound_d('judge')
         '2200'
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -143,6 +149,8 @@ def sound_d(word, max_length=4):
     '3620'
     >>> sound_d('judge')
     '2200'
+
+    .. versionadded:: 0.3.0
 
     """
     return SoundD().encode(word, max_length)

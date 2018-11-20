@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2018 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -44,6 +44,8 @@ class Lein(_Phonetic):
     """Lein code.
 
     This is Lein name coding, described in :cite:`Moore:1977`.
+
+    .. versionadded:: 0.3.6
     """
 
     _trans = dict(
@@ -81,6 +83,10 @@ class Lein(_Phonetic):
         'S210'
         >>> pe.encode('Schmidt')
         'S521'
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
@@ -134,6 +140,8 @@ def lein(word, max_length=4, zero_pad=True):
     'S210'
     >>> lein('Schmidt')
     'S521'
+
+    .. versionadded:: 0.3.0
 
     """
     return Lein().encode(word, max_length, zero_pad)

@@ -47,6 +47,8 @@ class Baystat(_Distance):
     This is ostensibly a port of the R module PPRL's implementation:
     https://github.com/cran/PPRL/blob/master/src/MTB_Baystat.cpp
     :cite:`Rukasz:2018`. As such, this could be made more pythonic.
+
+    .. versionadded:: 0.3.6
     """
 
     def sim(self, src, tar, min_ss_len=None, left_ext=None, right_ext=None):
@@ -81,6 +83,10 @@ class Baystat(_Distance):
         0.166666666667
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if src == tar:
@@ -216,6 +222,8 @@ def sim_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
     >>> sim_baystat('ATCG', 'TAGC')
     0.0
 
+    .. versionadded:: 0.3.0
+
     """
     return Baystat().sim(src, tar, min_ss_len, left_ext, right_ext)
 
@@ -259,6 +267,8 @@ def dist_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
     0.833333333333
     >>> dist_baystat('ATCG', 'TAGC')
     1.0
+
+    .. versionadded:: 0.3.0
 
     """
     return Baystat().dist(src, tar, min_ss_len, left_ext, right_ext)

@@ -48,6 +48,8 @@ class SmithWaterman(NeedlemanWunsch):
     The Smith-Waterman score :cite:`Smith:1981` is a standard edit distance
     measure, differing from Needleman-Wunsch in that it focuses on local
     alignment and disallows negative scores.
+
+    .. versionadded:: 0.3.6
     """
 
     def dist_abs(self, src, tar, gap_cost=1, sim_func=sim_ident):
@@ -81,6 +83,10 @@ class SmithWaterman(NeedlemanWunsch):
         0.0
         >>> cmp.dist_abs('ATCG', 'TAGC')
         1.0
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
@@ -136,6 +142,8 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
     0.0
     >>> smith_waterman('ATCG', 'TAGC')
     1.0
+
+    .. versionadded:: 0.1.0
 
     """
     return SmithWaterman().dist_abs(src, tar, gap_cost, sim_func)

@@ -48,6 +48,8 @@ class SpanishMetaphone(_Phonetic):
     :cite:`Mosquera:2012`.
 
     Modified version based on :cite:`delPilarAngeles:2016`.
+
+    .. versionadded:: 0.3.6
     """
 
     def encode(self, word, max_length=6, modified=False):
@@ -82,6 +84,11 @@ class SpanishMetaphone(_Phonetic):
         >>> pe.encode('Nicolás')
         'NKLS'
 
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
+
         """
 
         def _is_vowel(pos):
@@ -96,6 +103,8 @@ class SpanishMetaphone(_Phonetic):
             -------
             bool
                 True if word[pos] is a vowel
+
+            .. versionadded:: 0.3.0
 
             """
             return pos < len(word) and word[pos] in {'A', 'E', 'I', 'O', 'U'}
@@ -273,6 +282,8 @@ def spanish_metaphone(word, max_length=6, modified=False):
     'SNTG'
     >>> spanish_metaphone('Nicolás')
     'NKLS'
+
+    .. versionadded:: 0.3.0
 
     """
     return SpanishMetaphone().encode(word, max_length, modified)

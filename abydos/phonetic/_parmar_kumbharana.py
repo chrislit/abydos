@@ -42,6 +42,8 @@ class ParmarKumbharana(_Phonetic):
     """Parmar-Kumbharana code.
 
     This is based on the phonetic algorithm proposed in :cite:`Parmar:2014`.
+
+    .. versionadded:: 0.3.6
     """
 
     _rules = {
@@ -90,6 +92,10 @@ class ParmarKumbharana(_Phonetic):
         'TRS'
         >>> pe.encode('judge')
         'JJ'
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         word = word.upper()  # Rule 3
@@ -144,6 +150,8 @@ def parmar_kumbharana(word):
     'TRS'
     >>> parmar_kumbharana('judge')
     'JJ'
+
+    .. versionadded:: 0.3.0
 
     """
     return ParmarKumbharana().encode(word)

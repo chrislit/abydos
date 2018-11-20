@@ -30,7 +30,10 @@ from __future__ import (
 
 
 class _Stemmer(object):
-    """Abstract Stemmer class."""
+    """Abstract Stemmer class.
+
+    .. versionadded:: 0.3.6
+    """
 
     def stem(self, word, *args, **kwargs):
         """Return stem.
@@ -48,6 +51,8 @@ class _Stemmer(object):
         -------
         str
             Word stem
+
+        .. versionadded:: 0.3.6
 
         """
         pass

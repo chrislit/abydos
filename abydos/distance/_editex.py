@@ -50,6 +50,8 @@ class Editex(_Distance):
     As described on pages 3 & 4 of :cite:`Zobel:1996`.
 
     The local variant is based on :cite:`Ring:2009`.
+
+    .. versionadded:: 0.3.6
     """
 
     _letter_groups = (
@@ -98,6 +100,10 @@ class Editex(_Distance):
         >>> cmp.dist_abs('ATCG', 'TAGC')
         6
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         match_cost, group_cost, mismatch_cost = cost
 
@@ -115,6 +121,8 @@ class Editex(_Distance):
             -------
             int
                 r(a,b) according to Zobel & Dart's definition
+
+            .. versionadded:: 0.1.0
 
             """
             if ch1 == ch2:
@@ -139,6 +147,8 @@ class Editex(_Distance):
             -------
             int
                 d(a,b) according to Zobel & Dart's definition
+
+            .. versionadded:: 0.1.0
 
             """
             if ch1 != ch2 and (ch1 == 'H' or ch1 == 'W'):
@@ -220,6 +230,10 @@ class Editex(_Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         0.75
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 0.0
@@ -268,6 +282,8 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
     >>> editex('ATCG', 'TAGC')
     6
 
+    .. versionadded:: 0.1.0
+
     """
     return Editex().dist_abs(src, tar, cost, local)
 
@@ -311,6 +327,8 @@ def dist_editex(src, tar, cost=(0, 1, 2), local=False):
     >>> dist_editex('ATCG', 'TAGC')
     0.75
 
+    .. versionadded:: 0.1.0
+
     """
     return Editex().dist(src, tar, cost, local)
 
@@ -353,6 +371,8 @@ def sim_editex(src, tar, cost=(0, 1, 2), local=False):
     0.25
     >>> sim_editex('ATCG', 'TAGC')
     0.25
+
+    .. versionadded:: 0.1.0
 
     """
     return Editex().sim(src, tar, cost, local)

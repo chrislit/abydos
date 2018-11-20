@@ -39,7 +39,10 @@ __all__ = ['Prefix', 'dist_prefix', 'sim_prefix']
 
 
 class Prefix(_Distance):
-    """Prefix similiarity and distance."""
+    """Prefix similiarity and distance.
+
+    .. versionadded:: 0.3.6
+    """
 
     def sim(self, src, tar):
         """Return the prefix similarity of two strings.
@@ -71,6 +74,10 @@ class Prefix(_Distance):
         0.0
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if src == tar:
@@ -119,6 +126,8 @@ def sim_prefix(src, tar):
     >>> sim_prefix('ATCG', 'TAGC')
     0.0
 
+    .. versionadded:: 0.1.0
+
     """
     return Prefix().sim(src, tar)
 
@@ -156,6 +165,8 @@ def dist_prefix(src, tar):
     1.0
     >>> dist_prefix('ATCG', 'TAGC')
     1.0
+
+    .. versionadded:: 0.1.0
 
     """
     return Prefix().dist(src, tar)

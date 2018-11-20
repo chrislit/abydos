@@ -41,6 +41,8 @@ class Corpus(object):
     of documents. Each document is an ordered list of sentences in those
     documents. And each sentence is an ordered list of words that make up that
     sentence.
+
+    .. versionadded:: 0.1.0
     """
 
     def __init__(
@@ -78,6 +80,8 @@ class Corpus(object):
         >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
         >>> tqbf += 'And then it slept.\n And the dog ran off.'
         >>> corp = Corpus(tqbf)
+
+        .. versionadded:: 0.1.0
 
         """
         self.corpus = []
@@ -121,6 +125,8 @@ class Corpus(object):
         >>> len(corp.docs())
         1
 
+        .. versionadded:: 0.1.0
+
         """
         return self.corpus
 
@@ -148,6 +154,8 @@ class Corpus(object):
         'ran', 'off.']]]
         >>> len(corp.paras())
         1
+
+        .. versionadded:: 0.1.0
 
         """
         return self.docs()
@@ -197,6 +205,8 @@ class Corpus(object):
         >>> len(corp.words())
         18
 
+        .. versionadded:: 0.1.0
+
         """
         return [words for sents in self.sents() for words in sents]
 
@@ -222,6 +232,8 @@ class Corpus(object):
         'off.']]
         >>> len(corp.docs_of_words())
         1
+
+        .. versionadded:: 0.1.0
 
         """
         return [
@@ -250,6 +262,8 @@ class Corpus(object):
         And the dog ran off.
         >>> len(corp.raw())
         85
+
+        .. versionadded:: 0.1.0
 
         """
         doc_list = []
@@ -291,6 +305,8 @@ class Corpus(object):
         0.4771212547
         >>> round(corp.idf('the'), 10)
         0.1760912591
+
+        .. versionadded:: 0.1.0
 
         """
         docs_with_term = 0

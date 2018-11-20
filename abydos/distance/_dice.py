@@ -46,6 +46,8 @@ class Dice(Tversky):
     This is identical to the Tanimoto similarity coefficient
     :cite:`Tanimoto:1958` and the Tversky index :cite:`Tversky:1977` for
     :math:`\alpha = \beta = 0.5`.
+
+    .. versionadded:: 0.3.6
     """
 
     def sim(self, src, tar, qval=2):
@@ -76,6 +78,10 @@ class Dice(Tversky):
         0.11764705882352941
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return super(self.__class__, self).sim(src, tar, qval, 0.5, 0.5)
@@ -117,6 +123,8 @@ def sim_dice(src, tar, qval=2):
     >>> sim_dice('ATCG', 'TAGC')
     0.0
 
+    .. versionadded:: 0.1.0
+
     """
     return Dice().sim(src, tar, qval)
 
@@ -156,6 +164,8 @@ def dist_dice(src, tar, qval=2):
     0.8823529411764706
     >>> dist_dice('ATCG', 'TAGC')
     1.0
+
+    .. versionadded:: 0.1.0
 
     """
     return Dice().dist(src, tar, qval)

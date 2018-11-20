@@ -49,6 +49,8 @@ class Phonix(_Phonetic):
     - :cite:`Pfeifer:2000`
     - :cite:`Christen:2011`
     - :cite:`Kollar:2007`
+
+    .. versionadded:: 0.3.6
     """
 
     _uc_c_set = None
@@ -63,7 +65,11 @@ class Phonix(_Phonetic):
     )
 
     def __init__(self):
-        """Initialize Phonix."""
+        """Initialize Phonix.
+
+        .. versionadded:: 0.3.6
+
+        """
         self._uc_c_set = (
             super(Phonix, self)._uc_set - super(Phonix, self)._uc_v_set
         )
@@ -212,6 +218,10 @@ class Phonix(_Phonetic):
         >>> pe.encode('Schmidt')
         'S530'
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
 
         def _start_repl(word, src, tar, post=None):
@@ -232,6 +242,8 @@ class Phonix(_Phonetic):
             -------
             str
                 Modified string
+
+            .. versionadded:: 0.1.0
 
             """
             if post:
@@ -260,6 +272,8 @@ class Phonix(_Phonetic):
             -------
             str
                 Modified string
+
+            .. versionadded:: 0.1.0
 
             """
             if pre:
@@ -290,6 +304,8 @@ class Phonix(_Phonetic):
             -------
             str
                 Modified string
+
+            .. versionadded:: 0.1.0
 
             """
             if pre or post:
@@ -322,6 +338,8 @@ class Phonix(_Phonetic):
             -------
             str
                 Modified string
+
+            .. versionadded:: 0.1.0
 
             """
             if pre or post:
@@ -405,6 +423,8 @@ def phonix(word, max_length=4, zero_pad=True):
     'S530'
     >>> phonix('Schmidt')
     'S530'
+
+    .. versionadded:: 0.1.0
 
     """
     return Phonix().encode(word, max_length, zero_pad)

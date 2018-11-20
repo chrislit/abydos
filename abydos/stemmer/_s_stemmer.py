@@ -40,6 +40,8 @@ class SStemmer(_Stemmer):
     """S-stemmer.
 
     The S stemmer is defined in :cite:`Harman:1991`.
+
+    .. versionadded:: 0.3.6
     """
 
     def stem(self, word):
@@ -68,6 +70,10 @@ class SStemmer(_Stemmer):
         'reading'
         >>> stmr.stem('census')
         'census'
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         lowered = word.lower()
@@ -113,6 +119,8 @@ def s_stemmer(word):
     'reading'
     >>> s_stemmer('census')
     'census'
+
+    .. versionadded:: 0.3.0
 
     """
     return SStemmer().stem(word)

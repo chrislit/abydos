@@ -41,6 +41,8 @@ class Manhattan(Minkowski):
 
     Manhattan distance is the city-block or taxi-cab distance, equivalent
     to Minkowski distance in :math:`L^1`-space.
+
+    .. versionadded:: 0.3.6
     """
 
     def dist_abs(self, src, tar, qval=2, normalized=False, alphabet=None):
@@ -75,6 +77,10 @@ class Manhattan(Minkowski):
         9.0
         >>> cmp.dist_abs('ATCG', 'TAGC')
         10.0
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return super(self.__class__, self).dist_abs(
@@ -116,6 +122,10 @@ class Manhattan(Minkowski):
         0.692307692308
         >>> cmp.dist('ATCG', 'TAGC')
         1.0
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return self.dist_abs(src, tar, qval, True, alphabet)
@@ -161,6 +171,8 @@ def manhattan(src, tar, qval=2, normalized=False, alphabet=None):
     >>> manhattan('ATCG', 'TAGC')
     10.0
 
+    .. versionadded:: 0.3.0
+
     """
     return Manhattan().dist_abs(src, tar, qval, normalized, alphabet)
 
@@ -203,6 +215,8 @@ def dist_manhattan(src, tar, qval=2, alphabet=None):
     >>> dist_manhattan('ATCG', 'TAGC')
     1.0
 
+    .. versionadded:: 0.3.0
+
     """
     return Manhattan().dist(src, tar, qval, alphabet)
 
@@ -244,6 +258,8 @@ def sim_manhattan(src, tar, qval=2, alphabet=None):
     0.307692307692
     >>> sim_manhattan('ATCG', 'TAGC')
     0.0
+
+    .. versionadded:: 0.3.0
 
     """
     return Manhattan().sim(src, tar, qval, alphabet)

@@ -48,6 +48,8 @@ class Phonetic(String):
     function after converting the string to its phonetic form, as determined by
     some phonetic algorithm. This fingerprint is described at
     :cite:`OpenRefine:2012`.
+
+    .. versionadded:: 0.3.6
     """
 
     def fingerprint(
@@ -89,6 +91,10 @@ class Phonetic(String):
         >>> pf.fingerprint('The quick brown fox jumped over the lazy dog.',
         ... phonetic_algorithm=soundex)
         'b650 d200 f200 j513 l200 o160 q200 t000'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         phonetic = ''
@@ -142,6 +148,8 @@ def phonetic_fingerprint(
     >>> phonetic_fingerprint('The quick brown fox jumped over the lazy dog.',
     ... phonetic_algorithm=soundex)
     'b650 d200 f200 j513 l200 o160 q200 t000'
+
+    .. versionadded:: 0.1.0
 
     """
     return Phonetic().fingerprint(

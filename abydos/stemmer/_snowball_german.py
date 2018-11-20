@@ -45,6 +45,8 @@ class SnowballGerman(_Snowball):
 
     The Snowball German stemmer is defined at:
     http://snowball.tartarus.org/algorithms/german/stemmer.html
+
+    .. versionadded:: 0.3.6
     """
 
     _vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'ä', 'ö', 'ü'}
@@ -75,6 +77,10 @@ class SnowballGerman(_Snowball):
         'grau'
         >>> stmr.stem('buchstabieren')
         'buchstabi'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # lowercase, normalize, and compose
@@ -225,6 +231,8 @@ def sb_german(word, alternate_vowels=False):
     'grau'
     >>> sb_german('buchstabieren')
     'buchstabi'
+
+    .. versionadded:: 0.1.0
 
     """
     return SnowballGerman().stem(word, alternate_vowels)

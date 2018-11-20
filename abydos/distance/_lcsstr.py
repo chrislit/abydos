@@ -42,7 +42,10 @@ __all__ = ['LCSstr', 'dist_lcsstr', 'lcsstr', 'sim_lcsstr']
 
 
 class LCSstr(_Distance):
-    """Longest common substring."""
+    """Longest common substring.
+
+    .. versionadded:: 0.3.6
+    """
 
     def lcsstr(self, src, tar):
         """Return the longest common substring of two strings.
@@ -82,6 +85,10 @@ class LCSstr(_Distance):
         'al'
         >>> sstr.lcsstr('ATCG', 'TAGC')
         'A'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         lengths = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)

@@ -66,6 +66,8 @@ class Tversky(_TokenDistance):
 
     The symmetric variant is defined in :cite:`Jiminez:2013`. This is activated
     by specifying a bias parameter.
+
+    .. versionadded:: 0.3.6
     """
 
     def sim(self, src, tar, qval=2, alpha=1, beta=1, bias=None):
@@ -108,6 +110,10 @@ class Tversky(_TokenDistance):
         0.0625
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if alpha < 0 or beta < 0:
@@ -188,6 +194,8 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     >>> sim_tversky('ATCG', 'TAGC')
     0.0
 
+    .. versionadded:: 0.1.0
+
     """
     return Tversky().sim(src, tar, qval, alpha, beta, bias)
 
@@ -233,6 +241,8 @@ def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     0.9375
     >>> dist_tversky('ATCG', 'TAGC')
     1.0
+
+    .. versionadded:: 0.1.0
 
     """
     return Tversky().dist(src, tar, qval, alpha, beta, bias)

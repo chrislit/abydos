@@ -41,6 +41,8 @@ class Chebyshev(Minkowski):
 
     Euclidean distance is the chessboard distance,
     equivalent to Minkowski distance in :math:`L^\infty`-space.
+
+    .. versionadded:: 0.3.6
     """
 
     def dist_abs(self, src, tar, qval=2, alphabet=None):
@@ -78,6 +80,10 @@ class Chebyshev(Minkowski):
         >>> cmp.dist_abs('ATCGATTCGGAATTTC', 'TAGCATAATCGCCG', qval=1)
         3.0
 
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return super(self.__class__, self).dist_abs(
             src, tar, qval, float('inf'), False, alphabet
@@ -98,6 +104,8 @@ class Chebyshev(Minkowski):
         NotImplementedError
             Method disabled for Chebyshev distance
 
+        .. versionadded:: 0.3.6
+
         """
         raise NotImplementedError('Method disabled for Chebyshev distance.')
 
@@ -115,6 +123,8 @@ class Chebyshev(Minkowski):
         ------
         NotImplementedError
             Method disabled for Chebyshev distance
+
+        .. versionadded:: 0.3.6
 
         """
         raise NotImplementedError('Method disabled for Chebyshev distance.')
@@ -161,6 +171,8 @@ def chebyshev(src, tar, qval=2, alphabet=None):
     0.0
     >>> chebyshev('ATCGATTCGGAATTTC', 'TAGCATAATCGCCG', qval=1)
     3.0
+
+    .. versionadded:: 0.3.0
 
     """
     return Chebyshev().dist_abs(src, tar, qval, alphabet)

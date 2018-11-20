@@ -46,6 +46,8 @@ class SnowballDutch(_Snowball):
 
     The Snowball Dutch stemmer is defined at:
     http://snowball.tartarus.org/algorithms/dutch/stemmer.html
+
+    .. versionadded:: 0.3.6
     """
 
     _vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'è'}
@@ -64,6 +66,10 @@ class SnowballDutch(_Snowball):
         -------
         str
             The word with doubled endings undoubled
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if (
@@ -96,6 +102,10 @@ class SnowballDutch(_Snowball):
         'opschort'
         >>> stmr.stem('ongrijpbaarheid')
         'ongrijp'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # lowercase, normalize, decompose, filter umlauts & acutes out, and
@@ -245,6 +255,8 @@ def sb_dutch(word):
     'opschort'
     >>> sb_dutch('ongrijpbaarheid')
     'ongrijp'
+
+    .. versionadded:: 0.1.0
 
     """
     return SnowballDutch().stem(word)

@@ -43,6 +43,8 @@ class NCDbwtrle(NCDrle):
     Cf. https://en.wikipedia.org/wiki/Burrows-Wheeler_transform
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    .. versionadded:: 0.3.6
     """
 
     _bwt = BWT()
@@ -73,6 +75,10 @@ class NCDbwtrle(NCDrle):
         1.0
         >>> cmp.dist('ATCG', 'TAGC')
         0.8
+
+        .. versionadded:: 0.3.5
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if src == tar:
@@ -123,6 +129,8 @@ def dist_ncd_bwtrle(src, tar):
     >>> dist_ncd_bwtrle('ATCG', 'TAGC')
     0.8
 
+    .. versionadded:: 0.3.5
+
     """
     return NCDbwtrle().dist(src, tar)
 
@@ -154,6 +162,8 @@ def sim_ncd_bwtrle(src, tar):
     0.0
     >>> sim_ncd_bwtrle('ATCG', 'TAGC')
     0.19999999999999996
+
+    .. versionadded:: 0.3.5
 
     """
     return NCDbwtrle().sim(src, tar)

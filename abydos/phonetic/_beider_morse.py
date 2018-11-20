@@ -145,6 +145,8 @@ class BeiderMorse(_Phonetic):
     The Beider-Morse Phonetic Matching algorithm is described in
     :cite:`Beider:2008`.
     The reference implementation is licensed under GPLv3.
+
+    .. versionadded:: 0.3.6
     """
 
     def _language(self, name, name_mode):
@@ -162,6 +164,10 @@ class BeiderMorse(_Phonetic):
         -------
         int
             Language ID
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         name = name.strip().lower()
@@ -209,6 +215,10 @@ class BeiderMorse(_Phonetic):
         str
             A Beider-Morse phonetic code
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         language_arg = self._language(term, name_mode)
         return self._phonetic(
@@ -255,6 +265,10 @@ class BeiderMorse(_Phonetic):
         -------
         str
             A Beider-Morse phonetic code
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         term = term.replace('-', ' ').strip()
@@ -419,6 +433,10 @@ class BeiderMorse(_Phonetic):
         str
             A Beider-Morse phonetic code
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         # optimization to save time
         if not final_rules:
@@ -516,6 +534,10 @@ class BeiderMorse(_Phonetic):
         str
             A Beider-Morse phonetic code
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if '[' in phonetic:
             return phonetic[: phonetic.find('[')]
@@ -534,6 +556,10 @@ class BeiderMorse(_Phonetic):
         -------
         str
             A Beider-Morse phonetic code
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         alt_start = phonetic.find('(')
@@ -572,6 +598,10 @@ class BeiderMorse(_Phonetic):
         str
             A Beider-Morse phonetic code
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         alt_start = phonetic.find('(')
         if alt_start == -1:
@@ -606,6 +636,10 @@ class BeiderMorse(_Phonetic):
         str
             A Beider-Morse phonetic code
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         phonetic_array = phonetic.split('-')  # for names with spaces in them
         result = ' '.join(
@@ -625,6 +659,10 @@ class BeiderMorse(_Phonetic):
         -------
         str
             A Beider-Morse phonetic code
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         alt_string = phonetic
@@ -666,6 +704,10 @@ class BeiderMorse(_Phonetic):
         ------
         ValueError
             No closing square bracket
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         uninitialized = -1  # all 1's
@@ -724,6 +766,10 @@ class BeiderMorse(_Phonetic):
         str
             A candidate encoding
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         candidate = phonetic + target
         if '[' not in candidate:  # no attributes so we need test no further
@@ -776,6 +822,10 @@ class BeiderMorse(_Phonetic):
         -------
         int
             Language code index
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if code < 1 or code > sum(
@@ -878,6 +928,10 @@ class BeiderMorse(_Phonetic):
 
         >>> pe.encode('Christopher', language_arg='German', match_mode='exact')
         'xriStopher xriStofer xristopher xristofer'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         word = normalize('NFC', text_type(word.strip().lower()))
@@ -1027,6 +1081,8 @@ def bmpm(
 
     >>> bmpm('Christopher', language_arg='German', match_mode='exact')
     'xriStopher xriStofer xristopher xristofer'
+
+    .. versionadded:: 0.1.0
 
     """
     return BeiderMorse().encode(

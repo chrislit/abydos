@@ -46,6 +46,8 @@ class String(_Fingerprint):
     The fingerprint of a string is a string consisting of all of the unique
     words in a string, alphabetized & concatenated with intervening joiners.
     This fingerprint is described at :cite:`OpenRefine:2012`.
+
+    .. versionadded:: 0.3.6
     """
 
     def fingerprint(self, phrase, joiner=' '):
@@ -68,6 +70,10 @@ class String(_Fingerprint):
         >>> sf = String()
         >>> sf.fingerprint('The quick brown fox jumped over the lazy dog.')
         'brown dog fox jumped lazy over quick the'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         phrase = unicode_normalize('NFKD', text_type(phrase.strip().lower()))
@@ -103,6 +109,8 @@ def str_fingerprint(phrase, joiner=' '):
     -------
     >>> str_fingerprint('The quick brown fox jumped over the lazy dog.')
     'brown dog fox jumped lazy over quick the'
+
+    .. versionadded:: 0.1.0
 
     """
     return String().fingerprint(phrase, joiner)

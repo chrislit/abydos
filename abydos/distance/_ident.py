@@ -37,7 +37,10 @@ __all__ = ['Ident', 'dist_ident', 'sim_ident']
 
 
 class Ident(_Distance):
-    """Identity distance and similarity."""
+    """Identity distance and similarity.
+
+    .. versionadded:: 0.3.6
+    """
 
     def sim(self, src, tar):
         """Return the identity similarity of two strings.
@@ -64,6 +67,10 @@ class Ident(_Distance):
         0.0
         >>> cmp.sim('cat', 'cat')
         1.0
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return 1.0 if src == tar else 0.0
@@ -100,6 +107,8 @@ def sim_ident(src, tar):
     >>> sim_ident('cat', 'cat')
     1.0
 
+    .. versionadded:: 0.1.0
+
     """
     return Ident().sim(src, tar)
 
@@ -133,6 +142,8 @@ def dist_ident(src, tar):
     1.0
     >>> dist_ident('cat', 'cat')
     0.0
+
+    .. versionadded:: 0.1.0
 
     """
     return Ident().dist(src, tar)

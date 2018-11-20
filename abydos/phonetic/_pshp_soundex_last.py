@@ -49,6 +49,8 @@ class PSHPSoundexLast(_Phonetic):
     :cite:`Hershberg:1979`.
 
     A separate function, :py:class:`PSHPSoundexFirst` is used for first names.
+
+    .. versionadded:: 0.3.6
     """
 
     _trans = dict(
@@ -88,6 +90,10 @@ class PSHPSoundexLast(_Phonetic):
         'S530'
         >>> pe.encode('Ashcroft')
         'A225'
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         lname = unicode_normalize('NFKD', text_type(lname.upper()))
@@ -244,6 +250,8 @@ def pshp_soundex_last(lname, max_length=4, german=False):
     'S530'
     >>> pshp_soundex_last('Ashcroft')
     'A225'
+
+    .. versionadded:: 0.3.0
 
     """
     return PSHPSoundexLast().encode(lname, max_length, german)

@@ -44,6 +44,8 @@ class NCDzlib(_Distance):
     Cf. https://zlib.net/
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    .. versionadded:: 0.3.6
     """
 
     _compressor = None
@@ -55,6 +57,8 @@ class NCDzlib(_Distance):
         ----------
         level : int
             The compression level (0 to 9)
+
+        .. versionadded:: 0.3.6
 
         """
         self._compressor = zlib.compressobj(level)
@@ -85,6 +89,10 @@ class NCDzlib(_Distance):
         0.5714285714285714
         >>> cmp.dist('ATCG', 'TAGC')
         0.4
+
+        .. versionadded:: 0.3.5
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if src == tar:
@@ -142,6 +150,8 @@ def dist_ncd_zlib(src, tar):
     >>> dist_ncd_zlib('ATCG', 'TAGC')
     0.4
 
+    .. versionadded:: 0.3.5
+
     """
     return NCDzlib().dist(src, tar)
 
@@ -178,6 +188,8 @@ def sim_ncd_zlib(src, tar):
     0.4285714285714286
     >>> sim_ncd_zlib('ATCG', 'TAGC')
     0.6
+
+    .. versionadded:: 0.3.5
 
     """
     return NCDzlib().sim(src, tar)

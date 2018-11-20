@@ -43,6 +43,8 @@ class Sift4(_Distance):
 
     This is an approximation of edit distance, described in
     :cite:`Zackwehdex:2014`.
+
+    .. versionadded:: 0.3.6
     """
 
     def dist_abs(self, src, tar, max_offset=5, max_distance=0):
@@ -75,6 +77,10 @@ class Sift4(_Distance):
         3
         >>> cmp.dist_abs('ATCG', 'TAGC')
         2
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if not src:
@@ -190,6 +196,10 @@ class Sift4(_Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         0.5
 
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return self.dist_abs(src, tar, max_offset, max_distance) / (
             max(len(src), len(tar), 1)
@@ -234,6 +244,8 @@ def sift4_common(src, tar, max_offset=5, max_distance=0):
     >>> sift4_common('ATCG', 'TAGC')
     2
 
+    .. versionadded:: 0.3.0
+
     """
     return Sift4().dist_abs(src, tar, max_offset, max_distance)
 
@@ -276,6 +288,8 @@ def dist_sift4(src, tar, max_offset=5, max_distance=0):
     >>> dist_sift4('ATCG', 'TAGC')
     0.5
 
+    .. versionadded:: 0.3.0
+
     """
     return Sift4().dist(src, tar, max_offset, max_distance)
 
@@ -317,6 +331,8 @@ def sim_sift4(src, tar, max_offset=5, max_distance=0):
     0.5
     >>> sim_sift4('ATCG', 'TAGC')
     0.5
+
+    .. versionadded:: 0.3.0
 
     """
     return Sift4().sim(src, tar, max_offset, max_distance)

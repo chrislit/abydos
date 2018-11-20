@@ -44,6 +44,8 @@ class CLEFGerman(_Stemmer):
     """CLEF German stemmer.
 
     The CLEF German stemmer is defined at :cite:`Savoy:2005`.
+
+    .. versionadded:: 0.3.6
     """
 
     _umlauts = dict(zip((ord(_) for _ in 'äöü'), 'aou'))
@@ -70,6 +72,10 @@ class CLEFGerman(_Stemmer):
         'grau'
         >>> stmr.stem('buchstabieren')
         'buchstabier'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # lowercase, normalize, and compose
@@ -122,6 +128,8 @@ def clef_german(word):
     'grau'
     >>> clef_german('buchstabieren')
     'buchstabier'
+
+    .. versionadded:: 0.1.0
 
     """
     return CLEFGerman().stem(word)

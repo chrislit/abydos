@@ -45,6 +45,8 @@ class SnowballSwedish(_Snowball):
 
     The Snowball Swedish stemmer is defined at:
     http://snowball.tartarus.org/algorithms/swedish/stemmer.html
+
+    .. versionadded:: 0.3.6
     """
 
     _vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'ä', 'å', 'ö'}
@@ -90,6 +92,10 @@ class SnowballSwedish(_Snowball):
         'suspension'
         >>> stmr.stem('visshet')
         'viss'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # lowercase, normalize, and compose
@@ -184,6 +190,8 @@ def sb_swedish(word):
     'suspension'
     >>> sb_swedish('visshet')
     'viss'
+
+    .. versionadded:: 0.1.0
 
     """
     return SnowballSwedish().stem(word)

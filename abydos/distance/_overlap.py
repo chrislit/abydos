@@ -43,6 +43,8 @@ class Overlap(_TokenDistance):
     :cite:`Szymkiewicz:1934,Simpson:1949`, also called the
     Szymkiewicz-Simpson coefficient, is
     :math:`sim_{overlap}(X, Y) = \frac{|X \cap Y|}{min(|X|, |Y|)}`.
+
+    .. versionadded:: 0.3.6
     """
 
     def sim(self, src, tar, qval=2):
@@ -73,6 +75,10 @@ class Overlap(_TokenDistance):
         0.125
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if src == tar:
@@ -124,6 +130,8 @@ def sim_overlap(src, tar, qval=2):
     >>> sim_overlap('ATCG', 'TAGC')
     0.0
 
+    .. versionadded:: 0.1.0
+
     """
     return Overlap().sim(src, tar, qval)
 
@@ -163,6 +171,8 @@ def dist_overlap(src, tar, qval=2):
     0.875
     >>> dist_overlap('ATCG', 'TAGC')
     1.0
+
+    .. versionadded:: 0.1.0
 
     """
     return Overlap().dist(src, tar, qval)

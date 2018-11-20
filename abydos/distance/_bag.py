@@ -43,6 +43,8 @@ class Bag(_TokenDistance):
 
     Bag distance is proposed in :cite:`Bartolini:2002`. It is defined as:
     :math:`max(|multiset(src)-multiset(tar)|, |multiset(tar)-multiset(src)|)`.
+
+    .. versionadded:: 0.3.6
     """
 
     def dist_abs(self, src, tar):
@@ -75,6 +77,10 @@ class Bag(_TokenDistance):
         7
         >>> cmp.dist_abs('abcdefg', 'hijklmno')
         8
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if tar == src:
@@ -119,6 +125,10 @@ class Bag(_TokenDistance):
         0.625
         >>> cmp.dist('ATCG', 'TAGC')
         0.0
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if tar == src:
@@ -169,6 +179,8 @@ def bag(src, tar):
     >>> bag('abcdefg', 'hijklmno')
     8
 
+    .. versionadded:: 0.1.0
+
     """
     return Bag().dist_abs(src, tar)
 
@@ -207,6 +219,8 @@ def dist_bag(src, tar):
     >>> dist_bag('ATCG', 'TAGC')
     0.0
 
+    .. versionadded:: 0.1.0
+
     """
     return Bag().dist(src, tar)
 
@@ -244,6 +258,8 @@ def sim_bag(src, tar):
     0.375
     >>> sim_bag('ATCG', 'TAGC')
     1.0
+
+    .. versionadded:: 0.1.0
 
     """
     return Bag().sim(src, tar)

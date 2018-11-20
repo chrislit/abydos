@@ -53,6 +53,8 @@ class JaroWinkler(_Distance):
     http://web.archive.org/web/20110629121242/http://www.census.gov/geo/msb/stand/strcmp.c
     :cite:`Winkler:1994`. The above file is a US Government publication and,
     accordingly, in the public domain.
+
+    .. versionadded:: 0.3.6
     """
 
     def sim(
@@ -130,6 +132,10 @@ class JaroWinkler(_Distance):
         0.60119047619
         >>> round(sim_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
         0.833333333333
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if mode == 'winkler':
@@ -306,6 +312,8 @@ def sim_jaro_winkler(
     >>> round(sim_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
     0.833333333333
 
+    .. versionadded:: 0.1.0
+
     """
     return JaroWinkler().sim(
         src, tar, qval, mode, long_strings, boost_threshold, scaling_factor
@@ -383,6 +391,8 @@ def dist_jaro_winkler(
     0.39880952381
     >>> round(dist_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
     0.166666666667
+
+    .. versionadded:: 0.1.0
 
     """
     return JaroWinkler().dist(

@@ -45,6 +45,8 @@ class SnowballNorwegian(_Snowball):
 
     The Snowball Norwegian stemmer is defined at:
     http://snowball.tartarus.org/algorithms/norwegian/stemmer.html
+
+    .. versionadded:: 0.3.6
     """
 
     _vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'å', 'æ', 'ø'}
@@ -90,6 +92,10 @@ class SnowballNorwegian(_Snowball):
         'suspensjon'
         >>> stmr.stem('sikkerhet')
         'sikker'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # lowercase, normalize, and compose
@@ -184,6 +190,8 @@ def sb_norwegian(word):
     'suspensjon'
     >>> sb_norwegian('sikkerhet')
     'sikker'
+
+    .. versionadded:: 0.1.0
 
     """
     return SnowballNorwegian().stem(word)

@@ -43,6 +43,8 @@ class BWT(object):
     The Burrows-Wheeler transform is an attempt at placing similar characters
     together to improve compression.
     Cf. :cite:`Burrows:1994`.
+
+    .. versionadded:: 0.3.6
     """
 
     def encode(self, word, terminator='\0'):
@@ -74,6 +76,10 @@ class BWT(object):
         'annb\x00aa'
         >>> bwt.encode('banana', '@')
         'annb@aa'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if word:
@@ -121,6 +127,10 @@ class BWT(object):
         'banana'
         >>> bwt.decode('annb@aa', '@')
         'banana'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if code:
@@ -174,6 +184,8 @@ def bwt_encode(word, terminator='\0'):
     >>> bwt_encode('banana', '@')
     'annb@aa'
 
+    .. versionadded:: 0.1.0
+
     """
     return BWT().encode(word, terminator)
 
@@ -209,6 +221,8 @@ def bwt_decode(code, terminator='\0'):
     'banana'
     >>> bwt_decode('annb@aa', '@')
     'banana'
+
+    .. versionadded:: 0.1.0
 
     """
     return BWT().decode(code, terminator)

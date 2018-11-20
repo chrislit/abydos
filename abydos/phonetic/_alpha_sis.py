@@ -46,6 +46,8 @@ class AlphaSIS(_Phonetic):
 
     The Alpha Search Inquiry System code is defined in :cite:`IBM:1973`.
     This implementation is based on the description in :cite:`Moore:1977`.
+
+    .. versionadded:: 0.3.6
     """
 
     _alpha_sis_initials = {
@@ -188,6 +190,10 @@ class AlphaSIS(_Phonetic):
         >>> pe.encode('Schmidt')
         ('06310000000000',)
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         alpha = ['']
         pos = 0
@@ -280,6 +286,8 @@ def alpha_sis(word, max_length=14):
     ('03100000000000',)
     >>> alpha_sis('Schmidt')
     ('06310000000000',)
+
+    .. versionadded:: 0.1.0
 
     """
     return AlphaSIS().encode(word, max_length)

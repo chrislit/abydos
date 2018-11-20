@@ -44,6 +44,8 @@ class SkeletonKey(_Fingerprint):
     """Skeleton Key.
 
     The skeleton key of a word is defined in :cite:`Pollock:1984`.
+
+    .. versionadded:: 0.3.6
     """
 
     _vowels = set('AEIOU')
@@ -71,6 +73,10 @@ class SkeletonKey(_Fingerprint):
         'CHRSTPIOE'
         >>> sk.fingerprint('Niall')
         'NLIA'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -121,6 +127,8 @@ def skeleton_key(word):
     'CHRSTPIOE'
     >>> skeleton_key('Niall')
     'NLIA'
+
+    .. versionadded:: 0.1.0
 
     """
     return SkeletonKey().fingerprint(word)

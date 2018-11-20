@@ -53,6 +53,8 @@ class NGramCorpus(object):
     level is a numeric value representing the frequency of the trigram. E.g.
     the trigram frequency of 'colorless green ideas' would be the value stored
     in ``self.ngcorpus['colorless']['green']['ideas'][None]``.
+
+    .. versionadded:: 0.3.0
     """
 
     def __init__(self, corpus=None):
@@ -75,6 +77,8 @@ class NGramCorpus(object):
         >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
         >>> tqbf += 'And then it slept.\n And the dog ran off.'
         >>> ngcorp = NGramCorpus(Corpus(tqbf))
+
+        .. versionadded:: 0.3.0
 
         """
         self.ngcorpus = Counter()
@@ -115,6 +119,8 @@ class NGramCorpus(object):
         >>> tqbf += 'And then it slept.\n And the dog ran off.'
         >>> ngcorp = NGramCorpus()
         >>> ngcorp.corpus_importer(Corpus(tqbf))
+
+        .. versionadded:: 0.3.0
 
         """
         if not corpus or not isinstance(corpus, Corpus):
@@ -163,6 +169,8 @@ class NGramCorpus(object):
         >>> NGramCorpus(Corpus(tqbf)).get_count('fox')
         1
 
+        .. versionadded:: 0.3.0
+
         """
         if not corpus:
             corpus = self.ngcorpus
@@ -194,6 +202,8 @@ class NGramCorpus(object):
         count : int
             Count of words
 
+        .. versionadded:: 0.3.0
+
         """
         if words[0] not in corpus:
             corpus[words[0]] = Counter()
@@ -210,6 +220,8 @@ class NGramCorpus(object):
         ----------
         corpus_file : file
             The Google NGram file from which to initialize the n-gram corpus
+
+        .. versionadded:: 0.3.0
 
         """
         with c_open(corpus_file, 'r', encoding='utf-8') as gng:
@@ -246,6 +258,8 @@ class NGramCorpus(object):
         1.3010299956639813
         >>> NGramCorpus(Corpus(tqbf)).tf('fox')
         1.0
+
+        .. versionadded:: 0.3.0
 
         """
         if ' ' in term:

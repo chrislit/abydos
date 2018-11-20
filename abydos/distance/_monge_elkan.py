@@ -49,6 +49,8 @@ class MongeElkan(_Distance):
     calculated, at the cost of doubling the computation time (since
     :math:`sim_{Monge-Elkan}(src, tar)` and :math:`sim_{Monge-Elkan}(tar, src)`
     are both calculated and then averaged).
+
+    .. versionadded:: 0.3.6
     """
 
     def sim(self, src, tar, sim_func=sim_levenshtein, symmetric=False):
@@ -81,6 +83,10 @@ class MongeElkan(_Distance):
         0.388888888889
         >>> cmp.sim('ATCG', 'TAGC')
         0.5
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if src == tar:
@@ -144,6 +150,8 @@ def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
     >>> sim_monge_elkan('ATCG', 'TAGC')
     0.5
 
+    .. versionadded:: 0.1.0
+
     """
     return MongeElkan().sim(src, tar, sim_func, symmetric)
 
@@ -185,6 +193,8 @@ def dist_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
     0.611111111111
     >>> dist_monge_elkan('ATCG', 'TAGC')
     0.5
+
+    .. versionadded:: 0.1.0
 
     """
     return MongeElkan().dist(src, tar, sim_func, symmetric)

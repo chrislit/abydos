@@ -50,6 +50,8 @@ class RussellIndex(_Phonetic):
 
     This follows Robert C. Russell's Index algorithm, as described in
     :cite:`Russell:1917`.
+
+    .. versionadded:: 0.3.6
     """
 
     _uc_set = set('ABCDEFGIKLMNOPQRSTUVXYZ')
@@ -88,6 +90,10 @@ class RussellIndex(_Phonetic):
         3614
         >>> pe.encode('Schmidt')
         3614
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -136,6 +142,10 @@ class RussellIndex(_Phonetic):
         >>> pe._to_alpha(3614)
         'CMAD'
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         num = ''.join(c for c in text_type(num) if c in self._num_set)
         if num:
@@ -169,6 +179,10 @@ class RussellIndex(_Phonetic):
         'CMAD'
         >>> pe.encode_alpha('Schmidt')
         'CMAD'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if word:
@@ -208,6 +222,8 @@ def russell_index(word):
     >>> russell_index('Schmidt')
     3614
 
+    .. versionadded:: 0.1.0
+
     """
     return RussellIndex().encode(word)
 
@@ -241,6 +257,8 @@ def russell_index_num_to_alpha(num):
     'NAL'
     >>> russell_index_num_to_alpha(3614)
     'CMAD'
+
+    .. versionadded:: 0.1.0
 
     """
     return RussellIndex()._to_alpha(num)
@@ -277,6 +295,8 @@ def russell_index_alpha(word):
     'CMAD'
     >>> russell_index_alpha('Schmidt')
     'CMAD'
+
+    .. versionadded:: 0.1.0
 
     """
     return RussellIndex().encode_alpha(word)

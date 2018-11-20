@@ -47,6 +47,8 @@ class ONCA(_Phonetic):
     method" identified as the first step in this algorithm, so this is likely
     not a precisely correct implementation, in that it employs the standard
     NYSIIS algorithm.
+
+    .. versionadded:: 0.3.6
     """
 
     _nysiis = NYSIIS()
@@ -81,6 +83,10 @@ class ONCA(_Phonetic):
         'S530'
         >>> pe.encode('Schmidt')
         'S530'
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # In the most extreme case, 3 characters of NYSIIS input can be
@@ -128,6 +134,8 @@ def onca(word, max_length=4, zero_pad=True):
     'S530'
     >>> onca('Schmidt')
     'S530'
+
+    .. versionadded:: 0.3.0
 
     """
     return ONCA().encode(word, max_length, zero_pad)

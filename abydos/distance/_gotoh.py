@@ -47,6 +47,8 @@ class Gotoh(NeedlemanWunsch):
 
     The Gotoh score :cite:`Gotoh:1982` is essentially Needleman-Wunsch with
     affine gap penalties.
+
+    .. versionadded:: 0.3.6
     """
 
     def dist_abs(self, src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
@@ -82,6 +84,10 @@ class Gotoh(NeedlemanWunsch):
         -0.4
         >>> cmp.dist_abs('cat', 'hat')
         2.0
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
@@ -163,6 +169,8 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
     -0.4
     >>> gotoh('cat', 'hat')
     2.0
+
+    .. versionadded:: 0.1.0
 
     """
     return Gotoh().dist_abs(src, tar, gap_open, gap_ext, sim_func)

@@ -49,6 +49,8 @@ class SfinxBis(_Phonetic):
     :cite:`Sjoo:2009`.
 
     SfinxBis is intended chiefly for Swedish names.
+
+    .. versionadded:: 0.3.6
     """
 
     _adelstitler = (
@@ -186,6 +188,10 @@ class SfinxBis(_Phonetic):
         >>> pe.encode('Sjöberg')
         ('#162',)
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
 
         def _foersvensker(lokal_ordet):
@@ -200,6 +206,8 @@ class SfinxBis(_Phonetic):
             -------
             str
                 Transformed word
+
+            .. versionadded:: 0.1.0
 
             """
             lokal_ordet = lokal_ordet.replace('STIERN', 'STJÄRN')
@@ -243,6 +251,8 @@ class SfinxBis(_Phonetic):
             -------
             str
                 Transformed word
+
+            .. versionadded:: 0.1.0
 
             """
             if (
@@ -398,6 +408,8 @@ def sfinxbis(word, max_length=-1):
     ('J585',)
     >>> sfinxbis('Sjöberg')
     ('#162',)
+
+    .. versionadded:: 0.1.0
 
     """
     return SfinxBis().encode(word, max_length)

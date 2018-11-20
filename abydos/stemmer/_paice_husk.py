@@ -45,6 +45,8 @@ class PaiceHusk(_Stemmer):
     Stemmer, developed by Chris Paice, with the assistance of Gareth Husk
 
     This is based on the algorithm's description in :cite:`Paice:1990`.
+
+    .. versionadded:: 0.3.6
     """
 
     _rule_table = {
@@ -228,6 +230,10 @@ class PaiceHusk(_Stemmer):
         >>> stmr.stem('torment')
         'tor'
 
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         terminate = False
         intact = True
@@ -292,6 +298,8 @@ def paice_husk(word):
     'fancy'
     >>> paice_husk('torment')
     'tor'
+
+    .. versionadded:: 0.3.0
 
     """
     return PaiceHusk().stem(word)

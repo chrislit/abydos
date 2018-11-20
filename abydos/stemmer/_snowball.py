@@ -34,7 +34,10 @@ from ._stemmer import _Stemmer
 
 
 class _Snowball(_Stemmer):
-    """Snowball stemmer base class."""
+    """Snowball stemmer base class.
+
+    .. versionadded:: 0.3.6
+    """
 
     _vowels = set('aeiouy')
     _codanonvowels = set('\'bcdfghjklmnpqrstvz')
@@ -53,6 +56,10 @@ class _Snowball(_Stemmer):
         -------
         int
             Length of the R1 region
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         vowel_found = False
@@ -83,6 +90,10 @@ class _Snowball(_Stemmer):
         int
             Length of the R1 region
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         r1_start = self._sb_r1(term, r1_prefixes)
         return r1_start + self._sb_r1(term[r1_start:])
@@ -104,6 +115,10 @@ class _Snowball(_Stemmer):
         -------
         bool
             True iff term ends in a short syllable
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if not term:
@@ -137,6 +152,10 @@ class _Snowball(_Stemmer):
         bool
             True iff term is a short word
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if self._sb_r1(term, r1_prefixes) == len(
             term
@@ -157,6 +176,10 @@ class _Snowball(_Stemmer):
         bool
             True iff a vowel exists in the term (as defined in the Porter
             stemmer definition)
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         for letter in term:

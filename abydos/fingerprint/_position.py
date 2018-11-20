@@ -40,6 +40,8 @@ class Position(_Fingerprint):
     """Position Fingerprint.
 
     Based on the position fingerprint from :cite:`Cislak:2017`.
+
+    .. versionadded:: 0.3.6
     """
 
     def fingerprint(
@@ -79,6 +81,10 @@ class Position(_Fingerprint):
         '0b1110010001111111'
         >>> bin(position_fingerprint('entreatment'))
         '0b101011111111'
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         position = {}
@@ -149,6 +155,8 @@ def position_fingerprint(
     '0b1110010001111111'
     >>> bin(position_fingerprint('entreatment'))
     '0b101011111111'
+
+    .. versionadded:: 0.3.0
 
     """
     return Position().fingerprint(word, n_bits, most_common, bits_per_letter)

@@ -41,6 +41,8 @@ class Euclidean(Minkowski):
 
     Euclidean distance is the straigh-line or as-the-crow-flies distance,
     equivalent to Minkowski distance in :math:`L^2`-space.
+
+    .. versionadded:: 0.3.6
     """
 
     def dist_abs(self, src, tar, qval=2, normalized=False, alphabet=None):
@@ -75,6 +77,10 @@ class Euclidean(Minkowski):
         3.0
         >>> round(cmp.dist_abs('ATCG', 'TAGC'), 12)
         3.162277660168
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return super(self.__class__, self).dist_abs(
@@ -114,6 +120,10 @@ class Euclidean(Minkowski):
         0.727606875109
         >>> cmp.dist('ATCG', 'TAGC')
         1.0
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return self.dist_abs(src, tar, qval, True, alphabet)
@@ -158,6 +168,8 @@ def euclidean(src, tar, qval=2, normalized=False, alphabet=None):
     >>> round(euclidean('ATCG', 'TAGC'), 12)
     3.162277660168
 
+    .. versionadded:: 0.3.0
+
     """
     return Euclidean().dist_abs(src, tar, qval, normalized, alphabet)
 
@@ -200,6 +212,8 @@ def dist_euclidean(src, tar, qval=2, alphabet=None):
     >>> dist_euclidean('ATCG', 'TAGC')
     1.0
 
+    .. versionadded:: 0.3.0
+
     """
     return Euclidean().dist(src, tar, qval, alphabet)
 
@@ -241,6 +255,8 @@ def sim_euclidean(src, tar, qval=2, alphabet=None):
     0.272393124891
     >>> sim_euclidean('ATCG', 'TAGC')
     0.0
+
+    .. versionadded:: 0.3.0
 
     """
     return Euclidean().sim(src, tar, qval, alphabet)

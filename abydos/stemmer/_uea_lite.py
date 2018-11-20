@@ -51,6 +51,8 @@ class UEALite(_Stemmer):
     Java version: :cite:`Churchill:2005`
     Perl version: :cite:`Jenkins:2005`
     Ruby version: :cite:`Adams:2017`
+
+    .. versionadded:: 0.3.6
     """
 
     _problem_words = {'is', 'as', 'this', 'has', 'was', 'during'}
@@ -664,6 +666,10 @@ class UEALite(_Stemmer):
         >>> uealite('eroded')
         'erode'
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
 
         def _stem_with_duplicate_character_check(word, del_len):
@@ -813,6 +819,8 @@ def uealite(
     'fancy'
     >>> uealite('eroded')
     'erode'
+
+    .. versionadded:: 0.1.0
 
     """
     return UEALite().stem(

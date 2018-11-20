@@ -46,6 +46,8 @@ class Davidson(_Phonetic):
 
     :cite:`Dolby:1970` identifies this as having been the name compression
     algorithm used by SABRE.
+
+    .. versionadded:: 0.3.6
     """
 
     _trans = {65: '', 69: '', 73: '', 79: '', 85: '', 72: '', 87: '', 89: ''}
@@ -86,6 +88,10 @@ class Davidson(_Phonetic):
         'SMT J'
         >>> pe.encode('Wasserman', 'Tabitha')
         'WSRMT'
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         lname = text_type(lname.upper())
@@ -142,6 +148,8 @@ def davidson(lname, fname='.', omit_fname=False):
     'SMT J'
     >>> davidson('Wasserman', 'Tabitha')
     'WSRMT'
+
+    .. versionadded:: 0.3.0
 
     """
     return Davidson().encode(lname, fname, omit_fname)

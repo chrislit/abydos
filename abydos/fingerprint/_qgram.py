@@ -47,6 +47,8 @@ class QGram(_Fingerprint):
     A q-gram fingerprint is a string consisting of all of the unique q-grams
     in a string, alphabetized & concatenated. This fingerprint is described at
     :cite:`OpenRefine:2012`.
+
+    .. versionadded:: 0.3.6
     """
 
     def fingerprint(self, phrase, qval=2, start_stop='', joiner=''):
@@ -78,6 +80,10 @@ class QGram(_Fingerprint):
         'cherhehrisopphristto'
         >>> qf.fingerprint('Niall')
         'aliallni'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         phrase = unicode_normalize('NFKD', text_type(phrase.strip().lower()))
@@ -123,6 +129,8 @@ def qgram_fingerprint(phrase, qval=2, start_stop='', joiner=''):
     'cherhehrisopphristto'
     >>> qgram_fingerprint('Niall')
     'aliallni'
+
+    .. versionadded:: 0.1.0
 
     """
     return QGram().fingerprint(phrase, qval, start_stop, joiner)

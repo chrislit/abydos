@@ -45,6 +45,8 @@ class Schinke(_Stemmer):
     """Schinke stemmer.
 
     This is defined in :cite:`Schinke:1996`.
+
+    .. versionadded:: 0.3.6
     """
 
     _keep_que = {

@@ -94,6 +94,10 @@ class DamerauLevenshtein(_Distance):
         >>> cmp.dist_abs('ATCG', 'TAGC')
         2
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         ins_cost, del_cost, sub_cost, trans_cost = cost
 
@@ -216,6 +220,10 @@ class DamerauLevenshtein(_Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         0.5
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 0.0
@@ -263,6 +271,8 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
     >>> damerau_levenshtein('ATCG', 'TAGC')
     2
 
+    .. versionadded:: 0.1.0
+
     """
     return DamerauLevenshtein().dist_abs(src, tar, cost)
 
@@ -305,6 +315,8 @@ def dist_damerau(src, tar, cost=(1, 1, 1, 1)):
     >>> dist_damerau('ATCG', 'TAGC')
     0.5
 
+    .. versionadded:: 0.1.0
+
     """
     return DamerauLevenshtein().dist(src, tar, cost)
 
@@ -346,6 +358,8 @@ def sim_damerau(src, tar, cost=(1, 1, 1, 1)):
     0.125
     >>> sim_damerau('ATCG', 'TAGC')
     0.5
+
+    .. versionadded:: 0.1.0
 
     """
     return DamerauLevenshtein().sim(src, tar, cost)
