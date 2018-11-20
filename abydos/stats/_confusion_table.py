@@ -214,6 +214,28 @@ class ConfusionTable(object):
             self._tp, self._tn, self._fp, self._fn
         )
 
+    def __repr__(self):
+        """Return representation.
+
+        .. versionadded:: 0.4
+
+        Returns
+        -------
+        str
+            A string representation of the ConfusionTable that can be used to
+            recreate it
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> repr(ct)
+        'ConfusionTable(tp=120, tn=60, fp=20, fn=30)'
+
+        """
+        return 'ConfusionTable(tp={}, tn={}, fp={}, fn={})'.format(
+            self._tp, self._tn, self._fp, self._fn
+        )
+
     def to_tuple(self):
         """Cast to tuple.
 
@@ -553,6 +575,8 @@ class ConfusionTable(object):
     def fnr(self):
         r"""Return false negative rate.
 
+        .. versionadded:: 0.4
+
         False negative rate is defined as
         :math:`\frac{fn}{tp + fn}
 
@@ -602,6 +626,8 @@ class ConfusionTable(object):
     def false_omission_rate(self):
         r"""Return false omission rate (FOR).
 
+        .. versionadded:: 0.4
+
         FOR is defined as :math:`\frac{fn}{tn + fn}`
 
         Cf. https://en.wikipedia.org/wiki/False_omission_rate
@@ -648,6 +674,8 @@ class ConfusionTable(object):
     def pos_likelihood_ratio(self):
         r"""Return positive likelihood ratio.
 
+        .. versionadded:: 0.4
+
         Positive likelihood ratio is defined as
         :math:`\frac{recall}{1-specificity}`
 
@@ -671,6 +699,8 @@ class ConfusionTable(object):
     def neg_likelihood_ratio(self):
         r"""Return negative likelihood ratio.
 
+        .. versionadded:: 0.4
+
         Negative likelihood ratio is defined as
         :math:`\frac{1-recall}{specificity}`
 
@@ -693,6 +723,8 @@ class ConfusionTable(object):
 
     def diagnostic_odds_ratio(self):
         r"""Return diagnostic odds ratio.
+
+        .. versionadded:: 0.4
 
         Diagnostic odds ratio is defined as
         :math:`\frac{TP \cdot TN}{FP \cdot FN}`
@@ -814,6 +846,8 @@ class ConfusionTable(object):
     def error_rate(self):
         r"""Return error rate.
 
+        .. versionadded:: 0.4
+
         Error rate is defined as
         :math:`\frac{fp + fn}{population}
 
@@ -838,6 +872,8 @@ class ConfusionTable(object):
 
     def prevalence(self):
         r"""Return prevalence.
+
+        .. versionadded:: 0.4
 
         Prevalence is defined as
         :math:`\frac{condition positive}{population}`
@@ -1411,6 +1447,8 @@ class ConfusionTable(object):
     def jaccard(self):
         r"""Return Jaccard index.
 
+        .. versionadded:: 0.4
+
         The Jaccard index of a confusion table is
         :math:`\frac{tp}{tp+fp+fn}`
 
@@ -1460,6 +1498,8 @@ class ConfusionTable(object):
 
     def d_measure(self):
         r"""Return D-measure.
+
+        .. versionadded:: 0.4
 
         :math:`D`-measure is defined as
         :math:`1-\frac{1}{\frac{1}{precision}+\frac{1}{recall}-1}
@@ -1600,6 +1640,8 @@ class ConfusionTable(object):
     def phi_coefficient(self):
         r"""Return φ coefficient.
 
+        .. versionadded:: 0.4
+
         The :math:`\phi` coefficient is defined as
         :math:`\phi = \frac{tp \cdot tn - fp \cdot tn}
         {\sqrt{(tp + fp) \cdot (tp + fn) \cdot (tn + fp) \cdot (tn + fn)}}`
@@ -1626,10 +1668,158 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
+    def joint_entropy(self):
+        """Return the joint entropy.
+
+        .. versionadded:: 0.4
+
+        Implementation based on https://github.com/Magnetic/proficiency-metric
+
+        Returns
+        -------
+        float
+            The joint entropy of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.joint_entropy()
+        1.1680347446270396
+
+        """
+        try:
+            return (
+                math.log(self.population())
+                - sum(_ * math.log(_) for _ in self.to_tuple())
+                / self.population()
+            )
+        except ValueError:
+            return float('nan')
+
+    def actual_entropy(self):
+        """Return the actual entropy.
+
+        .. versionadded:: 0.4
+
+        Implementation based on https://github.com/Magnetic/proficiency-metric
+
+        Returns
+        -------
+        float
+            The actual entropy of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.actual_entropy()
+        0.6460905050608101
+
+        """
+        try:
+            return (
+                math.log(self.population())
+                - sum(
+                    _ * math.log(_)
+                    for _ in (self.cond_pos_pop(), self.cond_neg_pop())
+                )
+                / self.population()
+            )
+        except ValueError:
+            return float('nan')
+
+    def predicted_entropy(self):
+        """Return the predicted entropy.
+
+        .. versionadded:: 0.4
+
+        Implementation based on https://github.com/Magnetic/proficiency-metric
+
+        Returns
+        -------
+        float
+            The predicted entropy of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.predicted_entropy()
+        0.6693279632926457
+
+        """
+        try:
+            return (
+                math.log(self.population())
+                - sum(
+                    _ * math.log(_)
+                    for _ in (self.pred_pos_pop(), self.pred_neg_pop())
+                )
+                / self.population()
+            )
+        except ValueError:
+            return float('nan')
+
+    def mutual_information(self):
+        """Return the mutual information.
+
+        .. versionadded:: 0.4
+
+        Implementation based on https://github.com/Magnetic/proficiency-metric
+
+        Returns
+        -------
+        float
+            The mutual information of the confusion table
+
+        Cf. https://en.wikipedia.org/wiki/Mutual_information
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.mutual_information()
+        0.14738372372641576
+
+        """
+        try:
+            return (
+                sum(
+                    _[0] * math.log(self.population() * _[0] / _[1])
+                    for _ in (
+                        (
+                            (
+                                self._fp,
+                                self.cond_neg_pop() * self.pred_pos_pop(),
+                            ),
+                            (
+                                self._fn,
+                                self.cond_pos_pop() * self.pred_neg_pop(),
+                            ),
+                            (
+                                self._tn,
+                                self.cond_neg_pop() * self.pred_neg_pop(),
+                            ),
+                            (
+                                self._tp,
+                                self.cond_pos_pop() * self.pred_pos_pop(),
+                            ),
+                        )
+                    )
+                )
+                / self.population()
+            )
+        except ZeroDivisionError:
+            return float('nan')
+
     def proficiency(self):
-        r"""Return the proficiency.
+        """Return the proficiency.
+
+        .. versionadded:: 0.4
+
+        Implementation based on https://github.com/Magnetic/proficiency-metric
+        :cite:`Steingold:2015`
 
         AKA uncertainty coefficient
+
+        Cf. https://en.wikipedia.org/wiki/Uncertainty_coefficient
 
         Returns
         -------
@@ -1640,36 +1830,81 @@ class ConfusionTable(object):
         -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.proficiency()
-        0.030756274640630108
+        0.228116219897929
+
+        """
+        return self.mutual_information() / self.actual_entropy()
+
+    def igr(self):
+        """Return information gain ratio.
+
+        .. versionadded:: 0.4
+
+        Implementation based on https://github.com/Magnetic/proficiency-metric
+
+        Cf. https://en.wikipedia.org/wiki/Information_gain_ratio
+
+        Returns
+        -------
+        float
+            The information gain ratio of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.igr()
+        0.22019657299448012
+
+        """
+        return self.mutual_information() / self.predicted_entropy()
+
+    def dependency(self):
+        """Return dependency.
+
+        .. versionadded:: 0.4
+
+        Implementation based on https://github.com/Magnetic/proficiency-metric
+
+        Returns
+        -------
+        float
+            The dependency of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.dependency()
+        0.12618094145262454
+
+        """
+        return self.mutual_information() / self.joint_entropy()
+
+    def lift(self):
+        """Return lift.
+
+        .. versionadded:: 0.4
+
+        Implementation based on https://github.com/Magnetic/proficiency-metric
+
+        Returns
+        -------
+        float
+            The lift of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.lift()
+        1.3142857142857143
 
         """
         try:
-            pop = self._tp + self._tn + self._fp + self._fn
-            pos = self._tp + self._fn
-            neg = self._tn + self._fp
-
-            l_prob = pop * math.log(pop)
-
-            ltp = self._tp * math.log(
-                self._tp / ((self._tp + self._fp) * (self._tp + self._fn))
+            return (
+                self._tp
+                * self.population()
+                / (self.pred_pos_pop() * self.cond_pos_pop())
             )
-            lfp = self._fp * math.log(
-                self._fp / ((self._fp + self._tp) * (self._fp + self._tn))
-            )
-            lfn = self._fn * math.log(
-                self._fn / ((self._fn + self._tp) * (self._fn + self._tn))
-            )
-            ltn = self._tn * math.log(
-                self._tn / ((self._tn + self._fp) * (self._tn + self._fn))
-            )
-
-            lp = pos * math.log(pos / pop)
-            ln = neg * math.log(neg / pop)
-
-            return (l_prob + ltp + lfp + lfn + ltn) / (l_prob + lp + ln)
         except ZeroDivisionError:
-            return float('nan')
-        except ValueError:
             return float('nan')
 
 

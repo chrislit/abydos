@@ -144,6 +144,13 @@ class CastTestCases(unittest.TestCase):
         self.assertIsInstance(str(SCALE_TABLE), str)
         self.assertEqual(str(SCALE_TABLE), 'tp:1, tn:2, fp:3, fn:4')
 
+    def test_repr(self):
+        """Test abydos.stats.ConfusionTable._repr_."""
+        self.assertIsInstance(repr(SCALE_TABLE), str)
+        self.assertEqual(
+            repr(SCALE_TABLE), 'ConfusionTable(tp=1, tn=2, fp=3, fn=4)'
+        )
+
 
 class PopulationTestCases(unittest.TestCase):
     """Test abydos.stats.ConfusionTable population methods."""
@@ -760,17 +767,99 @@ class StatisticalMeasureTestCases(unittest.TestCase):
             WORKED_EG_TABLE.phi_coefficient(), 0.23348550853492078
         )
 
+    def test_joint_entropy(self):
+        """Test abydos.stats.ConfusionTable.joint_entropy."""
+        self.assertEqual(UNIT_TABLE.joint_entropy(), 1.3862943611198906)
+        self.assertTrue(isnan(NULL_TABLE.joint_entropy()))
+        self.assertAlmostEqual(SCALE_TABLE.joint_entropy(), 1.2798542258336676)
+        self.assertAlmostEqual(
+            CATSNDOGS_TABLE.joint_entropy(), 1.040505471995055
+        )
+        self.assertAlmostEqual(
+            WORKED_EG_TABLE.joint_entropy(), 0.38442665366628237
+        )
+
+    def test_actual_entropy(self):
+        """Test abydos.stats.ConfusionTable.actual_entropy."""
+        self.assertEqual(UNIT_TABLE.actual_entropy(), 0.6931471805599453)
+        self.assertTrue(isnan(NULL_TABLE.actual_entropy()))
+        self.assertAlmostEqual(
+            SCALE_TABLE.actual_entropy(), 0.6931471805599456
+        )
+        self.assertAlmostEqual(
+            CATSNDOGS_TABLE.actual_entropy(), 0.6076934238709568
+        )
+        self.assertAlmostEqual(
+            WORKED_EG_TABLE.actual_entropy(), 0.07695321955601564
+        )
+
+    def test_predicted_entropy(self):
+        """Test abydos.stats.ConfusionTable.predicted_entropy."""
+        self.assertEqual(UNIT_TABLE.predicted_entropy(), 0.6931471805599453)
+        self.assertTrue(isnan(NULL_TABLE.predicted_entropy()))
+        self.assertAlmostEqual(
+            SCALE_TABLE.predicted_entropy(), 0.6730116670092565
+        )
+        self.assertAlmostEqual(
+            CATSNDOGS_TABLE.predicted_entropy(), 0.5722806988018472
+        )
+        self.assertAlmostEqual(
+            WORKED_EG_TABLE.predicted_entropy(), 0.3218236566720343
+        )
+
+    def test_mutual_information(self):
+        """Test abydos.stats.ConfusionTable.mutual_information."""
+        self.assertEqual(UNIT_TABLE.mutual_information(), 0.0)
+        self.assertTrue(isnan(NULL_TABLE.mutual_information()))
+        self.assertAlmostEqual(
+            SCALE_TABLE.mutual_information(), 0.08630462173553424
+        )
+        self.assertAlmostEqual(
+            CATSNDOGS_TABLE.mutual_information(), 0.13946865067774858
+        )
+        self.assertAlmostEqual(
+            WORKED_EG_TABLE.mutual_information(), 0.014350222561768025
+        )
+
     def test_proficiency(self):
         """Test abydos.stats.ConfusionTable.proficiency."""
-        self.assertEqual(UNIT_TABLE.proficiency(), -1.601713251907459e-16)
+        self.assertEqual(UNIT_TABLE.proficiency(), 0.0)
         self.assertTrue(isnan(NULL_TABLE.proficiency()))
-        self.assertAlmostEqual(SCALE_TABLE.proficiency(), 0.053624076498240525)
+        self.assertAlmostEqual(SCALE_TABLE.proficiency(), 0.12451124978365304)
         self.assertAlmostEqual(
-            CATSNDOGS_TABLE.proficiency(), 0.051882890061500264
+            CATSNDOGS_TABLE.proficiency(), 0.229504952989856
         )
         self.assertAlmostEqual(
-            WORKED_EG_TABLE.proficiency(), 0.001903505930565753
+            WORKED_EG_TABLE.proficiency(), 0.1864798203968872
         )
+
+    def test_igr(self):
+        """Test abydos.stats.ConfusionTable.igr."""
+        self.assertEqual(UNIT_TABLE.igr(), 0.0)
+        self.assertTrue(isnan(NULL_TABLE.igr()))
+        self.assertAlmostEqual(SCALE_TABLE.igr(), 0.12823644219877575)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.igr(), 0.24370671764703314)
+        self.assertAlmostEqual(WORKED_EG_TABLE.igr(), 0.044590328474180894)
+
+    def test_dependency(self):
+        """Test abydos.stats.ConfusionTable.dependency."""
+        self.assertEqual(UNIT_TABLE.dependency(), 0.0)
+        self.assertTrue(isnan(NULL_TABLE.dependency()))
+        self.assertAlmostEqual(SCALE_TABLE.dependency(), 0.06743316542891234)
+        self.assertAlmostEqual(
+            CATSNDOGS_TABLE.dependency(), 0.13403932457013681
+        )
+        self.assertAlmostEqual(
+            WORKED_EG_TABLE.dependency(), 0.03732889596730547
+        )
+
+    def test_lift(self):
+        """Test abydos.stats.ConfusionTable.lift."""
+        self.assertEqual(UNIT_TABLE.lift(), 1.0)
+        self.assertTrue(isnan(NULL_TABLE.lift()))
+        self.assertAlmostEqual(SCALE_TABLE.lift(), 0.5)
+        self.assertAlmostEqual(CATSNDOGS_TABLE.lift(), 2.4107142857142856)
+        self.assertAlmostEqual(WORKED_EG_TABLE.lift(), 6.76666666666666)
 
 
 if __name__ == '__main__':
