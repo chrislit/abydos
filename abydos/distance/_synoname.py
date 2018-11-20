@@ -47,6 +47,8 @@ class Synoname(_Distance):
     """Synoname.
 
     Cf. :cite:`Getty:1991,Gross:1991`
+
+    .. versionadded:: 0.3.6
     """
 
     _stc = SynonameToolcode()
@@ -107,6 +109,10 @@ class Synoname(_Distance):
         >>> pe._synoname_strip_punct('AB;CD EF-GH$IJ')
         'ABCD EFGHIJ'
 
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         stripped = ''
         for char in word:
@@ -144,6 +150,10 @@ class Synoname(_Distance):
         >>> pe._synoname_word_approximation('Smith Waterman', 'Waterman',
         ... 'Tom Joe Bob', 'Tom Joe')
         0.6
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if features is None:
@@ -474,6 +484,10 @@ class Synoname(_Distance):
         ... ret_name=True)
         'word_approx'
 
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if isinstance(tests, Iterable):
             new_tests = 0
@@ -744,6 +758,10 @@ class Synoname(_Distance):
         float
             Normalized Synoname distance
 
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return (
             synoname(src, tar, word_approx_min, char_approx_min, tests, False)
@@ -804,6 +822,8 @@ def synoname(
     >>> synoname(('Pereira', 'I. R.', ''), ('Pereira', 'I. Smith', ''),
     ... ret_name=True)
     'word_approx'
+
+    .. versionadded:: 0.3.0
 
     """
     return Synoname().dist_abs(

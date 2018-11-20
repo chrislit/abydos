@@ -47,6 +47,8 @@ class RLE(object):
     :cite:`rosettacode:2018`. This is licensed GFDL 1.2.
 
     Digits 0-9 cannot be in text.
+
+    .. versionadded:: 0.3.6
     """
 
     def encode(self, text):
@@ -80,6 +82,10 @@ class RLE(object):
         'ab\x00abbab5a'
         >>> rle.encode('aaabaabababa')
         '3abaabababa'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if text:
@@ -121,6 +127,10 @@ class RLE(object):
         'aaabaabababa'
         >>> rle.decode('3abaabababa')
         'aaabaabababa'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         mult = ''
@@ -179,6 +189,8 @@ def rle_encode(text, use_bwt=True):
     >>> rle_encode('aaabaabababa', False)
     '3abaabababa'
 
+    .. versionadded:: 0.1.0
+
     """
     if use_bwt:
         text = BWT().encode(text)
@@ -224,6 +236,8 @@ def rle_decode(text, use_bwt=True):
     'aaabaabababa'
     >>> rle_decode('3abaabababa', False)
     'aaabaabababa'
+
+    .. versionadded:: 0.1.0
 
     """
     text = RLE().decode(text)

@@ -45,6 +45,8 @@ class Eudex(_Distance):
     """Distance between the Eudex hashes of two terms.
 
     Cf. :cite:`Ticki:2016`.
+
+    .. versionadded:: 0.3.6
     """
 
     @staticmethod
@@ -58,6 +60,10 @@ class Eudex(_Distance):
         ------
         int
             The next Fibonacci number
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         num_a, num_b = 1, 2
@@ -80,6 +86,10 @@ class Eudex(_Distance):
         ------
         int
             The next power of `base`
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         exp = 0
@@ -164,6 +174,10 @@ class Eudex(_Distance):
         >>> cmp.dist_abs('ATCG', 'TAGC', [1, 1, 2, 6, 24, 120, 720, 5040])
         6243
 
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         # Calculate the eudex hashes and XOR them
         xored = eudex(src, max_length=max_length) ^ eudex(
@@ -234,6 +248,10 @@ class Eudex(_Distance):
         0.004901960784
         >>> round(cmp.dist('ATCG', 'TAGC'), 12)
         0.197549019608
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return self.dist_abs(src, tar, weights, max_length, True)
@@ -309,6 +327,8 @@ def eudex_hamming(
     >>> eudex_hamming('ATCG', 'TAGC', [1, 1, 2, 6, 24, 120, 720, 5040])
     6243
 
+    .. versionadded:: 0.3.0
+
     """
     return Eudex().dist_abs(src, tar, weights, max_length, normalized)
 
@@ -351,6 +371,8 @@ def dist_eudex(src, tar, weights='exponential', max_length=8):
     >>> round(dist_eudex('ATCG', 'TAGC'), 12)
     0.197549019608
 
+    .. versionadded:: 0.3.0
+
     """
     return Eudex().dist(src, tar, weights, max_length)
 
@@ -392,6 +414,8 @@ def sim_eudex(src, tar, weights='exponential', max_length=8):
     0.995098039216
     >>> round(sim_eudex('ATCG', 'TAGC'), 12)
     0.802450980392
+
+    .. versionadded:: 0.3.0
 
     """
     return Eudex().sim(src, tar, weights, max_length)

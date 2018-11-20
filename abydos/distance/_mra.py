@@ -44,6 +44,8 @@ class MRA(_Distance):
 
     The Western Airlines Surname Match Rating Algorithm comparison rating, as
     presented on page 18 of :cite:`Moore:1977`.
+
+    .. versionadded:: 0.3.6
     """
 
     def dist_abs(self, src, tar):
@@ -72,6 +74,10 @@ class MRA(_Distance):
         0
         >>> cmp.dist_abs('ATCG', 'TAGC')
         5
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if src == tar:
@@ -143,6 +149,10 @@ class MRA(_Distance):
         >>> cmp.sim('ATCG', 'TAGC')
         0.8333333333333334
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return mra_compare(src, tar) / 6
 
@@ -180,6 +190,8 @@ def mra_compare(src, tar):
     0
     >>> mra_compare('ATCG', 'TAGC')
     5
+
+    .. versionadded:: 0.1.0
 
     """
     return MRA().dist_abs(src, tar)
@@ -219,6 +231,8 @@ def sim_mra(src, tar):
     >>> sim_mra('ATCG', 'TAGC')
     0.8333333333333334
 
+    .. versionadded:: 0.1.0
+
     """
     return MRA().sim(src, tar)
 
@@ -256,6 +270,8 @@ def dist_mra(src, tar):
     1.0
     >>> dist_mra('ATCG', 'TAGC')
     0.16666666666666663
+
+    .. versionadded:: 0.1.0
 
     """
     return MRA().dist(src, tar)

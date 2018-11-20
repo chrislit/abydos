@@ -45,6 +45,8 @@ class MetaSoundex(_Phonetic):
 
     This is based on :cite:`Koneru:2017`. Only English ('en') and Spanish
     ('es') languages are supported, as in the original.
+
+    .. versionadded:: 0.3.6
     """
 
     _trans = dict(
@@ -96,6 +98,10 @@ class MetaSoundex(_Phonetic):
         '4638'
         >>> pe.encode('Nicolás', lang='es')
         '6754'
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if lang == 'es':
@@ -153,6 +159,8 @@ def metasoundex(word, lang='en'):
     '4638'
     >>> metasoundex('Nicolás', lang='es')
     '6754'
+
+    .. versionadded:: 0.3.0
 
     """
     return MetaSoundex().encode(word, lang)

@@ -44,6 +44,8 @@ class Caverphone(_Phonetic):
 
     A description of version 2 of the algorithm can be found in
     :cite:`Hood:2004`.
+
+    .. versionadded:: 0.3.6
     """
 
     def encode(self, word, version=2):
@@ -82,6 +84,10 @@ class Caverphone(_Phonetic):
         >>> pe.encode('Schmidt', 1)
         'SKMT11'
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         word = word.lower()
         word = ''.join(c for c in word if c in self._lc_set)
@@ -100,6 +106,8 @@ class Caverphone(_Phonetic):
             -------
             str
                 The word with instances of char squeezed down to one
+
+            .. versionadded:: 0.1.0
 
             """
             while char * 2 in word:
@@ -246,6 +254,8 @@ def caverphone(word, version=2):
     'SMT111'
     >>> caverphone('Schmidt', 1)
     'SKMT11'
+
+    .. versionadded:: 0.1.0
 
     """
     return Caverphone().encode(word, version)

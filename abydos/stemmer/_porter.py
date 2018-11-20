@@ -45,6 +45,8 @@ class Porter(_Stemmer):
     """Porter stemmer.
 
     The Porter stemmer is described in :cite:`Porter:1980`.
+
+    .. versionadded:: 0.3.6
     """
 
     _vowels = {'a', 'e', 'i', 'o', 'u', 'y'}
@@ -63,6 +65,10 @@ class Porter(_Stemmer):
         -------
         int
             The m-degree as defined in the Porter stemmer definition
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         mdeg = 0
@@ -90,6 +96,10 @@ class Porter(_Stemmer):
             True iff a vowel exists in the term (as defined in the Porter
             stemmer definition)
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         for letter in term:
             if letter in self._vowels:
@@ -109,6 +119,10 @@ class Porter(_Stemmer):
         bool
             True iff the stem ends in a doubled consonant (as defined in the
             Porter stemmer definition)
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return (
@@ -130,6 +144,10 @@ class Porter(_Stemmer):
         bool
             True iff the stem ends in cvc (as defined in the Porter stemmer
             definition)
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return len(term) > 2 and (
@@ -167,6 +185,10 @@ class Porter(_Stemmer):
 
         >>> stmr.stem('eateth', early_english=True)
         'eat'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # lowercase, normalize, and compose
@@ -409,6 +431,8 @@ def porter(word, early_english=False):
 
     >>> porter('eateth', early_english=True)
     'eat'
+
+    .. versionadded:: 0.1.0
 
     """
     return Porter().stem(word, early_english)

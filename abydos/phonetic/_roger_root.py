@@ -45,6 +45,8 @@ class RogerRoot(_Phonetic):
     """Roger Root code.
 
     This is Roger Root name coding, described in :cite:`Moore:1977`.
+
+    .. versionadded:: 0.3.6
     """
 
     # '*' is used to prevent combining by _delete_consecutive_repeats()
@@ -170,6 +172,10 @@ class RogerRoot(_Phonetic):
         >>> roger_root('Schmidt')
         '06310'
 
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -238,6 +244,8 @@ def roger_root(word, max_length=5, zero_pad=True):
     '00310'
     >>> roger_root('Schmidt')
     '06310'
+
+    .. versionadded:: 0.3.0
 
     """
     return RogerRoot().encode(word, max_length, zero_pad)

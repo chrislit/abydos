@@ -46,6 +46,8 @@ class DaitchMokotoff(_Phonetic):
     Based on Daitch-Mokotoff Soundex :cite:`Mokotoff:1997`, this returns values
     of a word as a set. A collection is necessary since there can be multiple
     values for a single word.
+
+    .. versionadded:: 0.3.6
     """
 
     _dms_table = {
@@ -295,6 +297,10 @@ class DaitchMokotoff(_Phonetic):
         ... zero_pad=False))
         ['35457976754', '3557976754']
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         dms = ['']  # initialize empty code list
 
@@ -401,6 +407,10 @@ def dm_soundex(word, max_length=6, zero_pad=True):
     >>> sorted(dm_soundex('The quick brown fox', max_length=20,
     ... zero_pad=False))
     ['35457976754', '3557976754']
+
+    .. versionadded:: 0.1.0
+    .. versionchanged:: 0.3.6
+        Encapsulated in class
 
     """
     return DaitchMokotoff().encode(word, max_length, zero_pad)

@@ -54,6 +54,8 @@ class Soundex(_Phonetic):
     - 'Census' follows the rules laid out in GIL 55 :cite:`US:1997` by the
       US Census, including coding prefixed and unprefixed versions of some
       names
+
+    .. versionadded:: 0.3.6
     """
 
     _trans = dict(
@@ -128,6 +130,10 @@ class Soundex(_Phonetic):
         'A226'
         >>> pe.encode('Asicroft', var='special')
         'A226'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # Require a max_length of at least 4 and not more than 64
@@ -259,6 +265,8 @@ def soundex(word, max_length=4, var='American', reverse=False, zero_pad=True):
     'A226'
     >>> soundex('Asicroft', var='special')
     'A226'
+
+    .. versionadded:: 0.1.0
 
     """
     return Soundex().encode(word, max_length, var, reverse, zero_pad)

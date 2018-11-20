@@ -45,6 +45,8 @@ class Phonex(_Phonetic):
     """Phonex code.
 
     Phonex is an algorithm derived from Soundex, defined in :cite:`Lait:1996`.
+
+    .. versionadded:: 0.3.6
     """
 
     def encode(self, word, max_length=4, zero_pad=True):
@@ -76,6 +78,10 @@ class Phonex(_Phonetic):
         'S253'
         >>> pe.encode('Smith')
         'S530'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         name = unicode_normalize('NFKD', text_type(word.upper()))
@@ -202,6 +208,8 @@ def phonex(word, max_length=4, zero_pad=True):
     'S253'
     >>> phonex('Smith')
     'S530'
+
+    .. versionadded:: 0.1.0
 
     """
     return Phonex().encode(word, max_length, zero_pad)

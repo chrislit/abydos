@@ -45,6 +45,8 @@ class Porter2(_Snowball):
     """Porter2 (Snowball English) stemmer.
 
     The Porter2 (Snowball English) stemmer is defined in :cite:`Porter:2002`.
+
+    .. versionadded:: 0.3.6
     """
 
     _doubles = {'bb', 'dd', 'ff', 'gg', 'mm', 'nn', 'pp', 'rr', 'tt'}
@@ -115,6 +117,10 @@ class Porter2(_Snowball):
 
         >>> stmr.stem('eateth', early_english=True)
         'eat'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # lowercase, normalize, and compose
@@ -415,6 +421,8 @@ def porter2(word, early_english=False):
 
     >>> porter2('eateth', early_english=True)
     'eat'
+
+    .. versionadded:: 0.1.0
 
     """
     return Porter2().stem(word, early_english)

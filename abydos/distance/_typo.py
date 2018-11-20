@@ -50,6 +50,8 @@ class Typo(_Distance):
     This is inspired by Typo-Distance :cite:`Song:2011`, and a fair bit of
     this was copied from that module. Compared to the original, this supports
     different metrics for substitution.
+
+    .. versionadded:: 0.3.6
     """
 
     # fmt: off
@@ -164,6 +166,10 @@ class Typo(_Distance):
         >>> cmp.dist_abs('ATCG', 'TAGC', metric='log-manhattan')
         2.3465736
 
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         ins_cost, del_cost, sub_cost, shift_cost = cost
 
@@ -196,6 +202,8 @@ class Typo(_Distance):
             ValueError
                 char not found in any keyboard layouts
 
+            .. versionadded:: 0.3.0
+
             """
             if char in lowercase:
                 return keyboard[0]
@@ -224,6 +232,8 @@ class Typo(_Distance):
             -------
             tuple
                 The row & column of the key
+
+            .. versionadded:: 0.3.0
 
             """
             for row in kb_array:  # pragma: no branch
@@ -322,6 +332,10 @@ class Typo(_Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         0.625
 
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 0.0
@@ -395,6 +409,8 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
     >>> typo('ATCG', 'TAGC', metric='log-manhattan')
     2.3465736
 
+    .. versionadded:: 0.3.0
+
     """
     return Typo().dist_abs(src, tar, metric, cost, layout)
 
@@ -447,6 +463,8 @@ def dist_typo(
     >>> dist_typo('ATCG', 'TAGC')
     0.625
 
+    .. versionadded:: 0.3.0
+
     """
     return Typo().dist(src, tar, metric, cost, layout)
 
@@ -498,6 +516,8 @@ def sim_typo(
     0.430964390437
     >>> sim_typo('ATCG', 'TAGC')
     0.375
+
+    .. versionadded:: 0.3.0
 
     """
     return Typo().sim(src, tar, metric, cost, layout)

@@ -49,6 +49,8 @@ class Caumanns(_Stemmer):
 
     This implementation is based on the GermanStemFilter described at
     :cite:`Lang:2013`.
+
+    .. versionadded:: 0.3.6
     """
 
     _umlauts = dict(zip((ord(_) for _ in 'äöü'), 'aou'))
@@ -75,6 +77,10 @@ class Caumanns(_Stemmer):
         'grau'
         >>> stmr.stem('buchstabieren')
         'buchstabier'
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if not word:
@@ -178,6 +184,8 @@ def caumanns(word):
     'grau'
     >>> caumanns('buchstabieren')
     'buchstabier'
+
+    .. versionadded:: 0.2.0
 
     """
     return Caumanns().stem(word)

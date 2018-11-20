@@ -42,6 +42,8 @@ class Indel(_Distance):
 
     This is equivalent to Levenshtein distance, when only inserts and deletes
     are possible.
+
+    .. versionadded:: 0.3.6
     """
 
     _lev = Levenshtein()
@@ -72,6 +74,10 @@ class Indel(_Distance):
         5
         >>> cmp.dist_abs('ATCG', 'TAGC')
         4
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return self._lev.dist_abs(
@@ -107,6 +113,10 @@ class Indel(_Distance):
         0.454545454545
         >>> cmp.dist('ATCG', 'TAGC')
         0.5
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if src == tar:
@@ -145,6 +155,8 @@ def indel(src, tar):
     5
     >>> indel('ATCG', 'TAGC')
     4
+
+    .. versionadded:: 0.3.0
 
     """
     return Indel().dist_abs(src, tar)
@@ -185,6 +197,8 @@ def dist_indel(src, tar):
     >>> dist_indel('ATCG', 'TAGC')
     0.5
 
+    .. versionadded:: 0.3.0
+
     """
     return Indel().dist(src, tar)
 
@@ -223,6 +237,8 @@ def sim_indel(src, tar):
     0.545454545455
     >>> sim_indel('ATCG', 'TAGC')
     0.5
+
+    .. versionadded:: 0.3.0
 
     """
     return Indel().sim(src, tar)

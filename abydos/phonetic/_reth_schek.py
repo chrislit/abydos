@@ -58,6 +58,8 @@ class RethSchek(_Phonetic):
     - Should 'TUI' -> 'ZUI' rule exist? (PPRL has rule, but I can't
       think of a German word with '-tui-' in it.)
     - Should we really change 'SCH' -> 'CH' and then 'CH' -> 'SCH'?
+
+    .. versionadded:: 0.3.6
     """
 
     _replacements = {
@@ -153,6 +155,10 @@ class RethSchek(_Phonetic):
         >>> reth_schek_phonetik('Schmidt')
         'SCHMID'
 
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         # Uppercase
         word = word.upper()
@@ -225,6 +231,8 @@ def reth_schek_phonetik(word):
     'SMID'
     >>> reth_schek_phonetik('Schmidt')
     'SCHMID'
+
+    .. versionadded:: 0.3.0
 
     """
     return RethSchek().encode(word)

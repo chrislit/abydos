@@ -45,6 +45,8 @@ class RefinedSoundex(_Phonetic):
 
     This is Soundex, but with more character classes. It was defined at
     :cite:`Boyce:1998`.
+
+    .. versionadded:: 0.3.6
     """
 
     _trans = dict(
@@ -85,6 +87,10 @@ class RefinedSoundex(_Phonetic):
         'S386'
         >>> pe.encode('Schmidt')
         'S386'
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
@@ -143,6 +149,8 @@ def refined_soundex(word, max_length=-1, zero_pad=False, retain_vowels=False):
     'S386'
     >>> refined_soundex('Schmidt')
     'S386'
+
+    .. versionadded:: 0.3.0
 
     """
     return RefinedSoundex().encode(word, max_length, zero_pad, retain_vowels)

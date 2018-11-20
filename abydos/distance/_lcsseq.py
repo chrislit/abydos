@@ -44,6 +44,8 @@ class LCSseq(_Distance):
 
     Longest common subsequence (LCSseq) is the longest subsequence of
     characters that two strings have in common.
+
+    .. versionadded:: 0.3.6
     """
 
     def lcsseq(self, src, tar):
@@ -79,6 +81,10 @@ class LCSseq(_Distance):
         'aln'
         >>> sseq.lcsseq('ATCG', 'TAGC')
         'AC'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         lengths = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)

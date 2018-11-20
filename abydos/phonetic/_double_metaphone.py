@@ -41,6 +41,8 @@ class DoubleMetaphone(_Phonetic):
 
     Based on Lawrence Philips' (Visual) C++ code from 1999
     :cite:`Philips:2000`.
+
+    .. versionadded:: 0.3.6
     """
 
     def encode(self, word, max_length=-1):
@@ -71,6 +73,10 @@ class DoubleMetaphone(_Phonetic):
         >>> pe.encode('Schmidt')
         ('XMT', 'SMT')
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         # Require a max_length of at least 4
         if max_length != -1:
@@ -86,6 +92,8 @@ class DoubleMetaphone(_Phonetic):
             -------
             bool
                 True if the word appears to be Slavic or Germanic
+
+            .. versionadded:: 0.1.0
 
             """
             if 'W' in word or 'K' in word or 'CZ' in word:
@@ -106,6 +114,8 @@ class DoubleMetaphone(_Phonetic):
             -------
             tuple
                 A new metaphone tuple with the supplied elements
+
+            .. versionadded:: 0.1.0
 
             """
             newpri = primary
@@ -132,6 +142,8 @@ class DoubleMetaphone(_Phonetic):
             bool
                 True if the character is a vowel
 
+            .. versionadded:: 0.1.0
+
             """
             if pos >= 0 and word[pos] in {'A', 'E', 'I', 'O', 'U', 'Y'}:
                 return True
@@ -149,6 +161,8 @@ class DoubleMetaphone(_Phonetic):
             -------
             str
                 Character at word[pos]
+
+            .. versionadded:: 0.1.0
 
             """
             return word[pos]
@@ -169,6 +183,8 @@ class DoubleMetaphone(_Phonetic):
             -------
             bool
                 True if word[pos:pos+slen] is in substrings
+
+            .. versionadded:: 0.1.0
 
             """
             if pos < 0:
@@ -995,6 +1011,8 @@ def double_metaphone(word, max_length=-1):
     ('SM0', 'XMT')
     >>> double_metaphone('Schmidt')
     ('XMT', 'SMT')
+
+    .. versionadded:: 0.1.0
 
     """
     return DoubleMetaphone().encode(word, max_length)

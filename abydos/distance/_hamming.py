@@ -44,6 +44,8 @@ class Hamming(_Distance):
     it is not normally defined. By default, this implementation calculates the
     Hamming distance of the first n characters where n is the lesser of the two
     strings' lengths and adds to this the difference in string lengths.
+
+    .. versionadded:: 0.3.6
     """
 
     def dist_abs(self, src, tar, diff_lens=True):
@@ -85,6 +87,10 @@ class Hamming(_Distance):
         8
         >>> cmp.dist_abs('ATCG', 'TAGC')
         4
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if not diff_lens and len(src) != len(tar):
@@ -143,6 +149,10 @@ class Hamming(_Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         1.0
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 0.0
@@ -189,6 +199,8 @@ def hamming(src, tar, diff_lens=True):
     >>> hamming('ATCG', 'TAGC')
     4
 
+    .. versionadded:: 0.1.0
+
     """
     return Hamming().dist_abs(src, tar, diff_lens)
 
@@ -233,6 +245,8 @@ def dist_hamming(src, tar, diff_lens=True):
     >>> dist_hamming('ATCG', 'TAGC')
     1.0
 
+    .. versionadded:: 0.1.0
+
     """
     return Hamming().dist(src, tar, diff_lens)
 
@@ -276,6 +290,8 @@ def sim_hamming(src, tar, diff_lens=True):
     0.0
     >>> sim_hamming('ATCG', 'TAGC')
     0.0
+
+    .. versionadded:: 0.1.0
 
     """
     return Hamming().sim(src, tar, diff_lens)

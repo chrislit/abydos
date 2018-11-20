@@ -50,6 +50,8 @@ class FONEM(_Phonetic):
     Guillaume Plique's Javascript implementation :cite:`Plique:2018` at
     https://github.com/Yomguithereal/talisman/blob/master/src/phonetics/french/fonem.js
     was also consulted for this implementation.
+
+    .. versionadded:: 0.3.6
     """
 
     # I don't see a sane way of doing this without regexps :(
@@ -228,6 +230,10 @@ class FONEM(_Phonetic):
         >>> pe.encode('Pelletier')
         'PELETIER'
 
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         # normalize, upper-case, and filter non-French letters
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -277,6 +283,8 @@ def fonem(word):
     'LEGREN'
     >>> fonem('Pelletier')
     'PELETIER'
+
+    .. versionadded:: 0.3.0
 
     """
     return FONEM().encode(word)

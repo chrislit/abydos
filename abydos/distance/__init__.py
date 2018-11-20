@@ -356,6 +356,8 @@ def sim(src, tar, method=sim_levenshtein):
     >>> sim('ATCG', 'TAGC')
     0.25
 
+    .. versionadded:: 0.1.0
+
     """
     if callable(method):
         return method(src, tar)
@@ -399,6 +401,8 @@ def dist(src, tar, method=sim_levenshtein):
     0.875
     >>> dist('ATCG', 'TAGC')
     0.75
+
+    .. versionadded:: 0.1.0
 
     """
     if callable(method):

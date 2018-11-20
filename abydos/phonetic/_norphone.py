@@ -45,6 +45,8 @@ class Norphone(_Phonetic):
     Norphone was designed for Norwegian, but this implementation has been
     extended to support Swedish vowels as well. This function incorporates
     the "not implemented" rules from the above file's rule set.
+
+    .. versionadded:: 0.3.6
     """
 
     _uc_v_set = {'A', 'E', 'I', 'O', 'U', 'Y', 'Å', 'Æ', 'Ø', 'Ä', 'Ö'}
@@ -98,6 +100,10 @@ class Norphone(_Phonetic):
         'BRTN'
         >>> pe.encode('Sandvik')
         'SNVK'
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         word = word.upper()
@@ -190,6 +196,8 @@ def norphone(word):
     'BRTN'
     >>> norphone('Sandvik')
     'SNVK'
+
+    .. versionadded:: 0.3.0
 
     """
     return Norphone().encode(word)

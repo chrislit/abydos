@@ -40,6 +40,8 @@ class OccurrenceHalved(_Fingerprint):
     """Occurrence Halved Fingerprint.
 
     Based on the occurrence halved fingerprint from :cite:`Cislak:2017`.
+
+    .. versionadded:: 0.3.6
     """
 
     def fingerprint(self, word, n_bits=16, most_common=MOST_COMMON_LETTERS_CG):
@@ -74,6 +76,10 @@ class OccurrenceHalved(_Fingerprint):
         '0b10100000000000'
         >>> bin(ohf.fingerprint('entreatment'))
         '0b1111010000110000'
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if n_bits % 2:
@@ -141,6 +147,8 @@ def occurrence_halved_fingerprint(
     '0b10100000000000'
     >>> bin(occurrence_halved_fingerprint('entreatment'))
     '0b1111010000110000'
+
+    .. versionadded:: 0.3.0
 
     """
     return OccurrenceHalved().fingerprint(word, n_bits, most_common)

@@ -45,6 +45,8 @@ class PhoneticSpanish(_Phonetic):
 
     This follows the coding described in :cite:`Amon:2012` and
     :cite:`delPilarAngeles:2015`.
+
+    .. versionadded:: 0.3.6
     """
 
     _trans = dict(
@@ -81,6 +83,10 @@ class PhoneticSpanish(_Phonetic):
         '4638'
         >>> pe.encode('Nicolás')
         '6454'
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # uppercase, normalize, and decompose, filter to A-Z minus vowels & W
@@ -135,6 +141,8 @@ def phonetic_spanish(word, max_length=-1):
     '4638'
     >>> phonetic_spanish('Nicolás')
     '6454'
+
+    .. versionadded:: 0.3.0
 
     """
     return PhoneticSpanish().encode(word, max_length)

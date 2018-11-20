@@ -40,6 +40,8 @@ class SynonameToolcode(_Fingerprint):
     """Synoname Toolcode.
 
     Cf. :cite:`Getty:1991,Gross:1991`.
+
+    .. versionadded:: 0.3.6
     """
 
     _synoname_special_table = (
@@ -308,6 +310,10 @@ class SynonameToolcode(_Fingerprint):
         >>> st.fingerprint('Michelangelo IV', '', 'Workshop of')
         ('michelangelo iv', '', '3000550015$055b$mi')
 
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         lname = lname.lower()
         fname = fname.lower()
@@ -402,6 +408,8 @@ class SynonameToolcode(_Fingerprint):
             -------
             tuple
                 First and last names with Roman numeral moved
+
+            .. versionadded:: 0.3.0
 
             """
             loc = fname.find(numeral)
@@ -539,6 +547,8 @@ def synoname_toolcode(lname, fname='', qual='', normalize=0):
     ('ste.-marie ii', 'count john', '0200491310$015b049a127c$smcji')
     >>> synoname_toolcode('Michelangelo IV', '', 'Workshop of')
     ('michelangelo iv', '', '3000550015$055b$mi')
+
+    .. versionadded:: 0.3.0
 
     """
     return SynonameToolcode().fingerprint(lname, fname, qual, normalize)

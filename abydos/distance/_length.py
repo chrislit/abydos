@@ -37,7 +37,10 @@ __all__ = ['Length', 'dist_length', 'sim_length']
 
 
 class Length(_Distance):
-    """Length similarity and distance."""
+    """Length similarity and distance.
+
+    .. versionadded:: 0.3.6
+    """
 
     def sim(self, src, tar):
         """Return the length similarity of two strings.
@@ -68,6 +71,10 @@ class Length(_Distance):
         0.875
         >>> cmp.sim('ATCG', 'TAGC')
         1.0
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if src == tar:
@@ -113,6 +120,8 @@ def sim_length(src, tar):
     >>> sim_length('ATCG', 'TAGC')
     1.0
 
+    .. versionadded:: 0.1.0
+
     """
     return Length().sim(src, tar)
 
@@ -150,6 +159,8 @@ def dist_length(src, tar):
     0.125
     >>> dist_length('ATCG', 'TAGC')
     0.0
+
+    .. versionadded:: 0.1.0
 
     """
     return Length().dist(src, tar)

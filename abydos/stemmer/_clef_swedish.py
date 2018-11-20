@@ -40,6 +40,8 @@ class CLEFSwedish(_Stemmer):
     """CLEF Swedish stemmer.
 
     The CLEF Swedish stemmer is defined at :cite:`Savoy:2005`.
+
+    .. versionadded:: 0.3.6
     """
 
     def stem(self, word):
@@ -63,6 +65,10 @@ class CLEFSwedish(_Stemmer):
         'suspensio'
         >>> clef_swedish('visshet')
         'viss'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         wlen = len(word) - 2
@@ -114,6 +120,8 @@ def clef_swedish(word):
     'suspensio'
     >>> clef_swedish('visshet')
     'viss'
+
+    .. versionadded:: 0.1.0
 
     """
     return CLEFSwedish().stem(word)

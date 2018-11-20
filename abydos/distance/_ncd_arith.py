@@ -43,12 +43,20 @@ class NCDarith(_Distance):
     Cf. https://en.wikipedia.org/wiki/Arithmetic_coding
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    .. versionadded:: 0.3.6
     """
 
     _coder = None
 
     def __init__(self):
-        """Initialize the arithmetic coder object."""
+        """Initialize the arithmetic coder object.
+
+        .. versionadded:: 0.3.6
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
+        """
         self._coder = Arithmetic()
 
     def dist(self, src, tar, probs=None):
@@ -79,6 +87,10 @@ class NCDarith(_Distance):
         0.8275862068965517
         >>> cmp.dist('ATCG', 'TAGC')
         0.6923076923076923
+
+        .. versionadded:: 0.3.5
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if src == tar:
@@ -136,6 +148,8 @@ def dist_ncd_arith(src, tar, probs=None):
     >>> dist_ncd_arith('ATCG', 'TAGC')
     0.6923076923076923
 
+    .. versionadded:: 0.3.5
+
     """
     return NCDarith().dist(src, tar, probs)
 
@@ -175,6 +189,8 @@ def sim_ncd_arith(src, tar, probs=None):
     0.1724137931034483
     >>> sim_ncd_arith('ATCG', 'TAGC')
     0.3076923076923077
+
+    .. versionadded:: 0.3.5
 
     """
     return NCDarith().sim(src, tar, probs)

@@ -44,6 +44,8 @@ class OmissionKey(_Fingerprint):
     """Omission Key.
 
     The omission key of a word is defined in :cite:`Pollock:1984`.
+
+    .. versionadded:: 0.3.6
     """
 
     _consonants = tuple('JKQXZVWYBFMGPDHCLNTSR')
@@ -71,6 +73,10 @@ class OmissionKey(_Fingerprint):
         'PHCTSRIOE'
         >>> ok.fingerprint('Niall')
         'LNIA'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -120,6 +126,8 @@ def omission_key(word):
     'PHCTSRIOE'
     >>> omission_key('Niall')
     'LNIA'
+
+    .. versionadded:: 0.1.0
 
     """
     return OmissionKey().fingerprint(word)

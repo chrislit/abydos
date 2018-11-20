@@ -42,6 +42,8 @@ class QGrams(Counter):
     known as k-grams and n-grams, but the term n-gram more typically refers to
     sequences of whitespace-delimited words in a string, where q-gram refers
     to sequences of characters in a word or string.
+
+    .. versionadded:: 0.1.0
     """
 
     def __init__(self, term, qval=2, start_stop='$#', skip=0):
@@ -80,6 +82,8 @@ class QGrams(Counter):
         >>> qg = QGrams('AATTATAT', qval=3, start_stop='')
         >>> qg
         QGrams({'TAT': 2, 'AAT': 1, 'ATT': 1, 'TTA': 1, 'ATA': 1})
+
+        .. versionadded:: 0.1.0
 
         """
         # Save the term itself
@@ -140,6 +144,8 @@ class QGrams(Counter):
         >>> qg = QGrams('AATTATAT', qval=3, start_stop='')
         >>> qg.count()
         6
+
+        .. versionadded:: 0.1.0
 
         """
         return sum(self.values())

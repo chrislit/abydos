@@ -35,7 +35,10 @@ from ..tokenizer import QGrams
 
 
 class _TokenDistance(_Distance):
-    """Abstract Token Distance class."""
+    """Abstract Token Distance class.
+
+    .. versionadded:: 0.3.6
+    """
 
     def _get_qgrams(self, src, tar, qval=0, skip=0):
         """Return the Q-Grams in src & tar.
@@ -63,6 +66,10 @@ class _TokenDistance(_Distance):
         >>> pe._get_qgrams('AT', 'TT', qval=2)
         (QGrams({'$A': 1, 'AT': 1, 'T#': 1}),
          QGrams({'$T': 1, 'TT': 1, 'T#': 1}))
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if isinstance(src, Counter) and isinstance(tar, Counter):

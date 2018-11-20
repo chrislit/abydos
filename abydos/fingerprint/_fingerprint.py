@@ -71,7 +71,10 @@ MOST_COMMON_LETTERS_DE_LC = ('e', 'n', 'i', 'r', 's', 't', 'a', 'd', 'h', 'u',
 
 
 class _Fingerprint(object):
-    """Abstract _Fingerprint class."""
+    """Abstract _Fingerprint class.
+
+    .. versionadded:: 0.3.6
+    """
 
     def fingerprint(self, word):
         """Fingerprint string.
@@ -80,6 +83,8 @@ class _Fingerprint(object):
         ----------
         word : str
             Word to fingerprint
+
+        .. versionchanged:: 0.3.6
 
         """
         pass

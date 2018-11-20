@@ -53,6 +53,8 @@ class Phonet(_Phonetic):
 
     That is, in turn, based on Michael's C code, which is also licensed LGPL
     :cite:`Michael:2007`.
+
+    .. versionadded:: 0.3.6
     """
 
     _rules_no_lang = (  # separator chars
@@ -1122,6 +1124,10 @@ class Phonet(_Phonetic):
         >>> pe.encode('Schmidt', lang='none')
         'SCHMIDT'
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         phonet_hash = Counter()
         alpha_pos = Counter()
@@ -1136,6 +1142,8 @@ class Phonet(_Phonetic):
             ----------
             lang : str
                 Language to use for rules
+
+            .. versionadded:: 0.1.0
 
             """
             if lang == 'none':
@@ -1261,6 +1269,8 @@ class Phonet(_Phonetic):
             -------
             str
                 The phonet value
+
+            .. versionadded:: 0.1.0
 
             """
             if lang == 'none':
@@ -1778,6 +1788,8 @@ def phonet(word, mode=1, lang='de'):
     'SMITH'
     >>> phonet('Schmidt', lang='none')
     'SCHMIDT'
+
+    .. versionadded:: 0.1.0
 
     """
     return Phonet().encode(word, mode, lang)

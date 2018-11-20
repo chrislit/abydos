@@ -64,6 +64,8 @@ def _prod(nums):
     >>> _prod(2**i for i in range(5))
     1024
 
+    .. versionadded:: 0.1.0
+
     """
     return reduce(mul, nums, 1)
 

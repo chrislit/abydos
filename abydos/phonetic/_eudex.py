@@ -45,6 +45,8 @@ class Eudex(_Phonetic):
     (not the reference implementation) at :cite:`Ticki:2016`.
 
     Further details can be found at :cite:`Ticki:2016b`.
+
+    .. versionadded:: 0.3.6
     """
 
     _trailing_phones = {
@@ -200,6 +202,10 @@ class Eudex(_Phonetic):
         >>> pe.encode('Schmidt')
         720589151732307997
 
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         # Lowercase input & filter unknown characters
         word = ''.join(
@@ -270,6 +276,8 @@ def eudex(word, max_length=8):
     720575940412906756
     >>> eudex('Schmidt')
     720589151732307997
+
+    .. versionadded:: 0.3.0
 
     """
     return Eudex().encode(word, max_length)

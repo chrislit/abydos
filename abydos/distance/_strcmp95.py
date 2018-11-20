@@ -53,6 +53,8 @@ class Strcmp95(_Distance):
     for some common typos and frequently confused characters. It is also
     limited to uppercase ASCII characters, so it is appropriate to American
     names, but not much else.
+
+    .. versionadded:: 0.3.6
     """
 
     _sp_mx = (
@@ -127,6 +129,10 @@ class Strcmp95(_Distance):
         >>> cmp.sim('ATCG', 'TAGC')
         0.8333333333333334
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
 
         def _in_range(char):
@@ -141,6 +147,8 @@ class Strcmp95(_Distance):
             -------
             bool
                 True if char is in the range (0, 91)
+
+            .. versionadded:: 0.1.0
 
             """
             return 91 > ord(char) > 0
@@ -297,6 +305,8 @@ def sim_strcmp95(src, tar, long_strings=False):
     >>> sim_strcmp95('ATCG', 'TAGC')
     0.8333333333333334
 
+    .. versionadded:: 0.1.0
+
     """
     return Strcmp95().sim(src, tar, long_strings)
 
@@ -340,6 +350,8 @@ def dist_strcmp95(src, tar, long_strings=False):
     0.345238095238
     >>> round(dist_strcmp95('ATCG', 'TAGC'), 12)
     0.166666666667
+
+    .. versionadded:: 0.1.0
 
     """
     return Strcmp95().dist(src, tar, long_strings)

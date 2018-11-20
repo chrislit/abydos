@@ -40,6 +40,8 @@ class Occurrence(_Fingerprint):
     """Occurrence Fingerprint.
 
     Based on the occurrence fingerprint from :cite:`Cislak:2017`.
+
+    .. versionadded:: 0.3.6
     """
 
     def fingerprint(self, word, n_bits=16, most_common=MOST_COMMON_LETTERS_CG):
@@ -72,6 +74,10 @@ class Occurrence(_Fingerprint):
         '0b110000000010000'
         >>> bin(of.fingerprint('entreatment'))
         '0b1110010010000100'
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         word = set(word)
@@ -132,6 +138,8 @@ def occurrence_fingerprint(
     '0b110000000010000'
     >>> bin(occurrence_fingerprint('entreatment'))
     '0b1110010010000100'
+
+    .. versionadded:: 0.3.0
 
     """
     return Occurrence().fingerprint(word, n_bits, most_common)

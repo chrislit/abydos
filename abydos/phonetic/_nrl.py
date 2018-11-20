@@ -42,6 +42,8 @@ class NRL(_Phonetic):
     """Naval Research Laboratory English-to-phoneme encoder.
 
     This is defined by :cite:`Elovitz:1976`.
+
+    .. versionadded:: 0.3.6
     """
 
     _rules = {
@@ -464,6 +466,10 @@ class NRL(_Phonetic):
         >>> pe.encode('Larsen')
         'lAArsEHn'
 
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
 
         def _to_regex(pattern, left_match=True):
@@ -557,6 +563,8 @@ def nrl(word):
     'smIHTH'
     >>> nrl('Larsen')
     'lAArsEHn'
+
+    .. versionadded:: 0.3.0
 
     """
     return NRL().encode(word)

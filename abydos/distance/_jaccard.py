@@ -49,6 +49,8 @@ class Jaccard(Tversky):
     :cite:`Tanimoto:1958`
     and the Tversky index :cite:`Tversky:1977` for
     :math:`\alpha = \beta = 1`.
+
+    .. versionadded:: 0.3.6
     """
 
     def sim(self, src, tar, qval=2):
@@ -79,6 +81,10 @@ class Jaccard(Tversky):
         0.0625
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return super(self.__class__, self).sim(src, tar, qval, 1, 1)
@@ -114,6 +120,10 @@ class Jaccard(Tversky):
         -4.0
         >>> cmp.tanimoto_coeff('ATCG', 'TAGC')
         -inf
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         coeff = self.sim(src, tar, qval)
@@ -159,6 +169,8 @@ def sim_jaccard(src, tar, qval=2):
     >>> sim_jaccard('ATCG', 'TAGC')
     0.0
 
+    .. versionadded:: 0.1.0
+
     """
     return Jaccard().sim(src, tar, qval)
 
@@ -199,6 +211,8 @@ def dist_jaccard(src, tar, qval=2):
     >>> dist_jaccard('ATCG', 'TAGC')
     1.0
 
+    .. versionadded:: 0.1.0
+
     """
     return Jaccard().dist(src, tar, qval)
 
@@ -238,6 +252,8 @@ def tanimoto(src, tar, qval=2):
     -4.0
     >>> tanimoto('ATCG', 'TAGC')
     -inf
+
+    .. versionadded:: 0.1.0
 
     """
     return Jaccard().tanimoto_coeff(src, tar, qval)

@@ -30,7 +30,10 @@ from __future__ import (
 
 
 class _Distance(object):
-    """Abstract Distance class."""
+    """Abstract Distance class.
+
+    .. versionadded:: 0.3.6
+    """
 
     def sim(self, src, tar, *args, **kwargs):
         """Return similarity.
@@ -50,6 +53,8 @@ class _Distance(object):
         -------
         float
             Similarity
+
+        .. versionadded:: 0.3.6
 
         """
         return 1.0 - self.dist(src, tar, *args, **kwargs)
@@ -73,6 +78,8 @@ class _Distance(object):
         float
             Distance
 
+        .. versionadded:: 0.3.6
+
         """
         return 1.0 - self.sim(src, tar, *args, **kwargs)
 
@@ -94,6 +101,8 @@ class _Distance(object):
         -------
         int
             Absolute distance
+
+        .. versionadded:: 0.3.6
 
         """
         return self.dist(src, tar, *args, **kwargs)

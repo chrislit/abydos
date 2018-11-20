@@ -51,6 +51,8 @@ class StatisticsCanada(_Phonetic):
 
     The modified version of this algorithm is described in Appendix B of
     :cite:`Moore:1977`.
+
+    .. versionadded:: 0.3.6
     """
 
     def encode(self, word, max_length=4):
@@ -79,6 +81,10 @@ class StatisticsCanada(_Phonetic):
         'SMTH'
         >>> pe.encode('Schmidt')
         'SCHM'
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
@@ -131,6 +137,8 @@ def statistics_canada(word, max_length=4):
     'SMTH'
     >>> statistics_canada('Schmidt')
     'SCHM'
+
+    .. versionadded:: 0.3.0
 
     """
     return StatisticsCanada().encode(word, max_length)

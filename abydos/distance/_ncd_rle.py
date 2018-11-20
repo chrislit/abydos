@@ -43,6 +43,8 @@ class NCDrle(_Distance):
     Cf. https://en.wikipedia.org/wiki/Run-length_encoding
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    .. versionadded:: 0.3.6
     """
 
     _rle = RLE()
@@ -73,6 +75,10 @@ class NCDrle(_Distance):
         1.0
         >>> cmp.dist('ATCG', 'TAGC')
         1.0
+
+        .. versionadded:: 0.3.5
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if src == tar:
@@ -123,6 +129,8 @@ def dist_ncd_rle(src, tar):
     >>> dist_ncd_rle('ATCG', 'TAGC')
     1.0
 
+    .. versionadded:: 0.3.5
+
     """
     return NCDrle().dist(src, tar)
 
@@ -160,6 +168,8 @@ def sim_ncd_rle(src, tar):
     0.0
     >>> sim_ncd_rle('ATCG', 'TAGC')
     0.0
+
+    .. versionadded:: 0.3.5
 
     """
     return NCDrle().sim(src, tar)

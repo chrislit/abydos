@@ -44,6 +44,8 @@ class MLIPNS(_Distance):
     :cite:`Shannaq:2010`. This function returns only 1.0 (similar) or 0.0
     (not similar). LIPNS similarity is identical to normalized Hamming
     similarity.
+
+    .. versionadded:: 0.3.6
     """
 
     hamming = Hamming()
@@ -79,6 +81,10 @@ class MLIPNS(_Distance):
         0.0
         >>> sim_mlipns('ATCG', 'TAGC')
         0.0
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if tar == src:
@@ -145,6 +151,8 @@ def sim_mlipns(src, tar, threshold=0.25, max_mismatches=2):
     >>> sim_mlipns('ATCG', 'TAGC')
     0.0
 
+    .. versionadded:: 0.1.0
+
     """
     return MLIPNS().sim(src, tar, threshold, max_mismatches)
 
@@ -188,6 +196,8 @@ def dist_mlipns(src, tar, threshold=0.25, max_mismatches=2):
     1.0
     >>> dist_mlipns('ATCG', 'TAGC')
     1.0
+
+    .. versionadded:: 0.1.0
 
     """
     return MLIPNS().dist(src, tar, threshold, max_mismatches)

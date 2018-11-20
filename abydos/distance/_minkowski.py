@@ -43,6 +43,8 @@ class Minkowski(_TokenDistance):
 
     The Minkowski distance :cite:`Minkowski:1910` is a distance metric in
     :math:`L^p-space`.
+
+    .. versionadded:: 0.3.6
     """
 
     def dist_abs(
@@ -81,6 +83,10 @@ class Minkowski(_TokenDistance):
         9.0
         >>> cmp.dist_abs('ATCG', 'TAGC')
         10.0
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         q_src, q_tar = self._get_qgrams(src, tar, qval)
@@ -145,6 +151,10 @@ class Minkowski(_TokenDistance):
         >>> cmp.dist('ATCG', 'TAGC')
         1.0
 
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return self.dist_abs(src, tar, qval, pval, True, alphabet)
 
@@ -191,6 +201,8 @@ def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
     >>> minkowski('ATCG', 'TAGC')
     10.0
 
+    .. versionadded:: 0.3.0
+
     """
     return Minkowski().dist_abs(src, tar, qval, pval, normalized, alphabet)
 
@@ -235,6 +247,8 @@ def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     >>> dist_minkowski('ATCG', 'TAGC')
     1.0
 
+    .. versionadded:: 0.3.0
+
     """
     return Minkowski().dist(src, tar, qval, pval, alphabet)
 
@@ -278,6 +292,8 @@ def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     0.307692307692
     >>> sim_minkowski('ATCG', 'TAGC')
     0.0
+
+    .. versionadded:: 0.3.0
 
     """
     return Minkowski().sim(src, tar, qval, pval, alphabet)

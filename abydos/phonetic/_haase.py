@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2018 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -48,6 +48,8 @@ class Haase(_Phonetic):
     Based on the algorithm described at :cite:`Prante:2015`.
 
     Based on the original :cite:`Haase:2000`.
+
+    .. versionadded:: 0.3.6
     """
 
     _uc_v_set = set('AEIJOUY')
@@ -83,6 +85,10 @@ class Haase(_Phonetic):
         >>> pe.encode('Schmidt')
         ('8692', '4692')
 
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
 
         def _after(word, pos, letters):
@@ -101,6 +107,8 @@ class Haase(_Phonetic):
             -------
             bool
                 True if word[pos] follows one of letters
+
+            .. versionadded:: 0.3.0
 
             """
             if pos > 0 and word[pos - 1] in letters:
@@ -123,6 +131,8 @@ class Haase(_Phonetic):
             -------
             bool
                 True if word[pos] precedes one of letters
+
+            .. versionadded:: 0.3.0
 
             """
             if pos + 1 < len(word) and word[pos + 1] in letters:
@@ -283,6 +293,8 @@ def haase_phonetik(word, primary_only=False):
     ('8692',)
     >>> haase_phonetik('Schmidt')
     ('8692', '4692')
+
+    .. versionadded:: 0.3.0
 
     """
     return Haase().encode(word, primary_only)

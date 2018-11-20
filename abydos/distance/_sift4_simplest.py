@@ -43,6 +43,8 @@ class Sift4Simplest(Sift4):
 
     This is an approximation of edit distance, described in
     :cite:`Zackwehdex:2014`.
+
+    .. versionadded:: 0.3.6
     """
 
     def dist_abs(self, src, tar, max_offset=5):
@@ -73,6 +75,10 @@ class Sift4Simplest(Sift4):
         3
         >>> cmp.dist_abs('ATCG', 'TAGC')
         2
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if not src:
@@ -157,6 +163,8 @@ def sift4_simplest(src, tar, max_offset=5):
     3
     >>> sift4_simplest('ATCG', 'TAGC')
     2
+
+    .. versionadded:: 0.3.0
 
     """
     return Sift4Simplest().dist_abs(src, tar, max_offset)

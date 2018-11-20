@@ -44,6 +44,8 @@ class SoundexBR(_Phonetic):
     """SoundexBR.
 
     This is based on :cite:`Marcelino:2015`.
+
+    .. versionadded:: 0.3.6
     """
 
     _trans = dict(
@@ -85,6 +87,10 @@ class SoundexBR(_Phonetic):
         'G524'
         >>> soundex_br('Goncalves')
         'G524'
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -155,6 +161,8 @@ def soundex_br(word, max_length=4, zero_pad=True):
     'G524'
     >>> soundex_br('Goncalves')
     'G524'
+
+    .. versionadded:: 0.3.0
 
     """
     return SoundexBR().encode(word, max_length, zero_pad)

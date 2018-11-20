@@ -44,6 +44,8 @@ class CLEFGermanPlus(_Stemmer):
     """CLEF German stemmer plus.
 
     The CLEF German stemmer plus is defined at :cite:`Savoy:2005`.
+
+    .. versionadded:: 0.3.6
     """
 
     _st_ending = {'b', 'd', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 't'}
@@ -74,6 +76,10 @@ class CLEFGermanPlus(_Stemmer):
         'grau'
         >>> clef_german_plus('buchstabieren')
         'buchstabi'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # lowercase, normalize, and compose
@@ -137,6 +143,8 @@ def clef_german_plus(word):
     'grau'
     >>> clef_german_plus('buchstabieren')
     'buchstabi'
+
+    .. versionadded:: 0.1.0
 
     """
     return CLEFGermanPlus().stem(word)

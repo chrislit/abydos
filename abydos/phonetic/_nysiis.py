@@ -47,6 +47,8 @@ class NYSIIS(_Phonetic):
 
     The modified version of this algorithm is described in Appendix B of
     :cite:`Lynch:1977`.
+
+    .. versionadded:: 0.3.6
     """
 
     def encode(self, word, max_length=6, modified=False):
@@ -89,6 +91,10 @@ class NYSIIS(_Phonetic):
         'SNAT'
         >>> pe.encode('Schmidt', max_length=8, modified=True)
         'SNAD'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # Require a max_length of at least 6
@@ -270,6 +276,8 @@ def nysiis(word, max_length=6, modified=False):
     'SNAT'
     >>> nysiis('Schmidt', max_length=8, modified=True)
     'SNAD'
+
+    .. versionadded:: 0.1.0
 
     """
     return NYSIIS().encode(word, max_length, modified)

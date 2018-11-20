@@ -49,6 +49,8 @@ class NCDlzma(_Distance):
     Cf. https://en.wikipedia.org/wiki/Lempel-Ziv-Markov_chain_algorithm
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    .. versionadded:: 0.3.6
     """
 
     def dist(self, src, tar):
@@ -82,6 +84,10 @@ class NCDlzma(_Distance):
         0.16
         >>> cmp.dist('ATCG', 'TAGC')
         0.08695652173913043
+
+        .. versionadded:: 0.3.5
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if src == tar:
@@ -140,6 +146,8 @@ def dist_ncd_lzma(src, tar):
     >>> dist_ncd_lzma('ATCG', 'TAGC')
     0.08695652173913043
 
+    .. versionadded:: 0.3.5
+
     """
     return NCDlzma().dist(src, tar)
 
@@ -177,6 +185,8 @@ def sim_ncd_lzma(src, tar):
     0.84
     >>> sim_ncd_lzma('ATCG', 'TAGC')
     0.9130434782608696
+
+    .. versionadded:: 0.3.5
 
     """
     return NCDlzma().sim(src, tar)

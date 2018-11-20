@@ -45,6 +45,8 @@ class HenryEarly(_Phonetic):
 
     The early version of Henry coding is given in :cite:`Legare:1972`. This is
     different from the later version defined in :cite:`Henry:1976`.
+
+    .. versionadded:: 0.3.6
     """
 
     _uc_c_set = set('BCDFGHJKLMNPQRSTVWXZ')
@@ -86,6 +88,10 @@ class HenryEarly(_Phonetic):
         'LGR'
         >>> henry_early('Pelletier')
         'PLT'
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -277,6 +283,8 @@ def henry_early(word, max_length=3):
     'LGR'
     >>> henry_early('Pelletier')
     'PLT'
+
+    .. versionadded:: 0.3.0
 
     """
     return HenryEarly().encode(word, max_length)

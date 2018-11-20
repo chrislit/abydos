@@ -44,6 +44,8 @@ class NCDbz2(_Distance):
     Cf. https://en.wikipedia.org/wiki/Bzip2
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    .. versionadded:: 0.3.6
     """
 
     _level = 9
@@ -55,6 +57,10 @@ class NCDbz2(_Distance):
         ----------
         level : int
             The compression level (0 to 9)
+
+        .. versionadded:: 0.3.6
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         self._level = level
@@ -85,6 +91,10 @@ class NCDbz2(_Distance):
         0.17647058823529413
         >>> cmp.dist('ATCG', 'TAGC')
         0.03125
+
+        .. versionadded:: 0.3.5
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if src == tar:
@@ -138,6 +148,8 @@ def dist_ncd_bz2(src, tar):
     >>> dist_ncd_bz2('ATCG', 'TAGC')
     0.03125
 
+    .. versionadded:: 0.3.5
+
     """
     return NCDbz2().dist(src, tar)
 
@@ -175,6 +187,8 @@ def sim_ncd_bz2(src, tar):
     0.8235294117647058
     >>> sim_ncd_bz2('ATCG', 'TAGC')
     0.96875
+
+    .. versionadded:: 0.3.5
 
     """
     return NCDbz2().sim(src, tar)

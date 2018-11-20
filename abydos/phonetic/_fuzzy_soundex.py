@@ -45,6 +45,8 @@ class FuzzySoundex(_Phonetic):
 
     Fuzzy Soundex is an algorithm derived from Soundex, defined in
     :cite:`Holmes:2002`.
+
+    .. versionadded:: 0.3.6
     """
 
     _trans = dict(
@@ -83,6 +85,10 @@ class FuzzySoundex(_Phonetic):
         'S5300'
         >>> pe.encode('Smith')
         'S5300'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -197,6 +203,8 @@ def fuzzy_soundex(word, max_length=5, zero_pad=True):
     'S5300'
     >>> fuzzy_soundex('Smith')
     'S5300'
+
+    .. versionadded:: 0.1.0
 
     """
     return FuzzySoundex().encode(word, max_length, zero_pad)

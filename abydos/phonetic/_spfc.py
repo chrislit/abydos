@@ -46,6 +46,8 @@ class SPFC(_Phonetic):
 
     Standardized Phonetic Frequency Code is roughly Soundex-like.
     This implementation is based on page 19-21 of :cite:`Moore:1977`.
+
+    .. versionadded:: 0.3.6
     """
 
     _pf1 = dict(
@@ -117,6 +119,10 @@ class SPFC(_Phonetic):
         >>> pe.encode(('R', 'Miller'))
         '65490'
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
 
         def _raise_word_ex():
@@ -128,6 +134,8 @@ class SPFC(_Phonetic):
                 Word attribute must be a string with a space or period dividing
                 the first and last names or a tuple/list consisting of the
                 first and last names
+
+            .. versionadded:: 0.1.0
 
             """
             raise AttributeError(
@@ -173,6 +181,8 @@ class SPFC(_Phonetic):
             -------
             str
                 Transformed name
+
+            .. versionadded:: 0.1.0
 
             """
             # filter out non A-Z
@@ -293,6 +303,8 @@ def spfc(word):
     '01960'
     >>> spfc(('R', 'Miller'))
     '65490'
+
+    .. versionadded:: 0.1.0
 
     """
     return SPFC().encode(word)
