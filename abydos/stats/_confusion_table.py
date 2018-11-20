@@ -43,6 +43,8 @@ from __future__ import (
 
 import math
 
+from deprecation import deprecated
+
 from ._mean import (
     aghmean,
     agmean,
@@ -58,6 +60,7 @@ from ._mean import (
     qmean,
     seiffert_mean,
 )
+from .. import __version__
 
 __all__ = ['ConfusionTable']
 
@@ -1318,12 +1321,12 @@ class ConfusionTable(object):
         0.8565371024734982
 
         """
-        if beta <= 0:
+        if beta <= 0.0:
             raise AttributeError('Beta must be a positive real value.')
         precision = self.precision()
         recall = self.recall()
         return (
-            (1 + beta ** 2)
+            (1.0 + beta ** 2)
             * precision
             * recall
             / ((beta ** 2 * precision) + recall)
@@ -1373,7 +1376,7 @@ class ConfusionTable(object):
         """
         return self.fbeta_score(0.5)
 
-    def e_score(self, beta=1):
+    def e_score(self, beta=1.0):
         r"""Return :math:`E`-score.
 
         This is Van Rijsbergen's effectiveness measure:
@@ -1398,7 +1401,7 @@ class ConfusionTable(object):
         0.17241379310344818
 
         """
-        return 1 - self.fbeta_score(beta)
+        return 1.0 - self.fbeta_score(beta)
 
     def f1_score(self):
         r"""Return :math:`F_{1}` score.
@@ -1417,11 +1420,17 @@ class ConfusionTable(object):
         -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.f1_score()
-        0.8275862068965516
+        0.8275862068965518
 
         """
-        return self.pr_hmean()
+        return self.fbeta_score(1.0)
 
+    @deprecated(
+        deprecated_in='0.4.0',
+        removed_in='0.6.0',
+        current_version=__version__,
+        details='Use the ConfusionTable.pr_hmean method instead.',
+    )
     def f_measure(self):
         r"""Return :math:`F`-measure.
 
@@ -1469,6 +1478,12 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
+    @deprecated(
+        deprecated_in='0.4.0',
+        removed_in='0.6.0',
+        current_version=__version__,
+        details='Use the ConfusionTable.pr_gmean method instead.',
+    )
     def g_measure(self):
         r"""Return G-measure.
 

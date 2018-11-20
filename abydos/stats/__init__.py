@@ -147,7 +147,7 @@ The :py:class:`.ConfusionTable` class has methods:
 
 >>> ct = ConfusionTable(120, 60, 20, 30)
 >>> ct.f1_score()
-0.8275862068965516
+0.8275862068965518
 >>> ct.mcc()
 0.5367450401216932
 >>> ct.specificity()
