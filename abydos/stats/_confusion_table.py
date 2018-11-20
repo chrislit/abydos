@@ -220,7 +220,7 @@ class ConfusionTable(object):
     def __repr__(self):
         """Return representation.
 
-        .. versionadded:: 0.4
+        .. versionadded:: 0.4.0
 
         Returns
         -------
@@ -578,7 +578,7 @@ class ConfusionTable(object):
     def fnr(self):
         r"""Return false negative rate.
 
-        .. versionadded:: 0.4
+        .. versionadded:: 0.4.0
 
         False negative rate is defined as
         :math:`\frac{fn}{tp + fn}
@@ -629,7 +629,7 @@ class ConfusionTable(object):
     def false_omission_rate(self):
         r"""Return false omission rate (FOR).
 
-        .. versionadded:: 0.4
+        .. versionadded:: 0.4.0
 
         FOR is defined as :math:`\frac{fn}{tn + fn}`
 
@@ -677,7 +677,7 @@ class ConfusionTable(object):
     def pos_likelihood_ratio(self):
         r"""Return positive likelihood ratio.
 
-        .. versionadded:: 0.4
+        .. versionadded:: 0.4.0
 
         Positive likelihood ratio is defined as
         :math:`\frac{recall}{1-specificity}`
@@ -702,7 +702,7 @@ class ConfusionTable(object):
     def neg_likelihood_ratio(self):
         r"""Return negative likelihood ratio.
 
-        .. versionadded:: 0.4
+        .. versionadded:: 0.4.0
 
         Negative likelihood ratio is defined as
         :math:`\frac{1-recall}{specificity}`
@@ -727,7 +727,7 @@ class ConfusionTable(object):
     def diagnostic_odds_ratio(self):
         r"""Return diagnostic odds ratio.
 
-        .. versionadded:: 0.4
+        .. versionadded:: 0.4.0
 
         Diagnostic odds ratio is defined as
         :math:`\frac{TP \cdot TN}{FP \cdot FN}`
@@ -849,7 +849,7 @@ class ConfusionTable(object):
     def error_rate(self):
         r"""Return error rate.
 
-        .. versionadded:: 0.4
+        .. versionadded:: 0.4.0
 
         Error rate is defined as
         :math:`\frac{fp + fn}{population}
@@ -876,7 +876,7 @@ class ConfusionTable(object):
     def prevalence(self):
         r"""Return prevalence.
 
-        .. versionadded:: 0.4
+        .. versionadded:: 0.4.0
 
         Prevalence is defined as
         :math:`\frac{condition positive}{population}`
@@ -1655,7 +1655,7 @@ class ConfusionTable(object):
     def phi_coefficient(self):
         r"""Return φ coefficient.
 
-        .. versionadded:: 0.4
+        .. versionadded:: 0.4.0
 
         The :math:`\phi` coefficient is defined as
         :math:`\phi = \frac{tp \cdot tn - fp \cdot tn}
@@ -1686,7 +1686,7 @@ class ConfusionTable(object):
     def joint_entropy(self):
         """Return the joint entropy.
 
-        .. versionadded:: 0.4
+        .. versionadded:: 0.4.0
 
         Implementation based on https://github.com/Magnetic/proficiency-metric
 
@@ -1714,7 +1714,7 @@ class ConfusionTable(object):
     def actual_entropy(self):
         """Return the actual entropy.
 
-        .. versionadded:: 0.4
+        .. versionadded:: 0.4.0
 
         Implementation based on https://github.com/Magnetic/proficiency-metric
 
@@ -1745,7 +1745,7 @@ class ConfusionTable(object):
     def predicted_entropy(self):
         """Return the predicted entropy.
 
-        .. versionadded:: 0.4
+        .. versionadded:: 0.4.0
 
         Implementation based on https://github.com/Magnetic/proficiency-metric
 
@@ -1776,7 +1776,7 @@ class ConfusionTable(object):
     def mutual_information(self):
         """Return the mutual information.
 
-        .. versionadded:: 0.4
+        .. versionadded:: 0.4.0
 
         Implementation based on https://github.com/Magnetic/proficiency-metric
 
@@ -1827,7 +1827,7 @@ class ConfusionTable(object):
     def proficiency(self):
         """Return the proficiency.
 
-        .. versionadded:: 0.4
+        .. versionadded:: 0.4.0
 
         Implementation based on https://github.com/Magnetic/proficiency-metric
         :cite:`Steingold:2015`
@@ -1853,7 +1853,7 @@ class ConfusionTable(object):
     def igr(self):
         """Return information gain ratio.
 
-        .. versionadded:: 0.4
+        .. versionadded:: 0.4.0
 
         Implementation based on https://github.com/Magnetic/proficiency-metric
 
@@ -1876,7 +1876,7 @@ class ConfusionTable(object):
     def dependency(self):
         """Return dependency.
 
-        .. versionadded:: 0.4
+        .. versionadded:: 0.4.0
 
         Implementation based on https://github.com/Magnetic/proficiency-metric
 
@@ -1897,7 +1897,7 @@ class ConfusionTable(object):
     def lift(self):
         """Return lift.
 
-        .. versionadded:: 0.4
+        .. versionadded:: 0.4.0
 
         Implementation based on https://github.com/Magnetic/proficiency-metric
 
