@@ -97,7 +97,7 @@ class _Tokenizer(Counter):
         return sum(self.values()) if self.bag_mode else self.count_unique()
 
     def count_unique(self):
-        """Returns the number of unique elements.
+        """Return the number of unique elements.
 
         Returns
         -------
@@ -116,7 +116,7 @@ class _Tokenizer(Counter):
         return len(self.values())
 
     def get_tokens_dict(self):
-        """Returns the tokens as a Counter object.
+        """Return the tokens as a Counter object.
 
         Returns
         -------
@@ -135,7 +135,7 @@ class _Tokenizer(Counter):
         return dict(self) if self.bag_mode else {key: 1 for key in self.keys()}
 
     def get_tokens_set(self):
-        """Returns the unique tokens as a set.
+        """Return the unique tokens as a set.
 
         Returns
         -------
@@ -154,7 +154,7 @@ class _Tokenizer(Counter):
         return set(self.keys())
 
     def get_tokens_list(self):
-        """Returns the tokens as an ordered list.
+        """Return the tokens as an ordered list.
 
         Returns
         -------
@@ -164,7 +164,7 @@ class _Tokenizer(Counter):
         Examples
         --------
         >>> tok = _Tokenizer().tokenize('term')
-        >>> tok.get_tokens_set()
+        >>> tok.get_tokens_list()
         ['term']
 
         .. versionadded:: 0.4.0
