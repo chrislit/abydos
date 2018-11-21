@@ -28,14 +28,16 @@ from __future__ import (
     unicode_literals,
 )
 
-from collections import Counter, Iterable
+from collections import Iterable
 
 from six.moves import range
+
+from ._tokenizer import _Tokenizer
 
 __all__ = ['QGrams']
 
 
-class QGrams(Counter):
+class QGrams(_Tokenizer):
     """A q-gram class, which functions like a bag/multiset.
 
     A q-gram is here defined as all sequences of q characters. Q-grams are also
@@ -46,12 +48,12 @@ class QGrams(Counter):
     .. versionadded:: 0.1.0
     """
 
-    def __init__(self, term, qval=2, start_stop='$#', skip=0):
+    def __init__(self, string='', qval=2, start_stop='$#', skip=0, bag_mode=True):
         """Initialize QGrams.
 
         Parameters
         ----------
-        term : str
+        string : str
             A string to extract q-grams from
         qval : int or Iterable
             The q-gram length (defaults to 2), can be an integer, range object,
@@ -84,71 +86,70 @@ class QGrams(Counter):
         QGrams({'TAT': 2, 'AAT': 1, 'ATT': 1, 'TTA': 1, 'ATA': 1})
 
         .. versionadded:: 0.1.0
+        .. versionchanged:: 0.4.0
+            Broke tokenization functions out into tokenize method
 
         """
-        # Save the term itself
-        self._term = term
-        self._term_ss = term
+        super(QGrams, self).__init__(bag_mode)
+
+        # Save parameters
+        self.string = string
+        self.qval = qval
+        self.start_stop = start_stop
+        self.skip = skip
+
+        self._string_ss = string
         self._ordered_list = []
 
-        if not isinstance(qval, Iterable):
-            qval = (qval,)
-        if not isinstance(skip, Iterable):
-            skip = (skip,)
+        return self.tokenize(self.string)
 
-        for qval_i in qval:
-            for skip_i in skip:
-                if len(self._term) < qval_i or qval_i < 1:
+    def tokenize(self, string):
+        """Tokenize the term and store it.
+
+        The tokenized term is stored as an ordered list and as a Counter
+        object.
+
+        Args
+        ----
+        string : str
+            The string to tokenize
+
+        .. versionadded:: 0.4.0
+
+        """
+        self.string = string
+
+        if not isinstance(self.qval, Iterable):
+            self.qval = (self.qval,)
+        if not isinstance(self.skip, Iterable):
+            self.skip = (self.skip,)
+
+        for qval_i in self.qval:
+            for skip_i in self.skip:
+                if len(self.string) < qval_i or qval_i < 1:
                     continue
 
-                if start_stop and qval_i > 1:
-                    term = (
-                        start_stop[0] * (qval_i - 1)
-                        + self._term
-                        + start_stop[-1] * (qval_i - 1)
+                if self.start_stop and qval_i > 1:
+                    string = (
+                        self.start_stop[0] * (qval_i - 1)
+                        + self.string
+                        + self.start_stop[-1] * (qval_i - 1)
                     )
                 else:
-                    term = self._term
+                    string = self.string
 
                 # Having appended start & stop symbols (or not), save the
                 # result, but only for the longest valid qval_i
-                if len(term) > len(self._term_ss):
-                    self._term_ss = term
+                if len(string) > len(self._string_ss):
+                    self._string_ss = string
 
                 skip_i += 1
                 self._ordered_list += [
-                    term[i : i + (qval_i * skip_i) : skip_i]
-                    for i in range(len(term) - (qval_i - 1))
+                    string[i : i + (qval_i * skip_i) : skip_i]
+                    for i in range(len(string) - (qval_i - 1))
                 ]
 
-        super(QGrams, self).__init__(self._ordered_list)
-
-    def count(self):
-        """Return q-grams count.
-
-        Returns
-        -------
-        int
-            The total count of q-grams in a QGrams object
-
-        Examples
-        --------
-        >>> qg = QGrams('AATTATAT')
-        >>> qg.count()
-        9
-
-        >>> qg = QGrams('AATTATAT', qval=1, start_stop='')
-        >>> qg.count()
-        8
-
-        >>> qg = QGrams('AATTATAT', qval=3, start_stop='')
-        >>> qg.count()
-        6
-
-        .. versionadded:: 0.1.0
-
-        """
-        return sum(self.values())
+        super(_Tokenizer, self).__init__(self._ordered_list)
 
 
 if __name__ == '__main__':
