@@ -94,7 +94,7 @@ class _Tokenizer(Counter):
         .. versionadded:: 0.4.0
 
         """
-        return sum(self.values())
+        return sum(self.values()) if self.bag_mode else self.count_unique()
 
     def count_unique(self):
         """Returns the number of unique elements.
@@ -151,7 +151,7 @@ class _Tokenizer(Counter):
         .. versionadded:: 0.4.0
 
         """
-        return set(self.values())
+        return set(self.keys())
 
     def get_tokens_list(self):
         """Returns the tokens as an ordered list.
