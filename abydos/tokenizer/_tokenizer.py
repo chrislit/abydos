@@ -28,8 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+import math
 from collections import Counter
-
 
 class _Tokenizer(Counter):
     """Abstract _Tokenizer class.
@@ -37,12 +37,12 @@ class _Tokenizer(Counter):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, bag_mode=True, *args, **kwargs):
+    def __init__(self, scaler=None, *args, **kwargs):
         """Initialize Tokenizer.
 
         Args
         ----
-        bag_mode : str
+        scaler : str
             Set to True to tokenize as bags/multisets or to False to tokenize
             as sets
 
@@ -51,7 +51,7 @@ class _Tokenizer(Counter):
         """
         self._string = ''
         self._ordered_list = []
-        self.bag_mode = bag_mode
+        self.scaler = scaler
 
         super(_Tokenizer, self).__init__()
 
@@ -94,6 +94,7 @@ class _Tokenizer(Counter):
         .. versionadded:: 0.4.0
 
         """
+        if self.
         return sum(self.values()) if self.bag_mode else self.count_unique()
 
     def count_unique(self):
@@ -132,7 +133,14 @@ class _Tokenizer(Counter):
         .. versionadded:: 0.4.0
 
         """
-        return dict(self) if self.bag_mode else {key: 1 for key in self.keys()}
+        if self.scaler is None:
+            return dict(self)
+        elif self.scaler == 'set':
+            return {key: 1 for key in self.keys()}
+        elif callable(self.scaler):
+            return {key: self.scaler(val) for key,val in self.items()}
+        raise ValueError('Unsupported scaler value.')
+
 
     def get_tokens_set(self):
         """Return the unique tokens as a set.
