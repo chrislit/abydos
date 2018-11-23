@@ -28,7 +28,6 @@ from __future__ import (
     unicode_literals,
 )
 
-import math
 from collections import Counter
 
 class _Tokenizer(Counter):
@@ -94,8 +93,7 @@ class _Tokenizer(Counter):
         .. versionadded:: 0.4.0
 
         """
-        if self.
-        return sum(self.values()) if self.bag_mode else self.count_unique()
+        return sum(self.get_tokens_dict().values())
 
     def count_unique(self):
         """Return the number of unique elements.
@@ -140,7 +138,6 @@ class _Tokenizer(Counter):
         elif callable(self.scaler):
             return {key: self.scaler(val) for key,val in self.items()}
         raise ValueError('Unsupported scaler value.')
-
 
     def get_tokens_set(self):
         """Return the unique tokens as a set.
