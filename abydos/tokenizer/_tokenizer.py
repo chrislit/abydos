@@ -30,6 +30,7 @@ from __future__ import (
 
 from collections import Counter
 
+
 class _Tokenizer(Counter):
     """Abstract _Tokenizer class.
 

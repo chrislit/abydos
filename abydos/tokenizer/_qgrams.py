@@ -49,7 +49,7 @@ class QGrams(_Tokenizer):
     """
 
     def __init__(
-        self, string='', qval=2, start_stop='$#', skip=0, bag_mode=True
+        self, string='', qval=2, start_stop='$#', skip=0, scaler=None
     ):
         """Initialize QGrams.
 
@@ -92,7 +92,7 @@ class QGrams(_Tokenizer):
             Broke tokenization functions out into tokenize method
 
         """
-        super(QGrams, self).__init__(bag_mode)
+        super(QGrams, self).__init__(scaler)
 
         # Save parameters
         self.string = string
@@ -103,7 +103,7 @@ class QGrams(_Tokenizer):
         self._string_ss = string
         self._ordered_list = []
 
-        return self.tokenize(self.string)
+        self.tokenize(self.string)
 
     def tokenize(self, string):
         """Tokenize the term and store it.
