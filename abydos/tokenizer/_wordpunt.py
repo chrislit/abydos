@@ -28,21 +28,19 @@ from __future__ import (
     unicode_literals,
 )
 
-import re
-
-from ._tokenizer import _Tokenizer
+from ._regexp import Regexp
 
 __all__ = ['Wordpunct']
 
 
-class Wordpunct(_Tokenizer):
+class Wordpunct(Regexp):
     """A wordpunct tokenizer
 
     .. versionadded:: 0.4.0
     """
 
     def __init__(
-        self, string='', scaler=None
+        self, string='', scaler=None, flags=0
     ):
         """Initialize tokenizer.
 
@@ -59,7 +57,7 @@ class Wordpunct(_Tokenizer):
         .. versionadded:: 0.4.0
 
         """
-        super(Whitespace, self).__init__(scaler)
+        super(Wordpunct, self).__init__(scaler, regexp=r'\w+|[^\w\s]+', flags=flags)
 
         # Save parameters
         self.string = string
@@ -67,26 +65,6 @@ class Wordpunct(_Tokenizer):
         self._ordered_list = []
 
         self.tokenize(self.string)
-
-    def tokenize(self, string):
-        """Tokenize the term and store it.
-
-        The tokenized term is stored as an ordered list and as a Counter
-        object.
-
-        Args
-        ----
-        string : str
-            The string to tokenize
-
-        .. versionadded:: 0.4.0
-
-        """
-        self.string = string
-
-        self._ordered_list = re.findall(r'\w+|[^\w\s]+', self.string)
-
-        super(_Tokenizer, self).__init__(self._ordered_list)
 
 
 if __name__ == '__main__':
