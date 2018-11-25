@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tokenizer._whitespace.
+"""abydos.tokenizer._wordpunct.
 
-Whitespace tokenizer
+Regexp tokenizer
 """
 
 from __future__ import (
@@ -30,20 +30,19 @@ from __future__ import (
 
 import re
 
-from ._regexp import Regexp
 from ._tokenizer import _Tokenizer
 
 __all__ = ['Regexp']
 
 
-class Whitespace(Regexp):
-    """A whitespace tokenizer
+class Regexp(_Tokenizer):
+    """A regexp tokenizer
 
     .. versionadded:: 0.4.0
     """
 
     def __init__(
-        self, string='', scaler=None, flags=0
+        self, string='', scaler=None, regexp=r'\w+', flags=0
     ):
         """Initialize tokenizer.
 
@@ -60,10 +59,11 @@ class Whitespace(Regexp):
         .. versionadded:: 0.4.0
 
         """
-        super(Whitespace, self).__init__(scaler, regexp=r'\W+', flags=flags)
+        super(Regexp, self).__init__(scaler)
 
         # Save parameters
         self.string = string
+        self.regexp = re.compile(regexp, flags)
 
         self._ordered_list = []
 
@@ -85,7 +85,7 @@ class Whitespace(Regexp):
         """
         self.string = string
 
-        self._ordered_list = self.regexp.split(self.string)
+        self._ordered_list = self.regexp.findall(self.string)
 
         super(_Tokenizer, self).__init__(self._ordered_list)
 
