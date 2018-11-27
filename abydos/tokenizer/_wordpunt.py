@@ -39,9 +39,7 @@ class Wordpunct(Regexp):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self, string='', scaler=None, flags=0
-    ):
+    def __init__(self, string='', scaler=None, flags=0):
         """Initialize tokenizer.
 
         Parameters
@@ -57,7 +55,10 @@ class Wordpunct(Regexp):
         .. versionadded:: 0.4.0
 
         """
-        super(Wordpunct, self).__init__(scaler, regexp=r'\w+|[^\w\s]+', flags=flags)
+        super(Wordpunct, self).__init__(
+            scaler, regexp=r'\w+|[^\w\s]+', flags=flags
+        )
+
 
 if __name__ == '__main__':
     import doctest

@@ -42,9 +42,7 @@ class Whitespace(Regexp):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self, scaler=None, flags=0
-    ):
+    def __init__(self, scaler=None, flags=0):
         """Initialize tokenizer.
 
         Parameters

@@ -29,6 +29,7 @@ from __future__ import (
 )
 
 from ._tokenizer import _Tokenizer
+
 try:
     from syllabipy.legalipy import getOnsets, LegaliPy
 except ImportError:  # pragma: no cover
@@ -57,7 +58,9 @@ class LegaliPyTokenizer(_Tokenizer):
 
         """
         if LegaliPy is None:
-            raise TypeError('LegaliPy tokenizer requires installation of SyllabiPy package.')
+            raise TypeError(
+                'LegaliPy tokenizer requires installation of SyllabiPy package.'
+            )
 
         super(LegaliPyTokenizer, self).__init__(scaler)
 
