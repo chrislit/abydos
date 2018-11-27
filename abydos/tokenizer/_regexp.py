@@ -41,9 +41,7 @@ class Regexp(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self, scaler=None, regexp=r'\w+', flags=0
-    ):
+    def __init__(self, scaler=None, regexp=r'\w+', flags=0):
         """Initialize tokenizer.
 
         Parameters

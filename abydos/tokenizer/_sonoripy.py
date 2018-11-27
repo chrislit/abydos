@@ -29,6 +29,7 @@ from __future__ import (
 )
 
 from ._tokenizer import _Tokenizer
+
 try:
     from syllabipy.sonoripy import SonoriPy
 except ImportError:  # pragma: no cover
@@ -78,7 +79,9 @@ class SonoriPyTokenizer(_Tokenizer):
         if SonoriPy is not None:
             self._ordered_list = SonoriPy(string)
         else:
-            raise TypeError('SonoriPi tokenizer requires installation of SyllabiPy package.')
+            raise TypeError(
+                'SonoriPi tokenizer requires installation of SyllabiPy package.'
+            )
 
 
 if __name__ == '__main__':
