@@ -49,6 +49,8 @@ class _Tokenizer(Counter):
         .. versionadded:: 0.4.0
 
         """
+        super(_Tokenizer, self).__init__()
+
         self.scaler = scaler
 
         self._string = ''
