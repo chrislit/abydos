@@ -52,8 +52,8 @@ class _Tokenizer(Counter):
         self.scaler = scaler
 
         self._string = ''
-        self._ordered_list = []
         self._dict_dirty = True  # Dirty bit (tag) for internal Counter
+        self._ordered_list = []
 
     def tokenize(self, string):
         """Tokenize the term and store it.
@@ -70,8 +70,8 @@ class _Tokenizer(Counter):
 
         """
         self._string = string
+        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
         self._ordered_list = [self._string]
-        self._dict_dirty = True
 
     def _counter_init(self):
         """Create the internal Counter from the ordered list, if needed.
