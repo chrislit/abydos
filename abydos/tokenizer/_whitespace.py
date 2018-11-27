@@ -28,10 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
-import re
-
 from ._regexp import Regexp
-from ._tokenizer import _Tokenizer
 
 __all__ = ['Regexp']
 
@@ -47,8 +44,6 @@ class Whitespace(Regexp):
 
         Parameters
         ----------
-        string : str
-            A string to extract q-grams from
         scaler : None, str, or function
 
 
