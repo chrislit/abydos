@@ -43,7 +43,7 @@ class Whitespace(Regexp):
     """
 
     def __init__(
-        self, string='', scaler=None, flags=0
+        self, scaler=None, flags=0
     ):
         """Initialize tokenizer.
 
@@ -61,12 +61,6 @@ class Whitespace(Regexp):
 
         """
         super(Whitespace, self).__init__(scaler, regexp=r'\W+', flags=flags)
-
-        # Save parameters
-        self._string = string
-
-        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
-        self._ordered_list = []
 
     def tokenize(self, string):
         """Tokenize the term and store it.

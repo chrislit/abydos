@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tokenizer._tokenize.
+"""abydos.tokenizer._nltk.
 
-_Tokenizer base class
+NLTK tokenizer wrapper class
 """
 
 from __future__ import (
@@ -49,11 +49,7 @@ class NLTKTokenizer(_Tokenizer):
         .. versionadded:: 0.4.0
 
         """
-        self._string = ''
-        self.scaler = scaler
-
-        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
-        self._ordered_list = []
+        super(NLTKTokenizer, self).__init__(scaler)
 
         if 'nltk.tokenize' in str(type(nltk_tokenizer)) and hasattr(nltk_tokenizer, 'tokenize'):
             self.nltk_tokenizer = nltk_tokenizer
@@ -76,7 +72,6 @@ class NLTKTokenizer(_Tokenizer):
         """
         # Save the string itself
         self._string = string
-
         self._dict_dirty = True  # Dirty bit (tag) for internal Counter
         self._ordered_list = self.nltk_tokenizer(string)
 

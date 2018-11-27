@@ -97,10 +97,7 @@ class QGrams(_Tokenizer):
         self.start_stop = start_stop
         self.skip = skip
 
-        self._string = ''
         self._string_ss = self._string
-        self._ordered_list = []
-        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
 
     def tokenize(self, string):
         """Tokenize the term and store it.
