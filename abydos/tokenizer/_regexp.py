@@ -42,14 +42,12 @@ class Regexp(_Tokenizer):
     """
 
     def __init__(
-        self, string='', scaler=None, regexp=r'\w+', flags=0
+        self, scaler=None, regexp=r'\w+', flags=0
     ):
         """Initialize tokenizer.
 
         Parameters
         ----------
-        string : str
-            A string to extract q-grams from
         scaler : None, str, or function
 
 
@@ -62,12 +60,11 @@ class Regexp(_Tokenizer):
         super(Regexp, self).__init__(scaler)
 
         # Save parameters
-        self.string = string
         self.regexp = re.compile(regexp, flags)
 
+        self._string = ''
         self._ordered_list = []
-
-        self.tokenize(self.string)
+        self._dict_dirty = True
 
     def tokenize(self, string):
         """Tokenize the term and store it.
@@ -83,11 +80,9 @@ class Regexp(_Tokenizer):
         .. versionadded:: 0.4.0
 
         """
-        self.string = string
-
-        self._ordered_list = self.regexp.findall(self.string)
-
-        super(_Tokenizer, self).__init__(self._ordered_list)
+        self._string = string
+        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
+        self._ordered_list = self.regexp.findall(self._string)
 
 
 if __name__ == '__main__':

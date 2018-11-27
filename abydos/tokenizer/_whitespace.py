@@ -63,11 +63,10 @@ class Whitespace(Regexp):
         super(Whitespace, self).__init__(scaler, regexp=r'\W+', flags=flags)
 
         # Save parameters
-        self.string = string
+        self._string = string
 
+        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
         self._ordered_list = []
-
-        self.tokenize(self.string)
 
     def tokenize(self, string):
         """Tokenize the term and store it.
@@ -83,11 +82,9 @@ class Whitespace(Regexp):
         .. versionadded:: 0.4.0
 
         """
-        self.string = string
-
-        self._ordered_list = self.regexp.split(self.string)
-
-        super(_Tokenizer, self).__init__(self._ordered_list)
+        self._string = string
+        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
+        self._ordered_list = self.regexp.split(self._string)
 
 
 if __name__ == '__main__':

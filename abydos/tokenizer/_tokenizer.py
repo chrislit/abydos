@@ -49,11 +49,11 @@ class _Tokenizer(Counter):
         .. versionadded:: 0.4.0
 
         """
-        self._string = ''
-        self._ordered_list = []
         self.scaler = scaler
 
-        super(_Tokenizer, self).__init__()
+        self._string = ''
+        self._ordered_list = []
+        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
 
     def tokenize(self, string):
         """Tokenize the term and store it.
@@ -69,13 +69,19 @@ class _Tokenizer(Counter):
         .. versionadded:: 0.4.0
 
         """
-        # Save the string itself
         self._string = string
-        self._ordered_list = [string]
+        self._ordered_list = [self._string]
+        self._dict_dirty = True
 
-        super(_Tokenizer, self).__init__(self._ordered_list)
+    def _counter_init(self):
+        """Create the internal Counter from the ordered list, if needed.
 
-        return self
+        .. versionadded:: 0.4.0
+
+        """
+        if self._dict_dirty:
+            super(_Tokenizer, self).__init__(self._ordered_list)
+            self._dict_dirty = False
 
     def count(self):
         """Return token count.
@@ -94,6 +100,7 @@ class _Tokenizer(Counter):
         .. versionadded:: 0.4.0
 
         """
+        self._counter_init()
         return sum(self.get_tokens_dict().values())
 
     def count_unique(self):
@@ -113,6 +120,7 @@ class _Tokenizer(Counter):
         .. versionadded:: 0.4.0
 
         """
+        self._counter_init()
         return len(self.values())
 
     def get_tokens_dict(self):
@@ -132,6 +140,7 @@ class _Tokenizer(Counter):
         .. versionadded:: 0.4.0
 
         """
+        self._counter_init()
         if self.scaler is None:
             return dict(self)
         elif self.scaler == 'set':
@@ -157,6 +166,7 @@ class _Tokenizer(Counter):
         .. versionadded:: 0.4.0
 
         """
+        self._counter_init()
         return set(self.keys())
 
     def get_tokens_list(self):

@@ -49,14 +49,12 @@ class QGrams(_Tokenizer):
     """
 
     def __init__(
-        self, string='', qval=2, start_stop='$#', skip=0, scaler=None
+        self, qval=2, start_stop='$#', skip=0, scaler=None
     ):
         """Initialize QGrams.
 
         Parameters
         ----------
-        string : str
-            A string to extract q-grams from
         qval : int or Iterable
             The q-gram length (defaults to 2), can be an integer, range object,
             or list
@@ -95,15 +93,14 @@ class QGrams(_Tokenizer):
         super(QGrams, self).__init__(scaler)
 
         # Save parameters
-        self.string = string
         self.qval = qval
         self.start_stop = start_stop
         self.skip = skip
 
-        self._string_ss = string
+        self._string = ''
+        self._string_ss = self._string
         self._ordered_list = []
-
-        self.tokenize(self.string)
+        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
 
     def tokenize(self, string):
         """Tokenize the term and store it.
@@ -119,7 +116,8 @@ class QGrams(_Tokenizer):
         .. versionadded:: 0.4.0
 
         """
-        self.string = string
+        self._string = string
+        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
 
         if not isinstance(self.qval, Iterable):
             self.qval = (self.qval,)
@@ -128,17 +126,17 @@ class QGrams(_Tokenizer):
 
         for qval_i in self.qval:
             for skip_i in self.skip:
-                if len(self.string) < qval_i or qval_i < 1:
+                if len(self._string) < qval_i or qval_i < 1:
                     continue
 
                 if self.start_stop and qval_i > 1:
                     string = (
                         self.start_stop[0] * (qval_i - 1)
-                        + self.string
+                        + self._string
                         + self.start_stop[-1] * (qval_i - 1)
                     )
                 else:
-                    string = self.string
+                    string = self._string
 
                 # Having appended start & stop symbols (or not), save the
                 # result, but only for the longest valid qval_i
@@ -150,8 +148,6 @@ class QGrams(_Tokenizer):
                     string[i : i + (qval_i * skip_i) : skip_i]
                     for i in range(len(string) - (qval_i - 1))
                 ]
-
-        super(_Tokenizer, self).__init__(self._ordered_list)
 
 
 if __name__ == '__main__':
