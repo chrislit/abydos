@@ -63,23 +63,28 @@ class LegaliPyTokenizer(_Tokenizer):
 
         self._onsets = ['']
 
-    def train_onsets(self, text, append=False):
+    def train_onsets(self, text, threshold=0.0002, clean=True, append=False):
         """Train the onsets on a text.
 
         Args
         ----
         text : str
             The text on which to train
+        threshold : float
+            Threshold proportion above which to include onset into onset list
+        clean : bool
+            If True, the text is stripped of numerals and punctuation
         append : bool
-            If true, the
+            If True, the current onset list is extended
 
         """
+        new_onsets = getOnsets(text, threshold, clean)
         if append:
-            self._onsets = list(set(self._onsets + getOnsets(text)))
+            self._onsets = list(set(self._onsets + new_onsets))
         else:
-            self._onsets = getOnsets(text)
+            self._onsets = new_onsets
 
-    def tokenize(self, string):
+    def tokenize(self, string, ipa=False):
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -89,6 +94,8 @@ class LegaliPyTokenizer(_Tokenizer):
         ----
         string : str
             The string to tokenize
+        ipa : bool
+            If True, indicates that the string is in IPA
 
         .. versionadded:: 0.4.0
 
