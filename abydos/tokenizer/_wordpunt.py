@@ -60,11 +60,10 @@ class Wordpunct(Regexp):
         super(Wordpunct, self).__init__(scaler, regexp=r'\w+|[^\w\s]+', flags=flags)
 
         # Save parameters
-        self.string = string
+        self._string = string
 
+        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
         self._ordered_list = []
-
-        self.tokenize(self.string)
 
 
 if __name__ == '__main__':

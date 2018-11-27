@@ -50,14 +50,15 @@ class NLTKTokenizer(_Tokenizer):
 
         """
         self._string = ''
-        self._ordered_list = []
         self.scaler = scaler
+
+        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
+        self._ordered_list = []
+
         if 'nltk.tokenize' in str(type(nltk_tokenizer)) and hasattr(nltk_tokenizer, 'tokenize'):
             self.nltk_tokenizer = nltk_tokenizer
         else:
             raise TypeError('nltk_tokenizer must be an initialized tokenizer from the NLTK package (e.g. TweetTokenizer()).')
-
-        super(_Tokenizer, self).__init__()
 
     def tokenize(self, string):
         """Tokenize the term and store it.
@@ -75,11 +76,9 @@ class NLTKTokenizer(_Tokenizer):
         """
         # Save the string itself
         self._string = string
+
+        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
         self._ordered_list = self.nltk_tokenizer(string)
-
-        super(_Tokenizer, self).__init__(self._ordered_list)
-
-        return self
 
 
 if __name__ == '__main__':
