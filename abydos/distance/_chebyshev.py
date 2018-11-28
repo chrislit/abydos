@@ -45,7 +45,7 @@ class Chebyshev(Minkowski):
     .. versionadded:: 0.3.6
     """
 
-    def dist_abs(self, src, tar, qval=2, alphabet=None):
+    def dist_abs(self, src, tar, alphabet=None, tokenizer=None, *args, **kwargs):
         r"""Return the Chebyshev distance between two strings.
 
         Parameters
@@ -136,7 +136,7 @@ class Chebyshev(Minkowski):
     current_version=__version__,
     details='Use the Chebyshev.dist_abs method instead.',
 )
-def chebyshev(src, tar, qval=2, alphabet=None):
+def chebyshev(src, tar, alphabet=None, tokenizer=None, *args, **kwargs):
     r"""Return the Chebyshev distance between two strings.
 
     This is a wrapper for the :py:meth:`Chebyshev.dist_abs`.
@@ -175,7 +175,7 @@ def chebyshev(src, tar, qval=2, alphabet=None):
     .. versionadded:: 0.3.0
 
     """
-    return Chebyshev().dist_abs(src, tar, qval, alphabet)
+    return Chebyshev().dist_abs(src, tar, alphabet, tokenizer, args, kwargs)
 
 
 if __name__ == '__main__':

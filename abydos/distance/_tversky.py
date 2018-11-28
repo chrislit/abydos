@@ -70,7 +70,7 @@ class Tversky(_TokenDistance):
     .. versionadded:: 0.3.6
     """
 
-    def sim(self, src, tar, qval=2, alpha=1, beta=1, bias=None):
+    def sim(self, src, tar, alpha=1, beta=1, bias=None, tokenizer=None, *args, **kwargs):
         """Return the Tversky index of two strings.
 
         Parameters
@@ -158,7 +158,7 @@ class Tversky(_TokenDistance):
     current_version=__version__,
     details='Use the Tversky.sim method instead.',
 )
-def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
+def sim_tversky(src, tar, alpha=1, beta=1, bias=None, tokenizer=None, *args, **kwargs):
     """Return the Tversky index of two strings.
 
     This is a wrapper for :py:meth:`Tversky.sim`.
@@ -197,7 +197,7 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     .. versionadded:: 0.1.0
 
     """
-    return Tversky().sim(src, tar, qval, alpha, beta, bias)
+    return Tversky().sim(src, tar, alpha, beta, bias, tokenizer=tokenizer, args=args, kwargs=kwargs)
 
 
 @deprecated(
@@ -206,7 +206,7 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     current_version=__version__,
     details='Use the Tversky.dist method instead.',
 )
-def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
+def dist_tversky(src, tar, alpha=1, beta=1, bias=None, tokenizer=None, *args, **kwargs):
     """Return the Tversky distance between two strings.
 
     This is a wrapper for :py:meth:`Tversky.dist`.
@@ -245,7 +245,7 @@ def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     .. versionadded:: 0.1.0
 
     """
-    return Tversky().dist(src, tar, qval, alpha, beta, bias)
+    return Tversky().dist(src, tar, alpha, beta, bias, tokenizer=tokenizer, args=args, kwargs=kwargs)
 
 
 if __name__ == '__main__':

@@ -39,8 +39,12 @@ class _TokenDistance(_Distance):
 
     .. versionadded:: 0.3.6
     """
+    def __init__(self, tokenizer=None):
+        self.tokenizer = tokenizer
+        if self.tokenizer is None:
+            self.tokenizer = QGrams()
 
-    def _get_qgrams(self, src, tar, qval=0, skip=0):
+    def _get_qgrams(self, src, tar):
         """Return the Q-Grams in src & tar.
 
         Parameters
@@ -63,7 +67,7 @@ class _TokenDistance(_Distance):
         Examples
         --------
         >>> pe = _TokenDistance()
-        >>> pe._get_qgrams('AT', 'TT', qval=2)
+        >>> pe._get_qgrams('AT', 'TT')
         (QGrams({'$A': 1, 'AT': 1, 'T#': 1}),
          QGrams({'$T': 1, 'TT': 1, 'T#': 1}))
 
@@ -72,11 +76,9 @@ class _TokenDistance(_Distance):
             Encapsulated in class
 
         """
-        if isinstance(src, Counter) and isinstance(tar, Counter):
-            return src, tar
-        if qval > 0:
-            return QGrams(src, qval, '$#', skip), QGrams(tar, qval, '$#', skip)
-        return Counter(src.strip().split()), Counter(tar.strip().split())
+        src_qgrams = src if isinstance(src, Counter) else self.tokenizer.tokenize(src).get_tokens_dict()
+        tar_qgrams = tar if isinstance(tar, Counter) else self.tokenizer.tokenize(tar).get_tokens_dict()
+        return src_qgrams, tar_qgrams
 
 
 if __name__ == '__main__':

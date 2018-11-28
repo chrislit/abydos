@@ -48,7 +48,7 @@ class Cosine(_TokenDistance):
     .. versionadded:: 0.3.6
     """
 
-    def sim(self, src, tar, qval=2):
+    def sim(self, src, tar, tokenizer=None, *args, **kwargs):
         r"""Return the cosine similarity of two strings.
 
         Parameters
@@ -97,7 +97,7 @@ class Cosine(_TokenDistance):
     current_version=__version__,
     details='Use the Cosine.sim method instead.',
 )
-def sim_cosine(src, tar, qval=2):
+def sim_cosine(src, tar, tokenizer=None, *args, **kwargs):
     r"""Return the cosine similarity of two strings.
 
     This is a wrapper for :py:meth:`Cosine.sim`.
@@ -128,7 +128,7 @@ def sim_cosine(src, tar, qval=2):
     0.0
 
     """
-    return Cosine().sim(src, tar, qval)
+    return Cosine().sim(src, tar, tokenizer, args, kwargs)
 
 
 @deprecated(
@@ -137,7 +137,7 @@ def sim_cosine(src, tar, qval=2):
     current_version=__version__,
     details='Use the Cosine.dist method instead.',
 )
-def dist_cosine(src, tar, qval=2):
+def dist_cosine(src, tar, tokenizer=None, *args, **kwargs):
     """Return the cosine distance between two strings.
 
     This is a wrapper for :py:meth:`Cosine.dist`.
@@ -168,7 +168,7 @@ def dist_cosine(src, tar, qval=2):
     1.0
 
     """
-    return Cosine().dist(src, tar, qval)
+    return Cosine().dist(src, tar, tokenizer, args, kwargs)
 
 
 if __name__ == '__main__':
