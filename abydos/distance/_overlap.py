@@ -47,7 +47,7 @@ class Overlap(_TokenDistance):
     .. versionadded:: 0.3.6
     """
 
-    def sim(self, src, tar, qval=2):
+    def sim(self, src, tar, tokenizer=None, *args, **kwargs):
         r"""Return the overlap coefficient of two strings.
 
         Parameters
@@ -100,7 +100,7 @@ class Overlap(_TokenDistance):
     current_version=__version__,
     details='Use the Overlap.sim method instead.',
 )
-def sim_overlap(src, tar, qval=2):
+def sim_overlap(src, tar, tokenizer=None, *args, **kwargs):
     r"""Return the overlap coefficient of two strings.
 
     This is a wrapper for :py:meth:`Overlap.sim`.
@@ -133,7 +133,7 @@ def sim_overlap(src, tar, qval=2):
     .. versionadded:: 0.1.0
 
     """
-    return Overlap().sim(src, tar, qval)
+    return Overlap().sim(src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs)
 
 
 @deprecated(
@@ -142,7 +142,7 @@ def sim_overlap(src, tar, qval=2):
     current_version=__version__,
     details='Use the Overlap.dist method instead.',
 )
-def dist_overlap(src, tar, qval=2):
+def dist_overlap(src, tar, tokenizer=None, *args, **kwargs):
     """Return the overlap distance between two strings.
 
     This is a wrapper for :py:meth:`Overlap.dist`.
@@ -175,7 +175,7 @@ def dist_overlap(src, tar, qval=2):
     .. versionadded:: 0.1.0
 
     """
-    return Overlap().dist(src, tar, qval)
+    return Overlap().dist(src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs)
 
 
 if __name__ == '__main__':

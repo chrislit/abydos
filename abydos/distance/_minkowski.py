@@ -48,7 +48,7 @@ class Minkowski(_TokenDistance):
     """
 
     def dist_abs(
-        self, src, tar, qval=2, pval=1, normalized=False, alphabet=None
+        self, src, tar, pval=1, normalized=False, alphabet=None, tokenizer=None, *args, **kwargs
     ):
         """Return the Minkowski distance (:math:`L^p`-norm) of two strings.
 
@@ -115,7 +115,7 @@ class Minkowski(_TokenDistance):
             return len(diffs) / normalizer
         return sum(_ ** pval for _ in diffs) ** (1 / pval) / normalizer
 
-    def dist(self, src, tar, qval=2, pval=1, alphabet=None):
+    def dist(self, src, tar, pval=1, alphabet=None, tokenizer=None, *args, **kwargs):
         """Return normalized Minkowski distance of two strings.
 
         The normalized Minkowski distance :cite:`Minkowski:1910` is a distance
@@ -156,7 +156,7 @@ class Minkowski(_TokenDistance):
             Encapsulated in class
 
         """
-        return self.dist_abs(src, tar, qval, pval, True, alphabet)
+        return self.dist_abs(src, tar, pval, True, alphabet, tokenizer=tokenizer, args=args, kwargs=kwargs)
 
 
 @deprecated(
@@ -165,7 +165,7 @@ class Minkowski(_TokenDistance):
     current_version=__version__,
     details='Use the Minkowski.dist_abs method instead.',
 )
-def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
+def minkowski(src, tar, pval=1, normalized=False, alphabet=None, tokenizer=None, *args, **kwargs):
     """Return the Minkowski distance (:math:`L^p`-norm) of two strings.
 
     This is a wrapper for :py:meth:`Minkowski.dist_abs`.
@@ -204,7 +204,7 @@ def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
     .. versionadded:: 0.3.0
 
     """
-    return Minkowski().dist_abs(src, tar, qval, pval, normalized, alphabet)
+    return Minkowski().dist_abs(src, tar, pval, normalized, alphabet, tokenizer=tokenizer, args=args, kwargs=kwargs)
 
 
 @deprecated(
@@ -213,7 +213,7 @@ def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
     current_version=__version__,
     details='Use the Minkowski.dist method instead.',
 )
-def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
+def dist_minkowski(src, tar, pval=1, alphabet=None, tokenizer=None, *args, **kwargs):
     """Return normalized Minkowski distance of two strings.
 
     This is a wrapper for :py:meth:`Minkowski.dist`.
@@ -250,7 +250,7 @@ def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     .. versionadded:: 0.3.0
 
     """
-    return Minkowski().dist(src, tar, qval, pval, alphabet)
+    return Minkowski().dist(src, tar, pval, alphabet, tokenizer=tokenizer, args=args, kwargs=kwargs)
 
 
 @deprecated(
@@ -259,7 +259,7 @@ def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     current_version=__version__,
     details='Use the Minkowski.sim method instead.',
 )
-def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
+def sim_minkowski(src, tar, pval=1, alphabet=None, tokenizer=None, *args, **kwargs):
     """Return normalized Minkowski similarity of two strings.
 
     This is a wrapper for :py:meth:`Minkowski.sim`.
@@ -296,7 +296,7 @@ def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     .. versionadded:: 0.3.0
 
     """
-    return Minkowski().sim(src, tar, qval, pval, alphabet)
+    return Minkowski().sim(src, tar, pval, alphabet, tokenizer=tokenizer, args=args, kwargs=kwargs)
 
 
 if __name__ == '__main__':

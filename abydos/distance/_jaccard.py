@@ -53,7 +53,7 @@ class Jaccard(Tversky):
     .. versionadded:: 0.3.6
     """
 
-    def sim(self, src, tar, qval=2):
+    def sim(self, src, tar, tokenizer=None, *args, **kwargs):
         r"""Return the Jaccard similarity of two strings.
 
         Parameters
@@ -87,9 +87,9 @@ class Jaccard(Tversky):
             Encapsulated in class
 
         """
-        return super(self.__class__, self).sim(src, tar, qval, 1, 1)
+        return super(self.__class__, self).sim(src, tar, 1, 1, tokenizer=tokenizer, args=args, kwargs=kwargs)
 
-    def tanimoto_coeff(self, src, tar, qval=2):
+    def tanimoto_coeff(self, src, tar, tokenizer=None, *args, **kwargs):
         """Return the Tanimoto distance between two strings.
 
         Tanimoto distance :cite:`Tanimoto:1958` is
@@ -126,7 +126,7 @@ class Jaccard(Tversky):
             Encapsulated in class
 
         """
-        coeff = self.sim(src, tar, qval)
+        coeff = self.sim(src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs)
         if coeff != 0:
             return log(coeff, 2)
 
@@ -139,7 +139,7 @@ class Jaccard(Tversky):
     current_version=__version__,
     details='Use the Jaccard.sim method instead.',
 )
-def sim_jaccard(src, tar, qval=2):
+def sim_jaccard(src, tar, tokenizer=None, *args, **kwargs):
     """Return the Jaccard similarity of two strings.
 
     This is a wrapper for :py:meth:`Jaccard.sim`.
@@ -172,7 +172,7 @@ def sim_jaccard(src, tar, qval=2):
     .. versionadded:: 0.1.0
 
     """
-    return Jaccard().sim(src, tar, qval)
+    return Jaccard().sim(src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs)
 
 
 @deprecated(
@@ -181,7 +181,7 @@ def sim_jaccard(src, tar, qval=2):
     current_version=__version__,
     details='Use the Jaccard.dist method instead.',
 )
-def dist_jaccard(src, tar, qval=2):
+def dist_jaccard(src, tar, tokenizer=None, *args, **kwargs):
     """Return the Jaccard distance between two strings.
 
     This is a wrapper for :py:meth:`Jaccard.dist`.
@@ -214,7 +214,7 @@ def dist_jaccard(src, tar, qval=2):
     .. versionadded:: 0.1.0
 
     """
-    return Jaccard().dist(src, tar, qval)
+    return Jaccard().dist(src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs)
 
 
 @deprecated(
@@ -223,7 +223,7 @@ def dist_jaccard(src, tar, qval=2):
     current_version=__version__,
     details='Use the Jaccard.tanimoto_coeff method instead.',
 )
-def tanimoto(src, tar, qval=2):
+def tanimoto(src, tar, tokenizer=None, *args, **kwargs):
     """Return the Tanimoto coefficient of two strings.
 
     This is a wrapper for :py:meth:`Jaccard.tanimoto_coeff`.
@@ -256,7 +256,7 @@ def tanimoto(src, tar, qval=2):
     .. versionadded:: 0.1.0
 
     """
-    return Jaccard().tanimoto_coeff(src, tar, qval)
+    return Jaccard().tanimoto_coeff(src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs)
 
 
 if __name__ == '__main__':

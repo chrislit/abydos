@@ -50,7 +50,7 @@ class Dice(Tversky):
     .. versionadded:: 0.3.6
     """
 
-    def sim(self, src, tar, qval=2):
+    def sim(self, src, tar, tokenizer=None, *args, **kwargs):
         """Return the Sørensen–Dice coefficient of two strings.
 
         Parameters
@@ -84,7 +84,7 @@ class Dice(Tversky):
             Encapsulated in class
 
         """
-        return super(self.__class__, self).sim(src, tar, qval, 0.5, 0.5)
+        return super(self.__class__, self).sim(src, tar, 0.5, 0.5, tokenizer=tokenizer, args=args, kwargs=kwargs)
 
 
 @deprecated(
@@ -93,7 +93,7 @@ class Dice(Tversky):
     current_version=__version__,
     details='Use the Dice.sim method instead.',
 )
-def sim_dice(src, tar, qval=2):
+def sim_dice(src, tar, tokenizer=None, *args, **kwargs):
     """Return the Sørensen–Dice coefficient of two strings.
 
     This is a wrapper for :py:meth:`Dice.sim`.
@@ -126,7 +126,7 @@ def sim_dice(src, tar, qval=2):
     .. versionadded:: 0.1.0
 
     """
-    return Dice().sim(src, tar, qval)
+    return Dice().sim(src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs)
 
 
 @deprecated(
@@ -135,7 +135,7 @@ def sim_dice(src, tar, qval=2):
     current_version=__version__,
     details='Use the Dice.dist method instead.',
 )
-def dist_dice(src, tar, qval=2):
+def dist_dice(src, tar, tokenizer=None, *args, **kwargs):
     """Return the Sørensen–Dice distance between two strings.
 
     This is a wrapper for :py:meth:`Dice.dist`.
@@ -168,7 +168,7 @@ def dist_dice(src, tar, qval=2):
     .. versionadded:: 0.1.0
 
     """
-    return Dice().dist(src, tar, qval)
+    return Dice().dist(src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs)
 
 
 if __name__ == '__main__':

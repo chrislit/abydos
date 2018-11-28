@@ -45,7 +45,7 @@ class Euclidean(Minkowski):
     .. versionadded:: 0.3.6
     """
 
-    def dist_abs(self, src, tar, qval=2, normalized=False, alphabet=None):
+    def dist_abs(self, src, tar, normalized=False, alphabet=None, tokenizer=None, *args, **kwargs):
         """Return the Euclidean distance between two strings.
 
         Parameters
@@ -84,10 +84,10 @@ class Euclidean(Minkowski):
 
         """
         return super(self.__class__, self).dist_abs(
-            src, tar, qval, 2, normalized, alphabet
+            src, tar, pval=2, normalized=normalized, alphabet=alphabet, tokenizer=tokenizer, args=args, kwargs=kwargs
         )
 
-    def dist(self, src, tar, qval=2, alphabet=None):
+    def dist(self, src, tar, alphabet=None, tokenizer=None, *args, **kwargs):
         """Return the normalized Euclidean distance between two strings.
 
         The normalized Euclidean distance is a distance
@@ -126,7 +126,7 @@ class Euclidean(Minkowski):
             Encapsulated in class
 
         """
-        return self.dist_abs(src, tar, qval, True, alphabet)
+        return self.dist_abs(src, tar, normalized=True, alphabet=alphabet, tokenizer=None, args=args, kwargs=kwargs)
 
 
 @deprecated(
@@ -135,7 +135,7 @@ class Euclidean(Minkowski):
     current_version=__version__,
     details='Use the Euclidean.dist_abs method instead.',
 )
-def euclidean(src, tar, qval=2, normalized=False, alphabet=None):
+def euclidean(src, tar, normalized=False, alphabet=None, tokenizer=None, *args, **kwargs):
     """Return the Euclidean distance between two strings.
 
     This is a wrapper for :py:meth:`Euclidean.dist_abs`.
@@ -171,7 +171,7 @@ def euclidean(src, tar, qval=2, normalized=False, alphabet=None):
     .. versionadded:: 0.3.0
 
     """
-    return Euclidean().dist_abs(src, tar, qval, normalized, alphabet)
+    return Euclidean().dist_abs(src, tar, normalized=normalized, alphabet=alphabet, tokenizer=None, args=args, kwargs=kwargs)
 
 
 @deprecated(
@@ -180,7 +180,7 @@ def euclidean(src, tar, qval=2, normalized=False, alphabet=None):
     current_version=__version__,
     details='Use the Euclidean.dist method instead.',
 )
-def dist_euclidean(src, tar, qval=2, alphabet=None):
+def dist_euclidean(src, tar, alphabet=None, tokenizer=None, *args, **kwargs):
     """Return the normalized Euclidean distance between two strings.
 
     This is a wrapper for :py:meth:`Euclidean.dist`.
@@ -215,7 +215,7 @@ def dist_euclidean(src, tar, qval=2, alphabet=None):
     .. versionadded:: 0.3.0
 
     """
-    return Euclidean().dist(src, tar, qval, alphabet)
+    return Euclidean().dist(src, tar, alphabet=alphabet, tokenizer=None, args=args, kwargs=kwargs)
 
 
 @deprecated(
@@ -224,7 +224,7 @@ def dist_euclidean(src, tar, qval=2, alphabet=None):
     current_version=__version__,
     details='Use the Euclidean.sim method instead.',
 )
-def sim_euclidean(src, tar, qval=2, alphabet=None):
+def sim_euclidean(src, tar, alphabet=None, tokenizer=None, *args, **kwargs):
     """Return the normalized Euclidean similarity of two strings.
 
     This is a wrapper for :py:meth:`Euclidean.sim`.
@@ -259,7 +259,7 @@ def sim_euclidean(src, tar, qval=2, alphabet=None):
     .. versionadded:: 0.3.0
 
     """
-    return Euclidean().sim(src, tar, qval, alphabet)
+    return Euclidean().sim(src, tar, alphabet=alphabet, tokenizer=None, args=args, kwargs=kwargs)
 
 
 if __name__ == '__main__':
