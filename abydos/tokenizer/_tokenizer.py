@@ -42,7 +42,7 @@ class _Tokenizer(Counter):
 
         Args
         ----
-        scaler : str
+        scaler : NoneType or str or function
             Set to True to tokenize as bags/multisets or to False to tokenize
             as sets
 
@@ -74,6 +74,7 @@ class _Tokenizer(Counter):
         self._string = string
         self._dict_dirty = True  # Dirty bit (tag) for internal Counter
         self._ordered_list = [self._string]
+        return self
 
     def _counter_init(self):
         """Create the internal Counter from the ordered list, if needed.
@@ -103,7 +104,7 @@ class _Tokenizer(Counter):
 
         """
         self._counter_init()
-        return sum(self.get_tokens_dict().values())
+        return sum(self.get_tokens_counter().values())
 
     def count_unique(self):
         """Return the number of unique elements.
@@ -125,7 +126,7 @@ class _Tokenizer(Counter):
         self._counter_init()
         return len(self.values())
 
-    def get_tokens_dict(self):
+    def get_tokens_counter(self):
         """Return the tokens as a Counter object.
 
         Returns
@@ -136,7 +137,7 @@ class _Tokenizer(Counter):
         Examples
         --------
         >>> tok = _Tokenizer().tokenize('term')
-        >>> tok.get_tokens_dict()
+        >>> tok.get_tokens_counter()
         {'term': 1}
 
         .. versionadded:: 0.4.0
@@ -144,11 +145,11 @@ class _Tokenizer(Counter):
         """
         self._counter_init()
         if self.scaler is None:
-            return dict(self)
+            return Counter(self)
         elif self.scaler == 'set':
-            return {key: 1 for key in self.keys()}
+            return Counter({key: 1 for key in self.keys()})
         elif callable(self.scaler):
-            return {key: self.scaler(val) for key, val in self.items()}
+            return Counter({key: self.scaler(val) for key, val in self.items()})
         raise ValueError('Unsupported scaler value.')
 
     def get_tokens_set(self):

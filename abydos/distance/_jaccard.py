@@ -87,7 +87,9 @@ class Jaccard(Tversky):
             Encapsulated in class
 
         """
-        return super(self.__class__, self).sim(src, tar, 1, 1, tokenizer=tokenizer, args=args, kwargs=kwargs)
+        return super(self.__class__, self).sim(
+            src, tar, 1, 1, tokenizer=tokenizer, args=args, kwargs=kwargs
+        )
 
     def tanimoto_coeff(self, src, tar, tokenizer=None, *args, **kwargs):
         """Return the Tanimoto distance between two strings.
@@ -126,7 +128,9 @@ class Jaccard(Tversky):
             Encapsulated in class
 
         """
-        coeff = self.sim(src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs)
+        coeff = self.sim(
+            src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs
+        )
         if coeff != 0:
             return log(coeff, 2)
 
@@ -172,7 +176,9 @@ def sim_jaccard(src, tar, tokenizer=None, *args, **kwargs):
     .. versionadded:: 0.1.0
 
     """
-    return Jaccard().sim(src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs)
+    return Jaccard().sim(
+        src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs
+    )
 
 
 @deprecated(
@@ -214,7 +220,9 @@ def dist_jaccard(src, tar, tokenizer=None, *args, **kwargs):
     .. versionadded:: 0.1.0
 
     """
-    return Jaccard().dist(src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs)
+    return Jaccard().dist(
+        src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs
+    )
 
 
 @deprecated(
@@ -256,7 +264,9 @@ def tanimoto(src, tar, tokenizer=None, *args, **kwargs):
     .. versionadded:: 0.1.0
 
     """
-    return Jaccard().tanimoto_coeff(src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs)
+    return Jaccard().tanimoto_coeff(
+        src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs
+    )
 
 
 if __name__ == '__main__':

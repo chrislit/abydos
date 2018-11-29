@@ -45,7 +45,9 @@ class Chebyshev(Minkowski):
     .. versionadded:: 0.3.6
     """
 
-    def dist_abs(self, src, tar, alphabet=None, tokenizer=None, *args, **kwargs):
+    def dist_abs(
+        self, src, tar, alphabet=None, tokenizer=None, *args, **kwargs
+    ):
         r"""Return the Chebyshev distance between two strings.
 
         Parameters
