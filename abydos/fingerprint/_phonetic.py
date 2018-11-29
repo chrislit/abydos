@@ -104,7 +104,7 @@ class Phonetic(String):
                 word = word[0]
             phonetic += word + joiner
         phonetic = phonetic[: -len(joiner)]
-        return super(self.__class__, self).fingerprint(phonetic)
+        return super(Phonetic, self).fingerprint(phonetic)
 
 
 @deprecated(

@@ -87,7 +87,7 @@ class Jaccard(Tversky):
             Encapsulated in class
 
         """
-        return super(self.__class__, self).sim(
+        return super(Jaccard, self).sim(
             src, tar, 1, 1, tokenizer=tokenizer, args=args, kwargs=kwargs
         )
 
