@@ -92,7 +92,7 @@ class Manhattan(Minkowski):
             Encapsulated in class
 
         """
-        return super(self.__class__, self).dist_abs(
+        return super(Manhattan, self).dist_abs(
             src, tar, 1, normalized, alphabet, tokenizer, args, kwargs
         )
 

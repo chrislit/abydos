@@ -92,7 +92,7 @@ class Euclidean(Minkowski):
             Encapsulated in class
 
         """
-        return super(self.__class__, self).dist_abs(
+        return super(Euclidean, self).dist_abs(
             src,
             tar,
             pval=2,

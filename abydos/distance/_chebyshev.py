@@ -87,7 +87,7 @@ class Chebyshev(Minkowski):
             Encapsulated in class
 
         """
-        return super(self.__class__, self).dist_abs(
+        return super(Chebyshev, self).dist_abs(
             src, tar, qval, float('inf'), False, alphabet
         )
 
