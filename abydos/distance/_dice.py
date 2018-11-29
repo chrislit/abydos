@@ -84,7 +84,9 @@ class Dice(Tversky):
             Encapsulated in class
 
         """
-        return super(self.__class__, self).sim(src, tar, 0.5, 0.5, tokenizer=tokenizer, args=args, kwargs=kwargs)
+        return super(self.__class__, self).sim(
+            src, tar, 0.5, 0.5, tokenizer=tokenizer, args=args, kwargs=kwargs
+        )
 
 
 @deprecated(

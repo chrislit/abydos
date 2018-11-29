@@ -133,7 +133,9 @@ def sim_overlap(src, tar, tokenizer=None, *args, **kwargs):
     .. versionadded:: 0.1.0
 
     """
-    return Overlap().sim(src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs)
+    return Overlap().sim(
+        src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs
+    )
 
 
 @deprecated(
@@ -175,7 +177,9 @@ def dist_overlap(src, tar, tokenizer=None, *args, **kwargs):
     .. versionadded:: 0.1.0
 
     """
-    return Overlap().dist(src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs)
+    return Overlap().dist(
+        src, tar, tokenizer=tokenizer, args=args, kwargs=kwargs
+    )
 
 
 if __name__ == '__main__':

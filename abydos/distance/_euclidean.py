@@ -45,7 +45,16 @@ class Euclidean(Minkowski):
     .. versionadded:: 0.3.6
     """
 
-    def dist_abs(self, src, tar, normalized=False, alphabet=None, tokenizer=None, *args, **kwargs):
+    def dist_abs(
+        self,
+        src,
+        tar,
+        normalized=False,
+        alphabet=None,
+        tokenizer=None,
+        *args,
+        **kwargs
+    ):
         """Return the Euclidean distance between two strings.
 
         Parameters
@@ -84,7 +93,14 @@ class Euclidean(Minkowski):
 
         """
         return super(self.__class__, self).dist_abs(
-            src, tar, pval=2, normalized=normalized, alphabet=alphabet, tokenizer=tokenizer, args=args, kwargs=kwargs
+            src,
+            tar,
+            pval=2,
+            normalized=normalized,
+            alphabet=alphabet,
+            tokenizer=tokenizer,
+            args=args,
+            kwargs=kwargs,
         )
 
     def dist(self, src, tar, alphabet=None, tokenizer=None, *args, **kwargs):
@@ -126,7 +142,15 @@ class Euclidean(Minkowski):
             Encapsulated in class
 
         """
-        return self.dist_abs(src, tar, normalized=True, alphabet=alphabet, tokenizer=None, args=args, kwargs=kwargs)
+        return self.dist_abs(
+            src,
+            tar,
+            normalized=True,
+            alphabet=alphabet,
+            tokenizer=None,
+            args=args,
+            kwargs=kwargs,
+        )
 
 
 @deprecated(
@@ -135,7 +159,9 @@ class Euclidean(Minkowski):
     current_version=__version__,
     details='Use the Euclidean.dist_abs method instead.',
 )
-def euclidean(src, tar, normalized=False, alphabet=None, tokenizer=None, *args, **kwargs):
+def euclidean(
+    src, tar, normalized=False, alphabet=None, tokenizer=None, *args, **kwargs
+):
     """Return the Euclidean distance between two strings.
 
     This is a wrapper for :py:meth:`Euclidean.dist_abs`.
@@ -171,7 +197,15 @@ def euclidean(src, tar, normalized=False, alphabet=None, tokenizer=None, *args, 
     .. versionadded:: 0.3.0
 
     """
-    return Euclidean().dist_abs(src, tar, normalized=normalized, alphabet=alphabet, tokenizer=None, args=args, kwargs=kwargs)
+    return Euclidean().dist_abs(
+        src,
+        tar,
+        normalized=normalized,
+        alphabet=alphabet,
+        tokenizer=None,
+        args=args,
+        kwargs=kwargs,
+    )
 
 
 @deprecated(
@@ -215,7 +249,9 @@ def dist_euclidean(src, tar, alphabet=None, tokenizer=None, *args, **kwargs):
     .. versionadded:: 0.3.0
 
     """
-    return Euclidean().dist(src, tar, alphabet=alphabet, tokenizer=None, args=args, kwargs=kwargs)
+    return Euclidean().dist(
+        src, tar, alphabet=alphabet, tokenizer=None, args=args, kwargs=kwargs
+    )
 
 
 @deprecated(
@@ -259,7 +295,9 @@ def sim_euclidean(src, tar, alphabet=None, tokenizer=None, *args, **kwargs):
     .. versionadded:: 0.3.0
 
     """
-    return Euclidean().sim(src, tar, alphabet=alphabet, tokenizer=None, args=args, kwargs=kwargs)
+    return Euclidean().sim(
+        src, tar, alphabet=alphabet, tokenizer=None, args=args, kwargs=kwargs
+    )
 
 
 if __name__ == '__main__':

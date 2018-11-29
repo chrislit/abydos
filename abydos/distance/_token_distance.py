@@ -39,12 +39,22 @@ class _TokenDistance(_Distance):
 
     .. versionadded:: 0.3.6
     """
-    def __init__(self, tokenizer=None):
-        self.tokenizer = tokenizer
-        if self.tokenizer is None:
-            self.tokenizer = QGrams()
 
-    def _get_qgrams(self, src, tar):
+    def __init__(self, tokenizer=None):
+        self.params = {
+            'tokenizer': tokenizer
+            if tokenizer is not None
+            else QGrams(qval=2, start_stop='$#', skip=0, scaler=None)
+        }
+
+        self._src_tokens = None
+        self._tar_tokens = None
+
+    def set_params(self, **kwargs):
+        for key in kwargs:
+            self.params[key] = kwargs[key]
+
+    def tokenize(self, src, tar):
         """Return the Q-Grams in src & tar.
 
         Parameters
@@ -76,9 +86,29 @@ class _TokenDistance(_Distance):
             Encapsulated in class
 
         """
-        src_qgrams = src if isinstance(src, Counter) else self.tokenizer.tokenize(src).get_tokens_dict()
-        tar_qgrams = tar if isinstance(tar, Counter) else self.tokenizer.tokenize(tar).get_tokens_dict()
-        return src_qgrams, tar_qgrams
+        if isinstance(src, Counter):
+            self._src_tokens = src
+        else:
+            self._src_tokens = self.params['tokenizer'].tokenize(src).get_tokens_counter()
+        if isinstance(src, Counter):
+            self._tar_tokens = tar
+        else:
+            self._tar_tokens = self.params['tokenizer'].tokenize(tar).get_tokens_counter()
+
+    def src_only(self):
+        return self._src_tokens - self._tar_tokens
+
+    def tar_only(self):
+        return self._tar_tokens - self._src_tokens
+
+    def union(self):
+        return self._src_tokens + self._tar_tokens
+
+    def intersection(self):
+        return self._src_tokens & self._tar_tokens
+
+    def difference(self):
+        return self._src_tokens.subtract(self._tar_tokens)
 
 
 if __name__ == '__main__':

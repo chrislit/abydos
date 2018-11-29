@@ -45,7 +45,16 @@ class Manhattan(Minkowski):
     .. versionadded:: 0.3.6
     """
 
-    def dist_abs(self, src, tar, normalized=False, alphabet=None, tokenizer=None, *args, **kwargs):
+    def dist_abs(
+        self,
+        src,
+        tar,
+        normalized=False,
+        alphabet=None,
+        tokenizer=None,
+        *args,
+        **kwargs
+    ):
         """Return the Manhattan distance between two strings.
 
         Parameters
@@ -137,7 +146,9 @@ class Manhattan(Minkowski):
     current_version=__version__,
     details='Use the Manhattan.dist_abs method instead.',
 )
-def manhattan(src, tar, normalized=False, alphabet=None, tokenizer=None, *args, **kwargs):
+def manhattan(
+    src, tar, normalized=False, alphabet=None, tokenizer=None, *args, **kwargs
+):
     """Return the Manhattan distance between two strings.
 
     This is a wrapper for :py:meth:`Manhattan.dist_abs`.
@@ -174,7 +185,9 @@ def manhattan(src, tar, normalized=False, alphabet=None, tokenizer=None, *args, 
     .. versionadded:: 0.3.0
 
     """
-    return Manhattan().dist_abs(src, tar, normalized, alphabet, tokenizer, args, kwargs)
+    return Manhattan().dist_abs(
+        src, tar, normalized, alphabet, tokenizer, args, kwargs
+    )
 
 
 @deprecated(
