@@ -74,10 +74,10 @@ class NLTKTokenizer(_Tokenizer):
         .. versionadded:: 0.4.0
 
         """
-        # Save the string itself
         self._string = string
-        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
         self._ordered_list = self.nltk_tokenizer(string)
+        super(NLTKTokenizer, self).tokenize()
+        return self
 
 
 if __name__ == '__main__':

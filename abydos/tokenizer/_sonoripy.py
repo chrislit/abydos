@@ -72,9 +72,7 @@ class SonoriPyTokenizer(_Tokenizer):
         .. versionadded:: 0.4.0
 
         """
-        # Save the string itself
         self._string = string
-        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
 
         if SonoriPy is not None:
             self._ordered_list = SonoriPy(string)
@@ -82,6 +80,9 @@ class SonoriPyTokenizer(_Tokenizer):
             raise TypeError(
                 'SonoriPi tokenizer requires installation of SyllabiPy package.'
             )
+
+        super(SonoriPyTokenizer, self).tokenize()
+        return self
 
 
 if __name__ == '__main__':
