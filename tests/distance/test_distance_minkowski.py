@@ -43,6 +43,9 @@ class MinkowskiTestCases(unittest.TestCase):
     """
 
     cmp = Minkowski()
+    cmp_q2 = Minkowski(tokenizer=QGrams(2))
+    cmp_q0 = Minkowski(tokenizer=QGrams(0))
+    cmp_q1p0 = Minkowski(tokenizer=QGrams(0))
 
     def test_minkowski_dist_abs(self):
         """Test abydos.distance.Minkowski.dist_abs."""
@@ -51,52 +54,52 @@ class MinkowskiTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('', 'neilsen'), 8)
         self.assertAlmostEqual(self.cmp.dist_abs('nelson', 'neilsen'), 7)
 
-        self.assertEqual(self.cmp.dist_abs('', '', 2), 0)
-        self.assertEqual(self.cmp.dist_abs('nelson', '', 2), 7)
-        self.assertEqual(self.cmp.dist_abs('', 'neilsen', 2), 8)
-        self.assertAlmostEqual(self.cmp.dist_abs('nelson', 'neilsen', 2), 7)
+        self.assertEqual(self.cmp_q2.dist_abs('', ''), 0)
+        self.assertEqual(self.cmp_q2.dist_abs('nelson', ''), 7)
+        self.assertEqual(self.cmp_q2.dist_abs('', 'neilsen'), 8)
+        self.assertAlmostEqual(self.cmp_q2.dist_abs('nelson', 'neilsen'), 7)
 
         # supplied q-gram tests
-        self.assertEqual(self.cmp.dist_abs(QGrams(''), QGrams('')), 0)
-        self.assertEqual(self.cmp.dist_abs(QGrams('nelson'), QGrams('')), 7)
-        self.assertEqual(self.cmp.dist_abs(QGrams(''), QGrams('neilsen')), 8)
+        self.assertEqual(self.cmp.dist_abs(QGrams().tokenize('').get_counter(), QGrams().tokenize('').get_counter()), 0)
+        self.assertEqual(self.cmp.dist_abs(QGrams().tokenize('nelson').get_counter(), QGrams().tokenize('').get_counter()), 7)
+        self.assertEqual(self.cmp.dist_abs(QGrams().tokenize('').get_counter(), QGrams().tokenize('neilsen').get_counter()), 8)
         self.assertAlmostEqual(
-            self.cmp.dist_abs(QGrams('nelson'), QGrams('neilsen')), 7
+            self.cmp.dist_abs(QGrams().tokenize('nelson').get_counter(), QGrams().tokenize('neilsen').get_counter()), 7
         )
 
         # non-q-gram tests
-        self.assertEqual(self.cmp.dist_abs('', '', 0), 0)
-        self.assertEqual(self.cmp.dist_abs('the quick', '', 0), 2)
-        self.assertEqual(self.cmp.dist_abs('', 'the quick', 0), 2)
-        self.assertAlmostEqual(self.cmp.dist_abs(NONQ_FROM, NONQ_TO, 0), 8)
-        self.assertAlmostEqual(self.cmp.dist_abs(NONQ_TO, NONQ_FROM, 0), 8)
+        self.assertEqual(self.cmp_q0.dist_abs('', ''), 0)
+        self.assertEqual(self.cmp_q0.dist_abs('the quick', ''), 2)
+        self.assertEqual(self.cmp_q0.dist_abs('', 'the quick'), 2)
+        self.assertAlmostEqual(self.cmp_q0.dist_abs(NONQ_FROM, NONQ_TO), 8)
+        self.assertAlmostEqual(self.cmp_q0.dist_abs(NONQ_TO, NONQ_FROM), 8)
 
         # test l_0 "norm"
-        self.assertEqual(self.cmp.dist_abs('', '', 1, 0), 0)
-        self.assertEqual(self.cmp.dist_abs('a', '', 1, 0), 1)
-        self.assertEqual(self.cmp.dist_abs('a', 'b', 1, 0), 2)
-        self.assertEqual(self.cmp.dist_abs('ab', 'b', 1, 0), 1)
-        self.assertEqual(self.cmp.dist_abs('aab', 'b', 1, 0), 1)
-        self.assertEqual(self.cmp.dist_abs('', '', 1, 0, True), 0)
-        self.assertEqual(self.cmp.dist_abs('a', '', 1, 0, True), 1)
-        self.assertEqual(self.cmp.dist_abs('a', 'b', 1, 0, True), 1)
-        self.assertEqual(self.cmp.dist_abs('ab', 'b', 1, 0, True), 1 / 2)
-        self.assertEqual(self.cmp.dist_abs('aab', 'b', 1, 0, True), 1 / 2)
-        self.assertEqual(self.cmp.dist_abs('aaab', 'b', 1, 0, True), 1 / 2)
-        self.assertEqual(self.cmp.dist_abs('aaab', 'ab', 1, 0, True), 1 / 2)
+        self.assertEqual(self.cmp_q1p0.dist_abs('', ''), 0)
+        self.assertEqual(self.cmp_q1p0.dist_abs('a', ''), 1)
+        self.assertEqual(self.cmp_q1p0.dist_abs('a', 'b'), 2)
+        self.assertEqual(self.cmp_q1p0.dist_abs('ab', 'b'), 1)
+        self.assertEqual(self.cmp_q1p0.dist_abs('aab', 'b'), 1)
+        self.assertEqual(self.cmp_q1p0.dist_abs('', '', normalized=True), 0)
+        self.assertEqual(self.cmp_q1p0.dist_abs('a', '', normalized=True), 1)
+        self.assertEqual(self.cmp_q1p0.dist_abs('a', 'b', normalized=True), 1)
+        self.assertEqual(self.cmp_q1p0.dist_abs('ab', 'b', normalized=True), 1 / 2)
+        self.assertEqual(self.cmp_q1p0.dist_abs('aab', 'b', normalized=True), 1 / 2)
+        self.assertEqual(self.cmp_q1p0.dist_abs('aaab', 'b', normalized=True), 1 / 2)
+        self.assertEqual(self.cmp_q1p0.dist_abs('aaab', 'ab', normalized=True), 1 / 2)
 
         # test with alphabet
-        self.assertEqual(self.cmp.dist_abs('ab', 'b', 1, alphabet=26), 1)
+        self.assertEqual(self.cmp.dist_abs('ab', 'b', qval=1, alphabet=26), 1)
         self.assertEqual(
-            self.cmp.dist_abs('ab', 'b', 1, normalized=True, alphabet=26),
+            self.cmp.dist_abs('ab', 'b', normalized=True, qval=1, alphabet=26),
             1 / 26,
         )
         self.assertEqual(
             self.cmp.dist_abs(
                 'ab',
                 'b',
-                1,
                 normalized=True,
+                qval=1,
                 alphabet='abcdefghijklmnopqrstuvwxyz',
             ),
             1 / 26,
@@ -112,25 +115,25 @@ class MinkowskiTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'neilsen'), 0)
         self.assertAlmostEqual(self.cmp.sim('nelson', 'neilsen'), 8 / 15)
 
-        self.assertEqual(self.cmp.sim('', '', 2), 1)
-        self.assertEqual(self.cmp.sim('nelson', '', 2), 0)
-        self.assertEqual(self.cmp.sim('', 'neilsen', 2), 0)
-        self.assertAlmostEqual(self.cmp.sim('nelson', 'neilsen', 2), 8 / 15)
+        self.assertEqual(self.cmp_q2.sim('', ''), 1)
+        self.assertEqual(self.cmp_q2.sim('nelson', ''), 0)
+        self.assertEqual(self.cmp_q2.sim('', 'neilsen'), 0)
+        self.assertAlmostEqual(self.cmp_q2.sim('nelson', 'neilsen'), 8 / 15)
 
         # supplied q-gram tests
-        self.assertEqual(self.cmp.sim(QGrams(''), QGrams('')), 1)
-        self.assertEqual(self.cmp.sim(QGrams('nelson'), QGrams('')), 0)
-        self.assertEqual(self.cmp.sim(QGrams(''), QGrams('neilsen')), 0)
+        self.assertEqual(self.cmp.sim(QGrams().tokenize('').get_counter(), QGrams().tokenize('').get_counter()), 1)
+        self.assertEqual(self.cmp.sim(QGrams().tokenize('nelson').get_counter(), QGrams().tokenize('').get_counter()), 0)
+        self.assertEqual(self.cmp.sim(QGrams().tokenize('').get_counter(), QGrams().tokenize('neilsen').get_counter()), 0)
         self.assertAlmostEqual(
-            self.cmp.sim(QGrams('nelson'), QGrams('neilsen')), 8 / 15
+            self.cmp.sim(QGrams().tokenize('nelson').get_counter(), QGrams().tokenize('neilsen').get_counter()), 8 / 15
         )
 
         # non-q-gram tests
-        self.assertEqual(self.cmp.sim('', '', 0), 1)
-        self.assertEqual(self.cmp.sim('the quick', '', 0), 0)
-        self.assertEqual(self.cmp.sim('', 'the quick', 0), 0)
-        self.assertAlmostEqual(self.cmp.sim(NONQ_FROM, NONQ_TO, 0), 1 / 2)
-        self.assertAlmostEqual(self.cmp.sim(NONQ_TO, NONQ_FROM, 0), 1 / 2)
+        self.assertEqual(self.cmp_q0.sim('', ''), 1)
+        self.assertEqual(self.cmp_q0.sim('the quick', ''), 0)
+        self.assertEqual(self.cmp_q0.sim('', 'the quick'), 0)
+        self.assertAlmostEqual(self.cmp_q0.sim(NONQ_FROM, NONQ_TO), 1 / 2)
+        self.assertAlmostEqual(self.cmp_q0.sim(NONQ_TO, NONQ_FROM), 1 / 2)
 
         # Test wrapper
         self.assertAlmostEqual(sim_minkowski('nelson', 'neilsen'), 8 / 15)
@@ -142,25 +145,25 @@ class MinkowskiTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('', 'neilsen'), 1)
         self.assertAlmostEqual(self.cmp.dist('nelson', 'neilsen'), 7 / 15)
 
-        self.assertEqual(self.cmp.dist('', '', 2), 0)
-        self.assertEqual(self.cmp.dist('nelson', '', 2), 1)
-        self.assertEqual(self.cmp.dist('', 'neilsen', 2), 1)
-        self.assertAlmostEqual(dist_minkowski('nelson', 'neilsen', 2), 7 / 15)
+        self.assertEqual(self.cmp_q2.dist('', ''), 0)
+        self.assertEqual(self.cmp_q2.dist('nelson', ''), 1)
+        self.assertEqual(self.cmp_q2.dist('', 'neilsen'), 1)
+        self.assertAlmostEqual(self.cmp_q2.dist('nelson', 'neilsen'), 7 / 15)
 
         # supplied q-gram tests
-        self.assertEqual(self.cmp.dist(QGrams(''), QGrams('')), 0)
-        self.assertEqual(self.cmp.dist(QGrams('nelson'), QGrams('')), 1)
-        self.assertEqual(self.cmp.dist(QGrams(''), QGrams('neilsen')), 1)
+        self.assertEqual(self.cmp.dist(QGrams().tokenize('').get_counter(), QGrams().tokenize('').get_counter()), 0)
+        self.assertEqual(self.cmp.dist(QGrams().tokenize('nelson').get_counter(), QGrams().tokenize('').get_counter()), 1)
+        self.assertEqual(self.cmp.dist(QGrams().tokenize('').get_counter(), QGrams().tokenize('neilsen').get_counter()), 1)
         self.assertAlmostEqual(
-            self.cmp.dist(QGrams('nelson'), QGrams('neilsen')), 7 / 15
+            self.cmp.dist(QGrams().tokenize('nelson').get_counter(), QGrams().tokenize('neilsen').get_counter()), 7 / 15
         )
 
         # non-q-gram tests
-        self.assertEqual(self.cmp.dist('', '', 0), 0)
-        self.assertEqual(self.cmp.dist('the quick', '', 0), 1)
-        self.assertEqual(self.cmp.dist('', 'the quick', 0), 1)
-        self.assertAlmostEqual(self.cmp.dist(NONQ_FROM, NONQ_TO, 0), 1 / 2)
-        self.assertAlmostEqual(self.cmp.dist(NONQ_TO, NONQ_FROM, 0), 1 / 2)
+        self.assertEqual(self.cmp_q0.dist('', ''), 0)
+        self.assertEqual(self.cmp_q0.dist('the quick', ''), 1)
+        self.assertEqual(self.cmp_q0.dist('', 'the quick'), 1)
+        self.assertAlmostEqual(self.cmp_q0.dist(NONQ_FROM, NONQ_TO), 1 / 2)
+        self.assertAlmostEqual(self.cmp_q0.dist(NONQ_TO, NONQ_FROM), 1 / 2)
 
         # Test wrapper
         self.assertAlmostEqual(dist_minkowski('nelson', 'neilsen'), 7 / 15)

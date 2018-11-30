@@ -112,7 +112,7 @@ class QGrams(_Tokenizer):
 
         """
         self._string = string
-        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
+        self._ordered_list = []
 
         if not isinstance(self.qval, Iterable):
             self.qval = (self.qval,)
@@ -143,6 +143,12 @@ class QGrams(_Tokenizer):
                     string[i : i + (qval_i * skip_i) : skip_i]
                     for i in range(len(string) - (qval_i - 1))
                 ]
+
+        super(QGrams, self).tokenize()
+        return self
+
+    def __repr__(self):
+        return 'QGrams({})'.format(dict(self._tokens))
 
 
 if __name__ == '__main__':

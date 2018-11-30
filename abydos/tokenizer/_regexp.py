@@ -32,10 +32,10 @@ import re
 
 from ._tokenizer import _Tokenizer
 
-__all__ = ['Regexp']
+__all__ = ['RegexpTokenizer']
 
 
-class Regexp(_Tokenizer):
+class RegexpTokenizer(_Tokenizer):
     """A regexp tokenizer
 
     .. versionadded:: 0.4.0
@@ -55,14 +55,13 @@ class Regexp(_Tokenizer):
         .. versionadded:: 0.4.0
 
         """
-        super(Regexp, self).__init__(scaler)
+        super(RegexpTokenizer, self).__init__(scaler)
 
         # Save parameters
         self.regexp = re.compile(regexp, flags)
 
         self._string = ''
         self._ordered_list = []
-        self._dict_dirty = True
 
     def tokenize(self, string):
         """Tokenize the term and store it.
@@ -79,8 +78,9 @@ class Regexp(_Tokenizer):
 
         """
         self._string = string
-        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
         self._ordered_list = self.regexp.findall(self._string)
+        super(RegexpTokenizer, self).tokenize()
+        return self
 
 
 if __name__ == '__main__':

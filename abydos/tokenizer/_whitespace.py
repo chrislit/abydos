@@ -30,10 +30,10 @@ from __future__ import (
 
 from ._regexp import Regexp
 
-__all__ = ['Regexp']
+__all__ = ['WhitespaceTokenizer']
 
 
-class Whitespace(Regexp):
+class WhitespaceTokenizer(Regexp):
     """A whitespace tokenizer
 
     .. versionadded:: 0.4.0
@@ -53,7 +53,7 @@ class Whitespace(Regexp):
         .. versionadded:: 0.4.0
 
         """
-        super(Whitespace, self).__init__(scaler, regexp=r'\W+', flags=flags)
+        super(WhitespaceTokenizer, self).__init__(scaler, regexp=r'\W+', flags=flags)
 
     def tokenize(self, string):
         """Tokenize the term and store it.
@@ -70,8 +70,9 @@ class Whitespace(Regexp):
 
         """
         self._string = string
-        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
         self._ordered_list = self.regexp.split(self._string)
+        super(WhitespaceTokenizer, self).tokenize()
+        return self
 
 
 if __name__ == '__main__':

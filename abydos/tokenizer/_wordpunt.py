@@ -30,10 +30,10 @@ from __future__ import (
 
 from ._regexp import Regexp
 
-__all__ = ['Wordpunct']
+__all__ = ['WordpunctTokenizer']
 
 
-class Wordpunct(Regexp):
+class WordpunctTokenizer(Regexp):
     """A wordpunct tokenizer
 
     .. versionadded:: 0.4.0
@@ -55,9 +55,10 @@ class Wordpunct(Regexp):
         .. versionadded:: 0.4.0
 
         """
-        super(Wordpunct, self).__init__(
+        super(WordpunctTokenizer, self).__init__(
             scaler, regexp=r'\w+|[^\w\s]+', flags=flags
         )
+        return self
 
 
 if __name__ == '__main__':

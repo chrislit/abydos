@@ -31,7 +31,7 @@ from __future__ import (
 from collections import Counter
 
 
-class _Tokenizer(Counter):
+class _Tokenizer(object):
     """Abstract _Tokenizer class.
 
     .. versionadded:: 0.4.0
@@ -52,12 +52,11 @@ class _Tokenizer(Counter):
         super(_Tokenizer, self).__init__()
 
         self.scaler = scaler
-
+        self._tokens = Counter()
         self._string = ''
-        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
         self._ordered_list = []
 
-    def tokenize(self, string):
+    def tokenize(self, string=None):
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -71,20 +70,12 @@ class _Tokenizer(Counter):
         .. versionadded:: 0.4.0
 
         """
-        self._string = string
-        self._dict_dirty = True  # Dirty bit (tag) for internal Counter
-        self._ordered_list = [self._string]
+        if string is not None:
+            self._string = string
+            self._ordered_list = [self._string]
+
+        self._tokens = Counter(self._ordered_list)
         return self
-
-    def _counter_init(self):
-        """Create the internal Counter from the ordered list, if needed.
-
-        .. versionadded:: 0.4.0
-
-        """
-        if self._dict_dirty:
-            super(_Tokenizer, self).__init__(self._ordered_list)
-            self._dict_dirty = False
 
     def count(self):
         """Return token count.
@@ -103,7 +94,6 @@ class _Tokenizer(Counter):
         .. versionadded:: 0.4.0
 
         """
-        self._counter_init()
         return sum(self.get_tokens_counter().values())
 
     def count_unique(self):
@@ -123,10 +113,9 @@ class _Tokenizer(Counter):
         .. versionadded:: 0.4.0
 
         """
-        self._counter_init()
-        return len(self.values())
+        return len(self._tokens.values())
 
-    def get_tokens_counter(self):
+    def get_counter(self):
         """Return the tokens as a Counter object.
 
         Returns
@@ -143,16 +132,15 @@ class _Tokenizer(Counter):
         .. versionadded:: 0.4.0
 
         """
-        self._counter_init()
         if self.scaler is None:
-            return Counter(self)
+            return self._tokens
         elif self.scaler == 'set':
-            return Counter({key: 1 for key in self.keys()})
+            return Counter({key: 1 for key in self._tokens.keys()})
         elif callable(self.scaler):
-            return Counter({key: self.scaler(val) for key, val in self.items()})
+            return Counter({key: self.scaler(val) for key, val in self._tokens.items()})
         raise ValueError('Unsupported scaler value.')
 
-    def get_tokens_set(self):
+    def get_set(self):
         """Return the unique tokens as a set.
 
         Returns
@@ -169,10 +157,9 @@ class _Tokenizer(Counter):
         .. versionadded:: 0.4.0
 
         """
-        self._counter_init()
-        return set(self.keys())
+        return set(self._tokens.keys())
 
-    def get_tokens_list(self):
+    def get_list(self):
         """Return the tokens as an ordered list.
 
         Returns

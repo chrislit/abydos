@@ -40,15 +40,16 @@ class _TokenDistance(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, tokenizer=None):
+    def __init__(self, tokenizer=None, **kwargs):
+        qval = 2 if 'qval' not in kwargs else kwargs['qval']
         self.params = {
             'tokenizer': tokenizer
             if tokenizer is not None
-            else QGrams(qval=2, start_stop='$#', skip=0, scaler=None)
+            else QGrams(qval=qval, start_stop='$#', skip=0, scaler=None)
         }
 
-        self._src_tokens = None
-        self._tar_tokens = None
+        self._src_tokens = Counter()
+        self._tar_tokens = Counter()
 
     def set_params(self, **kwargs):
         for key in kwargs:
@@ -89,11 +90,11 @@ class _TokenDistance(_Distance):
         if isinstance(src, Counter):
             self._src_tokens = src
         else:
-            self._src_tokens = self.params['tokenizer'].tokenize(src).get_tokens_counter()
+            self._src_tokens = self.params['tokenizer'].tokenize(src).get_counter()
         if isinstance(src, Counter):
             self._tar_tokens = tar
         else:
-            self._tar_tokens = self.params['tokenizer'].tokenize(tar).get_tokens_counter()
+            self._tar_tokens = self.params['tokenizer'].tokenize(tar).get_counter()
 
     def src_only(self):
         return self._src_tokens - self._tar_tokens
@@ -108,7 +109,9 @@ class _TokenDistance(_Distance):
         return self._src_tokens & self._tar_tokens
 
     def difference(self):
-        return self._src_tokens.subtract(self._tar_tokens)
+        _src_copy = Counter(self._src_tokens)
+        _src_copy.subtract(self._tar_tokens)
+        return _src_copy
 
 
 if __name__ == '__main__':
