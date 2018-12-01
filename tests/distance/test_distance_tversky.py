@@ -43,6 +43,7 @@ class TverskyIndexTestCases(unittest.TestCase):
     """
 
     cmp = Tversky()
+    cmp_q2 = Tversky(tokenizer=QGrams(2))
 
     def test_tversky_sim(self):
         """Test abydos.distance.Tversky.sim."""
@@ -51,10 +52,10 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'neilsen'), 0)
         self.assertAlmostEqual(self.cmp.sim('nelson', 'neilsen'), 4 / 11)
 
-        self.assertEqual(self.cmp.sim('', '', 2), 1)
-        self.assertEqual(self.cmp.sim('nelson', '', 2), 0)
-        self.assertEqual(self.cmp.sim('', 'neilsen', 2), 0)
-        self.assertAlmostEqual(self.cmp.sim('nelson', 'neilsen', 2), 4 / 11)
+        self.assertEqual(self.cmp_q2.sim('', ''), 1)
+        self.assertEqual(self.cmp_q2.sim('nelson', ''), 0)
+        self.assertEqual(self.cmp_q2.sim('', 'neilsen'), 0)
+        self.assertAlmostEqual(self.cmp_q2.sim('nelson', 'neilsen'), 4 / 11)
 
         # test valid alpha & beta
         self.assertRaises(ValueError, self.cmp.sim, 'abcd', 'dcba', 2, -1, -1)
@@ -84,19 +85,41 @@ class TverskyIndexTestCases(unittest.TestCase):
         )
 
         # supplied q-gram tests
-        self.assertEqual(self.cmp.sim(QGrams(''), QGrams('')), 1)
-        self.assertEqual(self.cmp.sim(QGrams('nelson'), QGrams('')), 0)
-        self.assertEqual(self.cmp.sim(QGrams(''), QGrams('neilsen')), 0)
+        self.assertEqual(
+            self.cmp.sim(
+                QGrams().tokenize('').get_counter(),
+                QGrams().tokenize('').get_counter(),
+            ),
+            1,
+        )
+        self.assertEqual(
+            self.cmp.sim(
+                QGrams().tokenize('nelson').get_counter(),
+                QGrams().tokenize('').get_counter(),
+            ),
+            0,
+        )
+        self.assertEqual(
+            self.cmp.sim(
+                QGrams().tokenize('').get_counter(),
+                QGrams().tokenize('neilsen').get_counter(),
+            ),
+            0,
+        )
         self.assertAlmostEqual(
-            self.cmp.sim(QGrams('nelson'), QGrams('neilsen')), 4 / 11
+            self.cmp.sim(
+                QGrams().tokenize('nelson').get_counter(),
+                QGrams().tokenize('neilsen').get_counter(),
+            ),
+            4 / 11,
         )
 
-        # non-q-gram tests
-        self.assertEqual(self.cmp.sim('', '', 0), 1)
-        self.assertEqual(self.cmp.sim('the quick', '', 0), 0)
-        self.assertEqual(self.cmp.sim('', 'the quick', 0), 0)
-        self.assertAlmostEqual(self.cmp.sim(NONQ_FROM, NONQ_TO, 0), 1 / 3)
-        self.assertAlmostEqual(self.cmp.sim(NONQ_TO, NONQ_FROM, 0), 1 / 3)
+        # # non-q-gram tests
+        # self.assertEqual(self.cmp.sim('', '', 0), 1)
+        # self.assertEqual(self.cmp.sim('the quick', '', 0), 0)
+        # self.assertEqual(self.cmp.sim('', 'the quick', 0), 0)
+        # self.assertAlmostEqual(self.cmp.sim(NONQ_FROM, NONQ_TO, 0), 1 / 3)
+        # self.assertAlmostEqual(self.cmp.sim(NONQ_TO, NONQ_FROM, 0), 1 / 3)
 
         # Test wrapper
         self.assertAlmostEqual(sim_tversky('nelson', 'neilsen'), 4 / 11)
@@ -108,10 +131,10 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('', 'neilsen'), 1)
         self.assertAlmostEqual(self.cmp.dist('nelson', 'neilsen'), 7 / 11)
 
-        self.assertEqual(self.cmp.dist('', '', 2), 0)
-        self.assertEqual(self.cmp.dist('nelson', '', 2), 1)
-        self.assertEqual(self.cmp.dist('', 'neilsen', 2), 1)
-        self.assertAlmostEqual(self.cmp.dist('nelson', 'neilsen', 2), 7 / 11)
+        self.assertEqual(self.cmp_q2.dist('', ''), 0)
+        self.assertEqual(self.cmp_q2.dist('nelson', ''), 1)
+        self.assertEqual(self.cmp_q2.dist('', 'neilsen'), 1)
+        self.assertAlmostEqual(self.cmp_q2.dist('nelson', 'neilsen'), 7 / 11)
 
         # test valid alpha & beta
         self.assertRaises(ValueError, self.cmp.dist, 'abcd', 'dcba', 2, -1, -1)
@@ -143,19 +166,41 @@ class TverskyIndexTestCases(unittest.TestCase):
         )
 
         # supplied q-gram tests
-        self.assertEqual(self.cmp.dist(QGrams(''), QGrams('')), 0)
-        self.assertEqual(self.cmp.dist(QGrams('nelson'), QGrams('')), 1)
-        self.assertEqual(self.cmp.dist(QGrams(''), QGrams('neilsen')), 1)
+        self.assertEqual(
+            self.cmp.dist(
+                QGrams().tokenize('').get_counter(),
+                QGrams().tokenize('').get_counter(),
+            ),
+            0,
+        )
+        self.assertEqual(
+            self.cmp.dist(
+                QGrams().tokenize('nelson').get_counter(),
+                QGrams().tokenize('').get_counter(),
+            ),
+            1,
+        )
+        self.assertEqual(
+            self.cmp.dist(
+                QGrams().tokenize('').get_counter(),
+                QGrams().tokenize('neilsen').get_counter(),
+            ),
+            1,
+        )
         self.assertAlmostEqual(
-            self.cmp.dist(QGrams('nelson'), QGrams('neilsen')), 7 / 11
+            self.cmp.dist(
+                QGrams().tokenize('nelson').get_counter(),
+                QGrams().tokenize('neilsen').get_counter(),
+            ),
+            7 / 11,
         )
 
-        # non-q-gram tests
-        self.assertEqual(self.cmp.dist('', '', 0), 0)
-        self.assertEqual(self.cmp.dist('the quick', '', 0), 1)
-        self.assertEqual(self.cmp.dist('', 'the quick', 0), 1)
-        self.assertAlmostEqual(self.cmp.dist(NONQ_FROM, NONQ_TO, 0), 2 / 3)
-        self.assertAlmostEqual(self.cmp.dist(NONQ_TO, NONQ_FROM, 0), 2 / 3)
+        # # non-q-gram tests
+        # self.assertEqual(self.cmp.dist('', '', 0), 0)
+        # self.assertEqual(self.cmp.dist('the quick', '', 0), 1)
+        # self.assertEqual(self.cmp.dist('', 'the quick', 0), 1)
+        # self.assertAlmostEqual(self.cmp.dist(NONQ_FROM, NONQ_TO, 0), 2 / 3)
+        # self.assertAlmostEqual(self.cmp.dist(NONQ_TO, NONQ_FROM, 0), 2 / 3)
 
         # Test wrapper
         self.assertAlmostEqual(dist_tversky('nelson', 'neilsen'), 7 / 11)
