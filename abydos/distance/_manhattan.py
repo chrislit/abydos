@@ -45,16 +45,12 @@ class Manhattan(Minkowski):
     .. versionadded:: 0.3.6
     """
 
-    def dist_abs(
-        self,
-        src,
-        tar,
-        normalized=False,
-        alphabet=None,
-        tokenizer=None,
-        *args,
-        **kwargs
-    ):
+    def __init__(self, alphabet=None, tokenizer=None, **kwargs):
+        super(Manhattan, self).__init__(
+            pval=1, alphabet=alphabet, tokenizer=tokenizer, **kwargs
+        )
+
+    def dist_abs(self, src, tar, normalized=False):
         """Return the Manhattan distance between two strings.
 
         Parameters
@@ -92,11 +88,9 @@ class Manhattan(Minkowski):
             Encapsulated in class
 
         """
-        return super(Manhattan, self).dist_abs(
-            src, tar, 1, normalized, alphabet, tokenizer, args, kwargs
-        )
+        return super(Manhattan, self).dist_abs(src, tar, normalized=normalized)
 
-    def dist(self, src, tar, alphabet=None, tokenizer=None, *args, **kwargs):
+    def dist(self, src, tar):
         """Return the normalized Manhattan distance between two strings.
 
         The normalized Manhattan distance is a distance metric in
@@ -137,7 +131,7 @@ class Manhattan(Minkowski):
             Encapsulated in class
 
         """
-        return self.dist_abs(src, tar, True, alphabet, tokenizer, args, kwargs)
+        return self.dist_abs(src, tar, normalized=True)
 
 
 @deprecated(
@@ -146,9 +140,7 @@ class Manhattan(Minkowski):
     current_version=__version__,
     details='Use the Manhattan.dist_abs method instead.',
 )
-def manhattan(
-    src, tar, normalized=False, alphabet=None, tokenizer=None, *args, **kwargs
-):
+def manhattan(src, tar, qval=2, normalized=False, alphabet=None):
     """Return the Manhattan distance between two strings.
 
     This is a wrapper for :py:meth:`Manhattan.dist_abs`.
@@ -185,8 +177,8 @@ def manhattan(
     .. versionadded:: 0.3.0
 
     """
-    return Manhattan().dist_abs(
-        src, tar, normalized, alphabet, tokenizer, args, kwargs
+    return Manhattan(alphabet=alphabet, qval=qval).dist_abs(
+        src, tar, normalized=normalized
     )
 
 
@@ -196,7 +188,7 @@ def manhattan(
     current_version=__version__,
     details='Use the Manhattan.dist method instead.',
 )
-def dist_manhattan(src, tar, alphabet=None, tokenizer=None, *args, **kwargs):
+def dist_manhattan(src, tar, qval=2, alphabet=None):
     """Return the normalized Manhattan distance between two strings.
 
     This is a wrapper for :py:meth:`Manhattan.dist`.
@@ -231,7 +223,7 @@ def dist_manhattan(src, tar, alphabet=None, tokenizer=None, *args, **kwargs):
     .. versionadded:: 0.3.0
 
     """
-    return Manhattan().dist(src, tar, alphabet, tokenizer, args, kwargs)
+    return Manhattan(alphabet=alphabet, qval=qval).dist(src, tar)
 
 
 @deprecated(
@@ -240,7 +232,7 @@ def dist_manhattan(src, tar, alphabet=None, tokenizer=None, *args, **kwargs):
     current_version=__version__,
     details='Use the Manhattan.sim method instead.',
 )
-def sim_manhattan(src, tar, alphabet=None, tokenizer=None, *args, **kwargs):
+def sim_manhattan(src, tar, qval=2, alphabet=None):
     """Return the normalized Manhattan similarity of two strings.
 
     This is a wrapper for :py:meth:`Manhattan.sim`.
@@ -275,7 +267,7 @@ def sim_manhattan(src, tar, alphabet=None, tokenizer=None, *args, **kwargs):
     .. versionadded:: 0.3.0
 
     """
-    return Manhattan().sim(src, tar, alphabet, tokenizer, args, kwargs)
+    return Manhattan(alphabet=alphabet, qval=qval).sim(src, tar)
 
 
 if __name__ == '__main__':
