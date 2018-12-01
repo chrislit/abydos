@@ -90,11 +90,15 @@ class _TokenDistance(_Distance):
         if isinstance(src, Counter):
             self._src_tokens = src
         else:
-            self._src_tokens = self.params['tokenizer'].tokenize(src).get_counter()
+            self._src_tokens = (
+                self.params['tokenizer'].tokenize(src).get_counter()
+            )
         if isinstance(src, Counter):
             self._tar_tokens = tar
         else:
-            self._tar_tokens = self.params['tokenizer'].tokenize(tar).get_counter()
+            self._tar_tokens = (
+                self.params['tokenizer'].tokenize(tar).get_counter()
+            )
 
     def src_only(self):
         return self._src_tokens - self._tar_tokens

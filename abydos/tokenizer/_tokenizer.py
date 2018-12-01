@@ -137,7 +137,9 @@ class _Tokenizer(object):
         elif self.scaler == 'set':
             return Counter({key: 1 for key in self._tokens.keys()})
         elif callable(self.scaler):
-            return Counter({key: self.scaler(val) for key, val in self._tokens.items()})
+            return Counter(
+                {key: self.scaler(val) for key, val in self._tokens.items()}
+            )
         raise ValueError('Unsupported scaler value.')
 
     def get_set(self):

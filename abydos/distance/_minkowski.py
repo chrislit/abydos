@@ -118,7 +118,7 @@ class Minkowski(_TokenDistance):
             return max(diffs) / normalizer
         if self.params['pval'] == 0:
             # This is the l_0 "norm" as developed by David Donoho
-            return len(diffs) / normalizer
+            return sum(_ != 0 for _ in diffs) / normalizer
         return (
             sum(_ ** self.params['pval'] for _ in diffs)
             ** (1 / self.params['pval'])
@@ -175,14 +175,7 @@ class Minkowski(_TokenDistance):
     current_version=__version__,
     details='Use the Minkowski.dist_abs method instead.',
 )
-def minkowski(
-    src,
-    tar,
-    qval=2,
-    pval=1,
-    normalized=False,
-    alphabet=None,
-):
+def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
     """Return the Minkowski distance (:math:`L^p`-norm) of two strings.
 
     This is a wrapper for :py:meth:`Minkowski.dist_abs`.
@@ -221,14 +214,8 @@ def minkowski(
     .. versionadded:: 0.3.0
 
     """
-    return Minkowski(
-        pval=pval,
-        alphabet=alphabet,
-        qval=qval
-    ).dist_abs(
-        src,
-        tar,
-        normalized=normalized,
+    return Minkowski(pval=pval, alphabet=alphabet, qval=qval).dist_abs(
+        src, tar, normalized=normalized
     )
 
 
@@ -275,14 +262,8 @@ def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     .. versionadded:: 0.3.0
 
     """
-    return Minkowski(
-        pval=pval,
-        alphabet=alphabet,
-        qval=qval,
-    ).dist(
-        src,
-        tar,
-        normalized=True,
+    return Minkowski(pval=pval, alphabet=alphabet, qval=qval).dist_abs(
+        src, tar, normalized=True
     )
 
 
@@ -292,7 +273,7 @@ def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     current_version=__version__,
     details='Use the Minkowski.sim method instead.',
 )
-def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None, **kwargs):
+def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     """Return normalized Minkowski similarity of two strings.
 
     This is a wrapper for :py:meth:`Minkowski.sim`.
@@ -329,14 +310,7 @@ def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None, **kwargs):
     .. versionadded:: 0.3.0
 
     """
-    return Minkowski(
-        pval=pval,
-        alphabet=alphabet,
-        qval=qval,
-    ).sim(
-        src,
-        tar,
-    )
+    return Minkowski(pval=pval, alphabet=alphabet, qval=qval).sim(src, tar)
 
 
 if __name__ == '__main__':

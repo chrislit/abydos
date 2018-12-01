@@ -53,7 +53,9 @@ class WhitespaceTokenizer(Regexp):
         .. versionadded:: 0.4.0
 
         """
-        super(WhitespaceTokenizer, self).__init__(scaler, regexp=r'\W+', flags=flags)
+        super(WhitespaceTokenizer, self).__init__(
+            scaler, regexp=r'\W+', flags=flags
+        )
 
     def tokenize(self, string):
         """Tokenize the term and store it.
