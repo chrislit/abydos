@@ -88,6 +88,13 @@ class MinkowskiTestCases(unittest.TestCase):
             7,
         )
 
+        # # non-q-gram tests
+        # self.assertEqual(self.cmp.dist_abs('', '', 0), 0)
+        # self.assertEqual(self.cmp.dist_abs('the quick', '', 0), 2)
+        # self.assertEqual(self.cmp.dist_abs('', 'the quick', 0), 2)
+        # self.assertAlmostEqual(self.cmp.dist_abs(NONQ_FROM, NONQ_TO, 0), 8)
+        # self.assertAlmostEqual(self.cmp.dist_abs(NONQ_TO, NONQ_FROM, 0), 8)
+
         # test l_0 "norm"
         self.assertEqual(self.cmp_q1p0.dist_abs('', ''), 0)
         self.assertEqual(self.cmp_q1p0.dist_abs('a', ''), 1)
@@ -172,6 +179,13 @@ class MinkowskiTestCases(unittest.TestCase):
             8 / 15,
         )
 
+        # # non-q-gram tests
+        # self.assertEqual(self.cmp.sim('', '', 0), 1)
+        # self.assertEqual(self.cmp.sim('the quick', '', 0), 0)
+        # self.assertEqual(self.cmp.sim('', 'the quick', 0), 0)
+        # self.assertAlmostEqual(self.cmp.sim(NONQ_FROM, NONQ_TO, 0), 1 / 2)
+        # self.assertAlmostEqual(self.cmp.sim(NONQ_TO, NONQ_FROM, 0), 1 / 2)
+
         # Test wrapper
         self.assertAlmostEqual(sim_minkowski('nelson', 'neilsen'), 8 / 15)
 
@@ -216,6 +230,13 @@ class MinkowskiTestCases(unittest.TestCase):
             ),
             7 / 15,
         )
+
+        # # non-q-gram tests
+        # self.assertEqual(self.cmp.dist('', '', 0), 0)
+        # self.assertEqual(self.cmp.dist('the quick', '', 0), 1)
+        # self.assertEqual(self.cmp.dist('', 'the quick', 0), 1)
+        # self.assertAlmostEqual(self.cmp.dist(NONQ_FROM, NONQ_TO, 0), 1 / 2)
+        # self.assertAlmostEqual(self.cmp.dist(NONQ_TO, NONQ_FROM, 0), 1 / 2)
 
         # Test wrapper
         self.assertAlmostEqual(dist_minkowski('nelson', 'neilsen'), 7 / 15)
