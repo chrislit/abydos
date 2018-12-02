@@ -40,6 +40,7 @@ class MongeElkanTestCases(unittest.TestCase):
     """
 
     cmp = MongeElkan()
+    cmp_sym = MongeElkan(symmetric=True)
 
     def test_monge_elkan_sim(self):
         """Test abydos.distance.MongeElkan.sim."""
@@ -52,16 +53,10 @@ class MongeElkanTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('Niall', 'Niel'), 3 / 4)
         self.assertEqual(self.cmp.sim('Niall', 'Nigel'), 3 / 4)
 
-        self.assertEqual(
-            self.cmp.sim('Niall', 'Neal', symmetric=True), 31 / 40
-        )
-        self.assertEqual(self.cmp.sim('Niall', 'Njall', symmetric=True), 5 / 6)
-        self.assertEqual(
-            self.cmp.sim('Niall', 'Niel', symmetric=True), 31 / 40
-        )
-        self.assertAlmostEqual(
-            self.cmp.sim('Niall', 'Nigel', symmetric=True), 17 / 24
-        )
+        self.assertEqual(self.cmp_sym.sim('Niall', 'Neal'), 31 / 40)
+        self.assertEqual(self.cmp_sym.sim('Niall', 'Njall'), 5 / 6)
+        self.assertEqual(self.cmp_sym.sim('Niall', 'Niel'), 31 / 40)
+        self.assertAlmostEqual(self.cmp_sym.sim('Niall', 'Nigel'), 17 / 24)
 
         # Test wrapper
         self.assertEqual(sim_monge_elkan('Niall', 'Neal'), 3 / 4)
@@ -76,18 +71,10 @@ class MongeElkanTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('Niall', 'Niel'), 1 / 4)
         self.assertEqual(self.cmp.dist('Niall', 'Nigel'), 1 / 4)
 
-        self.assertAlmostEqual(
-            self.cmp.dist('Niall', 'Neal', symmetric=True), 9 / 40
-        )
-        self.assertAlmostEqual(
-            self.cmp.dist('Niall', 'Njall', symmetric=True), 1 / 6
-        )
-        self.assertAlmostEqual(
-            self.cmp.dist('Niall', 'Niel', symmetric=True), 9 / 40
-        )
-        self.assertAlmostEqual(
-            self.cmp.dist('Niall', 'Nigel', symmetric=True), 7 / 24
-        )
+        self.assertAlmostEqual(self.cmp_sym.dist('Niall', 'Neal'), 9 / 40)
+        self.assertAlmostEqual(self.cmp_sym.dist('Niall', 'Njall'), 1 / 6)
+        self.assertAlmostEqual(self.cmp_sym.dist('Niall', 'Niel'), 9 / 40)
+        self.assertAlmostEqual(self.cmp_sym.dist('Niall', 'Nigel'), 7 / 24)
 
         # Test wrapper
         self.assertEqual(dist_monge_elkan('Niall', 'Neal'), 1 / 4)

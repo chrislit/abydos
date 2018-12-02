@@ -57,24 +57,19 @@ class JaroWinkler(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def sim(
+    def __init__(
         self,
-        src,
-        tar,
         qval=1,
         mode='winkler',
         long_strings=False,
         boost_threshold=0.7,
         scaling_factor=0.1,
+        **kwargs
     ):
-        """Return the Jaro or Jaro-Winkler similarity of two strings.
+        """Initialize JaroWinkler instance.
 
         Parameters
         ----------
-        src : str
-            Source string for comparison
-        tar : str
-            Target string for comparison
         qval : int
             The length of each q-gram (defaults to 1: character-wise matching)
         mode : str
@@ -98,6 +93,23 @@ class JaroWinkler(_Distance):
             A value between 0 and 0.25, indicating by how much to boost scores
             for matching prefixes (defaults to 0.1). (Used in 'winkler' mode
             only.)
+        """
+        super(JaroWinkler, self).__init__(**kwargs)
+        self._qval = qval
+        self._mode = mode
+        self._long_strings = long_strings
+        self._boost_threshold = boost_threshold
+        self._scaling_factor = scaling_factor
+
+    def sim(self, src, tar):
+        """Return the Jaro or Jaro-Winkler similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
         Returns
         -------
@@ -138,13 +150,13 @@ class JaroWinkler(_Distance):
             Encapsulated in class
 
         """
-        if mode == 'winkler':
-            if boost_threshold > 1 or boost_threshold < 0:
+        if self._mode == 'winkler':
+            if self._boost_threshold > 1 or self._boost_threshold < 0:
                 raise ValueError(
                     'Unsupported boost_threshold assignment; '
                     + 'boost_threshold must be between 0 and 1.'
                 )
-            if scaling_factor > 0.25 or scaling_factor < 0:
+            if self._scaling_factor > 0.25 or self._scaling_factor < 0:
                 raise ValueError(
                     'Unsupported scaling_factor assignment; '
                     + 'scaling_factor must be between 0 and 0.25.'
@@ -153,8 +165,8 @@ class JaroWinkler(_Distance):
         if src == tar:
             return 1.0
 
-        src = QGrams(qval).tokenize(src.strip()).get_list()
-        tar = QGrams(qval).tokenize(tar.strip()).get_list()
+        src = QGrams(self._qval).tokenize(src.strip()).get_list()
+        tar = QGrams(self._qval).tokenize(tar.strip()).get_list()
 
         lens = len(src)
         lent = len(tar)
@@ -214,21 +226,21 @@ class JaroWinkler(_Distance):
 
         # Continue to boost the weight if the strings are similar
         # This is the Winkler portion of Jaro-Winkler distance
-        if mode == 'winkler' and weight > boost_threshold:
+        if self._mode == 'winkler' and weight > self._boost_threshold:
 
             # Adjust for having up to the first 4 characters in common
             j = 4 if (minv >= 4) else minv
             i = 0
             while (i < j) and (src[i] == tar[i]):
                 i += 1
-            weight += i * scaling_factor * (1.0 - weight)
+            weight += i * self._scaling_factor * (1.0 - weight)
 
             # Optionally adjust for long strings.
 
             # After agreeing beginning chars, at least two more must agree and
             # the agreeing characters must be > .5 of remaining characters.
             if (
-                long_strings
+                self._long_strings
                 and (minv > 4)
                 and (num_com > i + 1)
                 and (2 * num_com >= minv + i)
@@ -315,9 +327,9 @@ def sim_jaro_winkler(
     .. versionadded:: 0.1.0
 
     """
-    return JaroWinkler().sim(
-        src, tar, qval, mode, long_strings, boost_threshold, scaling_factor
-    )
+    return JaroWinkler(
+        qval, mode, long_strings, boost_threshold, scaling_factor
+    ).sim(src, tar)
 
 
 @deprecated(
@@ -395,9 +407,9 @@ def dist_jaro_winkler(
     .. versionadded:: 0.1.0
 
     """
-    return JaroWinkler().dist(
-        src, tar, qval, mode, long_strings, boost_threshold, scaling_factor
-    )
+    return JaroWinkler(
+        qval, mode, long_strings, boost_threshold, scaling_factor
+    ).dist(src, tar)
 
 
 if __name__ == '__main__':

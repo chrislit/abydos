@@ -63,7 +63,7 @@ class _Distance(object):
         for key in kwargs:
             self.params[key] = kwargs[key]
 
-    def sim(self, src, tar, *args, **kwargs):
+    def sim(self, src, tar):
         """Return similarity.
 
         Parameters
@@ -72,10 +72,6 @@ class _Distance(object):
             Source string for comparison
         tar : str
             Target string for comparison
-        *args
-            Variable length argument list.
-        **kwargs
-            Arbitrary keyword arguments.
 
         Returns
         -------
@@ -85,9 +81,9 @@ class _Distance(object):
         .. versionadded:: 0.3.6
 
         """
-        return 1.0 - self.dist(src, tar, *args, **kwargs)
+        return 1.0 - self.dist(src, tar)
 
-    def dist(self, src, tar, *args, **kwargs):
+    def dist(self, src, tar):
         """Return distance.
 
         Parameters
@@ -96,10 +92,6 @@ class _Distance(object):
             Source string for comparison
         tar : str
             Target string for comparison
-        *args
-            Variable length argument list.
-        **kwargs
-            Arbitrary keyword arguments.
 
         Returns
         -------
@@ -109,9 +101,9 @@ class _Distance(object):
         .. versionadded:: 0.3.6
 
         """
-        return 1.0 - self.sim(src, tar, *args, **kwargs)
+        return 1.0 - self.sim(src, tar)
 
-    def dist_abs(self, src, tar, *args, **kwargs):
+    def dist_abs(self, src, tar):
         """Return absolute distance.
 
         Parameters
@@ -120,10 +112,6 @@ class _Distance(object):
             Source string for comparison
         tar : str
             Target string for comparison
-        *args
-            Variable length argument list.
-        **kwargs
-            Arbitrary keyword arguments.
 
         Returns
         -------
@@ -133,7 +121,7 @@ class _Distance(object):
         .. versionadded:: 0.3.6
 
         """
-        return self.dist(src, tar, *args, **kwargs)
+        return self.dist(src, tar)
 
 
 if __name__ == '__main__':

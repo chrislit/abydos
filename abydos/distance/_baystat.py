@@ -51,7 +51,31 @@ class Baystat(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def sim(self, src, tar, min_ss_len=None, left_ext=None, right_ext=None):
+    def __init__(
+        self, min_ss_len=None, left_ext=None, right_ext=None, **kwargs
+    ):
+        """Initialize Levenshtein instance.
+
+        Parameters
+        ----------
+        min_ss_len : int
+            Minimum substring length to be considered
+        left_ext : int
+            Left-side extension length
+        right_ext : int
+            Right-side extension length
+        **kwargs
+            Arbitrary keyword arguments
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Baystat, self).__init__(**kwargs)
+        self._min_ss_len = min_ss_len
+        self._left_ext = left_ext
+        self._right_ext = right_ext
+
+    def sim(self, src, tar):
         """Return the Baystat similarity.
 
         Parameters
@@ -60,12 +84,6 @@ class Baystat(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        min_ss_len : int
-            Minimum substring length to be considered
-        left_ext :int
-            Left-side extension length
-        right_ext :int
-            Right-side extension length
 
         Returns
         -------
@@ -96,7 +114,7 @@ class Baystat(_Distance):
 
         max_len = max(len(src), len(tar))
 
-        if not (min_ss_len and left_ext and right_ext):
+        if not (self._min_ss_len and self._left_ext and self._right_ext):
             # These can be set via arguments to the function. Otherwise they
             # are set automatically based on values from the article.
             if max_len >= 7:
@@ -110,6 +128,10 @@ class Baystat(_Distance):
                 min_ss_len = 1
                 left_ext = 0
                 right_ext = 0
+        else:
+            min_ss_len = self._min_ss_len
+            left_ext = self._left_ext
+            right_ext = self._right_ext
 
         pos = 0
         match_len = 0
@@ -225,7 +247,7 @@ def sim_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
     .. versionadded:: 0.3.0
 
     """
-    return Baystat().sim(src, tar, min_ss_len, left_ext, right_ext)
+    return Baystat(min_ss_len, left_ext, right_ext).sim(src, tar)
 
 
 @deprecated(
@@ -271,7 +293,7 @@ def dist_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
     .. versionadded:: 0.3.0
 
     """
-    return Baystat().dist(src, tar, min_ss_len, left_ext, right_ext)
+    return Baystat(min_ss_len, left_ext, right_ext).dist(src, tar)
 
 
 if __name__ == '__main__':

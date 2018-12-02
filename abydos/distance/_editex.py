@@ -68,7 +68,27 @@ class Editex(_Distance):
 
     _all_letters = frozenset('ABCDEFGIJKLMNOPQRSTUVXYZ')
 
-    def dist_abs(self, src, tar, cost=(0, 1, 2), local=False):
+    def __init__(self, cost=(0, 1, 2), local=False, **kwargs):
+        """Initialize Editex instance.
+
+        Parameters
+        ----------
+        cost : tuple
+            A 3-tuple representing the cost of the four possible edits: match,
+            same-group, and mismatch respectively (by default: (0, 1, 2))
+        local : bool
+            If True, the local variant of Editex is used
+        **kwargs
+            Arbitrary keyword arguments
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Editex, self).__init__(**kwargs)
+        self._cost = cost
+        self._local = local
+
+    def dist_abs(self, src, tar):
         """Return the Editex distance between two strings.
 
         Parameters
@@ -77,11 +97,6 @@ class Editex(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        cost : tuple
-            A 3-tuple representing the cost of the four possible edits: match,
-            same-group, and mismatch respectively (by default: (0, 1, 2))
-        local : bool
-            If True, the local variant of Editex is used
 
         Returns
         -------
@@ -105,7 +120,7 @@ class Editex(_Distance):
             Encapsulated in class
 
         """
-        match_cost, group_cost, mismatch_cost = cost
+        match_cost, group_cost, mismatch_cost = self._cost
 
         def r_cost(ch1, ch2):
             """Return r(a,b) according to Zobel & Dart's definition.
@@ -175,7 +190,7 @@ class Editex(_Distance):
         src = ' ' + src
         tar = ' ' + tar
 
-        if not local:
+        if not self._local:
             for i in range(1, lens + 1):
                 d_mat[i, 0] = d_mat[i - 1, 0] + d_cost(src[i - 1], src[i])
         for j in range(1, lent + 1):
@@ -191,7 +206,7 @@ class Editex(_Distance):
 
         return d_mat[lens, lent]
 
-    def dist(self, src, tar, cost=(0, 1, 2), local=False):
+    def dist(self, src, tar):
         """Return the normalized Editex distance between two strings.
 
         The Editex distance is normalized by dividing the Editex distance
@@ -207,11 +222,6 @@ class Editex(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        cost : tuple
-            A 3-tuple representing the cost of the four possible edits: match,
-            same-group, and mismatch respectively (by default: (0, 1, 2))
-        local : bool
-            If True, the local variant of Editex is used
 
         Returns
         -------
@@ -237,8 +247,8 @@ class Editex(_Distance):
         """
         if src == tar:
             return 0.0
-        mismatch_cost = cost[2]
-        return self.dist_abs(src, tar, cost, local) / (
+        mismatch_cost = self._cost[2]
+        return self.dist_abs(src, tar) / (
             max(len(src) * mismatch_cost, len(tar) * mismatch_cost)
         )
 
@@ -285,7 +295,7 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
     .. versionadded:: 0.1.0
 
     """
-    return Editex().dist_abs(src, tar, cost, local)
+    return Editex(cost, local).dist_abs(src, tar)
 
 
 @deprecated(
@@ -330,7 +340,7 @@ def dist_editex(src, tar, cost=(0, 1, 2), local=False):
     .. versionadded:: 0.1.0
 
     """
-    return Editex().dist(src, tar, cost, local)
+    return Editex(cost, local).dist(src, tar)
 
 
 @deprecated(
@@ -375,7 +385,7 @@ def sim_editex(src, tar, cost=(0, 1, 2), local=False):
     .. versionadded:: 0.1.0
 
     """
-    return Editex().sim(src, tar, cost, local)
+    return Editex(cost, local).sim(src, tar)
 
 
 if __name__ == '__main__':
