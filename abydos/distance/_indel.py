@@ -30,14 +30,13 @@ from __future__ import (
 
 from deprecation import deprecated
 
-from ._distance import _Distance
 from ._levenshtein import Levenshtein
 from .. import __version__
 
 __all__ = ['Indel', 'dist_indel', 'indel', 'sim_indel']
 
 
-class Indel(_Distance):
+class Indel(Levenshtein):
     """Indel distance.
 
     This is equivalent to Levenshtein distance, when only inserts and deletes
@@ -46,62 +45,35 @@ class Indel(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    _lev = Levenshtein()
-
-    def dist_abs(self, src, tar):
-        """Return the indel distance between two strings.
+    def __init__(self, **kwargs):
+        """Initialize Levenshtein instance.
 
         Parameters
         ----------
-        src : str
-            Source string for comparison
-        tar : str
-            Target string for comparison
+        **kwargs
+            Arbitrary keyword arguments
 
-        Returns
-        -------
-        int
-            Indel distance
-
-        Examples
-        --------
-        >>> cmp = Indel()
-        >>> cmp.dist_abs('cat', 'hat')
-        2
-        >>> cmp.dist_abs('Niall', 'Neil')
-        3
-        >>> cmp.dist_abs('Colin', 'Cuilen')
-        5
-        >>> cmp.dist_abs('ATCG', 'TAGC')
-        4
-
-        .. versionadded:: 0.3.0
-        .. versionchanged:: 0.3.6
-            Encapsulated in class
+        .. versionadded:: 0.4.0
 
         """
-        return self._lev.dist_abs(
-            src, tar, mode='lev', cost=(1, 1, 9999, 9999)
+        super(Indel, self).__init__(
+            mode='lev', cost=(1, 1, 9999, 9999), **kwargs
         )
 
     def dist(self, src, tar):
         """Return the normalized indel distance between two strings.
-
         This is equivalent to normalized Levenshtein distance, when only
         inserts and deletes are possible.
-
         Parameters
         ----------
         src : str
             Source string for comparison
         tar : str
             Target string for comparison
-
         Returns
         -------
         float
             Normalized indel distance
-
         Examples
         --------
         >>> cmp = Indel()
@@ -113,11 +85,6 @@ class Indel(_Distance):
         0.454545454545
         >>> cmp.dist('ATCG', 'TAGC')
         0.5
-
-        .. versionadded:: 0.3.0
-        .. versionchanged:: 0.3.6
-            Encapsulated in class
-
         """
         if src == tar:
             return 0.0
