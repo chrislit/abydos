@@ -70,17 +70,13 @@ class Tversky(_TokenDistance):
     .. versionadded:: 0.3.6
     """
 
-    def sim(
-        self,
-        src,
-        tar,
-        alpha=1,
-        beta=1,
-        bias=None,
-        tokenizer=None,
-        *args,
-        **kwargs
+    def __init__(
+        self, alpha=1.0, beta=1.0, bias=None, tokenizer=None, **kwargs
     ):
+        super(Tversky, self).__init__(tokenizer=tokenizer, **kwargs)
+        self.set_params(alpha=alpha, beta=beta, bias=bias)
+
+    def sim(self, src, tar):
         """Return the Tversky index of two strings.
 
         Parameters
@@ -126,7 +122,7 @@ class Tversky(_TokenDistance):
             Encapsulated in class
 
         """
-        if alpha < 0 or beta < 0:
+        if self.params['alpha'] < 0 or self.params['beta'] < 0:
             raise ValueError(
                 'Unsupported weight assignment; alpha and beta '
                 + 'must be greater than or equal to 0.'
@@ -137,19 +133,20 @@ class Tversky(_TokenDistance):
         elif not src or not tar:
             return 0.0
 
-        q_src, q_tar = self._get_qgrams(src, tar, qval)
-        q_src_mag = sum(q_src.values())
-        q_tar_mag = sum(q_tar.values())
-        q_intersection_mag = sum((q_src & q_tar).values())
+        self.tokenize(src, tar)
 
-        if not q_src or not q_tar:
+        q_src_mag = sum(self._src_tokens.values())
+        q_tar_mag = sum(self._tar_tokens.values())
+        q_intersection_mag = sum(self.intersection().values())
+
+        if not self._src_tokens or not self._tar_tokens:
             return 0.0
 
-        if bias is None:
+        if self.params['bias'] is None:
             return q_intersection_mag / (
                 q_intersection_mag
-                + alpha * (q_src_mag - q_intersection_mag)
-                + beta * (q_tar_mag - q_intersection_mag)
+                + self.params['alpha'] * (q_src_mag - q_intersection_mag)
+                + self.params['beta'] * (q_tar_mag - q_intersection_mag)
             )
 
         a_val = min(
@@ -158,8 +155,15 @@ class Tversky(_TokenDistance):
         b_val = max(
             q_src_mag - q_intersection_mag, q_tar_mag - q_intersection_mag
         )
-        c_val = q_intersection_mag + bias
-        return c_val / (beta * (alpha * a_val + (1 - alpha) * b_val) + c_val)
+        c_val = q_intersection_mag + self.params['bias']
+        return c_val / (
+            self.params['beta']
+            * (
+                self.params['alpha'] * a_val
+                + (1 - self.params['alpha']) * b_val
+            )
+            + c_val
+        )
 
 
 @deprecated(
@@ -168,9 +172,7 @@ class Tversky(_TokenDistance):
     current_version=__version__,
     details='Use the Tversky.sim method instead.',
 )
-def sim_tversky(
-    src, tar, alpha=1, beta=1, bias=None, tokenizer=None, *args, **kwargs
-):
+def sim_tversky(src, tar, qval=2, alpha=1.0, beta=1.0, bias=None):
     """Return the Tversky index of two strings.
 
     This is a wrapper for :py:meth:`Tversky.sim`.
@@ -209,16 +211,7 @@ def sim_tversky(
     .. versionadded:: 0.1.0
 
     """
-    return Tversky().sim(
-        src,
-        tar,
-        alpha,
-        beta,
-        bias,
-        tokenizer=tokenizer,
-        args=args,
-        kwargs=kwargs,
-    )
+    return Tversky(alpha=alpha, beta=beta, bias=bias, qval=qval).sim(src, tar)
 
 
 @deprecated(
@@ -227,9 +220,7 @@ def sim_tversky(
     current_version=__version__,
     details='Use the Tversky.dist method instead.',
 )
-def dist_tversky(
-    src, tar, alpha=1, beta=1, bias=None, tokenizer=None, *args, **kwargs
-):
+def dist_tversky(src, tar, qval=2, alpha=1.0, beta=1.0, bias=None):
     """Return the Tversky distance between two strings.
 
     This is a wrapper for :py:meth:`Tversky.dist`.
@@ -268,16 +259,7 @@ def dist_tversky(
     .. versionadded:: 0.1.0
 
     """
-    return Tversky().dist(
-        src,
-        tar,
-        alpha,
-        beta,
-        bias,
-        tokenizer=tokenizer,
-        args=args,
-        kwargs=kwargs,
-    )
+    return Tversky(alpha=alpha, beta=beta, bias=bias, qval=qval).dist(src, tar)
 
 
 if __name__ == '__main__':

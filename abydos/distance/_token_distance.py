@@ -45,8 +45,14 @@ class _TokenDistance(_Distance):
         self.params = {
             'tokenizer': tokenizer
             if tokenizer is not None
-            else QGrams(qval=qval, start_stop='$#', skip=0, scaler=None)
+            else QGrams(qval=qval, start_stop='$#', skip=0, scaler=None),
+            'alphabet': None,
         }
+
+        if 'alphabet' in kwargs:
+            self.params['alphabet'] = kwargs['alphabet']
+            if hasattr(self.params['alphabet'], '__len__'):
+                self.params['alphabet'] = len(self.params['alphabet'])
 
         self._src_tokens = Counter()
         self._tar_tokens = Counter()

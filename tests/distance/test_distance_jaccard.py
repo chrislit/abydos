@@ -158,6 +158,7 @@ class TanimotoTestCases(unittest.TestCase):
     """
 
     cmp = Jaccard()
+    cmp_q2 = Jaccard(tokenizer=QGrams(2))
 
     def test_jaccard_tanimoto_coeff(self):
         """Test abydos.distance.Jaccard.tanimoto_coeff."""

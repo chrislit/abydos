@@ -48,7 +48,10 @@ class Cosine(_TokenDistance):
     .. versionadded:: 0.3.6
     """
 
-    def sim(self, src, tar, tokenizer=None, *args, **kwargs):
+    def __init__(self, tokenizer=None, **kwargs):
+        super(Cosine, self).__init__(tokenizer=tokenizer, **kwargs)
+
+    def sim(self, src, tar):
         r"""Return the cosine similarity of two strings.
 
         Parameters
@@ -83,12 +86,11 @@ class Cosine(_TokenDistance):
         if not src or not tar:
             return 0.0
 
-        q_src, q_tar = self._get_qgrams(src, tar, qval)
-        q_src_mag = sum(q_src.values())
-        q_tar_mag = sum(q_tar.values())
-        q_intersection_mag = sum((q_src & q_tar).values())
+        self.tokenize(src, tar)
 
-        return q_intersection_mag / sqrt(q_src_mag * q_tar_mag)
+        return sum(self.intersection().values()) / sqrt(
+            sum(self._src_tokens.values()) * sum(self._tar_tokens.values())
+        )
 
 
 @deprecated(
@@ -97,7 +99,7 @@ class Cosine(_TokenDistance):
     current_version=__version__,
     details='Use the Cosine.sim method instead.',
 )
-def sim_cosine(src, tar, tokenizer=None, *args, **kwargs):
+def sim_cosine(src, tar, qval=2):
     r"""Return the cosine similarity of two strings.
 
     This is a wrapper for :py:meth:`Cosine.sim`.
@@ -128,7 +130,7 @@ def sim_cosine(src, tar, tokenizer=None, *args, **kwargs):
     0.0
 
     """
-    return Cosine().sim(src, tar, tokenizer, args, kwargs)
+    return Cosine(qval=qval).sim(src, tar)
 
 
 @deprecated(
@@ -137,7 +139,7 @@ def sim_cosine(src, tar, tokenizer=None, *args, **kwargs):
     current_version=__version__,
     details='Use the Cosine.dist method instead.',
 )
-def dist_cosine(src, tar, tokenizer=None, *args, **kwargs):
+def dist_cosine(src, tar, qval=2):
     """Return the cosine distance between two strings.
 
     This is a wrapper for :py:meth:`Cosine.dist`.
@@ -168,7 +170,7 @@ def dist_cosine(src, tar, tokenizer=None, *args, **kwargs):
     1.0
 
     """
-    return Cosine().dist(src, tar, tokenizer, args, kwargs)
+    return Cosine(qval=qval).dist(src, tar)
 
 
 if __name__ == '__main__':
