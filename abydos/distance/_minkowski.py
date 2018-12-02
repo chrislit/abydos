@@ -48,8 +48,10 @@ class Minkowski(_TokenDistance):
     """
 
     def __init__(self, pval=1, alphabet=None, tokenizer=None, **kwargs):
-        super(Minkowski, self).__init__(tokenizer=tokenizer, **kwargs)
-        self.set_params(pval=pval, alphabet=alphabet)
+        super(Minkowski, self).__init__(
+            tokenizer=tokenizer, alphabet=alphabet, **kwargs
+        )
+        self.set_params(pval=pval)
 
     def dist_abs(self, src, tar, normalized=False):
         """Return the Minkowski distance (:math:`L^p`-norm) of two strings.

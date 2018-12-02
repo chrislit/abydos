@@ -58,30 +58,65 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_q2.sim('nelson', 'neilsen'), 4 / 11)
 
         # test valid alpha & beta
-        self.assertRaises(ValueError, self.cmp.sim, 'abcd', 'dcba', 2, -1, -1)
-        self.assertRaises(ValueError, self.cmp.sim, 'abcd', 'dcba', 2, -1, 0)
-        self.assertRaises(ValueError, self.cmp.sim, 'abcd', 'dcba', 2, 0, -1)
+        self.assertRaises(
+            ValueError, Tversky(alpha=-1.0, beta=-1.0).sim, 'abcd', 'dcba'
+        )
+        self.assertRaises(
+            ValueError, Tversky(alpha=-1.0, beta=0.0).sim, 'abcd', 'dcba'
+        )
+        self.assertRaises(
+            ValueError, Tversky(alpha=0.0, beta=-1.0).sim, 'abcd', 'dcba'
+        )
 
         # test empty QGrams
-        self.assertAlmostEqual(self.cmp.sim('nelson', 'neilsen', 7), 0.0)
+        self.assertAlmostEqual(
+            Tversky(tokenizer=QGrams(7)).sim('nelson', 'neilsen'), 0.0
+        )
 
         # test unequal alpha & beta
-        self.assertAlmostEqual(self.cmp.sim('niall', 'neal', 2, 2, 1), 3 / 11)
-        self.assertAlmostEqual(self.cmp.sim('niall', 'neal', 2, 1, 2), 3 / 10)
-        self.assertAlmostEqual(self.cmp.sim('niall', 'neal', 2, 2, 2), 3 / 13)
+        self.assertAlmostEqual(
+            Tversky(alpha=2.0, beta=1.0, tokenizer=QGrams(2)).sim(
+                'niall', 'neal'
+            ),
+            3 / 11,
+        )
+        self.assertAlmostEqual(
+            Tversky(alpha=1.0, beta=2.0, tokenizer=QGrams(2)).sim(
+                'niall', 'neal'
+            ),
+            3 / 10,
+        )
+        self.assertAlmostEqual(
+            Tversky(alpha=2.0, beta=2.0, tokenizer=QGrams(2)).sim(
+                'niall', 'neal'
+            ),
+            3 / 13,
+        )
 
         # test bias parameter
         self.assertAlmostEqual(
-            self.cmp.sim('niall', 'neal', 2, 1, 1, 0.5), 7 / 11
+            Tversky(alpha=1.0, beta=1.0, bias=0.5, tokenizer=QGrams(2)).sim(
+                'niall', 'neal'
+            ),
+            7 / 11,
         )
         self.assertAlmostEqual(
-            self.cmp.sim('niall', 'neal', 2, 2, 1, 0.5), 7 / 9
+            Tversky(alpha=2.0, beta=1.0, bias=0.5, tokenizer=QGrams(2)).sim(
+                'niall', 'neal'
+            ),
+            7 / 9,
         )
         self.assertAlmostEqual(
-            self.cmp.sim('niall', 'neal', 2, 1, 2, 0.5), 7 / 15
+            Tversky(alpha=1.0, beta=2.0, bias=0.5, tokenizer=QGrams(2)).sim(
+                'niall', 'neal'
+            ),
+            7 / 15,
         )
         self.assertAlmostEqual(
-            self.cmp.sim('niall', 'neal', 2, 2, 2, 0.5), 7 / 11
+            Tversky(alpha=2.0, beta=2.0, bias=0.5, tokenizer=QGrams(2)).sim(
+                'niall', 'neal'
+            ),
+            7 / 11,
         )
 
         # supplied q-gram tests
@@ -137,32 +172,65 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_q2.dist('nelson', 'neilsen'), 7 / 11)
 
         # test valid alpha & beta
-        self.assertRaises(ValueError, self.cmp.dist, 'abcd', 'dcba', 2, -1, -1)
-        self.assertRaises(ValueError, self.cmp.dist, 'abcd', 'dcba', 2, -1, 0)
-        self.assertRaises(ValueError, self.cmp.dist, 'abcd', 'dcba', 2, 0, -1)
+        self.assertRaises(
+            ValueError, Tversky(alpha=-1.0, beta=-1.0).dist, 'abcd', 'dcba'
+        )
+        self.assertRaises(
+            ValueError, Tversky(alpha=-1.0, beta=0.0).dist, 'abcd', 'dcba'
+        )
+        self.assertRaises(
+            ValueError, Tversky(alpha=0.0, beta=-1.0).dist, 'abcd', 'dcba'
+        )
 
         # test empty QGrams
-        self.assertAlmostEqual(self.cmp.dist('nelson', 'neilsen', 7), 1.0)
+        self.assertAlmostEqual(
+            Tversky(tokenizer=QGrams(7)).dist('nelson', 'neilsen'), 1.0
+        )
 
         # test unequal alpha & beta
-        self.assertAlmostEqual(self.cmp.dist('niall', 'neal', 2, 2, 1), 8 / 11)
-        self.assertAlmostEqual(self.cmp.dist('niall', 'neal', 2, 1, 2), 7 / 10)
         self.assertAlmostEqual(
-            self.cmp.dist('niall', 'neal', 2, 2, 2), 10 / 13
+            Tversky(alpha=2.0, beta=1.0, tokenizer=QGrams(2)).dist(
+                'niall', 'neal'
+            ),
+            8 / 11,
+        )
+        self.assertAlmostEqual(
+            Tversky(alpha=1.0, beta=2.0, tokenizer=QGrams(2)).dist(
+                'niall', 'neal'
+            ),
+            7 / 10,
+        )
+        self.assertAlmostEqual(
+            Tversky(alpha=2.0, beta=2.0, tokenizer=QGrams(2)).dist(
+                'niall', 'neal'
+            ),
+            10 / 13,
         )
 
         # test bias parameter
         self.assertAlmostEqual(
-            self.cmp.dist('niall', 'neal', 2, 1, 1, 0.5), 4 / 11
+            Tversky(alpha=1.0, beta=1.0, bias=0.5, tokenizer=QGrams(2)).dist(
+                'niall', 'neal'
+            ),
+            4 / 11,
         )
         self.assertAlmostEqual(
-            self.cmp.dist('niall', 'neal', 2, 2, 1, 0.5), 2 / 9
+            Tversky(alpha=2.0, beta=1.0, bias=0.5, tokenizer=QGrams(2)).dist(
+                'niall', 'neal'
+            ),
+            2 / 9,
         )
         self.assertAlmostEqual(
-            self.cmp.dist('niall', 'neal', 2, 1, 2, 0.5), 8 / 15
+            Tversky(alpha=1.0, beta=2.0, bias=0.5, tokenizer=QGrams(2)).dist(
+                'niall', 'neal'
+            ),
+            8 / 15,
         )
         self.assertAlmostEqual(
-            self.cmp.dist('niall', 'neal', 2, 2, 2, 0.5), 4 / 11
+            Tversky(alpha=2.0, beta=2.0, bias=0.5, tokenizer=QGrams(2)).dist(
+                'niall', 'neal'
+            ),
+            4 / 11,
         )
 
         # supplied q-gram tests
