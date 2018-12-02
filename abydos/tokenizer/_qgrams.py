@@ -150,6 +150,15 @@ class QGrams(_Tokenizer):
     def __repr__(self):
         return 'QGrams({})'.format(dict(self._tokens))
 
+    def __and__(self, other):
+        return self.get_counter() & other.get_counter()
+
+    def __add__(self, other):
+        return self.get_counter() + other.get_counter()
+
+    def __sub__(self, other):
+        return self.get_counter() - other.get_counter()
+
 
 if __name__ == '__main__':
     import doctest
