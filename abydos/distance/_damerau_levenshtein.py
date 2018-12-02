@@ -57,6 +57,24 @@ class DamerauLevenshtein(_Distance):
     https://github.com/KevinStern/software-and-algorithms/blob/master/src/main/java/blogspot/software_and_algorithms/stern_library/string/DamerauLevenshteinAlgorithm.java
     """
 
+    def __init__(self, cost=(1, 1, 1, 1), **kwargs):
+        """Initialize Levenshtein instance.
+
+        Parameters
+        ----------
+        cost : tuple
+            A 4-tuple representing the cost of the four possible edits:
+            inserts, deletes, substitutions, and transpositions, respectively
+            (by default: (1, 1, 1, 1))
+        **kwargs
+            Arbitrary keyword arguments
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(DamerauLevenshtein, self).__init__(**kwargs)
+        self._code = cost
+
     def dist_abs(self, src, tar, cost=(1, 1, 1, 1)):
         """Return the Damerau-Levenshtein distance between two strings.
 

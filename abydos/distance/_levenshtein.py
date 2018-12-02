@@ -64,15 +64,11 @@ class Levenshtein(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def dist_abs(self, src, tar, mode='lev', cost=(1, 1, 1, 1)):
-        """Return the Levenshtein distance between two strings.
+    def __init__(self, mode='lev', cost=(1, 1, 1, 1), **kwargs):
+        """Initialize Levenshtein instance.
 
         Parameters
         ----------
-        src : str
-            Source string for comparison
-        tar : str
-            Target string for comparison
         mode : str
             Specifies a mode for computing the Levenshtein distance:
 
@@ -87,6 +83,25 @@ class Levenshtein(_Distance):
             A 4-tuple representing the cost of the four possible edits:
             inserts, deletes, substitutions, and transpositions, respectively
             (by default: (1, 1, 1, 1))
+        **kwargs
+            Arbitrary keyword arguments
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Levenshtein, self).__init__(**kwargs)
+        self._mode = mode
+        self._cost = cost
+
+    def dist_abs(self, src, tar):
+        """Return the Levenshtein distance between two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
         Returns
         -------
@@ -115,7 +130,7 @@ class Levenshtein(_Distance):
             Encapsulated in class
 
         """
-        ins_cost, del_cost, sub_cost, trans_cost = cost
+        ins_cost, del_cost, sub_cost, trans_cost = self._cost
 
         if src == tar:
             return 0
@@ -139,7 +154,7 @@ class Levenshtein(_Distance):
                     + (sub_cost if src[i] != tar[j] else 0),  # sub/==
                 )
 
-                if mode == 'osa':
+                if self._mode == 'osa':
                     if (
                         i + 1 > 1
                         and j + 1 > 1
@@ -154,7 +169,7 @@ class Levenshtein(_Distance):
 
         return d_mat[len(src), len(tar)]
 
-    def dist(self, src, tar, mode='lev', cost=(1, 1, 1, 1)):
+    def dist(self, src, tar):
         """Return the normalized Levenshtein distance between two strings.
 
         The Levenshtein distance is normalized by dividing the Levenshtein
@@ -170,20 +185,6 @@ class Levenshtein(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        mode : str
-            Specifies a mode for computing the Levenshtein distance:
-
-                - ``lev`` (default) computes the ordinary Levenshtein distance,
-                  in which edits may include inserts, deletes, and
-                  substitutions
-                - ``osa`` computes the Optimal String Alignment distance, in
-                  which edits may include inserts, deletes, substitutions, and
-                  transpositions but substrings may only be edited once
-
-        cost : tuple
-            A 4-tuple representing the cost of the four possible edits:
-            inserts, deletes, substitutions, and transpositions, respectively
-            (by default: (1, 1, 1, 1))
 
         Returns
         -------
@@ -209,8 +210,8 @@ class Levenshtein(_Distance):
         """
         if src == tar:
             return 0
-        ins_cost, del_cost = cost[:2]
-        return levenshtein(src, tar, mode, cost) / (
+        ins_cost, del_cost = self._cost[:2]
+        return levenshtein(src, tar, self._mode, self._cost) / (
             max(len(src) * del_cost, len(tar) * ins_cost)
         )
 
@@ -270,7 +271,7 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     .. versionadded:: 0.1.0
 
     """
-    return Levenshtein().dist_abs(src, tar, mode, cost)
+    return Levenshtein(mode=mode, cost=cost).dist_abs(src, tar)
 
 
 @deprecated(
@@ -323,7 +324,7 @@ def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     .. versionadded:: 0.1.0
 
     """
-    return Levenshtein().dist(src, tar, mode, cost)
+    return Levenshtein(mode=mode, cost=cost).dist(src, tar)
 
 
 @deprecated(
@@ -376,7 +377,7 @@ def sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     .. versionadded:: 0.1.0
 
     """
-    return Levenshtein().sim(src, tar, mode, cost)
+    return Levenshtein(mode=mode, cost=cost).sim(src, tar)
 
 
 if __name__ == '__main__':
