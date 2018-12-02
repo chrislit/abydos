@@ -48,6 +48,25 @@ class Overlap(_TokenDistance):
     """
 
     def __init__(self, tokenizer=None, **kwargs):
+        """Initialize Overlap instance.
+
+        Parameters
+        ----------
+        tokenizer : _Tokenizer
+            A tokenizer instance from the abydos.tokenizer package
+        **kwargs
+            Arbitrary keyword arguments
+
+        Other Parameters
+        ----------------
+        qval : int
+            The length of each q-gram. Using this parameter and tokenizer=None
+            will cause the instance to use the QGram tokenizer with this
+            q value.
+
+        .. versionadded:: 0.4.0
+
+        """
         super(Overlap, self).__init__(tokenizer=tokenizer, **kwargs)
 
     def sim(self, src, tar):
@@ -60,7 +79,7 @@ class Overlap(_TokenDistance):
         tar : str
             Target string (or QGrams/Counter objects) for comparison
         qval : int
-            The length of each q-gram; 0 for non-q-gram version
+            The length of each q-gram
 
         Returns
         -------
@@ -116,7 +135,7 @@ def sim_overlap(src, tar, qval=2):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
 
     Returns
     -------
@@ -158,7 +177,7 @@ def dist_overlap(src, tar, qval=2):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
 
     Returns
     -------

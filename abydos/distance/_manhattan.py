@@ -46,6 +46,25 @@ class Manhattan(Minkowski):
     """
 
     def __init__(self, alphabet=None, tokenizer=None, **kwargs):
+        """Initialize Manhattan instance.
+
+        Parameters
+        ----------
+        alphabet : collection or int
+            The values or size of the alphabet
+        tokenizer : _Tokenizer
+            A tokenizer instance from the abydos.tokenizer package
+
+        Other Parameters
+        ----------------
+        qval : int
+            The length of each q-gram. Using this parameter and tokenizer=None
+            will cause the instance to use the QGram tokenizer with this
+            q value.
+
+        .. versionadded:: 0.4.0
+
+        """
         super(Manhattan, self).__init__(
             pval=1, alphabet=alphabet, tokenizer=tokenizer, **kwargs
         )
@@ -59,12 +78,8 @@ class Manhattan(Minkowski):
             Source string (or QGrams/Counter objects) for comparison
         tar : str
             Target string (or QGrams/Counter objects) for comparison
-        qval : int
-            The length of each q-gram; 0 for non-q-gram version
         normalized : bool
             Normalizes to [0, 1] if True
-        alphabet : collection or int
-            The values or size of the alphabet
 
         Returns
         -------
@@ -104,10 +119,6 @@ class Manhattan(Minkowski):
             Source string (or QGrams/Counter objects) for comparison
         tar : str
             Target string (or QGrams/Counter objects) for comparison
-        qval : int
-            The length of each q-gram; 0 for non-q-gram version
-        alphabet : collection or int
-            The values or size of the alphabet
 
         Returns
         -------
@@ -152,7 +163,7 @@ def manhattan(src, tar, qval=2, normalized=False, alphabet=None):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
     normalized : bool
         Normalizes to [0, 1] if True
     alphabet : collection or int
@@ -200,7 +211,7 @@ def dist_manhattan(src, tar, qval=2, alphabet=None):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
     alphabet : collection or int
         The values or size of the alphabet
 
@@ -244,7 +255,7 @@ def sim_manhattan(src, tar, qval=2, alphabet=None):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
     alphabet : collection or int
         The values or size of the alphabet
 

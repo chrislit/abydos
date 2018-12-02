@@ -49,6 +49,25 @@ class Cosine(_TokenDistance):
     """
 
     def __init__(self, tokenizer=None, **kwargs):
+        """Initialize Cosine instance.
+
+        Parameters
+        ----------
+        tokenizer : _Tokenizer
+            A tokenizer instance from the abydos.tokenizer package
+        **kwargs
+            Arbitrary keyword arguments
+
+        Other Parameters
+        ----------------
+        qval : int
+            The length of each q-gram. Using this parameter and tokenizer=None
+            will cause the instance to use the QGram tokenizer with this
+            q value.
+
+        .. versionadded:: 0.4.0
+
+        """
         super(Cosine, self).__init__(tokenizer=tokenizer, **kwargs)
 
     def sim(self, src, tar):
@@ -60,8 +79,6 @@ class Cosine(_TokenDistance):
             Source string (or QGrams/Counter objects) for comparison
         tar : str
             Target string (or QGrams/Counter objects) for comparison
-        qval : int
-            The length of each q-gram; 0 for non-q-gram version
 
         Returns
         -------
@@ -111,7 +128,7 @@ def sim_cosine(src, tar, qval=2):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
 
     Returns
     -------
@@ -151,7 +168,7 @@ def dist_cosine(src, tar, qval=2):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
 
     Returns
     -------

@@ -54,6 +54,25 @@ class Jaccard(Tversky):
     """
 
     def __init__(self, tokenizer=None, **kwargs):
+        """Initialize Jaccard instance.
+
+        Parameters
+        ----------
+        tokenizer : _Tokenizer
+            A tokenizer instance from the abydos.tokenizer package
+        **kwargs
+            Arbitrary keyword arguments
+
+        Other Parameters
+        ----------------
+        qval : int
+            The length of each q-gram. Using this parameter and tokenizer=None
+            will cause the instance to use the QGram tokenizer with this
+            q value.
+
+        .. versionadded:: 0.4.0
+
+        """
         super(Jaccard, self).__init__(
             alpha=1, beta=1, bias=None, tokenizer=tokenizer, **kwargs
         )
@@ -67,8 +86,6 @@ class Jaccard(Tversky):
             Source string (or QGrams/Counter objects) for comparison
         tar : str
             Target string (or QGrams/Counter objects) for comparison
-        qval : int
-            The length of each q-gram; 0 for non-q-gram version
 
         Returns
         -------
@@ -106,8 +123,6 @@ class Jaccard(Tversky):
             Source string (or QGrams/Counter objects) for comparison
         tar : str
             Target string (or QGrams/Counter objects) for comparison
-        qval : int
-            The length of each q-gram; 0 for non-q-gram version
 
         Returns
         -------
@@ -156,7 +171,7 @@ def sim_jaccard(src, tar, qval=2):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
 
     Returns
     -------
@@ -198,7 +213,7 @@ def dist_jaccard(src, tar, qval=2):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
 
     Returns
     -------
@@ -240,7 +255,7 @@ def tanimoto(src, tar, qval=2):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
 
     Returns
     -------

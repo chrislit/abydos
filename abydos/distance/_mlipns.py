@@ -48,7 +48,7 @@ class MLIPNS(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    hamming = Hamming()
+    _hamming = Hamming()
 
     def sim(self, src, tar, threshold=0.25, max_mismatches=2):
         """Return the MLIPNS similarity of two strings.
@@ -93,7 +93,7 @@ class MLIPNS(_Distance):
             return 0.0
 
         mismatches = 0
-        ham = Hamming().dist_abs(src, tar, diff_lens=True)
+        ham = self._hamming.dist_abs(src, tar, diff_lens=True)
         max_length = max(len(src), len(tar))
         while src and tar and mismatches <= max_mismatches:
             if (

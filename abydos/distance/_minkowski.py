@@ -48,6 +48,29 @@ class Minkowski(_TokenDistance):
     """
 
     def __init__(self, pval=1, alphabet=None, tokenizer=None, **kwargs):
+        """Initialize Euclidean instance.
+
+        Parameters
+        ----------
+        pval : int
+            The :math:`p`-value of the :math:`L^p`-space
+        alphabet : collection or int
+            The values or size of the alphabet
+        tokenizer : _Tokenizer
+            A tokenizer instance from the abydos.tokenizer package
+        **kwargs
+            Arbitrary keyword arguments
+
+        Other Parameters
+        ----------------
+        qval : int
+            The length of each q-gram. Using this parameter and tokenizer=None
+            will cause the instance to use the QGram tokenizer with this
+            q value.
+
+        .. versionadded:: 0.4.0
+
+        """
         super(Minkowski, self).__init__(
             tokenizer=tokenizer, alphabet=alphabet, **kwargs
         )
@@ -62,14 +85,8 @@ class Minkowski(_TokenDistance):
             Source string (or QGrams/Counter objects) for comparison
         tar : str
             Target string (or QGrams/Counter objects) for comparison
-        qval : int
-            The length of each q-gram; 0 for non-q-gram version
-        pval : int or float
-            The :math:`p`-value of the :math:`L^p`-space
         normalized : bool
             Normalizes to [0, 1] if True
-        alphabet : collection or int
-            The values or size of the alphabet
 
         Returns
         -------
@@ -100,12 +117,7 @@ class Minkowski(_TokenDistance):
         if normalized:
             totals = self.union().values()
             if self.params['alphabet'] is not None:
-                # noinspection PyTypeChecker
-                normalizer = (
-                    self.params['alphabet']
-                    if isinstance(self.params['alphabet'], Number)
-                    else len(self.params['alphabet'])
-                )
+                normalizer = self.params['alphabet']
             elif self.params['pval'] == 0:
                 normalizer = len(totals)
             else:
@@ -139,12 +151,6 @@ class Minkowski(_TokenDistance):
             Source string (or QGrams/Counter objects) for comparison
         tar : str
             Target string (or QGrams/Counter objects) for comparison
-        qval : int
-            The length of each q-gram; 0 for non-q-gram version
-        pval : int or float
-            The :math:`p`-value of the :math:`L^p`-space
-        alphabet : collection or int
-            The values or size of the alphabet
 
         Returns
         -------
@@ -189,7 +195,7 @@ def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
     pval : int or float
         The :math:`p`-value of the :math:`L^p`-space
     normalized : bool
@@ -239,7 +245,7 @@ def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
     pval : int or float
         The :math:`p`-value of the :math:`L^p`-space
     alphabet : collection or int
@@ -287,7 +293,7 @@ def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
     pval : int or float
         The :math:`p`-value of the :math:`L^p`-space
     alphabet : collection or int

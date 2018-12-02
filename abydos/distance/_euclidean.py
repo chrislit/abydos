@@ -46,6 +46,27 @@ class Euclidean(Minkowski):
     """
 
     def __init__(self, alphabet=None, tokenizer=None, **kwargs):
+        """Initialize Euclidean instance.
+
+        Parameters
+        ----------
+        alphabet : collection or int
+            The values or size of the alphabet
+        tokenizer : _Tokenizer
+            A tokenizer instance from the abydos.tokenizer package
+        **kwargs
+            Arbitrary keyword arguments
+
+        Other Parameters
+        ----------------
+        qval : int
+            The length of each q-gram. Using this parameter and tokenizer=None
+            will cause the instance to use the QGram tokenizer with this
+            q value.
+
+        .. versionadded:: 0.4.0
+
+        """
         super(Euclidean, self).__init__(
             pval=2, alphabet=alphabet, tokenizer=tokenizer, **kwargs
         )
@@ -59,12 +80,9 @@ class Euclidean(Minkowski):
             Source string (or QGrams/Counter objects) for comparison
         tar : str
             Target string (or QGrams/Counter objects) for comparison
-        qval : int
-            The length of each q-gram; 0 for non-q-gram version
         normalized : bool
             Normalizes to [0, 1] if True
-        alphabet : collection or int
-            The values or size of the alphabet
+
 
         Returns
         -------
@@ -102,10 +120,6 @@ class Euclidean(Minkowski):
             Source string (or QGrams/Counter objects) for comparison
         tar : str
             Target string (or QGrams/Counter objects) for comparison
-        qval : int
-            The length of each q-gram; 0 for non-q-gram version
-        alphabet : collection or int
-            The values or size of the alphabet
 
         Returns
         -------
@@ -150,7 +164,7 @@ def euclidean(src, tar, qval=2, normalized=False, alphabet=None):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
     normalized : bool
         Normalizes to [0, 1] if True
     alphabet : collection or int
@@ -174,7 +188,7 @@ def euclidean(src, tar, qval=2, normalized=False, alphabet=None):
     .. versionadded:: 0.3.0
 
     """
-    return Euclidean(alphabet=alphabet, qval=2).dist_abs(
+    return Euclidean(alphabet=alphabet, qval=qval).dist_abs(
         src, tar, normalized=normalized
     )
 
@@ -197,7 +211,7 @@ def dist_euclidean(src, tar, qval=2, alphabet=None):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
     alphabet : collection or int
         The values or size of the alphabet
 
@@ -220,7 +234,7 @@ def dist_euclidean(src, tar, qval=2, alphabet=None):
     .. versionadded:: 0.3.0
 
     """
-    return Euclidean(alphabet=alphabet, qval=2).dist(src, tar)
+    return Euclidean(alphabet=alphabet, qval=qval).dist(src, tar)
 
 
 @deprecated(
@@ -229,7 +243,7 @@ def dist_euclidean(src, tar, qval=2, alphabet=None):
     current_version=__version__,
     details='Use the Euclidean.sim method instead.',
 )
-def sim_euclidean(src, tar, alphabet=None, tokenizer=None, *args, **kwargs):
+def sim_euclidean(src, tar, qval=2, alphabet=None):
     """Return the normalized Euclidean similarity of two strings.
 
     This is a wrapper for :py:meth:`Euclidean.sim`.
@@ -241,7 +255,7 @@ def sim_euclidean(src, tar, alphabet=None, tokenizer=None, *args, **kwargs):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
     alphabet : collection or int
         The values or size of the alphabet
 
@@ -264,7 +278,7 @@ def sim_euclidean(src, tar, alphabet=None, tokenizer=None, *args, **kwargs):
     .. versionadded:: 0.3.0
 
     """
-    return Euclidean(alphabet=alphabet, qval=2).sim(src, tar)
+    return Euclidean(alphabet=alphabet, qval=qval).sim(src, tar)
 
 
 if __name__ == '__main__':

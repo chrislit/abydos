@@ -54,9 +54,23 @@ from __future__ import (
     unicode_literals,
 )
 
+from ._legalipy import LegaliPyTokenizer
+from ._nltk import NLTKTokenizer
 from ._qgrams import QGrams
+from ._regexp import RegexpTokenizer
+from ._sonoripy import SonoriPyTokenizer
+from ._whitespace import WhitespaceTokenizer
+from ._wordpunct import WordpunctTokenizer
 
-__all__ = ['QGrams']
+__all__ = [
+    'QGrams',
+    'RegexpTokenizer',
+    'WhitespaceTokenizer',
+    'WordpunctTokenizer',
+    'NLTKTokenizer',
+    'SonoriPyTokenizer',
+    'LegaliPyTokenizer',
+]
 
 
 if __name__ == '__main__':
