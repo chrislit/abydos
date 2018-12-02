@@ -92,8 +92,8 @@ class MongeElkan(_Distance):
         if src == tar:
             return 1.0
 
-        q_src = sorted(QGrams(src).elements())
-        q_tar = sorted(QGrams(tar).elements())
+        q_src = sorted(QGrams().tokenize(src).get_list())
+        q_tar = sorted(QGrams().tokenize(tar).get_list())
 
         if not q_src or not q_tar:
             return 0.0
