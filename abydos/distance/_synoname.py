@@ -477,7 +477,7 @@ class Synoname(_Distance):
                     new_tests += self._test_dict[term]
             self._tests = new_tests
 
-    def dist_abs(self, src, tar, **kwargs):
+    def dist_abs(self, src, tar, force_numeric=False):
         """Return the Synoname similarity type of two words.
 
         Parameters
@@ -486,8 +486,8 @@ class Synoname(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        **kwargs
-            Arbitrary keyword arguments
+        force_numeric : bool
+            Overrides the instance's ret_name setting
 
         Returns
         -------
@@ -536,7 +536,7 @@ class Synoname(_Distance):
             return spec_list
 
         def _fmt_retval(val):
-            if self._ret_name and 'force_numeric' not in kwargs:
+            if self._ret_name and not force_numeric:
                 return self._match_name[val]
             return val
 

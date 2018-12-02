@@ -328,7 +328,7 @@ class SynonameTestCases(unittest.TestCase):
         )
         self.assertEqual(
             Synoname(ret_name=True).dist_abs(
-                ('Picasso', '', ''), ('Picasso', 'Pablo', ''), ret_name=True
+                ('Picasso', '', ''), ('Picasso', 'Pablo', '')
             ),
             'no_first',
         )
