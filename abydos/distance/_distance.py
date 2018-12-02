@@ -35,6 +35,34 @@ class _Distance(object):
     .. versionadded:: 0.3.6
     """
 
+    def __init__(self, **kwargs):
+        """Initialize _Distance instance.
+
+        Parameters
+        ----------
+        **kwargs
+            Arbitrary keyword arguments
+
+        .. versionadded:: 0.4.0
+
+        """
+        self.params = {}
+        self.set_params(**kwargs)
+
+    def set_params(self, **kwargs):
+        """Store params in the params dict.
+
+        Parameters
+        ----------
+        **kwargs
+            Arbitrary keyword arguments
+
+        .. versionadded:: 0.4.0
+
+        """
+        for key in kwargs:
+            self.params[key] = kwargs[key]
+
     def sim(self, src, tar, *args, **kwargs):
         """Return similarity.
 

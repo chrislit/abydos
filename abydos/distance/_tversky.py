@@ -73,6 +73,31 @@ class Tversky(_TokenDistance):
     def __init__(
         self, alpha=1.0, beta=1.0, bias=None, tokenizer=None, **kwargs
     ):
+        """Initialize Tversky instance.
+
+        Parameters
+        ----------
+        alpha : float
+            Tversky index parameter as described above
+        beta : float
+            Tversky index parameter as described above
+        bias : float
+            The symmetric Tversky index bias parameter
+        tokenizer : _Tokenizer
+            A tokenizer instance from the abydos.tokenizer package
+        **kwargs
+            Arbitrary keyword arguments
+
+        Other Parameters
+        ----------------
+        qval : int
+            The length of each q-gram. Using this parameter and tokenizer=None
+            will cause the instance to use the QGram tokenizer with this
+            q value.
+
+        .. versionadded:: 0.4.0
+
+        """
         super(Tversky, self).__init__(tokenizer=tokenizer, **kwargs)
         self.set_params(alpha=alpha, beta=beta, bias=bias)
 
@@ -85,14 +110,6 @@ class Tversky(_TokenDistance):
             Source string (or QGrams/Counter objects) for comparison
         tar : str
             Target string (or QGrams/Counter objects) for comparison
-        qval : int
-            The length of each q-gram; 0 for non-q-gram version
-        alpha : float
-            Tversky index parameter as described above
-        beta : float
-            Tversky index parameter as described above
-        bias : float
-            The symmetric Tversky index bias parameter
 
         Returns
         -------
@@ -184,7 +201,7 @@ def sim_tversky(src, tar, qval=2, alpha=1.0, beta=1.0, bias=None):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
     alpha : float
         Tversky index parameter as described above
     beta : float
@@ -232,7 +249,7 @@ def dist_tversky(src, tar, qval=2, alpha=1.0, beta=1.0, bias=None):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
     alpha : float
         Tversky index parameter as described above
     beta : float

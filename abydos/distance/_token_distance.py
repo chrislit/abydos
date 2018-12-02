@@ -31,7 +31,7 @@ from __future__ import (
 from collections import Counter
 
 from ._distance import _Distance
-from ..tokenizer import QGrams
+from ..tokenizer import QGrams, WhitespaceTokenizer
 
 
 class _TokenDistance(_Distance):
@@ -41,25 +41,44 @@ class _TokenDistance(_Distance):
     """
 
     def __init__(self, tokenizer=None, **kwargs):
-        qval = 2 if 'qval' not in kwargs else kwargs['qval']
-        self.params = {
-            'tokenizer': tokenizer
-            if tokenizer is not None
-            else QGrams(qval=qval, start_stop='$#', skip=0, scaler=None),
-            'alphabet': None,
-        }
+        """Initialize _TokenDistance instance.
 
-        if 'alphabet' in kwargs:
-            self.params['alphabet'] = kwargs['alphabet']
+        Parameters
+        ----------
+        tokenizer : _Tokenizer
+            A tokenizer instance from the abydos.tokenizer package
+        **kwargs
+            Arbitrary keyword arguments
+
+        Other Parameters
+        ----------------
+        qval : int
+            The length of each q-gram. Using this parameter and tokenizer=None
+            will cause the instance to use the QGram tokenizer with this
+            q value.
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(_TokenDistance, self).__init__(**kwargs)
+
+        qval = 2 if 'qval' not in self.params else self.params['qval']
+        self.params['tokenizer'] = (
+            tokenizer
+            if tokenizer is not None
+            else WhitespaceTokenizer()
+            if qval == 0
+            else QGrams(qval=qval, start_stop='$#', skip=0, scaler=None)
+        )
+
+        if 'alphabet' in self.params:
             if hasattr(self.params['alphabet'], '__len__'):
                 self.params['alphabet'] = len(self.params['alphabet'])
+        else:
+            self.params['alphabet'] = None
 
         self._src_tokens = Counter()
         self._tar_tokens = Counter()
-
-    def set_params(self, **kwargs):
-        for key in kwargs:
-            self.params[key] = kwargs[key]
 
     def tokenize(self, src, tar):
         """Return the Q-Grams in src & tar.
@@ -70,11 +89,6 @@ class _TokenDistance(_Distance):
             Source string (or QGrams/Counter objects) for comparison
         tar : str
             Target string (or QGrams/Counter objects) for comparison
-        qval : int
-            The length of each q-gram; 0 for non-q-gram version
-        skip : int
-            The number of characters to skip (only works when src and tar are
-            strings)
 
         Returns
         -------
@@ -107,18 +121,23 @@ class _TokenDistance(_Distance):
             )
 
     def src_only(self):
+        """Returns the src tokens minus the tar tokens."""
         return self._src_tokens - self._tar_tokens
 
     def tar_only(self):
+        """Returns the tar tokens minus the src tokens."""
         return self._tar_tokens - self._src_tokens
 
     def union(self):
+        """Returns the union (sum) of tokens from src and tar."""
         return self._src_tokens + self._tar_tokens
 
     def intersection(self):
+        """Returns the intersection of tokens from src and tar."""
         return self._src_tokens & self._tar_tokens
 
     def difference(self):
+        """Returns the difference of the tokens, supporting negative values."""
         _src_copy = Counter(self._src_tokens)
         _src_copy.subtract(self._tar_tokens)
         return _src_copy

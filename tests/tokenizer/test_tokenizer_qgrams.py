@@ -47,7 +47,9 @@ class QGramsTestCases(unittest.TestCase):
             sorted(QGrams(3).tokenize('NELSON').get_list()),
             sorted(['$$N', '$NE', 'NEL', 'ELS', 'LSO', 'SON', 'ON#', 'N##']),
         )
-        self.assertEqual(sorted(QGrams(7).tokenize('NELSON').get_list()), sorted([]))
+        self.assertEqual(
+            sorted(QGrams(7).tokenize('NELSON').get_list()), sorted([])
+        )
 
         # http://www.sound-ex.com/alternative_qgram.htm
         self.assertEqual(
@@ -219,16 +221,23 @@ class QGramsTestCases(unittest.TestCase):
 
     def test_qgram_intersections(self):
         """Test abydos.tokenizer.QGrams intersections."""
-        self.assertEqual(sorted(QGrams().tokenize('NELSON') & QGrams().tokenize('')), [])
-        self.assertEqual(sorted(QGrams().tokenize('') & QGrams().tokenize('NEILSEN')), [])
+        self.assertEqual(
+            sorted(QGrams().tokenize('NELSON') & QGrams().tokenize('')), []
+        )
+        self.assertEqual(
+            sorted(QGrams().tokenize('') & QGrams().tokenize('NEILSEN')), []
+        )
         self.assertEqual(
             sorted(QGrams().tokenize('NELSON') & QGrams().tokenize('NEILSEN')),
             sorted(['$N', 'NE', 'LS', 'N#']),
         )
         self.assertEqual(
-            sorted(QGrams().tokenize('NELSON') & QGrams().tokenize('NOSLEN')), sorted(['$N', 'N#'])
+            sorted(QGrams().tokenize('NELSON') & QGrams().tokenize('NOSLEN')),
+            sorted(['$N', 'N#']),
         )
-        self.assertEqual(sorted(QGrams().tokenize('NAIL') & QGrams().tokenize('LIAN')), [])
+        self.assertEqual(
+            sorted(QGrams().tokenize('NAIL') & QGrams().tokenize('LIAN')), []
+        )
 
         self.assertEqual(
             sorted(
@@ -246,7 +255,8 @@ class QGramsTestCases(unittest.TestCase):
         )
         self.assertEqual(
             sorted(
-                QGrams(start_stop='').tokenize('NAIL') & QGrams(start_stop='').tokenize('LIAN')
+                QGrams(start_stop='').tokenize('NAIL')
+                & QGrams(start_stop='').tokenize('LIAN')
             ),
             [],
         )
@@ -266,7 +276,9 @@ class QGramsTestCases(unittest.TestCase):
         self.assertEqual(
             len(QGrams(start_stop='').tokenize('NEILSEN').get_list()), 6
         )
-        self.assertEqual(len(QGrams(start_stop='').tokenize('NELSON').get_list()), 5)
+        self.assertEqual(
+            len(QGrams(start_stop='').tokenize('NELSON').get_list()), 5
+        )
 
 
 if __name__ == '__main__':

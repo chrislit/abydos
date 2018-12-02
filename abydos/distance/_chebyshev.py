@@ -46,6 +46,27 @@ class Chebyshev(Minkowski):
     """
 
     def __init__(self, alphabet=None, tokenizer=None, **kwargs):
+        """Initialize Euclidean instance.
+
+        Parameters
+        ----------
+        alphabet : collection or int
+            The values or size of the alphabet
+        tokenizer : _Tokenizer
+            A tokenizer instance from the abydos.tokenizer package
+        **kwargs
+            Arbitrary keyword arguments
+
+        Other Parameters
+        ----------------
+        qval : int
+            The length of each q-gram. Using this parameter and tokenizer=None
+            will cause the instance to use the QGram tokenizer with this
+            q value.
+
+        .. versionadded:: 0.4.0
+
+        """
         super(Chebyshev, self).__init__(
             pval=float('inf'), alphabet=alphabet, tokenizer=tokenizer, **kwargs
         )
@@ -59,10 +80,6 @@ class Chebyshev(Minkowski):
             Source string (or QGrams/Counter objects) for comparison
         tar : str
             Target string (or QGrams/Counter objects) for comparison
-        qval : int
-            The length of each q-gram; 0 for non-q-gram version alphabet
-        alphabet : collection or int
-            The values or size of the alphabet
 
         Returns
         -------
@@ -151,7 +168,7 @@ def chebyshev(src, tar, qval=2, alphabet=None):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version alphabet
+        The length of each q-gram
     alphabet : collection or int
         The values or size of the alphabet
 

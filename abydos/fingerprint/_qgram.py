@@ -50,6 +50,7 @@ class QGram(_Fingerprint):
 
     .. versionadded:: 0.3.6
     """
+
     def __init__(self, qval=2, start_stop='', joiner='', skip=0, scaler=None):
         self.qval = qval
         self.start_stop = start_stop
@@ -94,7 +95,11 @@ class QGram(_Fingerprint):
         """
         phrase = unicode_normalize('NFKD', text_type(phrase.strip().lower()))
         phrase = ''.join(c for c in phrase if c.isalnum())
-        phrase = QGrams(self.qval, self.start_stop, self.skip, self.scaler).tokenize(phrase).get_set()
+        phrase = (
+            QGrams(self.qval, self.start_stop, self.skip, self.scaler)
+            .tokenize(phrase)
+            .get_set()
+        )
         phrase = self.joiner.join(sorted(phrase))
         return phrase
 
@@ -139,7 +144,9 @@ def qgram_fingerprint(phrase, qval=2, start_stop='', joiner=''):
     .. versionadded:: 0.1.0
 
     """
-    return QGram(qval=qval, start_stop=start_stop, joiner=joiner).fingerprint(phrase)
+    return QGram(qval=qval, start_stop=start_stop, joiner=joiner).fingerprint(
+        phrase
+    )
 
 
 if __name__ == '__main__':
