@@ -97,22 +97,17 @@ class Typo(_Distance):
     )}
     # fmt: on
 
-    def dist_abs(
+    def __init__(
         self,
-        src,
-        tar,
         metric='euclidean',
         cost=(1, 1, 0.5, 0.5),
         layout='QWERTY',
+        **kwargs
     ):
-        """Return the typo distance between two strings.
+        """Initialize Typo instance.
 
         Parameters
         ----------
-        src : str
-            Source string for comparison
-        tar : str
-            Target string for comparison
         metric : str
             Supported values include: ``euclidean``, ``manhattan``,
             ``log-euclidean``, and ``log-manhattan``
@@ -125,6 +120,26 @@ class Typo(_Distance):
         layout : str
             Name of the keyboard layout to use (Currently supported:
             ``QWERTY``, ``Dvorak``, ``AZERTY``, ``QWERTZ``)
+        **kwargs
+            Arbitrary keyword arguments
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Typo, self).__init__(**kwargs)
+        self._metric = metric
+        self._cost = cost
+        self._layout = layout
+
+    def dist_abs(self, src, tar):
+        """Return the typo distance between two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
         Returns
         -------
@@ -171,7 +186,7 @@ class Typo(_Distance):
             Encapsulated in class
 
         """
-        ins_cost, del_cost, sub_cost, shift_cost = cost
+        ins_cost, del_cost, sub_cost, shift_cost = self._cost
 
         if src == tar:
             return 0.0
@@ -180,7 +195,7 @@ class Typo(_Distance):
         if not tar:
             return len(src) * del_cost
 
-        keyboard = self._keyboard[layout]
+        keyboard = self._keyboard[self._layout]
         lowercase = {item for sublist in keyboard[0] for item in sublist}
         uppercase = {item for sublist in keyboard[1] for item in sublist}
 
@@ -213,7 +228,7 @@ class Typo(_Distance):
 
         def _substitution_cost(char1, char2):
             cost = sub_cost
-            cost *= metric_dict[metric](char1, char2) + shift_cost * (
+            cost *= metric_dict[self._metric](char1, char2) + shift_cost * (
                 _kb_array_for_char(char1) != _kb_array_for_char(char2)
             )
             return cost
@@ -284,14 +299,7 @@ class Typo(_Distance):
 
         return d_mat[len(src), len(tar)]
 
-    def dist(
-        self,
-        src,
-        tar,
-        metric='euclidean',
-        cost=(1, 1, 0.5, 0.5),
-        layout='QWERTY',
-    ):
+    def dist(self, src, tar):
         """Return the normalized typo distance between two strings.
 
         This is typo distance, normalized to [0, 1].
@@ -302,18 +310,6 @@ class Typo(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        metric : str
-            Supported values include: ``euclidean``, ``manhattan``,
-            ``log-euclidean``, and ``log-manhattan``
-        cost : tuple
-            A 4-tuple representing the cost of the four possible edits:
-            inserts, deletes, substitutions, and shift, respectively (by
-            default: (1, 1, 0.5, 0.5)) The substitution & shift costs should be
-            significantly less than the cost of an insertion & deletion unless
-            a log metric is used.
-        layout : str
-            Name of the keyboard layout to use (Currently supported:
-            ``QWERTY``, ``Dvorak``, ``AZERTY``, ``QWERTZ``)
 
         Returns
         -------
@@ -339,8 +335,8 @@ class Typo(_Distance):
         """
         if src == tar:
             return 0.0
-        ins_cost, del_cost = cost[:2]
-        return self.dist_abs(src, tar, metric, cost, layout) / (
+        ins_cost, del_cost = self._cost[:2]
+        return self.dist_abs(src, tar) / (
             max(len(src) * del_cost, len(tar) * ins_cost)
         )
 
@@ -412,7 +408,7 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
     .. versionadded:: 0.3.0
 
     """
-    return Typo().dist_abs(src, tar, metric, cost, layout)
+    return Typo(metric, cost, layout).dist_abs(src, tar)
 
 
 @deprecated(
@@ -466,7 +462,7 @@ def dist_typo(
     .. versionadded:: 0.3.0
 
     """
-    return Typo().dist(src, tar, metric, cost, layout)
+    return Typo(metric, cost, layout).dist(src, tar)
 
 
 @deprecated(
@@ -520,7 +516,7 @@ def sim_typo(
     .. versionadded:: 0.3.0
 
     """
-    return Typo().sim(src, tar, metric, cost, layout)
+    return Typo(metric, cost, layout).sim(src, tar)
 
 
 if __name__ == '__main__':

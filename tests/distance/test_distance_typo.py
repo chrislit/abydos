@@ -53,18 +53,16 @@ class TypoTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('asdf', 'qsdf'), 0.5)
 
         self.assertAlmostEqual(
-            self.cmp.dist_abs('asdf', 'asdt', metric='euclidean'), 0.70710677
+            Typo(metric='euclidean').dist_abs('asdf', 'asdt'), 0.70710677
         )
         self.assertAlmostEqual(
-            self.cmp.dist_abs('asdf', 'asdt', metric='manhattan'), 1
+            Typo(metric='manhattan').dist_abs('asdf', 'asdt'), 1
         )
         self.assertAlmostEqual(
-            self.cmp.dist_abs('asdf', 'asdt', metric='log-euclidean'),
-            0.4406868,
+            Typo(metric='log-euclidean').dist_abs('asdf', 'asdt'), 0.4406868
         )
         self.assertAlmostEqual(
-            self.cmp.dist_abs('asdf', 'asdt', metric='log-manhattan'),
-            0.54930615,
+            Typo(metric='log-manhattan').dist_abs('asdf', 'asdt'), 0.54930615
         )
 
         self.assertRaises(ValueError, self.cmp.dist_abs, 'asdf', 'Ösdf')
@@ -86,18 +84,17 @@ class TypoTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('asdf', 'qsdf'), 0.875)
 
         self.assertAlmostEqual(
-            self.cmp.sim('asdf', 'asdt', metric='euclidean'),
-            1 - (0.70710677 / 4),
+            Typo(metric='euclidean').sim('asdf', 'asdt'), 1 - (0.70710677 / 4)
         )
         self.assertAlmostEqual(
-            self.cmp.sim('asdf', 'asdt', metric='manhattan'), 0.75
+            Typo(metric='manhattan').sim('asdf', 'asdt'), 0.75
         )
         self.assertAlmostEqual(
-            self.cmp.sim('asdf', 'asdt', metric='log-euclidean'),
+            Typo(metric='log-euclidean').sim('asdf', 'asdt'),
             1 - (0.4406868 / 4),
         )
         self.assertAlmostEqual(
-            self.cmp.sim('asdf', 'asdt', metric='log-manhattan'),
+            Typo(metric='log-manhattan').sim('asdf', 'asdt'),
             1 - (0.54930615 / 4),
         )
 
@@ -119,18 +116,16 @@ class TypoTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('asdf', 'qsdf'), 0.125)
 
         self.assertAlmostEqual(
-            self.cmp.dist('asdf', 'asdt', metric='euclidean'), 0.70710677 / 4
+            Typo(metric='euclidean').dist('asdf', 'asdt'), 0.70710677 / 4
         )
         self.assertAlmostEqual(
-            self.cmp.dist('asdf', 'asdt', metric='manhattan'), 0.25
+            Typo(metric='manhattan').dist('asdf', 'asdt'), 0.25
         )
         self.assertAlmostEqual(
-            self.cmp.dist('asdf', 'asdt', metric='log-euclidean'),
-            0.4406868 / 4,
+            Typo(metric='log-euclidean').dist('asdf', 'asdt'), 0.4406868 / 4
         )
         self.assertAlmostEqual(
-            self.cmp.dist('asdf', 'asdt', metric='log-manhattan'),
-            0.54930615 / 4,
+            Typo(metric='log-manhattan').dist('asdf', 'asdt'), 0.54930615 / 4
         )
 
         # Test wrapper

@@ -135,7 +135,29 @@ class NeedlemanWunsch(_Distance):
             return mat[(tar, src)]
         return mismatch_cost
 
-    def dist_abs(self, src, tar, gap_cost=1, sim_func=sim_ident):
+    def __init__(self, gap_cost=1, sim_func=None, **kwargs):
+        """Initialize NeedlemanWunsch instance.
+
+        Parameters
+        ----------
+        gap_cost : float
+            The cost of an alignment gap (1 by default)
+        sim_func : function
+            A function that returns the similarity of two characters (identity
+            similarity by default)
+        **kwargs
+            Arbitrary keyword arguments
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(NeedlemanWunsch, self).__init__(**kwargs)
+        self._gap_cost = gap_cost
+        self._sim_func = sim_func
+        if self._sim_func is None:
+            self._sim_func = NeedlemanWunsch.sim_matrix
+
+    def dist_abs(self, src, tar):
         """Return the Needleman-Wunsch score of two strings.
 
         Parameters
@@ -144,11 +166,6 @@ class NeedlemanWunsch(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        gap_cost : float
-            The cost of an alignment gap (1 by default)
-        sim_func : function
-            A function that returns the similarity of two characters (identity
-            similarity by default)
 
         Returns
         -------
@@ -175,14 +192,16 @@ class NeedlemanWunsch(_Distance):
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
 
         for i in range(len(src) + 1):
-            d_mat[i, 0] = -(i * gap_cost)
+            d_mat[i, 0] = -(i * self._gap_cost)
         for j in range(len(tar) + 1):
-            d_mat[0, j] = -(j * gap_cost)
+            d_mat[0, j] = -(j * self._gap_cost)
         for i in range(1, len(src) + 1):
             for j in range(1, len(tar) + 1):
-                match = d_mat[i - 1, j - 1] + sim_func(src[i - 1], tar[j - 1])
-                delete = d_mat[i - 1, j] - gap_cost
-                insert = d_mat[i, j - 1] - gap_cost
+                match = d_mat[i - 1, j - 1] + self._sim_func(
+                    src[i - 1], tar[j - 1]
+                )
+                delete = d_mat[i - 1, j] - self._gap_cost
+                insert = d_mat[i, j - 1] - self._gap_cost
                 d_mat[i, j] = max(match, delete, insert)
         return d_mat[d_mat.shape[0] - 1, d_mat.shape[1] - 1]
 
@@ -229,7 +248,7 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
     .. versionadded:: 0.1.0
 
     """
-    return NeedlemanWunsch().dist_abs(src, tar, gap_cost, sim_func)
+    return NeedlemanWunsch(gap_cost, sim_func).dist_abs(src, tar)
 
 
 if __name__ == '__main__':

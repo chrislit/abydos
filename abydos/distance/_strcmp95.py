@@ -96,7 +96,27 @@ class Strcmp95(_Distance):
         ('G', 'J'),
     )
 
-    def sim(self, src, tar, long_strings=False):
+    def __init__(self, long_strings=False, **kwargs):
+        """Initialize Strcmp95 instance.
+
+        Parameters
+        ----------
+        long_strings : bool
+            Set to True to increase the probability of a match when the number
+            of matched characters is large. This option allows for a little
+            more tolerance when the strings are large. It is not an appropriate
+            test when comparing fixed length fields such as phone and social
+            security numbers.
+        **kwargs
+            Arbitrary keyword arguments
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Strcmp95, self).__init__(**kwargs)
+        self._long_strings = long_strings
+
+    def sim(self, src, tar):
         """Return the strcmp95 similarity of two strings.
 
         Parameters
@@ -105,12 +125,6 @@ class Strcmp95(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        long_strings : bool
-            Set to True to increase the probability of a match when the number
-            of matched characters is large. This option allows for a little
-            more tolerance when the strings are large. It is not an appropriate
-            test when comparing fixed length fields such as phone and social
-            security numbers.
 
         Returns
         -------
@@ -252,7 +266,7 @@ class Strcmp95(_Distance):
             # After agreeing beginning chars, at least two more must agree and
             # the agreeing characters must be > .5 of remaining characters.
             if (
-                long_strings
+                self._long_strings
                 and (minv > 4)
                 and (num_com > i + 1)
                 and (2 * num_com >= minv + i)
@@ -308,7 +322,7 @@ def sim_strcmp95(src, tar, long_strings=False):
     .. versionadded:: 0.1.0
 
     """
-    return Strcmp95().sim(src, tar, long_strings)
+    return Strcmp95(long_strings).sim(src, tar)
 
 
 @deprecated(
@@ -354,7 +368,7 @@ def dist_strcmp95(src, tar, long_strings=False):
     .. versionadded:: 0.1.0
 
     """
-    return Strcmp95().dist(src, tar, long_strings)
+    return Strcmp95(long_strings).dist(src, tar)
 
 
 if __name__ == '__main__':

@@ -75,7 +75,7 @@ class DamerauLevenshtein(_Distance):
         super(DamerauLevenshtein, self).__init__(**kwargs)
         self._cost = cost
 
-    def dist_abs(self, src, tar, cost=(1, 1, 1, 1)):
+    def dist_abs(self, src, tar):
         """Return the Damerau-Levenshtein distance between two strings.
 
         Parameters
@@ -84,10 +84,6 @@ class DamerauLevenshtein(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        cost : tuple
-            A 4-tuple representing the cost of the four possible edits:
-            inserts, deletes, substitutions, and transpositions, respectively
-            (by default: (1, 1, 1, 1))
 
         Returns
         -------
@@ -117,7 +113,7 @@ class DamerauLevenshtein(_Distance):
             Encapsulated in class
 
         """
-        ins_cost, del_cost, sub_cost, trans_cost = cost
+        ins_cost, del_cost, sub_cost, trans_cost = self._cost
 
         if src == tar:
             return 0
@@ -198,7 +194,7 @@ class DamerauLevenshtein(_Distance):
 
         return d_mat[len(src) - 1, len(tar) - 1]
 
-    def dist(self, src, tar, cost=(1, 1, 1, 1)):
+    def dist(self, src, tar):
         """Return the Damerau-Levenshtein similarity of two strings.
 
         Damerau-Levenshtein distance normalized to the interval [0, 1].
@@ -216,10 +212,6 @@ class DamerauLevenshtein(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        cost : tuple
-            A 4-tuple representing the cost of the four possible edits:
-            inserts, deletes, substitutions, and transpositions, respectively
-            (by default: (1, 1, 1, 1))
 
         Returns
         -------
@@ -245,8 +237,8 @@ class DamerauLevenshtein(_Distance):
         """
         if src == tar:
             return 0.0
-        ins_cost, del_cost = cost[:2]
-        return self.dist_abs(src, tar, cost) / (
+        ins_cost, del_cost = self._cost[:2]
+        return self.dist_abs(src, tar) / (
             max(len(src) * del_cost, len(tar) * ins_cost)
         )
 
@@ -292,7 +284,7 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
     .. versionadded:: 0.1.0
 
     """
-    return DamerauLevenshtein().dist_abs(src, tar, cost)
+    return DamerauLevenshtein(cost).dist_abs(src, tar)
 
 
 @deprecated(
@@ -336,7 +328,7 @@ def dist_damerau(src, tar, cost=(1, 1, 1, 1)):
     .. versionadded:: 0.1.0
 
     """
-    return DamerauLevenshtein().dist(src, tar, cost)
+    return DamerauLevenshtein(cost).dist(src, tar)
 
 
 @deprecated(
@@ -380,7 +372,7 @@ def sim_damerau(src, tar, cost=(1, 1, 1, 1)):
     .. versionadded:: 0.1.0
 
     """
-    return DamerauLevenshtein().sim(src, tar, cost)
+    return DamerauLevenshtein(cost).sim(src, tar)
 
 
 if __name__ == '__main__':
