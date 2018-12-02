@@ -153,8 +153,8 @@ class JaroWinkler(_Distance):
         if src == tar:
             return 1.0
 
-        src = QGrams(src.strip(), qval)._ordered_list
-        tar = QGrams(tar.strip(), qval)._ordered_list
+        src = QGrams(qval).tokenize(src.strip()).get_list()
+        tar = QGrams(qval).tokenize(tar.strip()).get_list()
 
         lens = len(src)
         lent = len(tar)
