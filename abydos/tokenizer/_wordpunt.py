@@ -28,12 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._regexp import Regexp
+from ._regexp import RegexpTokenizer
 
 __all__ = ['WordpunctTokenizer']
 
 
-class WordpunctTokenizer(Regexp):
+class WordpunctTokenizer(RegexpTokenizer):
     """A wordpunct tokenizer
 
     .. versionadded:: 0.4.0
