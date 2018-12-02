@@ -94,7 +94,7 @@ class _Tokenizer(object):
         .. versionadded:: 0.4.0
 
         """
-        return sum(self.get_tokens_counter().values())
+        return sum(self.get_counter().values())
 
     def count_unique(self):
         """Return the number of unique elements.
@@ -126,7 +126,7 @@ class _Tokenizer(object):
         Examples
         --------
         >>> tok = _Tokenizer().tokenize('term')
-        >>> tok.get_tokens_counter()
+        >>> tok.get_counter()
         {'term': 1}
 
         .. versionadded:: 0.4.0
@@ -153,7 +153,7 @@ class _Tokenizer(object):
         Examples
         --------
         >>> tok = _Tokenizer().tokenize('term')
-        >>> tok.get_tokens_set()
+        >>> tok.get_set()
         {'term'}
 
         .. versionadded:: 0.4.0
@@ -172,7 +172,7 @@ class _Tokenizer(object):
         Examples
         --------
         >>> tok = _Tokenizer().tokenize('term')
-        >>> tok.get_tokens_list()
+        >>> tok.get_list()
         ['term']
 
         .. versionadded:: 0.4.0
