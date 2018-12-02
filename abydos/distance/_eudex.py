@@ -97,17 +97,11 @@ class Eudex(_Distance):
             yield base ** exp
             exp += 1
 
-    def dist_abs(
-        self, src, tar, weights='exponential', max_length=8, normalized=False
-    ):
-        """Calculate the distance between the Eudex hashes of two terms.
+    def __init__(self, weights='exponential', max_length=8, **kwargs):
+        """Initialize Eudex instance.
 
         Parameters
         ----------
-        src : str
-            Source string for comparison
-        tar : str
-            Target string for comparison
         weights : str, iterable, or generator function
             The weights or weights generator function
 
@@ -125,6 +119,25 @@ class Eudex(_Distance):
 
         max_length : int
             The number of characters to encode as a eudex hash
+        **kwargs
+            Arbitrary keyword arguments
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Eudex, self).__init__(**kwargs)
+        self._weights = weights
+        self._max_length = max_length
+
+    def dist_abs(self, src, tar, normalized=False):
+        """Calculate the distance between the Eudex hashes of two terms.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
         normalized : bool
             Normalizes to [0, 1] if True
 
@@ -180,12 +193,12 @@ class Eudex(_Distance):
 
         """
         # Calculate the eudex hashes and XOR them
-        xored = eudex(src, max_length=max_length) ^ eudex(
-            tar, max_length=max_length
+        xored = eudex(src, max_length=self._max_length) ^ eudex(
+            tar, max_length=self._max_length
         )
 
         # Simple hamming distance (all bits are equal)
-        if not weights:
+        if not self._weights:
             binary = bin(xored)
             distance = binary.count('1')
             if normalized:
@@ -194,14 +207,17 @@ class Eudex(_Distance):
 
         # If weights is a function, it should create a generator,
         # which we now use to populate a list
-        if callable(weights):
-            weights = weights()
-        elif weights == 'exponential':
+        if callable(self._weights):
+            weights = self._weights()
+        elif self._weights == 'exponential':
             weights = Eudex.gen_exponential()
-        elif weights == 'fibonacci':
+        elif self._weights == 'fibonacci':
             weights = Eudex.gen_fibonacci()
+        else:
+            weights = self._weights
+
         if isinstance(weights, GeneratorType):
-            weights = [next(weights) for _ in range(max_length)][::-1]
+            weights = [next(weights) for _ in range(self._max_length)][::-1]
 
         # Sum the weighted hamming distance
         distance = 0
@@ -216,7 +232,7 @@ class Eudex(_Distance):
 
         return distance
 
-    def dist(self, src, tar, weights='exponential', max_length=8):
+    def dist(self, src, tar):
         """Return normalized distance between the Eudex hashes of two terms.
 
         This is Eudex distance normalized to [0, 1].
@@ -227,10 +243,6 @@ class Eudex(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        weights : str, iterable, or generator function
-            The weights or weights generator function
-        max_length : int
-            The number of characters to encode as a eudex hash
 
         Returns
         -------
@@ -254,7 +266,7 @@ class Eudex(_Distance):
             Encapsulated in class
 
         """
-        return self.dist_abs(src, tar, weights, max_length, True)
+        return self.dist_abs(src, tar, True)
 
 
 @deprecated(
@@ -330,7 +342,7 @@ def eudex_hamming(
     .. versionadded:: 0.3.0
 
     """
-    return Eudex().dist_abs(src, tar, weights, max_length, normalized)
+    return Eudex(weights, max_length).dist_abs(src, tar, normalized)
 
 
 @deprecated(
@@ -374,7 +386,7 @@ def dist_eudex(src, tar, weights='exponential', max_length=8):
     .. versionadded:: 0.3.0
 
     """
-    return Eudex().dist(src, tar, weights, max_length)
+    return Eudex(weights, max_length).dist(src, tar)
 
 
 @deprecated(
@@ -418,7 +430,7 @@ def sim_eudex(src, tar, weights='exponential', max_length=8):
     .. versionadded:: 0.3.0
 
     """
-    return Eudex().sim(src, tar, weights, max_length)
+    return Eudex(weights, max_length).sim(src, tar)
 
 
 if __name__ == '__main__':

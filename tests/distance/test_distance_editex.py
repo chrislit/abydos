@@ -40,6 +40,7 @@ class EditexTestCases(unittest.TestCase):
     """
 
     cmp = Editex()
+    cmp_local = Editex(local=True)
 
     def test_editex_dist_abs(self):
         """Test abydos.distance.Editex.dist_abs."""
@@ -62,19 +63,19 @@ class EditexTestCases(unittest.TestCase):
 
     def test_editex_dist_abs_local(self):
         """Test abydos.distance.Editex.dist_abs (local variant)."""
-        self.assertEqual(self.cmp.dist_abs('', '', local=True), 0)
-        self.assertEqual(self.cmp.dist_abs('nelson', '', local=True), 12)
-        self.assertEqual(self.cmp.dist_abs('', 'neilsen', local=True), 14)
-        self.assertEqual(self.cmp.dist_abs('ab', 'a', local=True), 2)
-        self.assertEqual(self.cmp.dist_abs('ab', 'c', local=True), 2)
-        self.assertEqual(self.cmp.dist_abs('nelson', 'neilsen', local=True), 2)
-        self.assertEqual(self.cmp.dist_abs('neilsen', 'nelson', local=True), 2)
-        self.assertEqual(self.cmp.dist_abs('niall', 'neal', local=True), 1)
-        self.assertEqual(self.cmp.dist_abs('neal', 'niall', local=True), 1)
-        self.assertEqual(self.cmp.dist_abs('niall', 'nihal', local=True), 2)
-        self.assertEqual(self.cmp.dist_abs('nihal', 'niall', local=True), 2)
-        self.assertEqual(self.cmp.dist_abs('neal', 'nihl', local=True), 3)
-        self.assertEqual(self.cmp.dist_abs('nihl', 'neal', local=True), 3)
+        self.assertEqual(self.cmp_local.dist_abs('', ''), 0)
+        self.assertEqual(self.cmp_local.dist_abs('nelson', ''), 12)
+        self.assertEqual(self.cmp_local.dist_abs('', 'neilsen'), 14)
+        self.assertEqual(self.cmp_local.dist_abs('ab', 'a'), 2)
+        self.assertEqual(self.cmp_local.dist_abs('ab', 'c'), 2)
+        self.assertEqual(self.cmp_local.dist_abs('nelson', 'neilsen'), 2)
+        self.assertEqual(self.cmp_local.dist_abs('neilsen', 'nelson'), 2)
+        self.assertEqual(self.cmp_local.dist_abs('niall', 'neal'), 1)
+        self.assertEqual(self.cmp_local.dist_abs('neal', 'niall'), 1)
+        self.assertEqual(self.cmp_local.dist_abs('niall', 'nihal'), 2)
+        self.assertEqual(self.cmp_local.dist_abs('nihal', 'niall'), 2)
+        self.assertEqual(self.cmp_local.dist_abs('neal', 'nihl'), 3)
+        self.assertEqual(self.cmp_local.dist_abs('nihl', 'neal'), 3)
 
         # Test wrapper
         self.assertEqual(editex('niall', 'neal', local=True), 1)

@@ -31,7 +31,7 @@ from __future__ import (
 from deprecation import deprecated
 
 from ._distance import _Distance
-from ._levenshtein import sim_levenshtein
+from ._levenshtein import Levenshtein, sim_levenshtein
 from .. import __version__
 from ..tokenizer import QGrams
 
@@ -53,7 +53,30 @@ class MongeElkan(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def sim(self, src, tar, sim_func=sim_levenshtein, symmetric=False):
+    def __init__(self, sim_func=None, symmetric=False, **kwargs):
+        """Initialize MongeElkan instance.
+
+        Parameters
+        ----------
+        sim_func : function
+            The internal similarity metric to employ
+        symmetric : bool
+            Return a symmetric similarity measure
+        **kwargs
+            Arbitrary keyword arguments
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(MongeElkan, self).__init__(**kwargs)
+        self._sim_func = sim_func
+        if isinstance(self._sim_func, _Distance):
+            self._sim_func = self._sim_func.sim
+        elif self._sim_func is None:
+            self._sim_func = Levenshtein().sim
+        self._symmetric = symmetric
+
+    def sim(self, src, tar):
         """Return the Monge-Elkan similarity of two strings.
 
         Parameters
@@ -62,10 +85,6 @@ class MongeElkan(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        sim_func : function
-            The internal similarity metric to employ
-        symmetric : bool
-            Return a symmetric similarity measure
 
         Returns
         -------
@@ -102,12 +121,19 @@ class MongeElkan(_Distance):
         for q_s in q_src:
             max_sim = float('-inf')
             for q_t in q_tar:
-                max_sim = max(max_sim, sim_func(q_s, q_t))
+                max_sim = max(max_sim, self._sim_func(q_s, q_t))
             sum_of_maxes += max_sim
         sim_em = sum_of_maxes / len(q_src)
 
-        if symmetric:
-            sim_em = (sim_em + self.sim(tar, src, sim_func, False)) / 2
+        if self._symmetric:
+            sum_of_maxes = 0
+            for q_t in q_tar:
+                max_sim = float('-inf')
+                for q_s in q_src:
+                    max_sim = max(max_sim, self._sim_func(q_t, q_s))
+                sum_of_maxes += max_sim
+            sim_rev = sum_of_maxes / len(q_tar)
+            sim_em = (sim_em + sim_rev) / 2
 
         return sim_em
 
@@ -153,7 +179,7 @@ def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
     .. versionadded:: 0.1.0
 
     """
-    return MongeElkan().sim(src, tar, sim_func, symmetric)
+    return MongeElkan(sim_func, symmetric).sim(src, tar)
 
 
 @deprecated(
@@ -197,7 +223,7 @@ def dist_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
     .. versionadded:: 0.1.0
 
     """
-    return MongeElkan().dist(src, tar, sim_func, symmetric)
+    return MongeElkan(sim_func, symmetric).dist(src, tar)
 
 
 if __name__ == '__main__':

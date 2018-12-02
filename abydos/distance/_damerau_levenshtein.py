@@ -73,7 +73,7 @@ class DamerauLevenshtein(_Distance):
 
         """
         super(DamerauLevenshtein, self).__init__(**kwargs)
-        self._code = cost
+        self._cost = cost
 
     def dist_abs(self, src, tar, cost=(1, 1, 1, 1)):
         """Return the Damerau-Levenshtein distance between two strings.
