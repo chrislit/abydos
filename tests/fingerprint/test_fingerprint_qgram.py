@@ -63,10 +63,10 @@ xoyv',
 
         for i in range(len(self._testset)):
             self.assertEqual(
-                self.fp.fingerprint(self._testset[i], 1), self._anssetq1[i]
+                QGram(1).fingerprint(self._testset[i]), self._anssetq1[i]
             )
             self.assertEqual(
-                self.fp.fingerprint(self._testset[i], 2), self._anssetq2[i]
+                QGram(2).fingerprint(self._testset[i]), self._anssetq2[i]
             )
             self.assertEqual(
                 self.fp.fingerprint(self._testset[i]), self._anssetq2[i]
