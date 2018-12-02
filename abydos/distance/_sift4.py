@@ -47,7 +47,26 @@ class Sift4(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def dist_abs(self, src, tar, max_offset=5, max_distance=0):
+    def __init__(self, max_offset=5, max_distance=0, **kwargs):
+        """Initialize Sift4 instance.
+
+        Parameters
+        ----------
+        max_offset : int
+            The number of characters to search for matching letters
+        max_distance : int
+            The distance at which to stop and exit
+        **kwargs
+            Arbitrary keyword arguments
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Sift4, self).__init__(**kwargs)
+        self._max_offset = max_offset
+        self._max_distance = max_distance
+
+    def dist_abs(self, src, tar):
         """Return the "common" Sift4 distance between two terms.
 
         Parameters
@@ -56,10 +75,6 @@ class Sift4(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        max_offset : int
-            The number of characters to search for matching letters
-        max_distance : int
-            The distance at which to stop and exit
 
         Returns
         -------
@@ -129,7 +144,7 @@ class Sift4(_Distance):
                 local_cs = 0
                 if src_cur != tar_cur:
                     src_cur = tar_cur = min(src_cur, tar_cur)
-                for i in range(max_offset):
+                for i in range(self._max_offset):
                     if not (
                         (src_cur + i < src_len) or (tar_cur + i < tar_len)
                     ):
@@ -150,9 +165,9 @@ class Sift4(_Distance):
             src_cur += 1
             tar_cur += 1
 
-            if max_distance:
+            if self._max_distance:
                 temporary_distance = max(src_cur, tar_cur) - lcss + trans
-                if temporary_distance >= max_distance:
+                if temporary_distance >= self._max_distance:
                     return round(temporary_distance)
 
             if (src_cur >= src_len) or (tar_cur >= tar_len):
@@ -163,7 +178,7 @@ class Sift4(_Distance):
         lcss += local_cs
         return round(max(src_len, tar_len) - lcss + trans)
 
-    def dist(self, src, tar, max_offset=5, max_distance=0):
+    def dist(self, src, tar):
         """Return the normalized "common" Sift4 distance between two terms.
 
         This is Sift4 distance, normalized to [0, 1].
@@ -201,9 +216,7 @@ class Sift4(_Distance):
             Encapsulated in class
 
         """
-        return self.dist_abs(src, tar, max_offset, max_distance) / (
-            max(len(src), len(tar), 1)
-        )
+        return self.dist_abs(src, tar) / (max(len(src), len(tar), 1))
 
 
 @deprecated(
@@ -247,7 +260,7 @@ def sift4_common(src, tar, max_offset=5, max_distance=0):
     .. versionadded:: 0.3.0
 
     """
-    return Sift4().dist_abs(src, tar, max_offset, max_distance)
+    return Sift4(max_offset, max_distance).dist_abs(src, tar)
 
 
 @deprecated(
@@ -291,7 +304,7 @@ def dist_sift4(src, tar, max_offset=5, max_distance=0):
     .. versionadded:: 0.3.0
 
     """
-    return Sift4().dist(src, tar, max_offset, max_distance)
+    return Sift4(max_offset, max_distance).dist(src, tar)
 
 
 @deprecated(
@@ -335,7 +348,7 @@ def sim_sift4(src, tar, max_offset=5, max_distance=0):
     .. versionadded:: 0.3.0
 
     """
-    return Sift4().sim(src, tar, max_offset, max_distance)
+    return Sift4(max_offset, max_distance).sim(src, tar)
 
 
 if __name__ == '__main__':

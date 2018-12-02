@@ -44,32 +44,29 @@ class NCDarithTestCases(unittest.TestCase):
 
     arith = Arithmetic(' '.join(NIALL))
     cmp = NCDarith()
+    cmp_probs = NCDarith(arith.get_probs())
 
     def test_ncd_arith_dist(self):
         """Test abydos.distance.NCDarith.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
-        self.assertEqual(self.cmp.dist('', '', self.arith.get_probs()), 0)
+        self.assertEqual(self.cmp_probs.dist('', ''), 0)
         self.assertGreater(self.cmp.dist('a', ''), 0)
-        self.assertGreater(self.cmp.dist('a', '', self.arith.get_probs()), 0)
+        self.assertGreater(self.cmp_probs.dist('a', ''), 0)
         self.assertGreater(self.cmp.dist('abcdefg', 'fg'), 0)
 
         self.assertAlmostEqual(
-            self.cmp.dist('Niall', 'Neil', self.arith.get_probs()),
-            0.608695652173913,
+            self.cmp_probs.dist('Niall', 'Neil'), 0.608695652173913
         )
         self.assertAlmostEqual(
-            self.cmp.dist('Neil', 'Niall', self.arith.get_probs()),
-            0.608695652173913,
+            self.cmp_probs.dist('Neil', 'Niall'), 0.608695652173913
         )
         self.assertAlmostEqual(self.cmp.dist('Niall', 'Neil'), 0.6875)
         self.assertAlmostEqual(self.cmp.dist('Neil', 'Niall'), 0.6875)
         self.assertAlmostEqual(
-            self.cmp.dist('Njáll', 'Njall', self.arith.get_probs()),
-            0.714285714285714,
+            self.cmp_probs.dist('Njáll', 'Njall'), 0.714285714285714
         )
         self.assertAlmostEqual(
-            self.cmp.dist('Njall', 'Njáll', self.arith.get_probs()),
-            0.714285714285714,
+            self.cmp_probs.dist('Njall', 'Njáll'), 0.714285714285714
         )
         self.assertAlmostEqual(self.cmp.dist('Njáll', 'Njall'), 0.75)
         self.assertAlmostEqual(self.cmp.dist('Njall', 'Njáll'), 0.75)
@@ -83,28 +80,24 @@ class NCDarithTestCases(unittest.TestCase):
     def test_ncd_arith_sim(self):
         """Test abydos.distance.NCDarith.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
-        self.assertEqual(self.cmp.sim('', '', self.arith.get_probs()), 1)
+        self.assertEqual(self.cmp_probs.sim('', ''), 1)
         self.assertLess(self.cmp.sim('a', ''), 1)
-        self.assertLess(self.cmp.sim('a', '', self.arith.get_probs()), 1)
+        self.assertLess(self.cmp_probs.sim('a', ''), 1)
         self.assertLess(self.cmp.sim('abcdefg', 'fg'), 1)
 
         self.assertAlmostEqual(
-            self.cmp.sim('Niall', 'Neil', self.arith.get_probs()),
-            0.3913043478260869,
+            self.cmp_probs.sim('Niall', 'Neil'), 0.3913043478260869
         )
         self.assertAlmostEqual(
-            self.cmp.sim('Neil', 'Niall', self.arith.get_probs()),
-            0.3913043478260869,
+            self.cmp_probs.sim('Neil', 'Niall'), 0.3913043478260869
         )
         self.assertAlmostEqual(self.cmp.sim('Niall', 'Neil'), 0.3125)
         self.assertAlmostEqual(self.cmp.sim('Neil', 'Niall'), 0.3125)
         self.assertAlmostEqual(
-            self.cmp.sim('Njáll', 'Njall', self.arith.get_probs()),
-            0.285714285714285,
+            self.cmp_probs.sim('Njáll', 'Njall'), 0.285714285714285
         )
         self.assertAlmostEqual(
-            self.cmp.sim('Njall', 'Njáll', self.arith.get_probs()),
-            0.285714285714285,
+            self.cmp_probs.sim('Njall', 'Njáll'), 0.285714285714285
         )
         self.assertAlmostEqual(self.cmp.sim('Njáll', 'Njall'), 0.25)
         self.assertAlmostEqual(self.cmp.sim('Njall', 'Njáll'), 0.25)

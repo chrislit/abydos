@@ -49,17 +49,24 @@ class NCDarith(_Distance):
 
     _coder = None
 
-    def __init__(self):
+    def __init__(self, probs=None, **kwargs):
         """Initialize the arithmetic coder object.
+
+        Parameters
+        ----------
+        probs : dict
+            A dictionary trained with :py:meth:`Arithmetic.train`
 
         .. versionadded:: 0.3.6
         .. versionchanged:: 0.3.6
             Encapsulated in class
 
         """
+        super(NCDarith, self).__init__(**kwargs)
         self._coder = Arithmetic()
+        self._probs = probs
 
-    def dist(self, src, tar, probs=None):
+    def dist(self, src, tar):
         """Return the NCD between two strings using arithmetic coding.
 
         Parameters
@@ -68,8 +75,6 @@ class NCDarith(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        probs : dict
-            A dictionary trained with :py:meth:`Arithmetic.train`
 
         Returns
         -------
@@ -96,11 +101,11 @@ class NCDarith(_Distance):
         if src == tar:
             return 0.0
 
-        if probs is None:
+        if self._probs is None:
             # lacking a reasonable dictionary, train on the strings themselves
             self._coder.train(src + tar)
         else:
-            self._coder.set_probs(probs)
+            self._coder.set_probs(self._probs)
 
         src_comp = self._coder.encode(src)[1]
         tar_comp = self._coder.encode(tar)[1]
@@ -151,7 +156,7 @@ def dist_ncd_arith(src, tar, probs=None):
     .. versionadded:: 0.3.5
 
     """
-    return NCDarith().dist(src, tar, probs)
+    return NCDarith(probs).dist(src, tar)
 
 
 @deprecated(
@@ -193,7 +198,7 @@ def sim_ncd_arith(src, tar, probs=None):
     .. versionadded:: 0.3.5
 
     """
-    return NCDarith().sim(src, tar, probs)
+    return NCDarith(probs).sim(src, tar)
 
 
 if __name__ == '__main__':

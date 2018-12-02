@@ -51,7 +51,32 @@ class Gotoh(NeedlemanWunsch):
     .. versionadded:: 0.3.6
     """
 
-    def dist_abs(self, src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
+    def __init__(self, gap_open=1, gap_ext=0.4, sim_func=None, **kwargs):
+        """Initialize Gotoh instance.
+
+        Parameters
+        ----------
+        gap_open : float
+            The cost of an open alignment gap (1 by default)
+        gap_ext : float
+            The cost of an alignment gap extension (0.4 by default)
+        sim_func : function
+            A function that returns the similarity of two characters (identity
+            similarity by default)
+        **kwargs
+            Arbitrary keyword arguments
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Gotoh, self).__init__(**kwargs)
+        self._gap_open = gap_open
+        self._gap_ext = gap_ext
+        self._sim_func = sim_func
+        if self._sim_func is None:
+            self._sim_func = NeedlemanWunsch.sim_matrix
+
+    def dist_abs(self, src, tar):
         """Return the Gotoh score of two strings.
 
         Parameters
@@ -60,13 +85,6 @@ class Gotoh(NeedlemanWunsch):
             Source string for comparison
         tar : str
             Target string for comparison
-        gap_open : float
-            The cost of an open alignment gap (1 by default)
-        gap_ext : float
-            The cost of an alignment gap extension (0.4 by default)
-        sim_func : function
-            A function that returns the similarity of two characters (identity
-            similarity by default)
 
         Returns
         -------
@@ -99,18 +117,18 @@ class Gotoh(NeedlemanWunsch):
         q_mat[0, 0] = float('-inf')
         for i in range(1, len(src) + 1):
             d_mat[i, 0] = float('-inf')
-            p_mat[i, 0] = -gap_open - gap_ext * (i - 1)
+            p_mat[i, 0] = -self._gap_open - self._gap_ext * (i - 1)
             q_mat[i, 0] = float('-inf')
-            q_mat[i, 1] = -gap_open
+            q_mat[i, 1] = -self._gap_open
         for j in range(1, len(tar) + 1):
             d_mat[0, j] = float('-inf')
             p_mat[0, j] = float('-inf')
-            p_mat[1, j] = -gap_open
-            q_mat[0, j] = -gap_open - gap_ext * (j - 1)
+            p_mat[1, j] = -self._gap_open
+            q_mat[0, j] = -self._gap_open - self._gap_ext * (j - 1)
 
         for i in range(1, len(src) + 1):
             for j in range(1, len(tar) + 1):
-                sim_val = sim_func(src[i - 1], tar[j - 1])
+                sim_val = self._sim_func(src[i - 1], tar[j - 1])
                 d_mat[i, j] = max(
                     d_mat[i - 1, j - 1] + sim_val,
                     p_mat[i - 1, j - 1] + sim_val,
@@ -118,11 +136,13 @@ class Gotoh(NeedlemanWunsch):
                 )
 
                 p_mat[i, j] = max(
-                    d_mat[i - 1, j] - gap_open, p_mat[i - 1, j] - gap_ext
+                    d_mat[i - 1, j] - self._gap_open,
+                    p_mat[i - 1, j] - self._gap_ext,
                 )
 
                 q_mat[i, j] = max(
-                    d_mat[i, j - 1] - gap_open, q_mat[i, j - 1] - gap_ext
+                    d_mat[i, j - 1] - self._gap_open,
+                    q_mat[i, j - 1] - self._gap_ext,
                 )
 
         i, j = (n - 1 for n in d_mat.shape)
@@ -173,7 +193,7 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
     .. versionadded:: 0.1.0
 
     """
-    return Gotoh().dist_abs(src, tar, gap_open, gap_ext, sim_func)
+    return Gotoh(gap_open, gap_ext, sim_func).dist_abs(src, tar)
 
 
 if __name__ == '__main__':

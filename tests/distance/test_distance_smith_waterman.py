@@ -44,29 +44,25 @@ class SmithWatermanTestCases(unittest.TestCase):
     abydos.distance.SmithWaterman
     """
 
-    cmp = SmithWaterman()
-
     def test_smith_waterman_dist_abs(self):
         """Test abydos.distance.SmithWaterman.dist_abs."""
-        self.assertEqual(self.cmp.dist_abs('', ''), 0)
+        self.assertEqual(SmithWaterman().dist_abs('', ''), 0)
 
         # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
         self.assertEqual(
-            self.cmp.dist_abs('GATTACA', 'GCATGCU', 1, _sim_nw), 0
+            SmithWaterman(1, _sim_nw).dist_abs('GATTACA', 'GCATGCU'), 0
         )
         self.assertEqual(
-            self.cmp.dist_abs('AGACTAGTTAC', 'CGAGACGT', 5, _sim_wikipedia), 26
+            SmithWaterman(5, _sim_wikipedia).dist_abs(
+                'AGACTAGTTAC', 'CGAGACGT'
+            ),
+            26,
         )
 
-        self.assertEqual(
-            self.cmp.dist_abs('CGATATCAG', 'TGACGSTGC', 5, _sim_nw), 0
-        )
-        self.assertEqual(
-            self.cmp.dist_abs('AGACTAGTTAC', 'TGACGSTGC', 5, _sim_nw), 1
-        )
-        self.assertEqual(
-            self.cmp.dist_abs('AGACTAGTTAC', 'CGAGACGT', 5, _sim_nw), 0
-        )
+        sw5 = SmithWaterman(5, _sim_nw)
+        self.assertEqual(sw5.dist_abs('CGATATCAG', 'TGACGSTGC'), 0)
+        self.assertEqual(sw5.dist_abs('AGACTAGTTAC', 'TGACGSTGC'), 1)
+        self.assertEqual(sw5.dist_abs('AGACTAGTTAC', 'CGAGACGT'), 0)
 
         # Test wrapper
         self.assertEqual(
@@ -76,10 +72,9 @@ class SmithWatermanTestCases(unittest.TestCase):
     def test_smith_waterman_dist_abs_nialls(self):
         """Test abydos.distance.SmithWaterman.dist_abs (Nialls set)."""
         sw_vals = (5, 1, 1, 3, 2, 1, 1, 0, 0, 1, 1, 2, 2, 1, 0, 0)
+        sw2 = SmithWaterman(2, _sim_nw)
         for i in range(len(NIALL)):
-            self.assertEqual(
-                self.cmp.dist_abs(NIALL[0], NIALL[i], 2, _sim_nw), sw_vals[i]
-            )
+            self.assertEqual(sw2.dist_abs(NIALL[0], NIALL[i]), sw_vals[i])
 
 
 if __name__ == '__main__':

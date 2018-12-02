@@ -44,49 +44,49 @@ class GotohTestCases(unittest.TestCase):
     abydos.distance.Gotoh
     """
 
-    cmp = Gotoh()
-    nw = NeedlemanWunsch()
-
     def test_gotoh_dist_abs(self):
         """Test abydos.distance.Gotoh.dist_abs."""
-        self.assertEqual(gotoh('', ''), 0)
+        self.assertEqual(Gotoh().dist_abs('', ''), 0)
 
         # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
         self.assertEqual(
-            self.cmp.dist_abs('GATTACA', 'GCATGCU', 1, 1, _sim_nw), 0
+            Gotoh(1, 1, _sim_nw).dist_abs('GATTACA', 'GCATGCU'), 0
         )
         self.assertGreaterEqual(
-            self.cmp.dist_abs('GATTACA', 'GCATGCU', 1, 0.5, _sim_nw),
-            self.nw.dist_abs('GATTACA', 'GCATGCU', 1, _sim_nw),
+            Gotoh(1, 0.5, _sim_nw).dist_abs('GATTACA', 'GCATGCU'),
+            NeedlemanWunsch(1, _sim_nw).dist_abs('GATTACA', 'GCATGCU'),
         )
         self.assertEqual(
-            self.cmp.dist_abs('AGACTAGTTAC', 'CGAGACGT', 5, 5, _sim_wikipedia),
-            16,
+            Gotoh(5, 5, _sim_wikipedia).dist_abs('AGACTAGTTAC', 'CGAGACGT'), 16
         )
         self.assertGreaterEqual(
-            self.cmp.dist_abs('AGACTAGTTAC', 'CGAGACGT', 5, 2, _sim_wikipedia),
-            self.nw.dist_abs('AGACTAGTTAC', 'CGAGACGT', 5, _sim_wikipedia),
+            Gotoh(5, 2, _sim_wikipedia).dist_abs('AGACTAGTTAC', 'CGAGACGT'),
+            NeedlemanWunsch(5, _sim_wikipedia).dist_abs(
+                'AGACTAGTTAC', 'CGAGACGT'
+            ),
         )
 
         # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=5, skew=5)
         self.assertEqual(
-            self.cmp.dist_abs('CGATATCAG', 'TGACGSTGC', 5, 5, _sim_nw), -5
+            Gotoh(5, 5, _sim_nw).dist_abs('CGATATCAG', 'TGACGSTGC'), -5
         )
         self.assertGreaterEqual(
-            self.cmp.dist_abs('CGATATCAG', 'TGACGSTGC', 5, 2, _sim_nw),
-            self.nw.dist_abs('CGATATCAG', 'TGACGSTGC', 5, _sim_nw),
-        )
-        self.assertEqual(gotoh('AGACTAGTTAC', 'TGACGSTGC', 5, 5, _sim_nw), -7)
-        self.assertGreaterEqual(
-            self.cmp.dist_abs('AGACTAGTTAC', 'TGACGSTGC', 5, 2, _sim_nw),
-            self.nw.dist_abs('AGACTAGTTAC', 'TGACGSTGC', 5, _sim_nw),
+            Gotoh(5, 2, _sim_nw).dist_abs('CGATATCAG', 'TGACGSTGC'),
+            NeedlemanWunsch(5, _sim_nw).dist_abs('CGATATCAG', 'TGACGSTGC'),
         )
         self.assertEqual(
-            self.cmp.dist_abs('AGACTAGTTAC', 'CGAGACGT', 5, 5, _sim_nw), -15
+            Gotoh(5, 5, _sim_nw).dist_abs('AGACTAGTTAC', 'TGACGSTGC'), -7
         )
         self.assertGreaterEqual(
-            self.cmp.dist_abs('AGACTAGTTAC', 'CGAGACGT', 5, 2, _sim_nw),
-            self.nw.dist_abs('AGACTAGTTAC', 'CGAGACGT', 5, _sim_nw),
+            Gotoh(5, 2, _sim_nw).dist_abs('AGACTAGTTAC', 'TGACGSTGC'),
+            NeedlemanWunsch(5, _sim_nw).dist_abs('AGACTAGTTAC', 'TGACGSTGC'),
+        )
+        self.assertEqual(
+            Gotoh(5, 5, _sim_nw).dist_abs('AGACTAGTTAC', 'CGAGACGT'), -15
+        )
+        self.assertGreaterEqual(
+            Gotoh(5, 2, _sim_nw).dist_abs('AGACTAGTTAC', 'CGAGACGT'),
+            NeedlemanWunsch(5, _sim_nw).dist_abs('AGACTAGTTAC', 'CGAGACGT'),
         )
 
         # Test wrapper
@@ -98,20 +98,18 @@ class GotohTestCases(unittest.TestCase):
         """Test abydos.distance.Gotoh.dist_abs (Nialls set)."""
         # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=2, skew=2)
         nw_vals = (5, 0, -2, 3, 1, 1, -2, -2, -1, -3, -3, -5, -3, -7, -7, -19)
+        g22 = Gotoh(2, 2, _sim_nw)
         for i in range(len(NIALL)):
-            self.assertEqual(
-                self.cmp.dist_abs(NIALL[0], NIALL[i], 2, 2, _sim_nw),
-                nw_vals[i],
-            )
+            self.assertEqual(g22.dist_abs(NIALL[0], NIALL[i]), nw_vals[i])
         nw_vals2 = (5, 0, -2, 3, 1, 1, -2, -2, -1, -2, -3, -3, -2, -6, -6, -8)
+        g21 = Gotoh(2, 1, _sim_nw)
+        g205 = Gotoh(2, 0.5, _sim_nw)
+        nw2 = NeedlemanWunsch(2, _sim_nw)
         for i in range(len(NIALL)):
-            self.assertEqual(
-                self.cmp.dist_abs(NIALL[0], NIALL[i], 2, 1, _sim_nw),
-                nw_vals2[i],
-            )
+            self.assertEqual(g21.dist_abs(NIALL[0], NIALL[i]), nw_vals2[i])
             self.assertGreaterEqual(
-                self.cmp.dist_abs(NIALL[0], NIALL[i], 2, 0.5, _sim_nw),
-                self.nw.dist_abs(NIALL[0], NIALL[i], 2, _sim_nw),
+                g205.dist_abs(NIALL[0], NIALL[i]),
+                nw2.dist_abs(NIALL[0], NIALL[i]),
             )
 
 

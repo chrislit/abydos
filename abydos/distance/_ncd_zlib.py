@@ -48,8 +48,6 @@ class NCDzlib(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    _compressor = None
-
     def __init__(self, level=zlib.Z_DEFAULT_COMPRESSION):
         """Initialize zlib compressor.
 

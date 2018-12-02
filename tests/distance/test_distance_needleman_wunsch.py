@@ -132,25 +132,28 @@ class NeedlemanWunschTestCases(unittest.TestCase):
     abydos.distance.NeedlemanWunsch
     """
 
-    cmp = NeedlemanWunsch()
-
     def test_needleman_wunsch_dist_abs(self):
         """Test abydos.distance.NeedlemanWunsch.dist_abs."""
-        self.assertEqual(needleman_wunsch('', ''), 0)
+        self.assertEqual(NeedlemanWunsch().dist_abs('', ''), 0)
 
         # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
-        self.assertEqual(needleman_wunsch('GATTACA', 'GCATGCU', 1, _sim_nw), 0)
         self.assertEqual(
-            needleman_wunsch('AGACTAGTTAC', 'CGAGACGT', 5, _sim_wikipedia), 16
+            NeedlemanWunsch(1, _sim_nw).dist_abs('GATTACA', 'GCATGCU'), 0
+        )
+        self.assertEqual(
+            NeedlemanWunsch(5, _sim_wikipedia).dist_abs(
+                'AGACTAGTTAC', 'CGAGACGT'
+            ),
+            16,
         )
 
         # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=5, skew=5)
-        self.assertEqual(
-            needleman_wunsch('CGATATCAG', 'TGACGSTGC', 5, _sim_nw), -5
-        )
-        self.assertEqual(
-            needleman_wunsch('AGACTAGTTAC', 'TGACGSTGC', 5, _sim_nw), -7
-        )
+        nw5 = NeedlemanWunsch(5, _sim_nw)
+        self.assertEqual(nw5.dist_abs('CGATATCAG', 'TGACGSTGC'), -5)
+        self.assertEqual(nw5.dist_abs('AGACTAGTTAC', 'TGACGSTGC'), -7)
+        self.assertEqual(nw5.dist_abs('AGACTAGTTAC', 'CGAGACGT'), -15)
+
+        # test wrapper
         self.assertEqual(
             needleman_wunsch('AGACTAGTTAC', 'CGAGACGT', 5, _sim_nw), -15
         )
@@ -159,10 +162,9 @@ class NeedlemanWunschTestCases(unittest.TestCase):
         """Test abydos.distance.NeedlemanWunsch.dist_abs (Nialls set)."""
         # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=2, skew=2)
         nw_vals = (5, 0, -2, 3, 1, 1, -2, -2, -1, -3, -3, -5, -3, -7, -7, -19)
+        nw2 = NeedlemanWunsch(2, _sim_nw)
         for i in range(len(NIALL)):
-            self.assertEqual(
-                needleman_wunsch(NIALL[0], NIALL[i], 2, _sim_nw), nw_vals[i]
-            )
+            self.assertEqual(nw2.dist_abs(NIALL[0], NIALL[i]), nw_vals[i])
 
 
 if __name__ == '__main__':
