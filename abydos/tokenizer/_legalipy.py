@@ -59,7 +59,8 @@ class LegaliPyTokenizer(_Tokenizer):
         """
         if LegaliPy is None:
             raise TypeError(
-                'LegaliPy tokenizer requires installation of SyllabiPy package.'
+                'LegaliPy tokenizer requires installation of SyllabiPy'+
+                ' package.'
             )
 
         super(LegaliPyTokenizer, self).__init__(scaler)
