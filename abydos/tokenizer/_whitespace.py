@@ -54,27 +54,8 @@ class WhitespaceTokenizer(RegexpTokenizer):
 
         """
         super(WhitespaceTokenizer, self).__init__(
-            scaler, regexp=r'\W+', flags=flags
+            scaler, regexp=r'\S+', flags=flags
         )
-
-    def tokenize(self, string):
-        """Tokenize the term and store it.
-
-        The tokenized term is stored as an ordered list and as a Counter
-        object.
-
-        Args
-        ----
-        string : str
-            The string to tokenize
-
-        .. versionadded:: 0.4.0
-
-        """
-        self._string = string
-        self._ordered_list = self.regexp.split(self._string)
-        super(WhitespaceTokenizer, self).tokenize()
-        return self
 
 
 if __name__ == '__main__':
