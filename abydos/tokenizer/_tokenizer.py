@@ -127,7 +127,7 @@ class _Tokenizer(object):
         --------
         >>> tok = _Tokenizer().tokenize('term')
         >>> tok.get_counter()
-        {'term': 1}
+        Counter({'term': 1})
 
         .. versionadded:: 0.4.0
 

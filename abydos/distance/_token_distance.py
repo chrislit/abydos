@@ -98,9 +98,9 @@ class _TokenDistance(_Distance):
         Examples
         --------
         >>> pe = _TokenDistance()
-        >>> pe._get_qgrams('AT', 'TT')
-        (QGrams({'$A': 1, 'AT': 1, 'T#': 1}),
-         QGrams({'$T': 1, 'TT': 1, 'T#': 1}))
+        >>> pe.tokenize('AT', 'TT').get_tokens()
+        (Counter({'$A': 1, 'AT': 1, 'T#': 1}),
+         Counter({'$T': 1, 'TT': 1, 'T#': 1}))
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -119,6 +119,12 @@ class _TokenDistance(_Distance):
             self._tar_tokens = (
                 self.params['tokenizer'].tokenize(tar).get_counter()
             )
+
+        return self
+
+    def get_tokens(self):
+        """Returns the src and tar tokens as a tuple."""
+        return self._src_tokens, self._tar_tokens
 
     def src_only(self):
         """Returns the src tokens minus the tar tokens."""

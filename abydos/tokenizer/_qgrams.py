@@ -71,15 +71,15 @@ class QGrams(_Tokenizer):
 
         Examples
         --------
-        >>> qg = QGrams('AATTATAT')
+        >>> qg = QGrams().tokenize('AATTATAT')
         >>> qg
         QGrams({'AT': 3, 'TA': 2, '$A': 1, 'AA': 1, 'TT': 1, 'T#': 1})
 
-        >>> qg = QGrams('AATTATAT', qval=1, start_stop='')
+        >>> qg = QGrams(qval=1, start_stop='').tokenize('AATTATAT')
         >>> qg
         QGrams({'A': 4, 'T': 4})
 
-        >>> qg = QGrams('AATTATAT', qval=3, start_stop='')
+        >>> qg = QGrams(qval=3, start_stop='').tokenize('AATTATAT')
         >>> qg
         QGrams({'TAT': 2, 'AAT': 1, 'ATT': 1, 'TTA': 1, 'ATA': 1})
 
@@ -148,7 +148,7 @@ class QGrams(_Tokenizer):
         return self
 
     def __repr__(self):
-        return 'QGrams({})'.format(dict(self._tokens))
+        return 'QGrams{}'.format(str(self._tokens)[7:])
 
     def __and__(self, other):
         return self.get_counter() & other.get_counter()
