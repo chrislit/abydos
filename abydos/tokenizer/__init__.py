@@ -24,18 +24,18 @@ tokenizes a string into q-grams. The class supports different values of
 q, the addition of start and stop symbols, and skip values. It even supports
 multiple values for q and skip, using lists or ranges.
 
->>> QGrams('interning', qval=2, start_stop='$#')
+>>> QGrams(qval=2, start_stop='$#').tokenize('interning')
 QGrams({'in': 2, '$i': 1, 'nt': 1, 'te': 1, 'er': 1, 'rn': 1, 'ni': 1, 'ng': 1,
  'g#': 1})
 
->>> QGrams('AACTAGAAC', start_stop='', skip=1)
+>>> QGrams(start_stop='', skip=1).tokenize('AACTAGAAC')
 QGrams({'AC': 2, 'AT': 1, 'CA': 1, 'TG': 1, 'AA': 1, 'GA': 1, 'A': 1})
 
->>> QGrams('AACTAGAAC', start_stop='', skip=[0, 1])
+>>> QGrams(start_stop='', skip=[0, 1]).tokenize('AACTAGAAC')
 QGrams({'AC': 4, 'AA': 3, 'GA': 2, 'CT': 1, 'TA': 1, 'AG': 1, 'AT': 1, 'CA': 1,
  'TG': 1, 'A': 1})
 
->>> QGrams('interdisciplinarian', qval=range(3), skip=[0, 1])
+>>> QGrams(qval=range(3), skip=[0, 1]).tokenize('interdisciplinarian')
 QGrams({'i': 10, 'n': 7, 'r': 4, 'a': 4, 'in': 3, 't': 2, 'e': 2, 'd': 2,
  's': 2, 'c': 2, 'p': 2, 'l': 2, 'ri': 2, 'ia': 2, '$i': 1, 'nt': 1, 'te': 1,
  'er': 1, 'rd': 1, 'di': 1, 'is': 1, 'sc': 1, 'ci': 1, 'ip': 1, 'pl': 1,
