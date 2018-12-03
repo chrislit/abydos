@@ -31,7 +31,7 @@ from __future__ import (
 import unittest
 
 from abydos.distance import Overlap, dist_overlap, sim_overlap
-from abydos.tokenizer import QGrams
+from abydos.tokenizer import QGrams, WhitespaceTokenizer
 
 from .. import NONQ_FROM, NONQ_TO
 
@@ -44,6 +44,7 @@ class OverlapTestCases(unittest.TestCase):
 
     cmp = Overlap()
     cmp_q2 = Overlap(tokenizer=QGrams(2))
+    cmp_ws = Overlap(tokenizer=WhitespaceTokenizer())
 
     def test_overlap_sim(self):
         """Test abydos.distance.Overlap.sim."""
@@ -87,12 +88,12 @@ class OverlapTestCases(unittest.TestCase):
             4 / 7,
         )
 
-        # # non-q-gram tests
-        # self.assertEqual(self.cmp.sim('', '', 0), 1)
-        # self.assertEqual(self.cmp.sim('the quick', '', 0), 0)
-        # self.assertEqual(self.cmp.sim('', 'the quick', 0), 0)
-        # self.assertAlmostEqual(self.cmp.sim(NONQ_FROM, NONQ_TO, 0), 4 / 7)
-        # self.assertAlmostEqual(self.cmp.sim(NONQ_TO, NONQ_FROM, 0), 4 / 7)
+        # non-q-gram tests
+        self.assertEqual(self.cmp_ws.sim('', ''), 1)
+        self.assertEqual(self.cmp_ws.sim('the quick', ''), 0)
+        self.assertEqual(self.cmp_ws.sim('', 'the quick'), 0)
+        self.assertAlmostEqual(self.cmp_ws.sim(NONQ_FROM, NONQ_TO), 4 / 7)
+        self.assertAlmostEqual(self.cmp_ws.sim(NONQ_TO, NONQ_FROM), 4 / 7)
 
         # Test wrapper
         self.assertAlmostEqual(sim_overlap('nelson', 'neilsen'), 4 / 7)
@@ -139,12 +140,12 @@ class OverlapTestCases(unittest.TestCase):
             3 / 7,
         )
 
-        # # non-q-gram tests
-        # self.assertEqual(self.cmp.dist('', '', 0), 0)
-        # self.assertEqual(self.cmp.dist('the quick', '', 0), 1)
-        # self.assertEqual(self.cmp.dist('', 'the quick', 0), 1)
-        # self.assertAlmostEqual(self.cmp.dist(NONQ_FROM, NONQ_TO, 0), 3 / 7)
-        # self.assertAlmostEqual(self.cmp.dist(NONQ_TO, NONQ_FROM, 0), 3 / 7)
+        # non-q-gram tests
+        self.assertEqual(self.cmp_ws.dist('', ''), 0)
+        self.assertEqual(self.cmp_ws.dist('the quick', ''), 1)
+        self.assertEqual(self.cmp_ws.dist('', 'the quick'), 1)
+        self.assertAlmostEqual(self.cmp_ws.dist(NONQ_FROM, NONQ_TO), 3 / 7)
+        self.assertAlmostEqual(self.cmp_ws.dist(NONQ_TO, NONQ_FROM), 3 / 7)
 
         # Test wrapper
         self.assertAlmostEqual(dist_overlap('nelson', 'neilsen'), 3 / 7)

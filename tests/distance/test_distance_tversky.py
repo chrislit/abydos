@@ -31,7 +31,7 @@ from __future__ import (
 import unittest
 
 from abydos.distance import Tversky, dist_tversky, sim_tversky
-from abydos.tokenizer import QGrams
+from abydos.tokenizer import QGrams, WhitespaceTokenizer
 
 from .. import NONQ_FROM, NONQ_TO
 
@@ -44,6 +44,7 @@ class TverskyIndexTestCases(unittest.TestCase):
 
     cmp = Tversky()
     cmp_q2 = Tversky(tokenizer=QGrams(2))
+    cmp_ws = Tversky(tokenizer=WhitespaceTokenizer())
 
     def test_tversky_sim(self):
         """Test abydos.distance.Tversky.sim."""
@@ -149,12 +150,12 @@ class TverskyIndexTestCases(unittest.TestCase):
             4 / 11,
         )
 
-        # # non-q-gram tests
-        # self.assertEqual(self.cmp.sim('', '', 0), 1)
-        # self.assertEqual(self.cmp.sim('the quick', '', 0), 0)
-        # self.assertEqual(self.cmp.sim('', 'the quick', 0), 0)
-        # self.assertAlmostEqual(self.cmp.sim(NONQ_FROM, NONQ_TO, 0), 1 / 3)
-        # self.assertAlmostEqual(self.cmp.sim(NONQ_TO, NONQ_FROM, 0), 1 / 3)
+        # non-q-gram tests
+        self.assertEqual(self.cmp_ws.sim('', ''), 1)
+        self.assertEqual(self.cmp_ws.sim('the quick', ''), 0)
+        self.assertEqual(self.cmp_ws.sim('', 'the quick'), 0)
+        self.assertAlmostEqual(self.cmp_ws.sim(NONQ_FROM, NONQ_TO), 1 / 3)
+        self.assertAlmostEqual(self.cmp_ws.sim(NONQ_TO, NONQ_FROM), 1 / 3)
 
         # Test wrapper
         self.assertAlmostEqual(sim_tversky('nelson', 'neilsen'), 4 / 11)
@@ -263,12 +264,12 @@ class TverskyIndexTestCases(unittest.TestCase):
             7 / 11,
         )
 
-        # # non-q-gram tests
-        # self.assertEqual(self.cmp.dist('', '', 0), 0)
-        # self.assertEqual(self.cmp.dist('the quick', '', 0), 1)
-        # self.assertEqual(self.cmp.dist('', 'the quick', 0), 1)
-        # self.assertAlmostEqual(self.cmp.dist(NONQ_FROM, NONQ_TO, 0), 2 / 3)
-        # self.assertAlmostEqual(self.cmp.dist(NONQ_TO, NONQ_FROM, 0), 2 / 3)
+        # non-q-gram tests
+        self.assertEqual(self.cmp_ws.dist('', ''), 0)
+        self.assertEqual(self.cmp_ws.dist('the quick', ''), 1)
+        self.assertEqual(self.cmp_ws.dist('', 'the quick'), 1)
+        self.assertAlmostEqual(self.cmp_ws.dist(NONQ_FROM, NONQ_TO), 2 / 3)
+        self.assertAlmostEqual(self.cmp_ws.dist(NONQ_TO, NONQ_FROM), 2 / 3)
 
         # Test wrapper
         self.assertAlmostEqual(dist_tversky('nelson', 'neilsen'), 7 / 11)

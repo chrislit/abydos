@@ -31,7 +31,7 @@ from __future__ import (
 import unittest
 
 from abydos.distance import Chebyshev, chebyshev
-from abydos.tokenizer import QGrams
+from abydos.tokenizer import QGrams, WhitespaceTokenizer
 
 from .. import NONQ_FROM, NONQ_TO
 
@@ -44,6 +44,7 @@ class ChebyshevTestCases(unittest.TestCase):
 
     cmp = Chebyshev()
     cmp_q2 = Chebyshev(tokenizer=QGrams(2))
+    cmp_ws = Chebyshev(tokenizer=WhitespaceTokenizer())
 
     def test_chebyshev_dist_abs(self):
         """Test abydos.distance.Chebyshev.dist_abs."""
@@ -87,12 +88,12 @@ class ChebyshevTestCases(unittest.TestCase):
             1,
         )
 
-        # # non-q-gram tests
-        # self.assertEqual(self.cmp.dist_abs('', '', 0), 0)
-        # self.assertEqual(self.cmp.dist_abs('the quick', '', 0), 1)
-        # self.assertEqual(self.cmp.dist_abs('', 'the quick', 0), 1)
-        # self.assertAlmostEqual(self.cmp.dist_abs(NONQ_FROM, NONQ_TO, 0), 1)
-        # self.assertAlmostEqual(self.cmp.dist_abs(NONQ_TO, NONQ_FROM, 0), 1)
+        # non-q-gram tests
+        self.assertEqual(self.cmp_ws.dist_abs('', ''), 0)
+        self.assertEqual(self.cmp_ws.dist_abs('the quick', ''), 1)
+        self.assertEqual(self.cmp_ws.dist_abs('', 'the quick'), 1)
+        self.assertAlmostEqual(self.cmp_ws.dist_abs(NONQ_FROM, NONQ_TO), 1)
+        self.assertAlmostEqual(self.cmp_ws.dist_abs(NONQ_TO, NONQ_FROM), 1)
 
         # Test wrapper
         self.assertAlmostEqual(chebyshev('nelson', 'neilsen', 2), 1)
