@@ -97,9 +97,11 @@ class Chebyshev(Minkowski):
         1.0
         >>> cmp.dist_abs('ATCG', 'TAGC')
         1.0
-        >>> cmp.dist_abs('ATCG', 'TAGC', qval=1)
+
+        >>> cmp = Chebyshev(qval=1)
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         0.0
-        >>> cmp.dist_abs('ATCGATTCGGAATTTC', 'TAGCATAATCGCCG', qval=1)
+        >>> cmp.dist_abs('ATCGATTCGGAATTTC', 'TAGCATAATCGCCG')
         3.0
 
         .. versionadded:: 0.3.0
