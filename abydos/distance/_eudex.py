@@ -158,33 +158,35 @@ class Eudex(_Distance):
         >>> cmp.dist_abs('ATCG', 'TAGC')
         403
 
-        >>> cmp.dist_abs('cat', 'hat', weights='fibonacci')
+        >>> cmp = Eudex(weights='fibonacci')
+        >>> cmp.dist_abs('cat', 'hat')
         34
-        >>> cmp.dist_abs('Niall', 'Neil', weights='fibonacci')
+        >>> cmp.dist_abs('Niall', 'Neil')
         2
-        >>> cmp.dist_abs('Colin', 'Cuilen', weights='fibonacci')
+        >>> cmp.dist_abs('Colin', 'Cuilen')
         7
-        >>> cmp.dist_abs('ATCG', 'TAGC', weights='fibonacci')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         117
 
-        >>> cmp.dist_abs('cat', 'hat', weights=None)
+        >>> cmp = Eudex(weights=None)
+        >>> cmp.dist_abs('cat', 'hat')
         1
-        >>> cmp.dist_abs('Niall', 'Neil', weights=None)
+        >>> cmp.dist_abs('Niall', 'Neil')
         1
-        >>> cmp.dist_abs('Colin', 'Cuilen', weights=None)
+        >>> cmp.dist_abs('Colin', 'Cuilen')
         2
-        >>> cmp.dist_abs('ATCG', 'TAGC', weights=None)
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         9
 
         >>> # Using the OEIS A000142:
-        >>> cmp.dist_abs('cat', 'hat', [1, 1, 2, 6, 24, 120, 720, 5040])
+        >>> cmp = Eudex(weights=[1, 1, 2, 6, 24, 120, 720, 5040])
+        >>> cmp.dist_abs('cat', 'hat')
         1
-        >>> cmp.dist_abs('Niall', 'Neil', [1, 1, 2, 6, 24, 120, 720, 5040])
+        >>> cmp.dist_abs('Niall', 'Neil')
         720
-        >>> cmp.dist_abs('Colin', 'Cuilen',
-        ... [1, 1, 2, 6, 24, 120, 720, 5040])
+        >>> cmp.dist_abs('Colin', 'Cuilen')
         744
-        >>> cmp.dist_abs('ATCG', 'TAGC', [1, 1, 2, 6, 24, 120, 720, 5040])
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         6243
 
         .. versionadded:: 0.3.0
@@ -192,6 +194,7 @@ class Eudex(_Distance):
             Encapsulated in class
 
         """
+
         # Calculate the eudex hashes and XOR them
         xored = eudex(src, max_length=self._max_length) ^ eudex(
             tar, max_length=self._max_length
@@ -213,8 +216,8 @@ class Eudex(_Distance):
             weights = Eudex.gen_exponential()
         elif self._weights == 'fibonacci':
             weights = Eudex.gen_fibonacci()
-        else:
-            weights = self._weights
+        elif hasattr(self._weights, '__iter__'):
+            weights = list(self._weights)
 
         if isinstance(weights, GeneratorType):
             weights = [next(weights) for _ in range(self._max_length)][::-1]
