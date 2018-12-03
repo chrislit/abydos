@@ -58,7 +58,6 @@ class WordpunctTokenizer(RegexpTokenizer):
         super(WordpunctTokenizer, self).__init__(
             scaler, regexp=r'\w+|[^\w\s]+', flags=flags
         )
-        return self
 
 
 if __name__ == '__main__':
