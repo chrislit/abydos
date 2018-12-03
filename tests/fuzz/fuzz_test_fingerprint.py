@@ -50,6 +50,8 @@ from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 
 string = String()
 qgram = QGram()
+qgram3 = QGram(qval=3)
+qgram_ssj = QGram(start_stop='$#', joiner=' ')
 phonetic = Phonetic()
 skeleton = SkeletonKey()
 omission = OmissionKey()
@@ -62,10 +64,8 @@ synoname = SynonameToolcode()
 algorithms = {
     'str_fingerprint': string.fingerprint,
     'qgram_fingerprint': qgram.fingerprint,
-    'qgram_fingerprint_3': lambda _: qgram.fingerprint(_, qval=3),
-    'qgram_fingerprint_ssj': lambda _: qgram.fingerprint(
-        _, start_stop='$#', joiner=' '
-    ),
+    'qgram_fingerprint_3': qgram3.fingerprint,
+    'qgram_fingerprint_ssj': qgram_ssj.fingerprint,
     'phonetic_fingerprint': phonetic.fingerprint,
     'skeleton_key': skeleton.fingerprint,
     'omission_key': omission.fingerprint,
