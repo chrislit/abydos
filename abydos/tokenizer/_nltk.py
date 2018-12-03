@@ -57,7 +57,8 @@ class NLTKTokenizer(_Tokenizer):
             self.nltk_tokenizer = nltk_tokenizer
         else:
             raise TypeError(
-                'nltk_tokenizer must be an initialized tokenizer from the NLTK package (e.g. TweetTokenizer()).'
+                'nltk_tokenizer must be an initialized tokenizer from the'+
+                ' NLTK package (e.g. TweetTokenizer()).'
             )
 
     def tokenize(self, string):

@@ -78,7 +78,8 @@ class SonoriPyTokenizer(_Tokenizer):
             self._ordered_list = SonoriPy(string)
         else:
             raise TypeError(
-                'SonoriPi tokenizer requires installation of SyllabiPy package.'
+                'SonoriPi tokenizer requires installation of SyllabiPy'+
+                ' package.'
             )
 
         super(SonoriPyTokenizer, self).tokenize()
