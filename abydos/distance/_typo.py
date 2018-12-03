@@ -163,22 +163,24 @@ class Typo(_Distance):
         >>> cmp.dist_abs('ATCG', 'TAGC')
         2.5
 
-        >>> cmp.dist_abs('cat', 'hat', metric='manhattan')
+        >>> cmp = Typo(metric='manhattan')
+        >>> cmp.dist_abs('cat', 'hat')
         2.0
-        >>> cmp.dist_abs('Niall', 'Neil', metric='manhattan')
+        >>> cmp.dist_abs('Niall', 'Neil')
         3.0
-        >>> cmp.dist_abs('Colin', 'Cuilen', metric='manhattan')
+        >>> cmp.dist_abs('Colin', 'Cuilen')
         3.5
-        >>> cmp.dist_abs('ATCG', 'TAGC', metric='manhattan')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         2.5
 
-        >>> cmp.dist_abs('cat', 'hat', metric='log-manhattan')
+        >>> cmp = Typo(metric='log-manhattan')
+        >>> cmp.dist_abs('cat', 'hat')
         0.804719
-        >>> cmp.dist_abs('Niall', 'Neil', metric='log-manhattan')
+        >>> cmp.dist_abs('Niall', 'Neil')
         2.2424533
-        >>> cmp.dist_abs('Colin', 'Cuilen', metric='log-manhattan')
+        >>> cmp.dist_abs('Colin', 'Cuilen')
         2.2424533
-        >>> cmp.dist_abs('ATCG', 'TAGC', metric='log-manhattan')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         2.3465736
 
         .. versionadded:: 0.3.0

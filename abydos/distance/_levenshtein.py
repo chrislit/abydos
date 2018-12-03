@@ -120,9 +120,10 @@ class Levenshtein(_Distance):
         >>> cmp.dist_abs('ATCG', 'TAGC')
         3
 
-        >>> cmp.dist_abs('ATCG', 'TAGC', mode='osa')
+        >>> cmp = Levenshtein(mode='osa')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         2
-        >>> cmp.dist_abs('ACTG', 'TAGC', mode='osa')
+        >>> cmp.dist_abs('ACTG', 'TAGC')
         4
 
         .. versionadded:: 0.1.0

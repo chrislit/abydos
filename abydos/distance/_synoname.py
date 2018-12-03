@@ -499,14 +499,14 @@ class Synoname(_Distance):
         >>> cmp = Synoname()
         >>> cmp.dist_abs(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''))
         2
-        >>> cmp.dist_abs(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''),
-        ... ret_name=True)
+
+        >>> cmp = Synoname(ret_name=True)
+        >>> cmp.dist_abs(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''))
         'omission'
         >>> cmp.dist_abs(('Dore', 'Gustave', ''),
-        ... ('Dore', 'Paul Gustave Louis Christophe', ''), ret_name=True)
+        ... ('Dore', 'Paul Gustave Louis Christophe', ''))
         'inclusion'
-        >>> cmp.dist_abs(('Pereira', 'I. R.', ''), ('Pereira', 'I. Smith', ''),
-        ... ret_name=True)
+        >>> cmp.dist_abs(('Pereira', 'I. R.', ''), ('Pereira', 'I. Smith', ''))
         'word_approx'
 
         .. versionadded:: 0.3.0
