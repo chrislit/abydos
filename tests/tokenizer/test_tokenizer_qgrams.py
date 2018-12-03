@@ -40,7 +40,6 @@ class QGramsTestCases(unittest.TestCase):
         """Test abydos.tokenizer.QGrams."""
         self.assertEqual(sorted(QGrams().tokenize('').get_list()), [])
         self.assertEqual(sorted(QGrams(2).tokenize('a').get_list()), [])
-        self.assertEqual(sorted(QGrams(0).tokenize('NELSON').get_list()), [])
         self.assertEqual(sorted(QGrams(-1).tokenize('NELSON').get_list()), [])
 
         self.assertEqual(
@@ -218,6 +217,9 @@ class QGramsTestCases(unittest.TestCase):
             ),
         )
         self.assertEqual(QGrams(skip=(0, 1, 2)).tokenize('NELSON').count(), 21)
+
+        # Test exception
+        self.assertRaises(ValueError, QGrams, 0)
 
     def test_qgram_intersections(self):
         """Test abydos.tokenizer.QGrams intersections."""

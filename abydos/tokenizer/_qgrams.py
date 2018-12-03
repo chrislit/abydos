@@ -69,6 +69,11 @@ class QGrams(_Tokenizer):
             The number of characters to skip, can be an integer, range object,
             or list
 
+        Raises
+        ------
+        ValueError
+            Use WhitespaceTokenizer instead of qval=0.
+
         Examples
         --------
         >>> qg = QGrams().tokenize('AATTATAT')
@@ -88,6 +93,8 @@ class QGrams(_Tokenizer):
             Broke tokenization functions out into tokenize method
 
         """
+        if qval == 0:
+            raise ValueError('Use WhitespaceTokenizer instead of qval=0.')
         super(QGrams, self).__init__(scaler)
 
         # Save parameters
