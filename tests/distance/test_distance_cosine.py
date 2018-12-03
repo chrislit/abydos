@@ -32,7 +32,7 @@ import math
 import unittest
 
 from abydos.distance import Cosine, dist_cosine, sim_cosine
-from abydos.tokenizer import QGrams
+from abydos.tokenizer import QGrams, WhitespaceTokenizer
 
 from .. import NONQ_FROM, NONQ_TO
 
@@ -45,6 +45,7 @@ class CosineSimilarityTestCases(unittest.TestCase):
 
     cmp = Cosine()
     cmp_q2 = Cosine(tokenizer=QGrams(2))
+    cmp_ws = Cosine(tokenizer=WhitespaceTokenizer())
 
     def test_cosine_sim(self):
         """Test abydos.distance.Cosine.sim."""
@@ -92,16 +93,16 @@ class CosineSimilarityTestCases(unittest.TestCase):
             4 / math.sqrt(7 * 8),
         )
 
-        # # non-q-gram tests
-        # self.assertEqual(self.cmp.sim('', '', 0), 1)
-        # self.assertEqual(self.cmp.sim('the quick', '', 0), 0)
-        # self.assertEqual(self.cmp.sim('', 'the quick', 0), 0)
-        # self.assertAlmostEqual(
-        #     self.cmp.sim(NONQ_FROM, NONQ_TO, 0), 4 / math.sqrt(9 * 7)
-        # )
-        # self.assertAlmostEqual(
-        #     self.cmp.sim(NONQ_TO, NONQ_FROM, 0), 4 / math.sqrt(9 * 7)
-        # )
+        # non-q-gram tests
+        self.assertEqual(self.cmp_ws.sim('', ''), 1)
+        self.assertEqual(self.cmp_ws.sim('the quick', ''), 0)
+        self.assertEqual(self.cmp_ws.sim('', 'the quick'), 0)
+        self.assertAlmostEqual(
+            self.cmp_ws.sim(NONQ_FROM, NONQ_TO), 4 / math.sqrt(9 * 7)
+        )
+        self.assertAlmostEqual(
+            self.cmp_ws.sim(NONQ_TO, NONQ_FROM), 4 / math.sqrt(9 * 7)
+        )
 
         # Test wrapper
         self.assertAlmostEqual(
@@ -154,16 +155,16 @@ class CosineSimilarityTestCases(unittest.TestCase):
             1 - (4 / math.sqrt(7 * 8)),
         )
 
-        # # non-q-gram tests
-        # self.assertEqual(self.cmp.dist('', '', 0), 0)
-        # self.assertEqual(self.cmp.dist('the quick', '', 0), 1)
-        # self.assertEqual(self.cmp.dist('', 'the quick', 0), 1)
-        # self.assertAlmostEqual(
-        #     self.cmp.dist(NONQ_FROM, NONQ_TO, 0), 1 - 4 / math.sqrt(9 * 7)
-        # )
-        # self.assertAlmostEqual(
-        #     self.cmp.dist(NONQ_TO, NONQ_FROM, 0), 1 - 4 / math.sqrt(9 * 7)
-        # )
+        # non-q-gram tests
+        self.assertEqual(self.cmp_ws.dist('', ''), 0)
+        self.assertEqual(self.cmp_ws.dist('the quick', ''), 1)
+        self.assertEqual(self.cmp_ws.dist('', 'the quick'), 1)
+        self.assertAlmostEqual(
+            self.cmp_ws.dist(NONQ_FROM, NONQ_TO), 1 - 4 / math.sqrt(9 * 7)
+        )
+        self.assertAlmostEqual(
+            self.cmp_ws.dist(NONQ_TO, NONQ_FROM), 1 - 4 / math.sqrt(9 * 7)
+        )
 
         # Test wrapper
         self.assertAlmostEqual(
