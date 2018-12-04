@@ -68,6 +68,15 @@ class QGrams(_Tokenizer):
         skip : int or Iterable
             The number of characters to skip, can be an integer, range object,
             or list
+        scaler : None, str, or function
+            A scaling function for the Counter:
+
+                None : no scaling
+                'set' : All non-zero values are set to 1.
+                a callable function : The function is applied to each value
+                    in the Counter. Some useful functions include math.exp,
+                    math.log1p, math.sqrt, and indexes into interesting integer
+                    sequences such as the Fibonacci sequence.
 
         Raises
         ------
@@ -110,8 +119,8 @@ class QGrams(_Tokenizer):
         The tokenized term is stored as an ordered list and as a Counter
         object.
 
-        Args
-        ----
+        Parameters
+        ----------
         string : str
             The string to tokenize
 
@@ -155,15 +164,35 @@ class QGrams(_Tokenizer):
         return self
 
     def __repr__(self):
+        """Return representation of QGrams object.
+
+        .. versionadded:: 0.4.0
+
+        """
         return 'QGrams{}'.format(str(self._tokens)[7:])
 
     def __and__(self, other):
+        """Return intersection with other QGrams.
+
+        .. versionadded:: 0.4.0
+
+        """
         return self.get_counter() & other.get_counter()
 
     def __add__(self, other):
+        """Return union with other QGrams.
+
+        .. versionadded:: 0.4.0
+
+        """
         return self.get_counter() + other.get_counter()
 
     def __sub__(self, other):
+        """Return difference from other QGrams.
+
+        .. versionadded:: 0.4.0
+
+        """
         return self.get_counter() - other.get_counter()
 
 

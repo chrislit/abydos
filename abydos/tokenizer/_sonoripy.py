@@ -47,11 +47,17 @@ class SonoriPyTokenizer(_Tokenizer):
     def __init__(self, scaler=None):
         """Initialize Tokenizer.
 
-        Args
-        ----
-        scaler : str
-            Set to True to tokenize as bags/multisets or to False to tokenize
-            as sets
+        Parameters
+        ----------
+        scaler : None, str, or function
+            A scaling function for the Counter:
+
+                None : no scaling
+                'set' : All non-zero values are set to 1.
+                a callable function : The function is applied to each value
+                    in the Counter. Some useful functions include math.exp,
+                    math.log1p, math.sqrt, and indexes into interesting integer
+                    sequences such as the Fibonacci sequence.
 
         .. versionadded:: 0.4.0
 
@@ -64,8 +70,8 @@ class SonoriPyTokenizer(_Tokenizer):
         The tokenized term is stored as an ordered list and as a Counter
         object.
 
-        Args
-        ----
+        Parameters
+        ----------
         string : str
             The string to tokenize
 
@@ -78,8 +84,8 @@ class SonoriPyTokenizer(_Tokenizer):
             self._ordered_list = SonoriPy(string)
         else:
             raise TypeError(
-                'SonoriPi tokenizer requires installation of SyllabiPy'+
-                ' package.'
+                'SonoriPi tokenizer requires installation of SyllabiPy'
+                + ' package.'
             )
 
         super(SonoriPyTokenizer, self).tokenize()

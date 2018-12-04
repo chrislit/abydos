@@ -43,6 +43,7 @@ class Indel(Levenshtein):
     are possible.
 
     .. versionadded:: 0.3.6
+
     """
 
     def __init__(self, **kwargs):
@@ -62,18 +63,22 @@ class Indel(Levenshtein):
 
     def dist(self, src, tar):
         """Return the normalized indel distance between two strings.
+
         This is equivalent to normalized Levenshtein distance, when only
         inserts and deletes are possible.
+
         Parameters
         ----------
         src : str
             Source string for comparison
         tar : str
             Target string for comparison
+
         Returns
         -------
         float
             Normalized indel distance
+
         Examples
         --------
         >>> cmp = Indel()
@@ -85,6 +90,9 @@ class Indel(Levenshtein):
         0.454545454545
         >>> cmp.dist('ATCG', 'TAGC')
         0.5
+
+        .. versionadded:: 0.3.6
+
         """
         if src == tar:
             return 0.0

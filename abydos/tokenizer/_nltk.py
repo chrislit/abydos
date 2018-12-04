@@ -40,11 +40,17 @@ class NLTKTokenizer(_Tokenizer):
     def __init__(self, scaler=None, nltk_tokenizer=None):
         """Initialize Tokenizer.
 
-        Args
-        ----
-        scaler : str
-            Set to True to tokenize as bags/multisets or to False to tokenize
-            as sets
+        Parameters
+        ----------
+        scaler : None, str, or function
+            A scaling function for the Counter:
+
+                None : no scaling
+                'set' : All non-zero values are set to 1.
+                a callable function : The function is applied to each value
+                    in the Counter. Some useful functions include math.exp,
+                    math.log1p, math.sqrt, and indexes into interesting integer
+                    sequences such as the Fibonacci sequence.
 
         .. versionadded:: 0.4.0
 
@@ -57,8 +63,8 @@ class NLTKTokenizer(_Tokenizer):
             self.nltk_tokenizer = nltk_tokenizer
         else:
             raise TypeError(
-                'nltk_tokenizer must be an initialized tokenizer from the'+
-                ' NLTK package (e.g. TweetTokenizer()).'
+                'nltk_tokenizer must be an initialized tokenizer from the'
+                + ' NLTK package (e.g. TweetTokenizer()).'
             )
 
     def tokenize(self, string):
@@ -67,8 +73,8 @@ class NLTKTokenizer(_Tokenizer):
         The tokenized term is stored as an ordered list and as a Counter
         object.
 
-        Args
-        ----
+        Parameters
+        ----------
         string : str
             The string to tokenize
 

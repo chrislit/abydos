@@ -28,8 +28,6 @@ from __future__ import (
     unicode_literals,
 )
 
-from numbers import Number
-
 from deprecation import deprecated
 
 from ._token_distance import _TokenDistance

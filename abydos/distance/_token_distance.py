@@ -123,27 +123,27 @@ class _TokenDistance(_Distance):
         return self
 
     def get_tokens(self):
-        """Returns the src and tar tokens as a tuple."""
+        """Return the src and tar tokens as a tuple."""
         return self._src_tokens, self._tar_tokens
 
     def src_only(self):
-        """Returns the src tokens minus the tar tokens."""
+        """Return the src tokens minus the tar tokens."""
         return self._src_tokens - self._tar_tokens
 
     def tar_only(self):
-        """Returns the tar tokens minus the src tokens."""
+        """Return the tar tokens minus the src tokens."""
         return self._tar_tokens - self._src_tokens
 
     def union(self):
-        """Returns the union (sum) of tokens from src and tar."""
+        """Return the union (sum) of tokens from src and tar."""
         return self._src_tokens + self._tar_tokens
 
     def intersection(self):
-        """Returns the intersection of tokens from src and tar."""
+        """Return the intersection of tokens from src and tar."""
         return self._src_tokens & self._tar_tokens
 
     def difference(self):
-        """Returns the difference of the tokens, supporting negative values."""
+        """Return the difference of the tokens, supporting negative values."""
         _src_copy = Counter(self._src_tokens)
         _src_copy.subtract(self._tar_tokens)
         return _src_copy
