@@ -62,6 +62,12 @@ class SonoriPyTokenizer(_Tokenizer):
         .. versionadded:: 0.4.0
 
         """
+        if SonoriPy is None:
+            raise TypeError(
+                'SonoriPy tokenizer requires installation of SyllabiPy'
+                + ' package.'
+            )
+
         super(SonoriPyTokenizer, self).__init__(scaler)
 
     def tokenize(self, string):
@@ -80,13 +86,9 @@ class SonoriPyTokenizer(_Tokenizer):
         """
         self._string = string
 
-        if SonoriPy is not None:
-            self._ordered_list = SonoriPy(string)
-        else:
-            raise TypeError(
-                'SonoriPi tokenizer requires installation of SyllabiPy'
-                + ' package.'
-            )
+        self._ordered_list = []
+        for word in string.split():
+            self._ordered_list += SonoriPy(word)
 
         super(SonoriPyTokenizer, self).tokenize()
         return self
