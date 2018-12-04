@@ -37,22 +37,24 @@ class BWTTestCases(unittest.TestCase):
     """Test abydos.compression.BWT.encode and .decode."""
 
     coder = BWT()
+    coder_pipe = BWT('|')
+    coder_dollar = BWT('$')
 
     def test_bwt_encode(self):
         """Test abydos.compression.BWT.encode."""
         # Examples from Wikipedia entry on BWT
         self.assertEqual(self.coder.encode(''), '\x00')
-        self.assertEqual(self.coder.encode('^BANANA', '|'), 'BNN^AA|A')
+        self.assertEqual(self.coder_pipe.encode('^BANANA'), 'BNN^AA|A')
         self.assertEqual(
-            self.coder.encode(
-                'SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES', '|'
+            self.coder_pipe.encode(
+                'SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES'
             ),
             'TEXYDST.E.IXIXIXXSSMPPS.B..E.|.UESFXDIIOIIITS',
         )
 
-        self.assertEqual(self.coder.encode('aardvark', '$'), 'k$avrraad')
+        self.assertEqual(self.coder_dollar.encode('aardvark'), 'k$avrraad')
 
-        self.assertRaises(ValueError, self.coder.encode, 'ABC$', '$')
+        self.assertRaises(ValueError, self.coder_dollar.encode, 'ABC$')
         self.assertRaises(ValueError, self.coder.encode, 'ABC\0')
 
         # Test wrapper
@@ -62,17 +64,17 @@ class BWTTestCases(unittest.TestCase):
         """Test abydos.compression.BWT.decode."""
         self.assertEqual(self.coder.decode(''), '')
         self.assertEqual(self.coder.decode('\x00'), '')
-        self.assertEqual(self.coder.decode('BNN^AA|A', '|'), '^BANANA')
+        self.assertEqual(self.coder_pipe.decode('BNN^AA|A'), '^BANANA')
         self.assertEqual(
-            self.coder.decode(
-                'TEXYDST.E.IXIXIXXSSMPPS.B..E.|.UESFXDIIOIIITS', '|'
+            self.coder_pipe.decode(
+                'TEXYDST.E.IXIXIXXSSMPPS.B..E.|.UESFXDIIOIIITS'
             ),
             'SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES',
         )
 
-        self.assertEqual(self.coder.decode('k$avrraad', '$'), 'aardvark')
+        self.assertEqual(self.coder_dollar.decode('k$avrraad'), 'aardvark')
 
-        self.assertRaises(ValueError, self.coder.decode, 'ABC', '$')
+        self.assertRaises(ValueError, self.coder_dollar.decode, 'ABC')
         self.assertRaises(ValueError, self.coder.decode, 'ABC')
 
         # Test wrapper
@@ -91,7 +93,7 @@ class BWTTestCases(unittest.TestCase):
         ):
             self.assertEqual(self.coder.decode(self.coder.encode(w)), w)
             self.assertEqual(
-                self.coder.decode(self.coder.encode(w, '$'), '$'), w
+                self.coder_dollar.decode(self.coder_dollar.encode(w)), w
             )
 
 
