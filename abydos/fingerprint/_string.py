@@ -50,15 +50,26 @@ class String(_Fingerprint):
     .. versionadded:: 0.3.6
     """
 
-    def fingerprint(self, phrase, joiner=' '):
+    def __init__(self, joiner=' '):
+        """Initialize String instance.
+
+        Parameters
+        ----------
+        joiner : str
+            The string that will be placed between each word
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._joiner = joiner
+
+    def fingerprint(self, phrase):
         """Return string fingerprint.
 
         Parameters
         ----------
         phrase : str
             The string from which to calculate the fingerprint
-        joiner : str
-            The string that will be placed between each word
 
         Returns
         -------
@@ -78,7 +89,7 @@ class String(_Fingerprint):
         """
         phrase = unicode_normalize('NFKD', text_type(phrase.strip().lower()))
         phrase = ''.join([c for c in phrase if c.isalnum() or c.isspace()])
-        phrase = joiner.join(sorted(list(set(phrase.split()))))
+        phrase = self._joiner.join(sorted(list(set(phrase.split()))))
         return phrase
 
 
@@ -113,7 +124,7 @@ def str_fingerprint(phrase, joiner=' '):
     .. versionadded:: 0.1.0
 
     """
-    return String().fingerprint(phrase, joiner)
+    return String(joiner).fingerprint(phrase)
 
 
 if __name__ == '__main__':

@@ -44,7 +44,8 @@ class PhoneticTestCases(unittest.TestCase):
     """
 
     fp = Phonetic()
-    phonet = Phonet()
+    fp_phonet = Phonetic(Phonet())
+    fp_soundex = Phonetic(Soundex())
     soundex = Soundex()
 
     def test_phonetic_fingerprint(self):
@@ -56,12 +57,12 @@ class PhoneticTestCases(unittest.TestCase):
             self.fp.fingerprint(' '.join(NIALL)), 'a anl mknl njl nklk nl'
         )
         self.assertEqual(
-            self.fp.fingerprint(' '.join(NIALL), self.phonet.encode),
+            self.fp_phonet.fingerprint(' '.join(NIALL)),
             'knile makneil maknele neil nel nele nial nigeli '
             + 'nigl nil noigialach oneil ui',
         )
         self.assertEqual(
-            self.fp.fingerprint(' '.join(NIALL), self.soundex.encode),
+            self.fp_soundex.fingerprint(' '.join(NIALL)),
             'k540 m254 n240 n242 n400 o540 u000',
         )
 
