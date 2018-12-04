@@ -40,11 +40,17 @@ class _Tokenizer(object):
     def __init__(self, scaler=None, *args, **kwargs):
         """Initialize Tokenizer.
 
-        Args
-        ----
-        scaler : NoneType or str or function
-            Set to True to tokenize as bags/multisets or to False to tokenize
-            as sets
+        Parameters
+        ----------
+        scaler : None, str, or function
+            A scaling function for the Counter:
+
+                None : no scaling
+                'set' : All non-zero values are set to 1.
+                a callable function : The function is applied to each value
+                    in the Counter. Some useful functions include math.exp,
+                    math.log1p, math.sqrt, and indexes into interesting integer
+                    sequences such as the Fibonacci sequence.
 
         .. versionadded:: 0.4.0
 
@@ -62,8 +68,8 @@ class _Tokenizer(object):
         The tokenized term is stored as an ordered list and as a Counter
         object.
 
-        Args
-        ----
+        Parameters
+        ----------
         string : str
             The string to tokenize
 

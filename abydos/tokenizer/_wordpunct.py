@@ -34,7 +34,7 @@ __all__ = ['WordpunctTokenizer']
 
 
 class WordpunctTokenizer(RegexpTokenizer):
-    """A wordpunct tokenizer
+    """A wordpunct tokenizer.
 
     .. versionadded:: 0.4.0
     """
@@ -44,13 +44,15 @@ class WordpunctTokenizer(RegexpTokenizer):
 
         Parameters
         ----------
-        string : str
-            A string to extract q-grams from
         scaler : None, str, or function
+            A scaling function for the Counter:
 
-
-        Examples
-        --------
+                None : no scaling
+                'set' : All non-zero values are set to 1.
+                a callable function : The function is applied to each value
+                    in the Counter. Some useful functions include math.exp,
+                    math.log1p, math.sqrt, and indexes into interesting integer
+                    sequences such as the Fibonacci sequence.
 
         .. versionadded:: 0.4.0
 

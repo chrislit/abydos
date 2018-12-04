@@ -51,12 +51,25 @@ class QGram(_Fingerprint):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, qval=2, start_stop='', joiner='', skip=0, scaler=None):
-        self.qval = qval
-        self.start_stop = start_stop
-        self.joiner = joiner
-        self.skip = skip
-        self.scaler = scaler
+    def __init__(self, qval=2, start_stop='', joiner='', skip=0):
+        """Initialize Q-Gram fingerprinter.
+
+        qval : int
+            The length of each q-gram (by default 2)
+        start_stop : str
+            The start & stop symbol(s) to concatenate on either end of the
+            phrase, as defined in :py:class:`tokenizer.QGrams`
+        joiner : str
+            The string that will be placed between each word
+        skip : int or Iterable
+            The number of characters to skip, can be an integer, range object,
+            or list
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenizer = QGrams(qval, start_stop, skip)
+        self._joiner = joiner
 
     def fingerprint(self, phrase):
         """Return Q-Gram fingerprint.
@@ -65,13 +78,6 @@ class QGram(_Fingerprint):
         ----------
         phrase : str
             The string from which to calculate the q-gram fingerprint
-        qval : int
-            The length of each q-gram (by default 2)
-        start_stop : str
-            The start & stop symbol(s) to concatenate on either end of the
-            phrase, as defined in :py:class:`tokenizer.QGrams`
-        joiner : str
-            The string that will be placed between each word
 
         Returns
         -------
@@ -95,12 +101,8 @@ class QGram(_Fingerprint):
         """
         phrase = unicode_normalize('NFKD', text_type(phrase.strip().lower()))
         phrase = ''.join(c for c in phrase if c.isalnum())
-        phrase = (
-            QGrams(self.qval, self.start_stop, self.skip, self.scaler)
-            .tokenize(phrase)
-            .get_set()
-        )
-        phrase = self.joiner.join(sorted(phrase))
+        phrase = self._tokenizer.tokenize(phrase).get_set()
+        phrase = self._joiner.join(sorted(phrase))
         return phrase
 
 

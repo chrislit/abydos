@@ -48,19 +48,25 @@ class LegaliPyTokenizer(_Tokenizer):
     def __init__(self, scaler=None):
         """Initialize Tokenizer.
 
-        Args
-        ----
-        scaler : str
-            Set to True to tokenize as bags/multisets or to False to tokenize
-            as sets
+        Parameters
+        ----------
+        scaler : None, str, or function
+            A scaling function for the Counter:
+
+                None : no scaling
+                'set' : All non-zero values are set to 1.
+                a callable function : The function is applied to each value
+                    in the Counter. Some useful functions include math.exp,
+                    math.log1p, math.sqrt, and indexes into interesting integer
+                    sequences such as the Fibonacci sequence.
 
         .. versionadded:: 0.4.0
 
         """
         if LegaliPy is None:
             raise TypeError(
-                'LegaliPy tokenizer requires installation of SyllabiPy'+
-                ' package.'
+                'LegaliPy tokenizer requires installation of SyllabiPy'
+                + ' package.'
             )
 
         super(LegaliPyTokenizer, self).__init__(scaler)
@@ -70,8 +76,8 @@ class LegaliPyTokenizer(_Tokenizer):
     def train_onsets(self, text, threshold=0.0002, clean=True, append=False):
         """Train the onsets on a text.
 
-        Args
-        ----
+        Parameters
+        ----------
         text : str
             The text on which to train
         threshold : float
@@ -80,6 +86,8 @@ class LegaliPyTokenizer(_Tokenizer):
             If True, the text is stripped of numerals and punctuation
         append : bool
             If True, the current onset list is extended
+
+        .. versionadded:: 0.4.0
 
         """
         new_onsets = getOnsets(text, threshold, clean)
@@ -94,8 +102,8 @@ class LegaliPyTokenizer(_Tokenizer):
         The tokenized term is stored as an ordered list and as a Counter
         object.
 
-        Args
-        ----
+        Parameters
+        ----------
         string : str
             The string to tokenize
         ipa : bool

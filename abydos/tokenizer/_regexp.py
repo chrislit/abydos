@@ -36,7 +36,7 @@ __all__ = ['RegexpTokenizer']
 
 
 class RegexpTokenizer(_Tokenizer):
-    """A regexp tokenizer
+    """A regexp tokenizer.
 
     .. versionadded:: 0.4.0
     """
@@ -47,10 +47,14 @@ class RegexpTokenizer(_Tokenizer):
         Parameters
         ----------
         scaler : None, str, or function
+            A scaling function for the Counter:
 
-
-        Examples
-        --------
+                None : no scaling
+                'set' : All non-zero values are set to 1.
+                a callable function : The function is applied to each value
+                    in the Counter. Some useful functions include math.exp,
+                    math.log1p, math.sqrt, and indexes into interesting integer
+                    sequences such as the Fibonacci sequence.
 
         .. versionadded:: 0.4.0
 
@@ -69,8 +73,8 @@ class RegexpTokenizer(_Tokenizer):
         The tokenized term is stored as an ordered list and as a Counter
         object.
 
-        Args
-        ----
+        Parameters
+        ----------
         string : str
             The string to tokenize
 

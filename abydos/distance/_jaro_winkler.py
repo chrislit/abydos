@@ -93,6 +93,7 @@ class JaroWinkler(_Distance):
             A value between 0 and 0.25, indicating by how much to boost scores
             for matching prefixes (defaults to 0.1). (Used in 'winkler' mode
             only.)
+
         """
         super(JaroWinkler, self).__init__(**kwargs)
         self._qval = qval
