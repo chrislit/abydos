@@ -46,17 +46,30 @@ class Count(_Fingerprint):
     .. versionadded:: 0.3.6
     """
 
-    def fingerprint(self, word, n_bits=16, most_common=MOST_COMMON_LETTERS_CG):
+    def __init__(self, n_bits=16, most_common=MOST_COMMON_LETTERS_CG):
+        """Initialize Count instance.
+
+        Parameters
+        ----------
+        n_bits : int
+            Number of bits in the fingerprint returned
+        most_common : list
+            The most common tokens in the target language, ordered by frequency
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(_Fingerprint, self).__init__()
+        self._n_bits = n_bits
+        self._most_common = most_common
+
+    def fingerprint(self, word):
         """Return the count fingerprint.
 
         Parameters
         ----------
         word : str
             The word to fingerprint
-        n_bits : int
-            Number of bits in the fingerprint returned
-        most_common : list
-            The most common tokens in the target language, ordered by frequency
 
         Returns
         -------
@@ -82,13 +95,14 @@ class Count(_Fingerprint):
             Encapsulated in class
 
         """
+        n_bits = self._n_bits
         if n_bits % 2:
             n_bits += 1
 
         word = Counter(word)
         fingerprint = 0
 
-        for letter in most_common:
+        for letter in self._most_common:
             if n_bits:
                 fingerprint <<= 2
                 fingerprint += word[letter] & 3
@@ -143,7 +157,7 @@ def count_fingerprint(word, n_bits=16, most_common=MOST_COMMON_LETTERS_CG):
     .. versionadded:: 0.3.0
 
     """
-    return Count().fingerprint(word, n_bits, most_common)
+    return Count(n_bits, most_common).fingerprint(word)
 
 
 if __name__ == '__main__':
