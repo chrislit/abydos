@@ -55,15 +55,26 @@ class PhoneticSpanish(_Phonetic):
 
     _uc_set = set('BCDFGHJKLMNPQRSTVXYZ')
 
-    def encode(self, word, max_length=-1):
+    def __init__(self, max_length=-1):
+        """Initialize PhoneticSpanish instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to unlimited)
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+
+    def encode(self, word):
         """Return the PhoneticSpanish coding of word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length of the code returned (defaults to unlimited)
 
         Returns
         -------
@@ -100,8 +111,8 @@ class PhoneticSpanish(_Phonetic):
         # apply the Soundex algorithm
         sdx = word.translate(self._trans)
 
-        if max_length > 0:
-            sdx = (sdx + ('0' * max_length))[:max_length]
+        if self._max_length > 0:
+            sdx = (sdx + ('0' * self._max_length))[: self._max_length]
 
         return sdx
 
@@ -145,7 +156,7 @@ def phonetic_spanish(word, max_length=-1):
     .. versionadded:: 0.3.0
 
     """
-    return PhoneticSpanish().encode(word, max_length)
+    return PhoneticSpanish(max_length).encode(word)
 
 
 if __name__ == '__main__':

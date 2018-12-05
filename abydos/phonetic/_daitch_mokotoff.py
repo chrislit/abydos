@@ -262,19 +262,35 @@ class DaitchMokotoff(_Phonetic):
 
     _uc_v_set = set('AEIJOUY')
 
-    def encode(self, word, max_length=6, zero_pad=True):
-        """Return the Daitch-Mokotoff Soundex code for a word.
+    def __init__(self, max_length=6, zero_pad=True):
+        """Initialize DaitchMokotoff instance.
 
         Parameters
         ----------
-        word : str
-            The word to transform
         max_length : int
             The length of the code returned (defaults to 6; must be between 6
             and 64)
         zero_pad : bool
             Pad the end of the return value with 0s to achieve a max_length
             string
+
+        .. versionadded:: 0.4.0
+
+        """
+        # Require a max_length of at least 6 and not more than 64
+        if max_length != -1:
+            self._max_length = min(max(6, max_length), 64)
+        else:
+            self._max_length = 64
+        self._zero_pad = zero_pad
+
+    def encode(self, word):
+        """Return the Daitch-Mokotoff Soundex code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
 
         Returns
         -------
@@ -304,12 +320,6 @@ class DaitchMokotoff(_Phonetic):
         """
         dms = ['']  # initialize empty code list
 
-        # Require a max_length of at least 6 and not more than 64
-        if max_length != -1:
-            max_length = min(max(6, max_length), 64)
-        else:
-            max_length = 64
-
         # uppercase, normalize, decompose, and filter non-A-Z
         word = unicode_normalize('NFKD', text_type(word.upper()))
         word = word.replace('ß', 'SS')
@@ -317,8 +327,8 @@ class DaitchMokotoff(_Phonetic):
 
         # Nothing to convert, return base case
         if not word:
-            if zero_pad:
-                return {'0' * max_length}
+            if self._zero_pad:
+                return {'0' * self._max_length}
             return {'0'}
 
         pos = 0
@@ -360,10 +370,12 @@ class DaitchMokotoff(_Phonetic):
         )
 
         # Trim codes and return set
-        if zero_pad:
-            dms = ((_ + ('0' * max_length))[:max_length] for _ in dms)
+        if self._zero_pad:
+            dms = (
+                (_ + ('0' * self._max_length))[: self._max_length] for _ in dms
+            )
         else:
-            dms = (_[:max_length] for _ in dms)
+            dms = (_[: self._max_length] for _ in dms)
         return set(dms)
 
 
@@ -413,7 +425,7 @@ def dm_soundex(word, max_length=6, zero_pad=True):
         Encapsulated in class
 
     """
-    return DaitchMokotoff().encode(word, max_length, zero_pad)
+    return DaitchMokotoff(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

@@ -60,17 +60,29 @@ class PSHPSoundexLast(_Phonetic):
         )
     )
 
-    def encode(self, lname, max_length=4, german=False):
+    def __init__(self, max_length=4, german=False):
+        """Initialize PSHPSoundexLast instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to 4)
+        german : bool
+            Set to True if the name is German (different rules apply)
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+        self._german = german
+
+    def encode(self, lname):
         """Calculate the PSHP Soundex/Viewex Coding of a last name.
 
         Parameters
         ----------
         lname : str
             The last name to encode
-        max_length : int
-            The length of the code returned (defaults to 4)
-        german : bool
-            Set to True if the name is German (different rules apply)
 
         Returns
         -------
@@ -109,7 +121,7 @@ class PSHPSoundexLast(_Phonetic):
         # 1 indicates "except in German data"). It doesn't make sense for them
         # to become 1 (BPFV -> 1) or to apply outside German. Unfortunately,
         # both articles have this error(?).
-        if not german:
+        if not self._german:
             if lname[:3] == 'MAC':
                 lname = 'M' + lname[3:]
             elif lname[:2] == 'MC':
@@ -135,7 +147,7 @@ class PSHPSoundexLast(_Phonetic):
         elif lname[:3] in {'WIE', 'WEI'}:
             lname = 'V' + lname[1:]
 
-        if german and lname[:1] in {'W', 'M', 'Y', 'Z'}:
+        if self._german and lname[:1] in {'W', 'M', 'Y', 'Z'}:
             lname = {'W': 'V', 'M': 'N', 'Y': 'J', 'Z': 'S'}[lname[0]] + lname[
                 1:
             ]
@@ -143,7 +155,7 @@ class PSHPSoundexLast(_Phonetic):
         code = lname[:1]
 
         # B. Postfix treatment
-        if german:  # moved from end of postfix treatment due to blocking
+        if self._german:  # moved from end of postfix treatment due to blocking
             if lname[-3:] == 'TES':
                 lname = lname[:-3]
             elif lname[-2:] == 'TS':
@@ -166,7 +178,7 @@ class PSHPSoundexLast(_Phonetic):
         elif lname[-1:] == 'S':
             lname = lname[:-1]
 
-        if not german:
+        if not self._german:
             l5_repl = {'STOWN': 'SAWON', 'MPSON': 'MASON'}
             l4_repl = {
                 'NSEN': 'ASEN',
@@ -181,7 +193,7 @@ class PSHPSoundexLast(_Phonetic):
 
         if lname[-2:] in {'NG', 'ND'}:
             lname = lname[:-1]
-        if not german and lname[-3:] in {'GAN', 'GEN'}:
+        if not self._german and lname[-3:] in {'GAN', 'GEN'}:
             lname = lname[:-3] + 'A' + lname[-2:]
 
         # C. Infix Treatment
@@ -204,11 +216,11 @@ class PSHPSoundexLast(_Phonetic):
         code += lname[1:]
         code = code.replace('0', '')  # rule 1
 
-        if max_length != -1:
-            if len(code) < max_length:
-                code += '0' * (max_length - len(code))
+        if self._max_length != -1:
+            if len(code) < self._max_length:
+                code += '0' * (self._max_length - len(code))
             else:
-                code = code[:max_length]
+                code = code[: self._max_length]
 
         return code
 
@@ -254,7 +266,7 @@ def pshp_soundex_last(lname, max_length=4, german=False):
     .. versionadded:: 0.3.0
 
     """
-    return PSHPSoundexLast().encode(lname, max_length, german)
+    return PSHPSoundexLast(max_length, german).encode(lname)
 
 
 if __name__ == '__main__':

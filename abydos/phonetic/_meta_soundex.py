@@ -55,20 +55,33 @@ class MetaSoundex(_Phonetic):
             '07430755015866075943077514',
         )
     )
-    _phonetic_spanish = PhoneticSpanish()
-    _spanish_metaphone = SpanishMetaphone()
-    _metaphone = Metaphone()
-    _soundex = Soundex()
 
-    def encode(self, word, lang='en'):
+    def __init__(self, lang='en'):
+        """Initialize MetaSoundex instance.
+
+        Parameters
+        ----------
+        lang : str
+            Either ``en`` for English or ``es`` for Spanish
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._lang = lang
+        if lang == 'en':
+            self._sdx = Soundex()
+            self._meta = Metaphone()
+        else:
+            self._sdx = PhoneticSpanish()
+            self._meta = SpanishMetaphone()
+
+    def encode(self, word):
         """Return the MetaSoundex code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        lang : str
-            Either ``en`` for English or ``es`` for Spanish
 
         Returns
         -------
@@ -104,13 +117,9 @@ class MetaSoundex(_Phonetic):
             Encapsulated in class
 
         """
-        if lang == 'es':
-            return self._phonetic_spanish.encode(
-                self._spanish_metaphone.encode(word)
-            )
-
-        word = self._soundex.encode(self._metaphone.encode(word))
-        word = word[0].translate(self._trans) + word[1:]
+        word = self._sdx.encode(self._meta.encode(word))
+        if self._lang == 'en':
+            word = word[0].translate(self._trans) + word[1:]
         return word
 
 
@@ -163,7 +172,7 @@ def metasoundex(word, lang='en'):
     .. versionadded:: 0.3.0
 
     """
-    return MetaSoundex().encode(word, lang)
+    return MetaSoundex(lang).encode(word)
 
 
 if __name__ == '__main__':

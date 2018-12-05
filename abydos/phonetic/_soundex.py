@@ -65,15 +65,13 @@ class Soundex(_Phonetic):
         )
     )
 
-    def encode(
-        self, word, max_length=4, var='American', reverse=False, zero_pad=True
+    def __init__(
+        self, max_length=4, var='American', reverse=False, zero_pad=True
     ):
-        """Return the Soundex code for a word.
+        """Initialize Soundex instance.
 
         Parameters
         ----------
-        word : str
-            The word to transform
         max_length : int
             The length of the code returned (defaults to 4)
         var : str
@@ -96,6 +94,27 @@ class Soundex(_Phonetic):
         zero_pad : bool
             Pad the end of the return value with 0s to achieve a max_length
             string
+
+        .. versionadded:: 0.4.0
+
+        """
+        # Require a max_length of at least 4 and not more than 64
+        if max_length != -1:
+            self._max_length = min(max(4, max_length), 64)
+        else:
+            self._max_length = 64
+
+        self._var = var
+        self._reverse = reverse
+        self._zero_pad = zero_pad
+
+    def encode(self, word):
+        """Return the Soundex code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
 
         Returns
         -------
@@ -136,12 +155,6 @@ class Soundex(_Phonetic):
             Encapsulated in class
 
         """
-        # Require a max_length of at least 4 and not more than 64
-        if max_length != -1:
-            max_length = min(max(4, max_length), 64)
-        else:
-            max_length = 64
-
         # uppercase, normalize, decompose, and filter non-A-Z out
         word = unicode_normalize('NFKD', text_type(word.upper()))
         word = word.replace('ß', 'SS')
@@ -149,16 +162,36 @@ class Soundex(_Phonetic):
         if var == 'Census':
             if word[:3] in {'VAN', 'CON'} and len(word) > 4:
                 return (
-                    soundex(word, max_length, 'American', reverse, zero_pad),
                     soundex(
-                        word[3:], max_length, 'American', reverse, zero_pad
+                        word,
+                        self._max_length,
+                        'American',
+                        self._reverse,
+                        self._zero_pad,
+                    ),
+                    soundex(
+                        word[3:],
+                        self._max_length,
+                        'American',
+                        self._reverse,
+                        self._zero_pad,
                     ),
                 )
             if word[:2] in {'DE', 'DI', 'LA', 'LE'} and len(word) > 3:
                 return (
-                    soundex(word, max_length, 'American', reverse, zero_pad),
                     soundex(
-                        word[2:], max_length, 'American', reverse, zero_pad
+                        word,
+                        self._max_length,
+                        'American',
+                        self._reverse,
+                        self._zero_pad,
+                    ),
+                    soundex(
+                        word[2:],
+                        self._max_length,
+                        'American',
+                        self._reverse,
+                        self._zero_pad,
                     ),
                 )
             # Otherwise, proceed as usual (var='American' mode, ostensibly)
@@ -167,18 +200,18 @@ class Soundex(_Phonetic):
 
         # Nothing to convert, return base case
         if not word:
-            if zero_pad:
-                return '0' * max_length
+            if self._zero_pad:
+                return '0' * self._max_length
             return '0'
 
         # Reverse word if computing Reverse Soundex
-        if reverse:
+        if self._reverse:
             word = word[::-1]
 
         # apply the Soundex algorithm
         sdx = word.translate(self._trans)
 
-        if var == 'special':
+        if self._var == 'special':
             sdx = sdx.replace('9', '0')  # special rule for 1880-1910 census
         else:
             sdx = sdx.replace('9', '')  # rule 1
@@ -190,10 +223,10 @@ class Soundex(_Phonetic):
             sdx = word[0] + sdx[1:]
         sdx = sdx.replace('0', '')  # rule 1
 
-        if zero_pad:
-            sdx += '0' * max_length  # rule 4
+        if self._zero_pad:
+            sdx += '0' * self._max_length  # rule 4
 
-        return sdx[:max_length]
+        return sdx[: self._max_length]
 
 
 @deprecated(
@@ -269,7 +302,7 @@ def soundex(word, max_length=4, var='American', reverse=False, zero_pad=True):
     .. versionadded:: 0.1.0
 
     """
-    return Soundex().encode(word, max_length, var, reverse, zero_pad)
+    return Soundex(max_length, var, reverse, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

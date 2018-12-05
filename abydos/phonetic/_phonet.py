@@ -1077,17 +1077,29 @@ class Phonet(_Phonetic):
         )
     )
 
-    def encode(self, word, mode=1, lang='de'):
+    def __init__(self, mode=1, lang='de'):
+        """Initialize AlphaSIS instance.
+
+        Parameters
+        ----------
+        mode : int
+            The ponet variant to employ (1 or 2)
+        lang : str
+            ``de`` (default) for German, ``none`` for no language
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._mode = mode
+        self._lang = lang
+
+    def encode(self, word):
         """Return the phonet code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        mode : int
-            The ponet variant to employ (1 or 2)
-        lang : str
-            ``de`` (default) for German, ``none`` for no language
 
         Returns
         -------
@@ -1729,10 +1741,10 @@ class Phonet(_Phonetic):
 
             return dest
 
-        _initialize_phonet(lang)
+        _initialize_phonet(self._lang)
 
         word = unicode_normalize('NFKC', text_type(word))
-        return _phonet(word, mode, lang)
+        return _phonet(word, self._mode, self._lang)
 
 
 @deprecated(
@@ -1792,7 +1804,7 @@ def phonet(word, mode=1, lang='de'):
     .. versionadded:: 0.1.0
 
     """
-    return Phonet().encode(word, mode, lang)
+    return Phonet(mode, lang).encode(word)
 
 
 if __name__ == '__main__':

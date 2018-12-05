@@ -56,18 +56,34 @@ class FuzzySoundex(_Phonetic):
         )
     )
 
-    def encode(self, word, max_length=5, zero_pad=True):
+    def __init__(self, max_length=5, zero_pad=True):
+        """Initialize FuzzySoundex instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to 4)
+        zero_pad : bool
+            Pad the end of the return value with 0s to achieve a max_length
+            string
+
+        .. versionadded:: 0.4.0
+
+        """
+        # Clamp max_length to [4, 64]
+        if max_length != -1:
+            self._max_length = min(max(4, max_length), 64)
+        else:
+            self._max_length = 64
+        self._zero_pad = zero_pad
+
+    def encode(self, word):
         """Return the Fuzzy Soundex code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length of the code returned (defaults to 4)
-        zero_pad : bool
-            Pad the end of the return value with 0s to achieve a max_length
-            string
 
         Returns
         -------
@@ -94,15 +110,9 @@ class FuzzySoundex(_Phonetic):
         word = unicode_normalize('NFKD', text_type(word.upper()))
         word = word.replace('ß', 'SS')
 
-        # Clamp max_length to [4, 64]
-        if max_length != -1:
-            max_length = min(max(4, max_length), 64)
-        else:
-            max_length = 64
-
         if not word:
-            if zero_pad:
-                return '0' * max_length
+            if self._zero_pad:
+                return '0' * self._max_length
             return '0'
 
         if word[:2] in {'CS', 'CZ', 'TS', 'TZ'}:
@@ -162,10 +172,10 @@ class FuzzySoundex(_Phonetic):
 
         sdx = sdx.replace('0', '')
 
-        if zero_pad:
-            sdx += '0' * max_length
+        if self._zero_pad:
+            sdx += '0' * self._max_length
 
-        return sdx[:max_length]
+        return sdx[: self._max_length]
 
 
 @deprecated(
@@ -207,7 +217,7 @@ def fuzzy_soundex(word, max_length=5, zero_pad=True):
     .. versionadded:: 0.1.0
 
     """
-    return FuzzySoundex().encode(word, max_length, zero_pad)
+    return FuzzySoundex(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

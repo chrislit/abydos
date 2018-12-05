@@ -143,18 +143,30 @@ class RogerRoot(_Phonetic):
         },
     }
 
-    def encode(self, word, max_length=5, zero_pad=True):
+    def __init__(self, max_length=5, zero_pad=True):
+        """Initialize RogerRoot instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The maximum length (default 5) of the code to return
+        zero_pad : bool
+            Pad the end of the return value with 0s to achieve a max_length
+            string
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+        self._zero_pad = zero_pad
+
+    def encode(self, word):
         """Return the Roger Root code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The maximum length (default 5) of the code to return
-        zero_pad : bool
-            Pad the end of the return value with 0s to achieve a max_length
-            string
 
         Returns
         -------
@@ -203,10 +215,10 @@ class RogerRoot(_Phonetic):
         code = self._delete_consecutive_repeats(code)
         code = code.replace('*', '')
 
-        if zero_pad:
-            code += '0' * max_length
+        if self._zero_pad:
+            code += '0' * self._max_length
 
-        return code[:max_length]
+        return code[: self._max_length]
 
 
 @deprecated(
@@ -248,7 +260,7 @@ def roger_root(word, max_length=5, zero_pad=True):
     .. versionadded:: 0.3.0
 
     """
-    return RogerRoot().encode(word, max_length, zero_pad)
+    return RogerRoot(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

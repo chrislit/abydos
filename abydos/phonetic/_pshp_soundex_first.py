@@ -60,17 +60,29 @@ class PSHPSoundexFirst(_Phonetic):
         )
     )
 
-    def encode(self, fname, max_length=4, german=False):
+    def __init__(self, max_length=4, german=False):
+        """Initialize PSHPSoundexFirst instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to 4)
+        german : bool
+            Set to True if the name is German (different rules apply)
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+        self._german = german
+
+    def encode(self, fname):
         """Calculate the PSHP Soundex/Viewex Coding of a first name.
 
         Parameters
         ----------
         fname : str
             The first name to encode
-        max_length : int
-            The length of the code returned (defaults to 4)
-        german : bool
-            Set to True if the name is German (different rules apply)
 
         Returns
         -------
@@ -134,7 +146,7 @@ class PSHPSoundexFirst(_Phonetic):
             elif fname[:3] in {'WIE', 'WEI'}:
                 fname = 'V' + fname[1:]
 
-            if german and fname[:1] in {'W', 'M', 'Y', 'Z'}:
+            if self._german and fname[:1] in {'W', 'M', 'Y', 'Z'}:
                 fname = {'W': 'V', 'M': 'N', 'Y': 'J', 'Z': 'S'}[
                     fname[0]
                 ] + fname[1:]
@@ -154,11 +166,11 @@ class PSHPSoundexFirst(_Phonetic):
 
             code = code.replace('0', '')  # rule 1
 
-        if max_length != -1:
-            if len(code) < max_length:
-                code += '0' * (max_length - len(code))
+        if self._max_length != -1:
+            if len(code) < self._max_length:
+                code += '0' * (self._max_length - len(code))
             else:
-                code = code[:max_length]
+                code = code[: self._max_length]
 
         return code
 
@@ -214,7 +226,7 @@ def pshp_soundex_first(fname, max_length=4, german=False):
     .. versionadded:: 0.3.0
 
     """
-    return PSHPSoundexFirst().encode(fname, max_length, german)
+    return PSHPSoundexFirst(max_length, german).encode(fname)
 
 
 if __name__ == '__main__':

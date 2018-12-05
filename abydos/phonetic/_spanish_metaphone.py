@@ -52,18 +52,31 @@ class SpanishMetaphone(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def encode(self, word, max_length=6, modified=False):
+    def __init__(self, max_length=6, modified=False):
+        """Initialize AlphaSIS instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to 6)
+        modified : bool
+            Set to True to use del Pilar Angeles & Bailón-Miguel's modified
+            version of the algorithm
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+        self._modified = modified
+
+    def encode(self, word):
         """Return the Spanish Metaphone of a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length of the code returned (defaults to 6)
-        modified : bool
-            Set to True to use del Pilar Angeles & Bailón-Miguel's modified
-            version of the algorithm
+
 
         Returns
         -------
@@ -115,7 +128,7 @@ class SpanishMetaphone(_Phonetic):
         pos = 0
 
         # do some replacements for the modified version
-        if modified:
+        if self._modified:
             word = word.replace('MB', 'NB')
             word = word.replace('MP', 'NP')
             word = word.replace('BS', 'S')
@@ -136,7 +149,7 @@ class SpanishMetaphone(_Phonetic):
         word = word.replace('B', 'V')
         word = word.replace('LL', 'Y')
 
-        while len(meta_key) < max_length:
+        while len(meta_key) < self._max_length:
             if pos >= len(word):
                 break
 
@@ -238,7 +251,7 @@ class SpanishMetaphone(_Phonetic):
                         pos += 1
 
         # Final change from S to Z in modified version
-        if modified:
+        if self._modified:
             meta_key = meta_key.replace('S', 'Z')
 
         return meta_key
@@ -286,7 +299,7 @@ def spanish_metaphone(word, max_length=6, modified=False):
     .. versionadded:: 0.3.0
 
     """
-    return SpanishMetaphone().encode(word, max_length, modified)
+    return SpanishMetaphone(max_length, modified).encode(word)
 
 
 if __name__ == '__main__':

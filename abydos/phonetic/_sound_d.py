@@ -55,15 +55,25 @@ class SoundD(_Phonetic):
         )
     )
 
-    def encode(self, word, max_length=4):
+    def __init__(self, max_length=4):
+        """Initialize SoundD instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to 4)
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+
+    def encode(self, word):
         """Return the SoundD code.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length of the code returned (defaults to 4)
 
         Returns
         -------
@@ -107,11 +117,11 @@ class SoundD(_Phonetic):
         word = self._delete_consecutive_repeats(word)
         word = word.replace('0', '')
 
-        if max_length != -1:
-            if len(word) < max_length:
-                word += '0' * (max_length - len(word))
+        if self._max_length != -1:
+            if len(word) < self._max_length:
+                word += '0' * (self._max_length - len(word))
             else:
-                word = word[:max_length]
+                word = word[: self._max_length]
 
         return word
 
@@ -153,7 +163,7 @@ def sound_d(word, max_length=4):
     .. versionadded:: 0.3.0
 
     """
-    return SoundD().encode(word, max_length)
+    return SoundD(max_length).encode(word)
 
 
 if __name__ == '__main__':

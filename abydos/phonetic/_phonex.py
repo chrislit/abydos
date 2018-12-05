@@ -49,18 +49,34 @@ class Phonex(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def encode(self, word, max_length=4, zero_pad=True):
+    def __init__(self, max_length=4, zero_pad=True):
+        """Initialize Phonex instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to 4)
+        zero_pad : bool
+            Pad the end of the return value with 0s to achieve a max_length
+            string
+
+        .. versionadded:: 0.4.0
+
+        """
+        # Clamp max_length to [4, 64]
+        if max_length != -1:
+            self._max_length = min(max(4, max_length), 64)
+        else:
+            self._max_length = 64
+        self._zero_pad = zero_pad
+
+    def encode(self, word):
         """Return the Phonex code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length of the code returned (defaults to 4)
-        zero_pad : bool
-            Pad the end of the return value with 0s to achieve a max_length
-            string
 
         Returns
         -------
@@ -86,12 +102,6 @@ class Phonex(_Phonetic):
         """
         name = unicode_normalize('NFKD', text_type(word.upper()))
         name = name.replace('ß', 'SS')
-
-        # Clamp max_length to [4, 64]
-        if max_length != -1:
-            max_length = min(max(4, max_length), 64)
-        else:
-            max_length = 64
 
         name_code = last = ''
 
@@ -166,11 +176,11 @@ class Phonex(_Phonetic):
 
             last = name_code[-1]
 
-        if zero_pad:
-            name_code += '0' * max_length
+        if self._zero_pad:
+            name_code += '0' * self._max_length
         if not name_code:
             name_code = '0'
-        return name_code[:max_length]
+        return name_code[: self._max_length]
 
 
 @deprecated(
@@ -212,7 +222,7 @@ def phonex(word, max_length=4, zero_pad=True):
     .. versionadded:: 0.1.0
 
     """
-    return Phonex().encode(word, max_length, zero_pad)
+    return Phonex(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

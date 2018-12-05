@@ -51,17 +51,33 @@ class NYSIIS(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def encode(self, word, max_length=6, modified=False):
+    def __init__(self, max_length=6, modified=False):
+        """Initialize AlphaSIS instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The maximum length (default 6) of the code to return
+        modified : bool
+            Indicates whether to use USDA modified NYSIIS
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+        # Require a max_length of at least 6
+        if self._max_length > -1:
+            self._max_length = max(6, self._max_length)
+
+        self._modified = modified
+
+    def encode(self, word):
         """Return the NYSIIS code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The maximum length (default 6) of the code to return
-        modified : bool
-            Indicates whether to use USDA modified NYSIIS
 
         Returns
         -------
@@ -97,9 +113,6 @@ class NYSIIS(_Phonetic):
             Encapsulated in class
 
         """
-        # Require a max_length of at least 6
-        if max_length > -1:
-            max_length = max(6, max_length)
 
         word = ''.join(c for c in word.upper() if c.isalpha())
         word = word.replace('ß', 'SS')
@@ -120,7 +133,7 @@ class NYSIIS(_Phonetic):
             word = 'FF' + word[2:]
         elif word[:3] == 'SCH':
             word = 'SSS' + word[3:]
-        elif modified:
+        elif self._modified:
             if word[:2] == 'WR':
                 word = 'RR' + word[2:]
             elif word[:2] == 'RH':
@@ -130,20 +143,20 @@ class NYSIIS(_Phonetic):
             elif word[:1] in self._uc_v_set:
                 word = 'A' + word[1:]
 
-        if modified and word[-1:] in {'S', 'Z'}:
+        if self._modified and word[-1:] in {'S', 'Z'}:
             word = word[:-1]
 
         if (
             word[-2:] == 'EE'
             or word[-2:] == 'IE'
-            or (modified and word[-2:] == 'YE')
+            or (self._modified and word[-2:] == 'YE')
         ):
             word = word[:-2] + 'Y'
         elif word[-2:] in {'DT', 'RT', 'RD'}:
             word = word[:-2] + 'D'
         elif word[-2:] in {'NT', 'ND'}:
-            word = word[:-2] + ('N' if modified else 'D')
-        elif modified:
+            word = word[:-2] + ('N' if self._modified else 'D')
+        elif self._modified:
             if word[-2:] == 'IX':
                 word = word[:-2] + 'ICK'
             elif word[-2:] == 'EX':
@@ -165,7 +178,7 @@ class NYSIIS(_Phonetic):
                 skip = 1
             elif word[i] in self._uc_v_set:
                 word = word[:i] + 'A' + word[i + 1 :]
-            elif modified and i != len(word) - 1 and word[i] == 'Y':
+            elif self._modified and i != len(word) - 1 and word[i] == 'Y':
                 word = word[:i] + 'A' + word[i + 1 :]
             elif word[i] == 'Q':
                 word = word[:i] + 'G' + word[i + 1 :]
@@ -177,13 +190,21 @@ class NYSIIS(_Phonetic):
                 word = word[:i] + 'N' + word[i + 2 :]
             elif word[i] == 'K':
                 word = word[:i] + 'C' + word[i + 1 :]
-            elif modified and i == len(word) - 3 and word[i : i + 3] == 'SCH':
+            elif (
+                self._modified
+                and i == len(word) - 3
+                and word[i : i + 3] == 'SCH'
+            ):
                 word = word[:i] + 'SSA'
                 skip = 2
             elif word[i : i + 3] == 'SCH':
                 word = word[:i] + 'SSS' + word[i + 3 :]
                 skip = 2
-            elif modified and i == len(word) - 2 and word[i : i + 2] == 'SH':
+            elif (
+                self._modified
+                and i == len(word) - 2
+                and word[i : i + 2] == 'SH'
+            ):
                 word = word[:i] + 'SA'
                 skip = 1
             elif word[i : i + 2] == 'SH':
@@ -192,13 +213,13 @@ class NYSIIS(_Phonetic):
             elif word[i : i + 2] == 'PH':
                 word = word[:i] + 'FF' + word[i + 2 :]
                 skip = 1
-            elif modified and word[i : i + 3] == 'GHT':
+            elif self._modified and word[i : i + 3] == 'GHT':
                 word = word[:i] + 'TTT' + word[i + 3 :]
                 skip = 2
-            elif modified and word[i : i + 2] == 'DG':
+            elif self._modified and word[i : i + 2] == 'DG':
                 word = word[:i] + 'GG' + word[i + 2 :]
                 skip = 1
-            elif modified and word[i : i + 2] == 'WR':
+            elif self._modified and word[i : i + 2] == 'WR':
                 word = word[:i] + 'RR' + word[i + 2 :]
                 skip = 1
             elif word[i] == 'H' and (
@@ -220,11 +241,11 @@ class NYSIIS(_Phonetic):
             key = key[:-2] + 'Y'
         if key[-1:] == 'A':
             key = key[:-1]
-        if modified and key[:1] == 'A':
+        if self._modified and key[:1] == 'A':
             key = original_first_char + key[1:]
 
-        if max_length > 0:
-            key = key[:max_length]
+        if self._max_length > 0:
+            key = key[: self._max_length]
 
         return key
 
@@ -280,7 +301,7 @@ def nysiis(word, max_length=6, modified=False):
     .. versionadded:: 0.1.0
 
     """
-    return NYSIIS().encode(word, max_length, modified)
+    return NYSIIS(max_length, modified).encode(word)
 
 
 if __name__ == '__main__':

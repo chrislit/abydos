@@ -52,7 +52,21 @@ class Davidson(_Phonetic):
 
     _trans = {65: '', 69: '', 73: '', 79: '', 85: '', 72: '', 87: '', 89: ''}
 
-    def encode(self, lname, fname='.', omit_fname=False):
+    def __init__(self, omit_fname=False):
+        """Initialize Davidson instance.
+
+        Parameters
+        ----------
+        omit_fname : bool
+            Set to True to completely omit the first character of the first
+            name
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._omit_fname = omit_fname
+
+    def encode(self, lname, fname='.'):
         """Return Davidson's Consonant Code.
 
         Parameters
@@ -62,9 +76,6 @@ class Davidson(_Phonetic):
         fname : str
             First name (optional), of which the first character is included in
             the code.
-        omit_fname : bool
-            Set to True to completely omit the first character of the first
-            name
 
         Returns
         -------
@@ -100,7 +111,7 @@ class Davidson(_Phonetic):
         )
         code = code[:4] + (4 - len(code)) * ' '
 
-        if not omit_fname:
+        if not self._omit_fname:
             code += fname[:1].upper()
 
         return code
@@ -152,7 +163,7 @@ def davidson(lname, fname='.', omit_fname=False):
     .. versionadded:: 0.3.0
 
     """
-    return Davidson().encode(lname, fname, omit_fname)
+    return Davidson(omit_fname).encode(lname, fname)
 
 
 if __name__ == '__main__':

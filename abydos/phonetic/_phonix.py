@@ -64,8 +64,16 @@ class Phonix(_Phonetic):
         )
     )
 
-    def __init__(self):
-        """Initialize Phonix.
+    def __init__(self, max_length=4, zero_pad=True):
+        """Initialize Phonix instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to 4)
+        zero_pad : bool
+            Pad the end of the return value with 0s to achieve a max_length
+            string
 
         .. versionadded:: 0.3.6
 
@@ -188,18 +196,21 @@ class Phonix(_Phonetic):
             (3, 'MPT', 'MT'),
         )
 
-    def encode(self, word, max_length=4, zero_pad=True):
+        # Clamp max_length to [4, 64]
+        if max_length != -1:
+            self._max_length = min(max(4, max_length), 64)
+        else:
+            self._max_length = 64
+
+        self._zero_pad = zero_pad
+
+    def encode(self, word):
         """Return the Phonix code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length of the code returned (defaults to 4)
-        zero_pad : bool
-            Pad the end of the return value with 0s to achieve a max_length
-            string
 
         Returns
         -------
@@ -375,17 +386,11 @@ class Phonix(_Phonetic):
             sdx = self._delete_consecutive_repeats(sdx)
             sdx = sdx.replace('0', '')
 
-        # Clamp max_length to [4, 64]
-        if max_length != -1:
-            max_length = min(max(4, max_length), 64)
-        else:
-            max_length = 64
-
-        if zero_pad:
-            sdx += '0' * max_length
+        if self._zero_pad:
+            sdx += '0' * self._max_length
         if not sdx:
             sdx = '0'
-        return sdx[:max_length]
+        return sdx[: self._max_length]
 
 
 @deprecated(
@@ -427,7 +432,7 @@ def phonix(word, max_length=4, zero_pad=True):
     .. versionadded:: 0.1.0
 
     """
-    return Phonix().encode(word, max_length, zero_pad)
+    return Phonix(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':
