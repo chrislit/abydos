@@ -55,15 +55,26 @@ class StatisticsCanada(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def encode(self, word, max_length=4):
+    def __init__(self, max_length=4):
+        """Initialize StatisticsCanada instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to 4)
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+
+    def encode(self, word):
         """Return the Statistics Canada code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The maximum length (default 4) of the code to return
 
         Returns
         -------
@@ -101,7 +112,7 @@ class StatisticsCanada(_Phonetic):
         code = self._delete_consecutive_repeats(code)
         code = code.replace(' ', '')
 
-        return code[:max_length]
+        return code[: self._max_length]
 
 
 @deprecated(
@@ -141,7 +152,7 @@ def statistics_canada(word, max_length=4):
     .. versionadded:: 0.3.0
 
     """
-    return StatisticsCanada().encode(word, max_length)
+    return StatisticsCanada(max_length).encode(word)
 
 
 if __name__ == '__main__':

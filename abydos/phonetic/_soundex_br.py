@@ -55,18 +55,31 @@ class SoundexBR(_Phonetic):
         )
     )
 
-    def encode(self, word, max_length=4, zero_pad=True):
+    def __init__(self, max_length=4, zero_pad=True):
+        """Initialize SoundexBR instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to 4)
+        zero_pad : bool
+            Pad the end of the return value with 0s to achieve a max_length
+            string
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+        self._zero_pad = zero_pad
+
+    def encode(self, word):
         """Return the SoundexBR encoding of a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length of the code returned (defaults to 4)
-        zero_pad : bool
-            Pad the end of the return value with 0s to achieve a max_length
-            string
+
 
         Returns
         -------
@@ -116,10 +129,10 @@ class SoundexBR(_Phonetic):
         sdx = self._delete_consecutive_repeats(sdx)
         sdx = sdx.replace('0', '')
 
-        if zero_pad:
-            sdx += '0' * max_length
+        if self._zero_pad:
+            sdx += '0' * self._max_length
 
-        return sdx[:max_length]
+        return sdx[: self._max_length]
 
 
 @deprecated(
@@ -165,7 +178,7 @@ def soundex_br(word, max_length=4, zero_pad=True):
     .. versionadded:: 0.3.0
 
     """
-    return SoundexBR().encode(word, max_length, zero_pad)
+    return SoundexBR(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

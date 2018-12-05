@@ -838,21 +838,18 @@ class BeiderMorse(_Phonetic):
             return L_ANY
         return code
 
-    def encode(
+    def __init__(
         self,
-        word,
         language_arg=0,
         name_mode='gen',
         match_mode='approx',
         concat=False,
         filter_langs=False,
     ):
-        """Return the Beider-Morse Phonetic Matching encoding(s) of a term.
+        """Initialize BeiderMorse instance.
 
         Parameters
         ----------
-        word : str
-            The word to transform
         language_arg : int
             The language of the term; supported values include:
 
@@ -890,6 +887,51 @@ class BeiderMorse(_Phonetic):
             Concatenation mode
         filter_langs : bool
             Filter out incompatible languages
+
+        .. versionadded:: 0.4.0
+
+        """
+        name_mode = name_mode.strip().lower()[:3]
+        if name_mode not in {'ash', 'sep', 'gen'}:
+            name_mode = 'gen'
+
+        if match_mode != 'exact':
+            match_mode = 'approx'
+
+        # Translate the supplied language_arg value into an integer
+        # representing a set of languages
+        all_langs = (
+            sum(_LANG_DICT[_] for _ in BMDATA[name_mode]['languages']) - 1
+        )
+        lang_choices = 0
+        if isinstance(language_arg, (int, float, long)):
+            self._lang_choices = int(language_arg)
+        elif language_arg != '' and isinstance(language_arg, (text_type, str)):
+            for lang in text_type(language_arg).lower().split(','):
+                if lang in _LANG_DICT and (_LANG_DICT[lang] & all_langs):
+                    lang_choices += _LANG_DICT[lang]
+                elif not filter_langs:
+                    raise ValueError(
+                        'Unknown \''
+                        + name_mode
+                        + '\' language: \''
+                        + lang
+                        + '\''
+                    )
+
+        self._language_arg = language_arg
+        self._name_mode = name_mode
+        self._match_mode = match_mode
+        self._concat = concat
+        self._filter_langs = filter_langs
+
+    def encode(self, word):
+        """Return the Beider-Morse Phonetic Matching encoding(s) of a term.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
 
         Returns
         -------
@@ -936,54 +978,28 @@ class BeiderMorse(_Phonetic):
         """
         word = normalize('NFC', text_type(word.strip().lower()))
 
-        name_mode = name_mode.strip().lower()[:3]
-        if name_mode not in {'ash', 'sep', 'gen'}:
-            name_mode = 'gen'
-
-        if match_mode != 'exact':
-            match_mode = 'approx'
-
-        # Translate the supplied language_arg value into an integer
-        # representing a set of languages
-        all_langs = (
-            sum(_LANG_DICT[_] for _ in BMDATA[name_mode]['languages']) - 1
-        )
-        lang_choices = 0
-        if isinstance(language_arg, (int, float, long)):
-            lang_choices = int(language_arg)
-        elif language_arg != '' and isinstance(language_arg, (text_type, str)):
-            for lang in text_type(language_arg).lower().split(','):
-                if lang in _LANG_DICT and (_LANG_DICT[lang] & all_langs):
-                    lang_choices += _LANG_DICT[lang]
-                elif not filter_langs:
-                    raise ValueError(
-                        'Unknown \''
-                        + name_mode
-                        + '\' language: \''
-                        + lang
-                        + '\''
-                    )
-
         # Language choices are either all incompatible with the name mode or
         # no choices were given, so try to autodetect
-        if lang_choices == 0:
-            language_arg = self._language(word, name_mode)
+        if self._lang_choices == 0:
+            language_arg = self._language(word, self._name_mode)
         else:
-            language_arg = lang_choices
-        language_arg2 = self._language_index_from_code(language_arg, name_mode)
+            language_arg = self._lang_choices
+        language_arg2 = self._language_index_from_code(
+            language_arg, self._name_mode
+        )
 
-        rules = BMDATA[name_mode]['rules'][language_arg2]
-        final_rules1 = BMDATA[name_mode][match_mode]['common']
-        final_rules2 = BMDATA[name_mode][match_mode][language_arg2]
+        rules = BMDATA[self._name_mode]['rules'][language_arg2]
+        final_rules1 = BMDATA[self._name_mode][self._match_mode]['common']
+        final_rules2 = BMDATA[self._name_mode][self._match_mode][language_arg2]
 
         result = self._phonetic(
             word,
-            name_mode,
+            self._name_mode,
             rules,
             final_rules1,
             final_rules2,
             language_arg,
-            concat,
+            self._concat,
         )
         result = self._phonetic_numbers(result)
 
@@ -1085,9 +1101,9 @@ def bmpm(
     .. versionadded:: 0.1.0
 
     """
-    return BeiderMorse().encode(
-        word, language_arg, name_mode, match_mode, concat, filter_langs
-    )
+    return BeiderMorse(
+        language_arg, name_mode, match_mode, concat, filter_langs
+    ).encode(word)
 
 
 if __name__ == '__main__':

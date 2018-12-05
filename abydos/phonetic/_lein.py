@@ -54,18 +54,30 @@ class Lein(_Phonetic):
 
     _del_trans = {num: None for num in (32, 65, 69, 72, 73, 79, 85, 87, 89)}
 
-    def encode(self, word, max_length=4, zero_pad=True):
+    def __init__(self, max_length=4, zero_pad=True):
+        """Initialize Lein instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to 4)
+        zero_pad : bool
+            Pad the end of the return value with 0s to achieve a max_length
+            string
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+        self._zero_pad = zero_pad
+
+    def encode(self, word):
         """Return the Lein code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length of the code returned (defaults to 4)
-        zero_pad : bool
-            Pad the end of the return value with 0s to achieve a max_length
-            string
 
         Returns
         -------
@@ -99,10 +111,10 @@ class Lein(_Phonetic):
         word = self._delete_consecutive_repeats(word)  # Rule 3
         code += word.translate(self._trans)  # Rule 4
 
-        if zero_pad:
-            code += '0' * max_length  # Rule 4
+        if self._zero_pad:
+            code += '0' * self._max_length  # Rule 4
 
-        return code[:max_length]
+        return code[: self._max_length]
 
 
 @deprecated(
@@ -144,7 +156,7 @@ def lein(word, max_length=4, zero_pad=True):
     .. versionadded:: 0.3.0
 
     """
-    return Lein().encode(word, max_length, zero_pad)
+    return Lein(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

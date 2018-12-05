@@ -54,7 +54,20 @@ class Haase(_Phonetic):
 
     _uc_v_set = set('AEIJOUY')
 
-    def encode(self, word, primary_only=False):
+    def __init__(self, primary_only=False):
+        """Initialize Haase instance.
+
+        Parameters
+        ----------
+        primary_only : bool
+            If True, only the primary code is returned
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._primary_only = primary_only
+
+    def encode(self, word):
         """Return the Haase Phonetik (numeric output) code for a word.
 
         While the output code is numeric, it is nevertheless a str.
@@ -63,8 +76,6 @@ class Haase(_Phonetic):
         ----------
         word : str
             The word to transform
-        primary_only : bool
-            If True, only the primary code is returned
 
         Returns
         -------
@@ -148,7 +159,7 @@ class Haase(_Phonetic):
         word = ''.join(c for c in word if c in self._uc_set)
 
         variants = []
-        if primary_only:
+        if self._primary_only:
             variants = [word]
         else:
             pos = 0
@@ -297,7 +308,7 @@ def haase_phonetik(word, primary_only=False):
     .. versionadded:: 0.3.0
 
     """
-    return Haase().encode(word, primary_only)
+    return Haase(primary_only).encode(word)
 
 
 if __name__ == '__main__':

@@ -51,21 +51,32 @@ class ONCA(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    _nysiis = NYSIIS()
-    _soundex = Soundex()
+    def __init__(self, max_length=4, zero_pad=True):
+        """Initialize ONCA instance.
 
-    def encode(self, word, max_length=4, zero_pad=True):
+        Parameters
+        ----------
+        max_length : int
+            The maximum length (default 5) of the code to return
+        zero_pad : bool
+            Pad the end of the return value with 0s to achieve a max_length
+            string
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._nysiis = NYSIIS(max_length=max_length * 3)
+        self._soundex = Soundex(
+            max_length=self._max_length, zero_pad=self._zero_pad
+        )
+
+    def encode(self, word):
         """Return the Oxford Name Compression Algorithm (ONCA) code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The maximum length (default 5) of the code to return
-        zero_pad : bool
-            Pad the end of the return value with 0s to achieve a max_length
-            string
 
         Returns
         -------
@@ -92,11 +103,7 @@ class ONCA(_Phonetic):
         # In the most extreme case, 3 characters of NYSIIS input can be
         # compressed to one character of output, so give it triple the
         # max_length.
-        return self._soundex.encode(
-            self._nysiis.encode(word, max_length=max_length * 3),
-            max_length,
-            zero_pad=zero_pad,
-        )
+        return self._soundex.encode(self._nysiis.encode(word))
 
 
 @deprecated(
@@ -138,7 +145,7 @@ def onca(word, max_length=4, zero_pad=True):
     .. versionadded:: 0.3.0
 
     """
-    return ONCA().encode(word, max_length, zero_pad)
+    return ONCA(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

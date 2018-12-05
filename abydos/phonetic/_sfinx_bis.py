@@ -156,15 +156,26 @@ class SfinxBis(_Phonetic):
         )
     )
 
-    def encode(self, word, max_length=-1):
+    def __init__(self, max_length=-1):
+        """Initialize SfinxBis instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to unlimited)
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+
+    def encode(self, word):
         """Return the SfinxBis code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length of the code returned (defaults to unlimited)
 
         Returns
         -------
@@ -364,8 +375,8 @@ class SfinxBis(_Phonetic):
         ]
 
         # truncate, if max_length is set
-        if max_length > 0:
-            ordlista = [ordet[:max_length] for ordet in ordlista]
+        if self._max_length > 0:
+            ordlista = [ordet[: self._max_length] for ordet in ordlista]
 
         return tuple(ordlista)
 
@@ -412,7 +423,7 @@ def sfinxbis(word, max_length=-1):
     .. versionadded:: 0.1.0
 
     """
-    return SfinxBis().encode(word, max_length)
+    return SfinxBis(max_length).encode(word)
 
 
 if __name__ == '__main__':

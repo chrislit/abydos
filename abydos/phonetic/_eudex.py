@@ -173,15 +173,26 @@ class Eudex(_Phonetic):
         'ÿ': 0b11100101,  # ÿ
     }
 
-    def encode(self, word, max_length=8):
+    def __init__(self, max_length=8):
+        """Initialize Eudex instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length in bits of the code returned (default 8)
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+
+    def encode(self, word):
         """Return the eudex phonetic hash of a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length in bits of the code returned (default 8)
 
         Returns
         -------
@@ -229,8 +240,8 @@ class Eudex(_Phonetic):
         # Add padding after first character & trim beyond max_length
         values = (
             [condensed_values[0]]
-            + [0] * max(0, max_length - len(condensed_values))
-            + condensed_values[1:max_length]
+            + [0] * max(0, self._max_length - len(condensed_values))
+            + condensed_values[1 : self._max_length]
         )
 
         # Combine individual character values into eudex hash
@@ -280,7 +291,7 @@ def eudex(word, max_length=8):
     .. versionadded:: 0.3.0
 
     """
-    return Eudex().encode(word, max_length)
+    return Eudex(max_length).encode(word)
 
 
 if __name__ == '__main__':

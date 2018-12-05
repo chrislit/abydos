@@ -159,7 +159,24 @@ class AlphaSIS(_Phonetic):
         'P',
     )
 
-    def encode(self, word, max_length=14):
+    def __init__(self, max_length=14):
+        """Initialize AlphaSIS instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to 14)
+
+        .. versionadded:: 0.4.0
+
+        """
+        # Clamp max_length to [4, 64]
+        if max_length != -1:
+            self._max_length = min(max(4, max_length), 64)
+        else:
+            self._max_length = 64
+
+    def encode(self, word):
         """Return the IBM Alpha Search Inquiry System code for a word.
 
         A collection is necessary as the return type since there can be
@@ -170,8 +187,6 @@ class AlphaSIS(_Phonetic):
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length of the code returned (defaults to 14)
 
         Returns
         -------
@@ -200,12 +215,6 @@ class AlphaSIS(_Phonetic):
         word = unicode_normalize('NFKD', text_type(word.upper()))
         word = word.replace('ß', 'SS')
         word = ''.join(c for c in word if c in self._uc_set)
-
-        # Clamp max_length to [4, 64]
-        if max_length != -1:
-            max_length = min(max(4, max_length), 64)
-        else:
-            max_length = 64
 
         # Do special processing for initial substrings
         for k in self._alpha_sis_initials_order:
@@ -249,7 +258,9 @@ class AlphaSIS(_Phonetic):
         alpha = (_.replace('_', '') for _ in alpha)
 
         # Trim codes and return tuple
-        alpha = ((_ + ('0' * max_length))[:max_length] for _ in alpha)
+        alpha = (
+            (_ + ('0' * self._max_length))[: self._max_length] for _ in alpha
+        )
         return tuple(alpha)
 
 
@@ -290,7 +301,7 @@ def alpha_sis(word, max_length=14):
     .. versionadded:: 0.1.0
 
     """
-    return AlphaSIS().encode(word, max_length)
+    return AlphaSIS(max_length).encode(word)
 
 
 if __name__ == '__main__':

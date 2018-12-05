@@ -56,13 +56,11 @@ class RefinedSoundex(_Phonetic):
         )
     )
 
-    def encode(self, word, max_length=-1, zero_pad=False, retain_vowels=False):
-        """Return the Refined Soundex code for a word.
+    def __init__(self, max_length=-1, zero_pad=False, retain_vowels=False):
+        """Initialize RefinedSoundex instance.
 
         Parameters
         ----------
-        word : str
-            The word to transform
         max_length : int
             The length of the code returned (defaults to unlimited)
         zero_pad : bool
@@ -70,6 +68,21 @@ class RefinedSoundex(_Phonetic):
             string
         retain_vowels : bool
             Retain vowels (as 0) in the resulting code
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+        self._zero_pad = zero_pad
+        self._retain_vowels = retain_vowels
+
+    def encode(self, word):
+        """Return the Refined Soundex code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
 
         Returns
         -------
@@ -101,13 +114,13 @@ class RefinedSoundex(_Phonetic):
         # apply the Soundex algorithm
         sdx = word[:1] + word.translate(self._trans)
         sdx = self._delete_consecutive_repeats(sdx)
-        if not retain_vowels:
+        if not self._retain_vowels:
             sdx = sdx.replace('0', '')  # Delete vowels, H, W, Y
 
-        if max_length > 0:
-            if zero_pad:
-                sdx += '0' * max_length
-            sdx = sdx[:max_length]
+        if self._max_length > 0:
+            if self._zero_pad:
+                sdx += '0' * self._max_length
+            sdx = sdx[: self._max_length]
 
         return sdx
 
@@ -153,7 +166,7 @@ def refined_soundex(word, max_length=-1, zero_pad=False, retain_vowels=False):
     .. versionadded:: 0.3.0
 
     """
-    return RefinedSoundex().encode(word, max_length, zero_pad, retain_vowels)
+    return RefinedSoundex(max_length, zero_pad, retain_vowels).encode(word)
 
 
 if __name__ == '__main__':
