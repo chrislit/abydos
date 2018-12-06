@@ -35,7 +35,7 @@ class _Stemmer(object):
     .. versionadded:: 0.3.6
     """
 
-    def stem(self, word, *args, **kwargs):
+    def stem(self, word):
         """Return stem.
 
         Parameters

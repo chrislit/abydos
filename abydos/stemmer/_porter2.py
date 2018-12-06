@@ -89,16 +89,27 @@ class Porter2(_Snowball):
         'succeed',
     }
 
-    def stem(self, word, early_english=False):
+    def __init__(self, early_english=False):
+        """Initialize Porter2 instance.
+
+        Parameters
+        ----------
+        early_english : bool
+            Set to True in order to remove -eth & -est (2nd & 3rd person
+            singular verbal agreement suffixes)
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._early_english = early_english
+
+    def stem(self, word):
         """Return the Porter2 (Snowball English) stem.
 
         Parameters
         ----------
         word : str
             The word to stem
-        early_english : bool
-            Set to True in order to remove -eth & -est (2nd & 3rd person
-            singular verbal agreement suffixes)
 
         Returns
         -------
@@ -210,7 +221,7 @@ class Porter2(_Snowball):
             if self._sb_has_vowel(word[:-2]):
                 word = word[:-2]
                 step1b_flag = True
-        elif early_english:
+        elif self._early_english:
             if word[-3:] == 'est':
                 if self._sb_has_vowel(word[:-3]):
                     word = word[:-3]
@@ -425,7 +436,7 @@ def porter2(word, early_english=False):
     .. versionadded:: 0.1.0
 
     """
-    return Porter2().stem(word, early_english)
+    return Porter2(early_english).stem(word)
 
 
 if __name__ == '__main__':

@@ -157,16 +157,27 @@ class Porter(_Stemmer):
             and term[-1] not in tuple('wxY')
         )
 
-    def stem(self, word, early_english=False):
+    def __init__(self, early_english=False):
+        """Initialize Porter instance.
+
+        Parameters
+        ----------
+        early_english : bool
+            Set to True in order to remove -eth & -est (2nd & 3rd person
+            singular verbal agreement suffixes)
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._early_english = early_english
+
+    def stem(self, word):
         """Return Porter stem.
 
         Parameters
         ----------
         word : str
             The word to stem
-        early_english : bool
-            Set to True in order to remove -eth & -est (2nd & 3rd person
-            singular verbal agreement suffixes)
 
         Returns
         -------
@@ -229,7 +240,7 @@ class Porter(_Stemmer):
             if self._has_vowel(word[:-3]):
                 word = word[:-3]
                 step1b_flag = True
-        elif early_english:
+        elif self._early_english:
             if word[-3:] == 'est':
                 if self._has_vowel(word[:-3]):
                     word = word[:-3]
@@ -435,7 +446,7 @@ def porter(word, early_english=False):
     .. versionadded:: 0.1.0
 
     """
-    return Porter().stem(word, early_english)
+    return Porter(early_english).stem(word)
 
 
 if __name__ == '__main__':
