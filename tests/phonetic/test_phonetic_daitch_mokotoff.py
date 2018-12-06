@@ -121,25 +121,30 @@ class DaitchMokotoffTestCases(unittest.TestCase):
 
         # max_length bounds tests
         self.assertEqual(
-            self.pa.encode('Niall', max_length=-1), {'68' + '0' * 62}
+            DaitchMokotoff(max_length=-1).encode('Niall'), {'68' + '0' * 62}
         )
-        self.assertEqual(self.pa.encode('Niall', max_length=0), {'680000'})
+        self.assertEqual(
+            DaitchMokotoff(max_length=0).encode('Niall'), {'680000'}
+        )
 
         # zero_pad tests
         self.assertEqual(
-            self.pa.encode('Niall', max_length=-1, zero_pad=False), {'68'}
+            DaitchMokotoff(max_length=-1, zero_pad=False).encode('Niall'),
+            {'68'},
         )
         self.assertEqual(
-            self.pa.encode('Niall', max_length=0, zero_pad=False), {'68'}
+            DaitchMokotoff(max_length=0, zero_pad=False).encode('Niall'),
+            {'68'},
         )
         self.assertEqual(
-            self.pa.encode('Niall', max_length=0, zero_pad=True), {'680000'}
+            DaitchMokotoff(max_length=0, zero_pad=True).encode('Niall'),
+            {'680000'},
         )
         self.assertEqual(
-            self.pa.encode('', max_length=6, zero_pad=False), {'0'}
+            DaitchMokotoff(max_length=6, zero_pad=False).encode(''), {'0'}
         )
         self.assertEqual(
-            self.pa.encode('', max_length=6, zero_pad=True), {'000000'}
+            DaitchMokotoff(max_length=6, zero_pad=True).encode(''), {'000000'}
         )
 
         # Test wrapper

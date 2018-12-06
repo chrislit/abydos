@@ -65,7 +65,7 @@ class SoundexBRTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('Cici'), 'S200')
         self.assertEqual(self.pa.encode('Gerard'), 'J663')
         self.assertEqual(self.pa.encode('Yglesias'), 'I242')
-        self.assertEqual(self.pa.encode('Cici', zero_pad=False), 'S2')
+        self.assertEqual(SoundexBR(zero_pad=False).encode('Cici'), 'S2')
 
         # Test wrapper
         self.assertEqual(soundex_br('Ana Karolina Kuhnen'), 'A526')

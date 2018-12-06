@@ -66,9 +66,7 @@ class ONCA(_Phonetic):
 
         """
         self._nysiis = NYSIIS(max_length=max_length * 3)
-        self._soundex = Soundex(
-            max_length=self._max_length, zero_pad=self._zero_pad
-        )
+        self._soundex = Soundex(max_length=max_length, zero_pad=zero_pad)
 
     def encode(self, word):
         """Return the Oxford Name Compression Algorithm (ONCA) code for a word.

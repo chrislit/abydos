@@ -136,199 +136,120 @@ class RefinedSoundexTestCases(unittest.TestCase):
 
         # Test with retain_vowels=True
         # http://ntz-develop.blogspot.com/2011/03/phonetic-algorithms.html
-        self.assertEqual(self.pa.encode('Braz', retain_vowels=True), 'B1905')
-        self.assertEqual(self.pa.encode('Broz', retain_vowels=True), 'B1905')
-        self.assertEqual(self.pa.encode('Caren', retain_vowels=True), 'C30908')
-        self.assertEqual(self.pa.encode('Caron', retain_vowels=True), 'C30908')
-        self.assertEqual(
-            self.pa.encode('Carren', retain_vowels=True), 'C30908'
-        )
-        self.assertEqual(
-            self.pa.encode('Charon', retain_vowels=True), 'C30908'
-        )
-        self.assertEqual(
-            self.pa.encode('Corain', retain_vowels=True), 'C30908'
-        )
-        self.assertEqual(self.pa.encode('Coram', retain_vowels=True), 'C30908')
-        self.assertEqual(
-            self.pa.encode('Corran', retain_vowels=True), 'C30908'
-        )
-        self.assertEqual(
-            self.pa.encode('Corrin', retain_vowels=True), 'C30908'
-        )
-        self.assertEqual(
-            self.pa.encode('Corwin', retain_vowels=True), 'C30908'
-        )
-        self.assertEqual(
-            self.pa.encode('Curran', retain_vowels=True), 'C30908'
-        )
-        self.assertEqual(
-            self.pa.encode('Curreen', retain_vowels=True), 'C30908'
-        )
-        self.assertEqual(
-            self.pa.encode('Currin', retain_vowels=True), 'C30908'
-        )
-        self.assertEqual(
-            self.pa.encode('Currom', retain_vowels=True), 'C30908'
-        )
-        self.assertEqual(
-            self.pa.encode('Currum', retain_vowels=True), 'C30908'
-        )
-        self.assertEqual(
-            self.pa.encode('Curwen', retain_vowels=True), 'C30908'
-        )
-        self.assertEqual(self.pa.encode('Caren', retain_vowels=True), 'C30908')
-        self.assertEqual(self.pa.encode('Caren', retain_vowels=True), 'C30908')
-        self.assertEqual(self.pa.encode('Caren', retain_vowels=True), 'C30908')
-        self.assertEqual(self.pa.encode('Caren', retain_vowels=True), 'C30908')
-        self.assertEqual(self.pa.encode('Caren', retain_vowels=True), 'C30908')
-        self.assertEqual(self.pa.encode('Caren', retain_vowels=True), 'C30908')
-        self.assertEqual(self.pa.encode('Caren', retain_vowels=True), 'C30908')
-        self.assertEqual(self.pa.encode('Hairs', retain_vowels=True), 'H093')
-        self.assertEqual(self.pa.encode('Hark', retain_vowels=True), 'H093')
-        self.assertEqual(self.pa.encode('Hars', retain_vowels=True), 'H093')
-        self.assertEqual(self.pa.encode('Hayers', retain_vowels=True), 'H093')
-        self.assertEqual(self.pa.encode('Heers', retain_vowels=True), 'H093')
-        self.assertEqual(self.pa.encode('Hiers', retain_vowels=True), 'H093')
-        self.assertEqual(
-            self.pa.encode('Lambard', retain_vowels=True), 'L7081096'
-        )
-        self.assertEqual(
-            self.pa.encode('Lambart', retain_vowels=True), 'L7081096'
-        )
-        self.assertEqual(
-            self.pa.encode('Lambert', retain_vowels=True), 'L7081096'
-        )
-        self.assertEqual(
-            self.pa.encode('Lambird', retain_vowels=True), 'L7081096'
-        )
-        self.assertEqual(
-            self.pa.encode('Lampaert', retain_vowels=True), 'L7081096'
-        )
-        self.assertEqual(
-            self.pa.encode('Lampard', retain_vowels=True), 'L7081096'
-        )
-        self.assertEqual(
-            self.pa.encode('Lampart', retain_vowels=True), 'L7081096'
-        )
-        self.assertEqual(
-            self.pa.encode('Lamperd', retain_vowels=True), 'L7081096'
-        )
-        self.assertEqual(
-            self.pa.encode('Lampert', retain_vowels=True), 'L7081096'
-        )
-        self.assertEqual(
-            self.pa.encode('Lamport', retain_vowels=True), 'L7081096'
-        )
-        self.assertEqual(
-            self.pa.encode('Limbert', retain_vowels=True), 'L7081096'
-        )
-        self.assertEqual(
-            self.pa.encode('Lombard', retain_vowels=True), 'L7081096'
-        )
-        self.assertEqual(
-            self.pa.encode('Nolton', retain_vowels=True), 'N807608'
-        )
-        self.assertEqual(
-            self.pa.encode('Noulton', retain_vowels=True), 'N807608'
-        )
+        pa_vowels = RefinedSoundex(retain_vowels=True)
+        self.assertEqual(pa_vowels.encode('Braz'), 'B1905')
+        self.assertEqual(pa_vowels.encode('Broz'), 'B1905')
+        self.assertEqual(pa_vowels.encode('Caren'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Caron'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Carren'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Charon'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Corain'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Coram'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Corran'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Corrin'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Corwin'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Curran'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Curreen'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Currin'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Currom'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Currum'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Curwen'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Caren'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Caren'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Caren'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Caren'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Caren'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Caren'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Caren'), 'C30908')
+        self.assertEqual(pa_vowels.encode('Hairs'), 'H093')
+        self.assertEqual(pa_vowels.encode('Hark'), 'H093')
+        self.assertEqual(pa_vowels.encode('Hars'), 'H093')
+        self.assertEqual(pa_vowels.encode('Hayers'), 'H093')
+        self.assertEqual(pa_vowels.encode('Heers'), 'H093')
+        self.assertEqual(pa_vowels.encode('Hiers'), 'H093')
+        self.assertEqual(pa_vowels.encode('Lambard'), 'L7081096')
+        self.assertEqual(pa_vowels.encode('Lambart'), 'L7081096')
+        self.assertEqual(pa_vowels.encode('Lambert'), 'L7081096')
+        self.assertEqual(pa_vowels.encode('Lambird'), 'L7081096')
+        self.assertEqual(pa_vowels.encode('Lampaert'), 'L7081096')
+        self.assertEqual(pa_vowels.encode('Lampard'), 'L7081096')
+        self.assertEqual(pa_vowels.encode('Lampart'), 'L7081096')
+        self.assertEqual(pa_vowels.encode('Lamperd'), 'L7081096')
+        self.assertEqual(pa_vowels.encode('Lampert'), 'L7081096')
+        self.assertEqual(pa_vowels.encode('Lamport'), 'L7081096')
+        self.assertEqual(pa_vowels.encode('Limbert'), 'L7081096')
+        self.assertEqual(pa_vowels.encode('Lombard'), 'L7081096')
+        self.assertEqual(pa_vowels.encode('Nolton'), 'N807608')
+        self.assertEqual(pa_vowels.encode('Noulton'), 'N807608')
 
         # http://trimc-nlp.blogspot.com/2015/03/the-soundex-algorithm.html
-        self.assertEqual(self.pa.encode('Craig', retain_vowels=True), 'C3904')
-        self.assertEqual(self.pa.encode('Crag', retain_vowels=True), 'C3904')
-        self.assertEqual(self.pa.encode('Crejg', retain_vowels=True), 'C3904')
-        self.assertEqual(self.pa.encode('Creig', retain_vowels=True), 'C3904')
-        self.assertEqual(self.pa.encode('Craigg', retain_vowels=True), 'C3904')
-        self.assertEqual(self.pa.encode('Craug', retain_vowels=True), 'C3904')
-        self.assertEqual(
-            self.pa.encode('Craiggg', retain_vowels=True), 'C3904'
-        )
-        self.assertEqual(self.pa.encode('Creg', retain_vowels=True), 'C3904')
-        self.assertEqual(self.pa.encode('Cregg', retain_vowels=True), 'C3904')
-        self.assertEqual(self.pa.encode('Creag', retain_vowels=True), 'C3904')
-        self.assertEqual(self.pa.encode('Greg', retain_vowels=True), 'G4904')
-        self.assertEqual(self.pa.encode('Gregg', retain_vowels=True), 'G4904')
-        self.assertEqual(self.pa.encode('Graig', retain_vowels=True), 'G4904')
-        self.assertEqual(self.pa.encode('Greig', retain_vowels=True), 'G4904')
-        self.assertEqual(self.pa.encode('Greggg', retain_vowels=True), 'G4904')
-        self.assertEqual(self.pa.encode('Groeg', retain_vowels=True), 'G4904')
-        self.assertEqual(self.pa.encode('Graj', retain_vowels=True), 'G4904')
-        self.assertEqual(self.pa.encode('Grej', retain_vowels=True), 'G4904')
-        self.assertEqual(self.pa.encode('Grreg', retain_vowels=True), 'G4904')
-        self.assertEqual(self.pa.encode('Greag', retain_vowels=True), 'G4904')
-        self.assertEqual(self.pa.encode('Grig', retain_vowels=True), 'G4904')
-        self.assertEqual(self.pa.encode('Kregg', retain_vowels=True), 'K3904')
-        self.assertEqual(self.pa.encode('Kraig', retain_vowels=True), 'K3904')
-        self.assertEqual(self.pa.encode('Krag', retain_vowels=True), 'K3904')
-        self.assertEqual(self.pa.encode('Kreig', retain_vowels=True), 'K3904')
-        self.assertEqual(self.pa.encode('Krug', retain_vowels=True), 'K3904')
-        self.assertEqual(self.pa.encode('Kreg', retain_vowels=True), 'K3904')
-        self.assertEqual(self.pa.encode('Krieg', retain_vowels=True), 'K3904')
-        self.assertEqual(self.pa.encode('Krijg', retain_vowels=True), 'K3904')
+        self.assertEqual(pa_vowels.encode('Craig'), 'C3904')
+        self.assertEqual(pa_vowels.encode('Crag'), 'C3904')
+        self.assertEqual(pa_vowels.encode('Crejg'), 'C3904')
+        self.assertEqual(pa_vowels.encode('Creig'), 'C3904')
+        self.assertEqual(pa_vowels.encode('Craigg'), 'C3904')
+        self.assertEqual(pa_vowels.encode('Craug'), 'C3904')
+        self.assertEqual(pa_vowels.encode('Craiggg'), 'C3904')
+        self.assertEqual(pa_vowels.encode('Creg'), 'C3904')
+        self.assertEqual(pa_vowels.encode('Cregg'), 'C3904')
+        self.assertEqual(pa_vowels.encode('Creag'), 'C3904')
+        self.assertEqual(pa_vowels.encode('Greg'), 'G4904')
+        self.assertEqual(pa_vowels.encode('Gregg'), 'G4904')
+        self.assertEqual(pa_vowels.encode('Graig'), 'G4904')
+        self.assertEqual(pa_vowels.encode('Greig'), 'G4904')
+        self.assertEqual(pa_vowels.encode('Greggg'), 'G4904')
+        self.assertEqual(pa_vowels.encode('Groeg'), 'G4904')
+        self.assertEqual(pa_vowels.encode('Graj'), 'G4904')
+        self.assertEqual(pa_vowels.encode('Grej'), 'G4904')
+        self.assertEqual(pa_vowels.encode('Grreg'), 'G4904')
+        self.assertEqual(pa_vowels.encode('Greag'), 'G4904')
+        self.assertEqual(pa_vowels.encode('Grig'), 'G4904')
+        self.assertEqual(pa_vowels.encode('Kregg'), 'K3904')
+        self.assertEqual(pa_vowels.encode('Kraig'), 'K3904')
+        self.assertEqual(pa_vowels.encode('Krag'), 'K3904')
+        self.assertEqual(pa_vowels.encode('Kreig'), 'K3904')
+        self.assertEqual(pa_vowels.encode('Krug'), 'K3904')
+        self.assertEqual(pa_vowels.encode('Kreg'), 'K3904')
+        self.assertEqual(pa_vowels.encode('Krieg'), 'K3904')
+        self.assertEqual(pa_vowels.encode('Krijg'), 'K3904')
 
         # Apache Commons test cases
         # http://svn.apache.org/viewvc/commons/proper/codec/trunk/src/test/java/org/apache/commons/codec/language/RefinedSoundexTest.java?view=markup
-        self.assertEqual(
-            self.pa.encode('testing', retain_vowels=True), 'T6036084'
-        )
-        self.assertEqual(
-            self.pa.encode('TESTING', retain_vowels=True), 'T6036084'
-        )
-        self.assertEqual(self.pa.encode('The', retain_vowels=True), 'T60')
-        self.assertEqual(self.pa.encode('quick', retain_vowels=True), 'Q503')
-        self.assertEqual(self.pa.encode('brown', retain_vowels=True), 'B1908')
-        self.assertEqual(self.pa.encode('fox', retain_vowels=True), 'F205')
-        self.assertEqual(
-            self.pa.encode('jumped', retain_vowels=True), 'J408106'
-        )
-        self.assertEqual(self.pa.encode('over', retain_vowels=True), 'O0209')
-        self.assertEqual(self.pa.encode('the', retain_vowels=True), 'T60')
-        self.assertEqual(self.pa.encode('lazy', retain_vowels=True), 'L7050')
-        self.assertEqual(self.pa.encode('dogs', retain_vowels=True), 'D6043')
+        self.assertEqual(pa_vowels.encode('testing'), 'T6036084')
+        self.assertEqual(pa_vowels.encode('TESTING'), 'T6036084')
+        self.assertEqual(pa_vowels.encode('The'), 'T60')
+        self.assertEqual(pa_vowels.encode('quick'), 'Q503')
+        self.assertEqual(pa_vowels.encode('brown'), 'B1908')
+        self.assertEqual(pa_vowels.encode('fox'), 'F205')
+        self.assertEqual(pa_vowels.encode('jumped'), 'J408106')
+        self.assertEqual(pa_vowels.encode('over'), 'O0209')
+        self.assertEqual(pa_vowels.encode('the'), 'T60')
+        self.assertEqual(pa_vowels.encode('lazy'), 'L7050')
+        self.assertEqual(pa_vowels.encode('dogs'), 'D6043')
 
         # length tests
-        self.assertEqual(
-            self.pa.encode('testing', max_length=4, zero_pad=True), 'T636'
-        )
-        self.assertEqual(
-            self.pa.encode('TESTING', max_length=4, zero_pad=True), 'T636'
-        )
-        self.assertEqual(
-            self.pa.encode('The', max_length=4, zero_pad=True), 'T600'
-        )
-        self.assertEqual(
-            self.pa.encode('quick', max_length=4, zero_pad=True), 'Q530'
-        )
-        self.assertEqual(
-            self.pa.encode('brown', max_length=4, zero_pad=True), 'B198'
-        )
-        self.assertEqual(
-            self.pa.encode('fox', max_length=4, zero_pad=True), 'F250'
-        )
-        self.assertEqual(
-            self.pa.encode('jumped', max_length=4, zero_pad=True), 'J481'
-        )
-        self.assertEqual(
-            self.pa.encode('over', max_length=4, zero_pad=True), 'O290'
-        )
-        self.assertEqual(
-            self.pa.encode('the', max_length=4, zero_pad=True), 'T600'
-        )
-        self.assertEqual(
-            self.pa.encode('lazy', max_length=4, zero_pad=True), 'L750'
-        )
-        self.assertEqual(
-            self.pa.encode('dogs', max_length=4, zero_pad=True), 'D643'
-        )
-        self.assertEqual(self.pa.encode('The', max_length=4), 'T6')
-        self.assertEqual(self.pa.encode('quick', max_length=4), 'Q53')
-        self.assertEqual(self.pa.encode('brown', max_length=4), 'B198')
-        self.assertEqual(self.pa.encode('fox', max_length=4), 'F25')
-        self.assertEqual(self.pa.encode('jumped', max_length=4), 'J481')
-        self.assertEqual(self.pa.encode('over', max_length=4), 'O29')
-        self.assertEqual(self.pa.encode('the', max_length=4), 'T6')
-        self.assertEqual(self.pa.encode('lazy', max_length=4), 'L75')
-        self.assertEqual(self.pa.encode('dogs', max_length=4), 'D643')
+        pa_40 = RefinedSoundex(max_length=4, zero_pad=True)
+        self.assertEqual(pa_40.encode('testing'), 'T636')
+        self.assertEqual(pa_40.encode('TESTING'), 'T636')
+        self.assertEqual(pa_40.encode('The'), 'T600')
+        self.assertEqual(pa_40.encode('quick'), 'Q530')
+        self.assertEqual(pa_40.encode('brown'), 'B198')
+        self.assertEqual(pa_40.encode('fox'), 'F250')
+        self.assertEqual(pa_40.encode('jumped'), 'J481')
+        self.assertEqual(pa_40.encode('over'), 'O290')
+        self.assertEqual(pa_40.encode('the'), 'T600')
+        self.assertEqual(pa_40.encode('lazy'), 'L750')
+        self.assertEqual(pa_40.encode('dogs'), 'D643')
+        pa_4 = RefinedSoundex(max_length=4)
+        self.assertEqual(pa_4.encode('The'), 'T6')
+        self.assertEqual(pa_4.encode('quick'), 'Q53')
+        self.assertEqual(pa_4.encode('brown'), 'B198')
+        self.assertEqual(pa_4.encode('fox'), 'F25')
+        self.assertEqual(pa_4.encode('jumped'), 'J481')
+        self.assertEqual(pa_4.encode('over'), 'O29')
+        self.assertEqual(pa_4.encode('the'), 'T6')
+        self.assertEqual(pa_4.encode('lazy'), 'L75')
+        self.assertEqual(pa_4.encode('dogs'), 'D643')
 
         # Test wrapper
         self.assertEqual(refined_soundex('Braz'), 'B195')

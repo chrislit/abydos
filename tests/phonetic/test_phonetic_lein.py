@@ -40,6 +40,7 @@ class LeinTestCases(unittest.TestCase):
     """
 
     pa = Lein()
+    pa = Lein(zero_pad=False)
 
     def test_lein(self):
         """Test abydos.phonetic.Lein."""
@@ -113,10 +114,8 @@ class LeinTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('Lüdenscheidt'), 'L125')
 
         # Coverage
-        self.assertEqual(
-            self.pa.encode('Lüdenscheidt', zero_pad=False), 'L125'
-        )
-        self.assertEqual(self.pa.encode('Smith', zero_pad=False), 'S21')
+        self.assertEqual(self.pa_n0.encode('Lüdenscheidt'), 'L125')
+        self.assertEqual(self.pa_n0.encode('Smith'), 'S21')
 
         # Test wrapper
         self.assertEqual(lein('Dubose'), 'D450')

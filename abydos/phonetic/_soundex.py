@@ -159,7 +159,7 @@ class Soundex(_Phonetic):
         word = unicode_normalize('NFKD', text_type(word.upper()))
         word = word.replace('ß', 'SS')
 
-        if var == 'Census':
+        if self._var == 'Census':
             if word[:3] in {'VAN', 'CON'} and len(word) > 4:
                 return (
                     soundex(
