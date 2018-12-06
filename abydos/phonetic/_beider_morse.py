@@ -850,7 +850,7 @@ class BeiderMorse(_Phonetic):
 
         Parameters
         ----------
-        language_arg : int
+        language_arg : str or int
             The language of the term; supported values include:
 
                 - ``any``
