@@ -40,6 +40,7 @@ class SfinxBisTestCases(unittest.TestCase):
     """
 
     pa = SfinxBis()
+    pa4 = SfinxBis(4)
 
     def test_sfinxbis(self):
         """Test abydos.phonetic.SfinxBis."""
@@ -252,27 +253,27 @@ class SfinxBisTestCases(unittest.TestCase):
 
         # a few max_length tests
         self.assertEqual(
-            self.pa.encode('Kiviniemi Birgersson', 3), ('#75', 'B62')
+            SfinxBis(3).encode('Kiviniemi Birgersson'), ('#75', 'B62')
         )
-        self.assertEqual(self.pa.encode('Eichorn', 4), ('$265',))
-        self.assertEqual(self.pa.encode('Friedrich', 4), ('F636',))
-        self.assertEqual(self.pa.encode('Grantcharova', 4), ('G653',))
-        self.assertEqual(self.pa.encode('Ilichev', 4), ('$427',))
-        self.assertEqual(self.pa.encode('Ivankovic', 4), ('$752',))
-        self.assertEqual(self.pa.encode('Ivangurich', 4), ('$752',))
-        self.assertEqual(self.pa.encode('Kinch', 4), ('#52',))
-        self.assertEqual(self.pa.encode('Kirchmann', 4), ('#625',))
-        self.assertEqual(self.pa.encode('Machado', 4), ('M23',))
-        self.assertEqual(self.pa.encode('Reich', 4), ('R2',))
-        self.assertEqual(self.pa.encode('Roche', 4), ('R2',))
-        self.assertEqual(self.pa.encode('Rubaszkin', 4), ('R182',))
-        self.assertEqual(self.pa.encode('Rubaschkin', 4), ('R182',))
-        self.assertEqual(self.pa.encode('Sanchez', 4), ('S528',))
-        self.assertEqual(self.pa.encode('Walukiewicz', 4), ('V427',))
-        self.assertEqual(self.pa.encode('Valukievitch', 4), ('V427',))
-        self.assertEqual(self.pa.encode('K', 4), ('K',))
-        self.assertEqual(self.pa.encode('2010', 4), ('',))
-        self.assertEqual(self.pa.encode('cese', 4), ('S8',))
+        self.assertEqual(self.pa4.encode('Eichorn'), ('$265',))
+        self.assertEqual(self.pa4.encode('Friedrich'), ('F636',))
+        self.assertEqual(self.pa4.encode('Grantcharova'), ('G653',))
+        self.assertEqual(self.pa4.encode('Ilichev'), ('$427',))
+        self.assertEqual(self.pa4.encode('Ivankovic'), ('$752',))
+        self.assertEqual(self.pa4.encode('Ivangurich'), ('$752',))
+        self.assertEqual(self.pa4.encode('Kinch'), ('#52',))
+        self.assertEqual(self.pa4.encode('Kirchmann'), ('#625',))
+        self.assertEqual(self.pa4.encode('Machado'), ('M23',))
+        self.assertEqual(self.pa4.encode('Reich'), ('R2',))
+        self.assertEqual(self.pa4.encode('Roche'), ('R2',))
+        self.assertEqual(self.pa4.encode('Rubaszkin'), ('R182',))
+        self.assertEqual(self.pa4.encode('Rubaschkin'), ('R182',))
+        self.assertEqual(self.pa4.encode('Sanchez'), ('S528',))
+        self.assertEqual(self.pa4.encode('Walukiewicz'), ('V427',))
+        self.assertEqual(self.pa4.encode('Valukievitch'), ('V427',))
+        self.assertEqual(self.pa4.encode('K'), ('K',))
+        self.assertEqual(self.pa4.encode('2010'), ('',))
+        self.assertEqual(self.pa4.encode('cese'), ('S8',))
 
         # etc. (for code coverage)
         self.assertEqual(self.pa.encode('chans'), ('#58',))
@@ -284,8 +285,8 @@ class SfinxBisTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('skil'), ('#4',))
 
         # max_length bounds tests
-        self.assertEqual(self.pa.encode('Niall', max_length=-1), ('N4',))
-        self.assertEqual(self.pa.encode('Niall', max_length=0), ('N4',))
+        self.assertEqual(SfinxBis(max_length=-1).encode('Niall'), ('N4',))
+        self.assertEqual(SfinxBis(max_length=0).encode('Niall'), ('N4',))
 
         # Test wrapper
         self.assertEqual(sfinxbis('af Sandeberg'), ('S53162',))

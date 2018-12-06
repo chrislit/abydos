@@ -63,11 +63,10 @@ class AlphaSISTestCases(unittest.TestCase):
 
         # max_length bounds tests
         self.assertEqual(
-            self.pa.encode('Niall', max_length=-1)[0],
-            '02500000000000000000000000000000000000000000000000'
-            + '00000000000000',
+            AlphaSIS(max_length=-1).encode('Niall')[0],
+            '0250000000000000000000000000000000000000000000000000000000000000',
         )
-        self.assertEqual(self.pa.encode('Niall', max_length=0)[0], '0250')
+        self.assertEqual(AlphaSIS(max_length=0).encode('Niall')[0], '0250')
 
         # Test wrapper
         self.assertEqual(alpha_sis('Livingston')[0], '05827012000000')

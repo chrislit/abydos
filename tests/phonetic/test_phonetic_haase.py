@@ -56,9 +56,7 @@ class HaaseTestCases(unittest.TestCase):
 
         # coverage completion
         self.assertEqual(self.pa.encode('Häschen'), ('9896', '9496'))
-        self.assertEqual(
-            self.pa.encode('Häschen', primary_only=True), ('9896',)
-        )
+        self.assertEqual(Haase(primary_only=True).encode('Häschen'), ('9896',))
         self.assertEqual(self.pa.encode('Eichörnchen'), ('94976496',))
         self.assertEqual(self.pa.encode('Hexe'), ('9489',))
         self.assertEqual(self.pa.encode('Chemie'), ('4969', '8969'))

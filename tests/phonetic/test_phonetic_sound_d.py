@@ -45,7 +45,7 @@ class SoundDTestCases(unittest.TestCase):
         """Test abydos.phonetic.SoundD."""
         # Base cases
         self.assertEqual(self.pa.encode(''), '0000')
-        self.assertEqual(self.pa.encode('', max_length=6), '000000')
+        self.assertEqual(SoundD(max_length=6).encode(''), '000000')
 
         self.assertEqual(self.pa.encode('knight'), '5300')
         self.assertEqual(self.pa.encode('accept'), '2130')
@@ -59,9 +59,9 @@ class SoundDTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('rough'), '6000')
         self.assertEqual(self.pa.encode('x-ray'), '2600')
         self.assertEqual(
-            self.pa.encode('acetylcholine', max_length=-1), '234245'
+            SoundD(max_length=-1).encode('acetylcholine'), '234245'
         )
-        self.assertEqual(self.pa.encode('rough', max_length=-1), '6')
+        self.assertEqual(SoundD(max_length=-1).encode('rough'), '6')
 
         # Test wrapper
         self.assertEqual(sound_d('knight'), '5300')

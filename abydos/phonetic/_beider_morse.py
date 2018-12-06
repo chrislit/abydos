@@ -924,6 +924,7 @@ class BeiderMorse(_Phonetic):
         self._match_mode = match_mode
         self._concat = concat
         self._filter_langs = filter_langs
+        self._lang_choices = lang_choices
 
     def encode(self, word):
         """Return the Beider-Morse Phonetic Matching encoding(s) of a term.

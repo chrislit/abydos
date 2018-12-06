@@ -103,7 +103,9 @@ class HenryEarlyTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('Renault'), 'RN')
         self.assertEqual(self.pa.encode('Czech'), 'CSK')
         self.assertEqual(self.pa.encode('Imran'), 'ER')
-        self.assertEqual(self.pa.encode('Christopher', max_length=-1), 'KRXF')
+        self.assertEqual(
+            HenryEarly(max_length=-1).encode('Christopher'), 'KRXF'
+        )
 
         # Test wrapper
         self.assertEqual(henry_early('Gausselin'), 'GSL')
