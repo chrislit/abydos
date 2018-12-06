@@ -44,6 +44,8 @@ class PorterTestCases(unittest.TestCase):
 
     stmr = Porter()
     stmr._vowels = set('aeiouy')  # noqa: SF01
+    stmr_ee = Porter(early_english=True)
+    stmr_ee._vowels = set('aeiouy')  # noqa: SF01
 
     def test_m_degree(self):
         """Test abydos.stemmer.Porter._m_degree."""
@@ -202,30 +204,30 @@ class PorterTestCases(unittest.TestCase):
     def test_porter_early_english(self):
         """Test abydos.stemmer.Porter (early English)."""
         # base case
-        self.assertEqual(self.stmr.stem('', early_english=True), '')
+        self.assertEqual(self.stmr_ee.stem(''), '')
 
         # simple cases (no different from regular stemmer)
-        self.assertEqual(self.stmr.stem('c', early_english=True), 'c')
-        self.assertEqual(self.stmr.stem('da', early_english=True), 'da')
-        self.assertEqual(self.stmr.stem('ad', early_english=True), 'ad')
-        self.assertEqual(self.stmr.stem('sing', early_english=True), 'sing')
-        self.assertEqual(self.stmr.stem('singing', early_english=True), 'sing')
+        self.assertEqual(self.stmr_ee.stem('c'), 'c')
+        self.assertEqual(self.stmr_ee.stem('da'), 'da')
+        self.assertEqual(self.stmr_ee.stem('ad'), 'ad')
+        self.assertEqual(self.stmr_ee.stem('sing'), 'sing')
+        self.assertEqual(self.stmr_ee.stem('singing'), 'sing')
 
         # make
-        self.assertEqual(self.stmr.stem('make', early_english=True), 'make')
-        self.assertEqual(self.stmr.stem('makes', early_english=True), 'make')
-        self.assertEqual(self.stmr.stem('maketh', early_english=True), 'make')
-        self.assertEqual(self.stmr.stem('makest', early_english=True), 'make')
+        self.assertEqual(self.stmr_ee.stem('make'), 'make')
+        self.assertEqual(self.stmr_ee.stem('makes'), 'make')
+        self.assertEqual(self.stmr_ee.stem('maketh'), 'make')
+        self.assertEqual(self.stmr_ee.stem('makest'), 'make')
 
         # say
-        self.assertEqual(self.stmr.stem('say', early_english=True), 'sai')
-        self.assertEqual(self.stmr.stem('says', early_english=True), 'sai')
-        self.assertEqual(self.stmr.stem('sayeth', early_english=True), 'sai')
-        self.assertEqual(self.stmr.stem('sayest', early_english=True), 'sai')
+        self.assertEqual(self.stmr_ee.stem('say'), 'sai')
+        self.assertEqual(self.stmr_ee.stem('says'), 'sai')
+        self.assertEqual(self.stmr_ee.stem('sayeth'), 'sai')
+        self.assertEqual(self.stmr_ee.stem('sayest'), 'sai')
 
         # missed branch test cases
-        self.assertEqual(self.stmr.stem('best', early_english=True), 'best')
-        self.assertEqual(self.stmr.stem('meth', early_english=True), 'meth')
+        self.assertEqual(self.stmr_ee.stem('best'), 'best')
+        self.assertEqual(self.stmr_ee.stem('meth'), 'meth')
 
     def test_porter_snowball(self):
         """Test abydos.stemmer.Porter (Snowball testset).
