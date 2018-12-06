@@ -40,7 +40,7 @@ class LeinTestCases(unittest.TestCase):
     """
 
     pa = Lein()
-    pa = Lein(zero_pad=False)
+    pa_n0 = Lein(zero_pad=False)
 
     def test_lein(self):
         """Test abydos.phonetic.Lein."""

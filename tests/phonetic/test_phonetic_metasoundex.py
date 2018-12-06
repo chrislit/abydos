@@ -97,8 +97,8 @@ class MetaSoundexTestCases(unittest.TestCase):
         self.assertEqual(self.pa_es.encode('Flores'), '2594')
 
         # Test wrapper
-        self.assertEqual(metasoundex('Smith'), '4500')
-        self.assertEqual(metasoundex('Hernández'), '96634')
+        self.assertEqual(metasoundex('Smith', lang='en'), '4500')
+        self.assertEqual(metasoundex('Hernández', lang='es'), '96634')
 
 
 if __name__ == '__main__':
