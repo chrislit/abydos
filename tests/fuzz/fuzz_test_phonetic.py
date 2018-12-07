@@ -106,7 +106,7 @@ algorithms = {
     'refined_soundex_0pad_ml6': RefinedSoundex(
         zero_pad=True, max_length=6
     ).encode,
-    'dm_soundex': lambda _: ', '.join(sorted(daitch_mokotoff.encode(_))),
+    'daitch_mokotoff_soundex': lambda _: ', '.join(sorted(daitch_mokotoff.encode(_))),
     'koelner_phonetik': koelner.encode,
     'koelner_phonetik_num_to_alpha': lambda _: koelner._to_alpha(  # noqa: SF01
         koelner.encode(_)
