@@ -44,7 +44,6 @@ class SnowballGermanTestCases(unittest.TestCase):
 
     stmr = SnowballGerman()
     stmr_av = SnowballGerman(alternate_vowels=True)
-    
 
     def test_snowball_german(self):
         """Test abydos.stemmer.SnowballGerman (Snowball testset).
@@ -78,50 +77,32 @@ class SnowballGermanTestCases(unittest.TestCase):
         self.assertEqual(self.stmr_av.stem(''), '')
 
         # dämmerung,dammer
-        self.assertEqual(
-            self.stmr_av.stem('dämmerung'), 'dammer'
-        )
-        self.assertEqual(
-            self.stmr_av.stem('daemmerung'), 'dammer'
-        )
+        self.assertEqual(self.stmr_av.stem('dämmerung'), 'dammer')
+        self.assertEqual(self.stmr_av.stem('daemmerung'), 'dammer')
         self.assertEqual(self.stmr.stem('dämmerung'), 'dammer')
         self.assertEqual(self.stmr.stem('daemmerung'), 'daemmer')
 
         # brötchen,brotch
-        self.assertEqual(
-            self.stmr_av.stem('brötchen'), 'brotch'
-        )
-        self.assertEqual(
-            self.stmr_av.stem('broetchen'), 'brotch'
-        )
+        self.assertEqual(self.stmr_av.stem('brötchen'), 'brotch')
+        self.assertEqual(self.stmr_av.stem('broetchen'), 'brotch')
         self.assertEqual(self.stmr.stem('brötchen'), 'brotch')
         self.assertEqual(self.stmr.stem('broetchen'), 'broetch')
 
         # büro,buro
         self.assertEqual(self.stmr_av.stem('büro'), 'buro')
-        self.assertEqual(
-            self.stmr_av.stem('buero'), 'buro'
-        )
+        self.assertEqual(self.stmr_av.stem('buero'), 'buro')
         self.assertEqual(self.stmr.stem('büro'), 'buro')
         self.assertEqual(self.stmr.stem('buero'), 'buero')
 
         # häufen,hauf
-        self.assertEqual(
-            self.stmr_av.stem('häufen'), 'hauf'
-        )
-        self.assertEqual(
-            self.stmr_av.stem('haeufen'), 'hauf'
-        )
+        self.assertEqual(self.stmr_av.stem('häufen'), 'hauf')
+        self.assertEqual(self.stmr_av.stem('haeufen'), 'hauf')
         self.assertEqual(self.stmr.stem('häufen'), 'hauf')
         self.assertEqual(self.stmr.stem('haeufen'), 'haeuf')
 
         # quelle,quell
-        self.assertEqual(
-            self.stmr_av.stem('qülle'), 'qull'
-        )
-        self.assertEqual(
-            self.stmr_av.stem('quelle'), 'quell'
-        )
+        self.assertEqual(self.stmr_av.stem('qülle'), 'qull')
+        self.assertEqual(self.stmr_av.stem('quelle'), 'quell')
         self.assertEqual(self.stmr.stem('qülle'), 'qull')
         self.assertEqual(self.stmr.stem('quelle'), 'quell')
 
@@ -133,9 +114,7 @@ class SnowballGermanTestCases(unittest.TestCase):
 
         # über,uber
         self.assertEqual(self.stmr_av.stem('über'), 'uber')
-        self.assertEqual(
-            self.stmr_av.stem('ueber'), 'uber'
-        )
+        self.assertEqual(self.stmr_av.stem('ueber'), 'uber')
         self.assertEqual(self.stmr.stem('über'), 'uber')
         self.assertEqual(self.stmr.stem('ueber'), 'ueb')
 

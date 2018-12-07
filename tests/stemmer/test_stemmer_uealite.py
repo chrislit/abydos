@@ -200,10 +200,7 @@ class UEALiteTestCases(unittest.TestCase):
         with open(_corpus_file('uea-lite_wsj.csv')) as wsj_ts:
             for wsj_line in wsj_ts:
                 (word, uea, rule) = wsj_line.strip().split(',')
-                self.assertEqual(
-                    stmr_rrn.stem(word),
-                    (uea, float(rule)),
-                )
+                self.assertEqual(stmr_rrn.stem(word), (uea, float(rule)))
 
 
 if __name__ == '__main__':
