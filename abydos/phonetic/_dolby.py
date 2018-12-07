@@ -50,7 +50,7 @@ class Dolby(_Phonetic):
     """
 
     def __init__(self, max_length=-1, keep_vowels=False, vowel_char='*'):
-        """Initialize Dolby instance.
+        r"""Initialize Dolby instance.
 
         Parameters
         ----------
@@ -70,7 +70,7 @@ class Dolby(_Phonetic):
         self._vowel_char = vowel_char
 
     def encode(self, word):
-        r"""Return the Dolby Code of a name.
+        """Return the Dolby Code of a name.
 
         Parameters
         ----------
