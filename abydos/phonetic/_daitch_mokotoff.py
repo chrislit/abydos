@@ -309,8 +309,8 @@ class DaitchMokotoff(_Phonetic):
         >>> pe.encode('Schmidt')
         {'463000'}
 
-        >>> sorted(pe.encode('The quick brown fox', max_length=20,
-        ... zero_pad=False))
+        >>> sorted(DaitchMokotoff(max_length=20,
+        ... zero_pad=False).encode('The quick brown fox'))
         ['35457976754', '3557976754']
 
         .. versionadded:: 0.1.0

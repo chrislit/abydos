@@ -96,16 +96,17 @@ class NYSIIS(_Phonetic):
         >>> pe.encode('Schmidt')
         'SNAD'
 
-        >>> pe.encode('Christopher', max_length=-1)
+        >>> NYSIIS(max_length=-1).encode('Christopher')
         'CRASTAFAR'
 
-        >>> pe.encode('Christopher', max_length=8, modified=True)
+        >>> pe_8m = NYSIIS(max_length=8, modified=True)
+        >>> pe_8m.encode('Christopher')
         'CRASTAFA'
-        >>> pe.encode('Niall', max_length=8, modified=True)
+        >>> pe_8m.encode('Niall')
         'NAL'
-        >>> pe.encode('Smith', max_length=8, modified=True)
+        >>> pe_8m.encode('Smith')
         'SNAT'
-        >>> pe.encode('Schmidt', max_length=8, modified=True)
+        >>> pe_8m.encode('Schmidt')
         'SNAD'
 
         .. versionadded:: 0.1.0
