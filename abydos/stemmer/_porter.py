@@ -194,7 +194,8 @@ class Porter(_Stemmer):
         >>> stmr.stem('elusiveness')
         'elus'
 
-        >>> stmr.stem('eateth', early_english=True)
+        >>> stmr = Porter(early_english=True)
+        >>> stmr.stem('eateth')
         'eat'
 
         .. versionadded:: 0.1.0

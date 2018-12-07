@@ -1118,22 +1118,24 @@ class Phonet(_Phonetic):
         >>> pe.encode('Schmidt')
         'SHMIT'
 
-        >>> pe.encode('Christopher', mode=2)
+        >>> pe2 = Phonet(mode=2)
+        >>> pe2.encode('Christopher')
         'KRIZTUFA'
-        >>> pe.encode('Niall', mode=2)
+        >>> pe2.encode('Niall')
         'NIAL'
-        >>> pe.encode('Smith', mode=2)
+        >>> pe2.encode('Smith')
         'ZNIT'
-        >>> pe.encode('Schmidt', mode=2)
+        >>> pe2.encode('Schmidt')
         'ZNIT'
 
-        >>> pe.encode('Christopher', lang='none')
+        >>> pe_none = Phonet(lang='none')
+        >>> pe_none.encode('Christopher')
         'CHRISTOPHER'
-        >>> pe.encode('Niall', lang='none')
+        >>> pe_none.encode('Niall')
         'NIAL'
-        >>> pe.encode('Smith', lang='none')
+        >>> pe_none.encode('Smith')
         'SMITH'
-        >>> pe.encode('Schmidt', lang='none')
+        >>> pe_none.encode('Schmidt')
         'SCHMIDT'
 
         .. versionadded:: 0.1.0

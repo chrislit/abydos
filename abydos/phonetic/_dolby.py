@@ -95,15 +95,17 @@ class Dolby(_Phonetic):
         'BR*DN'
         >>> pe.encode('Sandvik')
         'S*NVK'
-        >>> pe.encode('Hansen', max_length=6)
+
+        >>> pe_6 = Dolby(max_length=6)
+        >>> pe_6.encode('Hansen')
         'H*NS*N'
-        >>> pe.encode('Larsen', max_length=6)
+        >>> pe_6.encode('Larsen')
         'L*RS*N'
-        >>> pe.encode('Aagaard', max_length=6)
+        >>> pe_6.encode('Aagaard')
         '*G*R  '
-        >>> pe.encode('Braaten', max_length=6)
+        >>> pe_6.encode('Braaten')
         'BR*D*N'
-        >>> pe.encode('Sandvik', max_length=6)
+        >>> pe_6.encode('Sandvik')
         'S*NF*K'
 
         >>> pe.encode('Smith')
@@ -116,15 +118,16 @@ class Dolby(_Phonetic):
         'SM*D'
         >>> pe.encode('Ashcroft')
         '*SKRFD'
-        >>> pe.encode('Smith', max_length=6)
+
+        >>> pe_6.encode('Smith')
         'SM*D  '
-        >>> pe.encode('Waters', max_length=6)
+        >>> pe_6.encode('Waters')
         'W*D*RS'
-        >>> pe.encode('James', max_length=6)
+        >>> pe_6.encode('James')
         'J*M*S '
-        >>> pe.encode('Schmidt', max_length=6)
+        >>> pe_6.encode('Schmidt')
         'SM*D  '
-        >>> pe.encode('Ashcroft', max_length=6)
+        >>> pe_6.encode('Ashcroft')
         '*SKRFD'
 
         .. versionadded:: 0.3.0

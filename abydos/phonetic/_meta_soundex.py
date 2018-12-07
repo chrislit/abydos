@@ -101,15 +101,17 @@ class MetaSoundex(_Phonetic):
         '4530'
         >>> pe.encode('Ashcroft')
         '0261'
-        >>> pe.encode('Perez', lang='es')
+
+        >>> pe = MetaSoundex(lang='es')
+        >>> pe.encode('Perez')
         '094'
-        >>> pe.encode('Martinez', lang='es')
+        >>> pe.encode('Martinez')
         '69364'
-        >>> pe.encode('Gutierrez', lang='es')
+        >>> pe.encode('Gutierrez')
         '83994'
-        >>> pe.encode('Santiago', lang='es')
+        >>> pe.encode('Santiago')
         '4638'
-        >>> pe.encode('Nicolás', lang='es')
+        >>> pe.encode('Nicolás')
         '6754'
 
         .. versionadded:: 0.3.0

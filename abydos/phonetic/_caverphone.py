@@ -86,13 +86,14 @@ class Caverphone(_Phonetic):
         >>> pe.encode('Schmidt')
         'SKMT111111'
 
-        >>> pe.encode('Christopher', 1)
+        >>> pe_1 = Caverphone(version=1)
+        >>> pe_1.encode('Christopher')
         'KRSTF1'
-        >>> pe.encode('Niall', 1)
+        >>> pe_1.encode('Niall')
         'N11111'
-        >>> pe.encode('Smith', 1)
+        >>> pe_1.encode('Smith')
         'SMT111'
-        >>> pe.encode('Schmidt', 1)
+        >>> pe_1.encode('Schmidt')
         'SKMT11'
 
         .. versionadded:: 0.1.0

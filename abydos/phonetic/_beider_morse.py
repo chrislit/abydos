@@ -959,17 +959,19 @@ class BeiderMorse(_Phonetic):
         >>> pe.encode('Schmidt')
         'zmit stzmit'
 
-        >>> pe.encode('Christopher', language_arg='German')
+        >>> BeiderMorse(language_arg='German').encode('Christopher')
         'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir
         xristofir xristYfir'
-        >>> pe.encode('Christopher', language_arg='English')
+        >>> BeiderMorse(language_arg='English').encode('Christopher')
         'tzristofir tzrQstofir tzristafir tzrQstafir xristofir xrQstofir
         xristafir xrQstafir'
-        >>> pe.encode('Christopher', language_arg='German', name_mode='ash')
+        >>> BeiderMorse(language_arg='German',
+        ... name_mode='ash').encode('Christopher')
         'xrQstopir xrQstYpir xristopir xristYpir xrQstofir xrQstYfir
         xristofir xristYfir'
 
-        >>> pe.encode('Christopher', language_arg='German', match_mode='exact')
+        >>> BeiderMorse(language_arg='German',
+        ... match_mode='exact').encode('Christopher')
         'xriStopher xriStofer xristopher xristofer'
 
         .. versionadded:: 0.1.0

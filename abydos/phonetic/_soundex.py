@@ -133,21 +133,23 @@ class Soundex(_Phonetic):
         >>> pe.encode('Schmidt')
         'S530'
 
-        >>> pe.encode('Christopher', max_length=-1)
+        >>> Soundex(max_length=-1).encode('Christopher')
         'C623160000000000000000000000000000000000000000000000000000000000'
-        >>> pe.encode('Christopher', max_length=-1, zero_pad=False)
+        >>> Soundex(max_length=-1, zero_pad=False).encode('Christopher')
         'C62316'
 
-        >>> pe.encode('Christopher', reverse=True)
+        >>> Soundex(reverse=True).encode('Christopher')
         'R132'
 
         >>> pe.encode('Ashcroft')
         'A261'
         >>> pe.encode('Asicroft')
         'A226'
-        >>> pe.encode('Ashcroft', var='special')
+
+        >>> pe_special = Soundex(var='special')
+        >>> pe_special.encode('Ashcroft')
         'A226'
-        >>> pe.encode('Asicroft', var='special')
+        >>> pe_special.encode('Asicroft')
         'A226'
 
         .. versionadded:: 0.1.0
