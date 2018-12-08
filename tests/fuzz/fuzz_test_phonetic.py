@@ -78,20 +78,11 @@ from abydos.phonetic import (
 from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 
 russell = RussellIndex()
-soundex_census = Soundex(var='Census')
 koelner = Koelner()
-daitch_mokotoff = DaitchMokotoff()
-double_metaphone = DoubleMetaphone()
-alpha_sis = AlphaSIS()
-sfinxbis = SfinxBis()
-sfinxbis_6 = SfinxBis(max_length=6)
 spfc = SPFC()
-eudex = Eudex()
-haase = Haase()
-haase_primary = Haase(primary_only=True)
 
 algorithms = {
-    'russell_index': lambda _: str(russell.encode(_)),
+    'russell_index': russell.encode,
     'russell_index_num_to_alpha': lambda _: russell._to_alpha(  # noqa: SF01
         russell.encode(_)
     ),
@@ -100,13 +91,13 @@ algorithms = {
     'reverse_soundex': Soundex(reverse=True).encode,
     'soundex_0pad_ml6': Soundex(zero_pad=True, max_length=6).encode,
     'soundex_special': Soundex(var='special').encode,
-    'soundex_census': lambda _: ', '.join(soundex_census.encode(_)),
+    'soundex_census': Soundex(var='Census').encode,
     'refined_soundex': RefinedSoundex().encode,
     'refined_soundex_vowels': RefinedSoundex(retain_vowels=True).encode,
     'refined_soundex_0pad_ml6': RefinedSoundex(
         zero_pad=True, max_length=6
     ).encode,
-    'daitch_mokotoff_soundex': lambda _: ', '.join(sorted(daitch_mokotoff.encode(_))),
+    'daitch_mokotoff_soundex': DaitchMokotoff().encode,
     'koelner_phonetik': koelner.encode,
     'koelner_phonetik_num_to_alpha': lambda _: koelner._to_alpha(  # noqa: SF01
         koelner.encode(_)
@@ -117,10 +108,10 @@ algorithms = {
     'nysiis_ml_inf': NYSIIS(max_length=-1).encode,
     'mra': MRA().encode,
     'metaphone': Metaphone().encode,
-    'double_metaphone': lambda _: ', '.join(double_metaphone.encode(_)),
+    'double_metaphone': DoubleMetaphone().encode,
     'caverphone_1': Caverphone(version=1).encode,
     'caverphone_2': Caverphone().encode,
-    'alpha_sis': lambda _: ', '.join(alpha_sis.encode(_)),
+    'alpha_sis': AlphaSIS().encode,
     'fuzzy_soundex': FuzzySoundex().encode,
     'fuzzy_soundex_0pad_ml8': FuzzySoundex(max_length=8, zero_pad=True).encode,
     'phonex': Phonex().encode,
@@ -128,8 +119,8 @@ algorithms = {
     'phonem': Phonem().encode,
     'phonix': Phonix().encode,
     'phonix_0pad_ml6': Phonix(max_length=6, zero_pad=True).encode,
-    'sfinxbis': lambda _: ', '.join(sfinxbis.encode(_)),
-    'sfinxbis_ml6': lambda _: ', '.join(sfinxbis_6.encode(_)),
+    'sfinxbis': SfinxBis().encode,
+    'sfinxbis_ml6': SfinxBis(max_length=6).encode,
     'phonet_1': Phonet().encode,
     'phonet_2': Phonet(mode=2).encode,
     'phonet_1_none': Phonet(lang='none').encode,
@@ -143,9 +134,9 @@ algorithms = {
     'roger_root_nopad_ml8': RogerRoot(max_length=8, zero_pad=False).encode,
     'onca': ONCA().encode,
     'onca_nopad_ml8': ONCA(max_length=8, zero_pad=False).encode,
-    'eudex': lambda _: str(eudex.encode(_)),
-    'haase_phonetik': lambda _: ', '.join(haase.encode(_)),
-    'haase_phonetik_primary': lambda _: haase_primary.encode(_)[0],
+    'eudex': Eudex().encode,
+    'haase_phonetik': Haase().encode,
+    'haase_phonetik_primary': Haase(primary_only=True).encode,
     'reth_schek_phonetik': RethSchek().encode,
     'fonem': FONEM().encode,
     'parmar_kumbharana': ParmarKumbharana().encode,
