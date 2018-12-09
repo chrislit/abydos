@@ -92,6 +92,7 @@ The remaining distance measures & metrics include:
     - Sift4 distance (:py:class:`.Sift4` and :py:class:`.Sift4Simplest`)
     - Typo distance (:py:class:`.Typo`)
     - Synoname (:py:class:`.Synoname`)
+    - Ozbay metric (:py:class:`.Ozbay`)
 
 Most of the distance and similarity measures have ``sim`` and ``dist`` methods,
 which return a measure that is normalized to the range :math:`[0, 1]`. The
@@ -164,6 +165,7 @@ from ._ncd_rle import NCDrle, dist_ncd_rle, sim_ncd_rle
 from ._ncd_zlib import NCDzlib, dist_ncd_zlib, sim_ncd_zlib
 from ._needleman_wunsch import NeedlemanWunsch, needleman_wunsch
 from ._overlap import Overlap, dist_overlap, sim_overlap
+from ._ozbay import Ozbay
 from ._prefix import Prefix, dist_prefix, sim_prefix
 from ._ratcliff_obershelp import (
     RatcliffObershelp,
@@ -318,6 +320,7 @@ __all__ = [
     'sim_typo',
     'Synoname',
     'synoname',
+    'Ozbay',
 ]
 
 
