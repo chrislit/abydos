@@ -28,8 +28,6 @@ from __future__ import (
     unicode_literals,
 )
 
-from collections import Counter
-
 from deprecation import deprecated
 
 from ._token_distance import _TokenDistance
@@ -86,7 +84,7 @@ class Bag(_TokenDistance):
 
         Returns
         -------
-        int
+        int or float
             Bag distance
 
         Examples
@@ -120,19 +118,15 @@ class Bag(_TokenDistance):
         self.tokenize(src, tar)
         src_bag, tar_bag = self.get_tokens()
 
-        normalizer = (
-            max(sum(src_bag.values()), sum(tar_bag.values()))
-            if normalized
-            else 1.0
+        dist = max(
+            sum((src_bag - tar_bag).values()),
+            sum((tar_bag - src_bag).values()),
         )
 
-        return (
-            max(
-                sum((src_bag - tar_bag).values()),
-                sum((tar_bag - src_bag).values()),
-            )
-            / normalizer
-        )
+        if normalized:
+            dist /= max(sum(src_bag.values()), sum(tar_bag.values()))
+
+        return dist
 
     def dist(self, src, tar):
         """Return the normalized bag distance between two strings.
