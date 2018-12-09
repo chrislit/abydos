@@ -54,6 +54,7 @@ from __future__ import (
     unicode_literals,
 )
 
+from ._character import CharacterTokenizer
 from ._legalipy import LegaliPyTokenizer
 from ._nltk import NLTKTokenizer
 from ._qgrams import QGrams
@@ -64,6 +65,7 @@ from ._wordpunct import WordpunctTokenizer
 
 __all__ = [
     'QGrams',
+    'CharacterTokenizer',
     'RegexpTokenizer',
     'WhitespaceTokenizer',
     'WordpunctTokenizer',
