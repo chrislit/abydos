@@ -28,17 +28,13 @@ from __future__ import (
     unicode_literals,
 )
 
-from collections import Iterable
-
-from six.moves import range
-
 from ._tokenizer import _Tokenizer
 
 __all__ = ['CharacterTokenizer']
 
 
 class CharacterTokenizer(_Tokenizer):
-    """A character tokenizer
+    """A character tokenizer.
 
     .. versionadded:: 0.4.0
     """
@@ -62,7 +58,6 @@ class CharacterTokenizer(_Tokenizer):
 
         """
         super(CharacterTokenizer, self).__init__(scaler)
-
 
     def tokenize(self, string):
         """Tokenize the term and store it.
