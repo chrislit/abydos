@@ -34,6 +34,7 @@ from deprecation import deprecated
 
 from ._token_distance import _TokenDistance
 from .. import __version__
+from ..tokenizer import CharacterTokenizer
 
 __all__ = ['Bag', 'bag', 'dist_bag', 'sim_bag']
 
@@ -47,7 +48,31 @@ class Bag(_TokenDistance):
     .. versionadded:: 0.3.6
     """
 
-    def dist_abs(self, src, tar):
+    def __init__(self, tokenizer=None, **kwargs):
+        """Initialize Bag instance.
+
+        Parameters
+        ----------
+        tokenizer : _Tokenizer
+            A tokenizer instance from the abydos.tokenizer package
+        **kwargs
+            Arbitrary keyword arguments
+
+        Other Parameters
+        ----------------
+        qval : int
+            The length of each q-gram. Using this parameter and tokenizer=None
+            will cause the instance to use the QGram tokenizer with this
+            q value.
+
+        .. versionadded:: 0.4.0
+
+        """
+        if tokenizer is None:
+            tokenizer = CharacterTokenizer()
+        super(Bag, self).__init__(tokenizer=tokenizer, **kwargs)
+
+    def dist_abs(self, src, tar, normalized=False):
         """Return the bag distance between two strings.
 
         Parameters
@@ -56,6 +81,8 @@ class Bag(_TokenDistance):
             Source string for comparison
         tar : str
             Target string for comparison
+        normalized : bool
+            Normalizes to [0, 1] if True
 
         Returns
         -------
@@ -90,11 +117,21 @@ class Bag(_TokenDistance):
         elif not tar:
             return len(src)
 
-        src_bag = Counter(src)
-        tar_bag = Counter(tar)
-        return max(
-            sum((src_bag - tar_bag).values()),
-            sum((tar_bag - src_bag).values()),
+        self.tokenize(src, tar)
+        src_bag, tar_bag = self.get_tokens()
+
+        normalizer = (
+            max(sum(src_bag.values()), sum(tar_bag.values()))
+            if normalized
+            else 1.0
+        )
+
+        return (
+            max(
+                sum((src_bag - tar_bag).values()),
+                sum((tar_bag - src_bag).values()),
+            )
+            / normalizer
         )
 
     def dist(self, src, tar):
@@ -136,9 +173,7 @@ class Bag(_TokenDistance):
         if not src or not tar:
             return 1.0
 
-        max_length = max(len(src), len(tar))
-
-        return self.dist_abs(src, tar) / max_length
+        return self.dist_abs(src, tar, normalized=True)
 
 
 @deprecated(
