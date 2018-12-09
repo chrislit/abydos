@@ -117,6 +117,10 @@ class Eudex(_Distance):
                 - If set to an iterable, the iterable's values should be
                   integers and will be used as the weights.
 
+            In all cases, the weights should be ordered or generated from least
+            significant to most significant, so larger values should generally
+            come first.
+
         max_length : int
             The number of characters to encode as a eudex hash
         **kwargs
@@ -181,13 +185,13 @@ class Eudex(_Distance):
         >>> # Using the OEIS A000142:
         >>> cmp = Eudex(weights=[1, 1, 2, 6, 24, 120, 720, 5040])
         >>> cmp.dist_abs('cat', 'hat')
-        1
+        5040
         >>> cmp.dist_abs('Niall', 'Neil')
-        720
+        1
         >>> cmp.dist_abs('Colin', 'Cuilen')
-        744
+        7
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        6243
+        15130
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
@@ -217,7 +221,7 @@ class Eudex(_Distance):
         elif self._weights == 'fibonacci':
             weights = Eudex.gen_fibonacci()
         elif hasattr(self._weights, '__iter__'):
-            weights = list(self._weights)
+            weights = self._weights[::-1]
 
         if isinstance(weights, GeneratorType):
             weights = [next(weights) for _ in range(self._max_length)][::-1]
@@ -334,13 +338,13 @@ def eudex_hamming(
 
     >>> # Using the OEIS A000142:
     >>> eudex_hamming('cat', 'hat', [1, 1, 2, 6, 24, 120, 720, 5040])
-    1
+    5040
     >>> eudex_hamming('Niall', 'Neil', [1, 1, 2, 6, 24, 120, 720, 5040])
-    720
+    1
     >>> eudex_hamming('Colin', 'Cuilen', [1, 1, 2, 6, 24, 120, 720, 5040])
-    744
+    7
     >>> eudex_hamming('ATCG', 'TAGC', [1, 1, 2, 6, 24, 120, 720, 5040])
-    6243
+    15130
 
     .. versionadded:: 0.3.0
 

@@ -77,7 +77,7 @@ class EudexTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('Niall', 'Colin'), 524)
         self.assertEqual(Eudex(None).dist_abs('Niall', 'Colin'), 10)
         self.assertEqual(Eudex('fibonacci').dist_abs('Niall', 'Colin'), 146)
-        self.assertEqual(Eudex([10, 1, 1, 1]).dist_abs('Niall', 'Colin'), 6)
+        self.assertEqual(Eudex([10, 1, 1, 1]).dist_abs('Niall', 'Colin'), 42)
         self.assertEqual(Eudex(_yield_1).dist_abs('Niall', 'Colin'), 10)
         self.assertAlmostEqual(
             self.cmp.dist_abs('Niall', 'Colin', normalized=True), 0.25686274
