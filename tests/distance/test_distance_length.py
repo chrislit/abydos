@@ -36,12 +36,12 @@ from abydos.distance import Length, dist_length, sim_length
 class LengthTestCases(unittest.TestCase):
     """Test length similarity functions.
 
-    abydos.distance._basic.Length
+    abydos.distance.Length
     """
 
     cmp = Length()
 
-    def test_ident_sim(self):
+    def test_length_sim(self):
         """Test abydos.distance.Length.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
         self.assertEqual(self.cmp.sim('', 'a'), 0)
@@ -58,7 +58,7 @@ class LengthTestCases(unittest.TestCase):
         # Test wrapper
         self.assertEqual(sim_length('abcd', 'cba'), 0.75)
 
-    def test_ident_dist(self):
+    def test_length_dist(self):
         """Test abydos.distance.Length.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
         self.assertEqual(self.cmp.dist('', 'a'), 1)
