@@ -129,7 +129,7 @@ class Soundex(_Phonetic):
         >>> pe.encode_alpha("Christopher")
         'CRKT'
         >>> pe.encode_alpha("Niall")
-        'ML'
+        'NL'
         >>> pe.encode_alpha('Smith')
         'SNT'
         >>> pe.encode_alpha('Schmidt')

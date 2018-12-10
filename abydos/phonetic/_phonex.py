@@ -92,9 +92,9 @@ class Phonex(_Phonetic):
         'CRST'
         >>> pe.encode_alpha('Niall')
         'NL'
-        >>> pe.encode_alpha('Schmidt')
-        'SNT'
         >>> pe.encode_alpha('Smith')
+        'SNT'
+        >>> pe.encode_alpha('Schmidt')
         'SSNT'
 
         .. versionadded:: 0.4.0

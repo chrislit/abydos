@@ -144,7 +144,7 @@ class RethSchek(_Phonetic):
 
         Examples
         --------
-        >>> pe = RethSchek
+        >>> pe = RethSchek()
         >>> pe.encode('Joachim')
         'JOAGHIM'
         >>> pe.encode('Christoph')

@@ -85,15 +85,15 @@ class Haase(_Phonetic):
         Examples
         --------
         >>> pe = Haase()
-        >>> pe.encode('Joachim')
+        >>> pe.encode_alpha('Joachim')
         ('AKAN',)
-        >>> pe.encode('Christoph')
+        >>> pe.encode_alpha('Christoph')
         ('KRASTAF', 'SRASTAF')
-        >>> pe.encode('Jörg')
+        >>> pe.encode_alpha('Jörg')
         ('ARK',)
-        >>> pe.encode('Smith')
+        >>> pe.encode_alpha('Smith')
         ('SNAT',)
-        >>> pe.encode('Schmidt')
+        >>> pe.encode_alpha('Schmidt')
         ('SNAT', 'KNAT')
 
         .. versionadded:: 0.4.0

@@ -90,7 +90,7 @@ class Lein(_Phonetic):
         --------
         >>> pe = Lein()
         >>> pe.encode_alpha('Christopher')
-        'CRKT'
+        'CLKT'
         >>> pe.encode_alpha('Niall')
         'NL'
         >>> pe.encode_alpha('Smith')
