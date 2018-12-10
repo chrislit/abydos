@@ -45,16 +45,31 @@ class DoubleMetaphone(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def encode(self, word, max_length=-1):
+    def __init__(self, max_length=-1):
+        """Initialize DoubleMetaphone instance.
+
+        Parameters
+        ----------
+        max_length : int
+            Maximum length of the returned Dolby code -- this also activates
+            the fixed-length code mode if it is greater than 0
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+
+        # Require a max_length of at least 4
+        if self._max_length != -1:
+            self._max_length = max(4, max_length)
+
+    def encode(self, word):
         """Return the Double Metaphone code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The maximum length of the returned Double Metaphone codes (defaults
-            to unlmited, but in Philips' original implementation this was 4)
 
         Returns
         -------
@@ -78,10 +93,6 @@ class DoubleMetaphone(_Phonetic):
             Encapsulated in class
 
         """
-        # Require a max_length of at least 4
-        if max_length != -1:
-            max_length = max(4, max_length)
-
         primary = ''
         secondary = ''
 
@@ -968,9 +979,9 @@ class DoubleMetaphone(_Phonetic):
             else:
                 current += 1
 
-        if max_length > 0:
-            primary = primary[:max_length]
-            secondary = secondary[:max_length]
+        if self._max_length > 0:
+            primary = primary[:self._max_length]
+            secondary = secondary[:self._max_length]
         if primary == secondary:
             secondary = ''
 
@@ -1015,7 +1026,7 @@ def double_metaphone(word, max_length=-1):
     .. versionadded:: 0.1.0
 
     """
-    return DoubleMetaphone().encode(word, max_length)
+    return DoubleMetaphone(max_length).encode(word)
 
 
 if __name__ == '__main__':
