@@ -78,8 +78,6 @@ class Overlap(_TokenDistance):
             Source string (or QGrams/Counter objects) for comparison
         tar : str
             Target string (or QGrams/Counter objects) for comparison
-        qval : int
-            The length of each q-gram
 
         Returns
         -------
