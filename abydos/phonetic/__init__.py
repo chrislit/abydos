@@ -69,6 +69,7 @@ For Spanish:
 For Swedish:
 
     - SfinxBis (:py:class:`.SfinxBis`)
+    - Wåhlin (:py:class:`.Waahlin`)
 
 For Norwegian:
 
@@ -157,6 +158,7 @@ from ._soundex_br import SoundexBR, soundex_br
 from ._spanish_metaphone import SpanishMetaphone, spanish_metaphone
 from ._spfc import SPFC, spfc
 from ._statistics_canada import StatisticsCanada, statistics_canada
+from ._waahlin import Waahlin
 
 __all__ = [
     'RussellIndex',
@@ -241,6 +243,7 @@ __all__ = [
     'spanish_metaphone',
     'SfinxBis',
     'sfinxbis',
+    'Waahlin',
     'Norphone',
     'norphone',
 ]
