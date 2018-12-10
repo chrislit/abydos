@@ -101,7 +101,7 @@ class RefinedSoundex(_Phonetic):
         >>> pe.encode_alpha('Smith')
         'SNT'
         >>> pe.encode_alpha('Schmidt')
-        'SNT'
+        'SKNT'
 
         .. versionadded:: 0.4.0
 
@@ -132,7 +132,7 @@ class RefinedSoundex(_Phonetic):
         >>> pe.encode('Smith')
         'S86'
         >>> pe.encode('Schmidt')
-        'S86'
+        'S386'
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
@@ -188,11 +188,11 @@ def refined_soundex(word, max_length=-1, zero_pad=False, retain_vowels=False):
     Examples
     --------
     >>> refined_soundex('Christopher')
-    'C393619'
+    'C93619'
     >>> refined_soundex('Niall')
-    'N87'
+    'N7'
     >>> refined_soundex('Smith')
-    'S386'
+    'S86'
     >>> refined_soundex('Schmidt')
     'S386'
 
