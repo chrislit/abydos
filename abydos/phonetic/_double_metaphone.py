@@ -63,6 +63,36 @@ class DoubleMetaphone(_Phonetic):
         if self._max_length != -1:
             self._max_length = max(4, max_length)
 
+    def encode_alpha(self, word):
+        """Return the alphabetic Double Metaphone code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        tuple
+            The alphabetic Double Metaphone value(s)
+
+        Examples
+        --------
+        >>> pe = DoubleMetaphone()
+        >>> pe.encode_alpha('Christopher')
+        ('KRSTFR', '')
+        >>> pe.encode_alpha('Niall')
+        ('NL', '')
+        >>> pe.encode_alpha('Smith')
+        ('SMÞ', 'XMT')
+        >>> pe.encode_alpha('Schmidt')
+        ('XMT', 'SMT')
+
+        .. versionadded:: 0.4.0
+
+        """
+        return tuple(code.replace('0', 'Þ') for code in self.encode(word))
+
     def encode(self, word):
         """Return the Double Metaphone code for a word.
 
@@ -980,8 +1010,8 @@ class DoubleMetaphone(_Phonetic):
                 current += 1
 
         if self._max_length > 0:
-            primary = primary[:self._max_length]
-            secondary = secondary[:self._max_length]
+            primary = primary[: self._max_length]
+            secondary = secondary[: self._max_length]
         if primary == secondary:
             secondary = ''
 

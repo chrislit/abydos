@@ -143,6 +143,9 @@ class RogerRoot(_Phonetic):
         },
     }
 
+    _alphabetic_initial = dict(zip((ord(_) for _ in '012345'), ' AHJWY'))
+    _alphabetic = dict(zip((ord(_) for _ in '0123456789'), 'STNMRLJKFP'))
+
     def __init__(self, max_length=5, zero_pad=True):
         """Initialize RogerRoot instance.
 
@@ -160,6 +163,39 @@ class RogerRoot(_Phonetic):
         self._max_length = max_length
         self._zero_pad = zero_pad
 
+    def encode_alpha(self, word):
+        """Return the alphabetic Roger Root code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic Roger Root code
+
+        Examples
+        --------
+        >>> pe = RogerRoot()
+        >>> pe.encode_alpha('Christopher')
+        'JRST'
+        >>> pe.encode_alpha('Niall')
+        'NL'
+        >>> pe.encode_alpha('Smith')
+        'SMT'
+        >>> pe.encode_alpha('Schmidt')
+        'JMT'
+
+        .. versionadded:: 0.4.0
+
+        """
+        code = self.encode(word).rstrip('0')
+        return code[:1].translate(self._alphabetic_initial).strip() + code[
+            1:
+        ].translate(self._alphabetic)
+
     def encode(self, word):
         """Return the Roger Root code for a word.
 
@@ -175,13 +211,14 @@ class RogerRoot(_Phonetic):
 
         Examples
         --------
-        >>> roger_root('Christopher')
+        >>> pe = RogerRoot()
+        >>> pe.encode('Christopher')
         '06401'
-        >>> roger_root('Niall')
+        >>> pe.encode('Niall')
         '02500'
-        >>> roger_root('Smith')
+        >>> pe.encode('Smith')
         '00310'
-        >>> roger_root('Schmidt')
+        >>> pe.encode('Schmidt')
         '06310'
 
         .. versionadded:: 0.3.0

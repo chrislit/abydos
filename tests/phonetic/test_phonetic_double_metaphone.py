@@ -279,8 +279,12 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('hej'), ('HJ', 'H'))
 
         # max_length bounds tests
-        self.assertEqual(DoubleMetaphone(max_length=-1).encode('Niall', ), ('NL', ''))
-        self.assertEqual(DoubleMetaphone(max_length=0).encode('Niall'), ('NL', ''))
+        self.assertEqual(
+            DoubleMetaphone(max_length=-1).encode('Niall'), ('NL', '')
+        )
+        self.assertEqual(
+            DoubleMetaphone(max_length=0).encode('Niall'), ('NL', '')
+        )
 
         # Test wrapper
         self.assertEqual(double_metaphone('cambrillo'), ('KMPRL', 'KMPR'))
@@ -2623,9 +2627,7 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(self.pa_4.encode('of Stafford'), ('AFST', ''))
         self.assertEqual(self.pa_4.encode('of Swabia'), ('AFSP', ''))
         self.assertEqual(self.pa_4.encode('of Tongres'), ('AFTN', ''))
-        self.assertEqual(
-            self.pa_4.encode('of the Tributes'), ('AF0T', 'AFTT')
-        )
+        self.assertEqual(self.pa_4.encode('of the Tributes'), ('AF0T', 'AFTT'))
         self.assertEqual(self.pa_4.encode('unknown'), ('ANKN', ''))
         self.assertEqual(self.pa_4.encode('van der Gouda'), ('FNTR', ''))
         self.assertEqual(self.pa_4.encode('von Adenbaugh'), ('FNTN', ''))

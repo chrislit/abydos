@@ -159,6 +159,11 @@ class AlphaSIS(_Phonetic):
         'P',
     )
 
+    _alphabetic_initials = dict(zip((ord(_) for _ in '012345'), ' AHJWY'))
+    _alphabetic_non_initials = dict(
+        zip((ord(_) for _ in '0123456789'), 'STNMRLJKFP')
+    )
+
     def __init__(self, max_length=14):
         """Initialize AlphaSIS instance.
 
@@ -175,6 +180,43 @@ class AlphaSIS(_Phonetic):
             self._max_length = min(max(4, max_length), 64)
         else:
             self._max_length = 64
+
+    def encode_alpha(self, word):
+        """Return the alphabetic Alpha-SIS code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        tuple
+            The alphabetic Alpha-SIS value
+
+        Examples
+        --------
+        >>> pe = AlphaSIS()
+        >>> pe.encode_alpha('Christopher')
+        ('JRSTFR', 'KSRSTFR', 'RSTFR')
+        >>> pe.encode_alpha('Niall')
+        ('NL',)
+        >>> pe.encode_alpha('Smith')
+        ('MT',)
+        >>> pe.encode_alpha('Schmidt')
+        ('JMT',)
+
+        .. versionadded:: 0.4.0
+
+        """
+        codes = self.encode(word)
+        alphas = [
+            code[0].translate(self._alphabetic_initials).strip()
+            + code[1:].translate(self._alphabetic_non_initials).rstrip('S')
+            for code in codes
+        ]
+
+        return tuple(alphas)
 
     def encode(self, word):
         """Return the IBM Alpha Search Inquiry System code for a word.

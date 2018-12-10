@@ -60,6 +60,8 @@ class PSHPSoundexFirst(_Phonetic):
         )
     )
 
+    _alphabetic = dict(zip((ord(_) for _ in '12345'), 'PKTLN'))
+
     def __init__(self, max_length=4, german=False):
         """Initialize PSHPSoundexFirst instance.
 
@@ -75,6 +77,53 @@ class PSHPSoundexFirst(_Phonetic):
         """
         self._max_length = max_length
         self._german = german
+
+    def encode_alpha(self, fname):
+        """Calculate the alphabetic PSHP Soundex/Viewex Coding of a first name.
+
+        Parameters
+        ----------
+        fname : str
+            The first name to encode
+
+        Returns
+        -------
+        str
+            The alphabetic PSHP Soundex/Viewex Coding
+
+        Examples
+        --------
+        >>> pe = PSHPSoundexFirst()
+        >>> pe.encode_alpha('Smith')
+        'SNT'
+        >>> pe.encode_alpha('Waters')
+        'WTNK'
+        >>> pe.encode_alpha('James')
+        'JN'
+        >>> pe.encode_alpha('Schmidt')
+        'SN'
+        >>> pe.encode_alpha('Ashcroft')
+        'AKK'
+        >>> pe.encode_alpha('John')
+        'JN'
+        >>> pe.encode_alpha('Colin')
+        'KL'
+        >>> pe.encode_alpha('Niall')
+        'NL'
+        >>> pe.encode_alpha('Sally')
+        'SL'
+        >>> pe.encode_alpha('Jane')
+        'JN'
+
+        .. versionadded:: 0.4.0
+
+        """
+        code = self.encode(fname).rstrip('0')
+        if code == 'J7':
+            return 'JN'
+        elif code == 'P7':
+            return 'PT'
+        return code[:1] + code[1:].translate(self._alphabetic)
 
     def encode(self, fname):
         """Calculate the PSHP Soundex/Viewex Coding of a first name.

@@ -89,15 +89,16 @@ class HenryEarly(_Phonetic):
 
         Examples
         --------
-        >>> henry_early('Marchand')
+        >>> pe = HenryEarly()
+        >>> pe.encode('Marchand')
         'MRC'
-        >>> henry_early('Beaulieu')
+        >>> pe.encode('Beaulieu')
         'BL'
-        >>> henry_early('Beaumont')
+        >>> pe.encode('Beaumont')
         'BM'
-        >>> henry_early('Legrand')
+        >>> pe.encode('Legrand')
         'LGR'
-        >>> henry_early('Pelletier')
+        >>> pe.encode('Pelletier')
         'PLT'
 
         .. versionadded:: 0.3.0

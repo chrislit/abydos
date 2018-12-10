@@ -61,6 +61,46 @@ class Caverphone(_Phonetic):
         """
         self._version = version
 
+    def encode_alpha(self, word):
+        """Return the alphabetic Caverphone code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic Caverphone value
+
+        Examples
+        --------
+        >>> pe = Caverphone()
+        >>> pe.encode_alpha('Christopher')
+        'KRSTFA'
+        >>> pe.encode_alpha('Niall')
+        'NA'
+        >>> pe.encode_alpha('Smith')
+        'SMT'
+        >>> pe.encode_alpha('Schmidt')
+        'SKMT'
+
+        >>> pe_1 = Caverphone(version=1)
+        >>> pe_1.encode_alpha('Christopher')
+        'KRSTF'
+        >>> pe_1.encode_alpha('Niall')
+        'N'
+        >>> pe_1.encode_alpha('Smith')
+        'SMT'
+        >>> pe_1.encode_alpha('Schmidt')
+        'SKMT'
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.encode(word).rstrip('1')
+
     def encode(self, word):
         """Return the Caverphone code for a word.
 

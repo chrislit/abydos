@@ -56,6 +56,8 @@ class FuzzySoundex(_Phonetic):
         )
     )
 
+    _alphabetic = dict(zip((ord(_) for _ in '01345679'), 'APTLNRKS'))
+
     def __init__(self, max_length=5, zero_pad=True):
         """Initialize FuzzySoundex instance.
 
@@ -76,6 +78,37 @@ class FuzzySoundex(_Phonetic):
         else:
             self._max_length = 64
         self._zero_pad = zero_pad
+
+    def encode_alpha(self, word):
+        """Return the alphabetic Fuzzy Soundex code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic Fuzzy Soundex value
+
+        Examples
+        --------
+        >>> pe = FuzzySoundex()
+        >>> pe.encode_alpha('Christopher')
+        'KRSTP'
+        >>> pe.encode_alpha('Niall')
+        'NL'
+        >>> pe.encode_alpha('Smith')
+        'SNT'
+        >>> pe.encode_alpha('Schmidt')
+        'SNT'
+
+        .. versionadded:: 0.4.0
+
+        """
+        code = self.encode(word).rstrip('0')
+        return code[:1] + code[1:].translate(self._alphabetic)
 
     def encode(self, word):
         """Return the Fuzzy Soundex code for a word.

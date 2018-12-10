@@ -60,6 +60,8 @@ class PSHPSoundexLast(_Phonetic):
         )
     )
 
+    _alphabetic = dict(zip((ord(_) for _ in '12345'), 'PKTLN'))
+
     def __init__(self, max_length=4, german=False):
         """Initialize PSHPSoundexLast instance.
 
@@ -75,6 +77,39 @@ class PSHPSoundexLast(_Phonetic):
         """
         self._max_length = max_length
         self._german = german
+
+    def encode_alpha(self, lname):
+        """Calculate the alphabetic PSHP Soundex/Viewex Coding of a last name.
+
+        Parameters
+        ----------
+        lname : str
+            The last name to encode
+
+        Returns
+        -------
+        str
+            The PSHP alphabetic Soundex/Viewex Coding
+
+        Examples
+        --------
+        >>> pe = PSHPSoundexLast()
+        >>> pe.encode_alpha('Smith')
+        'SNT'
+        >>> pe.encode_alpha('Waters')
+        'WTN'
+        >>> pe.encode_alpha('James')
+        'JN'
+        >>> pe.encode_alpha('Schmidt')
+        'SNT'
+        >>> pe.encode_alpha('Ashcroft')
+        'AKKN'
+
+        .. versionadded:: 0.4.0
+
+        """
+        code = self.encode(lname).rstrip('0')
+        return code[:1] + code[1:].translate(self._alphabetic)
 
     def encode(self, lname):
         """Calculate the PSHP Soundex/Viewex Coding of a last name.

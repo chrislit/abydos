@@ -75,6 +75,51 @@ class MetaSoundex(_Phonetic):
             self._sdx = PhoneticSpanish()
             self._meta = SpanishMetaphone()
 
+    def encode_alpha(self, word):
+        """Return the MetaSoundex code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The MetaSoundex code
+
+        Examples
+        --------
+        >>> pe = MetaSoundex()
+        >>> pe.encode_alpha('Smith')
+        'SN'
+        >>> pe.encode_alpha('Waters')
+        'WTRK'
+        >>> pe.encode_alpha('James')
+        'JNK'
+        >>> pe.encode_alpha('Schmidt')
+        'SNT'
+        >>> pe.encode_alpha('Ashcroft')
+        'AKRP'
+
+        >>> pe = MetaSoundex(lang='es')
+        >>> pe.encode_alpha('Perez')
+        'PRS'
+        >>> pe.encode_alpha('Martinez')
+        'NRTNS'
+        >>> pe.encode_alpha('Gutierrez')
+        'GTRRS'
+        >>> pe.encode_alpha('Santiago')
+        'SNTG'
+        >>> pe.encode_alpha('Nicolás')
+        'NKLS'
+
+        .. versionadded:: 0.4.0
+
+        """
+        word = self._sdx.encode_alpha(self._meta.encode_alpha(word))
+        return word
+
     def encode(self, word):
         """Return the MetaSoundex code for a word.
 
