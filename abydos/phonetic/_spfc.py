@@ -219,22 +219,10 @@ class SPFC(_Phonetic):
         # second digit of the code. Use as many letters as possible and remove
         # after coding.
         if names[1]:
-            if names[1][-3:] == 'STN' or names[1][-3:] == 'PRS':
-                code += '8'
-                names[1] = names[1][:-3]
-            elif names[1][-2:] == 'SN':
-                code += '8'
-                names[1] = names[1][:-2]
-            elif names[1][-3:] == 'STR':
-                code += '9'
-                names[1] = names[1][:-3]
-            elif names[1][-2:] in {'SR', 'TN', 'TD'}:
-                code += '9'
-                names[1] = names[1][:-2]
-            elif names[1][-3:] == 'DRS':
+            if names[1][-3:] in {'DRS', 'STN', 'PRS', 'STR'}:
                 code += '7'
                 names[1] = names[1][:-3]
-            elif names[1][-2:] in {'TR', 'MN'}:
+            elif names[1][-2:] in {'MN', 'TR', 'SN', 'SR', 'TN', 'TD'}:
                 code += '7'
                 names[1] = names[1][:-2]
             else:
