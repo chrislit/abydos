@@ -156,6 +156,8 @@ class SfinxBis(_Phonetic):
         )
     )
 
+    _alphabetic = dict(zip((ord(_) for _ in '123456789#'), 'PKTLNRFSAŠ'))
+
     def __init__(self, max_length=-1):
         """Initialize SfinxBis instance.
 
@@ -168,6 +170,43 @@ class SfinxBis(_Phonetic):
 
         """
         self._max_length = max_length
+
+    def encode_alpha(self, word):
+        """Return the alphabetic SfinxBis code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        tuple
+            The alphabetic SfinxBis value
+
+        Examples
+        --------
+        >>> pe = SfinxBis()
+        >>> pe.encode_alpha('Christopher')
+        ('KRSTFR',)
+        >>> pe.encode_alpha('Niall')
+        ('NL',)
+        >>> pe.encode_alpha('Smith')
+        ('SNT',)
+        >>> pe.encode_alpha('Schmidt')
+        ('SNT',)
+
+        >>> pe.encode_alpha('Johansson')
+        ('JNSN',)
+        >>> pe.encode_alpha('Sjöberg')
+        ('ŠPRK',)
+
+        .. versionadded:: 0.4.0
+
+        """
+        return tuple(
+            code.translate(self._alphabetic) for code in self.encode(word)
+        )
 
     def encode(self, word):
         """Return the SfinxBis code for a word.

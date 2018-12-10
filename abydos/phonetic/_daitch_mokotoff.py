@@ -262,6 +262,11 @@ class DaitchMokotoff(_Phonetic):
 
     _uc_v_set = set('AEIJOUY')
 
+    _alphabetic = dict(zip((ord(_) for _ in '0123456789'), 'AYﬆTSKNPLR'))
+    _alphabetic_non_initials = dict(
+        zip((ord(_) for _ in '0123456789'), ' A TSKNPLR')
+    )
+
     def __init__(self, max_length=6, zero_pad=True):
         """Initialize DaitchMokotoff instance.
 
@@ -283,6 +288,44 @@ class DaitchMokotoff(_Phonetic):
         else:
             self._max_length = 64
         self._zero_pad = zero_pad
+
+    def encode_alpha(self, word):
+        """Return the alphabetic Daitch-Mokotoff Soundex code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic Daitch-Mokotoff Soundex value
+
+        Examples
+        --------
+        >>> pe = DaitchMokotoff()
+        >>> sorted(pe.encode_alpha('Christopher'))
+        ['KRSTPR', 'SRSTPR']
+        >>> pe.encode_alpha('Niall')
+        {'NL'}
+        >>> pe.encode_alpha('Smith')
+        {'SNT'}
+        >>> pe.encode_alpha('Schmidt')
+        {'SNT'}
+
+        >>> sorted(DaitchMokotoff(max_length=20,
+        ... zero_pad=False).encode_alpha('The quick brown fox'))
+        ['TKKPRPNPKS', 'TKSKPRPNPKS']
+
+        .. versionadded:: 0.4.0
+
+        """
+        alphas = {
+            code.rstrip('0').translate(self._alphabetic)
+            for code in self.encode(word)
+        }
+        return {code[:1] + code[1:].replace('Y', 'A') for code in alphas}
 
     def encode(self, word):
         """Return the Daitch-Mokotoff Soundex code for a word.

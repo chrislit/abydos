@@ -77,6 +77,56 @@ class SPFC(_Phonetic):
         ('MN', 'N'),
     )
 
+    _pf1_alphabetic = dict(zip((ord(_) for _ in '01234567'), 'SCFALDEG'))
+    _pf2_alphabetic = dict(zip((ord(_) for _ in '0123456789'), 'SCFAODMGUE'))
+    _pf3_alphabetic = dict(zip((ord(_) for _ in '01234567'), 'BDFGMRSZ'))
+
+    def encode_alpha(self, word):
+        """Return the alphabetic SPFC of a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic SPFC value
+
+        Examples
+        --------
+        >>> pe = SPFC()
+        >>> pe.encode_alpha('Christopher Smith')
+        'SDCMS'
+        >>> pe.encode_alpha('Christopher Schmidt')
+        'SDCMS'
+        >>> pe.encode_alpha('Niall Smith')
+        'SDMMS'
+        >>> pe.encode_alpha('Niall Schmidt')
+        'SDMMS'
+
+        >>> pe.encode_alpha('L.Smith')
+        'SDEMS'
+        >>> pe.encode_alpha('R.Miller')
+        'EROES'
+
+        >>> pe.encode_alpha(('L', 'Smith'))
+        'SDEMS'
+        >>> pe.encode_alpha(('R', 'Miller'))
+        'EROES'
+
+        .. versionadded:: 0.4.0
+
+        """
+        code = self.encode(word)
+
+        return (
+            code[:1].translate(self._pf1_alphabetic)
+            + code[1:2].translate(self._pf3_alphabetic)
+            + code[2:].translate(self._pf2_alphabetic)
+        )
+
     def encode(self, word):
         """Return the Standardized Phonetic Frequency Code (SPFC) of a word.
 

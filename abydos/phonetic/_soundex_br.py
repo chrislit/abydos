@@ -55,6 +55,8 @@ class SoundexBR(_Phonetic):
         )
     )
 
+    _alphabetic = dict(zip((ord(_) for _ in '0123456'), 'APKTLNR'))
+
     def __init__(self, max_length=4, zero_pad=True):
         """Initialize SoundexBR instance.
 
@@ -72,6 +74,41 @@ class SoundexBR(_Phonetic):
         self._max_length = max_length
         self._zero_pad = zero_pad
 
+    def encode_alpha(self, word):
+        """Return the alphabetic SoundexBR encoding of a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic SoundexBR code
+
+        Examples
+        --------
+        >>> pe = SoundexBR()
+        >>> pe.encode_alpha('Oliveira')
+        'OLPR'
+        >>> pe.encode_alpha('Almeida')
+        'ALNT'
+        >>> pe.encode_alpha('Barbosa')
+        'BRPK'
+        >>> pe.encode_alpha('Araújo')
+        'ARK'
+        >>> pe.encode_alpha('Gonçalves')
+        'GNKL'
+        >>> pe.encode_alpha('Goncalves')
+        'GNKL'
+
+        .. versionadded:: 0.4.0
+
+        """
+        code = self.encode(word).rstrip('0')
+        return code[:1] + code[1:].translate(self._alphabetic)
+
     def encode(self, word):
         """Return the SoundexBR encoding of a word.
 
@@ -80,7 +117,6 @@ class SoundexBR(_Phonetic):
         word : str
             The word to transform
 
-
         Returns
         -------
         str
@@ -88,17 +124,18 @@ class SoundexBR(_Phonetic):
 
         Examples
         --------
-        >>> soundex_br('Oliveira')
+        >>> pe = SoundexBR()
+        >>> pe.encode('Oliveira')
         'O416'
-        >>> soundex_br('Almeida')
+        >>> pe.encode('Almeida')
         'A453'
-        >>> soundex_br('Barbosa')
+        >>> pe.encode('Barbosa')
         'B612'
-        >>> soundex_br('Araújo')
+        >>> pe.encode('Araújo')
         'A620'
-        >>> soundex_br('Gonçalves')
+        >>> pe.encode('Gonçalves')
         'G524'
-        >>> soundex_br('Goncalves')
+        >>> pe.encode('Goncalves')
         'G524'
 
         .. versionadded:: 0.3.0

@@ -69,6 +69,38 @@ class Dolby(_Phonetic):
         self._keep_vowels = keep_vowels
         self._vowel_char = vowel_char
 
+    def encode_alpha(self, word):
+        """Return the alphabetic Dolby Code of a name.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic Dolby Code
+
+        Examples
+        --------
+        >>> pe = Dolby()
+        >>> pe.encode_alpha('Hansen')
+        'HANSN'
+        >>> pe.encode_alpha('Larsen')
+        'LARSN'
+        >>> pe.encode_alpha('Aagaard')
+        'AGR'
+        >>> pe.encode_alpha('Braaten')
+        'BRADN'
+        >>> pe.encode_alpha('Sandvik')
+        'SANVK'
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.encode(word).replace(self._vowel_char, 'A')
+
     def encode(self, word):
         """Return the Dolby Code of a name.
 

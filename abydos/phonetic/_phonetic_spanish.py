@@ -55,6 +55,8 @@ class PhoneticSpanish(_Phonetic):
 
     _uc_set = set('BCDFGHJKLMNPQRSTVXYZ')
 
+    _alphabetic = dict(zip((ord(_) for _ in '0123456789'), 'PBFTSLNKGR'))
+
     def __init__(self, max_length=-1):
         """Initialize PhoneticSpanish instance.
 
@@ -67,6 +69,38 @@ class PhoneticSpanish(_Phonetic):
 
         """
         self._max_length = max_length
+
+    def encode_alpha(self, word):
+        """Return the alphabetic PhoneticSpanish coding of word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic PhoneticSpanish code
+
+        Examples
+        --------
+        >>> pe = PhoneticSpanish()
+        >>> pe.encode_alpha('Perez')
+        'PRS'
+        >>> pe.encode_alpha('Martinez')
+        'NRTNS'
+        >>> pe.encode_alpha('Gutierrez')
+        'GTRRS'
+        >>> pe.encode_alpha('Santiago')
+        'SNTG'
+        >>> pe.encode_alpha('Nicolás')
+        'NSLS'
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.encode(word).translate(self._alphabetic)
 
     def encode(self, word):
         """Return the PhoneticSpanish coding of word.

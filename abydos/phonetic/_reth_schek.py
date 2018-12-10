@@ -144,15 +144,16 @@ class RethSchek(_Phonetic):
 
         Examples
         --------
-        >>> reth_schek_phonetik('Joachim')
+        >>> pe = RethSchek
+        >>> pe.encode('Joachim')
         'JOAGHIM'
-        >>> reth_schek_phonetik('Christoph')
+        >>> pe.encode('Christoph')
         'GHRISDOF'
-        >>> reth_schek_phonetik('Jörg')
+        >>> pe.encode('Jörg')
         'JOERG'
-        >>> reth_schek_phonetik('Smith')
+        >>> pe.encode('Smith')
         'SMID'
-        >>> reth_schek_phonetik('Schmidt')
+        >>> pe.encode('Schmidt')
         'SCHMID'
 
         .. versionadded:: 0.3.0

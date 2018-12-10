@@ -54,6 +54,8 @@ class Lein(_Phonetic):
 
     _del_trans = {num: None for num in (32, 65, 69, 72, 73, 79, 85, 87, 89)}
 
+    _alphabetic = dict(zip((ord(_) for _ in '12345'), 'TNLPK'))
+
     def __init__(self, max_length=4, zero_pad=True):
         """Initialize Lein instance.
 
@@ -70,6 +72,37 @@ class Lein(_Phonetic):
         """
         self._max_length = max_length
         self._zero_pad = zero_pad
+
+    def encode_alpha(self, word):
+        """Return the alphabetic Lein code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic Lein code
+
+        Examples
+        --------
+        >>> pe = Lein()
+        >>> pe.encode_alpha('Christopher')
+        'CRKT'
+        >>> pe.encode_alpha('Niall')
+        'NL'
+        >>> pe.encode_alpha('Smith')
+        'SNT'
+        >>> pe.encode_alpha('Schmidt')
+        'SKNT'
+
+        .. versionadded:: 0.4.0
+
+        """
+        code = self.encode(word).rstrip('0')
+        return code[:1] + code[1:].translate(self._alphabetic)
 
     def encode(self, word):
         """Return the Lein code for a word.

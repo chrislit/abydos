@@ -54,6 +54,8 @@ class Haase(_Phonetic):
 
     _uc_v_set = set('AEIJOUY')
 
+    _alphabetic = dict(zip((ord(_) for _ in '123456789'), 'PTFKLNRSA'))
+
     def __init__(self, primary_only=False):
         """Initialize Haase instance.
 
@@ -66,6 +68,40 @@ class Haase(_Phonetic):
 
         """
         self._primary_only = primary_only
+
+    def encode_alpha(self, word):
+        """Return the alphabetic Haase Phonetik code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        tuple
+            The alphabetic Haase Phonetik value
+
+        Examples
+        --------
+        >>> pe = Haase()
+        >>> pe.encode('Joachim')
+        ('AKAN',)
+        >>> pe.encode('Christoph')
+        ('KRASTAF', 'SRASTAF')
+        >>> pe.encode('Jörg')
+        ('ARK',)
+        >>> pe.encode('Smith')
+        ('SNAT',)
+        >>> pe.encode('Schmidt')
+        ('SNAT', 'KNAT')
+
+        .. versionadded:: 0.4.0
+
+        """
+        return tuple(
+            code.translate(self._alphabetic) for code in self.encode(word)
+        )
 
     def encode(self, word):
         """Return the Haase Phonetik (numeric output) code for a word.
@@ -276,7 +312,7 @@ class Haase(_Phonetic):
     details='Use the Haase.encode method instead.',
 )
 def haase_phonetik(word, primary_only=False):
-    """Return the Haase Phonetik (numeric output) code for a word.
+    """Return the Haase Phonetik code for a word.
 
     This is a wrapper for :py:meth:`Haase.encode`.
 

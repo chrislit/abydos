@@ -55,6 +55,8 @@ class SoundD(_Phonetic):
         )
     )
 
+    _alphabetic = dict(zip((ord(_) for _ in '0123456'), 'APKTLNR'))
+
     def __init__(self, max_length=4):
         """Initialize SoundD instance.
 
@@ -66,6 +68,38 @@ class SoundD(_Phonetic):
 
         """
         self._max_length = max_length
+
+    def encode_alpha(self, word):
+        """Return the alphabetic SoundD code.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic SoundD code
+
+        Examples
+        --------
+        >>> pe = SoundD()
+        >>> pe.encode_alpha('Gough')
+        'K'
+        >>> pe.encode_alpha('pneuma')
+        'NN'
+        >>> pe.encode_alpha('knight')
+        'NT'
+        >>> pe.encode_alpha('trice')
+        'TRK'
+        >>> pe.encode_alpha('judge')
+        'KK'
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.encode(word).rstrip('0').translate(self._alphabetic)
 
     def encode(self, word):
         """Return the SoundD code.
@@ -82,15 +116,16 @@ class SoundD(_Phonetic):
 
         Examples
         --------
-        >>> sound_d('Gough')
+        >>> pe = SoundD()
+        >>> pe.encode('Gough')
         '2000'
-        >>> sound_d('pneuma')
+        >>> pe.encode('pneuma')
         '5500'
-        >>> sound_d('knight')
+        >>> pe.encode('knight')
         '5300'
-        >>> sound_d('trice')
+        >>> pe.encode('trice')
         '3620'
-        >>> sound_d('judge')
+        >>> pe.encode('judge')
         '2200'
 
         .. versionadded:: 0.3.0

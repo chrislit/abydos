@@ -68,6 +68,36 @@ class ONCA(_Phonetic):
         self._nysiis = NYSIIS(max_length=max_length * 3)
         self._soundex = Soundex(max_length=max_length, zero_pad=zero_pad)
 
+    def encode_alpha(self, word):
+        """Return the alphabetic ONCA code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic ONCA code
+
+        Examples
+        --------
+        >>> pe = ONCA()
+        >>> pe.encode_alpha('Christopher')
+        'CRKT'
+        >>> pe.encode_alpha('Niall')
+        'NL'
+        >>> pe.encode_alpha('Smith')
+        'SNT'
+        >>> pe.encode_alpha('Schmidt')
+        'SNT'
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self._soundex.encode_alpha(self._nysiis.encode_alpha(word))
+
     def encode(self, word):
         """Return the Oxford Name Compression Algorithm (ONCA) code for a word.
 
