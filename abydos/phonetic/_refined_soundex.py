@@ -56,6 +56,8 @@ class RefinedSoundex(_Phonetic):
         )
     )
 
+    _alphabetic = dict(zip((ord(_) for _ in '123456789'), 'PFKGZTLNR'))
+
     def __init__(self, max_length=-1, zero_pad=False, retain_vowels=False):
         """Initialize RefinedSoundex instance.
 
@@ -76,6 +78,37 @@ class RefinedSoundex(_Phonetic):
         self._zero_pad = zero_pad
         self._retain_vowels = retain_vowels
 
+    def encode_alpha(self, word):
+        """Return the alphabetic Refined Soundex code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic Refined Soundex value
+
+        Examples
+        --------
+        >>> pe = RefinedSoundex()
+        >>> pe.encode_alpha('Christopher')
+        'CRKTPR'
+        >>> pe.encode_alpha('Niall')
+        'NL'
+        >>> pe.encode_alpha('Smith')
+        'SNT'
+        >>> pe.encode_alpha('Schmidt')
+        'SNT'
+
+        .. versionadded:: 0.4.0
+
+        """
+        code = self.encode(word).rstrip('0')
+        return code[:1] + code[1:].translate(self._alphabetic)
+
     def encode(self, word):
         """Return the Refined Soundex code for a word.
 
@@ -93,13 +126,13 @@ class RefinedSoundex(_Phonetic):
         --------
         >>> pe = RefinedSoundex()
         >>> pe.encode('Christopher')
-        'C393619'
+        'C93619'
         >>> pe.encode('Niall')
-        'N87'
+        'N7'
         >>> pe.encode('Smith')
-        'S386'
+        'S86'
         >>> pe.encode('Schmidt')
-        'S386'
+        'S86'
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
@@ -112,7 +145,7 @@ class RefinedSoundex(_Phonetic):
         word = ''.join(c for c in word if c in self._uc_set)
 
         # apply the Soundex algorithm
-        sdx = word[:1] + word.translate(self._trans)
+        sdx = word[:1] + word[1:].translate(self._trans)
         sdx = self._delete_consecutive_repeats(sdx)
         if not self._retain_vowels:
             sdx = sdx.replace('0', '')  # Delete vowels, H, W, Y
