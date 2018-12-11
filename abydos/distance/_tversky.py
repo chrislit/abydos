@@ -59,10 +59,10 @@ class Tversky(_TokenDistance):
     Parameter values' relation to 1 emphasizes different types of
     contributions:
 
-        - :math:`\alpha and \beta > 1` emphsize unique contributions over the
-          intersection
-        - :math:`\alpha and \beta < 1` emphsize the intersection over unique
-          contributions
+        - :math:`\alpha` and :math:`\beta > 1` emphsize unique contributions
+          over the intersection
+        - :math:`\alpha` and :math:`\beta < 1` emphsize the intersection over
+          unique contributions
 
     The symmetric variant is defined in :cite:`Jiminez:2013`. This is activated
     by specifying a bias parameter.

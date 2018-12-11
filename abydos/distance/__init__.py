@@ -53,6 +53,15 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Bag distance (:py:class:`.Bag`)
     - Monge-Elkan distance (:py:class:`.MongeElkan`)
 
+A set of fuzzy token-based distance metrics are provided:
+
+    - Fuzzy Tversky distance (:py:class:`.FuzzyTversky`)
+    - Fuzzy Dice similarity (:py:class:`.FuzzyDice`)
+    - Fuzzy Jaccard similarity (:py:class:`.FuzzyJaccard`)
+    - Fuzzy Tanimoto coefficient (:py:meth:`.FuzzyJaccard.tanimoto_coeff`)
+    - Fuzzy overlap distance (:py:class:`.FuzzyOverlap`)
+    - Fuzzy cosine similarity (:py:class:`.FuzzyCosine`)
+
 Three popular sequence alignment algorithms are provided:
 
     - Needleman-Wunsch score (:py:class:`.NeedlemanWunsch`)
@@ -137,6 +146,11 @@ from ._dice import Dice, dist_dice, sim_dice
 from ._editex import Editex, dist_editex, editex, sim_editex
 from ._euclidean import Euclidean, dist_euclidean, euclidean, sim_euclidean
 from ._eudex import Eudex, dist_eudex, eudex_hamming, sim_eudex
+from ._fuzzy_cosine import FuzzyCosine
+from ._fuzzy_dice import FuzzyDice
+from ._fuzzy_jaccard import FuzzyJaccard
+from ._fuzzy_overlap import FuzzyOverlap
+from ._fuzzy_tversky import FuzzyTversky
 from ._gotoh import Gotoh, gotoh
 from ._hamming import Hamming, dist_hamming, hamming, sim_hamming
 from ._ident import Ident, dist_ident, sim_ident
@@ -243,6 +257,11 @@ __all__ = [
     'MongeElkan',
     'dist_monge_elkan',
     'sim_monge_elkan',
+    'FuzzyCosine',
+    'FuzzyDice',
+    'FuzzyJaccard',
+    'FuzzyOverlap',
+    'FuzzyTversky',
     'NeedlemanWunsch',
     'needleman_wunsch',
     'SmithWaterman',
