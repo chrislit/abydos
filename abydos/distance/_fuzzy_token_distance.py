@@ -48,7 +48,8 @@ class _FuzzyTokenDistance(_TokenDistance):
         Parameters
         ----------
         tokenizer : _Tokenizer
-            A tokenizer instance from the abydos.tokenizer package
+            A tokenizer instance from the abydos.tokenizer package, defaulting
+            to the QGrams tokenizer with q=4
         threshold : float
             The minimum similarity for a pair of tokens to contribute to
             similarity
@@ -68,7 +69,7 @@ class _FuzzyTokenDistance(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        qval = 2 if 'qval' not in kwargs else kwargs['qval']
+        qval = 4 if 'qval' not in kwargs else kwargs['qval']
         tokenizer = (
             tokenizer
             if tokenizer is not None
