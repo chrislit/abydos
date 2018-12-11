@@ -29,6 +29,7 @@ from __future__ import (
 )
 
 from ._fuzzy_tversky import FuzzyTversky
+
 __all__ = ['FuzzyDice']
 
 
@@ -78,7 +79,13 @@ class FuzzyDice(FuzzyTversky):
 
         """
         super(FuzzyDice, self).__init__(
-            alpha=0.5, beta=0.5, bias=None, tokenizer=tokenizer, threshold=threshold, metric=metric, **kwargs
+            alpha=0.5,
+            beta=0.5,
+            bias=None,
+            tokenizer=tokenizer,
+            threshold=threshold,
+            metric=metric,
+            **kwargs
         )
 
     def sim(self, src, tar):

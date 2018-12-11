@@ -80,7 +80,9 @@ class FuzzyOverlap(_FuzzyTokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(FuzzyOverlap, self).__init__(tokenizer=tokenizer, threshold=threshold, metric=metric, **kwargs)
+        super(FuzzyOverlap, self).__init__(
+            tokenizer=tokenizer, threshold=threshold, metric=metric, **kwargs
+        )
 
     def sim(self, src, tar):
         r"""Return the Fuzzy Overlap similarity of two strings.
