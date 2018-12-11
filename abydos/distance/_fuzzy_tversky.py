@@ -71,7 +71,14 @@ class FuzzyTversky(_FuzzyTokenDistance):
     """
 
     def __init__(
-        self, alpha=1.0, beta=1.0, bias=None, tokenizer=None, threshold=0.8, metric=None, **kwargs
+        self,
+        alpha=1.0,
+        beta=1.0,
+        bias=None,
+        tokenizer=None,
+        threshold=0.8,
+        metric=None,
+        **kwargs
     ):
         """Initialize FuzzyTversky instance.
 
@@ -105,7 +112,9 @@ class FuzzyTversky(_FuzzyTokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(FuzzyTversky, self).__init__(tokenizer=tokenizer, threshold=threshold, metric=metric, **kwargs)
+        super(FuzzyTversky, self).__init__(
+            tokenizer=tokenizer, threshold=threshold, metric=metric, **kwargs
+        )
         self.set_params(alpha=alpha, beta=beta, bias=bias)
 
     def sim(self, src, tar):

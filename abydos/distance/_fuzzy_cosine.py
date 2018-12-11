@@ -80,7 +80,9 @@ class FuzzyCosine(_FuzzyTokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(FuzzyCosine, self).__init__(tokenizer=tokenizer, threshold=threshold, metric=metric, **kwargs)
+        super(FuzzyCosine, self).__init__(
+            tokenizer=tokenizer, threshold=threshold, metric=metric, **kwargs
+        )
 
     def sim(self, src, tar):
         r"""Return the Fuzzy Cosine similarity of two strings.

@@ -82,7 +82,13 @@ class FuzzyJaccard(FuzzyTversky):
 
         """
         super(FuzzyJaccard, self).__init__(
-            alpha=1, beta=1, bias=None, tokenizer=tokenizer, threshold=threshold, metric=metric, **kwargs
+            alpha=1,
+            beta=1,
+            bias=None,
+            tokenizer=tokenizer,
+            threshold=threshold,
+            metric=metric,
+            **kwargs
         )
 
     def sim(self, src, tar):
