@@ -84,7 +84,8 @@ class FuzzyTversky(_FuzzyTokenDistance):
         bias : float
             The symmetric Tversky index bias parameter
         tokenizer : _Tokenizer
-            A tokenizer instance from the abydos.tokenizer package
+            A tokenizer instance from the abydos.tokenizer package, defaulting
+            to the QGrams tokenizer with q=4
         threshold : float
             The minimum similarity for a pair of tokens to contribute to
             similarity
