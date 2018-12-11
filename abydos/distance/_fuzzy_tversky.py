@@ -36,16 +36,14 @@ __all__ = ['FuzzyTversky']
 class FuzzyTversky(_FuzzyTokenDistance):
     r"""Fuzzy Tversky index.
 
-    The Tversky index :cite:`Tversky:1977` is defined as:
-    For two sets X and Y:
-    :math:`sim_{Tversky}(X, Y) = \frac{|X \cap Y|}
-    {|X \cap Y| + \alpha|X - Y| + \beta|Y - X|}`.
-
-    :math:`\alpha = \beta = 1` is equivalent to the Jaccard & Tanimoto
-    similarity coefficients.
-
-    :math:`\alpha = \beta = 0.5` is equivalent to the Sørensen-Dice
-    similarity coefficient :cite:`Dice:1945,Sorensen:1948`.
+    The Fuzzy Tversky index, by analogy with :cite:`Wang:2014`,
+    for two sets X and Y is:
+    :math:`sim_{Fuzzy Tversky}(X, Y) = \frac{|X \widetilde\cap_\delta Y|}
+    {|X \widetilde\cap_\delta Y| + \alpha|X - Y| + \beta|Y - X|}`,
+    where :math:`|X \widetilde\cap_\delta Y|` is the fuzzy overlap or fuzzy
+    intersection. This fuzzy intersection is sum of similarities of all tokens
+    in the two sets that are greater than equal to some threshold value
+    (:math:`\delta`).
 
     Unequal α and β will tend to emphasize one or the other set's
     contributions:
@@ -56,13 +54,18 @@ class FuzzyTversky(_FuzzyTokenDistance):
     Parameter values' relation to 1 emphasizes different types of
     contributions:
 
-        - :math:`\alpha and \beta > 1` emphsize unique contributions over the
+        - :math:`\alpha` and :math:`\beta > 1` emphsize unique contributions over the
           intersection
-        - :math:`\alpha and \beta < 1` emphsize the intersection over unique
+        - :math:`\alpha` and :math:`\beta < 1` emphsize the intersection over unique
           contributions
 
-    The symmetric variant is defined in :cite:`Jiminez:2013`. This is activated
-    by specifying a bias parameter.
+    The symmetric variant is developed by analogy to :cite:`Jiminez:2013`. This
+    is activated by specifying a bias parameter.
+
+    The lower bound of Fuzzy Tversky similarity, and the value when
+    :math:`\delta = 1.0`, is the Tversky similarity. Tokens shorter than
+    :math:`\frac{\delta}{1-\delta}`, 4 in the case of the default threshold
+    :math:`\delta = 0.8`, must match exactly to contribute to similarity.
 
     .. versionadded:: 0.4.0
     """
@@ -82,6 +85,12 @@ class FuzzyTversky(_FuzzyTokenDistance):
             The symmetric Tversky index bias parameter
         tokenizer : _Tokenizer
             A tokenizer instance from the abydos.tokenizer package
+        threshold : float
+            The minimum similarity for a pair of tokens to contribute to
+            similarity
+        metric : _Distance
+            A distance instance from the abydos.distance package, defaulting
+            to normalized Levenshtein similarity
         **kwargs
             Arbitrary keyword arguments
 
@@ -99,7 +108,7 @@ class FuzzyTversky(_FuzzyTokenDistance):
         self.set_params(alpha=alpha, beta=beta, bias=bias)
 
     def sim(self, src, tar):
-        """Return the fuzzy Tversky index of two strings.
+        """Return the Fuzzy Tversky index of two strings.
 
         Parameters
         ----------
@@ -149,7 +158,7 @@ class FuzzyTversky(_FuzzyTokenDistance):
 
         q_src_mag = sum(self._src_tokens.values())
         q_tar_mag = sum(self._tar_tokens.values())
-        q_intersection_mag = self.fuzzy_overlap()
+        q_intersection_mag = self.fuzzy_intersection()
 
         if not self._src_tokens or not self._tar_tokens:
             return 0.0

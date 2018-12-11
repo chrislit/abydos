@@ -18,7 +18,7 @@
 
 """abydos.distance._fuzzy_dice.
 
-Fuzzy Sørensen–Dice coefficient & distance
+Fuzzy Dice similarity & distance
 """
 
 from __future__ import (
@@ -33,15 +33,19 @@ __all__ = ['FuzzyDice']
 
 
 class FuzzyDice(FuzzyTversky):
-    r"""Fuzzy Sørensen–Dice coefficient.
+    r"""Fuzzy Dice similarity.
 
-    For two sets X and Y, the Sørensen–Dice coefficient
-    :cite:`Dice:1945,Sorensen:1948` is
-    :math:`sim_{dice}(X, Y) = \frac{2 \cdot |X \cap Y|}{|X| + |Y|}`.
+    For two sets X and Y, the Fuzzy Dice similarity :cite:`Wang:2014` is:
+    :math:`sim_{Fuzzy Dice_\delta}(X, Y) = \frac{2 \cdot |X \widetilde\cap_\delta Y|}{|X| + |Y|}`,
+    where :math:`|X \widetilde\cap_\delta Y|` is the fuzzy overlap or fuzzy
+    intersection. This fuzzy intersection is sum of similarities of all tokens
+    in the two sets that are greater than equal to some threshold value
+    (:math:`\delta`).
 
-    This is identical to the Tanimoto similarity coefficient
-    :cite:`Tanimoto:1958` and the Tversky index :cite:`Tversky:1977` for
-    :math:`\alpha = \beta = 0.5`.
+    The lower bound of Fuzzy Dice similarity, and the value when
+    :math:`\delta = 1.0`, is the Dice similarity. Tokens shorter than
+    :math:`\frac{\delta}{1-\delta}`, 4 in the case of the default threshold
+    :math:`\delta = 0.8`, must match exactly to contribute to similarity.
 
     .. versionadded:: 0.4.0
     """
@@ -53,6 +57,12 @@ class FuzzyDice(FuzzyTversky):
         ----------
         tokenizer : _Tokenizer
             A tokenizer instance from the abydos.tokenizer package
+        threshold : float
+            The minimum similarity for a pair of tokens to contribute to
+            similarity
+        metric : _Distance
+            A distance instance from the abydos.distance package, defaulting
+            to normalized Levenshtein similarity
         **kwargs
             Arbitrary keyword arguments
 
@@ -71,7 +81,7 @@ class FuzzyDice(FuzzyTversky):
         )
 
     def sim(self, src, tar):
-        """Return the fuzzy Sørensen–Dice coefficient of two strings.
+        """Return the Fuzzy Dice similarity of two strings.
 
         Parameters
         ----------
@@ -83,7 +93,7 @@ class FuzzyDice(FuzzyTversky):
         Returns
         -------
         float
-            Fuzzy Sørensen–Dice similarity
+            Fuzzy Dice similarity
 
         Examples
         --------

@@ -38,14 +38,18 @@ __all__ = ['FuzzyJaccard']
 class FuzzyJaccard(FuzzyTversky):
     r"""Fuzzy Jaccard similarity.
 
-    For two sets X and Y, the Jaccard similarity coefficient
-    :cite:`Jaccard:1901` is :math:`sim_{Jaccard}(X, Y) =
-    \frac{|X \cap Y|}{|X \cup Y|}`.
+    For two sets X and Y, the Fuzzy Jaccard similarity :cite:`Wang:2014` is:
+    :math:`sim_{Fuzzy Jaccard_\delta}(X, Y) = \frac{|X \widetilde\cap_\delta Y|}
+    {|X| + |Y| - |X \widetilde\cap_\delta Y|}`,
+    where :math:`|X \widetilde\cap_\delta Y|` is the fuzzy overlap or fuzzy
+    intersection. This fuzzy intersection is sum of similarities of all tokens
+    in the two sets that are greater than equal to some threshold value
+    (:math:`\delta`).
 
-    This is identical to the Tanimoto similarity coefficient
-    :cite:`Tanimoto:1958`
-    and the Tversky index :cite:`Tversky:1977` for
-    :math:`\alpha = \beta = 1`.
+    The lower bound of Fuzzy Jaccard similarity, and the value when
+    :math:`\delta = 1.0`, is the Jaccard similarity. Tokens shorter than
+    :math:`\frac{\delta}{1-\delta}`, 4 in the case of the default threshold
+    :math:`\delta = 0.8`, must match exactly to contribute to similarity.
 
     .. versionadded:: 0.4.0
     """
@@ -57,6 +61,12 @@ class FuzzyJaccard(FuzzyTversky):
         ----------
         tokenizer : _Tokenizer
             A tokenizer instance from the abydos.tokenizer package
+        threshold : float
+            The minimum similarity for a pair of tokens to contribute to
+            similarity
+        metric : _Distance
+            A distance instance from the abydos.distance package, defaulting
+            to normalized Levenshtein similarity
         **kwargs
             Arbitrary keyword arguments
 
@@ -75,7 +85,7 @@ class FuzzyJaccard(FuzzyTversky):
         )
 
     def sim(self, src, tar):
-        r"""Return the fuzzy Jaccard similarity of two strings.
+        r"""Return the Fuzzy Jaccard similarity of two strings.
 
         Parameters
         ----------
@@ -109,8 +119,8 @@ class FuzzyJaccard(FuzzyTversky):
     def tanimoto_coeff(self, src, tar):
         """Return the Fuzzy Tanimoto distance between two strings.
 
-        Tanimoto distance :cite:`Tanimoto:1958` is
-        :math:`-log_{2} sim_{Tanimoto}(X, Y)`.
+        Fuzzy Tanimoto distance is
+        :math:`-log_{2} sim_{Fuzzy Tanimoto}(X, Y)`.
 
         Parameters
         ----------

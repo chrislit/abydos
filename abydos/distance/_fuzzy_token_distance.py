@@ -31,9 +31,9 @@ from __future__ import (
 
 from collections import Counter
 
+from ._levenshtein import Levenshtein
 from ._token_distance import _TokenDistance
 from ..tokenizer import QGrams, WhitespaceTokenizer
-from . import Levenshtein
 
 
 class _FuzzyTokenDistance(_TokenDistance):
@@ -49,6 +49,12 @@ class _FuzzyTokenDistance(_TokenDistance):
         ----------
         tokenizer : _Tokenizer
             A tokenizer instance from the abydos.tokenizer package
+        threshold : float
+            The minimum similarity for a pair of tokens to contribute to
+            similarity
+        metric : _Distance
+            A distance instance from the abydos.distance package, defaulting
+            to normalized Levenshtein similarity
         **kwargs
             Arbitrary keyword arguments
 
@@ -116,8 +122,8 @@ class _FuzzyTokenDistance(_TokenDistance):
 
         return self
 
-    def fuzzy_overlap(self):
-        """Return the fuzzy overlap of the tokens in src and tar."""
+    def fuzzy_intersection(self):
+        """Return the fuzzy intersection of the tokens in src and tar."""
         overlap = len(self.intersection())
         src_only = self.src_only()
         tar_only = self.tar_only()

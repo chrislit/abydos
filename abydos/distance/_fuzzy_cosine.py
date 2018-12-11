@@ -18,7 +18,7 @@
 
 """abydos.distance._fuzzy_cosine.
 
-Fuzzy cosine similarity & distance
+Fuzzy Cosine similarity & distance
 """
 
 from __future__ import (
@@ -36,11 +36,19 @@ __all__ = ['FuzzyCosine']
 
 
 class FuzzyCosine(_FuzzyTokenDistance):
-    r"""Fuzzy cosine similarity.
+    r"""Fuzzy Cosine similarity.
 
-    For two sets X and Y, the cosine similarity, Otsuka-Ochiai coefficient, or
-    Ochiai coefficient :cite:`Otsuka:1936,Ochiai:1957` is:
-    :math:`sim_{cosine}(X, Y) = \frac{|X \cap Y|}{\sqrt{|X| \cdot |Y|}}`.
+    For two sets X and Y, the Fuzzy Cosine similarity :cite:`Wang:2014` is:
+    :math:`sim_{Fuzzy Cosine_\delta}(X, Y) = \frac{|X \widetilde\cap_\delta Y|}{\sqrt{|X| \cdot |Y|}}`,
+    where :math:`|X \widetilde\cap_\delta Y|` is the fuzzy overlap or fuzzy
+    intersection. This fuzzy intersection is sum of similarities of all tokens
+    in the two sets that are greater than equal to some threshold value
+    (:math:`\delta`).
+
+    The lower bound of Fuzzy Cosine similarity, and the value when
+    :math:`\delta = 1.0`, is the cosine similarity. Tokens shorter than
+    :math:`\frac{\delta}{1-\delta}`, 4 in the case of the default threshold
+    :math:`\delta = 0.8`, must match exactly to contribute to similarity.
 
     .. versionadded:: 0.4.0
     """
@@ -52,6 +60,12 @@ class FuzzyCosine(_FuzzyTokenDistance):
         ----------
         tokenizer : _Tokenizer
             A tokenizer instance from the abydos.tokenizer package
+        threshold : float
+            The minimum similarity for a pair of tokens to contribute to
+            similarity
+        metric : _Distance
+            A distance instance from the abydos.distance package, defaulting
+            to normalized Levenshtein similarity
         **kwargs
             Arbitrary keyword arguments
 
@@ -68,7 +82,7 @@ class FuzzyCosine(_FuzzyTokenDistance):
         super(FuzzyCosine, self).__init__(tokenizer=tokenizer, threshold=threshold, metric=metric, **kwargs)
 
     def sim(self, src, tar):
-        r"""Return the fuzzy cosine similarity of two strings.
+        r"""Return the Fuzzy Cosine similarity of two strings.
 
         Parameters
         ----------
@@ -80,7 +94,7 @@ class FuzzyCosine(_FuzzyTokenDistance):
         Returns
         -------
         float
-            Fuzzy cosine similarity
+            Fuzzy Cosine similarity
 
         Examples
         --------
@@ -102,7 +116,7 @@ class FuzzyCosine(_FuzzyTokenDistance):
 
         self.tokenize(src, tar)
 
-        return self.fuzzy_overlap() / sqrt(
+        return self.fuzzy_intersection() / sqrt(
             sum(self._src_tokens.values()) * sum(self._tar_tokens.values())
         )
 

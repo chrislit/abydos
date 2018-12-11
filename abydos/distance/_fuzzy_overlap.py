@@ -34,12 +34,21 @@ __all__ = ['FuzzyOverlap']
 
 
 class FuzzyOverlap(_FuzzyTokenDistance):
-    r"""Fuzzy overlap coefficient.
+    r"""Fuzzy Overlap similarity.
 
-    For two sets X and Y, the overlap coefficient
-    :cite:`Szymkiewicz:1934,Simpson:1949`, also called the
-    Szymkiewicz-Simpson coefficient, is
-    :math:`sim_{overlap}(X, Y) = \frac{|X \cap Y|}{min(|X|, |Y|)}`.
+    The Fuzzy Overlap similarity, by analogy with :cite:`Wang:2014`, for two
+    sets X and Y is:
+    :math:`sim_{Fuzzy Overlap_\delta}(X, Y) =
+    \frac{|X \widetilde\cap_\delta Y|}{min(|X|, |Y|)}`,
+    where :math:`|X \widetilde\cap_\delta Y|` is the fuzzy overlap or fuzzy
+    intersection. This fuzzy intersection is sum of similarities of all tokens
+    in the two sets that are greater than equal to some threshold value
+    (:math:`\delta`).
+
+    The lower bound of Fuzzy Overlap similarity, and the value when
+    :math:`\delta = 1.0`, is the overlap similarity. Tokens shorter than
+    :math:`\frac{\delta}{1-\delta}`, 4 in the case of the default threshold
+    :math:`\delta = 0.8`, must match exactly to contribute to similarity.
 
     .. versionadded:: 0.4.0
     """
@@ -51,6 +60,12 @@ class FuzzyOverlap(_FuzzyTokenDistance):
         ----------
         tokenizer : _Tokenizer
             A tokenizer instance from the abydos.tokenizer package
+        threshold : float
+            The minimum similarity for a pair of tokens to contribute to
+            similarity
+        metric : _Distance
+            A distance instance from the abydos.distance package, defaulting
+            to normalized Levenshtein similarity
         **kwargs
             Arbitrary keyword arguments
 
@@ -67,7 +82,7 @@ class FuzzyOverlap(_FuzzyTokenDistance):
         super(FuzzyOverlap, self).__init__(tokenizer=tokenizer, threshold=threshold, metric=metric, **kwargs)
 
     def sim(self, src, tar):
-        r"""Return the fuzzy overlap coefficient of two strings.
+        r"""Return the Fuzzy Overlap similarity of two strings.
 
         Parameters
         ----------
@@ -79,7 +94,7 @@ class FuzzyOverlap(_FuzzyTokenDistance):
         Returns
         -------
         float
-            Fuzzy overlap similarity
+            Fuzzy Overlap similarity
 
         Examples
         --------
@@ -105,7 +120,7 @@ class FuzzyOverlap(_FuzzyTokenDistance):
 
         q_src_mag = sum(self._src_tokens.values())
         q_tar_mag = sum(self._tar_tokens.values())
-        q_intersection_mag = self.fuzzy_overlap()
+        q_intersection_mag = self.fuzzy_intersection()
 
         return q_intersection_mag / min(q_src_mag, q_tar_mag)
 
