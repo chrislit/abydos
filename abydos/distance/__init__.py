@@ -157,6 +157,8 @@ from ._ident import Ident, dist_ident, sim_ident
 from ._indel import Indel, dist_indel, indel, sim_indel
 from ._jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
 from ._jaro_winkler import JaroWinkler, dist_jaro_winkler, sim_jaro_winkler
+from ._lcprefix import LCPrefix
+from ._lcsuffix import LCSuffix
 from ._lcsseq import LCSseq, dist_lcsseq, lcsseq, sim_lcsseq
 from ._lcsstr import LCSstr, dist_lcsstr, lcsstr, sim_lcsstr
 from ._length import Length, dist_length, sim_length
@@ -278,6 +280,8 @@ __all__ = [
     'lcsstr',
     'dist_lcsstr',
     'sim_lcsstr',
+    'LCPrefix',
+    'LCSuffix',
     'RatcliffObershelp',
     'dist_ratcliff_obershelp',
     'sim_ratcliff_obershelp',
