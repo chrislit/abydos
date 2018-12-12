@@ -136,6 +136,10 @@ class LCSstr(_Distance):
         >>> sstr.sim('ATCG', 'TAGC')
         0.25
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 1.0
