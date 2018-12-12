@@ -126,13 +126,14 @@ class LCSstr(_Distance):
 
         Examples
         --------
-        >>> sim_lcsstr('cat', 'hat')
+        >>> sstr = LCSstr()
+        >>> sstr.sim('cat', 'hat')
         0.6666666666666666
-        >>> sim_lcsstr('Niall', 'Neil')
+        >>> sstr.sim('Niall', 'Neil')
         0.2
-        >>> sim_lcsstr('aluminum', 'Catalan')
+        >>> sstr.sim('aluminum', 'Catalan')
         0.25
-        >>> sim_lcsstr('ATCG', 'TAGC')
+        >>> sstr.sim('ATCG', 'TAGC')
         0.25
 
         """
