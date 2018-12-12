@@ -113,7 +113,7 @@ class Minkowski(_TokenDistance):
 
         normalizer = 1
         if normalized:
-            totals = self.union().values()
+            totals = self.total().values()
             if self.params['alphabet'] is not None:
                 normalizer = self.params['alphabet']
             elif self.params['pval'] == 0:

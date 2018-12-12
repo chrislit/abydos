@@ -134,9 +134,17 @@ class _TokenDistance(_Distance):
         """Return the tar tokens minus the src tokens."""
         return self._tar_tokens - self._src_tokens
 
-    def union(self):
-        """Return the union (sum) of tokens from src and tar."""
+    def symmetric_difference(self):
+        """Return the symmetric difference of tokens from src and tar."""
+        return self.src_only() + self.tar_only()
+
+    def total(self):
+        """Return the sum of the sets."""
         return self._src_tokens + self._tar_tokens
+
+    def union(self):
+        """Return the union of tokens from src and tar."""
+        return self.total() - self.intersection()
 
     def intersection(self):
         """Return the intersection of tokens from src and tar."""
