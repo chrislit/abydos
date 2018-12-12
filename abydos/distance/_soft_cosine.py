@@ -31,6 +31,8 @@ from __future__ import (
 from ._levenshtein import Levenshtein
 from ._token_distance import _TokenDistance
 
+__all__ = ['SoftCosine']
+
 
 class SoftCosine(_TokenDistance):
     """Soft Cosine similarity.

@@ -189,6 +189,7 @@ from ._ratcliff_obershelp import (
 from ._sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
 from ._sift4_simplest import Sift4Simplest, sift4_simplest
 from ._smith_waterman import SmithWaterman, smith_waterman
+from ._soft_cosine import SoftCosine
 from ._strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
 from ._suffix import Suffix, dist_suffix, sim_suffix
 from ._synoname import Synoname, synoname
@@ -262,6 +263,7 @@ __all__ = [
     'FuzzyJaccard',
     'FuzzyOverlap',
     'FuzzyTversky',
+    'SoftCosine',
     'NeedlemanWunsch',
     'needleman_wunsch',
     'SmithWaterman',
