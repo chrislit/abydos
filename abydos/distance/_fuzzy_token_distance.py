@@ -29,8 +29,6 @@ from __future__ import (
     unicode_literals,
 )
 
-from collections import Counter
-
 from ._levenshtein import Levenshtein
 from ._token_distance import _TokenDistance
 from ..tokenizer import QGrams, WhitespaceTokenizer
@@ -83,49 +81,9 @@ class _FuzzyTokenDistance(_TokenDistance):
         self.params['threshold'] = threshold
         self.params['metric'] = metric if metric is not None else Levenshtein()
 
-    def tokenize(self, src, tar):
-        """Return the Q-Grams in src & tar.
-
-        Parameters
-        ----------
-        src : str
-            Source string (or QGrams/Counter objects) for comparison
-        tar : str
-            Target string (or QGrams/Counter objects) for comparison
-
-        Returns
-        -------
-        tuple of Counters
-            Q-Grams
-
-        Examples
-        --------
-        >>> pe = _TokenDistance()
-        >>> pe.tokenize('AT', 'TT').get_tokens()
-        (Counter({'$A': 1, 'AT': 1, 'T#': 1}),
-         Counter({'$T': 1, 'TT': 1, 'T#': 1}))
-
-        .. versionadded:: 0.4.0
-
-        """
-        if isinstance(src, Counter):
-            self._src_tokens = src
-        else:
-            self._src_tokens = (
-                self.params['tokenizer'].tokenize(src).get_counter()
-            )
-        if isinstance(src, Counter):
-            self._tar_tokens = tar
-        else:
-            self._tar_tokens = (
-                self.params['tokenizer'].tokenize(tar).get_counter()
-            )
-
-        return self
-
     def fuzzy_intersection(self):
         """Return the fuzzy intersection of the tokens in src and tar."""
-        overlap = len(self.intersection())
+        overlap = sum(self.intersection().values())
         src_only = self.src_only()
         tar_only = self.tar_only()
 
