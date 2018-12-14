@@ -109,7 +109,7 @@ class Minkowski(_TokenDistance):
 
         """
         self.tokenize(src, tar)
-        diffs = [abs(_) for _ in self.difference().values()]
+        diffs = self.symmetric_difference().values()
 
         normalizer = 1
         if normalized:
