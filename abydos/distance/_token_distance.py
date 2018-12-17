@@ -81,6 +81,25 @@ class _TokenDistance(_Distance):
         threshold : float
             A threshold value, similarities above which are counted as
             members of the intersection for the 'fuzzy' variant.
+        alphabet : Counter, collection, int, or None
+            This represents the alphabet of possible tokens.
+
+                - If a Counter is supplied, it is used directly in computing
+                  the complement of the tokens in both sets.
+                - If a collection is supplied, it is converted to a Counter
+                  and used directly. In the case of a single string being
+                  supplied and the QGram tokenizer being used, the full
+                  alphabet is inferred (i.e.
+                  :math:`len(set(alphabet+QGrams.start_stop))^{QGrams.qval}` is
+                  used as the cardinality of the full alphabet.
+                - If an int is supplied, it is used as the cardinality of the
+                  full alphabet.
+                - If None is supplied, the cardinality of the full alphabet
+                  is inferred if QGram tokenization is used (i.e.
+                  :math:`28^{QGrams.qval}` is used as the cardinality of the
+                  full alphabet or :math:`26` if QGrams.qval is 1, which
+                  assumes the strings are English language strings). Otherwise,
+                  The cardinality of the complement of the total will be 0.
 
         .. versionadded:: 0.4.0
 
@@ -97,10 +116,25 @@ class _TokenDistance(_Distance):
         )
 
         if 'alphabet' in self.params:
+            if isinstance(self.params['alphabet'], str):
+                self.params['alphabet'] = set(self.params['alphabet'])
+                if isinstance(QGrams, self.params['tokenizer']):
+                    self.params['alphabet'] |= set(
+                        self.params['tokenizer'].start_stop
+                    )
+                    self.params['alphabet'] = (
+                        len(self.params['alphabet'])
+                        ** self.params['tokenizer'].qval
+                    )
             if hasattr(self.params['alphabet'], '__len__'):
                 self.params['alphabet'] = len(self.params['alphabet'])
         else:
-            self.params['alphabet'] = None
+            if isinstance(QGrams, self.params['tokenizer']):
+                self.params['alphabet'] = (
+                    26 + len(set(self.params['tokenizer'].start_stop))
+                ) ** self.params['tokenizer'].qval
+            else:
+                self.params['alphabet'] = None
 
         if intersection_type == 'soft':
             if 'metric' not in self.params or self.params['metric'] is None:
@@ -201,8 +235,8 @@ class _TokenDistance(_Distance):
         if self.params['alphabet'] is None:
             return 0
         elif isinstance(Counter, self.params['alphabet']):
-            return sum((self.total() - self.params['alphabet']).values())
-        return sum(self.total().values()) - self.params['alphabet']
+            return sum((self.params['alphabet']).values() - self.total())
+        return self.params['alphabet'] - len(self.total().values())
 
     def union(self):
         r"""Return the union of tokens from src and tar.
