@@ -183,6 +183,7 @@ from ._ratcliff_obershelp import (
     dist_ratcliff_obershelp,
     sim_ratcliff_obershelp,
 )
+from ._russell_rao import RussellRao
 from ._sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
 from ._sift4_simplest import Sift4Simplest, sift4_simplest
 from ._smith_waterman import SmithWaterman, smith_waterman
@@ -248,6 +249,7 @@ __all__ = [
     'Cosine',
     'dist_cosine',
     'sim_cosine',
+    'RussellRao',
     'Bag',
     'bag',
     'dist_bag',
