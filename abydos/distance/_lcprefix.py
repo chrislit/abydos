@@ -156,7 +156,7 @@ class LCPrefix(_Distance):
         """
         dist = self.dist_abs(src, tar, *args)
         maxlen = max(len(src), len(tar), *[len(arg) for arg in args])
-        return dist/maxlen
+        return dist / maxlen
 
     def dist(self, src, tar, *args):
         r"""Return the longest common prefix distance of two or more strings.
