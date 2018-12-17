@@ -34,7 +34,7 @@ __all__ = ['RussellRao']
 
 
 class RussellRao(_TokenDistance):
-    r"""Russell & Rao similarity
+    r"""Russell & Rao similarity.
 
     For two sets X and Y, and a population N, the Russell & Rao similarity
     :cite:`Russell:1940` is
