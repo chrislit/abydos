@@ -44,6 +44,14 @@ class SoftCosine(_TokenDistance):
     similarity of two tokens, by default a function of Levenshtein distance:
     :math:`\frac{1}{1+Levenshtein\_distance(i, j)}.
 
+    Notes
+    -----
+    This class implements soft cosine similarity, as defined by
+    :cite:`Sidorov:2014`. An alternative formulation of soft cosine similarity
+    using soft (multi-)sets is provided by the :class:`Cosine` class using
+    :attr:`Cosine.intersection_type`='soft', based on the soft intersection
+    defined in :cite:`Russ:2014`.
+
     .. versionadded:: 0.4.0
     """
 
@@ -123,6 +131,8 @@ class SoftCosine(_TokenDistance):
         0.11785113019775793
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
+
+        .. versionadded:: 0.4.0
 
         """
         if src == tar:
