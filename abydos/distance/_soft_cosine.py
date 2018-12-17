@@ -42,7 +42,7 @@ class SoftCosine(_TokenDistance):
     {\sqrt{\sum_{i}\sum_{j} s_{ij} X_i X_j}
     \sqrt{\sum_{i}\sum_{j} s_{ij} Y_i Y_j}}`, where :math:`s_{ij}` is the
     similarity of two tokens, by default a function of Levenshtein distance:
-    :math:`\frac{1}{1+Levenshtein\_distance(i, j)}.
+    :math:`\frac{1}{1+Levenshtein\_distance(i, j)}`.
 
     Notes
     -----
@@ -77,7 +77,7 @@ class SoftCosine(_TokenDistance):
                 - a. :math:`\frac{1}{1+d}`
                 - b. :math:`1-\frac{d}{m}`
                 - c. :math:`\sqrt{1-\frac{d}{m}}`
-                - d. :math:`\Big(1-\frac{d}{m}\Big)
+                - d. :math:`\Big(1-\frac{d}{m}\Big)`
 
             Where :math:`d` is the distance (Levenshtein by default) and
             :math:`m` is the maximum length of the two tokens. Option `a` is
