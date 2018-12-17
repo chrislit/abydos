@@ -135,11 +135,11 @@ class RussellRao(_TokenDistance):
         --------
         >>> cmp = RussellRao()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.25
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.18181818181818182
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.058823529411764705
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
