@@ -35,7 +35,7 @@ __all__ = ['SoftCosine']
 
 
 class SoftCosine(_TokenDistance):
-    """Soft Cosine similarity.
+    r"""Soft Cosine similarity.
 
     As described in :cite:`Sidorov:2014`, soft cosine similarity is:
     :math:`sim_{soft cosine}(X, Y) = \frac{\sum_{i}\sum_{j} s_{ij} X_i Y_j}
@@ -53,10 +53,11 @@ class SoftCosine(_TokenDistance):
     defined in :cite:`Russ:2014`.
 
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(self, tokenizer=None, metric=None, sim_method='a', **kwargs):
-        """Initialize SoftCosine instance.
+        r"""Initialize SoftCosine instance.
 
         Parameters
         ----------

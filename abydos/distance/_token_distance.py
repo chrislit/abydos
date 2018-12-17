@@ -33,9 +33,9 @@ from collections import Counter
 from itertools import product
 
 from ._damerau_levenshtein import DamerauLevenshtein
+from ._distance import _Distance
 from ._lcprefix import LCPrefix
 from ._levenshtein import Levenshtein
-from ._distance import _Distance
 from ..tokenizer import QGrams, WhitespaceTokenizer
 
 
@@ -166,21 +166,21 @@ class _TokenDistance(_Distance):
         return self._src_tokens, self._tar_tokens
 
     def src_only(self):
-        """Return the src tokens minus the tar tokens.
+        r"""Return the src tokens minus the tar tokens.
 
         For (multi-)sets S and T, this is :math:`S \setminus T`.
         """
         return self._src_tokens - self.intersection()
 
     def tar_only(self):
-        """Return the tar tokens minus the src tokens.
+        r"""Return the tar tokens minus the src tokens.
 
         For (multi-)sets S and T, this is :math:`T \setminus S`.
         """
         return self._tar_tokens - self.intersection()
 
     def symmetric_difference(self):
-        """Return the symmetric difference of tokens from src and tar.
+        r"""Return the symmetric difference of tokens from src and tar.
 
         For (multi-)sets S and T, this is :math:`S \triangle T`.
         """
@@ -205,14 +205,14 @@ class _TokenDistance(_Distance):
         return sum(self.total().values()) - self.params['alphabet']
 
     def union(self):
-        """Return the union of tokens from src and tar.
+        r"""Return the union of tokens from src and tar.
 
         For (multi-)sets S and T, this is :math:`S \cup T`.
         """
         return self.total() - self.intersection()
 
     def _crisp_intersection(self):
-        """Return the intersection of tokens from src and tar.
+        r"""Return the intersection of tokens from src and tar.
 
         For (multi-)sets S and T, this is :math:`S \cap T`.
         """
@@ -265,7 +265,7 @@ class _TokenDistance(_Distance):
         return intersection
 
     def _fuzzy_intersection(self):
-        """Return the fuzzy intersection of the tokens in src and tar.
+        r"""Return the fuzzy intersection of the tokens in src and tar.
 
         This implements the fuzzy intersection defined by :cite:`Wang:2014`.
 
