@@ -52,6 +52,20 @@ class _TokenDistance(_Distance):
         ----------
         tokenizer : _Tokenizer
             A tokenizer instance from the abydos.tokenizer package
+        intersection_type : str
+            Specifies the intersection type, and set type as a result:
+
+                - 'crisp': Ordinary intersection, wherein items are entirely
+                  members or non-members of the intersection. (Default)
+                - 'fuzzy': Fuzzy intersection, defined by :cite:`Wang:2014`,
+                  wherein items can be partially members of the intersection
+                  if their similarity meets or exceeds a threshold value. This
+                  also takes `metric` (by default :class:`Levenshtein()`) and
+                  `threshold` (by default 0.8) parameters.
+                - 'soft': Soft intersection, defined by :cite:`Russ:2014`,
+                  wherein items can be partially members of the intersection
+                  depending on their similarity. This also takes a `metric`
+                  (by default :class:`DamerauLevenshtein()`) parameter.
         **kwargs
             Arbitrary keyword arguments
 
@@ -61,6 +75,12 @@ class _TokenDistance(_Distance):
             The length of each q-gram. Using this parameter and tokenizer=None
             will cause the instance to use the QGram tokenizer with this
             q value.
+        metric : _Distance
+            A string distance measure class for use in the 'soft' and 'fuzzy'
+            variants.
+        threshold : float
+            A threshold value, similarities above which are counted as
+            members of the intersection for the 'fuzzy' variant.
 
         .. versionadded:: 0.4.0
 
@@ -176,6 +196,14 @@ class _TokenDistance(_Distance):
         """
         return self._src_tokens + self._tar_tokens
 
+    def total_complement_cardinality(self):
+        """Return the cardinality of the complement of the total."""
+        if self.params['alphabet'] is None:
+            return 0
+        elif isinstance(Counter, self.params['alphabet']):
+            return sum((self.total() - self.params['alphabet']).values())
+        return sum(self.total().values()) - self.params['alphabet']
+
     def union(self):
         """Return the union of tokens from src and tar.
 
@@ -197,24 +225,39 @@ class _TokenDistance(_Distance):
         return _src_copy
 
     def _soft_intersection(self):
-        """Return the soft intersection of the tokens in src and tar."""
-        intersection = sum(self._crisp_intersection().values())
+        """Return the soft intersection of the tokens in src and tar.
 
-        src_only = self.src_only()
-        tar_only = self.tar_only()
+        This implements the soft intersection defined by :cite:`Russ:2014`.
+        """
+        intersection = self._crisp_intersection()
+        src_only = self._src_tokens - self._tar_tokens
+        tar_only = self._tar_tokens - self._src_tokens
 
         def _membership(src, tar):
             greater_length = max(len(src), len(tar))
-            return max(greater_length - self.params['metric'].dist_abs(src, tar),
-                       self._lcprefix.dist_abs(src, tar)) / greater_length
+            return (
+                max(
+                    greater_length - self.params['metric'].dist_abs(src, tar),
+                    self._lcprefix.dist_abs(src, tar),
+                )
+                / greater_length
+            )
 
-        memberships = {(src, tar): _membership(src, tar) for src, tar in product(self.src_only().items(), self.tar_only().items())}
+        memberships = {
+            (src, tar): _membership(src, tar)
+            for src, tar in product(src_only, tar_only)
+        }
         while memberships:
             src_tok, tar_tok = max(memberships, key=memberships.get)
             if memberships[src_tok, tar_tok] == 0.0:
                 break
             pairings = min(src_only[src_tok], tar_only[tar_tok])
-            intersection += memberships[src_tok, tar_tok]*pairings
+            intersection[src_tok] += (
+                memberships[src_tok, tar_tok] * pairings / 2
+            )
+            intersection[tar_tok] += (
+                memberships[src_tok, tar_tok] * pairings / 2
+            )
             src_only[src_tok] -= pairings
             tar_only[tar_tok] -= pairings
             del memberships[src_tok, tar_tok]
@@ -222,18 +265,36 @@ class _TokenDistance(_Distance):
         return intersection
 
     def _fuzzy_intersection(self):
-        """Return the fuzzy intersection of the tokens in src and tar."""
-        overlap = sum(self._crisp_intersection().values())
-        src_only = self.src_only()
-        tar_only = self.tar_only()
+        """Return the fuzzy intersection of the tokens in src and tar.
+
+        This implements the fuzzy intersection defined by :cite:`Wang:2014`.
+
+        For two sets X and Y, the intersection :cite:`Wang:2014` is the sum of
+        similarities of all tokens in the two sets that are greater than or
+        equal to some threshold value (:math:`\delta`).
+
+        The lower bound of on this intersection and the value when
+        :math:`\delta = 1.0`, is the crisp intersection. Tokens shorter than
+        :math:`\frac{\delta}{1-\delta}`, 4 in the case of the default threshold
+        :math:`\delta = 0.8`, must match exactly to be included in the
+        intersection.
+
+        .. versionadded:: 0.4.0
+
+        """
+        intersection = self._crisp_intersection()
+        src_only = self._src_tokens - self._tar_tokens
+        tar_only = self._tar_tokens - self._src_tokens
 
         for src_tok in src_only:
             for tar_tok in tar_only:
                 sim = self.params['metric'].sim(src_tok, tar_tok)
                 if sim >= self.params['threshold']:
-                    overlap += sim
+                    intersection[src_tok] += sim / 2
+                    intersection[tar_tok] += sim / 2
 
-        return overlap
+        return intersection
+
 
 if __name__ == '__main__':
     import doctest
