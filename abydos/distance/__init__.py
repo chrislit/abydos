@@ -50,6 +50,76 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Tanimoto coefficient (:py:meth:`.Jaccard.tanimoto_coeff`)
     - Overlap distance (:py:class:`.Overlap`)
     - Cosine similarity (:py:class:`.Cosine`)
+    - Russel & Rao similarity (:py:class:`.RusselRao`)
+    - AMPLE similarity (:py:class:`.AMPLE`)
+    - Anderberg similarity (:py:class:`.Anderberg`)
+    - Baroni-Urbani & Buser I similarity (:py:class:`.BaroniUrbaniBuserI`)
+    - Baroni-Urbani & Buser II similarity (:py:class:`.BaroniUrbaniBuserII`)
+    - Braun & Banquest similarity (:py:class:`.BraunBanquest`)
+    - Canberra distance (:py:class:`.Canberra`)
+    - Chord distance (:py:class:`.Chord`)
+    - Cole similarity (:py:class:`.Cole`)
+    - Czekanowski similarity (:py:class:`.Czekanowski`)
+    - Dennis similarity (:py:class:`.Dennis`)
+    - Dispersion similarity (:py:class:`.Dispersion`)
+    - Driver & Kroeber similarity (:py:class:`.DriverKroeber`)
+    - Dunning similarity (:py:class:`.Dunning`)
+    - Excoffier similarity (:py:class:`.Excoffier`)
+    - Eyraud similarity (:py:class:`.Eyraud`)
+    - Fager similarity (:py:class:`.Fager`)
+    - Fager & McGowan similarity (:py:class:`.FagerMcGowan`)
+    - Faith similarity (:py:class:`.Faith`)
+    - Forbes I similarity (:py:class:`.ForbesI`)
+    - Forbes II similarity (:py:class:`.ForbesII`)
+    - Fossum similarity (:py:class:`.Fossum`)
+    - Gilbert & Wells similarity (:py:class:`.GilbertWells`)
+    - Goodman & Kruskal similarity (:py:class:`.GoodmanKruskal`)
+    - Gower similarity (:py:class:`.Gower`)
+    - Gower & Legendre similarity (:py:class:`.GowerLegendre`)
+    - Hamann similarity (:py:class:`.Hamann`)
+    - Hellinger distance (:py:class:`.Hellinger`)
+    - Johnson similarity (:py:class:`.Johnson`)
+    - Kocher & Wong similarity (:py:class:`.KocherWong`)
+    - Kulczynski I similarity (:py:class:`.KulczynskiI`)
+    - Kulczynski II similarity (:py:class:`.KulczynskiII`)
+    - McConnaughey similarity (:py:class:`.McConnaughey`)
+    - Mean Manhattan distance (:py:class:`.MeanManhattan`)
+    - Michael similarity (:py:class:`.Michael`)
+    - Michelet similarity (:py:class:`.Michelet`)
+    - Mountford similarity (:py:class:`.Mountford`)
+    - Mutual Information similarity (:py:class:`.MutualInformation`)
+    - Nei & Li similarity (:py:class:`.NeiLi`)
+    - Ochiai II similarity (:py:class:`.OchiaiII`)
+    - Pattern Difference distance (:py:class:`.PatternDifference`)
+    - Pearson & Heron II similarity (:py:class:`.PearsonHeronII`)
+    - Pearson II similarity (:py:class:`.PearsonII`)
+    - Pearson III similarity (:py:class:`.PearsonIII`)
+    - Pearson's Chi-Squared similarity (:py:class:`.PearsonChiSquared`)
+    - Pearson's Phi similarity (:py:class:`.PearsonPhi`)
+    - Peirce similarity (:py:class:`.Peirce`)
+    - Phi Squared similarity (:py:class:`.PhiSquared`)
+    - Rogers & Tanimoto similarity (:py:class:`.RogersTanimoto`)
+    - Roux I similarity (:py:class:`.RouxI`)
+    - Roux II similarity (:py:class:`.RouxII`)
+    - Shape Difference distance (:py:class:`.ShapeDifference`)
+    - Simpson similarity (:py:class:`.Simpson`)
+    - Size Difference distance (:py:class:`.SizeDifference`)
+    - Sokal & Michener similarity (:py:class:`.SokalMichener`)
+    - Sokal & Sneath I similarity (:py:class:`.SokalSneathI`)
+    - Sokal & Sneath II similarity (:py:class:`.SokalSneathII`)
+    - Sokal & Sneath III similarity (:py:class:`.SokalSneathIII`)
+    - Sokal & Sneath IV similarity (:py:class:`.SokalSneathIV`)
+    - Sokal & Sneath V similarity (:py:class:`.SokalSneathV`)
+    - Sorgenfrei similarity (:py:class:`.Sorgenfrei`)
+    - Squared Euclid distance (:py:class:`.SquaredEuclid`)
+    - Stiles similarity (:py:class:`.Stiles`)
+    - Tarantula similarity (:py:class:`.Tarantula`)
+    - Tarwid similarity (:py:class:`.Tarwid`)
+    - Triple Weighted Jaccard similarity (:py:class:`.TripleWeightedJaccard`)
+    - Upholt similarity (:py:class:`.Upholt`)
+    - Vari distance (:py:class:`.Vari`)
+    - Yule's Q similarity (:py:class:`.YuleQ`)
+    - Yule's Sigma similarity (:py:class:`.YuleSigma`)
     - Bag distance (:py:class:`.Bag`)
     - Monge-Elkan distance (:py:class:`.MongeElkan`)
 
@@ -132,26 +202,57 @@ from __future__ import (
     unicode_literals,
 )
 
+from ._ample import AMPLE
+from ._anderberg import Anderberg
 from ._bag import Bag, bag, dist_bag, sim_bag
+from ._baroni_urbani_buser_i import BaroniUrbaniBuserI
+from ._baroni_urbani_buser_ii import BaroniUrbaniBuserII
 from ._baystat import Baystat, dist_baystat, sim_baystat
+from ._braun_banquest import BraunBanquest
+from ._canberra import Canberra
 from ._chebyshev import Chebyshev, chebyshev
+from ._chord import Chord
+from ._cole import Cole
 from ._cosine import Cosine, dist_cosine, sim_cosine
+from ._czekanowski import Czekanowski
 from ._damerau_levenshtein import (
     DamerauLevenshtein,
     damerau_levenshtein,
     dist_damerau,
     sim_damerau,
 )
+from ._dennis import Dennis
 from ._dice import Dice, dist_dice, sim_dice
+from ._dispersion import Dispersion
+from ._driver_kroeber import DriverKroeber
+from ._dunning import Dunning
 from ._editex import Editex, dist_editex, editex, sim_editex
 from ._euclidean import Euclidean, dist_euclidean, euclidean, sim_euclidean
 from ._eudex import Eudex, dist_eudex, eudex_hamming, sim_eudex
+from ._excoffier import Excoffier
+from ._eyraud import Eyraud
+from ._fager import Fager
+from ._fager_mcgowan import FagerMcGowan
+from ._faith import Faith
+from ._forbes_i import ForbesI
+from ._forbes_ii import ForbesII
+from ._fossum import Fossum
+from ._gilbert_wells import GilbertWells
+from ._goodman_kruskal import GoodmanKruskal
 from ._gotoh import Gotoh, gotoh
+from ._gower import Gower
+from ._gower_legendre import GowerLegendre
+from ._hamann import Hamann
 from ._hamming import Hamming, dist_hamming, hamming, sim_hamming
+from ._hellinger import Hellinger
 from ._ident import Ident, dist_ident, sim_ident
 from ._indel import Indel, dist_indel, indel, sim_indel
 from ._jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
 from ._jaro_winkler import JaroWinkler, dist_jaro_winkler, sim_jaro_winkler
+from ._johnson import Johnson
+from ._kocher_wong import KocherWong
+from ._kulczynski_i import KulczynskiI
+from ._kulczynski_ii import KulczynskiII
 from ._lcprefix import LCPrefix
 from ._lcsseq import LCSseq, dist_lcsseq, lcsseq, sim_lcsseq
 from ._lcsstr import LCSstr, dist_lcsstr, lcsstr, sim_lcsstr
@@ -164,10 +265,16 @@ from ._levenshtein import (
     sim_levenshtein,
 )
 from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
+from ._mcconnaughey import McConnaughey
+from ._mean_manhattan import MeanManhattan
+from ._michael import Michael
+from ._michelet import Michelet
 from ._minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
 from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
 from ._monge_elkan import MongeElkan, dist_monge_elkan, sim_monge_elkan
+from ._mountford import Mountford
 from ._mra import MRA, dist_mra, mra_compare, sim_mra
+from ._mutual_information import MutualInformation
 from ._ncd_arith import NCDarith, dist_ncd_arith, sim_ncd_arith
 from ._ncd_bwtrle import NCDbwtrle, dist_ncd_bwtrle, sim_ncd_bwtrle
 from ._ncd_bz2 import NCDbz2, dist_ncd_bz2, sim_ncd_bz2
@@ -175,24 +282,56 @@ from ._ncd_lzma import NCDlzma, dist_ncd_lzma, sim_ncd_lzma
 from ._ncd_rle import NCDrle, dist_ncd_rle, sim_ncd_rle
 from ._ncd_zlib import NCDzlib, dist_ncd_zlib, sim_ncd_zlib
 from ._needleman_wunsch import NeedlemanWunsch, needleman_wunsch
+from ._nei_li import NeiLi
+from ._ochiai_ii import OchiaiII
 from ._overlap import Overlap, dist_overlap, sim_overlap
 from ._ozbay import Ozbay
+from ._pattern_difference import PatternDifference
+from ._pearson_heron_ii import PearsonHeronII
+from ._pearson_ii import PearsonII
+from ._pearson_iii import PearsonIII
+from ._pearson_chi_squared import PearsonChiSquared
+from ._pearson_phi import PearsonPhi
+from ._peirce import Peirce
+from ._phi_squared import PhiSquared
 from ._prefix import Prefix, dist_prefix, sim_prefix
 from ._ratcliff_obershelp import (
     RatcliffObershelp,
     dist_ratcliff_obershelp,
     sim_ratcliff_obershelp,
 )
+from ._rogers_tanimoto import RogersTanimoto
+from ._roux_i import RouxI
+from ._roux_ii import RouxII
 from ._russell_rao import RussellRao
+from ._shape_difference import ShapeDifference
 from ._sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
 from ._sift4_simplest import Sift4Simplest, sift4_simplest
+from ._simpson import Simpson
+from ._size_difference import SizeDifference
 from ._smith_waterman import SmithWaterman, smith_waterman
 from ._soft_cosine import SoftCosine
+from ._sokal_michener import SokalMichener
+from ._sokal_sneath_i import SokalSneathI
+from ._sokal_sneath_ii import SokalSneathII
+from ._sokal_sneath_iii import SokalSneathIII
+from ._sokal_sneath_iv import SokalSneathIV
+from ._sokal_sneath_v import SokalSneathV
+from ._sorgenfrei import Sorgenfrei
+from ._squared_euclid import SquaredEuclid
+from ._stiles import Stiles
 from ._strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
 from ._suffix import Suffix, dist_suffix, sim_suffix
 from ._synoname import Synoname, synoname
+from ._tarantula import Tarantula
+from ._tarwid import Tarwid
+from ._triple_weighted_jaccard import TripleWeightedJaccard
 from ._tversky import Tversky, dist_tversky, sim_tversky
 from ._typo import Typo, dist_typo, sim_typo, typo
+from ._upholt import Upholt
+from ._vari import Vari
+from ._yule_q import YuleQ
+from ._yule_sigma import YuleSigma
 
 __all__ = [
     'sim',
@@ -250,6 +389,75 @@ __all__ = [
     'dist_cosine',
     'sim_cosine',
     'RussellRao',
+    'AMPLE',
+    'Anderberg',
+    'BaroniUrbaniBuserI',
+    'BaroniUrbaniBuserII',
+    'BraunBanquest',
+    'Canberra',
+    'Chord',
+    'Cole',
+    'Czekanowski',
+    'Dennis',
+    'Dispersion',
+    'DriverKroeber',
+    'Dunning',
+    'Excoffier',
+    'Eyraud',
+    'Fager',
+    'FagerMcGowan',
+    'Faith',
+    'ForbesI',
+    'ForbesII',
+    'Fossum',
+    'GilbertWells',
+    'GoodmanKruskal',
+    'Gower',
+    'GowerLegendre',
+    'Hamann',
+    'Hellinger',
+    'Johnson',
+    'KocherWong',
+    'KulczynskiI',
+    'KulczynskiII',
+    'McConnaughey',
+    'MeanManhattan',
+    'Michael',
+    'Michelet',
+    'Mountford',
+    'MutualInformation',
+    'NeiLi',
+    'OchiaiII',
+    'PatternDifference',
+    'PearsonHeronII',
+    'PearsonII',
+    'PearsonIII',
+    'PearsonChiSquared',
+    'PearsonPhi',
+    'Peirce',
+    'PhiSquared',
+    'RogersTanimoto',
+    'RouxI',
+    'RouxII',
+    'ShapeDifference',
+    'Simpson',
+    'SizeDifference',
+    'SokalMichener',
+    'SokalSneathI',
+    'SokalSneathII',
+    'SokalSneathIII',
+    'SokalSneathIV',
+    'SokalSneathV',
+    'Sorgenfrei',
+    'SquaredEuclid',
+    'Stiles',
+    'Tarantula',
+    'Tarwid',
+    'TripleWeightedJaccard',
+    'Upholt',
+    'Vari',
+    'YuleQ',
+    'YuleSigma'
     'Bag',
     'bag',
     'dist_bag',
