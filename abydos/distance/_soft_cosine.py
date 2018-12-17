@@ -125,13 +125,13 @@ class SoftCosine(_TokenDistance):
         --------
         >>> cmp = SoftCosine()
         >>> cmp.sim('cat', 'hat')
-        0.5
+        0.8750000000000001
         >>> cmp.sim('Niall', 'Neil')
-        0.3651483716701107
+        0.8844691709074513
         >>> cmp.sim('aluminum', 'Catalan')
-        0.11785113019775793
+        0.831348688760277
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.8571428571428572
 
         .. versionadded:: 0.4.0
 
