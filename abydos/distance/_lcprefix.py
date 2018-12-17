@@ -59,14 +59,14 @@ class LCPrefix(_Distance):
         Examples
         --------
         >>> pfx = LCPrefix()
-        >>> pfx.lcprefix('cat', 'hat')
-        'at'
-        >>> pfx.lcprefix('Niall', 'Neil')
+        >>> pfx.lcprefix(['cat', 'hat'])
+        ''
+        >>> pfx.lcprefix(['Niall', 'Neil'])
         'N'
-        >>> pfx.lcprefix('aluminum', 'Catalan')
-        'al'
-        >>> pfx.lcprefix('ATCG', 'TAGC')
-        'A'
+        >>> pfx.lcprefix(['aluminum', 'Catalan'])
+        ''
+        >>> pfx.lcprefix(['ATCG', 'TAGC'])
+        ''
 
         .. versionadded:: 0.4.0
 
@@ -145,13 +145,13 @@ class LCPrefix(_Distance):
         --------
         >>> pfx = LCPrefix()
         >>> pfx.sim('cat', 'hat')
-        0.6666666666666666
+        0.0
         >>> pfx.sim('Niall', 'Neil')
         0.2
         >>> pfx.sim('aluminum', 'Catalan')
-        0.25
+        0.0
         >>> pfx.sim('ATCG', 'TAGC')
-        0.25
+        0.0
 
         """
         dist = self.dist_abs(src, tar, *args)
@@ -179,13 +179,13 @@ class LCPrefix(_Distance):
         --------
         >>> pfx = LCPrefix()
         >>> pfx.dist('cat', 'hat')
-        0.6666666666666666
+        1.0
         >>> pfx.dist('Niall', 'Neil')
-        0.2
+        0.8
         >>> pfx.dist('aluminum', 'Catalan')
-        0.25
+        1.0
         >>> pfx.dist('ATCG', 'TAGC')
-        0.25
+        1.0
 
         """
         return 1.0 - self.sim(src, tar, *args)

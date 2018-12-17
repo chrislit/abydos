@@ -59,14 +59,14 @@ class LCSuffix(LCPrefix):
         Examples
         --------
         >>> sfx = LCSuffix()
-        >>> sfx.lcsuffix('cat', 'hat')
+        >>> sfx.lcsuffix(['cat', 'hat'])
         'at'
-        >>> sfx.lcsuffix('Niall', 'Neil')
-        'N'
-        >>> sfx.lcsuffix('aluminum', 'Catalan')
-        'al'
-        >>> sfx.lcsuffix('ATCG', 'TAGC')
-        'A'
+        >>> sfx.lcsuffix(['Niall', 'Neil'])
+        'l'
+        >>> sfx.lcsuffix(['aluminum', 'Catalan'])
+        ''
+        >>> sfx.lcsuffix(['ATCG', 'TAGC'])
+        ''
 
         .. versionadded:: 0.4.0
 
@@ -100,7 +100,7 @@ class LCSuffix(LCPrefix):
         --------
         >>> sfx = LCSuffix()
         >>> sfx.dist_abs('cat', 'hat')
-        0
+        2
         >>> sfx.dist_abs('Niall', 'Neil')
         1
         >>> sfx.dist_abs('aluminum', 'Catalan')
