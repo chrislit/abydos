@@ -654,7 +654,7 @@ class ConfusionTable(object):
         r"""Return false negative rate.
 
         False negative rate is defined as
-        :math:`\frac{fn}{tp + fn}
+        :math:`\frac{fn}{tp + fn}`
 
         AKA miss rate
 
@@ -954,7 +954,7 @@ class ConfusionTable(object):
         r"""Return error rate.
 
         Error rate is defined as
-        :math:`\frac{fp + fn}{population}
+        :math:`\frac{fp + fn}{population}`
 
         Returns
         -------
@@ -1692,7 +1692,7 @@ class ConfusionTable(object):
         r"""Return D-measure.
 
         :math:`D`-measure is defined as
-        :math:`1-\frac{1}{\frac{1}{precision}+\frac{1}{recall}-1}
+        :math:`1-\frac{1}{\frac{1}{precision}+\frac{1}{recall}-1}`
 
         Returns
         -------

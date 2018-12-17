@@ -457,7 +457,7 @@ __all__ = [
     'Upholt',
     'Vari',
     'YuleQ',
-    'YuleSigma'
+    'YuleSigma',
     'Bag',
     'bag',
     'dist_bag',
