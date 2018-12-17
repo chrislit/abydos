@@ -43,7 +43,13 @@ class RussellRao(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, alphabet=None, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self,
+        alphabet=None,
+        tokenizer=None,
+        intersection_type='crisp',
+        **kwargs
+    ):
         """Initialize RussellRao instance.
 
         Parameters
@@ -104,7 +110,10 @@ class RussellRao(_TokenDistance):
 
         """
         super(RussellRao, self).__init__(
-            alphabet=alphabet, tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
+            alphabet=alphabet,
+            tokenizer=tokenizer,
+            intersection_type=intersection_type,
+            **kwargs
         )
 
     def sim(self, src, tar):
@@ -143,7 +152,7 @@ class RussellRao(_TokenDistance):
         intersection_card = self.intersection_card()
         population_card = self.population_card()
 
-        return intersection_card/population_card
+        return intersection_card / population_card
 
 
 if __name__ == '__main__':

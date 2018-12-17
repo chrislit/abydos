@@ -41,7 +41,13 @@ class Vari(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, alphabet=None, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self,
+        alphabet=None,
+        tokenizer=None,
+        intersection_type='crisp',
+        **kwargs
+    ):
         """Initialize Vari instance.
 
         Parameters
@@ -102,7 +108,10 @@ class Vari(_TokenDistance):
 
         """
         super(Vari, self).__init__(
-            alphabet=alphabet, tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
+            alphabet=alphabet,
+            tokenizer=tokenizer,
+            intersection_type=intersection_type,
+            **kwargs
         )
 
     def sim(self, src, tar):
@@ -138,11 +147,11 @@ class Vari(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        intersection_card = self.intersection_card()
-        src_only_card = self.src_only_card()
-        tar_only_card = self.tar_only_card()
-        complement_card = self.total_complement_card()
-        population_card = self.population_card()
+        # intersection_card = self.intersection_card()
+        # src_only_card = self.src_only_card()
+        # tar_only_card = self.tar_only_card()
+        # complement_card = self.total_complement_card()
+        # population_card = self.population_card()
 
         return 0.0
 
