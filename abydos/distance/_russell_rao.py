@@ -149,10 +149,7 @@ class RussellRao(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        intersection_card = self.intersection_card()
-        population_card = self.population_card()
-
-        return intersection_card / population_card
+        return self.intersection_card() / self.population_card()
 
 
 if __name__ == '__main__':
