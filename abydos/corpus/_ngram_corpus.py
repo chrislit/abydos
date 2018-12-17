@@ -78,6 +78,7 @@ class NGramCorpus(object):
         >>> tqbf += 'And then it slept.\n And the dog ran off.'
         >>> ngcorp = NGramCorpus(Corpus(tqbf))
 
+
         .. versionadded:: 0.3.0
 
         """
@@ -119,6 +120,7 @@ class NGramCorpus(object):
         >>> tqbf += 'And then it slept.\n And the dog ran off.'
         >>> ngcorp = NGramCorpus()
         >>> ngcorp.corpus_importer(Corpus(tqbf))
+
 
         .. versionadded:: 0.3.0
 
@@ -169,6 +171,7 @@ class NGramCorpus(object):
         >>> NGramCorpus(Corpus(tqbf)).get_count('fox')
         1
 
+
         .. versionadded:: 0.3.0
 
         """
@@ -202,6 +205,7 @@ class NGramCorpus(object):
         count : int
             Count of words
 
+
         .. versionadded:: 0.3.0
 
         """
@@ -220,6 +224,7 @@ class NGramCorpus(object):
         ----------
         corpus_file : file
             The Google NGram file from which to initialize the n-gram corpus
+
 
         .. versionadded:: 0.3.0
 
@@ -258,6 +263,7 @@ class NGramCorpus(object):
         1.3010299956639813
         >>> NGramCorpus(Corpus(tqbf)).tf('fox')
         1.0
+
 
         .. versionadded:: 0.3.0
 

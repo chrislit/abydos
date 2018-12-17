@@ -67,6 +67,7 @@ class SnowballDutch(_Snowball):
         str
             The word with doubled endings undoubled
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -102,6 +103,7 @@ class SnowballDutch(_Snowball):
         'opschort'
         >>> stmr.stem('ongrijpbaarheid')
         'ongrijp'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

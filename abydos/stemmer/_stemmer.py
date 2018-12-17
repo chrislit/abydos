@@ -52,6 +52,7 @@ class _Stemmer(object):
         str
             Word stem
 
+
         .. versionadded:: 0.3.6
 
         """

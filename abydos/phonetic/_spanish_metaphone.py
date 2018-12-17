@@ -49,6 +49,7 @@ class SpanishMetaphone(_Phonetic):
 
     Modified version based on :cite:`delPilarAngeles:2016`.
 
+
     .. versionadded:: 0.3.6
     """
 
@@ -62,6 +63,7 @@ class SpanishMetaphone(_Phonetic):
         modified : bool
             Set to True to use del Pilar Angeles & Bailón-Miguel's modified
             version of the algorithm
+
 
         .. versionadded:: 0.4.0
 
@@ -96,6 +98,7 @@ class SpanishMetaphone(_Phonetic):
         'SNTG'
         >>> pe.encode('Nicolás')
         'NKLS'
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
@@ -295,6 +298,7 @@ def spanish_metaphone(word, max_length=6, modified=False):
     'SNTG'
     >>> spanish_metaphone('Nicolás')
     'NKLS'
+
 
     .. versionadded:: 0.3.0
 

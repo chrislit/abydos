@@ -84,7 +84,8 @@ class _Fingerprint(object):
         word : str
             Word to fingerprint
 
-        .. versionchanged:: 0.3.6
+
+        .. versionadded:: 0.3.6
 
         """
         pass

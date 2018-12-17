@@ -64,6 +64,7 @@ class MLIPNS(_Distance):
         **kwargs
             Arbitrary keyword arguments
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -96,6 +97,7 @@ class MLIPNS(_Distance):
         0.0
         >>> sim_mlipns('ATCG', 'TAGC')
         0.0
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

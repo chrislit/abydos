@@ -97,6 +97,7 @@ class QGrams(_Tokenizer):
         >>> qg
         QGrams({'TAT': 2, 'AAT': 1, 'ATT': 1, 'TTA': 1, 'ATA': 1})
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.4.0
             Broke tokenization functions out into tokenize method
@@ -123,6 +124,7 @@ class QGrams(_Tokenizer):
         ----------
         string : str
             The string to tokenize
+
 
         .. versionadded:: 0.4.0
 

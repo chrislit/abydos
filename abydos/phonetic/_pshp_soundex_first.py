@@ -72,6 +72,7 @@ class PSHPSoundexFirst(_Phonetic):
         german : bool
             Set to True if the name is German (different rules apply)
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -114,6 +115,7 @@ class PSHPSoundexFirst(_Phonetic):
         'SL'
         >>> pe.encode_alpha('Jane')
         'JN'
+
 
         .. versionadded:: 0.4.0
 
@@ -161,6 +163,7 @@ class PSHPSoundexFirst(_Phonetic):
         'S400'
         >>> pe.encode('Jane')
         'J500'
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

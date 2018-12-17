@@ -74,6 +74,7 @@ class OmissionKey(_Fingerprint):
         >>> ok.fingerprint('Niall')
         'LNIA'
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class

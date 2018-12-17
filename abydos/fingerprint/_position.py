@@ -56,6 +56,7 @@ class Position(_Fingerprint):
         most_common : list
             The most common tokens in the target language, ordered by frequency
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -89,6 +90,7 @@ class Position(_Fingerprint):
         '0b1110010001111111'
         >>> bin(position_fingerprint('entreatment'))
         '0b101011111111'
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

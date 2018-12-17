@@ -63,6 +63,7 @@ class Phonetic(String):
         joiner : str
             The string that will be placed between each word
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -95,6 +96,7 @@ class Phonetic(String):
         >>> pf = Phonetic(Soundex())
         >>> pf.fingerprint('The quick brown fox jumped over the lazy dog.')
         'b650 d200 f200 j513 l200 o160 q200 t000'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

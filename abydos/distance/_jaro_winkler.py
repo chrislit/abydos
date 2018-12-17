@@ -94,6 +94,9 @@ class JaroWinkler(_Distance):
             for matching prefixes (defaults to 0.1). (Used in 'winkler' mode
             only.)
 
+
+        .. versionadded:: 0.4.0
+
         """
         super(JaroWinkler, self).__init__(**kwargs)
         self._qval = qval
@@ -145,6 +148,7 @@ class JaroWinkler(_Distance):
         0.60119047619
         >>> round(sim_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
         0.833333333333
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

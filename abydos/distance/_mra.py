@@ -75,6 +75,7 @@ class MRA(_Distance):
         >>> cmp.dist_abs('ATCG', 'TAGC')
         5
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -148,6 +149,7 @@ class MRA(_Distance):
         0.0
         >>> cmp.sim('ATCG', 'TAGC')
         0.8333333333333334
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

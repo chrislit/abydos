@@ -65,6 +65,7 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -86,6 +87,7 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
 
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
@@ -109,6 +111,7 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -130,6 +133,7 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
 
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
@@ -153,6 +157,7 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -175,6 +180,7 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -196,6 +202,7 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
 
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
@@ -222,6 +229,7 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -244,6 +252,7 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -265,6 +274,7 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
 
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
@@ -291,6 +301,7 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -316,6 +327,7 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -337,6 +349,7 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
 
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
@@ -366,6 +379,7 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -388,6 +402,7 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -409,6 +424,7 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
 
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
@@ -435,6 +451,7 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -456,6 +473,7 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
 
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
@@ -482,6 +500,7 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -507,6 +526,7 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -528,6 +548,7 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
 
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
@@ -551,6 +572,7 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -572,6 +594,7 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
 
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
@@ -598,6 +621,7 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -620,6 +644,7 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -641,6 +666,7 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
 
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
@@ -665,6 +691,7 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
 
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
@@ -692,6 +719,7 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -711,6 +739,7 @@ class Lovins(_Stemmer):
         -------
         str
             Word stripped of suffix
+
 
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
@@ -734,6 +763,7 @@ class Lovins(_Stemmer):
         str
             Word stripped of suffix
 
+
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -755,6 +785,7 @@ class Lovins(_Stemmer):
         -------
         str
             Word stripped of suffix
+
 
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
@@ -778,6 +809,7 @@ class Lovins(_Stemmer):
         str
             Word stripped of suffix
 
+
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -799,6 +831,7 @@ class Lovins(_Stemmer):
         -------
         str
             Word stripped of suffix
+
 
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6
@@ -1174,6 +1207,7 @@ class Lovins(_Stemmer):
         'suspens'
         >>> stmr.stem('elusiveness')
         'elus'
+
 
         .. versionadded:: 0.2.0
         .. versionchanged:: 0.3.6

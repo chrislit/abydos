@@ -64,6 +64,8 @@ class SoundD(_Phonetic):
         ----------
         max_length : int
             The length of the code returned (defaults to 4)
+
+
         .. versionadded:: 0.4.0
 
         """
@@ -96,6 +98,7 @@ class SoundD(_Phonetic):
         >>> pe.encode_alpha('judge')
         'KK'
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -127,6 +130,7 @@ class SoundD(_Phonetic):
         '3620'
         >>> pe.encode('judge')
         '2200'
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

@@ -66,6 +66,7 @@ class CLEFSwedish(_Stemmer):
         >>> clef_swedish('visshet')
         'viss'
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class

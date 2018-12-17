@@ -109,6 +109,7 @@ class ConfusionTable(object):
         >>> ct == ConfusionTable({'tp': 120, 'tn': 60, 'fp': 20, 'fn': 30})
         True
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -171,6 +172,7 @@ class ConfusionTable(object):
         >>> ct1 != ct3
         True
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -216,6 +218,7 @@ class ConfusionTable(object):
         >>> str(ct)
         'tp:120, tn:60, fp:20, fn:30'
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -238,6 +241,7 @@ class ConfusionTable(object):
         >>> repr(ct)
         'ConfusionTable(tp=120, tn=60, fp=20, fn=30)'
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -259,6 +263,7 @@ class ConfusionTable(object):
         >>> ct.to_tuple()
         (120, 60, 20, 30)
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -279,6 +284,7 @@ class ConfusionTable(object):
         >>> pprint.pprint(ct.to_dict())
         {'fn': 30, 'fp': 20, 'tn': 60, 'tp': 120}
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -298,6 +304,7 @@ class ConfusionTable(object):
         >>> ct.true_pos()
         120
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -316,6 +323,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.true_neg()
         60
+
 
         .. versionadded:: 0.1.0
 
@@ -338,6 +346,7 @@ class ConfusionTable(object):
         >>> ct.false_pos()
         20
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -359,6 +368,7 @@ class ConfusionTable(object):
         >>> ct.false_neg()
         30
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -377,6 +387,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.correct_pop()
         180
+
 
         .. versionadded:: 0.1.0
 
@@ -397,6 +408,7 @@ class ConfusionTable(object):
         >>> ct.error_pop()
         50
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -416,9 +428,11 @@ class ConfusionTable(object):
         >>> ct.pred_pos_pop()
         140
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.4.0
             renamed from test_pos_pop
+
 
         .. versionadded:: 0.1.0
 
@@ -439,9 +453,11 @@ class ConfusionTable(object):
         >>> ct.pred_neg_pop()
         90
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.4.0
             renamed from test_neg_pop
+
 
         .. versionadded:: 0.1.0
 
@@ -462,6 +478,7 @@ class ConfusionTable(object):
         >>> ct.cond_pos_pop()
         150
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -481,6 +498,7 @@ class ConfusionTable(object):
         >>> ct.cond_neg_pop()
         80
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -499,6 +517,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.population()
         230
+
 
         .. versionadded:: 0.1.0
 
@@ -527,6 +546,7 @@ class ConfusionTable(object):
         >>> ct.precision()
         0.8571428571428571
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -553,6 +573,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.precision_gain()
         1.3142857142857143
+
 
         .. versionadded:: 0.1.0
 
@@ -589,6 +610,7 @@ class ConfusionTable(object):
         >>> ct.recall()
         0.8
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -619,6 +641,7 @@ class ConfusionTable(object):
         >>> ct.specificity()
         0.75
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -648,6 +671,7 @@ class ConfusionTable(object):
         >>> round(ct.fnr(), 8)
         0.2
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -672,6 +696,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.npv()
         0.6666666666666666
+
 
         .. versionadded:: 0.1.0
 
@@ -698,6 +723,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.false_omission_rate()
         0.3333333333333333
+
 
         .. versionadded:: 0.4.0
 
@@ -727,6 +753,7 @@ class ConfusionTable(object):
         >>> ct.fallout()
         0.25
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -751,6 +778,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pos_likelihood_ratio()
         3.2
+
 
         .. versionadded:: 0.4.0
 
@@ -777,6 +805,7 @@ class ConfusionTable(object):
         >>> ct.neg_likelihood_ratio()
         0.2666666666666666
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -801,6 +830,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.diagnostic_odds_ratio()
         12.0
+
 
         .. versionadded:: 0.4.0
 
@@ -828,6 +858,7 @@ class ConfusionTable(object):
         >>> ct.fdr()
         0.14285714285714285
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -853,6 +884,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.accuracy()
         0.782608695652174
+
 
         .. versionadded:: 0.1.0
 
@@ -880,6 +912,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.accuracy_gain()
         1.4325259515570934
+
 
         .. versionadded:: 0.1.0
 
@@ -911,6 +944,7 @@ class ConfusionTable(object):
         >>> ct.balanced_accuracy()
         0.775
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -932,6 +966,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.error_rate()
         0.21739130434782608
+
 
         .. versionadded:: 0.4.0
 
@@ -961,6 +996,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.prevalence()
         0.6521739130434783
+
 
         .. versionadded:: 0.4.0
 
@@ -992,6 +1028,7 @@ class ConfusionTable(object):
         >>> ct.informedness()
         0.55
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -1014,6 +1051,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.markedness()
         0.5238095238095237
+
 
         .. versionadded:: 0.1.0
 
@@ -1039,6 +1077,7 @@ class ConfusionTable(object):
         >>> ct.pr_amean()
         0.8285714285714285
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -1062,6 +1101,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_gmean()
         0.828078671210825
+
 
         .. versionadded:: 0.1.0
 
@@ -1087,6 +1127,7 @@ class ConfusionTable(object):
         >>> ct.pr_hmean()
         0.8275862068965516
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -1111,6 +1152,7 @@ class ConfusionTable(object):
         >>> ct.pr_qmean()
         0.8290638930598233
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -1134,6 +1176,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_cmean()
         0.8295566502463055
+
 
         .. versionadded:: 0.1.0
 
@@ -1161,6 +1204,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_lmean()
         0.8282429171492667
+
 
         .. versionadded:: 0.1.0
 
@@ -1195,6 +1239,7 @@ class ConfusionTable(object):
         >>> ct.pr_imean()
         0.8284071826325543
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -1219,6 +1264,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_seiffert_mean()
         0.8284071696048312
+
 
         .. versionadded:: 0.1.0
 
@@ -1251,6 +1297,7 @@ class ConfusionTable(object):
         >>> ct.pr_lehmer_mean()
         0.8295566502463055
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -1274,6 +1321,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_heronian_mean()
         0.8284071761178939
+
 
         .. versionadded:: 0.1.0
 
@@ -1307,6 +1355,7 @@ class ConfusionTable(object):
         >>> ct.pr_hoelder_mean()
         0.8290638930598233
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -1331,6 +1380,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_agmean()
         0.8283250315702829
+
 
         .. versionadded:: 0.1.0
 
@@ -1357,6 +1407,7 @@ class ConfusionTable(object):
         >>> ct.pr_ghmean()
         0.8278323841238441
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -1380,6 +1431,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_aghmean()
         0.8280786712108288
+
 
         .. versionadded:: 0.1.0
 
@@ -1423,6 +1475,7 @@ class ConfusionTable(object):
         >>> ct.fbeta_score(beta=0.1)
         0.8565371024734982
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -1456,6 +1509,7 @@ class ConfusionTable(object):
         >>> ct.f2_score()
         0.8108108108108109
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -1479,6 +1533,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.fhalf_score()
         0.8450704225352114
+
 
         .. versionadded:: 0.1.0
 
@@ -1509,6 +1564,7 @@ class ConfusionTable(object):
         >>> ct.e_score()
         0.17241379310344818
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -1532,6 +1588,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.f1_score()
         0.8275862068965518
+
 
         .. versionadded:: 0.1.0
 
@@ -1563,6 +1620,7 @@ class ConfusionTable(object):
         >>> ct.f_measure()
         0.8275862068965516
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -1584,6 +1642,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.jaccard()
         0.7058823529411765
+
 
         .. versionadded:: 0.4.0
 
@@ -1623,6 +1682,7 @@ class ConfusionTable(object):
         >>> ct.g_measure()
         0.828078671210825
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -1644,6 +1704,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.d_measure()
         0.2941176470588237
+
 
         .. versionadded:: 0.4.0
 
@@ -1675,6 +1736,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.mcc()
         0.5367450401216932
+
 
         .. versionadded:: 0.1.0
 
@@ -1711,6 +1773,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.significance()
         66.26190476190476
+
 
         .. versionadded:: 0.1.0
 
@@ -1752,6 +1815,7 @@ class ConfusionTable(object):
         >>> ct.kappa_statistic()
         0.5344129554655871
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -1782,6 +1846,7 @@ class ConfusionTable(object):
         >>> ct.phi_coefficient()
         0.5367450401216932
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -1811,6 +1876,7 @@ class ConfusionTable(object):
         >>> ct.joint_entropy()
         1.1680347446270396
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -1838,6 +1904,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.actual_entropy()
         0.6460905050608101
+
 
         .. versionadded:: 0.4.0
 
@@ -1869,6 +1936,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.predicted_entropy()
         0.6693279632926457
+
 
         .. versionadded:: 0.4.0
 
@@ -1902,6 +1970,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.mutual_information()
         0.14738372372641576
+
 
         .. versionadded:: 0.4.0
 
@@ -1957,6 +2026,7 @@ class ConfusionTable(object):
         >>> ct.proficiency()
         0.228116219897929
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -1980,6 +2050,7 @@ class ConfusionTable(object):
         >>> ct.igr()
         0.22019657299448012
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -2001,6 +2072,7 @@ class ConfusionTable(object):
         >>> ct.dependency()
         0.12618094145262454
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -2021,6 +2093,7 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.lift()
         1.3142857142857143
+
 
         .. versionadded:: 0.4.0
 

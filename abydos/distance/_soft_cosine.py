@@ -97,6 +97,7 @@ class SoftCosine(_TokenDistance):
             will cause the instance to use the QGram tokenizer with this
             q value.
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -132,6 +133,7 @@ class SoftCosine(_TokenDistance):
         0.831348688760277
         >>> cmp.sim('ATCG', 'TAGC')
         0.8571428571428572
+
 
         .. versionadded:: 0.4.0
 

@@ -71,6 +71,7 @@ class RefinedSoundex(_Phonetic):
         retain_vowels : bool
             Retain vowels (as 0) in the resulting code
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -103,6 +104,7 @@ class RefinedSoundex(_Phonetic):
         >>> pe.encode_alpha('Schmidt')
         'SKNT'
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -133,6 +135,7 @@ class RefinedSoundex(_Phonetic):
         'S86'
         >>> pe.encode('Schmidt')
         'S386'
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

@@ -60,6 +60,7 @@ class LegaliPyTokenizer(_Tokenizer):
                     math.log1p, math.sqrt, and indexes into interesting integer
                     sequences such as the Fibonacci sequence.
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -87,6 +88,7 @@ class LegaliPyTokenizer(_Tokenizer):
         append : bool
             If True, the current onset list is extended
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -108,6 +110,7 @@ class LegaliPyTokenizer(_Tokenizer):
             The string to tokenize
         ipa : bool
             If True, indicates that the string is in IPA
+
 
         .. versionadded:: 0.4.0
 

@@ -91,6 +91,7 @@ class Koelner(_Phonetic):
         >>> pe.encode('Zimmermann')
         '86766'
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -232,6 +233,7 @@ class Koelner(_Phonetic):
         >>> pe._to_alpha('86766')
         'SNRNN'
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -264,6 +266,7 @@ class Koelner(_Phonetic):
         'NLR'
         >>> pe.encode_alpha('Zimmermann')
         'SNRNN'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

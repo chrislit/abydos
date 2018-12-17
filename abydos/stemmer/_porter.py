@@ -66,6 +66,7 @@ class Porter(_Stemmer):
         int
             The m-degree as defined in the Porter stemmer definition
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -96,6 +97,7 @@ class Porter(_Stemmer):
             True iff a vowel exists in the term (as defined in the Porter
             stemmer definition)
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -119,6 +121,7 @@ class Porter(_Stemmer):
         bool
             True iff the stem ends in a doubled consonant (as defined in the
             Porter stemmer definition)
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -145,6 +148,7 @@ class Porter(_Stemmer):
             True iff the stem ends in cvc (as defined in the Porter stemmer
             definition)
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -165,6 +169,7 @@ class Porter(_Stemmer):
         early_english : bool
             Set to True in order to remove -eth & -est (2nd & 3rd person
             singular verbal agreement suffixes)
+
 
         .. versionadded:: 0.4.0
 
@@ -197,6 +202,7 @@ class Porter(_Stemmer):
         >>> stmr = Porter(early_english=True)
         >>> stmr.stem('eateth')
         'eat'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

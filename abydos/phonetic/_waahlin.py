@@ -54,6 +54,7 @@ class Waahlin(_Phonetic):
         encoder : _Phonetic
             An initialized phonetic algorithm object
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -162,6 +163,7 @@ class Waahlin(_Phonetic):
         >>> pe.encode_alpha('Schmidt')
         'ŠMIDT'
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -198,6 +200,7 @@ class Waahlin(_Phonetic):
         'SMITH'
         >>> pe.encode('Schmidt')
         '*MIDT'
+
 
         .. versionadded:: 0.4.0
 

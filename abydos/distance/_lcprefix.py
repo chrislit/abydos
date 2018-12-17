@@ -68,6 +68,7 @@ class LCPrefix(_Distance):
         >>> pfx.lcprefix(['ATCG', 'TAGC'])
         ''
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -106,6 +107,7 @@ class LCPrefix(_Distance):
         0
         >>> pfx.dist_abs('ATCG', 'TAGC')
         0
+
 
         .. versionadded:: 0.4.0
 
@@ -153,6 +155,7 @@ class LCPrefix(_Distance):
         >>> pfx.sim('ATCG', 'TAGC')
         0.0
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -188,6 +191,7 @@ class LCPrefix(_Distance):
         1.0
         >>> pfx.dist('ATCG', 'TAGC')
         1.0
+
 
         .. versionadded:: 0.4.0
 

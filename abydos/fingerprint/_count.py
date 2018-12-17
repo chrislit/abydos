@@ -56,6 +56,7 @@ class Count(_Fingerprint):
         most_common : list
             The most common tokens in the target language, ordered by frequency
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -89,6 +90,7 @@ class Count(_Fingerprint):
         '0b1010000000000'
         >>> bin(cf.fingerprint('entreatment'))
         '0b1111010000100000'
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

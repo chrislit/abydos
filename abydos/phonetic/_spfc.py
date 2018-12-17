@@ -116,6 +116,7 @@ class SPFC(_Phonetic):
         >>> pe.encode_alpha(('R', 'Miller'))
         'EROES'
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -168,6 +169,7 @@ class SPFC(_Phonetic):
         '01960'
         >>> pe.encode(('R', 'Miller'))
         '65490'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

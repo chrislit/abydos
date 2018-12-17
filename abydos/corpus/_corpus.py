@@ -81,6 +81,7 @@ class Corpus(object):
         >>> tqbf += 'And then it slept.\n And the dog ran off.'
         >>> corp = Corpus(tqbf)
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -125,6 +126,7 @@ class Corpus(object):
         >>> len(corp.docs())
         1
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -154,6 +156,7 @@ class Corpus(object):
         'ran', 'off.']]]
         >>> len(corp.paras())
         1
+
 
         .. versionadded:: 0.1.0
 
@@ -205,6 +208,7 @@ class Corpus(object):
         >>> len(corp.words())
         18
 
+
         .. versionadded:: 0.1.0
 
         """
@@ -232,6 +236,7 @@ class Corpus(object):
         'off.']]
         >>> len(corp.docs_of_words())
         1
+
 
         .. versionadded:: 0.1.0
 
@@ -262,6 +267,7 @@ class Corpus(object):
         And the dog ran off.
         >>> len(corp.raw())
         85
+
 
         .. versionadded:: 0.1.0
 
@@ -305,6 +311,7 @@ class Corpus(object):
         0.4771212547
         >>> round(corp.idf('the'), 10)
         0.1760912591
+
 
         .. versionadded:: 0.1.0
 

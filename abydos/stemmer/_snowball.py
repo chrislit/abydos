@@ -57,6 +57,7 @@ class _Snowball(_Stemmer):
         int
             Length of the R1 region
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -90,6 +91,7 @@ class _Snowball(_Stemmer):
         int
             Length of the R1 region
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -115,6 +117,7 @@ class _Snowball(_Stemmer):
         -------
         bool
             True iff term ends in a short syllable
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -152,6 +155,7 @@ class _Snowball(_Stemmer):
         bool
             True iff term is a short word
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -176,6 +180,7 @@ class _Snowball(_Stemmer):
         bool
             True iff a vowel exists in the term (as defined in the Porter
             stemmer definition)
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

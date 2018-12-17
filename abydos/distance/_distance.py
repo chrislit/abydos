@@ -43,6 +43,7 @@ class _Distance(object):
         **kwargs
             Arbitrary keyword arguments
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -56,6 +57,7 @@ class _Distance(object):
         ----------
         **kwargs
             Arbitrary keyword arguments
+
 
         .. versionadded:: 0.4.0
 
@@ -78,6 +80,7 @@ class _Distance(object):
         float
             Similarity
 
+
         .. versionadded:: 0.3.6
 
         """
@@ -98,6 +101,7 @@ class _Distance(object):
         float
             Distance
 
+
         .. versionadded:: 0.3.6
 
         """
@@ -117,6 +121,7 @@ class _Distance(object):
         -------
         int
             Absolute distance
+
 
         .. versionadded:: 0.3.6
 

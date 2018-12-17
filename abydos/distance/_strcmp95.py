@@ -110,6 +110,7 @@ class Strcmp95(_Distance):
         **kwargs
             Arbitrary keyword arguments
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -142,6 +143,7 @@ class Strcmp95(_Distance):
         0.6547619047619048
         >>> cmp.sim('ATCG', 'TAGC')
         0.8333333333333334
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

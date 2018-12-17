@@ -89,6 +89,7 @@ class Dice(Tversky):
             A threshold value, similarities above which are counted as
             members of the intersection for the 'fuzzy' variant.
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -127,6 +128,7 @@ class Dice(Tversky):
         0.11764705882352941
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

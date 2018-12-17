@@ -64,6 +64,7 @@ class Haase(_Phonetic):
         primary_only : bool
             If True, only the primary code is returned
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -95,6 +96,7 @@ class Haase(_Phonetic):
         ('SNAT',)
         >>> pe.encode_alpha('Schmidt')
         ('SNAT', 'KNAT')
+
 
         .. versionadded:: 0.4.0
 
@@ -131,6 +133,7 @@ class Haase(_Phonetic):
         ('8692',)
         >>> pe.encode('Schmidt')
         ('8692', '4692')
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

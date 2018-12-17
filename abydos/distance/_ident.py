@@ -68,6 +68,7 @@ class Ident(_Distance):
         >>> cmp.sim('cat', 'cat')
         1.0
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class

@@ -52,6 +52,7 @@ class _Tokenizer(object):
                     math.log1p, math.sqrt, and indexes into interesting integer
                     sequences such as the Fibonacci sequence.
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -72,6 +73,7 @@ class _Tokenizer(object):
         ----------
         string : str
             The string to tokenize
+
 
         .. versionadded:: 0.4.0
 
@@ -97,6 +99,7 @@ class _Tokenizer(object):
         >>> tok.count()
         1
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -116,6 +119,7 @@ class _Tokenizer(object):
         >>> tok.count_unique()
         1
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -134,6 +138,7 @@ class _Tokenizer(object):
         >>> tok = _Tokenizer().tokenize('term')
         >>> tok.get_counter()
         Counter({'term': 1})
+
 
         .. versionadded:: 0.4.0
 
@@ -162,6 +167,7 @@ class _Tokenizer(object):
         >>> tok.get_set()
         {'term'}
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -180,6 +186,7 @@ class _Tokenizer(object):
         >>> tok = _Tokenizer().tokenize('term')
         >>> tok.get_list()
         ['term']
+
 
         .. versionadded:: 0.4.0
 

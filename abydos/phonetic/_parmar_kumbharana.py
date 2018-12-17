@@ -93,6 +93,7 @@ class ParmarKumbharana(_Phonetic):
         >>> pe.encode('judge')
         'JJ'
 
+
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class

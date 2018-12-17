@@ -84,6 +84,7 @@ class Overlap(_TokenDistance):
             A threshold value, similarities above which are counted as
             members of the intersection for the 'fuzzy' variant.
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -117,6 +118,7 @@ class Overlap(_TokenDistance):
         0.125
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

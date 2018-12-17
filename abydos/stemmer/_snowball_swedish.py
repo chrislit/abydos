@@ -93,6 +93,7 @@ class SnowballSwedish(_Snowball):
         >>> stmr.stem('visshet')
         'viss'
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class

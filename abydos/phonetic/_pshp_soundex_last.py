@@ -72,6 +72,7 @@ class PSHPSoundexLast(_Phonetic):
         german : bool
             Set to True if the name is German (different rules apply)
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -105,6 +106,7 @@ class PSHPSoundexLast(_Phonetic):
         >>> pe.encode_alpha('Ashcroft')
         'AKKN'
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -137,6 +139,7 @@ class PSHPSoundexLast(_Phonetic):
         'S530'
         >>> pe.encode('Ashcroft')
         'A225'
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

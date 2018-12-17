@@ -85,6 +85,7 @@ class Cosine(_TokenDistance):
             A threshold value, similarities above which are counted as
             members of the intersection for the 'fuzzy' variant.
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -118,6 +119,11 @@ class Cosine(_TokenDistance):
         0.11785113019775793
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
+
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if src == tar:
@@ -168,6 +174,8 @@ def sim_cosine(src, tar, qval=2):
     >>> sim_cosine('ATCG', 'TAGC')
     0.0
 
+    .. versionadded:: 0.1.0
+
     """
     return Cosine(qval=qval).sim(src, tar)
 
@@ -207,6 +215,8 @@ def dist_cosine(src, tar, qval=2):
     0.882148869802242
     >>> dist_cosine('ATCG', 'TAGC')
     1.0
+
+    .. versionadded:: 0.1.0
 
     """
     return Cosine(qval=qval).dist(src, tar)

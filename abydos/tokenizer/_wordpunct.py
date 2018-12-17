@@ -54,6 +54,7 @@ class WordpunctTokenizer(RegexpTokenizer):
                     math.log1p, math.sqrt, and indexes into interesting integer
                     sequences such as the Fibonacci sequence.
 
+
         .. versionadded:: 0.4.0
 
         """

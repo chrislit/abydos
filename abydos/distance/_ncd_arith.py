@@ -57,6 +57,7 @@ class NCDarith(_Distance):
         probs : dict
             A dictionary trained with :py:meth:`Arithmetic.train`
 
+
         .. versionadded:: 0.3.6
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -92,6 +93,7 @@ class NCDarith(_Distance):
         0.8275862068965517
         >>> cmp.dist('ATCG', 'TAGC')
         0.6923076923076923
+
 
         .. versionadded:: 0.3.5
         .. versionchanged:: 0.3.6

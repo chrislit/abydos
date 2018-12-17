@@ -55,6 +55,7 @@ class BWT(object):
         terminator : str
             A character added to signal the end of the string
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -89,6 +90,7 @@ class BWT(object):
         >>> bwt = BWT('@')
         >>> bwt.encode('banana')
         'annb@aa'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -142,6 +144,7 @@ class BWT(object):
         >>> bwt = BWT('@')
         >>> bwt.decode('annb@aa')
         'banana'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

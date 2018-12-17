@@ -69,6 +69,7 @@ class DamerauLevenshtein(_Distance):
         **kwargs
             Arbitrary keyword arguments
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -107,6 +108,7 @@ class DamerauLevenshtein(_Distance):
         7
         >>> cmp.dist_abs('ATCG', 'TAGC')
         2
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -229,6 +231,7 @@ class DamerauLevenshtein(_Distance):
         0.875
         >>> cmp.dist('ATCG', 'TAGC')
         0.5
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

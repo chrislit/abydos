@@ -166,6 +166,7 @@ class SfinxBis(_Phonetic):
         max_length : int
             The length of the code returned (defaults to unlimited)
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -200,6 +201,7 @@ class SfinxBis(_Phonetic):
         ('JNSN',)
         >>> pe.encode_alpha('Sjöberg')
         ('ŠPRK',)
+
 
         .. versionadded:: 0.4.0
 
@@ -237,6 +239,7 @@ class SfinxBis(_Phonetic):
         ('J585',)
         >>> pe.encode('Sjöberg')
         ('#162',)
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

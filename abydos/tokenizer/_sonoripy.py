@@ -59,6 +59,7 @@ class SonoriPyTokenizer(_Tokenizer):
                     math.log1p, math.sqrt, and indexes into interesting integer
                     sequences such as the Fibonacci sequence.
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -80,6 +81,7 @@ class SonoriPyTokenizer(_Tokenizer):
         ----------
         string : str
             The string to tokenize
+
 
         .. versionadded:: 0.4.0
 

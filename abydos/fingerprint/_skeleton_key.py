@@ -74,6 +74,7 @@ class SkeletonKey(_Fingerprint):
         >>> sk.fingerprint('Niall')
         'NLIA'
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class

@@ -93,6 +93,7 @@ class Minkowski(_TokenDistance):
             A threshold value, similarities above which are counted as
             members of the intersection for the 'fuzzy' variant.
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -132,6 +133,7 @@ class Minkowski(_TokenDistance):
         9.0
         >>> cmp.dist_abs('ATCG', 'TAGC')
         10.0
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
@@ -196,6 +198,7 @@ class Minkowski(_TokenDistance):
         0.692307692308
         >>> cmp.dist('ATCG', 'TAGC')
         1.0
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

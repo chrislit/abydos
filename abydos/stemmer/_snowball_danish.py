@@ -96,6 +96,7 @@ class SnowballDanish(_Snowball):
         >>> stmr.stem('sikkerhed')
         'sikker'
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class

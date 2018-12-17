@@ -79,6 +79,7 @@ class Ozbay(_Distance):
         >>> cmp.dist_abs('ATCG', 'TAGC')
         3.0
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -127,6 +128,7 @@ class Ozbay(_Distance):
         0.214285714286
         >>> cmp.dist('ATCG', 'TAGC')
         0.140625
+
 
         .. versionadded:: 0.4.0
 

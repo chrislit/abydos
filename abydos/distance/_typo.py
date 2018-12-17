@@ -123,6 +123,7 @@ class Typo(_Distance):
         **kwargs
             Arbitrary keyword arguments
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -182,6 +183,7 @@ class Typo(_Distance):
         2.2424533
         >>> cmp.dist_abs('ATCG', 'TAGC')
         2.3465736
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
@@ -329,6 +331,7 @@ class Typo(_Distance):
         0.569035609563
         >>> cmp.dist('ATCG', 'TAGC')
         0.625
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

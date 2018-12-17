@@ -86,6 +86,7 @@ class Levenshtein(_Distance):
         **kwargs
             Arbitrary keyword arguments
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -125,6 +126,7 @@ class Levenshtein(_Distance):
         2
         >>> cmp.dist_abs('ACTG', 'TAGC')
         4
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -203,6 +205,7 @@ class Levenshtein(_Distance):
         0.875
         >>> cmp.dist('ATCG', 'TAGC')
         0.75
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

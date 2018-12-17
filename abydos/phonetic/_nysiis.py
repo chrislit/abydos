@@ -61,6 +61,7 @@ class NYSIIS(_Phonetic):
         modified : bool
             Indicates whether to use USDA modified NYSIIS
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -108,6 +109,7 @@ class NYSIIS(_Phonetic):
         'SNAT'
         >>> pe_8m.encode('Schmidt')
         'SNAD'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

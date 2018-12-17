@@ -57,6 +57,7 @@ class Sift4Simplest(Sift4):
         **kwargs
             Arbitrary keyword arguments
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -89,6 +90,7 @@ class Sift4Simplest(Sift4):
         3
         >>> cmp.dist_abs('ATCG', 'TAGC')
         2
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

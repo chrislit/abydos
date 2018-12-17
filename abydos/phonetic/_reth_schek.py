@@ -156,6 +156,7 @@ class RethSchek(_Phonetic):
         >>> pe.encode('Schmidt')
         'SCHMID'
 
+
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class

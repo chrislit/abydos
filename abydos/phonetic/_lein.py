@@ -67,6 +67,7 @@ class Lein(_Phonetic):
             Pad the end of the return value with 0s to achieve a max_length
             string
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -98,6 +99,7 @@ class Lein(_Phonetic):
         >>> pe.encode_alpha('Schmidt')
         'SKNT'
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -128,6 +130,7 @@ class Lein(_Phonetic):
         'S210'
         >>> pe.encode('Schmidt')
         'S521'
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

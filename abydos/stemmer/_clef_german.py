@@ -73,6 +73,7 @@ class CLEFGerman(_Stemmer):
         >>> stmr.stem('buchstabieren')
         'buchstabier'
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class

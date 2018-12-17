@@ -68,6 +68,7 @@ class SoundexBR(_Phonetic):
             Pad the end of the return value with 0s to achieve a max_length
             string
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -103,6 +104,7 @@ class SoundexBR(_Phonetic):
         >>> pe.encode_alpha('Goncalves')
         'GNKL'
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -137,6 +139,7 @@ class SoundexBR(_Phonetic):
         'G524'
         >>> pe.encode('Goncalves')
         'G524'
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
