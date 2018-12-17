@@ -287,10 +287,10 @@ from ._ochiai_ii import OchiaiII
 from ._overlap import Overlap, dist_overlap, sim_overlap
 from ._ozbay import Ozbay
 from ._pattern_difference import PatternDifference
+from ._pearson_chi_squared import PearsonChiSquared
 from ._pearson_heron_ii import PearsonHeronII
 from ._pearson_ii import PearsonII
 from ._pearson_iii import PearsonIII
-from ._pearson_chi_squared import PearsonChiSquared
 from ._pearson_phi import PearsonPhi
 from ._peirce import Peirce
 from ._phi_squared import PhiSquared
