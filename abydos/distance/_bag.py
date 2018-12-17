@@ -46,13 +46,27 @@ class Bag(_TokenDistance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, tokenizer=None, **kwargs):
+    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
         """Initialize Bag instance.
 
         Parameters
         ----------
         tokenizer : _Tokenizer
             A tokenizer instance from the abydos.tokenizer package
+        intersection_type : str
+            Specifies the intersection type, and set type as a result:
+
+                - 'crisp': Ordinary intersection, wherein items are entirely
+                  members or non-members of the intersection. (Default)
+                - 'fuzzy': Fuzzy intersection, defined by :cite:`Wang:2014`,
+                  wherein items can be partially members of the intersection
+                  if their similarity meets or exceeds a threshold value. This
+                  also takes `metric` (by default :class:`Levenshtein()`) and
+                  `threshold` (by default 0.8) parameters.
+                - 'soft': Soft intersection, defined by :cite:`Russ:2014`,
+                  wherein items can be partially members of the intersection
+                  depending on their similarity. This also takes a `metric`
+                  (by default :class:`DamerauLevenshtein()`) parameter.
         **kwargs
             Arbitrary keyword arguments
 
@@ -62,13 +76,21 @@ class Bag(_TokenDistance):
             The length of each q-gram. Using this parameter and tokenizer=None
             will cause the instance to use the QGram tokenizer with this
             q value.
+        metric : _Distance
+            A string distance measure class for use in the 'soft' and 'fuzzy'
+            variants.
+        threshold : float
+            A threshold value, similarities above which are counted as
+            members of the intersection for the 'fuzzy' variant.
 
         .. versionadded:: 0.4.0
 
         """
         if tokenizer is None:
             tokenizer = CharacterTokenizer()
-        super(Bag, self).__init__(tokenizer=tokenizer, **kwargs)
+        super(Bag, self).__init__(
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
+        )
 
     def dist_abs(self, src, tar, normalized=False):
         """Return the bag distance between two strings.
@@ -116,15 +138,15 @@ class Bag(_TokenDistance):
             return len(src)
 
         self.tokenize(src, tar)
-        src_bag, tar_bag = self.get_tokens()
 
         dist = max(
-            sum((src_bag - tar_bag).values()),
-            sum((tar_bag - src_bag).values()),
+            sum(self.src_only().values()), sum(self.tar_only().values())
         )
 
         if normalized:
-            dist /= max(sum(src_bag.values()), sum(tar_bag.values()))
+            dist /= max(
+                sum(self._src_tokens.values()), sum(self._tar_tokens.values())
+            )
 
         return dist
 
