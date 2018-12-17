@@ -110,6 +110,8 @@ class QGrams(_Tokenizer):
         # Save parameters
         self.qval = qval
         self.start_stop = start_stop
+        if qval == 1:
+            self.start_stop = ''
         self.skip = skip
 
         self._string_ss = self._string
@@ -142,7 +144,7 @@ class QGrams(_Tokenizer):
                 if len(self._string) < qval_i or qval_i < 1:
                     continue
 
-                if self.start_stop and qval_i > 1:
+                if self.start_stop:
                     string = (
                         self.start_stop[0] * (qval_i - 1)
                         + self._string
