@@ -86,6 +86,7 @@ class LCSstr(_Distance):
         >>> sstr.lcsstr('ATCG', 'TAGC')
         'A'
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -136,6 +137,7 @@ class LCSstr(_Distance):
         >>> sstr.sim('ATCG', 'TAGC')
         0.25
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -182,6 +184,8 @@ def lcsstr(src, tar):
     >>> lcsstr('ATCG', 'TAGC')
     'A'
 
+    .. versionadded:: 0.1.0
+
     """
     return LCSstr().lcsstr(src, tar)
 
@@ -220,6 +224,8 @@ def sim_lcsstr(src, tar):
     >>> sim_lcsstr('ATCG', 'TAGC')
     0.25
 
+    .. versionadded:: 0.1.0
+
     """
     return LCSstr().sim(src, tar)
 
@@ -257,6 +263,8 @@ def dist_lcsstr(src, tar):
     0.75
     >>> dist_lcsstr('ATCG', 'TAGC')
     0.75
+
+    .. versionadded:: 0.1.0
 
     """
     return LCSstr().dist(src, tar)

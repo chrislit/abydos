@@ -157,6 +157,7 @@ class RogerRoot(_Phonetic):
             Pad the end of the return value with 0s to achieve a max_length
             string
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -187,6 +188,7 @@ class RogerRoot(_Phonetic):
         'SMT'
         >>> pe.encode_alpha('Schmidt')
         'JMT'
+
 
         .. versionadded:: 0.4.0
 
@@ -220,6 +222,7 @@ class RogerRoot(_Phonetic):
         '00310'
         >>> pe.encode('Schmidt')
         '06310'
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

@@ -59,6 +59,7 @@ class Sift4(_Distance):
         **kwargs
             Arbitrary keyword arguments
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -92,6 +93,7 @@ class Sift4(_Distance):
         3
         >>> cmp.dist_abs('ATCG', 'TAGC')
         2
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
@@ -210,6 +212,7 @@ class Sift4(_Distance):
         0.5
         >>> cmp.dist('ATCG', 'TAGC')
         0.5
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

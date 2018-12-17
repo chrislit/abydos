@@ -230,6 +230,7 @@ class PaiceHusk(_Stemmer):
         >>> stmr.stem('torment')
         'tor'
 
+
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class

@@ -58,6 +58,7 @@ class String(_Fingerprint):
         joiner : str
             The string that will be placed between each word
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -81,6 +82,7 @@ class String(_Fingerprint):
         >>> sf = String()
         >>> sf.fingerprint('The quick brown fox jumped over the lazy dog.')
         'brown dog fox jumped lazy over quick the'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

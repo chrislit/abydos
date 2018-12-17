@@ -67,6 +67,7 @@ class Baystat(_Distance):
         **kwargs
             Arbitrary keyword arguments
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -101,6 +102,7 @@ class Baystat(_Distance):
         0.166666666667
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

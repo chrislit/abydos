@@ -61,6 +61,7 @@ class Eudex(_Distance):
         int
             The next Fibonacci number
 
+
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -86,6 +87,7 @@ class Eudex(_Distance):
         ------
         int
             The next power of `base`
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
@@ -125,6 +127,7 @@ class Eudex(_Distance):
             The number of characters to encode as a eudex hash
         **kwargs
             Arbitrary keyword arguments
+
 
         .. versionadded:: 0.4.0
 
@@ -192,6 +195,7 @@ class Eudex(_Distance):
         7
         >>> cmp.dist_abs('ATCG', 'TAGC')
         15130
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
@@ -267,6 +271,7 @@ class Eudex(_Distance):
         0.004901960784
         >>> round(cmp.dist('ATCG', 'TAGC'), 12)
         0.197549019608
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

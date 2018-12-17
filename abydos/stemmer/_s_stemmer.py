@@ -71,6 +71,7 @@ class SStemmer(_Stemmer):
         >>> stmr.stem('census')
         'census'
 
+
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class

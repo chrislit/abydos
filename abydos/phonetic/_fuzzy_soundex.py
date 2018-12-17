@@ -69,6 +69,7 @@ class FuzzySoundex(_Phonetic):
             Pad the end of the return value with 0s to achieve a max_length
             string
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -104,6 +105,7 @@ class FuzzySoundex(_Phonetic):
         >>> pe.encode_alpha('Schmidt')
         'SNT'
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -134,6 +136,7 @@ class FuzzySoundex(_Phonetic):
         'S5300'
         >>> pe.encode('Smith')
         'S5300'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

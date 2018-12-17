@@ -72,6 +72,7 @@ class Length(_Distance):
         >>> cmp.sim('ATCG', 'TAGC')
         1.0
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -120,6 +121,7 @@ def sim_length(src, tar):
     >>> sim_length('ATCG', 'TAGC')
     1.0
 
+
     .. versionadded:: 0.1.0
 
     """
@@ -159,6 +161,7 @@ def dist_length(src, tar):
     0.125
     >>> dist_length('ATCG', 'TAGC')
     0.0
+
 
     .. versionadded:: 0.1.0
 

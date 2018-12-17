@@ -65,6 +65,7 @@ class PhoneticSpanish(_Phonetic):
         max_length : int
             The length of the code returned (defaults to unlimited)
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -97,6 +98,7 @@ class PhoneticSpanish(_Phonetic):
         >>> pe.encode_alpha('Nicolás')
         'NSLS'
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -128,6 +130,7 @@ class PhoneticSpanish(_Phonetic):
         '4638'
         >>> pe.encode('Nicolás')
         '6454'
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

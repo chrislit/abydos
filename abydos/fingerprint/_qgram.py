@@ -65,6 +65,7 @@ class QGram(_Fingerprint):
             The number of characters to skip, can be an integer, range object,
             or list
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -93,6 +94,7 @@ class QGram(_Fingerprint):
         'cherhehrisopphristto'
         >>> qf.fingerprint('Niall')
         'aliallni'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

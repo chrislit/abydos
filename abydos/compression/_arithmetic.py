@@ -49,6 +49,7 @@ class Arithmetic(object):
     This is based on Andrew Dalke's public domain implementation
     :cite:`Dalke:2005`. It has been ported to use the fractions.Fraction class.
 
+
     .. versionadded:: 0.3.6
     """
 
@@ -61,6 +62,7 @@ class Arithmetic(object):
         ----------
         text : str
             The training text
+
 
         .. versionadded:: 0.3.6
 
@@ -76,6 +78,7 @@ class Arithmetic(object):
         dict
             The dictionary of probabilities
 
+
         .. versionadded:: 0.3.6
 
         """
@@ -88,6 +91,7 @@ class Arithmetic(object):
         ----------
         probs : dict
             The dictionary of probabilities
+
 
         .. versionadded:: 0.3.6
 
@@ -139,6 +143,7 @@ class Arithmetic(object):
          'a': (Fraction(43, 45), Fraction(44, 45)),
          '\x00': (Fraction(44, 45), Fraction(1, 1))}
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -184,6 +189,7 @@ class Arithmetic(object):
         >>> ac = Arithmetic('the quick brown fox jumped over the lazy dog')
         >>> ac.encode('align')
         (16720586181, 34)
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -240,6 +246,7 @@ class Arithmetic(object):
         >>> ac = Arithmetic('the quick brown fox jumped over the lazy dog')
         >>> ac.decode(16720586181, 34)
         'align'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -322,6 +329,7 @@ def ac_train(text):
      'a': (Fraction(43, 45), Fraction(44, 45)),
      '\x00': (Fraction(44, 45), Fraction(1, 1))}
 
+
     .. versionadded:: 0.1.0
 
     """
@@ -357,6 +365,7 @@ def ac_encode(text, probs):
     >>> pr = ac_train('the quick brown fox jumped over the lazy dog')
     >>> ac_encode('align', pr)
     (16720586181, 34)
+
 
     .. versionadded:: 0.1.0
 
@@ -397,6 +406,7 @@ def ac_decode(longval, nbits, probs):
     >>> pr = ac_train('the quick brown fox jumped over the lazy dog')
     >>> ac_decode(16720586181, 34, pr)
     'align'
+
 
     .. versionadded:: 0.1.0
 

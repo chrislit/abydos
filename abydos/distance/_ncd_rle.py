@@ -76,6 +76,7 @@ class NCDrle(_Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         1.0
 
+
         .. versionadded:: 0.3.5
         .. versionchanged:: 0.3.6
             Encapsulated in class

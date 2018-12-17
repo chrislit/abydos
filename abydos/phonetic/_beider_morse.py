@@ -165,6 +165,7 @@ class BeiderMorse(_Phonetic):
         int
             Language ID
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -214,6 +215,7 @@ class BeiderMorse(_Phonetic):
         -------
         str
             A Beider-Morse phonetic code
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -265,6 +267,7 @@ class BeiderMorse(_Phonetic):
         -------
         str
             A Beider-Morse phonetic code
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -433,6 +436,7 @@ class BeiderMorse(_Phonetic):
         str
             A Beider-Morse phonetic code
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -534,6 +538,7 @@ class BeiderMorse(_Phonetic):
         str
             A Beider-Morse phonetic code
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -556,6 +561,7 @@ class BeiderMorse(_Phonetic):
         -------
         str
             A Beider-Morse phonetic code
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -598,6 +604,7 @@ class BeiderMorse(_Phonetic):
         str
             A Beider-Morse phonetic code
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -636,6 +643,7 @@ class BeiderMorse(_Phonetic):
         str
             A Beider-Morse phonetic code
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -659,6 +667,7 @@ class BeiderMorse(_Phonetic):
         -------
         str
             A Beider-Morse phonetic code
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -704,6 +713,7 @@ class BeiderMorse(_Phonetic):
         ------
         ValueError
             No closing square bracket
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -766,6 +776,7 @@ class BeiderMorse(_Phonetic):
         str
             A candidate encoding
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -822,6 +833,7 @@ class BeiderMorse(_Phonetic):
         -------
         int
             Language code index
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -887,6 +899,7 @@ class BeiderMorse(_Phonetic):
             Concatenation mode
         filter_langs : bool
             Filter out incompatible languages
+
 
         .. versionadded:: 0.4.0
 
@@ -973,6 +986,7 @@ class BeiderMorse(_Phonetic):
         >>> BeiderMorse(language_arg='German',
         ... match_mode='exact').encode('Christopher')
         'xriStopher xriStofer xristopher xristofer'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

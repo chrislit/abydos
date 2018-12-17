@@ -81,6 +81,7 @@ class Editex(_Distance):
         **kwargs
             Arbitrary keyword arguments
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -114,6 +115,7 @@ class Editex(_Distance):
         12
         >>> cmp.dist_abs('ATCG', 'TAGC')
         6
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -239,6 +241,7 @@ class Editex(_Distance):
         0.75
         >>> cmp.dist('ATCG', 'TAGC')
         0.75
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

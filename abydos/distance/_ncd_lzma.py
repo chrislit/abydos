@@ -85,6 +85,7 @@ class NCDlzma(_Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         0.08695652173913043
 
+
         .. versionadded:: 0.3.5
         .. versionchanged:: 0.3.6
             Encapsulated in class

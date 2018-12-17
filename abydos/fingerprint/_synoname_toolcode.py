@@ -310,6 +310,7 @@ class SynonameToolcode(_Fingerprint):
         >>> st.fingerprint('Michelangelo IV', '', 'Workshop of')
         ('michelangelo iv', '', '3000550015$055b$mi')
 
+
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class

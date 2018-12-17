@@ -62,6 +62,7 @@ class Dolby(_Phonetic):
         vowel_char : str
             The vowel marker character (default to \*)
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -95,6 +96,7 @@ class Dolby(_Phonetic):
         'BRADN'
         >>> pe.encode_alpha('Sandvik')
         'SANVK'
+
 
         .. versionadded:: 0.4.0
 
@@ -161,6 +163,7 @@ class Dolby(_Phonetic):
         'SM*D  '
         >>> pe_6.encode('Ashcroft')
         '*SKRFD'
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

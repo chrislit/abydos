@@ -64,6 +64,7 @@ class MetaSoundex(_Phonetic):
         lang : str
             Either ``en`` for English or ``es`` for Spanish
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -114,6 +115,7 @@ class MetaSoundex(_Phonetic):
         >>> pe.encode_alpha('Nicolás')
         'NKLS'
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -158,6 +160,7 @@ class MetaSoundex(_Phonetic):
         '4638'
         >>> pe.encode('Nicolás')
         '6754'
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

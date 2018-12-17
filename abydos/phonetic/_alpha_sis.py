@@ -172,6 +172,7 @@ class AlphaSIS(_Phonetic):
         max_length : int
             The length of the code returned (defaults to 14)
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -205,6 +206,7 @@ class AlphaSIS(_Phonetic):
         ('MT',)
         >>> pe.encode_alpha('Schmidt')
         ('JMT',)
+
 
         .. versionadded:: 0.4.0
 
@@ -246,6 +248,7 @@ class AlphaSIS(_Phonetic):
         ('03100000000000',)
         >>> pe.encode('Schmidt')
         ('06310000000000',)
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

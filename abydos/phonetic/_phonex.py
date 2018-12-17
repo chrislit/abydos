@@ -62,6 +62,7 @@ class Phonex(_Phonetic):
             Pad the end of the return value with 0s to achieve a max_length
             string
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -97,6 +98,7 @@ class Phonex(_Phonetic):
         >>> pe.encode_alpha('Schmidt')
         'SSNT'
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -127,6 +129,7 @@ class Phonex(_Phonetic):
         'S253'
         >>> pe.encode('Smith')
         'S530'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

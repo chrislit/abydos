@@ -50,6 +50,7 @@ class Jaccard(Tversky):
     and the Tversky index :cite:`Tversky:1977` for
     :math:`\alpha = \beta = 1`.
 
+
     .. versionadded:: 0.3.6
     """
 
@@ -90,6 +91,7 @@ class Jaccard(Tversky):
             A threshold value, similarities above which are counted as
             members of the intersection for the 'fuzzy' variant.
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -129,6 +131,7 @@ class Jaccard(Tversky):
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -165,6 +168,7 @@ class Jaccard(Tversky):
         -4.0
         >>> cmp.tanimoto_coeff('ATCG', 'TAGC')
         -inf
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -214,6 +218,7 @@ def sim_jaccard(src, tar, qval=2):
     >>> sim_jaccard('ATCG', 'TAGC')
     0.0
 
+
     .. versionadded:: 0.1.0
 
     """
@@ -256,6 +261,7 @@ def dist_jaccard(src, tar, qval=2):
     >>> dist_jaccard('ATCG', 'TAGC')
     1.0
 
+
     .. versionadded:: 0.1.0
 
     """
@@ -297,6 +303,7 @@ def tanimoto(src, tar, qval=2):
     -4.0
     >>> tanimoto('ATCG', 'TAGC')
     -inf
+
 
     .. versionadded:: 0.1.0
 

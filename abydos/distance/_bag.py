@@ -83,6 +83,7 @@ class Bag(_TokenDistance):
             A threshold value, similarities above which are counted as
             members of the intersection for the 'fuzzy' variant.
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -124,6 +125,7 @@ class Bag(_TokenDistance):
         7
         >>> cmp.dist_abs('abcdefg', 'hijklmno')
         8
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -178,6 +180,7 @@ class Bag(_TokenDistance):
         0.625
         >>> cmp.dist('ATCG', 'TAGC')
         0.0
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

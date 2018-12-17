@@ -54,6 +54,7 @@ class Indel(Levenshtein):
         **kwargs
             Arbitrary keyword arguments
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -90,6 +91,7 @@ class Indel(Levenshtein):
         0.454545454545
         >>> cmp.dist('ATCG', 'TAGC')
         0.5
+
 
         .. versionadded:: 0.3.6
 

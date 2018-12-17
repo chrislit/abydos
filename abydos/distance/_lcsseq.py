@@ -82,6 +82,7 @@ class LCSseq(_Distance):
         >>> sseq.lcsseq('ATCG', 'TAGC')
         'AC'
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -145,6 +146,10 @@ class LCSseq(_Distance):
         >>> sseq.sim('ATCG', 'TAGC')
         0.5
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 1.0
@@ -187,6 +192,8 @@ def lcsseq(src, tar):
     >>> lcsseq('ATCG', 'TAGC')
     'AC'
 
+    .. versionadded:: 0.1.0
+
     """
     return LCSseq().lcsseq(src, tar)
 
@@ -224,6 +231,8 @@ def sim_lcsseq(src, tar):
     0.375
     >>> sim_lcsseq('ATCG', 'TAGC')
     0.5
+
+    .. versionadded:: 0.1.0
 
     """
     return LCSseq().sim(src, tar)

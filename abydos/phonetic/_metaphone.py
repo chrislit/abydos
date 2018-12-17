@@ -61,6 +61,7 @@ class Metaphone(_Phonetic):
             The maximum length of the returned Metaphone code (defaults to 64,
             but in Philips' original implementation this was 4)
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -99,6 +100,7 @@ class Metaphone(_Phonetic):
         'SM0'
         >>> pe.encode('Schmidt')
         'SKMTT'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

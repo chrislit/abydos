@@ -90,6 +90,7 @@ class Chebyshev(Minkowski):
             A threshold value, similarities above which are counted as
             members of the intersection for the 'fuzzy' variant.
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -134,6 +135,7 @@ class Chebyshev(Minkowski):
         >>> cmp.dist_abs('ATCGATTCGGAATTTC', 'TAGCATAATCGCCG')
         3.0
 
+
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -156,6 +158,7 @@ class Chebyshev(Minkowski):
         NotImplementedError
             Method disabled for Chebyshev distance
 
+
         .. versionadded:: 0.3.6
 
         """
@@ -175,6 +178,7 @@ class Chebyshev(Minkowski):
         ------
         NotImplementedError
             Method disabled for Chebyshev distance
+
 
         .. versionadded:: 0.3.6
 

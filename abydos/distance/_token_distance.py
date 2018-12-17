@@ -101,6 +101,7 @@ class _TokenDistance(_Distance):
                   assumes the strings are English language strings). Otherwise,
                   The cardinality of the complement of the total will be 0.
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -174,6 +175,7 @@ class _TokenDistance(_Distance):
         >>> pe.tokenize('AT', 'TT').get_tokens()
         (Counter({'$A': 1, 'AT': 1, 'T#': 1}),
          Counter({'$T': 1, 'TT': 1, 'T#': 1}))
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -336,6 +338,7 @@ class _TokenDistance(_Distance):
         :math:`\frac{\delta}{1-\delta}`, 4 in the case of the default threshold
         :math:`\delta = 0.8`, must match exactly to be included in the
         intersection.
+
 
         .. versionadded:: 0.4.0
 

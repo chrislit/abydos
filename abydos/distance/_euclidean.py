@@ -90,6 +90,7 @@ class Euclidean(Minkowski):
             A threshold value, similarities above which are counted as
             members of the intersection for the 'fuzzy' variant.
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -131,6 +132,7 @@ class Euclidean(Minkowski):
         >>> round(cmp.dist_abs('ATCG', 'TAGC'), 12)
         3.162277660168
 
+
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -167,6 +169,7 @@ class Euclidean(Minkowski):
         0.727606875109
         >>> cmp.dist('ATCG', 'TAGC')
         1.0
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

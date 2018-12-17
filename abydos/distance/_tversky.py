@@ -67,6 +67,7 @@ class Tversky(_TokenDistance):
     The symmetric variant is defined in :cite:`Jiminez:2013`. This is activated
     by specifying a bias parameter.
 
+
     .. versionadded:: 0.3.6
     """
 
@@ -121,6 +122,7 @@ class Tversky(_TokenDistance):
             A threshold value, similarities above which are counted as
             members of the intersection for the 'fuzzy' variant.
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -161,6 +163,7 @@ class Tversky(_TokenDistance):
         0.0625
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -248,6 +251,7 @@ def sim_tversky(src, tar, qval=2, alpha=1.0, beta=1.0, bias=None):
     >>> sim_tversky('ATCG', 'TAGC')
     0.0
 
+
     .. versionadded:: 0.1.0
 
     """
@@ -295,6 +299,7 @@ def dist_tversky(src, tar, qval=2, alpha=1.0, beta=1.0, bias=None):
     0.9375
     >>> dist_tversky('ATCG', 'TAGC')
     1.0
+
 
     .. versionadded:: 0.1.0
 

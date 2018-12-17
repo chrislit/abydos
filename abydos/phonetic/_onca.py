@@ -62,6 +62,7 @@ class ONCA(_Phonetic):
             Pad the end of the return value with 0s to achieve a max_length
             string
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -93,6 +94,7 @@ class ONCA(_Phonetic):
         >>> pe.encode_alpha('Schmidt')
         'SNT'
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -122,6 +124,7 @@ class ONCA(_Phonetic):
         'S530'
         >>> pe.encode('Schmidt')
         'S530'
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

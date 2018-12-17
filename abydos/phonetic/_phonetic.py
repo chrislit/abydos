@@ -68,6 +68,7 @@ class _Phonetic(object):
         >>> pe._delete_consecutive_repeats('AAACCCTTTGGG')
         'ACTG'
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -82,6 +83,7 @@ class _Phonetic(object):
         ----------
         word : str
             The word to transform
+
 
         .. versionadded:: 0.3.6
 
@@ -100,6 +102,7 @@ class _Phonetic(object):
         -------
         str
             The word transformed
+
 
         .. versionadded:: 0.3.6
 

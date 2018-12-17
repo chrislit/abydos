@@ -279,6 +279,7 @@ class DaitchMokotoff(_Phonetic):
             Pad the end of the return value with 0s to achieve a max_length
             string
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -318,6 +319,7 @@ class DaitchMokotoff(_Phonetic):
         ... zero_pad=False).encode_alpha('The quick brown fox'))
         ['TKKPRPNPKS', 'TKSKPRPNPKS']
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -355,6 +357,7 @@ class DaitchMokotoff(_Phonetic):
         >>> sorted(DaitchMokotoff(max_length=20,
         ... zero_pad=False).encode('The quick brown fox'))
         ['35457976754', '3557976754']
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

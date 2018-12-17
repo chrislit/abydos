@@ -170,6 +170,11 @@ class Schinke(_Stemmer):
         >>> stmr.stem('senatus')
         {'n': 'senat', 'v': 'senatu'}
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         word = normalize('NFKD', text_type(word.lower()))
         word = ''.join(
@@ -299,6 +304,8 @@ def schinke(word):
     {'n': 'popul', 'v': 'populu'}
     >>> schinke('senatus')
     {'n': 'senat', 'v': 'senatu'}
+
+    .. versionadded:: 0.3.0
 
     """
     return Schinke().stem(word)

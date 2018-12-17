@@ -48,6 +48,7 @@ class NeedlemanWunsch(_Distance):
     The Needleman-Wunsch score :cite:`Needleman:1970` is a standard edit
     distance measure.
 
+
     .. versionadded:: 0.3.6
     """
 
@@ -111,6 +112,7 @@ class NeedlemanWunsch(_Distance):
         >>> NeedlemanWunsch.sim_matrix('hat', 'hat')
         1
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -148,6 +150,7 @@ class NeedlemanWunsch(_Distance):
         **kwargs
             Arbitrary keyword arguments
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -183,6 +186,7 @@ class NeedlemanWunsch(_Distance):
         -1.0
         >>> cmp.dist_abs('ATCG', 'TAGC')
         0.0
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -244,6 +248,7 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
     -1.0
     >>> needleman_wunsch('ATCG', 'TAGC')
     0.0
+
 
     .. versionadded:: 0.1.0
 

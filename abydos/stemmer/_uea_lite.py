@@ -645,6 +645,7 @@ class UEALite(_Stemmer):
                 - ``Adams`` to use Jason Adams' rules
                 - ``Perl`` to use the original Perl rules
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -678,6 +679,7 @@ class UEALite(_Stemmer):
         'fancy'
         >>> uealite('eroded')
         'erode'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

@@ -63,6 +63,7 @@ class StatisticsCanada(_Phonetic):
         max_length : int
             The length of the code returned (defaults to 4)
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -92,6 +93,7 @@ class StatisticsCanada(_Phonetic):
         'SMTH'
         >>> pe.encode('Schmidt')
         'SCHM'
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

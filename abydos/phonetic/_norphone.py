@@ -101,6 +101,7 @@ class Norphone(_Phonetic):
         >>> pe.encode('Sandvik')
         'SNVK'
 
+
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class

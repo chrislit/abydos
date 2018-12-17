@@ -69,6 +69,7 @@ class HenryEarly(_Phonetic):
         max_length : int
             The length of the code returned (defaults to 3)
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -100,6 +101,7 @@ class HenryEarly(_Phonetic):
         'LGR'
         >>> pe.encode('Pelletier')
         'PLT'
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

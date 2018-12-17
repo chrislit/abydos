@@ -54,6 +54,7 @@ class OccurrenceHalved(_Fingerprint):
         most_common : list
             The most common tokens in the target language, ordered by frequency
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -93,6 +94,7 @@ class OccurrenceHalved(_Fingerprint):
         '0b10100000000000'
         >>> bin(ohf.fingerprint('entreatment'))
         '0b1111010000110000'
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

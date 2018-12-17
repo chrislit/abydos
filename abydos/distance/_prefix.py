@@ -75,6 +75,7 @@ class Prefix(_Distance):
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class

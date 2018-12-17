@@ -61,6 +61,7 @@ class SnowballGerman(_Snowball):
         alternate_vowels : bool
             Composes ae as ä, oe as ö, and ue as ü before running the algorithm
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -88,6 +89,7 @@ class SnowballGerman(_Snowball):
         'grau'
         >>> stmr.stem('buchstabieren')
         'buchstabi'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

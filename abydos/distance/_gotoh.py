@@ -66,6 +66,7 @@ class Gotoh(NeedlemanWunsch):
         **kwargs
             Arbitrary keyword arguments
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -102,6 +103,7 @@ class Gotoh(NeedlemanWunsch):
         -0.4
         >>> cmp.dist_abs('cat', 'hat')
         2.0
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

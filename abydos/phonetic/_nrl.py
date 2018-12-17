@@ -43,6 +43,7 @@ class NRL(_Phonetic):
 
     This is defined by :cite:`Elovitz:1976`.
 
+
     .. versionadded:: 0.3.6
     """
 
@@ -466,6 +467,7 @@ class NRL(_Phonetic):
         >>> pe.encode('Larsen')
         'lAArsEHn'
 
+
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -563,6 +565,7 @@ def nrl(word):
     'smIHTH'
     >>> nrl('Larsen')
     'lAArsEHn'
+
 
     .. versionadded:: 0.3.0
 

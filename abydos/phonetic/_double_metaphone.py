@@ -54,6 +54,7 @@ class DoubleMetaphone(_Phonetic):
             Maximum length of the returned Dolby code -- this also activates
             the fixed-length code mode if it is greater than 0
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -88,6 +89,7 @@ class DoubleMetaphone(_Phonetic):
         >>> pe.encode_alpha('Schmidt')
         ('XMT', 'SMT')
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -117,6 +119,7 @@ class DoubleMetaphone(_Phonetic):
         ('SM0', 'XMT')
         >>> pe.encode('Schmidt')
         ('XMT', 'SMT')
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

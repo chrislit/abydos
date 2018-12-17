@@ -70,6 +70,7 @@ class MRA(_Phonetic):
         >>> pe.encode('Schmidt')
         'SCHMDT'
 
+
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class

@@ -68,6 +68,7 @@ class LCSuffix(LCPrefix):
         >>> sfx.lcsuffix(['ATCG', 'TAGC'])
         ''
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -107,6 +108,7 @@ class LCSuffix(LCPrefix):
         0
         >>> sfx.dist_abs('ATCG', 'TAGC')
         0
+
 
         .. versionadded:: 0.4.0
 

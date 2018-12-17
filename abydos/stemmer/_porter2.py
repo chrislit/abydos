@@ -98,6 +98,7 @@ class Porter2(_Snowball):
             Set to True in order to remove -eth & -est (2nd & 3rd person
             singular verbal agreement suffixes)
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -129,6 +130,7 @@ class Porter2(_Snowball):
         >>> stmr = Porter2(early_english=True)
         >>> stmr.stem('eateth')
         'eat'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

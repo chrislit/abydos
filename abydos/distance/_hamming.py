@@ -63,6 +63,7 @@ class Hamming(_Distance):
         **kwargs
             Arbitrary keyword arguments
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -101,6 +102,7 @@ class Hamming(_Distance):
         8
         >>> cmp.dist_abs('ATCG', 'TAGC')
         4
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
@@ -155,6 +157,7 @@ class Hamming(_Distance):
         1.0
         >>> cmp.dist('ATCG', 'TAGC')
         1.0
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

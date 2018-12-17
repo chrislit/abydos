@@ -51,6 +51,7 @@ class FONEM(_Phonetic):
     https://github.com/Yomguithereal/talisman/blob/master/src/phonetics/french/fonem.js
     was also consulted for this implementation.
 
+
     .. versionadded:: 0.3.6
     """
 
@@ -230,6 +231,7 @@ class FONEM(_Phonetic):
         >>> pe.encode('Pelletier')
         'PELETIER'
 
+
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -283,6 +285,7 @@ def fonem(word):
     'LEGREN'
     >>> fonem('Pelletier')
     'PELETIER'
+
 
     .. versionadded:: 0.3.0
 

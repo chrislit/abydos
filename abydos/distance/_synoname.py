@@ -109,6 +109,7 @@ class Synoname(_Distance):
         >>> pe._synoname_strip_punct('AB;CD EF-GH$IJ')
         'ABCD EFGHIJ'
 
+
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -150,6 +151,7 @@ class Synoname(_Distance):
         >>> pe._synoname_word_approximation('Smith Waterman', 'Waterman',
         ... 'Tom Joe Bob', 'Tom Joe')
         0.6
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
@@ -461,6 +463,7 @@ class Synoname(_Distance):
         **kwargs
             Arbitrary keyword arguments
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -508,6 +511,7 @@ class Synoname(_Distance):
         'inclusion'
         >>> cmp.dist_abs(('Pereira', 'I. R.', ''), ('Pereira', 'I. Smith', ''))
         'word_approx'
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
@@ -759,6 +763,7 @@ class Synoname(_Distance):
         -------
         float
             Normalized Synoname distance
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

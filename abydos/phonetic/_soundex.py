@@ -97,6 +97,7 @@ class Soundex(_Phonetic):
             Pad the end of the return value with 0s to achieve a max_length
             string
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -134,6 +135,7 @@ class Soundex(_Phonetic):
         'SNT'
         >>> pe.encode_alpha('Schmidt')
         'SNT'
+
 
         .. versionadded:: 0.4.0
 
@@ -184,6 +186,7 @@ class Soundex(_Phonetic):
         'A226'
         >>> pe_special.encode('Asicroft')
         'A226'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

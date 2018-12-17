@@ -65,6 +65,7 @@ class SmithWaterman(NeedlemanWunsch):
         **kwargs
             Arbitrary keyword arguments
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -100,6 +101,7 @@ class SmithWaterman(NeedlemanWunsch):
         0.0
         >>> cmp.dist_abs('ATCG', 'TAGC')
         1.0
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

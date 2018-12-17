@@ -1087,6 +1087,7 @@ class Phonet(_Phonetic):
         lang : str
             ``de`` (default) for German, ``none`` for no language
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -1137,6 +1138,7 @@ class Phonet(_Phonetic):
         'SMITH'
         >>> pe_none.encode('Schmidt')
         'SCHMIDT'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

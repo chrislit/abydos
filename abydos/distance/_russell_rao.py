@@ -99,6 +99,7 @@ class RussellRao(_TokenDistance):
             A threshold value, similarities above which are counted as
             members of the intersection for the 'fuzzy' variant.
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -132,6 +133,7 @@ class RussellRao(_TokenDistance):
         0.0
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
+
 
         .. versionadded:: 0.4.0
 

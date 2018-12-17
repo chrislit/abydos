@@ -61,6 +61,7 @@ class Davidson(_Phonetic):
             Set to True to completely omit the first character of the first
             name
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -99,6 +100,7 @@ class Davidson(_Phonetic):
         'SMT J'
         >>> pe.encode('Wasserman', 'Tabitha')
         'WSRMT'
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

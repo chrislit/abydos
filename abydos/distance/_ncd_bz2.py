@@ -58,6 +58,7 @@ class NCDbz2(_Distance):
         level : int
             The compression level (0 to 9)
 
+
         .. versionadded:: 0.3.6
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -91,6 +92,7 @@ class NCDbz2(_Distance):
         0.17647058823529413
         >>> cmp.dist('ATCG', 'TAGC')
         0.03125
+
 
         .. versionadded:: 0.3.5
         .. versionchanged:: 0.3.6

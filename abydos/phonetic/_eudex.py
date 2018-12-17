@@ -181,6 +181,7 @@ class Eudex(_Phonetic):
         max_length : int
             The length in bits of the code returned (default 8)
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -212,6 +213,7 @@ class Eudex(_Phonetic):
         720575940412906756
         >>> pe.encode('Schmidt')
         720589151732307997
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6

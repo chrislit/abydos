@@ -56,6 +56,7 @@ class NCDzlib(_Distance):
         level : int
             The compression level (0 to 9)
 
+
         .. versionadded:: 0.3.6
 
         """
@@ -87,6 +88,7 @@ class NCDzlib(_Distance):
         0.5714285714285714
         >>> cmp.dist('ATCG', 'TAGC')
         0.4
+
 
         .. versionadded:: 0.3.5
         .. versionchanged:: 0.3.6

@@ -56,6 +56,7 @@ class Caverphone(_Phonetic):
         version : int
             The version of Caverphone to employ for encoding (defaults to 2)
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -96,6 +97,7 @@ class Caverphone(_Phonetic):
         >>> pe_1.encode_alpha('Schmidt')
         'SKMT'
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -135,6 +137,7 @@ class Caverphone(_Phonetic):
         'SMT111'
         >>> pe_1.encode('Schmidt')
         'SKMT11'
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

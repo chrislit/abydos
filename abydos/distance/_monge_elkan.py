@@ -65,6 +65,7 @@ class MongeElkan(_Distance):
         **kwargs
             Arbitrary keyword arguments
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -102,6 +103,7 @@ class MongeElkan(_Distance):
         0.388888888889
         >>> cmp.sim('ATCG', 'TAGC')
         0.5
+
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6

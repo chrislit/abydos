@@ -90,6 +90,7 @@ class Manhattan(Minkowski):
             A threshold value, similarities above which are counted as
             members of the intersection for the 'fuzzy' variant.
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -130,6 +131,7 @@ class Manhattan(Minkowski):
         >>> cmp.dist_abs('ATCG', 'TAGC')
         10.0
 
+
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
@@ -168,6 +170,7 @@ class Manhattan(Minkowski):
         0.692307692308
         >>> cmp.dist('ATCG', 'TAGC')
         1.0
+
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
