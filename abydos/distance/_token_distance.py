@@ -118,7 +118,7 @@ class _TokenDistance(_Distance):
         if 'alphabet' in self.params:
             if isinstance(self.params['alphabet'], str):
                 self.params['alphabet'] = set(self.params['alphabet'])
-                if isinstance(QGrams, self.params['tokenizer']):
+                if isinstance(self.params['tokenizer'], QGrams):
                     self.params['alphabet'] |= set(
                         self.params['tokenizer'].start_stop
                     )
@@ -129,7 +129,7 @@ class _TokenDistance(_Distance):
             if hasattr(self.params['alphabet'], '__len__'):
                 self.params['alphabet'] = len(self.params['alphabet'])
         else:
-            if isinstance(QGrams, self.params['tokenizer']):
+            if isinstance(self.params['tokenizer'], QGrams):
                 self.params['alphabet'] = (
                     26 + len(set(self.params['tokenizer'].start_stop))
                 ) ** self.params['tokenizer'].qval
@@ -250,7 +250,7 @@ class _TokenDistance(_Distance):
         """Return the cardinality of the complement of the total."""
         if self.params['alphabet'] is None:
             return 0
-        elif isinstance(Counter, self.params['alphabet']):
+        elif isinstance(self.params['alphabet'], Counter):
             return sum((self.params['alphabet']).values() - self.total())
         return self.params['alphabet'] - len(self.total().values())
 
