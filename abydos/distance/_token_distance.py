@@ -206,6 +206,10 @@ class _TokenDistance(_Distance):
         """
         return self._src_tokens - self.intersection()
 
+    def src_only_card(self):
+        """Return the cardinality of the tokens only in the source set."""
+        return sum(self.src_only().values())
+
     def tar_only(self):
         r"""Return the tar tokens minus the src tokens.
 
@@ -213,12 +217,20 @@ class _TokenDistance(_Distance):
         """
         return self._tar_tokens - self.intersection()
 
+    def tar_only_card(self):
+        """Return the cardinality of the tokens only in the target set."""
+        return sum(self.tar_only().values())
+
     def symmetric_difference(self):
         r"""Return the symmetric difference of tokens from src and tar.
 
         For (multi-)sets S and T, this is :math:`S \triangle T`.
         """
         return self.src_only() + self.tar_only()
+
+    def symmetric_difference_card(self):
+        """Return the cardinality of the symmetric difference."""
+        return sum(self.symmetric_difference().values())
 
     def total(self):
         """Return the sum of the sets.
@@ -230,13 +242,21 @@ class _TokenDistance(_Distance):
         """
         return self._src_tokens + self._tar_tokens
 
-    def total_complement_cardinality(self):
+    def total_card(self):
+        """Return the cardinality of the complement of the total."""
+        return sum(self.total().values())
+
+    def total_complement_card(self):
         """Return the cardinality of the complement of the total."""
         if self.params['alphabet'] is None:
             return 0
         elif isinstance(Counter, self.params['alphabet']):
             return sum((self.params['alphabet']).values() - self.total())
         return self.params['alphabet'] - len(self.total().values())
+
+    def population_card(self):
+        """Return the cardinality of the population."""
+        return self.total_card() + self.total_complement_card()
 
     def union(self):
         r"""Return the union of tokens from src and tar.
@@ -245,18 +265,22 @@ class _TokenDistance(_Distance):
         """
         return self.total() - self.intersection()
 
-    def _crisp_intersection(self):
-        r"""Return the intersection of tokens from src and tar.
-
-        For (multi-)sets S and T, this is :math:`S \cap T`.
-        """
-        return self._src_tokens & self._tar_tokens
+    def union_card(self):
+        """Return the cardinality of the union."""
+        return sum(self.union().values())
 
     def difference(self):
         """Return the difference of the tokens, supporting negative values."""
         _src_copy = Counter(self._src_tokens)
         _src_copy.subtract(self._tar_tokens)
         return _src_copy
+
+    def _crisp_intersection(self):
+        r"""Return the intersection of tokens from src and tar.
+
+        For (multi-)sets S and T, this is :math:`S \cap T`.
+        """
+        return self._src_tokens & self._tar_tokens
 
     def _soft_intersection(self):
         """Return the soft intersection of the tokens in src and tar.
@@ -328,6 +352,10 @@ class _TokenDistance(_Distance):
                     intersection[tar_tok] += sim / 2
 
         return intersection
+
+    def intersection_card(self):
+        """Return the cardinality of the intersection."""
+        return sum(self.intersection().values())
 
 
 if __name__ == '__main__':
