@@ -153,6 +153,8 @@ class LCPrefix(_Distance):
         >>> pfx.sim('ATCG', 'TAGC')
         0.0
 
+        .. versionadded:: 0.4.0
+
         """
         dist = self.dist_abs(src, tar, *args)
         maxlen = max(len(src), len(tar), *[len(arg) for arg in args])
@@ -186,6 +188,8 @@ class LCPrefix(_Distance):
         1.0
         >>> pfx.dist('ATCG', 'TAGC')
         1.0
+
+        .. versionadded:: 0.4.0
 
         """
         return 1.0 - self.sim(src, tar, *args)
