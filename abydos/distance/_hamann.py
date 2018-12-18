@@ -36,7 +36,10 @@ __all__ = ['Hamann']
 class Hamann(_TokenDistance):
     r"""Hamann similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Hamann similarity
+    :cite:`Hamann:1961` is
+    :math:`sim_{Hamann}(X, Y) =
+    \frac{|X \cap Y| + |N \setminus X \setminus Y| - |X \setminus Y| - |Y \setminus X|}{|N|}`.
 
     .. versionadded:: 0.4.0
     """
@@ -114,8 +117,8 @@ class Hamann(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
-        """Return the Hamann similarity of two strings.
+    def corr(self, src, tar):
+        """Return the Hamann similarity (correlation) of two strings.
 
         Parameters
         ----------
@@ -132,6 +135,48 @@ class Hamann(_TokenDistance):
         Examples
         --------
         >>> cmp = Hamann()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+        .. versionadded:: 0.4.0
+
+        """
+        self.tokenize(src, tar)
+
+        return (
+            self.intersection_card()
+            + self.total_complement_card()
+            - self.src_only_card()
+            - self.tar_only_card()
+        ) / self.population_card()
+
+    def sim(self, src, tar):
+        """Return the normalized Hamann similarity of two strings.
+
+        Hamann similarity, which has a range [-1, 1] is normalized to [0, 1] by
+        adding 1 and dividing by 2.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Hamann similarity
+
+        Examples
+        --------
+        >>> cmp = Hamann()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -141,19 +186,10 @@ class Hamann(_TokenDistance):
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
-
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
-
-        # self.intersection_card() # a
-        # self.src_only_card() # b
-        # self.tar_only_card() # c
-        # self.total_complement_card() # d
-        # self.population_card() # n
-
-        return 0.0
+        return (self.corr(src, tar) + 1) / 2
 
 
 if __name__ == '__main__':
