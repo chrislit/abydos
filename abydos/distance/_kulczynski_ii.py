@@ -36,7 +36,12 @@ __all__ = ['KulczynskiII']
 class KulczynskiII(_TokenDistance):
     r"""Kulczynski II similarity.
 
-    For two sets X and Y,
+    For two sets X and Y, Kulczynski II similarity
+    :cite:`Kulczynski:1927` is
+    :math:`sim_{KulczynskiII}(X, Y) =
+    \frac{
+    \frac{|X \cap Y|}{2}(2|X \cap Y| + |X \setminus Y| + |Y \setminus X|)}
+    {(|X \cap Y| + |X \setminus Y|)(|X \cap Y| + |Y \setminus X|)}`.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +152,11 @@ class KulczynskiII(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # self.intersection_card() # a
-        # self.src_only_card() # b
-        # self.tar_only_card() # c
-        # self.total_complement_card() # d
-        # self.population_card() # n
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
 
-        return 0.0
+        return ((a/2)*(2*a+b+c))/((a+b)*(a+c))
 
 
 if __name__ == '__main__':
