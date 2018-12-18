@@ -39,12 +39,13 @@ class SokalSneathII(_TokenDistance):
     For two sets X and Y and a population N, Sokal & Sneath II similarity
     :cite:`Sokal:1968` is
     :math:`sim_{SokalSneathII}(X, Y) =
-    \frac{2\cdot|X \cap Y| + 2\cdot|N \setminus X \setminus Y|}
+    \frac{2|X \cap Y| + 2|N \setminus X \setminus Y|}
     {|X \cap Y| + |N \setminus X \setminus Y| + |N|}`.
 
     This is the second of five "Unnamed coefficients" presented in
     :cite:`Sokal:1968`. It corresponds to the "Matched pairs carry twice the
-    weight of unmatched pairs in the Denominator" with "Negative Matches in Numerator Included".
+    weight of unmatched pairs in the Denominator" with "Negative Matches in
+    Numerator Included".
     "Negative Matches in Numerator Excluded" corresponds to the Sørensen–Dice
     coefficient, :class:`.Dice`.
 
