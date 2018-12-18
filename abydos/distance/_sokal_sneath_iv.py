@@ -36,7 +36,23 @@ __all__ = ['SokalSneathIV']
 class SokalSneathIV(_TokenDistance):
     r"""Sokal & Sneath IV similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Sokal & Sneath IV similarity
+    :cite:`Sokal:1968` is
+    :math:`sim_{SokalSneathIV}(X, Y) =
+    \frac{
+    \frac{|X \cap Y|}{|X \cap Y| + |X \setminus Y|}
+    \frac{|X \cap Y|}{|X \cap Y| + |Y \setminus X|}
+    \frac{|N \setminus X \setminus Y|}
+    {|N \setminus X \setminus Y| + |X \setminus Y|}
+    \frac{|N \setminus X \setminus Y|}
+    {|N \setminus X \setminus Y| + |Y \setminus X|}
+    }{4}`.
+
+    This is the fourth of five "Unnamed coefficients" presented in
+    :cite:`Sokal:1968`. It corresponds to the first "Marginal totals in the
+    Denominator" with "Negative Matches in Numerator Included".
+    "Negative Matches in Numerator Excluded" corresponds to the Kulczynski II
+    similarity, :class:`.KulczynskiII`.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +163,12 @@ class SokalSneathIV(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # self.intersection_card() # a
-        # self.src_only_card() # b
-        # self.tar_only_card() # c
-        # self.total_complement_card() # d
-        # self.population_card() # n
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return 0.25 * (a / (a + b) + a / (a + c) + d / (b + d) + d / (b + d))
 
 
 if __name__ == '__main__':

@@ -36,41 +36,26 @@ __all__ = ['SokalSneathIII']
 class SokalSneathIII(_TokenDistance):
     r"""Sokal & Sneath III similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Sokal & Sneath III similarity
+    :cite:`Sokal:1968` is
+    :math:`sim_{SokalSneathIII}(X, Y) =
+    \frac{|X \cap Y| + |N \setminus X \setminus Y|}
+    {|X \setminus Y| + |Y \setminus X|}`.
+
+    This is the third of five "Unnamed coefficients" presented in
+    :cite:`Sokal:1968`. It corresponds to the "Unmatched pairs only in the
+    Denominator" with "Negative Matches in Numerator Excluded".
+    "Negative Matches in Numerator Included" corresponds to the Kulczynski I
+    coefficient, :class:`.KulczynskiI`.
 
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
         """Initialize SokalSneathIII instance.
 
         Parameters
         ----------
-        alphabet : Counter, collection, int, or None
-            This represents the alphabet of possible tokens.
-
-                - If a Counter is supplied, it is used directly in computing
-                  the complement of the tokens in both sets.
-                - If a collection is supplied, it is converted to a Counter
-                  and used directly. In the case of a single string being
-                  supplied and the QGram tokenizer being used, the full
-                  alphabet is inferred (i.e.
-                  :math:`len(set(alphabet+QGrams.start_stop))^{QGrams.qval}` is
-                  used as the cardinality of the full alphabet.
-                - If an int is supplied, it is used as the cardinality of the
-                  full alphabet.
-                - If None is supplied, the cardinality of the full alphabet
-                  is inferred if QGram tokenization is used (i.e.
-                  :math:`28^{QGrams.qval}` is used as the cardinality of the
-                  full alphabet or :math:`26` if QGrams.qval is 1, which
-                  assumes the strings are English language strings). Otherwise,
-                  The cardinality of the complement of the total will be 0.
         tokenizer : _Tokenizer
             A tokenizer instance from the abydos.tokenizer package
         intersection_type : str
@@ -108,10 +93,7 @@ class SokalSneathIII(_TokenDistance):
 
         """
         super(SokalSneathIII, self).__init__(
-            alphabet=alphabet,
-            tokenizer=tokenizer,
-            intersection_type=intersection_type,
-            **kwargs
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
     def sim(self, src, tar):
@@ -141,19 +123,17 @@ class SokalSneathIII(_TokenDistance):
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
+        TODO: Figure out how to normalize this.
+
 
         .. versionadded:: 0.4.0
 
         """
         self.tokenize(src, tar)
 
-        # self.intersection_card() # a
-        # self.src_only_card() # b
-        # self.tar_only_card() # c
-        # self.total_complement_card() # d
-        # self.population_card() # n
-
-        return 0.0
+        return (self.intersection_card() + self.total_complement_card()) / (
+            self.src_only_card() + self.tar_only_card()
+        )
 
 
 if __name__ == '__main__':
