@@ -36,7 +36,18 @@ __all__ = ['SokalSneathII']
 class SokalSneathII(_TokenDistance):
     r"""Sokal & Sneath II similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Sokal & Sneath II similarity
+    :cite:`Sokal:1968` is
+    :math:`sim_{SokalSneathII}(X, Y) =
+    \frac{2\cdot|X \cap Y| + 2\cdot|N \setminus X \setminus Y|}
+    {|X \cap Y| + |N \setminus X \setminus Y| + |N|}`.
+
+    This is the second of five "Unnamed coefficients" presented in
+    :cite:`Sokal:1968`. It corresponds to the "Matched pairs carry twice the
+    weight of unmatched pairs in the Denominator" with "Negative Matches in Numerator Included".
+    "Negative Matches in Numerator Excluded" corresponds to the Sørensen–Dice
+    coefficient, :class:`.Dice`.
+
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +158,13 @@ class SokalSneathII(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # self.intersection_card() # a
-        # self.src_only_card() # b
-        # self.tar_only_card() # c
-        # self.total_complement_card() # d
-        # self.population_card() # n
-
-        return 0.0
+        return (
+            2 * self.intersection_card() + 2 * self.total_complement_card()
+        ) / (
+            self.intersection_card()
+            + self.total_complement_card()
+            + self.population_card()
+        )
 
 
 if __name__ == '__main__':

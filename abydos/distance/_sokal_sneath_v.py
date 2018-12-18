@@ -36,7 +36,22 @@ __all__ = ['SokalSneathV']
 class SokalSneathV(_TokenDistance):
     r"""Sokal & Sneath V similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Sokal & Sneath V similarity
+    :cite:`Sokal:1968` is
+    :math:`sim_{SokalSneathV}(X, Y) =
+    \frac{|X \cap Y| \cdot |N \setminus X \setminus Y|}
+    {\sqrt{
+    (|X \cap Y| + |X \setminus Y|)\cdot
+    (|X \cap Y| + |Y \setminus X|)\cdot
+    (|N \setminus X \setminus Y| + |X \setminus Y|)\cdot
+    (|N \setminus X \setminus Y| + |Y \setminus X|)}}`.
+
+    This is the fifth of five "Unnamed coefficients" presented in
+    :cite:`Sokal:1968`. It corresponds to the second "Marginal totals in the
+    Denominator" with "Negative Matches in Numerator Included", also sometimes
+    referred to as Ochiai II similarity.
+    "Negative Matches in Numerator Excluded" corresponds to the Cosine
+    similarity, :class:`.Cosine`.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +162,12 @@ class SokalSneathV(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # self.intersection_card() # a
-        # self.src_only_card() # b
-        # self.tar_only_card() # c
-        # self.total_complement_card() # d
-        # self.population_card() # n
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return a * d / ((a + b) * (a + c) * (b + d) * (c + d)) ** 0.5
 
 
 if __name__ == '__main__':

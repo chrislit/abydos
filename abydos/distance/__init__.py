@@ -283,7 +283,6 @@ from ._ncd_rle import NCDrle, dist_ncd_rle, sim_ncd_rle
 from ._ncd_zlib import NCDzlib, dist_ncd_zlib, sim_ncd_zlib
 from ._needleman_wunsch import NeedlemanWunsch, needleman_wunsch
 from ._nei_li import NeiLi
-from ._ochiai_ii import OchiaiII
 from ._overlap import Overlap, dist_overlap, sim_overlap
 from ._ozbay import Ozbay
 from ._pattern_difference import PatternDifference
@@ -427,7 +426,6 @@ __all__ = [
     'Mountford',
     'MutualInformation',
     'NeiLi',
-    'OchiaiII',
     'PatternDifference',
     'PearsonHeronII',
     'PearsonII',
