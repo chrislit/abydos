@@ -36,7 +36,11 @@ __all__ = ['SokalMichener']
 class SokalMichener(_TokenDistance):
     r"""Sokal & Michener similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Sokal & Michener similarity
+    :cite:`Sokal:1958` is
+    :math:`sim_{SokalMichener}(X, Y) =
+    \frac{|X \cap Y| + |N \setminus X \setminus Y|}{|N|}`. This is also called
+    the simple matching coefficient.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +151,9 @@ class SokalMichener(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # intersection_card = self.intersection_card()
-        # src_only_card = self.src_only_card()
-        # tar_only_card = self.tar_only_card()
-        # complement_card = self.total_complement_card()
-        # population_card = self.population_card()
-
-        return 0.0
+        return (
+            self.intersection_card() + self.total_complement_card()
+        ) / self.population_card()
 
 
 if __name__ == '__main__':
