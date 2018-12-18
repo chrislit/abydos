@@ -147,11 +147,11 @@ class Excoffier(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # intersection_card = self.intersection_card()
-        # src_only_card = self.src_only_card()
-        # tar_only_card = self.tar_only_card()
-        # complement_card = self.total_complement_card()
-        # population_card = self.population_card()
+        # self.intersection_card() # a
+        # self.src_only_card() # b
+        # self.tar_only_card() # c
+        # self.total_complement_card() # d
+        # self.population_card() # n
 
         return 0.0
 
