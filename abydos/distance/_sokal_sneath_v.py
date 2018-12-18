@@ -41,9 +41,9 @@ class SokalSneathV(_TokenDistance):
     :math:`sim_{SokalSneathV}(X, Y) =
     \frac{|X \cap Y| \cdot |N \setminus X \setminus Y|}
     {\sqrt{
-    (|X \cap Y| + |X \setminus Y|)\cdot
-    (|X \cap Y| + |Y \setminus X|)\cdot
-    (|N \setminus X \setminus Y| + |X \setminus Y|)\cdot
+    (|X \cap Y| + |X \setminus Y|)
+    (|X \cap Y| + |Y \setminus X|)
+    (|N \setminus X \setminus Y| + |X \setminus Y|)
     (|N \setminus X \setminus Y| + |Y \setminus X|)}}`.
 
     This is the fifth of five "Unnamed coefficients" presented in
