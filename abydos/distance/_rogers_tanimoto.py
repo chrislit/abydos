@@ -36,7 +36,10 @@ __all__ = ['RogersTanimoto']
 class RogersTanimoto(_TokenDistance):
     r"""Rogers & Tanimoto similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Rogers-Tanimoto similarity
+    :cite:`Rogers:1960` is
+    :math:`sim_{RogersTanimoto}(X, Y) =
+    \frac{|X \cap Y| + |N \setminus X \setminus Y|}{|X \setminus Y| + |Y \setminus X| + |N|}`.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +150,11 @@ class RogersTanimoto(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # self.intersection_card() # a
-        # self.src_only_card() # b
-        # self.tar_only_card() # c
-        # self.total_complement_card() # d
-        # self.population_card() # n
-
-        return 0.0
+        return (self.intersection_card() + self.total_complement_card()) / (
+            self.src_only_card()
+            + self.tar_only_card()
+            + self.population_card()
+        )
 
 
 if __name__ == '__main__':
