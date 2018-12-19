@@ -36,7 +36,11 @@ __all__ = ['ForbesII']
 class ForbesII(_TokenDistance):
     r"""Forbes II similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Forbes II similarity,
+    as described in :cite:`Choi:2010`, is
+    :math:`sim_{ForbesII}(X, Y) =
+    \frac{|N| \cdot |X \cap Y| - |X| \cdot |Y|}
+    {|N| \cdot min(|X|, |Y|) - |X| \cdot |Y|}`.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +151,13 @@ class ForbesII(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        ab = self.src_card()
+        ac = self.tar_card()
+        n = self.population_card()
 
-        return 0.0
+        return (n * self.intersection_card() - ab * ac) / (
+            n * min(ab, ac) - ab * ac
+        )
 
 
 if __name__ == '__main__':

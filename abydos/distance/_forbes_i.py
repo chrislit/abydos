@@ -36,7 +36,10 @@ __all__ = ['ForbesI']
 class ForbesI(_TokenDistance):
     r"""Forbes I similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Forbes I
+    similarity :cite:`Forbes:1907,Mozley:1936` is
+    :math:`sim_{ForbesI}(X, Y) =
+    \frac{|N| \cdot |X \cap Y|}{|X| \cdot |Y|}`.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +150,9 @@ class ForbesI(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
-
-        return 0.0
+        return (self.population_card() * self.intersection_card()) / (
+            self.src_card() * self.tar_card()
+        )
 
 
 if __name__ == '__main__':
