@@ -36,7 +36,10 @@ __all__ = ['Fossum']
 class Fossum(_TokenDistance):
     r"""Fossum similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Fossum similarity
+    :cite:`Fossum:1966` is
+    :math:`sim_{Fossum}(X, Y) =
+    \frac{|N| \cdot \Big(|X \cap Y|-\frac{1}{2}\Big)^2}{|X| \cdot |Y|}`.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +150,7 @@ class Fossum(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
-
-        return 0.0
+        return (self.population_card()*(self.intersection_card()-0.5)**2)/(self.src_card()*self.tar_card())
 
 
 if __name__ == '__main__':
