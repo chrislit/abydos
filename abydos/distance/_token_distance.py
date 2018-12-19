@@ -201,6 +201,10 @@ class _TokenDistance(_Distance):
         """Return the src and tar tokens as a tuple."""
         return self._src_tokens, self._tar_tokens
 
+    def src_card(self):
+        r"""Return the cardinality of the tokens in the source set."""
+        return sum(self._src_tokens.values())
+
     def src_only(self):
         r"""Return the src tokens minus the tar tokens.
 
@@ -211,6 +215,10 @@ class _TokenDistance(_Distance):
     def src_only_card(self):
         """Return the cardinality of the tokens only in the source set."""
         return sum(self.src_only().values())
+
+    def tar_card(self):
+        r"""Return the cardinality of the tokens in the target set."""
+        return sum(self._tar_tokens.values())
 
     def tar_only(self):
         r"""Return the tar tokens minus the src tokens.
