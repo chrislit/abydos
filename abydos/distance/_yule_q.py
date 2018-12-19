@@ -36,7 +36,15 @@ __all__ = ['YuleQ']
 class YuleQ(_TokenDistance):
     r"""Yule's Q similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Yule's Q similarity
+    :cite:`Yule:1912` is
+    :math:`sim_{YuleQ}(X, Y) =
+    \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
+    |X \setminus Y| \cdot |Y \setminus X|}
+    {|X \cap Y| \cdot |N \setminus X \setminus Y| +
+    |X \setminus Y| \cdot |Y \setminus X|}`.
+
+    Yule himself terms this the coefficient of association.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +155,12 @@ class YuleQ(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return (a * d - b * c) / (a * d + b * c)
 
 
 if __name__ == '__main__':

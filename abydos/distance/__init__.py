@@ -83,7 +83,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Kulczynski I similarity (:py:class:`.KulczynskiI`)
     - Kulczynski II similarity (:py:class:`.KulczynskiII`)
     - McConnaughey similarity (:py:class:`.McConnaughey`)
-    - Mean Manhattan distance (:py:class:`.MeanManhattan`)
     - Michael similarity (:py:class:`.Michael`)
     - Michelet similarity (:py:class:`.Michelet`)
     - Mountford similarity (:py:class:`.Mountford`)
@@ -119,7 +118,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Upholt similarity (:py:class:`.Upholt`)
     - Vari distance (:py:class:`.Vari`)
     - Yule's Q similarity (:py:class:`.YuleQ`)
-    - Yule's Sigma similarity (:py:class:`.YuleSigma`)
+    - Yule's Y similarity (:py:class:`.YuleY`)
     - Bag distance (:py:class:`.Bag`)
     - Monge-Elkan distance (:py:class:`.MongeElkan`)
 
@@ -266,7 +265,6 @@ from ._levenshtein import (
 )
 from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
 from ._mcconnaughey import McConnaughey
-from ._mean_manhattan import MeanManhattan
 from ._michael import Michael
 from ._michelet import Michelet
 from ._minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
@@ -328,7 +326,7 @@ from ._typo import Typo, dist_typo, sim_typo, typo
 from ._upholt import Upholt
 from ._vari import Vari
 from ._yule_q import YuleQ
-from ._yule_sigma import YuleSigma
+from ._yule_y import YuleY
 
 __all__ = [
     'sim',
@@ -418,7 +416,6 @@ __all__ = [
     'KulczynskiI',
     'KulczynskiII',
     'McConnaughey',
-    'MeanManhattan',
     'Michael',
     'Michelet',
     'Mountford',
@@ -451,7 +448,7 @@ __all__ = [
     'Upholt',
     'Vari',
     'YuleQ',
-    'YuleSigma',
+    'YuleY',
     'Bag',
     'bag',
     'dist_bag',

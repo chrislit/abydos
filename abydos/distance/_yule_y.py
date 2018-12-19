@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._mean_manhattan.
+"""abydos.distance._yule_y.
 
-Mean Manhattan distance
+Yule's Y similarity
 """
 
 from __future__ import (
@@ -30,13 +30,23 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['MeanManhattan']
+__all__ = ['YuleY']
 
 
-class MeanManhattan(_TokenDistance):
-    r"""Mean Manhattan distance.
+class YuleY(_TokenDistance):
+    r"""Yule's Y similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Yule's Y similarity
+    :cite:`Yule:1912` is
+    :math:`sim_{YuleY}(X, Y) =
+    \frac{\sqrt{|X \cap Y| \cdot |N \setminus X \setminus Y|} -
+    \sqrt{|X \setminus Y| \cdot |Y \setminus X|}}
+    {\sqrt{|X \cap Y| \cdot |N \setminus X \setminus Y|} +
+    \sqrt{|X \setminus Y| \cdot |Y \setminus X|}}`.
+
+    In :cite:`Yule:1912`, this is labeled :math:`\omega`, so it is sometimes
+    referred to as Yule's :math:`\omega`. Yule himself terms this the
+    coefficient of colligation.
 
     .. versionadded:: 0.4.0
     """
@@ -48,7 +58,7 @@ class MeanManhattan(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize MeanManhattan instance.
+        """Initialize YuleY instance.
 
         Parameters
         ----------
@@ -107,7 +117,7 @@ class MeanManhattan(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(MeanManhattan, self).__init__(
+        super(YuleY, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -115,7 +125,7 @@ class MeanManhattan(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Mean Manhattan distance of two strings.
+        """Return the Yule's Y similarity of two strings.
 
         Parameters
         ----------
@@ -127,11 +137,11 @@ class MeanManhattan(_TokenDistance):
         Returns
         -------
         float
-            Mean Manhattan distance
+            Yule's Y similarity
 
         Examples
         --------
-        >>> cmp = MeanManhattan()
+        >>> cmp = YuleY()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -147,13 +157,14 @@ class MeanManhattan(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return ((a * d) ** 0.5 - (b * c) ** 0.5) / (
+            (a * d) ** 0.5 + (b * c) ** 0.5
+        )
 
 
 if __name__ == '__main__':
