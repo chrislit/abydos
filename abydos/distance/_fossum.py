@@ -150,7 +150,9 @@ class Fossum(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        return (self.population_card()*(self.intersection_card()-0.5)**2)/(self.src_card()*self.tar_card())
+        return (
+            self.population_card() * (self.intersection_card() - 0.5) ** 2
+        ) / (self.src_card() * self.tar_card())
 
 
 if __name__ == '__main__':
