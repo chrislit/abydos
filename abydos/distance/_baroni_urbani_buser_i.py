@@ -159,7 +159,7 @@ class BaroniUrbaniBuserI(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        return ((a*d)**0.5+a)/((a*d)**0.5+a+b+c)
+        return ((a * d) ** 0.5 + a) / ((a * d) ** 0.5 + a + b + c)
 
 
 if __name__ == '__main__':
