@@ -28,15 +28,21 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._token_distance import _TokenDistance
+from ._pearson_chi_squared import PearsonChiSquared
 
 __all__ = ['PearsonII']
 
 
-class PearsonII(_TokenDistance):
+class PearsonII(PearsonChiSquared):
     r"""Pearson II similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Pearson II
+    similarity :cite:`Pearson:1913` is
+    :math:`\Big(\frac{\chi^2}{|N|+\chi^2}\big)^\frac{1}{2}` where
+    :math:`\chi^2 = sim_{PearsonChiSquared}(X, Y) =
+    \frac{|N| \cdot (|X \cap Y| \cdot |N \setminus X \setminus Y| -
+    |X \setminus Y| \cdot |Y \setminus X|)^2}
+    {|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}`.
 
     .. versionadded:: 0.4.0
     """
@@ -145,15 +151,8 @@ class PearsonII(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
-
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
-
-        return 0.0
+        chi2 = super(PearsonII, self).sim(src, tar)
+        return (chi2/(self.population_card()+chi2))**0.5
 
 
 if __name__ == '__main__':

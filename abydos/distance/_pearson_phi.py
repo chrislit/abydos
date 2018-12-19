@@ -18,7 +18,7 @@
 
 """abydos.distance._pearson_phi.
 
-Pearson's Phi similarity
+Pearson's Phi
 """
 
 from __future__ import (
@@ -34,9 +34,16 @@ __all__ = ['PearsonPhi']
 
 
 class PearsonPhi(_TokenDistance):
-    r"""Pearson's Phi similarity.
+    r"""Pearson's Phi.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Pearson's :math:`\phi`
+    similarity :cite:`Pearson:1900,Pearson:1913,Guilford:1956` is
+    :math:`sim_{PearsonPhi}(X, Y) =
+    \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
+    |X \setminus Y| \cdot |Y \setminus X|}
+    {\sqrt{|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}}`.
+
+    This is also Pearson & Heron II similarity.
 
     .. versionadded:: 0.4.0
     """
@@ -114,8 +121,52 @@ class PearsonPhi(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Pearson's Phi of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Pearson's Phi
+
+        Examples
+        --------
+        >>> cmp = PearsonPhi()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self.tokenize(src, tar)
+
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
+        ab = self.src_card()
+        ac = self.tar_card()
+
+        return (a * d - b * c) / (ab * ac * (b + d) * (c + d)) ** 0.5
+
     def sim(self, src, tar):
-        """Return the Pearson's Phi similarity of two strings.
+        """Return the normalized Pearson's Phi similarity of two strings.
+
+        This is normalized to [0, 1] by adding 1 and dividing by 2.
 
         Parameters
         ----------
@@ -145,15 +196,7 @@ class PearsonPhi(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
-
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
-
-        return 0.0
+        return (self.corr(src, tar)+1)/2
 
 
 if __name__ == '__main__':

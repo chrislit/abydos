@@ -95,7 +95,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Pearson II similarity (:py:class:`.PearsonII`)
     - Pearson III similarity (:py:class:`.PearsonIII`)
     - Pearson's Chi-Squared similarity (:py:class:`.PearsonChiSquared`)
-    - Pearson's Phi similarity (:py:class:`.PearsonPhi`)
+    - Pearson's Phi (:py:class:`.PearsonPhi`)
     - Peirce similarity (:py:class:`.Peirce`)
     - Phi Squared similarity (:py:class:`.PhiSquared`)
     - Rogers & Tanimoto similarity (:py:class:`.RogersTanimoto`)
@@ -292,7 +292,6 @@ from ._pearson_ii import PearsonII
 from ._pearson_iii import PearsonIII
 from ._pearson_phi import PearsonPhi
 from ._peirce import Peirce
-from ._phi_squared import PhiSquared
 from ._prefix import Prefix, dist_prefix, sim_prefix
 from ._ratcliff_obershelp import (
     RatcliffObershelp,
@@ -432,7 +431,6 @@ __all__ = [
     'PearsonChiSquared',
     'PearsonPhi',
     'Peirce',
-    'PhiSquared',
     'RogersTanimoto',
     'RouxI',
     'RouxII',
