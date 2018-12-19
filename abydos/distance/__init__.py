@@ -306,7 +306,6 @@ from ._russell_rao import RussellRao
 from ._shape_difference import ShapeDifference
 from ._sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
 from ._sift4_simplest import Sift4Simplest, sift4_simplest
-from ._simpson import Simpson
 from ._size_difference import SizeDifference
 from ._smith_waterman import SmithWaterman, smith_waterman
 from ._soft_cosine import SoftCosine
@@ -438,7 +437,6 @@ __all__ = [
     'RouxI',
     'RouxII',
     'ShapeDifference',
-    'Simpson',
     'SizeDifference',
     'SokalMichener',
     'SokalSneathI',
