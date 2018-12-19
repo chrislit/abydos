@@ -36,7 +36,15 @@ __all__ = ['BaroniUrbaniBuserII']
 class BaroniUrbaniBuserII(_TokenDistance):
     r"""Baroni-Urbani & Buser II similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Baroni-Urbani & Buser II
+    similarity :cite:`BaroniUrbani:1976` is
+    :math:`sim_{BaroniUrbaniII}(X, Y) =
+    \frac{\sqrt{|X \cap Y| \cdot |N \setminus X \setminus Y|} + |X \cap Y| -
+    |X \setminus Y| - |Y \setminus X|}
+    {\sqrt{|X \cap Y| \cdot |N \setminus X \setminus Y|} + |X \cap Y| +
+    |X \setminus Y| + |Y \setminus X|}`. This is the first, but less commonly
+    used and referenced of the two similarities proposed by Baroni-Urbani &
+    Buser.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +155,12 @@ class BaroniUrbaniBuserII(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # self.intersection_card() # a
-        # self.src_only_card() # b
-        # self.tar_only_card() # c
-        # self.total_complement_card() # d
-        # self.population_card() # n
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return ((a*d)**0.5+a-b-c)/((a*d)**0.5+a+b+c)
 
 
 if __name__ == '__main__':
