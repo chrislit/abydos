@@ -147,11 +147,11 @@ class Michael(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # self.intersection_card() # a
-        # self.src_only_card() # b
-        # self.tar_only_card() # c
-        # self.total_complement_card() # d
-        # self.population_card() # n
+        # a = self.intersection_card()
+        # b = self.src_only_card()
+        # c = self.tar_only_card()
+        # d = self.total_complement_card()
+        # n = self.population_card()
 
         return 0.0
 
