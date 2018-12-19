@@ -44,12 +44,7 @@ class KulczynskiI(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
         """Initialize KulczynskiI instance.
 
         Parameters
@@ -91,9 +86,7 @@ class KulczynskiI(_TokenDistance):
 
         """
         super(KulczynskiI, self).__init__(
-            tokenizer=tokenizer,
-            intersection_type=intersection_type,
-            **kwargs
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
     def sim(self, src, tar):
@@ -129,7 +122,9 @@ class KulczynskiI(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        return self.intersection_card()/(self.src_only_card()+self.tar_only_card())
+        return self.intersection_card() / (
+            self.src_only_card() + self.tar_only_card()
+        )
 
 
 if __name__ == '__main__':
