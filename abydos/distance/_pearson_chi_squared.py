@@ -36,7 +36,14 @@ __all__ = ['PearsonChiSquared']
 class PearsonChiSquared(_TokenDistance):
     r"""Pearson's Chi-Squared similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Pearson's :math:`\chi^2`
+    similarity :cite:`Pearson:1913` is
+    :math:`sim_{PearsonChiSquared}(X, Y) =
+    \frac{|N| \cdot (|X \cap Y| \cdot |N \setminus X \setminus Y| -
+    |X \setminus Y| \cdot |Y \setminus X|)^2}
+    {|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}`.
+
+    This is also Pearson I similarity.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +154,15 @@ class PearsonChiSquared(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
+        n = self.population_card()
+        ab = self.src_card()
+        ac = self.tar_card()
 
-        return 0.0
+        return n*(a * d - b * c)**2 / (ab * ac * (b + d) * (c + d))
 
 
 if __name__ == '__main__':

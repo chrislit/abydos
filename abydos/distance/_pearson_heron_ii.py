@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import cos, pi
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['PearsonHeronII']
@@ -36,7 +38,12 @@ __all__ = ['PearsonHeronII']
 class PearsonHeronII(_TokenDistance):
     r"""Pearson & Heron II similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Pearson & Heron II similarity
+    :cite:`Pearson:1913` is
+    :math:`sim_{PearsonHeronII}(X, Y) =
+    cos \Big(\frac{\pi\sqrt{|X \setminus Y| \cdot |Y \setminus X|}}
+    {\sqrt{|X \cap Y| \cdot|N \setminus X \setminus Y|} +
+    \sqrt{|X \setminus Y| \cdot |Y \setminus X|}}\Big)`.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +154,10 @@ class PearsonHeronII(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        root_ad = (self.intersection_card()*self.total_complement_card())**0.5
+        root_bc = (self.src_only_card()*self.tar_only_card())**0.5
 
-        return 0.0
+        return cos(pi*root_bc/(root_ad+root_bc))
 
 
 if __name__ == '__main__':

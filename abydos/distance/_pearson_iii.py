@@ -28,15 +28,21 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._token_distance import _TokenDistance
+from ._pearson_phi import PearsonPhi
 
 __all__ = ['PearsonIII']
 
 
-class PearsonIII(_TokenDistance):
+class PearsonIII(PearsonPhi):
     r"""Pearson III similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Pearson III
+    similarity :cite:`Pearson:1913` is
+    :math:`\Big(\frac{\phi}{|N|+\phi}\big)^\frac{1}{2}` where
+    :math:`\phi = sim_{PearsonPhi}(X, Y) =
+    \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
+    |X \setminus Y| \cdot |Y \setminus X|}
+    {\sqrt{|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}}`.
 
     .. versionadded:: 0.4.0
     """
@@ -145,15 +151,8 @@ class PearsonIII(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
-
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
-
-        return 0.0
+        phi = super(PearsonIII, self).corr(src, tar)
+        return (phi/(self.population_card()+phi))**0.5
 
 
 if __name__ == '__main__':
