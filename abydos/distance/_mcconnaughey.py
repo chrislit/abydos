@@ -36,7 +36,10 @@ __all__ = ['McConnaughey']
 class McConnaughey(_TokenDistance):
     r"""McConnaughey similarity.
 
-    For two sets X and Y,
+    For two sets X and Y, McConnaughey similarity :cite:`McConnaughey:1964` is
+    :math:`sim_{McConnaughey}(X, Y) =
+    \frac{|X \cap Y|^2 - |X \setminus X| \cdot |Y \setminus X|}
+    {|X| \cdot |Y|}`.
 
     .. versionadded:: 0.4.0
     """
@@ -52,25 +55,6 @@ class McConnaughey(_TokenDistance):
 
         Parameters
         ----------
-        alphabet : Counter, collection, int, or None
-            This represents the alphabet of possible tokens.
-
-                - If a Counter is supplied, it is used directly in computing
-                  the complement of the tokens in both sets.
-                - If a collection is supplied, it is converted to a Counter
-                  and used directly. In the case of a single string being
-                  supplied and the QGram tokenizer being used, the full
-                  alphabet is inferred (i.e.
-                  :math:`len(set(alphabet+QGrams.start_stop))^{QGrams.qval}` is
-                  used as the cardinality of the full alphabet.
-                - If an int is supplied, it is used as the cardinality of the
-                  full alphabet.
-                - If None is supplied, the cardinality of the full alphabet
-                  is inferred if QGram tokenization is used (i.e.
-                  :math:`28^{QGrams.qval}` is used as the cardinality of the
-                  full alphabet or :math:`26` if QGrams.qval is 1, which
-                  assumes the strings are English language strings). Otherwise,
-                  The cardinality of the complement of the total will be 0.
         tokenizer : _Tokenizer
             A tokenizer instance from the abydos.tokenizer package
         intersection_type : str
@@ -147,13 +131,10 @@ class McConnaughey(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
-
-        return 0.0
+        return (
+            self.intersection_card() ** 2
+            - self.src_only_card() * self.tar_only_card()
+        ) / (self.src_card() * self.tar_card())
 
 
 if __name__ == '__main__':

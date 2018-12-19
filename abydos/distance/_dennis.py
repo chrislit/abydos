@@ -36,7 +36,12 @@ __all__ = ['Dennis']
 class Dennis(_TokenDistance):
     r"""Dennis similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Dennis similarity
+    :cite:`Dennis:1965` is
+    :math:`sim_{Dennis}(X, Y) =
+    \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
+    |X \setminus Y| \cdot |Y \setminus X|}
+    {\sqrt{|N|\cdot|X|\cdot|Y|}}`.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +152,10 @@ class Dennis(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
-
-        return 0.0
+        return (
+            self.intersection_card() * self.total_complement_card()
+            - self.src_only_card() * self.tar_only_card()
+        ) / (self.population_card() * self.src_card() * self.tar_card()) ** 0.5
 
 
 if __name__ == '__main__':

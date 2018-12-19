@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import log10
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['Stiles']
@@ -36,7 +38,14 @@ __all__ = ['Stiles']
 class Stiles(_TokenDistance):
     r"""Stiles similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Stiles similarity
+    :cite:`Stiles:1961` is
+    :math:`sim_{Stiles}(X, Y) = log_10
+    \frac{card(N) \Big(|card(X \cap Y) \cdot card(N \setminus X \setminus Y)-
+    card(X \setminus Y) \cdot card(Y \setminus X) - \frac{card(N)}{2}\Big)^2}
+    {card(X) \cdot card(Y) \cdot card(N \setminus X) \cdot
+    card(N \setminus Y)}`. In contrast to other uses, here, :math:`card(X)`
+    represents the cardinality of X and :math:`|n|` represents absolute value.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +156,17 @@ class Stiles(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
+        n = self.population_card()
 
-        return 0.0
+        return log10(
+            n
+            * (abs(a * d - b * c) - n / 2) ** 2
+            / (self.src_card() * self.tar_card() * (b + d) * (c + d))
+        )
 
 
 if __name__ == '__main__':
