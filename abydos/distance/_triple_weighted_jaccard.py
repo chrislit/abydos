@@ -47,12 +47,7 @@ class TripleWeightedJaccard(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
         """Initialize TripleWeightedJaccard instance.
 
         Parameters
@@ -94,9 +89,7 @@ class TripleWeightedJaccard(_TokenDistance):
 
         """
         super(TripleWeightedJaccard, self).__init__(
-            tokenizer=tokenizer,
-            intersection_type=intersection_type,
-            **kwargs
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
     def sim(self, src, tar):
@@ -136,7 +129,7 @@ class TripleWeightedJaccard(_TokenDistance):
         b = self.src_only_card()
         c = self.tar_only_card()
 
-        return 3*a/(3*a+b+c)
+        return 3 * a / (3 * a + b + c)
 
 
 if __name__ == '__main__':

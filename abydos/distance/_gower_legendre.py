@@ -155,7 +155,7 @@ class GowerLegendre(_TokenDistance):
         ad = self.intersection_card() + self.total_complement_card()
         bc = self.src_only_card() + self.tar_only_card()
 
-        return ad/(ad+0.5*bc)
+        return ad / (ad + 0.5 * bc)
 
 
 if __name__ == '__main__':

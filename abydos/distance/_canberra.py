@@ -42,12 +42,7 @@ class Canberra(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
         """Initialize Canberra instance.
 
         Parameters
@@ -89,9 +84,7 @@ class Canberra(_TokenDistance):
 
         """
         super(Canberra, self).__init__(
-            tokenizer=tokenizer,
-            intersection_type=intersection_type,
-            **kwargs
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
     def sim(self, src, tar):
@@ -127,7 +120,7 @@ class Canberra(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        return self.symmetric_difference_card()/self.total_card()
+        return self.symmetric_difference_card() / self.total_card()
 
 
 if __name__ == '__main__':

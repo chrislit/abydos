@@ -150,7 +150,10 @@ class Faith(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        return self.intersection_card()+0.5*self.total_complement_card()/self.population_card()
+        return (
+            self.intersection_card()
+            + 0.5 * self.total_complement_card() / self.population_card()
+        )
 
 
 if __name__ == '__main__':
