@@ -36,7 +36,10 @@ __all__ = ['Faith']
 class Faith(_TokenDistance):
     r"""Faith similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Faith
+    similarity :cite:`Faith:1984` is
+    :math:`sim_{Faith}(X, Y) = \frac{|X \cap Y| +
+    \frac{|N \setminus X \setminus Y|}{2}}{|N|}`.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +150,7 @@ class Faith(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
-
-        return 0.0
+        return self.intersection_card()+0.5*self.total_complement_card()/self.population_card()
 
 
 if __name__ == '__main__':
