@@ -213,7 +213,6 @@ from ._chebyshev import Chebyshev, chebyshev
 from ._chord import Chord
 from ._cole import Cole
 from ._cosine import Cosine, dist_cosine, sim_cosine
-from ._czekanowski import Czekanowski
 from ._damerau_levenshtein import (
     DamerauLevenshtein,
     damerau_levenshtein,
@@ -313,7 +312,6 @@ from ._sokal_sneath_iii import SokalSneathIII
 from ._sokal_sneath_iv import SokalSneathIV
 from ._sokal_sneath_v import SokalSneathV
 from ._sorgenfrei import Sorgenfrei
-from ._squared_euclid import SquaredEuclid
 from ._stiles import Stiles
 from ._strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
 from ._suffix import Suffix, dist_suffix, sim_suffix
@@ -392,7 +390,6 @@ __all__ = [
     'Canberra',
     'Chord',
     'Cole',
-    'Czekanowski',
     'Dennis',
     'Dispersion',
     'DriverKroeber',
@@ -440,7 +437,6 @@ __all__ = [
     'SokalSneathIV',
     'SokalSneathV',
     'Sorgenfrei',
-    'SquaredEuclid',
     'Stiles',
     'Tarantula',
     'Tarwid',

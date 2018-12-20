@@ -36,7 +36,12 @@ __all__ = ['GowerLegendre']
 class GowerLegendre(_TokenDistance):
     r"""Gower & Legendre similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Gower & Legendre similarity
+    :cite:`Gower:1986` is
+    :math:`sim_{GowerLegendre}(X, Y) =
+    \frac{|X \cap Y| + |N \setminus X \setminus Y|}
+    {|X \cap Y| + |N \setminus X \setminus Y| +
+    \theta(|X \setminus Y| + |Y \setminus X|}`.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +152,10 @@ class GowerLegendre(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        ad = self.intersection_card() + self.total_complement_card()
+        bc = self.src_only_card() + self.tar_only_card()
 
-        return 0.0
+        return ad/(ad+0.5*bc)
 
 
 if __name__ == '__main__':
