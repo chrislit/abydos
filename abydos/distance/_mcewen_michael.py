@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._michael.
+"""abydos.distance._mcewen_michael.
 
-Michael similarity
+McEwen & Michael similarity
 """
 
 from __future__ import (
@@ -30,13 +30,19 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['Michael']
+__all__ = ['McEwenMichael']
 
 
-class Michael(_TokenDistance):
-    r"""Michael similarity.
+class McEwenMichael(_TokenDistance):
+    r"""McEwen & Michael similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the McEwen & Michael
+    similarity :cite:`Michael:1920` is
+    :math:`sim_{McEwenMichael}(X, Y) =
+    \frac{4(|X \cap Y| \cdot |N \setminus X \setminus Y| -
+    |X \setminus Y| \cdot |Y \setminus X|)}
+    {(|X \cap Y| + |N \setminus X \setminus Y|)^2 +
+    (|X \setminus Y| + |Y \setminus X|)^2}`.
 
     .. versionadded:: 0.4.0
     """
@@ -107,7 +113,7 @@ class Michael(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Michael, self).__init__(
+        super(McEwenMichael, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -115,7 +121,7 @@ class Michael(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Michael similarity of two strings.
+        """Return the McEwen & Michael similarity of two strings.
 
         Parameters
         ----------
@@ -131,7 +137,7 @@ class Michael(_TokenDistance):
 
         Examples
         --------
-        >>> cmp = Michael()
+        >>> cmp = McEwenMichael()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -147,13 +153,12 @@ class Michael(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return 4*(a*d - b*c)/((a+d)**2 + (b+c)**2)
 
 
 if __name__ == '__main__':

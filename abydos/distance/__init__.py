@@ -264,7 +264,7 @@ from ._levenshtein import (
 )
 from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
 from ._mcconnaughey import McConnaughey
-from ._michael import Michael
+from ._mcewen_michael import McEwenMichael
 from ._michelet import Michelet
 from ._minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
 from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
@@ -413,7 +413,7 @@ __all__ = [
     'KulczynskiI',
     'KulczynskiII',
     'McConnaughey',
-    'Michael',
+    'McEwenMichael',
     'Michelet',
     'Mountford',
     'MutualInformation',
