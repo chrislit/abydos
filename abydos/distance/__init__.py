@@ -318,6 +318,7 @@ from ._suffix import Suffix, dist_suffix, sim_suffix
 from ._synoname import Synoname, synoname
 from ._tarantula import Tarantula
 from ._tarwid import Tarwid
+from ._tetrachoric import Tetrachoric
 from ._triple_weighted_jaccard import TripleWeightedJaccard
 from ._tversky import Tversky, dist_tversky, sim_tversky
 from ._typo import Typo, dist_typo, sim_typo, typo
@@ -440,6 +441,7 @@ __all__ = [
     'Stiles',
     'Tarantula',
     'Tarwid',
+    'Tetrachoric',
     'TripleWeightedJaccard',
     'Upholt',
     'Vari',
