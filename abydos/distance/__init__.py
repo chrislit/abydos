@@ -271,6 +271,7 @@ from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
 from ._monge_elkan import MongeElkan, dist_monge_elkan, sim_monge_elkan
 from ._mountford import Mountford
 from ._mra import MRA, dist_mra, mra_compare, sim_mra
+from ._ms_contingency import MSContingency
 from ._mutual_information import MutualInformation
 from ._ncd_arith import NCDarith, dist_ncd_arith, sim_ncd_arith
 from ._ncd_bwtrle import NCDbwtrle, dist_ncd_bwtrle, sim_ncd_bwtrle
@@ -418,6 +419,7 @@ __all__ = [
     'Michelet',
     'Mountford',
     'MutualInformation',
+    'MSContingency',
     'NeiLi',
     'PatternDifference',
     'PearsonHeronII',
