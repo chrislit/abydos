@@ -39,9 +39,13 @@ class Dennis(_TokenDistance):
     For two sets X and Y and a population N, Dennis similarity
     :cite:`Dennis:1965` is
     :math:`sim_{Dennis}(X, Y) =
-    \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
-    |X \setminus Y| \cdot |Y \setminus X|}
-    {\sqrt{|N|\cdot|X|\cdot|Y|}}`.
+    \frac{|X \cap Y| - \frac{|X| \cdot |Y|}{|N|}}
+    {\sqrt{\frac{|X|\cdot|Y|}{|N|}}}`.
+
+    This is the fourth of Dennis' association measures, and that which she
+    claims is the best of the four. This is not identical to the Dennis
+    similarity identified in :cite:`Choi:2010`, independent attestation of
+    which could not be found.
 
     .. versionadded:: 0.4.0
     """
@@ -152,10 +156,10 @@ class Dennis(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        return (
-            self.intersection_card() * self.total_complement_card()
-            - self.src_only_card() * self.tar_only_card()
-        ) / (self.population_card() * self.src_card() * self.tar_card()) ** 0.5
+        a = self.intersection_card()
+        abacn = self.src_card()*self.tar_card()/self.population_card()
+
+        return (a-abacn)/abacn**0.5
 
 
 if __name__ == '__main__':
