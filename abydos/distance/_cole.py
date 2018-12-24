@@ -36,7 +36,29 @@ __all__ = ['Cole']
 class Cole(_TokenDistance):
     r"""Cole similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Cole similarity
+    :cite:`Cole:1949` has three formulae:
+
+    - If :math:`|X \cap Y| \cdot |N \setminus X \setminus Y| \geq
+      |X \setminus Y| \cdot |Y \setminus Y|`:
+      :math:`sim_{Cole}(X, Y) =
+      \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
+      |X \setminus Y| \cdot |Y \setminus X|}
+      {(|X \cap Y| + |X \setminus Y|) \cdot
+      (|X \setminus Y| + |N \setminus X \setminus Y|)}`
+    - If :math:`|N \setminus X \setminus Y| \geq |X \cap Y|`:
+      :math:`sim_{Cole}(X, Y) =
+      \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
+      |X \setminus Y| \cdot |Y \setminus X|}
+      {(|X \cap Y| + |X \setminus Y|) \cdot (|X \cap Y| + |Y \setminus X|)}`
+    - Otherwise:
+      :math:`sim_{Cole}(X, Y) =
+      \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
+      |X \setminus Y| \cdot |Y \setminus X|}
+      {(|X \setminus Y| + |N \setminus X \setminus Y|) \cdot
+      (|Y \setminus X| + |N \setminus X \setminus Y|)}`.
+
+    Cole terms this measurement the Coefficient of Interspecific Association.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +169,16 @@ class Cole(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        if a*d >= b*c:
+            return (a*d-b*c)/((a+b)*(b+d))
+        if d >= a:
+            return (a*d-b*c)/((a+b)*(a+c))
+        return (a*d-b*c)/((b+d)*(c+d))
 
 
 if __name__ == '__main__':
