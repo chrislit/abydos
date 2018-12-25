@@ -158,7 +158,7 @@ class McEwenMichael(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        return 4*(a*d - b*c)/((a+d)**2 + (b+c)**2)
+        return 4 * (a * d - b * c) / ((a + d) ** 2 + (b + c) ** 2)
 
 
 if __name__ == '__main__':

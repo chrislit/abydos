@@ -44,12 +44,7 @@ class Johnson(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
         """Initialize Johnson instance.
 
         Parameters
@@ -91,9 +86,7 @@ class Johnson(_TokenDistance):
 
         """
         super(Johnson, self).__init__(
-            tokenizer=tokenizer,
-            intersection_type=intersection_type,
-            **kwargs
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
     def sim(self, src, tar):
@@ -133,7 +126,7 @@ class Johnson(_TokenDistance):
         ab = self.src_card()
         ac = self.tar_card()
 
-        return a/ab+a/ac
+        return a / ab + a / ac
 
 
 if __name__ == '__main__':

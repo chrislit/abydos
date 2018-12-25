@@ -151,7 +151,7 @@ class BraunBanquest(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        return self.intersection_card()/max(self.src_card(), self.tar_card())
+        return self.intersection_card() / max(self.src_card(), self.tar_card())
 
 
 if __name__ == '__main__':

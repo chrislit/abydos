@@ -165,9 +165,9 @@ class MSContingency(_TokenDistance):
         d = self.total_complement_card()
         ab = self.src_card()
         ac = self.tar_card()
-        admbc = a*d-b*c
+        admbc = a * d - b * c
 
-        return admbc/(admbc**2 + ab*ac*(b+d)*(c+d))**0.5
+        return admbc / (admbc ** 2 + ab * ac * (b + d) * (c + d)) ** 0.5
 
     def sim(self, src, tar):
         """Return the normalized mean squared contingency correlation
@@ -201,7 +201,7 @@ class MSContingency(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        return 2**0.5 * self.corr(src, tar)
+        return 2 ** 0.5 * self.corr(src, tar)
 
 
 if __name__ == '__main__':

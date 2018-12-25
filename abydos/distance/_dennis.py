@@ -157,9 +157,9 @@ class Dennis(_TokenDistance):
         self.tokenize(src, tar)
 
         a = self.intersection_card()
-        abacn = self.src_card()*self.tar_card()/self.population_card()
+        abacn = self.src_card() * self.tar_card() / self.population_card()
 
-        return (a-abacn)/abacn**0.5
+        return (a - abacn) / abacn ** 0.5
 
 
 if __name__ == '__main__':
