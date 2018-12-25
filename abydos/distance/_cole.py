@@ -174,11 +174,11 @@ class Cole(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        if a*d >= b*c:
-            return (a*d-b*c)/((a+b)*(b+d))
+        if a * d >= b * c:
+            return (a * d - b * c) / ((a + b) * (b + d))
         if d >= a:
-            return (a*d-b*c)/((a+b)*(a+c))
-        return (a*d-b*c)/((b+d)*(c+d))
+            return (a * d - b * c) / ((a + b) * (a + c))
+        return (a * d - b * c) / ((b + d) * (c + d))
 
 
 if __name__ == '__main__':
