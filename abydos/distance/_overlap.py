@@ -125,18 +125,12 @@ class Overlap(_TokenDistance):
             Encapsulated in class
 
         """
-        if src == tar:
-            return 1.0
-        elif not src or not tar:
+        if not src or not tar:
             return 0.0
 
         self.tokenize(src, tar)
 
-        q_src_mag = sum(self._src_tokens.values())
-        q_tar_mag = sum(self._tar_tokens.values())
-        q_intersection_mag = sum(self.intersection().values())
-
-        return q_intersection_mag / min(q_src_mag, q_tar_mag)
+        return self.intersection_card() / min(self.src_card(), self.tar_card())
 
 
 @deprecated(
