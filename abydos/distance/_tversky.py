@@ -183,9 +183,9 @@ class Tversky(_TokenDistance):
 
         self.tokenize(src, tar)
 
-        q_src_mag = sum(self.src_only().values())
-        q_tar_mag = sum(self.tar_only().values())
-        q_intersection_mag = sum(self.intersection().values())
+        q_src_mag = self.src_only_card()
+        q_tar_mag = self.tar_only_card()
+        q_intersection_mag = self.intersection_card()
 
         if not self._src_tokens or not self._tar_tokens:
             return 0.0
