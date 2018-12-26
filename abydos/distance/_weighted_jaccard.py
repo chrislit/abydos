@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._triple_weighted_jaccard.
+"""abydos.distance._weighted_jaccard.
 
-Triple Weighted Jaccard similarity
+Weighted Jaccard similarity
 """
 
 from __future__ import (
@@ -30,24 +30,26 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['TripleWeightedJaccard']
+__all__ = ['WeightedJaccard']
 
 
-class TripleWeightedJaccard(_TokenDistance):
+class WeightedJaccard(_TokenDistance):
     r"""Triple Weighted Jaccard similarity.
 
-    For two sets X and Y, the 3W-Jaccard similarity is
-    :math:`sim_{3W-Jaccard}(X, Y) = \frac{3 \cdot |X \cap Y|}
-    {3 \cdot |X \cap Y| + |X \setminus Y| + |Y \setminus X|}`
+    For two sets X and Y and a weight w, the Weighted Jaccard similarity
+    :cite:`Choi:2010` is
+    :math:`sim_{Jaccard_w}(X, Y) = \frac{w \cdot |X \cap Y|}
+    {w \cdot |X \cap Y| + |X \setminus Y| + |Y \setminus X|}`
 
-    Here, the intersection between the two sets is triply weighted. Compare to
-    Jaccard similarity, in which it is singly weighted, and Dice similarity,
-    in which it is doubly weighted.
+    Here, the intersection between the two sets is weighted by w. Compare to
+    Jaccard similarity (:math:`w = 1`), and to Dice similarity (:math:`w = 2`).
 
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self, tokenizer=None, intersection_type='crisp', weight=3, **kwargs
+    ):
         """Initialize TripleWeightedJaccard instance.
 
         Parameters
@@ -68,6 +70,9 @@ class TripleWeightedJaccard(_TokenDistance):
                   wherein items can be partially members of the intersection
                   depending on their similarity. This also takes a `metric`
                   (by default :class:`DamerauLevenshtein()`) parameter.
+        weight : int
+            The weight to apply to the intersection cardinality. (3, by
+            default.)
         **kwargs
             Arbitrary keyword arguments
 
@@ -88,7 +93,8 @@ class TripleWeightedJaccard(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(TripleWeightedJaccard, self).__init__(
+        self.weight = weight
+        super(WeightedJaccard, self).__init__(
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
@@ -105,11 +111,11 @@ class TripleWeightedJaccard(_TokenDistance):
         Returns
         -------
         float
-            Triple Weighted Jaccard similarity
+            Weighted Jaccard similarity
 
         Examples
         --------
-        >>> cmp = TripleWeightedJaccard()
+        >>> cmp = WeightedJaccard()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -129,7 +135,7 @@ class TripleWeightedJaccard(_TokenDistance):
         b = self.src_only_card()
         c = self.tar_only_card()
 
-        return 3 * a / (3 * a + b + c)
+        return self.weight * a / (self.weight * a + b + c)
 
 
 if __name__ == '__main__':

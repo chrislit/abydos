@@ -114,7 +114,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Stiles similarity (:py:class:`.Stiles`)
     - Tarantula similarity (:py:class:`.Tarantula`)
     - Tarwid similarity (:py:class:`.Tarwid`)
-    - Triple Weighted Jaccard similarity (:py:class:`.TripleWeightedJaccard`)
+    - Weighted Jaccard similarity (:py:class:`.WeightedJaccard`)
     - Upholt similarity (:py:class:`.Upholt`)
     - Vari distance (:py:class:`.Vari`)
     - Yule's Q similarity (:py:class:`.YuleQ`)
@@ -320,7 +320,7 @@ from ._synoname import Synoname, synoname
 from ._tarantula import Tarantula
 from ._tarwid import Tarwid
 from ._tetrachoric import Tetrachoric
-from ._triple_weighted_jaccard import TripleWeightedJaccard
+from ._weighted_jaccard import WeightedJaccard
 from ._tversky import Tversky, dist_tversky, sim_tversky
 from ._typo import Typo, dist_typo, sim_typo, typo
 from ._upholt import Upholt
@@ -444,7 +444,7 @@ __all__ = [
     'Tarantula',
     'Tarwid',
     'Tetrachoric',
-    'TripleWeightedJaccard',
+    'WeightedJaccard',
     'Upholt',
     'Vari',
     'YuleQ',
