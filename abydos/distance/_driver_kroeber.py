@@ -36,7 +36,9 @@ __all__ = ['DriverKroeber']
 class DriverKroeber(_TokenDistance):
     r"""Driver & Kroeber similarity.
 
-    For two sets X and Y,
+    For two sets X and Y, the Driver & Kroeber similarity :cite:`Driver:1932`
+    is: :math:`sim_{DriverKroeber}(X, Y) =
+    \frac{|X \cap Y|}{\sqrt{|X| \cdot |Y|}}`.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +149,7 @@ class DriverKroeber(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
-
-        return 0.0
+        return self.intersection_card()/(self.src_card()*self.tar_card())**0.5
 
 
 if __name__ == '__main__':
