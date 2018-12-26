@@ -141,14 +141,10 @@ class Bag(_TokenDistance):
 
         self.tokenize(src, tar)
 
-        dist = max(
-            self.src_only_card(), self.tar_only_card()
-        )
+        dist = max(self.src_only_card(), self.tar_only_card())
 
         if normalized:
-            dist /= max(
-                self.src_card(), self.tar_card()
-            )
+            dist /= max(self.src_card(), self.tar_card())
 
         return dist
 
