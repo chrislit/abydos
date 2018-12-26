@@ -151,7 +151,10 @@ class DriverKroeber(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        return self.intersection_card()/(self.src_card()*self.tar_card())**0.5
+        return (
+            self.intersection_card()
+            / (self.src_card() * self.tar_card()) ** 0.5
+        )
 
 
 if __name__ == '__main__':
