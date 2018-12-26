@@ -36,13 +36,13 @@ __all__ = ['SokalSneathI']
 class SokalSneathI(_TokenDistance):
     r"""Sokal & Sneath I similarity.
 
-    For two sets X and Y, Sokal & Sneath I similarity :cite:`Sokal:1968` is
+    For two sets X and Y, Sokal & Sneath I similarity :cite:`Sokal:1963` is
     :math:`sim_{SokalSneathI}(X, Y) =
     \frac{|X \cap Y|}
     {|X \cap Y| + 2|X \setminus Y| + 2|Y \setminus X|}`.
 
     This is the first of five "Unnamed coefficients" presented in
-    :cite:`Sokal:1968`. It corresponds to the "Unmatched pairs carry twice the
+    :cite:`Sokal:1963`. It corresponds to the "Unmatched pairs carry twice the
     weight of matched pairs in the Denominator" with "Negative Matches in
     Numerator Excluded".
     "Negative Matches in Numerator Included" corresponds to the Rogers &
