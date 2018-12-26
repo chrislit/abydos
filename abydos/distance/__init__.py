@@ -87,8 +87,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Michelet similarity (:py:class:`.Michelet`)
     - Mountford similarity (:py:class:`.Mountford`)
     - Mutual Information similarity (:py:class:`.MutualInformation`)
-    - Nei & Li similarity (:py:class:`.NeiLi`)
-    - Ochiai II similarity (:py:class:`.OchiaiII`)
     - Pattern Difference distance (:py:class:`.PatternDifference`)
     - Pearson & Heron II similarity (:py:class:`.PearsonHeronII`)
     - Pearson II similarity (:py:class:`.PearsonII`)
@@ -280,7 +278,6 @@ from ._ncd_lzma import NCDlzma, dist_ncd_lzma, sim_ncd_lzma
 from ._ncd_rle import NCDrle, dist_ncd_rle, sim_ncd_rle
 from ._ncd_zlib import NCDzlib, dist_ncd_zlib, sim_ncd_zlib
 from ._needleman_wunsch import NeedlemanWunsch, needleman_wunsch
-from ._nei_li import NeiLi
 from ._overlap import Overlap, dist_overlap, sim_overlap
 from ._ozbay import Ozbay
 from ._pattern_difference import PatternDifference
@@ -420,7 +417,6 @@ __all__ = [
     'Mountford',
     'MutualInformation',
     'MSContingency',
-    'NeiLi',
     'PatternDifference',
     'PearsonHeronII',
     'PearsonII',
