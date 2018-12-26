@@ -37,7 +37,7 @@ class SokalSneathV(_TokenDistance):
     r"""Sokal & Sneath V similarity.
 
     For two sets X and Y and a population N, Sokal & Sneath V similarity
-    :cite:`Sokal:1968` is
+    :cite:`Sokal:1963` is
     :math:`sim_{SokalSneathV}(X, Y) =
     \frac{|X \cap Y| \cdot |N \setminus X \setminus Y|}
     {\sqrt{
@@ -47,7 +47,7 @@ class SokalSneathV(_TokenDistance):
     (|N \setminus X \setminus Y| + |Y \setminus X|)}}`.
 
     This is the fifth of five "Unnamed coefficients" presented in
-    :cite:`Sokal:1968`. It corresponds to the second "Marginal totals in the
+    :cite:`Sokal:1963`. It corresponds to the second "Marginal totals in the
     Denominator" with "Negative Matches in Numerator Included", also sometimes
     referred to as Ochiai II similarity.
     "Negative Matches in Numerator Excluded" corresponds to the Cosine

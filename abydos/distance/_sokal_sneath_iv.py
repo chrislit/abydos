@@ -37,7 +37,7 @@ class SokalSneathIV(_TokenDistance):
     r"""Sokal & Sneath IV similarity.
 
     For two sets X and Y and a population N, Sokal & Sneath IV similarity
-    :cite:`Sokal:1968` is
+    :cite:`Sokal:1963` is
     :math:`sim_{SokalSneathIV}(X, Y) =
     \frac{
     \frac{|X \cap Y|}{|X \cap Y| + |X \setminus Y|}
@@ -49,7 +49,7 @@ class SokalSneathIV(_TokenDistance):
     }{4}`.
 
     This is the fourth of five "Unnamed coefficients" presented in
-    :cite:`Sokal:1968`. It corresponds to the first "Marginal totals in the
+    :cite:`Sokal:1963`. It corresponds to the first "Marginal totals in the
     Denominator" with "Negative Matches in Numerator Included".
     "Negative Matches in Numerator Excluded" corresponds to the Kulczynski II
     similarity, :class:`.KulczynskiII`.
