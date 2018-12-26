@@ -39,6 +39,8 @@ class DriverKroeber(_TokenDistance):
     For two sets X and Y, the Driver & Kroeber similarity :cite:`Driver:1932`
     is: :math:`sim_{DriverKroeber}(X, Y) =
     \frac{|X \cap Y|}{\sqrt{|X| \cdot |Y|}}`.
+    This metric is incorrectly formulated in :cite:`Choi:2010`, likely
+    mis-copied from :cite:`Hubalek:2008`.
 
     .. versionadded:: 0.4.0
     """
