@@ -38,11 +38,19 @@ class PearsonII(PearsonChiSquared):
 
     For two sets X and Y and a population N, the Pearson II
     similarity :cite:`Pearson:1913` is
-    :math:`\Big(\frac{\chi^2}{|N|+\chi^2}\big)^\frac{1}{2}` where
-    :math:`\chi^2 = sim_{PearsonChiSquared}(X, Y) =
-    \frac{|N| \cdot (|X \cap Y| \cdot |N \setminus X \setminus Y| -
-    |X \setminus Y| \cdot |Y \setminus X|)^2}
-    {|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}`.
+
+        .. math::
+
+            \Big(\frac{\chi^2}{|N|+\chi^2}\big)^\frac{1}{2}
+
+    where
+
+        .. math::
+
+            \chi^2 = sim_{PearsonChiSquared}(X, Y) =
+            \frac{|N| \cdot (|X \cap Y| \cdot |N \setminus X \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus X|)^2}
+            {|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}
 
     .. versionadded:: 0.4.0
     """

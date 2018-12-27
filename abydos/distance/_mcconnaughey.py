@@ -37,9 +37,12 @@ class McConnaughey(_TokenDistance):
     r"""McConnaughey similarity.
 
     For two sets X and Y, McConnaughey similarity :cite:`McConnaughey:1964` is
-    :math:`sim_{McConnaughey}(X, Y) =
-    \frac{|X \cap Y|^2 - |X \setminus X| \cdot |Y \setminus X|}
-    {|X| \cdot |Y|}`.
+
+        .. math::
+
+            sim_{McConnaughey}(X, Y) =
+            \frac{|X \cap Y|^2 - |X \setminus X| \cdot |Y \setminus X|}
+            {|X| \cdot |Y|}
 
     .. versionadded:: 0.4.0
     """

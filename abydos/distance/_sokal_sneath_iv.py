@@ -38,15 +38,18 @@ class SokalSneathIV(_TokenDistance):
 
     For two sets X and Y and a population N, Sokal & Sneath IV similarity
     :cite:`Sokal:1963` is
-    :math:`sim_{SokalSneathIV}(X, Y) =
-    \frac{
-    \frac{|X \cap Y|}{|X \cap Y| + |X \setminus Y|}
-    \frac{|X \cap Y|}{|X \cap Y| + |Y \setminus X|}
-    \frac{|N \setminus X \setminus Y|}
-    {|N \setminus X \setminus Y| + |X \setminus Y|}
-    \frac{|N \setminus X \setminus Y|}
-    {|N \setminus X \setminus Y| + |Y \setminus X|}
-    }{4}`.
+
+        .. math::
+
+            sim_{SokalSneathIV}(X, Y) =
+            \frac{
+            \frac{|X \cap Y|}{|X \cap Y| + |X \setminus Y|}
+            \frac{|X \cap Y|}{|X \cap Y| + |Y \setminus X|}
+            \frac{|N \setminus X \setminus Y|}
+            {|N \setminus X \setminus Y| + |X \setminus Y|}
+            \frac{|N \setminus X \setminus Y|}
+            {|N \setminus X \setminus Y| + |Y \setminus X|}
+            }{4}
 
     This is the fourth of five "Unnamed coefficients" presented in
     :cite:`Sokal:1963`. It corresponds to the first "Marginal totals in the

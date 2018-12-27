@@ -527,7 +527,11 @@ class ConfusionTable(object):
     def precision(self):
         r"""Return precision.
 
-        Precision is defined as :math:`\frac{tp}{tp + fp}`
+        Precision is defined as
+
+            .. math::
+
+                \frac{tp}{tp + fp}
 
         AKA positive predictive value (PPV)
 
@@ -558,8 +562,11 @@ class ConfusionTable(object):
     def precision_gain(self):
         r"""Return gain in precision.
 
-        The gain in precision is defined as:
-        :math:`G(precision) = \frac{precision}{random~ precision}`
+        The gain in precision is defined as
+
+            .. math::
+
+                G(precision) = \frac{precision}{random~ precision}
 
         Cf. https://en.wikipedia.org/wiki/Gain_(information_retrieval)
 
@@ -587,7 +594,11 @@ class ConfusionTable(object):
     def recall(self):
         r"""Return recall.
 
-        Recall is defined as :math:`\frac{tp}{tp + fn}`
+        Recall is defined as
+
+            .. math::
+
+                \frac{tp}{tp + fn}
 
         AKA sensitivity
 
@@ -622,7 +633,11 @@ class ConfusionTable(object):
     def specificity(self):
         r"""Return specificity.
 
-        Specificity is defined as :math:`\frac{tn}{tn + fp}`
+        Specificity is defined as
+
+            .. math::
+
+                \frac{tn}{tn + fp}
 
         AKA true negative rate (TNR)
 
@@ -654,7 +669,10 @@ class ConfusionTable(object):
         r"""Return false negative rate.
 
         False negative rate is defined as
-        :math:`\frac{fn}{tp + fn}`
+
+            .. math::
+
+                \frac{fn}{tp + fn}
 
         AKA miss rate
 
@@ -680,7 +698,11 @@ class ConfusionTable(object):
     def npv(self):
         r"""Return negative predictive value (NPV).
 
-        NPV is defined as :math:`\frac{tn}{tn + fn}`
+        NPV is defined as
+
+            .. math::
+
+                \frac{tn}{tn + fn}
 
         AKA inverse precision
 
@@ -709,7 +731,11 @@ class ConfusionTable(object):
     def false_omission_rate(self):
         r"""Return false omission rate (FOR).
 
-        FOR is defined as :math:`\frac{fn}{tn + fn}`
+        FOR is defined as
+
+            .. math::
+
+                \frac{fn}{tn + fn}
 
         Cf. https://en.wikipedia.org/wiki/False_omission_rate
 
@@ -736,7 +762,11 @@ class ConfusionTable(object):
     def fallout(self):
         r"""Return fall-out.
 
-        Fall-out is defined as :math:`\frac{fp}{fp + tn}`
+        Fall-out is defined as
+
+            .. math::
+
+                \frac{fp}{fp + tn}
 
         AKA false positive rate (FPR)
 
@@ -763,7 +793,10 @@ class ConfusionTable(object):
         r"""Return positive likelihood ratio.
 
         Positive likelihood ratio is defined as
-        :math:`\frac{recall}{1-specificity}`
+
+            .. math::
+
+                \frac{recall}{1-specificity}
 
         Cf.
         https://en.wikipedia.org/wiki/Likelihood_ratios_in_diagnostic_testing
@@ -789,7 +822,10 @@ class ConfusionTable(object):
         r"""Return negative likelihood ratio.
 
         Negative likelihood ratio is defined as
-        :math:`\frac{1-recall}{specificity}`
+
+            .. math::
+
+                \frac{1-recall}{specificity}
 
         Cf.
         https://en.wikipedia.org/wiki/Likelihood_ratios_in_diagnostic_testing
@@ -815,7 +851,10 @@ class ConfusionTable(object):
         r"""Return diagnostic odds ratio.
 
         Diagnostic odds ratio is defined as
-        :math:`\frac{TP \cdot TN}{FP \cdot FN}`
+
+            .. math::
+
+                \frac{tp \cdot tn}{fp \cdot fn}
 
         Cf.
         https://en.wikipedia.org/wiki/Diagnostic_odds_ratio
@@ -843,7 +882,11 @@ class ConfusionTable(object):
     def fdr(self):
         r"""Return false discovery rate (FDR).
 
-        False discovery rate is defined as :math:`\frac{fp}{fp + tp}`
+        False discovery rate is defined as
+
+            .. math::
+
+                \frac{fp}{fp + tp}
 
         Cf. https://en.wikipedia.org/wiki/False_discovery_rate
 
@@ -870,7 +913,11 @@ class ConfusionTable(object):
     def accuracy(self):
         r"""Return accuracy.
 
-        Accuracy is defined as :math:`\frac{tp + tn}{population}`
+        Accuracy is defined as
+
+            .. math::
+
+                \frac{tp + tn}{population}
 
         Cf. https://en.wikipedia.org/wiki/Accuracy
 
@@ -897,8 +944,11 @@ class ConfusionTable(object):
     def accuracy_gain(self):
         r"""Return gain in accuracy.
 
-        The gain in accuracy is defined as:
-        :math:`G(accuracy) = \frac{accuracy}{random~ accuracy}`
+        The gain in accuracy is defined as
+
+            .. math::
+
+                G(accuracy) = \frac{accuracy}{random~ accuracy}
 
         Cf. https://en.wikipedia.org/wiki/Gain_(information_retrieval)
 
@@ -929,7 +979,10 @@ class ConfusionTable(object):
         r"""Return balanced accuracy.
 
         Balanced accuracy is defined as
-        :math:`\frac{sensitivity + specificity}{2}`
+
+            .. math::
+
+                \frac{sensitivity + specificity}{2}
 
         Cf. https://en.wikipedia.org/wiki/Accuracy
 
@@ -954,7 +1007,10 @@ class ConfusionTable(object):
         r"""Return error rate.
 
         Error rate is defined as
-        :math:`\frac{fp + fn}{population}`
+
+            .. math::
+
+                \frac{fp + fn}{population}
 
         Returns
         -------
@@ -982,7 +1038,10 @@ class ConfusionTable(object):
         r"""Return prevalence.
 
         Prevalence is defined as
-        :math:`\frac{condition positive}{population}`
+
+            .. math::
+
+                \frac{condition positive}{population}
 
         Cf. https://en.wikipedia.org/wiki/Prevalence
 
@@ -1009,7 +1068,11 @@ class ConfusionTable(object):
     def informedness(self):
         """Return informedness.
 
-        Informedness is defined as :math:`sensitivity + specificity - 1`.
+        Informedness is defined as
+
+            .. math::
+
+                sensitivity + specificity - 1
 
         AKA Youden's J statistic (:cite:`Youden:1950`)
 
@@ -1037,7 +1100,11 @@ class ConfusionTable(object):
     def markedness(self):
         """Return markedness.
 
-        Markedness is defined as :math:`precision + npv - 1`
+        Markedness is defined as
+
+            .. math::
+
+                precision + npv - 1
 
         AKA DeltaP
 
@@ -1061,8 +1128,11 @@ class ConfusionTable(object):
     def pr_amean(self):
         r"""Return arithmetic mean of precision & recall.
 
-        The arithmetic mean of precision and recall is defined as:
-        :math:`\frac{precision \cdot recall}{2}`
+        The arithmetic mean of precision and recall is defined as
+
+            .. math::
+
+                \frac{precision \cdot recall}{2}
 
         Cf. https://en.wikipedia.org/wiki/Arithmetic_mean
 
@@ -1087,7 +1157,10 @@ class ConfusionTable(object):
         r"""Return geometric mean of precision & recall.
 
         The geometric mean of precision and recall is defined as:
-        :math:`\sqrt{precision \cdot recall}`
+
+            .. math::
+
+                \sqrt{precision \cdot recall}
 
         Cf. https://en.wikipedia.org/wiki/Geometric_mean
 
@@ -1111,8 +1184,11 @@ class ConfusionTable(object):
     def pr_hmean(self):
         r"""Return harmonic mean of precision & recall.
 
-        The harmonic mean of precision and recall is defined as:
-        :math:`\frac{2 \cdot precision \cdot recall}{precision + recall}`
+        The harmonic mean of precision and recall is defined as
+
+            .. math::
+
+                \frac{2 \cdot precision \cdot recall}{precision + recall}
 
         Cf. https://en.wikipedia.org/wiki/Harmonic_mean
 
@@ -1136,8 +1212,11 @@ class ConfusionTable(object):
     def pr_qmean(self):
         r"""Return quadratic mean of precision & recall.
 
-        The quadratic mean of precision and recall is defined as:
-        :math:`\sqrt{\frac{precision^{2} + recall^{2}}{2}}`
+        The quadratic mean of precision and recall is defined as
+
+            .. math::
+
+                \sqrt{\frac{precision^{2} + recall^{2}}{2}}
 
         Cf. https://en.wikipedia.org/wiki/Quadratic_mean
 
@@ -1161,8 +1240,11 @@ class ConfusionTable(object):
     def pr_cmean(self):
         r"""Return contraharmonic mean of precision & recall.
 
-        The contraharmonic mean is:
-        :math:`\frac{precision^{2} + recall^{2}}{precision + recall}`
+        The contraharmonic mean is
+
+            .. math::
+
+                \frac{precision^{2} + recall^{2}}{precision + recall}
 
         Cf. https://en.wikipedia.org/wiki/Contraharmonic_mean
 
@@ -1189,8 +1271,12 @@ class ConfusionTable(object):
         The logarithmic mean is:
         0 if either precision or recall is 0,
         the precision if they are equal,
-        otherwise :math:`\frac{precision - recall}
-        {ln(precision) - ln(recall)}`
+        otherwise
+
+            .. math::
+
+                \frac{precision - recall}
+                {ln(precision) - ln(recall)}
 
         Cf. https://en.wikipedia.org/wiki/Logarithmic_mean
 
@@ -1222,9 +1308,13 @@ class ConfusionTable(object):
 
         The identric mean is:
         precision if precision = recall,
-        otherwise :math:`\frac{1}{e} \cdot
-        \sqrt[precision - recall]{\frac{precision^{precision}}
-        {recall^{recall}}}`
+        otherwise
+
+            .. math::
+
+                \frac{1}{e} \cdot
+                \sqrt[precision - recall]{\frac{precision^{precision}}
+                {recall^{recall}}}
 
         Cf. https://en.wikipedia.org/wiki/Identric_mean
 
@@ -1248,9 +1338,12 @@ class ConfusionTable(object):
     def pr_seiffert_mean(self):
         r"""Return Seiffert's mean of precision & recall.
 
-        Seiffert's mean of precision and recall is:
-        :math:`\frac{precision - recall}{4 \cdot arctan
-        \sqrt{\frac{precision}{recall}} - \pi}`
+        Seiffert's mean of precision and recall is
+
+            .. math::
+
+                \frac{precision - recall}{4 \cdot arctan
+                \sqrt{\frac{precision}{recall}} - \pi}
 
         It is defined in :cite:`Seiffert:1993`.
 
@@ -1274,9 +1367,12 @@ class ConfusionTable(object):
     def pr_lehmer_mean(self, exp=2.0):
         r"""Return Lehmer mean of precision & recall.
 
-        The Lehmer mean is:
-        :math:`\frac{precision^{exp} + recall^{exp}}
-        {precision^{exp-1} + recall^{exp-1}}`
+        The Lehmer mean is
+
+            .. math::
+
+                \frac{precision^{exp} + recall^{exp}}
+                {precision^{exp-1} + recall^{exp-1}}
 
         Cf. https://en.wikipedia.org/wiki/Lehmer_mean
 
@@ -1306,8 +1402,11 @@ class ConfusionTable(object):
     def pr_heronian_mean(self):
         r"""Return Heronian mean of precision & recall.
 
-        The Heronian mean of precision and recall is defined as:
-        :math:`\frac{precision + \sqrt{precision \cdot recall} + recall}{3}`
+        The Heronian mean of precision and recall is defined as
+
+            .. math::
+
+                \frac{precision + \sqrt{precision \cdot recall} + recall}{3}
 
         Cf. https://en.wikipedia.org/wiki/Heronian_mean
 
@@ -1331,9 +1430,13 @@ class ConfusionTable(object):
     def pr_hoelder_mean(self, exp=2):
         r"""Return Hölder (power/generalized) mean of precision & recall.
 
-        The power mean of precision and recall is defined as:
-        :math:`\frac{1}{2} \cdot
-        \sqrt[exp]{precision^{exp} + recall^{exp}}`
+        The power mean of precision and recall is defined as
+
+            .. math::
+
+                \frac{1}{2} \cdot
+                \sqrt[exp]{precision^{exp} + recall^{exp}}
+
         for :math:`exp \ne 0`, and the geometric mean for :math:`exp = 0`
 
         Cf. https://en.wikipedia.org/wiki/Generalized_mean
@@ -1446,9 +1549,12 @@ class ConfusionTable(object):
         attaches :math:`\beta` times as much importance to recall as
         precision" (van Rijsbergen 1979)
 
-        :math:`F_{\beta}` score is defined as:
-        :math:`(1 + \beta^2) \cdot \frac{precision \cdot recall}
-        {((\beta^2 \cdot precision) + recall)}`
+        :math:`F_{\beta}` score is defined as
+
+            .. math::
+
+                (1 + \beta^2) \cdot \frac{precision \cdot recall}
+                {((\beta^2 \cdot precision) + recall)}
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
@@ -1573,8 +1679,11 @@ class ConfusionTable(object):
     def f1_score(self):
         r"""Return :math:`F_{1}` score.
 
-        :math:`F_{1}` score is the harmonic mean of precision and recall:
-        :math:`2 \cdot \frac{precision \cdot recall}{precision + recall}`
+        :math:`F_{1}` score is the harmonic mean of precision and recall
+
+            .. math::
+
+                2 \cdot \frac{precision \cdot recall}{precision + recall}
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
@@ -1604,8 +1713,11 @@ class ConfusionTable(object):
     def f_measure(self):
         r"""Return :math:`F`-measure.
 
-        :math:`F`-measure is the harmonic mean of precision and recall:
-        :math:`2 \cdot \frac{precision \cdot recall}{precision + recall}`
+        :math:`F`-measure is the harmonic mean of precision and recall
+
+            .. math::
+
+                2 \cdot \frac{precision \cdot recall}{precision + recall}
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
@@ -1630,7 +1742,10 @@ class ConfusionTable(object):
         r"""Return Jaccard index.
 
         The Jaccard index of a confusion table is
-        :math:`\frac{tp}{tp+fp+fn}`
+
+            .. math::
+
+                \frac{tp}{tp+fp+fn}
 
         Returns
         -------
@@ -1662,7 +1777,10 @@ class ConfusionTable(object):
         r"""Return G-measure.
 
         :math:`G`-measure is the geometric mean of precision and recall:
-        :math:`\sqrt{precision \cdot recall}`
+
+            .. math::
+
+                \sqrt{precision \cdot recall}
 
         This is identical to the Fowlkes–Mallows (FM) index for two
         clusters.
@@ -1692,7 +1810,10 @@ class ConfusionTable(object):
         r"""Return D-measure.
 
         :math:`D`-measure is defined as
-        :math:`1-\frac{1}{\frac{1}{precision}+\frac{1}{recall}-1}`
+
+            .. math::
+
+                1-\frac{1}{\frac{1}{precision}+\frac{1}{recall}-1}
 
         Returns
         -------
@@ -1718,8 +1839,11 @@ class ConfusionTable(object):
 
         The Matthews correlation coefficient is defined in
         :cite:`Matthews:1975` as:
-        :math:`\frac{(tp \cdot tn) - (fp \cdot fn)}
-        {\sqrt{(tp + fp)(tp + fn)(tn + fp)(tn + fn)}}`
+
+            .. math::
+
+                \frac{(tp \cdot tn) - (fp \cdot fn)}
+                {\sqrt{(tp + fp)(tp + fn)(tn + fp)(tn + fn)}}
 
         This is equivalent to the geometric mean of informedness and
         markedness, defined above.
@@ -1754,10 +1878,13 @@ class ConfusionTable(object):
     def significance(self):
         r"""Return the significance, :math:`\chi^{2}`.
 
-        Significance is defined as:
-        :math:`\chi^{2} =
-        \frac{(tp \cdot tn - fp \cdot fn)^{2} (tp + tn + fp + fn)}
-        {((tp + fp)(tp + fn)(tn + fp)(tn + fn)}`
+        Significance is defined as
+
+            .. math::
+
+                \chi^{2} =
+                \frac{(tp \cdot tn - fp \cdot fn)^{2} (tp + tn + fp + fn)}
+                {((tp + fp)(tp + fn)(tn + fp)(tn + fn)}`
 
         Also: :math:`\chi^{2} = MCC^{2} \cdot n`
 
@@ -1794,9 +1921,12 @@ class ConfusionTable(object):
     def kappa_statistic(self):
         r"""Return κ statistic.
 
-        The κ statistic is defined as:
-        :math:`\kappa = \frac{accuracy - random~ accuracy}
-        {1 - random~ accuracy}`
+        The κ statistic is defined as
+
+            .. math::
+
+                \kappa = \frac{accuracy - random~ accuracy}
+                {1 - random~ accuracy}`
 
         The κ statistic compares the performance of the classifier relative to
         the performance of a random classifier. :math:`\kappa` = 0 indicates
@@ -1832,8 +1962,12 @@ class ConfusionTable(object):
         r"""Return φ coefficient.
 
         The :math:`\phi` coefficient is defined as
-        :math:`\phi = \frac{tp \cdot tn - fp \cdot tn}
-        {\sqrt{(tp + fp) \cdot (tp + fn) \cdot (tn + fp) \cdot (tn + fn)}}`
+
+            .. math::
+
+                \phi = \frac{tp \cdot tn - fp \cdot tn}
+                {\sqrt{(tp + fp) \cdot (tp + fn) \cdot (tn + fp) \cdot
+                (tn + fn)}}
 
         Returns
         -------

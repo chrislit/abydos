@@ -39,7 +39,11 @@ __all__ = []
 def _prod(nums):
     r"""Return the product of nums.
 
-    The product is :math:`\prod nums`.
+    The product is
+
+            .. math::
+
+                \prod nums
 
     Cf. https://en.wikipedia.org/wiki/Product_(mathematics)
 

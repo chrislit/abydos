@@ -40,8 +40,12 @@ __all__ = ['Bag', 'bag', 'dist_bag', 'sim_bag']
 class Bag(_TokenDistance):
     """Bag distance.
 
-    Bag distance is proposed in :cite:`Bartolini:2002`. It is defined as:
-    :math:`max(|multiset(src)-multiset(tar)|, |multiset(tar)-multiset(src)|)`.
+    Bag distance is proposed in :cite:`Bartolini:2002`. It is defined as
+
+        .. math::
+
+            dist_{bag}(src, tar) =
+            max(|multiset(src)-multiset(tar)|, |multiset(tar)-multiset(src)|)
 
     .. versionadded:: 0.3.6
     """

@@ -41,8 +41,11 @@ class Tversky(_TokenDistance):
 
     The Tversky index :cite:`Tversky:1977` is defined as:
     For two sets X and Y:
-    :math:`sim_{Tversky}(X, Y) = \frac{|X \cap Y|}
-    {|X \cap Y| + \alpha|X - Y| + \beta|Y - X|}`.
+
+        .. math::
+
+            sim_{Tversky}(X, Y) = \frac{|X \cap Y|}
+            {|X \cap Y| + \alpha|X - Y| + \beta|Y - X|}
 
     :math:`\alpha = \beta = 1` is equivalent to the Jaccard & Tanimoto
     similarity coefficients.

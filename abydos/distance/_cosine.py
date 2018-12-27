@@ -42,8 +42,11 @@ class Cosine(_TokenDistance):
     r"""Cosine similarity.
 
     For two sets X and Y, the cosine similarity, Otsuka-Ochiai coefficient, or
-    Ochiai coefficient :cite:`Otsuka:1936,Ochiai:1957` is:
-    :math:`sim_{cosine}(X, Y) = \frac{|X \cap Y|}{\sqrt{|X| \cdot |Y|}}`.
+    Ochiai coefficient :cite:`Otsuka:1936,Ochiai:1957` is
+
+        .. math::
+
+            sim_{cosine}(X, Y) = \frac{|X \cap Y|}{\sqrt{|X| \cdot |Y|}}
 
     .. versionadded:: 0.3.6
     """

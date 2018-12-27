@@ -38,10 +38,13 @@ class GowerLegendre(_TokenDistance):
 
     For two sets X and Y and a population N, the Gower & Legendre similarity
     :cite:`Gower:1986` is
-    :math:`sim_{GowerLegendre}(X, Y) =
-    \frac{|X \cap Y| + |N \setminus X \setminus Y|}
-    {|X \cap Y| + |N \setminus X \setminus Y| +
-    \theta(|X \setminus Y| + |Y \setminus X|}`.
+
+        .. math::
+
+            sim_{GowerLegendre}(X, Y) =
+            \frac{|X \cap Y| + |N \setminus X \setminus Y|}
+            {|X \cap Y| + |N \setminus X \setminus Y| +
+            \theta(|X \setminus Y| + |Y \setminus X|}
 
     .. versionadded:: 0.4.0
     """

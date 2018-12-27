@@ -38,8 +38,11 @@ class WeightedJaccard(_TokenDistance):
 
     For two sets X and Y and a weight w, the Weighted Jaccard similarity
     :cite:`Choi:2010` is
-    :math:`sim_{Jaccard_w}(X, Y) = \frac{w \cdot |X \cap Y|}
-    {w \cdot |X \cap Y| + |X \setminus Y| + |Y \setminus X|}`
+
+        .. math::
+
+            sim_{Jaccard_w}(X, Y) = \frac{w \cdot |X \cap Y|}
+            {w \cdot |X \cap Y| + |X \setminus Y| + |Y \setminus X|}
 
     Here, the intersection between the two sets is weighted by w. Compare to
     Jaccard similarity (:math:`w = 1`), and to Dice similarity (:math:`w = 2`).

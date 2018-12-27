@@ -37,12 +37,16 @@ __all__ = ['SoftCosine']
 class SoftCosine(_TokenDistance):
     r"""Soft Cosine similarity.
 
-    As described in :cite:`Sidorov:2014`, soft cosine similarity is:
-    :math:`sim_{soft cosine}(X, Y) = \frac{\sum_{i}\sum_{j} s_{ij} X_i Y_j}
-    {\sqrt{\sum_{i}\sum_{j} s_{ij} X_i X_j}
-    \sqrt{\sum_{i}\sum_{j} s_{ij} Y_i Y_j}}`, where :math:`s_{ij}` is the
-    similarity of two tokens, by default a function of Levenshtein distance:
-    :math:`\frac{1}{1+Levenshtein\_distance(i, j)}`.
+    As described in :cite:`Sidorov:2014`, soft cosine similarity is
+
+        .. math::
+
+            sim_{soft cosine}(X, Y) = \frac{\sum_{i}\sum_{j} s_{ij} X_i Y_j}
+            {\sqrt{\sum_{i}\sum_{j} s_{ij} X_i X_j}
+            \sqrt{\sum_{i}\sum_{j} s_{ij} Y_i Y_j}}
+
+    where :math:`s_{ij}` is the similarity of two tokens, by default a function
+    of Levenshtein distance: :math:`\frac{1}{1+Levenshtein\_distance(i, j)}`.
 
     Notes
     -----

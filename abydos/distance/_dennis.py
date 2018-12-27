@@ -38,9 +38,12 @@ class Dennis(_TokenDistance):
 
     For two sets X and Y and a population N, Dennis similarity
     :cite:`Dennis:1965` is
-    :math:`sim_{Dennis}(X, Y) =
-    \frac{|X \cap Y| - \frac{|X| \cdot |Y|}{|N|}}
-    {\sqrt{\frac{|X|\cdot|Y|}{|N|}}}`.
+
+        .. math::
+
+            sim_{Dennis}(X, Y) =
+            \frac{|X \cap Y| - \frac{|X| \cdot |Y|}{|N|}}
+            {\sqrt{\frac{|X|\cdot|Y|}{|N|}}}
 
     This is the fourth of Dennis' association measures, and that which she
     claims is the best of the four. This is not identical to the Dennis

@@ -38,7 +38,10 @@ class RussellRao(_TokenDistance):
 
     For two sets X and Y, and a population N, the Russell & Rao similarity
     :cite:`Russell:1940` is
-    :math:`sim_{RussellRao}(X, Y) = \frac{|X \cap Y|}{|N|}`.
+
+        .. math::
+
+            sim_{RussellRao}(X, Y) = \frac{|X \cap Y|}{|N|}
 
     .. versionadded:: 0.4.0
     """

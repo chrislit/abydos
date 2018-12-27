@@ -38,11 +38,14 @@ class YuleQ(_TokenDistance):
 
     For two sets X and Y and a population N, Yule's Q similarity
     :cite:`Yule:1912` is
-    :math:`sim_{YuleQ}(X, Y) =
-    \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
-    |X \setminus Y| \cdot |Y \setminus X|}
-    {|X \cap Y| \cdot |N \setminus X \setminus Y| +
-    |X \setminus Y| \cdot |Y \setminus X|}`.
+
+        .. math::
+
+            sim_{YuleQ}(X, Y) =
+            \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus X|}
+            {|X \cap Y| \cdot |N \setminus X \setminus Y| +
+            |X \setminus Y| \cdot |Y \setminus X|}
 
     Yule himself terms this the coefficient of association.
 

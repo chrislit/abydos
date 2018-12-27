@@ -38,10 +38,14 @@ class PearsonChiSquared(_TokenDistance):
 
     For two sets X and Y and a population N, the Pearson's :math:`\chi^2`
     similarity :cite:`Pearson:1913` is
-    :math:`sim_{PearsonChiSquared}(X, Y) =
-    \frac{|N| \cdot (|X \cap Y| \cdot |N \setminus X \setminus Y| -
-    |X \setminus Y| \cdot |Y \setminus X|)^2}
-    {|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}`.
+
+
+        .. math::
+
+            sim_{PearsonChiSquared}(X, Y) =
+            \frac{|N| \cdot (|X \cap Y| \cdot |N \setminus X \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus X|)^2}
+            {|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}
 
     This is also Pearson I similarity.
 

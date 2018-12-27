@@ -39,8 +39,11 @@ class DriverKroeber(_TokenDistance):
     For two sets X and Y, the Driver & Kroeber similarity :cite:`Driver:1932`
     is the arithmetic mean of the proportion of the intersection found in each
     set:
-    :math:`sim_{DriverKroeber}(X, Y) =
-    \frac{\frac{|X \cap Y|}{|X|} + \frac{|X \cap Y|}{|Y|}}{2}`.
+
+        .. math::
+
+            sim_{DriverKroeber}(X, Y) =
+            \frac{\frac{|X \cap Y|}{|X|} + \frac{|X \cap Y|}{|Y|}}{2}
 
     .. versionadded:: 0.4.0
     """
