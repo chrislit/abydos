@@ -38,8 +38,11 @@ class ForbesI(_TokenDistance):
 
     For two sets X and Y and a population N, the Forbes I
     similarity :cite:`Forbes:1907,Mozley:1936` is
-    :math:`sim_{ForbesI}(X, Y) =
-    \frac{|N| \cdot |X \cap Y|}{|X| \cdot |Y|}`.
+
+        .. math::
+
+            sim_{ForbesI}(X, Y) =
+            \frac{|N| \cdot |X \cap Y|}{|X| \cdot |Y|}
 
     .. versionadded:: 0.4.0
     """

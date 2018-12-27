@@ -38,8 +38,11 @@ class Faith(_TokenDistance):
 
     For two sets X and Y and a population N, the Faith
     similarity :cite:`Faith:1983` is
-    :math:`sim_{Faith}(X, Y) = \frac{|X \cap Y| +
-    \frac{|N \setminus X \setminus Y|}{2}}{|N|}`.
+
+        .. math::
+
+            sim_{Faith}(X, Y) = \frac{|X \cap Y| +
+            \frac{|N \setminus X \setminus Y|}{2}}{|N|}
 
     .. versionadded:: 0.4.0
     """

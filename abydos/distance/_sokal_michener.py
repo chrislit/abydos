@@ -38,9 +38,13 @@ class SokalMichener(_TokenDistance):
 
     For two sets X and Y and a population N, the Sokal & Michener similarity
     :cite:`Sokal:1958` is
-    :math:`sim_{SokalMichener}(X, Y) =
-    \frac{|X \cap Y| + |N \setminus X \setminus Y|}{|N|}`. This is also called
-    the simple matching coefficient.
+
+        .. math::
+
+            sim_{SokalMichener}(X, Y) =
+            \frac{|X \cap Y| + |N \setminus X \setminus Y|}{|N|}
+
+    This is also called the simple matching coefficient.
 
     .. versionadded:: 0.4.0
     """

@@ -42,8 +42,12 @@ class Jaccard(Tversky):
     r"""Jaccard similarity.
 
     For two sets X and Y, the Jaccard similarity coefficient
-    :cite:`Jaccard:1901` is :math:`sim_{Jaccard}(X, Y) =
-    \frac{|X \cap Y|}{|X \cup Y|}`.
+    :cite:`Jaccard:1901` is
+
+        .. math::
+
+            sim_{Jaccard}(X, Y) =
+            \frac{|X \cap Y|}{|X \cup Y|}`.
 
     This is identical to the Tanimoto similarity coefficient
     :cite:`Tanimoto:1958`

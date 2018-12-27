@@ -39,24 +39,48 @@ class Cole(_TokenDistance):
     For two sets X and Y and a population N, the Cole similarity
     :cite:`Cole:1949` has three formulae:
 
-    - If :math:`|X \cap Y| \cdot |N \setminus X \setminus Y| \geq
-      |X \setminus Y| \cdot |Y \setminus Y|`:
-      :math:`sim_{Cole}(X, Y) =
-      \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
-      |X \setminus Y| \cdot |Y \setminus X|}
-      {(|X \cap Y| + |X \setminus Y|) \cdot
-      (|X \setminus Y| + |N \setminus X \setminus Y|)}`
-    - If :math:`|N \setminus X \setminus Y| \geq |X \cap Y|`:
-      :math:`sim_{Cole}(X, Y) =
-      \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
-      |X \setminus Y| \cdot |Y \setminus X|}
-      {(|X \cap Y| + |X \setminus Y|) \cdot (|X \cap Y| + |Y \setminus X|)}`
-    - Otherwise:
-      :math:`sim_{Cole}(X, Y) =
-      \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
-      |X \setminus Y| \cdot |Y \setminus X|}
-      {(|X \setminus Y| + |N \setminus X \setminus Y|) \cdot
-      (|Y \setminus X| + |N \setminus X \setminus Y|)}`.
+    - If
+
+        .. math::
+
+            |X \cap Y| \cdot |N \setminus X \setminus Y| \geq
+            |X \setminus Y| \cdot |Y \setminus Y|
+
+      then
+
+        .. math::
+
+            sim_{Cole}(X, Y) =
+            \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus X|}
+            {(|X \cap Y| + |X \setminus Y|) \cdot
+            (|X \setminus Y| + |N \setminus X \setminus Y|)}
+
+    - If
+
+        .. math::
+
+            |N \setminus X \setminus Y| \geq |X \cap Y|
+
+      then
+
+        .. math::
+
+            sim_{Cole}(X, Y) =
+            \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus X|}
+            {(|X \cap Y| + |X \setminus Y|) \cdot
+            (|X \cap Y| + |Y \setminus X|)}`
+
+    - Otherwise
+
+        .. math::
+
+            sim_{Cole}(X, Y) =
+            \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus X|}
+            {(|X \setminus Y| + |N \setminus X \setminus Y|) \cdot
+            (|Y \setminus X| + |N \setminus X \setminus Y|)}
 
     Cole terms this measurement the Coefficient of Interspecific Association.
 

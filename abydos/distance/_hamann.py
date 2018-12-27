@@ -38,8 +38,12 @@ class Hamann(_TokenDistance):
 
     For two sets X and Y and a population N, the Hamann similarity
     :cite:`Hamann:1961` is
-    :math:`sim_{Hamann}(X, Y) =
-    \frac{|X \cap Y| + |N \setminus X \setminus Y| - |X \setminus Y| - |Y \setminus X|}{|N|}`.
+
+        .. math::
+
+            sim_{Hamann}(X, Y) =
+            \frac{|X \cap Y| + |N \setminus X \setminus Y| - |X \setminus Y| -
+            |Y \setminus X|}{|N|}
 
     .. versionadded:: 0.4.0
     """

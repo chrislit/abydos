@@ -40,12 +40,19 @@ class Stiles(_TokenDistance):
 
     For two sets X and Y and a population N, Stiles similarity
     :cite:`Stiles:1961` is
-    :math:`sim_{Stiles}(X, Y) = log_10
-    \frac{card(N) \Big(|card(X \cap Y) \cdot card(N \setminus X \setminus Y)-
-    card(X \setminus Y) \cdot card(Y \setminus X) - \frac{card(N)}{2}\Big)^2}
-    {card(X) \cdot card(Y) \cdot card(N \setminus X) \cdot
-    card(N \setminus Y)}`. In contrast to other uses, here, :math:`card(X)`
-    represents the cardinality of X and :math:`|n|` represents absolute value.
+
+        .. math::
+
+            sim_{Stiles}(X, Y) = log_10
+            \frac{card(N) \Big(|card(X \cap Y) \cdot
+            card(N \setminus X \setminus Y) -
+            card(X \setminus Y) \cdot card(Y \setminus X) -
+            \frac{card(N)}{2}\Big)^2}
+            {card(X) \cdot card(Y) \cdot card(N \setminus X) \cdot
+            card(N \setminus Y)}
+
+    In contrast to other uses, here, :math:`card(X)` represents the cardinality
+    of X and :math:`|n|` represents absolute value.
 
     .. versionadded:: 0.4.0
     """

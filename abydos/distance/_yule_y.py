@@ -38,11 +38,14 @@ class YuleY(_TokenDistance):
 
     For two sets X and Y and a population N, Yule's Y similarity
     :cite:`Yule:1912` is
-    :math:`sim_{YuleY}(X, Y) =
-    \frac{\sqrt{|X \cap Y| \cdot |N \setminus X \setminus Y|} -
-    \sqrt{|X \setminus Y| \cdot |Y \setminus X|}}
-    {\sqrt{|X \cap Y| \cdot |N \setminus X \setminus Y|} +
-    \sqrt{|X \setminus Y| \cdot |Y \setminus X|}}`.
+
+        .. math::
+
+            sim_{YuleY}(X, Y) =
+            \frac{\sqrt{|X \cap Y| \cdot |N \setminus X \setminus Y|} -
+            \sqrt{|X \setminus Y| \cdot |Y \setminus X|}}
+            {\sqrt{|X \cap Y| \cdot |N \setminus X \setminus Y|} +
+            \sqrt{|X \setminus Y| \cdot |Y \setminus X|}}
 
     In :cite:`Yule:1912`, this is labeled :math:`\omega`, so it is sometimes
     referred to as Yule's :math:`\omega`. Yule himself terms this the

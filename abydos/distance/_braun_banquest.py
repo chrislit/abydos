@@ -38,9 +38,10 @@ class BraunBanquest(_TokenDistance):
 
     For two sets X and Y and a population N, the Braun & Banquest
     similarity :cite:`BraunBlanquet:1932` is
-    :math:`sim_{BraunBanquest}(X, Y) =
-    \frac{|X \cap Y|}
-    {max(|X|, |Y|)}`.
+
+        .. math::
+
+            sim_{BraunBanquest}(X, Y) = \frac{|X \cap Y|} {max(|X|, |Y|)}
 
     .. versionadded:: 0.4.0
     """

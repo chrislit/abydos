@@ -38,9 +38,12 @@ class ForbesII(_TokenDistance):
 
     For two sets X and Y and a population N, the Forbes II similarity,
     as described in :cite:`Choi:2010`, is
-    :math:`sim_{ForbesII}(X, Y) =
-    \frac{|N| \cdot |X \cap Y| - |X| \cdot |Y|}
-    {|N| \cdot min(|X|, |Y|) - |X| \cdot |Y|}`.
+
+        .. math::
+
+            sim_{ForbesII}(X, Y) =
+            \frac{|N| \cdot |X \cap Y| - |X| \cdot |Y|}
+            {|N| \cdot min(|X|, |Y|) - |X| \cdot |Y|}
 
     .. versionadded:: 0.4.0
     """

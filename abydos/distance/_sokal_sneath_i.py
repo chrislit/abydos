@@ -37,9 +37,12 @@ class SokalSneathI(_TokenDistance):
     r"""Sokal & Sneath I similarity.
 
     For two sets X and Y, Sokal & Sneath I similarity :cite:`Sokal:1963` is
-    :math:`sim_{SokalSneathI}(X, Y) =
-    \frac{|X \cap Y|}
-    {|X \cap Y| + 2|X \setminus Y| + 2|Y \setminus X|}`.
+
+        .. math::
+
+            sim_{SokalSneathI}(X, Y) =
+            \frac{|X \cap Y|}
+            {|X \cap Y| + 2|X \setminus Y| + 2|Y \setminus X|}
 
     This is the first of five "Unnamed coefficients" presented in
     :cite:`Sokal:1963`. It corresponds to the "Unmatched pairs carry twice the

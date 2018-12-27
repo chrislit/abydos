@@ -62,8 +62,11 @@ __all__ = [
 def amean(nums):
     r"""Return arithmetic mean.
 
-    The arithmetic mean is defined as:
-    :math:`\frac{\sum{nums}}{|nums|}`
+    The arithmetic mean is defined as
+
+        .. math::
+
+            \frac{\sum{nums}}{|nums|}
 
     Cf. https://en.wikipedia.org/wiki/Arithmetic_mean
 
@@ -95,8 +98,11 @@ def amean(nums):
 def gmean(nums):
     r"""Return geometric mean.
 
-    The geometric mean is defined as:
-    :math:`\sqrt[|nums|]{\prod\limits_{i} nums_{i}}`
+    The geometric mean is defined as
+
+        .. math::
+
+            \sqrt[|nums|]{\prod\limits_{i} nums_{i}}
 
     Cf. https://en.wikipedia.org/wiki/Geometric_mean
 
@@ -128,8 +134,11 @@ def gmean(nums):
 def hmean(nums):
     r"""Return harmonic mean.
 
-    The harmonic mean is defined as:
-    :math:`\frac{|nums|}{\sum\limits_{i}\frac{1}{nums_i}}`
+    The harmonic mean is defined as
+
+        .. math::
+
+            \frac{|nums|}{\sum\limits_{i}\frac{1}{nums_i}}
 
     Following the behavior of Wolfram|Alpha:
     - If one of the values in nums is 0, return 0.
@@ -185,8 +194,11 @@ def hmean(nums):
 def qmean(nums):
     r"""Return quadratic mean.
 
-    The quadratic mean of precision and recall is defined as:
-    :math:`\sqrt{\sum\limits_{i} \frac{num_i^2}{|nums|}}`
+    The quadratic mean of precision and recall is defined as
+
+        .. math::
+
+            \sqrt{\sum\limits_{i} \frac{num_i^2}{|nums|}}
 
     Cf. https://en.wikipedia.org/wiki/Quadratic_mean
 
@@ -218,8 +230,11 @@ def qmean(nums):
 def cmean(nums):
     r"""Return contraharmonic mean.
 
-    The contraharmonic mean is:
-    :math:`\frac{\sum\limits_i x_i^2}{\sum\limits_i x_i}`
+    The contraharmonic mean is
+
+        .. math::
+
+            \frac{\sum\limits_i x_i^2}{\sum\limits_i x_i}
 
     Cf. https://en.wikipedia.org/wiki/Contraharmonic_mean
 
@@ -253,11 +268,15 @@ def lmean(nums):
 
     The logarithmic mean of an arbitrarily long series is defined by
     http://www.survo.fi/papers/logmean.pdf
-    as:
-    :math:`L(x_1, x_2, ..., x_n) =
-    (n-1)! \sum\limits_{i=1}^n \frac{x_i}
-    {\prod\limits_{\substack{j = 1\\j \ne i}}^n
-    ln \frac{x_i}{x_j}}`
+    as
+
+
+        .. math::
+
+            L(x_1, x_2, ..., x_n) =
+            (n-1)! \sum\limits_{i=1}^n \frac{x_i}
+            {\prod\limits_{\substack{j = 1\\j \ne i}}^n
+            ln \frac{x_i}{x_j}}
 
     Cf. https://en.wikipedia.org/wiki/Logarithmic_mean
 
@@ -303,7 +322,11 @@ def imean(nums):
 
     The identric mean of two numbers x and y is:
     x if x = y
-    otherwise :math:`\frac{1}{e} \sqrt[x-y]{\frac{x^x}{y^y}}`
+    otherwise
+
+        .. math::
+
+            \frac{1}{e} \sqrt[x-y]{\frac{x^x}{y^y}}
 
     Cf. https://en.wikipedia.org/wiki/Identric_mean
 
@@ -350,8 +373,11 @@ def imean(nums):
 def seiffert_mean(nums):
     r"""Return Seiffert's mean.
 
-    Seiffert's mean of two numbers x and y is:
-    :math:`\frac{x - y}{4 \cdot arctan \sqrt{\frac{x}{y}} - \pi}`
+    Seiffert's mean of two numbers x and y is
+
+        .. math::
+
+            \frac{x - y}{4 \cdot arctan \sqrt{\frac{x}{y}} - \pi}
 
     It is defined in :cite:`Seiffert:1993`.
 
@@ -398,8 +424,11 @@ def seiffert_mean(nums):
 def lehmer_mean(nums, exp=2):
     r"""Return Lehmer mean.
 
-    The Lehmer mean is:
-    :math:`\frac{\sum\limits_i{x_i^p}}{\sum\limits_i{x_i^(p-1)}}`
+    The Lehmer mean is
+
+        .. math::
+
+            \frac{\sum\limits_i{x_i^p}}{\sum\limits_i{x_i^(p-1)}}
 
     Cf. https://en.wikipedia.org/wiki/Lehmer_mean
 
@@ -434,8 +463,12 @@ def heronian_mean(nums):
     r"""Return Heronian mean.
 
     The Heronian mean is:
-    :math:`\frac{\sum\limits_{i, j}\sqrt{{x_i \cdot x_j}}}
-    {|nums| \cdot \frac{|nums| + 1}{2}}`
+
+        .. math::
+
+            \frac{\sum\limits_{i, j}\sqrt{{x_i \cdot x_j}}}
+            {|nums| \cdot \frac{|nums| + 1}{2}}
+
     for :math:`j \ge i`
 
     Cf. https://en.wikipedia.org/wiki/Heronian_mean
@@ -477,7 +510,11 @@ def hoelder_mean(nums, exp=2):
     r"""Return Hölder (power/generalized) mean.
 
     The Hölder mean is defined as:
-    :math:`\sqrt[p]{\frac{1}{|nums|} \cdot \sum\limits_i{x_i^p}}`
+
+        .. math::
+
+            \sqrt[p]{\frac{1}{|nums|} \cdot \sum\limits_i{x_i^p}}
+
     for :math:`p \ne 0`, and the geometric mean for :math:`p = 0`
 
     Cf. https://en.wikipedia.org/wiki/Generalized_mean
@@ -746,7 +783,9 @@ def var(nums, mean_func=amean, ddof=0):
     The variance (:math:`\sigma^2`) of a series of numbers (:math:`x_i`) with
     mean :math:`\mu` and population :math:`N` is:
 
-    :math:`\sigma^2 = \frac{1}{N}\sum_{i=1}^{N}(x_i-\mu)^2`.
+        .. math::
+
+            \sigma^2 = \frac{1}{N}\sum_{i=1}^{N}(x_i-\mu)^2
 
     Cf. https://en.wikipedia.org/wiki/Variance
 

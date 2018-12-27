@@ -38,8 +38,11 @@ class Fossum(_TokenDistance):
 
     For two sets X and Y and a population N, the Fossum similarity
     :cite:`Fossum:1966` is
-    :math:`sim_{Fossum}(X, Y) =
-    \frac{|N| \cdot \Big(|X \cap Y|-\frac{1}{2}\Big)^2}{|X| \cdot |Y|}`.
+
+        .. math::
+
+            sim_{Fossum}(X, Y) =
+            \frac{|N| \cdot \Big(|X \cap Y|-\frac{1}{2}\Big)^2}{|X| \cdot |Y|}
 
     .. versionadded:: 0.4.0
     """

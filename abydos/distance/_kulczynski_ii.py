@@ -38,8 +38,13 @@ class KulczynskiII(_TokenDistance):
 
     For two sets X and Y, Kulczynski II similarity
     :cite:`Kulczynski:1927` is
-    :math:`sim_{KulczynskiII}(X, Y) =
-    \frac{1}{2}\big(\frac{|X \cap Y|}{|X|} + \frac{|X \cap Y|}{|Y|}\big)`.
+
+        .. math::
+
+            sim_{KulczynskiII}(X, Y) =
+            \frac{1}{2}
+            \big(\frac{|X \cap Y|}{|X|} + \frac{|X \cap Y|}{|Y|}\big)
+
     This metric is incorrectly formulated in :cite:`Choi:2010`, possibly
     mis-copied from :cite:`Hubalek:2008`.
 

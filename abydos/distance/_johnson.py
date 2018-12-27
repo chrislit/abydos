@@ -38,8 +38,11 @@ class Johnson(_TokenDistance):
 
     For two sets X and Y, the Johnson
     similarity :cite:`Johnson:1967` is
-    :math:`sim_{Johnson}(X, Y) =
-    \frac{(|X \cap Y|}{|X|} + \frac{|Y \cap X}{|Y|}`.
+
+        .. math::
+
+            sim_{Johnson}(X, Y) =
+            \frac{(|X \cap Y|}{|X|} + \frac{|Y \cap X}{|Y|}`.
 
     .. versionadded:: 0.4.0
     """

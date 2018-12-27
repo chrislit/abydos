@@ -38,13 +38,17 @@ class BaroniUrbaniBuserII(_TokenDistance):
 
     For two sets X and Y and a population N, the Baroni-Urbani & Buser II
     similarity :cite:`BaroniUrbani:1976` is
-    :math:`sim_{BaroniUrbaniII}(X, Y) =
-    \frac{\sqrt{|X \cap Y| \cdot |N \setminus X \setminus Y|} + |X \cap Y| -
-    |X \setminus Y| - |Y \setminus X|}
-    {\sqrt{|X \cap Y| \cdot |N \setminus X \setminus Y|} + |X \cap Y| +
-    |X \setminus Y| + |Y \setminus X|}`. This is the first, but less commonly
-    used and referenced of the two similarities proposed by Baroni-Urbani &
-    Buser.
+
+        .. math::
+
+            sim_{BaroniUrbaniII}(X, Y) =
+            \frac{\sqrt{|X \cap Y| \cdot |N \setminus X \setminus Y|} +
+            |X \cap Y| - |X \setminus Y| - |Y \setminus X|}
+            {\sqrt{|X \cap Y| \cdot |N \setminus X \setminus Y|} + |X \cap Y| +
+            |X \setminus Y| + |Y \setminus X|}
+
+    This is the first, but less commonly used and referenced of the two
+    similarities proposed by Baroni-Urbani & Buser.
 
     .. versionadded:: 0.4.0
     """

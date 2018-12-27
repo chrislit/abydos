@@ -38,8 +38,11 @@ class KulczynskiI(_TokenDistance):
 
     For two sets X and Y, Kulczynski I similarity
     :cite:`Kulczynski:1927` is
-    :math:`sim_{KulczynskiI}(X, Y) =
-    \frac{|X \cap Y|}{|X \setminus Y| + |Y \setminus X|}`.
+
+        .. math::
+
+            sim_{KulczynskiI}(X, Y) =
+            \frac{|X \cap Y|}{|X \setminus Y| + |Y \setminus X|}
 
     .. versionadded:: 0.4.0
     """

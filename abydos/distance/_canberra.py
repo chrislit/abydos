@@ -37,7 +37,11 @@ class Canberra(_TokenDistance):
     r"""Canberra distance.
 
     For two sets X and Y, the Canberra distance :cite:`Lance:1966,Lance:1967b`
-    is :math:`sim_{Canberra}(X, Y) = \frac{|X \triangle Y|}{|X|+|Y|}`.
+    is
+
+        .. math::
+
+            sim_{Canberra}(X, Y) = \frac{|X \triangle Y|}{|X|+|Y|}
 
     .. versionadded:: 0.4.0
     """
