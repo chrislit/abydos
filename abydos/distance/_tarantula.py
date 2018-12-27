@@ -36,7 +36,16 @@ __all__ = ['Tarantula']
 class Tarantula(_TokenDistance):
     r"""Tarantula similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Tarantula similarity
+    :cite:`Jones:2005` is
+
+        .. math::
+
+            sim_{Tarantula}(X, Y) =
+            \frac{\frac{|X \cap Y|}{|X \cap Y| + |X \setminus Y|}}
+            {\frac{|X \cap Y|}{|X \cap Y| + |X \setminus Y|} +
+            \frac{|Y \setminus X|}
+            {|Y \setminus X| + |N \setminus X \setminus Y|}}
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +156,12 @@ class Tarantula(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        ab = self.src_card()
+        c = self.tar_only_card()
+        cd = c + self.total_complement_card()
 
-        return 0.0
+        return (a/ab)/(a/ab+c/cd)
 
 
 if __name__ == '__main__':
