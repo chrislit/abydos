@@ -129,7 +129,7 @@ class KulczynskiII(_TokenDistance):
         ab = self.src_card()
         ac = self.tar_card()
 
-        return 0.5*(a/ab+a/ac)
+        return 0.5 * (a / ab + a / ac)
 
 
 if __name__ == '__main__':
