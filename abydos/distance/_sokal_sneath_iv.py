@@ -43,8 +43,8 @@ class SokalSneathIV(_TokenDistance):
 
             sim_{SokalSneathIV}(X, Y) =
             \frac{
-            \frac{|X \cap Y|}{|X \cap Y| + |X \setminus Y|}
-            \frac{|X \cap Y|}{|X \cap Y| + |Y \setminus X|}
+            \frac{|X \cap Y|}{|X|}
+            \frac{|X \cap Y|}{|Y|}
             \frac{|N \setminus X \setminus Y|}
             {|N \setminus X \setminus Y| + |X \setminus Y|}
             \frac{|N \setminus X \setminus Y|}
@@ -171,7 +171,7 @@ class SokalSneathIV(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        return 0.25 * (a / (a + b) + a / (a + c) + d / (b + d) + d / (b + d))
+        return 0.25 * (a / (a + b) + a / (a + c) + d / (b + d) + d / (c + d))
 
 
 if __name__ == '__main__':
