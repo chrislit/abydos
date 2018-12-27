@@ -36,12 +36,12 @@ __all__ = ['SokalSneathI']
 class SokalSneathI(_TokenDistance):
     r"""Sokal & Sneath I similarity.
 
-    For two sets X and Y and a population N, Sokal & Sneath II similarity
+    For two sets X and Y and a population N, Sokal & Sneath I similarity
     :cite:`Sokal:1963` is
 
         .. math::
 
-            sim_{SokalSneathII}(X, Y) =
+            sim_{SokalSneathI}(X, Y) =
             \frac{2(|X \cap Y| + |N \setminus X \setminus Y|)}
             {|X \cap Y| + |N \setminus X \setminus Y| + |N|}
 
