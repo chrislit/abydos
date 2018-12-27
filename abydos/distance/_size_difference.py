@@ -38,8 +38,11 @@ class SizeDifference(_TokenDistance):
 
     For two sets X and Y and a population N, the Penrose's size difference
     :cite:`Penrose:1952` is
-    :math:`sim_{Size}(X, Y) =
-    \frac{(|X \setminus Y| + |Y \setminus X|)^2}{|N|^2}`.
+
+        .. :math:
+
+            sim_{Size}(X, Y) =
+            \frac{(|X \setminus Y| + |Y \setminus X|)^2}{|N|^2}
 
     .. versionadded:: 0.4.0
     """
