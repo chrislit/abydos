@@ -37,17 +37,16 @@ class DriverKroeber(_TokenDistance):
     r"""Driver & Kroeber similarity.
 
     For two sets X and Y, the Driver & Kroeber similarity :cite:`Driver:1932`
-    is: :math:`sim_{DriverKroeber}(X, Y) =
-    \frac{|X \cap Y|}{\sqrt{|X| \cdot |Y|}}`.
-    This metric is incorrectly formulated in :cite:`Choi:2010`, likely
-    mis-copied from :cite:`Hubalek:2008`.
+    is the arithmetic mean of the proportion of the intersection found in each
+    set:
+    :math:`sim_{DriverKroeber}(X, Y) =
+    \frac{\frac{|X \cap Y|}{|X|} + \frac{|X \cap Y|}{|Y|}}{2}`.
 
     .. versionadded:: 0.4.0
     """
 
     def __init__(
         self,
-        alphabet=None,
         tokenizer=None,
         intersection_type='crisp',
         **kwargs
@@ -56,25 +55,6 @@ class DriverKroeber(_TokenDistance):
 
         Parameters
         ----------
-        alphabet : Counter, collection, int, or None
-            This represents the alphabet of possible tokens.
-
-                - If a Counter is supplied, it is used directly in computing
-                  the complement of the tokens in both sets.
-                - If a collection is supplied, it is converted to a Counter
-                  and used directly. In the case of a single string being
-                  supplied and the QGram tokenizer being used, the full
-                  alphabet is inferred (i.e.
-                  :math:`len(set(alphabet+QGrams.start_stop))^{QGrams.qval}` is
-                  used as the cardinality of the full alphabet.
-                - If an int is supplied, it is used as the cardinality of the
-                  full alphabet.
-                - If None is supplied, the cardinality of the full alphabet
-                  is inferred if QGram tokenization is used (i.e.
-                  :math:`28^{QGrams.qval}` is used as the cardinality of the
-                  full alphabet or :math:`26` if QGrams.qval is 1, which
-                  assumes the strings are English language strings). Otherwise,
-                  The cardinality of the complement of the total will be 0.
         tokenizer : _Tokenizer
             A tokenizer instance from the abydos.tokenizer package
         intersection_type : str
@@ -112,7 +92,6 @@ class DriverKroeber(_TokenDistance):
 
         """
         super(DriverKroeber, self).__init__(
-            alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
             **kwargs
@@ -153,7 +132,8 @@ class DriverKroeber(_TokenDistance):
 
         return (
             self.intersection_card()
-            / (self.src_card() * self.tar_card()) ** 0.5
+            / 2
+            * (1 / self.src_card() + 1 / self.tar_card())
         )
 
 
