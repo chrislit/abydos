@@ -128,7 +128,9 @@ class Overlap(_TokenDistance):
             Encapsulated in class
 
         """
-        if not src or not tar:
+        if src == tar:
+            return 1.0
+        elif not src or not tar:
             return 0.0
 
         self.tokenize(src, tar)
