@@ -36,56 +36,30 @@ __all__ = ['SokalSneathII']
 class SokalSneathII(_TokenDistance):
     r"""Sokal & Sneath II similarity.
 
-    For two sets X and Y and a population N, Sokal & Sneath II similarity
-    :cite:`Sokal:1963` is
+    For two sets X and Y, Sokal & Sneath I similarity :cite:`Sokal:1963` is
 
         .. math::
 
-            sim_{SokalSneathII}(X, Y) =
-            \frac{2|X \cap Y| + 2|N \setminus X \setminus Y|}
-            {|X \cap Y| + |N \setminus X \setminus Y| + |N|}
+            sim_{SokalSneathI}(X, Y) =
+            \frac{|X \cap Y|}
+            {|X \cap Y| + 2(|X \setminus Y| + |Y \setminus X|)}
 
     This is the second of five "Unnamed coefficients" presented in
-    :cite:`Sokal:1963`. It corresponds to the "Matched pairs carry twice the
-    weight of unmatched pairs in the Denominator" with "Negative Matches in
-    Numerator Included".
-    "Negative Matches in Numerator Excluded" corresponds to the Sørensen–Dice
-    coefficient, :class:`.Dice`.
+    :cite:`Sokal:1963`. It corresponds to the "Unmatched pairs carry twice the
+    weight of matched pairs in the Denominator" with "Negative Matches in
+    Numerator Excluded".
+    "Negative Matches in Numerator Included" corresponds to the Rogers &
+    Tanimoto similarity, :class:`.RogersTanimoto`.
 
 
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
         """Initialize SokalSneathII instance.
 
         Parameters
         ----------
-        alphabet : Counter, collection, int, or None
-            This represents the alphabet of possible tokens.
-
-                - If a Counter is supplied, it is used directly in computing
-                  the complement of the tokens in both sets.
-                - If a collection is supplied, it is converted to a Counter
-                  and used directly. In the case of a single string being
-                  supplied and the QGram tokenizer being used, the full
-                  alphabet is inferred (i.e.
-                  :math:`len(set(alphabet+QGrams.start_stop))^{QGrams.qval}` is
-                  used as the cardinality of the full alphabet.
-                - If an int is supplied, it is used as the cardinality of the
-                  full alphabet.
-                - If None is supplied, the cardinality of the full alphabet
-                  is inferred if QGram tokenization is used (i.e.
-                  :math:`28^{QGrams.qval}` is used as the cardinality of the
-                  full alphabet or :math:`26` if QGrams.qval is 1, which
-                  assumes the strings are English language strings). Otherwise,
-                  The cardinality of the complement of the total will be 0.
         tokenizer : _Tokenizer
             A tokenizer instance from the abydos.tokenizer package
         intersection_type : str
@@ -123,10 +97,7 @@ class SokalSneathII(_TokenDistance):
 
         """
         super(SokalSneathII, self).__init__(
-            alphabet=alphabet,
-            tokenizer=tokenizer,
-            intersection_type=intersection_type,
-            **kwargs
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
     def sim(self, src, tar):
@@ -162,12 +133,9 @@ class SokalSneathII(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        return (
-            2 * self.intersection_card() + 2 * self.total_complement_card()
-        ) / (
+        return self.intersection_card() / (
             self.intersection_card()
-            + self.total_complement_card()
-            + self.population_card()
+            + 2 * (self.src_only_card() + self.tar_only_card())
         )
 
 
