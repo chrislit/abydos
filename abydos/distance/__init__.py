@@ -306,11 +306,11 @@ from ._synoname import Synoname, synoname
 from ._tarantula import Tarantula
 from ._tarwid import Tarwid
 from ._tetrachoric import Tetrachoric
-from ._weighted_jaccard import WeightedJaccard
 from ._tversky import Tversky, dist_tversky, sim_tversky
 from ._typo import Typo, dist_typo, sim_typo, typo
 from ._upholt import Upholt
 from ._vari import Vari
+from ._weighted_jaccard import WeightedJaccard
 from ._yule_q import YuleQ
 from ._yule_y import YuleY
 
