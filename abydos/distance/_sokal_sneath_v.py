@@ -43,11 +43,7 @@ class SokalSneathV(_TokenDistance):
 
             sim_{SokalSneathV}(X, Y) =
             \frac{|X \cap Y| \cdot |N \setminus X \setminus Y|}
-            {\sqrt{
-            (|X \cap Y| + |X \setminus Y|)
-            (|X \cap Y| + |Y \setminus X|)
-            (|N \setminus X \setminus Y| + |X \setminus Y|)
-            (|N \setminus X \setminus Y| + |Y \setminus X|)}}
+            {\sqrt{|X| \cdot |Y| \cdot |N \setminus Y| \cdot |N \setminus X|}}
 
     This is the fifth of five "Unnamed coefficients" presented in
     :cite:`Sokal:1963`. It corresponds to the second "Marginal totals in the
