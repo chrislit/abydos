@@ -34,7 +34,7 @@ __all__ = ['MSContingency']
 
 
 class MSContingency(_TokenDistance):
-    r"""Mean squared contingency correlation
+    r"""Mean squared contingency correlation.
 
     For two sets X and Y and a population N, the mean squared contingency
     correlation :cite:`Cole:1949` is
@@ -173,8 +173,7 @@ class MSContingency(_TokenDistance):
         return admbc / (admbc ** 2 + ab * ac * (b + d) * (c + d)) ** 0.5
 
     def sim(self, src, tar):
-        """Return the normalized mean squared contingency correlation
-        similarity of two strings.
+        """Return the normalized mean squared contingency corr. of two strings.
 
         Parameters
         ----------
