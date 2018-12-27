@@ -161,7 +161,7 @@ class Tarantula(_TokenDistance):
         c = self.tar_only_card()
         cd = c + self.total_complement_card()
 
-        return (a/ab)/(a/ab+c/cd)
+        return (a / ab) / (a / ab + c / cd)
 
 
 if __name__ == '__main__':
