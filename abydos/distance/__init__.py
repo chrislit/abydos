@@ -50,7 +50,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Tanimoto coefficient (:py:meth:`.Jaccard.tanimoto_coeff`)
     - Overlap distance (:py:class:`.Overlap`)
     - Cosine similarity (:py:class:`.Cosine`)
-    - Russel & Rao similarity (:py:class:`.RusselRao`)
+    - Russell & Rao similarity (:py:class:`.RussellRao`)
     - AMPLE similarity (:py:class:`.AMPLE`)
     - Anderberg similarity (:py:class:`.Anderberg`)
     - Baroni-Urbani & Buser I similarity (:py:class:`.BaroniUrbaniBuserI`)
@@ -59,7 +59,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Canberra distance (:py:class:`.Canberra`)
     - Chord distance (:py:class:`.Chord`)
     - Cole similarity (:py:class:`.Cole`)
-    - Czekanowski similarity (:py:class:`.Czekanowski`)
     - Dennis similarity (:py:class:`.Dennis`)
     - Dispersion similarity (:py:class:`.Dispersion`)
     - Driver & Kroeber similarity (:py:class:`.DriverKroeber`)
@@ -94,7 +93,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Pearson's Chi-Squared similarity (:py:class:`.PearsonChiSquared`)
     - Pearson's Phi (:py:class:`.PearsonPhi`)
     - Peirce similarity (:py:class:`.Peirce`)
-    - Phi Squared similarity (:py:class:`.PhiSquared`)
     - Rogers & Tanimoto similarity (:py:class:`.RogersTanimoto`)
     - Roux I similarity (:py:class:`.RouxI`)
     - Roux II similarity (:py:class:`.RouxII`)
@@ -108,7 +106,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Sokal & Sneath IV similarity (:py:class:`.SokalSneathIV`)
     - Sokal & Sneath V similarity (:py:class:`.SokalSneathV`)
     - Sorgenfrei similarity (:py:class:`.Sorgenfrei`)
-    - Squared Euclid distance (:py:class:`.SquaredEuclid`)
     - Stiles similarity (:py:class:`.Stiles`)
     - Tarantula similarity (:py:class:`.Tarantula`)
     - Tarwid similarity (:py:class:`.Tarwid`)
@@ -118,16 +115,8 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Yule's Q similarity (:py:class:`.YuleQ`)
     - Yule's Y similarity (:py:class:`.YuleY`)
     - Bag distance (:py:class:`.Bag`)
+    - Soft cosine similarity (:py:class:`.SoftCosine`)
     - Monge-Elkan distance (:py:class:`.MongeElkan`)
-
-A set of fuzzy token-based distance metrics are provided:
-
-    - Fuzzy Tversky distance (:py:class:`.FuzzyTversky`)
-    - Fuzzy Dice similarity (:py:class:`.FuzzyDice`)
-    - Fuzzy Jaccard similarity (:py:class:`.FuzzyJaccard`)
-    - Fuzzy Tanimoto coefficient (:py:meth:`.FuzzyJaccard.tanimoto_coeff`)
-    - Fuzzy overlap distance (:py:class:`.FuzzyOverlap`)
-    - Fuzzy cosine similarity (:py:class:`.FuzzyCosine`)
 
 Three popular sequence alignment algorithms are provided:
 
