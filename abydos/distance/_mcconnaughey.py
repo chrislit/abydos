@@ -41,7 +41,7 @@ class McConnaughey(_TokenDistance):
         .. math::
 
             sim_{McConnaughey}(X, Y) =
-            \frac{|X \cap Y|^2 - |X \setminus X| \cdot |Y \setminus X|}
+            \frac{|X \cap Y|^2 - |X \setminus Y| \cdot |Y \setminus X|}
             {|X| \cdot |Y|}
 
     .. versionadded:: 0.4.0
