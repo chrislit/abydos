@@ -18,7 +18,7 @@
 
 """abydos.distance._size_difference.
 
-Size Difference distance
+Penrose's size difference
 """
 
 from __future__ import (
@@ -34,9 +34,12 @@ __all__ = ['SizeDifference']
 
 
 class SizeDifference(_TokenDistance):
-    r"""Size Difference distance.
+    r"""Penrose's size difference.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Penrose's size difference
+    :cite:`Penrose:1952` is
+    :math:`sim_{Size}(X, Y) =
+    \frac{(|X \setminus Y| + |Y \setminus X|)^2}{|N|^2}`.
 
     .. versionadded:: 0.4.0
     """
@@ -114,8 +117,8 @@ class SizeDifference(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
-        """Return the Size Difference distance of two strings.
+    def dist(self, src, tar):
+        """Return the Penrose's size difference of two strings.
 
         Parameters
         ----------
@@ -147,13 +150,9 @@ class SizeDifference(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
-
-        return 0.0
+        return (
+            self.src_only_card() + self.tar_only_card()
+        ) ** 2 / self.population_card() ** 2
 
 
 if __name__ == '__main__':

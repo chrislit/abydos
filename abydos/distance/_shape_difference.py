@@ -18,7 +18,7 @@
 
 """abydos.distance._shape_difference.
 
-Shape Difference distance
+Penrose's shape difference
 """
 
 from __future__ import (
@@ -34,9 +34,13 @@ __all__ = ['ShapeDifference']
 
 
 class ShapeDifference(_TokenDistance):
-    r"""Shape Difference distance.
+    r"""Penrose's shape difference.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Penrose's shape difference
+    :cite:`Penrose:1952` is
+    :math:`dist_{Size}(X, Y) =
+    \frac{1}{|N|}\cdot\sum_{d \in X \triangle Y}^N d^2 -
+    \frac{1}{|N|^2}\cdot |X \triangle Y|^2`.
 
     .. versionadded:: 0.4.0
     """
@@ -114,8 +118,8 @@ class ShapeDifference(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
-        """Return the Shape Difference distance of two strings.
+    def dist(self, src, tar):
+        """Return the Penrose's shape difference of two strings.
 
         Parameters
         ----------
@@ -147,13 +151,13 @@ class ShapeDifference(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        symdiff = self.symmetric_difference().values()
 
-        return 0.0
+        dist = sum(symdiff)
+        dist_sq = sum(_ ** 2 for _ in symdiff)
+        n = self.population_card()
+
+        return dist_sq / n - dist ** 2 / n ** 2
 
 
 if __name__ == '__main__':
