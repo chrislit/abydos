@@ -40,8 +40,9 @@ class KulczynskiII(_TokenDistance):
     :cite:`Kulczynski:1927` is
     :math:`sim_{KulczynskiII}(X, Y) =
     \frac{
-    \frac{|X \cap Y|}{2}(2|X \cap Y| + |X \setminus Y| + |Y \setminus X|)}
-    {(|X \cap Y| + |X \setminus Y|)(|X \cap Y| + |Y \setminus X|)}`.
+    \frac{1}{2}\big(\frac{|X \cap Y|}{|X|} + \frac{|X \cap Y|}{|Y|}\big)`.
+    This metric is incorrectly formulated in :cite:`Choi:2010`, possibly
+    mis-copied from :cite:`Hubalek:2008`.
 
     .. versionadded:: 0.4.0
     """
@@ -125,10 +126,10 @@ class KulczynskiII(_TokenDistance):
         self.tokenize(src, tar)
 
         a = self.intersection_card()
-        b = self.src_only_card()
-        c = self.tar_only_card()
+        ab = self.src_card()
+        ac = self.tar_card()
 
-        return ((a / 2) * (2 * a + b + c)) / ((a + b) * (a + c))
+        return 0.5*(a/ab+a/ac)
 
 
 if __name__ == '__main__':
