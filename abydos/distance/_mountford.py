@@ -36,41 +36,21 @@ __all__ = ['Mountford']
 class Mountford(_TokenDistance):
     r"""Mountford similarity.
 
-    For two sets X and Y,
+    For two sets X and Y, the Mountford similarity :cite:`Mountford:1962` is
+
+        .. math::
+
+            sim_{FagerMcGowan}(X, Y) =
+            \frac{2|X \cap Y|}{2|X|\cdot|Y|-(|X|+|Y|)\cdot|X \cap Y|}
 
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
         """Initialize Mountford instance.
 
         Parameters
         ----------
-        alphabet : Counter, collection, int, or None
-            This represents the alphabet of possible tokens.
-
-                - If a Counter is supplied, it is used directly in computing
-                  the complement of the tokens in both sets.
-                - If a collection is supplied, it is converted to a Counter
-                  and used directly. In the case of a single string being
-                  supplied and the QGram tokenizer being used, the full
-                  alphabet is inferred (i.e.
-                  :math:`len(set(alphabet+QGrams.start_stop))^{QGrams.qval}` is
-                  used as the cardinality of the full alphabet.
-                - If an int is supplied, it is used as the cardinality of the
-                  full alphabet.
-                - If None is supplied, the cardinality of the full alphabet
-                  is inferred if QGram tokenization is used (i.e.
-                  :math:`28^{QGrams.qval}` is used as the cardinality of the
-                  full alphabet or :math:`26` if QGrams.qval is 1, which
-                  assumes the strings are English language strings). Otherwise,
-                  The cardinality of the complement of the total will be 0.
         tokenizer : _Tokenizer
             A tokenizer instance from the abydos.tokenizer package
         intersection_type : str
@@ -108,10 +88,7 @@ class Mountford(_TokenDistance):
 
         """
         super(Mountford, self).__init__(
-            alphabet=alphabet,
-            tokenizer=tokenizer,
-            intersection_type=intersection_type,
-            **kwargs
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
     def sim(self, src, tar):
@@ -147,13 +124,11 @@ class Mountford(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
 
-        return 0.0
+        return 2 * a / (c * (a + 2 * b) + a * b)
 
 
 if __name__ == '__main__':
