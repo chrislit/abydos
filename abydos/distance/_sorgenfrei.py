@@ -36,7 +36,12 @@ __all__ = ['Sorgenfrei']
 class Sorgenfrei(_TokenDistance):
     r"""Sorgenfrei similarity.
 
-    For two sets X and Y,
+    For two sets X and Y, Sorgenfrei similarity :cite:`Sorgenfrei:1958` is
+
+        .. math::
+
+            sim_{Sorgenfrei}(X, Y) =
+            \frac{|X \cap Y|^2}{|X| \cdot |Y|}
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +152,9 @@ class Sorgenfrei(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
-
-        return 0.0
+        return (self.intersection_card() ** 2) / (
+            self.src_card() * self.tar_card()
+        )
 
 
 if __name__ == '__main__':
