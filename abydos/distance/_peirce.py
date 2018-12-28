@@ -36,7 +36,21 @@ __all__ = ['Peirce']
 class Peirce(_TokenDistance):
     r"""Peirce similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Peirce similarity
+    :cite:`Peirce:1884` is
+
+        .. math::
+
+            sim_{Peirce}(X, Y) = \frac{|X \cap Y| \cdot
+            |N \setminus X \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus Y|}
+            {(|X \cap Y| +|X \setminus Y|) \cdot
+            (|Y \setminus Y| + |N \setminus X \setminus Y|)}
+
+    Both :cite:`Choi:2010` and :cite:`Hubalek:2008` present a different formula
+    and incorrectly attribute it to Peirce. Likewise, :cite:`Doolittle:1884`
+    presents a different formula and incorrectly attributes it to Peirce. This
+    is distinct from the formula he presents and attributes to himself.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +161,13 @@ class Peirce(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
+        ac = self.tar_card()
 
-        return 0.0
+        return (a*d-b*c)/(ac*(b+c))
 
 
 if __name__ == '__main__':
