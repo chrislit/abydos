@@ -36,7 +36,14 @@ __all__ = ['Tarwid']
 class Tarwid(_TokenDistance):
     r"""Tarwid similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Tarwid similarity
+    :cite:`Tarwid:1960` is
+
+        .. math::
+
+            sim_{Tarwid}(X, Y) =
+            \frac{|N| \cdot |X \cap Y| - |X| \cdot |Y|}
+            {|N| \cdot |X \cap Y| + |X| \cdot |Y|}
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +154,10 @@ class Tarwid(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        nta = self.population_card()*self.intersection_card()
+        abtac = self.src_card() * self.tar_card()
 
-        return 0.0
+        return (nta-abtac)/(nta+abtac)
 
 
 if __name__ == '__main__':
