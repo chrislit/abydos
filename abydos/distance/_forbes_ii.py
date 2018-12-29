@@ -37,7 +37,7 @@ class ForbesII(_TokenDistance):
     r"""Forbes II similarity.
 
     For two sets X and Y and a population N, the Forbes II similarity,
-    as described in :cite:`Choi:2010`, is
+    as described in :cite:`Forbes:1925`, is
 
         .. math::
 
