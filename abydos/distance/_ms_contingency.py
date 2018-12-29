@@ -42,16 +42,16 @@ class MSContingency(_TokenDistance):
         .. math::
 
             sim_{MSContingency}(X, Y) =
-            \frac{(|X \cap Y| \cdot |N \setminus X \setminus Y| -
+            \frac{\sqrt{2}(|X \cap Y| \cdot |N \setminus X \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|)}
             {\sqrt{(|X \cap Y| \cdot |N \setminus X \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|)^2 +
             |X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}}
 
-    :cite:`Choi:2010` identifies this as Cole similarity. Although Cole
-    discusses this correlation, he does not claim to have developed it. Rather,
-    he presents his coefficient of interspecific association as being his own
-    development: :class:`.Cole`.
+    :cite:`Hubalek:2008` and :cite:`Choi:2010` identify this as Cole
+    similarity. Although Cole discusses this correlation, he does not claim to
+    have developed it. Rather, he presents his coefficient of interspecific
+    association as being his own development: :class:`.Cole`.
 
     .. versionadded:: 0.4.0
     """
@@ -129,49 +129,6 @@ class MSContingency(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
-        """Return the mean squared contingency correlation of two strings.
-
-        Parameters
-        ----------
-        src : str
-            Source string (or QGrams/Counter objects) for comparison
-        tar : str
-            Target string (or QGrams/Counter objects) for comparison
-
-        Returns
-        -------
-        float
-            Mean squared contingency correlation similarity
-
-        Examples
-        --------
-        >>> cmp = MSContingency()
-        >>> cmp.corr('cat', 'hat')
-        0.0
-        >>> cmp.corr('Niall', 'Neil')
-        0.0
-        >>> cmp.corr('aluminum', 'Catalan')
-        0.0
-        >>> cmp.corr('ATCG', 'TAGC')
-        0.0
-
-
-        .. versionadded:: 0.4.0
-
-        """
-        self.tokenize(src, tar)
-
-        a = self.intersection_card()
-        b = self.src_only_card()
-        c = self.tar_only_card()
-        d = self.total_complement_card()
-        ab = self.src_card()
-        ac = self.tar_card()
-        admbc = a * d - b * c
-
-        return admbc / (admbc ** 2 + ab * ac * (b + d) * (c + d)) ** 0.5
-
     def sim(self, src, tar):
         """Return the normalized mean squared contingency corr. of two strings.
 
@@ -203,7 +160,17 @@ class MSContingency(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        return 2 ** 0.5 * self.corr(src, tar)
+        self.tokenize(src, tar)
+
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
+        ab = self.src_card()
+        ac = self.tar_card()
+        admbc = a * d - b * c
+
+        return 2**0.5 * admbc / (admbc ** 2 + ab * ac * (b + d) * (c + d)) ** 0.5
 
 
 if __name__ == '__main__':
