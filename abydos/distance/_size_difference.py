@@ -154,7 +154,7 @@ class SizeDifference(_TokenDistance):
         self.tokenize(src, tar)
 
         return (
-            self.src_only_card() + self.tar_only_card()
+            self.symmetric_difference_card()
         ) ** 2 / self.population_card() ** 2
 
 

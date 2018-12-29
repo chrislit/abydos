@@ -42,7 +42,7 @@ class ShapeDifference(_TokenDistance):
         .. math::
 
             dist_{Size}(X, Y) =
-            \frac{1}{|N|}\cdot\sum_{d \in X \triangle Y} d^2 -
+            \frac{1}{|N|}\cdot\sum_{d \in (X \triangle Y)} d^2 -
             \frac{1}{|N|^2}\cdot |X \triangle Y|^2
 
     .. versionadded:: 0.4.0
