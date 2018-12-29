@@ -44,7 +44,7 @@ class GowerLegendre(_TokenDistance):
             sim_{GowerLegendre}(X, Y) =
             \frac{|X \cap Y| + |N \setminus X \setminus Y|}
             {|X \cap Y| + |N \setminus X \setminus Y| +
-            \theta(|X \setminus Y| + |Y \setminus X|}
+            \theta \cdot |X \triangle Y|}
 
     .. versionadded:: 0.4.0
     """
@@ -54,6 +54,7 @@ class GowerLegendre(_TokenDistance):
         alphabet=None,
         tokenizer=None,
         intersection_type='crisp',
+        theta=0.5,
         **kwargs
     ):
         """Initialize GowerLegendre instance.
@@ -95,6 +96,8 @@ class GowerLegendre(_TokenDistance):
                   wherein items can be partially members of the intersection
                   depending on their similarity. This also takes a `metric`
                   (by default :class:`DamerauLevenshtein()`) parameter.
+        theta : float
+            The weight to place on the symmetric difference.
         **kwargs
             Arbitrary keyword arguments
 
@@ -115,6 +118,7 @@ class GowerLegendre(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        self.theta = theta
         super(GowerLegendre, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
@@ -158,7 +162,7 @@ class GowerLegendre(_TokenDistance):
         ad = self.intersection_card() + self.total_complement_card()
         bc = self.src_only_card() + self.tar_only_card()
 
-        return ad / (ad + 0.5 * bc)
+        return ad / (ad + self.theta * bc)
 
 
 if __name__ == '__main__':
