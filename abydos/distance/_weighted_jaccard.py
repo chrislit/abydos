@@ -37,7 +37,7 @@ class WeightedJaccard(_TokenDistance):
     r"""Triple Weighted Jaccard similarity.
 
     For two sets X and Y and a weight w, the Weighted Jaccard similarity
-    :cite:`Choi:2010` is
+    :cite:`Legendre:1998` is
 
         .. math::
 
@@ -46,6 +46,8 @@ class WeightedJaccard(_TokenDistance):
 
     Here, the intersection between the two sets is weighted by w. Compare to
     Jaccard similarity (:math:`w = 1`), and to Dice similarity (:math:`w = 2`).
+    In the default case, the weight of the intersection is 3, following
+    :cite:`Legendre:1998`.
 
     .. versionadded:: 0.4.0
     """
