@@ -47,6 +47,9 @@ class Gilbert(_TokenDistance):
             {|N|^2 - |X \cap Y|^2 + |X \setminus Y|^2 + |Y \setminus X|^2 -
             |N \setminus X \setminus Y|^2}
 
+    For lack of access to the original, this formula is based on the concurring
+    formulae presented in :cite:`Peirce:1884` and :cite:`Doolittle:1884`.
+
     .. versionadded:: 0.4.0
     """
 
