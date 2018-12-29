@@ -165,7 +165,9 @@ class Gilbert(_TokenDistance):
         d = self.total_complement_card()
         n = self.population_card()
 
-        return 2*(a*d-b*c)/(n**2 - a**2 + b**2 + c**2 - d**2)
+        return (
+            2 * (a * d - b * c) / (n ** 2 - a ** 2 + b ** 2 + c ** 2 - d ** 2)
+        )
 
 
 if __name__ == '__main__':
