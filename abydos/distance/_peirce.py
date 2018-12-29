@@ -167,7 +167,7 @@ class Peirce(_TokenDistance):
         d = self.total_complement_card()
         ac = self.tar_card()
 
-        return (a*d-b*c)/(ac*(b+c))
+        return (a * d - b * c) / (ac * (b + c))
 
 
 if __name__ == '__main__':
