@@ -154,10 +154,10 @@ class Tarwid(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        nta = self.population_card()*self.intersection_card()
+        nta = self.population_card() * self.intersection_card()
         abtac = self.src_card() * self.tar_card()
 
-        return (nta-abtac)/(nta+abtac)
+        return (nta - abtac) / (nta + abtac)
 
 
 if __name__ == '__main__':
