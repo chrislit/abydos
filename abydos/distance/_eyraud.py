@@ -37,7 +37,7 @@ class Eyraud(_TokenDistance):
     r"""Eyraud similarity.
 
     For two sets X and Y and a population N, the Eyraud
-    similarity :cite:`Eyraud:1936` is
+    similarity :cite:`Eyraud:1938` is
 
         .. math::
 
