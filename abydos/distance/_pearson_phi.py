@@ -46,7 +46,7 @@ class PearsonPhi(_TokenDistance):
             |X \setminus Y| \cdot |Y \setminus X|}
             {\sqrt{|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}}
 
-    This is also Pearson & Heron II similarity.
+    This is also Pearson & Heron I similarity.
 
     .. versionadded:: 0.4.0
     """
