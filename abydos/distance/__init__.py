@@ -61,6 +61,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Cole similarity (:py:class:`.Cole`)
     - Dennis similarity (:py:class:`.Dennis`)
     - Dispersion similarity (:py:class:`.Dispersion`)
+    - Doolittle similarity (:py:class:`.Doolittle`)
     - Driver & Kroeber similarity (:py:class:`.DriverKroeber`)
     - Dunning similarity (:py:class:`.Dunning`)
     - Excoffier similarity (:py:class:`.Excoffier`)
@@ -71,6 +72,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Forbes I similarity (:py:class:`.ForbesI`)
     - Forbes II similarity (:py:class:`.ForbesII`)
     - Fossum similarity (:py:class:`.Fossum`)
+    - Gilbert similarity (:py:class:`.Gilbert`)
     - Gilbert & Wells similarity (:py:class:`.GilbertWells`)
     - Goodman & Kruskal similarity (:py:class:`.GoodmanKruskal`)
     - Gower similarity (:py:class:`.Gower`)
@@ -209,6 +211,7 @@ from ._damerau_levenshtein import (
 from ._dennis import Dennis
 from ._dice import Dice, dist_dice, sim_dice
 from ._dispersion import Dispersion
+from ._doolittle import Doolittle
 from ._driver_kroeber import DriverKroeber
 from ._dunning import Dunning
 from ._editex import Editex, dist_editex, editex, sim_editex
@@ -222,6 +225,7 @@ from ._faith import Faith
 from ._forbes_i import ForbesI
 from ._forbes_ii import ForbesII
 from ._fossum import Fossum
+from ._gilbert import Gilbert
 from ._gilbert_wells import GilbertWells
 from ._goodman_kruskal import GoodmanKruskal
 from ._gotoh import Gotoh, gotoh
@@ -380,6 +384,7 @@ __all__ = [
     'Cole',
     'Dennis',
     'Dispersion',
+    'Doolittle',
     'DriverKroeber',
     'Dunning',
     'Excoffier',
@@ -390,6 +395,7 @@ __all__ = [
     'ForbesI',
     'ForbesII',
     'Fossum',
+    'Gilbert',
     'GilbertWells',
     'GoodmanKruskal',
     'Gower',
