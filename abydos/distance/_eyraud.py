@@ -36,7 +36,17 @@ __all__ = ['Eyraud']
 class Eyraud(_TokenDistance):
     r"""Eyraud similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Eyraud
+    similarity :cite:`Eyraud:1936` is
+
+        .. math::
+
+            sim_{Eyraud}(X, Y) =
+            \frac{|X \cap Y| - |X| \cdot |Y|}
+            {|X| \cdot |Y| \cdot |N \setminus Y| \cdot |N \setminus X|}
+
+    For lack of access to the original, this formula is based on the concurring
+    formulae presented in :cite:`Shi:1993` and :cite:`Hubalek:2008`.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +157,12 @@ class Eyraud(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return (a-(a+b)*(a+c))/((a+b)*(c+d)*(a+c)*(b+d))
 
 
 if __name__ == '__main__':
