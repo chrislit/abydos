@@ -42,7 +42,7 @@ class Hamann(_TokenDistance):
         .. math::
 
             sim_{Hamann}(X, Y) =
-            \frac{|X \cap Y| + |N \setminus X \setminus Y| - |X \setminus Y| -
+            \frac{|X \cap Y| + |(N \setminus X) \setminus Y| - |X \setminus Y| -
             |Y \setminus X|}{|N|}
 
     .. versionadded:: 0.4.0

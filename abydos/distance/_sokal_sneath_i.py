@@ -42,8 +42,8 @@ class SokalSneathI(_TokenDistance):
         .. math::
 
             sim_{SokalSneathI}(X, Y) =
-            \frac{2(|X \cap Y| + |N \setminus X \setminus Y|)}
-            {|X \cap Y| + |N \setminus X \setminus Y| + |N|}
+            \frac{2(|X \cap Y| + |(N \setminus X) \setminus Y|)}
+            {|X \cap Y| + |(N \setminus X) \setminus Y| + |N|}
 
     This is the first of five "Unnamed coefficients" presented in
     :cite:`Sokal:1963`. It corresponds to the "Matched pairs carry twice the

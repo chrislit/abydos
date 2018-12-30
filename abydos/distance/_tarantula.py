@@ -45,7 +45,7 @@ class Tarantula(_TokenDistance):
             \frac{\frac{|X \cap Y|}{|X \cap Y| + |X \setminus Y|}}
             {\frac{|X \cap Y|}{|X \cap Y| + |X \setminus Y|} +
             \frac{|Y \setminus X|}
-            {|Y \setminus X| + |N \setminus X \setminus Y|}}
+            {|Y \setminus X| + |(N \setminus X) \setminus Y|}}
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 

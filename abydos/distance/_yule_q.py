@@ -42,9 +42,9 @@ class YuleQ(_TokenDistance):
         .. math::
 
             sim_{YuleQ}(X, Y) =
-            \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
+            \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|}
-            {|X \cap Y| \cdot |N \setminus X \setminus Y| +
+            {|X \cap Y| \cdot |(N \setminus X) \setminus Y| +
             |X \setminus Y| \cdot |Y \setminus X|}
 
     Yule himself terms this the coefficient of association.

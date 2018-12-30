@@ -45,7 +45,7 @@ class Tetrachoric(_TokenDistance):
 
             sim_{Tetrachoric}(X, Y) = cos \Big(\frac{\pi
             \sqrt{|X \setminus Y| \cdot |Y \setminus X|}}
-            {\sqrt{|X \cap Y| \cdot |N \setminus X \setminus Y|} +
+            {\sqrt{|X \cap Y| \cdot |(N \setminus X) \setminus Y|} +
             \sqrt{|X \setminus Y| \cdot |Y \setminus X|}}\Big)
 
     .. versionadded:: 0.4.0

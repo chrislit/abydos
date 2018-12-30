@@ -42,9 +42,9 @@ class McEwenMichael(_TokenDistance):
         .. math::
 
             sim_{McEwenMichael}(X, Y) =
-            \frac{4(|X \cap Y| \cdot |N \setminus X \setminus Y| -
+            \frac{4(|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|)}
-            {(|X \cap Y| + |N \setminus X \setminus Y|)^2 +
+            {(|X \cap Y| + |(N \setminus X) \setminus Y|)^2 +
             (|X \setminus Y| + |Y \setminus X|)^2}
 
     .. versionadded:: 0.4.0

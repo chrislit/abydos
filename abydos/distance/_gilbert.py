@@ -42,10 +42,10 @@ class Gilbert(_TokenDistance):
         .. math::
 
             sim_{Gilbert}(X, Y) =
-            \frac{2(|X \cap Y| \cdot |N \setminus X \setminus Y| -
+            \frac{2(|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|}
             {|N|^2 - |X \cap Y|^2 + |X \setminus Y|^2 + |Y \setminus X|^2 -
-            |N \setminus X \setminus Y|^2}
+            |(N \setminus X) \setminus Y|^2}
 
     For lack of access to the original, this formula is based on the concurring
     formulae presented in :cite:`Peirce:1884` and :cite:`Doolittle:1884`.
@@ -165,9 +165,7 @@ class Gilbert(_TokenDistance):
         d = self.total_complement_card()
         n = self.population_card()
 
-        return (
-            2 * (a * d - b * c) / (n ** 2 - a ** 2 + b ** 2 + c ** 2 - d ** 2)
-        )
+        return 2*(a*d-b*c)/(n**2 - a**2 + b**2 + c**2 - d**2)
 
 
 if __name__ == '__main__':

@@ -42,7 +42,7 @@ class RogersTanimoto(_TokenDistance):
         .. math::
 
             sim_{RogersTanimoto}(X, Y) =
-            \frac{|X \cap Y| + |N \setminus X \setminus Y|}
+            \frac{|X \cap Y| + |(N \setminus X) \setminus Y|}
             {|X \setminus Y| + |Y \setminus X| + |N|}
 
     .. versionadded:: 0.4.0
