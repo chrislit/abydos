@@ -47,6 +47,12 @@ class Tarantula(_TokenDistance):
             \frac{|Y \setminus X|}
             {|Y \setminus X| + |N \setminus X \setminus Y|}}
 
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            \frac{\frac{a}{a+b}}{\frac{a}{a+b} + \frac{c}{c+d}}
+
     .. versionadded:: 0.4.0
     """
 
