@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._vari.
+"""abydos.distance._kent_foster_ii.
 
-Vari distance
+Kent & Foster II similarity
 """
 
 from __future__ import (
@@ -30,11 +30,11 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['Vari']
+__all__ = ['KentFosterII']
 
 
-class Vari(_TokenDistance):
-    r"""Vari distance.
+class KentFosterII(_TokenDistance):
+    r"""Kent & Foster II similarity.
 
     For two sets X and Y,
 
@@ -48,7 +48,7 @@ class Vari(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize Vari instance.
+        """Initialize KentFosterII instance.
 
         Parameters
         ----------
@@ -107,7 +107,7 @@ class Vari(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Vari, self).__init__(
+        super(KentFosterII, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -115,7 +115,7 @@ class Vari(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Vari distance of two strings.
+        """Return the Kent & Foster II similarity of two strings.
 
         Parameters
         ----------
@@ -127,11 +127,11 @@ class Vari(_TokenDistance):
         Returns
         -------
         float
-            Vari distance
+            Kent & Foster II similarity
 
         Examples
         --------
-        >>> cmp = Vari()
+        >>> cmp = KentFosterII()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
