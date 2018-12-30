@@ -42,8 +42,8 @@ class GowerLegendre(_TokenDistance):
         .. math::
 
             sim_{GowerLegendre}(X, Y) =
-            \frac{|X \cap Y| + |N \setminus X \setminus Y|}
-            {|X \cap Y| + |N \setminus X \setminus Y| +
+            \frac{|X \cap Y| + |(N \setminus X) \setminus Y|}
+            {|X \cap Y| + |(N \setminus X) \setminus Y| +
             \theta \cdot |X \triangle Y|}
 
     .. versionadded:: 0.4.0

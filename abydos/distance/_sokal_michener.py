@@ -42,7 +42,7 @@ class SokalMichener(_TokenDistance):
         .. math::
 
             sim_{SokalMichener}(X, Y) =
-            \frac{|X \cap Y| + |N \setminus X \setminus Y|}{|N|}
+            \frac{|X \cap Y| + |(N \setminus X) \setminus Y|}{|N|}
 
     This is also called the simple matching coefficient.
 

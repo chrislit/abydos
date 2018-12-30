@@ -42,9 +42,9 @@ class MSContingency(_TokenDistance):
         .. math::
 
             sim_{MSContingency}(X, Y) =
-            \frac{\sqrt{2}(|X \cap Y| \cdot |N \setminus X \setminus Y| -
+            \frac{\sqrt{2}(|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|)}
-            {\sqrt{(|X \cap Y| \cdot |N \setminus X \setminus Y| -
+            {\sqrt{(|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|)^2 +
             |X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}}
 
@@ -170,11 +170,7 @@ class MSContingency(_TokenDistance):
         ac = self.tar_card()
         admbc = a * d - b * c
 
-        return (
-            2 ** 0.5
-            * admbc
-            / (admbc ** 2 + ab * ac * (b + d) * (c + d)) ** 0.5
-        )
+        return 2**0.5 * admbc / (admbc ** 2 + ab * ac * (b + d) * (c + d)) ** 0.5
 
 
 if __name__ == '__main__':

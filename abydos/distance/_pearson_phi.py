@@ -42,7 +42,7 @@ class PearsonPhi(_TokenDistance):
         .. math::
 
             sim_{PearsonPhi}(X, Y) =
-            \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
+            \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|}
             {\sqrt{|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}}
 

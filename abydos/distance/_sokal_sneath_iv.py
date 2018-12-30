@@ -45,10 +45,10 @@ class SokalSneathIV(_TokenDistance):
             \frac{
             \frac{|X \cap Y|}{|X|}
             \frac{|X \cap Y|}{|Y|}
-            \frac{|N \setminus X \setminus Y|}
-            {|N \setminus X \setminus Y| + |X \setminus Y|}
-            \frac{|N \setminus X \setminus Y|}
-            {|N \setminus X \setminus Y| + |Y \setminus X|}
+            \frac{|(N \setminus X) \setminus Y|}
+            {|(N \setminus X) \setminus Y| + |X \setminus Y|}
+            \frac{|(N \setminus X) \setminus Y|}
+            {|(N \setminus X) \setminus Y| + |Y \setminus X|}
             }{4}
 
     This is the fourth of five "Unnamed coefficients" presented in

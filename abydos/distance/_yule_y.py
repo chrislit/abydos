@@ -42,9 +42,9 @@ class YuleY(_TokenDistance):
         .. math::
 
             sim_{YuleY}(X, Y) =
-            \frac{\sqrt{|X \cap Y| \cdot |N \setminus X \setminus Y|} -
+            \frac{\sqrt{|X \cap Y| \cdot |(N \setminus X) \setminus Y|} -
             \sqrt{|X \setminus Y| \cdot |Y \setminus X|}}
-            {\sqrt{|X \cap Y| \cdot |N \setminus X \setminus Y|} +
+            {\sqrt{|X \cap Y| \cdot |(N \setminus X) \setminus Y|} +
             \sqrt{|X \setminus Y| \cdot |Y \setminus X|}}
 
     In :cite:`Yule:1912`, this is labeled :math:`\omega`, so it is sometimes

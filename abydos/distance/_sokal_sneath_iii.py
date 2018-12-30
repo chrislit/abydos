@@ -42,7 +42,7 @@ class SokalSneathIII(_TokenDistance):
         .. math::
 
             sim_{SokalSneathIII}(X, Y) =
-            \frac{|X \cap Y| + |N \setminus X \setminus Y|}
+            \frac{|X \cap Y| + |(N \setminus X) \setminus Y|}
             {|X \setminus Y| + |Y \setminus X|}
 
     This is the third of five "Unnamed coefficients" presented in

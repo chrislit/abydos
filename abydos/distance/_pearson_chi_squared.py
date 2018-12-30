@@ -43,7 +43,7 @@ class PearsonChiSquared(_TokenDistance):
         .. math::
 
             sim_{PearsonChiSquared}(X, Y) =
-            \frac{|N| \cdot (|X \cap Y| \cdot |N \setminus X \setminus Y| -
+            \frac{|N| \cdot (|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|)^2}
             {|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}
 

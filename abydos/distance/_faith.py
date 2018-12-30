@@ -42,7 +42,7 @@ class Faith(_TokenDistance):
         .. math::
 
             sim_{Faith}(X, Y) = \frac{|X \cap Y| +
-            \frac{|N \setminus X \setminus Y|}{2}}{|N|}
+            \frac{|(N \setminus X) \setminus Y|}{2}}{|N|}
 
     .. versionadded:: 0.4.0
     """

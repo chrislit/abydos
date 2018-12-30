@@ -43,7 +43,7 @@ class Cole(_TokenDistance):
 
         .. math::
 
-            |X \cap Y| \cdot |N \setminus X \setminus Y| \geq
+            |X \cap Y| \cdot |(N \setminus X) \setminus Y| \geq
             |X \setminus Y| \cdot |Y \setminus Y|
 
       then
@@ -51,23 +51,23 @@ class Cole(_TokenDistance):
         .. math::
 
             sim_{Cole}(X, Y) =
-            \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
+            \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|}
             {(|X \cap Y| + |X \setminus Y|) \cdot
-            (|X \setminus Y| + |N \setminus X \setminus Y|)}
+            (|X \setminus Y| + |(N \setminus X) \setminus Y|)}
 
     - If
 
         .. math::
 
-            |N \setminus X \setminus Y| \geq |X \cap Y|
+            |(N \setminus X) \setminus Y| \geq |X \cap Y|
 
       then
 
         .. math::
 
             sim_{Cole}(X, Y) =
-            \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
+            \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|}
             {(|X \cap Y| + |X \setminus Y|) \cdot
             (|X \cap Y| + |Y \setminus X|)}`
@@ -77,10 +77,10 @@ class Cole(_TokenDistance):
         .. math::
 
             sim_{Cole}(X, Y) =
-            \frac{|X \cap Y| \cdot |N \setminus X \setminus Y| -
+            \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|}
-            {(|X \setminus Y| + |N \setminus X \setminus Y|) \cdot
-            (|Y \setminus X| + |N \setminus X \setminus Y|)}
+            {(|X \setminus Y| + |(N \setminus X) \setminus Y|) \cdot
+            (|Y \setminus X| + |(N \setminus X) \setminus Y|)}
 
     Cole terms this measurement the Coefficient of Interspecific Association.
 
