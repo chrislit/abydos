@@ -18,7 +18,7 @@
 
 """abydos.distance._anderberg.
 
-Anderberg similarity
+Anderberg's d
 """
 
 from __future__ import (
@@ -34,9 +34,38 @@ __all__ = ['Anderberg']
 
 
 class Anderberg(_TokenDistance):
-    r"""Anderberg similarity.
+    r"""Anderberg's d.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Anderberg's d
+    :cite:`Anderberg:1976` is
+
+        .. math::
+
+            sim_{Anderberg}(X, Y) =
+            \frac{(max(|X \cap Y|, |X \setminus Y|)+
+            max(|Y \setminus X|, |(N \setminus X) \setminus Y|)+
+            max(|X \cap Y|, |Y \setminus X|)+
+            max(|X \setminus Y|, |(N \setminus X) \setminus Y|))-
+            (max(|Y|, |N \setminus Y|)+max(|X|, |N \setminus X|))}
+            {2|N|}
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{Anderberg} =
+            \frac{(max(a,b)+max(c,d)+max(a,c)+max(b,d))-
+            (max(a+b,b+d)+max(a+b,c+d))}{2n}
+
+        +----------------+-------------+----------------+-------------+
+        |                | |in| ``tar``| |notin| ``tar``|             |
+        +----------------+-------------+----------------+-------------+
+        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
+        +----------------+-------------+----------------+-------------+
+        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
+        +----------------+-------------+----------------+-------------+
+        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
+        +----------------+-------------+----------------+-------------+
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +176,15 @@ class Anderberg(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return (
+            (max(a, b) + max(c + d) + max(a, c) + max(b, d))
+            - (max(a + c, b + d) + max(a + b, c + d))
+        ) / (2 * (a + b + c + d))
 
 
 if __name__ == '__main__':
