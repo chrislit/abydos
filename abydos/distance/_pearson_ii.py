@@ -52,6 +52,24 @@ class PearsonII(PearsonChiSquared):
             |X \setminus Y| \cdot |Y \setminus X|)^2}
             {|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}
 
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            \chi^2 = sim_{PearsonChiSquared} =
+            \frac{n \cdot (ad-bc)^2}{(a+b)(a+c)(b+d)(c+d)}
+
+
+        +----------------+-------------+----------------+-------------+
+        |                | |in| ``tar``| |notin| ``tar``|             |
+        +----------------+-------------+----------------+-------------+
+        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
+        +----------------+-------------+----------------+-------------+
+        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
+        +----------------+-------------+----------------+-------------+
+        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
+        +----------------+-------------+----------------+-------------+
+
     .. versionadded:: 0.4.0
     """
 

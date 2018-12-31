@@ -44,7 +44,7 @@ class Dice(Tversky):
 
         .. math::
 
-            sim_{dice}(X, Y) = \frac{2 \cdot |X \cap Y|}{|X| + |Y|}
+            sim_{Dice}(X, Y) = \frac{2 \cdot |X \cap Y|}{|X| + |Y|}
 
     This is the complement of Bray & Curtis dissimilarity :cite:`Bray:1957`,
     also known as the Lance & Williams dissimilarity :cite:`Lance:1967`.
@@ -52,6 +52,23 @@ class Dice(Tversky):
     This is identical to the Tanimoto similarity coefficient
     :cite:`Tanimoto:1958` and the Tversky index :cite:`Tversky:1977` for
     :math:`\alpha = \beta = 0.5`.
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{Dice} =
+            \frac{2a}{2a+b+c}
+
+        +----------------+-------------+----------------+-------------+
+        |                | |in| ``tar``| |notin| ``tar``|             |
+        +----------------+-------------+----------------+-------------+
+        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
+        +----------------+-------------+----------------+-------------+
+        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
+        +----------------+-------------+----------------+-------------+
+        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
+        +----------------+-------------+----------------+-------------+
 
     .. versionadded:: 0.3.6
     """

@@ -54,6 +54,23 @@ class Stiles(_TokenDistance):
     In contrast to other uses, here, :math:`card(X)` represents the cardinality
     of X and :math:`|n|` represents absolute value.
 
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{Stiles} =
+            \frac{n(ad-bc-\frac{1}{2}n)^2}{(a+b)(a+c)(b+d)(c+d)}
+
+        +----------------+-------------+----------------+-------------+
+        |                | |in| ``tar``| |notin| ``tar``|             |
+        +----------------+-------------+----------------+-------------+
+        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
+        +----------------+-------------+----------------+-------------+
+        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
+        +----------------+-------------+----------------+-------------+
+        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
+        +----------------+-------------+----------------+-------------+
+
     .. versionadded:: 0.4.0
     """
 

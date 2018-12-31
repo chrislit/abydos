@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance.
+r"""abydos.distance.
 
 The distance package implements string distance measure and metric classes:
 
@@ -216,6 +216,19 @@ class:
 0.7142857142857143
 
 ----
+
+.. |in| replace:: :math:`x \in`
+.. |notin| replace:: :math:`x \notin`
+
+.. |a| replace:: :math:`|X \cap Y|`
+.. |b| replace:: :math:`|X\setminus Y|`
+.. |c| replace:: :math:`|Y \setminus X|`
+.. |d| replace:: :math:`|(N\setminus X)\setminus Y|`
+.. |n| replace:: :math:`|N|`
+.. |a+b| replace:: :math:`|X|`
+.. |a+c| replace:: :math:`|Y|`
+.. |c+d| replace:: :math:`|N\setminus X|`
+.. |b+d| replace:: :math:`|N\setminus Y|`
 
 """
 

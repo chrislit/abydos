@@ -41,9 +41,27 @@ class ShapeDifference(_TokenDistance):
 
         .. math::
 
-            dist_{Size}(X, Y) =
-            \frac{1}{|N|}\cdot\sum_{d \in (X \triangle Y)} d^2 -
+            dist_{Shape}(X, Y) =
+            \frac{1}{|N|}\cdot\sum_{x \in (X \triangle Y)} x^2 -
             \frac{1}{|N|^2}\cdot |X \triangle Y|^2
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{Shape} =
+            \frac{1}{n}\Big(\sum_{x \in b} x^2 + \sum_{x \in c} x^2\Big) -
+            \frac{1}{n^2}\cdot (b+c)^2
+
+        +----------------+-------------+----------------+-------------+
+        |                | |in| ``tar``| |notin| ``tar``|             |
+        +----------------+-------------+----------------+-------------+
+        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
+        +----------------+-------------+----------------+-------------+
+        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
+        +----------------+-------------+----------------+-------------+
+        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
+        +----------------+-------------+----------------+-------------+
 
     .. versionadded:: 0.4.0
     """

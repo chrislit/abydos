@@ -34,7 +34,7 @@ __all__ = ['WeightedJaccard']
 
 
 class WeightedJaccard(_TokenDistance):
-    r"""Triple Weighted Jaccard similarity.
+    r"""Weighted Jaccard similarity.
 
     For two sets X and Y and a weight w, the Weighted Jaccard similarity
     :cite:`Legendre:1998` is
@@ -48,6 +48,23 @@ class WeightedJaccard(_TokenDistance):
     Jaccard similarity (:math:`w = 1`), and to Dice similarity (:math:`w = 2`).
     In the default case, the weight of the intersection is 3, following
     :cite:`Legendre:1998`.
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{Jaccard_w} =
+            \frac{w\cdot a}{w\cdot a+b+c}
+
+        +----------------+-------------+----------------+-------------+
+        |                | |in| ``tar``| |notin| ``tar``|             |
+        +----------------+-------------+----------------+-------------+
+        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
+        +----------------+-------------+----------------+-------------+
+        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
+        +----------------+-------------+----------------+-------------+
+        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
+        +----------------+-------------+----------------+-------------+
 
     .. versionadded:: 0.4.0
     """
