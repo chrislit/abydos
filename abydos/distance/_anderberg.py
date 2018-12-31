@@ -67,6 +67,14 @@ class Anderberg(_TokenDistance):
         |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
         +----------------+-------------+----------------+-------------+
 
+    Note
+    ----
+    There are various references to another "Anderberg similarity",
+    :math:`sim_{Anderberg} = \frac{8a}{8a+b+c}`, but I cannot substantiate
+    the claim that this appears in :cite:`Anderberg:1973`. In any case,
+    if you want to use this measure, you may instatiate
+    :py:class:`WeightedJaccard` with `weight=8`.
+
     .. versionadded:: 0.4.0
     """
 
