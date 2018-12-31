@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._batagelj_bren.
+"""abydos.distance._batagelj_bren_i.
 
-Batagelj & Bren similarity
+Batagelj & Bren I similarity
 """
 
 from __future__ import (
@@ -30,13 +30,37 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['BatageljBren']
+__all__ = ['BatageljBrenI']
 
 
-class BatageljBren(_TokenDistance):
-    r"""Batagelj & Bren similarity.
+class BatageljBrenI(_TokenDistance):
+    r"""Batagelj & Bren I similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Batagelj & Bren I
+    similarity :cite:`Batagelj:1995`, Batagelj & Bren's :math:`Q_0`, is
+
+        .. math::
+
+            sim_{BatageljBrenI}(X, Y) =
+            \frac{|X \setminus Y| \cdot |Y \setminus X|}
+            {|X \cap Y| \cdot |(N \setminus X) \setminus Y|}
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{BatageljBrenI} =
+            \frac{bc}{ad}
+
+        +----------------+-------------+----------------+-------------+
+        |                | |in| ``tar``| |notin| ``tar``|             |
+        +----------------+-------------+----------------+-------------+
+        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
+        +----------------+-------------+----------------+-------------+
+        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
+        +----------------+-------------+----------------+-------------+
+        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
+        +----------------+-------------+----------------+-------------+
 
     .. versionadded:: 0.4.0
     """
@@ -48,7 +72,7 @@ class BatageljBren(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize BatageljBren instance.
+        """Initialize BatageljBrenI instance.
 
         Parameters
         ----------
@@ -107,7 +131,7 @@ class BatageljBren(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(BatageljBren, self).__init__(
+        super(BatageljBrenI, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -115,7 +139,7 @@ class BatageljBren(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Batagelj & Bren similarity of two strings.
+        """Return the Batagelj & Bren I similarity of two strings.
 
         Parameters
         ----------
@@ -131,7 +155,7 @@ class BatageljBren(_TokenDistance):
 
         Examples
         --------
-        >>> cmp = BatageljBren()
+        >>> cmp = BatageljBrenI()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -147,13 +171,12 @@ class BatageljBren(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return b*c/(a*d)
 
 
 if __name__ == '__main__':
