@@ -51,6 +51,23 @@ class YuleY(_TokenDistance):
     referred to as Yule's :math:`\omega`. Yule himself terms this the
     coefficient of colligation.
 
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{YuleY} =
+            \frac{\sqrt{ad}-\sqrt{bc}}{\sqrt{ad}+\sqrt{bc}}
+
+        +----------------+-------------+----------------+-------------+
+        |                | |in| ``tar``| |notin| ``tar``|             |
+        +----------------+-------------+----------------+-------------+
+        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
+        +----------------+-------------+----------------+-------------+
+        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
+        +----------------+-------------+----------------+-------------+
+        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
+        +----------------+-------------+----------------+-------------+
+
     .. versionadded:: 0.4.0
     """
 

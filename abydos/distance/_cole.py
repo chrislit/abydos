@@ -39,14 +39,8 @@ class Cole(_TokenDistance):
     For two sets X and Y and a population N, the Cole similarity
     :cite:`Cole:1949` has three formulae:
 
-    - If
-
-        .. math::
-
-            |X \cap Y| \cdot |(N \setminus X) \setminus Y| \geq
-            |X \setminus Y| \cdot |Y \setminus Y|
-
-      then
+    - If :math:`|X \cap Y| \cdot |(N \setminus X) \setminus Y| \geq
+      |X \setminus Y| \cdot |Y \setminus Y|` then
 
         .. math::
 
@@ -56,13 +50,7 @@ class Cole(_TokenDistance):
             {(|X \cap Y| + |X \setminus Y|) \cdot
             (|X \setminus Y| + |(N \setminus X) \setminus Y|)}
 
-    - If
-
-        .. math::
-
-            |(N \setminus X) \setminus Y| \geq |X \cap Y|
-
-      then
+    - If :math:`|(N \setminus X) \setminus Y| \geq |X \cap Y|` then
 
         .. math::
 
@@ -70,7 +58,7 @@ class Cole(_TokenDistance):
             \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|}
             {(|X \cap Y| + |X \setminus Y|) \cdot
-            (|X \cap Y| + |Y \setminus X|)}`
+            (|X \cap Y| + |Y \setminus X|)}
 
     - Otherwise
 
@@ -83,6 +71,36 @@ class Cole(_TokenDistance):
             (|Y \setminus X| + |(N \setminus X) \setminus Y|)}
 
     Cole terms this measurement the Coefficient of Interspecific Association.
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+    - If :math:`ad \geq bc`
+
+        .. math::
+
+            sim_{Cole} = \frac{ad-bc}{(a+b)(a+d)}
+
+    - If :math:`d \geq a`
+
+        .. math::
+
+            sim_{Cole} = \frac{ad-bc}{(a+b)(a+c)}
+
+    - Otherwise
+
+        .. math::
+
+            sim_{Cole} = \frac{ad-bc}{(b+d)(c+d)}
+
+        +----------------+-------------+----------------+-------------+
+        |                | |in| ``tar``| |notin| ``tar``|             |
+        +----------------+-------------+----------------+-------------+
+        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
+        +----------------+-------------+----------------+-------------+
+        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
+        +----------------+-------------+----------------+-------------+
+        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
+        +----------------+-------------+----------------+-------------+
 
     .. versionadded:: 0.4.0
     """

@@ -50,6 +50,23 @@ class BaroniUrbaniBuserII(_TokenDistance):
     This is the first, but less commonly used and referenced of the two
     similarities proposed by Baroni-Urbani & Buser.
 
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{BaroniUrbaniII} =
+            \frac{\sqrt{ad}+a-b-c}{\sqrt{ad}+a+b+c}
+
+        +----------------+-------------+----------------+-------------+
+        |                | |in| ``tar``| |notin| ``tar``|             |
+        +----------------+-------------+----------------+-------------+
+        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
+        +----------------+-------------+----------------+-------------+
+        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
+        +----------------+-------------+----------------+-------------+
+        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
+        +----------------+-------------+----------------+-------------+
+
     .. versionadded:: 0.4.0
     """
 

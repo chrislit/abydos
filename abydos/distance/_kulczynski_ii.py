@@ -48,6 +48,23 @@ class KulczynskiII(_TokenDistance):
     This metric is incorrectly formulated in :cite:`Choi:2010`, possibly
     mis-copied from :cite:`Hubalek:2008`.
 
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{KulczynskiII} =
+            \frac{1}{2}\big(\frac{a}{a+b}+\frac{a}{a+c}\big)
+
+        +----------------+-------------+----------------+-------------+
+        |                | |in| ``tar``| |notin| ``tar``|             |
+        +----------------+-------------+----------------+-------------+
+        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
+        +----------------+-------------+----------------+-------------+
+        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
+        +----------------+-------------+----------------+-------------+
+        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
+        +----------------+-------------+----------------+-------------+
+
     .. versionadded:: 0.4.0
     """
 

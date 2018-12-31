@@ -43,10 +43,27 @@ class Tetrachoric(_TokenDistance):
 
         .. math::
 
-            sim_{Tetrachoric}(X, Y) = cos \Big(\frac{\pi
+            sim_{Tetrachoric}(X, Y) = \cos \Big(\frac{\pi
             \sqrt{|X \setminus Y| \cdot |Y \setminus X|}}
             {\sqrt{|X \cap Y| \cdot |(N \setminus X) \setminus Y|} +
             \sqrt{|X \setminus Y| \cdot |Y \setminus X|}}\Big)
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{Tetrachoric} =
+            \cos \frac{\pi\sqrt{bc}}{\sqrt{ad}+\sqrt{bc}}
+
+        +----------------+-------------+----------------+-------------+
+        |                | |in| ``tar``| |notin| ``tar``|             |
+        +----------------+-------------+----------------+-------------+
+        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
+        +----------------+-------------+----------------+-------------+
+        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
+        +----------------+-------------+----------------+-------------+
+        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
+        +----------------+-------------+----------------+-------------+
 
     .. versionadded:: 0.4.0
     """

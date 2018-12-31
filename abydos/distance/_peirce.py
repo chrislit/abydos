@@ -44,13 +44,30 @@ class Peirce(_TokenDistance):
             sim_{Peirce}(X, Y) = \frac{|X \cap Y| \cdot
             |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus Y|}
-            {(|X \cap Y| +|X \setminus Y|) \cdot
+            {(|X \cap Y| + |X \setminus Y|) \cdot
             (|Y \setminus Y| + |(N \setminus X) \setminus Y|)}
 
     Both :cite:`Choi:2010` and :cite:`Hubalek:2008` present a different formula
     and incorrectly attribute it to Peirce. Likewise, :cite:`Doolittle:1884`
     presents a different formula and incorrectly attributes it to Peirce. This
     is distinct from the formula he presents and attributes to himself.
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{Peirce} =
+            \frac{ad-bd}{(a+b)(c+d)}
+
+        +----------------+-------------+----------------+-------------+
+        |                | |in| ``tar``| |notin| ``tar``|             |
+        +----------------+-------------+----------------+-------------+
+        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
+        +----------------+-------------+----------------+-------------+
+        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
+        +----------------+-------------+----------------+-------------+
+        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
+        +----------------+-------------+----------------+-------------+
 
     .. versionadded:: 0.4.0
     """

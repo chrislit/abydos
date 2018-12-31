@@ -57,6 +57,24 @@ class SokalSneathIV(_TokenDistance):
     "Negative Matches in Numerator Excluded" corresponds to the Kulczynski II
     similarity, :class:`.KulczynskiII`.
 
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{SokalSneathIV} =
+            \frac{1}{4}\Big(\frac{a}{a+b}\frac{a}{a+c}
+            \frac{d}{b+d}\frac{d}{c+d}\Big)
+
+        +----------------+-------------+----------------+-------------+
+        |                | |in| ``tar``| |notin| ``tar``|             |
+        +----------------+-------------+----------------+-------------+
+        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
+        +----------------+-------------+----------------+-------------+
+        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
+        +----------------+-------------+----------------+-------------+
+        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
+        +----------------+-------------+----------------+-------------+
+
     .. versionadded:: 0.4.0
     """
 

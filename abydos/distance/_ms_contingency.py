@@ -53,6 +53,23 @@ class MSContingency(_TokenDistance):
     have developed it. Rather, he presents his coefficient of interspecific
     association as being his own development: :class:`.Cole`.
 
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{MSContingency} =
+            \frac{\sqrt{2}(ad-bc)}{\sqrt{(ad-bc)^2+(a+b)(a+c)(b+d)(c+d)}}
+
+        +----------------+-------------+----------------+-------------+
+        |                | |in| ``tar``| |notin| ``tar``|             |
+        +----------------+-------------+----------------+-------------+
+        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
+        +----------------+-------------+----------------+-------------+
+        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
+        +----------------+-------------+----------------+-------------+
+        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
+        +----------------+-------------+----------------+-------------+
+
     .. versionadded:: 0.4.0
     """
 

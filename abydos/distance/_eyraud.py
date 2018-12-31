@@ -48,6 +48,23 @@ class Eyraud(_TokenDistance):
     For lack of access to the original, this formula is based on the concurring
     formulae presented in :cite:`Shi:1993` and :cite:`Hubalek:2008`.
 
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{Eyraud} =
+            \frac{a-(a+b)(a+c)}{(a+b)(a+c)(b+d)(c+d)}
+
+        +----------------+-------------+----------------+-------------+
+        |                | |in| ``tar``| |notin| ``tar``|             |
+        +----------------+-------------+----------------+-------------+
+        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
+        +----------------+-------------+----------------+-------------+
+        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
+        +----------------+-------------+----------------+-------------+
+        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
+        +----------------+-------------+----------------+-------------+
+
     .. versionadded:: 0.4.0
     """
 
