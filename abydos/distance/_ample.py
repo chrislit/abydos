@@ -36,7 +36,32 @@ __all__ = ['AMPLE']
 class AMPLE(_TokenDistance):
     r"""AMPLE similarity.
 
-    For two sets X and Y,
+    The AMPLE similarity :cite:`Dallmeier:2005,Abreu:2006` is defined in
+    getAverageSequenceWeight() in the AverageSequenceWeightEvaluator.java file
+    of AMPLE's source code. For two sets X and Y and a population N, it is
+
+        .. math::
+
+            sim_{AMPLE}(X, Y) =
+            \big|\frac{|X \cap Y|}{|X|} -
+            \frac{|Y \setminus X|}{|N \setminus X|}\big|
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{AMPLE} =
+            \big|\frac{a}{a+b}-\frac{c}{c+d}\big|
+
+        +----------------+-------------+----------------+-------------+
+        |                | |in| ``tar``| |notin| ``tar``|             |
+        +----------------+-------------+----------------+-------------+
+        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
+        +----------------+-------------+----------------+-------------+
+        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
+        +----------------+-------------+----------------+-------------+
+        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
+        +----------------+-------------+----------------+-------------+
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +172,12 @@ class AMPLE(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return abs((a / (a + b)) - (c / (c + d)))
 
 
 if __name__ == '__main__':

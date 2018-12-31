@@ -241,7 +241,6 @@ from __future__ import (
 
 from ._ample import AMPLE
 from ._anderberg import Anderberg
-from ._anderberg_d import AnderbergD
 from ._bag import Bag, bag, dist_bag, sim_bag
 from ._baroni_urbani_buser_i import BaroniUrbaniBuserI
 from ._baroni_urbani_buser_ii import BaroniUrbaniBuserII
@@ -461,7 +460,6 @@ __all__ = [
     'RussellRao',
     'AMPLE',
     'Anderberg',
-    'AnderbergD',
     'BaroniUrbaniBuserI',
     'BaroniUrbaniBuserII',
     'BatageljBren',
