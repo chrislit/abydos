@@ -53,7 +53,9 @@ class SizeDifference(_TokenDistance):
 
     In :cite:`IBM:2017`, the formula is instead :math:`\frac{(b-c)^2}{n^2}`,
     but it is clear from :cite:`Penrose:1952` that this should not be an
-    assymmetric value with respect two the ordering of the two sets.
+    assymmetric value with respect two the ordering of the two sets. Meanwhile,
+    :cite:`Deza:2016` gives a formula that is equivalent to
+    :math:`\sqrt{n}\cdot(b+c)`.
 
         +----------------+-------------+----------------+-------------+
         |                | |in| ``tar``| |notin| ``tar``|             |
