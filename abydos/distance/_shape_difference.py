@@ -57,7 +57,8 @@ class ShapeDifference(_TokenDistance):
     :math:`\frac{n(b+c)-(b-c)^2}{n^2}`, but it is clear from
     :cite:`Penrose:1952` that this should not be an assymmetric value with
     respect two the ordering of the two sets, among other errors in this
-    formula.
+    formula. Meanwhile, :cite:`Deza:2016` gives the formula
+    :math:`\sqrt{\sum((x_i-\bar{x})-(y_i-\bar{y}))^2}`.
 
         +----------------+-------------+----------------+-------------+
         |                | |in| ``tar``| |notin| ``tar``|             |
