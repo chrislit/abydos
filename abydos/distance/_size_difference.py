@@ -42,7 +42,7 @@ class SizeDifference(_TokenDistance):
         .. math::
 
             sim_{Size}(X, Y) =
-            \frac{(|X \setminus Y| + |Y \setminus X|)^2}{|N|^2}
+            \frac{(|X \triangle Y|)^2}{|N|^2}
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
@@ -50,6 +50,10 @@ class SizeDifference(_TokenDistance):
 
             sim_{Size} =
             \frac{(b+c)^2}{n^2}
+
+    In :cite:`IBM:2017`, the formula is instead :math:`\frac{(b-c)^2}{n^2}`,
+    but it is clear from :cite:`Penrose:1952` that this should not be an
+    assymmetric value with respect two the ordering of the two sets.
 
         +----------------+-------------+----------------+-------------+
         |                | |in| ``tar``| |notin| ``tar``|             |
