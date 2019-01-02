@@ -58,7 +58,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Baroni-Urbani & Buser II similarity (:py:class:`.BaroniUrbaniBuserII`)
     - Batagelj & Bren I similarity (:py:class:`.BatageljBrenI`)
     - Batagelj & Bren II similarity (:py:class:`.BatageljBrenII`)
-    - Baulieu's Shape Difference distance (:py:class:`.BaulieuShapeDifference`)
     - Benini similarity (:py:class:`.Benini`)
     - Braun & Banquest similarity (:py:class:`.BraunBanquest`)
     - Canberra distance (:py:class:`.Canberra`)
@@ -247,7 +246,6 @@ from ._baroni_urbani_buser_i import BaroniUrbaniBuserI
 from ._baroni_urbani_buser_ii import BaroniUrbaniBuserII
 from ._batagelj_bren_i import BatageljBrenI
 from ._batagelj_bren_ii import BatageljBrenII
-from ._baulieu_shape_difference import BaulieuShapeDifference
 from ._baystat import Baystat, dist_baystat, sim_baystat
 from ._benini import Benini
 from ._braun_banquest import BraunBanquest
@@ -466,7 +464,6 @@ __all__ = [
     'BaroniUrbaniBuserII',
     'BatageljBrenI',
     'BatageljBrenII',
-    'BaulieuShapeDifference',
     'Benini',
     'BraunBanquest',
     'Canberra',
