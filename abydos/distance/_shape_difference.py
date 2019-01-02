@@ -43,7 +43,7 @@ class ShapeDifference(_TokenDistance):
 
             dist_{Shape}(X, Y) =
             \frac{1}{|N|}\cdot\sum_{x \in (X \triangle Y)} x^2 -
-            \frac{1}{|N|^2}\cdot |X \triangle Y|^2
+            \Big(\frac{|X \triangle Y|}{|N|}\Big)^2
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
@@ -51,7 +51,13 @@ class ShapeDifference(_TokenDistance):
 
             sim_{Shape} =
             \frac{1}{n}\Big(\sum_{x \in b} x^2 + \sum_{x \in c} x^2\Big) -
-            \frac{1}{n^2}\cdot (b+c)^2
+            \Big(\frac{b+c}{n}\Big)^2
+
+    In :cite:`IBM:2017`, the formula is instead
+    :math:`\frac{n(b+c)-(b-c)^2}{n^2}`, but it is clear from
+    :cite:`Penrose:1952` that this should not be an assymmetric value with
+    respect two the ordering of the two sets, among other errors in this
+    formula.
 
         +----------------+-------------+----------------+-------------+
         |                | |in| ``tar``| |notin| ``tar``|             |
@@ -178,7 +184,7 @@ class ShapeDifference(_TokenDistance):
         dist_sq = sum(_ ** 2 for _ in symdiff)
         n = self.population_card()
 
-        return dist_sq / n - dist ** 2 / n ** 2
+        return dist_sq / n - (dist / n) ** 2
 
 
 if __name__ == '__main__':
