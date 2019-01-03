@@ -56,8 +56,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Anderberg's D similarity (:py:class:`.AnderbergD`)
     - Baroni-Urbani & Buser I similarity (:py:class:`.BaroniUrbaniBuserI`)
     - Baroni-Urbani & Buser II similarity (:py:class:`.BaroniUrbaniBuserII`)
-    - Batagelj & Bren I similarity (:py:class:`.BatageljBrenI`)
-    - Batagelj & Bren II similarity (:py:class:`.BatageljBrenII`)
+    - Batagelj & Bren similarity (:py:class:`.BatageljBren`)
     - Benini similarity (:py:class:`.Benini`)
     - Braun & Banquest similarity (:py:class:`.BraunBanquest`)
     - Canberra distance (:py:class:`.Canberra`)
@@ -244,8 +243,7 @@ from ._anderberg import Anderberg
 from ._bag import Bag, bag, dist_bag, sim_bag
 from ._baroni_urbani_buser_i import BaroniUrbaniBuserI
 from ._baroni_urbani_buser_ii import BaroniUrbaniBuserII
-from ._batagelj_bren_i import BatageljBrenI
-from ._batagelj_bren_ii import BatageljBrenII
+from ._batagelj_bren import BatageljBren
 from ._baystat import Baystat, dist_baystat, sim_baystat
 from ._benini import Benini
 from ._braun_banquest import BraunBanquest
@@ -462,8 +460,7 @@ __all__ = [
     'Anderberg',
     'BaroniUrbaniBuserI',
     'BaroniUrbaniBuserII',
-    'BatageljBrenI',
-    'BatageljBrenII',
+    'BatageljBren',
     'Benini',
     'BraunBanquest',
     'Canberra',
