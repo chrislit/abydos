@@ -37,7 +37,7 @@ class Anderberg(_TokenDistance):
     r"""Anderberg's d.
 
     For two sets X and Y and a population N, Anderberg's d
-    :cite:`Anderberg:1976` is
+    :cite:`Anderberg:1973` is
 
         .. math::
 

@@ -37,7 +37,7 @@ class Dispersion(_TokenDistance):
     r"""Dispersion similarity.
 
     For two sets X and Y and a population N, the dispersion
-    similarity :cite:`IBM:2016` is
+    similarity :cite:`IBM:2017` is
 
         .. math::
 
