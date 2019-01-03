@@ -60,16 +60,6 @@ class MSContingency(_TokenDistance):
             sim_{MSContingency} =
             \frac{\sqrt{2}(ad-bc)}{\sqrt{(ad-bc)^2+(a+b)(a+c)(b+d)(c+d)}}
 
-        +----------------+-------------+----------------+-------------+
-        |                | |in| ``tar``| |notin| ``tar``|             |
-        +----------------+-------------+----------------+-------------+
-        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
-        +----------------+-------------+----------------+-------------+
-        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
-        +----------------+-------------+----------------+-------------+
-        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
-        +----------------+-------------+----------------+-------------+
-
     .. versionadded:: 0.4.0
     """
 
@@ -187,11 +177,7 @@ class MSContingency(_TokenDistance):
         ac = self.tar_card()
         admbc = a * d - b * c
 
-        return (
-            2 ** 0.5
-            * admbc
-            / (admbc ** 2 + ab * ac * (b + d) * (c + d)) ** 0.5
-        )
+        return 2**0.5 * admbc / (admbc ** 2 + ab * ac * (b + d) * (c + d)) ** 0.5
 
 
 if __name__ == '__main__':
