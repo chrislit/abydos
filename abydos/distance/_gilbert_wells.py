@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import factorial, log, pi
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['GilbertWells']
@@ -36,7 +38,32 @@ __all__ = ['GilbertWells']
 class GilbertWells(_TokenDistance):
     r"""Gilbert & Wells similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the Gilbert & Wells
+    similarity :cite:`Gilbert:1966` is
+
+        .. math::
+
+            sim_{GilbertWells}(X, Y) =
+            ln \frac{|N|^3}{2\pi |X| \cdot |Y| \cdot
+            |N \setminux Y| \cdot |N \setminus X|} + 2ln
+            \frac{|N|! \cdot |X \cap Y|! \cdot |X \setminus Y|! \cdot
+            |Y \setminus X|! \cdot |(N \setminus X) \setminus Y|!}
+            {|X|! \cdot |Y|! \cdot |N \setminux Y|! \cdot |N \setminus X|!}
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{GilbertWells} =
+            ln \frac{n^3}{2\pi (a+b)(a+c)(b+d)(c+d)} +
+            2ln \frac{n!a!b!c!d!}{(a+b)!(a+c)!(b+d)!(c+d)!}
+
+    Most lists of similarity & distance measures, including
+    :cite:`Hubalek:1982,Choi:2010,Morris:2012` have a quite different formula,
+    which would be :math:`ln a - ln b - ln \frac{a+b}{n} - ln \frac{a+c}{n} =
+    ln\frac{an}{(a+b)(a+c)}`. However, neither this formula nor anything
+    similar or equivalent to it appears anywhere within the cited work,
+    :cite:`Gilbert:1966`.
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +174,16 @@ class GilbertWells(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
+        n = self.population_card()
 
-        return 0.0
+        return (log(n**3/(2*pi*(a+b)*(a+c)*(b+d)*(c+d))) +
+                2*(log(factorial(n))+log(factorial(a))+log(factorial(b))+
+                   log(factorial(c))+log(factorial(d))-log(factorial(a+b))-
+                   log(factorial(a+c))-log(factorial(b+d))-log(factorial(c+d))))
 
 
 if __name__ == '__main__':
