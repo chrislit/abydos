@@ -36,7 +36,7 @@ __all__ = ['GoodmanKruskalMax']
 class GoodmanKruskalMax(_TokenDistance):
     r"""Goodman & Kruskal Max similarity.
 
-    For two sets X and Y,
+    For two sets X and Y, :cite:`Goodman:1963`
 
     .. versionadded:: 0.4.0
     """
