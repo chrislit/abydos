@@ -346,7 +346,7 @@ from ._ncd_zlib import NCDzlib, dist_ncd_zlib, sim_ncd_zlib
 from ._needleman_wunsch import NeedlemanWunsch, needleman_wunsch
 from ._overlap import Overlap, dist_overlap, sim_overlap
 from ._ozbay import Ozbay
-from ._pattern_difference import PatternDifference
+from ._pattern import Pattern
 from ._pearson_chi_squared import PearsonChiSquared
 from ._pearson_heron_ii import PearsonHeronII
 from ._pearson_ii import PearsonII
@@ -365,10 +365,10 @@ from ._roux_i import RouxI
 from ._roux_ii import RouxII
 from ._russell_rao import RussellRao
 from ._scott import Scott
-from ._shape_difference import ShapeDifference
+from ._shape import Shape
 from ._sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
 from ._sift4_simplest import Sift4Simplest, sift4_simplest
-from ._size_difference import SizeDifference
+from ._size import Size
 from ._smith_waterman import SmithWaterman, smith_waterman
 from ._soft_cosine import SoftCosine
 from ._sokal_michener import SokalMichener
@@ -519,7 +519,7 @@ __all__ = [
     'Mountford',
     'MutualInformation',
     'MSContingency',
-    'PatternDifference',
+    'Pattern',
     'PearsonHeronII',
     'PearsonII',
     'PearsonIII',
@@ -531,8 +531,8 @@ __all__ = [
     'RouxI',
     'RouxII',
     'Scott',
-    'ShapeDifference',
-    'SizeDifference',
+    'Shape',
+    'Size',
     'SokalMichener',
     'SokalSneathI',
     'SokalSneathII',

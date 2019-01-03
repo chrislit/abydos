@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._size_difference.
+"""abydos.distance._pattern.
 
-Penrose's size difference
+Pattern difference
 """
 
 from __future__ import (
@@ -30,32 +30,30 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['SizeDifference']
+__all__ = ['Pattern']
 
 
-class SizeDifference(_TokenDistance):
-    r"""Penrose's size difference.
+class Pattern(_TokenDistance):
+    r"""Pattern difference.
 
-    For two sets X and Y and a population N, the Penrose's size difference
-    :cite:`Penrose:1952` is
+    For two sets X and Y and a population N, the pattern difference
+    :cite:`Batagelj:1995`, Batagelj & Bren's :math:`- bc -` is
 
         .. math::
 
-            sim_{Size}(X, Y) =
-            \frac{(|X \triangle Y|)^2}{|N|^2}
+            dist_{pattern}(X, Y) =
+            \frac{4 \cdot |X \setminus Y| \cdot |Y \setminus X|}
+            {|N|^2}
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
-            sim_{Size} =
-            \frac{(b+c)^2}{n^2}
+            dist_{pattern} =
+            \frac{4bc}{n^2}
 
-    In :cite:`IBM:2017`, the formula is instead :math:`\frac{(b-c)^2}{n^2}`,
-    but it is clear from :cite:`Penrose:1952` that this should not be an
-    assymmetric value with respect two the ordering of the two sets. Meanwhile,
-    :cite:`Deza:2016` gives a formula that is equivalent to
-    :math:`\sqrt{n}\cdot(b+c)`.
+    In :cite:`IBM:2016`, the formula omits the 4 in the numerator:
+    :math:`\frac{bc}{n^2}.
 
         +----------------+-------------+----------------+-------------+
         |                | |in| ``tar``| |notin| ``tar``|             |
@@ -77,7 +75,7 @@ class SizeDifference(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize SizeDifference instance.
+        """Initialize Pattern instance.
 
         Parameters
         ----------
@@ -136,15 +134,15 @@ class SizeDifference(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(SizeDifference, self).__init__(
+        super(Pattern, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
             **kwargs
         )
 
-    def dist(self, src, tar):
-        """Return the Penrose's size difference of two strings.
+    def sim(self, src, tar):
+        """Return the Pattern difference of two strings.
 
         Parameters
         ----------
@@ -156,11 +154,11 @@ class SizeDifference(_TokenDistance):
         Returns
         -------
         float
-            Size Difference distance
+            Pattern difference
 
         Examples
         --------
-        >>> cmp = SizeDifference()
+        >>> cmp = Pattern()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -176,9 +174,11 @@ class SizeDifference(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        return (
-            self.symmetric_difference_card()
-        ) ** 2 / self.population_card() ** 2
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        n = self.population_card()
+
+        return 4*b*c/n**2
 
 
 if __name__ == '__main__':
