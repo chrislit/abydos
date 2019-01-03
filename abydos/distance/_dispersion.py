@@ -36,7 +36,22 @@ __all__ = ['Dispersion']
 class Dispersion(_TokenDistance):
     r"""Dispersion similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the dispersion
+    similarity :cite:`IBM:2016` is
+
+        .. math::
+
+            sim_{dispersion}(X, Y) =
+            \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus X|}
+            {|N|^2}
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{dispersion} =
+            \frac{ad-bc}{n^2}
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +162,13 @@ class Dispersion(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
+        n = self.population_card()
 
-        return 0.0
+        return (a*d-b*c)/n**2
 
 
 if __name__ == '__main__':

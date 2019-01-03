@@ -18,7 +18,7 @@
 
 """abydos.distance._pattern_difference.
 
-Pattern Difference distance
+Pattern difference
 """
 
 from __future__ import (
@@ -34,9 +34,36 @@ __all__ = ['PatternDifference']
 
 
 class PatternDifference(_TokenDistance):
-    r"""Pattern Difference distance.
+    r"""Pattern difference.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the pattern difference
+    :cite:`Batagelj:1995`, Batagelj & Bren's :math:`- bc -` is
+
+        .. math::
+
+            dist_{pattern}(X, Y) =
+            \frac{4 \cdot |X \setminus Y| \cdot |Y \setminus X|}
+            {|N|^2}
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            dist_{pattern} =
+            \frac{4bc}{n^2}
+
+    In :cite:`IBM:2016`, the formula omits the 4 in the numerator:
+    :math:`\frac{bc}{n^2}.
+
+        +----------------+-------------+----------------+-------------+
+        |                | |in| ``tar``| |notin| ``tar``|             |
+        +----------------+-------------+----------------+-------------+
+        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
+        +----------------+-------------+----------------+-------------+
+        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
+        +----------------+-------------+----------------+-------------+
+        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
+        +----------------+-------------+----------------+-------------+
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +174,11 @@ class PatternDifference(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        n = self.population_card()
 
-        return 0.0
+        return 4*b*c/n**2
 
 
 if __name__ == '__main__':

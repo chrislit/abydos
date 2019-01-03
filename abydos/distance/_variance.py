@@ -34,9 +34,33 @@ __all__ = ['Variance']
 
 
 class Variance(_TokenDistance):
-    r"""Variance distance.
+    r"""Variance dissimilarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, the variance dissimilarity
+    similarity :cite:`IBM:2016` is
+
+        .. math::
+
+            dist_{variance}(X, Y) =
+            \frac{|X \setminus Y| + |Y \setminus X|}
+            {4 \cdot |N|}
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            dist_{variance} =
+            \frac{b+c}{4n}
+
+        +----------------+-------------+----------------+-------------+
+        |                | |in| ``tar``| |notin| ``tar``|             |
+        +----------------+-------------+----------------+-------------+
+        | |in| ``src``   | a = |a|     | b = |b|        | a+b = |a+b| |
+        +----------------+-------------+----------------+-------------+
+        | |notin| ``src``| c = |c|     | d = |d|        | c+d = |c+d| |
+        +----------------+-------------+----------------+-------------+
+        |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
+        +----------------+-------------+----------------+-------------+
 
     .. versionadded:: 0.4.0
     """
@@ -114,7 +138,7 @@ class Variance(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def dist_abs(self, src, tar):
         """Return the Variance distance of two strings.
 
         Parameters
@@ -132,13 +156,13 @@ class Variance(_TokenDistance):
         Examples
         --------
         >>> cmp = Variance()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.dist_abs('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         0.0
 
 
@@ -147,13 +171,11 @@ class Variance(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        n = self.population_card()
 
-        return 0.0
+        return (b+c)/(4*n)
 
 
 if __name__ == '__main__':
