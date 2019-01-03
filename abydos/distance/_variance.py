@@ -165,7 +165,7 @@ class Variance(_TokenDistance):
         c = self.tar_only_card()
         n = self.population_card()
 
-        return (b+c)/(4*n)
+        return (b + c) / (4 * n)
 
 
 if __name__ == '__main__':

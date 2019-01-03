@@ -53,12 +53,7 @@ class Chord(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
         """Initialize Chord instance.
 
         Parameters
@@ -100,9 +95,7 @@ class Chord(_TokenDistance):
 
         """
         super(Chord, self).__init__(
-            tokenizer=tokenizer,
-            intersection_type=intersection_type,
-            **kwargs
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
     def dist(self, src, tar):
@@ -142,7 +135,7 @@ class Chord(_TokenDistance):
         ab = self.src_card()
         ac = self.tar_card()
 
-        return (2*(1-(a/(ab*ac)**0.5)))**0.5
+        return (2 * (1 - (a / (ab * ac) ** 0.5))) ** 0.5
 
 
 if __name__ == '__main__':

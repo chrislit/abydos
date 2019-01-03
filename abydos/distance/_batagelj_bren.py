@@ -166,7 +166,7 @@ class BatageljBren(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        return b*c/(a*d)
+        return b * c / (a * d)
 
 
 if __name__ == '__main__':

@@ -180,10 +180,19 @@ class GilbertWells(_TokenDistance):
         d = self.total_complement_card()
         n = self.population_card()
 
-        return (log(n**3/(2*pi*(a+b)*(a+c)*(b+d)*(c+d))) +
-                2*(log(factorial(n))+log(factorial(a))+log(factorial(b))+
-                   log(factorial(c))+log(factorial(d))-log(factorial(a+b))-
-                   log(factorial(a+c))-log(factorial(b+d))-log(factorial(c+d))))
+        return log(
+            n ** 3 / (2 * pi * (a + b) * (a + c) * (b + d) * (c + d))
+        ) + 2 * (
+            log(factorial(n))
+            + log(factorial(a))
+            + log(factorial(b))
+            + log(factorial(c))
+            + log(factorial(d))
+            - log(factorial(a + b))
+            - log(factorial(a + c))
+            - log(factorial(b + d))
+            - log(factorial(c + d))
+        )
 
 
 if __name__ == '__main__':
