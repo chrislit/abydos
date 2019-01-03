@@ -83,7 +83,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Gilbert similarity (:py:class:`.Gilbert`)
     - Gilbert & Wells similarity (:py:class:`.GilbertWells`)
     - Gini distance (:py:class:`.Gini`)
-    - Goodman & Kruskal similarity (:py:class:`.GoodmanKruskal`)
     - Goodman & Kruskal Max similarity (:py:class:`.GoodmanKruskalMax`)
     - Goodman & Kruskal Min similarity (:py:class:`.GoodmanKruskalMin`)
     - Goodman & Kruskal's Lambda similarity (:py:class:`.GoodmanKruskalLambda`)
@@ -281,7 +280,6 @@ from ._fossum import Fossum
 from ._gilbert import Gilbert
 from ._gilbert_wells import GilbertWells
 from ._gini import Gini
-from ._goodman_kruskal import GoodmanKruskal
 from ._goodman_kruskal_max import GoodmanKruskalMax
 from ._goodman_kruskal_min import GoodmanKruskalMin
 from ._goodman_kruskal_lambda import GoodmanKruskalLambda
@@ -483,7 +481,6 @@ __all__ = [
     'Gilbert',
     'GilbertWells',
     'Gini',
-    'GoodmanKruskal',
     'GoodmanKruskalMax',
     'GoodmanKruskalMin',
     'GoodmanKruskalLambda',
