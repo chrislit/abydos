@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._pattern_difference.
+"""abydos.distance._shape_difference.
 
-Pattern difference
+Penrose's shape difference
 """
 
 from __future__ import (
@@ -30,30 +30,35 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['PatternDifference']
+__all__ = ['Shape']
 
 
-class PatternDifference(_TokenDistance):
-    r"""Pattern difference.
+class Shape(_TokenDistance):
+    r"""Penrose's shape difference.
 
-    For two sets X and Y and a population N, the pattern difference
-    :cite:`Batagelj:1995`, Batagelj & Bren's :math:`- bc -` is
+    For two sets X and Y and a population N, the Penrose's shape difference
+    :cite:`Penrose:1952` is
 
         .. math::
 
-            dist_{pattern}(X, Y) =
-            \frac{4 \cdot |X \setminus Y| \cdot |Y \setminus X|}
-            {|N|^2}
+            dist_{Shape}(X, Y) =
+            \frac{1}{|N|}\cdot\sum_{x \in (X \triangle Y)} x^2 -
+            \Big(\frac{|X \triangle Y|}{|N|}\Big)^2
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
-            dist_{pattern} =
-            \frac{4bc}{n^2}
+            sim_{Shape} =
+            \frac{1}{n}\Big(\sum_{x \in b} x^2 + \sum_{x \in c} x^2\Big) -
+            \Big(\frac{b+c}{n}\Big)^2
 
-    In :cite:`IBM:2016`, the formula omits the 4 in the numerator:
-    :math:`\frac{bc}{n^2}.
+    In :cite:`IBM:2017`, the formula is instead
+    :math:`\frac{n(b+c)-(b-c)^2}{n^2}`, but it is clear from
+    :cite:`Penrose:1952` that this should not be an assymmetric value with
+    respect two the ordering of the two sets, among other errors in this
+    formula. Meanwhile, :cite:`Deza:2016` gives the formula
+    :math:`\sqrt{\sum((x_i-\bar{x})-(y_i-\bar{y}))^2}`.
 
         +----------------+-------------+----------------+-------------+
         |                | |in| ``tar``| |notin| ``tar``|             |
@@ -75,7 +80,7 @@ class PatternDifference(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize PatternDifference instance.
+        """Initialize Shape instance.
 
         Parameters
         ----------
@@ -134,15 +139,15 @@ class PatternDifference(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(PatternDifference, self).__init__(
+        super(Shape, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
             **kwargs
         )
 
-    def sim(self, src, tar):
-        """Return the Pattern Difference distance of two strings.
+    def dist(self, src, tar):
+        """Return the Penrose's shape difference of two strings.
 
         Parameters
         ----------
@@ -154,11 +159,11 @@ class PatternDifference(_TokenDistance):
         Returns
         -------
         float
-            Pattern Difference distance
+            Shape ifference
 
         Examples
         --------
-        >>> cmp = PatternDifference()
+        >>> cmp = Shape()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -174,11 +179,13 @@ class PatternDifference(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        b = self.src_only_card()
-        c = self.tar_only_card()
+        symdiff = self.symmetric_difference().values()
+
+        dist = sum(symdiff)
+        dist_sq = sum(_ ** 2 for _ in symdiff)
         n = self.population_card()
 
-        return 4*b*c/n**2
+        return dist_sq / n - (dist / n) ** 2
 
 
 if __name__ == '__main__':

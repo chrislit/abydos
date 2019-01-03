@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._shape_difference.
+"""abydos.distance._size_difference.
 
-Penrose's shape difference
+Penrose's size difference
 """
 
 from __future__ import (
@@ -30,35 +30,32 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['ShapeDifference']
+__all__ = ['Size']
 
 
-class ShapeDifference(_TokenDistance):
-    r"""Penrose's shape difference.
+class Size(_TokenDistance):
+    r"""Penrose's size difference.
 
-    For two sets X and Y and a population N, the Penrose's shape difference
+    For two sets X and Y and a population N, the Penrose's size difference
     :cite:`Penrose:1952` is
 
         .. math::
 
-            dist_{Shape}(X, Y) =
-            \frac{1}{|N|}\cdot\sum_{x \in (X \triangle Y)} x^2 -
-            \Big(\frac{|X \triangle Y|}{|N|}\Big)^2
+            sim_{Size}(X, Y) =
+            \frac{(|X \triangle Y|)^2}{|N|^2}
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
-            sim_{Shape} =
-            \frac{1}{n}\Big(\sum_{x \in b} x^2 + \sum_{x \in c} x^2\Big) -
-            \Big(\frac{b+c}{n}\Big)^2
+            sim_{Size} =
+            \frac{(b+c)^2}{n^2}
 
-    In :cite:`IBM:2017`, the formula is instead
-    :math:`\frac{n(b+c)-(b-c)^2}{n^2}`, but it is clear from
-    :cite:`Penrose:1952` that this should not be an assymmetric value with
-    respect two the ordering of the two sets, among other errors in this
-    formula. Meanwhile, :cite:`Deza:2016` gives the formula
-    :math:`\sqrt{\sum((x_i-\bar{x})-(y_i-\bar{y}))^2}`.
+    In :cite:`IBM:2017`, the formula is instead :math:`\frac{(b-c)^2}{n^2}`,
+    but it is clear from :cite:`Penrose:1952` that this should not be an
+    assymmetric value with respect two the ordering of the two sets. Meanwhile,
+    :cite:`Deza:2016` gives a formula that is equivalent to
+    :math:`\sqrt{n}\cdot(b+c)`.
 
         +----------------+-------------+----------------+-------------+
         |                | |in| ``tar``| |notin| ``tar``|             |
@@ -80,7 +77,7 @@ class ShapeDifference(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize ShapeDifference instance.
+        """Initialize Size instance.
 
         Parameters
         ----------
@@ -139,7 +136,7 @@ class ShapeDifference(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(ShapeDifference, self).__init__(
+        super(Size, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -147,7 +144,7 @@ class ShapeDifference(_TokenDistance):
         )
 
     def dist(self, src, tar):
-        """Return the Penrose's shape difference of two strings.
+        """Return the Penrose's size difference of two strings.
 
         Parameters
         ----------
@@ -159,11 +156,11 @@ class ShapeDifference(_TokenDistance):
         Returns
         -------
         float
-            Shape Difference distance
+            Size difference
 
         Examples
         --------
-        >>> cmp = ShapeDifference()
+        >>> cmp = Size()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -179,13 +176,9 @@ class ShapeDifference(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        symdiff = self.symmetric_difference().values()
-
-        dist = sum(symdiff)
-        dist_sq = sum(_ ** 2 for _ in symdiff)
-        n = self.population_card()
-
-        return dist_sq / n - (dist / n) ** 2
+        return (
+            self.symmetric_difference_card()
+        ) ** 2 / self.population_card() ** 2
 
 
 if __name__ == '__main__':
