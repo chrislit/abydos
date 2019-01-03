@@ -36,7 +36,7 @@ __all__ = ['AMPLE']
 class AMPLE(_TokenDistance):
     r"""AMPLE similarity.
 
-    The AMPLE similarity :cite:`Dallmeier:2005,Abreu:2006` is defined in
+    The AMPLE similarity :cite:`Dallmeier:2005,Abreu:2007` is defined in
     getAverageSequenceWeight() in the AverageSequenceWeightEvaluator.java file
     of AMPLE's source code. For two sets X and Y and a population N, it is
 
