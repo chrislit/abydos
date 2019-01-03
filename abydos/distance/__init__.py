@@ -94,7 +94,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Hamann similarity (:py:class:`.Hamann`)
     - Harris & Lahey similarity (:py:class:`.HarrisLahey`)
     - Hawkins & Dotson similarity (:py:class:`.HawkinsDotson`)
-    - Hellinger distance (:py:class:`.Hellinger`)
     - Johnson similarity (:py:class:`.Johnson`)
     - Kent & Foster I similarity (:py:class:`.KentFosterI`)
     - Kent & Foster II similarity (:py:class:`.KentFosterII`)
@@ -296,7 +295,6 @@ from ._hamann import Hamann
 from ._hamming import Hamming, dist_hamming, hamming, sim_hamming
 from ._harris_lahey import HarrisLahey
 from ._hawkins_dotson import HawkinsDotson
-from ._hellinger import Hellinger
 from ._ident import Ident, dist_ident, sim_ident
 from ._indel import Indel, dist_indel, indel, sim_indel
 from ._jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
@@ -498,7 +496,6 @@ __all__ = [
     'Hamann',
     'HarrisLahey',
     'HawkinsDotson',
-    'Hellinger',
     'Johnson',
     'KentFosterI',
     'KentFosterII',
