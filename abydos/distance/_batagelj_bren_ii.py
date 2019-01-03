@@ -175,7 +175,7 @@ class BatageljBrenII(_TokenDistance):
         c = self.tar_only_card()
         n = self.population_card()
 
-        return 4*b*c/m**2
+        return 4*b*c/n**2
 
 
 if __name__ == '__main__':
