@@ -177,7 +177,11 @@ class MSContingency(_TokenDistance):
         ac = self.tar_card()
         admbc = a * d - b * c
 
-        return 2**0.5 * admbc / (admbc ** 2 + ab * ac * (b + d) * (c + d)) ** 0.5
+        return (
+            2 ** 0.5
+            * admbc
+            / (admbc ** 2 + ab * ac * (b + d) * (c + d)) ** 0.5
+        )
 
 
 if __name__ == '__main__':

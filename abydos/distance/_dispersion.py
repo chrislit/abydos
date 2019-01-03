@@ -168,7 +168,7 @@ class Dispersion(_TokenDistance):
         d = self.total_complement_card()
         n = self.population_card()
 
-        return (a*d-b*c)/n**2
+        return (a * d - b * c) / n ** 2
 
 
 if __name__ == '__main__':
