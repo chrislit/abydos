@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._batagelj_bren_i.
+"""abydos.distance._batagelj_bren.
 
-Batagelj & Bren I similarity
+Batagelj & Bren similarity
 """
 
 from __future__ import (
@@ -30,13 +30,13 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['BatageljBrenI']
+__all__ = ['BatageljBren']
 
 
-class BatageljBrenI(_TokenDistance):
-    r"""Batagelj & Bren I similarity.
+class BatageljBren(_TokenDistance):
+    r"""Batagelj & Bren similarity.
 
-    For two sets X and Y and a population N, the Batagelj & Bren I
+    For two sets X and Y and a population N, the Batagelj & Bren
     similarity :cite:`Batagelj:1995`, Batagelj & Bren's :math:`Q_0`, is
 
         .. math::
@@ -72,7 +72,7 @@ class BatageljBrenI(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize BatageljBrenI instance.
+        """Initialize BatageljBren instance.
 
         Parameters
         ----------
@@ -131,7 +131,7 @@ class BatageljBrenI(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(BatageljBrenI, self).__init__(
+        super(BatageljBren, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -139,7 +139,7 @@ class BatageljBrenI(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Batagelj & Bren I similarity of two strings.
+        """Return the Batagelj & Bren similarity of two strings.
 
         Parameters
         ----------
@@ -155,7 +155,7 @@ class BatageljBrenI(_TokenDistance):
 
         Examples
         --------
-        >>> cmp = BatageljBrenI()
+        >>> cmp = BatageljBren()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
