@@ -49,7 +49,7 @@ class Fossum(_TokenDistance):
         .. math::
 
             sim_{Fossum} =
-            \frac{n(a-\frac{1}{2})^2}{a}
+            \frac{n(a-\frac{1}{2})^2}{(a+b)(a+c)}
 
     .. versionadded:: 0.4.0
     """
