@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import log
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['TullossT']
@@ -37,51 +39,37 @@ class TullossT(_TokenDistance):
     r"""Tulloss' T similarity.
 
     For two sets X and Y and a population N, Tulloss' T similarity
-    :cite:`CITATION` is
+    :cite:`Tulloss:1977` is
 
         .. math::
 
-            sim_{TullossT}(X, Y) =
+            sim_{Tulloss_T}(X, Y) = \sqrt{sim_{Tulloss_U}(X, Y) \cdot
+            sim_{Tulloss_S}(X, Y) \cdot sim_{Tulloss_R}(X, Y)} =
+            \sqrt{
+            log_2(1+\frac{min(|X \setminus Y|, |Y \setminus X|)+|X \cap Y|}
+            {max(|X \setminus Y|, |Y \setminus X|)+|X \cap Y|}) \cdot
+            \frac{1}{\sqrt{log_2(2+\frac{min(|X \setminus Y|, |Y \setminus X|)}
+            {|X \cap Y|+1})}} \cdot
+            \frac{log(1+\frac{|X \cap Y|}{|Y|}) \cdot log(1+\frac{|X \cap Y|}
+            {|Y|})}{log^2(2)}}
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
-            sim_{TullossT} =
+            sim_{Tulloss_T} = \sqrt{
+            log_2(1+\frac{min(b, c)+a}{max(b, c)+a} \cdot
+            \frac{1}{\sqrt{log_2(2+\frac{min(b,c)}{a+1})}} \cdot
+            \frac{log(1+\frac{a}{a+b}) \cdot log(1+\frac{a}{a+c})}{log^2(2)}}
 
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
         """Initialize TullossT instance.
 
         Parameters
         ----------
-        alphabet : Counter, collection, int, or None
-            This represents the alphabet of possible tokens.
-
-                - If a Counter is supplied, it is used directly in computing
-                  the complement of the tokens in both sets.
-                - If a collection is supplied, it is converted to a Counter
-                  and used directly. In the case of a single string being
-                  supplied and the QGram tokenizer being used, the full
-                  alphabet is inferred (i.e.
-                  :math:`len(set(alphabet+QGrams.start_stop))^{QGrams.qval}` is
-                  used as the cardinality of the full alphabet.
-                - If an int is supplied, it is used as the cardinality of the
-                  full alphabet.
-                - If None is supplied, the cardinality of the full alphabet
-                  is inferred if QGram tokenization is used (i.e.
-                  :math:`28^{QGrams.qval}` is used as the cardinality of the
-                  full alphabet or :math:`26` if QGrams.qval is 1, which
-                  assumes the strings are English language strings). Otherwise,
-                  The cardinality of the complement of the total will be 0.
         tokenizer : _Tokenizer
             A tokenizer instance from the abydos.tokenizer package
         intersection_type : str
@@ -119,10 +107,7 @@ class TullossT(_TokenDistance):
 
         """
         super(TullossT, self).__init__(
-            alphabet=alphabet,
-            tokenizer=tokenizer,
-            intersection_type=intersection_type,
-            **kwargs
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
     def sim(self, src, tar):
@@ -158,13 +143,15 @@ class TullossT(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
 
-        return 0.0
+        return (
+            (log(1 + (min(b, c) + a) / (max(b, c) + a), 2))
+            * (1 / (log(2 + min(b, c) / (a + 1), 2)) ** 0.5)
+            * (log(1 + a / (a + b)) * log(1 + a / (a + c)) / log(2) ** 2)
+        ) ** 0.5
 
 
 if __name__ == '__main__':

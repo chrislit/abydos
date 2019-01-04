@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import log
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['TullossU']
@@ -36,52 +38,30 @@ __all__ = ['TullossU']
 class TullossU(_TokenDistance):
     r"""Tulloss' U similarity.
 
-    For two sets X and Y and a population N, Tulloss' U similarity
-    :cite:`CITATION` is
+    For two sets X and Y, Tulloss' U similarity
+    :cite:`Tulloss:1977` is
 
         .. math::
 
-            sim_{TullossU}(X, Y) =
+            sim_{Tulloss_U}(X, Y) =
+            log_2(1+\frac{min(|X \setminus Y|, |Y \setminus X|)+|X \cap Y|}
+            {max(|X \setminus Y|, |Y \setminus X|)+|X \cap Y|})
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
-            sim_{TullossU} =
+            sim_{Tulloss_U} =
+            log_2(1+\frac{min(b, c)+a}{max(b, c)+a}
 
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
         """Initialize TullossU instance.
 
         Parameters
         ----------
-        alphabet : Counter, collection, int, or None
-            This represents the alphabet of possible tokens.
-
-                - If a Counter is supplied, it is used directly in computing
-                  the complement of the tokens in both sets.
-                - If a collection is supplied, it is converted to a Counter
-                  and used directly. In the case of a single string being
-                  supplied and the QGram tokenizer being used, the full
-                  alphabet is inferred (i.e.
-                  :math:`len(set(alphabet+QGrams.start_stop))^{QGrams.qval}` is
-                  used as the cardinality of the full alphabet.
-                - If an int is supplied, it is used as the cardinality of the
-                  full alphabet.
-                - If None is supplied, the cardinality of the full alphabet
-                  is inferred if QGram tokenization is used (i.e.
-                  :math:`28^{QGrams.qval}` is used as the cardinality of the
-                  full alphabet or :math:`26` if QGrams.qval is 1, which
-                  assumes the strings are English language strings). Otherwise,
-                  The cardinality of the complement of the total will be 0.
         tokenizer : _Tokenizer
             A tokenizer instance from the abydos.tokenizer package
         intersection_type : str
@@ -119,10 +99,7 @@ class TullossU(_TokenDistance):
 
         """
         super(TullossU, self).__init__(
-            alphabet=alphabet,
-            tokenizer=tokenizer,
-            intersection_type=intersection_type,
-            **kwargs
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
     def sim(self, src, tar):
@@ -158,13 +135,11 @@ class TullossU(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
 
-        return 0.0
+        return log(1 + (min(b, c) + a) / (max(b, c) + a), 2)
 
 
 if __name__ == '__main__':
