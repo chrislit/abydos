@@ -36,7 +36,26 @@ __all__ = ['GoodmanKruskalLambda']
 class GoodmanKruskalLambda(_TokenDistance):
     r"""Goodman & Kruskal's Lambda similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Goodman & Kruskal's lambda
+    :cite:`Goodman:1954` is
+
+        .. math::
+
+            sim_{GK_\lambda}(X, Y) =
+            \frac{(max(|X \cap Y|, |X \setminus Y|)+
+            max(|Y \setminus X|, |(N \setminus X) \setminus Y|)+
+            max(|X \cap Y|, |Y \setminus X|)+
+            max(|X \setminus Y|, |(N \setminus X) \setminus Y|))-
+            (max(|Y|, |N \setminus Y|)+max(|X|, |N \setminus X|))}
+            {2|N|-(max(|Y|, |N \setminus Y|)+max(|X|, |N \setminus X|))}
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{GK_\lambda} =
+            \frac{(max(a,b)+max(c,d)+max(a,c)+max(b,d))-
+            (max(a+b,b+d)+max(a+b,c+d))}{2n-(max(a+b,b+d)+max(a+b,c+d))}
 
     .. versionadded:: 0.4.0
     """
@@ -147,13 +166,15 @@ class GoodmanKruskalLambda(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        sigma = max(a, b) + max(c + d) + max(a, c) + max(b, d)
+        sigma_prime = max(a + c, b + d) + max(a + b, c + d)
+
+        return sigma-sigma_prime/ (2 * (a + b + c + d)-sigma_prime)
 
 
 if __name__ == '__main__':
