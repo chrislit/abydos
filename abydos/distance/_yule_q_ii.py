@@ -18,7 +18,7 @@
 
 """abydos.distance._yule_q_ii.
 
-Yule's Q II distance
+Yule's Q dissimilarity
 """
 
 from __future__ import (
@@ -34,9 +34,24 @@ __all__ = ['YuleQII']
 
 
 class YuleQII(_TokenDistance):
-    r"""Yule's Q II distance.
+    r"""Yule's Q dissimilarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Yule's Q dissimilarity
+    :cite:`Yule:1968` is
+
+        .. math::
+
+            dist_{YuleQII}(X, Y) =
+            \frac{2 \cdot |X \setminus Y| \cdot |Y \setminus X|}
+            {|X \cap Y| \cdot |(N \setminus X) \setminus Y| +
+            |X \setminus Y| \cdot |Y \setminus X|}
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            dist_{YuleQII} =
+            \frac{2bc}{ad+bc}
 
     .. versionadded:: 0.4.0
     """
@@ -114,8 +129,8 @@ class YuleQII(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
-        """Return the Yule's Q II distance of two strings.
+    def dist(self, src, tar):
+        """Return the Yule's Q dissimilarity of two strings.
 
         Parameters
         ----------
@@ -132,13 +147,13 @@ class YuleQII(_TokenDistance):
         Examples
         --------
         >>> cmp = YuleQII()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.dist('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.dist('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.dist('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.dist('ATCG', 'TAGC')
         0.0
 
 
@@ -147,13 +162,12 @@ class YuleQII(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return (2*b*c)/(a*d+b*c)
 
 
 if __name__ == '__main__':
