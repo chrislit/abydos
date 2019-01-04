@@ -36,7 +36,18 @@ __all__ = ['GoodmanKruskalProbability']
 class GoodmanKruskalProbability(_TokenDistance):
     r"""Goodman & Kruskal's Probability similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Goodman & Kruskal's Probability similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{GoodmanKruskalProbability}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{GoodmanKruskalProbability} =
 
     .. versionadded:: 0.4.0
     """

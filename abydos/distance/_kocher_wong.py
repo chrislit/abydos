@@ -36,7 +36,18 @@ __all__ = ['KocherWong']
 class KocherWong(_TokenDistance):
     r"""Kocher & Wong similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Kocher & Wong similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{KocherWong}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{KocherWong} =
 
     .. versionadded:: 0.4.0
     """

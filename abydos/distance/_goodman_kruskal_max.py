@@ -36,7 +36,18 @@ __all__ = ['GoodmanKruskalMax']
 class GoodmanKruskalMax(_TokenDistance):
     r"""Goodman & Kruskal Max similarity.
 
-    For two sets X and Y, :cite:`Goodman:1963`
+    For two sets X and Y and a population N, Goodman & Kruskal Max similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{GoodmanKruskalMax}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{GoodmanKruskalMax} =
 
     .. versionadded:: 0.4.0
     """

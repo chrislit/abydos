@@ -36,7 +36,18 @@ __all__ = ['HarrisLahey']
 class HarrisLahey(_TokenDistance):
     r"""Harris & Lahey similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Harris & Lahey similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{HarrisLahey}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{HarrisLahey} =
 
     .. versionadded:: 0.4.0
     """

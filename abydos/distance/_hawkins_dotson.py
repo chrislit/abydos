@@ -36,7 +36,18 @@ __all__ = ['HawkinsDotson']
 class HawkinsDotson(_TokenDistance):
     r"""Hawkins & Dotson similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Hawkins & Dotson similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{HawkinsDotson}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{HawkinsDotson} =
 
     .. versionadded:: 0.4.0
     """

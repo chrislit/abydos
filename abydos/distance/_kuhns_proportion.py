@@ -36,7 +36,18 @@ __all__ = ['KuhnsProportion']
 class KuhnsProportion(_TokenDistance):
     r"""Kuhns' Proportion similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Kuhns' Proportion similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{KuhnsProportion}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{KuhnsProportion} =
 
     .. versionadded:: 0.4.0
     """

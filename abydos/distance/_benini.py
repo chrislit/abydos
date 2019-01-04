@@ -36,7 +36,18 @@ __all__ = ['Benini']
 class Benini(_TokenDistance):
     r"""Benini similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Benini similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{Benini}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{Benini} =
 
     .. versionadded:: 0.4.0
     """

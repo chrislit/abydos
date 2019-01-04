@@ -36,7 +36,18 @@ __all__ = ['RouxI']
 class RouxI(_TokenDistance):
     r"""Roux I similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Roux I similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{RouxI}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{RouxI} =
 
     .. versionadded:: 0.4.0
     """

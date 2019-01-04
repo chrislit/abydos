@@ -36,7 +36,18 @@ __all__ = ['WarrensII']
 class WarrensII(_TokenDistance):
     r"""Warrens II similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Warrens II similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{WarrensII}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{WarrensII} =
 
     .. versionadded:: 0.4.0
     """

@@ -36,7 +36,18 @@ __all__ = ['Upholt']
 class Upholt(_TokenDistance):
     r"""Upholt similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Upholt similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{Upholt}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{Upholt} =
 
     .. versionadded:: 0.4.0
     """
