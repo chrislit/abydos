@@ -36,7 +36,18 @@ __all__ = ['Gini']
 class Gini(_TokenDistance):
     r"""Gini distance.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Gini distance
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{Gini}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{Gini} =
 
     .. versionadded:: 0.4.0
     """

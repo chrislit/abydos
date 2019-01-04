@@ -36,7 +36,18 @@ __all__ = ['StuartTau']
 class StuartTau(_TokenDistance):
     r"""Stuart's Tau similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Stuart's Tau similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{StuartTau}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{StuartTau} =
 
     .. versionadded:: 0.4.0
     """

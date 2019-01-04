@@ -36,7 +36,18 @@ __all__ = ['CohenKappa']
 class CohenKappa(_TokenDistance):
     r"""Cohen's Kappa similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Cohen's Kappa similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{CohenKappa}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{CohenKappa} =
 
     .. versionadded:: 0.4.0
     """

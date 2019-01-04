@@ -36,7 +36,18 @@ __all__ = ['KentFosterII']
 class KentFosterII(_TokenDistance):
     r"""Kent & Foster II similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Kent & Foster II similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{KentFosterII}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{KentFosterII} =
 
     .. versionadded:: 0.4.0
     """

@@ -36,7 +36,18 @@ __all__ = ['MaronKuhns']
 class MaronKuhns(_TokenDistance):
     r"""Maron & Kuhns similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Maron & Kuhns similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{MaronKuhns}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{MaronKuhns} =
 
     .. versionadded:: 0.4.0
     """

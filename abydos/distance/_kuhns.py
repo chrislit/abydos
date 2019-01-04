@@ -36,7 +36,18 @@ __all__ = ['Kuhns']
 class Kuhns(_TokenDistance):
     r"""Kuhns similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Kuhns similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{Kuhns}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{Kuhns} =
 
     .. versionadded:: 0.4.0
     """

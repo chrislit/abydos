@@ -36,7 +36,18 @@ __all__ = ['MutualInformation']
 class MutualInformation(_TokenDistance):
     r"""Mutual Information similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Mutual Information similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{MutualInformation}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{MutualInformation} =
 
     .. versionadded:: 0.4.0
     """

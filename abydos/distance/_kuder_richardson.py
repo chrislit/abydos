@@ -36,7 +36,18 @@ __all__ = ['KuderRichardson']
 class KuderRichardson(_TokenDistance):
     r"""Kuder & Richardson similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Kuder & Richardson similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{KuderRichardson}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{KuderRichardson} =
 
     .. versionadded:: 0.4.0
     """

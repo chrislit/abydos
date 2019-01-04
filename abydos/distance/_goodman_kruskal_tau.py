@@ -36,7 +36,18 @@ __all__ = ['GoodmanKruskalTau']
 class GoodmanKruskalTau(_TokenDistance):
     r"""Goodman & Kruskal's Tau similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Goodman & Kruskal's Tau similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{GoodmanKruskalTau}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{GoodmanKruskalTau} =
 
     .. versionadded:: 0.4.0
     """

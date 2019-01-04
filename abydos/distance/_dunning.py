@@ -36,7 +36,18 @@ __all__ = ['Dunning']
 class Dunning(_TokenDistance):
     r"""Dunning similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Dunning similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{Dunning}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{Dunning} =
 
     .. versionadded:: 0.4.0
     """

@@ -36,7 +36,18 @@ __all__ = ['RogotGoldberg']
 class RogotGoldberg(_TokenDistance):
     r"""Rogot & Goldberg similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Rogot & Goldberg similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{RogotGoldberg}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{RogotGoldberg} =
 
     .. versionadded:: 0.4.0
     """

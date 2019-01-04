@@ -36,7 +36,18 @@ __all__ = ['Clement']
 class Clement(_TokenDistance):
     r"""Clement similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Clement similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{Clement}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{Clement} =
 
     .. versionadded:: 0.4.0
     """

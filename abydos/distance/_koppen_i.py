@@ -36,7 +36,18 @@ __all__ = ['KoppenI']
 class KoppenI(_TokenDistance):
     r"""Koppen I similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Koppen I similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{KoppenI}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{KoppenI} =
 
     .. versionadded:: 0.4.0
     """

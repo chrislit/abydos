@@ -36,7 +36,18 @@ __all__ = ['Michelet']
 class Michelet(_TokenDistance):
     r"""Michelet similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Michelet similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{Michelet}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{Michelet} =
 
     .. versionadded:: 0.4.0
     """

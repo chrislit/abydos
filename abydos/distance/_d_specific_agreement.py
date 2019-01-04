@@ -36,7 +36,18 @@ __all__ = ['DSpecificAgreement']
 class DSpecificAgreement(_TokenDistance):
     r"""d Specific Agreement similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, d Specific Agreement similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{DSpecificAgreement}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{DSpecificAgreement} =
 
     .. versionadded:: 0.4.0
     """

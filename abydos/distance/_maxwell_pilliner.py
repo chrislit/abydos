@@ -36,7 +36,18 @@ __all__ = ['MaxwellPilliner']
 class MaxwellPilliner(_TokenDistance):
     r"""Maxwell & Pilliner similarity.
 
-    For two sets X and Y,
+    For two sets X and Y and a population N, Maxwell & Pilliner similarity
+    :cite:`CITATION` is
+
+        .. math::
+
+            sim_{MaxwellPilliner}(X, Y) =
+
+    In 2x2 matrix, a+b+c+d=n terms, this is
+
+        .. math::
+
+            sim_{MaxwellPilliner} =
 
     .. versionadded:: 0.4.0
     """
