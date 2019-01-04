@@ -45,10 +45,10 @@ class GilbertWells(_TokenDistance):
 
             sim_{GilbertWells}(X, Y) =
             ln \frac{|N|^3}{2\pi |X| \cdot |Y| \cdot
-            |N \setminux Y| \cdot |N \setminus X|} + 2ln
+            |N \setminus Y| \cdot |N \setminus X|} + 2ln
             \frac{|N|! \cdot |X \cap Y|! \cdot |X \setminus Y|! \cdot
             |Y \setminus X|! \cdot |(N \setminus X) \setminus Y|!}
-            {|X|! \cdot |Y|! \cdot |N \setminux Y|! \cdot |N \setminus X|!}
+            {|X|! \cdot |Y|! \cdot |N \setminus Y|! \cdot |N \setminus X|!}
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
