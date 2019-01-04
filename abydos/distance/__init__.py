@@ -137,6 +137,10 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Stuart's Tau similarity (:py:class:`.StuartTau`)
     - Tarantula similarity (:py:class:`.Tarantula`)
     - Tarwid similarity (:py:class:`.Tarwid`)
+    - Tulloss' R similarity (:py:class:`.TullossR`)
+    - Tulloss' S similarity (:py:class:`.TullossS`)
+    - Tulloss' T similarity (:py:class:`.TullossT`)
+    - Tulloss' U similarity (:py:class:`.TullossU`)
     - Weighted Jaccard similarity (:py:class:`.WeightedJaccard`)
     - Upholt similarity (:py:class:`.Upholt`)
     - Variance distance (:py:class:`.Variance`)
@@ -380,6 +384,10 @@ from ._synoname import Synoname, synoname
 from ._tarantula import Tarantula
 from ._tarwid import Tarwid
 from ._tetrachoric import Tetrachoric
+from ._tulloss_r import TullossR
+from ._tulloss_s import TullossS
+from ._tulloss_t import TullossT
+from ._tulloss_u import TullossU
 from ._tversky import Tversky, dist_tversky, sim_tversky
 from ._typo import Typo, dist_typo, sim_typo, typo
 from ._upholt import Upholt
@@ -536,6 +544,10 @@ __all__ = [
     'Tarantula',
     'Tarwid',
     'Tetrachoric',
+    'TullossR',
+    'TullossS',
+    'TullossT',
+    'TullossU',
     'WeightedJaccard',
     'Upholt',
     'Variance',
