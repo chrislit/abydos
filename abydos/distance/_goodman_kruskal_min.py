@@ -37,17 +37,22 @@ class GoodmanKruskalMin(_TokenDistance):
     r"""Goodman & Kruskal Min similarity.
 
     For two sets X and Y and a population N, Goodman & Kruskal Min similarity
-    :cite:`CITATION` is
+    :cite:`Goodman:1954` is
 
         .. math::
 
             sim_{GoodmanKruskalMin}(X, Y) =
+            \frac{2 \cdot min(|X \cap Y|, |(N \setminus X) \setminus Y|) -
+            |X \setminus Y| - |Y \setminus X|}
+            {2 \cdot min(|X \cap Y|, |(N \setminus X) \setminus Y|) +
+            |X \setminus Y| + |Y \setminus X|}
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
             sim_{GoodmanKruskalMin} =
+            \frac{2 \cdot min(a, d) - b - c}{2 \cdot min(a, d) + b + c}
 
     .. versionadded:: 0.4.0
     """
@@ -158,13 +163,11 @@ class GoodmanKruskalMin(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        mad = min(self.intersection_card(), self.total_complement_card())
+        b = self.src_only_card()
+        c = self.tar_only_card()
 
-        return 0.0
+        return (2*mad-b-c)/(2*mad+b+c)
 
 
 if __name__ == '__main__':

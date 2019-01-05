@@ -37,17 +37,24 @@ class KuderRichardson(_TokenDistance):
     r"""Kuder & Richardson similarity.
 
     For two sets X and Y and a population N, Kuder & Richardson similarity
-    :cite:`CITATION` is
+    :cite:`Kuder:1937,Cronbach:1951` is
 
         .. math::
 
             sim_{KuderRichardson}(X, Y) =
+            \frac{4(|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus X|)}
+            \frac{|X| \cdot |N \setminus X| +
+            |Y| \cdot |N \setminus Y| +
+            2(|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus X|)}
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
             sim_{KuderRichardson} =
+            \frac{4(ad-bc)}{(a+b)(c+d) + (a+c)(b+d) +2(ad-bc)}
 
     .. versionadded:: 0.4.0
     """
@@ -158,13 +165,12 @@ class KuderRichardson(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return (4*(a*d-b*c))/((a+b)*(c+d)+(a+c)*(b+d)+2*(a*d-b*c))
 
 
 if __name__ == '__main__':
