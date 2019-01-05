@@ -36,18 +36,21 @@ __all__ = ['Benini']
 class Benini(_TokenDistance):
     r"""Benini similarity.
 
-    For two sets X and Y and a population N, Benini similarity
-    :cite:`CITATION` is
+    For two sets X and Y, Benini similarity, Benini's :math:`\beta`
+    :cite:`Benini:1901` is
 
         .. math::
 
             sim_{Benini}(X, Y) =
+            \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus X|}
+            {min(|X| \cdot |N \setminus X|, |Y| \cdot |N \setminus Y|)}
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
-            sim_{Benini} =
+            sim_{Benini} = \frac{ad-bc}{min((a+b)(b+d), (a+c)(c+d))}
 
     .. versionadded:: 0.4.0
     """
@@ -158,13 +161,12 @@ class Benini(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return (a*d-b*c)/min((a+b)*(b+d), (a+c)*(c+d))
 
 
 if __name__ == '__main__':
