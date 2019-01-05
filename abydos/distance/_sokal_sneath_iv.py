@@ -55,7 +55,8 @@ class SokalSneathIV(_TokenDistance):
     :cite:`Sokal:1963`. It corresponds to the first "Marginal totals in the
     Denominator" with "Negative Matches in Numerator Included".
     "Negative Matches in Numerator Excluded" corresponds to the Kulczynski II
-    similarity, :class:`.KulczynskiII`.
+    similarity, :class:`.KulczynskiII`. This is also Rogot & Goldberg's
+    "adjusted agreement" :math:`A_1` :cite:`Rogot:1966`.
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
