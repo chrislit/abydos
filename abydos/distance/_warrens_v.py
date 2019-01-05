@@ -37,17 +37,21 @@ class WarrensV(_TokenDistance):
     r"""Warrens V similarity.
 
     For two sets X and Y and a population N, Warrens V similarity
-    :cite:`CITATION` is
+    :cite:`Warrens:2008` is
 
         .. math::
 
             sim_{WarrensV}(X, Y) =
+            \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus X|}
+            {min(|X| \cdot |Y|, |N \setminus X| \cdot |N \setminus Y|)}
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
             sim_{WarrensV} =
+            \frac{ad-bc}{min( (a+b)(a+c), (b+d)(c+d) )}
 
     .. versionadded:: 0.4.0
     """
@@ -158,13 +162,12 @@ class WarrensV(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return (a*d-b*c)/min((a+b)*(a+c), (b+d)*(c+d))
 
 
 if __name__ == '__main__':
