@@ -37,17 +37,21 @@ class CohenKappa(_TokenDistance):
     r"""Cohen's Kappa similarity.
 
     For two sets X and Y and a population N, Cohen's Kappa similarity
-    :cite:`CITATION` is
+    :cite:`Cohen:1960` is
 
         .. math::
 
             sim_{CohenKappa}(X, Y) =
+            \frac{2(|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus X|)}
+            {|X| \cdot |N \setminus Y| + |Y| \cdot |N \setminus X|}
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
             sim_{CohenKappa} =
+            \frac{2(ad-bc)}{(a+b)(b+c)+(a+c)(c+d)}
 
     .. versionadded:: 0.4.0
     """
@@ -158,13 +162,12 @@ class CohenKappa(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return 2*(a*d-b*c)/((a+b)*(b+d)+(a+c)*(c+d))
 
 
 if __name__ == '__main__':

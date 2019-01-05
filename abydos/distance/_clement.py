@@ -37,17 +37,22 @@ class Clement(_TokenDistance):
     r"""Clement similarity.
 
     For two sets X and Y and a population N, Clement similarity
-    :cite:`CITATION` is
+    :cite:`Clement:1976` is defined as
 
         .. math::
 
             sim_{Clement}(X, Y) =
+            \frac{|X \cap Y|}{|X|}\Big(1-\frac{|X|}{|N|}\Big) +
+            \frac{|(N \setminus X) \setminus Y|}{|N \setminus X|}
+            \Big(1-\frac{|N \setminus X|}{|N|}\Big)
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
             sim_{Clement} =
+            \frac{a}{a+b}\Big(1 - \frac{a+b}{n}\Big) +
+            \frac{d}{c+d}\Big(1 - \frac{c+d}{n}\Big)
 
     .. versionadded:: 0.4.0
     """
@@ -158,13 +163,13 @@ class Clement(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
+        n = self.population_card()
 
-        return 0.0
+        return (a/(a+b))*(1-(a+b)/n)+(d/(c+d))*(1-(c+d)/n)
 
 
 if __name__ == '__main__':

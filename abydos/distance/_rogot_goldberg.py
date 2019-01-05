@@ -36,18 +36,28 @@ __all__ = ['RogotGoldberg']
 class RogotGoldberg(_TokenDistance):
     r"""Rogot & Goldberg similarity.
 
-    For two sets X and Y and a population N, Rogot & Goldberg similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Rogot & Goldberg's
+    "second index adjusted agreement" :math:`A_2` :cite:`Rogot:1966` is
 
         .. math::
 
             sim_{RogotGoldberg}(X, Y) =
+            \frac{1}{2}\Big(
+            \frac{2|X \cap Y|}{|X|+|Y|} +
+            \frac{2|(N \setminux X) \setminus Y|}
+            {|N \setminus X|+|N \setminus Y|}
+            \Big)
+
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
             sim_{RogotGoldberg} =
+            \frac{1}{2}\Big(
+            \frac{2a}{2a+b+c} +
+            \frac{2d}{2d+b+c}
+            \Big)
 
     .. versionadded:: 0.4.0
     """
@@ -158,13 +168,12 @@ class RogotGoldberg(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return a/(2*a+b+c)+d/(2*d+b+c)
 
 
 if __name__ == '__main__':

@@ -36,18 +36,28 @@ __all__ = ['Digby']
 class Digby(_TokenDistance):
     r"""Digby similarity.
 
-    For two sets X and Y and a population N, Digby similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Digby's approximation of the
+    tetrachoric correlation coefficient
+    :cite:`Digby:1983` is
 
         .. math::
 
             sim_{Digby}(X, Y) =
+            \frac{(|X \cap Y| \cdot |(N \setminus X) \setminus Y|)^\frac{3}{4}-
+            (|X \setminus Y| \cdot |Y \setminus X|)^\frac{3}{4}}
+            {(|X \cap Y| \cdot |(N \setminus X) \setminus Y|)^\frac{3}{4} +
+            (|X \setminus Y| \cdot |Y \setminus X|)^\frac{3}{4}}
+
+    In :cite:`Yule:1912`, this is labeled :math:`\omega`, so it is sometimes
+    referred to as Yule's :math:`\omega`. Yule himself terms this the
+    coefficient of colligation.
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
             sim_{Digby} =
+            \frac{ad^\frac{3}{4}-bc^\frac{3}{4}}{ad^\frac{3}{4}+bc^\frac{3}{4}}
 
     .. versionadded:: 0.4.0
     """
@@ -158,13 +168,14 @@ class Digby(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return ((a * d) ** 0.75 - (b * c) ** 0.75) / (
+            (a * d) ** 0.75 + (b * c) ** 0.75
+        )
 
 
 if __name__ == '__main__':

@@ -37,17 +37,21 @@ class MaxwellPilliner(_TokenDistance):
     r"""Maxwell & Pilliner similarity.
 
     For two sets X and Y and a population N, Maxwell & Pilliner similarity
-    :cite:`CITATION` is
+    :cite:`Maxwell:1968` is
 
         .. math::
 
             sim_{MaxwellPilliner}(X, Y) =
+            \frac{2(|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus X|)}
+            {|X| \cdot |N \setminus X| + |Y| \cdot |N \setminus Y|}
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
             sim_{MaxwellPilliner} =
+            \frac{2(ad-bc)}{(a+b)(c+d)+(a+c)(b+c)}
 
     .. versionadded:: 0.4.0
     """
@@ -158,13 +162,12 @@ class MaxwellPilliner(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return 2*(a*d-b*c)/((a+b)*(c+d)+(a+c)*(b+d))
 
 
 if __name__ == '__main__':
