@@ -44,8 +44,9 @@ class TullossT(_TokenDistance):
         .. math::
 
             sim_{Tulloss_T}(X, Y) = \sqrt{sim_{Tulloss_U}(X, Y) \cdot
-            sim_{Tulloss_S}(X, Y) \cdot sim_{Tulloss_R}(X, Y)} =
-            \sqrt{
+            sim_{Tulloss_S}(X, Y) \cdot sim_{Tulloss_R}(X, Y)}
+
+            = \sqrt{
             log_2(1+\frac{min(|X \setminus Y|, |Y \setminus X|)+|X \cap Y|}
             {max(|X \setminus Y|, |Y \setminus X|)+|X \cap Y|}) \cdot
             \frac{1}{\sqrt{log_2(2+\frac{min(|X \setminus Y|, |Y \setminus X|)}
