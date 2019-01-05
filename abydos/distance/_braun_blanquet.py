@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._braun_banquest.
+"""abydos.distance._braun_blanquet.
 
-Braun & Banquest similarity
+Braun & Blanquet similarity
 """
 
 from __future__ import (
@@ -30,24 +30,24 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['BraunBanquest']
+__all__ = ['BraunBlanquet']
 
 
-class BraunBanquest(_TokenDistance):
-    r"""Braun & Banquest similarity.
+class BraunBlanquet(_TokenDistance):
+    r"""Braun & Blanquet similarity.
 
-    For two sets X and Y and a population N, the Braun & Banquest
+    For two sets X and Y and a population N, the Braun & Blanquet
     similarity :cite:`BraunBlanquet:1932` is
 
         .. math::
 
-            sim_{BraunBanquest}(X, Y) = \frac{|X \cap Y|} {max(|X|, |Y|)}
+            sim_{BraunBlanquet}(X, Y) = \frac{|X \cap Y|} {max(|X|, |Y|)}
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
-            sim_{BraunBanquest} =
+            sim_{BraunBlanquet} =
             \frac{a}{max{a+b,a+c}}
 
     .. versionadded:: 0.4.0
@@ -60,7 +60,7 @@ class BraunBanquest(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize BraunBanquest instance.
+        """Initialize BraunBlanquet instance.
 
         Parameters
         ----------
@@ -119,7 +119,7 @@ class BraunBanquest(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(BraunBanquest, self).__init__(
+        super(BraunBlanquet, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -127,7 +127,7 @@ class BraunBanquest(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Braun & Banquest similarity of two strings.
+        """Return the Braun & Blanquet similarity of two strings.
 
         Parameters
         ----------
@@ -139,11 +139,11 @@ class BraunBanquest(_TokenDistance):
         Returns
         -------
         float
-            Braun & Banquest similarity
+            Braun & Blanquet similarity
 
         Examples
         --------
-        >>> cmp = BraunBanquest()
+        >>> cmp = BraunBlanquet()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
