@@ -186,23 +186,25 @@ class Hurlbert(_TokenDistance):
         d = self.total_complement_card()
         n = self.population_card()
 
-        admbc = a*d-b*c
-        marginals_product = (a+b)*(a+c)*(b+d)*(c+d)
+        admbc = a * d - b * c
+        marginals_product = (a + b) * (a + c) * (b + d) * (c + d)
 
-        obs_chisq = admbc**2*n/marginals_product
-        if a*d >= b*c:
-            max_chisq = (a+b)*(b+d)*n/((a+c)*(c+d))
+        obs_chisq = admbc ** 2 * n / marginals_product
+        if a * d >= b * c:
+            max_chisq = (a + b) * (b + d) * n / ((a + c) * (c + d))
         elif a <= d:
-            max_chisq = (a+b)*(a+c)*n/((b+d)*(c+d))
+            max_chisq = (a + b) * (a + c) * n / ((b + d) * (c + d))
         else:
-            max_chisq = (b+d)*(c+d)*n/((a+b)*(a+c))
+            max_chisq = (b + d) * (c + d) * n / ((a + b) * (a + c))
 
-        a_hat = (a+b)*(a+c)/n
-        g_a_hat = ceil(a_hat) if a*d < b*c else floor(a_hat)
+        a_hat = (a + b) * (a + c) / n
+        g_a_hat = ceil(a_hat) if a * d < b * c else floor(a_hat)
 
-        min_chisq = n**2*(a_hat-g_a_hat)**2/marginals_product
+        min_chisq = n ** 2 * (a_hat - g_a_hat) ** 2 / marginals_product
 
-        return copysign(((obs_chisq-min_chisq)/(max_chisq-min_chisq))**0.5, admbc)
+        return copysign(
+            ((obs_chisq - min_chisq) / (max_chisq - min_chisq)) ** 0.5, admbc
+        )
 
 
 if __name__ == '__main__':

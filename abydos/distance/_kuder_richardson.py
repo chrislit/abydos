@@ -44,7 +44,7 @@ class KuderRichardson(_TokenDistance):
             sim_{KuderRichardson}(X, Y) =
             \frac{4(|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|)}
-            \frac{|X| \cdot |N \setminus X| +
+            {|X| \cdot |N \setminus X| +
             |Y| \cdot |N \setminus Y| +
             2(|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|)}
@@ -170,7 +170,9 @@ class KuderRichardson(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        return (4*(a*d-b*c))/((a+b)*(c+d)+(a+c)*(b+d)+2*(a*d-b*c))
+        return (4 * (a * d - b * c)) / (
+            (a + b) * (c + d) + (a + c) * (b + d) + 2 * (a * d - b * c)
+        )
 
 
 if __name__ == '__main__':

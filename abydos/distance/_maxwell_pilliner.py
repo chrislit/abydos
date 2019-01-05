@@ -167,7 +167,7 @@ class MaxwellPilliner(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        return 2*(a*d-b*c)/((a+b)*(c+d)+(a+c)*(b+d))
+        return 2 * (a * d - b * c) / ((a + b) * (c + d) + (a + c) * (b + d))
 
 
 if __name__ == '__main__':
