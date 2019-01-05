@@ -69,7 +69,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Digby similarity (:py:class:`.Digby`)
     - Dispersion similarity (:py:class:`.Dispersion`)
     - Doolittle similarity (:py:class:`.Doolittle`)
-    - Driver & Kroeber similarity (:py:class:`.DriverKroeber`)
     - Dunning similarity (:py:class:`.Dunning`)
     - Excoffier similarity (:py:class:`.Excoffier`)
     - Eyraud similarity (:py:class:`.Eyraud`)
@@ -267,7 +266,6 @@ from ._dice import Dice, dist_dice, sim_dice
 from ._digby import Digby
 from ._dispersion import Dispersion
 from ._doolittle import Doolittle
-from ._driver_kroeber import DriverKroeber
 from ._dunning import Dunning
 from ._editex import Editex, dist_editex, editex, sim_editex
 from ._euclidean import Euclidean, dist_euclidean, euclidean, sim_euclidean
@@ -475,7 +473,6 @@ __all__ = [
     'Digby',
     'Dispersion',
     'Doolittle',
-    'DriverKroeber',
     'Dunning',
     'Excoffier',
     'Eyraud',
