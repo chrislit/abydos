@@ -44,7 +44,7 @@ class RogotGoldberg(_TokenDistance):
             sim_{RogotGoldberg}(X, Y) =
             \frac{1}{2}\Big(
             \frac{2|X \cap Y|}{|X|+|Y|} +
-            \frac{2|(N \setminux X) \setminus Y|}
+            \frac{2|(N \setminus X) \setminus Y|}
             {|N \setminus X|+|N \setminus Y|}
             \Big)
 
