@@ -41,14 +41,14 @@ class BraunBlanquet(_TokenDistance):
 
         .. math::
 
-            sim_{BraunBlanquet}(X, Y) = \frac{|X \cap Y|} {max(|X|, |Y|)}
+            sim_{BraunBlanquet}(X, Y) = \frac{|X \cap Y|}{max(|X|, |Y|)}
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
             sim_{BraunBlanquet} =
-            \frac{a}{max{a+b,a+c}}
+            \frac{a}{max(a+b, a+c)}
 
     .. versionadded:: 0.4.0
     """
