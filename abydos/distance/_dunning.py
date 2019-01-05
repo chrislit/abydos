@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import log
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['Dunning']
@@ -36,18 +38,28 @@ __all__ = ['Dunning']
 class Dunning(_TokenDistance):
     r"""Dunning similarity.
 
-    For two sets X and Y and a population N, Dunning similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Dunning log-likelihood
+    :cite:`Dunning:1993` is
 
         .. math::
 
             sim_{Dunning}(X, Y) =
+            2(|X \cap Y| log(|X \cap Y|) +
+            |X \setminus Y| log(|X \setminus Y|) +
+            |Y \setminus X| log(|Y \setminus X|) +
+            |(N \setminus X) \setminus Y| log(|(N \setminus X) \setminus Y|)) -
+            (|X| log(|X|) + |Y| log(|Y|) +
+            |N \setminus Y| log(|N \setminus Y|) +
+            |N \setminus X| log(|N \setminus X|)) +
+            |N| log(|N|)
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
-            sim_{Dunning} =
+            sim_{Dunning} = 2(a log(a) + b log(b) + c log(c) + d log(d)) -
+            ((a+b) log(a+b) + (a+c) log(a+c) + (b+d) log(b+d) +
+            (c+d) log(c+d)) + n log(n)
 
     .. versionadded:: 0.4.0
     """
@@ -158,13 +170,14 @@ class Dunning(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return (2*(a*log(a) + b*log(b) + c*log(c) + d*log(d))
+            - (a+b)*log(a+b) - (a+c)*log(a+c) - (b+d)*log(b+d) - (c+d)*log(c+d)
+            + (a+b+c+d)*log(a+b+c+d))
 
 
 if __name__ == '__main__':
