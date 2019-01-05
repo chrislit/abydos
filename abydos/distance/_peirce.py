@@ -47,7 +47,7 @@ class Peirce(_TokenDistance):
             {(|X \cap Y| + |X \setminus Y|) \cdot
             (|Y \setminus Y| + |(N \setminus X) \setminus Y|)}
 
-    Both :cite:`Choi:2010` and :cite:`Hubalek:2008` present a different formula
+    Both :cite:`Choi:2010` and :cite:`Hubalek:1982` present a different formula
     and incorrectly attribute it to Peirce. Likewise, :cite:`Doolittle:1884`
     presents a different formula and incorrectly attributes it to Peirce. This
     is distinct from the formula he presents and attributes to himself.

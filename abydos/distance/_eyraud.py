@@ -46,7 +46,7 @@ class Eyraud(_TokenDistance):
             {|X| \cdot |Y| \cdot |N \setminus Y| \cdot |N \setminus X|}
 
     For lack of access to the original, this formula is based on the concurring
-    formulae presented in :cite:`Shi:1993` and :cite:`Hubalek:2008`.
+    formulae presented in :cite:`Shi:1993` and :cite:`Hubalek:1982`.
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
