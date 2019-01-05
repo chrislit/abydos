@@ -39,7 +39,7 @@ class TullossT(_TokenDistance):
     r"""Tulloss' T similarity.
 
     For two sets X and Y and a population N, Tulloss' T similarity
-    :cite:`Tulloss:1977` is
+    :cite:`Tulloss:1997` is
 
         .. math::
 
