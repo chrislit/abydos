@@ -36,17 +36,14 @@ __all__ = ['KulczynskiII']
 class KulczynskiII(_TokenDistance):
     r"""Kulczynski II similarity.
 
-    For two sets X and Y, Kulczynski II similarity
-    :cite:`Kulczynski:1927` is
+    For two sets X and Y, Kulczynski II similarity :cite:`Kulczynski:1927 or
+    Driver & Kroeber similarity :cite:`Driver:1932` is
 
         .. math::
 
             sim_{KulczynskiII}(X, Y) =
             \frac{1}{2}
             \big(\frac{|X \cap Y|}{|X|} + \frac{|X \cap Y|}{|Y|}\big)
-
-    This metric is incorrectly formulated in :cite:`Choi:2010`, possibly
-    mis-copied from :cite:`Hubalek:2008`.
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
