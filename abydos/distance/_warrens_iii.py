@@ -37,17 +37,20 @@ class WarrensIII(_TokenDistance):
     r"""Warrens III similarity.
 
     For two sets X and Y and a population N, Warrens III similarity
-    :cite:`CITATION` is
+    :math:`S_{NS3}` :cite:`Warrens:2008` is
 
         .. math::
 
             sim_{WarrensIII}(X, Y) =
+            \frac{2|(N \setminus X) \setminus Y| - |X \setminus Y| -
+            |Y \setminus X|}{|N \setminus X| + |N \setminus Y|}
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
             sim_{WarrensIII} =
+            \frac{2d-b-c}{2d+b+c}
 
     .. versionadded:: 0.4.0
     """
@@ -158,13 +161,11 @@ class WarrensIII(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return (2*d-b-c)/(2*d+b+c)
 
 
 if __name__ == '__main__':

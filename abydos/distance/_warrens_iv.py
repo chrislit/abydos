@@ -37,17 +37,22 @@ class WarrensIV(_TokenDistance):
     r"""Warrens IV similarity.
 
     For two sets X and Y and a population N, Warrens IV similarity
-    :cite:`CITATION` is
+    :cite:`Warrens:2008` is
 
         .. math::
 
             sim_{WarrensIV}(X, Y) =
+            \frac{4|X \cap Y| \cdot |(N \setminus X) \setminus Y|}
+            {4|X \cap Y| \cdot |(N \setminus X) \setminus Y| +
+            (|X \cap Y| + |(N \setminus X) \setminus Y|)
+            (|X \setminus Y| + |Y \setminus X|)}
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
             sim_{WarrensIV} =
+            \frac{4ad}{4ad + (a+d)(b+c)}
 
     .. versionadded:: 0.4.0
     """
@@ -158,13 +163,12 @@ class WarrensIV(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return (4*a*d)/(4*a*d+(a+d)*(b+c))
 
 
 if __name__ == '__main__':
