@@ -36,7 +36,7 @@ __all__ = ['KulczynskiII']
 class KulczynskiII(_TokenDistance):
     r"""Kulczynski II similarity.
 
-    For two sets X and Y, Kulczynski II similarity :cite:`Kulczynski:1927 or
+    For two sets X and Y, Kulczynski II similarity :cite:`Kulczynski:1927` or
     Driver & Kroeber similarity :cite:`Driver:1932` is
 
         .. math::

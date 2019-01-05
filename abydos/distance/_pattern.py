@@ -53,7 +53,7 @@ class Pattern(_TokenDistance):
             \frac{4bc}{n^2}
 
     In :cite:`IBM:2017`, the formula omits the 4 in the numerator:
-    :math:`\frac{bc}{n^2}.
+    :math:`\frac{bc}{n^2}`.
 
     .. versionadded:: 0.4.0
     """

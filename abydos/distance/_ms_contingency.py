@@ -48,7 +48,7 @@ class MSContingency(_TokenDistance):
             |X \setminus Y| \cdot |Y \setminus X|)^2 +
             |X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}}
 
-    :cite:`Hubalek:2008` and :cite:`Choi:2010` identify this as Cole
+    :cite:`Hubalek:1982` and :cite:`Choi:2010` identify this as Cole
     similarity. Although Cole discusses this correlation, he does not claim to
     have developed it. Rather, he presents his coefficient of interspecific
     association as being his own development: :class:`.Cole`.
