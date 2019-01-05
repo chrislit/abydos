@@ -169,7 +169,9 @@ class Clement(_TokenDistance):
         d = self.total_complement_card()
         n = self.population_card()
 
-        return (a/(a+b))*(1-(a+b)/n)+(d/(c+d))*(1-(c+d)/n)
+        return (a / (a + b)) * (1 - (a + b) / n) + (d / (c + d)) * (
+            1 - (c + d) / n
+        )
 
 
 if __name__ == '__main__':

@@ -173,7 +173,7 @@ class RogotGoldberg(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        return a/(2*a+b+c)+d/(2*d+b+c)
+        return a / (2 * a + b + c) + d / (2 * d + b + c)
 
 
 if __name__ == '__main__':

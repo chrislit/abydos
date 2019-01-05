@@ -168,7 +168,7 @@ class WarrensIV(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        return (4*a*d)/(4*a*d+(a+d)*(b+c))
+        return (4 * a * d) / (4 * a * d + (a + d) * (b + c))
 
 
 if __name__ == '__main__':

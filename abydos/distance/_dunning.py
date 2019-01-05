@@ -175,9 +175,14 @@ class Dunning(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        return (2*(a*log(a) + b*log(b) + c*log(c) + d*log(d))
-            - (a+b)*log(a+b) - (a+c)*log(a+c) - (b+d)*log(b+d) - (c+d)*log(c+d)
-            + (a+b+c+d)*log(a+b+c+d))
+        return (
+            2 * (a * log(a) + b * log(b) + c * log(c) + d * log(d))
+            - (a + b) * log(a + b)
+            - (a + c) * log(a + c)
+            - (b + d) * log(b + d)
+            - (c + d) * log(c + d)
+            + (a + b + c + d) * log(a + b + c + d)
+        )
 
 
 if __name__ == '__main__':

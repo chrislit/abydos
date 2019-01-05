@@ -167,7 +167,7 @@ class CohenKappa(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        return 2*(a*d-b*c)/((a+b)*(b+d)+(a+c)*(c+d))
+        return 2 * (a * d - b * c) / ((a + b) * (b + d) + (a + c) * (c + d))
 
 
 if __name__ == '__main__':

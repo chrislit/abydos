@@ -166,7 +166,7 @@ class Benini(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        return (a*d-b*c)/min((a+b)*(b+d), (a+c)*(c+d))
+        return (a * d - b * c) / min((a + b) * (b + d), (a + c) * (c + d))
 
 
 if __name__ == '__main__':

@@ -167,7 +167,7 @@ class GoodmanKruskalMin(_TokenDistance):
         b = self.src_only_card()
         c = self.tar_only_card()
 
-        return (2*mad-b-c)/(2*mad+b+c)
+        return (2 * mad - b - c) / (2 * mad + b + c)
 
 
 if __name__ == '__main__':
