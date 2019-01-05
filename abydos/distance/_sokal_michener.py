@@ -36,8 +36,9 @@ __all__ = ['SokalMichener']
 class SokalMichener(_TokenDistance):
     r"""Sokal & Michener similarity.
 
-    For two sets X and Y and a population N, the Sokal & Michener similarity
-    :cite:`Sokal:1958` is
+    For two sets X and Y and a population N, the Sokal & Michener's
+    simple matching coefficient :cite:`Sokal:1958`, equivalent to the Rand
+    index :cite:`Rand:1971` is
 
         .. math::
 
