@@ -42,12 +42,18 @@ class FleissLevinPaik(_TokenDistance):
         .. math::
 
             sim_{FleissLevinPaik}(X, Y) =
+            \frac{2|(N \setminus X) \setminus Y|}
+            {2|(N \setminus X) \setminus Y| +
+            |X \setminus Y| + |Y \setminus X|}
+
+    This is :cite:`Morris:2012`'s 'd Specific Agreement'.
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
             sim_{FleissLevinPaik} =
+            \frac{2d}{2a + b + c}
 
     .. versionadded:: 0.4.0
     """
@@ -158,13 +164,11 @@ class FleissLevinPaik(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return 2*d/(2*d + b + c)
 
 
 if __name__ == '__main__':
