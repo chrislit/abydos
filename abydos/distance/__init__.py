@@ -78,6 +78,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Forbes I similarity (:py:class:`.ForbesI`)
     - Forbes II similarity (:py:class:`.ForbesII`)
     - Fossum similarity (:py:class:`.Fossum`)
+    - Generalized Fleiss similarity (:py:class:`.GeneralizedFleiss`)
     - Gilbert similarity (:py:class:`.Gilbert`)
     - Gilbert & Wells similarity (:py:class:`.GilbertWells`)
     - Gini distance (:py:class:`.Gini`)
@@ -266,6 +267,7 @@ from ._fleiss_levin_paik import FleissLevinPaik
 from ._forbes_i import ForbesI
 from ._forbes_ii import ForbesII
 from ._fossum import Fossum
+from ._generalized_fleiss import GeneralizedFleiss
 from ._gilbert import Gilbert
 from ._gilbert_wells import GilbertWells
 from ._gini import Gini
@@ -472,6 +474,7 @@ __all__ = [
     'ForbesI',
     'ForbesII',
     'Fossum',
+    'GeneralizedFleiss',
     'Gilbert',
     'GilbertWells',
     'Gini',
