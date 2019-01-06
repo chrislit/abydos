@@ -52,6 +52,19 @@ class _TokenDistance(_Distance):
     |                | a+c = |a+c| | b+d = |b+d|    | n = |n|     |
     +----------------+-------------+----------------+-------------+
 
+    .. |in| replace:: :math:`x \in`
+    .. |notin| replace:: :math:`x \notin`
+
+    .. |a| replace:: :math:`|X \cap Y|`
+    .. |b| replace:: :math:`|X\setminus Y|`
+    .. |c| replace:: :math:`|Y \setminus X|`
+    .. |d| replace:: :math:`|(N\setminus X)\setminus Y|`
+    .. |n| replace:: :math:`|N|`
+    .. |a+b| replace:: :math:`|X|`
+    .. |a+c| replace:: :math:`|Y|`
+    .. |c+d| replace:: :math:`|N\setminus X|`
+    .. |b+d| replace:: :math:`|N\setminus Y|`
+
     .. versionadded:: 0.3.6
     """
 
