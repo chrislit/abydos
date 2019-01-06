@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._d_specific_agreement.
+"""abydos.distance._fleiss_levin_paik.
 
-d Specific Agreement similarity
+Fleiss-Levin-Paik similarity
 """
 
 from __future__ import (
@@ -30,24 +30,24 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['DSpecificAgreement']
+__all__ = ['FleissLevinPaik']
 
 
-class DSpecificAgreement(_TokenDistance):
-    r"""d Specific Agreement similarity.
+class FleissLevinPaik(_TokenDistance):
+    r"""Fleiss-Levin-Paik similarity.
 
-    For two sets X and Y and a population N, d Specific Agreement similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Fleiss-Levin-Paik similarity
+    :cite:`Fleiss:2003` is
 
         .. math::
 
-            sim_{DSpecificAgreement}(X, Y) =
+            sim_{FleissLevinPaik}(X, Y) =
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
-            sim_{DSpecificAgreement} =
+            sim_{FleissLevinPaik} =
 
     .. versionadded:: 0.4.0
     """
@@ -59,7 +59,7 @@ class DSpecificAgreement(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize DSpecificAgreement instance.
+        """Initialize FleissLevinPaik instance.
 
         Parameters
         ----------
@@ -118,7 +118,7 @@ class DSpecificAgreement(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(DSpecificAgreement, self).__init__(
+        super(FleissLevinPaik, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -126,7 +126,7 @@ class DSpecificAgreement(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the d Specific Agreement similarity of two strings.
+        """Return the Fleiss-Levin-Paik similarity of two strings.
 
         Parameters
         ----------
@@ -138,11 +138,11 @@ class DSpecificAgreement(_TokenDistance):
         Returns
         -------
         float
-            d Specific Agreement similarity
+            Fleiss-Levin-Paik similarity
 
         Examples
         --------
-        >>> cmp = DSpecificAgreement()
+        >>> cmp = FleissLevinPaik()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')

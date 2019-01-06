@@ -63,7 +63,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Clement similarity (:py:class:`.Clement`)
     - Cohen's Kappa similarity (:py:class:`.CohenKappa`)
     - Cole similarity (:py:class:`.Cole`)
-    - d Specific Agreement similarity (:py:class:`.DSpecificAgreement`)
     - Dennis similarity (:py:class:`.Dennis`)
     - Digby similarity (:py:class:`.Digby`)
     - Dispersion similarity (:py:class:`.Dispersion`)
@@ -75,6 +74,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Fager & McGowan similarity (:py:class:`.FagerMcGowan`)
     - Faith similarity (:py:class:`.Faith`)
     - Fleiss similarity (:py:class:`.Fleiss`)
+    - Fleiss-Levin-Paik similarity (:py:class:`.FleissLevinPaik`)
     - Forbes I similarity (:py:class:`.ForbesI`)
     - Forbes II similarity (:py:class:`.ForbesII`)
     - Fossum similarity (:py:class:`.Fossum`)
@@ -254,7 +254,6 @@ from ._clement import Clement
 from ._cohen_kappa import CohenKappa
 from ._cole import Cole
 from ._cosine import Cosine, dist_cosine, sim_cosine
-from ._d_specific_agreement import DSpecificAgreement
 from ._damerau_levenshtein import (
     DamerauLevenshtein,
     damerau_levenshtein,
@@ -276,6 +275,7 @@ from ._fager import Fager
 from ._fager_mcgowan import FagerMcGowan
 from ._faith import Faith
 from ._fleiss import Fleiss
+from ._fleiss_levin_paik import FleissLevinPaik
 from ._forbes_i import ForbesI
 from ._forbes_ii import ForbesII
 from ._fossum import Fossum
@@ -470,7 +470,6 @@ __all__ = [
     'Clement',
     'Cole',
     'CohenKappa',
-    'DSpecificAgreement',
     'Dennis',
     'Digby',
     'Dispersion',
@@ -482,6 +481,7 @@ __all__ = [
     'FagerMcGowan',
     'Faith',
     'Fleiss',
+    'FleissLevinPaik',
     'ForbesI',
     'ForbesII',
     'Fossum',
