@@ -37,17 +37,26 @@ class Fleiss(_TokenDistance):
     r"""Fleiss similarity.
 
     For two sets X and Y and a population N, Fleiss similarity
-    :cite:`CITATION` is
+    :cite:`Fleiss:1975` is
 
         .. math::
 
             sim_{Fleiss}(X, Y) =
+            \frac{(|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus X|) \cdot
+            (|X| \cdot |N \setminus X| + |Y| \cdot |N \setminus Y|)}
+            {2 \cdot |X| \cdot |N \setminus X| \cdot |Y| \cdot |N \setminus Y|}
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
             sim_{Fleiss} =
+            \frac{(ad-bc)((a+b)(c+d)+(a+c)(b+d))}{2(a+b)(c+d)(a+c)(b+d)}
+
+    This is Fleiss' :math:`M(A_1)`, :math:`ad-bc` divided by the harmonic mean
+    of the marginals :math:`p_1q_1 = (a+b)(c+d)` and
+    :math:`p_2q_2 = (a+c)(b+d)`.
 
     .. versionadded:: 0.4.0
     """
@@ -158,13 +167,12 @@ class Fleiss(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return (a*d-b*c)*((a+b)*(c+d)+(a+c)*(b+d))/(2*(a+b)*(c+d)*(a+c)*(b+d))
 
 
 if __name__ == '__main__':
