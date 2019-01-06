@@ -194,7 +194,7 @@ def hmean(nums):
 def qmean(nums):
     r"""Return quadratic mean.
 
-    The quadratic mean of precision and recall is defined as
+    The quadratic mean is defined as
 
         .. math::
 
