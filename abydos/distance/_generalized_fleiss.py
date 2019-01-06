@@ -54,17 +54,38 @@ class GeneralizedFleiss(_TokenDistance):
     r"""Generalized Fleiss similarity.
 
     For two sets X and Y and a population N, Generalized Fleiss similarity
-    :cite:`CITATION` is
+    is based on observations from :cite:`Fleiss:1975`.
 
         .. math::
 
             sim_{GeneralizedFleiss}(X, Y) =
+            \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus X|}
+            {\mu{products of marginals}}
+
+    The mean function :math:`\mu` may be any of the mean functions in
+    :py:module:`abydos.stats`. The products of marginals may be one of the
+    following:
+
+        - 'a' : :math:`|X| \cdot |N \setminus X|` &
+          :math:`|Y| \cdot |N \setminus Y|`
+        - 'b' : :math:`|X| \cdot |Y|` &
+          :math:`|N \setminus X| \cdot |N \setminus Y|`
+        - 'c' : :math:`|X| \cdot |N |setminus Y|` &
+          :math:`|Y| \cdot |N \setminus X|`
 
     In 2x2 matrix, a+b+c+d=n terms, this is
 
         .. math::
 
             sim_{GeneralizedFleiss} =
+            \frac{ad-bc}{\mu{product of marginals}}
+
+    And the products of marginals are:
+
+        - 'a' : :math:`p_1q_1 = (a+b)(c+d)` & :math:`p_2q_2 = (a+c)(b+d)`
+        - 'b' : :math:`p_1p_2 = (a+b)(a+c)` & :math:`q_1q_2 = (c+d)(b+d)`
+        - 'c' : :math:`p_1q_2 = (a+b)(b+d)` & :math:`p_2q_1 = (a+c)(c+d)`
 
     .. versionadded:: 0.4.0
     """
@@ -122,7 +143,7 @@ class GeneralizedFleiss(_TokenDistance):
             Specifies the mean function to use. A function taking a list of
             numbers as its only required argument may be supplied, or one of
             the following strings will select the specified mean function from
-            :py:module:`abydos.stats.mean`:
+            :py:module:`abydos.stats`:
 
                 - 'arithmetic' employs :py:function:`amean`, and this measure
                   will be identical to :py:class:`MaxwellPilliner` with
