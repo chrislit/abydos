@@ -31,7 +31,7 @@ from __future__ import (
 from six.moves import range
 
 from ._mean import amean, hmean, std
-from ..distance import sim
+from ..distance._levenshtein import sim_levenshtein as sim
 
 __all__ = ['mean_pairwise_similarity', 'pairwise_similarity_statistics']
 
