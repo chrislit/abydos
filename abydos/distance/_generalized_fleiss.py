@@ -147,33 +147,33 @@ class GeneralizedFleiss(_TokenDistance):
             the following strings will select the specified mean function from
             :py:mod:`abydos.stats`:
 
-                - 'arithmetic' employs :py:function:`amean`, and this measure
+                - 'arithmetic' employs :py:func:`amean`, and this measure
                   will be identical to :py:class:`MaxwellPilliner` with
                   otherwise default parameters
-                - 'geometric' employs :py:function:`gmean`, and this measure
+                - 'geometric' employs :py:func:`gmean`, and this measure
                   will be identical to :py:class:`PearsonPhi` with otherwise
                   default parameters
-                - 'harmonic' employs :py:function:`hmean`, and this measure
+                - 'harmonic' employs :py:func:`hmean`, and this measure
                   will be identical to :py:class:`Fleiss` with otherwise
                   default parameters
                 - 'ag' employs the arithmetic-geometric mean
-                  :py:function:`agmean`
+                  :py:func:`agmean`
                 - 'gh' employs the geometric-harmonic mean
-                  :py:function:`ghmean`
+                  :py:func:`ghmean`
                 - 'agh' employs the arithmetic-geometric-harmonic mean
-                  :py:function:`aghmean`
+                  :py:func:`aghmean`
                 - 'contraharmonic' employs the contraharmonic mean
-                  :py:function:`cmean`
-                - 'identric' employs the identric mean :py:function:`imean`
+                  :py:func:`cmean`
+                - 'identric' employs the identric mean :py:func:`imean`
                 - 'logarithmic' employs the logarithmic mean
-                  :py:function:`lmean`
-                - 'quadratic' employs the quadratic mean :py:function:`qmean`
+                  :py:func:`lmean`
+                - 'quadratic' employs the quadratic mean :py:func:`qmean`
                 - 'heronian' employs the Heronian mean
-                  :py:function:`heronian_mean`
-                - 'hoelder' employs the Hölder mean :py:function:`hoelder_mean`
-                - 'lehmer' employs the Lehmer mean :py:function:`lehmer_mean`
+                  :py:func:`heronian_mean`
+                - 'hoelder' employs the Hölder mean :py:func:`hoelder_mean`
+                - 'lehmer' employs the Lehmer mean :py:func:`lehmer_mean`
                 - 'seiffert' employs Seiffert's mean
-                  :py:function:`seiffert_mean`
+                  :py:func:`seiffert_mean`
         marginals : str
             Specifies the pairs of marginals to multiply and calculate the
             resulting mean of. Can be:
