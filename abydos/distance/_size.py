@@ -91,7 +91,7 @@ class Size(_TokenDistance):
                   assumes the strings are English language strings). Otherwise,
                   The cardinality of the complement of the total will be 0.
         tokenizer : _Tokenizer
-            A tokenizer instance from the :py:module:`abydos.tokenizer` package
+            A tokenizer instance from the :py:mod:`abydos.tokenizer` package
         intersection_type : str
             Specifies the intersection type, and set type as a result:
 

@@ -59,7 +59,7 @@ class Euclidean(Minkowski):
         alphabet : collection or int
             The values or size of the alphabet
         tokenizer : _Tokenizer
-            A tokenizer instance from the :py:module:`abydos.tokenizer` package
+            A tokenizer instance from the :py:mod:`abydos.tokenizer` package
         intersection_type : str
             Specifies the intersection type, and set type as a result:
 
