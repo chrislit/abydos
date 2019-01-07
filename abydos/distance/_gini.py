@@ -37,17 +37,26 @@ class Gini(_TokenDistance):
     r"""Gini distance.
 
     For two sets X and Y and a population N, Gini distance
-    :cite:`CITATION` is
+    :cite:`Gini:1912` is
 
         .. math::
 
             sim_{Gini}(X, Y) =
+            \frac{\frac{|X \cap Y|+|(N \setminus X) \setminus Y|}{|N|} -
+            \frac{|X|+|Y|}{|N|} \cdot
+            \frac{|N \setminus Y|+|N \setminus X|}{|N|}}
+            {\sqrt{(1-(\frac{|X|}{|N|}^2+\frac{|Y|}{|N|}^2)) \cdot
+            (1-(\frac{|N \setminus Y|}{|N|}^2 +
+            \frac{|N \setminus X|}{|N|}^2))}}
 
-    In 2x2 matrix, a+b+c+d=n terms, this is
+    In 2x2 matrix, a+b+c+d=n terms after each term has been converted to a
+    proportion by dividing by n, this is
 
         .. math::
 
             sim_{Gini} =
+            \frac{(a+d)-((a+b)(a+c) + (b+d)(c+d))}
+            {\sqrt{(1-((a+b)^2+(c+d)^2))\cdot(1-((a+c)^2+(b+d)^2))}}
 
     .. versionadded:: 0.4.0
     """
@@ -158,13 +167,13 @@ class Gini(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        n = self.population_card()
+        a = self.intersection_card()/n
+        b = self.src_only_card()/n
+        c = self.tar_only_card()/n
+        d = self.total_complement_card()/n
 
-        return 0.0
+        return ((a+d)-((a+b)*(a+c)+(c+d)*(b+d)))/((1-((a+b)**2+(c+d)**2))*(1-((a+c)**2+(b+d)**2)))**0.5
 
 
 if __name__ == '__main__':
