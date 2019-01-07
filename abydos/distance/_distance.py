@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+__all__ = ['_Distance']
+
 
 class _Distance(object):
     """Abstract Distance class.

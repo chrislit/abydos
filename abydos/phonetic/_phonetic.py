@@ -30,6 +30,8 @@ from __future__ import (
 
 from itertools import groupby
 
+__all__ = ['_Phonetic']
+
 
 class _Phonetic(object):
     """Abstract Phonetic class.

@@ -65,6 +65,7 @@ from __future__ import (
 
 from ._count import Count, count_fingerprint
 from ._fingerprint import (
+    _Fingerprint,
     MOST_COMMON_LETTERS,
     MOST_COMMON_LETTERS_CG,
     MOST_COMMON_LETTERS_DE,
@@ -82,6 +83,7 @@ from ._string import String, str_fingerprint
 from ._synoname_toolcode import SynonameToolcode, synoname_toolcode
 
 __all__ = [
+    '_Fingerprint',
     'String',
     'str_fingerprint',
     'QGram',

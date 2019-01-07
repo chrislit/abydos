@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+__all__ = ['_Stemmer']
+
 
 class _Stemmer(object):
     """Abstract Stemmer class.
