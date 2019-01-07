@@ -34,20 +34,22 @@ import stats as mean
 __all__ = ['GeneralizedFleiss']
 
 
-means = {'arithmetic': mean.amean,
-         'geometric': mean.gmean,
-         'harmonic': mean.hmean,
-         'ag': mean.agmean,
-         'gh': mean.ghmean,
-         'agh': mean.aghmean,
-         'contraharmonic': mean.cmean,
-         'identric': mean.imean,
-         'logarithmic': mean.lmean,
-         'quadratic': mean.qmean,
-         'heronian': mean.heronian_mean,
-         'hoelder': mean.hoelder_mean,
-         'lehmer': mean.lehmer_mean,
-         'seiffert': mean.seiffert_mean}
+means = {
+    'arithmetic': mean.amean,
+    'geometric': mean.gmean,
+    'harmonic': mean.hmean,
+    'ag': mean.agmean,
+    'gh': mean.ghmean,
+    'agh': mean.aghmean,
+    'contraharmonic': mean.cmean,
+    'identric': mean.imean,
+    'logarithmic': mean.lmean,
+    'quadratic': mean.qmean,
+    'heronian': mean.heronian_mean,
+    'hoelder': mean.hoelder_mean,
+    'lehmer': mean.lehmer_mean,
+    'seiffert': mean.seiffert_mean,
+}
 
 
 class GeneralizedFleiss(_TokenDistance):
@@ -254,7 +256,7 @@ class GeneralizedFleiss(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
         n = self.population_card()
-        
+
         if self.proportional:
             a /= n
             b /= n
@@ -262,16 +264,19 @@ class GeneralizedFleiss(_TokenDistance):
             d /= n
 
         if self.marginals == 'b':
-            mps = [(a+b)*(a+c), (c+d)*(b+d)]
+            mps = [(a + b) * (a + c), (c + d) * (b + d)]
         elif self.marginals == 'c':
-            mps = [(a+b)*(b+d), (a+c)*(c+d)]
+            mps = [(a + b) * (b + d), (a + c) * (c + d)]
         else:
-            mps = [(a+b)*(c+d), (a+c)*(c+d)]
+            mps = [(a + b) * (c + d), (a + c) * (c + d)]
 
-        mean_value = (self.mean_func(mps) if callable(self.mean_func) else
-                      means[self.mean_func](mps))
+        mean_value = (
+            self.mean_func(mps)
+            if callable(self.mean_func)
+            else means[self.mean_func](mps)
+        )
 
-        return (a*d-b*c)/mean_value
+        return (a * d - b * c) / mean_value
 
 
 if __name__ == '__main__':

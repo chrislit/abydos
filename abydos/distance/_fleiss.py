@@ -172,7 +172,11 @@ class Fleiss(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        return (a*d-b*c)*((a+b)*(c+d)+(a+c)*(b+d))/(2*(a+b)*(c+d)*(a+c)*(b+d))
+        return (
+            (a * d - b * c)
+            * ((a + b) * (c + d) + (a + c) * (b + d))
+            / (2 * (a + b) * (c + d) * (a + c) * (b + d))
+        )
 
 
 if __name__ == '__main__':

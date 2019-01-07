@@ -179,7 +179,7 @@ class Stiles(_TokenDistance):
         return log10(
             n
             * (abs(a * d - b * c) - n / 2) ** 2
-            / ((a+b) * (a+c) * (b + d) * (c + d))
+            / ((a + b) * (a + c) * (b + d) * (c + d))
         )
 
 

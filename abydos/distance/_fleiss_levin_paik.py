@@ -168,7 +168,7 @@ class FleissLevinPaik(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        return 2*d/(2*d + b + c)
+        return 2 * d / (2 * d + b + c)
 
 
 if __name__ == '__main__':
