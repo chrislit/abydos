@@ -59,7 +59,7 @@ class Stiles(_TokenDistance):
         .. math::
 
             sim_{Stiles} =
-            \frac{n(ad-bc-\frac{1}{2}n)^2}{(a+b)(a+c)(b+d)(c+d)}
+            log_10 \frac{n(|ad-bc|-\frac{1}{2}n)^2}{(a+b)(a+c)(b+d)(c+d)}
 
     .. versionadded:: 0.4.0
     """
@@ -179,7 +179,7 @@ class Stiles(_TokenDistance):
         return log10(
             n
             * (abs(a * d - b * c) - n / 2) ** 2
-            / (self.src_card() * self.tar_card() * (b + d) * (c + d))
+            / ((a+b) * (a+c) * (b + d) * (c + d))
         )
 
 
