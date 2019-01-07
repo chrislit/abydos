@@ -37,7 +37,8 @@ class PearsonII(PearsonChiSquared):
     r"""Pearson II similarity.
 
     For two sets X and Y and a population N, the Pearson II
-    similarity :cite:`Pearson:1913` is
+    similarity :cite:`Pearson:1913`, Pearson's coefficient of mean square
+    contingency, is
 
         .. math::
 
