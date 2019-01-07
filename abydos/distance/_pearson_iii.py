@@ -37,7 +37,8 @@ class PearsonIII(PearsonPhi):
     r"""Pearson III similarity.
 
     For two sets X and Y and a population N, the Pearson III
-    similarity :cite:`Pearson:1913` is
+    similarity :cite:`Pearson:1913`, Pearson's coefficient of racial likeness,
+    is
 
         .. math::
 
