@@ -32,6 +32,8 @@ from six.moves import range
 
 from ._stemmer import _Stemmer
 
+__all__ = ['_Snowball']
+
 
 class _Snowball(_Stemmer):
     """Snowball stemmer base class.

@@ -38,9 +38,11 @@ from ._lcprefix import LCPrefix
 from ._levenshtein import Levenshtein
 from ..tokenizer import QGrams, WhitespaceTokenizer
 
+__all__ = ['_TokenDistance']
+
 
 class _TokenDistance(_Distance):
-    """Abstract Token Distance class.
+    r"""Abstract Token Distance class.
 
     +----------------+--------------------+--------------------+--------------------+
     |                | |in| ``tar``       | |notin| ``tar``    |                    |

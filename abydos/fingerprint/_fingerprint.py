@@ -29,6 +29,8 @@ from __future__ import (
     unicode_literals,
 )
 
+__all__ = ['_Fingerprint']
+
 # fmt: off
 # most common letters, as defined in Cisłak & Grabowski
 MOST_COMMON_LETTERS_CG = ('e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd',

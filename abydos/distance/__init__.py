@@ -251,6 +251,7 @@ from ._dennis import Dennis
 from ._dice import Dice, dist_dice, sim_dice
 from ._digby import Digby
 from ._dispersion import Dispersion
+from ._distance import _Distance
 from ._doolittle import Doolittle
 from ._dunning import Dunning
 from ._editex import Editex, dist_editex, editex, sim_editex
@@ -371,6 +372,7 @@ from ._synoname import Synoname, synoname
 from ._tarantula import Tarantula
 from ._tarwid import Tarwid
 from ._tetrachoric import Tetrachoric
+from ._token_distance import _TokenDistance
 from ._tulloss_r import TullossR
 from ._tulloss_s import TullossS
 from ._tulloss_t import TullossT
@@ -390,6 +392,8 @@ from ._yule_q_ii import YuleQII
 from ._yule_y import YuleY
 
 __all__ = [
+    '_Distance',
+    '_TokenDistance',
     'sim',
     'dist',
     'Levenshtein',

@@ -137,6 +137,7 @@ from ._onca import ONCA, onca
 from ._parmar_kumbharana import ParmarKumbharana, parmar_kumbharana
 from ._phonem import Phonem, phonem
 from ._phonet import Phonet, phonet
+from ._phonetic import _Phonetic
 from ._phonetic_spanish import PhoneticSpanish, phonetic_spanish
 from ._phonex import Phonex, phonex
 from ._phonix import Phonix, phonix
@@ -161,6 +162,7 @@ from ._statistics_canada import StatisticsCanada, statistics_canada
 from ._waahlin import Waahlin
 
 __all__ = [
+    '_Phonetic',
     'RussellIndex',
     'russell_index',
     'russell_index_num_to_alpha',
