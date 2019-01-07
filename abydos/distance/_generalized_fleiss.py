@@ -29,26 +29,26 @@ from __future__ import (
 )
 
 from ._token_distance import _TokenDistance
-import stats as mean
+from ..stats._mean import amean, gmean, hmean, agmean, ghmean, aghmean, cmean, imean, lmean, qmean, heronian_mean, hoelder_mean, lehmer_mean, seiffert_mean
 
 __all__ = ['GeneralizedFleiss']
 
 
 means = {
-    'arithmetic': mean.amean,
-    'geometric': mean.gmean,
-    'harmonic': mean.hmean,
-    'ag': mean.agmean,
-    'gh': mean.ghmean,
-    'agh': mean.aghmean,
-    'contraharmonic': mean.cmean,
-    'identric': mean.imean,
-    'logarithmic': mean.lmean,
-    'quadratic': mean.qmean,
-    'heronian': mean.heronian_mean,
-    'hoelder': mean.hoelder_mean,
-    'lehmer': mean.lehmer_mean,
-    'seiffert': mean.seiffert_mean,
+    'arithmetic': amean,
+    'geometric': gmean,
+    'harmonic': hmean,
+    'ag': agmean,
+    'gh': ghmean,
+    'agh': aghmean,
+    'contraharmonic': cmean,
+    'identric': imean,
+    'logarithmic': lmean,
+    'quadratic': qmean,
+    'heronian': heronian_mean,
+    'hoelder': hoelder_mean,
+    'lehmer': lehmer_mean,
+    'seiffert': seiffert_mean,
 }
 
 
@@ -66,7 +66,7 @@ class GeneralizedFleiss(_TokenDistance):
             {\mu{products of marginals}}
 
     The mean function :math:`\mu` may be any of the mean functions in
-    :py:module:`abydos.stats`. The products of marginals may be one of the
+    :py:mod:`abydos.stats`. The products of marginals may be one of the
     following:
 
         - 'a' : :math:`|X| \cdot |N \setminus X|` &
@@ -126,7 +126,7 @@ class GeneralizedFleiss(_TokenDistance):
                   assumes the strings are English language strings). Otherwise,
                   The cardinality of the complement of the total will be 0.
         tokenizer : _Tokenizer
-            A tokenizer instance from the :py:module:`abydos.tokenizer` package
+            A tokenizer instance from the :py:mod:`abydos.tokenizer` package
         intersection_type : str
             Specifies the intersection type, and set type as a result:
 
@@ -145,7 +145,7 @@ class GeneralizedFleiss(_TokenDistance):
             Specifies the mean function to use. A function taking a list of
             numbers as its only required argument may be supplied, or one of
             the following strings will select the specified mean function from
-            :py:module:`abydos.stats`:
+            :py:mod:`abydos.stats`:
 
                 - 'arithmetic' employs :py:function:`amean`, and this measure
                   will be identical to :py:class:`MaxwellPilliner` with
