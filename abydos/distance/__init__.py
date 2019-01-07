@@ -107,7 +107,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Maron & Kuhns similarity (:py:class:`.MaronKuhns`)
     - Maxwell & Pilliner similarity (:py:class:`.MaxwellPilliner`)
     - McConnaughey similarity (:py:class:`.McConnaughey`)
-    - Mean Manhattan distance (:py:class:`.MeanManhattan`)
     - Michael similarity (:py:class:`.Michael`)
     - Michelet similarity (:py:class:`.Michelet`)
     - Mountford similarity (:py:class:`.Mountford`)
@@ -315,7 +314,6 @@ from ._maron_kuhns import MaronKuhns
 from ._maxwell_pilliner import MaxwellPilliner
 from ._mcconnaughey import McConnaughey
 from ._mcewen_michael import McEwenMichael
-from ._mean_manhattan import MeanManhattan
 from ._michelet import Michelet
 from ._minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
 from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
@@ -504,7 +502,6 @@ __all__ = [
     'MaxwellPilliner',
     'McConnaughey',
     'McEwenMichael',
-    'MeanManhattan',
     'Michelet',
     'Mountford',
     'MutualInformation',
