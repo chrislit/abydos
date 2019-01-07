@@ -168,12 +168,15 @@ class Gini(_TokenDistance):
         self.tokenize(src, tar)
 
         n = self.population_card()
-        a = self.intersection_card()/n
-        b = self.src_only_card()/n
-        c = self.tar_only_card()/n
-        d = self.total_complement_card()/n
+        a = self.intersection_card() / n
+        b = self.src_only_card() / n
+        c = self.tar_only_card() / n
+        d = self.total_complement_card() / n
 
-        return ((a+d)-((a+b)*(a+c)+(c+d)*(b+d)))/((1-((a+b)**2+(c+d)**2))*(1-((a+c)**2+(b+d)**2)))**0.5
+        return ((a + d) - ((a + b) * (a + c) + (c + d) * (b + d))) / (
+            (1 - ((a + b) ** 2 + (c + d) ** 2))
+            * (1 - ((a + c) ** 2 + (b + d) ** 2))
+        ) ** 0.5
 
 
 if __name__ == '__main__':
