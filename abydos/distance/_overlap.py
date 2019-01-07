@@ -41,7 +41,8 @@ class Overlap(_TokenDistance):
 
     For two sets X and Y, the overlap coefficient
     :cite:`Szymkiewicz:1934,Simpson:1949`, also called the
-    Szymkiewicz-Simpson coefficient, is
+    Szymkiewicz-Simpson coefficient and Simpson's ecological coexistence
+    coefficient, is
 
         .. math::
 
