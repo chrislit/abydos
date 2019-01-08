@@ -273,9 +273,9 @@ from ._gilbert import Gilbert
 from ._gilbert_wells import GilbertWells
 from ._gini import Gini
 from ._goodall import Goodall
+from ._goodman_kruskal_lambda import GoodmanKruskalLambda
 from ._goodman_kruskal_max import GoodmanKruskalMax
 from ._goodman_kruskal_min import GoodmanKruskalMin
-from ._goodman_kruskal_lambda import GoodmanKruskalLambda
 from ._goodman_kruskal_probability import GoodmanKruskalProbability
 from ._goodman_kruskal_tau import GoodmanKruskalTau
 from ._gotoh import Gotoh, gotoh
