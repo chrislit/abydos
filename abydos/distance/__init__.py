@@ -63,6 +63,11 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Clement similarity (:py:class:`.Clement`)
     - Cohen's Kappa similarity (:py:class:`.CohenKappa`)
     - Cole similarity (:py:class:`.Cole`)
+    - Consonni & Todeschini I similarity (:py:class:`.ConsonniTodeschiniI`)
+    - Consonni & Todeschini II similarity (:py:class:`.ConsonniTodeschiniII`)
+    - Consonni & Todeschini III similarity (:py:class:`.ConsonniTodeschiniIII`)
+    - Consonni & Todeschini IV similarity (:py:class:`.ConsonniTodeschiniIV`)
+    - Consonni & Todeschini V similarity (:py:class:`.ConsonniTodeschiniV`)
     - Dennis similarity (:py:class:`.Dennis`)
     - Digby similarity (:py:class:`.Digby`)
     - Dispersion similarity (:py:class:`.Dispersion`)
@@ -241,6 +246,11 @@ from ._chord import Chord
 from ._clement import Clement
 from ._cohen_kappa import CohenKappa
 from ._cole import Cole
+from ._consonni_todeschini_i import ConsonniTodeschiniI
+from ._consonni_todeschini_ii import ConsonniTodeschiniII
+from ._consonni_todeschini_iii import ConsonniTodeschiniIII
+from ._consonni_todeschini_iv import ConsonniTodeschiniIV
+from ._consonni_todeschini_v import ConsonniTodeschiniV
 from ._cosine import Cosine, dist_cosine, sim_cosine
 from ._damerau_levenshtein import (
     DamerauLevenshtein,
@@ -461,6 +471,11 @@ __all__ = [
     'Chord',
     'Clement',
     'Cole',
+    'ConsonniTodeschiniI',
+    'ConsonniTodeschiniII',
+    'ConsonniTodeschiniIII',
+    'ConsonniTodeschiniIV',
+    'ConsonniTodeschiniV',
     'CohenKappa',
     'Dennis',
     'Digby',
