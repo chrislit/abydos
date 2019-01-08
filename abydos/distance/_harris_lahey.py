@@ -37,11 +37,15 @@ class HarrisLahey(_TokenDistance):
     r"""Harris & Lahey similarity.
 
     For two sets X and Y and a population N, Harris & Lahey similarity
-    :cite:`CITATION` is
+    :cite:`Harris:1978` is
 
         .. math::
 
             sim_{HarrisLahey}(X, Y) =
+            \frac{|X \cap Y|}{|X \cup Y|}\cdot
+            \frac{|N \setminus Y| + |N \setminus X|}{2|N|}+
+            \frac{|(N \setminus X) \setminus Y|}{|N \setminus (X \cap Y)|}\cdot
+            \frac{|X| + |Y|}{2|N|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +53,16 @@ class HarrisLahey(_TokenDistance):
         .. math::
 
             sim_{HarrisLahey} =
+            \frac{a}{a+b+c}\cdot\frac{2d+b+c}{2n}+
+            \frac{d}{d+b+c}\cdot\frac{2a+b+c}{2n}
+
+    Note
+    ----
+
+    Most catalogs of similarity coefficients
+    :cite:`Warrens:2008,Morris:2012,Xiang:2013` omit the :math:`n` terms in the
+    denominators, but the worked example in :cite:`Harris:1978` makes it clear
+    that this is intended in the original.
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +148,15 @@ class HarrisLahey(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
+        n = self.population_card()
 
-        return 0.0
+        return a / (a + b + c) * (2 * d + b + c) / (2 * n) + d / (
+            d + b + c
+        ) * (2 * a + b + c) / (2 * n)
 
 
 if __name__ == '__main__':
