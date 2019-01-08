@@ -68,7 +68,6 @@ class _TokenDistance(_Distance):
     .. |a+c| replace:: :math:`p_2 = a+c = |Y|`
     .. |c+d| replace:: :math:`q_1 = c+d = |N\setminus X|`
     .. |b+d| replace:: :math:`q_2 = b+d = |N\setminus Y|`
-`
 
     .. versionadded:: 0.3.6
     """
@@ -123,8 +122,8 @@ class _TokenDistance(_Distance):
                   and used directly. In the case of a single string being
                   supplied and the QGram tokenizer being used, the full
                   alphabet is inferred (i.e.
-                  :math:`len(set(alphabet+QGrams.start\_stop))^{QGrams.qval}` is
-                  used as the cardinality of the full alphabet.
+                  :math:`len(set(alphabet+QGrams.start\_stop))^{QGrams.qval}`
+                  is used as the cardinality of the full alphabet.
                 - If an int is supplied, it is used as the cardinality of the
                   full alphabet.
                 - If None is supplied, the cardinality of the full alphabet
