@@ -31,6 +31,7 @@ from __future__ import (
 
 from collections import Counter
 from itertools import product
+from math import exp, log
 
 from ._damerau_levenshtein import DamerauLevenshtein
 from ._distance import _Distance
@@ -132,7 +133,19 @@ class _TokenDistance(_Distance):
                   full alphabet or :math:`26` if QGrams.qval is 1, which
                   assumes the strings are English language strings). Otherwise,
                   The cardinality of the complement of the total will be 0.
+        normalizer : str
+            This represents the normalization applied to the values in the
+            2x2 contingency table prior to any of the cardinality (*_card)
+            methods returning a value. By default, no normalization is applied,
+            but the following values are supported:
 
+                - 'proportional' : :math:`\frac{x}{n}`, where n is the total
+                  population
+                - 'log' : :math:`log(x)`
+                - 'exp' : :math:`e^x`
+                - 'laplace' : :math:`x+1`
+                - 'inverse' : :math:`\frac{1}{x}`
+                - 'complement' : :math:`n-x`, where n is the total population
 
         .. versionadded:: 0.4.0
 
@@ -185,6 +198,25 @@ class _TokenDistance(_Distance):
 
         self._src_tokens = Counter()
         self._tar_tokens = Counter()
+        self._population_card = 0
+
+        # Set up the normalizer, a function of two variables:
+        # x is the value in the contingency table square(s)
+        # n is the number of squares that x represents
+        self.normalizer = lambda x, n: x
+        if 'normalizer' in self.params:
+            if self.params['normalizer'] == 'proportional':
+                self.normalizer = lambda x, n: x/self._population_card
+            elif self.params['normalizer'] == 'log':
+                self.normalizer = lambda x, n: log(x)
+            elif self.params['normalizer'] == 'exp':
+                self.normalizer = lambda x, n: exp(x)
+            elif self.params['normalizer'] == 'laplace':
+                self.normalizer = lambda x, n: x+n
+            elif self.params['normalizer'] == 'inverse:':
+                self.normalizer = lambda x, n: 1/x
+            elif self.params['normalizer'] == 'complement':
+                self. normalizer = lambda x, n: self._population_card-x
 
     def tokenize(self, src, tar):
         """Return the Q-Grams in src & tar.
@@ -227,6 +259,8 @@ class _TokenDistance(_Distance):
                 self.params['tokenizer'].tokenize(tar).get_counter()
             )
 
+        self._population_card = self._calc_population_card()
+
         return self
 
     def get_tokens(self):
@@ -235,7 +269,7 @@ class _TokenDistance(_Distance):
 
     def src_card(self):
         r"""Return the cardinality of the tokens in the source set."""
-        return sum(self._src_tokens.values())
+        return self.normalizer(sum(self._src_tokens.values()), 2)
 
     def src_only(self):
         r"""Return the src tokens minus the tar tokens.
@@ -246,11 +280,11 @@ class _TokenDistance(_Distance):
 
     def src_only_card(self):
         """Return the cardinality of the tokens only in the source set."""
-        return sum(self.src_only().values())
+        return self.normalizer(sum(self.src_only().values()), 1)
 
     def tar_card(self):
         r"""Return the cardinality of the tokens in the target set."""
-        return sum(self._tar_tokens.values())
+        return self.normalizer(sum(self._tar_tokens.values()), 2)
 
     def tar_only(self):
         r"""Return the tar tokens minus the src tokens.
@@ -261,7 +295,7 @@ class _TokenDistance(_Distance):
 
     def tar_only_card(self):
         """Return the cardinality of the tokens only in the target set."""
-        return sum(self.tar_only().values())
+        return self.normalizer(sum(self.tar_only().values()), 1)
 
     def symmetric_difference(self):
         r"""Return the symmetric difference of tokens from src and tar.
@@ -272,7 +306,7 @@ class _TokenDistance(_Distance):
 
     def symmetric_difference_card(self):
         """Return the cardinality of the symmetric difference."""
-        return sum(self.symmetric_difference().values())
+        return self.normalizer(sum(self.symmetric_difference().values()), 2)
 
     def total(self):
         """Return the sum of the sets.
@@ -286,19 +320,23 @@ class _TokenDistance(_Distance):
 
     def total_card(self):
         """Return the cardinality of the complement of the total."""
-        return sum(self.total().values())
+        return self.normalizer(sum(self.total().values()), 3)
 
     def total_complement_card(self):
         """Return the cardinality of the complement of the total."""
         if self.params['alphabet'] is None:
-            return 0
+            return self.normalizer(0, 1)
         elif isinstance(self.params['alphabet'], Counter):
-            return sum((self.params['alphabet']).values() - self.total())
-        return self.params['alphabet'] - len(self.total().values())
+            return self.normalizer(sum((self.params['alphabet']).values() - self.total()), 1)
+        return self.normalizer(self.params['alphabet'] - len(self.total().values()), 1)
+
+    def _calc_population_card(self):
+        """Return the cardinality of the population."""
+        return self.total_card() + self.total_complement_card()
 
     def population_card(self):
         """Return the cardinality of the population."""
-        return self.total_card() + self.total_complement_card()
+        return self.normalizer(self._population_card, 4)
 
     def union(self):
         r"""Return the union of tokens from src and tar.
@@ -309,7 +347,7 @@ class _TokenDistance(_Distance):
 
     def union_card(self):
         """Return the cardinality of the union."""
-        return sum(self.union().values())
+        return self.normalizer(sum(self.union().values()), 3)
 
     def difference(self):
         """Return the difference of the tokens, supporting negative values."""
@@ -398,7 +436,7 @@ class _TokenDistance(_Distance):
 
     def intersection_card(self):
         """Return the cardinality of the intersection."""
-        return sum(self.intersection().values())
+        return self.normalizer(sum(self.intersection().values()), 1)
 
 
 if __name__ == '__main__':
