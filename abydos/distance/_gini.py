@@ -67,6 +67,7 @@ class Gini(_TokenDistance):
         alphabet=None,
         tokenizer=None,
         intersection_type='crisp',
+        normalizer='proportional',
         **kwargs
     ):
         """Initialize Gini instance.
@@ -83,6 +84,9 @@ class Gini(_TokenDistance):
             Specifies the intersection type, and set type as a result:
             See :ref:`intersection_type <intersection_type>` description in
             :py:class:`_TokenDistance` for details.
+        normalizer : str
+            Specifies the normalization type. See :ref:`normalizer <alphabet>`
+            description in :py:class:`_TokenDistance` for details.
         **kwargs
             Arbitrary keyword arguments
 
@@ -107,6 +111,7 @@ class Gini(_TokenDistance):
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
+            normalizer=normalizer,
             **kwargs
         )
 
@@ -143,11 +148,10 @@ class Gini(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        n = self.population_card()
-        a = self.intersection_card() / n
-        b = self.src_only_card() / n
-        c = self.tar_only_card() / n
-        d = self.total_complement_card() / n
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
         return ((a + d) - ((a + b) * (a + c) + (c + d) * (b + d))) / (
             (1 - ((a + b) ** 2 + (c + d) ** 2))
