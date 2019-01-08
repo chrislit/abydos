@@ -106,7 +106,7 @@ class CohenKappa(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Cohen's Kappa similarity of two strings.
+        """Return Cohen's Kappa similarity of two strings.
 
         Parameters
         ----------

@@ -102,7 +102,7 @@ class KuhnsProportion(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Kuhns' Proportion similarity of two strings.
+        """Return Kuhns' Proportion similarity of two strings.
 
         Parameters
         ----------

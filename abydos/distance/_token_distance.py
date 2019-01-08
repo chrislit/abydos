@@ -46,33 +46,29 @@ class _TokenDistance(_Distance):
 
     .. _confusion_table:
 
-    +----------------+--------------------+--------------------+--------------------+
-    |                | |in| ``tar``       | |notin| ``tar``    |                    |
-    +----------------+--------------------+--------------------+--------------------+
-    | |in| ``src``   | a = |a|            | b = |b|            | |p1| = a+b = |a+b| |
-    +----------------+--------------------+--------------------+--------------------+
-    | |notin| ``src``| c = |c|            | d = |d|            | |q1| = c+d = |c+d| |
-    +----------------+--------------------+--------------------+--------------------+
-    |                | |p2| = a+c = |a+c| | |q2| = b+d = |b+d| | n = |n|            |
-    +----------------+--------------------+--------------------+--------------------+
+    +----------------+--------------+-----------------+-------+
+    |                | |in| ``tar`` | |notin| ``tar`` |       |
+    +----------------+--------------+-----------------+-------+
+    | |in| ``src``   | |a|          | |b|             | |a+b| |
+    +----------------+--------------+-----------------+-------+
+    | |notin| ``src``| |c|          | |d|             | |c+d| |
+    +----------------+--------------+-----------------+-------+
+    |                | |a+c|        | |b+d|           | |n|   |
+    +----------------+--------------+-----------------+-------+
 
     .. |in| replace:: :math:`x \in`
     .. |notin| replace:: :math:`x \notin`
 
-    .. |a| replace:: :math:`|X \cap Y|`
-    .. |b| replace:: :math:`|X\setminus Y|`
-    .. |c| replace:: :math:`|Y \setminus X|`
-    .. |d| replace:: :math:`|(N\setminus X)\setminus Y|`
-    .. |n| replace:: :math:`|N|`
-    .. |a+b| replace:: :math:`|X|`
-    .. |a+c| replace:: :math:`|Y|`
-    .. |c+d| replace:: :math:`|N\setminus X|`
-    .. |b+d| replace:: :math:`|N\setminus Y|`
-
-    .. |p1| replace:: :math:`p_1`
-    .. |p2| replace:: :math:`p_2`
-    .. |q1| replace:: :math:`q_1`
-    .. |q2| replace:: :math:`q_2`
+    .. |a| replace:: :math:`a = |X \cap Y|`
+    .. |b| replace:: :math:`b = |X\setminus Y|`
+    .. |c| replace:: :math:`c = |Y \setminus X|`
+    .. |d| replace:: :math:`d = |(N\setminus X)\setminus Y|`
+    .. |n| replace:: :math:`n = |N|`
+    .. |a+b| replace:: :math:`p_1 = a+b = |X|`
+    .. |a+c| replace:: :math:`p_2 = a+c = |Y|`
+    .. |c+d| replace:: :math:`q_1 = c+d = |N\setminus X|`
+    .. |b+d| replace:: :math:`q_2 = b+d = |N\setminus Y|`
+`
 
     .. versionadded:: 0.3.6
     """

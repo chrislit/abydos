@@ -111,7 +111,7 @@ class YuleY(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Yule's Y similarity of two strings.
+        """Return Yule's Y similarity of two strings.
 
         Parameters
         ----------

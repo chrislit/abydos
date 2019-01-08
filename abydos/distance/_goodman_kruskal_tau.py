@@ -102,7 +102,7 @@ class GoodmanKruskalTau(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Goodman & Kruskal's Tau similarity of two strings.
+        """Return Goodman & Kruskal's Tau similarity of two strings.
 
         Parameters
         ----------

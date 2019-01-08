@@ -109,7 +109,7 @@ class YuleQ(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Yule's Q similarity of two strings.
+        """Return Yule's Q similarity of two strings.
 
         Parameters
         ----------

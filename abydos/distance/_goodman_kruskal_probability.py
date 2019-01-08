@@ -36,8 +36,8 @@ __all__ = ['GoodmanKruskalProbability']
 class GoodmanKruskalProbability(_TokenDistance):
     r"""Goodman & Kruskal's Probability similarity.
 
-    For two sets X and Y and a population N, Goodman & Kruskal's Probability similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Goodman & Kruskal's Probability
+    similarity :cite:`CITATION` is
 
         .. math::
 
@@ -102,7 +102,7 @@ class GoodmanKruskalProbability(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Goodman & Kruskal's Probability similarity of two strings.
+        """Return Goodman & Kruskal's Probability similarity of two strings.
 
         Parameters
         ----------

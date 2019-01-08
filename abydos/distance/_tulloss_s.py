@@ -94,7 +94,7 @@ class TullossS(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Tulloss' S similarity of two strings.
+        """Return Tulloss' S similarity of two strings.
 
         Parameters
         ----------

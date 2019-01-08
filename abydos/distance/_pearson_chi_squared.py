@@ -109,7 +109,7 @@ class PearsonChiSquared(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Pearson's Chi-Squared similarity of two strings.
+        """Return Pearson's Chi-Squared similarity of two strings.
 
         Parameters
         ----------

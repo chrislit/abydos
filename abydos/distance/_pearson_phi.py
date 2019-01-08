@@ -109,7 +109,7 @@ class PearsonPhi(_TokenDistance):
         )
 
     def corr(self, src, tar):
-        """Return the Pearson's Phi of two strings.
+        """Return Pearson's Phi of two strings.
 
         Parameters
         ----------
