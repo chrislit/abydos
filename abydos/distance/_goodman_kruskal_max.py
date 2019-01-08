@@ -102,7 +102,7 @@ class GoodmanKruskalMax(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Goodman & Kruskal Max similarity of two strings.
+        """Return Goodman & Kruskal Max similarity of two strings.
 
         Parameters
         ----------

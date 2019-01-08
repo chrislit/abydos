@@ -42,8 +42,8 @@ class Hamann(_TokenDistance):
         .. math::
 
             sim_{Hamann}(X, Y) =
-            \frac{|X \cap Y| + |(N \setminus X) \setminus Y| - |X \setminus Y| -
-            |Y \setminus X|}{|N|}
+            \frac{|X \cap Y| + |(N \setminus X) \setminus Y| -
+            |X \setminus Y| - |Y \setminus X|}{|N|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is

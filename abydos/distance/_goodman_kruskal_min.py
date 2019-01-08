@@ -107,7 +107,7 @@ class GoodmanKruskalMin(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Goodman & Kruskal Min similarity of two strings.
+        """Return Goodman & Kruskal Min similarity of two strings.
 
         Parameters
         ----------

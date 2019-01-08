@@ -110,7 +110,7 @@ class GoodmanKruskalLambda(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Goodman & Kruskal's Lambda similarity of two strings.
+        """Return Goodman & Kruskal's Lambda similarity of two strings.
 
         Parameters
         ----------

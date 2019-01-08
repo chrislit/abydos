@@ -106,7 +106,7 @@ class YuleQII(_TokenDistance):
         )
 
     def dist(self, src, tar):
-        """Return the Yule's Q dissimilarity of two strings.
+        """Return Yule's Q dissimilarity of two strings.
 
         Parameters
         ----------

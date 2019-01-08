@@ -86,7 +86,8 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Goodman & Kruskal Max similarity (:py:class:`.GoodmanKruskalMax`)
     - Goodman & Kruskal Min similarity (:py:class:`.GoodmanKruskalMin`)
     - Goodman & Kruskal's Lambda similarity (:py:class:`.GoodmanKruskalLambda`)
-    - Goodman & Kruskal's Probability similarity (:py:class:`.GoodmanKruskalProbability`)
+    - Goodman & Kruskal's Probability similarity
+      (:py:class:`.GoodmanKruskalProbability`)
     - Goodman & Kruskal's Tau similarity (:py:class:`.GoodmanKruskalTau`)
     - Gower & Legendre similarity (:py:class:`.GowerLegendre`)
     - Hamann similarity (:py:class:`.Hamann`)

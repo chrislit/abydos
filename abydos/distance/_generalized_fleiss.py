@@ -29,7 +29,22 @@ from __future__ import (
 )
 
 from ._token_distance import _TokenDistance
-from ..stats._mean import amean, gmean, hmean, agmean, ghmean, aghmean, cmean, imean, lmean, qmean, heronian_mean, hoelder_mean, lehmer_mean, seiffert_mean
+from ..stats._mean import (
+    amean,
+    gmean,
+    hmean,
+    agmean,
+    ghmean,
+    aghmean,
+    cmean,
+    imean,
+    lmean,
+    qmean,
+    heronian_mean,
+    hoelder_mean,
+    lehmer_mean,
+    seiffert_mean,
+)
 
 __all__ = ['GeneralizedFleiss']
 
