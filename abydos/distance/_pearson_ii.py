@@ -53,7 +53,8 @@ class PearsonII(PearsonChiSquared):
             |X \setminus Y| \cdot |Y \setminus X|)^2}
             {|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}
 
-    In 2x2 matrix, a+b+c+d=n terms, this is
+    In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
+    this is
 
         .. math::
 
@@ -76,39 +77,14 @@ class PearsonII(PearsonChiSquared):
         ----------
         alphabet : Counter, collection, int, or None
             This represents the alphabet of possible tokens.
-
-                - If a Counter is supplied, it is used directly in computing
-                  the complement of the tokens in both sets.
-                - If a collection is supplied, it is converted to a Counter
-                  and used directly. In the case of a single string being
-                  supplied and the QGram tokenizer being used, the full
-                  alphabet is inferred (i.e.
-                  :math:`len(set(alphabet+QGrams.start_stop))^{QGrams.qval}` is
-                  used as the cardinality of the full alphabet.
-                - If an int is supplied, it is used as the cardinality of the
-                  full alphabet.
-                - If None is supplied, the cardinality of the full alphabet
-                  is inferred if QGram tokenization is used (i.e.
-                  :math:`28^{QGrams.qval}` is used as the cardinality of the
-                  full alphabet or :math:`26` if QGrams.qval is 1, which
-                  assumes the strings are English language strings). Otherwise,
-                  The cardinality of the complement of the total will be 0.
+            See :ref:`alphabet <alphabet>` description in
+            :py:class:`_TokenDistance` for details.
         tokenizer : _Tokenizer
             A tokenizer instance from the :py:mod:`abydos.tokenizer` package
         intersection_type : str
             Specifies the intersection type, and set type as a result:
-
-                - 'crisp': Ordinary intersection, wherein items are entirely
-                  members or non-members of the intersection. (Default)
-                - 'fuzzy': Fuzzy intersection, defined by :cite:`Wang:2014`,
-                  wherein items can be partially members of the intersection
-                  if their similarity meets or exceeds a threshold value. This
-                  also takes `metric` (by default :class:`Levenshtein()`) and
-                  `threshold` (by default 0.8) parameters.
-                - 'soft': Soft intersection, defined by :cite:`Russ:2014`,
-                  wherein items can be partially members of the intersection
-                  depending on their similarity. This also takes a `metric`
-                  (by default :class:`DamerauLevenshtein()`) parameter.
+            See :ref:`intersection_type <intersection_type>` description in
+            :py:class:`_TokenDistance` for details.
         **kwargs
             Arbitrary keyword arguments
 

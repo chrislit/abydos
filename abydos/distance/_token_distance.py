@@ -44,6 +44,8 @@ __all__ = ['_TokenDistance']
 class _TokenDistance(_Distance):
     r"""Abstract Token Distance class.
 
+    .. _confusion_table:
+
     +----------------+--------------------+--------------------+--------------------+
     |                | |in| ``tar``       | |notin| ``tar``    |                    |
     +----------------+--------------------+--------------------+--------------------+
@@ -76,7 +78,9 @@ class _TokenDistance(_Distance):
     """
 
     def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
-        """Initialize _TokenDistance instance.
+        r"""Initialize _TokenDistance instance.
+
+        .. _intersection_type:
 
         Parameters
         ----------
@@ -99,6 +103,9 @@ class _TokenDistance(_Distance):
         **kwargs
             Arbitrary keyword arguments
 
+
+        .. _alphabet:
+
         Other Parameters
         ----------------
         qval : int
@@ -120,7 +127,7 @@ class _TokenDistance(_Distance):
                   and used directly. In the case of a single string being
                   supplied and the QGram tokenizer being used, the full
                   alphabet is inferred (i.e.
-                  :math:`len(set(alphabet+QGrams.start_stop))^{QGrams.qval}` is
+                  :math:`len(set(alphabet+QGrams.start\_stop))^{QGrams.qval}` is
                   used as the cardinality of the full alphabet.
                 - If an int is supplied, it is used as the cardinality of the
                   full alphabet.
