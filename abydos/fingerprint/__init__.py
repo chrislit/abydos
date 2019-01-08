@@ -65,12 +65,12 @@ from __future__ import (
 
 from ._count import Count, count_fingerprint
 from ._fingerprint import (
-    _Fingerprint,
     MOST_COMMON_LETTERS,
     MOST_COMMON_LETTERS_CG,
     MOST_COMMON_LETTERS_DE,
     MOST_COMMON_LETTERS_DE_LC,
     MOST_COMMON_LETTERS_EN_LC,
+    _Fingerprint,
 )
 from ._occurrence import Occurrence, occurrence_fingerprint
 from ._occurrence_halved import OccurrenceHalved, occurrence_halved_fingerprint

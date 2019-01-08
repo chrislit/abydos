@@ -30,19 +30,19 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 from ..stats._mean import (
-    amean,
-    gmean,
-    hmean,
-    agmean,
-    ghmean,
     aghmean,
+    agmean,
+    amean,
     cmean,
+    ghmean,
+    gmean,
+    heronian_mean,
+    hmean,
+    hoelder_mean,
     imean,
+    lehmer_mean,
     lmean,
     qmean,
-    heronian_mean,
-    hoelder_mean,
-    lehmer_mean,
     seiffert_mean,
 )
 
