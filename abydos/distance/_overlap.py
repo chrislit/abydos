@@ -48,7 +48,8 @@ class Overlap(_TokenDistance):
 
             sim_{overlap}(X, Y) = \frac{|X \cap Y|}{min(|X|, |Y|)}
 
-    In 2x2 matrix, a+b+c+d=n terms, this is
+    In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
+    this is
 
         .. math::
 
@@ -66,18 +67,8 @@ class Overlap(_TokenDistance):
             A tokenizer instance from the :py:mod:`abydos.tokenizer` package
         intersection_type : str
             Specifies the intersection type, and set type as a result:
-
-                - 'crisp': Ordinary intersection, wherein items are entirely
-                  members or non-members of the intersection. (Default)
-                - 'fuzzy': Fuzzy intersection, defined by :cite:`Wang:2014`,
-                  wherein items can be partially members of the intersection
-                  if their similarity meets or exceeds a threshold value. This
-                  also takes `metric` (by default :class:`Levenshtein()`) and
-                  `threshold` (by default 0.8) parameters.
-                - 'soft': Soft intersection, defined by :cite:`Russ:2014`,
-                  wherein items can be partially members of the intersection
-                  depending on their similarity. This also takes a `metric`
-                  (by default :class:`DamerauLevenshtein()`) parameter.
+            See :ref:`intersection_type <intersection_type>` description in
+            :py:class:`_TokenDistance` for details.
         **kwargs
             Arbitrary keyword arguments
 
