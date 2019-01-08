@@ -37,11 +37,16 @@ class HawkinsDotson(_TokenDistance):
     r"""Hawkins & Dotson similarity.
 
     For two sets X and Y and a population N, Hawkins & Dotson similarity
-    :cite:`CITATION` is
+    :cite:`Hawkins:1973` is the mean of the occurrence agreement and
+    non-occurrence agreement
 
         .. math::
 
             sim_{HawkinsDotson}(X, Y) =
+            \frac{1}{2}\cdot\Big(
+            \frac{|X \cap Y|}{|X \cup Y|}+
+            \frac{|(N \setminus X) \setminus Y|}{|N \setminus (X \cap Y)|}
+            \Big)
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +54,7 @@ class HawkinsDotson(_TokenDistance):
         .. math::
 
             sim_{HawkinsDotson} =
+            \frac{1}{2}\cdot\Big(\frac{a}{a+b+c}+\frac{d}{b+c+d}\Big)
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +140,12 @@ class HawkinsDotson(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return (a/(a+b+c) + d/(b+c+d))/2
 
 
 if __name__ == '__main__':

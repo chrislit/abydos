@@ -37,11 +37,22 @@ class KentFosterII(_TokenDistance):
     r"""Kent & Foster II similarity.
 
     For two sets X and Y and a population N, Kent & Foster II similarity
-    :cite:`CITATION` is
+    :cite:`Kent:1977`, :math:`K_{nonocc}`, is
 
         .. math::
 
             sim_{KentFosterII}(X, Y) =
+            \frac{|(N \setminus X) \setminus Y| -
+            \frac{|X \setminus Y|\cdot|Y \setminus X|}
+            {|N \setminus (X \cap Y)|}}
+            {|(N \setminus X) \setminus Y| -
+            \frac{|X \setminus Y|\cdot|Y \setminus X|}
+            {|N \setminus (X \cap Y)|} +
+            |X \setminus Y| + |Y \setminus X|}
+
+    Kent & Foster derived this from Cohen's :math:`\kappa` by "subtracting
+    appropriate chance agreement correction figures from the numerators and
+    denominators" to arrive at an non-occurrence reliability measure.
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +60,7 @@ class KentFosterII(_TokenDistance):
         .. math::
 
             sim_{KentFosterII} =
+            \frac{d-\frac{(b+d)(c+d)}{b+c+d}}{d-\frac{(b+d)(c+d)}{b+c+d}+b+c}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +146,13 @@ class KentFosterII(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        bigterm = d-((b+d)*(c+d)/(b+c+d))
+
+        return bigterm/(bigterm+b+c)
 
 
 if __name__ == '__main__':

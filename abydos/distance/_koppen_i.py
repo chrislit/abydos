@@ -37,7 +37,7 @@ class KoppenI(_TokenDistance):
     r"""Koppen I similarity.
 
     For two sets X and Y and a population N, Koppen I similarity
-    :cite:`CITATION` is
+    :cite:`Koppen:1870` is
 
         .. math::
 
