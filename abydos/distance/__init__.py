@@ -147,6 +147,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Sokal & Sneath IV similarity (:py:class:`.SokalSneathIV`)
     - Sokal & Sneath V similarity (:py:class:`.SokalSneathV`)
     - Sorgenfrei similarity (:py:class:`.Sorgenfrei`)
+    - Steffensen similarity (:py:class:`.Steffensen`)
     - Stiles similarity (:py:class:`.Stiles`)
     - Stuart's Tau similarity (:py:class:`.StuartTau`)
     - Tarantula similarity (:py:class:`.Tarantula`)
@@ -392,6 +393,7 @@ from ._sokal_sneath_iii import SokalSneathIII
 from ._sokal_sneath_iv import SokalSneathIV
 from ._sokal_sneath_v import SokalSneathV
 from ._sorgenfrei import Sorgenfrei
+from ._steffensen import Steffensen
 from ._stiles import Stiles
 from ._strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
 from ._stuart_tau import StuartTau
@@ -572,6 +574,7 @@ __all__ = [
     'SokalSneathIV',
     'SokalSneathV',
     'Sorgenfrei',
+    'Steffensen',
     'Stiles',
     'StuartTau',
     'Tarantula',
