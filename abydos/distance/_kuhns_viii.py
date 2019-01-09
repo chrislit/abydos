@@ -37,11 +37,19 @@ class KuhnsVIII(_TokenDistance):
     r"""Kuhns VIII similarity.
 
     For two sets X and Y and a population N, Kuhns VIII similarity
-    :cite:`CITATION` is
+    :cite:`Kuhns:1965`, the excess of coefficient by the arithmetic mean over
+    its independence value, is
 
         .. math::
 
             sim_{KuhnsVIII}(X, Y) =
+            \frac{\delta(X, Y)}{|X \cap Y|+\frac{1}{2}\cdot|X \triangle Y|}
+
+    where
+
+        .. math::
+
+            \delta(X, Y) = |X \cap Y| - \frac{|X|+|Y|}{|N|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +57,13 @@ class KuhnsVIII(_TokenDistance):
         .. math::
 
             sim_{KuhnsVIII} =
+            \frac{\delta(a+b, a+c)}{a+\frac{1}{2}(b+c)}
+
+    where
+
+        .. math::
+
+            \delta(a+b, a+c) = a - \frac{2a+b+c}{n}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +149,14 @@ class KuhnsVIII(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        n = self.population_card()
 
-        return 0.0
+        deltaAB = a-(2*a+b+c)/n
+
+        return deltaAB/(a+0.5*(b+c))
 
 
 if __name__ == '__main__':

@@ -37,11 +37,20 @@ class KuhnsIII(_TokenDistance):
     r"""Kuhns III similarity.
 
     For two sets X and Y and a population N, Kuhns III similarity
-    :cite:`CITATION` is
+    :cite:`Kuhns:1965`, the excess of proportion of overlap over its
+    independence value, is
 
         .. math::
 
             sim_{KuhnsIII}(X, Y) =
+            \frac{\delta(X, Y)}{\big(1-\frac{|X \cap Y|}{|X|+|Y|}\big)
+            \big(|X|+|Y|-\frac{|X|\cdot|Y|}{|N|}\big)}
+
+    where
+
+        .. math::
+
+            \delta(X, Y) = |X \cap Y| - \frac{|X|+|Y|}{|N|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +58,14 @@ class KuhnsIII(_TokenDistance):
         .. math::
 
             sim_{KuhnsIII} =
+            \frac{\delta(a+b, a+c)}{\big(1-\frac{a}{2a+b+c}\big)
+            \big(2a+b+c-\frac{2a+b+c}{n}\big)}
+
+    where
+
+        .. math::
+
+            \delta(a+b, a+c) = a - \frac{2a+b+c}{n}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +151,14 @@ class KuhnsIII(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        n = self.population_card()
 
-        return 0.0
+        deltaAB = a-(2*a+b+c)/n
+
+        return deltaAB/((1-a/(2*a+b+c))*(2*a+b+c-((a+b)*(a+c)/n)))
 
 
 if __name__ == '__main__':
