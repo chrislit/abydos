@@ -36,12 +36,27 @@ __all__ = ['KoppenI']
 class KoppenI(_TokenDistance):
     r"""Koppen I similarity.
 
-    For two sets X and Y and a population N, Koppen I similarity
-    :cite:`Koppen:1870` is
+    For two sets X and Y, provided that :math:`|X| = |Y|`, Koppen I similarity
+    :cite:`Koppen:1870,Goodman:1959` is
 
         .. math::
 
             sim_{KoppenI}(X, Y) =
+            \frac{|X| \cdot |N \setminus X| - |X \setminus Y|}
+            {|X| \cdot |N \setminus X|}
+
+    To support cases where :math:`|X| \neq |Y|`, this class implements a slight
+    variation, while still providing the expected results when
+    :math:`|X| = |Y|`:
+
+        .. math::
+
+            sim_{KoppenI}(X, Y) =
+            \frac{\frac{|X|+|Y|}{2} \cdot
+            \frac{|N \setminus X|+|N \setminus Y|}{2}-
+            \frac{|X \triangle Y|}{2}}
+            {\frac{|X|+|Y|}{2} \cdot
+            \frac{|N \setminus X|+|N \setminus Y|}{2}}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +64,17 @@ class KoppenI(_TokenDistance):
         .. math::
 
             sim_{KoppenI} =
+            \frac{\frac{2a+b+c}{2} \cdot (n-\frac{2a+b+c}{2})-
+            \frac{b+c}{2}
+            {\frac{2a+b+c}{2} \cdot (n-\frac{2a+b+c}{2}}
+
+    Note
+    ----
+
+    In the usual case all of the above values should be proportional to the
+    total number of samples n. I.e., a, b, c, d, & n should all be divided by
+    n prior to calculating the coefficient. This class's default normalizer
+    is, accordingly, 'proportional'.
 
     .. versionadded:: 0.4.0
     """
@@ -58,6 +84,7 @@ class KoppenI(_TokenDistance):
         alphabet=None,
         tokenizer=None,
         intersection_type='crisp',
+        normalizer='proportional',
         **kwargs
     ):
         """Initialize KoppenI instance.
@@ -74,6 +101,9 @@ class KoppenI(_TokenDistance):
             Specifies the intersection type, and set type as a result:
             See :ref:`intersection_type <intersection_type>` description in
             :py:class:`_TokenDistance` for details.
+        normalizer : str
+            Specifies the normalization type. See :ref:`normalizer <alphabet>`
+            description in :py:class:`_TokenDistance` for details.
         **kwargs
             Arbitrary keyword arguments
 
@@ -98,6 +128,7 @@ class KoppenI(_TokenDistance):
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
+            normalizer=normalizer,
             **kwargs
         )
 
@@ -134,14 +165,14 @@ class KoppenI(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        n = self.population_card()
 
-        return 0.0
+        abac_mean = (2*a+b+c)/2
 
+        return (abac_mean*(n-abac_mean)-(b+c)/2)/(abac_mean*(n-abac_mean))
 
 if __name__ == '__main__':
     import doctest
