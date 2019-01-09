@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._koppen.
+"""abydos.distance._koppen_ii.
 
-Koppen similarity
+Koppen II similarity
 """
 
 from __future__ import (
@@ -30,25 +30,25 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['Koppen']
+__all__ = ['KoppenII']
 
 
-class Koppen(_TokenDistance):
-    r"""Koppen similarity.
+class KoppenII(_TokenDistance):
+    r"""Koppen II similarity.
 
-    For two sets X and Y and a population N, Koppen similarity
-    :cite:`Koppen:1870` is
+    For two sets X and Y and a population N, Koppen II similarity
+    :cite:`CITATION` is
 
         .. math::
 
-            sim_{Koppen}(X, Y) =
+            sim_{KoppenII}(X, Y) =
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{Koppen} =
+            sim_{KoppenII} =
 
     .. versionadded:: 0.4.0
     """
@@ -60,7 +60,7 @@ class Koppen(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize Koppen instance.
+        """Initialize KoppenII instance.
 
         Parameters
         ----------
@@ -94,7 +94,7 @@ class Koppen(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Koppen, self).__init__(
+        super(KoppenII, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -102,7 +102,7 @@ class Koppen(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Koppen similarity of two strings.
+        """Return the Koppen II similarity of two strings.
 
         Parameters
         ----------
@@ -114,11 +114,11 @@ class Koppen(_TokenDistance):
         Returns
         -------
         float
-            Koppen similarity
+            Koppen II similarity
 
         Examples
         --------
-        >>> cmp = Koppen()
+        >>> cmp = KoppenII()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')

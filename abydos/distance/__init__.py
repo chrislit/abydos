@@ -103,7 +103,8 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Kent & Foster I similarity (:py:class:`.KentFosterI`)
     - Kent & Foster II similarity (:py:class:`.KentFosterII`)
     - Kocher & Wong similarity (:py:class:`.KocherWong`)
-    - Koppen similarity (:py:class:`.Koppen`)
+    - Koppen I similarity (:py:class:`.KoppenI`)
+    - Koppen II similarity (:py:class:`.KoppenII`)
     - Kuder & Richardson similarity (:py:class:`.KuderRichardson`)
     - Kuhns similarity (:py:class:`.Kuhns`)
     - Kuhns' Proportion similarity (:py:class:`.KuhnsProportion`)
@@ -302,7 +303,8 @@ from ._johnson import Johnson
 from ._kent_foster_i import KentFosterI
 from ._kent_foster_ii import KentFosterII
 from ._kocher_wong import KocherWong
-from ._koppen import Koppen
+from ._koppen_i import KoppenI
+from ._koppen_ii import KoppenII
 from ._kuder_richardson import KuderRichardson
 from ._kuhns import Kuhns
 from ._kuhns_proportion import KuhnsProportion
@@ -509,7 +511,8 @@ __all__ = [
     'KentFosterI',
     'KentFosterII',
     'KocherWong',
-    'Koppen',
+    'KentFosterI',
+    'KentFosterII',
     'KuderRichardson',
     'Kuhns',
     'KuhnsProportion',
