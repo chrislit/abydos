@@ -43,7 +43,7 @@ class Variance(_TokenDistance):
 
             dist_{variance}(X, Y) =
             \frac{|X \setminus Y| + |Y \setminus X|}
-            {4 \cdot |N|}
+            {|N|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -51,7 +51,14 @@ class Variance(_TokenDistance):
         .. math::
 
             dist_{variance} =
-            \frac{b+c}{4n}
+            \frac{b+c}{n}
+
+    Note
+    ----
+
+    This implementation differs from that for :cite:`IBM:2017` and some others
+    in omitting division by 4. As a result, this measure ranges from [0, 1],
+    rather than [0, 0.25].
 
     .. versionadded:: 0.4.0
     """
@@ -104,7 +111,7 @@ class Variance(_TokenDistance):
             **kwargs
         )
 
-    def dist_abs(self, src, tar):
+    def dist(self, src, tar):
         """Return the Variance distance of two strings.
 
         Parameters
@@ -141,7 +148,7 @@ class Variance(_TokenDistance):
         c = self.tar_only_card()
         n = self.population_card()
 
-        return (b + c) / (4 * n)
+        return (b + c) / n
 
 
 if __name__ == '__main__':
