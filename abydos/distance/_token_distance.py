@@ -31,7 +31,7 @@ from __future__ import (
 
 from collections import Counter
 from itertools import product
-from math import exp, log
+from math import exp, log1p
 
 from ._damerau_levenshtein import DamerauLevenshtein
 from ._distance import _Distance
@@ -141,7 +141,7 @@ class _TokenDistance(_Distance):
 
                 - 'proportional' : :math:`\frac{x}{n}`, where n is the total
                   population
-                - 'log' : :math:`log(x)`
+                - 'log' : :math:`log(1+x)`
                 - 'exp' : :math:`e^x`
                 - 'laplace' : :math:`x+1`
                 - 'inverse' : :math:`\frac{1}{x}`
@@ -208,13 +208,13 @@ class _TokenDistance(_Distance):
             if self.params['normalizer'] == 'proportional':
                 self.normalizer = lambda x, n: x/self._population_card
             elif self.params['normalizer'] == 'log':
-                self.normalizer = lambda x, n: log(x)
+                self.normalizer = lambda x, n: log1p(x)
             elif self.params['normalizer'] == 'exp':
                 self.normalizer = lambda x, n: exp(x)
             elif self.params['normalizer'] == 'laplace':
                 self.normalizer = lambda x, n: x+n
             elif self.params['normalizer'] == 'inverse:':
-                self.normalizer = lambda x, n: 1/x
+                self.normalizer = lambda x, n: 1/x if x else self._population_card
             elif self.params['normalizer'] == 'complement':
                 self. normalizer = lambda x, n: self._population_card-x
 
