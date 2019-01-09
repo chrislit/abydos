@@ -143,7 +143,7 @@ class ConsonniTodeschiniII(_TokenDistance):
         c = self.tar_only_card()
         n = self.population_card()
 
-        return (log(1+n)-log(1+b+c))/log(1+n)
+        return (log(1 + n) - log(1 + b + c)) / log(1 + n)
 
 
 if __name__ == '__main__':

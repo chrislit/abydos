@@ -206,17 +206,19 @@ class _TokenDistance(_Distance):
         self.normalizer = lambda x, n: x
         if 'normalizer' in self.params:
             if self.params['normalizer'] == 'proportional':
-                self.normalizer = lambda x, n: x/self._population_card
+                self.normalizer = lambda x, n: x / self._population_card
             elif self.params['normalizer'] == 'log':
                 self.normalizer = lambda x, n: log1p(x)
             elif self.params['normalizer'] == 'exp':
                 self.normalizer = lambda x, n: exp(x)
             elif self.params['normalizer'] == 'laplace':
-                self.normalizer = lambda x, n: x+n
+                self.normalizer = lambda x, n: x + n
             elif self.params['normalizer'] == 'inverse:':
-                self.normalizer = lambda x, n: 1/x if x else self._population_card
+                self.normalizer = (
+                    lambda x, n: 1 / x if x else self._population_card
+                )
             elif self.params['normalizer'] == 'complement':
-                self. normalizer = lambda x, n: self._population_card-x
+                self.normalizer = lambda x, n: self._population_card - x
 
     def tokenize(self, src, tar):
         """Return the Q-Grams in src & tar.
@@ -327,8 +329,12 @@ class _TokenDistance(_Distance):
         if self.params['alphabet'] is None:
             return self.normalizer(0, 1)
         elif isinstance(self.params['alphabet'], Counter):
-            return self.normalizer(sum((self.params['alphabet']).values() - self.total()), 1)
-        return self.normalizer(self.params['alphabet'] - len(self.total().values()), 1)
+            return self.normalizer(
+                sum((self.params['alphabet']).values() - self.total()), 1
+            )
+        return self.normalizer(
+            self.params['alphabet'] - len(self.total().values()), 1
+        )
 
     def _calc_population_card(self):
         """Return the cardinality of the population."""

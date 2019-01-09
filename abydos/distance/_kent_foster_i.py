@@ -146,9 +146,9 @@ class KentFosterI(_TokenDistance):
         b = self.src_only_card()
         c = self.tar_only_card()
 
-        bigterm = a-((a+b)*(a+c)/(a+b+c))
+        bigterm = a - ((a + b) * (a + c) / (a + b + c))
 
-        return bigterm/(bigterm+b+c)
+        return bigterm / (bigterm + b + c)
 
 
 if __name__ == '__main__':

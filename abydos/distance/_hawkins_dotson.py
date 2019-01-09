@@ -145,7 +145,7 @@ class HawkinsDotson(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        return (a/(a+b+c) + d/(b+c+d))/2
+        return (a / (a + b + c) + d / (b + c + d)) / 2
 
 
 if __name__ == '__main__':
