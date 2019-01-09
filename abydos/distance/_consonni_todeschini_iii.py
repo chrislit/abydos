@@ -141,7 +141,7 @@ class ConsonniTodeschiniIII(_TokenDistance):
         a = self.intersection_card()
         n = self.population_card()
 
-        return log(1+a)/log(1+n)
+        return log(1 + a) / log(1 + n)
 
 
 if __name__ == '__main__':

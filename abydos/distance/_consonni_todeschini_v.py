@@ -146,7 +146,7 @@ class ConsonniTodeschiniV(_TokenDistance):
         d = self.total_complement_card()
         n = self.population_card()
 
-        return (log(1+a*d)-log(1+b*c))/log(1+n**2/4)
+        return (log(1 + a * d) - log(1 + b * c)) / log(1 + n ** 2 / 4)
 
 
 if __name__ == '__main__':
