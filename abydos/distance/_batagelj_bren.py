@@ -41,7 +41,7 @@ class BatageljBren(_TokenDistance):
 
         .. math::
 
-            sim_{BatageljBrenI}(X, Y) =
+            sim_{BatageljBren}(X, Y) =
             \frac{|X \setminus Y| \cdot |Y \setminus X|}
             {|X \cap Y| \cdot |(N \setminus X) \setminus Y|}
 
@@ -50,7 +50,7 @@ class BatageljBren(_TokenDistance):
 
         .. math::
 
-            sim_{BatageljBrenI} =
+            sim_{BatageljBren} =
             \frac{bc}{ad}
 
     .. versionadded:: 0.4.0
