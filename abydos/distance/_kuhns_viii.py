@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._kuhns.
+"""abydos.distance._kuhns_viii.
 
-Kuhns similarity
+Kuhns VIII similarity
 """
 
 from __future__ import (
@@ -30,25 +30,25 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['Kuhns']
+__all__ = ['KuhnsVIII']
 
 
-class Kuhns(_TokenDistance):
-    r"""Kuhns similarity.
+class KuhnsVIII(_TokenDistance):
+    r"""Kuhns VIII similarity.
 
-    For two sets X and Y and a population N, Kuhns similarity
+    For two sets X and Y and a population N, Kuhns VIII similarity
     :cite:`CITATION` is
 
         .. math::
 
-            sim_{Kuhns}(X, Y) =
+            sim_{KuhnsVIII}(X, Y) =
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{Kuhns} =
+            sim_{KuhnsVIII} =
 
     .. versionadded:: 0.4.0
     """
@@ -60,7 +60,7 @@ class Kuhns(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize Kuhns instance.
+        """Initialize KuhnsVIII instance.
 
         Parameters
         ----------
@@ -94,7 +94,7 @@ class Kuhns(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Kuhns, self).__init__(
+        super(KuhnsVIII, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -102,7 +102,7 @@ class Kuhns(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Kuhns similarity of two strings.
+        """Return the Kuhns VIII similarity of two strings.
 
         Parameters
         ----------
@@ -114,11 +114,11 @@ class Kuhns(_TokenDistance):
         Returns
         -------
         float
-            Kuhns similarity
+            Kuhns VIII similarity
 
         Examples
         --------
-        >>> cmp = Kuhns()
+        >>> cmp = KuhnsVIII()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')

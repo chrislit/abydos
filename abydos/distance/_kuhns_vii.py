@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._kuhns_proportion.
+"""abydos.distance._kuhns_vii.
 
-Kuhns' Proportion similarity
+Kuhns VII similarity
 """
 
 from __future__ import (
@@ -30,25 +30,25 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['KuhnsProportion']
+__all__ = ['KuhnsVII']
 
 
-class KuhnsProportion(_TokenDistance):
-    r"""Kuhns' Proportion similarity.
+class KuhnsVII(_TokenDistance):
+    r"""Kuhns VII similarity.
 
-    For two sets X and Y and a population N, Kuhns' Proportion similarity
+    For two sets X and Y and a population N, Kuhns VII similarity
     :cite:`CITATION` is
 
         .. math::
 
-            sim_{KuhnsProportion}(X, Y) =
+            sim_{KuhnsVII}(X, Y) =
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{KuhnsProportion} =
+            sim_{KuhnsVII} =
 
     .. versionadded:: 0.4.0
     """
@@ -60,7 +60,7 @@ class KuhnsProportion(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize KuhnsProportion instance.
+        """Initialize KuhnsVII instance.
 
         Parameters
         ----------
@@ -94,7 +94,7 @@ class KuhnsProportion(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(KuhnsProportion, self).__init__(
+        super(KuhnsVII, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -102,7 +102,7 @@ class KuhnsProportion(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return Kuhns' Proportion similarity of two strings.
+        """Return the Kuhns VII similarity of two strings.
 
         Parameters
         ----------
@@ -114,11 +114,11 @@ class KuhnsProportion(_TokenDistance):
         Returns
         -------
         float
-            Kuhns' Proportion similarity
+            Kuhns VII similarity
 
         Examples
         --------
-        >>> cmp = KuhnsProportion()
+        >>> cmp = KuhnsVII()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')

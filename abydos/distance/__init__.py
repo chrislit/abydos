@@ -106,8 +106,18 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Köppen I similarity (:py:class:`.KoppenI`)
     - Köppen II similarity (:py:class:`.KoppenII`)
     - Kuder & Richardson similarity (:py:class:`.KuderRichardson`)
-    - Kuhns similarity (:py:class:`.Kuhns`)
-    - Kuhns' Proportion similarity (:py:class:`.KuhnsProportion`)
+    - Kuhns I similarity (:py:class:`.KuhnsI`)
+    - Kuhns II similarity (:py:class:`.KuhnsII`)
+    - Kuhns III similarity (:py:class:`.KuhnsIII`)
+    - Kuhns IV similarity (:py:class:`.KuhnsIV`)
+    - Kuhns IX similarity (:py:class:`.KuhnsIX`)
+    - Kuhns V similarity (:py:class:`.KuhnsV`)
+    - Kuhns VI similarity (:py:class:`.KuhnsVI`)
+    - Kuhns VII similarity (:py:class:`.KuhnsVII`)
+    - Kuhns VIII similarity (:py:class:`.KuhnsVIII`)
+    - Kuhns X similarity (:py:class:`.KuhnsX`)
+    - Kuhns XI similarity (:py:class:`.KuhnsXI`)
+    - Kuhns XII similarity (:py:class:`.KuhnsXII`)
     - Kulczynski I similarity (:py:class:`.KulczynskiI`)
     - Kulczynski II similarity (:py:class:`.KulczynskiII`)
     - Maron & Kuhns similarity (:py:class:`.MaronKuhns`)
@@ -305,8 +315,18 @@ from ._kocher_wong import KocherWong
 from ._koppen_i import KoppenI
 from ._koppen_ii import KoppenII
 from ._kuder_richardson import KuderRichardson
-from ._kuhns import Kuhns
-from ._kuhns_proportion import KuhnsProportion
+from ._kuhns_i import KuhnsI
+from ._kuhns_ii import KuhnsII
+from ._kuhns_iii import KuhnsIII
+from ._kuhns_iv import KuhnsIV
+from ._kuhns_ix import KuhnsIX
+from ._kuhns_v import KuhnsV
+from ._kuhns_vi import KuhnsVI
+from ._kuhns_vii import KuhnsVII
+from ._kuhns_viii import KuhnsVIII
+from ._kuhns_x import KuhnsX
+from ._kuhns_xi import KuhnsXI
+from ._kuhns_xii import KuhnsXII
 from ._kulczynski_i import KulczynskiI
 from ._kulczynski_ii import KulczynskiII
 from ._lcprefix import LCPrefix
@@ -512,8 +532,18 @@ __all__ = [
     'KentFosterI',
     'KentFosterII',
     'KuderRichardson',
-    'Kuhns',
-    'KuhnsProportion',
+    'KuhnsI',
+    'KuhnsII',
+    'KuhnsIII',
+    'KuhnsIV',
+    'KuhnsIX',
+    'KuhnsV',
+    'KuhnsVI',
+    'KuhnsVII',
+    'KuhnsVIII',
+    'KuhnsX',
+    'KuhnsXI',
+    'KuhnsXII',
     'KulczynskiI',
     'KulczynskiII',
     'MaronKuhns',
