@@ -135,7 +135,7 @@ class _TokenDistance(_Distance):
                   The cardinality of the complement of the total will be 0.
         normalizer : str
             This represents the normalization applied to the values in the
-            2x2 contingency table prior to any of the cardinality (*_card)
+            2x2 contingency table prior to any of the cardinality (\*_card)
             methods returning a value. By default, no normalization is applied,
             but the following values are supported:
 

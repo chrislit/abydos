@@ -44,7 +44,8 @@ class KuhnsV(_TokenDistance):
 
             sim_{KuhnsV}(X, Y) =
             \frac{\delta(X, Y)}
-            {max\big(|X|\cdot(1-\frac{|X|}{|N|}, |Y|(1-\frac{|Y|}{|N|})\big)
+            {max\big(|X|\cdot(1-\frac{|X|}{|N|}),
+            |Y|\cdot(1-\frac{|Y|}{|N|})\big)}
 
     where
 
@@ -59,7 +60,7 @@ class KuhnsV(_TokenDistance):
 
             sim_{KuhnsV} =
             \frac{\delta(a+b, a+c)}
-            {max\big((a+b)(1-\frac{a+b}{n}, (a+c)(1-\frac{a+c}{n})\big)
+            {max\big((a+b)(1-\frac{a+b}{n}, (a+c)(1-\frac{a+c}{n})\big)}
 
     where
 
