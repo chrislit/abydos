@@ -170,9 +170,11 @@ class KoppenI(_TokenDistance):
         c = self.tar_only_card()
         n = self.population_card()
 
-        abac_mean = (2*a+b+c)/2
+        abac_mean = (2 * a + b + c) / 2
 
-        return (abac_mean*(n-abac_mean)-(b+c)/2)/(abac_mean*(n-abac_mean))
+        return (abac_mean * (n - abac_mean) - (b + c) / 2) / (
+            abac_mean * (n - abac_mean)
+        )
 
 
 if __name__ == '__main__':
