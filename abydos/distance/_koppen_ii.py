@@ -37,11 +37,12 @@ class KoppenII(_TokenDistance):
     r"""Koppen II similarity.
 
     For two sets X and Y and a population N, Koppen II similarity
-    :cite:`CITATION` is
+    :cite:`Koppen:1870,Goodman:1959` is
 
         .. math::
 
             sim_{KoppenII}(X, Y) =
+            |X \cap Y| + \frac{|X \setminus Y| + |Y \setminus X|}{2}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +50,7 @@ class KoppenII(_TokenDistance):
         .. math::
 
             sim_{KoppenII} =
+            a + \frac{b+c}{2}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +136,11 @@ class KoppenII(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
 
-        return 0.0
+        return a + (b+c)/2
 
 
 if __name__ == '__main__':
