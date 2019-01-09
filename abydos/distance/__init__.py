@@ -120,7 +120,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Kuhns XII similarity (:py:class:`.KuhnsXII`)
     - Kulczynski I similarity (:py:class:`.KulczynskiI`)
     - Kulczynski II similarity (:py:class:`.KulczynskiII`)
-    - Maron & Kuhns similarity (:py:class:`.MaronKuhns`)
     - Maxwell & Pilliner similarity (:py:class:`.MaxwellPilliner`)
     - McConnaughey similarity (:py:class:`.McConnaughey`)
     - Michael similarity (:py:class:`.Michael`)
@@ -341,7 +340,6 @@ from ._levenshtein import (
     sim_levenshtein,
 )
 from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
-from ._maron_kuhns import MaronKuhns
 from ._maxwell_pilliner import MaxwellPilliner
 from ._mcconnaughey import McConnaughey
 from ._mcewen_michael import McEwenMichael
@@ -546,7 +544,6 @@ __all__ = [
     'KuhnsXII',
     'KulczynskiI',
     'KulczynskiII',
-    'MaronKuhns',
     'MaxwellPilliner',
     'McConnaughey',
     'McEwenMichael',
