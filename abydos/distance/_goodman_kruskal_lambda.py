@@ -110,7 +110,7 @@ class GoodmanKruskalLambda(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return Goodman & Kruskal's Lambda similarity of two strings.
+        """Return   Goodman & Kruskal's Lambda similarity of two strings.
 
         Parameters
         ----------
@@ -147,7 +147,7 @@ class GoodmanKruskalLambda(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        sigma = max(a, b) + max(c + d) + max(a, c) + max(b, d)
+        sigma = max(a, b) + max(c, d) + max(a, c) + max(b, d)
         sigma_prime = max(a + c, b + d) + max(a + b, c + d)
 
         return sigma - sigma_prime / (2 * (a + b + c + d) - sigma_prime)
