@@ -148,7 +148,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Tulloss' U similarity (:py:class:`.TullossU`)
     - Weighted Jaccard similarity (:py:class:`.WeightedJaccard`)
     - Upholt similarity (:py:class:`.Upholt`)
-    - Variance distance (:py:class:`.Variance`)
     - Warrens I similarity (:py:class:`.WarrensI`)
     - Warrens II similarity (:py:class:`.WarrensII`)
     - Warrens III similarity (:py:class:`.WarrensIII`)
@@ -391,7 +390,6 @@ from ._tulloss_u import TullossU
 from ._tversky import Tversky, dist_tversky, sim_tversky
 from ._typo import Typo, dist_typo, sim_typo, typo
 from ._upholt import Upholt
-from ._variance import Variance
 from ._warrens_i import WarrensI
 from ._warrens_ii import WarrensII
 from ._warrens_iii import WarrensIII
@@ -558,7 +556,6 @@ __all__ = [
     'TullossU',
     'WeightedJaccard',
     'Upholt',
-    'Variance',
     'WarrensI',
     'WarrensII',
     'WarrensIII',
