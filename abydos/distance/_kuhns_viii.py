@@ -65,6 +65,13 @@ class KuhnsVIII(_TokenDistance):
 
             \delta(a+b, a+c) = a - \frac{2a+b+c}{n}
 
+    Note
+    ----
+
+    The coefficient presented in :cite:`Eidenberger:2014,Morris:2012` as Kuhns'
+    "Coefficient of arithmetic means" is a significantly different
+    coefficient, not evidenced in :cite:`Kuhns:1965`.
+
     .. versionadded:: 0.4.0
     """
 

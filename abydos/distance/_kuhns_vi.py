@@ -37,7 +37,8 @@ class KuhnsVI(_TokenDistance):
     r"""Kuhns VI similarity.
 
     For two sets X and Y and a population N, Kuhns VI similarity
-    :cite:`Kuhns:1965`, the excess of probability differences V over its independence value, is
+    :cite:`Kuhns:1965`, the excess of probability differences V over its
+    independence value, is
 
         .. math::
 
