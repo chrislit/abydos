@@ -140,7 +140,7 @@ class KoppenII(_TokenDistance):
         b = self.src_only_card()
         c = self.tar_only_card()
 
-        return a + (b+c)/2
+        return a + (b + c) / 2
 
 
 if __name__ == '__main__':

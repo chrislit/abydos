@@ -156,9 +156,13 @@ class KuhnsIX(_TokenDistance):
         c = self.tar_only_card()
         n = self.population_card()
 
-        deltaAB = a-(2*a+b+c)/n
+        deltaAB = a - (2 * a + b + c) / n
 
-        return deltaAB/((a+b)*(a+c)*(1-(a+b)/n)*(1-(a+c)/n))**0.5
+        return (
+            deltaAB
+            / ((a + b) * (a + c) * (1 - (a + b) / n) * (1 - (a + c) / n))
+            ** 0.5
+        )
 
 
 if __name__ == '__main__':

@@ -156,9 +156,9 @@ class KuhnsX(_TokenDistance):
         d = self.total_complement_card()
         n = self.population_card()
 
-        deltaAB = a-(2*a+b+c)/n
+        deltaAB = a - (2 * a + b + c) / n
 
-        return (n*deltaAB)/(a*d+b*c)
+        return (n * deltaAB) / (a * d + b * c)
 
 
 if __name__ == '__main__':
