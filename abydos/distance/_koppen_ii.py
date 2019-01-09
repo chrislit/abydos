@@ -18,7 +18,7 @@
 
 """abydos.distance._koppen_ii.
 
-Koppen II similarity
+Köppen II similarity
 """
 
 from __future__ import (
@@ -34,9 +34,9 @@ __all__ = ['KoppenII']
 
 
 class KoppenII(_TokenDistance):
-    r"""Koppen II similarity.
+    r"""Köppen II similarity.
 
-    For two sets X and Y and a population N, Koppen II similarity
+    For two sets X and Y, Köppen II similarity
     :cite:`Koppen:1870,Goodman:1959` is
 
         .. math::
@@ -104,7 +104,7 @@ class KoppenII(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Koppen II similarity of two strings.
+        """Return the Köppen II similarity of two strings.
 
         Parameters
         ----------
@@ -116,7 +116,7 @@ class KoppenII(_TokenDistance):
         Returns
         -------
         float
-            Koppen II similarity
+            Köppen II similarity
 
         Examples
         --------
