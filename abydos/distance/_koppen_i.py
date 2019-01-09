@@ -18,7 +18,7 @@
 
 """abydos.distance._koppen_i.
 
-Koppen I similarity
+Köppen I similarity
 """
 
 from __future__ import (
@@ -34,10 +34,10 @@ __all__ = ['KoppenI']
 
 
 class KoppenI(_TokenDistance):
-    r"""Koppen I similarity.
+    r"""Köppen I similarity.
 
-    For two sets X and Y, provided that :math:`|X| = |Y|`, Koppen I similarity
-    :cite:`Koppen:1870,Goodman:1959` is
+    For two sets X and Y and an alphabet N, provided that :math:`|X| = |Y|`,
+    Köppen I similarity :cite:`Koppen:1870,Goodman:1959` is
 
         .. math::
 
@@ -133,7 +133,7 @@ class KoppenI(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Koppen I similarity of two strings.
+        """Return the Köppen I similarity of two strings.
 
         Parameters
         ----------
@@ -145,7 +145,7 @@ class KoppenI(_TokenDistance):
         Returns
         -------
         float
-            Koppen I similarity
+            Köppen I similarity
 
         Examples
         --------
@@ -173,6 +173,7 @@ class KoppenI(_TokenDistance):
         abac_mean = (2*a+b+c)/2
 
         return (abac_mean*(n-abac_mean)-(b+c)/2)/(abac_mean*(n-abac_mean))
+
 
 if __name__ == '__main__':
     import doctest
