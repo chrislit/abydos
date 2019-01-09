@@ -45,8 +45,6 @@ class SokalMichener(_TokenDistance):
             sim_{SokalMichener}(X, Y) =
             \frac{|X \cap Y| + |(N \setminus X) \setminus Y|}{|N|}
 
-    This is also called the simple matching coefficient.
-
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
