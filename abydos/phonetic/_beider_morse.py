@@ -550,7 +550,7 @@ class BeiderMorse(_Phonetic):
         return phonetic  # experimental !!!!
 
     def _expand_alternates(self, phonetic):
-        """Expand phonetic alternates separated by |s.
+        r"""Expand phonetic alternates separated by \|s.
 
         Parameters
         ----------
