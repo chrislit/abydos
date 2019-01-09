@@ -37,11 +37,20 @@ class KuhnsX(_TokenDistance):
     r"""Kuhns X similarity.
 
     For two sets X and Y and a population N, Kuhns X similarity
-    :cite:`CITATION` is
+    :cite:`Kuhns:1965`, the excess of Yule's Q over its independence value, is
 
         .. math::
 
             sim_{KuhnsX}(X, Y) =
+            \frac{|N| \cdot \delta(X, Y)}{|X \cap Y| \cdot
+            |(N \setminus X) \setminus Y| +
+            |X \setminus Y| \cdot |Y \setminus X|}
+
+    where
+
+        .. math::
+
+            \delta(X, Y) = |X \cap Y| - \frac{|X|+|Y|}{|N|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +58,13 @@ class KuhnsX(_TokenDistance):
         .. math::
 
             sim_{KuhnsX} =
+            \frac{n \cdot \delta(a+b, a+c)}{ad+bc}
+
+    where
+
+        .. math::
+
+            \delta(a+b, a+c) = a - \frac{2a+b+c}{n}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +150,15 @@ class KuhnsX(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
+        n = self.population_card()
 
-        return 0.0
+        deltaAB = a-(2*a+b+c)/n
+
+        return (n*deltaAB)/(a*d+b*c)
 
 
 if __name__ == '__main__':

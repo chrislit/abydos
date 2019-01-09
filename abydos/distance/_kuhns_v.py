@@ -37,11 +37,20 @@ class KuhnsV(_TokenDistance):
     r"""Kuhns V similarity.
 
     For two sets X and Y and a population N, Kuhns V similarity
-    :cite:`CITATION` is
+    :cite:`Kuhns:1965`, the excess of probability differences U over its
+    independence value, is
 
         .. math::
 
             sim_{KuhnsV}(X, Y) =
+            \frac{\delta(X, Y)}
+            {max\big(|X|\cdot(1-\frac{|X|}{|N|}, |Y|(1-\frac{|Y|}{|N|})\big)
+
+    where
+
+        .. math::
+
+            \delta(X, Y) = |X \cap Y| - \frac{|X|+|Y|}{|N|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +58,14 @@ class KuhnsV(_TokenDistance):
         .. math::
 
             sim_{KuhnsV} =
+            \frac{\delta(a+b, a+c)}
+            {max\big((a+b)(1-\frac{a+b}{n}, (a+c)(1-\frac{a+c}{n})\big)
+
+    where
+
+        .. math::
+
+            \delta(a+b, a+c) = a - \frac{2a+b+c}{n}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +151,14 @@ class KuhnsV(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        n = self.population_card()
 
-        return 0.0
+        deltaAB = a-(2*a+b+c)/n
+
+        return deltaAB/max((a+b)*(1-(a+b)/n), (a+c)*(1-(a+c)/n))
 
 
 if __name__ == '__main__':

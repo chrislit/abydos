@@ -37,11 +37,20 @@ class KuhnsIX(_TokenDistance):
     r"""Kuhns IX similarity.
 
     For two sets X and Y and a population N, Kuhns IX similarity
-    :cite:`CITATION` is
+    :cite:`Kuhns:1965`, the excess of coefficient of linear correlation over
+    its independence value, is
 
         .. math::
 
             sim_{KuhnsIX}(X, Y) =
+            \frac{\delta(X, Y)}{\sqrt{|X|\cdot|Y|\cdot(1-\frac{|X|}{|N|})
+            \cdot(1-\frac{|Y|}{|N|}}}
+
+    where
+
+        .. math::
+
+            \delta(X, Y) = |X \cap Y| - \frac{|X|+|Y|}{|N|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +58,14 @@ class KuhnsIX(_TokenDistance):
         .. math::
 
             sim_{KuhnsIX} =
+            \frac{\delta(a+b, a+c)}{\sqrt{(a+b)(a+c)(1-\frac{a+b}{n})
+            (1-\frac{a+c}{n})}}
+
+    where
+
+        .. math::
+
+            \delta(a+b, a+c) = a - \frac{2a+b+c}{n}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +151,14 @@ class KuhnsIX(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        n = self.population_card()
 
-        return 0.0
+        deltaAB = a-(2*a+b+c)/n
+
+        return deltaAB/((a+b)*(a+c)*(1-(a+b)/n)*(1-(a+c)/n))**0.5
 
 
 if __name__ == '__main__':
