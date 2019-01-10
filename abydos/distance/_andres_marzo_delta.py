@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._scott.
+"""abydos.distance._andres_marzo_delta.
 
-Scott similarity
+Andres & Marzo's Delta similarity
 """
 
 from __future__ import (
@@ -30,25 +30,25 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['Scott']
+__all__ = ['AndresMarzoDelta']
 
 
-class Scott(_TokenDistance):
-    r"""Scott similarity.
+class AndresMarzoDelta(_TokenDistance):
+    r"""Andres & Marzo's Delta similarity.
 
-    For two sets X and Y and a population N, Scott similarity
+    For two sets X and Y and a population N, Andres & Marzo's Delta similarity
     :cite:`CITATION` is
 
         .. math::
 
-            sim_{Scott}(X, Y) =
+            sim_{AndresMarzoDelta}(X, Y) =
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{Scott} =
+            sim_{AndresMarzoDelta} =
 
     .. versionadded:: 0.4.0
     """
@@ -60,7 +60,7 @@ class Scott(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize Scott instance.
+        """Initialize AndresMarzoDelta instance.
 
         Parameters
         ----------
@@ -94,7 +94,7 @@ class Scott(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Scott, self).__init__(
+        super(AndresMarzoDelta, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -102,7 +102,7 @@ class Scott(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Scott similarity of two strings.
+        """Return the Andres & Marzo's Delta similarity of two strings.
 
         Parameters
         ----------
@@ -114,11 +114,11 @@ class Scott(_TokenDistance):
         Returns
         -------
         float
-            Scott similarity
+            Andres & Marzo's Delta similarity
 
         Examples
         --------
-        >>> cmp = Scott()
+        >>> cmp = AndresMarzoDelta()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
