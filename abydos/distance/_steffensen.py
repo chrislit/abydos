@@ -149,7 +149,11 @@ class Steffensen(_TokenDistance):
         b = self.src_only_card()
         c = self.tar_only_card()
 
-        return a*(a-(a+b)*(a+c))**2/((a+b)*(1-(a+b))*(a+c)*(1-(a+c)))
+        return (
+            a
+            * (a - (a + b) * (a + c)) ** 2
+            / ((a + b) * (1 - (a + b)) * (a + c) * (1 - (a + c)))
+        )
 
 
 if __name__ == '__main__':

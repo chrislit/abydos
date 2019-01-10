@@ -144,7 +144,7 @@ class AndresMarzoDelta(_TokenDistance):
         d = self.total_complement_card()
         n = self.population_card()
 
-        return (a+d)/n-((b+c)/n)**0.5
+        return (a + d) / n - ((b + c) / n) ** 0.5
 
 
 if __name__ == '__main__':
