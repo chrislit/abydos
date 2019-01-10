@@ -128,7 +128,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Michael similarity (:py:class:`.Michael`)
     - Michelet similarity (:py:class:`.Michelet`)
     - Mountford similarity (:py:class:`.Mountford`)
-    - Mutual Information similarity (:py:class:`.MutualInformation`)
     - Pattern difference (:py:class:`.Pattern`)
     - Pearson & Heron II similarity (:py:class:`.PearsonHeronII`)
     - Pearson II similarity (:py:class:`.PearsonII`)
@@ -357,7 +356,6 @@ from ._monge_elkan import MongeElkan, dist_monge_elkan, sim_monge_elkan
 from ._mountford import Mountford
 from ._mra import MRA, dist_mra, mra_compare, sim_mra
 from ._ms_contingency import MSContingency
-from ._mutual_information import MutualInformation
 from ._ncd_arith import NCDarith, dist_ncd_arith, sim_ncd_arith
 from ._ncd_bwtrle import NCDbwtrle, dist_ncd_bwtrle, sim_ncd_bwtrle
 from ._ncd_bz2 import NCDbz2, dist_ncd_bz2, sim_ncd_bz2
@@ -560,7 +558,6 @@ __all__ = [
     'McEwenMichael',
     'Michelet',
     'Mountford',
-    'MutualInformation',
     'MSContingency',
     'Pattern',
     'PearsonHeronII',
