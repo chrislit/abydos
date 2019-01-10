@@ -155,7 +155,7 @@ class ScottPi(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        return (4 * a * d - b ** 2 - 2 * b * c - c ** 2) / (
+        return (4 * a * d - b * b - 2 * b * c - c * c) / (
             (2 * a + b + c) * (2 * d + b + c)
         )
 
