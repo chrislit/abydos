@@ -103,6 +103,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Hawkins & Dotson similarity (:py:class:`.HawkinsDotson`)
     - Hurlbert similarity (:py:class:`.Hurlbert`)
     - Johnson similarity (:py:class:`.Johnson`)
+    - Kendall's Tau similarity (:py:class:`.KendallTau`)
     - Kent & Foster I similarity (:py:class:`.KentFosterI`)
     - Kent & Foster II similarity (:py:class:`.KentFosterII`)
     - Kocher & Wong similarity (:py:class:`.KocherWong`)
@@ -315,6 +316,7 @@ from ._indel import Indel, dist_indel, indel, sim_indel
 from ._jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
 from ._jaro_winkler import JaroWinkler, dist_jaro_winkler, sim_jaro_winkler
 from ._johnson import Johnson
+from ._kendall_tau import KendallTau
 from ._kent_foster_i import KentFosterI
 from ._kent_foster_ii import KentFosterII
 from ._kocher_wong import KocherWong
@@ -538,6 +540,7 @@ __all__ = [
     'KentFosterI',
     'KentFosterII',
     'KocherWong',
+    'KendallTau',
     'KentFosterI',
     'KentFosterII',
     'KuderRichardson',

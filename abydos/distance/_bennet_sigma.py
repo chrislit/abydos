@@ -36,19 +36,30 @@ __all__ = ['BennetSigma']
 class BennetSigma(_TokenDistance):
     r"""Bennet's Sigma similarity.
 
-    For two sets X and Y and a population N, Bennet's Sigma similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Bennet's \sigma similarity
+    :cite:`Bennet:1954` is
 
         .. math::
 
-            sim_{BennetSigma}(X, Y) =
+            sim_{Bennet_\sigma}(X, Y) = \sigma =
+            \frac{p_o - p_e^\sigma}{1 - p_e^\sigma}
+
+    where
+
+        .. math::
+
+            p_o = \frac{|X \cap Y| + |(N \setminus X) \setminus Y|}{|N|}
+
+            p_e^\sigma = \frac{1}{2}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{BennetSigma} =
+            p_o = \frac{a+d}{n}
+
+            p_e^\sigma = \frac{1}{2}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +145,11 @@ class BennetSigma(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        d = self.total_complement_card()
+        n = self.population_card()
 
-        return 0.0
+        return 2*(a+d)/n-1
 
 
 if __name__ == '__main__':

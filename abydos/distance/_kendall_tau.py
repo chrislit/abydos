@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._cohen_kappa.
+"""abydos.distance._kendall_tau.
 
-Cohen's Kappa similarity
+Kendall's Tau similarity
 """
 
 from __future__ import (
@@ -30,38 +30,28 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['CohenKappa']
+__all__ = ['KendallTau']
 
 
-class CohenKappa(_TokenDistance):
-    r"""Cohen's Kappa similarity.
+class KendallTau(_TokenDistance):
+    r"""Kendall's Tau similarity.
 
-    For two sets X and Y and a population N, Cohen's \kappa similarity
-    :cite:`Cohen:1960` is
-
-        .. math::
-
-            sim_{Cohen_\kappa}(X, Y) = \kappa =
-            \frac{p_o - p_e^\kappa}{1 - p_e^\kappa}
-
-    where
+    For two sets X and Y and a population N, Kendall's Tau similarity
+    :cite:`Kendall:1938` is
 
         .. math::
 
-            p_o = \frac{|X \cap Y| + |(N \setminus X) \setminus Y|}{|N|}
-
-            p_e^\kappa = \frac{|X|}{|N|} \cdot \frac{|Y|}{|N|} +
-            \frac{|N \setminus X|}{|N|} \cdot \frac{|N \setminus Y|}{|N|}
+            sim_{KendallTau}(X, Y) =
+            \frac{2 \cdot (|X \cap Y| + |(N \setminus X) \setminus Y| -
+            |X \triangle Y|)}{|N| \cdot (|N|-1)}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            p_o = \frac{a+d}{n}
-
-            p_e^\kappa = \frac{a+b}{n} \cdot \frac{a+c}{n} +
-            \frac{c+d}{n} \cdot \frac{b+d}{n}
+            sim_{KendallTau} =
+            \frac{2 \cdot (a+d-b-c)}{n \cdot (n-1)}
 
     .. versionadded:: 0.4.0
     """
@@ -73,7 +63,7 @@ class CohenKappa(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize CohenKappa instance.
+        """Initialize KendallTau instance.
 
         Parameters
         ----------
@@ -107,7 +97,7 @@ class CohenKappa(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(CohenKappa, self).__init__(
+        super(KendallTau, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -115,7 +105,7 @@ class CohenKappa(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return Cohen's Kappa similarity of two strings.
+        """Return the Kendall's Tau similarity of two strings.
 
         Parameters
         ----------
@@ -127,11 +117,11 @@ class CohenKappa(_TokenDistance):
         Returns
         -------
         float
-            Cohen's Kappa similarity
+            Kendall's Tau similarity
 
         Examples
         --------
-        >>> cmp = CohenKappa()
+        >>> cmp = KendallTau()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -151,8 +141,9 @@ class CohenKappa(_TokenDistance):
         b = self.src_only_card()
         c = self.tar_only_card()
         d = self.total_complement_card()
+        n = self.population_card()
 
-        return 2 * (a * d - b * c) / ((a + b) * (b + d) + (a + c) * (c + d))
+        return 2*(a+d-b-c)/(n*(n-1))
 
 
 if __name__ == '__main__':

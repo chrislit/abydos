@@ -36,19 +36,33 @@ __all__ = ['GwetGamma']
 class GwetGamma(_TokenDistance):
     r"""Gwet's Gamma similarity.
 
-    For two sets X and Y and a population N, Gwet's Gamma similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Gwet's \gamma similarity
+    :cite:`Gwet:2008` is
 
         .. math::
 
-            sim_{GwetGamma}(X, Y) =
+            sim_{Gwet_\gamma}(X, Y) = \gamma =
+            \frac{p_o - p_e^\gamma}{1 - p_e^\gamma}
+
+    where
+
+        .. math::
+
+            p_o = \frac{|X \cap Y| + |(N \setminus X) \setminus Y|}{|N|}
+
+            p_e^\gamma = \Big(\frac{\frac{|X|}{|N|}+\frac{|Y|}{|N|}}{2}\Big)
+            \cdot \Big(\frac{\frac{|N \setminus Y|}{|N|}+
+            \frac{|N \setminus X|}{|N|}}{2}\Big)
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{GwetGamma} =
+            p_o = \frac{a+d}{n}
+
+            p_e^\gamma = \Big(\frac{\frac{a+b}{n}+\frac{a+c}{n}}{2}\Big) \cdot
+            \Big(\frac{\frac{b+d}{n}+\frac{c+d}{n}}{2}\Big)
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +148,12 @@ class GwetGamma(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return (2*a**2-b**2-2*b*c-c**2+2*d**2)/(2*a**2+2*a*(b+c)+b**2+2*b*(c+d)+c**2+2*d*(c+d))
 
 
 if __name__ == '__main__':
