@@ -153,7 +153,14 @@ class GwetGamma(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        return (2*a**2-b**2-2*b*c-c**2+2*d**2)/(2*a**2+2*a*(b+c)+b**2+2*b*(c+d)+c**2+2*d*(c+d))
+        return (2 * a ** 2 - b ** 2 - 2 * b * c - c ** 2 + 2 * d ** 2) / (
+            2 * a ** 2
+            + 2 * a * (b + c)
+            + b ** 2
+            + 2 * b * (c + d)
+            + c ** 2
+            + 2 * d * (c + d)
+        )
 
 
 if __name__ == '__main__':
