@@ -53,10 +53,12 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Russell & Rao similarity (:py:class:`.RussellRao`)
     - AMPLE similarity (:py:class:`.AMPLE`)
     - Anderberg similarity (:py:class:`.Anderberg`)
+    - Andres & Marzo's Delta similarity (:py:class:`.AndresMarzoDelta`)
     - Baroni-Urbani & Buser I similarity (:py:class:`.BaroniUrbaniBuserI`)
     - Baroni-Urbani & Buser II similarity (:py:class:`.BaroniUrbaniBuserII`)
     - Batagelj & Bren similarity (:py:class:`.BatageljBren`)
     - Benini similarity (:py:class:`.Benini`)
+    - Bennet's Sigma similarity (:py:class:`.BennetSigma`)
     - Braun & Blanquet similarity (:py:class:`.BraunBlanquet`)
     - Canberra distance (:py:class:`.Canberra`)
     - Chord distance (:py:class:`.Chord`)
@@ -95,6 +97,7 @@ A large set of multi-set token-based distance metrics are provided, including:
       (:py:class:`.GoodmanKruskalProbability`)
     - Goodman & Kruskal's Tau similarity (:py:class:`.GoodmanKruskalTau`)
     - Gower & Legendre similarity (:py:class:`.GowerLegendre`)
+    - Gwet's Gamma similarity (:py:class:`.GwetGamma`)
     - Hamann similarity (:py:class:`.Hamann`)
     - Harris & Lahey similarity (:py:class:`.HarrisLahey`)
     - Hawkins & Dotson similarity (:py:class:`.HawkinsDotson`)
@@ -137,7 +140,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Rogot & Goldberg similarity (:py:class:`.RogotGoldberg`)
     - Roux I similarity (:py:class:`.RouxI`)
     - Roux II similarity (:py:class:`.RouxII`)
-    - Scott similarity (:py:class:`.Scott`)
+    - Scott's Pi similarity (:py:class:`.ScottPi`)
     - Shape difference (:py:class:`.Shape`)
     - Size difference (:py:class:`.Size`)
     - Sokal & Michener similarity (:py:class:`.SokalMichener`)
@@ -242,12 +245,14 @@ from __future__ import (
 
 from ._ample import AMPLE
 from ._anderberg import Anderberg
+from ._andres_marzo_delta import AndresMarzoDelta
 from ._bag import Bag, bag, dist_bag, sim_bag
 from ._baroni_urbani_buser_i import BaroniUrbaniBuserI
 from ._baroni_urbani_buser_ii import BaroniUrbaniBuserII
 from ._batagelj_bren import BatageljBren
 from ._baystat import Baystat, dist_baystat, sim_baystat
 from ._benini import Benini
+from ._bennet_sigma import BennetSigma
 from ._braun_blanquet import BraunBlanquet
 from ._canberra import Canberra
 from ._chebyshev import Chebyshev, chebyshev
@@ -299,6 +304,7 @@ from ._goodman_kruskal_probability import GoodmanKruskalProbability
 from ._goodman_kruskal_tau import GoodmanKruskalTau
 from ._gotoh import Gotoh, gotoh
 from ._gower_legendre import GowerLegendre
+from ._gwet_gamma import GwetGamma
 from ._hamann import Hamann
 from ._hamming import Hamming, dist_hamming, hamming, sim_hamming
 from ._harris_lahey import HarrisLahey
@@ -379,7 +385,7 @@ from ._rogot_goldberg import RogotGoldberg
 from ._roux_i import RouxI
 from ._roux_ii import RouxII
 from ._russell_rao import RussellRao
-from ._scott import Scott
+from ._scott_pi import ScottPi
 from ._shape import Shape
 from ._sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
 from ._sift4_simplest import Sift4Simplest, sift4_simplest
@@ -480,10 +486,12 @@ __all__ = [
     'RussellRao',
     'AMPLE',
     'Anderberg',
+    'AndresMarzoDelta',
     'BaroniUrbaniBuserI',
     'BaroniUrbaniBuserII',
     'BatageljBren',
     'Benini',
+    'BennetSigma',
     'BraunBlanquet',
     'Canberra',
     'Chord',
@@ -521,6 +529,7 @@ __all__ = [
     'GoodmanKruskalProbability',
     'GoodmanKruskalTau',
     'GowerLegendre',
+    'GwetGamma',
     'Hamann',
     'HarrisLahey',
     'HawkinsDotson',
@@ -564,7 +573,7 @@ __all__ = [
     'RogotGoldberg',
     'RouxI',
     'RouxII',
-    'Scott',
+    'ScottPi',
     'Shape',
     'Size',
     'SokalMichener',
